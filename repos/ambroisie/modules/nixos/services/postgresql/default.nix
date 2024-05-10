@@ -20,24 +20,28 @@ in
 
     # Taken from the manual
     (lib.mkIf cfg.upgradeScript {
-      containers.temp-pg.config.services.postgresql = {
-        enable = true;
-        package = pkgs.postgresql_13;
-      };
-
       environment.systemPackages =
         let
-          newpg = config.containers.temp-pg.config.services.postgresql;
+          pgCfg = config.services.postgresql;
+          newPackage' = pkgs.postgresql_13;
+
+          oldPackage = if pgCfg.enableJIT then pgCfg.package.withJIT else pgCfg.package;
+          oldData = pgCfg.dataDir;
+          oldBin = "${if pgCfg.extraPlugins == [] then oldPackage else oldPackage.withPackages pgCfg.extraPlugins}/bin";
+
+          newPackage = if pgCfg.enableJIT then newPackage'.withJIT else newPackage';
+          newData = "/var/lib/postgresql/${newPackage.psqlSchema}";
+          newBin = "${if pgCfg.extraPlugins == [] then newPackage else newPackage.withPackages pgCfg.extraPlugins}/bin";
         in
         [
           (pkgs.writeScriptBin "upgrade-pg-cluster" ''
             #!/usr/bin/env bash
 
-            set -x
-            export OLDDATA="${config.services.postgresql.dataDir}"
-            export NEWDATA="${newpg.dataDir}"
-            export OLDBIN="${config.services.postgresql.package}/bin"
-            export NEWBIN="${newpg.package}/bin"
+            set -eux
+            export OLDDATA="${oldData}"
+            export NEWDATA="${newData}"
+            export OLDBIN="${oldBin}"
+            export NEWBIN="${newBin}"
 
             if [ "$OLDDATA" -ef "$NEWDATA" ]; then
               echo "Cannot migrate to same data directory" >&2
@@ -46,14 +50,21 @@ in
 
             install -d -m 0700 -o postgres -g postgres "$NEWDATA"
             cd "$NEWDATA"
-            sudo -u postgres $NEWBIN/initdb -D "$NEWDATA"
+            sudo -u postgres "$NEWBIN/initdb" -D "$NEWDATA"
 
             systemctl stop postgresql    # old one
 
-            sudo -u postgres $NEWBIN/pg_upgrade \
+            sudo -u postgres "$NEWBIN/pg_upgrade" \
               --old-datadir "$OLDDATA" --new-datadir "$NEWDATA" \
-              --old-bindir $OLDBIN --new-bindir $NEWBIN \
+              --old-bindir "$OLDBIN" --new-bindir "$NEWBIN" \
               "$@"
+
+            cat << EOF
+              Run the following commands after setting:
+              services.postgresql.package = pkgs.postgresql_${lib.versions.major newPackage.version}
+                  sudo -u postgres vacuumdb --all --analyze-in-stages
+                  ${newData}/delete_old_cluster.sh
+            EOF
           '')
         ];
     })

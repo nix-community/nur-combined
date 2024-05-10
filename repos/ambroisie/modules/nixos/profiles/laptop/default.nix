@@ -9,7 +9,7 @@ in
 
   config = lib.mkIf cfg.enable {
     # Enable touchpad support
-    services.xserver.libinput.enable = true;
+    services.libinput.enable = true;
 
     # Enable TLP power management
     my.services.tlp.enable = true;
