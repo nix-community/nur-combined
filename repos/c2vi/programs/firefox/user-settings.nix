@@ -1,5 +1,10 @@
 { ... }: {
 
+  # added over time
+  "browser.tabs.insertAfterCurrent" = true;
+  "browser.tabs.unloadOnLowMemory" = true;
+  "browser.low_commit_space_threshold_mb" = 1500;
+
   # general
   "extensions.autoDisableScopes" = 0;
   "extensions.enabledScopes" = 15;

@@ -44,6 +44,7 @@
     win-virtio
   ];
 
+  # shedule nix builds with low priority, so the laptop is still usable while building something
   nix.daemonCPUSchedPolicy = "idle";
   nix.daemonIONiceLevel = 7;
   systemd.services.nix-daemon.serviceConfig.Nice = 9;
@@ -496,6 +497,7 @@
     # client package now separated...
     #virtualisation.incus.clientPackage = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.incus;
     virtualisation.incus.enable = true;
+    systemd.services.incus.path = [ pkgs.swtpm ];
     #virtualisation.incus.package = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.incus;
     users.users.me.extraGroups = [ "incus-admin" ];
 

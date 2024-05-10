@@ -68,6 +68,10 @@
 				hostname = "10.5.5.56";
 				user = "root";
       };
+      priv-hec = {
+				hostname = "10.5.5.77";
+				user = "root";
+      };
       storage = {
 				hostname = "10.5.5.50";
 				user = "root";
