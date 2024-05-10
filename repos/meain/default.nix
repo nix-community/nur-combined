@@ -65,6 +65,8 @@ in
   ## fonts
   victor-mono-nf = pkgs.callPackage ./pkgs/victor-mono-nf { }; # nerd-font version of victor mono
 
+  firefox-darwin = pkgs.callPackage ./pkgs/firefox-darwin { };
+
   # firefox extensions
   # https://gitlab.com/rycee/nur-expressions/-/blob/master/pkgs/mozilla-addons-to-nix/default.nix?ref_type=heads
   # cd pkgs/firefox-addons/ && mozilla-addons-to-nix addons.json generated.nix
