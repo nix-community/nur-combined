@@ -33,5 +33,5 @@ Uncomment this if you use travis:
 
 [![Build Status](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages.svg?branch=master)](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages)
 -->
-[![Cachix Cache](https://img.shields.io/badge/cachix-<YOUR_CACHIX_CACHE_NAME>-blue.svg)](https://<YOUR_CACHIX_CACHE_NAME>.cachix.org)
+[![Cachix Cache](https://img.shields.io/badge/cachix-jpyke3-blue.svg)](https://jpyke3.cachix.org)
 

@@ -19,4 +19,6 @@
   };
 
   go-hass-agent = pkgs.callPackage ./pkgs/go-hass-agent {};
+
+  kanata-bin = pkgs.callPackage ./pkgs/kanata-bin {};
 }
