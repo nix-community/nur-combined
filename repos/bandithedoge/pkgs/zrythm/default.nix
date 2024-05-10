@@ -8,12 +8,33 @@
     inherit (sources.carla-git) version src;
   });
 
-  # remove when 4.13 gets added to nixpkgs
-  gtk4 = pkgs.gtk4.overrideAttrs (old: {
-    inherit (sources.gtk-4_13_4) version src;
-    patches = [];
-    buildInputs = old.buildInputs ++ (with pkgs; [libdrm]);
-  });
+  # remove when 4.14 gets added to nixpkgs
+  gtk4 =
+    (pkgs.gtk4.override {
+      vulkanSupport = true;
+    })
+    .overrideAttrs (old: {
+      inherit (sources.gtk-4_14_0) version src;
+      buildInputs = old.buildInputs ++ (with pkgs; [libdrm]);
+
+      postPatch = ''
+        substituteInPlace meson.build \
+          --replace 'if not meson.is_cross_build()' 'if ${pkgs.lib.boolToString (pkgs.stdenv.hostPlatform.emulatorAvailable pkgs.buildPackages)}'
+
+        files=(
+          build-aux/meson/gen-profile-conf.py
+          build-aux/meson/gen-visibility-macros.py
+          demos/gtk-demo/geninclude.py
+          gdk/broadway/gen-c-array.py
+          gdk/gen-gdk-gresources-xml.py
+          gtk/gen-gtk-gresources-xml.py
+          gtk/gentypefuncs.py
+        )
+
+        chmod +x ''${files[@]}
+        patchShebangs ''${files[@]}
+      '';
+    });
 
   # remove when 6.0.1 gets added to nixpkgs
   rtaudio = pkgs.rtaudio.overrideAttrs (_: {
@@ -26,7 +47,7 @@
       inherit gtk4;
     })
     .overrideAttrs (_: {
-      inherit (sources.libadwaita-git) version src;
+      inherit (sources.libadwaita-1_5) version src;
     });
 in
   pkgs.stdenv.mkDerivation rec {
@@ -146,7 +167,7 @@ in
     meta = with pkgs.lib; {
       description = "A highly automated and intuitive digital audio workstation";
       homepage = "https://www.zrythm.org/";
-      license = licenses.agpl3;
+      license = licenses.agpl3Plus;
       platforms = platforms.linux;
     };
   }

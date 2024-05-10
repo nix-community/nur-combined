@@ -21,19 +21,12 @@ let
   fetch_tarball = pkgs: name: spec: let
     name' = sanitizeName name + "-src";
   in
-    if spec.builtin or true
-    then
-      builtins_fetchTarball {
-        name = name';
-        inherit (spec) url sha256;
-      }
-    else
-      pkgs.fetchzip {
-        name = name';
-        inherit (spec) url sha256;
-      };
+    pkgs.fetchzip {
+      name = name';
+      inherit (spec) url sha256;
+    };
 
-  fetch_git = name: spec: let
+  fetch_git = pkgs: name: spec: let
     ref =
       if spec ? ref
       then spec.ref
@@ -47,10 +40,10 @@ let
       then spec.submodules
       else false;
   in
-    builtins.fetchGit {
+    pkgs.fetchgit {
       url = spec.repo;
       inherit (spec) rev;
-      inherit ref;
+      # inherit ref;
     }
     // (
       if builtins.compareVersions builtins.nixVersion "2.4" >= 0
@@ -113,7 +106,7 @@ let
     else if spec.type == "tarball"
     then fetch_tarball pkgs name spec
     else if spec.type == "git"
-    then fetch_git name spec
+    then fetch_git pkgs name spec
     else if spec.type == "local"
     then fetch_local spec
     else if spec.type == "builtin-tarball"

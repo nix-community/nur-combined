@@ -1,0 +1,3 @@
+[sgdboop-bin]
+src.github = "SteamGridDB/SGDBoop"
+fetch.url = "https://github.com/SteamGridDB/SGDBoop/releases/download/$ver/sgdboop-linux64.tar.gz"

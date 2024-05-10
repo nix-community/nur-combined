@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  sources = import ./nix/_sources.nix;
+  sources = import ./nix/_sources.nix {inherit pkgs;};
 in
   (pkgs.lib.makeExtensible (_:
     pkgs.lib.attrsets.mapAttrs'
@@ -16,5 +16,5 @@ in
         version = src.rev;
         inherit src;
       }))
-    sources))
+    (pkgs.lib.filterAttrs (_: v: pkgs.lib.isStorePath v) sources)))
   .extend (import ./_overrides.nix {inherit pkgs;})

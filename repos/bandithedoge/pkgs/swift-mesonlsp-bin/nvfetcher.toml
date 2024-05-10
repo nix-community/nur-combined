@@ -1,3 +1,0 @@
-[swift-mesonlsp-bin]
-src.github = "JCWasmx86/Swift-MesonLSP"
-fetch.url = "https://github.com/JCWasmx86/Swift-MesonLSP/releases/download/$ver/Swift-MesonLSP.zip"

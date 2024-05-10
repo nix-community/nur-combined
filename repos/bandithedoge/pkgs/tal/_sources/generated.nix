@@ -10,7 +10,7 @@
     version = "latest";
     src = fetchurl {
       url = "https://tal-software.com/downloads/plugins/TAL-BassLine-101_64_linux.zip";
-      sha256 = "sha256-QO1jNXugL7mcjfNnKl/s+c0Gf5Qw2gfAeiDwh7ot3gc=";
+      sha256 = "sha256-EiGW1ICp3uROxQp4u6BMwA7vVgSioVlioQII4kQCz2M=";
     };
   };
   chorus-lx = {
@@ -34,7 +34,7 @@
     version = "latest";
     src = fetchurl {
       url = "https://tal-software.com/downloads/plugins/TAL-Drum_64_linux.zip";
-      sha256 = "sha256-8QLcxdy0RymVyJkjM2jNN/bsjuQxyS9RH5aKkGdJxzM=";
+      sha256 = "sha256-Z/dDYdluR/I6b2W4RHuSTMBR/rnYDzNbKqjjk84GTDE=";
     };
   };
   dub-x = {
@@ -42,7 +42,7 @@
     version = "latest";
     src = fetchurl {
       url = "https://tal-software.com/downloads/plugins/TAL-Dub-X_64_linux.zip";
-      sha256 = "sha256-InaHBE9BG49wbYnkNrMbCAzPI1/ziEY3jSAuB40GylA=";
+      sha256 = "sha256-HkeSYuFS8ApVqUFZwuA2HUJgi1rQP7y0qeXldDpZ7tw=";
     };
   };
   filter-2 = {
@@ -58,7 +58,7 @@
     version = "latest";
     src = fetchurl {
       url = "https://tal-software.com/downloads/plugins/TAL-J-8_64_linux.zip";
-      sha256 = "sha256-+wwzi/dfNFoOrekyAxsgBTlLPLF7Y5Uz3fFEM8BuCD8=";
+      sha256 = "sha256-n9DemQXnHTIM8ScSK/UBqvdXmNi388D7S3hMr2LwnC0=";
     };
   };
   mod = {
@@ -77,6 +77,14 @@
       sha256 = "sha256-MoVl5kb5jxTdkxoz+kOKTJ7dxFHnWbktEAX0M2+j/SA=";
     };
   };
+  pha = {
+    pname = "pha";
+    version = "latest";
+    src = fetchurl {
+      url = "https://tal-software.com/downloads/plugins/TAL-Pha_64_linux.zip";
+      sha256 = "sha256-u+yikSkKHrvXustpKEM7HEMCTxn4zcsNjqENaZ2u1Qk=";
+    };
+  };
   reverb-4 = {
     pname = "reverb-4";
     version = "latest";
@@ -90,7 +98,7 @@
     version = "latest";
     src = fetchurl {
       url = "https://tal-software.com/downloads/plugins/TAL-Sampler_64_linux.zip";
-      sha256 = "sha256-tiZL9EgPBWpUHVUvIZ2wiHcbqHwqGv+jfHu4xIea7OA=";
+      sha256 = "sha256-golt5Zmq8X4FoH+A7TNvjG9s0y1AsZ6X+GYduYuXHaI=";
     };
   };
   u-no-lx = {
@@ -98,7 +106,7 @@
     version = "latest";
     src = fetchurl {
       url = "https://tal-software.com/downloads/plugins/TAL-U-NO-LX-V2_64_linux.zip";
-      sha256 = "sha256-sthVxIHn4CxrPFkFVcphPd2sTgJwS3i4ogOaoJnRiSE=";
+      sha256 = "sha256-8+anlQGtUI1iCNQeqAYIyw0ZPWt1FFRF41y2peXoJCM=";
     };
   };
   vocoder = {

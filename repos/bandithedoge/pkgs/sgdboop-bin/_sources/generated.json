@@ -1,0 +1,17 @@
+{
+  "sgdboop-bin": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "sgdboop-bin",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-LrP0qFg4kOhAicWtORfnW3TvIegvcJf/GiYTHcOeJK4=",
+      "type": "url",
+      "url": "https://github.com/SteamGridDB/SGDBoop/releases/download/v1.2.8/sgdboop-linux64.tar.gz"
+    },
+    "version": "v1.2.8"
+  }
+}

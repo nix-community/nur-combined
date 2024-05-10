@@ -43,6 +43,11 @@ fetch.url = "https://tal-software.com/downloads/plugins/TAL-NoiseMaker_64_linux.
 fetch.force = true
 src.manual = "latest"
 
+[pha]
+fetch.url = "https://tal-software.com/downloads/plugins/TAL-Pha_64_linux.zip"
+fetch.force = true
+src.manual = "latest"
+
 [reverb-4]
 fetch.url = "https://tal-software.com/downloads/plugins/TAL-Reverb-4_64_linux.zip"
 fetch.force = true

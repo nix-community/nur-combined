@@ -7,19 +7,19 @@
 }: {
   satty = {
     pname = "satty";
-    version = "0b6ebfc077ab8fc97b392240b487915e19ed86a5";
+    version = "8070c2aa3b5e5f6786e583d5633cda06c92383b8";
     src = fetchFromGitHub {
       owner = "gabm";
       repo = "Satty";
-      rev = "0b6ebfc077ab8fc97b392240b487915e19ed86a5";
+      rev = "8070c2aa3b5e5f6786e583d5633cda06c92383b8";
       fetchSubmodules = false;
-      sha256 = "sha256-aE0hQla/FwUAUSVodfQz3s8hdYF6tQSIHl6p5gEtONU=";
+      sha256 = "sha256-TJcFf1JvmrE6Fw75iptDYCoEp8zXiefgbtVLfh2ZNPk=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./satty-0b6ebfc077ab8fc97b392240b487915e19ed86a5/Cargo.lock;
+      lockFile = ./satty-8070c2aa3b5e5f6786e583d5633cda06c92383b8/Cargo.lock;
       outputHashes = {
       };
     };
-    date = "2024-02-23";
+    date = "2024-05-02";
   };
 }

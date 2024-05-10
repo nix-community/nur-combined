@@ -1,0 +1,3 @@
+[mesonlsp-bin]
+src.github = "JCWasmx86/mesonlsp"
+fetch.url = "https://github.com/JCWasmx86/mesonlsp/releases/download/$ver/mesonlsp-x86_64-unknown-linux-musl.zip"

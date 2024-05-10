@@ -7,27 +7,27 @@
 }: {
   kmonad = {
     pname = "kmonad";
-    version = "70a5e97518c87ff52be4b403d774e88c5c61e3c1";
+    version = "8efcc8f7f7369a5e684d201c0263416db2a5df60";
     src = fetchFromGitHub {
       owner = "kmonad";
       repo = "kmonad";
-      rev = "70a5e97518c87ff52be4b403d774e88c5c61e3c1";
+      rev = "8efcc8f7f7369a5e684d201c0263416db2a5df60";
       fetchSubmodules = false;
-      sha256 = "sha256-CP7Te/8N0ETEmxX08assyFzwymNR7FjoWJOLh7VRfEU=";
+      sha256 = "sha256-5y87n9v8WJ921Q6hMFGIYq1g/HaZHoopTuzDk4SvrfQ=";
     };
-    date = "2024-02-11";
+    date = "2024-05-07";
   };
   taffybar = {
     pname = "taffybar";
-    version = "9c8540a56432db6555755a9a649b4874833520ed";
+    version = "a82a8a0cffb34b5eae38e46d88f02641bf8a8fe5";
     src = fetchFromGitHub {
       owner = "taffybar";
       repo = "taffybar";
-      rev = "9c8540a56432db6555755a9a649b4874833520ed";
+      rev = "a82a8a0cffb34b5eae38e46d88f02641bf8a8fe5";
       fetchSubmodules = false;
-      sha256 = "sha256-O5T4/1+dERQitmA6pwcP67/tREcJQ7KuATD8kGiB2Es=";
+      sha256 = "sha256-OZNPY2LNBm+NkIHqo8SX2f/BfuwqkQIGYePkiAmz2YA=";
     };
-    date = "2024-01-30";
+    date = "2024-05-02";
   };
   xmonad-entryhelper = {
     pname = "xmonad-entryhelper";

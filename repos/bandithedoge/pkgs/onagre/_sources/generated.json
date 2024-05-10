@@ -1,0 +1,24 @@
+{
+  "onagre": {
+    "cargoLocks": {
+      "Cargo.lock": ["./onagre-1.1.0/Cargo.lock", {}]
+    },
+    "date": null,
+    "extract": null,
+    "name": "onagre",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "onagre-launcher",
+      "repo": "onagre",
+      "rev": "1.1.0",
+      "sha256": "sha256-ASeLvgj2RyhsZQtkUTYeA7jWyhbLg8yl6HbN2A/Sl2M=",
+      "type": "github"
+    },
+    "version": "1.1.0"
+  }
+}

@@ -1,100 +1,101 @@
 {
-    "carla-git": {
-        "cargoLocks": null,
-        "date": "2024-02-26",
-        "extract": null,
-        "name": "carla-git",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "falkTX",
-            "repo": "Carla",
-            "rev": "b22143f28cddd1b029297643b006e644c75a6bbe",
-            "sha256": "sha256-rA/Y2Lmb/e7Tzh4Aboxdl2G9cU7UryfeRL0nGl6uIYI=",
-            "type": "github"
-        },
-        "version": "b22143f28cddd1b029297643b006e644c75a6bbe"
+  "carla-git": {
+    "cargoLocks": null,
+    "date": "2024-04-28",
+    "extract": null,
+    "name": "carla-git",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "falkTX",
+      "repo": "Carla",
+      "rev": "ad3b7793a44bfd4aceb620c397c6caa5ae9f6098",
+      "sha256": "sha256-CZAbOvf2THviX8TIsJsTCnQlxJ14ye6/sgI7JPtFuxw=",
+      "type": "github"
     },
-    "gtk-4_13_4": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "gtk-4_13_4",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "GNOME",
-            "repo": "gtk",
-            "rev": "4.13.4",
-            "sha256": "sha256-rB+8PuBphly3dRiXYm3ik+aWRjJb64M5Ippp1Agchoc=",
-            "type": "github"
-        },
-        "version": "4.13.4"
+    "version": "ad3b7793a44bfd4aceb620c397c6caa5ae9f6098"
+  },
+  "gtk-4_14_0": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "gtk-4_14_0",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "GNOME",
+      "repo": "gtk",
+      "rev": "4.14.0",
+      "sha256": "sha256-4iXmGCnRpCzOK/UMsxlVlLFpdM0xP7NwzlW92/vxjuY=",
+      "type": "github"
     },
-    "libadwaita-git": {
-        "cargoLocks": null,
-        "date": "2024-02-27",
-        "extract": null,
-        "name": "libadwaita-git",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "80ce807876b0e9f80ca44d8aa38efdb617df9a09",
-            "sha256": "sha256-DOUjYyqPaOUf706yoSujR8FIs0k3S4YBlYwDxxKa4FQ=",
-            "type": "git",
-            "url": "https://gitlab.gnome.org/GNOME/libadwaita"
-        },
-        "version": "80ce807876b0e9f80ca44d8aa38efdb617df9a09"
+    "version": "4.14.0"
+  },
+  "libadwaita-1_5": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "libadwaita-1_5",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "GNOME",
+      "repo": "libadwaita",
+      "rev": "1.5.0",
+      "sha256": "sha256-uEaBI2jHlMdVprMGRZe/8HszO3nEBUJaJtvJjrMOjE4=",
+      "type": "github"
     },
-    "rtaudio-git": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "rtaudio-git",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "thestk",
-            "repo": "rtaudio",
-            "rev": "6.0.1",
-            "sha256": "sha256-Acsxbnl+V+Y4mKC1gD11n0m03E96HMK+oEY/YV7rlIY=",
-            "type": "github"
-        },
-        "version": "6.0.1"
+    "version": "1.5.0"
+  },
+  "rtaudio-git": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "rtaudio-git",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "thestk",
+      "repo": "rtaudio",
+      "rev": "6.0.1",
+      "sha256": "sha256-Acsxbnl+V+Y4mKC1gD11n0m03E96HMK+oEY/YV7rlIY=",
+      "type": "github"
     },
-    "zrythm": {
-        "cargoLocks": null,
-        "date": "2024-02-23",
-        "extract": null,
-        "name": "zrythm",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "af4766d68d893864d5da7d0938698c76e5a5d5c0",
-            "sha256": "sha256-Uum/qgn+G+YED8HAFZHBWNGPjWZOYIeMbfziAH6D+DI=",
-            "type": "git",
-            "url": "https://gitlab.zrythm.org/zrythm/zrythm.git"
-        },
-        "version": "af4766d68d893864d5da7d0938698c76e5a5d5c0"
-    }
+    "version": "6.0.1"
+  },
+  "zrythm": {
+    "cargoLocks": null,
+    "date": "2024-05-01",
+    "extract": null,
+    "name": "zrythm",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "rev": "5fe896defab0667435b54e385344c8f9fec642aa",
+      "sha256": "sha256-Ee70lHZpYQqZEklFFAcW90iJL3Z1zG+e7qDifCoaPZA=",
+      "type": "git",
+      "url": "https://gitlab.zrythm.org/zrythm/zrythm.git"
+    },
+    "version": "5fe896defab0667435b54e385344c8f9fec642aa"
+  }
 }

@@ -16,6 +16,7 @@ pkgs.rustPlatform.buildRustPackage {
   buildInputs = with pkgs; [
     gtk4
     libadwaita
+    libepoxy
   ];
 
   postInstall = ''

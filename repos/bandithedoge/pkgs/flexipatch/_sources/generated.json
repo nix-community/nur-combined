@@ -1,7 +1,7 @@
 {
   "dmenu-flexipatch": {
     "cargoLocks": null,
-    "date": "2023-12-13",
+    "date": "2024-03-20",
     "extract": null,
     "name": "dmenu-flexipatch",
     "passthru": null,
@@ -13,15 +13,15 @@
       "name": null,
       "owner": "bakkeby",
       "repo": "dmenu-flexipatch",
-      "rev": "0d6d5ac5cc81016b0cd3588b94aa76623dec84de",
-      "sha256": "sha256-RvP4vm+7ALYJsz95iuR5sLbxYwqO2Lq+YsmVh8w9R2s=",
+      "rev": "a686ac9b7277ae0d5cada675f5366d4f2baaa870",
+      "sha256": "sha256-bDaxefEqRbXmyHQem9PSPzvXOoELpxMfvn1phiSMGGc=",
       "type": "github"
     },
-    "version": "0d6d5ac5cc81016b0cd3588b94aa76623dec84de"
+    "version": "a686ac9b7277ae0d5cada675f5366d4f2baaa870"
   },
   "dwm-flexipatch": {
     "cargoLocks": null,
-    "date": "2024-02-01",
+    "date": "2024-05-04",
     "extract": null,
     "name": "dwm-flexipatch",
     "passthru": null,
@@ -33,11 +33,11 @@
       "name": null,
       "owner": "bakkeby",
       "repo": "dwm-flexipatch",
-      "rev": "5e85bc8b5c784b47cdd3015b53c5bb517500ba9c",
-      "sha256": "sha256-feWn0HbBY5XvpqjdsVNoYyaUKjeqgFSwUkIOCkMNr/E=",
+      "rev": "dd1e34dbd63aaed8af9b34dbdd9c6ca9dd97687b",
+      "sha256": "sha256-B10+g3HMi22tVUu0h2fDnWNRSaf2HeGwWmyLrvI7CpA=",
       "type": "github"
     },
-    "version": "5e85bc8b5c784b47cdd3015b53c5bb517500ba9c"
+    "version": "dd1e34dbd63aaed8af9b34dbdd9c6ca9dd97687b"
   },
   "slock-flexipatch": {
     "cargoLocks": null,
@@ -61,7 +61,7 @@
   },
   "st-flexipatch": {
     "cargoLocks": null,
-    "date": "2024-02-19",
+    "date": "2024-05-02",
     "extract": null,
     "name": "st-flexipatch",
     "passthru": null,
@@ -73,10 +73,10 @@
       "name": null,
       "owner": "bakkeby",
       "repo": "st-flexipatch",
-      "rev": "74f19eafe9ab32bd58f4fdabf947fb5a7587d5c8",
-      "sha256": "sha256-7CxFy283RLn4xh5c/LAsHJ8hPbAl8tiDguVxzvLTfec=",
+      "rev": "aa5957495d315a2aca2a846a48ba9f7557353ec5",
+      "sha256": "sha256-nkdPbxmSpdp0GuncL3Rv+EwQZgBvR+1GLueH+yartaU=",
       "type": "github"
     },
-    "version": "74f19eafe9ab32bd58f4fdabf947fb5a7587d5c8"
+    "version": "aa5957495d315a2aca2a846a48ba9f7557353ec5"
   }
 }

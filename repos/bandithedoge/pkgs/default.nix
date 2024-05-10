@@ -6,39 +6,46 @@
     };
 
   callPackages = pkg: pkgs.lib.recurseIntoAttrs (callPackage' pkg);
-in {
-  basiliskii-bin = callPackage' ./basiliskii-bin;
-  cardinal = callPackage' ./cardinal;
-  cinelerra-gg-bin = callPackage' ./cinelerra-gg-bin;
-  deemix-gui-bin = callPackage' ./deemix-gui-bin;
-  distrho-ports = callPackage' ./distrho-ports;
-  dpf-plugins = callPackage' ./dpf-plugins;
-  fennel-language-server = callPackage' ./fennel-language-server;
-  firefoxAddons = callPackages ./firefoxAddons;
-  flexipatch = callPackages ./flexipatch;
-  geonkick = callPackage' ./geonkick;
-  giada = callPackage' ./giada;
-  haskellPackages = callPackages ./haskellPackages;
-  ildaeil = callPackage' ./ildaeil;
-  keepmenu = callPackage' ./keepmenu;
-  kiwmi = callPackage' ./kiwmi;
-  luaPackages = callPackages ./luaPackages;
-  luakit = callPackage' ./luakit;
-  lv2vst = callPackage' ./lv2vst;
-  nimlangserver = callPackage' ./nimlangserver;
-  nodePackages = callPackages ./nodePackages;
-  octasine = callPackage' ./octasine;
-  osirus = callPackage' ./osirus;
-  powertab = callPackage' ./powertab;
-  pythonPackages = callPackages ./pythonPackages;
-  raze = callPackage' ./raze;
-  satty = callPackage' ./satty;
-  sheepshaver-bin = callPackage' ./sheepshaver-bin;
-  swift-mesonlsp-bin = callPackage' ./swift-mesonlsp-bin;
-  symbols-nerd-font = callPackage' ./symbols-nerd-font;
-  tal = callPackages ./tal;
-  treeSitterGrammars = callPackages ./treeSitterGrammars;
-  vimPlugins = callPackage' ./vimPlugins;
-  xplrPlugins = callPackage' ./xplrPlugins;
-  zrythm = callPackage' ./zrythm;
-}
+
+  packages = {
+    basiliskii-bin = callPackage' ./basiliskii-bin;
+    cardinal = callPackage' ./cardinal;
+    cinelerra-gg-bin = callPackage' ./cinelerra-gg-bin;
+    deemix-gui-bin = callPackage' ./deemix-gui-bin;
+    distrho-ports = callPackage' ./distrho-ports;
+    dpf-plugins = callPackage' ./dpf-plugins;
+    emacsPackages = callPackages ./emacsPackages;
+    fennel-language-server = callPackage' ./fennel-language-server;
+    firefoxAddons = callPackages ./firefoxAddons;
+    flexipatch = callPackages ./flexipatch;
+    geonkick = callPackage' ./geonkick;
+    giada = callPackage' ./giada;
+    haskellPackages = callPackages ./haskellPackages;
+    ildaeil = callPackage' ./ildaeil;
+    keepmenu = callPackage' ./keepmenu;
+    kiwmi = callPackage' ./kiwmi;
+    luaPackages = callPackages ./luaPackages;
+    luakit = callPackage' ./luakit;
+    lv2vst = callPackage' ./lv2vst;
+    mesonlsp-bin = callPackage' ./mesonlsp-bin;
+    nimlangserver = callPackage' ./nimlangserver;
+    nodePackages = callPackages ./nodePackages;
+    octasine = callPackage' ./octasine;
+    onagre = callPackage' ./onagre;
+    osirus = callPackage' ./osirus;
+    powertab = callPackage' ./powertab;
+    propertree = callPackage' ./propertree;
+    pythonPackages = callPackages ./pythonPackages;
+    raze = callPackage' ./raze;
+    satty = callPackage' ./satty;
+    sgdboop-bin = callPackage' ./sgdboop-bin;
+    sheepshaver-bin = callPackage' ./sheepshaver-bin;
+    symbols-nerd-font = callPackage' ./symbols-nerd-font;
+    tal = callPackages ./tal;
+    treeSitterGrammars = callPackages ./treeSitterGrammars;
+    vimPlugins = callPackages ./vimPlugins;
+    xplrPlugins = callPackages ./xplrPlugins;
+    zrythm = callPackage' ./zrythm;
+  };
+in
+  packages // builtins.mapAttrs (old: new: pkgs.lib.warn "${old} has been renamed to ${new}" packages.${new}) (import ./_renamed.nix)

@@ -2,7 +2,7 @@
 
 fetch() {
     test -f keyfile.toml && keyfile="-k keyfile.toml"
-    nvfetcher $keyfile -c "$1/nvfetcher.toml" -o "$1"/_sources -t
+    nvfetcher $keyfile -c "$1/nvfetcher.toml" -o "$1"/_sources -t || exit 1
 }
 
 fetch_vim() {
@@ -12,19 +12,25 @@ fetch_vim() {
     cd ../..
 }
 
+fetch_emacs() {
+    cd pkgs/emacsPackages || exit
+    niv update
+    cd ../..
+}
+
 fetch_node() {
-    cd pkgs/nodePackages/_node2nix || exit
-    node2nix -i node-packages.json
+    cd pkgs/nodePackages/_node2nix || exit 
+    node2nix -i node-packages.json || exit 1
     cd ../../..
 }
 
 fetch_firefox() {
-    mozilla-addons-to-nix pkgs/firefoxAddons/addons.json pkgs/firefoxAddons/_generated.nix
+    mozilla-addons-to-nix pkgs/firefoxAddons/addons.json pkgs/firefoxAddons/_generated.nix || exit 1
 }
 
 fetch_xplr() {
     cd pkgs/xplrPlugins || exit
-    niv update
+    niv update || exit 1
     chmod +x update_list.py && ./update_list.py
     cd ../..
 }
@@ -35,6 +41,7 @@ if [ "$#" -eq 0 ]; then
         fetch "$(dirname "$pkg")"
     done
     fetch_vim
+    fetch_emacs
     fetch_node
     fetch_firefox
     fetch_xplr
@@ -42,6 +49,7 @@ else
     for pkg in "$@"; do
         case "$pkg" in
         vim) fetch_vim ;;
+        emacs) fetch_emacs ;;
         node) fetch_node ;;
         firefox) fetch_firefox ;;
         xplr) fetch_xplr ;;

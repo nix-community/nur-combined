@@ -13,15 +13,15 @@
       "name": null,
       "owner": "ZDoom",
       "repo": "Raze",
-      "rev": "1.9.1",
-      "sha256": "sha256-lXBH2uLAV7wF/sO5t86EB8gwubWkpm56A6E42wJX68I=",
+      "rev": "1.10.2",
+      "sha256": "sha256-8kr+BLwfTQ0kx6TMqu1AUxiCgvwJd2urZqJ09FH48lo=",
       "type": "github"
     },
-    "version": "1.9.1"
+    "version": "1.10.2"
   },
   "zmusic": {
     "cargoLocks": null,
-    "date": "2023-11-29",
+    "date": "2024-04-28",
     "extract": null,
     "name": "zmusic",
     "passthru": null,
@@ -31,11 +31,11 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "5ce525efc75a97d1391b46cca4def41a13ff1619",
-      "sha256": "sha256-XWhYOoSO4vC3hXIkMu08YenoKVb1KZiHhRWvi2IRYMk=",
+      "rev": "50ad730c381ce01a01a693e9e1d43e80c34eaeed",
+      "sha256": "sha256-rvvMS5KciHEvoY4hSfgAEyWJiDMqBto4o09oIpQIGTQ=",
       "type": "git",
       "url": "https://github.com/ZDoom/ZMusic"
     },
-    "version": "5ce525efc75a97d1391b46cca4def41a13ff1619"
+    "version": "50ad730c381ce01a01a693e9e1d43e80c34eaeed"
   }
 }

@@ -1,0 +1,17 @@
+{
+  "mesonlsp-bin": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "mesonlsp-bin",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-9dEXhyHNNVddPZQWTeESqJJaEMwl62tFZ5E7GX2S1gE=",
+      "type": "url",
+      "url": "https://github.com/JCWasmx86/mesonlsp/releases/download/v4.2.2/mesonlsp-x86_64-unknown-linux-musl.zip"
+    },
+    "version": "v4.2.2"
+  }
+}

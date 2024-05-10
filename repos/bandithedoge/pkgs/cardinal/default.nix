@@ -3,7 +3,7 @@
   sources,
   ...
 }:
-pkgs.gcc10Stdenv.mkDerivation {
+pkgs.stdenv.mkDerivation {
   inherit (sources.cardinal) src pname;
   version = sources.cardinal.date;
 

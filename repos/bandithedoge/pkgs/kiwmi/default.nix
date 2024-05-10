@@ -34,5 +34,6 @@ pkgs.stdenv.mkDerivation rec {
     homepage = "https://github.com/buffet/kiwmi";
     license = licenses.mpl20;
     platforms = platforms.linux;
+    broken = true;
   };
 }
