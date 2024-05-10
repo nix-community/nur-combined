@@ -103,13 +103,13 @@ let
         sha512 = "SSrD0c1OQzlFX7pGu1eXxSEjemej64aaNPRhhVYUGqXh0BtldAAx37MG8btcumvpgKyZp1F5Gn3JkktdxiFv6w==";
       };
     };
-    "@types/node-20.12.8" = {
+    "@types/node-20.12.11" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "20.12.8";
+      version = "20.12.11";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-20.12.8.tgz";
-        sha512 = "NU0rJLJnshZWdE/097cdCBbyW1h4hEg0xpovcoAQYHl8dnEyp/NAOiE45pvc+Bd1Dt+2r94v2eGFpQJ4R7g+2w==";
+        url = "https://registry.npmjs.org/@types/node/-/node-20.12.11.tgz";
+        sha512 = "vDg9PZ/zi+Nqp6boSOT7plNuthRugEKixDv5sFTIpkE89MmNtEArAShI4mxuX2+UrLEe9pxC1vm2cjm9YlWbJw==";
       };
     };
     "@types/resolve-1.20.2" = {
@@ -3038,7 +3038,7 @@ in
     };
     dependencies = [
       sources."@types/http-proxy-1.17.14"
-      sources."@types/node-20.12.8"
+      sources."@types/node-20.12.11"
       sources."braces-3.0.2"
       sources."debug-4.3.4"
       sources."eventemitter3-4.0.7"

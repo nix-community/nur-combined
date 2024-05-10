@@ -6,6 +6,7 @@
 , glog
 , gtk3
 , jsoncpp
+, libayatana-appindicator
 , libsigcxx
 , meson
 , ninja
@@ -14,13 +15,13 @@
 
 stdenv.mkDerivation rec {
   pname = "iptux";
-  version = "0.8.5";
+  version = "0.9.0";
 
   src = fetchFromGitHub {
     owner = "iptux-src";
     repo = "iptux";
     rev = "v${version}";
-    hash = "sha256-JhmOwSfu1ydl8v+PkORdUOHEdPvqiAhKTCpNT9LF374=";
+    hash = "sha256-y/UOJbXhaevESlc5c7cpsuz+ZVNS3VkpT1rD1yLDEfk=";
   };
 
   buildInputs = [
@@ -28,6 +29,7 @@ stdenv.mkDerivation rec {
     glog
     gtk3
     jsoncpp
+    libayatana-appindicator
     libsigcxx
   ];
 
