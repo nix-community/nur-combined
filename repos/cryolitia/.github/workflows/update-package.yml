@@ -1,12 +1,13 @@
-name: "Update"
+name: "Update Package"
 on:
   workflow_dispatch:
   push:
     branches:
       - master
     paths:
-      - ".github/workflows/update.yml"
+      - ".github/workflows/update-package.yml"
       - "pkgs/maa-assistant-arknights/update.sh"
+      - "pkgs/mdbook-typst-pdf/update.sh"
   schedule:
     # rebuild everyday at 2:51
     # TIP: Choose a random time here so not all repositories are build at once:
@@ -17,28 +18,18 @@ permissions:
   contents: write
 
 jobs:
-  sync-reource:
+  sync:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Install nix
-        uses: cachix/install-nix-action@v26
-        with:
-          nix_path: nixpkgs=channel:nixpkgs-unstable
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-      - name: Setup Github Caches
-        uses: DeterminateSystems/magic-nix-cache-action@v4
-
-      - name: Show nixpkgs version
-        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - uses: DeterminateSystems/flake-checker-action@main
 
       - name: Checkout
         uses: actions/checkout@v4
         with:
           show-progress: false
+          token:  ${{ secrets.PAT }}
 
       - name: Setup Git
         run: |
@@ -46,11 +37,29 @@ jobs:
           git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
           git show -s
 
-      - name: Update MaaAssistantArknights
+      - name: Update maa-assistant-arknights
+        continue-on-error: true
         run: |
           cd pkgs/maa-assistant-arknights
           ./update.sh
+
+          set +e
+
           git add .
           git status
-          git commit -m "MaaAssistantArknights update: $(date +'%Y-%m-%dT%H:%M:%S')" || exit 0
+          git commit -m "maa-assistant-arknights: update at $(date +'%Y-%m-%dT%H:%M:%S')"
           git push
+      
+      - name: Update mdbok-typst-pdf
+        continue-on-error: true
+        run: |
+          cd pkgs/mdbok-typst-pdf
+          ./update.sh
+
+          set +e
+
+          git add .
+          git status
+          git commit -m "mdbook-typst-pdf: update at $(date +'%Y-%m-%dT%H:%M:%S')"
+          git push
+

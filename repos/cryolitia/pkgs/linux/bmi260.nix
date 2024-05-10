@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, fetchurl
 , kernel
 }:
 
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttr: {
 
   meta = with lib; {
     homepage = "https://github.com/hhd-dev/bmi260";
-    description = "A kernel module driver for the Bosch BMI260 IMU";
+    description = "A kernel driver for the Bosch BMI260 IMU";
     license = with licenses; [ bsd3 gpl2Only ];
     maintainers = with maintainers; [ Cryolitia ];
     platforms = platforms.linux;

@@ -1,0 +1,52 @@
+name: "Update flake"
+on:
+  workflow_dispatch:
+  schedule:
+    # rebuild everyday at 2:51
+    # TIP: Choose a random time here so not all repositories are build at once:
+    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
+    - cron:  '31 2 * * 5'
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - '.github/workflows/update-flake.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: DeterminateSystems/nix-installer-action@main
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - uses: DeterminateSystems/flake-checker-action@main
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          show-progress: false
+          token:  ${{ secrets.PAT }}
+
+      - name: Setup Git
+        run: |
+          git config --global user.name "$GITHUB_ACTOR"
+          git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git show -s
+
+      - name: Update flake
+        run: |
+          nix flake update --accept-flake-config
+          nix flake metadata --accept-flake-config
+
+      - name: Commit change
+        continue-on-error: true
+        run: |
+          set +e
+
+          git add .
+          git status
+          git commit -m "flake: update at $(date +'%Y-%m-%dT%H:%M:%S')"
+          git push

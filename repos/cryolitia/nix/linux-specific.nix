@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> { }, gpd-fan-driver, ... }:
 let
 
   lib = pkgs.lib;
@@ -27,7 +27,6 @@ let
   ];
 
 in lib.attrsets.mergeAttrsList (lib.lists.forEach linux-packages (linux-package: lib.attrsets.mapAttrs' (name: package: lib.attrsets.nameValuePair (name + linux-package.name) (linux-package.package.callPackage package {})) {
-  ryzen-smu = ./pkgs/linux/ryzen-smu.nix;
-
-  bmi260 = ./pkgs/linux/bmi260.nix;
+  bmi260 = ../pkgs/linux/bmi260.nix;
+  gpd-fan-driver = gpd-fan-driver.modulePackage;
 }))

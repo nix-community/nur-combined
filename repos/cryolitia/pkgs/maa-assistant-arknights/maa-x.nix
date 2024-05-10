@@ -68,6 +68,8 @@ in stdenv.mkDerivation rec {
     platforms = platforms.linux;
     maintainers = with maintainers; [ Cryolitia ];
     mainProgram = "MaaX";
+    # android-tools failed
+    broken = stdenv.buildPlatform != stdenv.hostPlatform;
   };
 
 }

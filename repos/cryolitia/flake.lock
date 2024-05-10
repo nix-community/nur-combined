@@ -18,6 +18,26 @@
         "type": "github"
       }
     },
+    "gpd-fan-driver": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1714972302,
+        "narHash": "sha256-8vU5NzHI/KTiZVlC58m6gzSXLxEfZavsFQEA9eXiUro=",
+        "owner": "Cryolitia",
+        "repo": "gpd-fan-driver",
+        "rev": "108fdda69d8753a0ae1a18b642ed910ea87428d1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Cryolitia",
+        "repo": "gpd-fan-driver",
+        "type": "github"
+      }
+    },
     "gpd-linuxcontrols": {
       "inputs": {
         "nixpkgs": [
@@ -28,11 +48,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1709100403,
-        "narHash": "sha256-KXPfbd1tsMYoRc2HIcLUIgqBPpmAeyepkFzo7hy/FhI=",
+        "lastModified": 1712594147,
+        "narHash": "sha256-26djskaEgQwajSBbgrx6iAMBfF+Re3IXvs8ULNmsSps=",
         "owner": "Cryolitia",
         "repo": "GPD-LinuxControls",
-        "rev": "ecc16f6980fe43d914494a43c7e5c7fcb4c467f2",
+        "rev": "18f58bb73cfac7e00f805765485a265065c17a5e",
         "type": "github"
       },
       "original": {
@@ -43,11 +63,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1711231723,
-        "narHash": "sha256-dARJQ8AJOv6U+sdRePkbcVyVbXJTi1tReCrkkOeusiA=",
+        "lastModified": 1715220225,
+        "narHash": "sha256-X0xvboLSjfC5s/M1yuPdSdc6yzKV8536hTTWCSKF5Xc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e1d501922fd7351da4200e1275dfcf5faaad1220",
+        "rev": "ac34158a823c7596e0106c806d0b7df47885fa73",
         "type": "github"
       },
       "original": {
@@ -59,6 +79,7 @@
     },
     "root": {
       "inputs": {
+        "gpd-fan-driver": "gpd-fan-driver",
         "gpd-linuxcontrols": "gpd-linuxcontrols",
         "nixpkgs": "nixpkgs",
         "rust-overlay": "rust-overlay"
@@ -72,11 +93,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1711332768,
-        "narHash": "sha256-SFnlIwnrwJxEawLcrH7+zGb8spePcYyai5asMZnm0BM=",
+        "lastModified": 1715307487,
+        "narHash": "sha256-yuDAys3JuJmhQUQGMMsl3BDQNZUYZDw0eA71OVh9FeY=",
         "owner": "oxalica",
         "repo": "rust-overlay",
-        "rev": "8a8e3ea9a9a4b2225cb5e33e07c3a337f820168c",
+        "rev": "ec7a7caf50877bc32988c82653d6b3e6952a8c3f",
         "type": "github"
       },
       "original": {

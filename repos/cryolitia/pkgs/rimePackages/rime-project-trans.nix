@@ -15,7 +15,7 @@ let
     sha256 = "sha256-YTSM+wXDrHiJfwh3eLeUmHvTotIJzEmk7uPHUqYIMlE=";
   };
 
-in stdenvNoCC.mkDerivation rec {
+in stdenvNoCC.mkDerivation {
 
   pname = "rime-project-trans";
   version = "unstable-20231115";

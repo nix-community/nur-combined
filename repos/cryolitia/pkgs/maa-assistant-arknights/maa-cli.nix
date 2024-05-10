@@ -1,68 +1,40 @@
 { lib
-, stdenv
-, rustPlatform
+, rustPlatform'
+, maa-cli'
 , fetchFromGitHub
-, installShellFiles
-, makeWrapper
-, pkg-config
-, openssl
-, maa-assistant-arknights
-, android-tools
-, git
+, stdenv
+, fetchurl
 }:
-
-rustPlatform.buildRustPackage rec {
+let
+  sources = lib.importJSON ./pin.json;
+in
+rustPlatform'.buildRustPackage {
   pname = "maa-cli";
-  version = "0.4.4";
+  version = sources.maa-cli.name;
 
   src = fetchFromGitHub {
     owner = "MaaAssistantArknights";
     repo = "maa-cli";
-    rev = "v${version}";
-    hash = "sha256-pAtv6gCLFKRwUQEF6kD2bCPGpQGzahsfq/tAnQjrZrw=";
+    rev = "${sources.maa-cli.version}";
+    hash = sources.maa-cli.hash;
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-    makeWrapper
-    pkg-config
-  ];
+  nativeBuildInputs = maa-cli'.nativeBuildInputs;
 
-  buildInputs = [
-    openssl
-  ];
+  buildInputs = maa-cli'.buildInputs;
 
-  # https://github.com/MaaAssistantArknights/maa-cli/pull/126
-  buildNoDefaultFeatures = true;
-  buildFeatures = [ "git2" "core_installer" ];
+  buildNoDefaultFeatures = maa-cli'.buildNoDefaultFeatures;
+  buildFeatures = maa-cli'.buildFeatures;
 
-  cargoHash = "sha256-KjI/5vl7oKVtXYehGLgi9jcaO4Y/TceL498rCPGHMD0=";
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+  };
 
-  # maa-cli would only seach libMaaCore.so and resources in itself's path
-  # https://github.com/MaaAssistantArknights/maa-cli/issues/67
-  postInstall = ''
-    mkdir -p $out/share/maa-assistant-arknights/
-    ln -s ${maa-assistant-arknights}/share/maa-assistant-arknights/* $out/share/maa-assistant-arknights/
-    ln -s ${maa-assistant-arknights}/lib/* $out/share/maa-assistant-arknights/
-    mv $out/bin/maa $out/share/maa-assistant-arknights/
+  postInstall = maa-cli'.postInstall;
 
-    makeWrapper $out/share/maa-assistant-arknights/maa $out/bin/maa \
-      --prefix PATH : "${lib.makeBinPath [
-        android-tools git
-      ]}"
+  passthru.updateScript = ./update.sh;
 
-    installShellCompletion --cmd maa \
-      --bash <($out/bin/maa complete bash) \
-      --fish <($out/bin/maa complete fish) \
-      --zsh <($out/bin/maa complete zsh)
-  '';
-
-  meta = with lib; {
-    description = "A simple CLI for MAA by Rust";
-    homepage = "https://github.com/MaaAssistantArknights/maa-cli";
-    license = licenses.agpl3Plus;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ Cryolitia ];
-    mainProgram = "maa";
+  meta = maa-cli'.meta // {
+    broken = stdenv.buildPlatform != stdenv.hostPlatform;
   };
 }

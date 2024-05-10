@@ -1,27 +1,32 @@
 name: "Build and populate cache"
 on:
   workflow_dispatch:
+  workflow_call:
   pull_request:
   push:
     branches:
       - main
       - master
-  schedule:
-    # rebuild everyday at 2:51
-    # TIP: Choose a random time here so not all repositories are build at once:
-    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
-    - cron:  '51 2 * * *'
+    paths:
+      - '**.nix'
+      - '**.sh'
+      - '.github/workflows/build.yml'
+      - '**.patch'
+      - '**.json'
+      - '**.lock'
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   tests:
     strategy:
+      fail-fast: false
       matrix:
         arch:
           - x86_64
-          # error: Package ‘jasper-4.2.2’ in /nix/store/v11jg47gprsyk91hyynwsam4jga3pavh-source/pkgs/by-name/ja/jasper/package.nix:60 is marked as broken, refusing to evaluate.
-          # - aarch64
-        nixPath:
-          - nixpkgs=channel:nixos-unstable
-          - nixpkgs=channel:nixpkgs-unstable
+          - aarch64
     runs-on: ubuntu-latest
     steps:
     - name: Free Disk Space (Ubuntu)
@@ -39,17 +44,17 @@ jobs:
         large-packages: true
         docker-images: true
         swap-storage: true
+
     - name: Checkout repository
       uses: actions/checkout@v4
-    - name: Install nix
-      uses: cachix/install-nix-action@v26
-      with:
-        nix_path: "${{ matrix.nixPath }}"
-        extra_nix_config: |
-          experimental-features = nix-command flakes
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-    - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+
+    - uses: DeterminateSystems/nix-installer-action@main
+    - uses: DeterminateSystems/magic-nix-cache-action@main
+    - uses: DeterminateSystems/flake-checker-action@main
+
+    - name: Print flake metadata
+      run: nix flake metadata --accept-flake-config
+
     - name: Setup cachix (x86_64)
       if: ${{ matrix.arch == 'x86_64' }}
       uses: cachix/cachix-action@v14
@@ -58,28 +63,21 @@ jobs:
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
         extraPullNames: nix-community, cuda-maintainers
+
     - name: Setup cachix (aarch64)
       if: ${{ matrix.arch == 'aarch64' }}
       uses: cachix/cachix-action@v14
       with:
         name: cryolitia
-        extraPullNames: nix-community, cuda-maintainers
-    - name: Setup Github Caches
-      uses: DeterminateSystems/magic-nix-cache-action@v4
-    - name: Check evaluation
-      run: |
-        nix-env -f . -qa \* --meta --xml \
-          --allowed-uris https://static.rust-lang.org \
-          --option restrict-eval true \
-          --option allow-import-from-derivation true \
-          --drv-path --show-trace \
-          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-          -I $PWD
+        extraPullNames: nix-community
+
     - name: Build x86_64 nix packages
       if: ${{ matrix.arch == 'x86_64' }}
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      run: nix run nixpkgs#nix-build-uncached -- ./nix/ci.nix
+
     - name: Build aarch64 nix packages
       if: ${{ matrix.arch == 'aarch64' }}
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci_aarch64.nix -A cacheOutputs
+      run: nix run nixpkgs#nix-build-uncached -- ./nix/ci_aarch64.nix
+
     - name: Trigger NUR update
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=Cryolitia"

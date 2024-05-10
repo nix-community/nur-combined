@@ -7,7 +7,6 @@
 , nsync
 , abseil-cpp
 , fetchzip
-, symlinkJoin
 , cudaPackages_11
 }:
 
@@ -62,8 +61,8 @@ in stdenvNoCC.mkDerivation rec {
   '';
 
   meta = pkgs.onnxruntime.meta // (with lib; {
+    broken = true;
     platforms = [ "x86_64-linux" ];
-    broken = stdenvNoCC.hostPlatform.system != "x86_64-linux";
   });
 
 }

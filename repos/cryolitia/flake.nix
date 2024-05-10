@@ -35,8 +35,13 @@
         rust-overlay.follows = "rust-overlay";
       };
     };
+
+    gpd-fan-driver = {
+      url = "github:Cryolitia/gpd-fan-driver";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
-  outputs = { self, nixpkgs, gpd-linuxcontrols, ... }:
+  outputs = { self, nixpkgs, gpd-linuxcontrols, rust-overlay, gpd-fan-driver, ... }:
     let
       systems = [
         "x86_64-linux"
@@ -59,39 +64,78 @@
 
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
     in
-    {
+    rec {
       legacyPackages = (forAllSystems (system: (with {
         pkgs = import nixpkgs {
           inherit system;
           config = { allowUnfree = true; };
+          overlays = [
+            (import rust-overlay)
+          ];
         };
       }; import ./default.nix
         {
           inherit pkgs;
-        } // (if (system == "x86_64-linux") then gpd-linuxcontrols.legacyPackages.${system} else { }) // (
+          rust-overlay = true;
+        } // {
+        gpd-linux-controls = gpd-linuxcontrols.packages.${system}.default;
+      } // (
         if (builtins.elem system systems-linux) then
-          import ./linux-specific.nix
+          import ./nix/linux-specific.nix
             {
-              inherit pkgs;
+              inherit pkgs gpd-fan-driver;
             } else { }
       )
       )));
 
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
 
-      hydraJobs = nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) (import ./default.nix {
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          config = {
-            allowUnfree = true;
-            cudaSupport = true;
-            # https://github.com/SomeoneSerge/nixpkgs-cuda-ci/blob/develop/nix/ci/cuda-updates.nix#L18
-            cudaCapabilities = [ "8.6" ];
-            cudaEnableForwardCompat = false;
-          };
-        };
-      });
+      packages-summary = builtins.mapAttrs (name: value: value.meta) packages.x86_64-linux;
 
-      nixosModules = import ./modules;
+      lib = import ./lib { pkgs = nixpkgs; };
+
+      nixosModules = import ./modules { inherit gpd-fan-driver; };
+
+      ciJobs = {
+        default = lib.filterNurAttrs "x86_64-linux" packages.x86_64-linux;
+
+        cuda = lib.filterNurAttrs "x86_64-linux" (import ./default.nix {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config = {
+              allowUnfree = true;
+              cudaSupport = true;
+              # https://github.com/SomeoneSerge/nixpkgs-cuda-ci/blob/develop/nix/ci/cuda-updates.nix#L18
+              cudaCapabilities = [ "8.6" ];
+              cudaEnableForwardCompat = false;
+            };
+            overlays = [
+              (import rust-overlay)
+            ];
+          };
+          rust-overlay = true;
+        });
+
+        aarch64 = lib.filterNurAttrs "aarch64-linux" (import ./default.nix {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            crossSystem = {
+              config = "aarch64-unknown-linux-gnu";
+            };
+            config = {
+              allowUnfree = true;
+            };
+            overlays = [
+              (import rust-overlay)
+            ];
+          };
+          rust-overlay = true;
+        });
+      };
+
+      hydraJobs = {
+        cuda = ciJobs.cuda;
+        # aarch64 = ciJobs.aarch64;
+      };
     };
 }
