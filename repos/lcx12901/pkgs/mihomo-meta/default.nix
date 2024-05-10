@@ -5,7 +5,7 @@
 }:
 buildGoModule rec {
   name = "mihomo-meta";
-  version = "107e3e763009668b174a6ef4d36a4c06e3169930";
+  version = "ae0629773ae9f8347b7e843d95a764e8293967af";
 
   src = fetchFromGitHub {
     owner = "MetaCubeX";
@@ -25,7 +25,7 @@ buildGoModule rec {
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/metacubex/mihomo/constant.Version=alpha-${lib.substring 0 8 version}"
+    "-X github.com/metacubex/mihomo/constant.Version=alpha-${lib.substring 0 7 version}"
   ];
 
   tags = [
