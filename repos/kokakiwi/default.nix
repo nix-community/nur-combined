@@ -1,7 +1,9 @@
 { pkgs ? import <nixpkgs> {}
 }: let
+  inherit (pkgs) lib;
+
   packages = import ./pkgs {
     inherit pkgs;
-    inherit (pkgs) callPackage;
+    callPackage = lib.callPackageWith (pkgs // packages);
   };
 in packages
