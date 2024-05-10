@@ -10,25 +10,26 @@
   autoPatchelfHook
 }:
 let
+  version = "0.22.0";
   sources = {
     "x86_64-linux" = {
-      url = "https://github.com/foundry-rs/starknet-foundry/releases/download/v0.14.0/starknet-foundry-v0.14.0-x86_64-unknown-linux-gnu.tar.gz";
-      sha256 = "0yrw9mg4hmn9zpw6v4rxl6s18gsdhpd7zk5qwc6xxrg642g93vg8";
+      url = "https://github.com/foundry-rs/starknet-foundry/releases/download/v${version}/starknet-foundry-v${version}-x86_64-unknown-linux-gnu.tar.gz";
+      sha256 = "06l4p48l33lsllba6x23sbkm06yrwddv6fgv0r5j73x69qcaj9ic";
     };
 
     "aarch64-linux" = {
-      url = "https://github.com/foundry-rs/starknet-foundry/releases/download/v0.14.0/starknet-foundry-v0.14.0-aarch64-unknown-linux-gnu.tar.gz";
-      sha256 = "0089s0gw05n4vipb7srly4wsakilagrf7p94clkl1w38ykdbdln0";
+      url = "https://github.com/foundry-rs/starknet-foundry/releases/download/v${version}/starknet-foundry-v${version}-aarch64-unknown-linux-gnu.tar.gz";
+      sha256 = "1vasa3fsc6mw070vwpi68w5sj7g3d8kz7j7lic8ml0p0hmk25sj6";
     };
 
     "x86_64-darwin" = {
-      url = "https://github.com/foundry-rs/starknet-foundry/releases/download/v0.14.0/starknet-foundry-v0.14.0-x86_64-apple-darwin.tar.gz";
-      sha256 = "0dv3pn8r4v47a7r1v0h69ydd0ypb0dngbzbdfnkflwr3fv4h73vd";
+      url = "https://github.com/foundry-rs/starknet-foundry/releases/download/v${version}/starknet-foundry-v${version}-x86_64-apple-darwin.tar.gz";
+      sha256 = "053gi76y97k1b8bny4k7sr511gp007y0bb1b6wlcr6r6ndzjv5xv";
     };
 
     "aarch64-darwin" = {
-      url = "https://github.com/foundry-rs/starknet-foundry/releases/download/v0.14.0/starknet-foundry-v0.14.0-aarch64-apple-darwin.tar.gz";
-      sha256 = "0q0algnfxjvw9s3a2bbbwr9z6pnjp2jik9y6v20169dd4cps6lyy";
+      url = "https://github.com/foundry-rs/starknet-foundry/releases/download/v${version}/starknet-foundry-v${version}-aarch64-apple-darwin.tar.gz";
+      sha256 = "1x7247idwpxq3i1a19mqaw4mhq4084fdgmxnp2cijj9irbyj3cbl";
     };
   };
 
@@ -42,7 +43,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "starknet-foundry-bin";
-  version = "0.14.0";
+  version = version;
 
   src = fetchzip {
     inherit (source) url sha256;

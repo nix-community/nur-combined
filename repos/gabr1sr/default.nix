@@ -14,9 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
   vscode-solidity-server = pkgs.callPackage ./pkgs/vscode-solidity-server { };
-  scarb = pkgs.callPackage ./pkgs/scarb { };
   starknet-foundry-bin = pkgs.callPackage ./pkgs/starknet-foundry-bin { };
   scarb-bin = pkgs.callPackage ./pkgs/scarb-bin { };
   huff = pkgs.callPackage ./pkgs/huff { };

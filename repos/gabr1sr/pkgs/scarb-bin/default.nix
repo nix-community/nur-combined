@@ -10,25 +10,26 @@
   autoPatchelfHook
 }:
 let
+  version = "2.6.4";
   sources = {
     "x86_64-linux" = {
-      url = "https://github.com/software-mansion/scarb/releases/download/v2.4.3/scarb-v2.4.3-x86_64-unknown-linux-gnu.tar.gz";
-      sha256 = "0c1sdsjqhl62rp2m7ljqazqdwhq9lnxq55pjgdwl5xxdkiswjr1z";
+      url = "https://github.com/software-mansion/scarb/releases/download/v${version}/scarb-v${version}-x86_64-unknown-linux-gnu.tar.gz";
+      sha256 = "05x135vj2lkwwg1gg7fbg8hw1qv1r0gm9m572kdvfqkmxpikchd0";
     };
 
     "aarch64-linux" = {
-      url = "https://github.com/software-mansion/scarb/releases/download/v2.4.3/scarb-v2.4.3-aarch64-unknown-linux-gnu.tar.gz";
-      sha256 = "0dgvxg161bgx59jmzk670hknkbjn9132jvlcz6h9zbdprki6fry7";
+      url = "https://github.com/software-mansion/scarb/releases/download/v${version}/scarb-v${version}-aarch64-unknown-linux-gnu.tar.gz";
+      sha256 = "1zxndgrhxgzijy3p2ff9p83dmx50539nsh8fk4jrs5yfa0b587x9";
     };
 
     "x86_64-darwin" = {
-      url = "https://github.com/software-mansion/scarb/releases/download/v2.4.3/scarb-v2.4.3-x86_64-apple-darwin.tar.gz";
-      sha256 = "1qy5gsjlsq4wqb2963ab8s7c0ryh7fgphpqxdrfvbwk09siyinw7";
+      url = "https://github.com/software-mansion/scarb/releases/download/v${version}/scarb-v${version}-x86_64-apple-darwin.tar.gz";
+      sha256 = "1rxyy0k62dhygbpc0rvnrmd8jkpggms0sp7lp7l7v1bwzc7vv7wg";
     };
 
     "aarch64-darwin" = {
-      url = "https://github.com/software-mansion/scarb/releases/download/v2.4.3/scarb-v2.4.3-aarch64-apple-darwin.tar.gz";
-      sha256 = "1as1xm83pabcxlmq3k8lxb5lnc0ibxi8fgvxg1hcjdgn6f55rsz2";
+      url = "https://github.com/software-mansion/scarb/releases/download/v${version}/scarb-v${version}-aarch64-apple-darwin.tar.gz";
+      sha256 = "1xhl0fp7kiw3kmgdwsgy4lm1fpk5svx40cdc8id2qrqk8a2ijkq0";
     };
   };
   
@@ -45,7 +46,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "scarb-bin";
-  version = "2.4.3";
+  version = version;
 
   src = fetchzip {
     inherit (source) url sha256;
