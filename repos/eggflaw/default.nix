@@ -16,6 +16,7 @@
 
   luau-lsp = pkgs.callPackage ./pkgs/luau-lsp { }; 
   wally = pkgs.callPackage ./pkgs/wally { };
+  wally-package-types = pkgs.callPackage ./pkgs/wally-package-types { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
