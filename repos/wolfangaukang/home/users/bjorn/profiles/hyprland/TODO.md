@@ -16,3 +16,7 @@
   - Customize
 - Fnott
   - Customize
+
+
+  ## References
+  - https://www.reddit.com/r/unixporn/comments/16f67z3/hyprland_switched_from_i3_to_hyprland/

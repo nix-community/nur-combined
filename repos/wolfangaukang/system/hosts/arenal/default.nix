@@ -15,8 +15,9 @@ in
   imports = [
     ./configuration.nix
     ./impermanence.nix
-    inputs.home-manager.nixosModules.home-manager (hmConfig)
-    
+    inputs.home-manager.nixosModules.home-manager
+    (hmConfig)
+
     "${self}/system/profiles/base.nix"
     "${self}/system/profiles/sops.nix"
   ] ++ importSystemUsers [ "bjorn" "root" ] hostname;

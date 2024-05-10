@@ -4,7 +4,8 @@
 , inputs
 , hostname
 , overlays
-, ... }:
+, ...
+}:
 
 let
   inherit (inputs) self;
@@ -26,16 +27,13 @@ in
   networking.hostName = hostname;
   nixpkgs = {
     inherit overlays;
-    config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-      "burpsuite-2023.10.1.1"
-      "video-downloadhelper"
-      "zerotierone"
-      "Oracle_VM_VirtualBox_Extension_Pack"
-      "vmware-workstation"
-    ];
     hostPlatform = lib.mkDefault "x86_64-linux";
   };
   profile = {
+    batteryNotifier = {
+      enable = true;
+      suspend.capacityValue = 3;
+    };
     nix = {
       enableAutoOptimise = true;
       enableFlakes = true;
@@ -45,6 +43,9 @@ in
       android.enable = true;
       ios.enable = true;
     };
+    predicates.unfreePackages = [
+      "burpsuite"
+    ];
     sound = {
       enable = true;
       enableOSSEmulation = true;

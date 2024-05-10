@@ -1,11 +1,14 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config
+, lib
+, pkgs
+, ...
+}:
 
 with lib;
 let
   cfg = config.profile.specialisations;
   g_cfg = config.profile.specialisations.gaming;
 
-  inherit (inputs) self;
   inherit (pkgs.pkgsi686Linux) libva;
   notify-send = lib.getExe pkgs.libnotify;
 
@@ -15,20 +18,22 @@ in
 
   options.profile.specialisations = {
     work.simplerisk = {
-      enable = mkOption {
+      enable = mkEnableOption (mdDoc "set up system with the necessary tools for SimpleRisk tasks");
+      indicator = mkOption {
         default = false;
         type = types.bool;
         description = ''
-          Sets up system with the necessary tools for SimpleRisk tasks
+          Flag that indicates the specialisation is enabled
         '';
       };
     };
     gaming = {
-      enable = mkOption {
+      enable = mkEnableOption (mdDoc "Sets up system with gaming setup");
+      indicator = mkOption {
         default = false;
         type = types.bool;
         description = ''
-          Sets up system with gaming setup
+          Flag that indicates the specialisation is enabled
         '';
       };
       steam = {
@@ -61,53 +66,6 @@ in
           List of packages to install on specialisation (system-level)
         '';
       };
-      # TODO: Enable setup per user
-      home = {
-        enable = mkOption {
-          default = false;
-          type = types.bool;
-          description = ''
-            Enables home manager per user
-          '';
-        };
-        enableProtontricks = mkOption {
-          default = false;
-          type = types.bool;
-          description = ''
-            Installs Protontricks
-          '';
-        };
-        retroarch = {
-          enable = mkOption {
-            default = false;
-            type = types.bool;
-            description = ''
-              Installs Retroarch
-            '';
-          };
-          package = mkOption {
-            default = pkgs.retroarch;
-            type = types.package;
-            description = ''
-              Indicates what retroarch package will be installed
-            '';
-          };
-          coresToLoad = mkOption {
-            default = [ ];
-            type = types.listOf types.package;
-            description = ''
-              Cores to load into Retroarch
-            '';
-          };
-        };
-        extraPkgs = mkOption {
-          default = [ ];
-          type = types.listOf types.package;
-          description = ''
-            List of packages to install on specialisation (home-level)
-          '';
-        };
-      };
     };
   };
 
@@ -115,7 +73,30 @@ in
     (mkIf cfg.work.simplerisk.enable {
       specialisation.simplerisk = {
         inheritParentConfig = true;
-        configuration = (import "${self}/system/profiles/specialisations/simplerisk.nix" { inherit pkgs lib; });
+        configuration = {
+          profile = {
+            predicates.unfreePackages = [
+              "Oracle_VM_VirtualBox_Extension_Pack"
+              "vmware-workstation"
+            ];
+            specialisations.work.simplerisk.indicator = true;
+            virtualization = {
+              podman.enable = mkForce false;
+              qemu.enable = mkForce false;
+              docker = {
+                enable = true;
+                extraPkgs = with pkgs; [ docker-compose ];
+                dockerGroupMembers = [ "bjorn" ];
+              };
+              virtualbox = {
+                enable = true;
+                enableExtensionPack = true;
+                vboxusersGroupMembers = [ "bjorn" ];
+              };
+              vmware.enable = true;
+            };
+          };
+        };
       };
     })
     (mkIf cfg.gaming.enable {
@@ -143,15 +124,13 @@ in
             extraPackages32 = [ libva ];
             setLdLibraryPath = true;
           };
-          home-manager.users.bjorn.defaultajAgordoj.gaming = {
-            enable = g_cfg.home.enable;
-            enableProtontricks = g_cfg.home.enableProtontricks;
-            retroarch = {
-              enable = g_cfg.home.retroarch.enable;
-              package = g_cfg.home.retroarch.package;
-              coresToLoad = g_cfg.home.retroarch.coresToLoad;
-            };
-            extraPkgs = g_cfg.home.extraPkgs;
+          profile = {
+            specialisations.gaming.indicator = true;
+            predicates.unfreePackages = [
+              "steam-run"
+              "steam"
+              "steam-original"
+            ];
           };
         };
       };

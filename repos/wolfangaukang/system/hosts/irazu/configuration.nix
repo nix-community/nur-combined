@@ -2,11 +2,12 @@
 , pkgs
 , inputs
 , overlays
-, ... }:
+, ...
+}:
 
 let
-  inherit (pkgs) heroic retroarch virt-manager;
-  inherit (pkgs.libretro) mgba bsnes-mercury-performance;
+  inherit (inputs) self;
+  inherit (pkgs) virt-manager;
 
 in
 {
@@ -16,25 +17,18 @@ in
 
       ./disk-setup.nix
       ./hardware-configuration.nix
-      "${inputs.self}/system/profiles/workstation.nix"
-      "${inputs.self}/system/profiles/pantheon.nix"
+      "${self}/system/profiles/workstation.nix"
+      "${self}/system/profiles/pantheon.nix"
     ];
 
-  # TODO: Change until ZFS support and Virtualbox can be built
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_1;
+  boot = {
+    zfs.package = pkgs.zfs_2_1; # TODO: Change until ZFS support and Virtualbox can be built
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_1;
+  };
 
   nixpkgs = {
     inherit overlays;
-    config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-      "video-downloadhelper"
-      "zerotierone"
-      "steam-run"
-      "steam"
-      "steam-original"
-      #"steam-runtime"
-      "Oracle_VM_VirtualBox_Extension_Pack"
-      "vmware-workstation"
-    ];
+    hostPlatform = lib.mkDefault "x86_64-linux";
   };
 
   profile = {
@@ -63,30 +57,13 @@ in
         libvirtdGroupMembers = [ "bjorn" ];
       };
     };
-    specialisations = {
-      gaming = {
+    specialisations.gaming = {
+      enable = true;
+      steam = {
         enable = true;
-        steam = {
-          enable = true;
-          enableSteamHardware = true;
-          enableGamescope = true;
-        };
-        # TODO: Find a way to enable options for users
-        home = {
-          enable = true;
-          enableProtontricks = true;
-          retroarch = {
-            enable = true;
-            package = retroarch;
-            coresToLoad = [
-              mgba
-              bsnes-mercury-performance
-            ];
-          };
-          extraPkgs = [ heroic ];
-        };
+        enableSteamHardware = true;
+        enableGamescope = true;
       };
-      work.simplerisk.enable = true;
     };
   };
 
@@ -95,12 +72,9 @@ in
     mode = "0644";
   };
 
-  boot.zfs.package = pkgs.zfs_2_1;
-
   #environment.etc.machine-id.source = config.sops.secrets."machine_id".path;
 
   # Extra settings (22.11)
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   system.stateVersion = "23.05"; # Did you read the comment?
 

@@ -19,7 +19,10 @@
   services = {
     blueman.enable = true;
     # SDDM is the recommended DM for Wayland
-    displayManager.sddm.enable = true;
+    displayManager.sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
   };
   hardware.bluetooth = {
     enable = true;

@@ -1,13 +1,18 @@
 { inputs
 , pkgs
+, osConfig
 , ...
 }:
 
+let
+  inherit (inputs) self;
+
+in
 {
   imports = [
-    "${inputs.self}/home/users/bjorn"
-    "${inputs.self}/home/users/bjorn/profiles/workstation.nix"
-    "${inputs.self}/home/users/bjorn/profiles/programs/mopidy.nix"
+    "${self}/home/users/bjorn"
+    "${self}/home/users/bjorn/profiles/workstation.nix"
+    "${self}/home/users/bjorn/profiles/programs/mopidy.nix"
   ];
 
   home.persistence = {
@@ -47,7 +52,22 @@
     };
   };
 
-  defaultajAgordoj.gui.terminal.font.size = 10;
+  defaultajAgordoj = {
+    gaming = {
+      enable = osConfig.profile.specialisations.gaming.indicator;
+      enableProtontricks = true;
+      retroarch = {
+        enable = true;
+        package = pkgs.retroarch;
+        coresToLoad = with pkgs.libretro; [
+          mgba
+          bsnes-mercury-performance
+        ];
+      };
+      extraPkgs = with pkgs; [ heroic ];
+    };
+    gui.terminal.font.size = 10;
+  };
 
   # Personal Settings
   home.packages = with pkgs; [

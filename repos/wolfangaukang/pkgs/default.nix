@@ -29,7 +29,6 @@ in
   npm-groovy-lint = callPackage ./npm-groovy-lint { };
   omnibus = callPackage ./omnibus { };
   pacu = callPythonPackage ./pacu { };
-  threema-desktop = callPackage ./threema-desktop { };
   ufbt = callPythonPackage ./ufbt { };
   upwork-wayland = callPythonPackage ./upwork-wayland { };
   vdhcoapp = callPackage ./vdhcoapp { nodejs = nodejs-slim_18; };

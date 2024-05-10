@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config
+, lib
+, pkgs
+, inputs
+, osConfig
+, ...
+}:
 
 let
   localLib = import "${inputs.self}/lib" { inherit inputs lib; };
@@ -9,6 +15,8 @@ in
   imports = [ ./hyprland ];
 
   services.syncthing.enable = true;
+
+  defaultajAgordoj.work.simplerisk.enable = osConfig.profile.specialisations.work.simplerisk.indicator;
 
   programs.ssh = {
     enable = true;

@@ -44,6 +44,11 @@ in
     networkmanager.enable = true;
   };
 
+  profile.predicates.unfreePackages = [
+    "video-downloadhelper"
+    "zerotierone"
+  ];
+
   # Remember to add users to the rfkillers group
   security = {
     doas.extraConfig = ''

@@ -1,0 +1,23 @@
+steps:
+  - name: Update templates' flakes
+    when:
+      event: [ push ]
+      branch: main
+    image: nixos/nix:2.22.0
+    # Must create one on Codeberg then set on Woodpecker
+    secrets: [ codeberg_token ]
+    commands: |
+      nix --version
+      echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
+      nix shell nixpkgs#git -c git config --global user.email noreply@codeberg.org
+      nix shell nixpkgs#git -c git config --global user.name "Woodpecker CI"
+      # Modify
+      nix shell nixpkgs#git -c git clone https://$CODEBERG_TOKEN@codeberg.org/$CI_REPO.git
+      cd nix-agordoj
+      for template in templates/**/; do
+        $(cd $template && nix flake update)
+      done
+      nix shell nixpkgs#git -c git add templates/
+      nix shell nixpkgs#git -c git commit -m "templates: update flake"
+      nix shell nixpkgs#git -c git push
+

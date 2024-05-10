@@ -76,6 +76,6 @@ buildFHSEnv {
     platforms = jdk.meta.platforms;
     hydraPlatforms = [ ];
     mainProgram = bin;
-    maintainers = with maintainers; [ bennofs stepech ];
+    maintainers = with maintainers; [ arcayr bennofs ];
   };
 }

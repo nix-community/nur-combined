@@ -1,5 +1,4 @@
 { pkgs
-, hostname
 , lib
 , config
 , osConfig
@@ -8,11 +7,10 @@
 }:
 
 let
-  inherit (pkgs) nwg-look nordic pulsemixer waybar;
+  inherit (pkgs) nwg-look nordic pulsemixer rofiwl-custom waybar;
   commands = import "${inputs.self}/home/users/bjorn/settings/wm-commands.nix" { inherit pkgs config lib; };
 
   mainMod = "SUPER";
-  hostDefaults = lib.importJSON ./host_defaults.json;
 
 in
 {
@@ -36,7 +34,21 @@ in
   dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
   programs = {
-    wofi.enable = true;
+    rofi = {
+      enable = true;
+      package = rofiwl-custom;
+      theme = "Arc-Dark";
+    };
+    swaylock = {
+      enable = true;
+      settings = {
+        daemonize = true;
+        ignore-empty-password = true;
+        indicator-caps-lock = true;
+        scaling = "fill";
+        image = "${config.home.homeDirectory}/.lock.jpg";
+      };
+    };
     waybar = {
       enable = true;
       package = waybar.override {
@@ -54,7 +66,7 @@ in
         modules-left = [ "wlr/taskbar" ];
         modules-center = [ "clock" ];
         # https://sourcegraph.com/github.com/nix-community/home-manager@b787726a8413e11b074cde42704b4af32d95545c/-/blob/tests/modules/programs/waybar/settings-complex.nix?L9:14-9:20
-        modules-right = [ "idle_inhibitor" "tray" "wireplumber" "backlight"  "network" "bluetooth" "battery" ];
+        modules-right = [ "idle_inhibitor" "tray" "wireplumber" "backlight" "network" "bluetooth" "battery" ];
         # Modules
         clock = {
           interval = 30;
@@ -102,12 +114,16 @@ in
   };
   # TODO: Kanshi https://sourcegraph.com/github.com/nix-community/home-manager@a561ad6ab38578c812cc9af3b04f2cc60ebf48c9/-/blob/tests/modules/services/kanshi/basic-configuration.nix?L3:14-3:20
   # TODO: Customize Fnott
-  services.fnott.enable = true;
+  services = {
+    kanshi = {
+      enable = true;
+      systemdTarget = "hyprland-session.target";
+    };
+    fnott.enable = true;
+  };
   wayland.windowManager.hyprland = {
     enable = osConfig.programs.hyprland.enable;
     settings = {
-      # See how to handle this through hostname
-      monitor=hostDefaults.${hostname}.display;
       env = [
         "XCURSOR_SIZE,24"
         "QT_QPA_PLATFORMTHEME,qt5ct # change to qt6ct if you have that"
@@ -167,14 +183,20 @@ in
       };
       windowrulev2 = [
         "float,class:^(zenity)$,title:^(Choose a Firefox profile)$"
+        "float,class:^(firefox)$,title:^(Picture-in-Picture)$"
         "suppressevent maximize, class:.*"
       ];
       bind = [
         # Exec binds
-        "${mainMod} SHIFT, Q, exit"
+        "CTRLALT, Delete, exec, ${commands.powerMenu}"
+        "${mainMod} CTRLALT, Delete, exec, exit"
+        "${mainMod}, space, exec, ${commands.menu}"
         "${mainMod}, T, exec, ${commands.terminal}"
         "${mainMod}, L, exec, ${commands.lock}"
-        "${mainMod}, space, exec, ${commands.menu}"
+        "${mainMod}, S, exec, ${commands.systemdMenu}"
+        "${mainMod}, B, exec, ${commands.bluetoothMgmt}"
+        "${mainMod}, K, exec, ${commands.calc}"
+        "${mainMod}, G, exec, ${commands.top}"
         ", Print, exec, ${commands.screenshot "save" "screen"}"
         "ALT, Print, exec, ${commands.screenshot "save" "window"}"
         "SHIFT, Print, exec, ${commands.screenshot "save" "area"}"
@@ -182,27 +204,36 @@ in
         "CTRLALT, Print, exec, ${commands.screenshot "copy" "window"}"
         "CTRLSHIFT, Print, exec, ${commands.screenshot "copy" "area"}"
 
-        # Workspace change binds
-        "${mainMod}, 1, workspace, 1"
-        "${mainMod}, 2, workspace, 2"
-        "${mainMod}, 3, workspace, 3"
-        "${mainMod}, 4, workspace, 4"
-        "${mainMod}, 5, workspace, 5"
-        "${mainMod}, 6, workspace, 6"
-        "${mainMod}, 7, workspace, 7"
-        "${mainMod}, 8, workspace, 8"
-        "${mainMod}, 9, workspace, 9"
-        "${mainMod}, 0, workspace, 10"
-        "${mainMod}, left, workspace, e-1"
-        "${mainMod}, right, workspace, e+1"
-
-        # Panel change binds
+        # Tiles
         "ALT, Tab, cyclenext"
-        "${mainMod}, up, fullscreen, 1"
-        "${mainMod}, down, togglefloating"
-        "${mainMod}, C, killactive"
+        "SHIFTALT, Tab, cyclenext, prev"
+        "${mainMod}, up, movefocus, u"
+        "${mainMod}, down, movefocus, d"
+        "${mainMod}, left, movefocus, l"
+        "${mainMod}, right, movefocus, r"
+        "${mainMod} ALT, up, movewindow, u"
+        "${mainMod} ALT, down, movewindow, d"
+        "${mainMod} ALT, left, movewindow, l"
+        "${mainMod} ALT, right, movewindow, r"
+        "${mainMod}, F, fullscreen, 1"
+        "${mainMod}, U, togglefloating"
+        "${mainMod}, Q, killactive"
 
-        # Move to another workspace bind 
+        # Workspace
+        "${mainMod} CTRL, 1, workspace, 1"
+        "${mainMod} CTRL, 2, workspace, 2"
+        "${mainMod} CTRL, 3, workspace, 3"
+        "${mainMod} CTRL, 4, workspace, 4"
+        "${mainMod} CTRL, 5, workspace, 5"
+        "${mainMod} CTRL, 6, workspace, 6"
+        "${mainMod} CTRL, 7, workspace, 7"
+        "${mainMod} CTRL, 8, workspace, 8"
+        "${mainMod} CTRL, 9, workspace, 9"
+        "${mainMod} CTRL, 0, workspace, 10"
+        "${mainMod} CTRL, left, workspace, e-1"
+        "${mainMod} CTRL, right, workspace, e+1"
+
+        # Move tile to another workspace
         "${mainMod} SHIFT, 1, movetoworkspace, 1"
         "${mainMod} SHIFT, 2, movetoworkspace, 2"
         "${mainMod} SHIFT, 3, movetoworkspace, 3"

@@ -2,11 +2,15 @@
 , pkgs
 , config
 , lib
+, localLib
+, hostname
 , ...
 }:
 
 let
   inherit (inputs) self;
+  inherit (localLib) generateHyprlandMonitorConfig generateKanshiOutput;
+  hostDefaults = lib.importJSON "${self}/system/hosts/common/host_defaults.json";
   commands = import "${inputs.self}/home/users/bjorn/settings/wm-commands.nix" { inherit config lib pkgs; };
 
 in
@@ -24,12 +28,23 @@ in
     stremio
   ];
 
+  services.kanshi.profiles = {
+    undocked.outputs = [
+      (generateKanshiOutput hostDefaults hostname)
+    ];
+    connected.outputs = [
+      (generateKanshiOutput hostDefaults hostname)
+      ((generateKanshiOutput hostDefaults "irazu") // { position = "0,-1080"; })
+    ];
+  };
+
   wayland.windowManager.hyprland.settings = {
+    monitor = generateHyprlandMonitorConfig hostDefaults hostname;
     gestures = {
       workspace_swipe = true;
       workspace_swipe_fingers = 3;
       workspace_swipe_forever = false;
-      workspace_swipe_numbered = true;
+      #workspace_swipe_numbered = true;
     };
     bindl = [
       ", switch:on:Lid Switch, exec, ${commands.lock}"

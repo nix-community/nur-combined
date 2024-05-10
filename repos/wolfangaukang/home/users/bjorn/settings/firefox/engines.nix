@@ -177,6 +177,25 @@
         urls = [{ template = "${url}/search/?q={searchTerms}"; }];
         definedAliases = [ "@pypi" ];
       };
+    # Docs
+    "pkgs.go.dev (Go)" =
+      let
+        url = "https://pkg.go.dev";
+      in
+      {
+        iconURL = "${url}/static/shared/icon/favicon.ico";
+        urls = [{ template = "${url}/search?q={searchTerms}"; }];
+        definedAliases = [ "@godev" ];
+      };
+    "docs.rs (Rust)" =
+      let
+        url = "https://docs.rs";
+      in
+      {
+        iconURL = "${url}/-/static/favicon.ico";
+        urls = [{ template = "${url}/releases/search?query={searchTerms}"; }];
+        definedAliases = [ "@docsrs" ];
+      };
     # Other
     "Shellcheck (Shell)" =
       let
