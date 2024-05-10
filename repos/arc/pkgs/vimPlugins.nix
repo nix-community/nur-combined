@@ -25,6 +25,7 @@
       type = "gem";
       version = "2.7.1";
     };
+    hasRuby = notmuch ? ruby || notmuch ? passthru.gemEnv;
   in vimUtils.buildVimPlugin rec {
     pname = "notmuch-vim";
     version = "2018-08-23";
@@ -46,7 +47,7 @@
     gemEnv = buildEnv {
       name = "notmuch-vim-gems";
       paths = with ruby.gems; [ mail net-smtp mini_mime gpgme rack mail-gpg ]
-      ++ lib.optional (notmuch ? ruby) notmuch.ruby;
+      ++ lib.optional hasRuby notmuch.ruby or notmuch.out;
       pathsToLink = [ "/lib" "/nix-support" ];
     };
     buildPhase = let
@@ -61,7 +62,7 @@
       done
       echo 'endif' >> plugin/notmuch.vim
     '';
-    meta.broken = notmuch.meta.broken or false || ! notmuch ? ruby;
+    meta.broken = notmuch.meta.broken or false || ! hasRuby;
   };
   vim-hug-neovim-rpc = { fetchFromGitHub, vimUtils }: vimUtils.buildVimPlugin rec {
     pname = "vim-hug-neovim-rpc";
