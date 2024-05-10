@@ -17,7 +17,6 @@ rec {
   regdomain = ./regdomain.nix;
   rkn = ./rkn.nix;
   awl = ./awl.nix;
-  cjdns = ./cjdns.nix;
   prometheus-nut-exporter = ./prometheus-nut-exporter.nix;
   hardware = ./hardware.nix;
   tun2socks = ./tun2socks.nix;

@@ -7,7 +7,6 @@ let
   laptop = any' [ "suitecase" ];
   server = any' [ "robocat" ];
   desktop = any' [ "powerhorse" ];
-  ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
   builder = {
     nix.buildMachines = [{
       hostName = "powerhorse";

@@ -3,7 +3,6 @@
 with lib;
 let
   cfg = config.services.server;
-  ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
 in {
   options.services.server = {
     enable = mkEnableOption ''

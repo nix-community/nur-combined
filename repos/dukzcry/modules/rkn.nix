@@ -3,13 +3,16 @@
 with lib;
 
 let
-  ip4 = pkgs.nur.repos.dukzcry.lib.ip4;
   cfg = config.services.rkn;
 in {
   options.services.rkn = {
     enable = mkEnableOption "Обход блокировок роскомпозора";
     address = mkOption {
       type = types.str;
+    };
+    address6 = mkOption {
+      type = types.str;
+      default = "";
     };
     resolver = mkOption {
       type = types.submodule {
@@ -32,8 +35,8 @@ in {
             default = true;
           };
           network = mkOption {
-            type = ip4.type;
-            default = ip4.fromString "10.123.0.1/16";
+            type = types.str;
+            default = "10.123.0.0/16";
           };
           snowflake = mkEnableOption "транспорт Snowflake";
         };
@@ -57,7 +60,9 @@ in {
       services.nginx.virtualHosts = {
         rkn = {
           default = true;
-          listen = [{ addr = cfg.address; port = 80; }];
+          listen = [
+            { addr = cfg.address; port = 80; }
+          ] ++ optional (cfg.address6 != "") { addr = "[${cfg.address6}]"; port = 80; };
           locations."/" = {
             proxyPass = "http://$http_host:80";
             extraConfig = ''
@@ -70,6 +75,7 @@ in {
         server {
           resolver ${toString cfg.resolver.addresses} ${optionalString (!cfg.resolver.ipv6) "ipv6=off"};
           listen ${cfg.address}:443;
+          ${optionalString (cfg.address6 != "") "listen [${cfg.address6}]:443;"}
           ssl_preread on;
           proxy_pass $ssl_preread_server_name:443;
           proxy_bind ${cfg.address};
@@ -83,7 +89,7 @@ in {
         ExcludeExitNodes = "{RU}";
         # onion
         DNSPort = [{ addr = cfg.address; port = 9053; }];
-        VirtualAddrNetworkIPv4 = ip4.networkCIDR cfg.tor.network;
+        VirtualAddrNetworkIPv4 = cfg.tor.network;
         AutomapHostsOnResolve = true;
         TransPort = [{ addr = cfg.address; port = 9040; }];
       } // optionalAttrs cfg.tor.snowflake {
@@ -110,11 +116,11 @@ in {
             chain out {
               type nat hook output priority mangle;
               ip protocol tcp ip saddr ${cfg.address} tcp dport { 80, 443 } counter dnat to ${cfg.address}:9040
-              ip protocol tcp ip daddr ${ip4.networkCIDR cfg.tor.network} tcp dport { 80, 443 } counter dnat to ${cfg.address}:9040
+              ip protocol tcp ip daddr ${cfg.tor.network} tcp dport { 80, 443 } counter dnat to ${cfg.address}:9040
             }
             chain pre {
               type nat hook prerouting priority dstnat;
-              ip protocol tcp ip daddr ${ip4.networkCIDR cfg.tor.network} tcp dport { 80, 443 } counter dnat to ${cfg.address}:9040
+              ip protocol tcp ip daddr ${cfg.tor.network} tcp dport { 80, 443 } counter dnat to ${cfg.address}:9040
             }
           '';
         };
@@ -124,8 +130,8 @@ in {
       networking.firewall.extraCommands = ''
         iptables -t nat -A OUTPUT -p tcp -m multiport --dports 80,443 -s ${cfg.address} -j DNAT --to-destination ${cfg.address}:9040
         # onion
-        iptables -t nat -A PREROUTING -p tcp -m multiport --dports 80,443 -d ${ip4.networkCIDR cfg.tor.network} -j DNAT --to-destination ${cfg.address}:9040
-        iptables -t nat -A OUTPUT -p tcp -m multiport --dports 80,443 -d ${ip4.networkCIDR cfg.tor.network} -j DNAT --to-destination ${cfg.address}:9040
+        iptables -t nat -A PREROUTING -p tcp -m multiport --dports 80,443 -d ${cfg.tor.network} -j DNAT --to-destination ${cfg.address}:9040
+        iptables -t nat -A OUTPUT -p tcp -m multiport --dports 80,443 -d ${cfg.tor.network} -j DNAT --to-destination ${cfg.address}:9040
       '';
     })
   ];
