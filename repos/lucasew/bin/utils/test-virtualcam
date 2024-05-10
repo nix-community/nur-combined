@@ -1,0 +1,158 @@
+#!/usr/bin/env -S sd nix shell
+#!nix-shell -i python3 -p python3Packages.pyvirtualcam python3Packages.opencv4 python3Packages.facenet-pytorch python3Packages.onnxruntime
+# vim:ft=python
+
+import pyvirtualcam
+import numpy as np
+import time
+import cv2
+from facenet_pytorch import MTCNN
+import onnxruntime as ort
+import subprocess
+import time
+import threading
+
+u2net_onnx = subprocess.run([
+    "nix-prefetch-url",
+    "https://huggingface.co/spaces/Akbartus/U2net-with-rgba/resolve/main/u2net.onnx?download=true",
+    "1bvqvh6hl753pdwx6qf2mv99qancs62xlidnxw8ng3wf8pya37ih",
+    "--name", "u2net.onnx",
+    "--print-path"
+], stdout=subprocess.PIPE).stdout.decode('utf-8').split('\n')[1].strip()
+
+u2net = ort.InferenceSession(u2net_onnx)
+
+
+def adjust_gamma(image, gamma=1.0):
+	# build a lookup table mapping the pixel values [0, 255] to
+	# their adjusted gamma values
+	invGamma = 1.0 / gamma
+	table = np.array([((i / 255.0) ** invGamma) * 255
+		for i in np.arange(0, 256)]).astype("uint8")
+	# apply gamma correction using the lookup table
+	return cv2.LUT(image, table)
+
+cap = cv2.VideoCapture(1)
+cap.set(cv2.CAP_PROP_BUFFERSIZE, 0)
+
+output_size = (cap.get(cv2.CAP_PROP_FRAME_WIDTH), cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+output_size = [int(x) for x in output_size]
+
+padding = (min(*output_size)//5)
+
+mtcnn = MTCNN(
+    image_size=160,
+    margin=0,
+    min_face_size=(min(*output_size)//5),
+    thresholds=[0.6, 0.7, 0.7], factor=0.709, post_process=True,
+)
+
+state=dict(
+    detected_faces = [],
+    last_mask = np.ones(output_size, dtype='uint8')*255,
+    last_ai_change = time.time(),
+    last_frame = None,
+    stop = False,
+    disable_bg = False,
+    disable_warp = False,
+    disable_rectangle=True,
+)
+
+def update_ai_stuff(state):
+    last_run = time.time()
+    try:
+        while not state['stop']:
+            interval = time.time() - last_run
+            if interval < 1.0:
+                time.sleep(1.0 - interval)
+            last_run = time.time()
+            print("Running AI round")
+            frame = state['last_frame']
+            if frame is None:
+                continue
+            if not state['disable_bg']:
+                bgmodel_result = u2net.run(None, {"input_image": np.expand_dims(np.moveaxis(np.array(cv2.resize(frame, (320, 320))/255, dtype='float32'), -1, 0), 0)})
+                mask = bgmodel_result[0][0][0,:,:] < 0.1
+                mask = cv2.resize(np.array(mask*255, dtype='uint8'), output_size, cv2.INTER_NEAREST)
+                state['last_mask'] = mask
+
+            bbxs, probs = mtcnn.detect(frame)
+            if bbxs is not None:
+                detected_faces_candidates = []
+                for (bbx, prob) in zip(bbxs, probs):
+                    (xi, yi, xf, yf) = map(int, bbx)
+                    sx = xf - xi
+                    sy = yf - yi
+                    xi -= sx // 3
+                    yi -= sy // 3
+                    xf += sx // 3
+                    yf += sy // 3
+                    xi = max(0, xi)
+                    yi = max(0, yi)
+                    xf = min(xf, output_size[0])
+                    yf = min(yf, output_size[1])
+                    detected_faces_candidates.append([xi, yi, xf, yf])
+                state['detected_faces'] = detected_faces_candidates
+    except:
+        state['stop'] = True
+
+def update_camera_stuff(state):
+    try:
+        with pyvirtualcam.Camera(width=output_size[0], height=output_size[1], fps=20, print_fps=True, fmt=pyvirtualcam.PixelFormat.BGR) as cam:
+            while not state['stop']:
+                ret, frame = cap.read()
+                if not ret:
+                    break
+                frame = adjust_gamma(frame)
+                state['last_frame'] = frame
+                detected_faces = state['detected_faces']
+                last_mask = state['last_mask']
+                if len(detected_faces) > 0:
+                    (xi, yi, xf, yf) = detected_faces[0]
+                    sx = xf - xi
+                    sy = yf - yi
+                    propx = sx / output_size[0]
+                    propy = sy / output_size[1]
+                    propavg = (propx + propy) / 2
+                    final_size = [int(sz * propavg) for sz in output_size]
+
+                    padding_x = (final_size[0] - sx) // 2
+                    padding_y = (final_size[1] - sy) // 2
+                    if not state['disable_rectangle']:
+                        cv2.rectangle(frame, (xi, yi), (xf, yf), (255, 0, 0), 2)
+                    mask = last_mask
+                    if not state['disable_warp']:
+                        frame_cutted = frame[yi-padding_y:yf+padding_y, xi-padding_x:xf+padding_x,:]
+                        mask_cutted = last_mask[yi-padding_y:yf+padding_y, xi-padding_x:xf+padding_x]
+                        frame = cv2.resize(frame_cutted, output_size)
+                        mask = cv2.resize(mask_cutted, output_size, cv2.INTER_NEAREST)
+
+                    frame = adjust_gamma(frame)
+                    if not state['disable_bg']:
+                        frame[mask > 128, :] = 0
+
+                cam.send(frame)
+                cam.sleep_until_next_frame()
+    finally:
+        state['stop'] = True
+        cap.release()
+
+t_ai = threading.Thread(target=update_ai_stuff, args=[state])
+t_ai.start()
+t_cam = threading.Thread(target=update_camera_stuff, args=[state])
+t_cam.start()
+
+try:
+    while True:
+        line = input("CMD: ").strip()
+        if line in ["bg", "b"]:
+            state['disable_bg'] = not state['disable_bg']
+        if line in ['warp', 'w']:
+            state['disable_warp'] = not state['disable_warp']
+        if line in ['rect', 'r']:
+            state['disable_rectangle'] = not state['disable_rectangle']
+            
+except:
+    state['stop'] = True
+    t_ai.join()
+    t_cam.join()
