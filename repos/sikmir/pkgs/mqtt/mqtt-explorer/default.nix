@@ -1,16 +1,22 @@
-{ lib, stdenv, appimageTools, fetchurl, undmg, makeWrapper }:
+{ lib, stdenv, appimageTools, fetchfromgh, undmg, makeWrapper }:
 
 let
   pname = "mqtt-explorer";
   version = "0.3.5";
 
   srcs = {
-    x86_64-linux = fetchurl {
-      url = "https://github.com/thomasnordquist/MQTT-Explorer/releases/download/v${version}/MQTT-Explorer-${version}.AppImage";
+    x86_64-linux = fetchfromgh {
+      owner = "thomasnordquist";
+      repo = "MQTT-Explorer";
+      name = "MQTT-Explorer-${version}.AppImage";
+      version = "v${version}";
       hash = "sha256-Yfz42+dVIx3xwIOmYltp5e9rYka+KskvQuxJVVBgbg4=";
     };
-    x86_64-darwin = fetchurl {
-      url = "https://github.com/thomasnordquist/MQTT-Explorer/releases/download/v${version}/MQTT-Explorer-${version}.dmg";
+    x86_64-darwin = fetchfromgh {
+      owner = "thomasnordquist";
+      repo = "MQTT-Explorer";
+      name = "MQTT-Explorer-${version}.dmg";
+      version = "v${version}";
       hash = "sha256-Cf2qgoxaNGpcaW0oA605vd5zQiZX1m54ccW8Tbe8qvU=";
     };
   };

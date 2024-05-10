@@ -2,17 +2,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "mbutiles";
-  version = "0.1.0";
+  version = "0.1.0-unstable-2024-04-12";
 
   src = fetchFromGitHub {
     owner = "amarant";
     repo = "mbutiles";
-    rev = version;
-    hash = "sha256-XVMmTqZsfIkCmZAdGi70HWiV10iawUpN3XbH93VEh7I=";
+    rev = "1f59d2d5c8e9f97c632f791c92200759012a490b";
+    hash = "sha256-w+fAfRHi/+TaQ4n9AjfBIbXeemCOnkFxR08ev1f+oTc=";
   };
 
-  cargoPatches = [ ./cargo-lock.patch ];
-  cargoHash = "sha256-fOCOtB/orCAKQROMBCecGBxArMafkTp/dby3O4GgCMg=";
+  cargoHash = "sha256-Qf0qWolEGSnptiqGmgZZiXmY+XCvvmk0lJjnosy+8nI=";
 
   nativeBuildInputs = [ pkg-config ];
 

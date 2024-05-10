@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation {
   pname = "linrad";
-  version = "2023-11-12";
+  version = "2024-04-26";
 
   src = fetchsvn {
     url = "https://svn.code.sf.net/p/linrad/code/trunk";
-    rev = "1024";
-    sha256 = "sha256-SiP/uckq+Ph888w+4z0hsUl2N/UYbMtoYbLcbeJ7ja8=";
+    rev = "1027";
+    sha256 = "sha256-zOGpLX5OTSFhbme6hENN+Z1gwcxkHoeDDDg6LZQvcM0=";
   };
 
   nativeBuildInputs = [ cmake nasm ];
@@ -27,5 +27,6 @@ stdenv.mkDerivation {
     platforms = platforms.linux;
     maintainers = [ maintainers.sikmir ];
     skip.ci = stdenv.isDarwin;
+    broken = true;
   };
 }

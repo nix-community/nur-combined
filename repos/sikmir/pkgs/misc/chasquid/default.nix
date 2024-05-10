@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "chasquid";
-  version = "1.13.0";
+  version = "1.14.0";
 
   src = fetchFromGitHub {
     owner = "albertito";
     repo = "chasquid";
     rev = "v${version}";
-    hash = "sha256-/BSWsDQBfSaXP/7RcCMRnd+nwQwya7vcUl4oZuc+Unk=";
+    hash = "sha256-BgW3qZlP6KPiD/gNJ68dSiwt+Xg3FhC0Q8aoK+Ud1sM=";
   };
 
-  vendorHash = "sha256-rx6b48I4Do84K0ffwlTT3moz46FyqEPR6E6cac1xI9E=";
+  vendorHash = "sha256-dOQJJ2U9Y7zyCNNxUMX85BNMlqn9/KQbZB2CWiYaylc=";
 
   subPackages = [ "." "cmd/chasquid-util" "cmd/smtp-check" "cmd/mda-lmtp" ];
 

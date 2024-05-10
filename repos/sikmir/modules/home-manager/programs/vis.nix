@@ -3,7 +3,7 @@
 with lib;
 let
   cfg = config.programs.vis;
-  configDir = "${config.xdg.configHome}/vis";
+  configDir = "${config.home.homeDirectory}/.config/vis";
 in
 {
   meta.maintainers = [ maintainers.sikmir ];

@@ -2,14 +2,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pyspartn";
-  version = "0.2.0-alpha";
+  version = "0.4.0-beta";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pyspartn";
     rev = "v${version}";
-    hash = "sha256-Mz+P+FMLXowr0QTDqJR8pKd9VW8G07TvZ3d5slPOEDo=";
+    hash = "sha256-5PpCUWOCD8GyOx/9tA3eSKYxCWT2xopqJaV429VSK8M=";
   };
 
   nativeBuildInputs = with python3Packages; [ setuptools ];

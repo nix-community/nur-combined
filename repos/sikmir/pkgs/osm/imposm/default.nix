@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "imposm";
-  version = "0.11.1";
+  version = "0.12.0";
 
   src = fetchFromGitHub {
     owner = "omniscale";
     repo = "imposm3";
     rev = "v${version}";
-    hash = "sha256-ufP617XMkNyntdjB7EMhhkSDau/8j2UP1UAPegqP1sU=";
+    hash = "sha256-xX4cV/iU7u/g9n7dtkkkCtNOPZK5oyprNHGDUuW+ees=";
   };
 
   vendorHash = null;
