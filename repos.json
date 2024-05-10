@@ -662,9 +662,6 @@
         "moosingin3space": {
             "url": "https://github.com/moosingin3space/nur-packages"
         },
-        "moraxyc": {
-            "url": "https://github.com/moraxyc/nur-packages"
-        },
         "moredhel": {
             "url": "https://github.com/moredhel/nur-packages"
         },
@@ -741,6 +738,9 @@
         },
         "novafacing": {
             "url": "https://github.com/novafacing/nur-packages"
+        },
+        "novel2430": {
+            "url": "https://github.com/novel2430/MyNUR"
         },
         "npkgs": {
             "url": "https://github.com/nerdypepper/npkgs"
@@ -1016,6 +1016,9 @@
         },
         "wamserma": {
             "url": "https://github.com/wamserma/nur-packages"
+        },
+        "wasabi375": {
+            "url": "https://github.com/wasabi375/nix-wasabipkgs"
         },
         "weirdpkgs": {
             "url": "https://github.com/weirdrock/weirdpkgs"
