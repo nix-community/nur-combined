@@ -7,21 +7,21 @@ python3Packages.buildPythonPackage rec {
   pname = "python-hwinfo";
   version = "0.1.7";
   # fetchPypi can't be used because pypi is behind the original
-  # package https://github.com/rdobson/python-hwinfo . This in turn
-  # can't be used because it does not have python3 support.
-  # https://github.com/rdobson/python-hwinfo/pull/25 adds support for
-  # python3
+  # package https://github.com/rdobson/python-hwinfo .
   src = fetchFromGitHub {
-    owner = "alexhimmel";
-    repo = "rob-python-hwinfo";
-    rev = "private/tianxia/CP-41972";
-    hash = "sha256-uyaKBtM4f86hu7Ep4NxWf06l3ZeoL3oZAjvErinoLbM=";
+    owner = "xenserver";
+    repo = "python-hwinfo";
+    rev = "3a7bc82f8bc47a2f176e41443ced2709882e2fda";
+    hash = "sha256-tqsXaNkPotRJkrehxXi1vHQ6aXBuOlbWxIucEMQ0LN0=";
   };
+  format = "setuptools";
 
   nativeBuildInputs = with python3Packages; [
     setuptools
   ];
 
+  # TODO add testing using tox
+  doCheck = false;
   propagatedBuildInputs = with python3Packages; [
     paramiko
     prettytable
@@ -29,7 +29,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = with lib; {
     description = "Library for inspecting hardware info using standard linux utilities";
-    homepage = "https://github.com/rdobson/python-hwinfo";
+    homepage = "https://github.com/xenserver/python-hwinfo";
     maintainers = with maintainers; [ javimerino ];
     license = [ licenses.lgpl21Only ];
   };
