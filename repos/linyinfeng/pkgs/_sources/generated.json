@@ -110,11 +110,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-9J9pWqxLW+pAfKftUiY/en4/JcA1y1SbYZDz3zRJO2M=",
+            "sha256": "sha256-GfhXvFio1+1TiOw5mJc5g7ohBsx1Hi7Mc0XpYtSN+ms=",
             "type": "url",
-            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.11.8/app-x86_64.asar"
+            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.12.0/app-x86_64.asar"
         },
-        "version": "v2.11.8"
+        "version": "v2.12.0"
     },
     "linux-intel-lts": {
         "cargoLocks": null,
@@ -393,7 +393,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-05-02",
+        "date": "2024-05-08",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -403,12 +403,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "e9a730f7f464d5fc38b6f69c68598763017afa09",
-            "sha256": "sha256-yulh2p5gynaRNsCHrKqZPEbUFVvyF4bJwsegb6rJkcU=",
+            "rev": "bcfcb57c89f4d073cb3f41dd101a7cb7452856c6",
+            "sha256": "sha256-j51Dp48GcBbtMM8OKkZUbjo+dLSIHA52mjOCe07wUcU=",
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "e9a730f7f464d5fc38b6f69c68598763017afa09"
+        "version": "bcfcb57c89f4d073cb3f41dd101a7cb7452856c6"
     },
     "rime-loengfan": {
         "cargoLocks": null,
@@ -730,7 +730,7 @@
     },
     "waybar-git": {
         "cargoLocks": null,
-        "date": "2024-05-03",
+        "date": "2024-05-10",
         "extract": null,
         "name": "waybar-git",
         "passthru": null,
@@ -740,12 +740,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "231d6972d7a023e9358ab7deda509baac49006cb",
-            "sha256": "sha256-DL90e3SjmGwYyboLHKXV8gDe8D6Dz/xfSSRvQC2ZILY=",
+            "rev": "cb2d54a23797c2a04a1e50bd35e810ea9b1eb74a",
+            "sha256": "sha256-n9cN9QRrSyRQYQycsNLJb4fj8DExO3palJMWsF2GTDk=",
             "type": "git",
             "url": "https://github.com/Alexays/Waybar.git"
         },
-        "version": "231d6972d7a023e9358ab7deda509baac49006cb"
+        "version": "cb2d54a23797c2a04a1e50bd35e810ea9b1eb74a"
     },
     "yacd": {
         "cargoLocks": null,
