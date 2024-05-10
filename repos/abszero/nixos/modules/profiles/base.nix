@@ -9,7 +9,7 @@ let inherit (lib) genAttrs const; in
   };
 
   nix = {
-    package = pkgs.nixVersions.unstable;
+    package = pkgs.nixVersions.latest;
     gc = {
       automatic = true;
       dates = "daily";

@@ -1,3 +1,4 @@
+# Full desktop
 { pkgs, ... }: {
   imports = [
     ./desktop.nix
@@ -33,14 +34,6 @@
     flatpak.enable = true;
     gnome.gnome-keyring.enable = true; # For storing vscode auth token
     mpd.enable = true;
-    xserver.libinput = {
-      enable = true;
-      touchpad = {
-        clickMethod = "clickfinger";
-        naturalScrolling = true;
-        disableWhileTyping = true;
-      };
-    };
   };
 
   programs = {
@@ -52,7 +45,6 @@
       enableAskPassword = true;
       askPassword = "${pkgs.libsForQt5.ksshaskpass}/bin/ksshaskpass";
     };
-    xwayland.enable = true;
   };
 
   environment = {
@@ -91,14 +83,5 @@
       xorg.xeyes
       zip
     ];
-    sessionVariables = {
-      # Enable running commands without installation
-      # Currently not needed because nix-index is enabled in home-manager
-      # NIX_AUTO_RUN = "1";
-      # Make Electron apps run in Wayland native mode
-      NIXOS_OZONE_WL = "1";
-      # Make Firefox run in Wayland native mode
-      MOZ_ENABLE_WAYLAND = "1";
-    };
   };
 }

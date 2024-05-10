@@ -16,6 +16,9 @@ in
   };
 
   config = mkIf cfg.enable {
+    # Make dev edition use the same profile as the normal Firefox.
+    home.file.".mozilla/firefox/ignore-dev-edition-profile".text = "";
+
     programs.firefox = {
       enable = true;
       package = pkgs.firefox-devedition-bin;
@@ -30,8 +33,5 @@ in
         "browser.aboutConfig.showWarning" = false;
       };
     };
-
-    # Make dev edition use the same profile as the normal Firefox.
-    home.file.".mozilla/firefox/ignore-dev-edition-profile".text = "";
   };
 }
