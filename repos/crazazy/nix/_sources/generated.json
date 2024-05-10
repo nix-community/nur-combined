@@ -103,15 +103,15 @@
     "wasmfxtime": {
         "cargoLocks": {
             "./Cargo.lock": [
-                "./wasmfxtime-a0b13b1bce93a892da93640393028aff794ce25b/./Cargo.lock",
+                "./wasmfxtime-4e6ad817743301236b85b9c6e131c347c20b71b9/./Cargo.lock",
                 {
                     "wasm-encoder-0.201.0": "sha256-uDU6dJPY4ymtFK8bOVG25TohRFc0m78U0m1oAlooCME=",
-                    "wasm-encoder-0.206.0": "sha256-4t5vluYaNcK3haF+28pDwkUF34CuxmrIdNmtbOqMO8s=",
+                    "wasm-encoder-0.206.0": "sha256-LD7rMxyaF4qJnJiyVOXzt53Gt2NA8HCFQfRLEiOH7d0=",
                     "wit-bindgen-0.22.0": "sha256-UrJ0NR3h48LajjHPLr9rJFaSU+qr9hYv/0d/ghl5rGs="
                 }
             ]
         },
-        "date": "2024-05-02",
+        "date": "2024-05-03",
         "extract": null,
         "name": "wasmfxtime",
         "passthru": null,
@@ -123,10 +123,10 @@
             "name": null,
             "owner": "wasmfx",
             "repo": "wasmfxtime",
-            "rev": "a0b13b1bce93a892da93640393028aff794ce25b",
-            "sha256": "sha256-qwG0/kvigcZ4XJQNNoTPslWgoVifmr3MUKLlO2NP8GQ=",
+            "rev": "4e6ad817743301236b85b9c6e131c347c20b71b9",
+            "sha256": "sha256-34pQOQl0SCPfmj8+iGaXnHDutl5sHKlPU94+GTtz6sg=",
             "type": "github"
         },
-        "version": "a0b13b1bce93a892da93640393028aff794ce25b"
+        "version": "4e6ad817743301236b85b9c6e131c347c20b71b9"
     }
 }

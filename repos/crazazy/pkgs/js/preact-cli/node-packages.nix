@@ -1138,13 +1138,13 @@ let
         sha512 = "wV19ZEGEMAC1eHgrS7UQPqsdEiCIbTKTasEfcXAigzoXICcqZSjBZEHlZwNVvKg6UBCjSlos84XiLqsRJnIcIg==";
       };
     };
-    "@eslint/js-9.1.1" = {
+    "@eslint/js-9.2.0" = {
       name = "_at_eslint_slash_js";
       packageName = "@eslint/js";
-      version = "9.1.1";
+      version = "9.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/js/-/js-9.1.1.tgz";
-        sha512 = "5WoDz3Y19Bg2BnErkZTp0en+c/i9PvgFS7MBe1+m60HjFr0hrphlAGp4yzI7pxpt4xShln4ZyYp4neJm8hmOkQ==";
+        url = "https://registry.npmjs.org/@eslint/js/-/js-9.2.0.tgz";
+        sha512 = "ESiIudvhoYni+MdsI8oD7skpprZ89qKocwRM2KEvhhBJ9nl5MRh7BXU5GTod7Mdygq+AUl+QzId6iWJKR/wABA==";
       };
     };
     "@gar/promisify-1.1.3" = {
@@ -1183,13 +1183,13 @@ let
         sha512 = "93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==";
       };
     };
-    "@humanwhocodes/retry-0.2.3" = {
+    "@humanwhocodes/retry-0.2.4" = {
       name = "_at_humanwhocodes_slash_retry";
       packageName = "@humanwhocodes/retry";
-      version = "0.2.3";
+      version = "0.2.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@humanwhocodes/retry/-/retry-0.2.3.tgz";
-        sha512 = "X38nUbachlb01YMlvPFojKoiXq+LzZvuSce70KPMPdeM1Rj03k4dR7lDslhbqXn3Ang4EU3+EAmwEAsbrjHW3g==";
+        url = "https://registry.npmjs.org/@humanwhocodes/retry/-/retry-0.2.4.tgz";
+        sha512 = "Ttl/jHpxfS3st5sxwICYfk4pOH0WrLI1SpW283GgQL7sCWU7EHIOhX4b4fkIxr3tkfzwg8+FNojtzsIEE7Ecgg==";
       };
     };
     "@jridgewell/gen-mapping-0.3.5" = {
@@ -4621,13 +4621,13 @@ let
         sha512 = "iirFqlP3tiFoedNZ7dQcjvechunl054VbW6Ki38T/pabgXMAncduSE0ZXLeVGn1NbmcUJF9Z5TC0EvQ4RIpP9Q==";
       };
     };
-    "electron-to-chromium-1.4.754" = {
+    "electron-to-chromium-1.4.756" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.754";
+      version = "1.4.756";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.754.tgz";
-        sha512 = "7Kr5jUdns5rL/M9wFFmMZAgFDuL2YOnanFH4OI4iFzUqyh3XOL7nAGbSlSMZdzKMIyyTpNSbqZsWG9odwLeKvA==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.756.tgz";
+        sha512 = "RJKZ9+vEBMeiPAvKNWyZjuYyUqMndcP1f335oHqn3BEQbs2NFtVrnK5+6Xg5wSM9TknNNpWghGDUCKGYF+xWXw==";
       };
     };
     "elliptic-6.5.5" = {
@@ -4873,13 +4873,13 @@ let
         sha512 = "qFcX0XJkdg+PB3xjZZG/wKSuT1PnQWx57+TVSjIMmILd2yC/6ByYElPwJnslDsuWuSAp4AwJGumarAAmJch5Kw==";
       };
     };
-    "eslint-9.1.1" = {
+    "eslint-9.2.0" = {
       name = "eslint";
       packageName = "eslint";
-      version = "9.1.1";
+      version = "9.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/eslint/-/eslint-9.1.1.tgz";
-        sha512 = "b4cRQ0BeZcSEzPpY2PjFY70VbO32K7BStTGtBsnIGdTSEEQzBi8hPBcGQmTG2zUvFr9uLe0TK42bw8YszuHEqg==";
+        url = "https://registry.npmjs.org/eslint/-/eslint-9.2.0.tgz";
+        sha512 = "0n/I88vZpCOzO+PQpt0lbsqmn9AsnsJAQseIqhZFI8ibQT0U1AkEKRxA3EVMos0BoHSXDQvCXY25TUjB5tr8Og==";
       };
     };
     "eslint-scope-4.0.3" = {
@@ -7078,13 +7078,13 @@ let
         sha512 = "Yljz7ffyPbrLpLngrMtZ7NduUgVvi6wG9RJ9IUcyCd59YQ911PBJphODUcbOVbqYfxe1wuYf/LJ8PauMRwsM/g==";
       };
     };
-    "jake-10.8.7" = {
+    "jake-10.9.1" = {
       name = "jake";
       packageName = "jake";
-      version = "10.8.7";
+      version = "10.9.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/jake/-/jake-10.8.7.tgz";
-        sha512 = "ZDi3aP+fG/LchyBzUM804VjddnwfSfsdeYkwt8NcbKRvo4rFkjhs456iLFn3k2ZUWvNe4i48WACDbza8fhq2+w==";
+        url = "https://registry.npmjs.org/jake/-/jake-10.9.1.tgz";
+        sha512 = "61btcOHNnLnsOdtLgA5efqQWjnSi/vow5HbI7HMdKKWqvrKR1bLK3BPlJn9gcSaP2ewuamUSMB5XEy76KUIS2w==";
       };
     };
     "jest-worker-26.6.2" = {
@@ -12208,13 +12208,13 @@ let
         sha512 = "aZwGpamFO61g3OlfT7OQCHqhGnW43ieH9WZeP7QxN/G/jS4jfqUkZxoryvJgVPEcrl5NL/ggHsSmLMHuH64Lhg==";
       };
     };
-    "update-browserslist-db-1.0.14" = {
+    "update-browserslist-db-1.0.15" = {
       name = "update-browserslist-db";
       packageName = "update-browserslist-db";
-      version = "1.0.14";
+      version = "1.0.15";
       src = fetchurl {
-        url = "https://registry.npmjs.org/update-browserslist-db/-/update-browserslist-db-1.0.14.tgz";
-        sha512 = "JixKH8GR2pWYshIPUg/NujK3JO7JiqEEUiNArE86NQyrgUuZeTlZQN3xuS/yiV5Kb48ev9K6RqNkaJjXsdg7Jw==";
+        url = "https://registry.npmjs.org/update-browserslist-db/-/update-browserslist-db-1.0.15.tgz";
+        sha512 = "K9HWH62x3/EalU1U6sjSZiylm9C8tgq2mSvshZpqc7QE69RaA2qjhkW2HlNA0tFpEbtyFz7HTqbSdN4MSwUodA==";
       };
     };
     "update-notifier-5.1.0" = {
@@ -13242,12 +13242,12 @@ let
           sources."js-yaml-4.1.0"
         ];
       })
-      sources."@eslint/js-9.1.1"
+      sources."@eslint/js-9.2.0"
       sources."@gar/promisify-1.1.3"
       sources."@humanwhocodes/config-array-0.13.0"
       sources."@humanwhocodes/module-importer-1.0.1"
       sources."@humanwhocodes/object-schema-2.0.3"
-      sources."@humanwhocodes/retry-0.2.3"
+      sources."@humanwhocodes/retry-0.2.4"
       sources."@jridgewell/gen-mapping-0.3.5"
       sources."@jridgewell/resolve-uri-3.1.2"
       sources."@jridgewell/set-array-1.2.1"
@@ -13800,7 +13800,7 @@ let
       sources."ee-first-1.1.1"
       sources."ejs-3.1.10"
       sources."ejs-loader-0.5.0"
-      sources."electron-to-chromium-1.4.754"
+      sources."electron-to-chromium-1.4.756"
       (sources."elliptic-6.5.5" // {
         dependencies = [
           sources."bn.js-4.12.0"
@@ -13846,7 +13846,7 @@ let
           sources."source-map-0.6.1"
         ];
       })
-      (sources."eslint-9.1.1" // {
+      (sources."eslint-9.2.0" // {
         dependencies = [
           sources."ansi-styles-4.3.0"
           sources."chalk-4.1.2"
@@ -14225,7 +14225,7 @@ let
       sources."isobject-3.0.1"
       sources."isomorphic-unfetch-3.1.0"
       sources."isstream-0.1.2"
-      (sources."jake-10.8.7" // {
+      (sources."jake-10.9.1" // {
         dependencies = [
           sources."ansi-styles-4.3.0"
           sources."chalk-4.1.2"
@@ -15345,7 +15345,7 @@ let
         ];
       })
       sources."upath-1.2.0"
-      sources."update-browserslist-db-1.0.14"
+      sources."update-browserslist-db-1.0.15"
       (sources."update-notifier-5.1.0" // {
         dependencies = [
           sources."ansi-styles-4.3.0"

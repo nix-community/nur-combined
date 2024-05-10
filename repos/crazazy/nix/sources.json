@@ -17,10 +17,10 @@
         "homepage": "",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "3172667078b5918d32dba58dc7ba3e78095abbc6",
-        "sha256": "0487npyzn9wz0d3jbhpc4gg19q4iwa2f8wh1g3xmdma6k6c1035j",
+        "rev": "93696b49594470a4363c74ff29e29ece59ee5c4f",
+        "sha256": "19a36jnix9d3gj6q7kx9rwl2rf3vjnf2pm0z016df5jpj7wwgfnk",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/3172667078b5918d32dba58dc7ba3e78095abbc6.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/93696b49594470a4363c74ff29e29ece59ee5c4f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "classicube": {
@@ -29,10 +29,10 @@
         "homepage": "",
         "owner": "unknownshadow200",
         "repo": "classicube",
-        "rev": "b659b609b93d6406c31e0a162525143aebd5d3a3",
-        "sha256": "0qc4jw577bfbawsrw7f3930hcx5sz77qk8chq537dklydnv0dp1y",
+        "rev": "6f0918ee954cb656d984f74dc50072e1dbd2de42",
+        "sha256": "0x2bhf56lcv224nyjk4xih82z4ykga7a58ivp4gjhd9ycyfzclcb",
         "type": "tarball",
-        "url": "https://github.com/unknownshadow200/classicube/archive/b659b609b93d6406c31e0a162525143aebd5d3a3.tar.gz",
+        "url": "https://github.com/unknownshadow200/classicube/archive/6f0918ee954cb656d984f74dc50072e1dbd2de42.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "dream2nix": {
@@ -42,10 +42,10 @@
         "homepage": "",
         "owner": "nix-community",
         "repo": "dream2nix",
-        "rev": "f8bafbf1e65e3b4e0d9ba2761bdc1cafbcb19d31",
-        "sha256": "0bklpjkqiwh349d12zlynjzr7wzhc6wvx18xkpr284l1p2mg1bar",
+        "rev": "07bd44a3365efdbf4d17a14190636667e5fd3d48",
+        "sha256": "09jfdnydkgmk2sar86d2i7klfa6f5005lnvxq14x47ihafrkrbz2",
         "type": "tarball",
-        "url": "https://github.com/nix-community/dream2nix/archive/f8bafbf1e65e3b4e0d9ba2761bdc1cafbcb19d31.tar.gz",
+        "url": "https://github.com/nix-community/dream2nix/archive/07bd44a3365efdbf4d17a14190636667e5fd3d48.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "efm-langserver": {

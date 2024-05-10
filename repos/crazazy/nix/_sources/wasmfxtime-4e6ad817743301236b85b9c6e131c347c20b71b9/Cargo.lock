@@ -3239,7 +3239,7 @@ dependencies = [
 [[package]]
 name = "wasm-encoder"
 version = "0.206.0"
-source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0#ae5a5a75fc989651405f7a6b916542c7475294d1"
+source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0+rev2#85373c0218225fbbb2c1dcd798a726c44b644604"
 dependencies = [
  "leb128",
 ]
@@ -3262,7 +3262,7 @@ dependencies = [
 [[package]]
 name = "wasm-metadata"
 version = "0.206.0"
-source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0#ae5a5a75fc989651405f7a6b916542c7475294d1"
+source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0+rev2#85373c0218225fbbb2c1dcd798a726c44b644604"
 dependencies = [
  "anyhow",
  "indexmap 2.0.0",
@@ -3277,7 +3277,7 @@ dependencies = [
 [[package]]
 name = "wasm-mutate"
 version = "0.206.0"
-source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0#ae5a5a75fc989651405f7a6b916542c7475294d1"
+source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0+rev2#85373c0218225fbbb2c1dcd798a726c44b644604"
 dependencies = [
  "egg",
  "log",
@@ -3290,7 +3290,7 @@ dependencies = [
 [[package]]
 name = "wasm-smith"
 version = "0.206.0"
-source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0#ae5a5a75fc989651405f7a6b916542c7475294d1"
+source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0+rev2#85373c0218225fbbb2c1dcd798a726c44b644604"
 dependencies = [
  "anyhow",
  "arbitrary",
@@ -3353,7 +3353,7 @@ dependencies = [
 [[package]]
 name = "wasmparser"
 version = "0.206.0"
-source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0#ae5a5a75fc989651405f7a6b916542c7475294d1"
+source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0+rev2#85373c0218225fbbb2c1dcd798a726c44b644604"
 dependencies = [
  "ahash",
  "bitflags 2.4.1",
@@ -3374,7 +3374,7 @@ dependencies = [
 [[package]]
 name = "wasmprinter"
 version = "0.206.0"
-source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0#ae5a5a75fc989651405f7a6b916542c7475294d1"
+source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0+rev2#85373c0218225fbbb2c1dcd798a726c44b644604"
 dependencies = [
  "anyhow",
  "wasmparser 0.206.0",
@@ -3957,7 +3957,7 @@ dependencies = [
 [[package]]
 name = "wast"
 version = "206.0.0"
-source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0#ae5a5a75fc989651405f7a6b916542c7475294d1"
+source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0+rev2#85373c0218225fbbb2c1dcd798a726c44b644604"
 dependencies = [
  "bumpalo",
  "leb128",
@@ -3969,7 +3969,7 @@ dependencies = [
 [[package]]
 name = "wat"
 version = "1.206.0"
-source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0#ae5a5a75fc989651405f7a6b916542c7475294d1"
+source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0+rev2#85373c0218225fbbb2c1dcd798a726c44b644604"
 dependencies = [
  "wast 206.0.0",
 ]
@@ -4337,7 +4337,7 @@ dependencies = [
 [[package]]
 name = "wit-component"
 version = "0.206.0"
-source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0#ae5a5a75fc989651405f7a6b916542c7475294d1"
+source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0+rev2#85373c0218225fbbb2c1dcd798a726c44b644604"
 dependencies = [
  "anyhow",
  "bitflags 2.4.1",
@@ -4372,7 +4372,7 @@ dependencies = [
 [[package]]
 name = "wit-parser"
 version = "0.206.0"
-source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0#ae5a5a75fc989651405f7a6b916542c7475294d1"
+source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0+rev2#85373c0218225fbbb2c1dcd798a726c44b644604"
 dependencies = [
  "anyhow",
  "id-arena",
