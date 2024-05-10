@@ -1,14 +1,3 @@
-/*
-FIXME error: ‘ELF_LOAD_F_PRIV_MAP’ undeclared
-https://github.com/advanced-microcode-patching/shiva/issues/25
-gcc  -ggdb shiva-ld.c -o shiva-ld /nix/store/cbblpyx7izddkl27v20xf5gjfcvz15i4-libelfmaster-0.4-alpha-unstable-2023-02-23/lib/libelfmaster.a /nix/store/jagvcafr5xbnriwg6xajw2brvcjxcwi1-capstone-4.0.2/lib/libcapstone.a
-shiva-ld.c: In function ‘main’:
-shiva-ld.c:1484:53: error: ‘ELF_LOAD_F_PRIV_MAP’ undeclared (first use in this function); did you mean ‘ELF_LOAD_F_STRICT’?
- 1484 |                 ELF_LOAD_F_STRICT|ELF_LOAD_F_MODIFY|ELF_LOAD_F_PRIV_MAP, &error) == false) {
-      |                                                     ^~~~~~~~~~~~~~~~~~~
-      |                                                     ELF_LOAD_F_STRICT
-*/
-
 { lib
 , stdenv
 , fetchFromGitHub
@@ -58,6 +47,11 @@ stdenv.mkDerivation rec {
     inherit libelfmaster capstone;
   };
 
+  buildInputs = [
+    capstone
+    libelfmaster
+  ];
+
   postPatch = ''
     substituteInPlace Makefile \
       --replace-fail \
@@ -65,12 +59,15 @@ stdenv.mkDerivation rec {
         '=gcc' \
       --replace-fail \
         'libcapstone_x86_64.a' \
-        '${capstone}/lib/libcapstone.a' \
+        '-lcapstone' \
+      --replace-fail \
+        '$(MUSL) -static ' \
+        '$(MUSL) ' \
 
     substituteInPlace Makefile tools/shiva-ld/Makefile \
       --replace-fail \
         '/opt/elfmaster/lib/libelfmaster.a' \
-        '${libelfmaster}/lib/libelfmaster.a' \
+        '-lelfmaster' \
 
     substituteInPlace shiva.h tools/shiva-ld/shiva-ld.c \
       --replace-fail \
@@ -90,13 +87,29 @@ stdenv.mkDerivation rec {
     substituteInPlace tools/shiva-ld/Makefile \
       --replace-fail \
         '../../libcapstone_x86_64.a' \
-        '${capstone}/lib/libcapstone.a' \
+        '-lcapstone' \
   '';
 
-  buildInputs = [
-    libelfmaster
-    capstone
-  ];
+  # Makefile
+  /*
+    cp build/shiva /lib/shiva
+    ln -sf build/shiva shiva
+    ln -sf /lib/shiva /usr/bin/shiva
+    cp tools/shiva-ld/shiva-ld /usr/bin
+    mkdir -p /opt/shiva/modules
+  */
+
+  installPhase = ''
+    install -D build/shiva $out/lib/shiva # TODO why not /lib/libshiva.so
+    ln -s shiva $out/lib/libshiva.so # no?
+    mkdir -p $out/bin
+    ln -sf $out/lib/shiva $out/bin/shiva
+    install -D tools/shiva-ld/shiva-ld $out/bin
+  '';
+
+  # TODO build + install modules
+  #  ln -sf build/shiva shiva
+  #  mkdir -p $out/opt/shiva/modules
 
   meta = with lib; {
     description = "A custom ELF linker/loader for installing ET_REL binary patches at runtime";
@@ -105,7 +118,7 @@ stdenv.mkDerivation rec {
     # https://github.com/advanced-microcode-patching/shiva/raw/main/SHIVA-LICENSE.txt
     license = licenses.mit;
     maintainers = with maintainers; [ ];
-    mainProgram = "shiva"; # TODO
+    mainProgram = "shiva";
     platforms = platforms.all;
   };
 }

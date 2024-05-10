@@ -66,6 +66,9 @@ __lyrics=()
 __artwork=()
 __chapter=() # Set chapter from file.
 __help=0
+__formats=0
+__check=0
+__peak=0
 
 # parse args
 g(){ if [ -n "$s" ]; then v="${s[0]}"; s=("${s[@]:1}"); return; fi; echo "error: missing value for argument $a" >&2; exit 1; }
@@ -80,9 +83,12 @@ while [ ${#s[@]} != 0 ]; do a="${s[0]}"; s=("${s[@]:1}"); case "$a" in
   --lyrics) g; __lyrics+=("$v"); A+=("$a" "$v"); continue;;
   --artwork) g; __artwork+=("$v"); A+=("$a" "$v"); continue;;
   --chapter) g; __chapter+=("$v"); A+=("$a" "$v"); continue;;
-  -h|--help) __help=1; continue;;
+  -h|--help) __help=1; A+=("$a"); continue;;
+  --formats) __formats=1; A+=("$a"); continue;;
+  --check) __check=1; A+=("$a"); continue;;
+  --peak) __peak=1; A+=("$a"); continue;;
   # skip unused args
-  --formats|--he|--adts|--no-smart-padding|--check|-A|--alac|-D|--decode|--caf|--play|--no-dither|--peak|-N|--normalize|--limiter|--no-delay|--no-matrix-normalize|--no-optimize|-s|--silent|--verbose|-i|--ignorelength|--threading|-n|--nice|--sort-args|-S|--stat|--fname-from-tag|--concat|-R|--raw|--copy-artwork) A+=("$a");;
+  --he|--adts|--no-smart-padding|-A|--alac|-D|--decode|--caf|--play|--no-dither|-N|--normalize|--limiter|--no-delay|--no-matrix-normalize|--no-optimize|-s|--silent|--verbose|-i|--ignorelength|--threading|-n|--nice|--sort-args|-S|--stat|--fname-from-tag|--concat|-R|--raw|--copy-artwork) A+=("$a");;
   -a|--abr|-V|--tvbr|-v|--cvbr|-c|--cbr|-q|--quality|-r|--rate|--lowpass|-b|--bits-per-sample|--gain|--drc|--start|--end|--delay|--num-priming|--gapless-mode|--matrix-preset|--chanmap|--chanmask|--text-codepage|--fname-format|--cue-tracks|--raw-channels|--raw-rate|--raw-format|--native-resampler|--title|--artist|--band|--album|--grouping|--composer|--comment|--genre|--date|--track|--disk|--compilation|--artwork-size|--tag|--tag-from-file|--long-tag) g; A+=("$a" "$v");;
   -[^-]*)
     p=()
@@ -105,7 +111,7 @@ if [ $# == 0 ]; then __help=1; fi
 # -A, --alac             ALAC encoding mode -> ${input_path%.*}.alac (?)
 # -D, --decode           Decode to a WAV file. -> ${input_path%.*}.wav
 # --caf                  Output to CAF file instead of M4A/WAV/AAC. -> ${input_path%.*}.caf
-if [ $__help = 0 ] && [ ${#_o[@]} = 0 ]; then
+if [ $__help = 0 ] && [ $__formats = 0 ] && [ $__check = 0 ] && [ $__peak = 0 ] && [ ${#_o[@]} = 0 ]; then
   echo "error: no output file path" >&2
   echo >&2
   echo "examples:" >&2
@@ -118,7 +124,7 @@ if [ $__help = 0 ] && [ ${#_o[@]} = 0 ]; then
 fi
 
 # by default, qaac picks the last -o path. lets be more strict here
-if [ $__help = 0 ] && [ ${#_o[@]} != 1 ]; then
+if [ $__help = 0 ] && [ ${#_o[@]} != 0 ] && [ ${#_o[@]} != 1 ]; then
   echo "error: multiple output file paths" >&2
   exit 1
 fi

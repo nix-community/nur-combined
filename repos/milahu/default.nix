@@ -756,6 +756,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   fetchtorrent = callPackage ./pkgs/build-support/fetchtorrent { };
 
+  fetchtorrent-aria = callPackage ./pkgs/build-support/fetchtorrent-aria { };
+
   qaac = qaac-bwrap;
   qaac-bwrap = callPackage ./pkgs/applications/audio/qaac/bwrap.nix { };
   qaac-unwrapped = callPackage ./pkgs/applications/audio/qaac/unwrapped.nix { };
@@ -764,7 +766,25 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   redasm = callPackage ./pkgs/development/tools/analysis/redasm { };
 
+  opensshPackages = pkgs.dontRecurseIntoAttrs (callPackage ./pkgs/tools/networking/openssh {});
+
+  openssh = opensshPackages.openssh.override {
+    etcDir = "/etc/ssh";
+  };
+
+  fritzbox-reconnect = python3.pkgs.callPackage ./pkgs/tools/networking/fritzbox-reconnect { };
+
+  nix-build-debug = callPackage ./pkgs/development/tools/nix-build-debug { };
+
+  courgette = callPackage ./pkgs/tools/compression/courgette { };
+
   advanced-microcode-patching-shiva = callPackage ./pkgs/development/tools/analysis/advanced-microcode-patching-shiva { };
+
+  wine-nocheckowner = callPackage ./pkgs/applications/emulators/wine/nocheckowner.nix { };
+
+  # fix: browse files for file upload makes tor browser hang with periodic flashes
+  # https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/42561
+  tor-browser_13_0_13 = callPackage ./pkgs/applications/networking/browsers/tor-browser { };
 
 }
 

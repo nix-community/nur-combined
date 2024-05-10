@@ -11,9 +11,12 @@ stdenv.mkDerivation rec {
     owner = "elfmaster";
     repo = "libelfmaster";
     #rev = "v${version}";
-    # fix: error: ‘ELF_SO_IGNORE_VDSO_F’ undeclared
-    rev = "3e90b2e152ac7d7d8a63566b6e650b93520406fb";
-    hash = "sha256-+sXD6EzONwZxulX+ZgfMBD9fUniooDvh7U9kw6uX0tU=";
+    # fix: shiva-ld.c: error: ‘ELF_LOAD_F_PRIV_MAP’ undeclared
+    # https://github.com/advanced-microcode-patching/shiva/issues/25
+    # you must use the aarch64_support branch in libelfmaster
+    # https://github.com/elfmaster/libelfmaster/tree/aarch64_support
+    rev = "f09f2a84b1b991605270cafdc754308a7996bd40";
+    hash = "sha256-T6uDouMR/78whUpC79gulRSeyb/ej4k9fsHO6K66r9U=";
   };
 
   /*
