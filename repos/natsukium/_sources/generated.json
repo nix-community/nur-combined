@@ -36,7 +36,7 @@
     },
     "nixfmt": {
         "cargoLocks": null,
-        "date": "2024-04-19",
+        "date": "2024-05-14",
         "extract": null,
         "name": "nixfmt",
         "passthru": null,
@@ -48,11 +48,11 @@
             "name": null,
             "owner": "NixOS",
             "repo": "nixfmt",
-            "rev": "a8b578d124cfda7540957a2172f89aa12d99609f",
-            "sha256": "sha256-Sdhv/YQxvF6OJeEY+iyg3f2p6XCankrYQffsxMajnGs=",
+            "rev": "3bcb63c13e7aaf0b8e14081cf0c14c44f62e840a",
+            "sha256": "sha256-8QWhKKqpHSlHuvFW8wdWTbG0pJ6XtuxZQ3HhR4uPbRA=",
             "type": "github"
         },
-        "version": "a8b578d124cfda7540957a2172f89aa12d99609f"
+        "version": "3bcb63c13e7aaf0b8e14081cf0c14c44f62e840a"
     },
     "nixpkgs-review": {
         "cargoLocks": null,
@@ -183,10 +183,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-s5qjn8WgDLK2TOfQpCryc/9NkpR7pGZmZ6eFzrbxe/A=",
+            "sha256": "sha256-7VfKB+jFA2xCqEJGm4Y7ciEuhLKMoeJjsimDt8GpMaA=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.6.7.3329.26.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.6.7.3329.31.universal.dmg"
         },
-        "version": "6.7.3329.26"
+        "version": "6.7.3329.31"
     }
 }
