@@ -42,6 +42,7 @@ packageSet = do
   gitPkgBranch "mutter-mobile-shell" "https://gitlab.gnome.org/verdre/mutter.git" "mobile-shell"
   fishPlugins
   linuxIntelTts
+  linuxIntelMainlineTracking
   tgSend
   dotTar
   icalinguaPlusPlus
@@ -92,6 +93,12 @@ linuxIntelTts =
   define $
     package "linux-intel-lts"
       `fromGitHubTag` ("intel", "linux-intel-lts", includeRegex ?~ "lts-v([0-9\\.]+)-linux-([0-9]+T[0-9]+Z)")
+
+linuxIntelMainlineTracking :: PackageSet ()
+linuxIntelMainlineTracking =
+  define $
+    package "linux-intel-mainline-tracking"
+      `fromGitHubTag` ("intel", "mainline-tracking", includeRegex ?~ "mainline-tracking-v([0-9\\.]+)-linux-([0-9]+T[0-9]+Z)")
 
 mstickereditor :: PackageSet ()
 mstickereditor =

@@ -130,11 +130,31 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.6.25-linux-240425T033651Z",
-            "sha256": "sha256-fVgLbLLwYDnrJ6Oe8FdxhDVmpajoO/YrVZxcY1tviEo=",
+            "rev": "lts-v6.6.30-linux-240508T063812Z",
+            "sha256": "sha256-pcEivADw/L+mpYkQkCQj2v+pU2v2gsx2jEo6f3PJ4r8=",
             "type": "github"
         },
-        "version": "lts-v6.6.25-linux-240425T033651Z"
+        "version": "lts-v6.6.30-linux-240508T063812Z"
+    },
+    "linux-intel-mainline-tracking": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "linux-intel-mainline-tracking",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "intel",
+            "repo": "mainline-tracking",
+            "rev": "mainline-tracking-v6.9-linux-240515T034653Z",
+            "sha256": "sha256-JNzj41f6PnnTjydpgyAsj3LI/Vr3Lvo1yZsme14uwMU=",
+            "type": "github"
+        },
+        "version": "mainline-tracking-v6.9-linux-240515T034653Z"
     },
     "lpac": {
         "cargoLocks": null,
@@ -317,7 +337,7 @@
     },
     "rime-cantonese": {
         "cargoLocks": null,
-        "date": "2024-01-02",
+        "date": "2024-05-15",
         "extract": null,
         "name": "rime-cantonese",
         "passthru": null,
@@ -327,12 +347,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "e2e088ed4f27df1d8727cfd986c6a46e76697814",
-            "sha256": "sha256-64gB7NYtktQktWaVXQK6MrIDB7gilTxeWsD1VvM5Doo=",
+            "rev": "0919895a5700b5997a24f7328375117508dc89a8",
+            "sha256": "sha256-MmD4i+SudceIWZ0uWTptCqO/xZHuibNWQ832u53CbWk=",
             "type": "git",
             "url": "https://github.com/rime/rime-cantonese.git"
         },
-        "version": "e2e088ed4f27df1d8727cfd986c6a46e76697814"
+        "version": "0919895a5700b5997a24f7328375117508dc89a8"
     },
     "rime-double-pinyin": {
         "cargoLocks": null,
@@ -393,7 +413,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-05-08",
+        "date": "2024-05-21",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -403,12 +423,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "bcfcb57c89f4d073cb3f41dd101a7cb7452856c6",
-            "sha256": "sha256-j51Dp48GcBbtMM8OKkZUbjo+dLSIHA52mjOCe07wUcU=",
+            "rev": "ea7770e408ffebada5da5079f4af0275837a3591",
+            "sha256": "sha256-lpPwGzuAAAzJBgcVW0o5z4lzAzKUOuo7Ae6ySltzhVE=",
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "bcfcb57c89f4d073cb3f41dd101a7cb7452856c6"
+        "version": "ea7770e408ffebada5da5079f4af0275837a3591"
     },
     "rime-loengfan": {
         "cargoLocks": null,
@@ -469,7 +489,7 @@
     },
     "rime-prelude": {
         "cargoLocks": null,
-        "date": "2022-04-10",
+        "date": "2024-05-19",
         "extract": null,
         "name": "rime-prelude",
         "passthru": null,
@@ -479,12 +499,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "dd84abecc33f0b05469f1d744e32d2b60b3529e3",
-            "sha256": "sha256-r3jx/iCUOxBFLYhmHEuSFxzmHg8l6vnuONmsjbtBlpM=",
+            "rev": "3803f09458072e03b9ed396692ce7e1d35c88c95",
+            "sha256": "sha256-qLxkijfB/btd2yhUMbxmoNx6fKxpKYHBZoE7YEUKIu4=",
             "type": "git",
             "url": "https://github.com/rime/rime-prelude.git"
         },
-        "version": "dd84abecc33f0b05469f1d744e32d2b60b3529e3"
+        "version": "3803f09458072e03b9ed396692ce7e1d35c88c95"
     },
     "rime-quick": {
         "cargoLocks": null,
@@ -730,7 +750,7 @@
     },
     "waybar-git": {
         "cargoLocks": null,
-        "date": "2024-05-10",
+        "date": "2024-05-22",
         "extract": null,
         "name": "waybar-git",
         "passthru": null,
@@ -740,12 +760,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "cb2d54a23797c2a04a1e50bd35e810ea9b1eb74a",
-            "sha256": "sha256-n9cN9QRrSyRQYQycsNLJb4fj8DExO3palJMWsF2GTDk=",
+            "rev": "35a9ca476dc2595c28fd1d3a34cc26be4f14077a",
+            "sha256": "sha256-GyeGeOjA8NLxFoUnResKuyUsBzgwNHTm4n9XIr6prz8=",
             "type": "git",
             "url": "https://github.com/Alexays/Waybar.git"
         },
-        "version": "cb2d54a23797c2a04a1e50bd35e810ea9b1eb74a"
+        "version": "35a9ca476dc2595c28fd1d3a34cc26be4f14077a"
     },
     "yacd": {
         "cargoLocks": null,

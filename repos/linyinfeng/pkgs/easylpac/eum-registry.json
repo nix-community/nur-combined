@@ -51,7 +51,8 @@
       { "pattern": "890490320060088826*", "chip": "ST33J2M0STL9DZB0", "name": "Apple, 2020" },
       { "pattern": "890490320070088826*", "chip": "ST33J2M0STL9DZD0", "name": "Apple, 2021" },
       { "pattern": "890490320071088800*", "chip": "ST33J2M0STL9DZF2", "name": "Apple, 2022" },
-      { "pattern": "890490320072088889*", "chip": "ST33J2M0STL9DZH2", "name": "Apple, 2023" }
+      { "pattern": "890490320072088889*", "chip": "ST33J2M0STL9DZH2", "name": "Apple, 2023" },
+      { "pattern": "890490320000010000*", "name": "<non-specific>" }
     ]
   },
   {
@@ -82,7 +83,8 @@
       { "pattern": "89086030202200000022217630*", "name": "eSIM.me" },
       { "pattern": "89086030202200000022281675*", "name": "eSIM.me" },
       { "pattern": "89086030202200000023100930*", "name": "5ber.eSIM" },
-      { "pattern": "89086030202200000024000034*", "name": "5ber.eSIM" }
+      { "pattern": "89086030202200000024000034*", "name": "5ber.eSIM" },
+      { "pattern": "89086030202200000024000055*", "name": "Jianwei Tek" }
     ]
   }
 ]
