@@ -19,7 +19,7 @@
 
 let
   syncPaths = writeText "sync-paths" (lib.concatStringsSep "\n" [
-    "nixos/modules/hardware/gpu/intel-gpu-tools.nix"
+    "nixos/modules/hardware/video/intel-gpu-tools.nix"
     "nixos/modules/hardware/xpadneo.nix"
     "nixos/modules/programs/bash/undistract-me.nix"
     "nixos/modules/programs/gamemode.nix"
@@ -151,7 +151,7 @@ writeShellApplication {
     nix flake update
     git add flake.lock
     git commit --message 'flake.lock: update' --quiet || :
-    nix-fast-build
+    nix-fast-build --no-download
     git switch --quiet -
     git rebase 'HEAD@{1}'
   '';
