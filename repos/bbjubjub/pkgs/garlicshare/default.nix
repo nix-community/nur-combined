@@ -10,7 +10,7 @@ buildGoModule {
     hash = "sha256-T7cV/y0pci2QzDtE0PlwvhQXHf9vIbQCQTgSI7SaQWk=";
   };
 
-  vendorSha256 = "KqpGAyI7//+wH6agNUZpDHjBwdT+RH2GulJWdZ1Qzdk=";
+  vendorHash = "sha256-KqpGAyI7//+wH6agNUZpDHjBwdT+RH2GulJWdZ1Qzdk=";
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -23,7 +23,7 @@ buildGoModule {
 
     homepage = "https://r4ygm.github.io/garlicshare/";
 
-    maintainers = with maintainers; [ lourkeur ];
+    #maintainers = with maintainers; [ bbjubjub ];
 
     license = licenses.asl20;
   };

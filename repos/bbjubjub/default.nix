@@ -8,25 +8,20 @@
 
 { pkgs ? import <nixpkgs> {} }:
 
-rec {
+let
+  forAllEntries = dir: f: builtins.mapAttrs (name: type: f (dir + "/${name}")) (builtins.readDir dir);
+  self = forAllEntries ./pkgs (p: pkgs.callPackage p {}) // {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  ocrodjvu = "please see https://github.com/NixOS/nixpkgs/pull/277773";
+
   semiphemeral = pkgs.python3Packages.callPackage pkgs/semiphemeral {};
 
-  mars-simulator = pkgs.callPackage pkgs/mars-simulator {};
+  yaru-mixed-theme = self.yaru-classic-theme;  # alias added 2021-10-02
 
-  ocrodjvu = pkgs.callPackage pkgs/ocrodjvu {};
-
-  teck-programmer = pkgs.teck-programmer;  # alias added 2021-07-19
-
-  chromium-extensions = pkgs.callPackage pkgs/chromium-extensions {};
-
-  yaru-mixed-theme = yaru-classic-theme;  # alias added 2021-10-02
-
-  yaru-classic-theme = pkgs.callPackage pkgs/yaru-classic { };
-
-  garlicshare = pkgs.callPackage pkgs/garlicshare { };
-}
+  inherit (pkgs.nodejs_18.pkgs) teck-programmer;
+};
+in self

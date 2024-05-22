@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   version = "22.10.3.1";
 
   src = fetchFromGitHub {
-    owner = "lourkeur";
+    owner = "bbjubjub2494";
     repo = "yaru-classic";
     rev = version;
     sha256 = "sha256-XFZgtppLS81c2/1GgFjjImzqo6fCd6eiUmD2P+E86yY=";
@@ -39,9 +39,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Ubuntu community theme 'yaru' - default Ubuntu theme since 18.10";
-    homepage = "https://github.com/lourkeur/yaru-classic";
+    homepage = "https://github.com/bbjubjub2494/yaru-classic";
     license = with licenses; [ cc-by-sa-40 gpl3Plus lgpl21Only lgpl3Only ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lourkeur ];
+    #maintainers = with maintainers; [ bbjubjub ];
   };
 }

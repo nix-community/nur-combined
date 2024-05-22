@@ -3,19 +3,13 @@
 # configuration.
 
 self: super:
-
 let
-
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   nameValuePair = n: v: { name = n; value = v; };
   nurAttrs = import ./default.nix { pkgs = super; };
 
 in
-
-{
-  nur-expressions =
-    builtins.listToAttrs
-    (map (n: nameValuePair n nurAttrs.${n})
+builtins.listToAttrs
+  (map (n: nameValuePair n nurAttrs.${n})
     (builtins.filter (n: !isReserved n)
-    (builtins.attrNames nurAttrs)));
-}
+      (builtins.attrNames nurAttrs)))
