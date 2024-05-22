@@ -2,7 +2,7 @@
 , xorg, gtk3, graphviz, unzip, nettools, procps, makeWrapper, ncurses, zlib
 , libX11, libXrender, libxcb, libXext, libXtst, libXi, libxcrypt, glib, freetype
 , gtk2, buildFHSUserEnv, gcc, ncurses5, glibc, gperftools, fontconfig
-, liberation_ttf, libuuid, writeTextFile }:
+, liberation_ttf, libuuid, writeTextFile,autoPatchelfHook }:
 # uses the already existing 2017.4 config and hinf from these sources:
 # https://blog.kotatsu.dev/posts/2021-09-14-vivado-on-nixos/
 # https://discourse.nixos.org/t/fhs-env-for-installing-xilinx/13150
@@ -79,13 +79,17 @@ let
   vivadoPackage = stdenv.mkDerivation rec {
     name = "vivado-2017.4.1";
 
-    nativeBuildInputs = [ zlib ];
+    nativeBuildInputs = [ zlib autoPatchelfHook ];
     buildInputs = [ patchelf procps ncurses makeWrapper ];
 
     source = "${extractedSource}";
     update = "${extractedUpdate}";
 
-    builder = ./vivado_builder-2017_4_1.sh;
+    builder = ./builder-2017.4.1.sh;
+		installPhase = ''
+		 runHook preInstall
+		 runHook postInstall
+		'';
     inherit ncurses;
 
     libPath = lib.makeLibraryPath [
