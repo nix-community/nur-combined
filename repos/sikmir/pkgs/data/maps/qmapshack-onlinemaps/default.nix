@@ -1,4 +1,8 @@
-{ lib, fetchwebarchive, unzip }:
+{
+  lib,
+  fetchwebarchive,
+  unzip,
+}:
 
 fetchwebarchive {
   name = "qmapshack-onlinemaps-2022-09-02";

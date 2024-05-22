@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, python3Packages
-, fetchFromGitHub
-, gobject-introspection
-, pango
-, thinplatespline
-, maprec
-, ozi_map
-, pyimagequant
-, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  python3Packages,
+  fetchFromGitHub,
+  gobject-introspection,
+  pango,
+  thinplatespline,
+  maprec,
+  ozi_map,
+  pyimagequant,
+  wrapGAppsHook,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -30,9 +31,15 @@ python3Packages.buildPythonApplication rec {
       --replace-fail " @ git+https://github.com/wladich/pyimagequant.git" ""
   '';
 
-  nativeBuildInputs = [ gobject-introspection wrapGAppsHook ];
+  nativeBuildInputs = [
+    gobject-introspection
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ gobject-introspection pango ];
+  buildInputs = [
+    gobject-introspection
+    pango
+  ];
 
   propagatedBuildInputs = with python3Packages; [
     pyyaml

@@ -1,4 +1,12 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, rtl-sdr, systemd }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  rtl-sdr,
+  systemd,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rtltcp";
@@ -16,12 +24,18 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ rtl-sdr systemd ];
+  buildInputs = [
+    rtl-sdr
+    systemd
+  ];
 
   meta = with lib; {
     description = "A rust implementation of rtl-tcp";
     inherit (src.meta) homepage;
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.linux;
     skip.ci = stdenv.isDarwin;

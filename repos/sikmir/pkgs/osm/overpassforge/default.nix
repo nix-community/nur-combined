@@ -1,4 +1,8 @@
-{ lib, python3Packages, fetchFromGitHub }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "overpassforge";
@@ -12,7 +16,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-HtP1aSIf6iOyZDhDF/kDps1hMgKHKOAlPjYwOQSeXjE=";
   };
 
-  nativeBuildInputs = with python3Packages; [ setuptools-scm ];
+  build-system = with python3Packages; [ setuptools-scm ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 

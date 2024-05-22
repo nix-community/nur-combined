@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, python2Packages
-, postgresql
-, openssl
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python2Packages,
+  postgresql,
+  openssl,
 }:
 let
   psycopg2 = python2Packages.buildPythonPackage rec {
@@ -22,7 +23,10 @@ let
 
     meta = with lib; {
       description = "PostgreSQL database adapter for the Python programming language";
-      license = with licenses; [ gpl2 zpl20 ];
+      license = with licenses; [
+        gpl2
+        zpl20
+      ];
     };
   };
 in
@@ -42,13 +46,15 @@ python2Packages.buildPythonApplication rec {
 
   installPhase =
     let
-      pythonEnv = python2Packages.python.withPackages (p: with p; [
-        msgpack
-        (protobuf.overrideAttrs (old: {
-          dontUsePythonImportsCheck = true;
-        }))
-        psycopg2
-      ]);
+      pythonEnv = python2Packages.python.withPackages (
+        p: with p; [
+          msgpack
+          (protobuf.overrideAttrs (old: {
+            dontUsePythonImportsCheck = true;
+          }))
+          psycopg2
+        ]
+      );
     in
     ''
       site_packages=$out/lib/${python2Packages.python.libPrefix}/site-packages

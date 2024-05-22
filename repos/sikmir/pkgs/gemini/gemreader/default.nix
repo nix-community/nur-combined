@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromSourcehut }:
+{
+  lib,
+  buildGoModule,
+  fetchFromSourcehut,
+}:
 
 buildGoModule rec {
   pname = "gemreader";

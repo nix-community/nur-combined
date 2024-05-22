@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, libutf, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libutf,
+  ncurses,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libutf";

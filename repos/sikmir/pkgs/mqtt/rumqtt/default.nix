@@ -1,4 +1,11 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, cmake, Security }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  cmake,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "rumqtt";

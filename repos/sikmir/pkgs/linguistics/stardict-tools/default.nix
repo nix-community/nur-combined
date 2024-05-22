@@ -1,15 +1,16 @@
-{ lib
-, stdenv
-, fetchurl
-, autoconf
-, automake
-, libtool
-, p7zip
-, pkg-config
-, gtk2
-, libmysqlclient
-, libxml2
-, pcre
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoconf,
+  automake,
+  libtool,
+  p7zip,
+  pkg-config,
+  gtk2,
+  libmysqlclient,
+  libxml2,
+  pcre,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -44,9 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   preConfigure = "./autogen.sh";
-  configureFlags = [
-    (lib.enableFeature false "dict")
-  ];
+  configureFlags = [ (lib.enableFeature false "dict") ];
 
   env.NIX_CFLAGS_COMPILE = "-std=c++14";
 

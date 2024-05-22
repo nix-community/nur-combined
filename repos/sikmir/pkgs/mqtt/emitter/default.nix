@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "emitter";
@@ -19,9 +23,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  checkFlags = [
-    "-skip=TestStatsd_Configure"
-  ];
+  checkFlags = [ "-skip=TestStatsd_Configure" ];
 
   meta = with lib; {
     description = "High performance, distributed and low latency publish-subscribe platform";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages, cmake, which, revtok }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+  cmake,
+  which,
+  revtok,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "pytorchtext";
@@ -12,7 +20,10 @@ python3Packages.buildPythonPackage rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake which ];
+  nativeBuildInputs = [
+    cmake
+    which
+  ];
 
   buildInputs = with python3Packages; [ pybind11 ];
 

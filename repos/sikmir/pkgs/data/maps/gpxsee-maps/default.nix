@@ -1,13 +1,14 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, hereApiKey ? ""
-, mapboxApiKey ? ""
-, maptilerApiKey ? ""
-, mmlApiKey ? ""
-, openrouteserviceApiKey ? ""
-, thunderforestApiKey ? ""
-, mapsList ? [
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  hereApiKey ? "",
+  mapboxApiKey ? "",
+  maptilerApiKey ? "",
+  mmlApiKey ? "",
+  openrouteserviceApiKey ? "",
+  thunderforestApiKey ? "",
+  mapsList ? [
     "World/Asia/nakarte-*.xml"
     "World/Europe/FI/*.xml"
     "World/Europe/RU/*.xml"
@@ -21,7 +22,7 @@
     "World/heidelberg.xml"
     "World/here-*.xml"
     "World/marshruty.ru.xml"
-  ]
+  ],
 }:
 
 stdenvNoCC.mkDerivation {

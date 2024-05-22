@@ -1,4 +1,11 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, darwin, buildPackages }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  darwin,
+  buildPackages,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "bbox";
@@ -22,10 +29,20 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.SystemConfiguration;
 
+  cargoBuildFlags = [
+    "--package"
+    "bbox-server"
+    "--package"
+    "bbox-tile-server"
+  ];
+
   meta = with lib; {
     description = "BBOX services";
     inherit (src.meta) homepage;
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
     maintainers = [ maintainers.sikmir ];
   };
 }

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gdal, proj, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gdal,
+  proj,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "garminimg";
@@ -20,9 +28,15 @@ stdenv.mkDerivation rec {
       --replace-fail "PROJ4_" "PROJ_"
   '';
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ gdal proj ];
+  buildInputs = [
+    gdal
+    proj
+  ];
 
   hardeningDisable = [ "format" ];
 

@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "gaiagpsclient";
@@ -20,7 +24,10 @@ python3Packages.buildPythonApplication rec {
     pathvalidate
   ];
 
-  nativeCheckInputs = with python3Packages; [ mock pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [
+    mock
+    pytestCheckHook
+  ];
 
   doCheck = false;
 

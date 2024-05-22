@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, buildGoPackage, lz4 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildGoPackage,
+  lz4,
+}:
 
 buildGoPackage rec {
   pname = "elevation_server";
@@ -13,7 +19,10 @@ buildGoPackage rec {
 
   goPackagePath = "github.com/wladich/elevation_server";
 
-  subPackages = [ "cmd/elevation_server" "cmd/make_data" ];
+  subPackages = [
+    "cmd/elevation_server"
+    "cmd/make_data"
+  ];
 
   buildInputs = [ lz4 ];
 

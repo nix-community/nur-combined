@@ -1,19 +1,29 @@
-{ lib, stdenv, buildGoModule, fetchFromSourcehut, scdoc, installShellFiles }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromSourcehut,
+  scdoc,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "astronaut";
-  version = "0.1.1";
+  version = "0.1.3";
 
   src = fetchFromSourcehut {
     owner = "~adnano";
     repo = "astronaut";
     rev = version;
-    hash = "sha256-eiUStCM9rJB4O+LVWxih6untjTPynj9cHX2b8Gz9/nQ=";
+    hash = "sha256-YkaeJMabEHGcyYeEyiYXR2K8YKX7Qqo5mb1XzvKT2+U=";
   };
 
-  nativeBuildInputs = [ scdoc installShellFiles ];
+  nativeBuildInputs = [
+    scdoc
+    installShellFiles
+  ];
 
-  vendorHash = "sha256-7SyawlfJ9toNVuFehGr5GQF6mNmS9E4kkNcqWllp8No=";
+  vendorHash = "sha256-4obhPl3Yvlrsf+C0vFpS/EOPEK7Kwm3GgbZ/ociihD8=";
 
   ldflags = [ "-X main.ShareDir=${placeholder "out"}/share/astronaut" ];
 

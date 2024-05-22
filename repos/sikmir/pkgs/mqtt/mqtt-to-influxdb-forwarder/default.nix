@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "mqtt-to-influxdb-forwarder";
@@ -19,7 +24,10 @@ python3Packages.buildPythonApplication rec {
   dontUseSetuptoolsBuild = true;
   dontUseSetuptoolsCheck = true;
 
-  propagatedBuildInputs = with python3Packages; [ paho-mqtt influxdb ];
+  propagatedBuildInputs = with python3Packages; [
+    paho-mqtt
+    influxdb
+  ];
 
   installPhase = ''
     install -Dm755 forwarder.py $out/bin/mqtt-to-influxdb-forwarder

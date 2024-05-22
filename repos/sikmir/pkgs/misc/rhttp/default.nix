@@ -1,8 +1,12 @@
-{ lib, fetchFromGitHub, buildGoModule }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+}:
 
 buildGoModule rec {
   pname = "rhttp";
-  version = "0-unnstable-2024-04-22";
+  version = "0-unstable-2024-04-22";
 
   src = fetchFromGitHub {
     owner = "1buran";

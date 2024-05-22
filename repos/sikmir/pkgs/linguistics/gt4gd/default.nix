@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3Packages, withUI ? true }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  withUI ? true,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "gt4gd";
@@ -11,8 +16,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-zJq5dhmrd0k7bsw75xFECKmwZU4qjw+wwSzsYjg8zao=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ requests ]
-    ++ lib.optional withUI tkinter;
+  propagatedBuildInputs = with python3Packages; [ requests ] ++ lib.optional withUI tkinter;
 
   doCheck = false;
 

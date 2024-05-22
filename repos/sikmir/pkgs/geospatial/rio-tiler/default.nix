@@ -1,18 +1,27 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages, morecantile, pystac, color-operations }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+  morecantile,
+  pystac,
+  color-operations,
+  rioxarray,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "rio-tiler";
-  version = "6.4.0";
+  version = "6.6.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "cogeotiff";
     repo = "rio-tiler";
     rev = version;
-    hash = "sha256-qnrs069t4pWhMk0NweIG61qKaMyBpqps7gJGxPXCK/0=";
+    hash = "sha256-MR6kyoGM3uXt6JiIEfGcsmTmxqlLxUF9Wn+CFuK5LtQ=";
   };
 
-  nativeBuildInputs = with python3Packages; [ hatchling ];
+  build-system = with python3Packages; [ hatchling ];
 
   propagatedBuildInputs = with python3Packages; [
     boto3
@@ -25,9 +34,10 @@ python3Packages.buildPythonPackage rec {
     color-operations
   ];
 
-  doCheck = false;
-
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [
+    pytestCheckHook
+    rioxarray
+  ];
 
   pythonImportsCheck = [ "rio_tiler" ];
 

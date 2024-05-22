@@ -1,4 +1,9 @@
-{ lib, stdenv, python3Packages, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  python3Packages,
+  fetchFromGitHub,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "contextily";
@@ -13,7 +18,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-Pkw21EOjRiIhdZvCY6JJ2T2yjShF9Io4NAQZIIjeKpU=";
   };
 
-  nativeBuildInputs = with python3Packages; [ setuptools-scm ];
+  build-system = with python3Packages; [ setuptools-scm ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -28,7 +33,7 @@ python3Packages.buildPythonPackage rec {
     xyzservices
   ];
 
-  checkInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   doCheck = false;
 

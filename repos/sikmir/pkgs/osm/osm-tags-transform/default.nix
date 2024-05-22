@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, bzip2
-, expat
-, libosmium
-, lua
-, protozero
-, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  bzip2,
+  expat,
+  libosmium,
+  lua,
+  protozero,
+  zlib,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -32,9 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
-  cmakeFlags = [
-    (lib.cmakeBool "BUILD_TESTS" true)
-  ];
+  cmakeFlags = [ (lib.cmakeBool "BUILD_TESTS" true) ];
 
   doCheck = true;
 

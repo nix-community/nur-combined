@@ -1,4 +1,9 @@
-{ lib, python3Packages, fetchFromGitHub, modbus_tk }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  modbus_tk,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "modbus_sim_cli";

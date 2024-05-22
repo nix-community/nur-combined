@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "garmin-uploader";
@@ -11,7 +15,10 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-OHY4f+0jfxKXiwRJRdSarlb2H+lEt2EVoAAsD4aEc9o=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ requests six ];
+  propagatedBuildInputs = with python3Packages; [
+    requests
+    six
+  ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 

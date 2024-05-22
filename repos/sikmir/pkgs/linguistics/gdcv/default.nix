@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, argp-standalone, emacs, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  argp-standalone,
+  emacs,
+  zlib,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gdcv";
@@ -21,9 +29,16 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ emacs zlib ] ++ lib.optional stdenv.isDarwin argp-standalone;
+  buildInputs = [
+    emacs
+    zlib
+  ] ++ lib.optional stdenv.isDarwin argp-standalone;
 
-  makeFlags = [ "CC:=$(CC)" "gdcv" "emacs-module" ];
+  makeFlags = [
+    "CC:=$(CC)"
+    "gdcv"
+    "emacs-module"
+  ];
 
   env.NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-largp";
 

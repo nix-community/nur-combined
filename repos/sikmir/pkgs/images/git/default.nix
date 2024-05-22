@@ -8,7 +8,11 @@ dockerTools.buildImage {
   runAsRoot = "mkdir -p /git";
 
   config = {
-    Cmd = [ "git" "daemon" "--base-path=/git" ];
+    Cmd = [
+      "git"
+      "daemon"
+      "--base-path=/git"
+    ];
     Volumes = {
       "/git" = { };
     };

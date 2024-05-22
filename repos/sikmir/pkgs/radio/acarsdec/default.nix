@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, libacars, libsndfile, paho-mqtt-c, rtl-sdr }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  libacars,
+  libsndfile,
+  paho-mqtt-c,
+  rtl-sdr,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "acarsdec";
@@ -11,9 +21,17 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-MBy9Xq5ufusqSKGe40JxgnFeo4wnabThbDpGEE6u1so=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ libacars libsndfile paho-mqtt-c rtl-sdr ];
+  buildInputs = [
+    libacars
+    libsndfile
+    paho-mqtt-c
+    rtl-sdr
+  ];
 
   cmakeFlags = [
     (lib.cmakeBool "rtl" true)

@@ -1,20 +1,21 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, spdlog
-, libyamlcpp
-, libcpr
-, cxxopts
-, nlohmann_json
-, influxdb-cxx
-, boost
-, curl
-, paho-mqtt-cpp
-, paho-mqtt-c
-, stduuid
-, microsoft_gsl
-, catch2
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  spdlog,
+  libyamlcpp,
+  libcpr,
+  cxxopts,
+  nlohmann_json,
+  influxdb-cxx,
+  boost,
+  curl,
+  paho-mqtt-cpp,
+  paho-mqtt-c,
+  stduuid,
+  microsoft_gsl,
+  catch2,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -29,18 +30,20 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  postPatch = ''
-    substituteInPlace src/app/CMakeLists.txt \
-      --replace-fail "/usr" "$out"
-    sed -i '1i #include <iostream>' src/app-validate/main.cpp
-    substituteInPlace src/app-validate/main.cpp \
-      --replace-fail "OptionParseException" "exceptions::parsing"
-    substituteInPlace src/app/main.cpp \
-      --replace-fail "OptionParseException" "exceptions::parsing"
-  '' + lib.optionalString stdenv.cc.isClang ''
-    substituteInPlace src/libmqtt-to-influxdb/CMakeLists.txt \
-      --replace-fail "stdc++fs" ""
-  '';
+  postPatch =
+    ''
+      substituteInPlace src/app/CMakeLists.txt \
+        --replace-fail "/usr" "$out"
+      sed -i '1i #include <iostream>' src/app-validate/main.cpp
+      substituteInPlace src/app-validate/main.cpp \
+        --replace-fail "OptionParseException" "exceptions::parsing"
+      substituteInPlace src/app/main.cpp \
+        --replace-fail "OptionParseException" "exceptions::parsing"
+    ''
+    + lib.optionalString stdenv.cc.isClang ''
+      substituteInPlace src/libmqtt-to-influxdb/CMakeLists.txt \
+        --replace-fail "stdc++fs" ""
+    '';
 
   nativeBuildInputs = [ cmake ];
 

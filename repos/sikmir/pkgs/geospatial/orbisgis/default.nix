@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchfromgh, unzip, rsync, makeWrapper, jre }:
+{
+  lib,
+  stdenv,
+  fetchfromgh,
+  unzip,
+  rsync,
+  makeWrapper,
+  jre,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "orbisgis";
@@ -12,7 +20,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-e7SSn+P8rF5eSbl4Z/zp1mHNN2rAi4ZoMvkoy360hGM=";
   };
 
-  nativeBuildInputs = [ unzip rsync makeWrapper ];
+  nativeBuildInputs = [
+    unzip
+    rsync
+    makeWrapper
+  ];
 
   postPatch = ''
     sed -i "s#/usr/bin/orbisgis#$out/bin/orbisgis#" orbisgis.desktop

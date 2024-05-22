@@ -1,4 +1,10 @@
-{ lib, stdenv, rustPlatform, fetchFromGitLab, IOKit }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitLab,
+  IOKit,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "modbus-tools";

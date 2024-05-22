@@ -1,14 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libsockcanpp";
-  version = "0-unstable-2024-02-21";
+  version = "0-unstable-2024-03-06";
 
   src = fetchFromGitHub {
     owner = "SimonCahill";
     repo = "libsockcanpp";
-    rev = "621383ebefab3c154c05778315acc7e781924fdb";
-    hash = "sha256-ohxSqM4fjti+02Z6ld3tKX/kzZgWn+spvHpPbq/KBSU=";
+    rev = "f2463f9ac320e457bdb3dd1f406511fb75916f2a";
+    hash = "sha256-n3dmkxhdEQXD4ekanfgPZ/BT+p1oYZJowr2m87W5BZ4=";
   };
 
   postPatch = ''
@@ -17,10 +22,6 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   nativeBuildInputs = [ cmake ];
-
-  preInstall = ''
-    mv {,lib}sockcanppConfigVersion.cmake
-  '';
 
   meta = with lib; {
     description = "A C++ wrapper around Linux's socketcan featureset";

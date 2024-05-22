@@ -1,4 +1,11 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, libiconv, Foundation }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  libiconv,
+  Foundation,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "xtr";
@@ -17,7 +24,10 @@ rustPlatform.buildRustPackage rec {
     ln -s ${./Cargo.lock} Cargo.lock
   '';
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv Foundation ];
+  buildInputs = lib.optionals stdenv.isDarwin [
+    libiconv
+    Foundation
+  ];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-incompatible-function-pointer-types";
 
@@ -26,7 +36,10 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Translation tools for rust";
     inherit (src.meta) homepage;
-    license = with licenses; [ agpl3Only mit ];
+    license = with licenses; [
+      agpl3Only
+      mit
+    ];
     maintainers = [ maintainers.sikmir ];
     mainProgram = "xtr";
   };

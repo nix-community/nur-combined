@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, fetchpatch, python3Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "telegram-send";
@@ -18,7 +23,11 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = with python3Packages; [ pip ];
 
-  propagatedBuildInputs = with python3Packages; [ appdirs colorama python-telegram-bot ];
+  propagatedBuildInputs = with python3Packages; [
+    appdirs
+    colorama
+    python-telegram-bot
+  ];
 
   doCheck = false;
 

@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3Packages, pygnssutils }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  pygnssutils,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "pygpsclient";
@@ -12,7 +17,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-/TOEI0l/FJx8yENxFhruKp+I4N+vDS80oGdTSrNdsDU=";
   };
 
-  nativeBuildInputs = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [ setuptools ];
 
   propagatedBuildInputs = with python3Packages; [
     requests

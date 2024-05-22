@@ -1,4 +1,14 @@
-{ stdenv, lib, rustPlatform, fetchFromSourcehut, curl, libiconv, openssl, pkg-config, makeWrapper }:
+{
+  stdenv,
+  lib,
+  rustPlatform,
+  fetchFromSourcehut,
+  curl,
+  libiconv,
+  openssl,
+  pkg-config,
+  makeWrapper,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "repolocli";
@@ -14,10 +24,17 @@ rustPlatform.buildRustPackage rec {
   cargoPatches = [ ./cargo-lock.patch ];
   cargoHash = "sha256-TeOxfD6mqihBalx9lwP7qH2/LaXnPVCkTP/f16rpjJM=";
 
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
 
-  buildInputs = lib.optionals stdenv.isLinux [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ curl libiconv ];
+  buildInputs =
+    lib.optionals stdenv.isLinux [ openssl ]
+    ++ lib.optionals stdenv.isDarwin [
+      curl
+      libiconv
+    ];
 
   postInstall = ''
     install -Dm644 repolocli.toml -t $out/etc/xdg

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ftxui, subprocess }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ftxui,
+  subprocess,
+}:
 
 stdenv.mkDerivation rec {
   pname = "git-tui";
@@ -15,7 +22,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ ftxui subprocess ];
+  buildInputs = [
+    ftxui
+    subprocess
+  ];
 
   meta = with lib; {
     description = "Collection of human friendly terminal interface for git";

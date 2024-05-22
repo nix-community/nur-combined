@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3Packages, sqlite }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  sqlite,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "polytiles";

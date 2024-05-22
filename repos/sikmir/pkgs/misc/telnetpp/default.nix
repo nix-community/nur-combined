@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, doxygen, boost, gsl-lite, gtest, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  doxygen,
+  boost,
+  gsl-lite,
+  gtest,
+  zlib,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "telnetpp";
@@ -11,13 +21,19 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-BfRu0dv2d7qwz2jTdaQczOQQBO3qmO1E754hWqxT66g=";
   };
 
-  nativeBuildInputs = [ cmake doxygen ];
-
-  buildInputs = [ boost gsl-lite gtest zlib ];
-
-  cmakeFlags = [
-    (lib.cmakeBool "TELNETPP_WITH_ZLIB" true)
+  nativeBuildInputs = [
+    cmake
+    doxygen
   ];
+
+  buildInputs = [
+    boost
+    gsl-lite
+    gtest
+    zlib
+  ];
+
+  cmakeFlags = [ (lib.cmakeBool "TELNETPP_WITH_ZLIB" true) ];
 
   meta = with lib; {
     description = "A C++ library for interacting with Telnet streams";

@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, boost
-, bzip2
-, expat
-, fmt
-, gdal
-, libosmium
-, protozero
-, sqlite
-, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  bzip2,
+  expat,
+  fmt,
+  gdal,
+  libosmium,
+  protozero,
+  sqlite,
+  zlib,
 }:
 
 stdenv.mkDerivation {
@@ -41,7 +42,10 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Collection of assorted small programs based on the Osmium framework";
     homepage = "https://github.com/osmcode/osmium-surplus";
-    license = [ licenses.gpl3Plus licenses.boost ];
+    license = [
+      licenses.gpl3Plus
+      licenses.boost
+    ];
     maintainers = [ maintainers.sikmir ];
     platforms = platforms.unix;
   };

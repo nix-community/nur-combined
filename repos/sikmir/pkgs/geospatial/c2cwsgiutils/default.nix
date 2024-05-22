@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3Packages, pipfile }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  pipfile,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "c2cwsgiutils";

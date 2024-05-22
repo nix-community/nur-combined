@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "huami-token";
@@ -17,10 +22,12 @@ python3Packages.buildPythonApplication rec {
 
   installPhase =
     let
-      pythonEnv = python3Packages.python.withPackages (p: with p; [
-        requests
-        rich
-      ]);
+      pythonEnv = python3Packages.python.withPackages (
+        p: with p; [
+          requests
+          rich
+        ]
+      );
     in
     ''
       site_packages=$out/lib/${python3Packages.python.libPrefix}/site-packages

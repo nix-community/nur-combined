@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ghc_filesystem, glfw, libglvnd, libGLU }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ghc_filesystem,
+  glfw,
+  libglvnd,
+  libGLU,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "objlab";
@@ -27,9 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.NIX_CFLAGS_COMPILE = "-fpermissive";
 
-  cmakeFlags = [
-    (lib.cmakeFeature "OpenGL_GL_PREFERENCE" "GLVND")
-  ];
+  cmakeFlags = [ (lib.cmakeFeature "OpenGL_GL_PREFERENCE" "GLVND") ];
 
   installPhase = ''
     install -Dm755 objlab -t $out/bin

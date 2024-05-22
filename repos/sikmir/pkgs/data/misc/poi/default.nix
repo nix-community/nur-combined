@@ -1,4 +1,11 @@
-{ lib, fetchurl, fetchymaps, fetchwebarchive, jq, gdal }:
+{
+  lib,
+  fetchurl,
+  fetchymaps,
+  fetchwebarchive,
+  jq,
+  gdal,
+}:
 
 {
   geocachingSu = fetchwebarchive {

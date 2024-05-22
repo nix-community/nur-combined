@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3Packages, s2sphere }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  s2sphere,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "py-staticmaps";
@@ -11,7 +16,16 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-vW457HbdDDhfz8hsvEN3/HJmIHKdrRDVNuhSpZXoZ78=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ appdirs geographiclib pillow pycairo python-slugify requests s2sphere svgwrite ];
+  propagatedBuildInputs = with python3Packages; [
+    appdirs
+    geographiclib
+    pillow
+    pycairo
+    python-slugify
+    requests
+    s2sphere
+    svgwrite
+  ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 

@@ -1,4 +1,9 @@
-{ lib, mkYarnPackage, fetchFromGitHub, secretsConfig ? null }:
+{
+  lib,
+  mkYarnPackage,
+  fetchFromGitHub,
+  secretsConfig ? null,
+}:
 let
   pname = "nakarte";
   version = "2022-12-28";

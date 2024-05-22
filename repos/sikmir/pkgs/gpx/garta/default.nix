@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, rustPlatform
-, rust
-, fetchFromGitLab
-, pkg-config
-, atk
-, cairo
-, gdk-pixbuf
-, glib
-, gtk3
-, harfbuzz
-, openssl
-, pango
-, zlib
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  rust,
+  fetchFromGitLab,
+  pkg-config,
+  atk,
+  cairo,
+  gdk-pixbuf,
+  glib,
+  gtk3,
+  harfbuzz,
+  openssl,
+  pango,
+  zlib,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -33,7 +34,16 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ atk cairo gdk-pixbuf glib gtk3 harfbuzz openssl pango ];
+  buildInputs = [
+    atk
+    cairo
+    gdk-pixbuf
+    glib
+    gtk3
+    harfbuzz
+    openssl
+    pango
+  ];
 
   postPatch = ''
     substituteInPlace ./configure.sh \

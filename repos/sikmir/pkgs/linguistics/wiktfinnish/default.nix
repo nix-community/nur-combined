@@ -1,4 +1,9 @@
-{ lib, stdenv, python3Packages, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  python3Packages,
+  fetchFromGitHub,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "wiktfinnish";

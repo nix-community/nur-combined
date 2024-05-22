@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
@@ -36,39 +41,33 @@ in
     };
   };
 
-  config = mkIf cfg.enable (
-    mkMerge [
-      {
-        home.packages = [ cfg.package ];
+  config = mkIf cfg.enable (mkMerge [
+    {
+      home.packages = [ cfg.package ];
 
-        home.activation.createJOSMConfigFile = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
-          . ${./josm/init-prefs.sh}
-          . ${./josm/upsert-tag.sh}
-          export PATH=${pkgs.xmlstarlet}/bin:$PATH
-          initPrefs ${cfg.package.version} ${configFile}
-          upsertTag josm.version ${cfg.package.version} ${configFile}
-        '';
-      }
+      home.activation.createJOSMConfigFile = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
+        . ${./josm/init-prefs.sh}
+        . ${./josm/upsert-tag.sh}
+        export PATH=${pkgs.xmlstarlet}/bin:$PATH
+        initPrefs ${cfg.package.version} ${configFile}
+        upsertTag josm.version ${cfg.package.version} ${configFile}
+      '';
+    }
 
-      (
-        mkIf (cfg.accessTokenKey != "") {
-          home.activation.setupAccessTokenKey = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-            . ${./josm/upsert-tag.sh}
-            export PATH=${pkgs.xmlstarlet}/bin:$PATH
-            upsertTag oauth.access-token.key ${cfg.accessTokenKey} ${configFile}
-          '';
-        }
-      )
+    (mkIf (cfg.accessTokenKey != "") {
+      home.activation.setupAccessTokenKey = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        . ${./josm/upsert-tag.sh}
+        export PATH=${pkgs.xmlstarlet}/bin:$PATH
+        upsertTag oauth.access-token.key ${cfg.accessTokenKey} ${configFile}
+      '';
+    })
 
-      (
-        mkIf (cfg.accessTokenSecret != "") {
-          home.activation.setupAccessTokenSecret = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-            . ${./josm/upsert-tag.sh}
-            export PATH=${pkgs.xmlstarlet}/bin:$PATH
-            upsertTag oauth.access-token.secret ${cfg.accessTokenSecret} ${configFile}
-          '';
-        }
-      )
-    ]
-  );
+    (mkIf (cfg.accessTokenSecret != "") {
+      home.activation.setupAccessTokenSecret = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        . ${./josm/upsert-tag.sh}
+        export PATH=${pkgs.xmlstarlet}/bin:$PATH
+        upsertTag oauth.access-token.secret ${cfg.accessTokenSecret} ${configFile}
+      '';
+    })
+  ]);
 }

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, desktopToDarwinBundle, mariadb-connector-c, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  desktopToDarwinBundle,
+  mariadb-connector-c,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ocelotgui";
@@ -11,8 +19,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-CmLF8HrwdmWatFljSGLpy5YImlBGhjooB1K+axIDWhU=";
   };
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ]
-    ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
   buildInputs = [ mariadb-connector-c ];
 

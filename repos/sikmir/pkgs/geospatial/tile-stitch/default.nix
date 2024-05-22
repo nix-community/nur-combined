@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, curl, libjpeg, libpng, libtiff, libgeotiff, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  curl,
+  libjpeg,
+  libpng,
+  libtiff,
+  libgeotiff,
+  pkg-config,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "tile-stitch";
@@ -13,7 +23,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ curl libjpeg libpng libtiff libgeotiff ];
+  buildInputs = [
+    curl
+    libjpeg
+    libpng
+    libtiff
+    libgeotiff
+  ];
 
   installPhase = "install -Dm755 stitch -t $out/bin";
 

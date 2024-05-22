@@ -1,4 +1,10 @@
-{ lib, stdenv, python3Packages, fetchFromGitHub, maprec }:
+{
+  lib,
+  stdenv,
+  python3Packages,
+  fetchFromGitHub,
+  maprec,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "ozi_map";
@@ -16,7 +22,10 @@ python3Packages.buildPythonPackage rec {
       --replace-fail " @ git+https://github.com/wladich/maprec.git" ""
   '';
 
-  propagatedBuildInputs = with python3Packages; [ maprec pyproj ];
+  propagatedBuildInputs = with python3Packages; [
+    maprec
+    pyproj
+  ];
 
   doCheck = false;
 

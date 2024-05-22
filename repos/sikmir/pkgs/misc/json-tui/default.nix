@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ftxui, nlohmann_json, libargs }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ftxui,
+  nlohmann_json,
+  libargs,
+}:
 
 stdenv.mkDerivation rec {
   pname = "json-tui";
@@ -15,7 +23,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ ftxui nlohmann_json libargs ];
+  buildInputs = [
+    ftxui
+    nlohmann_json
+    libargs
+  ];
 
   meta = with lib; {
     description = "A JSON terminal UI made in C++";

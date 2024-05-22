@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchfromgh, unzip, jre, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchfromgh,
+  unzip,
+  jre,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "planetiler";

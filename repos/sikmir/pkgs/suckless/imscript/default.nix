@@ -1,32 +1,44 @@
-{ lib
-, stdenv
-, fetchFromSourcehut
-, installShellFiles
-, libpng
-, libjpeg
-, libtiff
-, libwebp
-, fftwFloat
-, libX11
-, gsl
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  installShellFiles,
+  libpng,
+  libjpeg,
+  libtiff,
+  libwebp,
+  fftwFloat,
+  libX11,
+  gsl,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "imscript";
-  version = "0-unstable-2024-04-30";
+  version = "0-unstable-2024-05-13";
 
   src = fetchFromSourcehut {
     owner = "~coco";
     repo = "imscript";
-    rev = "15d60d8b6cc6ccf4ea3da8fb585a217449d368cc";
-    hash = "sha256-FZrIozaspU6gDXrhAFs5mU0jJEe94g9EfQ6ShKBDfRE=";
+    rev = "3a3d17d15ac940917bfe92fd115d0d2ae3605205";
+    hash = "sha256-OOva23VxTl2Q+9+SIecazKBcan8UrJd7SMKeA9nnhlQ=";
   };
 
   nativeBuildInputs = [ installShellFiles ];
 
-  buildInputs = [ libpng libjpeg libtiff libwebp fftwFloat libX11 gsl ];
+  buildInputs = [
+    libpng
+    libjpeg
+    libtiff
+    libwebp
+    fftwFloat
+    libX11
+    gsl
+  ];
 
-  makeFlags = [ "DISABLE_HDF5=1" "full" ];
+  makeFlags = [
+    "DISABLE_HDF5=1"
+    "full"
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration";
 

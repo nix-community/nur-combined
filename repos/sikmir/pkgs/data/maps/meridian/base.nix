@@ -1,4 +1,12 @@
-{ lib, stdenvNoCC, fetchurl, unrar, pname, version, hash }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  unrar,
+  pname,
+  version,
+  hash,
+}:
 
 stdenvNoCC.mkDerivation {
   inherit pname version;

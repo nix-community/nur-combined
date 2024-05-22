@@ -1,4 +1,13 @@
-{ lib, stdenvNoCC, fetchurl, dict, jq, moreutils, stardict-tools, tatoebatools }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  dict,
+  jq,
+  moreutils,
+  stardict-tools,
+  tatoebatools,
+}:
 let
   langs = [
     "bel eng"
@@ -36,28 +45,35 @@ let
 in
 stdenvNoCC.mkDerivation rec {
   pname = "tatoeba";
-  version = "2024-05-04";
+  version = "2024-05-18";
 
   srcs = lib.mapAttrsToList (name: spec: fetchurl spec) tatoeba;
 
-  unpackPhase = ''
-    echo "{}" > versions.json
-  '' + lib.concatMapStringsSep "\n"
-    (src: ''
+  unpackPhase =
+    ''
+      echo "{}" > versions.json
+    ''
+    + lib.concatMapStringsSep "\n" (src: ''
       bzcat ${src} > ${lib.removeSuffix ".bz2" src.name}
       jq '.+{"${lib.removeSuffix ".tsv.bz2" src.name}":"${version} 00:00:00"}' versions.json | \
         sponge versions.json
-    '')
-    srcs;
+    '') srcs;
 
-  nativeBuildInputs = [ dict jq moreutils stardict-tools tatoebatools ];
+  nativeBuildInputs = [
+    dict
+    jq
+    moreutils
+    stardict-tools
+    tatoebatools
+  ];
 
   buildPhase =
     let
-      makeDict = lang: with lib; ''
-        parallel_corpus ${lang} > tatoeba_${replaceStrings [ " " ] [ "_" ] lang}.tab
-        stardict-tabfile tatoeba_${replaceStrings [ " " ] [ "_" ] lang}.tab
-      '';
+      makeDict =
+        lang: with lib; ''
+          parallel_corpus ${lang} > tatoeba_${replaceStrings [ " " ] [ "_" ] lang}.tab
+          stardict-tabfile tatoeba_${replaceStrings [ " " ] [ "_" ] lang}.tab
+        '';
     in
     ''
       export XDG_DATA_HOME=$PWD

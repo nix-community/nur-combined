@@ -1,12 +1,16 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "deegree";
-  version = "3.4.31";
+  version = "3.5.7";
 
   src = fetchurl {
     url = "https://repo.deegree.org/content/repositories/public/org/deegree/deegree-webservices/${finalAttrs.version}/deegree-webservices-${finalAttrs.version}.war";
-    hash = "sha256-CUmn+bAyaUARlJuwVJ2AMRqj/fejVjHtYnbYCUAOeYQ=";
+    hash = "sha256-BX7eB42HhiA2iX1Si5MSrMKbWuBzq08YS0MGt5apWWM=";
   };
 
   buildCommand = ''

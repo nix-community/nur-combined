@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, opencv4, rtl-sdr, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  opencv4,
+  rtl-sdr,
+  zlib,
+}:
 
 stdenv.mkDerivation rec {
   pname = "goestools";
@@ -12,9 +21,16 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ opencv4 rtl-sdr zlib ];
+  buildInputs = [
+    opencv4
+    rtl-sdr
+    zlib
+  ];
 
   meta = with lib; {
     description = "Tools to work with signals and files from GOES satellites";

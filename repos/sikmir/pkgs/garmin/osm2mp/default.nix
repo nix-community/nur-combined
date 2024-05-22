@@ -1,22 +1,23 @@
-{ lib
-, stdenv
-, buildPerlPackage
-, shortenPerlShebang
-, fetchFromGitHub
-, ConfigStd
-, EncodeLocale
-, FileSlurp
-, GeoOpenstreetmapParser
-, JSON
-, ListMoreUtils
-, LWPProtocolHttps
-, MatchSimple
-, MathPolygon
-, MathPolygonTree
-, TemplateToolkit
-, TextUnidecode
-, TreeR
-, YAML
+{
+  lib,
+  stdenv,
+  buildPerlPackage,
+  shortenPerlShebang,
+  fetchFromGitHub,
+  ConfigStd,
+  EncodeLocale,
+  FileSlurp,
+  GeoOpenstreetmapParser,
+  JSON,
+  ListMoreUtils,
+  LWPProtocolHttps,
+  MatchSimple,
+  MathPolygon,
+  MathPolygonTree,
+  TemplateToolkit,
+  TextUnidecode,
+  TreeR,
+  YAML,
 }:
 
 buildPerlPackage rec {
@@ -58,17 +59,20 @@ buildPerlPackage rec {
 
   preConfigure = "touch Makefile.PL";
 
-  installPhase = ''
-    install -Dm755 osm2mp.pl $out/bin/osm2mp
-    install -dm755 $out/share/osm2mp/cfg
-    cp -r cfg/* $out/share/osm2mp/cfg
-    install -dm755 $out/lib/perl5/site_perl
-    cp -r lib/* $out/lib/perl5/site_perl
-  '' + lib.optionalString stdenv.isLinux ''
-    patchShebangs $out/bin/osm2mp
-  '' + lib.optionalString stdenv.isDarwin ''
-    shortenPerlShebang $out/bin/osm2mp
-  '';
+  installPhase =
+    ''
+      install -Dm755 osm2mp.pl $out/bin/osm2mp
+      install -dm755 $out/share/osm2mp/cfg
+      cp -r cfg/* $out/share/osm2mp/cfg
+      install -dm755 $out/lib/perl5/site_perl
+      cp -r lib/* $out/lib/perl5/site_perl
+    ''
+    + lib.optionalString stdenv.isLinux ''
+      patchShebangs $out/bin/osm2mp
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      shortenPerlShebang $out/bin/osm2mp
+    '';
 
   meta = with lib; {
     description = "Convert Openstreetmap data to MP format";

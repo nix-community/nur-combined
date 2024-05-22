@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "freeopcua";
@@ -15,9 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ boost ];
 
-  cmakeFlags = [
-    (lib.cmakeBool "SSL_SUPPORT_MBEDTLS" false)
-  ];
+  cmakeFlags = [ (lib.cmakeBool "SSL_SUPPORT_MBEDTLS" false) ];
 
   meta = with lib; {
     description = "Open Source C++ OPC-UA Server and Client Library";

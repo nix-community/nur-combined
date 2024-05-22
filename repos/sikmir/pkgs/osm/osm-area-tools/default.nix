@@ -1,20 +1,21 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, boost
-, bzip2
-, expat
-, gdal
-, libosmium
-, protozero
-, sqlite
-, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  bzip2,
+  expat,
+  gdal,
+  libosmium,
+  protozero,
+  sqlite,
+  zlib,
 }:
 
 stdenv.mkDerivation {
   pname = "osm-area-tools";
-  version = "o-unstable-2023-06-15";
+  version = "0-unstable-2023-06-15";
 
   src = fetchFromGitHub {
     owner = "osmcode";

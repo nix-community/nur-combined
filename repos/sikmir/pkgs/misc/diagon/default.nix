@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, substituteAll, cmake, boost, jre }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  substituteAll,
+  cmake,
+  boost,
+  jre,
+}:
 
 let
   json_src = fetchFromGitHub {
@@ -39,17 +48,23 @@ stdenv.mkDerivation rec {
     # Prevent CMake from trying to fetch libraries from GitHub
     (substituteAll {
       src = ./deps.patch;
-      inherit antlr_src antlr_jar json_src kgt_src;
+      inherit
+        antlr_src
+        antlr_jar
+        json_src
+        kgt_src
+        ;
     })
   ];
 
-  nativeBuildInputs = [ cmake jre ];
+  nativeBuildInputs = [
+    cmake
+    jre
+  ];
 
   buildInputs = [ boost ];
 
-  cmakeFlags = [
-    (lib.cmakeBool "DIAGON_BUILD_TESTS" true)
-  ];
+  cmakeFlags = [ (lib.cmakeBool "DIAGON_BUILD_TESTS" true) ];
 
   doCheck = true;
 

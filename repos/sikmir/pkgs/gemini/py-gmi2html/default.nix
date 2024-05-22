@@ -1,4 +1,8 @@
-{ lib, fetchFromGitea, python3Packages }:
+{
+  lib,
+  fetchFromGitea,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "gmi2html";

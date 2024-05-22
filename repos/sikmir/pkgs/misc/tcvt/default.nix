@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchgit, python3 }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  python3,
+}:
 
 stdenv.mkDerivation {
   pname = "tcvt";

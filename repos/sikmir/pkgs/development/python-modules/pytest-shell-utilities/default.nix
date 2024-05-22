@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3Packages, pytest-skip-markers }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  pytest-skip-markers,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "pytest-shell-utilities";
@@ -15,9 +20,17 @@ python3Packages.buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = with python3Packages; [ setuptools-scm setuptools-declarative-requirements ];
+  nativeBuildInputs = with python3Packages; [
+    setuptools-scm
+    setuptools-declarative-requirements
+  ];
 
-  propagatedBuildInputs = with python3Packages; [ psutil pytest-skip-markers pytest-subtests pytest-helpers-namespace ];
+  propagatedBuildInputs = with python3Packages; [
+    psutil
+    pytest-skip-markers
+    pytest-subtests
+    pytest-helpers-namespace
+  ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 

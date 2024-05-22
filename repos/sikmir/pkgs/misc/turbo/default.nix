@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, file, tvision }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  file,
+  tvision,
+}:
 
 stdenv.mkDerivation rec {
   pname = "turbo";
@@ -18,9 +25,7 @@ stdenv.mkDerivation rec {
     tvision
   ];
 
-  cmakeFlags = [
-    (lib.cmakeBool "TURBO_USE_SYSTEM_TVISION" true)
-  ];
+  cmakeFlags = [ (lib.cmakeBool "TURBO_USE_SYSTEM_TVISION" true) ];
 
   meta = with lib; {
     description = "An experimental text editor based on Scintilla and Turbo Vision";

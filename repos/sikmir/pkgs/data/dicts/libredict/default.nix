@@ -1,14 +1,17 @@
-{ lib, stdenvNoCC, fetchurl }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+}:
 
 let
-  dicts = lib.mapAttrs
-    (name: spec:
-      fetchurl {
-        url = "http://libredict.org/dictionaries/${name}/wiktionary_${name}_stardict_${spec.version}.tgz";
-        inherit (spec) hash;
-      }
-    )
-    (lib.importJSON ./dicts.json);
+  dicts = lib.mapAttrs (
+    name: spec:
+    fetchurl {
+      url = "http://libredict.org/dictionaries/${name}/wiktionary_${name}_stardict_${spec.version}.tgz";
+      inherit (spec) hash;
+    }
+  ) (lib.importJSON ./dicts.json);
 in
 stdenvNoCC.mkDerivation {
   pname = "libredict";

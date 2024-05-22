@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, zig }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zig,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gurl";

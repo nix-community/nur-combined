@@ -1,14 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  cmake,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnsstk";
-  version = "14.0.0";
+  version = "14.3.0";
 
   src = fetchFromGitHub {
     owner = "SGL-UT";
     repo = "gnsstk";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-IRwhFlO9j9pAG7ZhXZz+v3nfMoSlbtm1kwrQABAIV4Y=";
+    hash = "sha256-7dD9GDW/1j2f0Tzetr6Fmbnkl1WDnX82eiaZpO8ngd8=";
   };
 
   patches = [

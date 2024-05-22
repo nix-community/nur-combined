@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "supermercado";
@@ -11,7 +15,12 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-k2S1aOHQEJq//4mdWZ5GhJQJjKqJuDbBztoHi373s6w=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ click-plugins rasterio mercantile numpy ];
+  propagatedBuildInputs = with python3Packages; [
+    click-plugins
+    rasterio
+    mercantile
+    numpy
+  ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 

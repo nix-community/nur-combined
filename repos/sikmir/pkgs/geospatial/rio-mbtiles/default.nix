@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages, supermercado }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+  supermercado,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "rio-mbtiles";

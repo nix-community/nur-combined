@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
@@ -18,9 +23,5 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
-    home.packages = [
-      cfg.package
-    ];
-  };
+  config = mkIf cfg.enable { home.packages = [ cfg.package ]; };
 }

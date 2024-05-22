@@ -1,4 +1,11 @@
-{ lib, stdenvNoCC, fetchwebarchive, dict, jq, stardict-tools }:
+{
+  lib,
+  stdenvNoCC,
+  fetchwebarchive,
+  dict,
+  jq,
+  stardict-tools,
+}:
 
 stdenvNoCC.mkDerivation {
   pname = "komputeko";
@@ -12,7 +19,11 @@ stdenvNoCC.mkDerivation {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ dict jq stardict-tools ];
+  nativeBuildInputs = [
+    dict
+    jq
+    stardict-tools
+  ];
 
   buildPhase = ''
     cat $src | \

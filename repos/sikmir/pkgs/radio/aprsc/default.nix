@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchpatch, perl, libevent, openssl, testers }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  perl,
+  libevent,
+  openssl,
+  testers,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "aprsc";
@@ -23,7 +32,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ perl ];
 
-  buildInputs = [ libevent openssl ];
+  buildInputs = [
+    libevent
+    openssl
+  ];
 
   preConfigure = "LD=$CC";
   configureFlags = [

@@ -1,4 +1,11 @@
-{ lib, stdenv, nimPackages, fetchFromGitHub, pkg-config, xorg }:
+{
+  lib,
+  stdenv,
+  nimPackages,
+  fetchFromGitHub,
+  pkg-config,
+  xorg,
+}:
 
 nimPackages.buildNimPackage rec {
   pname = "worm";
@@ -14,12 +21,19 @@ nimPackages.buildNimPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = with nimPackages; [
-    pixie
-    regex
-    unicodedb
-    x11
-  ] ++ (with xorg; [ libX11 libXft libXinerama ]);
+  buildInputs =
+    with nimPackages;
+    [
+      pixie
+      regex
+      unicodedb
+      x11
+    ]
+    ++ (with xorg; [
+      libX11
+      libXft
+      libXinerama
+    ]);
 
   postInstall = ''
     install -Dm644 assets/worm.desktop -t $out/share/applications

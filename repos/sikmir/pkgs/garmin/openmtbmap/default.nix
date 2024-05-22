@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, gmaptool, mkgmap, p7zip, zsh, substituteAll }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gmaptool,
+  mkgmap,
+  p7zip,
+  zsh,
+  substituteAll,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "openmtbmap";
@@ -11,10 +20,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-J09SYLk869pQYeoGfuY9PFIOU+/W9w22kKwAkVpvkNI=";
   };
 
-  patches = (substituteAll {
-    src = ./0001-fix-path.patch;
-    inherit gmaptool mkgmap p7zip;
-  });
+  patches = (
+    substituteAll {
+      src = ./0001-fix-path.patch;
+      inherit gmaptool mkgmap p7zip;
+    }
+  );
 
   buildInputs = [ zsh ];
 

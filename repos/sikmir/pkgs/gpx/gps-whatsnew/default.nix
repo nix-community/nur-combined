@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, boost, qt5 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  boost,
+  qt5,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gps-whatsnew";

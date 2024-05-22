@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3Packages, qt5 }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  qt5,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "map-stylizer";
@@ -28,7 +33,9 @@ python3Packages.buildPythonApplication rec {
     substituteInPlace $site_packages/src/core/constants.py \
       --replace-fail "src/resources" "$site_packages/src/resources"
 
-    makeWrapper ${(python3Packages.python.withPackages (ps: [ ps.pyqt5 ])).interpreter} $out/bin/map-stylizer \
+    makeWrapper ${
+      (python3Packages.python.withPackages (ps: [ ps.pyqt5 ])).interpreter
+    } $out/bin/map-stylizer \
       --set QT_QPA_PLATFORM_PLUGIN_PATH ${qt5.qtbase.bin}/lib/qt-*/plugins/platforms \
       --add-flags "$site_packages/main.py"
   '';

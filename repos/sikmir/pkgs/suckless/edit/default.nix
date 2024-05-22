@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "edit";
@@ -11,7 +15,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-woFX3nGSOY4RSNPGRAt40xHDNOPlO2t1kgzb8U2v5+U=";
   };
 
-  makeFlags = [ "CC:=$(CC)" "LDFLAGS=" "PREFIX=$(out)" ];
+  makeFlags = [
+    "CC:=$(CC)"
+    "LDFLAGS="
+    "PREFIX=$(out)"
+  ];
 
   meta = with lib; {
     description = "A suckless, simple, featured text editor";

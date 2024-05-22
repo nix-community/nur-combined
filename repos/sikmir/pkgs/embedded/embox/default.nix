@@ -1,24 +1,31 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchurl
-, makeWrapper
-, pkgsCross
-, cpio
-, gcc-arm-embedded
-, python3
-, qemu
-, unzip
-, which
-, arch ? "x86"
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  makeWrapper,
+  pkgsCross,
+  cpio,
+  gcc-arm-embedded,
+  python3,
+  qemu,
+  unzip,
+  which,
+  arch ? "x86",
 }:
 
-assert lib.assertOneOf "arch" arch [ "aarch64" "arm" "ppc" "riscv64" "x86" ];
+assert lib.assertOneOf "arch" arch [
+  "aarch64"
+  "arm"
+  "ppc"
+  "riscv64"
+  "x86"
+];
 
 let
-  third-party = lib.mapAttrs
-    (name: spec: fetchurl spec)
-    (builtins.fromJSON (builtins.readFile ./third-party.json));
+  third-party = lib.mapAttrs (name: spec: fetchurl spec) (
+    builtins.fromJSON (builtins.readFile ./third-party.json)
+  );
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "embox-${arch}-qemu";
@@ -42,14 +49,16 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "riscv64-unknown-elf" "riscv64-none-elf"
   '';
 
-  nativeBuildInputs = [
-    cpio
-    python3
-    unzip
-    which
-    makeWrapper
-  ] ++ lib.optional (arch != "x86" && arch != "arm") pkgsCross."${arch}-embedded".stdenv.cc
-  ++ lib.optional (arch == "arm") gcc-arm-embedded;
+  nativeBuildInputs =
+    [
+      cpio
+      python3
+      unzip
+      which
+      makeWrapper
+    ]
+    ++ lib.optional (arch != "x86" && arch != "arm") pkgsCross."${arch}-embedded".stdenv.cc
+    ++ lib.optional (arch == "arm") gcc-arm-embedded;
 
   configurePhase = "make confload-${arch}/qemu";
 
@@ -62,13 +71,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase =
     let
-      platform_args = {
-        aarch64 = "-M virt -cpu cortex-a53 -m 1024";
-        arm = "-M integratorcp -m 256";
-        ppc = "-M virtex-ml507 -m 64";
-        riscv64 = "-M virt -m 512";
-        x86 = "-enable-kvm -device pci-ohci,id=ohci -m 256";
-      }.${arch};
+      platform_args =
+        {
+          aarch64 = "-M virt -cpu cortex-a53 -m 1024";
+          arm = "-M integratorcp -m 256";
+          ppc = "-M virtex-ml507 -m 64";
+          riscv64 = "-M virt -m 512";
+          x86 = "-enable-kvm -device pci-ohci,id=ohci -m 256";
+        }
+        .${arch};
       net_args = {
         aarch64 = "model=e1000";
         arm = "model=smc91c111";
@@ -88,7 +99,8 @@ stdenv.mkDerivation (finalAttrs: {
 
       install -Dm644 build/base/bin/embox $out/share/embox/images/embox.img
       install -Dm644 conf/*.conf* -t $out/share/embox/conf
-    '' + lib.optionalString withNetwork ''
+    ''
+    + lib.optionalString withNetwork ''
       install -Dm755 scripts/qemu/{start,stop}_script -t $out/share/embox/scripts
     '';
 

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchgit, libX11, farbfeld, farbfeld-utils }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  libX11,
+  farbfeld,
+  farbfeld-utils,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lel";

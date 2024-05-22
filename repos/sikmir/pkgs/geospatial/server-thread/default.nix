@@ -1,4 +1,8 @@
-{ lib, python3Packages, fetchFromGitHub }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "server-thread";
@@ -11,9 +15,16 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-EAL/moz3AIPBRLfAVI2zcCstjLsssKqBrxIDvq9CV3g=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ scooby werkzeug ];
+  propagatedBuildInputs = with python3Packages; [
+    scooby
+    werkzeug
+  ];
 
-  nativeCheckInputs = with python3Packages; [ flask requests pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [
+    flask
+    requests
+    pytestCheckHook
+  ];
 
   meta = with lib; {
     description = "Launch a WSGIApplication in a background thread with werkzeug";

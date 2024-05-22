@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchurl
-, fetchgit
-, fetchgdrive
-, unzip
-, wine
-, makeWrapper
-, withMaps ? true
-, withExtremum ? false
+{
+  lib,
+  stdenv,
+  fetchurl,
+  fetchgit,
+  fetchgdrive,
+  unzip,
+  wine,
+  makeWrapper,
+  withMaps ? true,
+  withExtremum ? false,
 }:
 let
   maps = fetchgit {
@@ -32,23 +33,29 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ unzip makeWrapper ];
+  nativeBuildInputs = [
+    unzip
+    makeWrapper
+  ];
 
   # Post install regedit:
   # * increase font size: https://askubuntu.com/a/1313810
   # * dark theme: https://gist.github.com/Zeinok/ceaf6ff204792dde0ae31e0199d89398
-  installPhase = ''
-    mkdir -p $out/opt/sasplanet
-    cp -r . $out/opt/sasplanet
+  installPhase =
+    ''
+      mkdir -p $out/opt/sasplanet
+      cp -r . $out/opt/sasplanet
 
-    makeWrapper ${wine}/bin/wine $out/bin/sasplanet \
-      --run "[ -d \$HOME/.sasplanet ] || { cp -r $out/opt/sasplanet \$HOME/.sasplanet && chmod -R +w \$HOME/.sasplanet; }" \
-      --add-flags "\$HOME/.sasplanet/SASPlanet.exe"
-  '' + lib.optionalString withMaps ''
-    cp -r ${maps}/* $out/opt/sasplanet/Maps/sas.maps
-  '' + lib.optionalString withExtremum ''
-    unzip ${extremum} -d $out/opt/sasplanet/Maps/sas.maps
-  '';
+      makeWrapper ${wine}/bin/wine $out/bin/sasplanet \
+        --run "[ -d \$HOME/.sasplanet ] || { cp -r $out/opt/sasplanet \$HOME/.sasplanet && chmod -R +w \$HOME/.sasplanet; }" \
+        --add-flags "\$HOME/.sasplanet/SASPlanet.exe"
+    ''
+    + lib.optionalString withMaps ''
+      cp -r ${maps}/* $out/opt/sasplanet/Maps/sas.maps
+    ''
+    + lib.optionalString withExtremum ''
+      unzip ${extremum} -d $out/opt/sasplanet/Maps/sas.maps
+    '';
 
   preferLocalBuild = true;
 

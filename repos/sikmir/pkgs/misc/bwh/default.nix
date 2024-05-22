@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitea, cmake, pkg-config, makeWrapper, SDL2, the-foundation, AppKit }:
+{
+  lib,
+  stdenv,
+  fetchFromGitea,
+  cmake,
+  pkg-config,
+  makeWrapper,
+  SDL2,
+  the-foundation,
+  AppKit,
+}:
 
 stdenv.mkDerivation rec {
   pname = "bwh";
@@ -12,9 +22,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-POKjvUGFS3urc1aqOvfCAApUnRxoZhU725eYRAS4Z2w=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+    makeWrapper
+  ];
 
-  buildInputs = [ SDL2 the-foundation ] ++ lib.optional stdenv.isDarwin AppKit;
+  buildInputs = [
+    SDL2
+    the-foundation
+  ] ++ lib.optional stdenv.isDarwin AppKit;
 
   installPhase = lib.optionalString stdenv.isDarwin ''
     runHook preInstall

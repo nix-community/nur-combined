@@ -1,4 +1,8 @@
-{ lib, python3Packages, fetchFromGitHub }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "pipfile";
@@ -19,7 +23,10 @@ python3Packages.buildPythonPackage rec {
   meta = with lib; {
     description = "Pipfile: the replacement for requirements.txt";
     inherit (src.meta) homepage;
-    license = with licenses; [ asl20 bsd2 ];
+    license = with licenses; [
+      asl20
+      bsd2
+    ];
     maintainers = [ maintainers.sikmir ];
   };
 }

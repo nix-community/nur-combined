@@ -1,4 +1,11 @@
-{ lib, stdenvNoCC, fetchurl, lang, version, hash }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  lang,
+  version,
+  hash,
+}:
 
 stdenvNoCC.mkDerivation {
   pname = "freedict-${lang}";

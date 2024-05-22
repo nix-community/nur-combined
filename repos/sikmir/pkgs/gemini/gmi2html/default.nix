@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, zig, scdoc, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  zig,
+  scdoc,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gmi2html";
@@ -11,7 +18,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-5m3erToDFkYOV1xoM+BLWbUOgP0A7TXthzQ0Sk1Qj+U=";
   };
 
-  nativeBuildInputs = [ zig scdoc installShellFiles ];
+  nativeBuildInputs = [
+    zig
+    scdoc
+    installShellFiles
+  ];
 
   buildPhase = ''
     export HOME=$TMPDIR

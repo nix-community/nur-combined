@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchurl, unzip, mono, gtk2, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  mono,
+  gtk2,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "maperitive";
@@ -9,7 +17,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-yhslRj4CjUY0kviQTI7z8LvSiWvjf7K8+tDMeA9zNEk=";
   };
 
-  nativeBuildInputs = [ unzip makeWrapper ];
+  nativeBuildInputs = [
+    unzip
+    makeWrapper
+  ];
 
   installPhase = ''
     mkdir -p $out/opt/maperitive

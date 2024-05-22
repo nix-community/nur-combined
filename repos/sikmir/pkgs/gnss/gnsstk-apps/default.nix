@@ -1,14 +1,20 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gnsstk }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gnsstk,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnsstk-apps";
-  version = "14.0.0";
+  version = "14.1.1";
 
   src = fetchFromGitHub {
     owner = "SGL-UT";
     repo = "gnsstk-apps";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-cq2ZAT3nj7TnB82Rhf72zxBP+k6iSQRFUh99y8YtOTA=";
+    hash = "sha256-gnw42ebL8hxRq8hX2IvTDwbqKDws9n3jmcSXLvBre8A=";
   };
 
   nativeBuildInputs = [ cmake ];

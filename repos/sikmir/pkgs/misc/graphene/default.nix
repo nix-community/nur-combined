@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, perl
-, pkg-config
-, wget
-, db
-, libmicrohttpd
-, jansson
-, tcl
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perl,
+  pkg-config,
+  wget,
+  db,
+  libmicrohttpd,
+  jansson,
+  tcl,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -26,11 +27,23 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs .
   '';
 
-  nativeBuildInputs = [ perl pkg-config wget ];
+  nativeBuildInputs = [
+    perl
+    pkg-config
+    wget
+  ];
 
-  buildInputs = [ db libmicrohttpd jansson tcl ];
+  buildInputs = [
+    db
+    libmicrohttpd
+    jansson
+    tcl
+  ];
 
-  installFlags = [ "prefix=$(out)" "sysconfdir=$(out)/etc" ];
+  installFlags = [
+    "prefix=$(out)"
+    "sysconfdir=$(out)/etc"
+  ];
 
   meta = with lib; {
     description = "A simple time series database based on BerkleyDB";

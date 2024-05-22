@@ -1,4 +1,10 @@
-{ lib, stdenv, python3Packages, fetchFromGitHub, thinplatespline }:
+{
+  lib,
+  stdenv,
+  python3Packages,
+  fetchFromGitHub,
+  thinplatespline,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "maprec";
@@ -16,7 +22,11 @@ python3Packages.buildPythonPackage rec {
       --replace-fail " @ git+https://github.com/wladich/thinplatespline.git" ""
   '';
 
-  propagatedBuildInputs = with python3Packages; [ pyyaml pyproj thinplatespline ];
+  propagatedBuildInputs = with python3Packages; [
+    pyyaml
+    pyproj
+    thinplatespline
+  ];
 
   doCheck = false;
 

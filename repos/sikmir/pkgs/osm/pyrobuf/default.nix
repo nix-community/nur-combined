@@ -1,4 +1,8 @@
-{ lib, python3Packages, fetchFromGitHub }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "pyrobuf";
@@ -11,7 +15,10 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-7NEzRM9B/9f5ODNzDKws7t/9gqbJK7T9AuET+pT26P0=";
   };
 
-  nativeBuildInputs = with python3Packages; [ cython pytest-runner ];
+  nativeBuildInputs = with python3Packages; [
+    cython
+    pytest-runner
+  ];
 
   propagatedBuildInputs = with python3Packages; [ jinja2 ];
 

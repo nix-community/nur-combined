@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "mikatools";
@@ -11,7 +15,11 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-2YpRTSZWJVXMoTLDBFS+tFkmA8pOBsqWF7Z85gtIfY0=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ requests cryptography tqdm ];
+  propagatedBuildInputs = with python3Packages; [
+    requests
+    cryptography
+    tqdm
+  ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 

@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchwebarchive, fetchpatch, readline, ncurses, bison, flex, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchwebarchive,
+  fetchpatch,
+  readline,
+  ncurses,
+  bison,
+  flex,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "aamath";
@@ -10,10 +20,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-mEP0WIaV4s1Vzl2PWJIdTyVeDmXtlWnh3N3z9o93tjE=";
   };
 
-  patches = (fetchpatch {
-    url = "https://raw.githubusercontent.com/macports/macports-ports/6c3088afddcf34ca2bcc5c209f85f264dcf0bc69/math/aamath/files/patch-expr.h.diff";
-    hash = "sha256-JtLcqdBq/88Bemj4NQYnpEVVTUyiCLWX2zE3CuXtRlM=";
-  });
+  patches = (
+    fetchpatch {
+      url = "https://raw.githubusercontent.com/macports/macports-ports/6c3088afddcf34ca2bcc5c209f85f264dcf0bc69/math/aamath/files/patch-expr.h.diff";
+      hash = "sha256-JtLcqdBq/88Bemj4NQYnpEVVTUyiCLWX2zE3CuXtRlM=";
+    }
+  );
 
   patchFlags = [ "-p0" ];
 
@@ -23,9 +35,16 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "-ltermcap" "-lncurses"
   '';
 
-  nativeBuildInputs = [ bison flex installShellFiles ];
+  nativeBuildInputs = [
+    bison
+    flex
+    installShellFiles
+  ];
 
-  buildInputs = [ readline ncurses ];
+  buildInputs = [
+    readline
+    ncurses
+  ];
 
   installPhase = ''
     install -Dm755 aamath -t $out/bin

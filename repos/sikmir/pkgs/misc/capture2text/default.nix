@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, qmake, unzip, leptonica, tesseract4, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  qmake,
+  unzip,
+  leptonica,
+  tesseract4,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation rec {
   pname = "capture2text";
@@ -33,9 +42,16 @@ stdenv.mkDerivation rec {
                      "pixAverageInRect(binarizeForNegPixs, NULL, &negRect, 0, 255, 1, &pixelAvg)"
   '';
 
-  buildInputs = [ leptonica tesseract4 ];
+  buildInputs = [
+    leptonica
+    tesseract4
+  ];
 
-  nativeBuildInputs = [ qmake unzip wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    unzip
+    wrapQtAppsHook
+  ];
 
   qmakeFlags = [
     "CONFIG+=console"
@@ -44,14 +60,17 @@ stdenv.mkDerivation rec {
   ];
 
   installPhase =
-    if stdenv.isDarwin then ''
-      mkdir -p $out/Applications $out/bin
-      mv Capture2Text_CLI.app $out/Applications
-      ln -s $out/Applications/Capture2Text_CLI.app/Contents/MacOS/Capture2Text_CLI $out/bin/capture2text
-    '' else ''
-      install -Dm755 Capture2Text_CLI -t $out/bin
-      ln -s $out/bin/Capture2Text_CLI $out/bin/capture2text
-    '';
+    if stdenv.isDarwin then
+      ''
+        mkdir -p $out/Applications $out/bin
+        mv Capture2Text_CLI.app $out/Applications
+        ln -s $out/Applications/Capture2Text_CLI.app/Contents/MacOS/Capture2Text_CLI $out/bin/capture2text
+      ''
+    else
+      ''
+        install -Dm755 Capture2Text_CLI -t $out/bin
+        ln -s $out/bin/Capture2Text_CLI $out/bin/capture2text
+      '';
 
   meta = with lib; {
     description = "Capture2Text enables users to quickly OCR a portion of the screen using a keyboard shortcut";

@@ -1,11 +1,12 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, pkg-config
-, makeWrapper
-, lua5_3
-, memstreamHook
-, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  makeWrapper,
+  lua5_3,
+  memstreamHook,
+  zlib,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -25,9 +26,15 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "tom.lua" "$out/share/lua/tom.lua"
   '';
 
-  nativeBuildInputs = [ pkg-config makeWrapper ];
+  nativeBuildInputs = [
+    pkg-config
+    makeWrapper
+  ];
 
-  buildInputs = [ lua5_3 zlib ] ++ lib.optional stdenv.isDarwin memstreamHook;
+  buildInputs = [
+    lua5_3
+    zlib
+  ] ++ lib.optional stdenv.isDarwin memstreamHook;
 
   installPhase = ''
     install -Dm644 *.so *.lua -t $out/share/lua

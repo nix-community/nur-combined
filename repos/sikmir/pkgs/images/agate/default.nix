@@ -1,4 +1,8 @@
-{ dockerTools, agate, domain ? "localhost" }:
+{
+  dockerTools,
+  agate,
+  domain ? "localhost",
+}:
 let
   key = "/certs/${domain}.key";
   cert = "/certs/${domain}.crt";
@@ -11,7 +15,17 @@ dockerTools.buildImage {
   runAsRoot = "mkdir -p /certs /gemini";
 
   config = {
-    Cmd = [ "agate" "--content" "/gemini" "--key" key "--cert" cert "--hostname" domain ];
+    Cmd = [
+      "agate"
+      "--content"
+      "/gemini"
+      "--key"
+      key
+      "--cert"
+      cert
+      "--hostname"
+      domain
+    ];
     Volumes = {
       "/certs" = { };
       "/gemini" = { };

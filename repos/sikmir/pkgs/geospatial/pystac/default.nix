@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "pystac";
@@ -12,11 +17,9 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-LbHeEA/F96nVejsNVMR/zrIgIyrBxHiinHcLzk68uA0=";
   };
 
-  nativeBuildInputs = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [ setuptools ];
 
-  propagatedBuildInputs = with python3Packages; [
-    python-dateutil
-  ];
+  propagatedBuildInputs = with python3Packages; [ python-dateutil ];
 
   nativeCheckInputs = with python3Packages; [
     html5lib

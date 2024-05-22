@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, xorg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  xorg,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "sdorfehs";
@@ -13,7 +19,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = with xorg; [ libX11 libXft libXrandr libXtst libXi ];
+  buildInputs = with xorg; [
+    libX11
+    libXft
+    libXrandr
+    libXtst
+    libXi
+  ];
 
   installFlags = [ "PREFIX=$(out)" ];
 

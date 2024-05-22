@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchfromgh, undmg, python3Packages, qutebrowser }:
+{
+  lib,
+  stdenv,
+  fetchfromgh,
+  undmg,
+  python3Packages,
+  qutebrowser,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qutebrowser-bin";
@@ -14,7 +21,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ undmg python3Packages.wrapPython ];
+  nativeBuildInputs = [
+    undmg
+    python3Packages.wrapPython
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -36,8 +46,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru.userscripts = "${finalAttrs.finalPackage}/Applications/qutebrowser.app/Contents/Resources/userscripts";
 
-  meta = with lib;
-    qutebrowser.meta // {
+  meta =
+    with lib;
+    qutebrowser.meta
+    // {
       sourceProvenance = with sourceTypes; [ binaryNativeCode ];
       maintainers = [ maintainers.sikmir ];
       platforms = [ "x86_64-darwin" ];

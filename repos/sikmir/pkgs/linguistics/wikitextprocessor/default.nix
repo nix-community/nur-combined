@@ -1,4 +1,9 @@
-{ lib, stdenv, python3Packages, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  python3Packages,
+  fetchFromGitHub,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "wikitextprocessor";
@@ -11,16 +16,20 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-cjhKgzqsPwVO2/fwC62IDilMhz6fg6qQrnm0xLQ3KPk=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ lupa dateparser lru-dict ];
+  propagatedBuildInputs = with python3Packages; [
+    lupa
+    dateparser
+    lru-dict
+  ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
-  disabledTests = [
-    "test_string_format2"
-  ] ++ lib.optionals stdenv.isDarwin [
-    "test_long_twothread"
-    "test_expr29"
-  ];
+  disabledTests =
+    [ "test_string_format2" ]
+    ++ lib.optionals stdenv.isDarwin [
+      "test_long_twothread"
+      "test_expr29"
+    ];
 
   doCheck = false;
 

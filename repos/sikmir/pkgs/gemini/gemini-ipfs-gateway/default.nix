@@ -1,4 +1,10 @@
-{ lib, stdenv, buildGoModule, fetchFromSourcehut, scdoc }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromSourcehut,
+  scdoc,
+}:
 
 buildGoModule rec {
   pname = "gemini-ipfs-gateway";

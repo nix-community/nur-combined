@@ -1,4 +1,8 @@
-{ lib, python3Packages, fetchFromGitHub }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "lazyscraper";
@@ -11,7 +15,11 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-gnhJB+ZMKQIYZNHMeRrlICgz5UhyHy72Js/I4kbp8Qo=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ click lxml requests ];
+  propagatedBuildInputs = with python3Packages; [
+    click
+    lxml
+    requests
+  ];
 
   postInstall = "mv $out/bin/lscraper.py $out/bin/lscraper";
 

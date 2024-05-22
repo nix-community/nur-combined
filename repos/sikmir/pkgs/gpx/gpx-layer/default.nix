@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, buildPerlPackage, shortenPerlShebang, XMLParser }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildPerlPackage,
+  shortenPerlShebang,
+  XMLParser,
+}:
 
 buildPerlPackage rec {
   pname = "gpx-layer";
@@ -19,13 +26,16 @@ buildPerlPackage rec {
 
   preConfigure = "touch Makefile.PL";
 
-  installPhase = ''
-    install -Dm755 parse-gpx $out/bin/datamaps-parse-gpx
-  '' + lib.optionalString stdenv.isLinux ''
-    patchShebangs $out/bin/datamaps-parse-gpx
-  '' + lib.optionalString stdenv.isDarwin ''
-    shortenPerlShebang $out/bin/datamaps-parse-gpx
-  '';
+  installPhase =
+    ''
+      install -Dm755 parse-gpx $out/bin/datamaps-parse-gpx
+    ''
+    + lib.optionalString stdenv.isLinux ''
+      patchShebangs $out/bin/datamaps-parse-gpx
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      shortenPerlShebang $out/bin/datamaps-parse-gpx
+    '';
 
   meta = with lib; {
     description = "Tools to turn GPX files into a GPS map tracing layer";

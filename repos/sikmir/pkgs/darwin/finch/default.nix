@@ -1,29 +1,43 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, fetchurl }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  fetchurl,
+}:
 
 let
   arch = lib.head (lib.splitString "-" stdenv.hostPlatform.system);
   # Check LIMA_URL in Makefile
-  lima = {
-    "x86_64-darwin" = fetchurl {
-      url = "https://deps.runfinch.com/${lib.replaceStrings [ "_" ] [ "-" ] arch}/lima-and-qemu.macos-${arch}.1701821611.tar.gz";
-      hash = "sha256-mXBQLptj7hpPWGZXMnxDORVq3Zti/yYyW+Udm/FF9UQ=";
-    };
-    "aarch64-darwin" = fetchurl {
-      url = "https://deps.runfinch.com/${lib.replaceStrings [ "_" ] [ "-" ] arch}/lima-and-qemu.macos-${arch}.1701821611.tar.gz";
-      hash = "sha256-6Ll2CUwGJKUl8vxgdDx4Xm6O2WMYGJxMX6mLHJSvtT8=";
-    };
-  }.${stdenv.hostPlatform.system};
+  lima =
+    {
+      "x86_64-darwin" = fetchurl {
+        url = "https://deps.runfinch.com/${
+          lib.replaceStrings [ "_" ] [ "-" ] arch
+        }/lima-and-qemu.macos-${arch}.1701821611.tar.gz";
+        hash = "sha256-mXBQLptj7hpPWGZXMnxDORVq3Zti/yYyW+Udm/FF9UQ=";
+      };
+      "aarch64-darwin" = fetchurl {
+        url = "https://deps.runfinch.com/${
+          lib.replaceStrings [ "_" ] [ "-" ] arch
+        }/lima-and-qemu.macos-${arch}.1701821611.tar.gz";
+        hash = "sha256-6Ll2CUwGJKUl8vxgdDx4Xm6O2WMYGJxMX6mLHJSvtT8=";
+      };
+    }
+    .${stdenv.hostPlatform.system};
   # Check FINCH_OS_BASENAME in Makefile
-  os = {
-    "x86_64-darwin" = fetchurl {
-      url = "https://dl.fedoraproject.org/pub/fedora/linux/releases/38/Cloud/${arch}/images/Fedora-Cloud-Base-38-1.6.${arch}.qcow2";
-      hash = "sha256-0zRnBAH/PVtBKfzGYs9k9ablaCKK9ZB2zESaSUUxhII=";
-    };
-    "aarch64-darwin" = fetchurl {
-      url = "https://dl.fedoraproject.org/pub/fedora/linux/releases/38/Cloud/${arch}/images/Fedora-Cloud-Base-38-1.6.${arch}.qcow2";
-      hash = "sha256-0zRnBAH/PVtBKfzGYs9k9ablaCKK9ZB2zESaSUUxhII=";
-    };
-  }.${stdenv.hostPlatform.system};
+  os =
+    {
+      "x86_64-darwin" = fetchurl {
+        url = "https://dl.fedoraproject.org/pub/fedora/linux/releases/38/Cloud/${arch}/images/Fedora-Cloud-Base-38-1.6.${arch}.qcow2";
+        hash = "sha256-0zRnBAH/PVtBKfzGYs9k9ablaCKK9ZB2zESaSUUxhII=";
+      };
+      "aarch64-darwin" = fetchurl {
+        url = "https://dl.fedoraproject.org/pub/fedora/linux/releases/38/Cloud/${arch}/images/Fedora-Cloud-Base-38-1.6.${arch}.qcow2";
+        hash = "sha256-0zRnBAH/PVtBKfzGYs9k9ablaCKK9ZB2zESaSUUxhII=";
+      };
+    }
+    .${stdenv.hostPlatform.system};
 in
 buildGoModule rec {
   pname = "finch";
@@ -41,9 +55,7 @@ buildGoModule rec {
 
   subPackages = [ "cmd/finch" ];
 
-  ldflags = [
-    "-X github.com/runfinch/finch/pkg/version.Version=${version}"
-  ];
+  ldflags = [ "-X github.com/runfinch/finch/pkg/version.Version=${version}" ];
 
   doCheck = false;
 

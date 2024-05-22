@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchfromgh, jre }:
+{
+  lib,
+  stdenv,
+  fetchfromgh,
+  jre,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "osmosis";

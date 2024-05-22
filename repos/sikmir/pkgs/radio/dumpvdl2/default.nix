@@ -1,4 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, glib, libacars, protobufc, rtl-sdr, soapysdr, sqlite, zeromq, AppKit, Foundation }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  glib,
+  libacars,
+  protobufc,
+  rtl-sdr,
+  soapysdr,
+  sqlite,
+  zeromq,
+  AppKit,
+  Foundation,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "dumpvdl2";
@@ -11,10 +26,25 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-lmjVLHFLa819sgZ0NfSyKywEwS6pQxzdOj4y8RwRu/8=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
-  buildInputs = [ glib libacars protobufc rtl-sdr soapysdr sqlite zeromq ]
-    ++ lib.optionals stdenv.isDarwin [ AppKit Foundation ];
+  buildInputs =
+    [
+      glib
+      libacars
+      protobufc
+      rtl-sdr
+      soapysdr
+      sqlite
+      zeromq
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      AppKit
+      Foundation
+    ];
 
   meta = with lib; {
     description = "VDL Mode 2 message decoder and protocol analyzer";

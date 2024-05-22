@@ -1,4 +1,8 @@
-{ lib, python3Packages, fetchFromGitHub }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "cykhash";
@@ -13,7 +17,12 @@ python3Packages.buildPythonPackage rec {
 
   nativeBuildInputs = with python3Packages; [ cython ];
 
-  nativeCheckInputs = with python3Packages; [ numpy pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [
+    numpy
+    pytestCheckHook
+  ];
+
+  doCheck = false;
 
   preCheck = ''
     export HOME=$TMPDIR

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, xorg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  xorg,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ffshot";
@@ -11,7 +16,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-lPHPwieotSgA6qF3EGDZk+lME0rqglOnEreYLk0/oUY=";
   };
 
-  buildInputs = with xorg; [ libxcb xcbutilimage ];
+  buildInputs = with xorg; [
+    libxcb
+    xcbutilimage
+  ];
 
   installFlags = [ "PREFIX=$(out)" ];
 

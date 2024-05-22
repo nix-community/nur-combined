@@ -1,4 +1,11 @@
-{ lib, stdenv, rustPlatform, fetchFromGitHub, pkg-config, sqlite }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  sqlite,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "mbutiles";

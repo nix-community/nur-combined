@@ -1,4 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, bmake, pkg-config, libbsd, imsg-compat, sndio, flac, mpg123, libvorbis, opusfile }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bmake,
+  pkg-config,
+  libbsd,
+  imsg-compat,
+  sndio,
+  flac,
+  mpg123,
+  libvorbis,
+  opusfile,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "amused";
@@ -11,9 +24,20 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-iVBJENiepBnqExMXQezd3Ja4RUNarLOAcA0JQUIfg5o=";
   };
 
-  nativeBuildInputs = [ bmake pkg-config ];
+  nativeBuildInputs = [
+    bmake
+    pkg-config
+  ];
 
-  buildInputs = [ libbsd imsg-compat sndio flac mpg123 libvorbis opusfile ];
+  buildInputs = [
+    libbsd
+    imsg-compat
+    sndio
+    flac
+    mpg123
+    libvorbis
+    opusfile
+  ];
 
   meta = with lib; {
     description = "music player daemon NIH";

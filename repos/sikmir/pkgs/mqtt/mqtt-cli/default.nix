@@ -1,14 +1,20 @@
-{ lib, stdenv, fetchfromgh, jre, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchfromgh,
+  jre,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mqtt-cli";
-  version = "4.28.0";
+  version = "4.28.1";
 
   src = fetchfromgh {
     owner = "hivemq";
     repo = "mqtt-cli";
     name = "mqtt-cli-${finalAttrs.version}.jar";
-    hash = "sha256-i+bUSCvFH7m3t0OKxm0bt+RTgpwp31bQHCvkxoV/rGI=";
+    hash = "sha256-V8IrPji2Zx8smDZ9RPyiPJ8XZ+nHv09lq73n/3KK0u8=";
     version = "v${finalAttrs.version}";
   };
 

@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libev, lua, openssl, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libev,
+  lua,
+  openssl,
+  zlib,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libumqtt";
@@ -19,7 +28,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ libev lua openssl zlib ];
+  buildInputs = [
+    libev
+    lua
+    openssl
+    zlib
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration -Wno-error=misleading-indentation";
 

@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages, rio-mucho }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+  rio-mucho,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "rio-color";

@@ -1,19 +1,28 @@
-{ lib, stdenv, fetchurl, expat, lz4, zlib }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  expat,
+  lz4,
+  zlib,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "osm-3s";
-  version = "0.7.62";
+  version = "0.7.62.2";
 
   src = fetchurl {
     url = "http://dev.overpass-api.de/releases/osm-3s_v${finalAttrs.version}.tar.gz";
-    hash = "sha256-MimAlodtczWohlkCZJxpwDQWdNmIZzj5RCGT9oU8s+U=";
+    hash = "sha256-kvNKEI+n0hCil3/84VI8eGD7kvxEJsYoBCtcxj6wtIk=";
   };
 
-  buildInputs = [ expat lz4 zlib ];
-
-  configureFlags = [
-    (lib.enableFeature true "lz4")
+  buildInputs = [
+    expat
+    lz4
+    zlib
   ];
+
+  configureFlags = [ (lib.enableFeature true "lz4") ];
 
   meta = with lib; {
     description = "A database engine to query the OpenStreetMap data";

@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchgit }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+}:
 
 stdenv.mkDerivation {
   pname = "sbase";
@@ -10,7 +14,11 @@ stdenv.mkDerivation {
     hash = "sha256-CkfrtL4yV/HtLnJsMODjArRMzoT4FSgJqDYPHl0MtUU=";
   };
 
-  makeFlags = [ "AR:=$(AR)" "CC:=$(CC)" "RANLIB:=$(RANLIB)" ];
+  makeFlags = [
+    "AR:=$(AR)"
+    "CC:=$(CC)"
+    "RANLIB:=$(RANLIB)"
+  ];
 
   installFlags = [ "PREFIX=$(out)" ];
 

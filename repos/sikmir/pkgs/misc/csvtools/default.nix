@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, pcre, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pcre,
+  openssl,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "csvtools";

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, libxml2, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  libxml2,
+  zlib,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libacars";
@@ -13,11 +20,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ libxml2 zlib ];
-
-  cmakeFlags = [
-    (lib.cmakeFeature "CMAKE_INSTALL_LIBDIR" "lib")
+  buildInputs = [
+    libxml2
+    zlib
   ];
+
+  cmakeFlags = [ (lib.cmakeFeature "CMAKE_INSTALL_LIBDIR" "lib") ];
 
   meta = with lib; {
     description = "A library for decoding various ACARS message payloads";

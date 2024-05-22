@@ -1,20 +1,21 @@
-{ stdenv
-, lib
-, fetchurl
-, fetchpatch
-, cmake
-, qtmultimedia
-, qtserialport
-, qtscript
-, qtwebkit
-, wrapQtAppsHook
-, garmindev
-, gdal
-, gpsd
-, libdmtx
-, libexif
-, libGLU
-, proj
+{
+  stdenv,
+  lib,
+  fetchurl,
+  fetchpatch,
+  cmake,
+  qtmultimedia,
+  qtserialport,
+  qtscript,
+  qtwebkit,
+  wrapQtAppsHook,
+  garmindev,
+  gdal,
+  gpsd,
+  libdmtx,
+  libexif,
+  libGLU,
+  proj,
 }:
 
 stdenv.mkDerivation rec {
@@ -65,7 +66,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ];
 
   buildInputs = [
     qtmultimedia

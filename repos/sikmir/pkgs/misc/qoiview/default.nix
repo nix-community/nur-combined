@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, xorg, libglvnd }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  xorg,
+  libglvnd,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qoiview";
@@ -13,22 +20,28 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ cmake ];
 
-  NIX_CFLAGS_COMPILE = lib.optionals stdenv.isLinux (with xorg; [
-    "-I${libX11.dev}/include"
-    "-I${xorgproto}/include"
-    "-I${libXi.dev}/include"
-    "-I${libXext.dev}/include"
-    "-I${libXfixes.dev}/include"
-    "-I${libXcursor.dev}/include"
-    "-I${libglvnd.dev}/include"
-  ]);
+  NIX_CFLAGS_COMPILE = lib.optionals stdenv.isLinux (
+    with xorg;
+    [
+      "-I${libX11.dev}/include"
+      "-I${xorgproto}/include"
+      "-I${libXi.dev}/include"
+      "-I${libXext.dev}/include"
+      "-I${libXfixes.dev}/include"
+      "-I${libXcursor.dev}/include"
+      "-I${libglvnd.dev}/include"
+    ]
+  );
 
-  NIX_LDFLAGS = lib.optionals stdenv.isLinux (with xorg; [
-    "-L${libX11}/lib"
-    "-L${libXi}/lib"
-    "-L${libXcursor}/lib"
-    "-L${libglvnd}/lib"
-  ]);
+  NIX_LDFLAGS = lib.optionals stdenv.isLinux (
+    with xorg;
+    [
+      "-L${libX11}/lib"
+      "-L${libXi}/lib"
+      "-L${libXcursor}/lib"
+      "-L${libglvnd}/lib"
+    ]
+  );
 
   installPhase = ''
     install -Dm755 qoiview -t $out/bin

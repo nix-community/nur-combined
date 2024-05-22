@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, wxGTK }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  wxGTK,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "render_geojson";

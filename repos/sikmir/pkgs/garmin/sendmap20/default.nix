@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchwebarchive }:
+{
+  lib,
+  stdenv,
+  fetchwebarchive,
+}:
 
 stdenv.mkDerivation {
   pname = "sendmap20";
@@ -25,7 +29,10 @@ stdenv.mkDerivation {
     homepage = "https://web.archive.org/web/20160620061746if_/http://www.cgpsmapper.com";
     license = licenses.free;
     maintainers = [ maintainers.sikmir ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
     skip.ci = true;
   };
 }

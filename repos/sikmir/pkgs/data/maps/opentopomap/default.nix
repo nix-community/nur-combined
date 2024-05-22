@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, fetchurl, unzip, mkgmap, mkgmap-splitter, osm-extracts }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchurl,
+  unzip,
+  mkgmap,
+  mkgmap-splitter,
+  osm-extracts,
+}:
 let
   bounds = fetchurl {
     url = "https://www.thkukuk.de/osm/data/bounds-20240126.zip";
@@ -22,7 +31,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/garmin";
 
-  nativeBuildInputs = [ mkgmap mkgmap-splitter unzip ];
+  nativeBuildInputs = [
+    mkgmap
+    mkgmap-splitter
+    unzip
+  ];
 
   postPatch = ''
     unzip ${bounds} -d bounds

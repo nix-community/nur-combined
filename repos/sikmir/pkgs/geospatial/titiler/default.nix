@@ -1,12 +1,13 @@
-{ lib
-, fetchFromGitHub
-, python3Packages
-, rio-stac
-, rio-tiler
-, geojson-pydantic
-, rio-cogeo
-, starlette-cramjam
-, cogeo-mosaic
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  rio-stac,
+  rio-tiler,
+  geojson-pydantic,
+  rio-cogeo,
+  starlette-cramjam,
+  cogeo-mosaic,
 }:
 let
   pname = "titiler";
@@ -57,7 +58,10 @@ let
       titiler-core
     ];
     doCheck = false;
-    nativeCheckInputs = with python3Packages; [ pytestCheckHook jsonschema ];
+    nativeCheckInputs = with python3Packages; [
+      pytestCheckHook
+      jsonschema
+    ];
     disabledTests = [ "test_stacExtension" ];
   };
 
@@ -77,7 +81,12 @@ let
   };
 in
 python3Packages.buildPythonPackage {
-  inherit pname version src meta;
+  inherit
+    pname
+    version
+    src
+    meta
+    ;
   sourceRoot = "${src.name}/src/titiler/application";
   pyproject = true;
 
@@ -94,7 +103,5 @@ python3Packages.buildPythonPackage {
   doCheck = false;
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
-  disabledTests = [
-    "test_mosaic_auth_error"
-  ];
+  disabledTests = [ "test_mosaic_auth_error" ];
 }

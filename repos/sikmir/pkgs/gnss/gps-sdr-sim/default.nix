@@ -1,14 +1,18 @@
-{ lib, stdenv, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gps-sdr-sim";
-  version = "0-unstable-2024-01-05";
+  version = "0-unstable-2024-04-11";
 
   src = fetchFromGitHub {
     owner = "osqzss";
     repo = "gps-sdr-sim";
-    rev = "4fdf282763867aeede0c8308bfa65d01e56c5ec2";
-    hash = "sha256-Txc5iwj9gzNyzIMFS4h+wdQTif7dJ67IsCl3IfF2wGE=";
+    rev = "dc65ee836a6bb8a0ba2b28ead26d1085d415e0c9";
+    hash = "sha256-EA+UG591hayT85GiGvloQiJM+ptGqdOTJJpVwQYCpKs=";
   };
 
   makeFlags = [ "CC:=$(CC)" ];

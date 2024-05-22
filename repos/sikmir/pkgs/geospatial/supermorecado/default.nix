@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3Packages, morecantile }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  morecantile,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "supermorecado";
@@ -14,7 +19,10 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = with python3Packages; [ flit ];
 
-  propagatedBuildInputs = with python3Packages; [ morecantile rasterio ];
+  propagatedBuildInputs = with python3Packages; [
+    morecantile
+    rasterio
+  ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 

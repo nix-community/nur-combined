@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, curl, SDL2, SDL2_image }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  curl,
+  SDL2,
+  SDL2_image,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "sdlmap";
@@ -11,11 +19,18 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-W09WzCKmuMjV1L2c1bvlBCmNvXxYgGNU/MLtu6TTsIg=";
   };
 
-  patches = [ ./tile.patch ./Makefile.patch ];
+  patches = [
+    ./tile.patch
+    ./Makefile.patch
+  ];
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ curl SDL2 SDL2_image ];
+  buildInputs = [
+    curl
+    SDL2
+    SDL2_image
+  ];
 
   installPhase = "install -Dm755 sdlmap -t $out/bin";
 

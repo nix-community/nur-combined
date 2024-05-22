@@ -1,4 +1,15 @@
-{ lib, stdenv, buildPerlPackage, fetchwebarchive, unzip, dos2unix, cgpsmapper, ocad2mp, ModulePluggable, Tk }:
+{
+  lib,
+  stdenv,
+  buildPerlPackage,
+  fetchwebarchive,
+  unzip,
+  dos2unix,
+  cgpsmapper,
+  ocad2mp,
+  ModulePluggable,
+  Tk,
+}:
 
 buildPerlPackage {
   pname = "ocad2img";
@@ -14,9 +25,15 @@ buildPerlPackage {
 
   outputs = [ "out" ];
 
-  nativeBuildInputs = [ unzip dos2unix ];
+  nativeBuildInputs = [
+    unzip
+    dos2unix
+  ];
 
-  propagatedBuildInputs = [ ModulePluggable Tk ];
+  propagatedBuildInputs = [
+    ModulePluggable
+    Tk
+  ];
 
   postPatch = ''
     substituteInPlace ocad2img.pl \

@@ -1,14 +1,15 @@
-{ stdenv
-, lib
-, mkDerivation
-, fetchFromGitHub
-, cmake
-, ninja
-, python3Packages
-, boost
-, ragel
-, useSentry ? stdenv.isLinux
-, useHyperscan ? false
+{
+  stdenv,
+  lib,
+  mkDerivation,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  python3Packages,
+  boost,
+  ragel,
+  useSentry ? stdenv.isLinux,
+  useHyperscan ? false,
 }:
 
 mkDerivation rec {
@@ -22,9 +23,16 @@ mkDerivation rec {
     hash = "sha256-bim/cDEOfMolHkrBLBEu94YI+1o1opdeA66xeovAwp0=";
   };
 
-  nativeBuildInputs = [ cmake ninja python3Packages.python ];
+  nativeBuildInputs = [
+    cmake
+    ninja
+    python3Packages.python
+  ];
 
-  buildInputs = [ boost ragel ];
+  buildInputs = [
+    boost
+    ragel
+  ];
 
   postPatch = lib.optionalString useSentry ''
     patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \

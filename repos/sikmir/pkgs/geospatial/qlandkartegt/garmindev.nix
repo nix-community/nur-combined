@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchurl, cmake, libusb-compat-0_1 }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  libusb-compat-0_1,
+}:
 
 stdenv.mkDerivation rec {
   pname = "garmindev";

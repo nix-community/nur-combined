@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, osmctools, osm-3s, osm-extracts }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  osmctools,
+  osm-3s,
+  osm-extracts,
+}:
 
 stdenv.mkDerivation {
   pname = "overpassdb";
@@ -6,7 +13,10 @@ stdenv.mkDerivation {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ osmctools osm-3s ];
+  nativeBuildInputs = [
+    osmctools
+    osm-3s
+  ];
 
   installPhase = ''
     install -dm755 $out
@@ -23,4 +33,3 @@ stdenv.mkDerivation {
     skip.ci = true;
   };
 }
-

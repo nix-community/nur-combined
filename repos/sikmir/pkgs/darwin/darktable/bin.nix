@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchfromgh, undmg, darktable }:
+{
+  lib,
+  stdenv,
+  fetchfromgh,
+  undmg,
+  darktable,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "darktable-bin";
@@ -25,8 +31,10 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  meta = with lib;
-    darktable.meta // {
+  meta =
+    with lib;
+    darktable.meta
+    // {
       sourceProvenance = with sourceTypes; [ binaryNativeCode ];
       maintainers = [ maintainers.sikmir ];
       platforms = [ "x86_64-darwin" ];

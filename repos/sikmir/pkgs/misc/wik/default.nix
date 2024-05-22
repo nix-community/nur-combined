@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "wik";
@@ -14,7 +19,10 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = with python3Packages; [ flit ];
 
-  propagatedBuildInputs = with python3Packages; [ beautifulsoup4 requests ];
+  propagatedBuildInputs = with python3Packages; [
+    beautifulsoup4
+    requests
+  ];
 
   meta = with lib; {
     description = "wik is use to get information about anything on the shell using Wikipedia";

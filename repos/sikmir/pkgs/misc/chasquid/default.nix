@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, buildGoModule, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  buildGoModule,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "chasquid";
@@ -13,7 +19,12 @@ buildGoModule rec {
 
   vendorHash = "sha256-dOQJJ2U9Y7zyCNNxUMX85BNMlqn9/KQbZB2CWiYaylc=";
 
-  subPackages = [ "." "cmd/chasquid-util" "cmd/smtp-check" "cmd/mda-lmtp" ];
+  subPackages = [
+    "."
+    "cmd/chasquid-util"
+    "cmd/smtp-check"
+    "cmd/mda-lmtp"
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, mbedtls }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  mbedtls,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mongoose";

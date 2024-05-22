@@ -1,4 +1,14 @@
-{ lib, stdenv, rustPlatform, fetchFromGitea, pkg-config, gtk4, openssl, wrapGAppsHook, Security }:
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  fetchFromGitea,
+  pkg-config,
+  gtk4,
+  openssl,
+  wrapGAppsHook,
+  Security,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "eva";
@@ -15,9 +25,15 @@ rustPlatform.buildRustPackage rec {
   cargoPatches = [ ./cargo-lock.patch ];
   cargoHash = "sha256-BFRowucvjYzCF7au4O/Q/lSpgaNUpNDx3OhnbwwfF24=";
 
-  nativeBuildInputs = [ pkg-config wrapGAppsHook ];
+  nativeBuildInputs = [
+    pkg-config
+    wrapGAppsHook
+  ];
 
-  buildInputs = [ gtk4 openssl ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [
+    gtk4
+    openssl
+  ] ++ lib.optional stdenv.isDarwin Security;
 
   meta = with lib; {
     description = "Gemini protocol browser written in Rust using the gtk+ toolkit";

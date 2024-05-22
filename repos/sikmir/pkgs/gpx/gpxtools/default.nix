@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitea, cmake, expat, exiv2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitea,
+  cmake,
+  expat,
+  exiv2,
+}:
 
 stdenv.mkDerivation {
   pname = "gpxtools";

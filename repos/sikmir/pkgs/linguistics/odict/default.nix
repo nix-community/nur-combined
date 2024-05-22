@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, buildGoModule, testers, odict }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  testers,
+  odict,
+}:
 
 buildGoModule rec {
   pname = "odict";
@@ -13,9 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-8vDlrbdmGfpCLZIU3rxuk004T9om/CGTc8vJElvlP3s=";
 
-  passthru.tests.version = testers.testVersion {
-    package = odict;
-  };
+  passthru.tests.version = testers.testVersion { package = odict; };
 
   meta = with lib; {
     description = "A blazingly-fast portable dictionary file format";

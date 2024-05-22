@@ -1,4 +1,10 @@
-{ stdenv, lib, fetchFromGitHub, buildGoModule, cyrus_sasl }:
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  cyrus_sasl,
+}:
 
 buildGoModule rec {
   pname = "mqtt-proxy";

@@ -1,9 +1,11 @@
 { fetchurl }:
 let
-  fetchSrtm = { file, hash }: fetchurl {
-    inherit hash;
-    url = "https://srtm.kurviger.de/SRTM3/${file}";
-  };
+  fetchSrtm =
+    { file, hash }:
+    fetchurl {
+      inherit hash;
+      url = "https://srtm.kurviger.de/SRTM3/${file}";
+    };
 in
 [
   (fetchSrtm {

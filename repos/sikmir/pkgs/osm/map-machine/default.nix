@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3Packages, portolan }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  portolan,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "map-machine";
@@ -27,9 +32,7 @@ python3Packages.buildPythonApplication rec {
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
   preCheck = "export PATH=$PATH:$out/bin";
-  disabledTests = [
-    "test_tile"
-  ];
+  disabledTests = [ "test_tile" ];
 
   meta = with lib; {
     description = "A simple renderer for OpenStreetMap with custom icons";

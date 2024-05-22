@@ -1,14 +1,21 @@
-{ lib, stdenv, python3Packages, fetchFromGitHub, cykhash, pyrobuf }:
+{
+  lib,
+  stdenv,
+  python3Packages,
+  fetchFromGitHub,
+  cykhash,
+  pyrobuf,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "pyrosm";
-  version = "0.6.1";
+  version = "0.6.2";
 
   src = fetchFromGitHub {
     owner = "HTenkanen";
     repo = "pyrosm";
     rev = "v${version}";
-    hash = "sha256-/VS8TWSn/UACtRIRX9iaA39ikIzL1pzgNzZntPFYNmw=";
+    hash = "sha256-eX6lOkprU/RkSz2+dGlRtdQQsI+m9GZyN/VfcIix79k=";
   };
 
   nativeBuildInputs = with python3Packages; [ cython ];
@@ -16,7 +23,7 @@ python3Packages.buildPythonPackage rec {
   propagatedBuildInputs = with python3Packages; [
     python-rapidjson
     geopandas
-    pygeos
+    shapely
     cykhash
     pyrobuf
   ];
@@ -32,6 +39,5 @@ python3Packages.buildPythonPackage rec {
     inherit (src.meta) homepage;
     license = licenses.mit;
     maintainers = [ maintainers.sikmir ];
-    broken = stdenv.isDarwin; # pygeos
   };
 }

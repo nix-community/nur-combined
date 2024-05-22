@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, fftwFloat
-, libsamplerate
-, libsndfile
-, libusb1
-, portaudio
-, rtl-sdr
-, qmake
-, qwt
-, wrapQtAppsHook
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  fftwFloat,
+  libsamplerate,
+  libsndfile,
+  libusb1,
+  portaudio,
+  rtl-sdr,
+  qmake,
+  qwt,
+  wrapQtAppsHook,
 }:
 
 stdenv.mkDerivation rec {
@@ -32,34 +33,51 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  postPatch = ''
-    substituteInPlace fmreceiver.pro \
-      --replace-fail "-lqwt-qt5" "-lqwt" \
-      --replace-fail "CONFIG" "#CONFIG"
-  '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace fmreceiver.pro --replace-fail "-lrt " ""
-    substituteInPlace includes/fm-constants.h --replace-fail "<malloc.h>" "<stdlib.h>"
-    substituteInPlace devices/rtlsdr-handler/rtlsdr-handler.cpp --replace-fail ".so" ".dylib"
-  '';
+  postPatch =
+    ''
+      substituteInPlace fmreceiver.pro \
+        --replace-fail "-lqwt-qt5" "-lqwt" \
+        --replace-fail "CONFIG" "#CONFIG"
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      substituteInPlace fmreceiver.pro --replace-fail "-lrt " ""
+      substituteInPlace includes/fm-constants.h --replace-fail "<malloc.h>" "<stdlib.h>"
+      substituteInPlace devices/rtlsdr-handler/rtlsdr-handler.cpp --replace-fail ".so" ".dylib"
+    '';
 
-  nativeBuildInputs = [ qmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    wrapQtAppsHook
+  ];
 
-  buildInputs = [ fftwFloat libsamplerate libsndfile libusb1 portaudio qwt ];
+  buildInputs = [
+    fftwFloat
+    libsamplerate
+    libsndfile
+    libusb1
+    portaudio
+    qwt
+  ];
 
   qmakeFlags = [ "CONFIG+=dabstick" ];
 
   qtWrapperArgs = [
-    "--prefix ${lib.optionalString stdenv.isDarwin "DY"}LD_LIBRARY_PATH : ${lib.makeLibraryPath [ rtl-sdr ]}"
+    "--prefix ${lib.optionalString stdenv.isDarwin "DY"}LD_LIBRARY_PATH : ${
+      lib.makeLibraryPath [ rtl-sdr ]
+    }"
   ];
 
   installPhase =
-    if stdenv.isDarwin then ''
-      mkdir -p $out/Applications
-      mv linux-bin/fmreceiver-2.0.app $out/Applications/fmreceiver.app
-      install_name_tool -change {,${qwt}/lib/}libqwt.6.dylib "$out/Applications/fmreceiver.app/Contents/MacOS/fmreceiver-2.0"
-    '' else ''
-      install -Dm755 linux-bin/fmreceiver-2.0 $out/bin/fmreceiver
-    '';
+    if stdenv.isDarwin then
+      ''
+        mkdir -p $out/Applications
+        mv linux-bin/fmreceiver-2.0.app $out/Applications/fmreceiver.app
+        install_name_tool -change {,${qwt}/lib/}libqwt.6.dylib "$out/Applications/fmreceiver.app/Contents/MacOS/fmreceiver-2.0"
+      ''
+    else
+      ''
+        install -Dm755 linux-bin/fmreceiver-2.0 $out/bin/fmreceiver
+      '';
 
   meta = with lib; {
     description = "A simple FM receiver";

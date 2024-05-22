@@ -1,4 +1,9 @@
-{ lib, stdenv, python3Packages, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  python3Packages,
+  fetchFromGitHub,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "prettymapp";
@@ -15,7 +20,10 @@ python3Packages.buildPythonPackage rec {
 
   propagatedBuildInputs = with python3Packages; [ osmnx ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook mock ];
+  nativeCheckInputs = with python3Packages; [
+    pytestCheckHook
+    mock
+  ];
 
   disabledTests = [
     "test_get_aoi_from_user_input_address"

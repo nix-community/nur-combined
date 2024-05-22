@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchurl, cmake, unzip, ncurses5, SDL, SDL_mixer }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  unzip,
+  ncurses5,
+  SDL,
+  SDL_mixer,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ascii-dash";
@@ -20,12 +29,20 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "data/" "$out/share/ascii-dash/data/"
   '';
 
-  nativeBuildInputs = [ cmake unzip ];
+  nativeBuildInputs = [
+    cmake
+    unzip
+  ];
 
-  buildInputs = [ ncurses5 SDL SDL_mixer ];
+  buildInputs = [
+    ncurses5
+    SDL
+    SDL_mixer
+  ];
 
-  NIX_CFLAGS_COMPILE = [ "-Wno-error=mismatched-new-delete" ]
-    ++ lib.optional stdenv.cc.isGNU "-Wno-error=stringop-truncation";
+  NIX_CFLAGS_COMPILE = [
+    "-Wno-error=mismatched-new-delete"
+  ] ++ lib.optional stdenv.cc.isGNU "-Wno-error=stringop-truncation";
 
   installPhase = ''
     install -Dm755 main $out/bin/ascii-dash

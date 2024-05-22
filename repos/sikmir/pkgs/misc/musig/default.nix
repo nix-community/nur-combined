@@ -1,11 +1,12 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, buildGoModule
-, pkg-config
-, portaudio
-, testers
-, musig
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  pkg-config,
+  portaudio,
+  testers,
+  musig,
 }:
 
 buildGoModule rec {
@@ -27,9 +28,7 @@ buildGoModule rec {
 
   ldflags = [ "-X main.VERSION=${version}" ];
 
-  passthru.tests.version = testers.testVersion {
-    package = musig;
-  };
+  passthru.tests.version = testers.testVersion { package = musig; };
 
   meta = with lib; {
     description = "A shazam like tool to store songs fingerprints and retrieve them";

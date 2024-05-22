@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, desktopToDarwinBundle
-, wrapQtAppsHook
-, qtsvg
-, qtwebsockets
-, qtx11extras
-, mosquitto
-, libdwarf
-, protobuf
-, zeromq
-, zstd
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  desktopToDarwinBundle,
+  wrapQtAppsHook,
+  qtsvg,
+  qtwebsockets,
+  qtx11extras,
+  mosquitto,
+  libdwarf,
+  protobuf,
+  zeromq,
+  zstd,
 }:
 
 stdenv.mkDerivation rec {
@@ -32,11 +33,20 @@ stdenv.mkDerivation rec {
       --replace-fail "QCoreApplication::applicationDirPath()" "\"$out/lib/plugins\""
   '';
 
-  nativeBuildInputs = [ cmake wrapQtAppsHook ]
-    ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
+  nativeBuildInputs = [
+    cmake
+    wrapQtAppsHook
+  ] ++ lib.optional stdenv.isDarwin desktopToDarwinBundle;
 
-  buildInputs = [ qtsvg qtwebsockets mosquitto libdwarf protobuf zeromq zstd ]
-    ++ lib.optionals stdenv.isLinux [ qtx11extras ];
+  buildInputs = [
+    qtsvg
+    qtwebsockets
+    mosquitto
+    libdwarf
+    protobuf
+    zeromq
+    zstd
+  ] ++ lib.optionals stdenv.isLinux [ qtx11extras ];
 
   meta = with lib; {
     description = "The Time Series Visualization Tool";

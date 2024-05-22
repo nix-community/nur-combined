@@ -1,4 +1,8 @@
-{ lib, python3Packages, fetchFromGitHub }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "curses-menu";
@@ -12,11 +16,18 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-l5KPBPODfeQdZIW3kjoj4ImhokFKjxyiB7r57Ryqj0g=";
   };
 
-  nativeBuildInputs = with python3Packages; [ poetry-core ];
+  build-system = with python3Packages; [ poetry-core ];
 
-  propagatedBuildInputs = with python3Packages; [ deprecated pexpect pyte ];
+  propagatedBuildInputs = with python3Packages; [
+    deprecated
+    pexpect
+    pyte
+  ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook pytest-cov ];
+  nativeCheckInputs = with python3Packages; [
+    pytestCheckHook
+    pytest-cov
+  ];
 
   doCheck = false;
 

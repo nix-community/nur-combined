@@ -1,19 +1,20 @@
-{ lib
-, stdenv
-, fetchgdrive
-, unzip
-, gsettings-desktop-schemas
-, gtk3
-, wxgtk
-, libredirect
-, makeWrapper
-, wrapGAppsHook
-, pname
-, version
-, id
-, sha256
-, description
-, homepage
+{
+  lib,
+  stdenv,
+  fetchgdrive,
+  unzip,
+  gsettings-desktop-schemas,
+  gtk3,
+  wxgtk,
+  libredirect,
+  makeWrapper,
+  wrapGAppsHook,
+  pname,
+  version,
+  id,
+  sha256,
+  description,
+  homepage,
 }:
 
 stdenv.mkDerivation {
@@ -26,9 +27,16 @@ stdenv.mkDerivation {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ makeWrapper wrapGAppsHook unzip ];
+  nativeBuildInputs = [
+    makeWrapper
+    wrapGAppsHook
+    unzip
+  ];
 
-  buildInputs = [ gsettings-desktop-schemas gtk3 ];
+  buildInputs = [
+    gsettings-desktop-schemas
+    gtk3
+  ];
 
   dontStrip = true;
   dontPatchELF = true;
@@ -50,7 +58,12 @@ stdenv.mkDerivation {
       $out/bin/${pname}
 
     patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
-      --set-rpath "$out/lib:${lib.makeLibraryPath [ stdenv.cc.cc.lib wxgtk ]}" \
+      --set-rpath "$out/lib:${
+        lib.makeLibraryPath [
+          stdenv.cc.cc.lib
+          wxgtk
+        ]
+      }" \
       $out/bin/${pname}
 
     gappsWrapperArgs+=(

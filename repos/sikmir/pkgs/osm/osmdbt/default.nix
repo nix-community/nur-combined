@@ -1,16 +1,17 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pandoc
-, boost
-, bzip2
-, expat
-, libosmium
-, libpqxx
-, libyamlcpp
-, protozero
-, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pandoc,
+  boost,
+  bzip2,
+  expat,
+  libosmium,
+  libpqxx,
+  libyamlcpp,
+  protozero,
+  zlib,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -24,7 +25,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-hXwWOOfvBrJqjMXsG/59J83PHwZqIKm+2B00QYoJD80=";
   };
 
-  nativeBuildInputs = [ cmake pandoc ];
+  nativeBuildInputs = [
+    cmake
+    pandoc
+  ];
 
   buildInputs = [
     boost
@@ -37,9 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
-  cmakeFlags = [
-    (lib.cmakeBool "BUILD_PLUGIN" false)
-  ];
+  cmakeFlags = [ (lib.cmakeBool "BUILD_PLUGIN" false) ];
 
   meta = with lib; {
     description = "OSM Database Replication Tools";

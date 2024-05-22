@@ -1,4 +1,17 @@
-{ lib, stdenv, fetchFromGitHub, cmake, bzip2, expat, gd, icu, libosmium, protozero, sqlite, zlib }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  bzip2,
+  expat,
+  gd,
+  icu,
+  libosmium,
+  protozero,
+  sqlite,
+  zlib,
+}:
 
 stdenv.mkDerivation {
   pname = "taginfo-tools";
@@ -13,7 +26,16 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ bzip2 expat gd icu libosmium protozero sqlite zlib ];
+  buildInputs = [
+    bzip2
+    expat
+    gd
+    icu
+    libosmium
+    protozero
+    sqlite
+    zlib
+  ];
 
   postInstall = ''
     install -Dm755 src/{osmstats,taginfo-sizes} -t $out/bin

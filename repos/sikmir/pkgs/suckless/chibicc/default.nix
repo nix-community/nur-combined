@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, memstreamHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  memstreamHook,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "chibicc";

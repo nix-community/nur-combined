@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages, smopy }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+  smopy,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "trackanimation";

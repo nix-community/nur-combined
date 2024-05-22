@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, libpng, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libpng,
+  pkg-config,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "datamaps";

@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "tilekiln";
@@ -11,11 +16,13 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-CLeZMfru8hnhotTAmdRc9hG473wD9gc4omD1G1XQkoQ=";
   };
 
-  postPatch = ''
-    sed -i '/setup_requires=/d' setup.py
-  '' + lib.optionalString stdenv.isDarwin ''
-    sed -i 's/len(os.sched_getaffinity(0))/4/' tilekiln/scripts/__init__.py
-  '';
+  postPatch =
+    ''
+      sed -i '/setup_requires=/d' setup.py
+    ''
+    + lib.optionalString stdenv.isDarwin ''
+      sed -i 's/len(os.sched_getaffinity(0))/4/' tilekiln/scripts/__init__.py
+    '';
 
   propagatedBuildInputs = with python3Packages; [
     click

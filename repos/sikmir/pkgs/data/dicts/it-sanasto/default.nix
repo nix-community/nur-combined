@@ -1,17 +1,28 @@
-{ lib, stdenvNoCC, fetchFromGitHub, dict, pandoc, stardict-tools }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  dict,
+  pandoc,
+  stardict-tools,
+}:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "it-sanasto";
   version = "2020-02-27";
 
   src = fetchFromGitHub {
-    owner = "HankiDesign";
+    owner = "TimoSalomaki";
     repo = "IT-sanasto";
     rev = "e31974edd50a50db6ef1b95aab81a18f33800e67";
     hash = "sha256-+YLKG4kqflWkRdrER0A7GRYXluZpuf1TO0zyk3gVzU4=";
   };
 
-  nativeBuildInputs = [ dict pandoc stardict-tools ];
+  nativeBuildInputs = [
+    dict
+    pandoc
+    stardict-tools
+  ];
 
   buildPhase = ''
     for i in *.md; do

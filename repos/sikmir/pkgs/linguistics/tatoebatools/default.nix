@@ -1,4 +1,11 @@
-{ lib, stdenv, python3Packages, fetchFromGitHub, withCli ? true, checkLang ? false }:
+{
+  lib,
+  stdenv,
+  python3Packages,
+  fetchFromGitHub,
+  withCli ? true,
+  checkLang ? false,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "tatoebatools";
@@ -11,13 +18,26 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-45CDAH80z6zApgR4gK7ZLPSXtCyPx+6YaA61Iskued4=";
   };
 
-  patches = lib.optional (!checkLang) ./dont-check-lang-validity.patch
+  patches =
+    lib.optional (!checkLang) ./dont-check-lang-validity.patch
     ++ lib.optional withCli ./cli.patch;
 
   postPatch = "sed -i 's/==.*\"/\"/;s/>=.*\"/\"/' setup.py";
 
-  propagatedBuildInputs = with python3Packages; [ beautifulsoup4 pandas requests sqlalchemy setuptools tqdm ]
-    ++ lib.optionals withCli [ click xdg-base-dirs ];
+  propagatedBuildInputs =
+    with python3Packages;
+    [
+      beautifulsoup4
+      pandas
+      requests
+      sqlalchemy
+      setuptools
+      tqdm
+    ]
+    ++ lib.optionals withCli [
+      click
+      xdg-base-dirs
+    ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 

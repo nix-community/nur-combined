@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, bc, cgpsmapper, gmaptool, mapsoft2 }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bc,
+  cgpsmapper,
+  gmaptool,
+  mapsoft2,
+}:
 
 stdenv.mkDerivation {
   pname = "slazav-hr";
@@ -11,9 +19,17 @@ stdenv.mkDerivation {
     sha256 = "0z2782smylf62ank8bpdhnvldqy46xai8ahg87yfyl203zcpp07h";
   };
 
-  nativeBuildInputs = [ bc cgpsmapper gmaptool mapsoft2 ];
+  nativeBuildInputs = [
+    bc
+    cgpsmapper
+    gmaptool
+    mapsoft2
+  ];
 
-  buildFlags = [ "directories" "reg_img" ];
+  buildFlags = [
+    "directories"
+    "reg_img"
+  ];
 
   installPhase = "install -Dm644 OUT/all_*.img -t $out";
 

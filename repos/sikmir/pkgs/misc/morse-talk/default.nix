@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "morse-talk";
@@ -11,7 +16,11 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-fvQCETz0Lv0hyfKG7HC2Whm+xoZ9233hF/1ogsfZ10o=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ matplotlib sounddevice tkinter ];
+  propagatedBuildInputs = with python3Packages; [
+    matplotlib
+    sounddevice
+    tkinter
+  ];
 
   nativeCheckInputs = with python3Packages; [ nose ];
   checkPhase = "nosetests";

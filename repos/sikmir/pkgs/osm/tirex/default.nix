@@ -1,19 +1,20 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, fetchpatch
-, makeWrapper
-, boost
-, cairo
-, harfbuzz
-, icu
-, libtiff
-, libwebp
-, mapnik
-, perl
-, perlPackages
-, proj
-, sqlite
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fetchpatch,
+  makeWrapper,
+  boost,
+  cairo,
+  harfbuzz,
+  icu,
+  libtiff,
+  libwebp,
+  mapnik,
+  perl,
+  perlPackages,
+  proj,
+  sqlite,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -59,7 +60,10 @@ stdenv.mkDerivation (finalAttrs: {
     sqlite
   ];
 
-  installFlags = [ "DESTDIR=$(out)" "INSTALLOPTS:=" ];
+  installFlags = [
+    "DESTDIR=$(out)"
+    "INSTALLOPTS:="
+  ];
 
   installTargets = [ "install-all" ];
 
@@ -77,7 +81,13 @@ stdenv.mkDerivation (finalAttrs: {
   postFixup = ''
     for cmd in `ls $out/bin`; do
       wrapProgram $out/bin/$cmd \
-        --prefix PERL5LIB : "${with perlPackages; makeFullPerlPath [ JSON IpcShareLite ]}:"$out/lib/perl5
+        --prefix PERL5LIB : "${
+          with perlPackages;
+          makeFullPerlPath [
+            JSON
+            IpcShareLite
+          ]
+        }:"$out/lib/perl5
     done
   '';
 
@@ -89,4 +99,3 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = platforms.unix;
   };
 })
-

@@ -1,4 +1,9 @@
-{ lib, buildGoModule, fetchgit, scdoc }:
+{
+  lib,
+  buildGoModule,
+  fetchgit,
+  scdoc,
+}:
 
 buildGoModule rec {
   pname = "comitium";

@@ -1,30 +1,31 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, substituteAll
-, copyDesktopItems
-, desktopToDarwinBundle
-, makeDesktopItem
-, db
-, fig2dev
-, giflib
-, gsettings-desktop-schemas
-, gtkmm3
-, imagemagick
-, jansson
-, curl
-, libjpeg
-, libpng
-, librsvg
-, libtiff
-, libxml2
-, libzip
-, perlPackages
-, pkg-config
-, proj
-, shapelib
-, unzip
-, wrapGAppsHook
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  substituteAll,
+  copyDesktopItems,
+  desktopToDarwinBundle,
+  makeDesktopItem,
+  db,
+  fig2dev,
+  giflib,
+  gsettings-desktop-schemas,
+  gtkmm3,
+  imagemagick,
+  jansson,
+  curl,
+  libjpeg,
+  libpng,
+  librsvg,
+  libtiff,
+  libxml2,
+  libzip,
+  perlPackages,
+  pkg-config,
+  proj,
+  shapelib,
+  unzip,
+  wrapGAppsHook,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -46,7 +47,10 @@ stdenv.mkDerivation (finalAttrs: {
       inherit giflib;
     })
   ];
-  patchFlags = [ "-p1" "-d modules" ];
+  patchFlags = [
+    "-p1"
+    "-d modules"
+  ];
 
   postPatch = ''
     substituteInPlace modules/get_deps \
@@ -69,7 +73,11 @@ stdenv.mkDerivation (finalAttrs: {
       comment = "Viewer for geodata and raster maps";
       desktopName = "ms2view";
       genericName = "Mapsoft2 viewer";
-      categories = [ "Geography" "Geoscience" "Science" ];
+      categories = [
+        "Geography"
+        "Geoscience"
+        "Science"
+      ];
     })
   ];
 

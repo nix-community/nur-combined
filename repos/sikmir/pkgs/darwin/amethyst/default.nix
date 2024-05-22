@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchfromgh, unzip }:
+{
+  lib,
+  stdenv,
+  fetchfromgh,
+  unzip,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "Amethyst";

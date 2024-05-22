@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "gcgn-converter";
@@ -17,13 +22,15 @@ python3Packages.buildPythonApplication rec {
 
   installPhase =
     let
-      pythonEnv = python3Packages.python.withPackages (p: with p; [
-        camelot
-        pypdf
-        geojson
-        beautifulsoup4
-        tqdm
-      ]);
+      pythonEnv = python3Packages.python.withPackages (
+        p: with p; [
+          camelot
+          pypdf
+          geojson
+          beautifulsoup4
+          tqdm
+        ]
+      );
     in
     ''
       site_packages=$out/lib/${python3Packages.python.libPrefix}/site-packages

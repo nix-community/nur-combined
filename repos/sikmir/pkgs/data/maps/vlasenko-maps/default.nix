@@ -1,4 +1,9 @@
-{ lib, stdenvNoCC, fetchgdrive, unzip }:
+{
+  lib,
+  stdenvNoCC,
+  fetchgdrive,
+  unzip,
+}:
 
 {
   hib-lov = stdenvNoCC.mkDerivation rec {

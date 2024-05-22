@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3Packages, c2cwsgiutils }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  c2cwsgiutils,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "tilecloud";

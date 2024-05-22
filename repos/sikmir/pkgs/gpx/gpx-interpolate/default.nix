@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "gpx-interpolate";
@@ -12,7 +16,11 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-cCiRXpX6qj2o+vPs3V0/+UwnnHKvDFOgTbCV347BKkc=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ gpxpy scipy numpy ];
+  propagatedBuildInputs = with python3Packages; [
+    gpxpy
+    scipy
+    numpy
+  ];
 
   dontUseSetuptoolsBuild = true;
 

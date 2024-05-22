@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, validatePkgConfig }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  validatePkgConfig,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "imsg-compat";

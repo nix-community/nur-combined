@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages, morecantile, supermorecado, rio-tiler }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+  morecantile,
+  supermorecado,
+  rio-tiler,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "cogeo-mosaic";
@@ -12,7 +20,10 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-FJJZvLGBEZpVyfXBqmz6r1obx4HrKmtK0dWusItX3j4=";
   };
 
-  nativeBuildInputs = with python3Packages; [ hatchling hatch-fancy-pypi-readme ];
+  nativeBuildInputs = with python3Packages; [
+    hatchling
+    hatch-fancy-pypi-readme
+  ];
 
   propagatedBuildInputs = with python3Packages; [
     morecantile

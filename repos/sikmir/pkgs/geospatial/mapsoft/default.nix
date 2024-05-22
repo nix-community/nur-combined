@@ -1,33 +1,34 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, perlPackages
-, python2Packages
-, gimp
-, bc
-, fig2dev
-, imagemagick
-, m4
-, netpbm
-, pkg-config
-, scons
-, boost
-, curl
-, giflib
-, gtkmm2
-, jansson
-, libjpeg
-, libpng
-, libshell
-, libtiff
-, libusb1
-, libxml2
-, libyaml
-, libzip
-, proj
-, shapelib
-, zlib
-, getopt
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  perlPackages,
+  python2Packages,
+  gimp,
+  bc,
+  fig2dev,
+  imagemagick,
+  m4,
+  netpbm,
+  pkg-config,
+  scons,
+  boost,
+  curl,
+  giflib,
+  gtkmm2,
+  jansson,
+  libjpeg,
+  libpng,
+  libshell,
+  libtiff,
+  libusb1,
+  libxml2,
+  libyaml,
+  libzip,
+  proj,
+  shapelib,
+  zlib,
+  getopt,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -81,14 +82,20 @@ stdenv.mkDerivation (finalAttrs: {
     shapelib
     zlib
   ];
-  propagatedBuildInputs = [ bc libshell ];
+  propagatedBuildInputs = [
+    bc
+    libshell
+  ];
 
   preBuild = ''
     export CPPFLAGS="-I${boost.dev}/include -I${giflib}/include -I${proj.dev}/include"
     export LINKFLAGS="-L${giflib}/lib -lgif -L${proj}/lib -lproj"
   '';
 
-  sconsFlags = [ "minimal=1" "prefix=$(out)" ];
+  sconsFlags = [
+    "minimal=1"
+    "prefix=$(out)"
+  ];
 
   postInstall = ''
     wrapPythonProgramsIn $out/lib/gimp/${lib.versions.major gimp.version}.0/plug-ins/

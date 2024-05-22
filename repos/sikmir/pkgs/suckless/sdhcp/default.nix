@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchgit }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "sdhcp";
@@ -14,7 +18,12 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace Makefile --replace-fail "ranlib" "\$(RANLIB)"
   '';
 
-  makeFlags = [ "AR:=$(AR)" "CC:=$(CC)" "PREFIX=$(out)" "RANLIB:=$(RANLIB)" ];
+  makeFlags = [
+    "AR:=$(AR)"
+    "CC:=$(CC)"
+    "PREFIX=$(out)"
+    "RANLIB:=$(RANLIB)"
+  ];
 
   meta = with lib; {
     description = "Simple dhcp client";

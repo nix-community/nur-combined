@@ -1,4 +1,10 @@
-{ lib, fetchurl, unzip, country ? "FIN", lang ? "en" }:
+{
+  lib,
+  fetchurl,
+  unzip,
+  country ? "FIN",
+  lang ? "en",
+}:
 let
   pname = "freizeitkarte-osm";
   version = "2023-12-09";

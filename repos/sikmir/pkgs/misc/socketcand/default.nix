@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, installShellFiles, libconfig }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  installShellFiles,
+  libconfig,
+}:
 
 stdenv.mkDerivation rec {
   pname = "socketcand";
@@ -11,7 +18,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-Fsx5eIbiIYctfRcEU5iyG2hKcSV/7R7EyR6WlVFDTCk=";
   };
 
-  nativeBuildInputs = [ autoreconfHook installShellFiles ];
+  nativeBuildInputs = [
+    autoreconfHook
+    installShellFiles
+  ];
 
   buildInputs = [ libconfig ];
 
@@ -25,7 +35,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Server to access CAN sockets over ASCII protocol";
     inherit (src.meta) homepage;
-    license = with licenses; [ gpl2Only bsd3 ];
+    license = with licenses; [
+      gpl2Only
+      bsd3
+    ];
     platforms = platforms.linux;
     maintainers = [ maintainers.sikmir ];
     skip.ci = stdenv.isDarwin;

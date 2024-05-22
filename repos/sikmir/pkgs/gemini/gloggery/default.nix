@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, go }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  go,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gloggery";
@@ -13,7 +18,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ go ];
 
-  makeFlags = [ "GOCACHE=$(TMPDIR)/go-cache" "HOME=$(out)" ];
+  makeFlags = [
+    "GOCACHE=$(TMPDIR)/go-cache"
+    "HOME=$(out)"
+  ];
 
   preInstall = "install -dm755 $out/{bin,share}";
 

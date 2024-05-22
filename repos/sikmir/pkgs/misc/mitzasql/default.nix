@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "mitzasql";
@@ -19,7 +23,12 @@ python3Packages.buildPythonApplication rec {
       --replace-fail "appdirs ==1.4.4" "appdirs"
   '';
 
-  propagatedBuildInputs = with python3Packages; [ appdirs pygments mysql-connector urwid ];
+  propagatedBuildInputs = with python3Packages; [
+    appdirs
+    pygments
+    mysql-connector
+    urwid
+  ];
 
   preBuild = ''
     export HOME=$TMPDIR

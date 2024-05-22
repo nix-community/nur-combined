@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, bash
-, dash
-, help2man
-, ncurses
-, withDoc ? false
-, scdoc
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bash,
+  dash,
+  help2man,
+  ncurses,
+  withDoc ? false,
+  scdoc,
 }:
 
 stdenv.mkDerivation (finalAttrs: {

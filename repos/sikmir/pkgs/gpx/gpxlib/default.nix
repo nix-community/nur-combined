@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, expat }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  expat,
+}:
 
 stdenv.mkDerivation {
   pname = "gpxlib";

@@ -1,21 +1,22 @@
-{ lib
-, fetchFromGitHub
-, python3Packages
-, jsonseq
-, supermercado
-, testers
-, tilesets-cli
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  jsonseq,
+  supermercado,
+  testers,
+  tilesets-cli,
 }:
 
 python3Packages.buildPythonApplication rec {
   pname = "tilesets-cli";
-  version = "1.7.1";
+  version = "1.10.0";
 
   src = fetchFromGitHub {
     owner = "mapbox";
     repo = "tilesets-cli";
     rev = "v${version}";
-    hash = "sha256-nAI5mwXlJ8JKUna+2dNwMnfEJuQqTrrXW10slNkjv9w=";
+    hash = "sha256-ZAPoHtrUA+D1mjWGJ/YvErYmWiXMS+tsPG+CokB9Iy8=";
   };
 
   postPatch = "sed -i 's/~=.*\"/\"/' setup.py";
@@ -24,26 +25,21 @@ python3Packages.buildPythonApplication rec {
     boto3
     click
     cligj
+    numpy
     requests
     requests-toolbelt
     jsonschema
     jsonseq
     mercantile
+    geojson
+  ];
+
+  nativeCheckInputs = with python3Packages; [
+    pytestCheckHook
     supermercado
   ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
-
-  disabledTests = [
-    "test_cli_create_private_invalid"
-    "test_cli_add_source"
-    "test_cli_upload_source_replace"
-    "test_cli_upload_source_no_replace"
-  ];
-
-  passthru.tests.version = testers.testVersion {
-    package = tilesets-cli;
-  };
+  passthru.tests.version = testers.testVersion { package = tilesets-cli; };
 
   meta = with lib; {
     description = "CLI for interacting with the Mapbox Tilesets API";

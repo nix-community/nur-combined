@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, pkg-config, ncurses, w3m, ueberzug }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  pkg-config,
+  ncurses,
+  w3m,
+  ueberzug,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cfiles";
@@ -21,7 +29,11 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ ncurses w3m ueberzug ];
+  buildInputs = [
+    ncurses
+    w3m
+    ueberzug
+  ];
 
   makeFlags = [ "CC:=$(CC)" ];
 

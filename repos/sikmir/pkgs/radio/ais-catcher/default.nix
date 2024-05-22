@@ -1,17 +1,18 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, airspy
-, airspyhf
-, hackrf
-, libsamplerate
-, openssl
-, rtl-sdr
-, soxr
-, zeromq
-, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  airspy,
+  airspyhf,
+  hackrf,
+  libsamplerate,
+  openssl,
+  rtl-sdr,
+  soxr,
+  zeromq,
+  zlib,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -25,7 +26,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-7kN3EVyjlktnU7mhQa3emD8zqf9OSlzoh4xW8LLpvL8=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     airspy

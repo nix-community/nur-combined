@@ -1,4 +1,13 @@
-{ lib, srcOnly, fetchwebarchive, pname, version, filename, hash, description }:
+{
+  lib,
+  srcOnly,
+  fetchwebarchive,
+  pname,
+  version,
+  filename,
+  hash,
+  description,
+}:
 
 srcOnly {
   inherit pname version;

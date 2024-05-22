@@ -1,12 +1,17 @@
-{ lib, stdenv, fetchurl, osmium-tool }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  osmium-tool,
+}:
 
 stdenv.mkDerivation rec {
   pname = "osm-extracts";
-  version = "240126";
+  version = "240512";
 
   src = fetchurl {
     url = "https://download.geofabrik.de/russia/northwestern-fed-district-${version}.osm.pbf";
-    hash = "sha256-4rpSuUVQWtGdWUDetBQXaV53wNS2r32RRtqbP9oulNo=";
+    hash = "sha256-fr/NcNC2290opH3MvNGKWL8qD48HcAqNTascaXbqJ3A=";
   };
 
   dontUnpack = true;

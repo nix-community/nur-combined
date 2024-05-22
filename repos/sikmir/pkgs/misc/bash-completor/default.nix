@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, bashInteractive, installShellFiles }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  bashInteractive,
+  installShellFiles,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bash-completor";
@@ -11,7 +17,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Ph+cQaXbykn703cdgkqlXcYMO4vvH6e0hCeecWS/6yA=";
   };
 
-  nativeBuildInputs = [ bashInteractive installShellFiles ];
+  nativeBuildInputs = [
+    bashInteractive
+    installShellFiles
+  ];
 
   buildFlags = [ "build" ];
 

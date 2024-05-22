@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "osmwalkthrough";
@@ -17,11 +21,13 @@ python3Packages.buildPythonApplication rec {
 
   installPhase =
     let
-      pythonEnv = python3Packages.python.withPackages (p: with p; [
-        geographiclib
-        geopy
-        networkx
-      ]);
+      pythonEnv = python3Packages.python.withPackages (
+        p: with p; [
+          geographiclib
+          geopy
+          networkx
+        ]
+      );
     in
     ''
       site_packages=$out/lib/${python3Packages.python.libPrefix}/site-packages

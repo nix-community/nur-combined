@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchFromGitHub }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+}:
 
 stdenv.mkDerivation rec {
   pname = "iso15765-canbus";
@@ -11,7 +15,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-KdVw8JhJsqa+n3ELnTojHV/37Wfb1A2a7fSbBsTkJgI=";
   };
 
-  makeFlags = [ "CC:=$(CC)" "CXX:=$(CXX)" ];
+  makeFlags = [
+    "CC:=$(CC)"
+    "CXX:=$(CXX)"
+  ];
 
   installPhase = ''
     install -Dm644 lib/lib_iqueue.h src/lib_iso15765.h -t $out/include

@@ -1,12 +1,17 @@
-{ lib, stdenvNoCC, fetchurl, _7zz }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  _7zz,
+}:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zed";
-  version = "0.134.2";
+  version = "0.136.2";
 
   src = fetchurl {
     url = "https://zed.dev/api/releases/stable/${finalAttrs.version}/Zed.dmg";
-    hash = "sha256-To4bQnEimoeJfOxhRBo9WHLTiFBy9yqdMv/O+ZYJKzw=";
+    hash = "sha256-MPwzvp52Fr9j3PsvHt+1yyZcQvi/091xkxhkoCBwBLw=";
   };
 
   sourceRoot = ".";

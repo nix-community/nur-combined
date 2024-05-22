@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, gtest }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  gtest,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "microjson";
@@ -18,11 +24,12 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "find_package(microjson CONFIG REQUIRED)" ""
   '';
 
-  nativeBuildInputs = [ cmake gtest ];
-
-  cmakeFlags = [
-    (lib.cmakeBool "MICROJSON_MAKE_TESTS" true)
+  nativeBuildInputs = [
+    cmake
+    gtest
   ];
+
+  cmakeFlags = [ (lib.cmakeBool "MICROJSON_MAKE_TESTS" true) ];
 
   doCheck = true;
 

@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchfromgh, unzip, jre, makeWrapper }:
+{
+  lib,
+  stdenv,
+  fetchfromgh,
+  unzip,
+  jre,
+  makeWrapper,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "i18n-editor";
@@ -14,7 +21,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ makeWrapper unzip ];
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+  ];
 
   buildInputs = [ jre ];
 

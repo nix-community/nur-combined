@@ -1,4 +1,12 @@
-{ lib, stdenv, python3Packages, fetchFromGitHub, fetchurl, unzip, wikitextprocessor }:
+{
+  lib,
+  stdenv,
+  python3Packages,
+  fetchFromGitHub,
+  fetchurl,
+  unzip,
+  wikitextprocessor,
+}:
 
 let
   brown = fetchurl {
@@ -22,9 +30,17 @@ python3Packages.buildPythonApplication rec {
       --replace-fail python-Levenshtein Levenshtein
   '';
 
-  propagatedBuildInputs = with python3Packages; [ levenshtein setuptools wikitextprocessor nltk ];
+  propagatedBuildInputs = with python3Packages; [
+    levenshtein
+    setuptools
+    wikitextprocessor
+    nltk
+  ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook unzip ];
+  nativeCheckInputs = with python3Packages; [
+    pytestCheckHook
+    unzip
+  ];
 
   # https://www.nltk.org/data.html#manual-installation
   preCheck = ''

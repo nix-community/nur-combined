@@ -1,4 +1,10 @@
-{ lib, buildGoModule, fetchFromGitHub, testers, vt2geojson }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  testers,
+  vt2geojson,
+}:
 
 buildGoModule rec {
   pname = "vt2geojson";
@@ -15,9 +21,7 @@ buildGoModule rec {
 
   ldflags = [ "-X main.appVersion=${version}" ];
 
-  passthru.tests.version = testers.testVersion {
-    package = vt2geojson;
-  };
+  passthru.tests.version = testers.testVersion { package = vt2geojson; };
 
   meta = with lib; {
     description = "Command line tool to dump Mapbox Vector Tiles to GeoJSON";

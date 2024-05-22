@@ -1,4 +1,11 @@
-{ lib, stdenv, appimageTools, fetchfromgh, undmg, makeWrapper }:
+{
+  lib,
+  stdenv,
+  appimageTools,
+  fetchfromgh,
+  undmg,
+  makeWrapper,
+}:
 
 let
   pname = "mqtt-explorer";
@@ -20,12 +27,18 @@ let
       hash = "sha256-Cf2qgoxaNGpcaW0oA605vd5zQiZX1m54ccW8Tbe8qvU=";
     };
   };
-  src = srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+  src =
+    srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   appimageContents = appimageTools.extract { inherit pname version src; };
 
   linux = appimageTools.wrapType2 rec {
-    inherit pname version src meta;
+    inherit
+      pname
+      version
+      src
+      meta
+      ;
 
     extraInstallCommands = ''
       mv $out/bin/${pname}-${version} $out/bin/${pname}
@@ -39,9 +52,17 @@ let
   };
 
   darwin = stdenv.mkDerivation {
-    inherit pname version src meta;
+    inherit
+      pname
+      version
+      src
+      meta
+      ;
 
-    nativeBuildInputs = [ undmg makeWrapper ];
+    nativeBuildInputs = [
+      undmg
+      makeWrapper
+    ];
 
     sourceRoot = ".";
 
@@ -62,8 +83,7 @@ let
     maintainers = with maintainers; [ sikmir ];
     platforms = builtins.attrNames srcs;
     mainProgram = "mqtt-explorer";
+    skip.ci = true;
   };
 in
-if stdenv.isDarwin
-then darwin
-else linux
+if stdenv.isDarwin then darwin else linux

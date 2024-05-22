@@ -1,4 +1,10 @@
-{ lib, stdenv, python3Packages, fetchurl, installShellFiles }:
+{
+  lib,
+  stdenv,
+  python3Packages,
+  fetchurl,
+  installShellFiles,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "phyghtmap";
@@ -15,7 +21,12 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  propagatedBuildInputs = with python3Packages; [ beautifulsoup4 lxml matplotlib numpy ];
+  propagatedBuildInputs = with python3Packages; [
+    beautifulsoup4
+    lxml
+    matplotlib
+    numpy
+  ];
 
   postInstall = "installManPage docs/phyghtmap.1";
 

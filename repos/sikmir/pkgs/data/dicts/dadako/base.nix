@@ -1,4 +1,14 @@
-{ lib, srcOnly, fetchzip, unzip, pname, version, filename, hash, description }:
+{
+  lib,
+  srcOnly,
+  fetchzip,
+  unzip,
+  pname,
+  version,
+  filename,
+  hash,
+  description,
+}:
 
 srcOnly {
   inherit pname version;

@@ -1,4 +1,14 @@
-{ lib, stdenv, fetchFromGitHub, cmake, geos, jsoncpp, libgeotiff, libjpeg, libtiff }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  geos,
+  jsoncpp,
+  libgeotiff,
+  libjpeg,
+  libtiff,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ossim";
@@ -13,7 +23,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ geos jsoncpp libgeotiff libjpeg libtiff ];
+  buildInputs = [
+    geos
+    jsoncpp
+    libgeotiff
+    libjpeg
+    libtiff
+  ];
 
   cmakeFlags = [
     (lib.cmakeBool "BUILD_OSSIM_APPS" false)

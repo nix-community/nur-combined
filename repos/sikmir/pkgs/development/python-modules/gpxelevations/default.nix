@@ -1,4 +1,9 @@
-{ lib, python3Packages, fetchFromGitHub, fetchurl }:
+{
+  lib,
+  python3Packages,
+  fetchFromGitHub,
+  fetchurl,
+}:
 let
   testdata = import ./testdata.nix { inherit fetchurl; };
 in
@@ -13,7 +18,10 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-/AGvFE74sJTnn70VklQp0MG+7dsooavAdSTyV2oJM+I=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ requests gpxpy ];
+  propagatedBuildInputs = with python3Packages; [
+    requests
+    gpxpy
+  ];
 
   dontUseSetuptoolsCheck = true;
 

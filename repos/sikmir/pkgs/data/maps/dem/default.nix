@@ -1,4 +1,11 @@
-{ lib, stdenvNoCC, fetchurl, unzip, gdal, elevation_server }:
+{
+  lib,
+  stdenvNoCC,
+  fetchurl,
+  unzip,
+  gdal,
+  elevation_server,
+}:
 let
   version = "2014-05-25";
 
@@ -23,7 +30,10 @@ in
 
     unpackPhase = lib.concatMapStringsSep "\n" (src: "unzip ${src}") srcs;
 
-    nativeBuildInputs = [ unzip gdal ];
+    nativeBuildInputs = [
+      unzip
+      gdal
+    ];
 
     dontFixup = true;
     preferLocalBuild = true;
@@ -43,7 +53,10 @@ in
 
     unpackPhase = lib.concatMapStringsSep "\n" (src: "unzip ${src}") srcs;
 
-    nativeBuildInputs = [ unzip elevation_server ];
+    nativeBuildInputs = [
+      unzip
+      elevation_server
+    ];
 
     dontFixup = true;
     preferLocalBuild = true;

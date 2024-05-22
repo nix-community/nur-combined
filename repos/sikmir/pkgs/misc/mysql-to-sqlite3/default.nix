@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "mysql-to-sqlite3";
@@ -12,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-nS+BWVemB1XYe37+Cl8q8ZhXBcZDBw5ApOapns7hXKg=";
   };
 
-  nativeBuildInputs = with python3Packages; [ hatchling ];
+  build-system = with python3Packages; [ hatchling ];
 
   propagatedBuildInputs = with python3Packages; [
     click

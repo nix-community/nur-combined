@@ -1,15 +1,25 @@
-{ callPackage, fetchFromGitHub, wxGTK30, gcc8Stdenv }:
+{
+  callPackage,
+  fetchFromGitHub,
+  wxGTK30,
+  gcc8Stdenv,
+}:
 let
   # Fix mismatch between the program and library build versions
-  wxGTK30_gcc8 = (wxGTK30.override { stdenv = gcc8Stdenv; compat26 = false; }).overrideAttrs (old: {
-    version = "3.0.5";
-    src = fetchFromGitHub {
-      owner = "wxWidgets";
-      repo = "wxWidgets";
-      rev = "v3.0.5";
-      sha256 = "1l33629ifx2dl2j71idqbd2qb6zb1d566ijpkvz6irrr50s6gbx7";
-    };
-  });
+  wxGTK30_gcc8 =
+    (wxGTK30.override {
+      stdenv = gcc8Stdenv;
+      compat26 = false;
+    }).overrideAttrs
+      (old: {
+        version = "3.0.5";
+        src = fetchFromGitHub {
+          owner = "wxWidgets";
+          repo = "wxWidgets";
+          rev = "v3.0.5";
+          sha256 = "1l33629ifx2dl2j71idqbd2qb6zb1d566ijpkvz6irrr50s6gbx7";
+        };
+      });
 in
 {
   cad = callPackage ./base.nix {

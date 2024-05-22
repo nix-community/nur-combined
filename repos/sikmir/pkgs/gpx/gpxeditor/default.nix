@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, unzip, wine, writers }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  unzip,
+  wine,
+  writers,
+}:
 let
   runScript = writers.writeBash "gpxeditor" ''
     export WINEDEBUG=warn+all

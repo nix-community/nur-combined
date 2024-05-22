@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages, testers, morecantile }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+  testers,
+  morecantile,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "morecantile";
@@ -15,13 +22,19 @@ python3Packages.buildPythonPackage rec {
 
   nativeBuildInputs = with python3Packages; [ flit ];
 
-  propagatedBuildInputs = with python3Packages; [ attrs pydantic pyproj ];
+  propagatedBuildInputs = with python3Packages; [
+    attrs
+    pydantic
+    pyproj
+  ];
 
-  nativeCheckInputs = with python3Packages; [ mercantile pytestCheckHook rasterio ];
+  nativeCheckInputs = with python3Packages; [
+    mercantile
+    pytestCheckHook
+    rasterio
+  ];
 
-  passthru.tests.version = testers.testVersion {
-    package = morecantile;
-  };
+  passthru.tests.version = testers.testVersion { package = morecantile; };
 
   meta = with lib; {
     description = "Construct and use map tile grids in different projection";

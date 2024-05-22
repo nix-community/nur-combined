@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, autoconf-archive, ncurses, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  autoconf-archive,
+  ncurses,
+  pkg-config,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "finalcut";
@@ -11,7 +19,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-fRAzfvuqruveb229fV0XYh764cA26NlDVXxX+3Fobg4=";
   };
 
-  nativeBuildInputs = [ autoreconfHook autoconf-archive pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    autoconf-archive
+    pkg-config
+  ];
 
   buildInputs = [ ncurses ];
 

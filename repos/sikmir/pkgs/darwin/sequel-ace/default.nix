@@ -1,14 +1,19 @@
-{ lib, stdenvNoCC, fetchfromgh, unzip }:
+{
+  lib,
+  stdenvNoCC,
+  fetchfromgh,
+  unzip,
+}:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sequel-ace";
-  version = "4.0.13-20062";
+  version = "4.0.17-20067";
 
   src = fetchfromgh {
     owner = "Sequel-Ace";
     repo = "Sequel-Ace";
     name = "Sequel-Ace-${lib.head (lib.splitString "-" finalAttrs.version)}.zip";
-    hash = "sha256-HsMx3Xhrf6id/F9XUEVZvP9vB52d0w+Lxz+oedmSyh8=";
+    hash = "sha256-I1wVmamN9x9il+9XeJxmrsSyG3Y27+3/Jt4Q9P6Q7dI=";
     version = "production/${finalAttrs.version}";
   };
 

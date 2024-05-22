@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, python3Packages, curses-menu }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3Packages,
+  curses-menu,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "miband4";
@@ -17,11 +23,13 @@ python3Packages.buildPythonApplication rec {
 
   installPhase =
     let
-      pythonEnv = python3Packages.python.withPackages (p: with p; [
-        bluepy
-        pycrypto
-        curses-menu
-      ]);
+      pythonEnv = python3Packages.python.withPackages (
+        p: with p; [
+          bluepy
+          pycrypto
+          curses-menu
+        ]
+      );
     in
     ''
       site_packages=$out/lib/${python3Packages.python.libPrefix}/site-packages

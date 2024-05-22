@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchsvn, autoconf, automake, libtool }:
+{
+  lib,
+  stdenv,
+  fetchsvn,
+  autoconf,
+  automake,
+  libtool,
+}:
 
 stdenv.mkDerivation {
   pname = "libgarmin";
@@ -10,7 +17,11 @@ stdenv.mkDerivation {
     sha256 = "sha256-aFXD+HnEZBsg2kcc8m8v95poz87DrwgZl4diHSeQZ78=";
   };
 
-  nativeBuildInputs = [ autoconf automake libtool ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+  ];
 
   preConfigure = ''
     aclocal \

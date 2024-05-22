@@ -1,4 +1,8 @@
-{ lib, buildGoPackage, fetchFromGitea }:
+{
+  lib,
+  buildGoPackage,
+  fetchFromGitea,
+}:
 
 buildGoPackage {
   pname = "gemcert";

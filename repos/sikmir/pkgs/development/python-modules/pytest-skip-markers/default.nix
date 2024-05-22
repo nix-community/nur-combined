@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "pytest-skip-markers";
@@ -15,9 +19,16 @@ python3Packages.buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = with python3Packages; [ setuptools-scm setuptools-declarative-requirements ];
+  nativeBuildInputs = with python3Packages; [
+    setuptools-scm
+    setuptools-declarative-requirements
+  ];
 
-  propagatedBuildInputs = with python3Packages; [ attrs distro pytest ];
+  propagatedBuildInputs = with python3Packages; [
+    attrs
+    distro
+    pytest
+  ];
 
   doCheck = false;
 

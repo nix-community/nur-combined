@@ -1,4 +1,10 @@
-{ lib, stdenv, buildGoModule, fetchFromGitHub, LocalAuthentication }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromGitHub,
+  LocalAuthentication,
+}:
 
 buildGoModule rec {
   pname = "pinentry-touchid";

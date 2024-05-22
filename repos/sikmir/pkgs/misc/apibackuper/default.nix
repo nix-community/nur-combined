@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "apibackuper";
@@ -11,7 +15,13 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-2vNuzQK6Wm6DBWRSLFuy6loCLAbcql3CqSktMjGE8JE=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ bson click lxml requests xmltodict ];
+  propagatedBuildInputs = with python3Packages; [
+    bson
+    click
+    lxml
+    requests
+    xmltodict
+  ];
 
   doCheck = false;
 

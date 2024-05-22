@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, xorg }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  xorg,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfractint";
@@ -9,7 +14,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-TlQBz+wOb/odqzjjwXfhRFdyCWy+VUIAxRLt7qI8R60=";
   };
 
-  buildInputs = [ xorg.libX11 xorg.libXft ];
+  buildInputs = [
+    xorg.libX11
+    xorg.libXft
+  ];
 
   makeFlags = [ "PREFIX=$(out)" ];
 

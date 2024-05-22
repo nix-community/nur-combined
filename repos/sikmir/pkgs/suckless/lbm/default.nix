@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitLab, pkg-config, dbus, xorg }:
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  pkg-config,
+  dbus,
+  xorg,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lbm";
@@ -15,7 +22,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ dbus xorg.libX11 xorg.libXft xorg.libXinerama ];
+  buildInputs = [
+    dbus
+    xorg.libX11
+    xorg.libXft
+    xorg.libXinerama
+  ];
 
   makeFlags = [ "CC:=$(CC)" ];
 

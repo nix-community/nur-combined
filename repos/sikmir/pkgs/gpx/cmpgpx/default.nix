@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3Packages, geotiler }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  geotiler,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "cmpgpx";
@@ -12,7 +17,12 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-iJajSbDDPkBmGKZp0QH03RK9VBMmLHWvHViojlQJArs=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ cairocffi geotiler gpxpy numpy ];
+  propagatedBuildInputs = with python3Packages; [
+    cairocffi
+    geotiler
+    gpxpy
+    numpy
+  ];
 
   dontUseSetuptoolsBuild = true;
   dontUseSetuptoolsCheck = true;

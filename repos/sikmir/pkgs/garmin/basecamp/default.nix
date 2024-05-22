@@ -1,17 +1,30 @@
-{ lib, stdenv, fetchurl, undmg, xar, cpio }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  undmg,
+  xar,
+  cpio,
+}:
 
 stdenv.mkDerivation rec {
   pname = "basecamp";
   version = "4.8.11";
 
   src = fetchurl {
-    url = "https://download.garmin.com/software/BaseCampforMac_${lib.replaceStrings [ "." ] [ "" ] version}.dmg";
+    url = "https://download.garmin.com/software/BaseCampforMac_${
+      lib.replaceStrings [ "." ] [ "" ] version
+    }.dmg";
     sha256 = "1ql049xxb7021qssn55hj8f49bzhriia0yvcv5xs3vrya7ymmhgn";
   };
 
   preferLocalBuild = true;
 
-  nativeBuildInputs = [ undmg xar cpio ];
+  nativeBuildInputs = [
+    undmg
+    xar
+    cpio
+  ];
 
   sourceRoot = ".";
 

@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, python3Packages, pyrtcm }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  pyrtcm,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "pyubx2";
@@ -12,7 +17,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-qtfAW6KMJjITugPHxddVlwS9FeoUxIEQBwknR0hhZXE=";
   };
 
-  nativeBuildInputs = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [ setuptools ];
 
   propagatedBuildInputs = with python3Packages; [
     pynmeagps

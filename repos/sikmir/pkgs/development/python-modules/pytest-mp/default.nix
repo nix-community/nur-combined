@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "pytest-mp";
@@ -20,7 +24,10 @@ python3Packages.buildPythonPackage rec {
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
-  propagatedBuildInputs = with python3Packages; [ pytest psutil ];
+  propagatedBuildInputs = with python3Packages; [
+    pytest
+    psutil
+  ];
 
   doCheck = false;
 

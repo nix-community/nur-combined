@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchzip }:
+{
+  lib,
+  stdenv,
+  fetchzip,
+}:
 let
   version = "0.8.220";
   filename = "lgmt${lib.replaceStrings [ "." ] [ "" ] version}.zip";
@@ -22,7 +26,10 @@ stdenv.mkDerivation {
     homepage = "https://www.gmaptool.eu";
     license = licenses.cc-by-sa-30;
     maintainers = [ maintainers.sikmir ];
-    platforms = [ "i686-linux" "x86_64-linux" ];
+    platforms = [
+      "i686-linux"
+      "x86_64-linux"
+    ];
     mainProgram = "gmt";
     skip.ci = true;
   };

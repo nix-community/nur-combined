@@ -1,4 +1,8 @@
-{ lib, fetchFromGitHub, python3Packages }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "tilelog";
@@ -13,7 +17,12 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = with python3Packages; [ flake8 ];
 
-  propagatedBuildInputs = with python3Packages; [ click publicsuffixlist pyathena pyarrow ];
+  propagatedBuildInputs = with python3Packages; [
+    click
+    publicsuffixlist
+    pyathena
+    pyarrow
+  ];
 
   doCheck = false;
 

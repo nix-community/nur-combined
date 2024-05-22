@@ -1,6 +1,12 @@
 { pkgs }:
 let
-  inherit (pkgs) lib newScope recurseIntoAttrs libsForQt5 darwin;
+  inherit (pkgs)
+    lib
+    newScope
+    recurseIntoAttrs
+    libsForQt5
+    darwin
+    ;
 in
 lib.makeScope newScope (
   self: with self; {
@@ -28,9 +34,7 @@ lib.makeScope newScope (
     amethyst = callPackage ./darwin/amethyst { };
     cudatext-bin = callPackage ./darwin/cudatext/bin.nix { };
     darktable-bin = callPackage ./darwin/darktable/bin.nix { };
-    finch = callPackage ./darwin/finch {
-      buildGoModule = pkgs.buildGo122Module;
-    };
+    finch = callPackage ./darwin/finch { buildGoModule = pkgs.buildGo122Module; };
     macpass = callPackage ./darwin/macpass { };
     macsvg = callPackage ./darwin/macsvg { };
     marta = callPackage ./darwin/marta { };
@@ -66,19 +70,15 @@ lib.makeScope newScope (
     slazav-podm = callPackage ./data/maps/slazav/podm.nix { };
     slazav-podm-bin = callPackage ./data/maps/slazav/podm-bin.nix { };
     uralla = callPackage ./data/maps/uralla { };
-    usa-osm-topo-routable = callPackage ./data/maps/usa-osm-topo-routable { };
 
-    gadm = callPackage ./data/misc/gadm { };
     poi = callPackage ./data/misc/poi { };
 
     osm-extracts = callPackage ./data/osm/osm-extracts { };
     overpassdb = callPackage ./data/osm/overpassdb { };
     routinodb = callPackage ./data/osm/routinodb { };
 
-    goldendict-arc-dark-theme =
-      callPackage ./data/themes/goldendict-themes/arc-dark-theme.nix { };
-    goldendict-dark-theme =
-      callPackage ./data/themes/goldendict-themes/dark-theme.nix { };
+    goldendict-arc-dark-theme = callPackage ./data/themes/goldendict-themes/arc-dark-theme.nix { };
+    goldendict-dark-theme = callPackage ./data/themes/goldendict-themes/dark-theme.nix { };
     qtpbfimageplugin-styles = callPackage ./data/themes/qtpbfimageplugin-styles { };
 
     ### DEVELOPMENT / LIBRARIES
@@ -91,11 +91,8 @@ lib.makeScope newScope (
 
     ### DEVELOPMENT / PERL MODULES
 
-    perlPackages = (
-      callPackage ./perl-packages.nix { }
-    ) // pkgs.perlPackages // {
-      recurseForDerivations = false;
-    };
+    perlPackages =
+      (callPackage ./perl-packages.nix { }) // pkgs.perlPackages // { recurseForDerivations = false; };
 
     ### DEVELOPMENT / PYTHON MODULES
 
@@ -107,11 +104,13 @@ lib.makeScope newScope (
     gpxelevations = callPackage ./development/python-modules/gpxelevations { };
     jsonseq = callPackage ./development/python-modules/jsonseq { };
     large-image = callPackage ./development/python-modules/large-image { };
-    large-image-source-gdal = (callPackage ./development/python-modules/large-image/sources.nix { }).source-gdal;
+    large-image-source-gdal =
+      (callPackage ./development/python-modules/large-image/sources.nix { }).source-gdal;
     modbus_tk = callPackage ./development/python-modules/modbus_tk {
       python3Packages = pkgs.python310Packages;
     };
     portolan = callPackage ./development/python-modules/portolan { };
+    pyarrow_ops = callPackage ./development/python-modules/pyarrow_ops { };
     pymbtiles = callPackage ./development/python-modules/pymbtiles { };
     pytest-mp = callPackage ./development/python-modules/pytest-mp { };
     pytest-shell-utilities = callPackage ./development/python-modules/pytest-shell-utilities { };
@@ -121,38 +120,36 @@ lib.makeScope newScope (
 
     ### EMBEDDED
 
-    chdk = callPackage ./embedded/chdk {
-      gcc-arm-embedded = pkgs.gcc-arm-embedded-10;
-    };
+    chdk = callPackage ./embedded/chdk { gcc-arm-embedded = pkgs.gcc-arm-embedded-10; };
     embox-aarch64 = callPackage ./embedded/embox { arch = "aarch64"; };
     embox-arm = callPackage ./embedded/embox { arch = "arm"; };
     embox-ppc = callPackage ./embedded/embox { arch = "ppc"; };
     embox-riscv64 = callPackage ./embedded/embox { arch = "riscv64"; };
-    embox-x86 = callPackage ./embedded/embox {
-      stdenv = pkgs.gccMultiStdenv;
-    };
+    embox-x86 = callPackage ./embedded/embox { stdenv = pkgs.gccMultiStdenv; };
 
     ### GARMIN
 
     basecamp = callPackage ./garmin/basecamp { };
     cgpsmapper = callPackage ./garmin/cgpsmapper { };
     garmin-uploader = callPackage ./garmin/garmin-uploader { };
-    garminimg = libsForQt5.callPackage ./garmin/garminimg {
-      proj = pkgs.proj_7;
-    };
+    garminimg = libsForQt5.callPackage ./garmin/garminimg { proj = pkgs.proj_7; };
     gimgtools = callPackage ./garmin/gimgtools { };
     gmaptool = callPackage ./garmin/gmaptool { };
     imgdecode = callPackage ./garmin/imgdecode { };
-    libgarmin = callPackage ./garmin/libgarmin {
-      automake = pkgs.automake111x;
-    };
+    libgarmin = callPackage ./garmin/libgarmin { automake = pkgs.automake111x; };
     ocad2img = perlPackages.callPackage ./garmin/ocad2img {
       inherit cgpsmapper ocad2mp fetchwebarchive;
     };
     ocad2mp = callPackage ./garmin/ocad2mp { };
     openmtbmap = callPackage ./garmin/openmtbmap { };
     osm2mp = perlPackages.callPackage ./garmin/osm2mp {
-      inherit (perlPackages) GeoOpenstreetmapParser MatchSimple MathPolygon MathPolygonTree TreeR;
+      inherit (perlPackages)
+        GeoOpenstreetmapParser
+        MatchSimple
+        MathPolygon
+        MathPolygonTree
+        TreeR
+        ;
     };
     sendmap20 = callPackage ./garmin/sendmap20 { };
 
@@ -161,28 +158,23 @@ lib.makeScope newScope (
     agunua = callPackage ./gemini/agunua { };
     astronaut = callPackage ./gemini/astronaut { };
     comitium = callPackage ./gemini/comitium { };
-    eva = callPackage ./gemini/eva {
-      inherit (darwin.apple_sdk.frameworks) Security;
-    };
+    eva = callPackage ./gemini/eva { inherit (darwin.apple_sdk.frameworks) Security; };
     gelim = callPackage ./gemini/gelim { };
     gemcert = callPackage ./gemini/gemcert { };
     gemgen = callPackage ./gemini/gemgen { };
     gemini-ipfs-gateway = callPackage ./gemini/gemini-ipfs-gateway { };
     geminid = callPackage ./gemini/geminid { };
     gemreader = callPackage ./gemini/gemreader { };
-    gemserv = callPackage ./gemini/gemserv {
-      inherit (darwin.apple_sdk.frameworks) Security;
-    };
+    gemserv = callPackage ./gemini/gemserv { inherit (darwin.apple_sdk.frameworks) Security; };
     gloggery = callPackage ./gemini/gloggery { };
-    gmi2html = callPackage ./gemini/gmi2html {
-      zig = pkgs.zig_0_9;
-    };
+    gmi2html = callPackage ./gemini/gmi2html { zig = pkgs.zig_0_9; };
     gmnhg = callPackage ./gemini/gmnhg { };
     gmnigit = callPackage ./gemini/gmnigit { };
     gplaces = callPackage ./gemini/gplaces { };
     gssg = callPackage ./gemini/gssg { };
     gurl = callPackage ./gemini/gurl { };
     kineto = callPackage ./gemini/kineto { };
+    mdtohtml = callPackage ./gemini/mdtohtml { };
     py-gmi2html = callPackage ./gemini/py-gmi2html { };
     qute-gemini = callPackage ./gemini/qute-gemini { };
     satellite = callPackage ./gemini/satellite { };
@@ -201,30 +193,28 @@ lib.makeScope newScope (
     color-operations = callPackage ./geospatial/color-operations { };
     datamaps = callPackage ./geospatial/datamaps { };
     deegree = callPackage ./geospatial/deegree { };
-    elevation = callPackage ./geospatial/elevation {
-      click = click-6-7;
-    };
+    elevation = callPackage ./geospatial/elevation { click = click-6-7; };
     garmindev = callPackage ./geospatial/qlandkartegt/garmindev.nix { };
+    geoarrow-c = callPackage ./geospatial/geoarrow-c { };
+    geoarrow-pyarrow = callPackage ./geospatial/geoarrow-pyarrow { };
     geojson-pydantic = callPackage ./geospatial/geojson-pydantic { };
     geowebcache = callPackage ./geospatial/geowebcache { };
     go-pmtiles = callPackage ./geospatial/go-pmtiles { };
     go-staticmaps = callPackage ./geospatial/go-staticmaps { };
-    hecate = callPackage ./geospatial/hecate {
-      inherit (darwin.apple_sdk.frameworks) Security;
-    };
+    hecate = callPackage ./geospatial/hecate { inherit (darwin.apple_sdk.frameworks) Security; };
+    kealib = callPackage ./geospatial/kealib { };
     localtileserver = callPackage ./geospatial/localtileserver { };
-    mapsoft = callPackage ./geospatial/mapsoft {
-      proj = pkgs.proj_7;
-    };
+    mapsoft = callPackage ./geospatial/mapsoft { proj = pkgs.proj_7; };
     mapsoft2 = callPackage ./geospatial/mapsoft/2.nix { };
     mbtiles2osmand = callPackage ./geospatial/mbtiles2osmand { };
     mbutiles = callPackage ./geospatial/mbutiles { };
     mobroute = callPackage ./geospatial/mobroute { };
+    mobsql = callPackage ./geospatial/mobsql { };
     morecantile = callPackage ./geospatial/morecantile { };
     orbisgis = callPackage ./geospatial/orbisgis { jre = pkgs.jre8; };
     ossim = callPackage ./geospatial/ossim { };
-    pmtiles = callPackage ./geospatial/pmtiles { };
     pipfile = callPackage ./geospatial/pipfile { };
+    pmtiles = callPackage ./geospatial/pmtiles { };
     polyvectorization = libsForQt5.callPackage ./geospatial/polyvectorization { };
     py-staticmaps = callPackage ./geospatial/py-staticmaps { };
     pysheds = callPackage ./geospatial/pysheds { };
@@ -238,15 +228,15 @@ lib.makeScope newScope (
       proj = pkgs.proj_7;
       inherit garmindev;
     };
-    render_geojson = callPackage ./geospatial/render_geojson {
-      wxGTK = pkgs.wxGTK32;
-    };
+    render_geojson = callPackage ./geospatial/render_geojson { wxGTK = pkgs.wxGTK32; };
     rio-cogeo = callPackage ./geospatial/rio-cogeo { };
     rio-color = callPackage ./geospatial/rio-color { };
     rio-mbtiles = callPackage ./geospatial/rio-mbtiles { };
     rio-mucho = callPackage ./geospatial/rio-mucho { };
     rio-stac = callPackage ./geospatial/rio-stac { };
     rio-tiler = callPackage ./geospatial/rio-tiler { };
+    rioxarray = callPackage ./geospatial/rioxarray { };
+    rsgislib = callPackage ./geospatial/rsgislib { };
     sasplanet = callPackage ./geospatial/sasplanet { };
     server-thread = callPackage ./geospatial/server-thread { };
     starlette-cramjam = callPackage ./geospatial/starlette-cramjam { };
@@ -328,9 +318,7 @@ lib.makeScope newScope (
     revtok = callPackage ./linguistics/revtok { };
     stardict-tools = callPackage ./linguistics/stardict-tools { };
     tatoebatools = callPackage ./linguistics/tatoebatools { };
-    ttb = callPackage ./linguistics/ttb {
-      inherit (darwin.apple_sdk.frameworks) SystemConfiguration;
-    };
+    ttb = callPackage ./linguistics/ttb { inherit (darwin.apple_sdk.frameworks) SystemConfiguration; };
     wikitextprocessor = callPackage ./linguistics/wikitextprocessor { };
     wiktextract = callPackage ./linguistics/wiktextract { };
     wiktfinnish = callPackage ./linguistics/wiktfinnish { };
@@ -377,12 +365,8 @@ lib.makeScope newScope (
     miband4 = callPackage ./misc/miband4 { };
     mitzasql = callPackage ./misc/mitzasql { };
     mjs = callPackage ./misc/mjs { };
-    modbus-tools = callPackage ./misc/modbus-tools {
-      inherit (darwin.apple_sdk.frameworks) IOKit;
-    };
-    modbus_sim_cli = callPackage ./misc/modbus_sim_cli {
-      python3Packages = pkgs.python310Packages;
-    };
+    modbus-tools = callPackage ./misc/modbus-tools { inherit (darwin.apple_sdk.frameworks) IOKit; };
+    modbus_sim_cli = callPackage ./misc/modbus_sim_cli { python3Packages = pkgs.python310Packages; };
     morse-talk = callPackage ./misc/morse-talk { };
     musig = callPackage ./misc/musig { };
     mysql-to-sqlite3 = callPackage ./misc/mysql-to-sqlite3 { };
@@ -410,6 +394,7 @@ lib.makeScope newScope (
     shellprof = callPackage ./misc/shellprof { };
     socketcand = callPackage ./misc/socketcand { };
     subprocess = callPackage ./misc/subprocess { };
+    tabiew = callPackage ./misc/tabiew { };
     tcvt = callPackage ./misc/tcvt { };
     telegabber = callPackage ./misc/telegabber { };
     telegram-send = callPackage ./misc/telegram-send { };
@@ -422,9 +407,7 @@ lib.makeScope newScope (
     #worm = callPackage ./misc/worm { };
     wptools = callPackage ./misc/wptools { };
     xfractint = callPackage ./misc/xfractint { };
-    xtr = callPackage ./misc/xtr {
-      inherit (darwin.apple_sdk.frameworks) Foundation;
-    };
+    xtr = callPackage ./misc/xtr { inherit (darwin.apple_sdk.frameworks) Foundation; };
     youtimetrack = callPackage ./misc/youtimetrack { };
 
     ### MQTT
@@ -447,26 +430,16 @@ lib.makeScope newScope (
     mqtt-to-influxdb = callPackage ./mqtt/mqtt-to-influxdb { };
     mqtt-to-influxdb-forwarder = callPackage ./mqtt/mqtt-to-influxdb-forwarder { };
     nanosdk = callPackage ./mqtt/nanosdk { };
-    rumqtt = callPackage ./mqtt/rumqtt {
-      inherit (darwin.apple_sdk.frameworks) Security;
-    };
+    rumqtt = callPackage ./mqtt/rumqtt { inherit (darwin.apple_sdk.frameworks) Security; };
 
     ### NAKARTE
 
     elevation_server = callPackage ./nakarte/elevation_server { };
-    map-tiler = callPackage ./nakarte/map-tiler {
-      python3Packages = pkgs.python39Packages;
-    };
-    maprec = callPackage ./nakarte/maprec {
-      python3Packages = pkgs.python39Packages;
-    };
+    map-tiler = callPackage ./nakarte/map-tiler { python3Packages = pkgs.python39Packages; };
+    maprec = callPackage ./nakarte/maprec { python3Packages = pkgs.python39Packages; };
     #nakarte = callPackage ./nakarte/nakarte { };
-    ozi_map = callPackage ./nakarte/ozi_map {
-      python3Packages = pkgs.python39Packages;
-    };
-    pyimagequant = callPackage ./nakarte/pyimagequant {
-      python3Packages = pkgs.python39Packages;
-    };
+    ozi_map = callPackage ./nakarte/ozi_map { python3Packages = pkgs.python39Packages; };
+    pyimagequant = callPackage ./nakarte/pyimagequant { python3Packages = pkgs.python39Packages; };
     thinplatespline = callPackage ./nakarte/thinplatespline {
       python3Packages = pkgs.python39Packages;
     };
@@ -476,7 +449,6 @@ lib.makeScope newScope (
 
     cykhash = callPackage ./osm/cykhash { };
     gcgn-converter = callPackage ./osm/gcgn-converter { };
-    imposm = callPackage ./osm/imposm { };
     level0 = callPackage ./osm/level0 { };
     map-machine = callPackage ./osm/map-machine { };
     map-stylizer = callPackage ./osm/map-stylizer { };
@@ -501,9 +473,7 @@ lib.makeScope newScope (
     pyrosm = callPackage ./osm/pyrosm { };
     sdlmap = callPackage ./osm/sdlmap { };
     smopy = callPackage ./osm/smopy { };
-    smrender = callPackage ./osm/smrender {
-      inherit (darwin.apple_sdk.frameworks) Foundation;
-    };
+    smrender = callPackage ./osm/smrender { inherit (darwin.apple_sdk.frameworks) Foundation; };
     taginfo-tools = callPackage ./osm/taginfo-tools { };
     tilelog = callPackage ./osm/tilelog { };
     tirex = callPackage ./osm/tirex { };
@@ -512,6 +482,7 @@ lib.makeScope newScope (
     ### RADIO
 
     acarsdec = callPackage ./radio/acarsdec { };
+    adsb_deku = callPackage ./radio/adsb_deku { };
     ais-catcher = callPackage ./radio/ais-catcher { };
     aprsc = callPackage ./radio/aprsc { };
     dumphfdl = callPackage ./radio/dumphfdl { };

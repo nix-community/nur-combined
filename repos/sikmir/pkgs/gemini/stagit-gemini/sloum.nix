@@ -1,4 +1,9 @@
-{ lib, stdenv, libgit2, fetchFromGitea }:
+{
+  lib,
+  stdenv,
+  libgit2,
+  fetchFromGitea,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "stagit-gemini";

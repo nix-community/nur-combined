@@ -1,4 +1,11 @@
-{ lib, stdenv, buildGoModule, fetchFromSourcehut, scdoc, installShellFiles }:
+{
+  lib,
+  stdenv,
+  buildGoModule,
+  fetchFromSourcehut,
+  scdoc,
+  installShellFiles,
+}:
 
 buildGoModule rec {
   pname = "gelim";
@@ -11,7 +18,10 @@ buildGoModule rec {
     hash = "sha256-xFOiE0OLaJ4WK+I8oNXNk7feP3nXp9wvH0bkNnBK1Yg=";
   };
 
-  nativeBuildInputs = [ scdoc installShellFiles ];
+  nativeBuildInputs = [
+    scdoc
+    installShellFiles
+  ];
 
   vendorHash = "sha256-sWNPNZYcm296zhz57/NCaAlQxJ+Z1zzd/Y+KiLxZ46E=";
 

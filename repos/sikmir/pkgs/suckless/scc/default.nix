@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchgit, qbe }:
+{
+  lib,
+  stdenv,
+  fetchgit,
+  qbe,
+}:
 
 stdenv.mkDerivation {
   pname = "scc";
@@ -18,7 +23,14 @@ stdenv.mkDerivation {
 
   #buildInputs = [ qbe ];
 
-  makeFlags = [ "PREFIX=$(out)" "AR:=$(AR)" "AS:=$(AS)" "CC:=$(CC)" "RANLIB:=$(RANLIB)" "HOSTCC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "AR:=$(AR)"
+    "AS:=$(AS)"
+    "CC:=$(CC)"
+    "RANLIB:=$(RANLIB)"
+    "HOSTCC=${stdenv.cc.targetPrefix}cc"
+  ];
 
   #doCheck = true;
   checkTarget = "tests";

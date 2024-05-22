@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchfromgh, p7zip, makeWrapper, qtcreator }:
+{
+  lib,
+  stdenv,
+  fetchfromgh,
+  p7zip,
+  makeWrapper,
+  qtcreator,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qtcreator-bin";
@@ -14,7 +21,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ p7zip makeWrapper ];
+  nativeBuildInputs = [
+    p7zip
+    makeWrapper
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -24,8 +34,10 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  meta = with lib;
-    qtcreator.meta // {
+  meta =
+    with lib;
+    qtcreator.meta
+    // {
       sourceProvenance = with sourceTypes; [ binaryNativeCode ];
       maintainers = [ maintainers.sikmir ];
       platforms = [ "x86_64-darwin" ];

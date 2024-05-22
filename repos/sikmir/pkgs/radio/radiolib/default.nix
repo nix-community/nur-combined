@@ -1,14 +1,19 @@
-{ lib, stdenv, fetchFromGitHub, cmake }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "radiolib";
-  version = "6.4.2";
+  version = "6.5.0";
 
   src = fetchFromGitHub {
     owner = "jgromes";
     repo = "RadioLib";
     rev = finalAttrs.version;
-    hash = "sha256-9cJZBybenJ160PeDCfWFmsLw4JVJSxNTTWA1Qosy2p0=";
+    hash = "sha256-/s3a8P777cLyjLuSoPD89oh4bOHH4mh6NMadl2VpjpI=";
     fetchSubmodules = true;
   };
 

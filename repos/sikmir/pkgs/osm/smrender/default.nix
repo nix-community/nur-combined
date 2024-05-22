@@ -1,13 +1,14 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, autoreconfHook
-, pkg-config
-, cairo
-, librsvg
-, Foundation
-, memstreamHook
-, testers
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  pkg-config,
+  cairo,
+  librsvg,
+  Foundation,
+  memstreamHook,
+  testers,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -21,10 +22,20 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-b9xuOPLxA9zZzIwWl+FTSW5XHgJ2sFoC578ZH6iwjaM=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
 
-  buildInputs = [ cairo librsvg ]
-    ++ lib.optionals stdenv.isDarwin [ Foundation memstreamHook ];
+  buildInputs =
+    [
+      cairo
+      librsvg
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      Foundation
+      memstreamHook
+    ];
 
   passthru.tests.version = testers.testVersion {
     package = finalAttrs.finalPackage;

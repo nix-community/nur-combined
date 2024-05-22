@@ -1,30 +1,23 @@
-{ lib, stdenv, fetchFromSourcehut, redo-apenwarr }:
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "table";
-  version = "0.6.22";
+  version = "0.7.8";
 
   src = fetchFromSourcehut {
     owner = "~strahinja";
     repo = "table";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-xN8U/5hgM/vmfxJ+jpTRyFY5TKxNDPtritVBaJr3L1I=";
+    hash = "sha256-uXGeHowit5Yfweq+/64gP3O9QrITLn7in3R85UPdb1Y=";
   };
 
-  nativeBuildInputs = [ redo-apenwarr ];
+  FALLBACKVER = finalAttrs.version;
 
-  buildPhase = ''
-    runHook preBuild
-    export FALLBACKVER=${finalAttrs.version}
-    redo all
-    runHook postBuild
-  '';
-
-  installPhase = ''
-    runHook preInstall
-    PREFIX=$out redo install
-    runHook postInstall
-  '';
+  installFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {
     description = "Command line utility to format and display CSV";

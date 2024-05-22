@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, fontconfig, imlib2, libXft, conf ? null }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fontconfig,
+  imlib2,
+  libXft,
+  conf ? null,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mage";
@@ -14,7 +22,11 @@ stdenv.mkDerivation (finalAttrs: {
   configFile = lib.optionalString (conf != null) (builtins.toFile "config.h" conf);
   preBuild = lib.optionalString (conf != null) "cp ${finalAttrs.configFile} config.h";
 
-  buildInputs = [ fontconfig imlib2 libXft ];
+  buildInputs = [
+    fontconfig
+    imlib2
+    libXft
+  ];
 
   makeFlags = [ "CC:=$(CC)" ];
 

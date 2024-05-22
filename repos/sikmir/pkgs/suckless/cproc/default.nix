@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromSourcehut, qbe }:
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+  qbe,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cproc";

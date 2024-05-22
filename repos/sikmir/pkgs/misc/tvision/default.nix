@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, cmake, ncurses }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  ncurses,
+}:
 
 stdenv.mkDerivation rec {
   pname = "tvision";
@@ -15,9 +21,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ ncurses ];
 
-  cmakeFlags = [
-    (lib.cmakeBool "TV_BUILD_EXAMPLES" false)
-  ];
+  cmakeFlags = [ (lib.cmakeBool "TV_BUILD_EXAMPLES" false) ];
 
   meta = with lib; {
     description = "A modern port of Turbo Vision 2.0, the classical framework for text-based user interfaces";

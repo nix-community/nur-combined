@@ -6,13 +6,12 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
   modules = import ./modules; # NixOS modules
-} // (pkgs.lib.optionalAttrs (builtins.tryEval pkgs).success (import ./pkgs {
-  inherit pkgs;
 }
-)
-)
+// (pkgs.lib.optionalAttrs (builtins.tryEval pkgs).success (import ./pkgs { inherit pkgs; }))

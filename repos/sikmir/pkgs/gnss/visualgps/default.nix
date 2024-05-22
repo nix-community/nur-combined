@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, qmake, qtserialport, wrapQtAppsHook }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  qmake,
+  qtserialport,
+  wrapQtAppsHook,
+}:
 
 stdenv.mkDerivation {
   pname = "visualgps";
@@ -12,19 +19,25 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ qmake wrapQtAppsHook ];
+  nativeBuildInputs = [
+    qmake
+    wrapQtAppsHook
+  ];
 
   buildInputs = [ qtserialport ];
 
   qmakeFlags = [ "Software/VisualGPSqt/Source/VisualGPSqt.pro" ];
 
   postInstall =
-    if stdenv.isDarwin then ''
-      mkdir -p $out/Applications
-      mv *.app $out/Applications
-    '' else ''
-      install -Dm755 VisualGPSqt -t $out/bin
-    '';
+    if stdenv.isDarwin then
+      ''
+        mkdir -p $out/Applications
+        mv *.app $out/Applications
+      ''
+    else
+      ''
+        install -Dm755 VisualGPSqt -t $out/bin
+      '';
 
   meta = with lib; {
     description = "A QT application (GUI) that makes use of the VisualGPS/NMEAParser project";

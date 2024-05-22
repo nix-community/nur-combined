@@ -1,30 +1,23 @@
-{ lib, stdenv, fetchFromSourcehut, redo-apenwarr }:
+{
+  lib,
+  stdenv,
+  fetchFromSourcehut,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "dtree";
-  version = "0.1.3";
+  version = "0.2.4";
 
   src = fetchFromSourcehut {
     owner = "~strahinja";
     repo = "dtree";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-bvMJVPGYhNaWMAUyOlK4dci5/I/wYXIv2tXR+0Mz534=";
+    hash = "sha256-yBu9nckWOt/EMPJbjyzWslGX7KivdR9fr+5laOpRmHM=";
   };
 
-  nativeBuildInputs = [ redo-apenwarr ];
+  FALLBACKVER = finalAttrs.version;
 
-  buildPhase = ''
-    runHook preBuild
-    export FALLBACKVER=${finalAttrs.version}
-    redo all
-    runHook postBuild
-  '';
-
-  installPhase = ''
-    runHook preInstall
-    PREFIX=$out redo install
-    runHook postInstall
-  '';
+  installFlags = [ "PREFIX=$(out)" ];
 
   meta = with lib; {
     description = "Command line program to draw trees";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, libconfig, file, openssl, flex }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libconfig,
+  file,
+  openssl,
+  flex,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "geminid";
@@ -13,9 +21,17 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ flex ];
 
-  buildInputs = [ libconfig file openssl.dev ];
+  buildInputs = [
+    libconfig
+    file
+    openssl.dev
+  ];
 
-  makeFlags = [ "geminid" "CC:=$(CC)" "LEX=flex" ];
+  makeFlags = [
+    "geminid"
+    "CC:=$(CC)"
+    "LEX=flex"
+  ];
 
   installPhase = "install -Dm755 geminid -t $out/bin";
 

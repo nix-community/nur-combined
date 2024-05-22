@@ -1,14 +1,15 @@
-{ lib
-, stdenv
-, fetchurl
-, cmake
-, meson
-, ninja
-, pkg-config
-, gnunet
-, libextractor
-, libgcrypt
-, libsodium
+{
+  lib,
+  stdenv,
+  fetchurl,
+  cmake,
+  meson,
+  ninja,
+  pkg-config,
+  gnunet,
+  libextractor,
+  libgcrypt,
+  libsodium,
 }:
 
 stdenv.mkDerivation rec {
@@ -28,9 +29,19 @@ stdenv.mkDerivation rec {
       --replace-fail "GNUNET_CHAT_VERSION_ASSERT();" ""
   '';
 
-  nativeBuildInputs = [ meson cmake ninja pkg-config ];
+  nativeBuildInputs = [
+    meson
+    cmake
+    ninja
+    pkg-config
+  ];
 
-  buildInputs = [ gnunet libextractor libgcrypt libsodium ];
+  buildInputs = [
+    gnunet
+    libextractor
+    libgcrypt
+    libsodium
+  ];
 
   doCheck = false;
 

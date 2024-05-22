@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, openssl }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  openssl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "opcua-stack";
@@ -19,7 +26,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ boost openssl ];
+  buildInputs = [
+    boost
+    openssl
+  ];
 
   meta = with lib; {
     description = "Open Source OPC UA Application Server and OPC UA Client/Server C++ Libraries";

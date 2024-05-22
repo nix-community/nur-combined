@@ -1,4 +1,11 @@
-{ stdenv, lib, fetchsvn, cmake, nasm, libX11 }:
+{
+  stdenv,
+  lib,
+  fetchsvn,
+  cmake,
+  nasm,
+  libX11,
+}:
 
 stdenv.mkDerivation {
   pname = "linrad";
@@ -10,7 +17,10 @@ stdenv.mkDerivation {
     sha256 = "sha256-zOGpLX5OTSFhbme6hENN+Z1gwcxkHoeDDDg6LZQvcM0=";
   };
 
-  nativeBuildInputs = [ cmake nasm ];
+  nativeBuildInputs = [
+    cmake
+    nasm
+  ];
 
   buildInputs = [ libX11 ];
 

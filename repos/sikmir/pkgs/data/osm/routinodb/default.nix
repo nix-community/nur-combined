@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchurl, routino, osm-extracts, prefix ? "Russia-NWFD" }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  routino,
+  osm-extracts,
+  prefix ? "Russia-NWFD",
+}:
 
 stdenv.mkDerivation {
   pname = "routinodb";

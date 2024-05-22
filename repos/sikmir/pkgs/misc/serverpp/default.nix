@@ -1,4 +1,11 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, gsl-lite }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  gsl-lite,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "serverpp";
@@ -13,7 +20,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ boost gsl-lite ];
+  buildInputs = [
+    boost
+    gsl-lite
+  ];
 
   meta = with lib; {
     description = "A C++ library for basic network server handling";

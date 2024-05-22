@@ -1,4 +1,10 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, libnbcompat }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  autoreconfHook,
+  libnbcompat,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "nmtree";

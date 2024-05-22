@@ -1,4 +1,9 @@
-{ lib, stdenvNoCC, fetchFromGitHub, conf ? null }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  conf ? null,
+}:
 
 stdenvNoCC.mkDerivation rec {
   pname = "level0";

@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, python3Packages, pyspartn, pyubx2 }:
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  pyspartn,
+  pyubx2,
+}:
 
 python3Packages.buildPythonPackage rec {
   pname = "pygnssutils";
@@ -17,7 +23,7 @@ python3Packages.buildPythonPackage rec {
       --replace-fail "certifi>=2024.0.0" "certifi"
   '';
 
-  nativeBuildInputs = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [ setuptools ];
 
   propagatedBuildInputs = with python3Packages; [
     certifi

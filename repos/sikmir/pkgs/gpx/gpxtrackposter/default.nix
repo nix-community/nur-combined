@@ -1,4 +1,10 @@
-{ lib, fetchFromGitHub, fetchpatch, python3Packages, s2sphere }:
+{
+  lib,
+  fetchFromGitHub,
+  fetchpatch,
+  python3Packages,
+  s2sphere,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "gpxtrackposter";

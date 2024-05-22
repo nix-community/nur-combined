@@ -1,14 +1,15 @@
-{ lib
-, fetchFromGitHub
-, python3Packages
-, click
-, gnumake
-, curl
-, unzip
-, gzip
-, gdal
-, testers
-, elevation
+{
+  lib,
+  fetchFromGitHub,
+  python3Packages,
+  click,
+  gnumake,
+  curl,
+  unzip,
+  gzip,
+  gdal,
+  testers,
+  elevation,
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -26,7 +27,12 @@ python3Packages.buildPythonApplication rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  propagatedBuildInputs = with python3Packages; [ fasteners appdirs click setuptools ];
+  propagatedBuildInputs = with python3Packages; [
+    fasteners
+    appdirs
+    click
+    setuptools
+  ];
 
   postPatch = ''
     for f in elevation/datasource.* \
@@ -43,15 +49,16 @@ python3Packages.buildPythonApplication rec {
     done
   '';
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook pytest-mock ];
+  nativeCheckInputs = with python3Packages; [
+    pytestCheckHook
+    pytest-mock
+  ];
 
   postInstall = ''
     install -Dm644 elevation/datasource.mk -t $out/lib/${python3Packages.python.libPrefix}/site-packages/elevation
   '';
 
-  passthru.tests.version = testers.testVersion {
-    package = elevation;
-  };
+  passthru.tests.version = testers.testVersion { package = elevation; };
 
   meta = with lib; {
     description = "Python script to download global terrain digital elevation models, SRTM 30m DEM and SRTM 90m DEM";

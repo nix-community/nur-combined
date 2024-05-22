@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, libgrapheme }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  libgrapheme,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "makel";

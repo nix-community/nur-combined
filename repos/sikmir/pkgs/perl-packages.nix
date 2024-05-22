@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchurl, perlPackages }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+  perlPackages,
+}:
 with perlPackages;
 rec {
   MatchSimple = buildPerlPackage rec {
@@ -9,7 +14,11 @@ rec {
       hash = "sha256-itYBTU5AJA3DNY+9yQf9OZJlUcGAs6Qnn42hgfF/dss=";
     };
     buildInputs = [ TestFatal ];
-    propagatedBuildInputs = [ ExporterTiny ScalarListUtils SubInfix ];
+    propagatedBuildInputs = [
+      ExporterTiny
+      ScalarListUtils
+      SubInfix
+    ];
     meta = with lib; {
       homepage = "https://metacpan.org/pod/match::smart";
       description = "match::smart - clone of smartmatch operator";
@@ -53,7 +62,10 @@ rec {
       url = "mirror://cpan/authors/id/L/LI/LIOSHA/${pname}-${version}.tar.gz";
       hash = "sha256-nJDRHywc/80cD/OxOCXyxWt/rywwdNbau7LckIHVYow=";
     };
-    propagatedBuildInputs = [ ListMoreUtils MathGeometryPlanarGPCPolygonXS ];
+    propagatedBuildInputs = [
+      ListMoreUtils
+      MathGeometryPlanarGPCPolygonXS
+    ];
     meta = with lib; {
       homepage = "https://metacpan.org/pod/Math::Polygon::Tree";
       description = "Math::Polygon::Tree - fast check if point is inside polygon";
@@ -96,7 +108,10 @@ rec {
       url = "mirror://cpan/authors/id/L/LI/LIOSHA/${pname}-${version}.tar.gz";
       hash = "sha256-iygsM5Ha+hy4MN8Q4aLoRfpScYzYSSe73bDnyqofRpM=";
     };
-    propagatedBuildInputs = [ ListMoreUtils XMLParser ];
+    propagatedBuildInputs = [
+      ListMoreUtils
+      XMLParser
+    ];
     meta = with lib; {
       homepage = "https://metacpan.org/pod/Geo::Openstreetmap::Parser";
       description = "Geo::Openstreetmap::Parser - Openstreetmap XML dump parser";
@@ -111,7 +126,10 @@ rec {
       url = "mirror://cpan/authors/id/L/LI/LIOSHA/${pname}-${version}.tar.gz";
       hash = "sha256-muwoy5iLY2UsU89XaohMDVvaTKzpOu8ui4vx11H4mco=";
     };
-    propagatedBuildInputs = [ ListMoreUtils EncodeLocale ];
+    propagatedBuildInputs = [
+      ListMoreUtils
+      EncodeLocale
+    ];
     meta = with lib; {
       homepage = "https://metacpan.org/pod/Geo::Names::Russian";
       description = "Geo::Names::Russian - parse and split russian geographical names";

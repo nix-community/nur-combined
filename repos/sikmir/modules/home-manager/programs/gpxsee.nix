@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
@@ -66,67 +71,45 @@ in
     };
   };
 
-  config = mkIf cfg.enable (
-    mkMerge [
-      {
-        home.packages = [ cfg.package ];
+  config = mkIf cfg.enable (mkMerge [
+    {
+      home.packages = [ cfg.package ];
 
-        home.activation.hideToolbar =
-          lib.hm.dag.entryAfter [ "writeBoundary" ]
-            (
-              if pkgs.stdenv.isDarwin then
-                "$DRY_RUN_CMD /usr/bin/defaults write ${domain} Settings.toolbar -bool false"
-              else
-                "$DRY_RUN_CMD ${pkgs.crudini}/bin/crudini $VERBOSE_ARG --set ${configFile} Settings toolbar 0"
-            );
-      }
+      home.activation.hideToolbar = lib.hm.dag.entryAfter [ "writeBoundary" ] (
+        if pkgs.stdenv.isDarwin then
+          "$DRY_RUN_CMD /usr/bin/defaults write ${domain} Settings.toolbar -bool false"
+        else
+          "$DRY_RUN_CMD ${pkgs.crudini}/bin/crudini $VERBOSE_ARG --set ${configFile} Settings toolbar 0"
+      );
+    }
 
-      (
-        mkIf pkgs.stdenv.isLinux {
-          home.activation.createConfigFile = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
-            $DRY_RUN_CMD mkdir -p ${configDir}
-            $DRY_RUN_CMD touch ${configFile}
-          '';
-        }
-      )
+    (mkIf pkgs.stdenv.isLinux {
+      home.activation.createConfigFile = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
+        $DRY_RUN_CMD mkdir -p ${configDir}
+        $DRY_RUN_CMD touch ${configFile}
+      '';
+    })
 
-      (
-        mkIf (cfg.demPackage != null) {
-          home.file."${demDir}".source = "${cfg.demPackage}";
-        }
-      )
+    (mkIf (cfg.demPackage != null) { home.file."${demDir}".source = "${cfg.demPackage}"; })
 
-      (
-        mkIf (length cfg.mapPackages > 0) {
-          home.file = listToAttrs (
-            map
-              (m: {
-                name = "${mapDir}/${m.name}";
-                value.source = "${m}";
-              })
-              cfg.mapPackages
-          );
-        }
-      )
+    (mkIf (length cfg.mapPackages > 0) {
+      home.file = listToAttrs (
+        map (m: {
+          name = "${mapDir}/${m.name}";
+          value.source = "${m}";
+        }) cfg.mapPackages
+      );
+    })
 
-      (
-        mkIf (length cfg.poiPackages > 0) {
-          home.file = listToAttrs (
-            map
-              (p: {
-                name = "${poiDir}/${p.name}";
-                value.source = "${p}";
-              })
-              cfg.poiPackages
-          );
-        }
-      )
+    (mkIf (length cfg.poiPackages > 0) {
+      home.file = listToAttrs (
+        map (p: {
+          name = "${poiDir}/${p.name}";
+          value.source = "${p}";
+        }) cfg.poiPackages
+      );
+    })
 
-      (
-        mkIf (cfg.stylePackage != null) {
-          home.file."${styleDir}".source = "${cfg.stylePackage}";
-        }
-      )
-    ]
-  );
+    (mkIf (cfg.stylePackage != null) { home.file."${styleDir}".source = "${cfg.stylePackage}"; })
+  ]);
 }

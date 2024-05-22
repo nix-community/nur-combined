@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, abduco, sthkd, libst }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  makeWrapper,
+  abduco,
+  sthkd,
+  libst,
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "svtm";
@@ -23,7 +31,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   postInstall = ''
     wrapProgram $out/bin/svtm \
-      --prefix PATH : ${lib.makeBinPath [ abduco sthkd libst ]}:$out/bin
+      --prefix PATH : ${
+        lib.makeBinPath [
+          abduco
+          sthkd
+          libst
+        ]
+      }:$out/bin
   '';
 
   meta = with lib; {
