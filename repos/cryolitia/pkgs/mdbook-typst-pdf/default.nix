@@ -20,7 +20,7 @@ rustPlatform'.buildRustPackage {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "typst-0.11.0" = "sha256-RbkirnVrhYT/OuZSdJWMOvQXAeBmsFICsCrezyT6ukA=";
+      "typst-0.11.1" = "sha256-FagjVU8BJZStE/geexZERuV2P28iF/pPn2mTi1Gu9iU=";
     };
   };
 

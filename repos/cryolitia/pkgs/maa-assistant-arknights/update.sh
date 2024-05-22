@@ -6,7 +6,7 @@ directory="$(dirname $0 | xargs realpath)"
 
 version_beta="$(curl "https://api.github.com/repos/MaaAssistantArknights/MaaAssistantArknights/releases?per_page=1" | jq -r '.[0].tag_name')"
 
-hash_beta=$(nix-prefetch-github MaaAssistantArknights MaaAssistantArknights --rev ${version_beta} -v | jq -r .hash)
+hash_beta=$(nix-prefetch-github MaaAssistantArknights MaaAssistantArknights --fetch-submodules --rev ${version_beta} -v | jq -r .hash)
 
 version_cli="$(curl "https://api.github.com/repos/MaaAssistantArknights/maa-cli/releases?per_page=1" | jq -r '.[0].tag_name')"
 

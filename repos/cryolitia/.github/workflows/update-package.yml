@@ -53,7 +53,7 @@ jobs:
       - name: Update mdbok-typst-pdf
         continue-on-error: true
         run: |
-          cd pkgs/mdbok-typst-pdf
+          cd pkgs/mdbook-typst-pdf
           ./update.sh
 
           set +e
