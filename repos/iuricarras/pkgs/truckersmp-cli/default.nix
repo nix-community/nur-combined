@@ -12,13 +12,13 @@ let
   truckersmp-cli = python312Packages.buildPythonApplication{
 
   pname = "truckersmp-cli";
-  version = "0.10.1";
+  version = "0.10.2";
 
   src = fetchFromGitHub {
     repo = "truckersmp-cli";
     owner = "truckersmp-cli";
-    rev = "a5fc6df4ac498c1b454a9305db326467b2d0906f";
-    sha256 = "sha256-5BA4+937r4+cC9Ceil6ScC6AVtnRqVTlpzBA6vNbatc=";
+    rev = "6ab26a81d4d45b44db790b866f29e3f59edb6ae5";
+    sha256 = "sha256-339v9YUdDH7vSa4ktFdXqsHiStyuhARYmOoVqyKurII=";
   };
 
   postPatch = ''
@@ -49,7 +49,7 @@ let
 in 
   pkgs.buildFHSEnv {
     pname = "truckersmp-cli";
-    version = "0.10.1";
+    version = "0.10.2";
     targetPkgs = pkgs: [ truckersmp-cli ];
     runScript = "truckersmp-cli";
 
