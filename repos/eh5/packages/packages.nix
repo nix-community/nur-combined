@@ -11,6 +11,7 @@ let
     dovecot-fts-flatcurve = callPackage ./dovecot-fts-flatcurve { };
     einat = callPackage ./einat { };
     fake-hwclock = callPackage ./fake-hwclock { };
+    kcptun = callPackage ./kcptun {};
     libnftnl-fullcone = callPackage ./libnftnl-fullcone { };
     mosdns = callPackage ./mosdns { buildGoModule = pkgs.buildGo121Module; };
     # end of service

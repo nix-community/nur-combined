@@ -63,6 +63,21 @@ in
   sops.secrets."sb-config.json".restartUnits = [ "sing-box.service" ];
   services.v2ray-rules-dat.reloadServices = [ "sing-box.service" ];
 
+  systemd.services.kcptun = {
+    description = "kcptun";
+    wants = [ "network-online.target" ];
+    after = [ "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
+    script = ''
+      ${pkgs.kcptun}/bin/kcptun-client -c ${secrets."kcptun.json".path}
+    '';
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = 4;
+    };
+  };
+  sops.secrets."kcptun.json".restartUnits = [ "kcptun.service" ];
+
   systemd.services.udpspeeder = {
     description = "UDPspeeder";
     wants = [ "network-online.target" ];
@@ -77,6 +92,21 @@ in
     };
   };
   sops.secrets."udpspeeder.conf".restartUnits = [ "udpspeeder.service" ];
+
+  # systemd.services.udp2raw = {
+  #   description = "udp2raw";
+  #   wants = [ "network-online.target" ];
+  #   after = [ "network-online.target" ];
+  #   wantedBy = [ "multi-user.target" ];
+  #   script = ''
+  #     xargs -a ${secrets."udp2raw.conf".path} ${pkgs.udp2raw}/bin/udp2raw
+  #   '';
+  #   serviceConfig = {
+  #     Restart = "on-failure";
+  #     RestartSec = 4;
+  #   };
+  # };
+  # sops.secrets."udp2raw.conf".restartUnits = [ "udp2raw.service" ];
 
   systemd.services.setup-tproxy = {
     unitConfig.ReloadPropagatedFrom = [ "nftables.service" ];

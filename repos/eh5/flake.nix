@@ -58,6 +58,8 @@
             then
               lib.getAttrs
                 [
+                  "einat"
+                  "kcptun"
                   "mosdns"
                   "sops-install-secrets-nonblock"
                   "ubootNanopiR2s"

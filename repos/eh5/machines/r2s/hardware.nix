@@ -95,7 +95,10 @@
       Restart = "no";
     };
   };
-  systemd.network.wait-online.timeout = 20;
+  systemd.network.wait-online = {
+    ignoredInterfaces = [ "tun0" ];
+    timeout = 20;
+  };
 
   systemd.services."wait-system-running" = {
     description = "Wait system running";
