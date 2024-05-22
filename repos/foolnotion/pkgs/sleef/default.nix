@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"
-    "_DENABLE_LTO=ON"
+    "-DSLEEF_DISABLE_OPENMP=ON"
     "-DBUILD_SHARED_LIBS=${if enableShared then "ON" else "OFF"}"
     "-DCMAKE_C_FLAGS_RELEASE=${if stdenv.hostPlatform.isx86_64 then "-march=x86-64-v3" else ""}"
   ];

@@ -102,7 +102,7 @@
 
   simdutf_4 = pkgs.callPackage ./pkgs/simdutf_4 { };
 
-  scnlib = pkgs.callPackage ./pkgs/scnlib { simdutf_4 = simdutf_4; };
+  scnlib = pkgs.callPackage ./pkgs/scnlib { };
 
   seq = pkgs.callPackage ./pkgs/seq { };
 
