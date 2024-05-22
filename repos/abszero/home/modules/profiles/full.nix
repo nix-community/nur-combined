@@ -7,6 +7,7 @@
       gpg-agent.enable = true;
     };
     programs = {
+      btop.enable = true;
       carapace.enable = true;
       direnv.enable = true;
       dotdrop.enable = true;
@@ -37,6 +38,8 @@
   };
 
   services.arrpc.enable = true;
+
+  gtk.enable = true;
 
   programs = {
     bat.enable = true;

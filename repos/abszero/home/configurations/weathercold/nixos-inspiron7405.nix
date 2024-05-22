@@ -20,16 +20,14 @@ optionalAttrs (readDir ./. ? "_base.nix") {
             imports = with self.homeModules; [
               # inputs.bocchi-cursors.homeModules.bocchi-cursors-shadowBlack
               base-firefox-vertical-tabs
-              base-foot
               base-nushell
-              catppuccin-fonts
-              catppuccin-gtk
+              catppuccin-foot
               catppuccin-plasma
               catppuccin-stylix
               colloid-fcitx5
             ];
 
-            abszero.themes.catppuccin.accent = "pink";
+            catppuccin.accent = "pink";
           };
         };
       }];

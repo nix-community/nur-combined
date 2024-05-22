@@ -1,17 +1,17 @@
 { config, pkgs, ... }:
 
 let
-  inherit (config.lib.catppuccin) getVariant toTitleCase;
-  cfg = config.abszero.themes.catppuccin;
+  inherit (config.lib.catppuccin) toTitleCase;
+  cfg = config.catppuccin;
 
   theme = pkgs.catppuccin-kvantum.override {
-    variant = toTitleCase getVariant;
+    variant = toTitleCase cfg.flavour;
     accent = toTitleCase cfg.accent;
   };
 in
 
 {
-  imports = [ ./_options.nix ];
+  imports = [ ./catppuccin.nix ];
 
   home.packages = [ theme ];
 }

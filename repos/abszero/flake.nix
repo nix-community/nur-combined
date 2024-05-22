@@ -13,13 +13,13 @@
         flake-parts.follows = "flake-parts";
       };
     };
-    bocchi-cursors = {
-      url = "github:Weathercold/Bocchi-Cursors";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
-    };
+    # bocchi-cursors = {
+    #   url = "github:Weathercold/Bocchi-Cursors";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #     flake-parts.follows = "flake-parts";
+    #   };
+    # };
 
     # Utils
     flake-compat = {
@@ -53,6 +53,8 @@
         home-manager.follows = "home-manager";
       };
     };
+    # catppuccin.url = "github:catppuccin/nix";
+    catppuccin.url = "github:Weathercold/nix/patch";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -103,7 +105,7 @@
           "armv7l-linux"
         ];
 
-        perSystem = { inputs', pkgs, system, ... }:
+        perSystem = { inputs', pkgs, ... }:
           with pkgs; {
             formatter = nixpkgs-fmt;
 

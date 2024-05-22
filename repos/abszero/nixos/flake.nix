@@ -23,6 +23,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+    # catppuccin.url = "github:catppuccin/nix";
+    catppuccin.url = "github:Weathercold/nix/patch";
   };
 
   outputs = { nixpkgs, flake-parts, haumea, ... } @ inputs:

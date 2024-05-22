@@ -1,17 +1,16 @@
 { config, pkgs, ... }:
 
 let
-  inherit (config.lib.catppuccin) getVariant;
-  cfg = config.abszero.themes.catppuccin;
+  cfg = config.catppuccin;
 
   theme = pkgs.catppuccin-kde.override {
-    flavour = [ getVariant ];
+    flavour = [ cfg.flavour ];
     accents = [ cfg.accent ];
   };
 in
 
 {
-  imports = [ ./_options.nix ];
+  imports = [ ./catppuccin.nix ];
 
   home.packages = [ theme ];
 }

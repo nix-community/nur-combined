@@ -28,6 +28,8 @@
     i18n.inputMethod.fcitx5.enable = true;
   };
 
+  boot.plymouth.enable = true;
+
   virtualisation.waydroid.enable = true;
 
   services = {

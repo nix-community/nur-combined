@@ -16,7 +16,7 @@
       "9.9.9.9"
       "149.112.112.112"
     ];
-    search = [ "~." ]; # Always use global name servers
+    search = [ "~." ]; # Always use global name servers (shouldn't affect VPNs)
     dhcpcd.enable = false;
     networkmanager = {
       enable = true;

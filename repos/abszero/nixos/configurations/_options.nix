@@ -41,6 +41,7 @@ in
         specialArgs = { inherit inputs; };
         modules = flatten [
           inputs.disko.nixosModules.disko
+          inputs.catppuccin.nixosModules.catppuccin
           (toModuleList ../modules/config)
           (toModuleList ../modules/system)
           (toModuleList ../modules/programs)

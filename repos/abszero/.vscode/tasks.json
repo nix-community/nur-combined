@@ -23,7 +23,7 @@
     {
       "label": "flake-update",
       "type": "shell",
-      "command": "git stash; git subtree pull --prefix lib/haumea haumea main; git stash pop | true; nix flake update; nix flake update --flake ./nixos; nix flake update --flake ./home; nix flake update --flake ./pkgs; nix flake update --flake ./lib",
+      "command": "git stash -a; git subtree pull --prefix lib/haumea haumea main; git stash pop | true; nix flake update; nix flake update --flake ./nixos; nix flake update --flake ./home; nix flake update --flake ./pkgs; nix flake update --flake ./lib",
       "problemMatcher": []
     }
   ]

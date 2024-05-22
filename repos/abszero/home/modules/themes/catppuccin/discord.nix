@@ -2,35 +2,35 @@
 
 let
   inherit (builtins) readFile;
-  inherit (config.lib.catppuccin) getVariant;
-  cfg = config.abszero.themes.catppuccin;
+  absCfg = config.abszero.catppuccin;
+  cfg = config.catppuccin;
 
   cssDir = pkgs.catppuccin-discord-git.override
     {
       themes0 =
-        if cfg.automaticThemeSwitching then
+        if absCfg.useSystemPolarity then
           [
-            "${cfg.lightVariant}-${cfg.accent}"
-            "${cfg.darkVariant}-${cfg.accent}"
+            "${absCfg.lightFlavour}-${cfg.accent}"
+            "${absCfg.darkFlavour}-${cfg.accent}"
           ]
         else
-          [ "${getVariant}-${cfg.accent}" ];
+          [ "${cfg.flavour}-${cfg.accent}" ];
     }
   + "/share/catppuccin-discord";
 in
 
 {
-  imports = [ ./_options.nix ];
+  imports = [ ./catppuccin.nix ];
 
   programs.discocss.css =
-    if cfg.automaticThemeSwitching then
+    if absCfg.useSystemPolarity then
       ''
-        ${readFile (cssDir + "/catppuccin-${cfg.lightVariant}-${cfg.accent}.theme.css")}
+        ${readFile (cssDir + "/catppuccin-${absCfg.lightFlavour}-${cfg.accent}.theme.css")}
 
         @media (prefers-color-scheme: dark) {
-        ${readFile (cssDir + "/catppuccin-${cfg.darkVariant}-${cfg.accent}.theme.css")}
+        ${readFile (cssDir + "/catppuccin-${absCfg.darkFlavour}-${cfg.accent}.theme.css")}
         }
       ''
     else
-      readFile (cssDir + "/catppuccin-${getVariant}-${cfg.accent}.theme.css");
+      readFile (cssDir + "/catppuccin-${cfg.flavour}-${cfg.accent}.theme.css");
 }
