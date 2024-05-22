@@ -9,13 +9,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = {
-    self,
-    nixpkgs,
-    flake-parts,
-    ...
-  } @ inputs:
-    flake-parts.lib.mkFlake {inherit inputs;} {
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-parts,
+      ...
+    }@inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         ./flakes/ci-outputs.nix
         ./flakes/commands.nix
@@ -28,7 +29,8 @@
       flake = {
         overlay = self.overlays.default;
         overlays = {
-          default = final: prev:
+          default =
+            final: prev:
             import ./pkgs null {
               pkgs = prev;
               inherit inputs;
@@ -36,22 +38,28 @@
         };
 
         nixosModules = {
-          setupOverlay = {config, ...}: {
-            nixpkgs.overlays = [self.overlays.default];
-          };
+          setupOverlay =
+            { config, ... }:
+            {
+              nixpkgs.overlays = [ self.overlays.default ];
+            };
           openssl-oqs-provider = import ./modules/openssl-oqs-provider.nix;
-          qemu-user-static-binfmt = import ./modules/qemu-user-static-binfmt.nix;
+          alist = import ./modules/alist.nix;
+          cyrus-imap = import ./modules/cyrus-imap.nix;
+          gost = import ./modules/gost.nix;
         };
       };
 
-      perSystem = {
-        config,
-        system,
-        pkgs,
-        ...
-      }: {
-        packages = import ./pkgs null {inherit inputs pkgs;};
-        formatter = pkgs.nixfmt-rfc-style;
-      };
+      perSystem =
+        {
+          config,
+          system,
+          pkgs,
+          ...
+        }:
+        {
+          packages = import ./pkgs null { inherit inputs pkgs; };
+          formatter = pkgs.nixfmt-rfc-style;
+        };
     };
 }

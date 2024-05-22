@@ -1,37 +1,33 @@
 $ nix --version
 $ nix-build --dry-run ci.nix -A x86_64-linux --show-trace
-these 33 paths will be fetched (33.17 MiB download, 153.44 MiB unpacked):
-  /nix/store/n16a65gccbhmbbvczkgl6mfsln7s24cv-brotli-1.1.0-lib
-  /nix/store/bx91n5kdjkxnjndkykgha29gga72lhr3-cyrus-imapd-3.8.2
-  /nix/store/nkjzmjl55bpqgzpjynn5xk8y6h6c77a1-cyrus-sasl-2.1.28
-  /nix/store/4zpw7gzmiqfy47xcv2xpnqn0sc1h9ak2-db-5.3.28
-  /nix/store/77b9knzn0ai7jdvq74qkhahz001pc3w5-glib-2.78.4
-  /nix/store/bir81kvmpzxrck74q3dcyqyhvzgiv2rl-gmp-with-cxx-6.3.0
-  /nix/store/dpwk00dz15y9c0jx2zqa0xrwpjv3nnkl-icu4c-73.2
-  /nix/store/r85p78srnxkvj8lcw14yj74s2pw2kwfs-jansson-2.14
-  /nix/store/8f0cas43qpwhw18v8s5hdxaadiayrii6-keyutils-1.6.3-lib
-  /nix/store/sz7wl76wvs96wnnp76kdpsdnakx6w5ln-libchardet-1.0.6
-  /nix/store/f4raz7754np0vl6f3mzhwghrj2hclkdz-libffi-3.4.6
-  /nix/store/cy8r67jaj2vxxg43mzhjax2i8v7lygf6-libical-3.0.18
-  /nix/store/x78xm477r9xkal8sa4c90gqzvcsk0prr-libkrb5-1.21.2
-  /nix/store/sf1mjzkf92vjxvgkvlyqzzb16m8hwmlk-libselinux-3.6
-  /nix/store/czknczlmv3gcp5a098cwr606l26jn6ij-libsrs2-1.0.18
-  /nix/store/nf28s3rx56cli1sbd0bymwbf6dq964yq-libxcrypt-4.4.36
-  /nix/store/rvm6w91nh4i5crzl224b55h6xqdiax2c-libxml2-2.12.6
-  /nix/store/d8mxvpmizbh8sypmawpi3av3f111xlpz-lz4-1.9.4
-  /nix/store/qvl65aiywwc32b0m14s7knbq7iipzxcm-nettle-3.9.1
-  /nix/store/4rvps8qh5m1xq00mri405vj66a27banc-nghttp2-1.61.0-lib
-  /nix/store/9xgpmwqw0881kxa9sl498qfmzy7z2ndn-openssl-3.0.13
-  /nix/store/chsxv0jx2fwhyslf6lm1wfrg42nan4dm-openssl-3.0.13-bin
-  /nix/store/aqaxrq9jyrjwsnsly12b2xkqmakcsawb-openssl-3.0.13-dev
-  /nix/store/ziv27d9f7mr7hml7441d0x87nx1pq026-perl-5.38.2
-  /nix/store/2hggd37ir4ck5kxlvbpwp5mzj0l0ihvs-popt-1.19
-  /nix/store/azidifgdi990qzks68gcg0xj0cpffpbz-rsync-3.2.7
-  /nix/store/7abds6bq39qsirw4ykfygiqx6z2srnlr-shapelib-1.6.0
-  /nix/store/x4ggnhg6h0xmnd8cl3d5vg7gp9xs7m8a-sqlite-3.45.2
-  /nix/store/6gdrq234cm8xcclal3zalrgy1vbmp81r-util-linux-minimal-2.39.3-lib
-  /nix/store/s7fy28qjkp2dkdz9c640smj0d4bynih7-wslay-1.1.1
-  /nix/store/av8d4ynyxgqy1y9gqwm7vbccgwba60lv-xapian-1.4.25
-  /nix/store/xfb2ivf18kcs44p23hpw8xrdgjkjzfpa-xxHash-0.8.2
-  /nix/store/snycjiabznrrfnij3qkiklbgxkqv0m83-zstd-1.5.6
+these 29 paths will be fetched (57.46 MiB download, 214.28 MiB unpacked):
+  /nix/store/wpzrirq427h5w43d9scdw43b7i37gspy-alist-3.34.0
+  /nix/store/ddypgcb25zgi0gwvklxlzazjrh9s63dg-coreutils-9.5
+  /nix/store/m60paca4ip17lh5kv8k6d6mbv4qr1jl2-cyrus-imapd-3.8.2
+  /nix/store/4mlz8w1m4420s89sy1rg6d997mbkznsb-cyrus-sasl-2.1.28
+  /nix/store/qkpxz2s5aq6lly1lbmaa2ggwmnlslwna-db-5.3.28
+  /nix/store/bcms6vbac6jyffwyj8y630brpy1il4ks-glib-2.80.0
+  /nix/store/5gzyfqc5vzm4gyijkyxw8bl8i91zfk77-gmp-with-cxx-6.3.0
+  /nix/store/xl383m7n8wvpvm6qw4nikk8qfl8zgr6f-iana-etc-20240318
+  /nix/store/hxfhcs6sdqang5qgzrjhhhq6qwdd7vql-icu4c-73.2
+  /nix/store/prvzqxmpqs5b017xwz4wjrcb2hn1ivv4-jansson-2.14
+  /nix/store/qb7f1mqp4fig9b321m7aifp5gimc3mli-libchardet-1.0.6
+  /nix/store/lp6rxpa7jmvw6z1bwgnpkd7cgwcyzsa5-libical-3.0.18
+  /nix/store/d0amq09n85152751g6zspl60mrjbadvz-libselinux-3.6
+  /nix/store/nc3v7my2nl4hm7jsamyc57bxgqmqp73p-libsrs2-1.0.18
+  /nix/store/wwg6376ymkhpjxy6c3w9gkbhv6l2gmqy-libxcrypt-4.4.36
+  /nix/store/w7ir04z15bxny7w5kzbyvwd7bi3kfi08-lz4-1.9.4
+  /nix/store/hpyd54hv3j2s5rwkfbzl3wi4cxy9b57b-mailcap-2.1.53
+  /nix/store/adalw59bvrk2fg2fl662xnc4y2bqn438-nettle-3.9.1
+  /nix/store/pmg30939m4ymrqy83fzyzrlhnzd69dl4-openssl-3.0.13-bin
+  /nix/store/0bp9inq3wd4car25n60idlfics6fajjv-openssl-3.0.13-dev
+  /nix/store/sik7a8dic5lxhm4cp9npibk97x9jcxwf-pcre2-10.43
+  /nix/store/fngs03y9m8zh8vfk69ra8qdvaql07hgd-perl-5.38.2
+  /nix/store/83mx6m4s1ndqzlb8ws1x23ihldm9xdy0-popt-1.19
+  /nix/store/rjs8igsmhiwphgs97spas8sdq19x9lmk-rsync-3.3.0
+  /nix/store/jrnmjrnhi27yrjiyqv1009jwzrq2frv9-shapelib-1.6.0
+  /nix/store/xs3y3icbd26gxr617m1alhjba12pkm92-util-linux-minimal-2.39.3-lib
+  /nix/store/z8lpawc54zgm7fwzvdv4fm28gkq6vz8g-wslay-1.1.1
+  /nix/store/2zna3wb0sd0rx6xqjmihaqy1wjzczzyb-xapian-1.4.25
+  /nix/store/5k76sb6m718hw1xvmywymxgl05gg5wrm-xxHash-0.8.2
 

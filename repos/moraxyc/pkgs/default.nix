@@ -9,47 +9,48 @@
 # - null: Default mode
 # - "ci": from Garnix CI
 # - "nur": from NUR bot
-mode: {
-  pkgs ? import <nixpkgs> {},
+mode:
+{
+  pkgs ? import <nixpkgs> { },
   inputs ? null,
   ...
-}: let
+}:
+let
   inherit (pkgs) lib;
 
-  ifNotCI = p:
-    if mode == "ci"
-    then null
-    else p;
+  ifNotCI = p: if mode == "ci" then null else p;
 
-  ifNotNUR = p:
-    if mode == "nur"
-    then null
-    else p;
+  ifNotNUR = p: if mode == "nur" then null else p;
 
-  mkScope = f:
+  mkScope =
+    f:
     builtins.removeAttrs
-    (lib.makeScope pkgs.newScope (
-      self: let
-        pkg = self.newScope {
-          inherit mkScope;
-          sources = self.callPackage ../_sources/generated.nix {};
-        };
-      in
+      (lib.makeScope pkgs.newScope (
+        self:
+        let
+          pkg = self.newScope {
+            inherit mkScope;
+            sources = self.callPackage ../_sources/generated.nix { };
+          };
+        in
         f self pkg
-    ))
-    [
-      "newScope"
-      "callPackage"
-      "overrideScope"
-      "overrideScope'"
-      "packages"
-    ];
+      ))
+      [
+        "newScope"
+        "callPackage"
+        "overrideScope"
+        "overrideScope'"
+        "packages"
+      ];
 in
-  mkScope (
-    self: pkg: let
-      # Wrapper will greatly increase NUR evaluation time. Disable on NUR to stay within 15s time limit.
-      mergePkgs = self.callPackage ../flakes/fn/merge-pkgs.nix {enableWrapper = mode != "nur";};
-    in {
-      cyrus-imapd = pkg ./cyrus-imapd {};
-    }
-  )
+mkScope (
+  self: pkg:
+  let
+    # Wrapper will greatly increase NUR evaluation time. Disable on NUR to stay within 15s time limit.
+    mergePkgs = self.callPackage ../flakes/fn/merge-pkgs.nix { enableWrapper = mode != "nur"; };
+  in
+  {
+    cyrus-imapd = pkg ./cyrus-imapd { };
+    alist = pkg ./alist { };
+  }
+)
