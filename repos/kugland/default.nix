@@ -5,6 +5,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   auditok = pkgs.callPackage ./pkgs/auditok { };
+  bip39 = pkgs.callPackage ./pkgs/bip39 { };
   ffsubsync = pkgs.callPackage ./pkgs/ffsubsync { inherit auditok pysubs2; };
   my-bookmarks-pl = pkgs.callPackage ./pkgs/my-bookmarks-pl { };
   neocities-deploy = pkgs.callPackage ./pkgs/neocities-deploy { };
