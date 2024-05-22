@@ -18,13 +18,13 @@
 
 mkDerivation rec {
   pname = "klassy";
-  version = "4.3.breeze5.27.5";
+  version = "5.2.breeze5.27.11";
 
   src = fetchFromGitHub {
     owner = "paulmcauley";
     repo = pname;
     rev = version;
-    sha256 = "sha256-2qs30L7U5kf1Yf+4Pgsjsyaqf9iIaeuRK25Xtn47AYI=";
+    sha256 = "sha256-r8jGC7oWMgLWfG84IKKuL/RILk6G05AjAh0pnuaVcuI=";
   };
 
   extraCmakeFlags = [ "-DBUILD_TESTING=OFF" ];
