@@ -28,7 +28,7 @@
     bluetooth = {
       package = pkgs.bluez;
       enable = true;
-      powerOnBoot = false;
+      powerOnBoot = true;
     };
   };
   
@@ -111,6 +111,11 @@
       67 # allow DHCP traffic
       53 # allow dns
 	];
+
+  networking.firewall.allowedTCPPorts = [
+      8888 # general use
+      9999 # general use
+  ];
 
   networking.hostName = "lush";
 

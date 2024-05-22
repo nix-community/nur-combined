@@ -1,14 +1,14 @@
 {
 	description = "Sebastian (c2vi)'s NixOS";
 
+  ################################### INPUTS #########################################
 	inputs = {
-    # don't forget to also change the hash of the used nixpkgs in programs/bash.nix the export nip
 		nixpkgs.url = "github:NixOS/nixpkgs/release-23.11";
 		#nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
 		nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 		
-    #old-nixpkgs.url = "github:NixOS/nixpkgs/release-22.11";
+    nur.url = "github:nix-community/NUR";
 
 		firefox.url = "github:nix-community/flake-firefox-nightly";
     firefox-addons = {
@@ -17,25 +17,20 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-
 		home-manager = {
 			url = "github:nix-community/home-manager/release-23.11";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 
-
 		nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
-
 
 		nix-index-database.url = "github:Mic92/nix-index-database";
     	nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-
 
 		nixos-generators = {
      		 url = "github:nix-community/nixos-generators";
       	inputs.nixpkgs.follows = "nixpkgs";
     	};
-
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
@@ -43,7 +38,7 @@
 
     robotnix = {
       #url = "github:nix-community/robotnix";
-      url = "github:c2vi/robotnix/two_lineageos_fixes";
+      url = "github:c2vi/robotnix";
       #inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -60,17 +55,18 @@
 
     nix-wsl.url = "github:nix-community/NixOS-WSL";
 
-    my-log.url = "path:/home/me/work/log/new";
+    #my-log.url = "path:/home/me/work/log/new";
     #my-log.inputs.nixpkgs.follows = "nixpkgs";
 
     podman.url = "github:ES-Nix/podman-rootless";
 
  		flake-utils.url = "github:numtide/flake-utils";
     systems.url = "github:nix-systems/default";
-
 	};
 
-	outputs = { self, nixpkgs, nixos-generators, flake-utils, systems, ... }@inputs: 
+	outputs = { self, nixpkgs, nixpkgs-unstable, nixos-generators, flake-utils, systems, ... }@inputs: 
+
+  ################################### LET FOR OUPUTS #########################################
 		let 
 			confDir = "/home/me/work/config";
 			workDir = "/home/me/work";
@@ -112,8 +108,96 @@
         system = "x86_64-linux";
         pkgs = mypkgs;
 			};
+    eachSystem = inputs.flake-utils.outputs.lib.eachSystem;
+    allSystems = inputs.flake-utils.outputs.lib.allSystems;
 		in
+
+  ################################### EACH SYSTEM OUPUTS #########################################
+  eachSystem allSystems (system: {
+
+  ############ packages ################
+  packages = {
+
+    pkgsOverlay = import nixpkgs {
+      inherit system;
+      overlays = [ (import ./overlays/static-overlay.nix) (import ./overlays/my-overlay.nix) ];
+    };
+
+    pkgsOverlayUnstable = import nixpkgs-unstable {
+      inherit system;
+      overlays = [ (import ./overlays/static-overlay.nix) (import ./overlays/my-overlay.nix) ];
+    };
+
+    acern = self.nixosConfigurations.acern.config.system.build.tarballBuilder;
+
+    lush = self.nixosConfigurations.lush.config.system.build.sdImage;
+
+    rpi = self.nixosConfigurations.rpi.config.system.build.sdImage;
+
+    # collection of only my nur pkgs
+    nurPkgs = inputs.nixpkgs-unstable.legacyPackages.${system}.callPackage ./nur.nix {};
+
+    # collection of random things I played around with /built once
+    # in seperate path to keep this flake cleaner
+    random = import ./random-pkgs.nix {
+      inherit system;
+      # inherit all inputs
+	    inherit self nixpkgs nixpkgs-unstable nixos-generators flake-utils systems inputs;
+      # inherit all my let bindings
+      # inherit all my let bindings
+			inherit confDir workDir secretsDir persistentDir tunepkgs mypkgs specialArgs eachSystem allSystems;
+    };
+
+  }
+  // # include nur packages from ./nur.nix
+  (import ./nur.nix {pkgs = nixpkgs.legacyPackages.${system};})
+  ;
+
+  ############ apps ################
+  apps = {
+    test = inputs.nix-on-droid.outputs.apps.x86_64-linux.deploy;
+
+    wsl = {
+      type = "app";
+      program = "${self.nixosConfigurations.acern.config.system.build.tarballBuilder}/bin/nixos-wsl-tarball-builder";
+    };
+    default = {
+      type = "app";
+      program = "${self.packages.x86_64-linux.run-vm}/bin/run-vm";
+    };
+  };
+
+
+  }) # end of each-system-outputs
+
+  // # combine with other-outputs
+
+  ################################### OTHER OUPUTS #########################################
 	{
+    top = builtins.mapAttrs (name: value: value.config.system.build.toplevel) (self.nixOnDroidConfigurations // self.nixosConfigurations);
+
+    # this is my nur repo, that you can import and call with pkgs
+    nur = import ./nur.nix;
+
+    tunepkgs = tunepkgs;
+    pkgs = mypkgs;
+
+    overlays = {
+      static = import ./overlays/static-overlay.nix;
+    };
+
+    # I want to be able to referency my inputs as an output as well
+    # eg usefull for nix eval github:c2vi/nixos#inputs.nixpkgs.rev to get the current pinned nixpkgs version
+    inherit inputs;
+
+  ############ homeModules ################
+    homeModules = {
+      #me-headless = import ./users/me/headless.nix;
+      me-headless = import ./users/common/home.nix;
+      me = import ./users/me/gui-home.nix;
+    };
+
+  ############ nixosConfigurations ################
    	nixosConfigurations = rec {
    		"main" = nixpkgs.lib.nixosSystem {
 				inherit specialArgs;
@@ -319,6 +403,7 @@
       };
    	};
 
+  ############ robotnixConfigurations ################
     robotnixConfigurations = rec {
       "phone" = inputs.robotnix.lib.robotnixSystem (import ./hosts/phone/default.nix);
       "phone-emulator" = inputs.robotnix.lib.robotnixSystem {
@@ -335,8 +420,18 @@
           (import ./hosts/phone/default.nix)
         ];
       };
+      "s9" = inputs.robotnix.lib.robotnixSystem {
+        device = "starlte";
+        flavor = "lineageos";
+      };
+      "vanilla" = inputs.robotnix.lib.robotnixSystem {
+        device = "x86_64";
+        productName = "sdk_x86_64";
+        flavor = "vanilla";
+      };
     };
 
+  ############ nixOnDroidConfigurations ################
     nixOnDroidConfigurations = rec {
       "phone" = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
         modules = [
@@ -369,103 +464,6 @@
         ];
       };
 
-    };
-
-    homeModules = {
-      #me-headless = import ./users/me/headless.nix;
-      me-headless = import ./users/common/home.nix;
-    };
-
-		packages.aarch64-linux = {
-      cbm = nixpkgs.legacyPackages.aarch64-linux.callPackage ./mods/cbm.nix { };
-    };
-
-		packages.x86_64-linux = {
-      tunefox = mypkgs.firefox-unwrapped.overrideAttrs (final: prev: {
-        NIX_CFLAGS_COMPILE = [ (prev.NIX_CFLAGS_COMPILE or "") ] ++ [ "-O3" "-march=native" "-fPIC" ];
-        requireSigning = false;
-      });
-
-      pkgsWithOverlays = import nixpkgs {
-        system = "x86_64-linux";
-        overlays = [ (import ./overlays/static-overlay.nix) (import ./overlays/my-overlay.nix) ];
-      };
-
-			hi = self.nixosConfigurations.the-most-default.config.system.build.toplevel;
-      #testing = nixpkgs.legacyPackages.x86_64-linux;
-      testing = (nixpkgs.legacyPackages.x86_64-linux.writeShellApplication {
-        name = "log";
-        #runtimeInputs = [ inputs.my-log.packages.${system}.pythonForLog ];
-        #text = "cd /home/me/work/log/new; nix develop -c 'python ${workDir}/log/new/client.py'";
-        text = ''${inputs.my-log.packages.x86_64-linux.pythonForLog}/bin/python ${workDir}/log/new/client.py "$@"'';
-      });
-
-
-      hello-container = mypkgs.dockerTools.buildImage {
-        name = "hello-docker";
-        config = {
-          Cmd = [ "${mypkgs.hello}/bin/hello" ];
-        };
-      };
-     
-      #test = inputs.firefox.packages.${nixpkgs.legacyPackages.x86_64-linux.pkgs.system}; #.firefox-nightly-bin.overrideAttrs (old: {
-        #NIX_CFLAGS_COMPILE = [ (old.NIX_CFLAGS_COMPILE or "") ] ++ [ "-O3" "-march=native" "-fPIC" ];
-      #});
-
-			cbm = nixpkgs.legacyPackages.x86_64-linux.callPackage ./mods/cbm.nix { };
-			run-vm = specialArgs.pkgs.writeScriptBin "run-vm" ''
-				${self.nixosConfigurations.hpm.config.system.build.vm}/bin/run-hpm-vm -m 4G -cpu host -smp 4
-        '';
-      #luna = (self.nixosConfigurations.luna.extendModules {
-        #modules = [ "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64-new-kernel-no-zfs-installer.nix" ];
-      #}).config.system.build.sdImage;
-
-      acern = self.nixosConfigurations.acern.config.system.build.tarballBuilder;
-      lush = self.nixosConfigurations.lush.config.system.build.sdImage;
-      rpi = self.nixosConfigurations.rpi.config.system.build.sdImage;
-
-      hec-img = nixos-generators.nixosGenerate {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/hpm.nix
-        ];
-        format = "raw";
-				inherit specialArgs;
-      };
-
-
-      prootTermux = inputs.nix-on-droid.outputs.packages.x86_64-linux.prootTermux;
-      docker = let pkgs = nixpkgs.legacyPackages.x86_64-linux.pkgs; in pkgs.dockerTools.buildImage {
-        name = "hello";
-        tag = "0.1.0";
-
-        config = { Cmd = [ "${pkgs.bash}/bin/bash" ]; };
-
-        created = "now";
-        };
-
-		};
-
-		apps.x86_64-linux = {
-      test = inputs.nix-on-droid.outputs.apps.x86_64-linux.deploy;
-
-      wsl = {
-        type = "app";
-        program = "${self.nixosConfigurations.acern.config.system.build.tarballBuilder}/bin/nixos-wsl-tarball-builder";
-      };
-		  default = {
-        type = "app";
-        program = "${self.packages.x86_64-linux.run-vm}/bin/run-vm";
-      };
-		};
-
-    tunepkgs = tunepkgs;
-    pkgs = mypkgs;
-    home.me = import ./users/me/gui-home.nix;
-    top = builtins.mapAttrs (name: value: value.config.system.build.toplevel) (self.nixOnDroidConfigurations // self.nixosConfigurations);
-    #nur = let nur-systems = [ "x86_64-linux" "aarch64-linux" ]; in flake-utils.eachDefaultSystem (system: inputs.nixpkgs-unstable.legacyPackages.${system}.callPackage ./nur.nix {});
-    overlays = {
-      static = import ./overlays/static-overlay.nix;
     };
 	};
 }

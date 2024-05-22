@@ -3,4 +3,5 @@
 
 { pkgs ? import <nixpkgs> { } }: {
   cbm = pkgs.callPackage ./mods/cbm.nix {};
+  mac-telnet = pkgs.callPackage ./mods/mac-telnet.nix {};
 }
