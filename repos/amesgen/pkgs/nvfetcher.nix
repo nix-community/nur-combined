@@ -33,7 +33,7 @@ in
   };
   ormolu = github {
     slug = "tweag/ormolu";
-    restUrl = "$ver/ormolu-Linux.zip";
+    restUrl = "$ver/ormolu-x86_64-linux.zip";
   };
   cabal-plan = github {
     slug = "haskell-hvr/cabal-plan";

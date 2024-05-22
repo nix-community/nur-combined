@@ -38,11 +38,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-G7unNEVRZvT/OAfvfYs6aw4wzor/6qlNF6Q7hP/hMm8=",
+            "sha256": "sha256-ci7E254e5Qh6ek15yFUXF698xGJN3L8Q90OylnU0E4E=",
             "type": "url",
-            "url": "https://github.com/tfausak/cabal-gild/releases/download/1.3.1.0/cabal-gild-1.3.1.0-linux-x64.tar.gz"
+            "url": "https://github.com/tfausak/cabal-gild/releases/download/1.3.1.2/cabal-gild-1.3.1.2-linux-x64.tar.gz"
         },
-        "version": "1.3.1.0"
+        "version": "1.3.1.2"
     },
     "cabal-plan": {
         "cargoLocks": null,
@@ -113,10 +113,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Pp88TsPT1YlV/fbHtlzoadPfOq+rMXDeHeYAsJ3SKR8=",
+            "sha256": "sha256-x9JgQbmjlU63QoIFXjmr+wJvwSm8OVZgmv8jRlsSH5I=",
             "type": "url",
-            "url": "https://github.com/tweag/ormolu/releases/download/0.7.4.0/ormolu-Linux.zip"
+            "url": "https://github.com/tweag/ormolu/releases/download/0.7.5.0/ormolu-x86_64-linux.zip"
         },
-        "version": "0.7.4.0"
+        "version": "0.7.5.0"
     }
 }

@@ -19,10 +19,10 @@
   };
   cabal-gild = {
     pname = "cabal-gild";
-    version = "1.3.1.0";
+    version = "1.3.1.2";
     src = fetchurl {
-      url = "https://github.com/tfausak/cabal-gild/releases/download/1.3.1.0/cabal-gild-1.3.1.0-linux-x64.tar.gz";
-      sha256 = "sha256-G7unNEVRZvT/OAfvfYs6aw4wzor/6qlNF6Q7hP/hMm8=";
+      url = "https://github.com/tfausak/cabal-gild/releases/download/1.3.1.2/cabal-gild-1.3.1.2-linux-x64.tar.gz";
+      sha256 = "sha256-ci7E254e5Qh6ek15yFUXF698xGJN3L8Q90OylnU0E4E=";
     };
   };
   cabal-plan = {
@@ -59,10 +59,10 @@
   };
   ormolu = {
     pname = "ormolu";
-    version = "0.7.4.0";
+    version = "0.7.5.0";
     src = fetchurl {
-      url = "https://github.com/tweag/ormolu/releases/download/0.7.4.0/ormolu-Linux.zip";
-      sha256 = "sha256-Pp88TsPT1YlV/fbHtlzoadPfOq+rMXDeHeYAsJ3SKR8=";
+      url = "https://github.com/tweag/ormolu/releases/download/0.7.5.0/ormolu-x86_64-linux.zip";
+      sha256 = "sha256-x9JgQbmjlU63QoIFXjmr+wJvwSm8OVZgmv8jRlsSH5I=";
     };
   };
 }
