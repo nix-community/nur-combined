@@ -9,15 +9,14 @@
 { pkgs ? import <nixpkgs> { } }:
 
 {
-  #lib      = import ./lib { inherit pkgs; };  # Functions
-  #modules  = import ./modules;                # NixOS modules
-  #overlays = import ./overlays;               # nixpkgs overlays
-  hmModules = import ./hm-modules;            # Home Manager modules.
+  #lib      = import ./lib { inherit pkgs; }; # Functions
+  #modules  = import ./modules;               # NixOS modules
+  #overlays = import ./overlays;              # nixpkgs overlays
 
   # My software.
-  netcatchat       = pkgs.callPackage ./pkgs/netcatchat {};
+  netcatchat       = pkgs.callPackage ./pkgs/netcatchat       {};
   cobol-dvd-thingy = pkgs.callPackage ./pkgs/cobol-dvd-thingy {};
-  bitmasher        = pkgs.callPackage ./pkgs/bitmasher {};
-  ilo-li-sina      = pkgs.callPackage ./pkgs/ilo-li-sina {};
-  cowsaypl         = pkgs.callPackage ./pkgs/cowsaypl {};
+  bitmasher        = pkgs.callPackage ./pkgs/bitmasher        {};
+  cowsaypl         = pkgs.callPackage ./pkgs/cowsaypl         {};
+  ahd              = pkgs.callPackage ./pkgs/ahd              {};
 }
