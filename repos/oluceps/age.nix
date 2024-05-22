@@ -16,7 +16,7 @@
       localStorageDir = ./sec/rekeyed/${config.networking.hostName};
     };
 
-    secrets =
+    secrets = (
       let
         gen =
           ns: owner: group: mode:
@@ -31,24 +31,20 @@
         genGlobalR = i: gen i "root" "root" "444";
       in
       (genProxys [
-        "rat"
         "ss"
         "sing"
         "hyst-us"
-        "tuic"
+        "juic-san"
         "naive"
         "dae.sub"
         "jc-do"
-        "juic-san"
-        "tuic-san"
-        "caddy-lsa"
         "ss-az"
         "trojan-server"
       ])
       // (genMaterial [
-        "minisign.key"
+        "atuin"
+        "atuin_key"
         "ssh-cfg"
-        "gh-eu"
         "riro.u2f"
         "elen.u2f"
         "gh-token"
@@ -119,18 +115,7 @@
           group = "users";
           name = "hyst-az-cli.yaml";
         };
-        atuin = {
-          rekeyFile = ./sec/atuin.age;
-          mode = "640";
-          owner = user;
-          group = "users";
-        };
-        atuin_key = {
-          rekeyFile = ./sec/atuin_key.age;
-          mode = "640";
-          owner = user;
-          group = "users";
-        };
-      };
+      }
+    );
   };
 }

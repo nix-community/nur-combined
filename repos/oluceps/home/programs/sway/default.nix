@@ -134,33 +134,41 @@
         ];
 
         output =
+          let
+            bg = "${
+              pkgs.fetchurl {
+                url = "https://s3.nyaw.xyz/misc/109066252_p0.jpg";
+                sha256 = "0vrxr9imkp04skpbk6zmxjkcdlz029c9zc6xvsmab1hh2kzwkm33";
+              }
+            } fill";
+          in
           if osConfig.networking.hostName == "hastur" then
             {
               HDMI-A-1 = {
-                bg = "${../../../.attachs/wall.jpg} fill";
+                inherit bg;
                 mode = "1920x1080";
                 scale = "1.25";
               };
             }
           else if osConfig.networking.hostName == "kaambl" then
+
             {
               eDP-1 = {
-                bg = "${../../../.attachs/wall.jpg} fill";
+                inherit bg;
                 mode = "2160x1440@60Hz";
                 scale = "2";
                 adaptive_sync = "on";
               };
               HDMI-A-1 = {
-                bg = "${../../../.attachs/wall.jpg} fill";
+                inherit bg;
                 mode = "2560x1660";
                 scale = "2";
               };
             }
           else
             {
-
               eDP-1 = {
-                bg = "${../../../.attachs/wall.jpg} fill";
+                inherit bg;
                 mode = "1366x768";
                 scale = "1";
               };

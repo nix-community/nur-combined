@@ -42,13 +42,27 @@
     phantomsocks.enable = true;
     # srs.enable = true;
     # coredns.enable = true;
+    coredns.enable = true;
     dae.enable = true;
+    # smartdns.enable = true;
   };
 
   services = {
     metrics.enable = true;
 
     sing-box.enable = true;
+
+    beesd.filesystems = {
+      os = {
+        spec = "LABEL=nixos";
+        hashTableSizeMB = 512; # 256 *2 *2
+        verbosity = "crit";
+        extraOptions = [
+          "--thread-count"
+          "10"
+        ];
+      };
+    };
 
     snapy.instances = [
       {

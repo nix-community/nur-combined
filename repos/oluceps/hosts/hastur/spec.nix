@@ -152,6 +152,7 @@
     };
   };
   services = {
+    radicle.enable = true;
     metrics.enable = true;
     fwupd.enable = true;
     realm = {

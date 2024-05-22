@@ -2,7 +2,7 @@
 {
   services.resolved = {
     llmnr = "false";
-    dnssec = "no";
+    dnssec = "false";
     extraConfig = ''
       MulticastDNS=off
     '';

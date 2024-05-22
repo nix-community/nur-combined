@@ -5,14 +5,14 @@
 }:
 buildGo122Module {
   pname = "mosproxy";
-  version = "0-unstable-2024-04-05";
+  version = "0-unstable-2024-05-01";
   src = fetchFromGitHub ({
     owner = "IrineSistiana";
     repo = "mosproxy";
-    rev = "264f9d0c0d257a27a9d93082561aa0f958ce2e17";
-    hash = "sha256-S8sY2DtRUDJ/GJ0ub7GrS7iwIBORs0dLwCA8dAwVlnA=";
+    rev = "8ad60f753b23137b02cc1af18e2784e67389489d";
+    hash = "sha256-ZVMXxfrJ/+BJpQ16lZpLnH0QIW1ysbLpilkonJ3qX5U=";
   });
-  vendorHash = "sha256-bDHbviwaI6R4cEjfjBEUeV9Jkk06CmMznvVUUpxyEg8=";
+  vendorHash = "sha256-ZeWdUUBlGoxmoANPIiduf4x2mrCRa4BgUino3GQ4drU=";
   doCheck = false;
   ldflags = [
     "-s"

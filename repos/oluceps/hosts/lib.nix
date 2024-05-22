@@ -16,7 +16,6 @@ let
       skSshPubKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIH+HwSzDbhJOIs8cMuUaCsvwqfla4GY6EuD1yGuNkX6QAAAADnNzaDoxNjg5NTQzMzc1";
     };
     xmrAddr = "83u3a1Sx8wt5hQ9o8eHoSbKDPRwt9uGLJ8b26GHzfZ3Ha17ASekNTMvQk7TnYEqL724UuWQrJbBq7Cvg1HHZqGQc7WsT8RV";
-  
   };
 
   genModules = map (
@@ -53,20 +52,43 @@ in
 
   genFilteredDirAttrs =
     dir: excludes:
-    inputs.nixpkgs.lib.genAttrs (with builtins; filter (n: !elem n excludes) (attrNames (readDir dir)));
+    inputs.nixpkgs.lib.genAttrs (
+      let
+        inherit (builtins)
+          filter
+          elem
+          attrNames
+          readDir
+          ;
+      in
+      filter (n: !elem n excludes) (attrNames (readDir dir))
+    );
 
   genFilteredDirAttrsV2 =
     dir: excludes:
-    with inputs.nixpkgs.lib;
+    let
+      inherit (inputs.nixpkgs.lib)
+        genAttrs
+        subtractLists
+        removeSuffix
+        attrNames
+        filterAttrs
+        ;
+      inherit (builtins) readDir;
+    in
     genAttrs (
-      subtractLists excludes (with builtins; map (removeSuffix ".nix") (attrNames (readDir dir)))
+      subtractLists excludes (
+        map (removeSuffix ".nix") (attrNames (filterAttrs (_: v: v == "regular") (readDir dir)))
+      )
     );
 
   genCredPath = config: key: (key + ":" + config.age.secrets.${key}.path);
 
   capitalize =
     str:
-    with pkgs.lib.strings;
+    let
+      inherit (pkgs.lib.strings) toUpper substring concatStrings;
+    in
     concatStrings [
       (toUpper (substring 0 1 str))
       (substring 1 16 str)
@@ -80,4 +102,31 @@ in
         text = builtins.readFile p;
       }
     );
+
+  secCompLayer =
+    secs:
+    let
+      inherit (pkgs.lib) mapAttrs writeText;
+    in
+    if !(builtins.pathExists "${inputs.self}/sec") then
+      (mapAttrs (
+        n: v:
+        v
+        // {
+          rekeyFile = writeText "empty" ''
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IHNzaC1lZDI1NTE5IEdPMitlQSB3Wjgx
+            ZHlSYWdyajZDc0Foek5DZkd6a25vdUcxL1F6UktoMk90a0o2YkVRCmc1cW40UU1G
+            THZidFJCcVRSL1VTTzNHYlNIUGsvQ1d2bHpjWmg3QzVsRG8KLT4gcGl2LXAyNTYg
+            ZlYxVlFBIEF1QUtPWHhseTdKUmlDRERIdkUzR1JnT1ArVExkcEVna1IzUGFJaDQr
+            cmRkCkhaaTlZcERwblpFK0s3VUVYOUx3S00yckx1enBURVJMd0hFSkxZY09XdjgK
+            LT4gIXtbby1ncmVhc2UKVWMrTzFhVlhyT2hHalFvCi0tLSBNbzNlVnpSa2dyYXNw
+            dkxiQm9SQ2xJaXVTd25WSTFNMTduNk5RVnU4d1ZJCuP+oqFlibWZC4RE9t/t4lF/
+            Psju+EG7Nj86x73RozGE
+            -----END AGE ENCRYPTED FILE-----
+          '';
+        }
+      ) secs)
+    else
+      secs;
 }

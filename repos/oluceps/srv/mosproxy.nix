@@ -12,7 +12,7 @@ in
       redis = "unix:///run/redis-mosproxy/redis.sock";
     };
     api = {
-      addr = "0.0.0.0:9092";
+      addr = "127.0.0.1:9092";
     };
     ecs = {
       enabled = true;
@@ -33,7 +33,7 @@ in
     ];
     servers = [
       {
-        listen = "[::]:53";
+        listen = "127.0.0.1:53";
         protocol = "udp";
         quic = {
           max_streams = 100;
@@ -43,7 +43,7 @@ in
         };
       }
       {
-        listen = "[::]:53";
+        listen = "127.0.0.1:53";
         protocol = "gnet";
         tcp = {
           max_concurrent_queries = 100;

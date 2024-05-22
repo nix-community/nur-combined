@@ -1,13 +1,14 @@
 { config, lib, ... }:
 {
   services.resolved = {
+    enable = lib.mkForce false;
     llmnr = "false";
     dnssec = "false";
     extraConfig = ''
       MulticastDNS=off
     '';
     fallbackDns = [ "8.8.8.8#dns.google" ];
-    # dnsovertls = "true";
+    # dnsovertls = "opportunistic";
   };
   networking = {
     hosts = {
@@ -17,7 +18,7 @@
     };
     nameservers = [
       "223.5.5.5#dns.alidns.com"
-      "120.53.53.53#dot.pub"
+      #   # "120.53.53.53#dot.pub"
     ];
     # resolvconf.useLocalResolver = lib.mkForce true;
     resolvconf.enable = false;
@@ -151,11 +152,11 @@
         DHCP = "yes";
         dhcpV4Config.RouteMetric = 2040;
         dhcpV6Config.RouteMetric = 2046;
-        networkConfig = {
-          DNSSEC = false;
-          MulticastDNS = false;
-          DNSOverTLS = false;
-        };
+        # networkConfig = {
+        #   DNSSEC = false;
+        #   MulticastDNS = false;
+        #   DNSOverTLS = false;
+        # };
         # # REALLY IMPORTANT
         dhcpV4Config.UseDNS = true;
         dhcpV6Config.UseDNS = true;

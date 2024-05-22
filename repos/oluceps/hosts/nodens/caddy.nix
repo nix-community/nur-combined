@@ -117,7 +117,7 @@
                           handle = [
                             {
                               handler = "reverse_proxy";
-                              upstreams = [ { dial = "localhost:8084"; } ];
+                              upstreams = [ { dial = "10.0.1.2:8084"; } ];
                             }
                           ];
                         }

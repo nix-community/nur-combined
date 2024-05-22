@@ -15,7 +15,7 @@
     obsidian
     celluloid
     thiefmd
-    wpsoffice
+    # wpsoffice
     fractal
     mari0
     # anyrun
@@ -50,7 +50,6 @@
     virt-manager
     xdg-utils
     fluffychat
-    mpv
     hyfetch
 
     # microsoft-edge
@@ -217,7 +216,7 @@
       enable = true;
       plugins = with pkgs; [ obs-studio-plugins.wlrobs ];
     };
-    swww.enable = true;
+    # swww.enable = true;
   };
 
   gtk = {

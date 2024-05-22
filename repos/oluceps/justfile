@@ -73,8 +73,15 @@ edit-sec *args:
     if (not ($encrypted_file_tob_edit | path exists)) { print -e "Not found"; exit }
     let tmp_file = (mktemp -t)
     rage -d $encrypted_file_tob_edit -i $age_pub -o $tmp_file
+    let pre_hash = b3sum --no-names $tmp_file
+    print $pre_hash
     hx $tmp_file
-    rage -e $tmp_file -i $age_pub -i {{ yubikey-ident }} -o $encrypted_file_tob_edit
+    let after_hash = b3sum --no-names $tmp_file
+    if ($pre_hash != $after_hash) {
+      rage -e $tmp_file -i $age_pub -i {{ yubikey-ident }} -o $encrypted_file_tob_edit
+    } else {
+      print $after_hash "file not change"
+    }
     srm -C $tmp_file
 
 decrypt *args:
@@ -111,3 +118,6 @@ cleanthebucket:
     #!/usr/bin/env nu
     if ((input) == "yes") { srm -frC {{ home }}/Sec/* }
     sudo btrfs sub del /persist/.snapshots/*
+
+resign-all:
+    git filter-branch --commit-filter 'git commit-tree -S "$@";' -- --all

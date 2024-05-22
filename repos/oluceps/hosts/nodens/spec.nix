@@ -36,9 +36,8 @@
     rustypaste.enable = true;
   };
   services = {
-    radicle.enable = true;
     realm = {
-      enable = false;
+      enable = true;
       settings = {
         log.level = "warn";
         network = {

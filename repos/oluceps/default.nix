@@ -23,6 +23,8 @@ let
     "runwin"
     "ubt-rv-run"
     "trojan-rs"
+    "smartdns-rs"
+    "lock"
   ];
 in
 (genFilteredDirAttrsV2 ./pkgs shadowedPkgs (name: pkgs.callPackage (./pkgs + "/${name}.nix") { }))
