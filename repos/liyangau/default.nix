@@ -21,6 +21,7 @@
   squoosh-cli = pkgs.callPackage ./pkgs/squoosh-cli { };
   ingress2gateway = pkgs.callPackage ./pkgs/ingress2gateway { };
   cloudflare-cli = pkgs.callPackage ./pkgs/cloudflare-cli { };
+  insomnia = pkgs.callPackage ./pkgs/insomnia { };
   # yaml2nix = pkgs.callPackage ./pkgs/yaml2nix { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
