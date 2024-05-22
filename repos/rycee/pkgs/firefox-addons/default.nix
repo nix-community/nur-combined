@@ -50,15 +50,14 @@ in packages // {
     };
   };
 
-  bypass-paywalls-clean = let
-    version = "3.6.4.0";
+  bypass-paywalls-clean = let version = "3.6.8.0";
   in buildFirefoxXpiAddon {
     pname = "bypass-paywalls-clean";
     inherit version;
     addonId = "magnolia@12.34";
     url =
       "https://github.com/bpc-clone/bpc_updates/releases/download/latest/bypass_paywalls_clean-${version}.xpi";
-    sha256 = "sha256-k6LkC1KaIfde88f+bjPqaVjYk4gTfQWPZin00v3OLcs=";
+    sha256 = "sha256-50YRZdG4ZkWciGerfNZEHPQK2CqaxKM2Ow9Ad2TtSHI=";
     meta = with lib; {
       homepage = "https://twitter.com/Magnolia1234B";
       description = "Bypass Paywalls of (custom) news sites";
@@ -122,10 +121,10 @@ in packages // {
 
   proxydocile = buildFirefoxXpiAddon {
     pname = "proxydocile";
-    version = "2.3";
+    version = "2.4";
     addonId = "proxydocile@unipd.it";
     url = "https://softwarecab.cab.unipd.it/proxydocile/proxydocile.xpi";
-    sha256 = "sha256-Xz6BpDHtqbLfTbmlXiNMzUkqRxmEtPw3q+JzvpzA938=";
+    sha256 = "sha256-XiN4iJYs+nR227Yx9kCd1xPc3UQeaOrke6TEegcbgg0=";
     meta = with lib; {
       homepage =
         "https://bibliotecadigitale.cab.unipd.it/bd/proxy/proxy-docile";

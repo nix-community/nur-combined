@@ -1010,6 +1010,13 @@
     "slug": "protondb-for-steam"
   },
   {
+    "slug": "protoots",
+    "license": {
+      "tag": "predefined",
+      "shortName": "osl3"
+    }
+  },
+  {
     "slug": "purpleadblock"
   },
   {

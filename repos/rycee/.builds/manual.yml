@@ -6,8 +6,8 @@ secrets:
   - 582562a1-e61c-48ae-9822-deb4b63caccb
   - d139710a-7d26-4598-a6db-411e443ba75c
 environment:
-  # Pinned 2024-01-16.
-  NIX_PATH: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/9b19f5e77dd906cb52dade0b7bd280339d2a1f3d.tar.gz"
+  # Pinned 2024-05-02.
+  NIX_PATH: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/63c3a29ca82437c87573e4c6919b09a24ea61b0f.tar.gz"
   NIX_CONFIG: "experimental-features = nix-command flakes"
 packages:
   - nixos.cachix

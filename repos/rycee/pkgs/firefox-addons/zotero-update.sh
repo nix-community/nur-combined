@@ -34,30 +34,28 @@ ZOTERO_MANIFEST="$ZOTERO/manifest.json"
 curl -o "$ZOTERO_FILE" "$URL"
 unzip -q "$ZOTERO_FILE" -d "$ZOTERO"
 
-PERMISSIONS="$(jq .permissions[] "$ZOTERO_MANIFEST" | sed 's/^/      /')"
-OPTIONAL_PERMISSIONS="$(jq .optional_permissions[] "$ZOTERO_MANIFEST" | sed 's/^/      /')"
+PERMISSIONS="$(jq .permissions[] "$ZOTERO_MANIFEST" | sed 's/^/    /')"
+OPTIONAL_PERMISSIONS="$(jq .optional_permissions[] "$ZOTERO_MANIFEST" | sed 's/^/    /')"
 
 cat << EOF > "$OUT_PATH"
 { buildFirefoxXpiAddon, fetchurl, lib, stdenv }:
 
-{
-  zotero-connector = buildFirefoxXpiAddon {
-    pname = "zotero-connector";
-    version = "$VERSION";
-    addonId = "zotero@chnm.gmu.edu";
-    url =
-      "$URL";
-    sha256 = "${HASH}";
-    mozPermissions = [
+buildFirefoxXpiAddon {
+  pname = "zotero-connector";
+  version = "$VERSION";
+  addonId = "zotero@chnm.gmu.edu";
+  url =
+    "$URL";
+  sha256 = "${HASH}";
+  mozPermissions = [
 ${PERMISSIONS}
 ${OPTIONAL_PERMISSIONS}
-    ];
-    meta = with lib; {
-      homepage = "https://www.zotero.org/";
-      description = "Save references to Zotero from your web browser";
-      license = licenses.agpl3Plus;
-      platforms = platforms.all;
-    };
+  ];
+  meta = with lib; {
+    homepage = "https://www.zotero.org/";
+    description = "Save references to Zotero from your web browser";
+    license = licenses.agpl3Plus;
+    platforms = platforms.all;
   };
 }
 EOF
