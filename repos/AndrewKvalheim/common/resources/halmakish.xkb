@@ -1,0 +1,62 @@
+partial alphanumeric_keys modifier_keys
+xkb_symbols "basic" {
+  name[Group1]= "Halmakish (Basic)";
+
+  key <TLDE> { [ Print, Print, Print ] };
+  key <AE01> { [ F1, F1, F1 ] };
+  key <AE02> { [ F2, F2, F2 ] };
+  key <AE03> { [ F3, F3, F3 ] };
+  key <AE04> { [ F4, F4, F4 ] };
+  key <AE05> { [ F5, F5, F5 ] };
+  key <AE06> { [ F6, F6, F6 ] };
+  key <AE07> { [ F7, F7, F7 ] };
+  key <AE08> { [ F8, F8, F8 ] };
+  key <AE09> { [ F9, F9, F9 ] };
+  key <AE10> { [ F10, F10, F10 ] };
+  key <AE11> { [ F11, F11, F11 ] };
+  key <AE12> { [ F12, F12, F12 ] };
+  key <BKSP> { [ BackSpace, BackSpace, Delete ] };
+
+  key <TAB> { [ Tab, Tab, Tab ] };
+  key <AD01> { [ f, F, ampersand ] };
+  key <AD02> { [ l, L, bracketleft ] };
+  key <AD03> { [ r, R, bracketright ] };
+  key <AD04> { [ semicolon, underscore, exclam ] };
+  key <AD05> { [ b, B, asciicircum ] };
+  key <AD06> { [ q, Q, percent ] };
+  key <AD07> { [ p, P, 7 ] };
+  key <AD08> { [ u, U, 8 ] };
+  key <AD09> { [ d, D, 9 ] };
+  key <AD10> { [ j, J, asterisk ] };
+  key <AD11> { [ leftdoublequotemark, rightdoublequotemark, quotedbl ] };
+  key <AD12> { [ parenleft, parenright ] };
+  // key <BKSL> { [ backslash, bar ] };
+
+  key <CAPS> { [ BackSpace, BackSpace, Delete ] };
+  key <AC01> { [ s, S, numbersign ] };
+  key <AC02> { [ h, H, braceleft ] };
+  key <AC03> { [ n, N, braceright ] };
+  key <AC04> { [ t, T, equal ] };
+  key <AC05> { [ w, W, at ] };
+  key <AC06> { [ slash, asciitilde, grave ] };
+  key <AC07> { [ a, A, 4 ] };
+  key <AC08> { [ e, E, 5 ] };
+  key <AC09> { [ o, O, 6 ] };
+  key <AC10> { [ i, I, 0 ] };
+  key <AC11> { [ rightsinglequotemark, leftsinglequotemark, apostrophe ] };
+
+  key <AB01> { [ z, Z, question ] };
+  key <AB02> { [ m, M, less ] };
+  key <AB03> { [ c, C, greater ] };
+  key <AB04> { [ period, minus, period ] };
+  key <AB05> { [ v, V, bar ] };
+  key <AB06> { [ g, G, dollar ] };
+  key <AB07> { [ x, X, backslash ] };
+  key <AB08> { [ comma, colon, 2 ] };
+  key <AB09> { [ k, K, 3 ] };
+  key <AB10> { [ y, Y, plus ] };
+
+  key <SPCE> { [ space, space, 1 ] };
+
+  include "level3(ralt_switch_multikey)"
+};

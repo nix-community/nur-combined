@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# See https://discourse.nixos.org/t/25274
+set -Eeu
+
+root="$(readlink --canonicalize -- "$(dirname -- "$0")/..")"
+
+# Mock nixpkgs
+trap 'rm -f "$root/default.nix"' EXIT; cat > "$root/default.nix" << NIX
+{}: import <nixpkgs> { overlays = [ (import ./common/packages.nix) ]; }
+NIX
+
+# Run update scripts
+nixpkgs="$(nix-instantiate --eval --expr '<nixpkgs>')"
+nix-shell "$nixpkgs/maintainers/scripts/update.nix" \
+  --arg include-overlays "(import $root { }).overlays" \
+  --arg keep-going 'true' \
+  --arg predicate "(
+    let prefix = \"$root/packages/\"; prefixLen = builtins.stringLength prefix;
+    in (_: p: (builtins.substring 0 prefixLen p.meta.position) == prefix)
+  )"
+
+# Clean up
+if [[ -f "$root/update-git-commits.txt" ]]; then
+  cat "$root/update-git-commits.txt" && rm "$root/update-git-commits.txt"
+fi

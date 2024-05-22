@@ -1,0 +1,10 @@
+--- a/system-monitor-next@paradoxxx.zero.gmail.com/extension.js
++++ b/system-monitor-next@paradoxxx.zero.gmail.com/extension.js
+@@ -31 +31,3 @@
+-import GTop from "gi://GTop";
++import GIRepository from 'gi://GIRepository';
++GIRepository.Repository.prepend_search_path('@girepository_search_path_gtop@');
++const { default: GTop } = await import('gi://GTop');
+@@ -403 +405 @@
+-        let sys_mounts = ['/home', '/tmp', '/boot', '/usr', '/usr/local'];
++        let sys_mounts = ['/home', '/tmp', '/boot'];

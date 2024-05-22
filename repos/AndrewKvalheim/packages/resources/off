@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -Eeuxo pipefail
+
+# Containers / virtual machines
+podman system prune --force --volumes
+docker system prune --force --volumes
+vagrant box prune
+
+# Channels
+sudo nix-channel --update
+nix-channel --update
+
+# User packages
+home-manager expire-generations '-7 days'
+home-manager switch
+
+# System packages
+sudo nixos-rebuild boot
+
+# Filesystem
+btrfs filesystem df /
+sudo btrfs balance start --enqueue -dusage=50 -musage=50 /
+
+sudo poweroff

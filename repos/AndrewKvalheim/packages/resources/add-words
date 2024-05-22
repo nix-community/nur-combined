@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+cd "$HOME/src/configuration"
+
+message='Update spell check word list'
+txt='common/resources/words.txt'
+
+if [[ -n "$(git status --porcelain "$txt")" ]]; then
+  echo "Error: Existing uncommitted changes to $txt" >&2
+  exit 1
+fi
+
+if [[ -n "$(git diff --cached --name-only)" ]]; then
+  echo "Error: Existing staged changes" >&2
+  exit 1
+fi
+
+printf '%s\n' "$@" | sort "$txt" - | uniq | sponge "$txt"
+git add "$txt"
+
+if [[ "$(git log -1 --pretty='%s')" == "$message" ]] && ! git merge-base --is-ancestor 'HEAD' '@{u}'; then
+  git commit --amend --no-edit
+else
+  git commit --message "$message"
+fi
+
+git show HEAD

@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+input="$1"
+shift
+
+mime="$(file --brief --mime "$input")"
+output="${input%.*}.jpg"
+
+if [[ "$mime" == 'image/heic'* ]]; then
+  png="$(mktemp --suffix=.png)"; trap 'rm -f "$png"' EXIT
+
+  heif-convert "$input" "$png"
+
+  from="png:$png"
+else
+  from="$input"
+fi
+
+convert -flatten "$from" "ppm:-" \
+  | cjpeg -optimize -quality 90 "$@" \
+> "$output"
+
+exiftool -overwrite_original -TagsFromFile "$input" -all:all -ICC_Profile "$output"

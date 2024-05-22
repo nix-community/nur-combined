@@ -1,0 +1,4 @@
+--- a/gnome-shell/src/gnome-shell-sass/_common.scss
++++ b/gnome-shell/src/gnome-shell-sass/_common.scss
+@@ -53,0 +54 @@ stage {
++  font-family: Affine, Sans-Serif;

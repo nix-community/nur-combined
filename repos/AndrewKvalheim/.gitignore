@@ -1,0 +1,3 @@
+# Local configuration
+local/
+*.local.nix

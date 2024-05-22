@@ -1,0 +1,7 @@
+--- a/whipper/program/flac.py
++++ b/whipper/program/flac.py
+@@ -16,3 +16,3 @@ def encode(infile, outfile):
+         check_call(['flac', '--silent', '--verify', '-o', outfile,
+-                    '-f', infile])
++                    '-f', '--compression-level-5', infile])
+     except CalledProcessError:

@@ -1,0 +1,7 @@
+--- a/whipper/extern/task/task.py
++++ b/whipper/extern/task/task.py
+@@ -484,2 +484,4 @@ class SyncRunner(TaskRunner, ITaskListener):
+              self._verboseRun = verbose
++        if not sys.stdout.isatty():
++            self._verboseRun = False
+          self._skip = skip

@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+shopt -s nullglob
+
+intermediate_dir="$HOME/screenshots/.unoptimized"
+screenshots_dir="$HOME/screenshots"
+
+for source in ~/Downloads/Screen{s,\ S}hot\ *.png; do
+  while (( $(date +%s) - $(date '+%s' --reference "$source") <= 1 )); do
+    echo "Waiting for file to settle: $source"
+    sleep 1s
+  done
+
+  intermediates+=( "$intermediate_dir/${source##*/}" )
+  mkdir --parents --verbose "$intermediate_dir"
+  mv --no-clobber --verbose "$source" "${intermediates[-1]}"
+done
+
+[[ "$(< /sys/class/power_supply/AC/online)" == '1' ]] && o='8' || o='3'
+ect -"$o" -keep --mt-file "${intermediates[@]}"
+
+mkdir --parents --verbose "$screenshots_dir"
+mv --no-clobber --verbose --target-directory "$screenshots_dir" "${intermediates[@]}"
+rmdir --ignore-fail-on-non-empty "$intermediate_dir"

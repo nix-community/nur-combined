@@ -1,0 +1,58 @@
+--- a/whipper/command/cd.py
++++ b/whipper/command/cd.py
+@@ -272,2 +272,6 @@
+                                  help="sample read offset")
++        self.parser.add_argument('-s', '--speed',
++                                 action="store", dest="maxspeed",
++                                 default=None,
++                                 help="Limit read speed of the drive")
+         self.parser.add_argument('-x', '--force-overread',
+@@ -479,2 +483,3 @@
+                                               overread=self.options.overread,
++                                              maxspeed=self.options.maxspeed,
+                                               what='track %d of %d%s' % (
+diff --git a/whipper/common/program.py b/whipper/common/program.py
+index 56c39d0..442efad 100644
+--- a/whipper/common/program.py
++++ b/whipper/common/program.py
+@@ -560,3 +560,3 @@ class Program:
+     def ripTrack(self, runner, trackResult, offset, device, taglist,
+-                 overread, what=None, coverArtPath=None):
++                 overread, maxspeed=None, what=None, coverArtPath=None):
+         """
+@@ -600,2 +600,3 @@ class Program:
+                                            stop, overread,
++                                           maxspeed=maxspeed,
+                                            offset=offset,
+diff --git a/whipper/program/cdparanoia.py b/whipper/program/cdparanoia.py
+index 5c4b779..65e246b 100644
+--- a/whipper/program/cdparanoia.py
++++ b/whipper/program/cdparanoia.py
+@@ -210,3 +210,3 @@ class ReadTrackTask(task.Task):
+ 
+-    def __init__(self, path, table, start, stop, overread, offset=0,
++    def __init__(self, path, table, start, stop, overread, maxspeed=None, offset=0,
+                  device=None, action="Reading", what="track"):
+@@ -238,2 +238,3 @@ class ReadTrackTask(task.Task):
+         self._stop = stop
++        self._maxspeed = maxspeed
+         self._offset = offset
+@@ -278,2 +279,4 @@ class ReadTrackTask(task.Task):
+                     "--sample-offset=%d" % self._offset, ]
++        if self._maxspeed:
++            argv.extend(["--force-read-speed", str(self._maxspeed), ])
+         if self._device:
+@@ -441,3 +444,3 @@ class ReadVerifyTrackTask(task.MultiSeparateTask):
+ 
+-    def __init__(self, path, table, start, stop, overread, offset=0,
++    def __init__(self, path, table, start, stop, overread, maxspeed=None, offset=0,
+                  device=None, taglist=None, what="track", coverArtPath=None):
+@@ -478,6 +481,6 @@ class ReadVerifyTrackTask(task.MultiSeparateTask):
+             ReadTrackTask(tmppath, table, start, stop, overread,
+-                          offset=offset, device=device, what=what))
++                          maxspeed=maxspeed, offset=offset, device=device, what=what))
+         self.tasks.append(checksum.CRC32Task(tmppath))
+         t = ReadTrackTask(tmppath, table, start, stop, overread,
+-                          offset=offset, device=device, action="Verifying",
++                          maxspeed=maxspeed, offset=offset, device=device, action="Verifying",
+                           what=what)

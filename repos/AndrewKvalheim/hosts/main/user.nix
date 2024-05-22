@@ -1,0 +1,86 @@
+{ config, pkgs, ... }:
+
+{
+  imports = [
+    ../../common/user.nix
+    ./local/user.nix
+  ];
+
+  # Nix
+  home.stateVersion = "22.05"; # Permanent
+  # TODO: Set nixpkgs.localSystem.platform.gcc
+
+  # Host parameters
+  host = {
+    background = "file://${./resources/background.jpg}";
+    cores = 16;
+    firefoxProfile = "ahrdm58c.default";
+    local = ./local;
+  };
+
+  # Unfree packages
+  allowedUnfree = [
+    "attachments"
+    "obsidian"
+  ];
+
+  # Display
+  xdg.dataFile."icc/ThinkPad-T14.icc".source = ./resources/ThinkPad-T14.icc;
+
+  # Applications
+  home.packages = with pkgs; [
+    album-art
+    attachments
+    audacious
+    awscli2
+    calibre
+    chromium
+    decompiler-mc
+    digikam
+    email-hash
+    fastnbt-tools
+    fontforge-gtk
+    gpsprune
+    graphviz
+    hugin
+    jitsi-meet-electron
+    josm
+    kdenlive
+    libreoffice
+    mcaselector
+    minemap
+    nbt-explorer
+    obsidian
+    picard
+    prismlauncher
+    rapid-photo-downloader
+    signal-desktop
+    soundconverter
+    thunderbird
+    tor-browser-bundle-bin
+    transmission-gtk
+    video-trimmer
+    watson
+    whatsapp-for-linux
+    whipper
+    wireguard-vanity-address
+    wireshark
+    yt-dlp
+  ];
+  xdg.dataFile."JOSM/plugins/imagery_used.jar".source = "${pkgs.josm-imagery-used}/share/JOSM/plugins/imagery_used.jar";
+
+  # File type associations
+  xdg.mimeApps.defaultApplications = {
+    "application/epub+zip" = "calibre-ebook-viewer.desktop";
+    "application/x-ptoptimizer-script" = "hugin.desktop";
+    "font/otf" = "org.gnome.font-viewer.desktop";
+    "font/ttf" = "org.gnome.font-viewer.desktop";
+    "x-scheme-handler/mailto" = "firefox.desktop";
+  };
+
+  # Environment
+  home.sessionVariables = {
+    ATTACHMENTS_ENV = config.home.homeDirectory + "/.attachments.env";
+    EMAIL_HASH_DB = config.home.homeDirectory + "/akorg/resource/email-hash.db";
+  };
+}
