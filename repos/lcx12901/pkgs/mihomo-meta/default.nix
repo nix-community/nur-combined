@@ -5,7 +5,7 @@
 }:
 buildGoModule rec {
   name = "mihomo-meta";
-  version = "ae0629773ae9f8347b7e843d95a764e8293967af";
+  version = "3ae4014b393ea1dccb04f1f93c389cb1ab65b091";
 
   src = fetchFromGitHub {
     owner = "MetaCubeX";
