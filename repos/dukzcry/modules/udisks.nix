@@ -13,10 +13,7 @@ in {
   config = mkIf cfg.enable {
     services.udisks2.enable = true;
     environment = {
-      systemPackages = with pkgs; [ ntfs3g ];
+      systemPackages = with pkgs; [ ntfs3g bashmount ];
     };
-    services.xserver.displayManager.sessionCommands = ''
-      ${pkgs.udiskie}/bin/udiskie -N &
-    '';
   };
 }

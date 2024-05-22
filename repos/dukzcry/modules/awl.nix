@@ -6,6 +6,7 @@ let
 in {
   options.networking.awl = {
     enable = mkEnableOption "Anywherelan service.";
+    dns = mkEnableOption "dns support.";
   };
 
   config = mkIf cfg.enable {
@@ -14,7 +15,7 @@ in {
       after = [ "network-online.target" "nss-lookup.target" ];
       wants = [ "network-online.target" "nss-lookup.target" ];
       wantedBy = [ "multi-user.target" ];
-      path = with pkgs; [ inetutils openresolv ];
+      path = with pkgs; [ inetutils ] ++ optional cfg.dns pkgs.openresolv;
       environment = {
         AWL_DATA_DIR = "/etc/anywherelan";
       };

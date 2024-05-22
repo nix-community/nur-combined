@@ -36,9 +36,7 @@ in {
           };
           network = mkOption {
             type = types.str;
-            default = "10.123.0.0/16";
           };
-          snowflake = mkEnableOption "транспорт Snowflake";
         };
       };
     default = {};
@@ -84,25 +82,14 @@ in {
     })
     (mkIf (cfg.enable && cfg.tor.enable) {
       services.tor.enable = true;
-      services.tor.client.enable = true;
-      services.tor.settings = ({
+      services.tor.settings = {
         ExcludeExitNodes = "{RU}";
         # onion
         DNSPort = [{ addr = cfg.address; port = 9053; }];
         VirtualAddrNetworkIPv4 = cfg.tor.network;
         AutomapHostsOnResolve = true;
         TransPort = [{ addr = cfg.address; port = 9040; }];
-      } // optionalAttrs cfg.tor.snowflake {
-        UseBridges = true;
-        Bridge = "snowflake 192.0.2.3:1";
-        ClientTransportPlugin = ''
-          snowflake exec ${pkgs.snowflake}/bin/client \
-            -url https://snowflake-broker.azureedge.net/ \
-            -front ajax.aspnetcdn.com \
-            -ice stun:stun.l.google.com:19302 \
-            -max 3
-        '';
-      });
+      };
       services.dnsmasq.settings = {
         server = [ "/onion/${cfg.address}#9053" ];
         rebind-domain-ok = "onion";
