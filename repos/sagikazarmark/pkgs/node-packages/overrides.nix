@@ -18,15 +18,18 @@ in
 
 final: prev: {
   decktape = prev.decktape.override (
-    lib.optionalAttrs (!stdenv.isDarwin) {
-      nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
-      prePatch = ''
-        export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
-      '';
-      postInstall = ''
-        wrapProgram $out/bin/decktape \
-        --set PUPPETEER_EXECUTABLE_PATH ${pkgs.chromium.outPath}/bin/chromium
-      '';
+    lib.optionalAttrs (!stdenv.isDarwin)
+      {
+        nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
+        prePatch = ''
+          export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
+        '';
+        postInstall = ''
+          wrapProgram $out/bin/decktape \
+          --set PUPPETEER_EXECUTABLE_PATH ${pkgs.chromium.outPath}/bin/chromium
+        '';
+      } // {
+      nativeBuildInputs = [ pkgs.cacert ];
     }
   );
 }
