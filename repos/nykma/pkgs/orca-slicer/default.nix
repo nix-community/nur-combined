@@ -11,7 +11,7 @@ let
   extractedContents = appimageTools.extract {
     inherit pname version src;
     postExtract = ''
-    substituteInPlace $out/OrcaSlicer.desktop --replace 'Exec=AppRun' 'Exec=env SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt GIO_MODULE_DIR=${glib-networking}/lib/gio/modules ${pname}'
+    substituteInPlace $out/OrcaSlicer.desktop --replace-fail 'Exec=AppRun' 'Exec=env SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt GIO_MODULE_DIR=${glib-networking}/lib/gio/modules ${pname}'
     '';
   };
 in
