@@ -1,18 +1,35 @@
-{ lib, stdenv, fetchurl, qt6, fixDarwinDylibNames }:
-
+{ lib
+, stdenv
+, fetchurl
+, qt5
+, qt6
+, fixDarwinDylibNames
+, useQt6 ? false
+}:
+let
+  qt = if useQt6 then qt6 else qt5;
+  qtVersion = if useQt6 then "6" else "5";
+in
 stdenv.mkDerivation rec {
   pname = "qwt";
-  version = "6.2.0";
+  version = "6.3.0";
 
   outputs = [ "out" "dev" ];
 
   src = fetchurl {
     url = "mirror://sourceforge/qwt/qwt-${version}.tar.bz2";
-    sha256 = "sha256-kZT2UTlV0P1zAPZxWBdQZEYBl6urGpL6EnpnpLC3FTA=";
+    sha256 = "sha256-3LCFiWwoquxVGMvAjA7itOYK2nrJKdgmOfYYmFGmEpo=";
   };
 
-  propagatedBuildInputs = with qt6; [ qtbase qtsvg qttools ];
-  nativeBuildInputs = with qt6; [ qmake ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  propagatedBuildInputs = [
+    qt.qtbase
+    qt.qtsvg
+    qt.qttools
+  ];
+
+  nativeBuildInputs = [
+    qt.qmake
+  ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   postPatch = ''
     sed -e "s|QWT_INSTALL_PREFIX.*=.*|QWT_INSTALL_PREFIX = $out|g" -i qwtconfig.pri
@@ -23,7 +40,7 @@ stdenv.mkDerivation rec {
   dontWrapQtApps = true;
 
   meta = with lib; {
-    description = "Qt widgets for technical applications (qt6)";
+    description = "Qt${qtVersion} widgets for technical applications.";
     homepage = "http://qwt.sourceforge.net/";
     # LGPL 2.1 plus a few exceptions (more liberal)
     license = lib.licenses.qwt;

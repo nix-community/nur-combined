@@ -1,9 +1,8 @@
 # [vhs-decode](https://github.com/oyvindln/vhs-decode)
-vhs-decode consists of a package and module.
+- Enable `exportVersionVariable` to export the git hash to the environment variable `__VHS_DECODE_VERSION`.
 
-The package must be in your in your `nixpkgs` via `packageOverrides` for the module to work.
-
-Enable `exportVersionVariable` to have the environment variable `__VHS_DECODE_VERSION` set to the git hash.
+>[!IMPORTANT]
+>The package must be in `nixpkgs` (e.g. via `packageOverrides` or overlays) for this module to work.
 
 ## Example
 ```

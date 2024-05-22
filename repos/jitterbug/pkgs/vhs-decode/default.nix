@@ -6,22 +6,28 @@
 , stdenv
 , cmake
 , pkg-config
+, qt5
 , qt6
 , qwt
 , fftw
+, useQt6 ? false
 , enableHiFiGui ? true
 , ...
 }:
 let
+  qt = if useQt6 then qt6 else qt5;
+  pyqt = if useQt6 then python3Packages.pyqt6 else python3Packages.pyqt5;
+  qtVersion = if useQt6 then "6" else "5";
+
   # we need a valid version for SETUPTOOLS_SCM
-  version = "0.2.5";
-  rev = "43bdcbc6c895e6ed9710151f58e887980551fb25";
+  version = "0.2.7";
+  rev = "29cb28221892fcba828995bde93ae769a96599de";
 
   src = fetchFromGitHub {
     inherit rev;
     owner = "oyvindln";
     repo = "vhs-decode";
-    sha256 = "sha256-2S/kY6+wq46TQubwN5EaRDOsCALusuue54ufXOzlmRk=";
+    sha256 = "sha256-nlZK+AFqsVlvHhFF8zpNE5Blm234SpW9UOFGjqDAUL4=";
   };
 
   py-vhs-decode = python3Packages.buildPythonApplication {
@@ -36,12 +42,11 @@ let
     buildInputs = [
       ffmpeg
     ]
-    ++ lib.optionals enableHiFiGui [ qt6.qtbase ]
-    ++ lib.optionals (stdenv.isLinux && enableHiFiGui) [ qt6.qtwayland ];
+    ++ lib.optionals enableHiFiGui (with qt; [ qtbase qtwayland wrapQtAppsHook ]);
 
     nativeBuildInputs = with python3Packages; [
       setuptools_scm
-    ] ++ lib.optionals enableHiFiGui [ qt6.wrapQtAppsHook ];
+    ];
 
     propagatedBuildInputs = with python3Packages;
       [
@@ -55,7 +60,7 @@ let
         soundfile
         sounddevice
         samplerate
-      ] ++ lib.optionals enableHiFiGui [ pyqt6 ];
+      ] ++ lib.optionals enableHiFiGui [ pyqt ];
 
     postFixup = lib.optionalString enableHiFiGui ''
       wrapQtApp $out/bin/hifi-decode
@@ -72,18 +77,18 @@ let
     ];
 
     buildInputs = [
-      qt6.qtbase
-      qt6.qtwayland
-      qt6.wrapQtAppsHook
       qwt
       ffmpeg
       fftw
+      qt.qtbase
+      qt.qtwayland
+      qt.wrapQtAppsHook
     ];
 
     cmakeFlags = [
       "-DCMAKE_BUILD_TYPE=Release"
-      "-DUSE_QT_VERSION=6"
       "-DBUILD_PYTHON=false"
+      "-DUSE_QT_VERSION=${qtVersion}"
     ];
   };
 in

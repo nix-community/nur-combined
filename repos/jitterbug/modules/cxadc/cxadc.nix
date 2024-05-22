@@ -5,16 +5,16 @@
 }:
 
 let
-  version = "0ac25128fd2c9971ae7c76ed71e50ea115ec7d5a";
-  sha256 = "sha256-h82oNeE7pTfsZQ9pNflKjRoeVI0ev7MNCTaF9DPWdR0=";
+  version = "3f75d0da351ef38bb7e4fa5aa1151412caa58fa4";
+  sha256 = "sha256-YXMBnWyBF/Y/v6999H9ZfBh0My51V/K0EfJaXkcoB1w=";
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   name = "cxadc";
   passthru.moduleName = "cxadc";
 
   src = fetchFromGitHub {
     owner = "happycube";
-    repo = "${name}-linux3";
+    repo = "cxadc-linux3";
     rev = version;
     inherit sha256;
   };

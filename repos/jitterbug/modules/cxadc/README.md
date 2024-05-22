@@ -1,11 +1,10 @@
 # [cxadc](https://github.com/happycube/cxadc-linux3)
-cxadc consists of a package (a kernel driver) and a module.
+- Set device parameters using `cxadc.parameters.*.parameter`.  
+- Set `group` to allow non-root access to the device and sysfs parameters.
+- Enable `exportVersionVariable` to export the git hash to the environment variable `__CXADC_VERSION`.
 
-You can set device parameters using `cxadc.parameters.*.parameter`. This uses udev and may require `udevadm trigger` to reload.
-
-Set the group the device belongs to with `group` to allow non-root access. This uses udev and may require `udevadm trigger` to reload.
-
-Enable `exportVersionVariable`to have the environment variable `__CXADC_VERSION` set to the git hash.
+>[!NOTE]
+>Changes may require `udevadm trigger` to apply.
 
 ## Example
 ```
