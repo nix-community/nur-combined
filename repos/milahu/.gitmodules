@@ -1,0 +1,9 @@
+[submodule "pkgs/development/tools/js2nix/src/js2nix"]
+	path = pkgs/development/tools/js2nix
+	url = https://github.com/canva-public/js2nix
+[submodule "pkgs/development/tools/npmlock2nix/src/npmlock2nix"]
+	path = pkgs/development/tools/npmlock2nix/src/npmlock2nix
+	url = https://github.com/milahu/npmlock2nix
+[submodule "lib/src/nix-yaml"]
+	path = lib/src/nix-yaml
+	url = https://github.com/milahu/nix-yaml

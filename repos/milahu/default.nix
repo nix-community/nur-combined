@@ -363,6 +363,22 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         inherit spiral;
       };
 
+      vncdotool = callPackage ./pkgs/python3/pkgs/vncdotool { };
+
+      guibot = callPackage ./pkgs/python3/pkgs/guibot { };
+
+      noisereduce = callPackage ./pkgs/python3/pkgs/noisereduce { };
+
+      audalign = callPackage ./pkgs/python3/pkgs/audalign { };
+
+      restview = callPackage ./pkgs/python3/pkgs/restview { };
+
+      stpl = callPackage ./pkgs/python3/pkgs/stpl { };
+
+      syncstart = callPackage ./pkgs/python3/pkgs/syncstart { };
+
+      scikits-audiolab = callPackage ./pkgs/python3/pkgs/scikits-audiolab { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -624,11 +640,14 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
     gittorrent = callPackage ./pkgs/node-pkgs/gittorrent/gittorrent.nix { };
 
+    js2nix = callPackage ./pkgs/development/tools/js2nix { };
+
   })));
 
   inherit (nodePackages)
     npmlock2nix
     gittorrent
+    js2nix
   ;
 
   fontforge-dev = pkgs.fontforge.overrideAttrs (oldAttrs: {
@@ -785,6 +804,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   # fix: browse files for file upload makes tor browser hang with periodic flashes
   # https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/42561
   tor-browser_13_0_13 = callPackage ./pkgs/applications/networking/browsers/tor-browser { };
+
+  bash2py = callPackage ./pkgs/development/tools/bash2py { };
 
 }
 

@@ -1,0 +1,74 @@
+{
+  "name": "@canva/js2nix",
+  "version": "1.1.0",
+  "license": "MIT",
+  "bin": {
+    "js2nix": "./bin/js2nix"
+  },
+  "scripts": {
+    "test": "jest test"
+  },
+  "dependencies": {
+    "@yarnpkg/lockfile": "^1.1.0",
+    "chalk": "^4.1.2",
+    "duration": "^0.2.2",
+    "optimist": "^0.6.1",
+    "parse-package-name": "^0.1.0",
+    "promisify-child-process": "^4.1.1",
+    "rimraf": "^3.0.2",
+    "semver": "^7.3.5",
+    "strip-ansi": "^6.0.0"
+  },
+  "devDependencies": {
+    "@jest/types": "^27.2.5",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^16.6.0",
+    "@types/optimist": "^0.0.30",
+    "@types/which": "^2.0.1",
+    "@types/yarnpkg__lockfile": "^1.1.5",
+    "jest": "^27.0.3"
+  },
+  "peerDependencies": {
+    "@babel/core": "*"
+  },
+  "files": [
+    "bin",
+    "bin/js2nix",
+    "lib",
+    "lib/print.js",
+    "lib/proxy.js",
+    "lib/install.js",
+    "package.json",
+    "default.nix",
+    "lib.nix",
+    "overlay.nix",
+    "js2nix.nix",
+    "yarn.lock.nix"
+  ],
+  "js2nix": {
+    "// 1": [
+      "The reason to disable import check for the '@jest/globals' is becasue it throws an error when imported",
+      "directly, see https://github.com/facebook/jest/blob/v27.0.3/packages/jest-globals/src/index.ts#L29-L31"
+    ],
+    "// 2": [
+      "The reason to disable import check for the 'fsevents' is becasue it is ont macOS specific package",
+      "and doesn't exist on Linux"
+    ],
+    "overlay": {
+      "@jest/globals": {
+        "doCheck": false
+      },
+      "fsevents": {
+        "doCheck": false
+      },
+      "babel-jest": {
+        "addDependencies": [
+          "@babel/core"
+        ]
+      }
+    }
+  },
+  "optionalDependencies": {
+    "node-gyp": "^9.1.0"
+  }
+}

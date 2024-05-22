@@ -103,7 +103,8 @@
     '';
 
   withoutNodeModules = src: lib.cleanSourceWith {
-    filter = name: type: ! (type == "directory" && name == "node_modules");
+    filter = name: type:
+      let basename = baseNameOf name; in ! (type == "directory" && basename == "node_modules");
     inherit src;
   };
 }

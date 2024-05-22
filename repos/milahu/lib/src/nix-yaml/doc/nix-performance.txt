@@ -1,0 +1,57 @@
+https://discourse.nixos.org/t/tail-call-optimization-in-nix-today/17763
+
+Stack size is limited, so recursion can’t be arbitrarily deep.
+thunks reserve a lot of space on the stack.
+
+Since Nix is pure and non-optimizing,
+any operation on data structures copies the data structure,
+even if it would be possible to do it in place.
+Thus extending / updating lists and attribute sets is quite expensive.
+
+As a result, the art of Nix programming is (ab)using builtins to the greatest extent possible,
+since these are implemented in C++ and thus not constrained by the semantics of the Nix language
+
+One very powerful, but undocumented such primop is builtins.genericClosure
+Apart from its intended use (computing a dependency closure of sorts),
+it can be used for basically any recursive algorithm that produces a list in the end
+This will also constitute (semi-manual) tail call optimization for Nix
+
+In most situation where this would help you,
+the “optimized” algorithm would probably be dealing with an attribute set or list
+and be slowed down incredibly by the constant copying involved with list/set operations.
+Additionally, any hand rolled use of builtins.genericClosure is probably considerably faster,
+as it would save on a lot of function applications and intermediate data structuers for a large enough n.
+
+
+
+https://github.com/NixOS/nix/issues/552#issuecomment-971212372
+
+Document builtins.genericClosure
+
+https://github.com/NixOS/nix/blob/master/src/libexpr/primops.cc#L655
+
+`builtins.genericClosure` is great for computing transitive dependencies
+given a list of packages and the direct dependencies for each one.
+
+takes a "startSet" (a list of initial graph nodes) and a "operator" function that must return nodes reachable from a node
+nodes are represented as attribute sets with a "key" attribute
+so "key" could be the package name in this case
+any other attributes are passed through
+
+
+
+https://github.com/NixOS/nix/issues/8430
+
+Simple iterative program support with "trampoline" instead of tail calls
+
+Users who have written parsers and whatnot in Nix have always run into stack overflows and have found workarounds.
+This is mostly IRL discussion as this is an implementation problem which does not tend to lead to issues being written.
+Rather you have to talk to Nix language power users, fwiw.
+This is a fairly generic workaround. Wouldn't call it pretty, but that's ok.
+
+alternatives
+Pure Nix.
+The trampoline function can perhaps be approximated with an "exponential search"-like algorithm and foldl'.
+Start with a small number of iterations, needing only a small list,
+and exponentially increase the size of the abused list so that the stack usage is O(log #iterations).
+That's basically as good as O(1) stack usage, ignoring its hacky nature and its overhead.

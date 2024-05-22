@@ -1,0 +1,66 @@
+diff --git a/scikits/audiolab/pysndfile/setuphelp.py b/scikits/audiolab/pysndfile/setuphelp.py
+index 69d6676..488a1ba 100644
+--- a/scikits/audiolab/pysndfile/setuphelp.py
++++ b/scikits/audiolab/pysndfile/setuphelp.py
+@@ -46,6 +46,10 @@ def info_factory(name, libnames, headers, frameworks=None,
+                     libs = libnames
+                 # Look for the shared library
+                 lib_dirs = self.get_lib_dirs()
++
++                # NIX_LDFLAGS -L/nix/store/z40lyags433g6bc84mgbi0sxzcmyh538-libsndfile-1.2.2/lib
++                lib_dirs += list(map(lambda a: a[2:], filter(lambda a: a.startswith("-L/"), os.environ["NIX_LDFLAGS"].split())))
++
+                 tmp = None
+                 for d in lib_dirs:
+                     tmp = self.check_libs(d, libs)
+@@ -57,6 +61,17 @@ def info_factory(name, libnames, headers, frameworks=None,
+ 
+                 # Look for the header file
+                 include_dirs = self.get_include_dirs()
++
++                # NIX_CFLAGS_COMPILE -isystem /nix/store/gqpzixxci5bcsxizydn1c5czajqwpyvk-libsndfile-1.2.2-dev/include
++                args = os.environ["NIX_CFLAGS_COMPILE"].split()
++                idx = 0
++                while idx < len(args):
++                    if args[idx] != "-isystem":
++                        idx += 1
++                        continue
++                    idx += 1
++                    include_dirs.append(args[idx])
++
+                 inc_dir = None
+                 for d in include_dirs:
+                     p = self.combine_paths(d, headers)
+diff --git a/scikits/audiolab/soundio/setuphelp.py b/scikits/audiolab/soundio/setuphelp.py
+index 69d6676..488a1ba 100644
+--- a/scikits/audiolab/soundio/setuphelp.py
++++ b/scikits/audiolab/soundio/setuphelp.py
+@@ -46,6 +46,10 @@ def info_factory(name, libnames, headers, frameworks=None,
+                     libs = libnames
+                 # Look for the shared library
+                 lib_dirs = self.get_lib_dirs()
++
++                # NIX_LDFLAGS -L/nix/store/z40lyags433g6bc84mgbi0sxzcmyh538-libsndfile-1.2.2/lib
++                lib_dirs += list(map(lambda a: a[2:], filter(lambda a: a.startswith("-L/"), os.environ["NIX_LDFLAGS"].split())))
++
+                 tmp = None
+                 for d in lib_dirs:
+                     tmp = self.check_libs(d, libs)
+@@ -57,6 +61,17 @@ def info_factory(name, libnames, headers, frameworks=None,
+ 
+                 # Look for the header file
+                 include_dirs = self.get_include_dirs()
++
++                # NIX_CFLAGS_COMPILE -isystem /nix/store/gqpzixxci5bcsxizydn1c5czajqwpyvk-libsndfile-1.2.2-dev/include
++                args = os.environ["NIX_CFLAGS_COMPILE"].split()
++                idx = 0
++                while idx < len(args):
++                    if args[idx] != "-isystem":
++                        idx += 1
++                        continue
++                    idx += 1
++                    include_dirs.append(args[idx])
++
+                 inc_dir = None
+                 for d in include_dirs:
+                     p = self.combine_paths(d, headers)

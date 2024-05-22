@@ -13,4 +13,5 @@
   read-lockfile = callPackage ./read-lockfile { };
   shell = callPackage ./shell.nix { };
   source-hash-func = callPackage ./source-hash-func.nix { };
+  yarn = callPackage ./test-yarn.nix { };
 }

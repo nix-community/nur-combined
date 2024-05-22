@@ -1,0 +1,108 @@
+https://discourse.haskell.org/t/modern-parser-generator/8451
+Is there a tool that generates Haskell ISGLR parsers with automatic error recovery and support for attribute grammars?
+So, after years of research, the objective of the Rascal team became SGLL + DDCFG parsing.
+
+https://github.com/ltbinsbe/fungll-combinators
+GLL
+
+https://github.com/slivnik/LLR-systems
+LLR
+
+https://softwareengineering.stackexchange.com/questions/338665/when-to-use-a-parser-combinator-when-to-use-a-parser-generator
+GLL
+It is possible to write Parser Combinators that work with the GLL algorithm,
+resolving the ambiguity-issues that classical LL-style parsers had,
+while being just as readable/understandable as all kinds of top-down parsing.
+
+https://en.wikipedia.org/wiki/Comparison_of_parser_generators
+look for:
+Haskell F# Lisp Scheme ocaml
+GLR GLL Earley LALR
+  GLR
+      generalized LR(k)
+      spawns parallel parsing processes on conflicts
+      graph-structured stack GSS
+      more efficient than Earley
+      used by: tree-sitter, lezer-parser
+    Happy Haskell
+      https://github.com/haskell/happy
+    Dypgen  OCaml
+      http://dypgen.free.fr/
+    Elkhound  OCaml
+      https://github.com/WeiDUorg/elkhound
+    GDK Haskell
+    TODO purescript glr parser generator
+  LALR
+      used by: yacc/bison
+    CL-Yacc Common Lisp
+    GDK Haskell
+    ocamlyacc OCaml
+    SableCC OCaml
+    Happy Haskell
+  Packrat [PEG]
+      https://stereobooster.com/posts/an-overview-of-parsing-algorithms/
+        Packrat parsing is a linear-time implementation method of recursive descent parsers.
+        The trick is a memoization mechanism, where all parsing results are memorized
+        to avoid redundant parsing in cases of backtracking.
+        An arising problem is extremely huge heap consumption in memoization,
+        resulting in the fact that the cost of memoization is likely to outweigh its benefits.
+    Aurochs OCaml
+    CL-peg  Common Lisp
+    Frisby  Haskell
+    Pappy   Haskell
+    Packrat Scheme
+  LL
+    Coco/R  F#
+  LR
+    Essence Scheme 48
+    Menhir  OCaml
+  Earley
+    E3  OCaml
+TODO Packrat versus LALR versus GLR
+  https://stackoverflow.com/questions/3661249/packrat-parsing-vs-lalr-parsing
+    https://sourceforge.net/projects/lrstar/ # LALR
+  https://stereobooster.com/posts/an-overview-of-parsing-algorithms/
+TODO LALR versus GLR
+  https://stackoverflow.com/questions/2676144/what-is-the-difference-between-lr-slr-and-lalr-parsers
+    The difference between LALR and LR has to do with the table generator.
+    LR parsers can parse a larger set of languages than LALR parsers, but have very much bigger parser tables.
+    GLR parsers can parse any context free language,
+    using more complicated machinery but exactly the same tables
+    (including the smaller version used by LALR).
+    This means that GLR is strictly more powerful than LR, LALR and SLR; pretty much 
+    if you can write a standard BNF grammar, GLR will parse according to it.
+    Using GLR means I can relatively easily build working grammars,
+    compared to hacking a grammar to get into LALR usable form.
+    C++ is straightforward to parse using GLR machinery
+    using pretty much the rules provided in the back of the C++ reference manual.
+
+https://www.irif.fr/~jch/software/cl-yacc/
+LALR
+CL-Yacc — a LALR(1) parser generator for Common Lisp
+
+https://www.cs.princeton.edu/~appel/modern/ml/ml-yacc/manual.html
+LALR
+ML-Yacc
+
+https://ocaml.org/manual/5.2/lexyacc.html
+LALR
+ocamlyacc
+
+http://pl.postech.ac.kr/PGG/
+LALR
+PGG - Parser Generator Generator for Functional Languages
+PGG is a tool which generates parser-generators for functional languages. It offers an easy way to implement parser-generators for new programming languages.
+The input-specification format of PGG-generated parser-generator(PGG parser-generator) is based on that of the existing parser-generator Ocamlyacc.
+You need a lexical analyzer to produce tokens.
+
+https://stackoverflow.com/questions/5507665/are-there-any-ll-parser-generators-for-functional-languages-such-as-haskell-or-s
+The major reason for this is that most LL(k) parsers that are written in functional languages are just implemented using parser combinators, because the easiest path to generate a parser combinator library is recursive descent.
+Both parsec and attoparsec require you to use an explicit try combinator to get backtracking, but this is only done for efficiency and the scala parser combinators can also deal with packrat parsing.
+
+https://hackage.haskell.org/package/yaml-combinators-1.1.1.2/docs/src/Data.Yaml.Combinators.html
+Combinators for parsing YAML into Haskell types.
+
+https://github.com/lezer-parser/yaml/blob/main/src/yaml.grammar
+GLR
+
+https://github.com/kanwren/nix-parsec/tree/master/examples

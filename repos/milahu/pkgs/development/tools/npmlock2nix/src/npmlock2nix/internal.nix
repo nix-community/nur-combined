@@ -10,9 +10,12 @@
 , writeShellScript
 , runCommand
 , fetchFromGitHub
+, callPackage
 , pnpm-install-only ? null
 , nodejs-hide-symlinks ? null
 }:
+
+let self =
 
 rec {
   default_nodejs = nodejs;
@@ -927,7 +930,7 @@ rec {
         ];
 
         setupHooks = [
-          ./set-node-path.sh
+          ./set-paths.sh
         ];
 
         preConfigure = ''
@@ -1055,4 +1058,9 @@ rec {
 
       passthru = passthru // { node_modules = nm; };
     } // extraAttrs);
+
+  yarn = callPackage ./yarn.nix { internal = self; };
+
 }
+
+; in self

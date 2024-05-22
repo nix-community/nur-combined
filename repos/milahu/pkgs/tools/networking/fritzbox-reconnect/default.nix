@@ -5,14 +5,14 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "fritzbox-reconnect";
-  version = "0.0.1";
+  version = "0.0.2";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "milahu";
     repo = "fritzbox-reconnect";
-    rev = "9f345f18d617bc0bcb3afc8eeb82bc03ebe4f388";
-    hash = "sha256-ZhyHcG0wXTmKfOZL3jIN0R9oREGqlWXWRLjsfel3KG4=";
+    rev = version;
+    hash = "sha256-CapqNde/3bZ8vKcPop06aPc/BAWbQjzUEA2SZMBJ3xw=";
   };
 
   nativeBuildInputs = with python3.pkgs; [
@@ -23,6 +23,7 @@ python3.pkgs.buildPythonApplication rec {
   propagatedBuildInputs = with python3.pkgs; [
     selenium-driverless
     cdp-socket
+    psutil
   ];
 
   pythonImportsCheck = [ "fritzbox_reconnect" ];

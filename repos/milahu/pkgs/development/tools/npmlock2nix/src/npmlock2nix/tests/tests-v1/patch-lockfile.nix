@@ -52,7 +52,7 @@ testLib.runTests {
     expected = {
       a = 1;
       foo = "something";
-      resolved = "file:///nix/store/k2rgngn9cmhz4g3kzxmvhx5r40qvnwcf-something.tgz";
+      resolved = "file:///nix/store/n0zkv46bvcasr2lak6lj09yjgnhia0hr-test";
       integrity = "sha1-00000000000000000000000+0RU=";
       dependencies = { };
     };
@@ -73,10 +73,10 @@ testLib.runTests {
     expected = {
       a = 1;
       foo = "something";
-      resolved = "file:///nix/store/k2rgngn9cmhz4g3kzxmvhx5r40qvnwcf-something.tgz";
+      resolved = "file:///nix/store/n0zkv46bvcasr2lak6lj09yjgnhia0hr-test";
       integrity = "sha1-00000000000000000000000+0RU=";
       dependencies.a = {
-        resolved = "file:///nix/store/1cf0n1xb5pad8ib3xyzbzzddfknfxvkc-somethingelse.tgz";
+        resolved = "file:///nix/store/cvx014pf1c8r8lfx3xnqrnn8nl5qnjd0-a";
         integrity = "sha1-00000000000000000000000+00U=";
       };
     };

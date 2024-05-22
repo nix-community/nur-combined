@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Host dependency cycle the "direct" case 1`] = `
+"A: 
+- A+B
+
+B: 
+- A
+
+A+B: 
+- A+A
+
+A+A:
+"
+`;
+
+exports[`Host dependency cycle the "embedded" case 1`] = `
+"A: 
+- B
+
+B: 
+- B+C
+
+C: 
+- C+D
+
+D: 
+- E
+
+E: 
+- C
+- F
+
+F: 
+- B
+
+C+D: 
+- C+E
+
+C+E: 
+- F
+- C+C
+
+C+C:
+
+B+C: 
+- B+D
+
+B+D: 
+- B+E
+
+B+E: 
+- B+F
+- C+C
+
+B+F: 
+- B+B
+
+B+B:
+"
+`;
+
+exports[`Host dependency cycle the "none" case 1`] = `
+"A: 
+- B
+
+B: 
+- C
+
+C: 
+- D
+
+D:
+"
+`;
+
+exports[`Host dependency cycle the "overlap" case 1`] = `
+"A: 
+- B
+
+B: 
+- C
+
+C: 
+- C+D
+
+D: 
+- E
+
+E: 
+- C
+- E+F
+
+F: 
+- E
+
+C+D: 
+- C+E
+
+C+E: 
+- C+F
+- C+C
+
+C+C:
+
+C+F: 
+- C+E
+
+E+F: 
+- E+E
+
+E+E:
+"
+`;
+
+exports[`Host dependency cycle the "transitive" case 1`] = `
+"A: 
+- B
+
+B: 
+- B+C
+
+C: 
+- D
+
+D: 
+- B
+
+B+C: 
+- B+D
+
+B+D: 
+- B+B
+
+B+B:
+"
+`;

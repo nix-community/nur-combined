@@ -60,4 +60,28 @@ symlinkAttrs {
 
     buildInputs = [ python3 ];
   };
+
+  build-yarn-node-modules = npmlock2nix.internal.yarn.node_modules {
+    src = ./examples-projects/simple-yarn-project;
+  };
+
+  build-yarn-webpack-cli =
+    let
+      nm = npmlock2nix.internal.yarn.node_modules {
+        src = ./examples-projects/webpack-cli-project;
+      };
+    in
+    npmlock2nix.build {
+      src = ./examples-projects/webpack-cli-project;
+      node_modules = nm;
+      installPhase = ''
+        cp -r dist $out
+      '';
+    };
+
+  # build-yarn-node-modules-concourse = npmlock2nix.internal.yarn.node_modules {
+  #   src = ./examples-projects/simple-yarn-project;
+  #   yarnLockFile = ./concourse-yarn.lock;
+  # };
+
 }
