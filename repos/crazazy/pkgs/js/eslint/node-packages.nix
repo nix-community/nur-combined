@@ -22,22 +22,22 @@ let
         sha512 = "Cu96Sd2By9mCNTx2iyKOmq10v22jUVQv0lQnlGNy16oE9589yE+QADPbrMGCkA51cKZSg3Pu/aTJVTGfL/qjUA==";
       };
     };
-    "@eslint/eslintrc-3.0.2" = {
+    "@eslint/eslintrc-3.1.0" = {
       name = "_at_eslint_slash_eslintrc";
       packageName = "@eslint/eslintrc";
-      version = "3.0.2";
+      version = "3.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-3.0.2.tgz";
-        sha512 = "wV19ZEGEMAC1eHgrS7UQPqsdEiCIbTKTasEfcXAigzoXICcqZSjBZEHlZwNVvKg6UBCjSlos84XiLqsRJnIcIg==";
+        url = "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-3.1.0.tgz";
+        sha512 = "4Bfj15dVJdoy3RfZmmo86RK1Fwzn6SstsvK9JS+BaVKqC6QQQQyXekNaC+g+LKNgkQ+2VhGAzm6hO40AhMR3zQ==";
       };
     };
-    "@eslint/js-9.2.0" = {
+    "@eslint/js-9.3.0" = {
       name = "_at_eslint_slash_js";
       packageName = "@eslint/js";
-      version = "9.2.0";
+      version = "9.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint/js/-/js-9.2.0.tgz";
-        sha512 = "ESiIudvhoYni+MdsI8oD7skpprZ89qKocwRM2KEvhhBJ9nl5MRh7BXU5GTod7Mdygq+AUl+QzId6iWJKR/wABA==";
+        url = "https://registry.npmjs.org/@eslint/js/-/js-9.3.0.tgz";
+        sha512 = "niBqk8iwv96+yuTwjM6bWg8ovzAPF9qkICsGtcoa5/dmqcEMfdwNAX7+/OHcJHc7wj7XqPxH98oAHytFYlw6Sw==";
       };
     };
     "@humanwhocodes/config-array-0.13.0" = {
@@ -67,13 +67,13 @@ let
         sha512 = "93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==";
       };
     };
-    "@humanwhocodes/retry-0.2.4" = {
+    "@humanwhocodes/retry-0.3.0" = {
       name = "_at_humanwhocodes_slash_retry";
       packageName = "@humanwhocodes/retry";
-      version = "0.2.4";
+      version = "0.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@humanwhocodes/retry/-/retry-0.2.4.tgz";
-        sha512 = "Ttl/jHpxfS3st5sxwICYfk4pOH0WrLI1SpW283GgQL7sCWU7EHIOhX4b4fkIxr3tkfzwg8+FNojtzsIEE7Ecgg==";
+        url = "https://registry.npmjs.org/@humanwhocodes/retry/-/retry-0.3.0.tgz";
+        sha512 = "d2CGZR2o7fS6sWB7DG/3a95bGKQyHMACZ5aW8qGkkqQpUoZV6C0X7Pc7l4ZNMZkfNBf4VWNe9E1jRsf0G146Ew==";
       };
     };
     "@nodelib/fs.scandir-2.1.5" = {
@@ -256,13 +256,13 @@ let
         sha512 = "TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==";
       };
     };
-    "eslint-9.2.0" = {
+    "eslint-9.3.0" = {
       name = "eslint";
       packageName = "eslint";
-      version = "9.2.0";
+      version = "9.3.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/eslint/-/eslint-9.2.0.tgz";
-        sha512 = "0n/I88vZpCOzO+PQpt0lbsqmn9AsnsJAQseIqhZFI8ibQT0U1AkEKRxA3EVMos0BoHSXDQvCXY25TUjB5tr8Og==";
+        url = "https://registry.npmjs.org/eslint/-/eslint-9.3.0.tgz";
+        sha512 = "5Iv4CsZW030lpUqHBapdPo3MJetAPtejVW8B84GIcIIv8+ohFaddXsrn1Gn8uD9ijDb+kcYKFUVmC8qG8B2ORQ==";
       };
     };
     "eslint-scope-8.0.1" = {
@@ -809,8 +809,8 @@ let
   args = {
     name = "eslint";
     packageName = "eslint";
-    version = "9.2.0";
-    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-9.2.0.tgz"; sha1 = "0700ebc99528753315d78090876911d3cdbf19fe"; };
+    version = "9.3.0";
+    src = fetchurl { url = "https://registry.npmjs.org/eslint/-/eslint-9.3.0.tgz"; sha1 = "36a96db84592618d6ed9074d677e92f4e58c08b9"; };
     dependencies = [
       (sources."@eslint-community/eslint-utils-4.4.0" // {
         dependencies = [
@@ -818,12 +818,12 @@ let
         ];
       })
       sources."@eslint-community/regexpp-4.10.0"
-      sources."@eslint/eslintrc-3.0.2"
-      sources."@eslint/js-9.2.0"
+      sources."@eslint/eslintrc-3.1.0"
+      sources."@eslint/js-9.3.0"
       sources."@humanwhocodes/config-array-0.13.0"
       sources."@humanwhocodes/module-importer-1.0.1"
       sources."@humanwhocodes/object-schema-2.0.3"
-      sources."@humanwhocodes/retry-0.2.4"
+      sources."@humanwhocodes/retry-0.3.0"
       sources."@nodelib/fs.scandir-2.1.5"
       sources."@nodelib/fs.stat-2.0.5"
       sources."@nodelib/fs.walk-1.2.8"
@@ -844,7 +844,7 @@ let
       sources."debug-4.3.4"
       sources."deep-is-0.1.4"
       sources."escape-string-regexp-4.0.0"
-      sources."eslint-9.2.0"
+      sources."eslint-9.3.0"
       sources."eslint-scope-8.0.1"
       sources."eslint-visitor-keys-4.0.0"
       sources."espree-10.0.1"

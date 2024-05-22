@@ -131,7 +131,7 @@ checksum = "a564d521dd56509c4c47480d00b80ee55f7e385ae48db5744c67ad50c92d2ebf"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.32",
+ "syn 2.0.60",
 ]
 
 [[package]]
@@ -216,7 +216,7 @@ checksum = "7f30e7476521f6f8af1a1c4c0b8cc94f0bee37d91763d0ca2665f299b6cd8aec"
 
 [[package]]
 name = "byte-array-literals"
-version = "21.0.0"
+version = "22.0.0"
 
 [[package]]
 name = "byteorder"
@@ -455,7 +455,7 @@ dependencies = [
  "heck",
  "proc-macro2",
  "quote",
- "syn 2.0.32",
+ "syn 2.0.60",
 ]
 
 [[package]]
@@ -516,7 +516,7 @@ version = "0.0.0"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.32",
+ "syn 2.0.60",
 ]
 
 [[package]]
@@ -578,7 +578,7 @@ dependencies = [
 
 [[package]]
 name = "cranelift"
-version = "0.108.0"
+version = "0.109.0"
 dependencies = [
  "cranelift-codegen",
  "cranelift-frontend",
@@ -586,14 +586,14 @@ dependencies = [
 
 [[package]]
 name = "cranelift-bforest"
-version = "0.108.0"
+version = "0.109.0"
 dependencies = [
  "cranelift-entity",
 ]
 
 [[package]]
 name = "cranelift-codegen"
-version = "0.108.0"
+version = "0.109.0"
 dependencies = [
  "anyhow",
  "bumpalo",
@@ -622,25 +622,25 @@ dependencies = [
 
 [[package]]
 name = "cranelift-codegen-meta"
-version = "0.108.0"
+version = "0.109.0"
 dependencies = [
  "cranelift-codegen-shared",
 ]
 
 [[package]]
 name = "cranelift-codegen-shared"
-version = "0.108.0"
+version = "0.109.0"
 
 [[package]]
 name = "cranelift-control"
-version = "0.108.0"
+version = "0.109.0"
 dependencies = [
  "arbitrary",
 ]
 
 [[package]]
 name = "cranelift-entity"
-version = "0.108.0"
+version = "0.109.0"
 dependencies = [
  "serde",
  "serde_derive",
@@ -677,7 +677,7 @@ dependencies = [
 
 [[package]]
 name = "cranelift-frontend"
-version = "0.108.0"
+version = "0.109.0"
 dependencies = [
  "cranelift-codegen",
  "hashbrown 0.14.3",
@@ -701,7 +701,7 @@ dependencies = [
 
 [[package]]
 name = "cranelift-interpreter"
-version = "0.108.0"
+version = "0.109.0"
 dependencies = [
  "cranelift-codegen",
  "cranelift-entity",
@@ -715,7 +715,7 @@ dependencies = [
 
 [[package]]
 name = "cranelift-isle"
-version = "0.108.0"
+version = "0.109.0"
 dependencies = [
  "codespan-reporting",
  "log",
@@ -724,7 +724,7 @@ dependencies = [
 
 [[package]]
 name = "cranelift-jit"
-version = "0.108.0"
+version = "0.109.0"
 dependencies = [
  "anyhow",
  "cranelift",
@@ -745,7 +745,7 @@ dependencies = [
 
 [[package]]
 name = "cranelift-module"
-version = "0.108.0"
+version = "0.109.0"
 dependencies = [
  "anyhow",
  "cranelift-codegen",
@@ -757,7 +757,7 @@ dependencies = [
 
 [[package]]
 name = "cranelift-native"
-version = "0.108.0"
+version = "0.109.0"
 dependencies = [
  "cranelift-codegen",
  "libc",
@@ -766,7 +766,7 @@ dependencies = [
 
 [[package]]
 name = "cranelift-object"
-version = "0.108.0"
+version = "0.109.0"
 dependencies = [
  "anyhow",
  "cranelift-codegen",
@@ -781,7 +781,7 @@ dependencies = [
 
 [[package]]
 name = "cranelift-reader"
-version = "0.108.0"
+version = "0.109.0"
 dependencies = [
  "anyhow",
  "cranelift-codegen",
@@ -791,7 +791,7 @@ dependencies = [
 
 [[package]]
 name = "cranelift-serde"
-version = "0.108.0"
+version = "0.109.0"
 dependencies = [
  "clap",
  "cranelift-codegen",
@@ -835,7 +835,7 @@ dependencies = [
 
 [[package]]
 name = "cranelift-wasm"
-version = "0.108.0"
+version = "0.109.0"
 dependencies = [
  "cranelift-codegen",
  "cranelift-entity",
@@ -847,7 +847,7 @@ dependencies = [
  "serde_derive",
  "smallvec",
  "target-lexicon",
- "wasmparser 0.206.0",
+ "wasmparser 0.207.0",
  "wasmtime-types",
  "wat",
 ]
@@ -963,7 +963,7 @@ checksum = "53e0efad4403bfc52dc201159c4b842a246a14b98c64b55dfd0f2d89729dfeb8"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.32",
+ "syn 2.0.60",
 ]
 
 [[package]]
@@ -1050,7 +1050,7 @@ checksum = "ef1a6892d9eef45c8fa6b9e0086428a2cca8491aca8f787c534a3d6d0bcb3ced"
 
 [[package]]
 name = "embedding"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "dlmalloc",
@@ -1347,7 +1347,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6fb8d784f27acf97159b40fc4db5ecd8aa23b9ad5ef69cdd136d3bc80665f0c0"
 dependencies = [
  "fallible-iterator",
- "indexmap 2.0.0",
+ "indexmap 2.2.6",
  "stable_deref_trait",
 ]
 
@@ -1363,7 +1363,7 @@ dependencies = [
  "futures-sink",
  "futures-util",
  "http",
- "indexmap 2.0.0",
+ "indexmap 2.2.6",
  "slab",
  "tokio",
  "tokio-util",
@@ -1547,9 +1547,9 @@ dependencies = [
 
 [[package]]
 name = "indexmap"
-version = "2.0.0"
+version = "2.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d5477fe2230a79769d8dc68e0eabf5437907c0457a5614a9e8dddb67f65eb65d"
+checksum = "168fb715dda47215e360912c096649d23d58bf392ac62f73919e831745e40f26"
 dependencies = [
  "equivalent",
  "hashbrown 0.14.3",
@@ -1848,11 +1848,12 @@ dependencies = [
 
 [[package]]
 name = "min-platform-host"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "libloading",
  "object 0.33.0",
+ "wasmtime",
 ]
 
 [[package]]
@@ -1927,7 +1928,7 @@ checksum = "d8dd6c0cdf9429bce006e1362bfce61fa1bfd8c898a643ed8d2b471934701d3d"
 dependencies = [
  "crc32fast",
  "hashbrown 0.14.3",
- "indexmap 2.0.0",
+ "indexmap 2.2.6",
  "memchr",
 ]
 
@@ -2093,10 +2094,20 @@ dependencies = [
 ]
 
 [[package]]
-name = "proc-macro2"
-version = "1.0.63"
+name = "prettyplease"
+version = "0.2.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7b368fba921b0dce7e60f5e04ec15e565b3303972b42bcfde1d0713b881959eb"
+checksum = "5ac2cf0f2e4f42b49f5ffd07dae8d746508ef7526c13940e5f524012ae6c6550"
+dependencies = [
+ "proc-macro2",
+ "syn 2.0.60",
+]
+
+[[package]]
+name = "proc-macro2"
+version = "1.0.81"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3d1597b0c024618f09a9c3b8655b7e430397a36d23fdafec26d6965e9eec3eba"
 dependencies = [
  "unicode-ident",
 ]
@@ -2144,9 +2155,9 @@ checksum = "a993555f31e5a609f617c12db6250dedcac1b0a85076912c436e6fc9b2c8e6a3"
 
 [[package]]
 name = "quote"
-version = "1.0.29"
+version = "1.0.36"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "573015e8ab27661678357f27dc26460738fd2b6c86e46f386fde94cb5d913105"
+checksum = "0fa76aaf39101c457836aec0ce2316dbdc3ab723cdda1c6bd4e6ad4208acaca7"
 dependencies = [
  "proc-macro2",
 ]
@@ -2448,7 +2459,7 @@ checksum = "4eca7ac642d82aa35b60049a6eccb4be6be75e599bd2e9adb5f875a737654af2"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.32",
+ "syn 2.0.60",
 ]
 
 [[package]]
@@ -2634,9 +2645,9 @@ dependencies = [
 
 [[package]]
 name = "syn"
-version = "2.0.32"
+version = "2.0.60"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "239814284fd6f1a4ffe4ca893952cdd93c224b6a1571c9a9eadd670295c0c9e2"
+checksum = "909518bc7b1c9b779f1bbf07f2929d35af9f0f37e47c6e9ef7f9dddc1e1821f3"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2742,7 +2753,7 @@ dependencies = [
  "cargo_metadata",
  "heck",
  "wasmtime",
- "wit-component 0.206.0",
+ "wit-component 0.207.0",
 ]
 
 [[package]]
@@ -2762,7 +2773,7 @@ checksum = "463fe12d7993d3b327787537ce8dd4dfa058de32fc2b195ef3cde03dc4771e8f"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.32",
+ "syn 2.0.60",
 ]
 
 [[package]]
@@ -2835,7 +2846,7 @@ checksum = "630bdcf245f78637c13ec01ffae6187cca34625e8c63150d424b59e55af2675e"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.32",
+ "syn 2.0.60",
 ]
 
 [[package]]
@@ -2890,7 +2901,7 @@ version = "0.22.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0c9ffdf896f8daaabf9b66ba8e77ea1ed5ed0f72821b398aba62352e95062951"
 dependencies = [
- "indexmap 2.0.0",
+ "indexmap 2.2.6",
  "serde",
  "serde_spanned",
  "toml_datetime",
@@ -2918,7 +2929,7 @@ checksum = "5f4f31f56159e98206da9efd823404b79b6ef3143b4a7ab76e67b1751b25a4ab"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.32",
+ "syn 2.0.60",
 ]
 
 [[package]]
@@ -3075,10 +3086,10 @@ checksum = "830b7e5d4d90034032940e4ace0d9a9a057e7a45cd94e6c007832e39edb82f6d"
 
 [[package]]
 name = "verify-component-adapter"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
- "wasmparser 0.206.0",
+ "wasmparser 0.207.0",
  "wat",
 ]
 
@@ -3125,7 +3136,7 @@ checksum = "9c8d87e72b64a3b4db28d11ce29237c246188f4f51057d65a7eab63b7987e423"
 
 [[package]]
 name = "wasi-common"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "bitflags 2.4.1",
@@ -3165,12 +3176,12 @@ dependencies = [
 
 [[package]]
 name = "wasi-preview1-component-adapter"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "byte-array-literals",
  "object 0.33.0",
  "wasi",
- "wasm-encoder 0.206.0",
+ "wasm-encoder 0.207.0",
  "wit-bindgen",
 ]
 
@@ -3195,7 +3206,7 @@ dependencies = [
  "once_cell",
  "proc-macro2",
  "quote",
- "syn 2.0.32",
+ "syn 2.0.60",
  "wasm-bindgen-shared",
 ]
 
@@ -3217,7 +3228,7 @@ checksum = "54681b18a46765f095758388f2d0cf16eb8d4169b639ab575a8f5693af210c7b"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.32",
+ "syn 2.0.60",
  "wasm-bindgen-backend",
  "wasm-bindgen-shared",
 ]
@@ -3238,8 +3249,8 @@ dependencies = [
 
 [[package]]
 name = "wasm-encoder"
-version = "0.206.0"
-source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0+rev2#85373c0218225fbbb2c1dcd798a726c44b644604"
+version = "0.207.0"
+source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.207.0#31abafb2fda18fccd7541f825051dc70a018dcf5"
 dependencies = [
  "leb128",
 ]
@@ -3250,7 +3261,7 @@ version = "0.201.0"
 source = "git+https://github.com/wasmfx/wasmfx-tools?tag=wasmfx-tools-1.201.0+rev.1#f633e32b64b914f8f7a0d76b2aa864e5f9a37c70"
 dependencies = [
  "anyhow",
- "indexmap 2.0.0",
+ "indexmap 2.2.6",
  "serde",
  "serde_derive",
  "serde_json",
@@ -3261,43 +3272,43 @@ dependencies = [
 
 [[package]]
 name = "wasm-metadata"
-version = "0.206.0"
-source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0+rev2#85373c0218225fbbb2c1dcd798a726c44b644604"
+version = "0.207.0"
+source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.207.0#31abafb2fda18fccd7541f825051dc70a018dcf5"
 dependencies = [
  "anyhow",
- "indexmap 2.0.0",
+ "indexmap 2.2.6",
  "serde",
  "serde_derive",
  "serde_json",
  "spdx",
- "wasm-encoder 0.206.0",
- "wasmparser 0.206.0",
+ "wasm-encoder 0.207.0",
+ "wasmparser 0.207.0",
 ]
 
 [[package]]
 name = "wasm-mutate"
-version = "0.206.0"
-source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0+rev2#85373c0218225fbbb2c1dcd798a726c44b644604"
+version = "0.207.0"
+source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.207.0#31abafb2fda18fccd7541f825051dc70a018dcf5"
 dependencies = [
  "egg",
  "log",
  "rand",
  "thiserror",
- "wasm-encoder 0.206.0",
- "wasmparser 0.206.0",
+ "wasm-encoder 0.207.0",
+ "wasmparser 0.207.0",
 ]
 
 [[package]]
 name = "wasm-smith"
-version = "0.206.0"
-source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0+rev2#85373c0218225fbbb2c1dcd798a726c44b644604"
+version = "0.207.0"
+source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.207.0#31abafb2fda18fccd7541f825051dc70a018dcf5"
 dependencies = [
  "anyhow",
  "arbitrary",
  "flagset",
- "indexmap 2.0.0",
+ "indexmap 2.2.6",
  "leb128",
- "wasm-encoder 0.206.0",
+ "wasm-encoder 0.207.0",
 ]
 
 [[package]]
@@ -3346,19 +3357,19 @@ version = "0.201.0"
 source = "git+https://github.com/wasmfx/wasmfx-tools?tag=wasmfx-tools-1.201.0+rev.1#f633e32b64b914f8f7a0d76b2aa864e5f9a37c70"
 dependencies = [
  "bitflags 2.4.1",
- "indexmap 2.0.0",
+ "indexmap 2.2.6",
  "semver",
 ]
 
 [[package]]
 name = "wasmparser"
-version = "0.206.0"
-source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0+rev2#85373c0218225fbbb2c1dcd798a726c44b644604"
+version = "0.207.0"
+source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.207.0#31abafb2fda18fccd7541f825051dc70a018dcf5"
 dependencies = [
  "ahash",
  "bitflags 2.4.1",
  "hashbrown 0.14.3",
- "indexmap 2.0.0",
+ "indexmap 2.2.6",
  "semver",
 ]
 
@@ -3373,16 +3384,16 @@ dependencies = [
 
 [[package]]
 name = "wasmprinter"
-version = "0.206.0"
-source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0+rev2#85373c0218225fbbb2c1dcd798a726c44b644604"
+version = "0.207.0"
+source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.207.0#31abafb2fda18fccd7541f825051dc70a018dcf5"
 dependencies = [
  "anyhow",
- "wasmparser 0.206.0",
+ "wasmparser 0.207.0",
 ]
 
 [[package]]
 name = "wasmtime"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "addr2line",
  "anyhow",
@@ -3393,9 +3404,11 @@ dependencies = [
  "encoding_rs",
  "fxprof-processed-profile",
  "gimli",
- "indexmap 2.0.0",
+ "hashbrown 0.14.3",
+ "indexmap 2.2.6",
  "ittapi",
  "libc",
+ "libm",
  "log",
  "mach2",
  "memfd",
@@ -3418,8 +3431,8 @@ dependencies = [
  "target-lexicon",
  "tempfile",
  "wasi-common",
- "wasm-encoder 0.206.0",
- "wasmparser 0.206.0",
+ "wasm-encoder 0.207.0",
+ "wasmparser 0.207.0",
  "wasmtime-asm-macros",
  "wasmtime-cache",
  "wasmtime-component-macro",
@@ -3440,14 +3453,14 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-asm-macros"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "cfg-if",
 ]
 
 [[package]]
 name = "wasmtime-bench-api"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "cap-std",
@@ -3463,14 +3476,14 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-c-api"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "wasmtime-c-api-impl",
 ]
 
 [[package]]
 name = "wasmtime-c-api-impl"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "cap-std",
@@ -3488,7 +3501,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-c-api-macros"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -3496,7 +3509,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-cache"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "base64",
@@ -3518,7 +3531,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-cli"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -3562,7 +3575,7 @@ dependencies = [
  "tracing",
  "walkdir",
  "wasi-common",
- "wasmparser 0.206.0",
+ "wasmparser 0.207.0",
  "wasmtime",
  "wasmtime-cache",
  "wasmtime-cli-flags",
@@ -3576,15 +3589,15 @@ dependencies = [
  "wasmtime-wasi-nn",
  "wasmtime-wasi-threads",
  "wasmtime-wast",
- "wast 206.0.0",
+ "wast 207.0.0",
  "wat",
  "windows-sys 0.52.0",
- "wit-component 0.206.0",
+ "wit-component 0.207.0",
 ]
 
 [[package]]
 name = "wasmtime-cli-flags"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "clap",
@@ -3597,36 +3610,38 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-component-macro"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "component-macro-test-helpers",
+ "prettyplease",
  "proc-macro2",
  "quote",
  "serde",
  "serde_json",
- "syn 2.0.32",
+ "similar",
+ "syn 2.0.60",
  "tracing",
  "wasmtime",
  "wasmtime-component-util",
  "wasmtime-wit-bindgen",
- "wit-parser 0.206.0",
+ "wit-parser 0.207.0",
 ]
 
 [[package]]
 name = "wasmtime-component-util"
-version = "21.0.0"
+version = "22.0.0"
 
 [[package]]
 name = "wasmtime-continuations"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "memoffset",
 ]
 
 [[package]]
 name = "wasmtime-cranelift"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "cfg-if",
@@ -3641,7 +3656,7 @@ dependencies = [
  "object 0.33.0",
  "target-lexicon",
  "thiserror",
- "wasmparser 0.206.0",
+ "wasmparser 0.207.0",
  "wasmtime-continuations",
  "wasmtime-environ",
  "wasmtime-versioned-export-macros",
@@ -3649,7 +3664,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-environ"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "clap",
@@ -3657,7 +3672,7 @@ dependencies = [
  "cranelift-entity",
  "env_logger",
  "gimli",
- "indexmap 2.0.0",
+ "indexmap 2.2.6",
  "log",
  "object 0.33.0",
  "postcard",
@@ -3665,9 +3680,8 @@ dependencies = [
  "serde",
  "serde_derive",
  "target-lexicon",
- "thiserror",
- "wasm-encoder 0.206.0",
- "wasmparser 0.206.0",
+ "wasm-encoder 0.207.0",
+ "wasmparser 0.207.0",
  "wasmprinter",
  "wasmtime-component-util",
  "wasmtime-continuations",
@@ -3683,7 +3697,7 @@ dependencies = [
  "component-fuzz-util",
  "env_logger",
  "libfuzzer-sys",
- "wasmparser 0.206.0",
+ "wasmparser 0.207.0",
  "wasmprinter",
  "wasmtime-environ",
  "wat",
@@ -3691,7 +3705,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-explorer"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "capstone",
@@ -3705,7 +3719,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-fiber"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "backtrace",
@@ -3740,7 +3754,7 @@ dependencies = [
  "rand",
  "smallvec",
  "target-lexicon",
- "wasmparser 0.206.0",
+ "wasmparser 0.207.0",
  "wasmtime",
  "wasmtime-fuzzing",
 ]
@@ -3761,12 +3775,12 @@ dependencies = [
  "target-lexicon",
  "tempfile",
  "v8",
- "wasm-encoder 0.206.0",
+ "wasm-encoder 0.207.0",
  "wasm-mutate",
  "wasm-smith",
  "wasm-spec-interpreter",
  "wasmi",
- "wasmparser 0.206.0",
+ "wasmparser 0.207.0",
  "wasmprinter",
  "wasmtime",
  "wasmtime-wast",
@@ -3775,7 +3789,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-jit-debug"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "object 0.33.0",
  "once_cell",
@@ -3785,7 +3799,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-jit-icache-coherence"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "cfg-if",
@@ -3795,32 +3809,31 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-slab"
-version = "21.0.0"
+version = "22.0.0"
 
 [[package]]
 name = "wasmtime-types"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "cranelift-entity",
  "serde",
  "serde_derive",
  "smallvec",
- "thiserror",
- "wasmparser 0.206.0",
+ "wasmparser 0.207.0",
 ]
 
 [[package]]
 name = "wasmtime-versioned-export-macros"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.32",
+ "syn 2.0.60",
 ]
 
 [[package]]
 name = "wasmtime-wasi"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -3853,7 +3866,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-wasi-http"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -3879,7 +3892,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-wasi-nn"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "cap-std",
@@ -3897,7 +3910,7 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-wasi-threads"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "log",
@@ -3908,24 +3921,24 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-wast"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "log",
  "wasmtime",
- "wast 206.0.0",
+ "wast 207.0.0",
 ]
 
 [[package]]
 name = "wasmtime-winch"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "cranelift-codegen",
  "gimli",
  "object 0.33.0",
  "target-lexicon",
- "wasmparser 0.206.0",
+ "wasmparser 0.207.0",
  "wasmtime-cranelift",
  "wasmtime-environ",
  "winch-codegen",
@@ -3933,17 +3946,17 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-wit-bindgen"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "heck",
- "indexmap 2.0.0",
- "wit-parser 0.206.0",
+ "indexmap 2.2.6",
+ "wit-parser 0.207.0",
 ]
 
 [[package]]
 name = "wasmtime-wmemcheck"
-version = "21.0.0"
+version = "22.0.0"
 
 [[package]]
 name = "wast"
@@ -3956,22 +3969,22 @@ dependencies = [
 
 [[package]]
 name = "wast"
-version = "206.0.0"
-source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0+rev2#85373c0218225fbbb2c1dcd798a726c44b644604"
+version = "207.0.0"
+source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.207.0#31abafb2fda18fccd7541f825051dc70a018dcf5"
 dependencies = [
  "bumpalo",
  "leb128",
  "memchr",
  "unicode-width",
- "wasm-encoder 0.206.0",
+ "wasm-encoder 0.207.0",
 ]
 
 [[package]]
 name = "wat"
-version = "1.206.0"
-source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0+rev2#85373c0218225fbbb2c1dcd798a726c44b644604"
+version = "1.207.0"
+source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.207.0#31abafb2fda18fccd7541f825051dc70a018dcf5"
 dependencies = [
- "wast 206.0.0",
+ "wast 207.0.0",
 ]
 
 [[package]]
@@ -3998,7 +4011,7 @@ dependencies = [
 
 [[package]]
 name = "wiggle"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -4015,24 +4028,24 @@ dependencies = [
 
 [[package]]
 name = "wiggle-generate"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "anyhow",
  "heck",
  "proc-macro2",
  "quote",
  "shellexpand",
- "syn 2.0.32",
+ "syn 2.0.60",
  "witx",
 ]
 
 [[package]]
 name = "wiggle-macro"
-version = "21.0.0"
+version = "22.0.0"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.32",
+ "syn 2.0.60",
  "wiggle",
  "wiggle-generate",
 ]
@@ -4083,7 +4096,7 @@ checksum = "712e227841d057c1ee1cd2fb22fa7e5a5461ae8e48fa2ca79ec42cfc1931183f"
 
 [[package]]
 name = "winch-codegen"
-version = "0.19.0"
+version = "0.20.0"
 dependencies = [
  "anyhow",
  "cranelift-codegen",
@@ -4091,7 +4104,7 @@ dependencies = [
  "regalloc2",
  "smallvec",
  "target-lexicon",
- "wasmparser 0.206.0",
+ "wasmparser 0.207.0",
  "wasmtime-cranelift",
  "wasmtime-environ",
 ]
@@ -4297,7 +4310,7 @@ source = "git+https://github.com/wasmfx/wit-bindgenfx?tag=wit-bindgenfx-cli-0.22
 dependencies = [
  "anyhow",
  "heck",
- "indexmap 2.0.0",
+ "indexmap 2.2.6",
  "wasm-metadata 0.201.0",
  "wit-bindgen-core",
  "wit-component 0.201.0",
@@ -4311,7 +4324,7 @@ dependencies = [
  "anyhow",
  "proc-macro2",
  "quote",
- "syn 2.0.32",
+ "syn 2.0.60",
  "wit-bindgen-core",
  "wit-bindgen-rust",
 ]
@@ -4323,7 +4336,7 @@ source = "git+https://github.com/wasmfx/wasmfx-tools?tag=wasmfx-tools-1.201.0+re
 dependencies = [
  "anyhow",
  "bitflags 2.4.1",
- "indexmap 2.0.0",
+ "indexmap 2.2.6",
  "log",
  "serde",
  "serde_derive",
@@ -4336,20 +4349,20 @@ dependencies = [
 
 [[package]]
 name = "wit-component"
-version = "0.206.0"
-source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0+rev2#85373c0218225fbbb2c1dcd798a726c44b644604"
+version = "0.207.0"
+source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.207.0#31abafb2fda18fccd7541f825051dc70a018dcf5"
 dependencies = [
  "anyhow",
  "bitflags 2.4.1",
- "indexmap 2.0.0",
+ "indexmap 2.2.6",
  "log",
  "serde",
  "serde_derive",
  "serde_json",
- "wasm-encoder 0.206.0",
- "wasm-metadata 0.206.0",
- "wasmparser 0.206.0",
- "wit-parser 0.206.0",
+ "wasm-encoder 0.207.0",
+ "wasm-metadata 0.207.0",
+ "wasmparser 0.207.0",
+ "wit-parser 0.207.0",
 ]
 
 [[package]]
@@ -4359,7 +4372,7 @@ source = "git+https://github.com/wasmfx/wasmfx-tools?tag=wasmfx-tools-1.201.0+re
 dependencies = [
  "anyhow",
  "id-arena",
- "indexmap 2.0.0",
+ "indexmap 2.2.6",
  "log",
  "semver",
  "serde",
@@ -4371,19 +4384,19 @@ dependencies = [
 
 [[package]]
 name = "wit-parser"
-version = "0.206.0"
-source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.206.0+rev2#85373c0218225fbbb2c1dcd798a726c44b644604"
+version = "0.207.0"
+source = "git+https://github.com/wasmfx/wasmfx-tools?tag=v1.207.0#31abafb2fda18fccd7541f825051dc70a018dcf5"
 dependencies = [
  "anyhow",
  "id-arena",
- "indexmap 2.0.0",
+ "indexmap 2.2.6",
  "log",
  "semver",
  "serde",
  "serde_derive",
  "serde_json",
  "unicode-xid",
- "wasmparser 0.206.0",
+ "wasmparser 0.207.0",
 ]
 
 [[package]]
@@ -4426,7 +4439,7 @@ checksum = "9ce1b18ccd8e73a9321186f97e46f9f04b778851177567b1975109d26a08d2a6"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 2.0.32",
+ "syn 2.0.60",
 ]
 
 [[package]]
