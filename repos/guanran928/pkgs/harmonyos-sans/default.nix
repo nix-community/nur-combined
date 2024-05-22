@@ -27,10 +27,10 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     homepage = "https://developer.huawei.com/consumer/cn/design/resource/";
     description = "HarmonyOS Sans font";
-    platforms = platforms.all;
-    license = licenses.unfree;
+    platforms = lib.platforms.all;
+    license = lib.licenses.unfree;
   };
 }

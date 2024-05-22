@@ -30,10 +30,10 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Telegram is a cloud-based mobile and desktop messaging app with a focus on security and speed.";
     homepage = "https://telegram.org";
-    license = getLicenseFromSpdxId "GPL-2.0-only";
-    platforms = platforms.darwin;
+    license = lib.getLicenseFromSpdxId "GPL-2.0-only";
+    platforms = lib.platforms.darwin;
   };
 }

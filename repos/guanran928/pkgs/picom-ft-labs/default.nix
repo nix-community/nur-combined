@@ -16,7 +16,7 @@ picom.overrideAttrs (old: {
 
   buildInputs = old.buildInputs ++ [pcre2];
 
-  meta = {
+  meta = old.meta // {
     description = "A fork of Picom with more than 10 unique animation supported picom fork (open window, tag change, fading ...)";
     homepage = "https://github.com/FT-Labs/picom";
   };

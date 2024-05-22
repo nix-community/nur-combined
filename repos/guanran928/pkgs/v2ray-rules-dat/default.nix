@@ -31,10 +31,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Enhanced edition of V2Ray rules dat files";
     homepage = "https://github.com/Loyalsoldier/v2ray-rules-dat";
     license = lib.getLicenseFromSpdxId "GPL-3.0-only";
-    platforms = platforms.all;
+    platforms = lib.platforms.all;
   };
 })

@@ -34,10 +34,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru.updateScript = nix-update-script {};
 
-  meta = with lib; {
+  meta = {
     description = "Fcitx5 theme using TokyoNight colorscheme";
     homepage = "https://github.com/ch3n9w/fcitx5-Tokyonight";
-    license = getLicenseFromSpdxId "GPL-3.0-only";
-    platforms = platforms.all;
+    license = lib.getLicenseFromSpdxId "GPL-3.0-only";
+    platforms = lib.platforms.all;
   };
 })

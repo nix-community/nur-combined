@@ -28,10 +28,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru.updateScript = nix-update-script {};
 
-  meta = with lib; {
+  meta = {
     description = "Clash.Meta Dashboard, The Official One, XD";
     homepage = "https://github.com/MetaCubeX/metacubexd";
-    license = getLicenseFromSpdxId "MIT";
-    platforms = platforms.all;
+    license = lib.getLicenseFromSpdxId "MIT";
+    platforms = lib.platforms.all;
   };
 })

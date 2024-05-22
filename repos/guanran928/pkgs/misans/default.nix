@@ -43,10 +43,10 @@ assert lib.assertOneOf "misans: `type`" type ["otf" "ttf" "vf" "woff" "woff2"];
       runHook postInstall
     '';
 
-    meta = with lib; {
+    meta = {
       homepage = "https://hyperos.mi.com/font/";
       description = "MiSans font";
-      platforms = platforms.all;
-      license = licenses.unfree; # https://hyperos.mi.com/font-download/MiSans字体知识产权许可协议.pdf
+      platforms = lib.platforms.all;
+      license = lib.licenses.unfree; # https://hyperos.mi.com/font-download/MiSans字体知识产权许可协议.pdf
     };
   }
