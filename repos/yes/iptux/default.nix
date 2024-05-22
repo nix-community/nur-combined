@@ -11,17 +11,18 @@
 , meson
 , ninja
 , pkg-config
+, wrapGAppsHook3
 }:
 
 stdenv.mkDerivation rec {
   pname = "iptux";
-  version = "0.9.0";
+  version = "0.9.1";
 
   src = fetchFromGitHub {
     owner = "iptux-src";
     repo = "iptux";
     rev = "v${version}";
-    hash = "sha256-y/UOJbXhaevESlc5c7cpsuz+ZVNS3VkpT1rD1yLDEfk=";
+    hash = "sha256-9IulJH07/M2ZiFu5YXO9tbltZ0R7VKHYN27KQpQ3Z70=";
   };
 
   buildInputs = [
@@ -38,6 +39,7 @@ stdenv.mkDerivation rec {
     meson
     ninja
     pkg-config
+    wrapGAppsHook3
   ];
 
   meta = with lib; {

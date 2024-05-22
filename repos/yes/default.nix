@@ -16,9 +16,5 @@ with pkgs;
     inherit pkgs;
   });
 
-  wechat-devtools = callPackage ./wechat-devtools {
-    inherit rp;
-  };
-
   xonsh-direnv = callPackage ./xonsh-direnv { };
 }
