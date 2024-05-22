@@ -5,10 +5,10 @@
     "homepage": "",
     "owner": "fargiolas",
     "repo": "clangd-inactive-regions.el",
-    "rev": "3b248e0684b88acb0ea75542d919e67df8baae41",
-    "sha256": "1fk9dx3nps71f8vy48pxn620mbjvgx9lkn6246r04zbawzymm30h",
+    "rev": "5d1580f32b4e0018298d97837d9e6cc8d2201a18",
+    "sha256": "140i3qq15519s51wrwifz8gv9aaf68mn4m36dqvyn3n83ik5rkc1",
     "type": "tarball",
-    "url": "https://github.com/fargiolas/clangd-inactive-regions.el/archive/3b248e0684b88acb0ea75542d919e67df8baae41.tar.gz",
+    "url": "https://github.com/fargiolas/clangd-inactive-regions.el/archive/5d1580f32b4e0018298d97837d9e6cc8d2201a18.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "eglot-booster": {
