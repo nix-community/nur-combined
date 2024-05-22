@@ -15,11 +15,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: DeterminateSystems/nix-installer-action@v10
+      - uses: DeterminateSystems/nix-installer-action@v11
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: DeterminateSystems/magic-nix-cache-action@v4
+      - uses: DeterminateSystems/magic-nix-cache-action@v6
 
       - name: Update flake.lock
         uses: DeterminateSystems/update-flake-lock@v21
