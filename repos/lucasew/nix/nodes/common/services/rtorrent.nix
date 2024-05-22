@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ...}:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 {
   options = {
     services.rtorrent.enableSandboxSample = lib.mkEnableOption "sandbox sample for rtorrent";
@@ -9,22 +14,54 @@
       rtorrent-flood.enable = true;
       rtorrent-dht.enable = true;
       rtorrent-port-0000.enable = true;
-      rtorrent-port-0001 = {enable = true; port = config.networking.ports.rtorrent-port-0000.port + 1; };
-      rtorrent-port-0002 = {enable = true; port = config.networking.ports.rtorrent-port-0001.port + 1; };
-      rtorrent-port-0003 = {enable = true; port = config.networking.ports.rtorrent-port-0002.port + 1; };
-      rtorrent-port-0004 = {enable = true; port = config.networking.ports.rtorrent-port-0003.port + 1; };
-      rtorrent-port-0005 = {enable = true; port = config.networking.ports.rtorrent-port-0004.port + 1; };
-      rtorrent-port-0006 = {enable = true; port = config.networking.ports.rtorrent-port-0005.port + 1; };
-      rtorrent-port-0007 = {enable = true; port = config.networking.ports.rtorrent-port-0006.port + 1; };
-      rtorrent-port-0008 = {enable = true; port = config.networking.ports.rtorrent-port-0007.port + 1; };
-      rtorrent-port-0009 = {enable = true; port = config.networking.ports.rtorrent-port-0008.port + 1; };
-      rtorrent-port-9999 = {enable = true; port = config.networking.ports.rtorrent-port-0009.port + 1; };
+      rtorrent-port-0001 = {
+        enable = true;
+        port = config.networking.ports.rtorrent-port-0000.port + 1;
+      };
+      rtorrent-port-0002 = {
+        enable = true;
+        port = config.networking.ports.rtorrent-port-0001.port + 1;
+      };
+      rtorrent-port-0003 = {
+        enable = true;
+        port = config.networking.ports.rtorrent-port-0002.port + 1;
+      };
+      rtorrent-port-0004 = {
+        enable = true;
+        port = config.networking.ports.rtorrent-port-0003.port + 1;
+      };
+      rtorrent-port-0005 = {
+        enable = true;
+        port = config.networking.ports.rtorrent-port-0004.port + 1;
+      };
+      rtorrent-port-0006 = {
+        enable = true;
+        port = config.networking.ports.rtorrent-port-0005.port + 1;
+      };
+      rtorrent-port-0007 = {
+        enable = true;
+        port = config.networking.ports.rtorrent-port-0006.port + 1;
+      };
+      rtorrent-port-0008 = {
+        enable = true;
+        port = config.networking.ports.rtorrent-port-0007.port + 1;
+      };
+      rtorrent-port-0009 = {
+        enable = true;
+        port = config.networking.ports.rtorrent-port-0008.port + 1;
+      };
+      rtorrent-port-9999 = {
+        enable = true;
+        port = config.networking.ports.rtorrent-port-0009.port + 1;
+      };
     };
-  
-    networking.firewall.allowedTCPPortRanges = [{
-      from = config.networking.ports.rtorrent-port-0000.port;
-      to = config.networking.ports.rtorrent-port-9999.port;
-    }];
+
+    networking.firewall.allowedTCPPortRanges = [
+      {
+        from = config.networking.ports.rtorrent-port-0000.port;
+        to = config.networking.ports.rtorrent-port-9999.port;
+      }
+    ];
 
     services.rtorrent = {
       downloadDir = "${config.services.rtorrent.dataDir}/Downloads";
@@ -51,7 +88,6 @@
       '';
     };
 
-
     systemd.services.rtorrent = {
       restartIfChanged = true;
 
@@ -72,16 +108,26 @@
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
 
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" ];
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+        ];
 
-        TemporaryFileSystem="/:ro";
-        BindReadOnlyPaths = [ "/nix/store" "/etc" ];
+        TemporaryFileSystem = "/:ro";
+        BindReadOnlyPaths = [
+          "/nix/store"
+          "/etc"
+        ];
         BindPaths = [
           "${config.users.users.${config.services.rtorrent.user}.home}"
           config.services.rtorrent.dataDir
@@ -110,7 +156,11 @@
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
-        RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+        ];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -118,7 +168,7 @@
         SystemCallArchitectures = "native";
         SystemCallFilter = [ "~@privileged" ];
 
-        TemporaryFileSystem="/:ro";
+        TemporaryFileSystem = "/:ro";
 
         BindReadOnlyPaths = [
           config.services.rtorrent.downloadDir
@@ -140,19 +190,21 @@
       wantedBy = [ "multi-user.target" ];
 
       after = [ "rtorrent.service" ];
-
     };
 
-
-    systemd.services.rtorrent-sandbox-sample.serviceConfig = lib.mkIf config.services.rtorrent.enableSandboxSample (lib.mkMerge [
-      config.systemd.services.rtorrent.serviceConfig
-      {
-        ExecStart = lib.mkForce "/run/rtorrent-poc-payload";  
-        ExecStartPre = lib.mkForce "";  
-        RuntimeDirectory = lib.mkForce "rtorrent-sandbox-poc";
-        BindPaths = [ "/run" ];
-      }
-    ]);
+    systemd.services.rtorrent-sandbox-sample.serviceConfig =
+      lib.mkIf config.services.rtorrent.enableSandboxSample
+        (
+          lib.mkMerge [
+            config.systemd.services.rtorrent.serviceConfig
+            {
+              ExecStart = lib.mkForce "/run/rtorrent-poc-payload";
+              ExecStartPre = lib.mkForce "";
+              RuntimeDirectory = lib.mkForce "rtorrent-sandbox-poc";
+              BindPaths = [ "/run" ];
+            }
+          ]
+        );
 
     services.nginx.virtualHosts."rtorrent.${config.networking.hostName}.${config.networking.domain}" = {
       locations."/" = {

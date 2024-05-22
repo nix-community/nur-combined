@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# git checkout a fzf branch
+
+set -euo pipefail
+
+selectedBranch="$(git branch -a | sed 's;..;;' | fzf)"
+
+git checkout "$selectedBranch" "$@"

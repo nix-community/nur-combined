@@ -8,26 +8,32 @@ in
 {
   options = {
     systemd.forbiddenPaths = mkOption {
-      default = [];
+      default = [ ];
       type = types.listOf types.path;
     };
     systemd.services = mkOption {
-      type = types.attrsOf (types.submodule (
-        {name, config, ...}: {
-          config = {
-            serviceConfig.InacessibleDirectories = forbiddenPaths;
-          };
-        }
-      ));
+      type = types.attrsOf (
+        types.submodule (
+          { name, config, ... }:
+          {
+            config = {
+              serviceConfig.InacessibleDirectories = forbiddenPaths;
+            };
+          }
+        )
+      );
     };
     systemd.user.services = mkOption {
-      type = types.attrsOf (types.submodule (
-        {name, config, ...}: {
-          config = {
-            serviceConfig.InacessibleDirectories = forbiddenPaths;
-          };
-        }
-      ));
+      type = types.attrsOf (
+        types.submodule (
+          { name, config, ... }:
+          {
+            config = {
+              serviceConfig.InacessibleDirectories = forbiddenPaths;
+            };
+          }
+        )
+      );
     };
   };
 }

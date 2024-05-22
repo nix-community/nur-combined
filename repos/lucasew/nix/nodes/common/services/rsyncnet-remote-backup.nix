@@ -1,7 +1,17 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
-  inherit (lib) mkEnableOption mkIf mkOption types;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkOption
+    types
+    ;
 
   cfg = config.services.rsyncnet-remote-backup;
 
@@ -14,7 +24,7 @@ let
       -i /run/secrets/rsyncnet-remote-backup \
       "${cfg.host}" \
       "$@"
-   '';
+  '';
 in
 
 {
@@ -53,7 +63,7 @@ in
         isSystemUser = true;
         group = cfg.group;
       };
-      groups.${cfg.group} = {};
+      groups.${cfg.group} = { };
     };
 
     sops.secrets.rsyncnet-remote-backup = {

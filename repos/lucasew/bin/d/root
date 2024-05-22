@@ -4,20 +4,19 @@ set -euo pipefail
 
 # get root of the dotfiles folder
 
+dotfilesFolder=
 if [ -d ~/.dotfiles ]; then
-    echo ~/.dotfiles
-    exit 0
+    dotfilesFolder=~/.dotfiles
+elif [ -d /home/lucasew/.dotfiles ]; then
+    dotfilesFolder=/home/lucasew/.dotfiles
+elif [ -d /etc/.dotfiles ]; then
+    dotfilesFolder=/etc/.dotfiles
 fi
 
-if [ -d /home/lucasew/.dotfiles ]; then
-    echo /home/lucasew/.dotfiles
-    exit 0
+if [ -z "$dotfilesFolder" ]; then
+    echo "can't find dotfiles folder" >&2
+    exit 1
 fi
 
-if [ -d /etc/.dotfiles ]; then
-    echo /etc/.dotfiles
-    exit 0
-fi
+echo "$(realpath "$dotfilesFolder")"
 
-echo "can't find dotfiles folder" >&2
-exit 1

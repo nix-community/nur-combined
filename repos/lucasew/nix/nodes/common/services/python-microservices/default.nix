@@ -24,7 +24,7 @@ in
       };
       services = lib.mkOption {
         description = "Python microservices that are waken up on invocation and do one thing";
-        default = {};
+        default = { };
         type = lib.types.attrsOf (
           lib.types.submodule (
             { name, config, ... }:

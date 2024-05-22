@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# get root folder path of the current git repo
 
 set -euo pipefail
 

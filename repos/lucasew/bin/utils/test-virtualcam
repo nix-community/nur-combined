@@ -49,6 +49,7 @@ mtcnn = MTCNN(
 
 state=dict(
     detected_faces = [],
+    target_faces = [],
     last_mask = np.ones(output_size, dtype='uint8')*255,
     last_ai_change = time.time(),
     last_frame = None,
@@ -56,15 +57,64 @@ state=dict(
     disable_bg = False,
     disable_warp = False,
     disable_rectangle=True,
+    disable_grayscale=True,
+    has_new_frame=True,
+    pause_processing=False
 )
+
+def update_detector_state(frame, state):
+    if len(state['target_faces']) > 0:
+        for i in range(4):
+            # transição mais suave
+            delta =  state['target_faces'][0][i] - state['detected_faces'][0][i]
+            if delta == 0:
+                continue
+            state['detected_faces'][0][i] += delta / (abs(delta)**(1/2))
+
+def update_detector_stuff(state):
+    try:
+        while not state['stop']:
+            time.sleep(.2)
+
+            if state['pause_processing']:
+                time.sleep(1)
+                continue
+
+            frame = state['last_frame']
+            if frame is None:
+                continue
+            bbxs, probs = mtcnn.detect(frame)
+            if bbxs is not None:
+                detected_faces_candidates = []
+                for (bbx, prob) in zip(bbxs, probs):
+                    (xi, yi, xf, yf) = map(int, bbx)
+                    sx = xf - xi
+                    sy = yf - yi
+                    xi = max(0, xi)
+                    yi = max(0, yi)
+                    xf = min(xf, output_size[0])
+                    yf = min(yf, output_size[1])
+                    detected_faces_candidates.append([xi, yi, xf, yf])
+                if len(state['detected_faces']) == 0:
+                    state['detected_faces'] = detected_faces_candidates
+                state['target_faces'] = detected_faces_candidates
+    finally:
+        state['stop'] = True
 
 def update_ai_stuff(state):
     last_run = time.time()
     try:
         while not state['stop']:
+            if state['pause_processing']:
+                time.sleep(1)
+                continue
             interval = time.time() - last_run
+            if not state['has_new_frame']:
+                state['has_new_frame'] = False
+                continue
             if interval < 1.0:
                 time.sleep(1.0 - interval)
+                continue
             last_run = time.time()
             print("Running AI round")
             frame = state['last_frame']
@@ -76,25 +126,61 @@ def update_ai_stuff(state):
                 mask = cv2.resize(np.array(mask*255, dtype='uint8'), output_size, cv2.INTER_NEAREST)
                 state['last_mask'] = mask
 
-            bbxs, probs = mtcnn.detect(frame)
-            if bbxs is not None:
-                detected_faces_candidates = []
-                for (bbx, prob) in zip(bbxs, probs):
-                    (xi, yi, xf, yf) = map(int, bbx)
-                    sx = xf - xi
-                    sy = yf - yi
-                    xi -= sx // 3
-                    yi -= sy // 3
-                    xf += sx // 3
-                    yf += sy // 3
-                    xi = max(0, xi)
-                    yi = max(0, yi)
-                    xf = min(xf, output_size[0])
-                    yf = min(yf, output_size[1])
-                    detected_faces_candidates.append([xi, yi, xf, yf])
-                state['detected_faces'] = detected_faces_candidates
-    except:
+    finally:
         state['stop'] = True
+
+def process_image(frame, state):
+    if state['pause_processing']:
+        return None
+    frame = adjust_gamma(frame)
+    state['last_frame'] = frame
+
+    update_detector_state(frame, state)
+    detected_faces = state['detected_faces']
+    last_mask = state['last_mask']
+    if len(detected_faces) == 0:
+        return frame
+    (xi, yi, xf, yf) = detected_faces[0]
+    sx = xf - xi
+    sy = yf - yi
+    propx = sx / output_size[1]
+    propy = sy / output_size[0]
+    propavg = (propx + propy) / 2
+    propavg = min(propavg, 0.7)
+    sx = int(propavg * output_size[0])
+    sy = int(propavg * output_size[1])
+    center_x = int((xi + xf) / 2)
+    center_y = int((yi + yf) / 2)
+
+    final_size = [int(sz * propavg) for sz in output_size]
+
+    frame = adjust_gamma(frame)
+    if not state['disable_rectangle']:
+        cv2.rectangle(frame, (int(xi), int(yi)), (int(xf), int(yf)), (255, 0, 0), 2)
+    padding_x = (final_size[0] - sx) // 2
+    padding_y = (final_size[1] - sy) // 2
+    yi = int(max(center_y - (sy/2), 0))
+    yf = int(min(center_y + (sy/2), output_size[1]))
+    xi = int(max(center_x - (sx/2), 0))
+    xf = int(min(center_x + (sx/2), output_size[0]))
+    mask = last_mask
+    if not state['disable_warp']:
+        frame_cutted = frame[yi:yf, xi:xf,:]
+        mask_cutted = last_mask[yi:yf, xi:xf]
+        frame = cv2.resize(frame_cutted, output_size)
+        mask = cv2.resize(mask_cutted, output_size, cv2.INTER_NEAREST)
+
+    if not state['disable_bg']:
+        frame_blur = cv2.blur(frame, (23, 23))
+        frame[mask > 128, :] = frame_blur[mask > 128, :]
+    if not state['disable_grayscale']:
+        frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        frame = np.zeros(frame.shape, dtype=frame.dtype)
+        frame[:,:,0] = frame_gray
+        frame[:,:,1] = frame_gray
+        frame[:,:,2] = frame_gray
+    state['has_new_frame'] = True
+    return frame
 
 def update_camera_stuff(state):
     try:
@@ -103,40 +189,17 @@ def update_camera_stuff(state):
                 ret, frame = cap.read()
                 if not ret:
                     break
-                frame = adjust_gamma(frame)
-                state['last_frame'] = frame
-                detected_faces = state['detected_faces']
-                last_mask = state['last_mask']
-                if len(detected_faces) > 0:
-                    (xi, yi, xf, yf) = detected_faces[0]
-                    sx = xf - xi
-                    sy = yf - yi
-                    propx = sx / output_size[0]
-                    propy = sy / output_size[1]
-                    propavg = (propx + propy) / 2
-                    final_size = [int(sz * propavg) for sz in output_size]
-
-                    padding_x = (final_size[0] - sx) // 2
-                    padding_y = (final_size[1] - sy) // 2
-                    if not state['disable_rectangle']:
-                        cv2.rectangle(frame, (xi, yi), (xf, yf), (255, 0, 0), 2)
-                    mask = last_mask
-                    if not state['disable_warp']:
-                        frame_cutted = frame[yi-padding_y:yf+padding_y, xi-padding_x:xf+padding_x,:]
-                        mask_cutted = last_mask[yi-padding_y:yf+padding_y, xi-padding_x:xf+padding_x]
-                        frame = cv2.resize(frame_cutted, output_size)
-                        mask = cv2.resize(mask_cutted, output_size, cv2.INTER_NEAREST)
-
-                    frame = adjust_gamma(frame)
-                    if not state['disable_bg']:
-                        frame[mask > 128, :] = 0
-
+                new_frame = process_image(frame, state)
+                if new_frame is not None:
+                    frame = new_frame
                 cam.send(frame)
                 cam.sleep_until_next_frame()
     finally:
         state['stop'] = True
         cap.release()
 
+t_det = threading.Thread(target=update_detector_stuff, args=[state])
+t_det.start()
 t_ai = threading.Thread(target=update_ai_stuff, args=[state])
 t_ai.start()
 t_cam = threading.Thread(target=update_camera_stuff, args=[state])
@@ -151,8 +214,13 @@ try:
             state['disable_warp'] = not state['disable_warp']
         if line in ['rect', 'r']:
             state['disable_rectangle'] = not state['disable_rectangle']
+        if line in ['gray', 'g']:
+            state['disable_grayscale'] = not state['disable_grayscale']
+        if line in ['p', 'pause']:
+            state['pause_processing'] = not state['pause_processing']
             
 except:
     state['stop'] = True
+    t_det.join()
     t_ai.join()
     t_cam.join()

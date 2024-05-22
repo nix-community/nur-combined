@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ...}:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 lib.mkIf config.services.transmission.enable {
   fileSystems."/var/lib/transmission/Downloads" = {

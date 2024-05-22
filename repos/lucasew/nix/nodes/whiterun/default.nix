@@ -43,7 +43,6 @@ in
     calendar = "03/6:00:01";
   };
 
-
   services.fusionsolar-reporter.enable = true;
 
   services.guix.enable = true;

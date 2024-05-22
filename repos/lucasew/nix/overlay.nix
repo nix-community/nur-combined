@@ -27,6 +27,8 @@ in
 
   nbr = import "${flake.inputs.nbr}" { pkgs = final; };
 
+  blender-bin = flake.inputs.blender-bin.packages.${prev.system}; 
+
   pythonPackagesExtensions = [
     (final: prev: {
       pyctcdecode = final.callPackage ./pkgs/python/pyctcdecode { };
@@ -98,7 +100,7 @@ in
   #     };
   #   });
   # };
-  
+
   nur = import flake.inputs.nur { pkgs = prev; };
 
   wineApps = {
@@ -128,9 +130,7 @@ in
     vscode = cp ./pkgs/custom/vscode;
     rofi_xorg = cp ./pkgs/custom/rofi.nix;
     rofi = final.custom.rofi_xorg;
-    rofi_wayland = prev.callPackage ./pkgs/custom/rofi.nix {
-      rofi = final.rofi-wayland;
-    };
+    rofi_wayland = prev.callPackage ./pkgs/custom/rofi.nix { rofi = final.rofi-wayland; };
     pidgin = cp ./pkgs/custom/pidgin.nix;
     send2kindle = cp ./pkgs/custom/send2kindle.nix;
     retroarch = cp ./pkgs/custom/retroarch.nix;
@@ -144,7 +144,7 @@ in
       height = 768;
       logoScale = 2;
     };
-    colors = flake.colors.${prev.system};
+    inherit (flake) colors;
   };
 
   script-directory = prev.script-directory.overrideAttrs (old: {

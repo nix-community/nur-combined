@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+binary="$1"; shift
+
+PATH="$(echo "$PATH" | tr ':' '\n' | grep -v -e 'shim$' | tr '\n' ':')" which "$binary" 2> /dev/null || exit 1

@@ -16,6 +16,26 @@
         "type": "github"
       }
     },
+    "blender-bin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "dir": "blender",
+        "lastModified": 1715164129,
+        "narHash": "sha256-IfqQb+FjCQAfy9NzWq0nyAWpvKj0c2Y20DBKmve+G74=",
+        "owner": "edolstra",
+        "repo": "nix-warez",
+        "rev": "979aa248bd8af258b98a3fe46671d7dc06bc956b",
+        "type": "github"
+      },
+      "original": {
+        "id": "blender-bin",
+        "type": "indirect"
+      }
+    },
     "borderless-browser": {
       "flake": false,
       "locked": {
@@ -799,6 +819,7 @@
     },
     "root": {
       "inputs": {
+        "blender-bin": "blender-bin",
         "borderless-browser": "borderless-browser",
         "bumpkin": "bumpkin",
         "cf-torrent": "cf-torrent",

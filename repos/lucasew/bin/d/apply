@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+flake_ref=$(sd d root)
+
+cmd=switch
+
+if [ $# -gt 0 ]; then
+  cmd="$1"; shift
+fi
+
+if sd is dotfiles-in-store; then
+  flake_ref="github:lucasew/nixcfg"
+fi
+
+if sd is riverwood; then
+  sudo nixos-rebuild "$cmd" --flake "$flake_ref#riverwood"
+fi
+
+if sd is whiterun; then
+  sudo nixos-rebuild "$cmd" --flake "$flake_ref#whiterun"
+fi
+
+if sd is phone; then
+
+  mkdir -p ~/.shortcuts
+  rm ~/.shortcuts/*
+  for shortcut in $(ls $(sd d root)/bin/_shortcuts/termux); do
+    echo "[*] Installing shortcut $shortcut"
+    {
+      echo '#!/data/data/com.termux/files/usr/bin/bash'
+      echo 'export LD_PRELOAD="/data/data/com.termux/files/usr/lib/libtermux-exec.so"'
+      echo 'export PATH="/data/data/com.termux/files/usr/bin"'
+      echo bash ~/.dotfiles/bin/source_me _shortcuts termux "$shortcut" '"$@"'
+    } > ~/.shortcuts/$shortcut
+  done
+
+fi

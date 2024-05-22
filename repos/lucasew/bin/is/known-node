@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if sd is riverwood; then
+  echo riverwood
+  exit 0
+fi
+
+if sd is whiterun; then
+  echo whiterun
+  exit 0
+fi
+
+if sd is phone; then
+  echo phone
+  exit 0
+fi
+
+exit 1

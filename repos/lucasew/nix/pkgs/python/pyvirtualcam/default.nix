@@ -1,8 +1,9 @@
-{ buildPythonPackage
-, numpy
-, pybind11
-, fetchFromGitHub
-, python
+{
+  buildPythonPackage,
+  numpy,
+  pybind11,
+  fetchFromGitHub,
+  python,
 }:
 
 buildPythonPackage rec {
@@ -23,7 +24,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pyvirtualcam._native_linux_v4l2loopback" ];
 
-  propagatedBuildInputs = [ numpy pybind11 ];
+  propagatedBuildInputs = [
+    numpy
+    pybind11
+  ];
 
   doCheck = false; # tests depend on a virtual v4l device so can't run on the sandbox
 }

@@ -557,3 +557,15 @@ def get_args():
     from sys import argv
     return argv[1:]
 
+
+@define_command()
+def juro_composto(capital, juro, tempo):
+    capital = float(capital)
+    juro = float(juro)
+    tempo = int(tempo)
+
+    return (capital * (1+juro)**tempo) - capital
+
+@define_command()
+def juro_composto_total(capital, juro, tempo):
+    return juro_composto(capital, juro, tempo) + float(capital)

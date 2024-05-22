@@ -6,19 +6,67 @@ set -eu -o pipefail
 
 rsyncnet_user=de3163@de3163.rsync.net
 
+TERMUX_NOTIFICATION_ID=termux_backup
+
+function termux-notify {
+  termux-notification -i $TERMUX_NOTIFICATION_ID -t "Backup"
+}
+if ! sd is termux-env; then
+  function termux-notify {
+    cat /dev/stdin
+  }
+fi
+
+
+function update_status {
+  if sd is termux-env; then
+    echo "$@" | termux-notify
+  fi
+  echo '[*]' "$@" >&2
+}
+
 function backup {
   from="$1"; shift
   to="${rsyncnet_user}:$1"; shift
 
-  echo '[*]' Fazendo backup "'$from' -> '$to'"
+  update_status rsync: "'$from' -> '$to'"
   rsync -avP "${from}" "${to}" "$@"
 }
 
-if sd is_node riverwood; then
+function obsidian_git {
+  OBSIDIAN_DIR=
+  if sd is riverwood; then
+    OBSIDIAN_DIR=/home/lucasew/WORKSPACE/ZETTEL/obsidian
+  fi
+  if sd is phone; then
+    OBSIDIAN_DIR=/sdcard/Obsidian
+  fi
+  if [ ! -z "$OBSIDIAN_DIR" ]; then
+    pushd "$OBSIDIAN_DIR" >/dev/null
+
+    update_status "obsidian/git: $@"
+    git "$@"
+    popd >/dev/null
+  fi
+}
+
+obsidian_git add -A
+obsidian_commit_mktemp=$(mktemp)
+{
+  echo "backup checkpoint" $(sd is known-node || true)
+  obsidian_git diff --stat --staged
+} > $obsidian_commit_mktemp
+obsidian_git commit -F $obsidian_commit_mktemp --allow-empty
+rm $obsidian_commit_mktemp
+
+obsidian_git pull --rebase
+obsidian_git push origin master
+
+if sd is riverwood; then
   backup ~/WORKSPACE/CANTGIT/ backup/lucasew/CANTGIT
 fi
 
-if sd is_node phone; then
+if sd is phone; then
   backup /sdcard/DCIM/Camera/ backup/lucasew/camera --exclude=.thumbnails
   backup /sdcard/Pictures/ backup/lucasew/pictures --exclude=.thumbnails
   backup /sdcard/Android/media/com.whatsapp/WhatsApp/Media/ backup/lucasew/WhatsApp --exclude=.Links --exclude=.Statuses
@@ -45,7 +93,7 @@ if sd is_node phone; then
   done
 fi
 
-if sd is_node whiterun; then
+if sd is whiterun; then
   true
   # there is a specific service for this
   # backup /var/backup/postgresql/ backup/lucasew/homelab/postgres
@@ -62,5 +110,18 @@ ssh "$rsyncnet_user" find backup -size 0 -delete
 #   ssh "$rsyncnet_user" -o SendEnv=GIT_TERMINAL_PROMPT git --git-dir "git/$repo" fetch --all --prune
 # done
 
+last_notification_file=$(mktemp)
+{
+echo Backup finalizado
 
+update_status 'Listando snapshots...'
+ssh "$rsyncnet_user" ls .zfs/snapshot | tr '\n' ' '
+echo
+
+update_status 'Listando cota...'
 ssh "$rsyncnet_user" quota
+
+} | tee $last_notification_file
+
+termux-notify < $last_notification_file
+rm $last_notification_file

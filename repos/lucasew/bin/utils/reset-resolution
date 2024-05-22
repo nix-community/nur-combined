@@ -4,11 +4,11 @@ set -euo pipefail
 
 export DISPLAY=:0
 
-if sd is_node riverwood; then
+if sd is riverwood; then
   xrandr --output eDP-1 --mode 1366x768
   xrandr --output HDMI-1 --mode 1366x768 --left-of eDP-1
 fi
 
-if sd is_node whiterun; then
+if sd is whiterun; then
   xrandr --output HDMI-1 --mode 1368x768 # because of the HDMI dummy
 fi

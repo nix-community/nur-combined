@@ -26,20 +26,18 @@ in
 
     sops.secrets.pocket2kindle = {
       sopsFile = ../../../secrets/p2k.env;
-      owner = config.users.users.pocket2kindle.name;
-      group = config.users.users.pocket2kindle.group;
       format = "dotenv";
     };
 
     systemd.services.pocket2kindle = {
       description = "Transforma uma quantidade de artigos para enviar para um kindle";
       path = with pkgs; [
-        dotenv
         p2k
         calibre
       ];
       stopIfChanged = true;
       serviceConfig = {
+        EnvironmentFile = "/run/secrets/pocket2kindle";
         # https://gist.github.com/ageis/f5595e59b1cddb1513d1b425a323db04
         User = config.users.users.pocket2kindle.name;
         Group = config.users.users.pocket2kindle.group;
@@ -58,7 +56,7 @@ in
 
       script = ''
         cd /tmp
-        dotenv @/run/secrets/pocket2kindle -- p2k -a -c 10 -t 30 -k $(cat /run/secrets/pocket2kindle | grep KINDLE_EMAIL | sed 's;KINDLE_EMAIL=;;')
+        p2k -a -c 10 -t 30 -k $KINDLE_EMAIL
       '';
     };
 
