@@ -17,4 +17,6 @@
   apps = {
     firefox = pkgs.callPackage ./pkgs/darwin/apps/firefox {};
   };
+
+  sotp = pkgs.callPackage ./pkgs/sotp {};
 }
