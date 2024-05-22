@@ -63,7 +63,6 @@
       repo = "pre-commit-hooks.nix";
       ref = "master";
       inputs = {
-        flake-utils.follows = "futils";
         nixpkgs.follows = "nixpkgs";
         nixpkgs-stable.follows = "nixpkgs";
       };

@@ -18,16 +18,6 @@ null_ls.register({
     }),
 })
 
--- C, C++
-null_ls.register({
-    null_ls.builtins.formatting.clang_format.with({
-        -- Only used if available, but prefer clangd formatting if available
-        condition = function()
-            return utils.is_executable("clang-format") and not utils.is_executable("clangd")
-        end,
-    }),
-})
-
 -- Nix
 null_ls.register({
     null_ls.builtins.formatting.nixpkgs_fmt.with({
