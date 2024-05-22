@@ -40,7 +40,7 @@ env:
   CACHIX_NAME: sigprof
   NUR_REPO: sigprof
 
-  nur_systems: x86_64-linux x86_64-darwin
+  nur_systems: x86_64-linux x86_64-darwin aarch64-darwin
   nur_channels: nixpkgs-unstable nixos-unstable nixos-23.11 nixos-23.05 nixos-22.11
   nur_main_channel: nixos-23.11
 
@@ -58,10 +58,10 @@ jobs:
       flake_jobs: ${{ steps.collect_flake_jobs.outputs.flake_jobs }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.5
+        uses: actions/checkout@v4.1.6
 
       - name: Install Nix
-        uses: cachix/install-nix-action@8887e596b4ee1134dae06b98d573bd674693f47c
+        uses: cachix/install-nix-action@ba0dd844c9180cbf77aa72a116d6fbc515d0e87b
         with:
           install_url: ${{ env.CI_NIX_INSTALL_URL }}
 
@@ -126,10 +126,10 @@ jobs:
       )
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1.5
+        uses: actions/checkout@v4.1.6
 
       - name: Install Nix
-        uses: cachix/install-nix-action@8887e596b4ee1134dae06b98d573bd674693f47c
+        uses: cachix/install-nix-action@ba0dd844c9180cbf77aa72a116d6fbc515d0e87b
         with:
           install_url: ${{ env.CI_NIX_INSTALL_URL }}
 
@@ -295,9 +295,28 @@ jobs:
     uses: ./.github/workflows/ci-per-system.yml
     with:
       system: x86_64-darwin
-      runs-on: macos-latest
+      runs-on: macos-13
       flake-jobs: ${{ toJSON(fromJSON(needs.setup_flake.outputs.flake_jobs).x86_64-darwin.flake) }}
       nur-jobs: ${{ toJSON(fromJSON(needs.setup_nur.outputs.nur_jobs || '{}').x86_64-darwin.nur) }}
+      nix-install-url: ${{ needs.setup_flake.outputs.nix_install_url }}
+      cachix-name: ${{ needs.setup_flake.outputs.cachix_name }}
+    secrets:
+      cachix-auth-token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+  aarch64-darwin:
+    needs:
+      - setup_flake
+      - setup_nur
+    if: >-
+      (always() && !cancelled())
+      && (needs.setup_flake.result == 'success')
+      && (needs.setup_nur.result == 'success' || needs.setup_nur.result == 'skipped')
+    uses: ./.github/workflows/ci-per-system.yml
+    with:
+      system: aarch64-darwin
+      runs-on: macos-latest
+      flake-jobs: ${{ toJSON(fromJSON(needs.setup_flake.outputs.flake_jobs).aarch64-darwin.flake) }}
+      nur-jobs: ${{ toJSON(fromJSON(needs.setup_nur.outputs.nur_jobs || '{}').aarch64-darwin.nur) }}
       nix-install-url: ${{ needs.setup_flake.outputs.nix_install_url }}
       cachix-name: ${{ needs.setup_flake.outputs.cachix_name }}
     secrets:
@@ -309,6 +328,7 @@ jobs:
       - setup_nur
       - x86_64-linux
       - x86_64-darwin
+      - aarch64-darwin
     runs-on: ubuntu-latest
     if: >-
       (always() && !cancelled())
@@ -319,6 +339,7 @@ jobs:
           && (needs.setup_nur.result == 'success' || needs.setup_nur.result == 'skipped')
           && (needs.x86_64-linux.result == 'success')
           && (needs.x86_64-darwin.result == 'success' || needs.x86_64-darwin.result == 'skipped')
+          && (needs.aarch64-darwin.result == 'success' || needs.aarch64-darwin.result == 'skipped')
         }}
     steps:
       - name: Trigger NUR update
