@@ -6,7 +6,7 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "luau-lsp";
-  version = "1.28.1";
+  version = "1.29.0";
 
   src = fetchFromGitHub {
     owner = "JohnnyMorganz";
@@ -38,8 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/JohnnyMorganz/luau-lsp";
     downloadPage = "https://github.com/JohnnyMorganz/luau-lsp/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
-    platforms = lib.platforms.all;
-    badPlatforms = lib.platforms.darwin;
+    platforms = lib.platforms.linux; 
     # maintainers = with lib.maintainers; [ eggflaw ];
     mainProgram = "luau-lsp";
   };
