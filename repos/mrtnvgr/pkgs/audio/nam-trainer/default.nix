@@ -29,12 +29,12 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "neural-amp-modeler";
-  version = "0ee6fd6c3a0c918035156dc9a6c54bee8d9470bb";
+  version = "0.8.4";
 
   src = fetchFromGitHub {
     owner = "sdatkinson";
     repo = pname;
-    rev = version;
+    rev = "v${version}";
     hash = "sha256-dCAzX0TlIICv4I+/QGDCNDpTLQYeX9kb5bjHOwB2jkk=";
   };
 

@@ -40,3 +40,7 @@
 - **obs-wayland** - obs with plugins for wayland and pipewire support
 - **cascadia-code-nerd-font** - Cascadia Code with Nerd Font symbols
 - **cascadia-mono-nerd-font** - Cascadia Mono with Nerd Font symbols
+
+### Misc
+
+- [cbmp](https://github.com/ful1e5/cbmp)

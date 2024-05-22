@@ -62,6 +62,9 @@ in rec {
   artworks = p ./pkgs/audio/artworks { };
   nam-trainer = p ./pkgs/audio/nam-trainer { };
 
+  # Misc
+  cbmp = p ./pkgs/misc/cbmp { };
+
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
