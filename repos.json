@@ -16,6 +16,10 @@
         "Adamekka": {
             "url": "https://github.com/Adamekka/nur-packages"
         },
+        "AndrewKvalheim": {
+            "file": "nur.nix",
+            "url": "https://codeberg.org/AndrewKvalheim/configuration"
+        },
         "AsterisMono": {
             "url": "https://github.com/AsterisMono/nur-packages"
         },
@@ -661,6 +665,9 @@
         },
         "moosingin3space": {
             "url": "https://github.com/moosingin3space/nur-packages"
+        },
+        "moraxyc": {
+            "url": "https://github.com/moraxyc/nur-packages"
         },
         "moredhel": {
             "url": "https://github.com/moredhel/nur-packages"
