@@ -1,13 +1,13 @@
 { buildGoModule, fetchFromGitHub, lib, stdenv, ... }:
 buildGoModule rec {
   pname = "discord-applemusic-rich-presence";
-  version = "0.5.0";
+  version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "caarlos0";
     repo = "discord-applemusic-rich-presence";
     rev = "v${version}";
-    sha256 = "sha256-PCA0Thzng1C08NwBTh3Hl4yW2qvYXra6EZHrJxoCgIU=";
+    sha256 = "sha256-d4p7AaezUPgBB2EUFjo0v/DWKWXMuiafj7kz16eIOeQ=";
   };
 
   vendorHash = "sha256-RFJTBfsfEyKn9OSvE2HLgjKiJC3Hs90+P9rm5GlIseo=";

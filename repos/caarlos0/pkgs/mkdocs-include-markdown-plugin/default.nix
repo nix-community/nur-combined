@@ -1,21 +1,21 @@
 { lib
 , python3
-, fetchFromGitHub
+, fetchPypi
 }:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "mkdocs-include-markdown-plugin";
   version = "6.0.4";
+  format = "wheel";
 
-  src = fetchFromGitHub {
-    owner = "mondeja";
-    repo = "mkdocs-include-markdown-plugin";
-    rev = "v${version}";
-    hash = "sha256-wHaDvF+QsEa3G5+q1ZUQQpVmwy+oRsSEq2qeJIJjFeY=";
+  src = fetchPypi rec {
+    inherit version format;
+    pname = "mkdocs_include_markdown_plugin";
+    hash = "sha256-57i17MQdaj4Wlpz/NyXsOjkbaOnf4aS042qFCL7NqDU=";
+    dist = python;
+    python = "py3";
   };
 
-  pyproject = true;
-  nativeBuildInputs = [ python3.pkgs.hatchling python3.pkgs.mkdocs ];
   propagatedBuildInputs = [ python3.pkgs.wcmatch ];
 
   meta = with lib; {
@@ -23,6 +23,6 @@ python3.pkgs.buildPythonPackage rec {
     homepage = "https://github.com/mondeja/mkdocs-include-markdown-plugin";
     license = licenses.asl20;
     maintainers = with maintainers; [ caarlos0 ];
-    changelog = "https://github.com/mondeja/mkdocs-include-markdown-plugin/releases/tag/${src.rev}";
+    changelog = "https://github.com/mondeja/mkdocs-include-markdown-plugin/releases/tag/v${version}";
   };
 }

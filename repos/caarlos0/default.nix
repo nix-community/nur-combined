@@ -19,7 +19,10 @@
   fork-cleaner = pkgs.callPackage ./pkgs/fork-cleaner { };
   glyphs = pkgs.callPackage ./pkgs/glyphs { };
   gocovsh = pkgs.callPackage ./pkgs/gocovsh { };
+  gopls = pkgs.callPackage ./pkgs/gopls { };
+  golangci-lint = pkgs.callPackage ./pkgs/golangci-lint { };
   jsonfmt = pkgs.callPackage ./pkgs/jsonfmt { };
+  misspell = pkgs.callPackage ./pkgs/misspell { };
   org-stats = pkgs.callPackage ./pkgs/org-stats { };
   svu = pkgs.callPackage ./pkgs/svu { };
   timer = pkgs.callPackage ./pkgs/timer { };

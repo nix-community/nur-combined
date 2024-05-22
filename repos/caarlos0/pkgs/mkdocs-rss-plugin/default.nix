@@ -1,22 +1,20 @@
 { lib
 , python3
-, fetchFromGitHub
+, fetchPypi
 }:
 
-python3.pkgs.buildPythonPackage {
+python3.pkgs.buildPythonPackage rec {
   pname = "mkdocs-rss-plugin";
   version = "1.12.1";
+  format = "wheel";
 
-  src = fetchFromGitHub {
-    owner = "Guts";
-    repo = "mkdocs-rss-plugin";
-    rev = "1.12.1";
-    sha256 = "sha256-cLQfhMYW/9Eb+IamQIC7fZRTm/ORD8xbcrmKkSkUrMs=";
+  src = fetchPypi rec {
+    inherit version format;
+    pname = "mkdocs_rss_plugin";
+    hash = "sha256-rPuO7JXx2zibNncLr5mvO4fjhITMN5kxlKNaoXPrP+g=";
+    dist = python;
+    python = "py2.py3";
   };
-
-
-  nativeBuildInputs = [ python3.pkgs.mkdocs ];
-  doCheck = false;
 
   meta = with lib; {
     description = "MkDocs plugin to generate a RSS feeds for created and updated pages, using git log and YAML frontmatter (page.meta).";
