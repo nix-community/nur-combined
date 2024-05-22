@@ -3,6 +3,9 @@ default: (local "test")
 local goal="switch":
   sudo nixos-rebuild {{goal}} --no-build-nix --flake .#local
 
+rollback:
+  sudo nixos-rebuild test --no-build-nix --flake .#local --rollback
+
 iso:
   nix build .#install-iso -o result-iso
 

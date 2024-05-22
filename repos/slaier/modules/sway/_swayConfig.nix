@@ -200,6 +200,7 @@ in
   exec ${lib.getExe pkgs.dex} -a
   exec --no-startup-id ${lib.getExe pkgs.mako} --default-timeout 3000
   exec --no-startup-id ${pkgs.swayr}/bin/swayrd
+  exec ${lib.getExe pkgs.safeeyes}
 
   #
   # Others:

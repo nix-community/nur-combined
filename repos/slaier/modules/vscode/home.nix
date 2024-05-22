@@ -45,6 +45,7 @@
       }
     ];
     userSettings = {
+      "diffEditor.ignoreTrimWhitespace" = false;
       "editor.bracketPairColorization.enabled" = true;
       "editor.guides.bracketPairs" = "active";
       "editor.inlayHints.enabled" = "off";

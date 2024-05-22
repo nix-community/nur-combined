@@ -1,10 +1,11 @@
 {
   "experimental": {
+    "cache_file": {
+      "enabled": true
+    },
     "clash_api": {
       "external_controller": "0.0.0.0:9090",
-      "external_ui": "@yacd@",
-      "store_mode": true,
-      "store_selected": true
+      "external_ui": "@yacd@"
     }
   },
   "log": {
@@ -44,44 +45,39 @@
     },
     "rules": [
       {
-        "inbound": [
-          "mixed-in"
-        ],
-        "domain": [
-          "launcher-public-service-prod06.ol.epicgames.com",
-          "epicgames-download1-1251447533.file.myqcloud.com",
-          "download.epicgames.com",
-          "download2.epicgames.com",
-          "download3.epicgames.com",
-          "download4.epicgames.com",
-          "epicgames-download1.akamaized.net",
-          "fastly-download.epicgames.com"
+        "rule_set": [
+          "geosite-zhihu"
         ],
         "domain_suffix": [
           "pkgs.org",
-          "edu.cn",
-          "zhihu.com",
-          "zhimg.com"
+          "edu.cn"
         ],
-        "geoip": [
-          "private"
-        ],
+        "ip_is_private": true,
         "outbound": "direct_out"
       },
       {
-        "inbound": [
-          "mixed-in"
+        "rule_set": [
+          "geosite-spotify"
         ],
         "domain_suffix": [
-          "pscdn.co",
-          "scdn.co",
-          "spoti.fi"
-        ],
-        "domain_keyword": [
-          "spotify",
-          "www.google."
+          "google.com",
+          "google.com.hk"
         ],
         "outbound": "Chinese_out"
+      }
+    ],
+    "rule_set": [
+      {
+        "tag": "geosite-zhihu",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-zhihu.srs"
+      },
+      {
+        "tag": "geosite-spotify",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-spotify.srs"
       }
     ],
     "final": "select_out"

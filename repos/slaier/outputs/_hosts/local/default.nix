@@ -65,7 +65,7 @@ in
     bottom
     clang
     curl
-    dogdns
+    doggo
     gammastep
     git
     gocryptfs
