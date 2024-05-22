@@ -26,6 +26,7 @@ rec {
   ctrtool = pkgs.callPackage ./pkgs/ctrtool { };
   makerom = pkgs.callPackage ./pkgs/makerom { };
 
+  kwin-explicit-sync-patch = pkgs.kdePackages.callPackage ./pkgs/kwin-explicit-sync-patch { };
   kwin-move-window = pkgs.callPackage ./pkgs/kwin-move-window { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
