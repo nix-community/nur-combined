@@ -7,7 +7,7 @@
   openssl_3_0,
   python3,
   ...
-}@args:
+}:
 stdenv.mkDerivation rec {
   inherit (sources.openssl-oqs-provider) pname version src;
 
@@ -45,11 +45,11 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
-    mkdir -p $out/lib
-    install -m755 lib/oqsprovider.so "$out/lib"
+    install -Dm755 lib/oqsprovider.so "$out/lib/oqsprovider.so"
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "OpenSSL 3 provider containing post-quantum algorithms";
     homepage = "https://openquantumsafe.org";
     license = with licenses; [ mit ];

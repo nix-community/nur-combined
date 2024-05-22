@@ -4,7 +4,7 @@
   fetchurl,
   unzip,
   ...
-}@args:
+}:
 stdenv.mkDerivation rec {
   pname = "3gpp-evs";
   version = "16.1.0";
@@ -35,9 +35,10 @@ stdenv.mkDerivation rec {
     cc -shared -o $out/lib/lib3gpp-evs.so ./build/*.o
   '';
 
-  # meta = with lib; {
-  #   description = "G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled)";
-  #   homepage = "https://github.com/arkadijs/asterisk-g72x";
-  #   license = licenses.unfreeRedistributable;
-  # };
+  meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
+    description = "3GPP EVS Reference Implementation";
+    homepage = "https://webapp.etsi.org/key/key.asp?GSMSpecPart1=26&GSMSpecPart2=443";
+    license = licenses.unfree;
+  };
 }

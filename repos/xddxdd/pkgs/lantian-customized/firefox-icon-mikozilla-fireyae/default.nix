@@ -1,5 +1,4 @@
 {
-  stdenv,
   lib,
   linkFarm,
   runCommand,
@@ -55,6 +54,7 @@ in
 ))
 // {
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Custom icon \"Mikozilla Fireyae\" for Firefox";
     homepage = "https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/";
     # Upstream did not specify license

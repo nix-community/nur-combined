@@ -1,6 +1,6 @@
 {
-  lib,
   fetchurl,
+  lib,
   space-cadet-pinball,
   unzip,
   ...
@@ -22,6 +22,7 @@ space-cadet-pinball.overrideAttrs (old: {
     '';
 
   meta = old.meta // {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = old.meta.description + " (With Full Tilt Pinball data)";
   };
 })

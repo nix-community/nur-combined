@@ -53,6 +53,7 @@ rustPlatform.buildRustPackage {
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Attic (Nix binary cache) patched for Telnyx Cloud Storage compatibility";
     homepage = "https://github.com/zhaofengli/attic";
     license = licenses.asl20;

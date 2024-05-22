@@ -6,15 +6,15 @@
   curl,
   mergePkgs,
   ...
-}@args:
+}:
 let
   mkLibrary =
-    asterisk_version: name: bits: value:
+    asterisk_version: name: _bits: value:
     stdenv.mkDerivation rec {
       pname = "asterisk-${asterisk_version}-codec-${name}";
-      version = value.version;
+      inherit (value) version;
       src = fetchurl {
-        url = value.url;
+        inherit (value) url;
         sha256 = value.hash;
       };
 
@@ -26,6 +26,7 @@ let
       '';
 
       meta = with lib; {
+        maintainers = with lib.maintainers; [ xddxdd ];
         description = "Asterisk ${asterisk_version} ${name} Codec by Digium";
         homepage = "https://downloads.digium.com/pub/telephony/codec_${name}/";
         license = licenses.unfree;

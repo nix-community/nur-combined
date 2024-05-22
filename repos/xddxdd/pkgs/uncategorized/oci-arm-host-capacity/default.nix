@@ -3,11 +3,11 @@
   sources,
   callPackage,
   ...
-}@args:
+}:
 let
   composer2nixOutput = callPackage ./composer2nix { };
 in
-composer2nixOutput.overrideAttrs (old: rec {
+composer2nixOutput.overrideAttrs (_old: rec {
   inherit (sources.oci-arm-host-capacity) pname version src;
   name = "${pname}-${version}";
 
@@ -20,6 +20,7 @@ composer2nixOutput.overrideAttrs (old: rec {
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "This script allows to bypass Oracle Cloud Infrastructure 'Out of host capacity' error immediately when additional OCI capacity will appear in your Home Region / Availability domain.";
     homepage = "https://github.com/hitrov/oci-arm-host-capacity";
     license = with licenses; [ mit ];

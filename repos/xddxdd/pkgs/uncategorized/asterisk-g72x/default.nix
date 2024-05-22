@@ -6,7 +6,7 @@
   bcg729,
   asterisk,
   ...
-}@args:
+}:
 stdenv.mkDerivation rec {
   inherit (sources.asterisk-g72x) pname version src;
 
@@ -21,6 +21,7 @@ stdenv.mkDerivation rec {
   configureFlags = [ "--with-bcg729" ];
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled)";
     homepage = "https://github.com/arkadijs/asterisk-g72x";
     license = licenses.unfreeRedistributable;

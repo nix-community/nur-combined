@@ -5,14 +5,13 @@
   asterisk_20,
   asteriskDigiumCodecs,
   asterisk-g72x,
-  fetchFromGitHub,
   opencore-amr,
   spandsp3,
   codec2,
   libvorbis,
   vo-amrwbenc,
   ...
-}@args:
+}:
 let
   asterisk-actual = asterisk_20;
   codecs-actual = asteriskDigiumCodecs."20";
@@ -78,6 +77,7 @@ in
     '';
 
   meta = old.meta // {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Asterisk with Lan Tian modifications";
     platforms = [ "x86_64-linux" ];
   };

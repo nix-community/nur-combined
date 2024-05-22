@@ -1,7 +1,6 @@
 {
   sources,
   stdenv,
-  fetchurl,
   lib,
   p7zip,
   wine,
@@ -19,29 +18,8 @@
 # - In-app browser doesn't work.
 ################################################################################
 let
-  wineGecko = stdenv.mkDerivation rec {
-    pname = "wine-gecko";
-    version = "2.47.4";
-    src = fetchurl {
-      url = "http://dl.winehq.org/wine/wine-gecko/${version}/wine-gecko-${version}-x86.tar.xz";
-      sha256 = "1dmg221nxmgyhz7clwlnvwrx1wi630z62y4azwgf40l6jif8vz1c";
-    };
-    dontUnpack = true;
-    installPhase = ''
-      mkdir -p $out
-      tar xf $src -C $out
-    '';
-  };
-
   wechatWine = wine.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ./wine-wechat.patch ];
-
-    postInstall =
-      (old.postInstall or "")
-      + ''
-        rm -rf $out/share/wine/gecko
-        ln -sf ${wineGecko} $out/share/wine/gecko
-      '';
   });
 
   wechatFiles = stdenv.mkDerivation {
@@ -110,10 +88,9 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ copyDesktopItems ];
 
   postInstall = ''
-    mkdir -p $out/bin $out/share/pixmaps
-    ln -s ${startWechat} $out/bin/wine-wechat-x86
-    ln -s ${startWinecfg} $out/bin/wine-wechat-x86-cfg
-    cp -r ${./wine-wechat.png} $out/share/pixmaps/wine-wechat-x86.png
+    install -Dm755 ${startWechat} $out/bin/wine-wechat-x86
+    install -Dm755 ${startWinecfg} $out/bin/wine-wechat-x86-cfg
+    install -Dm644 ${./wine-wechat.png} $out/share/pixmaps/wine-wechat-x86.png
   '';
 
   desktopItems = [
@@ -163,6 +140,7 @@ stdenv.mkDerivation {
   ];
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)";
     homepage = "https://weixin.qq.com/";
     platforms = [ "x86_64-linux" ];

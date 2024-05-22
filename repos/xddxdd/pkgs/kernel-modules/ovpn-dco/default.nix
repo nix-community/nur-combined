@@ -26,6 +26,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "OpenVPN Data Channel Offload in the linux kernel";
     homepage = "https://github.com/OpenVPN/ovpn-dco";
     license = lib.licenses.gpl3Only;

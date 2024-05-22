@@ -1,8 +1,9 @@
-import requests
-import re
 import json
 import os
+import re
 import sys
+
+import requests
 
 
 def get_script_path():
@@ -10,19 +11,19 @@ def get_script_path():
 
 
 def normalize_version(version, isKey=False):
-    if version.startswith('jdk-'):
+    if version.startswith("jdk-"):
         version = version[4:]
-    elif version.startswith('jdk'):
+    elif version.startswith("jdk"):
         version = version[3:]
-    elif version.startswith('jre-'):
+    elif version.startswith("jre-"):
         version = version[4:]
-    elif version.startswith('jre'):
+    elif version.startswith("jre"):
         version = version[3:]
 
     if isKey:
-        version = re.sub(r'[^0-9a-zA-Z]', '_', version)
+        version = re.sub(r"[^0-9a-zA-Z]", "_", version)
     else:
-        version = re.sub(r'[^0-9a-zA-Z._-]', '_', version)
+        version = re.sub(r"[^0-9a-zA-Z._-]", "_", version)
 
     return version
 
@@ -30,28 +31,28 @@ def normalize_version(version, isKey=False):
 def filter_binaries(binaries, version):
     result = {}
     for b in binaries:
-        if b['image_type'] not in ['jdk', 'jre']:
+        if b["image_type"] not in ["jdk", "jre"]:
             continue
-        if b['os'].lower() != 'linux':
+        if b["os"].lower() != "linux":
             continue
-        normalized_verison = normalize_version(b['scm_ref'])
-        url = b['package']['link']
-        sha256 = b['package']['checksum']
+        normalized_verison = normalize_version(b["scm_ref"])
+        url = b["package"]["link"]
+        sha256 = b["package"]["checksum"]
 
-        arch = b['architecture']
-        if arch == 'x64':
-            arch = 'x86_64'
-        elif arch == 'arm':
-            arch = 'armv7l'
+        arch = b["architecture"]
+        if arch == "x64":
+            arch = "x86_64"
+        elif arch == "arm":
+            arch = "armv7l"
 
-        k = b['image_type'] + '-bin-' + version
+        k = b["image_type"] + "-bin-" + version
         if k not in result:
             result[k] = {}
         result[k][arch] = {
-            'version': normalized_verison,
-            'type': b['image_type'],
-            'url': url,
-            'sha256': sha256,
+            "version": normalized_verison,
+            "type": b["image_type"],
+            "url": url,
+            "sha256": sha256,
         }
     return result
 
@@ -59,16 +60,22 @@ def filter_binaries(binaries, version):
 def get_source(major_revision):
     session = requests.Session()
     session.headers.update(
-        {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36'})
+        {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36"
+        }
+    )
     source = session.get(
-        'https://api.adoptium.net/v3/assets/feature_releases/{major_revision}/ga?vendor=eclipse&page_size=100'.format(major_revision=major_revision)).json()
+        "https://api.adoptium.net/v3/assets/feature_releases/{major_revision}/ga?vendor=eclipse&page_size=100".format(
+            major_revision=major_revision
+        )
+    ).json()
 
     result = {}
     for s in source:
-        this_version = normalize_version(s['release_name'], True)
-        result.update(filter_binaries(s['binaries'], this_version))
+        this_version = normalize_version(s["release_name"], True)
+        result.update(filter_binaries(s["binaries"], this_version))
 
-    result.update(filter_binaries(source[0]['binaries'], str(major_revision)))
+    result.update(filter_binaries(source[0]["binaries"], str(major_revision)))
     return result
 
 
@@ -77,5 +84,5 @@ for v in [8, 11, 16, 17, 18]:
     result.update(get_source(v))
 
 # Write as json
-with open(get_script_path() + '/sources.json', 'w') as f:
+with open(get_script_path() + "/sources.json", "w") as f:
     f.write(json.dumps(result, indent=4))

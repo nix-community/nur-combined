@@ -1,34 +1,25 @@
 {
   stdenv,
-  fetchurl,
+  sources,
   lib,
   ncurses,
-  SDL2,
   ...
-}@args:
+}:
 stdenv.mkDerivation rec {
-  pname = "gopherus";
-  version = "1.2.1";
-  src = fetchurl {
-    url = "http://downloads.sourceforge.net/project/${pname}/v${version}/${pname}-${version}.tar.xz";
-    hash = "sha256-UQ9xWRri9AxVv/9H88IVx12FrPRRhOdSo4HfamxkeHs=";
-  };
+  inherit (sources.gopherus) pname version src;
 
-  buildInputs = [
-    ncurses
-    SDL2
-  ];
+  buildInputs = [ ncurses ];
 
   buildPhase = ''
-    make -f Makefile.lin gopherus gopherus-sdl
+    make -f Makefile.lin gopherus
   '';
 
   installPhase = ''
-    mkdir -p $out/bin
-    install -m755 gopherus gopherus-sdl "$out/bin"
+    install -Dm755 gopherus $out/bin/gopherus
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace.";
     homepage = "http://gopherus.sourceforge.net/";
     license = with licenses; [ bsd2 ];

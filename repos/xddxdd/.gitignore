@@ -5,3 +5,4 @@ trace.txt*
 .vscode
 .direnv
 *.log
+.pre-commit-config.yaml

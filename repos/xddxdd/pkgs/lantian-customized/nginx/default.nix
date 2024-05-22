@@ -21,7 +21,7 @@
   # extra args to make nixpkgs happy
   modules ? [ ],
   ...
-}@args:
+}:
 let
   patchUseOpensslMd5Sha1 = fetchurl {
     url = "https://github.com/kn007/patch/raw/master/use_openssl_md5_sha1.patch";
@@ -159,10 +159,11 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    modules = modules;
+    inherit modules;
   };
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "OpenResty with Lan Tian modifications";
     homepage = "https://openresty.org";
     license = licenses.bsd2;

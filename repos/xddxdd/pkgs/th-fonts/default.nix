@@ -1,4 +1,4 @@
-{ callPackage, sources, ... }@args:
+{ callPackage, sources, ... }:
 let
   font = callPackage ./font.nix { };
 in

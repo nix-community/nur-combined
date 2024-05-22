@@ -5,7 +5,7 @@
   mergePkgs,
   fetchpatch,
   ...
-}@args:
+}:
 let
   inherit (callPackage lib/extract.nix { }) extractGridDriver extractVgpuDriver;
   sources = lib.importJSON ./sources.json;
@@ -19,7 +19,7 @@ let
     version: source:
     let
       pkg = import lib/grid_base.nix {
-        version = source.guest.version;
+        inherit (source.guest) version;
         src = extractGridDriver version source;
         settingsSha256 = source.guest.settings_hash;
         settingsVersion = source.guest.settings_version;
@@ -34,7 +34,7 @@ let
     version: source:
     let
       pkg = import lib/vgpu_base.nix {
-        version = source.host.version;
+        inherit (source.host) version;
         src = extractVgpuDriver version source;
         settingsSha256 = source.host.settings_hash;
         settingsVersion = source.host.settings_version;

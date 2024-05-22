@@ -3,7 +3,7 @@
   sources,
   lib,
   ...
-}@args:
+}:
 stdenvNoCC.mkDerivation rec {
   inherit (sources.rime-zhwiki) pname version src;
   dontUnpack = true;
@@ -13,6 +13,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Fcitx 5 Pinyin Dictionary from zh.wikipedia.org";
     homepage = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki";
     license = licenses.unlicense;

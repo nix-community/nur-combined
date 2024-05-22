@@ -70,7 +70,7 @@ let
     '';
 
   uncategorizedOutput = packageSetOutput "(Uncategorized)" "" (
-    lib.filterAttrs (n: v: (builtins.tryEval v).success && isIndependentDerivation v) nurPackages
+    lib.filterAttrs (_n: v: (builtins.tryEval v).success && isIndependentDerivation v) nurPackages
   );
 
   packageSetsOutput = builtins.concatStringsSep "\n" (
@@ -101,10 +101,8 @@ writeTextFile {
     {
       inputs = {
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-        flake-utils.url = "github:numtide/flake-utils";
         nur-xddxdd = {
           url = "github:xddxdd/nur-packages";
-          inputs.flake-utils.follows = "flake-utils";
           inputs.nixpkgs.follows = "nixpkgs";
         };
       };
@@ -119,11 +117,10 @@ writeTextFile {
             # Setup QEMU userspace emulation that works with Docker
             inputs.nur-xddxdd.nixosModules.qemu-user-static-binfmt
 
-            # Binary cache (optional)
-            ({ ... }: {
-              nix.settings.substituters = [ "${_meta.url}" ];
-              nix.settings.trusted-public-keys = [ "${_meta.publicKey}" ];
-            })
+            # Binary cache (optional, choose any one, or see guide below)
+            inputs.nur-xddxdd.nixosModules.nix-cache-attic
+            inputs.nur-xddxdd.nixosModules.nix-cache-cachix
+            inputs.nur-xddxdd.nixosModules.nix-cache-garnix
           ];
         };
       };
@@ -132,12 +129,14 @@ writeTextFile {
 
     ## Binary Cache
 
-    This NUR has a binary cache. Use the following settings to access it:
+    This NUR automatically builds and pushes build artifacts to several binary caches. You can use any one of them to speed up your build.
+
+    ### Self-hosted (Attic)
 
     ```nix
     {
-      nix.settings.substituters = [ "${_meta.url}" ];
-      nix.settings.trusted-public-keys = [ "${_meta.publicKey}" ];
+      nix.settings.substituters = [ "${_meta.atticUrl}" ];
+      nix.settings.trusted-public-keys = [ "${_meta.atticPublicKey}" ];
     }
     ```
 
@@ -145,8 +144,44 @@ writeTextFile {
 
     ```nix
     {
-      nix.settings.substituters = [ nur.repos.xddxdd._meta.url ];
-      nix.settings.trusted-public-keys = [ nur.repos.xddxdd._meta.publicKey ];
+      nix.settings.substituters = [ nur.repos.xddxdd._meta.atticUrl ];
+      nix.settings.trusted-public-keys = [ nur.repos.xddxdd._meta.atticPublicKey ];
+    }
+    ```
+
+    ### Cachix
+
+    ```nix
+    {
+      nix.settings.substituters = [ "${_meta.cachixUrl}" ];
+      nix.settings.trusted-public-keys = [ "${_meta.cachixPublicKey}" ];
+    }
+    ```
+
+    Or, use variables from this repository in case I change them:
+
+    ```nix
+    {
+      nix.settings.substituters = [ nur.repos.xddxdd._meta.cachixUrl ];
+      nix.settings.trusted-public-keys = [ nur.repos.xddxdd._meta.cachixPublicKey ];
+    }
+    ```
+
+    ### Garnix.io
+
+    ```nix
+    {
+      nix.settings.substituters = [ "${_meta.garnixUrl}" ];
+      nix.settings.trusted-public-keys = [ "${_meta.garnixPublicKey}" ];
+    }
+    ```
+
+    Or, use variables from this repository in case I change them:
+
+    ```nix
+    {
+      nix.settings.substituters = [ nur.repos.xddxdd._meta.garnixUrl ];
+      nix.settings.trusted-public-keys = [ nur.repos.xddxdd._meta.garnixPublicKey ];
     }
     ```
 
@@ -157,6 +192,7 @@ writeTextFile {
     ${packageSetsOutput}
   '';
   meta = {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "README.md for Lan Tian's NUR Repo";
     homepage = "https://github.com/xddxdd/nur-packages";
     license = lib.licenses.unlicense;

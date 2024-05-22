@@ -10,7 +10,7 @@
   systemd,
   ninja,
   ...
-}@args:
+}:
 stdenv.mkDerivation rec {
   inherit (sources.uksmd) pname version src;
   nativeBuildInputs = [
@@ -25,6 +25,8 @@ stdenv.mkDerivation rec {
     systemd
   ];
 
+  mesonFlags = [ "-Dlibalpm=disabled" ];
+
   postPatch = ''
     sed -i "s#install_dir: systemd_system_unit_dir#install_dir: '$out/lib/systemd/system'#g" meson.build
     sed -i "s#/usr/bin#$out/bin#g" meson.build
@@ -32,6 +34,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Userspace KSM helper daemon";
     homepage = "https://github.com/CachyOS/uksmd";
     license = licenses.gpl3Only;

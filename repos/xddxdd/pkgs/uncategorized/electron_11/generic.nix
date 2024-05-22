@@ -34,14 +34,11 @@ let
   pname = "electron";
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Cross platform desktop application shell";
     homepage = "https://github.com/electron/electron";
     license = licenses.mit;
     mainProgram = "electron";
-    maintainers = with maintainers; [
-      travisbhartwell
-      manveru
-    ];
     platforms =
       [
         "x86_64-darwin"

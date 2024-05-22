@@ -5,6 +5,7 @@
   writeShellScript,
   buildFHSEnv,
   runCommand,
+  coreutils,
   # Dependencies
   alsa-lib,
   apr,
@@ -183,20 +184,14 @@ let
 
   fhs = buildFHSEnv {
     name = "browser360";
-    targetPkgs = pkgs: libraries;
+    targetPkgs = _pkgs: libraries;
     runScript = builtins.toString (
       writeShellScript "browser360" ''
-        mkdir -p /var/lib/browser360
-        cp ${distPkg}/opt/apps/com.360.browser-stable/files/components/professional.qcert /var/lib/browser360/professional.qcert
-        chmod 666 /var/lib/browser360/professional.qcert
-        cp ${dmiInfo} /var/lib/browser360/dmi.info
-        chmod 666 /var/lib/browser360/dmi.info
+        ${coreutils}/bin/install -Dm666 ${distPkg}/opt/apps/com.360.browser-stable/files/components/professional.qcert /var/lib/browser360/professional.qcert
+        ${coreutils}/bin/install -Dm666 ${dmiInfo} /var/lib/browser360/dmi.info
 
-        mkdir -p /apps-data/private/com.360.browser-stable
-        cp ${distPkg}/opt/apps/com.360.browser-stable/files/components/professional.qcert /apps-data/private/com.360.browser-stable/professional.qcert
-        chmod 666 /apps-data/private/com.360.browser-stable/professional.qcert
-        cp ${dmiInfo} /apps-data/private/com.360.browser-stable/dmi.info
-        chmod 666 /apps-data/private/com.360.browser-stable/dmi.info
+        ${coreutils}/bin/install -Dm666 ${distPkg}/opt/apps/com.360.browser-stable/files/components/professional.qcert /apps-data/private/com.360.browser-stable/professional.qcert
+        ${coreutils}/bin/install -Dm666 ${dmiInfo} /apps-data/private/com.360.browser-stable/dmi.info
 
         exec /opt/apps/com.360.browser-stable/files/browser360 "$@"
       ''
@@ -224,19 +219,16 @@ stdenv.mkDerivation {
   dontUnpack = true;
 
   postInstall = ''
-    mkdir -p $out/bin
-    ln -s ${fhs}/bin/browser360 $out/bin/browser360
+    install -Dm755 ${fhs}/bin/browser360 $out/bin/browser360
 
     # https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=browser360-bin
 
     for _icons in 16x16 24x24 32x32 48x48 64x64 128x128 256x256; do
-      mkdir -p "$out/share/icons/hicolor/''${_icons}/apps"
       install -Dm644 \
         "${distPkg}/opt/apps/com.360.browser-stable/files/product_logo_''${_icons/x*}.png" \
         "$out/share/icons/hicolor/''${_icons}/apps/com.360.browser-stable.png"
     done
 
-    mkdir -p "$out/share/applications"
     install -Dm644 \
       "${distPkg}/opt/apps/com.360.browser-stable/entries/applications/com.360.browser-stable.desktop" \
       "$out/share/applications/com.360.browser-stable.desktop"
@@ -246,6 +238,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "360 Browser";
     homepage = "https://browser.360.net/gc/index.html";
     platforms = [

@@ -6,7 +6,7 @@
   python3,
   flasgger,
   ...
-}@args:
+}:
 let
   pythonEnv = python3.withPackages (
     ps: with ps; [
@@ -42,6 +42,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "A Douban API server that provides an unofficial APIs for media information gathering";
     homepage = "https://github.com/caryyu/douban-openapi-server";
     license = with licenses; [ mit ];

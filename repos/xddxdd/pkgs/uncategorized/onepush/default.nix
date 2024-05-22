@@ -3,7 +3,7 @@
   sources,
   python3Packages,
   ...
-}@args:
+}:
 with python3Packages;
 buildPythonPackage rec {
   inherit (sources.onepush) pname version src;
@@ -17,6 +17,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "A Python library to send notifications to your iPhone, Discord, Telegram, WeChat, QQ and DingTalk.";
     homepage = "https://gitlab.com/y1ndan/onepush";
     license = with licenses; [ gpl3Only ];

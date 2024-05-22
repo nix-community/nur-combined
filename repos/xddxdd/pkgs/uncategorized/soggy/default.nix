@@ -7,7 +7,7 @@
   protobufc,
   lua5_3_compat,
   ...
-}@args:
+}:
 stdenv.mkDerivation rec {
   inherit (sources.soggy) pname version src;
   enableParallelBuilding = true;
@@ -24,15 +24,15 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin $out/opt
-    cp soggy $out/bin/
-    cp $src/soggy.cfg $out/opt/
+    install -Dm755 soggy $out/bin/soggy
+    install -Dm644 $src/soggy.cfg $out/opt/soggy.cfg
     cp -r $src/static $out/opt/
 
     runHook postInstall
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Experimental server emulator for a game I forgot its name";
     homepage = "https://github.com/LDAsuku/soggy";
     license = licenses.agpl3Only;

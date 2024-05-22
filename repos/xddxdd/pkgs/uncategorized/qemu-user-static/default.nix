@@ -24,6 +24,7 @@ let
       dontFixup = true;
 
       meta = with lib; {
+        maintainers = with lib.maintainers; [ xddxdd ];
         homepage = "http://www.qemu.org/";
         description = "A generic and open source machine emulator and virtualizer";
         license = licenses.gpl2Plus;

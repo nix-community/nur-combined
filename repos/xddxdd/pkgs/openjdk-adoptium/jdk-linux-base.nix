@@ -35,7 +35,7 @@ let
 
   result = stdenv.mkDerivation rec {
     pname = "openjdk-adoptium-${thisSource.type}-bin";
-    version = thisSource.version;
+    inherit (thisSource) version;
     src = fetchurl { inherit (thisSource) url sha256; };
 
     buildInputs = [
@@ -109,6 +109,7 @@ let
     passthru.home = result;
 
     meta = with lib; {
+      maintainers = with lib.maintainers; [ xddxdd ];
       license = licenses.gpl2Classpath;
       description = "OpenJDK binaries built by Eclipse Adoptium";
       homepage = "https://adoptium.net/";

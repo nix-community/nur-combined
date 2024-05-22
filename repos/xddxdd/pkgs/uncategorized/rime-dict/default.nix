@@ -3,7 +3,7 @@
   sources,
   lib,
   ...
-}@args:
+}:
 stdenvNoCC.mkDerivation rec {
   inherit (sources.rime-dict) pname version src;
   installPhase = ''
@@ -12,7 +12,9 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "RIME 词库增强";
     homepage = "https://github.com/Iorest/rime-dict";
+    license = with lib.licenses; [ unfree ];
   };
 }

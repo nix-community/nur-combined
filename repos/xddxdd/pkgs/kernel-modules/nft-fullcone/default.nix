@@ -27,6 +27,7 @@ stdenv.mkDerivation rec {
   installTargets = [ "modules_install" ];
 
   meta = {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Nftables fullcone expression kernel module";
     homepage = "https://github.com/fullcone-nat-nftables/nft-fullcone";
     license = lib.licenses.gpl3Only;

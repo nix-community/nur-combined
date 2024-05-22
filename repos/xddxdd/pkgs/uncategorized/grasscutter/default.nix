@@ -6,9 +6,8 @@
   jre_headless,
   procps,
   makeWrapper,
-  writeScript,
   ...
-}@args:
+}:
 let
   resources = sources.grasscutter-resources.src;
   keystore = fetchurl {
@@ -28,7 +27,7 @@ stdenvNoCC.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/bin $out/opt
-    cp $src $out/grasscutter.jar
+    install -Dm644 $src $out/grasscutter.jar
 
     ln -s ${resources}/Resources $out/opt/resources
     ln -s ${keystore} $out/opt/keystore.p12
@@ -51,6 +50,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "A server software reimplementation for a certain anime game.";
     homepage = "https://github.com/Grasscutters/Grasscutter";
     license = with licenses; [ agpl3Only ];

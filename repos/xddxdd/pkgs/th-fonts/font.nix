@@ -3,7 +3,7 @@
   lib,
   p7zip,
   ...
-}@args:
+}:
 # Args
 source:
 stdenvNoCC.mkDerivation rec {
@@ -21,6 +21,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "${pname} font";
     homepage = "http://cheonhyeong.com/Simplified/download.html";
   };

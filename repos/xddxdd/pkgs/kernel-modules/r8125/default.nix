@@ -28,6 +28,7 @@ stdenv.mkDerivation rec {
   inherit (kernel) makeFlags;
 
   meta = {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface";
     homepage = "https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software";
     license = lib.licenses.unfree;

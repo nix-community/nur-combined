@@ -13,7 +13,6 @@
 mode:
 {
   pkgs ? import <nixpkgs> { },
-  inputs ? null,
   ...
 }:
 let
@@ -29,9 +28,10 @@ let
       (lib.makeScope pkgs.newScope (
         self:
         let
-          pkg = self.newScope {
+          pkg = self.newScope rec {
             inherit mkScope;
-            sources = self.callPackage ../_sources/generated.nix { };
+            nvfetcherLoader = pkgs.callPackage ../helpers/nvfetcher-loader.nix { };
+            sources = nvfetcherLoader ../_sources/generated.nix;
           };
         in
         f self pkg
@@ -55,16 +55,18 @@ mkScope (
           "legacy"
         ]);
     };
+
+    meta = import ../helpers/meta.nix;
   in
   {
     # Binary cache information
-    _meta = mergePkgs {
-      url = "https://xddxdd.cachix.org";
-      publicKey = "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8=";
-
-      howto = pkg ./_meta/howto { };
-      readme = pkg ./_meta/readme { };
-    };
+    _meta = mergePkgs (
+      {
+        howto = pkg ./_meta/howto { };
+        readme = pkg ./_meta/readme { };
+      }
+      // meta
+    );
 
     # Package groups
     asteriskDigiumCodecs = mergePkgs (pkg ./asterisk-digium-codecs { inherit mergePkgs; });
@@ -98,6 +100,7 @@ mkScope (
     # Kernel modules
     kernel = pkgs.linux;
     acpi-ec = pkg ./kernel-modules/acpi-ec { };
+    ast = pkg ./kernel-modules/ast { };
     cryptodev-unstable = pkg ./kernel-modules/cryptodev-unstable { };
     dpdk-kmod = pkg ./kernel-modules/dpdk-kmod { };
     i915-sriov = pkg ./kernel-modules/i915-sriov { };
@@ -165,7 +168,7 @@ mkScope (
     nvlax-530 = pkg ./uncategorized/nvlax/nvidia-530.nix { };
     oci-arm-host-capacity = pkg ./uncategorized/oci-arm-host-capacity { };
     onepush = pkg ./uncategorized/onepush { };
-    openssl-oqs = pkg ./uncategorized/openssl-oqs { cryptodev = pkgs.linuxPackages.cryptodev; };
+    openssl-oqs = pkg ./uncategorized/openssl-oqs { inherit (pkgs.linuxPackages) cryptodev; };
     openssl-oqs-provider = pkg ./uncategorized/openssl-oqs-provider { };
     osdlyrics = pkg ./uncategorized/osdlyrics { };
     palworld-exporter = pkg ./uncategorized/palworld-exporter { };
@@ -199,7 +202,7 @@ mkScope (
     space-cadet-pinball-full-tilt = pkg ./uncategorized/space-cadet-pinball-full-tilt { };
     svp = pkg ./uncategorized/svp { };
     svp-mpv = pkg ./uncategorized/svp/mpv.nix { };
-    tachidesk-server = pkg ./uncategorized/tachidesk-server { };
+    suwayomi-server = pkg ./uncategorized/suwayomi-server { };
     uesave = pkg ./uncategorized/uesave { };
     uksmd = pkg ./uncategorized/uksmd { };
     undetected-chromedriver = pkg ./uncategorized/undetected-chromedriver { };

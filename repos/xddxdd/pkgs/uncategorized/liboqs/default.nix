@@ -4,7 +4,7 @@
   sources,
   cmake,
   ...
-}@args:
+}:
 stdenv.mkDerivation rec {
   inherit (sources.liboqs) pname version src;
 
@@ -35,6 +35,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "C library for prototyping and experimenting with quantum-resistant cryptography";
     homepage = "https://openquantumsafe.org";
     license = with licenses; [ mit ];

@@ -25,6 +25,7 @@ stdenv.mkDerivation rec {
   installTargets = [ "modules_install" ];
 
   meta = {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Kernel module to access directly to the ACPI EC";
     homepage = "https://github.com/musikid/acpi_ec";
     license = lib.licenses.gpl3Only;

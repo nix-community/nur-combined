@@ -107,6 +107,7 @@ let
     } // optionalAttrs (!i686bundled) { inherit lib32; };
 
     meta = with lib; {
+      maintainers = with lib.maintainers; [ xddxdd ];
       homepage = "https://www.nvidia.com/object/unix.html";
       description = "NVIDIA vGPU guest driver (GRID driver, experimental package)";
       license = licenses.unfreeRedistributable;

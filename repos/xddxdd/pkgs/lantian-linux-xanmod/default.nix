@@ -3,7 +3,7 @@
   lib,
   sources,
   ...
-}@args:
+}:
 let
   helpers = callPackage ./helpers.nix { };
   inherit (helpers) mkKernel;

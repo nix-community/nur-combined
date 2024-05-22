@@ -5,7 +5,7 @@
   xstatic-asciinema-player,
   xstatic-font-awesome,
   ...
-}@args:
+}:
 python3Packages.buildPythonPackage rec {
   inherit (sources.bepasty) pname version src;
 
@@ -33,6 +33,7 @@ python3Packages.buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "universal pastebin server";
     homepage = "https://bepasty-server.readthedocs.org/";
     license = with licenses; [ bsd2 ];

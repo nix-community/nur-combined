@@ -35,7 +35,7 @@ let
 
   result = stdenv.mkDerivation rec {
     pname = "openj9-ibm-semeru-${thisSource.type}-bin";
-    version = thisSource.version;
+    inherit (thisSource) version;
     src = fetchurl { inherit (thisSource) url sha256; };
 
     buildInputs = [
@@ -109,6 +109,7 @@ let
     passthru.home = result;
 
     meta = with lib; {
+      maintainers = with lib.maintainers; [ xddxdd ];
       license = licenses.gpl2Classpath;
       description = "OpenJ9 binaries built by IBM Semeru";
       homepage = "https://developer.ibm.com/languages/java/semeru-runtimes/";

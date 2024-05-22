@@ -5,7 +5,7 @@
   python3Packages,
   makeWrapper,
   ...
-}@args:
+}:
 with python3Packages;
 let
   pyenet = buildPythonPackage {
@@ -18,7 +18,7 @@ let
 
   pythonEnv = python3.withPackages (
     ps: with ps; [
-      (betterproto.overridePythonAttrs (old: {
+      (betterproto.overridePythonAttrs (_old: {
         doCheck = false;
       }))
       bottle
@@ -49,6 +49,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "public and open source version of the cbt2 ps im working on ";
     homepage = "https://github.com/Hiro420/CockPY";
     license = with licenses; [ unfreeRedistributable ];

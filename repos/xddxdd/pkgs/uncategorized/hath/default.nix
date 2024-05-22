@@ -5,22 +5,22 @@
   jre_headless,
   makeWrapper,
   ...
-}@args:
+}:
 stdenvNoCC.mkDerivation rec {
   pname = "hath";
-  version = "1.6.1";
+  version = "1.6.2";
   src = fetchzip {
     url = "https://repo.e-hentai.org/hath/HentaiAtHome_${version}.zip";
     stripRoot = false;
-    hash = "sha256-a690bpznUEqe4Z6vn6QClUBToSqpcj3vPyklURZlgW0=";
+    hash = "sha256-0c8ltti19c6QBkcxZThdqHRGN7pDP0YUwwFXcvvmqDM=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
-    mkdir -p $out/bin $out/opt
-    cp HentaiAtHome.jar $out/opt/
+    install -Dm644 HentaiAtHome.jar $out/opt/HentaiAtHome.jar
 
+    mkdir -p $out/bin
     makeWrapper ${jre_headless}/bin/java $out/bin/hath \
       --add-flags "-Xms16m" \
       --add-flags "-Xmx512m" \
@@ -29,6 +29,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Hentai@Home";
     homepage = "https://e-hentai.org/";
     license = licenses.gpl3Only;

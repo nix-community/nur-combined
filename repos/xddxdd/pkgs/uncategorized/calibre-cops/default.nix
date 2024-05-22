@@ -5,7 +5,7 @@
   dos2unix,
   unzip,
   ...
-}@args:
+}:
 let
   configFile = ./config_local.php;
 in
@@ -33,6 +33,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Calibre OPDS (and HTML) PHP Server : web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks (epub, mobi, pdf, ...)";
     homepage = "http://blog.slucas.fr/en/oss/calibre-opds-php-server";
     license = licenses.gpl2Only;

@@ -5,7 +5,7 @@
   click-loglevel,
   py-rcon,
   ...
-}@args:
+}:
 with python3Packages;
 buildPythonApplication rec {
   inherit (sources.palworld-exporter) pname version src;
@@ -30,6 +30,7 @@ buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Prometheus exporter for Palword Server";
     homepage = "https://github.com/palworldlol/palworld-exporter";
     license = with licenses; [ mit ];

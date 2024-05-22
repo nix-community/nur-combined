@@ -48,7 +48,11 @@ fetch.pypi = "bepasty"
 src.github_tag = "msojocs/bilibili-linux"
 src.from_pattern = "v(.*)"
 src.to_pattern = "\\1"
-fetch.url = "https://github.com/msojocs/bilibili-linux/releases/download/v$ver/io.github.msojocs.bilibili_$ver_amd64.deb"
+fetch.url = "https://github.com/msojocs/bilibili-linux/releases/download/v$ver/bilibili-asar-v$ver.tar.gz"
+
+[bilibili-src]
+src.github_tag = "msojocs/bilibili-linux"
+fetch.github = "msojocs/bilibili-linux"
 
 [bird-lg-go]
 src.github = "xddxdd/bird-lg-go"
@@ -149,6 +153,11 @@ fetch.github = "FlareSolverr/FlareSolverr"
 src.github = "flasgger/flasgger"
 fetch.github = "flasgger/flasgger"
 
+[ftp-proxy]
+src.webpage = "http://www.ftpproxy.org/download/"
+src.regex = "\"ftpproxy-([0-9\\.]+).tgz\""
+fetch.url = "http://www.ftpproxy.org/download/ftpproxy-$ver.tgz"
+
 [genshin-checkin-helper]
 src.git = "https://gitlab.com/y1ndan/genshin-checkin-helper.git"
 fetch.git = "https://gitlab.com/y1ndan/genshin-checkin-helper.git"
@@ -164,6 +173,11 @@ fetch.github = "glauth/glauth"
 [google-earth-pro]
 src.aur = "google-earth-pro"
 fetch.url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_$ver-r0_amd64.deb"
+
+[gopherus]
+src.webpage = "https://gopherus.sourceforge.net/"
+src.regex = "\"gopherus-([0-9\\.]+).tar.xz"
+fetch.url = "https://gopherus.sourceforge.net/gopherus-$ver.tar.xz"
 
 [grasscutter]
 src.github = "Grasscutters/Grasscutter"
@@ -368,7 +382,8 @@ src.github = "ssut/payload-dumper-go"
 fetch.github = "ssut/payload-dumper-go"
 
 [peerbanhelper]
-src.github = "Ghost-chu/PeerBanHelper"
+# src.github = "Ghost-chu/PeerBanHelper"
+src.manual = "v3.3.7"
 fetch.url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/$ver/PeerBanHelper.jar"
 
 [phpmyadmin]
@@ -501,6 +516,16 @@ fetch.github = "LDAsuku/soggy"
 [stream-echo-nginx-module]
 src.git = "https://github.com/openresty/stream-echo-nginx-module.git"
 fetch.github = "openresty/stream-echo-nginx-module"
+
+[svp]
+src.httpheader = "https://www.svp-team.com/files/svp4-latest.php?linux"
+src.regex = "svp4-linux.([0-9\\.]+).tar.bz2"
+fetch.url = "https://www.svp-team.com/files/svp4-linux.$ver.tar.bz2"
+
+[suwayomi-server]
+src.webpage = "https://github.com/Suwayomi/Suwayomi-Server/releases"
+src.regex = "/releases/download/(v[0-9\\.]+/Suwayomi-Server-v[0-9\\.]+-r[0-9]+)-"
+fetch.url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/$ver.jar"
 
 [th-tshyn]
 src.webpage = "http://cheonhyeong.com/Simplified/download.html"

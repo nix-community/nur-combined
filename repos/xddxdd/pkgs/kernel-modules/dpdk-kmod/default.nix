@@ -27,6 +27,7 @@ stdenv.mkDerivation rec {
   installTargets = [ "modules_install" ];
 
   meta = {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "DPDK kernel modules or add-ons";
     homepage = "https://git.dpdk.org/dpdk-kmods/";
     license = lib.licenses.gpl2Only;

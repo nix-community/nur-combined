@@ -46,7 +46,7 @@ jobs:
           platforms: all
 
       - name: Install nix
-        uses: cachix/install-nix-action@v26
+        uses: cachix/install-nix-action@V27
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
@@ -57,7 +57,7 @@ jobs:
             log-lines = 25
 
       - name: Setup cachix
-        uses: cachix/cachix-action@v14
+        uses: cachix/cachix-action@v15
         with:
           name: xddxdd
           signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
@@ -74,7 +74,7 @@ jobs:
       - name: Set nix daemon tmpdir path
         run: |
           sudo mkdir -p /nix/tmpdir
-          sudo chown $(whoami) /nix/tmpdir
+          sudo chown "$(whoami)" /nix/tmpdir
 
           cat > override.conf <<EOF
           [Service]
@@ -114,7 +114,7 @@ jobs:
           image: tonistiigi/binfmt:latest
           platforms: all
       - name: Install nix
-        uses: cachix/install-nix-action@v26
+        uses: cachix/install-nix-action@V27
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
@@ -127,6 +127,7 @@ jobs:
 
   update-nur:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
     needs:
       - build-packages
       - test-nur-eval
@@ -136,6 +137,7 @@ jobs:
 
   update-flakehub:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
     needs:
       - build-packages
       - test-nur-eval

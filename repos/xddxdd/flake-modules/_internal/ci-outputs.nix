@@ -1,5 +1,4 @@
 {
-  self,
   lib,
   flake-parts-lib,
   inputs,
@@ -30,19 +29,15 @@ in
   ];
 
   perSystem =
-    {
-      config,
-      system,
-      pkgs,
-      ...
-    }:
+    { pkgs, ... }:
     let
       inherit (pkgs.callPackage ../../helpers/is-buildable.nix { }) isBuildable;
       outputsOf = p: map (o: p.${o}) p.outputs;
-      sources = pkgs.callPackage ../../_sources/generated.nix { };
+      nvfetcherLoader = pkgs.callPackage ../../helpers/nvfetcher-loader.nix { };
+      sources = nvfetcherLoader ../../_sources/generated.nix;
     in
     rec {
-      ciPackages = lib.filterAttrs (n: isBuildable) (import ../../pkgs "ci" { inherit inputs pkgs; });
+      ciPackages = lib.filterAttrs (_n: isBuildable) (import ../../pkgs "ci" { inherit inputs pkgs; });
       ciOutputs =
         (lib.flatten (lib.mapAttrsToList (_: outputsOf) ciPackages))
         ++ builtins.filter (v: v != null) (lib.mapAttrsToList (_: v: v.src or null) sources);

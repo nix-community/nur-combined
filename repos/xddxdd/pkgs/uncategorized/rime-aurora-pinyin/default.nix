@@ -2,7 +2,6 @@
   sources,
   stdenvNoCC,
   lib,
-  fetchurl,
   ...
 }:
 stdenvNoCC.mkDerivation {
@@ -13,6 +12,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "【极光拼音】输入方案";
     homepage = "https://github.com/hosxy/rime-aurora-pinyin";
     license = licenses.asl20;

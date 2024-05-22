@@ -1,22 +1,36 @@
 {
   stdenv,
-  sources,
   lib,
+  makeWrapper,
+  # Runtime dependnecies
+  curl,
+  inetutils,
+  which,
   ...
-}@args:
+}:
+let
+  additionalPath = lib.makeBinPath [
+    curl
+    inetutils
+    which
+  ];
+in
 stdenv.mkDerivation rec {
   pname = "dn42-pingfinder";
   version = "1.0.0";
   src = ./dn42-pingfinder.sh;
 
+  nativeBuildInputs = [ makeWrapper ];
+
   dontUnpack = true;
   installPhase = ''
-    mkdir -p $out/bin
-    cp $src $out/bin/dn42-pingfinder
-    chmod +x $out/bin/dn42-pingfinder
+    install -Dm755 $src $out/bin/dn42-pingfinder
+    wrapProgram $out/bin/dn42-pingfinder \
+      --suffix PATH : "${additionalPath}"
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "DN42 Pingfinder";
     homepage = "https://git.dn42.dev/dn42/pingfinder/src/branch/master/clients";
     license = licenses.unfreeRedistributable;

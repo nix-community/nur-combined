@@ -21,6 +21,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Headphone Surround Virtualizations for Equalizer APO";
     homepage = "https://sourceforge.net/projects/hesuvi/";
     license = licenses.free;

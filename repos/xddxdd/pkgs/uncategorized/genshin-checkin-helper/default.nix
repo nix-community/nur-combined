@@ -5,7 +5,7 @@
   onepush,
   genshinhelper2,
   ...
-}@args:
+}:
 with python3Packages;
 let
   setupPy = ./setup.py;
@@ -25,6 +25,7 @@ buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "More than check-in for Genshin Impact.";
     homepage = "https://gitlab.com/y1ndan/genshin-checkin-helper";
     license = with licenses; [ gpl3Only ];

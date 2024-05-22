@@ -93,6 +93,7 @@ let
     };
 
     meta = with lib; {
+      maintainers = with lib.maintainers; [ xddxdd ];
       homepage = "https://www.nvidia.com/object/unix.html";
       description = "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)";
       license = licenses.unfreeRedistributable;

@@ -18,6 +18,7 @@ writeTextFile rec {
     nix.settings.trusted-public-keys = [ nur.repos.xddxdd._meta.publicKey ];
   '';
   meta = {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = text;
     homepage = "https://github.com/xddxdd/nur-packages";
     license = lib.licenses.unlicense;

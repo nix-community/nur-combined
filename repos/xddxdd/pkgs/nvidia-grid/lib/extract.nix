@@ -5,7 +5,7 @@
   unzip,
   p7zip,
   ...
-}@args:
+}:
 let
   unpack =
     args: version: source:
@@ -16,7 +16,7 @@ let
         srcs = lib.mapAttrsToList (
           url: hash:
           fetchurl {
-            url = url;
+            inherit url;
             sha256 = hash;
           }
         ) source.urls;
@@ -58,6 +58,7 @@ in
     '';
 
     meta = with lib; {
+      maintainers = with lib.maintainers; [ xddxdd ];
       homepage = "https://www.nvidia.com/object/unix.html";
       description = "NVIDIA vGPU host driver (vGPU-KVM driver) installer";
       license = licenses.unfreeRedistributable;
@@ -72,6 +73,7 @@ in
     '';
 
     meta = with lib; {
+      maintainers = with lib.maintainers; [ xddxdd ];
       homepage = "https://www.nvidia.com/object/unix.html";
       description = "NVIDIA vGPU guest driver (GRID driver) installer";
       license = licenses.unfreeRedistributable;

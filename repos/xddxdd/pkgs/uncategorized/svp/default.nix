@@ -2,7 +2,7 @@
   stdenv,
   buildFHSEnv,
   writeShellScriptBin,
-  fetchurl,
+  sources,
   callPackage,
   makeDesktopItem,
   copyDesktopItems,
@@ -70,11 +70,7 @@ let
 
   svp-dist = stdenv.mkDerivation rec {
     pname = "svp-dist";
-    version = "4.5.210-2";
-    src = fetchurl {
-      url = "https://www.svp-team.com/files/svp4-linux.${version}.tar.bz2";
-      hash = "sha256-dY9uQ9jzTHiN2XSnOrXtHD11IIJW6t9BUzGGQFfZ+yg=";
-    };
+    inherit (sources.svp) version src;
 
     nativeBuildInputs = [
       p7zip
@@ -100,8 +96,7 @@ let
       done
 
       for SIZE in 32 48 64 128; do
-        mkdir -p "$out/share/icons/hicolor/''${SIZE}x''${SIZE}/apps"
-        mv "$out/opt/svp-manager4-''${SIZE}.png" "$out/share/icons/hicolor/''${SIZE}x''${SIZE}/apps/svp-manager4.png"
+        install -Dm644 "$out/opt/svp-manager4-''${SIZE}.png" "$out/share/icons/hicolor/''${SIZE}x''${SIZE}/apps/svp-manager4.png"
       done
       rm -f $out/opt/{add,remove}-menuitem.sh
     '';
@@ -109,7 +104,7 @@ let
 
   fhs = buildFHSEnv {
     name = "SVPManager";
-    targetPkgs = pkgs: libraries;
+    targetPkgs = _pkgs: libraries;
     runScript = "${svp-dist}/opt/SVPManager";
     unshareUser = false;
     unshareIpc = false;
@@ -120,16 +115,16 @@ let
   };
 in
 stdenv.mkDerivation {
-  pname = "svp";
-  inherit (svp-dist) version;
+  inherit (sources.svp) pname version;
 
   dontUnpack = true;
 
   nativeBuildInputs = [ copyDesktopItems ];
 
   postInstall = ''
-    mkdir -p $out/bin $out/share
-    ln -s ${fhs}/bin/SVPManager $out/bin/SVPManager
+    install -Dm755 ${fhs}/bin/SVPManager $out/bin/SVPManager
+
+    mkdir -p $out/share
     ln -s ${svp-dist}/share/icons $out/share/icons
   '';
 
@@ -160,6 +155,7 @@ stdenv.mkDerivation {
   ];
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player.";
     homepage = "https://www.svp-team.com/wiki/SVP:Linux";
     platforms = [ "x86_64-linux" ];

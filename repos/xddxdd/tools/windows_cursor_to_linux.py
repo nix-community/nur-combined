@@ -1,11 +1,12 @@
+#!/usr/bin/env python
 import json
 import os
 import re
 import shlex
 import sys
-from requests.structures import CaseInsensitiveDict
 from typing import Dict, List, Tuple
 
+from requests.structures import CaseInsensitiveDict
 from win2xcur.parser import open_blob
 from win2xcur.writer import to_x11
 
@@ -139,14 +140,17 @@ class WindowsInfParser:
         self.dict, self.list = self._load(inf_path)
         self._substitute_all_variables()
 
-    def _load(self, path: str) -> Tuple[CaseInsensitiveDict[str, CaseInsensitiveDict[str, str]], CaseInsensitiveDict[str, List[str]]]:
+    def _load(self, path: str) -> Tuple[
+        CaseInsensitiveDict[str, CaseInsensitiveDict[str, str]],
+        CaseInsensitiveDict[str, List[str]],
+    ]:
         with open(path) as f:
             content = [s.strip() for s in f.readlines()]
 
-        result_dict: CaseInsensitiveDict[str,
-                                         CaseInsensitiveDict[str, str]] = CaseInsensitiveDict()
-        result_list: CaseInsensitiveDict[str,
-                                         List[str]] = CaseInsensitiveDict()
+        result_dict: CaseInsensitiveDict[str, CaseInsensitiveDict[str, str]] = (
+            CaseInsensitiveDict()
+        )
+        result_list: CaseInsensitiveDict[str, List[str]] = CaseInsensitiveDict()
         current_key = None
         for line in content:
             if not line:
@@ -157,8 +161,7 @@ class WindowsInfParser:
                 current_key = match[1]
                 continue
 
-            match = re.match("^(\S+)\s*=\s*(\S+)$", line,
-                             re.IGNORECASE | re.MULTILINE)
+            match = re.match("^(\S+)\s*=\s*(\S+)$", line, re.IGNORECASE | re.MULTILINE)
             if match:
                 if current_key not in result_dict:
                     result_dict[current_key] = CaseInsensitiveDict()
@@ -173,10 +176,17 @@ class WindowsInfParser:
         return result_dict, result_list
 
     def _substitute_all_variables(self):
-        self.dict = CaseInsensitiveDict({k: CaseInsensitiveDict({kk: self.eval_string(
-            vv) for kk, vv in v.items()}) for k, v in self.dict.items()})
-        self.list = CaseInsensitiveDict({k: [self.eval_string(s) for s in v]
-                                         for k, v in self.list.items()})
+        self.dict = CaseInsensitiveDict(
+            {
+                k: CaseInsensitiveDict(
+                    {kk: self.eval_string(vv) for kk, vv in v.items()}
+                )
+                for k, v in self.dict.items()
+            }
+        )
+        self.list = CaseInsensitiveDict(
+            {k: [self.eval_string(s) for s in v] for k, v in self.list.items()}
+        )
 
     def eval_string(self, s: str) -> str:
         def _normalize_string(s: str) -> str:
@@ -188,7 +198,8 @@ class WindowsInfParser:
         def _substitute_variable(match: re.Match[str]) -> str:
             var_name = match.group(1)
             strings: CaseInsensitiveDict = self.dict.get(
-                "Strings", CaseInsensitiveDict())
+                "Strings", CaseInsensitiveDict()
+            )
             return _normalize_string(strings.get(var_name, match.group(0)))
 
         return re.sub("%([^%]+)%", _substitute_variable, _normalize_string(s))
@@ -196,11 +207,12 @@ class WindowsInfParser:
     def get_cursor_path(self, cursor_path: str) -> str:
         # TODO: implement path parsing instead of assuming
         # cursors are in same directory as inf file
-        return os.path.join(os.path.dirname(self.inf_path), os.path.basename(cursor_path))
+        return os.path.join(
+            os.path.dirname(self.inf_path), os.path.basename(cursor_path)
+        )
 
     def get_cursor_scheme(self):
-        add_reg = self.dict.get(
-            "DefaultInstall", CaseInsensitiveDict()).get("AddReg")
+        add_reg = self.dict.get("DefaultInstall", CaseInsensitiveDict()).get("AddReg")
 
         if not add_reg:
             return None
@@ -211,7 +223,10 @@ class WindowsInfParser:
             for entry in entries:
                 args = shlex.split((entry.replace(",", " ")))
                 print(args)
-                if args[0].upper() in ["HKCU", "HKEY_CURRENT_USER"] and args[1].upper() == 'Control Panel/Cursors/Schemes'.upper():
+                if (
+                    args[0].upper() in ["HKCU", "HKEY_CURRENT_USER"]
+                    and args[1].upper() == "Control Panel/Cursors/Schemes".upper()
+                ):
                     cursors = shlex.split(args[3])
                     return {
                         "__name__": args[2],
@@ -259,7 +274,8 @@ class WindowsInfParser:
                 cursor = open_blob(blob)
             except Exception:
                 print(
-                    f'Error occurred while processing {cursor_name}:', file=sys.stderr)
+                    f"Error occurred while processing {cursor_name}:", file=sys.stderr
+                )
             else:
                 result = to_x11(cursor.frames)
 
@@ -268,12 +284,11 @@ class WindowsInfParser:
                 except Exception:
                     pass
 
-                with open(dst_file, 'wb') as f:
+                with open(dst_file, "wb") as f:
                     f.write(result)
 
         for cursor_symlink, cursor_actual in CURSOR_MAPPINGS.items():
-            full_path_to_create = os.path.join(
-                target_cursor_path, cursor_symlink)
+            full_path_to_create = os.path.join(target_cursor_path, cursor_symlink)
 
             try:
                 os.remove(full_path_to_create)

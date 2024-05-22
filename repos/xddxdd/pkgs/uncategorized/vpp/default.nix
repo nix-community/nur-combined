@@ -21,7 +21,7 @@
   xdp-tools,
   zlib,
   ...
-}@args:
+}:
 let
   dpdk-vpp = dpdk.overrideAttrs (old: {
     mesonFlags = (old.mesonFlags or [ ]) ++ [ "-Denable_driver_sdk=true" ];
@@ -76,6 +76,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Vector Packet Processing";
     homepage = "https://wiki.fd.io/view/VPP/What_is_VPP%3F";
     license = licenses.asl20;

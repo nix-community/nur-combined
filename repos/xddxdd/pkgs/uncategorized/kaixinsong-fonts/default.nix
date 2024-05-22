@@ -3,7 +3,7 @@
   lib,
   fetchurl,
   ...
-}@args:
+}:
 let
   kaixinsong-a = fetchurl {
     url = "https://backblaze.lantian.pub/KaiXinSongA.ttf";
@@ -21,12 +21,16 @@ stdenvNoCC.mkDerivation rec {
   dontUnpack = true;
   postInstall = ''
     mkdir -p $out/share/fonts/truetype/
-    cp ${kaixinsong-a} $out/share/fonts/truetype/KaiXinSongA.ttf
-    cp ${kaixinsong-b} $out/share/fonts/truetype/KaiXinSongB.ttf
+    install -m644 \
+      ${kaixinsong-a} \
+      ${kaixinsong-b} \
+      $out/share/fonts/truetype/
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "KaiXinSong";
     homepage = "http://www.guoxuedashi.net/zidian/bujian/KaiXinSong.php";
+    license = with lib.licenses; [ unfreeRedistributable ];
   };
 }

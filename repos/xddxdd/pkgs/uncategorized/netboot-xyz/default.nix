@@ -3,7 +3,7 @@
   stdenvNoCC,
   sources,
   ...
-}@args:
+}:
 assert (sources.netboot-xyz-lkrn.version == sources.netboot-xyz-lkrn.version);
 stdenvNoCC.mkDerivation rec {
   pname = "netboot-xyz";
@@ -17,6 +17,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE.";
     homepage = "https://netboot.xyz/";
     license = licenses.asl20;

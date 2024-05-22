@@ -58,7 +58,7 @@
   util-linux,
   xorg,
   ...
-}@args:
+}:
 ################################################################################
 # Mostly based on dingtalk-bin package from AUR:
 # https://aur.archlinux.org/packages/dingtalk-bin
@@ -209,8 +209,7 @@ stdenv.mkDerivation rec {
   '';
 
   postInstall = ''
-    mkdir -p $out
-    mv version $out/
+    install -Dm644 version $out/version
 
     # Move libraries
     # DingTalk relies on (some of) the exact libraries it ships with
@@ -229,8 +228,7 @@ stdenv.mkDerivation rec {
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}"
 
     # App Menu
-    mkdir -p $out/share/pixmaps
-    ln -s ${./dingtalk.png} $out/share/pixmaps/dingtalk.png
+    install -Dm644 ${./dingtalk.png} $out/share/pixmaps/dingtalk.png
   '';
 
   desktopItems = [
@@ -251,6 +249,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "钉钉";
     homepage = "https://www.dingtalk.com/";
     platforms = [ "x86_64-linux" ];

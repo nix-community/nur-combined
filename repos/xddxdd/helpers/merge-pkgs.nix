@@ -8,7 +8,7 @@ packages:
 # Utility to build all derivations in `packages`.
 # Passthru everything in `packages` even if not a derivation.
 let
-  packages' = lib.filterAttrs (k: v: lib.isDerivation v) packages;
+  packages' = lib.filterAttrs (_k: v: lib.isDerivation v) packages;
 in
 (
   if enableWrapper then
@@ -19,7 +19,7 @@ in
         meta =
           let
             allMetas = lib.mapAttrsToList (
-              k: v:
+              _k: v:
               let
                 evalResult = builtins.tryEval v;
               in

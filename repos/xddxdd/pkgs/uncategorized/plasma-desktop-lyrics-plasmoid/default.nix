@@ -13,6 +13,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "KDE Plasma 桌面歌词显示挂件（Plasmoid 组件）";
     homepage = "https://github.com/chiyuki0325/PlasmaDesktopLyrics";
     # Upsteam did not specify license

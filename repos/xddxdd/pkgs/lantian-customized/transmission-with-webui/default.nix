@@ -1,9 +1,4 @@
-{
-  lib,
-  sources,
-  transmission,
-  ...
-}:
+{ sources, transmission, ... }:
 transmission.overrideAttrs (old: {
   postInstall =
     (old.postInstall or "")

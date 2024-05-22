@@ -1,5 +1,6 @@
 {
   nftables,
+  lib,
   libnftnl-fullcone,
   fetchurl,
   ...
@@ -11,4 +12,8 @@
       hash = "sha256-4C/kiaLxxDGRH6V0wQCUk0ZIEKTKADd6KRv8U9lb6fU=";
     })
   ];
+
+  meta = old.meta // {
+    maintainers = with lib.maintainers; [ xddxdd ];
+  };
 })

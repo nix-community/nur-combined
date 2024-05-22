@@ -6,7 +6,7 @@
   makeWrapper,
   unzip,
   ...
-}@args:
+}:
 stdenvNoCC.mkDerivation rec {
   inherit (sources.jproxy) pname version src;
 
@@ -28,6 +28,7 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "A proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate ";
     homepage = "https://github.com/LuckyPuppy514/jproxy";
     license = licenses.mit;

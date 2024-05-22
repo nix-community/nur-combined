@@ -3,7 +3,7 @@
   lib,
   sources,
   ...
-}@args:
+}:
 let
   package =
     P1_variant:
@@ -17,6 +17,7 @@ let
       '';
 
       meta = with lib; {
+        maintainers = with lib.maintainers; [ xddxdd ];
         description = "Plangothic Project";
         homepage = "https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic";
         license = licenses.ofl;

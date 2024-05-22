@@ -2,9 +2,8 @@
   sources,
   lib,
   python3Packages,
-  vapoursynth,
   ...
-}@args:
+}:
 with python3Packages;
 buildPythonPackage {
   inherit (sources.vs-rife) pname version src;
@@ -27,6 +26,7 @@ buildPythonPackage {
   ];
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Real-Time Intermediate Flow Estimation for Video Frame Interpolation for VapourSynth";
     homepage = "https://github.com/HolyWu/vs-rife";
     license = licenses.mit;

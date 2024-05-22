@@ -26,6 +26,7 @@ stdenv.mkDerivation rec {
   installTargets = [ "modules_install" ];
 
   meta = {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "A virtual black hole file system that behaves like /dev/null";
     homepage = "https://github.com/abbbi/nullfsvfs";
     license = lib.licenses.gpl3Only;

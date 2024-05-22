@@ -29,7 +29,7 @@
   udev,
   xorg,
   ...
-}@args:
+}:
 # Modified from:
 # - https://github.com/NixOS-CN/flakes/blob/main/packages/netease-cloud-music/default.nix
 # - https://github.com/Freed-Wu/nur-packages/blob/main/pkgs/applications/audio/netease-cloud-music/default.nix
@@ -99,8 +99,7 @@ stdenv.mkDerivation rec {
   dontWrapQtApps = true;
 
   installPhase = ''
-    mkdir -p $out/bin
-    cp -r opt/netease/netease-cloud-music/netease-cloud-music $out/bin/
+    install -Dm755 opt/netease/netease-cloud-music/netease-cloud-music $out/bin/netease-cloud-music
 
     mkdir -p $out/share
     cp -r usr/share/* $out/share/
@@ -115,6 +114,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu)";
     homepage = "https://music.163.com";
     platforms = [ "x86_64-linux" ];

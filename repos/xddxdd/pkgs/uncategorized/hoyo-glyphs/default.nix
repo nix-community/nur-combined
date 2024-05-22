@@ -4,7 +4,7 @@
   sources,
   unzip,
   ...
-}@args:
+}:
 stdenvNoCC.mkDerivation rec {
   inherit (sources.hoyo-glyphs) pname version;
 
@@ -22,11 +22,13 @@ stdenvNoCC.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/share/fonts/opentype/
-    find . -name \*.otf -exec cp {} $out/share/fonts/opentype/ \;
+    find . -name \*.otf -exec install -m644 {} $out/share/fonts/opentype/ \;
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Constructed scripts by Hoyoverse 米哈游的架空文字 ";
     homepage = "https://github.com/SpeedyOrc-C/Hoyo-Glyphs";
+    license = with lib.licenses; [ unfreeRedistributable ];
   };
 }

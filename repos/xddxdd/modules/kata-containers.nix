@@ -13,7 +13,7 @@ in
 {
   options = {
     virtualisation.kata-containers.settings = lib.mkOption {
-      type = settingsFormat.type;
+      inherit (settingsFormat) type;
       default = { };
       description = ''
         Settings for kata's configuration.toml

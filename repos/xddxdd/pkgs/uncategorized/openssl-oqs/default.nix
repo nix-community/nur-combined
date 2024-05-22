@@ -8,7 +8,7 @@
   cryptodev-unstable,
   static ? stdenv.hostPlatform.isStatic,
   ...
-}@args:
+}:
 with lib;
 stdenv.mkDerivation rec {
   inherit (sources.openssl-oqs) pname src;
@@ -135,6 +135,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     homepage = "https://www.openssl.org/";
     description = "A cryptographic library that implements the SSL and TLS protocols";
     license = licenses.openssl;

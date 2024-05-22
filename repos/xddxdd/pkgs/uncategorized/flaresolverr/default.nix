@@ -49,6 +49,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
+    maintainers = with lib.maintainers; [ xddxdd ];
     description = "Proxy server to bypass Cloudflare protection";
     homepage = "https://github.com/FlareSolverr/FlareSolverr";
     license = licenses.mit;

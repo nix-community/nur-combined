@@ -1,5 +1,6 @@
 {
   libnftnl,
+  lib,
   autoreconfHook,
   fetchurl,
   ...
@@ -12,4 +13,8 @@ libnftnl.overrideAttrs (old: {
       hash = "sha256-il0TS51eQfzUfU6LzG9mmuFZvv5UpRF0YPY21jlsNQE=";
     })
   ];
+
+  meta = old.meta // {
+    maintainers = with lib.maintainers; [ xddxdd ];
+  };
 })
