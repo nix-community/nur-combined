@@ -23,11 +23,11 @@
 }:
 stdenv.mkDerivation rec {
   pname = "freenginx";
-  version = "1.26.0";
+  version = "1.27.0";
 
   src = fetchurl {
     url = "https://freenginx.org/download/freenginx-${version}.tar.gz";
-    hash = "sha256:1004krh2v5jc8zf0k7x7h4rlgblvjjll1vd5zdxi4mfnisprjbzb";
+    hash = "sha256-Z9toM50nCC/u/XAwa9eh5X7cK8PBaDL6mRypTp4AFk8=";
   };
 
   nativeBuildInputs = [
@@ -125,7 +125,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "A reverse proxy and lightweight webserver";
     mainProgram = "nginx";
-    homepage    = "http://nginx.org";
+    homepage    = "http://freenginx.org";
     license     = lib.licenses.bsd2;
     platforms   = lib.platforms.all;
   };

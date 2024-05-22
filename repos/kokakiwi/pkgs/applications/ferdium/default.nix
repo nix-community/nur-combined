@@ -72,13 +72,18 @@
   } // builtins.removeAttrs args [ "pname" "hash" ]);
 in stdenv.mkDerivation (final: {
   pname = "ferdium";
-  version = "6.7.3";
+  version = "6.7.4";
 
   src = fetchFromGitHub {
     owner = "ferdium";
     repo = "ferdium-app";
     rev = "v${final.version}";
-    hash = "sha256-0EUYddv1Mang2aGKzOQpqSvVyHs5kbU/wboNOps91gc=";
+    hash = "sha256-ZYtXLMwAR4R6WbFhecUu1z7ThcFrcQDtbcccHyH9fXs=";
+  };
+
+  pnpmDeps = mkPnpmDeps {
+    inherit (final) pname version src;
+    hash = "sha256-4bTezNl6EOwL6A0RUq5H+ivrk2zczyoS4eoO3KVnEO0=";
   };
 
   recipes = stdenv.mkDerivation (recipesFinal: {
@@ -88,8 +93,8 @@ in stdenv.mkDerivation (final: {
     src = fetchFromGitHub {
       owner = "ferdium";
       repo = "ferdium-recipes";
-      rev = "7ab6497fbd7bc64c3f2b17b587d273c9bbd155c8";
-      hash = "sha256-QHTXYfCzP7psomXfD+0A0WZitSb/za/y7bnkijM2CyY=";
+      rev = "ae724d09560576253952f8884497a8d797215ae1";
+      hash = "sha256-nbvEnDEsy66t0o37NkDIP8WkzYPAChQwout+BAKNG5I=";
     };
 
     pnpmDeps = mkPnpmDeps {
@@ -133,11 +138,6 @@ in stdenv.mkDerivation (final: {
       runHook postInstall
     '';
   });
-
-  pnpmDeps = mkPnpmDeps {
-    inherit (final) pname version src;
-    hash = "sha256-TYcuQHDLcZkYvocVOO8X965ntcjgvyDc4L6N+miArIw=";
-  };
 
   nativeBuildInputs = [
     nodePackages.pnpm
