@@ -1,4 +1,5 @@
 # TODO: Actually use this module
-{ lib, ... }: {
+{ lib, ... }:
+{
   flake.lib = import ./. { inherit lib; };
 }

@@ -10,7 +10,10 @@ in
 
   config.boot = mkIf cfg.quiet {
     consoleLogLevel = 0;
-    kernelParams = [ "quiet" "udev.log_level=3" ];
+    kernelParams = [
+      "quiet"
+      "udev.log_level=3"
+    ];
     initrd.verbose = false;
   };
 }

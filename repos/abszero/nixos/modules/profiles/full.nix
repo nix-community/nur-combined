@@ -1,5 +1,6 @@
 # Full desktop
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   imports = [
     ./desktop.nix
     ../hardware/halo65.nix

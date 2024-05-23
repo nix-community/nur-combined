@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkDefault mkIf;
@@ -6,8 +11,7 @@ let
 in
 
 {
-  options.abszero.services.kanata.enable =
-    mkEnableOption "advanced software keyboard remapper";
+  options.abszero.services.kanata.enable = mkEnableOption "advanced software keyboard remapper";
 
   # Keyboard config is in ../hardware
   config.services.kanata = mkIf cfg.enable {

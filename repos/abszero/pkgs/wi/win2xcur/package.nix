@@ -1,6 +1,8 @@
 { lib, python39Packages }:
 
-let inherit (python39Packages) buildPythonPackage fetchPypi; in
+let
+  inherit (python39Packages) buildPythonPackage fetchPypi;
+in
 
 buildPythonPackage rec {
   pname = "win2xcur";
@@ -11,7 +13,10 @@ buildPythonPackage rec {
     hash = "sha256-B8srOXQBUxK6dZ6GhDA5fYvxUBxHVcrSO/z+UWyF+qI=";
   };
 
-  propagatedBuildInputs = with python39Packages; [ numpy wand ];
+  propagatedBuildInputs = with python39Packages; [
+    numpy
+    wand
+  ];
 
   doCheck = false;
 

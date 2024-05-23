@@ -1,7 +1,17 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
-  inherit (lib) types mkEnableOption mkOption mkIf;
+  inherit (lib)
+    types
+    mkEnableOption
+    mkOption
+    mkIf
+    ;
   inherit (lib.abszero.attrsets) findName;
   cfg = config.abszero.programs.firefox;
 in
@@ -24,12 +34,11 @@ in
       package = pkgs.firefox-devedition-bin;
       nativeMessagingHosts =
         with pkgs;
-        mkIf config.abszero.services.desktopManager.plasma6.enable
-          [ kdePackages.plasma-browser-integration ];
+        mkIf config.abszero.services.desktopManager.plasma6.enable [
+          kdePackages.plasma-browser-integration
+        ];
       profiles.${cfg.profile}.settings = {
-        "services.sync.username" = findName
-          (_: v: v.primary)
-          config.accounts.email.accounts;
+        "services.sync.username" = findName (_: v: v.primary) config.accounts.email.accounts;
         "browser.aboutConfig.showWarning" = false;
       };
     };

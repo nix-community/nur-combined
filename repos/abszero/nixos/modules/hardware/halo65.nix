@@ -73,12 +73,15 @@ in
     # It is not possible to put all three devices in one config because the
     # service is only activated when all devices are found
     kanata.keyboards = {
-      halo65-wired = keyboardCfg
-        // { devices = [ "/dev/input/by-id/usb-BY_Tech_NuPhy_Halo65-event-kbd" ]; };
-      halo65-wifi = keyboardCfg
-        // { devices = [ "/dev/input/by-id/usb-CX_2.4G_Wireless_Receiver-event-kbd" ]; };
-      halo65-bt = keyboardCfg
-        // { devices = [ "/dev/input/bt-halo65" ]; };
+      halo65-wired = keyboardCfg // {
+        devices = [ "/dev/input/by-id/usb-BY_Tech_NuPhy_Halo65-event-kbd" ];
+      };
+      halo65-wifi = keyboardCfg // {
+        devices = [ "/dev/input/by-id/usb-CX_2.4G_Wireless_Receiver-event-kbd" ];
+      };
+      halo65-bt = keyboardCfg // {
+        devices = [ "/dev/input/bt-halo65" ];
+      };
     };
   };
 }

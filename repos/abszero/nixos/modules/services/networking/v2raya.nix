@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (pkgs) v2ray-rules-dat;
@@ -7,8 +12,7 @@ let
 in
 
 {
-  options.abszero.services.v2raya.enable =
-    mkEnableOption "cross-platform v2ray client";
+  options.abszero.services.v2raya.enable = mkEnableOption "cross-platform v2ray client";
 
   config = mkIf cfg.enable {
     # TODO: Add package option to upstream
@@ -20,7 +24,11 @@ in
         };
       })
     ];
-    networking.firewall.allowedTCPPorts = [ 10808 10809 10810 ];
+    networking.firewall.allowedTCPPorts = [
+      10808
+      10809
+      10810
+    ];
     services.v2raya.enable = true;
   };
 }

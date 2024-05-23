@@ -6,8 +6,7 @@ let
 in
 
 {
-  options.abszero.programs.foot.enable =
-    mkEnableOption "foot Wayland terminal emulator";
+  options.abszero.programs.foot.enable = mkEnableOption "foot Wayland terminal emulator";
 
   config.programs.foot = mkIf cfg.enable {
     enable = true;

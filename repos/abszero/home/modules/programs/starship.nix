@@ -7,8 +7,7 @@ let
 in
 
 {
-  options.abszero.programs.starship.enable =
-    mkEnableOption "managing Starship";
+  options.abszero.programs.starship.enable = mkEnableOption "managing Starship";
 
   config.programs.starship = mkIf cfg.enable {
     enable = true;
@@ -21,8 +20,7 @@ in
       directory = {
         format = "([$read_only]($read_only_style) )[$path]($style)";
         # Different format for git repos
-        repo_root_format =
-          "([$read_only]($read_only_style) )[]($repo_root_style) [$repo_root]($repo_root_style)[$path]($style)";
+        repo_root_format = "([$read_only]($read_only_style) )[]($repo_root_style) [$repo_root]($repo_root_style)[$path]($style)";
         read_only = "󰍁";
         truncation_symbol = "…/";
         # Set these two options so repo_root_format takes effect
@@ -55,7 +53,10 @@ in
         format = "[$symbol $branch]($style)";
         symbol = "󰘬";
         style = "bold #bf5700";
-        ignore_branches = [ "master" "main" ];
+        ignore_branches = [
+          "master"
+          "main"
+        ];
       };
       nix_shell = {
         format = "[$symbol $state]($style)";

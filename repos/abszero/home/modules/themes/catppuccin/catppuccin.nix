@@ -4,13 +4,21 @@
 
 let
   inherit (builtins) substring;
-  inherit (lib) types mkOption mkDefault toUpper;
+  inherit (lib)
+    types
+    mkOption
+    mkDefault
+    toUpper
+    ;
   absCfg = config.abszero.catppuccin;
 
   optionModule = types.submodule {
     options = {
       polarity = mkOption {
-        type = types.enum [ "light" "dark" ];
+        type = types.enum [
+          "light"
+          "dark"
+        ];
         default = "light";
         description = ''
           Whether to use light or dark theme for modules that don't support
@@ -26,14 +34,24 @@ let
         '';
       };
       lightFlavour = mkOption {
-        type = types.enum [ "frappe" "latte" "macchiato" "mocha" ];
+        type = types.enum [
+          "frappe"
+          "latte"
+          "macchiato"
+          "mocha"
+        ];
         default = "latte";
         description = ''
           The light theme flavour (latte, frappe, macchiato, mocha).
         '';
       };
       darkFlavour = mkOption {
-        type = types.enum [ "frappe" "latte" "macchiato" "mocha" ];
+        type = types.enum [
+          "frappe"
+          "latte"
+          "macchiato"
+          "mocha"
+        ];
         default = "macchiato";
         description = ''
           The dark theme flavour (latte, frappe, macchiato, mocha).
@@ -57,7 +75,6 @@ in
       flavour = absCfg."${absCfg.polarity}Flavour";
     };
 
-    lib.catppuccin.toTitleCase =
-      s: toUpper (substring 0 1 s) + substring 1 100 s;
+    lib.catppuccin.toTitleCase = s: toUpper (substring 0 1 s) + substring 1 100 s;
   };
 }

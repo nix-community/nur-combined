@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (lib) mkDefault;
@@ -6,12 +11,14 @@ let
   cfg = config.catppuccin;
 
   imageName =
-    if cfg.accent == "magenta" || cfg.accent == "pink"
-    then "nix-magenta-pink-1920x1080"
-    else if cfg.accent == "blue"
-    then "nix-magenta-blue-1920x1080"
-    else "nix-black-4k";
-  image = pkgs.catppuccin-wallpapers.override { wallpapers = [ imageName ]; }
+    if cfg.accent == "magenta" || cfg.accent == "pink" then
+      "nix-magenta-pink-1920x1080"
+    else if cfg.accent == "blue" then
+      "nix-magenta-blue-1920x1080"
+    else
+      "nix-black-4k";
+  image =
+    pkgs.catppuccin-wallpapers.override { wallpapers = [ imageName ]; }
     + "/share/wallpapers/catppuccin/${imageName}.png";
 in
 
@@ -23,8 +30,7 @@ in
   ];
 
   stylix = {
-    base16Scheme =
-      "${pkgs.base16-schemes}/share/themes/catppuccin-${cfg.flavour}.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-${cfg.flavour}.yaml";
 
     cursor = {
       package = pkgs.catppuccin-cursors.${cfg.flavour + toTitleCase cfg.accent};

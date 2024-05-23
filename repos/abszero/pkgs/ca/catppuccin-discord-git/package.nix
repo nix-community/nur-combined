@@ -1,10 +1,11 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, mkYarnModules
-, nodejs
-, yarn
-, themes0 ? [ ]
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  mkYarnModules,
+  nodejs,
+  yarn,
+  themes0 ? [ ],
 }:
 
 let
@@ -12,9 +13,12 @@ let
   inherit (lib) head concatStringsSep;
 
   matchTheme =
-    if themes0 == [ ] then "*"
-    else if length themes0 == 1 then head themes0
-    else "{${concatStringsSep "," themes0}}";
+    if themes0 == [ ] then
+      "*"
+    else if length themes0 == 1 then
+      head themes0
+    else
+      "{${concatStringsSep "," themes0}}";
 in
 
 stdenv.mkDerivation rec {
@@ -36,7 +40,10 @@ stdenv.mkDerivation rec {
     yarnLock = src + "/yarn.lock";
   };
 
-  nativeBuildInputs = [ nodejs yarn ];
+  nativeBuildInputs = [
+    nodejs
+    yarn
+  ];
 
   buildPhase = ''
     runHook preBuild

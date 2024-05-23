@@ -1,31 +1,44 @@
-{ inputs, config, lib, withSystem, ... }:
+{
+  inputs,
+  config,
+  lib,
+  withSystem,
+  ...
+}:
 
 let
   inherit (inputs) nixpkgs;
-  inherit (lib) types mkOption mapAttrs flatten;
+  inherit (lib)
+    types
+    mkOption
+    mapAttrs
+    flatten
+    ;
   inherit (lib.abszero.filesystem) toModuleList;
   cfg = config.nixosConfigurations;
 
-  configModule = { name, ... }: {
-    options = {
-      system = mkOption {
-        type = types.nonEmptyStr;
-        description = "System architecture";
-      };
-      hostName = mkOption {
-        type = types.nonEmptyStr;
-        default = name;
-        description = ''
-          Name of the computer. Defaults to the name of the NixOS configuration.
-        '';
-      };
-      modules = mkOption {
-        type = with types; listOf deferredModule;
-        default = [ ];
-        description = "List of modules specific to this NixOS configuration";
+  configModule =
+    { name, ... }:
+    {
+      options = {
+        system = mkOption {
+          type = types.nonEmptyStr;
+          description = "System architecture";
+        };
+        hostName = mkOption {
+          type = types.nonEmptyStr;
+          default = name;
+          description = ''
+            Name of the computer. Defaults to the name of the NixOS configuration.
+          '';
+        };
+        modules = mkOption {
+          type = with types; listOf deferredModule;
+          default = [ ];
+          description = "List of modules specific to this NixOS configuration";
+        };
       };
     };
-  };
 in
 
 {
@@ -34,11 +47,15 @@ in
     description = "Abstracted home configuration options";
   };
 
-  config.flake.nixosConfigurations = mapAttrs
-    (_: c: withSystem c.system
-      ({ system, ... }: nixpkgs.lib.nixosSystem {
+  config.flake.nixosConfigurations = mapAttrs (
+    _: c:
+    withSystem c.system (
+      { system, ... }:
+      nixpkgs.lib.nixosSystem {
         inherit system lib;
-        specialArgs = { inherit inputs; };
+        specialArgs = {
+          inherit inputs;
+        };
         modules = flatten [
           inputs.disko.nixosModules.disko
           inputs.catppuccin.nixosModules.catppuccin
@@ -50,12 +67,13 @@ in
           (toModuleList ../modules/virtualisation)
           c.modules
           {
-            nixpkgs.overlays = [
-              (_: prev: import ../../pkgs { pkgs = prev; })
-            ];
-            networking = { inherit (c) hostName; };
+            nixpkgs.overlays = [ (_: prev: import ../../pkgs { pkgs = prev; }) ];
+            networking = {
+              inherit (c) hostName;
+            };
           }
         ];
-      }))
-    cfg;
+      }
+    )
+  ) cfg;
 }

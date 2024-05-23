@@ -124,8 +124,14 @@ mkIf (cfg.enable && cfg.preset == "blackhole-adblock") {
 
   networking = {
     firewall = {
-      allowedTCPPorts = [ 10808 10809 ];
-      allowedUDPPorts = [ 10808 10809 ];
+      allowedTCPPorts = [
+        10808
+        10809
+      ];
+      allowedUDPPorts = [
+        10808
+        10809
+      ];
     };
 
     localCommands = ''

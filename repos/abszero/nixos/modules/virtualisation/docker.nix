@@ -1,7 +1,13 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkEnableOption mkIf mkDefault genAttrs const;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkDefault
+    genAttrs
+    const
+    ;
   cfg = config.abszero.virtualisation.docker;
 in
 
@@ -13,8 +19,8 @@ in
       enable = true;
       enableOnBoot = mkDefault false;
     };
-    users.users = genAttrs
-      config.abszero.users.admins
-      (const { extraGroups = [ "docker" ]; });
+    users.users = genAttrs config.abszero.users.admins (const {
+      extraGroups = [ "docker" ];
+    });
   };
 }

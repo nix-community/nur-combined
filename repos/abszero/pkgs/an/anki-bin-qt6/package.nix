@@ -1,7 +1,8 @@
-{ symlinkJoin
-, makeWrapper
-, anki-bin
-, mpv-unwrapped
+{
+  symlinkJoin,
+  makeWrapper,
+  anki-bin,
+  mpv-unwrapped,
 }:
 symlinkJoin {
   name = "anki-bin-qt6";

@@ -1,6 +1,13 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
-let inherit (lib) genAttrs const; in
+let
+  inherit (lib) genAttrs const;
+in
 
 {
   abszero.boot = {
@@ -16,7 +23,10 @@ let inherit (lib) genAttrs const; in
       options = "--delete-older-than 7d";
     };
     settings = {
-      trusted-users = [ "root" "@wheel" ];
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
       substituters = [ "https://abszero.cachix.org" ];
       trusted-public-keys = [ "abszero.cachix.org-1:HXOydaS51jSWrM07Ko8AVtGdoBRT9F+QhdYQBiNDaM0=" ];
       auto-optimise-store = true;
@@ -48,18 +58,21 @@ let inherit (lib) genAttrs const; in
     loader.efi.canTouchEfiVariables = true;
 
     kernelPackages = pkgs.linuxPackages_zen;
-    kernel.sysctl = { "vm.swappiness" = 20; };
+    kernel.sysctl = {
+      "vm.swappiness" = 20;
+    };
 
     tmp.useTmpfs = true;
   };
 
   users = {
     mutableUsers = false;
-    users = genAttrs
-      config.abszero.users.admins
-      (const {
-        extraGroups = [ "audio" "networkmanager" ];
-      });
+    users = genAttrs config.abszero.users.admins (const {
+      extraGroups = [
+        "audio"
+        "networkmanager"
+      ];
+    });
   };
 
   i18n = {

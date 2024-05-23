@@ -1,7 +1,12 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) types mkOption const genAttrs;
+  inherit (lib)
+    types
+    mkOption
+    const
+    genAttrs
+    ;
   cfg = config.abszero.users;
 in
 

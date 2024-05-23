@@ -1,6 +1,8 @@
 { inputs, lib, ... }:
 
-let inherit (lib) mkDefault; in
+let
+  inherit (lib) mkDefault;
+in
 
 {
   imports = [ inputs.stylix.homeManagerModules.stylix ];

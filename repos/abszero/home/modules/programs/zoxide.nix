@@ -8,9 +8,9 @@ in
 {
   options.abszero.programs.zoxide = {
     enable = mkEnableOption "zoxide";
-    enableNushellIntegration =
-      mkEnableOption "directory history completion"
-      // { default = true; };
+    enableNushellIntegration = mkEnableOption "directory history completion" // {
+      default = true;
+    };
   };
 
   config = mkIf cfg.enable {

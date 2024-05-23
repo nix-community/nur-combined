@@ -1,7 +1,17 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
-  inherit (lib) mkEnableOption mkIf const genAttrs;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    const
+    genAttrs
+    ;
   cfg = config.abszero.programs.wireshark;
 in
 
@@ -13,8 +23,8 @@ in
       enable = true;
       package = pkgs.wireshark;
     };
-    users.users = genAttrs
-      config.abszero.users.admins
-      (const { extraGroups = [ "wireshark" ]; });
+    users.users = genAttrs config.abszero.users.admins (const {
+      extraGroups = [ "wireshark" ];
+    });
   };
 }

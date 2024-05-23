@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -6,8 +11,7 @@ let
 in
 
 {
-  options.abszero.services.desktopManager.plasma6.enable =
-    mkEnableOption "the next generation desktop for Linux";
+  options.abszero.services.desktopManager.plasma6.enable = mkEnableOption "the next generation desktop for Linux";
 
   config = mkIf cfg.enable {
     services.desktopManager.plasma6.enable = true;

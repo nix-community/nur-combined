@@ -1,4 +1,8 @@
-{ stdenvNoCC, lib, fetchurl }:
+{
+  stdenvNoCC,
+  lib,
+  fetchurl,
+}:
 
 let
   version = "2024-05-19-01-01";
@@ -20,9 +24,16 @@ stdenvNoCC.mkDerivation {
   pname = "v2ray-rules-dat";
   inherit version;
 
-  srcs = [ geoip geosite ];
+  srcs = [
+    geoip
+    geosite
+  ];
 
-  outputs = [ "out" "geoip" "geosite" ];
+  outputs = [
+    "out"
+    "geoip"
+    "geosite"
+  ];
 
   unpackPhase = ''
     mkdir -p source
@@ -54,7 +65,10 @@ stdenvNoCC.mkDerivation {
     downloadPage = "${repo}/releases";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ weathercold ];
-    outputsToInstall = [ "geoip" "geosite" ];
+    outputsToInstall = [
+      "geoip"
+      "geosite"
+    ];
     platforms = platforms.all;
   };
 }

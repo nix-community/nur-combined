@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -8,8 +13,10 @@ in
 {
   options.abszero.programs.pot.enable = mkEnableOption "cross-platform translation software";
 
-  config.environment.systemPackages = with pkgs; mkIf cfg.enable [
-    pot
-    # tesseract
-  ];
+  config.environment.systemPackages =
+    with pkgs;
+    mkIf cfg.enable [
+      pot
+      # tesseract
+    ];
 }

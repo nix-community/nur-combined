@@ -1,6 +1,12 @@
-{ lib, nu_scripts, fetchFromGitHub }:
+{
+  lib,
+  nu_scripts,
+  fetchFromGitHub,
+}:
 
-let lock = lib.importJSON ./lock.json; in
+let
+  lock = lib.importJSON ./lock.json;
+in
 
 nu_scripts.overrideAttrs (prev: {
   version = lock.rev;

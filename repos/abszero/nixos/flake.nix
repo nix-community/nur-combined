@@ -27,14 +27,22 @@
     catppuccin.url = "github:Weathercold/nix/patch";
   };
 
-  outputs = { nixpkgs, flake-parts, haumea, ... } @ inputs:
+  outputs =
+    {
+      nixpkgs,
+      flake-parts,
+      haumea,
+      ...
+    }@inputs:
     let
-      extendedLib = nixpkgs.lib.extend (_: _: {
-        abszero = import ../lib {
-          inherit (nixpkgs) lib;
-          inherit haumea;
-        };
-      });
+      extendedLib = nixpkgs.lib.extend (
+        _: _: {
+          abszero = import ../lib {
+            inherit (nixpkgs) lib;
+            inherit haumea;
+          };
+        }
+      );
     in
     flake-parts.lib.mkFlake
       {

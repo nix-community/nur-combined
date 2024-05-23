@@ -19,8 +19,7 @@ in
     modules = [
       self.homeModules.profiles-build-config
       {
-        abszero = optionalAttrs (firefoxProfile != null)
-          { programs.firefox.profile = firefoxProfile; };
+        abszero = optionalAttrs (firefoxProfile != null) { programs.firefox.profile = firefoxProfile; };
 
         # You can have multiple specialisations, but only one can be default.
         specialisation = {

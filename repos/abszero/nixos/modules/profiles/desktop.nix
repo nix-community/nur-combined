@@ -1,5 +1,6 @@
 # Desktop essentials
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   imports = [ ./base.nix ];
 
   console.useXkbConfig = true; # use xkbOptions in tty.

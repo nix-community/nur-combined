@@ -67,7 +67,13 @@
     };
   };
 
-  outputs = { self, nixpkgs, flake-parts, ... } @ inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-parts,
+      ...
+    }@inputs:
 
     let
       lib = import ./lib { inherit (nixpkgs) lib; };
@@ -92,8 +98,7 @@
         flake = {
           # FIXME: This is suboptimal, would be better to put checks where
           # deploy is defined.
-          checks.x86_64-linux =
-            inputs.deploy-rs.lib.x86_64-linux.deployChecks self.deploy;
+          checks.x86_64-linux = inputs.deploy-rs.lib.x86_64-linux.deployChecks self.deploy;
           inherit lib;
         };
 
@@ -105,9 +110,11 @@
           "armv7l-linux"
         ];
 
-        perSystem = { inputs', pkgs, ... }:
-          with pkgs; {
-            formatter = nixpkgs-fmt;
+        perSystem =
+          { inputs', pkgs, ... }:
+          with pkgs;
+          {
+            formatter = nixfmt-rfc-style;
 
             devShells.default = mkShell {
               packages = [
@@ -115,7 +122,7 @@
                 deploy-rs
                 inputs'.nixd.packages.nixd
                 nil
-                nixpkgs-fmt
+                nixfmt-rfc-style
                 nix-init
                 nix-prefetch-github # Somehow not in nix-prefetch-scripts
                 nix-prefetch-scripts

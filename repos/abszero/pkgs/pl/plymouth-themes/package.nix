@@ -1,18 +1,29 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, # theme is reserved, took me a while to figure out
-  themes0 ? null
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  # theme is reserved, took me a while to figure out
+  themes0 ? null,
 }:
 
 let
-  inherit (builtins) isList isString all length concatStringsSep head;
+  inherit (builtins)
+    isList
+    isString
+    all
+    length
+    concatStringsSep
+    head
+    ;
   inherit (lib.abszero.trivial) isNull;
 
   matchThemes =
-    if themes0 == null then "*"
-    else if length themes0 == 1 then head themes0
-    else "{${concatStringsSep "," themes0}}";
+    if themes0 == null then
+      "*"
+    else if length themes0 == 1 then
+      head themes0
+    else
+      "{${concatStringsSep "," themes0}}";
 in
 
 assert isNull themes0 || isList themes0 && all isString themes0;

@@ -1,7 +1,9 @@
 # Profile that disables every package
 { lib, ... }:
 
-let inherit (lib) mkForce; in
+let
+  inherit (lib) mkForce;
+in
 
 {
   imports = [ ./base.nix ];

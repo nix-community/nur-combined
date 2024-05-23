@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -14,6 +19,9 @@ in
       spiceUSBRedirection.enable = true;
     };
     programs.virt-manager.enable = true;
-    environment.systemPackages = with pkgs; [ virtio-win virtiofsd ];
+    environment.systemPackages = with pkgs; [
+      virtio-win
+      virtiofsd
+    ];
   };
 }

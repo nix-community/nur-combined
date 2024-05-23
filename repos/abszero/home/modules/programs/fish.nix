@@ -1,15 +1,26 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
-  inherit (lib) mkEnableOption mkIf mkMerge mkBefore mkAfter pipe;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkMerge
+    mkBefore
+    mkAfter
+    pipe
+    ;
   cfg = config.abszero.programs.fish;
 in
 
 {
   options.abszero.programs.fish = {
     enable = mkEnableOption "managing fish";
-    enableNushellIntegration =
-      mkEnableOption "using fish only as an external completer for nushell";
+    enableNushellIntegration = mkEnableOption "using fish only as an external completer for nushell";
   };
 
   config = mkIf cfg.enable {
@@ -31,37 +42,40 @@ in
       foot.settings.main.shell = mkIf (!cfg.enableNushellIntegration) "fish";
 
       # https://www.nushell.sh/cookbook/external_completers.html
-      nushell.extraConfig = pipe [
-        # Lowermost fallback
-        (mkBefore ''
-          let fish_completer = {|spans: list<string>|
-            fish -ic $'complete "--do-complete=($spans | str join " ")"'
-            | $"value(char tab)description(char newline)" + $in
-            | from tsv --flexible --no-infer
-          }
-          $env.config = ($env.config?
-          | default {}
-          | merge { completions: { external: { completer: $fish_completer } } })
-        '')
+      nushell.extraConfig =
+        pipe
+          [
+            # Lowermost fallback
+            (mkBefore ''
+              let fish_completer = {|spans: list<string>|
+                fish -ic $'complete "--do-complete=($spans | str join " ")"'
+                | $"value(char tab)description(char newline)" + $in
+                | from tsv --flexible --no-infer
+              }
+              $env.config = ($env.config?
+              | default {}
+              | merge { completions: { external: { completer: $fish_completer } } })
+            '')
 
-        # Specific commands that work better with fish completion
-        (mkAfter ''
-          let prev_completer = $env.config?.completions?.external?.completer? | default echo
-          let next_completer = {|spans: list<string>|
-            if $spans.0 in [ nix ] {
-              do $fish_completer $spans
-            } else {
-              do $prev_completer $spans
-            }
-          }
-          $env.config = ($env.config?
-          | default {}
-          | merge { completions: { external: { completer: $next_completer } } })
-        '')
-      ] [
-        mkMerge
-        (c: mkIf cfg.enableNushellIntegration c)
-      ];
+            # Specific commands that work better with fish completion
+            (mkAfter ''
+              let prev_completer = $env.config?.completions?.external?.completer? | default echo
+              let next_completer = {|spans: list<string>|
+                if $spans.0 in [ nix ] {
+                  do $fish_completer $spans
+                } else {
+                  do $prev_completer $spans
+                }
+              }
+              $env.config = ($env.config?
+              | default {}
+              | merge { completions: { external: { completer: $next_completer } } })
+            '')
+          ]
+          [
+            mkMerge
+            (c: mkIf cfg.enableNushellIntegration c)
+          ];
     };
   };
 }

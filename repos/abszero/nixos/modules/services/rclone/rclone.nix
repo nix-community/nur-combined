@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkPackageOption mkIf;
@@ -15,7 +20,6 @@ in
     environment.systemPackages = [ cfg.package ];
 
     # Make mount use rclone as a mount helper
-    systemd.tmpfiles.rules =
-      [ "L /sbin/mount.rclone - - - - /run/current-system/sw/bin/rclone" ];
+    systemd.tmpfiles.rules = [ "L /sbin/mount.rclone - - - - /run/current-system/sw/bin/rclone" ];
   };
 }

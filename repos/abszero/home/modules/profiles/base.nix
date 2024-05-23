@@ -1,6 +1,13 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
-let inherit (lib) const; in
+let
+  inherit (lib) const;
+in
 
 {
   # FIXME: Still broken, needs --impure to build

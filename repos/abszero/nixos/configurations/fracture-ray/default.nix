@@ -1,5 +1,10 @@
 # An Xray server deployed to Vultr
-{ self, inputs, lib, ... }:
+{
+  self,
+  inputs,
+  lib,
+  ...
+}:
 
 let
   inherit (builtins) fromJSON readFile;
@@ -15,9 +20,7 @@ let
         grub.enable = true;
       };
       users.admins = [ "weathercold" ];
-      services.xray = recursiveUpdate
-        proxySettings
-        { preset = "vless-tcp-xtls-reality-server"; };
+      services.xray = recursiveUpdate proxySettings { preset = "vless-tcp-xtls-reality-server"; };
     };
 
     disko.devices.disk.vda = {
@@ -40,7 +43,10 @@ let
               subvolumes = {
                 root = {
                   mountpoint = "/";
-                  mountOptions = [ "noatime" "compress-force=zstd" ];
+                  mountOptions = [
+                    "noatime"
+                    "compress-force=zstd"
+                  ];
                 };
                 swap = {
                   mountpoint = "/swap";
@@ -52,20 +58,22 @@ let
         };
       };
     };
-    swapDevices = [{
-      device = "/swap/swapfile";
-      size = 4096;
-      discardPolicy = "pages";
-    }];
+    swapDevices = [
+      {
+        device = "/swap/swapfile";
+        size = 4096;
+        discardPolicy = "pages";
+      }
+    ];
 
     users.users = rec {
       weathercold = {
         description = "Weathercold";
         isNormalUser = true;
-        hashedPassword =
-          "$6$QOTimFq0v8u6oN.I$.m0BQc/tC6/8nluwwQT7AmkbJbfNoh2PnO9biVL4wgWA22zlb/0HheieexWgISAB67r/7floX3bQpZrUjZv9v.";
-        openssh.authorizedKeys.keys =
-          [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIVP5FpnSD0dIEmsQXqvRCdVN9mw5v//B4E3USU9oIeZ Weathercold" ];
+        hashedPassword = "$6$QOTimFq0v8u6oN.I$.m0BQc/tC6/8nluwwQT7AmkbJbfNoh2PnO9biVL4wgWA22zlb/0HheieexWgISAB67r/7floX3bQpZrUjZv9v.";
+        openssh.authorizedKeys.keys = [
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIVP5FpnSD0dIEmsQXqvRCdVN9mw5v//B4E3USU9oIeZ Weathercold"
+        ];
       };
       root = {
         inherit (weathercold) hashedPassword openssh;
@@ -90,11 +98,13 @@ in
 
   flake.deploy.nodes.fracture-ray = {
     hostname = proxySettings.address;
-    sshOpts = [ "-p" "1337" ];
+    sshOpts = [
+      "-p"
+      "1337"
+    ];
     profiles.system = {
       user = "root";
-      path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos
-        self.nixosConfigurations.fracture-ray;
+      path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.fracture-ray;
     };
   };
 }

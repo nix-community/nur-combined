@@ -49,7 +49,10 @@ let
         }
         {
           type = "field";
-          ip = [ "geoip:cn" "geoip:private" ];
+          ip = [
+            "geoip:cn"
+            "geoip:private"
+          ];
           outboundTag = "direct";
         }
       ];
@@ -116,15 +119,19 @@ let
       {
         tag = "proxy";
         protocol = "vless";
-        settings.vnext = [{
-          inherit (cfg) address;
-          port = 443;
-          users = [{
-            id = cfg.clientId;
-            flow = "xtls-rprx-vision";
-            encryption = "none";
-          }];
-        }];
+        settings.vnext = [
+          {
+            inherit (cfg) address;
+            port = 443;
+            users = [
+              {
+                id = cfg.clientId;
+                flow = "xtls-rprx-vision";
+                encryption = "none";
+              }
+            ];
+          }
+        ];
         streamSettings = {
           network = "tcp";
           security = "reality";
@@ -205,8 +212,14 @@ mkIf (cfg.enable && cfg.preset == "vless-tcp-xtls-reality-client") {
 
   networking = {
     firewall = {
-      allowedTCPPorts = [ 10808 10809 ];
-      allowedUDPPorts = [ 10808 10809 ];
+      allowedTCPPorts = [
+        10808
+        10809
+      ];
+      allowedUDPPorts = [
+        10808
+        10809
+      ];
     };
 
     # Packets in the output chain cannot use tproxy directly, we need to

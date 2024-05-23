@@ -1,7 +1,15 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) types mkOption mkEnableOption mkIf attrNames genAttrs const;
+  inherit (lib)
+    types
+    mkOption
+    mkEnableOption
+    mkIf
+    attrNames
+    genAttrs
+    const
+    ;
   cfg = config.abszero.programs.thunderbird;
 in
 
@@ -20,8 +28,8 @@ in
       profiles.${cfg.profile}.isDefault = true;
     };
     # TODO: Configure email when chat and calendar can be configured
-    accounts.email.accounts = genAttrs
-      (attrNames config.abszero.emails)
-      (const { thunderbird.enable = false; });
+    accounts.email.accounts = genAttrs (attrNames config.abszero.emails) (const {
+      thunderbird.enable = false;
+    });
   };
 }

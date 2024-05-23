@@ -1,8 +1,10 @@
-{ lib
-, stdenvNoCC
-, fetchFromGitHub
-, writeShellScript
-, wallpapers ? null # Install all wallpapers by default
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  writeShellScript,
+  # Install all wallpapers by default
+  wallpapers ? null,
 }:
 
 let

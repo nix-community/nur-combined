@@ -5,8 +5,8 @@ let
   absCfg = config.abszero.catppuccin;
   cfg = config.catppuccin;
 
-  cssDir = pkgs.catppuccin-discord-git.override
-    {
+  cssDir =
+    pkgs.catppuccin-discord-git.override {
       themes0 =
         if absCfg.useSystemPolarity then
           [
@@ -16,7 +16,7 @@ let
         else
           [ "${cfg.flavour}-${cfg.accent}" ];
     }
-  + "/share/catppuccin-discord";
+    + "/share/catppuccin-discord";
 in
 
 {

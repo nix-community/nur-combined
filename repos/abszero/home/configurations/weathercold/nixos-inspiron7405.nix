@@ -11,9 +11,8 @@ optionalAttrs (readDir ./. ? "_base.nix") {
 
   homeConfigurations."weathercold@nixos-inspiron7405" = {
     system = "x86_64-linux";
-    modules =
-      import ./_base.nix { inherit self lib; }
-      ++ [{
+    modules = import ./_base.nix { inherit self lib; } ++ [
+      {
         specialisation.latte = {
           default = true;
           configuration = {
@@ -30,6 +29,7 @@ optionalAttrs (readDir ./. ? "_base.nix") {
             catppuccin.accent = "pink";
           };
         };
-      }];
+      }
+    ];
   };
 }

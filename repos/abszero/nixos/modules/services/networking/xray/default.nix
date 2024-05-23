@@ -1,7 +1,17 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
-  inherit (lib) types mkOption mkEnableOption mkIf;
+  inherit (lib)
+    types
+    mkOption
+    mkEnableOption
+    mkIf
+    ;
   cfg = config.abszero.services.xray;
 
   presets = [
@@ -61,8 +71,13 @@ in
 
   config.services.xray = mkIf cfg.enable {
     enable = true;
-    package = with pkgs; xray.override {
-      assets = [ v2ray-rules-dat.geoip v2ray-rules-dat.geosite ];
-    };
+    package =
+      with pkgs;
+      xray.override {
+        assets = [
+          v2ray-rules-dat.geoip
+          v2ray-rules-dat.geosite
+        ];
+      };
   };
 }

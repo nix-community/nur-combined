@@ -8,9 +8,9 @@ in
 {
   options.abszero.programs.carapace = {
     enable = mkEnableOption "carapace";
-    enableNushellIntegration =
-      mkEnableOption "custom Nushell integration with some fixes"
-      // { default = true; };
+    enableNushellIntegration = mkEnableOption "custom Nushell integration with some fixes" // {
+      default = true;
+    };
   };
 
   config.programs = mkIf cfg.enable {

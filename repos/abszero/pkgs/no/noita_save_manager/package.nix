@@ -1,8 +1,9 @@
-{ lib
-, python3
-, fetchFromGitHub
-, makeDesktopItem
-, makeWrapper
+{
+  lib,
+  python3,
+  fetchFromGitHub,
+  makeDesktopItem,
+  makeWrapper,
 }:
 
 python3.pkgs.buildPythonApplication rec {
@@ -22,7 +23,10 @@ python3.pkgs.buildPythonApplication rec {
     exec = meta.mainProgram;
     comment = meta.description;
     desktopName = "Noita Save Manager";
-    categories = [ "Game" "Utility" ];
+    categories = [
+      "Game"
+      "Utility"
+    ];
   };
 
   nativeBuildInputs = [

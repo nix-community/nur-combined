@@ -4,7 +4,7 @@
     "expr": "import (builtins.getFlake (toString ./.)).inputs.nixpkgs { }"
   },
   "formatting": {
-    "command": "nixpkgs-fmt"
+    "command": "nixfmt"
   },
   "options": {
     "nixos": {

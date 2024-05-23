@@ -29,38 +29,41 @@ let
         }
         {
           type = "field";
-          ip = [ "geoip:cn" "geoip:private" ];
+          ip = [
+            "geoip:cn"
+            "geoip:private"
+          ];
           outboundTag = "block";
         }
       ];
     };
 
-    inbounds = [{
-      port = 443;
-      protocol = "vless";
-      settings = {
-        clients = map
-          (id: {
+    inbounds = [
+      {
+        port = 443;
+        protocol = "vless";
+        settings = {
+          clients = map (id: {
             inherit id;
             flow = "xtls-rprx-vision";
-          })
-          cfg.clientIds;
-        decryption = "none";
-      };
-      streamSettings = {
-        network = "tcp";
-        security = "reality";
-        realitySettings = {
-          # Requirements: foreign website, TLSv1.3, X25519 & H2 support, not
-          # used for forwarding
-          # https://bluearchive.jp doesn't support TLSv1.3 :(
-          dest = "pjsekai.sega.jp:443";
-          # Server name on the certificate of dest
-          serverNames = [ "pjsekai.sega.jp" ];
-          inherit (cfg.reality) privateKey shortIds;
+          }) cfg.clientIds;
+          decryption = "none";
         };
-      };
-    }];
+        streamSettings = {
+          network = "tcp";
+          security = "reality";
+          realitySettings = {
+            # Requirements: foreign website, TLSv1.3, X25519 & H2 support, not
+            # used for forwarding
+            # https://bluearchive.jp doesn't support TLSv1.3 :(
+            dest = "pjsekai.sega.jp:443";
+            # Server name on the certificate of dest
+            serverNames = [ "pjsekai.sega.jp" ];
+            inherit (cfg.reality) privateKey shortIds;
+          };
+        };
+      }
+    ];
 
     outbounds = [
       {
