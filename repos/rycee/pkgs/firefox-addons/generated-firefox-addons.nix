@@ -1527,10 +1527,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.0.0";
+      version = "4.1.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4287043/control_panel_for_twitter-4.0.0.xpi";
-      sha256 = "43be61888f41e403601161b9061b338c6df720b2a4578861c39d4045a3d2de49";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4289311/control_panel_for_twitter-4.1.0.xpi";
+      sha256 = "d1e373a10918ffefa4f4edc60f4c0d5c2becf67c0ec8890914f7da50096e4443";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -1857,10 +1857,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "127.0.20240520.91901";
+      version = "127.0.20240522.100816";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4289783/deutsch_de_language_pack-127.0.20240520.91901.xpi";
-      sha256 = "3700bb25ee52e08b1c456efc15861adad6bb6edda20bceeb8003ec3e7c2f0d62";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4291113/deutsch_de_language_pack-127.0.20240522.100816.xpi";
+      sha256 = "fab0a224a7fca0aca6aa5fa88c209ee88337a25d382743bd277e20084c2006d4";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2807,10 +2807,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "127.0.20240520.91901";
+      version = "127.0.20240522.100816";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4289740/francais_language_pack-127.0.20240520.91901.xpi";
-      sha256 = "601a52e0195767a7ca6f808ba2852aae9d6b0691df6bf9bcb04dac503f2abbdb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4291057/francais_language_pack-127.0.20240522.100816.xpi";
+      sha256 = "30ef04fd910616305875d07c38c2e26f3e2ca1cb0f013995f856ef1f2df94e42";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3173,10 +3173,10 @@
     };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "2.1.9";
+      version = "2.1.10";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4246655/gitpod-2.1.9.xpi";
-      sha256 = "5bcbd39c02c353392af55741151829eb68190f451f798204ddbf8176caa9b8b8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4290942/gitpod-2.1.10.xpi";
+      sha256 = "051c763bdfa737c1a8871a6ed93e802ce050b52ca6c8a623da9ab740d805e3d9";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
@@ -4735,10 +4735,10 @@
     };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.930";
+      version = "4.937";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4286631/youtube_addon-4.930.xpi";
-      sha256 = "a469e3a608023601c476958656dc4b5ab267c6ee5ca0d1c22f27cc55fdb01a01";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4290618/youtube_addon-4.937.xpi";
+      sha256 = "fa15d676ad75f834b36d43d763a7a1e47fb6516cb71a8c241d45935d5a65c37d";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -4752,6 +4752,7 @@
         mozPermissions = [
           "contextMenus"
           "storage"
+          "battery"
           "https://www.youtube.com/*"
         ];
         platforms = platforms.all;
@@ -5513,10 +5514,10 @@
     };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.6.4";
+      version = "1.6.4.1";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4258055/leechblock_ng-1.6.4.xpi";
-      sha256 = "6e0cb398d96b1c3afc3f837785f25716a6db65010bc4725d9edc73732e75e7be";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4289439/leechblock_ng-1.6.4.1.xpi";
+      sha256 = "0c8fece770797e0871dc29f770857f622a83349da45df43e2d1efa507d9370d4";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -5749,10 +5750,10 @@
     };
     "mal-sync" = buildFirefoxXpiAddon {
       pname = "mal-sync";
-      version = "0.9.8";
+      version = "0.10.0";
       addonId = "{c84d89d9-a826-4015-957b-affebd9eb603}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4255650/mal_sync-0.9.8.xpi";
-      sha256 = "d9fc831cf2fedf0fb2eccae7f33b19a16c98b982d4509dd138c2e83dcecf484f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4290931/mal_sync-0.10.0.xpi";
+      sha256 = "837c6a0fee2f6b8eed345d64fe90ad7127e11b88510cc3b5106afc2b048f4631";
       meta = with lib;
       {
         homepage = "https://github.com/lolamtisch/MALSync";
@@ -5761,26 +5762,8 @@
         mozPermissions = [
           "storage"
           "alarms"
-          "webRequest"
-          "webRequestBlocking"
-          "https://myanimelist.net/"
-          "https://myanimelist.cdn-dena.com/"
-          "https://cdn.myanimelist.net/"
-          "https://kissanimelist.firebaseio.com/"
-          "https://*.anilist.co/"
-          "https://graphql.anilist.co/"
-          "https://kitsu.io/"
-          "https://media.kitsu.io/"
-          "https://api.simkl.com/"
-          "https://www.netflix.com/"
-          "https://discover.hulu.com/"
-          "https://www.primevideo.com/"
-          "https://www.crunchyroll.com/"
-          "https://api.malsync.moe/"
-          "https://api.myanimelist.net/"
-          "https://api.mangadex.org/"
-          "https://shikimori.one/"
           "notifications"
+          "declarativeNetRequest"
           "*://myanimelist.net/anime/*"
           "*://myanimelist.net/manga/*"
           "*://myanimelist.net/animelist/*"
@@ -5885,6 +5868,7 @@
           "*://*.gogoanime3.net/*"
           "*://*.gogoanimehd.io/*"
           "*://*.anitaku.to/*"
+          "*://*.anitaku.so/*"
           "*://*.gogoanime3.co/*"
           "*://*.www.turkanime.tv/video/*"
           "*://*.www.turkanime.tv/anime/*"
@@ -6046,9 +6030,13 @@
           "*://animexinax.com/*"
           "*://monoschinos.com/*"
           "*://monoschinos2.com/*"
+          "*://smotret-anime.com/catalog/*"
+          "*://anime365.ru/catalog/*"
+          "*://anime-365.ru/catalog/*"
           "*://animefire.net/*"
           "*://animefire.plus/*"
           "*://otakufr.co/*"
+          "*://otakufr.cc/*"
           "*://mangatx.com/*"
           "*://manhuafast.com/*"
           "*://tranimeizle.net/*"
@@ -6103,7 +6091,7 @@
           "*://animewho.com/*"
           "*://animesuge.io/anime/*"
           "*://animesuge.to/anime/*"
-          "*://toonily.net/manga/*"
+          "*://toonily.com/webtoon/*"
           "*://fumetsu.pl/anime/*"
           "*://frixysubs.pl/*"
           "*://guya.moe/*"
@@ -6125,9 +6113,6 @@
           "*://aniwatch.nz/*"
           "*://aniwatch.se/*"
           "*://hianime.to/*"
-          "*://www.funimation.com/shows/*"
-          "*://www.funimation.com/*/shows/*"
-          "*://www.funimation.com/v/*"
           "*://kitsune.tv/*"
           "*://beta.kitsune.tv/*"
           "*://lhtranslation.net/manga*"
@@ -6165,6 +6150,7 @@
           "*://anime-sama.fr/*"
           "*://mangafire.to/*"
           "*://projectsuki.com/*"
+          "*://animebuff.ru/anime/*"
           "*://animeonegai.com/*"
           "*://www.animeonegai.com/*"
           "*://*.animeko.co/*"
@@ -6188,22 +6174,18 @@
           "*://suwayomi-webui-preview.github.io/*"
           "*://manhuaus.com/*"
           "*://*.taiyo.moe/*"
+          "*://*.animesonline.in/*"
+          "*://*.miruro.tv/*"
+          "*://*.miruro.online/*"
+          "*://latanime.org/*"
           "*://*.openload.co/*"
           "*://*.openload.pw/*"
           "*://*.streamango.com/*"
           "*://*.mp4upload.com/*"
           "*://*.mcloud.to/*"
-          "*://*.mcloud2.to/*"
-          "*://*.mzcloud.life/*"
           "*://*.mcloud.bz/*"
-          "*://*.prettyfast.to/*"
-          "*://*.rapidvideo.com/*"
-          "*://*.rapidvid.to/*"
           "*://*.static.crunchyroll.com/*"
           "*://*.vidstreaming.io/*"
-          "*://*.vidstreaming.me/*"
-          "*://*.vidstreamingvw.xyz/*"
-          "*://*.vidstreaming1.xyz/*"
           "*://*.vidstreaming.link/*"
           "*://*.xstreamcdn.com/*"
           "*://*.gcloud.live/*"
@@ -6218,7 +6200,6 @@
           "*://*.href.li/*"
           "*://*.vk.com/*"
           "*://*.cloudvideo.tv/*"
-          "*://player.zerostream.de/v/*"
           "*://*.fembed.net/*"
           "*://*.fembed.com/*"
           "*://*.animeproxy.info/*"
@@ -6258,16 +6239,12 @@
           "*://*.animeultima.to/e/*"
           "*://*.animeultima.to/faststream/*"
           "*://*.vidoza.net/*"
-          "*://crazyload.co/*"
           "*://gounlimited.to/*"
           "*://www.ani-stream.com/*"
-          "*://flex.aniflex.org/public/dist/*"
           "*://animedaisuki.moe/embed/*"
-          "*://superitu.com/embed/*"
           "*://www.dailymotion.com/embed/*"
           "*://vev.io/embed/*"
           "*://vev.red/embed/*"
-          "*://www.funimation.com/player/*"
           "*://jwpstream.com/jwps/yplayer.php*"
           "*://www.vaplayer.xyz/v/*"
           "*://vaplayer.me/*"
@@ -6282,14 +6259,14 @@
           "*://*.replay.watch/*"
           "*://*.playhydrax.com/*"
           "*://hydrax.net/*"
-          "*://*.hydracdn.network/*"
           "*://*.geoip.redirect-ads.com/*"
           "*://*.streamium.xyz/*"
           "*://kodik.info/*"
           "*://aniboom.one/*"
-          "*://animo-pace-stream.io/*"
+          "*://smotret-anime.com/translations/embed/*"
+          "*://anime365.ru/translations/embed/*"
+          "*://anime-365.ru/translations/embed/*"
           "*://*.pstream.net/e/*"
-          "*://veestream.net/e/*"
           "*://fusevideo.net/e/*"
           "*://fusevideo.io/e/*"
           "*://*.animefever.tv/embed/*"
@@ -6304,6 +6281,7 @@
           "*://*.mixdropjmk.pw/e/*"
           "*://*.mixdrop21.net/e/*"
           "*://*.mixdrop.si/e/*"
+          "*://*.mixdrop.nu/e/*"
           "*://gdriveplayer.me/embed*"
           "*://sendvid.net/v/*"
           "*://sendvid.com/embed/*"
@@ -6334,13 +6312,8 @@
           "*://*.googleusercontent.com/gadgets/*"
           "*://animedesu.pl/player/desu.php?v=*"
           "*://*.plyr.link/*"
-          "*://*.plyr.in/*"
-          "*://v.cdnmix.org/*"
-          "*://v.cachecow.eu/*"
           "*://v.vvid.cc/*"
-          "*://cloud9.to/e*/*"
           "*://*.okanime.com/cdn/*/embed/?*"
-          "*://*.okgaming.org/I/*"
           "*://*.gogo-stream.com/streaming.php?*"
           "*://*.gogo-stream.com/load.php?*"
           "*://*.gogo-stream.com/loadserver.php?*"
@@ -6381,10 +6354,6 @@
           "*://*.gogoplay2.com/load.php?*"
           "*://*.gogoplay2.com/loadserver.php?*"
           "*://*.gogoplay2.com/embedplus*"
-          "*://*.gogoplay3.com/streaming.php?*"
-          "*://*.gogoplay3.com/load.php?*"
-          "*://*.gogoplay3.com/loadserver.php?*"
-          "*://*.gogoplay3.com/embedplus*"
           "*://*.gogoplay4.com/streaming.php?*"
           "*://*.gogoplay4.com/load.php?*"
           "*://*.gogoplay4.com/loadserver.php?*"
@@ -6437,8 +6406,11 @@
           "*://*.embtaku.pro/streaming.php?*"
           "*://*.embtaku.pro/load.php?*"
           "*://*.embtaku.pro/loadserver.php?*"
+          "*://*.embtaku.com/embedplus*"
+          "*://*.embtaku.com/streaming.php?*"
+          "*://*.embtaku.com/load.php?*"
+          "*://*.embtaku.com/loadserver.php?*"
           "*://vivo.sx/embed/*"
-          "*://ani.googledrive.stream/vidstreaming/*"
           "*://play.api-web.site/*"
           "*://vidstream.pro/embed/*"
           "*://vidstream.pro/e/*"
@@ -6448,30 +6420,21 @@
           "*://vizcloud.ru/e/*"
           "*://vizcloud2.ru/embed/*"
           "*://vizcloud2.ru/e/*"
-          "*://vizcloud2.online/embed/*"
-          "*://vizcloud2.online/e/*"
           "*://vizcloud.online/embed/*"
           "*://vizcloud.online/e/*"
           "*://vizstream.ru/embed/*"
           "*://vizstream.ru/e/*"
           "*://vizcloud.xyz/embed/*"
           "*://vizcloud.xyz/e/*"
-          "*://vizcloud.live/embed/*"
-          "*://vizcloud.live/e/*"
-          "*://vizcloud.digital/embed/*"
-          "*://vizcloud.digital/e/*"
           "*://vizcloud.cloud/embed/*"
           "*://vizcloud.cloud/e/*"
-          "*://vizcloud.store/embed/*"
-          "*://vizcloud.store/e/*"
-          "*://vizcloud.site/embed/*"
-          "*://vizcloud.site/e/*"
           "*://vizcloud.co/embed/*"
           "*://vizcloud.co/e/*"
           "*://vidplay.site/e/*"
           "*://vidplay.lol/e/*"
           "*://vidplay.online/e/*"
-          "*://ea1928580f.site/e/*"
+          "*://a9bfed0818.nl/e/*"
+          "*://vid142.site/e/*"
           "*://streamsb.net/*"
           "*://streamsb.com/*"
           "*://sbembed.com/*"
@@ -6483,7 +6446,6 @@
           "*://sbplay2.com/*"
           "*://embedsb.com/*"
           "*://watchsb.com/*"
-          "*://steamsb.net/*"
           "*://sbplay2.xyz/*"
           "*://sbfull.com/e/*"
           "*://ssbstream.net/*"
@@ -6599,6 +6561,14 @@
           "*://jayservicestuff.com/e/*"
           "*://vincentincludesuccessful.com/e/*"
           "*://brookethoughi.com/e/*"
+          "*://jamesstartstudent.com/e/*"
+          "*://ryanagoinvolve.com/e/*"
+          "*://jasonresponsemeasure.com/e/*"
+          "*://graceaddresscommunity.com/e/*"
+          "*://shannonpersonalcost.com/e/*"
+          "*://cindyeyefinal.com/e/*"
+          "*://michaelapplysome.com/e/*"
+          "*://sethniceletter.com/e/*"
           "*://vidoo.tv/*"
           "*://nxload.com/*"
           "*://videobin.co/*"
@@ -6608,29 +6578,22 @@
           "*://yugen.to/e/*"
           "*://yugenanime.ro/e/*"
           "*://yugenanime.tv/e/*"
-          "*://kaa-play.com/*"
           "*://kaa-play.me/*"
-          "*://kaaplayer.com/*"
           "*://kaavid.com/*"
           "*://vidnethub.net/*"
           "*://vidco.pro/*"
-          "*://betaplayer.life/*"
           "*://*.animeshouse.net/gcloud/*"
           "*://*.animeshouse.net/playerBlue/*"
           "*://*.animeshouse.net/mp4/*"
           "*://*.animeshouse.net/ah-clp-new/*"
-          "*://nezuko-ah.nl/*"
           "*://animato.me/embed/*"
           "*://kimanime.ru/AnimeIframe/*"
           "*://vidcloud.spb.ru/*"
-          "*://vidcloud.one/*"
           "*://*.streamhd.cc/*"
           "*://*.rapid-cloud.ru/*"
           "*://*.rapid-cloud.co/*"
           "*://videovard.sx/*"
           "*://videovard.to/*"
-          "*://beststremo.xyz/*"
-          "*://beststremo.com/*"
           "*://streamlare.com/e/*"
           "*://betteranime.net/player*"
           "*://streamzz.to/*"
@@ -6643,17 +6606,13 @@
           "*://*.turkanime.co/embed/*"
           "*://play.cozyplayer.com/*"
           "*://odnoklassniki.ru/*"
-          "*://cloneplayer.xyz/*"
           "*://myalucard.xyz/*"
           "*://uploads.mobi/*"
           "*://iframe.mediadelivery.net/embed/*"
-          "*://maverickki.com/*"
           "*://*.yfvf.com/*"
           "*://waaw.to/*"
           "*://suzihaza.com/*"
           "*://*.solidfiles.com/*"
-          "*://*.kaast1.com/*"
-          "*://kanra.dev/*"
           "*://www.animeworld.tv/api/episode/serverPlayerAnimeWorld?id=*"
           "*://www.animeworld.so/api/episode/serverPlayerAnimeWorld?id=*"
           "*://filemoon.sx/e/*"
@@ -6662,12 +6621,14 @@
           "*://filemoon.top/e/*"
           "*://fmoonembed.pro/e/*"
           "*://rgeyyddl.skin/e/*"
+          "*://designparty.sx/e/*"
           "*://mb.toonanime.xyz/dist/*"
           "*://aniyan.net/jwplayer/*"
           "*://*.googlevideo.com/videoplayback?*"
           "*://*.streamhide.to/e/*"
           "*://api.animeflix.live/*"
           "*://api.animeflix.dev/*"
+          "*://*.animeflix.ci/player?*"
           "*://megacloud.tv/*"
           "*://vixcloud.cc/*"
           "*://vixcloud.co/*"
@@ -7813,10 +7774,10 @@
     };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2024.2.6";
+      version = "2024.5.17";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4232703/privacy_badger17-2024.2.6.xpi";
-      sha256 = "81d80bff29b6209aa444713bc548a3d06fd5bde208c9c3c596dba81cc97add02";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4288634/privacy_badger17-2024.5.17.xpi";
+      sha256 = "5dfe8b3a8d1a8dde87c2873a5b82b5e78e413f981e629c8b341dcd947c3ec4fe";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
@@ -10858,10 +10819,10 @@
     };
     "video-downloadhelper" = buildFirefoxXpiAddon {
       pname = "video-downloadhelper";
-      version = "8.2.2.8";
+      version = "9.0.1.13";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4251369/video_downloadhelper-8.2.2.8.xpi";
-      sha256 = "975f9f66f76b4f8055316419c64950a532aa5cb4018ffbb926cf293ed5f300dd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4289663/video_downloadhelper-9.0.1.13.xpi";
+      sha256 = "e68a9f8aeaeea0a917c3021a2266c567fde455c46f2aa6d877cec346f50ee479";
       meta = with lib;
       {
         homepage = "http://www.downloadhelper.net/";
@@ -10873,9 +10834,8 @@
           free = false;
         };
         mozPermissions = [
+          "downloads.open"
           "tabs"
-          "contextMenus"
-          "nativeMessaging"
           "webRequest"
           "downloads"
           "webNavigation"
@@ -10883,8 +10843,10 @@
           "scripting"
           "storage"
           "<all_urls>"
-          "menus"
           "webRequestBlocking"
+          "menus"
+          "contextMenus"
+          "nativeMessaging"
           "*://*.downloadhelper.net/*"
         ];
         platforms = platforms.all;
