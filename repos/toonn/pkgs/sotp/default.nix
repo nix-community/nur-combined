@@ -6,16 +6,17 @@
 
 buildGoModule rec {
   pname = "sotp";
-  version = "1.0.0-unstable-2024-05-20";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "getsops";
     repo = "sotp";
-    rev = "13b0f90378a9f805806a2f5a87c4ed4afb8e877e";
-    hash = "sha256-OuUnjT0yZrZtpfhMCMqaPZMDTVBynTWTLnGaCsdWeu4=";
+    rev = version;
+    hash = "sha256-fYzKqsxZmHv16+tlmROPB++QZaQYvWgeZqwiIMTLyak=";
   };
 
-  vendorHash = "sha256-78dS9GPuQ7HdDufql8QYxbRm6sgajd5kGiaKW6x7lTI=";
+  proxyVendor = true;
+  vendorHash = "sha256-byBYy/PFMY2xYXxdOCZnfAIby23ppEat3rs0ji7g5bA=";
 
   nativeCheckInputs = [ gnupg ];
 
