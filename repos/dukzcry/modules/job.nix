@@ -11,6 +11,10 @@ in {
     server = mkEnableOption ''
       Services for job
     '';
+    number = mkOption {
+     type = types.str;
+     default = "161";
+    };
   };
 
   config = mkMerge [
@@ -21,8 +25,11 @@ in {
     (mkIf cfg.server {
       networking.iproute2 = {
         enable = true;
-        rttablesExtraConfig = "161 job";
+        rttablesExtraConfig = "${cfg.number} job";
       };
+      environment.etc."vpnc/post-connect.d/fwmark".text = ''
+        ${pkgs.iproute2}/bin/ip rule add fwmark ${cfg.number} lookup job
+      '';
     })
     (mkIf (cfg.server && config.networking.nftables.enable) {
       networking.nftables.tables = {
