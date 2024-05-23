@@ -53,8 +53,8 @@ if utils.is_executable("pyright") then
     })
 end
 
-if utils.is_executable("ruff-lsp") then
-    lspconfig.ruff_lsp.setup({
+if utils.is_executable("ruff") then
+    lspconfig.ruff.setup({
         capabilities = capabilities,
         on_attach = lsp.on_attach,
     })
