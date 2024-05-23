@@ -24,10 +24,10 @@ jobs:
 
     steps:
       - name: Clone source
-        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
 
       - name: Install nix
-        uses: cachix/install-nix-action@7ac1ec25491415c381d9b62f0657c7a028df52a7 # v24
+        uses: cachix/install-nix-action@ba0dd844c9180cbf77aa72a116d6fbc515d0e87b # v27
         with:
           nix_path: "${{ matrix.nixPath }}"
           extra_nix_config: |
@@ -38,7 +38,7 @@ jobs:
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
 
       - name: Setup cachix
-        uses: cachix/cachix-action@v13
+        uses: cachix/cachix-action@v15
         with:
           name: ${{ matrix.cachixName }}
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
