@@ -2,7 +2,7 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  nix-update-script,
+  unstableGitUpdater,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "fcitx5-tokyonight";
@@ -32,7 +32,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Fcitx5 theme using TokyoNight colorscheme";

@@ -2,6 +2,7 @@
   picom,
   pcre2,
   fetchFromGitHub,
+  unstableGitUpdater,
 }:
 picom.overrideAttrs (old: {
   pname = "picom-ft-labs";
@@ -15,6 +16,8 @@ picom.overrideAttrs (old: {
   };
 
   buildInputs = old.buildInputs ++ [pcre2];
+
+  passthru.updateScript = unstableGitUpdater {};
 
   meta =
     old.meta

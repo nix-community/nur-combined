@@ -6,11 +6,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "metacubexd";
-  version = "1.135.1";
+  version = "1.138.1";
 
   src = fetchurl {
     url = "https://github.com/MetaCubeX/metacubexd/releases/download/v${finalAttrs.version}/compressed-dist.tgz";
-    hash = "sha256-T7qksY6eYrTSpEToioHqttmSU7CPRJh8HAebxo2Xmpg=";
+    hash = "sha256-l2mcb2optvgtfzma/Ix63Y8BxXC6CsGoyIIMoOvD074=";
   };
 
   dontConfigure = true;
