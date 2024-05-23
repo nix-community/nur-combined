@@ -5,7 +5,7 @@
   modules = import ./modules;
   overlays = import ./overlays;
 
-  freelook = pkgs.callPackage ./pkgs/freelook { };
+  # freelook = pkgs.callPackage ./pkgs/freelook { };
   kubectl-ktop = pkgs.callPackage ./pkgs/kubectl-ktop { };
   kubectl-neat = pkgs.callPackage ./pkgs/kubectl-neat { };
   kubectl-oomd = pkgs.callPackage ./pkgs/kubectl-oomd { };

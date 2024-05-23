@@ -13,7 +13,7 @@ buildGoModule rec {
     sha256 = "sha256-H9+a7nb90AI2VUiii0LbDdik+Ihe1blSdLYwJRVRE8w=";
   };
 
-  vendorSha256 = "sha256-Hw7f9nJvcslr6wbmjz9XtMxAm2XYVb4yhW2LssQOxrQ=";
+  vendorHash = "sha256-Hw7f9nJvcslr6wbmjz9XtMxAm2XYVb4yhW2LssQOxrQ=";
 
   doCheck = false;
   subPackages = [ "cmd/kubectl-realname_diff" ];

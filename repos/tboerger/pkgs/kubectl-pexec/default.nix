@@ -13,7 +13,7 @@ buildGoModule rec {
     sha256 = "sha256-3teKIjBc8ToCON+LcVD+WCOSzmYmDHW0T1t8tbodg3Q=";
   };
 
-  vendorSha256 = "sha256-HmRwez3NFSF97Dc6fD/Tt78qNDjovkhlfqloYo2qG68=";
+  vendorHash = "sha256-HmRwez3NFSF97Dc6fD/Tt78qNDjovkhlfqloYo2qG68=";
 
   doCheck = false;
   subPackages = [ "cmd/kpexec" ];
