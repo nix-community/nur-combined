@@ -38,4 +38,14 @@ rec {
       "PUBKEY_DIR=${pkgs.nur.repos.dukzcry.wireless-regdb}/lib/crda/pubkeys"
     ];
   });
+} // optionalAttrs (config.services.job.server or false) {
+  openconnect = super.openconnect.override {
+    vpnc-scripts = super.vpnc-scripts.overrideAttrs (oldAttrs: rec {
+      preFixup = ''
+        substituteInPlace $out/bin/vpnc-script \
+          --replace "IPROUTE route replace" "IPROUTE route replace table job"
+        ${oldAttrs.preFixup}
+      '';
+    });
+  };
 }
