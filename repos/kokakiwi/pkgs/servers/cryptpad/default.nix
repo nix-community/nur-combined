@@ -30,8 +30,8 @@
       hash = "sha256-BZdExj2q/bqUD3k9uluOot2dlrWKA+vpad49EdgXKww=";
     };
     v7 = {
-      rev = "9d8b914a81f0f9e5d0bc3f0fc631adf4b6d480e7";
-      hash = "sha256-M+rPJ/Xo2olhqB5ViynGRaesMLLfG/1ltUoLnepMPnM=";
+      rev = "ba82142ff242ce385804bcb4287126de52d329f3";
+      hash = "sha256-3WX3dTWJoeApon1AH3XplBIvEosVNzchkjgi2C808B4=";
     };
   };
   mkOnlyOffice = {
@@ -61,16 +61,16 @@
   });
 in buildNpmPackage rec {
   pname = "cryptpad";
-  version = "2024.3.0";
+  version = "2024.3.1";
 
   src = fetchFromGitHub {
     owner = "cryptpad";
     repo = "cryptpad";
     rev = version;
-    hash = "sha256-VUW6KvoSatk1/hlzklMQYlSNVH/tdbH+yU4ONUQ0JSQ=";
+    hash = "sha256-kXghuktaKicFOz98Siy/OjJ9rlgy6C2BTKkD2OFLE+k=";
   };
 
-  npmDepsHash = "sha256-tvTkoxxioPuNoe8KIuXSP7QQbvcpxMnygsMmzKBQIY0=";
+  npmDepsHash = "sha256-fjImdtv0bwgdDvl/BXV0DesreOAW2u8HsNqJ13hrJMw=";
 
   inherit nodejs;
 
@@ -80,10 +80,6 @@ in buildNpmPackage rec {
 
   makeCacheWritable = true;
   dontFixup = true;
-
-  postPatch = ''
-    cp -T ${./package-lock.json} package-lock.json
-  '';
 
   preBuild = ''
     npm run install:components
