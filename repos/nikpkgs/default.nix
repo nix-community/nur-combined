@@ -27,6 +27,7 @@
   qemu-3dfx              = pkgs.callPackage ./pkgs/qemu-3dfx { };
   rustdesk-bin           = pkgs.callPackage ./pkgs/rustdesk/appimage.nix { };
   simulide               = pkgs.callPackage ./pkgs/simulide { };
+  simulide-unwrapped     = pkgs.libsForQt5.callPackage ./pkgs/simulide/unwrapped.nix { };
   systemd-lock-handler   = pkgs.callPackage ./pkgs/systemd-lock-handler { };
   tailscale-systray      = pkgs.callPackage ./pkgs/tailscale-systray { };
   unison-gitignore       = pkgs.callPackage ./pkgs/unison-gitignore { };
