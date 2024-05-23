@@ -22,4 +22,5 @@ with pkgs; rec {
   kylin-virtual-keyboard = libsForQt5.callPackage ./pkgs/kylin-virtual-keyboard { };
   #kylin-wayland-compositor = pkgs.callPackage ./pkgs/kylin-wayland-compositor { };
   xcursor-viewer = pkgs.callPackage ./pkgs/xcursor-viewer { };
+  wps = pkgs.libsForQt5.callPackage ./pkgs/wps { };
 }
