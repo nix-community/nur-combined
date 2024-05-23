@@ -1,4 +1,4 @@
-{ lib, openssl, iconv, curl, openldap, stdenv, cmake, clang, fetchFromGitHub }:
+{ lib, openssl, libiconv, curl, openldap, stdenv, cmake, clang, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "3dstool";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YHSuayvFpJHr42ezn1P5OR4Gtp+M6nZL1+ko6hWFvR0=";
   };
 
-  buildInputs = [ openssl iconv curl openldap ];
+  buildInputs = [ openssl libiconv curl openldap ];
   nativeBuildInputs = [ cmake ];
 
   makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" "CXX=${stdenv.cc.targetPrefix}c++" ];

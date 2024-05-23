@@ -1,4 +1,4 @@
-{ lib, iconv, stdenv, fetchFromGitHub }:
+{ lib, libiconv, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
   pname = "makerom";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XGktRr/PY8LItXsN1sTJNKcPIfnTnAUQHx7Om/bniXg=";
   };
 
-  buildInputs = [ iconv ];
+  buildInputs = [ libiconv ];
   sourceRoot = "source/makerom";
 
   preBuild = ''
