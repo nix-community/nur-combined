@@ -1420,8 +1420,8 @@
             "url": "https://github.com/ryan4yin/nur-packages"
         },
         "rycee": {
-            "rev": "c90137a4cd0e332ebd1f5f8051863d28eba45fdc",
-            "sha256": "05cx8kiasrr54mj60qc76r8hjdqlpbgv43xcjnjfjsc6a9l68p6v",
+            "rev": "f5fc4f09306ab1003e7c8718004c127da594f659",
+            "sha256": "1rqj9yld966i2h48lp7l9f9i5d5qfpik8h3dmi2xdlxzi25n87ra",
             "url": "https://gitlab.com/rycee/nur-expressions"
         },
         "sagikazarmark": {
@@ -1668,6 +1668,11 @@
             "rev": "be8012be37e795e63a4428d2959f98eae59e3459",
             "sha256": "1a5xxkqbpwnnhb1zs67frbvx8jqa663yi71nbxvxbab7x0vdgllm",
             "url": "https://github.com/whs/nix"
+        },
+        "willbou1": {
+            "rev": "dff452addb68d28546c8aa79eb6289b901791d32",
+            "sha256": "1js8733pfx8ahyzq3p6fcrm4sdqvzj9hv70b2kgz8jz5nm624rg8",
+            "url": "https://github.com/willbou1/nur-packages"
         },
         "willpower3309": {
             "rev": "982b85880a549eabc035bd08a9dd136ad0c86408",
