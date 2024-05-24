@@ -1,5 +1,5 @@
 diff --git a/datalad/support/archive_utils_patool.py b/datalad/support/archive_utils_patool.py
-index 32d473808..738e58636 100644
+index 32d473808..fbbe4826d 100644
 --- a/datalad/support/archive_utils_patool.py
 +++ b/datalad/support/archive_utils_patool.py
 @@ -63,6 +63,16 @@ from ..utils import on_windows
@@ -11,7 +11,7 @@ index 32d473808..738e58636 100644
 +try: # define check_existing_filename from patool >= 2.0.0
 +    check_existing_filename = patoolib.fileutil.check_existing_filename
 +    check_archive_filelist = patoolib.fileutil.check_archive_filelist
-+except Exception e: # fallback to version <2.0.0
++except Exception as e: # fallback to version <2.0.0
 +    check_existing_filename = patoolib.util.check_existing_filename
 +    check_archive_filelist = patoolib.util.check_archive_filelist
 +
