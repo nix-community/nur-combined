@@ -1,12 +1,13 @@
-{ lib
-, rustPlatform'
-, fetchFromGitHub
-, stdenv
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  stdenv,
 }:
 let
   source = lib.importJSON ./pin.json;
 in
-rustPlatform'.buildRustPackage {
+rustPlatform.buildRustPackage {
   pname = "mdbook-typst-pdf";
   version = source.version;
 

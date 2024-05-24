@@ -6,22 +6,10 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { }
-, rust-overlay ? false
+{
+  pkgs ? import <nixpkgs> { },
 }:
-let
-  rustPlatform =
-    if rust-overlay
-    then
-      pkgs.makeRustPlatform
-        {
-          cargo = pkgs.rust-bin.beta.latest.minimal;
-          rustc = pkgs.rust-bin.beta.latest.minimal;
-        }
-    else pkgs.rustPlatform;
-in
-builtins.trace "「我书写，则为我命令。我陈述，则为我规定。」"
-rec {
+builtins.trace "「我书写，则为我命令。我陈述，则为我规定。」" rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -33,25 +21,10 @@ rec {
   maa-x = pkgs.callPackage ./pkgs/maa-assistant-arknights/maa-x.nix { };
 
   maa-cli-nightly = pkgs.callPackage ./pkgs/maa-assistant-arknights/maa-cli.nix {
-    maa-cli' = pkgs.maa-cli.override {
-      maa-assistant-arknights = maa-assistant-arknights-nightly;
-    };
-    rustPlatform' = rustPlatform;
+    maa-cli' = pkgs.maa-cli.override { maa-assistant-arknights = maa-assistant-arknights-nightly; };
   };
-
-  rime-latex = pkgs.callPackage ./pkgs/rimePackages/rime-latex.nix { };
-
-  rime-project-trans = pkgs.callPackage ./pkgs/rimePackages/rime-project-trans.nix { };
-
-  telegram-desktop-fix-webview = pkgs.qt6Packages.callPackage ./pkgs/common/telegram-desktop.nix { };
-
-  mdbook-typst-pdf = pkgs.callPackage ./pkgs/mdbook-typst-pdf {
-    rustPlatform' = rustPlatform;
-  };
-
-  vscode-vtuber = pkgs.callPackage ./pkgs/common/vscode-vtuber.nix { };
-
-  mutter-text-input-v1 = pkgs.callPackage ./pkgs/common/mutter.nix { };
-
-  sequoia-wot = pkgs.callPackage ./pkgs/sequoia-wot { rustPlatform' = rustPlatform; };
+}
+// pkgs.lib.packagesFromDirectoryRecursive {
+  callPackage = pkgs.callPackage;
+  directory = ./pkgs/by-name;
 }

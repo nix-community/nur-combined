@@ -1,9 +1,10 @@
-{ stdenvNoCC
-, lib
-, fetchurl
+{
+  stdenvNoCC,
+  lib,
+  fetchurl,
 }:
 
-let 
+let
 
   dict = fetchurl {
     url = "https://github.com/project-trans/rime-dict/releases/download/unstable-20231115/project_trans.dict.yaml";
@@ -14,8 +15,8 @@ let
     url = "https://github.com/project-trans/rime-dict/releases/download/unstable-20231115/project_trans_pinyin.dict.yaml";
     sha256 = "sha256-YTSM+wXDrHiJfwh3eLeUmHvTotIJzEmk7uPHUqYIMlE=";
   };
-
-in stdenvNoCC.mkDerivation {
+in
+stdenvNoCC.mkDerivation {
 
   pname = "rime-project-trans";
   version = "unstable-20231115";

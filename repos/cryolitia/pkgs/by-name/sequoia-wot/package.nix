@@ -1,6 +1,6 @@
 {
   lib,
-  rustPlatform',
+  rustPlatform,
   fetchFromGitLab,
   libclang,
   pkg-config,
@@ -9,7 +9,7 @@
   sqlite,
   stdenv,
 }:
-rustPlatform'.buildRustPackage rec {
+rustPlatform.buildRustPackage rec {
   pname = "sequoia-wot";
   version = "0.11.0";
 
@@ -30,7 +30,7 @@ rustPlatform'.buildRustPackage rec {
   nativeBuildInputs = [
     pkg-config
     libclang
-    rustPlatform'.bindgenHook
+    rustPlatform.bindgenHook
   ];
 
   buildInputs = [

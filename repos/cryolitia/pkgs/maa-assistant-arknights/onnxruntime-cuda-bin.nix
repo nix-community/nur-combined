@@ -1,13 +1,14 @@
-{ stdenvNoCC
-, pkgs
-, lib
-, fetchurl
-, autoPatchelfHook
-, openmpi
-, nsync
-, abseil-cpp
-, fetchzip
-, cudaPackages_11
+{
+  stdenvNoCC,
+  pkgs,
+  lib,
+  fetchurl,
+  autoPatchelfHook,
+  openmpi,
+  nsync,
+  abseil-cpp,
+  fetchzip,
+  cudaPackages_11,
 }:
 
 let
@@ -18,8 +19,8 @@ let
     url = "https://github.com/microsoft/onnxruntime/archive/refs/tags/v${ver}.zip";
     sha256 = "sha256-KZWIAYrwSznIKOvh1rcYJQQ2Q6a/DuWmt4NxM2ztxkM=";
   };
-
-in stdenvNoCC.mkDerivation rec {
+in
+stdenvNoCC.mkDerivation rec {
 
   pname = "onnxruntime-cuda-bin";
   version = ver;
@@ -29,9 +30,7 @@ in stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-6riROTAl7dWBjRqiakKGDlc5/MSePKP4dhEOyHNv5/E=";
   };
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-  ];
+  nativeBuildInputs = [ autoPatchelfHook ];
 
   buildInputs = with cudaPackages_11; [
     openmpi
@@ -56,13 +55,14 @@ in stdenvNoCC.mkDerivation rec {
     rm -v $out/lib/libonnxruntime_providers_tensorrt.so
 
     cp -rv ${src2}/include/* $out/include/
-    
+
     runHook postInstall
   '';
 
-  meta = pkgs.onnxruntime.meta // (with lib; {
-    broken = true;
-    platforms = [ "x86_64-linux" ];
-  });
-
+  meta =
+    pkgs.onnxruntime.meta
+    // (with lib; {
+      broken = true;
+      platforms = [ "x86_64-linux" ];
+    });
 }

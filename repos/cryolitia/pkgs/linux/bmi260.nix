@@ -1,7 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, kernel
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  kernel,
 }:
 
 stdenv.mkDerivation (finalAttr: {
@@ -19,9 +20,7 @@ stdenv.mkDerivation (finalAttr: {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags = [
-    "KERNEL_SRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  ];
+  makeFlags = [ "KERNEL_SRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" ];
 
   installPhase = ''
     runHook preInstall
@@ -34,7 +33,10 @@ stdenv.mkDerivation (finalAttr: {
   meta = with lib; {
     homepage = "https://github.com/hhd-dev/bmi260";
     description = "A kernel driver for the Bosch BMI260 IMU";
-    license = with licenses; [ bsd3 gpl2Only ];
+    license = with licenses; [
+      bsd3
+      gpl2Only
+    ];
     maintainers = with maintainers; [ Cryolitia ];
     platforms = platforms.linux;
   };

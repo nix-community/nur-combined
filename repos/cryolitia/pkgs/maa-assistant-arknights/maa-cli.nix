@@ -1,14 +1,15 @@
-{ lib
-, rustPlatform'
-, maa-cli'
-, fetchFromGitHub
-, stdenv
-, fetchurl
+{
+  lib,
+  rustPlatform,
+  maa-cli',
+  fetchFromGitHub,
+  stdenv,
+  fetchurl,
 }:
 let
   sources = lib.importJSON ./pin.json;
 in
-rustPlatform'.buildRustPackage {
+rustPlatform.buildRustPackage {
   pname = "maa-cli";
   version = sources.maa-cli.name;
 

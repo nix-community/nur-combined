@@ -6,7 +6,11 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { }, gpd-fan-driver, ... }:
+{
+  pkgs ? import <nixpkgs> { },
+  gpd-fan-driver,
+  ...
+}:
 let
 
   lib = pkgs.lib;
@@ -25,8 +29,20 @@ let
       package = pkgs.linuxPackages_latest;
     }
   ];
-
-in lib.attrsets.mergeAttrsList (lib.lists.forEach linux-packages (linux-package: lib.attrsets.mapAttrs' (name: package: lib.attrsets.nameValuePair (name + linux-package.name) (linux-package.package.callPackage package {})) {
-  bmi260 = ../pkgs/linux/bmi260.nix;
-  gpd-fan-driver = gpd-fan-driver.modulePackage;
-}))
+in
+lib.attrsets.mergeAttrsList (
+  lib.lists.forEach linux-packages (
+    linux-package:
+    lib.attrsets.mapAttrs'
+      (
+        name: package:
+        lib.attrsets.nameValuePair (name + linux-package.name) (
+          linux-package.package.callPackage package { }
+        )
+      )
+      {
+        bmi260 = ../pkgs/linux/bmi260.nix;
+        gpd-fan-driver = gpd-fan-driver.modulePackage;
+      }
+  )
+)

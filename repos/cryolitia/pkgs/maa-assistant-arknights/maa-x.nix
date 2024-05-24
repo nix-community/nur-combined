@@ -1,16 +1,17 @@
-{ stdenv
-, lib
-, fetchzip
-, electron
-, android-tools
-, makeWrapper
-, makeDesktopItem
-, copyDesktopItems
-, }:
+{
+  stdenv,
+  lib,
+  fetchzip,
+  electron,
+  android-tools,
+  makeWrapper,
+  makeDesktopItem,
+  copyDesktopItems,
+}:
 
 let
-
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
 
   pname = "maax";
   version = "2.0.0-beta.14";
@@ -21,9 +22,9 @@ in stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-      makeWrapper
-      copyDesktopItems
-    ];
+    makeWrapper
+    copyDesktopItems
+  ];
 
   buildInputs = [
     android-tools
@@ -56,7 +57,10 @@ in stdenv.mkDerivation rec {
       desktopName = "Maax";
       exec = "MaaX";
       icon = "MaaX";
-      categories = [ "Game" "StrategyGame" ];
+      categories = [
+        "Game"
+        "StrategyGame"
+      ];
       comment = meta.description;
     })
   ];
@@ -71,5 +75,4 @@ in stdenv.mkDerivation rec {
     # android-tools failed
     broken = stdenv.buildPlatform != stdenv.hostPlatform;
   };
-
 }
