@@ -48,11 +48,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1716473565,
-        "narHash": "sha256-A9FpUK108SrkcrEEXJuiGwu3ZmQjDIV8V6rMYwT6soI=",
+        "lastModified": 1716540911,
+        "narHash": "sha256-QQn1vki6whdWdeZqekXr2Y7XJ+MEl8CkQZaNEpGTKxQ=",
         "owner": "Cryolitia",
         "repo": "GPD-LinuxControls",
-        "rev": "ac68946f2546853052b22c75d20a86df380610d0",
+        "rev": "f1352f5ba6ed93c627769c49d412b0daf69bc2ff",
         "type": "github"
       },
       "original": {
