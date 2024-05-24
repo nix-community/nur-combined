@@ -46,7 +46,7 @@ in
         printf "HTTP/1.1 404\r\n\r\nNot found"
         exit 0
       fi
-      exec ${lib.getExe cfg.php}  -d display_errors="stderr" "routes.php"
+      exec ${lib.getExe cfg.php}  -d display_errors="stderr" -d disable_functions="header" "routes.php"
       '';
     };
     services.nginx.virtualHosts."php-teste.${config.networking.hostName}.${config.networking.domain}" = {
