@@ -97,7 +97,7 @@ with final; {
   cubegui = final.callPackage ./pkgs/cubegui {inherit (final) cubelib;};
   arm-forge = libsForQt5.callPackage ./pkgs/arm-forge {};
 
-  datalad = prev.datalad.overrideAttrs (o: {
+  datalad = builtins.trace "datalad: ${prev.datalad.version}" prev.datalad.overrideAttrs (o: {
     patches =
       (o.patches or [])
       ++ [
