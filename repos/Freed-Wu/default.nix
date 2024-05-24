@@ -40,8 +40,6 @@ let
     stardict-jmdict-ja-en = callPackage ./pkgs/data/misc/stardict-jmdict-ja-en { };
     stardict-langdao-ce-gb = callPackage ./pkgs/data/misc/stardict-langdao-ce-gb { };
     stardict-langdao-ec-gb = callPackage ./pkgs/data/misc/stardict-langdao-ec-gb { };
-    # https://github.com/NixOS/nixpkgs/pull/237972
-    windows10-icons = callPackage ./pkgs/data/misc/windows10-icons { };
     windows10-themes = callPackage ./pkgs/data/misc/windows10-themes { };
 
     lsp-tree-sitter = callPackage ./pkgs/development/python-modules/lsp-tree-sitter { };
