@@ -1776,10 +1776,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2420.0";
+      version = "6.2421.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4286016/dashlane-6.2420.0.xpi";
-      sha256 = "696d031970a082b87cb5e02802df68ae62658e1d6db7a3a800f5bd5bbcad2a3a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4289992/dashlane-6.2421.0.xpi";
+      sha256 = "f7fd7d943604ad32abe9046f914edbdd0b9b9964f65ee974cf1866d15de5f97d";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2053,10 +2053,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.38.0";
+      version = "2.38.1";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4290309/dualsub-2.38.0.xpi";
-      sha256 = "a432d35d47435143f698e4138aa5713a4c7788d633ca71a65e6ad2bfd34db835";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4291636/dualsub-2.38.1.xpi";
+      sha256 = "df1d9566060cf9a704e3dfc81ca3210dabd6aaf961b28942801b4662a4ff8568";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2227,10 +2227,10 @@
     };
     "elasticvue" = buildFirefoxXpiAddon {
       pname = "elasticvue";
-      version = "1.0.6";
+      version = "1.0.8";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4269118/elasticvue-1.0.6.xpi";
-      sha256 = "20595effbdb304ebfe490b5b25c3a1ea541ae69bfae855fc264eb626c74b1154";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4291987/elasticvue-1.0.8.xpi";
+      sha256 = "09b65d81b328832c9fa212d5d147ed8014f532555526ec21ce72b724317e0094";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
@@ -6710,10 +6710,10 @@
     };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "11.12.4";
+      version = "11.14.5";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4254098/ether_metamask-11.12.4.xpi";
-      sha256 = "eee5e8fcdc530ad3c11d0d931ff9a2c6d317ad78e6c5742ff90fb10371f8ab3f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4289710/ether_metamask-11.14.5.xpi";
+      sha256 = "261efb390d3bda9ed0dd9851809f70a8c0e643889f54c959e26ccf3e60bcefb9";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -6724,6 +6724,7 @@
           "http://localhost:8545/"
           "https://*.infura.io/"
           "https://*.codefi.network/"
+          "https://*.cx.metamask.io/"
           "https://chainid.network/chains.json"
           "https://lattice.gridplus.io/*"
           "activeTab"
@@ -8462,10 +8463,10 @@
     };
     "protoots" = buildFirefoxXpiAddon {
       pname = "protoots";
-      version = "1.2.2";
+      version = "1.2.3";
       addonId = "protoots@trans.rights";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4154844/protoots-1.2.2.xpi";
-      sha256 = "461c1c9b406b0df8e439b804b0e0bdd2ae831e76cfc733f21a135f47854dd1c5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4291719/protoots-1.2.3.xpi";
+      sha256 = "c0e1fe1e08d38f253a7144d178a17d3dd9e4ea75ce3164cfa99b3193626c8912";
       meta = with lib;
       {
         homepage = "https://github.com/ItsVipra/ProToots";
@@ -9440,7 +9441,7 @@
       sha256 = "9cb45f679be853caa10401db8c95e2a1c79691775d85eadda21e48da10f86396";
       meta = with lib;
       {
-        homepage = "https://github.com/igorlogius";
+        homepage = "https://github.com/igorlogius/startup-bookmarks";
         description = "Open a set of bookmarks as tabs on browser startup by simply selecting a bookmark folder which contains them.";
         license = licenses.bsd2;
         mozPermissions = [ "tabs" "bookmarks" "storage" ];
@@ -10628,10 +10629,10 @@
     };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.57.2";
+      version = "1.58.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4261710/ublock_origin-1.57.2.xpi";
-      sha256 = "9928e79a52cecf7cfa231fdb0699c7d7a427660d94eb10d711ed5a2f10d2eb89";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4290466/ublock_origin-1.58.0.xpi";
+      sha256 = "470c56994a7174db21578adce598b158a5dc0970c87c5cfe889ac632bd3085ea";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -10658,7 +10659,6 @@
           "https://forums.lanik.us/*"
           "https://github.com/*"
           "https://*.github.io/*"
-          "https://*.letsblock.it/*"
           "https://github.com/uBlockOrigin/*"
           "https://ublockorigin.github.io/*"
           "https://*.reddit.com/r/uBlockOrigin/*"
@@ -11153,10 +11153,10 @@
     };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.18.0";
+      version = "2.19.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4220396/violentmonkey-2.18.0.xpi";
-      sha256 = "4abbeea842b82965379c6011dec6a435dfff0f69c20749118a8ba2f7d14cb0f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4289102/violentmonkey-2.19.0.xpi";
+      sha256 = "105433e09e87b33431f9b47351c13e189a6d9e6df9eb5d425b3d97676ea3dc3c";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
