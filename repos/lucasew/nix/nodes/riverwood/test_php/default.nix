@@ -2,6 +2,7 @@
 
 let
   cfg = config.services.php-test;
+  user = "php-test";
 in
 
 {
@@ -11,12 +12,21 @@ in
       php = lib.mkPackageOption pkgs "php" {};
       socket = lib.mkOption {
         description = "Where to listen socket for php test";
-        default = "/run/php-test";
+        default = "/run/php-test.sock";
       };
     };
   };
   config = lib.mkIf cfg.enable {
+    users = {
+      users.${user} = {
+        isSystemUser = true;
+        group = user;
+      };
+      groups.${user} = { };
+    };
+
     systemd.sockets.php-teste = {
+      restartTriggers = [ cfg.socket ];
       socketConfig = {
         ListenStream = cfg.socket;
         Accept = true;
@@ -24,21 +34,67 @@ in
       partOf = [ "php-teste.service" ];
       wantedBy = [ "sockets.target" "multi-user.target" ];
     };
+
+    systemd.services."php-teste-setup-code" = {
+      restartIfChanged = true;
+      path = [
+        "/run/current-system/sw"
+        pkgs.script-directory-wrapper
+      ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        ExecStart = pkgs.writeShellScript "php-teste-setup-code-mount" ''
+          set -eu
+          mkdir -p /run/php-test
+          chown ${user}:${user} /run/php-test
+          code_dir=$(sdw d root)/bin/_shortcuts/php
+          echo "code_dir: $code_dir"
+          exec mount --bind $code_dir /run/php-test
+        '';
+        ExecStop = pkgs.writeShellScript "php-teste-unsetup-code-mount" ''
+          set -eu
+          exec umount /run/php-test;
+        '';
+      };
+    };
+
     systemd.services."php-teste@" = {
       stopIfChanged = true;
-      path = [ pkgs.script-directory-wrapper ];
-      unitConfig = {
-        After = ["network.target"];
-      };
+      requires = [ "php-teste-setup-code.service" ];
+      after = [ "network.target"  ];
       serviceConfig = {
         StandardInput = "socket";
         StandardOutput = "socket";
         StandardError = "journal";
+        User = config.users.users.${user}.name;
+        Group = config.users.users.${user}.group;
+
+        MemoryHigh = "64M";
+        MemoryMax = "128M";
+
+        TemporaryFileSystem = "/:ro";
+
+        BindReadOnlyPaths = [
+          "/nix/store"
+          "/run/php-test"
+        ];
+        
+        DevicePolicy = "closed";
+        MemoryDenyWriteExecute = true;
+        NoNewPrivileges = true;
+        PrivateDevices = true;
+        PrivateTmp = true;
+        ProtectControlGroups = true;
+        ProtectHome = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectKernelLogs = true;
+        ProtectSystem = "strict";
       };
+
       script = ''
-      echo request >&2
-      scriptRoot="$(sdw d root)/bin/_shortcuts/php"
-      cd "$scriptRoot"
+      cd /run/php-test
 
       if [ ! -f routes.php ]; then
         echo script not found >&2
