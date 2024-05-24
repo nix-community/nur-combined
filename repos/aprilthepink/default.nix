@@ -14,7 +14,12 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
+  suyu-mainline = import ./pkgs/suyu {
+    branch = "mainline";
+    inherit (pkgs) libsForQt5 fetchFromGitea;
+  };
+
+  #example-package = pkgs.callPackage ./pkgs/example-package { };
   godot4_2 = pkgs.callPackage ./pkgs/godot_4_2 { };
   stellwerksim-launcher = pkgs.callPackage ./pkgs/stellwerksim-launcher { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
