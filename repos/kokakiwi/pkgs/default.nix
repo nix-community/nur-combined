@@ -1,7 +1,5 @@
-{ pkgs, callPackage }:
+{ pkgs, lib, callPackage, ... }:
 let
-  inherit (pkgs) lib;
-
   mergeAttrsList = let
     mergeAttrsList' = lib.foldl lib.mergeAttrs { };
   in lib.mergeAttrsList or mergeAttrsList';

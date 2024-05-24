@@ -1,9 +1,14 @@
-{ pkgs ? import <nixpkgs> {}
-}: let
-  inherit (pkgs) lib;
-
-  packages = import ./pkgs {
+{ pkgs ? import <nixpkgs> {} }:
+let
+  importSet = path: import path {
     inherit pkgs;
-    callPackage = lib.callPackageWith (pkgs // packages);
+    inherit (pkgs) lib;
+    callPackage = pkgs.lib.callPackageWith (pkgs // packages);
   };
-in packages
+
+  packages = importSet ./pkgs;
+
+  top-level = {
+    lib = importSet ./lib;
+  };
+in packages // top-level
