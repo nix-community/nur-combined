@@ -3,10 +3,10 @@
 with lib;
 
 let
-  cfg = config.services.rkn;
+  cfg = config.services.vpn;
 in {
-  options.services.rkn = {
-    enable = mkEnableOption "Обход блокировок роскомпозора";
+  options.services.vpn = {
+    enable = mkEnableOption "Обход блокировок";
     address = mkOption {
       type = types.str;
     };
@@ -39,7 +39,7 @@ in {
           };
         };
       };
-    default = {};
+      default = {};
     };
   };
 
@@ -56,7 +56,7 @@ in {
         ipv6 = cfg.resolver.ipv6;
       };
       services.nginx.virtualHosts = {
-        rkn = {
+        vpn = {
           default = true;
           listen = [
             { addr = cfg.address; port = 80; }
@@ -84,11 +84,11 @@ in {
       services.tor.enable = true;
       services.tor.settings = {
         ExcludeExitNodes = "{RU}";
-        # onion
+        TransPort = [{ addr = cfg.address; port = 9040; }];
+        # onion. флибуста зачем-то хардкодит редирект на этот домен
         DNSPort = [{ addr = cfg.address; port = 9053; }];
         VirtualAddrNetworkIPv4 = cfg.tor.network;
         AutomapHostsOnResolve = true;
-        TransPort = [{ addr = cfg.address; port = 9040; }];
       };
       services.dnsmasq.settings = {
         server = [ "/onion/${cfg.address}#9053" ];
@@ -97,13 +97,12 @@ in {
     })
     (mkIf (cfg.enable && cfg.tor.enable && config.networking.nftables.enable) {
       networking.nftables.tables = {
-        rkn = {
+        vpn = {
           family = "ip";
           content = ''
             chain out {
               type nat hook output priority mangle;
               ip protocol tcp ip saddr ${cfg.address} tcp dport { 80, 443 } counter dnat to ${cfg.address}:9040
-              ip protocol tcp ip daddr ${cfg.tor.network} tcp dport { 80, 443 } counter dnat to ${cfg.address}:9040
             }
             chain pre {
               type nat hook prerouting priority dstnat;
@@ -118,7 +117,6 @@ in {
         iptables -t nat -A OUTPUT -p tcp -m multiport --dports 80,443 -s ${cfg.address} -j DNAT --to-destination ${cfg.address}:9040
         # onion
         iptables -t nat -A PREROUTING -p tcp -m multiport --dports 80,443 -d ${cfg.tor.network} -j DNAT --to-destination ${cfg.address}:9040
-        iptables -t nat -A OUTPUT -p tcp -m multiport --dports 80,443 -d ${cfg.tor.network} -j DNAT --to-destination ${cfg.address}:9040
       '';
     })
   ];

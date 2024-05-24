@@ -15,7 +15,7 @@ rec {
   headless = ./headless.nix;
   sunshine = ./sunshine.nix;
   regdomain = ./regdomain.nix;
-  rkn = ./rkn.nix;
+  vpn = ./vpn.nix;
   awl = ./awl.nix;
   prometheus-nut-exporter = ./prometheus-nut-exporter.nix;
   hardware = ./hardware.nix;
