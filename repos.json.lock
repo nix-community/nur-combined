@@ -1669,11 +1669,6 @@
             "sha256": "1a5xxkqbpwnnhb1zs67frbvx8jqa663yi71nbxvxbab7x0vdgllm",
             "url": "https://github.com/whs/nix"
         },
-        "willbou1": {
-            "rev": "dff452addb68d28546c8aa79eb6289b901791d32",
-            "sha256": "1js8733pfx8ahyzq3p6fcrm4sdqvzj9hv70b2kgz8jz5nm624rg8",
-            "url": "https://github.com/willbou1/nur-packages"
-        },
         "willpower3309": {
             "rev": "982b85880a549eabc035bd08a9dd136ad0c86408",
             "sha256": "19wfsrli1ksk8d3m8klfwgcgif9d4sgngn0iawyxssmxcyxqry3q",
