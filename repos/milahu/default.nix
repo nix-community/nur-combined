@@ -379,6 +379,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       scikits-audiolab = callPackage ./pkgs/python3/pkgs/scikits-audiolab { };
 
+      tor2web = callPackage ./pkgs/python3/pkgs/tor2web { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
