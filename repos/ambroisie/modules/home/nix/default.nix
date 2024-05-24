@@ -27,7 +27,7 @@ in
     };
 
     inputs = {
-      link = my.mkDisableOption "link inputs to `/etc/nix/inputs/`";
+      link = my.mkDisableOption "link inputs to `$XDG_CONFIG_HOME/nix/inputs/`";
 
       addToRegistry = my.mkDisableOption "add inputs and self to registry";
 

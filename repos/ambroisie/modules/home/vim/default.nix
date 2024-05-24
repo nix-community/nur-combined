@@ -13,6 +13,7 @@ let
       "after"
       "autoload"
       "ftdetect"
+      "queries"
       "lua"
       "plugin"
     ];
@@ -40,7 +41,6 @@ in
       lualine-lsp-progress # Show progress for LSP servers
 
       # tpope essentials
-      vim-commentary # Easy comments
       vim-eunuch # UNIX integrations
       vim-fugitive # A 'git' wrapper
       vim-git # Sane git syntax files
@@ -58,7 +58,6 @@ in
 
       # General enhancements
       vim-qf # Better quick-fix list
-      nvim-osc52 # Send clipboard data through terminal escape for SSH
 
       # Other wrappers
       git-messenger-vim # A simple blame window
@@ -69,8 +68,8 @@ in
       lsp_lines-nvim # Show diagnostics *over* regions
       none-ls-nvim # LSP integration for linters and formatters
       nvim-treesitter.withAllGrammars # Better highlighting
+      (pkgs.vimPlugins.nvim-treesitter.grammarToPlugin pkgs.tree-sitter-bp)
       nvim-treesitter-textobjects # More textobjects
-      nvim-ts-context-commentstring # Comment string in nested language blocks
       plenary-nvim # 'null-ls', 'telescope' dependency
 
       # Completion

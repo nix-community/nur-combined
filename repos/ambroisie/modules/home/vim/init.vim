@@ -86,8 +86,6 @@ set mouse=
 " Set dark mode by default
 set background=dark
 
-" 24 bit colors
-set termguicolors
 " Setup some overrides for gruvbox
 lua << EOF
 local gruvbox = require("gruvbox")
