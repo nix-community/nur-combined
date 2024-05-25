@@ -148,19 +148,29 @@ function exact_with_route_param(string $selected_route, string $handler_script) 
     execphp($handler_script);
 }
 
-ob_start(); // saporra appenda os echo num buffer pq nessa fase ainda não tem nada retornado
+function content_scope_push() {
+    ob_start();
+}
+
+function content_scope_pop() {
+    $data = ob_get_contents();
+    ob_end_clean();
+    return $data;
+}
+
+content_scope_push(); // saporra appenda os echo num buffer pq nessa fase ainda não tem nada retornado
 
 // ==================================== ROTAS ===============================
 
 exact_route("/phpinfo", "phpinfo.php");
 exact_route("/image", "image.php");
+exact_route("/scope_test", "scope_test.php");
 
 use_route("/", "index.php");
 
 // ==================================== Finalização =========================
 
-$data = ob_get_contents();
-ob_end_clean();
+$data = content_scope_pop();
 
 if (!http_response_code()) {
     http_response_code(200); // default response code
