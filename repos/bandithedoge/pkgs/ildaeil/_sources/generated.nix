@@ -7,14 +7,14 @@
 }: {
   ildaeil = {
     pname = "ildaeil";
-    version = "40d1dd3a6862079901af000aeb5f240ec34a2b6d";
+    version = "d031a7dd54220c2447b402fe4e792782a75ead3a";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Ildaeil";
-      rev = "40d1dd3a6862079901af000aeb5f240ec34a2b6d";
+      rev = "d031a7dd54220c2447b402fe4e792782a75ead3a";
       fetchSubmodules = true;
-      sha256 = "sha256-VIL4xLyxoBCxyTV7qnqnTbsltdIVwmgZgike+lTUTNc=";
+      sha256 = "sha256-krh0lxvgw+pnxcV11sNClMapwgk7l+JJveazHLObNaQ=";
     };
-    date = "2024-05-11";
+    date = "2024-05-23";
   };
 }

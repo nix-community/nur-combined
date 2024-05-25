@@ -1,41 +1,41 @@
 {
-    "carla-git": {
-        "cargoLocks": null,
-        "date": "2024-05-24",
-        "extract": null,
-        "name": "carla-git",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "falkTX",
-            "repo": "Carla",
-            "rev": "c37d53a4216654118e711fa41e88e7e801d5bd9b",
-            "sha256": "sha256-nduM04HVZVNVCDsIIp/vcwL13Io5RgZaWRi+CfDbFwk=",
-            "type": "github"
-        },
-        "version": "c37d53a4216654118e711fa41e88e7e801d5bd9b"
+  "carla-git": {
+    "cargoLocks": null,
+    "date": "2024-05-24",
+    "extract": null,
+    "name": "carla-git",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "owner": "falkTX",
+      "repo": "Carla",
+      "rev": "c37d53a4216654118e711fa41e88e7e801d5bd9b",
+      "sha256": "sha256-nduM04HVZVNVCDsIIp/vcwL13Io5RgZaWRi+CfDbFwk=",
+      "type": "github"
     },
-    "zrythm": {
-        "cargoLocks": null,
-        "date": "2024-05-25",
-        "extract": null,
-        "name": "zrythm",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "e8e596549f41a9d7e4558d39fefa639c8dc45e3e",
-            "sha256": "sha256-Q7NYzfC6J08t+/t/vtB68B2eiQWFjhl6MdS5e2KQ7Ac=",
-            "type": "git",
-            "url": "https://gitlab.zrythm.org/zrythm/zrythm.git"
-        },
-        "version": "e8e596549f41a9d7e4558d39fefa639c8dc45e3e"
-    }
+    "version": "c37d53a4216654118e711fa41e88e7e801d5bd9b"
+  },
+  "zrythm": {
+    "cargoLocks": null,
+    "date": "2024-05-25",
+    "extract": null,
+    "name": "zrythm",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "deepClone": false,
+      "fetchSubmodules": false,
+      "leaveDotGit": false,
+      "name": null,
+      "rev": "e8e596549f41a9d7e4558d39fefa639c8dc45e3e",
+      "sha256": "sha256-Q7NYzfC6J08t+/t/vtB68B2eiQWFjhl6MdS5e2KQ7Ac=",
+      "type": "git",
+      "url": "https://gitlab.zrythm.org/zrythm/zrythm.git"
+    },
+    "version": "e8e596549f41a9d7e4558d39fefa639c8dc45e3e"
+  }
 }
