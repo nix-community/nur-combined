@@ -67,13 +67,13 @@ let
         sha512 = "+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==";
       };
     };
-    "axios-1.6.8" = {
+    "axios-1.7.2" = {
       name = "axios";
       packageName = "axios";
-      version = "1.6.8";
+      version = "1.7.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/axios/-/axios-1.6.8.tgz";
-        sha512 = "v/ZHtJDU39mDpyBoFVkETcd/uNdxrWRrg3bKpOKzXFA6Bvqopts6ALSMU3y6ijYxbw2B+wPrIv46egTzJXCLGQ==";
+        url = "https://registry.npmjs.org/axios/-/axios-1.7.2.tgz";
+        sha512 = "2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==";
       };
     };
     "balanced-match-1.0.2" = {
@@ -756,7 +756,7 @@ let
       sources."apparatus-0.0.10"
       sources."asynckit-0.4.0"
       sources."at-least-node-1.0.0"
-      sources."axios-1.6.8"
+      sources."axios-1.7.2"
       sources."balanced-match-1.0.2"
       sources."base64-js-1.5.1"
       sources."bl-4.1.0"
