@@ -18,6 +18,7 @@ let
           bleak
           matplotlib
           clang
+          pyyaml
         ]
       ))
     ];
@@ -125,11 +126,11 @@ let
 
     cmd = [
       mcrcon
+      zola
 
       asciinema
       smartmontools
       difftastic
-      direnv
       btop
       atuin
       minio-client
@@ -187,7 +188,7 @@ let
     # # ripgrep-all 
 
     info = [
-      ncdu_2 # disk space info
+      parallel-disk-usage # disk space info
       freshfetch
       htop
       onefetch

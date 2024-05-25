@@ -38,9 +38,6 @@
 
       ../sysctl.nix
 
-      inputs.home-manager.nixosModules.default
-      ../../home
-
       ../../users.nix
 
       inputs.misskey.nixosModules.default

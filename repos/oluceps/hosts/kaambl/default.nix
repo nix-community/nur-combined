@@ -23,8 +23,8 @@
     ./spec.nix
     ../persist.nix
     ../secureboot.nix
-    inputs.home-manager.nixosModules.default
-    ../../home
+    # inputs.home-manager.nixosModules.default
+    # ../../home
     ../sysctl.nix
     ../../age.nix
     ../../packages.nix

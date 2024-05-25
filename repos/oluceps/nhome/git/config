@@ -1,0 +1,54 @@
+[commit]
+	gpgsign = true
+
+[core]
+	editor = "/run/current-system/sw/bin/hx"
+
+[fetch]
+	prune = true
+
+[filter "lfs"]
+	clean = "git-lfs clean -- %f"
+	process = "git-lfs filter-process"
+	required = true
+	smudge = "git-lfs smudge -- %f"
+
+[gpg]
+	format = "ssh"
+
+[gpg "ssh"]
+	allowedSignersFile = "/dev/null"
+	defaultKeyCommand = "ssh-add -L"
+
+[http]
+	postBuffer = 524288000
+
+[merge]
+	conflictStyle = "diff3"
+	tool = "vimdiff"
+
+[mergetool]
+	keepBackup = false
+	keepTemporaries = false
+	writeToTemp = true
+
+[pull]
+	rebase = true
+
+[sendemail]
+	from = "mn1.674927211@gmail.com"
+	smtpencryption = "tls"
+	smtpserver = "smtp.gmail.com"
+	smtpserverport = 587
+	smtpuser = "mn1.674927211@gmail.com"
+
+[ssh]
+	postBuffer = 524288000
+
+[tag]
+	gpgsign = true
+
+[user]
+	email = "i@oluceps.uk"
+	name = "oluceps"
+	signingKey = "/run/agenix/id"

@@ -13,5 +13,4 @@
     PHOTOPRISM_DATABASE_DRIVER = "mysql";
   };
   port = 20800;
-
 }

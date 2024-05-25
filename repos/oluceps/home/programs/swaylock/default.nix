@@ -10,18 +10,17 @@
           name = "img.jpg";
           hash = "sha256-kqvVGHOaD7shJrvYfhLDvDs62r20wi8Sajth16Spsrk=";
         };
-        img-blurred = pkgs.runCommand "img.jpg"
-          {
-            nativeBuildInputs = with pkgs;[ imagemagick ];
-          } "
+        img-blurred = pkgs.runCommand "img.jpg" {
+          nativeBuildInputs = with pkgs; [ imagemagick ];
+        } "
            convert -blur 14x5 ${img} $out
            ";
-        # img-blurred = pkgs.requireFile {
-        #   name = "poi.png";
-        #   url = "https://placeholder.nyaw.xyz";
-        #   sha256 = "6ce4d8445c68e8c6db342a26e9c802bac3753243b1775487e33755d9bf11421f";
-        # };
       in
+      # img-blurred = pkgs.requireFile {
+      #   name = "poi.png";
+      #   url = "https://placeholder.nyaw.xyz";
+      #   sha256 = "6ce4d8445c68e8c6db342a26e9c802bac3753243b1775487e33755d9bf11421f";
+      # };
       "${img-blurred}";
     scaling = "fill";
     indicator-radius = 100;

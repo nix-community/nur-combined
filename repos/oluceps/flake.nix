@@ -41,7 +41,11 @@
                 fenix.overlays.default
                 colmena.overlays.default
                 self.overlays.default
+                nuenv.overlays.default
               ];
+              config = {
+                allowUnfree = true;
+              };
             };
 
             pre-commit = {
@@ -65,6 +69,11 @@
               ];
             };
 
+            apps.default = {
+              type = "app";
+              program = pkgs.writeScriptBin "link-home" (toString (import ./nhome { inherit lib pkgs; }));
+            };
+
             packages =
               let
                 shadowedPkgs = [
@@ -74,7 +83,13 @@
                   "shufflecake"
                 ];
               in
-              (extraLibs.genFilteredDirAttrsV2 ./pkgs shadowedPkgs (n: pkgs.${n}));
+              (extraLibs.genFilteredDirAttrsV2 ./pkgs shadowedPkgs (n: pkgs.${n}))
+              // {
+                userPkgs = pkgs.symlinkJoin {
+                  name = "user-pkgs";
+                  paths = import ./userPkgs.nix { inherit pkgs; };
+                };
+              };
             formatter = pkgs.nixfmt-rfc-style;
           };
 

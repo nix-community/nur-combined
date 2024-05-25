@@ -1,0 +1,50 @@
+theme = "catppuccin_macchiato"
+[editor]
+auto-pairs = true
+color-modes = true
+cursorline = true
+line-number = "relative"
+true-color = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.indent-guides]
+character = "┊"
+render = true
+
+[editor.lsp]
+display-inlay-hints = false
+display-messages = true
+enable = true
+snippets = true
+
+[editor.soft-wrap]
+enable = false
+
+[editor.statusline]
+center = ["file-name"]
+left = ["mode", "spinner"]
+right = ["diagnostics", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+separator = "│"
+
+[keys]
+[keys.normal]
+C-e = "scroll_down"
+C-j = ["move_line_down", "move_line_down", "move_line_down", "move_line_down", "move_line_down"]
+C-k = ["move_line_up", "move_line_up", "move_line_up", "move_line_up", "move_line_up"]
+C-y = "scroll_up"
+
+[keys.normal.space]
+m = ":format"
+q = ":q!"
+s = ":w"
+
+[keys.select]
+C-j = ["extend_line_down", "extend_line_down", "extend_line_down", "extend_line_down", "extend_line_down"]
+C-k = ["extend_line_up", "extend_line_up", "extend_line_up", "extend_line_up", "extend_line_up"]
