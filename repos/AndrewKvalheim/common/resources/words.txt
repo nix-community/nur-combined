@@ -1095,6 +1095,8 @@ unapply
 unassociated
 unban
 unblockable
+unbreak
+unbreaks
 uncategorized
 unclickable
 unclipped

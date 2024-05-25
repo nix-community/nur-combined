@@ -16,8 +16,8 @@ let
   inherit (builtins) toFile;
   inherit (lib) versionOlder warnIf;
 
-  josmVersion = "18822";
-  josmLegacyRev = "36195";
+  josmVersion = "19067";
+  josmLegacyRev = "36265";
 in
 warnIf (versionOlder josmVersion josm.version) "JOSM plugin build environment ${josmVersion} is behind ${josm.version}"
   stdenv.mkDerivation
@@ -26,19 +26,19 @@ warnIf (versionOlder josmVersion josm.version) "JOSM plugin build environment ${
       url = "https://josm.openstreetmap.de/osmsvn/applications/editors/josm";
       rev = josmLegacyRev;
       ignoreExternals = true;
-      hash = "sha256-96b7IbaraGk3vo3zOcr7MMUAjZb5s0d5InDQURTmyRk=";
+      hash = "sha256-Ko7SG6/6nHPq/x9AE0KL1/Ftr9Kz1DdwHBDAlQ+32RY=";
     };
 
     srcJosmCore = fetchsvn {
       url = "https://josm.openstreetmap.de/svn/trunk";
       rev = josmVersion;
       ignoreExternals = true;
-      hash = "sha256-K1jvwqT45v3e5hRhqYWRkofWOnjCsep0OzDjJYc1mCw=";
+      hash = "sha256-Kv8522Bv4Cj4/JhcsGJmOcwBnV8D/oUGoymJ2ARDqZg=";
     };
 
     srcJosmCoreDist = fetchurl {
       url = "https://josm.openstreetmap.de/download/josm-snapshot-${josmVersion}.jar";
-      hash = "sha256-pzB12lkcWGJ7sVdcfJZC2MnUowfWdElxny0pSQ5vjlw=";
+      hash = "sha256-+mHX80ltIFkVWIeex519b84BYzhp+h459/C2wlDR7jQ=";
     };
 
     unpackPhase = ''

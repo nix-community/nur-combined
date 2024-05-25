@@ -27,6 +27,8 @@ in
       no-symkey-cache = true;
       throw-keyids = true;
     };
+    # Workaround for “gpg-agent: scdaemon: ccid open error: skip”
+    scdaemonSettings.disable-ccid = true;
   };
 
   # Workaround for https://github.com/NixOS/nixpkgs/issues/101616
