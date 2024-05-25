@@ -809,7 +809,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   bash2py = callPackage ./pkgs/development/tools/bash2py { };
 
-  cert-chain-resolver = callPackage ./pkgs/tools/networking/cert-chain-resolver { };
+  cert-chain-resolver = cert-chain-resolver-bash;
+
+  cert-chain-resolver-go = callPackage ./pkgs/tools/networking/cert-chain-resolver { };
+
+  cert-chain-resolver-bash = callPackage ./pkgs/tools/networking/cert-chain-resolver/bash.nix { };
 
 }
 
