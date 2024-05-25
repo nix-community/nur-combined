@@ -513,11 +513,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-vw5G2h+RtvtbYr3G7KY40XN9cnlsmERkzk84AyCurdY=",
+            "sha256": "sha256-fQWShFyNig3Ggh/7i5Mt08DDRf5t/CqkV0wgfTOFcoE=",
             "type": "url",
-            "url": "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.10.404099_amd64.deb"
+            "url": "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.20.40523_amd64.deb"
         },
-        "version": "7.5.10.404099"
+        "version": "7.5.20.40523"
     },
     "douban-openapi-server": {
         "cargoLocks": null,
@@ -666,11 +666,11 @@
             "name": null,
             "owner": "FlareSolverr",
             "repo": "FlareSolverr",
-            "rev": "v3.3.18",
-            "sha256": "sha256-VpW3Rvn4UZAV02ymbZPo5baeDIFNGWx7VA5254Hhw1E=",
+            "rev": "v3.3.19",
+            "sha256": "sha256-H6nWgzzdzA3fOU57euop8mFzmq1A8DW1ZxpJWcOCFSc=",
             "type": "github"
         },
-        "version": "v3.3.18"
+        "version": "v3.3.19"
     },
     "flasgger": {
         "cargoLocks": null,

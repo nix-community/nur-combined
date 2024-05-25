@@ -293,10 +293,10 @@
   };
   dingtalk = {
     pname = "dingtalk";
-    version = "7.5.10.404099";
+    version = "7.5.20.40523";
     src = fetchurl {
-      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.10.404099_amd64.deb";
-      sha256 = "sha256-vw5G2h+RtvtbYr3G7KY40XN9cnlsmERkzk84AyCurdY=";
+      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.20.40523_amd64.deb";
+      sha256 = "sha256-fQWShFyNig3Ggh/7i5Mt08DDRf5t/CqkV0wgfTOFcoE=";
     };
   };
   douban-openapi-server = {
@@ -382,13 +382,13 @@
   };
   flaresolverr = {
     pname = "flaresolverr";
-    version = "v3.3.18";
+    version = "v3.3.19";
     src = fetchFromGitHub {
       owner = "FlareSolverr";
       repo = "FlareSolverr";
-      rev = "v3.3.18";
+      rev = "v3.3.19";
       fetchSubmodules = false;
-      sha256 = "sha256-VpW3Rvn4UZAV02ymbZPo5baeDIFNGWx7VA5254Hhw1E=";
+      sha256 = "sha256-H6nWgzzdzA3fOU57euop8mFzmq1A8DW1ZxpJWcOCFSc=";
     };
   };
   flasgger = {

@@ -131,7 +131,7 @@ Or, use variables from this repository in case I change them:
 |  | `decluttarr` | [decluttarr](https://github.com/ManiMatter/decluttarr) | 1.42.0 | Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed. |
 |  | `deepspeech-gpu` | [deepspeech-gpu](https://github.com/mozilla/DeepSpeech) | 0.9.3 | Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers. |
 |  | `deepspeech-wrappers` | [deepspeech](https://github.com/mozilla/DeepSpeech) | 0.9.3 | Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers. |
-|  | `dingtalk` | [dingtalk](https://www.dingtalk.com/) | 7.5.10.404099 | 钉钉 |
+|  | `dingtalk` | [dingtalk](https://www.dingtalk.com/) | 7.5.20.40523 | 钉钉 |
 |  | `dn42-pingfinder` | [dn42-pingfinder](https://git.dn42.dev/dn42/pingfinder/src/branch/master/clients) | 1.0.0 | DN42 Pingfinder |
 |  | `douban-openapi-server` | [douban-openapi-server](https://github.com/caryyu/douban-openapi-server) | unstable-2022-12-17 | A Douban API server that provides an unofficial APIs for media information gathering |
 |  | `dpdk-kmod` | [dpdk-kmod](https://git.dpdk.org/dpdk-kmods/) | unstable-2023-02-05 | DPDK kernel modules or add-ons |
@@ -141,7 +141,7 @@ Or, use variables from this repository in case I change them:
 |  | `etherguard` | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | unstable-2024-01-12 | Layer2 version of wireguard with Floyd Warshall implement in go |
 |  | `fastapi-dls` | [fastapi-dls](https://gitea.publichub.eu/oscar.krause/fastapi-dls) | unstable-2024-05-10 | Minimal Delegated License Service (DLS) |
 |  | `fcitx5-breeze` | [fcitx5-breeze](https://github.com/scratch-er/fcitx5-breeze) | 2.0.0 | Fcitx5 theme to match KDE's Breeze style |
-|  | `flaresolverr` | [flaresolverr](https://github.com/FlareSolverr/FlareSolverr) | 3.3.18 | Proxy server to bypass Cloudflare protection |
+|  | `flaresolverr` | [flaresolverr](https://github.com/FlareSolverr/FlareSolverr) | 3.3.19 | Proxy server to bypass Cloudflare protection |
 |  | `flasgger` | [flasgger](http://flasgger.pythonanywhere.com/) | 0.9.5 | Easy OpenAPI specs and Swagger UI for your Flask API |
 |  | `ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | ftp.proxy - FTP Proxy Server |
 |  | `genshin-checkin-helper` | [genshin-checkin-helper](https://gitlab.com/y1ndan/genshin-checkin-helper) | unstable-2021-11-09 | More than check-in for Genshin Impact. |
@@ -216,7 +216,7 @@ Or, use variables from this repository in case I change them:
 |  | `uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | A library for reading and writing Unreal Engine save files (commonly referred to as GVAS). |
 |  | `uksmd` | [uksmd](https://github.com/CachyOS/uksmd) | 1.2.10 | Userspace KSM helper daemon |
 |  | `undetected-chromedriver` | [undetected-chromedriver](https://github.com/ultrafunkamsterdam/undetected-chromedriver) | unstable-2024-02-17 | Custom Selenium Chromedriver | Zero-Config | Passes ALL bot mitigation systems (like Distil / Imperva/ Datadadome / CloudFlare IUAM) |
-|  | `undetected-chromedriver-bin` | [undetected-chromedriver-bin](https://chromedriver.chromium.org/) | 125.0.6422.60 | Chromedriver with undetected-chromedriver patch |
+|  | `undetected-chromedriver-bin` | [undetected-chromedriver-bin](https://chromedriver.chromium.org/) | 125.0.6422.76 | Chromedriver with undetected-chromedriver patch |
 |  | `vivado-2022_2` | [vivado](https://www.xilinx.com/products/design-tools/vivado.html) | 2022.2 | Xilinx Vivado WebPack Edition (Packaging script adapted from https://github.com/lschuermann/nur-packages/blob/master/pkgs/vivado/vivado-2022_2.nix) |
 |  | `vpp` | [vpp](https://wiki.fd.io/view/VPP/What_is_VPP%3F) | 24.02 | Vector Packet Processing |
 | `Broken` | `vs-rife` | [vs-rife](https://github.com/HolyWu/vs-rife) | 5.0.0 | Real-Time Intermediate Flow Estimation for Video Frame Interpolation for VapourSynth |
@@ -279,7 +279,7 @@ Or, use variables from this repository in case I change them:
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-|  | `lantianCustomized.asterisk` | [asterisk](https://www.asterisk.org/) | 20.6.0 | Asterisk with Lan Tian modifications |
+|  | `lantianCustomized.asterisk` | [asterisk](https://www.asterisk.org/) | 20.8.1 | Asterisk with Lan Tian modifications |
 |  | `lantianCustomized.attic-telnyx-compatible` | [attic-telnyx-compatible](https://github.com/zhaofengli/attic) | unstable-2024-03-29 | Attic (Nix binary cache) patched for Telnyx Cloud Storage compatibility |
 |  | `lantianCustomized.coredns` | [coredns](https://github.com/xddxdd/coredns) | 1.11.1 | CoreDNS with Lan Tian's modifications |
 |  | `lantianCustomized.firefox-icon-mikozilla-fireyae` | [firefox-icon-mikozilla-fireyae](https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/) |  | Custom icon "Mikozilla Fireyae" for Firefox |
