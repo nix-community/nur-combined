@@ -809,6 +809,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   bash2py = callPackage ./pkgs/development/tools/bash2py { };
 
+  cert-chain-resolver = callPackage ./pkgs/tools/networking/cert-chain-resolver { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
