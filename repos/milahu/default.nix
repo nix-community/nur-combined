@@ -381,6 +381,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       tor2web = callPackage ./pkgs/python3/pkgs/tor2web { };
 
+      aia = callPackage ./pkgs/python3/pkgs/aia { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
