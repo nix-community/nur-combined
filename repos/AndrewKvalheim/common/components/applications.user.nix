@@ -143,6 +143,7 @@ in
     };
     xdg.configFile."gdu/gdu.yaml".text = "no-cross: true";
     home.file.".npmrc".text = toKeyValue { } { fund = false; update-notifier = false; };
+    home.file.".shellcheckrc".text = "disable=SC1111";
     home.file.".ssh/config.d/.keep".text = "";
     dconf.settings."org/gnome/gnome-system-monitor" = with palette.hex; {
       cpu-colors = imap0 (i: c: mkTuple [ (mkUint32 i) c ]) (

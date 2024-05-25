@@ -672,6 +672,7 @@ noatime
 nokogiri
 noninteractive
 nonpresent
+nonprinting
 nonreproducible
 nonresponsive
 nonresponsiveness
@@ -683,6 +684,7 @@ numericality
 numpad
 NumPy
 NUR
+nvd
 NXDOMAIN
 OCI
 OCSP

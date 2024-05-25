@@ -32,7 +32,7 @@ in
     nix.settings.builders-use-substitutes = true;
     nix.buildMachines = [{ hostName = "nix-store.home.arpa"; sshUser = "nix-ssh"; system = "x86_64-linux"; }];
 
-    # Diff after rebuild
+    # Diff after rebuild (pending NixOS/nixpkgs#208902)
     system.activationScripts.diff = ''
       PATH="${makeBinPath [ pkgs.nix ]}" \
         ${pkgs.nvd}/bin/nvd diff '/run/current-system' "$systemConfig"

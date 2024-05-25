@@ -2,6 +2,8 @@
 set -Eeuo pipefail
 shopt -s lastpipe
 
+trap 'exit 1' SIGINT SIGTERM
+
 results=()
 code='0'
 
