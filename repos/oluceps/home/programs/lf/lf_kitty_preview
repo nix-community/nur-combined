@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-set -eu
-[[ "$(file -Lb --mime-type "$1")" =~ ^image ]] || exit 1   
-exec /path/to/kitty-0.26.5/bin/kitty +kitten icat --silent --transfer-mode file --place "${2}x${3}@${4}x${5}" "$1"

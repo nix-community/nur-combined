@@ -10,19 +10,36 @@
   xdg = {
     mime = {
       enable = true;
-      inherit
-        ((import ../home/graphBase.nix {
-          inherit
-            config
-            pkgs
-            lib
-            inputs
-            user
-            ;
-        }).xdg.mimeApps
-        )
-        defaultApplications
-        ;
+      defaultApplications =
+        {
+          "tg" = [ "org.telegram.desktop.desktop" ];
+
+          "application/pdf" = [ "sioyek.desktop" ];
+          "ppt/pptx" = [ "wps-office-wpp.desktop" ];
+          "doc/docx" = [ "wps-office-wps.desktop" ];
+          "xls/xlsx" = [ "wps-office-et.desktop" ];
+        }
+        // lib.genAttrs
+          [
+            "x-scheme-handler/unknown"
+            "x-scheme-handler/about"
+            "x-scheme-handler/http"
+            "x-scheme-handler/https"
+            "x-scheme-handler/mailto"
+            "text/html"
+          ]
+          # (_: "brave-browser.desktop")
+          (_: "firefox.desktop")
+        // lib.genAttrs [
+          "image/gif"
+          "image/webp"
+          "image/png"
+          "image/jpeg"
+        ] (_: "org.gnome.Loupe.desktop")
+        // lib.genAttrs [
+          "inode/directory"
+          "inode/mount-point"
+        ] (_: "org.gnome.Nautilus");
     };
     portal.wlr.enable = true;
     portal.enable = true;

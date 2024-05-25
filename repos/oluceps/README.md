@@ -16,7 +16,6 @@ with
 + [agenix](https://github.com/ryantm/agenix) [rekey](https://github.com/oddlama/agenix-rekey)
 + [lanzaboote](https://github.com/nix-community/lanzaboote)
 + [impermanence](https://github.com/nix-community/impermanence)
-+ [home-manager](https://github.com/nix-community/home-manager)
 + [disko](https://github.com/nix-community/disko)
 
 ---

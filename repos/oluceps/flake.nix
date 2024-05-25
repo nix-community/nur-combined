@@ -71,7 +71,7 @@
 
             apps.default = {
               type = "app";
-              program = pkgs.writeScriptBin "link-home" (toString (import ./nhome { inherit lib pkgs; }));
+              program = pkgs.writeScriptBin "link-home" (toString (import ./home { inherit lib pkgs; }));
             };
 
             packages =
