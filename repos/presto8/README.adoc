@@ -11,3 +11,7 @@ My personal https://github.com/nix-community/NUR[NUR] repository
 == Build the packages for testing in a local shell
 
     nix-shell --arg pkgs 'import <nixpkgs> {}' -A pscripts
+
+== Request an immediate update of the NUR server
+
+    curl -XPOST "https://nur-update.nix-community.org/update?repo=presto8"
