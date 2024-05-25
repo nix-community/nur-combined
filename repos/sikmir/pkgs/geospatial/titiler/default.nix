@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
   rio-stac,
-  rio-tiler,
   geojson-pydantic,
   rio-cogeo,
   starlette-cramjam,

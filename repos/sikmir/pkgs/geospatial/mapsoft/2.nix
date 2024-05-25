@@ -30,29 +30,25 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mapsoft2";
-  version = "2.3";
+  version = "2.4";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "mapsoft2";
     rev = "${finalAttrs.version}-alt1";
-    hash = "sha256-rhxz98NIrdC36yITmHiGQ1Ae1JrzQFn4HTB8VTVGvGY=";
+    hash = "sha256-XT3oDPu+GE3WfzlDk7jELhGmPknL0m+cgTxH4opGjFs=";
     fetchSubmodules = true;
   };
 
-  patches = [
-    (substituteAll {
-      src = ./0002-fix-build.patch;
-      db = db.dev;
-      inherit giflib;
-    })
-  ];
-  patchFlags = [
-    "-p1"
-    "-d modules"
-  ];
+  patches = [ ./0002-fix-build.patch ];
 
   postPatch = ''
+    substituteInPlace modules/getopt/Makefile \
+      --replace-fail "SCRIPT_TESTS := getopt" ""
+    substituteInPlace modules/opt/Makefile \
+      --replace-fail "SIMPLE_TESTS := opt" ""
+    substituteInPlace modules/tmpdir/Makefile \
+      --replace-fail "SCRIPT_TESTS := tmpdir" ""
     substituteInPlace modules/get_deps \
       --replace-fail "/usr/bin/perl" "${perlPackages.perl}/bin/perl"
     substituteInPlace modules/mapview/mapview.cpp \
@@ -93,6 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     db
+    giflib
     gsettings-desktop-schemas
     gtkmm3
     jansson
@@ -107,7 +104,7 @@ stdenv.mkDerivation (finalAttrs: {
     shapelib
   ];
 
-  preBuild = "export SKIP_IMG_DIFFS=1";
+  SKIP_IMG_DIFFS = 1;
 
   makeFlags = [ "prefix=$(out)" ];
 

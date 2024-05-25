@@ -2,7 +2,6 @@
   lib,
   fetchFromGitHub,
   python3Packages,
-  morecantile,
 }:
 
 python3Packages.buildPythonApplication rec {

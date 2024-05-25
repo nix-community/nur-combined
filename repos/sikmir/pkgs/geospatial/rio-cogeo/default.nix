@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
   python3Packages,
-  morecantile,
   cogdumper,
 }:
 

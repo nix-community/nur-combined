@@ -190,7 +190,6 @@ lib.makeScope newScope (
     c2cwsgiutils = callPackage ./geospatial/c2cwsgiutils { };
     cogdumper = callPackage ./geospatial/cogdumper { };
     cogeo-mosaic = callPackage ./geospatial/cogeo-mosaic { };
-    color-operations = callPackage ./geospatial/color-operations { };
     datamaps = callPackage ./geospatial/datamaps { };
     deegree = callPackage ./geospatial/deegree { };
     elevation = callPackage ./geospatial/elevation { click = click-6-7; };
@@ -210,7 +209,6 @@ lib.makeScope newScope (
     mbutiles = callPackage ./geospatial/mbutiles { };
     mobroute = callPackage ./geospatial/mobroute { };
     mobsql = callPackage ./geospatial/mobsql { };
-    morecantile = callPackage ./geospatial/morecantile { };
     orbisgis = callPackage ./geospatial/orbisgis { jre = pkgs.jre8; };
     ossim = callPackage ./geospatial/ossim { };
     pipfile = callPackage ./geospatial/pipfile { };
@@ -218,7 +216,6 @@ lib.makeScope newScope (
     polyvectorization = libsForQt5.callPackage ./geospatial/polyvectorization { };
     py-staticmaps = callPackage ./geospatial/py-staticmaps { };
     pysheds = callPackage ./geospatial/pysheds { };
-    pystac = callPackage ./geospatial/pystac { };
     qlandkartegt = libsForQt5.callPackage ./geospatial/qlandkartegt {
       gdal = pkgs.gdal.override {
         libgeotiff = pkgs.libgeotiff.override { proj = pkgs.proj_7; };
@@ -234,8 +231,6 @@ lib.makeScope newScope (
     rio-mbtiles = callPackage ./geospatial/rio-mbtiles { };
     rio-mucho = callPackage ./geospatial/rio-mucho { };
     rio-stac = callPackage ./geospatial/rio-stac { };
-    rio-tiler = callPackage ./geospatial/rio-tiler { };
-    rioxarray = callPackage ./geospatial/rioxarray { };
     rsgislib = callPackage ./geospatial/rsgislib { };
     sasplanet = callPackage ./geospatial/sasplanet { };
     server-thread = callPackage ./geospatial/server-thread { };
@@ -384,6 +379,7 @@ lib.makeScope newScope (
     pvs-studio = callPackage ./misc/pvs-studio { };
     qasync = callPackage ./misc/qasync { };
     qoiview = callPackage ./misc/qoiview { };
+    qstudio = callPackage ./misc/qstudio { };
     repolocli = callPackage ./misc/repolocli { };
     rhttp = callPackage ./misc/rhttp { };
     riffraff = callPackage ./misc/riffraff { };

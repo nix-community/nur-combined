@@ -3,9 +3,7 @@
   stdenv,
   fetchFromGitHub,
   python3Packages,
-  morecantile,
   supermorecado,
-  rio-tiler,
 }:
 
 python3Packages.buildPythonPackage rec {
