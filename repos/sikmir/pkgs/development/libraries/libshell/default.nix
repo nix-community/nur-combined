@@ -41,11 +41,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     description = "A library of shell functions";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.gpl2;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.gpl2;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
   };
 })

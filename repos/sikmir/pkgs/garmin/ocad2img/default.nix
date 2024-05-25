@@ -57,12 +57,12 @@ buildPerlPackage {
     cp -r Convert $out/lib/perl5/site_perl
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Converter from OCAD map format to Garmin format";
     homepage = "http://news.worldofo.com/2009/10/11/howto-convert-any-orienteering-map-to-a-garmin-map/";
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 }

@@ -27,10 +27,10 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     description = "Convert reStructuredText to plain text";
     inherit (src.meta) homepage;
-    license = licenses.bsd2;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.bsd2;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

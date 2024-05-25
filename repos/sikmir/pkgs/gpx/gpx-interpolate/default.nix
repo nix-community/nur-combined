@@ -33,11 +33,11 @@ python3Packages.buildPythonApplication rec {
     install -Dm755 gpx_interpolate.py $out/bin/gpx-interpolate
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Python script to interpolate GPX files using piecewise cubic Hermite splines";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "gpx-interpolate";
   };
 }

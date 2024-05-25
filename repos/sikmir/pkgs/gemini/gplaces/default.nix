@@ -31,12 +31,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   installFlags = [ "PREFIX=$(out)" ];
 
-  meta = with lib; {
+  meta = {
     description = "A simple terminal based Gemini client";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     broken = stdenv.isDarwin;
   };
 })

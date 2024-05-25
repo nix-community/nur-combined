@@ -16,12 +16,12 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-vRK1jeLG+z+yOYGGACO6dYSpzfO9NhNiThVTt35maaU=";
   };
 
-  meta = with lib; {
+  meta = {
     description = "A pure Python 2/3 library for peripheral I/O (GPIO, LED, PWM, SPI, I2C, MMIO, Serial) in Linux";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 }

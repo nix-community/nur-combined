@@ -34,11 +34,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isDarwin "-Wno-error=unqualified-std-cast-call";
 
-  meta = with lib; {
+  meta = {
     description = "How to use PVS-Studio for Free?";
     homepage = "https://pvs-studio.com/en/blog/posts/0457/";
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

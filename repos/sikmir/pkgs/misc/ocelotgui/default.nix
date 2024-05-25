@@ -35,12 +35,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.NIX_LDFLAGS = "-L${mariadb-connector-c}/lib/mariadb -lmysqlclient";
 
-  meta = with lib; {
+  meta = {
     description = "GUI client for MySQL or MariaDB";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.gpl2;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl2;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     mainProgram = "ocelotgui";
   };
 })

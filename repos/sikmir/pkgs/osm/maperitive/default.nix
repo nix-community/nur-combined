@@ -32,14 +32,14 @@ stdenv.mkDerivation (finalAttrs: {
       --add-flags "--desktop \$HOME/.maperitive/Maperitive.exe"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Desktop application for drawing maps based on OpenStreetMap and GPS data";
     homepage = "http://maperitive.net/";
     changelog = "http://maperitive.net/updates.xml";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = true;
   };
 })

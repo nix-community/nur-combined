@@ -23,11 +23,11 @@ python3Packages.buildPythonApplication rec {
     sqlite
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A script to render tiles for an area with mapnik";
     inherit (src.meta) homepage;
-    license = licenses.wtfpl;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.wtfpl;
+    maintainers = [ lib.maintainers.sikmir ];
     broken = true; # python-mapnik
   };
 }

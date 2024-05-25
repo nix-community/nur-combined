@@ -17,10 +17,10 @@ python3Packages.buildPythonPackage rec {
 
   propagatedBuildInputs = with python3Packages; [ pyserial ];
 
-  meta = with lib; {
+  meta = {
     description = "Implementation of modbus protocol in python";
     inherit (src.meta) homepage;
-    license = licenses.lgpl2;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.lgpl2;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

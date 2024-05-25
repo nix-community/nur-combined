@@ -28,11 +28,11 @@ python3Packages.buildPythonApplication rec {
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
-  meta = with lib; {
+  meta = {
     description = "ArcGIS Tile Package Utilities";
     inherit (src.meta) homepage;
-    license = licenses.isc;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.isc;
+    maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "tpk";
   };
 }

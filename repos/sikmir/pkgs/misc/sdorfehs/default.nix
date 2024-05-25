@@ -29,12 +29,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   installFlags = [ "PREFIX=$(out)" ];
 
-  meta = with lib; {
+  meta = {
     description = "A tiling window manager";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.gpl2Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.gpl2Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 })

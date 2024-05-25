@@ -41,12 +41,12 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Bitwise Harmony - simple synth tracker";
     homepage = "https://git.skyjake.fi/skyjake/bwh";
-    license = licenses.bsd2;
-    maintainers = with maintainers; [ sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.bsd2;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     mainProgram = "bitwise-harmony";
   };
 }

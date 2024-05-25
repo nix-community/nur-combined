@@ -60,11 +60,11 @@ python3Packages.buildPythonApplication rec {
 
   passthru.tests.version = testers.testVersion { package = elevation; };
 
-  meta = with lib; {
+  meta = {
     description = "Python script to download global terrain digital elevation models, SRTM 30m DEM and SRTM 90m DEM";
     homepage = "http://elevation.bopen.eu/";
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "eio";
   };
 }

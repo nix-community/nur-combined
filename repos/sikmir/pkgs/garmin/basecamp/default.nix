@@ -39,12 +39,12 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  meta = with lib; {
+  meta = {
     description = "BaseCamp lets you plan outdoor activities, organize your data and share your adventures with others";
     homepage = "https://www.garmin.com/en-US/software/basecamp/";
     changelog = "https://www8.garmin.com/support/download_details.jsp?id=4449";
-    license = licenses.unfree;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.unfree;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];
     skip.ci = true;
   };

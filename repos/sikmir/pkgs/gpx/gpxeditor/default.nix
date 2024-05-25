@@ -33,12 +33,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   preferLocalBuild = true;
 
-  meta = with lib; {
+  meta = {
     description = "Load, modify and save your GPX files";
     homepage = "https://sourceforge.net/projects/gpxeditor/";
-    license = licenses.gpl2;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.gpl2;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 })

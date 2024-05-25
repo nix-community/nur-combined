@@ -27,11 +27,11 @@ stdenv.mkDerivation rec {
     subprocess
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Collection of human friendly terminal interface for git";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 }

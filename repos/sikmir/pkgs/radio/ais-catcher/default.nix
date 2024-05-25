@@ -43,12 +43,12 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A multi-platform AIS Receiver";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     mainProgram = "AIS-catcher";
   };
 })

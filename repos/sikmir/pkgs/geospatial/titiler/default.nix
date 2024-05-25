@@ -19,11 +19,11 @@ let
     hash = "sha256-pKG2QTY49TJojxjfRFiRr/k/a+i12N2hIC0M5xOaP9w=";
   };
 
-  meta = with lib; {
+  meta = {
     description = "A modern dynamic tile server built on top of FastAPI and Rasterio/GDAL";
     homepage = "https://developmentseed.org/titiler/";
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 
   titiler-core = python3Packages.buildPythonPackage {

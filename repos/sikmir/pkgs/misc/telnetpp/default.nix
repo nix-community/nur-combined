@@ -35,11 +35,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags = [ (lib.cmakeBool "TELNETPP_WITH_ZLIB" true) ];
 
-  meta = with lib; {
+  meta = {
     description = "A C++ library for interacting with Telnet streams";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

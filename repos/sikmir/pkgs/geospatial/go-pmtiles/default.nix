@@ -19,10 +19,10 @@ buildGoModule rec {
 
   ldflags = [ "-X main.version=${version}" ];
 
-  meta = with lib; {
+  meta = {
     description = "Read/write library & concurrent caching proxy for PMTiles archives";
     inherit (src.meta) homepage;
-    license = licenses.bsd3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.bsd3;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

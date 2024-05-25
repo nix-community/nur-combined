@@ -17,12 +17,12 @@ buildGoPackage rec {
 
   goPackagePath = "github.com/felix/go-dict2rest";
 
-  meta = with lib; {
+  meta = {
     description = "A simple proxy service providing an HTTP interface to a Dict protocol (RFC 2229) server";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     mainProgram = "go-dict2rest";
   };
 }

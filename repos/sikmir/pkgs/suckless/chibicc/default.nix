@@ -22,11 +22,11 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm755 chibicc -t $out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A small C compiler";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.mit;
-    platforms = platforms.unix;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    platforms = lib.platforms.unix;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 })

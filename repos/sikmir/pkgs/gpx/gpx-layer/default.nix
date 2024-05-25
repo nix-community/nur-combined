@@ -37,10 +37,10 @@ buildPerlPackage rec {
       shortenPerlShebang $out/bin/datamaps-parse-gpx
     '';
 
-  meta = with lib; {
+  meta = {
     description = "Tools to turn GPX files into a GPS map tracing layer";
     inherit (src.meta) homepage;
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

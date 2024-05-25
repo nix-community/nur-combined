@@ -23,11 +23,11 @@ python3Packages.buildPythonApplication rec {
 
   build-system = with python3Packages; [ poetry-core ];
 
-  meta = with lib; {
+  meta = {
     description = "A Python library for converting ArcGIS JSON to GeoJSON";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
     broken = true;
   };
 }

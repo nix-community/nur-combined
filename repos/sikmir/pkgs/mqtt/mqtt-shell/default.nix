@@ -22,10 +22,10 @@ buildGoModule rec {
 
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     description = "A interactive shell-like command line interface (CLI) for MQTT";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

@@ -19,12 +19,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   installFlags = [ "PREFIX=$(out)" ];
 
-  meta = with lib; {
+  meta = {
     description = "Command line program to draw trees";
     homepage = "https://strahinja.srht.site/dtree";
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 })

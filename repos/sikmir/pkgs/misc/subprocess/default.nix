@@ -31,11 +31,11 @@ stdenv.mkDerivation rec {
     install -Dm644 subprocess/libsubprocess.a -t $out/lib
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Cross platform subprocess library for c++ similar to design of python subprocess";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 }

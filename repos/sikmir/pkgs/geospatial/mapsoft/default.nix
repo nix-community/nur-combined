@@ -106,12 +106,12 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "getopt " "${getopt}/bin/getopt "
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Mapping software for linux";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.gpl3;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = true;
   };
 })

@@ -40,12 +40,12 @@ stdenv.mkDerivation (finalAttrs: {
       }:$out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Simple Virtual Terminal Manager";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.mit;
-    platforms = platforms.linux;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    platforms = lib.platforms.linux;
+    maintainers = [ lib.maintainers.sikmir ];
     skip.ci = stdenv.isDarwin;
   };
 })

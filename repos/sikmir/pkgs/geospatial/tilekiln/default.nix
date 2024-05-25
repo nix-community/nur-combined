@@ -37,10 +37,10 @@ python3Packages.buildPythonApplication rec {
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
-  meta = with lib; {
+  meta = {
     description = "A set of command-line utilities to generate and serve Mapbox Vector Tiles (MVTs)";
     inherit (src.meta) homepage;
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

@@ -33,11 +33,11 @@ python3Packages.buildPythonApplication rec {
     install -Dm755 dist.py $out/bin/dist
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Show the differences between GPX files";
     inherit (src.meta) homepage;
-    license = licenses.unlicense;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.unlicense;
+    maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "cmpgpx";
   };
 }

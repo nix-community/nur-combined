@@ -28,12 +28,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   preferLocalBuild = true;
 
-  meta = with lib; {
+  meta = {
     description = "Automatic tiling window manager for macOS à la xmonad";
     homepage = "https://ianyh.com/amethyst/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];
     skip.ci = true;
   };

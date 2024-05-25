@@ -28,10 +28,10 @@ python3Packages.buildPythonPackage rec {
 
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     description = "Simple and fast watershed delineation in python";
     inherit (src.meta) homepage;
-    license = licenses.gpl3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

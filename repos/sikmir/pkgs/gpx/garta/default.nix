@@ -73,10 +73,10 @@ rustPlatform.buildRustPackage rec {
 
   enableParallelBuilding = true;
 
-  meta = with lib; {
+  meta = {
     description = "Geo-bookmarking, GPX viewer, analyzer and editor for GTK3";
     inherit (src.meta) homepage;
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

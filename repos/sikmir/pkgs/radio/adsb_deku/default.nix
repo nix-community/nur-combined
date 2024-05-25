@@ -18,11 +18,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-0ur+GNJna56eM99nwJHJJlAaP60lgXSTBFHZ9NHIau8=";
 
-  meta = with lib; {
+  meta = {
     description = "Rust ADS-B decoder + tui radar application";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 }

@@ -33,12 +33,12 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm644 app/consapp/rnx2rtkp/gcc/*.conf -t $out/share/rtklib/rnx2rtkp
   '';
 
-  meta = with lib; {
+  meta = {
     description = "An Open Source Program Package for GNSS Positioning";
     homepage = "http://www.rtklib.com/";
-    license = licenses.bsd2;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.bsd2;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 })

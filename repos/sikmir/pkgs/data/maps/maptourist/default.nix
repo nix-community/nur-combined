@@ -22,12 +22,12 @@ stdenvNoCC.mkDerivation rec {
 
   preferLocalBuild = true;
 
-  meta = with lib; {
+  meta = {
     description = "Ежедневная сборка карт из данных OpenStreetMap для навигационных приборов и приложений Garmin";
     homepage = "https://maptourist.org";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 }

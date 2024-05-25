@@ -39,10 +39,10 @@ python3Packages.buildPythonApplication rec {
     "test_export_count"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A plugin command for the Rasterio CLI that exports a raster dataset to an MBTiles 1.1 SQLite file";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

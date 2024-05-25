@@ -25,12 +25,12 @@ stdenvNoCC.mkDerivation {
     mv Wiktionary* $out
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Wiktionary dictionaries for StarDict";
     homepage = "http://libredict.org";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 }

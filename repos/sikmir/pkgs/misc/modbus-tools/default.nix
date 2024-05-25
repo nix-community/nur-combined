@@ -25,10 +25,10 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optional stdenv.isDarwin IOKit;
 
-  meta = with lib; {
+  meta = {
     description = "Tool(s) for working with Modbus protocol";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

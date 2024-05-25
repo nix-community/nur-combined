@@ -26,10 +26,10 @@ python3Packages.buildPythonPackage rec {
 
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     description = "A Cython based protobuf compiler";
     inherit (src.meta) homepage;
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

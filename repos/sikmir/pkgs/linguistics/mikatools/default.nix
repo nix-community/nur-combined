@@ -23,10 +23,10 @@ python3Packages.buildPythonPackage rec {
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
-  meta = with lib; {
+  meta = {
     description = "Mikatools provides fast and easy methods for common Python coding tasks";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

@@ -116,12 +116,12 @@ stdenv.mkDerivation (finalAttrs: {
     done
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A collection of tools and libraries for working with maps and geo-data";
     homepage = "http://slazav.github.io/mapsoft2";
-    license = licenses.gpl3;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     skip.ci = true;
   };
 })

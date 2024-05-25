@@ -26,10 +26,10 @@ python3Packages.buildPythonPackage rec {
 
   pythonImportsCheck = [ "imagequant" ];
 
-  meta = with lib; {
+  meta = {
     description = "Python bindings for libimagequant (pngquant core)";
     inherit (src.meta) homepage;
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

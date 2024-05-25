@@ -30,12 +30,12 @@ stdenv.mkDerivation {
     install -Dm755 clinrad -t $out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Software defined radio receiver for x11";
     homepage = "http://www.sm5bsz.com/linuxdsp/linrad.htm";
-    license = licenses.mit;
-    platforms = platforms.linux;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    platforms = lib.platforms.linux;
+    maintainers = [ lib.maintainers.sikmir ];
     skip.ci = stdenv.isDarwin;
     broken = true;
   };

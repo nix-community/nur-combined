@@ -21,11 +21,11 @@ stdenv.mkDerivation {
 
   installPhase = "install -Dm755 gmt -t $out/bin";
 
-  meta = with lib; {
+  meta = {
     description = "Program for splitting and merging maps in Garmin format";
     homepage = "https://www.gmaptool.eu";
-    license = licenses.cc-by-sa-30;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.cc-by-sa-30;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = [
       "i686-linux"
       "x86_64-linux"

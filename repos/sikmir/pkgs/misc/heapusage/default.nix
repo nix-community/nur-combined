@@ -18,12 +18,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  meta = with lib; {
+  meta = {
     description = "Light-weight tool for finding heap memory errors";
     inherit (src.meta) homepage;
-    license = licenses.bsd3;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.bsd3;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     mainProgram = "heapusage";
   };
 }

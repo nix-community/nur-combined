@@ -33,10 +33,10 @@ python3Packages.buildPythonApplication rec {
     "tests/test_full.py"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Python library for the development of Gemini clients";
     inherit (src.meta) homepage;
-    license = licenses.gpl2Only;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl2Only;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

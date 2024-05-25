@@ -21,10 +21,10 @@ buildGoModule rec {
 
   passthru.tests.version = testers.testVersion { package = odict; };
 
-  meta = with lib; {
+  meta = {
     description = "A blazingly-fast portable dictionary file format";
     homepage = "https://odict.org/";
-    license = licenses.gpl3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

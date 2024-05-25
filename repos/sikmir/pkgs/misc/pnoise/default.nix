@@ -19,10 +19,10 @@ python3Packages.buildPythonApplication rec {
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
-  meta = with lib; {
+  meta = {
     description = "Vectorized port of Processing noise() function";
     inherit (src.meta) homepage;
-    license = licenses.lgpl2Plus;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.lgpl2Plus;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

@@ -17,10 +17,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-qsHmiYjj7jEDIEbU52NIdWtrUPzImm9u/4Q/aH/2WwE=";
 
-  meta = with lib; {
+  meta = {
     description = "Gemini server";
     inherit (src.meta) homepage;
-    license = licenses.agpl3Only;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.agpl3Only;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

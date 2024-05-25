@@ -21,10 +21,10 @@ python3Packages.buildPythonPackage rec {
 
   pythonImportsCheck = [ "s2sphere" ];
 
-  meta = with lib; {
+  meta = {
     description = "Python implementation of the S2 geometry library";
     homepage = "http://s2sphere.sidewalklabs.com/";
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

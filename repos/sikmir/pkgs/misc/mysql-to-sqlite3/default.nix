@@ -29,11 +29,11 @@ python3Packages.buildPythonApplication rec {
     typing-extensions
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Transfer data from MySQL to SQLite";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "mysql2sqlite";
     broken = true; # required mysql-connector-python>=8.2.0
   };

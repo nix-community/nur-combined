@@ -26,12 +26,12 @@ stdenv.mkDerivation {
     install -Dm755 vectiler.out $out/bin/vectiler
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A vector tile, terrain and city 3d model builder and exporter";
     homepage = "http://karim.naaji.fr/vectiler.html";
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     mainProgram = "vectiler";
   };
 }

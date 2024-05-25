@@ -32,11 +32,11 @@ stdenv.mkDerivation (finalAttrs: {
     ./tests
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A portable MQTT C client for embedded systems and PCs alike";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

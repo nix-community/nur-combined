@@ -46,11 +46,11 @@ stdenv.mkDerivation (finalAttrs: {
       Foundation
     ];
 
-  meta = with lib; {
+  meta = {
     description = "VDL Mode 2 message decoder and protocol analyzer";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

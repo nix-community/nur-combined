@@ -21,11 +21,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   preInstall = "mkdir -p $out/bin";
 
-  meta = with lib; {
+  meta = {
     description = "A collection of farbfeld tools";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

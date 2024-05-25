@@ -29,12 +29,12 @@ stdenv.mkDerivation (finalAttrs: {
       --add-flags "-jar $out/share/java/gpx-animator-${finalAttrs.version}-all.jar"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "GPX Animator";
     homepage = "https://gpx-animator.app/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
+    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = jre.meta.platforms;
   };
 })

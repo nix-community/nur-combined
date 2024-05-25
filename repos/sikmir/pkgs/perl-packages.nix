@@ -19,10 +19,10 @@ rec {
       ScalarListUtils
       SubInfix
     ];
-    meta = with lib; {
+    meta = {
       homepage = "https://metacpan.org/pod/match::smart";
       description = "match::smart - clone of smartmatch operator";
-      license = licenses.free;
+      license = lib.licenses.free;
     };
   };
 
@@ -34,10 +34,10 @@ rec {
       hash = "sha256-XK6q2marSv39rlbAI+CZiAVDqafB+THyCoNNWIHBXss=";
     };
     buildInputs = [ TestFatal ];
-    meta = with lib; {
+    meta = {
       homepage = "https://metacpan.org/pod/Sub::Infix";
       description = "Sub::Infix - create a fake infix operator";
-      license = licenses.free;
+      license = lib.licenses.free;
     };
   };
 
@@ -48,10 +48,10 @@ rec {
       url = "mirror://cpan/authors/id/M/MA/MARKOV/${pname}-${version}.tar.gz";
       hash = "sha256-Ag1fbn/z2hfkhSNN+16TVSjmd01XYJQ9h2X6sCvfwtc=";
     };
-    meta = with lib; {
+    meta = {
       homepage = "https://metacpan.org/pod/Math::Polygon";
       description = "Math::Polygon - Class for maintaining polygon data";
-      license = licenses.free;
+      license = lib.licenses.free;
     };
   };
 
@@ -66,10 +66,10 @@ rec {
       ListMoreUtils
       MathGeometryPlanarGPCPolygonXS
     ];
-    meta = with lib; {
+    meta = {
       homepage = "https://metacpan.org/pod/Math::Polygon::Tree";
       description = "Math::Polygon::Tree - fast check if point is inside polygon";
-      license = licenses.free;
+      license = lib.licenses.free;
     };
   };
 
@@ -80,10 +80,10 @@ rec {
       url = "mirror://cpan/authors/id/L/LI/LIOSHA/${pname}-${version}.tar.gz";
       hash = "sha256-9FFJ/+vmZMR/oKBxCYLtmpPnaFe2KYRDYZpdSs7sskE=";
     };
-    meta = with lib; {
+    meta = {
       homepage = "https://metacpan.org/pod/Math::Geometry::Planar::GPC::PolygonXS";
       description = "Math::Geometry::Planar::GPC::PolygonXS - OO wrapper to gpc library (translated from Inline-based Math::Geometry::Planar::GPC::Polygon to XS)";
-      license = licenses.free;
+      license = lib.licenses.free;
     };
   };
 
@@ -94,10 +94,10 @@ rec {
       url = "mirror://cpan/authors/id/A/AJ/AJOLMA/${pname}-${version}.tar.gz";
       hash = "sha256-7fEpfcWbjahnO9Oz/Y7eif15cqcD/5B7F2b/xwLbVDg=";
     };
-    meta = with lib; {
+    meta = {
       homepage = "https://metacpan.org/pod/Tree::R";
       description = "Tree::R - Perl extension for the R-tree data structure and algorithms";
-      license = licenses.free;
+      license = lib.licenses.free;
     };
   };
 
@@ -112,10 +112,10 @@ rec {
       ListMoreUtils
       XMLParser
     ];
-    meta = with lib; {
+    meta = {
       homepage = "https://metacpan.org/pod/Geo::Openstreetmap::Parser";
       description = "Geo::Openstreetmap::Parser - Openstreetmap XML dump parser";
-      license = licenses.free;
+      license = lib.licenses.free;
     };
   };
 
@@ -130,10 +130,10 @@ rec {
       ListMoreUtils
       EncodeLocale
     ];
-    meta = with lib; {
+    meta = {
       homepage = "https://metacpan.org/pod/Geo::Names::Russian";
       description = "Geo::Names::Russian - parse and split russian geographical names";
-      license = licenses.free;
+      license = lib.licenses.free;
     };
   };
 
@@ -145,10 +145,10 @@ rec {
       hash = "sha256-a3S36YhWUYKJiMEy0nBqedJtlhZlddyeO3MFmoLhXTE=";
     };
     propagatedBuildInputs = [ DateTimeFormatBuilder ];
-    meta = with lib; {
+    meta = {
       homepage = "https://metacpan.org/pod/DateTime::Format::EXIF";
       description = "DateTime::Format::EXIF - DateTime parser for EXIF timestamps";
-      license = licenses.free;
+      license = lib.licenses.free;
     };
   };
 
@@ -160,10 +160,10 @@ rec {
       hash = "sha256-FNQGuR2pbWUh0NGoLSKjBidHZSJrhrClbn/93Plq578=";
     };
     propagatedBuildInputs = [ ];
-    meta = with lib; {
+    meta = {
       homepage = "https://metacpan.org/pod/IPC::ShareLite";
       description = "IPC::ShareLite - Lightweight interface to shared memory";
-      license = licenses.free;
+      license = lib.licenses.free;
     };
   };
 }

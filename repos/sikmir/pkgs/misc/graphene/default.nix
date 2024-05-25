@@ -45,12 +45,12 @@ stdenv.mkDerivation (finalAttrs: {
     "sysconfdir=$(out)/etc"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A simple time series database based on BerkleyDB";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.gpl3;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 })

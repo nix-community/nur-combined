@@ -31,12 +31,12 @@ stdenv.mkDerivation rec {
     openssl
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Open Source OPC UA Application Server and OPC UA Client/Server C++ Libraries";
     homepage = "https://asneg.github.io/projects/opcuastack";
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 }

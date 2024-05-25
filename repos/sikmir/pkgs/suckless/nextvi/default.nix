@@ -25,11 +25,11 @@ stdenv.mkDerivation (finalAttrs: {
     PREFIX=$out sh ./build.sh install
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Next version of neatvi (a small vi/ex editor)";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.mit;
-    platforms = platforms.unix;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    platforms = lib.platforms.unix;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 })

@@ -21,12 +21,12 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-narrowing";
 
-  meta = with lib; {
+  meta = {
     homepage = "http://www.qlandkarte.org/";
     description = "Garmin Device Drivers for QlandkarteGT";
-    license = licenses.gpl2;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.gpl2;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = true;
   };
 }

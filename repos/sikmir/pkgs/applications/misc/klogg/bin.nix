@@ -34,15 +34,15 @@ let
 
   appimageContents = appimageTools.extract { inherit pname version src; };
 
-  meta = with lib; {
+  meta = {
     description = "A fast, advanced log explorer based on glogg project";
     homepage = "https://klogg.filimonov.dev/";
-    license = licenses.gpl3Plus;
+    license = lib.licenses.gpl3Plus;
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"
     ];
-    maintainers = [ maintainers.sikmir ];
+    maintainers = [ lib.maintainers.sikmir ];
     skip.ci = true;
   };
 

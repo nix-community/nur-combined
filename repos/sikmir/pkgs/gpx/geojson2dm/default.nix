@@ -17,11 +17,11 @@ stdenv.mkDerivation {
 
   installFlags = [ "PREFIX=$(out)" ];
 
-  meta = with lib; {
+  meta = {
     description = "Convert GeoJSON to format suitable for input to datamaps";
     homepage = "https://git.sikmir.ru/geojson2dm";
-    license = licenses.isc;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.isc;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 }

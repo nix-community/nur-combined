@@ -27,11 +27,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ ncurses ];
 
-  meta = with lib; {
+  meta = {
     description = "A text-based widget toolkit";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.lgpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.lgpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

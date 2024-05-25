@@ -18,10 +18,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-tuSrIq2DHMy2KY2z3ZMAwC28UGHrZifAWmOFx5Y4pKU=";
 
-  meta = with lib; {
+  meta = {
     description = "Cross-platform utility to execute commands remotely using MQTT";
     inherit (src.meta) homepage;
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

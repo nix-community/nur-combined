@@ -74,11 +74,11 @@ buildPerlPackage rec {
       shortenPerlShebang $out/bin/osm2mp
     '';
 
-  meta = with lib; {
+  meta = {
     description = "Convert Openstreetmap data to MP format";
     inherit (src.meta) homepage;
-    license = licenses.gpl2;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl2;
+    maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "osm2mp";
   };
 }

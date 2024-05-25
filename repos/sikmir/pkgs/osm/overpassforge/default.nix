@@ -24,10 +24,10 @@ python3Packages.buildPythonPackage rec {
 
   pythonImportsCheck = [ "overpassforge" ];
 
-  meta = with lib; {
+  meta = {
     description = "A library for generating OpenStreetMap's Overpass QL queries from Python objects";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

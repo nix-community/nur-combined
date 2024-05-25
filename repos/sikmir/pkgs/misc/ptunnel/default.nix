@@ -18,12 +18,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   makeFlags = [ "prefix=$(out)" ];
 
-  meta = with lib; {
+  meta = {
     description = "A tool for reliably tunneling TCP connections over ICMP echo request and reply packets";
     homepage = "https://www.cs.uit.no/~daniels/PingTunnel";
-    license = licenses.bsd3;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.bsd3;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 })

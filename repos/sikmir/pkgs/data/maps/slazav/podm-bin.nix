@@ -14,12 +14,12 @@ fetchurl {
 
   postFetch = "install -Dm644 $downloadedFile $out/all_podm.img";
 
-  meta = with lib; {
+  meta = {
     homepage = "http://slazav.xyz/maps/podm_txt.htm";
     description = "Карты Подмосковья";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 }

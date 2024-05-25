@@ -33,11 +33,11 @@ stdenv.mkDerivation {
       --process-only
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Routino Database";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 }

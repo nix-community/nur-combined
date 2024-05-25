@@ -44,12 +44,12 @@ stdenv.mkDerivation rec {
     install -Dm755 polyvector_thing -t $out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Reference implementation of Vectorization of Line Drawings via PolyVector Fields";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     mainProgram = "polyvector_thing";
     skip.ci = stdenv.isDarwin;
   };

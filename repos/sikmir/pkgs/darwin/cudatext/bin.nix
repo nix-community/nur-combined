@@ -43,19 +43,19 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     inherit (cudatext.meta)
       description
       homepage
       changelog
       license
       ;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     platforms = [
       "aarch64-darwin"
       "x86_64-darwin"
     ];
-    maintainers = [ maintainers.sikmir ];
+    maintainers = [ lib.maintainers.sikmir ];
     skip.ci = true;
   };
 })

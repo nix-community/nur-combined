@@ -40,12 +40,12 @@ stdenv.mkDerivation (finalAttrs: {
       --add-flags "-jar $out/share/java/RouteConverterCmdLine.jar"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A free tool to edit and convert routes, tracks and waypoints";
     homepage = "https://www.routeconverter.com/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.gpl2Plus;
-    maintainers = [ maintainers.sikmir ];
+    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    license = lib.licenses.gpl2Plus;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = jre.meta.platforms;
   };
 })

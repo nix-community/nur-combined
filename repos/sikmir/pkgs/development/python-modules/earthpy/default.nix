@@ -27,10 +27,10 @@ python3Packages.buildPythonPackage rec {
 
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     description = "A package built to support working with spatial data using open source python";
     inherit (src.meta) homepage;
-    license = licenses.bsd3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.bsd3;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

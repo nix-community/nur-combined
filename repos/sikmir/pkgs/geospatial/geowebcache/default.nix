@@ -21,13 +21,13 @@ stdenv.mkDerivation (finalAttrs: {
     cp "$src" "$out/webapps/geowebcache.war"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Tile caching server implemented in Java";
     homepage = "https://www.geowebcache.org";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.lgpl3Plus;
-    platforms = platforms.all;
-    maintainers = with maintainers; [ sikmir ];
+    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    license = lib.licenses.lgpl3Plus;
+    platforms = lib.platforms.all;
+    maintainers = [ lib.maintainers.sikmir ];
     skip.ci = true;
   };
 })

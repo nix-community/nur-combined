@@ -53,11 +53,11 @@ python3Packages.buildPythonApplication rec {
     "test_multiple_tile_clients_one_server"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Local Tile Server for Geospatial Rasters";
     homepage = "https://localtileserver.banesullivan.com/";
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
     broken = true;
   };
 }

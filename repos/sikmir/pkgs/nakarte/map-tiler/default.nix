@@ -56,10 +56,10 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     description = "Raster maps to map tiles";
     inherit (src.meta) homepage;
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

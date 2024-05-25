@@ -46,10 +46,10 @@ python3Packages.buildPythonApplication rec {
     "test_init_with_not_language_2"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A library for downloading, updating and iterating over data files from Tatoeba";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

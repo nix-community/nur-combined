@@ -27,11 +27,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags = [ (lib.cmakeFeature "CMAKE_INSTALL_LIBDIR" "lib") ];
 
-  meta = with lib; {
+  meta = {
     description = "A library for decoding various ACARS message payloads";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

@@ -39,12 +39,12 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "sdrplay" false)
   ];
 
-  meta = with lib; {
+  meta = {
     description = "ACARS SDR decoder";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.gpl2;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.gpl2;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 })

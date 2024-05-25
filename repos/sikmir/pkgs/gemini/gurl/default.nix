@@ -28,12 +28,12 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm755 zig-out/bin/gurl -t $out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A curl-like cli application to interact with Gemini sites";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     broken = true; # https://github.com/MasterQ32/gurl/issues/5
   };
 })

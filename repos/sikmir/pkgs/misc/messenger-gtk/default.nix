@@ -56,13 +56,13 @@ stdenv.mkDerivation rec {
     qrencode
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A GTK based GUI for the Messenger service of GNUnet";
     homepage = "https://www.gnunet.org/";
     changelog = "https://git.gnunet.org/messenger-gtk.git/tree/ChangeLog?h=v${version}";
-    license = licenses.agpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.agpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 }

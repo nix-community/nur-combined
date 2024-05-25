@@ -39,11 +39,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   installFlags = [ "prefix=$(out)" ];
 
-  meta = with lib; {
+  meta = {
     description = "A ncurses file manager written in C with vim like keybindings";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

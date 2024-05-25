@@ -36,10 +36,10 @@ python3Packages.buildPythonApplication rec {
     export HOME=$TMPDIR
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Modbus simulation command line version";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

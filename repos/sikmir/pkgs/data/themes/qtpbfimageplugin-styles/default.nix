@@ -20,11 +20,11 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r Esri Mapbox OpenMapTiles OrdnanceSurvey Tilezen $out
   '';
 
-  meta = with lib; {
+  meta = {
     description = "QtPBFImagePlugin styles";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
   };
 })

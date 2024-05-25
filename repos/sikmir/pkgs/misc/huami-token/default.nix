@@ -38,10 +38,10 @@ python3Packages.buildPythonApplication rec {
         --add-flags "$site_packages/huami_token.py"
     '';
 
-  meta = with lib; {
+  meta = {
     description = "Script to obtain watch or band bluetooth token from Huami servers";
     inherit (src.meta) homepage;
-    license = licenses.free;
-    maintainers = with maintainers; [ sikmir ];
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

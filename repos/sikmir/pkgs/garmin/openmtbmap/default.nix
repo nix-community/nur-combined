@@ -33,12 +33,12 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm755 create_omtb_garmin_img.sh $out/bin/create_omtb_garmin_img
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Linux script to extract and compile garmin *.img map files from openmtbmap.org or openvelomap.org downloads";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 })

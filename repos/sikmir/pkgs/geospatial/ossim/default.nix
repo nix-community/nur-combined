@@ -36,11 +36,11 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "BUILD_OSSIM_TESTS" false)
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Open Source Software Image Map library";
     homepage = "https://trac.osgeo.org/ossim";
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

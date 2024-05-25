@@ -23,10 +23,10 @@ python3Packages.buildPythonApplication rec {
     install -Dm755 qute-gemini{,-tab} -t $out/share/qutebrowser/userscripts
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A qutebrowser userscripts that allows viewing Gemini pages";
     inherit (src.meta) homepage;
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

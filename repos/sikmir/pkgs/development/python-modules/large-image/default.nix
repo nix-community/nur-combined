@@ -29,11 +29,11 @@ python3Packages.buildPythonPackage rec {
 
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     description = "Python modules to work with large multiresolution images";
     homepage = "http://girder.github.io/large_image/";
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
     broken = true;
   };
 }

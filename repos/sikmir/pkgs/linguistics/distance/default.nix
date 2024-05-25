@@ -21,10 +21,10 @@ python3Packages.buildPythonPackage rec {
 
   pythonImportsCheck = [ "distance" ];
 
-  meta = with lib; {
+  meta = {
     description = "Utilities for comparing sequences";
     inherit (src.meta) homepage;
-    license = licenses.gpl2;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl2;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

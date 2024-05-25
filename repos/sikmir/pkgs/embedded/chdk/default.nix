@@ -58,12 +58,12 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Canon Hack Development Kit";
     homepage = "https://chdk.fandom.com/wiki/CHDK";
-    license = licenses.gpl2;
-    platforms = platforms.unix;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl2;
+    platforms = lib.platforms.unix;
+    maintainers = [ lib.maintainers.sikmir ];
     skip.ci = true;
   };
 }

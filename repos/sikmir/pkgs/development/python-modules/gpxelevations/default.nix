@@ -34,10 +34,10 @@ python3Packages.buildPythonApplication rec {
     HOME=tmp_home ${python3Packages.python.interpreter} -m unittest test
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Geo elevation data parser for \"The Shuttle Radar Topography Mission\" data";
     inherit (src.meta) homepage;
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

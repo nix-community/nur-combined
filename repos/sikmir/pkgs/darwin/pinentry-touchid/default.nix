@@ -25,12 +25,12 @@ buildGoModule rec {
 
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     description = "Custom GPG pinentry program for macOS that allows using Touch ID";
     inherit (src.meta) homepage;
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.darwin;
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.darwin;
     skip.ci = !stdenv.isDarwin;
   };
 }

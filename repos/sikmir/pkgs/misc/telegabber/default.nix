@@ -35,10 +35,10 @@ buildGoModule rec {
 
   passthru.tests.version = testers.testVersion { package = telegabber; };
 
-  meta = with lib; {
+  meta = {
     description = "XMPP/Jabber transport to Telegram network";
     inherit (src.meta) homepage;
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

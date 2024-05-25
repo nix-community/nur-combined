@@ -35,10 +35,10 @@ python3Packages.buildPythonPackage rec {
     cogdumper
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Cloud Optimized GeoTIFF creation and validation plugin for rasterio";
     inherit (src.meta) homepage;
-    license = licenses.bsd3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.bsd3;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

@@ -31,10 +31,10 @@ buildGoModule rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A feed aggregator for gemini supporting many formats and protocols";
     homepage = "https://git.nytpu.com/comitium/about/";
-    license = licenses.agpl3Only;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.agpl3Only;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

@@ -17,10 +17,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-ZN5tNDIisbhMMOA2bVJnE96GPdZ54HXTneFQewwJmHI=";
 
-  meta = with lib; {
+  meta = {
     description = "MQTT broker benchmarking tool";
     inherit (src.meta) homepage;
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

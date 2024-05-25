@@ -63,11 +63,11 @@ stdenv.mkDerivation (finalAttrs: {
     catch2
   ];
 
-  meta = with lib; {
+  meta = {
     description = "MQTT message parser for writing statistics into InfluxDB";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

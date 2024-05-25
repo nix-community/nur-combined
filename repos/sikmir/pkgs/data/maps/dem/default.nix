@@ -12,12 +12,12 @@ let
   dem1 = builtins.fromJSON (builtins.readFile ./dem1.json);
   dem3 = builtins.fromJSON (builtins.readFile ./dem3.json);
 
-  meta = with lib; {
+  meta = {
     description = "Digital Elevation Data";
     homepage = "http://www.viewfinderpanoramas.org/";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 in

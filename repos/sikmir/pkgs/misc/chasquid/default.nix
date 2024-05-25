@@ -34,11 +34,11 @@ buildGoModule rec {
     installManPage docs/man/*.{1,5}
   '';
 
-  meta = with lib; {
+  meta = {
     description = "SMTP (email) server with a focus on simplicity, security, and ease of operation";
     homepage = "https://blitiri.com.ar/p/chasquid/";
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "chasquid";
   };
 }

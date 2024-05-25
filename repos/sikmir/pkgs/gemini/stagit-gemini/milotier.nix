@@ -19,11 +19,11 @@ stdenv.mkDerivation {
 
   buildInputs = [ libgit2 ];
 
-  meta = with lib; {
+  meta = {
     description = "A fork of stagit-gopher that generates gemtext";
     homepage = "https://git.milotier.net/git/stagit-gemini/";
-    license = licenses.mit;
-    platforms = platforms.unix;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    platforms = lib.platforms.unix;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

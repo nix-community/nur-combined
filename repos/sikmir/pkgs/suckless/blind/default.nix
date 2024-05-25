@@ -15,12 +15,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   installFlags = [ "PREFIX=$(out)" ];
 
-  meta = with lib; {
+  meta = {
     description = "Collection of command line video editing utilities";
     homepage = "https://tools.suckless.org/blind/";
-    license = licenses.isc;
-    platforms = platforms.linux;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.isc;
+    platforms = lib.platforms.linux;
+    maintainers = [ lib.maintainers.sikmir ];
     skip.ci = stdenv.isDarwin;
   };
 })

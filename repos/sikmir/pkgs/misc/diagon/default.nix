@@ -72,12 +72,12 @@ stdenv.mkDerivation rec {
     ./input_output_test
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Interactive ASCII art diagram generators";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     broken = true;
   };
 }

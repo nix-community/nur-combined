@@ -30,11 +30,11 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm755 gps-whatsnew -t $out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Compare gpx tracks to find new segments (places never traveled before)";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.gpl3Only;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl3Only;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

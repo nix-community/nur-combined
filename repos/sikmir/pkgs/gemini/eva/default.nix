@@ -35,10 +35,10 @@ rustPlatform.buildRustPackage rec {
     openssl
   ] ++ lib.optional stdenv.isDarwin Security;
 
-  meta = with lib; {
+  meta = {
     description = "Gemini protocol browser written in Rust using the gtk+ toolkit";
     inherit (src.meta) homepage;
-    license = licenses.gpl3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

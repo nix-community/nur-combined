@@ -17,10 +17,10 @@ python3Packages.buildPythonPackage rec {
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
-  meta = with lib; {
+  meta = {
     description = "Python utilities for Mapbox mbtiles files";
     inherit (src.meta) homepage;
-    license = licenses.isc;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.isc;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

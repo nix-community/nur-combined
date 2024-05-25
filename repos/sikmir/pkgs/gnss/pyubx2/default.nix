@@ -26,10 +26,10 @@ python3Packages.buildPythonPackage rec {
 
   pythonImportsCheck = [ "pyubx2" ];
 
-  meta = with lib; {
+  meta = {
     description = "UBX protocol parser and generator";
     inherit (src.meta) homepage;
-    license = licenses.bsd3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.bsd3;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

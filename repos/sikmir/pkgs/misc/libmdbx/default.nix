@@ -20,12 +20,12 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-DMDBX_BUILD_TIMESTAMP=unknown" ];
 
-  meta = with lib; {
+  meta = {
     description = "Extremely fast, compact, powerful, embedded, transactional key-value database";
     homepage = "https://libmdbx.dqdkfa.ru/";
-    license = licenses.free; # OpenLDAP Public License
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.free; # OpenLDAP Public License
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     broken = stdenv.isDarwin;
   };
 }

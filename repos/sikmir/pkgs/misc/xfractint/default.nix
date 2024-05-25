@@ -27,12 +27,12 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "/usr/bin/install" "install"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Fractal generator";
     homepage = "https://fractint.org/";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = true;
   };
 })

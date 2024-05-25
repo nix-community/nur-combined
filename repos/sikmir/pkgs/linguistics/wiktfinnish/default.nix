@@ -20,10 +20,10 @@ python3Packages.buildPythonApplication rec {
 
   pythonImportsCheck = [ "wiktfinnish" ];
 
-  meta = with lib; {
+  meta = {
     description = "Finnish morphology (including verb forms, comparatives, cases, possessives, clitics)";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

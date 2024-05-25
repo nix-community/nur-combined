@@ -36,10 +36,10 @@ buildGoModule rec {
     install -Dm644 config/*.conf -t $out/share/astronaut
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A Gemini browser for the terminal";
     inherit (src.meta) homepage;
-    license = licenses.gpl3Only;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3Only;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

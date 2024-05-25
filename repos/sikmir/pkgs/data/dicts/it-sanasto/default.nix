@@ -34,12 +34,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   installPhase = "install -Dm644 *.{dict*,idx,ifo} -t $out";
 
-  meta = with lib; {
+  meta = {
     description = "IT-alan englanti-suomi -sanasto";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 })

@@ -31,10 +31,10 @@ python3Packages.buildPythonPackage rec {
 
   pythonImportsCheck = [ "rio_color" ];
 
-  meta = with lib; {
+  meta = {
     description = "Color correction plugin for rasterio";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

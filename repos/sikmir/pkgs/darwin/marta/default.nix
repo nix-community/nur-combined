@@ -30,12 +30,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "File Manager for macOS";
     homepage = "https://marta.sh/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];
     mainProgram = "marta";
     skip.ci = true;

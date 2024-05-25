@@ -31,10 +31,10 @@ python3Packages.buildPythonPackage rec {
 
   disabledTests = [ "test_create_item" ];
 
-  meta = with lib; {
+  meta = {
     description = "Create STAC item from raster datasets";
     homepage = "https://developmentseed.org/rio-stac/";
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

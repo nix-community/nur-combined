@@ -22,12 +22,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase = "install -Dm755 imgdecode -t $out/bin";
 
-  meta = with lib; {
+  meta = {
     description = "IMG Decoder";
     homepage = "https://sourceforge.net/projects/garmin-img/";
-    license = licenses.bsd3;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.bsd3;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 })

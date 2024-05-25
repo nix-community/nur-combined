@@ -21,12 +21,12 @@ stdenvNoCC.mkDerivation {
 
   preferLocalBuild = true;
 
-  meta = with lib; {
+  meta = {
     description = "Туристические карты для навигаторов Garmin";
     homepage = "https://www.uralla.ru/ural-garmin-topo-img-map-16505.html";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 }

@@ -46,11 +46,11 @@ python3Packages.buildPythonPackage rec {
 
   pythonImportsCheck = [ "torchtext" ];
 
-  meta = with lib; {
+  meta = {
     description = "Text utilities and datasets for PyTorch";
     inherit (src.meta) homepage;
-    license = licenses.bsd3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.bsd3;
+    maintainers = [ lib.maintainers.sikmir ];
     #broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/issues/94241
     broken = true; # sentry-sdk
   };

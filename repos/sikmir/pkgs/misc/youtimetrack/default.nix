@@ -18,10 +18,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-HRyjdTTwDmu/5NVpjqCwatYuWN15j3rTgrhv76uMS7I=";
 
-  meta = with lib; {
+  meta = {
     description = "CLI tools for YouTrack time management";
     inherit (src.meta) homepage;
-    license = licenses.wtfpl;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.wtfpl;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

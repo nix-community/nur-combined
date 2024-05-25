@@ -21,12 +21,12 @@ stdenv.mkDerivation (finalAttrs: {
     "PREFIX=$(out)"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A suckless, simple, featured text editor";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.gpl3;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 })

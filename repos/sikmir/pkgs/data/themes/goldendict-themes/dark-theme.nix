@@ -7,11 +7,11 @@
   sha256 = "1rpkfcjp3dhdnrnf68id956hvm8bn655cp8v4if5s753vx5ni012";
 })
 // {
-  meta = with lib; {
+  meta = {
     description = "GoldenDict Dark Theme";
     homepage = "https://gist.github.com/ilius/5a2f35c79775267fbdb249493c041453";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
   };
 }

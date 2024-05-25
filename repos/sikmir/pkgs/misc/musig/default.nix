@@ -30,11 +30,11 @@ buildGoModule rec {
 
   passthru.tests.version = testers.testVersion { package = musig; };
 
-  meta = with lib; {
+  meta = {
     description = "A shazam like tool to store songs fingerprints and retrieve them";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
     broken = stdenv.isDarwin;
   };
 }

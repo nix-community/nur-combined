@@ -21,11 +21,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ hdf5 ];
 
-  meta = with lib; {
+  meta = {
     description = "KEALib provides an implementation of the GDAL data model";
     homepage = "http://kealib.org/";
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 }

@@ -23,10 +23,10 @@ python3Packages.buildPythonApplication rec {
 
   postInstall = "mv $out/bin/lscraper.py $out/bin/lscraper";
 
-  meta = with lib; {
+  meta = {
     description = "Lazy helper tool to make easier scraping with simple tasks";
     inherit (src.meta) homepage;
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

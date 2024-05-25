@@ -17,11 +17,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-+CLJJ4najojIE/0gMlhZxb1P7owdY9+cTnRk+UmHogk=";
 
-  meta = with lib; {
+  meta = {
     description = "An HTTP to Gemini proxy";
     inherit (src.meta) homepage;
-    license = licenses.gpl3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "kineto";
   };
 }

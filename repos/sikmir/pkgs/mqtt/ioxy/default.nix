@@ -20,10 +20,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-VWw9yuwNnJYvIvl6ov24An867koyzPPbqNg0VIXCJiM=";
 
-  meta = with lib; {
+  meta = {
     description = "MQTT intercepting proxy";
     inherit (src.meta) homepage;
-    license = licenses.gpl3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

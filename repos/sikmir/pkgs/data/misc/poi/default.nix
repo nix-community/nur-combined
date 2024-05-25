@@ -21,12 +21,12 @@
         ${jq}/bin/jq -r '.[]|[.[3],.[2],.[0]]|@csv' > $out/geocaching.su.csv
     '';
 
-    meta = with lib; {
+    meta = {
       homepage = "https://geocaching.su/";
       description = "Geocaches";
-      maintainers = [ maintainers.sikmir ];
-      license = licenses.free;
-      platforms = platforms.all;
+      maintainers = [ lib.maintainers.sikmir ];
+      license = lib.licenses.free;
+      platforms = lib.platforms.all;
     };
   };
 
@@ -38,12 +38,12 @@
     recursiveHash = true;
     postFetch = "install -Dm644 $downloadedFile $out/Laavut-kodat.gpx";
 
-    meta = with lib; {
+    meta = {
       homepage = "http://laavu.org/";
       description = "Laavut ja kodat kartalla";
-      maintainers = [ maintainers.sikmir ];
-      license = licenses.free;
-      platforms = platforms.all;
+      maintainers = [ lib.maintainers.sikmir ];
+      license = lib.licenses.free;
+      platforms = lib.platforms.all;
       skip.ci = true;
     };
   };
@@ -56,12 +56,12 @@
     recursiveHash = true;
     postFetch = "install -Dm644 $downloadedFile $out/Autiotuvat.gpx";
 
-    meta = with lib; {
+    meta = {
       homepage = "http://www.laavu.org/autiotuvat/";
       description = "Autiotuvat kartalla";
-      maintainers = [ maintainers.sikmir ];
-      license = licenses.free;
-      platforms = platforms.all;
+      maintainers = [ lib.maintainers.sikmir ];
+      license = lib.licenses.free;
+      platforms = lib.platforms.all;
       skip.ci = true;
     };
   };
@@ -79,12 +79,12 @@
         ${jq}/bin/jq -r '.[]|[.latlon[1],.latlon[0],.name]|@csv' > $out/westra_passes.csv
     '';
 
-    meta = with lib; {
+    meta = {
       homepage = "https://westra.ru/passes/";
       description = "Mountain passes (Westra)";
-      maintainers = [ maintainers.sikmir ];
-      license = licenses.free;
-      platforms = platforms.all;
+      maintainers = [ lib.maintainers.sikmir ];
+      license = lib.licenses.free;
+      platforms = lib.platforms.all;
     };
   };
 
@@ -103,12 +103,12 @@
         tr \' \" > $out/strelki.csv
     '';
 
-    meta = with lib; {
+    meta = {
       homepage = "https://strelki.extremum.org/s/p/47p";
       description = "Стрелки-47";
-      maintainers = [ maintainers.sikmir ];
-      license = licenses.free;
-      platforms = platforms.all;
+      maintainers = [ lib.maintainers.sikmir ];
+      license = lib.licenses.free;
+      platforms = lib.platforms.all;
     };
   };
 
@@ -120,12 +120,12 @@
     recursiveHash = true;
     postFetch = "install -Dm644 $downloadedFile $out/nashipohody.kml";
 
-    meta = with lib; {
+    meta = {
       homepage = "http://nashipohody.ru";
       description = "Карта Достопримечательностей";
-      maintainers = [ maintainers.sikmir ];
-      license = licenses.free;
-      platforms = platforms.all;
+      maintainers = [ lib.maintainers.sikmir ];
+      license = lib.licenses.free;
+      platforms = lib.platforms.all;
     };
   };
 
@@ -140,12 +140,12 @@
       install -Dm644 novgorod-roads.geojson -t $out
     '';
 
-    meta = with lib; {
+    meta = {
       homepage = "https://yandex.ru/maps/-/CCUER2fZpD";
       description = "Магистральные дороги Северо-Запада Новгородской земли";
-      maintainers = [ maintainers.sikmir ];
-      license = licenses.free;
-      platforms = platforms.all;
+      maintainers = [ lib.maintainers.sikmir ];
+      license = lib.licenses.free;
+      platforms = lib.platforms.all;
       skip.ci = true;
     };
   };

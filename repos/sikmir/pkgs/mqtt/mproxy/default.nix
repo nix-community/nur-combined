@@ -23,10 +23,10 @@ buildGoModule rec {
     mv $out/bin/{client,mproxy-client}
   '';
 
-  meta = with lib; {
+  meta = {
     description = "MQTT proxy";
     inherit (src.meta) homepage;
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

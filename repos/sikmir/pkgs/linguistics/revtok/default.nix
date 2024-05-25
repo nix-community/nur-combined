@@ -19,10 +19,10 @@ python3Packages.buildPythonPackage rec {
 
   pythonImportsCheck = [ "revtok" ];
 
-  meta = with lib; {
+  meta = {
     description = "Reversible tokenization in Python";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

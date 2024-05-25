@@ -22,12 +22,12 @@ stdenvNoCC.mkDerivation {
 
   preferLocalBuild = true;
 
-  meta = with lib; {
+  meta = {
     description = "FreeDict (${lang})";
     homepage = "https://freedict.org";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 }

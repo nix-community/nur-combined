@@ -35,12 +35,12 @@ stdenv.mkDerivation {
   #doCheck = true;
   checkTarget = "tests";
 
-  meta = with lib; {
+  meta = {
     description = "Simple c99 compiler";
     homepage = "https://www.simple-cc.org/";
-    license = licenses.isc;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.isc;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 }

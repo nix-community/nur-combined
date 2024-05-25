@@ -26,10 +26,10 @@ python3Packages.buildPythonPackage rec {
     pyarrow
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Convenient pyarrow operations following the Pandas API";
     homepage = "https://github.com/TomScheffers/pyarrow_ops";
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

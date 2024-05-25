@@ -40,10 +40,10 @@ python3Packages.buildPythonApplication rec {
       --add-flags "$site_packages/main.py"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "GUI written in Python to parse OSM (OpenStreetMap) files and render them onscreen";
     inherit (src.meta) homepage;
-    license = licenses.gpl3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

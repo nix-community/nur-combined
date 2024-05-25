@@ -24,11 +24,11 @@ stdenv.mkDerivation {
 
   installCheckPhase = "$out/bin/sendmap20 -h";
 
-  meta = with lib; {
+  meta = {
     description = "Software for uploading maps to your GPS";
     homepage = "https://web.archive.org/web/20160620061746if_/http://www.cgpsmapper.com";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = [
       "i686-linux"
       "x86_64-linux"

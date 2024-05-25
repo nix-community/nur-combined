@@ -45,12 +45,12 @@ stdenv.mkDerivation rec {
 
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     description = "A client-side library for applications to utilize the Messenger service of GNUnet";
     homepage = "https://www.gnunet.org/";
     changelog = "https://git.gnunet.org/libgnunetchat.git/tree/ChangeLog?h=v${version}";
-    license = licenses.agpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.agpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 }

@@ -29,11 +29,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   preInstall = "mkdir -p $out/bin";
 
-  meta = with lib; {
+  meta = {
     description = "GNU-alike tools for parsing RFC 4180 CSVs at high speed";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

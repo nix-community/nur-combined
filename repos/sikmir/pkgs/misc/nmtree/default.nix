@@ -23,12 +23,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-format-security";
 
-  meta = with lib; {
+  meta = {
     description = "NetBSD's mtree(8) utility";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = true;
   };
 })

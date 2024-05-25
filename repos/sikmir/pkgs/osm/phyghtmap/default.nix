@@ -30,10 +30,10 @@ python3Packages.buildPythonApplication rec {
 
   postInstall = "installManPage docs/phyghtmap.1";
 
-  meta = with lib; {
+  meta = {
     description = "Generate OSM contour lines from NASA SRTM data";
     homepage = "http://katze.tfiu.de/projects/phyghtmap";
-    license = licenses.gpl2Plus;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl2Plus;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

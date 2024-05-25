@@ -65,11 +65,11 @@ python3Packages.buildPythonApplication rec {
 
   postInstall = "rm -fr $out/requirements*.txt";
 
-  meta = with lib; {
+  meta = {
     description = "Create a visually appealing poster from your GPX tracks";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
     broken = true; # https://github.com/stravalib/stravalib/pull/459
   };
 }

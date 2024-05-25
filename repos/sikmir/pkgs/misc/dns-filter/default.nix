@@ -30,11 +30,11 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm644 *.txt -t $out/share/dns-filter
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Tiny DNS server with filtering requests";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

@@ -19,10 +19,10 @@ rustPlatform.buildRustPackage rec {
   cargoPatches = [ ./cargo-lock.patch ];
   cargoHash = "sha256-2Qhu+7Lb6Pvs1a9qH5WmcakxeQVB2bm4fPGZXwh3cgA=";
 
-  meta = with lib; {
+  meta = {
     description = "Convert CSV files to HTML tables";
     inherit (src.meta) homepage;
-    license = licenses.bsd3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.bsd3;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

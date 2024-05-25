@@ -22,12 +22,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase = "install -Dm755 rx -t $out/bin";
 
-  meta = with lib; {
+  meta = {
     description = "amateur radio receiver in <100 code lines";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.agpl3Only;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.agpl3Only;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 })

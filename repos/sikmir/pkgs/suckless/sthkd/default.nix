@@ -17,12 +17,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   installFlags = [ "PREFIX=$(out)" ];
 
-  meta = with lib; {
+  meta = {
     description = "Simple Terminal Hotkey Daemon";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.isc;
-    platforms = platforms.linux;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.isc;
+    platforms = lib.platforms.linux;
+    maintainers = [ lib.maintainers.sikmir ];
     skip.ci = stdenv.isDarwin;
   };
 })

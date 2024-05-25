@@ -31,10 +31,10 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     description = "Send messages and files over Telegram from the command-line";
     homepage = "https://www.rahielkasim.com/telegram-send/";
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

@@ -27,11 +27,11 @@ buildGoModule rec {
       --zsh <($out/bin/riffraff completion zsh)
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A commandline interface for Jenkins";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "riffraff";
   };
 }

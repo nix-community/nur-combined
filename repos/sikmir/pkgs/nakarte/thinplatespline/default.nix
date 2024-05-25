@@ -19,10 +19,10 @@ python3Packages.buildPythonPackage rec {
 
   pythonImportsCheck = [ "tps" ];
 
-  meta = with lib; {
+  meta = {
     description = "Python library for thin plate spline calculations";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

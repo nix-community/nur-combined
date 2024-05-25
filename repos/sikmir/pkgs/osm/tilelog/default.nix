@@ -26,10 +26,10 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     description = "Tilelog is used to generate tile logs for the OSMF Standard map layer";
     inherit (src.meta) homepage;
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

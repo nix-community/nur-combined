@@ -19,12 +19,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   installPhase = "install -Dm644 $src $out/mtk_suomi.img";
 
-  meta = with lib; {
+  meta = {
     description = "Maanmittauslaitoksen peruskartan tasoiset ja näköiset ilmaiset maastokartat";
     homepage = "https://kartat.hylly.org/";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 })

@@ -24,12 +24,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   preInstall = "mkdir -p $out/lib";
 
-  meta = with lib; {
+  meta = {
     description = "Embedded Web Server";
     homepage = "https://mongoose.ws/";
-    license = licenses.gpl2;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.gpl2;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 })

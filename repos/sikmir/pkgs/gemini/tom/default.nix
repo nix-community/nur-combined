@@ -45,11 +45,11 @@ stdenv.mkDerivation (finalAttrs: {
       --set LUA_CPATH "$out/share/lua/?.so"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Gemini frontend for git repositories";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.isc;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.isc;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

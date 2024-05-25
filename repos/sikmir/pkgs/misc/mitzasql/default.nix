@@ -36,10 +36,10 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false; # MySQL server required
 
-  meta = with lib; {
+  meta = {
     description = "MySQL command line / text based interface client";
     homepage = "https://vladbalmos.github.io/mitzasql/";
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

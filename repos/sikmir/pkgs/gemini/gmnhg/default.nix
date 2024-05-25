@@ -17,10 +17,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-Jiud36qgjj7RlJ7LysTlhKQhHK7C116lxbw1Cj2hHmU=";
 
-  meta = with lib; {
+  meta = {
     description = "Hugo-to-Gemini Markdown converter";
     inherit (src.meta) homepage;
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

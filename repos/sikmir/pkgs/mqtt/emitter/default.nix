@@ -25,10 +25,10 @@ buildGoModule rec {
 
   checkFlags = [ "-skip=TestStatsd_Configure" ];
 
-  meta = with lib; {
+  meta = {
     description = "High performance, distributed and low latency publish-subscribe platform";
     homepage = "https://emitter.io/";
-    license = licenses.agpl3Plus;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.agpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

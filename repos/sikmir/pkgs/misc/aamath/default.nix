@@ -51,12 +51,12 @@ stdenv.mkDerivation (finalAttrs: {
     installManPage aamath.1
   '';
 
-  meta = with lib; {
+  meta = {
     description = "ASCII art mathematics";
     homepage = "http://fuse.superglue.se/aamath/";
-    license = licenses.gpl2Only;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.gpl2Only;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 })

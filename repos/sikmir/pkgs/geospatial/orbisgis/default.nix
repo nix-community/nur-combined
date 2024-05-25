@@ -41,12 +41,12 @@ stdenv.mkDerivation (finalAttrs: {
       --set JAVA_HOME "${jre}"
   '';
 
-  meta = with lib; {
+  meta = {
     homepage = "http://orbisgis.org/";
     description = "An opensource GIS software";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.gpl3;
-    maintainers = [ maintainers.sikmir ];
+    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    license = lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = jre.meta.platforms;
     skip.ci = true;
   };

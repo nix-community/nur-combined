@@ -24,10 +24,10 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optional stdenv.isDarwin Security;
 
-  meta = with lib; {
+  meta = {
     description = "The MQTT ecosystem in rust";
     homepage = "https://github.com/bytebeamio/rumqtt";
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

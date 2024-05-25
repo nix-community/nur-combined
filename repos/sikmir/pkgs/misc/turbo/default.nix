@@ -27,11 +27,11 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ (lib.cmakeBool "TURBO_USE_SYSTEM_TVISION" true) ];
 
-  meta = with lib; {
+  meta = {
     description = "An experimental text editor based on Scintilla and Turbo Vision";
     inherit (src.meta) homepage;
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 }

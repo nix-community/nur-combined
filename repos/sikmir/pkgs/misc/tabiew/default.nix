@@ -18,12 +18,12 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-CMqMn29j70f/3YFWtWkW8J5dCxXf5HtaIrl2yudipTQ=";
 
-  meta = with lib; {
+  meta = {
     description = "A lightweight TUI app to view and query CSV files";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     mainProgram = "tw";
   };
 }

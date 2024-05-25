@@ -37,11 +37,11 @@ stdenv.mkDerivation {
     zlib
   ];
 
-  meta = with lib; {
+  meta = {
     description = "OSM Area Tools";
     homepage = "https://osmcode.org/osm-area-tools/";
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 }

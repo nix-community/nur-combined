@@ -32,11 +32,11 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Tools to work with signals and files from GOES satellites";
     homepage = "https://pietern.github.io/goestools/";
-    license = licenses.bsd2;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.bsd2;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 }

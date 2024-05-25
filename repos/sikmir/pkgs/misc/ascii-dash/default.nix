@@ -51,11 +51,11 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r ../{data,sounds} $out/share/ascii-dash
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Remake of BOULDER DASH with NCurses";
     homepage = "https://ascii-dash.sourceforge.io/";
-    license = licenses.mit;
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    platforms = lib.platforms.unix;
     mainProgram = "ascii-dash";
   };
 })

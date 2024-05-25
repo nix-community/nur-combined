@@ -27,11 +27,11 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "JAVACMD=java" "JAVACMD=${jre}/bin/java"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Command line Java application for processing OSM data";
     homepage = "http://wiki.openstreetmap.org/wiki/Osmosis";
-    license = licenses.gpl2;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl2;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = jre.meta.platforms;
   };
 })

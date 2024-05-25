@@ -21,9 +21,9 @@ let
 
     doCheck = false;
 
-    meta = with lib; {
+    meta = {
       description = "PostgreSQL database adapter for the Python programming language";
-      license = with licenses; [
+      license = with lib.licenses; [
         gpl2
         zpl20
       ];
@@ -72,11 +72,11 @@ python2Packages.buildPythonApplication rec {
 
   passthru.psycopg2 = psycopg2;
 
-  meta = with lib; {
+  meta = {
     description = "Tracks storage server";
     inherit (src.meta) homepage;
-    license = licenses.free;
-    maintainers = with maintainers; [ sikmir ];
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
     broken = true; # python2Packages.protobuf (error: mox-0.7.8 not supported for interpreter python2.7)
   };
 }

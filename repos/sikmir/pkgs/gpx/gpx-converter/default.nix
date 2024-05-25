@@ -28,10 +28,10 @@ python3Packages.buildPythonApplication rec {
 
   disabledTests = [ "test_gpx_to_dictionary" ];
 
-  meta = with lib; {
+  meta = {
     description = "Python package for manipulating gpx files and easily convert gpx to other different formats";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

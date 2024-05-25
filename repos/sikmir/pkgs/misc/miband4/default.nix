@@ -40,12 +40,12 @@ python3Packages.buildPythonApplication rec {
         --add-flags "$site_packages/miband4_console.py"
     '';
 
-  meta = with lib; {
+  meta = {
     description = "Access Xiaomi MiBand 4 from Linux using Bluetooth LE";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 }

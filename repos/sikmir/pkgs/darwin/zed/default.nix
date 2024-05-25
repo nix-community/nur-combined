@@ -28,12 +28,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "High-performance, multiplayer code editor";
     homepage = "https://zed.dev";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];
     skip.ci = true;
   };

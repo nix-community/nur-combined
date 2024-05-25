@@ -104,12 +104,12 @@ stdenv.mkDerivation (finalAttrs: {
       install -Dm755 scripts/qemu/{start,stop}_script -t $out/share/embox/scripts
     '';
 
-  meta = with lib; {
+  meta = {
     description = "Modular and configurable OS for embedded applications";
     homepage = "http://embox.github.io/";
-    license = licenses.bsd2;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.bsd2;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     skip.ci = true;
     mainProgram = "embox";
   };

@@ -36,12 +36,12 @@ stdenv.mkDerivation rec {
     install -Dm644 *.geojson *.osm *.osm.pbf -t $out
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Administrative boundaries";
     homepage = "https://wiki.openstreetmap.org/wiki/Tag:boundary%3Dadministrative";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 }

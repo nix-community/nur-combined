@@ -24,10 +24,10 @@ buildGoPackage rec {
     install -Dm644 $src/sample_configs/*.yaml -t $out/share/janus-mqtt-proxy/sample_configs
   '';
 
-  meta = with lib; {
+  meta = {
     description = "MITM proxy which can filter and modify MQTT packets";
     inherit (src.meta) homepage;
-    license = licenses.gpl3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

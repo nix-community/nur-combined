@@ -21,12 +21,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ wxGTK ];
 
-  meta = with lib; {
+  meta = {
     description = "C++ geoJSON and topoJSON parser and rendering using the WxWidgets GUI library";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 })

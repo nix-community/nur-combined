@@ -41,11 +41,11 @@ stdenv.mkDerivation (finalAttrs: {
     installManPage doc/gmi2html.1
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Translate text/gemini into HTML";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

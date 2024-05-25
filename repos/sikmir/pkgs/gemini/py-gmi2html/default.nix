@@ -16,10 +16,10 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-MFoNOm/BOao5pOntW9Pqn3IjCCjyw6pJL9OXf9RpGIs=";
   };
 
-  meta = with lib; {
+  meta = {
     description = "A library and CLI tool for converting text/gemini to text/html";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

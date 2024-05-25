@@ -33,12 +33,12 @@ stdenv.mkDerivation (finalAttrs: {
       --add-flags "-jar $out/share/java/planetiler.jar"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Flexible tool to build planet-scale vector tilesets from OpenStreetMap data";
     inherit (finalAttrs.src.meta) homepage;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
+    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = jre.meta.platforms;
     skip.ci = true;
   };

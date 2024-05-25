@@ -41,10 +41,10 @@ python3Packages.buildPythonPackage rec {
     "OSMPythonTools.overpass"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A library to access OpenStreetMap related services";
     inherit (src.meta) homepage;
-    license = licenses.gpl3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

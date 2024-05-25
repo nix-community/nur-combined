@@ -20,10 +20,10 @@ python3Packages.buildPythonPackage rec {
 
   pythonImportsCheck = [ "pyrtcm" ];
 
-  meta = with lib; {
+  meta = {
     description = "RTCM3 protocol parser";
     inherit (src.meta) homepage;
-    license = licenses.bsd3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.bsd3;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

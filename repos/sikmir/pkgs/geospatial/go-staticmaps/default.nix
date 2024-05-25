@@ -19,10 +19,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-VwdQsm7VghVtX2O41jNxILTuiLff4rTfXP41+IzUmMs=";
 
-  meta = with lib; {
+  meta = {
     description = "A go (golang) library and command line tool to render static map images using OpenStreetMap tiles";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

@@ -35,11 +35,11 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Remote Sensing and GIS Software Library";
     homepage = "https://www.rsgislib.org/";
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 }

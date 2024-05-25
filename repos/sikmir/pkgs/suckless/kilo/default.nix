@@ -19,11 +19,11 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm755 kilo -t $out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A text editor in less than 1000 LOC with syntax highlight and search";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.bsd2;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.bsd2;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

@@ -36,12 +36,12 @@ stdenv.mkDerivation (finalAttrs: {
       --add-flags "-jar $out/share/java/i18n-editor.jar"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "GUI for editing your i18n translation files";
     inherit (finalAttrs.src.meta) homepage;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = jre.meta.platforms;
   };
 })

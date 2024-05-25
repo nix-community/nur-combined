@@ -29,10 +29,10 @@ rustPlatform.buildRustPackage rec {
     install -Dm644 config.toml -t $out/share/gemserv
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A gemini server written in rust";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

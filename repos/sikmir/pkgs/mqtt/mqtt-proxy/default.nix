@@ -23,10 +23,10 @@ buildGoModule rec {
 
   ldflags = [ "-X github.com/prometheus/common/version.Version=${version}" ];
 
-  meta = with lib; {
+  meta = {
     description = "MQTT Proxy allows MQTT clients to send messages to other messaging systems";
     inherit (src.meta) homepage;
-    #license = licenses.cc-by-nc-nd-40;
-    maintainers = [ maintainers.sikmir ];
+    #license = lib.licenses.cc-by-nc-nd-40;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

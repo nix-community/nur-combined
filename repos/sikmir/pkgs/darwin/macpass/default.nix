@@ -28,12 +28,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   preferLocalBuild = true;
 
-  meta = with lib; {
+  meta = {
     description = "A native OS X KeePass client";
     homepage = "https://macpassapp.org/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];
     skip.ci = true;
   };

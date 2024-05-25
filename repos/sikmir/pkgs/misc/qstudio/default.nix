@@ -32,12 +32,12 @@ stdenv.mkDerivation (finalAttrs: {
       --add-flags "-jar $out/share/java/${finalAttrs.src.name}"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "SQL Analysis Tool";
     homepage = "https://www.timestored.com/qstudio/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
+    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = jre.meta.platforms;
   };
 })

@@ -17,10 +17,10 @@ python3Packages.buildPythonApplication rec {
 
   sourceRoot = "${src.name}/python";
 
-  meta = with lib; {
+  meta = {
     description = "Library and utilities to write and read PMTiles files - cloud-optimized archives of map tiles";
     inherit (src.meta) homepage;
-    license = licenses.bsd3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.bsd3;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

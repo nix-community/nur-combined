@@ -31,10 +31,10 @@ python3Packages.buildPythonPackage rec {
   doCheck = false;
   pythonImportsCheck = [ "c2cwsgiutils" ];
 
-  meta = with lib; {
+  meta = {
     description = "Common utilities for Camptocamp WSGI applications";
     inherit (src.meta) homepage;
-    license = licenses.bsd2;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.bsd2;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

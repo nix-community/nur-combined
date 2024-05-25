@@ -21,11 +21,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ ncurses ];
 
-  meta = with lib; {
+  meta = {
     description = "screen oriented version of the classic UNIX text editor ed";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.publicDomain;
-    platforms = platforms.unix;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.publicDomain;
+    platforms = lib.platforms.unix;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 })

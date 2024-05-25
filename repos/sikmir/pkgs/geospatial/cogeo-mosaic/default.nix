@@ -44,10 +44,10 @@ python3Packages.buildPythonPackage rec {
     "test_abs_backend"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Create and use COG mosaic based on mosaicJSON";
     homepage = "https://developmentseed.org/cogeo-mosaic/";
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

@@ -23,11 +23,11 @@ stdenv.mkDerivation {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
-  meta = with lib; {
+  meta = {
     description = "ANSI terminal emulator";
     homepage = "https://subdivi.de/~helmut/tcvt/";
-    license = licenses.bsd2;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.bsd2;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = python3.meta.platforms;
   };
 }

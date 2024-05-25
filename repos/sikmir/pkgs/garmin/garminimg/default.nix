@@ -44,11 +44,11 @@ stdenv.mkDerivation rec {
     install -Dm755 bin/* -t $out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Encode/decode a Garmin IMG file";
     inherit (src.meta) homepage;
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 }

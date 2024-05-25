@@ -24,10 +24,10 @@ python3Packages.buildPythonApplication rec {
     requests
   ];
 
-  meta = with lib; {
+  meta = {
     description = "wik is use to get information about anything on the shell using Wikipedia";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

@@ -19,12 +19,12 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm755 translate.sh $out/bin/gt-bash-client
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Get translated text from your terminal! Console Google Translate Script (bash+curl+sed)";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 })

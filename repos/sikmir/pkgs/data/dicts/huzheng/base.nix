@@ -18,12 +18,12 @@ srcOnly {
     inherit hash;
   };
 
-  meta = with lib; {
+  meta = {
     inherit description;
     homepage = "http://download.huzheng.org/";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 }

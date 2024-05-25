@@ -75,12 +75,12 @@ let
     '';
   };
 
-  meta = with lib; {
+  meta = {
     description = "An all-round MQTT client that provides a structured topic overview";
     homepage = "https://mqtt-explorer.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.cc-by-40;
-    maintainers = with maintainers; [ sikmir ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.cc-by-40;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = builtins.attrNames srcs;
     mainProgram = "mqtt-explorer";
     skip.ci = true;

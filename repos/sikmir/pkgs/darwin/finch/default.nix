@@ -80,12 +80,12 @@ buildGoModule rec {
       --replace-fail "<finch_image_digest>" "sha256:$(sha256sum ${os} | cut -d' ' -f1)"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Client for container development";
     inherit (src.meta) homepage;
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.darwin;
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.darwin;
     skip.ci = true;
   };
 }

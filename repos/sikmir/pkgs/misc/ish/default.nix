@@ -23,12 +23,12 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm755 ish ishd -t $out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     description = "ICMP Shell";
     homepage = "http://icmpshell.sourceforge.net";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 })

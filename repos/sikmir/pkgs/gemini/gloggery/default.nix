@@ -27,11 +27,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   postInstall = "mv $out/.gloggery $out/share/glogger";
 
-  meta = with lib; {
+  meta = {
     description = "Gemtext blog static site generator";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

@@ -35,10 +35,10 @@ buildGoModule rec {
     installManPage gelim.1
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A minimalist line-mode smolnet client written in go";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

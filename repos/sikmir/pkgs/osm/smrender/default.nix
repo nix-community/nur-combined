@@ -42,11 +42,11 @@ stdenv.mkDerivation (finalAttrs: {
     version = "V${finalAttrs.version}";
   };
 
-  meta = with lib; {
+  meta = {
     description = "A powerful, flexible, and modular rule-based rendering engine for OSM data";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.gpl3Only;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl3Only;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

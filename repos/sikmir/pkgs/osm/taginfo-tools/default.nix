@@ -41,12 +41,12 @@ stdenv.mkDerivation {
     install -Dm755 src/{osmstats,taginfo-sizes} -t $out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     description = "C++ tools used in taginfo processing";
     homepage = "https://wiki.openstreetmap.org/wiki/Taginfo";
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     broken = stdenv.isLinux;
   };
 }

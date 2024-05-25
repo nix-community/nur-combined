@@ -29,15 +29,15 @@ rustPlatform.buildRustPackage rec {
     systemd
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A rust implementation of rtl-tcp";
     inherit (src.meta) homepage;
-    license = with licenses; [
+    license = with lib.licenses; [
       asl20
       mit
     ];
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 }

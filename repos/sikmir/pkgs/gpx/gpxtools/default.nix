@@ -29,11 +29,11 @@ stdenv.mkDerivation {
 
   installPhase = "install -Dm755 gpx* -t $out/bin";
 
-  meta = with lib; {
+  meta = {
     description = "A collection of c++ tools for using GPX files";
     homepage = "https://notabug.org/irdvo/gpxtools";
-    license = licenses.gpl3Only;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl3Only;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 }

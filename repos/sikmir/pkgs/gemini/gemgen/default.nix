@@ -20,10 +20,10 @@ buildGoModule rec {
 
   nativeBuildInputs = [ scdoc ];
 
-  meta = with lib; {
+  meta = {
     description = "Markdown to Gemtext generator";
     inherit (src.meta) homepage;
-    license = licenses.gpl3Only;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3Only;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

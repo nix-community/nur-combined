@@ -22,12 +22,12 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm755 pista -t $out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Piped status: the ii of status bars!";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.bsd3;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.bsd3;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 })

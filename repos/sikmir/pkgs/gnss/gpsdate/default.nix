@@ -21,12 +21,12 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm755 gpsdate -t $out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Simple tool for fetching date and time from a GPS receiver and saving it as a local time";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     mainProgram = "gpsdate";
   };
 })

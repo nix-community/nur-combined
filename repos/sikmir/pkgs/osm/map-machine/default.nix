@@ -34,11 +34,11 @@ python3Packages.buildPythonApplication rec {
   preCheck = "export PATH=$PATH:$out/bin";
   disabledTests = [ "test_tile" ];
 
-  meta = with lib; {
+  meta = {
     description = "A simple renderer for OpenStreetMap with custom icons";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "map-machine";
   };
 }

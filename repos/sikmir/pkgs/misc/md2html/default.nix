@@ -17,10 +17,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-XO8WD/SC2Xii0bUiuOGL9V7XgTJDZjsPrpmyONFm+7U=";
 
-  meta = with lib; {
+  meta = {
     description = "Markdown to single HTML";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

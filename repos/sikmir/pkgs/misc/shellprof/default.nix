@@ -24,10 +24,10 @@ python3Packages.buildPythonApplication rec {
     install -Dm755 shellprof -t $out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Profile a shell script based on its printouts";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

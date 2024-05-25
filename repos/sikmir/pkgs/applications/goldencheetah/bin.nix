@@ -34,12 +34,12 @@ let
 
   appimageContents = appimageTools.extract { inherit pname version src; };
 
-  meta = with lib; {
+  meta = {
     description = "Performance software for cyclists, runners and triathletes";
     homepage = "https://www.goldencheetah.org/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.gpl3;
-    maintainers = [ maintainers.sikmir ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

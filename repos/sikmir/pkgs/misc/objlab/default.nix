@@ -42,12 +42,12 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm755 objlab -t $out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Simple wavefront .obj viewer";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
     mainProgram = "objlab";
   };

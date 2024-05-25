@@ -39,12 +39,12 @@ nimPackages.buildNimPackage rec {
     install -Dm644 assets/worm.desktop -t $out/share/applications
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A dynamic, tag-based window manager written in Nim";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    platforms = platforms.linux;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    platforms = lib.platforms.linux;
+    maintainers = [ lib.maintainers.sikmir ];
     skip.ci = stdenv.isDarwin;
     broken = true;
   };

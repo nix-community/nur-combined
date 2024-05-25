@@ -33,12 +33,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Multi-purpose serial data visualization & processing program";
     homepage = "https://serial-studio.github.io/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = [
       "aarch64-darwin"
       "x86_64-darwin"

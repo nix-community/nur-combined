@@ -61,12 +61,12 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm644 output/gmapsupp.img $out/otm-russia-nwfd.img
   '';
 
-  meta = with lib; {
+  meta = {
     description = "OpenTopoMap Garmin Edition";
     homepage = "https://garmin.opentopomap.org/";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 })

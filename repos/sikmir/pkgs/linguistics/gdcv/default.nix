@@ -47,12 +47,12 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm644 gdcv-elisp.so gdcv.el -t $out/share/emacs/site-lisp
   '';
 
-  meta = with lib; {
+  meta = {
     description = "GoldenDict console version and emacs dynamic module";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.gpl3Only;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl3Only;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     skip.ci = stdenv.isDarwin;
     mainProgram = "gdcv";
   };

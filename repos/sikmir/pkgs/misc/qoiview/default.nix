@@ -47,12 +47,12 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm755 qoiview -t $out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     description = "QOI image viewer on top of the Sokol headers";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 })

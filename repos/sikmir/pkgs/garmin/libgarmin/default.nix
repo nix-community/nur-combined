@@ -30,12 +30,12 @@ stdenv.mkDerivation {
     && autoreconf
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Garmin IMG format library";
     homepage = "http://libgarmin.sourceforge.net/";
-    license = licenses.gpl2;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.gpl2;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 }

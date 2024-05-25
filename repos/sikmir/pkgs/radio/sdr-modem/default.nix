@@ -40,11 +40,11 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm644 $src/src/resources/config.conf -t $out/etc
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Modem based on software defined radios";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.gpl2;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl2;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

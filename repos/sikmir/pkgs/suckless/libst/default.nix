@@ -40,12 +40,12 @@ stdenv.mkDerivation (finalAttrs: {
     make -C examples/svt install PREFIX=$out
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Suckless Terminal ANSI parser";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.mit;
-    platforms = platforms.linux;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    platforms = lib.platforms.linux;
+    maintainers = [ lib.maintainers.sikmir ];
     skip.ci = stdenv.isDarwin;
   };
 })

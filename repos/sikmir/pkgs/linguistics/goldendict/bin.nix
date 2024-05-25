@@ -24,12 +24,12 @@ stdenv.mkDerivation rec {
     cp -r . $out/Applications/GoldenDict.app
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A feature-rich dictionary lookup program";
     homepage = "http://goldendict.org/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];
     skip.ci = true;
   };

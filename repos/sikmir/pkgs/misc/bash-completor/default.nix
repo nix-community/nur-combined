@@ -29,12 +29,12 @@ stdenv.mkDerivation (finalAttrs: {
     installShellCompletion dist/bash-completor.completion.bash
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Creating a bash completion script in a declarative way";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     broken = stdenv.isLinux; # ./tools/build-dist: cannot execute: required file not found
   };
 })

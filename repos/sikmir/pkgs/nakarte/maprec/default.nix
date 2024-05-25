@@ -32,9 +32,9 @@ python3Packages.buildPythonPackage rec {
 
   pythonImportsCheck = [ "maprec" ];
 
-  meta = with lib; {
+  meta = {
     inherit (src.meta) homepage;
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

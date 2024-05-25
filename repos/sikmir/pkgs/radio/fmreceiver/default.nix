@@ -79,11 +79,11 @@ stdenv.mkDerivation rec {
         install -Dm755 linux-bin/fmreceiver-2.0 $out/bin/fmreceiver
       '';
 
-  meta = with lib; {
+  meta = {
     description = "A simple FM receiver";
     inherit (src.meta) homepage;
-    license = licenses.gpl2Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl2Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 }

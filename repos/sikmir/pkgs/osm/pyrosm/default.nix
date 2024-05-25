@@ -34,10 +34,10 @@ python3Packages.buildPythonPackage rec {
 
   pythonImportsCheck = [ "pyrosm" ];
 
-  meta = with lib; {
+  meta = {
     description = "A Python tool to parse OSM data from Protobuf format into GeoDataFrame";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

@@ -26,10 +26,10 @@ python3Packages.buildPythonApplication rec {
     install -Dm755 mqtt-launcher.py $out/bin/mqtt-launcher
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Execute shell commands triggered by published MQTT messages";
     inherit (src.meta) homepage;
-    license = licenses.free;
-    maintainers = with maintainers; [ sikmir ];
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

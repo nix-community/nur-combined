@@ -41,12 +41,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags = [ (lib.cmakeBool "NFM" true) ];
 
-  meta = with lib; {
+  meta = {
     description = "Multichannel AM/NFM demodulator";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
     broken = true;
   };

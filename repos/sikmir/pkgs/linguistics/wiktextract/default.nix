@@ -49,10 +49,10 @@ python3Packages.buildPythonApplication rec {
     unzip ${brown} -d nltk_data/corpora
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Wiktionary dump file parser and multilingual data extractor";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

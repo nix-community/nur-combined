@@ -34,10 +34,10 @@ python3Packages.buildPythonApplication rec {
         --add-flags "$site_packages/unite_osmand.py"
     '';
 
-  meta = with lib; {
+  meta = {
     description = "Converts mbtiles format to sqlitedb format suitable for OsmAnd and RMaps";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

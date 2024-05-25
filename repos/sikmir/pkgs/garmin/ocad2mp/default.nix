@@ -39,11 +39,11 @@ stdenv.mkDerivation {
     install -Dm644 SYM.TXT $out/share/ocad2mp/sym.txt
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Converter from OCAD map format to Polish format";
     homepage = "https://sourceforge.net/projects/ocad2mp/";
-    license = licenses.gpl2;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl2;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 }

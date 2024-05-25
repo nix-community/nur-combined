@@ -23,10 +23,10 @@ buildGoModule rec {
 
   passthru.tests.version = testers.testVersion { package = vt2geojson; };
 
-  meta = with lib; {
+  meta = {
     description = "Command line tool to dump Mapbox Vector Tiles to GeoJSON";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

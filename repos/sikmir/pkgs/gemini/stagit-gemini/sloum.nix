@@ -21,11 +21,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ libgit2 ];
 
-  meta = with lib; {
+  meta = {
     description = "Fork of stagit-gopher that ports the output to gemini";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.mit;
-    platforms = platforms.unix;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    platforms = lib.platforms.unix;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 })

@@ -35,11 +35,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase = "install -Dm755 geminid -t $out/bin";
 
-  meta = with lib; {
+  meta = {
     description = "Gemini Server in C";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.bsd3;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.bsd3;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

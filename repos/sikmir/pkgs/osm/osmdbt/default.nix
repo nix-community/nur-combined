@@ -43,11 +43,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags = [ (lib.cmakeBool "BUILD_PLUGIN" false) ];
 
-  meta = with lib; {
+  meta = {
     description = "OSM Database Replication Tools";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

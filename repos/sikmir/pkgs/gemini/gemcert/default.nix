@@ -18,12 +18,12 @@ buildGoPackage {
 
   goPackagePath = "tildegit.org/solderpunk/gemcert";
 
-  meta = with lib; {
+  meta = {
     description = "A simple tool for creating self-signed certs for use in Geminispace";
     homepage = "https://tildegit.org/solderpunk/gemcert";
-    license = licenses.bsd2;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.bsd2;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     mainProgram = "gemcert";
   };
 }

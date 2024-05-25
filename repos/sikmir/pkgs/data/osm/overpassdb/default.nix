@@ -25,11 +25,11 @@ stdenv.mkDerivation {
       update_database --db-dir=$out --meta
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Overpass Database";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 }

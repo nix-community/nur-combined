@@ -59,12 +59,12 @@ stdenv.mkDerivation (finalAttrs: {
     version = "${finalAttrs.version}-release";
   };
 
-  meta = with lib; {
+  meta = {
     description = "A core APRS-IS server";
     homepage = "http://he.fi/aprsc/";
-    license = licenses.bsd3;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.bsd3;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 })

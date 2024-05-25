@@ -21,11 +21,11 @@ buildGoModule rec {
     mv $out/bin/{cli,mobsql}
   '';
 
-  meta = with lib; {
+  meta = {
     description = "GTFS to SQLite import tool";
     inherit (src.meta) homepage;
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "mobsql";
   };
 }

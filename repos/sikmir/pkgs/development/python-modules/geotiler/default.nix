@@ -33,10 +33,10 @@ python3Packages.buildPythonPackage rec {
     cp -r geotiler/source $out/lib/${python3Packages.python.libPrefix}/site-packages/geotiler
   '';
 
-  meta = with lib; {
+  meta = {
     description = "GeoTiler is a library to create map using tiles from a map provider";
     homepage = "https://wrobell.dcmod.org/geotiler";
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

@@ -34,12 +34,12 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm755 build/mjs -t $out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Embedded JavaScript engine for C/C++";
     homepage = "https://mongoose.ws/";
-    license = licenses.gpl2;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl2;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     mainProgram = "mjs";
   };
 })

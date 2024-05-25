@@ -52,12 +52,12 @@ mkDerivation rec {
     (lib.cmakeBool "KLOGG_USE_HYPERSCAN" useHyperscan)
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A fast, advanced log explorer based on glogg project";
     homepage = "https://klogg.filimonov.dev/";
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     broken = true;
   };
 }

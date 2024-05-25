@@ -26,9 +26,9 @@ python3Packages.buildPythonPackage rec {
     "test_legacy_callbacks"
   ];
 
-  meta = with lib; {
+  meta = {
     homepage = "http://click.pocoo.org/";
     description = "Create beautiful command line interfaces in Python";
-    license = licenses.bsd3;
+    license = lib.licenses.bsd3;
   };
 }

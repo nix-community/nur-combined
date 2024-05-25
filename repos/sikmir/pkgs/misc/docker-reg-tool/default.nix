@@ -17,11 +17,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase = "install -Dm755 docker_reg_tool -t $out/bin";
 
-  meta = with lib; {
+  meta = {
     description = "Docker registry cli tool, primarily for deleting images";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
   };
 })

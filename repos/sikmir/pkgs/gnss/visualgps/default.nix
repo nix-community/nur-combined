@@ -39,11 +39,11 @@ stdenv.mkDerivation {
         install -Dm755 VisualGPSqt -t $out/bin
       '';
 
-  meta = with lib; {
+  meta = {
     description = "A QT application (GUI) that makes use of the VisualGPS/NMEAParser project";
     homepage = "http://visualgps.net/";
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 }

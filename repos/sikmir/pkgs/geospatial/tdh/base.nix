@@ -74,10 +74,10 @@ stdenv.mkDerivation {
 
   preferLocalBuild = true;
 
-  meta = with lib; {
+  meta = {
     inherit description homepage;
-    license = licenses.cc-by-nc-sa-40;
-    maintainers = with maintainers; [ sikmir ];
+    license = lib.licenses.cc-by-nc-sa-40;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = [ "x86_64-linux" ];
     skip.ci = true;
     broken = true; # wxGTK30 has been removed from nixpkgs as it has reached end of life

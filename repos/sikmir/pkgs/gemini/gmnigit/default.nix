@@ -17,11 +17,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-/UIfgwPFZxdnSywA7ysyVIFQXTRud/nlkOdzGEESEbY=";
 
-  meta = with lib; {
+  meta = {
     description = "Static git gemini viewer";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "gmnigit";
   };
 }

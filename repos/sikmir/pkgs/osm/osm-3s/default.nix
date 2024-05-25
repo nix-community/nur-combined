@@ -24,12 +24,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   configureFlags = [ (lib.enableFeature true "lz4") ];
 
-  meta = with lib; {
+  meta = {
     description = "A database engine to query the OpenStreetMap data";
     homepage = "http://overpass-api.de/";
-    license = licenses.agpl3Only;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.agpl3Only;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 })

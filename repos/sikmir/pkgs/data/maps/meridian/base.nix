@@ -24,12 +24,12 @@ stdenvNoCC.mkDerivation {
 
   preferLocalBuild = true;
 
-  meta = with lib; {
+  meta = {
     description = "Самодельные векторные карты для GPS-навигаторов";
     homepage = "http://meridian.perm.ru/04_maps/maps_for_gps.shtml";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 }

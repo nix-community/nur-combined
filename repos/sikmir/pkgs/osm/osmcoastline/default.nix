@@ -45,11 +45,11 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Extracts coastline data from OpenStreetMap planet file";
     homepage = "https://osmcode.org/osmcoastline/";
-    license = licenses.boost;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.boost;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

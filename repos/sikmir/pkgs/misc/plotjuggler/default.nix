@@ -48,11 +48,11 @@ stdenv.mkDerivation rec {
     zstd
   ] ++ lib.optionals stdenv.isLinux [ qtx11extras ];
 
-  meta = with lib; {
+  meta = {
     description = "The Time Series Visualization Tool";
     homepage = "https://www.plotjuggler.io/";
-    license = licenses.mpl20;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.mpl20;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 }

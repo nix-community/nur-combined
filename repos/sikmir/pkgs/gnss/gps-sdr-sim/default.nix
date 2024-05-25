@@ -21,11 +21,11 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm755 gps-sdr-sim -t $out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Software-Defined GPS Signal Simulator";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

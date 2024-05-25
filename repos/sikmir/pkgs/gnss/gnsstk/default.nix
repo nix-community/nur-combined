@@ -32,11 +32,11 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeFeature "CMAKE_CXX_STANDARD" "14")
   ];
 
-  meta = with lib; {
+  meta = {
     description = "GNSSTk libraries";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.lgpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.lgpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

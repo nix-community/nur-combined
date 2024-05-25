@@ -25,10 +25,10 @@ python3Packages.buildPythonApplication rec {
   nativeCheckInputs = with python3Packages; [ nose ];
   checkPhase = "nosetests";
 
-  meta = with lib; {
+  meta = {
     description = "A Python library written for Morse Code";
     inherit (src.meta) homepage;
-    license = licenses.gpl2;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl2;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

@@ -25,10 +25,10 @@ python3Packages.buildPythonApplication rec {
     install -Dm644 google_translate.png -t $out/share/gt4gd
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Add Google translate to GoldenDict";
     inherit (src.meta) homepage;
-    license = licenses.gpl3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

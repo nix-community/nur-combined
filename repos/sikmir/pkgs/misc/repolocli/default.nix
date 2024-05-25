@@ -43,11 +43,11 @@ rustPlatform.buildRustPackage rec {
       --prefix XDG_CONFIG_DIRS : $out/etc/xdg
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Repology commandline interface (and API)";
     inherit (src.meta) homepage;
-    license = licenses.gpl2Only;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl2Only;
+    maintainers = [ lib.maintainers.sikmir ];
     broken = stdenv.isLinux;
   };
 }

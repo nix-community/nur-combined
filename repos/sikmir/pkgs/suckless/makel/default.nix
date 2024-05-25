@@ -26,11 +26,11 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm755 makel -t $out/bin
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Makefile linter";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.isc;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.isc;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

@@ -33,11 +33,11 @@ stdenv.mkDerivation {
     test/gpxcheck
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A c++ library for parsing, browsing, changing and writing of GPX files";
     homepage = "http://irdvo.nl/gpxlib/";
-    license = licenses.lgpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.lgpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 }

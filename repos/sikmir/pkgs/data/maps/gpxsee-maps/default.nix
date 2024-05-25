@@ -65,11 +65,11 @@ stdenvNoCC.mkDerivation {
     cp -r ${toString mapsList} $out
   '';
 
-  meta = with lib; {
+  meta = {
     description = "GPXSee maps";
     homepage = "https://tumic0.github.io/GPXSee-maps/";
-    license = licenses.unlicense;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.unlicense;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
   };
 }

@@ -44,11 +44,11 @@ stdenv.mkDerivation {
 
   dontInstall = true;
 
-  meta = with lib; {
+  meta = {
     description = "Collection of utilities for farbfeld picture format";
     homepage = "http://zzo38computer.org/fossil/farbfeld.ui/home";
-    license = licenses.publicDomain;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.publicDomain;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 }

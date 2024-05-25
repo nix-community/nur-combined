@@ -30,10 +30,10 @@ python3Packages.buildPythonApplication rec {
 
   pythonImportsCheck = [ "trackanimation" ];
 
-  meta = with lib; {
+  meta = {
     description = "GPS Track Animation Library";
     inherit (src.meta) homepage;
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

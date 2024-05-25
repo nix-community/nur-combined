@@ -18,12 +18,12 @@ fetchurl {
   preferLocalBuild = true;
   postFetch = "${unzip}/bin/unzip $downloadedFile -d $out";
 
-  meta = with lib; {
+  meta = {
     description = "Freizeitkarte map with DEM (Digital Elevation Model) and hillshading";
     homepage = "https://freizeitkarte-osm.de/";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 }

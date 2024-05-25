@@ -36,13 +36,13 @@ rustPlatform.buildRustPackage rec {
     "bbox-tile-server"
   ];
 
-  meta = with lib; {
+  meta = {
     description = "BBOX services";
     inherit (src.meta) homepage;
-    license = with licenses; [
+    license = with lib.licenses; [
       asl20
       mit
     ];
-    maintainers = [ maintainers.sikmir ];
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

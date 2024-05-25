@@ -32,15 +32,15 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Server to access CAN sockets over ASCII protocol";
     inherit (src.meta) homepage;
-    license = with licenses; [
+    license = with lib.licenses; [
       gpl2Only
       bsd3
     ];
-    platforms = platforms.linux;
-    maintainers = [ maintainers.sikmir ];
+    platforms = lib.platforms.linux;
+    maintainers = [ lib.maintainers.sikmir ];
     skip.ci = stdenv.isDarwin;
   };
 }

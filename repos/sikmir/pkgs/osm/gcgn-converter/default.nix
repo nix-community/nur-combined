@@ -41,10 +41,10 @@ python3Packages.buildPythonApplication rec {
         --add-flags "$site_packages/gcgn_convert.py"
     '';
 
-  meta = with lib; {
+  meta = {
     description = "Ковертер ГКГН из PDF в GeoJSON";
     inherit (src.meta) homepage;
-    license = licenses.free;
-    maintainers = with maintainers; [ sikmir ];
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

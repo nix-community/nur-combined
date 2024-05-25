@@ -17,11 +17,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-NR1q44IUSME+x1EOcnXXRoIXw8Av0uH7iXhD+cdd99I=";
 
-  meta = with lib; {
+  meta = {
     description = "REPL for HTTP";
     inherit (src.meta) homepage;
-    license = licenses.agpl3Only;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.agpl3Only;
+    maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "rhttp";
   };
 }

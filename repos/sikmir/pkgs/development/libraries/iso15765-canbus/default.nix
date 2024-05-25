@@ -25,12 +25,12 @@ stdenv.mkDerivation rec {
     install -Dm644 bin/libiso15765.so.0.1 -t $out/lib
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Implementation of ISO15765-2 in C";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 }

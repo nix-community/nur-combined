@@ -33,12 +33,12 @@ stdenvNoCC.mkDerivation {
 
   installPhase = "install -Dm644 *.{dict*,idx,ifo} -t $out";
 
-  meta = with lib; {
+  meta = {
     homepage = "https://komputeko.net/";
     description = "Prikomputila terminokolekto";
-    maintainers = [ maintainers.sikmir ];
-    license = licenses.cc-by-sa-40;
-    platforms = platforms.all;
+    maintainers = [ lib.maintainers.sikmir ];
+    license = lib.licenses.cc-by-sa-40;
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 }

@@ -25,11 +25,11 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optional stdenv.isDarwin SystemConfiguration;
 
-  meta = with lib; {
+  meta = {
     description = "A lightning-fast tool for querying Tatoebe from the command-line";
     inherit (src.meta) homepage;
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "ttb";
     broken = true;
   };

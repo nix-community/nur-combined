@@ -28,10 +28,10 @@ ocamlPackages.buildDunePackage rec {
     mirage-crypto
   ];
 
-  meta = with lib; {
+  meta = {
     description = "A TLS reverse proxy unikernel";
     inherit (src.meta) homepage;
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

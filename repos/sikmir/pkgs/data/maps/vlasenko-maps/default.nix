@@ -24,12 +24,12 @@
 
     preferLocalBuild = true;
 
-    meta = with lib; {
+    meta = {
       description = "OV Хибины и Ловозерские тундры";
       homepage = "https://vk.com/vlasenko_maps";
-      license = licenses.free;
-      maintainers = [ maintainers.sikmir ];
-      platforms = platforms.all;
+      license = lib.licenses.free;
+      maintainers = [ lib.maintainers.sikmir ];
+      platforms = lib.platforms.all;
       skip.ci = true;
     };
   };
@@ -52,12 +52,12 @@
 
     preferLocalBuild = true;
 
-    meta = with lib; {
+    meta = {
       description = "OV Ключевская-Толбачик";
       homepage = "https://vk.com/vlasenko_maps";
-      license = licenses.free;
-      maintainers = [ maintainers.sikmir ];
-      platforms = platforms.all;
+      license = lib.licenses.free;
+      maintainers = [ lib.maintainers.sikmir ];
+      platforms = lib.platforms.all;
       skip.ci = true;
     };
   };
@@ -80,12 +80,12 @@
 
     preferLocalBuild = true;
 
-    meta = with lib; {
+    meta = {
       description = "OV Кодар";
       homepage = "https://vk.com/vlasenko_maps";
-      license = licenses.free;
-      maintainers = [ maintainers.sikmir ];
-      platforms = platforms.all;
+      license = lib.licenses.free;
+      maintainers = [ lib.maintainers.sikmir ];
+      platforms = lib.platforms.all;
       skip.ci = true;
     };
   };

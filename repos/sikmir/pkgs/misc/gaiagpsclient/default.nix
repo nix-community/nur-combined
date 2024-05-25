@@ -31,11 +31,11 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     description = "A python client for gaiagps.com";
     inherit (src.meta) homepage;
-    license = licenses.gpl3Only;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3Only;
+    maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "gaiagps";
   };
 }

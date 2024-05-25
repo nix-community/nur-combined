@@ -23,11 +23,11 @@ python3Packages.buildPythonPackage rec {
 
   nativeBuildInputs = with python3Packages; [ cython ];
 
-  meta = with lib; {
+  meta = {
     description = "Experimental C and C++ implementation of the GeoArrow specification";
     homepage = "http://geoarrow.org/geoarrow-c/";
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 }

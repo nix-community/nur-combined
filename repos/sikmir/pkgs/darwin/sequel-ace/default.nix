@@ -26,12 +26,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     cp -r *.app $out/Applications
   '';
 
-  meta = with lib; {
+  meta = {
     description = "MySQL/MariaDB database management for macOS";
     homepage = "https://sequel-ace.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];
     skip.ci = true;
   };

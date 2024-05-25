@@ -49,11 +49,11 @@ stdenv.mkDerivation (finalAttrs: {
     installManPage doc/man/man1/*
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A collection of small and standalone utilities for image processing";
     homepage = "http://gabarro.org/ccn/itut/i.html";
-    license = licenses.agpl3Only;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.agpl3Only;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

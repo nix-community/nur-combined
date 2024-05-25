@@ -24,11 +24,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   preInstall = "mkdir -p $out/bin $out/man/man1";
 
-  meta = with lib; {
+  meta = {
     description = "line chat is a simple and elegant front end for ii-like chat programs";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.isc;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.isc;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

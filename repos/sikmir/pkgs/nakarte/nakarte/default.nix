@@ -39,11 +39,11 @@ mkYarnPackage {
 
   distPhase = "true";
 
-  meta = with lib; {
+  meta = {
     homepage = "https://github.com/wladich/nakarte";
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
     broken = true; # error while evaluating 'importJSON', only on NUR CI
   };

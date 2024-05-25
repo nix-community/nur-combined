@@ -19,10 +19,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-Y7Hm5QbUMz+T68wlTlx5zMjJIQXOe2zhYQZc41Dwjb8=";
 
-  meta = with lib; {
+  meta = {
     description = "IPFS access over the Gemini protocol";
     inherit (src.meta) homepage;
-    license = licenses.agpl3Only;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.agpl3Only;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

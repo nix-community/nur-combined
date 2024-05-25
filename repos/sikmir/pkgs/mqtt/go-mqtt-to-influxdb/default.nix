@@ -19,10 +19,10 @@ buildGoModule rec {
   vendorHash = null;
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     description = "Bridge to write MQTT to InfluxDB";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

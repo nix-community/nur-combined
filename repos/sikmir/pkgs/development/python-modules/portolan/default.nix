@@ -17,10 +17,10 @@ python3Packages.buildPythonPackage rec {
 
   propagatedBuildInputs = with python3Packages; [ setuptools ];
 
-  meta = with lib; {
+  meta = {
     description = "Convert between compass points and degrees";
     inherit (src.meta) homepage;
-    license = licenses.gpl3Only;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3Only;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

@@ -33,12 +33,12 @@ stdenv.mkDerivation {
 
   installPhase = "install -Dm644 OUT/all_*.img -t $out";
 
-  meta = with lib; {
+  meta = {
     description = "Slazav mountains";
     homepage = "http://slazav.xyz/maps/";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 }

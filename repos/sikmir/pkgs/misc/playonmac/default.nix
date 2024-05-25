@@ -27,11 +27,11 @@ stdenv.mkDerivation rec {
 
   preferLocalBuild = true;
 
-  meta = with lib; {
+  meta = {
     description = "GUI for managing Windows programs under macOS";
     homepage = "https://www.playonmac.com/";
-    license = licenses.gpl3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = [ "x86_64-darwin" ];
     skip.ci = true;
   };

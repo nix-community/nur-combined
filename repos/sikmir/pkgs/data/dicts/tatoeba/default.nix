@@ -86,12 +86,12 @@ stdenvNoCC.mkDerivation rec {
 
   installPhase = "install -Dm644 *.{dict*,idx,ifo} -t $out";
 
-  meta = with lib; {
+  meta = {
     description = "Tatoeba is a collection of sentences and translations";
     homepage = "https://tatoeba.org/";
-    license = licenses.free;
-    maintainers = with maintainers; [ sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 }

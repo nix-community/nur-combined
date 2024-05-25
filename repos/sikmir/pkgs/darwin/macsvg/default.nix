@@ -35,12 +35,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "An open-source macOS app for designing HTML5 SVG";
     homepage = "https://macsvg.org/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = [
       "aarch64-darwin"
       "x86_64-darwin"

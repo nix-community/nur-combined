@@ -20,13 +20,13 @@ python3Packages.buildPythonPackage rec {
   doCheck = false;
   pythonImportsCheck = [ "pipfile" ];
 
-  meta = with lib; {
+  meta = {
     description = "Pipfile: the replacement for requirements.txt";
     inherit (src.meta) homepage;
-    license = with licenses; [
+    license = with lib.licenses; [
       asl20
       bsd2
     ];
-    maintainers = [ maintainers.sikmir ];
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

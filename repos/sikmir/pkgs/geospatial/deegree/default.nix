@@ -18,13 +18,13 @@ stdenv.mkDerivation (finalAttrs: {
     cp "$src" "$out/webapps/deegree.war"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Open source software for spatial data infrastructures and the geospatial web";
     homepage = "https://www.deegree.org/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.lgpl2Plus;
-    platforms = platforms.all;
-    maintainers = with maintainers; [ sikmir ];
+    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    license = lib.licenses.lgpl2Plus;
+    platforms = lib.platforms.all;
+    maintainers = [ lib.maintainers.sikmir ];
     skip.ci = true;
   };
 })

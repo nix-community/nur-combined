@@ -28,10 +28,10 @@ python3Packages.buildPythonPackage rec {
     pyarrow-hotfix
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Python implementation of the GeoArrow specification";
     homepage = "https://github.com/geoarrow/geoarrow-python";
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

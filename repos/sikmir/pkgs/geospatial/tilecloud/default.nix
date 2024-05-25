@@ -39,10 +39,10 @@ python3Packages.buildPythonApplication rec {
     substituteInPlace $out/bin/tc-viewer --subst-var site_packages
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Tools for managing tiles";
     inherit (src.meta) homepage;
-    license = licenses.bsd2;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.bsd2;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

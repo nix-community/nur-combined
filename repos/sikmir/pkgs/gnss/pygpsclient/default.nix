@@ -27,10 +27,10 @@ python3Packages.buildPythonApplication rec {
     tkinter
   ];
 
-  meta = with lib; {
+  meta = {
     description = "GNSS Diagnostic and UBX Configuration GUI Application";
     inherit (src.meta) homepage;
-    license = licenses.bsd3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.bsd3;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

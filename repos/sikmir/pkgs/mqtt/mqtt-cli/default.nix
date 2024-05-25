@@ -32,12 +32,12 @@ stdenv.mkDerivation (finalAttrs: {
       --add-flags "-jar $out/share/java/mqtt-cli-${finalAttrs.version}.jar"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "MQTT CLI";
     homepage = "https://hivemq.github.io/mqtt-cli/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.asl20;
-    maintainers = [ maintainers.sikmir ];
+    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    license = lib.licenses.asl20;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = jre.meta.platforms;
   };
 })

@@ -30,10 +30,10 @@ python3Packages.buildPythonPackage rec {
 
   pytestFlagsArray = [ "tests/unit_tests" ];
 
-  meta = with lib; {
+  meta = {
     description = "cython wrapper for khash";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

@@ -38,10 +38,10 @@ python3Packages.buildPythonApplication rec {
         --add-flags "$site_packages/solver.py"
     '';
 
-  meta = with lib; {
+  meta = {
     description = "Draw ways you want to walk through";
     inherit (src.meta) homepage;
-    license = licenses.gpl3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.gpl3;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

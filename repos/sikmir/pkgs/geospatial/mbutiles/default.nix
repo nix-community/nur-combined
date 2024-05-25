@@ -24,10 +24,10 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ sqlite ];
 
-  meta = with lib; {
+  meta = {
     description = "mbtiles utility in Rust, generate MBTiles from tiles directories and extract tiles from MBTiles file";
     inherit (src.meta) homepage;
-    license = licenses.bsd3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.bsd3;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

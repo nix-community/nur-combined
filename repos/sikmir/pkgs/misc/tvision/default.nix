@@ -23,11 +23,11 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ (lib.cmakeBool "TV_BUILD_EXAMPLES" false) ];
 
-  meta = with lib; {
+  meta = {
     description = "A modern port of Turbo Vision 2.0, the classical framework for text-based user interfaces";
     inherit (src.meta) homepage;
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 }

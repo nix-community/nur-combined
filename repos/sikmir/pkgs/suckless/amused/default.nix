@@ -39,12 +39,12 @@ stdenv.mkDerivation (finalAttrs: {
     opusfile
   ];
 
-  meta = with lib; {
+  meta = {
     description = "music player daemon NIH";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.isc;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.isc;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 })

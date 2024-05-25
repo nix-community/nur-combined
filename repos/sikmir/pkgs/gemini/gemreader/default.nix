@@ -17,10 +17,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-NzrZh2dePytF1vsXzfqoeLnzdlcDThjZIkfwuXTAfXM=";
 
-  meta = with lib; {
+  meta = {
     description = "Feed reader for the Geminispace";
     inherit (src.meta) homepage;
-    license = licenses.agpl3Only;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.agpl3Only;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

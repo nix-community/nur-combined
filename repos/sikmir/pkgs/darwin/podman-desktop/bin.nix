@@ -42,16 +42,16 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A graphical tool for developing on containers and Kubernetes";
     homepage = "https://podman-desktop.io/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.asl20;
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.asl20;
     platforms = [
       "aarch64-darwin"
       "x86_64-darwin"
     ];
-    maintainers = [ maintainers.sikmir ];
+    maintainers = [ lib.maintainers.sikmir ];
     skip.ci = true;
   };
 })

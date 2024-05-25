@@ -59,14 +59,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   preferLocalBuild = true;
 
-  meta = with lib; {
+  meta = {
     description = "SAS.Planet is a program designed for viewing and downloading high-resolution satellite imagery and conventional maps";
     homepage = "http://www.sasgis.org/sasplaneta/";
     changelog = "http://www.sasgis.org/mantis/changelog_page.php";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 })

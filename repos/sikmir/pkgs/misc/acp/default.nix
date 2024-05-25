@@ -19,11 +19,11 @@ buildGoModule rec {
 
   ldflags = [ "-X main.buildTag=${version}" ];
 
-  meta = with lib; {
+  meta = {
     description = "Make terminal personal file transfers as simple as `cp`";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "acp";
   };
 }

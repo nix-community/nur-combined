@@ -24,11 +24,11 @@ stdenv.mkDerivation {
 
   installCheckPhase = "$out/bin/cgpsmapper-static -h";
 
-  meta = with lib; {
+  meta = {
     description = "GIS converter into GARMIN compatible format maps";
     homepage = "https://web.archive.org/web/20160620061746if_/http://www.cgpsmapper.com";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = [
       "i686-linux"
       "x86_64-linux"

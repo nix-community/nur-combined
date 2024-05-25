@@ -33,12 +33,12 @@ stdenv.mkDerivation (finalAttrs: {
     glib
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Map-rendering for OpenStreetMap";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.lgpl2Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.linux;
+    license = lib.licenses.lgpl2Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
 })

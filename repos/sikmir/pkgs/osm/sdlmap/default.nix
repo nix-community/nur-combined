@@ -34,11 +34,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase = "install -Dm755 sdlmap -t $out/bin";
 
-  meta = with lib; {
+  meta = {
     description = "A SDL + libcurl OpenStreetMap viewer";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

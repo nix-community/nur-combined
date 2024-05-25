@@ -33,10 +33,10 @@ python3Packages.buildPythonApplication rec {
     install -Dm755 forwarder.py $out/bin/mqtt-to-influxdb-forwarder
   '';
 
-  meta = with lib; {
+  meta = {
     description = "IoT MQTT to InfluxDB forwarder";
     inherit (src.meta) homepage;
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ sikmir ];
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

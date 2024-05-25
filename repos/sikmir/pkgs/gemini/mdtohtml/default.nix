@@ -32,11 +32,11 @@ buildGoModule rec {
     installManPage docs/mdtohtml.1
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Markdown to HTML converter";
     inherit (src.meta) homepage;
-    license = licenses.mit;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "mdtohtml";
   };
 }

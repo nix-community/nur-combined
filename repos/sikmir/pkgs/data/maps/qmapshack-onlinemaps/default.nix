@@ -15,12 +15,12 @@ fetchwebarchive {
     ${unzip}/bin/unzip $downloadedFile -d $out
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Onlinekarten einbinden";
     homepage = "http://www.mtb-touring.net/qms/onlinekarten-einbinden/";
-    license = licenses.free;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    license = lib.licenses.free;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 }

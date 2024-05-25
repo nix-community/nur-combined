@@ -47,13 +47,13 @@ stdenv.mkDerivation rec {
 
   preferLocalBuild = true;
 
-  meta = with lib; {
+  meta = {
     description = "Advanced text editor for programmers and Notepad replacement";
     homepage = "http://uvviewsoft.com/synwrite/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.mpl11;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.all;
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.mpl11;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.all;
     skip.ci = true;
   };
 }

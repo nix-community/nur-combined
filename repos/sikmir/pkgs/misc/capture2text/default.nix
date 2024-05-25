@@ -72,12 +72,12 @@ stdenv.mkDerivation rec {
         ln -s $out/bin/Capture2Text_CLI $out/bin/capture2text
       '';
 
-  meta = with lib; {
+  meta = {
     description = "Capture2Text enables users to quickly OCR a portion of the screen using a keyboard shortcut";
     homepage = "http://capture2text.sourceforge.net/";
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     broken = true;
   };
 }

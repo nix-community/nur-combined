@@ -23,11 +23,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags = [ (lib.cmakeBool "SSL_SUPPORT_MBEDTLS" false) ];
 
-  meta = with lib; {
+  meta = {
     description = "Open Source C++ OPC-UA Server and Client Library";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.lgpl3;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.lgpl3;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
   };
 })

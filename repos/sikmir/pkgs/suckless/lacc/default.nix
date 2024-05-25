@@ -21,11 +21,11 @@ stdenv.mkDerivation (finalAttrs: {
   checkFlags = [ "-C test" ];
   checkTarget = "all";
 
-  meta = with lib; {
+  meta = {
     description = "A simple, self-hosting C compiler";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.mit;
-    platforms = platforms.unix;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.mit;
+    platforms = lib.platforms.unix;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 })

@@ -30,11 +30,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase = "sh ./install.sh $out";
 
-  meta = with lib; {
+  meta = {
     description = "Static code analyzer for C, C++";
     homepage = "https://www.viva64.com/en/pvs-studio/";
-    license = licenses.unfree;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.unfree;
+    maintainers = [ lib.maintainers.sikmir ];
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

@@ -41,11 +41,11 @@ python3Packages.buildPythonApplication rec {
 
   passthru.tests.version = testers.testVersion { package = tilesets-cli; };
 
-  meta = with lib; {
+  meta = {
     description = "CLI for interacting with the Mapbox Tilesets API";
     homepage = "https://docs.mapbox.com/mapbox-tiling-service";
-    license = licenses.bsd2;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.bsd2;
+    maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "tilesets";
   };
 }

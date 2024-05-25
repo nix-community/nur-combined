@@ -33,14 +33,14 @@ rustPlatform.buildRustPackage rec {
 
   hardeningDisable = lib.optional stdenv.isDarwin "format";
 
-  meta = with lib; {
+  meta = {
     description = "Translation tools for rust";
     inherit (src.meta) homepage;
-    license = with licenses; [
+    license = with lib.licenses; [
       agpl3Only
       mit
     ];
-    maintainers = [ maintainers.sikmir ];
+    maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "xtr";
   };
 }

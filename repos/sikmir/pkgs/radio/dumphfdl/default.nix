@@ -41,12 +41,12 @@ stdenv.mkDerivation (finalAttrs: {
     zeromq
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Multichannel HFDL decoder";
     inherit (finalAttrs.src.meta) homepage;
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sikmir ];
-    platforms = platforms.unix;
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = lib.platforms.unix;
     broken = stdenv.isDarwin;
   };
 })

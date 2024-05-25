@@ -22,10 +22,10 @@ python3Packages.buildPythonPackage rec {
 
   pythonImportsCheck = [ "pyspartn" ];
 
-  meta = with lib; {
+  meta = {
     description = "SPARTN protocol parser";
     inherit (src.meta) homepage;
-    license = licenses.bsd3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.bsd3;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }

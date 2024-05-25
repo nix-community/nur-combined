@@ -22,10 +22,10 @@ python3Packages.buildPythonApplication rec {
     xlwt
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Extracts tables from .docx files and saves them as .csv or .xls files";
     inherit (src.meta) homepage;
-    license = licenses.bsd3;
-    maintainers = [ maintainers.sikmir ];
+    license = lib.licenses.bsd3;
+    maintainers = [ lib.maintainers.sikmir ];
   };
 }
