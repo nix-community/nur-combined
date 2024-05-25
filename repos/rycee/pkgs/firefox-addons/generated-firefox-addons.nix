@@ -1527,10 +1527,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.1.0";
+      version = "4.1.1";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4289311/control_panel_for_twitter-4.1.0.xpi";
-      sha256 = "d1e373a10918ffefa4f4edc60f4c0d5c2becf67c0ec8890914f7da50096e4443";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4291396/control_panel_for_twitter-4.1.1.xpi";
+      sha256 = "c0434d504bca79c0849fa35ca5fc2797fef6d3329c296481ae8fb6cf4e192140";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -1857,10 +1857,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "127.0.20240522.100816";
+      version = "127.0.20240524.102635";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4291113/deutsch_de_language_pack-127.0.20240522.100816.xpi";
-      sha256 = "fab0a224a7fca0aca6aa5fa88c209ee88337a25d382743bd277e20084c2006d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4292447/deutsch_de_language_pack-127.0.20240524.102635.xpi";
+      sha256 = "82a35ef3c733aecc2e8f39a36b8697d2721d3033bde50515ab6ce3a9a0062004";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2053,10 +2053,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.38.1";
+      version = "2.39.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4291636/dualsub-2.38.1.xpi";
-      sha256 = "df1d9566060cf9a704e3dfc81ca3210dabd6aaf961b28942801b4662a4ff8568";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4292238/dualsub-2.39.0.xpi";
+      sha256 = "8d92ad42df147970735dfa2ba96af4984a7e834603a64d9ca30543ad74c1ab4b";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2262,10 +2262,10 @@
     };
     "enhanced-h264ify" = buildFirefoxXpiAddon {
       pname = "enhanced-h264ify";
-      version = "2.1.0";
+      version = "2.2.0";
       addonId = "{9a41dee2-b924-4161-a971-7fb35c053a4a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3009842/enhanced_h264ify-2.1.0.xpi";
-      sha256 = "2436c530c74616cf7e0d3e4c5ebbb1cca6fa2bffcfe491df245b0380abb3d4a6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4292809/enhanced_h264ify-2.2.0.xpi";
+      sha256 = "5e77104b2a94f20399b99d3be05dd40afe53ac1445803adf0542b18cac8e3f58";
       meta = with lib;
       {
         homepage = "https://github.com/alextrv/enhanced-h264ify";
@@ -2807,10 +2807,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "127.0.20240522.100816";
+      version = "127.0.20240524.102635";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4291057/francais_language_pack-127.0.20240522.100816.xpi";
-      sha256 = "30ef04fd910616305875d07c38c2e26f3e2ca1cb0f013995f856ef1f2df94e42";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4292386/francais_language_pack-127.0.20240524.102635.xpi";
+      sha256 = "3cc395b37f0afaf244d5efd28e02f33c9497e7d55ad0257e76194a57dfd1e01d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4706,10 +4706,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.5.5";
+      version = "1.5.6";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4287468/immersive_translate-1.5.5.xpi";
-      sha256 = "ca7100e585dba307c7143ca4778856f62da19c0a54c25acddeb06341bc43e753";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4290557/immersive_translate-1.5.6.xpi";
+      sha256 = "f27c7d9078442634f1e7aaf7c7b3a910b92c6d7659ab80bae65076e2e8847890";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -5750,10 +5750,10 @@
     };
     "mal-sync" = buildFirefoxXpiAddon {
       pname = "mal-sync";
-      version = "0.10.0";
+      version = "0.10.1";
       addonId = "{c84d89d9-a826-4015-957b-affebd9eb603}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4290931/mal_sync-0.10.0.xpi";
-      sha256 = "837c6a0fee2f6b8eed345d64fe90ad7127e11b88510cc3b5106afc2b048f4631";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4292572/mal_sync-0.10.1.xpi";
+      sha256 = "fe99f4c633423ae0f1df8941548e1288b157502577a5fe09d94692fe96336a7b";
       meta = with lib;
       {
         homepage = "https://github.com/lolamtisch/MALSync";
@@ -5763,7 +5763,7 @@
           "storage"
           "alarms"
           "notifications"
-          "declarativeNetRequest"
+          "declarativeNetRequestWithHostAccess"
           "*://myanimelist.net/anime/*"
           "*://myanimelist.net/manga/*"
           "*://myanimelist.net/animelist/*"
@@ -6155,9 +6155,8 @@
           "*://www.animeonegai.com/*"
           "*://*.animeko.co/*"
           "*://animego.org/anime/*"
-          "*://animeflix.live/*"
-          "*://animeflix.icu/*"
-          "*://animeflix.ro/*"
+          "*://animeflix.gg/*"
+          "*://animeflix.li/*"
           "*://*.luciferdonghua.in/*"
           "*://*.luciferdonghua.co.in/*"
           "*://neoxscans.com/*"
@@ -8639,10 +8638,10 @@
     };
     "read-aloud" = buildFirefoxXpiAddon {
       pname = "read-aloud";
-      version = "1.69.0";
+      version = "1.70.0";
       addonId = "{ddc62400-f22d-4dd3-8b4a-05837de53c2e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4261659/read_aloud-1.69.0.xpi";
-      sha256 = "69de81c0f4c962550637f87546a496821db919deab3c05b2315891d53d382bc3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4291569/read_aloud-1.70.0.xpi";
+      sha256 = "c5ffefb79aab928ab9545e2527416ac86342b6c1b8ca2c73efd5bd1eed483957";
       meta = with lib;
       {
         description = "Read out loud the current web-page article with one click. Supports 40+ languages.";
