@@ -5,13 +5,13 @@
 
 stdenv.mkDerivation(finalAttrs: {
   pname = "pscripts";
-  version = "2024-05-24";
+  version = "2024-05-25";
 
   src = fetchFromGitHub {
     owner = "presto8";
     repo = "pscripts";
-    rev = "899b89f641c8924dddb5b5c665a83cfe85a0285d";
-    hash = "sha256-Ri5Qj9UMscC+svQWKGR7GzIPDLnBz1RSEpct++Ciepo=";
+    rev = "74a664da32b18364e60c06a531ac1f2ceb6a7222";
+    hash = "sha256-t1o25Fp6PSSX+bxVOjKdyWlFFdycX0bc2ZAvc5d5GZE=";
   };
 
   dontConfigure = true;
@@ -20,7 +20,8 @@ stdenv.mkDerivation(finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    for exe in lastf pdrives pfs phash pmove pnix psg; do
+    mapfile -d $'\0' matches < <(find -maxdepth 1 -mindepth 1 -type d -printf "%f\0")
+    for exe in "$${matches[@]}"; do
       install -D -m 755 "$exe"/"$exe" $out/bin/"$exe"
     done
 
