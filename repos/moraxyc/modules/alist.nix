@@ -18,7 +18,7 @@ in
   options = {
     services.alist = {
       enable = lib.mkEnableOption "alist, a file list program";
-      debug = lib.mkEnableOption "start alist with debug mode";
+      debug = lib.mkEnableOption "debug mode of alist";
       user = lib.mkOption {
         type = lib.types.str;
         default = "alist";
@@ -29,6 +29,18 @@ in
         type = lib.types.str;
         default = "alist";
         description = "Alist group name.";
+      };
+
+      dataDir = lib.mkOption {
+        type = lib.types.str;
+        default = "/var/lib/alist/data";
+        description = "Alist stores data and config file in this directory.";
+      };
+
+      allowModify = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "allow Alist store the settings to config file persistently";
       };
 
       package = lib.mkPackageOption pkgs "alist" { };
@@ -166,23 +178,6 @@ in
                 '';
               };
             };
-            meilisearch = {
-              host = lib.mkOption {
-                type = lib.types.str;
-                default = "http://localhost:7700";
-                description = "meilisearch host";
-              };
-              api_key = lib.mkOption {
-                type = lib.types.str;
-                default = "";
-                description = "meilisearch api key";
-              };
-              index_prefix = lib.mkOption {
-                type = lib.types.str;
-                default = "";
-                description = "meilisearch index prefix";
-              };
-            };
             scheme = {
               address = lib.mkOption {
                 type = lib.types.str;
@@ -245,152 +240,6 @@ in
                 temp_dir is a temporary folder exclusive to alist. In order to prevent AList from generating garbage files when being interrupted, the directory will be cleared every time AList starts, so do not store anything in this directory.
               '';
             };
-            bleve_dir = lib.mkOption {
-              type = lib.types.str;
-              default = "/var/lib/alist/bleve";
-              description = ''
-                Where data is stored when using bleve index.
-              '';
-            };
-            dist_dir = lib.mkOption {
-              type = lib.types.str;
-              default = "";
-              description = ''
-                 If this item is set, the frontend file of this option is preferred to render, support the use of other frontend files, and the backend continues to use the original application
-                 - https://github.com/alist-org/alist/issues/5531
-                 - https://github.com/alist-org/alist/discussions/6110
-                Upload the frontend file (dist) to the data folder of the application, and then fill in this way. The disadvantage is that if you update each time, you need to change the file manually
-              '';
-            };
-            log = {
-              enable = lib.mkOption {
-                type = lib.types.bool;
-                default = false;
-                description = ''
-                  Whether AList should store logs
-                '';
-              };
-              name = lib.mkOption {
-                type = lib.types.str;
-                default = "/var/lib/alist/log/alist.log";
-                description = ''
-                  The path and name of the log file
-                '';
-              };
-              max_size = lib.mkOption {
-                type = lib.types.int;
-                default = 50;
-                description = ''
-                  the maximum size of a single log file, in MB. After reaching the specified size, the file will be automatically split.
-                '';
-              };
-              max_backups = lib.mkOption {
-                type = lib.types.int;
-                default = 30;
-                description = ''
-                  the number of log backups to keep. Old backups will be deleted automatically when the limit is exceeded
-                '';
-              };
-              max_age = lib.mkOption {
-                type = lib.types.int;
-                default = 28;
-                description = ''
-                  The maximum number of days preserved in the log file, the log file that exceeds the number of days will be deleted
-                '';
-              };
-              compress = lib.mkOption {
-                type = lib.types.bool;
-                default = false;
-                description = ''
-                  Whether to enable log file compression functions. After compression, the file size can be reduced, but you need to decompress when viewing, and the default is to close the state false
-                '';
-              };
-            };
-            delayed_start = lib.mkOption {
-              type = lib.types.int;
-              default = 0;
-              description = ''
-                Time unit: second (new feature of v3.19.0)
-                Whether to delay AList startup.
-                Generally this option is used when AList is configured to auto-start. The reason is that sometimes network takes some time to connect, so drivers requiring cannot start correctly after Alist starts.
-              '';
-            };
-            max_connections = lib.mkOption {
-              type = lib.types.int;
-              default = 0;
-              description = ''
-                The maximum amount of connections at the same time. The default is 0, which is unlimited.
-
-                - 10 or 20 is recommended for general devices such as n1.
-                - Usage Scenarios: the device will crash if the device is bad at concurrency when picture mode is enabled.
-              '';
-            };
-            tls_insecure_skip_verify = lib.mkOption {
-              type = lib.types.bool;
-              default = true;
-              description = ''
-                Whether not to verify the SSL certificate. If there is a problem with the certificate of the website used when this option is not enabled (such as not including the intermediate certificate, having the certificate expired, or forging the certificate, etc.), the service will not be available. Run the program in a safe network environment when this option is enabled.
-              '';
-            };
-
-            tasks = lib.mkOption {
-              type = lib.types.attrsOf (lib.types.attrsOf lib.types.int);
-              description = "Configuration for background task threads.";
-              default = {
-                download = {
-                  workers = 5;
-                  max_retry = 1;
-                };
-                transfer = {
-                  workers = 5;
-                  max_retry = 2;
-                };
-                upload = {
-                  workers = 5;
-                  max_retry = 0;
-                };
-                copy = {
-                  workers = 5;
-                  max_retry = 2;
-                };
-              };
-            };
-
-            cors = {
-              allow_origins = lib.mkOption {
-                type = lib.types.listOf lib.types.str;
-                default = [ "*" ];
-                description = "Allowed sources.";
-              };
-              allow_methods = lib.mkOption {
-                type = lib.types.listOf lib.types.str;
-                default = [ "*" ];
-                description = "Allowed request methods.";
-              };
-              allow_headers = lib.mkOption {
-                type = lib.types.listOf lib.types.str;
-                default = [ "*" ];
-                description = "Allowed request headers.";
-              };
-            };
-
-            s3 = {
-              enable = lib.mkOption {
-                type = lib.types.bool;
-                default = false;
-                description = "Whether the S3 function is enabled, the default is not enabled";
-              };
-              port = lib.mkOption {
-                type = lib.types.port;
-                default = 5246;
-                description = "S3 port";
-              };
-              ssl = lib.mkOption {
-                type = lib.types.bool;
-                default = false;
-                description = "Enable the HTTPS certificate, not enabled by default";
-              };
-            };
           };
         };
         default = { };
@@ -416,21 +265,41 @@ in
     systemd.services.alist = {
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
-      preStart = ''
-        umask 0077
-        mkdir -p /var/lib/alist/data
-        ${utils.genJqSecretsReplacementSnippet cfg.settings "/var/lib/alist/data/config.json"}
-      '';
+      preStart =
+        ''
+          umask 0077
+          mkdir -p ${cfg.dataDir}
+          ${utils.genJqSecretsReplacementSnippet cfg.settings "/run/alist/new"}
+        ''
+        + (
+          if cfg.allowModify then
+            ''
+              if [ -e "${cfg.dataDir}/config.json" ]; then
+                cp "${cfg.dataDir}/config.json" /run/alist/old
+                ${lib.getExe pkgs.jq} -s '.[0] * .[1]' /run/alist/old /run/alist/new > /run/alist/result
+                cp /run/alist/result "${cfg.dataDir}/config.json"
+              else
+                cp "/run/alist/new" "${cfg.dataDir}/config.json"
+              fi
+              rm -f /run/alist/{old,new,result}
+            ''
+          else
+            ''
+              cp /run/alist/new "${cfg.dataDir}/config.json"
+              rm -f /run/alist/new
+            ''
+        );
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
         Type = "simple";
         ExecStart =
-          "${cfg.package}/bin/alist server --data /var/lib/alist/data --log-std"
+          "${lib.getExe cfg.package} server --data ${cfg.dataDir} --log-std"
           + lib.optionalString cfg.debug " --debug";
         Restart = "on-failure";
         RestartSec = "1s";
         StateDirectory = [ "alist" ];
+        RuntimeDirectory = [ "alist" ];
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
       };
     };
