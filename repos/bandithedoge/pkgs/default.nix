@@ -11,6 +11,7 @@
     basiliskii-bin = callPackage' ./basiliskii-bin;
     cardinal = callPackage' ./cardinal;
     cinelerra-gg-bin = callPackage' ./cinelerra-gg-bin;
+    clap-info = callPackage' ./clap-info;
     deemix-gui-bin = callPackage' ./deemix-gui-bin;
     distrho-ports = callPackage' ./distrho-ports;
     dpf-plugins = callPackage' ./dpf-plugins;

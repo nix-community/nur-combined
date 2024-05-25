@@ -1,0 +1,22 @@
+{
+    "clap-info": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "clap-info",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "free-audio",
+            "repo": "clap-info",
+            "rev": "v1.2.0",
+            "sha256": "sha256-efZexmsOuZskei34z9Lj2xdDOkEOYod8rqtOrVghMxw=",
+            "type": "github"
+        },
+        "version": "v1.2.0"
+    }
+}

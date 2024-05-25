@@ -1,0 +1,4 @@
+[clap-info]
+src.github = "free-audio/clap-info"
+fetch.github = "free-audio/clap-info"
+git.fetchSubmodules = true

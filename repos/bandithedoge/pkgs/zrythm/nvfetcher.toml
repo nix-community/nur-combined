@@ -2,18 +2,6 @@
 src.git = "https://github.com/falkTX/Carla"
 fetch.github = "falkTX/Carla"
 
-[gtk-4_14_0]
-src.manual = "4.14.0"
-fetch.github = "GNOME/gtk"
-
-[rtaudio-git]
-src.github = "thestk/rtaudio"
-fetch.github = "thestk/rtaudio"
-
-[libadwaita-1_5]
-src.manual = "1.5.0"
-fetch.github = "GNOME/libadwaita"
-
 [zrythm]
 src.git = "https://gitlab.zrythm.org/zrythm/zrythm.git"
 fetch.git = "https://gitlab.zrythm.org/zrythm/zrythm.git"
