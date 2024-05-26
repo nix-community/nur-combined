@@ -2,43 +2,19 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  python2Packages,
-  postgresql,
-  openssl,
+  python3Packages,
 }:
-let
-  psycopg2 = python2Packages.buildPythonPackage rec {
-    pname = "psycopg2";
-    version = "2.8.6";
 
-    src = python2Packages.fetchPypi {
-      inherit pname version;
-      hash = "sha256-+yP2xxEHw3/WZ8tOo2Pd65NrNIu9ZEknjrksGJaZ9UM=";
-    };
-
-    buildInputs = lib.optional stdenv.isDarwin openssl;
-    nativeBuildInputs = [ postgresql ];
-
-    doCheck = false;
-
-    meta = {
-      description = "PostgreSQL database adapter for the Python programming language";
-      license = with lib.licenses; [
-        gpl2
-        zpl20
-      ];
-    };
-  };
-in
-python2Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   pname = "tracks_storage_server";
-  version = "2018-03-24";
+  version = "2024-04-27";
+  format = "other";
 
   src = fetchFromGitHub {
     owner = "wladich";
     repo = "tracks_storage_server";
-    rev = "58ecde50bdc41e8b71590f62b7019d641e69da88";
-    hash = "sha256-rHh3iuhQhhVzGAfyNXfhBB41PzQF7rSmOMtYM10bFkU=";
+    rev = "080526665a38c44e8c08e70d4ddcdda1c1911fc8";
+    hash = "sha256-fN7OG52t2pHxFlCxhnMkVMpctsuwBQyuXMO9CD9eWLg=";
   };
 
   dontUseSetuptoolsBuild = true;
@@ -46,18 +22,16 @@ python2Packages.buildPythonApplication rec {
 
   installPhase =
     let
-      pythonEnv = python2Packages.python.withPackages (
+      pythonEnv = python3Packages.python.withPackages (
         p: with p; [
           msgpack
-          (protobuf.overrideAttrs (old: {
-            dontUsePythonImportsCheck = true;
-          }))
+          protobuf
           psycopg2
         ]
       );
     in
     ''
-      site_packages=$out/lib/${python2Packages.python.libPrefix}/site-packages
+      site_packages=$out/lib/${python3Packages.python.libPrefix}/site-packages
       mkdir -p $site_packages
       cp *.py *.sql $site_packages
 
@@ -70,13 +44,10 @@ python2Packages.buildPythonApplication rec {
         --add-flags "$site_packages/init_db.py"
     '';
 
-  passthru.psycopg2 = psycopg2;
-
   meta = {
     description = "Tracks storage server";
     inherit (src.meta) homepage;
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = true; # python2Packages.protobuf (error: mox-0.7.8 not supported for interpreter python2.7)
   };
 }
