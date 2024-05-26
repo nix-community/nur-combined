@@ -219,7 +219,9 @@
       shellAliases =
         {
           j = "just";
-          eza = "eza --icons=auto --hyperlink --color=always --color-scale=all --color-scale-mode=gradient --git --git-repos";
+          ls = "eza --icons=auto --hyperlink --color=always --color-scale=all --color-scale-mode=gradient --git --git-repos";
+          la = "eza --icons=auto --hyperlink --color=always --color-scale=all --color-scale-mode=gradient --git --git-repos -la";
+          l = "eza --icons=auto --hyperlink --color=always --color-scale=all --color-scale-mode=gradient --git --git-repos -lh";
           nd = "cd /home/${user}/Src/nixos";
           swc = "sudo nixos-rebuild switch --flake /home/${user}/Src/nixos";
           #--log-format internal-json -v 2>&1 | nom --json";
@@ -229,10 +231,6 @@
           mg = "kitty +kitten hyperlinked_grep --smart-case $argv .";
           kls = "lsd --icon never --hyperlink auto";
           lks = "lsd --icon never --hyperlink auto";
-          sl = "lsd --icon never --hyperlink auto";
-          ls = "lsd --icon never --hyperlink auto";
-          l = "lsd --icon never --hyperlink auto -lh";
-          la = "lsd --icon never --hyperlink auto -la";
           g = "lazygit";
           "cd.." = "cd ..";
           up = "nix flake update --commit-lock-file /etc/nixos && swc";

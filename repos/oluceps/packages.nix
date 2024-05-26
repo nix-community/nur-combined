@@ -126,6 +126,7 @@ let
     # ];
 
     cmd = [
+      eza
       fzf
       mcrcon
       zola
