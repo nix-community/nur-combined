@@ -10,6 +10,8 @@ name: "Build and populate cache"
     # rebuild everyday at 01:42
     - cron: '42 1 * * *'
 
+  workflow_dispatch:
+
 jobs:
   tests:
     strategy:
