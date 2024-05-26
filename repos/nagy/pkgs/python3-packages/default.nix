@@ -18,4 +18,5 @@
   imagehash = callPackage ./imagehash { };
   pipe21 = callPackage ./pipe21 { };
   pystitcher = callPackage ./pystitcher { };
+  makeelf = callPackage ./makeelf { };
 }
