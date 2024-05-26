@@ -2145,6 +2145,46 @@
         },
         "version": "8922b56c70f92f29a9bbd72a4e8a13fd8b8c4197"
     },
+    "runpod-python": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "runpod-python",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "runpod",
+            "repo": "runpod-python",
+            "rev": "1.6.2",
+            "sha256": "sha256-nVkrqVgNbbdq7UQWjWkPPYIYsRQVcTIVzy4wT69ZoyY=",
+            "type": "github"
+        },
+        "version": "1.6.2"
+    },
+    "runpodctl": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "runpodctl",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "runpod",
+            "repo": "runpodctl",
+            "rev": "v1.14.3",
+            "sha256": "sha256-ot/xxCL0RnMG39KDqINdAj6BSX+OLY6CusmP9Ubn8QI=",
+            "type": "github"
+        },
+        "version": "v1.14.3"
+    },
     "sam-toki-mouse-cursors": {
         "cargoLocks": null,
         "date": null,
@@ -2404,6 +2444,21 @@
             "url": "http://cheonhyeong.com/File/TH-Tshyn-4.1.0.7z"
         },
         "version": "4.1.0"
+    },
+    "tqdm-loggable": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "tqdm-loggable",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-F1q+w+H2O70urBkvpdoHXoDHu3FdfM880aKberWvBhc=",
+            "type": "url",
+            "url": "https://pypi.org/packages/source/t/tqdm-loggable/tqdm_loggable-0.2.tar.gz"
+        },
+        "version": "0.2"
     },
     "transmission-web-control": {
         "cargoLocks": null,

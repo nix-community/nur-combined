@@ -496,6 +496,14 @@ fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/downlo
 src.git = "https://github.com/xddxdd/route-chain.git"
 fetch.github = "xddxdd/route-chain"
 
+[runpodctl]
+src.github = "runpod/runpodctl"
+fetch.github = "runpod/runpodctl"
+
+[runpod-python]
+src.github = "runpod/runpod-python"
+fetch.github = "runpod/runpod-python"
+
 [sam-toki-mouse-cursors]
 src.github = "SamToki/IconDesign---Sam-Toki-Mouse-Cursors"
 fetch.github = "SamToki/IconDesign---Sam-Toki-Mouse-Cursors"
@@ -571,6 +579,10 @@ fetch.url = "http://cheonhyeong.com/File/TH-Sung-P$ver.7z"
 src.webpage = "http://cheonhyeong.com/Simplified/download.html"
 src.regex = "File/TH-Sy-([0-9.]+).7z"
 fetch.url = "http://cheonhyeong.com/File/TH-Sy-$ver.7z"
+
+[tqdm-loggable]
+src.pypi = "tqdm-loggable"
+fetch.url = "https://pypi.org/packages/source/t/tqdm-loggable/tqdm_loggable-$ver.tar.gz"
 
 [transmission-web-control]
 src.git = "https://github.com/ronggang/transmission-web-control.git"
