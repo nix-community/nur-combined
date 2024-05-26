@@ -1,0 +1,5 @@
+# Run the following command to set this file as the default ignore file for
+# git blame: `git config blame.ignoreRevsFile .git-blame-ignore-revs`
+
+# *: use nixfmt-rfc-style
+480edcda80daee18a9ab5c3e653fba38540b0989

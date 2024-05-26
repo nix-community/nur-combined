@@ -1,5 +1,5 @@
 # Options on top of catppuccin/nix
-# Accent and default flavour options are added by catppuccin/nix
+# Accent and default flavor options are added by catppuccin/nix
 { config, lib, ... }:
 
 let
@@ -33,7 +33,7 @@ let
           on the system theme polarity.
         '';
       };
-      lightFlavour = mkOption {
+      lightFlavor = mkOption {
         type = types.enum [
           "frappe"
           "latte"
@@ -42,10 +42,10 @@ let
         ];
         default = "latte";
         description = ''
-          The light theme flavour (latte, frappe, macchiato, mocha).
+          The light theme flavor (latte, frappe, macchiato, mocha).
         '';
       };
-      darkFlavour = mkOption {
+      darkFlavor = mkOption {
         type = types.enum [
           "frappe"
           "latte"
@@ -54,7 +54,7 @@ let
         ];
         default = "macchiato";
         description = ''
-          The dark theme flavour (latte, frappe, macchiato, mocha).
+          The dark theme flavor (latte, frappe, macchiato, mocha).
         '';
       };
     };
@@ -72,7 +72,7 @@ in
     catppuccin = {
       # Enable all modules by default
       enable = mkDefault true;
-      flavour = absCfg."${absCfg.polarity}Flavour";
+      flavor = absCfg."${absCfg.polarity}Flavor";
     };
 
     lib.catppuccin.toTitleCase = s: toUpper (substring 0 1 s) + substring 1 100 s;

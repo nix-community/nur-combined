@@ -22,7 +22,6 @@ optionalAttrs (readDir ./. ? "_base.nix") {
               base-nushell
               catppuccin-foot
               catppuccin-plasma
-              catppuccin-stylix
               colloid-fcitx5
             ];
 

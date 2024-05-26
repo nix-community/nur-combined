@@ -18,7 +18,7 @@ in
       enable = true;
       wayland = {
         enable = true;
-        compositor = "kwin";
+        compositor = mkIf config.abszero.services.desktopManager.plasma6.enable "kwin";
       };
     };
     # Plasma integration

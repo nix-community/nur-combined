@@ -33,7 +33,10 @@
     };
     deploy-rs = {
       url = "github:serokell/deploy-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+      };
     };
     disko = {
       url = "github:nix-community/disko";
@@ -44,14 +47,6 @@
       # Fork to add option to specify default specialisation
       url = "github:Weathercold/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    stylix = {
-      url = "github:danth/stylix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
-        home-manager.follows = "home-manager";
-      };
     };
     # catppuccin.url = "github:catppuccin/nix";
     catppuccin.url = "github:Weathercold/nix/patch";

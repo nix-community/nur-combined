@@ -19,7 +19,7 @@ let
     catppuccin.accent = "pink";
 
     boot = {
-      kernelParams = [ "resume_offset=4929334" ];
+      kernelParams = [ "resume_offset=533760" ];
       resumeDevice = "/dev/disk/by-label/nixos";
     };
 
@@ -96,7 +96,7 @@ in
     modules = with self.nixosModules; [
       profiles-full
       hardware-inspiron-7405
-      catppuccin-catppuccin
+      catppuccin-sddm
       mainModule
     ];
   };

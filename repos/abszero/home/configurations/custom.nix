@@ -42,7 +42,6 @@ in
             catppuccin-foot
             catppuccin-kvantum
             catppuccin-plasma
-            catppuccin-stylix
           ];
         };
       }

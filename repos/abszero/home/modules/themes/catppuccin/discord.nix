@@ -10,11 +10,11 @@ let
       themes0 =
         if absCfg.useSystemPolarity then
           [
-            "${absCfg.lightFlavour}-${cfg.accent}"
-            "${absCfg.darkFlavour}-${cfg.accent}"
+            "${absCfg.lightFlavor}-${cfg.accent}"
+            "${absCfg.darkFlavor}-${cfg.accent}"
           ]
         else
-          [ "${cfg.flavour}-${cfg.accent}" ];
+          [ "${cfg.flavor}-${cfg.accent}" ];
     }
     + "/share/catppuccin-discord";
 in
@@ -25,12 +25,12 @@ in
   programs.discocss.css =
     if absCfg.useSystemPolarity then
       ''
-        ${readFile (cssDir + "/catppuccin-${absCfg.lightFlavour}-${cfg.accent}.theme.css")}
+        ${readFile (cssDir + "/catppuccin-${absCfg.lightFlavor}-${cfg.accent}.theme.css")}
 
         @media (prefers-color-scheme: dark) {
-        ${readFile (cssDir + "/catppuccin-${absCfg.darkFlavour}-${cfg.accent}.theme.css")}
+        ${readFile (cssDir + "/catppuccin-${absCfg.darkFlavor}-${cfg.accent}.theme.css")}
         }
       ''
     else
-      readFile (cssDir + "/catppuccin-${cfg.flavour}-${cfg.accent}.theme.css");
+      readFile (cssDir + "/catppuccin-${cfg.flavor}-${cfg.accent}.theme.css");
 }

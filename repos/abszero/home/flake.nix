@@ -25,13 +25,6 @@
       url = "github:Weathercold/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    stylix = {
-      url = "github:danth/stylix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        home-manager.follows = "home-manager";
-      };
-    };
     # catppuccin.url = "github:catppuccin/nix";
     catppuccin.url = "github:Weathercold/nix/patch";
     nix-index-database = {

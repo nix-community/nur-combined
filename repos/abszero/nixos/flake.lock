@@ -2,11 +2,11 @@
   "nodes": {
     "catppuccin": {
       "locked": {
-        "lastModified": 1715653936,
-        "narHash": "sha256-pJccc0RYjK3OJohgllg24OkHDk8M+9yZb7RMsZ/WQPg=",
+        "lastModified": 1716526003,
+        "narHash": "sha256-hpjOJ/uHDRsgzCoRD61Eqj1oD0D3HndZshVnuzASAt0=",
         "owner": "Weathercold",
         "repo": "nix",
-        "rev": "d790d3b31c5d889c3a03b5d99c919795b5e47a09",
+        "rev": "70a750cba83da539a04853c6d3afd1a95f40c95f",
         "type": "github"
       },
       "original": {

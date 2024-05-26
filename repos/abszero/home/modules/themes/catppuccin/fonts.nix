@@ -5,8 +5,10 @@
   home.packages = with pkgs; [
     open-sans
     noto-fonts-cjk-sans
-    inconsolata-nerdfont
+    fira-code
+    inconsolata
     (iosevka-bin.override { variant = "Etoile"; })
     (iosevka-bin.override { variant = "SGr-IosevkaTerm"; })
+    (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
   ];
 }

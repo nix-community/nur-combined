@@ -5,5 +5,8 @@
     ./fonts.nix
   ];
 
-  programs.foot.settings.main.font = "Iosevka Term Extended:size=14";
+  programs.foot = {
+    catppuccin.enable = true;
+    settings.main.font = "Iosevka Term Extended:size=14";
+  };
 }

@@ -5,7 +5,7 @@ let
   cfg = config.catppuccin;
 
   theme = pkgs.catppuccin-kvantum.override {
-    variant = toTitleCase cfg.flavour;
+    variant = toTitleCase cfg.flavor;
     accent = toTitleCase cfg.accent;
   };
 in

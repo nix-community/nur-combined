@@ -4,7 +4,7 @@ let
   cfg = config.catppuccin;
 
   theme = pkgs.catppuccin-kde.override {
-    flavour = [ cfg.flavour ];
+    flavour = [ cfg.flavor ];
     accents = [ cfg.accent ];
   };
 in

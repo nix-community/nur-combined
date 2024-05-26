@@ -65,7 +65,7 @@
       inkscape
       jetbrains.idea-community
       jq
-      katawa-shoujo
+      katawa-shoujo-re-engineered
       kooha
       libreoffice-qt
       neofetch
