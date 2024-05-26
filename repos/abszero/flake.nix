@@ -23,8 +23,7 @@
 
     # Utils
     flake-compat = {
-      # Fork to use the "dirty" repo, i.e. with uncommitted & unstaged changes
-      url = "github:inclyc/flake-compat";
+      url = "github:edolstra/flake-compat";
       flake = false;
     };
     flake-parts = {

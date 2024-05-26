@@ -63,7 +63,7 @@ in
         symbol = "";
       };
       direnv = {
-        # TODO: Fix invalid allow status - possibly due to nix-direnv?
+        # FIXME: invalid allow status - possibly due to nix-direnv?
         # disabled = false;
         format = "$allowed$loaded";
         allowed_msg = "";
