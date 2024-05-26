@@ -125,21 +125,21 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "1.13.4-1";
+    version = "1.13.5-1";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.13.4-1/bilibili-asar-v1.13.4-1.tar.gz";
-      sha256 = "sha256-PTe8wL+fNMnoyIEiC+Thk/mOVdLHTnvWuH5TRl+SbWk=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.13.5-1/bilibili-asar-v1.13.5-1.tar.gz";
+      sha256 = "sha256-Xx2LE56qZz+VM8aMTEOAbpkE+t85Ge4MdlkvpDbXDo0=";
     };
   };
   bilibili-src = {
     pname = "bilibili-src";
-    version = "v1.13.4-1";
+    version = "v1.13.5-1";
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      rev = "v1.13.4-1";
+      rev = "v1.13.5-1";
       fetchSubmodules = false;
-      sha256 = "sha256-NRRP6uTs1sU94PNhhdNaZM2smTmK6lHLI5qxjXxrtMo=";
+      sha256 = "sha256-VVMFFMXA1QrOLVy3+IKFIdRjblm1lAvew0ueB1JqH7o=";
     };
   };
   bird-lg-go = {
@@ -183,15 +183,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "7166fde7437c2a45330530b8c86a9486de7bb486";
+    version = "093eac70bfa7d25f589db573b6f857b455c8f8c5";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "7166fde7437c2a45330530b8c86a9486de7bb486";
+      rev = "093eac70bfa7d25f589db573b6f857b455c8f8c5";
       fetchSubmodules = false;
-      sha256 = "sha256-m70D4HWtt7aEVI0QiF+1nUjYdVTdeF+B8flu1M1FTqs=";
+      sha256 = "sha256-LZxlKRPajitnAxiwphZiQLgWQOCtb+7S2QZ2PuvGVqc=";
     };
-    date = "2024-05-23";
+    date = "2024-05-25";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -282,13 +282,13 @@
   };
   decluttarr = {
     pname = "decluttarr";
-    version = "v1.42.0";
+    version = "v1.44.0";
     src = fetchFromGitHub {
       owner = "ManiMatter";
       repo = "decluttarr";
-      rev = "v1.42.0";
+      rev = "v1.44.0";
       fetchSubmodules = false;
-      sha256 = "sha256-1VgYDpI75zo8EJ29cGkV4mZtb3wSJ8t8qHDLV7vVocI=";
+      sha256 = "sha256-K6lSVPlwiIfsJdQf6IdBKOVpiUnRQyxihHxy+KTXUgU=";
     };
   };
   dingtalk = {
@@ -675,13 +675,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.9.1-xanmod1";
+    version = "6.9.2-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.9.1-xanmod1";
+      rev = "6.9.2-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-ZX7Ys83vuh1X+iu73aM4ro73EcIs1+A42ztDXDz3kjI=";
+      sha256 = "sha256-ss+zPUcMsScA9Zw/Kg8f0xO4qtE7MGPwwy9ciMNgszs=";
     };
   };
   linux-xanmod-6_0 = {
@@ -708,13 +708,13 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.31-xanmod1";
+    version = "6.6.32-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.31-xanmod1";
+      rev = "6.6.32-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-Hs2DjNG7mj4qb1P0u7XAgrNizx8oqs1ot563IvRKnhU=";
+      sha256 = "sha256-DdBkfDq+bed1WdaAtxX16xjZO10jjqJ74ccY9Wq6ryM=";
     };
   };
   nbfc-linux-lantian = {
@@ -731,18 +731,18 @@
   };
   netboot-xyz-efi = {
     pname = "netboot-xyz-efi";
-    version = "2.0.78";
+    version = "2.0.79";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.78/netboot.xyz.efi";
-      sha256 = "sha256-87Kj3PL0euQM5o5nNIeqiMnZPzUQB1Ml+5t+DsCEI/s=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.79/netboot.xyz.efi";
+      sha256 = "sha256-UvmoiHpThoj3cNR27KXydVfsPPSe2UDq5w/JmBDJFO8=";
     };
   };
   netboot-xyz-lkrn = {
     pname = "netboot-xyz-lkrn";
-    version = "2.0.78";
+    version = "2.0.79";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.78/netboot.xyz.lkrn";
-      sha256 = "sha256-RUcv9rQlZuduXh9p439qrS1SAplI0wD9ZHknV94Etfs=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.79/netboot.xyz.lkrn";
+      sha256 = "sha256-Jtu4ps9hVHYVJI1IKNnXHMD9QnFLwv53OWOaSt0yVWM=";
     };
   };
   netns-exec = {
@@ -1192,15 +1192,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "ea7770e408ffebada5da5079f4af0275837a3591";
+    version = "d0a6143f93781cd5e9417d257359820fa1853c4d";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "ea7770e408ffebada5da5079f4af0275837a3591";
+      rev = "d0a6143f93781cd5e9417d257359820fa1853c4d";
       fetchSubmodules = false;
-      sha256 = "sha256-lpPwGzuAAAzJBgcVW0o5z4lzAzKUOuo7Ae6ySltzhVE=";
+      sha256 = "sha256-MKC1bagE0ZECuy9Vdc/RgTu9PkLmXp7rIVLARso/hKk=";
     };
-    date = "2024-05-21";
+    date = "2024-05-25";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
