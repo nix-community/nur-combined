@@ -26,6 +26,7 @@ let
   applications = importSub ./applications {
     ferdium = { };
     go-mod-upgrade = { };
+    lddtree = { };
     paru = { };
     ots-cli = {
       _common = "ots";
