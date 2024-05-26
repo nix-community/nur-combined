@@ -153,7 +153,6 @@ let
       libsixel
       ouch
       nix-output-monitor
-      kitty
 
       # common
       [

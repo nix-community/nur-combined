@@ -195,3 +195,4 @@ with pkgs;
   vls
   prettier
 ])
+++ (with pkgs; [ fluent-icon-theme ])

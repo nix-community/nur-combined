@@ -39,7 +39,7 @@
         // lib.genAttrs [
           "inode/directory"
           "inode/mount-point"
-        ] (_: "org.gnome.Nautilus");
+        ] (_: "org.gnome.Nautilus.desktop");
     };
     portal.wlr.enable = true;
     portal.enable = true;
