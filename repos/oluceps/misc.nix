@@ -219,6 +219,7 @@
       shellAliases =
         {
           j = "just";
+          eza = "eza --icons=auto --hyperlink --color=always --color-scale=all --color-scale-mode=gradient --git --git-repos";
           nd = "cd /home/${user}/Src/nixos";
           swc = "sudo nixos-rebuild switch --flake /home/${user}/Src/nixos";
           #--log-format internal-json -v 2>&1 | nom --json";

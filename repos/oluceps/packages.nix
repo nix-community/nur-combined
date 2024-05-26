@@ -23,6 +23,7 @@ let
       ))
     ];
     dev = [
+      nushell
       radicle
       friture
       qemu-utils
@@ -125,6 +126,7 @@ let
     # ];
 
     cmd = [
+      fzf
       mcrcon
       zola
 
