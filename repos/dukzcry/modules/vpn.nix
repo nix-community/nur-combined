@@ -6,7 +6,7 @@ let
   cfg = config.services.vpn;
 in {
   options.services.vpn = {
-    enable = mkEnableOption "Обход блокировок";
+    enable = mkEnableOption "";
     address = mkOption {
       type = types.str;
     };
@@ -104,6 +104,7 @@ in {
               type nat hook output priority mangle;
               ip protocol tcp ip saddr ${cfg.address} tcp dport { 80, 443 } counter dnat to ${cfg.address}:9040
             }
+            # onion
             chain pre {
               type nat hook prerouting priority dstnat;
               ip protocol tcp ip daddr ${cfg.tor.network} tcp dport { 80, 443 } counter dnat to ${cfg.address}:9040
