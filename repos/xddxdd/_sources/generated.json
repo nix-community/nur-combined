@@ -1240,6 +1240,26 @@
         },
         "version": "6.6.32-xanmod1"
     },
+    "llama-cpp": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "llama-cpp",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ggerganov",
+            "repo": "llama.cpp",
+            "rev": "b3003",
+            "sha256": "sha256-0NWOog8680l7x2KSYiqUA6i7LcVY/VZAW9iANPnezLc=",
+            "type": "github"
+        },
+        "version": "b3003"
+    },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
         "date": "2022-06-13",

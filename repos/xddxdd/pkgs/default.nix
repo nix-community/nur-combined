@@ -78,6 +78,7 @@ mkScope (
       coredns = pkg ./lantian-customized/coredns { };
       firefox-icon-mikozilla-fireyae = pkg ./lantian-customized/firefox-icon-mikozilla-fireyae { };
       librime-with-plugins = pkg ./lantian-customized/librime-with-plugins { };
+      llama-cpp = pkg ./lantian-customized/llama-cpp { };
       nbfc-linux = pkg ./lantian-customized/nbfc-linux { };
       nginx = pkg ./lantian-customized/nginx { };
       transmission-with-webui = pkg ./lantian-customized/transmission-with-webui { };

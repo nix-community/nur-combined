@@ -282,6 +282,10 @@ src.github_tag = "xanmod/linux"
 src.include_regex = "^6\\.0\\.(.*)"
 fetch.github = "xanmod/linux"
 
+[llama-cpp]
+src.github = "ggerganov/llama.cpp"
+fetch.github = "ggerganov/llama.cpp"
+
 [nbfc-linux-lantian]
 src.git = "https://github.com/xddxdd/nbfc-linux.git"
 fetch.github = "xddxdd/nbfc-linux"
