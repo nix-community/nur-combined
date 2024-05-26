@@ -34,6 +34,7 @@ jobs:
         cachixName:
           - ihaveahax
         nixPath:
+          - nixpkgs=channel:nixos-24.05
           - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
     runs-on: ubuntu-latest
