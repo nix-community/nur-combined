@@ -17,24 +17,24 @@ let
   l10n-anytype-ts = fetchFromGitHub {
     owner = "anyproto";
     repo = "l10n-anytype-ts";
-    rev = "1345a644c110949f8a6989078004fbd2af48e345";
-    hash = "sha256-fo3xrlKBunrrLbXwC4KZYqCgRvkuLfLPTfW+CoOrzho=";
+    rev = "c87e96132a73a64911add0b8bbab1f870253e000";
+    hash = "sha256-K6ZqJjVT4WQU7bsf5Pp04ffvUNHO17rPCCvh8CgQWrg=";
   };
 in
 buildNpmPackage rec {
   pname = "anytype";
-  version = "0.40.8";
+  version = "0.40.9";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-ts";
     rev = "refs/tags/v${version}";
-    hash = "sha256-pTVG18iQ05jjv4qe4K4qLcESbPbAK1YXz1Y+Hs5Z2fg=";
+    hash = "sha256-T3YTjQEcUEfRD6YXnFK0wGk1eYlJaM8CE/U/tG+3mBA=";
   };
 
-  npmDepsHash = "sha256-/5haoJZkXuE6w5rNQqwCrZvnssAfgUJF7GsAdi4ehBQ=";
+  npmDepsHash = "sha256-gnKZO2xvvlxWhPJGZA7s8nSLHbKUzDUP1nh9Wwuff9k=";
 
-  # https://github.com/anyproto/anytype-ts/blob/v0.40.8/electron/js/util.js#L228-L235
+  # https://github.com/anyproto/anytype-ts/blob/v0.40.9/electron/js/util.js#L228-L235
   enabledLangs = [
     "cs-CZ" "da-DK" "de-DE"
     "en-US" "es-ES" "fr-FR"
@@ -46,8 +46,8 @@ buildNpmPackage rec {
     "zh-CN" "zh-TW"
   ];
 
-  # middleware: https://github.com/anyproto/anytype-ts/blob/v0.40.8/update-ci.sh
-  # langs: https://github.com/anyproto/anytype-ts/blob/v0.40.8/electron/hook/locale.js
+  # middleware: https://github.com/anyproto/anytype-ts/blob/v0.40.9/update-ci.sh
+  # langs: https://github.com/anyproto/anytype-ts/blob/v0.40.9/electron/hook/locale.js
   postUnpack = ''
     if [ $(cat "$sourceRoot/middleware.version") != ${lib.escapeShellArg anytype-heart.version} ]; then
       echo 'ERROR: middleware version mismatch'
