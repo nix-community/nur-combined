@@ -3,6 +3,7 @@
     ./vaultwarden.nix
     ./fail2ban.nix
     ./fava.nix
+    ./forgejo
     ./gitea
     ./immich.nix
     ./jellyfin.nix
