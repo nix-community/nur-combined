@@ -56,7 +56,7 @@ obsidian_commit_mktemp=$(mktemp)
   echo "backup checkpoint" $(sd is known-node || true)
   obsidian_git diff --stat --staged
 } > $obsidian_commit_mktemp
-obsidian_git commit -F $obsidian_commit_mktemp --allow-empty
+obsidian_git commit -F $obsidian_commit_mktemp || true
 rm $obsidian_commit_mktemp
 
 obsidian_git pull --rebase
