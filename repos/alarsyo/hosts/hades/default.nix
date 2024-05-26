@@ -57,7 +57,7 @@ in {
   my.services = {
     fail2ban.enable = true;
 
-    gitea = {
+    forgejo = {
       enable = true;
       privatePort = 8082;
     };

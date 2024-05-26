@@ -52,7 +52,9 @@ in {
     services.forgejo = {
       enable = true;
       user = forgejoUser;
-      appName = "Personal Forge";
+      group = config.users.users.${forgejoUser}.group;
+      stateDir = "/var/lib/${forgejoUser}";
+
       lfs.enable = true;
 
       settings = {
@@ -63,7 +65,6 @@ in {
           HTTP_PORT = cfg.privatePort;
         };
         log.LEVEL = "Warn"; # [ "Trace" "Debug" "Info" "Warn" "Error" "Critical" ]
-        other.SHOW_FOOTER_VERSION = false;
         repository = {
           ENABLE_PUSH_CREATE_USER = true;
           DEFAULT_BRANCH = "main";
@@ -74,6 +75,8 @@ in {
 
         # only send cookies via HTTPS
         session.COOKIE_SECURE = true;
+
+        DEFAULT.APP_NAME = "Personal Forge";
       };
 
       # NixOS module uses `forgejo dump` to backup repositories and the database,
