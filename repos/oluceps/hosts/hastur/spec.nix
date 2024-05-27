@@ -179,7 +179,6 @@
     # xserver.displayManager.gdm.enable = true;
     # xserver.desktopManager.gnome.enable = true;
 
-    copilot-gpt4.enable = true;
     # nextchat.enable = true;
 
     snapy.instances = [
