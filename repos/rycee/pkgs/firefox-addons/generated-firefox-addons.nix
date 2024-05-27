@@ -1426,10 +1426,10 @@
     };
     "competitive-companion" = buildFirefoxXpiAddon {
       pname = "competitive-companion";
-      version = "2.52.1";
+      version = "2.53.0";
       addonId = "{74e326aa-c645-4495-9287-b6febc5565a7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4287624/competitive_companion-2.52.1.xpi";
-      sha256 = "04f5e8a8b36478d9315892bba70875dea9e02868fdaf9f08c9c28e550015d765";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4293347/competitive_companion-2.53.0.xpi";
+      sha256 = "046e833d4cf47c28a71defed6dba462c5eb949207439c7acc5351c304a321575";
       meta = with lib;
       {
         homepage = "https://github.com/jmerle/competitive-companion";
@@ -7516,10 +7516,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "2024.5.4";
+      version = "2024.6.1";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4285808/pakkujs-2024.5.4.xpi";
-      sha256 = "a79abc6c8867af7a1b249fe8d10dd83e183876569555073938fe241bf740cb91";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4293240/pakkujs-2024.6.1.xpi";
+      sha256 = "32a04666db80550746ced1fcfb365164683fe093b0d0fde320dfc9950274a2e0";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
