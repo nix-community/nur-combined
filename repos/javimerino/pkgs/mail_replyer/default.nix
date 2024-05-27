@@ -6,13 +6,13 @@
 
 python3Packages.buildPythonApplication {
   name = "mail_replyer";
-  version = "0.1.0-20240501-779f84e635ed";
+  version = "0.1.0-20240527-08492c18d905";
   pyproject = true;
   src = fetchFromGitHub {
     owner = "JaviMerino";
     repo = "mail_replyer";
-    rev = "779f84e635ed9d5c509ba344be1b5639f316d374";
-    hash = "sha256-iXaIXrDfYeR0w1R3VdPN8eOS6PFUVw9yTtOjm3GX09s=";
+    rev = "08492c18d905f885be663a07c75ee3d3ef256114";
+    hash = "sha256-F8dm1ddh1CsExcYLRUO55z4rQqVRBO2lzYhiyUH78zc=";
   };
   buildInputs = [
     python3Packages.hatchling
@@ -24,9 +24,9 @@ python3Packages.buildPythonApplication {
   ];
 
   meta = with lib; {
-    description = "TODO";
+    description = "Test LLMs to write emails";
     homepage = "https://github.com/JaviMerino/mail_replyer";
     maintainers = with maintainers; [ javimerino ];
-    # license = licenses.something;
+    license = licenses.mit;
   };
 }

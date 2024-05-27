@@ -46,4 +46,4 @@ And configure it:
 After activating it with `home-manager switch`, don't forget to start
 the service: `systemctl --user start ollama`.  Afterwards, any
 `ollama` command will find the server running (eg. `ollama run
-mistral`).
+llama3`).
