@@ -129,4 +129,15 @@ in
       ) secs)
     else
       secs;
+
+  parent =
+    let
+      inherit (inputs.nixpkgs.lib)
+        concatStringsSep
+        reverseList
+        splitString
+        drop
+        ;
+    in
+    p: concatStringsSep "/" (reverseList (drop 1 (reverseList (splitString "/" p))));
 }

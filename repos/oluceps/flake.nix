@@ -32,6 +32,9 @@
             lib,
             ...
           }:
+          let
+            homeCfgAttr = (import ./home { inherit pkgs lib; });
+          in
           {
 
             _module.args.pkgs = import inputs.nixpkgs {
@@ -71,7 +74,16 @@
 
             apps.default = {
               type = "app";
-              program = pkgs.writeScriptBin "link-home" (toString (import ./home { inherit lib pkgs; }));
+              program = pkgs.writeScriptBin "link-home" (
+                toString (
+                  lib.concatStringsSep "\n" (
+                    lib.foldlAttrs (
+                      acc: n: v:
+                      acc ++ lib.singleton "mkdir -p ${lib.parent n}; ln -sf ${v} ${n}"
+                    ) [ ] homeCfgAttr
+                  )
+                )
+              );
             };
 
             packages =
@@ -85,9 +97,19 @@
               in
               (extraLibs.genFilteredDirAttrsV2 ./pkgs shadowedPkgs (n: pkgs.${n}))
               // {
-                userPkgs = pkgs.symlinkJoin {
+                default = pkgs.symlinkJoin {
                   name = "user-pkgs";
-                  paths = import ./userPkgs.nix { inherit pkgs; };
+                  paths =
+                    import ./userPkgs.nix { inherit pkgs; }
+                    ++ (lib.singleton (
+                      map (
+                        path:
+                        let
+                          source = homeCfgAttr.${path};
+                        in
+                        pkgs.writeTextDir path source
+                      ) (builtins.attrNames homeCfgAttr)
+                    ));
                 };
               };
             formatter = pkgs.nixfmt-rfc-style;
