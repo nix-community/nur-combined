@@ -8,6 +8,7 @@
 
 {
   pkgs ? import <nixpkgs> { },
+  rust-overlay ? false,
 }:
 builtins.trace "「我书写，则为我命令。我陈述，则为我规定。」" rec {
   # The `lib`, `modules`, and `overlay` names are special
@@ -25,6 +26,18 @@ builtins.trace "「我书写，则为我命令。我陈述，则为我规定。�
   };
 }
 // pkgs.lib.packagesFromDirectoryRecursive {
-  callPackage = pkgs.callPackage;
+  callPackage =
+    if rust-overlay then
+      pkgs.lib.callPackageWith (
+        pkgs
+        // {
+          rustPlatform = pkgs.makeRustPlatform {
+            cargo = pkgs.rust-bin.beta.latest.minimal;
+            rustc = pkgs.rust-bin.beta.latest.minimal;
+          };
+        }
+      )
+    else
+      pkgs.callPackage;
   directory = ./pkgs/by-name;
 }

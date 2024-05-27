@@ -72,15 +72,6 @@
         "armv7l-linux"
       ];
 
-      rustPkgsOverlay = (
-        final: prev: {
-          rustPlatform = prev.makeRustPlatform {
-            cargo = prev.rust-bin.beta.latest.minimal;
-            rustc = prev.rust-bin.beta.latest.minimal;
-          };
-        }
-      );
-
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
     in
     rec {
@@ -94,13 +85,13 @@
                 config = {
                   allowUnfree = true;
                 };
-                overlays = [
-                  (import rust-overlay)
-                  rustPkgsOverlay
-                ];
+                overlays = [ (import rust-overlay) ];
               };
             };
-            import ./default.nix { inherit pkgs; }
+            import ./default.nix {
+              inherit pkgs;
+              rust-overlay = true;
+            }
             // {
               gpd-linux-controls = gpd-linuxcontrols.packages.${system}.default;
             }
@@ -124,6 +115,17 @@
 
       nixosModules = import ./modules { inherit gpd-fan-driver; };
 
+      nixpkgs-cuda = import nixpkgs {
+        system = "x86_64-linux";
+        config = {
+          allowUnfree = true;
+          cudaSupport = true;
+          # https://github.com/SomeoneSerge/nixpkgs-cuda-ci/blob/develop/nix/ci/cuda-updates.nix#L18
+          cudaCapabilities = [ "8.6" ];
+          cudaEnableForwardCompat = false;
+        };
+      };
+
       ciJobs = {
         default = lib.filterNurAttrs "x86_64-linux" packages.x86_64-linux;
 
@@ -138,11 +140,9 @@
                 cudaCapabilities = [ "8.6" ];
                 cudaEnableForwardCompat = false;
               };
-              overlays = [
-                (import rust-overlay)
-                rustPkgsOverlay
-              ];
+              overlays = [ (import rust-overlay) ];
             };
+            rust-overlay = true;
           }
         );
 
@@ -156,11 +156,9 @@
               config = {
                 allowUnfree = true;
               };
-              overlays = [
-                (import rust-overlay)
-                rustPkgsOverlay
-              ];
+              overlays = [ (import rust-overlay) ];
             };
+            rust-overlay = true;
           }
         );
       };
