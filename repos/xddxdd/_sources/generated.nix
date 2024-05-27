@@ -1203,15 +1203,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "d0a6143f93781cd5e9417d257359820fa1853c4d";
+    version = "9c4399aae28a43b4a0a2e85a346ebff30d2a5347";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "d0a6143f93781cd5e9417d257359820fa1853c4d";
+      rev = "9c4399aae28a43b4a0a2e85a346ebff30d2a5347";
       fetchSubmodules = false;
-      sha256 = "sha256-MKC1bagE0ZECuy9Vdc/RgTu9PkLmXp7rIVLARso/hKk=";
+      sha256 = "sha256-lUemdXtRS4u4bAxaFlvv+E3w3KIp1I0vnuM/adrx61Q=";
     };
-    date = "2024-05-25";
+    date = "2024-05-27";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
