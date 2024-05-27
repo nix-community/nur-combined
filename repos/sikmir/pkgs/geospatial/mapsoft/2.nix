@@ -36,11 +36,9 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "slazav";
     repo = "mapsoft2";
     rev = "${finalAttrs.version}-alt1";
-    hash = "sha256-XT3oDPu+GE3WfzlDk7jELhGmPknL0m+cgTxH4opGjFs=";
+    hash = "sha256-ghLuPF/Mz2XSslJ4l+VQco8+uRpxxMvugCx5kc2kBVE=";
     fetchSubmodules = true;
   };
-
-  patches = [ ./0002-fix-build.patch ];
 
   postPatch = ''
     substituteInPlace modules/getopt/Makefile \
