@@ -79,7 +79,7 @@
                   lib.concatStringsSep "\n" (
                     lib.foldlAttrs (
                       acc: n: v:
-                      acc ++ lib.singleton "mkdir -p ${lib.parent n}; ln -sf ${v} ${n}"
+                      acc ++ lib.singleton "mkdir -p ${extraLibs.parent n}; ln -sf ${v} ${n}"
                     ) [ ] homeCfgAttr
                   )
                 )
