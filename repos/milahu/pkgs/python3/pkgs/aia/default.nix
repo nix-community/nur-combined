@@ -1,6 +1,7 @@
 { lib
 , python3
 , fetchFromGitHub
+, openssl
 }:
 
 python3.pkgs.buildPythonPackage rec {
@@ -14,6 +15,11 @@ python3.pkgs.buildPythonPackage rec {
     rev = "v${version}";
     hash = "sha256-FKnDn7NsCEOV7aTpwtvCHuQtPXibPgI+r9+rXC+EDKM=";
   };
+
+  postPatch = ''
+    substituteInPlace aia.py \
+      --replace-fail '"openssl"' '"${openssl}/bin/openssl"'
+  '';
 
   nativeBuildInputs = [
     python3.pkgs.setuptools

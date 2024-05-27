@@ -817,6 +817,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   cert-chain-resolver-bash = callPackage ./pkgs/tools/networking/cert-chain-resolver/bash.nix { };
 
+  yt-dlp = python3.pkgs.callPackage ./pkgs/tools/misc/yt-dlp { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
