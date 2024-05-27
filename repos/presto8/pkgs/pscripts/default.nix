@@ -3,15 +3,15 @@
   fetchFromGitHub,
 }:
 
-stdenv.mkDerivation(finalAttrs: {
+stdenv.mkDerivation(finalAttrs: rec {
   pname = "pscripts";
-  version = "2024-05-26";
+  version = "2024-05-27.2";
 
   src = fetchFromGitHub {
     owner = "presto8";
     repo = "pscripts";
-    rev = "5cce44b59eb8d4e790628c128448ab153dc39ab3";
-    hash = "sha256-DIbHudQx85DXY5EC+lSFIBubO7VUuFhKTZyyg3FRHk8=";
+    rev = "v${version}";
+    hash = "sha256-cIR7ZVS3ui6y7LvAA3A8mRB93vYzW+IqgHAZKNuTKts=";
   };
 
   dontConfigure = true;
