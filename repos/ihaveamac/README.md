@@ -18,7 +18,7 @@ Darwin/macOS builds are manually pushed by me to cachix occasionally. Usually wh
 * ctrtool-1.2.0
 * makerom-0.18.4
 * kwin-move-window-1.1.1
-* kwin-explicit-sync-patch-6.0.4.1
+* kwin-explicit-sync-patch-6.0.5.1
 
 ## Using the KWin patch
 
