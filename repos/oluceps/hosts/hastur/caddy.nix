@@ -14,6 +14,7 @@
         http = {
           servers = {
             srv0 = {
+              protocols = [ "h1" ];
               routes = [
                 {
                   handle = [
