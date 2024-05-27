@@ -31,10 +31,10 @@
   systemd = {
     services = {
       atuin.serviceConfig.Environment = [ "RUST_LOG=debug" ];
-      atticd.serviceConfig.Environment = [
-        "RUST_LOG=debug"
-        "RUST_BACKTRACE=1"
-      ];
+      # atticd.serviceConfig.Environment = [
+      #   "RUST_LOG=debug"
+      #   "RUST_BACKTRACE=1"
+      # ];
       # restic-backups-solid.serviceConfig.Environment = [ "GOGC=20" ];
     };
 
@@ -109,7 +109,7 @@
     dae.enable = true;
     scrutiny.enable = true;
     ddns-go.enable = true;
-    atticd.enable = true;
+    atticd.enable = false;
     atuin.enable = true;
     postgresql.enable = true;
     photoprism.enable = true;
