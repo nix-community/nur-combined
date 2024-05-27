@@ -1,0 +1,39 @@
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: 37 4 * * *
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@d4fffb50872869abe2d9a9098a6d9c5aa7d16be4
+        with:
+          # SSH private key
+          key: ${{ secrets.SSH_KEY_NIXREMOTE }}
+          name: id_ed25519
+          known_hosts: |
+            linde.alanpearce.eu ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHHdh3J7dEmh9G+CVmzFEC8/ont35ZXpCFcpLUO863vC
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Nix
+        uses: cachix/install-nix-action@v26
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+      - name: Check evaluation
+        run: |
+          nix-env -f . -qa \* --meta --xml \
+            --allowed-uris https://static.rust-lang.org \
+            --option restrict-eval true \
+            --option allow-import-from-derivation true \
+            --drv-path --show-trace \
+            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+            -I $PWD
+      - name: Show nixpkgs version
+        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+      - name: Build nix packages
+        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      - name: Populate binary cache
+        run: nix copy --substitute-on-destination --to ssh://nixremote@linde.alanpearce.eu .
