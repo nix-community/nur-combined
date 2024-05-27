@@ -308,6 +308,9 @@
             "type": "gitlab",
             "url": "https://gitlab.com/repos-holder/nur-packages"
         },
+        "dur": {
+            "url": "https://github.com/paladhammika/dur"
+        },
         "dustinblackman": {
             "url": "https://github.com/dustinblackman/nur-packages"
         },
