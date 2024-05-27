@@ -48,7 +48,7 @@ jobs:
       run: |
         nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version' -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/$(nix run nixpkgs#jq -- -r '.nodes.nixpkgs.locked.rev' flake.lock).tar.gz
     - name: Setup cachix
-      uses: cachix/cachix-action@v14
+      uses: cachix/cachix-action@v15
       # Don't replace <YOUR_CACHIX_NAME> here!
       if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
       with:
