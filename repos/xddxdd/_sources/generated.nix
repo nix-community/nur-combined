@@ -183,15 +183,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "093eac70bfa7d25f589db573b6f857b455c8f8c5";
+    version = "acb6b57968fdca3642d6c22246f985958ed9f428";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "093eac70bfa7d25f589db573b6f857b455c8f8c5";
+      rev = "acb6b57968fdca3642d6c22246f985958ed9f428";
       fetchSubmodules = false;
-      sha256 = "sha256-LZxlKRPajitnAxiwphZiQLgWQOCtb+7S2QZ2PuvGVqc=";
+      sha256 = "sha256-1YeIF63GTlcZAwenDPj922zZMRvNbRBK7dqs5nDm/v8=";
     };
-    date = "2024-05-25";
+    date = "2024-05-27";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -719,13 +719,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3003";
+    version = "b3015";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3003";
+      rev = "b3015";
       fetchSubmodules = false;
-      sha256 = "sha256-0NWOog8680l7x2KSYiqUA6i7LcVY/VZAW9iANPnezLc=";
+      sha256 = "sha256-suSbtnrGR8lPaFHc6jMusXuPhOORSF4ORkCJiUNu6r8=";
     };
   };
   nbfc-linux-lantian = {
@@ -919,15 +919,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "67ad18305605bf4f13b4a334cc3fe60c87d9309a";
+    version = "e784ed12c69f0f6a73e185237d4259d566b5ed97";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "67ad18305605bf4f13b4a334cc3fe60c87d9309a";
+      rev = "e784ed12c69f0f6a73e185237d4259d566b5ed97";
       fetchSubmodules = false;
-      sha256 = "sha256-z8H5dqL4pqtow0Q9c3US3pJIYuGYlbH7EtVEs5XFSM4=";
+      sha256 = "sha256-RXcvaS1gycNqiPUwrzJfLpTpVFcyY1iSTkzKiBYkPIc=";
     };
-    date = "2024-05-21";
+    date = "2024-05-28";
   };
   osdlyrics = {
     pname = "osdlyrics";

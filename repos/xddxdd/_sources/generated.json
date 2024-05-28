@@ -316,7 +316,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-05-25",
+        "date": "2024-05-27",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -328,11 +328,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "093eac70bfa7d25f589db573b6f857b455c8f8c5",
-            "sha256": "sha256-LZxlKRPajitnAxiwphZiQLgWQOCtb+7S2QZ2PuvGVqc=",
+            "rev": "acb6b57968fdca3642d6c22246f985958ed9f428",
+            "sha256": "sha256-1YeIF63GTlcZAwenDPj922zZMRvNbRBK7dqs5nDm/v8=",
             "type": "github"
         },
-        "version": "093eac70bfa7d25f589db573b6f857b455c8f8c5"
+        "version": "acb6b57968fdca3642d6c22246f985958ed9f428"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1254,11 +1254,11 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3003",
-            "sha256": "sha256-0NWOog8680l7x2KSYiqUA6i7LcVY/VZAW9iANPnezLc=",
+            "rev": "b3015",
+            "sha256": "sha256-suSbtnrGR8lPaFHc6jMusXuPhOORSF4ORkCJiUNu6r8=",
             "type": "github"
         },
-        "version": "b3003"
+        "version": "b3015"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -1587,7 +1587,7 @@
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
-        "date": "2024-05-21",
+        "date": "2024-05-28",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -1599,11 +1599,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "67ad18305605bf4f13b4a334cc3fe60c87d9309a",
-            "sha256": "sha256-z8H5dqL4pqtow0Q9c3US3pJIYuGYlbH7EtVEs5XFSM4=",
+            "rev": "e784ed12c69f0f6a73e185237d4259d566b5ed97",
+            "sha256": "sha256-RXcvaS1gycNqiPUwrzJfLpTpVFcyY1iSTkzKiBYkPIc=",
             "type": "github"
         },
-        "version": "67ad18305605bf4f13b4a334cc3fe60c87d9309a"
+        "version": "e784ed12c69f0f6a73e185237d4259d566b5ed97"
     },
     "osdlyrics": {
         "cargoLocks": null,
