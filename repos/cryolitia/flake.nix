@@ -146,7 +146,7 @@
           }
         );
 
-        aarch64 = lib.filterNurAttrs "aarch64-linux" (
+        aarch64-cross = lib.filterNurAttrs "aarch64-linux" (
           import ./default.nix {
             pkgs = import nixpkgs {
               system = "x86_64-linux";
@@ -161,11 +161,24 @@
             rust-overlay = true;
           }
         );
+
+        aarch64 = lib.filterNurAttrs "aarch64-linux" (
+          import ./default.nix {
+            pkgs = import nixpkgs {
+              system = "aarch64-multiplatform";
+              config = {
+                allowUnfree = true;
+              };
+              overlays = [ (import rust-overlay) ];
+            };
+            rust-overlay = true;
+          }
+        );
       };
 
       hydraJobs = {
         cuda = ciJobs.cuda;
-        # aarch64 = ciJobs.aarch64;
+        aarch64 = ciJobs.aarch64;
       };
     };
 }
