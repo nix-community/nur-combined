@@ -13,7 +13,6 @@ let
       "after"
       "autoload"
       "ftdetect"
-      "queries"
       "lua"
       "plugin"
     ];
@@ -68,7 +67,6 @@ in
       lsp_lines-nvim # Show diagnostics *over* regions
       none-ls-nvim # LSP integration for linters and formatters
       nvim-treesitter.withAllGrammars # Better highlighting
-      (pkgs.vimPlugins.nvim-treesitter.grammarToPlugin pkgs.tree-sitter-bp)
       nvim-treesitter-textobjects # More textobjects
       plenary-nvim # 'null-ls', 'telescope' dependency
 
