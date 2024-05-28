@@ -1857,10 +1857,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "127.0.20240524.102635";
+      version = "126.0.20240526.221752";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4292447/deutsch_de_language_pack-127.0.20240524.102635.xpi";
-      sha256 = "82a35ef3c733aecc2e8f39a36b8697d2721d3033bde50515ab6ce3a9a0062004";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4293931/deutsch_de_language_pack-126.0.20240526.221752.xpi";
+      sha256 = "0cc275033b31eeb32dd01f122fca0e80285105173d67a19f5b7e4eb53f3e4296";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2053,10 +2053,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.39.1";
+      version = "2.39.2";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4292927/dualsub-2.39.1.xpi";
-      sha256 = "fdd2841479f78ceb9720f7b51114b29259cf5b5b5da21a22ea5b8284ce87a2d1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4293516/dualsub-2.39.2.xpi";
+      sha256 = "7482de32830d6943b9489d46c12d4a767c18e15a836c05be1562826b2ca87866";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2807,10 +2807,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "127.0.20240524.102635";
+      version = "126.0.20240526.221752";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4292386/francais_language_pack-127.0.20240524.102635.xpi";
-      sha256 = "3cc395b37f0afaf244d5efd28e02f33c9497e7d55ad0257e76194a57dfd1e01d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4293914/francais_language_pack-126.0.20240526.221752.xpi";
+      sha256 = "f3859fabeb508d197ed055251b00562cfef8e7718aec95ea20dfe3d11607a53f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -10667,10 +10667,10 @@
     };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2024.5.17.961";
+      version = "2024.5.27.852";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4288677/ublock_origin_lite-2024.5.17.961.xpi";
-      sha256 = "a564b44df61b3a7bec8dc0459474b67bc43548f8d0b0d57db00c2a904ab4f4f9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4293863/ublock_origin_lite-2024.5.27.852.xpi";
+      sha256 = "9385c540c679d243e5fad6bd193b04ef67d2605f126055af7a0ef1f6aad6ab5c";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
