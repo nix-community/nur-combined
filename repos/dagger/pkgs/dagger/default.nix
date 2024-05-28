@@ -2,31 +2,31 @@
 # vim: set ft=nix ts=2 sw=2 sts=2 et sta
 {
 system ? builtins.currentSystem
-, pkgs
 , lib
 , fetchurl
 , installShellFiles
+, stdenvNoCC
 }:
 let
   shaMap = {
-    x86_64-linux = "1fz0750biycz21c7fbigkd2njdd54dq27ds22r6j5pxmc5fljz49";
-    armv7l-linux = "1x2hhsvg0q7a3jdhvg5hagmx23498xl60psk1z43173v2wyia6lv";
-    aarch64-linux = "1km4n9cdzlcr291zlzmirvz2s29pn8ivyz6wan4lnsjn2311vf0g";
-    x86_64-darwin = "008lh8scj9as45v3xn73ncrp6k4swyilp11sd0msrna54crl4sig";
-    aarch64-darwin = "189ni7wp15cm0akszwpwi4lw17969y9v4jmn5wsrrb6p527g1432";
+    x86_64-linux = "089pm97m5p7p5p9yaa7gfmyr3lmqhkd3p0wvzxjdjp3szilqa0w8";
+    armv7l-linux = "1n28dq10jsn2n448vqxrxja9zw5mpl54hmdnhx3mvvmd240867n9";
+    aarch64-linux = "1d2959ikdl7gmh4kkdwn94fb2xvk1z22fzamljkr3zvxiy4hiq1d";
+    x86_64-darwin = "0bqcqgg62navgvp0l4ay3kvqd26qy6v80ljmwn31dpscwvqn2jq0";
+    aarch64-darwin = "1p303x0d8kmrf6480qrracgsir1g7brmfk39ghi85w89pf22wv2l";
   };
 
   urlMap = {
-    x86_64-linux = "https://dl.dagger.io/dagger/releases/0.11.4/dagger_v0.11.4_linux_amd64.tar.gz";
-    armv7l-linux = "https://dl.dagger.io/dagger/releases/0.11.4/dagger_v0.11.4_linux_armv7.tar.gz";
-    aarch64-linux = "https://dl.dagger.io/dagger/releases/0.11.4/dagger_v0.11.4_linux_arm64.tar.gz";
-    x86_64-darwin = "https://dl.dagger.io/dagger/releases/0.11.4/dagger_v0.11.4_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://dl.dagger.io/dagger/releases/0.11.4/dagger_v0.11.4_darwin_arm64.tar.gz";
+    x86_64-linux = "https://dl.dagger.io/dagger/releases/0.11.5/dagger_v0.11.5_linux_amd64.tar.gz";
+    armv7l-linux = "https://dl.dagger.io/dagger/releases/0.11.5/dagger_v0.11.5_linux_armv7.tar.gz";
+    aarch64-linux = "https://dl.dagger.io/dagger/releases/0.11.5/dagger_v0.11.5_linux_arm64.tar.gz";
+    x86_64-darwin = "https://dl.dagger.io/dagger/releases/0.11.5/dagger_v0.11.5_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://dl.dagger.io/dagger/releases/0.11.5/dagger_v0.11.5_darwin_arm64.tar.gz";
   };
 in
-pkgs.stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "dagger";
-  version = "0.11.4";
+  version = "0.11.5";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
