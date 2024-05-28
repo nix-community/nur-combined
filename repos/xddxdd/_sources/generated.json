@@ -2580,26 +2580,6 @@
         },
         "version": "v24.02"
     },
-    "vs-rife": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "vs-rife",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "HolyWu",
-            "repo": "vs-rife",
-            "rev": "v5.0.0",
-            "sha256": "sha256-DJQW7W8ntL7GQVy2AXPAJQXrLFbnplVojM0q4oPh1gw=",
-            "type": "github"
-        },
-        "version": "v5.0.0"
-    },
     "wechat-uos": {
         "cargoLocks": null,
         "date": null,

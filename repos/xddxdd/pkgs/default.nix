@@ -213,7 +213,6 @@ mkScope (
     undetected-chromedriver-bin = pkg ./uncategorized/undetected-chromedriver-bin { };
     vivado-2022_2 = ifNotCI (pkg ./uncategorized/vivado-2022_2 { });
     vpp = pkg ./uncategorized/vpp { };
-    vs-rife = pkg ./uncategorized/vs-rife { };
     wechat-uos = pkg ./uncategorized/wechat-uos { };
     wechat-uos-without-sandbox = pkg ./uncategorized/wechat-uos { enableSandbox = false; };
 

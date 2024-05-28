@@ -1471,17 +1471,6 @@
       sha256 = "sha256-Cfm0Xzsx2UgUvIIeq5wBN6tA9ynCUa5bslEQk8wbd6E=";
     };
   };
-  vs-rife = {
-    pname = "vs-rife";
-    version = "v5.0.0";
-    src = fetchFromGitHub {
-      owner = "HolyWu";
-      repo = "vs-rife";
-      rev = "v5.0.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-DJQW7W8ntL7GQVy2AXPAJQXrLFbnplVojM0q4oPh1gw=";
-    };
-  };
   wechat-uos = {
     pname = "wechat-uos";
     version = "1.0.0.241";
