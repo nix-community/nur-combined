@@ -15,6 +15,8 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   todoit = pkgs.callPackage ./pkgs/todoit { };
+  # localbooru = pkgs.callPackage ./pkgs/localbooru { };
+  localbooru-bin = pkgs.callPackage ./pkgs/localbooru-bin { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
