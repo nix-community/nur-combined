@@ -2,12 +2,12 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "iosevka-minoko-term";
-  version = "0.1.3";
+  version = "0.1.4";
 
   src = fetchzip {
     url = "https://github.com/ShadowRZ/iosevka-minoko/releases/download/v${version}/PkgTTF-IosevkaMinokoTerm.zip";
     stripRoot = false;
-    hash = "sha256-Mtjw6X1rDs6S9mg5xj9AMM4lvf6pOMZAKgCVLd7I6zQ=";
+    hash = "sha256-vkc3CKJ7I3r4CMZOAXZvluL/6oEaWigFF19xGXJbcnI=";
   };
 
   installPhase = ''
