@@ -1,16 +1,16 @@
 #!/usr/bin/env -S sd nix shell
-#!nix-shell -i python3 -p python3Packages.pyvirtualcam python3Packages.opencv4 python3Packages.facenet-pytorch python3Packages.onnxruntime
+#!nix-shell -i python3 -p python3Packages.pyvirtualcam python3Packages.opencv4 python3Packages.onnxruntime
 # vim:ft=python
 
 import pyvirtualcam
 import numpy as np
 import time
 import cv2
-from facenet_pytorch import MTCNN
 import onnxruntime as ort
 import subprocess
 import time
 import threading
+from pathlib import Path
 
 u2net_onnx = subprocess.run([
     "nix-prefetch-url",
@@ -19,6 +19,10 @@ u2net_onnx = subprocess.run([
     "--name", "u2net.onnx",
     "--print-path"
 ], stdout=subprocess.PIPE).stdout.decode('utf-8').split('\n')[1].strip()
+
+haarcascades_xml = str(next(Path(cv2.__file__).parent.parent.parent.parent.glob('**/haarcascade_frontalface_default.xml')))
+print('haarcascades', haarcascades_xml)
+face_detector = cv2.CascadeClassifier(haarcascades_xml)
 
 u2net = ort.InferenceSession(u2net_onnx)
 
@@ -39,13 +43,6 @@ output_size = (cap.get(cv2.CAP_PROP_FRAME_WIDTH), cap.get(cv2.CAP_PROP_FRAME_HEI
 output_size = [int(x) for x in output_size]
 
 padding = (min(*output_size)//5)
-
-mtcnn = MTCNN(
-    image_size=160,
-    margin=0,
-    min_face_size=(min(*output_size)//5),
-    thresholds=[0.6, 0.7, 0.7], factor=0.709, post_process=True,
-)
 
 state=dict(
     detected_faces = [],
@@ -83,21 +80,15 @@ def update_detector_stuff(state):
             frame = state['last_frame']
             if frame is None:
                 continue
-            bbxs, probs = mtcnn.detect(frame)
-            if bbxs is not None:
-                detected_faces_candidates = []
-                for (bbx, prob) in zip(bbxs, probs):
-                    (xi, yi, xf, yf) = map(int, bbx)
-                    sx = xf - xi
-                    sy = yf - yi
-                    xi = max(0, xi)
-                    yi = max(0, yi)
-                    xf = min(xf, output_size[0])
-                    yf = min(yf, output_size[1])
-                    detected_faces_candidates.append([xi, yi, xf, yf])
-                if len(state['detected_faces']) == 0:
-                    state['detected_faces'] = detected_faces_candidates
-                state['target_faces'] = detected_faces_candidates
+            detected_faces_candidates = []
+            for face in face_detector.detectMultiScale(frame):
+                [xi, yi, wf, hf] = face
+                xf = xi + wf
+                yf = yi + hf
+                detected_faces_candidates.append([xi, yi, xf, yf])
+            if len(state['detected_faces']) == 0:
+                state['detected_faces'] = detected_faces_candidates
+            state['target_faces'] = detected_faces_candidates
     finally:
         state['stop'] = True
 
