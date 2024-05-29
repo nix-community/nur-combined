@@ -1,6 +1,7 @@
 { pkgs, ... }:
 with pkgs;
 [
+  mako
   # qq
   firefox
   chromium
