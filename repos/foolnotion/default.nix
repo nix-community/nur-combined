@@ -79,8 +79,6 @@
 
   mppp = pkgs.callPackage ./pkgs/mppp { };
 
-  nanobind = pkgs.callPackage ./pkgs/nanobind { python = pkgs.python3; };
-
   nlr = pkgs.callPackage ./pkgs/nlr { };
 
   pareto = pkgs.python3Packages.callPackage ./pkgs/pareto { };
