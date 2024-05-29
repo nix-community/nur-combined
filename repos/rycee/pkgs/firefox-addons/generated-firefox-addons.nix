@@ -1857,10 +1857,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "126.0.20240526.221752";
+      version = "126.0.20240528.144638";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4293931/deutsch_de_language_pack-126.0.20240526.221752.xpi";
-      sha256 = "0cc275033b31eeb32dd01f122fca0e80285105173d67a19f5b7e4eb53f3e4296";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4294553/deutsch_de_language_pack-126.0.20240528.144638.xpi";
+      sha256 = "caafc459488b63ba60920bb09f1b32fa6b0dd43fe71c72f88b7616cf0e4d4763";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2807,10 +2807,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "126.0.20240526.221752";
+      version = "126.0.20240528.144638";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4293914/francais_language_pack-126.0.20240526.221752.xpi";
-      sha256 = "f3859fabeb508d197ed055251b00562cfef8e7718aec95ea20dfe3d11607a53f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4294511/francais_language_pack-126.0.20240528.144638.xpi";
+      sha256 = "21b752aaf0271ebf61aa36d0b797fafb471fcaf5e4620ffbb5aaf665aa6d7607";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -7365,10 +7365,10 @@
     };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.23.3";
+      version = "2.24.2";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4279916/1password_x_password_manager-2.23.3.xpi";
-      sha256 = "e4212296da2064caebdac7e0925467179ae4bbfc01c824672f3ee41aa652654f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4291426/1password_x_password_manager-2.24.2.xpi";
+      sha256 = "f92d7e032a6bc4182079da912344cd91f2ae00fb883bc4fe8054d75ac6b6db83";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -11737,10 +11737,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.5.14.1";
+      version = "24.5.21.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4290609/yomitan-24.5.14.1.xpi";
-      sha256 = "e851913747225396f629f86d5773150b38269739209e4524081467244be1b208";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4294640/yomitan-24.5.21.0.xpi";
+      sha256 = "9f9ff09d4e1f5fde4e25ad1176ee01b8b7d59b888e7f22e83ba60ecfc944cb92";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
