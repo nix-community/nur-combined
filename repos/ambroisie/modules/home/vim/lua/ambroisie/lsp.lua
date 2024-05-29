@@ -5,7 +5,7 @@ local lsp_format = require("lsp-format")
 
 --- Move to the next/previous diagnostic, automatically showing the diagnostics
 --- float if necessary.
---- @param forward whether to go forward or backwards
+--- @param forward bool whether to go forward or backwards
 local function goto_diagnostic(forward)
     vim.validate({
         forward = { forward, "boolean" },
