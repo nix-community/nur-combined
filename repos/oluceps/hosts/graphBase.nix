@@ -12,8 +12,8 @@
       enable = true;
       defaultApplications =
         {
-          "tg" = [ "org.telegram.desktop.desktop" ];
-
+          "application/x-xdg-protocol-tg" = [ "org.telegram.desktop.desktop" ];
+          "x-scheme-handler/tg" = [ "org.telegram.desktop.desktop" ];
           "application/pdf" = [ "sioyek.desktop" ];
           "ppt/pptx" = [ "wps-office-wpp.desktop" ];
           "doc/docx" = [ "wps-office-wps.desktop" ];
