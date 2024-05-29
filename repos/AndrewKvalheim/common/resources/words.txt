@@ -302,6 +302,7 @@ EPUB
 ErgoDox
 ESM
 Etherpad
+ethnicities
 everyperson
 excludability
 excludable
@@ -751,6 +752,7 @@ peekable
 PeerTube
 PEMCO
 Pender
+Phanpy
 Phinney
 photogrammetry
 photorealistic
@@ -788,6 +790,7 @@ Postfix
 PostHTML
 postprocess
 PowerShell
+PPE
 pragma
 prebuilt
 precompile
@@ -937,6 +940,7 @@ serializer
 serializers
 serifless
 SES
+SGR
 ShellCheck
 Shilshole
 shitposting
@@ -1134,6 +1138,7 @@ unpaginate
 unpaginating
 unpermitted
 unprefixed
+unproctored
 unredaction
 unrendered
 unscope

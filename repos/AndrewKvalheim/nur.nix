@@ -18,7 +18,8 @@ rec {
       oklchToCss
       oklchToLinearRgb
       rgbToHex
-      round;
+      round
+      sgr;
   };
 
   apex = pkgs.callPackage ./packages/apex.nix { };

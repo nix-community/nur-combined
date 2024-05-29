@@ -109,6 +109,7 @@ in
       visidata
       vivictpp
       watchlog
+      wev
       whois
       wireguard-tools
       wl-clipboard

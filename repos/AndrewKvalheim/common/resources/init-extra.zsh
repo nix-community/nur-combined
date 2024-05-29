@@ -66,18 +66,6 @@ source @zsh-click@
 
 # Procedural aliases
 extract-pdf-images() { mkdir "${1%.pdf}" && @pdfimages@ -all -p "$1" "${1%.pdf}/${1%.pdf}" }
-git() {
-  if [[ "$1" == 'checkout' ]]; then
-    echo 'Reminder: Use `git switch` or `git restore` instead.' >&2
-    command git "$@"
-  elif [[ "$1" == 'clone' && "$2" =~ '^https://(github\.com|gitlab\.com)/([^/]+)/[^/]+' ]]; then
-    shift
-    echo "Detected origin name “${match[2]}”" >&2
-    command git clone --origin "${match[2]}" "$@"
-  else
-    command git "$@"
-  fi
-}
 idiff() { compare "$@" png:- | kitty +kitten icat }
 mkcd() { mkdir --parents "$@" && cd "${@:$#}" }
 nest() { mv --no-clobber --verbose "$1" "$1.original" && mkdir "$1" && mv --no-clobber --verbose "$1.original" "$1/$(basename "$1")" }

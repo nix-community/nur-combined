@@ -125,4 +125,6 @@ rec {
     in "#${f r}${f g}${f b}";
 
   round = x: floor (x + 0.5);
+
+  sgr = n: t: "[${n}m${t}[0m";
 }

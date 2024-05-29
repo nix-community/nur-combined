@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
+  inherit (builtins) mapAttrs toJSON;
   inherit (config) host;
   inherit (lib.generators) toINI;
   inherit (lib.hm.gvariant) mkTuple;
@@ -10,10 +11,11 @@ let
   extensions = with pkgs; [
     gnomeExtensions.appindicator
     gnomeExtensions.caffeine
+    gnomeExtensions.native-window-placement
     gnomeExtensions.notification-banner-position
+    gnomeExtensions.pop-shell
     gnomeExtensions.run-or-raise
     gnomeExtensions.system-monitor-next
-    gnomeExtensions.tiling-assistant
     gnomeExtensions.user-themes
   ];
 in
@@ -40,7 +42,11 @@ in
   # Shell
   dconf.settings."org/gnome/desktop/interface".clock-format = "24h";
   dconf.settings."org/gnome/desktop/interface".clock-show-weekday = true;
+  dconf.settings."org/gnome/desktop/interface".enable-hot-corners = false;
+  dconf.settings."org/gnome/mutter".workspaces-only-on-primary = false;
   dconf.settings."org/gnome/shell".enabled-extensions = map (e: e.extensionUuid) extensions;
+  dconf.settings."org/gnome/shell/extensions/pop-shell".hint-color-rgba =
+    with mapAttrs (_: v: toString (v * 255)) palette.rgb.black; "rgba(${r}, ${g}, ${b}, 1)";
 
   # Disabled extensions notification
   xdg.configFile."autostart/disabled-extensions-notification.desktop".text = toINI { } {
@@ -65,10 +71,15 @@ in
 
   # Keyboard shortcuts
   dconf.settings."org/gnome/desktop/wm/keybindings" = {
+    move-to-monitor-down = [ ];
+    move-to-monitor-up = [ ];
     switch-applications = [ ];
     switch-applications-backward = [ ];
     switch-windows = [ "<Alt>Tab" ];
     switch-windows-backward = [ "<Shift><Alt>Tab" ];
+  };
+  dconf.settings."org/gnome/mutter/wayland/keybindings" = {
+    restore-shortcuts = [ ];
   };
   dconf.settings."org/gnome/settings-daemon/plugins/media-keys".custom-keybindings = [
     "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
@@ -84,19 +95,35 @@ in
     command = "${pkgs.emote}/bin/emote";
     binding = "XF86Messenger";
   };
+  dconf.settings."org/gnome/shell/extensions/pop-shell" = {
+    activate-launcher = [ ];
+    focus-left = [ "<Shift><Alt>Page_Up" ];
+    focus-right = [ "<Shift><Alt>Page_Down" ];
+    tile-move-down-global = [ "<Control><Super>Down" ];
+    tile-move-left-global = [ "<Shift><Control><Alt>Page_Up" ];
+    tile-move-right-global = [ "<Shift><Control><Alt>Page_Down" ];
+    tile-move-up-global = [ "<Control><Super>Up" ];
+  };
   dconf.settings."org/gnome/shell/keybindings" = {
     toggle-quick-settings = [ ];
   };
   xdg.configFile."run-or-raise/shortcuts.conf".text = ''
-    <Super>c,qalculate-gtk,qalculate-gtk,
+    XF86Go,qalculate-gtk,qalculate-gtk,
+    <Super>c,codium,VSCodium,
     <Super>f,firefox,firefox,
     <Super>n,obsidian,obsidian,
     <Super>t,kitty,kitty,
-    <Super>s,codium,VSCodium,
   '';
 
   # Window management
   dconf.settings."org/gnome/mutter".attach-modal-dialogs = false;
+  xdg.configFile."pop-shell/config.json".text = toJSON {
+    float = [
+      ({ class = "emote"; })
+      ({ class = "qalculate-gtk"; })
+      ({ class = "wev"; })
+    ];
+  };
 
   # System monitor
   dconf.settings."org/gnome/shell/extensions/system-monitor" = {

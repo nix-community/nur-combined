@@ -3,6 +3,7 @@
 let
   inherit (builtins) readFile replaceStrings;
   inherit (lib) concatLines concatStringsSep genAttrs mapAttrsToList toShellVar;
+  inherit ((import ../../nur.nix { inherit pkgs; }).lib) sgr;
 
   palette = import ../resources/palette.nix { inherit lib pkgs; };
 
@@ -130,6 +131,7 @@ in
         set-clipboard = "wl-copy --type 'TEXT'";
         watch = "watch --color";
         wd = "git diff --no-index --word-diff --word-diff-regex '.'";
+        xev = "echo 'Use ${sgr "1" "wev"} instead.' >&2; return 1";
       };
   };
 

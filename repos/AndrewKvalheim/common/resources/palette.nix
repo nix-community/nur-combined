@@ -4,7 +4,7 @@ let
   inherit (builtins) listToAttrs mapAttrs;
   inherit (lib) concatLines imap0 mapAttrsRecursive mapAttrsToList nameValuePair;
   inherit (import ./lib.nix { inherit lib; }) findLowest rgbToAnsi;
-  inherit ((import ../../nur.nix { inherit pkgs; }).lib) contrastRatio linearRgbToRgb oklchToCss oklchToLinearRgb rgbToHex;
+  inherit ((import ../../nur.nix { inherit pkgs; }).lib) contrastRatio linearRgbToRgb oklchToCss oklchToLinearRgb rgbToHex sgr;
 
   dark = c: c // { l = 0.35; c = if c.c == 0 then 0 else 0.060; };
   dim = c: c // { l = 0.50; c = if c.c == 0 then 0 else 0.150; };
@@ -76,13 +76,13 @@ rec {
     in
     base // { bold = effect "1"; dim = effect "2" // { italic = effect "2;3"; }; italic = effect "3"; };
 
-  ansiFormat = mapAttrsRecursive (_: a: t: "[${a}m${t}[0m") ansi;
+  ansiFormat = mapAttrsRecursive (_: sgr) ansi;
 
   hex = mapAttrs (_: c: c.hex) colors;
 
   report = concatLines (mapAttrsToList
     (name: { ansi, css, hex, rgb, ... }:
-      "[${ansi}m██ ${name}[0m ${ansiFormat.black "${css} ≈ ${hex}"}")
+      "${sgr ansi "██ ${name}"} ${ansiFormat.black "${css} ≈ ${hex}"}")
     colors
   );
 

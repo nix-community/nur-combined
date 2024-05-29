@@ -31,6 +31,20 @@ in
   git-diff-minecraft = any;
   git-remote = any;
   gnome.gnome-shell.patch = ../packages/resources/gnome-shell_screenshot-location.patch; # Pending GNOME/gnome-shell#5370
+  gnomeExtensions.pop-shell = {
+    patch = ../packages/resources/pop-shell_theme.patch; # Pending pop-os/shell#1136
+    overlay = p: {
+      postInstall = p.postInstall or "" + ''
+        # Workaround for NixOS/nixpkgs#92265
+        mkdir --parents "$out/share/gsettings-schemas/$name/glib-2.0"
+        ln --symbolic "$out/share/gnome-shell/extensions/pop-shell@system76.com/schemas" "$out/share/gsettings-schemas/$name/glib-2.0/schemas"
+
+        # Workaround for NixOS/nixpkgs#314969
+        mkdir --parents "$out/share/gnome-control-center"
+        ln --symbolic "$src/keybindings" "$out/share/gnome-control-center/keybindings"
+      '';
+    };
+  };
   gopass-await.deps = { inherit (stable.gnome) zenity; };
   gopass-env = any;
   gopass-ydotool = any;
