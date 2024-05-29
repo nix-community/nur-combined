@@ -183,15 +183,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "acb6b57968fdca3642d6c22246f985958ed9f428";
+    version = "cec0e671c87ee31b67fe62da650c7aa56ae5dd9b";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "acb6b57968fdca3642d6c22246f985958ed9f428";
+      rev = "cec0e671c87ee31b67fe62da650c7aa56ae5dd9b";
       fetchSubmodules = false;
-      sha256 = "sha256-1YeIF63GTlcZAwenDPj922zZMRvNbRBK7dqs5nDm/v8=";
+      sha256 = "sha256-LDDbtb9gvJ4kOrV/pVU+NeB0LVj9J88/TCNJ09pgbMw=";
     };
-    date = "2024-05-27";
+    date = "2024-05-28";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -603,15 +603,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "7eecda6095c003ddded7175a1ffdf35a2ce63ed5";
+    version = "755c02310277212c764ab94b6eb9348d500ba07d";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "7eecda6095c003ddded7175a1ffdf35a2ce63ed5";
+      rev = "755c02310277212c764ab94b6eb9348d500ba07d";
       fetchSubmodules = false;
-      sha256 = "sha256-dOnEpgE3/bqnAcPhaceziLQo28+DRdhu7AZwoqhvIiA=";
+      sha256 = "sha256-vIhD47FI6OohvkxHPZZ3zgP3HrxgQQOSmPVCXWsonto=";
     };
-    date = "2024-05-20";
+    date = "2024-05-28";
   };
   libqcef = {
     pname = "libqcef";
@@ -719,13 +719,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3015";
+    version = "b3030";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3015";
+      rev = "b3030";
       fetchSubmodules = false;
-      sha256 = "sha256-suSbtnrGR8lPaFHc6jMusXuPhOORSF4ORkCJiUNu6r8=";
+      sha256 = "sha256-IfonNNgluNNuIqfob5lYQE5+XMvFMEE6etvGt6R+nuw=";
     };
   };
   nbfc-linux-lantian = {
@@ -1492,18 +1492,18 @@
   };
   wine-wechat-x64 = {
     pname = "wine-wechat-x64";
-    version = "3.9.10.19";
+    version = "3.9.10.27";
     src = fetchurl {
-      url = "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.10.19/WeChatSetup-3.9.10.19.exe";
-      sha256 = "sha256-lgKsuFQI7kjuaJRo9jVlSW37EvH+Ia1nSqQjAp44hWw=";
+      url = "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.10.27/WeChatSetup-3.9.10.27.exe";
+      sha256 = "sha256-vSMFIKuN6/QsKC8GfFVYO5DzyhHVuSmpmus69R+dI+o=";
     };
   };
   wine-wechat-x86 = {
     pname = "wine-wechat-x86";
-    version = "3.9.10.16";
+    version = "3.9.10.26";
     src = fetchurl {
-      url = "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.10.16/WeChatSetupX86-3.9.10.16.exe";
-      sha256 = "sha256-5qaJDi/smGvMesUuxqtn2Q16AoIyXK+ADGWAB+q6O3M=";
+      url = "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.10.26/WeChatSetupX86-3.9.10.26.exe";
+      sha256 = "sha256-26JFou15pk/6xhFFs6dWBOW/H5akNbEHtEUrC7sgwP8=";
     };
   };
   xstatic-asciinema-player = {
