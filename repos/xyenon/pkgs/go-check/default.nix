@@ -1,8 +1,8 @@
-{ lib, fetchFromGitHub, buildGoModule, nix-update-script }:
+{ lib, fetchFromGitHub, buildGoModule, unstableGitUpdater }:
 
 buildGoModule rec {
   pname = "go-check";
-  version = "unstable-2024-02-17";
+  version = "0-unstable-2024-02-17";
 
   src = fetchFromGitHub {
     owner = "Dreamacro";
@@ -15,7 +15,7 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version" "branch" ]; };
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = with lib; {
     description = "Check for outdated go module";

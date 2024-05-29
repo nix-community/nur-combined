@@ -17,14 +17,14 @@
 
 stdenv.mkDerivation rec {
   pname = "libkazv";
-  version = "unstable-2024-03-17";
+  version = "0.4.0-unstable-2024-05-25";
 
   src = fetchFromGitLab {
     domain = "lily-is.land";
     owner = "kazv";
     repo = pname;
-    rev = "7171e11687eb1f724f87e56d2770d55d0c1c3c52";
-    hash = "sha256-hqiautveyfNKYbeVY667sMmxdDV/rqGcTgD8zbwoWR8=";
+    rev = "0b2d473673e343ca5ceec461e382ed81e2063bd5";
+    hash = "sha256-syzFKzvv9GYKCC9nzEFlJmIQgY5h5i6WHEqmz6YEnsk=";
   };
 
   nativeBuildInputs = [ cmake pkg-config ];
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     "-Dlibkazv_BUILD_TESTS=ON"
   ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater { tagPrefix = "v"; };
 
   meta = with lib; {
     description = "A sans-io C++ (gnu++17) matrix client library";

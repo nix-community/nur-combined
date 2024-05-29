@@ -22,15 +22,15 @@
 
 stdenv.mkDerivation rec {
   pname = "kazv";
-  version = "unstable-2024-04-04";
+  version = "0.2.0-unstable-2024-05-29";
 
   src = fetchFromGitLab {
     domain = "lily-is.land";
     owner = "kazv";
     repo = pname;
     fetchSubmodules = true;
-    rev = "fee0f4415327fc0ebff8a8e07ccd42000737b675";
-    hash = "sha256-YM1POHR7lGmQYcWxapbaxWSLohhsJL/VuPvE3PejSjk=";
+    rev = "4dcc5526cef13e2ee23213c55325a8aa3eed51c9";
+    hash = "sha256-r38hdBLbb8uXU2631XWeU71i+bRA4Y2jTeqYMwtQiy4=";
   };
 
   nativeBuildInputs = [ wrapQtAppsHook cmake pkg-config ];
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [ breeze-icons ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater { tagPrefix = "v"; };
 
   meta = with lib; {
     description = "A convergent qml/kirigami matrix client based on libkazv";

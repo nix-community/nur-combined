@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "lager";
-  version = "unstable-2024-03-26";
+  version = "0.1.1-unstable-2024-03-26";
 
   src = fetchFromGitHub {
     owner = "arximboldi";
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-Dlager_BUILD_TESTS=ON" "-Dlager_BUILD_EXAMPLES=OFF" "-Dlager_BUILD_DOCS=OFF" ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {  tagPrefix = "v";};
 
   meta = with lib; {
     homepage = "https://github.com/arximboldi/lager";

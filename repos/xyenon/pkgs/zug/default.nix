@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "zug";
-  version = "unstable-2024-03-26";
+  version = "0.1.1-unstable-2024-03-26";
 
   src = fetchFromGitHub {
     owner = "arximboldi";
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [ "-Dzug_BUILD_TESTS=ON" "-Dzug_BUILD_EXAMPLES=OFF" "-Dzug_BUILD_DOCS=OFF" ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater { tagPrefix = "v"; };
 
   meta = with lib; {
     homepage = "https://github.com/arximboldi/zug";

@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "immer";
-  version = "unstable-2024-05-01";
+  version = "0.8.1-unstable-2024-05-01";
 
   src = fetchFromGitHub {
     owner = "arximboldi";
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     "-Dimmer_BUILD_EXTRAS=OFF"
   ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {  tagPrefix = "v";};
 
   meta = with lib; {
     homepage = "http://sinusoid.es/immer";
