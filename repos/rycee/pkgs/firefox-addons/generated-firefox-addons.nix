@@ -1857,10 +1857,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "126.0.20240528.144638";
+      version = "127.0.20240529.91551";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4294553/deutsch_de_language_pack-126.0.20240528.144638.xpi";
-      sha256 = "caafc459488b63ba60920bb09f1b32fa6b0dd43fe71c72f88b7616cf0e4d4763";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4294959/deutsch_de_language_pack-127.0.20240529.91551.xpi";
+      sha256 = "cad13480f8faa0d0f6ac01d4c05e8d63db424f28f13cf582abc87e3ad3da1117";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2807,10 +2807,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "126.0.20240528.144638";
+      version = "127.0.20240529.91551";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4294511/francais_language_pack-126.0.20240528.144638.xpi";
-      sha256 = "21b752aaf0271ebf61aa36d0b797fafb471fcaf5e4620ffbb5aaf665aa6d7607";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4295034/francais_language_pack-127.0.20240529.91551.xpi";
+      sha256 = "371e69744646beaae6f8d7f3eb0957e367f0a79a785a6faec3acfdf038ead263";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -7539,10 +7539,10 @@
     };
     "paperpile" = buildFirefoxXpiAddon {
       pname = "paperpile";
-      version = "1.0.41";
+      version = "1.0.47";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4255216/paperpile_addon-1.0.41.xpi";
-      sha256 = "ae79afd4c4175bd81993aebfeefd6f8c2bb4b4a30dc07f7e3a120bd2e7001b89";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4294799/paperpile_addon-1.0.47.xpi";
+      sha256 = "19deb25a7a12d582cc44b3275fbff59c42e4dc26651dffd0d1c386adbb587362";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -9393,10 +9393,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.5.9";
+      version = "5.6";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4251917/sponsorblock-5.5.9.xpi";
-      sha256 = "a4ea4938ca5375c3de6966caec5cd63ae458788830abdab49a700fdc39d80f58";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4292214/sponsorblock-5.6.xpi";
+      sha256 = "ec2343ee8db27666177e0b59510ddcd8b0f1072c88b5df05ba789d72a3af32e6";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -10818,10 +10818,10 @@
     };
     "video-downloadhelper" = buildFirefoxXpiAddon {
       pname = "video-downloadhelper";
-      version = "9.0.1.13";
+      version = "9.0.2.3";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4289663/video_downloadhelper-9.0.1.13.xpi";
-      sha256 = "e68a9f8aeaeea0a917c3021a2266c567fde455c46f2aa6d877cec346f50ee479";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4294325/video_downloadhelper-9.0.2.3.xpi";
+      sha256 = "972fc83bba868a19f551234a61bccf8534dc7b8a9fb9b0a04f5b4253ff06628f";
       meta = with lib;
       {
         homepage = "http://www.downloadhelper.net/";
@@ -10833,7 +10833,6 @@
           free = false;
         };
         mozPermissions = [
-          "downloads.open"
           "tabs"
           "webRequest"
           "downloads"
@@ -10847,6 +10846,7 @@
           "contextMenus"
           "nativeMessaging"
           "*://*.downloadhelper.net/*"
+          "*://*.downloadhelper.net/debugger"
         ];
         platforms = platforms.all;
       };
