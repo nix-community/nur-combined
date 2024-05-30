@@ -8,6 +8,8 @@ Darwin/macOS builds are manually pushed by me to cachix occasionally. Usually wh
 
 ## Packages
 
+Attributes listed on [the NUR](https://nur.nix-community.org/repos/ihaveamac/)
+
 * 3dstool-1.2.6 (as \_3dstool attribute)
 * lnshot-0.1.3
 * save3ds-dev-2023-03-28
@@ -19,6 +21,7 @@ Darwin/macOS builds are manually pushed by me to cachix occasionally. Usually wh
 * makerom-0.18.4
 * kwin-move-window-1.1.1
 * kwin-explicit-sync-patch-6.0.5.1
+* mediawiki-1.39.7
 
 ## Using the KWin patch
 
