@@ -38,11 +38,6 @@
 
   cppitertools = pkgs.callPackage ./pkgs/cppitertools { };
 
-  cutechess-qt6 = pkgs.qt6Packages.callPackage ./pkgs/cutechess {
-    qt5compat = pkgs.qt6.qt5compat;
-    qtwayland = pkgs.qt6.qtwayland;
-  };
-
   eli5 = pkgs.python3Packages.callPackage ./pkgs/eli5 { };
 
   eovim = pkgs.callPackage ./pkgs/eovim { };
@@ -50,8 +45,6 @@
   eve = pkgs.callPackage ./pkgs/eve { };
 
   expected-lite = pkgs.callPackage ./pkgs/expected-lite { };
-
-  fast_float = pkgs.callPackage ./pkgs/fast_float { };
 
   fastor = pkgs.callPackage ./pkgs/fastor { };
 
@@ -87,18 +80,9 @@
 
   pmlb = pkgs.python3Packages.callPackage ./pkgs/pmlb { };
 
-  pratt-parser = pkgs.callPackage ./pkgs/pratt-parser {
-    fast_float = fast_float;
-    robin-hood-hashing = robin-hood-hashing;
-  };
-
   q5go = pkgs.libsForQt5.callPackage ./pkgs/q5go { };
 
-  robin-hood-hashing = pkgs.callPackage ./pkgs/robin-hood-hashing { };
-
   scid = pkgs.callPackage ./pkgs/scid { };
-
-  simdutf_4 = pkgs.callPackage ./pkgs/simdutf_4 { };
 
   scnlib = pkgs.callPackage ./pkgs/scnlib { };
 
@@ -122,13 +106,9 @@
     vectorclass-cmake = ./pkgs/vectorclass/vectorclass-cmake;
   };
 
-  vstat = pkgs.callPackage ./pkgs/vstat { vectorclass = vectorclass; };
-
   xad = pkgs.callPackage ./pkgs/xad { };
 
   xxhash_cpp = pkgs.callPackage ./pkgs/xxhash_cpp { };
-
-  pyoperon = pkgs.python3Packages.callPackage ./pkgs/pyoperon { };
 
   qpdfview-qt5 = pkgs.libsForQt5.callPackage ./pkgs/qpdfview { };
   qpdfview-qt6 = pkgs.qt6Packages.callPackage ./pkgs/qpdfview { };
