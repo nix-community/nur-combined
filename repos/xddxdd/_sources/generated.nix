@@ -125,21 +125,21 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "1.13.5-1";
+    version = "1.13.5-2";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.13.5-1/bilibili-asar-v1.13.5-1.tar.gz";
-      sha256 = "sha256-Xx2LE56qZz+VM8aMTEOAbpkE+t85Ge4MdlkvpDbXDo0=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.13.5-2/bilibili-asar-v1.13.5-2.tar.gz";
+      sha256 = "sha256-O0LIjpkaKw37agB8nSQ5+HaXsEwnCqgXqOcWUPxkcXA=";
     };
   };
   bilibili-src = {
     pname = "bilibili-src";
-    version = "v1.13.5-1";
+    version = "v1.13.5-2";
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      rev = "v1.13.5-1";
+      rev = "v1.13.5-2";
       fetchSubmodules = false;
-      sha256 = "sha256-VVMFFMXA1QrOLVy3+IKFIdRjblm1lAvew0ueB1JqH7o=";
+      sha256 = "sha256-13zvX+kzUr00wxXrRFnkmfZp8S6xRrt9LR2zos6r2lw=";
     };
   };
   bird-lg-go = {
@@ -183,15 +183,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "cec0e671c87ee31b67fe62da650c7aa56ae5dd9b";
+    version = "bc222411d7481ac745760ab3aafbd4ed2651b150";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "cec0e671c87ee31b67fe62da650c7aa56ae5dd9b";
+      rev = "bc222411d7481ac745760ab3aafbd4ed2651b150";
       fetchSubmodules = false;
-      sha256 = "sha256-LDDbtb9gvJ4kOrV/pVU+NeB0LVj9J88/TCNJ09pgbMw=";
+      sha256 = "sha256-mBIMGxc6ymWNXQ8P5RmlcjGDK4cSiO54aPNk4o74rTo=";
     };
-    date = "2024-05-28";
+    date = "2024-05-29";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -719,13 +719,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3030";
+    version = "b3040";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3030";
+      rev = "b3040";
       fetchSubmodules = false;
-      sha256 = "sha256-IfonNNgluNNuIqfob5lYQE5+XMvFMEE6etvGt6R+nuw=";
+      sha256 = "sha256-a3sFzUi6HEK/NYZ2oke2feQGbkpHGsOcU/59uDybV3Q=";
     };
   };
   nbfc-linux-lantian = {

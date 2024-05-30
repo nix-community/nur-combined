@@ -218,11 +218,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Xx2LE56qZz+VM8aMTEOAbpkE+t85Ge4MdlkvpDbXDo0=",
+            "sha256": "sha256-O0LIjpkaKw37agB8nSQ5+HaXsEwnCqgXqOcWUPxkcXA=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.13.5-1/bilibili-asar-v1.13.5-1.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.13.5-2/bilibili-asar-v1.13.5-2.tar.gz"
         },
-        "version": "1.13.5-1"
+        "version": "1.13.5-2"
     },
     "bilibili-src": {
         "cargoLocks": null,
@@ -238,11 +238,11 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.13.5-1",
-            "sha256": "sha256-VVMFFMXA1QrOLVy3+IKFIdRjblm1lAvew0ueB1JqH7o=",
+            "rev": "v1.13.5-2",
+            "sha256": "sha256-13zvX+kzUr00wxXrRFnkmfZp8S6xRrt9LR2zos6r2lw=",
             "type": "github"
         },
-        "version": "v1.13.5-1"
+        "version": "v1.13.5-2"
     },
     "bird-lg-go": {
         "cargoLocks": null,
@@ -316,7 +316,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-05-28",
+        "date": "2024-05-29",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -328,11 +328,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "cec0e671c87ee31b67fe62da650c7aa56ae5dd9b",
-            "sha256": "sha256-LDDbtb9gvJ4kOrV/pVU+NeB0LVj9J88/TCNJ09pgbMw=",
+            "rev": "bc222411d7481ac745760ab3aafbd4ed2651b150",
+            "sha256": "sha256-mBIMGxc6ymWNXQ8P5RmlcjGDK4cSiO54aPNk4o74rTo=",
             "type": "github"
         },
-        "version": "cec0e671c87ee31b67fe62da650c7aa56ae5dd9b"
+        "version": "bc222411d7481ac745760ab3aafbd4ed2651b150"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1254,11 +1254,11 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3030",
-            "sha256": "sha256-IfonNNgluNNuIqfob5lYQE5+XMvFMEE6etvGt6R+nuw=",
+            "rev": "b3040",
+            "sha256": "sha256-a3sFzUi6HEK/NYZ2oke2feQGbkpHGsOcU/59uDybV3Q=",
             "type": "github"
         },
-        "version": "b3030"
+        "version": "b3040"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
