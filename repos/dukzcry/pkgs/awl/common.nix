@@ -42,5 +42,5 @@ rec {
       runHook postInstall
     '';
   });
-  patches = [ ./router.patch ];
+  patches = [ ./router.patch ./listen.patch ];
 }
