@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  gnumake,
 }: let
   rev = "3ba139f52fe7740267e9cb5d4ecd2b2a9a2bf69a";
   hash = "sha256-wngyFU59vz3KDfWqw1g77HuUbYEZokOYwBziyRmEV+E=";
