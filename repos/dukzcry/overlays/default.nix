@@ -38,4 +38,12 @@ rec {
       "PUBKEY_DIR=${pkgs.nur.repos.dukzcry.wireless-regdb}/lib/crda/pubkeys"
     ];
   });
+} // optionalAttrs ((config.services.vpn.enable or false) && (config.services.vpn.tor.enable or false)) {
+  tor = super.tor.overrideAttrs (oldAttrs: rec {
+    postPatch = ''
+      ${oldAttrs.postPatch}
+      substituteInPlace src/feature/client/addressmap.c \
+        --replace "if (bits > max_prefix_bits) {" "if (0) {"
+    '';
+  });
 }
