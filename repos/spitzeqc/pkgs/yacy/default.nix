@@ -1,4 +1,4 @@
-# https://github.com/milahu/nur-packages/blob/master/pkgs/yacy/yacy.nix
+# based on https://github.com/milahu/nur-packages/blob/master/pkgs/yacy/yacy.nix
 { config
 , lib
 , stdenv
@@ -15,7 +15,7 @@
 stdenv.mkDerivation rec {
   pname = "yacy";
   # last stable release was in year 2016
-  version = "unstable-2024-03-29";
+  version = "unstable-2024-05-26";
 
   /*
   # local source
@@ -30,8 +30,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "yacy";
     repo = "yacy_search_server";
-    rev = "656d47c1ac9b2ad6882cb626a44c7582316a6fea";
-    hash = "sha256-NNm70qu36GoEwaqNajLw+DLuEVcqleVUd5CUEcD61qY=";
+    rev = "70454654f367f3405043937107475526af02ae46";
+    hash = "sha256-zZkLplsmPDiH7PccxdcevkWBsgXbnFl7+Xl2j86O1ds=";
   };
 
   # TODO fetch jar's separately
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     '';
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    outputHash = "sha256-P8awlmajxoqUuM9d16VjIyomO+GjuILckU5FPNVfj1E=";
+    outputHash = "sha256-kFtCoAYR5uBs4XovDRDJGdOUlUMzBUfl/rEOpvFWmgk=";
   };
 
   #  echo ivyCache = ${ivyCache}
