@@ -9,7 +9,7 @@
 
 stdenv.mkDerivation {
   pname = "gpx-reduce";
-  version = "unstable-2022-11-18";
+  version = "0-unstable-2022-11-18";
 
   src = fetchFromGitHub {
     owner = "Alezy80";

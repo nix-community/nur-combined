@@ -8,7 +8,6 @@
 
   # Nix
   home.stateVersion = "22.05"; # Permanent
-  # TODO: Set nixpkgs.localSystem.platform.gcc
 
   # Host parameters
   host = {

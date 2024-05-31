@@ -11,7 +11,7 @@
 
 stdenv.mkDerivation rec {
   pname = "decompiler-mc";
-  version = "unstable-2024-04-13";
+  version = "0.9-unstable-2024-04-13";
 
   src = fetchFromGitHub {
     owner = "hube12";
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     cp --recursive $src/lib $out/lib
 
     install -D main.py $out/bin/${pname}
-    substituteInPlace $out/bin/${pname} --replace ./lib $out/lib
+    substituteInPlace $out/bin/${pname} --replace-fail ./lib $out/lib
     wrapProgram $out/bin/${pname} --prefix PATH : ${lib.makeBinPath [ jre ]}
   '';
 

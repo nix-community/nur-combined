@@ -34,6 +34,5 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://codeberg.org/AndrewKvalheim/little-a-map";
     license = lib.licenses.gpl3;
     mainProgram = pname;
-    broken = lib.versionOlder rustPlatform.rust.rustc.version "1.75.0"; # Cargo.toml package.rust-version
   };
 }

@@ -1,8 +1,8 @@
-{ buildGoModule, fetchFromGitHub, lib, unstableGitUpdater }:
+{ buildGoModule, fetchFromGitHub, lib }:
 
 buildGoModule {
   pname = "apex";
-  version = "unstable-2021-12-09";
+  version = "1.0.0-rc4-unstable-2021-12-09";
 
   src = fetchFromGitHub {
     owner = "imdatngo";
@@ -12,8 +12,6 @@ buildGoModule {
   };
 
   vendorHash = "sha256-i0+EETYoDnkKTjj9Qi8nUir4iip4mQx9uIrMkY+hbDc=";
-
-  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     description = "Apex lets you build, deploy, and manage AWS Lambda functions with ease.";

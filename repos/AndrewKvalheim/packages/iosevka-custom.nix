@@ -3,15 +3,15 @@
 let
   base = {
     widths = {
-      normal = { css = "normal"; menu = 5; shape = 500; };
+      Normal = { css = "normal"; menu = 5; shape = 500; };
     };
     weights = {
-      regular = { css = 400; menu = 400; shape = 400; };
-      bold = { css = 700; menu = 700; shape = 800; };
+      Regular = { css = 400; menu = 400; shape = 400; };
+      Bold = { css = 700; menu = 700; shape = 800; };
     };
     slopes = {
-      upright = { angle = 0; css = "normal"; menu = "upright"; shape = "upright"; };
-      italic = { angle = 9.4; css = "italic"; menu = "italic"; shape = "italic"; };
+      Upright = { angle = 0; css = "normal"; menu = "upright"; shape = "upright"; };
+      Italic = { angle = 9.4; css = "italic"; menu = "italic"; shape = "italic"; };
     };
     variants.design = {
       digit-form = "old-style";
@@ -45,10 +45,10 @@ let
       y = "curly-serifless";
       z = "curly-serifless";
       zero = "slashed";
-      two = "straight-neck";
-      three = "flat-top";
-      four = "semi-open-non-crossing";
-      five = "oblique-flat";
+      two = "straight-neck-serifless";
+      three = "flat-top-serifless";
+      four = "semi-open-non-crossing-serifless";
+      five = "oblique-flat-serifless";
       six = "straight-bar";
       seven = "bend-serifless";
       eight = "crossing-asymmetric";
@@ -70,7 +70,7 @@ let
 in
 {
   proportional = iosevka.override {
-    set = "custom-proportional";
+    set = "CustomProportional";
     privateBuildPlan = base // {
       family = "Iosevka Custom Proportional";
       spacing = "quasi-proportional";
@@ -79,7 +79,7 @@ in
   };
 
   mono = iosevka.override {
-    set = "custom-mono";
+    set = "CustomMono";
     privateBuildPlan = base // {
       family = "Iosevka Custom Mono";
       ligations = { inherits = "javascript"; };
@@ -87,11 +87,11 @@ in
   };
 
   term = iosevka.override {
-    set = "custom-term";
+    set = "CustomTerm";
     privateBuildPlan = base // {
       family = "Iosevka Custom Term";
       spacing = "term";
-      no-ligation = true;
+      noLigation = true;
     };
   };
 }

@@ -126,8 +126,8 @@ let
       unnecessaryFile = ! isLocal repo && pathExists file;
       unnecessarySearches = concatMapStringsSep ", " repoName (filter (r: r._extra > repo._extra or 0) extra);
     in
-    if hasAttrByPath (path ++ [ "overrideScope'" ]) stable then
-      (getAttrFromPath path stable).overrideScope' (_: _: mapAttrs (resolve path) spec)
+    if hasAttrByPath (path ++ [ "overrideScope" ]) stable then
+      (getAttrFromPath path stable).overrideScope (_: _: mapAttrs (resolve path) spec)
     else if recurseForDerivations || (attrByPath (path ++ [ "recurseForDerivations" ]) false repo) then
       (attrByPath path { } repo) // { recurseForDerivations = false; } // (mapAttrs (resolve path) spec)
     else

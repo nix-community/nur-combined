@@ -9,7 +9,7 @@
 
 stdenv.mkDerivation {
   pname = "affine-font";
-  version = "unstable-2023-02-09";
+  version = "0-unstable-2023-02-09";
 
   src = fetchFromGitea {
     domain = "codeberg.org";

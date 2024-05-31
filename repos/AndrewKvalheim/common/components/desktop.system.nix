@@ -14,8 +14,6 @@
     gnome-music
     gnome-weather
   ];
-  # Workaround for NixOS/nixpkgs#92265
-  services.xserver.desktopManager.gnome.sessionPath = [ pkgs.gnomeExtensions.pop-shell ];
 
   # Audio
   hardware.pulseaudio.enable = false;

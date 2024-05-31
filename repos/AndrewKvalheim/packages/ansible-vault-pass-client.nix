@@ -10,7 +10,7 @@
 
 stdenv.mkDerivation {
   pname = "ansible-vault-pass-client";
-  version = "unstable-2022-04-21";
+  version = "1.0.1-unstable-2022-04-21";
 
   src = fetchFromGitHub {
     owner = "me-vlad";
@@ -21,7 +21,7 @@ stdenv.mkDerivation {
 
   postPatch = ''
     substituteInPlace ansible-vault-pass-client \
-      --replace "'pass'" "'${gopass}/bin/gopass'"
+      --replace-fail "'pass'" "'${gopass}/bin/gopass'"
   '';
 
   buildInputs = [ python3 ];

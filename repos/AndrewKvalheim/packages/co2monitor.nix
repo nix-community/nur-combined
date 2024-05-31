@@ -11,7 +11,7 @@ let
 in
 buildGoModule {
   pname = "co2monitor";
-  version = "unstable-2021-08-10";
+  version = "0-unstable-2021-08-10";
 
   src = fetchFromGitHub {
     owner = "larsp";

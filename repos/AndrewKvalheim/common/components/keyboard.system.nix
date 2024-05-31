@@ -8,12 +8,11 @@ in
 {
   imports = [
     ../../packages/kmonad.nix
-    ../../packages/ydotoold.nix
   ];
 
   console.useXkbConfig = true;
-  services.xserver.layout = "halmakish";
-  services.xserver.extraLayouts.halmakish = {
+  services.xserver.xkb.layout = "halmakish";
+  services.xserver.xkb.extraLayouts.halmakish = {
     description = "Halmakish";
     languages = [ "eng" ];
     symbolsFile = ../resources/halmakish.xkb;
@@ -28,7 +27,7 @@ in
     };
   };
 
-  services.ydotoold.enable = true;
+  programs.ydotool.enable = true;
 
   # Permissions
   users.users.${identity.username}.extraGroups = [ "ydotool" ];

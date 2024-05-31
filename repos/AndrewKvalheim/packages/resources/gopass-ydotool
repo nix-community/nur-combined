@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-export YDOTOOL_SOCKET='/run/ydotool/ydotool.sock'
-
 ydotool type --file <( gopass show --password "$1" )

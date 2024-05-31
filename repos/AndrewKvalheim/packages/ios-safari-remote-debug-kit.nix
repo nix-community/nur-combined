@@ -13,7 +13,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "ios-safari-remote-debug-kit";
-  version = "unstable-2022-06-21";
+  version = "0-unstable-2022-06-21";
 
   src = fetchFromGitHub {
     owner = "HimbeersaftLP";

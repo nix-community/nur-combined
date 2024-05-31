@@ -39,7 +39,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "git-diff-image";
-  version = "unstable-2023-09-04";
+  version = "0-unstable-2023-09-04";
 
   src = fetchFromGitHub {
     owner = "ewanmellor";

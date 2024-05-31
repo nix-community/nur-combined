@@ -27,18 +27,7 @@ let
 
   cfg = config.services.kmonad;
 
-  package = pkgs.callPackage ({ haskellPackages, haskell }: let
-    src = pkgs.fetchFromGitHub {
-      owner = "kmonad";
-      repo = "kmonad";
-      rev = "7961987123e3cbeb60594123c03bb3a8ad1bc8d9";
-      hash = "sha256-wNWu+3ADEyGJSHavzx4BZH6kh/tTFbxJ9x3a5Ak8+x0=";
-    };
-    drv = pkgs.haskell.lib.addBuildDepends
-      (haskell.lib.justStaticExecutables (haskellPackages.callCabal2nix "kmonad" src { }))
-      [ pkgs.git ]
-    ;
-  in drv) { };
+  package = pkgs.kmonad;
 
   # Per-keyboard options:
   keyboard = { name, ... }: {

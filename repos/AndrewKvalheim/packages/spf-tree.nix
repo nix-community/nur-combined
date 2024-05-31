@@ -6,7 +6,7 @@
 
 buildGoModule rec {
   pname = "spf-tree";
-  version = "unstable-2020-12-07";
+  version = "0-unstable-2020-12-07";
 
   src = fetchFromGitHub {
     owner = "ttacon";

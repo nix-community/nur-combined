@@ -7,14 +7,13 @@ let
   open-vsx = { _name = "open-vsx"; vscode-extensions = community-vscode-extensions.open-vsx; };
   vscode-marketplace = { _name = "vscode-marketplace"; vscode-extensions = community-vscode-extensions.vscode-marketplace; };
 in
-(specify {
+specify {
   add-words = any;
   affine-font = any;
   album-art = any;
   ansible-vault-pass-client = any;
   apex = any;
   attachments = any;
-  aws-sam-cli.version = "≥1.102"; # Support for nodejs20.x runtime
   buildJosmPlugin = any;
   cavif = any;
   ch57x-keyboard-tool = any;
@@ -23,7 +22,7 @@ in
   dmarc-report-converter = any;
   dmarc-report-notifier = any;
   email-hash = any;
-  emote.overlay = e: { postInstall = e.postInstall or "" + "\nsubstituteInPlace $out/share/applications/emote.desktop --replace 'Exec=emote' \"Exec=$out/bin/emote\""; }; # Allow desktop entry as entrypoint
+  emote.overlay = e: { postInstall = e.postInstall or "" + "\nsubstituteInPlace $out/share/applications/emote.desktop --replace-fail 'Exec=emote' \"Exec=$out/bin/emote\""; }; # Allow desktop entry as entrypoint
   fastnbt-tools = any;
   fediblockhole = any;
   firefox.overlay = w: { buildCommand = w.buildCommand + "\nwrapProgram $executablePath --unset LC_TIME"; }; # Workaround for bugzilla#1269895
@@ -31,20 +30,11 @@ in
   git-diff-minecraft = any;
   git-remote = any;
   gnome.gnome-shell.patch = ../packages/resources/gnome-shell_screenshot-location.patch; # Pending GNOME/gnome-shell#5370
-  gnomeExtensions.pop-shell = {
-    patch = ../packages/resources/pop-shell_theme.patch; # Pending pop-os/shell#1136
-    overlay = p: {
-      postInstall = p.postInstall or "" + ''
-        # Workaround for NixOS/nixpkgs#92265
-        mkdir --parents "$out/share/gsettings-schemas/$name/glib-2.0"
-        ln --symbolic "$out/share/gnome-shell/extensions/pop-shell@system76.com/schemas" "$out/share/gsettings-schemas/$name/glib-2.0/schemas"
-
-        # Workaround for NixOS/nixpkgs#314969
-        mkdir --parents "$out/share/gnome-control-center"
-        ln --symbolic "$src/keybindings" "$out/share/gnome-control-center/keybindings"
-      '';
-    };
-  };
+  gnomeExtensions.forge.patch = [
+    (stable.fetchpatch { url = "https://patch-diff.githubusercontent.com/raw/forge-ext/forge/pull/392.patch"; hash = "sha256-XJEJDHr31tOq/kwRuUrm2/tu8L88giqVEzFZXet7/qY="; }) # forge-ext/forge#341
+    (stable.fetchpatch { url = "https://patch-diff.githubusercontent.com/raw/forge-ext/forge/pull/393.patch"; hash = "sha256-mAwhqzFgu6W0NT9wQlKFSA61O2Ta+GQ+1BzYIHSkbhU="; }) # forge-ext/forge#391
+    (stable.fetchpatch { url = "https://patch-diff.githubusercontent.com/raw/forge-ext/forge/pull/395.patch"; hash = "sha256-L/rvRP6e5v55WmZrUImgC3BvgqyG9yv7SKeRCFkKpYg="; }) # forge-ext/forge#395
+  ];
   gopass-await.deps = { inherit (stable.gnome) zenity; };
   gopass-env = any;
   gopass-ydotool = any;
@@ -55,29 +45,21 @@ in
   ios-safari-remote-debug-kit = any;
   ios-webkit-debug-proxy = any;
   iosevka-custom = any;
-  iptables_exporter.rustPlatform = stable.lib.throwIf (stable.lib.versionAtLeast stable.rustc.version "1.74") "iptables_exporter no longer requires unstable Rust" unstable.rustPlatform; # Pending Rust ≥1.74 via NixOS 24.05
   josm = { jre = resolved.graalvm-ce; extraJavaOpts = "--module-path=${resolved.graalvmCEPackages.graaljs}/modules"; }; # josm-scripting-plugin
   josm-imagery-used = any;
-  little-a-map.rustPlatform = stable.lib.throwIf (stable.lib.versionAtLeast stable.rustc.version "1.75") "little-a-map no longer requires unstable Rust" unstable.rustPlatform; # Pending Rust ≥1.75 via NixOS 24.05
-  lychee.version = "≥0.14.0"; # lycheeverse/lychee#1133
   minemap = any;
   mmdbinspect = any;
   mozjpeg-simple = any;
   nbt-explorer = any;
-  nodejs_22 = any;
-  obsidian.version = "≥1.5.8";
   off = any;
   picard.overlay = p: { preFixup = p.preFixup + "\nmakeWrapperArgs+=(--prefix PATH : ${stable.lib.makeBinPath [ resolved.rsgain ]})"; }; # NixOS/nixpkgs#255222
   pngquant-interactive = any;
   pnpm = any;
-  rsgain = any;
-  rust-analyzer-unwrapped.version = "≥2023-12-11"; # “proc-macro server's api version (3) is newer than rust-analyzer's (2)”
   signal-desktop.gappsWrapperArgs = "--add-flags --use-tray-icon"; # Enable tray icon
   spf-check = any;
   spf-tree = any;
   tile-stitch = any;
   unln = any;
-  vagrant.version = "≥2.4.0"; # Compatibility with Bento images
   vscode-extensions = namespaced {
     bierner.markdown-preview-github-styles.search = open-vsx;
     bpruitt-goddard.mermaid-markdown-syntax-highlighting.search = open-vsx;
@@ -90,31 +72,21 @@ in
     fabiospampinato.vscode-highlight.search = open-vsx;
     flowtype.flow-for-vscode = { version = "≥2.2.1"; search = [ open-vsx vscode-marketplace ]; };
     joaompinto.vscode-graphviz.search = open-vsx;
-    karunamurti.haml = any;
     kokakiwi.vscode-just.search = open-vsx;
     leighlondon.eml.search = [ open-vsx vscode-marketplace ];
     mitchdenny.ecdc.search = open-vsx;
-    ms-vsliveshare.vsliveshare.version = "≥1.0.5900"; # NixOS/nixpkgs#278922
     ronnidc.nunjucks.search = [ open-vsx vscode-marketplace ];
-    samuelcolvin.jinjahtml = any;
-    shopify.ruby-lsp = any;
     silvenon.mdx.search = open-vsx;
     sissel.shopify-liquid.search = open-vsx;
-    stylelint.vscode-stylelint = any;
     syler.sass-indented.search = open-vsx;
     theaflowers.qalc.search = open-vsx;
     volkerdobler.insertnums.search = [ open-vsx vscode-marketplace ];
     ybaumes.highlight-trailing-white-spaces.search = open-vsx;
   };
-  vscodium = {
-    version = "≥1.88"; # Required by volkerdobler.insertnums
-    gappsWrapperArgs = "--unset NIXOS_OZONE_WL"; # Workaround for mangled keybindings
-  };
+  vscodium.gappsWrapperArgs = "--unset NIXOS_OZONE_WL"; # Workaround for blurriness and mangled keybindings
   whipper.patch = [ ../packages/resources/whipper_flac-level.patch ../packages/resources/whipper_speed.patch ../packages/resources/whipper_detect-tty.patch ];
   yaru-theme.patch = ../packages/resources/yaru-theme_font.patch; # Set GNOME Shell font
   ydotool.patch = ../packages/resources/ydotool-halmakish.patch; # Pending ReimuNotMoe/ydotool#177
   zsh-abbr.condition = z: !z.meta.unfree;
   zsh-click = any;
-}) // {
-  jpegli = (specify { libjxl = { version = "≥0.10.2"; search = pr 288419; }; }).libjxl;
 }

@@ -9,7 +9,7 @@
 
 stdenv.mkDerivation {
   pname = "spf-check";
-  version = "unstable-2023-11-20";
+  version = "0-unstable-2023-11-20";
 
   src = fetchFromGitHub {
     owner = "gsvitins";

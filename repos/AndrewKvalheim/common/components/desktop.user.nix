@@ -1,19 +1,17 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (builtins) mapAttrs toJSON;
   inherit (config) host;
   inherit (lib.generators) toINI;
-  inherit (lib.hm.gvariant) mkTuple;
+  inherit (lib.hm.gvariant) mkTuple mkUint32;
 
   palette = import ../resources/palette.nix { inherit lib pkgs; };
 
   extensions = with pkgs; [
     gnomeExtensions.appindicator
     gnomeExtensions.caffeine
-    gnomeExtensions.native-window-placement
+    gnomeExtensions.forge
     gnomeExtensions.notification-banner-position
-    gnomeExtensions.pop-shell
     gnomeExtensions.run-or-raise
     gnomeExtensions.system-monitor-next
     gnomeExtensions.user-themes
@@ -38,15 +36,20 @@ in
   dconf.settings."org/gtk/settings/color-chooser".custom-colors = with palette.rgb;
     map ({ r, g, b }: mkTuple [ r g b 1.0 ])
       [ red green yellow blue orange purple ];
+  xdg.configFile."forge/stylesheet/forge/stylesheet.css".source = ../resources/forge.css;
 
   # Shell
   dconf.settings."org/gnome/desktop/interface".clock-format = "24h";
   dconf.settings."org/gnome/desktop/interface".clock-show-weekday = true;
   dconf.settings."org/gnome/desktop/interface".enable-hot-corners = false;
-  dconf.settings."org/gnome/mutter".workspaces-only-on-primary = false;
   dconf.settings."org/gnome/shell".enabled-extensions = map (e: e.extensionUuid) extensions;
-  dconf.settings."org/gnome/shell/extensions/pop-shell".hint-color-rgba =
-    with mapAttrs (_: v: toString (v * 255)) palette.rgb.black; "rgba(${r}, ${g}, ${b}, 1)";
+  dconf.settings."org/gnome/shell/extensions/forge" = {
+    auto-split-enabled = false;
+    float-always-on-top-enabled = false;
+    focus-border-toggle = false;
+    move-pointer-focus-enabled = false;
+    window-gap-size = mkUint32 0;
+  };
 
   # Disabled extensions notification
   xdg.configFile."autostart/disabled-extensions-notification.desktop".text = toINI { } {
@@ -78,9 +81,6 @@ in
     switch-windows = [ "<Alt>Tab" ];
     switch-windows-backward = [ "<Shift><Alt>Tab" ];
   };
-  dconf.settings."org/gnome/mutter/wayland/keybindings" = {
-    restore-shortcuts = [ ];
-  };
   dconf.settings."org/gnome/settings-daemon/plugins/media-keys".custom-keybindings = [
     "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
     "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
@@ -95,14 +95,47 @@ in
     command = "${pkgs.emote}/bin/emote";
     binding = "XF86Messenger";
   };
-  dconf.settings."org/gnome/shell/extensions/pop-shell" = {
-    activate-launcher = [ ];
-    focus-left = [ "<Shift><Alt>Page_Up" ];
-    focus-right = [ "<Shift><Alt>Page_Down" ];
-    tile-move-down-global = [ "<Control><Super>Down" ];
-    tile-move-left-global = [ "<Shift><Control><Alt>Page_Up" ];
-    tile-move-right-global = [ "<Shift><Control><Alt>Page_Down" ];
-    tile-move-up-global = [ "<Control><Super>Up" ];
+  dconf.settings."org/gnome/shell/extensions/forge/keybindings" = {
+    con-split-horizontal = [ ];
+    con-split-layout-toggle = [ ];
+    con-split-vertical = [ ];
+    con-stacked-layout-toggle = [ ];
+    con-tabbed-layout-toggle = [ ];
+    con-tabbed-showtab-decoration-toggle = [ ];
+    focus-border-toggle = [ ];
+    prefs-open = [ ];
+    prefs-tiling-toggle = [ ];
+    window-focus-down = [ "<Super>Down" ];
+    window-focus-left = [ "<Shift><Alt>Page_Up" ];
+    window-focus-right = [ "<Shift><Alt>Page_Down" ];
+    window-focus-up = [ "<Super>Up" ];
+    window-gap-size-decrease = [ ];
+    window-gap-size-increase = [ ];
+    window-move-down = [ "<Control><Super>Down" ];
+    window-move-left = [ "<Shift><Control><Alt>Page_Up" ];
+    window-move-right = [ "<Shift><Control><Alt>Page_Down" ];
+    window-move-up = [ "<Control><Super>Up" ];
+    window-resize-bottom-decrease = [ ];
+    window-resize-bottom-increase = [ ];
+    window-resize-left-decrease = [ ];
+    window-resize-left-increase = [ ];
+    window-resize-right-decrease = [ ];
+    window-resize-right-increase = [ ];
+    window-resize-top-decrease = [ ];
+    window-resize-top-increase = [ ];
+    window-snap-center = [ ];
+    window-snap-one-third-left = [ ];
+    window-snap-one-third-right = [ ];
+    window-snap-two-third-left = [ ];
+    window-snap-two-third-right = [ ];
+    window-swap-down = [ ];
+    window-swap-last-active = [ ];
+    window-swap-left = [ ];
+    window-swap-right = [ ];
+    window-swap-up = [ ];
+    window-toggle-always-float = [ "<Super>F11" ];
+    window-toggle-float = [ ];
+    workspace-active-tile-toggle = [ ];
   };
   dconf.settings."org/gnome/shell/keybindings" = {
     toggle-quick-settings = [ ];
@@ -117,13 +150,6 @@ in
 
   # Window management
   dconf.settings."org/gnome/mutter".attach-modal-dialogs = false;
-  xdg.configFile."pop-shell/config.json".text = toJSON {
-    float = [
-      ({ class = "emote"; })
-      ({ class = "qalculate-gtk"; })
-      ({ class = "wev"; })
-    ];
-  };
 
   # System monitor
   dconf.settings."org/gnome/shell/extensions/system-monitor" = {

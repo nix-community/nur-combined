@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+nix-instantiate \
+  --eval \
+  --json \
+  --arg 'lib' '(import <nixpkgs> { }).lib' \
+  --arg 'pkgs' 'import <nixpkgs> { }' \
+  --attr 'report' \
+  'common/resources/palette.nix' \
+| jq --join-output '.' # Pending NixOS/nix#7654

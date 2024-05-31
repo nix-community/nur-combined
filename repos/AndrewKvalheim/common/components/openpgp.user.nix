@@ -9,7 +9,6 @@ in
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
-    pinentryFlavor = null /* system default */; # Pending nix-community/home-manager#4805
   };
 
   systemd.user.services.yubikey-touch-detector = {

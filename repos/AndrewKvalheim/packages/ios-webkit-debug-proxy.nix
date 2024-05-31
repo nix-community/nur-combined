@@ -20,7 +20,7 @@ let
 in
 stdenv.mkDerivation {
   pname = "ios-webkit-debug-proxy";
-  version = "unstable-2021-08-12";
+  version = "1.8.8-unstable-2021-08-12";
 
   src = fetchFromGitHub {
     owner = "google";
