@@ -2,11 +2,11 @@
   "satty": {
     "cargoLocks": {
       "Cargo.lock": [
-        "./satty-5ccc51b79862b0641a8bf3bce22b28721a3f0d12/Cargo.lock",
+        "./satty-d2e3137667c9b8f1e5a5777be831a5b6acbfc31b/Cargo.lock",
         {}
       ]
     },
-    "date": "2024-05-15",
+    "date": "2024-05-30",
     "extract": null,
     "name": "satty",
     "passthru": null,
@@ -18,10 +18,10 @@
       "name": null,
       "owner": "gabm",
       "repo": "Satty",
-      "rev": "5ccc51b79862b0641a8bf3bce22b28721a3f0d12",
-      "sha256": "sha256-AFYpqP86G5shQ+mjLZV68NNhLw946I7yYopjztmUTdY=",
+      "rev": "d2e3137667c9b8f1e5a5777be831a5b6acbfc31b",
+      "sha256": "sha256-4upjVP7DEWD76wycmCQxl86nsJYI0+V7dSThRFJu9Ds=",
       "type": "github"
     },
-    "version": "5ccc51b79862b0641a8bf3bce22b28721a3f0d12"
+    "version": "d2e3137667c9b8f1e5a5777be831a5b6acbfc31b"
   }
 }
