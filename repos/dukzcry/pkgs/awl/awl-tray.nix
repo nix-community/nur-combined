@@ -21,10 +21,6 @@ in buildGoModule rec {
 
   propagatedUserEnvPkgs = [ gnome3.zenity ];
 
-  ldflags = [
-    "-X github.com/anywherelan/awl/config.Version=v${version}"
-  ];
-
   proxyVendor = true;
   vendorHash = "sha256-jQwHWfZcOiXHFthtCbnI4ri03kyGSgkzaVVgbXWMaHw=";
 

@@ -12,10 +12,6 @@ in buildGoModule rec {
     rm -r cmd/awl-tray
   '';
 
-  ldflags = [
-    "-X github.com/anywherelan/awl/config.Version=v${version}"
-  ];
-
   vendorHash = "sha256-2Ryggo61Lb6BUxIR7ilZ+7tT71y0PMZpIUkP6AP9dC0=";
 
   meta = with lib; {
