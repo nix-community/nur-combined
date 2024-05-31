@@ -1,12 +1,12 @@
-{ fetchFromGitHub, flutter }:
+{ fetchFromGitHub, fetchFromGitLab, flutter }:
 
 rec {
   version = "0.10.0";
-  src = fetchFromGitHub {
-    owner = "anywherelan";
+  src = fetchFromGitLab {
+    owner = "repos-holder";
     repo = "awl";
-    rev = "v${version}";
-    sha256 = "sha256-lZv3XQmUGcroOWDPRSZ0I1eu3TH5J3AzsAYaHL5wBQ0=";
+    rev = "37a343ffa522a6e74be31d73420ef04515321fde";
+    sha256 = "sha256-oNNrqUtuFQSl3uBVzttsaXRWwVOFhODKRsymifLqyoM=";
   };
  awl_flutter = (flutter.buildFlutterApplication  rec {
     pname = "awl-flutter";
@@ -42,5 +42,4 @@ rec {
       runHook postInstall
     '';
   });
-  patches = [ ./router.patch ./listen.patch ];
 }

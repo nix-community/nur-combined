@@ -5,7 +5,7 @@ let
 in buildGoModule rec {
   pname = "awl-tray";
 
-  inherit (common) version src patches;
+  inherit (common) version src;
 
   buildInputs = [ makeWrapper ];
 
@@ -26,7 +26,7 @@ in buildGoModule rec {
   ];
 
   proxyVendor = true;
-  vendorHash = "sha256-7nmPchoKz/ARq6QRBFFJVnnxyEopHvBf6xbmTY/b67Y=";
+  vendorHash = "sha256-jQwHWfZcOiXHFthtCbnI4ri03kyGSgkzaVVgbXWMaHw=";
 
   meta = with lib; {
     description = "Securely connect your devices into a private network";

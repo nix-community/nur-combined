@@ -5,7 +5,7 @@ let
 in buildGoModule rec {
   pname = "awl";
 
-  inherit (common) version src patches;
+  inherit (common) version src;
 
   preBuild = ''
     cp -r ${common.awl_flutter} static
@@ -16,7 +16,7 @@ in buildGoModule rec {
     "-X github.com/anywherelan/awl/config.Version=v${version}"
   ];
 
-  vendorHash = "sha256-3UY92eLHC9xG93JVT/Zv0Vd58z4jf2Njz5ktPPPgZww=";
+  vendorHash = "sha256-2Ryggo61Lb6BUxIR7ilZ+7tT71y0PMZpIUkP6AP9dC0=";
 
   meta = with lib; {
     description = "Securely connect your devices into a private network";
