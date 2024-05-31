@@ -51,11 +51,22 @@
       "earlycon=uart8250,mmio32,0xff130000"
       "mitigations=off"
     ];
-    initrd = {
-      includeDefaultModules = false;
-    };
     blacklistedKernelModules = [ "hantro_vpu" "drm" "lima" "rockchip_vdec" ];
     tmp.useTmpfs = true;
+  };
+
+  boot.initrd = {
+    includeDefaultModules = false;
+    extraUtilsCommands = ''
+      copy_bin_and_libs ${pkgs.haveged}/bin/haveged
+    '';
+    extraUtilsCommandsTest = ''
+      $out/bin/haveged --version
+    '';
+    # provide entropy with haveged in stage 1 for faster crng init
+    postDeviceCommands = ''
+      haveged --once
+    '';
   };
 
   boot.kernel.sysctl = {

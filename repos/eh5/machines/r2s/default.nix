@@ -1,8 +1,6 @@
 { self, system ? "aarch64-linux", nixpkgs, sops-nix }:
 let
   inherit (nixpkgs) lib;
-  inherit (self.packages.${system}) sops-install-secrets-nonblock;
-  inherit (self.packages.${system}) shadow-tls;
 in
 lib.nixosSystem rec {
   inherit system;
@@ -25,7 +23,6 @@ lib.nixosSystem rec {
         self.overlays.default
       ];
       system.enableExtlinuxTarball = true;
-      sops.package = sops-install-secrets-nonblock;
     }
   ];
 }
