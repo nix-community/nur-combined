@@ -1776,10 +1776,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2421.0";
+      version = "6.2422.1";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4289992/dashlane-6.2421.0.xpi";
-      sha256 = "f7fd7d943604ad32abe9046f914edbdd0b9b9964f65ee974cf1866d15de5f97d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4294289/dashlane-6.2422.1.xpi";
+      sha256 = "2f36bacdb4e014789273af306a5e7c487f96b7f49933cb274051413811b895c2";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2053,10 +2053,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.39.2";
+      version = "2.39.3";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4293516/dualsub-2.39.2.xpi";
-      sha256 = "7482de32830d6943b9489d46c12d4a767c18e15a836c05be1562826b2ca87866";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4295464/dualsub-2.39.3.xpi";
+      sha256 = "b6694fcd089ff7fe0ee7dd1a090cec6914a190c1048a205b35d86193fe442dfa";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2262,10 +2262,10 @@
     };
     "enhanced-h264ify" = buildFirefoxXpiAddon {
       pname = "enhanced-h264ify";
-      version = "2.2.0";
+      version = "2.2.1";
       addonId = "{9a41dee2-b924-4161-a971-7fb35c053a4a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4292809/enhanced_h264ify-2.2.0.xpi";
-      sha256 = "5e77104b2a94f20399b99d3be05dd40afe53ac1445803adf0542b18cac8e3f58";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4295701/enhanced_h264ify-2.2.1.xpi";
+      sha256 = "68bf0cd6b2c26de24f263eb76848886665423b73c3f055633dcdbde51d2a35a9";
       meta = with lib;
       {
         homepage = "https://github.com/alextrv/enhanced-h264ify";
@@ -2864,10 +2864,10 @@
     };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.12.10";
+      version = "8.12.11";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4283747/ghostery-8.12.10.xpi";
-      sha256 = "29247d3526fa0c21c8389655555a71e5f66955133501c5f4c492d724cabedfc8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4294254/ghostery-8.12.11.xpi";
+      sha256 = "9847b61eb64fa4ec8e1e70d50575f3017f0af2156b295afba3e98421f4e90d12";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -3557,10 +3557,10 @@
     };
     "history-cleaner" = buildFirefoxXpiAddon {
       pname = "history-cleaner";
-      version = "1.5.1";
+      version = "1.6.1";
       addonId = "{a138007c-5ff6-4d10-83d9-0afaf0efbe5e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4240570/history_cleaner-1.5.1.xpi";
-      sha256 = "f331f4ff30ea1988d6097203d436eaa2dbdc44f2f202ef7bd0ad3783111ad2e2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4294373/history_cleaner-1.6.1.xpi";
+      sha256 = "81289812592d1b0d0a903b9bc567b2257c56558f3e29cb8a361613014a488f6b";
       meta = with lib;
       {
         homepage = "https://github.com/Rayquaza01/HistoryCleaner";
@@ -6761,10 +6761,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.13.24";
+      version = "2.14.3";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4243072/momentumdash-2.13.24.xpi";
-      sha256 = "396e0a08699e9f951fdc5caa4fe5034561552952103131d2ca583d5c4920adde";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4293859/momentumdash-2.14.3.xpi";
+      sha256 = "bf0fa9e73abd94d72fab230b7b5ffcea7be72a5ad97ce38ab9b68c358b58b35a";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -6775,7 +6775,11 @@
           url = "https://momentumdash.com/legal";
           free = false;
         };
-        mozPermissions = [ "unlimitedStorage" "https://*.momentumdash.com/*" ];
+        mozPermissions = [
+          "unlimitedStorage"
+          "https://*.momentumdash.com/*"
+          "alarms"
+        ];
         platforms = platforms.all;
       };
     };
@@ -7774,10 +7778,10 @@
     };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2024.5.17";
+      version = "2024.5.27";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4288634/privacy_badger17-2024.5.17.xpi";
-      sha256 = "5dfe8b3a8d1a8dde87c2873a5b82b5e78e413f981e629c8b341dcd947c3ec4fe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4294424/privacy_badger17-2024.5.27.xpi";
+      sha256 = "bf8e9f231bdd7754d337ebb51a96bb179bae8cffac9fe71521c36f1958425de3";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
@@ -9235,10 +9239,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.48";
+      version = "1.22.49";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4286096/single_file-1.22.48.xpi";
-      sha256 = "3166308728700d081b5b7c1d4b04b5b5c5bdf6d9b204501800cca015b233c012";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4294665/single_file-1.22.49.xpi";
+      sha256 = "2230a3d4313e07c1416e87b0d7a6ba52a5c86b8ca83b71b6054cfe1abe5a0014";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -10414,10 +10418,10 @@
     };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.6.0";
+      version = "8.7.0";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4282471/ublacklist-8.6.0.xpi";
-      sha256 = "fd35698f162758741af72e90002c32dac2e2414567542818f3d9eb2bcaa5f45f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4293250/ublacklist-8.7.0.xpi";
+      sha256 = "bf6f4e5983274b428364d8b15dc36f0024fc2941254fd6749df7ac5f77384aa9";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
@@ -11360,10 +11364,10 @@
     };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "3.7.0";
+      version = "3.8.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4251168/web_scrobbler-3.7.0.xpi";
-      sha256 = "44b3eaf0eacdd6601e0884e9f7c2f837f0c485a5436afb76715a6d517814549c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4293319/web_scrobbler-3.8.0.xpi";
+      sha256 = "864589eeaf46297300ed533dc34e51d2639e409169c035216b3d9be27e7fda81";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
