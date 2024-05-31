@@ -5,8 +5,8 @@ rec {
   src = fetchFromGitLab {
     owner = "repos-holder";
     repo = "awl";
-    rev = "9066b1ad59c22f7c5d6e7de060ebfbc2799afb09";
-    sha256 = "sha256-oNNrqUtuFQSl3uBVzttsaXRWwVOFhODKRsymifLqyoN=";
+    rev = "2c436fc7737bfdd8be0be5ad8e07c3670b4956d2";
+    sha256 = "sha256-QrvYq/OKU5YRDuaYyDSilAhCMQJKoARVd3Gq7GADILM=";
   };
  awl_flutter = (flutter.buildFlutterApplication  rec {
     pname = "awl-flutter";
