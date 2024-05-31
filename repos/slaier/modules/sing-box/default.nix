@@ -2,8 +2,6 @@
 let
   sing-box-config = with pkgs; substituteAll {
     src = ./config.json;
-    geoip = "${sing-geoip}/share/sing-box/geoip.db";
-    geosite = "${sing-geosite}/share/sing-box/geosite.db";
     yacd = config.nur.repos.linyinfeng.yacd;
   };
 in

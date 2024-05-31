@@ -37,12 +37,6 @@
     }
   ],
   "route": {
-    "geoip": {
-      "path": "@geoip@"
-    },
-    "geosite": {
-      "path": "@geosite@"
-    },
     "rules": [
       {
         "rule_set": [
@@ -58,10 +52,6 @@
       {
         "rule_set": [
           "geosite-spotify"
-        ],
-        "domain_suffix": [
-          "google.com",
-          "google.com.hk"
         ],
         "outbound": "Chinese_out"
       }

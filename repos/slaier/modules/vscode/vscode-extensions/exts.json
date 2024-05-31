@@ -2,13 +2,19 @@
   {
     "publisher": "ms-vscode-remote",
     "name": "remote-containers",
-    "version": "0.294.0",
-    "sha256": "sha256-Lnwan4jT5cQ/0ymd3skxS3cAhXZdwvKDRjzheX1Hqf4="
+    "version": "0.327.0",
+    "sha256": "sha256-nx4g73fYTm5L/1s/IHMkiYBlt3v1PobAv6/0VUrlWis="
   },
   {
     "publisher": "grafana",
     "name": "vscode-jsonnet",
-    "version": "0.4.1",
-    "sha256": "5NNONMRL4at7FwUPBRhPrNWExHtzuK3US0HHn+XeeXw="
+    "version": "0.6.1",
+    "sha256": "sha256-8t/9EJs9Ly6C89jM6HdCbeAdIvjSfePKD2WQwBtuJI0="
+  },
+  {
+    "publisher": "mesonbuild",
+    "name": "mesonbuild",
+    "version": "1.24.0",
+    "sha256": "sha256-n7c2CUiTIej2Y/QMGWpv6anuCDjqpo2W+hJylfvvMVE="
   }
 ]

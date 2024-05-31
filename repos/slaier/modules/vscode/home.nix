@@ -1,5 +1,21 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, nixosConfig, ... }:
+let
+  getName = x: x.meta.mainProgram or (lib.getName x);
+in
+{
   home.sessionVariables.EDITOR = "code -w";
+  home.packages = with pkgs; [
+    clang
+    clang-tools
+    jsonnet-language-server
+    meson
+    muon
+    ninja
+    pkg-config
+    podman
+    podman-compose
+    nixosConfig.nur.repos.bandithedoge.mesonlsp-bin
+  ];
   programs.vscode = {
     enable = true;
     package = pkgs.vscode;
@@ -10,6 +26,7 @@
         grafana.vscode-jsonnet
         jnoortheen.nix-ide
         llvm-vs-code-extensions.vscode-clangd
+        mesonbuild.mesonbuild
         mkhl.direnv
         ms-python.vscode-pylance
         ms-vscode-remote.remote-containers
@@ -81,18 +98,20 @@
       "workbench.editor.enablePreviewFromCodeNavigation" = true;
       "workbench.iconTheme" = "file-icons";
 
-      "clangd.path" = pkgs.clang-tools + "/bin/clangd";
       "dev.containers.defaultExtensions" = [
         "Tyriar.sort-lines"
         "eamodio.gitlens"
         "shardulm94.trailing-spaces"
       ];
-      "dev.containers.dockerComposePath" = lib.getExe pkgs.podman-compose;
-      "dev.containers.dockerPath" = lib.getExe' pkgs.podman "podman";
+      "dev.containers.dockerComposePath" = getName pkgs.podman-compose;
+      "dev.containers.dockerPath" = getName pkgs.podman;
       "direnv.restart.automatic" = true;
-      "jsonnet.languageServer" = {
-        enableAutoUpdate = false;
-        pathToBinary = lib.getExe' pkgs.jsonnet-language-server "jsonnet-language-server";
+      "jsonnet.languageServer.enableAutoUpdate" = false;
+      mesonbuild = {
+        buildFolder = "build";
+        downloadLanguageServer = false;
+        formatting.enabled = true;
+        linter.muon.enabled = true;
       };
       "nix.enableLanguageServer" = true;
       "nix.serverPath" = "${lib.getExe pkgs.nil}";

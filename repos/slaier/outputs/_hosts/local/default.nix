@@ -63,7 +63,6 @@ in
   environment.systemPackages = with pkgs; [
     alacritty
     bottom
-    clang
     curl
     doggo
     gammastep
