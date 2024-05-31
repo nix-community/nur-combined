@@ -20,17 +20,9 @@ A daily Github Actions will build all packages and push to [cachix](https://cryo
 
 - maa-cli-nightly
 
-### Telegram desktop with webview-fix patch
-
-Patches from: https://gitlab.archlinux.org/archlinux/packaging/packages/telegram-desktop/-/issues/1 , it is believed to fix the issue that webview crashes in Telegram desktop, but actually seems not work.
-
 ### Other packages
 
-- [BMI260](https://github.com/hhd-dev/bmi260) \
-  A Bosch BMI260 driver
-- [onnxruntime-cuda-bin](https://github.com/microsoft/onnxruntime)
-- [rime-latex](https://github.com/shenlebantongying/rime_latex)
-- [rime-project-trans](https://github.com/project-trans/rime-dict)
+See https://nur.nix-community.org/repos/cryolitia/
 
 ## Cachix
 
