@@ -45,8 +45,10 @@ specify {
   ios-safari-remote-debug-kit = any;
   ios-webkit-debug-proxy = any;
   iosevka-custom = any;
+  iptables_exporter = any;
   josm = { jre = resolved.graalvm-ce; extraJavaOpts = "--module-path=${resolved.graalvmCEPackages.graaljs}/modules"; }; # josm-scripting-plugin
   josm-imagery-used = any;
+  little-a-map = any;
   minemap = any;
   mmdbinspect = any;
   mozjpeg-simple = any;

@@ -79,7 +79,6 @@ in
 
     # Power
     systemd.ctrlAltDelUnit = "poweroff.target";
-    services.irqbalance.enable = true;
 
     # Authentication
     security.pam.u2f = {
