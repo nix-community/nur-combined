@@ -38,11 +38,14 @@ rec {
   # find a lot of games on https://itch.io/games/free/platform-linux
   hospital-hero = pkgs.callPackage ./pkgs/hospital-hero { lib = mylib; };
   kelftool = pkgs.callPackage ./pkgs/kelftool { lib = mylib; };
-  magick2cpc = pkgs.callPackage ./pkgs/magick2cpc { lib = mylib; };
+
+  # need to port to imagemagick7 or GraphicsMagick
+  # magick2cpc = pkgs.callPackage ./pkgs/magick2cpc { lib = mylib; };
   matiec = pkgs.callPackage ./pkgs/matiec { lib = mylib; };
   microwindows = pkgs.callPackage ./pkgs/microwindows { lib = mylib; };
   mkpsxiso = pkgs.callPackage ./pkgs/mkpsxiso { lib = mylib; };
-  navit = pkgs.libsForQt5.callPackage ./pkgs/navit { lib = mylib; };
+  # unsecure freeimage
+  # navit = pkgs.libsForQt5.callPackage ./pkgs/navit { lib = mylib; };
   # navittom = pkgs.callPackage ./pkgs/navittom {};
   nsntrace = pkgs.callPackage ./pkgs/nsntrace { lib = mylib; };
   ntpbclient = pkgs.callPackage ./pkgs/ntpbclient { lib = mylib; };

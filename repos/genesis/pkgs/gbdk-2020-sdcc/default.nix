@@ -61,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     (fetchpatch {
       url = "https://github.com/gbdk-2020/gbdk-2020-sdcc/releases/download/patches/gbdk-4.3-nes_banked_nonbanked_no_overlay_locals_v8_combined.patch";
-      sha256 = "0m6a6x47j86yq72pmxajfnnaigcwv0xsbgaz39b60jrcpz7pm10c";
+      sha256 = "sha256-aLxtpMs5aVgCiJmV6CzwJuTUh5zP98E+t3HW5VvlWzA=";
     })
   ];
 
