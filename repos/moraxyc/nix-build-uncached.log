@@ -1,36 +1,24 @@
 $ nix --version
 $ nix-build --dry-run ci.nix -A x86_64-linux --show-trace
-these 44 paths will be fetched (64.07 MiB download, 238.07 MiB unpacked):
-  /nix/store/mjgi65m3hgzqqvqcix848gskkw5zzwi9-acl-2.3.2
+these 29 paths will be fetched (57.50 MiB download, 214.50 MiB unpacked):
   /nix/store/fr5czx2lvi8cc1p3afpfkhxig12h2kya-alist-3.34.0
-  /nix/store/5nk2ga7i2f030am4qpcdsd8qlk6i3z83-attr-2.5.2
-  /nix/store/jpjmh2325b6k3svvsmhj57wqlph9srdx-brotli-1.1.0-lib
   /nix/store/php4qidg2bxzmm79vpri025bqi0fa889-coreutils-9.5
   /nix/store/ri96q2zjkfxzqb5ph1ah6wjx4kab6dyf-cyrus-imapd-3.8.2
   /nix/store/qyf1p1snpawa4qc7mmxchs9lfg8vqwbh-cyrus-sasl-2.1.28
   /nix/store/awf21b51j6dzli32zkqaqvf9wy5q9qf5-db-5.3.28
-  /nix/store/xvzz97yk73hw03v5dhhz3j47ggwf1yq1-gcc-13.2.0-lib
-  /nix/store/0rxb3ixzk4zaqivc9s795m0a3679wbw2-gcc-13.2.0-libgcc
   /nix/store/c2v6ycn0sjcpx9ww8x7j4ima6xnpssry-glib-2.80.2
   /nix/store/7ivacs3m2fm19hyxdmrs05xisj82v6y5-gmp-with-cxx-6.3.0
-  /nix/store/rx6nkd40819acppajq29g1hxa4d9r35f-gmp-with-cxx-6.3.0
   /nix/store/dzsby2vk02jcn0s43fkna2qqqix6ccy1-iana-etc-20240318
   /nix/store/lvq4hib247ayxib31hp7gryx444m1l3a-icu4c-73.2
   /nix/store/sfw3i65rm80rza2im80prhhm9zgaf01d-jansson-2.14
-  /nix/store/0vcrqaqf5sk158xy77mcl52374c1dlbi-keyutils-1.6.3-lib
   /nix/store/n82v6ka6s37zyva1n468xfxkalj6623n-libchardet-1.0.6
-  /nix/store/kbg5m7fyi1w23fyfmxjhhzcbd577rpg0-libffi-3.4.6
   /nix/store/4q7hxcwmmgzpd6gyr5v0lms8vdw4zm7r-libical-3.0.18
-  /nix/store/5pcy995yarjy7bfdswgkfggbzg48dlq0-libkrb5-1.21.2
   /nix/store/5frkz5kp1p3i6wfgcjgbba38pypg4app-libselinux-3.6
   /nix/store/6w6dq0xaakqifq17y8h3fssjviy8h7pg-libsrs2-1.0.18
   /nix/store/5xynf9c9ml7d97q70kpq9rpqqmx13xl8-libxcrypt-4.4.36
-  /nix/store/kf7fzax0av9him9m4zcmbqmihh5108wq-libxml2-2.12.7
   /nix/store/9wkzjgwdzivacwi50s6xvg6wxd1rc0s4-lz4-1.9.4
   /nix/store/zk9ybjjixdwyv3jmpg2i7s8p7iqi5vhh-mailcap-2.1.53
   /nix/store/cfgpxq64il1sfsjqbblghds82jf2a185-nettle-3.9.1
-  /nix/store/kw1nc4sg6hp550z8g8pdjb3d3ixz4m3l-nghttp2-1.61.0-lib
-  /nix/store/gp504m4dvw5k2pdx6pccf1km79fkcwgf-openssl-3.0.13
   /nix/store/qannz09m66qpcy3ny1f4nkl4ql0g71ks-openssl-3.0.13-bin
   /nix/store/191vca5vdxdlr32k2hpzd66mic98930f-openssl-3.0.13-dev
   /nix/store/g3vi60zgyjsvij7xkk6dxky1hkwh0ynd-pcre2-10.43
@@ -38,11 +26,8 @@ these 44 paths will be fetched (64.07 MiB download, 238.07 MiB unpacked):
   /nix/store/mhka5bhhrcqhznlvavhrfp4n5bb9zvv6-popt-1.19
   /nix/store/mccr31lihzfldyxxifdbj56chadlrhs3-rsync-3.3.0
   /nix/store/qk3a7iy9wp69wfb1s85f2rss2f0mpc1g-shapelib-1.6.0
-  /nix/store/y5p181lnbh8rrwd3ljp83k0cn3xklyk2-sqlite-3.45.3
   /nix/store/05n35k0p8l969kfskxqhbqhy8il3a3cq-util-linux-minimal-2.40.1-lib
   /nix/store/f6xjqsz91byyd2gsq152w1yv6k0sl3xb-wslay-1.1.1
   /nix/store/j02b5xpsgnkf7n11chslyk7vsli6a5n0-xapian-1.4.25
   /nix/store/am37dvnx1w7adyml0p15gcj7xq12s8j4-xxHash-0.8.2
-  /nix/store/lv6nackqis28gg7l2ic43f6nk52hb39g-zlib-1.3.1
-  /nix/store/by853zqacqy647v0z7l70xm77xl9ifal-zstd-1.5.6
 
