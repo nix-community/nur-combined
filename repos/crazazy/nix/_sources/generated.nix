@@ -11,10 +11,10 @@
   };
   enso = {
     pname = "enso";
-    version = "2024.1.1-nightly.2024.5.8";
+    version = "2024.1.1-rc.2";
     src = fetchurl {
-      url = "https://github.com/enso-org/enso/releases/download/2024.1.1-nightly.2024.5.8/enso-linux-x86_64-2024.1.1-nightly.2024.5.8.AppImage";
-      sha256 = "sha256-9cS35mfSl7fIxy/eMZMHKnETAzA1eTziswE47JiK1Fg=";
+      url = "https://github.com/enso-org/enso/releases/download/2024.1.1-rc.2/enso-linux-x86_64-2024.1.1-rc.2.AppImage";
+      sha256 = "sha256-hHTMapaeLTBj31rTJXSTyNRJcm9PhFWEk1Bs9DMpI4w=";
     };
   };
   guile-config = {
@@ -59,21 +59,22 @@
   };
   wasmfxtime = {
     pname = "wasmfxtime";
-    version = "ccd140529874a49780354faaca0450601055daf5";
+    version = "a0e8fa2e8fd1df356bf99e0c55d428c579d57638";
     src = fetchFromGitHub {
       owner = "wasmfx";
       repo = "wasmfxtime";
-      rev = "ccd140529874a49780354faaca0450601055daf5";
+      rev = "a0e8fa2e8fd1df356bf99e0c55d428c579d57638";
       fetchSubmodules = true;
-      sha256 = "sha256-iXhNPG3drAyPMm/e5yTYGeyriVTalcxgOD54XFLdXGI=";
+      sha256 = "sha256-tZs45Ri5FSEIsZ6aNTHJ+bGZC543owM0LluXUo0yB+E=";
     };
     cargoLock."./Cargo.lock" = {
-      lockFile = ./wasmfxtime-ccd140529874a49780354faaca0450601055daf5/./Cargo.lock;
+      lockFile = ./wasmfxtime-a0e8fa2e8fd1df356bf99e0c55d428c579d57638/./Cargo.lock;
       outputHashes = {
         "wasm-encoder-0.208.1" = "sha256-nxWjQ0JvxBTUVo0S6muOyeK5wJQH4iNK79zcuBwJaVs=";
+        "wasm-encoder-0.209.1" = "sha256-RR+F6RIexUAS3MajvV8fL4sfkNFKQt6pNvLwMvNKv7w=";
         "wit-bindgen-0.25.0" = "sha256-ZjshdeDojY4yUvtUuenucKuPHCwzXZ/b6wXebO+l0mQ=";
       };
     };
-    date = "2024-05-23";
+    date = "2024-05-30";
   };
 }
