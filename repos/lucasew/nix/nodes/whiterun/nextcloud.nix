@@ -9,7 +9,7 @@ let
 in
 {
   config = mkIf config.services.nextcloud.enable {
-    services.nextcloud.package = pkgs.nextcloud28;
+    services.nextcloud.package = pkgs.nextcloud29;
     users.users.nextcloud = {
       extraGroups = [
         "admin-password"

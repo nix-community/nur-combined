@@ -18,6 +18,7 @@ in
     ./ansible-python.nix
     ./services
 
+    ./admin-user.nix
     ./hosts.nix
     ./kvm.nix
     ./lvm.nix
@@ -28,7 +29,6 @@ in
     ./tmux
     ./tuning.nix
     ./unstore.nix
-    ./user.nix
     ./postgres-backup.nix
     ./forbidden-paths.nix
   ];
