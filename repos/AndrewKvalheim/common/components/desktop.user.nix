@@ -74,12 +74,15 @@ in
 
   # Keyboard shortcuts
   dconf.settings."org/gnome/desktop/wm/keybindings" = {
+    maximize = [ ];
     move-to-monitor-down = [ ];
     move-to-monitor-up = [ ];
     switch-applications = [ ];
     switch-applications-backward = [ ];
     switch-windows = [ "<Alt>Tab" ];
     switch-windows-backward = [ "<Shift><Alt>Tab" ];
+    toggle-maximized = [ "<Super>Return" ];
+    unmaximize = [ ];
   };
   dconf.settings."org/gnome/settings-daemon/plugins/media-keys".custom-keybindings = [
     "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
