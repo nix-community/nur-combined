@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, imagemagick6, pkgconfig, autoreconfHook }:
+{ lib, stdenv, fetchFromGitHub, imagemagick6, pkg-config, autoreconfHook }:
 
 stdenv.mkDerivation rec {
   name = "magick2cpc-${version}";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "16412i9skdmi9a297dxwr6817wfwafbpx4vxfkks9pwx2jcmp75j";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkgconfig ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
   buildInputs = [ imagemagick6 ];
 
   meta = with lib; {

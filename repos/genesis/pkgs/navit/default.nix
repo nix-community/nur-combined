@@ -1,7 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, pkgconfig
+, pkg-config
 , fontconfig
 , freetype
 , imlib2
@@ -13,13 +13,13 @@
 , librsvg #inkscape
 , libxslt
 , cairo
-, gdk_pixbuf
+, gdk-pixbuf
 , pango
 , atk
 , patchelf
 , fetchurl
 , bzip2
-, python
+, python3
 , gettext
 , libpng
 , zlib
@@ -120,12 +120,12 @@ stdenv.mkDerivation rec {
     "-DCMAKE_RC_COMPILER=${stdenv.cc.targetPrefix}windres"
   ];
 
-  nativeBuildInputs = [ gettext makeWrapper pkgconfig cmake patchelf bzip2 libxslt ]
+  nativeBuildInputs = [ gettext makeWrapper pkg-config cmake patchelf bzip2 libxslt ]
     ++ optional stdenv.targetPlatform.isMinGW nsis;
 
   buildInputs = [ libpng zlib ]
     ++ optionals stdenv.hostPlatform.isLinux [
-    python
+    python3
     gd
     freetype
     fribidi
@@ -136,7 +136,7 @@ stdenv.mkDerivation rec {
     gpsd
     shapelib
   ]
-    ++ optionals gtkSupport [ atk cairo gtk2 gdk_pixbuf pango imlib2 ]
+    ++ optionals gtkSupport [ atk cairo gtk2 gdk-pixbuf pango imlib2 ]
     ++ optionals sdlSupport [ SDL SDL_image ]
     ++ optionals qtSupport [
     qtquickcontrols

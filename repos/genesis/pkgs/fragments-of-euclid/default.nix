@@ -6,7 +6,7 @@
 , autoPatchelfHook
 , makeWrapper
 , gtk2
-, gdk_pixbuf
+, gdk-pixbuf
 , glib
 , gobject-introspection
 , libX11
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ autoPatchelfHook makeWrapper unzip ];
-  buildInputs = [ gtk2 glib gdk_pixbuf gobject-introspection libXcursor libXrandr libX11 mesa mesa_glu mono ];
+  buildInputs = [ gtk2 glib gdk-pixbuf gobject-introspection libXcursor libXrandr libX11 mesa mesa_glu mono ];
 
   #phases = [ "unpackPhase" "installPhase" ];
   sourceRoot = ".";

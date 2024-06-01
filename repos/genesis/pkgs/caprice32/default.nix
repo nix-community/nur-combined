@@ -3,7 +3,7 @@
 , fetchFromGitHub
 , desktop-file-utils
 , libpng
-, pkgconfig
+, pkg-config
 , SDL2
 , freetype
 , zlib
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-bO1HJxNp9+aFukvtaoz9WrB6y21ok3Dxu+CpyoRf+2Q=";
   };
 
-  nativeBuildInputs = [ desktop-file-utils pkgconfig ];
+  nativeBuildInputs = [ desktop-file-utils pkg-config ];
   buildInputs = [ libpng SDL2 freetype zlib ];
 
   makeFlags = [

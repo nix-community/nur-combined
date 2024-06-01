@@ -1,14 +1,14 @@
 { lib, stdenv, fetchFromGitHub }:
 
 stdenv.mkDerivation rec{
-  version = "1.2.0";
+  version = "1.3.0";
   pname = "ps2client";
 
   src = fetchFromGitHub {
     owner = "ps2dev";
     repo  = "ps2client";
     rev = "v${version}";
-    sha256 = "sha256-ftbQENwvkhRoL9XSewIFgv1blb3kUtKCSA0pwruh944=";
+    sha256 = "sha256-XGfwISmiwXl1EDgQJK+rA9kZDLetAUp76F7jIbvE9ec=";
   };
 
   patchPhase = ''

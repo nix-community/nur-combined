@@ -2,7 +2,7 @@
 , stdenv
 , fetchFromGitHub
 , qmake
-, pkgconfig
+, pkg-config
 , libpng
 , zlib
 , unzip

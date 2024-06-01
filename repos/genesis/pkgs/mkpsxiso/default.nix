@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkgconfig, tinyxml2 }:
+{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, tinyxml2 }:
 
 stdenv.mkDerivation rec {
   pname = "mkpsxiso";
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   #'';
 
   buildInputs = [ tinyxml2 ];
-  nativeBuildInputs = [ cmake pkgconfig ];
+  nativeBuildInputs = [ cmake pkg-config ];
   #cmakeFlags = [
   #  "-DTINYXML_INCLUDE_DIR=${tinyxml}/include"
   #  "-DTINYXML_LIBRARIES=${tinyxml}/lib"

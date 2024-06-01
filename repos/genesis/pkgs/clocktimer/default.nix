@@ -25,16 +25,17 @@ python3Packages.buildPythonApplication rec {
   ];
 
   dontBuild = true;
-
-  desktopItem = makeDesktopItem {
-    name = "Clocktimer";
-    exec = "@out@/bin/clocktimer";
-    #icon = "Clocktimer";
-    desktopName = "Clocktimer";
-    genericName = "clock";
-    categories = "Application;";
-    startupNotify = "false";
-  };
+  
+  desktopItems = [
+    (makeDesktopItem {
+      name = pname;
+      #icon = "Clocktimer";
+      desktopName = "Clocktimer";
+      genericName = "clock";
+      categories = [ "Application" ];
+      exec = pname;
+    })
+  ];
 
   installPhase = ''
     mkdir -p $out/bin

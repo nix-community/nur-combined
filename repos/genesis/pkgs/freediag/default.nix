@@ -2,7 +2,7 @@
 , stdenv
 , fetchFromGitHub
 , cmake
-, pkgconfig
+, pkg-config
 , enableGUI ? false
 , libGLU_combined ? null
 , fltk ? null
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "0krwbz9jnyzjwmjkx1ffh7v3qk8r2xd4lg3jm9mqxyiw780r4n4s";
   };
 
-  nativeBuildInputs = [ cmake pkgconfig ];
+  nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = optionals enableGUI [ libGLU_combined fltk ];
 
   cmakeFlags = optional enableGUI [ "-DBUILD_GUI=1" ];

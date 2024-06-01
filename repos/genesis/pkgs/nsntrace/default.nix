@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkgconfig, iptables, libpcap, libxslt, libnl }:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, iptables, libpcap, libxslt, libnl }:
 
 stdenv.mkDerivation rec {
   version = "unstable-2020-05-25";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "1650h49gr8dn2z9m7cglg8whvyc7isf071aqbxz2zxlq432858y7";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkgconfig ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
   buildInputs = [ iptables libnl libpcap libxslt ];
 
   #very ugly for now
