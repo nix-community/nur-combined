@@ -1,10 +1,11 @@
-{ background ? "Assets/Background.jpg"
-, autoFocusPassword ? false
-, enableHDPI ? false
-, lib
-, stdenvNoCC
-, fetchFromGitHub
-, writeText
+{
+  background ? "Assets/Background.jpg",
+  autoFocusPassword ? false,
+  enableHDPI ? false,
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  writeText,
 }:
 
 let

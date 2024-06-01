@@ -5,15 +5,13 @@ with final;
 let
   callPackage = prev.newScope final;
 
-  emacsPackagesOverlay =
-    import ./applications/editors/emacs/elisp-packages/manual-packages final;
+  emacsPackagesOverlay = import ./applications/editors/emacs/elisp-packages/manual-packages final;
 
   linuxModulesOverlay =
-    if stdenv.isLinux
-    then import ./os-specific/linux/modules.nix final
-    else lfinal: lprev: { };
+    if stdenv.isLinux then import ./os-specific/linux/modules.nix final else lfinal: lprev: { };
 
-  mapDisabledToBroken = attrs:
+  mapDisabledToBroken =
+    attrs:
     (removeAttrs attrs [ "disabled" ])
     // lib.optionalAttrs (attrs.disabled or false) {
       meta = (attrs.meta or { }) // {
@@ -21,22 +19,31 @@ let
       };
     };
 
-  removeFlakeRoot = path:
-    lib.removePrefix "${toString ../.}/" path;
+  removeFlakeRoot = path: lib.removePrefix "${toString ../.}/" path;
 
-  fixUpdateScriptArgs = drv:
-    drv // {
+  fixUpdateScriptArgs =
+    drv:
+    drv
+    // {
       updateScript =
-        if builtins.isList drv.updateScript
-        then [ (builtins.head drv.updateScript) ] ++ (builtins.map removeFlakeRoot (builtins.tail drv.updateScript))
-        else drv.updateScript;
+        if builtins.isList drv.updateScript then
+          [ (builtins.head drv.updateScript) ]
+          ++ (builtins.map removeFlakeRoot (builtins.tail drv.updateScript))
+        else
+          drv.updateScript;
     };
 
-  pythonModulesOverlay = pyfinal:
-    import ./development/python-modules final (pyfinal // {
-      buildPythonApplication = attrs: fixUpdateScriptArgs (pyfinal.buildPythonApplication (mapDisabledToBroken attrs));
-      buildPythonPackage = attrs: fixUpdateScriptArgs (pyfinal.buildPythonPackage (mapDisabledToBroken attrs));
-    });
+  pythonModulesOverlay =
+    pyfinal:
+    import ./development/python-modules final (
+      pyfinal
+      // {
+        buildPythonApplication =
+          attrs: fixUpdateScriptArgs (pyfinal.buildPythonApplication (mapDisabledToBroken attrs));
+        buildPythonPackage =
+          attrs: fixUpdateScriptArgs (pyfinal.buildPythonPackage (mapDisabledToBroken attrs));
+      }
+    );
 in
 {
   inherit callPackage;
@@ -58,12 +65,12 @@ in
     inherit cmake cmake-format;
   };
 
-  emacsPackages = recurseIntoAttrs (emacsPackagesOverlay (prev.emacsPackages // emacsPackages) prev.emacsPackages);
+  emacsPackages = recurseIntoAttrs (
+    emacsPackagesOverlay (prev.emacsPackages // emacsPackages) prev.emacsPackages
+  );
 
   gamemode = callPackage ./tools/games/gamemode rec {
-    libgamemode32 = (pkgsi686Linux.callPackage ./tools/games/gamemode {
-      inherit libgamemode32;
-    }).lib;
+    libgamemode32 = (pkgsi686Linux.callPackage ./tools/games/gamemode { inherit libgamemode32; }).lib;
   };
 
   ggt = callPackage ./development/tools/ggt { };
@@ -77,7 +84,9 @@ in
 
   krane = callPackage ./applications/networking/cluster/krane { };
 
-  linuxPackages = recurseIntoAttrs (linuxModulesOverlay (prev.linuxPackages // linuxPackages) prev.linuxPackages);
+  linuxPackages = recurseIntoAttrs (
+    linuxModulesOverlay (prev.linuxPackages // linuxPackages) prev.linuxPackages
+  );
 
   mangohud = callPackage ./tools/graphics/mangohud rec {
     libXNVCtrl = prev.linuxPackages.nvidia_x11.settings.libXNVCtrl;
@@ -101,16 +110,16 @@ in
 
   poke = callPackage ./applications/editors/poke { };
 
-  pokemmo-installer = callPackage ./games/pokemmo-installer {
-    inherit (gnome) zenity;
-  };
+  pokemmo-installer = callPackage ./games/pokemmo-installer { inherit (gnome) zenity; };
 
   protontricks = python3Packages.callPackage ./tools/package-management/protontricks {
     steam-run = steamPackages.steam-fhsenv-without-steam.run;
     inherit winetricks yad;
   };
 
-  python3Packages = recurseIntoAttrs (pythonModulesOverlay (prev.python3Packages // python3Packages) prev.python3Packages);
+  python3Packages = recurseIntoAttrs (
+    pythonModulesOverlay (prev.python3Packages // python3Packages) prev.python3Packages
+  );
 
   replay-sorcery = callPackage ./tools/video/replay-sorcery { };
 
@@ -126,34 +135,22 @@ in
 
   ukmm = callPackage ./tools/games/ukmm { };
 
-  virtualparadise = callPackage ./games/virtualparadise {
-    inherit (qt5) wrapQtAppsHook;
-  };
+  virtualparadise = callPackage ./games/virtualparadise { inherit (qt5) wrapQtAppsHook; };
 
   vkbasalt = callPackage ./tools/graphics/vkbasalt rec {
-    vkbasalt32 = pkgsi686Linux.callPackage ./tools/graphics/vkbasalt {
-      inherit vkbasalt32;
-    };
+    vkbasalt32 = pkgsi686Linux.callPackage ./tools/graphics/vkbasalt { inherit vkbasalt32; };
   };
 
-  yabridge = callPackage ./tools/audio/yabridge {
-    wine = wineWowPackages.staging;
-  };
+  yabridge = callPackage ./tools/audio/yabridge { wine = wineWowPackages.staging; };
 
-  yabridgectl = callPackage ./tools/audio/yabridgectl {
-    wine = wineWowPackages.staging;
-  };
+  yabridgectl = callPackage ./tools/audio/yabridgectl { wine = wineWowPackages.staging; };
 
   zynaddsubfx = callPackage ./applications/audio/zynaddsubfx {
     guiModule = "zest";
     fftw = fftwSinglePrec;
   };
 
-  zynaddsubfx-fltk = zynaddsubfx.override {
-    guiModule = "fltk";
-  };
+  zynaddsubfx-fltk = zynaddsubfx.override { guiModule = "fltk"; };
 
-  zynaddsubfx-ntk = zynaddsubfx.override {
-    guiModule = "ntk";
-  };
+  zynaddsubfx-ntk = zynaddsubfx.override { guiModule = "ntk"; };
 }

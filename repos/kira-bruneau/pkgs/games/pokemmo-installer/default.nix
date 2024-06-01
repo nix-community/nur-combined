@@ -1,19 +1,20 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, makeWrapper
-, coreutils
-, findutils
-, gnugrep
-, jre
-, openssl
-, ps
-, wget
-, which
-, xprop
-, zenity
-, libpulseaudio
-, nix-update-script
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  makeWrapper,
+  coreutils,
+  findutils,
+  gnugrep,
+  jre,
+  openssl,
+  ps,
+  wget,
+  which,
+  xprop,
+  zenity,
+  libpulseaudio,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -38,21 +39,21 @@ stdenv.mkDerivation (finalAttrs: {
 
   postFixup = ''
     wrapProgram "$out/bin/pokemmo-installer" \
-      --prefix PATH : ${lib.makeBinPath [
-        coreutils
-        findutils
-        gnugrep
-        jre
-        openssl
-        ps
-        wget
-        which
-        xprop
-        zenity
-      ]} \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [
-        libpulseaudio
-      ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          coreutils
+          findutils
+          gnugrep
+          jre
+          openssl
+          ps
+          wget
+          which
+          xprop
+          zenity
+        ]
+      } \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libpulseaudio ]}
   '';
 
   passthru.updateScript = nix-update-script { };

@@ -1,10 +1,11 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, protobuf
-, protoc-gen-grpc-web
-, protoc-gen-js
-, nix-update-script
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  protobuf,
+  protoc-gen-grpc-web,
+  protoc-gen-js,
+  nix-update-script,
 }:
 
 buildGoModule rec {

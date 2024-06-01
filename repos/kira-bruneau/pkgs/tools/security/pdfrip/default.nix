@@ -1,7 +1,8 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, cmake
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  cmake,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -23,9 +24,7 @@ rustPlatform.buildRustPackage rec {
     ln -s ${./Cargo.lock} Cargo.lock
   '';
 
-  nativeBuildInputs = [
-    cmake
-  ];
+  nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
     description = "A multi-threaded PDF password cracking utility equipped with commonly encountered password format builders and dictionary attacks";

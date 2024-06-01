@@ -1,9 +1,10 @@
-{ swaylock
-, fetchFromGitHub
-, substituteAll
-, fprintd
-, dbus
-, unstableGitUpdater
+{
+  swaylock,
+  fetchFromGitHub,
+  substituteAll,
+  fprintd,
+  dbus,
+  unstableGitUpdater,
 }:
 
 swaylock.overrideAttrs (attrs: {

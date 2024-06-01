@@ -4,76 +4,79 @@
 # last point where the paths were identical and by cherry picking the set
 # patches after that point (a path-specific git-merge-base?).
 
-{ nixpkgs
-, lib
-, writeText
-, writeShellApplication
-, coreutils
-, diffutils
-, fd
-, git
-, gnused
-, nix
-, nix-fast-build
+{
+  nixpkgs,
+  lib,
+  writeText,
+  writeShellApplication,
+  coreutils,
+  diffutils,
+  fd,
+  git,
+  gnused,
+  nix,
+  nix-fast-build,
 }:
 
 let
-  syncPaths = writeText "sync-paths" (lib.concatStringsSep "\n" [
-    "nixos/modules/hardware/video/intel-gpu-tools.nix"
-    "nixos/modules/hardware/xpadneo.nix"
-    "nixos/modules/programs/bash/undistract-me.nix"
-    "nixos/modules/programs/gamemode.nix"
-    "nixos/modules/services/video/replay-sorcery.nix"
+  syncPaths = writeText "sync-paths" (
+    lib.concatStringsSep "\n" [
+      "nixos/modules/hardware/video/intel-gpu-tools.nix"
+      "nixos/modules/hardware/xpadneo.nix"
+      "nixos/modules/programs/bash/undistract-me.nix"
+      "nixos/modules/programs/gamemode.nix"
+      "nixos/modules/services/video/replay-sorcery.nix"
 
-    "nixos/tests/xpadneo.nix"
+      "nixos/tests/xpadneo.nix"
 
-    "pkgs/applications/audio/zynaddsubfx"
-    "pkgs/applications/editors/emacs/elisp-packages/manual-packages/acm"
-    "pkgs/applications/editors/emacs/elisp-packages/manual-packages/acm-terminal"
-    "pkgs/applications/editors/emacs/elisp-packages/manual-packages/lsp-bridge"
-    "pkgs/applications/editors/poke"
-    "pkgs/applications/networking/cluster/krane"
-    "pkgs/applications/networking/feedreaders/newsflash"
-    "pkgs/applications/version-management/git-review"
-    "pkgs/development/python-modules/debugpy"
-    "pkgs/development/python-modules/pygls"
-    "pkgs/development/python-modules/pytest-datadir"
-    "pkgs/development/python-modules/vdf"
-    "pkgs/development/tools/misc/cmake-language-server"
-    "pkgs/development/tools/misc/texlab"
-    "pkgs/games/clonehero"
-    "pkgs/os-specific/linux/xpadneo"
-    "pkgs/shells/bash/undistract-me"
-    "pkgs/tools/audio/yabridge"
-    "pkgs/tools/audio/yabridgectl"
-    "pkgs/tools/compression/mozlz4a"
-    "pkgs/tools/games/gamemode"
-    "pkgs/tools/games/ukmm"
-    "pkgs/tools/graphics/goverlay"
-    "pkgs/tools/graphics/mangohud"
-    "pkgs/tools/graphics/vkbasalt"
-    "pkgs/tools/package-management/protontricks"
-    "pkgs/tools/video/replay-sorcery"
+      "pkgs/applications/audio/zynaddsubfx"
+      "pkgs/applications/editors/emacs/elisp-packages/manual-packages/acm"
+      "pkgs/applications/editors/emacs/elisp-packages/manual-packages/acm-terminal"
+      "pkgs/applications/editors/emacs/elisp-packages/manual-packages/lsp-bridge"
+      "pkgs/applications/editors/poke"
+      "pkgs/applications/networking/cluster/krane"
+      "pkgs/applications/networking/feedreaders/newsflash"
+      "pkgs/applications/version-management/git-review"
+      "pkgs/development/python-modules/debugpy"
+      "pkgs/development/python-modules/pygls"
+      "pkgs/development/python-modules/pytest-datadir"
+      "pkgs/development/python-modules/vdf"
+      "pkgs/development/tools/misc/cmake-language-server"
+      "pkgs/development/tools/misc/texlab"
+      "pkgs/games/clonehero"
+      "pkgs/os-specific/linux/xpadneo"
+      "pkgs/shells/bash/undistract-me"
+      "pkgs/tools/audio/yabridge"
+      "pkgs/tools/audio/yabridgectl"
+      "pkgs/tools/compression/mozlz4a"
+      "pkgs/tools/games/gamemode"
+      "pkgs/tools/games/ukmm"
+      "pkgs/tools/graphics/goverlay"
+      "pkgs/tools/graphics/mangohud"
+      "pkgs/tools/graphics/vkbasalt"
+      "pkgs/tools/package-management/protontricks"
+      "pkgs/tools/video/replay-sorcery"
 
-    "pkgs/by-name/cc/ccache"
-    "pkgs/by-name/cl/clonehero"
-    "pkgs/by-name/ga/gamemode"
-    "pkgs/by-name/go/goverlay"
-    "pkgs/by-name/kr/krane"
-    "pkgs/by-name/ma/mangohud"
-    "pkgs/by-name/mo/mozlz4a"
-    "pkgs/by-name/ne/newsflash"
-    "pkgs/by-name/po/poke"
-    "pkgs/by-name/re/replay-sorcery"
-    "pkgs/by-name/te/texlab"
-    "pkgs/by-name/uk/ukmm"
-    "pkgs/by-name/un/undistract-me"
-    "pkgs/by-name/vk/vkbasalt"
-    "pkgs/by-name/xp/xpadneo"
-    "pkgs/by-name/ya/yabridge"
-    "pkgs/by-name/ya/yabridgectl"
-    "pkgs/by-name/zy/zynaddsubfx"
-  ]);
+      "pkgs/by-name/cc/ccache"
+      "pkgs/by-name/cl/clonehero"
+      "pkgs/by-name/ga/gamemode"
+      "pkgs/by-name/go/goverlay"
+      "pkgs/by-name/kr/krane"
+      "pkgs/by-name/ma/mangohud"
+      "pkgs/by-name/mo/mozlz4a"
+      "pkgs/by-name/ne/newsflash"
+      "pkgs/by-name/po/poke"
+      "pkgs/by-name/re/replay-sorcery"
+      "pkgs/by-name/te/texlab"
+      "pkgs/by-name/uk/ukmm"
+      "pkgs/by-name/un/undistract-me"
+      "pkgs/by-name/vk/vkbasalt"
+      "pkgs/by-name/xp/xpadneo"
+      "pkgs/by-name/ya/yabridge"
+      "pkgs/by-name/ya/yabridgectl"
+      "pkgs/by-name/zy/zynaddsubfx"
+    ]
+  );
 in
 writeShellApplication {
   name = "sync";

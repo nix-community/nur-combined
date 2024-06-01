@@ -1,5 +1,6 @@
 {
-  default = final: prev:
+  default =
+    final: prev:
     let
       nurPkgs = removeAttrs (import ../pkgs final prev) [
         "callPackage"
@@ -8,16 +9,22 @@
         "python3Packages"
       ];
 
-      emacsPackagesOverlay = efinal: eprev:
-        removeAttrs (import ../pkgs/applications/editors/emacs/elisp-packages/manual-packages final efinal eprev) [ "callPackage" ];
+      emacsPackagesOverlay =
+        efinal: eprev:
+        removeAttrs (import ../pkgs/applications/editors/emacs/elisp-packages/manual-packages final efinal
+          eprev
+        ) [ "callPackage" ];
 
-      linuxModulesOverlay = lfinal: lprev:
+      linuxModulesOverlay =
+        lfinal: lprev:
         removeAttrs (import ../pkgs/os-specific/linux/modules.nix final lfinal lprev) [ "callPackage" ];
 
-      pythonModulesOverlay = pyfinal: pyprev:
+      pythonModulesOverlay =
+        pyfinal: pyprev:
         removeAttrs (import ../pkgs/development/python-modules final pyfinal pyprev) [ "callPackage" ];
     in
-    nurPkgs // {
+    nurPkgs
+    // {
       emacsPackagesFor = emacs: (prev.emacsPackagesFor emacs).overrideScope emacsPackagesOverlay;
 
       linuxKernel = prev.linuxKernel // {

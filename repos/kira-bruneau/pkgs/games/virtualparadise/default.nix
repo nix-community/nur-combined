@@ -1,31 +1,32 @@
-{ lib
-, stdenv
-, fetchurl
+{
+  lib,
+  stdenv,
+  fetchurl,
 
-, autoPatchelfHook
-, wrapQtAppsHook
-, zstd
+  autoPatchelfHook,
+  wrapQtAppsHook,
+  zstd,
 
-, at-spi2-atk
-, bullet
-, curl
-, glew
-, libuv
-, libvorbis
-, mpg123
-, openal
-, opusfile
+  at-spi2-atk,
+  bullet,
+  curl,
+  glew,
+  libuv,
+  libvorbis,
+  mpg123,
+  openal,
+  opusfile,
 
-, cups
-, libXcursor
-, libXrandr
-, libXScrnSaver
-, libXtst
-, mesa
-, nss
-, pango
+  cups,
+  libXcursor,
+  libXrandr,
+  libXScrnSaver,
+  libXtst,
+  mesa,
+  nss,
+  pango,
 
-, buildFHSEnv
+  buildFHSEnv,
 }:
 
 let

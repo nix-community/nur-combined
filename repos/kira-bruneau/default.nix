@@ -1,4 +1,6 @@
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 let
   nurPkgs = import ./pkgs (pkgs // nurPkgs) pkgs;
@@ -10,4 +12,5 @@ in
 
   # Workaround to support auto-commiting with update script
   inherit (pkgs) lib;
-} // nurPkgs # nixpkgs packages
+}
+// nurPkgs # nixpkgs packages

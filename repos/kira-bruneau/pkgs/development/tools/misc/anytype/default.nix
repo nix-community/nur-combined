@@ -1,16 +1,17 @@
-{ lib
-, buildNpmPackage
-, fetchFromGitHub
-, anytype-heart
-, anytype-nmh
-, copyDesktopItems
-, makeWrapper
-, pkg-config
-, libsecret
-, electron
-, libGL
-, makeDesktopItem
-, nix-update-script
+{
+  lib,
+  buildNpmPackage,
+  fetchFromGitHub,
+  anytype-heart,
+  anytype-nmh,
+  copyDesktopItems,
+  makeWrapper,
+  pkg-config,
+  libsecret,
+  electron,
+  libGL,
+  makeDesktopItem,
+  nix-update-script,
 }:
 
 let
@@ -36,14 +37,29 @@ buildNpmPackage rec {
 
   # https://github.com/anyproto/anytype-ts/blob/v0.40.9/electron/js/util.js#L228-L235
   enabledLangs = [
-    "cs-CZ" "da-DK" "de-DE"
-    "en-US" "es-ES" "fr-FR"
-    "hi-IN" "id-ID" "it-IT"
-    "lt-LT" "ja-JP" "ko-KR"
-    "nl-NL" "no-NO" "pl-PL"
-    "pt-BR" "ro-RO" "ru-RU"
-    "tr-TR" "uk-UA" "vi-VN"
-    "zh-CN" "zh-TW"
+    "cs-CZ"
+    "da-DK"
+    "de-DE"
+    "en-US"
+    "es-ES"
+    "fr-FR"
+    "hi-IN"
+    "id-ID"
+    "it-IT"
+    "lt-LT"
+    "ja-JP"
+    "ko-KR"
+    "nl-NL"
+    "no-NO"
+    "pl-PL"
+    "pt-BR"
+    "ro-RO"
+    "ru-RU"
+    "tr-TR"
+    "uk-UA"
+    "vi-VN"
+    "zh-CN"
+    "zh-TW"
   ];
 
   # middleware: https://github.com/anyproto/anytype-ts/blob/v0.40.9/update-ci.sh
@@ -76,9 +92,7 @@ buildNpmPackage rec {
     pkg-config
   ];
 
-  buildInputs = [
-    libsecret
-  ];
+  buildInputs = [ libsecret ];
 
   postBuild = ''
     npm exec electron-builder -- \
