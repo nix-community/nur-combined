@@ -16,6 +16,7 @@ in
   };
 
   nix = {
+    # FIXME: infinite loop of open connections when running any nix command
     package = pkgs.nixVersions.latest;
     gc = {
       automatic = true;

@@ -6,8 +6,8 @@
 }:
 
 let
-  inherit (pkgs) fetchFromGitHub;
-  inherit (lib) mkBefore pipe;
+  inherit (pkgs) fetchgit;
+  inherit (lib) mkBefore pipe filterAttrs;
   cfg = config.abszero.programs.firefox;
 
   firefox-vertical-tabs =
@@ -15,7 +15,15 @@ let
     pipe ./lock.json [
       readFile
       fromJSON
-      fetchFromGitHub
+      (filterAttrs (
+        n: _:
+        elem n [
+          "url"
+          "rev"
+          "hash"
+        ]
+      ))
+      fetchgit
     ];
 in
 

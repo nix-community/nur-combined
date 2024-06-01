@@ -5,4 +5,5 @@ set -eou pipefail
 
 ROOT="$(dirname "$(readlink -f "$0")")"
 
-nix-prefetch-github --json ranmaru22 firefox-vertical-tabs > "$ROOT/lock.json"
+nix-prefetch-git https://codeberg.org/ranmaru22/firefox-vertical-tabs.git \
+  > "$ROOT/lock.json"

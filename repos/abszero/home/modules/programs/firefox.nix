@@ -12,7 +12,6 @@ let
     mkOption
     mkIf
     ;
-  inherit (lib.abszero.attrsets) findName;
   cfg = config.abszero.programs.firefox;
 in
 
@@ -38,7 +37,6 @@ in
           kdePackages.plasma-browser-integration
         ];
       profiles.${cfg.profile}.settings = {
-        "services.sync.username" = findName (_: v: v.primary) config.accounts.email.accounts;
         "browser.aboutConfig.showWarning" = false;
       };
     };
