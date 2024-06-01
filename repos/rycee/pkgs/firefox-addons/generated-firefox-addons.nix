@@ -1857,10 +1857,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "127.0.20240529.91551";
+      version = "127.0.20240531.105723";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4294959/deutsch_de_language_pack-127.0.20240529.91551.xpi";
-      sha256 = "cad13480f8faa0d0f6ac01d4c05e8d63db424f28f13cf582abc87e3ad3da1117";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4296173/deutsch_de_language_pack-127.0.20240531.105723.xpi";
+      sha256 = "d98c25d44118ed8e43240c4e3f82c5685481296e4ad88c7ace905ee17bc6ddb7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2807,10 +2807,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "127.0.20240529.91551";
+      version = "127.0.20240531.105723";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4295034/francais_language_pack-127.0.20240529.91551.xpi";
-      sha256 = "371e69744646beaae6f8d7f3eb0957e367f0a79a785a6faec3acfdf038ead263";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4296194/francais_language_pack-127.0.20240531.105723.xpi";
+      sha256 = "bf624080332437814b1bf78beea321cb4305cb4a83dad343d4e4326e10345db6";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4706,10 +4706,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.5.6";
+      version = "1.5.7";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4290557/immersive_translate-1.5.6.xpi";
-      sha256 = "f27c7d9078442634f1e7aaf7c7b3a910b92c6d7659ab80bae65076e2e8847890";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4294469/immersive_translate-1.5.7.xpi";
+      sha256 = "b10802f326699295c5b7a7a27f548492b4a200d4e35d1a7ef98fce2c18c6d50b";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -8391,10 +8391,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.17.2";
+      version = "1.17.4";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4283566/proton_pass-1.17.2.xpi";
-      sha256 = "316bed5674120b71a4ad039daf4e6f59b35741b1d278a8df0ec105ba47a2bb80";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4294359/proton_pass-1.17.4.xpi";
+      sha256 = "44166b0e1520ee6a4598e90fa24c377ed92d7867a5772c1d25e995de06018a6a";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -8642,10 +8642,10 @@
     };
     "read-aloud" = buildFirefoxXpiAddon {
       pname = "read-aloud";
-      version = "1.70.0";
+      version = "1.71.0";
       addonId = "{ddc62400-f22d-4dd3-8b4a-05837de53c2e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4291569/read_aloud-1.70.0.xpi";
-      sha256 = "c5ffefb79aab928ab9545e2527416ac86342b6c1b8ca2c73efd5bd1eed483957";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4294764/read_aloud-1.71.0.xpi";
+      sha256 = "41f7cb028e14474e8cb3333f02345aa6ce1514ffce3cc0bda054da5851d1e28d";
       meta = with lib;
       {
         description = "Read out loud the current web-page article with one click. Supports 40+ languages.";
