@@ -11,5 +11,5 @@
   tg-bot-transmission = pkgs.callPackage ./pkgs/tg-bot-transmission {};
   transmission-exporter = pkgs.callPackage ./pkgs/transmission-exporter {};
   vlmcsd = pkgs.callPackage ./pkgs/vlmcsd {};
-  # wofi-power-menu = pkgs.callPackage ./pkgs/wofi-power-menu {};
+  wofi-power-menu = pkgs.callPackage ./pkgs/wofi-power-menu {};
 }
