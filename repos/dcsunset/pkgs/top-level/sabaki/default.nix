@@ -18,5 +18,6 @@ in appimageTools.wrapType2 {
     description = "An elegant Go board and SGF editor for a more civilized age";
     homepage = "https://github.com/SabakiHQ/Sabaki";
     license = licenses.mit;
+    mainProgram = "sabaki";
   };
 }

@@ -2,17 +2,17 @@
 
 buildNpmPackage rec {
   pname = "commit-and-tag-version";
-  version = "12.4.1";
+  version = "12.0.0";
 
   src = fetchFromGitHub {
     owner = "absolute-version";
     repo = "commit-and-tag-version";
     rev = "v${version}";
-    hash = "sha256-OknqBEAA0Bv4Vz3XzQ64pHsw5pctwaZFkrUUfQ+21O8=";
+    hash = "sha256-vKoyBuXF/Rhvg/pCopP5DxsddUCUXbyQAkwsDhVUHjE=";
   };
 
   # run prefetch-npm-deps package-lock.json to generate the hash
-  npmDepsHash = "sha256-FiLgiFiu14ADIJIaikIj+9/sPR0KuyYojhEAC0yJWVI=";
+  npmDepsHash = "sha256-WlJ9ZMUsrhP7K6mJDXJvkaCSS3rHN4nNb0SOwpCtXlk=";
 
   dontNpmBuild = true;
 
