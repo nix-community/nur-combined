@@ -139,7 +139,7 @@ in
 
   # services.boinc.enable = true;
 
-  services.xserver.displayManager.autoLogin = {
+  services.displayManager.autoLogin = {
     enable = true;
     user = "lucasew";
   };

@@ -43,7 +43,7 @@
 
     nix-index-database.url = "github:Mic92/nix-index-database";
 
-    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "nixpkgs/nixos-24.05";
 
     nixpkgs-lib.url = "github:nix-community/nixpkgs.lib";
 

@@ -9,7 +9,7 @@ let
 in
 {
   config = mkIf config.services.nextcloud.enable {
-    services.nextcloud.package = pkgs.nextcloud27;
+    services.nextcloud.package = pkgs.nextcloud28;
     users.users.nextcloud = {
       extraGroups = [
         "admin-password"
@@ -27,7 +27,7 @@ in
         adminuser = "lucasew";
         adminpassFile = "/var/run/secrets/admin-password";
       };
-      extraOptions = {
+      settings = {
         preview_ffmpeg_path = lib.getExe pkgs.ffmpeg;
         "memories.exiftool" = lib.getExe pkgs.exiftool;
         "memories.ffmpeg_path" = lib.getExe' pkgs.ffmpeg "ffmpeg";

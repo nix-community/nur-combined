@@ -25,11 +25,13 @@
     programs.xss-lock.enable = true;
     programs.kdeconnect.enable = true;
 
-    services.xserver = {
-      enable = lib.mkDefault true;
+    services = {
       displayManager.defaultSession = lib.mkDefault "none+i3";
-      windowManager.i3 = {
-        configFile = "/etc/i3config";
+      xserver = {
+        enable = lib.mkDefault true;
+        windowManager.i3 = {
+          configFile = "/etc/i3config";
+        };
       };
     };
     systemd.user.services.nm-applet = {

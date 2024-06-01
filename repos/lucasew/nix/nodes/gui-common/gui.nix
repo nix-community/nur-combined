@@ -23,7 +23,7 @@
   };
 
   # Enable touchpad support.
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   location = {
     latitude = -24.0;
