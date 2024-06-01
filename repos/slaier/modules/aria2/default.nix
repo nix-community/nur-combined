@@ -1,5 +1,7 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
+  disabledModules = [ "services/networking/aria2.nix" ];
+  imports = [ ./aria2.nix ];
   services.aria2 = {
     enable = true;
     openPorts = true;
@@ -41,5 +43,6 @@
       ]))
       "--https-proxy=http://127.0.0.1:7890"
     ];
+    rpcSecretFile = pkgs.writeText "aria2secret" "aria2rpc";
   };
 }

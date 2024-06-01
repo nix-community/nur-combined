@@ -15,7 +15,7 @@ jobs:
       - name: Install nix
         uses: cachix/install-nix-action@V27
         with:
-          nix_path: nixpkgs=channel:nixos-23.11
+          nix_path: nixpkgs=channel:nixos-24.05
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
