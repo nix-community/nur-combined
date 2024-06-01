@@ -316,7 +316,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-05-30",
+        "date": "2024-05-31",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -328,11 +328,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "78edba879afc3814378cc43544620668b6939f43",
-            "sha256": "sha256-bUGDJJjNoGJj9jvlnpJEZSG+chCxj3IGXlTkYd+QQ24=",
+            "rev": "0a20112f1a30b0d4bdf54abec592793baef6d46d",
+            "sha256": "sha256-5QCNGMa8wm8iy8t7UnXebkQpOgGyg123SZynOiiGbrg=",
             "type": "github"
         },
-        "version": "78edba879afc3814378cc43544620668b6939f43"
+        "version": "0a20112f1a30b0d4bdf54abec592793baef6d46d"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1254,11 +1254,11 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3051",
-            "sha256": "sha256-zDXlfrz/HHbOkyr+XBuMu4DH+PeqoqJn6YzR3D2gt3I=",
+            "rev": "b3058",
+            "sha256": "sha256-MsQbsHrQmAy98I6ak+DT8nY16QBjS3siL06ALPO0nbY=",
             "type": "github"
         },
-        "version": "b3051"
+        "version": "b3058"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -1899,11 +1899,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-0Tny/fFate2CYkVPzNmoOHMtnVad8zIgXlyv8GPYrFc=",
+            "sha256": "sha256-1Fl/hf3pzPGitc0LESSNqmPFq2c8TH/5urx08XZU4jY=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.4+ds-1_amd64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.4+ds-2_amd64.deb"
         },
-        "version": "8.2.4+ds-1"
+        "version": "8.2.4+ds-2"
     },
     "qemu-user-static-arm64": {
         "cargoLocks": null,
@@ -1914,11 +1914,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Io+Ktva5pMfm82NsIEBk5aOU/HWVP5JeU67ZXI6ZUCA=",
+            "sha256": "sha256-37OkFGQzELN6IpngcCzyUHRXdG4VsMXYsCBt1nC8hus=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.4+ds-1_arm64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.4+ds-2_arm64.deb"
         },
-        "version": "8.2.4+ds-1"
+        "version": "8.2.4+ds-2"
     },
     "qemu-user-static-armhf": {
         "cargoLocks": null,
@@ -1929,11 +1929,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-phknfL5C+oko/95UZZwiwUQMq4q+NTLe/6i6994x8nE=",
+            "sha256": "sha256-7AIrJhclK4NGoMJnNyQzFLGX8Eb42OGCAjeNgfmlidY=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.4+ds-1_armhf.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.4+ds-2_armhf.deb"
         },
-        "version": "8.2.4+ds-1"
+        "version": "8.2.4+ds-2"
     },
     "qemu-user-static-i386": {
         "cargoLocks": null,
@@ -1944,11 +1944,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-rLCwzb6xs0gchegTAeg0XgUMAyZogMxpjWpDhXrXGI4=",
+            "sha256": "sha256-MF3b24TXvzev2QsUaiLo9bRNSOu2oktnxy8T1rwV898=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.4+ds-1_i386.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.4+ds-2_i386.deb"
         },
-        "version": "8.2.4+ds-1"
+        "version": "8.2.4+ds-2"
     },
     "qq-amd64": {
         "cargoLocks": null,
