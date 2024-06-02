@@ -2,8 +2,8 @@
   cacert, glib-networking, ... }:
 let
   pname = "onekey-wallet";
-  version = "4.23.0";
-  sha256 = "sha256-EMXGgrzfdLsUMR7W+szqMPsS38RZjXqoL4TODlOufXQ=";
+  version = "4.24.0";
+  sha256 = "sha256-iuo0x0bwwz0zJoww4s8Th0TRAxKgR+47HkJi7h0ZiJo=";
   url = "https://web.onekey-asset.com/app-monorepo/${version}/OneKey-Wallet-${version}-linux-x86_64.AppImage";
   src = fetchurl {
     inherit url sha256;
