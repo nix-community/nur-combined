@@ -3,10 +3,10 @@
 
 stdenv.mkDerivation rec {
   pname = "cockpit-client";
-  version = "306";
+  version = "316";
   src = fetchzip {
     url = "https://github.com/cockpit-project/cockpit/releases/download/${version}/cockpit-${version}.tar.xz";
-    sha256 = "sha256-xRMCvsFTUCyPcNuy8/e3Zg2ptc9GbK5pOGcL7g7FJ50=";
+    sha256 = "sha256-nUD7Z6yZPlzdqgPkKvro3r5PPOoOPHzmN6Jx95q9VLc=";
   };
   enableParallelBuilding = true;
   configureFlags = [

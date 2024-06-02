@@ -88,6 +88,8 @@ in {
       boot.initrd.kernelModules = [ "amdgpu" ];
       services.udev.extraRules = ''
         ACTION=="add", ATTRS{idVendor}=="1a2c", ATTRS{idProduct}=="2c27", ATTR{power/wakeup}="disabled"
+        # https://github.com/NixOS/nixpkgs/issues/297312
+        SUBSYSTEM=="i2c", KERNEL=="i2c-[0-9]*", DRIVERS=="amdgpu", ACTION=="add", RUN+="/bin/sh -c 'echo ddcci 0x37 > $sys$devpath/new_device'"
       '';
     })
   ];
