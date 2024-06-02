@@ -8,6 +8,8 @@ and are noted with a `!` in the message.
 
 ## Changes
 
+- build(ci): remove support of deprecated releases and track unstable 2024-06-01
+- docs: direct link to the action job that builds and populates cache 2024-06-01
 - docs: write references from recent learnings for future maintenance 2024-05-29
 - fix(pkgs/zsh-wd): remove some unknown maintainers to pass ci checks 2024-05-26
 - feat(pkgs/zsh-wd): initialize the zsh-wd package at a version 0.7.0 2024-05-26
