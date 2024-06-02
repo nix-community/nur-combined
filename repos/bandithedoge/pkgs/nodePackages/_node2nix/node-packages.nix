@@ -963,10 +963,10 @@ in {
   "@olrtg/emmet-language-server" = nodeEnv.buildNodePackage {
     name = "_at_olrtg_slash_emmet-language-server";
     packageName = "@olrtg/emmet-language-server";
-    version = "2.5.0";
+    version = "2.6.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@olrtg/emmet-language-server/-/emmet-language-server-2.5.0.tgz";
-      sha512 = "lP9kNVHzGYHFh32dvZpHxT4Cl4JBaJrm4d/NbFu2cUNqeK+jHwuj4XGZdPEB/1kFJKbSJCJhAmqObNDUZ9U+BA==";
+      url = "https://registry.npmjs.org/@olrtg/emmet-language-server/-/emmet-language-server-2.6.0.tgz";
+      sha512 = "ACyWly9RNoKB+lpBpJXNm8xl0uamsjuy/wBYg/7xruShb2qW/GKXeFl8Rt4a6qMTSxoAdd96vz/lLulkaDdrOA==";
     };
     dependencies = [
       sources."@emmetio/abbreviation-2.3.3"
