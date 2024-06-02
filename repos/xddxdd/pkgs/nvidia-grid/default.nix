@@ -3,6 +3,7 @@
   callPackage,
   linux,
   mergePkgs,
+  fetchpatch,
   ...
 }:
 let
@@ -19,14 +20,6 @@ let
         settingsVersion = source.guest.settings_version;
         persistencedSha256 = source.guest.persistenced_hash;
         persistencedVersion = source.guest.persistenced_version;
-        # # Patching doesn't work for some reason
-        # patches = lib.mapAttrsToList (
-        #   k: v:
-        #   fetchpatch {
-        #     url = k;
-        #     sha256 = v;
-        #   }
-        # ) source.patches;
       };
     in
     callPackage pkg { kernel = linux; };
@@ -41,14 +34,13 @@ let
         settingsVersion = source.host.settings_version;
         persistencedSha256 = source.host.persistenced_hash;
         persistencedVersion = source.host.persistenced_version;
-        # # Patching doesn't work for some reason
-        # patches = lib.mapAttrsToList (
-        #   k: v:
-        #   fetchpatch {
-        #     url = k;
-        #     sha256 = v;
-        #   }
-        # ) source.patches;
+        patches = lib.mapAttrsToList (
+          k: v:
+          fetchpatch {
+            url = k;
+            sha256 = v;
+          }
+        ) source.patches;
       };
     in
     callPackage pkg { kernel = linux; };

@@ -17,6 +17,7 @@
   perl,
   nukeReferences,
   which,
+  libarchive,
   ...
 }:
 with lib;
@@ -81,6 +82,7 @@ let
     nativeBuildInputs = [
       perl
       nukeReferences
+      libarchive
     ] ++ kernel.moduleBuildDependencies;
 
     disallowedReferences = [ kernel.dev ];

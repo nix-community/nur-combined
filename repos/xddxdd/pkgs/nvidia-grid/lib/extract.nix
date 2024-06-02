@@ -32,7 +32,12 @@ let
           SRCARR=($srcs)
           FILE=$(basename "''${SRCARR[0]}" | cut -c 34-)
           echo "Extracting $FILE"
-          7z x -y "$FILE"
+
+          if [[ $FILE == *.zip ]]; then
+            unzip "$FILE"
+          else
+            7z x -y "$FILE"
+          fi
 
           for _src in $srcs; do
             NEWNAME=$(basename "$_src" | cut -c 34-)
