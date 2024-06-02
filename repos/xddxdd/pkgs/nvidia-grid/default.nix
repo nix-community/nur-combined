@@ -3,17 +3,11 @@
   callPackage,
   linux,
   mergePkgs,
-  fetchpatch,
   ...
 }:
 let
   inherit (callPackage lib/extract.nix { }) extractGridDriver extractVgpuDriver;
   sources = lib.importJSON ./sources.json;
-
-  rcu_patch = fetchpatch {
-    url = "https://github.com/gentoo/gentoo/raw/c64caf53/x11-drivers/nvidia-drivers/files/nvidia-drivers-470.223.02-gpl-pfn_valid.patch";
-    hash = "sha256-eZiQQp2S/asE7MfGvfe6dA/kdCvek9SYa/FFGp24dVg=";
-  };
 
   gridDriver =
     version: source:
@@ -25,7 +19,14 @@ let
         settingsVersion = source.guest.settings_version;
         persistencedSha256 = source.guest.persistenced_hash;
         persistencedVersion = source.guest.persistenced_version;
-        patches = [ rcu_patch ];
+        # # Patching doesn't work for some reason
+        # patches = lib.mapAttrsToList (
+        #   k: v:
+        #   fetchpatch {
+        #     url = k;
+        #     sha256 = v;
+        #   }
+        # ) source.patches;
       };
     in
     callPackage pkg { kernel = linux; };
@@ -40,7 +41,14 @@ let
         settingsVersion = source.host.settings_version;
         persistencedSha256 = source.host.persistenced_hash;
         persistencedVersion = source.host.persistenced_version;
-        patches = [ rcu_patch ];
+        # # Patching doesn't work for some reason
+        # patches = lib.mapAttrsToList (
+        #   k: v:
+        #   fetchpatch {
+        #     url = k;
+        #     sha256 = v;
+        #   }
+        # ) source.patches;
       };
     in
     callPackage pkg { kernel = linux; };

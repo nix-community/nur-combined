@@ -17,35 +17,43 @@ def get_script_path():
 
 def get_download_link_for_version(
     version: str,
-) -> Tuple[List[str], Optional[str], Optional[str]]:
+) -> Tuple[List[str], List[str], Optional[str], Optional[str]]:
     try:
-        page = requests.get(
-            f"https://github.com/{REPO}/releases/expanded_assets/{version}"
-        ).text
-        urls = re.findall(
-            f"(?:\"|')(/{REPO}/releases/download/{version}/NVIDIA-GRID-Linux-KVM-([^-]+)(-([^-]+))?-([^-]+)\.([^\"']+))(?:\"|')",
-            page,
-            re.IGNORECASE,
+        print(f"Checking version {version}")
+        data: requests.Response = requests.get(
+            f"https://foxi.buduanwang.vip/pan/vGPU/{version}/"
         )
-        host_version = urls[0][1]
-        guest_version = urls[0][2]
+        match = re.search(
+            r'href="(NVIDIA-GRID-Linux-KVM-([^-]+)(-([^-]+))?-([^-]+)\.([^"\']+))"',
+            data.text,
+            re.MULTILINE | re.IGNORECASE,
+        )
+        filename = match[1]
+        host_version = match[2]
+        guest_version = match[3]
         guest_version = guest_version[1:] if guest_version else host_version
-        urls = [f"https://github.com{u[0]}" for u in urls]
-        print(host_version, guest_version, urls)
-        return urls, host_version, guest_version
+        print(filename, host_version, guest_version)
+        url = f"https://foxi.buduanwang.vip/pan/vGPU/{version}/{filename}"
+
+        patches = re.findall(
+            r'href="([^"\']+\.patch)"',
+            data.text,
+            re.MULTILINE | re.IGNORECASE,
+        )
+        patches = [
+            f"https://foxi.buduanwang.vip/pan/vGPU/{version}/{filename}"
+            for filename in patches
+        ]
+        print("Patches:", patches)
+
+        return url, patches, host_version, guest_version
     except Exception:
-        return [], None, None
+        return [], [], None, None
 
 
 def get_available_versions() -> List[str]:
-    token = os.getenv("GITHUB_TOKEN")
-    data = requests.get(
-        f"https://api.github.com/repos/{REPO}/git/refs/tags",
-        headers={
-            **({"Authorization": f"Bearer {token}"} if token else {}),
-        },
-    ).json()
-    return [d["ref"][len("refs/tags/") :] for d in data]
+    data = requests.get("https://foxi.buduanwang.vip/pan/vGPU/")
+    return re.findall(r'href="([0-9\.]+)/"', data.text, re.MULTILINE | re.IGNORECASE)
 
 
 @functools.lru_cache(maxsize=None)
@@ -125,9 +133,12 @@ except Exception:
 
 for version in get_available_versions():
     if version not in result.keys():
-        urls, host_version, guest_version = get_download_link_for_version(version)
-        if not urls:
+        download_link, patches, host_version, guest_version = (
+            get_download_link_for_version(version)
+        )
+        if not download_link:
             continue
+        urls = [download_link]
 
         # hash = nix_prefetch_url(url)
         host_persistenced_version = match_latest_version_str(
@@ -144,6 +155,7 @@ for version in get_available_versions():
         )
         result[version] = {
             "urls": {url: nix_prefetch_url(url) for url in urls},
+            "patches": {url: nix_prefetch_url(url) for url in patches},
             "host": {
                 "version": host_version,
                 "persistenced_version": host_persistenced_version,
