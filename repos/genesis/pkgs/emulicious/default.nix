@@ -5,7 +5,6 @@ stdenv.mkDerivation rec {
   pname = "emulicious";
 
   src = fetchzip {
-    name = "${pname}-${version}.zip";
     url = "https://emulicious.net/emulicious/downloads/${pname}-${version}.zip";
     sha256 = "sha256-VsEAzqB97puSvPg8CxZAdr9bP2K7jSy02haguWsP7Z0=";
     stripRoot=false;
@@ -13,10 +12,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  dontConfigure = true;
-  dontUnpack = true;
-  dontBuild = true;
-  dontPatchELF = true;
+  phases = [ "installPhase" ];
 
   installPhase = ''
     runHook preInstall
