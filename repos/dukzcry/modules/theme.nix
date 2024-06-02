@@ -32,7 +32,6 @@ let
   gtk3 = matches (adwaita ++ breeze ++ libadwaita);
   gtk2 = cfg.enable && !gtk3;
   adwaita = [ "Adwaita" "Adwaita-dark" "HighContrast" "HighContrastInverse" ];
-  # todo: breeze-qt6
   breeze = [ "Breeze" ];
   # todo: use gtk4 platform
   libadwaita = [ "adw-gtk3" "adw-gtk3-dark" ];
@@ -141,7 +140,7 @@ in
       environment.etc."xdg/gtk-4.0/gtk.css".text = ''
         @import url("file:///run/current-system/sw/share/themes/${cfg.theme}/gtk-4.0/gtk.css");
       '';
-      environment.systemPackages = with pkgs.libsForQt5; [ breeze-qt5 breeze-gtk breeze-icons ];
+      environment.systemPackages = with pkgs.kdePackages; [ pkgs.kdePackages.breeze.qt5 pkgs.kdePackages.breeze breeze-gtk breeze-icons ];
     })
     (mkIf (matches libadwaita) {
       # no gtk2 theme
