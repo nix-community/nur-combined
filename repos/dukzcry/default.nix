@@ -39,7 +39,6 @@ rec {
   cubesuite = callPackage ./pkgs/cubesuite.nix { wrapWine = pkgs.nur.repos.lucasew.packages.wrapWine or null; };
   hostapd = callPackage ./pkgs/hostapd {};
   steamlink = callPackage ./pkgs/steamlink.nix {};
-  sunshine = callPackage ./pkgs/sunshine {};
   ydcmd = callPackage ./pkgs/ydcmd.nix {};
   modplay = callPackage ./pkgs/modplay.nix {};
 }

@@ -21,6 +21,7 @@ let
       builders-use-substitutes = true
       # https://github.com/NixOS/nix/issues/3514
       fallback = true
+      connect-timeout = 5
     '';
   };
 in {

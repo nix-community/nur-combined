@@ -13,7 +13,6 @@ rec {
   monitor = ./monitor.nix;
   server = ./server.nix;
   headless = ./headless.nix;
-  sunshine = ./sunshine.nix;
   regdomain = ./regdomain.nix;
   vpn = ./vpn.nix;
   awl = ./awl.nix;

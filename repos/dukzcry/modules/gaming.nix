@@ -10,11 +10,10 @@ in {
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      # https://github.com/lutris/lutris/issues/5121
-      wine wine64
-      # https://github.com/NixOS/nixpkgs/issues/292620
-      gamescope
       lutris steamPackages.steam-fhsenv-without-steam.run
     ];
+    programs.gamescope.enable = true;
+    # https://github.com/NixOS/nixpkgs/issues/292620
+    programs.gamescope.capSysNice = false;
   };
 }
