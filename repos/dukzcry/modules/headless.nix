@@ -44,9 +44,9 @@ in {
       services.xserver.enable = true;
       services.xserver.autorun = cfg.autorun;
       services.xserver.resolutions = cfg.resolutions;
-      services.xserver.displayManager.autoLogin.enable = true;
-      services.xserver.displayManager.autoLogin.user = cfg.user;
-      services.xserver.displayManager.defaultSession = "none+i3";
+      services.displayManager.autoLogin.enable = true;
+      services.displayManager.autoLogin.user = cfg.user;
+      services.displayManager.defaultSession = "none+i3";
       services.xserver.displayManager.lightdm.greeter.enable = false;
       services.xserver.windowManager.i3.enable = true;
       services.xserver.windowManager.i3.extraSessionCommands = ''
