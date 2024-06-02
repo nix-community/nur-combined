@@ -1,10 +1,10 @@
 { stdenvNoCC, lib, wrapWine, makeDesktopItem, fetchurl, unzip }:
 
 let
-  version = "2.8.0";
+  version = "2.8.2";
   src = fetchurl {
     url = "https://archive.org/download/cuvave-cubesuite/CubeSuite+V${version}+for+Windows+OS.zip";
-    sha256 = "sha256-/piT+Mu3KeQEVjCJRr9tdLgsZ9B9v0BnRaUvrD6I7IM=";
+    sha256 = "sha256-Lkcy0u6aApBD/KlMn6VnmvtqsyZ28X5RBQK1LZZ02vU==";
   };
   bin = wrapWine {
     name = "cubesuite";

@@ -30,7 +30,6 @@ rec {
   cockpit-machines = callPackage ./pkgs/cockpit/machines.nix {};
   cockpit-client = callPackage ./pkgs/cockpit/client.nix {};
   libvirt-dbus = callPackage ./pkgs/libvirt-dbus.nix {};
-  libidn = callPackage ./pkgs/libidn.nix {};
   gitupdate = callPackage ./pkgs/gitupdate.nix {};
   homer = callPackage ./pkgs/homer.nix {};
   gtk3-nocsd = callPackage ./pkgs/gtk3-nocsd.nix {};
