@@ -20,7 +20,7 @@ jobs:
           - ionutnechita
         nixPath:
           - nixpkgs=channel:nixos-unstable
-          - nixpkgs=channel:nixpkgs-unstable
+          - nixpkgs=channel:nixos-24.05
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -47,7 +47,7 @@ jobs:
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
-      uses: cachix/cachix-action@v14
+      uses: cachix/cachix-action@v15
       if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
       with:
         name: ${{ matrix.cachixName }}
