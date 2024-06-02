@@ -12,16 +12,16 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    x86_64-linux = "11pd0hnnvvw211vksf990dgl4716l10zmf4lal7v8y927vazdadh";
+    x86_64-linux = "1kxq11jjgwmb9prg2kpnxb7hgjdll4rhkxhybrhprrs1z0bcnqfc";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/JonathanHope/armaria/releases/download/v0.0.37/armaria_0.0.37_linux_amd64.zip";
+    x86_64-linux = "https://github.com/JonathanHope/armaria/releases/download/v0.0.39/armaria_0.0.39_linux_amd64.zip";
   };
 in
 pkgs.stdenv.mkDerivation {
   pname = "armaria";
-  version = "0.0.37";
+  version = "0.0.39";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
