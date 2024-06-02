@@ -141,7 +141,7 @@
     },
     "attic": {
         "cargoLocks": null,
-        "date": "2024-03-29",
+        "date": "2024-06-01",
         "extract": null,
         "name": "attic",
         "passthru": null,
@@ -153,11 +153,11 @@
             "name": null,
             "owner": "zhaofengli",
             "repo": "attic",
-            "rev": "4dbdbee45728d8ce5788db6461aaaa89d98081f0",
-            "sha256": "sha256-0O4v6e4a1toxXZ2gf5INhg4WPE5C5T+SVvsBt+45Mcc=",
+            "rev": "717cc95983cdc357bc347d70be20ced21f935843",
+            "sha256": "sha256-kH04ReTjxOpQumgWnqy40vvQLSnLGxWP6RF3nq5Esrk=",
             "type": "github"
         },
-        "version": "4dbdbee45728d8ce5788db6461aaaa89d98081f0"
+        "version": "717cc95983cdc357bc347d70be20ced21f935843"
     },
     "baidunetdisk": {
         "cargoLocks": null,
@@ -1254,11 +1254,11 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3058",
-            "sha256": "sha256-MsQbsHrQmAy98I6ak+DT8nY16QBjS3siL06ALPO0nbY=",
+            "rev": "b3066",
+            "sha256": "sha256-1BcnODD6Z/dCCq+PPuhoTKYYzUQJZgceagwVxTNQ4GI=",
             "type": "github"
         },
-        "version": "b3058"
+        "version": "b3066"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -2097,7 +2097,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-05-31",
+        "date": "2024-06-02",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -2109,11 +2109,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "0d93df2174fbebfac67bbf656becf9eca49c7d3c",
-            "sha256": "sha256-NQGzUfn7UxwqdngqzaAu7eNcjpZ5A2iQE/T03N6hsdQ=",
+            "rev": "50e0ddf6a2f01070de20125cb5a773227166bf54",
+            "sha256": "sha256-OvQRr5i3w0XOXltMQZSCoEUZBQyxRU2VtOZBIErMLzs=",
             "type": "github"
         },
-        "version": "0d93df2174fbebfac67bbf656becf9eca49c7d3c"
+        "version": "50e0ddf6a2f01070de20125cb5a773227166bf54"
     },
     "rime-moegirl": {
         "cargoLocks": null,
