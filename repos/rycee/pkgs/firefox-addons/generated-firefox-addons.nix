@@ -1539,6 +1539,40 @@
         platforms = platforms.all;
       };
     };
+    "container-tab-groups" = buildFirefoxXpiAddon {
+      pname = "container-tab-groups";
+      version = "11.10.0.200";
+      addonId = "tab-array@menhera.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4135330/container_tab_groups-11.10.0.200.xpi";
+      sha256 = "119f633c35bcf643ede94ee25b2a609892765f79390556f0ede7b25e7704df72";
+      meta = with lib;
+      {
+        homepage = "https://github.com/menhera-org/TabArray";
+        description = "Chrome-like tab groups using private and isolated containers: The ultimate tab manager and groups for Firefox.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "tabs"
+          "tabHide"
+          "<all_urls>"
+          "cookies"
+          "contextualIdentities"
+          "menus"
+          "menus.overrideContext"
+          "storage"
+          "browserSettings"
+          "privacy"
+          "webRequest"
+          "webRequestBlocking"
+          "sessions"
+          "browsingData"
+          "theme"
+          "alarms"
+          "scripting"
+          "proxy"
+          ];
+        platforms = platforms.all;
+      };
+    };
     "container-tabs-sidebar" = buildFirefoxXpiAddon {
       pname = "container-tabs-sidebar";
       version = "1.2.0";
@@ -1559,6 +1593,29 @@
           "storage"
           "sessions"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "containerise" = buildFirefoxXpiAddon {
+      pname = "containerise";
+      version = "3.9.0";
+      addonId = "containerise@kinte.sh";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3724805/containerise-3.9.0.xpi";
+      sha256 = "bf511aa160512c5ece421d472977973d92e1609a248020e708561382aa10d1e5";
+      meta = with lib;
+      {
+        homepage = "https://github.com/kintesh/containerise";
+        description = "Automatically open websites in a dedicated container. Simply add rules to map domain or subdomain to your container.";
+        license = licenses.mit;
+        mozPermissions = [
+          "contextualIdentities"
+          "cookies"
+          "tabs"
+          "webRequest"
+          "webRequestBlocking"
+          "storage"
+          "<all_urls>"
+          ];
         platforms = platforms.all;
       };
     };
