@@ -66,6 +66,29 @@
         platforms = platforms.all;
       };
     };
+    "adaptive-tab-bar-colour" = buildFirefoxXpiAddon {
+      pname = "adaptive-tab-bar-colour";
+      version = "2.1.4";
+      addonId = "ATBC@EasonWong";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4159211/adaptive_tab_bar_colour-2.1.4.xpi";
+      sha256 = "401e064048826dd627f02043ee04081b7caed191161f3de7cc89c22b4a222ff8";
+      meta = with lib;
+      {
+        homepage = "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour";
+        description = "Changes the color of Firefox tab bar to match the website theme.";
+        license = licenses.mit;
+        mozPermissions = [
+          "activeTab"
+          "tabs"
+          "theme"
+          "storage"
+          "browserSettings"
+          "management"
+          "<all_urls>"
+          ];
+        platforms = platforms.all;
+      };
+    };
     "adblocker-ultimate" = buildFirefoxXpiAddon {
       pname = "adblocker-ultimate";
       version = "3.8.25";
@@ -260,6 +283,20 @@
           "devtools"
           "<all_urls>"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "animalese-typing" = buildFirefoxXpiAddon {
+      pname = "animalese-typing";
+      version = "1.37";
+      addonId = "dagexviii.dev@gmail.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4113183/animalese_typing-1.37.xpi";
+      sha256 = "4865e53024521b3870ec39ab955186e8bd30e51950d2e7c35bca0d1882495c80";
+      meta = with lib;
+      {
+        description = "Plays animal crossing villager sounds whenever you type! The official port of my Animalese Typing extension from the chrome store.";
+        license = licenses.mpl20;
+        mozPermissions = [ "storage" "<all_urls>" ];
         platforms = platforms.all;
       };
     };
