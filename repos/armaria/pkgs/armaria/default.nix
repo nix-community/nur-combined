@@ -12,16 +12,16 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    x86_64-linux = "1sgwp5anhq4p0cahkpw36qk1bbxm9n4ppa2cspqrllhp5nd3al3h";
+    x86_64-linux = "11pd0hnnvvw211vksf990dgl4716l10zmf4lal7v8y927vazdadh";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/JonathanHope/armaria/releases/download/v0.0.26/armaria_0.0.26_linux_amd64.zip";
+    x86_64-linux = "https://github.com/JonathanHope/armaria/releases/download/v0.0.37/armaria_0.0.37_linux_amd64.zip";
   };
 in
 pkgs.stdenv.mkDerivation {
   pname = "armaria";
-  version = "0.0.26";
+  version = "0.0.37";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
@@ -33,7 +33,6 @@ pkgs.stdenv.mkDerivation {
 
   installPhase = ''
     mkdir -p $out/bin
-    cp -vr ./armaria-host $out/bin/armaria-host
     cp -vr ./armaria $out/bin/armaria
   '';
 
