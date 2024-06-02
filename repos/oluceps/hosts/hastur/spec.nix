@@ -117,6 +117,7 @@
     prometheus.enable = true;
     vaultwarden.enable = true;
     minecraft-servers.enable = false;
+    matrix-conduit.enable = true;
 
     phantomsocks = {
       enable = true;

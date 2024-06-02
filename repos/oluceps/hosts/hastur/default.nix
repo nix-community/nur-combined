@@ -25,7 +25,6 @@
       ./network.nix
       ./rekey.nix
       ./spec.nix
-      ./matrix.nix
       ./caddy.nix
       # ./nginx.nix
 

@@ -25,6 +25,7 @@ let
     "trojan-rs"
     "smartdns-rs"
     "lock"
+    "violet"
   ];
 in
 (genFilteredDirAttrsV2 ./pkgs shadowedPkgs (name: pkgs.callPackage (./pkgs + "/${name}.nix") { }))

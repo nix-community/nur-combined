@@ -8,11 +8,9 @@
     landing_page = {
       content_type = "text/plain; charset=utf-8";
       text = ''
-                                             |\__/,|   (`\
-                                           _.|o o  |_   ) )
-                                         -(((---(((--------
-
-
+                                |\__/,|   (`\
+                              _.|o o  |_   ) )
+                            -(((---(((--------
         Submit files via HTTP POST here:
             curl -F 'file=@example.txt' <server>
         This will return the URL of the uploaded file nya.
