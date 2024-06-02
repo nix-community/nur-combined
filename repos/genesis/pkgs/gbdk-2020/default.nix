@@ -4,7 +4,21 @@
 , autoconf
 , gbdk-2020-sdcc
 , doxygen
+, excludePorts ? [
+    "nes"
+  ]
 }:
+
+assert lib.subtractLists [
+  "gb"
+  "ap"
+  "duck"
+  "gg"
+  "sms"
+  "msxdos"
+  "nes"
+]
+  excludePorts == [ ];
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gbdk-2020";
@@ -12,8 +26,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchgit {
     "url" = "https://github.com/gbdk-2020/gbdk-2020";
-    "rev" = "bfcbc153097bf0d6874568abff025713f812ed5e";
-    "hash" = "sha256-t5kCDeSMTT++IWqtJ4Myh+KT/J4ZS5FNuVj4HJwRKaA=";
+    "rev" = "4fb514b4d0d28ca093836e12278f9044c21864a0";
+    "hash" = "sha256-GBY3FJkQXoB2Uf9b6Eh4Qxn69+Opd3Bn6NJ1YnRzKq0=";
   };
 
   outputs = [ "out" ];

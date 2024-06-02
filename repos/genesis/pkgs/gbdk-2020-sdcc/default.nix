@@ -52,16 +52,21 @@ stdenv.mkDerivation (finalAttrs: {
   # see https://github.com/gbdk-2020/gbdk-2020-sdcc/blob/main/.github/workflows/sdcc_build.yml
   src = fetchsvn {
     url = "svn://svn.code.sf.net/p/sdcc/code/trunk";
-    rev = "14865";
-    sha256 = "sha256-YndxbmX2gKh7z926UKDfXgErfaNgDwn8Fx6oEL2Tevo=";
+    # rev = "14865";
+    # sha256 = "sha256-YndxbmX2gKh7z926UKDfXgErfaNgDwn8Fx6oEL2Tevo=";
+    rev = "14635";
+    sha256 = "sha256-qRvMD3La0b8c7C93ODocCtQe8KCJ89y+fJEqaoj4POw=";
   };
 
   patchFlags = [ "-p0" ];
   patches = [
 
     (fetchpatch {
-      url = "https://github.com/gbdk-2020/gbdk-2020-sdcc/releases/download/patches/gbdk-4.3-nes_banked_nonbanked_no_overlay_locals_v8_combined.patch";
-      sha256 = "sha256-aLxtpMs5aVgCiJmV6CzwJuTUh5zP98E+t3HW5VvlWzA=";
+      # url = "https://github.com/gbdk-2020/gbdk-2020-sdcc/releases/download/patches/gbdk-4.3-nes_banked_nonbanked_no_overlay_locals_v8_combined.patch";
+      # sha256 = "sha256-aLxtpMs5aVgCiJmV6CzwJuTUh5zP98E+t3HW5VvlWzA=";
+
+      url = "https://github.com/gbdk-2020/gbdk-2020-sdcc/releases/download/patches/gbdk-4.3.0-nes_banked_nonbanked_no_overlay_locals_v7_combined.diff.patch";
+      sha256 = "1b0fzh83r70jd872rckj2iqmid7z3pklvmsfwgygjpy2z6phpk5l";
     })
   ];
 

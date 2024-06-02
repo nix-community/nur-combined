@@ -1,52 +1,31 @@
-{ lib, stdenv, jre, makeWrapper, requireFile }:
+{ lib, stdenv, jre, makeWrapper, fetchzip, adoptopenjdk-jre-bin }:
 
 stdenv.mkDerivation rec {
   version = "2024-05-31";
   pname = "emulicious";
 
-  # src = fetchzip {
-  #   name = "${pname}-${version}.zip";
-  #   url = "https://emulicious.net/download/emulicious/?wpdmdl=205";
-  #   sha256 = "082jxhrd1zrxhkq6axww3nldrilf9hqfnn0i2syg4dqfl8jdmlg7";
-  # };
-
-  src = requireFile {
-    name = "emulicious.zip";
-    message = ''
-      This nix expression requires that emulicious.zip is
-      already part of the store. Find the file on ${meta.homepage}
-      and add it to the nix store with nix-store --add-fixed sha256 <FILE>.
-    '';
-    sha256 = "082jxhrd1zrxhkq6axww3nldrilf9hqfnn0i2syg4dqfl8jdmlg7";
+  src = fetchzip {
+    name = "${pname}-${version}.zip";
+    url = "https://emulicious.net/emulicious/downloads/${pname}-${version}.zip";
+    sha256 = "sha256-VsEAzqB97puSvPg8CxZAdr9bP2K7jSy02haguWsP7Z0=";
+    stripRoot=false;
   };
 
   nativeBuildInputs = [ makeWrapper ];
 
-# see https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=emulicious-bin
+  dontConfigure = true;
+  dontUnpack = true;
+  dontBuild = true;
+  dontPatchELF = true;
 
-  # installPhase = ''
-  #   runHook preInstall
-
-  #   mkdir -p $out/share/java
-  #   mv $(ls */*.jar) $out/share/java
-
-  #   makeWrapper $out/share/java/frostwire $out/bin/frostwire \
-  #     --prefix PATH : ${jre}/bin \
-  #     --prefix LD_LIBRARY_PATH : $out/share/java \
-  #     --set JAVA_HOME "${jre}"
-
-  #   substituteInPlace $out/share/java/frostwire \
-  #     --replace "export JAVA_PROGRAM_DIR=/usr/lib/frostwire/jre/bin" \
-  #       "export JAVA_PROGRAM_DIR=${jre}/bin/"
-
-  #   substituteInPlace $out/share/java/frostwire.desktop \
-  #     --replace "Exec=/usr/bin/frostwire %U" "Exec=${placeholder "out"}/bin/frostwire %U"
-
-  #   runHook postInstall
-  # '';
+  installPhase = ''
+    runHook preInstall
+    install -D $src/Emulicious.jar $out/lib/Emulicious.jar
+    makeWrapper ${adoptopenjdk-jre-bin}/bin/java $out/bin/emulicious --add-flags "-jar $out/lib/Emulicious.jar"
+    runHook postInstall
+  '';
 
   meta = with lib; {
-    broken = true;
     homepage = "https://emulicious.net/";
     description = "Game Boy, Game Boy Color, Master System, Game Gear and MSX emulator";
     mainProgram = "emulicious";
