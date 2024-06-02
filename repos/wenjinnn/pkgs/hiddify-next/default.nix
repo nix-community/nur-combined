@@ -6,7 +6,6 @@
 let
   pname = "hiddify-next";
   version = "1.1.1";
-  name = "${pname}-${version}";
   src = fetchurl {
     url = "https://github.com/hiddify/hiddify-next/releases/download/v${version}/Hiddify-Linux-x64.AppImage";
     hash = "sha256-T4BWxhJ7q13KE1rvvFsnXhs2XVEmNkFTJbJ4e8PCg+0=";
@@ -18,7 +17,7 @@ appimageTools.wrapType2 {
 
   extraPkgs = pkgs: with pkgs; [ libepoxy ];
   extraInstallCommands = ''
-    mv $out/bin/${name} $out/bin/hiddify
+    mv $out/bin/${pname}* $out/bin/hiddify
     install -Dm644 ${appimageContents}/hiddify.desktop $out/share/applications/hiddify.desktop
     cp -a ${appimageContents}/usr/share/icons $out/share/
     substituteInPlace $out/share/applications/hiddify.desktop \
