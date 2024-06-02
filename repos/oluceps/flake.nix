@@ -204,7 +204,7 @@
       url = "github:atuinsh/atuin";
     };
     conduit = {
-      url = "gitlab:famedly/conduit";
+      url = "github:girlbossceo/conduwuit";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nyx = {
