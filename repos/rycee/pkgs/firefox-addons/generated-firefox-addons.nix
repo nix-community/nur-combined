@@ -984,7 +984,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/dessant/buster#readme";
-        description = "Save time by asking Buster to solve captchas for you.";
+        description = "Save time by asking Buster to solve CAPTCHAs for you.";
         license = licenses.gpl3;
         mozPermissions = [
           "storage"
@@ -1093,10 +1093,10 @@
     };
     "chatgptbox" = buildFirefoxXpiAddon {
       pname = "chatgptbox";
-      version = "2.5.5";
+      version = "2.5.6";
       addonId = "{b764208e-0a98-436d-a599-c1baa044f829}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4287936/chatgptbox-2.5.5.xpi";
-      sha256 = "e675a54d5a0852708fc4ab0f429de3f82f273ba49f31f80b7a9b50e910ebffd2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4296593/chatgptbox-2.5.6.xpi";
+      sha256 = "49dbe7558481b5c25cd79c4304329c6df0caa1e706fc43c105e81e4454e4c622";
       meta = with lib;
       {
         homepage = "https://github.com/josStorer/chatGPTBox";
@@ -2242,20 +2242,20 @@
     };
     "enhanced-github" = buildFirefoxXpiAddon {
       pname = "enhanced-github";
-      version = "5.0.11";
+      version = "6.0.0";
       addonId = "{72bd91c9-3dc5-40a8-9b10-dec633c0873f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3764141/enhanced_github-5.0.11.xpi";
-      sha256 = "a75d7844b261289d099cf99b1c8915210919b371069f066af139d5a7892967b6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4296800/enhanced_github-6.0.0.xpi";
+      sha256 = "d33e8540f44998d5711af0f2d236349d20be8fbbbfbb2f5e47438b481f2ab387";
       meta = with lib;
       {
         homepage = "https://github.com/softvar/enhanced-github";
         description = "Display repo size, size of each file, download link and option to copy file contents";
         license = licenses.mit;
         mozPermissions = [
-          "*://*.github.com/*"
           "storage"
           "webRequest"
           "webNavigation"
+          "*://*.github.com/*"
         ];
         platforms = platforms.all;
       };
@@ -11306,7 +11306,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/dessant/web-archives#readme";
-        description = "View archived and cached versions of web pages on 10+ search engines, such as the Wayback Machine, Archive․is, Google, Bing and Yandex";
+        description = "View archived and cached versions of web pages on 10+ search engines, such as the Wayback Machine, Archive․is, Google, Bing and Yandex.";
         license = licenses.gpl3Only;
         mozPermissions = [
           "alarms"
