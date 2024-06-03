@@ -33,7 +33,7 @@ jobs:
       with:
         extra-conf: |
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          nix-path = https://nixos.org/channels/${{ matrix.nixChannel }}/nixexprs.tar.xz
+          nix-path = nixpkgs=https://nixos.org/channels/${{ matrix.nixChannel }}/nixexprs.tar.xz
 
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
