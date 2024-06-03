@@ -36,7 +36,7 @@
     inherit (sources.bling) src pname;
     version = sources.bling.date;
 
-    knownRockspec = src + "/${pname}-dev-1.rockspec";
+    knownRockspec = src + "/${pname}-dev-2.rockspec";
 
     meta = with pkgs.lib; {
       description = "Utilities for the awesome window manager";
