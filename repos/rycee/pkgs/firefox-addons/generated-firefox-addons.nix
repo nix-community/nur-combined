@@ -85,7 +85,7 @@
           "browserSettings"
           "management"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
       };
     };
@@ -1569,7 +1569,7 @@
           "alarms"
           "scripting"
           "proxy"
-          ];
+        ];
         platforms = platforms.all;
       };
     };
@@ -1615,7 +1615,7 @@
           "webRequestBlocking"
           "storage"
           "<all_urls>"
-          ];
+        ];
         platforms = platforms.all;
       };
     };
@@ -2017,20 +2017,6 @@
         description = "German Dictionary (new Orthography) for spellchecking in Firefox";
         license = licenses.lgpl21;
         mozPermissions = [];
-        platforms = platforms.all;
-      };
-    };
-    "disable-facebook-news-feed" = buildFirefoxXpiAddon {
-      pname = "disable-facebook-news-feed";
-      version = "3.3";
-      addonId = "{85cd2b5d-b3bd-4037-8335-ced996a95092}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4015709/disable_facebook_news_feed-3.3.xpi";
-      sha256 = "8706de4ac241ff223ab9983b22c5805fcc8afb8477e574d9f873065fa72d4dbb";
-      meta = with lib;
-      {
-        description = "Removes News Feed from Facebook. Saves hours of scrolling.";
-        license = licenses.mpl20;
-        mozPermissions = [ "*://*.facebook.com/*" ];
         platforms = platforms.all;
       };
     };
@@ -8878,10 +8864,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.4.9";
+      version = "24.6.2";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4262441/refined_github-24.4.9.xpi";
-      sha256 = "7bbc82d7d991f8f776ff47167b0c9e7c05043e83c0d85e1b6711e1e2777f3284";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4296939/refined_github-24.6.2.xpi";
+      sha256 = "d7cce1af2deccd0430cc6eb516024f4e03433ad755d5218c43bff2922076ab39";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -10765,10 +10751,10 @@
     };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2024.5.27.852";
+      version = "2024.6.2.1013";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4293863/ublock_origin_lite-2024.5.27.852.xpi";
-      sha256 = "9385c540c679d243e5fad6bd193b04ef67d2605f126055af7a0ef1f6aad6ab5c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4297026/ublock_origin_lite-2024.6.2.1013.xpi";
+      sha256 = "e06e28b93522df5380aa3db292b65f973ab7c3fb6a95a7204098b5316ed21fd7";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
