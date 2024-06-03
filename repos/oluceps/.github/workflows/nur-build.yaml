@@ -22,6 +22,7 @@ jobs:
           - nixos-config
         nixPath:
           - nixpkgs=channel:nixos-unstable
+          - nixpkgs=channel:nixpkgs-unstable
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
