@@ -1,6 +1,7 @@
 { lib, config, ... }:
 {
   services.resolved = {
+    enable = lib.mkForce false;
     llmnr = "false";
     dnssec = "false";
     extraConfig = ''

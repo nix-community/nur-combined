@@ -118,6 +118,7 @@
     vaultwarden.enable = true;
     minecraft-servers.enable = false;
     matrix-conduit.enable = true;
+    coredns.enable = true;
 
     phantomsocks = {
       enable = true;
@@ -261,18 +262,18 @@
     #   enable = true;
     #   environmentFile = config.age.secrets.cloudflare-garden-00.path;
     # };
-    compose-up.instances = [
-      {
-        name = "misskey";
-        workingDirectory = "/home/${user}/Src/misskey";
-      }
-      {
-        name = "nextchat";
-        workingDirectory = "/home/${user}/Src/ChatGPT-Next-Web";
-        extraArgs = "chatgpt-next-web";
-        environmentFile = config.age.secrets.nextchat.path;
-      }
-    ];
+    # compose-up.instances = [
+    #   {
+    #     name = "misskey";
+    #     workingDirectory = "/home/${user}/Src/misskey";
+    #   }
+    #   {
+    #     name = "nextchat";
+    #     workingDirectory = "/home/${user}/Src/ChatGPT-Next-Web";
+    #     extraArgs = "chatgpt-next-web";
+    #     environmentFile = config.age.secrets.nextchat.path;
+    #   }
+    # ];
 
     hysteria.instances = [
       {
