@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qutebrowser-bin";
-  version = "3.1.0";
+  version = "3.2.0";
 
   src = fetchfromgh {
     owner = "qutebrowser";
     repo = "qutebrowser";
     name = "qutebrowser-${finalAttrs.version}.dmg";
-    hash = "sha256-AvuuwUnxMcr2ekZ/O1FL/4IizV1aTMhXNrbf1SwNY7U=";
+    hash = "sha256-IhCS+bf4FTaSFFpw3knUm+NZUZaJLD9xIMxabf0nFUE=";
     version = "v${finalAttrs.version}";
   };
 
@@ -46,13 +46,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru.userscripts = "${finalAttrs.finalPackage}/Applications/qutebrowser.app/Contents/Resources/userscripts";
 
-  meta =
-    with lib;
-    qutebrowser.meta
-    // {
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-      maintainers = [ maintainers.sikmir ];
-      platforms = [ "x86_64-darwin" ];
-      skip.ci = true;
-    };
+  meta = qutebrowser.meta // {
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    maintainers = [ lib.maintainers.sikmir ];
+    platforms = [ "x86_64-darwin" ];
+    skip.ci = true;
+  };
 })
