@@ -53,7 +53,7 @@ in buildPythonApplication rec {
     ln -s ${setup} setup.py
 
     substituteInPlace stuff/general.py \
-      --replace "os.path.dirname(__file__), \"..\", \"bin\"," "\"${resetprop}/share\","
+      --replace-fail "os.path.dirname(__file__), \"..\", \"bin\"," "\"${resetprop}/share\","
   '';
 
   passthru.updateScript = nix-update-script {

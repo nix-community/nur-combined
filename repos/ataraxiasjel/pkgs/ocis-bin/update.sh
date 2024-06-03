@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p curl gnused gawk nix-prefetch
+#!nix-shell -i bash -p curl gnused jq nix-prefetch
 
 set -euo pipefail
 
@@ -25,7 +25,7 @@ replace_sha() {
   sed -i "s#$1 = \"sha256-.\{44\}\"#$1 = \"$2\"#" "$NIX_DRV"
 }
 
-VAULT_VER=$(curl -Ls -w "%{url_effective}" -o /dev/null https://github.com/owncloud/ocis/releases/latest | awk -F'/' '{print $NF}' | sed 's/v//')
+VAULT_VER=$(curl -s https://api.github.com/repos/owncloud/ocis/releases | jq -r 'map(select(.prerelease | not)) | .[0].tag_name' | sed 's/v//')
 
 VAULT_LINUX_X86_SHA256=$(fetch_arch "$VAULT_VER" "linux-386")
 VAULT_LINUX_X64_SHA256=$(fetch_arch "$VAULT_VER" "linux-amd64")

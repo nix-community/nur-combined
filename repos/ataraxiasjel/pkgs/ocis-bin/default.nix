@@ -1,7 +1,7 @@
 { stdenv, lib, fetchurl, autoPatchelfHook }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ocis-bin";
-  version = "4.0.6";
+  version = "5.0.5";
 
   src = let
     inherit (stdenv.hostPlatform) system;
@@ -15,22 +15,19 @@ stdenv.mkDerivation rec {
       aarch64-darwin = "darwin-arm64";
     };
     sha256 = selectSystem {
-      x86_64-linux = "sha256-wz4gVTWdmMNt+pU7VqelVtkRFp2yfw+CnJ60HPN/9hU=";
-      aarch64-linux = "sha256-y4cnI/NGVhlXdTJoH8WneRFxM1WMYAFKjVQ/tI7g27Q=";
-      i686-linux = "sha256-wtwtur+OJ2VtDQM0MJKGLbikX6Lwo46+uGddVKjaOG8=";
-      x86_64-darwin = "sha256-/pSXmJzHltmXIHuyUXCczyABBHPjALO5jKcxqXHHFpg=";
-      aarch64-darwin = "sha256-tEr5hi4DTWQ72GGxcglI7YjL+QgYt0VjKON2KkVXK4s=";
+      x86_64-linux = "sha256-YAIhtHv/cO4yFpkWoRNMf6t4+ifMtGPTcYu84ZMvfD4=";
+      aarch64-linux = "sha256-OdtT9NOhh0Fkk+8CDic0NWWbGflk3FcuKB60OycJU5E=";
+      i686-linux = "sha256-4yEgg0Ve8tjNn2weH9d91tfRaU1TE569VvZLxzuzXsw=";
+      x86_64-darwin = "sha256-6jaX9iqyqztykeXZX3YqwRV/silFiyfeB9gJyreAfF8=";
+      aarch64-darwin = "sha256-KJqMJct7YWocE4eVjMF36adqTIf7WcutZlG3QEoMhCI=";
     };
   in fetchurl {
     url =
-      "https://github.com/owncloud/ocis/releases/download/v${version}/ocis-${version}-${suffix}";
+      "https://github.com/owncloud/ocis/releases/download/v${finalAttrs.version}/ocis-${finalAttrs.version}-${suffix}";
     inherit sha256;
   };
 
   dontUnpack = true;
-  dontConfigure = true;
-  dontBuild = true;
-  dontStrip = stdenv.isDarwin;
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
@@ -40,13 +37,16 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  # passthru.updateScript = ./update.sh;
+  passthru.updateScript = ./update.sh;
 
   meta = with lib; {
     description = "ownCloud Infinite Scale Stack";
-    homepage = "https://doc.owncloud.com/ocis/next";
-    license = licenses.asl20;
+    homepage = "https://owncloud.dev/ocis";
+    changelog = "https://github.com/owncloud/ocis/releases/tag/v${finalAttrs.version}";
+    license = licenses.unfree;
     maintainers = with maintainers; [ ataraxiasjel ];
     platforms = [ "x86_64-linux" "aarch64-linux" "i686-linux" "x86_64-darwin" "aarch64-darwin" ];
+    sourceProvenance = [ sourceTypes.binaryNativeCode ];
+    mainProgram = "ocis";
   };
-}
+})

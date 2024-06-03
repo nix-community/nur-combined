@@ -19,7 +19,6 @@ rec {
   koboldcpp-rocm = pkgs.callPackage ./koboldcpp-rocm { inherit (python-pkgs) customtkinter; };
   mpris-ctl = pkgs.callPackage ./mpris-ctl { };
   ocis-bin = pkgs.callPackage ./ocis-bin { };
-  ocis-next-bin = pkgs.callPackage ./ocis-bin/next.nix { };
   prometheus-podman-exporter = pkgs.callPackage ./prometheus/podman-exporter.nix { };
   proton-ge = pkgs.callPackage ./proton-ge { };
   protonhax = pkgs.callPackage ./protonhax { };

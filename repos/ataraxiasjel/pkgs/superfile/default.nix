@@ -3,20 +3,21 @@
 , fetchFromGitHub
 , makeWrapper
 , exiftool
+, nix-update-script
 }:
 
 buildGoModule rec {
   pname = "superfile";
-  version = "1.1.2";
+  version = "1.1.3";
 
   src = fetchFromGitHub {
     owner = "MHNightCat";
     repo = "superfile";
     rev = "v${version}";
-    hash = "sha256-Cn03oPGT+vCZQcC62p7COx8N8BGgra+qQaZyF+osVsA=";
-  } + "/src";
+    hash = "sha256-z1jcRzID20s7tEDUaEcnOYBfv/BPZtcXz9fy3V5iPPg=";
+  };
 
-  vendorHash = "sha256-gWrhy3qzlXG072u5mW971N2Y4Vmt0KbZkB8SFsFgSzo=";
+  vendorHash = "sha256-OzPH7dNu/V4HDGSxrvYxu3s+hw36NiulFZs0BJ44Pjk=";
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -25,7 +26,7 @@ buildGoModule rec {
       --prefix PATH : ${lib.makeBinPath [ exiftool ]}
   '';
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Key Managament Server for Object Storage and more";

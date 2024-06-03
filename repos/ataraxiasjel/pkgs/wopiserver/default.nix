@@ -37,11 +37,11 @@ buildPythonApplication rec {
     in
     ''
       ln -s ${pyproject} pyproject.toml
-      substituteInPlace src/wopiserver.py --replace \
+      substituteInPlace src/wopiserver.py --replace-warn \
         "WOPISERVERVERSION = 'git'" "WOPISERVERVERSION = '${version}'" \
-        --replace "if __name__ == '__main__':" "def main():" \
-        --replace "/etc/wopi/wopiserver.defaults.conf" "$out/etc/wopi/wopiserver.defaults.conf"
-      substituteInPlace wopiserver.conf --replace \
+        --replace-fail "if __name__ == '__main__':" "def main():" \
+        --replace-fail "/etc/wopi/wopiserver.defaults.conf" "$out/etc/wopi/wopiserver.defaults.conf"
+      substituteInPlace wopiserver.conf --replace-fail \
         "/etc/wopi" "$out/etc/wopi"
     '';
 
