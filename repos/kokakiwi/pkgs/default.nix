@@ -31,6 +31,7 @@ let
     ots-cli = {
       _common = "ots";
     };
+    tumelune = { };
   };
 
   development = importSub ./development {
