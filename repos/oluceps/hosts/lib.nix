@@ -43,6 +43,7 @@ in
       "impermanence"
       "lanzaboote"
       "catppuccin"
+      "lix-module"
       "self"
     ])
     ++ (with inputs.dae.nixosModules; [
