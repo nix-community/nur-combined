@@ -28,13 +28,12 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Install nix
-      uses: cachix/install-nix-action@V27
+    - name: Install Nix
+      uses: DeterminateSystems/nix-installer-action@main
       with:
-        nix_path: "${{ matrix.nixPath }}"
-        extra_nix_config: |
-          experimental-features = nix-command flakes
+        extra-conf: |
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+          nix-path = ${{ matrix.nixPath }}
 
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
