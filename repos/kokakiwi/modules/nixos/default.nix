@@ -1,16 +1,22 @@
-{
-  all-modules = [
-    ./networking/netns.nix
+let
+  modules = {
+    networking = {
+      netns = import ./networking/netns.nix;
+    };
+    services = {
+      pueue = import ./services/pueue.nix;
+      qbittorrent = import ./services/qbittorrent.nix;
+    };
+  };
 
-    ./services/pueue.nix
-    ./services/qbittorrent.nix
+  inherit (builtins) attrValues;
+  concat = lists:
+    builtins.foldl' (acc: elem: acc ++ elem) [ ] lists;
+
+  all-modules = concat [
+    (attrValues modules.networking)
+    (attrValues modules.services)
   ];
-
-  networking = {
-    netns = import ./networking/netns.nix;
-  };
-  services = {
-    pueue = import ./services/pueue.nix;
-    qbittorrent = import ./services/qbittorrent.nix;
-  };
+in modules // {
+  inherit all-modules;
 }

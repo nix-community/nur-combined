@@ -19,6 +19,14 @@ let
         mercurial = "http://freenginx.org/hg/nginx";
         prefix = "release-";
       };
+      tumelune = {
+        source = "gitlab";
+        host = "git.argent.systems";
+        gitlab = "alice/tumelune";
+        use_max_tag = true;
+        prefix = "v";
+        include_regex = "v[0-9]+\.[0-9]+\.[0-9]+";
+      };
     };
   };
 in pkgs.mkShell {
