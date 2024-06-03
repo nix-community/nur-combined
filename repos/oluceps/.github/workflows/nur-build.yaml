@@ -20,9 +20,9 @@ jobs:
           - oluceps
         cachixName:
           - nixos-config
-        nixPath:
-          - nixpkgs=channel:nixos-unstable
-          - nixpkgs=channel:nixpkgs-unstable
+        nixChannel:
+          - nixos-unstable
+          - nixpkgs-unstable
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -33,12 +33,7 @@ jobs:
       with:
         extra-conf: |
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          nix-path = ${{ matrix.nixPath }}
-
-    - name: init nixpkgs-unstable
-      run:
-        sudo nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs-unstable
-        sudo nix-channel --update
+          nix-path = https://nixos.org/channels/${{ matrix.nixChannel }}/nixexprs.tar.xz
 
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
