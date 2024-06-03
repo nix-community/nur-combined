@@ -165,7 +165,7 @@
         aarch64 = lib.filterNurAttrs "aarch64-linux" (
           import ./default.nix {
             pkgs = import nixpkgs {
-              system = "aarch64-multiplatform";
+              system = "aarch64-linux";
               config = {
                 allowUnfree = true;
               };

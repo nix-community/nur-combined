@@ -77,7 +77,7 @@ jobs:
 
     - name: Build aarch64 nix packages
       if: ${{ matrix.arch == 'aarch64' }}
-      run: nix run nixpkgs#nix-build-uncached -- ./nix/ci_aarch64.nix
+      run: nix run nixpkgs#nix-build-uncached -- ./nix/ci_aarch64_cross.nix
 
     - name: Trigger NUR update
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=Cryolitia"
