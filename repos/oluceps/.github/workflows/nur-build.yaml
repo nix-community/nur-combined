@@ -35,6 +35,11 @@ jobs:
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
           nix-path = ${{ matrix.nixPath }}
 
+    - name: init nixpkgs-unstable
+      run:
+        sudo nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs-unstable
+        sudo nix-channel --update
+
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
