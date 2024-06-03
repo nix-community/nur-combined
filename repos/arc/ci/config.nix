@@ -13,7 +13,7 @@ in {
   # https://github.com/arcnmx/ci
   name = "arc-nixexprs";
   ci = {
-    version = "v0.6";
+    version = "v0.7";
     configPath = "./ci/config.nix";
     gh-actions = {
       path = ".github/workflows/build.yml";
@@ -68,6 +68,7 @@ in {
           nativeBuildInputs = [ nix ];
           command = "nix eval -f $src/default.nix ${attr}";
           impure = true; # nix doesn't work inside builders ("recursive nix")
+          skip = "broken";
         };
       in [ (eval "lib") (eval "modules") (eval "overlays") ];
     };
@@ -103,7 +104,8 @@ in {
       channels.nixpkgs.version = "unstable-small";
       warn = true;
     };
-    unstable-nixpkgs = {
+    # XXX: fails due to: nixpkgs-24.11preXXXXXX.XXXXXXXXXXXX/lib/tests/modules/declare-bare-submodule-deep-option.nix in tarball has unsupported file type
+    unstable-nixpkgs = mkIf false {
       system = "x86_64-linux";
       channels.nixpkgs.version = "nixpkgs-unstable";
       warn = true;

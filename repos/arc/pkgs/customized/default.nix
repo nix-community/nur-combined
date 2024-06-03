@@ -123,7 +123,7 @@ let
       }) ++ optional (versionOlder rnnoise-plugin.version "1.0") (fetchpatch {
         url = "https://github.com/arcnmx/noise-suppression-for-voice/commit/0e4540ae60278f22c4f2c7e1dd0bc42eafc17783.patch";
         sha256 = "sha256-DMxuFd3f0196VUFIjOUdj5NUoADISaKQHqeN9H9fwZU=";
-      }) ++ optional (versionAtLeast rnnoise-plugin.version "1.0") (fetchpatch {
+      }) ++ optional (versionAtLeast rnnoise-plugin.version "1.0" && versionOlder rnnoise-plugin.version "1.10") (fetchpatch {
         url = "https://github.com/arcnmx/noise-suppression-for-voice/commit/3b01ba433c87ebc9b4b4aa94ebdcadd4b7da28f2.patch";
         sha256 = "sha256-jEOvx616WUSFP7j5WzLLgytRNNyVZMKWTOL/qFVJ7BU=";
       });
