@@ -10,5 +10,6 @@ let
 
   top-level = {
     lib = importSet ./lib;
+    modules = import ./modules;
   };
 in packages // top-level
