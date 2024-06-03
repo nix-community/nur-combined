@@ -1254,11 +1254,11 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3066",
-            "sha256": "sha256-1BcnODD6Z/dCCq+PPuhoTKYYzUQJZgceagwVxTNQ4GI=",
+            "rev": "b3070",
+            "sha256": "sha256-nL70CdyEcaxMjqCwYy4m47tucHrbquNvBOZS1XfBFoM=",
             "type": "github"
         },
-        "version": "b3066"
+        "version": "b3070"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -2109,11 +2109,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "50e0ddf6a2f01070de20125cb5a773227166bf54",
-            "sha256": "sha256-OvQRr5i3w0XOXltMQZSCoEUZBQyxRU2VtOZBIErMLzs=",
+            "rev": "69381881ef09b41d9bbbe523504a346d301f1547",
+            "sha256": "sha256-dbf++KFfCQ4m+HoWk6UGTBS1ajyiCGMhNM5O0D3YuTQ=",
             "type": "github"
         },
-        "version": "50e0ddf6a2f01070de20125cb5a773227166bf54"
+        "version": "69381881ef09b41d9bbbe523504a346d301f1547"
     },
     "rime-moegirl": {
         "cargoLocks": null,
