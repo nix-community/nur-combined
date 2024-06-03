@@ -159,17 +159,13 @@
       ConfigureWithoutCarrier = true;
     };
     routes = [{
-      routeConfig = {
-        Destination = "0.0.0.0/0";
-        Metric = 1;
-        Table = 200;
-      };
+      Destination = "0.0.0.0/0";
+      Metric = 1;
+      Table = 200;
     }];
     routingPolicyRules = [{
-      routingPolicyRuleConfig = {
-        FirewallMark = 10;
-        Table = 200;
-      };
+      FirewallMark = 10;
+      Table = 200;
     }];
   };
 

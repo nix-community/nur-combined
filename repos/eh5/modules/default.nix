@@ -4,7 +4,6 @@ let
     fake-hwclock = import ./fake-hwclock;
     mosdns = import ./mosdns;
     nftables-fullcone = import ./nftables-fullcone;
-    shadow-tls = import ./shadow-tls;
     system-tarball-extlinux = import ./system-tarball-extlinux;
     v2ray-rules-dat = import ./v2ray-rules-dat;
     vlmcsd = import ./vlmcsd;

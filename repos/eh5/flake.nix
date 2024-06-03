@@ -61,7 +61,6 @@
                   "einat"
                   "kcptun"
                   "mosdns"
-                  "sops-install-secrets-nonblock"
                   "ubootNanopiR2s"
                   "vlmcsd"
                 ]

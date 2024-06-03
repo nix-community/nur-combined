@@ -68,6 +68,7 @@
   environment.systemPackages = with pkgs; [
     bind
     bpftools
+    busybox
     conntrack-tools
     ethtool
     f2fs-tools

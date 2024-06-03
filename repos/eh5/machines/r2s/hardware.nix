@@ -64,7 +64,7 @@
       $out/bin/haveged --version
     '';
     # provide entropy with haveged in stage 1 for faster crng init
-    postDeviceCommands = ''
+    preLVMCommands = lib.mkBefore ''
       haveged --once
     '';
   };
@@ -126,6 +126,16 @@
     wants = [ "network-online.target" ];
     after = [ "network-online.target" ];
     script = ''
+      # Somehow Linux kernel has not set gpio2-15(b7) conntecting LAN LED to "GPIO" pinmux, causing no output to LAN LED,
+      # workaround it by setting pinmux register(GRF_GPIO2CL_IOMUX) manually.
+      #
+      # Refer to gpio2_b7_sel under GRF_GPIO2CL_IOMUX in
+      # <https://opensource.rock-chips.com/images/9/97/Rockchip_RK3328TRM_V1.1-Part1-20170321.pdf>
+      #
+      # 0xff100028 = 0xff100000(base address of GRF) + 0x28(offset of register GRF_GPIO2CL_IOMUX)
+      # 0x00070000 = 0x0007 << 16 (write mask of bits 2:0) + 0x0000 (set gpio2_b7_sel bits 2:0 to 0, i.e. "GPIO" MUX)
+      ${pkgs.busybox}/bin/devmem 0xff100028 32 0x00070000
+
       ${pkgs.kmod}/bin/modprobe ledtrig_netdev
       cd /sys/class/leds/nanopi-r2s:green:lan
       echo netdev > trigger
