@@ -25,6 +25,7 @@ rec {
   makebax = pkgs.callPackage ./pkgs/makebax { };
   ctrtool = pkgs.callPackage ./pkgs/ctrtool { };
   makerom = pkgs.callPackage ./pkgs/makerom { };
+  homebox-bin = pkgs.callPackage ./pkgs/homebox-bin { };
 
   mediawiki_1_39 = pkgs.callPackage ./pkgs/mediawiki {
     version = "1.39.7";

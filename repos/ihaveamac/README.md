@@ -22,6 +22,7 @@ Attributes listed on [the NUR](https://nur.nix-community.org/repos/ihaveamac/)
 * kwin-move-window-1.1.1
 * kwin-explicit-sync-patch-6.0.5.1
 * mediawiki-1.39.7
+* homebox-bin-0.10.3
 
 ## Using the KWin patch
 
