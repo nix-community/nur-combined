@@ -22,6 +22,7 @@ buildGoModule rec {
   in {
     "23.11" = "sha256-xgvZnRTyCF+JhTxpreO6iMkJ0kPQ9KaDZ0kUr1AOC+8=";
     "24.05" = "sha256-JheeyKs4usRiBGnJN4qY/2hSW5JuWK7CFJclsbCDlfk=";
+    "24.11" = "sha256-JheeyKs4usRiBGnJN4qY/2hSW5JuWK7CFJclsbCDlfk=";
   }.${version}; # DISGOSTAN
 
   nativeBuildInputs = [ pkg-config git ];
