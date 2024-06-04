@@ -106,7 +106,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (120 packages)</summary>
+<summary>Package set: (Uncategorized) (121 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -189,6 +189,7 @@ Or, use variables from this repository in case I change them:
 |  | `plasma-desktop-lyrics` | [plasma-desktop-lyrics](https://github.com/chiyuki0325/PlasmaDesktopLyrics) | 0.1 | KDE Plasma 桌面歌词显示挂件（后台服务） |
 |  | `plasma-desktop-lyrics-plasmoid` | [plasma-desktop-lyrics](https://github.com/chiyuki0325/PlasmaDesktopLyrics) | 0.1 | KDE Plasma 桌面歌词显示挂件（Plasmoid 组件） |
 |  | `plasma-panel-transparency-toggle` | [plasma-panel-transparency-toggle](https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6) | unstable-2024-04-17 | A rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6 |
+|  | `pocl` | [pocl](http://portablecl.org) | 5.0 | A portable open source (MIT-licensed) implementation of the OpenCL standard |
 |  | `procps4` | [procps4](https://gitlab.com/procps-ng/procps) | 4.0.4 | Utilities that give information about processes using the /proc filesystem |
 |  | `pterodactyl-wings` | [pterodactyl-wings](https://pterodactyl.io) | 1.11.13 | The server control plane for Pterodactyl Panel. |
 |  | `py-rcon` | [py-rcon](https://github.com/ttk1/py-rcon) | 1.3.0 | Python implementation of RCON |

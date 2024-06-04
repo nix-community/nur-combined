@@ -1815,6 +1815,26 @@
         },
         "version": "739c70ffde6bb7670d57d3507804408ae13edf25"
     },
+    "pocl": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "pocl",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "pocl",
+            "repo": "pocl",
+            "rev": "v5.0",
+            "sha256": "sha256-9Z7WG1r9FqxlQXwuyrTOW4/Y3c7u85rH2qfLJHgmZ3E=",
+            "type": "github"
+        },
+        "version": "v5.0"
+    },
     "procps4": {
         "cargoLocks": null,
         "date": null,

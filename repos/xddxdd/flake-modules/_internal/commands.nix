@@ -82,7 +82,7 @@
           set -euo pipefail
           nix build .#_meta.readme
           cat result > README.md
-          nix search . ^ --json > nix-packages.json
+          nix search . ^ --json | ${pkgs.jq}/bin/jq > nix-packages.json
         '';
 
         search-lib = ''

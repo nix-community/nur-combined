@@ -1046,6 +1046,17 @@
     };
     date = "2024-04-17";
   };
+  pocl = {
+    pname = "pocl";
+    version = "v5.0";
+    src = fetchFromGitHub {
+      owner = "pocl";
+      repo = "pocl";
+      rev = "v5.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-9Z7WG1r9FqxlQXwuyrTOW4/Y3c7u85rH2qfLJHgmZ3E=";
+    };
+  };
   procps4 = {
     pname = "procps4";
     version = "4.0.4";

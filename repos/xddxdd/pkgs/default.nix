@@ -181,6 +181,7 @@ mkScope (
     plasma-desktop-lyrics = pkg ./uncategorized/plasma-desktop-lyrics { };
     plasma-desktop-lyrics-plasmoid = pkg ./uncategorized/plasma-desktop-lyrics-plasmoid { };
     plasma-panel-transparency-toggle = pkg ./uncategorized/plasma-panel-transparency-toggle { };
+    pocl = pkg ./uncategorized/pocl { };
     procps4 = pkg ./uncategorized/procps4 { };
     pterodactyl-wings = pkg ./uncategorized/pterodactyl-wings { };
     py-rcon = pkg ./uncategorized/py-rcon { };
