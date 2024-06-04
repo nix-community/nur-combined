@@ -17,9 +17,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-/UIfgwPFZxdnSywA7ysyVIFQXTRud/nlkOdzGEESEbY=";
 
+  ldflags = [
+    "-s"
+    "-w"
+  ];
+
   meta = {
     description = "Static git gemini viewer";
-    inherit (src.meta) homepage;
+    homepage = "https://git.sr.ht/~kornellapacz/gmnigit";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "gmnigit";

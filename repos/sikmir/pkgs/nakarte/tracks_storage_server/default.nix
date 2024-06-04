@@ -3,12 +3,25 @@
   stdenv,
   fetchFromGitHub,
   python3Packages,
+  writeText,
 }:
 
+let
+  setupPy = writeText "setup.py" ''
+    from setuptools import setup
+    setup(
+      name='tracks_storage_server',
+      version='1.0',
+      install_requires=['msgpack', 'protobuf', 'psycopg2'],
+      py_modules=['server', 'nktk_raw_pb2', 'config'],
+      data_files=[('bin', ['init.sql'])],
+      scripts=['init_db.py'],
+    )
+  '';
+in
 python3Packages.buildPythonApplication rec {
   pname = "tracks_storage_server";
   version = "2024-04-27";
-  format = "other";
 
   src = fetchFromGitHub {
     owner = "wladich";
@@ -17,32 +30,18 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-fN7OG52t2pHxFlCxhnMkVMpctsuwBQyuXMO9CD9eWLg=";
   };
 
-  dontUseSetuptoolsBuild = true;
-  dontUseSetuptoolsCheck = true;
+  postPatch = ''
+    cp ${setupPy} ${setupPy.name}
+    substitute config.py.example config.py --replace-fail "'password" "#'password"
+  '';
 
-  installPhase =
-    let
-      pythonEnv = python3Packages.python.withPackages (
-        p: with p; [
-          msgpack
-          protobuf
-          psycopg2
-        ]
-      );
-    in
-    ''
-      site_packages=$out/lib/${python3Packages.python.libPrefix}/site-packages
-      mkdir -p $site_packages
-      cp *.py *.sql $site_packages
+  propagatedBuildInputs = with python3Packages; [
+    msgpack
+    protobuf
+    psycopg2
+  ];
 
-      substitute config.py.example $site_packages/config.py \
-        --replace-fail "'password" "#'password"
-
-      makeWrapper ${pythonEnv.interpreter} $out/bin/tracks_storage_server \
-        --add-flags "$site_packages/server.py"
-      makeWrapper ${pythonEnv.interpreter} $out/bin/init_db \
-        --add-flags "$site_packages/init_db.py"
-    '';
+  pythonImportsCheck = [ "server" ];
 
   meta = {
     description = "Tracks storage server";

@@ -6,24 +6,28 @@
 
 buildGoModule rec {
   pname = "ionscale";
-  version = "0.15.0";
+  version = "0.16.0";
 
   src = fetchFromGitHub {
     owner = "jsiebens";
     repo = "ionscale";
     rev = "v${version}";
-    hash = "sha256-D6w5mHjlz+P+h0Q/8kk0PIDyyDfQxPsVka13ZTTDuv0=";
+    hash = "sha256-OXCxdXkBpbb6qQUGp70OOhi6Ydaw+EXlVTw8QsCjAGQ=";
   };
 
-  vendorHash = "sha256-YULdxUTzI+lwy9/wrSSc/rv3vwBkGkNc0b9GyUc9jQc=";
+  vendorHash = "sha256-UzxfIaZ2tbCt0g4WtH0gnSw8HGFI+07JOe4HUdPQmqs=";
 
-  ldflags = [ "-X github.com/jsiebens/ionscale/internal/version.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/jsiebens/ionscale/internal/version.Version=${version}"
+  ];
 
   doCheck = false;
 
   meta = {
     description = "A lightweight implementation of a Tailscale control server";
-    inherit (src.meta) homepage;
+    homepage = "https://jsiebens.github.io/ionscale/";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "ionscale";
