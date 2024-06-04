@@ -2,10 +2,10 @@
   {
     "10ten-ja-reader" = buildFirefoxXpiAddon {
       pname = "10ten-ja-reader";
-      version = "1.18.0";
+      version = "1.19.0";
       addonId = "{59812185-ea92-4cca-8ab7-cfcacee81281}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4241410/10ten_ja_reader-1.18.0.xpi";
-      sha256 = "5433bcfec5a327bf1fa198b3f0645a9cdcdc44232465ad940fa8a5858b6996f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4295435/10ten_ja_reader-1.19.0.xpi";
+      sha256 = "ebd3fa8b8e6d6fb6352715b109187189470a97ed3af16e7481d29e0d9c50b780";
       meta = with lib;
       {
         homepage = "https://github.com/birchill/10ten-ja-reader/";
@@ -1848,10 +1848,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.85";
+      version = "4.9.86";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4286925/darkreader-4.9.85.xpi";
-      sha256 = "28180bd8b970c4b9f961bda310df271d1e26a7cdf4ff01c94239f2fca3079d05";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4295557/darkreader-4.9.86.xpi";
+      sha256 = "dde9896751858d0179f3d724a59f2bd4a0d61e599cb8822dc8ed2de320510714";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -1951,10 +1951,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "127.0.20240531.105723";
+      version = "127.0.20240603.152359";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4296173/deutsch_de_language_pack-127.0.20240531.105723.xpi";
-      sha256 = "d98c25d44118ed8e43240c4e3f82c5685481296e4ad88c7ace905ee17bc6ddb7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4297675/deutsch_de_language_pack-127.0.20240603.152359.xpi";
+      sha256 = "e223e8bb9243a53a59891acf17e6b09a7abf63dc3dd2e7e0463a7799c30b1b29";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2133,10 +2133,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.39.3";
+      version = "2.40.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4295464/dualsub-2.39.3.xpi";
-      sha256 = "b6694fcd089ff7fe0ee7dd1a090cec6914a190c1048a205b35d86193fe442dfa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4297231/dualsub-2.40.0.xpi";
+      sha256 = "930fb280f1dedbc6b04e02ac66316941830d9c183ca708ac9b078425d319c8ef";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2152,9 +2152,7 @@
           "https://www.youtube.com/*"
           "https://www.netflix.com/*"
           "https://www.disneyplus.com/*"
-          "https://www.9now.com.au/*"
           "https://www.ardmediathek.de/*"
-          "https://www.bbc.co.uk/*"
           "https://www.bilibili.com/*"
           "https://www.coupangplay.com/*"
           "https://www.coursera.org/*"
@@ -2162,16 +2160,11 @@
           "https://www.iflix.com/*"
           "https://www.iq.com/*"
           "https://www.primevideo.com/*"
-          "https://www.raiplay.it/*"
           "https://www.udemy.com/*"
           "https://www.viki.com/*"
           "https://www.youku.tv/*"
           "https://www.zdf.de/*"
-          "https://10play.com.au/*"
-          "https://7plus.com.au/*"
-          "https://iview.abc.net.au/*"
           "https://m.youtube.com/*"
-          "https://vimeo.com/*"
           "https://wetv.vip/*"
           "https://player.dualsub.xyz/*"
         ];
@@ -2322,10 +2315,10 @@
     };
     "enhanced-github" = buildFirefoxXpiAddon {
       pname = "enhanced-github";
-      version = "6.0.0";
+      version = "6.1.0";
       addonId = "{72bd91c9-3dc5-40a8-9b10-dec633c0873f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4296800/enhanced_github-6.0.0.xpi";
-      sha256 = "d33e8540f44998d5711af0f2d236349d20be8fbbbfbb2f5e47438b481f2ab387";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4297236/enhanced_github-6.1.0.xpi";
+      sha256 = "8ebf2ff7602e1747f3cc329e7c99acf7348d019ec456e5639d9d90af0b7afec3";
       meta = with lib;
       {
         homepage = "https://github.com/softvar/enhanced-github";
@@ -2473,10 +2466,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.7";
+      version = "1.3.8";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4287714/faststream-1.3.7.xpi";
-      sha256 = "167e9e16e29fc590a6000fe3422ed413d75400a32697d62c0691dc3c1438d7b9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4297783/faststream-1.3.8.xpi";
+      sha256 = "766fce4c66f0a4208d76abff57cce8d5546156ee044824d93ac3055d53e5e6a6";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -2887,10 +2880,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "127.0.20240531.105723";
+      version = "127.0.20240603.152359";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4296194/francais_language_pack-127.0.20240531.105723.xpi";
-      sha256 = "bf624080332437814b1bf78beea321cb4305cb4a83dad343d4e4326e10345db6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4297645/francais_language_pack-127.0.20240603.152359.xpi";
+      sha256 = "9222c2c5c10cdd5e62f7a5243bcbdbf3c47bcc124992ca9bc9897fdb739921d4";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -5770,10 +5763,10 @@
     };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.67";
+      version = "2.6.68";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4282737/localcdn_fork_of_decentraleyes-2.6.67.xpi";
-      sha256 = "db8c9bfd93b8eba7d526c1de0b730cde9f7564d1b9445e2e9f2d3d28e1d6045b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4295688/localcdn_fork_of_decentraleyes-2.6.68.xpi";
+      sha256 = "3752313c73856b301623a21ac99af9e4a25325b8c80232f144a51fd0c887df8e";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -7623,10 +7616,10 @@
     };
     "paperpile" = buildFirefoxXpiAddon {
       pname = "paperpile";
-      version = "1.0.47";
+      version = "1.0.49";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4294799/paperpile_addon-1.0.47.xpi";
-      sha256 = "19deb25a7a12d582cc44b3275fbff59c42e4dc26651dffd0d1c386adbb587362";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4297341/paperpile_addon-1.0.49.xpi";
+      sha256 = "0cce1761799d0b55616a73b4013b80aa69a49cd3c97c7b3ea5739db75cfa5605";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -9847,10 +9840,10 @@
     };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
-      version = "6.12.2";
+      version = "7.0.0";
       addonId = "Tab-Session-Manager@sienori";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4165190/tab_session_manager-6.12.2.xpi";
-      sha256 = "79b280f0a45b5117f6327e5bcc8275b13dec855375af29f0a935bd2e800f587a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4293879/tab_session_manager-7.0.0.xpi";
+      sha256 = "0aba3d23085edaaa1aeb608c2e3b7451eff2dae3250a91a6fad801c8bbd5f5e2";
       meta = with lib;
       {
         homepage = "https://tab-session-manager.sienori.com/";
@@ -9863,6 +9856,7 @@
           "cookies"
           "downloads"
           "identity"
+          "alarms"
         ];
         platforms = platforms.all;
       };
@@ -11277,10 +11271,10 @@
     };
     "w2g" = buildFirefoxXpiAddon {
       pname = "w2g";
-      version = "9.5";
+      version = "10.0";
       addonId = "{6ea0a676-b3ef-48aa-b23d-24c8876945fb}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4204148/w2g-9.5.xpi";
-      sha256 = "a71b56b1858e4f8163c38bf27da9470bd3aa15ce02e117355acbb171a51249b0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4292621/w2g-10.0.xpi";
+      sha256 = "67e0e50faa22c3fdcf81d25b4951dcc17e4a003e47fd36296addff159e1ca397";
       meta = with lib;
       {
         homepage = "https://w2g.tv";
