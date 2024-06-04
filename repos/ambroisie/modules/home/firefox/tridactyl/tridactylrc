@@ -15,8 +15,8 @@ bind --mode=input <C-i> editor_rm
 
 " Binds {{{
 " Reddit et al. {{{
-" Toggle comments on Reddit, Hacker News, Lobste.rs
-bind ;c hint -Jc [class*="expand"],[class*="togg"],[class="comment_folder"]
+" Toggle comments on Reddit, Hacker News, Lobste.rs, LWN
+bind ;c hint -Jc [class*="expand"],[class*="togg"],[class="comment_folder"],[class="CommentBox"]>summary
 
 " Make `gu` take me back to subreddit from comments
 bindurl reddit.com gu urlparent 3
