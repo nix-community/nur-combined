@@ -31,12 +31,16 @@ parser.add_argument('--smtp-server', default=os.getenv("SMTP_SERVER"))
 parser.add_argument('--smtp-destinations', default=os.getenv("SMTP_DESTINATIONS"))
 args = parser.parse_args()
 
+enable_email = None not in [args.smtp_user, args.smtp_passwd, args.smtp_server, args.smtp_destinations]
+
 now = datetime.today()
 
-message = MIMEMultipart()
-message['From'] = args.smtp_user
-message['To'] = args.smtp_destinations.replace(' ', ', ')
-message["Subject"] = f"Relatório do dia {str(now).split(' ')[0]} FusionSolar"
+message = None
+if enable_email:
+    message = MIMEMultipart()
+    message['From'] = args.smtp_user
+    message['To'] = args.smtp_destinations.replace(' ', ', ')
+    message["Subject"] = f"Relatório do dia {str(now).split(' ')[0]} FusionSolar"
 
 service = webdriver.chrome.service.Service(executable_path=which("chromedriver"))
 # options = webdriver.ChromeOptions()
@@ -53,32 +57,41 @@ driver.execute_cdp_cmd('Storage.clearDataForOrigin', {
     "storageTypes": 'all',
 })
 
-print('[*] Login', file=stderr)
-driver.get("https://intl.fusionsolar.huawei.com/pvmswebsite/login/build/index.html#/LOGIN")
-time.sleep(10)
-driver.find_element(By.CSS_SELECTOR, "div#username input").send_keys(args.user)
-password_input = driver.find_element(By.CSS_SELECTOR, "div#password input")
-password_input.send_keys(args.password)
-password_input.send_keys(Keys.ENTER)
-time.sleep(10)
-
-cooke_close_buttons = driver.find_elements(By.CSS_SELECTOR, "i.cookiePolicy-icon")
-for cooke_close_button in cooke_close_buttons:
-    print('[*] Fechando diálogo de cookie ocupando espaço', file=stderr)
-    cooke_close_button.click()
-
-shitty_modal_candidates = driver.find_elements(By.CSS_SELECTOR, "div.dpdesign-modal.nco-privacy-confirm-modal")
-if len(shitty_modal_candidates) > 0:
-    print('[*] Encontrada porcaria de modal para autorização de espionagem', file=stderr)
-    shitty_modal = shitty_modal_candidates[0]
-    shitty_checkbox = shitty_modal.find_element(By.CSS_SELECTOR, "input")
-    if shitty_checkbox.is_selected:
-        shitty_checkbox.click()
-    shitty_button = shitty_modal.find_element(By.CSS_SELECTOR, "button")
-    time.sleep(1)
-
-    shitty_button.click()
+while True:
+    print('[*] Login', file=stderr)
+    driver.get("https://intl.fusionsolar.huawei.com/pvmswebsite/login/build/index.html#/LOGIN")
     time.sleep(10)
+    driver.find_element(By.CSS_SELECTOR, "div#username input").send_keys(args.user)
+    password_input = driver.find_element(By.CSS_SELECTOR, "div#password input")
+    password_input.send_keys(args.password)
+    password_input.send_keys(Keys.ENTER)
+    time.sleep(10)
+
+    cooke_close_buttons = driver.find_elements(By.CSS_SELECTOR, "i.cookiePolicy-icon")
+    for cooke_close_button in cooke_close_buttons:
+        print('[*] Fechando diálogo de cookie ocupando espaço', file=stderr)
+        cooke_close_button.click()
+
+    shitty_modal_candidates = driver.find_elements(By.CSS_SELECTOR, "div.dpdesign-modal.nco-privacy-confirm-modal")
+    if len(shitty_modal_candidates) > 0:
+        print('[*] Encontrada porcaria de modal para autorização de espionagem', file=stderr)
+        shitty_modal = shitty_modal_candidates[0]
+        shitty_checkbox = shitty_modal.find_element(By.CSS_SELECTOR, "input")
+        if shitty_checkbox.is_selected:
+            shitty_checkbox.click()
+        for shitty_button in shitty_modal.find_elements(By.CSS_SELECTOR, "button"):
+            if shitty_button.text == 'Approve':
+                shitty_button.click()
+                break
+
+        time.sleep(1)
+
+        shitty_button.click()
+        time.sleep(10)
+    if 'login' not in driver.current_url:
+        break
+    else:
+        print('[*] Reiniciado pra login, refazendo processo')
 
 stations_data = []
 remaining_trys = 5
@@ -143,48 +156,26 @@ email_text.append("")
 email_text.append("Os gráficos de geração estão em anexo.")
 email_text.append("")
 email_text.append(f"Dados obtidos em: {str(now)}")
+print(email_text)
 
 
-message.attach(MIMEText("\n".join(email_text), 'plain'))
-for attachment in attachments:
-    message.attach(attachment)
+if enable_email:
+    message.attach(MIMEText("\n".join(email_text), 'plain'))
+    for attachment in attachments:
+        message.attach(attachment)
 
-context = ssl.create_default_context()
-smtp_server, *smtp_port = args.smtp_server.split(":")
-if len(smtp_port) == 0:
-    smtp_port = 465
-else:
-    smtp_port = int(smtp_port[0])
+    context = ssl.create_default_context()
+    smtp_server, *smtp_port = args.smtp_server.split(":")
+    if len(smtp_port) == 0:
+        smtp_port = 465
+    else:
+        smtp_port = int(smtp_port[0])
 
-print('[*] Enviando emails', file=stderr)
+    print('[*] Enviando emails', file=stderr)
 
-with smtplib.SMTP_SSL(smtp_server, smtp_port, context=context) as server:
-    server.login(args.smtp_user, args.smtp_passwd)
-    email_txt = message.as_string()
-    server.sendmail(args.smtp_user, args.smtp_destinations.split(" "), email_txt)
+    with smtplib.SMTP_SSL(smtp_server, smtp_port, context=context) as server:
+        server.login(args.smtp_user, args.smtp_passwd)
+        email_txt = message.as_string()
+        server.sendmail(args.smtp_user, args.smtp_destinations.split(" "), email_txt)
     
 driver.quit()
-# token_file = Path.home() / ".fusion-solar"
-
-# token = None
-# if token_file.exists():
-#     token = token_file.read_text()
-# else:
-#     request = Request(
-#         "https://intl.fusionsolar.huawei.com/thirdData/login",
-#         data=json.dumps(dict(
-#             userName = args.user,
-#             systemCode = args.password
-#         )).encode('utf-8'),
-#         headers={
-#             "accept": "application/json",
-#             "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
-#         },
-#         method='POST'
-#     )
-#     data = urlopen(request)
-#     token = data.getheader("xsrf-token")
-#     if token is not None:
-#         token_file.write_text(token)
-#     print(data)
-#     print(data.read())

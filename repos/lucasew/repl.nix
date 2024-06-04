@@ -5,7 +5,7 @@ default
 // {
   pkgs = default.legacyPackages;
   lib = default.legacyPackages.lib;
-  inherit (default.packages)
+  inherit (default)
     homeConfigurations
     deploy
     nixosConfigurations
