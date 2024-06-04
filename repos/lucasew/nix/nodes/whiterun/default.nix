@@ -121,9 +121,9 @@ in
 
   services.hardware.openrgb.enable = true;
 
-  # services.transmission.enable = true;
+  services.transmission.enable = true;
 
-  services.rtorrent.enable = true;
+  # services.rtorrent.enable = true;
   # services.rtorrent.enableSandboxSample = true;
 
   services.miniflux.enable = true;

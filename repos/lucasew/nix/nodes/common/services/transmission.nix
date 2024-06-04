@@ -45,6 +45,7 @@ in
       };
     };
     services.transmission = {
+      package = pkgs.transmission_4;
       openFirewall = true;
       openPeerPorts = true;
       downloadDirPermissions = null;
