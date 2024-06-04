@@ -63,10 +63,10 @@
   };
   qutebrowser-darwin = {
     pname = "qutebrowser-darwin";
-    version = "3.1.0";
+    version = "3.2.0";
     src = fetchurl {
-      url = "https://github.com/qutebrowser/qutebrowser/releases/download/v3.1.0/qutebrowser-3.1.0.dmg";
-      sha256 = "sha256-AvuuwUnxMcr2ekZ/O1FL/4IizV1aTMhXNrbf1SwNY7U=";
+      url = "https://github.com/qutebrowser/qutebrowser/releases/download/v3.2.0/qutebrowser-3.2.0.dmg";
+      sha256 = "sha256-IhCS+bf4FTaSFFpw3knUm+NZUZaJLD9xIMxabf0nFUE=";
     };
   };
   sbarlua = {
@@ -103,10 +103,10 @@
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "6.7.3329.35";
+    version = "6.7.3329.39";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.6.7.3329.35.universal.dmg";
-      sha256 = "sha256-xYm7I46S0VM2VpFCsKlywDKi1TkimF3Gys7T8XSysxg=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.6.7.3329.39.universal.dmg";
+      sha256 = "sha256-m5TgEUNr8N1uMguZowt6/9N2UpZZeuM/qzJVQ3XoC6M=";
     };
   };
 }
