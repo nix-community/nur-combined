@@ -1,9 +1,11 @@
 {
   lib,
-  stdenv,
+  buildPythonPackage,
   fetchFromGitHub,
-  python3Packages,
   writeText,
+  msgpack,
+  protobuf,
+  psycopg2,
 }:
 
 let
@@ -19,7 +21,7 @@ let
     )
   '';
 in
-python3Packages.buildPythonApplication rec {
+buildPythonPackage rec {
   pname = "tracks_storage_server";
   version = "2024-04-27";
 
@@ -35,7 +37,7 @@ python3Packages.buildPythonApplication rec {
     substitute config.py.example config.py --replace-fail "'password" "#'password"
   '';
 
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = [
     msgpack
     protobuf
     psycopg2

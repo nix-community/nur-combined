@@ -441,7 +441,7 @@ lib.makeScope newScope (
     thinplatespline = callPackage ./nakarte/thinplatespline {
       python3Packages = pkgs.python39Packages;
     };
-    tracks_storage_server = callPackage ./nakarte/tracks_storage_server { };
+    tracks_storage_server = pkgs.python3Packages.callPackage ./nakarte/tracks_storage_server { };
 
     ### OSM
 
