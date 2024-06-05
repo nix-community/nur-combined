@@ -183,15 +183,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "0a20112f1a30b0d4bdf54abec592793baef6d46d";
+    version = "2ffe8b64088bdf7f3c0009462fab53c5ccd04f8f";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "0a20112f1a30b0d4bdf54abec592793baef6d46d";
+      rev = "2ffe8b64088bdf7f3c0009462fab53c5ccd04f8f";
       fetchSubmodules = false;
-      sha256 = "sha256-5QCNGMa8wm8iy8t7UnXebkQpOgGyg123SZynOiiGbrg=";
+      sha256 = "sha256-DhuvzZOmvpqye/Gc8EMRZhFRclMq1JAyRNkKkUP7ozQ=";
     };
-    date = "2024-05-31";
+    date = "2024-06-03";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -282,13 +282,13 @@
   };
   decluttarr = {
     pname = "decluttarr";
-    version = "v1.44.0";
+    version = "v1.45.0";
     src = fetchFromGitHub {
       owner = "ManiMatter";
       repo = "decluttarr";
-      rev = "v1.44.0";
+      rev = "v1.45.0";
       fetchSubmodules = false;
-      sha256 = "sha256-K6lSVPlwiIfsJdQf6IdBKOVpiUnRQyxihHxy+KTXUgU=";
+      sha256 = "sha256-v1WYCeNi8QwkxqjT/vbKvB1Gx5j52356ysKc/wpDYbg=";
     };
   };
   dingtalk = {
@@ -719,13 +719,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3070";
+    version = "b3089";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3070";
+      rev = "b3089";
       fetchSubmodules = false;
-      sha256 = "sha256-nL70CdyEcaxMjqCwYy4m47tucHrbquNvBOZS1XfBFoM=";
+      sha256 = "sha256-0jUj6u/v+w8HrFtoXysx3eElfom98TF+6zZ2o58V+7A=";
     };
   };
   nbfc-linux-lantian = {
@@ -1214,15 +1214,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "69381881ef09b41d9bbbe523504a346d301f1547";
+    version = "af2480ba1b147a6a54c0c21e2997ef451c34e036";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "69381881ef09b41d9bbbe523504a346d301f1547";
+      rev = "af2480ba1b147a6a54c0c21e2997ef451c34e036";
       fetchSubmodules = false;
-      sha256 = "sha256-dbf++KFfCQ4m+HoWk6UGTBS1ajyiCGMhNM5O0D3YuTQ=";
+      sha256 = "sha256-3KfuCHGFFcEzgprvJzJiyot8HqYWHvDhIu4Qo6Tu6Ys=";
     };
-    date = "2024-06-02";
+    date = "2024-06-04";
   };
   rime-moegirl = {
     pname = "rime-moegirl";

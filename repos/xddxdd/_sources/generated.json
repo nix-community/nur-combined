@@ -316,7 +316,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-05-31",
+        "date": "2024-06-03",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -328,11 +328,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "0a20112f1a30b0d4bdf54abec592793baef6d46d",
-            "sha256": "sha256-5QCNGMa8wm8iy8t7UnXebkQpOgGyg123SZynOiiGbrg=",
+            "rev": "2ffe8b64088bdf7f3c0009462fab53c5ccd04f8f",
+            "sha256": "sha256-DhuvzZOmvpqye/Gc8EMRZhFRclMq1JAyRNkKkUP7ozQ=",
             "type": "github"
         },
-        "version": "0a20112f1a30b0d4bdf54abec592793baef6d46d"
+        "version": "2ffe8b64088bdf7f3c0009462fab53c5ccd04f8f"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -498,11 +498,11 @@
             "name": null,
             "owner": "ManiMatter",
             "repo": "decluttarr",
-            "rev": "v1.44.0",
-            "sha256": "sha256-K6lSVPlwiIfsJdQf6IdBKOVpiUnRQyxihHxy+KTXUgU=",
+            "rev": "v1.45.0",
+            "sha256": "sha256-v1WYCeNi8QwkxqjT/vbKvB1Gx5j52356ysKc/wpDYbg=",
             "type": "github"
         },
-        "version": "v1.44.0"
+        "version": "v1.45.0"
     },
     "dingtalk": {
         "cargoLocks": null,
@@ -1254,11 +1254,11 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3070",
-            "sha256": "sha256-nL70CdyEcaxMjqCwYy4m47tucHrbquNvBOZS1XfBFoM=",
+            "rev": "b3089",
+            "sha256": "sha256-0jUj6u/v+w8HrFtoXysx3eElfom98TF+6zZ2o58V+7A=",
             "type": "github"
         },
-        "version": "b3070"
+        "version": "b3089"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -2117,7 +2117,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-06-02",
+        "date": "2024-06-04",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -2129,11 +2129,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "69381881ef09b41d9bbbe523504a346d301f1547",
-            "sha256": "sha256-dbf++KFfCQ4m+HoWk6UGTBS1ajyiCGMhNM5O0D3YuTQ=",
+            "rev": "af2480ba1b147a6a54c0c21e2997ef451c34e036",
+            "sha256": "sha256-3KfuCHGFFcEzgprvJzJiyot8HqYWHvDhIu4Qo6Tu6Ys=",
             "type": "github"
         },
-        "version": "69381881ef09b41d9bbbe523504a346d301f1547"
+        "version": "af2480ba1b147a6a54c0c21e2997ef451c34e036"
     },
     "rime-moegirl": {
         "cargoLocks": null,
