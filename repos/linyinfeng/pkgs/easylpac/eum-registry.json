@@ -35,6 +35,12 @@
     "manufacturer": "NXP"
   },
   {
+    "eum": "89044045",
+    "country": "GB",
+    "manufacturer": "Kigen",
+    "products": [{ "pattern": "890440451167274948*", "name": "sysmoEUICC1-C2G" }]
+  },
+  {
     "eum": "89044047",
     "country": "GB",
     "manufacturer": "Truphone"
@@ -52,6 +58,7 @@
       { "pattern": "890490320070088826*", "chip": "ST33J2M0STL9DZD0", "name": "Apple, 2021" },
       { "pattern": "890490320071088800*", "chip": "ST33J2M0STL9DZF2", "name": "Apple, 2022" },
       { "pattern": "890490320072088889*", "chip": "ST33J2M0STL9DZH2", "name": "Apple, 2023" },
+      { "pattern": "890490320073088836*", "name": "Apple, 2024" },
       { "pattern": "890490320000010000*", "name": "<non-specific>" }
     ]
   },
