@@ -1,7 +1,7 @@
-{ gnome
-, fetchpatch
-, stdenv
-,
+{
+  gnome,
+  fetchpatch,
+  stdenv,
 }:
 
 gnome.gnome-shell.overrideAttrs (oldAttrs: {
