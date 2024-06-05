@@ -2621,10 +2621,10 @@
     };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.74";
+      version = "6.1.75";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4269236/flagfox-6.1.74.xpi";
-      sha256 = "e5783d04b483983b8e980213c568734f9d8cafe1584db505f92ba37e261ff4cd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4295861/flagfox-6.1.75.xpi";
+      sha256 = "f2a714ebed043aede74b2db416d3ac8c2f440a2f70e0edc89e7932be2ad2587b";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -5823,10 +5823,10 @@
     };
     "mal-sync" = buildFirefoxXpiAddon {
       pname = "mal-sync";
-      version = "0.10.1";
+      version = "0.10.2";
       addonId = "{c84d89d9-a826-4015-957b-affebd9eb603}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4292572/mal_sync-0.10.1.xpi";
-      sha256 = "fe99f4c633423ae0f1df8941548e1288b157502577a5fe09d94692fe96336a7b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4297936/mal_sync-0.10.2.xpi";
+      sha256 = "72f9cec6f4f32d5045f3681959402fd69427b98619732a97c0aeed1d611c0be1";
       meta = with lib;
       {
         homepage = "https://github.com/lolamtisch/MALSync";
@@ -6354,6 +6354,8 @@
           "*://*.mixdrop21.net/e/*"
           "*://*.mixdrop.si/e/*"
           "*://*.mixdrop.nu/e/*"
+          "*://*.mixdrop.sx/e/*"
+          "*://*.mixdrop.ms/e/*"
           "*://gdriveplayer.me/embed*"
           "*://sendvid.net/v/*"
           "*://sendvid.com/embed/*"
@@ -6641,6 +6643,8 @@
           "*://cindyeyefinal.com/e/*"
           "*://michaelapplysome.com/e/*"
           "*://sethniceletter.com/e/*"
+          "*://brucevotewithin.com/e/*"
+          "*://rebeccaneverbase.com/e/*"
           "*://vidoo.tv/*"
           "*://nxload.com/*"
           "*://videobin.co/*"
@@ -6694,6 +6698,7 @@
           "*://fmoonembed.pro/e/*"
           "*://rgeyyddl.skin/e/*"
           "*://designparty.sx/e/*"
+          "*://c4qhk0je.xyz/e/*"
           "*://mb.toonanime.xyz/dist/*"
           "*://aniyan.net/jwplayer/*"
           "*://*.googlevideo.com/videoplayback?*"
@@ -7645,22 +7650,23 @@
     };
     "passff" = buildFirefoxXpiAddon {
       pname = "passff";
-      version = "1.17";
+      version = "1.18";
       addonId = "passff@invicem.pro";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4284061/passff-1.17.xpi";
-      sha256 = "fe447ebab2741166bdeb505274724649c9146de454d74599419ff3b2a73cdfbe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4298236/passff-1.18.xpi";
+      sha256 = "3fa99d1fd24f3a4bdf5f57fb4d0ddc051c949289bf5e59a0779477f0c3335445";
       meta = with lib;
       {
-        homepage = "https://github.com/passff/passff";
+        homepage = "https://codeberg.org/PassFF/passff";
         description = "Add-on that allows users of the unix password manager 'pass' (see <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/24f646fb865abe6edf9e3f626db62565bfdc2e7819ab33a5b4c30a9573787988/https%3A//www.passwordstore.org/\" rel=\"nofollow\">https://www.passwordstore.org/</a>) to access their password store from Firefox";
         license = licenses.gpl2;
         mozPermissions = [
           "<all_urls>"
-          "tabs"
-          "storage"
-          "nativeMessaging"
           "clipboardWrite"
           "contextMenus"
+          "contextualIdentities"
+          "nativeMessaging"
+          "storage"
+          "tabs"
           "webRequest"
           "webRequestBlocking"
         ];
@@ -7851,10 +7857,10 @@
     };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2024.5.27";
+      version = "2024.5.31";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4294424/privacy_badger17-2024.5.27.xpi";
-      sha256 = "bf8e9f231bdd7754d337ebb51a96bb179bae8cffac9fe71521c36f1958425de3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4296462/privacy_badger17-2024.5.31.xpi";
+      sha256 = "d26010ff08cde19d9eb05286daf8f392c521199f45c87c13943e3cecc8d6d4a5";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
@@ -9755,10 +9761,10 @@
     };
     "switchyomega" = buildFirefoxXpiAddon {
       pname = "switchyomega";
-      version = "2.5.20resigned1";
+      version = "2.5.10";
       addonId = "switchyomega@feliscatus.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4272197/switchyomega-2.5.20resigned1.xpi";
-      sha256 = "7588f97372c49a9f76b21637143b0f5767d6ea454a16b5bc6577eccd031da752";
+      url = "https://addons.mozilla.org/firefox/downloads/file/848109/switchyomega-2.5.10.xpi";
+      sha256 = "dfefc2da59eeb2e92a32fc75fb05426feeea4c39ee01b7a797395ed29ed7cf77";
       meta = with lib;
       {
         homepage = "https://github.com/FelisCatus/SwitchyOmega";
@@ -10179,10 +10185,10 @@
     };
     "toolkit-for-ynab" = buildFirefoxXpiAddon {
       pname = "toolkit-for-ynab";
-      version = "3.13.1";
+      version = "3.14.0";
       addonId = "{4F1FB113-D7D8-40AE-A5BA-9300EAEA0F51}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4282508/toolkit_for_ynab-3.13.1.xpi";
-      sha256 = "3f375505d061ced60b4f9cd46131c68245cfc7bbdba57ce539e271b348388c28";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4298051/toolkit_for_ynab-3.14.0.xpi";
+      sha256 = "70488e686555414091293fc467f4fdfa5529ea02287cb78820a36e23afac5c98";
       meta = with lib;
       {
         homepage = "https://github.com/toolkit-for-ynab/toolkit-for-ynab";
