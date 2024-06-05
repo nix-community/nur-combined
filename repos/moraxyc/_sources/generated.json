@@ -13,10 +13,10 @@
             "name": null,
             "owner": "cyrusimap",
             "repo": "cyrus-imapd",
-            "rev": "cyrus-imapd-3.8.2",
-            "sha256": "sha256-5I4EaLnxu2M1a79XmxUh1PXq703EfI73/9aohKg7jyc=",
+            "rev": "cyrus-imapd-3.8.3",
+            "sha256": "sha256-LK5mmtVxr6ljwqhaCA8g2bgxxSF0z1G8pbhnH2Idj3k=",
             "type": "github"
         },
-        "version": "cyrus-imapd-3.8.2"
+        "version": "cyrus-imapd-3.8.3"
     }
 }

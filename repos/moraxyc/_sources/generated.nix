@@ -3,13 +3,13 @@
 {
   cyrus-imapd = {
     pname = "cyrus-imapd";
-    version = "cyrus-imapd-3.8.2";
+    version = "cyrus-imapd-3.8.3";
     src = fetchFromGitHub {
       owner = "cyrusimap";
       repo = "cyrus-imapd";
-      rev = "cyrus-imapd-3.8.2";
+      rev = "cyrus-imapd-3.8.3";
       fetchSubmodules = false;
-      sha256 = "sha256-5I4EaLnxu2M1a79XmxUh1PXq703EfI73/9aohKg7jyc=";
+      sha256 = "sha256-LK5mmtVxr6ljwqhaCA8g2bgxxSF0z1G8pbhnH2Idj3k=";
     };
   };
 }
