@@ -68,10 +68,6 @@ jobs:
           -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
           -I $PWD
     - name: Build nix packages
-      env:
-        # WORKAROUND: for Darwin builds
-        # https://github.com/nix-community/NUR/issues/435
-        NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
