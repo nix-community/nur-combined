@@ -1,7 +1,6 @@
 {pkgs ? import <nixpkgs> {}}: {
   modules = import ./modules;
 
-  autobrr = pkgs.callPackage ./pkgs/autobrr {};
   firefox-addons = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/firefox-addons {});
   koreader-syncd = pkgs.callPackage ./pkgs/koreader-syncd {};
   orpheusbetter-crawler = pkgs.callPackage ./pkgs/orpheusbetter-crawler {};
