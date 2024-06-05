@@ -28,8 +28,8 @@ writeShellApplication {
 
     nix-update easylpac "''${args[@]}"
     pushd pkgs/easylpac
-    curl -o eum-registry.json https://euicc-manual.septs.app/docs/pki/eum/manifest.json
-    curl -o ci-registry.json  https://euicc-manual.septs.app/docs/pki/ci/manifest.json
+    curl --location --output eum-registry.json https://euicc-manual.septs.app/docs/pki/eum/manifest.json
+    curl --location --output ci-registry.json  https://euicc-manual.septs.app/docs/pki/ci/manifest.json
     if [[ -n "$commit_message_file" ]]; then
       if ! git diff --exit-code --no-patch -- eum-registry.json; then
         echo "easylpac: update eum-registry.json" >> "$commit_message_file"
