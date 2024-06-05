@@ -33,11 +33,12 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "HimDek";
     repo = "Utterly-Round-Plasma-Style";
-    rev = "c3677d5223286f69871f6745cdb3b71367229d40";
+    rev = "6280f69781b7fa9613b7a9c502d8d61e11fefca5";
     sha256 = "sha256-mlqRMz0cAZnnM4xE6p7fMzhGlqCQcM4FxmDlVnbGUgQ=";
   };
   meta = with lib; {
-    description = "A rounded Desktop theme and Window borders for Plasma 5 that follows any color scheme";
+    description =
+      "A Desktop Theme for KDE Plasma that follows all color scheme ";
     homepage = "https://himdek.com/Utterly-Round-Plasma-Style/";
     downloadPage = "https://github.com/HimDek/Utterly-Round-Plasma-Style";
     branch = "master";

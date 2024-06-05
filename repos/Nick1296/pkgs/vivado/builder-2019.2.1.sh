@@ -156,6 +156,9 @@ sed -i -- "s|$extracted|/nix/store/00000000000000000000000000000000-vivado-2022.
 sed -i -- "s|$extracted|/nix/store/00000000000000000000000000000000-vivado-2022.2-extracted|g" $out/opt/.xinstall/xic/data/instRecord.dat
 sed -i -- "s|$extracted|/nix/store/00000000000000000000000000000000-vivado-2022.2-extracted|g" $out/opt/.xinstall/DocNav/data/instRecord.dat
 
+# fix simulation behavior
+chmod +w $out/opt/Vivado/2019.2/data/xsim/xsim.ini
+
 # Add Vivado and xsdk to bin folder
 mkdir $out/bin
 ln -s $out/opt/Vivado/2019.2/bin/vivado $out/bin/vivado

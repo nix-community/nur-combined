@@ -113,6 +113,8 @@ wrapProgram $out/opt/SDK/2017.4/tps/lnx64/jre/bin/java --prefix LD_LIBRARY_PATH 
 sed -i -- 's|`basename "\$0"`|vivado|g' $out/opt/Vivado/2017.4/bin/.vivado-wrapped
 sed -i -- 's|`basename "\$0"`|xsdk|g' $out/opt/SDK/2017.4/bin/.xsdk-wrapped
 
+# fix simulation behavior
+chmod +w $out/opt/Vivado/2019.2/data/xsim/xsim.ini
 # Add vivado and xsdk to bin folder
 mkdir $out/bin
 ln -s $out/opt/Vivado/2017.4/bin/vivado $out/bin/vivado

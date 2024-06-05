@@ -1,36 +1,8 @@
-{ stdenv
-, lib
-, bash
-, coreutils
-, writeScript
-, gnutar
-, gzip
-, requireFile
-, patchelf
-, procps
-, makeWrapper
-, ncurses
-, zlib
-, libX11
-, libXrender
-, libxcb
-, libXext
-, libXtst
-, libXi
-, libxcrypt
-, glib
-, freetype
-, gtk2
-, buildFHSUserEnv
-, gcc
-, ncurses5
-, glibc
-, gperftools
-, fontconfig
-, liberation_ttf
-,writeTextFile
-, nettools
-}:
+{ stdenv, lib, bash, bashInteractive, coreutils, writeScript, gnutar, gzip
+, requireFile, patchelf, procps, makeWrapper, ncurses, zlib, libX11, libXrender
+, libxcb, libXext, libXtst, libXi, libxcrypt, glib, freetype, gtk2
+, buildFHSUserEnv, gcc, ncurses5, glibc, gperftools, fontconfig, liberation_ttf
+, writeTextFile, nettools }:
 
 let
   extractedSource = stdenv.mkDerivation rec {
@@ -38,7 +10,8 @@ let
 
     src = requireFile rec {
       name = "Xilinx_Vivado_2019.2_1106_2127.tar.gz";
-      url = "https://www.xilinx.com/member/forms/download/xef.html?filename=Xilinx_Vivado_2019.2_1106_2127.tar.gz";
+      url =
+        "https://www.xilinx.com/member/forms/download/xef.html?filename=Xilinx_Vivado_2019.2_1106_2127.tar.gz";
       sha256 = "15hfkb51axczqmkjfmknwwmn8v36ss39wdaay14ajnwlnb7q2rxh";
       message = ''
         Unfortunately, we cannot download file ${name} automatically.
@@ -53,20 +26,20 @@ let
     buildInputs = [ patchelf ];
 
     builder = writeScript "${name}-builder" ''
-      #! ${bash}/bin/bash
-      source $stdenv/setup
+       #! ${bash}/bin/bash
+       source $stdenv/setup
 
-      mkdir -p $out/
-      tar -xvf $src --strip-components=1 -C $out/ Xilinx_Vivado_2019.2_1106_2127/
+       mkdir -p $out/
+       tar -xvf $src --strip-components=1 -C $out/ Xilinx_Vivado_2019.2_1106_2127/
 
-      patchShebangs $out/
-      patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        $out/tps/lnx64/jre9.0.4/bin/java
+       patchShebangs $out/
+       patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+         $out/tps/lnx64/jre9.0.4/bin/java
 
-      for f in $(find $out -executable -type f)
-      do
-        patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $f || true
-     done
+       for f in $(find $out -executable -type f)
+       do
+         patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $f || true
+      done
     '';
   };
 
@@ -107,12 +80,11 @@ let
     };
   };
 
-in
-  buildFHSUserEnv {
-    name = "vivado2019.2";
-    targetPkgs = _pkgs: [
-      vivadoPackage
-      #add cable drivers udev rules
+in buildFHSUserEnv {
+  name = "vivado2019.2";
+  targetPkgs = _pkgs: [
+    vivadoPackage
+    #add cable drivers udev rules
     (writeTextFile {
       name = "xilinx-diligent-usb-udev";
       destination = "/etc/udev/rules.d/52-xilinx-digilent-usb.rules";
@@ -141,8 +113,9 @@ in
         ACTION=="add", ATTR{idVendor}=="0403", ATTR{manufacturer}=="Xilinx", MODE:="666"
       '';
     })
-    ];
-    multiPkgs = pkgs: with pkgs; [
+  ];
+  multiPkgs = pkgs:
+    with pkgs; [
       coreutils
       gcc
       ncurses5
@@ -150,5 +123,5 @@ in
       glibc.dev
       libxcrypt-legacy
     ];
-    runScript = "vivado";
-  }
+  runScript = "bash";
+}

@@ -111,7 +111,6 @@ wrapProgram $out/opt/Vivado/2019.2/bin/sysgen  --prefix LD_LIBRARY_PATH : "$libP
 
 wrapProgram $out/opt/Vivado/2019.2/bin/vivado_hls --prefix LD_LIBRARY_PATH : "$libPath"
 
-
 # wrapProgram on its own will not work because of the way the Vivado
 # script runs ./launch. Therefore, we need even more patches...
 sed -i -- 's|`basename "\$0"`|vivado|g' $out/opt/Vivado/2019.2/bin/.vivado-wrapped
