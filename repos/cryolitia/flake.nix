@@ -115,6 +115,8 @@
 
       nixosModules = import ./modules { inherit gpd-fan-driver; };
 
+      overlays = import ./overlays;
+
       nixpkgs-cuda = import nixpkgs {
         system = "x86_64-linux";
         config = {
@@ -127,8 +129,6 @@
       };
 
       ciJobs = {
-        default = lib.filterNurAttrs "x86_64-linux" packages.x86_64-linux;
-
         cuda = lib.filterNurAttrs "x86_64-linux" (
           import ./default.nix {
             pkgs = import nixpkgs {
@@ -161,24 +161,11 @@
             rust-overlay = true;
           }
         );
-
-        aarch64 = lib.filterNurAttrs "aarch64-linux" (
-          import ./default.nix {
-            pkgs = import nixpkgs {
-              system = "aarch64-linux";
-              config = {
-                allowUnfree = true;
-              };
-              overlays = [ (import rust-overlay) ];
-            };
-            rust-overlay = true;
-          }
-        );
-      };
+      } // (nixpkgs.lib.attrsets.genAttrs systems (name: (lib.filterNurAttrs name packages."${name}")));
 
       hydraJobs = {
         cuda = ciJobs.cuda;
-        aarch64 = ciJobs.aarch64;
+        aarch64 = ciJobs."aarch64-linux";
       };
     };
 }
