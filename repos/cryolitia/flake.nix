@@ -115,7 +115,7 @@
 
       nixosModules = import ./modules { inherit gpd-fan-driver; };
 
-      overlays = import ./overlays;
+      overlays = import ./overlays { inherit packages; };
 
       nixpkgs-cuda = import nixpkgs {
         system = "x86_64-linux";
