@@ -6,8 +6,8 @@
     prev: final: {
       gnome = prev.gnome.overrideScope (
         gfinal: gprev: {
-          mutter = prev.callPackage ../pkgs/pkgs/by-name/mutter-text-input-v1.nix { };
-          gnome-shell = prev.callPackage ../pkgs/by-name/gnome-shell-fix-preedit-cursor.nix { };
+          mutter = gprev.callPackage ../pkgs/pkgs/by-name/mutter-text-input-v1 { };
+          gnome-shell = gprev.callPackage ../pkgs/by-name/gnome-shell-fix-preedit-cursor { };
         }
       );
     }
