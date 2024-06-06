@@ -2,14 +2,16 @@ let
   identity = import ../resources/identity.nix;
 in
 {
-  # Containers
-  virtualisation.containers.registries.search = [ "docker.io" ];
+  # Docker
   virtualisation.docker = { enable = true; enableOnBoot = false; autoPrune.enable = true; };
-  virtualisation.podman.enable = true;
+  users.extraGroups.docker.members = [ identity.username ];
 
-  # Virtual machines
-  virtualisation.libvirtd.enable = true;
+  # Podman
+  virtualisation.containers.registries.search = [ "docker.io" ];
+  virtualisation.podman = { enable = true; autoPrune.enable = true; };
+  users.extraGroups.podman.members = [ identity.username ];
 
-  # Permissions
-  users.users.${identity.username}.extraGroups = [ "docker" "libvirtd" "podman" ];
+  # VirtualBox
+  virtualisation.virtualbox.host = { enable = true; headless = true; };
+  users.extraGroups.vboxusers.members = [ identity.username ];
 }

@@ -34,6 +34,7 @@ specify {
     (stable.fetchpatch { url = "https://patch-diff.githubusercontent.com/raw/forge-ext/forge/pull/392.patch"; hash = "sha256-XJEJDHr31tOq/kwRuUrm2/tu8L88giqVEzFZXet7/qY="; }) # forge-ext/forge#341
     (stable.fetchpatch { url = "https://patch-diff.githubusercontent.com/raw/forge-ext/forge/pull/393.patch"; hash = "sha256-mAwhqzFgu6W0NT9wQlKFSA61O2Ta+GQ+1BzYIHSkbhU="; }) # forge-ext/forge#391
     (stable.fetchpatch { url = "https://patch-diff.githubusercontent.com/raw/forge-ext/forge/pull/395.patch"; hash = "sha256-L/rvRP6e5v55WmZrUImgC3BvgqyG9yv7SKeRCFkKpYg="; }) # forge-ext/forge#395
+    ../packages/resources/forge_auto-tabbed.patch
   ];
   gopass-await.deps = { inherit (stable.gnome) zenity; };
   gopass-env = any;

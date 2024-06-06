@@ -1135,6 +1135,8 @@ unmapped
 unmark
 unmerged
 unminimize
+unmute
+unmuted
 unoptimized
 unpaginate
 unpaginating
