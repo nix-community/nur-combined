@@ -2,11 +2,11 @@
 
 pkgs.stdenv.mkDerivation rec {
   name = "hiddify";
-  version = "1.1.1";
+  version = "1.4.0";
 
   src = fetchurl {
     url = "https://github.com/hiddify/hiddify-next/releases/download/v${version}/Hiddify-Debian-x64.deb";
-    sha256 = "546afb3eded8199714b585cffb1bc075b917f21d78d99b78d26c0d6be79ea7bf";
+    sha256 = "dca0a36a31cc883aab39d46191989b6079fe2fc40d4ea4c9b20d152820b26a85";
   };
 
   buildInputs = with pkgs;[
