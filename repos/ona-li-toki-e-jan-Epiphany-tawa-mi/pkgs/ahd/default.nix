@@ -6,13 +6,13 @@
 
 stdenv.mkDerivation rec {
   pname   = "ahd";
-  version = "0.1.1";
+  version = "0.1.2";
 
   src = fetchFromGitHub {
     owner = "ona-li-toki-e-jan-Epiphany-tawa-mi";
     repo  = "AHD";
     rev   = version;
-    hash  = "sha256-JCJK0ov0th7Pry6AxeqClgYzRJ1dgV/3cTLhEDIhYe0=";
+    hash  = "sha256-+gGV5bptwZp0TLRX0B12qYZ6Ab4QUjqdgGTt/GIJgf4=";
   };
 
   buildInputs = [ gnuapl ];
