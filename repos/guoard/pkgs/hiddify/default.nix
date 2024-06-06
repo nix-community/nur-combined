@@ -1,7 +1,7 @@
 { fetchurl, lib, pkgs }:
 
 pkgs.stdenv.mkDerivation rec {
-  name = "Hiddify";
+  name = "hiddify";
   version = "1.1.1";
 
   src = fetchurl {
