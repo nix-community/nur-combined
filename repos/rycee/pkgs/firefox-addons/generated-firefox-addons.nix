@@ -7650,10 +7650,10 @@
     };
     "passff" = buildFirefoxXpiAddon {
       pname = "passff";
-      version = "1.18";
+      version = "1.19";
       addonId = "passff@invicem.pro";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4298236/passff-1.18.xpi";
-      sha256 = "3fa99d1fd24f3a4bdf5f57fb4d0ddc051c949289bf5e59a0779477f0c3335445";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4298564/passff-1.19.xpi";
+      sha256 = "ebc1349b3fef84f7af22688f905dfffc108c6a13d30827d07dd73e0dc0a7e05f";
       meta = with lib;
       {
         homepage = "https://codeberg.org/PassFF/passff";
@@ -8420,25 +8420,26 @@
     };
     "promnesia" = buildFirefoxXpiAddon {
       pname = "promnesia";
-      version = "1.2.4";
+      version = "1.3.1";
       addonId = "{07c6b8e1-94f7-4bbf-8e91-26c0a8992ab5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4110600/promnesia-1.2.4.xpi";
-      sha256 = "1f35b9e14ac88c250965fd5dbbb03a2a4dce869807484c3be23afc53eb388cee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4298718/promnesia-1.3.1.xpi";
+      sha256 = "1e98071a762cf21f772bab6fcd84fd878924cc5e58529edb2a93a509d1a2a6c1";
       meta = with lib;
       {
         homepage = "https://github.com/karlicoss/promnesia";
         description = "Enhancement of your browsing history";
         license = licenses.mit;
         mozPermissions = [
-          "file:///*"
-          "https://*/*"
-          "http://*/*"
           "storage"
           "webNavigation"
           "contextMenus"
           "notifications"
           "bookmarks"
           "history"
+          "scripting"
+          "file:///*"
+          "http://*/"
+          "https://*/"
         ];
         platforms = platforms.all;
       };
@@ -11675,10 +11676,10 @@
     };
     "webhint" = buildFirefoxXpiAddon {
       pname = "webhint";
-      version = "2.4.15";
+      version = "2.4.16";
       addonId = "{e748cb59-4901-4bea-b74a-1d8dab98e3c7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4251870/webhint-2.4.15.xpi";
-      sha256 = "f79fc5420e7318a3ba9f4cda2325f001aaa55cce3a42a18c6f3adcb18c122047";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4298671/webhint-2.4.16.xpi";
+      sha256 = "3709ff82efeb92c0e7301f3a3c54b528e51c6e5b4d3c617a38de03e15b01bb82";
       meta = with lib;
       {
         homepage = "https://webhint.io";
