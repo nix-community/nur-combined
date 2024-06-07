@@ -1,9 +1,9 @@
 $ nix --version
 $ nix-build --dry-run ci.nix -A x86_64-linux --show-trace
-these 29 paths will be fetched (57.50 MiB download, 214.50 MiB unpacked):
+these 29 paths will be fetched (57.49 MiB download, 214.50 MiB unpacked):
   /nix/store/fr5czx2lvi8cc1p3afpfkhxig12h2kya-alist-3.34.0
   /nix/store/php4qidg2bxzmm79vpri025bqi0fa889-coreutils-9.5
-  /nix/store/ri96q2zjkfxzqb5ph1ah6wjx4kab6dyf-cyrus-imapd-3.8.2
+  /nix/store/7mpylz07bnvvrcjl2yv9xcp7sb84ydgz-cyrus-imapd-3.8.2
   /nix/store/qyf1p1snpawa4qc7mmxchs9lfg8vqwbh-cyrus-sasl-2.1.28
   /nix/store/awf21b51j6dzli32zkqaqvf9wy5q9qf5-db-5.3.28
   /nix/store/c2v6ycn0sjcpx9ww8x7j4ima6xnpssry-glib-2.80.2
