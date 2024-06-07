@@ -31,7 +31,7 @@ let
     # Replaces the user submitted hostname with the server's FQDN to hide the
     # user's host or network.
 
-    /^Message-ID:\s+<(.*?)@.*?>/ REPLACE Message-ID: <$1@${cfg.fqdn}>
+    #/^Message-ID:\s+<(.*?)@.*?>/ REPLACE Message-ID: <$1@${cfg.fqdn}>
   '';
   policyd-spf = pkgs.writeText "policyd-spf.conf" ''
   '';

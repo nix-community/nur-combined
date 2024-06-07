@@ -10,6 +10,7 @@ lib.nixosSystem rec {
     ./router.nix
     ./networking.nix
     ./hardware.nix
+    # ./kernel-hack.nix
   ] ++ [
     self.nixosModules.default
     sops-nix.nixosModules.sops
