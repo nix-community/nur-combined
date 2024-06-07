@@ -183,15 +183,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "2ffe8b64088bdf7f3c0009462fab53c5ccd04f8f";
+    version = "eb8a8f404430fc7680582634da39e7b4fd59bf06";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "2ffe8b64088bdf7f3c0009462fab53c5ccd04f8f";
+      rev = "eb8a8f404430fc7680582634da39e7b4fd59bf06";
       fetchSubmodules = false;
-      sha256 = "sha256-DhuvzZOmvpqye/Gc8EMRZhFRclMq1JAyRNkKkUP7ozQ=";
+      sha256 = "sha256-A7hUBH5EO0URFxGggIR3D36tV3JBGK9SsXybGnH3XB8=";
     };
-    date = "2024-06-03";
+    date = "2024-06-07";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -293,10 +293,10 @@
   };
   dingtalk = {
     pname = "dingtalk";
-    version = "7.5.20.40523";
+    version = "7.5.20.40605";
     src = fetchurl {
-      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.20.40523_amd64.deb";
-      sha256 = "sha256-fQWShFyNig3Ggh/7i5Mt08DDRf5t/CqkV0wgfTOFcoE=";
+      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.20.40605_amd64.deb";
+      sha256 = "sha256-iA8QIbx6AyWgIhv5Jyv8hljy5+k1dRTjkhk0DBaX3Po=";
     };
   };
   douban-openapi-server = {
@@ -603,15 +603,15 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "755c02310277212c764ab94b6eb9348d500ba07d";
+    version = "971173ad82327ede5027b6d48e81bcaff92f417c";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "755c02310277212c764ab94b6eb9348d500ba07d";
+      rev = "971173ad82327ede5027b6d48e81bcaff92f417c";
       fetchSubmodules = false;
-      sha256 = "sha256-vIhD47FI6OohvkxHPZZ3zgP3HrxgQQOSmPVCXWsonto=";
+      sha256 = "sha256-eRHLL/t/yMQgpA4YqTks5dyR7OwO5iz1I4CFNFwIP6M=";
     };
-    date = "2024-05-28";
+    date = "2024-06-05";
   };
   libqcef = {
     pname = "libqcef";
@@ -719,13 +719,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3089";
+    version = "b3091";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3089";
+      rev = "b3091";
       fetchSubmodules = false;
-      sha256 = "sha256-0jUj6u/v+w8HrFtoXysx3eElfom98TF+6zZ2o58V+7A=";
+      sha256 = "sha256-6Gak4r5AR1rDGp4meMhchQKado6zqfFWAO7wDyWT3JA=";
     };
   };
   nbfc-linux-lantian = {
@@ -919,15 +919,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "e784ed12c69f0f6a73e185237d4259d566b5ed97";
+    version = "8b3d460d1b2a4c08ed4f13f939585b386f528a39";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "e784ed12c69f0f6a73e185237d4259d566b5ed97";
+      rev = "8b3d460d1b2a4c08ed4f13f939585b386f528a39";
       fetchSubmodules = false;
-      sha256 = "sha256-RXcvaS1gycNqiPUwrzJfLpTpVFcyY1iSTkzKiBYkPIc=";
+      sha256 = "sha256-F6WMgNX7AHWYY2PwWkcbFLECay1/zidlDKPUinxf4lA=";
     };
-    date = "2024-05-28";
+    date = "2024-06-05";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -1132,18 +1132,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "Linux/QQ_3.2.8_240520_amd64_01";
+    version = "Linux/QQ_3.2.9_240606_amd64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.8_240520_amd64_01.deb";
-      sha256 = "sha256-0j4hLSbPgKQOPqtESZqnZYbq3j/CYNG58XEpT7UHOT8=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.9_240606_amd64_01.deb";
+      sha256 = "sha256-DcQWwep4p4aWUAoBNQ9Ge1QBiCxk6BhcziTDSHmRpgY=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "Linux/QQ_3.2.8_240520_arm64_01";
+    version = "Linux/QQ_3.2.9_240606_arm64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.8_240520_arm64_01.deb";
-      sha256 = "sha256-qSv7GqnXvp8IFh3krcJlKheRn4sF4cr4+ZItd2y8JUg=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.9_240606_arm64_01.deb";
+      sha256 = "sha256-wZyaIkJdGDvIw8PrRlOiKpo3rdeELlxYBPyS6llbL4w=";
     };
   };
   qqmusic = {

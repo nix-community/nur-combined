@@ -502,5 +502,25 @@
             "settings_version": "430.50",
             "settings_hash": "sha256-Ek5qZlxleRPz06faLvYMCuPp8z+PmXMeRFYLyx/Jue0="
         }
+    },
+    "16.6": {
+        "urls": {
+            "https://foxi.buduanwang.vip/pan/vGPU/16.6/NVIDIA-GRID-Linux-KVM-535.183.04-535.183.01-538.67.zip": "14zjcbylh9hywdpc11n7mads9ycjj6avzn36b3j7ld199zvh0f54"
+        },
+        "patches": {},
+        "host": {
+            "version": "535.183.04",
+            "persistenced_version": "535.183.01",
+            "persistenced_hash": "sha256-9DTOKOCoO65UpvQwAMwKO23AcCJGF+/UsUPLWO4XE6A=",
+            "settings_version": "535.183.01",
+            "settings_hash": "sha256-AvMbTjt7glMHzkQUOEaUgnA6pBAyvO+EstftK4EU+qA="
+        },
+        "guest": {
+            "version": "535.183.01",
+            "persistenced_version": "535.183.01",
+            "persistenced_hash": "sha256-9DTOKOCoO65UpvQwAMwKO23AcCJGF+/UsUPLWO4XE6A=",
+            "settings_version": "535.183.01",
+            "settings_hash": "sha256-AvMbTjt7glMHzkQUOEaUgnA6pBAyvO+EstftK4EU+qA="
+        }
     }
 }

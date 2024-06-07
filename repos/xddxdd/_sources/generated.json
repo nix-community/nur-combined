@@ -316,7 +316,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-06-03",
+        "date": "2024-06-07",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -328,11 +328,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "2ffe8b64088bdf7f3c0009462fab53c5ccd04f8f",
-            "sha256": "sha256-DhuvzZOmvpqye/Gc8EMRZhFRclMq1JAyRNkKkUP7ozQ=",
+            "rev": "eb8a8f404430fc7680582634da39e7b4fd59bf06",
+            "sha256": "sha256-A7hUBH5EO0URFxGggIR3D36tV3JBGK9SsXybGnH3XB8=",
             "type": "github"
         },
-        "version": "2ffe8b64088bdf7f3c0009462fab53c5ccd04f8f"
+        "version": "eb8a8f404430fc7680582634da39e7b4fd59bf06"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -513,11 +513,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-fQWShFyNig3Ggh/7i5Mt08DDRf5t/CqkV0wgfTOFcoE=",
+            "sha256": "sha256-iA8QIbx6AyWgIhv5Jyv8hljy5+k1dRTjkhk0DBaX3Po=",
             "type": "url",
-            "url": "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.20.40523_amd64.deb"
+            "url": "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.20.40605_amd64.deb"
         },
-        "version": "7.5.20.40523"
+        "version": "7.5.20.40605"
     },
     "douban-openapi-server": {
         "cargoLocks": null,
@@ -1042,7 +1042,7 @@
     },
     "liboqs": {
         "cargoLocks": null,
-        "date": "2024-05-28",
+        "date": "2024-06-05",
         "extract": null,
         "name": "liboqs",
         "passthru": null,
@@ -1054,11 +1054,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "755c02310277212c764ab94b6eb9348d500ba07d",
-            "sha256": "sha256-vIhD47FI6OohvkxHPZZ3zgP3HrxgQQOSmPVCXWsonto=",
+            "rev": "971173ad82327ede5027b6d48e81bcaff92f417c",
+            "sha256": "sha256-eRHLL/t/yMQgpA4YqTks5dyR7OwO5iz1I4CFNFwIP6M=",
             "type": "github"
         },
-        "version": "755c02310277212c764ab94b6eb9348d500ba07d"
+        "version": "971173ad82327ede5027b6d48e81bcaff92f417c"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1254,11 +1254,11 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3089",
-            "sha256": "sha256-0jUj6u/v+w8HrFtoXysx3eElfom98TF+6zZ2o58V+7A=",
+            "rev": "b3091",
+            "sha256": "sha256-6Gak4r5AR1rDGp4meMhchQKado6zqfFWAO7wDyWT3JA=",
             "type": "github"
         },
-        "version": "b3089"
+        "version": "b3091"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -1587,7 +1587,7 @@
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
-        "date": "2024-05-28",
+        "date": "2024-06-05",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -1599,11 +1599,11 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "e784ed12c69f0f6a73e185237d4259d566b5ed97",
-            "sha256": "sha256-RXcvaS1gycNqiPUwrzJfLpTpVFcyY1iSTkzKiBYkPIc=",
+            "rev": "8b3d460d1b2a4c08ed4f13f939585b386f528a39",
+            "sha256": "sha256-F6WMgNX7AHWYY2PwWkcbFLECay1/zidlDKPUinxf4lA=",
             "type": "github"
         },
-        "version": "e784ed12c69f0f6a73e185237d4259d566b5ed97"
+        "version": "8b3d460d1b2a4c08ed4f13f939585b386f528a39"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -1979,11 +1979,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-0j4hLSbPgKQOPqtESZqnZYbq3j/CYNG58XEpT7UHOT8=",
+            "sha256": "sha256-DcQWwep4p4aWUAoBNQ9Ge1QBiCxk6BhcziTDSHmRpgY=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.8_240520_amd64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.9_240606_amd64_01.deb"
         },
-        "version": "Linux/QQ_3.2.8_240520_amd64_01"
+        "version": "Linux/QQ_3.2.9_240606_amd64_01"
     },
     "qq-arm64": {
         "cargoLocks": null,
@@ -1994,11 +1994,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-qSv7GqnXvp8IFh3krcJlKheRn4sF4cr4+ZItd2y8JUg=",
+            "sha256": "sha256-wZyaIkJdGDvIw8PrRlOiKpo3rdeELlxYBPyS6llbL4w=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.8_240520_arm64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.9_240606_arm64_01.deb"
         },
-        "version": "Linux/QQ_3.2.8_240520_arm64_01"
+        "version": "Linux/QQ_3.2.9_240606_arm64_01"
     },
     "qqmusic": {
         "cargoLocks": null,

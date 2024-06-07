@@ -297,7 +297,7 @@
   "legacyPackages.x86_64-linux.dingtalk": {
     "description": "钉钉",
     "pname": "dingtalk",
-    "version": "7.5.20.40523"
+    "version": "7.5.20.40605"
   },
   "legacyPackages.x86_64-linux.dn42-pingfinder": {
     "description": "DN42 Pingfinder",
@@ -467,7 +467,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Port of Facebook's LLaMA model in C/C++",
     "pname": "llama-cpp",
-    "version": "3089"
+    "version": "3091"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -802,7 +802,7 @@
   "legacyPackages.x86_64-linux.liboqs": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs-unstable",
-    "version": "2024-05-28"
+    "version": "2024-06-05"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -959,6 +959,11 @@
     "pname": "nvidia-x11",
     "version": "535.161.08-6.6.32"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.grid.16_6": {
+    "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "535.183.01-6.6.32"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.17_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
@@ -1083,6 +1088,11 @@
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
     "version": "535.161.08-6.6.32"
+  },
+  "legacyPackages.x86_64-linux.nvidia-grid.guest.16_6": {
+    "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "535.183.01-6.6.32"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.17_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
@@ -1209,6 +1219,11 @@
     "pname": "nvidia-x11",
     "version": "535.161.05-6.6.32"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.host.16_6": {
+    "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "535.183.04-6.6.32"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.host.17_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
@@ -1333,6 +1348,11 @@
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
     "version": "535.161.05-6.6.32"
+  },
+  "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_6": {
+    "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "535.183.04-6.6.32"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.17_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
@@ -2497,7 +2517,7 @@
   "legacyPackages.x86_64-linux.openssl-oqs-provider": {
     "description": "OpenSSL 3 provider containing post-quantum algorithms",
     "pname": "openssl-oqs-provider-unstable",
-    "version": "2024-05-28"
+    "version": "2024-06-05"
   },
   "legacyPackages.x86_64-linux.osdlyrics": {
     "description": "Standalone lyrics fetcher/displayer (windowed and OSD mode).",
@@ -2602,7 +2622,7 @@
   "legacyPackages.x86_64-linux.qq": {
     "description": "QQ for Linux",
     "pname": "qq",
-    "version": "3.2.8"
+    "version": "3.2.9"
   },
   "legacyPackages.x86_64-linux.qqmusic": {
     "description": "Tencent QQ Music",
@@ -2942,7 +2962,7 @@
   "packages.x86_64-linux.dingtalk": {
     "description": "钉钉",
     "pname": "dingtalk",
-    "version": "7.5.20.40523"
+    "version": "7.5.20.40605"
   },
   "packages.x86_64-linux.dn42-pingfinder": {
     "description": "DN42 Pingfinder",
@@ -3117,7 +3137,7 @@
   "packages.x86_64-linux.liboqs": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs-unstable",
-    "version": "2024-05-28"
+    "version": "2024-06-05"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -3207,7 +3227,7 @@
   "packages.x86_64-linux.openssl-oqs-provider": {
     "description": "OpenSSL 3 provider containing post-quantum algorithms",
     "pname": "openssl-oqs-provider-unstable",
-    "version": "2024-05-28"
+    "version": "2024-06-05"
   },
   "packages.x86_64-linux.osdlyrics": {
     "description": "Standalone lyrics fetcher/displayer (windowed and OSD mode).",
@@ -3307,7 +3327,7 @@
   "packages.x86_64-linux.qq": {
     "description": "QQ for Linux",
     "pname": "qq",
-    "version": "3.2.8"
+    "version": "3.2.9"
   },
   "packages.x86_64-linux.qqmusic": {
     "description": "Tencent QQ Music",
