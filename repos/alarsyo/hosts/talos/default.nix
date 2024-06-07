@@ -18,7 +18,7 @@
 
   hardware.amdgpu.opencl = false;
 
-  boot.kernelPackages = pkgs.linuxPackages_6_8;
+  boot.kernelPackages = pkgs.linuxPackages_6_9;
   # Set Wi-Fi regulatory domain. Currently always set to '00' (world), and could
   # lead to bad Wi-Fi performance
   boot.kernelParams = ["cfg80211.ieee80211_regdom=FR"];

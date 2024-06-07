@@ -62,6 +62,7 @@
     {
       nixosModules = {
         home = {
+          home-manager.backupFileExtension = "hm-backup";
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.alarsyo = import ./home;
