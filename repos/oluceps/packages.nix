@@ -23,7 +23,6 @@ let
       ))
     ];
     dev = [
-      sha3sum
       nushell
       radicle
       friture

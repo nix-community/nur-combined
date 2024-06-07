@@ -203,7 +203,7 @@
       openFirewall = true;
     };
 
-    sing-box.enable = false;
+    sing-box.enable = true;
     beesd.filesystems = {
       os = {
         spec = "LABEL=nixos";
