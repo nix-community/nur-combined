@@ -100,6 +100,7 @@
           in
           ''
             set -euo pipefail
+            export PATH=${pkgs.nix-prefetch-git}/bin:$PATH
             nix flake update
             ${nvfetcher}
             ${py}/bin/python3 pkgs/asterisk-digium-codecs/update.py
