@@ -50,7 +50,7 @@ in {
       enable = true;
       port = cfg.port;
       passwordFile = cfg.passwordFile;
-      extraConfig = {
+      settings = {
         # Postgres settings
         PAPERLESS_DBHOST = "/run/postgresql";
         PAPERLESS_DBUSER = "paperless";

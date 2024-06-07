@@ -67,10 +67,6 @@ in {
       maxUploadSize = "1G";
 
       config = {
-        overwriteProtocol = "https";
-
-        defaultPhoneRegion = "FR";
-
         dbtype = "pgsql";
         dbuser = "nextcloud";
         dbname = dbName;
@@ -78,6 +74,11 @@ in {
 
         adminuser = "admin";
         adminpassFile = cfg.adminpassFile;
+      };
+
+      settings = {
+        default_phone_region = "FR";
+        overwriteprotocol = "https";
       };
     };
 

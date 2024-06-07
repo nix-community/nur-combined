@@ -24,10 +24,10 @@
 
   boot.tmp.useTmpfs = true;
 
-  boot.supportedFilesystems = [
-    "btrfs"
-    "ntfs"
-  ];
+  boot.supportedFilesystems = {
+    btrfs = true;
+    ntfs = true;
+  };
 
   services.btrfs = {
     autoScrub = {
