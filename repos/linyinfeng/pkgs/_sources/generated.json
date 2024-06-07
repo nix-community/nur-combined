@@ -130,11 +130,11 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.6.31-linux-240531T102808Z",
-            "sha256": "sha256-tDtHAqxkN9qxuysrA7CFjxHruNMxM14RZL3bNkv4fEw=",
+            "rev": "lts-v6.6.32-linux-240605T051235Z",
+            "sha256": "sha256-5qALAwmphE2uIguM5UQMZeQFCbWey9tdn2x7r7KakT8=",
             "type": "github"
         },
-        "version": "lts-v6.6.31-linux-240531T102808Z"
+        "version": "lts-v6.6.32-linux-240605T051235Z"
     },
     "linux-intel-mainline-tracking": {
         "cargoLocks": null,
@@ -150,11 +150,11 @@
             "name": null,
             "owner": "intel",
             "repo": "mainline-tracking",
-            "rev": "mainline-tracking-v6.9-linux-240529T040051Z",
-            "sha256": "sha256-qbnmg33mr6uD0LqpbZYpZW0gPxVmRNJY92lJq73vTLU=",
+            "rev": "mainline-tracking-v6.9-linux-240605T063627Z",
+            "sha256": "sha256-sjx86+ocuprrR7FQ4IbRyvpT0gEMQPZKn0+lp9Q4KRM=",
             "type": "github"
         },
-        "version": "mainline-tracking-v6.9-linux-240529T040051Z"
+        "version": "mainline-tracking-v6.9-linux-240605T063627Z"
     },
     "lpac": {
         "cargoLocks": null,
@@ -750,7 +750,7 @@
     },
     "waybar-git": {
         "cargoLocks": null,
-        "date": "2024-06-05",
+        "date": "2024-06-07",
         "extract": null,
         "name": "waybar-git",
         "passthru": null,
@@ -760,12 +760,12 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "365e77af58264e717d946d9d7701b82b54585db2",
-            "sha256": "sha256-eG6HGR2wcvb6IgFZgr+nWxS72XCo0X5eN0cu2Y6tk68=",
+            "rev": "f4da2039159ac466d42182f8335c860f5b223b54",
+            "sha256": "sha256-3P9KwNFqMEXRZigYgT4L71V5j7jvYlWwbO/TChQo1Ms=",
             "type": "git",
             "url": "https://github.com/Alexays/Waybar.git"
         },
-        "version": "365e77af58264e717d946d9d7701b82b54585db2"
+        "version": "f4da2039159ac466d42182f8335c860f5b223b54"
     },
     "yacd": {
         "cargoLocks": null,

@@ -83,24 +83,24 @@
   };
   linux-intel-lts = {
     pname = "linux-intel-lts";
-    version = "lts-v6.6.31-linux-240531T102808Z";
+    version = "lts-v6.6.32-linux-240605T051235Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "linux-intel-lts";
-      rev = "lts-v6.6.31-linux-240531T102808Z";
+      rev = "lts-v6.6.32-linux-240605T051235Z";
       fetchSubmodules = false;
-      sha256 = "sha256-tDtHAqxkN9qxuysrA7CFjxHruNMxM14RZL3bNkv4fEw=";
+      sha256 = "sha256-5qALAwmphE2uIguM5UQMZeQFCbWey9tdn2x7r7KakT8=";
     };
   };
   linux-intel-mainline-tracking = {
     pname = "linux-intel-mainline-tracking";
-    version = "mainline-tracking-v6.9-linux-240529T040051Z";
+    version = "mainline-tracking-v6.9-linux-240605T063627Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "mainline-tracking";
-      rev = "mainline-tracking-v6.9-linux-240529T040051Z";
+      rev = "mainline-tracking-v6.9-linux-240605T063627Z";
       fetchSubmodules = false;
-      sha256 = "sha256-qbnmg33mr6uD0LqpbZYpZW0gPxVmRNJY92lJq73vTLU=";
+      sha256 = "sha256-sjx86+ocuprrR7FQ4IbRyvpT0gEMQPZKn0+lp9Q4KRM=";
     };
   };
   lpac = {
@@ -499,16 +499,16 @@
   };
   waybar-git = {
     pname = "waybar-git";
-    version = "365e77af58264e717d946d9d7701b82b54585db2";
+    version = "f4da2039159ac466d42182f8335c860f5b223b54";
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
-      rev = "365e77af58264e717d946d9d7701b82b54585db2";
+      rev = "f4da2039159ac466d42182f8335c860f5b223b54";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-eG6HGR2wcvb6IgFZgr+nWxS72XCo0X5eN0cu2Y6tk68=";
+      sha256 = "sha256-3P9KwNFqMEXRZigYgT4L71V5j7jvYlWwbO/TChQo1Ms=";
     };
-    date = "2024-06-05";
+    date = "2024-06-07";
   };
   yacd = {
     pname = "yacd";
