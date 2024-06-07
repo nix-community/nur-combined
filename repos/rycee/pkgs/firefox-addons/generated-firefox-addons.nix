@@ -1084,10 +1084,10 @@
     };
     "castkodi" = buildFirefoxXpiAddon {
       pname = "castkodi";
-      version = "7.8.0";
+      version = "7.9.0";
       addonId = "castkodi@regseb.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4269762/castkodi-7.8.0.xpi";
-      sha256 = "9603ef245aa119f36eab9137b089ff019e362e1c5b28f96c97d399e65e31c5e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4299076/castkodi-7.9.0.xpi";
+      sha256 = "2022a3168e2f87aaab1eedc1fcdbbf5ba0bd695f7f3fd2823a6b7843a69a7d1e";
       meta = with lib;
       {
         homepage = "https://github.com/regseb/castkodi";
@@ -1951,10 +1951,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "127.0.20240603.152359";
+      version = "127.0.20240606.181944";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4297675/deutsch_de_language_pack-127.0.20240603.152359.xpi";
-      sha256 = "e223e8bb9243a53a59891acf17e6b09a7abf63dc3dd2e7e0463a7799c30b1b29";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4299320/deutsch_de_language_pack-127.0.20240606.181944.xpi";
+      sha256 = "78061a8297b3ba0b76e7ccb8872b1d75f6c09c7ef7068d26cf1e80e2d1d663ad";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2880,10 +2880,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "127.0.20240603.152359";
+      version = "127.0.20240606.181944";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4297645/francais_language_pack-127.0.20240603.152359.xpi";
-      sha256 = "9222c2c5c10cdd5e62f7a5243bcbdbf3c47bcc124992ca9bc9897fdb739921d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4299280/francais_language_pack-127.0.20240606.181944.xpi";
+      sha256 = "a05e78e025d2325303c5a5a2dca8cc42391f4e97c0817c3ea7c0b73330612a2e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4779,10 +4779,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.5.7";
+      version = "1.5.8";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4294469/immersive_translate-1.5.7.xpi";
-      sha256 = "b10802f326699295c5b7a7a27f548492b4a200d4e35d1a7ef98fce2c18c6d50b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4296355/immersive_translate-1.5.8.xpi";
+      sha256 = "36c26f844cd6686e6dbdf5ac0f360f1350d8d64f98b8293e02bdbe5322541604";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -7650,10 +7650,10 @@
     };
     "passff" = buildFirefoxXpiAddon {
       pname = "passff";
-      version = "1.19";
+      version = "1.19.3";
       addonId = "passff@invicem.pro";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4298564/passff-1.19.xpi";
-      sha256 = "ebc1349b3fef84f7af22688f905dfffc108c6a13d30827d07dd73e0dc0a7e05f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4299236/passff-1.19.3.xpi";
+      sha256 = "07fc361c2b50498003eda5007c16fec2a2f9472599d9fcc34cae0c2203c28a09";
       meta = with lib;
       {
         homepage = "https://codeberg.org/PassFF/passff";
@@ -7857,10 +7857,10 @@
     };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2024.5.31";
+      version = "2024.6.3";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4296462/privacy_badger17-2024.5.31.xpi";
-      sha256 = "d26010ff08cde19d9eb05286daf8f392c521199f45c87c13943e3cecc8d6d4a5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4298042/privacy_badger17-2024.6.3.xpi";
+      sha256 = "e60101d2c31c80addb9d1e2c6fa4b4a17b4907451ea1b2e907b9bee0871a20f4";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
