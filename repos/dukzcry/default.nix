@@ -23,8 +23,6 @@ rec {
   revc = callPackage ./pkgs/re3/revc.nix { inherit re3; };
   massdns = callPackage ./pkgs/massdns.nix {};
   wireless-regdb = callPackage ./pkgs/wireless-regdb {};
-  awl = callPackage ./pkgs/awl {};
-  awl-tray = callPackage ./pkgs/awl/awl-tray.nix {};
   prometheus-nut-exporter = callPackage ./pkgs/prometheus-nut-exporter.nix {};
   tun2socks = callPackage ./pkgs/tun2socks.nix {};
   cockpit-machines = callPackage ./pkgs/cockpit/machines.nix {};

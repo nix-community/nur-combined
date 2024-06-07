@@ -31,7 +31,6 @@ in {
       environment = {
         systemPackages = with pkgs; with pkgs.nur.repos.dukzcry; [
           jellyfin-media-player
-          transmission-remote-gtk
           cockpit-client
         ];
       };
@@ -49,10 +48,14 @@ in {
     (mkIf cfg.remote {
       virtualisation.libvirtd.enable = lib.mkForce false;
       environment.systemPackages = with pkgs; with pkgs.nur.repos.dukzcry; [
-        awl-tray
         moonlight-qt
         steamlink
       ];
+      services.yggdrasil = {
+        enable = true;
+        configFile = "/run/keys/yggdrasil.conf";
+        openMulticastPort = true;
+      };
     })
   ];
 }

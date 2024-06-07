@@ -28,4 +28,5 @@ rec {
   gaming = ./gaming.nix;
   theme = ./theme.nix;
   sunpaper = ./sunpaper.nix;
+  requests = ./requests.nix;
 }
