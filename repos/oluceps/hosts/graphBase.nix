@@ -90,6 +90,8 @@
             monero-cli
           ];
 
+          dev = [ vscode.fhs ];
+
           lang = [
             [
               editorconfig-checker

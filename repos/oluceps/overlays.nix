@@ -46,6 +46,8 @@ inputs': [
             "markdown"
             "html"
             "css"
+            "tsx"
+            "jsx"
             "zig"
             "c"
             "cpp"

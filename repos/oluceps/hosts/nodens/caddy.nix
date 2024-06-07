@@ -46,6 +46,45 @@
                         {
                           handle = [
                             {
+                              handler = "vars";
+                              root = "/var/lib/caddy/dist";
+                            }
+                          ];
+                        }
+                        {
+                          handle = [
+                            {
+                              handler = "rewrite";
+                              uri = "{http.matchers.file.relative}";
+                            }
+                          ];
+                          match = [
+                            {
+                              file = {
+                                try_files = [
+                                  "{http.request.uri.path}"
+                                  "{http.request.uri.path}/"
+                                  "/index.html"
+                                ];
+                              };
+                            }
+                          ];
+                        }
+                        { handle = [ { handler = "file_server"; } ]; }
+                      ];
+                    }
+                  ];
+                  match = [ { host = [ "blog.nyaw.xyz" ]; } ];
+                  terminal = true;
+                }
+                {
+                  handle = [
+                    {
+                      handler = "subroute";
+                      routes = [
+                        {
+                          handle = [
+                            {
                               handler = "reverse_proxy";
                               transport = {
                                 protocol = "http";

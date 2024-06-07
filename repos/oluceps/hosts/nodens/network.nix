@@ -1,5 +1,6 @@
 { config, lib, ... }:
 {
+  services.resolved.enable = lib.mkForce false;
   networking = {
     domain = "nyaw.xyz";
     resolvconf.useLocalResolver = true;
