@@ -148,16 +148,15 @@
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
-  services.xserver.displayManager.sddm = {
+  services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
   };
-  services.xserver.displayManager.defaultSession = "plasmawayland";
-  services.xserver.desktopManager.plasma5.enable = true;
+  services.desktopManager.plasma6.enable = true;
   services.power-profiles-daemon.enable = true;
 
   environment.systemPackages = [
-    pkgs.framework-tool
+    pkgs.unstable.zed-editor
   ];
 
   #programs.hyprland.enable = true;

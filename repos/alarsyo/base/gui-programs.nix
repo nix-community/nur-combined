@@ -23,7 +23,7 @@ in {
     programs.gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
-      pinentryFlavor = "qt";
+      pinentryPackage = pkgs.pinentry-qt;
     };
 
     services = {
@@ -34,13 +34,16 @@ in {
           if config.my.gui.isNvidia
           then ["nvidia"]
           else options.services.xserver.videoDrivers.default;
-        layout = "fr";
-        xkbVariant = "us";
-        libinput = {
-          enable = true;
-          touchpad = {
-            naturalScrolling = true;
-          };
+        xkb = {
+          layout = "fr";
+          variant = "us";
+        };
+      };
+
+      libinput = {
+        enable = true;
+        touchpad = {
+          naturalScrolling = true;
         };
       };
 

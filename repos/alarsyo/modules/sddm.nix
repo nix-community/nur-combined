@@ -15,7 +15,7 @@ in {
   options.my.displayManager.sddm.enable = mkEnableOption "SDDM setup";
 
   config = mkIf cfg.enable {
-    services.xserver.displayManager.sddm = {
+    services.displayManager.sddm = {
       enable = true;
       theme = "sugar-candy";
     };

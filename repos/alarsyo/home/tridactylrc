@@ -18,6 +18,8 @@ bind ,<Space> nohlsearch
 " case insensitive if lowercase, case sensitive if using some uppercase letters
 set findcase smart
 
+set modeindicatormodes {"ignore": "false"}
+
 " New reddit is bad
 " autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
 
