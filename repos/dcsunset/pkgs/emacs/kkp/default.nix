@@ -8,7 +8,7 @@ stdenv.mkDerivation {
     owner = "DCsunset";
     repo = "kkp";
     rev = "3e2dded6af47becc7d481a8ea60bb9637d182e25";
-    hash = "sha256-aaazW/wfdeHTUu8bkkBoqaA7R06W86qRopVRztr4Du8=";
+    hash = "sha256-1fn46mKct6ETkTm0Gs7RjkZ6eahXBZyXAOMqAQujJE4=";
   };
   buildInputs = [
     (emacsWithPackages (epkgs: with epkgs; [ compat ]))
