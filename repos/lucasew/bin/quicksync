@@ -12,7 +12,7 @@ function update_status {
 function sync_private_repo {
   repo="$1"; shift
   repo_dir=~/.personal
-  update_status "Sincronizando repositório $repo"
+  update_status "Sincronizando $repo"
   remote_url="ssh://$rsyncnet_user/data2/home/de3163/git-personal/$repo"
   mkdir -p "$repo_dir"
   pushd "$repo_dir" >/dev/null
@@ -30,9 +30,12 @@ function sync_private_repo {
     popd >/dev/null
   popd >/dev/null
 }
+erros=()
 
-sync_private_repo personal-zettel-obsidian
-sync_private_repo personal-zettel-org
-sync_private_repo personal-beancount
-sync_private_repo personal-decsync
-sync_private_repo personal-keepass
+sync_private_repo personal-zettel-obsidian || erros+=(personal-zettel-obsidian) || true
+sync_private_repo personal-zettel-org || erros+=(personal-zettel-org) || true
+sync_private_repo personal-beancount || erros+=(personal-beancount) || true
+sync_private_repo personal-decsync || erros+=(personal-decsync) || true
+sync_private_repo personal-keepass || erros+=(personal-keepass) || true
+
+update_status "Sincronização concluída. Jobs falhos: ${erros[@]}"
