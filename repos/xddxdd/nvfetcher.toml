@@ -244,7 +244,7 @@ src.git = "https://github.com/xddxdd/libltnginx.git"
 fetch.github = "xddxdd/libltnginx"
 
 [liboqs]
-src.git = "https://github.com/open-quantum-safe/liboqs.git"
+src.github = "open-quantum-safe/liboqs"
 fetch.github = "open-quantum-safe/liboqs"
 
 [libqcef]
