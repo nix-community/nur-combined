@@ -16,62 +16,102 @@ let
       };
     };
 
+    disko.devices.disk.nvme0n1 = {
+      type = "disk";
+      device = "/dev/nvme0n1";
+      content = {
+        type = "gpt";
+        partitions = {
+          esp = {
+            label = "esp";
+            size = "512M";
+            type = "EF00"; # EFI system partition
+            content = {
+              type = "filesystem";
+              format = "vfat";
+              mountpoint = "/boot";
+              mountOptions = [
+                "noatime"
+                "noauto"
+                "nodev" # block device files for security
+                "nofail"
+                "nosuid" # block suid and sgid bits for security
+                "x-systemd.automount"
+                "x-systemd.idle-timeout=10min"
+              ];
+            };
+          };
+          data = {
+            label = "data";
+            size = "250G";
+            content = {
+              type = "btrfs";
+              subvolumes = {
+                home = {
+                  mountpoint = "/home";
+                  mountOptions = [
+                    "compress-force=zstd"
+                    "noatime"
+                    "nodev"
+                    "nosuid"
+                  ];
+                };
+              };
+            };
+          };
+          nixos = {
+            label = "nixos";
+            size = "100%";
+            content = {
+              type = "btrfs";
+              subvolumes = {
+                root = {
+                  mountpoint = "/";
+                  mountOptions = [
+                    "compress-force=zstd"
+                    "noatime"
+                  ];
+                };
+                nix = {
+                  mountpoint = "/nix";
+                  mountOptions = [
+                    "compress-force=zstd"
+                    "noatime"
+                    "nodev"
+                  ];
+                };
+                swap = {
+                  mountpoint = "/swap";
+                  mountOptions = [
+                    "noatime"
+                    "nodev"
+                    "noexec" # block execution of binaries for security
+                    "nosuid"
+                  ];
+                  # TODO: define swap with disko when options under
+                  # `swapDevices.*` are added
+                  # swap.swapfile.size = "8G";
+                };
+              };
+            };
+          };
+        };
+      };
+    };
+    swapDevices = [
+      {
+        device = "/swap/swapfile";
+        size = 8192;
+        discardPolicy = "pages";
+      }
+    ];
+
     catppuccin.accent = "pink";
 
     boot = {
       kernelParams = [ "resume_offset=533760" ];
-      resumeDevice = "/dev/disk/by-label/nixos";
+      resumeDevice = "/dev/disk/by-partlabel/nixos";
     };
-
-    fileSystems = {
-      "/" = {
-        device = "/dev/disk/by-label/nixos";
-        fsType = "btrfs";
-        options = [
-          "subvol=root"
-          "noatime"
-          "compress-force=zstd"
-        ];
-      };
-      "/boot" = {
-        device = "/dev/disk/by-label/esp";
-        fsType = "vfat";
-        options = [
-          "nofail"
-          "noauto"
-          "noatime"
-          "x-systemd.automount"
-          "x-systemd.idle-timeout=10min"
-        ];
-      };
-      "/home" = {
-        device = "/dev/disk/by-label/data";
-        fsType = "btrfs";
-        options = [
-          "subvol=home"
-          "noatime"
-          "compress-force=zstd"
-        ];
-      };
-      "/nix" = {
-        device = "/dev/disk/by-label/nixos";
-        fsType = "btrfs";
-        options = [
-          "subvol=nix"
-          "noatime"
-          "compress-force=zstd"
-        ];
-      };
-      "/swap" = {
-        device = "/dev/disk/by-label/nixos";
-        fsType = "btrfs";
-        options = [
-          "subvol=swap"
-          "noatime"
-        ];
-      };
-    };
-    swapDevices = [ { device = "/swap/swapfile"; } ];
 
     users.users = rec {
       weathercold = {

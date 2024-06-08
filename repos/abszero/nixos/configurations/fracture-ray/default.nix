@@ -44,13 +44,18 @@ let
                 root = {
                   mountpoint = "/";
                   mountOptions = [
-                    "noatime"
                     "compress-force=zstd"
+                    "noatime"
                   ];
                 };
                 swap = {
                   mountpoint = "/swap";
-                  mountOptions = [ "noatime" ];
+                  mountOptions = [
+                    "noatime"
+                    "nodev"
+                    "noexec"
+                    "nosuid"
+                  ];
                 };
               };
             };
