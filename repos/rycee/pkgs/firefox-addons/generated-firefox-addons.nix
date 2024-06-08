@@ -712,10 +712,10 @@
     };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.5.21";
+      version = "7.6.3";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4280264/betterttv-7.5.21.xpi";
-      sha256 = "0d4433ff975d3c0a0f2f9cb447887558936b0a00357d1a2fab7c731271142892";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4298259/betterttv-7.6.3.xpi";
+      sha256 = "f83d9ef393743a410b6472c5682111b758ba45ccfc912dfbb34912347b3ac854";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -726,7 +726,7 @@
           url = "https://betterttv.com/terms";
           free = false;
         };
-        mozPermissions = [ "*://*.twitch.tv/*" ];
+        mozPermissions = [ "scripting" "activeTab" "*://*.twitch.tv/*" ];
         platforms = platforms.all;
       };
     };
@@ -1014,10 +1014,10 @@
     };
     "buster-captcha-solver" = buildFirefoxXpiAddon {
       pname = "buster-captcha-solver";
-      version = "2.0.1";
+      version = "3.1.0";
       addonId = "{e58d3966-3d76-4cd9-8552-1582fbc800c1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4044701/buster_captcha_solver-2.0.1.xpi";
-      sha256 = "9910d2d0add8ba10d7053fd90818e17e6d844050c125f07cb4e4f5759810efcf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4297951/buster_captcha_solver-3.1.0.xpi";
+      sha256 = "6892c4e1777b6e5480bb4224c2503b62d1cb92b49996ee9948cb746110a351d8";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/buster#readme";
@@ -3160,10 +3160,10 @@
     };
     "ghosttext" = buildFirefoxXpiAddon {
       pname = "ghosttext";
-      version = "23.5.16";
+      version = "24.6.7";
       addonId = "ghosttext@bfred.it";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4111649/ghosttext-23.5.16.xpi";
-      sha256 = "c2631c926de2edd47972346a786b1cc764f798e47dfacb5f1731925302479ab2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4299538/ghosttext-24.6.7.xpi";
+      sha256 = "e347ee3b62048bba7ac63750c17eead7bf95f65750a69235f7fd7e164e19465a";
       meta = with lib;
       {
         homepage = "https://github.com/fregante/GhostText";
@@ -9094,10 +9094,10 @@
     };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "6.1.2";
+      version = "7.0.0";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4227669/search_by_image-6.1.2.xpi";
-      sha256 = "fed46723702c79d0d2dcd2132901402b6c391f9fef8efbb58635b5ea9e47476f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4296438/search_by_image-7.0.0.xpi";
+      sha256 = "da05483a666a386f95648887fbe0c2d47f57519dcf4a6b1571ec4a04ae3e1db1";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -9583,10 +9583,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.7.10";
+      version = "3.8.0";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4251832/steam_database-3.7.10.xpi";
-      sha256 = "aee51bce4e6b84b95cadafd804c9f271394ae634fe121d0b9d82c4e6af022f73";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4298944/steam_database-3.8.0.xpi";
+      sha256 = "9f47848d65305a6d38a93d72fcfe40f049ce464dff6a882fa3b26240bd2b2c2b";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -11263,10 +11263,10 @@
     };
     "vue-js-devtools" = buildFirefoxXpiAddon {
       pname = "vue-js-devtools";
-      version = "6.5.1";
+      version = "6.6.3";
       addonId = "{5caff8cc-3d2e-4110-a88a-003cc85b3858}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4179289/vue_js_devtools-6.5.1.xpi";
-      sha256 = "678c89e3e30d9d47fcee3d77e86f9d3c29edb2ff1a670faefcab7568b5993223";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4297952/vue_js_devtools-6.6.3.xpi";
+      sha256 = "74f9d39a1dff61ce952cf34e747f1bca466c163b04727768010da3f8307fa6b7";
       meta = with lib;
       {
         homepage = "https://devtools.vuejs.org";
@@ -11380,10 +11380,10 @@
     };
     "web-archives" = buildFirefoxXpiAddon {
       pname = "web-archives";
-      version = "5.0.0";
+      version = "6.0.0";
       addonId = "{d07ccf11-c0cd-4938-a265-2a4d6ad01189}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4191232/view_page_archive-5.0.0.xpi";
-      sha256 = "73df57b7ffe9d3c851518bc29831b82e5c3862a41782923649bdb20a2223ea7f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4296435/view_page_archive-6.0.0.xpi";
+      sha256 = "b9787762aa45a905d93266b5db1203a1eb2b3aec9e6fc9938faee86e8d6e65ad";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/web-archives#readme";
