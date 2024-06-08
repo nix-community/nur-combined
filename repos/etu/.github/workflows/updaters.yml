@@ -17,6 +17,7 @@ jobs:
         package:
           - llr
           - mkvcleaner
+          - goprocmgr
           # - g90updatefw
 
     steps:
