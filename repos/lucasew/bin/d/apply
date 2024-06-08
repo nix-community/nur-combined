@@ -32,7 +32,7 @@ if sd is phone; then
       echo '#!/data/data/com.termux/files/usr/bin/bash'
       echo 'export LD_PRELOAD="/data/data/com.termux/files/usr/lib/libtermux-exec.so"'
       echo 'export PATH="/data/data/com.termux/files/usr/bin"'
-      echo bash ~/.dotfiles/bin/source_me _shortcuts termux "$shortcut" '"$@"'
+      echo bash ~/.dotfiles/bin/source_me sd _shortcuts termux "$shortcut" '"$@"'
     } > ~/.shortcuts/$shortcut
   done
 

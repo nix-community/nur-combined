@@ -10,4 +10,4 @@ for script in $(ls $SD_ROOT/prelude | sort); do
   . "$SD_ROOT/prelude/$script"
 done
 
-(return 0 2>/dev/null) || sd "$@"
+(return 0 2>/dev/null) || "$@"

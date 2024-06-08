@@ -8,20 +8,9 @@ rsyncnet_user=de3163@de3163.rsync.net
 
 TERMUX_NOTIFICATION_ID=termux_backup
 
-function termux-notify {
-  termux-notification -i $TERMUX_NOTIFICATION_ID -t "Backup"
-}
-if ! sd is termux-env; then
-  function termux-notify {
-    cat /dev/stdin
-  }
-fi
-
 
 function update_status {
-  if sd is termux-env; then
-    echo "$@" | termux-notify
-  fi
+  sd source_me notification --id $$ --title Backup --message "$*"
   echo '[*]' "$@" >&2
 }
 
@@ -123,5 +112,6 @@ ssh "$rsyncnet_user" quota
 
 } | tee $last_notification_file
 
-termux-notify < $last_notification_file
+update_status "$(cat $last_notification_file)"
 rm $last_notification_file
+
