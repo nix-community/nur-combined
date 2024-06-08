@@ -6,22 +6,6 @@ let
   };
 in
 {
-  nixpkgs.overlays = [
-    (final: prev: {
-      sing-box = prev.sing-box.override {
-        buildGoModule = old: final.buildGoModule (old // rec {
-          version = "1.8.13";
-          src = final.fetchFromGitHub {
-            owner = "SagerNet";
-            repo = old.pname;
-            rev = "v${version}";
-            hash = "sha256-BFkf+Gdej/AsIL89obHEwchrw4IcZqjEkr/suYKbVKY=";
-          };
-          vendorHash = "sha256-8OsUAknSuSJH1rRxMf8EVTUuIDHsIJauVI7hB4Fk1KU=";
-        });
-      };
-    })
-  ];
   systemd.services.sing-box = {
     wantedBy = [ "multi-user.target" ];
     after = [ "network.target" ];
