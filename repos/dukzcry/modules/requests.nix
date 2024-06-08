@@ -17,12 +17,6 @@ in {
     services.jackett.enable = true;
     systemd.services.flaresolverr = {
       after = [ "network.target" ];
-      environment = {
-        LOG_LEVEL = "info";
-        LOG_HTML = "false";
-        CAPTCHA_SOLVER = "hcaptcha-solver";
-        TZ = "Europe/Moscow";
-      };
       serviceConfig = {
         User = config.services.jackett.user;
         Group = config.services.jackett.group;
