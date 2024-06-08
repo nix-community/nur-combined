@@ -1,25 +1,29 @@
-{ lib, stdenv, fetchFromGitHub, cmake, simdutf, fast-float
-, enableShared ? !stdenv.hostPlatform.isStatic }:
+{ lib
+, stdenv
+, fetchFromGitHub
+, cmake
+, fast-float
+, enableShared ? !stdenv.hostPlatform.isStatic
+}:
 
 stdenv.mkDerivation rec {
   pname = "scnlib";
-  version = "2.0.3";
+  version = "3.0.0";
 
   src = fetchFromGitHub {
     owner = "eliaskosunen";
     repo = "scnlib";
     rev = "v${version}";
-    sha256 = "sha256-RNBQMAh4kqMpeR4bLF9zOiJe5HIRe9H5mJNthueSvf4=";
+    sha256 = "sha256-Y1DWnyRq/xlqH++pkdiKiUg+ATe4xwtKxA984TKNJHE=";
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ fast-float simdutf ];
+  buildInputs = [ fast-float ];
 
   cmakeFlags = [
     "-DSCN_TESTS=OFF"
     "-DSCN_BENCHMARKS=OFF"
     "-DSCN_EXAMPLES=OFF"
-    "-DSCN_USE_EXTERNAL_SIMDUTF=ON"
     "-DSCN_USE_EXTERNAL_FAST_FLOAT=ON"
     "-DBUILD_SHARED_LIBS=${if enableShared then "ON" else "OFF"}"
   ];
