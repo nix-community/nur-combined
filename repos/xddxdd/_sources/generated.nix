@@ -183,13 +183,13 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "eb8a8f404430fc7680582634da39e7b4fd59bf06";
+    version = "4f3269f67b5d86b9c65c1e013ae6da20aa44e791";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "eb8a8f404430fc7680582634da39e7b4fd59bf06";
+      rev = "4f3269f67b5d86b9c65c1e013ae6da20aa44e791";
       fetchSubmodules = false;
-      sha256 = "sha256-A7hUBH5EO0URFxGggIR3D36tV3JBGK9SsXybGnH3XB8=";
+      sha256 = "sha256-Q/0ceiz+m62MPsDj0VNy5HJWTENupCnyNcQiuRfsK4E=";
     };
     date = "2024-06-07";
   };
