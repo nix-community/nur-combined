@@ -68,6 +68,6 @@ stdenv.mkDerivation {
       jansol
       xddxdd
     ];
-    platforms = platforms.linux ++ platforms.darwin;
+    platforms = [ "x86_64-linux" ];
   };
 }
