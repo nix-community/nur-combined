@@ -409,6 +409,11 @@
     "pname": "i915-sriov-unstable",
     "version": "2024-05-08"
   },
+  "legacyPackages.x86_64-linux.imewlconverter": {
+    "description": "”深蓝词库转换“ 一款开源免费的输入法词库转换程序",
+    "pname": "imewlconverter",
+    "version": "3.1.0"
+  },
   "legacyPackages.x86_64-linux.jproxy": {
     "description": "A proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate ",
     "pname": "jproxy",
@@ -2644,6 +2649,11 @@
     "pname": "rime-aurora-pinyin-unstable",
     "version": "2022-08-28"
   },
+  "legacyPackages.x86_64-linux.rime-custom-pinyin-dictionary": {
+    "description": "自建拼音输入法词库，百万常用词汇量，适配 Fcitx5 (Linux / Android) 及 Gboard (Android + Magisk or KernelSU) 。",
+    "pname": "rime-custom-pinyin-dictionary",
+    "version": "20240517"
+  },
   "legacyPackages.x86_64-linux.rime-dict": {
     "description": "RIME 词库增强",
     "pname": "rime-dict-unstable",
@@ -3074,6 +3084,11 @@
     "pname": "i915-sriov-unstable",
     "version": "2024-05-08"
   },
+  "packages.x86_64-linux.imewlconverter": {
+    "description": "”深蓝词库转换“ 一款开源免费的输入法词库转换程序",
+    "pname": "imewlconverter",
+    "version": "3.1.0"
+  },
   "packages.x86_64-linux.jproxy": {
     "description": "A proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate ",
     "pname": "jproxy",
@@ -3348,6 +3363,11 @@
     "description": "【极光拼音】输入方案",
     "pname": "rime-aurora-pinyin-unstable",
     "version": "2022-08-28"
+  },
+  "packages.x86_64-linux.rime-custom-pinyin-dictionary": {
+    "description": "自建拼音输入法词库，百万常用词汇量，适配 Fcitx5 (Linux / Android) 及 Gboard (Android + Magisk or KernelSU) 。",
+    "pname": "rime-custom-pinyin-dictionary",
+    "version": "20240517"
   },
   "packages.x86_64-linux.rime-dict": {
     "description": "RIME 词库增强",

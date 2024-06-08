@@ -151,6 +151,7 @@ mkScope (
     hath = pkg ./uncategorized/hath { };
     hesuvi-hrir = pkg ./uncategorized/hesuvi-hrir { };
     hoyo-glyphs = pkg ./uncategorized/hoyo-glyphs { };
+    imewlconverter = pkg ./uncategorized/imewlconverter { };
     jproxy = pkg ./uncategorized/jproxy { };
     kaixinsong-fonts = pkg ./uncategorized/kaixinsong-fonts { };
     kata-image = pkg ./uncategorized/kata-image { };
@@ -192,6 +193,7 @@ mkScope (
     qq = pkg ./uncategorized/qq { };
     qqmusic = pkg ./uncategorized/qqmusic { };
     rime-aurora-pinyin = pkg ./uncategorized/rime-aurora-pinyin { };
+    rime-custom-pinyin-dictionary = pkg ./uncategorized/rime-custom-pinyin-dictionary { };
     rime-dict = pkg ./uncategorized/rime-dict { };
     rime-ice = pkg ./uncategorized/rime-ice { };
     rime-moegirl = pkg ./uncategorized/rime-moegirl { };

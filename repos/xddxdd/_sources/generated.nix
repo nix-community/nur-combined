@@ -539,6 +539,17 @@
     };
     date = "2024-05-08";
   };
+  imewlconverter = {
+    pname = "imewlconverter";
+    version = "v3.1.0";
+    src = fetchFromGitHub {
+      owner = "studyzy";
+      repo = "imewlconverter";
+      rev = "v3.1.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-TSB0SmRoI79nlGlFm/+FQ8GymhCEkuNKX0NXHHw0u8s=";
+    };
+  };
   jproxy = {
     pname = "jproxy";
     version = "v3.4.1";
@@ -1199,6 +1210,14 @@
       sha256 = "sha256-zLzQXSsKwgr7OsyYllyoLNSF9q4mJA5ZYD7v7oagfaE=";
     };
     date = "2022-08-28";
+  };
+  rime-custom-pinyin-dictionary = {
+    pname = "rime-custom-pinyin-dictionary";
+    version = "20240517";
+    src = fetchurl {
+      url = "https://github.com/wuhgit/CustomPinyinDictionary/releases/download/assets/CustomPinyinDictionary_Fcitx_20240517.tar.gz";
+      sha256 = "sha256-zZfhRcBQQFcGGy1fiNdA//IOXoMiyasUUDcUcYFDUj0=";
+    };
   };
   rime-dict = {
     pname = "rime-dict";

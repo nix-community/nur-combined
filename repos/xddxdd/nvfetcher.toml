@@ -213,6 +213,10 @@ fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/xianzh
 src.git = "https://github.com/strongtz/i915-sriov-dkms.git"
 fetch.github = "strongtz/i915-sriov-dkms"
 
+[imewlconverter]
+src.github = "studyzy/imewlconverter"
+fetch.github = "studyzy/imewlconverter"
+
 [jproxy]
 src.manual = "v3.4.1"
 fetch.url = "https://github.com/LuckyPuppy514/jproxy/releases/download/$ver/windows-$ver.zip"
@@ -482,6 +486,11 @@ fetch.github = "mtorromeo/r8168"
 [rime-aurora-pinyin]
 src.git = "https://github.com/hosxy/rime-aurora-pinyin.git"
 fetch.github = "hosxy/rime-aurora-pinyin"
+
+[rime-custom-pinyin-dictionary]
+src.webpage = "https://github.com/wuhgit/CustomPinyinDictionary/releases/expanded_assets/assets"
+src.regex = "CustomPinyinDictionary_Fcitx_([0-9]+)\\.tar\\.gz"
+fetch.url = "https://github.com/wuhgit/CustomPinyinDictionary/releases/download/assets/CustomPinyinDictionary_Fcitx_$ver.tar.gz"
 
 [rime-dict]
 src.git = "https://github.com/Iorest/rime-dict.git"

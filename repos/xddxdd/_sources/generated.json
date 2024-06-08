@@ -930,6 +930,26 @@
         },
         "version": "3d7a1b3fa4706d8da316d8e794d54db96856a2b9"
     },
+    "imewlconverter": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "imewlconverter",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "studyzy",
+            "repo": "imewlconverter",
+            "rev": "v3.1.0",
+            "sha256": "sha256-TSB0SmRoI79nlGlFm/+FQ8GymhCEkuNKX0NXHHw0u8s=",
+            "type": "github"
+        },
+        "version": "v3.1.0"
+    },
     "jproxy": {
         "cargoLocks": null,
         "date": null,
@@ -2094,6 +2114,21 @@
             "type": "github"
         },
         "version": "122b46976401995cbafcfc748806985ff3a437a4"
+    },
+    "rime-custom-pinyin-dictionary": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "rime-custom-pinyin-dictionary",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-zZfhRcBQQFcGGy1fiNdA//IOXoMiyasUUDcUcYFDUj0=",
+            "type": "url",
+            "url": "https://github.com/wuhgit/CustomPinyinDictionary/releases/download/assets/CustomPinyinDictionary_Fcitx_20240517.tar.gz"
+        },
+        "version": "20240517"
     },
     "rime-dict": {
         "cargoLocks": null,

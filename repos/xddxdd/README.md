@@ -106,7 +106,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (121 packages)</summary>
+<summary>Package set: (Uncategorized) (123 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -154,6 +154,7 @@ Or, use variables from this repository in case I change them:
 |  | `hesuvi-hrir` | [hesuvi-hrir](https://sourceforge.net/projects/hesuvi/) | 2.0.0.1 | Headphone Surround Virtualizations for Equalizer APO |
 |  | `hoyo-glyphs` | [hoyo-glyphs](https://github.com/SpeedyOrc-C/Hoyo-Glyphs) | unstable-2024-03-27 | Constructed scripts by Hoyoverse 米哈游的架空文字  |
 |  | `i915-sriov` | [i915-sriov](https://github.com/strongtz/i915-sriov-dkms) | unstable-2024-05-08 | DKMS module of Linux i915 driver with SR-IOV support |
+|  | `imewlconverter` | [imewlconverter](https://github.com/studyzy/imewlconverter) | 3.1.0 | ”深蓝词库转换“ 一款开源免费的输入法词库转换程序 |
 |  | `jproxy` | [jproxy](https://github.com/LuckyPuppy514/jproxy) | 3.4.1 | A proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate  |
 |  | `kaixinsong-fonts` | [kaixinsong-fonts](http://www.guoxuedashi.net/zidian/bujian/KaiXinSong.php) | 3.0 | KaiXinSong |
 |  | `kata-image` | [kata-image](https://github.com/kata-containers/kata-containers) | 3.5.0 | Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-images/default.nix) |
@@ -201,6 +202,7 @@ Or, use variables from this repository in case I change them:
 |  | `r8125` | [r8125](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 9.013.02-2 | Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface |
 |  | `r8168` | [r8168](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 8.053.00 | Linux device driver for Realtek Ethernet controllers |
 |  | `rime-aurora-pinyin` | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | unstable-2022-08-28 | 【极光拼音】输入方案 |
+|  | `rime-custom-pinyin-dictionary` | [rime-custom-pinyin-dictionary](https://github.com/wuhgit/CustomPinyinDictionary) | 20240517 | 自建拼音输入法词库，百万常用词汇量，适配 Fcitx5 (Linux / Android) 及 Gboard (Android + Magisk or KernelSU) 。 |
 |  | `rime-dict` | [rime-dict](https://github.com/Iorest/rime-dict) | unstable-2020-12-26 | RIME 词库增强 |
 |  | `rime-ice` | [rime-ice](https://dvel.me/posts/rime-ice/) | unstable-2024-06-04 | Rime 配置：雾凇拼音 | 长期维护的简体词库  |
 |  | `rime-moegirl` | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20240509 | Releases for dict of zh.moegirl.org.cn |
