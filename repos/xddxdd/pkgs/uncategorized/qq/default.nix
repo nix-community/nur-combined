@@ -11,6 +11,7 @@
   krb5,
   libdrm,
   libgcrypt,
+  libpulseaudio,
   libva,
   mesa,
   nspr,
@@ -27,6 +28,7 @@ let
     krb5
     libdrm
     libgcrypt
+    libpulseaudio
     libva
     mesa
     nspr
