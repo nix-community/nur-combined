@@ -15,7 +15,7 @@ jobs:
         cachixName:
           - sikmir
         nixPath:
-          - nixpkgs=channel:nixpkgs-unstable
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
         os:
           - ubuntu-latest
           - macos-latest
