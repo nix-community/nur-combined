@@ -103,13 +103,13 @@ let
         sha512 = "5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==";
       };
     };
-    "@types/node-20.13.0" = {
+    "@types/node-20.14.2" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "20.13.0";
+      version = "20.14.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-20.13.0.tgz";
-        sha512 = "FM6AOb3khNkNIXPnHFDYaHerSv8uN22C91z098AnGccVu+Pcdhi+pNUFDi0iLmPIsVE0JBD0KVS7mzUYt4nRzQ==";
+        url = "https://registry.npmjs.org/@types/node/-/node-20.14.2.tgz";
+        sha512 = "xyu6WAMVwv6AKFLB+e/7ySZVr/0zLCzOa7rSpq6jNwpqOrUbcACDWC+53d4n2QHOnDou0fbIsg8wZu/sxrnI4Q==";
       };
     };
     "@webassemblyjs/ast-1.12.1" = {
@@ -346,13 +346,13 @@ let
         sha512 = "E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==";
       };
     };
-    "caniuse-lite-1.0.30001625" = {
+    "caniuse-lite-1.0.30001629" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001625";
+      version = "1.0.30001629";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001625.tgz";
-        sha512 = "4KE9N2gcRH+HQhpeiRZXd+1niLB/XNLAhSy4z7fI8EzcbcPoAqjNInxVHTiTwWfTIV4w096XG8OtCOCQQKPv3w==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001629.tgz";
+        sha512 = "c3dl911slnQhmxUIT4HhYzT7wnBK/XYpGnYLOj4nJBaRiw52Ibe7YxlDaAeRECvA786zCuExhxIUJ2K7nHMrBw==";
       };
     };
     "chrome-trace-event-1.0.4" = {
@@ -409,22 +409,22 @@ let
         sha512 = "iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==";
       };
     };
-    "electron-to-chromium-1.4.787" = {
+    "electron-to-chromium-1.4.796" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.787";
+      version = "1.4.796";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.787.tgz";
-        sha512 = "d0EFmtLPjctczO3LogReyM2pbBiiZbnsKnGF+cdZhsYzHm/A0GV7W94kqzLD8SN4O3f3iHlgLUChqghgyznvCQ==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.796.tgz";
+        sha512 = "NglN/xprcM+SHD2XCli4oC6bWe6kHoytcyLKCWXmRL854F0qhPhaYgUswUsglnPxYaNQIg2uMY4BvaomIf3kLA==";
       };
     };
-    "enhanced-resolve-5.16.1" = {
+    "enhanced-resolve-5.17.0" = {
       name = "enhanced-resolve";
       packageName = "enhanced-resolve";
-      version = "5.16.1";
+      version = "5.17.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/enhanced-resolve/-/enhanced-resolve-5.16.1.tgz";
-        sha512 = "4U5pNsuDl0EhuZpq46M5xPslstkviJuhrdobaRDBk2Jy2KO37FDAJl4lb2KlNabxT0m4MTK2UHNrsAcphE8nyw==";
+        url = "https://registry.npmjs.org/enhanced-resolve/-/enhanced-resolve-5.17.0.tgz";
+        sha512 = "dwDPwZL0dmye8Txp2gzFmA6sxALaSvdRDjPH0viLcKrtlOL3tw62nWWweVD1SdILDTJrbrL6tdWVN58Wo6U3eA==";
       };
     };
     "envinfo-7.13.0" = {
@@ -967,13 +967,13 @@ let
         sha512 = "GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==";
       };
     };
-    "terser-5.31.0" = {
+    "terser-5.31.1" = {
       name = "terser";
       packageName = "terser";
-      version = "5.31.0";
+      version = "5.31.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/terser/-/terser-5.31.0.tgz";
-        sha512 = "Q1JFAoUKE5IMfI4Z/lkE/E6+SwgzO+x4tq4v1AyBLRj8VSYvRO6A/rQrPg1yud4g0En9EKI1TvFRF2tQFcoUkg==";
+        url = "https://registry.npmjs.org/terser/-/terser-5.31.1.tgz";
+        sha512 = "37upzU1+viGvuFtBo9NPufCb9dwM0+l9hMxYyWfBA+fbwrPqNJAhbZ6W47bBFnZHKHTUBnMvi87434qq+qnxOg==";
       };
     };
     "terser-webpack-plugin-5.3.10" = {
@@ -1093,7 +1093,7 @@ let
       sources."@types/eslint-scope-3.7.7"
       sources."@types/estree-1.0.5"
       sources."@types/json-schema-7.0.15"
-      sources."@types/node-20.13.0"
+      sources."@types/node-20.14.2"
       sources."@webassemblyjs/ast-1.12.1"
       sources."@webassemblyjs/floating-point-hex-parser-1.11.6"
       sources."@webassemblyjs/helper-api-error-1.11.6"
@@ -1120,14 +1120,14 @@ let
       sources."ajv-keywords-3.5.2"
       sources."browserslist-4.23.0"
       sources."buffer-from-1.1.2"
-      sources."caniuse-lite-1.0.30001625"
+      sources."caniuse-lite-1.0.30001629"
       sources."chrome-trace-event-1.0.4"
       sources."clone-deep-4.0.1"
       sources."colorette-2.0.20"
       sources."commander-10.0.1"
       sources."cross-spawn-7.0.3"
-      sources."electron-to-chromium-1.4.787"
-      sources."enhanced-resolve-5.16.1"
+      sources."electron-to-chromium-1.4.796"
+      sources."enhanced-resolve-5.17.0"
       sources."envinfo-7.13.0"
       sources."es-module-lexer-1.5.3"
       sources."escalade-3.1.2"
@@ -1191,7 +1191,7 @@ let
       sources."supports-color-8.1.1"
       sources."supports-preserve-symlinks-flag-1.0.0"
       sources."tapable-2.2.1"
-      (sources."terser-5.31.0" // {
+      (sources."terser-5.31.1" // {
         dependencies = [
           sources."commander-2.20.3"
         ];

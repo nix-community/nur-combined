@@ -13,13 +13,13 @@ let
         sha512 = "1/sA4dwrzBAyeUoQ6oxahHKmrZvsnLCg4RfxW3ZFGGmQkSNQPFNLV9CUEFQP1x9EYXHTo5p6xdhZM1Ne9p/AfA==";
       };
     };
-    "@eslint-community/regexpp-4.10.0" = {
+    "@eslint-community/regexpp-4.10.1" = {
       name = "_at_eslint-community_slash_regexpp";
       packageName = "@eslint-community/regexpp";
-      version = "4.10.0";
+      version = "4.10.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@eslint-community/regexpp/-/regexpp-4.10.0.tgz";
-        sha512 = "Cu96Sd2By9mCNTx2iyKOmq10v22jUVQv0lQnlGNy16oE9589yE+QADPbrMGCkA51cKZSg3Pu/aTJVTGfL/qjUA==";
+        url = "https://registry.npmjs.org/@eslint-community/regexpp/-/regexpp-4.10.1.tgz";
+        sha512 = "Zm2NGpWELsQAD1xsJzGQpYfvICSsFkEpU0jxBjfdC6uNEWXcHnfs9hScFWtXVDVl+rBQJGrl4g1vcKIejpH9dA==";
       };
     };
     "@eslint/config-array-0.15.1" = {
@@ -817,7 +817,7 @@ let
           sources."eslint-visitor-keys-3.4.3"
         ];
       })
-      sources."@eslint-community/regexpp-4.10.0"
+      sources."@eslint-community/regexpp-4.10.1"
       sources."@eslint/config-array-0.15.1"
       sources."@eslint/eslintrc-3.1.0"
       sources."@eslint/js-9.4.0"

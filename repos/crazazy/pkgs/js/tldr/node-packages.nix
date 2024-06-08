@@ -4,13 +4,13 @@
 
 let
   sources = {
-    "adm-zip-0.5.12" = {
+    "adm-zip-0.5.14" = {
       name = "adm-zip";
       packageName = "adm-zip";
-      version = "0.5.12";
+      version = "0.5.14";
       src = fetchurl {
-        url = "https://registry.npmjs.org/adm-zip/-/adm-zip-0.5.12.tgz";
-        sha512 = "6TVU49mK6KZb4qG6xWaaM4C7sA/sgUMLy/JYMOzkcp3BvVLpW0fXDFQiIzAuxFCt/2+xD7fNIiPFAoLZPhVNLQ==";
+        url = "https://registry.npmjs.org/adm-zip/-/adm-zip-0.5.14.tgz";
+        sha512 = "DnyqqifT4Jrcvb8USYjp6FHtBpEIz1mnXu6pTRHZ0RL69LbQYiO+0lDFg5+OKA7U29oWSs3a/i8fhn8ZcceIWg==";
       };
     };
     "afinn-165-1.0.4" = {
@@ -749,7 +749,7 @@ let
     version = "3.4.0";
     src = fetchurl { url = "https://registry.npmjs.org/tldr/-/tldr-3.4.0.tgz"; sha1 = "3a78183d70ac86c8e42beaa1c0bb6aabcc6fb3c5"; };
     dependencies = [
-      sources."adm-zip-0.5.12"
+      sources."adm-zip-0.5.14"
       sources."afinn-165-1.0.4"
       sources."ansi-regex-5.0.1"
       sources."ansi-styles-4.3.0"
