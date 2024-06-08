@@ -2,13 +2,13 @@
 
 rtklib.overrideAttrs (super: rec {
   pname = "rtklib-demo5";
-  version = "b34i";
+  version = "b34j";
 
   src = fetchFromGitHub {
     owner = "rtklibexplorer";
     repo = "RTKLIB";
     rev = version;
-    hash = "sha256-QVbmEGPSr/CZN9ljwO1oUQVs6ea5BNBXbK+WLHcxgUM=";
+    hash = "sha256-pLsN1WcNVxIe8DoPFZW0X3gledy5VvtOMXhVj+xPikQ=";
   };
 
   meta = rtklib.meta // {
