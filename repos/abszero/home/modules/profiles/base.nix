@@ -14,7 +14,7 @@ in
   nixpkgs.config.allowUnfreePredicate = const true;
 
   home = {
-    stateVersion = "24.05";
+    stateVersion = "24.11";
     # Print store diff using nvd
     activation.diff = config.lib.dag.entryBefore [ "writeBoundary" ] ''
       if [[ -v oldGenPath ]]; then
