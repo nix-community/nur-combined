@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+set -eu -o pipefail
+
+rsyncnet_user=de3163@de3163.rsync.net
+
+function update_status {
+  sd source_me notification --id $$ --title "Sincronização rápida" --message "$*"
+  echo '[*]' "$@" >&2
+}
+
+function sync_private_repo {
+  repo="$1"; shift
+  repo_dir=~/.personal
+  update_status "Sincronizando repositório $repo"
+  remote_url="ssh://$rsyncnet_user/data2/home/de3163/git-personal/$repo"
+  mkdir -p "$repo_dir"
+  pushd "$repo_dir" >/dev/null
+    if [ ! -d "$repo_dir/$repo" ]; then
+      git clone "$remote_url" "$repo"
+    fi
+    pushd "$repo" >/dev/null
+      git remote set-url origin "$remote_url"
+      git add -A
+      if ! git diff-index HEAD --exit-code; then
+        git commit -sm "$(printf "backup checkpoint %s\n%s\n" "$(sd is known-node || true)" "$(git diff --stat --staged)")"
+      fi
+      git pull --rebase
+      git push
+    popd >/dev/null
+  popd >/dev/null
+}
+
+sync_private_repo personal-zettel-obsidian
+sync_private_repo personal-zettel-org
+sync_private_repo personal-beancount
+sync_private_repo personal-decsync
+sync_private_repo personal-keepass

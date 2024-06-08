@@ -22,34 +22,7 @@ function backup {
   rsync -avP "${from}" "${to}" "$@"
 }
 
-function obsidian_git {
-  OBSIDIAN_DIR=
-  if sd is riverwood; then
-    OBSIDIAN_DIR=/home/lucasew/WORKSPACE/ZETTEL/obsidian
-  fi
-  if sd is phone; then
-    OBSIDIAN_DIR=/sdcard/Obsidian
-  fi
-  if [ ! -z "$OBSIDIAN_DIR" ]; then
-    pushd "$OBSIDIAN_DIR" >/dev/null
-
-    update_status "obsidian/git: $@"
-    git "$@"
-    popd >/dev/null
-  fi
-}
-
-obsidian_git add -A
-obsidian_commit_mktemp=$(mktemp)
-{
-  echo "backup checkpoint" $(sd is known-node || true)
-  obsidian_git diff --stat --staged
-} > $obsidian_commit_mktemp
-obsidian_git commit -F $obsidian_commit_mktemp || true
-rm $obsidian_commit_mktemp
-
-obsidian_git pull --rebase
-obsidian_git push origin master
+sd quicksync
 
 if sd is riverwood; then
   backup ~/WORKSPACE/CANTGIT/ backup/lucasew/CANTGIT
