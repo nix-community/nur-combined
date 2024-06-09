@@ -34,8 +34,8 @@ jobs:
           - natsukium
         os:
           - ubuntu-latest
-          - macos-latest
-          - macos-14
+          - macos-latest # M1
+          - macos-13 # Intel
     runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout repository
