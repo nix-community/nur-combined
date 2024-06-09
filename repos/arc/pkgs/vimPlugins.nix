@@ -74,4 +74,28 @@
       sha256 = "0v7940h1sy8h6ba20qdadx82zbmi9mm4yij9gsxp3d9n94av8zsx";
     };
   };
+  vim-actionscript = { fetchurl, vimUtils }: vimUtils.buildVimPlugin {
+    pname = "actionscript.vim";
+    version = "0.3";
+    src = fetchurl {
+      name = "actionscript.vim";
+      url = "https://www.vim.org/scripts/download_script.php?src_id=10123";
+      sha256 = "sha256-8BEggZhdsCw3f+ZiEtR9x5O5VzDGq/2qAF9O01n0t/4=";
+    };
+    sourceRoot = "actionscript.vim";
+
+    unpackPhase = ''
+      runHook preUnpack
+
+      ls -lh $src
+      install -Dm755 $src $sourceRoot/syntax/actionscript.vim
+
+      runHook postUnpack
+    '';
+
+    postPatch = ''
+      sed -i syntax/actionscript.vim \
+        -e '/^syn match *actionScriptInParen *contained/d'
+    '';
+  };
 }
