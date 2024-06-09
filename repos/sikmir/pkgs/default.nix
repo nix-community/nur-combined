@@ -200,7 +200,6 @@ lib.makeScope newScope (
     go-pmtiles = callPackage ./geospatial/go-pmtiles { };
     go-staticmaps = callPackage ./geospatial/go-staticmaps { };
     hecate = callPackage ./geospatial/hecate { inherit (darwin.apple_sdk.frameworks) Security; };
-    inequality = callPackage ./geospatial/inequality { };
     kealib = callPackage ./geospatial/kealib { };
     localtileserver = callPackage ./geospatial/localtileserver { };
     mapsoft = callPackage ./geospatial/mapsoft { proj = pkgs.proj_7; };
@@ -209,7 +208,6 @@ lib.makeScope newScope (
     mbutiles = callPackage ./geospatial/mbutiles { };
     mobroute = callPackage ./geospatial/mobroute { };
     mobsql = callPackage ./geospatial/mobsql { };
-    momepy = callPackage ./geospatial/momepy { };
     orbisgis = callPackage ./geospatial/orbisgis { jre = pkgs.jre8; };
     ossim = callPackage ./geospatial/ossim { };
     pipfile = callPackage ./geospatial/pipfile { };
