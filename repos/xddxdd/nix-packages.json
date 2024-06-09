@@ -979,6 +979,11 @@
     "pname": "nvidia-x11",
     "version": "550.54.15-6.6.32"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.grid.17_2": {
+    "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "550.90.07-6.6.32"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.9_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
@@ -1108,6 +1113,11 @@
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
     "version": "550.54.15-6.6.32"
+  },
+  "legacyPackages.x86_64-linux.nvidia-grid.guest.17_2": {
+    "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "550.90.07-6.6.32"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.9_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
@@ -1239,6 +1249,11 @@
     "pname": "nvidia-x11",
     "version": "550.54.16-6.6.32"
   },
+  "legacyPackages.x86_64-linux.nvidia-grid.host.17_2": {
+    "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "550.90.05-6.6.32"
+  },
   "legacyPackages.x86_64-linux.nvidia-grid.host.9_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
@@ -1368,6 +1383,11 @@
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
     "version": "550.54.16-6.6.32"
+  },
+  "legacyPackages.x86_64-linux.nvidia-grid.vgpu.17_2": {
+    "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
+    "pname": "nvidia-x11",
+    "version": "550.90.05-6.6.32"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.9_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
@@ -2782,7 +2802,7 @@
   "legacyPackages.x86_64-linux.uesave": {
     "description": "A library for reading and writing Unreal Engine save files (commonly referred to as GVAS).",
     "pname": "uesave",
-    "version": "0.3.0"
+    "version": "0.5.0"
   },
   "legacyPackages.x86_64-linux.uksmd": {
     "description": "Userspace KSM helper daemon",
@@ -3457,7 +3477,7 @@
   "packages.x86_64-linux.uesave": {
     "description": "A library for reading and writing Unreal Engine save files (commonly referred to as GVAS).",
     "pname": "uesave",
-    "version": "0.3.0"
+    "version": "0.5.0"
   },
   "packages.x86_64-linux.uksmd": {
     "description": "Userspace KSM helper daemon",

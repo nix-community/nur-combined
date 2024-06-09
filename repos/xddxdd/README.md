@@ -219,7 +219,7 @@ Or, use variables from this repository in case I change them:
 |  | `svp` | [svp](https://www.svp-team.com/wiki/SVP:Linux) | 4.6.263 | SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player. |
 |  | `svp-mpv` | [mpv-with-scripts-0.37.0](https://mpv.io) |  | General-purpose media player, fork of MPlayer and mplayer2 |
 |  | `tqdm-loggable` | [tqdm-loggable](https://pypi.org/project/tqdm-loggable/) | 0.2 | TQDM progress bar helpers for logging and other headless application |
-|  | `uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | A library for reading and writing Unreal Engine save files (commonly referred to as GVAS). |
+|  | `uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.5.0 | A library for reading and writing Unreal Engine save files (commonly referred to as GVAS). |
 |  | `uksmd` | [uksmd](https://github.com/CachyOS/uksmd) | 1.2.10 | Userspace KSM helper daemon |
 |  | `undetected-chromedriver` | [undetected-chromedriver](https://github.com/ultrafunkamsterdam/undetected-chromedriver) | unstable-2024-02-17 | Custom Selenium Chromedriver | Zero-Config | Passes ALL bot mitigation systems (like Distil / Imperva/ Datadadome / CloudFlare IUAM) |
 |  | `undetected-chromedriver-bin` | [undetected-chromedriver-bin](https://chromedriver.chromium.org/) | 125.0.6422.141 | Chromedriver with undetected-chromedriver patch |
@@ -379,7 +379,7 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: nvidia-grid (104 packages)</summary>
+<summary>Package set: nvidia-grid (108 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -408,6 +408,7 @@ Or, use variables from this repository in case I change them:
 |  | `nvidia-grid.grid.16_6` | [nvidia-x11-535.183.01-6.6.32](https://www.nvidia.com/object/unix.html) | 535.183.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 |  | `nvidia-grid.grid.17_0` | [nvidia-x11-550.54.14-6.6.32](https://www.nvidia.com/object/unix.html) | 550.54.14 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 |  | `nvidia-grid.grid.17_1` | [nvidia-x11-550.54.15-6.6.32](https://www.nvidia.com/object/unix.html) | 550.54.15 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+|  | `nvidia-grid.grid.17_2` | [nvidia-x11-550.90.07-6.6.32](https://www.nvidia.com/object/unix.html) | 550.90.07 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 |  | `nvidia-grid.grid.9_2` | [nvidia-x11-430.63-6.6.32](https://www.nvidia.com/object/unix.html) | 430.63 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 |  | `nvidia-grid.guest.11_8` | [nvidia-x11-450.191.01-6.6.32](https://www.nvidia.com/object/unix.html) | 450.191.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 |  | `nvidia-grid.guest.12_4` | [nvidia-x11-460.106.00-6.6.32](https://www.nvidia.com/object/unix.html) | 460.106.00 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
@@ -434,6 +435,7 @@ Or, use variables from this repository in case I change them:
 |  | `nvidia-grid.guest.16_6` | [nvidia-x11-535.183.01-6.6.32](https://www.nvidia.com/object/unix.html) | 535.183.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 |  | `nvidia-grid.guest.17_0` | [nvidia-x11-550.54.14-6.6.32](https://www.nvidia.com/object/unix.html) | 550.54.14 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 |  | `nvidia-grid.guest.17_1` | [nvidia-x11-550.54.15-6.6.32](https://www.nvidia.com/object/unix.html) | 550.54.15 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
+|  | `nvidia-grid.guest.17_2` | [nvidia-x11-550.90.07-6.6.32](https://www.nvidia.com/object/unix.html) | 550.90.07 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 |  | `nvidia-grid.guest.9_2` | [nvidia-x11-430.63-6.6.32](https://www.nvidia.com/object/unix.html) | 430.63 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 |  | `nvidia-grid.host.11_8` | [nvidia-x11-450.191-6.6.32](https://www.nvidia.com/object/unix.html) | 450.191 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 |  | `nvidia-grid.host.12_4` | [nvidia-x11-460.107-6.6.32](https://www.nvidia.com/object/unix.html) | 460.107 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
@@ -460,6 +462,7 @@ Or, use variables from this repository in case I change them:
 |  | `nvidia-grid.host.16_6` | [nvidia-x11-535.183.04-6.6.32](https://www.nvidia.com/object/unix.html) | 535.183.04 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 |  | `nvidia-grid.host.17_0` | [nvidia-x11-550.54.10-6.6.32](https://www.nvidia.com/object/unix.html) | 550.54.10 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 |  | `nvidia-grid.host.17_1` | [nvidia-x11-550.54.16-6.6.32](https://www.nvidia.com/object/unix.html) | 550.54.16 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+|  | `nvidia-grid.host.17_2` | [nvidia-x11-550.90.05-6.6.32](https://www.nvidia.com/object/unix.html) | 550.90.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 |  | `nvidia-grid.host.9_2` | [nvidia-x11-430.67-6.6.32](https://www.nvidia.com/object/unix.html) | 430.67 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 |  | `nvidia-grid.vgpu.11_8` | [nvidia-x11-450.191-6.6.32](https://www.nvidia.com/object/unix.html) | 450.191 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 |  | `nvidia-grid.vgpu.12_4` | [nvidia-x11-460.107-6.6.32](https://www.nvidia.com/object/unix.html) | 460.107 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
@@ -486,6 +489,7 @@ Or, use variables from this repository in case I change them:
 |  | `nvidia-grid.vgpu.16_6` | [nvidia-x11-535.183.04-6.6.32](https://www.nvidia.com/object/unix.html) | 535.183.04 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 |  | `nvidia-grid.vgpu.17_0` | [nvidia-x11-550.54.10-6.6.32](https://www.nvidia.com/object/unix.html) | 550.54.10 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 |  | `nvidia-grid.vgpu.17_1` | [nvidia-x11-550.54.16-6.6.32](https://www.nvidia.com/object/unix.html) | 550.54.16 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
+|  | `nvidia-grid.vgpu.17_2` | [nvidia-x11-550.90.05-6.6.32](https://www.nvidia.com/object/unix.html) | 550.90.05 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 |  | `nvidia-grid.vgpu.9_2` | [nvidia-x11-430.67-6.6.32](https://www.nvidia.com/object/unix.html) | 430.67 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 </details>
 

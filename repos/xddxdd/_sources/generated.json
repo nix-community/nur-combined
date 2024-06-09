@@ -316,7 +316,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-06-07",
+        "date": "2024-06-08",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -328,11 +328,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "4f3269f67b5d86b9c65c1e013ae6da20aa44e791",
-            "sha256": "sha256-Q/0ceiz+m62MPsDj0VNy5HJWTENupCnyNcQiuRfsK4E=",
+            "rev": "d39df806395cc8e9a1160e4f4ed6948046156b78",
+            "sha256": "sha256-TTxuo/wdHpWqc1RSB7JTtib0cLQPQCoS+G5Vobr0NJg=",
             "type": "github"
         },
-        "version": "4f3269f67b5d86b9c65c1e013ae6da20aa44e791"
+        "version": "d39df806395cc8e9a1160e4f4ed6948046156b78"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -2569,11 +2569,11 @@
             "name": null,
             "owner": "trumank",
             "repo": "uesave-rs",
-            "rev": "v0.3.0",
-            "sha256": "sha256-YRn14rF94zSTnFAIRuvw84GDRBaqmns9nvaHCTjhWQg=",
+            "rev": "v0.5.0",
+            "sha256": "sha256-9gOOSLejVfR1KJMhcNuKDkuTOvPC6sNG8xQOZlt8NxI=",
             "type": "github"
         },
-        "version": "v0.3.0"
+        "version": "v0.5.0"
     },
     "uksmd": {
         "cargoLocks": null,

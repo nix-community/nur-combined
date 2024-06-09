@@ -183,15 +183,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "4f3269f67b5d86b9c65c1e013ae6da20aa44e791";
+    version = "d39df806395cc8e9a1160e4f4ed6948046156b78";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "4f3269f67b5d86b9c65c1e013ae6da20aa44e791";
+      rev = "d39df806395cc8e9a1160e4f4ed6948046156b78";
       fetchSubmodules = false;
-      sha256 = "sha256-Q/0ceiz+m62MPsDj0VNy5HJWTENupCnyNcQiuRfsK4E=";
+      sha256 = "sha256-TTxuo/wdHpWqc1RSB7JTtib0cLQPQCoS+G5Vobr0NJg=";
     };
-    date = "2024-06-07";
+    date = "2024-06-08";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -1457,13 +1457,13 @@
   };
   uesave = {
     pname = "uesave";
-    version = "v0.3.0";
+    version = "v0.5.0";
     src = fetchFromGitHub {
       owner = "trumank";
       repo = "uesave-rs";
-      rev = "v0.3.0";
+      rev = "v0.5.0";
       fetchSubmodules = false;
-      sha256 = "sha256-YRn14rF94zSTnFAIRuvw84GDRBaqmns9nvaHCTjhWQg=";
+      sha256 = "sha256-9gOOSLejVfR1KJMhcNuKDkuTOvPC6sNG8xQOZlt8NxI=";
     };
   };
   uksmd = {
