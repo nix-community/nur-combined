@@ -11,8 +11,8 @@
 
   systemd.sysusers.enable = true;
   system.etc.overlay.enable = true;
-  # system.switch.enableNg = true;
-  # system.switch.enable = lib.mkForce false;
+  system.switch.enableNg = true;
+  system.switch.enable = lib.mkForce false;
 
   systemd.services.nix-daemon.serviceConfig = {
     LimitNOFILE = lib.mkForce 500000000;
