@@ -11,6 +11,10 @@ ref="$1"; shift
 
 IFS='#' read -r repo item <<< "$ref"
 
+if [ "$repo" == "," ]; then
+  repo="$(sd d root)"
+fi
+
 export repo
 
 repo="$(nix flake metadata "$repo" --json | jq -r '.path')"
