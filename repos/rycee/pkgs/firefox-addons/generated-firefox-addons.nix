@@ -7039,10 +7039,10 @@
     };
     "news-feed-eradicator" = buildFirefoxXpiAddon {
       pname = "news-feed-eradicator";
-      version = "2.2.6";
+      version = "2.2.7";
       addonId = "@news-feed-eradicator";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4244154/news_feed_eradicator-2.2.6.xpi";
-      sha256 = "8dd8eeb57390b0b4765b06c44bdf9498bfd4cba815f783334473027653abbc0a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4300135/news_feed_eradicator-2.2.7.xpi";
+      sha256 = "99fa2dab867cdb5f50cbf2d4ec1ff632d57a9b9c73371786e8f098f1c5b24522";
       meta = with lib;
       {
         homepage = "https://west.io/news-feed-eradicator";
@@ -7598,10 +7598,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "2024.6.1";
+      version = "2024.6.2";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4293240/pakkujs-2024.6.1.xpi";
-      sha256 = "32a04666db80550746ced1fcfb365164683fe093b0d0fde320dfc9950274a2e0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4299892/pakkujs-2024.6.2.xpi";
+      sha256 = "82893cb0bfa30e6ba915b8a3d4d9fb5cace854bcf11a7c07f58b8db97e400bea";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
