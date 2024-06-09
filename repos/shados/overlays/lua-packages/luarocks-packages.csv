@@ -1,4 +1,4 @@
-name,src,ref,server,version,luaversion,maintainers
+name,rockspec,ref,server,version,luaversion,maintainers
 cmark,,,,,,arobyn
 copas,,,,,,arobyn
 etlua,,,,,,arobyn
@@ -19,3 +19,4 @@ optparse,,,,,,arobyn
 pegdebug,,,,,,arobyn
 spawn,,,,,,arobyn
 yaml,,,https://luarocks.org/manifests/gaspard,,,arobyn
+yuescript,,,,,,arobyn

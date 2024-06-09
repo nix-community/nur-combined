@@ -104,4 +104,8 @@ let repo = rec {
       inherit naersk pins;
     };
   };
+
+  yuescript = pkgs.callPackage ./pkgs/yuescript {
+    inherit pins;
+  };
 }; in repo
