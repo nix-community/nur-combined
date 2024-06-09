@@ -115,7 +115,6 @@ lib.makeScope newScope (
     pytest-mp = callPackage ./development/python-modules/pytest-mp { };
     pytest-shell-utilities = callPackage ./development/python-modules/pytest-shell-utilities { };
     pytest-skip-markers = callPackage ./development/python-modules/pytest-skip-markers { };
-    python-periphery = callPackage ./development/python-modules/python-periphery { };
     s2sphere = callPackage ./development/python-modules/s2sphere { };
 
     ### EMBEDDED
