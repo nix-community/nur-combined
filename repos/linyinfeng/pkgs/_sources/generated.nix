@@ -75,10 +75,10 @@
   };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
-    version = "v2.12.3";
+    version = "v2.12.6";
     src = fetchurl {
-      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.12.3/app-x86_64.asar";
-      sha256 = "sha256-8+BnZoBaTzqLiG7gpxa8Jv5Vt8QJ1DJ8sN1EtyLiXIE=";
+      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.12.6/app-x86_64.asar";
+      sha256 = "sha256-w6Ey/TQzhCsB1Zm4PLhNXrV1MKVJL0zVFeBw2uR9I4Y=";
     };
   };
   linux-intel-lts = {
@@ -274,16 +274,16 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "af2480ba1b147a6a54c0c21e2997ef451c34e036";
+    version = "12daff6ef1972798eecbf1384c6c9a176c62d975";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "af2480ba1b147a6a54c0c21e2997ef451c34e036";
+      rev = "12daff6ef1972798eecbf1384c6c9a176c62d975";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-3KfuCHGFFcEzgprvJzJiyot8HqYWHvDhIu4Qo6Tu6Ys=";
+      sha256 = "sha256-9rIsHtYlB/R8UYX1PmiEcWdHM805NAEpWehL5r6M5MU=";
     };
-    date = "2024-06-04";
+    date = "2024-06-10";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
