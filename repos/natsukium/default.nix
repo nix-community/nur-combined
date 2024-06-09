@@ -7,7 +7,7 @@
 #     nix-build -A mypackage
 
 {
-  pkgs ? import <nixpkgs> { },
+  pkgs ? import <nixpkgs> { overlays = builtins.attrValues (import ./overlays); },
 }:
 let
   sources = pkgs.callPackage ./_sources/generated.nix { };
@@ -20,23 +20,23 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   bclm = pkgs.callPackage ./pkgs/bclm { };
-  colima = pkgs.callPackage ./pkgs/colima { };
-  copyq = pkgs.callPackage ./pkgs/copyq { source = sources.copyq-darwin; };
+  colima = pkgs.colima;
+  copyq = pkgs.copyq;
   emacs-plus = pkgs.callPackage ./pkgs/emacs-plus { source = sources.emacs-plus; };
   ligaturizer = pkgs.callPackage ./pkgs/ligaturizer { };
-  nixfmt = pkgs.callPackage ./pkgs/nixfmt { source = sources.nixfmt; };
-  nixpkgs-review = pkgs.callPackage ./pkgs/nixpkgs-review { source = sources.nixpkgs-review; };
+  nixfmt = pkgs.nixfmt;
+  nixpkgs-review = pkgs.nixpkgs-review;
   nowplaying-cli = pkgs.callPackage ./pkgs/nowplaying-cli {
     inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
     source = sources.nowplaying-cli;
   };
   psipred = pkgs.callPackage ./pkgs/psipred { };
   qmk-toolbox = pkgs.callPackage ./pkgs/qmk-toolbox { source = sources.qmk-toolbox; };
-  qutebrowser = pkgs.callPackage ./pkgs/qutebrowser { source = sources.qutebrowser-darwin; };
-  rofi-rbw = pkgs.callPackage ./pkgs/rofi-rbw { };
+  qutebrowser = pkgs.qutebrowser;
+  rofi-rbw = pkgs.rofi-rbw;
   sbarlua = pkgs.callPackage ./pkgs/sbarlua { source = sources.sbarlua; };
   vim-startuptime = pkgs.callPackage ./pkgs/vim-startuptime { source = sources.vim-startuptime; };
-  vivaldi-bin = pkgs.callPackage ./pkgs/vivaldi { source = sources.vivaldi-darwin; };
+  vivaldi = pkgs.vivaldi;
   liga-hackgen-font = pkgs.callPackage ./pkgs/data/fonts/liga-hackgen { inherit ligaturizer; };
   liga-hackgen-nf-font = liga-hackgen-font.override { nerdfont = true; };
 
