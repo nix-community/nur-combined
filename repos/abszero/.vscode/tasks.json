@@ -14,7 +14,7 @@
     {
       "label": "home-rebuild",
       "type": "shell",
-      "command": "home-manager switch --impure -b backup --flake path:/home/weathercold/src/nixfiles",
+      "command": "home-manager switch -b backup --flake path:/home/weathercold/src/nixfiles",
       "group": {
         "kind": "build",
         "isDefault": true

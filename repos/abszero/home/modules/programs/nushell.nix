@@ -28,7 +28,7 @@ in
       # https://github.com/amtoine/nushell/blob/main/crates/nu-utils/src/sample_config/default_config.nu
       configFile.text = ''
         $env.config = {
-          shell_integration: true
+          use_kitty_protocol: true
           show_banner: false
         }
       '';

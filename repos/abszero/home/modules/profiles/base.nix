@@ -1,17 +1,7 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
-
-let
-  inherit (lib) const;
-in
+{ config, pkgs, ... }:
 
 {
-  # FIXME: Still broken, needs --impure to build
-  nixpkgs.config.allowUnfreePredicate = const true;
+  nixpkgs.config.allowUnfree = true;
 
   home = {
     stateVersion = "24.11";
