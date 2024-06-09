@@ -74,21 +74,6 @@
         },
         "version": "8e8f6f97a8259728f7bdbe8ca0aaec87d5f33cc9"
     },
-    "nowplaying-cli": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "nowplaying-cli",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-u0kSPGYoK2SVwkVYkxOvyUh1p7DoLJrp951vJedQPbQ=",
-            "type": "url",
-            "url": "https://github.com/kirtan-shah/nowplaying-cli/archive/v1.2.1.tar.gz"
-        },
-        "version": "1.2.1"
-    },
     "qmk-toolbox": {
         "cargoLocks": null,
         "date": null,

@@ -45,14 +45,6 @@
     };
     date = "2024-02-20";
   };
-  nowplaying-cli = {
-    pname = "nowplaying-cli";
-    version = "1.2.1";
-    src = fetchurl {
-      url = "https://github.com/kirtan-shah/nowplaying-cli/archive/v1.2.1.tar.gz";
-      sha256 = "sha256-u0kSPGYoK2SVwkVYkxOvyUh1p7DoLJrp951vJedQPbQ=";
-    };
-  };
   qmk-toolbox = {
     pname = "qmk-toolbox";
     version = "0.3.2";

@@ -18,11 +18,6 @@ src.git = "https://github.com/natsukium/nixpkgs-review"
 src.branch = "r-rmcgibbo-1"
 fetch.github = "natsukium/nixpkgs-review"
 
-[nowplaying-cli]
-src.github = "kirtan-shah/nowplaying-cli"
-src.prefix = "v"
-fetch.url = "https://github.com/kirtan-shah/nowplaying-cli/archive/v$ver.tar.gz"
-
 [qmk-toolbox]
 src.github = "qmk/qmk_toolbox"
 fetch.url = "https://github.com/qmk/qmk_toolbox/releases/download/$ver/QMK.Toolbox.app.zip"

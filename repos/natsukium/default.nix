@@ -26,10 +26,6 @@ rec {
   ligaturizer = pkgs.callPackage ./pkgs/ligaturizer { };
   nixfmt = pkgs.nixfmt;
   nixpkgs-review = pkgs.nixpkgs-review;
-  nowplaying-cli = pkgs.callPackage ./pkgs/nowplaying-cli {
-    inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
-    source = sources.nowplaying-cli;
-  };
   psipred = pkgs.callPackage ./pkgs/psipred { };
   qmk-toolbox = pkgs.callPackage ./pkgs/qmk-toolbox { source = sources.qmk-toolbox; };
   qutebrowser = pkgs.qutebrowser;
