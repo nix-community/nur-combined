@@ -1,0 +1,99 @@
+diff --git a/include/settings.h b/include/settings.h
+index 1af9b952..6a803441 100644
+--- a/include/settings.h
++++ b/include/settings.h
+@@ -46,7 +46,7 @@ typedef enum {
+ /**
+  * Possible sorting methods for listview.
+  */
+-typedef enum { SORT_NORMAL = 0, SORT_FZF = 1 } SortingMethod;
++typedef enum { SORT_NORMAL = 0, SORT_FZF = 1, SORT_ALNUM = 2 } SortingMethod;
+ 
+ /**
+  * Settings structure holding all (static) configurable options.
+diff --git a/source/helper.c b/source/helper.c
+index 53f366bf..0777cbde 100644
+--- a/source/helper.c
++++ b/source/helper.c
+@@ -653,6 +653,8 @@ int config_sanity_check(void) {
+       config.sorting_method_enum = SORT_NORMAL;
+     } else if (g_strcmp0(config.sorting_method, "fzf") == 0) {
+       config.sorting_method_enum = SORT_FZF;
++    } else if (g_strcmp0(config.sorting_method, "alnum") == 0) {
++      config.sorting_method_enum = SORT_ALNUM;
+     } else {
+       g_string_append_printf(
+           msg,
+diff --git a/source/view.c b/source/view.c
+index aac8c22e..c611e3fe 100644
+--- a/source/view.c
++++ b/source/view.c
+@@ -211,6 +211,38 @@ static int lev_sort(const void *p1, const void *p2, void *arg) {
+ 
+   return distances[*a] - distances[*b];
+ }
++static int alnum_sort(const void *p1, const void *p2, void *arg) {
++  const int *a = p1;
++  const int *b = p2;
++  RofiViewState *state = arg;
++  int *distances = state->distance;
++
++  char *str_a = mode_get_completion(state->sw, *a);
++  char *str_b = mode_get_completion(state->sw, *b);
++
++  if (str_a == NULL && str_b == NULL) {
++    return 0;
++  } else if (str_a != NULL && str_b == NULL) {
++    g_free(str_a);
++    return -1;
++  } else if (str_a == NULL && str_b != NULL) {
++    g_free(str_b);
++    return -1;
++  }
++
++  char *str = state->text->text;
++  size_t l = strlen(str);
++  if (strncasecmp(str_a, str, l) == 0 && strncasecmp(str_b, str, l) != 0) {
++    return -1;
++  } else if (strncasecmp(str_b, str, l) == 0 &&
++             strncasecmp(str_a, str, l) != 0) {
++    return 1;
++  }
++  int retv = distances[*a] - distances[*b];
++  g_free(str_a);
++  g_free(str_b);
++  return retv;
++}
+ 
+ /**
+  * Stores a screenshot of Rofi at that point in time.
+@@ -765,9 +797,13 @@ static void filter_elements(thread_state *ts,
+           t->state->distance[i] =
+               rofi_scorer_fuzzy_evaluate(t->pattern, t->plen, str, slen);
+           break;
++        case SORT_ALNUM:
++          t->state->distance[i] = levenshtein(t->pattern, t->plen, str, slen);
++          break;
+         case SORT_NORMAL:
+         default:
+           t->state->distance[i] = levenshtein(t->pattern, t->plen, str, slen);
++          printf("%d %s\n", t->state->distance[i], str);
+           break;
+         }
+         g_free(str);
+@@ -1486,8 +1522,12 @@ static gboolean rofi_view_refilter_real(RofiViewState *state) {
+       j += states[i].count;
+     }
+     if (config.sort) {
+-      g_qsort_with_data(state->line_map, j, sizeof(int), lev_sort,
+-                        state->distance);
++      if (config.sorting_method_enum == SORT_ALNUM) {
++        g_qsort_with_data(state->line_map, j, sizeof(int), alnum_sort, state);
++      } else {
++        g_qsort_with_data(state->line_map, j, sizeof(int), lev_sort,
++                          state->distance);
++      }
+     }
+ 
+     // Cleanup + bookkeeping.
+```
