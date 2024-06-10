@@ -9,7 +9,8 @@ SYS_FOLDER = Path("/sys/class/net")
 SHM_FILE = Path('/dev/shm/netusage')
 last_item = dict()
 
-UNITS = ['B/s', 'KB/s', 'MB/s', 'GB/s']
+# UNITS = ['B/s', 'KB/s', 'MB/s', 'GB/s']
+UNITS = ['B', 'K', 'M', 'G']
 
 def normalize_unit(val):
     val = float(val)
@@ -17,7 +18,7 @@ def normalize_unit(val):
     while val > 100:
         unit_idx += 1
         val = val / 1024
-    return f"{val:.1f} {UNITS[unit_idx]}"
+    return f"{val:.1f}{UNITS[unit_idx]}"
 
 def handle_iteration(iface):
     try:

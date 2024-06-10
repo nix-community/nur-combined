@@ -63,14 +63,14 @@ in
 
         order += "wireless _first_"
         wireless _first_ {
-          format_up = "  %bitrate %frequency %quality"
-          format_down = "  OFF"
+          format_up = "🛜 %bitrate %frequency %quality"
+          format_down = "🛜 OFF"
         }
 
         order += "ethernet _first_"
         ethernet _first_ {
-                format_up = "🖧  %speed"
-                format_down = "🖧  OFF"
+                format_up = "🔗 %speed"
+                format_down = "🔗 OFF"
         }
 
         order += "load"
