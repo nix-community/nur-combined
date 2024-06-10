@@ -433,7 +433,8 @@
             "url": "https://github.com/guoard/nur"
         },
         "harukafractus": {
-            "url": "https://github.com/harukafractus/nurpkgs"
+            "file": "nur-everything/default.nix",
+            "url": "https://github.com/harukafractus/nix"
         },
         "heph2": {
             "url": "https://github.com/heph2/nur-packages"
