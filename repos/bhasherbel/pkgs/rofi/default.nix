@@ -36,6 +36,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3XFusKeckagEPfbLtt1xAVTEfn1Qebdi/Iq1AYbHCR4=";
   };
 
+  patches = [ ./prefix-sorting.patch ];
+
   preConfigure = ''
     patchShebangs "script"
     # root not present in build /etc/passwd
