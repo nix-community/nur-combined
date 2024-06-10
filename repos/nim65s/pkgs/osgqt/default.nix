@@ -1,11 +1,10 @@
 {
   stdenv,
-  fetchFromGitHub,
   lib,
+  fetchFromGitHub,
   cmake,
   openscenegraph,
-  qtbase,
-  wrapQtAppsHook,
+  libsForQt5,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -14,16 +13,16 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchFromGitHub {
     owner = "openscenegraph";
-    repo = finalAttrs.pname;
+    repo = "osgQt";
     rev = finalAttrs.version;
     hash = "sha256-iUeIqRDlcAHdKXWAi4WhEaOCxa7ZivQw0K5E7ccEKnM=";
   };
 
-  buildInputs = [ qtbase ];
+  buildInputs = [ libsForQt5.qtbase ];
 
   nativeBuildInputs = [
     cmake
-    wrapQtAppsHook
+    libsForQt5.wrapQtAppsHook
   ];
 
   propagatedBuildInputs = [ openscenegraph ];
@@ -41,6 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = with lib; {
+    description = "Qt bindings for OpenSceneGraph";
     homepage = "https://github.com/openscenegraph/osgQt";
     license = "OpenSceneGraph Public License - free LGPL-based license";
     maintainers = with maintainers; [ nim65s ];

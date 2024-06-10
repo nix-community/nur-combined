@@ -1,67 +1,21 @@
 {
   stdenv,
-  fetchFromGitHub,
+  makeBinaryWrapper,
   lib,
-  boost,
-  cmake,
-  doxygen,
-  jrl-cmakemodules,
-  openscenegraph,
-  osgqt,
-  pkg-config,
-  python3Packages,
-  qgv,
-  qtbase,
-  wrapQtAppsHook,
-  python-qt,
+  libsForQt5,
+  gepetto-viewer-base,
+  gepetto-viewer-corba,
 }:
-let
-  python = python3Packages.python.withPackages (ps: [ ps.boost ]);
-in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "gepetto-viewer";
-  version = "5.0.0";
-
-  src = fetchFromGitHub {
-    owner = "gepetto";
-    repo = finalAttrs.pname;
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-e+MYEJA98U+ZUv2Aza/S7CGbQSJht7xFtmx229HmlOs=";
-  };
-
-  outputs = [
-    "out"
-    "doc"
-  ];
-
-  buildInputs = [
-    boost
-    python-qt
-    qtbase
-    osgqt
-    python
-  ];
-
-  nativeBuildInputs = [
-    cmake
-    doxygen
-    wrapQtAppsHook
-    pkg-config
-  ];
-
-  propagatedBuildInputs = [
-    jrl-cmakemodules
-    openscenegraph
-    osgqt
-    qgv
-  ];
-
-  doCheck = true;
-
-  meta = {
-    homepage = "https://github.com/gepetto/gepetto-viewer";
-    license = lib.licenses.lgpl3Only;
-    maintainers = [ lib.maintainers.nim65s ];
-    mainProgram = "gepetto-gui";
-  };
-})
+stdenv.mkDerivation {
+  inherit (gepetto-viewer-base) pname version meta;
+  buildInputs = [makeBinaryWrapper];
+  #propagatedBuildInputs = [ corba ];
+  dontUnpack = true;
+  installPhase = ''
+    mkdir -p $out/bin
+    makeBinaryWrapper ${lib.getExe gepetto-viewer-base} $out/bin/gepetto-gui \
+      --set GEPETTO_GUI_PLUGIN_DIRS ${gepetto-viewer-corba}/lib \
+      --set QP_QPA_PLATFORM_PLUGIN_PATH ${libsForQt5.qtbase.bin}/lib/qt-${libsForQt5.qtbase.version}/plugins \
+      --set QT_QPA_PLATFORM xcb
+  '';
+}

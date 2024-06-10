@@ -37,7 +37,10 @@ stdenv.mkDerivation (finalAttrs: {
       python3Packages.pinocchio
     ];
 
-  cmakeFlags = [ (lib.cmakeBool "BUILD_PYTHON_INTERFACE" pythonSupport) ];
+  cmakeFlags = [
+    (lib.cmakeBool "BUILD_PYTHON_INTERFACE" pythonSupport)
+    "-DCURVES_WITH_PINOCCHIO_SUPPORT=ON"
+  ];
 
   doCheck = true;
 

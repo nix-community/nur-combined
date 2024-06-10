@@ -1,25 +1,43 @@
 {
   description = "My personal NUR repository. Mostly nixpkgs stagging area.";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
+  inputs = {
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    systems.url = "github:nix-systems/default";
+  };
+
   outputs =
-    { self, nixpkgs }:
-    let
-      systems = [
-        "x86_64-linux"
-        "i686-linux"
-        "x86_64-darwin"
-        "aarch64-linux"
-        "armv6l-linux"
-        "armv7l-linux"
+    inputs@{ flake-parts, systems, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = import systems;
+
+      imports = [
+        inputs.flake-parts.flakeModules.easyOverlay
+        ./imports/overlay.nix
+        ./imports/formatter.nix
+        #./imports/pkgs-by-name.nix
+        ./imports/pkgs-all.nix
       ];
-      forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
-    in
-    {
-      legacyPackages = forAllSystems (
-        system: import ./default.nix { pkgs = import nixpkgs { inherit system; }; }
-      );
-      packages = forAllSystems (
-        system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
-      );
+
+      perSystem = { pkgs, ...  }:
+        {
+          # don't put that in imports, or nix-direnv won't autoupdate
+          devShells.default = pkgs.mkShell {
+            packages = with pkgs; [
+              gepetto-viewer
+              (python3.withPackages (
+                ps: with ps; [
+                  example-robot-data
+                  meshcat
+                  pinocchio
+                  pymeshlab
+                  py-gepetto-viewer-base
+                  py-gepetto-viewer-corba
+                ]
+              ))
+            ];
+          };
+        };
     };
 }

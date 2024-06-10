@@ -5,13 +5,12 @@
   boost,
   cmake,
   doxygen,
-  gepetto-viewer,
+  gepetto-viewer-base,
   omniorb,
   omniorbpy,
   pkg-config,
   python3Packages,
-  qtbase,
-  wrapQtAppsHook,
+  libsForQt5,
 }:
 let
   python = python3Packages.python.withPackages (ps: [
@@ -25,13 +24,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchFromGitHub {
     owner = "gepetto";
-    repo = finalAttrs.pname;
+    repo = "gepetto-viewer-corba";
     rev = "v${finalAttrs.version}";
     hash = "sha256-/bpAs4ca/+QjWEGuHhuDT8Ts2Ggg+DZWETZfjho6E0w=";
   };
 
   outputs = [
-    "dev"
     "out"
     "doc"
   ];
@@ -46,17 +44,20 @@ stdenv.mkDerivation (finalAttrs: {
     boost
     omniorb
     python
-    qtbase
+    libsForQt5.qtbase
   ];
 
   nativeBuildInputs = [
     cmake
     doxygen
-    wrapQtAppsHook
+    libsForQt5.wrapQtAppsHook
     pkg-config
   ];
 
-  propagatedBuildInputs = [ gepetto-viewer ];
+  propagatedBuildInputs = [
+    gepetto-viewer-base
+    omniorbpy
+  ];
 
   doCheck = true;
 

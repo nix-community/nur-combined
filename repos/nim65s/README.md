@@ -6,3 +6,5 @@
 [![Cachix Cache](https://img.shields.io/badge/cachix-nim65s-nur-blue.svg)](https://nim65s-nur.cachix.org)
 
 This is mostly a nixpkgs stagging area
+
+Flake template is from https://github.com/drupol/my-own-nixpkgs

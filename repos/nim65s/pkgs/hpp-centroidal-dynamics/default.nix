@@ -11,12 +11,6 @@
   python3Packages,
   qpoases,
 }:
-let
-  python = python3Packages.python.withPackages (p: [
-    p.boost
-    p.eigenpy
-  ]);
-in
 stdenv.mkDerivation (finalAttrs: {
   pname = "hpp-centroidal-dynamics";
   version = "5.0.0";
@@ -28,29 +22,24 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-oy9FX4V9k0hNOfYLQsvXBx21eIBht0lWcuiVuXf6zk4=";
   };
 
-  outputs = [
-    "dev"
-    "out"
-  ];
-
   strictDeps = true;
 
   nativeBuildInputs = [ cmake ];
 
-  propagatedBuildInputs = [
-    boost
-    cddlib
-    eigen
-    jrl-cmakemodules
-    qpoases
-  ] ++ lib.optionals pythonSupport [ python ];
+  propagatedBuildInputs =
+    [
+      boost
+      cddlib
+      eigen
+      jrl-cmakemodules
+      qpoases
+    ]
+    ++ lib.optionals pythonSupport [
+      python3Packages.boost
+      python3Packages.eigenpy
+    ];
 
   cmakeFlags = [ (lib.cmakeBool "BUILD_PYTHON_INTERFACE" pythonSupport) ];
-
-  postFixup = ''
-    substituteInPlace $dev/lib/cmake/${finalAttrs.pname}/${finalAttrs.pname}Config.cmake \
-      --replace-fail $out/lib/cmake $dev/lib/cmake
-  '';
 
   doCheck = true;
 
