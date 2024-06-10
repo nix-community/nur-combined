@@ -75,7 +75,7 @@
 
             apps.default = {
               type = "app";
-              program = pkgs.writeScriptBin "link-home" (
+              program = pkgs.writeShellScriptBin "link-home" (
                 toString (
                   lib.concatStringsSep "\n" (
                     lib.foldlAttrs (
