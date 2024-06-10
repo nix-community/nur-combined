@@ -16,7 +16,7 @@ bind --mode=input <C-i> editor_rm
 " Binds {{{
 " Reddit et al. {{{
 " Toggle comments on Reddit, Hacker News, Lobste.rs, LWN
-bind ;c hint -Jc [class*="expand"],[class*="togg"],[class="comment_folder"],[class="CommentBox"]>summary
+bind ;c hint -Jc [class*="expand"],[class*="togg"],[class="comment_folder"],[class="CommentTitle"]
 
 " Make `gu` take me back to subreddit from comments
 bindurl reddit.com gu urlparent 3
@@ -26,8 +26,8 @@ bindurl www.google.com f hint -Jc #search a
 bindurl www.google.com F hint -Jbc #search a
 
 " Only hint search results on DuckDuckGo
-bindurl ^https://duckduckgo.com f hint -Jc [data-testid="result-title-a"]
-bindurl ^https://duckduckgo.com F hint -Jbc [data-testid="result-title-a"]
+bindurl ^https://duckduckgo.com f hint -Jc [data-testid="result"]
+bindurl ^https://duckduckgo.com F hint -Jbc [data-testid="result"]
 
 " Only hint item pages on Hacker News
 bindurl news.ycombinator.com ;f hint -Jc .age > a
