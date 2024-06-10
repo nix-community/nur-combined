@@ -6,4 +6,5 @@
   overlays = import ./overlays;
 
   drivedlgo = pkgs.callPackage ./pkgs/drivedlgo { };
+  watgbridge = pkgs.callPackage ./pkgs/watgbridge { };
 }

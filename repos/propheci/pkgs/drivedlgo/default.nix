@@ -1,6 +1,6 @@
 { lib
 , buildGoModule
-, fetchFromGitHub,
+, fetchFromGitHub
 }:
 
 buildGoModule rec {
@@ -20,7 +20,7 @@ buildGoModule rec {
 
     meta = with lib; {
         description = "A Minimal Google Drive Downloader Written in Go";
-        homepage = "https://godoc.org/github.com/JaskaranSM/drivedlgo";
+        homepage = "https://github.com/JaskaranSM/drivedlgo";
         changelog = "https://github.com/JaskaranSM/drivedlgo/releases/tag/${version}";
         license = licenses.mit;
         mainProgram = "drivedlgo";
