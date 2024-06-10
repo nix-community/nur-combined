@@ -22,6 +22,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   meta = with lib; {
+    description = "Gruppled Cursors theme";
     homepage = "https://github.com/nim65s/gruppled-cursors";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [ nim65s ];
