@@ -22,8 +22,6 @@ let
 
     # https://github.com/NixOS/nixpkgs/pull/243429
     netease-cloud-music = callPackage ./pkgs/applications/audio/netease-cloud-music { };
-    # https://github.com/NixOS/nixpkgs/pull/243032
-    g3kb-switch = callPackage ./pkgs/tools/misc/g3kb-switch { };
     rime-japanese = callPackage ./pkgs/data/misc/rime-japanese { };
 
     rime-kaomoji = callPackage ./pkgs/data/misc/rime-kaomoji { };
@@ -32,7 +30,6 @@ let
     bash-prompt = callPackage ./pkgs/shells/bash/bash-prompt { };
     undollar = callPackage ./pkgs/tools/misc/undollar { };
     manpager = callPackage ./pkgs/tools/misc/manpager { };
-    luaprompt = callPackage ./pkgs/tools/misc/luaprompt { };
 
     # https://github.com/NixOS/nixpkgs/issues/261342
     repl-python-wakatime = callPackage ./pkgs/development/python-modules/repl-python-wakatime { };
