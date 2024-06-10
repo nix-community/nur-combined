@@ -3,7 +3,7 @@ let
 
   templates = {
     generic = mkTemplate ./generic "Generic template";
-    go-hello = mkTemplate ./go/hello "A simple go package";
+    go = mkTemplate ./go/basic "A basic go package";
   };
 
   default = templates.generic;
