@@ -32,6 +32,7 @@ let
     bash-prompt = callPackage ./pkgs/shells/bash/bash-prompt { };
     undollar = callPackage ./pkgs/tools/misc/undollar { };
     manpager = callPackage ./pkgs/tools/misc/manpager { };
+    luaprompt = callPackage ./pkgs/tools/misc/luaprompt { };
 
     # https://github.com/NixOS/nixpkgs/issues/261342
     repl-python-wakatime = callPackage ./pkgs/development/python-modules/repl-python-wakatime { };
