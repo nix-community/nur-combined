@@ -1,0 +1,32 @@
+{
+		"standardnotes-x64": {
+			"version": "desktop@3.194.9",
+			"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.194.9/standard-notes-3.194.9-mac-x64.dmg",
+			"sha256": "ec7cd1d3d9ca53ac302b20d6189ddb40f772f86aa87eccd5a9912f840923b49b"
+		},
+		"standardnotes-arm64": {
+			"version": "desktop@3.194.9",
+			"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.194.9/standard-notes-3.194.9-mac-arm64.dmg",
+			"sha256": "42f3ffd3f072346704afeebbf7bf53ae0dff3c597a55385075666dd3b4a90e28"
+		},
+		"whisky": {
+			"version": "v2.3.2",
+			"url": "https://github.com/Whisky-App/Whisky/releases/download/v2.3.2/Whisky.zip",
+			"sha256": "75136176947df9701c6387fdc3420f29ec0414e845304e2582b17f62dfeb805f"
+		},
+		"librewolf-x64": {
+			"version": "126.0.1-1",
+			"url": "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/126.0.1-1/librewolf-126.0.1-1-macos-x86_64-package.dmg",
+			"sha256": "ddc2b0ace88c268f3b876041955376a03848b53e6386d87c0a164355b21bbcae"
+		},
+		"librewolf-arm64": {
+			"version": "126.0.1-1",
+			"url": "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/126.0.1-1/librewolf-126.0.1-1-macos-arm64-package.dmg",
+			"sha256": "6b0c8a13884c7fbdbed30cd72234aafdc5b0cf823049dd436f6f41838c163b8f"
+		},
+		"floorp": {
+			"version": "v11.13.3",
+			"url": "https://github.com/Floorp-Projects/Floorp/releases/download/v11.13.3/floorp-macOS-universal.dmg",
+			"sha256": "637c0a1df82605e04907a366c7f8a0163c474ac950e3c52b047790de7df75da9"
+		}
+	}

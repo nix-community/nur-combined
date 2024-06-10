@@ -1,0 +1,3 @@
+{
+  nix-mirror = ./nix-mirror;
+}
