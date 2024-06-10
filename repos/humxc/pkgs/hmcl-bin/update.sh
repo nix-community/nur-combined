@@ -9,7 +9,7 @@ payload=$(curl -s https://api.github.com/repos/HMCL-dev/HMCL/releases/latest)
 
 version=$(jq -r .tag_name <<<"$payload")
 
-version="${version#release-}"
+version="${version#v}"
 jar_url=$(jq -r ".assets[] | select(.name == \"HMCL-$version.jar\") | .browser_download_url" <<<"$payload")
 jar_hash=$(nix-prefetch-url $jar_url)
 

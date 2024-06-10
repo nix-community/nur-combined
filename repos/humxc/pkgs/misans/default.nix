@@ -5,22 +5,23 @@ stdenvNoCC.mkDerivation {
   version = "1.0";
 
   src = fetchzip {
-    url = "https://cdn.cnbj1.fds.api.mi-img.com/vipmlmodel/font/MiSans/MiSans.zip";
+    url = "https://hyperos.mi.com/font-download/MiSans.zip";
     stripRoot = false;
-    hash = "sha256-sDVOF7wZ22qsPkoQjFYNjaB4TrDbbNk+a2oHr8KbA+o=";
+    hash = "sha256-497H20SYzzUFaUHkqUkYlROLrqXRBLkBkylsRqZ6KfM=";
   };
+
 
   # only extract the variable font because everything else is a duplicate
   installPhase = ''
     runHook preInstall
 
-    install -Dm644 MiSans\ 开发下载字重/*.ttf -t $out/share/fonts/truetype
+    install -Dm644 MiSans/ttf/*.ttf -t $out/share/fonts/truetype
 
     runHook postInstall
   '';
 
   meta = with lib; {
-    homepage = "https://web.vip.miui.com/page/info/mio/mio/detail?postId=33935854";
+    homepage = "https://hyperos.mi.com/font/zh/download/";
     description = "Free fonts developed by XiaoMi Corporation.";
     license = licenses.ofl;
     platforms = platforms.all;

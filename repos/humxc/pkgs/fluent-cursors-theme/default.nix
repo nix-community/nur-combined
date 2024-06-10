@@ -17,12 +17,12 @@
 
 stdenv.mkDerivation rec{
   pname = "fluent-cursors-theme";
-  version = "2023-06-07";
+  version = "2024-02-25";
   src = fetchFromGitHub {
     owner = "vinceliuice";
     repo = "Fluent-icon-theme";
     rev = version;
-    hash = "sha256-drEAjIY/lacqncSeVeNmeRX6v4PnLvGo66Na1fuFXRg=";
+    hash = "sha256-Cadp2+4kBZ74kdD5x0O85FszxvN6/sg6yccxughyX1Q=";
   };
 
   dontBuild = true;

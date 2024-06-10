@@ -34,8 +34,8 @@ stdenv.mkDerivation rec {
   dontUnpack = true;
 
   icon = fetchurl {
-    url = "https://aur.archlinux.org/cgit/aur.git/plain/craft_table.png?h=hmcl-bin";
-    sha256 = "sha256-KYmhtTAbjHua/a5Wlsak5SRq+i1PHz09rVwZLwNqm0w";
+    url = "https://aur.archlinux.org/cgit/aur.git/plain/icon@8x.png?h=hmcl-bin";
+    sha256 = "sha256-1OVq4ujA2ZHboB7zEk7004kYgl9YcoM4qLq154MZMGo=";
   };
 
   buildInputs = [ glib ];
