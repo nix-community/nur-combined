@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   version = sources.version;
 
   src = fetchurl {
-    url = "https://github.com/HMCL-dev/HMCL/releases/download/release-${version}/HMCL-${version}.jar";
+    url = "https://github.com/HMCL-dev/HMCL/releases/download/v${version}/HMCL-${version}.jar";
     sha256 = sources.jar_hash;
   };
 
