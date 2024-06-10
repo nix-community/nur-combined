@@ -64,31 +64,5 @@ in
         RestartSec = 3;
       };
     };
-
-    systemd.services.radicle-httpd = {
-      requires = [ "network-online.target" ];
-      after = [
-        "network-online.target"
-        "network.target"
-      ];
-      wantedBy = [ "multi-user.target" ];
-      description = "Radicle httpd";
-      path = [ pkgs.git ];
-
-      serviceConfig = {
-        User = user;
-        ExecStart = "${cfg.package}/bin/radicle-httpd --listen ${cfg.httpListen}";
-        Environment = [
-          "RAD_HOME=/home/${user}/.local/share/radicle"
-          "RUST_BACKTRACE=1"
-          "RUST_LOG=info"
-        ];
-        EnvironmentFile = cfg.envFile;
-        # StateDirectory = "radicle";
-        KillMode = "process";
-        Restart = "always";
-        RestartSec = 3;
-      };
-    };
   };
 }
