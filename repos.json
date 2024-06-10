@@ -835,6 +835,9 @@
         "progsyn": {
             "url": "https://github.com/mistzzt/program-synthesis-nur"
         },
+        "propheci": {
+            "url": "https://github.com/Propheci/NixUR"
+        },
         "pschuprikov": {
             "url": "https://github.com/pschuprikov/nur-packages"
         },
