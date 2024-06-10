@@ -45,6 +45,7 @@ inputs:
   cachix-skip-push:
     required: false
     description: 'Set to true to disable pushing build results to the cache'
+    default: 'false'
   #cachix-paths-to-push:
   #  required: false
   #  description: 'Whitespace-separated list of paths to push. Leave empty to push every build result.'
@@ -74,7 +75,7 @@ runs:
         extra_nix_config: ${{ inputs.nix-extra-config }}
 
     - name: Setup Cachix
-      uses: cachix/cachix-action@v14
+      uses: cachix/cachix-action@v15
       if: inputs.cachix-name
       with:
         name: ${{ inputs.cachix-name }}
