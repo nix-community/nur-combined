@@ -12,6 +12,7 @@
           (with inputs; [
             pre-commit-hooks.flakeModule
             devshell.flakeModule
+            agenix-rekey.flakeModule
           ])
           ++ [
             ./hosts
@@ -113,16 +114,7 @@
                 };
               };
             formatter = pkgs.nixfmt-rfc-style;
-          };
-
-        flake = {
-          lib = inputs.nixpkgs.lib.extend inputs.self.overlays.lib;
-
-          nixosConfigurations = ((inputs.colmena.lib.makeHive inputs.self.colmena).introspect (x: x)).nodes;
-
-          agenix-rekey = inputs.agenix-rekey.configure {
-            userFlake = inputs.self;
-            nodes =
+            agenix-rekey.nodes =
               let
                 inherit (inputs.nixpkgs.lib) filterAttrs elem;
               in
@@ -135,6 +127,11 @@
                 ]
               ) inputs.self.nixosConfigurations;
           };
+
+        flake = {
+          lib = inputs.nixpkgs.lib.extend inputs.self.overlays.lib;
+
+          nixosConfigurations = ((inputs.colmena.lib.makeHive inputs.self.colmena).introspect (x: x)).nodes;
 
           overlays = {
             default =
