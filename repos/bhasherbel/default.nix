@@ -17,5 +17,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   aw-awatcher = pkgs.callPackage ./pkgs/aw-awatcher/package.nix { };
-  rofi = pkgs.callPackage ./pkgs/rofi { };
+  rofi-unwrapped = pkgs.callPackage ./pkgs/rofi { };
+  rofi-wayland-unwrapped = pkgs.callPackage ./pkgs/rofi/wayland.nix { };
 }
