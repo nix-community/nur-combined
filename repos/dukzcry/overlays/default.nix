@@ -38,7 +38,7 @@ rec {
       "PUBKEY_DIR=${pkgs.nur.repos.dukzcry.wireless-regdb}/lib/crda/pubkeys"
     ];
   });
-} // optionalAttrs ((config.services.vpn.enable or false) && (config.services.vpn.tor.enable or false)) {
+} // optionalAttrs ((config.services.vpn.enable or false) && (config.services.vpn.tor.enable or false) && (config.services.vpn.tor.onion or false)) {
   tor = super.tor.overrideAttrs (oldAttrs: rec {
     pname = "tor";
     version = "0.4.8.10";

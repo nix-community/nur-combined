@@ -4,6 +4,8 @@ with lib;
 
 let
   cfg = config.services.vpn;
+  tor =  cfg.enable && cfg.tor.enable;
+  onion = tor && cfg.tor.onion;
 in {
   options.services.vpn = {
     enable = mkEnableOption "";
@@ -34,6 +36,7 @@ in {
             type = types.bool;
             default = true;
           };
+          onion = mkEnableOption "";
           network = mkOption {
             type = types.str;
           };
@@ -80,12 +83,15 @@ in {
         }
       '';
     })
-    (mkIf (cfg.enable && cfg.tor.enable) {
+    (mkIf tor {
       services.tor.enable = true;
       services.tor.settings = {
         ExcludeExitNodes = "{RU}";
         TransPort = [{ addr = cfg.address; port = 9040; }];
-        # onion. флибуста зачем-то хардкодит редирект на этот домен
+      };
+    })
+    (mkIf onion {
+      services.tor.settings = {
         DNSPort = [{ addr = cfg.address; port = 9053; }];
         VirtualAddrNetworkIPv4 = cfg.tor.network;
         AutomapHostsOnResolve = true;
@@ -95,7 +101,7 @@ in {
         rebind-domain-ok = "onion";
       };
     })
-    (mkIf (cfg.enable && cfg.tor.enable && config.networking.nftables.enable) {
+    (mkIf (tor && config.networking.nftables.enable) {
       networking.nftables.tables = {
         vpn = {
           family = "ip";
@@ -104,20 +110,22 @@ in {
               type nat hook output priority mangle;
               ip protocol tcp ip saddr ${cfg.address} tcp dport { 80, 443 } counter dnat to ${cfg.address}:9040
             }
-            # onion
-            chain pre {
-              type nat hook prerouting priority dstnat;
-              ip protocol tcp ip daddr ${cfg.tor.network} tcp dport { 80, 443 } counter dnat to ${cfg.address}:9040
-            }
+            ${optionalString onion ''
+              chain pre {
+                type nat hook prerouting priority dstnat;
+                ip protocol tcp ip daddr ${cfg.tor.network} tcp dport { 80, 443 } counter dnat to ${cfg.address}:9040
+              }
+            ''}
           '';
         };
       };
     })
-    (mkIf (cfg.enable && cfg.tor.enable && !config.networking.nftables.enable) {
+    (mkIf (tor && !config.networking.nftables.enable) {
       networking.firewall.extraCommands = ''
         iptables -t nat -A OUTPUT -p tcp -m multiport --dports 80,443 -s ${cfg.address} -j DNAT --to-destination ${cfg.address}:9040
-        # onion
-        iptables -t nat -A PREROUTING -p tcp -m multiport --dports 80,443 -d ${cfg.tor.network} -j DNAT --to-destination ${cfg.address}:9040
+        ${optionalString onion ''
+          iptables -t nat -A PREROUTING -p tcp -m multiport --dports 80,443 -d ${cfg.tor.network} -j DNAT --to-destination ${cfg.address}:9040
+        ''}
       '';
     })
   ];
