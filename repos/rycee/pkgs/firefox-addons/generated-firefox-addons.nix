@@ -1746,10 +1746,10 @@
     };
     "copy-selected-tabs-to-clipboard" = buildFirefoxXpiAddon {
       pname = "copy-selected-tabs-to-clipboard";
-      version = "1.6.4";
+      version = "1.6.5";
       addonId = "copy-selected-tabs-to-clipboard@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4288962/copy_selected_tabs_to_clipboar-1.6.4.xpi";
-      sha256 = "eaf9aefff52437e7d23580661e7fbc669975e103b66b225c39980d998599325c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4300219/copy_selected_tabs_to_clipboar-1.6.5.xpi";
+      sha256 = "46bd79f0ca316c65b4c4339568dbced24e57c873efe2820ddfdf7030e7ab6b97";
       meta = with lib;
       {
         description = "Provides ability to copy title and URL of selected tabs to the clipboard.";
@@ -2133,10 +2133,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.40.0";
+      version = "2.41.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4297231/dualsub-2.40.0.xpi";
-      sha256 = "930fb280f1dedbc6b04e02ac66316941830d9c183ca708ac9b078425d319c8ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4300247/dualsub-2.41.0.xpi";
+      sha256 = "bb95244ffb626c2357ee884686c8a0321172304d17d5074730e61eede269c298";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -3298,7 +3298,7 @@
       sha256 = "dff05cff4e53254c03a91d047e776f77aeb1d069540aecd5e48209fae2a44c3b";
       meta = with lib;
       {
-        homepage = "https://wiki.gnome.org/Projects/GnomeShellIntegrationForChrome";
+        homepage = "https://gnome.pages.gitlab.gnome.org/gnome-browser-integration/pages/gnome-browser-integration.html";
         description = "This extension provides integration with GNOME Shell and the corresponding extensions repository <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/b16ff805576d83628b80265636b483e6f56c58d6e812e04045626ff602eff739/https%3A//extensions.gnome.org\" rel=\"nofollow\">https://extensions.gnome.org</a>";
         license = licenses.gpl3;
         mozPermissions = [
@@ -7283,10 +7283,10 @@
     };
     "octotree" = buildFirefoxXpiAddon {
       pname = "octotree";
-      version = "7.12.4";
+      version = "8.0.1";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4260281/octotree-7.12.4.xpi";
-      sha256 = "9eaf12e264c4be7950eaf7d18339f3d009a94d79f1354f51905a6048affbcb2a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4300186/octotree-8.0.1.xpi";
+      sha256 = "abe8d3ed8ad29409ae0cd630519eb84c68fbaf02d945b88d25f0af0602c17402";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -8864,10 +8864,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.6.2";
+      version = "24.6.9";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4296939/refined_github-24.6.2.xpi";
-      sha256 = "d7cce1af2deccd0430cc6eb516024f4e03433ad755d5218c43bff2922076ab39";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4300256/refined_github-24.6.9.xpi";
+      sha256 = "e857c4f1f9c6441ae38da48c7c748a2a382227862ce9f30cc2cf83e918ce8fbf";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
