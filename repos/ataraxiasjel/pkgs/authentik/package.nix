@@ -184,6 +184,8 @@ let
             --replace-fail 'djangorestframework-guardian' 'djangorestframework-guardian2'
           substituteInPlace authentik/stages/email/utils.py \
             --replace-fail 'web/' '${webui}/'
+          substituteInPlace authentik/sources/scim/views/v2/schemas.py \
+            --replace-fail 'authentik/sources/scim/schemas/schema.json' "$out/authentik/sources/scim/schemas/schema.json"
         '';
 
         nativeBuildInputs = [ prev.poetry-core ];
@@ -255,7 +257,8 @@ let
         ];
 
         postInstall = ''
-          mkdir -p $out/web $out/website
+          mkdir -p $out/web $out/website $out/authentik/sources/scim
+          cp -r authentik/sources/scim/schemas $out/authentik/sources/scim
           cp -r lifecycle manage.py $out/${prev.python.sitePackages}/
           cp -r blueprints $out/
           cp -r ${webui}/dist ${webui}/authentik $out/web/
