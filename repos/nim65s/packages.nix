@@ -138,7 +138,7 @@ in
     qgv
     ;
 
-  gruppled-white-lite-cursors = pkgs.callPackage ./pkgs/gruppled-lite-cursors { theme = "gruppled_white"; };
+  gruppled-white-lite-cursors = pkgs.callPackage ./pkgs/gruppled-lite-cursors { theme = "gruppled_white_lite"; };
   sauce-code-pro = pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; };
   sway-lone-titlebar = pkgs.sway.override { sway-unwrapped = sway-lone-titlebar-unwrapped; };
 }
