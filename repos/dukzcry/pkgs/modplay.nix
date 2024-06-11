@@ -1,15 +1,15 @@
 { stdenv, lib, fetchFromGitLab, makeWrapper
-, coreutils, curl, dtrx, uade123, openmpt123, sidplayfp }:
+, coreutils, curl, dtrx, uade123, openmpt123, sidplayfp, libnotify }:
 
 stdenv.mkDerivation rec {
   pname = "modplay";
-  version = "2024-04-05";
+  version = "2024-06-11";
 
   src = fetchFromGitLab {
     owner = "dukzcry";
     repo = "crap";
-    rev = "27255fb36fa7f5c955b3e18667b5ffa481269a55";
-    sha256 = "sha256-YfubOPWjoWMAOXcY8yuVu3tIKtruSTwnLW583CNHsJg=";
+    rev = "af035d498648dc00baf499efea7c0a57d21c0d6c";
+    sha256 = "sha256-2TOysYBH/tt/WzMn91VCNgsomUhFwrgvElQy92hI3Ig=";
   };
 
   buildInputs = [ makeWrapper ];
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     install -Dm755 modplay/modplay.sh $out/bin/modplay.sh
     install -Dm755 modplay/modplay-shuffle.sh $out/bin/modplay-shuffle.sh
     wrapProgram $out/bin/modplay.sh \
-      --prefix PATH : ${lib.makeBinPath [ coreutils curl dtrx uade123 openmpt123 sidplayfp ]}
+      --prefix PATH : ${lib.makeBinPath [ coreutils curl dtrx uade123 openmpt123 sidplayfp libnotify ]}
   '';
 
   meta = with lib; {
