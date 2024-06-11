@@ -1951,10 +1951,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "127.0.20240606.181944";
+      version = "128.0.20240610.161745";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4299320/deutsch_de_language_pack-127.0.20240606.181944.xpi";
-      sha256 = "78061a8297b3ba0b76e7ccb8872b1d75f6c09c7ef7068d26cf1e80e2d1d663ad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4300919/deutsch_de_language_pack-128.0.20240610.161745.xpi";
+      sha256 = "8692ddd714c6e9ef8de95e0d56262b03211e07a4d9d037ea9b7743cd72f219e2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2133,10 +2133,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.41.0";
+      version = "2.41.1";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4300247/dualsub-2.41.0.xpi";
-      sha256 = "bb95244ffb626c2357ee884686c8a0321172304d17d5074730e61eede269c298";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4300671/dualsub-2.41.1.xpi";
+      sha256 = "4bccdc2d2bfa44e533e665527e26ad78c26263f848b62b76759a201c5bef01b1";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2260,10 +2260,10 @@
     };
     "ecosia" = buildFirefoxXpiAddon {
       pname = "ecosia";
-      version = "4.1.0";
+      version = "4.1.2";
       addonId = "{d04b0b40-3dab-4f0b-97a6-04ec3eddbfb0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3960424/ecosia_the_green_search-4.1.0.xpi";
-      sha256 = "cf5f9987e13a716ddd6c9d0f1ec2435997cdeebaa5083cb3dc437dbba07bc66c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4297375/ecosia_the_green_search-4.1.2.xpi";
+      sha256 = "6074ac3c510c0c5ecbf7db833b2c0c1fd3b3423dfcb992b13b88fca30b20be91";
       meta = with lib;
       {
         homepage = "http://www.ecosia.org";
@@ -2880,10 +2880,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "127.0.20240606.181944";
+      version = "128.0.20240610.161745";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4299280/francais_language_pack-127.0.20240606.181944.xpi";
-      sha256 = "a05e78e025d2325303c5a5a2dca8cc42391f4e97c0817c3ea7c0b73330612a2e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4300924/francais_language_pack-128.0.20240610.161745.xpi";
+      sha256 = "55e5e49182f9946a9040d80ce70436d8ce07219917fd98f3ba9857c99a41b83c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3246,10 +3246,10 @@
     };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "2.1.10";
+      version = "2.2.0";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4290942/gitpod-2.1.10.xpi";
-      sha256 = "051c763bdfa737c1a8871a6ed93e802ce050b52ca6c8a623da9ab740d805e3d9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4300618/gitpod-2.2.0.xpi";
+      sha256 = "bc1c888ce862f1cfdcee7956a9e49ca9b086d1a85c8c2dace642d47934d22afc";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
@@ -3267,7 +3267,6 @@
           "activeTab"
           "https://gitpod.io/*"
           "https://*.gitpod.cloud/*"
-          "https://*.gitpod.dev/*"
           "https://github.com/*"
           "https://gitlab.com/*"
           "https://bitbucket.org/*"
@@ -9847,10 +9846,10 @@
     };
     "tab-session-manager" = buildFirefoxXpiAddon {
       pname = "tab-session-manager";
-      version = "7.0.0";
+      version = "7.0.1";
       addonId = "Tab-Session-Manager@sienori";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4293879/tab_session_manager-7.0.0.xpi";
-      sha256 = "0aba3d23085edaaa1aeb608c2e3b7451eff2dae3250a91a6fad801c8bbd5f5e2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4298614/tab_session_manager-7.0.1.xpi";
+      sha256 = "936499a7cf42fabb26a283125cc5ec8c0615407722f3c7e9fb9f6d3ee5916890";
       meta = with lib;
       {
         homepage = "https://tab-session-manager.sienori.com/";
@@ -10752,10 +10751,10 @@
     };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2024.6.2.1013";
+      version = "2024.6.10.805";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4297026/ublock_origin_lite-2024.6.2.1013.xpi";
-      sha256 = "e06e28b93522df5380aa3db292b65f973ab7c3fb6a95a7204098b5316ed21fd7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4300644/ublock_origin_lite-2024.6.10.805.xpi";
+      sha256 = "a64d17c6999b72d47e0c5dbeb5f0ceec935ca8d769711629e86272abf006eb2e";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
@@ -11822,10 +11821,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.5.21.0";
+      version = "24.6.3.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4294640/yomitan-24.5.21.0.xpi";
-      sha256 = "9f9ff09d4e1f5fde4e25ad1176ee01b8b7d59b888e7f22e83ba60ecfc944cb92";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4300780/yomitan-24.6.3.0.xpi";
+      sha256 = "6039355f256a9e4789bf216fbcca567d58661c2fd450546025c29843b33de62d";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
