@@ -7,13 +7,13 @@
 let
   src = fetchgit {
     url = "https://github.com/Safeheron/safeheron-crypto-suites-cpp.git";
-    rev = "1690ece051f562c5cf75dcefbc531f811cc6288a";
-    hash = "sha256-hJ+RleBkSU7RkdO6nnod2IdDS/MTabUxuk/5aLwDCoo=";
+    rev = "f451b50ba8a9cb5e9134cf1d701a46690748e621";
+    hash = "sha256-KFqF6OxbzO1Tw2DNeFhdHd9rhWIdndsgM+D6HrlCKIg=";
   };
 in
 clangStdenv.mkDerivation {
   pname = "safeheron-crypto-suites";
-  version = "1.1.1"; # CMakeFiles says 1.0.1, while git tag says 1.1.1 .
+  version = "1.1.1-f451b50b"; # CMakeFiles says 1.0.1, while git tag says 1.1.1 .
 
   srcs = [ src ];
 
