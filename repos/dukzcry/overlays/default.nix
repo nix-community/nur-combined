@@ -24,6 +24,9 @@ rec {
       });
     };
   };
+  qmmp = super.qmmp.overrideAttrs (oldAttrs: rec {
+    buildInputs = oldAttrs.buildInputs ++ (with super; [ libxmp libsidplayfp ]);
+  });
   # https://github.com/swaywm/sway/issues/3111#issuecomment-508958733
   sway-unwrapped = super.sway-unwrapped.overrideAttrs (oldAttrs: rec {
     postUnpack = ''
