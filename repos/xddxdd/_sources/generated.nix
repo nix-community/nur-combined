@@ -183,15 +183,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "d39df806395cc8e9a1160e4f4ed6948046156b78";
+    version = "c65f7c60313cd3951922a9cf647bd735f84cf0a9";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "d39df806395cc8e9a1160e4f4ed6948046156b78";
+      rev = "c65f7c60313cd3951922a9cf647bd735f84cf0a9";
       fetchSubmodules = false;
-      sha256 = "sha256-TTxuo/wdHpWqc1RSB7JTtib0cLQPQCoS+G5Vobr0NJg=";
+      sha256 = "sha256-63xpi9Z6jGOAICPOHKaAN/HiMfnwK+2Eqh+dVuFI+Kk=";
     };
-    date = "2024-06-08";
+    date = "2024-06-10";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -1232,22 +1232,22 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "af2480ba1b147a6a54c0c21e2997ef451c34e036";
+    version = "0b59306d619a29cd345e3277aa5cd0b0d5653eda";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "af2480ba1b147a6a54c0c21e2997ef451c34e036";
+      rev = "0b59306d619a29cd345e3277aa5cd0b0d5653eda";
       fetchSubmodules = false;
-      sha256 = "sha256-3KfuCHGFFcEzgprvJzJiyot8HqYWHvDhIu4Qo6Tu6Ys=";
+      sha256 = "sha256-dElBA0baKaMN04sSXvMgfey+I60Zq4b+i+KoYzpxZMQ=";
     };
-    date = "2024-06-04";
+    date = "2024-06-10";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20240509";
+    version = "20240609";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20240509/moegirl.dict.yaml";
-      sha256 = "sha256-wslWy5crWhdqoY6g3yNG01P15aOMjtA0NAXeEnjmBpQ=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20240609/moegirl.dict.yaml";
+      sha256 = "sha256-XC+hsILC58VVKlmUbaVw0IAqggterR4h5igjM3PQWO8=";
     };
   };
   rime-zhwiki = {
@@ -1294,13 +1294,13 @@
   };
   sam-toki-mouse-cursors = {
     pname = "sam-toki-mouse-cursors";
-    version = "v6.04";
+    version = "v6.05";
     src = fetchFromGitHub {
       owner = "SamToki";
       repo = "IconDesign---Sam-Toki-Mouse-Cursors";
-      rev = "v6.04";
+      rev = "v6.05";
       fetchSubmodules = false;
-      sha256 = "sha256-lzczvGekm6nprZlwSzsv15jN5weuok2s2c/G1hcCk7A=";
+      sha256 = "sha256-RJHLNsxxi9Vl3cr5E7UbWY9ZkJwWQaUPBwGVImjIMnM=";
     };
   };
   sgx-software-enable = {

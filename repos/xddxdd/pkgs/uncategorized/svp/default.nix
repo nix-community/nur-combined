@@ -24,7 +24,6 @@
   xorg,
   # MPV dependencies
   mpv-unwrapped,
-  wrapMpv,
   ...
 }:
 ################################################################################
@@ -32,7 +31,7 @@
 # https://aur.archlinux.org/packages/svp
 ################################################################################
 let
-  mpvForSVP = callPackage ./mpv.nix { inherit mpv-unwrapped wrapMpv; };
+  mpvForSVP = callPackage ./mpv.nix { inherit mpv-unwrapped; };
 
   # Script provided by GitHub user @xrun1
   # https://github.com/xddxdd/nur-packages/issues/31#issuecomment-1812591688

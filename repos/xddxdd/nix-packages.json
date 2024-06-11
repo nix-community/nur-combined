@@ -2682,12 +2682,12 @@
   "legacyPackages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库 ",
     "pname": "rime-ice-unstable",
-    "version": "2024-06-04"
+    "version": "2024-06-10"
   },
   "legacyPackages.x86_64-linux.rime-moegirl": {
     "description": "Releases for dict of zh.moegirl.org.cn",
     "pname": "rime-moegirl",
-    "version": "20240509"
+    "version": "20240609"
   },
   "legacyPackages.x86_64-linux.rime-zhwiki": {
     "description": "Fcitx 5 Pinyin Dictionary from zh.wikipedia.org",
@@ -2712,7 +2712,7 @@
   "legacyPackages.x86_64-linux.sam-toki-mouse-cursors": {
     "description": "Original mouse cursors (pointers) for Windows, with minimalistic design.",
     "pname": "sam-toki-mouse-cursors",
-    "version": "6.04"
+    "version": "6.05"
   },
   "legacyPackages.x86_64-linux.sgx-software-enable": {
     "description": "This application will enable Intel SGX on Linux systems where the BIOS supports Intel SGX, but does not provide an explicit option to enable it. These systems can only enable Intel SGX via the \"software enable\" procedure.",
@@ -2747,7 +2747,7 @@
   "legacyPackages.x86_64-linux.svp-mpv": {
     "description": "General-purpose media player, fork of MPlayer and mplayer2",
     "pname": "mpv-with-scripts",
-    "version": "0.37.0"
+    "version": "0.38.0"
   },
   "legacyPackages.x86_64-linux.th-fonts.hak": {
     "description": "th-hak font",
@@ -3397,12 +3397,12 @@
   "packages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库 ",
     "pname": "rime-ice-unstable",
-    "version": "2024-06-04"
+    "version": "2024-06-10"
   },
   "packages.x86_64-linux.rime-moegirl": {
     "description": "Releases for dict of zh.moegirl.org.cn",
     "pname": "rime-moegirl",
-    "version": "20240509"
+    "version": "20240609"
   },
   "packages.x86_64-linux.rime-zhwiki": {
     "description": "Fcitx 5 Pinyin Dictionary from zh.wikipedia.org",
@@ -3427,7 +3427,7 @@
   "packages.x86_64-linux.sam-toki-mouse-cursors": {
     "description": "Original mouse cursors (pointers) for Windows, with minimalistic design.",
     "pname": "sam-toki-mouse-cursors",
-    "version": "6.04"
+    "version": "6.05"
   },
   "packages.x86_64-linux.sgx-software-enable": {
     "description": "This application will enable Intel SGX on Linux systems where the BIOS supports Intel SGX, but does not provide an explicit option to enable it. These systems can only enable Intel SGX via the \"software enable\" procedure.",
@@ -3462,7 +3462,7 @@
   "packages.x86_64-linux.svp-mpv": {
     "description": "General-purpose media player, fork of MPlayer and mplayer2",
     "pname": "mpv-with-scripts",
-    "version": "0.37.0"
+    "version": "0.38.0"
   },
   "packages.x86_64-linux.th-fonts": {
     "description": "",

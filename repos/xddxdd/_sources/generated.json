@@ -316,7 +316,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-06-08",
+        "date": "2024-06-10",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -328,11 +328,11 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "d39df806395cc8e9a1160e4f4ed6948046156b78",
-            "sha256": "sha256-TTxuo/wdHpWqc1RSB7JTtib0cLQPQCoS+G5Vobr0NJg=",
+            "rev": "c65f7c60313cd3951922a9cf647bd735f84cf0a9",
+            "sha256": "sha256-63xpi9Z6jGOAICPOHKaAN/HiMfnwK+2Eqh+dVuFI+Kk=",
             "type": "github"
         },
-        "version": "d39df806395cc8e9a1160e4f4ed6948046156b78"
+        "version": "c65f7c60313cd3951922a9cf647bd735f84cf0a9"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -2152,7 +2152,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-06-04",
+        "date": "2024-06-10",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -2164,11 +2164,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "af2480ba1b147a6a54c0c21e2997ef451c34e036",
-            "sha256": "sha256-3KfuCHGFFcEzgprvJzJiyot8HqYWHvDhIu4Qo6Tu6Ys=",
+            "rev": "0b59306d619a29cd345e3277aa5cd0b0d5653eda",
+            "sha256": "sha256-dElBA0baKaMN04sSXvMgfey+I60Zq4b+i+KoYzpxZMQ=",
             "type": "github"
         },
-        "version": "af2480ba1b147a6a54c0c21e2997ef451c34e036"
+        "version": "0b59306d619a29cd345e3277aa5cd0b0d5653eda"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -2179,11 +2179,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-wslWy5crWhdqoY6g3yNG01P15aOMjtA0NAXeEnjmBpQ=",
+            "sha256": "sha256-XC+hsILC58VVKlmUbaVw0IAqggterR4h5igjM3PQWO8=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20240509/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20240609/moegirl.dict.yaml"
         },
-        "version": "20240509"
+        "version": "20240609"
     },
     "rime-zhwiki": {
         "cargoLocks": null,
@@ -2274,11 +2274,11 @@
             "name": null,
             "owner": "SamToki",
             "repo": "IconDesign---Sam-Toki-Mouse-Cursors",
-            "rev": "v6.04",
-            "sha256": "sha256-lzczvGekm6nprZlwSzsv15jN5weuok2s2c/G1hcCk7A=",
+            "rev": "v6.05",
+            "sha256": "sha256-RJHLNsxxi9Vl3cr5E7UbWY9ZkJwWQaUPBwGVImjIMnM=",
             "type": "github"
         },
-        "version": "v6.04"
+        "version": "v6.05"
     },
     "sgx-software-enable": {
         "cargoLocks": null,
