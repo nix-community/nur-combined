@@ -6,7 +6,7 @@
 rustPlatform.buildRustPackage {
   inherit (sources.uesave) pname version src;
 
-  cargoHash = "sha256-sSiiMtCuSic0PQn4m1Udv2UbEwHUy0VldpGMYSDGh8g=";
+  cargoHash = "sha256-U6RzSS2j6FK70OHlmWmHZZYT3UB0+Hi+uLofLy+XtGQ=";
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];

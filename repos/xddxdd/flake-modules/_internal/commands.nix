@@ -26,8 +26,8 @@
                 SAVEIFS=$IFS
                 IFS=$'\n'
 
-                SPECIFIED_HASH=($(grep "specified:" $NIX_LOGFILE | cut -d":" -f2 | xargs))
-                GOT_HASH=($(grep "got:" $NIX_LOGFILE | cut -d":" -f2 | xargs))
+                SPECIFIED_HASH=($(grep "specified:" $NIX_LOGFILE | cut -d":" -f2))
+                GOT_HASH=($(grep "got:" $NIX_LOGFILE | cut -d":" -f2))
 
                 IFS=$SAVEIFS
 
