@@ -7,12 +7,11 @@
 python3Packages.buildPythonApplication {
   pname = "ack-results-parser";
   # Upstream does not do versions
-  version = "0.1.0-20240509-c327db2a7288";
-  # Temporarily get my dont_crash_on_no_driver branch
+  version = "0.1.0-20240611-af271293fbab";
   src = fetchFromGitHub {
     owner = "xenserver";
     repo = "ack-results-parser";
-    rev = "c327db2a728898db7674b3ae3daf5ef27b5f2638";
+    rev = "af271293fbabbaacc487a0d4794ac6008948243f";
     hash = "sha256-TVVIdwq+BRiB/Rhpdm9I3410MaH7BY900S/h4UC6Yc0=";
   };
   format = "setuptools";
