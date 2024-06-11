@@ -151,6 +151,12 @@ stdenv.mkDerivation rec {
   ];
 
   postInstall = ''
+    rm -f $out/bin/md2pod.pl
+    rm -f $out/bin/nginx-xml2pod
+    rm -f $out/bin/opm
+    rm -f $out/bin/resty
+    rm -f $out/bin/restydoc
+    rm -f $out/bin/restydoc-index
     find $out/ -type f -executable -exec strip --strip-all {} \;
     ln -s $out/luajit/bin/luajit $out/bin/luajit-openresty
     ln -s $out/nginx/sbin/nginx $out/bin/nginx
