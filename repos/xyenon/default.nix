@@ -6,9 +6,12 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
-with pkgs; rec {
+with pkgs;
+rec {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -24,16 +27,22 @@ with pkgs; rec {
   libkazv = callPackage ./pkgs/libkazv { inherit immer-unstable zug-unstable lager-unstable; };
   kazv = libsForQt5.callPackage ./pkgs/kazv { inherit libkazv; };
   nginxModules = callPackage ./pkgs/nginx/modules { };
-  nginxStable = let nginxStable' = pkgs.nginxStable; in nginxStable'.override {
-    modules = nginxStable'.modules ++ (with nginxModules; [
-      (http_proxy_connect nginxStable'.version)
-    ]);
-  };
-  nginxMainline = let nginxMainline' = pkgs.nginxMainline; in nginxMainline'.override {
-    modules = nginxMainline'.modules ++ (with nginxModules; [
-      (http_proxy_connect nginxMainline'.version)
-    ]);
-  };
+  nginxStable =
+    let
+      nginxStable' = pkgs.nginxStable;
+    in
+    nginxStable'.override {
+      modules =
+        nginxStable'.modules ++ (with nginxModules; [ (http_proxy_connect nginxStable'.version) ]);
+    };
+  nginxMainline =
+    let
+      nginxMainline' = pkgs.nginxMainline;
+    in
+    nginxMainline'.override {
+      modules =
+        nginxMainline'.modules ++ (with nginxModules; [ (http_proxy_connect nginxMainline'.version) ]);
+    };
   nginx = nginxStable;
   mpvScripts = callPackage ./pkgs/mpv/scripts { };
   anime4k = callPackage ./pkgs/anime4k { };

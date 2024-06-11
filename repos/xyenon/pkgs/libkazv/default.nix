@@ -1,18 +1,19 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, cmake
-, pkg-config
-, lager-unstable
-, immer-unstable
-, zug-unstable
-, boost
-, nlohmann_json
-, olm
-, cryptopp
-, libcpr
-, catch2_3
-, unstableGitUpdater
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  cmake,
+  pkg-config,
+  lager-unstable,
+  immer-unstable,
+  zug-unstable,
+  boost,
+  nlohmann_json,
+  olm,
+  cryptopp,
+  libcpr,
+  catch2_3,
+  unstableGitUpdater,
 }:
 
 stdenv.mkDerivation rec {
@@ -27,7 +28,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-vay/aaGvVHdQv8OD0hsFlSlGvuqwn7gEiOZL9BaADc4=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
 
   propagatedBuildInputs = [
     lager-unstable

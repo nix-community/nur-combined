@@ -1,4 +1,13 @@
-{ lib, stdenv, fetchFromGitHub, cmake, boost, catch2, unstableGitUpdater, ... }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  boost,
+  catch2,
+  unstableGitUpdater,
+  ...
+}:
 
 stdenv.mkDerivation rec {
   pname = "zug";
@@ -12,9 +21,16 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ boost catch2 ];
+  buildInputs = [
+    boost
+    catch2
+  ];
 
-  cmakeFlags = [ "-Dzug_BUILD_TESTS=ON" "-Dzug_BUILD_EXAMPLES=OFF" "-Dzug_BUILD_DOCS=OFF" ];
+  cmakeFlags = [
+    "-Dzug_BUILD_TESTS=ON"
+    "-Dzug_BUILD_EXAMPLES=OFF"
+    "-Dzug_BUILD_DOCS=OFF"
+  ];
 
   passthru.updateScript = unstableGitUpdater { tagPrefix = "v"; };
 

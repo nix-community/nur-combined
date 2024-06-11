@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, buildGoModule, unstableGitUpdater }:
+{
+  lib,
+  fetchFromGitHub,
+  buildGoModule,
+  unstableGitUpdater,
+}:
 
 buildGoModule rec {
   pname = "go-check";

@@ -1,4 +1,12 @@
-{ lib, stdenv, fetchFromGitHub, cmake, catch2_3, unstableGitUpdater, ... }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  catch2_3,
+  unstableGitUpdater,
+  ...
+}:
 
 stdenv.mkDerivation rec {
   pname = "immer";
@@ -21,7 +29,7 @@ stdenv.mkDerivation rec {
     "-Dimmer_BUILD_EXTRAS=OFF"
   ];
 
-  passthru.updateScript = unstableGitUpdater {  tagPrefix = "v";};
+  passthru.updateScript = unstableGitUpdater { tagPrefix = "v"; };
 
   meta = with lib; {
     homepage = "http://sinusoid.es/immer";

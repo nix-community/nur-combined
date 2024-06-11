@@ -1,4 +1,9 @@
-{ lib, stdenvNoCC, fetchzip, isHighEnd ? false }:
+{
+  lib,
+  stdenvNoCC,
+  fetchzip,
+  isHighEnd ? false,
+}:
 
 let
   endLevel = if isHighEnd then "High" else "Low";
@@ -10,8 +15,10 @@ stdenvNoCC.mkDerivation (finalAttrs: rec {
   src = fetchzip {
     url = "https://github.com/Tama47/Anime4K/releases/download/v${version}/GLSL_Mac_Linux_${endLevel}-end.zip";
     hash =
-      if isHighEnd then "sha256-Ah9fnVCDsliUzbCkKFcnWjLqG0y5DYlXJkZAz/H/oLQ="
-      else "sha256-z4avJq7+JnTi+pf6mW5qn7zMxkTaplYq/3t4RU3vjOw=";
+      if isHighEnd then
+        "sha256-Ah9fnVCDsliUzbCkKFcnWjLqG0y5DYlXJkZAz/H/oLQ="
+      else
+        "sha256-z4avJq7+JnTi+pf6mW5qn7zMxkTaplYq/3t4RU3vjOw=";
     stripRoot = false;
   };
 
@@ -26,40 +33,42 @@ stdenvNoCC.mkDerivation (finalAttrs: rec {
     runHook postInstall
   '';
 
-  passthru.mpv = with builtins; with lib;
+  passthru.mpv =
+    with builtins;
+    with lib;
     let
       inherit (finalAttrs) finalPackage;
 
       inputConfLines = splitString "\n" (readFile "${finalPackage}/input.conf");
       mpvConfLines = splitString "\n" (readFile "${finalPackage}/mpv.conf");
 
-      inputConfToNix = (line:
-        let splited = lib.splitString " " line; in
+      inputConfToNix =
+        line:
+        let
+          splited = splitString " " line;
+        in
         {
           name = head splited;
-          value = replaceStrings [ "~~" ] [ "${finalPackage}" ]
-            (lib.concatStringsSep " " (tail splited));
-        }
-      );
-      mpvConfToNix = (line:
-        let splited = lib.splitString "=" line; in
+          value = replaceStrings [ "~~" ] [ "${finalPackage}" ] (concatStringsSep " " (tail splited));
+        };
+      mpvConfToNix =
+        line:
+        let
+          splited = splitString "=" line;
+        in
         {
           name = head splited;
-          value = replaceStrings [ "~~" ] [ "${finalPackage}" ]
-            (removeSuffix "\"" (removePrefix "\""
-              (lib.concatStringsSep "=" (tail splited))
-            ));
-        }
-      );
+          value = replaceStrings [ "~~" ] [ "${finalPackage}" ] (
+            removeSuffix "\"" (removePrefix "\"" (concatStringsSep "=" (tail splited)))
+          );
+        };
 
-      inputConf = filterAttrs (n: v: n != "") (listToAttrs (map
-        (line: inputConfToNix line)
-        (filter (line: ! hasPrefix "#" line) inputConfLines)
-      ));
-      mpvConf = filterAttrs (n: v: n != "") (listToAttrs (map
-        (line: mpvConfToNix line)
-        (filter (line: ! hasPrefix "#" line) mpvConfLines)
-      ));
+      inputConf = filterAttrs (n: _v: n != "") (
+        listToAttrs (map inputConfToNix (filter (line: !hasPrefix "#" line) inputConfLines))
+      );
+      mpvConf = filterAttrs (n: _v: n != "") (
+        listToAttrs (map mpvConfToNix (filter (line: !hasPrefix "#" line) mpvConfLines))
+      );
     in
     {
       bindings = inputConf;

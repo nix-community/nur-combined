@@ -1,4 +1,8 @@
-{ buildNpmPackage, fetchzip, lib }:
+{
+  buildNpmPackage,
+  fetchzip,
+  lib,
+}:
 
 let
   pname = "github-copilot-cli";
@@ -22,13 +26,17 @@ buildNpmPackage {
 
   dontNpmBuild = true;
 
-  passthru.updateScript = [ ./updater.sh baseUrl pname version ];
+  passthru.updateScript = [
+    ./updater.sh
+    baseUrl
+    pname
+    version
+  ];
 
-  meta = with lib;
-    {
-      description = "A CLI experience for letting GitHub Copilot help you on the command line";
-      homepage = "https://githubnext.com/projects/copilot-cli/";
-      license = licenses.unfree;
-      maintainers = with maintainers; [ xyenon ];
-    };
+  meta = with lib; {
+    description = "A CLI experience for letting GitHub Copilot help you on the command line";
+    homepage = "https://githubnext.com/projects/copilot-cli/";
+    license = licenses.unfree;
+    maintainers = with maintainers; [ xyenon ];
+  };
 }

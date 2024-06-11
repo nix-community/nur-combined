@@ -1,4 +1,10 @@
-{ lib, stdenvNoCC, fetchFromGitHub, nix-update-script, makeFontsConf }:
+{
+  lib,
+  stdenvNoCC,
+  fetchFromGitHub,
+  nix-update-script,
+  makeFontsConf,
+}:
 
 stdenvNoCC.mkDerivation (finalAttrs: rec {
   pname = "ModernX";

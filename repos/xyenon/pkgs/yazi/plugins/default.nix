@@ -1,8 +1,11 @@
 { lib, newScope }:
 
 let
-  scope = self:
-    let inherit (self) callPackage; in
+  scope =
+    self:
+    let
+      inherit (self) callPackage;
+    in
     {
       exifaudio = callPackage ./exifaudio.nix { };
       fg = callPackage ./fg.nix { };

@@ -1,4 +1,16 @@
-{ lib, stdenv, fetchFromGitHub, cmake, pkg-config, boost, immer-unstable, zug-unstable, catch2, unstableGitUpdater, ... }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  boost,
+  immer-unstable,
+  zug-unstable,
+  catch2,
+  unstableGitUpdater,
+  ...
+}:
 
 stdenv.mkDerivation rec {
   pname = "lager";
@@ -11,12 +23,24 @@ stdenv.mkDerivation rec {
     hash = "sha256-vnLXGLPB55/znNNW2FAsIzi0i8G62t7Dyz3NkrghJNY=";
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ boost immer-unstable zug-unstable catch2 ];
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+  buildInputs = [
+    boost
+    immer-unstable
+    zug-unstable
+    catch2
+  ];
 
-  cmakeFlags = [ "-Dlager_BUILD_TESTS=ON" "-Dlager_BUILD_EXAMPLES=OFF" "-Dlager_BUILD_DOCS=OFF" ];
+  cmakeFlags = [
+    "-Dlager_BUILD_TESTS=ON"
+    "-Dlager_BUILD_EXAMPLES=OFF"
+    "-Dlager_BUILD_DOCS=OFF"
+  ];
 
-  passthru.updateScript = unstableGitUpdater {  tagPrefix = "v";};
+  passthru.updateScript = unstableGitUpdater { tagPrefix = "v"; };
 
   meta = with lib; {
     homepage = "https://github.com/arximboldi/lager";

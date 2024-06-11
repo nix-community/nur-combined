@@ -1,4 +1,10 @@
-{ rustPlatform, fetchFromGitHub, bash, lib, nix-update-script }:
+{
+  rustPlatform,
+  fetchFromGitHub,
+  bash,
+  lib,
+  nix-update-script,
+}:
 
 rustPlatform.buildRustPackage rec {
   pname = "catp";

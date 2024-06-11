@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -35,4 +40,3 @@ in
     programs.zsh.initExtra = mkIf cfg.enableZshIntegration shellIntegration;
   };
 }
-

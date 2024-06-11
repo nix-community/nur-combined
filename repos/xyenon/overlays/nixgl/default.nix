@@ -1,7 +1,8 @@
-final: prev: {
-  nixGLWrap = package: with final; runCommandNoCC "${package.name}-nixgl-wrapper"
-    { nativeBuildInputs = [ makeWrapper ]; }
-    ''
+_final: prev: {
+  nixGLWrap =
+    package:
+    with prev;
+    runCommandNoCC "${package.name}-nixgl-wrapper" { nativeBuildInputs = [ makeWrapper ]; } ''
       mkdir $out
       ln -s ${package}/* $out
       rm $out/bin

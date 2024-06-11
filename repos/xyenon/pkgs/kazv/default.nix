@@ -1,23 +1,24 @@
-{ lib
-, stdenv
-, fetchFromGitLab
-, wrapQtAppsHook
-, cmake
-, pkg-config
-, extra-cmake-modules
-, qtbase
-, qtdeclarative
-, qtquickcontrols2
-, qtsvg
-, qtmultimedia
-, kio
-, kirigami2
-, kconfig
-, nlohmann_json
-, libkazv
-, cmark
-, breeze-icons
-, unstableGitUpdater
+{
+  lib,
+  stdenv,
+  fetchFromGitLab,
+  wrapQtAppsHook,
+  cmake,
+  pkg-config,
+  extra-cmake-modules,
+  qtbase,
+  qtdeclarative,
+  qtquickcontrols2,
+  qtsvg,
+  qtmultimedia,
+  kio,
+  kirigami2,
+  kconfig,
+  nlohmann_json,
+  libkazv,
+  cmark,
+  breeze-icons,
+  unstableGitUpdater,
 }:
 
 stdenv.mkDerivation rec {
@@ -33,7 +34,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-yAkjxNZ7jFVu81igxgYRhME7jntEBLjcsB7rPJsim+c=";
   };
 
-  nativeBuildInputs = [ wrapQtAppsHook cmake pkg-config ];
+  nativeBuildInputs = [
+    wrapQtAppsHook
+    cmake
+    pkg-config
+  ];
 
   buildInputs = [
     extra-cmake-modules
