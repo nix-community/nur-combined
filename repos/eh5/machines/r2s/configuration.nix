@@ -45,6 +45,8 @@
     settings.PermitRootLogin = "yes";
   };
 
+  services.redis.package = pkgs.valkey;
+
   services.vlmcsd.enable = true;
 
   system.autoUpgrade = {

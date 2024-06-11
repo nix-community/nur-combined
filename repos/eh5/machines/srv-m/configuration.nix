@@ -74,6 +74,8 @@ in
     ports = lib.mkForce [ 8022 ];
   };
 
+  services.redis.package = pkgs.valkey;
+
   system.autoUpgrade = {
     enable = false;
     dates = "04:00";
