@@ -732,10 +732,10 @@
     };
     "beyond-20" = buildFirefoxXpiAddon {
       pname = "beyond-20";
-      version = "2.9.3";
+      version = "2.9.4";
       addonId = "beyond20@kakaroto.homelinux.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4285259/beyond_20-2.9.3.xpi";
-      sha256 = "7e3562638ae3e902432f97bc7746c7d2deb3bd2a1faac82da7adb1530f53ac8d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4298785/beyond_20-2.9.4.xpi";
+      sha256 = "4102fae6de26fe416de0b27e03a9297d4d74d19f097d949755eeea2a3358f289";
       meta = with lib;
       {
         homepage = "https://beyond20.here-for-more.info";
@@ -1503,10 +1503,10 @@
     };
     "consent-o-matic" = buildFirefoxXpiAddon {
       pname = "consent-o-matic";
-      version = "1.0.13";
+      version = "1.1.0";
       addonId = "gdpr@cavi.au.dk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4246350/consent_o_matic-1.0.13.xpi";
-      sha256 = "ee577eaedebd9fef65f77218b86c59972818442c9af551d551a7015a4a246e9a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4298698/consent_o_matic-1.1.0.xpi";
+      sha256 = "c23631cdf746fcf2896e99ba0dbc6192bd92c24275d05b0802dc7d7038b4815a";
       meta = with lib;
       {
         homepage = "https://consentomatic.au.dk/";
@@ -4853,10 +4853,10 @@
     };
     "indie-wiki-buddy" = buildFirefoxXpiAddon {
       pname = "indie-wiki-buddy";
-      version = "3.7.1";
+      version = "3.8.0";
       addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4281778/indie_wiki_buddy-3.7.1.xpi";
-      sha256 = "c59057b3b654f6f19f43bed8c22c522f6304626b832ee881aa97e59cb45a246a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4299481/indie_wiki_buddy-3.8.0.xpi";
+      sha256 = "2b3978bbf8ea7186e3101b120ce009cddae33103e68aa8ab54512fc83ec3bb27";
       meta = with lib;
       {
         homepage = "https://getindie.wiki/";
@@ -5478,10 +5478,10 @@
     };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "8.6.0";
+      version = "8.9.1";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4249956/languagetool-8.6.0.xpi";
-      sha256 = "d9db9aac9fdd53eb39179c153161762cd9e9eb1f6d7da8e8b8a32238b4847094";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4298468/languagetool-8.9.1.xpi";
+      sha256 = "0747fcd4d7066ac746d140b93870a37eb5cf3241c3a5759128c54bf12b14feea";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -6786,10 +6786,10 @@
     };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "11.14.5";
+      version = "11.16.5";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4289710/ether_metamask-11.14.5.xpi";
-      sha256 = "261efb390d3bda9ed0dd9851809f70a8c0e643889f54c959e26ccf3e60bcefb9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4298695/ether_metamask-11.16.5.xpi";
+      sha256 = "2569556940fdb8504a417ffa24fbca0f53e04558236dd06be340b561d4439690";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -7789,10 +7789,10 @@
     };
     "plasma-integration" = buildFirefoxXpiAddon {
       pname = "plasma-integration";
-      version = "1.8.1";
+      version = "1.9.1";
       addonId = "plasma-browser-integration@kde.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3859385/plasma_integration-1.8.1.xpi";
-      sha256 = "e156e82091bbff44cb9d852e16aedacdcc0819c5a3b8cb34cedd77acf566c5c4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4298512/plasma_integration-1.9.1.xpi";
+      sha256 = "394a3525185679dd5430d05f980ab6be19d96557560fe86208c21a8807669b33";
       meta = with lib;
       {
         homepage = "http://kde.org";
@@ -8678,10 +8678,10 @@
     };
     "re-enable-right-click" = buildFirefoxXpiAddon {
       pname = "re-enable-right-click";
-      version = "0.5.6";
+      version = "0.5.6.2";
       addonId = "{278b0ae0-da9d-4cc6-be81-5aa7f3202672}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4286059/re_enable_right_click-0.5.6.xpi";
-      sha256 = "d1238d7e3b1795256bc76084950a7591f13f55432f7d0cddf2137185fe49b2e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4300505/re_enable_right_click-0.5.6.2.xpi";
+      sha256 = "c948a2e46d72d27d03323aa4b2a9ed88eeb00c83c84d4bf79063a854ed3baa00";
       meta = with lib;
       {
         homepage = "http://add0n.com/allow-right-click.html";
@@ -9476,10 +9476,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.6";
+      version = "5.6.1";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4292214/sponsorblock-5.6.xpi";
-      sha256 = "ec2343ee8db27666177e0b59510ddcd8b0f1072c88b5df05ba789d72a3af32e6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4299073/sponsorblock-5.6.1.xpi";
+      sha256 = "4ccae0ebc1aa26d61c446956da425bf16daffd5704ea216735e0a57e482fe9ba";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -10291,10 +10291,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.0.15";
+      version = "4.0.17";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4290043/tree_style_tab-4.0.15.xpi";
-      sha256 = "edcf2c8509786ee0c6f93579e25b1b491223f96bc0ba9bc08fd5852cb4c5f02e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4300287/tree_style_tab-4.0.17.xpi";
+      sha256 = "e724fc86e50b5a1defa985a54e9d7a97fb87e585b1470d72ad270fb78dd15de2";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
