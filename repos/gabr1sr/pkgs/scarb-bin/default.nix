@@ -10,26 +10,26 @@
   autoPatchelfHook
 }:
 let
-  version = "2.6.4";
+  version = "2.6.5";
   sources = {
     "x86_64-linux" = {
       url = "https://github.com/software-mansion/scarb/releases/download/v${version}/scarb-v${version}-x86_64-unknown-linux-gnu.tar.gz";
-      sha256 = "05x135vj2lkwwg1gg7fbg8hw1qv1r0gm9m572kdvfqkmxpikchd0";
+      sha256 = "1gmr67fgplpqkpr09dxqa1qy1hql7s6zxk85harcacb7pywky08x";
     };
 
     "aarch64-linux" = {
       url = "https://github.com/software-mansion/scarb/releases/download/v${version}/scarb-v${version}-aarch64-unknown-linux-gnu.tar.gz";
-      sha256 = "1zxndgrhxgzijy3p2ff9p83dmx50539nsh8fk4jrs5yfa0b587x9";
+      sha256 = "19d7nc720727hpl4gl45svar7h6cy0s05008yb9204vlzxv34y3q";
     };
 
     "x86_64-darwin" = {
       url = "https://github.com/software-mansion/scarb/releases/download/v${version}/scarb-v${version}-x86_64-apple-darwin.tar.gz";
-      sha256 = "1rxyy0k62dhygbpc0rvnrmd8jkpggms0sp7lp7l7v1bwzc7vv7wg";
+      sha256 = "0mjnk911mj48rf8gbx41pxsk214wpmji4kx56iaacg62vlvzx0xx";
     };
 
     "aarch64-darwin" = {
       url = "https://github.com/software-mansion/scarb/releases/download/v${version}/scarb-v${version}-aarch64-apple-darwin.tar.gz";
-      sha256 = "1xhl0fp7kiw3kmgdwsgy4lm1fpk5svx40cdc8id2qrqk8a2ijkq0";
+      sha256 = "08hh09y0vh4xc3hj32709lk0irjqvhbgp6z3cq56qz53prkz9zy3";
     };
   };
   
