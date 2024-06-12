@@ -814,6 +814,9 @@
             "type": "gitea",
             "url": "https://tildegit.org/petrichor/nixexprs"
         },
+        "phandox": {
+            "url": "https://github.com/phandox/nur-packages"
+        },
         "piegames": {
             "url": "https://github.com/piegamesde/nur-packages"
         },
