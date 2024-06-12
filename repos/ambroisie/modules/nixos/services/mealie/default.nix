@@ -35,12 +35,8 @@ in
 
         # Use PostgreSQL
         DB_ENGINE = "postgres";
-        POSTGRES_USER = "mealie";
-        POSTGRES_PASSWORD = "";
-        POSTGRES_SERVER = "/run/postgresql";
-        # Pydantic and/or mealie doesn't handle the URI correctly, hijack it
-        # with query parameters...
-        POSTGRES_DB = "mealie?host=/run/postgresql&dbname=mealie";
+        # Make it work with socket auth
+        POSTGRES_URL_OVERRIDE = "postgresql://mealie:@/mealie?host=/run/postgresql";
       };
     };
 

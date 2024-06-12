@@ -83,7 +83,11 @@ in
         # I configure my backup system manually below.
         dump.enable = false;
 
-        mailerPasswordFile = lib.mkIf cfg.mail.enable cfg.mail.passwordFile;
+        secrets = {
+          mailer = lib.mkIf cfg.mail.enable {
+            PASSWD = cfg.mail.passwordFile;
+          };
+        };
 
         settings = {
           DEFAULT = {
