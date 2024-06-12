@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
-    description = "A multi-threaded PDF password cracking utility equipped with commonly encountered password format builders and dictionary attacks";
+    description = "Multi-threaded PDF password cracking utility equipped with commonly encountered password format builders and dictionary attacks";
     homepage = "https://github.com/mufeedvh/pdfrip";
     license = licenses.mit;
     maintainers = with maintainers; [ kira-bruneau ];

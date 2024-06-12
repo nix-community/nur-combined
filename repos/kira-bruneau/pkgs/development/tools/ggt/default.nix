@@ -25,7 +25,7 @@ buildNpmPackage rec {
   passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
-    description = "The command-line interface for Gadget";
+    description = "Command-line interface for Gadget";
     homepage = "https://docs.gadget.dev/guides/development-tools/cli";
     changelog = "https://github.com/gadget-inc/ggt/releases/tag/v${version}";
     license = licenses.mit;

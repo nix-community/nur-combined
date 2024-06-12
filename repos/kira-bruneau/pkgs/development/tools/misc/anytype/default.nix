@@ -18,24 +18,24 @@ let
   l10n-anytype-ts = fetchFromGitHub {
     owner = "anyproto";
     repo = "l10n-anytype-ts";
-    rev = "c87e96132a73a64911add0b8bbab1f870253e000";
-    hash = "sha256-K6ZqJjVT4WQU7bsf5Pp04ffvUNHO17rPCCvh8CgQWrg=";
+    rev = "8af2c3b6bcfba7c6ca21e33c43e29b3bbd963584";
+    hash = "sha256-LURdGTi4O88CjciAbaLjSFrOoO0hK1s0YBzOXXQWKOI=";
   };
 in
 buildNpmPackage rec {
   pname = "anytype";
-  version = "0.40.9";
+  version = "0.41.0";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-ts";
     rev = "refs/tags/v${version}";
-    hash = "sha256-T3YTjQEcUEfRD6YXnFK0wGk1eYlJaM8CE/U/tG+3mBA=";
+    hash = "sha256-UA7GkYYyYgsyys8Sn6ARGIK0u+0KC0Mxhh5s79jAlkE=";
   };
 
-  npmDepsHash = "sha256-gnKZO2xvvlxWhPJGZA7s8nSLHbKUzDUP1nh9Wwuff9k=";
+  npmDepsHash = "sha256-XXRKFvpQuBnX4zlzjgh/C1wUaP9l7H7OfDkZw9Dtovw=";
 
-  # https://github.com/anyproto/anytype-ts/blob/v0.40.9/electron/js/util.js#L228-L235
+  # https://github.com/anyproto/anytype-ts/blob/v0.41.0/electron/js/util.js#L224-L231
   enabledLangs = [
     "cs-CZ"
     "da-DK"
@@ -62,8 +62,8 @@ buildNpmPackage rec {
     "zh-TW"
   ];
 
-  # middleware: https://github.com/anyproto/anytype-ts/blob/v0.40.9/update-ci.sh
-  # langs: https://github.com/anyproto/anytype-ts/blob/v0.40.9/electron/hook/locale.js
+  # middleware: https://github.com/anyproto/anytype-ts/blob/v0.41.0/update-ci.sh
+  # langs: https://github.com/anyproto/anytype-ts/blob/v0.41.0/electron/hook/locale.js
   postUnpack = ''
     if [ $(cat "$sourceRoot/middleware.version") != ${lib.escapeShellArg anytype-heart.version} ]; then
       echo 'ERROR: middleware version mismatch'

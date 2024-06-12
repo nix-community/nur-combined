@@ -109,7 +109,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
-    description = "An opensource project that aims to create a Graphical UI to help manage Linux overlays";
+    description = "Opensource project that aims to create a Graphical UI to help manage Linux overlays";
     homepage = "https://github.com/benjamimgois/goverlay";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ kira-bruneau ];
