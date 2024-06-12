@@ -54,4 +54,5 @@ rec {
   postman-cli = pkgs.callPackage ./pkgs/postman-cli {
     inherit mloeper;
   };
+  #rancher-desktop = pkgs.callPackage ./pkgs/rancher-desktop { };
 }
