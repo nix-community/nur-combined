@@ -2,8 +2,9 @@
   description = "Nyk Ma's personal NUR repository";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    cargo2nix.url = "github:cargo2nix/cargo2nix/release-0.11.0";
   };
-  outputs = { self, nixpkgs }:
+  outputs = { self, nixpkgs, cargo2nix }:
     let
       systems = [
         "x86_64-linux"
@@ -17,7 +18,11 @@
     in
     {
       legacyPackages = forAllSystems (system: import ./default.nix {
-        pkgs = import nixpkgs { inherit system; };
+        inherit cargo2nix system;
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [ cargo2nix.overlays.default ];
+        };
       });
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
     };

@@ -1,4 +1,16 @@
-{ pkgs ? import <nixpkgs> { } }:
+{
+  system ? builtins.currentSystem,
+  cargo2nix ? builtins.fetchGit {
+    url = "https://github.com/cargo2nix/cargo2nix";
+    rev = "ae19a9e1f8f0880c088ea155ab66cee1fa001f59";
+  },
+  pkgs ? import <nixpkgs> {
+    inherit system;
+    overlays = let
+      cargo2nixOverlay = import "${cargo2nix}/overlay";
+    in [ cargo2nixOverlay ];
+  },
+}:
 
 rec {
   lib = import ./lib { inherit pkgs; };
