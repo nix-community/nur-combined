@@ -15,6 +15,7 @@
       "repo": "DISTRHO-Ports",
       "rev": "b3596e6a690eb0556e69e8b6d943fee2dfbb04fb",
       "sha256": "sha256-/fOroqWUdxW8DfeUt0c98zOFYFHic0sn8AKMOpC7bGE=",
+      "sparseCheckout": [],
       "type": "github"
     },
     "version": "b3596e6a690eb0556e69e8b6d943fee2dfbb04fb"

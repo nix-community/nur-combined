@@ -15,6 +15,7 @@
       "repo": "Carla",
       "rev": "c37d53a4216654118e711fa41e88e7e801d5bd9b",
       "sha256": "sha256-nduM04HVZVNVCDsIIp/vcwL13Io5RgZaWRi+CfDbFwk=",
+      "sparseCheckout": [],
       "type": "github"
     },
     "version": "c37d53a4216654118e711fa41e88e7e801d5bd9b"
@@ -33,6 +34,7 @@
       "name": null,
       "rev": "1792598e05da73f70192c85b7969999735aa22c6",
       "sha256": "sha256-4VLD29UlbrnMpk3qHBrWsoZSv4kORjbSNhGn8XF63Vw=",
+      "sparseCheckout": [],
       "type": "git",
       "url": "https://gitlab.zrythm.org/zrythm/zrythm.git"
     },

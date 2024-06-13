@@ -15,6 +15,7 @@
       "repo": "keepmenu",
       "rev": "e106b4fdeb908ef933a3b9044f76b37e338866a2",
       "sha256": "sha256-R9qqMsIcyuiMzVMjsjao1Jbh318cuBaeduq6pblo0Ec=",
+      "sparseCheckout": [],
       "type": "github"
     },
     "version": "e106b4fdeb908ef933a3b9044f76b37e338866a2"

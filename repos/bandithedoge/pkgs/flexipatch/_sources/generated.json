@@ -15,13 +15,14 @@
       "repo": "dmenu-flexipatch",
       "rev": "9ef1b3c317d6395ac7fd2c6951d356e9990ce23d",
       "sha256": "sha256-2mr+qT6CZJohMG05itxp63eCNfZEJqKD4BLp/GP5ZCA=",
+      "sparseCheckout": [],
       "type": "github"
     },
     "version": "9ef1b3c317d6395ac7fd2c6951d356e9990ce23d"
   },
   "dwm-flexipatch": {
     "cargoLocks": null,
-    "date": "2024-05-17",
+    "date": "2024-06-13",
     "extract": null,
     "name": "dwm-flexipatch",
     "passthru": null,
@@ -33,11 +34,12 @@
       "name": null,
       "owner": "bakkeby",
       "repo": "dwm-flexipatch",
-      "rev": "66770cfbccceb562279ad7f8c700622b42776281",
-      "sha256": "sha256-IopL1retKUursdN1SXt7FA60a45Bg70KoyAP8KUKzYo=",
+      "rev": "c1e9e0b035293ef5d5bfdc4b40dd2a94975047d0",
+      "sha256": "sha256-YVcsDpdxTyIoT6N1NKfUkQLChYkWtYZWqnJ9PtYY5Bc=",
+      "sparseCheckout": [],
       "type": "github"
     },
-    "version": "66770cfbccceb562279ad7f8c700622b42776281"
+    "version": "c1e9e0b035293ef5d5bfdc4b40dd2a94975047d0"
   },
   "slock-flexipatch": {
     "cargoLocks": null,
@@ -55,6 +57,7 @@
       "repo": "slock-flexipatch",
       "rev": "316de8856f9f25685f6f1c4e94dbf76e4f64c06b",
       "sha256": "sha256-jsAfkd2Xtzp4zKwY0bExPhVtcs+OeBdGJA29SPC04jk=",
+      "sparseCheckout": [],
       "type": "github"
     },
     "version": "316de8856f9f25685f6f1c4e94dbf76e4f64c06b"
@@ -75,6 +78,7 @@
       "repo": "st-flexipatch",
       "rev": "8aee31444abb1a8af50c54c802ff0af0054388b7",
       "sha256": "sha256-pbE0DYVKCzxTMmZc6SxCMyn/Y9BQPHDSxZiI699EiKE=",
+      "sparseCheckout": [],
       "type": "github"
     },
     "version": "8aee31444abb1a8af50c54c802ff0af0054388b7"

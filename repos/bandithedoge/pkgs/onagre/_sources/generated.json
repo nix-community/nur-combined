@@ -17,6 +17,7 @@
       "repo": "onagre",
       "rev": "1.1.0",
       "sha256": "sha256-ASeLvgj2RyhsZQtkUTYeA7jWyhbLg8yl6HbN2A/Sl2M=",
+      "sparseCheckout": [],
       "type": "github"
     },
     "version": "1.1.0"

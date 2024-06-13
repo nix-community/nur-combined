@@ -19,15 +19,15 @@
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
-    version = "66770cfbccceb562279ad7f8c700622b42776281";
+    version = "c1e9e0b035293ef5d5bfdc4b40dd2a94975047d0";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dwm-flexipatch";
-      rev = "66770cfbccceb562279ad7f8c700622b42776281";
+      rev = "c1e9e0b035293ef5d5bfdc4b40dd2a94975047d0";
       fetchSubmodules = false;
-      sha256 = "sha256-IopL1retKUursdN1SXt7FA60a45Bg70KoyAP8KUKzYo=";
+      sha256 = "sha256-YVcsDpdxTyIoT6N1NKfUkQLChYkWtYZWqnJ9PtYY5Bc=";
     };
-    date = "2024-05-17";
+    date = "2024-06-13";
   };
   slock-flexipatch = {
     pname = "slock-flexipatch";

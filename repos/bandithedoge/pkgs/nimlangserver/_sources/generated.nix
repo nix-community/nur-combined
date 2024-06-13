@@ -14,6 +14,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [];
       sha256 = "sha256-iewBkGdfpallksfqviuz69ujF9gp64y6xge0qVU9lmw=";
     };
     date = "2023-11-20";
@@ -27,6 +28,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [];
       sha256 = "sha256-JISBoYV3Ljbra/VYGTeIsLdK1cmK5oQKW08if/PnHB8=";
     };
     date = "2024-05-01";
@@ -40,6 +42,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [];
       sha256 = "sha256-UESH9EAZoKOkKYpd0n+W3SeykaNT3jSM1U2/I1ZPAFY=";
     };
     date = "2024-04-03";
@@ -53,6 +56,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [];
       sha256 = "sha256-3VLu6GH9yGn5FJmETPnq8kzNaRYn/B8kMrw0tvQlPtA=";
     };
     date = "2023-06-20";
@@ -66,48 +70,52 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [];
       sha256 = "sha256-4JgjC8Hm2O2z5ynWPaPb6Qt0catFjbB9LWax0aK9pSg=";
     };
     date = "2024-05-20";
   };
   nimlangserver = {
     pname = "nimlangserver";
-    version = "cef1af967fb912dcc158bdf0f9086ef1963943cf";
+    version = "3879966eed20f04ce4254b67c5c6496c06358b79";
     src = fetchgit {
       url = "https://github.com/nim-lang/langserver";
-      rev = "cef1af967fb912dcc158bdf0f9086ef1963943cf";
+      rev = "3879966eed20f04ce4254b67c5c6496c06358b79";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-Utx+2Tx3MBzXREwuBD0AM054jHpTm/o95QNt6mhxc3w=";
+      sparseCheckout = [];
+      sha256 = "sha256-hJb98FEPKw0pEQ7a2HC4CDZOoqKN7N2R2hmECLmhsCM=";
     };
-    date = "2024-05-31";
+    date = "2024-06-12";
   };
   serialization = {
     pname = "serialization";
-    version = "afae13adac25b6fa98bacf4b9f38458dc64317b0";
+    version = "005ee90cb6aa563cdd690910455ea05f916ead3f";
     src = fetchgit {
       url = "https://github.com/status-im/nim-serialization";
-      rev = "afae13adac25b6fa98bacf4b9f38458dc64317b0";
+      rev = "005ee90cb6aa563cdd690910455ea05f916ead3f";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-rw9AzELi3eF+BDX0BkGyA15WGP2YLYoth4WIvO7UZv4=";
+      sparseCheckout = [];
+      sha256 = "sha256-nqP2/XqTfCDipWeNNhWOOONBpmAfdpGA/aUJTpNqumY=";
     };
-    date = "2024-02-16";
+    date = "2024-06-13";
   };
   stew = {
     pname = "stew";
-    version = "5284cce92e027ab2bc0b05131c4258610789e8d5";
+    version = "28743363fff5d751b9dd1809b0c7ccf332eb8d79";
     src = fetchgit {
       url = "https://github.com/status-im/nim-stew";
-      rev = "5284cce92e027ab2bc0b05131c4258610789e8d5";
+      rev = "28743363fff5d751b9dd1809b0c7ccf332eb8d79";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sha256 = "sha256-o4lmo7MKpJFV1ga4iVCdygz0qXzveOnunYgHXwfx0MY=";
+      sparseCheckout = [];
+      sha256 = "sha256-RxJGbWUR9Lvmkm+ieaSdK+qMunlp109mY9WyzXmQdNo=";
     };
-    date = "2024-06-01";
+    date = "2024-06-11";
   };
   zevv-with = {
     pname = "zevv-with";

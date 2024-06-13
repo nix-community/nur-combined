@@ -15,6 +15,7 @@
       "repo": "clap-info",
       "rev": "v1.2.0",
       "sha256": "sha256-efZexmsOuZskei34z9Lj2xdDOkEOYod8rqtOrVghMxw=",
+      "sparseCheckout": [],
       "type": "github"
     },
     "version": "v1.2.0"

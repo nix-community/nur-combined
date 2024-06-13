@@ -20,6 +20,7 @@
       "repo": "Satty",
       "rev": "d2e3137667c9b8f1e5a5777be831a5b6acbfc31b",
       "sha256": "sha256-4upjVP7DEWD76wycmCQxl86nsJYI0+V7dSThRFJu9Ds=",
+      "sparseCheckout": [],
       "type": "github"
     },
     "version": "d2e3137667c9b8f1e5a5777be831a5b6acbfc31b"

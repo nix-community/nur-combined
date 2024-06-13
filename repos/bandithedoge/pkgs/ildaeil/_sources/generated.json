@@ -15,6 +15,7 @@
       "repo": "Ildaeil",
       "rev": "d031a7dd54220c2447b402fe4e792782a75ead3a",
       "sha256": "sha256-krh0lxvgw+pnxcV11sNClMapwgk7l+JJveazHLObNaQ=",
+      "sparseCheckout": [],
       "type": "github"
     },
     "version": "d031a7dd54220c2447b402fe4e792782a75ead3a"

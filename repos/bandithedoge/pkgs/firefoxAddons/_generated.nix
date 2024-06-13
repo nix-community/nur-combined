@@ -366,10 +366,10 @@
   };
   "enhanced-github" = buildFirefoxXpiAddon {
     pname = "enhanced-github";
-    version = "6.0.0";
+    version = "6.1.0";
     addonId = "{72bd91c9-3dc5-40a8-9b10-dec633c0873f}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4296800/enhanced_github-6.0.0.xpi";
-    sha256 = "d33e8540f44998d5711af0f2d236349d20be8fbbbfbb2f5e47438b481f2ab387";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4297236/enhanced_github-6.1.0.xpi";
+    sha256 = "8ebf2ff7602e1747f3cc329e7c99acf7348d019ec456e5639d9d90af0b7afec3";
     meta = with lib; {
       homepage = "https://github.com/softvar/enhanced-github";
       description = "Display repo size, size of each file, download link and option to copy file contents";
@@ -497,10 +497,10 @@
   };
   "indie-wiki-buddy" = buildFirefoxXpiAddon {
     pname = "indie-wiki-buddy";
-    version = "3.7.1";
+    version = "3.8.0";
     addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4281778/indie_wiki_buddy-3.7.1.xpi";
-    sha256 = "c59057b3b654f6f19f43bed8c22c522f6304626b832ee881aa97e59cb45a246a";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4299481/indie_wiki_buddy-3.8.0.xpi";
+    sha256 = "2b3978bbf8ea7186e3101b120ce009cddae33103e68aa8ab54512fc83ec3bb27";
     meta = with lib; {
       homepage = "https://getindie.wiki/";
       description = "Helping you discover quality, independent wikis!\n\nWhen visiting a Fandom wiki, Indie Wiki Buddy redirects or alerts you of independent alternatives. It also filters search engine results. BreezeWiki is also supported, to reduce clutter on Fandom.";
@@ -794,10 +794,10 @@
   };
   "npm-hub" = buildFirefoxXpiAddon {
     pname = "npm-hub";
-    version = "2023.12.20";
+    version = "2024.6.11";
     addonId = "npm-hub@sikelianos.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4211397/npm_hub-2023.12.20.xpi";
-    sha256 = "39bfec64108c2e1f6207473c9c84828870bcbd5986a279143c758839b7329e1a";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4301389/npm_hub-2024.6.11.xpi";
+    sha256 = "9463e98c3fb7742c44906a984de55d3c1b1b730a126dfafdf167309e2803a9f9";
     meta = with lib; {
       homepage = "https://github.com/npmhub/npmhub";
       description = "Explore npm dependencies on GitHub repos";
@@ -835,10 +835,10 @@
   };
   "privacy-badger" = buildFirefoxXpiAddon {
     pname = "privacy-badger";
-    version = "2024.5.27";
+    version = "2024.6.3";
     addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4294424/privacy_badger17-2024.5.27.xpi";
-    sha256 = "bf8e9f231bdd7754d337ebb51a96bb179bae8cffac9fe71521c36f1958425de3";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4298042/privacy_badger17-2024.6.3.xpi";
+    sha256 = "e60101d2c31c80addb9d1e2c6fa4b4a17b4907451ea1b2e907b9bee0871a20f4";
     meta = with lib; {
       homepage = "https://privacybadger.org/";
       description = "Automatically learns to block invisible trackers.";
@@ -1314,10 +1314,10 @@
   };
   "refined-github" = buildFirefoxXpiAddon {
     pname = "refined-github";
-    version = "24.4.9";
+    version = "24.6.9";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4262441/refined_github-24.4.9.xpi";
-    sha256 = "7bbc82d7d991f8f776ff47167b0c9e7c05043e83c0d85e1b6711e1e2777f3284";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4300256/refined_github-24.6.9.xpi";
+    sha256 = "e857c4f1f9c6441ae38da48c7c748a2a382227862ce9f30cc2cf83e918ce8fbf";
     meta = with lib; {
       homepage = "https://github.com/refined-github/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";
@@ -1381,10 +1381,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "5.6";
+    version = "5.6.1";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4292214/sponsorblock-5.6.xpi";
-    sha256 = "ec2343ee8db27666177e0b59510ddcd8b0f1072c88b5df05ba789d72a3af32e6";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4299073/sponsorblock-5.6.1.xpi";
+    sha256 = "4ccae0ebc1aa26d61c446956da425bf16daffd5704ea216735e0a57e482fe9ba";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos. Other browsers: https://sponsor.ajay.app";
@@ -1401,10 +1401,10 @@
   };
   "steam-database" = buildFirefoxXpiAddon {
     pname = "steam-database";
-    version = "3.7.10";
+    version = "3.8.0";
     addonId = "firefox-extension@steamdb.info";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4251832/steam_database-3.7.10.xpi";
-    sha256 = "aee51bce4e6b84b95cadafd804c9f271394ae634fe121d0b9d82c4e6af022f73";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4298944/steam_database-3.8.0.xpi";
+    sha256 = "9f47848d65305a6d38a93d72fcfe40f049ce464dff6a882fa3b26240bd2b2c2b";
     meta = with lib; {
       homepage = "https://steamdb.info/";
       description = "Adds SteamDB links and new features on the Steam store and community. View lowest game prices and stats.";
@@ -1509,10 +1509,10 @@
   };
   "tree-style-tab" = buildFirefoxXpiAddon {
     pname = "tree-style-tab";
-    version = "4.0.15";
+    version = "4.0.17";
     addonId = "treestyletab@piro.sakura.ne.jp";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4290043/tree_style_tab-4.0.15.xpi";
-    sha256 = "edcf2c8509786ee0c6f93579e25b1b491223f96bc0ba9bc08fd5852cb4c5f02e";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4300287/tree_style_tab-4.0.17.xpi";
+    sha256 = "e724fc86e50b5a1defa985a54e9d7a97fb87e585b1470d72ad270fb78dd15de2";
     meta = with lib; {
       homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
       description = "Show tabs like a tree.";

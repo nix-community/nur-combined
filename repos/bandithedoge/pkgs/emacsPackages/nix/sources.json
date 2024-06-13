@@ -77,10 +77,10 @@
     "homepage": "",
     "owner": "jdtsmith",
     "repo": "indent-bars",
-    "rev": "2216793de857cc21a1faba95361446dacdc8f3f5",
-    "sha256": "1wcxg5qzlqy9j2xd6bh0rjgxymayxkpgrc1vbny3d5rvg76vgr93",
+    "rev": "2d1d854ddaa5b0e19b69e73553675c2aaaed1641",
+    "sha256": "0h8njj8zvmlf62rng6sfrl86vc2rn2mmp8m72k3dg4hn70r8bjl1",
     "type": "tarball",
-    "url": "https://github.com/jdtsmith/indent-bars/archive/2216793de857cc21a1faba95361446dacdc8f3f5.tar.gz",
+    "url": "https://github.com/jdtsmith/indent-bars/archive/2d1d854ddaa5b0e19b69e73553675c2aaaed1641.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "on": {
@@ -125,10 +125,10 @@
     "homepage": "",
     "owner": "Fuco1",
     "repo": "smartparens",
-    "rev": "a5c68cac1bea737b482a37aa92de4f6efbf7580b",
-    "sha256": "1byz6fqf1qymi5fxz450bb339r1hzn6j8xc247yaakfgijgvq93w",
+    "rev": "f7cf316715e5018186c226aab8242c9e5ce131c8",
+    "sha256": "0g2s48mdfgmaqxh6lsaib6659iiv29vazv9lkcj6lrgq2kf76x9c",
     "type": "tarball",
-    "url": "https://github.com/Fuco1/smartparens/archive/a5c68cac1bea737b482a37aa92de4f6efbf7580b.tar.gz",
+    "url": "https://github.com/Fuco1/smartparens/archive/f7cf316715e5018186c226aab8242c9e5ce131c8.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   }
 }

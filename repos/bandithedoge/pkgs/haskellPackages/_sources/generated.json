@@ -1,7 +1,7 @@
 {
   "kmonad": {
     "cargoLocks": null,
-    "date": "2024-05-30",
+    "date": "2024-06-07",
     "extract": null,
     "name": "kmonad",
     "passthru": null,
@@ -13,11 +13,12 @@
       "name": null,
       "owner": "kmonad",
       "repo": "kmonad",
-      "rev": "9affc9f85e84e4648d097427aa9ed99ad4c0418f",
-      "sha256": "sha256-y4suZ2pUzv0DbIqBJWN5Qzun6qx0TyHb8uv0XZUGHYg=",
+      "rev": "235b42610758355a664c153999c1ff03b4d918e6",
+      "sha256": "sha256-Zz1xi6Fy8QrYkaC7WuKjUt8sxJmP9xd7+kHlkdjQ7qE=",
+      "sparseCheckout": [],
       "type": "github"
     },
-    "version": "9affc9f85e84e4648d097427aa9ed99ad4c0418f"
+    "version": "235b42610758355a664c153999c1ff03b4d918e6"
   },
   "taffybar": {
     "cargoLocks": null,
@@ -35,6 +36,7 @@
       "repo": "taffybar",
       "rev": "a82a8a0cffb34b5eae38e46d88f02641bf8a8fe5",
       "sha256": "sha256-OZNPY2LNBm+NkIHqo8SX2f/BfuwqkQIGYePkiAmz2YA=",
+      "sparseCheckout": [],
       "type": "github"
     },
     "version": "a82a8a0cffb34b5eae38e46d88f02641bf8a8fe5"
@@ -55,6 +57,7 @@
       "repo": "xmonad-entryhelper",
       "rev": "ee2d0c14f9258503d7bd62907aa731dd64fa34d0",
       "sha256": "sha256-CGaibR0Yejng9IQInm92Zx0pEZS29tJjWvPgaiWgUNQ=",
+      "sparseCheckout": [],
       "type": "github"
     },
     "version": "ee2d0c14f9258503d7bd62907aa731dd64fa34d0"

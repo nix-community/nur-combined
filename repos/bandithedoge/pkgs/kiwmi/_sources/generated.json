@@ -15,6 +15,7 @@
       "repo": "kiwmi",
       "rev": "17814972abe6a8811a586fa87c99a2b16a86075f",
       "sha256": "sha256-n9PA6cyEjSlnDcRrqIkO83UaCE/hovbi/oZon1B+nuw=",
+      "sparseCheckout": [],
       "type": "github"
     },
     "version": "17814972abe6a8811a586fa87c99a2b16a86075f"

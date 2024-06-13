@@ -25,6 +25,7 @@
       "repo": "OctaSine",
       "rev": "v0.9.0",
       "sha256": "sha256-Tj9eyq+qLxJJvbqTJIhI4A6FqpDHXA6ceJp1Z4DrBEo=",
+      "sparseCheckout": [],
       "type": "github"
     },
     "version": "v0.9.0"

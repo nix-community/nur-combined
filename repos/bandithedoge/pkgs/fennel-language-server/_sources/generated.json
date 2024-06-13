@@ -20,6 +20,7 @@
       "repo": "fennel-language-server",
       "rev": "59005549ca1191bf2aa364391e6bf2371889b4f8",
       "sha256": "sha256-pp1+lquYRFZLHvU9ArkdLY/kBsfaHoZ9x8wAbWpApck=",
+      "sparseCheckout": [],
       "type": "github"
     },
     "version": "59005549ca1191bf2aa364391e6bf2371889b4f8"

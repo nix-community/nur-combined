@@ -15,6 +15,7 @@
       "repo": "geonkick",
       "rev": "v3.4.0",
       "sha256": "sha256-zoEC85QYcQMF92KvLBikYw1nDoSHaedpTDDqvoAtte0=",
+      "sparseCheckout": [],
       "type": "github"
     },
     "version": "v3.4.0"

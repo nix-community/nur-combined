@@ -15,6 +15,7 @@
       "repo": "Cardinal",
       "rev": "77b5becf75c8842cd30ee99d326782894fb334d3",
       "sha256": "sha256-0r1+hSRLSI3RXlcWhQa2IG0r1PEClKO/VzvYjU91/AU=",
+      "sparseCheckout": [],
       "type": "github"
     },
     "version": "77b5becf75c8842cd30ee99d326782894fb334d3"

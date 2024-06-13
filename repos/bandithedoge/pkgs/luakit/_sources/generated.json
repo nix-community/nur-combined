@@ -15,6 +15,7 @@
       "repo": "luakit",
       "rev": "fc115f506024f1a3eed144680da58e9fc95021b4",
       "sha256": "sha256-daIAyVVe4FBx5krOH7raweb5KvGuHcjy95rbJFFUcDM=",
+      "sparseCheckout": [],
       "type": "github"
     },
     "version": "fc115f506024f1a3eed144680da58e9fc95021b4"
