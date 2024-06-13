@@ -1870,10 +1870,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2422.1";
+      version = "6.2424.2";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4294289/dashlane-6.2422.1.xpi";
-      sha256 = "2f36bacdb4e014789273af306a5e7c487f96b7f49933cb274051413811b895c2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4301269/dashlane-6.2424.2.xpi";
+      sha256 = "1e1543120ec03cde234116368a74d7f7f9f55db221dc595cce7735ded8bea7bd";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -1951,10 +1951,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "128.0.20240610.161745";
+      version = "128.0.20240612.91431";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4300919/deutsch_de_language_pack-128.0.20240610.161745.xpi";
-      sha256 = "8692ddd714c6e9ef8de95e0d56262b03211e07a4d9d037ea9b7743cd72f219e2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4301871/deutsch_de_language_pack-128.0.20240612.91431.xpi";
+      sha256 = "7af040d8d27b873fe79de1017f3f2cd05482da463bd45d19914392add7a0da6e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2653,10 +2653,10 @@
     };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "5.1.4.2";
+      version = "5.2.0.3";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4290382/floccus-5.1.4.2.xpi";
-      sha256 = "bc71a182e6a62b0b9ee596fa92eafb09bf1d0a7d0d1b6f5b8d4bbad3abbb949c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4301694/floccus-5.2.0.3.xpi";
+      sha256 = "5332ac257a2fc3e1c73c59c1f37ae67d3950650b76a08290e8d008eb5d68bd3f";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -2670,6 +2670,7 @@
           "unlimitedStorage"
           "tabs"
           "identity"
+          "history"
         ];
         platforms = platforms.all;
       };
@@ -2880,10 +2881,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "128.0.20240610.161745";
+      version = "128.0.20240612.91431";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4300924/francais_language_pack-128.0.20240610.161745.xpi";
-      sha256 = "55e5e49182f9946a9040d80ce70436d8ce07219917fd98f3ba9857c99a41b83c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4301969/francais_language_pack-128.0.20240612.91431.xpi";
+      sha256 = "360b2dcd0c8fa8e37efa72496ec99b37ce2b56010fba4053ae669e488f6c2919";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4778,10 +4779,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.5.8";
+      version = "1.6.2";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4296355/immersive_translate-1.5.8.xpi";
-      sha256 = "36c26f844cd6686e6dbdf5ac0f360f1350d8d64f98b8293e02bdbe5322541604";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4299644/immersive_translate-1.6.2.xpi";
+      sha256 = "e75a477de0d2a49b95b4e89d0fe7a5176659d9bed89afd5fca3d96b547c759b5";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -7649,10 +7650,10 @@
     };
     "passff" = buildFirefoxXpiAddon {
       pname = "passff";
-      version = "1.19.3";
+      version = "1.19.4";
       addonId = "passff@invicem.pro";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4299236/passff-1.19.3.xpi";
-      sha256 = "07fc361c2b50498003eda5007c16fec2a2f9472599d9fcc34cae0c2203c28a09";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4301803/passff-1.19.4.xpi";
+      sha256 = "10c3102999d02c7dda4e17351d95f73db563a27bdc4aeec7a8b7e6094cee61eb";
       meta = with lib;
       {
         homepage = "https://codeberg.org/PassFF/passff";
@@ -11408,19 +11409,20 @@
     };
     "web-developer" = buildFirefoxXpiAddon {
       pname = "web-developer";
-      version = "2.0.5";
+      version = "3.0";
       addonId = "{c45c406e-ab73-11d8-be73-000a95be3b12}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3484096/web_developer-2.0.5.xpi";
-      sha256 = "4a2f20e32e5a09ec23f395f6023d2a90b28a0e4b231474edc07e311b309c6ff4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4296779/web_developer-3.0.xpi";
+      sha256 = "46519ec4e1ce6b9c6c7051f2450dfdf00044c5740faab972abe13f1568aa4bd1";
       meta = with lib;
       {
         homepage = "http://chrispederick.com/work/web-developer/firefox/";
         description = "The Web Developer extension adds various web developer tools to the browser.";
         license = licenses.lgpl3;
         mozPermissions = [
-          "clipboardWrite"
+          "browsingData"
           "cookies"
           "history"
+          "scripting"
           "storage"
           "tabs"
           "<all_urls>"
