@@ -1,4 +1,5 @@
-{ stdenv, lib, buildNpmPackage, fetchFromGitHub, python311Packages }:
+{ stdenv, lib, buildNpmPackage, fetchFromGitHub, python311Packages
+, makeWrapper, ffmpeg }:
 
 let
   version = "2024-06-07";
@@ -18,7 +19,7 @@ in stdenv.mkDerivation rec {
   pname = "metube";
   inherit version src;
 
-  nativeBuildInputs = with python311Packages; [ wrapPython ];
+  nativeBuildInputs = with python311Packages; [ wrapPython makeWrapper ];
 
   pythonPath = with python311Packages; [ pylint aiohttp python-socketio yt-dlp ];
 
@@ -30,8 +31,9 @@ in stdenv.mkDerivation rec {
     substituteInPlace $out/app/main.py \
       --replace-fail "ui/dist/metube" "$out/ui/dist/metube"
     cp -r ${metube_ui}/lib/node_modules/metube/dist $out/ui
-    ln -s $out/app/main.py $out/bin/metube
     wrapPythonProgramsIn $out/app "$out $pythonPath"
+    makeWrapper $out/app/main.py $out/bin/metube \
+      --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}
   '';
 
   meta = {

@@ -15,7 +15,6 @@ rec {
   headless = ./headless.nix;
   regdomain = ./regdomain.nix;
   vpn = ./vpn.nix;
-  awl = ./awl.nix;
   prometheus-nut-exporter = ./prometheus-nut-exporter.nix;
   hardware = ./hardware.nix;
   tun2socks = ./tun2socks.nix;
@@ -29,4 +28,5 @@ rec {
   theme = ./theme.nix;
   sunpaper = ./sunpaper.nix;
   requests = ./requests.nix;
+  metube = ./metube.nix;
 }
