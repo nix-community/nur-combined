@@ -183,15 +183,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "24ebb998f97251fa008316fa6b84ca090ba5afec";
+    version = "50ecd23bb25a8144540815d800ddebced563ffda";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "24ebb998f97251fa008316fa6b84ca090ba5afec";
+      rev = "50ecd23bb25a8144540815d800ddebced563ffda";
       fetchSubmodules = false;
-      sha256 = "sha256-w46J2EbEnz21MPmUCt0b4BgxSfHeG9fyr/nKWpC+qZI=";
+      sha256 = "sha256-CGlYuCrBz5cjPBfQ5MZXQuGOJQ6Tx+LcE8t80x5642w=";
     };
-    date = "2024-06-11";
+    date = "2024-06-12";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -685,13 +685,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.9.3-xanmod1";
+    version = "6.9.4-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.9.3-xanmod1";
+      rev = "6.9.4-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-LGq87dfiGQ0cgwTEKchrHXshjwbAXVh1ike2oBp+p1o=";
+      sha256 = "sha256-gY0t77aPWOuRZFESNp0OLIsjLAv+rf0NHbab9WF2VtA=";
     };
   };
   linux-xanmod-6_0 = {
@@ -718,24 +718,24 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.32-xanmod1";
+    version = "6.6.33-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.32-xanmod1";
+      rev = "6.6.33-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-DdBkfDq+bed1WdaAtxX16xjZO10jjqJ74ccY9Wq6ryM=";
+      sha256 = "sha256-3qGxIYNVm2f69rym0Ya1X497G7yRNj3lLCtVgyEZ9yw=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3135";
+    version = "b3143";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3135";
+      rev = "b3143";
       fetchSubmodules = false;
-      sha256 = "sha256-0pYkWR7lIdmma1LcIqZI7iRMv9FUdEgWQfwQ28L3BzE=";
+      sha256 = "sha256-7D8Dw5XnMLKjknhtyvv/LO8F3C7FpvvbR0tAUwY/+ps=";
     };
   };
   nbfc-linux-lantian = {
