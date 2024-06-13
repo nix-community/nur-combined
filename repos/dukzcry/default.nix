@@ -38,4 +38,5 @@ rec {
   steamlink = callPackage ./pkgs/steamlink.nix {};
   ydcmd = callPackage ./pkgs/ydcmd.nix {};
   modplay = callPackage ./pkgs/modplay.nix {};
+  metube = callPackage ./pkgs/metube.nix {};
 }
