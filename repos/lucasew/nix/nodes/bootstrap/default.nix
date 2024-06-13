@@ -31,7 +31,6 @@ in
     ./port-alloc.nix
     ./rev.nix
     ./screenkey.nix
-    ./script-directory.nix
     ./ssh.nix
     ./systemd-portd.nix
     ./tailscale.nix
@@ -62,7 +61,10 @@ in
     PATH = "$PATH";
   };
   programs.bash = {
-    promptInit = builtins.readFile ./bash_init.sh;
+    promptInit = builtins.concatStringsSep "\n" (map (builtins.readFile) [
+      ./bash_init.sh
+      ../../../bin/prelude/999-nix-ps1.sh
+    ]);
   };
   networking.domain = lib.mkDefault "lucao.net";
 }

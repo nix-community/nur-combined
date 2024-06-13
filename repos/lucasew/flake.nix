@@ -287,7 +287,6 @@
           buildInputs = with pkgs; [
             ctl
             pyinfra
-            script-directory
             bumpkin.packages.${system}.default
             (writeShellScriptBin "bumpkin-bump" ''
               if [ -v NIXCFG_ROOT_PATH ]; then

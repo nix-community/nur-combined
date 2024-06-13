@@ -19,6 +19,10 @@ in
     "${self.inputs.borderless-browser}/home-manager.nix"
   ];
 
+  programs.bash.bashrcExtra = ''
+    source $(sdw d root)/bin/source_me
+  '';
+
   home.packages = with pkgs; [
     yt-dlp # video downloader
     file # what file is it?
@@ -33,10 +37,6 @@ in
   home.stateVersion = mkDefault "22.11";
   home.enableNixpkgsReleaseCheck = false;
 
-  #home.file.".dotfilerc".text = ''
-  #  #!/usr/bin/env bash
-  #  ${environmentShell}
-  #'';
   programs = {
     tmux.enable = true;
     git = {

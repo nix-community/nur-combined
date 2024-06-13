@@ -147,24 +147,8 @@ in
     inherit (flake) colors;
   };
 
-  script-directory = prev.script-directory.overrideAttrs (old: {
-    postInstall =
-      (old.postInstall or "")
-      + ''
-        installShellCompletion --bash ${
-          prev.fetchurl {
-            name = "sd";
-            url = "https://raw.githubusercontent.com/lucasew/sd/7ae91cca81a69eae8a37b001b4b07b088e2c49fa/_sd.bash";
-            hash = "sha256-BVFpec814CmbjFvZ++U4RR+6gTv9x4ojFgAYzJp0rQs=";
-          }
-        }
-      '';
-  });
-
   script-directory-wrapper = final.writeShellScriptBin "sdw" ''
-    PATH=$PATH:${final.script-directory}/bin:/run/current-system/sw/bin
-    export SD_ROOT="$(SD_ROOT=${../bin} sd d root)/bin"
-    sd "$@"
+    ${../bin}/source_me sd "$@"
   '';
 
   ccacheWrapper = prev.ccacheWrapper.override {
