@@ -1,7 +1,8 @@
 builds:
-  exclude:
-  - "nixosConfigurations.resq.*"
-  - "nixosConfigurations.bootstrap.*"
-  include:
-  - "nixosConfigurations.*"
-  - "packages.*"
+ exclude:
+   - 'nixosConfigurations.resq'
+   - 'nixosConfigurations.bootstrap'
+ include:
+   - 'packages.x86_64-linux.*'
+   - 'nixosConfigurations.hastur'
+   - 'nixosConfigurations.kaambl'
