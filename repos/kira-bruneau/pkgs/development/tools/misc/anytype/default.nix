@@ -18,22 +18,22 @@ let
   l10n-anytype-ts = fetchFromGitHub {
     owner = "anyproto";
     repo = "l10n-anytype-ts";
-    rev = "8af2c3b6bcfba7c6ca21e33c43e29b3bbd963584";
-    hash = "sha256-LURdGTi4O88CjciAbaLjSFrOoO0hK1s0YBzOXXQWKOI=";
+    rev = "ead754cc90f50d6d90488744165e14de55717429";
+    hash = "sha256-wscjWGaI17yT7vbfy+EUL2g2AM8+6y6RNxpln8kt5ew=";
   };
 in
 buildNpmPackage rec {
   pname = "anytype";
-  version = "0.41.0";
+  version = "0.41.8-hotfix";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-ts";
     rev = "refs/tags/v${version}";
-    hash = "sha256-UA7GkYYyYgsyys8Sn6ARGIK0u+0KC0Mxhh5s79jAlkE=";
+    hash = "sha256-lEyK7oE3PdDXlW87IYnBYa/lN6ZhK82eMaWyQURpWfk=";
   };
 
-  npmDepsHash = "sha256-XXRKFvpQuBnX4zlzjgh/C1wUaP9l7H7OfDkZw9Dtovw=";
+  npmDepsHash = "sha256-nM5wotBnHwBLGV2/HMLTNMoFys69N8C5/JFUyqrj3yA=";
 
   # https://github.com/anyproto/anytype-ts/blob/v0.41.0/electron/js/util.js#L224-L231
   enabledLangs = [
