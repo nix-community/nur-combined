@@ -15,8 +15,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   meta = with lib; {
-    description = "Library to eliminate all the tedious hassle when making state-of-the-art C++ 14 - 23 libraries.";
-    homepage = "https://github.com/ned14/quickcpplib";
+    description = "Reference implementation for proposed SG14 status_code";
+    homepage = "https://github.com/ned14/status-code";
     license = licenses.asl20;
     platforms = platforms.all;
     #maintainers = with maintainers; [ foolnotion ];

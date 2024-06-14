@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "ned14";
     repo = "outcome";
-    rev = "571f9c930e672950e99d5d30f743603aaaf8014c";
-    hash = "sha256-dtD789d8ttySiYjVd39vK3gGDv5EZs6gQ1SXr4KkI04=";
+    rev = "f5a45b6909e732174fe98e59548914bcaa67d847";
+    hash = "sha256-NmyXpoJdP4JPyfJ09Jthz1yI3WvkzrQFqhwotdIRTCA=";
   };
 
   nativeBuildInputs = [ cmake git quickcpplib status-code ];
