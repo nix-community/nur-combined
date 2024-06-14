@@ -39,6 +39,8 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     mkdir -p $out/bin
     cp -vr ./dagger $out/bin/dagger
+
+    runHook postInstall
   '';
   postInstall = ''
     installShellCompletion --cmd dagger \
