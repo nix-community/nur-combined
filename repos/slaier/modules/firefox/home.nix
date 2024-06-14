@@ -158,10 +158,14 @@ in
         "userChrome.Menu.Size.Compact.Enabled" = true;
         "userChrome.Menu.Icons.Regular.Enabled" = true;
       };
-      extraConfig = ''
-        ${fileContents "${nixosConfig.nur.repos.ataraxiasjel.arkenfox-userjs}/share/user.js/user.js"}
-        ${fileContents ./overlay.js}
-      '';
+      extraConfig =
+        let
+          src = lib.sourceFilesBySuffices ./. [ ".js" ];
+        in
+        ''
+          ${fileContents "${nixosConfig.nur.repos.ataraxiasjel.arkenfox-userjs}/share/user.js/user.js"}
+          ${fileContents "${src}/overlay.js"}
+        '';
       search = {
         default = "Google NCR";
         engines = {

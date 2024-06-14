@@ -15,6 +15,7 @@ let
     grub
     gtk
     liferea
+    mpv
     neovim
     nix
     openfortivpn
@@ -76,7 +77,6 @@ in
     librespeed-cli
     lsof
     meld
-    mpv
     nali
     neovim
     nix-tree

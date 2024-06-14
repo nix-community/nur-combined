@@ -129,6 +129,7 @@ in
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         User = "aria2";
         Group = "aria2";
+        UMask = 0002;
         LoadCredential = "rpcSecretFile:${cfg.rpcSecretFile}";
       };
     };
