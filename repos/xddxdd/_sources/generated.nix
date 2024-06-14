@@ -167,18 +167,18 @@
   };
   browser360-amd64 = {
     pname = "browser360-amd64";
-    version = "13.3.1013.37";
+    version = "13.3.1013.59";
     src = fetchurl {
-      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1013.37-1_amd64.deb";
-      sha256 = "sha256-GfM+DSevpUBjfJc9eK/+jFhtWCPO7BWZrv9dqJp3uLE=";
+      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1013.59-1_amd64.deb";
+      sha256 = "sha256-vtBw8JBoWOj+HRaLsmoXLrqJtHqsqavSGQt/hDRIcp0=";
     };
   };
   browser360-arm64 = {
     pname = "browser360-arm64";
-    version = "13.3.1013.37";
+    version = "13.3.1013.59";
     src = fetchurl {
-      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1013.37-1_arm64.deb";
-      sha256 = "sha256-amDIIPpV0QBlaA9+5aiHNa+1SkFhdljTqGOiGAIkiCU=";
+      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1013.59-1_arm64.deb";
+      sha256 = "sha256-3alPcAByIB+cVfL2EiBigV7nXS2ladUe70eEVuFu9CE=";
     };
   };
   cachyos-kernel-patches = {
@@ -320,6 +320,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-AG5Lthp+CPR4R7I23DUmoWAmET8gLEFHHdjk2TUbQn4=";
     };
     date = "2023-02-05";
@@ -368,6 +369,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-I7VqkP1D+JOKOMGRJZl4qxTf49sGNrPTjnV+6YOBAYg=";
     };
     date = "2024-05-10";
@@ -419,6 +421,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-sweiJeZx+/uShHxT0gXiVxADeHSyeTtK1G6jgMcMpZE=";
     };
     date = "2021-11-09";
@@ -479,6 +482,7 @@
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-h+Aqe0IbXSuHZ1iitcyXOuh9fltcmTAO9yGwE/30zH8=";
     };
     date = "2024-03-25";
@@ -729,13 +733,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3143";
+    version = "b3145";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3143";
+      rev = "b3145";
       fetchSubmodules = false;
-      sha256 = "sha256-7D8Dw5XnMLKjknhtyvv/LO8F3C7FpvvbR0tAUwY/+ps=";
+      sha256 = "sha256-P5QfRBR2Rg71x+3A2azWTN/8UvGfLRoAHUu7WhTUXYA=";
     };
   };
   nbfc-linux-lantian = {
@@ -1110,34 +1114,34 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "8.2.4+ds-2";
+    version = "8.2.5+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.4+ds-2_amd64.deb";
-      sha256 = "sha256-1Fl/hf3pzPGitc0LESSNqmPFq2c8TH/5urx08XZU4jY=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.5+ds-1_amd64.deb";
+      sha256 = "sha256-EffK2K3jNy2ReVvAZ5ekspYWBkSJyhfG9J+6pKE1nwY=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "8.2.4+ds-2";
+    version = "8.2.5+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.4+ds-2_arm64.deb";
-      sha256 = "sha256-37OkFGQzELN6IpngcCzyUHRXdG4VsMXYsCBt1nC8hus=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.5+ds-1_arm64.deb";
+      sha256 = "sha256-9nN9PMH1S7OW8iQd3lqSuij34QWxrKMJl1x6UnuY9Ts=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "8.2.4+ds-2";
+    version = "8.2.5+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.4+ds-2_armhf.deb";
-      sha256 = "sha256-7AIrJhclK4NGoMJnNyQzFLGX8Eb42OGCAjeNgfmlidY=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.5+ds-1_armhf.deb";
+      sha256 = "sha256-CFs0fuqzrcJi6tJ3nLZy7PRTFz4j3f6VOTQ9dwBB6ik=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "8.2.4+ds-2";
+    version = "8.2.5+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.4+ds-2_i386.deb";
-      sha256 = "sha256-MF3b24TXvzev2QsUaiLo9bRNSOu2oktnxy8T1rwV898=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_8.2.5+ds-1_i386.deb";
+      sha256 = "sha256-zl6RQrXCPuCbVO4JilmI2riFrugopIJuWiM6rVij12A=";
     };
   };
   qq-amd64 = {
