@@ -25,8 +25,8 @@
 			"sha256": "6b0c8a13884c7fbdbed30cd72234aafdc5b0cf823049dd436f6f41838c163b8f"
 		},
 		"floorp": {
-			"version": "v11.14.0",
-			"url": "https://github.com/Floorp-Projects/Floorp/releases/download/v11.14.0/floorp-macOS-universal.dmg",
-			"sha256": "d9bb87cd7192b063c7408b15577caed01804a3966e23e692e4190e0f34fe1be9"
+			"version": "v11.14.1",
+			"url": "https://github.com/Floorp-Projects/Floorp/releases/download/v11.14.1/floorp-macOS-universal.dmg",
+			"sha256": "da3f35128bae9595ebaf0b28abf0e9e9164239bd5df2afa5a81d08ae4434fa81"
 		}
 	}
