@@ -31,6 +31,10 @@ rec {
     version = "1.39.7";
     hash = "sha256-K+gVaBfVxWn9Ylc0KidvkdflMNHA3OETS3vysJ7K5Wk=";
   };
+  mediawiki_1_41 = pkgs.callPackage ./pkgs/mediawiki {
+    version = "1.41.1";
+    hash = "sha256-TguqlTuF6U0xBAyyUSCrxgb6hpsuMxJr37t/xhPoxLI=";
+  };
 
   kwin-explicit-sync-patch = pkgs.kdePackages.callPackage ./pkgs/kwin-explicit-sync-patch { };
   kwin-move-window = pkgs.callPackage ./pkgs/kwin-move-window { };
