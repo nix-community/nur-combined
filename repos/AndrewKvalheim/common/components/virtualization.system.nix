@@ -12,6 +12,6 @@ in
   users.extraGroups.podman.members = [ identity.username ];
 
   # VirtualBox
-  virtualisation.virtualbox.host = { enable = true; headless = true; };
+  virtualisation.virtualbox.host = { enable = true; };
   users.extraGroups.vboxusers.members = [ identity.username ];
 }
