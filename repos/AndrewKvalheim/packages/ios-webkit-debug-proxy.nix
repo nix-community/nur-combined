@@ -61,7 +61,7 @@ stdenv.mkDerivation {
   ];
 
   meta = {
-    description = "A DevTools proxy (Chrome Remote Debugging Protocol) for iOS devices (Safari Remote Web Inspector)";
+    description = "DevTools proxy (Chrome Remote Debugging Protocol) for iOS devices (Safari Remote Web Inspector)";
     homepage = "https://github.com/google/ios-webkit-debug-proxy";
     license = lib.licenses.bsd3;
   };

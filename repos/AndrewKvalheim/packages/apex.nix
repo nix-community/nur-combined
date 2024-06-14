@@ -14,7 +14,7 @@ buildGoModule {
   vendorHash = "sha256-i0+EETYoDnkKTjj9Qi8nUir4iip4mQx9uIrMkY+hbDc=";
 
   meta = {
-    description = "Apex lets you build, deploy, and manage AWS Lambda functions with ease.";
+    description = "Build, deploy, and manage AWS Lambda functions with ease";
     homepage = "https://github.com/apex/apex";
     license = lib.licenses.mit;
   };

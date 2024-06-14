@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "An efficient map viewer for Minecraft seed in a nice GUI with utilities without ever needing to install Minecraft.";
+    description = "Efficient map viewer for Minecraft seed in a nice GUI with utilities";
     homepage = "https://github.com/hube12/Minemap";
     license = lib.licenses.mit;
     mainProgram = pname;

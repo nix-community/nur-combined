@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "tools built with fastnbt";
+    description = "Command-line utilities for reading Minecraft data files";
     homepage = "https://github.com/owengage/fastnbt";
     license = lib.licenses.mit;
   };

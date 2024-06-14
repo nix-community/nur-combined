@@ -110,7 +110,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "Remotely debugging iOS Safari on Windows and Linux";
+    description = "Remote debugging of iOS Safari";
     homepage = "https://github.com/HimbeersaftLP/ios-safari-remote-debug-kit";
     license = lib.licenses.gpl3;
   };

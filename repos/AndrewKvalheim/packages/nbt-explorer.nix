@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
   # };
 
   meta = {
-    description = "A graphical NBT editor for all Minecraft NBT data sources";
+    description = "Graphical NBT editor for all Minecraft NBT data sources";
     homepage = "https://github.com/jaquadro/NBTExplorer";
     license = lib.licenses.mit;
     mainProgram = pname;

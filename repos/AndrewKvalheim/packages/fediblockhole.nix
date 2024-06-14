@@ -21,7 +21,7 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   meta = {
-    description = "A tool for automatically syncing Mastodon admin domain blocks";
+    description = "Tool for automatically syncing Mastodon admin domain blocks";
     homepage = "https://github.com/eigenmagic/fediblockhole";
     license = lib.licenses.agpl3Only;
   };

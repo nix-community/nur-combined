@@ -33,7 +33,7 @@ stdenv.mkDerivation {
   passthru.updateScript = unstableGitUpdater { };
 
   meta = {
-    description = "A script to integrate Ansible Vault and pass or gopass";
+    description = "Script to integrate Ansible Vault and pass or gopass";
     homepage = "https://github.com/me-vlad/ansible-vault-pass-client";
     license = lib.licenses.mit;
   };

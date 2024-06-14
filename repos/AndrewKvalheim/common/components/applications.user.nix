@@ -105,7 +105,6 @@ in
       usbutils
       v4l-utils
       vagrant
-      virt-manager
       visidata
       vivictpp
       watchlog

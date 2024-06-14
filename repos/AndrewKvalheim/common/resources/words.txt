@@ -527,6 +527,7 @@ Lanczos
 launchable
 Lauryn
 LDAP
+leashable
 Leatherman
 LEDs
 Lenovo
@@ -640,6 +641,7 @@ MusicBrainz
 mutex
 MX
 MyChart
+namespaced
 namespacing
 Nanaimo
 NAND
@@ -695,6 +697,7 @@ OKLab
 OKLCH
 Olallie
 onboarding
+ONVIF
 OOM
 OpenCL
 OpenGL

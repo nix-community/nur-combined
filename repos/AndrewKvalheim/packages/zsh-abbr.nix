@@ -20,7 +20,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "The zsh manager for auto-expanding abbreviations, inspired by fish shell.";
+    description = "Manager of auto-expanding abbreviations for Zsh";
     homepage = "https://github.com/olets/zsh-abbr";
     license = lib.licenses.mit;
   };

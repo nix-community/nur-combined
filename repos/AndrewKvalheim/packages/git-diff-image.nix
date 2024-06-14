@@ -65,7 +65,7 @@ stdenv.mkDerivation {
   passthru.updateScript = unstableGitUpdater { };
 
   meta = {
-    description = "An extension to 'git diff' that provides support for diffing images.";
+    description = "Extension to 'git diff' that provides support for diffing images";
     homepage = "https://github.com/ewanmellor/git-diff-image";
     license = lib.licenses.cc0;
     mainProgram = "diff-image";
