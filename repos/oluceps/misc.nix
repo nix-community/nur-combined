@@ -62,6 +62,7 @@
         "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
         "colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg="
         "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
+        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       ];
       extra-substituters = [ "https://cache.lix.systems" ];
       substituters =
@@ -78,6 +79,7 @@
         ])
         ++ [
           "https://cache.nixos.org"
+          "https://cache.garnix.io"
           # "https://cache.ngi0.nixos.org"
           # "https://mirror.sjtu.edu.cn/nix-channels/store"
         ];

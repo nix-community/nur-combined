@@ -1,0 +1,7 @@
+builds:
+  exclude:
+  - "nixosConfigurations.resq.*"
+  - "nixosConfigurations.bootstrap.*"
+  include:
+  - "nixosConfigurations.*"
+  - "packages.*"

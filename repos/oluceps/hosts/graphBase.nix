@@ -332,6 +332,7 @@
           "Noto Serif CJK SC"
           "Noto Serif CJK TC"
           "Noto Serif CJK JP"
+          "LXGW Neo XiHei"
         ];
         monospace = [
           "Monaspace Neon"
@@ -342,6 +343,7 @@
         sansSerif = [
           "Hanken Grotesk"
           "Glow Sans SC"
+          "LXGW Neo XiHei"
         ];
         emoji = [
           "twemoji-color-font"
