@@ -13,6 +13,7 @@
             "name": null,
             "rev": "bebf2d5a8f03013c091ecd1dfbe2bab80bafb383",
             "sha256": "sha256-jAsTU6Eg9x9l2lFX8Nd8lgoFdQFPkKExJ2u3N8nZpAM=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/awslabs/aws-sigv4-proxy.git"
         },
@@ -34,6 +35,7 @@
             "repo": "cowrie",
             "rev": "v2.5.0",
             "sha256": "sha256-5nCEH32U81SE2ky0XN6arIGNxKadqYggIz/uVnmXpN8=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "v2.5.0"
@@ -57,6 +59,7 @@
             "name": null,
             "rev": "07a378cb52a5d31cf0813e9cab17b5b20b37500e",
             "sha256": "sha256-+8BSwSMfG+euhnE6Y/BYKlDEaevi2TSmfv5e/bsJwRc=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/linyinfeng/dot-tar.git"
         },
@@ -78,6 +81,7 @@
             "repo": "dpt-rp1-py",
             "rev": "v0.1.16",
             "sha256": "sha256-cq9yHBQyqzlEb1Dvpx90MIixT8PxB8TBKv3+nFYCbn8=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "v0.1.16"
@@ -96,6 +100,7 @@
             "name": null,
             "rev": "9b7df11f136da27633c8d30cd419dcc7906c8b4d",
             "sha256": "sha256-+onnwvFsogGlNBrhvc2F2DRrEw+e6VCWqQA0npO0bMo=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.gnome.org/verdre/gnome-shell.git"
         },
@@ -132,6 +137,7 @@
             "repo": "linux-intel-lts",
             "rev": "lts-v6.6.32-linux-240605T051235Z",
             "sha256": "sha256-5qALAwmphE2uIguM5UQMZeQFCbWey9tdn2x7r7KakT8=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "lts-v6.6.32-linux-240605T051235Z"
@@ -152,6 +158,7 @@
             "repo": "mainline-tracking",
             "rev": "mainline-tracking-v6.9-linux-240605T063627Z",
             "sha256": "sha256-sjx86+ocuprrR7FQ4IbRyvpT0gEMQPZKn0+lp9Q4KRM=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "mainline-tracking-v6.9-linux-240605T063627Z"
@@ -172,6 +179,7 @@
             "repo": "lpac",
             "rev": "v2.0.1",
             "sha256": "sha256-jIQeNj+WOvPtc1qbcydk8c8PO6x2/AG413RJVB3JnOI=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "v2.0.1"
@@ -197,6 +205,7 @@
             "repo": "mstickereditor",
             "rev": "v0.3.6",
             "sha256": "sha256-Q4NL8CSGYlwBfN9FQZCcVagDFEc1jHMlCFdCedob+x0=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "v0.3.6"
@@ -215,6 +224,7 @@
             "name": null,
             "rev": "5e72de83dbf48991d8d60913c8396a0d7f86990c",
             "sha256": "sha256-93CmMhowMEnl4jVtoNZXgCIOUgmfeIyD2QWT11wGcIw=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.gnome.org/verdre/mutter.git"
         },
@@ -234,6 +244,7 @@
             "name": null,
             "rev": "ec991b80ba7d4dda7a962167b036efc5c2d79419",
             "sha256": "sha256-oPPCtFN2DPuM//c48SXb4TrFRjJtccg0YPXcAo0Lxq0=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/oh-my-fish/plugin-bang-bang"
         },
@@ -253,6 +264,7 @@
             "name": null,
             "rev": "6336017c16c02b1e9e708dd4eb233e66a18b62fe",
             "sha256": "sha256-DQLRat7uGoK57g/1x9Y514gtjvDdf9j4Iqnwif8QWVU=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/jhillyerd/plugin-git"
         },
@@ -272,6 +284,7 @@
             "name": null,
             "rev": "87594b2a4d6391cf69475257b286d3b844791571",
             "sha256": "sha256-IvSAFs3TZ84q2FflPyrDbvwkPVVlyvRQTzpCx+JvKGA=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/tumashu/pyim-greatdict.git"
         },
@@ -293,6 +306,7 @@
             "repo": "replay.fish",
             "rev": "1.2.1",
             "sha256": "sha256-bM6+oAd/HXaVgpJMut8bwqO54Le33hwO9qet9paK1kY=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "1.2.1"
@@ -311,6 +325,7 @@
             "name": null,
             "rev": "c7618f4f5728e1634417e9d02ea50d82b71956ab",
             "sha256": "sha256-BoX0ueVymXaMt4nAKQz9hRrP8AQrAmUxXhbzLMG25zw=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-bopomofo.git"
         },
@@ -330,6 +345,7 @@
             "name": null,
             "rev": "0ac8452eeb4abbcd8dd1f9e7314012310743285f",
             "sha256": "sha256-v8n3+73l9YbTexpA9C2356quioRwFRVcBY0IncolVoY=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-cangjie.git"
         },
@@ -349,6 +365,7 @@
             "name": null,
             "rev": "0919895a5700b5997a24f7328375117508dc89a8",
             "sha256": "sha256-MmD4i+SudceIWZ0uWTptCqO/xZHuibNWQ832u53CbWk=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-cantonese.git"
         },
@@ -368,6 +385,7 @@
             "name": null,
             "rev": "69bf85d4dfe8bac139c36abbd68d530b8b6622ea",
             "sha256": "sha256-UyVzp0TMq7yq5pXQpy7xkPnc1+RF8oVdIXzvrYqLfCQ=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-double-pinyin.git"
         },
@@ -387,6 +405,7 @@
             "name": null,
             "rev": "be7d308e42c4c4485229de37ec0afb7bafbfafc0",
             "sha256": "sha256-+p71X6mMv7eK+qRQ0j4FaAgMKFR7rrBPHVLzpZGv5XE=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-emoji.git"
         },
@@ -406,6 +425,7 @@
             "name": null,
             "rev": "e0519d0579722a0871efb68189272cba61a7350b",
             "sha256": "sha256-/GLyb3pVm5YzhuBWWJs75JtKZVnFXFN3s7HT+TZC4bw=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-essay.git"
         },
@@ -425,6 +445,7 @@
             "name": null,
             "rev": "0b59306d619a29cd345e3277aa5cd0b0d5653eda",
             "sha256": "sha256-dElBA0baKaMN04sSXvMgfey+I60Zq4b+i+KoYzpxZMQ=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
@@ -444,6 +465,7 @@
             "name": null,
             "rev": "987ac95b02f957e8764a2f45222a4006c188ed50",
             "sha256": "sha256-vOqVSwKZ+p5Wc03pRUWxCdWBdxuTe8n4xu2BTbj9/b4=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/CanCLID/rime-loengfan.git"
         },
@@ -463,6 +485,7 @@
             "name": null,
             "rev": "44e555d1090a56d62a41a58153088406bcf87abd",
             "sha256": "sha256-a4E/jFGr8XbNaLnEZF3eOOCsmSC9xDwvU/Edo8p6FOQ=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-luna-pinyin.git"
         },
@@ -482,6 +505,7 @@
             "name": null,
             "rev": "52b9c75f085479799553f2499c4f4c611d618cdf",
             "sha256": "sha256-crUFBV/u2vwC1kj2FF6lsJdIF28wIagKHpksGR/2Kf4=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-pinyin-simp.git"
         },
@@ -501,6 +525,7 @@
             "name": null,
             "rev": "3803f09458072e03b9ed396692ce7e1d35c88c95",
             "sha256": "sha256-qLxkijfB/btd2yhUMbxmoNx6fKxpKYHBZoE7YEUKIu4=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-prelude.git"
         },
@@ -520,6 +545,7 @@
             "name": null,
             "rev": "3fe5911ba608cb2df1b6301b76ad1573bd482a76",
             "sha256": "sha256-yctopPkng3QQLhDRuHP5gpEmTx0UCO5pKXzjUv1BcCE=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-quick.git"
         },
@@ -539,6 +565,7 @@
             "name": null,
             "rev": "65fdbbf2f9485cc907cb9a6d6b9210938a50f71e",
             "sha256": "sha256-BuZhyFZGTKzhH23sfQ0TSlLbz65wgE/IOmLQPgwJseE=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-stroke.git"
         },
@@ -558,6 +585,7 @@
             "name": null,
             "rev": "9427853de91d645d9aca9ceace8fe9e9d8bc5b50",
             "sha256": "sha256-93Kzph4q8LCNYTMk3rjO7mXwzfyF4cHnuDAQrxWOPDg=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-terra-pinyin.git"
         },
@@ -577,6 +605,7 @@
             "name": null,
             "rev": "152a0d3f3efe40cae216d1e3b338242446848d07",
             "sha256": "sha256-IetRNGZkyAzZ8tqqpa45oit0nQw1qx5BdwRhQDibUdw=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-wubi.git"
         },
@@ -596,6 +625,7 @@
             "name": null,
             "rev": "abd1ee98efbf170258fcf43875c21a4259e00b61",
             "sha256": "sha256-mNqUJ9iXSDCHqvnBoJ0TxXJjS0aAtx4NCN5SxkYjxWI=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-wugniu.git"
         },
@@ -617,6 +647,7 @@
             "repo": "secureboot_objects",
             "rev": "v1.1.2",
             "sha256": "sha256-KoNFPgxYICJ+Ly7NLf5VXDTLe/s6Ccgksyi4hbvaaxs=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "v1.1.2"
@@ -640,6 +671,7 @@
             "name": null,
             "rev": "11271760052c4a4a4057f2d287944d74e8fbdb58",
             "sha256": "sha256-qOxnl2J+Ivx/TIqodv3a8nP0JQsYoKIrhqnbD9IxU8g=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/ErikReider/SwayOSD.git"
         },
@@ -661,6 +693,7 @@
             "repo": "synapse-s3-storage-provider",
             "rev": "v1.4.0",
             "sha256": "sha256-LOkSsgxHoABiiVtqssBaWYUroQBzzaJ3SclYcEMm2Mk=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "v1.4.0"
@@ -679,6 +712,7 @@
             "name": null,
             "rev": "38cd39fb0eac6c58e886c11706ae39f58991af55",
             "sha256": "sha256-DeEz1cVor2GBoQrDIHNWr5IYnPgBsTWr5xMuSM38MBw=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rahiel/telegram-send.git"
         },
@@ -703,6 +737,7 @@
             "name": null,
             "rev": "d3aea3f2dc37c39521ce59c5fb156427764ad68f",
             "sha256": "sha256-I1saekIoRV/as3sVMUlfCpqLA6xHX5YdtRgIjuof1AU=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/linyinfeng/tg-send.git"
         },
@@ -724,6 +759,7 @@
             "repo": "trojan",
             "rev": "v1.16.0",
             "sha256": "sha256-fCoZEXQ6SL++QXP6GlNYIyFaVhQ8EWelJ33VbYiHRGw=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "v1.16.0"
@@ -744,6 +780,7 @@
             "repo": "vlmcsd",
             "rev": "svn1113",
             "sha256": "sha256-OKysOm44T9wrAaopp9HfLlox5InlpV33AHGXRSjhDqc=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "svn1113"
@@ -762,6 +799,7 @@
             "name": null,
             "rev": "79a62295222fa06e64db917cb693f4b7e6bcbb50",
             "sha256": "sha256-jJPHl08dlS0HsAJ6RVnmeWw4+3n/8JqLIqWp9ZJLqFw=",
+            "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/Alexays/Waybar.git"
         },
@@ -803,6 +841,7 @@
             "repo": "zeronsd",
             "rev": "v0.5.2",
             "sha256": "sha256-TL0bgzQgge6j1SpZCdxv/s4pBMSg4/3U5QisjkVE6BE=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "v0.5.2"

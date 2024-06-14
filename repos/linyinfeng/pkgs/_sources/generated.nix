@@ -15,6 +15,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-jAsTU6Eg9x9l2lFX8Nd8lgoFdQFPkKExJ2u3N8nZpAM=";
     };
     date = "2024-01-30";
@@ -39,6 +40,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-+8BSwSMfG+euhnE6Y/BYKlDEaevi2TSmfv5e/bsJwRc=";
     };
     cargoLock."Cargo.lock" = {
@@ -69,6 +71,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-+onnwvFsogGlNBrhvc2F2DRrEw+e6VCWqQA0npO0bMo=";
     };
     date = "2023-06-05";
@@ -140,6 +143,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-93CmMhowMEnl4jVtoNZXgCIOUgmfeIyD2QWT11wGcIw=";
     };
     date = "2023-06-04";
@@ -153,6 +157,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-oPPCtFN2DPuM//c48SXb4TrFRjJtccg0YPXcAo0Lxq0=";
     };
     date = "2023-07-23";
@@ -166,6 +171,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-DQLRat7uGoK57g/1x9Y514gtjvDdf9j4Iqnwif8QWVU=";
     };
     date = "2024-02-06";
@@ -179,6 +185,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-IvSAFs3TZ84q2FflPyrDbvwkPVVlyvRQTzpCx+JvKGA=";
     };
     date = "2019-07-19";
@@ -203,6 +210,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-BoX0ueVymXaMt4nAKQz9hRrP8AQrAmUxXhbzLMG25zw=";
     };
     date = "2021-01-31";
@@ -216,6 +224,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-v8n3+73l9YbTexpA9C2356quioRwFRVcBY0IncolVoY=";
     };
     date = "2024-03-25";
@@ -229,6 +238,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-MmD4i+SudceIWZ0uWTptCqO/xZHuibNWQ832u53CbWk=";
     };
     date = "2024-05-15";
@@ -242,6 +252,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-UyVzp0TMq7yq5pXQpy7xkPnc1+RF8oVdIXzvrYqLfCQ=";
     };
     date = "2019-01-20";
@@ -255,6 +266,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-+p71X6mMv7eK+qRQ0j4FaAgMKFR7rrBPHVLzpZGv5XE=";
     };
     date = "2024-03-05";
@@ -268,6 +280,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-/GLyb3pVm5YzhuBWWJs75JtKZVnFXFN3s7HT+TZC4bw=";
     };
     date = "2023-02-04";
@@ -281,6 +294,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-dElBA0baKaMN04sSXvMgfey+I60Zq4b+i+KoYzpxZMQ=";
     };
     date = "2024-06-10";
@@ -294,6 +308,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-vOqVSwKZ+p5Wc03pRUWxCdWBdxuTe8n4xu2BTbj9/b4=";
     };
     date = "2022-03-03";
@@ -307,6 +322,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-a4E/jFGr8XbNaLnEZF3eOOCsmSC9xDwvU/Edo8p6FOQ=";
     };
     date = "2024-05-24";
@@ -320,6 +336,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-crUFBV/u2vwC1kj2FF6lsJdIF28wIagKHpksGR/2Kf4=";
     };
     date = "2023-01-04";
@@ -333,6 +350,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-qLxkijfB/btd2yhUMbxmoNx6fKxpKYHBZoE7YEUKIu4=";
     };
     date = "2024-05-19";
@@ -346,6 +364,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-yctopPkng3QQLhDRuHP5gpEmTx0UCO5pKXzjUv1BcCE=";
     };
     date = "2019-01-20";
@@ -359,6 +378,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-BuZhyFZGTKzhH23sfQ0TSlLbz65wgE/IOmLQPgwJseE=";
     };
     date = "2023-12-07";
@@ -372,6 +392,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-93Kzph4q8LCNYTMk3rjO7mXwzfyF4cHnuDAQrxWOPDg=";
     };
     date = "2023-02-06";
@@ -385,6 +406,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-IetRNGZkyAzZ8tqqpa45oit0nQw1qx5BdwRhQDibUdw=";
     };
     date = "2023-10-25";
@@ -398,6 +420,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-mNqUJ9iXSDCHqvnBoJ0TxXJjS0aAtx4NCN5SxkYjxWI=";
     };
     date = "2019-01-20";
@@ -422,6 +445,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-qOxnl2J+Ivx/TIqodv3a8nP0JQsYoKIrhqnbD9IxU8g=";
     };
     cargoLock."Cargo.lock" = {
@@ -452,6 +476,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-DeEz1cVor2GBoQrDIHNWr5IYnPgBsTWr5xMuSM38MBw=";
     };
     date = "2023-10-07";
@@ -465,6 +490,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-I1saekIoRV/as3sVMUlfCpqLA6xHX5YdtRgIjuof1AU=";
     };
     cargoLock."Cargo.lock" = {
@@ -506,6 +532,7 @@
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
+      sparseCheckout = [ ];
       sha256 = "sha256-jJPHl08dlS0HsAJ6RVnmeWw4+3n/8JqLIqWp9ZJLqFw=";
     };
     date = "2024-06-13";
