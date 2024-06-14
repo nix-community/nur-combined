@@ -24,24 +24,6 @@ in
         extraModules = [ pkgs.pulseaudio-modules-bt ];
         package = pkgs.pulseaudioFull;
       };
-
-      services.pipewire.wireplumber.configPackages = [
-        (pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua" ''
-          bluez_monitor.properties = {
-            -- SBC XQ provides better audio
-            ["bluez5.enable-sbc-xq"] = true,
-
-            -- mSBC provides better audio + microphone
-            ["bluez5.enable-msbc"] = true,
-
-            -- Synchronize volume with bluetooth device
-            ["bluez5.enable-hw-volume"] = true,
-
-            -- FIXME: Some devices may now support both hsp_ag and hfp_ag
-            ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
-          }
-        '')
-      ];
     })
 
     # Support for A2DP audio profile
