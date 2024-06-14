@@ -2,10 +2,10 @@
   {
     "10ten-ja-reader" = buildFirefoxXpiAddon {
       pname = "10ten-ja-reader";
-      version = "1.19.0";
+      version = "1.19.1";
       addonId = "{59812185-ea92-4cca-8ab7-cfcacee81281}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4295435/10ten_ja_reader-1.19.0.xpi";
-      sha256 = "ebd3fa8b8e6d6fb6352715b109187189470a97ed3af16e7481d29e0d9c50b780";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4299897/10ten_ja_reader-1.19.1.xpi";
+      sha256 = "e7e6ac877da00a8b08b68f265665a6317febdbb692350031fb133fcc2e92dd88";
       meta = with lib;
       {
         homepage = "https://github.com/birchill/10ten-ja-reader/";
@@ -712,10 +712,10 @@
     };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.6.3";
+      version = "7.6.4";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4298259/betterttv-7.6.3.xpi";
-      sha256 = "f83d9ef393743a410b6472c5682111b758ba45ccfc912dfbb34912347b3ac854";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4300795/betterttv-7.6.4.xpi";
+      sha256 = "3856a74a2779aac048afc23cca0a053ca28b54c5eb811b865c28cfe7dff58602";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -1987,10 +1987,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "4.2.1";
+      version = "5.0.1";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4255324/dictionaries-4.2.1.xpi";
-      sha256 = "2b15fa7dcc83aa038cca672ef7618f5df1008264c255bbeb929966395ad469f7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4302635/dictionaries-5.0.1.xpi";
+      sha256 = "a4c851e58a611b9c06b15c17edad4f144e4a3f6ca69ecc38299125fb03cd508f";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -2001,6 +2001,8 @@
           "tabs"
           "storage"
           "contextMenus"
+          "scripting"
+          "offscreen"
           "<all_urls>"
         ];
         platforms = platforms.all;
@@ -2133,10 +2135,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.41.1";
+      version = "2.42.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4300671/dualsub-2.41.1.xpi";
-      sha256 = "4bccdc2d2bfa44e533e665527e26ad78c26263f848b62b76759a201c5bef01b1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4302662/dualsub-2.42.0.xpi";
+      sha256 = "eceb2c317b2d7ac18e2967746b2df702faf17b05a775366eacd4d6b3bb7554f7";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2154,9 +2156,7 @@
           "https://www.disneyplus.com/*"
           "https://www.ardmediathek.de/*"
           "https://www.bilibili.com/*"
-          "https://www.coupangplay.com/*"
           "https://www.coursera.org/*"
-          "https://www.hulu.com/*"
           "https://www.iflix.com/*"
           "https://www.iq.com/*"
           "https://www.primevideo.com/*"
@@ -8864,10 +8864,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.6.9";
+      version = "24.6.13.1731";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4300256/refined_github-24.6.9.xpi";
-      sha256 = "e857c4f1f9c6441ae38da48c7c748a2a382227862ce9f30cc2cf83e918ce8fbf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4302695/refined_github-24.6.13.1731.xpi";
+      sha256 = "d8a7af3ffa0c2e3161fe5b70845ce6844acef3621b98a609528a2273ba3a70fd";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -10230,10 +10230,10 @@
     };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "3.5.2";
+      version = "3.5.3";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4235216/tournesol_extension-3.5.2.xpi";
-      sha256 = "35d16f336cd642be3b1daa6f933a71f4663bc7c6a8503ab82b469ab4433b1c62";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4302491/tournesol_extension-3.5.3.xpi";
+      sha256 = "5debf2fe0d5234c226b1a47a52039e0dd75f0f65fe30a725fdb6cd60acec91d0";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
@@ -10499,10 +10499,10 @@
     };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.7.0";
+      version = "8.7.1";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4293250/ublacklist-8.7.0.xpi";
-      sha256 = "bf6f4e5983274b428364d8b15dc36f0024fc2941254fd6749df7ac5f77384aa9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4299866/ublacklist-8.7.1.xpi";
+      sha256 = "e8cee481f08199361384300698aea1f6ba1d0fa2a4f09a03658eff6446a9e122";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
