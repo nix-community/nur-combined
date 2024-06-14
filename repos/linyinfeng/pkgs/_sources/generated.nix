@@ -525,15 +525,15 @@
   };
   waybar-git = {
     pname = "waybar-git";
-    version = "3f4972583467a90f66ff73a3efdfb23ab02902b2";
+    version = "9ba5825009aefc4e85d0d0c5f7f70b3063723d1a";
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
-      rev = "3f4972583467a90f66ff73a3efdfb23ab02902b2";
+      rev = "9ba5825009aefc4e85d0d0c5f7f70b3063723d1a";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-cP9A/MEtd9VtxLiZoKGBvdysFy5UpPaXI5/54wvbHNg=";
+      sha256 = "sha256-lKW+e/I28VDHjq67E8mptrXRctPnaFUnWhC0KHtI+So=";
     };
     date = "2024-06-14";
   };
