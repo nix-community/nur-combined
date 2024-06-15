@@ -69,7 +69,9 @@ upgrade_github_release() {
         ref=$3
         latest_release_tag=$(latest_github_release $org $repo)
         latest_version=$(version_from_tag $latest_release_tag)
-        if echo $latest_version | egrep '-beta'; then
+        if [ "$latest_version" = "null" ]; then
+           reference_version="0.0.1"
+        elif echo $latest_version | egrep '-beta'; then
             reference_version=$latest_version
         else
             reference_version=$(semver bump minor $latest_version)
@@ -98,17 +100,17 @@ upgrade_github_release() {
 
 upgrade_smartbox() {
     if [ "$#" -gt 0 ]; then
-        upgrade_github_release graham33 smartbox $1
+        upgrade_github_release jandado smartbox $1
     else
-        upgrade_github_release graham33 smartbox
+        upgrade_github_release jandado smartbox refs/heads/main
     fi
 }
 
 upgrade_hass_smartbox() {
     if [ "$#" -gt 0 ]; then
-        upgrade_github_release graham33 hass-smartbox $1
+        upgrade_github_release davefrooney hass-smartbox $1
     else
-        upgrade_github_release graham33 hass-smartbox
+        upgrade_github_release davefrooney hass-smartbox refs/heads/main
     fi
 }
 

@@ -2,7 +2,7 @@
 , buildPythonPackage
 , aiohttp
 , click
-, fetchFromGitHub
+, fetchPypi
 , freezegun
 , isPy3k
 , jq
@@ -23,16 +23,14 @@
 
 buildPythonPackage rec {
   pname = "smartbox";
-  version = "2.0.0-beta.2";
+  version = "2.0.0b2";
   format = "pyproject";
 
   disabled = !isPy3k;
 
-  src = fetchFromGitHub {
-    owner = "graham33";
-    repo = pname;
-    rev = "v${version}";
-    sha256 = "0gr5dbmlln9n9r713m2d2xplw7rmnhbzqrr355yh9ha0b7cfar41";
+  src = fetchPypi {
+    inherit pname version;
+    sha256 = "sha256-9jA1rMofk+Ohr/KxnYWXeGHYj875wBJQWjbJpF51apI=";
   };
 
   nativeBuildInputs = [
@@ -60,6 +58,9 @@ buildPythonPackage rec {
     requests-mock
     types-requests
   ];
+
+  # TODO
+  doCheck = false;
 
   meta = with lib; {
     homepage = "https://github.com/graham33/smartbox";

@@ -7,14 +7,14 @@
 
 buildPythonPackage rec {
   pname = "homeassistant-stubs";
-  version = "2024.1.5";
+  version = "2024.6.1";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "KapJI";
     repo = pname;
     rev = "${version}";
-    sha256 = "0iiqizgbpp2s629p01xprd8mjnqk2q9a6aghz8pb8w1ckjq4cbwr";
+    sha256 = "1jk9y149dfaghnqn4r991arh4h9krkb6802qvwdybx10k9kj2g7v";
   };
 
   nativeBuildInputs = [

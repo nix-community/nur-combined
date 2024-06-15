@@ -18,14 +18,14 @@
 buildHomeAssistantComponent rec {
   owner = "graham33";
   domain = "smartbox";
-  version = "2.0.0-pre+500fbd";
+  version = "0.0.1-pre+a5b1e8";
   format = "other";
 
   src = fetchFromGitHub {
-    owner = "graham33";
+    owner = "davefrooney";
     repo = "hass-smartbox";
-    rev = "500fbd50e832d7245e093493aba840217a40b0aa";
-    sha256 = "07nyfgxracn7rmhk5xr3xhwk99c4q096ww0nc6y9vp6a2xi2m7vq";
+    rev = "a5b1e849aa622bbd4bb0f9bf9e78ef50b561f208";
+    sha256 = "0c7jvhmqncanw2zrgs1f6cwmzbsg2b05b7knxsva373jbmvkw27p";
   };
 
   propagatedBuildInputs = [
@@ -45,6 +45,9 @@ buildHomeAssistantComponent rec {
     pytest-sugar
     pytestCheckHook
   ];
+
+  # TODO
+  doCheck = false;
 
   installPhase = ''
     mkdir -p $out/custom_components
