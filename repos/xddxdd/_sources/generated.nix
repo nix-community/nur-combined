@@ -183,15 +183,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "50ecd23bb25a8144540815d800ddebced563ffda";
+    version = "1b490a54bd57ba535d5e7ee9a1900c08e886ec89";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "50ecd23bb25a8144540815d800ddebced563ffda";
+      rev = "1b490a54bd57ba535d5e7ee9a1900c08e886ec89";
       fetchSubmodules = false;
-      sha256 = "sha256-CGlYuCrBz5cjPBfQ5MZXQuGOJQ6Tx+LcE8t80x5642w=";
+      sha256 = "sha256-7tcQCQ9Zyeb6Wge1VDIaHErbAycNdZYVlI+FmYLWiB8=";
     };
-    date = "2024-06-12";
+    date = "2024-06-14";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -733,13 +733,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3145";
+    version = "b3151";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3145";
+      rev = "b3151";
       fetchSubmodules = false;
-      sha256 = "sha256-P5QfRBR2Rg71x+3A2azWTN/8UvGfLRoAHUu7WhTUXYA=";
+      sha256 = "sha256-y6OTQ+QmFVlrmM3bTrk5SPQWgcXRh0SpUp1cgXV3Tow=";
     };
   };
   nbfc-linux-lantian = {
@@ -933,15 +933,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "40442e80fabc3b4402d8df1185a1dae4397c05f0";
+    version = "098a1c8c6e48aee3f9d1c5286b73509139d5754e";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "40442e80fabc3b4402d8df1185a1dae4397c05f0";
+      rev = "098a1c8c6e48aee3f9d1c5286b73509139d5754e";
       fetchSubmodules = false;
-      sha256 = "sha256-GQtzX10dfDs2S/4Fu/5UXTnbdOj5ysJz/RBAzILsQqM=";
+      sha256 = "sha256-GKkKN+AaCakolY2WhWUnF15rzXpO02AjgvnIdEaRNTI=";
     };
-    date = "2024-06-12";
+    date = "2024-06-14";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -1103,13 +1103,13 @@
   };
   qbittorrent-enhanced-edition = {
     pname = "qbittorrent-enhanced-edition";
-    version = "release-4.6.4.10";
+    version = "release-4.6.5.10";
     src = fetchFromGitHub {
       owner = "c0re100";
       repo = "qBittorrent-Enhanced-Edition";
-      rev = "release-4.6.4.10";
+      rev = "release-4.6.5.10";
       fetchSubmodules = false;
-      sha256 = "sha256-wrkc11H4t96D6qr9N/2CzG93zeNv7I1g9ieXyc4x5wk=";
+      sha256 = "sha256-Yy0DUTz1lWkseh9x1xnHJCI89BKqi/D7zUn/S+qC+kM=";
     };
   };
   qemu-user-static-amd64 = {
@@ -1353,10 +1353,10 @@
   };
   suwayomi-server = {
     pname = "suwayomi-server";
-    version = "v1.0.0/Suwayomi-Server-v1.0.0-r1498";
+    version = "v1.1.0/Suwayomi-Server-v1.1.0-r1532";
     src = fetchurl {
-      url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v1.0.0/Suwayomi-Server-v1.0.0-r1498.jar";
-      sha256 = "sha256-CskVYc+byfn3mNzbOX1fCXPpjihtWpoRGBpXDY378c0=";
+      url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v1.1.0/Suwayomi-Server-v1.1.0-r1532.jar";
+      sha256 = "sha256-x4d71rOGA47ieEhTz79Wtwy5LVRgTlBmegkc6+zJHm8=";
     };
   };
   svp = {
