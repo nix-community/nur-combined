@@ -24,7 +24,6 @@ python3Packages.buildPythonApplication rec {
   dontCheckRuntimeDeps = true;
 
   meta = with lib; {
-    broken = versionOlder lib.version "24.05"; # llm-ollama depends on python3Packages.ollama, which was not in 23.11
     description = "LLM plugin providing access to models running on local Ollama server.";
     homepage = "https://github.com/taketwo/llm-ollama";
     maintainers = with maintainers; [ javimerino ];
