@@ -1,31 +1,25 @@
 {
   lib,
-  buildGoModule,
-  fetchFromGitHub,
   alist,
-  testers,
-  fuse,
+  buildGoModule,
   fetchurl,
+  fuse,
   go,
+  stdenv,
+  installShellFiles,
+  testers,
+  sources,
 }:
 buildGoModule rec {
   pname = "alist";
-  version = "3.34.0";
-
-  src = fetchFromGitHub {
-    owner = "alist-org";
-    repo = "alist";
-    rev = "v${version}";
-    hash = "sha256-LHkUqOpZk8GZPUis+oX077w8LY7lLwrLu4AO/NvLVeg=";
-  };
-
+  inherit (sources.alist) src version;
   CGO_ENABLED = 1;
 
-  vendorHash = "sha256-1VZwBbpc1dH7kyCAAcidY8phIKTwZBJNH1TIdIWqiyc=";
+  vendorHash = "sha256-lZIM1Cy3JmcrnxC+HN9Ni7P70yVR1LtHVKe3nOhA4fg=";
 
   web = fetchurl {
     url = "https://github.com/alist-org/alist-web/releases/download/${version}/dist.tar.gz";
-    hash = "sha256-gqY0wg34iwzjhdAp0KI6gEe4JSc2IdCMJ2Iy+zMJRCw=";
+    hash = "sha256-lAYIwrn2TPWFrU0kFUXl8eWeX25U746iycOimZgxP8c=";
   };
 
   buildInputs = [ fuse ];
@@ -44,9 +38,6 @@ buildGoModule rec {
   ];
 
   preConfigure = ''
-    # wait for https://github.com/alist-org/alist/pull/6422 to merge
-    sed -z -i 's/setupStorages(t)//2' internal/op/storage_test.go
-
     # build sandbox do not provide network
     rm pkg/aria2/rpc/client_test.go pkg/aria2/rpc/call_test.go
 
@@ -57,18 +48,28 @@ buildGoModule rec {
     mv -f dist public
   '';
 
+  nativeBuildInputs = [ installShellFiles ];
+
+  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    installShellCompletion --cmd alist \
+      --bash <($out/bin/alist completion bash) \
+      --fish <($out/bin/alist completion fish) \
+      --zsh <($out/bin/alist completion zsh)
+  '';
+
   passthru.tests = {
     version = testers.testVersion {
       package = alist;
-      command = "${alist}/bin/alist version";
+      command = "${lib.getExe alist} version";
     };
   };
 
-  meta = with lib; {
+  meta = {
     description = "A file list/WebDAV program that supports multiple storages";
     homepage = "https://github.com/alist-org/alist";
-    license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ moraxyc ];
+    changelog = "https://github.com/alist-org/alist/releases/tag/v${version}";
+    license = lib.licenses.agpl3Plus;
+    maintainers = with lib.maintainers; [ moraxyc ];
     mainProgram = "alist";
   };
 }

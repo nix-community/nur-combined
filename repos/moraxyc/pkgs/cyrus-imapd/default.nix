@@ -50,8 +50,7 @@
 }:
 stdenv.mkDerivation rec {
   pname = "cyrus-imapd";
-  version = "3.8.2";
-  inherit (sources.cyrus-imapd) src;
+  inherit (sources.cyrus-imapd) src version;
 
   nativeBuildInputs = [
     makeWrapper
@@ -166,7 +165,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional withPgSQL "--with-pgsql"
     ++ lib.optional withSQLite "--with-sqlite";
 
-  checkInputs = [cunit];
+  checkInputs = [ cunit ];
   doCheck = true;
 
   passthru.tests = {
@@ -179,7 +178,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.cyrusimap.org";
     description = "Cyrus IMAP is an email, contacts and calendar server";
-    license = with licenses; [bsdOriginal];
+    license = with licenses; [ bsdOriginal ];
     mainProgram = "cyrus";
     #maintainers = with maintainers; [moraxyc];
     platforms = platforms.unix;
