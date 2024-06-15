@@ -15,6 +15,7 @@
             "repo": "cyrus-imapd",
             "rev": "cyrus-imapd-3.8.3",
             "sha256": "sha256-LK5mmtVxr6ljwqhaCA8g2bgxxSF0z1G8pbhnH2Idj3k=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "cyrus-imapd-3.8.3"
