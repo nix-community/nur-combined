@@ -3,10 +3,11 @@
   buildGoModule,
   fetchFromGitHub,
   pandoc,
+  installShellFiles,
   ...
 }: let
   pname = "goprocmgr";
-  version = "1.1.0";
+  version = "1.2.0";
 in
   buildGoModule {
     inherit pname version;
@@ -15,13 +16,14 @@ in
       owner = "TaserudConsulting";
       repo = "goprocmgr";
       rev = version;
-      sha256 = "sha256-sByMfayFhhnGnhMW25azakaBjjYQFFD3lxgbDO6fWto=";
+      sha256 = "sha256-hyJ3aOKKPvnDiNaHv2MghK/MURco2yUtv069VavJpYE=";
     };
 
     vendorHash = "sha256-aA+FeMBLhvh4pg3W4eHEfBtOf5oUnDDUkKnHEQA/+vI=";
 
     nativeBuildInputs = [
       pandoc
+      installShellFiles
     ];
 
     prePatch = ''
@@ -34,6 +36,7 @@ in
 
     postInstall = ''
       install -Dm644 goprocmgr.1 $out/share/man/man1/goprocmgr.1
+      installShellCompletion --cmd goprocmgr contrib/completions/goprocmgr.{fish,bash}
     '';
 
     meta = with lib; {
