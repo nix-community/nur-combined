@@ -1951,10 +1951,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "128.0.20240612.91431";
+      version = "128.0.20240614.92043";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4301871/deutsch_de_language_pack-128.0.20240612.91431.xpi";
-      sha256 = "7af040d8d27b873fe79de1017f3f2cd05482da463bd45d19914392add7a0da6e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4303077/deutsch_de_language_pack-128.0.20240614.92043.xpi";
+      sha256 = "f13eb7cf59e830d20d64c7c0c2728dbe96683adf5c2416a18bdb8029ab025455";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2881,10 +2881,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "128.0.20240612.91431";
+      version = "128.0.20240614.92043";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4301969/francais_language_pack-128.0.20240612.91431.xpi";
-      sha256 = "360b2dcd0c8fa8e37efa72496ec99b37ce2b56010fba4053ae669e488f6c2919";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4303128/francais_language_pack-128.0.20240614.92043.xpi";
+      sha256 = "24950dfa839c4aafd78577cf660e32451545fa3ee93b0424ea218919379af06a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3292,10 +3292,10 @@
     };
     "gnome-shell-integration" = buildFirefoxXpiAddon {
       pname = "gnome-shell-integration";
-      version = "11.1";
+      version = "12";
       addonId = "chrome-gnome-shell@gnome.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3974897/gnome_shell_integration-11.1.xpi";
-      sha256 = "dff05cff4e53254c03a91d047e776f77aeb1d069540aecd5e48209fae2a44c3b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4300298/gnome_shell_integration-12.xpi";
+      sha256 = "4c30f53dc1a29ae624e37c433f84df9d1ce64e6f4d996567f580fc88ee535e2c";
       meta = with lib;
       {
         homepage = "https://gnome.pages.gitlab.gnome.org/gnome-browser-integration/pages/gnome-browser-integration.html";
@@ -3307,8 +3307,8 @@
           "notifications"
           "storage"
           "tabs"
-          "https://extensions.gnome.org/"
           "https://extensions.gnome.org/*"
+          "https://extensions-next.gnome.org/*"
         ];
         platforms = platforms.all;
       };
@@ -7650,10 +7650,10 @@
     };
     "passff" = buildFirefoxXpiAddon {
       pname = "passff";
-      version = "1.19.4";
+      version = "1.19.5";
       addonId = "passff@invicem.pro";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4301803/passff-1.19.4.xpi";
-      sha256 = "10c3102999d02c7dda4e17351d95f73db563a27bdc4aeec7a8b7e6094cee61eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4303400/passff-1.19.5.xpi";
+      sha256 = "03331d671c759b8689726aca7146cc2e2d9a4118d2d00e184dda20d1176e79e7";
       meta = with lib;
       {
         homepage = "https://codeberg.org/PassFF/passff";
@@ -8864,10 +8864,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.6.13.1731";
+      version = "24.6.14";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4302695/refined_github-24.6.13.1731.xpi";
-      sha256 = "d8a7af3ffa0c2e3161fe5b70845ce6844acef3621b98a609528a2273ba3a70fd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4303296/refined_github-24.6.14.xpi";
+      sha256 = "4f1389428f0b2207fd450ce7dfd9ee3b08735df40e84ff2f343fdff4514de3a1";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
