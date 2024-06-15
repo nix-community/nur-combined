@@ -1,5 +1,5 @@
 {
   # Add your NixOS modules here
   #
-  # my-module = ./my-module;
+  firefly-iii-data-importer = ./services/web-apps/firefly-iii-data-importer.nix;
 }
