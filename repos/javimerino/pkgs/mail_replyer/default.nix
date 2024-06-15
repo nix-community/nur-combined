@@ -1,7 +1,6 @@
 { lib
 , fetchFromGitHub
 , python3Packages
-, python-ollama
 }:
 
 python3Packages.buildPythonApplication {
@@ -20,10 +19,11 @@ python3Packages.buildPythonApplication {
   propagatedBuildInputs = with python3Packages; [
     fire
     jinja2
-    python-ollama
+    ollama
   ];
 
   meta = with lib; {
+    broken = versionOlder lib.version "24.05"; # mail_replyer depends on python3Packages.ollama, which was not in 23.11
     description = "Test LLMs to write emails";
     homepage = "https://github.com/JaviMerino/mail_replyer";
     maintainers = with maintainers; [ javimerino ];

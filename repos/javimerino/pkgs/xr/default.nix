@@ -19,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-ZYwkp+iNVsU0olhjfv54uaacjpXGTCLZQClnqYVLvds=";
 
   meta = with lib; {
-    broken = versionOlder lib.version "24.05pre"; # xr depends on rustc 1.74, which is not present in 23.11
+    broken = versionOlder lib.version "24.05"; # xr depends on rustc 1.74, which is not present in 23.11
     description = "CLI utility for Xen state manipulation";
     longDescription = ''
       It's a rewrite of the logic currently present in `xl` and everything it
