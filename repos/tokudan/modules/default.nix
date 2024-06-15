@@ -1,6 +1,6 @@
 {
   # Add your NixOS modules here
   #
-  writefreely = ./writefreely;
+  checkmk-agent = ./checkmk-agent;
 }
 
