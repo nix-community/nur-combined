@@ -5,11 +5,11 @@
 }:
 python3Packages.buildPythonPackage rec {
   pname = "ollama";
-  version = "0.1.9";
+  version = "0.2.0";
   format = "pyproject";
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-9kSEsoDbD6A/uJlYDYo6ha83h/0qhbZ2abdD4xOz+vE=";
+    hash = "sha256-3gVsraKpJDMZUQLaK4/1D2YzWxOO/10nd2XIrfeZg/A=";
   };
 
   nativeBuildInputs = [
