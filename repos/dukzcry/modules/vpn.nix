@@ -95,11 +95,6 @@ in {
         VirtualAddrNetworkIPv4 = cfg.tor.network;
         AutomapHostsOnResolve = true;
       };
-      services.dnsmasq.enable = mkDefault true;
-      services.dnsmasq.settings = {
-        server = [ "/onion/${cfg.address}#9053" ];
-        rebind-domain-ok = "onion";
-      };
     })
     (mkIf (tor && config.networking.nftables.enable) {
       networking.nftables.tables = {

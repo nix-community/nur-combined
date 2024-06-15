@@ -13,7 +13,7 @@ in {
     };
     ytdlSettings = mkOption {
       type = format.type;
-      default = { };
+      default = {};
     };
     user = mkOption {
       type = types.str;
@@ -35,6 +35,7 @@ in {
         group = cfg.group;
         home = cfg.dataDir;
         isSystemUser = true;
+        createHome = true;
       };
     };
     users.groups = mkIf (cfg.group == "metube") {
