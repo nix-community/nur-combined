@@ -1183,13 +1183,13 @@ let
         sha512 = "nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==";
       };
     };
-    "acorn-8.11.3" = {
+    "acorn-8.12.0" = {
       name = "acorn";
       packageName = "acorn";
-      version = "8.11.3";
+      version = "8.12.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/acorn/-/acorn-8.11.3.tgz";
-        sha512 = "Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==";
+        url = "https://registry.npmjs.org/acorn/-/acorn-8.12.0.tgz";
+        sha512 = "RTvkC4w+KNXrM39/lWCUaG0IbRkWdCv7W/IOW9oU6SawyxulvkQy5HQPVTKxEjczcUvapcrw3cFx/60VN/NRNw==";
       };
     };
     "acorn-globals-4.3.4" = {
@@ -1705,13 +1705,13 @@ let
         sha512 = "Z942RysHXmJrhqk88FmKBVq/v5tqmSkDz7p54G/MGyjMnCFFnC79XWNbg+Vta8W6Wb2qtSZTSxIGkJrRpCFEiA==";
       };
     };
-    "browserslist-4.23.0" = {
+    "browserslist-4.23.1" = {
       name = "browserslist";
       packageName = "browserslist";
-      version = "4.23.0";
+      version = "4.23.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.23.0.tgz";
-        sha512 = "QW8HiM1shhT2GuzkvklfjcKDiWFXHOeFCIA/huJPwHsslwcydgk7X+z2zXpEijP98UCY7HbubZt5J2Zgvf0CaQ==";
+        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.23.1.tgz";
+        sha512 = "TUfofFo/KsK/bWZ9TWQ5O26tsWW4Uhmt8IYklbnUa70udB6P2wA7w7o4PY4muaEPBQaAX+CEnmmIA41NVHtPVw==";
       };
     };
     "buffer-4.9.2" = {
@@ -1822,13 +1822,13 @@ let
         sha512 = "bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==";
       };
     };
-    "caniuse-lite-1.0.30001629" = {
+    "caniuse-lite-1.0.30001634" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001629";
+      version = "1.0.30001634";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001629.tgz";
-        sha512 = "c3dl911slnQhmxUIT4HhYzT7wnBK/XYpGnYLOj4nJBaRiw52Ibe7YxlDaAeRECvA786zCuExhxIUJ2K7nHMrBw==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001634.tgz";
+        sha512 = "fbBYXQ9q3+yp1q1gBk86tOFs4pyn/yxFm5ZNP18OXJDfA3txImOY9PhfxVggZ4vRHDqoU8NrKU81eN0OtzOgRA==";
       };
     };
     "caseless-0.12.0" = {
@@ -2677,13 +2677,13 @@ let
         sha512 = "WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==";
       };
     };
-    "electron-to-chromium-1.4.796" = {
+    "electron-to-chromium-1.4.803" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.796";
+      version = "1.4.803";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.796.tgz";
-        sha512 = "NglN/xprcM+SHD2XCli4oC6bWe6kHoytcyLKCWXmRL854F0qhPhaYgUswUsglnPxYaNQIg2uMY4BvaomIf3kLA==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.803.tgz";
+        sha512 = "61H9mLzGOCLLVsnLiRzCbc63uldP0AniRYPV3hbGVtONA1pI7qSGILdbofR7A8TMbOypDocEAjH/e+9k1QIe3g==";
       };
     };
     "elliptic-6.5.5" = {
@@ -4504,13 +4504,13 @@ let
         sha512 = "6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==";
       };
     };
-    "nan-2.19.0" = {
+    "nan-2.20.0" = {
       name = "nan";
       packageName = "nan";
-      version = "2.19.0";
+      version = "2.20.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/nan/-/nan-2.19.0.tgz";
-        sha512 = "nO1xXxfh/RWNxfd/XPfbIfFk5vgLsAxUR9y5O0cHMJu/AW9U95JLXqthYHjEp+8gQ5p96K9jUp8nbVOxCdRbtw==";
+        url = "https://registry.npmjs.org/nan/-/nan-2.20.0.tgz";
+        sha512 = "bk3gXBZDGILuuo/6sKtr0DQmSThYHLtNCdSdXk9YkxD/jK6X2vmCyyXBBxyqZ4XcnzTyYEAThfX3DCEnLf6igw==";
       };
     };
     "nanomatch-1.2.13" = {
@@ -7161,7 +7161,7 @@ let
           sources."pako-1.0.11"
         ];
       })
-      sources."browserslist-4.23.0"
+      sources."browserslist-4.23.1"
       (sources."buffer-4.9.2" // {
         dependencies = [
           sources."isarray-1.0.0"
@@ -7178,7 +7178,7 @@ let
       sources."caller-path-2.0.0"
       sources."callsites-2.0.0"
       sources."caniuse-api-3.0.0"
-      sources."caniuse-lite-1.0.30001629"
+      sources."caniuse-lite-1.0.30001634"
       sources."caseless-0.12.0"
       sources."chalk-2.4.2"
       sources."chokidar-2.1.8"
@@ -7237,7 +7237,11 @@ let
       sources."css-select-2.1.0"
       sources."css-select-base-adapter-0.1.1"
       sources."css-selector-tokenizer-0.7.3"
-      sources."css-tree-1.0.0-alpha.37"
+      (sources."css-tree-1.0.0-alpha.37" // {
+        dependencies = [
+          sources."mdn-data-2.0.4"
+        ];
+      })
       sources."css-what-3.4.2"
       sources."cssesc-3.0.0"
       sources."cssnano-4.1.11"
@@ -7249,7 +7253,6 @@ let
       (sources."csso-4.2.0" // {
         dependencies = [
           sources."css-tree-1.1.3"
-          sources."mdn-data-2.0.14"
         ];
       })
       sources."cssom-0.3.8"
@@ -7304,7 +7307,7 @@ let
       sources."duplexer2-0.1.4"
       sources."ecc-jsbn-0.1.2"
       sources."ee-first-1.1.1"
-      sources."electron-to-chromium-1.4.796"
+      sources."electron-to-chromium-1.4.803"
       (sources."elliptic-6.5.5" // {
         dependencies = [
           sources."bn.js-4.12.0"
@@ -7423,7 +7426,7 @@ let
       sources."html-tags-1.2.0"
       (sources."htmlnano-0.2.9" // {
         dependencies = [
-          sources."acorn-8.11.3"
+          sources."acorn-8.12.0"
           sources."posthtml-0.15.2"
           sources."posthtml-parser-0.7.2"
           sources."terser-5.31.1"
@@ -7523,7 +7526,7 @@ let
       sources."map-cache-0.2.2"
       sources."map-visit-1.0.0"
       sources."md5.js-1.3.5"
-      sources."mdn-data-2.0.4"
+      sources."mdn-data-2.0.14"
       (sources."merge-source-map-1.0.4" // {
         dependencies = [
           sources."source-map-0.5.7"
@@ -7558,7 +7561,7 @@ let
       })
       sources."mkdirp-0.5.6"
       sources."ms-2.1.2"
-      sources."nan-2.19.0"
+      sources."nan-2.20.0"
       (sources."nanomatch-1.2.13" // {
         dependencies = [
           sources."define-property-2.0.2"

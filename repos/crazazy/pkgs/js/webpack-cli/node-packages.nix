@@ -292,22 +292,22 @@ let
         sha512 = "NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==";
       };
     };
-    "acorn-8.11.3" = {
+    "acorn-8.12.0" = {
       name = "acorn";
       packageName = "acorn";
-      version = "8.11.3";
+      version = "8.12.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/acorn/-/acorn-8.11.3.tgz";
-        sha512 = "Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==";
+        url = "https://registry.npmjs.org/acorn/-/acorn-8.12.0.tgz";
+        sha512 = "RTvkC4w+KNXrM39/lWCUaG0IbRkWdCv7W/IOW9oU6SawyxulvkQy5HQPVTKxEjczcUvapcrw3cFx/60VN/NRNw==";
       };
     };
-    "acorn-import-assertions-1.9.0" = {
-      name = "acorn-import-assertions";
-      packageName = "acorn-import-assertions";
-      version = "1.9.0";
+    "acorn-import-attributes-1.9.5" = {
+      name = "acorn-import-attributes";
+      packageName = "acorn-import-attributes";
+      version = "1.9.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/acorn-import-assertions/-/acorn-import-assertions-1.9.0.tgz";
-        sha512 = "cmMwop9x+8KFhxvKrKfPYmN6/pKTYYHBqLa0DfvVZcKMJWNyWLnaqND7dx/qn66R7ewM1UX5XMaDVP5wlVTaVA==";
+        url = "https://registry.npmjs.org/acorn-import-attributes/-/acorn-import-attributes-1.9.5.tgz";
+        sha512 = "n02Vykv5uA3eHGM/Z2dQrcD56kL8TyDb2p1+0P83PClMnC/nc+anbQRhIOWnSq4Ke/KvDPrY3C9hDtC/A3eHnQ==";
       };
     };
     "ajv-6.12.6" = {
@@ -328,13 +328,13 @@ let
         sha512 = "5p6WTN0DdTGVQk6VjcEju19IgaHudalcfabD7yhDGeA6bcQnmL+CpveLJq/3hvfwd1aof6L386Ougkx6RfyMIQ==";
       };
     };
-    "browserslist-4.23.0" = {
+    "browserslist-4.23.1" = {
       name = "browserslist";
       packageName = "browserslist";
-      version = "4.23.0";
+      version = "4.23.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.23.0.tgz";
-        sha512 = "QW8HiM1shhT2GuzkvklfjcKDiWFXHOeFCIA/huJPwHsslwcydgk7X+z2zXpEijP98UCY7HbubZt5J2Zgvf0CaQ==";
+        url = "https://registry.npmjs.org/browserslist/-/browserslist-4.23.1.tgz";
+        sha512 = "TUfofFo/KsK/bWZ9TWQ5O26tsWW4Uhmt8IYklbnUa70udB6P2wA7w7o4PY4muaEPBQaAX+CEnmmIA41NVHtPVw==";
       };
     };
     "buffer-from-1.1.2" = {
@@ -346,13 +346,13 @@ let
         sha512 = "E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==";
       };
     };
-    "caniuse-lite-1.0.30001629" = {
+    "caniuse-lite-1.0.30001634" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001629";
+      version = "1.0.30001634";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001629.tgz";
-        sha512 = "c3dl911slnQhmxUIT4HhYzT7wnBK/XYpGnYLOj4nJBaRiw52Ibe7YxlDaAeRECvA786zCuExhxIUJ2K7nHMrBw==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001634.tgz";
+        sha512 = "fbBYXQ9q3+yp1q1gBk86tOFs4pyn/yxFm5ZNP18OXJDfA3txImOY9PhfxVggZ4vRHDqoU8NrKU81eN0OtzOgRA==";
       };
     };
     "chrome-trace-event-1.0.4" = {
@@ -409,13 +409,13 @@ let
         sha512 = "iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==";
       };
     };
-    "electron-to-chromium-1.4.796" = {
+    "electron-to-chromium-1.4.803" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.796";
+      version = "1.4.803";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.796.tgz";
-        sha512 = "NglN/xprcM+SHD2XCli4oC6bWe6kHoytcyLKCWXmRL854F0qhPhaYgUswUsglnPxYaNQIg2uMY4BvaomIf3kLA==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.803.tgz";
+        sha512 = "61H9mLzGOCLLVsnLiRzCbc63uldP0AniRYPV3hbGVtONA1pI7qSGILdbofR7A8TMbOypDocEAjH/e+9k1QIe3g==";
       };
     };
     "enhanced-resolve-5.17.0" = {
@@ -1021,13 +1021,13 @@ let
         sha512 = "8wrBCMtVhqcXP2Sup1ctSkga6uc2Bx0IIvKyT7yTFier5AXHooSI+QyQQAtTb7+E0IUCCKyTFmXqdqgum2XWGg==";
       };
     };
-    "webpack-5.91.0" = {
+    "webpack-5.92.0" = {
       name = "webpack";
       packageName = "webpack";
-      version = "5.91.0";
+      version = "5.92.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/webpack/-/webpack-5.91.0.tgz";
-        sha512 = "rzVwlLeBWHJbmgTC/8TvAcu5vpJNII+MelQpylD4jNERPwpBJOE2lEcko1zJX3QJeLjTTAnQxn/OJ8bjDzVQaw==";
+        url = "https://registry.npmjs.org/webpack/-/webpack-5.92.0.tgz";
+        sha512 = "Bsw2X39MYIgxouNATyVpCNVWBCuUwDgWtN78g6lSdPJRLaQ/PUVm/oXcaRAyY/sMFoKFQrsPeqvTizWtq7QPCA==";
       };
     };
     "webpack-cli-5.1.4" = {
@@ -1114,19 +1114,19 @@ let
       sources."@webpack-cli/serve-2.0.5"
       sources."@xtuc/ieee754-1.2.0"
       sources."@xtuc/long-4.2.2"
-      sources."acorn-8.11.3"
-      sources."acorn-import-assertions-1.9.0"
+      sources."acorn-8.12.0"
+      sources."acorn-import-attributes-1.9.5"
       sources."ajv-6.12.6"
       sources."ajv-keywords-3.5.2"
-      sources."browserslist-4.23.0"
+      sources."browserslist-4.23.1"
       sources."buffer-from-1.1.2"
-      sources."caniuse-lite-1.0.30001629"
+      sources."caniuse-lite-1.0.30001634"
       sources."chrome-trace-event-1.0.4"
       sources."clone-deep-4.0.1"
       sources."colorette-2.0.20"
       sources."commander-10.0.1"
       sources."cross-spawn-7.0.3"
-      sources."electron-to-chromium-1.4.796"
+      sources."electron-to-chromium-1.4.803"
       sources."enhanced-resolve-5.17.0"
       sources."envinfo-7.13.0"
       sources."es-module-lexer-1.5.3"
@@ -1201,7 +1201,7 @@ let
       sources."update-browserslist-db-1.0.16"
       sources."uri-js-4.4.1"
       sources."watchpack-2.4.1"
-      sources."webpack-5.91.0"
+      sources."webpack-5.92.0"
       sources."webpack-cli-5.1.4"
       sources."webpack-merge-5.10.0"
       sources."webpack-sources-3.2.3"

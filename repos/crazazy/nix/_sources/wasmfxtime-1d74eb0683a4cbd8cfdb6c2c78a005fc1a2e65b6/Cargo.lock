@@ -3410,6 +3410,7 @@ dependencies = [
  "cc",
  "cfg-if",
  "encoding_rs",
+ "env_logger",
  "fxprof-processed-profile",
  "gimli",
  "hashbrown 0.14.3",
@@ -3420,7 +3421,6 @@ dependencies = [
  "log",
  "mach2",
  "memfd",
- "memoffset",
  "object 0.36.0",
  "once_cell",
  "paste",
@@ -3835,6 +3835,7 @@ dependencies = [
 name = "wasmtime-types"
 version = "23.0.0"
 dependencies = [
+ "anyhow",
  "cranelift-entity",
  "serde",
  "serde_derive",
