@@ -26,7 +26,6 @@ stdenv.mkDerivation rec {
     description = "Commodore BASIC V2 as a scripting language";
     homepage    = https://github.com/mist64/cbmbasic;
     license     = licenses.unfree;
-    maintainers = with maintainers; [ tokudan ];
   };
 }
 

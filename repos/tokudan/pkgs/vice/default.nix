@@ -45,7 +45,6 @@ stdenv.mkDerivation rec {
     description = "Commodore 64, 128 and other emulators";
     homepage = "http://www.viceteam.org";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.tokudan ];
     platforms = lib.platforms.linux;
   };
 }

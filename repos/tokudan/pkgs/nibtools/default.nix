@@ -46,6 +46,5 @@ stdenv.mkDerivation rec {
     description = "a disk transfer program designed for copying original disks and converting into the G64 and D64 disk image formats";
     homepage    = https://c64preservation.com/dp.php?pg=nibtools;
     license     = licenses.unfree;
-    maintainers = with maintainers; [ tokudan ];
   };
 }

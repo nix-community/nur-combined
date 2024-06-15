@@ -47,7 +47,6 @@ stdenv.mkDerivation rec {
     description = "Tools to access the Commodore 1541 and similar disk drives from PCs";
     homepage    = https://github.com/OpenCBM/OpenCBM;
     license     = licenses.gpl2;
-    maintainers = with maintainers; [ tokudan ];
   };
 }
 

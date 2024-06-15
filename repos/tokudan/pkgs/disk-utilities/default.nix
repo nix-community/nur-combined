@@ -20,7 +20,6 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = https://github.com/keirf/Disk-Utilities;
     description  = "collection of utilities for ripping, dumping, analysing, and modifying disk images";
-    maintainers = with lib.maintainers; [ tokudan ];
     platforms = lib.platforms.all;
   };
 }
