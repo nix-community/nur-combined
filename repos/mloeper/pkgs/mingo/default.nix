@@ -19,7 +19,7 @@ let
   desktopFile = pkgs.substituteAll {
     inherit version;
     src = ./share/applications/mingo.desktop;
-    exec = "${appImage}/bin/${appImage.name}";
+    exec = "${appImage}/bin/${appImage.pname}";
     icon = ./share/icons/icon.png;
   };
   xdgDirectory = stdenv.mkDerivation {
@@ -34,7 +34,7 @@ let
     '';
     unpackPhase = ":";
   };
-  appImageWrapper = (pkgs.writeShellScriptBin "mingo" "exec -a $0 ${appImage}/bin/${appImage.name} $@"); # renames the mingo-xxxx executable to "mingo"
+  appImageWrapper = (pkgs.writeShellScriptBin "mingo" "exec -a $0 ${appImage}/bin/${appImage.pname} $@"); # renames the mingo-xxxx executable to "mingo"
 in
 pkgs.symlinkJoin
 {
