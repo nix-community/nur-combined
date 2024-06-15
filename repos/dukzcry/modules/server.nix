@@ -31,7 +31,6 @@ in {
       environment = {
         systemPackages = with pkgs; with pkgs.nur.repos.dukzcry; [
           jellyfin-media-player
-          cockpit-client
         ];
       };
       virtualisation.spiceUSBRedirection.enable = true;
