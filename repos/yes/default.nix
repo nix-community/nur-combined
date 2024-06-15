@@ -16,5 +16,7 @@ with pkgs;
     inherit pkgs;
   });
 
+  rgssad = callPackage ./rgssad { };
+
   xonsh-direnv = callPackage ./xonsh-direnv { };
 }
