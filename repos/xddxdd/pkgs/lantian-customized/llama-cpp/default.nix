@@ -15,4 +15,9 @@
     (lib.cmakeBool "LLAMA_FMA" false)
     (lib.cmakeBool "LLAMA_F16C" false)
   ];
+
+  postInstall = ''
+    mkdir -p $out/include
+    cp $src/llama.h $out/include/
+  '';
 })
