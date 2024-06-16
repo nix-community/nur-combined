@@ -11,7 +11,7 @@ let
     platforms = [
       "x86_64-linux"
     ];
-    license = lib.licenses.unfree; # Source available, without a license, but I have explicit permission from the author to redistribute
+    license = lib.licenses.gpl3Plus;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
 
