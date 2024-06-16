@@ -13,29 +13,4 @@ with pkgs.lib; {
       in if list == [] then acc
          else acc ++ (foldmap seed [(func x acc')] func xs);
   };
-  systemd = {
-    default = {
-      LockPersonality = true;
-      PrivateIPC = true;
-      PrivateMounts = true;
-      ProtectClock = true;
-      ProtectControlGroups = true;
-      ProtectHostname = true;
-      ProtectKernelLogs = true;
-      ProtectKernelModules = true;
-      ProtectKernelTunables = true;
-      ProtectProc = "invisible";
-      RestrictNamespaces = true;
-      RestrictRealtime = true;
-      MemoryDenyWriteExecute = true;
-      SystemCallArchitectures = "native";
-    };
-    dynamic = {
-      PrivateTmp = true;
-      RemoveIPC = true;
-      NoNewPrivileges = true;
-      ProtectSystem = "strict";
-      RestrictSUIDSGID = true;
-    };
-  };
 }
