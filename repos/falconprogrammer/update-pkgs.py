@@ -7,9 +7,11 @@ let_tag = "<<TEMPLATE_LET>>"
 package_tag = "<<TEMPLATE_PACKAGES>>"
 
 python_versions = ["310", "311"]
+python_app_version = "311"
+
 
 def main():
-	pkgs = Path('pkgs')
+	pkgs = Path("pkgs")
 
 	# get a list of all packages in pkgs (folders)
 	pkg_list = [x for x in pkgs.iterdir() if x.is_dir()]
@@ -52,12 +54,16 @@ def main():
 
 		# Check if the default.nix contains buildPythonPackage in the opening arguments
 		python_package = False
+		python_application = False
 
 		with open(pkg_dir / "default.nix") as f:
 			while True:
 				line = f.readline()
-				if "buildPythonPackage" in line or "buildPythonApplication" in line:
+				if "buildPythonPackage" in line:
 					python_package = True
+					break
+				if "buildPythonApplication" in line:
+					python_application = True
 					break
 				if "}" in line:
 					break
@@ -69,8 +75,13 @@ def main():
 					if p_ver not in limit_python_versions[pkg.name]:
 						continue
 
-				package_string += f"{indent}{pkg.name}_{p_ver} = p_{p_ver}.callPackage {str(pkg)} {{python-ver = {p_ver};}};\n"
+				package_string += (
+					f"{indent}{pkg.name}_{p_ver} = p_{p_ver}.callPackage {str(pkg)} {{python-ver = {p_ver};}};\n"
+				)
 				output_packages.append(f"{pkg.name}_{p_ver}")
+		elif python_application:
+			print(f"Package {pkg.name} is a python application")
+			package_string += f"{indent}{pkg.name} = p_{python_app_version}.callPackage {str(pkg)} {{}};\n"
 		else:
 			print(f"Package {pkg.name} is not a python package")
 			package_string += f"{indent}{pkg.name} = pkgs.callPackage {str(pkg)} {{}};\n"
@@ -101,8 +112,5 @@ def main():
 			print(f"\t{pkg}")
 
 
-
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
 	exit(main())

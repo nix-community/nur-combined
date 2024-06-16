@@ -1,25 +1,31 @@
 { lib
+, pdm-pep517
 , python3
 , fetchFromGitHub
+, buildPythonApplication
+, pygithub
+, levenshtein
+, requests
+, typer
 }:
 
-python3.pkgs.buildPythonApplication rec {
+buildPythonApplication rec {
   pname = "gitignore-template";
-  version = "1.2.0";
+  version = "1.2.4";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "JonBoyleCoding";
     repo = "gitignore-template";
     rev = version;
-    hash = "sha256-HeJXgRxXkzo+HxS5l7MSyHlURZolQqOfkb3kEmGObqU=";
+    hash = "sha256-A8SczWSLwHOZbfxMGyv0Cr53eVfoWmQ8KgjaBE9t3Ds=";
   };
 
   nativeBuildInputs = [
-    python3.pkgs.poetry-core
+    pdm-pep517
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
+  propagatedBuildInputs = [
     pygithub
     levenshtein
     requests
