@@ -55,17 +55,19 @@ let
       "--without-gmp"
     ];
   });
+  rev = "8fcd6dd6056ebeda6c90b594079025da273a81fb";
+  short-rev = builtins.substring 0 7 rev;
 in
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "mkxp-z";
-  version = "2.4.2";
+  version = "2.4.2-unstable-2024-04-30";
 
   src = fetchFromGitHub {
+    inherit rev;
     owner = "mkxp-z";
     repo = "mkxp-z";
-    rev = "v${version}";
-    hash = "sha256-QjB+8qslC1g6gPt7qrHbufqJptNZrL9vY6KuTXOMRCk=";
+    hash = "sha256-h55flvWrfwWuyiOV4KGhbrg1e6jyVzG32pIv+mK+p4E=";
   };
 
   nativeBuildInputs = [
@@ -119,6 +121,7 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace meson.build \
+      --replace-fail "run_command('git', 'rev-parse', '--short', 'HEAD').stdout().strip()" "'${short-rev}'" \
       --replace-fail "global_link_args = []" "global_link_args = ['-ltheoradec']"
 
     substituteInPlace src/*.cpp src/*/*.cpp \
