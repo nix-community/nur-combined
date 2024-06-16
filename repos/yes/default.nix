@@ -12,6 +12,8 @@ with pkgs;
     inherit rp;
   };
 
+  mkxp-z = callPackage ./mkxp-z { };
+
   nodePackages = recurseIntoAttrs (import ./nodePackages/override.nix {
     inherit pkgs;
   });
