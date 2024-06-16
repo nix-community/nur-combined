@@ -15,6 +15,7 @@
             "repo": "alist",
             "rev": "v3.35.0",
             "sha256": "sha256-N9WgaPzc8cuDN7N0Ny3t6ARGla0lCluzF2Mut3Pg880=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "v3.35.0"
@@ -35,6 +36,7 @@
             "repo": "cyrus-imapd",
             "rev": "cyrus-imapd-3.8.3",
             "sha256": "sha256-LK5mmtVxr6ljwqhaCA8g2bgxxSF0z1G8pbhnH2Idj3k=",
+            "sparseCheckout": [],
             "type": "github"
         },
         "version": "cyrus-imapd-3.8.3"
