@@ -105,6 +105,18 @@ let
   python = python3.override {
     self = python;
     packageOverrides = final: prev: {
+      djangorestframework = prev.djangorestframework.overridePythonAttrs (oldAttrs: rec {
+        version = "3.14.0";
+        src = oldAttrs.src.override {
+          rev = version;
+          hash = "sha256-Fnj0n3NS3SetOlwSmGkLE979vNJnYE6i6xwVBslpNz4=";
+        };
+        nativeCheckInputs = with prev; [
+          pytest7CheckHook
+          pytest-django
+        ];
+      });
+
       django-tenants = prev.buildPythonPackage rec {
         pname = "django-tenants";
         version = "unstable-2024-01-11";
