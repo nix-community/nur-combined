@@ -1869,7 +1869,7 @@
     },
     "plasma-desktop-lyrics": {
         "cargoLocks": null,
-        "date": null,
+        "date": "2024-06-12",
         "extract": null,
         "name": "plasma-desktop-lyrics",
         "passthru": null,
@@ -1881,12 +1881,12 @@
             "name": null,
             "owner": "chiyuki0325",
             "repo": "PlasmaDesktopLyrics",
-            "rev": "v0.1",
-            "sha256": "sha256-FnZAGqyG/0IkDPlh09HfvdXHtnZRJs/70NUcsrp+bHA=",
+            "rev": "436db84c89423be75668229ae0ed93309f63d7c9",
+            "sha256": "sha256-gvd4k76xLF606W/Ktew2aqe1A2UNet5sImDeYh9/v5I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.1"
+        "version": "436db84c89423be75668229ae0ed93309f63d7c9"
     },
     "plasma-panel-transparency-toggle": {
         "cargoLocks": null,

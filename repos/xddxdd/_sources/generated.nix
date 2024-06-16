@@ -1039,14 +1039,15 @@
   };
   plasma-desktop-lyrics = {
     pname = "plasma-desktop-lyrics";
-    version = "v0.1";
+    version = "436db84c89423be75668229ae0ed93309f63d7c9";
     src = fetchFromGitHub {
       owner = "chiyuki0325";
       repo = "PlasmaDesktopLyrics";
-      rev = "v0.1";
+      rev = "436db84c89423be75668229ae0ed93309f63d7c9";
       fetchSubmodules = false;
-      sha256 = "sha256-FnZAGqyG/0IkDPlh09HfvdXHtnZRJs/70NUcsrp+bHA=";
+      sha256 = "sha256-gvd4k76xLF606W/Ktew2aqe1A2UNet5sImDeYh9/v5I=";
     };
+    date = "2024-06-12";
   };
   plasma-panel-transparency-toggle = {
     pname = "plasma-panel-transparency-toggle";

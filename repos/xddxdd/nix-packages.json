@@ -2616,13 +2616,13 @@
   },
   "legacyPackages.x86_64-linux.plasma-desktop-lyrics": {
     "description": "KDE Plasma 桌面歌词显示挂件（后台服务）",
-    "pname": "plasma-desktop-lyrics",
-    "version": "0.1"
+    "pname": "plasma-desktop-lyrics-unstable",
+    "version": "2024-06-12"
   },
   "legacyPackages.x86_64-linux.plasma-desktop-lyrics-plasmoid": {
     "description": "KDE Plasma 桌面歌词显示挂件（Plasmoid 组件）",
-    "pname": "plasma-desktop-lyrics",
-    "version": "0.1"
+    "pname": "plasma-desktop-lyrics-unstable",
+    "version": "2024-06-12"
   },
   "legacyPackages.x86_64-linux.plasma-panel-transparency-toggle": {
     "description": "A rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
@@ -3331,13 +3331,13 @@
   },
   "packages.x86_64-linux.plasma-desktop-lyrics": {
     "description": "KDE Plasma 桌面歌词显示挂件（后台服务）",
-    "pname": "plasma-desktop-lyrics",
-    "version": "0.1"
+    "pname": "plasma-desktop-lyrics-unstable",
+    "version": "2024-06-12"
   },
   "packages.x86_64-linux.plasma-desktop-lyrics-plasmoid": {
     "description": "KDE Plasma 桌面歌词显示挂件（Plasmoid 组件）",
-    "pname": "plasma-desktop-lyrics",
-    "version": "0.1"
+    "pname": "plasma-desktop-lyrics-unstable",
+    "version": "2024-06-12"
   },
   "packages.x86_64-linux.plasma-panel-transparency-toggle": {
     "description": "A rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",

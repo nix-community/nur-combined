@@ -187,8 +187,8 @@ Or, use variables from this repository in case I change them:
 |  | `peerbanhelper` | [peerbanhelper](https://github.com/Ghost-chu/PeerBanHelper) | 3.3.7 | 自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission |
 |  | `phpmyadmin` | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.1 | A web interface for MySQL and MariaDB |
 |  | `phppgadmin` | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | 7.14.7-mod | The premier web-based administration tool for PostgreSQL |
-|  | `plasma-desktop-lyrics` | [plasma-desktop-lyrics](https://github.com/chiyuki0325/PlasmaDesktopLyrics) | 0.1 | KDE Plasma 桌面歌词显示挂件（后台服务） |
-|  | `plasma-desktop-lyrics-plasmoid` | [plasma-desktop-lyrics](https://github.com/chiyuki0325/PlasmaDesktopLyrics) | 0.1 | KDE Plasma 桌面歌词显示挂件（Plasmoid 组件） |
+|  | `plasma-desktop-lyrics` | [plasma-desktop-lyrics](https://github.com/chiyuki0325/PlasmaDesktopLyrics) | unstable-2024-06-12 | KDE Plasma 桌面歌词显示挂件（后台服务） |
+|  | `plasma-desktop-lyrics-plasmoid` | [plasma-desktop-lyrics](https://github.com/chiyuki0325/PlasmaDesktopLyrics) | unstable-2024-06-12 | KDE Plasma 桌面歌词显示挂件（Plasmoid 组件） |
 |  | `plasma-panel-transparency-toggle` | [plasma-panel-transparency-toggle](https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6) | unstable-2024-04-17 | A rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6 |
 |  | `pocl` | [pocl](http://portablecl.org) | 5.0 | A portable open source (MIT-licensed) implementation of the OpenCL standard |
 |  | `procps4` | [procps4](https://gitlab.com/procps-ng/procps) | 4.0.4 | Utilities that give information about processes using the /proc filesystem |

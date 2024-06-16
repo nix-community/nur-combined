@@ -410,7 +410,7 @@ src.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic"
 fetch.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic"
 
 [plasma-desktop-lyrics]
-src.github = "chiyuki0325/PlasmaDesktopLyrics"
+src.git = "https://github.com/chiyuki0325/PlasmaDesktopLyrics.git"
 fetch.github = "chiyuki0325/PlasmaDesktopLyrics"
 
 [plasma-panel-transparency-toggle]
