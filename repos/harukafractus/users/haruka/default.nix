@@ -1,5 +1,4 @@
 { pkgs, config, home-manager, hm-flatpak, ... }: {
-
   users.users.haruka = if pkgs.stdenv.isLinux then {
     shell = pkgs.zsh;
     isNormalUser = true;

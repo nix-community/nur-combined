@@ -6,8 +6,7 @@
   imports = [
     ./hardware-configuration.nix
     ./asahi-silicon
-    ../_options
-    ../_options/linux.nix
+    ../_linux_options
   ];
 
   sessions = {
@@ -35,6 +34,4 @@
   programs.adb.enable = true;
 
   system.stateVersion = "unstable";
-
-  services.flatpak.enable = true;
 }

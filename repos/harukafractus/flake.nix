@@ -14,10 +14,37 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, home-manager, asahi, ... }@attrs: {
+  outputs = { self, nixpkgs, home-manager, asahi, ... }@attrs: 
+  let default_cfg = ({ pkgs, ... }: {
+    # Zsh required for nix-darwin and nixos to work
+    programs.zsh.enable = true;
+
+    # Enable flakes and hard links
+    nix.settings = {
+      experimental-features = "nix-command flakes";
+      auto-optimise-store = true;
+      show-trace = true;
+      trusted-users = [ "@admin" "@wheel" "root" ];
+    };
+  
+    environment.systemPackages = with pkgs; [
+      android-tools
+      htop
+      git
+      curl
+      coreutils-full
+      util-linux
+      smartmontools
+      pciutils
+      wget
+      bat
+      unar
+    ];
+  }); in {
     nixosConfigurations."nix-isnt-xnu" = nixpkgs.lib.nixosSystem {
       specialArgs = attrs;
       modules = [
+        default_cfg
         home-manager.nixosModules.home-manager
         asahi.nixosModules.apple-silicon-support
         ./devices/nix-isnt-xnu
@@ -27,6 +54,7 @@
   
     darwinConfigurations."walled-garden" = attrs.nix-darwin.lib.darwinSystem {
       modules = [
+        default_cfg
         home-manager.darwinModules.home-manager
         ./devices/walled-garden
         ./users/haruka

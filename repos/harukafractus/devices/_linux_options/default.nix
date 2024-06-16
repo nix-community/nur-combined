@@ -21,5 +21,4 @@
   environment.defaultPackages = lib.mkForce [];
 
   time.timeZone = lib.mkForce null;
-
 }

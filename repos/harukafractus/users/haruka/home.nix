@@ -9,6 +9,8 @@ let
     bottles
     gthumb
     audacious
+    gnome-console
+    waybar
   ];
   all-platforms = with pkgs; [
     vscodium
@@ -21,6 +23,7 @@ let
 in {
   imports = [
     ../_homeOptions
+    ./apps/git.nix
   ];
 
   dotfiles = {
@@ -39,27 +42,4 @@ in {
   };
 
   home.packages = all-platforms ++ (if pkgs.stdenv.isDarwin then mac-only else linux-only);
-
-  programs = {
-    # Enable Git
-    git = {
-      enable = true;
-      extraConfig = {
-        init = {
-          defaultBranch = "main";
-        };
-        user = {
-          email = "106440141+harukafractus@users.noreply.github.com";
-          name = "harukafractus";
-          signingkey = "~/.ssh/id_rsa.pub";
-        };
-        gpg = {
-          format = "ssh";
-        };
-        commit = {
-          gpgSign = true;
-        };
-      };
-    };
-  };
 }
