@@ -1987,14 +1987,14 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "5.0.1";
+      version = "5.0.2";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4302635/dictionaries-5.0.1.xpi";
-      sha256 = "a4c851e58a611b9c06b15c17edad4f144e4a3f6ca69ecc38299125fb03cd508f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4303854/dictionaries-5.0.2.xpi";
+      sha256 = "f00f905cd86a02feaf05fe469d5120dd5cda2e8484ac7651aa32a098217b2eeb";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
-        description = "Dictionariez(Dictionaries): This extension help you reading articles, looking up words of any language in various dictionaries, and exporting words to Anki, facilitating your language learning process.";
+        description = "Dictionariez: This extension help you reading articles, looking up words of any language in various dictionaries, and exporting words to Anki, facilitating your language learning process.";
         license = licenses.gpl2;
         mozPermissions = [
           "activeTab"
@@ -2653,10 +2653,10 @@
     };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "5.2.0.3";
+      version = "5.2.1";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4301694/floccus-5.2.0.3.xpi";
-      sha256 = "5332ac257a2fc3e1c73c59c1f37ae67d3950650b76a08290e8d008eb5d68bd3f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4303773/floccus-5.2.1.xpi";
+      sha256 = "5ed96e9b34076d6735f88730cb5c6454b811bff9edc1f6e43874fb9d0606ffc6";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -2670,7 +2670,6 @@
           "unlimitedStorage"
           "tabs"
           "identity"
-          "history"
         ];
         platforms = platforms.all;
       };
@@ -3247,10 +3246,10 @@
     };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "2.2.0";
+      version = "2.2.1";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4300618/gitpod-2.2.0.xpi";
-      sha256 = "bc1c888ce862f1cfdcee7956a9e49ca9b086d1a85c8c2dace642d47934d22afc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4303712/gitpod-2.2.1.xpi";
+      sha256 = "59a5d1ad2b5ed05ce771dd5af3b34034fe77d1fb2038609e360cb31a968626b6";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
