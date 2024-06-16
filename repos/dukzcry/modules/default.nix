@@ -19,7 +19,6 @@ rec {
   hardware = ./hardware.nix;
   tun2socks = ./tun2socks.nix;
   cockpit = ./cockpit.nix;
-  adblock = ./adblock.nix;
   gamescope = ./gamescope.nix;
   vscodium = ./vscodium.nix;
   udisks = ./udisks.nix;
