@@ -26,7 +26,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "A library for generating OpenStreetMap's Overpass QL queries from Python objects";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/Krafpy/Overpass-Forge";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

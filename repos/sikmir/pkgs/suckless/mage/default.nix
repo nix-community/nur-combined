@@ -34,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "iMAGE viewer";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/explosion-mental/mage";
     license = lib.licenses.gpl2Only;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

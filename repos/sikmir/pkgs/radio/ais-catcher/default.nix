@@ -45,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A multi-platform AIS Receiver";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/jvde-github/AIS-catcher";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

@@ -11,14 +11,14 @@
 
 buildGoModule rec {
   pname = "telegabber";
-  version = "1.9.5";
+  version = "1.9.6";
 
   src = fetchFromGitea {
     domain = "dev.narayana.im";
     owner = "narayana";
     repo = "telegabber";
     rev = "v${version}";
-    hash = "sha256-PCCo271B/SIF9n/6ohG5sA8fQeLDtTIoovs09CXdRm0=";
+    hash = "sha256-UkVuEgrRHDtC5Rkci87ecmvK4JyACFBplzecoIXM8vk=";
   };
 
   vendorHash = "sha256-3qSa6yJXSjrmTIBrulCnZMZzqNtpkzpzWeYAzHl8uUM=";
@@ -37,7 +37,7 @@ buildGoModule rec {
 
   meta = {
     description = "XMPP/Jabber transport to Telegram network";
-    inherit (src.meta) homepage;
+    homepage = "https://dev.narayana.im/narayana/telegabber";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
   };

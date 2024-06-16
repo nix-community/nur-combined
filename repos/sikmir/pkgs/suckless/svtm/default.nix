@@ -42,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Simple Virtual Terminal Manager";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/jeremybobbin/svtm";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.sikmir ];

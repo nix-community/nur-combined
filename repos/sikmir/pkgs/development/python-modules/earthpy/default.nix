@@ -16,7 +16,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-MCyeFXtjOqnVarSUk7Z/+Y5oNhYLlxznjWHQOCgUOIc=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     geopandas
     matplotlib
     numpy
@@ -29,7 +29,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "A package built to support working with spatial data using open source python";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/earthlab/earthpy";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };

@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Makefile linter";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/maandree/makel";
     license = lib.licenses.isc;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

@@ -41,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A ncurses file manager written in C with vim like keybindings";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/mananapr/cfiles";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

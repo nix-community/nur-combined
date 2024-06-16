@@ -11,8 +11,7 @@
   soapysdr,
   sqlite,
   zeromq,
-  AppKit,
-  Foundation,
+  darwin,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -42,13 +41,13 @@ stdenv.mkDerivation (finalAttrs: {
       zeromq
     ]
     ++ lib.optionals stdenv.isDarwin [
-      AppKit
-      Foundation
+      darwin.apple_sdk.frameworks.AppKit
+      darwin.apple_sdk.frameworks.Foundation
     ];
 
   meta = {
     description = "VDL Mode 2 message decoder and protocol analyzer";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/szpajder/dumpvdl2";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

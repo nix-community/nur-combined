@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication rec {
 
   build-system = with python3Packages; [ poetry-core ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     mercantile
     pymbtiles
     six
@@ -30,7 +30,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "ArcGIS Tile Package Utilities";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/consbio/tpkutils";
     license = lib.licenses.isc;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "tpk";

@@ -21,7 +21,7 @@ python3Packages.buildPythonApplication rec {
 
   postPatch = "sed -i 's/~=.*\"/\"/' setup.py";
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     boto3
     click
     cligj

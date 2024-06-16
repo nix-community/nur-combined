@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage {
   pname = "pyrobuf";
   version = "0.9.3";
 
@@ -20,7 +20,7 @@ python3Packages.buildPythonPackage rec {
     pytest-runner
   ];
 
-  propagatedBuildInputs = with python3Packages; [ jinja2 ];
+  dependencies = with python3Packages; [ jinja2 ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
@@ -28,7 +28,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "A Cython based protobuf compiler";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/appnexus/pyrobuf";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
   };

@@ -4,7 +4,7 @@
   buildGoPackage,
 }:
 
-buildGoPackage rec {
+buildGoPackage {
   pname = "janus-mqtt-proxy";
   version = "0-unstable-2022-02-19";
 
@@ -26,7 +26,7 @@ buildGoPackage rec {
 
   meta = {
     description = "MITM proxy which can filter and modify MQTT packets";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/phoenix-mstu/janus-mqtt-proxy";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
   };

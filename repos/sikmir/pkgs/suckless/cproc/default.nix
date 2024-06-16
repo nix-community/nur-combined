@@ -22,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "C11 compiler using QBE as a backend";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://sr.ht/~mcf/cproc";
     license = lib.licenses.isc;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

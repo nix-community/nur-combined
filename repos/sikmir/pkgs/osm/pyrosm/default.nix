@@ -20,7 +20,7 @@ python3Packages.buildPythonPackage rec {
 
   nativeBuildInputs = with python3Packages; [ cython ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     python-rapidjson
     geopandas
     shapely
@@ -36,7 +36,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "A Python tool to parse OSM data from Protobuf format into GeoDataFrame";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/HTenkanen/pyrosm";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

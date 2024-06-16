@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = {
     description = "A rust implementation of rtl-tcp";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/niclashoyer/rtltcp";
     license = with lib.licenses; [
       asl20
       mit

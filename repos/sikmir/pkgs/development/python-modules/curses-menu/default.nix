@@ -18,7 +18,7 @@ python3Packages.buildPythonPackage rec {
 
   build-system = with python3Packages; [ poetry-core ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     deprecated
     pexpect
     pyte
@@ -33,7 +33,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "A simple console menu system using curses";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/pmbarrett314/curses-menu";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

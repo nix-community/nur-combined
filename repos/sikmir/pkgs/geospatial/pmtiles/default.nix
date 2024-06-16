@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Library and utilities to write and read PMTiles files - cloud-optimized archives of map tiles";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/protomaps/PMTiles";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };

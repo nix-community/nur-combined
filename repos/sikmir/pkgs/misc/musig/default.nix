@@ -32,7 +32,7 @@ buildGoModule rec {
 
   meta = {
     description = "A shazam like tool to store songs fingerprints and retrieve them";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/sfluor/musig";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     broken = stdenv.isDarwin;

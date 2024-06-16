@@ -35,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Tiny streaming json deserializer";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/semlanik/microjson";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

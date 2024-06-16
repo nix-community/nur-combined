@@ -15,11 +15,11 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-zikfVMFdlOJvuKVQGEsK03i58X6BGFsGWGrGOJZGC0g=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ pyserial ];
+  dependencies = with python3Packages; [ pyserial ];
 
   meta = {
     description = "Implementation of modbus protocol in python";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/ljean/modbus-tk";
     license = lib.licenses.lgpl2;
     maintainers = [ lib.maintainers.sikmir ];
   };

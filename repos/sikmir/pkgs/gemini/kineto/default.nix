@@ -4,7 +4,7 @@
   fetchFromSourcehut,
 }:
 
-buildGoModule rec {
+buildGoModule {
   pname = "kineto";
   version = "0-unstable-2021-11-04";
 
@@ -19,7 +19,7 @@ buildGoModule rec {
 
   meta = {
     description = "An HTTP to Gemini proxy";
-    inherit (src.meta) homepage;
+    homepage = "https://sr.ht/~sircmpwn/kineto";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "kineto";

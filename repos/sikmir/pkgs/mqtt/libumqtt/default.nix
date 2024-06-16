@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A Lightweight and fully asynchronous MQTT client C library based on libev";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/zhaojh329/libumqtt";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

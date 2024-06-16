@@ -18,12 +18,12 @@
   proj,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "qlandkartegt";
   version = "1.8.1";
 
   src = fetchurl {
-    url = "mirror://sourceforge/${pname}/${pname}-${version}.tar.gz";
+    url = "mirror://sourceforge/qlandkartegt/qlandkartegt-${finalAttrs.version}.tar.gz";
     sha256 = "1rwv5ar5jv15g1cc6pp0lk69q3ip10pjazsh3ds2ggaciymha1ly";
   };
 
@@ -119,4 +119,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     skip.ci = true;
   };
-}
+})

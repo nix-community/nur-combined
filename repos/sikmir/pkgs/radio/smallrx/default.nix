@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "amateur radio receiver in <100 code lines";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/ha7ilm/smallrx";
     license = lib.licenses.agpl3Only;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

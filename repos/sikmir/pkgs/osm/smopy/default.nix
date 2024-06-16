@@ -15,7 +15,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-QytanQQPIlQTog2tTMAwdFXWbXnU4NaA7Zqh4DXFubY=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     numpy
     ipython
     pillow
@@ -26,7 +26,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "OpenStreetMap image tiles in Python";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/rossant/smopy";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };

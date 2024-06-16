@@ -7,7 +7,7 @@
   tvision,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "turbo";
   version = "0-unstable-2024-02-05";
 
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "An experimental text editor based on Scintilla and Turbo Vision";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/magiblot/turbo";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

@@ -6,13 +6,13 @@
   s2sphere,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "gpxtrackposter";
   version = "0-unstable-2023-02-19";
 
   src = fetchFromGitHub {
     owner = "flopp";
-    repo = "gpxtrackposter";
+    repo = "GpxTrackPoster";
     rev = "0b86e7223eaeea3e168f5b68ee7b8fe4ca8532b5";
     hash = "sha256-pSMfHNpGt68Elgi4NGrBlnZxpsuS7WhqM6kBDcihLu8=";
   };
@@ -34,7 +34,7 @@ python3Packages.buildPythonApplication rec {
     sed -i 's/~=.*//' requirements.txt
   '';
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     appdirs
     colour
     geopy
@@ -67,7 +67,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Create a visually appealing poster from your GPX tracks";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/flopp/GpxTrackPoster";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     broken = true; # https://github.com/stravalib/stravalib/pull/459

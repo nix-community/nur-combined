@@ -23,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A collection of farbfeld tools";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/sirjofri/ff-tools";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

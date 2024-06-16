@@ -6,12 +6,12 @@
   libusb-compat-0_1,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "garmindev";
   version = "0.3.4";
 
   src = fetchurl {
-    url = "mirror://sourceforge/qlandkartegt/${pname}-${version}.tar.gz";
+    url = "mirror://sourceforge/qlandkartegt/garmindev-${finalAttrs.version}.tar.gz";
     sha256 = "1mc7rxdn9790pgbvz02xzipxp2dp9h4hfq87xgawa18sp9jqzhw6";
   };
 
@@ -29,4 +29,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     skip.ci = true;
   };
-}
+})

@@ -14,14 +14,14 @@
   wrapQtAppsHook,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "fmreceiver";
   version = "2.1";
 
   src = fetchFromGitHub {
     owner = "JvanKatwijk";
     repo = "sdr-j-fm";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-U0m9PIB+X+TBoz5FfXMvR/tZjkNIy7B613I7eLT5UIs=";
   };
 
@@ -81,9 +81,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A simple FM receiver";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/JvanKatwijk/sdr-j-fm";
     license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
   };
-}
+})

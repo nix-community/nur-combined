@@ -16,7 +16,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-xqAsjuUMODZvkSMyGXpP1/FTyqNKPfa8l4Zr2CUHaDY=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     aiohttp
     cytoolz
     numpy

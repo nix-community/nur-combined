@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-aOfvVyTgDxh7T2oAc+S1eU9b/JjXAhfc3WfR27ECXcY=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     cairosvg
     colour
     numpy
@@ -36,7 +36,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "A simple renderer for OpenStreetMap with custom icons";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/enzet/map-machine";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "map-machine";

@@ -42,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "High performant TCP server for rtl-sdr";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/dernasherbrezon/sdr-server";
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "supermercado";
   version = "0.2.0";
 
@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-k2S1aOHQEJq//4mdWZ5GhJQJjKqJuDbBztoHi373s6w=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     click-plugins
     rasterio
     mercantile
@@ -26,7 +26,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Supercharger for mercantile";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/mapbox/supermercado";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-vW457HbdDDhfz8hsvEN3/HJmIHKdrRDVNuhSpZXoZ78=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     appdirs
     geographiclib
     pillow
@@ -31,7 +31,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "A python module to create static map images with markers, geodesic lines, etc";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/flopp/py-staticmaps";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

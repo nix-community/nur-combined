@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "osm2geojson";
   version = "0.1.33";
 
@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     fetchSubmodules = true;
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     shapely
     requests
   ];
@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Convert OSM and Overpass JSON to GeoJSON";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/aspectumapp/osm2geojson";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

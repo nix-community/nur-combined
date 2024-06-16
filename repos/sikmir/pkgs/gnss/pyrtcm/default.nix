@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pyrtcm";
-  version = "1.0.19";
+  version = "1.1.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pyrtcm";
     rev = "v${version}";
-    hash = "sha256-GKSh/lM5Bhmqw26ZfLQyRJMWfI8I9dGTkqDdr2CXZTs=";
+    hash = "sha256-YD/ewNEv0iPwKk606Q1Mg4qFAUb9Jse5z5S1QZvq/kY=";
   };
 
   build-system = with python3Packages; [ setuptools ];
@@ -22,7 +22,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "RTCM3 protocol parser";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/semuconsulting/pyrtcm";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };

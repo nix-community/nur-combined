@@ -4,7 +4,7 @@
   fetchFromSourcehut,
 }:
 
-buildGoModule rec {
+buildGoModule {
   pname = "gssg";
   version = "0-unstable-2023-05-29";
 
@@ -19,7 +19,7 @@ buildGoModule rec {
 
   meta = {
     description = "A gemini static site generator";
-    inherit (src.meta) homepage;
+    homepage = "https://git.sr.ht/~gsthnz/gssg";
     license = lib.licenses.gpl3Only;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "gssg";

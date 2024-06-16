@@ -35,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Map-rendering for OpenStreetMap";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/jiuka/memphis";
     license = lib.licenses.lgpl2Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

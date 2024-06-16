@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "qtpbfimageplugin-styles";
   version = "2022-06-08";
 
@@ -22,9 +22,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "QtPBFImagePlugin styles";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/tumic0/qtpbfimageplugin-styles";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.all;
   };
-})
+}

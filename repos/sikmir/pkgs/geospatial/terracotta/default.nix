@@ -19,14 +19,14 @@ python3Packages.buildPythonApplication rec {
     substituteInPlace setup.py --replace-fail "\"setuptools_scm_git_archive\"," ""
   '';
 
-  nativeBuildInputs = with python3Packages; [
+  build-system = with python3Packages; [
     setuptools-scm
     #setuptools-scm-git-archive
   ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     apispec
     apispec-webframeworks
     cachetools
@@ -52,7 +52,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "A light-weight, versatile XYZ tile server";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/DHI-GRAS/terracotta";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

@@ -17,11 +17,15 @@ buildGoModule rec {
 
   vendorHash = "sha256-OCoghYUNznwBz7JN2MkHzdngA+mhHcfFIpw8ZMxeeMc=";
 
-  ldflags = [ "-X main.buildTag=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.buildTag=${version}"
+  ];
 
   meta = {
     description = "Make terminal personal file transfers as simple as `cp`";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/Contextualist/acp";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "acp";

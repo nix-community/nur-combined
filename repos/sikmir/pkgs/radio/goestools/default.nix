@@ -9,7 +9,7 @@
   zlib,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "goestools";
   version = "0-unstable-2024-02-10";
 

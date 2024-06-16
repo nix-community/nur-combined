@@ -6,14 +6,14 @@
   hdf5,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "kealib";
   version = "1.5.3";
 
   src = fetchFromGitHub {
     owner = "ubarsc";
     repo = "kealib";
-    rev = "kealib-${version}";
+    rev = "kealib-${finalAttrs.version}";
     hash = "sha256-s6sL8T1jRBmVCrFm00uCw9x6s43u9+GU3ihyMi7XSaQ=";
   };
 
@@ -28,4 +28,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
   };
-}
+})

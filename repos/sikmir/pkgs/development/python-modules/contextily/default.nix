@@ -22,7 +22,7 @@ python3Packages.buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     geopy
     matplotlib
     mercantile

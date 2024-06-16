@@ -4,9 +4,9 @@
   fetchFromSourcehut,
 }:
 
-buildGoModule rec {
+buildGoModule {
   pname = "shavit";
-  version = "2020-03-14";
+  version = "0-unstable-2020-03-14";
 
   src = fetchFromSourcehut {
     owner = "~yotam";
@@ -19,7 +19,7 @@ buildGoModule rec {
 
   meta = {
     description = "Gemini server";
-    inherit (src.meta) homepage;
+    homepage = "https://git.sr.ht/~yotam/shavit";
     license = lib.licenses.agpl3Only;
     maintainers = [ lib.maintainers.sikmir ];
   };

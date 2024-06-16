@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Piped status: the ii of status bars!";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/xandkar/pista";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

@@ -108,7 +108,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Mapping software for linux";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/ushakov/mapsoft";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

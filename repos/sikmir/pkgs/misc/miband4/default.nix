@@ -6,7 +6,7 @@
   curses-menu,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "miband4";
   version = "0-unstable-2022-10-07";
   format = "other";
@@ -42,7 +42,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Access Xiaomi MiBand 4 from Linux using Bluetooth LE";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/satcar77/miband4";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

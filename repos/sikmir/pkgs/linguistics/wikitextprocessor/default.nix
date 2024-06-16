@@ -5,7 +5,7 @@
   fetchFromGitHub,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage {
   pname = "wikitextprocessor";
   version = "0.4.96";
 
@@ -16,7 +16,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-cjhKgzqsPwVO2/fwC62IDilMhz6fg6qQrnm0xLQ3KPk=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     lupa
     dateparser
     lru-dict
@@ -35,7 +35,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "Parser and expander for Wikipedia, Wiktionary etc. dump files, with Lua execution support";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/tatuylonen/wikitextprocessor";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

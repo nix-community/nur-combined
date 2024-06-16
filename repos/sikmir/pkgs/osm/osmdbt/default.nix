@@ -45,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "OSM Database Replication Tools";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/openstreetmap/osmdbt";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

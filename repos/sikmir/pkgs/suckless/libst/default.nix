@@ -42,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Suckless Terminal ANSI parser";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/jeremybobbin/libst";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.sikmir ];

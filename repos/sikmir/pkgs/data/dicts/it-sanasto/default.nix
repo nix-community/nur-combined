@@ -7,7 +7,7 @@
   stardict-tools,
 }:
 
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation {
   pname = "it-sanasto";
   version = "2020-02-27";
 
@@ -36,10 +36,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   meta = {
     description = "IT-alan englanti-suomi -sanasto";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/TimoSalomaki/IT-sanasto";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.all;
     skip.ci = true;
   };
-})
+}

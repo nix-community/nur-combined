@@ -37,7 +37,7 @@ buildGoModule rec {
 
   meta = {
     description = "A minimalist line-mode smolnet client written in go";
-    inherit (src.meta) homepage;
+    homepage = "https://sr.ht/~hedy/gelim/";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

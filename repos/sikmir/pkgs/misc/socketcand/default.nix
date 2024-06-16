@@ -7,7 +7,7 @@
   libconfig,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "socketcand";
   version = "0.6.1-unstable-2023-12-06";
 
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Server to access CAN sockets over ASCII protocol";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/linux-can/socketcand";
     license = with lib.licenses; [
       gpl2Only
       bsd3

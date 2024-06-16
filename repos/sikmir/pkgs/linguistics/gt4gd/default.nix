@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-zJq5dhmrd0k7bsw75xFECKmwZU4qjw+wwSzsYjg8zao=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ requests ] ++ lib.optional withUI tkinter;
+  dependencies = with python3Packages; [ requests ] ++ lib.optional withUI tkinter;
 
   doCheck = false;
 
@@ -27,7 +27,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Add Google translate to GoldenDict";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/xinebf/google-translate-for-goldendict";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
   };

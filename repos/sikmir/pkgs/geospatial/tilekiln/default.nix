@@ -24,7 +24,7 @@ python3Packages.buildPythonApplication rec {
       sed -i 's/len(os.sched_getaffinity(0))/4/' tilekiln/scripts/__init__.py
     '';
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     click
     pyyaml
     fs
@@ -39,7 +39,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "A set of command-line utilities to generate and serve Mapbox Vector Tiles (MVTs)";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/pnorman/tilekiln";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
   };

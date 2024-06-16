@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Drag and drop source/target for X";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/mwh/dragon";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

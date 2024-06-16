@@ -6,7 +6,7 @@
   thinplatespline,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage {
   pname = "maprec";
   version = "0-unstable-2023-04-18";
 
@@ -22,7 +22,7 @@ python3Packages.buildPythonPackage rec {
       --replace-fail " @ git+https://github.com/wladich/thinplatespline.git" ""
   '';
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     pyyaml
     pyproj
     thinplatespline
@@ -33,7 +33,7 @@ python3Packages.buildPythonPackage rec {
   pythonImportsCheck = [ "maprec" ];
 
   meta = {
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/wladich/maprec";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
   };

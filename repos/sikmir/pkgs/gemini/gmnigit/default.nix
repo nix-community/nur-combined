@@ -4,7 +4,7 @@
   fetchFromSourcehut,
 }:
 
-buildGoModule rec {
+buildGoModule {
   pname = "gmnigit";
   version = "0-unstable-2022-01-10";
 
@@ -24,7 +24,7 @@ buildGoModule rec {
 
   meta = {
     description = "Static git gemini viewer";
-    homepage = "https://git.sr.ht/~kornellapacz/gmnigit";
+    homepage = "https://sr.ht/~kornellapacz/gmnigit";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "gmnigit";

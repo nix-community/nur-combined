@@ -17,7 +17,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-lPE21SLMgfnNu0qiM3e2qz6zJJ7u5YaNkqOSNTF1FVg=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     boltons
     lxml
     netifaces
@@ -33,7 +33,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "Common utilities for Camptocamp WSGI applications";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/camptocamp/c2cwsgiutils";
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.sikmir ];
   };

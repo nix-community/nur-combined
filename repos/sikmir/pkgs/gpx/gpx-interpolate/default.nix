@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "gpx-interpolate";
   version = "0-unstable-2023-10-28";
   format = "other";
@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-cCiRXpX6qj2o+vPs3V0/+UwnnHKvDFOgTbCV347BKkc=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     gpxpy
     scipy
     numpy
@@ -35,7 +35,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Python script to interpolate GPX files using piecewise cubic Hermite splines";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/remisalmon/gpx-interpolate";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "gpx-interpolate";

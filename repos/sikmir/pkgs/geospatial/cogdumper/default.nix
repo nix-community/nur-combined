@@ -1,11 +1,10 @@
 {
   lib,
-  stdenv,
   fetchFromGitHub,
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage {
   pname = "cogdumper";
   version = "0.5.0";
 
@@ -16,15 +15,11 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-gLBBGP2AMKP8biSbMtrxGs7vLDXbP+Y6Ct82FiNdNjs=";
   };
 
-  nativeBuildInputs = with python3Packages; [ ];
-
-  propagatedBuildInputs = with python3Packages; [ ];
-
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
   meta = {
     description = "Dumps tiles out of a cloud optimized geotiff";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/mapbox/COGDumper";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

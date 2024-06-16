@@ -33,7 +33,7 @@ let
     pyproject = true;
 
     nativeBuildInputs = with python3Packages; [ pdm-pep517 ];
-    propagatedBuildInputs = with python3Packages; [
+    dependencies = with python3Packages; [
       fastapi
       jinja2
       rio-tiler
@@ -51,7 +51,7 @@ let
     pyproject = true;
 
     nativeBuildInputs = with python3Packages; [ pdm-pep517 ];
-    propagatedBuildInputs = with python3Packages; [
+    dependencies = with python3Packages; [
       rio-cogeo
       rio-stac
       titiler-core
@@ -71,7 +71,7 @@ let
     pyproject = true;
 
     nativeBuildInputs = with python3Packages; [ pdm-pep517 ];
-    propagatedBuildInputs = with python3Packages; [
+    dependencies = with python3Packages; [
       cogeo-mosaic
       titiler-core
     ];
@@ -90,7 +90,7 @@ python3Packages.buildPythonPackage {
   pyproject = true;
 
   nativeBuildInputs = with python3Packages; [ pdm-pep517 ];
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     python-dotenv
     rio-cogeo
     starlette-cramjam

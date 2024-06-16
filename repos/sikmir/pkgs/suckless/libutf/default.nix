@@ -23,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Plan 9 compatible UTF-8 C library";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/cls/libutf";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

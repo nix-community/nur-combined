@@ -25,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "NetBSD's mtree(8) utility";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/archiecobbs/nmtree";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

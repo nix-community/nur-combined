@@ -19,12 +19,12 @@ python3Packages.buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = with python3Packages; [
+  build-system = with python3Packages; [
     setuptools-scm
     setuptools-declarative-requirements
   ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     attrs
     distro
     pytest
@@ -34,7 +34,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "A Pytest plugin which implements a few useful skip markers";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/saltstack/pytest-skip-markers";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
   };

@@ -23,7 +23,7 @@ buildGoModule rec {
 
   meta = {
     description = "GTFS to SQLite import tool";
-    inherit (src.meta) homepage;
+    homepage = "https://sr.ht/~mil/mobsql";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "mobsql";

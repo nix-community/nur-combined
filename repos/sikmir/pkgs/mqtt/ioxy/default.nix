@@ -1,5 +1,4 @@
 {
-  stdenv,
   lib,
   fetchFromGitHub,
   buildGoModule,
@@ -22,7 +21,7 @@ buildGoModule rec {
 
   meta = {
     description = "MQTT intercepting proxy";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/NVISOsecurity/IOXY";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
   };

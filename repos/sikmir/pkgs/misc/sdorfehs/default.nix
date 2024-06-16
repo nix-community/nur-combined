@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A tiling window manager";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/jcs/sdorfehs";
     license = lib.licenses.gpl2Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

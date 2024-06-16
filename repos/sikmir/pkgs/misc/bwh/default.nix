@@ -10,7 +10,7 @@
   AppKit,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "bwh";
   version = "1.0.3";
 
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     domain = "git.skyjake.fi";
     owner = "skyjake";
     repo = "bwh";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-POKjvUGFS3urc1aqOvfCAApUnRxoZhU725eYRAS4Z2w=";
   };
 
@@ -49,4 +49,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     mainProgram = "bitwise-harmony";
   };
-}
+})

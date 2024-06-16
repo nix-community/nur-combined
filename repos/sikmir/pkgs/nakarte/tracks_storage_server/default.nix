@@ -21,7 +21,7 @@ let
     )
   '';
 in
-buildPythonPackage rec {
+buildPythonPackage {
   pname = "tracks_storage_server";
   version = "2024-04-27";
 
@@ -37,7 +37,7 @@ buildPythonPackage rec {
     substitute config.py.example config.py --replace-fail "'password" "#'password"
   '';
 
-  propagatedBuildInputs = [
+  dependencies = [
     msgpack
     protobuf
     psycopg2
@@ -47,7 +47,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Tracks storage server";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/wladich/tracks_storage_server";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
   };

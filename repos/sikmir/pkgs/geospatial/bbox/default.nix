@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = {
     description = "BBOX services";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/bbox-services/bbox";
     license = with lib.licenses; [
       asl20
       mit

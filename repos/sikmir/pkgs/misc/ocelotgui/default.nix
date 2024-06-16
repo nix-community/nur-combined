@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "GUI client for MySQL or MariaDB";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/ocelot-inc/ocelotgui";
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

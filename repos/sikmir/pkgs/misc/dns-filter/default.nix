@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "dns-filter";
   version = "0-unstable-2021-04-14";
 
@@ -32,9 +32,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Tiny DNS server with filtering requests";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/depler/dns-filter";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
   };
-})
+}

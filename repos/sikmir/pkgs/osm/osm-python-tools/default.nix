@@ -21,7 +21,7 @@ python3Packages.buildPythonPackage rec {
       --replace-fail "'pytest" "#'pytest" \
   '';
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     beautifulsoup4
     geojson
     lxml
@@ -43,7 +43,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "A library to access OpenStreetMap related services";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/mocnik-science/osm-python-tools";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
   };

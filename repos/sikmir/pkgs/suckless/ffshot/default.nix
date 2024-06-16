@@ -25,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "farbfeld screenshot utility";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/shinyblink/ffshot";
     license = lib.licenses.isc;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

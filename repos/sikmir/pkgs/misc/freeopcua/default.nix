@@ -6,7 +6,7 @@
   boost,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "freeopcua";
   version = "0-unstable-2023-05-30";
 
@@ -25,9 +25,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Open Source C++ OPC-UA Server and Client Library";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/FreeOpcUa/freeopcua";
     license = lib.licenses.lgpl3;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
   };
-})
+}

@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "gpsdate";
   version = "0-unstable-2019-12-02";
 
@@ -23,10 +23,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Simple tool for fetching date and time from a GPS receiver and saving it as a local time";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/adamheinrich/gpsdate";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
     mainProgram = "gpsdate";
   };
-})
+}

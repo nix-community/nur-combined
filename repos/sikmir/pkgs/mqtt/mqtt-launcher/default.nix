@@ -1,11 +1,10 @@
 {
   lib,
-  stdenv,
   fetchFromGitHub,
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "mqtt-launcher";
   version = "0-unstable-2021-09-17";
   format = "other";
@@ -17,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-FEKvlED/Sgcr7vBa8HW2N7mapmARiemcJ22zwuTwORw=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ paho-mqtt ];
+  dependencies = with python3Packages; [ paho-mqtt ];
 
   dontUseSetuptoolsBuild = true;
   dontUseSetuptoolsCheck = true;
@@ -28,7 +27,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Execute shell commands triggered by published MQTT messages";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/jpmens/mqtt-launcher";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
   };

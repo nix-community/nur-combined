@@ -42,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Modem based on software defined radios";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/dernasherbrezon/sdr-modem";
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

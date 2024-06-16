@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Garmin Image Tools";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/wuyongzheng/gimgtools";
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

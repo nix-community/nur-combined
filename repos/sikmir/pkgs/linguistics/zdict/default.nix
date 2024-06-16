@@ -1,22 +1,21 @@
 {
   lib,
-  stdenv,
   fetchFromGitHub,
   python3Packages,
 }:
 
 python3Packages.buildPythonApplication rec {
   pname = "zdict";
-  version = "4.0.5";
+  version = "5.0.1";
 
   src = fetchFromGitHub {
     owner = "zdict";
     repo = "zdict";
     rev = version;
-    hash = "sha256-uiCD2ZuVP1Pu7r/uOEctjMhsupxm++i0kiHxU9DNp9M=";
+    hash = "sha256-vZpxJkKBHo9fO7xNN9Is7BumZhAkepVK0dpk+Y/1YBM=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     beautifulsoup4
     peewee
     requests
@@ -28,7 +27,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "The last online dictionary framework you need";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/zdict/zdict";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
   };

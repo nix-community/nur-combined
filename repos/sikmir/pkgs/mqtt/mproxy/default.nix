@@ -1,5 +1,4 @@
 {
-  stdenv,
   lib,
   fetchFromGitHub,
   buildGoModule,
@@ -25,7 +24,7 @@ buildGoModule rec {
 
   meta = {
     description = "MQTT proxy";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/mainflux/mproxy";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
   };

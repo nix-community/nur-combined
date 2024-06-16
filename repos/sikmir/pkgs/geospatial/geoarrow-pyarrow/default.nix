@@ -1,6 +1,5 @@
 {
   lib,
-  stdenv,
   fetchFromGitHub,
   python3Packages,
   geoarrow-c,
@@ -22,7 +21,7 @@ python3Packages.buildPythonPackage rec {
 
   build-system = with python3Packages; [ setuptools-scm ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     geoarrow-c
     pyarrow
     pyarrow-hotfix

@@ -14,7 +14,7 @@ let
     hash = "sha256-mydfmzuV171mzPt80ln0RaE7vl0fQQeroJ/T6DZLr6Y=";
   };
 in
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "wiktextract";
   version = "1.99.7";
 
@@ -30,7 +30,7 @@ python3Packages.buildPythonApplication rec {
       --replace-fail python-Levenshtein Levenshtein
   '';
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     levenshtein
     setuptools
     wikitextprocessor
@@ -51,7 +51,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Wiktionary dump file parser and multilingual data extractor";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/tatuylonen/wiktextract";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

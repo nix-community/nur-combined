@@ -65,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "MQTT message parser for writing statistics into InfluxDB";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/DavidHamburg/mqtt-to-influxdb";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

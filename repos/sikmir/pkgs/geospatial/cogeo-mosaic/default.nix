@@ -1,6 +1,5 @@
 {
   lib,
-  stdenv,
   fetchFromGitHub,
   python3Packages,
   supermorecado,
@@ -18,12 +17,12 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-FJJZvLGBEZpVyfXBqmz6r1obx4HrKmtK0dWusItX3j4=";
   };
 
-  nativeBuildInputs = with python3Packages; [
+  build-system = with python3Packages; [
     hatchling
     hatch-fancy-pypi-readme
   ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     morecantile
     shapely
     pydantic

@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Multichannel HFDL decoder";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/szpajder/dumphfdl";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

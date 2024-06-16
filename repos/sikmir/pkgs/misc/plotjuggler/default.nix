@@ -15,14 +15,14 @@
   zstd,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "plotjuggler";
   version = "3.9.2";
 
   src = fetchFromGitHub {
     owner = "facontidavide";
     repo = "PlotJuggler";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-Dl2vE4iGhcGLH5lf1eCdybhfTG1bgI0Skw+AHKdvolQ=";
   };
 
@@ -55,4 +55,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
   };
-}
+})

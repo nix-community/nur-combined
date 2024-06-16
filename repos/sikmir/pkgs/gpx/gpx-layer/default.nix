@@ -7,7 +7,7 @@
   XMLParser,
 }:
 
-buildPerlPackage rec {
+buildPerlPackage {
   pname = "gpx-layer";
   version = "0-unstable-2013-09-19";
 
@@ -39,7 +39,7 @@ buildPerlPackage rec {
 
   meta = {
     description = "Tools to turn GPX files into a GPS map tracing layer";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/e-n-f/gpx-layer";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
   };

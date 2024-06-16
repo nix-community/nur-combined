@@ -29,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A text-based widget toolkit";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/gansm/finalcut";
     license = lib.licenses.lgpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

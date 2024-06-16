@@ -32,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Compare gpx tracks to find new segments (places never traveled before)";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/centurn/gps-whatsnew";
     license = lib.licenses.gpl3Only;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

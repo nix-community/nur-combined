@@ -5,12 +5,12 @@
   cmake,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libmdbx";
   version = "0.12.9";
 
   src = fetchurl {
-    url = "https://libmdbx.dqdkfa.ru/release/libmdbx-amalgamated-${version}.tar.xz";
+    url = "https://libmdbx.dqdkfa.ru/release/libmdbx-amalgamated-${finalAttrs.version}.tar.xz";
     hash = "sha256-bMxSd7+xPOdE+20hKN4LEcj1jIHB/gYXnOqsXCgSWm4=";
   };
 
@@ -28,4 +28,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.unix;
     broken = stdenv.isDarwin;
   };
-}
+})

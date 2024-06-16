@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-buildGoPackage rec {
+buildGoPackage {
   pname = "nanodns";
   version = "0-unstable-2021-10-29";
 
@@ -21,7 +21,7 @@ buildGoPackage rec {
 
   meta = {
     description = "Simple dns forwarder/cache blocker server";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/Sina-Ghaderi/nanodns";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

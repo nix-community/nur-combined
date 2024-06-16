@@ -8,14 +8,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pygnssutils";
-  version = "1.0.26";
+  version = "1.0.28";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pygnssutils";
     rev = "v${version}";
-    hash = "sha256-wIYSBuB0sXuVu3/WUBWyod+OccXPamhXUtb1T4EiclQ=";
+    hash = "sha256-y2t/dyp2i7Y8XPNNqqMFSUp57Ze24kVQquv+COec1Uk=";
   };
 
   postPatch = ''
@@ -25,7 +25,7 @@ python3Packages.buildPythonPackage rec {
 
   build-system = with python3Packages; [ setuptools ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     certifi
     paho-mqtt
     pyserial
@@ -37,7 +37,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "GNSS Command Line Utilities";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/semuconsulting/pygnssutils";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };

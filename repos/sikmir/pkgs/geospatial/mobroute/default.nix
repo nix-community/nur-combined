@@ -23,7 +23,7 @@ buildGoModule rec {
 
   meta = {
     description = "Minimal FOSS Public Transportation Router";
-    inherit (src.meta) homepage;
+    homepage = "https://sr.ht/~mil/mobroute";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "mobroute";

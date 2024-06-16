@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qoiview";
-  version = "2021-12-22";
+  version = "0-unstable-2024-05-10";
 
   src = fetchFromGitHub {
     owner = "floooh";
     repo = "qoiview";
-    rev = "ccc7ae1fa1b80716f243115d3855aba7a49aa6b8";
-    hash = "sha256-8QIDEBlzUSKPdOhmzbSwhfgy/A2QceWeinIQQe3J7h4=";
+    rev = "7a371020708b71d414c85977ea233d721f91d937";
+    hash = "sha256-V4NdhTzTGd62pNkKhk1vo1vZa/z24r+zKbojI0ziG/E=";
   };
 
   nativeBuildInputs = [ cmake ];
@@ -49,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "QOI image viewer on top of the Sokol headers";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/floooh/qoiview";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

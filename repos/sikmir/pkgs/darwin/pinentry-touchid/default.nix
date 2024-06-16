@@ -3,7 +3,7 @@
   stdenv,
   buildGoModule,
   fetchFromGitHub,
-  LocalAuthentication,
+  darwin,
 }:
 
 buildGoModule rec {
@@ -21,13 +21,13 @@ buildGoModule rec {
 
   subPackages = [ "." ];
 
-  buildInputs = [ LocalAuthentication ];
+  buildInputs = [ darwin.apple_sdk.frameworks.LocalAuthentication ];
 
   doCheck = false;
 
   meta = {
     description = "Custom GPG pinentry program for macOS that allows using Touch ID";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/jorgelbg/pinentry-touchid";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.darwin;

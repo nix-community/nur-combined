@@ -7,14 +7,14 @@
   python3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "subprocess";
   version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "benman64";
     repo = "subprocess";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-Tgmihv7SJfYpOYHvtuE8rgFzUHyl4bJh9W5CSqotVMg=";
   };
 
@@ -33,9 +33,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Cross platform subprocess library for c++ similar to design of python subprocess";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/benman64/subprocess";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
   };
-}
+})

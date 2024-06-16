@@ -9,7 +9,7 @@
   libGLU,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "objlab";
   version = "0-unstable-2019-11-23";
 
@@ -44,11 +44,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Simple wavefront .obj viewer";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/lighttransport/objlab";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
     mainProgram = "objlab";
   };
-})
+}

@@ -18,7 +18,7 @@ python3Packages.buildPythonPackage rec {
 
   postPatch = "sed -i 's/==.*//' requirements.txt";
 
-  propagatedBuildInputs = with python3Packages; [ osmnx ];
+  dependencies = with python3Packages; [ osmnx ];
 
   nativeCheckInputs = with python3Packages; [
     pytestCheckHook
@@ -34,7 +34,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "Create beautiful maps from OpenStreetMap data in a webapp";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/chrieke/prettymapp";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

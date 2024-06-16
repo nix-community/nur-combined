@@ -7,22 +7,22 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "csv2html";
-  version = "3.0.1";
+  version = "3.1.1";
 
   src = fetchFromGitHub {
     owner = "dbohdan";
     repo = "csv2html";
     rev = "v${version}";
-    hash = "sha256-7pEVMdF7rUXKsDrxGFfqwQDIVykgG/x4kh0En1D9VxU=";
+    hash = "sha256-H8nUwK72opUohBN2exZURRAPr1RXLa87exYaGigly0Q=";
   };
 
-  cargoPatches = [ ./cargo-lock.patch ];
-  cargoHash = "sha256-2Qhu+7Lb6Pvs1a9qH5WmcakxeQVB2bm4fPGZXwh3cgA=";
+  cargoHash = "sha256-axvgAXstJU9J7fzez3qfEuxzPs6eCvlyjV8OsxBSg7A=";
 
   meta = {
     description = "Convert CSV files to HTML tables";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/dbohdan/csv2html";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
+    mainProgram = "csv2html";
   };
 }

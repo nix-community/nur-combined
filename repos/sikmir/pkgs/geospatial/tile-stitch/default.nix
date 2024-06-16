@@ -35,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Stitch together and crop map tiles for a specified bounding box";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/e-n-f/tile-stitch";
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

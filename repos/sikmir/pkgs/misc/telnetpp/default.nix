@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A C++ library for interacting with Telnet streams";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/KazDragon/telnetpp";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

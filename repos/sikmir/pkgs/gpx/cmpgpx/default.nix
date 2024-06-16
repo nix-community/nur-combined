@@ -5,7 +5,7 @@
   geotiler,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "cmpgpx";
   version = "0-unstable-2015-06-05";
   format = "other";
@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-iJajSbDDPkBmGKZp0QH03RK9VBMmLHWvHViojlQJArs=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     cairocffi
     geotiler
     gpxpy
@@ -35,7 +35,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Show the differences between GPX files";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/jonblack/cmpgpx";
     license = lib.licenses.unlicense;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "cmpgpx";

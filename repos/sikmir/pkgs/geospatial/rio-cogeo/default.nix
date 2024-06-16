@@ -1,6 +1,5 @@
 {
   lib,
-  stdenv,
   fetchFromGitHub,
   python3Packages,
   cogdumper,
@@ -8,19 +7,19 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "rio-cogeo";
-  version = "5.3.0";
+  version = "5.3.2";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "cogeotiff";
     repo = "rio-cogeo";
     rev = version;
-    hash = "sha256-4zye0JksG9YCc+eyWbYFEW0k8eqqiSlY1uv0M+8qZwA=";
+    hash = "sha256-PzhUlip2LYO6DhC9O2aeoQGE59QXKq2e0v6/yxeFvjM=";
   };
 
-  nativeBuildInputs = with python3Packages; [ flit ];
+  build-system = with python3Packages; [ flit ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     click
     rasterio
     numpy
@@ -37,7 +36,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "Cloud Optimized GeoTIFF creation and validation plugin for rasterio";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/cogeotiff/rio-cogeo";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };

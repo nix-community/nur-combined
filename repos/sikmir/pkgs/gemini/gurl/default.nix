@@ -7,14 +7,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gurl";
-  version = "2021-03-06";
+  version = "0.1-unstable-2023-08-23";
 
   src = fetchFromGitHub {
-    owner = "MasterQ32";
+    owner = "ikskuh";
     repo = "gurl";
-    rev = "c6491a0760c125ca50d86860f77b544f729d8885";
-    hash = "sha256-l7WasR1rdD6DV3JWDIGcUlVkypnIKLNoKaVbibdibQc=";
-    fetchSubmodules = true;
+    rev = "c1f2b106a73019a145c0f1548d02e0ea8d7a1a50";
+    hash = "sha256-DMyON1+EAFcqnVI03bgk7iYOgGTLMEuCNbmWHp80K0k=";
   };
 
   nativeBuildInputs = [ zig ];
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A curl-like cli application to interact with Gemini sites";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/ikskuh/gurl";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

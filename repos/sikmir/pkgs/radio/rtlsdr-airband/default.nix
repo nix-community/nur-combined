@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Multichannel AM/NFM demodulator";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/charlie-foxtrot/RTLSDR-Airband";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

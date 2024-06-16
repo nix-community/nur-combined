@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Indexes points and lines and generates map tiles to display them";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/e-n-f/datamaps";
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

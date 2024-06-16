@@ -6,25 +6,25 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pyspartn";
-  version = "0.4.0-beta";
+  version = "1.0.2";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pyspartn";
     rev = "v${version}";
-    hash = "sha256-5PpCUWOCD8GyOx/9tA3eSKYxCWT2xopqJaV429VSK8M=";
+    hash = "sha256-YfsC9mErwsIiy1udmR7GFRJBzVLHkQL3Uy2RTBGIyxs=";
   };
 
   build-system = with python3Packages; [ setuptools ];
 
-  propagatedBuildInputs = with python3Packages; [ cryptography ];
+  dependencies = with python3Packages; [ cryptography ];
 
   pythonImportsCheck = [ "pyspartn" ];
 
   meta = {
     description = "SPARTN protocol parser";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/semuconsulting/pyspartn";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };

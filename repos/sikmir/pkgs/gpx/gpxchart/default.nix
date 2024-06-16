@@ -12,7 +12,7 @@ buildGoModule rec {
     owner = "tkrajina";
     repo = "gpxchart";
     rev = "v${version}";
-    hash = "sha256-3HDj4k5mSUrJOxN2DrsHjMtX8PylxHExJeMc5CuaPP8";
+    hash = "sha256-3HDj4k5mSUrJOxN2DrsHjMtX8PylxHExJeMc5CuaPP8=";
   };
 
   vendorHash = null;
@@ -21,7 +21,7 @@ buildGoModule rec {
 
   meta = {
     description = "A command-line tool and library for elevation charts from GPX files";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/tkrajina/gpxchart";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
   };

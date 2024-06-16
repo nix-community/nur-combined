@@ -7,18 +7,18 @@
   openssl,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "opcua-stack";
   version = "3.8.1";
 
   src = fetchFromGitHub {
     owner = "ASNeG";
     repo = "OpcUaStack";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-czpuuT9DeZaYo2Q8Y/vW1kAsIiFhRDSKwVBUcFgb9iQ=";
   };
 
-  sourceRoot = "${src.name}/src";
+  sourceRoot = "${finalAttrs.src.name}/src";
 
   postPatch = ''
     substituteInPlace CMakeLists.txt --replace-fail "/usr" "$out"
@@ -39,4 +39,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

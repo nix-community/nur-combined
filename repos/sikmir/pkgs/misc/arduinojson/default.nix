@@ -5,14 +5,14 @@
   cmake,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "arduinojson";
   version = "6.20.0";
 
   src = fetchFromGitHub {
     owner = "bblanchon";
     repo = "ArduinoJson";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-oRqQMc4FpX7bxVDfZhO6ZvwrWEAlY2T4tejIRfklTrs=";
   };
 
@@ -25,4 +25,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
   };
-}
+})

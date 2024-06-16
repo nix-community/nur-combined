@@ -29,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Gemtext blog static site generator";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/kconner/gloggery";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

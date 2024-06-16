@@ -5,7 +5,7 @@
   fetchFromGitea,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "stagit-gemini";
   version = "2020-01-18";
 
@@ -23,9 +23,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Fork of stagit-gopher that ports the output to gemini";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://git.rawtext.club/sloum/stagit-gemini";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     maintainers = [ lib.maintainers.sikmir ];
   };
-})
+}

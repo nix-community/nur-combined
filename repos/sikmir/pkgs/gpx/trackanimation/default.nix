@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-fLubRKq+3wQh16xSdqJmNMy4zw83RiSQj8C6jNV4fV8=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     geopy
     gpxpy
     pillow
@@ -32,7 +32,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "GPS Track Animation Library";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/JoanMartin/trackanimation";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
   };

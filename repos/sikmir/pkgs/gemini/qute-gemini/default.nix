@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "A qutebrowser userscripts that allows viewing Gemini pages";
-    inherit (src.meta) homepage;
+    homepage = "https://git.sr.ht/~sotirisp/qute-gemini";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
   };

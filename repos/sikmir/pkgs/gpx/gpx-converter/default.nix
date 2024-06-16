@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "gpx-converter";
   version = "0-unstable-2023-04-07";
 
@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-bT94phfkJiOQ8rZn783qOmIph6ck27z18rQQby9uEeg=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     gpxpy
     numpy
     pandas
@@ -30,7 +30,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Python package for manipulating gpx files and easily convert gpx to other different formats";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/nidhaloff/gpx-converter";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

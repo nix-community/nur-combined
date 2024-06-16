@@ -9,7 +9,7 @@
   zlib,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "tom";
   version = "2021-10-21";
 
@@ -47,9 +47,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Gemini frontend for git repositories";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/omar-polo/tom";
     license = lib.licenses.isc;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
   };
-})
+}

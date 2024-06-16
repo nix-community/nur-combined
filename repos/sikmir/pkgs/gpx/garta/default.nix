@@ -75,7 +75,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = {
     description = "Geo-bookmarking, GPX viewer, analyzer and editor for GTK3";
-    inherit (src.meta) homepage;
+    homepage = "https://gitlab.com/timosaarinen/garta";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
   };

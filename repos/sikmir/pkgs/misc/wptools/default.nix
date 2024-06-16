@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage {
   pname = "wptools";
   version = "0.4.17-unstable-2022-02-22";
 
@@ -15,7 +15,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-l1sCEhveK9fefZY6tL/kh2bOcq4ids4HZu6pXvn17AA=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     certifi
     html2text
     lxml
@@ -26,7 +26,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "Wikipedia tools (for Humans)";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/siznax/wptools";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

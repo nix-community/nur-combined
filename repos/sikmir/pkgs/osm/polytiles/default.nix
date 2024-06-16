@@ -5,9 +5,9 @@
   sqlite,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "polytiles";
-  version = "2017-06-09";
+  version = "0-unstable-2017-06-09";
 
   src = fetchFromGitHub {
     owner = "Zverik";
@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-7rsMx8sQgl8cRiUncP3/mPne6ARj3K2FICU+frUeEUs=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     psycopg2
     python-mapnik
     shapely
@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "A script to render tiles for an area with mapnik";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/Zverik/polytiles";
     license = lib.licenses.wtfpl;
     maintainers = [ lib.maintainers.sikmir ];
     broken = true; # python-mapnik

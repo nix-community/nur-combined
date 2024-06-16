@@ -1,6 +1,5 @@
 {
   lib,
-  stdenv,
   fetchFromGitHub,
   python3Packages,
 }:
@@ -24,7 +23,7 @@ python3Packages.buildPythonApplication rec {
   dontUseSetuptoolsBuild = true;
   dontUseSetuptoolsCheck = true;
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     paho-mqtt
     influxdb
   ];
@@ -35,7 +34,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "IoT MQTT to InfluxDB forwarder";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/mhaas/mqtt-to-influxdb-forwarder";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
   };

@@ -25,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A C++ wrapper around Linux's socketcan featureset";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/SimonCahill/libsockcanpp";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

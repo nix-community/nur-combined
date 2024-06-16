@@ -18,7 +18,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-/AGvFE74sJTnn70VklQp0MG+7dsooavAdSTyV2oJM+I=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     requests
     gpxpy
   ];
@@ -36,7 +36,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Geo elevation data parser for \"The Shuttle Radar Topography Mission\" data";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/tkrajina/srtm.py";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
   };

@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-sVZ4HrFH3bL6FHn8B43rsya3vggIuCXdx6rPh+LG7MA=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     pyopenssl
     pysocks
     netaddr
@@ -35,7 +35,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Python library for the development of Gemini clients";
-    inherit (src.meta) homepage;
+    homepage = "https://framagit.org/bortzmeyer/agunua";
     license = lib.licenses.gpl2Only;
     maintainers = [ lib.maintainers.sikmir ];
   };

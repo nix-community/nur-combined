@@ -34,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A portable MQTT C client for embedded systems and PCs alike";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/LiamBindle/MQTT-C";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

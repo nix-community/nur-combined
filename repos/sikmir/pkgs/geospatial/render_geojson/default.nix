@@ -23,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "C++ geoJSON and topoJSON parser and rendering using the WxWidgets GUI library";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/pedro-vicente/render_geojson";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

@@ -27,7 +27,7 @@ python3Packages.buildPythonPackage rec {
 
   buildInputs = with python3Packages; [ pybind11 ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     defusedxml
     nltk
     pytorch
@@ -48,7 +48,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "Text utilities and datasets for PyTorch";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/pytorch/text";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
     #broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/issues/94241

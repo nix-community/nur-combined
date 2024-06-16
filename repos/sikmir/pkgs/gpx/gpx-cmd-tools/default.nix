@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "gpx-cmd-tools";
   version = "0-unstable-2020-08-08";
 
@@ -15,11 +15,11 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-x3/PNACBrT5XSlgpZj0WO27KW0DiF6Je2z3gX5g/Gz0=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ gpxpy ];
+  dependencies = with python3Packages; [ gpxpy ];
 
   meta = {
     description = "Set of GPX command-line utilities";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/tkrajina/gpx-cmd-tools";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
   };

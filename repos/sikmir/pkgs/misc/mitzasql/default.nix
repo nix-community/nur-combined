@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication rec {
       --replace-fail "appdirs ==1.4.4" "appdirs"
   '';
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     appdirs
     pygments
     mysql-connector

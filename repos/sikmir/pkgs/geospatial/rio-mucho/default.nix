@@ -16,7 +16,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-yr79Lb02vxp2CN+638S8CFxbtim+zrkjxhjwEkx0XsY=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     click
     numpy
     rasterio
@@ -26,7 +26,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "Parallel processing wrapper for rasterio";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/mapbox/rio-mucho";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gmi2html";
-  version = "0.4.1";
+  version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "shtanton";
     repo = "gmi2html";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-5m3erToDFkYOV1xoM+BLWbUOgP0A7TXthzQ0Sk1Qj+U=";
+    hash = "sha256-J71QThRwV8lpGJndqVT+tsekO+CVU8piSpjAn9jwfDI=";
   };
 
   nativeBuildInputs = [
@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Translate text/gemini into HTML";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/shtanton/gmi2html";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage {
   pname = "cykhash";
   version = "2.0.1";
 
@@ -32,7 +32,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "cython wrapper for khash";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/realead/cykhash";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

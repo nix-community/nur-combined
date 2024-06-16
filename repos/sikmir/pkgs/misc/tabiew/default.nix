@@ -1,6 +1,5 @@
 {
   lib,
-  stdenv,
   rustPlatform,
   fetchFromGitHub,
 }:
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = {
     description = "A lightweight TUI app to view and query CSV files";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/shshemi/tabiew";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

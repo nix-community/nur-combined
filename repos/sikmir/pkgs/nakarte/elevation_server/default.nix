@@ -30,7 +30,7 @@ buildGoPackage rec {
 
   meta = {
     description = "The server providing elevation data";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/wladich/elevation_server";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

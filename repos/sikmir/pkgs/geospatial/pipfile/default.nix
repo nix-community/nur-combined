@@ -15,14 +15,14 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-GsDhxnvBvjJGQWk25cS9+HqLQ9YVSxujeX2iGivYl6Q=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ toml ];
+  dependencies = with python3Packages; [ toml ];
 
   doCheck = false;
   pythonImportsCheck = [ "pipfile" ];
 
   meta = {
     description = "Pipfile: the replacement for requirements.txt";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/pypa/pipfile";
     license = with lib.licenses; [
       asl20
       bsd2

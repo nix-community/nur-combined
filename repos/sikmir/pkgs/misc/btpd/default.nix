@@ -5,7 +5,7 @@
   openssl,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "btpd";
   version = "2020-04-07";
 
@@ -24,9 +24,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "The BitTorrent Protocol Daemon";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/btpd/btpd";
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
   };
-})
+}

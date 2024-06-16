@@ -8,7 +8,7 @@
   wrapQtAppsHook,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "garminimg";
   version = "0-unstable-2021-01-07";
 
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Encode/decode a Garmin IMG file";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/kiozen/GarminImg";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

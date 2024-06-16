@@ -19,7 +19,7 @@ buildGoModule rec {
 
   meta = {
     description = "Hugo-to-Gemini Markdown converter";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/tdemin/gmnhg";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
   };

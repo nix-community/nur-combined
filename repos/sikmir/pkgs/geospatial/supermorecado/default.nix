@@ -16,9 +16,9 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-CuuJ4B/f7JoGQuTo5LS3WqMD860tucZ6z/97atw94k0=";
   };
 
-  nativeBuildInputs = with python3Packages; [ flit ];
+  build-system = with python3Packages; [ flit ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     morecantile
     rasterio
   ];
@@ -27,7 +27,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Extend the functionality of morecantile with additional commands";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/developmentseed/supermorecado";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

@@ -33,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A simple terminal based Gemini client";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/dimkr/gplaces";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

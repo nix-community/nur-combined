@@ -38,9 +38,7 @@ lib.makeScope newScope (
     macpass = callPackage ./darwin/macpass { };
     macsvg = callPackage ./darwin/macsvg { };
     marta = callPackage ./darwin/marta { };
-    pinentry-touchid = callPackage ./darwin/pinentry-touchid {
-      inherit (darwin.apple_sdk.frameworks) LocalAuthentication;
-    };
+    pinentry-touchid = callPackage ./darwin/pinentry-touchid { };
     podman-desktop-bin = callPackage ./darwin/podman-desktop/bin.nix { };
     qtcreator-bin = callPackage ./darwin/qtcreator/bin.nix { };
     qutebrowser-bin = callPackage ./darwin/qutebrowser/bin.nix { };
@@ -157,16 +155,16 @@ lib.makeScope newScope (
     agunua = callPackage ./gemini/agunua { };
     astronaut = callPackage ./gemini/astronaut { };
     comitium = callPackage ./gemini/comitium { };
-    eva = callPackage ./gemini/eva { inherit (darwin.apple_sdk.frameworks) Security; };
+    eva = callPackage ./gemini/eva { };
     gelim = callPackage ./gemini/gelim { };
     gemcert = callPackage ./gemini/gemcert { };
     gemgen = callPackage ./gemini/gemgen { };
     gemini-ipfs-gateway = callPackage ./gemini/gemini-ipfs-gateway { };
     geminid = callPackage ./gemini/geminid { };
     gemreader = callPackage ./gemini/gemreader { };
-    gemserv = callPackage ./gemini/gemserv { inherit (darwin.apple_sdk.frameworks) Security; };
+    gemserv = callPackage ./gemini/gemserv { };
     gloggery = callPackage ./gemini/gloggery { };
-    gmi2html = callPackage ./gemini/gmi2html { zig = pkgs.zig_0_9; };
+    gmi2html = callPackage ./gemini/gmi2html { };
     gmnhg = callPackage ./gemini/gmnhg { };
     gmnigit = callPackage ./gemini/gmnigit { };
     gplaces = callPackage ./gemini/gplaces { };
@@ -199,7 +197,7 @@ lib.makeScope newScope (
     geowebcache = callPackage ./geospatial/geowebcache { };
     go-pmtiles = callPackage ./geospatial/go-pmtiles { };
     go-staticmaps = callPackage ./geospatial/go-staticmaps { };
-    hecate = callPackage ./geospatial/hecate { inherit (darwin.apple_sdk.frameworks) Security; };
+    hecate = callPackage ./geospatial/hecate { };
     kealib = callPackage ./geospatial/kealib { };
     localtileserver = callPackage ./geospatial/localtileserver { };
     mapsoft = callPackage ./geospatial/mapsoft { proj = pkgs.proj_7; };
@@ -312,7 +310,7 @@ lib.makeScope newScope (
     revtok = callPackage ./linguistics/revtok { };
     stardict-tools = callPackage ./linguistics/stardict-tools { };
     tatoebatools = callPackage ./linguistics/tatoebatools { };
-    ttb = callPackage ./linguistics/ttb { inherit (darwin.apple_sdk.frameworks) SystemConfiguration; };
+    ttb = callPackage ./linguistics/ttb { };
     wikitextprocessor = callPackage ./linguistics/wikitextprocessor { };
     wiktextract = callPackage ./linguistics/wiktextract { };
     wiktfinnish = callPackage ./linguistics/wiktfinnish { };
@@ -359,7 +357,7 @@ lib.makeScope newScope (
     miband4 = callPackage ./misc/miband4 { };
     mitzasql = callPackage ./misc/mitzasql { };
     mjs = callPackage ./misc/mjs { };
-    modbus-tools = callPackage ./misc/modbus-tools { inherit (darwin.apple_sdk.frameworks) IOKit; };
+    modbus-tools = callPackage ./misc/modbus-tools { };
     modbus_sim_cli = callPackage ./misc/modbus_sim_cli { python3Packages = pkgs.python310Packages; };
     morse-talk = callPackage ./misc/morse-talk { };
     musig = callPackage ./misc/musig { };
@@ -402,7 +400,7 @@ lib.makeScope newScope (
     #worm = callPackage ./misc/worm { };
     wptools = callPackage ./misc/wptools { };
     xfractint = callPackage ./misc/xfractint { };
-    xtr = callPackage ./misc/xtr { inherit (darwin.apple_sdk.frameworks) Foundation; };
+    xtr = callPackage ./misc/xtr { };
     youtimetrack = callPackage ./misc/youtimetrack { };
 
     ### MQTT
@@ -425,7 +423,7 @@ lib.makeScope newScope (
     mqtt-to-influxdb = callPackage ./mqtt/mqtt-to-influxdb { };
     mqtt-to-influxdb-forwarder = callPackage ./mqtt/mqtt-to-influxdb-forwarder { };
     nanosdk = callPackage ./mqtt/nanosdk { };
-    rumqtt = callPackage ./mqtt/rumqtt { inherit (darwin.apple_sdk.frameworks) Security; };
+    rumqtt = callPackage ./mqtt/rumqtt { };
 
     ### NAKARTE
 
@@ -468,7 +466,7 @@ lib.makeScope newScope (
     pyrosm = callPackage ./osm/pyrosm { };
     sdlmap = callPackage ./osm/sdlmap { };
     smopy = callPackage ./osm/smopy { };
-    smrender = callPackage ./osm/smrender { inherit (darwin.apple_sdk.frameworks) Foundation; };
+    smrender = callPackage ./osm/smrender { };
     taginfo-tools = callPackage ./osm/taginfo-tools { };
     tilelog = callPackage ./osm/tilelog { };
     tirex = callPackage ./osm/tirex { };
@@ -481,9 +479,7 @@ lib.makeScope newScope (
     ais-catcher = callPackage ./radio/ais-catcher { };
     aprsc = callPackage ./radio/aprsc { };
     dumphfdl = callPackage ./radio/dumphfdl { };
-    dumpvdl2 = callPackage ./radio/dumpvdl2 {
-      inherit (darwin.apple_sdk.frameworks) AppKit Foundation;
-    };
+    dumpvdl2 = callPackage ./radio/dumpvdl2 { };
     fmreceiver = libsForQt5.callPackage ./radio/fmreceiver { };
     goestools = callPackage ./radio/goestools { };
     gqrx-scanner = callPackage ./radio/gqrx-scanner { };

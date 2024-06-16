@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "gaiagpsclient";
   version = "0-unstable-2023-08-26";
 
@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-qCpyJfa8TeMfawf1+wCFu04sYHfDejyStNl6Q6XEUeA=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     requests
     prettytable
     pytz
@@ -33,7 +33,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "A python client for gaiagps.com";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/kk7ds/gaiagpsclient";
     license = lib.licenses.gpl3Only;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "gaiagps";

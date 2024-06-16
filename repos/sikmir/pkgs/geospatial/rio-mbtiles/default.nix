@@ -1,6 +1,5 @@
 {
   lib,
-  stdenv,
   fetchFromGitHub,
   python3Packages,
   supermercado,
@@ -22,7 +21,7 @@ python3Packages.buildPythonApplication rec {
       --replace-fail "shapely~=1.7.0" "shapely"
   '';
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     click
     cligj
     mercantile
@@ -41,7 +40,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "A plugin command for the Rasterio CLI that exports a raster dataset to an MBTiles 1.1 SQLite file";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/mapbox/rio-mbtiles";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

@@ -5,7 +5,7 @@
   fetchFromGitHub,
   pkg-config,
   openssl,
-  Security,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -23,13 +23,13 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
 
   doCheck = false;
 
   meta = {
     description = "Fast Geospatial Feature Storage API";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/Hecate/Hecate";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     broken = true;

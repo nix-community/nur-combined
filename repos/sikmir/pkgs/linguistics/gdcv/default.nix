@@ -43,13 +43,15 @@ stdenv.mkDerivation (finalAttrs: {
   env.NIX_LDFLAGS = lib.optionalString stdenv.isDarwin "-largp";
 
   installPhase = ''
+    runHook preInstall
     install -Dm755 gdcv -t $out/bin
     install -Dm644 gdcv-elisp.so gdcv.el -t $out/share/emacs/site-lisp
+    runHook postInstall
   '';
 
   meta = {
     description = "GoldenDict console version and emacs dynamic module";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/konstare/gdcv";
     license = lib.licenses.gpl3Only;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

@@ -19,7 +19,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "Python implementation of RFC 7464";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/sgillies/jsonseq";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

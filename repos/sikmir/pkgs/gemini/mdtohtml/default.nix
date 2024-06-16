@@ -34,7 +34,7 @@ buildGoModule rec {
 
   meta = {
     description = "Markdown to HTML converter";
-    inherit (src.meta) homepage;
+    homepage = "https://git.sr.ht/~adnano/mdtohtml";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "mdtohtml";

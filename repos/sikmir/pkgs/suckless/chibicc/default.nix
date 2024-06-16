@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A small C compiler";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/rui314/chibicc";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     maintainers = [ lib.maintainers.sikmir ];

@@ -8,14 +8,14 @@
   libargs,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "json-tui";
   version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "ArthurSonzogni";
     repo = "json-tui";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-Rgan+Pki4kOFf4BiNmJV4mf/rgyIGgUVP1BcFCKG25w=";
   };
 
@@ -31,9 +31,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A JSON terminal UI made in C++";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/ArthurSonzogni/json-tui";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
   };
-}
+})

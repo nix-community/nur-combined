@@ -1,5 +1,4 @@
 {
-  stdenv,
   lib,
   fetchFromGitHub,
   buildGoModule,
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   meta = {
     description = "CLI tools for YouTrack time management";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/bullshitsoftware/youtimetrack";
     license = lib.licenses.wtfpl;
     maintainers = [ lib.maintainers.sikmir ];
   };

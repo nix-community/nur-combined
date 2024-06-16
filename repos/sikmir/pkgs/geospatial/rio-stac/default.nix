@@ -17,9 +17,9 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-ySgxzcd0mRffDGv6L0iaaE9VY7K4fnsyE6RTotgSuQ4=";
   };
 
-  nativeBuildInputs = with python3Packages; [ flit ];
+  build-system = with python3Packages; [ flit ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     rasterio
     pystac
   ];

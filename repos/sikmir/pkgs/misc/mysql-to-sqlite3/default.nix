@@ -18,7 +18,7 @@ python3Packages.buildPythonApplication rec {
 
   build-system = with python3Packages; [ hatchling ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     click
     mysql-connector
     python-slugify
@@ -31,7 +31,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Transfer data from MySQL to SQLite";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/techouse/mysql-to-sqlite3";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "mysql2sqlite";

@@ -19,7 +19,7 @@ buildGoModule rec {
 
   meta = {
     description = "Small Gemini server for serving static files";
-    inherit (src.meta) homepage;
+    homepage = "https://sr.ht/~gsthnz/satellite";
     license = lib.licenses.agpl3Only;
     maintainers = [ lib.maintainers.sikmir ];
   };

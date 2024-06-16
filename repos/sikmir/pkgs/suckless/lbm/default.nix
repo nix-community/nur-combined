@@ -35,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A simple Bluetooth manager";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://git.weitnahbei.de/nullmark/little_blue_man";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

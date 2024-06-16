@@ -19,13 +19,17 @@ buildGoModule rec {
 
   vendorHash = "sha256-FnLxhhytgNC4OIvh9pUM+cVDdNfqVOocjmkzFDU1fmA=";
 
-  ldflags = [ "-X main.appVersion=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.appVersion=${version}"
+  ];
 
   passthru.tests.version = testers.testVersion { package = vt2geojson; };
 
   meta = {
     description = "Command line tool to dump Mapbox Vector Tiles to GeoJSON";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/wangyoucao577/vt2geojson";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

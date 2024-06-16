@@ -17,11 +17,15 @@ buildGoModule rec {
 
   vendorHash = "sha256-gLFwGEUeH41bObG32MZznF7clct3h2GEvdZ2/KIiVb4=";
 
-  ldflags = [ "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   meta = {
     description = "Read/write library & concurrent caching proxy for PMTiles archives";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/protomaps/go-pmtiles";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };

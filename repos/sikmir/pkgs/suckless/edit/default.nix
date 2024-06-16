@@ -23,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A suckless, simple, featured text editor";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/arthur-jacquin/edit";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

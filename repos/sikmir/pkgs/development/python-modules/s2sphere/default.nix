@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage {
   pname = "s2sphere";
   version = "0.2.5";
 
@@ -15,7 +15,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-6hNIuyLTcGcXpLflw2ajCOjel0IaZSFRlPFi81Z5LUo=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ future ];
+  dependencies = with python3Packages; [ future ];
 
   doCheck = false;
 

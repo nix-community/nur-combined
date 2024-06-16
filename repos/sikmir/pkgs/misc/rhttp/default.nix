@@ -4,7 +4,7 @@
   buildGoModule,
 }:
 
-buildGoModule rec {
+buildGoModule {
   pname = "rhttp";
   version = "0-unstable-2024-04-22";
 
@@ -19,7 +19,7 @@ buildGoModule rec {
 
   meta = {
     description = "REPL for HTTP";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/1buran/rHttp";
     license = lib.licenses.agpl3Only;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "rhttp";

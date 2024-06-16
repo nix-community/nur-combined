@@ -41,7 +41,7 @@ nimPackages.buildNimPackage rec {
 
   meta = {
     description = "A dynamic, tag-based window manager written in Nim";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/codic12/worm";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.sikmir ];

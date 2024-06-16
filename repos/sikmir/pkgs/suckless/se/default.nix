@@ -23,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "screen oriented version of the classic UNIX text editor ed";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/screen-editor/se";
     license = lib.licenses.publicDomain;
     platforms = lib.platforms.unix;
     maintainers = [ lib.maintainers.sikmir ];

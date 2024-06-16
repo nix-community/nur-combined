@@ -1,6 +1,5 @@
 {
   lib,
-  stdenv,
   fetchFromGitHub,
   python3Packages,
   rio-mucho,
@@ -19,7 +18,7 @@ python3Packages.buildPythonPackage rec {
 
   nativeBuildInputs = with python3Packages; [ cython ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     click
     rasterio
     rio-mucho
@@ -33,7 +32,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "Color correction plugin for rasterio";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/mapbox/rio-color";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

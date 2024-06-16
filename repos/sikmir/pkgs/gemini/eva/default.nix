@@ -7,7 +7,7 @@
   gtk4,
   openssl,
   wrapGAppsHook,
-  Security,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -33,11 +33,11 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [
     gtk4
     openssl
-  ] ++ lib.optional stdenv.isDarwin Security;
+  ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameforks.Security;
 
   meta = {
     description = "Gemini protocol browser written in Rust using the gtk+ toolkit";
-    inherit (src.meta) homepage;
+    homepage = "https://codeberg.org/jeang3nie/eva";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
   };

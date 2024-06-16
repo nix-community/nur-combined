@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-OHY4f+0jfxKXiwRJRdSarlb2H+lEt2EVoAAsD4aEc9o=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     requests
     six
   ];
@@ -26,7 +26,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Garmin Connect Python Uploader";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/La0/garmin-uploader";
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.sikmir ];
   };

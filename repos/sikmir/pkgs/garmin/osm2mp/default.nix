@@ -20,7 +20,7 @@
   YAML,
 }:
 
-buildPerlPackage rec {
+buildPerlPackage {
   pname = "osm2mp";
   version = "0-unstable-2018-08-31";
 
@@ -76,7 +76,7 @@ buildPerlPackage rec {
 
   meta = {
     description = "Convert Openstreetmap data to MP format";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/liosha/osm2mp";
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "osm2mp";

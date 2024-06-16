@@ -1,6 +1,5 @@
 {
   lib,
-  stdenv,
   python3Packages,
   fetchFromGitHub,
   withCli ? true,
@@ -24,7 +23,7 @@ python3Packages.buildPythonApplication rec {
 
   postPatch = "sed -i 's/==.*\"/\"/;s/>=.*\"/\"/' setup.py";
 
-  propagatedBuildInputs =
+  dependencies =
     with python3Packages;
     [
       beautifulsoup4
@@ -48,7 +47,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "A library for downloading, updating and iterating over data files from Tatoeba";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/LBeaudoux/tatoebatools";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

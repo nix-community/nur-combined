@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "docx2csv";
   version = "0-unstable-2023-10-11";
 
@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-A7Y1zgM+9xIDXsAQN2tGGoWbe8u/kvGch6sBNKz0Nw4=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     click
     openpyxl
     python-docx
@@ -24,7 +24,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Extracts tables from .docx files and saves them as .csv or .xls files";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/ivbeg/docx2csv";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };

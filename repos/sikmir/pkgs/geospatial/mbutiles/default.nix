@@ -1,13 +1,12 @@
 {
   lib,
-  stdenv,
   rustPlatform,
   fetchFromGitHub,
   pkg-config,
   sqlite,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "mbutiles";
   version = "0.1.0-unstable-2024-04-12";
 
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = {
     description = "mbtiles utility in Rust, generate MBTiles from tiles directories and extract tiles from MBTiles file";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/amarant/mbutiles";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };

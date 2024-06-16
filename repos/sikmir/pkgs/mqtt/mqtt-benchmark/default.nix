@@ -19,7 +19,7 @@ buildGoModule rec {
 
   meta = {
     description = "MQTT broker benchmarking tool";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/krylovsk/mqtt-benchmark";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
   };

@@ -23,11 +23,11 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-sZStJgToQtWYrBH1BjqxCUwQUT5dcAlyZwnb4aYga+4=";
   };
 
-  nativeBuildInputs = with python3Packages; [ setuptools-scm ];
+  build-system = with python3Packages; [ setuptools-scm ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     fasteners
     appdirs
     click

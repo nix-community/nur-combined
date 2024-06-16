@@ -5,7 +5,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "wik";
   version = "1.4.0";
   pyproject = true;
@@ -17,17 +17,18 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-oSHL3jYFuvJY1W7N9/CvFClFakz9f35RHg77AbMRfsI=";
   };
 
-  nativeBuildInputs = with python3Packages; [ flit ];
+  build-system = with python3Packages; [ flit ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     beautifulsoup4
     requests
   ];
 
   meta = {
     description = "wik is use to get information about anything on the shell using Wikipedia";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/yashsinghcodes/wik";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
+    mainProgram = "wik";
   };
 }

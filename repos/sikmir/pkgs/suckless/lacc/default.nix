@@ -23,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A simple, self-hosting C compiler";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/larmel/lacc";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     maintainers = [ lib.maintainers.sikmir ];

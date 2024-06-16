@@ -22,7 +22,7 @@ buildGoModule rec {
 
   meta = {
     description = "Markdown to Gemtext generator";
-    inherit (src.meta) homepage;
+    homepage = "https://sr.ht/~kota/gemgen";
     license = lib.licenses.gpl3Only;
     maintainers = [ lib.maintainers.sikmir ];
   };

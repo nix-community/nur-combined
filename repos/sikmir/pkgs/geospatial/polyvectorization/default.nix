@@ -9,7 +9,7 @@
   wrapQtAppsHook,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "polyvectorization";
   version = "0-unstable-2019-08-23";
 
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Reference implementation of Vectorization of Line Drawings via PolyVector Fields";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/bmpix/PolyVectorization";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

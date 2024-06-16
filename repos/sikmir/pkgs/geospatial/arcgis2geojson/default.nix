@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "A Python library for converting ArcGIS JSON to GeoJSON";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/chris48s/arcgis2geojson";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     broken = true;

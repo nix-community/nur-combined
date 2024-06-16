@@ -4,14 +4,14 @@
   fetchFromGitHub,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "iso15765-canbus";
   version = "0-unstable-2024-01-17";
 
   src = fetchFromGitHub {
     owner = "devcoons";
     repo = "iso15765-canbus";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-KdVw8JhJsqa+n3ELnTojHV/37Wfb1A2a7fSbBsTkJgI=";
   };
 
@@ -27,10 +27,10 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Implementation of ISO15765-2 in C";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/devcoons/iso15765-canbus";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

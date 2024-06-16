@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Gemini Server in C";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/jovoro/geminid";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

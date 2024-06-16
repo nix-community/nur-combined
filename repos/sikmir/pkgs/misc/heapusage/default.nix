@@ -5,14 +5,14 @@
   cmake,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "heapusage";
   version = "2.07";
 
   src = fetchFromGitHub {
     owner = "d99kris";
     repo = "heapusage";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-p7Yhx/w1I0+dxD7YH15Eojs4wh337/mZnXBwpiqlt4A=";
   };
 
@@ -20,10 +20,10 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Light-weight tool for finding heap memory errors";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/d99kris/heapusage";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
     mainProgram = "heapusage";
   };
-}
+})

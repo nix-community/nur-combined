@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage {
   pname = "thinplatespline";
   version = "0-unstable-2024-02-06";
 
@@ -21,7 +21,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "Python library for thin plate spline calculations";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/wladich/thinplatespline";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

@@ -82,7 +82,7 @@ buildGoModule rec {
 
   meta = {
     description = "Client for container development";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/runfinch/finch";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.darwin;

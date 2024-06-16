@@ -34,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "GNSSTk libraries";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/SGL-UT/gnsstk";
     license = lib.licenses.lgpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

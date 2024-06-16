@@ -33,7 +33,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = {
     description = "Web-based OpenStreetMap Editor";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/Zverik/Level0";
     license = lib.licenses.wtfpl;
     maintainers = [ lib.maintainers.sikmir ];
   };

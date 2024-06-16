@@ -18,7 +18,7 @@ python3Packages.buildPythonApplication rec {
 
   patches = [ ./set-tmpl-path.patch ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     azure-storage-blob
     azure-identity
     boto3
@@ -41,7 +41,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Tools for managing tiles";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/camptocamp/tilecloud";
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.sikmir ];
   };

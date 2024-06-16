@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage {
   pname = "distance";
   version = "2013-11-22";
 
@@ -23,7 +23,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "Utilities for comparing sequences";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/doukremt/distance";
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.sikmir ];
   };

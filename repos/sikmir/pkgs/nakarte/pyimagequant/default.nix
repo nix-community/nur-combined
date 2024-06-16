@@ -5,7 +5,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage {
   pname = "pyimagequant";
   version = "0-unstable-2022-06-10";
 
@@ -28,7 +28,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "Python bindings for libimagequant (pngquant core)";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/wladich/pyimagequant";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
   };

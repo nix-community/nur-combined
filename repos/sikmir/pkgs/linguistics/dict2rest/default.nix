@@ -4,7 +4,7 @@
   buildGoPackage,
 }:
 
-buildGoPackage rec {
+buildGoPackage {
   pname = "dict2rest";
   version = "0-unstable-2016-12-05";
 
@@ -19,7 +19,7 @@ buildGoPackage rec {
 
   meta = {
     description = "A simple proxy service providing an HTTP interface to a Dict protocol (RFC 2229) server";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/felix/go-dict2rest";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

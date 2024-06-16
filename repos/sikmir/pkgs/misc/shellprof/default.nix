@@ -5,7 +5,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "shellprof";
   version = "0-unstable-2021-04-27";
   format = "other";
@@ -26,7 +26,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Profile a shell script based on its printouts";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/walles/shellprof";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

@@ -6,7 +6,7 @@
   pkg-config,
   cairo,
   librsvg,
-  Foundation,
+  darwin,
   memstreamHook,
   testers,
 }:
@@ -33,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
       librsvg
     ]
     ++ lib.optionals stdenv.isDarwin [
-      Foundation
+      darwin.apple_sdk.frameworks.Foundation
       memstreamHook
     ];
 
@@ -44,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A powerful, flexible, and modular rule-based rendering engine for OSM data";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/rahra/smrender";
     license = lib.licenses.gpl3Only;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

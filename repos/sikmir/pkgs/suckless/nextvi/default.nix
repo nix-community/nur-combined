@@ -22,12 +22,14 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   installPhase = ''
+    runHook preInstall
     PREFIX=$out sh ./build.sh install
+    runHook postInstall
   '';
 
   meta = {
     description = "Next version of neatvi (a small vi/ex editor)";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/kyx0r/nextvi";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     maintainers = [ lib.maintainers.sikmir ];

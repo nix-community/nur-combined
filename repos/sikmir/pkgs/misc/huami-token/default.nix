@@ -1,47 +1,38 @@
 {
   lib,
-  stdenv,
-  fetchFromGitHub,
+  fetchFromGitea,
   python3Packages,
 }:
 
 python3Packages.buildPythonApplication rec {
   pname = "huami-token";
-  version = "2021-10-30";
-  format = "other";
+  version = "0.7.0";
+  pyproject = true;
 
-  src = fetchFromGitHub {
+  src = fetchFromGitea {
+    domain = "codeberg.org";
     owner = "argrento";
     repo = "huami-token";
-    rev = "c88162682dd16671ea22ea0e8e6f913494b3bd78";
-    hash = "sha256-LMVFlpMueQV8jfX2A968AYftIT2pAe+FTOS7X21ml8w=";
+    rev = "v${version}";
+    hash = "sha256-nQiz1vrZz0sOoZFQaN9ZtzfDY3zn3Gk0jMdqORDDW3w=";
   };
 
-  dontUseSetuptoolsBuild = true;
-  dontUseSetuptoolsCheck = true;
+  postPatch = ''
+    substituteInPlace pyproject.toml --replace "requests == 2.25.1" "requests"
+  '';
 
-  installPhase =
-    let
-      pythonEnv = python3Packages.python.withPackages (
-        p: with p; [
-          requests
-          rich
-        ]
-      );
-    in
-    ''
-      site_packages=$out/lib/${python3Packages.python.libPrefix}/site-packages
-      mkdir -p $site_packages
-      cp *.py $site_packages
+  build-system = with python3Packages; [ flit ];
 
-      makeWrapper ${pythonEnv.interpreter} $out/bin/huami_token \
-        --add-flags "$site_packages/huami_token.py"
-    '';
+  dependencies = with python3Packages; [
+    requests
+    types-requests
+  ];
 
   meta = {
     description = "Script to obtain watch or band bluetooth token from Huami servers";
-    inherit (src.meta) homepage;
-    license = lib.licenses.free;
+    homepage = "https://github.com/argrento/huami-token";
+    license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
+    mainProgram = "huami_token";
   };
 }

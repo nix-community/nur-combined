@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Decompile Lingvo LSD dictionary to DSL";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/sv99/lsdreader";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = with python3Packages; [ flake8 ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     click
     publicsuffixlist
     pyathena
@@ -28,7 +28,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Tilelog is used to generate tile logs for the OSMF Standard map layer";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/openstreetmap/tilelog";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
   };

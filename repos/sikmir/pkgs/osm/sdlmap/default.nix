@@ -8,7 +8,7 @@
   SDL2_image,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "sdlmap";
   version = "2014-02-09";
 
@@ -36,9 +36,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A SDL + libcurl OpenStreetMap viewer";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/jhawthorn/sdlmap";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
   };
-})
+}

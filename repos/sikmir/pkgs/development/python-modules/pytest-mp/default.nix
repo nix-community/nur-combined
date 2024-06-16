@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage {
   pname = "pytest-mp";
   version = "2019-03-11";
 
@@ -24,7 +24,7 @@ python3Packages.buildPythonPackage rec {
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     pytest
     psutil
   ];
@@ -33,7 +33,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "A test batcher for multiprocessed Pytest runs";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/ansible/pytest-mp";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

@@ -5,7 +5,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "morse-talk";
   version = "2016-12-25";
 
@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-fvQCETz0Lv0hyfKG7HC2Whm+xoZ9233hF/1ogsfZ10o=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     matplotlib
     sounddevice
     tkinter
@@ -27,7 +27,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "A Python library written for Morse Code";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/morse-talk/morse-talk";
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.sikmir ];
   };

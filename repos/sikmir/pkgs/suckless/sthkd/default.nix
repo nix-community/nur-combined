@@ -19,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Simple Terminal Hotkey Daemon";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/jeremybobbin/sthkd";
     license = lib.licenses.isc;
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.sikmir ];

@@ -1,5 +1,4 @@
 {
-  stdenv,
   lib,
   fetchFromGitHub,
   buildGoModule,
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   meta = {
     description = "Cross-platform utility to execute commands remotely using MQTT";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/albertnis/mqcontrol";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
   };

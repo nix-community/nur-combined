@@ -4,7 +4,7 @@
   rustPlatform,
   fetchFromGitHub,
   libiconv,
-  Foundation,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [
     libiconv
-    Foundation
+    darwin.apple_sdk.frameworks.Foundation
   ];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-incompatible-function-pointer-types";
@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = {
     description = "Translation tools for rust";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/woboq/tr";
     license = with lib.licenses; [
       agpl3Only
       mit

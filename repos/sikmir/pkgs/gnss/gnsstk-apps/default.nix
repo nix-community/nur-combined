@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "GNSSTk applications suite";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/SGL-UT/gnsstk-apps";
     license = lib.licenses.lgpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

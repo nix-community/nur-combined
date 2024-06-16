@@ -33,14 +33,14 @@ let
     hash = "sha256-xH0htDZd2UihLn7PHKLjEYETzcBSeJFOMNredTqlCW8=";
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "diagon";
   version = "1.1.158";
 
   src = fetchFromGitHub {
     owner = "ArthurSonzogni";
     repo = "Diagon";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-Qxk3+1T0IPmvB5v3jaqvBnESpss6L8bvoW+R1l5RXdQ=";
   };
 
@@ -74,10 +74,10 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Interactive ASCII art diagram generators";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/ArthurSonzogni/Diagon";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
     broken = true;
   };
-}
+})

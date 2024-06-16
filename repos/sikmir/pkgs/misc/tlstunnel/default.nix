@@ -30,7 +30,7 @@ ocamlPackages.buildDunePackage rec {
 
   meta = {
     description = "A TLS reverse proxy unikernel";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/robur-coop/tlstunnel";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
   };

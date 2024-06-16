@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "lazyscraper";
   version = "2020-05-19";
 
@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-gnhJB+ZMKQIYZNHMeRrlICgz5UhyHy72Js/I4kbp8Qo=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     click
     lxml
     requests
@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Lazy helper tool to make easier scraping with simple tasks";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/ivbeg/lazyscraper";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
   };

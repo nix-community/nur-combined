@@ -3,10 +3,10 @@
   stdenv,
   rustPlatform,
   fetchFromGitHub,
-  SystemConfiguration,
+  darwin,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "ttb";
   version = "0-unstable-2022-12-14";
 
@@ -23,11 +23,11 @@ rustPlatform.buildRustPackage rec {
     ln -s ${./Cargo.lock} Cargo.lock
   '';
 
-  buildInputs = lib.optional stdenv.isDarwin SystemConfiguration;
+  buildInputs = lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.SystemConfiguration;
 
   meta = {
     description = "A lightning-fast tool for querying Tatoebe from the command-line";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/TheOpenDictionary/ttb";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "ttb";

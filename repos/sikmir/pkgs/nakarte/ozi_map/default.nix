@@ -6,7 +6,7 @@
   maprec,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage {
   pname = "ozi_map";
   version = "0-unstable-2022-08-05";
 
@@ -22,7 +22,7 @@ python3Packages.buildPythonPackage rec {
       --replace-fail " @ git+https://github.com/wladich/maprec.git" ""
   '';
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     maprec
     pyproj
   ];
@@ -33,7 +33,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "Python module for reading OziExplorer .map files";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/wladich/ozi_map";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
   };

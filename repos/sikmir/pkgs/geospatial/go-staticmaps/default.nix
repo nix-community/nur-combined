@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 
-buildGoModule rec {
+buildGoModule {
   pname = "go-staticmaps";
   version = "0-unstable-2021-12-31";
 
@@ -21,7 +21,7 @@ buildGoModule rec {
 
   meta = {
     description = "A go (golang) library and command line tool to render static map images using OpenStreetMap tiles";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/flopp/go-staticmaps";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

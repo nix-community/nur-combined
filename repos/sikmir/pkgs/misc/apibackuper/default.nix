@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-2vNuzQK6Wm6DBWRSLFuy6loCLAbcql3CqSktMjGE8JE=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     bson
     click
     lxml
@@ -27,7 +27,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Python library and cmd tool to backup API calls";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/ruarxive/apibackuper";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

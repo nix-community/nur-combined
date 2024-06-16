@@ -22,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A frequency scanner for Gqrx Software Defined Radio receiver";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/neural75/gqrx-scanner";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

@@ -1,12 +1,10 @@
 {
   lib,
-  stdenv,
   buildGoModule,
   fetchFromSourcehut,
-  scdoc,
 }:
 
-buildGoModule rec {
+buildGoModule {
   pname = "gemini-ipfs-gateway";
   version = "0-unstable-2023-10-19";
 
@@ -21,7 +19,7 @@ buildGoModule rec {
 
   meta = {
     description = "IPFS access over the Gemini protocol";
-    inherit (src.meta) homepage;
+    homepage = "https://git.sr.ht/~hsanjuan/gemini-ipfs-gateway";
     license = lib.licenses.agpl3Only;
     maintainers = [ lib.maintainers.sikmir ];
   };

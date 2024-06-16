@@ -16,12 +16,14 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   installPhase = ''
+    runHook preInstall
     install -Dm755 kilo -t $out/bin
+    runHook postInstall
   '';
 
   meta = {
     description = "A text editor in less than 1000 LOC with syntax highlight and search";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/antirez/kilo";
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Transform tags in OSM files using Lua code";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/osmcode/osm-tags-transform";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

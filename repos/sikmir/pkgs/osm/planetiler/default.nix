@@ -35,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Flexible tool to build planet-scale vector tilesets from OpenStreetMap data";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/onthegomap/planetiler";
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];

@@ -21,7 +21,7 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     beautifulsoup4
     lxml
     matplotlib

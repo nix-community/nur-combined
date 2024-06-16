@@ -5,7 +5,7 @@
   fetchFromGitHub,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage {
   pname = "pyarrow_ops";
   version = "0-unstable-2022-01-30";
   pyproject = true;
@@ -21,7 +21,7 @@ python3Packages.buildPythonPackage rec {
 
   nativeBuildInputs = with python3Packages; [ cython ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     numpy
     pyarrow
   ];

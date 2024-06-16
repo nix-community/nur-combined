@@ -15,11 +15,13 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-zKloFO7uCLkqgayxC11JRfMpNxIR+UkT/Xabb9AH8To=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [ setuptools ];
+
+  pythonImportsCheck = [ "portolan" ];
 
   meta = {
     description = "Convert between compass points and degrees";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/fitnr/portolan";
     license = lib.licenses.gpl3Only;
     maintainers = [ lib.maintainers.sikmir ];
   };

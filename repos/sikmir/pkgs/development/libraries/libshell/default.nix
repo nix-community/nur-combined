@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libshell";
-  version = "0.4.11";
+  version = "0.4.13";
 
   src = fetchFromGitHub {
     owner = "legionus";
     repo = "libshell";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-ZUsCuian4FaSg4wa2fHbNiGnjvy5BpPveXX/5GihsQY=";
+    hash = "sha256-jolr55qNG3224IWRE9PueeRbO5RIhFmFiPe0g0wO9c4=";
   };
 
   nativeBuildInputs = [ help2man ];
@@ -29,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace utils/cgrep.in --replace-fail "/bin/ash" "${dash}/bin/dash"
     substituteInPlace shell-terminfo --replace-fail "tput" "${ncurses}/bin/tput"
     for f in shell-* ; do
-      substituteInPlace $f --replace-fail "/bin/sh" "${bash}/bin/sh"
+      substituteInPlace $f --replace-warn "/bin/sh" "${bash}/bin/sh"
     done
   '';
 
@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A library of shell functions";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/legionus/libshell";
     license = lib.licenses.gpl2;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.all;

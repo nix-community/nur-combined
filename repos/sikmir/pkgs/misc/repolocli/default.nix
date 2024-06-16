@@ -10,7 +10,7 @@
   makeWrapper,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "repolocli";
   version = "0-unstable-2021-04-06";
 
@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = {
     description = "Repology commandline interface (and API)";
-    inherit (src.meta) homepage;
+    homepage = "https://git.sr.ht/~matthiasbeyer/repolocli";
     license = lib.licenses.gpl2Only;
     maintainers = [ lib.maintainers.sikmir ];
     broken = stdenv.isLinux;

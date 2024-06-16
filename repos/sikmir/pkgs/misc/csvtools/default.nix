@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "GNU-alike tools for parsing RFC 4180 CSVs at high speed";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/DavyLandman/csvtools";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

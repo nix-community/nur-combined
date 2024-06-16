@@ -6,16 +6,16 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pysheds";
-  version = "0.3.5";
+  version = "0.4";
 
   src = fetchFromGitHub {
     owner = "mdbartos";
     repo = "pysheds";
     rev = version;
-    hash = "sha256-OAc/OxqEvASpRNJL/KcE+exHGJie0oVv4fS+XXhtRcI=";
+    hash = "sha256-cIx/TPPLYsHEgvHtyZY5psRwqtvKQkJ/SnafT2btLBI=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     scikitimage
     affine
     geojson
@@ -30,7 +30,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "Simple and fast watershed delineation in python";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/mdbartos/pysheds";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
   };

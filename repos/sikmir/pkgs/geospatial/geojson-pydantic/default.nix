@@ -1,6 +1,5 @@
 {
   lib,
-  stdenv,
   fetchFromGitHub,
   python3Packages,
 }:
@@ -17,9 +16,9 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-bNNLeHFIZYX34b0ceXPPMRIBR4MbMXpMO9gH2HBFKCY=";
   };
 
-  nativeBuildInputs = with python3Packages; [ flit ];
+  build-system = with python3Packages; [ flit ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     pydantic
     shapely
   ];
@@ -30,7 +29,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "Pydantic data models for the GeoJSON spec";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/developmentseed/geojson-pydantic";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

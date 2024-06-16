@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Portable NetBSD-compatibility library";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/archiecobbs/libnbcompat";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

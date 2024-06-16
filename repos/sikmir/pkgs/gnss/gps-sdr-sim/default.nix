@@ -23,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Software-Defined GPS Signal Simulator";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/osqzss/gps-sdr-sim";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

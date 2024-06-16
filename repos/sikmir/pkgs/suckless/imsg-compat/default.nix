@@ -17,8 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   postPatch = ''
-    substituteInPlace libimsg.pc.in \
-      --subst-var-by LIBDIR "lib"
+    substituteInPlace libimsg.pc.in --subst-var-by LIBDIR "lib"
   '';
 
   nativeBuildInputs = [ validatePkgConfig ];
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Unofficial port of OpenBSD's imsg utilities";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/bsd-ac/imsg-compat";
     license = lib.licenses.isc;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

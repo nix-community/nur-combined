@@ -9,7 +9,7 @@
   substituteAll,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "openmtbmap";
   version = "2020-06-10";
 
@@ -35,10 +35,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Linux script to extract and compile garmin *.img map files from openmtbmap.org or openvelomap.org downloads";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/btittelbach/openmtbmap_openvelomap_linux";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.all;
     skip.ci = true;
   };
-})
+}

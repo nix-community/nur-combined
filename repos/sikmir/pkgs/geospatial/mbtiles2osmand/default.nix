@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "mbtiles2osmand";
   version = "0-unstable-2021-01-01";
   format = "other";
@@ -36,7 +36,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Converts mbtiles format to sqlitedb format suitable for OsmAnd and RMaps";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/tarwirdur/mbtiles2osmand";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

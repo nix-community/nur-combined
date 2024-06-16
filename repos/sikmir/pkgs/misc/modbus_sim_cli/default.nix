@@ -5,7 +5,7 @@
   modbus_tk,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "modbus_sim_cli";
   version = "0-unstable-2019-02-27";
 
@@ -22,7 +22,7 @@ python3Packages.buildPythonApplication rec {
       --replace-fail "yaml.load(conffile.read())" "yaml.safe_load(conffile)"
   '';
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     coloredlogs
     modbus_tk
     pyyaml
@@ -38,7 +38,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Modbus simulation command line version";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/dhoomakethu/modbus_sim_cli";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

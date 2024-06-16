@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "line chat is a simple and elegant front end for ii-like chat programs";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/younix/lchat";
     license = lib.licenses.isc;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

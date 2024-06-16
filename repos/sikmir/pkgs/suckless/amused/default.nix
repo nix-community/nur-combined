@@ -41,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "music player daemon NIH";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/omar-polo/amused";
     license = lib.licenses.isc;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

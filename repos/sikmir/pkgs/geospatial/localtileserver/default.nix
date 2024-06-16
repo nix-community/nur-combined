@@ -22,7 +22,7 @@ python3Packages.buildPythonApplication rec {
       --replace-fail "large-image[gdal]" "large-image-source-gdal"
   '';
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     click
     flask
     flask-caching

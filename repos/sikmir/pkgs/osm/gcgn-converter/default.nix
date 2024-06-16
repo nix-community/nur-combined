@@ -43,7 +43,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Ковертер ГКГН из PDF в GeoJSON";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/Miroff/gcgn-converter";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
   };

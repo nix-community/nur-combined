@@ -4,9 +4,9 @@
   fetchFromSourcehut,
 }:
 
-buildGoModule rec {
+buildGoModule {
   pname = "gemreader";
-  version = "2021-03-08";
+  version = "0-unstable-2021-03-08";
 
   src = fetchFromSourcehut {
     owner = "~sircmpwn";
@@ -19,7 +19,7 @@ buildGoModule rec {
 
   meta = {
     description = "Feed reader for the Geminispace";
-    inherit (src.meta) homepage;
+    homepage = "https://git.sr.ht/~sircmpwn/gemreader";
     license = lib.licenses.agpl3Only;
     maintainers = [ lib.maintainers.sikmir ];
   };

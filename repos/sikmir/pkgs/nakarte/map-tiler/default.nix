@@ -12,7 +12,7 @@
   wrapGAppsHook,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "map-tiler";
   version = "0-unstable-2022-08-06";
 
@@ -41,7 +41,7 @@ python3Packages.buildPythonApplication rec {
     pango
   ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     pyyaml
     pyproj
     pypng
@@ -58,7 +58,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Raster maps to map tiles";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/wladich/map-tiler";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
   };

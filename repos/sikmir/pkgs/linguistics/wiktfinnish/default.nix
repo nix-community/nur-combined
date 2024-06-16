@@ -1,11 +1,10 @@
 {
   lib,
-  stdenv,
   python3Packages,
   fetchFromGitHub,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "wiktfinnish";
   version = "2020-02-27";
 
@@ -22,7 +21,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Finnish morphology (including verb forms, comparatives, cases, possessives, clitics)";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/tatuylonen/wiktfinnish";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

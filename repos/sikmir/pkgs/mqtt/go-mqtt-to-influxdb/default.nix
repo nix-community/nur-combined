@@ -1,5 +1,4 @@
 {
-  stdenv,
   lib,
   fetchFromGitHub,
   buildGoModule,
@@ -21,7 +20,7 @@ buildGoModule rec {
 
   meta = {
     description = "Bridge to write MQTT to InfluxDB";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/elgohr/mqtt-to-influxdb";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

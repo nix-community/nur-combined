@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage {
   pname = "revtok";
   version = "2018-09-21";
 
@@ -15,13 +15,13 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-o416UUnTMejCd57fGvZPSFQv0bT4PULdgNTXyAzMiMs=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ tqdm ];
+  dependencies = with python3Packages; [ tqdm ];
 
   pythonImportsCheck = [ "revtok" ];
 
   meta = {
     description = "Reversible tokenization in Python";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/jekbradbury/revtok";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

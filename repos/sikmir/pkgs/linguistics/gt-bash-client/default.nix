@@ -21,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Get translated text from your terminal! Console Google Translate Script (bash+curl+sed)";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/OPHoperHPO/GT-bash-client";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.all;

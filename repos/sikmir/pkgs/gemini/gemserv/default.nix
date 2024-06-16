@@ -5,7 +5,7 @@
   fetchFromSourcehut,
   pkg-config,
   openssl,
-  Security,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
 
   postInstall = ''
     install -Dm644 config.toml -t $out/share/gemserv
@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
 
   meta = {
     description = "A gemini server written in rust";
-    inherit (src.meta) homepage;
+    homepage = "https://git.sr.ht/~int80h/gemserv";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

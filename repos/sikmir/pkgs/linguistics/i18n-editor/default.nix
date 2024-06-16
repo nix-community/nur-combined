@@ -38,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "GUI for editing your i18n translation files";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/jcbvm/i18n-editor";
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];

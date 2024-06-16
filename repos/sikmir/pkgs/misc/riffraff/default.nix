@@ -5,7 +5,7 @@
   installShellFiles,
 }:
 
-buildGoModule rec {
+buildGoModule {
   pname = "riffraff";
   version = "0.5.0-unstable-2022-10-25";
 
@@ -29,7 +29,7 @@ buildGoModule rec {
 
   meta = {
     description = "A commandline interface for Jenkins";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/mre/riffraff";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "riffraff";

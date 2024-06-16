@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "osmwalkthrough";
   version = "0-unstable-2021-09-24";
   format = "other";
@@ -40,7 +40,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Draw ways you want to walk through";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/leotrubach/osmwalkthrough";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
   };

@@ -5,7 +5,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "telegram-send";
   version = "0-unstable-2023-10-07";
 
@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs = with python3Packages; [ pip ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     appdirs
     colorama
     python-telegram-bot

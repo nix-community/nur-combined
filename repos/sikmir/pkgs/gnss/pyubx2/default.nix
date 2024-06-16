@@ -7,19 +7,19 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pyubx2";
-  version = "1.2.39";
+  version = "1.2.43";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pyubx2";
     rev = "v${version}";
-    hash = "sha256-qtfAW6KMJjITugPHxddVlwS9FeoUxIEQBwknR0hhZXE=";
+    hash = "sha256-X/mnPHdxOGhQclIQklDuQtggSD/sjGh2O7XkKx1WPbU=";
   };
 
   build-system = with python3Packages; [ setuptools ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     pynmeagps
     pyrtcm
   ];
@@ -28,7 +28,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "UBX protocol parser and generator";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/semuconsulting/pyubx2";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
   };

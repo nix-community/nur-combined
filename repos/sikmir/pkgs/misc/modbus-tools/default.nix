@@ -3,7 +3,7 @@
   stdenv,
   rustPlatform,
   fetchFromGitLab,
-  IOKit,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -23,11 +23,11 @@ rustPlatform.buildRustPackage rec {
     ln -s ${./Cargo.lock} Cargo.lock
   '';
 
-  buildInputs = lib.optional stdenv.isDarwin IOKit;
+  buildInputs = lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.IOKit;
 
   meta = {
     description = "Tool(s) for working with Modbus protocol";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/alexs-sh/modbus-tools";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

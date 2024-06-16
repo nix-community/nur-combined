@@ -29,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A library for decoding various ACARS message payloads";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/szpajder/libacars";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

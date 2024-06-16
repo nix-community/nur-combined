@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage {
   pname = "pymbtiles";
   version = "0.5.0-unstable-2021-02-16";
 
@@ -19,7 +19,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "Python utilities for Mapbox mbtiles files";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/consbio/pymbtiles";
     license = lib.licenses.isc;
     maintainers = [ lib.maintainers.sikmir ];
   };

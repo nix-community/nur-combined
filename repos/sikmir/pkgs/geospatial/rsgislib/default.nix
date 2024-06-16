@@ -12,14 +12,14 @@
   python3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "rsgislib";
   version = "5.1.3";
 
   src = fetchFromGitHub {
     owner = "remotesensinginfo";
     repo = "rsgislib";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-RE5i2ULlgHEWHJIqeWNdnxtREcHrmP4dS996onJrBFk=";
   };
 
@@ -42,4 +42,4 @@ stdenv.mkDerivation rec {
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
   };
-}
+})

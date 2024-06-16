@@ -28,7 +28,11 @@ buildGoModule rec {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  ldflags = [ "-X main.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${version}"
+  ];
 
   postInstall = ''
     installManPage docs/man/*.{1,5}

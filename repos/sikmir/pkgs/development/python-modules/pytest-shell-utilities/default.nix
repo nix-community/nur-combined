@@ -20,12 +20,12 @@ python3Packages.buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = with python3Packages; [
+  build-system = with python3Packages; [
     setuptools-scm
     setuptools-declarative-requirements
   ];
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     psutil
     pytest-skip-markers
     pytest-subtests
@@ -36,7 +36,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "Pytest Shell Utilities";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/saltstack/pytest-shell-utilities";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
   };

@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Creating a bash completion script in a declarative way";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/adoyle-h/bash-completor";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

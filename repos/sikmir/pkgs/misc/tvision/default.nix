@@ -6,7 +6,7 @@
   ncurses,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "tvision";
   version = "0-unstable-2024-02-28";
 
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "A modern port of Turbo Vision 2.0, the classical framework for text-based user interfaces";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/magiblot/tvision";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

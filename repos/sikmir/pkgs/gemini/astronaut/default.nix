@@ -38,7 +38,7 @@ buildGoModule rec {
 
   meta = {
     description = "A Gemini browser for the terminal";
-    inherit (src.meta) homepage;
+    homepage = "https://sr.ht/~adnano/astronaut";
     license = lib.licenses.gpl3Only;
     maintainers = [ lib.maintainers.sikmir ];
   };

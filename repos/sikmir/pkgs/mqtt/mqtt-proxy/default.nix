@@ -1,5 +1,4 @@
 {
-  stdenv,
   lib,
   fetchFromGitHub,
   buildGoModule,
@@ -21,11 +20,15 @@ buildGoModule rec {
 
   buildInputs = [ cyrus_sasl ];
 
-  ldflags = [ "-X github.com/prometheus/common/version.Version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/prometheus/common/version.Version=${version}"
+  ];
 
   meta = {
     description = "MQTT Proxy allows MQTT clients to send messages to other messaging systems";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/grepplabs/mqtt-proxy";
     #license = lib.licenses.cc-by-nc-nd-40;
     maintainers = [ lib.maintainers.sikmir ];
   };

@@ -15,7 +15,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-2YpRTSZWJVXMoTLDBFS+tFkmA8pOBsqWF7Z85gtIfY0=";
   };
 
-  propagatedBuildInputs = with python3Packages; [
+  dependencies = with python3Packages; [
     requests
     cryptography
     tqdm
@@ -25,7 +25,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "Mikatools provides fast and easy methods for common Python coding tasks";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/mikahama/mikatools";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

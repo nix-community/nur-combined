@@ -4,13 +4,13 @@
   fetchgit,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "saait";
   version = "0.8";
 
   src = fetchgit {
     url = "git://git.codemadness.org/saait";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-W86JAYUsyvOWt/YTqXfqMA/CwQq7uVIV1F6+AeRB/8s=";
   };
 
@@ -24,4 +24,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

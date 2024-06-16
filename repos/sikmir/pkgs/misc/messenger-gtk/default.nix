@@ -23,12 +23,12 @@
   qrencode,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "messenger-gtk";
   version = "0.9.0";
 
   src = fetchurl {
-    url = "mirror://gnu/gnunet/messenger-gtk-${version}.tar.gz";
+    url = "mirror://gnu/gnunet/messenger-gtk-${finalAttrs.version}.tar.gz";
     hash = "sha256-DqviYQ+zEy75mQEHKi90pkDgps4gM6YrjN9esrCmi0s=";
   };
 
@@ -59,10 +59,10 @@ stdenv.mkDerivation rec {
   meta = {
     description = "A GTK based GUI for the Messenger service of GNUnet";
     homepage = "https://www.gnunet.org/";
-    changelog = "https://git.gnunet.org/messenger-gtk.git/tree/ChangeLog?h=v${version}";
+    changelog = "https://git.gnunet.org/messenger-gtk.git/tree/ChangeLog?h=v${finalAttrs.version}";
     license = lib.licenses.agpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
   };
-}
+})

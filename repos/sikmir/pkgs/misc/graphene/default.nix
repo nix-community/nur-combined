@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "A simple time series database based on BerkleyDB";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/slazav/graphene";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;

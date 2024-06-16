@@ -4,7 +4,7 @@
   python3Packages,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "gmi2html";
   version = "1.0-unstable-2022-02-16";
 
@@ -18,7 +18,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "A library and CLI tool for converting text/gemini to text/html";
-    inherit (src.meta) homepage;
+    homepage = "https://notabug.org/tinyrabbit/gmi2html";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
   };

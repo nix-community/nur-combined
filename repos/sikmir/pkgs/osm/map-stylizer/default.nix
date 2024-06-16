@@ -5,7 +5,7 @@
   qt5,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "map-stylizer";
   version = "0-unstable-2020-06-30";
   format = "other";
@@ -42,7 +42,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "GUI written in Python to parse OSM (OpenStreetMap) files and render them onscreen";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/Absolute-Tinkerer/map-stylizer";
     license = lib.licenses.gpl3;
     maintainers = [ lib.maintainers.sikmir ];
   };

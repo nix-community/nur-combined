@@ -21,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Universal wireless communication library for embedded devices";
-    inherit (finalAttrs.src.meta) homepage;
+    homepage = "https://github.com/jgromes/RadioLib";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;

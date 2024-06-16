@@ -19,7 +19,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = {
     description = "Python library for using asyncio in Qt-based applications";
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/CabbageDevelopment/qasync";
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.sikmir ];
   };
