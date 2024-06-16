@@ -227,7 +227,7 @@
   "legacyPackages.x86_64-linux.bilibili": {
     "description": "Bilibili desktop client",
     "pname": "bilibili",
-    "version": "1.13.5-2"
+    "version": "1.13.6-1"
   },
   "legacyPackages.x86_64-linux.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
@@ -472,7 +472,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Port of Facebook's LLaMA model in C/C++",
     "pname": "llama-cpp",
-    "version": "3151"
+    "version": "3153"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -2562,7 +2562,7 @@
   "legacyPackages.x86_64-linux.openssl-oqs-provider": {
     "description": "OpenSSL 3 provider containing post-quantum algorithms",
     "pname": "openssl-oqs-provider-unstable",
-    "version": "2024-06-14"
+    "version": "2024-06-15"
   },
   "legacyPackages.x86_64-linux.osdlyrics": {
     "description": "Standalone lyrics fetcher/displayer (windowed and OSD mode).",
@@ -2757,7 +2757,7 @@
   "legacyPackages.x86_64-linux.suwayomi-server": {
     "description": "A rewrite of Tachiyomi for the Desktop",
     "pname": "suwayomi-server",
-    "version": "1.1.0-r1532"
+    "version": "1.1.1-r1535"
   },
   "legacyPackages.x86_64-linux.svp": {
     "description": "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player.",
@@ -2872,12 +2872,12 @@
   "legacyPackages.x86_64-linux.wine-wechat": {
     "description": "Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)",
     "pname": "wine-wechat",
-    "version": "3.9.10.27"
+    "version": "3.9.11.17"
   },
   "legacyPackages.x86_64-linux.wine-wechat-x86": {
     "description": "Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)",
     "pname": "wine-wechat-x86",
-    "version": "3.9.10.26"
+    "version": "3.9.11.16"
   },
   "legacyPackages.x86_64-linux.xstatic-asciinema-player": {
     "description": "asciinema-player packaged for setuptools (easy_install) / pip.",
@@ -2937,7 +2937,7 @@
   "packages.x86_64-linux.bilibili": {
     "description": "Bilibili desktop client",
     "pname": "bilibili",
-    "version": "1.13.5-2"
+    "version": "1.13.6-1"
   },
   "packages.x86_64-linux.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
@@ -3282,7 +3282,7 @@
   "packages.x86_64-linux.openssl-oqs-provider": {
     "description": "OpenSSL 3 provider containing post-quantum algorithms",
     "pname": "openssl-oqs-provider-unstable",
-    "version": "2024-06-14"
+    "version": "2024-06-15"
   },
   "packages.x86_64-linux.osdlyrics": {
     "description": "Standalone lyrics fetcher/displayer (windowed and OSD mode).",
@@ -3472,7 +3472,7 @@
   "packages.x86_64-linux.suwayomi-server": {
     "description": "A rewrite of Tachiyomi for the Desktop",
     "pname": "suwayomi-server",
-    "version": "1.1.0-r1532"
+    "version": "1.1.1-r1535"
   },
   "packages.x86_64-linux.svp": {
     "description": "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player.",
@@ -3547,12 +3547,12 @@
   "packages.x86_64-linux.wine-wechat": {
     "description": "Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)",
     "pname": "wine-wechat",
-    "version": "3.9.10.27"
+    "version": "3.9.11.17"
   },
   "packages.x86_64-linux.wine-wechat-x86": {
     "description": "Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)",
     "pname": "wine-wechat-x86",
-    "version": "3.9.10.26"
+    "version": "3.9.11.16"
   },
   "packages.x86_64-linux.xstatic-asciinema-player": {
     "description": "asciinema-player packaged for setuptools (easy_install) / pip.",

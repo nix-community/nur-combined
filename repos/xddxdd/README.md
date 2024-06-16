@@ -117,7 +117,7 @@ Or, use variables from this repository in case I change them:
 |  | `baidunetdisk` | [baidunetdisk](https://pan.baidu.com/) | 4.17.7 | Baidu Netdisk |
 |  | `baidupcs-go` | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | 3.9.5 | Baidu Netdisk commandline client, mimicking Linux shell file handling commands. |
 |  | `bepasty` | [bepasty](https://bepasty-server.readthedocs.org/) | 1.2.1 | universal pastebin server |
-|  | `bilibili` | [bilibili](https://app.bilibili.com/) | 1.13.5-2 | Bilibili desktop client |
+|  | `bilibili` | [bilibili](https://app.bilibili.com/) | 1.13.6-1 | Bilibili desktop client |
 |  | `bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 1.3.7.1 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `bird-lgproxy-go` | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 1.3.7.1 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `boringssl-oqs` | [boringssl-oqs](https://openquantumsafe.org) | unstable-2024-05-16 | Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs |
@@ -153,7 +153,7 @@ Or, use variables from this repository in case I change them:
 |  | `hath` | [hath](https://e-hentai.org/) | 1.6.2 | Hentai@Home |
 |  | `hesuvi-hrir` | [hesuvi-hrir](https://sourceforge.net/projects/hesuvi/) | 2.0.0.1 | Headphone Surround Virtualizations for Equalizer APO |
 |  | `hoyo-glyphs` | [hoyo-glyphs](https://github.com/SpeedyOrc-C/Hoyo-Glyphs) | unstable-2024-03-27 | Constructed scripts by Hoyoverse 米哈游的架空文字  |
-|  | `i915-sriov` | [i915-sriov](https://github.com/strongtz/i915-sriov-dkms) | unstable-2024-05-08 | DKMS module of Linux i915 driver with SR-IOV support |
+| `Broken` | `i915-sriov` | [i915-sriov](https://github.com/strongtz/i915-sriov-dkms) | unstable-2024-05-08 | DKMS module of Linux i915 driver with SR-IOV support |
 |  | `imewlconverter` | [imewlconverter](https://github.com/studyzy/imewlconverter) | 3.1.0 | ”深蓝词库转换“ 一款开源免费的输入法词库转换程序 |
 |  | `jproxy` | [jproxy](https://github.com/LuckyPuppy514/jproxy) | 3.4.1 | A proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate  |
 |  | `kaixinsong-fonts` | [kaixinsong-fonts](http://www.guoxuedashi.net/zidian/bujian/KaiXinSong.php) | 3.0 | KaiXinSong |
@@ -178,7 +178,7 @@ Or, use variables from this repository in case I change them:
 |  | `oci-arm-host-capacity` | [oci-arm-host-capacity](https://github.com/hitrov/oci-arm-host-capacity) | unstable-2023-12-23 | This script allows to bypass Oracle Cloud Infrastructure 'Out of host capacity' error immediately when additional OCI capacity will appear in your Home Region / Availability domain. |
 |  | `onepush` | [onepush](https://gitlab.com/y1ndan/onepush) | unstable-2023-11-28 | A Python library to send notifications to your iPhone, Discord, Telegram, WeChat, QQ and DingTalk. |
 |  | `openssl-oqs` | [openssl-oqs](https://www.openssl.org/) | 1.1.1 | A cryptographic library that implements the SSL and TLS protocols |
-|  | `openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | unstable-2024-06-14 | OpenSSL 3 provider containing post-quantum algorithms |
+|  | `openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | unstable-2024-06-15 | OpenSSL 3 provider containing post-quantum algorithms |
 |  | `osdlyrics` | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.5.15 | Standalone lyrics fetcher/displayer (windowed and OSD mode). |
 |  | `ovpn-dco` | [ovpn-dco](https://github.com/OpenVPN/ovpn-dco) | unstable-2024-05-21 | OpenVPN Data Channel Offload in the linux kernel |
 |  | `palworld-exporter` | [palworld-exporter](https://github.com/palworldlol/palworld-exporter) | 1.3.1 | Prometheus exporter for Palword Server |
@@ -215,7 +215,7 @@ Or, use variables from this repository in case I change them:
 |  | `smartrent_py` | [smartrent_py](https://github.com/ZacheryThomas/smartrent.py) | 0.4.0 | Api for SmartRent locks, thermostats, moisture sensors and switches |
 |  | `soggy` | [soggy](https://github.com/LDAsuku/soggy) | unstable-2022-12-14 | Experimental server emulator for a game I forgot its name |
 |  | `space-cadet-pinball-full-tilt` | [SpaceCadetPinball](https://github.com/k4zmu2a/SpaceCadetPinball) | 2.1.0 | Reverse engineering of 3D Pinball for Windows – Space Cadet, a game bundled with Windows (With Full Tilt Pinball data) |
-|  | `suwayomi-server` | [suwayomi-server](https://github.com/Suwayomi/Suwayomi-Server) | 1.1.0-r1532 | A rewrite of Tachiyomi for the Desktop |
+|  | `suwayomi-server` | [suwayomi-server](https://github.com/Suwayomi/Suwayomi-Server) | 1.1.1-r1535 | A rewrite of Tachiyomi for the Desktop |
 |  | `svp` | [svp](https://www.svp-team.com/wiki/SVP:Linux) | 4.6.263 | SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player. |
 |  | `svp-mpv` | [mpv-with-scripts-0.38.0](https://mpv.io) |  | General-purpose media player, fork of MPlayer and mplayer2 |
 |  | `tqdm-loggable` | [tqdm-loggable](https://pypi.org/project/tqdm-loggable/) | 0.2 | TQDM progress bar helpers for logging and other headless application |
@@ -229,8 +229,8 @@ Or, use variables from this repository in case I change them:
 |  | `wechat-uos-bin` | [wechat-uos](https://weixin.qq.com/) | 1.0.0.241 | WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
 |  | `wechat-uos-without-sandbox` | [wechat-uos](https://weixin.qq.com/) | 1.0.0.241 | WeChat desktop without sandbox (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
 |  | `win2xcur` | [win2xcur](https://github.com/quantum5/win2xcur) | 0.1.2 | win2xcur is a tool that converts cursors from Windows format (*.cur, *.ani) to Xcursor format. It also contains x2wincur which does the opposite. |
-|  | `wine-wechat` | [wine-wechat](https://weixin.qq.com/) | 3.9.10.27 | Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
-|  | `wine-wechat-x86` | [wine-wechat-x86](https://weixin.qq.com/) | 3.9.10.26 | Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
+|  | `wine-wechat` | [wine-wechat](https://weixin.qq.com/) | 3.9.11.17 | Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
+|  | `wine-wechat-x86` | [wine-wechat-x86](https://weixin.qq.com/) | 3.9.11.16 | Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
 |  | `xstatic-asciinema-player` | [xstatic-asciinema-player](https://github.com/asciinema/asciinema-player) | 2.6.1.1 | asciinema-player packaged for setuptools (easy_install) / pip. |
 |  | `xstatic-font-awesome` | [xstatic-font-awesome](https://github.com/FortAwesome/Font-Awesome) | 4.7.0.0 | Font Awesome packaged for setuptools (easy_install) / pip. |
 </details>
@@ -289,7 +289,7 @@ Or, use variables from this repository in case I change them:
 |  | `lantianCustomized.coredns` | [coredns](https://github.com/xddxdd/coredns) | 1.11.1 | CoreDNS with Lan Tian's modifications |
 |  | `lantianCustomized.firefox-icon-mikozilla-fireyae` | [firefox-icon-mikozilla-fireyae](https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/) |  | Custom icon "Mikozilla Fireyae" for Firefox |
 |  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.11.2 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
-|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggerganov/llama.cpp/) | 3151 | Port of Facebook's LLaMA model in C/C++ |
+|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggerganov/llama.cpp/) | 3153 | Port of Facebook's LLaMA model in C/C++ |
 |  | `lantianCustomized.nbfc-linux` | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | unstable-2022-06-13 | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
 |  | `lantianCustomized.nginx` | [nginx-lantian](https://openresty.org) | 1.25.3.1 | OpenResty with Lan Tian modifications |
 |  | `lantianCustomized.transmission-with-webui` | [transmission](http://www.transmissionbt.com/) | 3.00 | Fast, easy and free BitTorrent client |

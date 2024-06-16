@@ -125,21 +125,21 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "1.13.5-2";
+    version = "1.13.6-1";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.13.5-2/bilibili-asar-v1.13.5-2.tar.gz";
-      sha256 = "sha256-O0LIjpkaKw37agB8nSQ5+HaXsEwnCqgXqOcWUPxkcXA=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.13.6-1/bilibili-asar-v1.13.6-1.tar.gz";
+      sha256 = "sha256-wKwNn8mz5wrMYnEa02lSyauDCAplG5iOK3/o/DRCrKM=";
     };
   };
   bilibili-src = {
     pname = "bilibili-src";
-    version = "v1.13.5-2";
+    version = "v1.13.6-1";
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      rev = "v1.13.5-2";
+      rev = "v1.13.6-1";
       fetchSubmodules = false;
-      sha256 = "sha256-13zvX+kzUr00wxXrRFnkmfZp8S6xRrt9LR2zos6r2lw=";
+      sha256 = "sha256-oxWYoAfezhFJsuKGrOaqqJgir6UTW5evEr/dVWiZGvU=";
     };
   };
   bird-lg-go = {
@@ -733,13 +733,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3151";
+    version = "b3153";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3151";
+      rev = "b3153";
       fetchSubmodules = false;
-      sha256 = "sha256-y6OTQ+QmFVlrmM3bTrk5SPQWgcXRh0SpUp1cgXV3Tow=";
+      sha256 = "sha256-L66ixiNwkt9SytnB0wjEkDPwu/YY6+yrwFZURbWYvvs=";
     };
   };
   nbfc-linux-lantian = {
@@ -933,15 +933,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "098a1c8c6e48aee3f9d1c5286b73509139d5754e";
+    version = "bfaf29819e8e7679eb7b440c20312449d311e86a";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "098a1c8c6e48aee3f9d1c5286b73509139d5754e";
+      rev = "bfaf29819e8e7679eb7b440c20312449d311e86a";
       fetchSubmodules = false;
-      sha256 = "sha256-GKkKN+AaCakolY2WhWUnF15rzXpO02AjgvnIdEaRNTI=";
+      sha256 = "sha256-kocwKmcyWUpyFVqB9c3n6UIwGc2qS7QOdAi/TcctI28=";
     };
-    date = "2024-06-14";
+    date = "2024-06-15";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -1353,10 +1353,10 @@
   };
   suwayomi-server = {
     pname = "suwayomi-server";
-    version = "v1.1.0/Suwayomi-Server-v1.1.0-r1532";
+    version = "v1.1.1/Suwayomi-Server-v1.1.1-r1535";
     src = fetchurl {
-      url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v1.1.0/Suwayomi-Server-v1.1.0-r1532.jar";
-      sha256 = "sha256-x4d71rOGA47ieEhTz79Wtwy5LVRgTlBmegkc6+zJHm8=";
+      url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v1.1.1/Suwayomi-Server-v1.1.1-r1535.jar";
+      sha256 = "sha256-mPzREuH89RGhZLK+5aIPuq1gmNGc9MGG0wh4ZV5dLTg=";
     };
   };
   svp = {
@@ -1525,18 +1525,18 @@
   };
   wine-wechat-x64 = {
     pname = "wine-wechat-x64";
-    version = "3.9.10.27";
+    version = "3.9.11.17";
     src = fetchurl {
-      url = "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.10.27/WeChatSetup-3.9.10.27.exe";
-      sha256 = "sha256-vSMFIKuN6/QsKC8GfFVYO5DzyhHVuSmpmus69R+dI+o=";
+      url = "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.11.17/WeChatSetup-3.9.11.17.exe";
+      sha256 = "sha256-u+1fAcC1H+XSylNVFZ93meQe1y11AJynmk/3dRSYnh8=";
     };
   };
   wine-wechat-x86 = {
     pname = "wine-wechat-x86";
-    version = "3.9.10.26";
+    version = "3.9.11.16";
     src = fetchurl {
-      url = "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.10.26/WeChatSetupX86-3.9.10.26.exe";
-      sha256 = "sha256-26JFou15pk/6xhFFs6dWBOW/H5akNbEHtEUrC7sgwP8=";
+      url = "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.11.16/WeChatSetupX86-3.9.11.16.exe";
+      sha256 = "sha256-5km0phah5FCUhY0RHLEwbAjLc7d0NxgFDJOyuSV1zoQ=";
     };
   };
   xstatic-asciinema-player = {

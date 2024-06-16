@@ -227,11 +227,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-O0LIjpkaKw37agB8nSQ5+HaXsEwnCqgXqOcWUPxkcXA=",
+            "sha256": "sha256-wKwNn8mz5wrMYnEa02lSyauDCAplG5iOK3/o/DRCrKM=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.13.5-2/bilibili-asar-v1.13.5-2.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.13.6-1/bilibili-asar-v1.13.6-1.tar.gz"
         },
-        "version": "1.13.5-2"
+        "version": "1.13.6-1"
     },
     "bilibili-src": {
         "cargoLocks": null,
@@ -247,12 +247,12 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.13.5-2",
-            "sha256": "sha256-13zvX+kzUr00wxXrRFnkmfZp8S6xRrt9LR2zos6r2lw=",
+            "rev": "v1.13.6-1",
+            "sha256": "sha256-oxWYoAfezhFJsuKGrOaqqJgir6UTW5evEr/dVWiZGvU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.13.5-2"
+        "version": "v1.13.6-1"
     },
     "bird-lg-go": {
         "cargoLocks": null,
@@ -1323,12 +1323,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3151",
-            "sha256": "sha256-y6OTQ+QmFVlrmM3bTrk5SPQWgcXRh0SpUp1cgXV3Tow=",
+            "rev": "b3153",
+            "sha256": "sha256-L66ixiNwkt9SytnB0wjEkDPwu/YY6+yrwFZURbWYvvs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3151"
+        "version": "b3153"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -1671,7 +1671,7 @@
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
-        "date": "2024-06-14",
+        "date": "2024-06-15",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -1683,12 +1683,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "098a1c8c6e48aee3f9d1c5286b73509139d5754e",
-            "sha256": "sha256-GKkKN+AaCakolY2WhWUnF15rzXpO02AjgvnIdEaRNTI=",
+            "rev": "bfaf29819e8e7679eb7b440c20312449d311e86a",
+            "sha256": "sha256-kocwKmcyWUpyFVqB9c3n6UIwGc2qS7QOdAi/TcctI28=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "098a1c8c6e48aee3f9d1c5286b73509139d5754e"
+        "version": "bfaf29819e8e7679eb7b440c20312449d311e86a"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -2455,11 +2455,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-x4d71rOGA47ieEhTz79Wtwy5LVRgTlBmegkc6+zJHm8=",
+            "sha256": "sha256-mPzREuH89RGhZLK+5aIPuq1gmNGc9MGG0wh4ZV5dLTg=",
             "type": "url",
-            "url": "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v1.1.0/Suwayomi-Server-v1.1.0-r1532.jar"
+            "url": "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v1.1.1/Suwayomi-Server-v1.1.1-r1535.jar"
         },
-        "version": "v1.1.0/Suwayomi-Server-v1.1.0-r1532"
+        "version": "v1.1.1/Suwayomi-Server-v1.1.1-r1535"
     },
     "svp": {
         "cargoLocks": null,
@@ -2776,11 +2776,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-vSMFIKuN6/QsKC8GfFVYO5DzyhHVuSmpmus69R+dI+o=",
+            "sha256": "sha256-u+1fAcC1H+XSylNVFZ93meQe1y11AJynmk/3dRSYnh8=",
             "type": "url",
-            "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.10.27/WeChatSetup-3.9.10.27.exe"
+            "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.11.17/WeChatSetup-3.9.11.17.exe"
         },
-        "version": "3.9.10.27"
+        "version": "3.9.11.17"
     },
     "wine-wechat-x86": {
         "cargoLocks": null,
@@ -2791,11 +2791,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-26JFou15pk/6xhFFs6dWBOW/H5akNbEHtEUrC7sgwP8=",
+            "sha256": "sha256-5km0phah5FCUhY0RHLEwbAjLc7d0NxgFDJOyuSV1zoQ=",
             "type": "url",
-            "url": "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.10.26/WeChatSetupX86-3.9.10.26.exe"
+            "url": "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.11.16/WeChatSetupX86-3.9.11.16.exe"
         },
-        "version": "3.9.10.26"
+        "version": "3.9.11.16"
     },
     "xstatic-asciinema-player": {
         "cargoLocks": null,
