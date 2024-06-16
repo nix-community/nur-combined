@@ -177,12 +177,12 @@
             "name": null,
             "owner": "estkme-group",
             "repo": "lpac",
-            "rev": "v2.0.1",
-            "sha256": "sha256-jIQeNj+WOvPtc1qbcydk8c8PO6x2/AG413RJVB3JnOI=",
+            "rev": "v2.0.2",
+            "sha256": "sha256-TrwvJxHHZXqLZP/0zpFwurLNMDwhYelESH063FVnhU8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.0.1"
+        "version": "v2.0.2"
     },
     "mstickereditor": {
         "cargoLocks": {

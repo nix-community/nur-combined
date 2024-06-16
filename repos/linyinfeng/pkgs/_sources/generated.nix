@@ -108,13 +108,13 @@
   };
   lpac = {
     pname = "lpac";
-    version = "v2.0.1";
+    version = "v2.0.2";
     src = fetchFromGitHub {
       owner = "estkme-group";
       repo = "lpac";
-      rev = "v2.0.1";
+      rev = "v2.0.2";
       fetchSubmodules = false;
-      sha256 = "sha256-jIQeNj+WOvPtc1qbcydk8c8PO6x2/AG413RJVB3JnOI=";
+      sha256 = "sha256-TrwvJxHHZXqLZP/0zpFwurLNMDwhYelESH063FVnhU8=";
     };
   };
   mstickereditor = {
