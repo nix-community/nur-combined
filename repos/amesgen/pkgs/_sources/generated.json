@@ -68,11 +68,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-4cVkYqF6swZ8hTG6hiwm2XUgFVzyh2p87NH9K200t8Y=",
+            "sha256": "sha256-TXZzXXpnYkvXwmqsmIZQtbYrriQwtm5JJ6CO/wYzKz8=",
             "type": "url",
-            "url": "https://github.com/fourmolu/fourmolu/releases/download/v0.16.0.0/fourmolu-0.16.0.0-linux-x86_64"
+            "url": "https://github.com/fourmolu/fourmolu/releases/download/v0.16.1.0/fourmolu-0.16.1.0-linux-x86_64"
         },
-        "version": "0.16.0.0"
+        "version": "0.16.1.0"
     },
     "hellsmack": {
         "cargoLocks": null,
@@ -113,10 +113,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-niCeZ3kCP9zYCDokQFVJWLmvPT9HIF64OEbFKToIDnc=",
+            "sha256": "sha256-ZHoMNtVnW5pxCPS/Tm5wNFnDrjPhg5n5684qtK8pVFc=",
             "type": "url",
-            "url": "https://github.com/tweag/ormolu/releases/download/0.7.6.0/ormolu-x86_64-linux.zip"
+            "url": "https://github.com/tweag/ormolu/releases/download/0.7.7.0/ormolu-x86_64-linux.zip"
         },
-        "version": "0.7.6.0"
+        "version": "0.7.7.0"
     }
 }

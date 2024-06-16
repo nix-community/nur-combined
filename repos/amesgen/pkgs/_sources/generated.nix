@@ -35,10 +35,10 @@
   };
   fourmolu = {
     pname = "fourmolu";
-    version = "0.16.0.0";
+    version = "0.16.1.0";
     src = fetchurl {
-      url = "https://github.com/fourmolu/fourmolu/releases/download/v0.16.0.0/fourmolu-0.16.0.0-linux-x86_64";
-      sha256 = "sha256-4cVkYqF6swZ8hTG6hiwm2XUgFVzyh2p87NH9K200t8Y=";
+      url = "https://github.com/fourmolu/fourmolu/releases/download/v0.16.1.0/fourmolu-0.16.1.0-linux-x86_64";
+      sha256 = "sha256-TXZzXXpnYkvXwmqsmIZQtbYrriQwtm5JJ6CO/wYzKz8=";
     };
   };
   hellsmack = {
@@ -59,10 +59,10 @@
   };
   ormolu = {
     pname = "ormolu";
-    version = "0.7.6.0";
+    version = "0.7.7.0";
     src = fetchurl {
-      url = "https://github.com/tweag/ormolu/releases/download/0.7.6.0/ormolu-x86_64-linux.zip";
-      sha256 = "sha256-niCeZ3kCP9zYCDokQFVJWLmvPT9HIF64OEbFKToIDnc=";
+      url = "https://github.com/tweag/ormolu/releases/download/0.7.7.0/ormolu-x86_64-linux.zip";
+      sha256 = "sha256-ZHoMNtVnW5pxCPS/Tm5wNFnDrjPhg5n5684qtK8pVFc=";
     };
   };
 }
