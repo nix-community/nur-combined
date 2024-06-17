@@ -469,7 +469,6 @@ lib.makeScope newScope (
     smrender = callPackage ./osm/smrender { };
     taginfo-tools = callPackage ./osm/taginfo-tools { };
     tilelog = callPackage ./osm/tilelog { };
-    tirex = callPackage ./osm/tirex { };
     vectiler = callPackage ./osm/vectiler { };
 
     ### RADIO
