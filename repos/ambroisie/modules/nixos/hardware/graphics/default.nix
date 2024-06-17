@@ -35,19 +35,22 @@ in
     (lib.mkIf (cfg.gpuFlavor == "amd") {
       boot.initrd.kernelModules = lib.mkIf cfg.amd.enableKernelModule [ "amdgpu" ];
 
+      hardware.amdgpu = {
+        # Vulkan
+        amdvlk = lib.mkIf cfg.amd.amdvlk {
+          enable = true;
+          support32Bit = {
+            enable = true;
+          };
+        };
+      };
+
       hardware.opengl = {
         extraPackages = with pkgs; [
           # OpenCL
           rocmPackages.clr
           rocmPackages.clr.icd
-        ]
-        ++ lib.optional cfg.amd.amdvlk amdvlk
-        ;
-
-        extraPackages32 = with pkgs; [
-        ]
-        ++ lib.optional cfg.amd.amdvlk driversi686Linux.amdvlk
-        ;
+        ];
       };
     })
 
@@ -64,6 +67,13 @@ in
           # Open CL
           intel-compute-runtime
 
+          # VA API
+          intel-media-driver
+          intel-vaapi-driver
+          libvdpau-va-gl
+        ];
+
+        extraPackages32 = with pkgs.driversi686Linux; [
           # VA API
           intel-media-driver
           intel-vaapi-driver
