@@ -95,7 +95,7 @@ in
       "prettier.prettierPath" = "${pkgs.nodePackages.prettier}/lib/node_modules/prettier/index.cjs"; # Pending prettier/prettier-vscode#3100
       "python.formatting.blackPath" = "${pkgs.black}/bin/black";
       "qalc.path" = "${pkgs.libqalculate}/bin/qalc";
-      "rubyLsp.customRubyCommand" = "PATH=${makeBinPath (with pkgs; [ ruby ruby-lsp ])}:$PATH";
+      "rubyLsp.customRubyCommand" = "PATH=${makeBinPath (with pkgs; [ nodejs ruby ruby-lsp ])}:$PATH";
       "ruff.path" = [ "${pkgs.ruff}/bin/ruff" ];
       "shellcheck.executablePath" = "${pkgs.shellcheck}/bin/shellcheck";
       "stylelint.stylelintPath" = "${pkgs.nodePackages.stylelint}/lib/node_modules/stylelint";

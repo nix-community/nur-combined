@@ -88,7 +88,10 @@ specify {
     ybaumes.highlight-trailing-white-spaces.search = open-vsx;
   };
   vscodium.gappsWrapperArgs = "--unset NIXOS_OZONE_WL"; # Workaround for blurriness and mangled keybindings
-  whipper.patch = [ ../packages/resources/whipper_flac-level.patch ../packages/resources/whipper_speed.patch ../packages/resources/whipper_detect-tty.patch ];
+  whipper = {
+    condition = w: w.dontWrapGApps or false; # NixOS/nixpkgs#316717
+    patch = [ ../packages/resources/whipper_flac-level.patch ../packages/resources/whipper_speed.patch ../packages/resources/whipper_detect-tty.patch ];
+  };
   yaru-theme.patch = ../packages/resources/yaru-theme_font.patch; # Set GNOME Shell font
   ydotool.patch = ../packages/resources/ydotool-halmakish.patch; # Pending ReimuNotMoe/ydotool#177
   zsh-abbr.condition = z: !z.meta.unfree;

@@ -25,6 +25,7 @@ AMI
 Andover
 anisotropic
 anisotropies
+Anker
 Anki
 annotatable
 anonymized
@@ -473,6 +474,7 @@ IoT
 IPFS
 IPs
 Issaquah
+Jabra
 jackfruit
 jank
 jaq
@@ -909,6 +911,7 @@ runtimes
 Rustacean
 Rustaceans
 rustc
+Rustfmt
 rustup
 S3
 SaaS
@@ -1150,6 +1153,7 @@ unprefixed
 unproctored
 unredaction
 unrendered
+unrepairable
 unscope
 unscoped
 unsettable
