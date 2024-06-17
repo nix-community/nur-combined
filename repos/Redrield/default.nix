@@ -9,6 +9,7 @@
 
   binaryninja = pkgs.callPackage ./pkgs/binaryninja { };
   codemerxdecompile = pkgs.callPackage ./pkgs/codemerxdecompile { };
+  detectiteasy = pkgs.libsForQt5.callPackage ./pkgs/detectiteasy { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
