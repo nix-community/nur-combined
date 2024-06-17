@@ -82,6 +82,7 @@
     lsof
     mtr
     python3
+    rtl8152-led-ctrl
     screen
     sops
     stuntman

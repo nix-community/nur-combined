@@ -11,8 +11,8 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "EHfive";
     repo = pname;
-    rev = "5fe64a80d2b84c7eb1fef92c5034411095cd6e13";
-    hash = "sha256-Ie7pYGctO1XomKxUROZQX8L1k0HgPM4yHehIixivjwQ=";
+    rev = "01f6cfbb611564c6f42ab0c6db21c84b49daa321";
+    hash = "sha256-/vdocAu2wcKJ28qyYWe+SlD+lQXv2b1xulWKbkAUA2w=";
   };
 
   cargoHash = "sha256-syekk6qBJwrIMGRZZkl6PM9Ep5p5huNK0tYfSndqFI4=";
@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
   ];
   strictDeps = true;
 
-  meta = with lib; {
+  meta = {
     description = "An eBPF-based Endpoint-Independent(Full Cone) NAT";
     homepage = "https://github.com/EHfive/${pname}";
     license = "Apache-2.0 OR MIT";
