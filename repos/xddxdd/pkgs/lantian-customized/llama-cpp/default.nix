@@ -14,6 +14,7 @@
     (lib.cmakeBool "LLAMA_AVX2" false)
     (lib.cmakeBool "LLAMA_FMA" false)
     (lib.cmakeBool "LLAMA_F16C" false)
+    (lib.cmakeBool "LLAMA_CUDA_FA_ALL_QUANTS" true)
   ];
 
   postInstall = ''
