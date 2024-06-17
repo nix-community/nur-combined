@@ -1,6 +1,7 @@
 { pkgs, ... }:
 with pkgs;
 [
+  amberol
   mako
   # qq
   firefox
