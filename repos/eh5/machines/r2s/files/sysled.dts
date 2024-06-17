@@ -3,11 +3,19 @@
 
 / {
     compatible = "friendlyarm,nanopi-r2s";
+
     fragment@0 {
-        target-path = "/leds/led-1";
+        target = <&sys_led>;
         __overlay__ {
             led-pattern = <200 200>;
             linux,default-trigger = "timer";
         };
     };
+
+    // fragment@1 {
+    //     target = <&rtl8153>;
+    //     __overlay__ {
+    //         realtek,led-data = <0x87>;
+    //     };
+    // };
 };

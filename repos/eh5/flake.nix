@@ -61,6 +61,7 @@
                   "einat"
                   "kcptun"
                   "mosdns"
+                  "rtl8152-led-ctrl"
                   "ubootNanopiR2s"
                   "vlmcsd"
                 ]

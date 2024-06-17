@@ -183,7 +183,7 @@
 
       # 8(0b1000, CPU3) for 24(xhci-hcd:usb4, extern0)
       echo 8 > /proc/irq/24/smp_affinity
-      # 8(0b0010, CPU1) for 47(intern0)
+      # 2(0b0010, CPU1) for 47(intern0)
       echo 2 > /proc/irq/47/smp_affinity
 
       # 7(0b0111, CPU0-2)

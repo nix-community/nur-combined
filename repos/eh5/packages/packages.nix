@@ -11,7 +11,7 @@ let
     dovecot-fts-flatcurve = callPackage ./dovecot-fts-flatcurve { };
     einat = callPackage ./einat { };
     fake-hwclock = callPackage ./fake-hwclock { };
-    kcptun = callPackage ./kcptun {};
+    kcptun = callPackage ./kcptun { };
     libnftnl-fullcone = callPackage ./libnftnl-fullcone { };
     mosdns = callPackage ./mosdns { buildGoModule = pkgs.buildGo121Module; };
     # end of service
@@ -20,6 +20,7 @@ let
     nftables-fullcone = callPackage ./nftables-fullcone { };
     nix-gfx-mesa = callPackage ./nix-gfx-mesa { };
     qcef = callPackage ./qcef { };
+    rtl8152-led-ctrl = callPackage ./rtl8152-led-ctrl { };
     udpspeeder = callPackage ./udpspeeder { };
     ubootNanopiR2s = callPackage ./uboot-nanopi-r2s { };
     vlmcsd = callPackage ./vlmcsd { };
