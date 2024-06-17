@@ -5732,10 +5732,10 @@
     };
     "linkding-extension" = buildFirefoxXpiAddon {
       pname = "linkding-extension";
-      version = "1.9.1";
+      version = "1.10.0";
       addonId = "{61a05c39-ad45-4086-946f-32adb0a40a9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4287764/linkding_extension-1.9.1.xpi";
-      sha256 = "74ad759cb76a37506a399cd057374724473fe42cbc83d7f776ff83eb60eeff26";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4304166/linkding_extension-1.10.0.xpi";
+      sha256 = "39010d4a328506915b1479dd710553baad66773b9ff3951a49d047b15ba1e070";
       meta = with lib;
       {
         homepage = "https://github.com/sissbruecker/linkding-extension/";
@@ -7597,10 +7597,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "2024.6.2";
+      version = "2024.6.3";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4299892/pakkujs-2024.6.2.xpi";
-      sha256 = "82893cb0bfa30e6ba915b8a3d4d9fb5cace854bcf11a7c07f58b8db97e400bea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4304061/pakkujs-2024.6.3.xpi";
+      sha256 = "e81321a9dab2c990806a7619b9446737f32c9830376deb2d8e26e096c593e49b";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
