@@ -227,11 +227,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-wKwNn8mz5wrMYnEa02lSyauDCAplG5iOK3/o/DRCrKM=",
+            "sha256": "sha256-2E3OyOo8nDo8doqtjF5o8AmXktB6wX6UmmqGFhtIRl8=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.13.6-1/bilibili-asar-v1.13.6-1.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.13.6-2/bilibili-asar-v1.13.6-2.tar.gz"
         },
-        "version": "1.13.6-1"
+        "version": "1.13.6-2"
     },
     "bilibili-src": {
         "cargoLocks": null,
@@ -247,12 +247,12 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.13.6-1",
-            "sha256": "sha256-oxWYoAfezhFJsuKGrOaqqJgir6UTW5evEr/dVWiZGvU=",
+            "rev": "v1.13.6-2",
+            "sha256": "sha256-FomhbJ1x5y7etCDYTjNPSqFkvrdxaBWJZdjDrIxO8RU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.13.6-1"
+        "version": "v1.13.6-2"
     },
     "bird-lg-go": {
         "cargoLocks": null,
@@ -328,7 +328,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-06-14",
+        "date": "2024-06-16",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -340,12 +340,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "1b490a54bd57ba535d5e7ee9a1900c08e886ec89",
-            "sha256": "sha256-7tcQCQ9Zyeb6Wge1VDIaHErbAycNdZYVlI+FmYLWiB8=",
+            "rev": "af0a0661d7ca863978a617dc118d093319e1123e",
+            "sha256": "sha256-YGL5REw7evIEN54YwkpjImkKUnTGtFPo6h9VL32jy8E=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1b490a54bd57ba535d5e7ee9a1900c08e886ec89"
+        "version": "af0a0661d7ca863978a617dc118d093319e1123e"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1323,12 +1323,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3153",
-            "sha256": "sha256-L66ixiNwkt9SytnB0wjEkDPwu/YY6+yrwFZURbWYvvs=",
+            "rev": "b3166",
+            "sha256": "sha256-PCedOKzG/uZF9xbE67D4/6HlolT1dFq5Kmi9VqunkRc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3153"
+        "version": "b3166"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -2077,11 +2077,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-DcQWwep4p4aWUAoBNQ9Ge1QBiCxk6BhcziTDSHmRpgY=",
+            "sha256": "sha256-ofoelAzbuCgxSHsZciWSVkDFDv+zsW+AzZqjeNlaja0=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.9_240606_amd64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.9_240617_amd64_01.deb"
         },
-        "version": "Linux/QQ_3.2.9_240606_amd64_01"
+        "version": "Linux/QQ_3.2.9_240617_amd64_01"
     },
     "qq-arm64": {
         "cargoLocks": null,
@@ -2092,11 +2092,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-wZyaIkJdGDvIw8PrRlOiKpo3rdeELlxYBPyS6llbL4w=",
+            "sha256": "sha256-qC3eUc3Hs1nolZJhAds0Qx+tAlD/AR3scGxmcA8dtEw=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.9_240606_arm64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.9_240617_arm64_01.deb"
         },
-        "version": "Linux/QQ_3.2.9_240606_arm64_01"
+        "version": "Linux/QQ_3.2.9_240617_arm64_01"
     },
     "qqmusic": {
         "cargoLocks": null,

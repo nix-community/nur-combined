@@ -125,21 +125,21 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "1.13.6-1";
+    version = "1.13.6-2";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.13.6-1/bilibili-asar-v1.13.6-1.tar.gz";
-      sha256 = "sha256-wKwNn8mz5wrMYnEa02lSyauDCAplG5iOK3/o/DRCrKM=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.13.6-2/bilibili-asar-v1.13.6-2.tar.gz";
+      sha256 = "sha256-2E3OyOo8nDo8doqtjF5o8AmXktB6wX6UmmqGFhtIRl8=";
     };
   };
   bilibili-src = {
     pname = "bilibili-src";
-    version = "v1.13.6-1";
+    version = "v1.13.6-2";
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      rev = "v1.13.6-1";
+      rev = "v1.13.6-2";
       fetchSubmodules = false;
-      sha256 = "sha256-oxWYoAfezhFJsuKGrOaqqJgir6UTW5evEr/dVWiZGvU=";
+      sha256 = "sha256-FomhbJ1x5y7etCDYTjNPSqFkvrdxaBWJZdjDrIxO8RU=";
     };
   };
   bird-lg-go = {
@@ -183,15 +183,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "1b490a54bd57ba535d5e7ee9a1900c08e886ec89";
+    version = "af0a0661d7ca863978a617dc118d093319e1123e";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "1b490a54bd57ba535d5e7ee9a1900c08e886ec89";
+      rev = "af0a0661d7ca863978a617dc118d093319e1123e";
       fetchSubmodules = false;
-      sha256 = "sha256-7tcQCQ9Zyeb6Wge1VDIaHErbAycNdZYVlI+FmYLWiB8=";
+      sha256 = "sha256-YGL5REw7evIEN54YwkpjImkKUnTGtFPo6h9VL32jy8E=";
     };
-    date = "2024-06-14";
+    date = "2024-06-16";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -733,13 +733,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3153";
+    version = "b3166";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3153";
+      rev = "b3166";
       fetchSubmodules = false;
-      sha256 = "sha256-L66ixiNwkt9SytnB0wjEkDPwu/YY6+yrwFZURbWYvvs=";
+      sha256 = "sha256-PCedOKzG/uZF9xbE67D4/6HlolT1dFq5Kmi9VqunkRc=";
     };
   };
   nbfc-linux-lantian = {
@@ -1147,18 +1147,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "Linux/QQ_3.2.9_240606_amd64_01";
+    version = "Linux/QQ_3.2.9_240617_amd64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.9_240606_amd64_01.deb";
-      sha256 = "sha256-DcQWwep4p4aWUAoBNQ9Ge1QBiCxk6BhcziTDSHmRpgY=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.9_240617_amd64_01.deb";
+      sha256 = "sha256-ofoelAzbuCgxSHsZciWSVkDFDv+zsW+AzZqjeNlaja0=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "Linux/QQ_3.2.9_240606_arm64_01";
+    version = "Linux/QQ_3.2.9_240617_arm64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.9_240606_arm64_01.deb";
-      sha256 = "sha256-wZyaIkJdGDvIw8PrRlOiKpo3rdeELlxYBPyS6llbL4w=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.9_240617_arm64_01.deb";
+      sha256 = "sha256-qC3eUc3Hs1nolZJhAds0Qx+tAlD/AR3scGxmcA8dtEw=";
     };
   };
   qqmusic = {

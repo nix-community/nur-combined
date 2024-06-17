@@ -227,7 +227,7 @@
   "legacyPackages.x86_64-linux.bilibili": {
     "description": "Bilibili desktop client",
     "pname": "bilibili",
-    "version": "1.13.6-1"
+    "version": "1.13.6-2"
   },
   "legacyPackages.x86_64-linux.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
@@ -472,7 +472,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Port of Facebook's LLaMA model in C/C++",
     "pname": "llama-cpp",
-    "version": "3153"
+    "version": "3166"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -2937,7 +2937,7 @@
   "packages.x86_64-linux.bilibili": {
     "description": "Bilibili desktop client",
     "pname": "bilibili",
-    "version": "1.13.6-1"
+    "version": "1.13.6-2"
   },
   "packages.x86_64-linux.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
