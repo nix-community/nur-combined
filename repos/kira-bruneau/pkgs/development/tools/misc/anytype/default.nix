@@ -33,6 +33,11 @@ buildNpmPackage rec {
     hash = "sha256-lEyK7oE3PdDXlW87IYnBYa/lN6ZhK82eMaWyQURpWfk=";
   };
 
+  patches = [
+    # Workaround for electron 28+
+    ./fix-path-for-asar-unpack.patch
+  ];
+
   npmDepsHash = "sha256-nM5wotBnHwBLGV2/HMLTNMoFys69N8C5/JFUyqrj3yA=";
 
   # https://github.com/anyproto/anytype-ts/blob/v0.41.0/electron/js/util.js#L224-L231

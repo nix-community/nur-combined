@@ -1,0 +1,63 @@
+diff --git a/electron.js b/electron.js
+index d06dd0481..8c78f7f81 100644
+--- a/electron.js
++++ b/electron.js
+@@ -1,14 +1,14 @@
+ 'use strict';
+ 
+ const { app, BrowserWindow, session, nativeTheme, ipcMain, powerMonitor, dialog } = require('electron');
+-const { is, fixPathForAsarUnpack } = require('electron-util');
++const { is } = require('electron-util');
+ const path = require('path');
+ const storage = require('electron-json-storage');
+ const port = process.env.SERVER_PORT;
+ const protocol = 'anytype';
+ const remote = require('@electron/remote/main');
+ const { installNativeMessagingHost } = require('./electron/js/lib/installNativeMessagingHost.js');
+-const binPath = fixPathForAsarUnpack(path.join(__dirname, 'dist', `anytypeHelper${is.windows ? '.exe' : ''}`));
++const binPath = path.join(__dirname.replace('app.asar', 'app.asar.unpacked'), 'dist', `anytypeHelper${is.windows ? '.exe' : ''}`);
+ 
+ // Fix notifications app name
+ if (is.windows) {
+diff --git a/electron/js/lib/installNativeMessagingHost.js b/electron/js/lib/installNativeMessagingHost.js
+index 22de950fc..d0ced3b6f 100644
+--- a/electron/js/lib/installNativeMessagingHost.js
++++ b/electron/js/lib/installNativeMessagingHost.js
+@@ -13,7 +13,7 @@ const { userInfo, homedir } = require('os');
+ const { app } = require('electron');
+ const path = require('path');
+ const util = require('util');
+-const { fixPathForAsarUnpack, is } = require('electron-util');
++const { is } = require('electron-util');
+ 
+ const APP_NAME = 'com.anytype.desktop';
+ const MANIFEST_FILENAME = `${APP_NAME}.json`;
+@@ -23,7 +23,7 @@ const EXE_PATH = app.getPath('exe');
+ 
+ const getManifestPath = () => {
+ 	const fn = `nativeMessagingHost${is.windows ? '.exe' : ''}`;
+-	return path.join(fixPathForAsarUnpack(__dirname), '..', '..', '..', 'dist', fn);
++	return path.join(__dirname.replace('app.asar', 'app.asar.unpacked'), '..', '..', '..', 'dist', fn);
+ };
+ 
+ const getHomeDir = () => {
+diff --git a/electron/js/window.js b/electron/js/window.js
+index 2c91e05a4..f3e323a12 100644
+--- a/electron/js/window.js
++++ b/electron/js/window.js
+@@ -1,5 +1,5 @@
+ const { app, BrowserWindow, nativeImage, dialog, screen } = require('electron');
+-const { is, fixPathForAsarUnpack } = require('electron-util');
++const { is } = require('electron-util');
+ const version = app.getVersion();
+ const path = require('path');
+ const windowStateKeeper = require('electron-window-state');
+@@ -31,7 +31,7 @@ class WindowManager {
+ 			show: false,
+ 			titleBarStyle: 'hidden-inset',
+ 			webPreferences: {
+-				preload: fixPathForAsarUnpack(path.join(Util.electronPath(), 'js', 'preload.js')),
++				preload: path.join(Util.electronPath().replace('app.asar', 'app.asar.unpacked'), 'js', 'preload.js'),
+ 			},
+ 		}, param);
+ 
