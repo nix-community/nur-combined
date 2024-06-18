@@ -8907,6 +8907,21 @@
         platforms = platforms.all;
       };
     };
+    "remove-youtube-s-suggestions" = buildFirefoxXpiAddon {
+      pname = "remove-youtube-s-suggestions";
+      version = "4.3.60";
+      addonId = "{21f1ba12-47e1-4a9b-ad4e-3a0260bbeb26}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4299785/remove_youtube_s_suggestions-4.3.60.xpi";
+      sha256 = "08b95b5875a3ee32c1cd3dc9895b969085cf5e18f7a04246c697dd5f2fff4f47";
+      meta = with lib;
+      {
+        homepage = "https://lawrencehook.com/rys/";
+        description = "Stop the YouTube rabbit hole. Customize YouTube's user interface to be less engaging.";
+        license = licenses.mpl20;
+        mozPermissions = [ "storage" "*://*.youtube.com/*" ];
+        platforms = platforms.all;
+      };
+    };
     "return-youtube-dislikes" = buildFirefoxXpiAddon {
       pname = "return-youtube-dislikes";
       version = "3.0.0.14";
