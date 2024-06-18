@@ -96,7 +96,7 @@ in
     })
 
     (lib.mkIf cfg.inputs.addToNixPath {
-      home.sessionVariables.NIX_PATH = "${config.xdg.configHome}/nix/inputs\${NIX_PATH:+:$NIX_PATH}";
+      nix.nixPath = [ "${config.xdg.configHome}/nix/inputs" ];
     })
   ]);
 }
