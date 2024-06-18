@@ -14,6 +14,20 @@ let
 
   defaultUser = "firefly-iii-data-importer";
   defaultGroup = "firefly-iii-data-importer";
+  env-file-values = mapAttrs' (n: v: nameValuePair (removeSuffix "_FILE" n) v)
+    (filterAttrs (n: v: hasSuffix "_FILE" n) cfg.settings);
+  env-nonfile-values = filterAttrs (n: v: ! hasSuffix "_FILE" n) cfg.settings;
+
+  fileenv-func = ''
+    set -a
+    ${toShellVars env-nonfile-values}
+    ${concatLines (mapAttrsToList (n: v: "${n}=\"$(< ${v})\"") env-file-values)}
+    set +a
+  '';
+
+  firefly-iii-data-importer-setup = pkgs.writeShellScript "firefly-iii-setup.sh" ''
+    ${fileenv-func}
+  '';
 
   commonServiceConfig = {
     Type = "oneshot";
@@ -241,14 +255,25 @@ in {
       phpOptions = ''
         log_errors = on
       '';
-      # TODO phpEnv instead of systemd files
-      phpEnv = mapAttrs (k: v: toString v ) cfg.settings;
       settings = {
         "listen.mode" = "0660";
         "listen.owner" = user;
         "listen.group" = group;
         "clear_env" = "no";
       } // cfg.poolConfig;
+    };
+
+    systemd.services.firefly-iii-data-importer-setup = {
+      requiredBy = [ "phpfpm-firefly-iii-data-importer.service" ];
+      before = [ "phpfpm-firefly-iii-data-importer.service" ];
+      serviceConfig = {
+        ExecStart = firefly-iii-data-importer-setup;
+        RuntimeDirectory = "phpfpm";
+        RuntimeDirectoryPreserve = true;
+        RemainAfterExit = true;
+      } // commonServiceConfig;
+      unitConfig.JoinsNamespaceOf = "phpfpm-firefly-iii-data-importer.service";
+      restartTriggers = [ cfg.package ];
     };
 
     services.nginx = mkIf cfg.enableNginx {
