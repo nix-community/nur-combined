@@ -328,7 +328,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-06-16",
+        "date": "2024-06-17",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -340,12 +340,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "af0a0661d7ca863978a617dc118d093319e1123e",
-            "sha256": "sha256-YGL5REw7evIEN54YwkpjImkKUnTGtFPo6h9VL32jy8E=",
+            "rev": "ab513f2baf02f40dbc71ebd4411234468ece1070",
+            "sha256": "sha256-DidT7ktuGxWu+Br+65AUyZoS5mY79ymNI8IjfVaC+Tw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "af0a0661d7ca863978a617dc118d093319e1123e"
+        "version": "ab513f2baf02f40dbc71ebd4411234468ece1070"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1014,12 +1014,12 @@
             "name": null,
             "owner": "kata-containers",
             "repo": "kata-containers",
-            "rev": "3.5.0",
-            "sha256": "sha256-5pIJpyeydOVA+GrbCvNqJsmK3zbtF/5iSJLI2C1wkLM=",
+            "rev": "3.6.0",
+            "sha256": "sha256-Setg6qmkUVn57BQ3wqqNpzmfXeYhJJt9Q4AVFbGrCug=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3.5.0"
+        "version": "3.6.0"
     },
     "kata-image": {
         "cargoLocks": null,
@@ -1030,11 +1030,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-zQ5qcIKNs/nic5DwjIY+3aNoJMIBw16qCkx0mLfkyeM=",
+            "sha256": "sha256-1BiFnhI9BO3XHnnI9TIhPlKB7HFwuXzf48+FSHGH1g8=",
             "type": "url",
-            "url": "https://github.com/kata-containers/kata-containers/releases/download/3.5.0/kata-static-3.5.0-amd64.tar.xz"
+            "url": "https://github.com/kata-containers/kata-containers/releases/download/3.6.0/kata-static-3.6.0-amd64.tar.xz"
         },
-        "version": "3.5.0"
+        "version": "3.6.0"
     },
     "konnect": {
         "cargoLocks": null,
@@ -1239,12 +1239,12 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.9.4-xanmod1",
-            "sha256": "sha256-gY0t77aPWOuRZFESNp0OLIsjLAv+rf0NHbab9WF2VtA=",
+            "rev": "6.9.5-xanmod1",
+            "sha256": "sha256-Yahc5bUbutwuhwvdbUm1JXa8WCWASNrMewXdSorKnfE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.9.4-xanmod1"
+        "version": "6.9.5-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1302,12 +1302,12 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.6.33-xanmod1",
-            "sha256": "sha256-3qGxIYNVm2f69rym0Ya1X497G7yRNj3lLCtVgyEZ9yw=",
+            "rev": "6.6.34-xanmod1",
+            "sha256": "sha256-PV9h7OmCdQT3+I1/OuBxnvQhOxgZtYvNV+XNXgsKaHI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.6.33-xanmod1"
+        "version": "6.6.34-xanmod1"
     },
     "llama-cpp": {
         "cargoLocks": null,
@@ -1323,12 +1323,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3166",
-            "sha256": "sha256-PCedOKzG/uZF9xbE67D4/6HlolT1dFq5Kmi9VqunkRc=",
+            "rev": "b3173",
+            "sha256": "sha256-If4wCJ7jo2Gw6jhK4VUzX5QDLpTgB7/nWIpDp6DGWHA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3166"
+        "version": "b3173"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,

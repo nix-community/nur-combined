@@ -183,15 +183,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "af0a0661d7ca863978a617dc118d093319e1123e";
+    version = "ab513f2baf02f40dbc71ebd4411234468ece1070";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "af0a0661d7ca863978a617dc118d093319e1123e";
+      rev = "ab513f2baf02f40dbc71ebd4411234468ece1070";
       fetchSubmodules = false;
-      sha256 = "sha256-YGL5REw7evIEN54YwkpjImkKUnTGtFPo6h9VL32jy8E=";
+      sha256 = "sha256-DidT7ktuGxWu+Br+65AUyZoS5mY79ymNI8IjfVaC+Tw=";
     };
-    date = "2024-06-16";
+    date = "2024-06-17";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -564,21 +564,21 @@
   };
   kata-containers = {
     pname = "kata-containers";
-    version = "3.5.0";
+    version = "3.6.0";
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      rev = "3.5.0";
+      rev = "3.6.0";
       fetchSubmodules = false;
-      sha256 = "sha256-5pIJpyeydOVA+GrbCvNqJsmK3zbtF/5iSJLI2C1wkLM=";
+      sha256 = "sha256-Setg6qmkUVn57BQ3wqqNpzmfXeYhJJt9Q4AVFbGrCug=";
     };
   };
   kata-image = {
     pname = "kata-image";
-    version = "3.5.0";
+    version = "3.6.0";
     src = fetchurl {
-      url = "https://github.com/kata-containers/kata-containers/releases/download/3.5.0/kata-static-3.5.0-amd64.tar.xz";
-      sha256 = "sha256-zQ5qcIKNs/nic5DwjIY+3aNoJMIBw16qCkx0mLfkyeM=";
+      url = "https://github.com/kata-containers/kata-containers/releases/download/3.6.0/kata-static-3.6.0-amd64.tar.xz";
+      sha256 = "sha256-1BiFnhI9BO3XHnnI9TIhPlKB7HFwuXzf48+FSHGH1g8=";
     };
   };
   konnect = {
@@ -689,13 +689,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.9.4-xanmod1";
+    version = "6.9.5-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.9.4-xanmod1";
+      rev = "6.9.5-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-gY0t77aPWOuRZFESNp0OLIsjLAv+rf0NHbab9WF2VtA=";
+      sha256 = "sha256-Yahc5bUbutwuhwvdbUm1JXa8WCWASNrMewXdSorKnfE=";
     };
   };
   linux-xanmod-6_0 = {
@@ -722,24 +722,24 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.33-xanmod1";
+    version = "6.6.34-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.33-xanmod1";
+      rev = "6.6.34-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-3qGxIYNVm2f69rym0Ya1X497G7yRNj3lLCtVgyEZ9yw=";
+      sha256 = "sha256-PV9h7OmCdQT3+I1/OuBxnvQhOxgZtYvNV+XNXgsKaHI=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3166";
+    version = "b3173";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3166";
+      rev = "b3173";
       fetchSubmodules = false;
-      sha256 = "sha256-PCedOKzG/uZF9xbE67D4/6HlolT1dFq5Kmi9VqunkRc=";
+      sha256 = "sha256-If4wCJ7jo2Gw6jhK4VUzX5QDLpTgB7/nWIpDp6DGWHA=";
     };
   };
   nbfc-linux-lantian = {
