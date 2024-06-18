@@ -1902,10 +1902,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.6";
+      version = "1.6.2";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4287785/dearrow-1.6.xpi";
-      sha256 = "38124394fdfc56bd735f0f5d53155a59e635a07693462685acded98a448d34d9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4301721/dearrow-1.6.2.xpi";
+      sha256 = "e0d9ad3e32cc8055820011788598f0cdf9adbd55653da980d1ce79bd9955ffc8";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -1951,10 +1951,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "128.0.20240614.92043";
+      version = "128.0.20240617.91959";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4303077/deutsch_de_language_pack-128.0.20240614.92043.xpi";
-      sha256 = "f13eb7cf59e830d20d64c7c0c2728dbe96683adf5c2416a18bdb8029ab025455";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4304804/deutsch_de_language_pack-128.0.20240617.91959.xpi";
+      sha256 = "7f2b42f64c4ed7353ca654c40b422572ac7fe28f2cc72248e83348e11e160469";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2880,10 +2880,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "128.0.20240614.92043";
+      version = "128.0.20240617.91959";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4303128/francais_language_pack-128.0.20240614.92043.xpi";
-      sha256 = "24950dfa839c4aafd78577cf660e32451545fa3ee93b0424ea218919379af06a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4304768/francais_language_pack-128.0.20240617.91959.xpi";
+      sha256 = "d58884510e667a63b4e2a22b775f2ba8054b11e77567ebe5c4cae331bfc185af";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -7674,10 +7674,10 @@
     };
     "pay-by-privacy" = buildFirefoxXpiAddon {
       pname = "pay-by-privacy";
-      version = "2.3.0";
+      version = "2.4.0";
       addonId = "privacy@privacy.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4239684/pay_by_privacy-2.3.0.xpi";
-      sha256 = "dd4fb29cf76e0b3aa3fcbf6ace69bc9299c3487e515effa1fd9bd65a2a9daea5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4305104/pay_by_privacy-2.4.0.xpi";
+      sha256 = "34debb20b4d32402fb2449b1d3bf52f5b301cdbb6947cc12ab8165d6758bcaa9";
       meta = with lib;
       {
         homepage = "https://privacy.com";
@@ -7688,7 +7688,13 @@
           url = "https://addons.mozilla.org/en-US/firefox/addon/pay-by-privacy/license/";
           free = false;
         };
-        mozPermissions = [ "storage" "tabs" "activeTab" "<all_urls>" ];
+        mozPermissions = [
+          "storage"
+          "tabs"
+          "activeTab"
+          "cookies"
+          "<all_urls>"
+        ];
         platforms = platforms.all;
       };
     };
@@ -8721,10 +8727,10 @@
     };
     "read-aloud" = buildFirefoxXpiAddon {
       pname = "read-aloud";
-      version = "1.71.0";
+      version = "1.72.0";
       addonId = "{ddc62400-f22d-4dd3-8b4a-05837de53c2e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4294764/read_aloud-1.71.0.xpi";
-      sha256 = "41f7cb028e14474e8cb3333f02345aa6ce1514ffce3cc0bda054da5851d1e28d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4302360/read_aloud-1.72.0.xpi";
+      sha256 = "2505f32c8b4b55504b08de9f432665040a5d71f65ddd664c7aaf9f23eb573fc2";
       meta = with lib;
       {
         description = "Read out loud the current web-page article with one click. Supports 40+ languages.";
@@ -10291,10 +10297,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.0.17";
+      version = "4.0.18";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4300287/tree_style_tab-4.0.17.xpi";
-      sha256 = "e724fc86e50b5a1defa985a54e9d7a97fb87e585b1470d72ad270fb78dd15de2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4302180/tree_style_tab-4.0.18.xpi";
+      sha256 = "4e619c4d7ff604a93db483ad66d4b0a9ef5832255541115c0e9d280608ab8f76";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -10751,10 +10757,10 @@
     };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2024.6.10.805";
+      version = "2024.6.17.766";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4300644/ublock_origin_lite-2024.6.10.805.xpi";
-      sha256 = "a64d17c6999b72d47e0c5dbeb5f0ceec935ca8d769711629e86272abf006eb2e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4304693/ublock_origin_lite-2024.6.17.766.xpi";
+      sha256 = "fb9b50bc82188b35678de856f6bcb1b05165e36778a26325990fe03c41bdff7f";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
@@ -11822,10 +11828,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.6.3.0";
+      version = "24.6.10.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4300780/yomitan-24.6.3.0.xpi";
-      sha256 = "6039355f256a9e4789bf216fbcca567d58661c2fd450546025c29843b33de62d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4305032/yomitan-24.6.10.0.xpi";
+      sha256 = "74894f50a1a5f98a642200736ffe80c277e0fc5540cc697809d2967b6edcd8df";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
