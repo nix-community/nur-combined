@@ -19,11 +19,11 @@
 
   outputs =
     {
-      self,
       flake-utils,
       flake-linter,
       nixpkgs,
       nix-fast-build,
+      ...
     }:
     {
       overlays = import ./overlays;
