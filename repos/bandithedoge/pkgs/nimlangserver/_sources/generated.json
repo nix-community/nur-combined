@@ -101,7 +101,7 @@
   },
   "nimlangserver": {
     "cargoLocks": null,
-    "date": "2024-06-12",
+    "date": "2024-06-18",
     "extract": null,
     "name": "nimlangserver",
     "passthru": null,
@@ -111,13 +111,13 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "3879966eed20f04ce4254b67c5c6496c06358b79",
-      "sha256": "sha256-hJb98FEPKw0pEQ7a2HC4CDZOoqKN7N2R2hmECLmhsCM=",
+      "rev": "25194fa843a7770eb241f148dae4159594d93b78",
+      "sha256": "sha256-JAncM1ePezZHv9/ijrPMfN0Dw8BnLhRyz/LvOfOtGPQ=",
       "sparseCheckout": [],
       "type": "git",
       "url": "https://github.com/nim-lang/langserver"
     },
-    "version": "3879966eed20f04ce4254b67c5c6496c06358b79"
+    "version": "25194fa843a7770eb241f148dae4159594d93b78"
   },
   "serialization": {
     "cargoLocks": null,
