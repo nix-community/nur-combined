@@ -15,5 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   pscripts = pkgs.callPackage ./pkgs/pscripts { };
+  lxp-bridge = pkgs.callPackage ./pkgs/lxp-bridge { };
   thumbsup = pkgs.callPackage ./pkgs/thumbsup { };
 }
