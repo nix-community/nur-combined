@@ -8,7 +8,7 @@
 }:
 stdenv.mkDerivation {
   inherit (gepetto-viewer-base) pname version meta;
-  buildInputs = [makeBinaryWrapper];
+  buildInputs = [ makeBinaryWrapper ];
   #propagatedBuildInputs = [ corba ];
   dontUnpack = true;
   installPhase = ''

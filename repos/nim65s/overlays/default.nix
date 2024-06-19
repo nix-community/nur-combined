@@ -1,5 +1,6 @@
 {
-  # Add your overlays here
-  #
-  # my-overlay = import ./my-overlay;
+  omniorb = import ./omniorb;
+  osg = import ./osg;
+  pinocchio = import ./pinocchio;
+  python = import ./python;
 }

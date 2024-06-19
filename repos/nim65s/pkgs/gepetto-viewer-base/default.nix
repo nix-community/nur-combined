@@ -6,8 +6,8 @@
   cmake,
   doxygen,
   jrl-cmakemodules,
-  osg-dae,
-  osgqt-dae,
+  openscenegraph,
+  osgqt,
   pkg-config,
   python3Packages,
   qgv,
@@ -34,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     boost
     python-qt
     libsForQt5.qtbase
-    osgqt-dae
+    osgqt
     python3Packages.boost
     python3Packages.python
   ];
@@ -48,8 +48,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   propagatedBuildInputs = [
     jrl-cmakemodules
-    osg-dae
-    osgqt-dae
+    openscenegraph
+    osgqt
     qgv
   ];
 

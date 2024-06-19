@@ -20,7 +20,8 @@
         ./imports/pkgs-all.nix
       ];
 
-      perSystem = { pkgs, ...  }:
+      perSystem =
+        { pkgs, ... }:
         {
           # don't put that in imports, or nix-direnv won't autoupdate
           devShells.default = pkgs.mkShell {
