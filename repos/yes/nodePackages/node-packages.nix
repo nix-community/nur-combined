@@ -112,13 +112,13 @@ let
         sha512 = "SSrD0c1OQzlFX7pGu1eXxSEjemej64aaNPRhhVYUGqXh0BtldAAx37MG8btcumvpgKyZp1F5Gn3JkktdxiFv6w==";
       };
     };
-    "@types/node-20.14.2" = {
+    "@types/node-20.14.5" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "20.14.2";
+      version = "20.14.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-20.14.2.tgz";
-        sha512 = "xyu6WAMVwv6AKFLB+e/7ySZVr/0zLCzOa7rSpq6jNwpqOrUbcACDWC+53d4n2QHOnDou0fbIsg8wZu/sxrnI4Q==";
+        url = "https://registry.npmjs.org/@types/node/-/node-20.14.5.tgz";
+        sha512 = "aoRR+fJkZT2l0aGOJhuA8frnCSoNX6W7U2mpNq63+BxBIj5BQFt8rHy627kijCmm63ijdSdwvGgpUsU6MBsZZA==";
       };
     };
     "@types/resolve-1.20.2" = {
@@ -1156,13 +1156,13 @@ let
         sha512 = "5uYhsJH8VJBTv7oslg4BznJYhDoRI6waYCxMmCdnTrcCrHA/fCFKoTFz2JKKE0HdDFUF7/oQuhzumXJK7paBRQ==";
       };
     };
-    "glob-10.4.1" = {
+    "glob-10.4.2" = {
       name = "glob";
       packageName = "glob";
-      version = "10.4.1";
+      version = "10.4.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/glob/-/glob-10.4.1.tgz";
-        sha512 = "2jelhlq3E4ho74ZyVLN03oKdAZVUa6UDZzFLVH1H7dnoax+y9qyaq8zBkfDIggjniU19z0wU18y16jMB2eyVIw==";
+        url = "https://registry.npmjs.org/glob/-/glob-10.4.2.tgz";
+        sha512 = "GwMlUF6PkPo3Gk21UxkCohOv0PLcIXVtKyLlpEI28R/cO/4eNOdmLk3CMW1wROV/WR/EsZOWAfBbBOqYvs88/w==";
       };
     };
     "glob-7.2.3" = {
@@ -1856,6 +1856,15 @@ let
       src = fetchurl {
         url = "https://registry.npmjs.org/p-try/-/p-try-2.2.0.tgz";
         sha512 = "R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==";
+      };
+    };
+    "package-json-from-dist-1.0.0" = {
+      name = "package-json-from-dist";
+      packageName = "package-json-from-dist";
+      version = "1.0.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/package-json-from-dist/-/package-json-from-dist-1.0.0.tgz";
+        sha512 = "dATvCeZN/8wQsGywez1mzHtTlP22H8OEfPrVMLNr4/eGa+ijtLn/6M5f0dY8UKNrC2O9UCU6SSoG3qRKnt7STw==";
       };
     };
     "pako-1.0.11" = {
@@ -2803,22 +2812,22 @@ let
         sha512 = "l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==";
       };
     };
-    "ws-7.5.9" = {
+    "ws-7.5.10" = {
       name = "ws";
       packageName = "ws";
-      version = "7.5.9";
+      version = "7.5.10";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ws/-/ws-7.5.9.tgz";
-        sha512 = "F+P9Jil7UiSKSkppIiD94dN07AwvFixvLIj1Og1Rl9GGMuNipJnV9JzjD6XuqmAeiswGvUmNLjr5cFuXwNS77Q==";
+        url = "https://registry.npmjs.org/ws/-/ws-7.5.10.tgz";
+        sha512 = "+dbF1tHwZpXcbOJdVOkzLDxZP1ailvSxM6ZweXTegylPny803bFhA+vqBYw4s31NSAk4S2Qz+AKXK9a4wkdjcQ==";
       };
     };
-    "ws-8.17.0" = {
+    "ws-8.17.1" = {
       name = "ws";
       packageName = "ws";
-      version = "8.17.0";
+      version = "8.17.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ws/-/ws-8.17.0.tgz";
-        sha512 = "uJq6108EgZMAl20KagGkzCKfMEjxmKvZHG7Tlq0Z6nOky7YF7aq4mOx6xK8TJ/i1LeK4Qus7INktacctDgY8Ow==";
+        url = "https://registry.npmjs.org/ws/-/ws-8.17.1.tgz";
+        sha512 = "6XQFvXTkbfUOZOKKILFG1PDK2NDQs4azKQl26T0YS5CxqWLgXajbPZ+h4gZekJyRqFU8pvnbAbbs/3TgRPy+GQ==";
       };
     };
     "xtend-4.0.2" = {
@@ -2971,7 +2980,7 @@ in
       sources."dns-packet-5.6.1"
       (sources."dohjs-0.3.3" // {
         dependencies = [
-          sources."ws-7.5.9"
+          sources."ws-7.5.10"
         ];
       })
       sources."domain-browser-1.2.0"
@@ -3133,7 +3142,7 @@ in
       sources."which-module-2.0.1"
       sources."wrap-ansi-6.2.0"
       sources."wrappy-1.0.2"
-      sources."ws-8.17.0"
+      sources."ws-8.17.1"
       sources."xtend-4.0.2"
       sources."y18n-4.0.3"
       sources."yargs-15.4.1"
@@ -3245,7 +3254,7 @@ in
     };
     dependencies = [
       sources."@types/http-proxy-1.17.14"
-      sources."@types/node-20.14.2"
+      sources."@types/node-20.14.5"
       sources."braces-3.0.3"
       sources."debug-4.3.5"
       sources."eventemitter3-4.0.7"
@@ -3334,7 +3343,7 @@ in
       sources."emoji-regex-9.2.2"
       sources."estree-walker-2.0.2"
       sources."foreground-child-3.2.1"
-      sources."glob-10.4.1"
+      sources."glob-10.4.2"
       sources."is-fullwidth-code-point-3.0.0"
       sources."is-reference-1.2.1"
       sources."isexe-2.0.0"
@@ -3343,6 +3352,7 @@ in
       sources."magic-string-0.30.10"
       sources."minimatch-9.0.4"
       sources."minipass-7.1.2"
+      sources."package-json-from-dist-1.0.0"
       sources."path-key-3.1.1"
       sources."path-scurry-1.11.1"
       sources."picomatch-2.3.1"
