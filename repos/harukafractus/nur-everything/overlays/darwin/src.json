@@ -1,18 +1,18 @@
 {
 		"standardnotes-x64": {
-			"version": "",
-			"url": "",
-			"sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+			"version": "desktop@3.194.9",
+			"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.194.9/standard-notes-3.194.9-mac-x64.dmg",
+			"sha256": "ec7cd1d3d9ca53ac302b20d6189ddb40f772f86aa87eccd5a9912f840923b49b"
 		},
 		"standardnotes-arm64": {
-			"version": "",
-			"url": "",
-			"sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+			"version": "desktop@3.194.9",
+			"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.194.9/standard-notes-3.194.9-mac-arm64.dmg",
+			"sha256": "42f3ffd3f072346704afeebbf7bf53ae0dff3c597a55385075666dd3b4a90e28"
 		},
 		"whisky": {
-			"version": "",
-			"url": "",
-			"sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+			"version": "v2.3.2",
+			"url": "https://github.com/Whisky-App/Whisky/releases/download/v2.3.2/Whisky.zip",
+			"sha256": "75136176947df9701c6387fdc3420f29ec0414e845304e2582b17f62dfeb805f"
 		},
 		"librewolf-x64": {
 			"version": "127.0-1",
@@ -25,8 +25,8 @@
 			"sha256": "b2ab81d97ead67f9cbeb8149bb213986ab3f42c2b5d66f4210d7d04ef77b255e"
 		},
 		"floorp": {
-			"version": "",
-			"url": "",
-			"sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+			"version": "v11.14.1",
+			"url": "https://github.com/Floorp-Projects/Floorp/releases/download/v11.14.1/floorp-macOS-universal.dmg",
+			"sha256": "da3f35128bae9595ebaf0b28abf0e9e9164239bd5df2afa5a81d08ae4434fa81"
 		}
 	}
