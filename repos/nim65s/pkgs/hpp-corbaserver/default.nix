@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  breakpointHook,
   cmake,
   hpp-core,
   hpp-template-corba,
@@ -36,7 +35,6 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   nativeBuildInputs = [
-    breakpointHook
     cmake
     pkg-config
   ];
@@ -53,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck = true;
 
   meta = {
-    description = "";
+    description = "Corba server for Humanoid Path Planner applications";
     homepage = "https://github.com/humanoid-path-planner/hpp-corbaserver";
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ nim65s ];
