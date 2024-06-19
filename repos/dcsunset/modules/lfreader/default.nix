@@ -3,12 +3,16 @@
 with lib;
 let
   cfg = config.services.lfreader;
+  lfreaderPkg = pkgs.callPackage ../../pkgs/top-level/lfreader {};
+  json = pkgs.formats.json {};
 in {
   options.services.lfreader = {
     enable = mkEnableOption "LFReader server";
 
     package = mkOption {
       type = types.package;
+      default = lfreaderPkg;
+      defaultText = literalExpression "nur-dcsunset.packages.lfreader";
       description = "Package to use for lfreader (e.g. package from nur)";
     };
 
@@ -24,47 +28,11 @@ in {
       description = "Host address to bind on";
     };
 
-    dbPath = mkOption {
-      type = types.str;
-      default = "/var/lib/lfreader/db.sqlite";
-      description = "Path of db file";
-    };
-
-    archivePath = mkOption {
-      type = types.str;
-      default = "/var/lib/lfreader/archives";
-      description = "Path of archive dir";
-    };
-
-    userAgent = mkOption {
-      type = types.str;
-      default = "";
-      description = "User agent to use when fetching resources (empty means no user agent)";
-    };
-
-    timeout = mkOption {
-      type = types.int;
-      default = 10;
-      description = "User agent to use when fetching resources";
-    };
-
-    logLevel = mkOption {
-      type = types.enum [ "notset" "debug" "info" "warning" "error" "critical" ];
-      default = "info";
-      description = "Log level";
-    };
-
-    swagger = {
-      jsUrl = mkOption {
-        type = types.str;
-        default = "https://unpkg.com/swagger-ui-dist@5.16.0/swagger-ui-bundle.js";
-        description = "Swagger JS URL";
-      };
-      cssUrl = mkOption {
-        type = types.str;
-        default = "https://unpkg.com/swagger-ui-dist@5.16.0/swagger-ui.css";
-        description = "Swagger CSS URL";
-      };
+    settings = mkOption {
+      type = json.type;
+      default = {};
+      example = { log_level = "debug"; };
+      description = "Config passed to server";
     };
 
     user = mkOption {
@@ -85,13 +53,7 @@ in {
       description = "LFReader server";
       wantedBy = [ "multi-user.target" ];
       environment = {
-        LFREADER_DB = cfg.dbPath;
-        LFREADER_ARCHIVE = cfg.archivePath;
-        LFREADER_USER_AGENT = cfg.userAgent;
-        LFREADER_TIMEOUT = toString cfg.timeout;
-        LFREADER_LOG_LEVEL = cfg.logLevel;
-        LFREADER_SWAGGER_JS_URL = cfg.swagger.jsUrl;
-        LFREADER_SWAGGER_CSS_URL = cfg.swagger.cssUrl;
+        LFREADER_CONFIG = json.generate "config.json" cfg.settings;
       };
       serviceConfig = {
         ExecStart = ''
