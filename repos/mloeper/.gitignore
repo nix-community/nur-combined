@@ -3,6 +3,7 @@ result-*
 source/
 
 source/
+!pkgs/jetbrains/source
 outputs/
 src/
 AmazonRootCA1.pem

@@ -55,4 +55,14 @@ rec {
     inherit mloeper;
   };
   #rancher-desktop = pkgs.callPackage ./pkgs/rancher-desktop { };
+  jetbrains = {
+    gateway = (pkgs.callPackages ./pkgs/jetbrains {
+      vmopts = null;
+      jdk = pkgs.jetbrains.jdk;
+    }).gateway;
+    pycharm-professional = (pkgs.callPackages ./pkgs/jetbrains {
+      vmopts = null;
+      jdk = pkgs.jetbrains.jdk;
+    }).pycharm-professional;
+  };
 }
