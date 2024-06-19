@@ -6,16 +6,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "rtl8152-led-ctrl";
-  version = "unstable-2024-06-17";
+  version = "0.1.1";
 
   src = fetchFromGitHub {
     owner = "EHfive";
     repo = pname;
-    rev = "01f6cfbb611564c6f42ab0c6db21c84b49daa321";
-    hash = "sha256-/vdocAu2wcKJ28qyYWe+SlD+lQXv2b1xulWKbkAUA2w=";
+    rev = "v${version}";
+    hash = "sha256-Cz3BEWKew2X7O3whIVqb9ZqKfth+BQyBFQ8bf9m3WXM=";
   };
 
-  cargoHash = "sha256-syekk6qBJwrIMGRZZkl6PM9Ep5p5huNK0tYfSndqFI4=";
+  cargoHash = "sha256-CogZg3+FITLl5ua3cCFKGdCETt/kNirFbRuIdpzqrn8=";
 
   nativeBuildInputs = [
     pkg-config
@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
   strictDeps = true;
 
   meta = {
-    description = "An eBPF-based Endpoint-Independent(Full Cone) NAT";
+    description = "A tool to configure LEDs on RTL8152/RTL8153 series USB NICs.";
     homepage = "https://github.com/EHfive/${pname}";
     license = "Apache-2.0 OR MIT";
   };
