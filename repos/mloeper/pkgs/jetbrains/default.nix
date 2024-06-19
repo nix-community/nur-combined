@@ -81,7 +81,7 @@ let
 
   buildPycharm = args:
     (mkJetBrainsProduct args).overrideAttrs (finalAttrs: previousAttrs: lib.optionalAttrs stdenv.isLinux {
-      buildInputs = with python3.pkgs; (previousAttrs.buildInputs or []) ++ [ python3 setuptools ];
+      buildInputs = with python3.pkgs; (previousAttrs.buildInputs or [ ]) ++ [ python3 setuptools ];
       preInstall = ''
         echo "compiling cython debug speedups"
         if [[ -d plugins/python-ce ]]; then
@@ -144,15 +144,17 @@ rec {
 
   datagrip = mkJetBrainsProduct { pname = "datagrip"; extraBuildInputs = [ stdenv.cc.cc ]; };
 
-  dataspell = let
-    libr = runCommand "libR" {} ''
-      mkdir -p $out/lib
-      ln -s ${R}/lib/R/lib/libR.so $out/lib/libR.so
-    '';
-  in mkJetBrainsProduct {
-    pname = "dataspell";
-    extraBuildInputs = [ libgcc libr stdenv.cc.cc ];
-  };
+  dataspell =
+    let
+      libr = runCommand "libR" { } ''
+        mkdir -p $out/lib
+        ln -s ${R}/lib/R/lib/libR.so $out/lib/libR.so
+      '';
+    in
+    mkJetBrainsProduct {
+      pname = "dataspell";
+      extraBuildInputs = [ libgcc libr stdenv.cc.cc ];
+    };
 
   gateway = mkJetBrainsProduct {
     pname = "gateway";
@@ -196,38 +198,38 @@ rec {
   pycharm-professional = buildPycharm { pname = "pycharm-professional"; extraBuildInputs = [ musl ]; };
 
   rider = (mkJetBrainsProduct {
-      pname = "rider";
-      extraBuildInputs = [
-        fontconfig
-        stdenv.cc.cc
-        openssl
-        libxcrypt
-        lttng-ust_2_12
-        musl
-      ]++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
-        expat
-        libxml2
-        xz
-      ];
+    pname = "rider";
+    extraBuildInputs = [
+      fontconfig
+      stdenv.cc.cc
+      openssl
+      libxcrypt
+      lttng-ust_2_12
+      musl
+    ] ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
+      expat
+      libxml2
+      xz
+    ];
 
-    }).overrideAttrs (attrs: {
-      postInstall = (attrs.postInstall or "") + lib.optionalString (stdenv.isLinux) ''
-        (
-          cd $out/rider
+  }).overrideAttrs (attrs: {
+    postInstall = (attrs.postInstall or "") + lib.optionalString (stdenv.isLinux) ''
+      (
+        cd $out/rider
 
-          ls -d $PWD/plugins/cidr-debugger-plugin/bin/lldb/linux/*/lib/python3.8/lib-dynload/* |
-          xargs patchelf \
-            --replace-needed libssl.so.10 libssl.so \
-            --replace-needed libcrypto.so.10 libcrypto.so \
-            --replace-needed libcrypt.so.1 libcrypt.so
+        ls -d $PWD/plugins/cidr-debugger-plugin/bin/lldb/linux/*/lib/python3.8/lib-dynload/* |
+        xargs patchelf \
+          --replace-needed libssl.so.10 libssl.so \
+          --replace-needed libcrypto.so.10 libcrypto.so \
+          --replace-needed libcrypt.so.1 libcrypt.so
 
-          for dir in lib/ReSharperHost/linux-*; do
-            rm -rf $dir/dotnet
-            ln -s ${dotnet-sdk_7} $dir/dotnet
-          done
-        )
-      '';
-    });
+        for dir in lib/ReSharperHost/linux-*; do
+          rm -rf $dir/dotnet
+          ln -s ${dotnet-sdk_7} $dir/dotnet
+        done
+      )
+    '';
+  });
 
   ruby-mine = mkJetBrainsProduct { pname = "ruby-mine"; extraBuildInputs = [ stdenv.cc.cc musl ]; };
 
