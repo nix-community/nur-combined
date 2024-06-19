@@ -640,10 +640,10 @@
     };
     "batchcamp" = buildFirefoxXpiAddon {
       pname = "batchcamp";
-      version = "1.4.4";
+      version = "1.4.5";
       addonId = "{d44fa1f9-1400-401d-a79e-650d466ec6d6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4259122/batchcamp-1.4.4.xpi";
-      sha256 = "c8c584f2a173e204eb926a50c817f419a3f31095a3d6970a297432f391b967c9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4305628/batchcamp-1.4.5.xpi";
+      sha256 = "d4a43dc14cb2d60a7585b85c46fed96a8349a7389935c25d1adc1eecf6b0168e";
       meta = with lib;
       {
         homepage = "https://github.com/hyphmongo/batchcamp";
@@ -1951,10 +1951,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "128.0.20240617.91959";
+      version = "127.0.20240618.110440";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4304804/deutsch_de_language_pack-128.0.20240617.91959.xpi";
-      sha256 = "7f2b42f64c4ed7353ca654c40b422572ac7fe28f2cc72248e83348e11e160469";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4305494/deutsch_de_language_pack-127.0.20240618.110440.xpi";
+      sha256 = "c152ccc838b497c99ffed82ae1cdbc2aa3bdd229b15f060d1e7eb45530bb4477";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2880,10 +2880,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "128.0.20240617.91959";
+      version = "127.0.20240618.110440";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4304768/francais_language_pack-128.0.20240617.91959.xpi";
-      sha256 = "d58884510e667a63b4e2a22b775f2ba8054b11e77567ebe5c4cae331bfc185af";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4305446/francais_language_pack-127.0.20240618.110440.xpi";
+      sha256 = "5d2d6e77b03dfeb94a57ba579e3cc63c00f21c99c47db1905dcae86ea265b5ee";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
