@@ -645,7 +645,7 @@
     },
     "fastapi-dls": {
         "cargoLocks": null,
-        "date": "2024-05-10",
+        "date": "2024-06-18",
         "extract": null,
         "name": "fastapi-dls",
         "passthru": null,
@@ -655,13 +655,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "006d3a18335190da554da997eaab021a7201181a",
-            "sha256": "sha256-I7VqkP1D+JOKOMGRJZl4qxTf49sGNrPTjnV+6YOBAYg=",
+            "rev": "6a54c05fbbe430ca6ee4260a1ab61099fab40a92",
+            "sha256": "sha256-dBRdWic01r0w3Zkf6lwmJc+vPz9fwJ79UyCyjZAwnR4=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git"
         },
-        "version": "006d3a18335190da554da997eaab021a7201181a"
+        "version": "6a54c05fbbe430ca6ee4260a1ab61099fab40a92"
     },
     "fcitx5-breeze": {
         "cargoLocks": null,
@@ -1323,12 +1323,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3173",
-            "sha256": "sha256-If4wCJ7jo2Gw6jhK4VUzX5QDLpTgB7/nWIpDp6DGWHA=",
+            "rev": "b3182",
+            "sha256": "sha256-H/JsNd/MVBocL5qEjktTGOc1xhEEcVw8GI+yfVILCZE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3173"
+        "version": "b3182"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -1713,7 +1713,7 @@
     },
     "ovpn-dco": {
         "cargoLocks": null,
-        "date": "2024-05-21",
+        "date": "2024-06-18",
         "extract": null,
         "name": "ovpn-dco",
         "passthru": null,
@@ -1725,12 +1725,12 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "ovpn-dco",
-            "rev": "c4c4f80edad9f4b94461dff861e63e722cc0590d",
-            "sha256": "sha256-y0ASzKRkjjOdcsz2CxaWSSp4pJMpPmLd5VJFsP+G49Y=",
+            "rev": "4a58dbe09278f76bfef9e6f20638a53345fca9cd",
+            "sha256": "sha256-mG5IL0tUanvFpAov5yrXSnrZS28VJsBn1eSU1bIe3bc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c4c4f80edad9f4b94461dff861e63e722cc0590d"
+        "version": "4a58dbe09278f76bfef9e6f20638a53345fca9cd"
     },
     "palworld-exporter": {
         "cargoLocks": null,
@@ -1923,12 +1923,12 @@
             "name": null,
             "owner": "pocl",
             "repo": "pocl",
-            "rev": "v5.0",
-            "sha256": "sha256-9Z7WG1r9FqxlQXwuyrTOW4/Y3c7u85rH2qfLJHgmZ3E=",
+            "rev": "v6.0",
+            "sha256": "sha256-NHR9yrI6Odb/s/OBnEVifdcLEXvwqzAMZWpGViv2cJg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.0"
+        "version": "v6.0"
     },
     "procps4": {
         "cargoLocks": null,

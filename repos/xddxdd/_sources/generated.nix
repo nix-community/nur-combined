@@ -362,17 +362,17 @@
   };
   fastapi-dls = {
     pname = "fastapi-dls";
-    version = "006d3a18335190da554da997eaab021a7201181a";
+    version = "6a54c05fbbe430ca6ee4260a1ab61099fab40a92";
     src = fetchgit {
       url = "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git";
-      rev = "006d3a18335190da554da997eaab021a7201181a";
+      rev = "6a54c05fbbe430ca6ee4260a1ab61099fab40a92";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-I7VqkP1D+JOKOMGRJZl4qxTf49sGNrPTjnV+6YOBAYg=";
+      sha256 = "sha256-dBRdWic01r0w3Zkf6lwmJc+vPz9fwJ79UyCyjZAwnR4=";
     };
-    date = "2024-05-10";
+    date = "2024-06-18";
   };
   fcitx5-breeze = {
     pname = "fcitx5-breeze";
@@ -733,13 +733,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3173";
+    version = "b3182";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3173";
+      rev = "b3182";
       fetchSubmodules = false;
-      sha256 = "sha256-If4wCJ7jo2Gw6jhK4VUzX5QDLpTgB7/nWIpDp6DGWHA=";
+      sha256 = "sha256-H/JsNd/MVBocL5qEjktTGOc1xhEEcVw8GI+yfVILCZE=";
     };
   };
   nbfc-linux-lantian = {
@@ -956,15 +956,15 @@
   };
   ovpn-dco = {
     pname = "ovpn-dco";
-    version = "c4c4f80edad9f4b94461dff861e63e722cc0590d";
+    version = "4a58dbe09278f76bfef9e6f20638a53345fca9cd";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "ovpn-dco";
-      rev = "c4c4f80edad9f4b94461dff861e63e722cc0590d";
+      rev = "4a58dbe09278f76bfef9e6f20638a53345fca9cd";
       fetchSubmodules = false;
-      sha256 = "sha256-y0ASzKRkjjOdcsz2CxaWSSp4pJMpPmLd5VJFsP+G49Y=";
+      sha256 = "sha256-mG5IL0tUanvFpAov5yrXSnrZS28VJsBn1eSU1bIe3bc=";
     };
-    date = "2024-05-21";
+    date = "2024-06-18";
   };
   palworld-exporter = {
     pname = "palworld-exporter";
@@ -1063,13 +1063,13 @@
   };
   pocl = {
     pname = "pocl";
-    version = "v5.0";
+    version = "v6.0";
     src = fetchFromGitHub {
       owner = "pocl";
       repo = "pocl";
-      rev = "v5.0";
+      rev = "v6.0";
       fetchSubmodules = false;
-      sha256 = "sha256-9Z7WG1r9FqxlQXwuyrTOW4/Y3c7u85rH2qfLJHgmZ3E=";
+      sha256 = "sha256-NHR9yrI6Odb/s/OBnEVifdcLEXvwqzAMZWpGViv2cJg=";
     };
   };
   procps4 = {
