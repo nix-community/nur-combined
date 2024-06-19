@@ -33,7 +33,6 @@ in {
           jellyfin-media-player
         ];
       };
-      virtualisation.spiceUSBRedirection.enable = true;
       systemd.sockets.cups.wantedBy = mkForce [];
       systemd.services.cups.wantedBy = mkForce [];
       services.printing = {
@@ -44,7 +43,6 @@ in {
       };
     })
     (mkIf cfg.remote {
-      virtualisation.libvirtd.enable = lib.mkForce false;
       environment.systemPackages = with pkgs; with pkgs.nur.repos.dukzcry; [
         moonlight-qt
         steamlink
@@ -52,8 +50,8 @@ in {
       services.yggdrasil = {
         enable = true;
         configFile = "/run/keys/yggdrasil.conf";
-        openMulticastPort = true;
       };
+      systemd.services.yggdrasil.wantedBy = mkForce [];
     })
   ];
 }
