@@ -28,6 +28,8 @@ in {
       description = "Host address to bind on";
     };
 
+    openFirewall = mkEnableOption "Whether to open port in the firewall";
+
     settings = mkOption {
       type = json.type;
       default = {};
@@ -49,6 +51,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+
     systemd.services.lfreader = {
       description = "LFReader server";
       wantedBy = [ "multi-user.target" ];
