@@ -1,5 +1,5 @@
 # apply nixpkgs#302139
-final: prev: {
+final: _prev: {
   omniorb = final.callPackage ../pkgs/omniorb { };
   omniorbpy = final.python3Packages.callPackage ../pkgs/omniorbpy { };
   pythonPackagesOverlays = [

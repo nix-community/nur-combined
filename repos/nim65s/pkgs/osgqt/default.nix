@@ -33,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postPatch = ''
-    substituteInPlace CMakeLists.txt --replace \
+    substituteInPlace CMakeLists.txt --replace-fail \
       "FIND_PACKAGE(Qt5Widgets REQUIRED)" \
       "FIND_PACKAGE(Qt5Widgets REQUIRED)
        FIND_PACKAGE(Qt5OpenGL REQUIRED)"

@@ -9,7 +9,7 @@
   proxsuite,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (_finalAttrs: {
   pname = "hpp-core";
   version = "5.0.0";
 

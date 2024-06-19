@@ -21,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   prePatch = ''
     substituteInPlace tests/run_debug.sh.in \
-      --replace /bin/bash ${stdenv.shell}
+      --replace-fail /bin/bash ${stdenv.shell}
   '';
 
   strictDeps = true;

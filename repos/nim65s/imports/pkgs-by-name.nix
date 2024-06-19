@@ -2,18 +2,11 @@
 {
 
   perSystem =
-    {
-      config,
-      self',
-      inputs',
-      pkgs,
-      system,
-      ...
-    }:
+    { pkgs, ... }:
     {
       packages =
         let
-          scope = lib.makeScope pkgs.newScope (self: {
+          scope = lib.makeScope pkgs.newScope (_self: {
             inherit inputs;
           });
         in

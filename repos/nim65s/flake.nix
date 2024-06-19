@@ -2,8 +2,15 @@
   description = "My personal NUR repository. Mostly nixpkgs stagging area.";
 
   inputs = {
-    flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     systems.url = "github:nix-systems/default";
   };
 
@@ -14,6 +21,7 @@
 
       imports = [
         inputs.flake-parts.flakeModules.easyOverlay
+        inputs.treefmt-nix.flakeModule
         ./imports/overlay.nix
         ./imports/formatter.nix
         #./imports/pkgs-by-name.nix
@@ -21,10 +29,11 @@
       ];
 
       perSystem =
-        { pkgs, ... }:
+        { config, pkgs, ... }:
         {
           # don't put that in imports, or nix-direnv won't autoupdate
           devShells.default = pkgs.mkShell {
+            nativeBuildInputs = [ config.treefmt.build.wrapper ];
             packages = with pkgs; [
               gepetto-viewer
               (python3.withPackages (
@@ -38,6 +47,13 @@
                 ]
               ))
             ];
+          };
+          treefmt = {
+            projectRootFile = "flake.nix";
+            programs = {
+              deadnix.enable = true;
+              nixfmt-rfc-style.enable = true;
+            };
           };
         };
     };

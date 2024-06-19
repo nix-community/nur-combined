@@ -91,11 +91,18 @@ let
   hpp-constraints = pkgs.callPackage ./pkgs/hpp-constraints { inherit hpp-pinocchio hpp-statistics; };
   hpp-baxter = pkgs.callPackage ./pkgs/hpp-baxter { };
   hpp-core = pkgs.callPackage ./pkgs/hpp-core {
-    inherit hpp-constraints hpp-pinocchio hpp-statistics proxsuite;
+    inherit
+      hpp-constraints
+      hpp-pinocchio
+      hpp-statistics
+      proxsuite
+      ;
   };
   hpp-manipulation = pkgs.callPackage ./pkgs/hpp-manipulation {
     inherit hpp-core hpp-universal-robot;
   };
+  hpp-manipulation-urdf = pkgs.callPackage ./pkgs/hpp-manipulation-urdf { inherit hpp-manipulation; };
+  hpp-corbaserver = pkgs.callPackage ./pkgs/hpp-corbaserver { inherit hpp-core hpp-template-corba; };
 in
 {
   inherit
@@ -115,9 +122,11 @@ in
     hpp-template-corba
     hpp-pinocchio
     hpp-constraints
+    hpp-corbaserver
     hpp-baxter
     hpp-core
     hpp-manipulation
+    hpp-manipulation-urdf
     hpp-universal-robot
     #multicontact-api
     proxsuite

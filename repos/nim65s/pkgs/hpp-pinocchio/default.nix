@@ -8,7 +8,7 @@
   pinocchio,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (_finalAttrs: {
   pname = "hpp-pinocchio";
   version = "5.0.0";
 

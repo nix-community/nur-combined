@@ -1,5 +1,15 @@
+ci:
+  skip:
+    - treefmt
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v4.6.0
   hooks:
   - id: check-added-large-files
+- repo: local
+  hooks:
+  - id: treefmt
+    name: treefmt
+    entry: treefmt
+    language: system
+    always_run: true

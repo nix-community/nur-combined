@@ -1,16 +1,8 @@
-{ inputs, ... }:
+{ ... }:
 
 {
   perSystem =
-    {
-      config,
-      self',
-      inputs',
-      pkgs,
-      system,
-      lib,
-      ...
-    }:
+    { pkgs, ... }:
     {
       formatter = pkgs.nixfmt-rfc-style;
     };
