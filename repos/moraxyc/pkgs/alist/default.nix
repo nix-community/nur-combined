@@ -8,11 +8,17 @@
   stdenv,
   installShellFiles,
   testers,
-  sources,
+  fetchFromGitHub,
 }:
 buildGoModule rec {
   pname = "alist";
-  inherit (sources.alist) src version;
+  version = "3.35.0";
+  src = fetchFromGitHub {
+    owner = "alist-org";
+    repo = "alist";
+    rev = "refs/tags/v${version}";
+    hash = "sha256-N9WgaPzc8cuDN7N0Ny3t6ARGla0lCluzF2Mut3Pg880=";
+  };
   CGO_ENABLED = 1;
 
   vendorHash = "sha256-lZIM1Cy3JmcrnxC+HN9Ni7P70yVR1LtHVKe3nOhA4fg=";
