@@ -1,0 +1,12 @@
+{
+  "url": "https://codeberg.org/ranmaru22/firefox-vertical-tabs.git",
+  "rev": "1ea3052354b08286fab758d7c346fb1c5c465d55",
+  "date": "2024-02-28T19:44:47+01:00",
+  "path": "/nix/store/8p0d5q21bjj82navqidzjj53a14ck6wl-firefox-vertical-tabs",
+  "sha256": "12c9g4y80pm6mc3rdrshjkm8ya9pxdm9a4igjlnlvkzqb903qwhc",
+  "hash": "sha256-DHI8QFr4z00tlS8SlWrrNymP6pRQ55YHq6ZegDx5iYk=",
+  "fetchLFS": false,
+  "fetchSubmodules": false,
+  "deepClone": false,
+  "leaveDotGit": false
+}
