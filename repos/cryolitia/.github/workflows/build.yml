@@ -80,15 +80,15 @@ jobs:
 
     - name: Build x86_64 nix packages
       if: ${{ matrix.os == 'ubuntu-latest' && matrix.arch == 'x86_64' }}
-      run: nix run nixpkgs#nix-build-uncached -- ./nix/ci.nix
+      run: nix run nixpkgs#nix-build-uncached -- -build-flags '-L' ./nix/ci.nix
 
     - name: Build aarch64 nix packages
       if: ${{ matrix.os == 'ubuntu-latest' && matrix.arch == 'aarch64' }}
-      run: nix run nixpkgs#nix-build-uncached -- ./nix/ci_aarch64_cross.nix
+      run: nix run nixpkgs#nix-build-uncached -- -build-flags '-L' ./nix/ci_aarch64_cross.nix
 
     - name: Build darwin nix packages
       if: ${{ matrix.os == 'macos-latest'}}
-      run: nix run nixpkgs#nix-build-uncached -- ./nix/ci_darwin.nix
+      run: nix run nixpkgs#nix-build-uncached -- -build-flags '-L' ./nix/ci_darwin.nix
 
     - name: Trigger NUR update
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=Cryolitia"
