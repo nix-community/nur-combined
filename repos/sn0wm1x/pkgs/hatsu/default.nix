@@ -5,32 +5,30 @@
 , pkg-config
 , rustPlatform
 }:
-let
-  pname = "hatsu";
-  version = "0.2.0";
-in
 rustPlatform.buildRustPackage rec {
-  inherit pname version;
+  pname = "hatsu";
+  version = "0.2.1";
 
   src = fetchFromGitHub {
     owner = "importantimport";
-    repo = pname;
+    repo = "hatsu";
     rev = "v${version}";
-    hash = "sha256-gBzhuV0SDmNwl5PkpdGxkMBn5m4vEXfv23WK7+ZzQs8=";
+    hash = "sha256-4x41Ez2Rq4Bs39LN4qRluDieHx+9bS+GCjvS/cQK84Y=";
   };
 
-  cargoHash = "sha256-A2tl0jjKODA/qodxkIe/3V4ZDGV4X0myiduJsLtd7r0=";
+  cargoHash = "sha256-hOQ8/m4TY18ZFmLFxxnXUX1yr52tKNmebx6H0uIIGUo=";
 
   nativeBuildInputs = [ cmake pkg-config ];
   buildInputs = [ openssl ];
 
   env = { OPENSSL_NO_VENDOR = true; };
 
-  meta = with lib; {
+  meta = {
+    description = "Self-hosted and fully-automated ActivityPub bridge for static sites";
     homepage = "https://github.com/importantimport/hatsu";
-    description = "Self-hosted & Fully-automated ActivityPub Bridge for Static Sites.";
-    license = licenses.agpl3Only;
-    mainProgram = pname;
-    # maintainers = with maintainers; [ kwaa ];
+    license = lib.licenses.agpl3Only;
+    mainProgram = "hatsu";
+    maintainers = with lib.maintainers; [ kwaa ];
+    platforms = lib.platforms.linux;
   };
 }
