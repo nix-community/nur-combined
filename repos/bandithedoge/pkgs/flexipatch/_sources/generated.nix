@@ -7,15 +7,15 @@
 }: {
   dmenu-flexipatch = {
     pname = "dmenu-flexipatch";
-    version = "9ef1b3c317d6395ac7fd2c6951d356e9990ce23d";
+    version = "d04595790f46ede6cab9b14b4c365860a71f95c1";
     src = fetchFromGitHub {
       owner = "bakkeby";
       repo = "dmenu-flexipatch";
-      rev = "9ef1b3c317d6395ac7fd2c6951d356e9990ce23d";
+      rev = "d04595790f46ede6cab9b14b4c365860a71f95c1";
       fetchSubmodules = false;
-      sha256 = "sha256-2mr+qT6CZJohMG05itxp63eCNfZEJqKD4BLp/GP5ZCA=";
+      sha256 = "sha256-0+srsfqQwS9NVrsQw9IL2DTfd+pBjPwTRzQ9j7IdybM=";
     };
-    date = "2024-05-17";
+    date = "2024-06-19";
   };
   dwm-flexipatch = {
     pname = "dwm-flexipatch";
