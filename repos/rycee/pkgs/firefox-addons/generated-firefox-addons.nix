@@ -2079,6 +2079,19 @@
         platforms = platforms.all;
       };
     };
+    "dictionary-spanish" = buildFirefoxXpiAddon {
+      pname = "dictionary-spanish";
+      version = "3.2.8";
+      addonId = "es-es@dictionaries.addons.mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4158842/diccionario_de_espanol_espana-3.2.8.xpi";
+      sha256 = "645e6070be16e9fe422ffcf1789325f0dd6494c3c57548c4deb717262fb59b72";
+      meta = with lib; {
+        description = "Spanish/Spain Dictionary (Spell checker for es-ES)";
+        license = licenses.mpl20;
+        mozPermissions = [];
+        platforms = platforms.all;
+      };
+    };
     "disable-javascript" = buildFirefoxXpiAddon {
       pname = "disable-javascript";
       version = "2.3.2resigned1";
