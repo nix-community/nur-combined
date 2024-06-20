@@ -850,10 +850,10 @@
     };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2024.4.2";
+      version = "2024.6.2";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4282854/bitwarden_password_manager-2024.4.2.xpi";
-      sha256 = "19caac7131a37e558204c1f61cf1459502cc624b0284dc5837112c4742917da0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4305759/bitwarden_password_manager-2024.6.2.xpi";
+      sha256 = "c064e2d6601cb921ecd154e0d3bfd54d71af43da1947aa51666877ef0afd1436";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -1012,6 +1012,21 @@
         platforms = platforms.all;
       };
     };
+    "bulkurlopener" = buildFirefoxXpiAddon {
+      pname = "bulkurlopener";
+      version = "1.11.3";
+      addonId = "{c5b32a48-5514-4a46-81f2-075ebf3cbc29}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3964817/bulkurlopener-1.11.3.xpi";
+      sha256 = "7de50750a715d1c21a6d42b6526c323d4b0b1758b32aabf64c3280082be718c1";
+      meta = with lib;
+      {
+        homepage = "https://bulkurlopener.com";
+        description = "Allows user to open a list of url in one click.";
+        license = licenses.mit;
+        mozPermissions = [ "tabs" "storage" "contextMenus" ];
+        platforms = platforms.all;
+      };
+    };
     "buster-captcha-solver" = buildFirefoxXpiAddon {
       pname = "buster-captcha-solver";
       version = "3.1.0";
@@ -1078,6 +1093,27 @@
           "contextualIdentities"
           "cookies"
           "privacy"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "capture-print" = buildFirefoxXpiAddon {
+      pname = "capture-print";
+      version = "0.2.1";
+      addonId = "{146f1820-2b0d-49ef-acbf-d85a6986e10c}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/2222170/capture_print-0.2.1.xpi";
+      sha256 = "b6b4dd9df712d0a1d5de683412a095b9836cf6763f7b75e86d03a91216091392";
+      meta = with lib;
+      {
+        description = "This add-on lets you print a webpage's area easily.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "menus"
+          "activeTab"
+          "<all_urls>"
+          "clipboard"
+          "notifications"
+          "clipboardWrite"
         ];
         platforms = platforms.all;
       };
@@ -1621,10 +1657,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.1.1";
+      version = "4.1.2";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4291396/control_panel_for_twitter-4.1.1.xpi";
-      sha256 = "c0434d504bca79c0849fa35ca5fc2797fef6d3329c296481ae8fb6cf4e192140";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4304438/control_panel_for_twitter-4.1.2.xpi";
+      sha256 = "e3d3941c6c2ed4ba1f3d2fe127430016bbdeaae8d9ba1e6ced5b4e0fda8cb082";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -1705,6 +1741,27 @@
           "contextualIdentities"
           "<all_urls>"
           "tabs"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "copy-as-org-mode" = buildFirefoxXpiAddon {
+      pname = "copy-as-org-mode";
+      version = "0.2.0";
+      addonId = "{59e590fc-6635-45fe-89c7-af637eb4b9c0}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3939068/copy_as_org_mode-0.2.0.xpi";
+      sha256 = "dcd02dbd1a753928b82e772055a0532421f94bb40ae23b0606e6e91117909cce";
+      meta = with lib;
+      {
+        homepage = "https://github.com/kuanyui/copy-as-org-mode";
+        description = "Copy selection or link of current page as Org-mode format text!";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "activeTab"
+          "clipboardWrite"
+          "menus"
+          "storage"
+          "notifications"
         ];
         platforms = platforms.all;
       };
@@ -1951,10 +2008,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "127.0.20240618.110440";
+      version = "128.0.20240619.92300";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4305494/deutsch_de_language_pack-127.0.20240618.110440.xpi";
-      sha256 = "c152ccc838b497c99ffed82ae1cdbc2aa3bdd229b15f060d1e7eb45530bb4477";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4306076/deutsch_de_language_pack-128.0.20240619.92300.xpi";
+      sha256 = "ceb041a2c7468f1e46ced3588716f9566f409e357bbe363b28a736542570a7e9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2115,6 +2172,28 @@
         description = "This add-on stops websites from blocking copy and paste for password fields and other input fields.";
         license = licenses.mit;
         mozPermissions = [ "storage" "tabs" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
+    "download-with-jdownloader" = buildFirefoxXpiAddon {
+      pname = "download-with-jdownloader";
+      version = "0.3.2";
+      addonId = "{03e07985-30b0-4ae0-8b3e-0c7519b9bdf6}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4135954/download_with_jdownloader-0.3.2.xpi";
+      sha256 = "cb731417a341412914b0cfa98506d50729508b54b8f623a484f5650401bd7385";
+      meta = with lib;
+      {
+        homepage = "https://webextension.org/listing/download-with.html?from=jdownloader";
+        description = "when activated, interrupts the built-in download manager to direct links to JDownloader";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "storage"
+          "nativeMessaging"
+          "notifications"
+          "downloads"
+          "contextMenus"
+          "activeTab"
+        ];
         platforms = platforms.all;
       };
     };
@@ -2880,10 +2959,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "127.0.20240618.110440";
+      version = "128.0.20240619.92300";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4305446/francais_language_pack-127.0.20240618.110440.xpi";
-      sha256 = "5d2d6e77b03dfeb94a57ba579e3cc63c00f21c99c47db1905dcae86ea265b5ee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4306083/francais_language_pack-128.0.20240619.92300.xpi";
+      sha256 = "8d3b00765591c1faa87627b2827db53a0001fa983d8c6e040423094932a22361";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4740,6 +4819,40 @@
         platforms = platforms.all;
       };
     };
+    "i2p-in-private-browsing" = buildFirefoxXpiAddon {
+      pname = "i2p-in-private-browsing";
+      version = "1.48";
+      addonId = "i2ppb@eyedeekay.github.io";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4123613/i2p_in_private_browsing-1.48.xpi";
+      sha256 = "692f00963fd4360713a7f4c358f37af704a7d06c43b10c78e1db71af26dd3d7a";
+      meta = with lib;
+      {
+        homepage = "https://github.com/eyedeekay/i2psetproxy.js";
+        description = "Uses Container Tabs to set up a browser to use I2P conveniently and safely by setting up an I2P-powered Private Browsing mode, inspired by the similar feature in Brave. Requires an I2P router on the host system.";
+        license = licenses.mit;
+        mozPermissions = [
+          "theme"
+          "alarms"
+          "browsingData"
+          "bookmarks"
+          "contextMenus"
+          "management"
+          "notifications"
+          "proxy"
+          "privacy"
+          "storage"
+          "webNavigation"
+          "webRequest"
+          "webRequestBlocking"
+          "contextualIdentities"
+          "cookies"
+          "history"
+          "tabs"
+          "<all_urls>"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "iina-open-in-mpv" = buildFirefoxXpiAddon {
       pname = "iina-open-in-mpv";
       version = "2.0.1";
@@ -5301,20 +5414,21 @@
     };
     "kagi-search" = buildFirefoxXpiAddon {
       pname = "kagi-search";
-      version = "0.3.8";
+      version = "0.7.0";
       addonId = "search@kagi.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4173642/kagi_search_for_firefox-0.3.8.xpi";
-      sha256 = "97df6e38d7f9531efff5360c744d3f32386d7289975ed5eb818491fbdcecf20b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4302254/kagi_search_for_firefox-0.7.0.xpi";
+      sha256 = "78b19871c4afe390dd9e3cebcf47f8136abcd6ed3c7fe51c6eb7cf614cc48c87";
       meta = with lib;
       {
         homepage = "https://kagi.com";
         description = "A simple helper extension for setting Kagi as a default search engine, and automatically logging in to Kagi in private browsing windows.";
-        license = licenses.mpl20;
+        license = licenses.mit;
         mozPermissions = [
           "cookies"
           "declarativeNetRequestWithHostAccess"
           "webRequest"
           "storage"
+          "contextMenus"
         ];
         platforms = platforms.all;
       };
@@ -6730,6 +6844,7 @@
       {
         homepage = "https://github.com/deathau/markdown-clipper";
         description = "This extension works like a web clipper, but it downloads articles in a markdown format. Turndown and Readability.js are used as core libraries. It is not guaranteed to work with all websites.";
+        license = licenses.asl20;
         mozPermissions = [
           "<all_urls>"
           "activeTab"
@@ -6786,10 +6901,10 @@
     };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "11.16.5";
+      version = "11.16.10";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4298695/ether_metamask-11.16.5.xpi";
-      sha256 = "2569556940fdb8504a417ffa24fbca0f53e04558236dd06be340b561d4439690";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4302093/ether_metamask-11.16.10.xpi";
+      sha256 = "e021fae54ea3f29cad5910d93b688ab9e2cbfd00f3496722f5cc7c809b0bfeb1";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -7620,10 +7735,10 @@
     };
     "paperpile" = buildFirefoxXpiAddon {
       pname = "paperpile";
-      version = "1.0.49";
+      version = "1.0.52";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4297341/paperpile_addon-1.0.49.xpi";
-      sha256 = "0cce1761799d0b55616a73b4013b80aa69a49cd3c97c7b3ea5739db75cfa5605";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4305964/paperpile_addon-1.0.52.xpi";
+      sha256 = "1512d9f1fd8f678bec08c397e54f69c31c1df722b65b42e721ad7787626b53b2";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -7817,6 +7932,47 @@
         platforms = platforms.all;
       };
     };
+    "play-to-kodi4" = buildFirefoxXpiAddon {
+      pname = "play-to-kodi4";
+      version = "1.9.2resigned1";
+      addonId = "{ba707b6e-571d-47c9-a31d-7b94807d6ee2}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4272730/play_to_kodi4-1.9.2resigned1.xpi";
+      sha256 = "56c79b228994ed369231be9536e5c4bcbdc43363737d5f49f1961ea3b738e148";
+      meta = with lib;
+      {
+        homepage = "https://github.com/maciex/play-to-kodi";
+        description = "Play, queue and remote control your favourite online media on Kodi / XBMC.\n\nThis is a port of an add-on developed originally for Google Chrome.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "storage"
+          "tabs"
+          "*://www.googleapis.com/*"
+          "http://*/*"
+          "contextMenus"
+          "<all_urls>"
+          "http://www.liveleak.com/view*"
+          "*://*.facebook.com/*"
+          "*://www.youtube.com/*"
+          "*://soundcloud.com/*"
+          "*://streamcloud.eu/*"
+          "*://mycloudplayers.com/*"
+          "*://*.khanacademy.org/*"
+          "*://*.hulu.com/watch/*"
+          "*://*.animelab.com/player/*"
+          "*://*.lynda.com/*"
+          "*://*.urgantshow.ru/page/*"
+          "*://*.kino-live.org/*"
+          "*://*.vessel.com/*"
+          "*://*.cda.pl/*"
+          "*://*.xnxx.com/*"
+          "*://*.seasonvar.ru/*"
+          "*://solarmoviez.to/*"
+          "*://vivo.sx/*"
+          "*://*.pornhub.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "playback-speed" = buildFirefoxXpiAddon {
       pname = "playback-speed";
       version = "1.4.4";
@@ -7860,12 +8016,70 @@
         platforms = platforms.all;
       };
     };
+    "print-edit-we" = buildFirefoxXpiAddon {
+      pname = "print-edit-we";
+      version = "29.6";
+      addonId = "printedit-we@DW-dev";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4144228/print_edit_we-29.6.xpi";
+      sha256 = "b17c98a05f57b98e69858086e1b841579237ca4a76fe4a667fa258b4552e9c07";
+      meta = with lib;
+      {
+        description = "Edit the contents of a web page prior to printing or saving. Elements in the web page can be edited, formatted, hidden or deleted. Unwanted content, such as adverts and sidebars, can easily be removed.";
+        license = licenses.gpl2;
+        mozPermissions = [
+          "<all_urls>"
+          "tabs"
+          "webNavigation"
+          "webRequest"
+          "webRequestBlocking"
+          "contextMenus"
+          "notifications"
+          "storage"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "print-friendly-pdf" = buildFirefoxXpiAddon {
+      pname = "print-friendly-pdf";
+      version = "5.3.0";
+      addonId = "jid0-YQz0l1jthOIz179ehuitYAOdBEs@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3954760/print_friendly_pdf-5.3.0.xpi";
+      sha256 = "b132b82ecbf41c11156bd8f92bcd401d40d85b347241522b85e09f3486b7546f";
+      meta = with lib;
+      {
+        homepage = "https://www.printfriendly.com/";
+        description = "Makes a Printer Friendly &amp; PDF version of any webpage. Removes navigation, ads, and junk. Formats the page for print so you save paper and ink. Good for the environment and your wallet.";
+        license = {
+          shortName = "print-friendly-pdf";
+          fullName = "Custom License for Print Friendly & PDF";
+          url = "https://addons.mozilla.org/en-US/firefox/addon/print-friendly-pdf/license/";
+          free = false;
+        };
+        mozPermissions = [ "storage" "activeTab" "contextMenus" ];
+        platforms = platforms.all;
+      };
+    };
+    "print-to-pdf-document" = buildFirefoxXpiAddon {
+      pname = "print-to-pdf-document";
+      version = "0.1.1";
+      addonId = "{9ab38051-cd73-4e46-b7bd-dc147f6f6b29}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3985408/print_to_pdf_document-0.1.1.xpi";
+      sha256 = "d4d37118865ae9a2c6dd38b4898b8ca65a49894833935b7194713cc478e78dd4";
+      meta = with lib;
+      {
+        homepage = "https://mybrowseraddon.com/print-to-pdf.html";
+        description = "Easily print any page to PDF with just one click!";
+        license = licenses.mpl20;
+        mozPermissions = [ "tabs" "storage" "<all_urls>" "contextMenus" ];
+        platforms = platforms.all;
+      };
+    };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2024.6.3";
+      version = "2024.6.14";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4298042/privacy_badger17-2024.6.3.xpi";
-      sha256 = "e60101d2c31c80addb9d1e2c6fa4b4a17b4907451ea1b2e907b9bee0871a20f4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4303450/privacy_badger17-2024.6.14.xpi";
+      sha256 = "2abc0343d14151cadc48ad83d4b945c0b49adf19c802fdc9738ec55f38b98e29";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
@@ -8746,6 +8960,30 @@
         platforms = platforms.all;
       };
     };
+    "recoll-we" = buildFirefoxXpiAddon {
+      pname = "recoll-we";
+      version = "2.1";
+      addonId = "recoll-we@recoll-org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3750059/recoll_we-2.1.xpi";
+      sha256 = "6297f0ee0d167fa9815f0265d3e87ecac0a001d8c5b30e50d947e3b1996b4fd6";
+      meta = with lib;
+      {
+        homepage = "https://www.lesbonscomptes.com/recoll/";
+        description = "Enqueue visited WEB pages for storage and indexing by Recoll.";
+        license = licenses.gpl2;
+        mozPermissions = [
+          "activeTab"
+          "tabs"
+          "webNavigation"
+          "contextMenus"
+          "notifications"
+          "storage"
+          "downloads"
+          "*://*/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "reddit-comment-collapser" = buildFirefoxXpiAddon {
       pname = "reddit-comment-collapser";
       version = "5.1.2resigned1";
@@ -9197,10 +9435,10 @@
     };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "12.0.5";
+      version = "13.0.0";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4266748/sidebartabs-12.0.5.xpi";
-      sha256 = "84c4a8abae93a982b464a9cae5fc4f9044100192370ccf6f06f642e26c6eb091";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4306270/sidebartabs-13.0.0.xpi";
+      sha256 = "840c5310b3a74b31d27b57e167abb19398a5d9f91891d6bcd32ad11a3162dd38";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
@@ -10918,6 +11156,20 @@
           "contextMenus"
           "*://*/*"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "userchrome-toggle" = buildFirefoxXpiAddon {
+      pname = "userchrome-toggle";
+      version = "1.2";
+      addonId = "userchrome-toggle@joolee.nl";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3912447/userchrome_toggle-1.2.xpi";
+      sha256 = "b8b87be8c67e0538536e9482a80a8536b081aed7a7c8bcb4387fdc4f97705c8d";
+      meta = with lib;
+      {
+        description = "This extension allows you to toggle userchrome.css styles on-the-fly with buttons and hotkeys.";
+        license = licenses.mit;
+        mozPermissions = [ "notifications" "storage" ];
         platforms = platforms.all;
       };
     };

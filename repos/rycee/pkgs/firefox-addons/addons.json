@@ -128,6 +128,9 @@
     "slug": "bulgarian-dictionary"
   },
   {
+    "slug": "bulkurlopener"
+  },
+  {
     "slug": "buster-captcha-solver"
   },
   {
@@ -135,6 +138,9 @@
   },
   {
     "slug": "canvasblocker"
+  },
+  {
+    "slug": "capture-print"
   },
   {
     "slug": "castkodi"
@@ -203,6 +209,9 @@
   },
   {
     "slug": "cookies-txt"
+  },
+  {
+    "slug": "copy-as-org-mode"
   },
   {
     "pname": "copy-link-text",
@@ -282,6 +291,9 @@
   },
   {
     "slug": "don-t-fuck-with-paste"
+  },
+  {
+    "slug": "download-with-jdownloader"
   },
   {
     "slug": "dracula-dark-colorscheme"
@@ -560,6 +572,9 @@
     "slug": "i-dont-care-about-cookies"
   },
   {
+    "slug": "i2p-in-private-browsing"
+  },
+  {
     "slug": "iina-open-in-mpv"
   },
   {
@@ -730,7 +745,11 @@
     "slug": "mal-sync"
   },
   {
-    "slug": "markdownload"
+    "slug": "markdownload",
+    "license": {
+      "tag": "predefined",
+      "shortName": "asl20"
+    }
   },
   {
     "slug": "matte-black-red",
@@ -959,6 +978,9 @@
     "slug": "plasma-integration"
   },
   {
+    "slug": "play-to-kodi4"
+  },
+  {
     "slug": "playback-speed"
   },
   {
@@ -978,6 +1000,22 @@
   {
     "slug": "polkadot-js-extension",
     "pname": "polkadot-js"
+  },
+  {
+    "slug": "print-edit-we"
+  },
+  {
+    "slug": "print-friendly-pdf",
+    "license": {
+      "tag": "custom",
+      "shortName": "print-friendly-pdf",
+      "fullName": "Custom License for Print Friendly & PDF",
+      "url": "https://addons.mozilla.org/en-US/firefox/addon/print-friendly-pdf/license/",
+      "free": false
+    }
+  },
+  {
+    "slug": "print-to-pdf-document"
   },
   {
     "slug": "privacy-badger17",
@@ -1054,6 +1092,9 @@
   },
   {
     "slug": "read-aloud"
+  },
+  {
+    "slug": "recoll-we"
   },
   {
     "slug": "reddit-enhancement-suite"
@@ -1399,6 +1440,9 @@
   },
   {
     "slug": "user-agent-string-switcher"
+  },
+  {
+    "slug": "userchrome-toggle"
   },
   {
     "slug": "video-downloadhelper",
