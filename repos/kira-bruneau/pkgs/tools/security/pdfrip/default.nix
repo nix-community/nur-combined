@@ -5,7 +5,7 @@
   cmake,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "pdfrip";
   version = "1.0.0";
 
