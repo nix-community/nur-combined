@@ -24,6 +24,7 @@ Attributes listed on [the NUR](https://nur.nix-community.org/repos/ihaveamac/)
 * mediawiki-1.39.7
 * mediawiki-1.41.1 (same as nixpkgs, for convenience)
 * homebox-bin-0.10.3
+* 3dslink-0.6.1 (as \_3dslink attribute)
 
 ## Using the KWin patch
 

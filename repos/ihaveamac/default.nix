@@ -26,6 +26,7 @@ rec {
   ctrtool = pkgs.callPackage ./pkgs/ctrtool { };
   makerom = pkgs.callPackage ./pkgs/makerom { };
   homebox-bin = pkgs.callPackage ./pkgs/homebox-bin { };
+  _3dslink = pkgs.callPackage ./pkgs/3dslink { };
 
   mediawiki_1_39 = pkgs.callPackage ./pkgs/mediawiki {
     version = "1.39.7";
@@ -43,4 +44,5 @@ rec {
 
   # compatibility
   "3dstool" = _3dstool;
+  "3dslink" = _3dslink;
 }
