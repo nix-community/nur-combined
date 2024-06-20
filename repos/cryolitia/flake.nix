@@ -92,9 +92,12 @@
               inherit pkgs;
               rust-overlay = true;
             }
-            // {
-              gpd-linux-controls = gpd-linuxcontrols.packages.${system}.default;
-            }
+            // (
+              if system == "x86_64-linux" then
+                { gpd-linux-controls = gpd-linuxcontrols.packages.${system}.default; }
+              else
+                { }
+            )
             // (
               if (builtins.elem system systems-linux) then
                 import ./nix/linux-specific.nix { inherit pkgs gpd-fan-driver; }
@@ -116,17 +119,6 @@
       nixosModules = import ./modules { inherit gpd-fan-driver; };
 
       overlays = import ./overlays { inherit packages; };
-
-      nixpkgs-cuda = import nixpkgs {
-        system = "x86_64-linux";
-        config = {
-          allowUnfree = true;
-          cudaSupport = true;
-          # https://github.com/SomeoneSerge/nixpkgs-cuda-ci/blob/develop/nix/ci/cuda-updates.nix#L18
-          cudaCapabilities = [ "8.6" ];
-          cudaEnableForwardCompat = false;
-        };
-      };
 
       ciJobs = {
         cuda = lib.filterNurAttrs "x86_64-linux" (
