@@ -23,14 +23,13 @@ let
 # Uses scheme to bootstrap the build of idris2
 in stdenv.mkDerivation rec {
   pname = "idris2";
-  version = "2023-11-12";
+  version = "2024-06-18";
 
   src = fetchFromGitHub {
     owner = "idris-lang";
     repo = "Idris2";
-    rev = "af10fbaf942167a93fd1c2306ece1d25bad38e38";
-    sha256 = "sha256-EnG366El05ShLwtLa+kYfyjSssmyZTZBAOveETJKE10=";
-    # sha256 = "sha256-80MAGM1IEtI09h5aCYfDL4PRrjGq2gT8OUEibOVk8H4=";
+    rev = "2994e23fd06d696828d4cee9e71958314dccd956";
+    sha256 = "sha256-xKeHOEeAoHN3GHedHcnlPfqpNGCoXsZg1UN4Mzc+/pU=";
   };
 
   strictDeps = true;
