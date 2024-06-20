@@ -35,6 +35,7 @@
     options = "--delete-older-than 10d";
   };
   programs.sway.enable = true;
+  programs.gtklock.enable = true;
 
   srv = {
     openssh.enable = true;
