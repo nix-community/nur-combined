@@ -733,13 +733,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3182";
+    version = "b3187";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3182";
+      rev = "b3187";
       fetchSubmodules = false;
-      sha256 = "sha256-H/JsNd/MVBocL5qEjktTGOc1xhEEcVw8GI+yfVILCZE=";
+      sha256 = "sha256-/n2SryY0MA+mQpvoYnu0WfDV5ER2FAuIE1/4POpqTy8=";
     };
   };
   nbfc-linux-lantian = {

@@ -1323,12 +1323,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3182",
-            "sha256": "sha256-H/JsNd/MVBocL5qEjktTGOc1xhEEcVw8GI+yfVILCZE=",
+            "rev": "b3187",
+            "sha256": "sha256-/n2SryY0MA+mQpvoYnu0WfDV5ER2FAuIE1/4POpqTy8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3182"
+        "version": "b3187"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
