@@ -7,14 +7,14 @@ pkgs.telegram-desktop.overrideAttrs (
   in
   {
     pname = "ayugram-desktop";
-    version = "4.16.8";
+    version = "5.1.2";
 
     src = fetchFromGitHub {
       owner = "AyuGram";
       repo = "AyuGramDesktop";
       rev = "v${finalAttrs.version}";
       fetchSubmodules = true;
-      hash = "sha256-HrvqENRRyRzTDUUgzAHPBwNVo5dDTUsGIFOH75RQes0=";
+      hash = "sha256-f+ui24lbRZsyS59uZOQOW7x0nlD2Fv/zswlLzSOOqfo=";
     };
 
     installPhase = lib.optionalString stdenv.isDarwin ''
