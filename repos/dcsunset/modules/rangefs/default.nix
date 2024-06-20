@@ -3,6 +3,7 @@
 with lib;
 let
   cfg = config.programs.rangefs;
+  rangefsPkg = pkgs.callPackage ../../pkgs/top-level/rangefs {};
 in
 {
   ## Interface
@@ -86,6 +87,8 @@ in
 
     package = mkOption {
       type = types.package;
+      default = rangefsPkg;
+      defaultText = literalExpression "nur-dcsunset.packages.rangefs";
       description = "The rangefs package to use (e.g. package from nur)";
     };
 
