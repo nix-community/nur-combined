@@ -7,7 +7,6 @@
 #     nix-build -A mypackage
 
 { pkgs ? import <nixpkgs> { } }:
-
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -17,4 +16,5 @@
   # example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
-} // builtins.mapAttrs (name: _: pkgs.callPackage (./pkgs + "/${name}") { }) (builtins.readDir ./pkgs)
+  oneapiPackages = pkgs.callPackage ./pkgs/by-scope/oneapi-packages { };
+} // builtins.mapAttrs (name: _: pkgs.callPackage (./pkgs/by-name + "/${name}") { }) (builtins.readDir ./pkgs/by-name)
