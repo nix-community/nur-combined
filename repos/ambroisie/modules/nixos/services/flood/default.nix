@@ -1,5 +1,5 @@
 # A nice UI for various torrent clients
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   cfg = config.my.services.flood;
 in
@@ -13,31 +13,13 @@ in
       example = 3000;
       description = "Internal port for Flood UI";
     };
-
-    stateDir = mkOption {
-      type = types.str;
-      default = "flood";
-      example = "floodUI";
-      description = "Directory under `/var/run` for storing Flood's files";
-    };
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.services.flood = {
-      description = "Flood torrent UI";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+    services.flood = {
+      enable = true;
 
-      serviceConfig = {
-        ExecStart = lib.concatStringsSep " " [
-          (lib.getExe pkgs.flood)
-          "--port ${builtins.toString cfg.port}"
-          "--rundir /var/lib/${cfg.stateDir}"
-        ];
-        DynamicUser = true;
-        StateDirectory = cfg.stateDir;
-        ReadWritePaths = "";
-      };
+      inherit (cfg) port;
     };
 
     my.services.nginx.virtualHosts = {

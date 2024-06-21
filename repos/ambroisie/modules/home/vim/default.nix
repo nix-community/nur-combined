@@ -102,7 +102,7 @@ in
       nixpkgs-fmt
 
       # Shell
-      nodePackages.bash-language-server
+      bash-language-server
       shfmt
     ];
   };
