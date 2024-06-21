@@ -712,10 +712,10 @@
     };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.6.4";
+      version = "7.6.5";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4300795/betterttv-7.6.4.xpi";
-      sha256 = "3856a74a2779aac048afc23cca0a053ca28b54c5eb811b865c28cfe7dff58602";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4305097/betterttv-7.6.5.xpi";
+      sha256 = "364a1dadb2b3624abccccf10ced77889a6f6df5f456033ee9f31e270987c3a81";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -2434,10 +2434,10 @@
     };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.124.2";
+      version = "2.0.125.1";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4269135/enhancer_for_youtube-2.0.124.2.xpi";
-      sha256 = "5e1f6a81207adf2afb8c8860c87f8a7786c384433d128ce3a237b7339b9ee09f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4304694/enhancer_for_youtube-2.0.125.1.xpi";
+      sha256 = "bc3fdd06b1d701f2c6d5c07c5475a852c4703de62129e4cd7e999678b115df22";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -5876,10 +5876,10 @@
     };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.68";
+      version = "2.6.69";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4295688/localcdn_fork_of_decentraleyes-2.6.68.xpi";
-      sha256 = "3752313c73856b301623a21ac99af9e4a25325b8c80232f144a51fd0c887df8e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4303757/localcdn_fork_of_decentraleyes-2.6.69.xpi";
+      sha256 = "025be3d000eb9910f92c05e9716a645f9892a2e8862e22563a4e92c66f4824ec";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -7075,10 +7075,10 @@
     };
     "new-tab-override" = buildFirefoxXpiAddon {
       pname = "new-tab-override";
-      version = "16.0.0";
+      version = "16.0.1";
       addonId = "newtaboverride@agenedia.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4231522/new_tab_override-16.0.0.xpi";
-      sha256 = "da730dfbde7137344d909ab71f403dac7e83231c2853bc134fa842cfacb0ff04";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4303770/new_tab_override-16.0.1.xpi";
+      sha256 = "d61605a80daefa1379881250e33f060b884adedb1a34c7961804003c938374b3";
       meta = with lib;
       {
         homepage = "https://www.soeren-hentzschel.at/firefox-webextensions/new-tab-override/";
@@ -9841,10 +9841,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "3.8.0";
+      version = "4.2.0";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4298944/steam_database-3.8.0.xpi";
-      sha256 = "9f47848d65305a6d38a93d72fcfe40f049ce464dff6a882fa3b26240bd2b2c2b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4306640/steam_database-4.2.0.xpi";
+      sha256 = "133615d512ba4656a0403c6f2f18cb7b612b6654a041033806afb1902016b7f0";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -9861,7 +9861,6 @@
           "https://store.steampowered.com/sub/*"
           "https://store.steampowered.com/bundle/*"
           "https://store.steampowered.com/widget/*"
-          "https://store.steampowered.com/video/*"
           "https://store.steampowered.com/app/*/agecheck"
           "https://store.steampowered.com/agecheck/*"
           "https://store.steampowered.com/explore*"
