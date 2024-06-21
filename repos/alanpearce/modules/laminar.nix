@@ -6,7 +6,14 @@
 let
   cfg = config.services.laminar;
 
-  inherit (lib) mkEnableOption mkPackageOption mkOption mkIf optionalAttrs types;
+  inherit (lib)
+    literalExpression
+    optionalAttrs
+    mkEnableOption
+    mkPackageOption
+    mkOption
+    mkIf
+    types;
 in
 {
   options.services.laminar = {
@@ -30,6 +37,19 @@ in
       type = types.path;
       default = "/var/lib/laminar";
       description = "Home directory for laminar user.";
+    };
+
+    path = mkOption {
+      type = types.listOf types.package;
+      default = with pkgs; [
+        bash
+        stdenv
+        git
+        nix
+        config.programs.ssh.package
+      ];
+      defaultText = literalExpression "[ pkgs.stdenv pkgs.git pkgs.nix config.programs.ssh.package ]";
+      description = "Packages added to service PATH environment variable.";
     };
 
     settings = mkOption {
@@ -84,6 +104,7 @@ in
       description = "Laminar continuous integration service";
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
+      inherit (cfg) path;
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
@@ -107,6 +128,10 @@ in
         ];
       };
     };
+
+    environment.systemPackages = [
+      pkgs.laminar
+    ];
 
     users.users = optionalAttrs (cfg.user == "laminar") {
       laminar = {
