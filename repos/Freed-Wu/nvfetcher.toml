@@ -14,10 +14,6 @@ fetch.github = "Freed-Wu/undollar"
 src.github = "Freed-Wu/manpager"
 fetch.github = "Freed-Wu/manpager"
 
-[repl-python-wakatime]
-src.pypi = "repl-python-wakatime"
-fetch.pypi = "repl-python-wakatime"
-
 [translate-shell]
 src.pypi = "translate-shell"
 fetch.pypi = "translate-shell"

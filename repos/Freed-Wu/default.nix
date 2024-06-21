@@ -31,8 +31,6 @@ let
     undollar = callPackage ./pkgs/tools/misc/undollar { };
     manpager = callPackage ./pkgs/tools/misc/manpager { };
 
-    # https://github.com/NixOS/nixpkgs/issues/261342
-    repl-python-wakatime = callPackage ./pkgs/development/python-modules/repl-python-wakatime { };
     lua-prompt-style = callPackage ./pkgs/development/lua-modules/prompt-style { };
     luajit-prompt-style = callPackage ./pkgs/development/lua-modules/prompt-style { luaPackages = pkgs.luajitPackages; };
     translate-shell = callPackage ./pkgs/development/python-modules/translate-shell { };
@@ -51,7 +49,6 @@ let
     tmux-language-server = callPackage ./pkgs/development/python-modules/tmux-language-server { };
     tree-sitter-zathurarc = callPackage ./pkgs/development/python-modules/tree-sitter-zathurarc { };
     zathura-language-server = callPackage ./pkgs/development/python-modules/zathura-language-server { };
-    # https://github.com/tree-sitter-grammars/tree-sitter-requirements/issues/3
     # tree-sitter-requirements = callPackage ./pkgs/development/python-modules/tree-sitter-requirements { };
     # requirements-language-server = callPackage ./pkgs/development/python-modules/requirements-language-server { };
     tree-sitter-languages = callPackage ./pkgs/development/python-modules/tree-sitter-languages { };

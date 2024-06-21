@@ -1,7 +1,6 @@
 { mySources
 , python3
 , lib
-, repl-python-wakatime
 }:
 
 with python3.pkgs;

@@ -23,6 +23,8 @@ buildPythonPackage rec {
   preBuild = import ./fetchLanguages.nix fetchFromGitHub;
 
   meta = with lib; {
+    # tree-sitter-languages is broken with latest tree-sitter
+    broken = true;
     homepage = "https://github.com/grantjenks/py-tree-sitter-languages";
     description = "binary Python wheels for all tree sitter languages";
     license = licenses.asl20;

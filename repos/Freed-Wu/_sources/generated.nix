@@ -52,14 +52,6 @@
       sha256 = "sha256-zuJBKcee/MdFvYECIIlxWL6FXDxa33VQtWEJXkfFRxM=";
     };
   };
-  repl-python-wakatime = {
-    pname = "repl-python-wakatime";
-    version = "0.0.11";
-    src = fetchurl {
-      url = "https://pypi.org/packages/source/r/repl-python-wakatime/repl-python-wakatime-0.0.11.tar.gz";
-      sha256 = "sha256-HoCdeo03Lf3g5Xg0GgAyWOu2PtGqy33vg5bQrfkEPkE=";
-    };
-  };
   requirements-language-server = {
     pname = "requirements-language-server";
     version = "0.0.20";
