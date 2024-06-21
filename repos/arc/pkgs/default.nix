@@ -19,6 +19,7 @@
     vimPlugins = import ./vimPlugins.nix;
     kakPlugins = import ./kakPlugins.nix;
     mpvScripts = import ./mpvScripts.nix;
+    polybarScripts = import ./polybarScripts.nix;
     kernelPatches = import ./kernelPatches.nix;
     rxvt-unicode-plugins = import ./urxvt;
     obs-studio-plugins = import ./obs;
