@@ -472,7 +472,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Port of Facebook's LLaMA model in C/C++",
     "pname": "llama-cpp",
-    "version": "3187"
+    "version": "3197"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -2692,7 +2692,7 @@
   "legacyPackages.x86_64-linux.rime-custom-pinyin-dictionary": {
     "description": "自建拼音输入法词库，百万常用词汇量，适配 Fcitx5 (Linux / Android) 及 Gboard (Android + Magisk or KernelSU) 。",
     "pname": "rime-custom-pinyin-dictionary",
-    "version": "20240517"
+    "version": "20240621"
   },
   "legacyPackages.x86_64-linux.rime-dict": {
     "description": "RIME 词库增强",
@@ -2837,7 +2837,7 @@
   "legacyPackages.x86_64-linux.undetected-chromedriver-bin": {
     "description": "Chromedriver with undetected-chromedriver patch",
     "pname": "undetected-chromedriver-bin",
-    "version": "126.0.6478.61"
+    "version": "126.0.6478.62"
   },
   "legacyPackages.x86_64-linux.vivado-2022_2": {
     "description": "Xilinx Vivado WebPack Edition (Packaging script adapted from https://github.com/lschuermann/nur-packages/blob/master/pkgs/vivado/vivado-2022_2.nix)",
@@ -3407,7 +3407,7 @@
   "packages.x86_64-linux.rime-custom-pinyin-dictionary": {
     "description": "自建拼音输入法词库，百万常用词汇量，适配 Fcitx5 (Linux / Android) 及 Gboard (Android + Magisk or KernelSU) 。",
     "pname": "rime-custom-pinyin-dictionary",
-    "version": "20240517"
+    "version": "20240621"
   },
   "packages.x86_64-linux.rime-dict": {
     "description": "RIME 词库增强",
@@ -3512,7 +3512,7 @@
   "packages.x86_64-linux.undetected-chromedriver-bin": {
     "description": "Chromedriver with undetected-chromedriver patch",
     "pname": "undetected-chromedriver-bin",
-    "version": "126.0.6478.61"
+    "version": "126.0.6478.62"
   },
   "packages.x86_64-linux.vivado-2022_2": {
     "description": "Xilinx Vivado WebPack Edition (Packaging script adapted from https://github.com/lschuermann/nur-packages/blob/master/pkgs/vivado/vivado-2022_2.nix)",

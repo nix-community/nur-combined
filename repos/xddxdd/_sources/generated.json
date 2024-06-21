@@ -1323,12 +1323,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3187",
-            "sha256": "sha256-/n2SryY0MA+mQpvoYnu0WfDV5ER2FAuIE1/4POpqTy8=",
+            "rev": "b3197",
+            "sha256": "sha256-inVUGNM9YjcxDQeBlZme5eg6zXtJoBEPXfFs9YEzeQ8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3187"
+        "version": "b3197"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -2206,11 +2206,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-zZfhRcBQQFcGGy1fiNdA//IOXoMiyasUUDcUcYFDUj0=",
+            "sha256": "sha256-IAdJ19XsjFTcPej8DFwFT7RgJ3HvyXEcLMGgjB+lOIQ=",
             "type": "url",
-            "url": "https://github.com/wuhgit/CustomPinyinDictionary/releases/download/assets/CustomPinyinDictionary_Fcitx_20240517.tar.gz"
+            "url": "https://github.com/wuhgit/CustomPinyinDictionary/releases/download/assets/CustomPinyinDictionary_Fcitx_20240621.tar.gz"
         },
-        "version": "20240517"
+        "version": "20240621"
     },
     "rime-dict": {
         "cargoLocks": null,

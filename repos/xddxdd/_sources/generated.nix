@@ -733,13 +733,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3187";
+    version = "b3197";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3187";
+      rev = "b3197";
       fetchSubmodules = false;
-      sha256 = "sha256-/n2SryY0MA+mQpvoYnu0WfDV5ER2FAuIE1/4POpqTy8=";
+      sha256 = "sha256-inVUGNM9YjcxDQeBlZme5eg6zXtJoBEPXfFs9YEzeQ8=";
     };
   };
   nbfc-linux-lantian = {
@@ -1217,10 +1217,10 @@
   };
   rime-custom-pinyin-dictionary = {
     pname = "rime-custom-pinyin-dictionary";
-    version = "20240517";
+    version = "20240621";
     src = fetchurl {
-      url = "https://github.com/wuhgit/CustomPinyinDictionary/releases/download/assets/CustomPinyinDictionary_Fcitx_20240517.tar.gz";
-      sha256 = "sha256-zZfhRcBQQFcGGy1fiNdA//IOXoMiyasUUDcUcYFDUj0=";
+      url = "https://github.com/wuhgit/CustomPinyinDictionary/releases/download/assets/CustomPinyinDictionary_Fcitx_20240621.tar.gz";
+      sha256 = "sha256-IAdJ19XsjFTcPej8DFwFT7RgJ3HvyXEcLMGgjB+lOIQ=";
     };
   };
   rime-dict = {
