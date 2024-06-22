@@ -1314,21 +1314,21 @@
   };
   "refined-github" = buildFirefoxXpiAddon {
     pname = "refined-github";
-    version = "24.6.14";
+    version = "24.6.21";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4303296/refined_github-24.6.14.xpi";
-    sha256 = "4f1389428f0b2207fd450ce7dfd9ee3b08735df40e84ff2f343fdff4514de3a1";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4307292/refined_github-24.6.21.xpi";
+    sha256 = "0e377404047a430cc359e8c645c0274746f390a8b73a3eaaf4651433b9c24e31";
     meta = with lib; {
       homepage = "https://github.com/refined-github/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";
       license = licenses.mit;
       mozPermissions = [
         "storage"
+        "scripting"
         "contextMenus"
         "activeTab"
         "alarms"
         "https://github.com/*"
-        "https://api.github.com/*"
         "https://gist.github.com/*"
       ];
       platforms = platforms.all;
