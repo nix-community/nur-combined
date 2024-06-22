@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "namazso";
     repo = "cxadc_vhs_server";
-    rev = "v${version}";
+    rev = version;
     sha256 = "sha256-5C4ONWvxSAUf/NpCEGir3V64csmPNNfKkBkRRxumh8Y=";
   };
 
