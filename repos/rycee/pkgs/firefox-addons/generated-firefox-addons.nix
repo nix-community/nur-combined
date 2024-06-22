@@ -2214,10 +2214,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.42.1";
+      version = "2.43.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4307800/dualsub-2.42.1.xpi";
-      sha256 = "20ec8fb7ecab6f9432b89927266ba83ff2e1780d7c47205361b76653b7a329ae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4307875/dualsub-2.43.0.xpi";
+      sha256 = "0d24edd34be28ce4be6da7972b89983e3a35e658b9f809be96516cc1c2837eb0";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -9405,6 +9405,101 @@
         description = "Cette extension remplace le bookmarklet officiel et intègre un bouton « Shaarli » dans la barre des modules.";
         license = licenses.gpl3;
         mozPermissions = [ "tabs" "storage" ];
+        platforms = platforms.all;
+      };
+    };
+    "shinigami-eyes" = buildFirefoxXpiAddon {
+      pname = "shinigami-eyes";
+      version = "1.0.35";
+      addonId = "shinigamieyes@shinigamieyes";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4297364/shinigami_eyes-1.0.35.xpi";
+      sha256 = "da46596783f8cb55c24feb8920843825263178d61be483d588e4e47496f9ca9d";
+      meta = with lib;
+      {
+        homepage = "https://shinigami-eyes.github.io/";
+        description = "Highlights transphobic/anti-LGBT and trans-friendly subreddits/facebook pages/groups with different colors.\n\nSupports Reddit, Twitter, Facebook, Tumblr, Medium, YouTube, Wikipedia, search engine results and all sites with Disqus comments.";
+        license = licenses.mit;
+        mozPermissions = [
+          "contextMenus"
+          "storage"
+          "*://*/*"
+          "*://*.facebook.com/*"
+          "*://*.youtube.com/*"
+          "*://*.reddit.com/*"
+          "*://*.twitter.com/*"
+          "*://*.x.com/*"
+          "*://*.medium.com/*"
+          "*://disqus.com/*"
+          "*://*.tumblr.com/*"
+          "*://*.wikipedia.org/*"
+          "*://*.rationalwiki.org/*"
+          "*://cohost.org/*"
+          "*://*.bsky.app/*"
+          "*://anarchism.space/*"
+          "*://aus.social/*"
+          "*://c.im/*"
+          "*://chaos.social/*"
+          "*://eightpoint.app/*"
+          "*://eldritch.cafe/*"
+          "*://fosstodon.org/*"
+          "*://hachyderm.io/*"
+          "*://infosec.exchange/*"
+          "*://kolektiva.social/*"
+          "*://mas.to/*"
+          "*://masto.ai/*"
+          "*://chaosfem.tw/*"
+          "*://mastodon.art/*"
+          "*://mastodon.cloud/*"
+          "*://mastodon.green/*"
+          "*://mastodon.ie/*"
+          "*://mastodon.nz/*"
+          "*://mastodon.online/*"
+          "*://mastodon.scot/*"
+          "*://mastodon.social/*"
+          "*://mastodon.world/*"
+          "*://mastodon.xyz/*"
+          "*://mastodonapp.uk/*"
+          "*://meow.social/*"
+          "*://mstdn.ca/*"
+          "*://mstdn.jp/*"
+          "*://mstdn.social/*"
+          "*://octodon.social/*"
+          "*://ohai.social/*"
+          "*://pixelfed.social/*"
+          "*://queer.party/*"
+          "*://sfba.social/*"
+          "*://social.transsafety.network/*"
+          "*://tech.lgbt/*"
+          "*://techhub.social/*"
+          "*://toot.cat/*"
+          "*://toot.community/*"
+          "*://toot.wales/*"
+          "*://vulpine.club/*"
+          "*://wandering.shop/*"
+          "*://lgbtqia.space/*"
+          "*://*.threads.net/*"
+          "*://duckduckgo.com/*"
+          "*://*.bing.com/*"
+          "*://*.google.ar/*"
+          "*://*.google.at/*"
+          "*://*.google.be/*"
+          "*://*.google.ca/*"
+          "*://*.google.ch/*"
+          "*://*.google.co.uk/*"
+          "*://*.google.com/*"
+          "*://*.google.de/*"
+          "*://*.google.dk/*"
+          "*://*.google.es/*"
+          "*://*.google.fi/*"
+          "*://*.google.fr/*"
+          "*://*.google.is/*"
+          "*://*.google.it/*"
+          "*://*.google.no/*"
+          "*://*.google.pt/*"
+          "*://*.google.se/*"
+          "https://x.com/*"
+          "https://twitter.com/*"
+        ];
         platforms = platforms.all;
       };
     };
