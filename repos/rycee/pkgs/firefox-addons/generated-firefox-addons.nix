@@ -1927,10 +1927,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2424.2";
+      version = "6.2425.1";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4301269/dashlane-6.2424.2.xpi";
-      sha256 = "1e1543120ec03cde234116368a74d7f7f9f55db221dc595cce7735ded8bea7bd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4305550/dashlane-6.2425.1.xpi";
+      sha256 = "73377c3e1dae15328316096e2229b8d080c89e1c87a866fdfdff67d3ec281d81";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2008,10 +2008,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "128.0.20240619.92300";
+      version = "128.0.20240621.91605";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4306076/deutsch_de_language_pack-128.0.20240619.92300.xpi";
-      sha256 = "ceb041a2c7468f1e46ced3588716f9566f409e357bbe363b28a736542570a7e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4307449/deutsch_de_language_pack-128.0.20240621.91605.xpi";
+      sha256 = "f16b272e45d422180fed6b14e12814aab5a09d474a1fdfaa4a8ccddc61da2c03";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2214,10 +2214,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.42.0";
+      version = "2.42.1";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4302662/dualsub-2.42.0.xpi";
-      sha256 = "eceb2c317b2d7ac18e2967746b2df702faf17b05a775366eacd4d6b3bb7554f7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4307800/dualsub-2.42.1.xpi";
+      sha256 = "20ec8fb7ecab6f9432b89927266ba83ff2e1780d7c47205361b76653b7a329ae";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2732,10 +2732,10 @@
     };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "5.2.1";
+      version = "5.2.3";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4303773/floccus-5.2.1.xpi";
-      sha256 = "5ed96e9b34076d6735f88730cb5c6454b811bff9edc1f6e43874fb9d0606ffc6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4307321/floccus-5.2.3.xpi";
+      sha256 = "87fddf96f0aa0b77f0e00630e661ff40cfd487414a1f7bd8b0b864e67388d700";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -2959,10 +2959,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "128.0.20240619.92300";
+      version = "128.0.20240621.91605";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4306083/francais_language_pack-128.0.20240619.92300.xpi";
-      sha256 = "8d3b00765591c1faa87627b2827db53a0001fa983d8c6e040423094932a22361";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4307439/francais_language_pack-128.0.20240621.91605.xpi";
+      sha256 = "d6c03c2bf976a259ce0ce56fa1ddaef41aed011e58fa8501226ba46b9e0f2a8d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3325,10 +3325,10 @@
     };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "2.2.1";
+      version = "2.2.2";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4303712/gitpod-2.2.1.xpi";
-      sha256 = "59a5d1ad2b5ed05ce771dd5af3b34034fe77d1fb2038609e360cb31a968626b6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4307315/gitpod-2.2.2.xpi";
+      sha256 = "74e1edf69e55e38946cbdb11e664745fc0f7a7b1ddd5be13705727806b1b62b9";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
@@ -9107,10 +9107,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.6.14";
+      version = "24.6.21";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4303296/refined_github-24.6.14.xpi";
-      sha256 = "4f1389428f0b2207fd450ce7dfd9ee3b08735df40e84ff2f343fdff4514de3a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4307292/refined_github-24.6.21.xpi";
+      sha256 = "0e377404047a430cc359e8c645c0274746f390a8b73a3eaaf4651433b9c24e31";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -9118,11 +9118,11 @@
         license = licenses.mit;
         mozPermissions = [
           "storage"
+          "scripting"
           "contextMenus"
           "activeTab"
           "alarms"
           "https://github.com/*"
-          "https://api.github.com/*"
           "https://gist.github.com/*"
         ];
         platforms = platforms.all;
@@ -9577,10 +9577,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.49";
+      version = "1.22.50";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4294665/single_file-1.22.49.xpi";
-      sha256 = "2230a3d4313e07c1416e87b0d7a6ba52a5c86b8ca83b71b6054cfe1abe5a0014";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4305663/single_file-1.22.50.xpi";
+      sha256 = "710c23cee88177ed6aea0f3ba43647a33f42bbbefe58be0be4792e5ff35b71ab";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -9667,10 +9667,10 @@
     };
     "snowflake" = buildFirefoxXpiAddon {
       pname = "snowflake";
-      version = "0.8.2";
+      version = "0.8.3";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4285140/torproject_snowflake-0.8.2.xpi";
-      sha256 = "ae6982633927fca270b6c44939cee62c1fee17e0a20104f5a0e3e4967e1a6031";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4305659/torproject_snowflake-0.8.3.xpi";
+      sha256 = "fb92f76bb76fd7a7f8c20e54b1455eee5426c576aff01cdd3326ac05ab9ce9f0";
       meta = with lib;
       {
         homepage = "https://snowflake.torproject.org/";
@@ -10756,10 +10756,10 @@
     };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.7.1";
+      version = "8.8.1";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4299866/ublacklist-8.7.1.xpi";
-      sha256 = "e8cee481f08199361384300698aea1f6ba1d0fa2a4f09a03658eff6446a9e122";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4304676/ublacklist-8.8.1.xpi";
+      sha256 = "057b91db097bab62e305a9a41b519bb76cfb107d6fd9a07b01239d5b843837a6";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
@@ -11174,10 +11174,10 @@
     };
     "video-downloadhelper" = buildFirefoxXpiAddon {
       pname = "video-downloadhelper";
-      version = "9.0.2.3";
+      version = "9.0.2.12";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4294325/video_downloadhelper-9.0.2.3.xpi";
-      sha256 = "972fc83bba868a19f551234a61bccf8534dc7b8a9fb9b0a04f5b4253ff06628f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4305354/video_downloadhelper-9.0.2.12.xpi";
+      sha256 = "eafc7833a069b9570f05eb93a256cea6e008c9637df17f38c8154c791dde8669";
       meta = with lib;
       {
         homepage = "http://www.downloadhelper.net/";
@@ -12094,10 +12094,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.6.10.0";
+      version = "24.6.17.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4305032/yomitan-24.6.10.0.xpi";
-      sha256 = "74894f50a1a5f98a642200736ffe80c277e0fc5540cc697809d2967b6edcd8df";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4307696/yomitan-24.6.17.0.xpi";
+      sha256 = "d7e418dea5bb0331426d980b3c83c51d48531a8f3eca38930f00654b1e507103";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
@@ -12109,6 +12109,7 @@
           "unlimitedStorage"
           "declarativeNetRequest"
           "scripting"
+          "contextMenus"
           "http://*/*"
           "https://*/*"
           "file://*/*"
