@@ -183,15 +183,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "ab513f2baf02f40dbc71ebd4411234468ece1070";
+    version = "6522915dfbd3d26e290452bb1a8291f97fcf9f9b";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "ab513f2baf02f40dbc71ebd4411234468ece1070";
+      rev = "6522915dfbd3d26e290452bb1a8291f97fcf9f9b";
       fetchSubmodules = false;
-      sha256 = "sha256-DidT7ktuGxWu+Br+65AUyZoS5mY79ymNI8IjfVaC+Tw=";
+      sha256 = "sha256-/onaMKfEN9AJ4WG25p+K4MMnftFUcg5WyzaD56RjRZw=";
     };
-    date = "2024-06-17";
+    date = "2024-06-21";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -384,13 +384,13 @@
   };
   flaresolverr = {
     pname = "flaresolverr";
-    version = "v3.3.19";
+    version = "v3.3.20";
     src = fetchFromGitHub {
       owner = "FlareSolverr";
       repo = "FlareSolverr";
-      rev = "v3.3.19";
+      rev = "v3.3.20";
       fetchSubmodules = false;
-      sha256 = "sha256-H6nWgzzdzA3fOU57euop8mFzmq1A8DW1ZxpJWcOCFSc=";
+      sha256 = "sha256-g9HSO0j9pY3TlrvuEk3I4y/C5yxkbGvV+OImqwqMg/s=";
     };
   };
   flasgger = {
@@ -533,15 +533,15 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "3d7a1b3fa4706d8da316d8e794d54db96856a2b9";
+    version = "42b49ff81ccdb1bac924925ba522ed8343c34b5a";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "3d7a1b3fa4706d8da316d8e794d54db96856a2b9";
+      rev = "42b49ff81ccdb1bac924925ba522ed8343c34b5a";
       fetchSubmodules = false;
-      sha256 = "sha256-TJk0zmXA2sUhbDu0jsA/1kFeIba8ZIZ0a4joPK4v8Ck=";
+      sha256 = "sha256-5i/NGJAVGepis8JITarS0wyW9aPY9EnILgMW4yHPbSc=";
     };
-    date = "2024-05-08";
+    date = "2024-06-22";
   };
   imewlconverter = {
     pname = "imewlconverter";
@@ -689,13 +689,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.9.5-xanmod1";
+    version = "6.9.6-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.9.5-xanmod1";
+      rev = "6.9.6-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-Yahc5bUbutwuhwvdbUm1JXa8WCWASNrMewXdSorKnfE=";
+      sha256 = "sha256-ekC9M3IB4NALYVaSuSuYV5MIIuP/VkJRJdB8ZJIZ2v0=";
     };
   };
   linux-xanmod-6_0 = {
@@ -722,13 +722,13 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.34-xanmod1";
+    version = "6.6.35-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.34-xanmod1";
+      rev = "6.6.35-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-PV9h7OmCdQT3+I1/OuBxnvQhOxgZtYvNV+XNXgsKaHI=";
+      sha256 = "sha256-MLoSM+lyxTpA7mKrYydHa1Mx1qagBFR/bGFGvOfDFqw=";
     };
   };
   llama-cpp = {
