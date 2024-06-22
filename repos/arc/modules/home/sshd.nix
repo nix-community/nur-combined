@@ -1,9 +1,16 @@
 { config, pkgs, lib, ... }:
 with lib; let
   cfg = config.services.sshd;
-  authorizedKeysFile = pkgs.writeText "authorized_keys" (concatStringsSep "\n" cfg.authorizedKeys);
+  authorizedKeysFiles = partition (hasPrefix "/") cfg.authorizedKeys;
+  authorizedKeysFile = pkgs.writeText "authorized_keys" (concatMapStrings (key: key + "\n") authorizedKeysFiles.wrong);
   activationScript = ''
-    $DRY_RUN_CMD install -Dm0644 ${authorizedKeysFile} ~/.ssh/authorized_keys
+    run install -Dm0644 ${authorizedKeysFile} ~/.ssh/authorized_keys
+  '' + optionalString (authorizedKeysFiles.right != [ ]) ''
+    if [[ ! -v DRY_RUN ]]; then
+      for _sshKeyFile in ${escapeShellArgs authorizedKeysFiles.right}; do
+        printf '%s\n' "$(cat $_sshKeyFile)" >> ~/.ssh/authorized_keys
+      done
+    fi
   '';
 in {
   options.services.sshd = {
