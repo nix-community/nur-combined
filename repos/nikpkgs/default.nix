@@ -17,6 +17,7 @@
   # Alphabetical sorting
   amdgpud                = pkgs.callPackage ./pkgs/amdgpud { };
   amdgpu-clocks          = pkgs.callPackage ./pkgs/amdgpu-clocks { };
+  avahi2dns              = pkgs.callPackage ./pkgs/avahi2dns { };
   imhex-bin              = pkgs.callPackage ./pkgs/imhex/appimage.nix { };
   inotify-consumers      = pkgs.callPackage ./pkgs/inotify-consumers {};
   lilipod                = pkgs.callPackage ./pkgs/lilipod { };
