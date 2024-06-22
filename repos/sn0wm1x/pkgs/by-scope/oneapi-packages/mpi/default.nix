@@ -11,10 +11,8 @@ let
   # https://registrationcenter.intel.com/en/products/
   version = "${mpiVersion}.${rel}";
 
-  # mpiVersion = "2021.13.0";
-  # rel = "719";
-  mpiVersion = "2021.12.1";
-  rel = "5";
+  mpiVersion = "2021.13.0";
+  rel = "718";
 
   # shlibExt = stdenvNoCC.hostPlatform.extensions.sharedLibrary;
 
@@ -55,11 +53,11 @@ stdenvNoCC.mkDerivation ({
   dontPatchELF = true;
 
   meta = with lib; {
-    description = "Intel MPI Library";
+    description = "Intel MPI Library Runtime Environment";
     longDescription = ''
       Use this standards-based MPI implementation to deliver flexible,
-      efficient, scalable cluster messaging on Intel architecture.
-      This component is part of the Intel HPC Toolkit.
+      efficient, scalable cluster messaging on Intel® architecture.
+      Compatible with the open-source MPICH implementation.
     '';
     homepage = "https://www.intel.com/content/www/us/en/developer/tools/oneapi/mpi-library.html";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
