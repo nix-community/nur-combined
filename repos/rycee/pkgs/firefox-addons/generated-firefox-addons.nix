@@ -1120,10 +1120,10 @@
     };
     "castkodi" = buildFirefoxXpiAddon {
       pname = "castkodi";
-      version = "7.9.0";
+      version = "7.10.0";
       addonId = "castkodi@regseb.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4299076/castkodi-7.9.0.xpi";
-      sha256 = "2022a3168e2f87aaab1eedc1fcdbbf5ba0bd695f7f3fd2823a6b7843a69a7d1e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4307937/castkodi-7.10.0.xpi";
+      sha256 = "34ac6cd0076620b3fbf50d72700d5973625f901a0aa1d0afa28e4ff579fd99ff";
       meta = with lib;
       {
         homepage = "https://github.com/regseb/castkodi";
@@ -2075,6 +2075,21 @@
       {
         description = "German Dictionary (new Orthography) for spellchecking in Firefox";
         license = licenses.lgpl21;
+        mozPermissions = [];
+        platforms = platforms.all;
+      };
+    };
+    "dictionary-spanish" = buildFirefoxXpiAddon {
+      pname = "dictionary-spanish";
+      version = "3.2.8";
+      addonId = "es-es@dictionaries.addons.mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4158842/diccionario_de_espanol_espana-3.2.8.xpi";
+      sha256 = "645e6070be16e9fe422ffcf1789325f0dd6494c3c57548c4deb717262fb59b72";
+      meta = with lib;
+      {
+        homepage = "http://www.proyectonave.es/productos/extensiones/diccionario-es-ES";
+        description = "Spanish/Spain Dictionary";
+        license = licenses.mpl20;
         mozPermissions = [];
         platforms = platforms.all;
       };
