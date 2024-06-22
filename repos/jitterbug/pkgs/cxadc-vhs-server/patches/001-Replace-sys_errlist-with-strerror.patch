@@ -1,0 +1,56 @@
+--- a/src/files.c
++++ b/src/files.c
+@@ -258,7 +258,7 @@
+ 
+   for (size_t i = 0; i < cxadc_count; ++i) {
+     if (!atomic_ringbuffer_init(&g_state.cxadc[i].ring_buffer, 1 << 30)) {
+-      snprintf(errstr, sizeof(errstr) - 1, "failed to allocate ringbuffer: %s", sys_errlist[errno]);
++      snprintf(errstr, sizeof(errstr) - 1, "failed to allocate ringbuffer: %s", strerror(errno));
+       goto error;
+     }
+   }
+@@ -332,7 +332,7 @@
+ 
+   size_t sample_size = linear_channels * format_size;
+   if (!atomic_ringbuffer_init(&g_state.linear.ring_buffer, (2 << 20) * sample_size)) {
+-    snprintf(errstr, sizeof(errstr) - 1, "failed to allocate ringbuffer: %s", sys_errlist[errno]);
++    snprintf(errstr, sizeof(errstr) - 1, "failed to allocate ringbuffer: %s", strerror(errno));
+     goto error;
+   }
+ 
+@@ -382,7 +382,7 @@
+     sprintf(cxadc_name, "/dev/cxadc%u", cxadc_array[i]);
+     const int cxadc_fd = open(cxadc_name, O_NONBLOCK);
+     if (cxadc_fd < 0) {
+-      snprintf(errstr, sizeof(errstr) - 1, "cannot open cxadc: %s", sys_errlist[errno]);
++      snprintf(errstr, sizeof(errstr) - 1, "cannot open cxadc: %s", strerror(errno));
+       goto error;
+     }
+     g_state.cxadc[i].fd = cxadc_fd;
+@@ -401,7 +401,7 @@
+   for (size_t i = 0; i < cxadc_count; ++i) {
+     pthread_t thread_id;
+     if ((err = pthread_create(&thread_id, NULL, cxadc_writer_thread, (void*)i) != 0)) {
+-      snprintf(errstr, sizeof(errstr) - 1, "can't create cxadc writer thread: %s", sys_errlist[err]);
++      snprintf(errstr, sizeof(errstr) - 1, "can't create cxadc writer thread: %s", strerror(err));
+       goto error;
+     }
+     g_state.cxadc[i].writer_thread = thread_id;
+@@ -409,7 +409,7 @@
+ 
+   pthread_t thread_id;
+   if ((err = pthread_create(&thread_id, NULL, linear_writer_thread, NULL) != 0)) {
+-    snprintf(errstr, sizeof(errstr) - 1, "can't create linear writer thread: %s", sys_errlist[err]);
++    snprintf(errstr, sizeof(errstr) - 1, "can't create linear writer thread: %s", strerror(err));
+     goto error;
+   }
+   g_state.linear.writer_thread = thread_id;
+@@ -609,7 +609,7 @@
+       continue;
+     }
+     if (count < 0) {
+-      fprintf(stderr, "write failed: %s\n", sys_errlist[errno]);
++      fprintf(stderr, "write failed: %s\n", strerror(errno));
+       break;
+     }
+ 
