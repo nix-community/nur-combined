@@ -292,13 +292,13 @@ let
         sha512 = "OtIRv/2GyiF6o/d8K7MYKKbXrOUBIK6SfkIRM4Z0dY3w+LiQ0vy3F57m0Z71bjbyeiWFiHJ8brqnmE6H6/jEuw==";
       };
     };
-    "espree-10.0.1" = {
+    "espree-10.1.0" = {
       name = "espree";
       packageName = "espree";
-      version = "10.0.1";
+      version = "10.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/espree/-/espree-10.0.1.tgz";
-        sha512 = "MWkrWZbJsL2UwnjxTX3gG8FneachS/Mwg7tdGXce011sJd5b0JG54vat5KHnfSBODZ3Wvzd2WnjxyzsRoVv+ww==";
+        url = "https://registry.npmjs.org/espree/-/espree-10.1.0.tgz";
+        sha512 = "M1M6CpiE6ffoigIOWYO9UDP8TMUw9kqb21tf+08IgDYjCsOvCuDt4jQcZmoYxx+w7zlKw9/N0KXfto+I8/FrXA==";
       };
     };
     "esquery-1.5.0" = {
@@ -847,7 +847,7 @@ let
       sources."eslint-9.5.0"
       sources."eslint-scope-8.0.1"
       sources."eslint-visitor-keys-4.0.0"
-      sources."espree-10.0.1"
+      sources."espree-10.1.0"
       sources."esquery-1.5.0"
       sources."esrecurse-4.3.0"
       sources."estraverse-5.3.0"

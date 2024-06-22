@@ -597,6 +597,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "cranelift-bitset"
+version = "0.110.0"
+dependencies = [
+ "serde",
+ "serde_derive",
+]
+
+[[package]]
 name = "cranelift-codegen"
 version = "0.110.0"
 dependencies = [
@@ -604,6 +612,7 @@ dependencies = [
  "bumpalo",
  "capstone",
  "cranelift-bforest",
+ "cranelift-bitset",
  "cranelift-codegen-meta",
  "cranelift-codegen-shared",
  "cranelift-control",
@@ -648,6 +657,7 @@ dependencies = [
 name = "cranelift-entity"
 version = "0.110.0"
 dependencies = [
+ "cranelift-bitset",
  "serde",
  "serde_derive",
 ]
@@ -2762,6 +2772,7 @@ version = "0.0.0"
 dependencies = [
  "cargo_metadata",
  "heck 0.4.0",
+ "wasi-preview1-component-adapter-provider",
  "wasmtime",
  "wit-component 0.209.1",
 ]
@@ -3191,6 +3202,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "wasi-preview1-component-adapter-provider"
+version = "23.0.0"
+
+[[package]]
 name = "wasm-bindgen"
 version = "0.2.87"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3406,6 +3421,7 @@ dependencies = [
  "addr2line",
  "anyhow",
  "async-trait",
+ "bitflags 2.4.1",
  "bumpalo",
  "cc",
  "cfg-if",
@@ -3678,6 +3694,7 @@ dependencies = [
  "anyhow",
  "clap",
  "cpp_demangle",
+ "cranelift-bitset",
  "cranelift-entity",
  "env_logger",
  "gimli",
@@ -3686,6 +3703,7 @@ dependencies = [
  "object 0.36.0",
  "postcard",
  "rustc-demangle",
+ "semver",
  "serde",
  "serde_derive",
  "target-lexicon",
@@ -3917,6 +3935,7 @@ version = "23.0.0"
 dependencies = [
  "anyhow",
  "cap-std",
+ "libtest-mimic",
  "openvino",
  "ort",
  "test-programs-artifacts",
