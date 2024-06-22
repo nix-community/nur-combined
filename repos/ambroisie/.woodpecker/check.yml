@@ -7,7 +7,7 @@ steps:
   commands:
   - nix flake check
 
-- name: notifiy
+- name: notify
   image: bash
   environment:
     ADDRESS:
