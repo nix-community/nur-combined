@@ -5,27 +5,34 @@ with builtins;
 
 rec {
   # TODO: Fix recursive
-  getFiles = { dir, suffix ? null, recursive ? false, allow_default ? true }:
+  getFiles = { dir, suffixes ? [ ], recursive ? false, allow_default ? true }:
     let
       hasDefault = d: hasAttr "default.nix" (readDir (dir + "/${d}"));
       isImportable = name: kind:
         if kind == "directory" then
           recursive || (allow_default && hasDefault name)
         else
-          suffix == null || hasSuffix suffix name;
+          lists.any (v: hasSuffix v name) suffixes;
       files = attrNames (filterAttrs isImportable (readDir dir));
     in map (f: dir + "/${f}") files;
 
   getNixFiles = dir:
     getFiles {
       inherit dir;
-      suffix = "nix";
+      suffixes = [ "nix" ];
     };
 
   getTomlFiles = dir:
     getFiles {
       inherit dir;
-      suffix = "toml";
+      suffix = [ "toml" ];
+      recursive = true;
+    };
+
+  getNixTomlJsonFiles = dir:
+    getFiles {
+      inherit dir;
+      suffixes = [ "nix" "toml" "json" ];
       recursive = true;
     };
 
@@ -97,4 +104,33 @@ rec {
       # … while evaluating definitions from `/nix/store/1wgf129l46kvrcnac6bsfazjf08df54f-fonts.toml':
       _file = path;
     };
+
+  # Very similar to `importToml`.
+  importJson =
+    path: { pkgs, options, ... }:
+      let
+        rawSet = fromJSON (readFile path);
+        config = addErrorContext
+          "while parsing JSON file '${path}' (try fixing your syntax):" rawSet;
+        mapped = mapTOMLConfig { inherit options config pkgs; };
+      in {
+      config = addErrorContext
+      "while doing special processing on JSON file '${path}':" mapped;
+
+      _file = path;
+    };
+
+  importFileWithHandler = methods: file:
+    let
+      unsupportedType = throw
+        "Unrecognized module file type '${file}', allowed: ${attrNames methods}";
+      suffix = findFirst (a: hasSuffix a file) unsupportedType
+        (attrNames methods);
+      method = methods.${suffix} or unsupportedType;
+    in method file;
+  defaultHandlers = {
+    nix = lib.id; # NixOS module system imports Nix files itself.
+    toml = importToml;
+    json = importJson;
+  };
 }
