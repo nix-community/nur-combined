@@ -1,0 +1,4 @@
+[vgmtrans]
+src.git = "https://github.com/vgmtrans/vgmtrans"
+fetch.git = "https://github.com/vgmtrans/vgmtrans"
+git.fetchSubmodules = true

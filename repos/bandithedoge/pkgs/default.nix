@@ -44,6 +44,7 @@
     symbols-nerd-font = callPackage' ./symbols-nerd-font;
     tal = callPackages ./tal;
     treeSitterGrammars = callPackages ./treeSitterGrammars;
+    vgmtrans = callPackage' ./vgmtrans;
     vimPlugins = callPackages ./vimPlugins;
     xplrPlugins = callPackages ./xplrPlugins;
     zrythm = callPackage' ./zrythm;
