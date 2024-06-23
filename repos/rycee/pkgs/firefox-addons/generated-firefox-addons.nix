@@ -12070,6 +12070,37 @@
         platforms = platforms.all;
       };
     };
+    "whowrotethat" = buildFirefoxXpiAddon {
+      pname = "whowrotethat";
+      version = "0.22.1.0";
+      addonId = "{7c53a467-2542-497a-86fb-59c2904a56d1}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4259091/whowrotethat-0.22.1.0.xpi";
+      sha256 = "c91442ec587178f43bdb5add5abb881da21104a6d0ad4ddb0b0546753b2f63ec";
+      meta = with lib;
+      {
+        homepage = "https://www.mediawiki.org/wiki/WWT";
+        description = "Explore authorship and revision information visually and directly in Wikipedia articles. Powered by WikiWho.";
+        license = licenses.mit;
+        mozPermissions = [
+          "storage"
+          "*://ar.wikipedia.org/*"
+          "*://de.wikipedia.org/*"
+          "*://en.wikipedia.org/*"
+          "*://es.wikipedia.org/*"
+          "*://eu.wikipedia.org/*"
+          "*://fr.wikipedia.org/*"
+          "*://hu.wikipedia.org/*"
+          "*://id.wikipedia.org/*"
+          "*://it.wikipedia.org/*"
+          "*://ja.wikipedia.org/*"
+          "*://nl.wikipedia.org/*"
+          "*://pl.wikipedia.org/*"
+          "*://pt.wikipedia.org/*"
+          "*://tr.wikipedia.org/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "widegithub" = buildFirefoxXpiAddon {
       pname = "widegithub";
       version = "2.2.0";
