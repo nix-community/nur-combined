@@ -58,5 +58,6 @@ in
       license = licenses.mit;
       platforms = platforms.unix;
       mainProgram = "t4";
+      broken = true;
     };
   }
