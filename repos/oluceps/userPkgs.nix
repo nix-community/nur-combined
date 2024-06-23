@@ -1,6 +1,7 @@
 { pkgs, ... }:
 with pkgs;
 [
+  gtkcord4
   amberol
   mako
   # qq

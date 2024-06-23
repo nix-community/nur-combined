@@ -242,6 +242,16 @@
                   terminal = true;
                 }
                 {
+                  match = [ { host = [ "anti-ocr.nyaw.xyz" ]; } ];
+                  terminal = true;
+                  handle = [
+                    {
+                      handler = "file_server";
+                      root = pkgs.anti-ocr;
+                    }
+                  ];
+                }
+                {
                   handle = [
                     {
                       handler = "subroute";

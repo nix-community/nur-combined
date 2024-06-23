@@ -104,13 +104,13 @@
       };
     };
 
-    online-keeper.instances = [
-      {
-        name = "sec";
-        sessionFile = config.age.secrets.tg-session.path;
-        environmentFile = config.age.secrets.tg-env.path;
-      }
-    ];
+    # online-keeper.instances = [
+    #   {
+    #     name = "sec";
+    #     sessionFile = config.age.secrets.tg-session.path;
+    #     environmentFile = config.age.secrets.tg-env.path;
+    #   }
+    # ];
 
     juicity.instances = {
       only = {
