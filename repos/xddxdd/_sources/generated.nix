@@ -1001,10 +1001,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v3.3.7";
+    version = "v4.1.3";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v3.3.7/PeerBanHelper.jar";
-      sha256 = "sha256-pavIkFc/Sd/7rmhVs7e3hnS2S+Ym8Uf3ZwhLWFBjNhA=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.1.3/PeerBanHelper.jar";
+      sha256 = "sha256-TLyy4tWqmIbOlcHUU0v50WMti4kKQeaYxoBz7tHv25U=";
     };
   };
   phpmyadmin = {
