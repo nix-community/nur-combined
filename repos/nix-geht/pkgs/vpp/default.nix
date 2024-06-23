@@ -10,12 +10,12 @@
 }:
 assert (lib.asserts.assertMsg (!enableRdma || stdenv.isLinux) "Can't enable rdma_plugin - rdma-core only works on Linux");
 assert (lib.asserts.assertMsg (!enableAfXdp || stdenv.isLinux) "Can't enable af_xdp_plugin - Only exists on Linux"); let
-  version = "23.10";
+  version = "24.02";
   src = pkgs.fetchFromGitHub {
     owner = "FDio";
     repo = "vpp";
     rev = "v${version}";
-    hash = "sha256-YcDMDHvKIL2tOD98hTcuyQrL5pk80olYKNWiN+BA49U=";
+    hash = "sha256-Cfm0Xzsx2UgUvIIeq5wBN6tA9ynCUa5bslEQk8wbd6E=";
   };
   getMeta = description:
     with lib; {
@@ -64,7 +64,14 @@ in rec {
         libmnl
       ]
       # dpdk plugin
-      ++ lib.optionals enableDpdk [dpdk libpcap jansson zstd]
+      ++ lib.optionals enableDpdk [
+        (dpdk.overrideAttrs (x: rec {
+          mesonFlags = x.mesonFlags ++ ["-Denable_driver_sdk=true"];
+        }))
+        libpcap
+        jansson
+        zstd
+      ]
       # rdma plugin - Mellanox/NVIDIA ConnectX-4+ device driver. Needs overridden rdma-core with static libs.
       ++ lib.optionals enableRdma [
         (rdma-core.overrideAttrs (x: {

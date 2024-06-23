@@ -1,6 +1,10 @@
-{ config, lib, pkgs, ... }:
-with lib;
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.services.watchdogd;
 
   mkPluginOpts = plugin: defWarn: defCrit: {
@@ -19,23 +23,27 @@ let
         Whether to log current stats every poll interval.
       '';
     };
-    warning = mkOption {
-      type = types.numbers.nonnegative;
-      description = ''
-        The high watermark level. Alert sent to log.
-      '';
-    } // optionalAttrs (defWarn != null) {
-      default = defWarn;
-    };
-    critical = mkOption {
-      type = types.numbers.nonnegative;
-      default = defCrit;
-      description = ''
-        The critical watermark level. Alert sent to log, followed by reboot or script action.
-      '';
-    } // optionalAttrs (defCrit != null) {
-      default = defCrit;
-    };
+    warning =
+      mkOption {
+        type = types.numbers.nonnegative;
+        description = ''
+          The high watermark level. Alert sent to log.
+        '';
+      }
+      // optionalAttrs (defWarn != null) {
+        default = defWarn;
+      };
+    critical =
+      mkOption {
+        type = types.numbers.nonnegative;
+        default = defCrit;
+        description = ''
+          The critical watermark level. Alert sent to log, followed by reboot or script action.
+        '';
+      }
+      // optionalAttrs (defCrit != null) {
+        default = defCrit;
+      };
   };
 in {
   options.services.watchdogd = {
@@ -77,7 +85,7 @@ in {
       description = ''
         Additional config to put in {file}`watchdogd.conf`.
         See {manpage}`watchdogd.conf(5)` for syntax.
-     '';
+      '';
     };
 
     filenr = mkPluginOpts "filenr" 0.9 1.0;
@@ -86,9 +94,10 @@ in {
   };
 
   config = let
-    mkPluginConf = plugin:
-      let pcfg = cfg.${plugin};
-      in optionalString pcfg.enable ''
+    mkPluginConf = plugin: let
+      pcfg = cfg.${plugin};
+    in
+      optionalString pcfg.enable ''
         ${plugin} {
           enabled  = true
           interval = ${toString pcfg.interval}
@@ -96,7 +105,7 @@ in {
           warning  = ${toString pcfg.warning}
           critical = ${toString pcfg.critical}
         }
-    '';
+      '';
     watchdogdConf = pkgs.writeText "watchdogd.conf" ''
       timeout = ${toString cfg.timeout}
       interval = ${toString cfg.interval}
@@ -106,21 +115,22 @@ in {
       ${mkPluginConf "meminfo"}
       ${optionalString (cfg.extraConfig != null) cfg.extraConfig}
     '';
-  in mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+  in
+    mkIf cfg.enable {
+      environment.systemPackages = [cfg.package];
 
-    # Create the service.
-    systemd.services.watchdogd = {
-      documentation = [
-        "man:watchdogd(8)"
-        "man:watchdogd.conf(5)"
-      ];
-      wantedBy = [ "multi-user.target" ];
-      description = "Advanced system & process supervisor";
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${cfg.package}/bin/watchdogd -n -f ${watchdogdConf}";
+      # Create the service.
+      systemd.services.watchdogd = {
+        documentation = [
+          "man:watchdogd(8)"
+          "man:watchdogd.conf(5)"
+        ];
+        wantedBy = ["multi-user.target"];
+        description = "Advanced system & process supervisor";
+        serviceConfig = {
+          Type = "simple";
+          ExecStart = "${cfg.package}/bin/watchdogd -n -f ${watchdogdConf}";
+        };
       };
     };
-  };
 }

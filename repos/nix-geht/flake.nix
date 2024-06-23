@@ -16,21 +16,12 @@
       "x86_64-darwin"
     ];
     forAllSystems = nixpkgs.lib.genAttrs systems;
-
-    overlays = import ./overlays;
-
-    nixpkgsFor = forAllSystems (system:
-      import nixpkgs {
-        inherit system;
-        overlays = builtins.attrValues overlays;
-      });
   in {
-    inherit overlays;
-    formatter = forAllSystems (system: nixpkgsFor.${system}.alejandra);
+    formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.alejandra);
     packages = forAllSystems (system: (import ./pkgs {
       inherit system;
       lib = nixpkgs.lib;
-      pkgs = nixpkgsFor.${system};
+      pkgs = nixpkgs.legacyPackages.${system};
     }));
     nixosModules = import ./modules;
   };

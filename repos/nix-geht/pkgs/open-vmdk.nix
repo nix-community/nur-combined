@@ -1,8 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, python3
-, zlib
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python3,
+  zlib,
 }:
 stdenv.mkDerivation rec {
   pname = "open-vmdk";
@@ -44,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/vmware/open-vmdk";
     license = licenses.apsl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ vifino ];
+    maintainers = with maintainers; [vifino];
   };
 }
