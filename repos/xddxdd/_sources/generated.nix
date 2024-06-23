@@ -183,15 +183,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "6522915dfbd3d26e290452bb1a8291f97fcf9f9b";
+    version = "97d61eeeab14589187757e923f4207a6a2a932ea";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "6522915dfbd3d26e290452bb1a8291f97fcf9f9b";
+      rev = "97d61eeeab14589187757e923f4207a6a2a932ea";
       fetchSubmodules = false;
-      sha256 = "sha256-/onaMKfEN9AJ4WG25p+K4MMnftFUcg5WyzaD56RjRZw=";
+      sha256 = "sha256-DAeFknFB9u3iHCgx6THfiDvigHqBbjG1zV9KR8y9r5s=";
     };
-    date = "2024-06-21";
+    date = "2024-06-22";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -733,13 +733,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3197";
+    version = "b3204";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3197";
+      rev = "b3204";
       fetchSubmodules = false;
-      sha256 = "sha256-inVUGNM9YjcxDQeBlZme5eg6zXtJoBEPXfFs9YEzeQ8=";
+      sha256 = "sha256-R+T9U/z80SdGeNoiggRXvYZlHQ+Rqnl0RNsU5h4XUcs=";
     };
   };
   nbfc-linux-lantian = {
