@@ -867,6 +867,9 @@
             "file": "nur.nix",
             "url": "https://github.com/markuskowa/NixOS-QChem"
         },
+        "qenya": {
+            "url": "https://github.com/qenya/nur-packages"
+        },
         "qwbarch": {
             "url": "https://github.com/qwbarch/nur-packages"
         },
