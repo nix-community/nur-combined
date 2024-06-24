@@ -1,15 +1,12 @@
 { stdenv
 , lib
 , fetchzip
-, steam-run
-# , zlib
-# , autoPatchelfHook
+, zlib
+, autoPatchelfHook
+, xorg
+, libpulseaudio
+, alsa-lib
 }:
-
-# TODO: Shouldn't need the whole steam-run FHS env.
-# Adding autoPatchelfHook and zlib lets it build and run,
-# but pygame errors out with "error: No available video device".
-# It may be more practical to just create a version built from source.
 
 stdenv.mkDerivation rec {
   pname = "digitalalovestory-bin";
@@ -20,13 +17,22 @@ stdenv.mkDerivation rec {
     sha256 = "+7KcZ8dKts1AoKWNfHMKIt+w2fBFIAcnkuAtzSw49xk=";
   };
 
-  # nativeBuildInputs = [
-  #   autoPatchelfHook
-  # ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+  ];
 
   buildInputs = [
-    steam-run
-  #   zlib
+    zlib
+  ];
+
+  appendRunpaths = [
+    "${xorg.libX11}/lib"
+    "${xorg.libXext}/lib"
+    "${xorg.libXrender}/lib"
+    "${xorg.libXrandr}/lib"
+    "${xorg.libXcursor}/lib"
+    "${libpulseaudio}/lib"
+    "${alsa-lib}/lib"
   ];
 
   sourceRoot = ".";
@@ -46,9 +52,6 @@ stdenv.mkDerivation rec {
     sed -i "s#\''${0%\\.sh}#$out/opt/Digital-linux-x86/Digital#g" $out/opt/Digital-linux-x86/Digital.sh
     sed -i "s#dir=.*#dir=$out/opt/Digital-linux-x86#g" $out/opt/Digital-linux-x86/Digital.sh
     sed -i 's/base=.*/base=Digital.sh/g' $out/opt/Digital-linux-x86/Digital.sh
-
-    # wrap in steam-run
-    sed -i 's#exec#exec "${steam-run}/bin/steam-run"#g' $out/opt/Digital-linux-x86/Digital.sh
 
     # link entrypoint to bin directory
     mkdir -p $out/bin
