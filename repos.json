@@ -1091,6 +1091,9 @@
         "xfix": {
             "url": "https://github.com/xfix/nur-packages"
         },
+        "xonsh-xontribs": {
+            "url": "https://github.com/drmikecrowe/nur-packages"
+        },
         "xyenon": {
             "url": "https://github.com/XYenon/nur-packages"
         },
