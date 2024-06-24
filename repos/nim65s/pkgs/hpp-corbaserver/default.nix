@@ -31,7 +31,6 @@ stdenv.mkDerivation (finalAttrs: {
   prePatch = ''
     substituteInPlace tests/hppcorbaserver.sh \
       --replace-fail /bin/bash ${stdenv.shell}
-
   '';
 
   nativeBuildInputs = [

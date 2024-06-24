@@ -44,9 +44,6 @@ let
     inherit gepetto-viewer-base;
   };
   py-gepetto-viewer-corba = pkgs.python3Packages.toPythonModule gepetto-viewer-corba;
-  gepetto-viewer = pkgs.callPackage ./pkgs/gepetto-viewer {
-    inherit gepetto-viewer-base gepetto-viewer-corba;
-  };
   ndcurves = pkgs.callPackage ./pkgs/ndcurves { };
   py-ndcurves = pkgs.python3Packages.toPythonModule (
     pkgs.callPackage ./pkgs/ndcurves { pythonSupport = true; }
@@ -103,9 +100,34 @@ let
   };
   hpp-manipulation-urdf = pkgs.callPackage ./pkgs/hpp-manipulation-urdf { inherit hpp-manipulation; };
   hpp-corbaserver = pkgs.callPackage ./pkgs/hpp-corbaserver { inherit hpp-core hpp-template-corba; };
+  py-hpp-corbaserver = pkgs.python3Packages.toPythonModule hpp-corbaserver;
   hpp-romeo = pkgs.callPackage ./pkgs/hpp-romeo { inherit hpp-corbaserver; };
   hpp-manipulation-corba = pkgs.callPackage ./pkgs/hpp-manipulation-corba {
     inherit hpp-corbaserver hpp-manipulation-urdf;
+  };
+  py-hpp-manipulation-corba = pkgs.python3Packages.toPythonModule hpp-manipulation-corba;
+  hpp-tutorial = pkgs.callPackage ./pkgs/hpp-tutorial { inherit hpp-manipulation-corba; };
+  py-hpp-tutorial = pkgs.python3Packages.toPythonModule hpp-tutorial;
+  hpp-gepetto-viewer = pkgs.callPackage ./pkgs/hpp-gepetto-viewer {
+    inherit gepetto-viewer-corba hpp-corbaserver;
+  };
+  py-hpp-gepetto-viewer = pkgs.python3Packages.toPythonModule hpp-gepetto-viewer;
+  hpp-plot = pkgs.callPackage ./pkgs/hpp-plot {
+    inherit gepetto-viewer-corba hpp-manipulation-corba;
+  };
+  hpp-gui = pkgs.callPackage ./pkgs/hpp-gui { inherit gepetto-viewer-corba hpp-manipulation-corba; };
+  hpp-practicals = pkgs.callPackage ./pkgs/hpp-practicals {
+    inherit hpp-gepetto-viewer hpp-gui hpp-plot;
+  };
+  py-hpp-practicals = pkgs.python3Packages.toPythonModule hpp-practicals;
+  gepetto-viewer = pkgs.callPackage ./pkgs/gepetto-viewer {
+    inherit
+      gepetto-viewer-base
+      gepetto-viewer-corba
+      hpp-gepetto-viewer
+      hpp-gui
+      hpp-plot
+      ;
   };
 in
 {
@@ -120,6 +142,7 @@ in
     osgqt
     hpp-centroidal-dynamics
     hpp-bezier-com-traj
+    hpp-gui
     hpp-util
     hpp-environments
     hpp-statistics
@@ -129,17 +152,26 @@ in
     hpp-corbaserver
     hpp-baxter
     hpp-core
+    hpp-gepetto-viewer
     hpp-manipulation
     hpp-manipulation-corba
     hpp-manipulation-urdf
+    hpp-plot
+    hpp-practicals
     hpp-romeo
+    hpp-tutorial
     hpp-universal-robot
     #multicontact-api
     proxsuite
     #py-multicontact-api
+    py-hpp-corbaserver
+    py-hpp-gepetto-viewer
     py-ndcurves
     py-hpp-centroidal-dynamics
     py-hpp-bezier-com-traj
+    py-hpp-manipulation-corba
+    py-hpp-practicals
+    py-hpp-tutorial
     qgv
     ;
 

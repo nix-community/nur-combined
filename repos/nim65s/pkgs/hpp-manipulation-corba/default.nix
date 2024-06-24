@@ -10,10 +10,7 @@
   python3Packages,
 }:
 let
-  python = python3Packages.python.withPackages (_ps: [
-
-    omniorbpy
-  ]);
+  python = python3Packages.python.withPackages (_ps: [ omniorbpy ]);
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "hpp-manipulation-corba";

@@ -14,16 +14,19 @@
   libsForQt5,
   python-qt,
 }:
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (_finalAttrs: {
   pname = "gepetto-viewer";
   version = "5.0.0";
 
   src = fetchFromGitHub {
     owner = "gepetto";
     repo = "gepetto-viewer";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-e+MYEJA98U+ZUv2Aza/S7CGbQSJht7xFtmx229HmlOs=";
+    #rev = "v${finalAttrs.version}";
+    rev = "c10ea01";
+    hash = "sha256-VPUcdhTXc9LqKauElzsMG/YHDDyjujYLJ07yeoue9C4=";
   };
+
+  cmakeFlags = [ "-DBUILD_PY_QCUSTOM_PLOT=ON" ];
 
   outputs = [
     "out"
