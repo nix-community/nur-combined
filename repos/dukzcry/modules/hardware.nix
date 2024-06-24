@@ -66,6 +66,8 @@ in {
       boot.kernelParams = [ "mitigations=off" ];
       services.tlp.enable = true;
       hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
+      # https://github.com/NixOS/nixpkgs/issues/270809
+      systemd.services.ModemManager.wantedBy = [ "multi-user.target" "network.target" ];
     } // builder))
     (mkIf (cfg.enable && desktop) {
       services.nix-serve = {
