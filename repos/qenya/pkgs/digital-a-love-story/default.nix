@@ -48,10 +48,11 @@ stdenv.mkDerivation rec {
     cp -R source/* $out/opt/Digital-linux-x86
 
     # patch paths in entrypoint
-    sed -i "s#\`dirname \\\\\\\"\$0\\\\\\\"\`#$out/opt/Digital-linux-x86#g" $out/opt/Digital-linux-x86/Digital.sh
-    sed -i "s#\''${0%\\.sh}#$out/opt/Digital-linux-x86/Digital#g" $out/opt/Digital-linux-x86/Digital.sh
-    sed -i "s#dir=.*#dir=$out/opt/Digital-linux-x86#g" $out/opt/Digital-linux-x86/Digital.sh
-    sed -i 's/base=.*/base=Digital.sh/g' $out/opt/Digital-linux-x86/Digital.sh
+    substituteInPlace $out/opt/Digital-linux-x86/Digital.sh \
+        --replace '${"\${0%.sh}"}' "$out/opt/Digital-linux-x86/Digital" \
+        --replace '`dirname \"$0\"`' "$out/opt/Digital-linux-x86" \
+        --replace '`dirname "$0"`' "$out/opt/Digital-linux-x86" \
+        --replace '`basename "$0"`' 'Digital.sh'
 
     # link entrypoint to bin directory
     mkdir -p $out/bin
