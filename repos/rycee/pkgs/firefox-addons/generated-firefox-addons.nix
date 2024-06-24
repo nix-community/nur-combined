@@ -9545,10 +9545,10 @@
     };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "13.0.0";
+      version = "13.0.1";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4306270/sidebartabs-13.0.0.xpi";
-      sha256 = "840c5310b3a74b31d27b57e167abb19398a5d9f91891d6bcd32ad11a3162dd38";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4308319/sidebartabs-13.0.1.xpi";
+      sha256 = "5ffbd484388c94b78a7c203cd57d5177047c0de594cefb96f7df69ec37495651";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
