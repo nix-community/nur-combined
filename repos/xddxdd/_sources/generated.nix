@@ -733,13 +733,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3204";
+    version = "b3212";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3204";
+      rev = "b3212";
       fetchSubmodules = false;
-      sha256 = "sha256-R+T9U/z80SdGeNoiggRXvYZlHQ+Rqnl0RNsU5h4XUcs=";
+      sha256 = "sha256-ZCKk+CuQThqHTWCRbBUwh2K8YzxAwF752wx/AGVc/pI=";
     };
   };
   nbfc-linux-lantian = {
@@ -1237,15 +1237,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "0b59306d619a29cd345e3277aa5cd0b0d5653eda";
+    version = "fdb6141a18ed6479fd82616c8a82befea2ae30df";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "0b59306d619a29cd345e3277aa5cd0b0d5653eda";
+      rev = "fdb6141a18ed6479fd82616c8a82befea2ae30df";
       fetchSubmodules = false;
-      sha256 = "sha256-dElBA0baKaMN04sSXvMgfey+I60Zq4b+i+KoYzpxZMQ=";
+      sha256 = "sha256-O1oR85+0qo3GFluV6Z5rYuycUCErhZHOc1rrdD2Yh5k=";
     };
-    date = "2024-06-10";
+    date = "2024-06-23";
   };
   rime-moegirl = {
     pname = "rime-moegirl";

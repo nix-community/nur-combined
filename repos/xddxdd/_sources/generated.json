@@ -1323,12 +1323,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3204",
-            "sha256": "sha256-R+T9U/z80SdGeNoiggRXvYZlHQ+Rqnl0RNsU5h4XUcs=",
+            "rev": "b3212",
+            "sha256": "sha256-ZCKk+CuQThqHTWCRbBUwh2K8YzxAwF752wx/AGVc/pI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3204"
+        "version": "b3212"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -2235,7 +2235,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-06-10",
+        "date": "2024-06-23",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -2247,12 +2247,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "0b59306d619a29cd345e3277aa5cd0b0d5653eda",
-            "sha256": "sha256-dElBA0baKaMN04sSXvMgfey+I60Zq4b+i+KoYzpxZMQ=",
+            "rev": "fdb6141a18ed6479fd82616c8a82befea2ae30df",
+            "sha256": "sha256-O1oR85+0qo3GFluV6Z5rYuycUCErhZHOc1rrdD2Yh5k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0b59306d619a29cd345e3277aa5cd0b0d5653eda"
+        "version": "fdb6141a18ed6479fd82616c8a82befea2ae30df"
     },
     "rime-moegirl": {
         "cargoLocks": null,
