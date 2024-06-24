@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Digital: A Love Story
 Exec=@out@/bin/Digital
-Icon=@out@/opt/game/icon.png
+Icon=@out@/opt/Digital-linux-x86/game/icon.png
 Type=Application
 Categories=Game;
