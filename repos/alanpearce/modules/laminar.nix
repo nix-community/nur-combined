@@ -105,10 +105,14 @@ in
       wantedBy = [ "multi-user.target" ];
       after = [ "network.target" ];
       inherit (cfg) path;
+      environment = {
+        XDG_RUNTIME_DIR = "%t/laminar";
+      };
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
         ExecStart = "${cfg.package}/bin/laminard -v";
+        RuntimeDirectory = "laminar";
         EnvironmentFile = pkgs.writeText "laminar.conf" ''
           LAMINAR_HOME=${cfg.homeDir}
           LAMINAR_BIND_HTTP=${cfg.settings.bindHTTP}
