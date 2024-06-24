@@ -1,6 +1,6 @@
 {
   description = "NUR repository of program synthesis tools";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/release-23.11";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
   outputs = {
     self,
     nixpkgs,
