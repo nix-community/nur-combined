@@ -113,10 +113,10 @@
     "homepage": "",
     "owner": "akinsho",
     "repo": "bufferline.nvim",
-    "rev": "6ac7e4f1eead72507cfdbc94dcd0c26b98b2f86e",
-    "sha256": "1451v823jms0dz27pvwzzz860mz2c22bf2if9bd1rn7hk1iswfnb",
+    "rev": "46192e794b73f92136326c10ecdbdbf15e35705f",
+    "sha256": "0sjq76mj8w43wwzq6gdlmjii4ny5nx2sg5m6lk89s1vx2h9s9xqh",
     "type": "tarball",
-    "url": "https://github.com/akinsho/bufferline.nvim/archive/6ac7e4f1eead72507cfdbc94dcd0c26b98b2f86e.tar.gz",
+    "url": "https://github.com/akinsho/bufferline.nvim/archive/46192e794b73f92136326c10ecdbdbf15e35705f.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "chartoggle.nvim": {
