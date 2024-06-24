@@ -58,6 +58,10 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     ln -s $out/opt/Digital-linux-x86/Digital.sh $out/bin/Digital
 
+    # add desktop file
+    mkdir -p $out/share/applications
+    substituteAll ${./Digital.desktop} $out/share/applications/Digital.desktop
+
     runHook postInstall
   '';
 

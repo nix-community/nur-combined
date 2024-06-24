@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Digital: A Love Story
+Exec=@out@/bin/Digital
+Icon=@out@/opt/game/icon.png
+Type=Application
+Categories=Game;
