@@ -13,5 +13,6 @@
 
   # example-package = pkgs.callPackage ./pkgs/example-package { };
   urbanist = pkgs.callPackage ./pkgs/urbanist {};
+  mplus = pkgs.callPackage ./pkgs/mplus {};
   gabarito = pkgs.callPackage ./pkgs/gabarito {};
 }
