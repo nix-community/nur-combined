@@ -15,13 +15,13 @@
 }:
 stdenv.mkDerivation {
   pname = "mtxclient";
-  version = "unstable-2024-05-31";
+  version = "unstable-2024-06-11";
 
   src = fetchFromGitHub {
     owner = "Nheko-Reborn";
     repo = "mtxclient";
-    rev = "604a2ec95b03fbf8c856bc481e7582f5c6a64748";
-    hash = "sha256-adKvpCz6mZapVZjLHVi/aH27YZNIrbuo7EIRX+uv5ZA=";
+    rev = "e87c6f4f7aa8fc8e5b1640454e8c94a4efd36e8a";
+    hash = "sha256-uIppA6FzWqPhXSQAnoiYi78NSA8+gpYf01E9XdLrvpU=";
   };
 
   cmakeFlags = [
