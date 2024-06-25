@@ -6,8 +6,6 @@
 with pkgs;
 
 {
-  iptux = callPackage ./iptux { };
-  
   ludii = callPackage ./ludii {
     inherit rp;
   };
