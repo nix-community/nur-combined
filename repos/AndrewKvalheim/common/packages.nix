@@ -25,6 +25,7 @@ specify {
   emote.overlay = e: { postInstall = e.postInstall or "" + "\nsubstituteInPlace $out/share/applications/emote.desktop --replace-fail 'Exec=emote' \"Exec=$out/bin/emote\""; }; # Allow desktop entry as entrypoint
   fastnbt-tools = any;
   fediblockhole = any;
+  fedifetcher.overlay = stable.lib.throwIf (stable.lib.versionAtLeast unstable.fedifetcher.version "7.1.1") "fedifetcher no longer requires an overlay" (f: rec { version = "7.1.1"; src = f.src.override { rev = "refs/tags/v${version}"; hash = "sha256-HMpLn73PTk3kwlNof4EZhRHRlHUEfzJt5raYaEqWrjI="; }; }); # nanos/FediFetcher#122
   firefox.overlay = w: { buildCommand = w.buildCommand + "\nwrapProgram $executablePath --unset LC_TIME"; }; # Workaround for bugzilla#1269895
   git-diff-image = any;
   git-diff-minecraft = any;
@@ -65,7 +66,7 @@ specify {
   tile-stitch = any;
   unln = any;
   vscode-extensions = namespaced {
-    bierner.markdown-preview-github-styles.search = open-vsx;
+    bierner.markdown-preview-github-styles = any;
     bpruitt-goddard.mermaid-markdown-syntax-highlighting.search = open-vsx;
     compilouit.xkb.search = open-vsx;
     csstools.postcss.search = open-vsx;

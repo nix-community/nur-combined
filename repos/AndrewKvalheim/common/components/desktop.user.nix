@@ -7,14 +7,14 @@ let
 
   palette = import ../resources/palette.nix { inherit lib pkgs; };
 
-  extensions = with pkgs; [
-    gnomeExtensions.appindicator
-    gnomeExtensions.caffeine
-    gnomeExtensions.forge
-    gnomeExtensions.notification-banner-position
-    gnomeExtensions.run-or-raise
-    gnomeExtensions.system-monitor-next
-    gnomeExtensions.user-themes
+  extensions = with pkgs.gnomeExtensions; [
+    appindicator
+    caffeine
+    forge
+    notification-banner-position
+    run-or-raise
+    system-monitor-next
+    user-themes
   ];
 in
 {

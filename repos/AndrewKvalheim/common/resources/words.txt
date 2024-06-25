@@ -14,6 +14,8 @@ Afienya
 agentless
 agitative
 airgapped
+AirPod
+AirPods
 Airtable
 Alki
 allowlist
@@ -366,6 +368,7 @@ geospatial
 gif
 gifs
 GIFs
+Gifsicle
 Gitea
 GitLab
 Gitolite
@@ -458,6 +461,7 @@ inflector
 influencers
 infographic
 infosec
+Inglemoor
 Inkscape
 inlined
 Inoreader
@@ -770,6 +774,7 @@ Picasa
 Pictionary
 PID
 pilcrow
+pincher
 pinentry
 Pinterest
 pipeable
@@ -950,6 +955,7 @@ serializers
 serifless
 SES
 SGR
+sheeple
 ShellCheck
 Shilshole
 shitposting
@@ -991,6 +997,7 @@ SPF
 SPL
 Spotify
 Spritely
+Squalicum
 Squamish
 src
 SRE
@@ -1050,6 +1057,7 @@ Talapus
 TBD
 TCP
 TeaGL
+Techstream
 Teclis
 templated
 templating
@@ -1141,6 +1149,7 @@ unmanageably
 unmanaged
 unmapped
 unmark
+unmaximize
 unmerged
 unminimize
 unmute

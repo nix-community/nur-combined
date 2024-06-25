@@ -144,6 +144,12 @@ in
     };
     xdg.configFile."gdu/gdu.yaml".text = "no-cross: true";
     home.file.".npmrc".text = toKeyValue { } { fund = false; update-notifier = false; };
+    xdg.configFile."rustfmt/rustfmt.toml".source = toTOML "rustfmt.toml" {
+      condense_wildcard_suffixes = true;
+      # error_on_unformatted = true; # Pending rust-lang/rustfmt#3392
+      use_field_init_shorthand = true;
+      use_try_shorthand = true;
+    };
     home.file.".shellcheckrc".text = "disable=SC1111";
     home.file.".ssh/config.d/.keep".text = "";
     dconf.settings."org/gnome/gnome-system-monitor" = with palette.hex; {
