@@ -573,7 +573,7 @@
     },
     "rime-terra-pinyin": {
         "cargoLocks": null,
-        "date": "2023-02-06",
+        "date": "2024-06-24",
         "extract": null,
         "name": "rime-terra-pinyin",
         "passthru": null,
@@ -583,13 +583,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "9427853de91d645d9aca9ceace8fe9e9d8bc5b50",
-            "sha256": "sha256-93Kzph4q8LCNYTMk3rjO7mXwzfyF4cHnuDAQrxWOPDg=",
+            "rev": "9df66c7edc9474a945e9f4744419b156278d1580",
+            "sha256": "sha256-lT1L0+HqE9l/pD5K0nZp5QOyqx2eAnPM6zMzb0RAKyk=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-terra-pinyin.git"
         },
-        "version": "9427853de91d645d9aca9ceace8fe9e9d8bc5b50"
+        "version": "9df66c7edc9474a945e9f4744419b156278d1580"
     },
     "rime-wubi": {
         "cargoLocks": null,
