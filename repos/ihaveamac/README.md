@@ -20,31 +20,10 @@ Attributes listed on [the NUR](https://nur.nix-community.org/repos/ihaveamac/)
 * ctrtool-1.2.0
 * makerom-0.18.4
 * kwin-move-window-1.1.1
-* kwin-explicit-sync-patch-6.0.5.1
 * mediawiki-1.39.7
 * mediawiki-1.41.1 (same as nixpkgs, for convenience)
 * homebox-bin-0.10.3
 * 3dslink-0.6.1 (as \_3dslink attribute)
-
-## Using the KWin patch
-
-Patch source: https://invent.kde.org/plasma/kwin/-/merge_requests/5511
-
-This will be available until KWin 6.1 which includes this patch.
-
-Put this in your NixOS configuration:
-
-```nix
-  nixpkgs.overlays = [
-    (final: prev: {
-      kdePackages = prev.kdePackages.overrideScope (kfinal: kprev: {
-        kwin = nur.repos.ihaveamac.kwin-explicit-sync-patch;
-      });
-    })
-  ];
-```
-
-**Note:** Make sure you set the nixpkgs input for the NUR (or this repo) to follow the same version of nixpkgs used for the NixOS system. Otherwise you may get an error such as "detected mismatched Qt dependencies".
 
 ## Home Manager modules
 
