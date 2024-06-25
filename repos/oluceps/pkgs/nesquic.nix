@@ -4,7 +4,6 @@
   fetchFromGitHub,
   stdenv,
   darwin,
-  ...
 }:
 
 rustPlatform.buildRustPackage {
