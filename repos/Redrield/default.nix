@@ -7,10 +7,12 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  binaryninja = pkgs.callPackage ./pkgs/binaryninja { };
-  codemerxdecompile = pkgs.callPackage ./pkgs/codemerxdecompile { };
-  detectiteasy = pkgs.libsForQt5.callPackage ./pkgs/detectiteasy { };
-  lampray = pkgs.callPackage ./pkgs/lampray { };
+  binaryninja = pkgs.callPackage ./pkgs/re/binaryninja { };
+  codemerxdecompile = pkgs.callPackage ./pkgs/re/codemerxdecompile { };
+  detectiteasy = pkgs.libsForQt5.callPackage ./pkgs/re/detectiteasy { };
+  lampray = pkgs.callPackage ./pkgs/gaming/lampray { };
+  depotdownloader = pkgs.callPackage ./pkgs/gaming/depotdownloader { };
+  elf2uf2-rs = pkgs.callPackage ./pkgs/tooling/elf2uf2-rs { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
