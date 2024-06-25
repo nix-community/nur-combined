@@ -183,15 +183,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "97d61eeeab14589187757e923f4207a6a2a932ea";
+    version = "9320301b453b39253a3b4869555fc0ec8e28f726";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "97d61eeeab14589187757e923f4207a6a2a932ea";
+      rev = "9320301b453b39253a3b4869555fc0ec8e28f726";
       fetchSubmodules = false;
-      sha256 = "sha256-DAeFknFB9u3iHCgx6THfiDvigHqBbjG1zV9KR8y9r5s=";
+      sha256 = "sha256-+HR7LOfUAIRVPbNjX9v39L+vEl3DsKgfErENRD8wWrI=";
     };
-    date = "2024-06-22";
+    date = "2024-06-24";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -733,13 +733,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3212";
+    version = "b3219";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3212";
+      rev = "b3219";
       fetchSubmodules = false;
-      sha256 = "sha256-ZCKk+CuQThqHTWCRbBUwh2K8YzxAwF752wx/AGVc/pI=";
+      sha256 = "sha256-Ubjp2bALJsNeZ6P/Z0nvIK0WrMuBIyuJXNmj7bCF6oM=";
     };
   };
   nbfc-linux-lantian = {
@@ -1001,10 +1001,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v4.1.3";
+    version = "v4.2.0";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.1.3/PeerBanHelper.jar";
-      sha256 = "sha256-TLyy4tWqmIbOlcHUU0v50WMti4kKQeaYxoBz7tHv25U=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.2.0/PeerBanHelper.jar";
+      sha256 = "sha256-o9vjhrUfuejjFT9lE+Lrf07f2j01OTaZl+gDgD1oxzs=";
     };
   };
   phpmyadmin = {
@@ -1473,13 +1473,13 @@
   };
   uksmd = {
     pname = "uksmd";
-    version = "v1.2.10";
+    version = "v1.2.11";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "uksmd";
-      rev = "v1.2.10";
+      rev = "v1.2.11";
       fetchSubmodules = false;
-      sha256 = "sha256-MX1ossVxL+JuoaeoLHftfDi7wUQ11N94a7AhJyP9AYQ=";
+      sha256 = "sha256-mcqiTqu/KIZ+W9yvZfyFekjRdiVavkHVKVRh0xUytg0=";
     };
   };
   undetected-chromedriver = {

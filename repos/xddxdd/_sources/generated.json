@@ -328,7 +328,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-06-22",
+        "date": "2024-06-24",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -340,12 +340,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "97d61eeeab14589187757e923f4207a6a2a932ea",
-            "sha256": "sha256-DAeFknFB9u3iHCgx6THfiDvigHqBbjG1zV9KR8y9r5s=",
+            "rev": "9320301b453b39253a3b4869555fc0ec8e28f726",
+            "sha256": "sha256-+HR7LOfUAIRVPbNjX9v39L+vEl3DsKgfErENRD8wWrI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "97d61eeeab14589187757e923f4207a6a2a932ea"
+        "version": "9320301b453b39253a3b4869555fc0ec8e28f726"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1323,12 +1323,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3212",
-            "sha256": "sha256-ZCKk+CuQThqHTWCRbBUwh2K8YzxAwF752wx/AGVc/pI=",
+            "rev": "b3219",
+            "sha256": "sha256-Ubjp2bALJsNeZ6P/Z0nvIK0WrMuBIyuJXNmj7bCF6oM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3212"
+        "version": "b3219"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -1804,11 +1804,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-TLyy4tWqmIbOlcHUU0v50WMti4kKQeaYxoBz7tHv25U=",
+            "sha256": "sha256-o9vjhrUfuejjFT9lE+Lrf07f2j01OTaZl+gDgD1oxzs=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.1.3/PeerBanHelper.jar"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.2.0/PeerBanHelper.jar"
         },
-        "version": "v4.1.3"
+        "version": "v4.2.0"
     },
     "phpmyadmin": {
         "cargoLocks": null,
@@ -2682,12 +2682,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "uksmd",
-            "rev": "v1.2.10",
-            "sha256": "sha256-MX1ossVxL+JuoaeoLHftfDi7wUQ11N94a7AhJyP9AYQ=",
+            "rev": "v1.2.11",
+            "sha256": "sha256-mcqiTqu/KIZ+W9yvZfyFekjRdiVavkHVKVRh0xUytg0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.2.10"
+        "version": "v1.2.11"
     },
     "undetected-chromedriver": {
         "cargoLocks": null,
