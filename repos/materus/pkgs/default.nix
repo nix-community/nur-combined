@@ -9,17 +9,7 @@ rec {
   };
 
 
-  ffmpeg6-amf-full = (if pkgs.lib.versionOlder pkgs.ffmpeg-full.version "6.1" then
-    pkgs.callPackage ./apps/ffmpeg
-      {
-        inherit (pkgs.darwin.apple_sdk.frameworks)
-          Cocoa CoreServices CoreAudio CoreMedia AVFoundation MediaToolbox
-          VideoDecodeAcceleration VideoToolbox;
-      } else
-    (pkgs.ffmpeg-full.overrideAttrs (finalAttrs: previousAttrs: { configureFlags = previousAttrs.configureFlags ++ [ "--enable-amf" ]; buildInputs = previousAttrs.buildInputs ++ [ pkgs.amf-headers ]; }))
-  );
-
-  obs-amf = pkgs.qt6Packages.callPackage ./apps/obs { ffmpeg = ffmpeg6-amf-full; inherit libcef; };
+  ffmpeg_7-amf-full = (pkgs.ffmpeg_7-full.overrideAttrs (finalAttrs: previousAttrs: { configureFlags = previousAttrs.configureFlags ++ [ "--enable-amf" ]; buildInputs = previousAttrs.buildInputs ++ [ pkgs.amf-headers ]; }));
 
   polymc = pkgs.qt6Packages.callPackage ./apps/games/polymc { };
   polymc-qt5 = pkgs.libsForQt5.callPackage ./apps/games/polymc { };
@@ -30,9 +20,5 @@ rec {
 
   fbset = callPackage ./apps/fbset.nix { };
 
-  libcef = callPackage ./libs/libcef.nix { };
-
   lh2ctrl = callPackage ./apps/lh2ctrl.nix { };
-
-  emacs-materus = (pkgs.emacs29.override { withSQLite3 = true; withWebP = true; withX = true; withGTK3 = true; withAlsaLib = true; withGconf = true; withImageMagick = true; withXwidgets = true; });
 }
