@@ -2008,10 +2008,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "128.0.20240621.91605";
+      version = "127.0.20240624.183754";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4307449/deutsch_de_language_pack-128.0.20240621.91605.xpi";
-      sha256 = "f16b272e45d422180fed6b14e12814aab5a09d474a1fdfaa4a8ccddc61da2c03";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4309149/deutsch_de_language_pack-127.0.20240624.183754.xpi";
+      sha256 = "5e80fbb225eb97c13318c369e45f39e702d915c04c0736e92258948ad26adc0d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2229,10 +2229,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.43.0";
+      version = "2.43.1";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4307875/dualsub-2.43.0.xpi";
-      sha256 = "0d24edd34be28ce4be6da7972b89983e3a35e658b9f809be96516cc1c2837eb0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4308587/dualsub-2.43.1.xpi";
+      sha256 = "a8ed3831c555e728b780317aa3d23d543f575b66a76e88341f41f10f063bfed8";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2974,10 +2974,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "128.0.20240621.91605";
+      version = "127.0.20240624.183754";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4307439/francais_language_pack-128.0.20240621.91605.xpi";
-      sha256 = "d6c03c2bf976a259ce0ce56fa1ddaef41aed011e58fa8501226ba46b9e0f2a8d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4309151/francais_language_pack-127.0.20240624.183754.xpi";
+      sha256 = "4388c00779d9ea84b71098653be5c2244ed1463e7aef864d9a817805f7e028fe";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -9122,10 +9122,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.6.21";
+      version = "24.6.25";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4307292/refined_github-24.6.21.xpi";
-      sha256 = "0e377404047a430cc359e8c645c0274746f390a8b73a3eaaf4651433b9c24e31";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4309229/refined_github-24.6.25.xpi";
+      sha256 = "dec15456b60128d81ebcc5f4b63d517f6a71b5167e007b9dec6d9660fbf52066";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -9138,6 +9138,7 @@
           "activeTab"
           "alarms"
           "https://github.com/*"
+          "https://api.github.com/*"
           "https://gist.github.com/*"
         ];
         platforms = platforms.all;
