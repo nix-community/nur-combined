@@ -150,4 +150,6 @@ in
   zynaddsubfx-fltk = zynaddsubfx.override { guiModule = "fltk"; };
 
   zynaddsubfx-ntk = zynaddsubfx.override { guiModule = "ntk"; };
+
+  sudachi = qt6Packages.callPackage ./by-name/su/sudachi/package.nix { };
 }
