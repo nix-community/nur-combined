@@ -8,14 +8,22 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-let
+{
+  # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-in
-{
-  inherit lib modules overlays;
+
+  chroot-enter = pkgs.callPackage ./pkgs/chroot-enter { };
+  download-archiver = pkgs.callPackage ./pkgs/download-archiver { };
+  gpg-clean-up = pkgs.callPackage ./pkgs/gpg-clean-up { };
+  ls-colors = pkgs.callPackage ./pkgs/ls-colors { };
+  nix-verify = pkgs.callPackage ./pkgs/nix-verify { };
+  nixify = pkgs.callPackage ./pkgs/nixify { };
+  rbrowser = pkgs.callPackage ./pkgs/rbrowser { };
+  shrinkpdf = pkgs.callPackage ./pkgs/shrinkpdf { };
+  swm = pkgs.callPackage ./pkgs/swm { };
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
-} // (lib.recCallPackage ./pkgs)
+}
