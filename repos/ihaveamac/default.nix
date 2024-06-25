@@ -32,9 +32,17 @@ rec {
     version = "1.39.7";
     hash = "sha256-K+gVaBfVxWn9Ylc0KidvkdflMNHA3OETS3vysJ7K5Wk=";
   };
+  mediawiki_1_40 = pkgs.callPackage ./pkgs/mediawiki {
+    version = "1.40.3";
+    hash = "sha256-V+4X7+fVtZ5QV36wfbNQ53RH7WSVYzeFpxDkChTDdjQ=";
+  };
   mediawiki_1_41 = pkgs.callPackage ./pkgs/mediawiki {
     version = "1.41.1";
     hash = "sha256-TguqlTuF6U0xBAyyUSCrxgb6hpsuMxJr37t/xhPoxLI=";
+  };
+  mediawiki_1_42 = pkgs.callPackage ./pkgs/mediawiki {
+    version = "1.42.0";
+    hash = "sha256-CSo5KYufXUdlPqTGWmlPFz7iR9bTE9O+F3x3mSkYGmc=";
   };
 
   kwin-move-window = pkgs.callPackage ./pkgs/kwin-move-window { };
