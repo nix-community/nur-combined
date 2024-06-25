@@ -16,11 +16,12 @@
 
   clone-org = pkgs.callPackage ./pkgs/clone-org { };
   discord-applemusic-rich-presence = pkgs.callPackage ./pkgs/discord-applemusic-rich-presence { };
+  envdoc = pkgs.callPackage ./pkgs/envdoc { };
   fork-cleaner = pkgs.callPackage ./pkgs/fork-cleaner { };
   glyphs = pkgs.callPackage ./pkgs/glyphs { };
   gocovsh = pkgs.callPackage ./pkgs/gocovsh { };
-  gopls = pkgs.callPackage ./pkgs/gopls { };
   golangci-lint = pkgs.callPackage ./pkgs/golangci-lint { };
+  gopls = pkgs.callPackage ./pkgs/gopls { };
   jsonfmt = pkgs.callPackage ./pkgs/jsonfmt { };
   misspell = pkgs.callPackage ./pkgs/misspell { };
   org-stats = pkgs.callPackage ./pkgs/org-stats { };
