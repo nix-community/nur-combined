@@ -2,19 +2,19 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "rangefs";
-  version = "0.4.3";
+  version = "0.4.4";
 
   src = fetchFromGitHub {
     owner = "DCsunset";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-BSkU103k91S2EPkbfQzB88xxWepSPBRDTKPUds0M6YM=";
+    hash = "sha256-g1koNgO1OMk8Y2mcz8GKAvP1FUMxVE5FeW/pGevmD0U=";
   };
 
   nativeBuildInputs = [
     makeWrapper
   ];
-  cargoHash = "sha256-AWZcposd3n4+qGD7quEnNpQxnxW12jX2O1yCf09y2Ig=";
+  cargoHash = "sha256-MRC9SebX1QDR9cuCMGSPRHPJRsO0GOfCRoVSS7Ulvqw=";
 
   # reference: https://github.com/NixOS/nixpkgs/blob/master/pkgs/tools/filesystems/gocryptfs/default.nix
   postInstall = ''
