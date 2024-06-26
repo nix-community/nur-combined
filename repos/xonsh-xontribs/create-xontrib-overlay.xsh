@@ -95,7 +95,7 @@ if len(sys.argv) != 2:
 
 xontrib = sys.argv[1]
 output_path = os.path.join("pkgs", xontrib)
-os.makedirs(output_path, exists_ok=True)
+os.makedirs(output_path)
 output = os.path.join(output_path, "default.nix")
 template = get_template(xontrib)
 open(output, "w").write(template)
