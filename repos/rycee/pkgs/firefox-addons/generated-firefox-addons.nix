@@ -9952,10 +9952,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "4.2.0";
+      version = "4.2.3";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4306640/steam_database-4.2.0.xpi";
-      sha256 = "133615d512ba4656a0403c6f2f18cb7b612b6654a041033806afb1902016b7f0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4307919/steam_database-4.2.3.xpi";
+      sha256 = "5e0f8782a0ccfe5aa476dc168ec1bd92587dbf4f611e9198e655c3f04a4e1d3e";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -11791,10 +11791,10 @@
     };
     "web-developer" = buildFirefoxXpiAddon {
       pname = "web-developer";
-      version = "3.0";
+      version = "3.0.1";
       addonId = "{c45c406e-ab73-11d8-be73-000a95be3b12}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4296779/web_developer-3.0.xpi";
-      sha256 = "46519ec4e1ce6b9c6c7051f2450dfdf00044c5740faab972abe13f1568aa4bd1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4306323/web_developer-3.0.1.xpi";
+      sha256 = "4d2ce2773186faa385bd95cfff10e244e37a288800497b750bab665d7be21a3d";
       meta = with lib;
       {
         homepage = "http://chrispederick.com/work/web-developer/firefox/";
