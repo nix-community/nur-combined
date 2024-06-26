@@ -13,6 +13,7 @@ in
 
   systemd.user.services.yubikey-touch-detector = {
     Install.WantedBy = [ "graphical-session.target" ];
+    Unit.PartOf = [ "graphical-session.target" ];
     Unit.Description = "YubiKey touch detector";
     Service.ExecStart = "${pkgs.yubikey-touch-detector}/bin/yubikey-touch-detector --libnotify";
   };

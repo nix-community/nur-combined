@@ -697,6 +697,7 @@ NumPy
 NUR
 nvd
 NXDOMAIN
+OBD-II
 OCI
 OCSP
 Ogg
@@ -861,6 +862,7 @@ Rebecca
 reCAPTCHA
 reciprocative
 recompiler
+reconnection
 redactions
 Reddit
 redistributable

@@ -95,6 +95,12 @@ specify {
   };
   yaru-theme.patch = ../packages/resources/yaru-theme_font.patch; # Set GNOME Shell font
   ydotool.patch = ../packages/resources/ydotool-halmakish.patch; # Pending ReimuNotMoe/ydotool#177
+  yubikey-touch-detector.overlay = y: {
+    postPatch = y.postPatch or "" + ''substituteInPlace notifier/libnotify.go --replace-fail \
+      'AppIcon: "yubikey-touch-detector"' \
+      'AppIcon: "'"$out"'/share/icons/hicolor/128x128/apps/yubikey-touch-detector.png"'
+    '';
+  };
   zsh-abbr.condition = z: !z.meta.unfree;
   zsh-click = any;
 }
