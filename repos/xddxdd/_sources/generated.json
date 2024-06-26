@@ -328,7 +328,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-06-24",
+        "date": "2024-06-25",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -340,12 +340,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "9320301b453b39253a3b4869555fc0ec8e28f726",
-            "sha256": "sha256-+HR7LOfUAIRVPbNjX9v39L+vEl3DsKgfErENRD8wWrI=",
+            "rev": "6bd5c7838232ca33e3b37fbec8bef9ed2d45933d",
+            "sha256": "sha256-egSXjgf3W5SbOCeUbwzZCeuXEew+U/Z6tGrVgTnTI3g=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9320301b453b39253a3b4869555fc0ec8e28f726"
+        "version": "6bd5c7838232ca33e3b37fbec8bef9ed2d45933d"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -692,12 +692,12 @@
             "name": null,
             "owner": "FlareSolverr",
             "repo": "FlareSolverr",
-            "rev": "v3.3.20",
-            "sha256": "sha256-g9HSO0j9pY3TlrvuEk3I4y/C5yxkbGvV+OImqwqMg/s=",
+            "rev": "v3.3.21",
+            "sha256": "sha256-M/snpYKZK3pgzlhYjRYEiAPlK9DUKYRiiu43KcrAy9g=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.3.20"
+        "version": "v3.3.21"
     },
     "flasgger": {
         "cargoLocks": null,
@@ -1323,12 +1323,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3219",
-            "sha256": "sha256-Ubjp2bALJsNeZ6P/Z0nvIK0WrMuBIyuJXNmj7bCF6oM=",
+            "rev": "b3233",
+            "sha256": "sha256-t4heAw9CCwtI4zUYnHmVOZoP+IXcx5GkQQa3QcKFhN4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3219"
+        "version": "b3233"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -1500,12 +1500,12 @@
             "name": null,
             "owner": "nginx",
             "repo": "njs",
-            "rev": "0.8.4",
-            "sha256": "sha256-SooPFx4WNEezPD+W/wmMLY+FdkGRoojLNUFbhn3Riyg=",
+            "rev": "0.8.5",
+            "sha256": "sha256-urn1NMtjj2oqQ30jycrtFom76GLauaoxWkSimL/79Q8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.8.4"
+        "version": "0.8.5"
     },
     "ngx_brotli": {
         "cargoLocks": null,
@@ -1671,7 +1671,7 @@
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
-        "date": "2024-06-15",
+        "date": "2024-06-26",
         "extract": null,
         "name": "openssl-oqs-provider",
         "passthru": null,
@@ -1683,12 +1683,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
-            "rev": "bfaf29819e8e7679eb7b440c20312449d311e86a",
-            "sha256": "sha256-kocwKmcyWUpyFVqB9c3n6UIwGc2qS7QOdAi/TcctI28=",
+            "rev": "8f37521d5e27ab4d1e0d69a4b4a5bd17927b24b9",
+            "sha256": "sha256-VTO0YRQ4Hu9eepMe5HLbaxbsK5GWc4qc0snk/ie0eDI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "bfaf29819e8e7679eb7b440c20312449d311e86a"
+        "version": "8f37521d5e27ab4d1e0d69a4b4a5bd17927b24b9"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -1804,11 +1804,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-o9vjhrUfuejjFT9lE+Lrf07f2j01OTaZl+gDgD1oxzs=",
+            "sha256": "sha256-P0torUH9LQB+7KHBR7CVYhcI8NInc/nrzMlNbkrXe6U=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.2.0/PeerBanHelper.jar"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.2.2/PeerBanHelper.jar"
         },
-        "version": "v4.2.0"
+        "version": "v4.2.2"
     },
     "phpmyadmin": {
         "cargoLocks": null,

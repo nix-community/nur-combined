@@ -183,15 +183,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "9320301b453b39253a3b4869555fc0ec8e28f726";
+    version = "6bd5c7838232ca33e3b37fbec8bef9ed2d45933d";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "9320301b453b39253a3b4869555fc0ec8e28f726";
+      rev = "6bd5c7838232ca33e3b37fbec8bef9ed2d45933d";
       fetchSubmodules = false;
-      sha256 = "sha256-+HR7LOfUAIRVPbNjX9v39L+vEl3DsKgfErENRD8wWrI=";
+      sha256 = "sha256-egSXjgf3W5SbOCeUbwzZCeuXEew+U/Z6tGrVgTnTI3g=";
     };
-    date = "2024-06-24";
+    date = "2024-06-25";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -384,13 +384,13 @@
   };
   flaresolverr = {
     pname = "flaresolverr";
-    version = "v3.3.20";
+    version = "v3.3.21";
     src = fetchFromGitHub {
       owner = "FlareSolverr";
       repo = "FlareSolverr";
-      rev = "v3.3.20";
+      rev = "v3.3.21";
       fetchSubmodules = false;
-      sha256 = "sha256-g9HSO0j9pY3TlrvuEk3I4y/C5yxkbGvV+OImqwqMg/s=";
+      sha256 = "sha256-M/snpYKZK3pgzlhYjRYEiAPlK9DUKYRiiu43KcrAy9g=";
     };
   };
   flasgger = {
@@ -733,13 +733,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3219";
+    version = "b3233";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3219";
+      rev = "b3233";
       fetchSubmodules = false;
-      sha256 = "sha256-Ubjp2bALJsNeZ6P/Z0nvIK0WrMuBIyuJXNmj7bCF6oM=";
+      sha256 = "sha256-t4heAw9CCwtI4zUYnHmVOZoP+IXcx5GkQQa3QcKFhN4=";
     };
   };
   nbfc-linux-lantian = {
@@ -832,13 +832,13 @@
   };
   nginx-njs = {
     pname = "nginx-njs";
-    version = "0.8.4";
+    version = "0.8.5";
     src = fetchFromGitHub {
       owner = "nginx";
       repo = "njs";
-      rev = "0.8.4";
+      rev = "0.8.5";
       fetchSubmodules = false;
-      sha256 = "sha256-SooPFx4WNEezPD+W/wmMLY+FdkGRoojLNUFbhn3Riyg=";
+      sha256 = "sha256-urn1NMtjj2oqQ30jycrtFom76GLauaoxWkSimL/79Q8=";
     };
   };
   ngx_brotli = {
@@ -933,15 +933,15 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "bfaf29819e8e7679eb7b440c20312449d311e86a";
+    version = "8f37521d5e27ab4d1e0d69a4b4a5bd17927b24b9";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "bfaf29819e8e7679eb7b440c20312449d311e86a";
+      rev = "8f37521d5e27ab4d1e0d69a4b4a5bd17927b24b9";
       fetchSubmodules = false;
-      sha256 = "sha256-kocwKmcyWUpyFVqB9c3n6UIwGc2qS7QOdAi/TcctI28=";
+      sha256 = "sha256-VTO0YRQ4Hu9eepMe5HLbaxbsK5GWc4qc0snk/ie0eDI=";
     };
-    date = "2024-06-15";
+    date = "2024-06-26";
   };
   osdlyrics = {
     pname = "osdlyrics";
@@ -1001,10 +1001,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v4.2.0";
+    version = "v4.2.2";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.2.0/PeerBanHelper.jar";
-      sha256 = "sha256-o9vjhrUfuejjFT9lE+Lrf07f2j01OTaZl+gDgD1oxzs=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.2.2/PeerBanHelper.jar";
+      sha256 = "sha256-P0torUH9LQB+7KHBR7CVYhcI8NInc/nrzMlNbkrXe6U=";
     };
   };
   phpmyadmin = {
