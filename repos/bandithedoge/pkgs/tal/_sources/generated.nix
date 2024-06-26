@@ -10,7 +10,7 @@
     version = "latest";
     src = fetchurl {
       url = "https://tal-software.com/downloads/plugins/TAL-BassLine-101_64_linux.zip";
-      sha256 = "sha256-EiGW1ICp3uROxQp4u6BMwA7vVgSioVlioQII4kQCz2M=";
+      sha256 = "sha256-GkrI+tzqzhA6lg1V+9F99yzHUsJWq0V7tVmLS5LHoGM=";
     };
   };
   chorus-lx = {
@@ -34,7 +34,7 @@
     version = "latest";
     src = fetchurl {
       url = "https://tal-software.com/downloads/plugins/TAL-Drum_64_linux.zip";
-      sha256 = "sha256-B7S7vtjKurYdt51O3MclafT49ApM5dIgSufWQmUBytA=";
+      sha256 = "sha256-gW7XoIStVtUcFjXokmxg7M0+01agwCN59CRUcLstUCA=";
     };
   };
   dub-x = {
@@ -58,7 +58,7 @@
     version = "latest";
     src = fetchurl {
       url = "https://tal-software.com/downloads/plugins/TAL-J-8_64_linux.zip";
-      sha256 = "sha256-0xQc1FBY4lcQn4nWHJv9GeTSo0UkE1yRwOzCzRy+L3w=";
+      sha256 = "sha256-OgQSGIORdbpTen/LyXiHBT18L3iv63QIz5gCC6TqBKw=";
     };
   };
   mod = {
@@ -66,7 +66,7 @@
     version = "latest";
     src = fetchurl {
       url = "https://tal-software.com/downloads/plugins/TAL-Mod_64_linux.zip";
-      sha256 = "sha256-RkCNzjRTcxMMkAIC/aiHXOwOU5Ssxxc9MwvHV08I6KI=";
+      sha256 = "sha256-sq0A0Hme8v759Q/4GTMt/dQ5z5fIiYuKYjRz54aRDic=";
     };
   };
   noisemaker = {
@@ -82,7 +82,7 @@
     version = "latest";
     src = fetchurl {
       url = "https://tal-software.com/downloads/plugins/TAL-Pha_64_linux.zip";
-      sha256 = "sha256-u+yikSkKHrvXustpKEM7HEMCTxn4zcsNjqENaZ2u1Qk=";
+      sha256 = "sha256-OGG3bUhrg3iiH2RHVKSwds3sV8pMFTmZFLmVH8ajT1M=";
     };
   };
   reverb-4 = {
@@ -98,7 +98,7 @@
     version = "latest";
     src = fetchurl {
       url = "https://tal-software.com/downloads/plugins/TAL-Sampler_64_linux.zip";
-      sha256 = "sha256-golt5Zmq8X4FoH+A7TNvjG9s0y1AsZ6X+GYduYuXHaI=";
+      sha256 = "sha256-K0FdelhBm5GkrImcM5myEUpzPRAUJaTgUiirhk7Cmgw=";
     };
   };
   u-no-lx = {
@@ -106,7 +106,7 @@
     version = "latest";
     src = fetchurl {
       url = "https://tal-software.com/downloads/plugins/TAL-U-NO-LX-V2_64_linux.zip";
-      sha256 = "sha256-KgegZLvI8SxhO2XarSlZuVoeHk7ue97iZUXvMd8YJX8=";
+      sha256 = "sha256-G6XsgXYO6ZQJicpACl9ujgY/PbodGaY5J+ozw8Zn35w=";
     };
   };
   vocoder = {

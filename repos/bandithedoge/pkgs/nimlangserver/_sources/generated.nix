@@ -35,17 +35,17 @@
   };
   faststreams = {
     pname = "faststreams";
-    version = "11b9d952a80ec87e2443405a6a5382f9daac51f8";
+    version = "dbc4a95df60238157dcf286f6125188cb72f37c1";
     src = fetchgit {
       url = "https://github.com/status-im/nim-faststreams";
-      rev = "11b9d952a80ec87e2443405a6a5382f9daac51f8";
+      rev = "dbc4a95df60238157dcf286f6125188cb72f37c1";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [];
-      sha256 = "sha256-UESH9EAZoKOkKYpd0n+W3SeykaNT3jSM1U2/I1ZPAFY=";
+      sha256 = "sha256-wLevr9wZYE5vPE5yxbp0ZwsegJx4pEQOaO3rKh8NcP8=";
     };
-    date = "2024-04-03";
+    date = "2024-06-26";
   };
   json-rpc = {
     pname = "json-rpc";
