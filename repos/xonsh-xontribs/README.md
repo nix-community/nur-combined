@@ -11,23 +11,23 @@
 
 The following xontribs are available in this NUR repo:
 
-- [xontrib-abbrevs](https://github.com/xonsh/xontrib-abbrevs) (Thanks to [Greg Hellsings Branch](https://github.com/greg-hellings/nixpkgs/tree/add_xontrib_pkgs) / [PR](https://github.com/NixOS/nixpkgs/pull/241386/files))
-- [xontrib-bashisms](https://github.com/xonsh/xontrib-bashisms) (Thanks to [Greg Hellsings Branch](https://github.com/greg-hellings/nixpkgs/tree/add_xontrib_pkgs) / [PR](https://github.com/NixOS/nixpkgs/pull/241386/files))
+- [xontrib-abbrevs](https://github.com/xonsh/xontrib-abbrevs)
+- [xontrib-bashisms](https://github.com/xonsh/xontrib-bashisms)
 - [xontrib-chatgpt](https://github.com/jpal91/xontrib-chatgpt)
 - [xontrib-clp](https://github.com/anki-code/xontrib-clp)
-- [xontrib-debug-tools](https://github.com/xonsh/xontrib-debug-tools) (Thanks to [Greg Hellsings Branch](https://github.com/greg-hellings/nixpkgs/tree/add_xontrib_pkgs) / [PR](https://github.com/NixOS/nixpkgs/pull/241386/files))
+- [xontrib-debug-tools](https://github.com/xonsh/xontrib-debug-tools)
 - [xontrib-direnv](https://github.com/74th/xonsh-direnv)
-- [xontrib-distributed](https://github.com/xonsh/xontrib-distributed) (Thanks to [Greg Hellsings Branch](https://github.com/greg-hellings/nixpkgs/tree/add_xontrib_pkgs) / [PR](https://github.com/NixOS/nixpkgs/pull/241386/files))
+- [xontrib-distributed](https://github.com/xonsh/xontrib-distributed)
 - [xontrib-dot-dot](https://github.com/yggdr/xontrib-dotdot)
-- [xontrib-fish-completer](https://github.com/xonsh/xontrib-fish-completer) (Thanks to [Greg Hellsings Branch](https://github.com/greg-hellings/nixpkgs/tree/add_xontrib_pkgs) / [PR](https://github.com/NixOS/nixpkgs/pull/241386/files))
+- [xontrib-fish-completer](https://github.com/xonsh/xontrib-fish-completer)
 - [xontrib-gitinfo](https://github.com/dyuri/xontrib-gitinfo)
-- [xontrib-jedi](https://github.com/xonsh/xontrib-jedi) (Thanks to [Greg Hellsings Branch](https://github.com/greg-hellings/nixpkgs/tree/add_xontrib_pkgs) / [PR](https://github.com/NixOS/nixpkgs/pull/241386/files))
-- [xontrib-jupyter](https://github.com/xonsh/xontrib-jupyter) (Thanks to [Greg Hellsings Branch](https://github.com/greg-hellings/nixpkgs/tree/add_xontrib_pkgs) / [PR](https://github.com/NixOS/nixpkgs/pull/241386/files))
+- [xontrib-jedi](https://github.com/xonsh/xontrib-jedi)
+- [xontrib-jupyter](https://github.com/xonsh/xontrib-jupyter)
 - [xontrib-prompt-starship](https://github.com/anki-code/xontrib-prompt-starship)
 - [xontrib-readable-traceback](https://github.com/vaaaaanquish/xontrib-readable-traceback)
 - [xontrib-sh](https://github.com/anki-code/xontrib-sh)
 - [xontrib-term-integrations](https://github.com/jnoortheen/xontrib-term-integrations)
-- [xontrib-vox](https://github.com/xonsh/xontrib-vox) (Thanks to [Greg Hellsings Branch](https://github.com/greg-hellings/nixpkgs/tree/add_xontrib_pkgs) / [PR](https://github.com/NixOS/nixpkgs/pull/241386/files))
+- [xontrib-vox](https://github.com/xonsh/xontrib-vox)
 - [xontrib-zoxide](https://github.com/dyuri/xontrib-zoxide)
 
 ## Usage

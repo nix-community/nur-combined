@@ -84,7 +84,7 @@ python3.pkgs.buildPythonPackage {
         license = ''
             $license
         '';
-        description = "xonsh direnv";
+        description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) [how-to](https://github.com/drmikecrowe/nur-packages) xonsh direnv";
     };
 }
 """).substitute(**info)
@@ -95,7 +95,8 @@ if len(sys.argv) != 2:
 
 xontrib = sys.argv[1]
 output_path = os.path.join("pkgs", xontrib)
-os.makedirs(output_path)
+if not os.path.exists(output_path):
+    os.makedirs(output_path)
 output = os.path.join(output_path, "default.nix")
 template = get_template(xontrib)
 open(output, "w").write(template)

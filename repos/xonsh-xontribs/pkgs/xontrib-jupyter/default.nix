@@ -1,51 +1,29 @@
 {
-  buildPythonPackage,
-  lib,
-  fetchFromGitHub,
   pkgs,
-  jupyter-client,
-  poetry-core,
-  pytestCheckHook,
-  xonsh,
+  python3,
 }:
-buildPythonPackage rec {
+python3.pkgs.buildPythonPackage {
   pname = "xontrib-jupyter";
   version = "0.3.0";
-  format = "pyproject";
-
-  src = fetchFromGitHub {
+  src = pkgs.fetchFromGitHub {
     owner = "xonsh";
     repo = "xontrib-jupyter";
-    rev = "v${version}";
-    hash = "sha256-2+N6bEXcZfviGNf20VJOPdh/L8kDeSktvnKMuQEo37U=";
+    rev = "8b3b29312e0fea6259a6fd4f35ecd00c5efa5e8b";
+    sha256 = "sha256-2+N6bEXcZfviGNf20VJOPdh/L8kDeSktvnKMuQEo37U=";
   };
 
-  prePatch = ''
-    substituteInPlace pyproject.toml \
-      --replace 'xonsh = ">=0.12"' ""
-  '';
+  doCheck = false;
 
-  nativeBuildInputs = [
-    poetry-core
+  nativeBuildInputs = with pkgs.python3Packages; [
+    setuptools
+    wheel
   ];
 
-  propagatedBuildInputs = [
-    jupyter-client
-  ];
-
-  preCheck = ''
-    export HOME=$TMPDIR
-  '';
-
-  checkInputs = [
-    pytestCheckHook
-    xonsh
-  ];
-
-  meta = with lib; {
-    description = "Xonsh jupyter kernel allows to run Xonsh shell code in Jupyter, JupyterLab, Euporia, etc.";
+  meta = {
     homepage = "https://github.com/xonsh/xontrib-jupyter";
-    license = licenses.mit;
-    maintainers = [maintainers.greg];
+    license = ''
+      MIT
+    '';
+    description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) [how-to](https://github.com/drmikecrowe/nur-packages) xonsh direnv";
   };
 }

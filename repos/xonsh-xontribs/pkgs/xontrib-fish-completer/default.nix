@@ -1,41 +1,29 @@
 {
-  buildPythonPackage,
-  lib,
-  fetchFromGitHub,
-  pytestCheckHook,
-  pytest-subprocess,
-  xonsh,
+  pkgs,
+  python3,
 }:
-buildPythonPackage rec {
+python3.pkgs.buildPythonPackage {
   pname = "xontrib-fish-completer";
   version = "0.0.1";
-
-  src = fetchFromGitHub {
+  src = pkgs.fetchFromGitHub {
     owner = "xonsh";
     repo = "xontrib-fish-completer";
-    rev = version;
-    hash = "sha256-OB1O5GZYkg7Ucaqak3MncnQWXhMD4BM4wXsYCDD0mhk=";
+    rev = "b09f7e04af45ba4dbb4006de96f0c4b68f63bda3";
+    sha256 = "sha256-PhhdZ3iLPDEIG9uDeR5ctJ9zz2+YORHBhbsiLrJckyA=";
   };
 
-  prePatch = ''
-    substituteInPlace pyproject.toml \
-      --replace '"xonsh>=0.12.5"' ""
-  '';
+  doCheck = false;
 
-  preCheck = ''
-    export HOME=$TMPDIR
-  '';
-
-  checkInputs = [
-    pytestCheckHook
-    pytest-subprocess
-    xonsh
+  nativeBuildInputs = with pkgs.python3Packages; [
+    setuptools
+    wheel
   ];
 
-  meta = with lib; {
-    description = "Populate rich completions using fish and remove the default bash based completer";
+  meta = {
     homepage = "https://github.com/xonsh/xontrib-fish-completer";
-    license = licenses.mit;
-    maintainers = [maintainers.greg];
+    license = ''
+      MIT License  Copyright (c) 2023, xontrib-fish-completer  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    '';
+    description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) [how-to](https://github.com/drmikecrowe/nur-packages) xonsh direnv";
   };
 }

@@ -1,50 +1,29 @@
 {
-  buildPythonPackage,
-  lib,
-  fetchFromGitHub,
-  jedi,
-  poetry-core,
-  pytestCheckHook,
-  xonsh,
+  pkgs,
+  python3,
 }:
-buildPythonPackage rec {
+python3.pkgs.buildPythonPackage {
   pname = "xontrib-jedi";
   version = "0.0.2";
-  format = "pyproject";
-
-  src = fetchFromGitHub {
+  src = pkgs.fetchFromGitHub {
     owner = "xonsh";
     repo = "xontrib-jedi";
-    rev = "v${version}";
-    hash = "sha256-os5Stogtvj1jjh2gwSvfiAho83rSpVdWYNjoXHsOk4M=";
+    rev = "10c6ee341f65812a06145d097b06ace8bc2cf154";
+    sha256 = "sha256-cVlom9Ez3kxZTgm3dWfAJQ+DdhuACM76p6NvbyPrLyc=";
   };
 
-  prePatch = ''
-    substituteInPlace pyproject.toml \
-      --replace 'xonsh = ">=0.12"' ""
-  '';
+  doCheck = false;
 
-  nativeBuildInputs = [
-    poetry-core
+  nativeBuildInputs = with pkgs.python3Packages; [
+    setuptools
+    wheel
   ];
 
-  propagatedBuildInputs = [
-    jedi
-  ];
-
-  preCheck = ''
-    export HOME=$TMPDIR
-  '';
-
-  checkInputs = [
-    pytestCheckHook
-    xonsh
-  ];
-
-  meta = with lib; {
-    description = "Xonsh Python mode completions using jedi";
+  meta = {
     homepage = "https://github.com/xonsh/xontrib-jedi";
-    license = licenses.mit;
-    maintainers = [maintainers.greg];
+    license = ''
+      MIT
+    '';
+    description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) [how-to](https://github.com/drmikecrowe/nur-packages) xonsh direnv";
   };
 }

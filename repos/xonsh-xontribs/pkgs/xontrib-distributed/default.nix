@@ -1,49 +1,29 @@
 {
-  buildPythonPackage,
-  lib,
-  fetchFromGitHub,
-  distributed,
-  poetry-core,
-  pytestCheckHook,
-  xonsh,
+  pkgs,
+  python3,
 }:
-buildPythonPackage rec {
+python3.pkgs.buildPythonPackage {
   pname = "xontrib-distributed";
   version = "0.0.4";
-  format = "pyproject";
-
-  src = fetchFromGitHub {
+  src = pkgs.fetchFromGitHub {
     owner = "xonsh";
     repo = "xontrib-distributed";
-    rev = version;
-    hash = "sha256-Hb7S3PqHi0w6zb9ki8ADMtgdYVv8O5WQZMgJzKF74qE=";
+    rev = "91420b6819dda54ee8cc445beb41c1401ce053a9";
+    sha256 = "sha256-/r9BNUaMMEtMzLNpeYjhlrrsNJJXCVTHsWsIYStDFA8=";
   };
 
-  prePatch = ''
-    substituteInPlace pyproject.toml \
-      --replace 'xonsh = ">=0.12"' ""
-  '';
-
-  nativeBuildInputs = [
-    poetry-core
-  ];
-
-  propagatedBuildInputs = [
-    distributed
-  ];
-
-  # v0.0.4 has no tests associated with it
   doCheck = false;
 
-  checkInputs = [
-    pytestCheckHook
-    xonsh
+  nativeBuildInputs = with pkgs.python3Packages; [
+    setuptools
+    wheel
   ];
 
-  meta = with lib; {
-    description = "Dask Distributed integration for Xonsh";
+  meta = {
     homepage = "https://github.com/xonsh/xontrib-distributed";
-    license = licenses.mit;
-    maintainers = [maintainers.greg];
+    license = ''
+      MIT
+    '';
+    description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) [how-to](https://github.com/drmikecrowe/nur-packages) xonsh direnv";
   };
 }

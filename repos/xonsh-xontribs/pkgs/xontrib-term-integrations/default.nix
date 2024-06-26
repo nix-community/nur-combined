@@ -39,6 +39,6 @@ in
       license = ''
         MIT
       '';
-      description = "xonsh term-integration";
+      description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) [how-to](https://github.com/drmikecrowe/nur-packages) xonsh term-integration";
     };
   }

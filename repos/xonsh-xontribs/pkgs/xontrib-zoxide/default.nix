@@ -30,6 +30,6 @@ python3.pkgs.buildPythonPackage {
   meta = {
     homepage = "https://github.com/dyuri/xontrib-zoxide";
     license = "MIT";
-    description = "xonsh zoxide xontrib";
+    description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) [how-to](https://github.com/drmikecrowe/nur-packages) xonsh zoxide xontrib";
   };
 }
