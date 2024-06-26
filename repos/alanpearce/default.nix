@@ -11,7 +11,7 @@
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules; # NixOS modules
+  modules = import ./modules/nixos; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
   prettier-plugin-go-template = pkgs.callPackage ./pkgs/prettier-plugin-go-template { };
