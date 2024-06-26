@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) maintainers types mkIf mkMerge mkOption;
+  inherit (lib) types mkIf mkMerge mkOption;
   cfg = config.defaultajAgordoj.gaming;
 
 in
@@ -76,5 +76,4 @@ in
     }
   ]);
 
-  meta.maintainers = with maintainers; [ wolfangaukang ];
 }

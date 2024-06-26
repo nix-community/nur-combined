@@ -28,35 +28,73 @@ in
     stremio
   ];
 
-  services.kanshi.profiles = {
-    undocked.outputs = [
-      (generateKanshiOutput hostDefaults hostname)
-    ];
-    connected.outputs = [
-      (generateKanshiOutput hostDefaults hostname)
-      ((generateKanshiOutput hostDefaults "irazu") // { position = "0,-1080"; })
-    ];
-  };
+  services.kanshi.settings = [
+    {
+      profile = {
+        name = "docked";
+        outputs = [
+          (generateKanshiOutput hostDefaults hostname)
+        ];
+      };
+    }
+    {
+      profile = {
+        name = "connected";
+        outputs = [
+          (generateKanshiOutput hostDefaults hostname)
+          ((generateKanshiOutput hostDefaults "irazu") // { position = "0,-1080"; })
+        ];
+      };
+    }
+  ];
 
-  wayland.windowManager.hyprland.settings = {
-    monitor = generateHyprlandMonitorConfig hostDefaults hostname;
-    gestures = {
-      workspace_swipe = true;
-      workspace_swipe_fingers = 3;
-      workspace_swipe_forever = false;
-      #workspace_swipe_numbered = true;
+  wayland.windowManager = {
+    sway = {
+      config = {
+        input = {
+          "1:1:AT_Translated_Set_2_keyboard" = {
+            xkb_variant = "colemak,";
+            xkb_layout = "colemak-bs_cl";
+            xkb_options = "compose:ralt";
+          };
+          "type:touchpad" = {
+            tap = "enabled";
+            natural_scroll = "enabled";
+          };
+        };
+        keybindings = {
+          "XF86MonBrightnessDown" = "exec --no-startup-id ${commands.brightness} set 5%-";
+          "XF86MonBrightnessUp" = "exec --no-startup-id ${commands.brightness} set 5%+";
+          "XF86AudioLowerVolume" = "exec --no-startup-id ${commands.volume} -d 5";
+          "XF86AudioRaiseVolume" = "exec --no-startup-id ${commands.volume} -i 5";
+          "XF86AudioMute" = "exec --no-startup-id ${commands.volumeMute}";
+          #"XF86Sleep" = "exec ${commands.lock}";
+        };
+      };
+      extraConfig = ''
+        bindgesture swipe:left workspace next
+        bindgesture swipe:right workspace prev
+      '';
     };
-    bindl = [
-      ", switch:on:Lid Switch, exec, ${commands.lock}"
-      ", switch:off:Lid Switch, exec, systemctl suspend"
-    ];
-    bind = [
-      ", XF86MonBrightnessDown, exec, ${commands.brightness} set 5%-"
-      ", XF86MonBrightnessUp, exec, ${commands.brightness} set 5%+"
-      ", XF86AudioLowerVolume, exec, ${commands.volume} -d 5"
-      ", XF86AudioRaiseVolume, exec, ${commands.volume} -i 5"
-      ", XF86AudioMute, exec, ${commands.volumeMute}"
-      ", XF86Sleep, exec, ${commands.lock}"
-    ];
+    hyprland.settings = {
+      monitor = generateHyprlandMonitorConfig hostDefaults hostname;
+      gestures = {
+        workspace_swipe = true;
+        workspace_swipe_fingers = 3;
+        workspace_swipe_forever = false;
+        #workspace_swipe_numbered = true;
+      };
+      bindl = [
+        ", switch:off:Lid Switch, exec, systemctl suspend"
+      ];
+      bind = [
+        ", XF86MonBrightnessDown, exec, ${commands.brightness} set 5%-"
+        ", XF86MonBrightnessUp, exec, ${commands.brightness} set 5%+"
+        ", XF86AudioLowerVolume, exec, ${commands.volume} -d 5"
+        ", XF86AudioRaiseVolume, exec, ${commands.volume} -i 5"
+        ", XF86AudioMute, exec, ${commands.volumeMute}"
+        ", XF86Sleep, exec, ${commands.lock}"
+      ];
+    };
   };
 }

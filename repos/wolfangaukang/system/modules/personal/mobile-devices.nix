@@ -6,7 +6,6 @@ let
 
 in
 {
-  meta.maintainers = [ wolfangaukang ];
 
   options.profile.mobile-devices = {
     android = {

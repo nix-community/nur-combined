@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) maintainers types mkIf mkMerge mkOption;
+  inherit (lib) types mkIf mkMerge mkOption;
   cfg = config.programs.neofetch;
   shellCommand = "${cfg.package}/bin/neofetch";
 
@@ -52,5 +52,4 @@ in
     }
   ]);
 
-  meta.maintainers = with maintainers; [ wolfangaukang ];
 }

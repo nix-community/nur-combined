@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{ pkgs
+, lib
+, ...
+}:
 
 {
   imports = [
@@ -8,6 +11,7 @@
   environment = {
     systemPackages = with pkgs; [
       pantheon.elementary-files
+      pantheon-tweaks
     ];
     pantheon.excludePackages = with pkgs; [
       # GNOME Browser
@@ -17,7 +21,6 @@
       gnome.geary
     ];
   };
-  programs.pantheon-tweaks.enable = true;
   services = {
     pantheon = {
       apps.enable = false;
@@ -27,5 +30,6 @@
       desktopManager.pantheon.enable = true;
       displayManager.lightdm.greeters.pantheon.enable = true;
     };
+    displayManager.sddm.enable = lib.mkForce false;
   };
 }

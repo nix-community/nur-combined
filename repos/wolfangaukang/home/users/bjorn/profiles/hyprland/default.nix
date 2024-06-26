@@ -115,11 +115,22 @@ in
   # TODO: Kanshi https://sourcegraph.com/github.com/nix-community/home-manager@a561ad6ab38578c812cc9af3b04f2cc60ebf48c9/-/blob/tests/modules/services/kanshi/basic-configuration.nix?L3:14-3:20
   # TODO: Customize Fnott
   services = {
+    fnott.enable = true;
     kanshi = {
       enable = true;
       systemdTarget = "hyprland-session.target";
     };
-    fnott.enable = true;
+    swayidle = {
+      enable = true;
+      events = [
+        { event = "before-sleep"; command = "${commands.lock}"; }
+        { event = "lock"; command = "${commands.lock}"; }
+      ];
+      timeouts = [
+        { timeout = 300; command = "${commands.lock}"; }
+        { timeout = 600; command = "systemctl suspend"; }
+      ];
+    };
   };
   wayland.windowManager.hyprland = {
     enable = osConfig.programs.hyprland.enable;

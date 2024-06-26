@@ -1,6 +1,7 @@
 { config
 , lib
 , pkgs
+, inputs
 , ...
 }:
 
@@ -14,7 +15,6 @@ let
 
 in
 {
-  meta.maintainers = [ wolfangaukang ];
 
   options.profile.specialisations = {
     work.simplerisk = {
@@ -74,6 +74,7 @@ in
       specialisation.simplerisk = {
         inheritParentConfig = true;
         configuration = {
+          imports = [ "${inputs.self}/system/profiles/pantheon.nix" ];
           profile = {
             predicates.unfreePackages = [
               "Oracle_VM_VirtualBox_Extension_Pack"

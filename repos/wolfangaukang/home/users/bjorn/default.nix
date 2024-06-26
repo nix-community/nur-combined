@@ -15,12 +15,18 @@
 
     packages = with pkgs; [
       bc
+      devenv
       htop
       p7zip
       peaclock
       tree
       shellcheck
     ];
+  };
+
+  services.gnome-keyring = {
+    enable = true;
+    components = [ "secrets" ];
   };
 
   # TODO: Review
@@ -48,11 +54,11 @@
     cli = {
       enable = true;
       editors = {
-        helix.enable = true;
-        neovim = {
+        helix = {
           enable = true;
           default = true;
         };
+        neovim.enable = true;
       };
     };
     gui = {
@@ -72,7 +78,9 @@
         keepassxc
         libreoffice
         mpv
+        mupdf
         multifirefox
+        ranger
         raven-reader
         sigil
         thunderbird

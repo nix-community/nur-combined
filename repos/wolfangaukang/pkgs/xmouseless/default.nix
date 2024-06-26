@@ -27,6 +27,5 @@ stdenv.mkDerivation {
     homepage = "https://github.com/jbensmann/xmouseless";
     licenses = licenses.gpl3Only;
     mainProgram = "xmouseless";
-    maintainers = with maintainers; [ wolfangaukang ];
   };
 }

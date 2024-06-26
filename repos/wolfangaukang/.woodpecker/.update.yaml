@@ -17,7 +17,5 @@ steps:
       for template in templates/**/; do
         $(cd $template && nix flake update)
       done
-      nix shell nixpkgs#git -c git add templates/
-      nix shell nixpkgs#git -c git commit -m "templates: update flake"
-      nix shell nixpkgs#git -c git push
+      nix shell nixpkgs#git --command sh -c "if ! \$(git diff-index --quiet HEAD --); then for template in templates/**/; do git add \$template/flake.lock; done; git commit -m \"templates: update flake\"; git push; fi;"
 

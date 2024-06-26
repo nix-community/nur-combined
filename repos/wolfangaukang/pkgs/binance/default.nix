@@ -63,7 +63,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.binance.com/en/desktop-download";
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     license = licenses.unfree;
-    maintainers = with maintainers; [ wolfangaukang ];
     platforms = [ "x86_64-linux" ];
   };
 })

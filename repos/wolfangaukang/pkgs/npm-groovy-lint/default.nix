@@ -26,6 +26,5 @@ buildNpmPackage rec {
     changelog = "https://github.com/nvuillam/npm-groovy-lint/releases/tag/${src.rev}";
     license = lib.licenses.gpl3Plus;
     mainProgram = "npm-groovy-lint";
-    maintainers = with lib.maintainers; [ wolfangaukang ];
   };
 }

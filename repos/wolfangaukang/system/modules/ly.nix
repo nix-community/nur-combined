@@ -47,7 +47,6 @@ let
 
 in
 {
-  meta.maintainers = with maintainers; [ wolfangaukang ];
 
   options = {
     services.xserver.displayManager.ly = {

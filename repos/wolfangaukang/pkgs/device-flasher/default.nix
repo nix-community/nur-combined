@@ -57,6 +57,5 @@ buildGoModule rec {
     license = licenses.asl20;
     platforms = platforms.linux ++ platforms.darwin;
     mainProgram = "device-flasher";
-    maintainers = with maintainers; [ wolfangaukang ];
   };
 }

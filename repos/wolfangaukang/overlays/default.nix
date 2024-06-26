@@ -8,6 +8,7 @@ let
     (import ./local-apps.nix)
     (import ./sab.nix { inherit inputs; })
     (import ./shnsplit-24w.nix)
+    (import ./wayland.nix)
   ];
 
 in

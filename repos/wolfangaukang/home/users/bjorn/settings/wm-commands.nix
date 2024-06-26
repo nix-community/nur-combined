@@ -30,7 +30,7 @@ rec {
   calc = "${getExe rofiwl-custom} -show calc -modi calc -no-show-match -no-sort";
   lock = getExe swaylock;
   menu = "${getExe rofiwl-custom} -show combi -combi-modes 'window,drun' -modes combi";
-  powerMenu = "${getExe rofiwl-custom} -show menu -modi \"menu:${getExe rofi-power-menu} --choices=shutdown/reboot/suspend\"";
+  powerMenu = "${getExe rofiwl-custom} -show menu -modi \"menu:${getExe rofi-power-menu} --choices=shutdown/reboot/suspend/lockscreen/logout\"";
   screenshot = store: section:
     let
       baseCommand = "${getExe grimshot} --notify ${store} ${section}";

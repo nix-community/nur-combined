@@ -1,7 +1,7 @@
 { pkgs }:
 
 let
-  inherit (pkgs) callPackage electron_13 nodejs-slim_18;
+  inherit (pkgs) callPackage electron_13;
   inherit (pkgs.python3) override;
   perl5Packages = callPackage ./packageSets/perl-packages.nix { inherit (pkgs) lib stdenv fetchurl perlPackages shortenPerlShebang; } // pkgs.perlPackages // { recurseForDerivations = false; };
   python3 =
@@ -28,9 +28,8 @@ in
   nexe = callPackage ./nexe { };
   npm-groovy-lint = callPackage ./npm-groovy-lint { };
   omnibus = callPackage ./omnibus { };
-  pacu = callPythonPackage ./pacu { };
+  typescript-language-server = callPackage ./typescript-language-server { };
   ufbt = callPythonPackage ./ufbt { };
   upwork-wayland = callPythonPackage ./upwork-wayland { };
-  vdhcoapp = callPackage ./vdhcoapp { nodejs = nodejs-slim_18; };
   xmouseless = callPackage ./xmouseless { };
 }

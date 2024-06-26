@@ -14,6 +14,5 @@ bundlerEnv {
     changelog = "https://github.com/chef/omnibus/blob/${version}/CHANGELOG.md";
     homepage = "https://github.com/chef/omnibus";
     license = licenses.asl20;
-    maintainers = with maintainers; [ wolfangaukang ];
   };
 }

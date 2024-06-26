@@ -31,6 +31,5 @@ buildPythonPackage rec {
     homepage = "https://github.com/benkehoe/aws-error-utils";
     changelog = "https://github.com/benkehoe/aws-error-utils/releases/tag/${src.rev}";
     licenses = licenses.asl20;
-    maintainers = with maintainers; [ wolfangaukang ];
   };
 }

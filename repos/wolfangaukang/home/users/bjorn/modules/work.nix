@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) concatStrings maintainers types mkIf mkMerge mkOption;
+  inherit (lib) concatStrings types mkIf mkMerge mkOption;
   inherit (pkgs.nur.repos.rycee) firefox-addons;
   settings.firefox = import ../settings/firefox { inherit config lib pkgs; };
 
@@ -44,7 +44,7 @@ in
       ];
       programs = {
         firefox.profiles.work = {
-          id = 4;
+          id = 5;
           search = settings.firefox.searchSettings;
           extensions = settings.firefox.baseExtensions ++ (with firefox-addons; [ keybase ]);
           settings = mkMerge [
@@ -183,5 +183,4 @@ in
     })
   ];
 
-  meta.maintainers = with maintainers; [ wolfangaukang ];
 }

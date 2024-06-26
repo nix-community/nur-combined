@@ -7,7 +7,6 @@ let
 
 in
 {
-  meta.maintainers = with maintainers; [ wolfangaukang ];
 
   options = {
     services.cloudflare-warp = {

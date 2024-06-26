@@ -4,12 +4,11 @@ version = "0.0.1"
 description = "Template for Python projects that uses Poetry"
 authors = ["P. R. d. O. <d.ol.rod@tutanota.com>"]
 exclude = [
-  "**/*.nix",
-  "flake.lock"
+  "**/devenv.*"
 ]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.11"
 
 [tool.poetry.dev-dependencies]
 black = "^23.10"

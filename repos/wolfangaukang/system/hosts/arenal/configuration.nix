@@ -18,7 +18,7 @@ in
     ./disk-setup.nix
     ./hardware-configuration.nix
     "${self}/system/profiles/workstation.nix"
-    "${self}/system/profiles/hyprland.nix"
+    "${self}/system/profiles/sway.nix"
   ];
 
   # TODO: Change until VirtualBox can be built
@@ -55,7 +55,6 @@ in
       };
     };
     virtualization.podman.enable = true;
-    specialisations.work.simplerisk.enable = true;
   };
   sops.secrets."machine_id" = {
     sopsFile = ./secrets.yml;

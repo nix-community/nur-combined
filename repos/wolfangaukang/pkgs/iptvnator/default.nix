@@ -26,7 +26,6 @@ appimageTools.wrapType2 {
     homepage = "https://github.com/4gray/iptvnator";
     changelog = "https://github.com/4gray/iptvnator/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ wolfangaukang ];
     mainProgram = "iptvnator";
     platforms = [ "x86_64-linux" ];
   };

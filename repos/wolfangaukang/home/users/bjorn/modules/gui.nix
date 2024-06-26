@@ -5,7 +5,7 @@
 }:
 
 let
-  inherit (lib) maintainers types mkEnableOption mkIf mkMerge mkOption;
+  inherit (lib) types mkEnableOption mkIf mkMerge mkOption;
   cfg = config.defaultajAgordoj.gui;
   ccfg = config.defaultajAgordoj.cli;
   jsonFormat = pkgs.formats.json { };
@@ -228,5 +228,4 @@ in
     })
   ]);
 
-  meta.maintainers = with maintainers; [ wolfangaukang ];
 }

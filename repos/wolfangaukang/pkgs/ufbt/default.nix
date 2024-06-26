@@ -28,6 +28,5 @@ buildPythonApplication rec {
     changelog = "https://github.com/flipperdevices/flipperzero-ufbt/releases/tag/${src.rev}";
     license = lib.licenses.gpl3Only;
     mainProgram = "ufbt";
-    maintainers = [ lib.maintainers.wolfangaukang ];
   };
 }

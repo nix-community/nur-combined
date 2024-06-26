@@ -6,7 +6,7 @@
     nodePackages.bash-language-server
 
     # Docker
-    nodePackages.dockerfile-language-server-nodejs
+    dockerfile-language-server-nodejs
 
     # Lua
     lua-language-server
@@ -16,10 +16,10 @@
 
     # Python
     # TODO: See how to set up python-lsp-server
-    nodePackages.pyright
+    pyright
 
     # YAML
-    nodePackages.yaml-language-server
+    yaml-language-server
 
     # Rust
     rust-analyzer

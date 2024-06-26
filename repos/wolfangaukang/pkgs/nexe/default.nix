@@ -22,6 +22,5 @@ buildNpmPackage {
     homepage = "https://github.com/nexe/nexe";
     licenses = lib.licenses.mit;
     mainProgram = "nexe";
-    maintainers = with lib.maintainers; [ wolfangaukang ];
   };
 }

@@ -9,7 +9,6 @@ let
 
 in
 {
-  meta.maintainers = [ wolfangaukang ];
 
   options.profile.predicates = {
     unfreePackages = mkOption {

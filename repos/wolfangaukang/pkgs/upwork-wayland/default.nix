@@ -41,7 +41,6 @@ buildPythonApplication {
     license = licenses.free;
     platforms = platforms.linux;
     mainProgram = "upwork-wayland";
-    maintainers = with maintainers; [ wolfangaukang ];
   };
 
 }

@@ -21,6 +21,5 @@ buildGoModule {
     homepage = "https://github.com/arminc/clair-scanner";
     licenses = licenses.asl20;
     mainProgram = "clair-scanner";
-    maintainers = with maintainers; [ wolfangaukang ];
   };
 }

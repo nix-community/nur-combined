@@ -45,6 +45,5 @@ buildPythonApplication rec {
     changelog = "https://github.com/ermetic/access-undenied-aws/releases/tag/${src.rev}";
     licenses = licenses.asl20;
     mainProgram = "access-undenied-aws";
-    maintainers = with maintainers; [ wolfangaukang ];
   };
 }

@@ -28,7 +28,7 @@ in
       {
         surtsey = {
           inherit user;
-          hostname = obtainIPV4Address "grimsnes" "brume";
+          hostname = obtainIPV4Address "surtsey" "brume";
           identityFile = [ "${config.home.homeDirectory}/.ssh/Keys/devices/surtsey" ];
         };
         grimsnes = {

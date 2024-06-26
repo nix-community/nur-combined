@@ -1,7 +1,7 @@
 { config, lib, pkgs, inputs, ... }:
 
 let
-  inherit (lib) maintainers types mkIf mkMerge mkOption;
+  inherit (lib) types mkIf mkMerge mkOption;
   inherit (inputs) self dotfiles;
 
   settings = {
@@ -76,7 +76,7 @@ in
           '';
         };
         default = mkOption {
-          default = true;
+          default = false;
           type = types.bool;
           description = ''
             Sets Neovim as default editor
@@ -190,5 +190,4 @@ in
     })
   ]));
 
-  meta.maintainers = with maintainers; [ wolfangaukang ];
 }

@@ -15,6 +15,5 @@ buildGoModule {
     homepage = "https://github.com/myrepo/myprogram";
     licenses = licenses.gpl3Only;
     mainProgram = "hello";
-    maintainers = with maintainers; [ wolfangaukang ];
   };
 }

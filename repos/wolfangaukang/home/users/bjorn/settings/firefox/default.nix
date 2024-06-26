@@ -3,6 +3,22 @@
 let
   inherit (pkgs.nur.repos.rycee) firefox-addons;
   searchEngines = import ./engines.nix;
+  shutdownSettings = {
+    "browser.privatebrowsing.autostart" = true;
+    "browser.startup.homepage" = "about:blank";
+    # https://www.eff.org/https-everywhere/set-https-default-your-browser
+    "dom.security.https_only_mode" = true;
+    "privacy.clearOnShutdown.cache" = true;
+    "privacy.clearOnShutdown.cookies" = true;
+    "privacy.clearOnShutdown.downloads" = true;
+    "privacy.clearOnShutdown.formdata" = true;
+    "privacy.clearOnShutdown.history" = true;
+    "privacy.clearOnShutdown.offlineApps" = true;
+    "privacy.clearOnShutdown.openWindows" = true;
+    "privacy.clearOnShutdown.sessions" = true;
+    "privacy.clearOnShutdown.siteSettings" = true;
+    "signon.rememberSignons" = false;
+  };
 
 in
 rec {
@@ -26,6 +42,7 @@ rec {
     "privacy.donottrackheader.enabled" = true;
     "privacy.trackingprotection.enabled" = true;
     "privacy.trackingprotection.socialtracking.enabled" = true;
+    "ui.systemUsesDarkTheme" = 1;
   };
   baseExtensions = with firefox-addons; [
     auto-tab-discard
@@ -44,27 +61,23 @@ rec {
       extensions = baseExtensions ++ (with firefox-addons; [ darkreader privacy-redirect ]);
       settings = lib.mkMerge [
         (baseSettings)
-        {
-          "browser.privatebrowsing.autostart" = true;
-          "browser.startup.homepage" = "about:blank";
-          # https://www.eff.org/https-everywhere/set-https-default-your-browser
-          "dom.security.https_only_mode" = true;
-          "privacy.clearOnShutdown.cache" = true;
-          "privacy.clearOnShutdown.cookies" = true;
-          "privacy.clearOnShutdown.downloads" = true;
-          "privacy.clearOnShutdown.formdata" = true;
-          "privacy.clearOnShutdown.history" = true;
-          "privacy.clearOnShutdown.offlineApps" = true;
-          "privacy.clearOnShutdown.openWindows" = true;
-          "privacy.clearOnShutdown.sessions" = true;
-          "privacy.clearOnShutdown.siteSettings" = true;
-          "signon.rememberSignons" = false;
-        }
+        (shutdownSettings)
+        
+      ];
+    };
+    default-no-extensions = {
+      search = searchSettings;
+      id = 1;
+      name = "Sandbox (No extensions)";
+      extensions = (with firefox-addons; [ darkreader ]);
+      settings = lib.mkMerge [
+        (baseSettings)
+        (shutdownSettings)
       ];
     };
     personal = {
       search = searchSettings;
-      id = 1;
+      id = 2;
       name = "Personal";
       extensions = baseExtensions ++ (with firefox-addons; [
         addy_io
@@ -72,7 +85,6 @@ rec {
         multi-account-containers
         privacy-redirect
         video-downloadhelper
-        # TODO: Missing keybase and VDH
       ]);
       settings = lib.mkMerge [
         (baseSettings)
@@ -80,7 +92,7 @@ rec {
     };
     gnaujep = {
       search = searchSettings;
-      id = 2;
+      id = 3;
       name = "Gnaujep";
       extensions = baseExtensions ++ (with firefox-addons; [ multi-account-containers ]);
       settings = lib.mkMerge [
@@ -89,7 +101,7 @@ rec {
     };
     j = {
       search = searchSettings;
-      id = 3;
+      id = 4;
       name = "J";
       extensions = baseExtensions ++ (with firefox-addons; [ multi-account-containers ]);
       settings = lib.mkMerge [

@@ -18,9 +18,6 @@ in
   go = mkTemplate {
     path = ./go;
   };
-  hcl2 = mkTemplate {
-    path = ./hcl2;
-  };
   markdown = mkTemplate {
     description = "Sets a Markdown environment with dprint";
     path = ./markdown;

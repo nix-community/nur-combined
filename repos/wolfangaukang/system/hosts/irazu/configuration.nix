@@ -2,6 +2,7 @@
 , pkgs
 , inputs
 , overlays
+, hostname
 , ...
 }:
 
@@ -25,6 +26,8 @@ in
     zfs.package = pkgs.zfs_2_1; # TODO: Change until ZFS support and Virtualbox can be built
     kernelPackages = pkgs.linuxKernel.packages.linux_6_1;
   };
+
+  networking.hostName = hostname;
 
   nixpkgs = {
     inherit overlays;

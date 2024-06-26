@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (lib) maintainers types mkIf mkMerge mkOption;
+  inherit (lib) types mkIf mkMerge mkOption;
   cfg = config.programs.alacritty.tmux;
   cfg_tmux = config.programs.tmux;
   tmux_startup = ''
@@ -47,5 +47,4 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ wolfangaukang ];
 }

@@ -21,6 +21,5 @@ buildGoModule rec {
     changelog = "https://github.com/jbensmann/mouseless/releases/tag/${src.rev}";
     licenses = licenses.mit;
     mainProgram = "mouseless";
-    maintainers = with maintainers; [ wolfangaukang ];
   };
 }
