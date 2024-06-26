@@ -120,6 +120,8 @@ in
 
   replay-sorcery = callPackage ./tools/video/replay-sorcery { };
 
+  sudachi = qt6Packages.callPackage ./by-name/su/sudachi/package.nix { };
+
   swaylock-fprintd = callPackage ./by-name/sw/swaylock-fprintd/package.nix { };
 
   texlab = callPackage ./development/tools/misc/texlab {
@@ -128,9 +130,9 @@ in
 
   themes = recurseIntoAttrs (callPackage ./data/themes { });
 
-  undistract-me = callPackage ./shells/bash/undistract-me { };
-
   ukmm = callPackage ./tools/games/ukmm { };
+
+  undistract-me = callPackage ./shells/bash/undistract-me { };
 
   virtualparadise = callPackage ./games/virtualparadise { inherit (qt5) wrapQtAppsHook; };
 
@@ -150,6 +152,4 @@ in
   zynaddsubfx-fltk = zynaddsubfx.override { guiModule = "fltk"; };
 
   zynaddsubfx-ntk = zynaddsubfx.override { guiModule = "ntk"; };
-
-  sudachi = qt6Packages.callPackage ./by-name/su/sudachi/package.nix { };
 }
