@@ -44,17 +44,17 @@ stdenv.mkDerivation rec {
     runHook preInstall
 
     # copy distributed files
-    mkdir -p $out/opt/Digital-linux-x86
-    cp -R source/* $out/opt/Digital-linux-x86
+    mkdir -p $out/opt/digital
+    cp -R source/* $out/opt/digital
 
     # add launcher
     mkdir -p $out/bin
-    substituteAll ${./launcher.sh} $out/bin/Digital
-    chmod +x $out/bin/Digital
+    substituteAll ${./launcher.sh} $out/bin/digital
+    chmod +x $out/bin/digital
 
     # add desktop file
     mkdir -p $out/share/applications
-    substituteAll ${./Digital.desktop} $out/share/applications/Digital.desktop
+    substituteAll ${./digital.desktop} $out/share/applications/digital.desktop
 
     runHook postInstall
   '';

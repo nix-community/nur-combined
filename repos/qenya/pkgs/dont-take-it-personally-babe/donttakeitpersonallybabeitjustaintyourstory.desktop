@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=don't take it personally, babe, it just ain't your story
+Exec=@out@/bin/donttakeitpersonallybabeitjustaintyourstory
+Icon=@out@/opt/donttakeitpersonallybabeitjustaintyourstory/game/icon256x256.png
+Type=Application
+Categories=Game;
