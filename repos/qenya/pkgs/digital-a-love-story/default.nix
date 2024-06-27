@@ -9,7 +9,7 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "digitalalovestory-bin";
+  pname = "digital-a-love-story";
   version = "1.1";
 
   src = fetchzip {
@@ -47,16 +47,10 @@ stdenv.mkDerivation rec {
     mkdir -p $out/opt/Digital-linux-x86
     cp -R source/* $out/opt/Digital-linux-x86
 
-    # patch paths in entrypoint
-    substituteInPlace $out/opt/Digital-linux-x86/Digital.sh \
-        --replace '${"\${0%.sh}"}' "$out/opt/Digital-linux-x86/Digital" \
-        --replace '`dirname \"$0\"`' "$out/opt/Digital-linux-x86" \
-        --replace '`dirname "$0"`' "$out/opt/Digital-linux-x86" \
-        --replace '`basename "$0"`' 'Digital.sh'
-
-    # link entrypoint to bin directory
+    # add launcher
     mkdir -p $out/bin
-    ln -s $out/opt/Digital-linux-x86/Digital.sh $out/bin/Digital
+    substituteAll ${./launcher.sh} $out/bin/Digital
+    chmod +x $out/bin/Digital
 
     # add desktop file
     mkdir -p $out/share/applications
