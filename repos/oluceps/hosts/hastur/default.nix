@@ -27,6 +27,7 @@
       ./spec.nix
       ./caddy.nix
       # ./nginx.nix
+      ../graphBase.nix
 
       ../persist.nix
       ../secureboot.nix
@@ -37,6 +38,7 @@
 
       ../sysctl.nix
 
+      inputs.niri.nixosModules.niri
       ../../users.nix
 
       inputs.misskey.nixosModules.default

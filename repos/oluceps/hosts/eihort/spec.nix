@@ -23,7 +23,7 @@
     script =
       let
         diskId = map (n: "/dev/disk/by-id/" + n) [
-          "nvme-INTEL_MEMPEK1J016GAH_PHBT82920C53016N"
+          # "nvme-INTEL_MEMPEK1J016GAH_PHBT82920C53016N"
           "wwn-0x5000cca05838bc98"
           "wwn-0x5000cca0583a5e34"
           "wwn-0x5000cca04608e534"
@@ -59,12 +59,13 @@
     openssh.enable = true;
     fail2ban.enable = true;
     phantomsocks.enable = true;
-    mosdns.enable = true;
     dae.enable = true;
+    coredns.enable = true;
     scrutiny.enable = true;
   };
 
   services = {
+    sing-box.enable = true;
     btrfs.autoScrub = {
       enable = true;
       interval = "weekly";

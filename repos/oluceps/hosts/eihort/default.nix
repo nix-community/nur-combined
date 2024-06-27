@@ -6,7 +6,7 @@
 }:
 {
   deployment = {
-    targetHost = "10.0.1.6";
+    targetHost = "192.168.1.158";
     targetPort = 22;
     targetUser = user;
     privilegeEscalationCommand = [

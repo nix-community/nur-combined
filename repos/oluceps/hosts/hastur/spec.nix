@@ -27,6 +27,7 @@
     dates = "weekly";
     options = "--delete-older-than 10d";
   };
+  programs.sway.enable = true;
 
   systemd = {
     services = {
