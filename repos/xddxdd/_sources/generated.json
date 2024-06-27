@@ -328,7 +328,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-06-25",
+        "date": "2024-06-27",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -340,12 +340,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "6bd5c7838232ca33e3b37fbec8bef9ed2d45933d",
-            "sha256": "sha256-egSXjgf3W5SbOCeUbwzZCeuXEew+U/Z6tGrVgTnTI3g=",
+            "rev": "c4e79b024390bea8fb4e1b130224b5f59c035d68",
+            "sha256": "sha256-zPIYLkxOCQrIQTY09AwFXfDTG20jo49hsJO6CjAC5nM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6bd5c7838232ca33e3b37fbec8bef9ed2d45933d"
+        "version": "c4e79b024390bea8fb4e1b130224b5f59c035d68"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1323,12 +1323,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3233",
-            "sha256": "sha256-t4heAw9CCwtI4zUYnHmVOZoP+IXcx5GkQQa3QcKFhN4=",
+            "rev": "b3246",
+            "sha256": "sha256-+oOD51J80sr4NuFkv7/vhmEv4c2iSrBouc7kDf5sfO0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3233"
+        "version": "b3246"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -1804,11 +1804,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-P0torUH9LQB+7KHBR7CVYhcI8NInc/nrzMlNbkrXe6U=",
+            "sha256": "sha256-fORvq23Pn6BLcsETZQCpeTTCyK7GTZzw5KZN88v1LOM=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.2.2/PeerBanHelper.jar"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.2.3/PeerBanHelper.jar"
         },
-        "version": "v4.2.2"
+        "version": "v4.2.3"
     },
     "phpmyadmin": {
         "cargoLocks": null,
@@ -2745,12 +2745,12 @@
             "name": null,
             "owner": "FDio",
             "repo": "vpp",
-            "rev": "v24.02",
-            "sha256": "sha256-Cfm0Xzsx2UgUvIIeq5wBN6tA9ynCUa5bslEQk8wbd6E=",
+            "rev": "v24.06",
+            "sha256": "sha256-AbdtH3ha/Bzj9tAkp4OhjRcUZilUEt+At0LukWN2LJU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v24.02"
+        "version": "v24.06"
     },
     "wechat-uos": {
         "cargoLocks": null,

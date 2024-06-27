@@ -183,15 +183,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "6bd5c7838232ca33e3b37fbec8bef9ed2d45933d";
+    version = "c4e79b024390bea8fb4e1b130224b5f59c035d68";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "6bd5c7838232ca33e3b37fbec8bef9ed2d45933d";
+      rev = "c4e79b024390bea8fb4e1b130224b5f59c035d68";
       fetchSubmodules = false;
-      sha256 = "sha256-egSXjgf3W5SbOCeUbwzZCeuXEew+U/Z6tGrVgTnTI3g=";
+      sha256 = "sha256-zPIYLkxOCQrIQTY09AwFXfDTG20jo49hsJO6CjAC5nM=";
     };
-    date = "2024-06-25";
+    date = "2024-06-27";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -733,13 +733,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3233";
+    version = "b3246";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3233";
+      rev = "b3246";
       fetchSubmodules = false;
-      sha256 = "sha256-t4heAw9CCwtI4zUYnHmVOZoP+IXcx5GkQQa3QcKFhN4=";
+      sha256 = "sha256-+oOD51J80sr4NuFkv7/vhmEv4c2iSrBouc7kDf5sfO0=";
     };
   };
   nbfc-linux-lantian = {
@@ -1001,10 +1001,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v4.2.2";
+    version = "v4.2.3";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.2.2/PeerBanHelper.jar";
-      sha256 = "sha256-P0torUH9LQB+7KHBR7CVYhcI8NInc/nrzMlNbkrXe6U=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.2.3/PeerBanHelper.jar";
+      sha256 = "sha256-fORvq23Pn6BLcsETZQCpeTTCyK7GTZzw5KZN88v1LOM=";
     };
   };
   phpmyadmin = {
@@ -1507,13 +1507,13 @@
   };
   vpp = {
     pname = "vpp";
-    version = "v24.02";
+    version = "v24.06";
     src = fetchFromGitHub {
       owner = "FDio";
       repo = "vpp";
-      rev = "v24.02";
+      rev = "v24.06";
       fetchSubmodules = false;
-      sha256 = "sha256-Cfm0Xzsx2UgUvIIeq5wBN6tA9ynCUa5bslEQk8wbd6E=";
+      sha256 = "sha256-AbdtH3ha/Bzj9tAkp4OhjRcUZilUEt+At0LukWN2LJU=";
     };
   };
   wechat-uos = {
