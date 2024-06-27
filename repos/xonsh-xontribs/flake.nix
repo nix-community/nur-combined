@@ -1,5 +1,5 @@
 {
-  description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) [how-to](https://github.com/drmikecrowe/nur-packages) Community Xonsh Xontrib NUR repository";
+  description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) Community Xonsh Xontrib NUR repository";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };

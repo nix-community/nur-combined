@@ -15,6 +15,6 @@ python3.pkgs.buildPythonPackage {
   meta = {
     homepage = "https://github.com/74th/xonsh-direnv";
     license = pkgs.lib.licenses.mit;
-    description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) [how-to](https://github.com/drmikecrowe/nur-packages) xonsh direnv";
+    description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) xonsh direnv";
   };
 }

@@ -38,6 +38,6 @@ in
       license = ''
         MIT
       '';
-      description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) [how-to](https://github.com/drmikecrowe/nur-packages) xonsh direnv";
+      description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) Xonsh kernel for Jupyter Notebook and Jupyter Lab allows to execute";
     };
   }

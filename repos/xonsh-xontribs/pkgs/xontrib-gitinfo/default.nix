@@ -42,6 +42,6 @@ in
       license = ''
         MIT
       '';
-      description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) [how-to](https://github.com/drmikecrowe/nur-packages) xonsh gitinfo";
+      description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) # xontrib-gitinfo";
     };
   }

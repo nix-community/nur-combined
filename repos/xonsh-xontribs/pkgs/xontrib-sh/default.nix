@@ -24,6 +24,6 @@ python3.pkgs.buildPythonPackage {
     license = ''
       BSD
     '';
-    description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) [how-to](https://github.com/drmikecrowe/nur-packages) xonsh direnv";
+    description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) Paste and run commands from bash, fish, zsh, tcsh in [xonsh shell](https://xon.sh).";
   };
 }

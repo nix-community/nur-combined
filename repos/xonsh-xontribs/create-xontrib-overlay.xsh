@@ -87,7 +87,7 @@ in
         license = ''
             $license
         '';
-        description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) [how-to](https://github.com/drmikecrowe/nur-packages) xonsh direnv";
+        description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) xonsh direnv";
     };
 }
 """).substitute(**info)
