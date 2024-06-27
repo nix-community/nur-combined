@@ -4,7 +4,7 @@
 
 ![Build and populate cache](https://github.com/drmikecrowe/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
 
-[![Cachix Cache](https://img.shields.io/badge/cachix-xonsh-xontribs-blue.svg)](https://xonsh-xontribs.cachix.org)
+[![Cachix Cache](https://img.shields.io/badge/cachix-xonsh-xontribs.svg)](https://xonsh-xontribs.cachix.org)
 
 - [Home Page](https://nur.nix-community.org/repos/xonsh-xontribs/)
 - [Github](https://github.com/drmikecrowe/nur-packages)
@@ -51,6 +51,11 @@ in {
   };
 }
 ```
+
+## Cachix Public Keys
+
+- [https://xonsh-xontribs.cachix.org](https://xonsh-xontribs.cachix.org)
+- `xonsh-xontribs.cachix.org-1:LgP0Eb1miAJqjjhDvNafSrzBQ1HEtfNl39kKtgF5LBQ=`
 
 ## Contributing
 
