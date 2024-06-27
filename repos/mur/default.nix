@@ -15,5 +15,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   ayugram-desktop = pkgs.callPackage ./pkgs/ayugram.nix { };
-  zluda-lshqqytiger = pkgs.callPackage ./pkgs/zluda-lshqqytiger.nix { };
+  # zluda-lshqqytiger = pkgs.callPackage ./pkgs/zluda-lshqqytiger.nix { };
 }
