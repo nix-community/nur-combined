@@ -640,10 +640,10 @@
     };
     "batchcamp" = buildFirefoxXpiAddon {
       pname = "batchcamp";
-      version = "1.4.5";
+      version = "1.4.6";
       addonId = "{d44fa1f9-1400-401d-a79e-650d466ec6d6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4305628/batchcamp-1.4.5.xpi";
-      sha256 = "d4a43dc14cb2d60a7585b85c46fed96a8349a7389935c25d1adc1eecf6b0168e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4309868/batchcamp-1.4.6.xpi";
+      sha256 = "718cebc1484e0e41cb414592adc4cf7c5c3411ff525b848d0b7b1205f3b7e1ef";
       meta = with lib;
       {
         homepage = "https://github.com/hyphmongo/batchcamp";
@@ -1959,10 +1959,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.6.2";
+      version = "1.6.4";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4301721/dearrow-1.6.2.xpi";
-      sha256 = "e0d9ad3e32cc8055820011788598f0cdf9adbd55653da980d1ce79bd9955ffc8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4307344/dearrow-1.6.4.xpi";
+      sha256 = "b445a00128140109a5d22c9f03fc76bc9b6ceef4f2be676fa90484e4a8023078";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -2008,10 +2008,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "127.0.20240624.183754";
+      version = "128.0.20240626.91446";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4309149/deutsch_de_language_pack-127.0.20240624.183754.xpi";
-      sha256 = "5e80fbb225eb97c13318c369e45f39e702d915c04c0736e92258948ad26adc0d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4309964/deutsch_de_language_pack-128.0.20240626.91446.xpi";
+      sha256 = "adfb5db30f67d1ce5e69e5b9151199c44755058554a5274721ff1a5c822bdb03";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2229,10 +2229,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.43.1";
+      version = "2.43.2";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4308587/dualsub-2.43.1.xpi";
-      sha256 = "a8ed3831c555e728b780317aa3d23d543f575b66a76e88341f41f10f063bfed8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4310344/dualsub-2.43.2.xpi";
+      sha256 = "a55bf961003e41d729c4f3dad245ea6ef3b029aa4a68aa8fcab94e59c4ed71de";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2974,10 +2974,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "127.0.20240624.183754";
+      version = "128.0.20240626.91446";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4309151/francais_language_pack-127.0.20240624.183754.xpi";
-      sha256 = "4388c00779d9ea84b71098653be5c2244ed1463e7aef864d9a817805f7e028fe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4309939/francais_language_pack-128.0.20240626.91446.xpi";
+      sha256 = "1aeb1e72b984dffaa88664176442fc1f19b43b9abf053de774a14a03838026ab";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -5429,10 +5429,10 @@
     };
     "kagi-search" = buildFirefoxXpiAddon {
       pname = "kagi-search";
-      version = "0.7.0";
+      version = "0.7.1";
       addonId = "search@kagi.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4302254/kagi_search_for_firefox-0.7.0.xpi";
-      sha256 = "78b19871c4afe390dd9e3cebcf47f8136abcd6ed3c7fe51c6eb7cf614cc48c87";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4307128/kagi_search_for_firefox-0.7.1.xpi";
+      sha256 = "78c28702ebe56d920a64010f413540880065c45eae2ee58823941d7e1fd49059";
       meta = with lib;
       {
         homepage = "https://kagi.com";
@@ -11120,10 +11120,10 @@
     };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2024.6.17.766";
+      version = "2024.6.26.1308";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4304693/ublock_origin_lite-2024.6.17.766.xpi";
-      sha256 = "fb9b50bc82188b35678de856f6bcb1b05165e36778a26325990fe03c41bdff7f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4310299/ublock_origin_lite-2024.6.26.1308.xpi";
+      sha256 = "adbfb7fa60f5e6f855fd1ae8ed1d709bd5e410aa5ec40086eed137ed2be78f33";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
@@ -11762,10 +11762,10 @@
     };
     "web-archives" = buildFirefoxXpiAddon {
       pname = "web-archives";
-      version = "6.0.0";
+      version = "6.1.1";
       addonId = "{d07ccf11-c0cd-4938-a265-2a4d6ad01189}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4296435/view_page_archive-6.0.0.xpi";
-      sha256 = "b9787762aa45a905d93266b5db1203a1eb2b3aec9e6fc9938faee86e8d6e65ad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4307780/view_page_archive-6.1.1.xpi";
+      sha256 = "ce2274e4378bff016b5fe1fbd694e27e97eb3156e8517676a694dd57ede1e614";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/web-archives#readme";
