@@ -61,10 +61,13 @@ def get_template(package):
     return Template("""{
   pkgs,
   python3,
-}:
-python3.pkgs.buildPythonPackage {
-    pname = "$pname";
-    version = "$version";
+}: let
+  pname = "$pname";
+  version = "$version";
+in
+  python3.pkgs.buildPythonPackage {
+    inherit pname version;
+
     src = pkgs.fetchFromGitHub {
         owner = "$owner";
         repo = "$repo";

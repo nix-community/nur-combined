@@ -17,7 +17,6 @@
   xontrib-clp = pkgs.callPackage ./pkgs/xontrib-clp {};
   xontrib-debug-tools = pkgs.callPackage ./pkgs/xontrib-debug-tools {};
   xontrib-direnv = pkgs.callPackage ./pkgs/xontrib-direnv {};
-  xontrib-distributed = pkgs.callPackage ./pkgs/xontrib-distributed {};
   xontrib-dot-dot = pkgs.callPackage ./pkgs/xontrib-dot-dot {};
   xontrib-fish-completer = pkgs.callPackage ./pkgs/xontrib-fish-completer {};
   xontrib-gitinfo = pkgs.callPackage ./pkgs/xontrib-gitinfo {};

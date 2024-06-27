@@ -17,7 +17,6 @@ The following xontribs are available in this NUR repo:
 - [xontrib-clp](https://github.com/anki-code/xontrib-clp)
 - [xontrib-debug-tools](https://github.com/xonsh/xontrib-debug-tools)
 - [xontrib-direnv](https://github.com/74th/xonsh-direnv)
-- [xontrib-distributed](https://github.com/xonsh/xontrib-distributed)
 - [xontrib-dot-dot](https://github.com/yggdr/xontrib-dotdot)
 - [xontrib-fish-completer](https://github.com/xonsh/xontrib-fish-completer)
 - [xontrib-gitinfo](https://github.com/dyuri/xontrib-gitinfo)
