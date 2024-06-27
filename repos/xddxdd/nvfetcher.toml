@@ -608,6 +608,10 @@ fetch.github = "ronggang/transmission-web-control"
 src.github = "trumank/uesave-rs"
 fetch.github = "trumank/uesave-rs"
 
+[uesave-0_3_0]
+src.manual = "v0.3.0"
+fetch.github = "trumank/uesave-rs"
+
 [uksmd]
 src.github_tag = "CachyOS/uksmd"
 fetch.github = "CachyOS/uksmd"

@@ -1471,6 +1471,17 @@
       sha256 = "sha256-9gOOSLejVfR1KJMhcNuKDkuTOvPC6sNG8xQOZlt8NxI=";
     };
   };
+  uesave-0_3_0 = {
+    pname = "uesave-0_3_0";
+    version = "v0.3.0";
+    src = fetchFromGitHub {
+      owner = "trumank";
+      repo = "uesave-rs";
+      rev = "v0.3.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-YRn14rF94zSTnFAIRuvw84GDRBaqmns9nvaHCTjhWQg=";
+    };
+  };
   uksmd = {
     pname = "uksmd";
     version = "v1.2.11";

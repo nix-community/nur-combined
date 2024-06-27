@@ -4,8 +4,16 @@
   stdenv,
   makeWrapper,
   python3,
-  uesave,
+  rustPlatform,
 }:
+let
+  uesave-0_3_0 = rustPlatform.buildRustPackage {
+    pname = "uesave";
+    inherit (sources.uesave-0_3_0) version src;
+
+    cargoHash = "sha256-sSiiMtCuSic0PQn4m1Udv2UbEwHUy0VldpGMYSDGh8g=";
+  };
+in
 stdenv.mkDerivation {
   inherit (sources.palworld-worldoptions) pname version src;
 
@@ -23,7 +31,7 @@ stdenv.mkDerivation {
     makeWrapper ${python3}/bin/python3 $out/bin/palworld-worldoptions \
       --add-flags "$out/opt/main.py" \
       --add-flags "--uesave" \
-      --add-flags "${uesave}/bin/uesave"
+      --add-flags "${uesave-0_3_0}/bin/uesave"
   '';
 
   meta = with lib; {

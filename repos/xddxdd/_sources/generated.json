@@ -2668,6 +2668,27 @@
         },
         "version": "v0.5.0"
     },
+    "uesave-0_3_0": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "uesave-0_3_0",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "trumank",
+            "repo": "uesave-rs",
+            "rev": "v0.3.0",
+            "sha256": "sha256-YRn14rF94zSTnFAIRuvw84GDRBaqmns9nvaHCTjhWQg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.3.0"
+    },
     "uksmd": {
         "cargoLocks": null,
         "date": null,
