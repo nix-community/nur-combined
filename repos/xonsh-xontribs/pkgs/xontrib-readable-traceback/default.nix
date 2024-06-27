@@ -14,7 +14,7 @@
     meta = {
       homepage = "https://github.com/nir0s/backtrace";
       license = pkgs.lib.licenses.asl20;
-      description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) [how-to](https://github.com/drmikecrowe/nur-packages) Makes Python tracebacks human friendly";
+      description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) Makes Python tracebacks human friendly";
     };
     prePatch = ''
       touch LICENSE
@@ -35,7 +35,7 @@ in
     meta = {
       homepage = "https://github.com/vaaaaanquish/xontrib-readable-traceback";
       license = pkgs.lib.licenses.mit;
-      description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) [how-to](https://github.com/drmikecrowe/nur-packages) Make traceback easier to see for xonsh.";
+      description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) Make traceback easier to see for xonsh.";
     };
     propagatedBuildInputs = [backtrace];
     prePatch = ''
