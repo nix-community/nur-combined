@@ -136,15 +136,15 @@
           "10.0.2.3/24"
         ];
         DHCP = "no";
-        routes = [
-          {
-            routeConfig = {
-              Destination = "192.168.1.0/24";
-              Gateway = "10.0.2.3";
-              Scope = "link";
-            };
-          }
-        ];
+        # routes = [
+        #   {
+        #     routeConfig = {
+        #       Destination = "192.168.1.0/24";
+        #       Gateway = "10.0.2.3";
+        #       Scope = "link";
+        #     };
+        #   }
+        # ];
       };
 
       "20-wireless" = {

@@ -12,9 +12,6 @@
   users.mutableUsers = false;
   system.etc.overlay.mutable = false;
 
-  hardware.opengl.driSupport = true;
-  # For 32 bit applications
-  hardware.opengl.driSupport32Bit = true;
   hardware.opengl.extraPackages = with pkgs; [
     rocm-opencl-icd
     rocm-opencl-runtime
