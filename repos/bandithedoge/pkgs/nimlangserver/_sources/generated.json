@@ -121,7 +121,7 @@
   },
   "serialization": {
     "cargoLocks": null,
-    "date": "2024-06-13",
+    "date": "2024-06-26",
     "extract": null,
     "name": "serialization",
     "passthru": null,
@@ -131,13 +131,13 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "005ee90cb6aa563cdd690910455ea05f916ead3f",
-      "sha256": "sha256-nqP2/XqTfCDipWeNNhWOOONBpmAfdpGA/aUJTpNqumY=",
+      "rev": "298a9554a885b2df59737bb3461aac8d0d339724",
+      "sha256": "sha256-z/x3VzY93SjR9RaEB8XDWdi2fHdIn3+BHYPW+dA5cOo=",
       "sparseCheckout": [],
       "type": "git",
       "url": "https://github.com/status-im/nim-serialization"
     },
-    "version": "005ee90cb6aa563cdd690910455ea05f916ead3f"
+    "version": "298a9554a885b2df59737bb3461aac8d0d339724"
   },
   "stew": {
     "cargoLocks": null,

@@ -91,17 +91,17 @@
   };
   serialization = {
     pname = "serialization";
-    version = "005ee90cb6aa563cdd690910455ea05f916ead3f";
+    version = "298a9554a885b2df59737bb3461aac8d0d339724";
     src = fetchgit {
       url = "https://github.com/status-im/nim-serialization";
-      rev = "005ee90cb6aa563cdd690910455ea05f916ead3f";
+      rev = "298a9554a885b2df59737bb3461aac8d0d339724";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [];
-      sha256 = "sha256-nqP2/XqTfCDipWeNNhWOOONBpmAfdpGA/aUJTpNqumY=";
+      sha256 = "sha256-z/x3VzY93SjR9RaEB8XDWdi2fHdIn3+BHYPW+dA5cOo=";
     };
-    date = "2024-06-13";
+    date = "2024-06-26";
   };
   stew = {
     pname = "stew";

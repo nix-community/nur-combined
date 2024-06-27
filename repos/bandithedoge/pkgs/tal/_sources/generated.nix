@@ -106,7 +106,7 @@
     version = "latest";
     src = fetchurl {
       url = "https://tal-software.com/downloads/plugins/TAL-U-NO-LX-V2_64_linux.zip";
-      sha256 = "sha256-G6XsgXYO6ZQJicpACl9ujgY/PbodGaY5J+ozw8Zn35w=";
+      sha256 = "sha256-iM5j4sXec8QvnDitXefkA8rOazp8FQftegsuFFpqaxs=";
     };
   };
   vocoder = {
