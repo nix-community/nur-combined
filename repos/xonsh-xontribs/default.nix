@@ -13,6 +13,7 @@
 
   xontrib-abbrevs = pkgs.callPackage ./pkgs/xontrib-abbrevs {};
   xontrib-bashisms = pkgs.callPackage ./pkgs/xontrib-bashisms {};
+  xontrib-broot = pkgs.callPackage ./pkgs/xontrib-broot {};
   xontrib-chatgpt = pkgs.callPackage ./pkgs/xontrib-chatgpt {};
   xontrib-clp = pkgs.callPackage ./pkgs/xontrib-clp {};
   xontrib-debug-tools = pkgs.callPackage ./pkgs/xontrib-debug-tools {};
