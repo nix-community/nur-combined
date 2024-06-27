@@ -1,5 +1,5 @@
 {
-  # https://nixos.wiki/wiki/Steam
+  # https://wiki.nixos.org/wiki/Steam
   hardware = {
     opengl.driSupport32Bit = true;
     pulseaudio = {

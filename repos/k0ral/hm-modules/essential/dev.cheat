@@ -1,6 +1,6 @@
 % web, bookmark, documentation, reference, nix
 # NixOS wiki
-xdg-open https://nixos.wiki/
+xdg-open https://wiki.nixos.org/
 
 # nixpkgs manual
 xdg-open https://nixos.org/manual/nixpkgs

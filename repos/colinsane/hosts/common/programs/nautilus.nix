@@ -3,7 +3,7 @@
   sane.programs."gnome.nautilus" = {
     # some of its dbus services don't even refer to real paths
     packageUnwrapped = pkgs.rmDbusServicesInPlace (pkgs.gnome.nautilus.overrideAttrs (orig: {
-      # enable the "Audio and Video Properties" pane. see: <https://nixos.wiki/wiki/Nautilus>
+      # enable the "Audio and Video Properties" pane. see: <https://wiki.nixos.org/wiki/Nautilus>
       buildInputs = orig.buildInputs ++ (with pkgs.gst_all_1; [
         gst-plugins-good
         gst-plugins-bad

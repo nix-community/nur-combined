@@ -1,4 +1,4 @@
-# docs: <https://nixos.wiki/wiki/MediaWiki>
+# docs: <https://wiki.nixos.org/wiki/MediaWiki>
 { config, lib, ... }:
 
 # XXX: working to host wikipedia with kiwix instead of mediawiki

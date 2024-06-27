@@ -1,5 +1,5 @@
 # docs:
-# - <https://nixos.wiki/wiki/NFS>
+# - <https://wiki.nixos.org/wiki/NFS>
 # - <https://wiki.gentoo.org/wiki/Nfs-utils>
 # system files:
 # - /etc/exports

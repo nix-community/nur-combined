@@ -62,7 +62,7 @@ kapack.pkgs.mkShell rec {
 If you want to pin the NUR-Kapack version you use, you can do one of the following.
 
 - Use a pinned tarball from GitHub such as `https://github.com/oar-team/nur-kapack/archive/2518733fefc28290ecffe44c3234eb2a36b731cd.tar.gz`
-- Use [Nix Flakes](https://nixos.wiki/wiki/Flakes)
+- Use [Nix Flakes](https://wiki.nixos.org/wiki/Flakes)
 
 Usage à la NUR
 --------------

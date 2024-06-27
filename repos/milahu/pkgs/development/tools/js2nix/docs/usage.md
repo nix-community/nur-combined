@@ -24,7 +24,7 @@ This Nix expression does the following:
 1. Build environment dependency closure as a Nix expression out of the `package.json` and `yarn.lock` files (see more about `buildEnv` function below).
 1. Return a Nix derivation that builds all top-level dependencies. That is, all the dependencies from the `dependencies` and `devDependencies` sections in the `./package.json` file.
 
-The approach above is [Import From Derivation](https://nixos.wiki/wiki/Import_From_Derivation) (IFD). While it's easy to use, it has some limitations that we may wish to avoid for advanced use cases. 
+The approach above is [Import From Derivation](https://wiki.nixos.org/wiki/Import_From_Derivation) (IFD). While it's easy to use, it has some limitations that we may wish to avoid for advanced use cases. 
 
 To avoid IFD, you can generate Nix expressions by using the js2nix executable (available from `js2nix.bin`):
 

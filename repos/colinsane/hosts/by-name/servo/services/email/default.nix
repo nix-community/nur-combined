@@ -4,7 +4,7 @@
 #   - postfix / dovecot / rspamd / stalwart-jmap / sogo
 #
 # rspamd:
-# - nixos: <https://nixos.wiki/wiki/Rspamd>
+# - nixos: <https://wiki.nixos.org/wiki/Rspamd>
 # - guide: <https://rspamd.com/doc/quickstart.html>
 # - non-nixos example: <https://dataswamp.org/~solene/2021-07-13-smtpd-rspamd.html>
 #

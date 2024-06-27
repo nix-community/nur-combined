@@ -22,7 +22,7 @@ python39Packages.buildPythonPackage rec {
       else "manylinux_2_17_x86_64.manylinux2014_x86_64";
   };
 
-  # https://nixos.wiki/wiki/Packaging/Python
+  # https://wiki.nixos.org/wiki/Packaging/Python
   propagatedBuildInputs = with python39Packages;
     [ protobuf flatbuffers numpy ];
 }

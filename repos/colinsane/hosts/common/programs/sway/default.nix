@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 
-# docs: https://nixos.wiki/wiki/Sway
+# docs: https://wiki.nixos.org/wiki/Sway
 # sway-config docs: `man 5 sway`
 let
   cfg = config.sane.programs.sway;

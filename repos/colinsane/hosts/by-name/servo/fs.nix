@@ -1,5 +1,5 @@
 # zfs docs:
-# - <https://nixos.wiki/wiki/ZFS>
+# - <https://wiki.nixos.org/wiki/ZFS>
 # - <repo:nixos/nixpkgs:nixos/modules/tasks/filesystems/zfs.nix>
 #
 # zfs check health: `zpool status`

@@ -1,4 +1,4 @@
-# docs: <https://nixos.wiki/wiki/Matrix>
+# docs: <https://wiki.nixos.org/wiki/Matrix>
 # docs: <https://nixos.org/manual/nixos/stable/index.html#module-services-matrix-synapse>
 # example config: <https://github.com/matrix-org/synapse/blob/develop/docs/sample_config.yaml>
 #

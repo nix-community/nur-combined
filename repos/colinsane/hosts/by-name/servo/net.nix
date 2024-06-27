@@ -39,7 +39,7 @@ in
     # '';
 
     # OVPN CONFIG (https://www.ovpn.com):
-    # DOCS: https://nixos.wiki/wiki/WireGuard
+    # DOCS: https://wiki.nixos.org/wiki/WireGuard
     # if you `systemctl restart wireguard-wg-ovpns`, make sure to also restart any other services in `NetworkNamespacePath = .../ovpns`.
     # TODO: why not create the namespace as a seperate operation (nix config for that?)
     networking.wireguard.enable = true;

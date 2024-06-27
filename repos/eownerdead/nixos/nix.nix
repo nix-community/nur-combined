@@ -5,7 +5,7 @@ with lib; {
       options.eownerdead.flakes = mkEnableOption (mdDoc ''
         Enable unstable Nix flakes.
 
-        For See the (wiki)[https://nixos.wiki/wiki/Flakes].
+        For See the (wiki)[https://wiki.nixos.org/wiki/Flakes].
       '');
 
       config = (mkIf config.eownerdead.flakes {
@@ -35,7 +35,7 @@ with lib; {
       options.eownerdead.binaryCaches = mkEnableOption (mdDoc ''
         Add flequency used binary caches.
 
-        See the (wiki)[https://nixos.wiki/wiki/Binary_Cache]
+        See the (wiki)[https://wiki.nixos.org/wiki/Binary_Cache]
       '');
 
       config = (mkIf config.eownerdead.binaryCaches {

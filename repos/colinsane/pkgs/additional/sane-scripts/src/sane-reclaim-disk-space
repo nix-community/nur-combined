@@ -3,7 +3,7 @@
 
 # script to reclaim some hard drive space
 # some of this is documented here:
-# - <https://nixos.wiki/wiki/Storage_optimization>
+# - <https://wiki.nixos.org/wiki/Storage_optimization>
 
 set -xeu
 

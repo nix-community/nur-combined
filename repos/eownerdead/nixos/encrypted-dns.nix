@@ -3,7 +3,7 @@ with lib; {
   options.eownerdead.encryptedDns = mkEnableOption (mdDoc ''
     Resolve domain name with encrypted DNS.
 
-    See the (wiki)[https://nixos.wiki/wiki/Encrypted_DNS].
+    See the (wiki)[https://wiki.nixos.org/wiki/Encrypted_DNS].
   '');
 
   config = mkIf config.eownerdead.encryptedDns {

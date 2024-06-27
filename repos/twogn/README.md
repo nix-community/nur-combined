@@ -23,7 +23,7 @@ For now, extension `cpp-tools` is only available for 64bit linux and platformio 
     extensions = with pkgs;[
       vscode-extensions.ms-vscode.cpptools
       nur.repos.twogn.vscode-extensions.platformio.platformio-ide
-      # for more informations about declaring vscode extensions, please check out the wiki written by nix community: https://nixos.wiki/wiki/Visual_Studio_Code
+      # for more informations about declaring vscode extensions, please check out the wiki written by nix community: https://wiki.nixos.org/wiki/Visual_Studio_Code
     ];
   };
 }

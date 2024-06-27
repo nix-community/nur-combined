@@ -11,7 +11,7 @@ ideally, i want something automatic like npmlock2nix,
 to convert a lockfile to a nix expression.
 
 https://github.com/jgm/pandoc/releases
-https://nixos.wiki/wiki/Haskell
+https://wiki.nixos.org/wiki/Haskell
 https://haskell4nix.readthedocs.io/nixpkgs-developers-guide.html
 https://github.com/NixOS/nixpkgs/issues/221165 # Update request: pandoc 2.19.2 → 3.1.1
 */

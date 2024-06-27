@@ -42,7 +42,7 @@ in
         a = "https://articleparser.vercel.app/api?url={}";
         w = "https://en.wikipedia.org/wiki/Special:Search?search={}&go=Go&ns0=1";
         aw = "https://wiki.archlinux.org/?search={}";
-        nw = "https://nixos.wiki/index.php?search={}";
+        nw = "https://wiki.nixos.org/index.php?search={}";
         g = "https://www.google.com/search?hl=en&q={}";
         ddg = "https://duckduckgo.com/?t=h_&q={}";
         nixpkgs = "https://github.com/search?q=repo%3ANixOS%2Fnixpkgs%20{}";

@@ -4,7 +4,7 @@ let
   inherit (lib) mkIf;
 in
 
-# stolen from https://nixos.wiki/wiki/LVM
+# stolen from https://wiki.nixos.org/wiki/LVM
 
 {
   config = mkIf config.services.lvm.enable {

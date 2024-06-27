@@ -2,7 +2,7 @@
 # - `journalctl -u systemd-networkd`
 #
 # docs:
-# - wireguard (nixos): <https://nixos.wiki/wiki/WireGuard#Setting_up_WireGuard_with_systemd-networkd>
+# - wireguard (nixos): <https://wiki.nixos.org/wiki/WireGuard#Setting_up_WireGuard_with_systemd-networkd>
 # - wireguard (arch): <https://wiki.archlinux.org/title/WireGuard>
 #
 # to route all internet traffic through a VPN endpoint, run `systemctl start vpn-${vpnName}`

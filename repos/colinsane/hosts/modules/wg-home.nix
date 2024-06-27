@@ -1,6 +1,6 @@
 # wireguard VPN which allows my devices to talk to eachother even when on physically different LANs
 # for wireguard docs, see:
-# - <https://nixos.wiki/wiki/WireGuard>
+# - <https://wiki.nixos.org/wiki/WireGuard>
 # - <https://wiki.archlinux.org/title/WireGuard>
 { config, lib, pkgs, ... }:
 
@@ -109,7 +109,7 @@ in
         ;
       }
       (lib.mkIf cfg.forwardToWan {
-        # documented here: <https://nixos.wiki/wiki/WireGuard#Server_setup_2>
+        # documented here: <https://wiki.nixos.org/wiki/WireGuard#Server_setup_2>
         # TODO: don't hardcode eth0!
         postSetup = ''
           ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s ${cfg.ip}/24 -o eth0 -j MASQUERADE

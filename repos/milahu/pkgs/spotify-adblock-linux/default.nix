@@ -253,7 +253,7 @@ stdenv.mkDerivation rec {
   ];
 
   preBuild = ''
-    # https://nixos.wiki/wiki/C
+    # https://wiki.nixos.org/wiki/C
     NIX_CFLAGS_COMPILE="${debugFlags} $(pkg-config --cflags glib-2.0) $NIX_CFLAGS_COMPILE"
     NIX_LDFLAGS=" -L${spotify-unwrapped}/share/spotify $NIX_LDFLAGS" # libcef.so
     make clean # otherwise make says 'nothing to do'

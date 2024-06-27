@@ -46,7 +46,7 @@ let
 
         Notice: given that this is a large (25.6GB) file, the usual methods of addings files
         to the Nix store (nix-store --add-fixed / nix-prefetch-url file:///) will likely not work.
-        Use the method described here: https://nixos.wiki/wiki/Cheatsheet#Adding_files_to_the_store
+        Use the method described here: https://wiki.nixos.org/wiki/Cheatsheet#Adding_files_to_the_store
       '';
     };
 
@@ -84,7 +84,7 @@ let
 
          Notice: given that this is a large (9GB) file, the usual methods of addings files
          to the Nix store (nix-store --add-fixed / nix-prefetch-url file:///) will likely not work.
-         Use the method described here: https://nixos.wiki/wiki/Cheatsheet#Adding_files_to_the_store
+         Use the method described here: https://wiki.nixos.org/wiki/Cheatsheet#Adding_files_to_the_store
        '';
      };
 

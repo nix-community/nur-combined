@@ -85,7 +85,7 @@ let
     # documentation per config option is found with, for example:
     # - `fd Kconfig . | xargs rg 'config SUNRPC_DEBUG'`
     structuredExtraConfig = with lib.kernel; {
-      # recommended by: <https://nixos.wiki/wiki/Linux_kernel#Too_high_ram_usage>
+      # recommended by: <https://wiki.nixos.org/wiki/Linux_kernel#Too_high_ram_usage>
       DEBUG_INFO_BTF = lib.mkForce no;
 
       # other debug-related things i can probably disable

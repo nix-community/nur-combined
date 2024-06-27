@@ -1,8 +1,8 @@
-# docs: <https://nixos.wiki/wiki/Binary_Cache>
+# docs: <https://wiki.nixos.org/wiki/Binary_Cache>
 # to copy something to this machine's nix cache, do:
 #   nix copy --to ssh://nixcache.uninsane.org PACKAGE
 #
-# docs: <https://nixos.wiki/wiki/Distributed_build>
+# docs: <https://wiki.nixos.org/wiki/Distributed_build>
 # to use this machine as a remote builder, just build anything with `-j0`.
 { config, lib, ... }:
 

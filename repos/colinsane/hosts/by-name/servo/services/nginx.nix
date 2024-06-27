@@ -1,4 +1,4 @@
-# docs: <https://nixos.wiki/wiki/Nginx>
+# docs: <https://wiki.nixos.org/wiki/Nginx>
 # docs: <https://nginx.org/en/docs/>
 { config, lib, pkgs, ... }:
 

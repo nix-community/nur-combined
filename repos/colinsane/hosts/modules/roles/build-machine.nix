@@ -56,7 +56,7 @@ in
       # ];
 
       # granular compilation cache
-      # docs: <https://nixos.wiki/wiki/CCache>
+      # docs: <https://wiki.nixos.org/wiki/CCache>
       # investigate the cache with:
       # - `nix-ccache --show-stats`
       # - `build '.#ccache'

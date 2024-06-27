@@ -2,7 +2,7 @@
 
 Most attempts to make Nix natively work with Node.js dependencies are built from the perspective of Nix, and only a couple work well. However, none are suitable for a large codebase such as Canva due to some architectural design decisions.
 
-The node2nix project is widely used and [is the recommended way](https://nixos.wiki/wiki/Language-specific_package_helpers#JavaScript_.2F_Node.js) for integrating node packages in nixpkgs. However, it doesn't address the issues above. For example, it only targets projects that expose CLIs. Also, it doesn't provide granularity in terms of the transitive dependencies, providing only a top-level package as a single derivation. This means it provides no granularity at the Nix derivation level. Only tarballs can be shared, but not the derivations. The local workflow and life-cycle scripting are also not addressed.
+The node2nix project is widely used and [is the recommended way](https://wiki.nixos.org/wiki/Language-specific_package_helpers#JavaScript_.2F_Node.js) for integrating node packages in nixpkgs. However, it doesn't address the issues above. For example, it only targets projects that expose CLIs. Also, it doesn't provide granularity in terms of the transitive dependencies, providing only a top-level package as a single derivation. This means it provides no granularity at the Nix derivation level. Only tarballs can be shared, but not the derivations. The local workflow and life-cycle scripting are also not addressed.
 
 The yarn2nix project solves some of the major issues by defining a Nix derivation per npm package, which provides granularity. However, it still has limitations (at the moment of writing, 9 Aug 2021):
 

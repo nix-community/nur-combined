@@ -1,4 +1,4 @@
-**ARCHIVED - full on using [flakes](https://nixos.wiki/wiki/Flakes) now**
+**ARCHIVED - full on using [flakes](https://wiki.nixos.org/wiki/Flakes) now**
 
 # nur-packages
 

@@ -10,7 +10,7 @@
 #
 #
 # DEVELOPMENT DOCS:
-# - Flake docs: <https://nixos.wiki/wiki/Flakes>
+# - Flake docs: <https://wiki.nixos.org/wiki/Flakes>
 # - Flake RFC: <https://github.com/tweag/rfcs/blob/flakes/rfcs/0049-flakes.md>
 #   - Discussion: <https://github.com/NixOS/rfcs/pull/49>
 # - <https://serokell.io/blog/practical-nix-flakes>

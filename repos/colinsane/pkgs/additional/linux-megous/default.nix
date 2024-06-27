@@ -59,7 +59,7 @@ let
     # see <repo:kernel.org/linux:Documentation/admin-guide/quickly-build-trimmed-linux.rst>
     DEBUG_KERNEL = lib.mkForce no;  # option group which seems to just gate the other DEBUG_ opts?
     DEBUG_INFO = lib.mkForce no;  # for gdb debugging
-    DEBUG_INFO_BTF = lib.mkForce no;  # BPF debug symbols. rec by <https://nixos.wiki/wiki/Linux_kernel#Too_high_ram_usage>
+    DEBUG_INFO_BTF = lib.mkForce no;  # BPF debug symbols. rec by <https://wiki.nixos.org/wiki/Linux_kernel#Too_high_ram_usage>
     # SCHED_DEBUG = lib.mkForce no;  # determines /sys/kernel/debug/sched
     # SUNRPC_DEBUG = lib.mkForce no;  # i use NFS though
 

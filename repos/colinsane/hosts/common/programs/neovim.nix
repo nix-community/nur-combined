@@ -10,7 +10,7 @@ let
       plugin = fzf-vim;
     }
     {
-      # treesitter syntax highlighting: https://nixos.wiki/wiki/Tree_sitters
+      # treesitter syntax highlighting: https://wiki.nixos.org/wiki/Tree_sitters
       # docs: https://github.com/nvim-treesitter/nvim-treesitter
       # config taken from: https://github.com/i077/system/blob/master/modules/home/neovim/default.nix
       # this is required for tree-sitter to even highlight

@@ -36,6 +36,6 @@ Follow the ZFS/BTRFS guide before going into this one. Also, read Graham Christe
 
 ## Sources
 - [The basic guide to all of the impermanence ideas on NixOS](https://grahamc.com/blog/erase-your-darlings)
-- [Official NixOS wiki regarding impermanence](https://nixos.wiki/wiki/Impermanence)
+- [Official NixOS wiki regarding impermanence](https://wiki.nixos.org/wiki/Impermanence)
 - [Guide to implementing it on NixOS the common way, with some examples](https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/)
 - [Part 2 of the guide above, now with the impermanence module](https://elis.nu/blog/2020/06/nixos-tmpfs-as-home/)

@@ -1,4 +1,4 @@
-# docs: <https://nixos.wiki/wiki/Msmtp>
+# docs: <https://wiki.nixos.org/wiki/Msmtp>
 # validate with e.g.
 # - `echo -e "Content-Type: text/plain\r\nSubject: Test\r\n\r\nHello World" | sendmail test@uninsane.org`
 { config, lib, ... }:

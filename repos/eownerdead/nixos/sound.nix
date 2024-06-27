@@ -1,7 +1,7 @@
 { lib, pkgs, config, ... }:
 with lib; {
   options.eownerdead.sound = mkEnableOption (mdDoc ''
-    See the (wiki)[https://nixos.wiki/wiki/PipeWire]
+    See the (wiki)[https://wiki.nixos.org/wiki/PipeWire]
   '');
 
   config = mkIf config.eownerdead.sound {

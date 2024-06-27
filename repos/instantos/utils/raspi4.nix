@@ -2,7 +2,7 @@
 # used image: 
 #  - https://hydra.nixos.org/build/134720986/download/1/nixos-sd-image-21.03pre262561.581232454fd-aarch64-linux.img.zst
 #    from https://hydra.nixos.org/build/134720986, sha256sum: 2f756bc08a5f1e286a82ea4c9a50892f2aa9fd1688be37a85d4e36776569763e
-# see: https://nixos.wiki/wiki/NixOS_on_ARM/Raspberry_Pi_4
+# see: https://wiki.nixos.org/wiki/NixOS_on_ARM/Raspberry_Pi_4
 
 
 { config, pkgs, ... }:

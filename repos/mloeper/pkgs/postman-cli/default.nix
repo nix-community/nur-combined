@@ -49,7 +49,7 @@ stdenvWithDebugSymbols.mkDerivation {
     runHook postInstall
   '';
 
-  # see: https://nixos.wiki/wiki/Packaging/Binaries
+  # see: https://wiki.nixos.org/wiki/Packaging/Binaries
   nativeBuildInputs = [
     # note: we use nix-alien instead since vercel does not support binary patching
     #autoPatchelfHook

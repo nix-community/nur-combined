@@ -109,7 +109,7 @@ This package provides a standalone systemd daemon to start only the client wrapp
 
 ## 3. About VAAPI
 
-It is important to have `vaapi` enabled to make Shadow works correctly. You can find information on this [NixOS wiki page](https://nixos.wiki/wiki/Accelerated_Video_Playback).
+It is important to have `vaapi` enabled to make Shadow works correctly. You can find information on this [NixOS wiki page](https://wiki.nixos.org/wiki/Accelerated_Video_Playback).
 
 
 #### An example for Intel and AMD GPU

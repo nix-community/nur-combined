@@ -61,7 +61,7 @@ in
   };
 
   # allow ordinary users to `reboot` or `shutdown`.
-  # source: <https://nixos.wiki/wiki/Polkit>
+  # source: <https://wiki.nixos.org/wiki/Polkit>
   security.polkit.extraConfig = ''
     polkit.addRule(function(action, subject) {
       if (

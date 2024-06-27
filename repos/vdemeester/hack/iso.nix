@@ -23,7 +23,7 @@ let
 in
 {
   imports = [
-    # https://nixos.wiki/wiki/Creating_a_NixOS_live_CD
+    # https://wiki.nixos.org/wiki/Creating_a_NixOS_live_CD
     <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix>
     <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix>
   ];

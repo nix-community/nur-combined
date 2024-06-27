@@ -3,7 +3,7 @@
 
 # My NixOS configurations
 
-Here's my NixOS/home-manager config files. Requires [Nix flakes](https://nixos.wiki/wiki/Flakes).
+Here's my NixOS/home-manager config files. Requires [Nix flakes](https://wiki.nixos.org/wiki/Flakes).
 
 Looking for something simpler to start out with flakes? Try [my starter config repo](https://github.com/Misterio77/nix-starter-config).
 

@@ -52,7 +52,7 @@ soon-ish 👼):
 -   `lib`: shared code used during configuration (mostly `nix` code).
 -   `machines`: configuration per machines
 -   `modules`: holds nix modules (services, programs, hardware, profiles, …)
--   `overlays`: holds [nix overlays](https://nixos.wiki/wiki/Overlays)
+-   `overlays`: holds [nix overlays](https://wiki.nixos.org/wiki/Overlays)
 -   `pkgs`: holds nix packages (those should migrate under `overlays` or on `nur-packages`)
 -   `secrets`: holds non-shareable code, this folder is ignored and `make` commands will try
     to populate this. If it's empty, the rest of configuration is still meant to work but

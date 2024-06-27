@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# stolen from: https://nixos.wiki/wiki/Nvidia
+# stolen from: https://wiki.nixos.org/wiki/Nvidia
 #
 # You just need to wrap the program with this
 export __NV_PRIME_RENDER_OFFLOAD=1

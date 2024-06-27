@@ -30,7 +30,7 @@
   # see: <https://gitlab.freedesktop.org/NetworkManager/NetworkManager/-/issues/474>
   # iwd is an alternative that shouldn't have this problem
   # docs:
-  # - <https://nixos.wiki/wiki/Iwd>
+  # - <https://wiki.nixos.org/wiki/Iwd>
   # - <https://iwd.wiki.kernel.org/networkmanager>
   # - `man iwd.config`  for global config
   # - `man iwd.network` for per-SSID config

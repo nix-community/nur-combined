@@ -1,7 +1,7 @@
 # How to add an overlay?
 
 **NOTE:** Use this guide as a reference:
-- [NixOS guide about overlays](https://nixos.wiki/wiki/Overlays)
+- [NixOS guide about overlays](https://wiki.nixos.org/wiki/Overlays)
 - [NixOS: The DOs and DON’Ts of nixpkgs overlays](https://blog.flyingcircus.io/2017/11/07/nixos-the-dos-and-donts-of-nixpkgs-overlays/) 
 
 To add an overlay:
