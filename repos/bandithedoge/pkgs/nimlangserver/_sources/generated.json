@@ -101,7 +101,7 @@
   },
   "nimlangserver": {
     "cargoLocks": null,
-    "date": "2024-06-22",
+    "date": "2024-06-27",
     "extract": null,
     "name": "nimlangserver",
     "passthru": null,
@@ -111,13 +111,13 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "fb725fe9de66979412341a97d6103386e003e0b6",
-      "sha256": "sha256-UTHMozvSlOWw5wj4y5BLFF1iYMeMxfPQcPwp26r0yFQ=",
+      "rev": "fe0d9edff537f2dd653e011963c1b56ee95b9536",
+      "sha256": "sha256-biBTX7X27RtFpQFPOOxdOFvT71m/AdrLhnZxEh+t9k8=",
       "sparseCheckout": [],
       "type": "git",
       "url": "https://github.com/nim-lang/langserver"
     },
-    "version": "fb725fe9de66979412341a97d6103386e003e0b6"
+    "version": "fe0d9edff537f2dd653e011963c1b56ee95b9536"
   },
   "serialization": {
     "cargoLocks": null,
@@ -141,7 +141,7 @@
   },
   "stew": {
     "cargoLocks": null,
-    "date": "2024-06-17",
+    "date": "2024-06-27",
     "extract": null,
     "name": "stew",
     "passthru": null,
@@ -151,13 +151,13 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "bb086e69da967ad235ed6c31247769e75b318e61",
-      "sha256": "sha256-gWmIpThnfd6JgWOqSr4QvHlQ9rWaF+OIDOi5/LlADhI=",
+      "rev": "e00fea1f6e14234adb10d9c117a70905ae31872b",
+      "sha256": "sha256-e183MGh0UIE6eWkr2aD4soq1eUKGIwq8iWoHLYjwi7I=",
       "sparseCheckout": [],
       "type": "git",
       "url": "https://github.com/status-im/nim-stew"
     },
-    "version": "bb086e69da967ad235ed6c31247769e75b318e61"
+    "version": "e00fea1f6e14234adb10d9c117a70905ae31872b"
   },
   "zevv-with": {
     "cargoLocks": null,
