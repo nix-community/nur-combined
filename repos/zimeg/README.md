@@ -8,6 +8,34 @@
 
 Contained contents can be included in other expressions using a package import.
 
+### ❄️ nur-packages.{#flakes}
+
+Custom packages can be added to flakes using custom package input:
+
+```nix
+{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+    zimeg.url = "github:zimeg/nur-packages";
+  };
+  outputs = { nixpkgs, flake-utils, zimeg, ... }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+        };
+      in
+      {
+        devShell = pkgs.mkShell {
+          buildInputs = [
+            zimeg.packages.${pkgs.system}.etime
+          ];
+        };
+      });
+}
+```
+
 ### 🏠 nur-packages.{#home-manager}
 
 Custom paths can change packaged contents in various combinations:
