@@ -850,10 +850,10 @@
     };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2024.6.2";
+      version = "2024.6.3";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4305759/bitwarden_password_manager-2024.6.2.xpi";
-      sha256 = "c064e2d6601cb921ecd154e0d3bfd54d71af43da1947aa51666877ef0afd1436";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4307738/bitwarden_password_manager-2024.6.3.xpi";
+      sha256 = "d3c052e66a9daa390707c4481ec50c09bc3b6253cb222792c9a55aa4b5f4045a";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -4935,10 +4935,10 @@
     };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.937";
+      version = "4.1007";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4290618/youtube_addon-4.937.xpi";
-      sha256 = "fa15d676ad75f834b36d43d763a7a1e47fb6516cb71a8c241d45935d5a65c37d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4308616/youtube_addon-4.1007.xpi";
+      sha256 = "76cb95e15ba6252d6a52a11e548147bf5907d51cbd63dd79045f38dc4813e567";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -4952,7 +4952,6 @@
         mozPermissions = [
           "contextMenus"
           "storage"
-          "battery"
           "https://www.youtube.com/*"
         ];
         platforms = platforms.all;
@@ -9178,10 +9177,10 @@
     };
     "return-youtube-dislikes" = buildFirefoxXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "3.0.0.14";
+      version = "3.0.0.16";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4208483/return_youtube_dislikes-3.0.0.14.xpi";
-      sha256 = "a31ab23549846b7eab92a094e92df8349047b48bbd807f069d128083c3b27f61";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4308076/return_youtube_dislikes-3.0.0.16.xpi";
+      sha256 = "46356bf30f6a06fee3497133c0b69a39ab09f393fa7d4c0e4d1c89cee1d020e4";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
@@ -9846,10 +9845,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.6.1";
+      version = "5.7";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4299073/sponsorblock-5.6.1.xpi";
-      sha256 = "4ccae0ebc1aa26d61c446956da425bf16daffd5704ea216735e0a57e482fe9ba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4308094/sponsorblock-5.7.xpi";
+      sha256 = "05b7fadde5718cd44520a86e6b38b10816762df763767ef4bb879112ed77caae";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -9857,8 +9856,8 @@
         license = licenses.lgpl3;
         mozPermissions = [
           "storage"
-          "https://sponsor.ajay.app/*"
           "scripting"
+          "https://sponsor.ajay.app/*"
           "https://*.youtube.com/*"
           "https://www.youtube-nocookie.com/embed/*"
         ];
@@ -10575,10 +10574,10 @@
     };
     "torrent-control" = buildFirefoxXpiAddon {
       pname = "torrent-control";
-      version = "0.2.37";
+      version = "0.2.38";
       addonId = "{e6e36c9a-8323-446c-b720-a176017e38ff}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4259549/torrent_control-0.2.37.xpi";
-      sha256 = "ac446f4d286bda15a897b2c98ca6d442f352dab8842d05b9360817569f795851";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4310629/torrent_control-0.2.38.xpi";
+      sha256 = "d78b7def068eb874e69a519684d657d09d8aba94593903be096319a312f25898";
       meta = with lib;
       {
         homepage = "https://github.com/Mika-/torrent-control";
@@ -10660,10 +10659,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.0.18";
+      version = "4.0.19";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4302180/tree_style_tab-4.0.18.xpi";
-      sha256 = "4e619c4d7ff604a93db483ad66d4b0a9ef5832255541115c0e9d280608ab8f76";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4308656/tree_style_tab-4.0.19.xpi";
+      sha256 = "c84299d40ca8c274f5e979d875a6384f4eea7dd630b8a4ba3f27e5278c231eda";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -10867,10 +10866,10 @@
     };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.8.1";
+      version = "8.8.2";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4304676/ublacklist-8.8.1.xpi";
-      sha256 = "057b91db097bab62e305a9a41b519bb76cfb107d6fd9a07b01239d5b843837a6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4308350/ublacklist-8.8.2.xpi";
+      sha256 = "c900055ba4c98ea7362cd598b2aa35db6da55f6631e592d1a2f194c8eea0215a";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
