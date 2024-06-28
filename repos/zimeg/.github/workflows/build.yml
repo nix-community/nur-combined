@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: "Build and populate cache"
 on:
   pull_request:
@@ -8,8 +9,13 @@ on:
     - cron: "22 22 * * *"
   workflow_dispatch:
 jobs:
-  tests:
-    runs-on: ubuntu-latest
+  cache:
+    strategy:
+      matrix:
+        runner:
+          - macos-latest
+          - ubuntu-latest
+    runs-on: ${{ matrix.runner }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

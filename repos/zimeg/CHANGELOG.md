@@ -8,6 +8,7 @@ and are noted with a `!` in the message.
 
 ## Changes
 
+- build(macos): perform cache builds on both macos and ubuntu runners 2024-06-27
 - build(cachix): compile and cache built binaries for faster installs 2024-06-27
 - docs: instruct installation of private packages into project flakes 2024-06-27
 - feat(pkgs/etime): package an energy aware time command for measures 2024-06-27
