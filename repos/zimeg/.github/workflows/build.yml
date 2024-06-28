@@ -5,27 +5,35 @@ on:
     branches:
       - main
   schedule:
-    - cron:  '22 22 * * *'
+    - cron: "22 22 * * *"
+  workflow_dispatch:
 jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-    - name: Install a flaked Nix
-      uses: DeterminateSystems/nix-installer-action@v12
-    - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: Check evaluation
-      run: |
-        nix-env -f . -qa \* --meta --xml \
-          --allowed-uris https://static.rust-lang.org \
-          --option restrict-eval true \
-          --option allow-import-from-derivation true \
-          --drv-path --show-trace \
-          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-          -I $PWD
-    - name: Build nix packages
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
-    - name: Trigger NUR update
-      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=zimeg"
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install a flaked Nix
+        uses: DeterminateSystems/nix-installer-action@v12
+      - name: Show nixpkgs version
+        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+      - name: Setup cachix caches
+        if: github.event_name != 'pull_request'
+        uses: cachix/cachix-action@v15
+        with:
+          name: zimeg
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+      - name: Check evaluation
+        run: |
+          nix-env -f . -qa \* --meta --xml \
+            --allowed-uris https://static.rust-lang.org \
+            --option restrict-eval true \
+            --option allow-import-from-derivation true \
+            --drv-path --show-trace \
+            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+            -I $PWD
+      - name: Build nix packages
+        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+      - name: Trigger NUR update
+        if: github.event_name != 'pull_request'
+        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=zimeg"

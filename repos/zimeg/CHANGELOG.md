@@ -8,6 +8,7 @@ and are noted with a `!` in the message.
 
 ## Changes
 
+- build(cachix): compile and cache built binaries for faster installs 2024-06-27
 - docs: instruct installation of private packages into project flakes 2024-06-27
 - feat(pkgs/etime): package an energy aware time command for measures 2024-06-27
 - ci(feat): use the determinate systems installer for some flaked nix 2024-06-01
