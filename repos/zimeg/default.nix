@@ -5,5 +5,6 @@
   modules = import ./modules;
   overlays = import ./overlays;
 
+  etime = pkgs.callPackage ./pkgs/etime { };
   zsh-wd = pkgs.callPackage ./pkgs/zsh-wd { };
 }

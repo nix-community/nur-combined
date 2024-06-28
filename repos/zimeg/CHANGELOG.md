@@ -8,6 +8,7 @@ and are noted with a `!` in the message.
 
 ## Changes
 
+- feat(pkgs/etime): package an energy aware time command for measures 2024-06-27
 - ci(feat): use the determinate systems installer for some flaked nix 2024-06-01
 - ci(fix): set the github access token as input to the cachix install 2024-06-01
 - build(ci): remove support of deprecated releases and track unstable 2024-06-01
