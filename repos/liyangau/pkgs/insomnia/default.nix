@@ -16,11 +16,11 @@ let
   ];
 in stdenv.mkDerivation rec {
   pname = "insomnia";
-  version = "9.2.0";
+  version = "9.3.0";
 
   src = fetchurl {
     url = "https://github.com/Kong/insomnia/releases/download/core%40${version}/Insomnia.Core-${version}.deb";
-    hash = "sha256-jHSMj3a1xLYoMlZkhUvOfWG5BhbDndpn8XtpMjwaG2k=";
+    hash = "sha256-s69cZ6puCrkvllMfzBZNiZFMtqnAnX7Bf9ZoJsSscGE=";
   };
 
   nativeBuildInputs = [
@@ -94,7 +94,5 @@ in stdenv.mkDerivation rec {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     license = licenses.mit;
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ markus1189 babariviere kashw2 ];
   };
-
 }
