@@ -26,7 +26,7 @@ in
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
-      hardware.opengl = {
+      hardware.graphics = {
         enable = true;
       };
     }
@@ -45,7 +45,7 @@ in
         };
       };
 
-      hardware.opengl = {
+      hardware.graphics = {
         extraPackages = with pkgs; [
           # OpenCL
           rocmPackages.clr
@@ -62,7 +62,7 @@ in
         VDPAU_DRIVER = "va_gl";
       };
 
-      hardware.opengl = {
+      hardware.graphics = {
         extraPackages = with pkgs; [
           # Open CL
           intel-compute-runtime
