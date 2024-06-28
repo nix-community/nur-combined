@@ -16,7 +16,9 @@ in
     };
 
     doCheck = false;
+
     format = "pyproject";
+
     build-system = with pkgs.python3Packages; [
       setuptools
       pdm-pep517
@@ -24,9 +26,13 @@ in
       pkgs.xonsh
     ];
 
+    postPatch = ''
+      sed -ie "/xonsh.*=/d" pyproject.toml
+    '';
+
     meta = {
       homepage = "https://github.com/jnoortheen/xontrib-broot";
       license = pkgs.lib.licenses.mit;
-      description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) xonsh direnv";
+      description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) [broot](https://github.com/Canop/broot) support function for xonsh shell";
     };
   }
