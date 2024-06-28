@@ -183,13 +183,13 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "c4e79b024390bea8fb4e1b130224b5f59c035d68";
+    version = "441903ed722b3d3738ab205da066ff4062f51d77";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "c4e79b024390bea8fb4e1b130224b5f59c035d68";
+      rev = "441903ed722b3d3738ab205da066ff4062f51d77";
       fetchSubmodules = false;
-      sha256 = "sha256-zPIYLkxOCQrIQTY09AwFXfDTG20jo49hsJO6CjAC5nM=";
+      sha256 = "sha256-DGjvuQPEPWq/OqNORuRCa0IM2eD6Ag9pVUrve6UNAzA=";
     };
     date = "2024-06-27";
   };
@@ -733,13 +733,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3246";
+    version = "b3260";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3246";
+      rev = "b3260";
       fetchSubmodules = false;
-      sha256 = "sha256-+oOD51J80sr4NuFkv7/vhmEv4c2iSrBouc7kDf5sfO0=";
+      sha256 = "sha256-EcfNetrsohpDwnvCZNvN+ZFWxrRy6UL1doEmqHVSwXQ=";
     };
   };
   nbfc-linux-lantian = {
@@ -1001,10 +1001,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v4.2.3";
+    version = "v4.2.4";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.2.3/PeerBanHelper.jar";
-      sha256 = "sha256-fORvq23Pn6BLcsETZQCpeTTCyK7GTZzw5KZN88v1LOM=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.2.4/PeerBanHelper.jar";
+      sha256 = "sha256-ogVJs3hYnL1JnR+fI3C3lNZ99mVTzu/u1uuPHXOAV2M=";
     };
   };
   phpmyadmin = {
@@ -1039,15 +1039,15 @@
   };
   plasma-desktop-lyrics = {
     pname = "plasma-desktop-lyrics";
-    version = "436db84c89423be75668229ae0ed93309f63d7c9";
+    version = "62ea278e0d4a43cc12a47ed8da9de8cd6dc90cab";
     src = fetchFromGitHub {
       owner = "chiyuki0325";
       repo = "PlasmaDesktopLyrics";
-      rev = "436db84c89423be75668229ae0ed93309f63d7c9";
+      rev = "62ea278e0d4a43cc12a47ed8da9de8cd6dc90cab";
       fetchSubmodules = false;
-      sha256 = "sha256-gvd4k76xLF606W/Ktew2aqe1A2UNet5sImDeYh9/v5I=";
+      sha256 = "sha256-FL5TYt+NyCo4jmTFjMgh2icKwxU4Whm1GyDBcVWsI3k=";
     };
-    date = "2024-06-12";
+    date = "2024-06-27";
   };
   plasma-panel-transparency-toggle = {
     pname = "plasma-panel-transparency-toggle";
@@ -1237,15 +1237,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "fdb6141a18ed6479fd82616c8a82befea2ae30df";
+    version = "11e8efc19447dabf896b82e6e30ee47b3c8886e8";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "fdb6141a18ed6479fd82616c8a82befea2ae30df";
+      rev = "11e8efc19447dabf896b82e6e30ee47b3c8886e8";
       fetchSubmodules = false;
-      sha256 = "sha256-O1oR85+0qo3GFluV6Z5rYuycUCErhZHOc1rrdD2Yh5k=";
+      sha256 = "sha256-cohmeklyV7ReldN7RsHoj7+RQELjZCR+tnsdeFOWDds=";
     };
-    date = "2024-06-23";
+    date = "2024-06-28";
   };
   rime-moegirl = {
     pname = "rime-moegirl";

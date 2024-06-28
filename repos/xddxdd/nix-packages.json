@@ -472,7 +472,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Port of Facebook's LLaMA model in C/C++",
     "pname": "llama-cpp",
-    "version": "3246"
+    "version": "3260"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -2592,7 +2592,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "4.2.3"
+    "version": "4.2.4"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
@@ -2617,12 +2617,12 @@
   "legacyPackages.x86_64-linux.plasma-desktop-lyrics": {
     "description": "KDE Plasma 桌面歌词显示挂件（后台服务）",
     "pname": "plasma-desktop-lyrics-unstable",
-    "version": "2024-06-12"
+    "version": "2024-06-27"
   },
   "legacyPackages.x86_64-linux.plasma-desktop-lyrics-plasmoid": {
     "description": "KDE Plasma 桌面歌词显示挂件（Plasmoid 组件）",
     "pname": "plasma-desktop-lyrics-unstable",
-    "version": "2024-06-12"
+    "version": "2024-06-27"
   },
   "legacyPackages.x86_64-linux.plasma-panel-transparency-toggle": {
     "description": "A rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
@@ -2702,7 +2702,7 @@
   "legacyPackages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库 ",
     "pname": "rime-ice-unstable",
-    "version": "2024-06-23"
+    "version": "2024-06-28"
   },
   "legacyPackages.x86_64-linux.rime-moegirl": {
     "description": "Releases for dict of zh.moegirl.org.cn",
@@ -3312,7 +3312,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "4.2.3"
+    "version": "4.2.4"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
@@ -3332,12 +3332,12 @@
   "packages.x86_64-linux.plasma-desktop-lyrics": {
     "description": "KDE Plasma 桌面歌词显示挂件（后台服务）",
     "pname": "plasma-desktop-lyrics-unstable",
-    "version": "2024-06-12"
+    "version": "2024-06-27"
   },
   "packages.x86_64-linux.plasma-desktop-lyrics-plasmoid": {
     "description": "KDE Plasma 桌面歌词显示挂件（Plasmoid 组件）",
     "pname": "plasma-desktop-lyrics-unstable",
-    "version": "2024-06-12"
+    "version": "2024-06-27"
   },
   "packages.x86_64-linux.plasma-panel-transparency-toggle": {
     "description": "A rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
@@ -3417,7 +3417,7 @@
   "packages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库 ",
     "pname": "rime-ice-unstable",
-    "version": "2024-06-23"
+    "version": "2024-06-28"
   },
   "packages.x86_64-linux.rime-moegirl": {
     "description": "Releases for dict of zh.moegirl.org.cn",
