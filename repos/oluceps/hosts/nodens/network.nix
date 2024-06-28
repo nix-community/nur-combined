@@ -100,31 +100,23 @@
         };
         wireguardPeers = [
           {
-            wireguardPeerConfig = {
-              PublicKey = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM=";
-              AllowedIPs = [ "10.0.1.2/32" ];
-              PersistentKeepalive = 15;
-            };
+            PublicKey = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM=";
+            AllowedIPs = [ "10.0.1.2/32" ];
+            PersistentKeepalive = 15;
           }
           {
-            wireguardPeerConfig = {
-              PublicKey = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg=";
-              AllowedIPs = [ "10.0.1.3/32" ];
-              PersistentKeepalive = 15;
-            };
+            PublicKey = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg=";
+            AllowedIPs = [ "10.0.1.3/32" ];
+            PersistentKeepalive = 15;
           }
           {
-            wireguardPeerConfig = {
-              PublicKey = "0wLrznvd32gloUHwgFqv+vlybBtEYQaUOwgqyfa3Fl4=";
-              AllowedIPs = [ "10.0.1.4/32" ];
-              PersistentKeepalive = 15;
-            };
+            PublicKey = "0wLrznvd32gloUHwgFqv+vlybBtEYQaUOwgqyfa3Fl4=";
+            AllowedIPs = [ "10.0.1.4/32" ];
+            PersistentKeepalive = 15;
           }
           {
-            wireguardPeerConfig = {
-              PublicKey = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno=";
-              AllowedIPs = [ "10.0.0.0/16" ];
-            };
+            PublicKey = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno=";
+            AllowedIPs = [ "10.0.0.0/16" ];
           }
           # {
           #   wireguardPeerConfig = {

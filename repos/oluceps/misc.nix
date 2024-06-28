@@ -39,7 +39,7 @@
     };
   };
   nix = {
-    package = pkgs.nixVersions.stable;
+    package = pkgs.nixVersions.git;
     registry = {
       nixpkgs.flake = inputs.nixpkgs;
       self.flake = inputs.self;
@@ -89,7 +89,6 @@
         "flakes"
         "auto-allocate-uids"
         "cgroups"
-        "repl-flake"
         "recursive-nix"
         "ca-derivations"
       ];

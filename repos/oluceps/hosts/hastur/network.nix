@@ -11,6 +11,7 @@
     # dnsovertls = "true";
   };
   networking = {
+    usePredictableInterfaceNames = false;
     resolvconf.useLocalResolver = true;
     nameservers = [
       "223.5.5.5#dns.alidns.com"
@@ -33,7 +34,7 @@
     interfaces.eth0.wakeOnLan.enable = true;
     wireless.iwd.enable = true;
     useNetworkd = true;
-    useDHCP = false;
+    useDHCP = true;
     firewall = {
       enable = true;
       trustedInterfaces = [
@@ -56,6 +57,12 @@
         2222
         5173
         1900
+      ];
+      allowedTCPPortRanges = [
+        {
+          from = 10000;
+          to = 10010;
+        }
       ];
     };
     nftables.enable = true;
@@ -113,20 +120,16 @@
         };
         wireguardPeers = [
           {
-            wireguardPeerConfig = {
-              PublicKey = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno=";
-              AllowedIPs = [ "10.0.2.0/24" ];
-              Endpoint = "116.196.112.43:51820";
-              PersistentKeepalive = 15;
-            };
+            PublicKey = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno=";
+            AllowedIPs = [ "10.0.2.0/24" ];
+            Endpoint = "116.196.112.43:51820";
+            PersistentKeepalive = 15;
           }
           {
-            wireguardPeerConfig = {
-              PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
-              AllowedIPs = [ "10.0.1.0/24" ];
-              Endpoint = "127.0.0.1:41820";
-              PersistentKeepalive = 15;
-            };
+            PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
+            AllowedIPs = [ "10.0.1.0/24" ];
+            Endpoint = "127.0.0.1:41820";
+            PersistentKeepalive = 15;
           }
 
           # {
@@ -152,39 +155,37 @@
         DHCP = "no";
       };
 
-      "20-wired-bond0" = {
+      # "20-wired-bond0" = {
+      #   matchConfig.Name = "eth0";
+
+      #   networkConfig = {
+      #     Bond = "bond0";
+      #     PrimarySlave = true;
+      #   };
+      # };
+
+      # "40-wireless-bond1" = {
+      #   matchConfig.Name = "wlan0";
+      #   networkConfig = {
+      #     Bond = "bond1";
+      #   };
+      # };
+
+      "8-eth0" = {
         matchConfig.Name = "eth0";
-
-        networkConfig = {
-          Bond = "bond0";
-          PrimarySlave = true;
-        };
-      };
-
-      "40-wireless-bond1" = {
-        matchConfig.Name = "wlan0";
-        networkConfig = {
-          Bond = "bond1";
-        };
-      };
-
-      "5-bond0" = {
-        matchConfig.Name = "bond0";
         DHCP = "yes";
-        dhcpV4Config.RouteMetric = 2046;
-        dhcpV6Config.RouteMetric = 2046;
-        dhcpV4Config.UseDNS = false;
-        dhcpV6Config.UseDNS = false;
+        # dhcpV4Config.RouteMetric = 2046;
+        # dhcpV6Config.RouteMetric = 2046;
+        # dhcpV4Config.UseDNS = false;
+        # dhcpV6Config.UseDNS = false;
         # address = [ "192.168.0.2/24" ];
 
-        networkConfig = {
-          BindCarrier = [
-            "eth0"
-            "wlan0"
-          ];
-        };
-
-        linkConfig.MACAddress = "fc:62:ba:3a:e1:5f";
+        # networkConfig = {
+        #   BindCarrier = [
+        #     "eth0"
+        #     "wlan0"
+        #   ];
+        # };
       };
 
       "30-rndis" = {

@@ -181,6 +181,8 @@
           sound = [ pulseaudio ];
 
           display = [ cage ];
+
+          cursor = [ graphite-cursors ];
         }
       )
     )

@@ -14,4 +14,5 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-chGSrkPgPDI/8i+ZbHgh+DzjnY159ucwottIUW8NqFY=";
 
   RUSTC_BOOTSTRAP = 1;
+  meta.mainProgram = "realm";
 }

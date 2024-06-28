@@ -38,6 +38,13 @@
         9000
         9001
       ];
+
+      allowedTCPPortRanges = [
+        {
+          from = 10000;
+          to = 10010;
+        }
+      ];
     };
     hostId = "0bc55a2e";
     useNetworkd = true;
@@ -91,12 +98,10 @@
         };
         wireguardPeers = [
           {
-            wireguardPeerConfig = {
-              PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
-              AllowedIPs = [ "10.0.1.9/32" ];
-              Endpoint = "127.0.0.1:41821";
-              PersistentKeepalive = 15;
-            };
+            PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
+            AllowedIPs = [ "10.0.1.9/32" ];
+            Endpoint = "127.0.0.1:41821";
+            PersistentKeepalive = 15;
           }
         ];
       };

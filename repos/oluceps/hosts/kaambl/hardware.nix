@@ -19,7 +19,7 @@
     disk = {
       nvme = {
         type = "disk";
-        device = "/dev/disk/by-id/nvme-KBG50ZNV512G_KIOXIA_436C75TAECJX";
+        device = "/dev/disk/by-id/nvme-HP_SSD_FX900_Plus_M.2_2TB_HBSE53120600733";
         content = {
           type = "gpt";
           partitions = {
@@ -35,7 +35,7 @@
             };
             cryptroot = {
               label = "CRYPTROOT";
-              end = "-16G";
+              size = "900G";
               content = {
                 type = "luks";
                 name = "cryptroot";
@@ -100,9 +100,8 @@
                 };
               };
             };
-
             encryptedSwap = {
-              size = "100%";
+              size = "16G";
               content = {
                 type = "swap";
                 randomEncryption = true;

@@ -70,7 +70,7 @@
     disk = {
       nvme = {
         type = "disk";
-        device = "/dev/disk/by-id/nvme-HP_SSD_FX900_Plus_M.2_2TB_HBSE53120600733";
+        device = "/dev/disk/by-id/nvme-KBG50ZNV512G_KIOXIA_436C75TAECJX";
         content = {
           type = "gpt";
           partitions = {
