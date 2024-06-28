@@ -3,13 +3,15 @@
   pkgs,
   data,
   lib,
+  config,
   ...
 }:
 
 {
   imports = [
-    (inputs.nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix")
+    (inputs.nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix")
   ];
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
 
   isoImage = {
     compressImage = true;
@@ -26,7 +28,7 @@
     path = [ pkgs.netcat-openbsd ];
   };
   nix = {
-    package = pkgs.nixVersions.stable;
+    package = pkgs.nixVersions.git;
     registry = {
       nixpkgs.flake = inputs.nixpkgs;
       self.flake = inputs.self;
@@ -67,7 +69,7 @@
         "flakes"
         "auto-allocate-uids"
         "cgroups"
-        "repl-flake"
+        # "repl-flake"
         "recursive-nix"
         "ca-derivations"
       ];
@@ -87,7 +89,10 @@
   };
 
   services = {
-    sing-box.enable = true;
+    sing-box = {
+      enable = true;
+      configFile = lib.readToStore "/run/agenix/sing";
+    };
     pcscd.enable = true;
     openssh.enable = true;
   };
@@ -114,6 +119,7 @@
       ethtool
       dnsutils
       tcpdump
+      tmux
       sing-box
       netcat
       dog

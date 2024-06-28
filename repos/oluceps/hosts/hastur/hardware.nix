@@ -70,7 +70,7 @@
     disk = {
       nvme = {
         type = "disk";
-        device = "/dev/disk/by-id/nvme-KBG50ZNV512G_KIOXIA_436C75TAECJX";
+        device = "/dev/disk/by-id/nvme-WDS100T3X0C-00SJG0_21191G463913";
         content = {
           type = "gpt";
           partitions = {
@@ -88,9 +88,11 @@
               content = {
                 type = "btrfs";
                 extraArgs = [
+                  "--label nixos"
                   "-f"
                   "--csum xxhash64"
-                  "--label nixos"
+                  "--features"
+                  "block-group-tree"
                 ]; # Override existing partition
                 subvolumes = {
                   "/persist" = {

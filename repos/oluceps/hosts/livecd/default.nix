@@ -28,6 +28,7 @@
           };
         }
         ./additions.nix
+        "${self}/modules/sing-box.nix"
       ];
     }
   );

@@ -51,6 +51,7 @@
                 content = {
                   type = "btrfs";
                   extraArgs = [
+                    "--label nixos"
                     "-f"
                     "--csum xxhash64"
                     "--features"

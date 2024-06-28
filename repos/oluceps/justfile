@@ -20,7 +20,7 @@ default:
     @just --choose
 
 build-livecd:
-    nom build .#nixosConfigurations.livecd.config.system.build.isoImage
+    nom build .#nixosConfigurations.livecd.config.system.build.isoImage --impure
 
 build-cache:
     nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
