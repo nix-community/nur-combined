@@ -4,6 +4,7 @@
 
 , fetchFromGitHub
 
+, callPackage
 , makeDesktopItem
 , makeWrapper
 , wrapGAppsHook
@@ -15,6 +16,10 @@
 , moreutils
 , nodePackages
 }: let
+  pnpm = callPackage ./pnpm.nix {
+    nodejs = nodePackages.nodejs;
+  };
+
   fixupPackageJson = {
     pnpmPatch = builtins.toJSON {
       pnpm.supportedArchitectures = {
@@ -23,7 +28,7 @@
       };
       engines = {
         node = nodePackages.nodejs.version;
-        pnpm = nodePackages.pnpm.version;
+        pnpm = pnpm.version;
         electron = electron.version;
       };
     };
@@ -45,7 +50,7 @@
       cacert
       jq
       moreutils
-      nodePackages.pnpm
+      pnpm
     ];
 
     dontBuild = true;
@@ -107,7 +112,7 @@ in stdenv.mkDerivation (final: {
 
     nativeBuildInputs = [
       jq
-      nodePackages.pnpm
+      pnpm
       nodePackages.nodejs
       gitMinimal
     ];
@@ -140,7 +145,7 @@ in stdenv.mkDerivation (final: {
   });
 
   nativeBuildInputs = [
-    nodePackages.pnpm
+    pnpm
     nodePackages.nodejs
     makeWrapper
     jq
