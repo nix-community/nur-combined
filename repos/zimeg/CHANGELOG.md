@@ -8,6 +8,7 @@ and are noted with a `!` in the message.
 
 ## Changes
 
+- docs: remember flake changes needed to use local package definition 2024-06-28
 - ci(fix): attempt to build packages on all systems in spite of fails 2024-06-28
 - feat(pkgs/gon): package the program that signs and notarizes darwin 2024-06-28
 - build(macos): perform cache builds on both macos and ubuntu runners 2024-06-27
