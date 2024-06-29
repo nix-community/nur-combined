@@ -2008,10 +2008,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "128.0.20240626.91446";
+      version = "128.0.20240628.91536";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4309964/deutsch_de_language_pack-128.0.20240626.91446.xpi";
-      sha256 = "adfb5db30f67d1ce5e69e5b9151199c44755058554a5274721ff1a5c822bdb03";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4311076/deutsch_de_language_pack-128.0.20240628.91536.xpi";
+      sha256 = "e85c52b563e81113fb2f0a69ea04c999de897748465d10b1a3f7d6a13c6372db";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2267,10 +2267,10 @@
     };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2024.4.26";
+      version = "2024.6.13";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4286002/duckduckgo_for_firefox-2024.4.26.xpi";
-      sha256 = "41b607ab971bcf5ef66ac2d84f1d932ad53a95214d421bea08946cbb1aee5bb1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4302639/duckduckgo_for_firefox-2024.6.13.xpi";
+      sha256 = "4273dee23f6cb785f38f12982d6c856fe1b62d42008d873f9e1228b230d6bd84";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -2974,10 +2974,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "128.0.20240626.91446";
+      version = "128.0.20240628.91536";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4309939/francais_language_pack-128.0.20240626.91446.xpi";
-      sha256 = "1aeb1e72b984dffaa88664176442fc1f19b43b9abf053de774a14a03838026ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4311035/francais_language_pack-128.0.20240628.91536.xpi";
+      sha256 = "3ecb0b2b0387427e14fe7315c24e27db93de75382feed63a7d61ea8d37fb49dc";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -5354,10 +5354,10 @@
     };
     "javascript-restrictor" = buildFirefoxXpiAddon {
       pname = "javascript-restrictor";
-      version = "0.18";
+      version = "0.18.1";
       addonId = "jsr@javascriptrestrictor";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4267401/javascript_restrictor-0.18.xpi";
-      sha256 = "819fe58516b16eb88b0cd02241d182c58d307ee2c282575f4424601c843c15db";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4310951/javascript_restrictor-0.18.1.xpi";
+      sha256 = "fbcef45827179d11064064346634fd74c338d98941456e1404700ef5feabea74";
       meta = with lib;
       {
         homepage = "https://jshelter.org";
@@ -11827,10 +11827,10 @@
     };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "3.8.0";
+      version = "3.9.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4293319/web_scrobbler-3.8.0.xpi";
-      sha256 = "864589eeaf46297300ed533dc34e51d2639e409169c035216b3d9be27e7fda81";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4308290/web_scrobbler-3.9.0.xpi";
+      sha256 = "5caa0015c65e5177b106cf8419d0f07e25d0dc9af21d14e851ff67eca2788b01";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
