@@ -72,18 +72,18 @@
   } // builtins.removeAttrs args [ "pname" "hash" ]);
 in stdenv.mkDerivation (final: {
   pname = "ferdium";
-  version = "6.7.4";
+  version = "6.7.5";
 
   src = fetchFromGitHub {
     owner = "ferdium";
     repo = "ferdium-app";
     rev = "v${final.version}";
-    hash = "sha256-ZYtXLMwAR4R6WbFhecUu1z7ThcFrcQDtbcccHyH9fXs=";
+    hash = "sha256-H/RZzeLh53PSZiFC2/JdcASanhg+blwVzO1ne0J5zeI=";
   };
 
   pnpmDeps = mkPnpmDeps {
     inherit (final) pname version src;
-    hash = "sha256-4bTezNl6EOwL6A0RUq5H+ivrk2zczyoS4eoO3KVnEO0=";
+    hash = "sha256-TLJk7ZK8qr7e1GEt5LXANisvSzFcXPNjijnbeqsIMjE=";
   };
 
   recipes = stdenv.mkDerivation (recipesFinal: {
