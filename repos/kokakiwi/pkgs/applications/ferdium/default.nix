@@ -93,13 +93,13 @@ in stdenv.mkDerivation (final: {
     src = fetchFromGitHub {
       owner = "ferdium";
       repo = "ferdium-recipes";
-      rev = "ae724d09560576253952f8884497a8d797215ae1";
-      hash = "sha256-nbvEnDEsy66t0o37NkDIP8WkzYPAChQwout+BAKNG5I=";
+      rev = "7ce6da3f052c80f43400ab06121b6189c91246c6";
+      hash = "sha256-fUgHJ9NkPjyqJGHCHtBIQpVDu5AmQGfhRCJdiVMzc2I=";
     };
 
     pnpmDeps = mkPnpmDeps {
       inherit (recipesFinal) pname version src;
-      hash = "sha256-atEfRhrfJ+aWFgJMetcJzw0JwTdJJBFkS/GEplEuNAM=";
+      hash = "sha256-7QT1tUCslrOXnMsJB0ETwQnVm2+v9MD+BPx6zm+Ruhg=";
     };
 
     inherit (fixupPackageJson) pnpmPatch;
