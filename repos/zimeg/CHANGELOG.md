@@ -8,6 +8,7 @@ and are noted with a `!` in the message.
 
 ## Changes
 
+- ci(fix): build darwin programs on darwin runners to avoid breakings 2024-06-28
 - docs: remember flake changes needed to use local package definition 2024-06-28
 - ci(fix): attempt to build packages on all systems in spite of fails 2024-06-28
 - feat(pkgs/gon): package the program that signs and notarizes darwin 2024-06-28
