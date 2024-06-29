@@ -7,11 +7,11 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "sha256": "sha256-etPOxeW9jY3kltsqoj8jthmggDt8eQdmJcF0p3YDACs=",
+            "sha256": "sha256-F8m70l6yxUz5Jxh/Kf9FwiOdO+UyymPE+sffVYwgdRY=",
             "type": "tarball",
-            "url": "https://github.com/CakeML/cakeml/releases/download/v2274/cake-x64-64.tar.gz"
+            "url": "https://github.com/CakeML/cakeml/releases/download/v2419/cake-x64-64.tar.gz"
         },
-        "version": "v2274"
+        "version": "v2419"
     },
     "enso": {
         "cargoLocks": null,
@@ -103,15 +103,15 @@
     "wasmfxtime": {
         "cargoLocks": {
             "./Cargo.lock": [
-                "./wasmfxtime-711ed0938c9a8516761ff18cce998bc65ffa9368/./Cargo.lock",
+                "./wasmfxtime-83757e599bd746bac86bbcadcc5afe4048568d0c/./Cargo.lock",
                 {
                     "wasm-encoder-0.209.0": "sha256-6rtIhiADuBJTvInsP8gTEyyepEd+h6beSDpzUbOGE8A=",
-                    "wasm-encoder-0.209.1": "sha256-RR+F6RIexUAS3MajvV8fL4sfkNFKQt6pNvLwMvNKv7w=",
+                    "wasm-encoder-0.211.1": "sha256-+U1fDDqVHgYcjAQ4J6OpBGYi8n9dIoTPlkXEs6ZktZo=",
                     "wit-bindgen-0.26.0": "sha256-+KjFdilYKSCR285M4Fai8ocCDrkerIb9EKTKRTz+aEg="
                 }
             ]
         },
-        "date": "2024-06-21",
+        "date": "2024-06-28",
         "extract": null,
         "name": "wasmfxtime",
         "passthru": null,
@@ -123,10 +123,10 @@
             "name": null,
             "owner": "wasmfx",
             "repo": "wasmfxtime",
-            "rev": "711ed0938c9a8516761ff18cce998bc65ffa9368",
-            "sha256": "sha256-73ND+Qa1x6RpHNQaaOPQe7jNkhLV27H6+Xu3UwQ4eMk=",
+            "rev": "83757e599bd746bac86bbcadcc5afe4048568d0c",
+            "sha256": "sha256-HPhb+hJ8fOTuqsuuxgKaVxTFHsAIRXdH7S/W0/AeFH0=",
             "type": "github"
         },
-        "version": "711ed0938c9a8516761ff18cce998bc65ffa9368"
+        "version": "83757e599bd746bac86bbcadcc5afe4048568d0c"
     }
 }

@@ -103,13 +103,13 @@ let
         sha512 = "5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==";
       };
     };
-    "@types/node-20.14.7" = {
+    "@types/node-20.14.9" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "20.14.7";
+      version = "20.14.9";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-20.14.7.tgz";
-        sha512 = "uTr2m2IbJJucF3KUxgnGOZvYbN0QgkGyWxG6973HCpMYFy2KfcgYuIwkJQMQkt1VbBMlvWRbpshFTLxnxCZjKQ==";
+        url = "https://registry.npmjs.org/@types/node/-/node-20.14.9.tgz";
+        sha512 = "06OCtnTXtWOZBJlRApleWndH4JsRVs1pDCc8dLSQp+7PpUpX3ePdHyeNSFTeSe7FtKyQkrlPvHwJOW3SLd8Oyg==";
       };
     };
     "@webassemblyjs/ast-1.12.1" = {
@@ -346,13 +346,13 @@ let
         sha512 = "E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==";
       };
     };
-    "caniuse-lite-1.0.30001636" = {
+    "caniuse-lite-1.0.30001638" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001636";
+      version = "1.0.30001638";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001636.tgz";
-        sha512 = "bMg2vmr8XBsbL6Lr0UHXy/21m84FTxDLWn2FSqMd5PrlbMxwJlQnC2YWYxVgp66PZE+BBNF2jYQUBKCo1FDeZg==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001638.tgz";
+        sha512 = "5SuJUJ7cZnhPpeLHaH0c/HPAnAHZvS6ElWyHK9GSIbVOQABLzowiI2pjmpvZ1WEbkyz46iFd4UXlOHR5SqgfMQ==";
       };
     };
     "chrome-trace-event-1.0.4" = {
@@ -409,13 +409,13 @@ let
         sha512 = "iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==";
       };
     };
-    "electron-to-chromium-1.4.808" = {
+    "electron-to-chromium-1.4.814" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.808";
+      version = "1.4.814";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.808.tgz";
-        sha512 = "0ItWyhPYnww2VOuCGF4s1LTfbrdAV2ajy/TN+ZTuhR23AHI6rWHCrBXJ/uxoXOvRRqw8qjYVrG81HFI7x/2wdQ==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.814.tgz";
+        sha512 = "GVulpHjFu1Y9ZvikvbArHmAhZXtm3wHlpjTMcXNGKl4IQ4jMQjlnz8yMQYYqdLHKi/jEL2+CBC2akWVCoIGUdw==";
       };
     };
     "enhanced-resolve-5.17.0" = {
@@ -436,13 +436,13 @@ let
         sha512 = "cvcaMr7KqXVh4nyzGTVqTum+gAiL265x5jUWQIDLq//zOGbW+gSW/C+OWLleY/rs9Qole6AZLMXPbtIFQbqu+Q==";
       };
     };
-    "es-module-lexer-1.5.3" = {
+    "es-module-lexer-1.5.4" = {
       name = "es-module-lexer";
       packageName = "es-module-lexer";
-      version = "1.5.3";
+      version = "1.5.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-1.5.3.tgz";
-        sha512 = "i1gCgmR9dCl6Vil6UKPI/trA69s08g/syhiDK9TG0Nf1RJjjFI+AzoWW7sPufzkgYAn861skuCwJa0pIIHYxvg==";
+        url = "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-1.5.4.tgz";
+        sha512 = "MVNK56NiMrOwitFB7cqDwq0CQutbw+0BvLshJSse0MUNU+y1FC3bUS/AQg7oUng+/wKrrki7JfmwtVHkVfPLlw==";
       };
     };
     "escalade-3.1.2" = {
@@ -1093,7 +1093,7 @@ let
       sources."@types/eslint-scope-3.7.7"
       sources."@types/estree-1.0.5"
       sources."@types/json-schema-7.0.15"
-      sources."@types/node-20.14.7"
+      sources."@types/node-20.14.9"
       sources."@webassemblyjs/ast-1.12.1"
       sources."@webassemblyjs/floating-point-hex-parser-1.11.6"
       sources."@webassemblyjs/helper-api-error-1.11.6"
@@ -1120,16 +1120,16 @@ let
       sources."ajv-keywords-3.5.2"
       sources."browserslist-4.23.1"
       sources."buffer-from-1.1.2"
-      sources."caniuse-lite-1.0.30001636"
+      sources."caniuse-lite-1.0.30001638"
       sources."chrome-trace-event-1.0.4"
       sources."clone-deep-4.0.1"
       sources."colorette-2.0.20"
       sources."commander-10.0.1"
       sources."cross-spawn-7.0.3"
-      sources."electron-to-chromium-1.4.808"
+      sources."electron-to-chromium-1.4.814"
       sources."enhanced-resolve-5.17.0"
       sources."envinfo-7.13.0"
-      sources."es-module-lexer-1.5.3"
+      sources."es-module-lexer-1.5.4"
       sources."escalade-3.1.2"
       sources."eslint-scope-5.1.1"
       (sources."esrecurse-4.3.0" // {
