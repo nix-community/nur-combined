@@ -24,14 +24,14 @@
 }:
 stdenv.mkDerivation rec {
   pname = "imhex";
-  version = "1.35.0";
+  version = "1.35.1";
 
   src = fetchFromGitHub {
     fetchSubmodules = true;
     owner = "WerWolv";
     repo = "ImHex";
     rev = "v${version}";
-    hash = "sha256-hScED6+9au/GmCwneI7hEDK56ffMPQ2Mn6CoLGXVhIU=";
+    hash = "sha256-kCa2hS9RA5MBJg8tU3yZdwuvlyHYJ8AiI0+jA/GECZ0=";
   };
 
   patterns = fetchFromGitHub {
@@ -82,7 +82,6 @@ stdenv.mkDerivation rec {
     description = "Hex Editor for Reverse Engineers, Programmers and people who value their retinas when working at 3 AM";
     homepage = "https://github.com/WerWolv/ImHex";
     license = with licenses; [ gpl2Only ];
-    maintainers = with maintainers; [ kashw2 cafkafk ];
     platforms = platforms.linux;
   };
 }
