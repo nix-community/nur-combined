@@ -20,4 +20,5 @@
     inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
   };
   emacs-unlimited-select = pkgs.callPackage ./pkgs/emacs-unlimited-select { };
+  goatcounter = pkgs.callPackage ./pkgs/goatcounter { };
 }
