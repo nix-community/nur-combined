@@ -200,6 +200,28 @@
         platforms = platforms.all;
       };
     };
+    "alby" = buildFirefoxXpiAddon {
+      pname = "alby";
+      version = "3.8.1";
+      addonId = "extension@getalby.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4292894/alby-3.8.1.xpi";
+      sha256 = "278793c44ae6e22873647adb51b9a2e2cb04a3b3c6176afe32f4b54e58baa68b";
+      meta = with lib;
+      {
+        homepage = "https://getAlby.com/";
+        description = "Your Bitcoin Lightning wallet and companion for accessing Bitcoin and Nostr apps, payments across the globe and passwordless logins.";
+        license = licenses.mit;
+        mozPermissions = [
+          "nativeMessaging"
+          "notifications"
+          "storage"
+          "tabs"
+          "unlimitedStorage"
+          "*://*/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "alfred-launcher-integration" = buildFirefoxXpiAddon {
       pname = "alfred-launcher-integration";
       version = "1.2.0";
@@ -931,6 +953,21 @@
           "contextMenus"
           "<all_urls>"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "british-english-dictionary-2" = buildFirefoxXpiAddon {
+      pname = "british-english-dictionary-2";
+      version = "3.3.3";
+      addonId = "marcoagpinto@mail.telepac.pt";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4296885/british_english_dictionary_2-3.3.3.xpi";
+      sha256 = "5f9bd4fd4de32cac777cb9cf49d0bd8f816a131e4835c4d7f9e30bb83f5983de";
+      meta = with lib;
+      {
+        homepage = "https://proofingtoolgui.org";
+        description = "A fork of Mark Tyndall's add-on, based on David Bartlett's \nBritish Dictionary R1.19 for Firefox, Thunderbird and SeaMonkey.\n\nV3.3.3 has 140 000+ new words and also fixes.";
+        license = licenses.lgpl3;
+        mozPermissions = [];
         platforms = platforms.all;
       };
     };
