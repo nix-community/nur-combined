@@ -1239,12 +1239,12 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.9.6-xanmod1",
-            "sha256": "sha256-ekC9M3IB4NALYVaSuSuYV5MIIuP/VkJRJdB8ZJIZ2v0=",
+            "rev": "6.9.7-xanmod1",
+            "sha256": "sha256-hmVcwC1PHjyCw43IpJ99y72qFXSX5lbbh6+1TqdXzag=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.9.6-xanmod1"
+        "version": "6.9.7-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1302,12 +1302,12 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.6.35-xanmod1",
-            "sha256": "sha256-MLoSM+lyxTpA7mKrYydHa1Mx1qagBFR/bGFGvOfDFqw=",
+            "rev": "6.6.36-xanmod1",
+            "sha256": "sha256-8L8e5iP4pvIvgqHmQYhFRCbgLvuFOXr7nkBe0VnuCzw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.6.35-xanmod1"
+        "version": "6.6.36-xanmod1"
     },
     "llama-cpp": {
         "cargoLocks": null,
@@ -1323,12 +1323,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3260",
-            "sha256": "sha256-EcfNetrsohpDwnvCZNvN+ZFWxrRy6UL1doEmqHVSwXQ=",
+            "rev": "b3265",
+            "sha256": "sha256-WVDKNojgXJGDZHi/grzgd5KsLuTNQt/MzPppgKsWEZM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3260"
+        "version": "b3265"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -1804,11 +1804,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ogVJs3hYnL1JnR+fI3C3lNZ99mVTzu/u1uuPHXOAV2M=",
+            "sha256": "sha256-0jE83c5VS6vfSVkGCJbUa45Knxh5xuJ1aOo2LZLijng=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.2.4/PeerBanHelper.jar"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.3.0/PeerBanHelper.jar"
         },
-        "version": "v4.2.4"
+        "version": "v4.3.0"
     },
     "phpmyadmin": {
         "cargoLocks": null,

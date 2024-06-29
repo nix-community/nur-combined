@@ -689,13 +689,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.9.6-xanmod1";
+    version = "6.9.7-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.9.6-xanmod1";
+      rev = "6.9.7-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-ekC9M3IB4NALYVaSuSuYV5MIIuP/VkJRJdB8ZJIZ2v0=";
+      sha256 = "sha256-hmVcwC1PHjyCw43IpJ99y72qFXSX5lbbh6+1TqdXzag=";
     };
   };
   linux-xanmod-6_0 = {
@@ -722,24 +722,24 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.35-xanmod1";
+    version = "6.6.36-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.35-xanmod1";
+      rev = "6.6.36-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-MLoSM+lyxTpA7mKrYydHa1Mx1qagBFR/bGFGvOfDFqw=";
+      sha256 = "sha256-8L8e5iP4pvIvgqHmQYhFRCbgLvuFOXr7nkBe0VnuCzw=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3260";
+    version = "b3265";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3260";
+      rev = "b3265";
       fetchSubmodules = false;
-      sha256 = "sha256-EcfNetrsohpDwnvCZNvN+ZFWxrRy6UL1doEmqHVSwXQ=";
+      sha256 = "sha256-WVDKNojgXJGDZHi/grzgd5KsLuTNQt/MzPppgKsWEZM=";
     };
   };
   nbfc-linux-lantian = {
@@ -1001,10 +1001,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v4.2.4";
+    version = "v4.3.0";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.2.4/PeerBanHelper.jar";
-      sha256 = "sha256-ogVJs3hYnL1JnR+fI3C3lNZ99mVTzu/u1uuPHXOAV2M=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.3.0/PeerBanHelper.jar";
+      sha256 = "sha256-0jE83c5VS6vfSVkGCJbUa45Knxh5xuJ1aOo2LZLijng=";
     };
   };
   phpmyadmin = {
