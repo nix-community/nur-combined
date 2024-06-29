@@ -6,5 +6,6 @@
   overlays = import ./overlays;
 
   etime = pkgs.callPackage ./pkgs/etime { };
+  gon = pkgs.callPackage ./pkgs/gon { };
   zsh-wd = pkgs.callPackage ./pkgs/zsh-wd { };
 }
