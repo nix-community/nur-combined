@@ -21,4 +21,5 @@
   };
   emacs-unlimited-select = pkgs.callPackage ./pkgs/emacs-unlimited-select { };
   goatcounter = pkgs.callPackage ./pkgs/goatcounter { };
+  vanity-imports = pkgs.callPackage ./pkgs/vanity-imports { };
 }
