@@ -31,11 +31,6 @@ in
     programs.firefox = {
       enable = true;
       package = pkgs.firefox-devedition-bin;
-      nativeMessagingHosts =
-        with pkgs;
-        mkIf config.abszero.services.desktopManager.plasma6.enable [
-          kdePackages.plasma-browser-integration
-        ];
       profiles.${cfg.profile}.settings = {
         "browser.aboutConfig.showWarning" = false;
       };

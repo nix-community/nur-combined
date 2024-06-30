@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -13,17 +8,8 @@ in
 {
   options.abszero.services.displayManager.sddm.enable = mkEnableOption "sddm as the display manager";
 
-  config = mkIf cfg.enable {
-    services.displayManager.sddm = {
-      enable = true;
-      wayland = {
-        enable = true;
-        compositor = mkIf config.abszero.services.desktopManager.plasma6.enable "kwin";
-      };
-    };
-    # Plasma integration
-    environment.systemPackages =
-      with pkgs;
-      mkIf config.abszero.services.desktopManager.plasma6.enable [ kdePackages.sddm-kcm ];
+  config.services.displayManager.sddm = mkIf cfg.enable {
+    enable = true;
+    wayland.enable = true;
   };
 }

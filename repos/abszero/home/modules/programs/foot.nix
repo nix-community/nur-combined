@@ -14,7 +14,6 @@ in
       main.resize-delay-ms = 0;
       mouse.hide-when-typing = true;
       touch.long-press-delay = 300;
-      url.label-letters = "crstbfneia"; # Canary layout
       key-bindings = {
         # show-urls-launch = "Control+Shift+U";
       };
