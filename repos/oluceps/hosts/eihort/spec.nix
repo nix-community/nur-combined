@@ -64,11 +64,12 @@
   services = {
     bpftune.enable = true;
     sing-box.enable = true;
+    metrics.enable = true;
     btrfs.autoScrub = {
       enable = true;
       interval = "weekly";
       fileSystems = [
-        "/"
+        "/persist"
         "/three"
       ];
     };

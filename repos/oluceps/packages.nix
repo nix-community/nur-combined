@@ -137,7 +137,7 @@ let
       btop
       atuin
       minio-client
-      attic
+      # attic
       deno
       ntfy-sh
       _7zz

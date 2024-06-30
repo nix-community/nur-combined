@@ -22,5 +22,14 @@
     NTFY_AUTH_FILE = config.services.ntfy-sh.settings.auth-file or "";
     # LD_LIBRARY_PATH = [ "${lib.getLib pkgs.pcsclite}/lib" ];
     DIRENV_CONFIG = "/etc/direnv";
+
+    XCURSOR_SIZE = "22";
+    XCURSOR_THEME = lib.mkDefault "graphite-light-nord";
+    CARGO_REGISTRIES_CRATES_IO_PROTOCOL = "sparse";
+    CARGO_UNSTABLE_SPARSE_REGISTRY = "true";
+    NEOVIDE_MULTIGRID = "1";
+    NEOVIDE_WM_CLASS = "1";
+    NODE_PATH = "~/.npm-packages/lib/node_modules";
+
   };
 }

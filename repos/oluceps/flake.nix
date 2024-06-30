@@ -177,7 +177,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lix = {
-      url = "git+https://git.lix.systems/lix-project/lix?ref=refs/tags/2.90-beta.1";
+      url = "git+https://git.lix.systems/lix-project/lix";
       flake = false;
     };
     lix-module = {
@@ -283,7 +283,6 @@
       url = "github:PrismLauncher/PrismLauncher";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    home-manager.url = "github:nix-community/home-manager";
     helix.url = "github:helix-editor/helix";
     berberman.url = "github:berberman/flakes";
     # clansty.url = "github:clansty/flake";

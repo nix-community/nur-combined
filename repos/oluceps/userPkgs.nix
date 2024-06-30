@@ -200,3 +200,18 @@ with pkgs;
   prettier
 ])
 ++ (with pkgs; [ fluent-icon-theme ])
+++ [
+  (writeTextFile {
+    name = "index.theme";
+    destination = "/share/icons/default/index.theme";
+    # Set name in icons theme, for compatibility with AwesomeWM etc. See:
+    # https://github.com/nix-community/home-manager/issues/2081
+    # https://wiki.archlinux.org/title/Cursor_themes#XDG_specification
+    text = ''
+      [Icon Theme]
+      Name=Default
+      Comment=Default Cursor Theme
+      Inherits=graphite-light-nord
+    '';
+  })
+]

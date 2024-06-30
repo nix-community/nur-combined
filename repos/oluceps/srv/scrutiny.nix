@@ -15,7 +15,7 @@
     openFirewall = true;
 
     notify = {
-      urls = [ "ntfy://ntfy.nyaw.xyz/info" ];
+      urls = [ "ntfy://ntfy.nyaw.xyz/crit?auth=QmVhcmVyIHRrXzFkZTlmYXdic3g1NGFweWVmbDZ3OWFtOGg5Mmpn" ];
     };
   };
 }

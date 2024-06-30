@@ -110,7 +110,7 @@
     dae.enable = true;
     scrutiny.enable = true;
     ddns-go.enable = true;
-    atticd.enable = true;
+    # atticd.enable = true;
     atuin.enable = true;
     postgresql.enable = true;
     photoprism.enable = true;
@@ -291,7 +291,7 @@
       }
     ];
 
-    gvfs.enable = true;
+    gvfs.enable = false;
 
     postgresqlBackup = {
       enable = true;
