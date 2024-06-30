@@ -2839,11 +2839,6 @@
     "pname": "undetected-chromedriver-bin",
     "version": "126.0.6478.126"
   },
-  "legacyPackages.x86_64-linux.vivado-2022_2": {
-    "description": "Xilinx Vivado WebPack Edition (Packaging script adapted from https://github.com/lschuermann/nur-packages/blob/master/pkgs/vivado/vivado-2022_2.nix)",
-    "pname": "vivado",
-    "version": "2022.2"
-  },
   "legacyPackages.x86_64-linux.vpp": {
     "description": "Vector Packet Processing",
     "pname": "vpp",
@@ -3513,11 +3508,6 @@
     "description": "Chromedriver with undetected-chromedriver patch",
     "pname": "undetected-chromedriver-bin",
     "version": "126.0.6478.126"
-  },
-  "packages.x86_64-linux.vivado-2022_2": {
-    "description": "Xilinx Vivado WebPack Edition (Packaging script adapted from https://github.com/lschuermann/nur-packages/blob/master/pkgs/vivado/vivado-2022_2.nix)",
-    "pname": "vivado",
-    "version": "2022.2"
   },
   "packages.x86_64-linux.vpp": {
     "description": "Vector Packet Processing",

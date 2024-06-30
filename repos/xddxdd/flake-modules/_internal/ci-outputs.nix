@@ -1,4 +1,5 @@
 {
+  self,
   lib,
   flake-parts-lib,
   inputs,
@@ -29,7 +30,7 @@ in
   ];
 
   perSystem =
-    { pkgs, ... }:
+    { pkgs, system, ... }:
     let
       inherit (pkgs.callPackage ../../helpers/is-buildable.nix { }) isBuildable;
       outputsOf = p: map (o: p.${o}) p.outputs;
@@ -40,6 +41,9 @@ in
       ciPackages = lib.filterAttrs (_n: isBuildable) (import ../../pkgs "ci" { inherit inputs pkgs; });
       ciOutputs =
         (lib.flatten (lib.mapAttrsToList (_: outputsOf) ciPackages))
-        ++ builtins.filter (v: v != null) (lib.mapAttrsToList (_: v: v.src or null) sources);
+        ++ (builtins.filter (p: lib.isDerivation p && (builtins.tryEval p).success) (
+          lib.flatten (lib.mapAttrsToList (_: v: v.srcs or v.src or null) self.packages.${system})
+        ))
+        ++ (builtins.filter (v: v != null) (lib.mapAttrsToList (_: v: v.src or null) sources));
     };
 }

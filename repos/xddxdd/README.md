@@ -2,8 +2,6 @@
 
 ![Build and populate cache](https://github.com/xddxdd/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
 
-[![Cachix Cache](https://img.shields.io/badge/cachix-xddxdd-blue.svg)](https://xddxdd.cachix.org)
-
 [![built with garnix](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fgarnix.io%2Fapi%2Fbadges%2Fxddxdd%2Fnur-packages)](https://garnix.io)
 
 ## Warning
@@ -37,7 +35,6 @@ Packages in all other categories are for public use. I will try my best to minim
 
         # Binary cache (optional, choose any one, or see guide below)
         inputs.nur-xddxdd.nixosModules.nix-cache-attic
-        inputs.nur-xddxdd.nixosModules.nix-cache-cachix
         inputs.nur-xddxdd.nixosModules.nix-cache-garnix
       ];
     };
@@ -67,24 +64,6 @@ Or, use variables from this repository in case I change them:
 }
 ```
 
-### Cachix
-
-```nix
-{
-  nix.settings.substituters = [ "https://xddxdd.cachix.org" ];
-  nix.settings.trusted-public-keys = [ "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8=" ];
-}
-```
-
-Or, use variables from this repository in case I change them:
-
-```nix
-{
-  nix.settings.substituters = [ nur.repos.xddxdd._meta.cachixUrl ];
-  nix.settings.trusted-public-keys = [ nur.repos.xddxdd._meta.cachixPublicKey ];
-}
-```
-
 ### Garnix.io
 
 ```nix
@@ -106,7 +85,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (123 packages)</summary>
+<summary>Package set: (Uncategorized) (122 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -223,7 +202,6 @@ Or, use variables from this repository in case I change them:
 |  | `uksmd` | [uksmd](https://github.com/CachyOS/uksmd) | 1.2.11 | Userspace KSM helper daemon |
 |  | `undetected-chromedriver` | [undetected-chromedriver](https://github.com/ultrafunkamsterdam/undetected-chromedriver) | unstable-2024-02-17 | Custom Selenium Chromedriver | Zero-Config | Passes ALL bot mitigation systems (like Distil / Imperva/ Datadadome / CloudFlare IUAM) |
 |  | `undetected-chromedriver-bin` | [undetected-chromedriver-bin](https://chromedriver.chromium.org/) | 126.0.6478.126 | Chromedriver with undetected-chromedriver patch |
-|  | `vivado-2022_2` | [vivado](https://www.xilinx.com/products/design-tools/vivado.html) | 2022.2 | Xilinx Vivado WebPack Edition (Packaging script adapted from https://github.com/lschuermann/nur-packages/blob/master/pkgs/vivado/vivado-2022_2.nix) |
 |  | `vpp` | [vpp](https://wiki.fd.io/view/VPP/What_is_VPP%3F) | 24.06 | Vector Packet Processing |
 |  | `wechat-uos` | [wechat-uos](https://weixin.qq.com/) | 1.0.0.241 | WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
 |  | `wechat-uos-bin` | [wechat-uos](https://weixin.qq.com/) | 1.0.0.241 | WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |

@@ -214,7 +214,6 @@ mkScope (
     uksmd = pkg ./uncategorized/uksmd { };
     undetected-chromedriver = pkg ./uncategorized/undetected-chromedriver { };
     undetected-chromedriver-bin = pkg ./uncategorized/undetected-chromedriver-bin { };
-    vivado-2022_2 = ifNotCI (pkg ./uncategorized/vivado-2022_2 { });
     vpp = pkg ./uncategorized/vpp { };
     wechat-uos = pkg ./uncategorized/wechat-uos { };
     wechat-uos-without-sandbox = pkg ./uncategorized/wechat-uos { enableSandbox = false; };

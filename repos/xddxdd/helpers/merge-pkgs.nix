@@ -16,6 +16,10 @@ in
       {
         passthru = packages;
 
+        srcs = lib.flatten (
+          builtins.filter (v: v != null) (lib.mapAttrsToList (_: v: v.srcs or v.src or null) packages)
+        );
+
         meta =
           let
             allMetas = lib.mapAttrsToList (

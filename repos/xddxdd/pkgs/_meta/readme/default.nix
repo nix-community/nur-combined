@@ -84,8 +84,6 @@ writeTextFile {
 
     ![Build and populate cache](https://github.com/xddxdd/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
 
-    [![Cachix Cache](https://img.shields.io/badge/cachix-xddxdd-blue.svg)](https://xddxdd.cachix.org)
-
     [![built with garnix](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fgarnix.io%2Fapi%2Fbadges%2Fxddxdd%2Fnur-packages)](https://garnix.io)
 
     ## Warning
@@ -119,7 +117,6 @@ writeTextFile {
 
             # Binary cache (optional, choose any one, or see guide below)
             inputs.nur-xddxdd.nixosModules.nix-cache-attic
-            inputs.nur-xddxdd.nixosModules.nix-cache-cachix
             inputs.nur-xddxdd.nixosModules.nix-cache-garnix
           ];
         };
@@ -146,24 +143,6 @@ writeTextFile {
     {
       nix.settings.substituters = [ nur.repos.xddxdd._meta.atticUrl ];
       nix.settings.trusted-public-keys = [ nur.repos.xddxdd._meta.atticPublicKey ];
-    }
-    ```
-
-    ### Cachix
-
-    ```nix
-    {
-      nix.settings.substituters = [ "${_meta.cachixUrl}" ];
-      nix.settings.trusted-public-keys = [ "${_meta.cachixPublicKey}" ];
-    }
-    ```
-
-    Or, use variables from this repository in case I change them:
-
-    ```nix
-    {
-      nix.settings.substituters = [ nur.repos.xddxdd._meta.cachixUrl ];
-      nix.settings.trusted-public-keys = [ nur.repos.xddxdd._meta.cachixPublicKey ];
     }
     ```
 
