@@ -2,8 +2,8 @@
   cacert, glib-networking, ... }:
 let
   pname = "orca-slicer";
-  version = "2.1.0";
-  sha256 = "sha256-7E+bphVJVVmYqSKrZqICb2DrjSTJ2dRsMIjoRi5SWVs=";
+  version = "2.1.1";
+  sha256 = "sha256-kvM1rBGEJhjRqQt3a8+I0o4ahB1Uc9qB+4PzhYoNQdM=";
   url = "https://github.com/SoftFever/OrcaSlicer/releases/download/v${version}/OrcaSlicer_Linux_V${version}.AppImage";
   src = fetchurl {
     inherit url sha256;
