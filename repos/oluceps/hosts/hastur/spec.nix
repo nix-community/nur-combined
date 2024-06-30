@@ -158,6 +158,7 @@
     radicle.enable = true;
     metrics.enable = true;
     fwupd.enable = true;
+    bpftune.enable = true;
     realm = {
       enable = true;
       settings = {
@@ -205,37 +206,29 @@
     };
 
     sing-box.enable = true;
-    beesd.filesystems = {
-      os = {
-        spec = "LABEL=nixos";
-        hashTableSizeMB = 1024; # 256 *2 *2
-        verbosity = "crit";
-        extraOptions = [
-          "-c"
-          "6"
-        ];
-      };
-    };
     restic = {
       backups = {
-        # solid = {
-        #   passwordFile = config.age.secrets.wg.path;
-        #   repositoryFile = config.age.secrets.restic-repo.path;
-        #   environmentFile = config.age.secrets.restic-envs.path;
-        #   paths = [ "/persist" "/var" ];
-        #   extraBackupArgs = [
-        #     "--one-file-system"
-        #     "--exclude-caches"
-        #     "--no-scan"
-        #     "--retry-lock 2h"
-        #   ];
-        #   timerConfig = {
-        #     OnCalendar = "daily";
-        #     RandomizedDelaySec = "4h";
-        #     FixedRandomDelay = true;
-        #     Persistent = true;
-        #   };
-        # };
+        solid = {
+          passwordFile = config.age.secrets.wg.path;
+          repositoryFile = config.age.secrets.restic-repo.path;
+          environmentFile = config.age.secrets.restic-envs.path;
+          paths = [
+            "/persist"
+            "/var"
+          ];
+          extraBackupArgs = [
+            "--one-file-system"
+            "--exclude-caches"
+            "--no-scan"
+            "--retry-lock 2h"
+          ];
+          timerConfig = {
+            OnCalendar = "daily";
+            RandomizedDelaySec = "4h";
+            FixedRandomDelay = true;
+            Persistent = true;
+          };
+        };
         critic = {
           passwordFile = config.age.secrets.wg.path;
           repositoryFile = config.age.secrets.restic-repo-crit.path;

@@ -12,6 +12,8 @@
     (inputs.nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix")
   ];
   # boot.kernelPackages = pkgs.linuxPackages_latest;
+  system.switch.enableNg = true;
+  system.switch.enable = lib.mkForce false;
 
   isoImage = {
     compressImage = true;

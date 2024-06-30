@@ -19,7 +19,8 @@
     disk = {
       nvme = {
         type = "disk";
-        device = "/dev/disk/by-id/nvme-HP_SSD_FX900_Plus_M.2_2TB_HBSE53120600733";
+        # device = "/dev/disk/by-id/nvme-HP_SSD_FX900_Plus_M.2_2TB_HBSE53120600733";
+        device = "/dev/disk/by-id/usb-HIKSEMI_MD202_012938008F0E-0:0";
         content = {
           type = "gpt";
           partitions = {
@@ -35,7 +36,7 @@
             };
             cryptroot = {
               label = "CRYPTROOT";
-              size = "900G";
+              size = "1024G";
               content = {
                 type = "luks";
                 name = "cryptroot";

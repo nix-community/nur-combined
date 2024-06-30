@@ -18,41 +18,38 @@
     dates = "weekly";
     options = "--delete-older-than 10d";
   };
-  systemd.services.mount-three = {
-    description = "mount pool 3";
-    script =
-      let
-        diskId = map (n: "/dev/disk/by-id/" + n) [
-          # "nvme-INTEL_MEMPEK1J016GAH_PHBT82920C53016N"
-          "wwn-0x5000cca05838bc98"
-          "wwn-0x5000cca0583a5e34"
-          "wwn-0x5000cca04608e534"
-          "wwn-0x5000cca0583880c4"
-        ];
-      in
-      # chain call
-      toString (
-        lib.getExe (
-          pkgs.nuenv.writeScriptBin {
-            name = "mount";
-            script =
-              let
-                mount = "/run/current-system/sw/bin/mount --onlyonce -o noatime,nodev,nosuid -t bcachefs ${lib.concatStringsSep ":" diskId} /three";
-              in
-              ''
-                do { ${mount} } | complete
-              '';
-          }
-        )
-      );
-    wantedBy = [ "multi-user.target" ];
-  };
-
-  systemd.services.minio.unitConfig.RequiresMountsFor = "LABEL=THREE";
+  # systemd.services.mount-three = {
+  #   description = "mount pool 3";
+  #   script =
+  #     let
+  #       diskId = map (n: "/dev/disk/by-id/" + n) [
+  #         # "nvme-INTEL_MEMPEK1J016GAH_PHBT82920C53016N"
+  #         "wwn-0x5000cca05838bc98"
+  #         "wwn-0x5000cca0583a5e34"
+  #         "wwn-0x5000cca04608e534"
+  #         "wwn-0x5000cca0583880c4"
+  #       ];
+  #     in
+  #     # chain call
+  #     toString (
+  #       lib.getExe (
+  #         pkgs.nuenv.writeScriptBin {
+  #           name = "mount";
+  #           script =
+  #             let
+  #               mount = "/run/current-system/sw/bin/mount --onlyonce -o noatime,nodev,nosuid -t bcachefs ${lib.concatStringsSep ":" diskId} /three";
+  #             in
+  #             ''
+  #               do { ${mount} } | complete
+  #             '';
+  #         }
+  #       )
+  #     );
+  #   wantedBy = [ "multi-user.target" ];
+  # };
 
   boot = {
     supportedFilesystems = [ "tcp_bbr" ];
-    inherit ((import ../sysctl.nix { inherit lib; }).boot) kernel;
   };
   # environment.systemPackages = with pkgs;[ zfs ];
   srv = {
@@ -65,12 +62,17 @@
   };
 
   services = {
+    bpftune.enable = true;
     sing-box.enable = true;
     btrfs.autoScrub = {
       enable = true;
       interval = "weekly";
-      fileSystems = [ "/" ];
+      fileSystems = [
+        "/"
+        "/three"
+      ];
     };
+
     resolved.enable = lib.mkForce false;
     tailscale = {
       enable = true;
@@ -80,20 +82,26 @@
       enable = true;
       calendars = [ "*-*-* 12:00:00" ];
     };
-    mosdns.enable = true;
+    mosdns.enable = false;
     minio = {
       enable = true;
       region = "ap-east-1";
       rootCredentialsFile = config.age.secrets.minio.path;
-      dataDir = [ "/three/bucket/data" ];
+      dataDir = [ "/three/bucket" ];
     };
 
     snapy.instances = [
       {
-        name = "root";
-        source = "/";
+        name = "persist";
+        source = "/persist";
         keep = "2day";
         timerConfig.onCalendar = "*:0/10";
+      }
+      {
+        name = "var";
+        source = "/var";
+        keep = "7day";
+        timerConfig.onCalendar = "daily";
       }
     ];
 
