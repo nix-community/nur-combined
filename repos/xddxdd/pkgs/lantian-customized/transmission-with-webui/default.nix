@@ -1,9 +1,9 @@
-{ sources, transmission, ... }:
-transmission.overrideAttrs (old: {
+{ sources, transmission_4, ... }:
+transmission_4.overrideAttrs (old: {
   postInstall =
     (old.postInstall or "")
     + ''
-      mv $out/share/transmission/web/index.html $out/share/transmission/web/index.original.html
-      cp -r ${sources.transmission-web-control.src}/src/* $out/share/transmission/web/
+      mv $out/share/transmission/public_html/index.html $out/share/transmission/public_html/index.original.html
+      cp -r ${sources.transmission-web-control.src}/src/* $out/share/transmission/public_html/
     '';
 })
