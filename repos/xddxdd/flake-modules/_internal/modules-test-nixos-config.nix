@@ -5,6 +5,18 @@
   inputs,
   ...
 }:
+let
+  enumerateList = builtins.foldl' (
+    l: ll:
+    l
+    ++ [
+      {
+        index = builtins.length l;
+        value = ll;
+      }
+    ]
+  ) [ ];
+in
 {
   imports = [ ./ci-outputs.nix ];
 
@@ -25,7 +37,15 @@
             system.stateVersion = lib.trivial.release;
 
             # Add all CI packages
-            environment.systemPackages = builtins.attrValues self.ciPackages."${system}";
+            environment.etc =
+              (lib.mapAttrs' (
+                _n: v: lib.nameValuePair "ci-packages/${v.name}" { source = v; }
+              ) self.ciPackages.${system})
+              // (builtins.listToAttrs (
+                builtins.map (
+                  v: lib.nameValuePair "ci-outputs/${builtins.toString v.index}" { source = v.value; }
+                ) (enumerateList self.ciOutputs."${system}")
+              ));
           }
         ];
       }
