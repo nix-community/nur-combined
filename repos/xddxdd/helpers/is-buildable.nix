@@ -10,4 +10,6 @@ rec {
     && !(p.meta.broken or false)
     && !(p.preferLocalBuild or false)
     && (isTargetPlatform p);
+
+  isSourceFetchable = p: (isDerivation p) && (isTargetPlatform p);
 }
