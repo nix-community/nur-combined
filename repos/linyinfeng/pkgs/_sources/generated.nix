@@ -8,17 +8,14 @@
 {
   aws-sigv4-proxy = {
     pname = "aws-sigv4-proxy";
-    version = "bebf2d5a8f03013c091ecd1dfbe2bab80bafb383";
-    src = fetchgit {
-      url = "https://github.com/awslabs/aws-sigv4-proxy.git";
-      rev = "bebf2d5a8f03013c091ecd1dfbe2bab80bafb383";
-      fetchSubmodules = true;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [ ];
-      sha256 = "sha256-jAsTU6Eg9x9l2lFX8Nd8lgoFdQFPkKExJ2u3N8nZpAM=";
+    version = "v1.8";
+    src = fetchFromGitHub {
+      owner = "awslabs";
+      repo = "aws-sigv4-proxy";
+      rev = "v1.8";
+      fetchSubmodules = false;
+      sha256 = "sha256-LYYEn+2UWHAc4GUCv3fXdQq21fKPwnjWemqLjLI9lDM=";
     };
-    date = "2024-01-30";
   };
   cowrie = {
     pname = "cowrie";
@@ -86,13 +83,13 @@
   };
   linux-intel-lts = {
     pname = "linux-intel-lts";
-    version = "lts-v6.6.34-linux-240621T171440Z";
+    version = "lts-v6.6.34-linux-240626T131354Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "linux-intel-lts";
-      rev = "lts-v6.6.34-linux-240621T171440Z";
+      rev = "lts-v6.6.34-linux-240626T131354Z";
       fetchSubmodules = false;
-      sha256 = "sha256-wzs/RhAyxiW1Ie0mxdU8ZtGFRzgJyGr6dfmZM5h3JiU=";
+      sha256 = "sha256-JrsUS5iUt5lnGurNFhJcPicPwCvPjcfTF1rvy9eMQAQ=";
     };
   };
   linux-intel-mainline-tracking = {
@@ -287,17 +284,17 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "fdb6141a18ed6479fd82616c8a82befea2ae30df";
+    version = "11e8efc19447dabf896b82e6e30ee47b3c8886e8";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "fdb6141a18ed6479fd82616c8a82befea2ae30df";
+      rev = "11e8efc19447dabf896b82e6e30ee47b3c8886e8";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-O1oR85+0qo3GFluV6Z5rYuycUCErhZHOc1rrdD2Yh5k=";
+      sha256 = "sha256-cohmeklyV7ReldN7RsHoj7+RQELjZCR+tnsdeFOWDds=";
     };
-    date = "2024-06-23";
+    date = "2024-06-28";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -525,17 +522,17 @@
   };
   waybar-git = {
     pname = "waybar-git";
-    version = "ccc3c132124623bde5127937fe4fc9aa45a9d35d";
+    version = "64f54e1fcef76729b62fdacfec0b2baea56753c5";
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
-      rev = "ccc3c132124623bde5127937fe4fc9aa45a9d35d";
+      rev = "64f54e1fcef76729b62fdacfec0b2baea56753c5";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-M3Y0gzkH1wiam9kByCXhZMji925YSLLAtxgXq5Iv118=";
+      sha256 = "sha256-eOhS2P+rrmJMag7YkdKD02qcTvP5uSmdkv8ce+V4zZM=";
     };
-    date = "2024-06-24";
+    date = "2024-06-28";
   };
   yacd = {
     pname = "yacd";

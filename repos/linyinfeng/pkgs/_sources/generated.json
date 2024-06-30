@@ -1,23 +1,24 @@
 {
     "aws-sigv4-proxy": {
         "cargoLocks": null,
-        "date": "2024-01-30",
+        "date": null,
         "extract": null,
         "name": "aws-sigv4-proxy",
         "passthru": null,
         "pinned": false,
         "src": {
             "deepClone": false,
-            "fetchSubmodules": true,
+            "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "bebf2d5a8f03013c091ecd1dfbe2bab80bafb383",
-            "sha256": "sha256-jAsTU6Eg9x9l2lFX8Nd8lgoFdQFPkKExJ2u3N8nZpAM=",
+            "owner": "awslabs",
+            "repo": "aws-sigv4-proxy",
+            "rev": "v1.8",
+            "sha256": "sha256-LYYEn+2UWHAc4GUCv3fXdQq21fKPwnjWemqLjLI9lDM=",
             "sparseCheckout": [],
-            "type": "git",
-            "url": "https://github.com/awslabs/aws-sigv4-proxy.git"
+            "type": "github"
         },
-        "version": "bebf2d5a8f03013c091ecd1dfbe2bab80bafb383"
+        "version": "v1.8"
     },
     "cowrie": {
         "cargoLocks": null,
@@ -135,12 +136,12 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.6.34-linux-240621T171440Z",
-            "sha256": "sha256-wzs/RhAyxiW1Ie0mxdU8ZtGFRzgJyGr6dfmZM5h3JiU=",
+            "rev": "lts-v6.6.34-linux-240626T131354Z",
+            "sha256": "sha256-JrsUS5iUt5lnGurNFhJcPicPwCvPjcfTF1rvy9eMQAQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "lts-v6.6.34-linux-240621T171440Z"
+        "version": "lts-v6.6.34-linux-240626T131354Z"
     },
     "linux-intel-mainline-tracking": {
         "cargoLocks": null,
@@ -433,7 +434,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-06-23",
+        "date": "2024-06-28",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -443,13 +444,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "fdb6141a18ed6479fd82616c8a82befea2ae30df",
-            "sha256": "sha256-O1oR85+0qo3GFluV6Z5rYuycUCErhZHOc1rrdD2Yh5k=",
+            "rev": "11e8efc19447dabf896b82e6e30ee47b3c8886e8",
+            "sha256": "sha256-cohmeklyV7ReldN7RsHoj7+RQELjZCR+tnsdeFOWDds=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "fdb6141a18ed6479fd82616c8a82befea2ae30df"
+        "version": "11e8efc19447dabf896b82e6e30ee47b3c8886e8"
     },
     "rime-loengfan": {
         "cargoLocks": null,
@@ -787,7 +788,7 @@
     },
     "waybar-git": {
         "cargoLocks": null,
-        "date": "2024-06-24",
+        "date": "2024-06-28",
         "extract": null,
         "name": "waybar-git",
         "passthru": null,
@@ -797,13 +798,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "ccc3c132124623bde5127937fe4fc9aa45a9d35d",
-            "sha256": "sha256-M3Y0gzkH1wiam9kByCXhZMji925YSLLAtxgXq5Iv118=",
+            "rev": "64f54e1fcef76729b62fdacfec0b2baea56753c5",
+            "sha256": "sha256-eOhS2P+rrmJMag7YkdKD02qcTvP5uSmdkv8ce+V4zZM=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/Alexays/Waybar.git"
         },
-        "version": "ccc3c132124623bde5127937fe4fc9aa45a9d35d"
+        "version": "64f54e1fcef76729b62fdacfec0b2baea56753c5"
     },
     "yacd": {
         "cargoLocks": null,
