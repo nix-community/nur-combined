@@ -7,7 +7,7 @@
   ...
 }: let
   pname = "goprocmgr";
-  version = "1.3.0";
+  version = "1.4.0";
 in
   buildGoModule {
     inherit pname version;
@@ -16,7 +16,7 @@ in
       owner = "TaserudConsulting";
       repo = "goprocmgr";
       rev = version;
-      sha256 = "sha256-UgGXBVYClFhdn9zKI7utkje0rNn8wfBE1lmPw7EBYUM=";
+      sha256 = "sha256-cVPgtXXSpAW77m35wuE4RMk7uZokx4ZJX26auV7uTYI=";
     };
 
     vendorHash = "sha256-aA+FeMBLhvh4pg3W4eHEfBtOf5oUnDDUkKnHEQA/+vI=";
