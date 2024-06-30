@@ -22,6 +22,7 @@
               fsType = "tmpfs";
             };
             nixpkgs.config.allowUnfree = true;
+            system.stateVersion = lib.trivial.release;
 
             # Add all CI packages
             environment.systemPackages = builtins.attrValues self.ciPackages."${system}";

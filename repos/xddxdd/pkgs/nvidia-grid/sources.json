@@ -424,7 +424,7 @@
             "https://foxi.buduanwang.vip/pan/vGPU/16.5/NVIDIA-GRID-Linux-KVM-535.161.05-535.161.08-538.46.zip": "02xsgav0v5xrzbjxwx249448cj6g46gav3nlrysjjzh3az676w5r"
         },
         "patches": {
-            "https://foxi.buduanwang.vip/pan/vGPU/16.5/vGPU-Grid-16.5-535.161.05-Linux-6.8.patch": "1rh45zp1ys7imllk3hqhav8rwbr9wa2dj3w0f34skssykszcpbp5"
+            "https://foxi.buduanwang.vip/pan/vGPU/16.5/vGPU-Grid-16.5-535.161.05-Linux-6.8.patch": "sha256-IWG9srcjffMm7rIqApTD/E31P7L56JKvGTWygopcQbw="
         },
         "host": {
             "version": "535.161.05",
@@ -466,7 +466,7 @@
             "https://foxi.buduanwang.vip/pan/vGPU/17.1/NVIDIA-GRID-Linux-KVM-550.54.16-550.54.15-551.78.zip": "06z000pm88k27csqhmy4zr5bcnx7irrnc54pv4h1r52b22xslhdw"
         },
         "patches": {
-            "https://foxi.buduanwang.vip/pan/vGPU/17.1/vGPU-Grid-17.1-550.54.16-linux-6.8.patch": "0qg2z78dw3zm3cza0kjfg9fpl1pybf2sx5kp69hs2hn6pkdprsgc"
+            "https://foxi.buduanwang.vip/pan/vGPU/17.1/vGPU-Grid-17.1-550.54.16-linux-6.8.patch": "sha256-NnZO2dDfvIiVRv/xlpDyY27laoYgHE6Vex1+Z0xAaJ4="
         },
         "host": {
             "version": "550.54.16",
