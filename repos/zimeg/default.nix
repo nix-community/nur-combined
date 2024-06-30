@@ -11,5 +11,6 @@
       pkgs.callPackage ./pkgs/gon { }
     else
       null;
+  proximity-nvim = pkgs.callPackage ./pkgs/proximity-nvim { };
   zsh-wd = pkgs.callPackage ./pkgs/zsh-wd { };
 }

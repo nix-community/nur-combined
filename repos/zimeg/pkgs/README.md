@@ -54,8 +54,8 @@ Direct paths to the built source can be used in place of `zimpkgs` for faster
 development:
 
 ```diff
-- zimpkgs = import (builtins.fetchTarball "https://github.com/zimeg/nur-packages/archive/main.tar.gz") {};
-- zimpkgs.zsh-wd
+- zimeg = import (builtins.fetchTarball "https://github.com/zimeg/nur-packages/archive/main.tar.gz") {};
+- zimeg.zsh-wd
 + zsh-wd = /path/to/nur-packages/result;
 ```
 
@@ -64,4 +64,24 @@ Results can be built from changes to the source using a build command:
 ```sh
 $ nix build .#zsh-wd
 $ ls -R ./result
+```
+
+## 🏗️ result.{#build}
+
+Packages might need to be called as the `default.nix` derivation:
+
+```nix
+{ pkgs, ... }:
+let
+  proximity-nvim = pkgs.callPackage /path/to/nur-packages/pkgs/proximity-nvim { };
+in
+{
+  programs.neovim = {
+    enable = true;
+    plugins = with pkgs.vimPlugins; [
+      ...
+      proximity-nvim
+    ];
+  };
+}
 ```

@@ -8,6 +8,8 @@ and are noted with a `!` in the message.
 
 ## Changes
 
+- docs: note the required steps for calling whole package derivations 2024-06-29
+- feat(pkgs/proximity-nvim): help find the nearest matching file fast 2024-06-29
 - ci(fix): build darwin programs on darwin runners to avoid breakings 2024-06-28
 - docs: remember flake changes needed to use local package definition 2024-06-28
 - ci(fix): attempt to build packages on all systems in spite of fails 2024-06-28
