@@ -1,0 +1,14 @@
+diff --git a/src-tauri/Cargo.toml b/src-tauri/Cargo.toml
+index e57531f..1c6c65c 100644
+--- a/src-tauri/Cargo.toml
++++ b/src-tauri/Cargo.toml
+@@ -17,7 +17,8 @@ tauri-build = { version = "1.5.0", features = [] }
+ serde_json = "1.0.107"
+ serde = { version = "1.0.188", features = ["derive"] }
+ tauri = { version = "1.5.0", features = ["dialog-open", "dialog-save", "fs-read-file", "fs-write-file", "shell-open"] }
+-postflop-solver = { git = "https://github.com/b-inary/postflop-solver", features = ["custom-alloc"] }
++#postflop-solver = { git = "https://github.com/b-inary/postflop-solver", features = ["custom-alloc"] }
++postflop-solver = { git = "https://github.com/b-inary/postflop-solver"}
+ rayon = "1.8.0"
+ sysinfo = "0.29.10"
+ 
