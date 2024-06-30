@@ -3,7 +3,7 @@
 , writeShellScript
 , makeDesktopItem
 , writeShellScriptBin
-, dpkg
+, rpmextract
 , makeWrapper
 , autoPatchelfHook
 , copyDesktopItems
@@ -60,7 +60,7 @@ let
 
   _lib_uos = "libuosdevicea";
   _pkgname = "wechat-universal";
-  ver = "1.0.0.241";
+  ver = "1.0.0.242";
   xdg-dir = "${xdg-user-dirs}/bin";
   
   # From https://github.com/7Ji-PKGBUILDs/wechat-universal-bwrap
@@ -95,18 +95,18 @@ let
     version = "${ver}";
 
     src = fetchurl {
-      url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_${version}_amd64.deb";
+      url = "https://mirrors.opencloudos.tech/opencloudos/9.2/extras/x86_64/os/Packages/wechat-beta_${version}_amd64.rpm";
       hash = "sha256-J2ipc3byBzvVFe+B1k+nsgZo+mwRpBd6LtF/ybAzmKM=";
     };
     
     nativeBuildInputs = [
-      dpkg
+      rpmextract
       makeWrapper
       autoPatchelfHook
     ];
     buildInputs = libraries;
 
-    unpackCmd = "dpkg -x $src .";
+    unpackCmd = "rpmextract $src";
     sourceRoot = ".";
 
     installPhase = ''
