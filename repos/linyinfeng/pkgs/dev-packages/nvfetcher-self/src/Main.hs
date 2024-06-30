@@ -18,7 +18,7 @@ packageSet = do
   ghPkg "trojan-gfw" "trojan"
   ghPkg "Wind4" "vlmcsd"
   ghPkg "microsoft" "secureboot_objects"
-  gitPkg "aws-sigv4-proxy" "https://github.com/awslabs/aws-sigv4-proxy.git"
+  ghPkg "awslabs" "aws-sigv4-proxy"
   gitPkg "pyim-greatdict" "https://github.com/tumashu/pyim-greatdict.git"
   gitPkg "rime-bopomofo" "https://github.com/rime/rime-bopomofo.git"
   gitPkg "rime-cangjie" "https://github.com/rime/rime-cangjie.git"
