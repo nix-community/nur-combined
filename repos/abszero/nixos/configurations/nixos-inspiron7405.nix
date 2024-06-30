@@ -26,6 +26,7 @@ let
             label = "esp";
             size = "512M";
             type = "EF00"; # EFI system partition
+            priority = 0;
             content = {
               type = "filesystem";
               format = "vfat";
@@ -44,74 +45,43 @@ let
           data = {
             label = "data";
             size = "250G";
+            priority = 1;
             content = {
-              type = "btrfs";
-              subvolumes = {
-                home = {
-                  mountpoint = "/home";
-                  mountOptions = [
-                    "compress-force=zstd"
-                    "noatime"
-                    "nodev"
-                    "nosuid"
-                  ];
-                };
-              };
+              type = "filesystem";
+              format = "bcachefs";
+              mountpoint = "/home";
+              mountOptions = [
+                "noatime"
+                "nodev"
+                "nosuid"
+              ];
             };
           };
           nixos = {
             label = "nixos";
+            end = "-16G";
+            priority = 2;
+            content = {
+              type = "filesystem";
+              format = "bcachefs";
+              mountpoint = "/";
+              mountOptions = [ "noatime" ];
+            };
+          };
+          swap = {
+            label = "swap";
             size = "100%";
             content = {
-              type = "btrfs";
-              subvolumes = {
-                root = {
-                  mountpoint = "/";
-                  mountOptions = [
-                    "compress-force=zstd"
-                    "noatime"
-                  ];
-                };
-                nix = {
-                  mountpoint = "/nix";
-                  mountOptions = [
-                    "compress-force=zstd"
-                    "noatime"
-                    "nodev"
-                  ];
-                };
-                swap = {
-                  mountpoint = "/swap";
-                  mountOptions = [
-                    "noatime"
-                    "nodev"
-                    "noexec" # block execution of binaries for security
-                    "nosuid"
-                  ];
-                  # TODO: define swap with disko when options under
-                  # `swapDevices.*` are added
-                  # swap.swapfile.size = "8G";
-                };
-              };
+              type = "swap";
+              discardPolicy = "pages";
+              resumeDevice = true;
             };
           };
         };
       };
     };
-    swapDevices = [
-      {
-        device = "/swap/swapfile";
-        size = 8192;
-        discardPolicy = "pages";
-      }
-    ];
 
     catppuccin.accent = "pink";
-
-    boot = {
-      kernelParams = [ "resume_offset=533760" ];
-      resumeDevice = "/dev/disk/by-partlabel/nixos";
-    };
 
     users.users = rec {
       weathercold = {
@@ -123,8 +93,6 @@ let
         inherit (weathercold) hashedPassword;
       };
     };
-
-    services.btrfs.autoScrub.enable = true;
   };
 in
 

@@ -70,6 +70,7 @@
       libreoffice-qt
       neofetch
       obsidian-ime
+      osu-lazer-bin
       protonmail-bridge
       protonvpn-gui
       taisei
