@@ -42,5 +42,5 @@ jobs:
       - name: Build nix packages
         run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
       - name: Trigger NUR update
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && matrix.runner == 'macos-latest'
         run: curl -XPOST "https://nur-update.nix-community.org/update?repo=zimeg"

@@ -8,6 +8,7 @@ and are noted with a `!` in the message.
 
 ## Changes
 
+- ci(fix): push updates to the upstream cache from just macos runners 2024-06-29
 - docs: note the required steps for calling whole package derivations 2024-06-29
 - feat(pkgs/proximity-nvim): help find the nearest matching file fast 2024-06-29
 - ci(fix): build darwin programs on darwin runners to avoid breakings 2024-06-28
