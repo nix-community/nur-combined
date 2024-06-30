@@ -485,9 +485,9 @@
     "version": "1.25.3.1"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.transmission-with-webui": {
-    "description": "Fast, easy and free BitTorrent client (deprecated version 3)",
+    "description": "Fast, easy and free BitTorrent client",
     "pname": "transmission",
-    "version": "3.00"
+    "version": "4.0.6"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
@@ -2824,6 +2824,11 @@
     "pname": "uesave",
     "version": "0.5.0"
   },
+  "legacyPackages.x86_64-linux.uesave-0_3_0": {
+    "description": "A library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld.",
+    "pname": "uesave",
+    "version": "0_3_0-0.3.0"
+  },
   "legacyPackages.x86_64-linux.uksmd": {
     "description": "Userspace KSM helper daemon",
     "pname": "uksmd",
@@ -2858,11 +2863,6 @@
     "description": "WeChat desktop without sandbox (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
     "version": "1.0.0.241"
-  },
-  "legacyPackages.x86_64-linux.win2xcur": {
-    "description": "win2xcur is a tool that converts cursors from Windows format (*.cur, *.ani) to Xcursor format. It also contains x2wincur which does the opposite.",
-    "pname": "python3.11-win2xcur",
-    "version": "0.1.2"
   },
   "legacyPackages.x86_64-linux.wine-wechat": {
     "description": "Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)",
@@ -3494,6 +3494,11 @@
     "pname": "uesave",
     "version": "0.5.0"
   },
+  "packages.x86_64-linux.uesave-0_3_0": {
+    "description": "A library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld.",
+    "pname": "uesave",
+    "version": "0_3_0-0.3.0"
+  },
   "packages.x86_64-linux.uksmd": {
     "description": "Userspace KSM helper daemon",
     "pname": "uksmd",
@@ -3528,11 +3533,6 @@
     "description": "WeChat desktop without sandbox (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
     "version": "1.0.0.241"
-  },
-  "packages.x86_64-linux.win2xcur": {
-    "description": "win2xcur is a tool that converts cursors from Windows format (*.cur, *.ani) to Xcursor format. It also contains x2wincur which does the opposite.",
-    "pname": "python3.11-win2xcur",
-    "version": "0.1.2"
   },
   "packages.x86_64-linux.wine-wechat": {
     "description": "Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)",

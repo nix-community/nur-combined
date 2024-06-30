@@ -4,16 +4,8 @@
   stdenv,
   makeWrapper,
   python3,
-  rustPlatform,
+  uesave-0_3_0,
 }:
-let
-  uesave-0_3_0 = rustPlatform.buildRustPackage {
-    pname = "uesave";
-    inherit (sources.uesave-0_3_0) version src;
-
-    cargoHash = "sha256-sSiiMtCuSic0PQn4m1Udv2UbEwHUy0VldpGMYSDGh8g=";
-  };
-in
 stdenv.mkDerivation {
   inherit (sources.palworld-worldoptions) pname version src;
 

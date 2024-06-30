@@ -211,6 +211,7 @@ mkScope (
     suwayomi-server = pkg ./uncategorized/suwayomi-server { };
     tqdm-loggable = pkg ./uncategorized/tqdm-loggable { };
     uesave = pkg ./uncategorized/uesave { };
+    uesave-0_3_0 = pkg ./uncategorized/uesave/0_3_0.nix { };
     uksmd = pkg ./uncategorized/uksmd { };
     undetected-chromedriver = pkg ./uncategorized/undetected-chromedriver { };
     undetected-chromedriver-bin = pkg ./uncategorized/undetected-chromedriver-bin { };
@@ -221,7 +222,6 @@ mkScope (
     # Deprecated alias
     wechat-uos-bin = self.wechat-uos;
 
-    win2xcur = pkg ./uncategorized/win2xcur { };
     wine-wechat = lib.makeOverridable pkg ./uncategorized/wine-wechat { };
     wine-wechat-x86 = lib.makeOverridable pkg ./uncategorized/wine-wechat-x86 { };
     xstatic-asciinema-player = pkg ./uncategorized/xstatic-asciinema-player { };

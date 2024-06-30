@@ -2767,27 +2767,6 @@
         },
         "version": "1.0.0.241"
     },
-    "win2xcur": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "win2xcur",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "quantum5",
-            "repo": "win2xcur",
-            "rev": "v0.1.2",
-            "sha256": "sha256-OjLj+QYg8YOJzDq3Y6/uyEXlNWbPm8VA/b1yP9jT6Jo=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v0.1.2"
-    },
     "wine-wechat-x64": {
         "cargoLocks": null,
         "date": null,

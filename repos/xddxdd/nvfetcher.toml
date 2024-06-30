@@ -632,10 +632,6 @@ src.from_pattern = "(.+)-(.+)"
 src.to_pattern = "\\1"
 fetch.url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_$ver_amd64.deb"
 
-[win2xcur]
-src.github = "quantum5/win2xcur"
-fetch.github = "quantum5/win2xcur"
-
 [wine-wechat-x86]
 src.github = "tom-snow/wechat-windows-versions-x86"
 src.from_pattern = "v(.*)"
