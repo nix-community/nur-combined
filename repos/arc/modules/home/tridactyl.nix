@@ -63,7 +63,7 @@ in {
 
           mode = mkOption {
             type = let
-              ty = types.enum [ "normal" "ex" "input" "insert" "ignore" "hint" ];
+              ty = types.enum [ "normal" "ex" "input" "insert" "ignore" "hint" "visual" "browser" ];
             in types.either ty (types.listOf ty);
             default = "normal";
           };
