@@ -798,13 +798,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "99971556178ae504b7ba7ab559952f781925f7da",
-            "sha256": "sha256-1UesUSGvuJPx+DPXVwXDs6PxsRu+wipLmtXuSQRfrdY=",
+            "rev": "034760e8b62ccd3901022e9c5172e532f366cb21",
+            "sha256": "sha256-4yz7IwDuE+FG0EyQGURihqxYvw/c19EXl4NKx6wK9Po=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/Alexays/Waybar.git"
         },
-        "version": "99971556178ae504b7ba7ab559952f781925f7da"
+        "version": "034760e8b62ccd3901022e9c5172e532f366cb21"
     },
     "yacd": {
         "cargoLocks": null,
