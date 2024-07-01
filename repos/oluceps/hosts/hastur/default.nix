@@ -50,6 +50,7 @@
       attic.nixosModules.atticd
       # niri.nixosModules.niri
       nix-minecraft.nixosModules.minecraft-servers
+      nixos-cosmic.nixosModules.default
       # inputs.j-link.nixosModule
     ]);
 }

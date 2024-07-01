@@ -63,6 +63,7 @@
         "colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg="
         "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
         "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+        "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
       ];
       extra-substituters = [ "https://cache.lix.systems" ];
       substituters =
@@ -76,6 +77,7 @@
           "ezkea"
           "devenv"
           "colmena"
+          "cosmic"
         ])
         ++ [
           "https://cache.nixos.org"

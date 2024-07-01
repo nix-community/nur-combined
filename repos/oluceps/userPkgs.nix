@@ -19,6 +19,7 @@ with pkgs;
   # anyrun
   # factorio
   loupe
+  geo
   gedit
   # logseq
   # jetbrains.pycharm-professional

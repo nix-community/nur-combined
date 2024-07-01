@@ -49,7 +49,11 @@
     dconf.enable = true;
     anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
     niri.enable = false;
-    sway.enable = true;
+    sway = {
+      enable = true;
+      xwayland.enable = false;
+      wrapperFeatures.gtk = true;
+    };
     wireshark = {
       enable = true;
       package = pkgs.wireshark;
@@ -229,6 +233,8 @@
   };
   services = {
 
+    # desktopManager.cosmic.enable = true;
+    # displayManager.cosmic-greeter.enable = true;
     greetd = {
       enable = true;
       settings = rec {

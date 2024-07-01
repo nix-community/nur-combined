@@ -189,6 +189,15 @@ in
     bindsym l resize grow width 10 px
   }
 
+  set $my_cursor graphite-light-nord
+  set $my_cursor_size 22
+ 
+  seat seat0 xcursor_theme $my_cursor $my_cursor_size
+  exec_always {
+      gsettings set org.gnome.desktop.interface cursor-theme $my_cursor
+      gsettings set org.gnome.desktop.interface cursor-size $my_cursor_size
+  }
+
   gaps inner 2
   gaps outer 1
   smart_gaps on
@@ -197,7 +206,7 @@ in
 
   exec ${systemd-run-app} ${lib.getExe pkgs.firefox}
 
-  exec ${lib.getExe pkgs.telegram-desktop}
+  exec ${lib.getExe pkgs.materialgram}
 
   exec ${wl-paste} --type text --watch ${deps.cliphist} store
 
