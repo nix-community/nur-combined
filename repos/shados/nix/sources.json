@@ -26,10 +26,10 @@
         "homepage": null,
         "owner": "Glimesh",
         "repo": "broadcast-box",
-        "rev": "6f7db7da2e4f19d79a558eda36fb8f5f2da779ed",
-        "sha256": "145xxcs6b7gwr18hzm8dp67yfcak0zhx97fincfgw1k3fxz7g0yg",
+        "rev": "b8abf62f724e0b100e0a1067cded99cff547ae60",
+        "sha256": "1xlw2b90wdqz6wxpja32ygb85sf0k187fm8znzhy003dhfwxq8bs",
         "type": "tarball",
-        "url": "https://github.com/Glimesh/broadcast-box/archive/6f7db7da2e4f19d79a558eda36fb8f5f2da779ed.tar.gz",
+        "url": "https://github.com/Glimesh/broadcast-box/archive/b8abf62f724e0b100e0a1067cded99cff547ae60.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "chromium-launcher": {
@@ -212,19 +212,6 @@
         "sha256": "0bhph43pn50brcn2dcm2g7m9wl8q886cacbf4rfbivnvnmiz05mw",
         "type": "tarball",
         "url": "https://github.com/nix-community/naersk/archive/275010712ce41dff66634f9910bc1f085239b370.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "napalm": {
-        "branch": "master",
-        "builtin": false,
-        "description": "Support for building npm packages in Nix and lightweight npm registry [maintainer @jtojnar]",
-        "homepage": "",
-        "owner": "nix-community",
-        "repo": "napalm",
-        "rev": "a8215ccf1c80070f51a92771f3bc637dd9b9f7ee",
-        "sha256": "04vf4mk2q55gpnvxw3qb735lkdyml77qq3lfzfwis619g9izs7c3",
-        "type": "tarball",
-        "url": "https://github.com/nix-community/napalm/archive/a8215ccf1c80070f51a92771f3bc637dd9b9f7ee.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "sfutils": {
