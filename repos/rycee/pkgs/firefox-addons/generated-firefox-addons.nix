@@ -7100,6 +7100,27 @@
         platforms = platforms.all;
       };
     };
+    "movie-web" = buildFirefoxXpiAddon {
+      pname = "movie-web";
+      version = "1.1.4";
+      addonId = "{b0a674f9-f848-9cfd-0feb-583d211308b0}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4286163/cfu_flix_movie_web_extension-1.1.4.xpi";
+      sha256 = "bcd95a93684307bae03f02069ca519d115f279810de2011c62853d5fd5c5fb52";
+      meta = with lib;
+      {
+        homepage = "https://326486.xyz";
+        description = "Enhance your streaming experience with just one click\n\n• Greatly increase the list of sources available.\n• Start using the website without any friction.\n• Enjoy other supported websites or self-hosts.";
+        license = licenses.mit;
+        mozPermissions = [
+          "storage"
+          "declarativeNetRequest"
+          "activeTab"
+          "cookies"
+          "<all_urls>"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
       version = "8.1.3";
