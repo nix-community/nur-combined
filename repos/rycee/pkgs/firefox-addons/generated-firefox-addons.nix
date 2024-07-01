@@ -958,14 +958,14 @@
     };
     "british-english-dictionary-2" = buildFirefoxXpiAddon {
       pname = "british-english-dictionary-2";
-      version = "3.3.3";
+      version = "3.3.4";
       addonId = "marcoagpinto@mail.telepac.pt";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4296885/british_english_dictionary_2-3.3.3.xpi";
-      sha256 = "5f9bd4fd4de32cac777cb9cf49d0bd8f816a131e4835c4d7f9e30bb83f5983de";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4312018/british_english_dictionary_2-3.3.4.xpi";
+      sha256 = "b4687541906c1ca9be4c1fbf6657c440f5af9ac6a4ed8b5bf84c5c9a7e56b8d0";
       meta = with lib;
       {
         homepage = "https://proofingtoolgui.org";
-        description = "A fork of Mark Tyndall's add-on, based on David Bartlett's \nBritish Dictionary R1.19 for Firefox, Thunderbird and SeaMonkey.\n\nV3.3.3 has 140 000+ new words and also fixes.";
+        description = "A fork of Mark Tyndall's add-on, based on David Bartlett's \nBritish Dictionary R1.19 for Firefox, Thunderbird and SeaMonkey.\n\nV3.3.4 has 140 000+ new words and also fixes.";
         license = licenses.lgpl3;
         mozPermissions = [];
         platforms = platforms.all;
@@ -1881,6 +1881,28 @@
         platforms = platforms.all;
       };
     };
+    "dark-background-light-text" = buildFirefoxXpiAddon {
+      pname = "dark-background-light-text";
+      version = "0.7.6";
+      addonId = "jid1-QoFqdK4qzUfGWQ@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3722915/dark_background_light_text-0.7.6.xpi";
+      sha256 = "1821db8eb7fb7910ca3e2ef7da283a2300e05a398c0e8c58763e0226da7dcd5b";
+      meta = with lib;
+      {
+        homepage = "https://github.com/m-khvoinitsky/dark-background-light-text-extension";
+        description = "Make every web page (or just the pages you want) display light text on dark backgrounds. All color variations are fully customizable.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "<all_urls>"
+          "tabs"
+          "storage"
+          "browserSettings"
+          "webRequest"
+          "webRequestBlocking"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "dark-mode-webextension" = buildFirefoxXpiAddon {
       pname = "dark-mode-webextension";
       version = "0.4.5";
@@ -1964,10 +1986,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2425.1";
+      version = "6.2427.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4305550/dashlane-6.2425.1.xpi";
-      sha256 = "73377c3e1dae15328316096e2229b8d080c89e1c87a866fdfdff67d3ec281d81";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4312057/dashlane-6.2427.0.xpi";
+      sha256 = "93b5e68a8324ef83f4851222dfc8f4d6184e7ad6c7b85c8aad602b68fdaa3ad6";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2045,10 +2067,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "128.0.20240628.91536";
+      version = "128.0.20240701.154223";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4311076/deutsch_de_language_pack-128.0.20240628.91536.xpi";
-      sha256 = "e85c52b563e81113fb2f0a69ea04c999de897748465d10b1a3f7d6a13c6372db";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4312546/deutsch_de_language_pack-128.0.20240701.154223.xpi";
+      sha256 = "185e9668a7e38249a5c9e789d75a9280a37e5acdd72db0216d85a1f21c3ed7c0";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2665,6 +2687,43 @@
         platforms = platforms.all;
       };
     };
+    "ficlab" = buildFirefoxXpiAddon {
+      pname = "ficlab";
+      version = "1.0.108";
+      addonId = "ficlab-helper@mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4281584/ficlab-1.0.108.xpi";
+      sha256 = "be102739a9ef908842cb9918912cd7ba3275e93d3607409a1dee644347204f79";
+      meta = with lib;
+      {
+        homepage = "https://www.ficlab.com/";
+        description = "Download fanfiction as ebook files from a number of popular sites. Simple to use, with beautiful results.";
+        license = {
+          shortName = "ficlab";
+          fullName = "Custom License for FicLab";
+          url = "https://addons.mozilla.org/en-US/firefox/addon/ficlab/license/";
+          free = false;
+        };
+        mozPermissions = [
+          "downloads"
+          "storage"
+          "<all_urls>"
+          "https://*.fanfiction.net/*"
+          "https://*.fictionpress.com/*"
+          "https://www.fimfiction.net/*"
+          "https://literotica.com/*"
+          "https://*.literotica.com/*"
+          "https://archiveofourown.org/*"
+          "https://www.archiveofourown.org/*"
+          "https://starslibrary.net/*"
+          "https://www.starslibrary.net/*"
+          "https://www.asianfanfics.com/*"
+          "https://www.inkitt.com/*"
+          "https://getinkspired.com/*"
+          "https://www.getinkspired.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "firefox-color" = buildFirefoxXpiAddon {
       pname = "firefox-color";
       version = "2.1.7";
@@ -3011,10 +3070,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "128.0.20240628.91536";
+      version = "128.0.20240701.154223";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4311035/francais_language_pack-128.0.20240628.91536.xpi";
-      sha256 = "3ecb0b2b0387427e14fe7315c24e27db93de75382feed63a7d61ea8d37fb49dc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4312556/francais_language_pack-128.0.20240701.154223.xpi";
+      sha256 = "2eeea8973f5e9b3629a9ccc1a82b9b385b158a63afff848d39cba27d30eb346e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3291,10 +3350,10 @@
     };
     "ghosttext" = buildFirefoxXpiAddon {
       pname = "ghosttext";
-      version = "24.6.30";
+      version = "24.7.1";
       addonId = "ghosttext@bfred.it";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4311733/ghosttext-24.6.30.xpi";
-      sha256 = "3c9824bc66b0752b42efe68d680229966ac53b2626c8e928b6c8d85c1b8b2e48";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4312001/ghosttext-24.7.1.xpi";
+      sha256 = "da0e7a757b2784a155aad3cd0cd0daff775fa359ea20d40705256f7e841a2c71";
       meta = with lib;
       {
         homepage = "https://github.com/fregante/GhostText";
@@ -6952,10 +7011,10 @@
     };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "11.16.10";
+      version = "11.16.13";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4302093/ether_metamask-11.16.10.xpi";
-      sha256 = "e021fae54ea3f29cad5910d93b688ab9e2cbfd00f3496722f5cc7c809b0bfeb1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4307737/ether_metamask-11.16.13.xpi";
+      sha256 = "84dc9c396677b2a983f032646b0467479dda66aa3638c2132d69e9a4afbc18a7";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -7612,10 +7671,10 @@
     };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.24.2";
+      version = "2.25.1";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4291426/1password_x_password_manager-2.24.2.xpi";
-      sha256 = "f92d7e032a6bc4182079da912344cd91f2ae00fb883bc4fe8054d75ac6b6db83";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4307081/1password_x_password_manager-2.25.1.xpi";
+      sha256 = "694ccd2a6464812ba8dbc09b143397516b16867a387a8f49290176d85e9845bf";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -8768,10 +8827,10 @@
     };
     "proton-vpn" = buildFirefoxXpiAddon {
       pname = "proton-vpn";
-      version = "1.0.8";
+      version = "1.1.1";
       addonId = "vpn@proton.ch";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4177160/proton_vpn_firefox_extension-1.0.8.xpi";
-      sha256 = "0f9a5f05e40f865690870790bd0f7daf8fdc3e5fc01105d2ed7556b51f2d3b7b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4306866/proton_vpn_firefox_extension-1.1.1.xpi";
+      sha256 = "56b33a2a79a7c79bed981509d2cc46f294cad95fce6997966126fb45d527bb8b";
       meta = with lib;
       {
         homepage = "https://protonvpn.com/";
@@ -9158,10 +9217,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.6.25";
+      version = "24.7.1";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4309229/refined_github-24.6.25.xpi";
-      sha256 = "dec15456b60128d81ebcc5f4b63d517f6a71b5167e007b9dec6d9660fbf52066";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4311993/refined_github-24.7.1.xpi";
+      sha256 = "da7e36569b2ef0b6c7b947637ee0af2b98e9dc1499eb06ba949e2f2030682bf1";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -9404,10 +9463,10 @@
     };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "7.0.0";
+      version = "7.1.0";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4296438/search_by_image-7.0.0.xpi";
-      sha256 = "da05483a666a386f95648887fbe0c2d47f57519dcf4a6b1571ec4a04ae3e1db1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4309046/search_by_image-7.1.0.xpi";
+      sha256 = "5255f873a71331bb466e32712adc650a1fb6343b4011faddb8646f3ab2abefae";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -10274,10 +10333,10 @@
     };
     "tab-stash" = buildFirefoxXpiAddon {
       pname = "tab-stash";
-      version = "3.0";
+      version = "3.0.1";
       addonId = "tab-stash@condordes.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4165318/tab_stash-3.0.xpi";
-      sha256 = "592d7cf51085b60095ade9128d8d948bc549c1dfe52b92cd980f6452a3339ff2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4308185/tab_stash-3.0.1.xpi";
+      sha256 = "0b26f417f14049faef7286cdb7658986961ed9e8ca36fddbd8ed79647d0a672e";
       meta = with lib;
       {
         homepage = "https://josh-berry.github.io/tab-stash/";
@@ -10883,10 +10942,10 @@
     };
     "tubearchivist-companion" = buildFirefoxXpiAddon {
       pname = "tubearchivist-companion";
-      version = "0.3.1";
+      version = "0.3.2";
       addonId = "{08f0f80f-2b26-4809-9267-287a5bdda2da}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4287554/tubearchivist_companion-0.3.1.xpi";
-      sha256 = "8a94d136013a0f4d886179b2eec560195b6610b5ae4f8e4035f63f31d97b2951";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4312331/tubearchivist_companion-0.3.2.xpi";
+      sha256 = "fae10b563e9e71dd9961a2b2b4aacc6b266716f6c4b27e5caf4739e6bc32f3fb";
       meta = with lib;
       {
         homepage = "https://github.com/tubearchivist/browser-extension";
@@ -11371,10 +11430,10 @@
     };
     "view-image" = buildFirefoxXpiAddon {
       pname = "view-image";
-      version = "5.1.0";
+      version = "5.2.0";
       addonId = "{287dcf75-bec6-4eec-b4f6-71948a2eea29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4243620/view_image-5.1.0.xpi";
-      sha256 = "0c5cae8ef634e701cbefb92c2dd6c8c62dd0f791d8cd439b58a01fc5da781e9e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4309509/view_image-5.2.0.xpi";
+      sha256 = "32c74f49a4f54f90e768946d44ae569948fd7b9b155a91b6c1a0a3f1ab1cc7eb";
       meta = with lib;
       {
         homepage = "https://github.com/bijij/ViewImage";
@@ -12272,10 +12331,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.6.17.0";
+      version = "24.6.24.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4307696/yomitan-24.6.17.0.xpi";
-      sha256 = "d7e418dea5bb0331426d980b3c83c51d48531a8f3eca38930f00654b1e507103";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4312273/yomitan-24.6.24.0.xpi";
+      sha256 = "b020904040c559d0d446806f85a7db5a3e24ea2b99f7d7877633a67635ff57a9";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";

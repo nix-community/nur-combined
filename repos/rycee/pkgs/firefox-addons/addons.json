@@ -234,6 +234,9 @@
     "slug": "copy-selection-as-markdown"
   },
   {
+    "slug": "dark-background-light-text"
+  },
+  {
     "slug": "dark-mode-webextension"
   },
   {
@@ -405,6 +408,16 @@
   },
   {
     "slug": "ff2mpv"
+  },
+  {
+    "slug": "ficlab",
+    "license": {
+      "tag": "custom",
+      "shortName": "ficlab",
+      "fullName": "Custom License for FicLab",
+      "url": "https://addons.mozilla.org/en-US/firefox/addon/ficlab/license/",
+      "free": false
+    }
   },
   {
     "slug": "firefox-color"
