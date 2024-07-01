@@ -6,16 +6,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "lddtree";
-  version = "0.3.4";
+  version = "0.3.5";
 
   src = fetchFromGitHub {
     owner = "messense";
     repo = "lddtree-rs";
     rev = "v${version}";
-    hash = "sha256-BlwnWG7Xbh6F4CutWvTF/Q5YzwxWmTB/b/jd8EAEO7k=";
+    hash = "sha256-VxMYHK0pTp+hSM6PIohn35sLWJUrSJI9xmTbw1wLAvc=";
   };
 
-  cargoHash = "sha256-SsFSAIZL3zkf/xNFEfceOShJo5CGL/igUYfOjNwh2Dk=";
+  cargoHash = "sha256-hw6Su5qL+nveX6MnoKit1gTGxqN5JLzXbt1Xxebr5IQ=";
 
   meta = with lib; {
     description = "Read the ELF dependency tree";
