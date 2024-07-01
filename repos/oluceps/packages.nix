@@ -23,6 +23,8 @@ let
       ))
     ];
     dev = [
+      gitoxide
+      gitui
       nushell
       radicle
       friture
