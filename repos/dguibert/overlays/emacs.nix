@@ -87,13 +87,6 @@ with prev; let
             sha256 = "sha256-cIwyuwoyojc6uiNbWleh+inoRTUqMCZYQ3IydhRkEkw=";
           };
         });
-
-        org = epkgs.org.overrideAttrs (o: {
-          src = fetchurl {
-            url = "https://elpa.gnu.org/packages/org-9.6.24.tar";
-            sha256 = "sha256-M2TuYwkuqAlrGrNT00AOCWUC0K5igD5vBcmbmdQ3KWY=";
-          };
-        });
       };
     #override = epkgs: epkgs // {
     #  weechat = epkgs.melpaPackages.weechat.overrideAttrs(old: {
