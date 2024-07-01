@@ -76,3 +76,11 @@ if utils.is_executable("bash-language-server") then
         on_attach = lsp.on_attach,
     })
 end
+
+-- Starlark
+if utils.is_executable("starpls") then
+    lspconfig.starpls.setup({
+        capabilities = capabilities,
+        on_attach = lsp.on_attach,
+    })
+end
