@@ -814,6 +814,16 @@
     "pname": "libqcef-unstable",
     "version": "2019-11-23"
   },
+  "legacyPackages.x86_64-linux.lyrica": {
+    "description": "Linux desktop lyrics widget focused on simplicity and integration",
+    "pname": "lyrica-unstable",
+    "version": "2024-07-01"
+  },
+  "legacyPackages.x86_64-linux.lyrica-plasmoid": {
+    "description": "Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component)",
+    "pname": "lyrica-unstable",
+    "version": "2024-07-01"
+  },
   "legacyPackages.x86_64-linux.netboot-xyz": {
     "description": "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE.",
     "pname": "netboot-xyz",
@@ -2615,14 +2625,14 @@
     "version": ""
   },
   "legacyPackages.x86_64-linux.plasma-desktop-lyrics": {
-    "description": "KDE Plasma 桌面歌词显示挂件（后台服务）",
-    "pname": "plasma-desktop-lyrics-unstable",
-    "version": "2024-06-27"
+    "description": "Linux desktop lyrics widget focused on simplicity and integration",
+    "pname": "lyrica-unstable",
+    "version": "2024-07-01"
   },
   "legacyPackages.x86_64-linux.plasma-desktop-lyrics-plasmoid": {
-    "description": "KDE Plasma 桌面歌词显示挂件（Plasmoid 组件）",
-    "pname": "plasma-desktop-lyrics-unstable",
-    "version": "2024-06-27"
+    "description": "Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component)",
+    "pname": "lyrica-unstable",
+    "version": "2024-07-01"
   },
   "legacyPackages.x86_64-linux.plasma-panel-transparency-toggle": {
     "description": "A rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
@@ -2827,7 +2837,7 @@
   "legacyPackages.x86_64-linux.uesave-0_3_0": {
     "description": "A library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld.",
     "pname": "uesave",
-    "version": "0_3_0-0.3.0"
+    "version": "0.3.0"
   },
   "legacyPackages.x86_64-linux.uksmd": {
     "description": "Userspace KSM helper daemon",
@@ -3194,6 +3204,16 @@
     "pname": "libqcef-unstable",
     "version": "2019-11-23"
   },
+  "packages.x86_64-linux.lyrica": {
+    "description": "Linux desktop lyrics widget focused on simplicity and integration",
+    "pname": "lyrica-unstable",
+    "version": "2024-07-01"
+  },
+  "packages.x86_64-linux.lyrica-plasmoid": {
+    "description": "Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component)",
+    "pname": "lyrica-unstable",
+    "version": "2024-07-01"
+  },
   "packages.x86_64-linux.netboot-xyz": {
     "description": "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE.",
     "pname": "netboot-xyz",
@@ -3325,14 +3345,14 @@
     "version": ""
   },
   "packages.x86_64-linux.plasma-desktop-lyrics": {
-    "description": "KDE Plasma 桌面歌词显示挂件（后台服务）",
-    "pname": "plasma-desktop-lyrics-unstable",
-    "version": "2024-06-27"
+    "description": "Linux desktop lyrics widget focused on simplicity and integration",
+    "pname": "lyrica-unstable",
+    "version": "2024-07-01"
   },
   "packages.x86_64-linux.plasma-desktop-lyrics-plasmoid": {
-    "description": "KDE Plasma 桌面歌词显示挂件（Plasmoid 组件）",
-    "pname": "plasma-desktop-lyrics-unstable",
-    "version": "2024-06-27"
+    "description": "Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component)",
+    "pname": "lyrica-unstable",
+    "version": "2024-07-01"
   },
   "packages.x86_64-linux.plasma-panel-transparency-toggle": {
     "description": "A rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
@@ -3497,7 +3517,7 @@
   "packages.x86_64-linux.uesave-0_3_0": {
     "description": "A library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld.",
     "pname": "uesave",
-    "version": "0_3_0-0.3.0"
+    "version": "0.3.0"
   },
   "packages.x86_64-linux.uksmd": {
     "description": "Userspace KSM helper daemon",

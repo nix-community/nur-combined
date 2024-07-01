@@ -290,6 +290,10 @@ fetch.github = "xanmod/linux"
 src.github = "ggerganov/llama.cpp"
 fetch.github = "ggerganov/llama.cpp"
 
+[lyrica]
+src.git = "https://github.com/chiyuki0325/lyrica.git"
+fetch.github = "chiyuki0325/lyrica"
+
 [nbfc-linux-lantian]
 src.git = "https://github.com/xddxdd/nbfc-linux.git"
 fetch.github = "xddxdd/nbfc-linux"
@@ -407,10 +411,6 @@ fetch.github = "ReimuHakurei/phppgadmin"
 [plangothic-fonts]
 src.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic"
 fetch.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic"
-
-[plasma-desktop-lyrics]
-src.git = "https://github.com/chiyuki0325/PlasmaDesktopLyrics.git"
-fetch.github = "chiyuki0325/PlasmaDesktopLyrics"
 
 [plasma-panel-transparency-toggle]
 src.git = "https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6.git"

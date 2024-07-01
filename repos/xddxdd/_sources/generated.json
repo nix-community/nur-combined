@@ -1330,6 +1330,27 @@
         },
         "version": "b3265"
     },
+    "lyrica": {
+        "cargoLocks": null,
+        "date": "2024-07-01",
+        "extract": null,
+        "name": "lyrica",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "chiyuki0325",
+            "repo": "lyrica",
+            "rev": "64dedd23ad892894daf3b789e3a671fe4ac7c17f",
+            "sha256": "sha256-+yx6KQMv0S6GcA3GyNXJa3C1SQZkzJXg6LV1wsfRaxI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "64dedd23ad892894daf3b789e3a671fe4ac7c17f"
+    },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
         "date": "2022-06-13",
@@ -1866,27 +1887,6 @@
             "type": "github"
         },
         "version": "V1.8.5760"
-    },
-    "plasma-desktop-lyrics": {
-        "cargoLocks": null,
-        "date": "2024-06-27",
-        "extract": null,
-        "name": "plasma-desktop-lyrics",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "chiyuki0325",
-            "repo": "PlasmaDesktopLyrics",
-            "rev": "62ea278e0d4a43cc12a47ed8da9de8cd6dc90cab",
-            "sha256": "sha256-FL5TYt+NyCo4jmTFjMgh2icKwxU4Whm1GyDBcVWsI3k=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "62ea278e0d4a43cc12a47ed8da9de8cd6dc90cab"
     },
     "plasma-panel-transparency-toggle": {
         "cargoLocks": null,

@@ -742,6 +742,18 @@
       sha256 = "sha256-WVDKNojgXJGDZHi/grzgd5KsLuTNQt/MzPppgKsWEZM=";
     };
   };
+  lyrica = {
+    pname = "lyrica";
+    version = "64dedd23ad892894daf3b789e3a671fe4ac7c17f";
+    src = fetchFromGitHub {
+      owner = "chiyuki0325";
+      repo = "lyrica";
+      rev = "64dedd23ad892894daf3b789e3a671fe4ac7c17f";
+      fetchSubmodules = false;
+      sha256 = "sha256-+yx6KQMv0S6GcA3GyNXJa3C1SQZkzJXg6LV1wsfRaxI=";
+    };
+    date = "2024-07-01";
+  };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";
     version = "32a49117ca3ff17d7681713a8dc8812323142dcb";
@@ -1036,18 +1048,6 @@
       fetchSubmodules = false;
       sha256 = "sha256-BBPWeLR6CA+2uJZDxqISjbZdWe9AvHE9sW8P1BmrhPY=";
     };
-  };
-  plasma-desktop-lyrics = {
-    pname = "plasma-desktop-lyrics";
-    version = "62ea278e0d4a43cc12a47ed8da9de8cd6dc90cab";
-    src = fetchFromGitHub {
-      owner = "chiyuki0325";
-      repo = "PlasmaDesktopLyrics";
-      rev = "62ea278e0d4a43cc12a47ed8da9de8cd6dc90cab";
-      fetchSubmodules = false;
-      sha256 = "sha256-FL5TYt+NyCo4jmTFjMgh2icKwxU4Whm1GyDBcVWsI3k=";
-    };
-    date = "2024-06-27";
   };
   plasma-panel-transparency-toggle = {
     pname = "plasma-panel-transparency-toggle";

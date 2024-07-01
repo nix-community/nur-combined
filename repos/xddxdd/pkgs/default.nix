@@ -160,6 +160,8 @@ mkScope (
     ldap-auth-proxy = pkg ./uncategorized/ldap-auth-proxy { };
     libnftnl-fullcone = pkg ./uncategorized/libnftnl-fullcone { };
     liboqs = pkg ./uncategorized/liboqs { };
+    lyrica = pkg ./uncategorized/lyrica { };
+    lyrica-plasmoid = pkg ./uncategorized/lyrica-plasmoid { };
     netboot-xyz = pkg ./uncategorized/netboot-xyz { };
     netease-cloud-music = pkg ./uncategorized/netease-cloud-music { };
     netns-exec = pkg ./uncategorized/netns-exec { };
@@ -179,8 +181,8 @@ mkScope (
     peerbanhelper = pkg ./uncategorized/peerbanhelper { };
     phpmyadmin = pkg ./uncategorized/phpmyadmin { };
     phppgadmin = pkg ./uncategorized/phppgadmin { };
-    plasma-desktop-lyrics = pkg ./uncategorized/plasma-desktop-lyrics { };
-    plasma-desktop-lyrics-plasmoid = pkg ./uncategorized/plasma-desktop-lyrics-plasmoid { };
+    plasma-desktop-lyrics = pkg ./uncategorized/lyrica { };
+    plasma-desktop-lyrics-plasmoid = pkg ./uncategorized/lyrica-plasmoid { };
     plasma-panel-transparency-toggle = pkg ./uncategorized/plasma-panel-transparency-toggle { };
     pocl = pkg ./uncategorized/pocl { };
     procps4 = pkg ./uncategorized/procps4 { };
