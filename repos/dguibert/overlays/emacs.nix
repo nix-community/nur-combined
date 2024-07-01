@@ -87,6 +87,10 @@ with prev; let
             sha256 = "sha256-cIwyuwoyojc6uiNbWleh+inoRTUqMCZYQ3IydhRkEkw=";
           };
         });
+
+        org = epkgs.org.overrideAttrs (o: {
+          patches = [];
+        });
       };
     #override = epkgs: epkgs // {
     #  weechat = epkgs.melpaPackages.weechat.overrideAttrs(old: {
