@@ -51,7 +51,7 @@
     niri.enable = false;
     sway = {
       enable = true;
-      xwayland.enable = false;
+      xwayland.enable = true;
       wrapperFeatures.gtk = true;
     };
     wireshark = {
