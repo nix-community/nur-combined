@@ -2266,10 +2266,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.43.2";
+      version = "2.43.3";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4310344/dualsub-2.43.2.xpi";
-      sha256 = "a55bf961003e41d729c4f3dad245ea6ef3b029aa4a68aa8fcab94e59c4ed71de";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4311744/dualsub-2.43.3.xpi";
+      sha256 = "82a0bed1edf5bbe3a9483f8bef01d14895830f840e7570825e88da946894b6c3";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -3291,10 +3291,10 @@
     };
     "ghosttext" = buildFirefoxXpiAddon {
       pname = "ghosttext";
-      version = "24.6.7";
+      version = "24.6.30";
       addonId = "ghosttext@bfred.it";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4299538/ghosttext-24.6.7.xpi";
-      sha256 = "e347ee3b62048bba7ac63750c17eead7bf95f65750a69235f7fd7e164e19465a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4311733/ghosttext-24.6.30.xpi";
+      sha256 = "3c9824bc66b0752b42efe68d680229966ac53b2626c8e928b6c8d85c1b8b2e48";
       meta = with lib;
       {
         homepage = "https://github.com/fregante/GhostText";
@@ -3303,7 +3303,7 @@
         mozPermissions = [
           "activeTab"
           "contextMenus"
-          "http://localhost/"
+          "scripting"
           "storage"
           "http://localhost:4001/*"
         ];
@@ -5451,15 +5451,15 @@
     };
     "jump-cutter" = buildFirefoxXpiAddon {
       pname = "jump-cutter";
-      version = "1.27.0";
+      version = "1.27.1";
       addonId = "jump-cutter@example.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4132579/jump_cutter-1.27.0.xpi";
-      sha256 = "b3f0c1485d012a61c80a8e5aa6531bd13b191e19da4aefeeed734f782cfcb46c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4311895/jump_cutter-1.27.1.xpi";
+      sha256 = "8a4b68df1913b93efbda047b674965577585f89c5cb8d9d2982ed49a87d89dc9";
       meta = with lib;
       {
         description = "Watch lectures ~1.5x faster by fast-forwarding long pauses between sentences";
         license = licenses.agpl3Plus;
-        mozPermissions = [ "storage" "http://*/*" "https://*/*" ];
+        mozPermissions = [ "storage" "scripting" "http://*/*" "https://*/*" ];
         platforms = platforms.all;
       };
     };
@@ -7342,10 +7342,10 @@
     };
     "nos2x-fox" = buildFirefoxXpiAddon {
       pname = "nos2x-fox";
-      version = "1.13.0";
+      version = "1.14.0";
       addonId = "{fdacee2c-bab4-490d-bc4b-ecdd03d5d68a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4214049/nos2x_fox-1.13.0.xpi";
-      sha256 = "bd4860d61aea3a690182208993d876886e2bdbfe5a7e0db9020041396e681f4f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4311953/nos2x_fox-1.14.0.xpi";
+      sha256 = "9b6f69425d6801f1726195ca18fdfeff28126b067f1ba7d109f2927411f87ba9";
       meta = with lib;
       {
         homepage = "https://github.com/diegogurpegui/nos2x-firefox";
@@ -7763,10 +7763,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "2024.6.3";
+      version = "2024.7.1";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4304061/pakkujs-2024.6.3.xpi";
-      sha256 = "e81321a9dab2c990806a7619b9446737f32c9830376deb2d8e26e096c593e49b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4311814/pakkujs-2024.7.1.xpi";
+      sha256 = "c58a038cede0e8dd80e2e10d73911242f882e7e2d16ac8ba5f96475bd3867e6f";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
