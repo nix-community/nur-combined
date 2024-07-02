@@ -23,6 +23,8 @@ pkgs.telegram-desktop.overrideAttrs (
       ln -s $out/{Applications/${mainProgram}.app/Contents/MacOS,bin}
     '';
 
+    patches = builtins.filter (p: !builtins.isAttrs p || p.name == "Disable-register-custom-scheme") previousAttrs.patches;
+
     # Since the original .desktop file is for Flatpak, we need to fix it.
     postInstall =
       lib.optionalString stdenv.isLinux
