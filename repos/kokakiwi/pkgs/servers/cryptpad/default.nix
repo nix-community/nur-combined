@@ -3,6 +3,7 @@
 
 , buildNpmPackage
 , fetchFromGitHub
+, fetchzip
 
 , nodejs
 
@@ -40,6 +41,14 @@
     pname = "${pname}-onlyoffice";
     inherit version;
 
+    x2t = let
+      version = "v7.3+1";
+    in fetchzip {
+      url = "https://github.com/cryptpad/onlyoffice-x2t-wasm/releases/download/${version}/x2t.zip";
+      hash = "sha256-d5raecsTOflo0UpjSEZW5lker4+wdkTb6IyHNq5iBg8=";
+      stripRoot = false;
+    };
+
     srcs = lib.mapAttrsToList (version: { rev, hash ? lib.fakeHash }: fetchFromGitHub {
       name = "${final.pname}-${version}-source";
       owner = "cryptpad";
@@ -57,20 +66,21 @@
         (version: "cp -Tr ${final.pname}-${version}-source $out/${version}")
         (builtins.attrNames onlyOfficeVersions)
       )}
+      cp -Tr $x2t $out/x2t
     '';
   });
 in buildNpmPackage rec {
   pname = "cryptpad";
-  version = "2024.3.1";
+  version = "2024.6.0";
 
   src = fetchFromGitHub {
     owner = "cryptpad";
     repo = "cryptpad";
     rev = version;
-    hash = "sha256-kXghuktaKicFOz98Siy/OjJ9rlgy6C2BTKkD2OFLE+k=";
+    hash = "sha256-huIhhnjatkaVfm1zDeqi88EX/nAUBQ0onPNOwn7hrX4=";
   };
 
-  npmDepsHash = "sha256-fjImdtv0bwgdDvl/BXV0DesreOAW2u8HsNqJ13hrJMw=";
+  npmDepsHash = "sha256-Oh1fBvP7OXC+VDiH3D+prHmi8pRrxld06n30sqw5apY=";
 
   inherit nodejs;
 
@@ -106,6 +116,10 @@ in buildNpmPackage rec {
 
     runHook postInstall
   '';
+
+  passthru = {
+    inherit onlyOffice;
+  };
 
   meta = {
     description = "Collaborative office suite, end-to-end encrypted and open-source.";
