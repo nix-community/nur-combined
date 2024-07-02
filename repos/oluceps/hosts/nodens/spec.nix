@@ -11,8 +11,8 @@
 
   system.stateVersion = "22.11";
 
-  users.mutableUsers = false;
-  system.etc.overlay.mutable = false;
+  users.mutableUsers = true;
+  system.etc.overlay.mutable = true;
 
   nix.gc = {
     automatic = true;

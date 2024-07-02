@@ -29,6 +29,15 @@
   };
   programs.sway.enable = true;
 
+  systemd.user.services.add-ssh-keys = {
+    script = ''
+      eval `${pkgs.openssh}/bin/ssh-agent -s`
+      export SSH_ASKPASS_REQUIRE="prefer"
+      ${pkgs.openssh}/bin/ssh-add ${config.age.secrets.id.path}
+    '';
+    wantedBy = [ "default.target" ];
+  };
+
   systemd = {
     services = {
       atuin.serviceConfig.Environment = [ "RUST_LOG=debug" ];
