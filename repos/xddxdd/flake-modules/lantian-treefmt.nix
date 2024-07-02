@@ -11,7 +11,7 @@
 
         settings = {
           formatter.deadnix.excludes = [ "**/composer2nix/**" ];
-          global.excludes = [ "./_sources/**" ];
+          global.excludes = [ "**/_sources/**" ];
         };
 
         programs = {

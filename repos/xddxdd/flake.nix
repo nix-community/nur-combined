@@ -36,8 +36,8 @@
         ./flake-modules/_internal/modules-test-nixos-config.nix
         ./flake-modules/_internal/nixpkgs-options.nix
         ./flake-modules/_internal/package-meta.nix
-        ./flake-modules/_internal/pre-commit-hooks.nix
-        ./flake-modules/_internal/treefmt.nix
+        ./flake-modules/lantian-pre-commit-hooks.nix
+        ./flake-modules/lantian-treefmt.nix
       ];
 
       systems = [
@@ -59,6 +59,8 @@
         flakeModules = {
           auto-apps-shell = import ./flake-modules/auto-apps-shell.nix;
           auto-colmena-hive = import ./flake-modules/auto-colmena-hive.nix;
+          lantian-pre-commit-hooks = import ./flake-modules/lantian-pre-commit-hooks.nix;
+          lantian-treefmt = import ./flake-modules/lantian-treefmt.nix;
         };
 
         nixosModules = {
