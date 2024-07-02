@@ -1,10 +1,4 @@
-{
-  inputs,
-  lib,
-  config,
-  ...
-}:
-{
+{ inputs, lib, config, ... }: {
   options.nixpkgs-options = {
     allowUnfree = lib.mkOption {
       type = lib.types.bool;
@@ -28,16 +22,16 @@
     };
   };
 
-  config.perSystem =
-    { system, ... }:
-    rec {
-      packages.nixpkgs-patched = (import inputs.nixpkgs { inherit system; }).applyPatches {
-        name = "nixpkgs-patched";
-        src = inputs.nixpkgs;
-        inherit (config.nixpkgs-options) patches;
-      };
-
-      _module.args.pkgs = import packages.nixpkgs-patched {
+  config.perSystem = { system, ... }:
+    let
+      nixpkgs-patched =
+        (import inputs.nixpkgs { inherit system; }).applyPatches {
+          name = "nixpkgs-patched";
+          src = inputs.nixpkgs;
+          inherit (config.nixpkgs-options) patches;
+        };
+    in {
+      _module.args.pkgs = import nixpkgs-patched {
         inherit system;
         config = {
           inherit (config.nixpkgs-options) allowUnfree;
