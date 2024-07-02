@@ -29,18 +29,17 @@
   };
   programs.sway.enable = true;
 
-  systemd.user.services.add-ssh-keys = {
-    script = ''
-      eval `${pkgs.openssh}/bin/ssh-agent -s`
-      export SSH_ASKPASS_REQUIRE="prefer"
-      ${pkgs.openssh}/bin/ssh-add ${config.age.secrets.id.path}
-    '';
-    wantedBy = [ "default.target" ];
-  };
-
   systemd = {
     services = {
       atuin.serviceConfig.Environment = [ "RUST_LOG=debug" ];
+
+      add-ssh-keys = {
+        script = ''
+          eval `${pkgs.openssh}/bin/ssh-agent -s`
+          ${pkgs.openssh}/bin/ssh-add ${config.age.secrets.id.path}
+        '';
+        wantedBy = [ "default.target" ];
+      };
       # atticd.serviceConfig.Environment = [
       #   "RUST_LOG=debug"
       #   "RUST_BACKTRACE=1"
@@ -113,6 +112,7 @@
     "prom"
   ];
 
+  services.smartd.notifications.systembus-notify.enable = true;
   srv = {
     openssh.enable = true;
     fail2ban.enable = true;
