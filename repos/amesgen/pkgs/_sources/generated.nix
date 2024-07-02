@@ -3,26 +3,26 @@
 {
   cabal-docspec = {
     pname = "cabal-docspec";
-    version = "0.0.0.20240414";
+    version = "0.0.0.20240703";
     src = fetchurl {
-      url = "https://github.com/phadej/cabal-extras/releases/download/cabal-docspec-0.0.0.20240414/cabal-docspec-0.0.0.20240414-x86_64-linux.xz";
-      sha256 = "sha256-LRij95YZ6OxfEYcPkm9twmFuAqbIiTFbf4IES5Whrbk=";
+      url = "https://github.com/phadej/cabal-extras/releases/download/cabal-docspec-0.0.0.20240703/cabal-docspec-0.0.0.20240703-x86_64-linux.xz";
+      sha256 = "sha256-SL87f9L38MqmFir+5Xp1W+hSPn9Ge2lJAOtCD1+ae3Y=";
     };
   };
   cabal-docspec-man = {
     pname = "cabal-docspec-man";
-    version = "0.0.0.20240414";
+    version = "0.0.0.20240703";
     src = fetchurl {
-      url = "https://raw.githubusercontent.com/phadej/cabal-extras/cabal-docspec-0.0.0.20240414/cabal-docspec/cabal-docspec.1";
-      sha256 = "sha256-3hfnywUlib9FtSpuIQTc7HHwzGKtMD/el3CLYWoVL3U=";
+      url = "https://raw.githubusercontent.com/phadej/cabal-extras/cabal-docspec-0.0.0.20240703/cabal-docspec/cabal-docspec.1";
+      sha256 = "sha256-Bswvhto4YdbmkRSmiQVl4fyerNIVnH54nckaxXhCQhQ=";
     };
   };
   cabal-gild = {
     pname = "cabal-gild";
-    version = "1.3.1.2";
+    version = "1.5.0.1";
     src = fetchurl {
-      url = "https://github.com/tfausak/cabal-gild/releases/download/1.3.1.2/cabal-gild-1.3.1.2-linux-x64.tar.gz";
-      sha256 = "sha256-ci7E254e5Qh6ek15yFUXF698xGJN3L8Q90OylnU0E4E=";
+      url = "https://github.com/tfausak/cabal-gild/releases/download/1.5.0.1/cabal-gild-1.5.0.1-linux-x64.tar.gz";
+      sha256 = "sha256-mE/My/7kY7RqMcmF3vlhRF46yNa6gGhUboX0vG5+Qms=";
     };
   };
   cabal-plan = {
@@ -35,10 +35,10 @@
   };
   fourmolu = {
     pname = "fourmolu";
-    version = "0.16.1.0";
+    version = "0.16.2.0";
     src = fetchurl {
-      url = "https://github.com/fourmolu/fourmolu/releases/download/v0.16.1.0/fourmolu-0.16.1.0-linux-x86_64";
-      sha256 = "sha256-TXZzXXpnYkvXwmqsmIZQtbYrriQwtm5JJ6CO/wYzKz8=";
+      url = "https://github.com/fourmolu/fourmolu/releases/download/v0.16.2.0/fourmolu-0.16.2.0-linux-x86_64";
+      sha256 = "sha256-lO89pt/EOYdu1juRcZtXD7yY44UCnRVXxLkzQa0AI+I=";
     };
   };
   hellsmack = {
