@@ -26,7 +26,7 @@ specify {
   emote.overlay = e: { postInstall = e.postInstall or "" + "\nsubstituteInPlace $out/share/applications/emote.desktop --replace-fail 'Exec=emote' \"Exec=$out/bin/emote\""; }; # Allow desktop entry as entrypoint
   fastnbt-tools = any;
   fediblockhole = any;
-  fedifetcher.overlay = stable.lib.throwIf (stable.lib.versionAtLeast unstable.fedifetcher.version "7.1.4") "fedifetcher no longer requires an overlay" (f: rec { version = "7.1.4"; src = f.src.override { rev = "refs/tags/v${version}"; hash = "sha256-/iAmX2kBYJgtsz7b817UqLXkwVwXi7EY4KL0ZYxXYBw="; }; }); # nanos/FediFetcher#122, 139, 141
+  fedifetcher.overlay = stable.lib.throwIf (stable.lib.versionAtLeast unstable.fedifetcher.version "7.1.5") "fedifetcher no longer requires an overlay" (f: { version = "7.1.4-unstable-2024-07-02"; src = f.src.override { rev = "0e2178cc5a6118b251b809c1ce071e53904f2b3b"; hash = "sha256-K/8kGh2jCC2tMIEkCOF5ElLOa/kPXFBvRPfK9LDMGYg="; }; }); # nanos/FediFetcher#122, 139, 141
   firefox.overlay = w: { buildCommand = w.buildCommand + "\nwrapProgram $executablePath --unset LC_TIME"; }; # Workaround for bugzilla#1269895
   git-diff-image = any;
   git-diff-minecraft = any;

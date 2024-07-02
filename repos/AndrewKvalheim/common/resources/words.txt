@@ -486,6 +486,7 @@ Jabra
 jackfruit
 jank
 jaq
+JCPenney
 JDK
 Jellyfin
 jemalloc
