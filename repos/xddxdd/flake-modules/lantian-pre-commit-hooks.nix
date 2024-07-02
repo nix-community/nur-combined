@@ -1,6 +1,5 @@
-{ inputs, ... }:
-{
-  imports = [ inputs.pre-commit-hooks-nix.flakeModule ];
+{ pre-commit-hooks-nix, ... }: {
+  imports = [ pre-commit-hooks-nix.flakeModule ];
 
   perSystem = _: {
     pre-commit = {

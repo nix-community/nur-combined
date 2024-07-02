@@ -5,6 +5,11 @@
       description = "Enable unfree packages";
       default = true;
     };
+    exportPatchedNixpkgs = lib.mkOption {
+      type = lib.types.bool;
+      description = "Export patched nixpkgs as packages.nixpkgs-patched";
+      default = false;
+    };
     patches = lib.mkOption {
       type = lib.types.listOf lib.types.path;
       description = "List of patches to apply to nixpkgs";
@@ -39,5 +44,7 @@
         };
         inherit (config.nixpkgs-options) overlays;
       };
+    } // lib.optionalAttrs config.nixpkgs-options.exportPatchedNixpkgs {
+      packages.nixpkgs-patched = nixpkgs-patched;
     };
 }
