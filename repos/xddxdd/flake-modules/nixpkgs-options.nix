@@ -1,0 +1,49 @@
+{
+  inputs,
+  lib,
+  config,
+  ...
+}:
+{
+  options.nixpkgs-options = {
+    allowUnfree = lib.mkOption {
+      type = lib.types.bool;
+      description = "Enable unfree packages";
+      default = true;
+    };
+    patches = lib.mkOption {
+      type = lib.types.listOf lib.types.path;
+      description = "List of patches to apply to nixpkgs";
+      default = [ ];
+    };
+    overlays = lib.mkOption {
+      # Do not set type here, or infinite recursion will happen
+      description = "List of overlays to apply to nixpkgs";
+      default = [ ];
+    };
+    permittedInsecurePackages = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      description = "List of insecure packages to be allowed";
+      default = [ ];
+    };
+  };
+
+  config.perSystem =
+    { system, ... }:
+    rec {
+      packages.nixpkgs-patched = (import inputs.nixpkgs { inherit system; }).applyPatches {
+        name = "nixpkgs-patched";
+        src = inputs.nixpkgs;
+        inherit (config.nixpkgs-options) patches;
+      };
+
+      _module.args.pkgs = import packages.nixpkgs-patched {
+        inherit system;
+        config = {
+          inherit (config.nixpkgs-options) allowUnfree;
+          inherit (config.nixpkgs-options) permittedInsecurePackages;
+        };
+        inherit (config.nixpkgs-options) overlays;
+      };
+    };
+}

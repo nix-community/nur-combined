@@ -18,7 +18,7 @@
           black.enable = true;
           deadnix.enable = true;
           isort.enable = true;
-          nixfmt-rfc-style.enable = true;
+          nixfmt.enable = true;
           statix.enable = true;
         };
       };

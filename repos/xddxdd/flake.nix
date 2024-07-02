@@ -21,35 +21,26 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs =
-    {
-      self,
-      nixpkgs,
-      flake-parts,
-      ...
-    }@inputs:
+  outputs = { self, nixpkgs, flake-parts, ... }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         ./flake-modules/_internal/ci-outputs.nix
         ./flake-modules/_internal/commands.nix
         ./flake-modules/_internal/meta.nix
         ./flake-modules/_internal/modules-test-nixos-config.nix
-        ./flake-modules/_internal/nixpkgs-options.nix
         ./flake-modules/_internal/package-meta.nix
+        ./flake-modules/commands.nix
         ./flake-modules/lantian-pre-commit-hooks.nix
         ./flake-modules/lantian-treefmt.nix
+        ./flake-modules/nixpkgs-options.nix
       ];
 
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
+      systems = [ "x86_64-linux" "aarch64-linux" ];
 
       flake = {
         overlay = self.overlays.default;
         overlays = {
-          default =
-            _final: prev:
+          default = _final: prev:
             import ./pkgs null {
               pkgs = prev;
               inherit inputs;
@@ -59,8 +50,11 @@
         flakeModules = {
           auto-apps-shell = import ./flake-modules/auto-apps-shell.nix;
           auto-colmena-hive = import ./flake-modules/auto-colmena-hive.nix;
-          lantian-pre-commit-hooks = import ./flake-modules/lantian-pre-commit-hooks.nix;
+          commands = import ./flake-modules/commands.nix;
+          lantian-pre-commit-hooks =
+            import ./flake-modules/lantian-pre-commit-hooks.nix;
           lantian-treefmt = import ./flake-modules/lantian-treefmt.nix;
+          nixpkgs-options = import ./flake-modules/nixpkgs-options.nix;
         };
 
         nixosModules = {
@@ -72,16 +66,26 @@
           nix-cache-garnix = import ./modules/nix-cache-garnix.nix;
           openssl-oqs-provider = import ./modules/openssl-oqs-provider.nix;
           plasma-desktop-lyrics = import ./modules/lyrica.nix;
-          qemu-user-static-binfmt = import ./modules/qemu-user-static-binfmt.nix;
-          wireguard-remove-lingering-links = import ./modules/wireguard-remove-lingering-links.nix;
+          qemu-user-static-binfmt =
+            import ./modules/qemu-user-static-binfmt.nix;
+          wireguard-remove-lingering-links =
+            import ./modules/wireguard-remove-lingering-links.nix;
         };
       };
 
-      perSystem =
-        { pkgs, ... }:
-        {
-          packages = import ./pkgs null { inherit inputs pkgs; };
-          legacyPackages = import ./pkgs "legacy" { inherit inputs pkgs; };
-        };
+      nixpkgs-options = {
+        permittedInsecurePackages = [
+          "electron-11.5.0"
+          "electron-19.1.9"
+          "openssl-1.1.1w"
+          "python-2.7.18.7"
+        ];
+        overlays = [ self.overlays.default ];
+      };
+
+      perSystem = { pkgs, ... }: {
+        packages = import ./pkgs null { inherit inputs pkgs; };
+        legacyPackages = import ./pkgs "legacy" { inherit inputs pkgs; };
+      };
     };
 }
