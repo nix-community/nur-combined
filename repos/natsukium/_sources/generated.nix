@@ -11,15 +11,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "2c9dcd167b202bcbdd4722cfca7368715ad7a3e3";
+    version = "af4df5166b357668f8207fbdff46a802633f1a5d";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "2c9dcd167b202bcbdd4722cfca7368715ad7a3e3";
+      rev = "af4df5166b357668f8207fbdff46a802633f1a5d";
       fetchSubmodules = false;
-      sha256 = "sha256-lA4xpMCs4lmaXjZGwl468VeHARHR6vIf/0BuB32NmAU=";
+      sha256 = "sha256-5HTQk8eBkt++HZIsVK1eEZjmFNlqpEd3oYDjMBeTn/c=";
     };
-    date = "2024-06-10";
+    date = "2024-07-02";
   };
   nixfmt = {
     pname = "nixfmt";
@@ -55,10 +55,10 @@
   };
   qutebrowser-darwin = {
     pname = "qutebrowser-darwin";
-    version = "3.2.0";
+    version = "3.2.1";
     src = fetchurl {
-      url = "https://github.com/qutebrowser/qutebrowser/releases/download/v3.2.0/qutebrowser-3.2.0.dmg";
-      sha256 = "sha256-IhCS+bf4FTaSFFpw3knUm+NZUZaJLD9xIMxabf0nFUE=";
+      url = "https://github.com/qutebrowser/qutebrowser/releases/download/v3.2.1/qutebrowser-3.2.1-arm64.dmg";
+      sha256 = "sha256-HNEXLXy1rgHiD97JyOEuBuZAeGjge1wvHgo9esZZKCY=";
     };
   };
   sbarlua = {
@@ -95,10 +95,10 @@
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "6.8.3381.44";
+    version = "6.8.3381.46";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.6.8.3381.44.universal.dmg";
-      sha256 = "sha256-ItLuj9HaIv240AP+5ruya9lwMcHSIOKq/nTB6TdgfiM=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.6.8.3381.46.universal.dmg";
+      sha256 = "sha256-p6mdM8pBJIsQ9ic90YwgDMy9lq0bBi+VOkCvZE8s/xM=";
     };
   };
 }

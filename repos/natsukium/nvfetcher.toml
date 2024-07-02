@@ -25,7 +25,7 @@ fetch.url = "https://github.com/qmk/qmk_toolbox/releases/download/$ver/QMK.Toolb
 [qutebrowser-darwin]
 src.github = "qutebrowser/qutebrowser"
 src.prefix = "v"
-fetch.url = "https://github.com/qutebrowser/qutebrowser/releases/download/v$ver/qutebrowser-$ver.dmg"
+fetch.url = "https://github.com/qutebrowser/qutebrowser/releases/download/v$ver/qutebrowser-$ver-arm64.dmg"
 
 [sbarlua]
 src.git = "https://github.com/FelixKratz/SbarLua"

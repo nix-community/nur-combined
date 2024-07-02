@@ -16,7 +16,7 @@
     },
     "emacs-plus": {
         "cargoLocks": null,
-        "date": "2024-06-10",
+        "date": "2024-07-02",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -28,11 +28,11 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "2c9dcd167b202bcbdd4722cfca7368715ad7a3e3",
-            "sha256": "sha256-lA4xpMCs4lmaXjZGwl468VeHARHR6vIf/0BuB32NmAU=",
+            "rev": "af4df5166b357668f8207fbdff46a802633f1a5d",
+            "sha256": "sha256-5HTQk8eBkt++HZIsVK1eEZjmFNlqpEd3oYDjMBeTn/c=",
             "type": "github"
         },
-        "version": "2c9dcd167b202bcbdd4722cfca7368715ad7a3e3"
+        "version": "af4df5166b357668f8207fbdff46a802633f1a5d"
     },
     "nixfmt": {
         "cargoLocks": null,
@@ -98,11 +98,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-IhCS+bf4FTaSFFpw3knUm+NZUZaJLD9xIMxabf0nFUE=",
+            "sha256": "sha256-HNEXLXy1rgHiD97JyOEuBuZAeGjge1wvHgo9esZZKCY=",
             "type": "url",
-            "url": "https://github.com/qutebrowser/qutebrowser/releases/download/v3.2.0/qutebrowser-3.2.0.dmg"
+            "url": "https://github.com/qutebrowser/qutebrowser/releases/download/v3.2.1/qutebrowser-3.2.1-arm64.dmg"
         },
-        "version": "3.2.0"
+        "version": "3.2.1"
     },
     "sbarlua": {
         "cargoLocks": null,
@@ -168,10 +168,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ItLuj9HaIv240AP+5ruya9lwMcHSIOKq/nTB6TdgfiM=",
+            "sha256": "sha256-p6mdM8pBJIsQ9ic90YwgDMy9lq0bBi+VOkCvZE8s/xM=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.6.8.3381.44.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.6.8.3381.46.universal.dmg"
         },
-        "version": "6.8.3381.44"
+        "version": "6.8.3381.46"
     }
 }
