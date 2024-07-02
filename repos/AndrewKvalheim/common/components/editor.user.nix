@@ -74,6 +74,8 @@ in
     ];
 
     keybindings = [
+      { key = "alt+pagedown"; command = "workbench.action.navigateForward"; when = "canNavigateForward"; }
+      { key = "alt+pageup"; command = "workbench.action.navigateBack"; when = "canNavigateBack"; }
       { key = "ctrl+j"; command = "-workbench.action.togglePanel"; }
       { key = "ctrl+j"; command = "editor.action.joinLines"; }
       { key = "shift+alt+m"; command = "editor.emmet.action.wrapWithAbbreviation"; }
@@ -97,6 +99,7 @@ in
       "qalc.path" = "${pkgs.libqalculate}/bin/qalc";
       "rubyLsp.customRubyCommand" = "PATH=${makeBinPath (with pkgs; [ nodejs ruby ruby-lsp ])}:$PATH";
       "ruff.path" = [ "${pkgs.ruff}/bin/ruff" ];
+      "ruff.nativeServer" = true;
       "shellcheck.executablePath" = "${pkgs.shellcheck}/bin/shellcheck";
       "stylelint.stylelintPath" = "${pkgs.nodePackages.stylelint}/lib/node_modules/stylelint";
 

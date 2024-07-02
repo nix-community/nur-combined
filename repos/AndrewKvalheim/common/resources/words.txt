@@ -17,6 +17,7 @@ airgapped
 AirPod
 AirPods
 Airtable
+Akkoma
 Alki
 allowlist
 allowlisting
@@ -322,10 +323,12 @@ FediFetcher
 fediverse
 Feedbin
 Feedly
+fetchable
 FHD
 Fi
 filesystems
 Fircrest
+Firefish
 FireHOL
 firewalling
 fixie
@@ -536,6 +539,7 @@ LDAP
 leashable
 Leatherman
 LEDs
+Lemmy
 Lenovo
 letterlike
 LFNW
@@ -617,6 +621,7 @@ misconfigured
 misformat
 misformatted
 misreference
+Misskey
 mitigations
 Miyazaki
 Mjolnir
@@ -859,6 +864,7 @@ rebase
 rebased
 rebasing
 Rebecca
+reblog
 reCAPTCHA
 reciprocative
 recompiler

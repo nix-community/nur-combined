@@ -78,6 +78,7 @@ in
       imagemagickBig
       inkscape
       just
+      just-local
       killall
       lsof
       magic-wormhole

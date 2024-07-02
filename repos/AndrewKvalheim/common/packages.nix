@@ -26,7 +26,7 @@ specify {
   emote.overlay = e: { postInstall = e.postInstall or "" + "\nsubstituteInPlace $out/share/applications/emote.desktop --replace-fail 'Exec=emote' \"Exec=$out/bin/emote\""; }; # Allow desktop entry as entrypoint
   fastnbt-tools = any;
   fediblockhole = any;
-  fedifetcher.overlay = stable.lib.throwIf (stable.lib.versionAtLeast unstable.fedifetcher.version "7.1.3") "fedifetcher no longer requires an overlay" (f: rec { version = "7.1.3"; src = f.src.override { rev = "refs/tags/v${version}"; hash = "sha256-kDtfpRQejit+ls9NNCRQUQEIPqCDtNirAw3V4jbKPjU="; }; }); # nanos/FediFetcher#122
+  fedifetcher.overlay = stable.lib.throwIf (stable.lib.versionAtLeast unstable.fedifetcher.version "7.1.3") "fedifetcher no longer requires an overlay" (f: { version = "7.1.3-unstable-2024-07-02"; src = f.src.override { rev = "refs/pull/139/head"; hash = "sha256-Nt1nJwRFy4FhsI2JR+LLQyDjI/3AqOzepS7kv7aGvbA="; }; }); # nanos/FediFetcher#139
   firefox.overlay = w: { buildCommand = w.buildCommand + "\nwrapProgram $executablePath --unset LC_TIME"; }; # Workaround for bugzilla#1269895
   git-diff-image = any;
   git-diff-minecraft = any;
@@ -52,6 +52,7 @@ specify {
   iptables_exporter = any;
   josm = { jre = resolved.graalvm-ce; extraJavaOpts = "--module-path=${resolved.graalvmCEPackages.graaljs}/modules"; }; # josm-scripting-plugin
   josm-imagery-used = any;
+  just-local = any;
   little-a-map = any;
   minemap = any;
   mmdbinspect = any;
@@ -61,6 +62,7 @@ specify {
   picard.overlay = p: { preFixup = p.preFixup + "\nmakeWrapperArgs+=(--prefix PATH : ${stable.lib.makeBinPath [ resolved.rsgain ]})"; }; # NixOS/nixpkgs#255222
   pngquant-interactive = any;
   pnpm = any;
+  ruff.version = "≥0.4.5"; # ruff server
   signal-desktop.gappsWrapperArgs = "--add-flags --use-tray-icon"; # Enable tray icon
   spf-check = any;
   spf-tree = any;
@@ -69,6 +71,7 @@ specify {
   vscode-extensions = namespaced {
     bierner.markdown-preview-github-styles = any;
     bpruitt-goddard.mermaid-markdown-syntax-highlighting.search = open-vsx;
+    charliermarsh.ruff = { version = "≥2024.22.0"; search = [ open-vsx ]; };
     compilouit.xkb.search = open-vsx;
     csstools.postcss.search = open-vsx;
     earshinov.permute-lines.search = open-vsx;

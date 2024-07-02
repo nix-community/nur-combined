@@ -118,7 +118,7 @@ in
         ffmpeg = "ffmpeg -hide_banner";
         ffprobe = "ffprobe -hide_banner";
         inspect-certificate = "${pkgs.nmap}/bin/nmap -p 443 --script ssl-cert";
-        j = "just --justfile .local.justfile";
+        j = "just-local";
         lsblk = "lsblk --output 'name,type,uuid,label,size,fstype,mountpoints' --paths";
         mv = "mv --no-clobber --verbose";
         p = "gopass";
