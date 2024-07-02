@@ -319,6 +319,7 @@ favicon
 favicons
 favoriting
 featureful
+FediBlockHole
 FediFetcher
 fediverse
 Feedbin
