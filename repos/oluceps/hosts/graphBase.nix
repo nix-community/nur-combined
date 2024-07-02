@@ -241,6 +241,7 @@
         initial_session = {
           command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd ${pkgs.writeShellScript "sway" ''
             export $(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
+            ${pkgs.openssh}/bin/ssh-add ${config.age.secrets.id.path}
             exec sway
           ''}";
           inherit user;

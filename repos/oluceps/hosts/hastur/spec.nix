@@ -28,18 +28,13 @@
     options = "--delete-older-than 10d";
   };
   programs.sway.enable = true;
+  programs.fish.loginShellInit = ''
+    ${pkgs.openssh}/bin/ssh-add ${config.age.secrets.id.path}
+  '';
 
   systemd = {
     services = {
       atuin.serviceConfig.Environment = [ "RUST_LOG=debug" ];
-
-      add-ssh-keys = {
-        script = ''
-          eval `${pkgs.openssh}/bin/ssh-agent -s`
-          ${pkgs.openssh}/bin/ssh-add ${config.age.secrets.id.path}
-        '';
-        wantedBy = [ "default.target" ];
-      };
       # atticd.serviceConfig.Environment = [
       #   "RUST_LOG=debug"
       #   "RUST_BACKTRACE=1"
