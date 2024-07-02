@@ -22,6 +22,8 @@ Package [ocis-bin](pkgs/ocis-bin/) included in this repo. Until [#230190](https:
 
 * [prometheus-podman-exporter](https://github.com/containers/prometheus-podman-exporter), Prometheus exporter for podman environments. Available as [services.prometheus.exporters.podman](modules/prometheus-exporters/podman.nix).
 
+* [rinetd](https://github.com/samhocevar/rinetd), TCP/UDP port redirector. Available as [services.rinetd](modules/rinetd.nix).
+
 * [rustic](https://github.com/rustic-rs/rustic), rustic - fast, encrypted, and deduplicated backups powered by Rust. Available as [services.rustic](modules/rustic.nix).
 Usage [example](https://github.com/AtaraxiaSjel/nixos-config/tree/master/machines/Home-Hypervisor/backups.nix)
 
