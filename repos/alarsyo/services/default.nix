@@ -9,6 +9,7 @@
     ./jellyfin.nix
     ./lohr.nix
     ./matrix.nix
+    ./mealie.nix
     ./media.nix
     ./microbin.nix
     ./miniflux.nix
