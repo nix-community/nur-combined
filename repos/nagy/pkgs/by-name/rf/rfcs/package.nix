@@ -1,15 +1,20 @@
-{ stdenv, symlinkJoin, callPackage }:
+{
+  stdenv,
+  symlinkJoin,
+  callPackage,
+}:
 
 let
   inherit (callPackage ../../../../lib { }) fetchRFCBulk;
-in stdenv.mkDerivation {
+in
+stdenv.mkDerivation {
   name = "rfcs";
   src = symlinkJoin {
     name = "rfcs";
     paths = [
       (fetchRFCBulk {
         range = "0001-0500";
-        hash = "sha256-sg0WED3hLhVkior4T7fj3aNYV53sxHCXFHr2TR0PVs8=";
+        hash = "sha256-IWWyhw4qHtn0uPhVtUha+CVqw2ODL5uCOnuPiqKAQN8=";
       })
       (fetchRFCBulk {
         range = "0501-1000";
@@ -88,7 +93,11 @@ in stdenv.mkDerivation {
     ];
   };
   buildPhase = ''
+    runHook preBuild
+
     install -Dt $out/share/rfc/ *.txt
     (cd $out/share/rfc; gzip -9 *.txt)
+
+    runHook postBuild
   '';
 }

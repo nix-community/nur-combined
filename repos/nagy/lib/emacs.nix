@@ -2,28 +2,20 @@
 
 rec {
 
-  emacsParsePackageSet = pkgs.callPackage (
+  emacsParsePackageSet =
     {
       src,
-      emacs,
-      epkgs ? pkgs.emacsPackagesFor emacs,
-      ...
+      epkgs ? pkgs.emacs.pkgs,
     }:
-    let
-      parsedPkgs = emacsParsePackagesFromPackageRequires (builtins.readFile src);
-      usePkgs = map (name: epkgs.${name}) parsedPkgs;
-    in
-    usePkgs
-  );
+    map (name: epkgs.${name}) (emacsParsePackagesFromPackageRequires (builtins.readFile src));
 
   emacsMakeSingleFilePackage =
     {
       src,
-      pname,
+      pname ? lib.removeSuffix ".el" (builtins.baseNameOf src),
       version ? "unstable",
-      emacs ? pkgs.emacs,
-      epkgs ? pkgs.emacsPackagesFor emacs,
-      packageRequires ? emacsParsePackageSet { inherit emacs src epkgs; },
+      epkgs ? pkgs.emacs.pkgs,
+      packageRequires ? emacsParsePackageSet { inherit src epkgs; },
     }:
     (epkgs.trivialBuild {
       inherit
