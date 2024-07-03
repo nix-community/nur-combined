@@ -29,6 +29,7 @@
 
         {
           overlays.default = overlays;
+          # TODO: fix this garbage and move to perSystem somehow?
           githubActions =
             let
               filterPackages =
@@ -37,10 +38,13 @@
                   name: pkg:
                   !(pkg.meta.broken or false) && (pkg.meta.license.free or true) && !(pkg.preferLocalBuild or false)
                 ) pkgs;
+              forcedPackages = {
+                zandronum = inputs.nixpkgs.legacyPackages.x86_64-linux.zandronum;
+              };
               cacheablePkgs = {
                 # aarch64-linux = filterPackages self.packages.aarch64-linux; # FIX:
                 # x86_64-darwin = filterPackages self.packages.x86_64-darwin;
-                x86_64-linux = filterPackages self.packages.x86_64-linux;
+                x86_64-linux = (filterPackages self.packages.x86_64-linux // forcedPackages);
               };
             in
             inputs.nix-github-actions.lib.mkGithubMatrix { checks = cacheablePkgs; };

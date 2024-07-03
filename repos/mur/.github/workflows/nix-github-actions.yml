@@ -41,7 +41,7 @@ jobs:
           name: mur
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
       - name: Build "${{ matrix.attr }}"
-        run: nix build -L ".#${{ matrix.attr }}"
+        run: NIXPKGS_ALLOW_UNFREE=1 nix build -L ".#${{ matrix.attr }}" --impure
 
   nix-build-stable:
     needs: nix-matrix
@@ -60,4 +60,4 @@ jobs:
           name: mur
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
       - name: Build "${{ matrix.attr }}"
-        run: nix build --inputs-from . --override-input nixpkgs stable -L ".#${{ matrix.attr }}"
+        run: NIXPKGS_ALLOW_UNFREE=1 nix build --inputs-from . --override-input nixpkgs stable -L ".#${{ matrix.attr }}" --impure
