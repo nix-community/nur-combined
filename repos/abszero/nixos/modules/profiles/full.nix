@@ -12,7 +12,6 @@
       libvirtd.enable = true;
     };
     services = {
-      desktopManager.plasma6.enable = true;
       displayManager.sddm.enable = true;
       kanata.enable = true;
       rclone = {
@@ -53,6 +52,7 @@
   environment = {
     defaultPackages = [ ];
     systemPackages = with pkgs; [
+      albert
       # TODO: Switch to anki-qt6 when it is no longer broken on Wayland
       anki-bin-qt6
       aseprite
@@ -71,6 +71,7 @@
       neofetch
       obsidian-ime
       osu-lazer-bin
+      proton-pass
       protonmail-bridge
       protonvpn-gui
       taisei

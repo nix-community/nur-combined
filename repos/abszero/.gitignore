@@ -1,9 +1,9 @@
-.direnv
 source
 outputs
 result*
 temp
 
+/.direnv
 /lib/haumea
 !/lib/haumea/src
 

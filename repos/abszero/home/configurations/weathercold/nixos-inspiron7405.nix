@@ -13,17 +13,40 @@ optionalAttrs (readDir ./. ? "_base.nix") {
     system = "x86_64-linux";
     modules = import ./_base.nix { inherit self lib; } ++ [
       {
-        specialisation.latte = {
-          default = true;
-          configuration = {
+        specialisation = {
+          hyprland-latte-pink = {
+            default = true;
+            configuration = {
+              imports = with self.homeModules; [
+                # inputs.bocchi-cursors.homeModules.bocchi-cursors-shadowBlack
+                base-firefox-vertical-tabs
+                base-nushell
+                catppuccin-eww
+                catppuccin-fcitx5
+                catppuccin-foot
+                catppuccin-hyprland
+              ];
+
+              abszero.wayland.windowManager.hyprland.enable = true;
+
+              catppuccin.accent = "pink";
+
+              wayland.windowManager.hyprland.settings.monitor = "eDP-1, preferred, auto, 1.25";
+
+              programs.eww.enable = true;
+            };
+          };
+
+          plasma6-latte-pink.configuration = {
             imports = with self.homeModules; [
-              # inputs.bocchi-cursors.homeModules.bocchi-cursors-shadowBlack
               base-firefox-vertical-tabs
               base-nushell
               catppuccin-foot
               catppuccin-plasma
               colloid-fcitx5
             ];
+
+            abszero.services.desktopManager.plasma6.enable = true;
 
             catppuccin.accent = "pink";
           };

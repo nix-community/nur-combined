@@ -2,7 +2,7 @@
 
 let
   inherit (builtins) fromJSON readFile;
-  inherit (lib) recursiveUpdate;
+  inherit (lib) recursiveUpdate mkForce;
 
   proxySettings = fromJSON (readFile ./fracture-ray/proxy.json);
 
@@ -80,8 +80,8 @@ let
         };
       };
     };
-
-    catppuccin.accent = "pink";
+    # FIXME
+    swapDevices = mkForce [];
 
     users.users = rec {
       weathercold = {
@@ -92,6 +92,21 @@ let
       root = {
         inherit (weathercold) hashedPassword;
       };
+    };
+
+    specialisation.plasma6-latte-pink.configuration = {
+      abszero.services.desktopManager.plasma6.enable = true;
+      catppuccin.accent = "pink";
+    };
+  };
+
+  hyprland-latte-pink = { config, lib, ... }:
+  {
+    # Take advantage of the fact that `config.specialisation` is unset on
+    # specialisations to disable inheritance of this module
+    config = lib.mkIf (config.specialisation != { }) {
+      abszero.wayland.windowManager.hyprland.enable = true;
+      catppuccin.accent = "pink";
     };
   };
 in
@@ -106,6 +121,8 @@ in
       hardware-inspiron-7405
       catppuccin-sddm
       mainModule
+      # hyprland-latte-pink is the default specialisation
+      hyprland-latte-pink
     ];
   };
 }

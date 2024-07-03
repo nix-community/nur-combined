@@ -67,9 +67,13 @@
     system76-scheduler.enable = true;
   };
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+  xdg = {
+    portal = {
+      # https://github.com/NixOS/nixpkgs/issues/160923
+      xdgOpenUsePortal = true;
+      extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+    };
+    terminal-exec.enable = true;
   };
 
   programs.xwayland.enable = true;

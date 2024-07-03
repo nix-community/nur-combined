@@ -6,7 +6,7 @@
 }:
 
 let
-  inherit (lib) genAttrs const;
+  inherit (lib) genAttrs const mkDefault;
 in
 
 {
@@ -16,7 +16,6 @@ in
   };
 
   nix = {
-    # FIXME: infinite loop of open connections when running any nix command
     package = pkgs.nixVersions.latest;
     gc = {
       automatic = true;
@@ -43,7 +42,7 @@ in
   nixpkgs.config.allowUnfree = true;
 
   system = {
-    stateVersion = "24.05";
+    stateVersion = "24.11";
     # Print store diff using nvd
     activationScripts.diff = {
       supportsDryActivation = true;
@@ -59,9 +58,7 @@ in
     loader.efi.canTouchEfiVariables = true;
 
     kernelPackages = pkgs.linuxPackages_zen;
-    kernel.sysctl = {
-      "vm.swappiness" = 20;
-    };
+    kernel.sysctl."vm.swappiness" = mkDefault 20;
 
     tmp.useTmpfs = true;
   };

@@ -1,0 +1,91 @@
+(defwindow LeftBar
+  :monitor 0
+  :geometry (geometry :x "0px"
+                      :y "0px"
+                      :width "30px"
+                      :height "100%"
+                      :anchor "center left")
+  :stacking "fg"
+  (box
+   :class "bar"
+   :orientation "v"
+   (box
+    :orientation "v"
+    :space-evenly "false"
+    :valign "start"
+    (Workspaces))
+   (box
+    :orientation "v"
+    :space-evenly "false"
+    :valign "end"
+    (Wifi)
+    (Battery)
+    (Power))))
+
+(deflisten workspaces "./scripts/workspaces.clj")
+(defwidget Workspaces []
+  (box
+   (for workspace in workspaces
+     (button
+      :onclick "hyprctl dispatch workspace ${(jq workspace "id")}"
+      :class "workspace-"))))
+
+(deflisten wifi "./scripts/wifi.clj")
+(defwidget Wifi []
+  (box
+   :orientation "v"
+   :tooltip {wifi != "nil" ? wifi : "Disconnected"}
+   (button
+    :onclick "./scripts/popup.clj wifi"
+    :class "wifi-icon"
+    "")))
+
+(defwidget Battery []
+  (box
+   :orientation "v"
+   :space-evenly "false"
+   (label
+    :class "battery"
+    :halign "end"
+    :text (jq EWW_BATTERY ".[].capacity"))))
+
+(defvar power-open? false)
+(defwidget Power []
+  (eventbox
+   :onhover "eww update power-open?=true"
+   :onhoverlost "eww update power-open?=false"
+   (box
+    :orientation "v"
+    :space-evenly "false"
+    (button
+     :class "icon"
+     :onclick "systemctl poweroff"
+     :tooltip "Poweroff"
+     "\uE9C0")
+    (revealer
+     :transition "slideup"
+     :reveal power-open?
+     :duration "400ms"
+     (box
+      :orientation "v"
+      :space-evenly "false"
+      (button
+       :class "icon"
+       :onclick "loginctl lock-session"
+       :tooltip "Lock"
+       "\uE98F")
+      (button
+       :class "icon"
+       :onclick "loginctl terminate-session"
+       :tooltip "Logout"
+       "")
+      (button
+       :class "icon"
+       :onclick "systemctl suspend"
+       :tooltip "Suspend"
+       "")
+      (button
+       :class "icon"
+       :onclick "systemctl reboot"
+       :tooltip "Reboot"
+       "\uE9C3"))))))
