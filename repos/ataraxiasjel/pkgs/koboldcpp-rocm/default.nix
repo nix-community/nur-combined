@@ -9,7 +9,7 @@
 }:
 let
   pname = "koboldcpp-rocm";
-  version = "1.68.yr0-ROCm";
+  version = "1.69.yr0-ROCm";
 
   src = fetchFromGitHub {
     owner = "YellowRoseCx";
