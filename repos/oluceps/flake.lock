@@ -4947,11 +4947,11 @@
     "nixyDomains": {
       "flake": false,
       "locked": {
-        "lastModified": 1719836511,
-        "narHash": "sha256-aLH7AXZJFgYox1v9rQoaxy1HFt89mFtrHezbyuI/MKs=",
+        "lastModified": 1719967620,
+        "narHash": "sha256-i/mt/MyN5U+8OSlEp/7J+33Qk5uJLamv3c4W7c34Eyg=",
         "owner": "oluceps",
         "repo": "nixyDomains",
-        "rev": "583b8aedc5a5712f7eb13deac465b52e28b507ef",
+        "rev": "c45f2b83cb6aabd5a2f03cad89f366cf992ebe8f",
         "type": "github"
       },
       "original": {

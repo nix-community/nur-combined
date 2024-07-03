@@ -238,7 +238,7 @@
           mg = "kitty +kitten hyperlinked_grep --smart-case $argv .";
           kls = "lsd --icon never --hyperlink auto";
           lks = "lsd --icon never --hyperlink auto";
-          g = "gitui";
+          g = "lazygit";
           "cd.." = "cd ..";
           up = "nix flake update --commit-lock-file /etc/nixos && swc";
           fp = "fish --private";
