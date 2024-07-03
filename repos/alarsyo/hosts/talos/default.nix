@@ -16,8 +16,6 @@
     ./secrets.nix
   ];
 
-  hardware.amdgpu.opencl = false;
-
   boot.kernelPackages = pkgs.linuxPackages_6_9;
   # Set Wi-Fi regulatory domain. Currently always set to '00' (world), and could
   # lead to bad Wi-Fi performance
@@ -66,6 +64,9 @@
   virtualisation = {
     docker.enable = true;
     libvirtd.enable = false;
+    virtualbox.host = {
+      enable = false;
+    };
   };
 
   my.services = {
@@ -110,6 +111,8 @@
 
         # test vms
         "*.qcow2"
+        "*.vbox"
+        "*.vdi"
 
         # secrets stay offline
         "/home/alarsyo/**/secrets"
