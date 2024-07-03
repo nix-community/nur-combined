@@ -81,6 +81,11 @@ in {
       secretConfigFile = config.age.secrets."matrix-synapse/secret-config".path;
     };
 
+    mealie = {
+      enable = true;
+      port = 8090;
+    };
+
     microbin = {
       enable = true;
       privatePort = 8088;

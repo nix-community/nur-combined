@@ -23,6 +23,8 @@ in {
 
   "nextcloud/admin-pass.age".publicKeys = [alarsyo hades];
 
+  "ovh/credentials.age".publicKeys = [alarsyo hades];
+
   "paperless/admin-password.age".publicKeys = [alarsyo hades];
   "paperless/secret-key.age".publicKeys = [alarsyo hades];
 

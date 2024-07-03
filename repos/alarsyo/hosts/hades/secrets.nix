@@ -13,8 +13,6 @@
         // attrs;
     in
       lib.mapAttrs toSecret {
-        "gandi/api-key" = {};
-
         "lohr/shared-secret" = {};
 
         "matrix-synapse/secret-config" = {
@@ -28,6 +26,8 @@
         "nextcloud/admin-pass" = {
           owner = "nextcloud";
         };
+
+        "ovh/credentials" = {};
 
         "paperless/admin-password" = {};
         "paperless/secret-key" = {};

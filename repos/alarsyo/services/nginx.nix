@@ -66,8 +66,8 @@ in {
         gandiKey = config.my.secrets.gandiKey;
       in {
         "${fqdn}" = {
-          dnsProvider = "gandiv5";
-          credentialsFile = config.age.secrets."gandi/api-key".path;
+          dnsProvider = "ovh";
+          credentialsFile = config.age.secrets."ovh/credentials".path;
           group = "nginx";
         };
       };
