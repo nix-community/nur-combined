@@ -666,13 +666,13 @@
         sha512 = "JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==";
       };
     };
-    "pkg-types-1.1.1" = {
+    "pkg-types-1.1.3" = {
       name = "pkg-types";
       packageName = "pkg-types";
-      version = "1.1.1";
+      version = "1.1.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/pkg-types/-/pkg-types-1.1.1.tgz";
-        sha512 = "ko14TjmDuQJ14zsotODv7dBlwxKhUKQEhuhmbqo1uCi9BB0Z2alo/wAXg6q1dTR5TyuqYyWhjtfe/Tsh+X28jQ==";
+        url = "https://registry.npmjs.org/pkg-types/-/pkg-types-1.1.3.tgz";
+        sha512 = "+JrgthZG6m3ckicaOB74TwQ+tBWsFl3qVQg7mN8ulwSOElJ7gBhKzj2VkCPnZ4NlF6kEquYU+RIYNVAvzd54UA==";
       };
     };
     "prompts-2.4.2" = {
@@ -1117,7 +1117,7 @@ in {
       sources."pathe-1.1.2"
       sources."perfect-debounce-1.0.0"
       sources."picomatch-2.3.1"
-      sources."pkg-types-1.1.1"
+      sources."pkg-types-1.1.3"
       sources."prompts-2.4.2"
       sources."queue-microtask-1.2.3"
       sources."rc9-2.1.2"

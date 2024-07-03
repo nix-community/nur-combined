@@ -41,10 +41,10 @@
     "homepage": null,
     "owner": "nemethf",
     "repo": "eglot-x",
-    "rev": "1cb935e3afc3efcf2b29da0e8e6315ae03e1b717",
-    "sha256": "0w6zgaifvyz0q99a64pw64kg09rxkn7rfcmnag2ra2rw1qdz4riq",
+    "rev": "14aa967a431f0b4d4f9e787c98b208e28f488c0b",
+    "sha256": "0vdnzwlccx3zvjn8jic7n0n4g3c4ifibh0z0nk64a09v8hr2rbpx",
     "type": "tarball",
-    "url": "https://github.com/nemethf/eglot-x/archive/1cb935e3afc3efcf2b29da0e8e6315ae03e1b717.tar.gz",
+    "url": "https://github.com/nemethf/eglot-x/archive/14aa967a431f0b4d4f9e787c98b208e28f488c0b.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "eglot-yaml": {
@@ -125,10 +125,10 @@
     "homepage": "",
     "owner": "Fuco1",
     "repo": "smartparens",
-    "rev": "98f135746c63bcef25fb2991cf72d8baf03a076c",
-    "sha256": "1a2n4gqplhnq24k9xbxj3w0j4w1rcqj7byggd28y4dqn2jaigdya",
+    "rev": "71eab0b1a92137453375590425378edc8748f4a7",
+    "sha256": "04lwj0qiihbh3vyaccp65q6000xhv5fnhnm8f2sc0yaxk0a8wc3g",
     "type": "tarball",
-    "url": "https://github.com/Fuco1/smartparens/archive/98f135746c63bcef25fb2991cf72d8baf03a076c.tar.gz",
+    "url": "https://github.com/Fuco1/smartparens/archive/71eab0b1a92137453375590425378edc8748f4a7.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   }
 }
