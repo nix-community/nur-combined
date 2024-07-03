@@ -2288,10 +2288,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.43.3";
+      version = "2.44.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4311744/dualsub-2.43.3.xpi";
-      sha256 = "82a0bed1edf5bbe3a9483f8bef01d14895830f840e7570825e88da946894b6c3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4312795/dualsub-2.44.0.xpi";
+      sha256 = "898da13d45f170cdd16713a0a461eec05b5a184c1f7968fd976d8d574182f3bc";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2843,10 +2843,10 @@
     };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "5.2.3";
+      version = "5.2.4";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4307321/floccus-5.2.3.xpi";
-      sha256 = "87fddf96f0aa0b77f0e00630e661ff40cfd487414a1f7bd8b0b864e67388d700";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4313094/floccus-5.2.4.xpi";
+      sha256 = "bb0c57a8b2d866a5996d9f8abd41829e54cc1b01f867a8c2196cbb3f1e231398";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -10068,10 +10068,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "4.2.3";
+      version = "4.2.5";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4307919/steam_database-4.2.3.xpi";
-      sha256 = "5e0f8782a0ccfe5aa476dc168ec1bd92587dbf4f611e9198e655c3f04a4e1d3e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4310664/steam_database-4.2.5.xpi";
+      sha256 = "f4a1c57363f74d3fd73525a9d3136e322acf633152de433a8c0f9935c4fdfa20";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
