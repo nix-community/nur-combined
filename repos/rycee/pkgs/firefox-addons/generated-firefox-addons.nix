@@ -1964,10 +1964,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.86";
+      version = "4.9.87";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4295557/darkreader-4.9.86.xpi";
-      sha256 = "dde9896751858d0179f3d724a59f2bd4a0d61e599cb8822dc8ed2de320510714";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4310627/darkreader-4.9.87.xpi";
+      sha256 = "0327d42e507979b0a0443b6aad24d011fea50dd020bcfd07b326bd3df285c79b";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -5002,10 +5002,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.6.2";
+      version = "1.7.1";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4299644/immersive_translate-1.6.2.xpi";
-      sha256 = "e75a477de0d2a49b95b4e89d0fe7a5176659d9bed89afd5fca3d96b547c759b5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4313355/immersive_translate-1.7.1.xpi";
+      sha256 = "12c868ebfb809cf670c4a1fb146dc060e7ba307811b16546c27c26ad44d1efc7";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -10776,10 +10776,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.0.19";
+      version = "4.0.20";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4308656/tree_style_tab-4.0.19.xpi";
-      sha256 = "c84299d40ca8c274f5e979d875a6384f4eea7dd630b8a4ba3f27e5278c231eda";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4310845/tree_style_tab-4.0.20.xpi";
+      sha256 = "1c1588dc4cafff49344cfc97df40d763651aea3964de774c925e460e8e307552";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -11236,10 +11236,10 @@
     };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2024.6.26.1308";
+      version = "2024.7.3.674";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4310299/ublock_origin_lite-2024.6.26.1308.xpi";
-      sha256 = "adbfb7fa60f5e6f855fd1ae8ed1d709bd5e410aa5ec40086eed137ed2be78f33";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4313420/ublock_origin_lite-2024.7.3.674.xpi";
+      sha256 = "7dab62d4646cbd6adf5acacafce785835ed2e11d650d9f66116e6c9ded07abdd";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
