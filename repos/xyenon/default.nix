@@ -25,7 +25,7 @@ rec {
   zug-unstable = callPackage ./pkgs/zug { };
   lager-unstable = callPackage ./pkgs/lager { inherit immer-unstable zug-unstable; };
   libkazv = callPackage ./pkgs/libkazv { inherit immer-unstable zug-unstable lager-unstable; };
-  kazv = libsForQt5.callPackage ./pkgs/kazv { inherit libkazv; };
+  kazv = kdePackages.callPackage ./pkgs/kazv { inherit libkazv; };
   nginxModules = callPackage ./pkgs/nginx/modules { };
   nginxStable =
     let

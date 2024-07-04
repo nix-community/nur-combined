@@ -8,11 +8,11 @@
   extra-cmake-modules,
   qtbase,
   qtdeclarative,
-  qtquickcontrols2,
   qtsvg,
   qtmultimedia,
   kio,
-  kirigami2,
+  kirigami,
+  kirigami-addons,
   kconfig,
   nlohmann_json,
   libkazv,
@@ -23,15 +23,15 @@
 
 stdenv.mkDerivation rec {
   pname = "kazv";
-  version = "0.3.0-unstable-2024-06-09";
+  version = "0.3.0-unstable-2024-07-03";
 
   src = fetchFromGitLab {
     domain = "lily-is.land";
     owner = "kazv";
     repo = pname;
     fetchSubmodules = true;
-    rev = "f11c4872a0144ba09f53f6232332432a39651bd1";
-    hash = "sha256-yAkjxNZ7jFVu81igxgYRhME7jntEBLjcsB7rPJsim+c=";
+    rev = "7d5684194e3b536ef2a44907cfa6caee71fe52e7";
+    hash = "sha256-TKWSvR7zpDmtGao2HJfP63MV+lF2qsWWHyeUI2M6TWs=";
   };
 
   nativeBuildInputs = [
@@ -45,12 +45,12 @@ stdenv.mkDerivation rec {
 
     qtbase
     qtdeclarative
-    qtquickcontrols2
     qtsvg
     qtmultimedia
 
     kio
-    kirigami2
+    kirigami
+    kirigami-addons
     kconfig
 
     nlohmann_json
@@ -59,6 +59,8 @@ stdenv.mkDerivation rec {
   ];
 
   propagatedBuildInputs = [ breeze-icons ];
+
+  cmakeFlags = [ "-Dkazv_KF_QT_MAJOR_VERSION=6" ];
 
   passthru.updateScript = unstableGitUpdater { tagPrefix = "v"; };
 
