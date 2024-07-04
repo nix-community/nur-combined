@@ -35,6 +35,7 @@
         51820
         8448
         34197
+        8083 # streaming
       ];
       allowedTCPPorts = [
         80
@@ -46,6 +47,7 @@
         8448
         32193 # ss
         32192 # socks inbound
+        8083 # streaming
       ];
     };
 

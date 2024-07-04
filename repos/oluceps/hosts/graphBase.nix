@@ -45,7 +45,6 @@
     portal.enable = true;
   };
   programs = {
-    xwayland.enable = lib.mkForce false;
     dconf.enable = true;
     anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
     niri.enable = false;
@@ -67,7 +66,13 @@
       remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
       dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     };
-
+    firefox = {
+      enable = true;
+      package = (pkgs.wrapFirefox.override { libpulseaudio = pkgs.libpressureaudio; }) (
+        pkgs.firefox-unwrapped.override
+        { pipewireSupport = true; }
+      ) { };
+    };
     gnupg = {
       agent = {
         enable = false;
@@ -120,25 +125,25 @@
               shfmt
             ]
           ];
-          wine = [
-            # bottles
-            wineWowPackages.stable
+          # wine = [
+          #   # bottles
+          #   wineWowPackages.stable
 
-            # support 32-bit only
-            # wine
+          #   # support 32-bit only
+          #   # wine
 
-            # support 64-bit only
-            (wine.override { wineBuild = "wine64"; })
+          #   # support 64-bit only
+          #   (wine.override { wineBuild = "wine64"; })
 
-            # wine-staging (version with experimental features)
-            wineWowPackages.staging
+          #   # wine-staging (version with experimental features)
+          #   wineWowPackages.staging
 
-            # winetricks (all versions)
-            winetricks
+          #   # winetricks (all versions)
+          #   winetricks
 
-            # native wayland support (unstable)
-            wineWowPackages.waylandFull
-          ];
+          #   # native wayland support (unstable)
+          #   wineWowPackages.waylandFull
+          # ];
 
           db = [ mongosh ];
 
@@ -241,6 +246,7 @@
         initial_session = {
           command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd ${pkgs.writeShellScript "sway" ''
             export $(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
+            systemctl --user import-environment
             ${pkgs.openssh}/bin/ssh-add ${config.age.secrets.id.path}
             exec sway
           ''}";

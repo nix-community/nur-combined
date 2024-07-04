@@ -125,6 +125,7 @@
     matrix-conduit.enable = true;
     # coredns.enable = true;
     mosproxy.enable = true;
+    srs.enable = true;
 
     phantomsocks = {
       enable = true;

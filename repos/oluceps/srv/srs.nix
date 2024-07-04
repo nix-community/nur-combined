@@ -17,7 +17,7 @@
     }
     http_server {
         enabled         on;
-        listen          8080;
+        listen          8083;
         dir             ./objs/nginx/html;
     }
     rtc_server {

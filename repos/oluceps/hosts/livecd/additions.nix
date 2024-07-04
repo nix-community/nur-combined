@@ -11,6 +11,15 @@
   imports = [
     (inputs.nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix")
   ];
+  networking = {
+    wireless.iwd.enable = true;
+    wireless.enable = false;
+    useNetworkd = true;
+    useDHCP = true;
+    firewall.enable = false;
+    enableIPv6 = true;
+    nftables.enable = true;
+  };
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   system.switch.enableNg = true;
   system.switch.enable = lib.mkForce false;

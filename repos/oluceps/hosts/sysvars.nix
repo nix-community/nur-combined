@@ -30,6 +30,8 @@
     NEOVIDE_MULTIGRID = "1";
     NEOVIDE_WM_CLASS = "1";
     NODE_PATH = "~/.npm-packages/lib/node_modules";
+    MOZ_USE_XINPUT2 = "1";
+    XDG_CURRENT_DESKTOP = "sway";
 
   };
 }

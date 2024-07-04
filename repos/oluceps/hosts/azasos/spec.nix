@@ -24,6 +24,7 @@
     openssh.enable = true;
     fail2ban.enable = true;
     dae.enable = true;
+    srs.enable = true;
   };
 
   services = {

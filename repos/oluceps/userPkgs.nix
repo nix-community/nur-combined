@@ -5,7 +5,6 @@ with pkgs;
   amberol
   mako
   # qq
-  firefox
   chromium
   # dissent
   celeste
@@ -100,7 +99,7 @@ with pkgs;
 
   # reader
   calibre
-  # obsidian
+  obs-studio
   mdbook
   sioyek
   zathura
