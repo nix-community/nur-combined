@@ -24,7 +24,8 @@
 
   normalizedPackages = lib.filterAttrs (name: drv: let
     hasUrl = drv ? src && drv.src ? url;
-  in hasUrl) packages;
+    hasSource = sources ? ${name};
+  in hasUrl || hasSource) packages;
 
   oldVerFile = let
     data = {
