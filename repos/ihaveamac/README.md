@@ -20,10 +20,10 @@ Attributes listed on [the NUR](https://nur.nix-community.org/repos/ihaveamac/)
 * ctrtool-1.2.0
 * makerom-0.18.4
 * kwin-move-window-1.1.1
-* mediawiki-1.39.7
-* mediawiki-1.40.3
-* mediawiki-1.41.1
-* mediawiki-1.42.0
+* mediawiki-1.39.8
+* mediawiki-1.40.4
+* mediawiki-1.41.2
+* mediawiki-1.42.1
 * homebox-bin-0.10.3
 * 3dslink-0.6.1 (as \_3dslink attribute)
 

@@ -29,20 +29,20 @@ rec {
   _3dslink = pkgs.callPackage ./pkgs/3dslink { };
 
   mediawiki_1_39 = pkgs.callPackage ./pkgs/mediawiki {
-    version = "1.39.7";
-    hash = "sha256-K+gVaBfVxWn9Ylc0KidvkdflMNHA3OETS3vysJ7K5Wk=";
+    version = "1.39.8";
+    hash = "sha256-rSf8yOY2F5wryiH/5hnW0uYtNDkNaCiwZ3/HaG5qCmo=";
   };
   mediawiki_1_40 = pkgs.callPackage ./pkgs/mediawiki {
-    version = "1.40.3";
-    hash = "sha256-V+4X7+fVtZ5QV36wfbNQ53RH7WSVYzeFpxDkChTDdjQ=";
+    version = "1.40.4";
+    hash = "sha256-hUkUPBFma+u4SxT1pTzxMXCwcSEbf86BjNsNoF756J4=";
   };
   mediawiki_1_41 = pkgs.callPackage ./pkgs/mediawiki {
-    version = "1.41.1";
-    hash = "sha256-TguqlTuF6U0xBAyyUSCrxgb6hpsuMxJr37t/xhPoxLI=";
+    version = "1.41.2";
+    hash = "sha256-UrtCw071AvZt/FSSGVq2rBVobK6m2Ir9JICyjL1rHOU=";
   };
   mediawiki_1_42 = pkgs.callPackage ./pkgs/mediawiki {
-    version = "1.42.0";
-    hash = "sha256-CSo5KYufXUdlPqTGWmlPFz7iR9bTE9O+F3x3mSkYGmc=";
+    version = "1.42.1";
+    hash = "sha256-7IevlaNd0Jw01S4CeVZSoDCrcpVeQx8IynIqc3N+ulM=";
   };
 
   kwin-move-window = pkgs.callPackage ./pkgs/kwin-move-window { };
