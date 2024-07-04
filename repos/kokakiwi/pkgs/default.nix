@@ -24,6 +24,7 @@ let
   );
 
   applications = importSub ./applications {
+    aura = { };
     ferdium = { };
     go-mod-upgrade = { };
     imhex = { };

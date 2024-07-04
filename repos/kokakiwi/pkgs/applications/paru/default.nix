@@ -1,5 +1,4 @@
 { lib
-, callPackage
 
 , fetchFromGitHub
 
@@ -13,10 +12,7 @@
 
 , withGit ? true, git
 }:
-let
-  libalpm = if lib.versionAtLeast pacman.version "6.1.0" then pacman
-    else callPackage ./libalpm {};
-in rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage rec {
   pname = "paru";
   version = "2.0.3";
 
@@ -36,7 +32,7 @@ in rustPlatform.buildRustPackage rec {
   };
 
   nativeBuildInputs = [ installShellFiles pkg-config gettext ];
-  buildInputs = [ openssl libalpm ]
+  buildInputs = [ openssl pacman ]
     ++ lib.optional withGit git;
 
   buildFeatures = lib.optional withGit "git";
