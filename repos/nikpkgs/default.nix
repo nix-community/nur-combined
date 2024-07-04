@@ -24,6 +24,7 @@
   memtest-vulkan         = pkgs.callPackage ./pkgs/memtest-vulkan { };
   ntfs2btrfs             = pkgs.callPackage ./pkgs/ntfs2btrfs { };
   obsidian-bin           = pkgs.callPackage ./pkgs/obsidian/appimage.nix { };
+  overlayfs-tools        = pkgs.callPackage ./pkgs/overlayfs-tools { };
   plank-themes           = pkgs.callPackage ./pkgs/plank-themes { };
   qemu-3dfx              = pkgs.callPackage ./pkgs/qemu-3dfx { };
   rustdesk-bin           = pkgs.callPackage ./pkgs/rustdesk/appimage.nix { };
