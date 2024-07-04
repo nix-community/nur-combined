@@ -167,31 +167,31 @@
   };
   browser360-amd64 = {
     pname = "browser360-amd64";
-    version = "13.3.1013.59";
+    version = "13.3.1015.14";
     src = fetchurl {
-      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1013.59-1_amd64.deb";
-      sha256 = "sha256-vtBw8JBoWOj+HRaLsmoXLrqJtHqsqavSGQt/hDRIcp0=";
+      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1015.14-1_amd64.deb";
+      sha256 = "sha256-R+n1VFJGasOf+CugS5RjTdbnanfJa43n9T6OfyNI6oQ=";
     };
   };
   browser360-arm64 = {
     pname = "browser360-arm64";
-    version = "13.3.1013.59";
+    version = "13.3.1015.14";
     src = fetchurl {
-      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1013.59-1_arm64.deb";
-      sha256 = "sha256-3alPcAByIB+cVfL2EiBigV7nXS2ladUe70eEVuFu9CE=";
+      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1015.14-1_arm64.deb";
+      sha256 = "sha256-OdIliZTc5OfeQaLehUm+32jiKkUiXw51P0U/qJxpKXk=";
     };
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "55095afba7ddd99e4a226ca254eea90f40a937bf";
+    version = "b00396aa8823bba666f56a6820e9272a47b28170";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "55095afba7ddd99e4a226ca254eea90f40a937bf";
+      rev = "b00396aa8823bba666f56a6820e9272a47b28170";
       fetchSubmodules = false;
-      sha256 = "sha256-jYkhU7Mas1KFAPO7PgQiCeT35vfkVEmkcEbWkikZDz4=";
+      sha256 = "sha256-/Vt/d0gfmjMXB4MDTeCGz6ycumXdQEmo4/HHq1hJYzw=";
     };
-    date = "2024-07-02";
+    date = "2024-07-04";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -270,15 +270,15 @@
   };
   cryptodev-linux = {
     pname = "cryptodev-linux";
-    version = "5e7121e45ff283d30097da381fd7e97c4bb61364";
+    version = "157a624d7a892ea5fb2df4bbd4e71c008adbecb7";
     src = fetchFromGitHub {
       owner = "cryptodev-linux";
       repo = "cryptodev-linux";
-      rev = "5e7121e45ff283d30097da381fd7e97c4bb61364";
+      rev = "157a624d7a892ea5fb2df4bbd4e71c008adbecb7";
       fetchSubmodules = false;
-      sha256 = "sha256-lBe4i//fYkGjsocmLbFKvfYMithMvrAMwOGZblVgDnQ=";
+      sha256 = "sha256-3MQmrbSgtoDGvWVShqnTbAEzFwA8ODcYS++QtYbbQXQ=";
     };
-    date = "2023-12-12";
+    date = "2024-07-03";
   };
   decluttarr = {
     pname = "decluttarr";
@@ -733,26 +733,26 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3286";
+    version = "b3291";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3286";
+      rev = "b3291";
       fetchSubmodules = false;
-      sha256 = "sha256-RwoiOw0ETt4iFQ8cXwL79jdMMf6j/NNQJOVb2gOj/As=";
+      sha256 = "sha256-5x7XM0I8GZxGxV8aOiajw85WHqqjarnhDjWqaDmYCrU=";
     };
   };
   lyrica = {
     pname = "lyrica";
-    version = "d07ba8455d897c256bd015a97f81c5dd111c95f4";
+    version = "7a91b26ebfb23a4406529c6ebcb503d79aef6905";
     src = fetchFromGitHub {
       owner = "chiyuki0325";
       repo = "lyrica";
-      rev = "d07ba8455d897c256bd015a97f81c5dd111c95f4";
+      rev = "7a91b26ebfb23a4406529c6ebcb503d79aef6905";
       fetchSubmodules = false;
-      sha256 = "sha256-rxSOUeY2CBDQ9og7n/lcqeh7OoOWbjueoAY0N/Lm2y0=";
+      sha256 = "sha256-dRQYaiom7sHCKtW6aT+awEdXaebwFjhrKd6jm5EQ2Ls=";
     };
-    date = "2024-07-01";
+    date = "2024-07-03";
   };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";
@@ -1013,10 +1013,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v4.3.1";
+    version = "v4.4.0";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.3.1/PeerBanHelper.jar";
-      sha256 = "sha256-hBL2NbwSOmY3G54F/f4tSR84UrBmiC5QbG9GMI6YNk8=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.4.0/PeerBanHelper.jar";
+      sha256 = "sha256-hiopUndh1j/UsmfB4xkbRF5viXL2Yiw82cKgjzMQLNY=";
     };
   };
   phpmyadmin = {

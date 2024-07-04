@@ -305,11 +305,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-vtBw8JBoWOj+HRaLsmoXLrqJtHqsqavSGQt/hDRIcp0=",
+            "sha256": "sha256-R+n1VFJGasOf+CugS5RjTdbnanfJa43n9T6OfyNI6oQ=",
             "type": "url",
-            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1013.59-1_amd64.deb"
+            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1015.14-1_amd64.deb"
         },
-        "version": "13.3.1013.59"
+        "version": "13.3.1015.14"
     },
     "browser360-arm64": {
         "cargoLocks": null,
@@ -320,15 +320,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-3alPcAByIB+cVfL2EiBigV7nXS2ladUe70eEVuFu9CE=",
+            "sha256": "sha256-OdIliZTc5OfeQaLehUm+32jiKkUiXw51P0U/qJxpKXk=",
             "type": "url",
-            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1013.59-1_arm64.deb"
+            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1015.14-1_arm64.deb"
         },
-        "version": "13.3.1013.59"
+        "version": "13.3.1015.14"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-07-02",
+        "date": "2024-07-04",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -340,12 +340,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "55095afba7ddd99e4a226ca254eea90f40a937bf",
-            "sha256": "sha256-jYkhU7Mas1KFAPO7PgQiCeT35vfkVEmkcEbWkikZDz4=",
+            "rev": "b00396aa8823bba666f56a6820e9272a47b28170",
+            "sha256": "sha256-/Vt/d0gfmjMXB4MDTeCGz6ycumXdQEmo4/HHq1hJYzw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "55095afba7ddd99e4a226ca254eea90f40a937bf"
+        "version": "b00396aa8823bba666f56a6820e9272a47b28170"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -484,7 +484,7 @@
     },
     "cryptodev-linux": {
         "cargoLocks": null,
-        "date": "2023-12-12",
+        "date": "2024-07-03",
         "extract": null,
         "name": "cryptodev-linux",
         "passthru": null,
@@ -496,12 +496,12 @@
             "name": null,
             "owner": "cryptodev-linux",
             "repo": "cryptodev-linux",
-            "rev": "5e7121e45ff283d30097da381fd7e97c4bb61364",
-            "sha256": "sha256-lBe4i//fYkGjsocmLbFKvfYMithMvrAMwOGZblVgDnQ=",
+            "rev": "157a624d7a892ea5fb2df4bbd4e71c008adbecb7",
+            "sha256": "sha256-3MQmrbSgtoDGvWVShqnTbAEzFwA8ODcYS++QtYbbQXQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5e7121e45ff283d30097da381fd7e97c4bb61364"
+        "version": "157a624d7a892ea5fb2df4bbd4e71c008adbecb7"
     },
     "decluttarr": {
         "cargoLocks": null,
@@ -1323,16 +1323,16 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3286",
-            "sha256": "sha256-RwoiOw0ETt4iFQ8cXwL79jdMMf6j/NNQJOVb2gOj/As=",
+            "rev": "b3291",
+            "sha256": "sha256-5x7XM0I8GZxGxV8aOiajw85WHqqjarnhDjWqaDmYCrU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3286"
+        "version": "b3291"
     },
     "lyrica": {
         "cargoLocks": null,
-        "date": "2024-07-01",
+        "date": "2024-07-03",
         "extract": null,
         "name": "lyrica",
         "passthru": null,
@@ -1344,12 +1344,12 @@
             "name": null,
             "owner": "chiyuki0325",
             "repo": "lyrica",
-            "rev": "d07ba8455d897c256bd015a97f81c5dd111c95f4",
-            "sha256": "sha256-rxSOUeY2CBDQ9og7n/lcqeh7OoOWbjueoAY0N/Lm2y0=",
+            "rev": "7a91b26ebfb23a4406529c6ebcb503d79aef6905",
+            "sha256": "sha256-dRQYaiom7sHCKtW6aT+awEdXaebwFjhrKd6jm5EQ2Ls=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d07ba8455d897c256bd015a97f81c5dd111c95f4"
+        "version": "7a91b26ebfb23a4406529c6ebcb503d79aef6905"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -1825,11 +1825,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-hBL2NbwSOmY3G54F/f4tSR84UrBmiC5QbG9GMI6YNk8=",
+            "sha256": "sha256-hiopUndh1j/UsmfB4xkbRF5viXL2Yiw82cKgjzMQLNY=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.3.1/PeerBanHelper.jar"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.4.0/PeerBanHelper.jar"
         },
-        "version": "v4.3.1"
+        "version": "v4.4.0"
     },
     "phpmyadmin": {
         "cargoLocks": null,
