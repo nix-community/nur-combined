@@ -29,12 +29,10 @@ let
     else
       n)
   v) x;
-  gtk3 = matches (adwaita ++ breeze ++ libadwaita);
+  gtk3 = matches (adwaita ++ breeze);
   gtk2 = cfg.enable && !gtk3;
   adwaita = [ "Adwaita" "Adwaita-dark" "HighContrast" "HighContrastInverse" ];
   breeze = [ "Breeze" ];
-  # todo: use gtk4 platform
-  libadwaita = [ "adw-gtk3" "adw-gtk3-dark" ];
   adwaitaAttrs = {
     gtk-theme = cfg.theme;
     font-name = cfg.font;
@@ -141,22 +139,6 @@ in
         @import url("file:///run/current-system/sw/share/themes/${cfg.theme}/gtk-4.0/gtk.css");
       '';
       environment.systemPackages = with pkgs.kdePackages; [ pkgs.kdePackages.breeze.qt5 pkgs.kdePackages.breeze breeze-gtk breeze-icons ];
-    })
-    (mkIf (matches libadwaita) {
-      # no gtk2 theme
-      programs.dconf.profiles.user.databases = [{
-        settings."org/gnome/desktop/interface" = adwaitaAttrs;
-      }];
-      environment.etc."xdg/gtk-3.0/settings.ini".text = toGtk3File {
-        Settings = toSettings adwaitaAttrs;
-      };
-      environment.etc."xdg/gtk-4.0/gtk.css".text = ''
-        @import url("file:///run/current-system/sw/share/themes/${cfg.theme}/gtk-4.0/gtk.css");
-      '';
-      environment.etc."xdg/gtk-4.0/gtk-dark.css".text = ''
-        @import url("file:///run/current-system/sw/share/themes/${cfg.theme}/gtk-4.0/gtk-dark.css");
-      '';
-      environment.systemPackages = with pkgs; with pkgs.gnome; [ adw-gtk3 gnome-themes-extra adwaita-icon-theme ];
     })
   ];
 }
