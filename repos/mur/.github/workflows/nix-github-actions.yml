@@ -30,10 +30,10 @@ jobs:
     strategy:
       matrix: ${{fromJSON(needs.nix-matrix.outputs.matrix)}}
     steps:
-      - uses: jlumbroso/free-disk-space@main
-        with:
-          tool-cache: true
-          swap-storage: false
+      # - uses: jlumbroso/free-disk-space@main
+      #   with:
+      #     tool-cache: true
+      #     swap-storage: false
       - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@v27
       - uses: cachix/cachix-action@v15
@@ -49,10 +49,10 @@ jobs:
     strategy:
       matrix: ${{fromJSON(needs.nix-matrix.outputs.matrix)}}
     steps:
-      - uses: jlumbroso/free-disk-space@main
-        with:
-          tool-cache: true
-          swap-storage: false
+      # - uses: jlumbroso/free-disk-space@main
+      #   with:
+      #     tool-cache: true
+      #     swap-storage: false
       - uses: actions/checkout@v4
       - uses: cachix/install-nix-action@v27
       - uses: cachix/cachix-action@v15
