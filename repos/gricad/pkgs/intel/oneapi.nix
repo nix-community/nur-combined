@@ -1,7 +1,7 @@
 { lib, stdenv, fetchurl, glibc, libX11, glib, libnotify, xdg-utils, ncurses, nss, 
   at-spi2-core, libxcb, libdrm, gtk3, mesa, qt515, zlib, xorg, atk, nspr, dbus,
   pango, cairo, gdk_pixbuf, cups, expat, libxkbcommon, alsaLib, file, at-spi2-atk,
-  freetype, fontconfig }:
+  freetype, fontconfig, xml2 }:
 
 stdenv.mkDerivation rec {
   version = "2024.0.1.46";
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
                                   gdk_pixbuf cups expat libxkbcommon alsaLib
                                   at-spi2-atk xorg.libXcomposite xorg.libxshmfence 
                                   xorg.libXdamage xorg.libXext xorg.libXfixes
-                                  xorg.libXrandr ];
+                                  xorg.libXrandr xml2 ];
 
   phases = [ "installPhase" "fixupPhase" "installCheckPhase" "distPhase" ];
 
@@ -87,6 +87,9 @@ stdenv.mkDerivation rec {
           patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" --set-rpath '$ORIGIN'":${glibc}/lib:$libPath:$dir/latest/lib64:$out/${version_dir}/lib" $file 2>/dev/null || true
       done
     done
+    # Add missing lib into DT_NEEDED of clang
+    clang_binary=`find $out -type f -name "clang"`
+    patchelf --add-needed libstdc++.so.6 $clang_binary
   '';
 
   meta = {
