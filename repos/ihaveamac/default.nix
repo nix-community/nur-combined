@@ -27,6 +27,7 @@ rec {
   makerom = pkgs.callPackage ./pkgs/makerom { };
   homebox-bin = pkgs.callPackage ./pkgs/homebox-bin { };
   _3dslink = pkgs.callPackage ./pkgs/3dslink { };
+  discordwikibot = pkgs.callPackage ./pkgs/discordwikibot { };
 
   mediawiki_1_39 = pkgs.callPackage ./pkgs/mediawiki {
     version = "1.39.8";

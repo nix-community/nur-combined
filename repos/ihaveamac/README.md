@@ -26,6 +26,7 @@ Attributes listed on [the NUR](https://nur.nix-community.org/repos/ihaveamac/)
 * mediawiki-1.42.1
 * homebox-bin-0.10.3
 * 3dslink-0.6.1 (as \_3dslink attribute)
+* discordwikibot-2024-07-01
 
 ## Home Manager modules
 
