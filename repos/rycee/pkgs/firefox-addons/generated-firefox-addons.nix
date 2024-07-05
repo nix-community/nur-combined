@@ -2067,10 +2067,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "128.0.20240701.154223";
+      version = "128.0.20240704.121409";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4312546/deutsch_de_language_pack-128.0.20240701.154223.xpi";
-      sha256 = "185e9668a7e38249a5c9e789d75a9280a37e5acdd72db0216d85a1f21c3ed7c0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4314357/deutsch_de_language_pack-128.0.20240704.121409.xpi";
+      sha256 = "0b804f07c67329c5a680387782f3bc9ef15cf85930b4e4aea973ee6aceca1f89";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2288,10 +2288,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.44.0";
+      version = "2.45.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4312795/dualsub-2.44.0.xpi";
-      sha256 = "898da13d45f170cdd16713a0a461eec05b5a184c1f7968fd976d8d574182f3bc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4313991/dualsub-2.45.0.xpi";
+      sha256 = "c23f1d642359560b4fd78944fb7df928dd58a491bc9e7c8d93e6ecf32a66f98e";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2811,10 +2811,10 @@
     };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.75";
+      version = "6.1.76";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4295861/flagfox-6.1.75.xpi";
-      sha256 = "f2a714ebed043aede74b2db416d3ac8c2f440a2f70e0edc89e7932be2ad2587b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4311612/flagfox-6.1.76.xpi";
+      sha256 = "01eee0e108389c3b73aebcdf0c6fec8e778308c16e427e49f9edff6e87fed671";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -3070,10 +3070,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "128.0.20240701.154223";
+      version = "128.0.20240704.121409";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4312556/francais_language_pack-128.0.20240701.154223.xpi";
-      sha256 = "2eeea8973f5e9b3629a9ccc1a82b9b385b158a63afff848d39cba27d30eb346e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4314333/francais_language_pack-128.0.20240704.121409.xpi";
+      sha256 = "75ba030445eae1e0c137c868903494987266b06631bddec3f8f09de346bc27a4";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -5810,10 +5810,10 @@
     };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.6.4.1";
+      version = "1.6.5";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4289439/leechblock_ng-1.6.4.1.xpi";
-      sha256 = "0c8fece770797e0871dc29f770857f622a83349da45df43e2d1efa507d9370d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4311899/leechblock_ng-1.6.5.xpi";
+      sha256 = "feda43f0197d2fa5b372c27a2307789184ee7feccf8b9692396c51f97229033b";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -7866,10 +7866,10 @@
     };
     "paperpile" = buildFirefoxXpiAddon {
       pname = "paperpile";
-      version = "1.0.52";
+      version = "1.0.55";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4305964/paperpile_addon-1.0.52.xpi";
-      sha256 = "1512d9f1fd8f678bec08c397e54f69c31c1df722b65b42e721ad7787626b53b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4313948/paperpile_addon-1.0.55.xpi";
+      sha256 = "00d133758fbd8927c38494fb3aff11bb24317c75628dfbaddb908bf4d5e8faf5";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -9804,10 +9804,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.50";
+      version = "1.22.51";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4305663/single_file-1.22.50.xpi";
-      sha256 = "710c23cee88177ed6aea0f3ba43647a33f42bbbefe58be0be4792e5ff35b71ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4310297/single_file-1.22.51.xpi";
+      sha256 = "a3e8ad79c4fa58e56272c8f89788fee78e2b584253c15e611e26028f13ee9daf";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -11776,10 +11776,10 @@
     };
     "w2g" = buildFirefoxXpiAddon {
       pname = "w2g";
-      version = "10.0";
+      version = "10.2";
       addonId = "{6ea0a676-b3ef-48aa-b23d-24c8876945fb}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4292621/w2g-10.0.xpi";
-      sha256 = "67e0e50faa22c3fdcf81d25b4951dcc17e4a003e47fd36296addff159e1ca397";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4310191/w2g-10.2.xpi";
+      sha256 = "b981efd542fcfa9dbbcfcaffecfbc6d33797080195b42af058d83440a83eed3e";
       meta = with lib;
       {
         homepage = "https://w2g.tv";
