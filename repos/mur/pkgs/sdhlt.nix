@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gamebanana.com/tools/6778";
     changelog = "https://github.com/seedee/SDHLT/tree/${src.rev}/CHANGELOG.md";
     description = "Map compile tools for the Half-Life engine, based on Vluzacn's ZHLT v34";
-    license = with lib.licenses; [ gpl2 unfree ];
+    license = with lib.licenses; [ gpl2 ]; # + unfree
   };
 }
