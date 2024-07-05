@@ -472,7 +472,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Port of Facebook's LLaMA model in C/C++",
     "pname": "llama-cpp",
-    "version": "3291"
+    "version": "3314"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -817,12 +817,12 @@
   "legacyPackages.x86_64-linux.lyrica": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration",
     "pname": "lyrica-unstable",
-    "version": "2024-07-03"
+    "version": "2024-07-05"
   },
   "legacyPackages.x86_64-linux.lyrica-plasmoid": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component)",
     "pname": "lyrica-unstable",
-    "version": "2024-07-03"
+    "version": "2024-07-05"
   },
   "legacyPackages.x86_64-linux.netboot-xyz": {
     "description": "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE.",
@@ -2602,7 +2602,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "4.4.0"
+    "version": "4.4.1"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
@@ -2627,12 +2627,12 @@
   "legacyPackages.x86_64-linux.plasma-desktop-lyrics": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration",
     "pname": "lyrica-unstable",
-    "version": "2024-07-03"
+    "version": "2024-07-05"
   },
   "legacyPackages.x86_64-linux.plasma-desktop-lyrics-plasmoid": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component)",
     "pname": "lyrica-unstable",
-    "version": "2024-07-03"
+    "version": "2024-07-05"
   },
   "legacyPackages.x86_64-linux.plasma-panel-transparency-toggle": {
     "description": "A rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
@@ -3202,12 +3202,12 @@
   "packages.x86_64-linux.lyrica": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration",
     "pname": "lyrica-unstable",
-    "version": "2024-07-03"
+    "version": "2024-07-05"
   },
   "packages.x86_64-linux.lyrica-plasmoid": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component)",
     "pname": "lyrica-unstable",
-    "version": "2024-07-03"
+    "version": "2024-07-05"
   },
   "packages.x86_64-linux.netboot-xyz": {
     "description": "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE.",
@@ -3322,7 +3322,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "4.4.0"
+    "version": "4.4.1"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
@@ -3342,12 +3342,12 @@
   "packages.x86_64-linux.plasma-desktop-lyrics": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration",
     "pname": "lyrica-unstable",
-    "version": "2024-07-03"
+    "version": "2024-07-05"
   },
   "packages.x86_64-linux.plasma-desktop-lyrics-plasmoid": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component)",
     "pname": "lyrica-unstable",
-    "version": "2024-07-03"
+    "version": "2024-07-05"
   },
   "packages.x86_64-linux.plasma-panel-transparency-toggle": {
     "description": "A rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
