@@ -32,6 +32,7 @@ in {
   config = mkIf cfg.enable {
     services.mealie = {
       enable = true;
+      package = pkgs.unstable.mealie;
       listenAddress = "127.0.0.1";
       port = cfg.port;
 
@@ -44,15 +45,15 @@ in {
         DB_ENGINE = "postgres";
 
         # Settings for Mealie 1.2
-        POSTGRES_USER = "mealie";
-        POSTGRES_PASSWORD = "";
-        POSTGRES_SERVER = "/run/postgresql";
-        # Pydantic and/or mealie doesn't handle the URI correctly, hijack it
-        # with query parameters...
-        POSTGRES_DB = "mealie?host=/run/postgresql&dbname=mealie";
+        #POSTGRES_USER = "mealie";
+        #POSTGRES_PASSWORD = "";
+        #POSTGRES_SERVER = "/run/postgresql";
+        ## Pydantic and/or mealie doesn't handle the URI correctly, hijack it
+        ## with query parameters...
+        #POSTGRES_DB = "mealie?host=/run/postgresql&dbname=mealie";
 
         # Settings for Mealie 1.7+, when that gets into NixOS stable
-        # POSTGRES_URL_OVERRIDE = "postgresql://mealie:@/mealie?host=/run/postgresql";
+        POSTGRES_URL_OVERRIDE = "postgresql://mealie:@/mealie?host=/run/postgresql";
       };
     };
 
