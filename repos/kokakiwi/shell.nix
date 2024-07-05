@@ -28,6 +28,9 @@ let
         include_regex = "v[0-9]+\.[0-9]+\.[0-9]+";
       };
     };
+    overrides = {
+      aura.exclude_regex = "^$";
+    };
   };
 in pkgs.mkShell {
   packages = with pkgs; [
