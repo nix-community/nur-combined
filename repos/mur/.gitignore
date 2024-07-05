@@ -1,4 +1,5 @@
 .direnv
+build
 result
 result-*
 **/result*
