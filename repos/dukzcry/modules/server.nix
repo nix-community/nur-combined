@@ -49,7 +49,7 @@ in {
       ];
       services.yggdrasil = {
         enable = true;
-        configFile = "/run/keys/yggdrasil.conf";
+        configFile = "/etc/yggdrasil.conf";
       };
       systemd.services.yggdrasil.wantedBy = mkForce [];
     })
