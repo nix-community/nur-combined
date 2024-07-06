@@ -1157,10 +1157,10 @@
     };
     "castkodi" = buildFirefoxXpiAddon {
       pname = "castkodi";
-      version = "7.10.0";
+      version = "7.11.0";
       addonId = "castkodi@regseb.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4307937/castkodi-7.10.0.xpi";
-      sha256 = "34ac6cd0076620b3fbf50d72700d5973625f901a0aa1d0afa28e4ff579fd99ff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4314822/castkodi-7.11.0.xpi";
+      sha256 = "ea4334092c3639174d55264ca2ea2a2d260e116b7a70418b2188560790261b64";
       meta = with lib;
       {
         homepage = "https://github.com/regseb/castkodi";
@@ -5602,10 +5602,10 @@
     };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.9.0.5";
+      version = "1.9.1";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4285762/keepassxc_browser-1.9.0.5.xpi";
-      sha256 = "bd490bf3ed6f6eab49538c248e895f7a4d2ec5e30deb9b06ca30d19e0198e369";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4312170/keepassxc_browser-1.9.1.xpi";
+      sha256 = "cbd8d02401cfb42a93e0f1f1fa6ccf21be875bdac18bdb5634cb11c8263006ec";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -6023,10 +6023,10 @@
     };
     "mailvelope" = buildFirefoxXpiAddon {
       pname = "mailvelope";
-      version = "5.1.2";
+      version = "5.2.0";
       addonId = "jid1-AQqSMBYb0a8ADg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4236627/mailvelope-5.1.2.xpi";
-      sha256 = "8319529760a588ce9bf10ffec1e213746b9e7b159ab54fba01d6f9d98a4886af";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4310662/mailvelope-5.2.0.xpi";
+      sha256 = "833bffcb546cb6f0c193bd3246ec7f60ff80a8c0db4e1340a1db81b209045ee2";
       meta = with lib;
       {
         homepage = "https://www.mailvelope.com/";
@@ -8821,10 +8821,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.17.4";
+      version = "1.19.0";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4294359/proton_pass-1.17.4.xpi";
-      sha256 = "44166b0e1520ee6a4598e90fa24c377ed92d7867a5772c1d25e995de06018a6a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4312876/proton_pass-1.19.0.xpi";
+      sha256 = "2d8d8c0f4e8d2118e2292be6f465201e3e020c10e2088116ed9c9f8923cc661f";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -9894,10 +9894,10 @@
     };
     "snowflake" = buildFirefoxXpiAddon {
       pname = "snowflake";
-      version = "0.8.3";
+      version = "0.8.4";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4305659/torproject_snowflake-0.8.3.xpi";
-      sha256 = "fb92f76bb76fd7a7f8c20e54b1455eee5426c576aff01cdd3326ac05ab9ce9f0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4310769/torproject_snowflake-0.8.4.xpi";
+      sha256 = "a6b11d5250e6c30c9a0d4b1caaedc446a7fb31bb78088fa14554fdd1e3741cb3";
       meta = with lib;
       {
         homepage = "https://snowflake.torproject.org/";
@@ -10161,10 +10161,10 @@
     };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.46";
+      version = "1.5.48";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4232144/styl_us-1.5.46.xpi";
-      sha256 = "9a75bf1bdde7263a5502d78009b5f19117ea09e6237afc852e7ba4e52b565364";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4312995/styl_us-1.5.48.xpi";
+      sha256 = "c41434ff62124d16a8eb4e29876f2fb1850a6003957fb679b4f16e76621e9151";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
