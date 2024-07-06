@@ -22,12 +22,7 @@ in
   nvfetcher = callPackage ./nvfetcher { };
   elm = callPackage ./elm { inherit (pkgs.elmPackages) elm; };
   enso = callPackage ./enso { };
-  # wasmfxtime = callPackage ./wasmfxtime { };
-  # vendor broken. Also in nixpkgs already
-  # efm-langserver = callPackage ./efm-langserver { };
-  # In nixpkgs already
-  # guile-hall = callPackage ./guile-hall { };
-  # TODO: get trufflesqueak up to snuff
+  wasmfxtime = callPackage ./wasmfxtime { };
   cakeml = callPackage ./cakeml { };
   truffleSqueak = callPackage ./truffleSqueak { };
 
