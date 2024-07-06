@@ -13,4 +13,6 @@ in
   imports = [ ./catppuccin.nix ];
 
   home.packages = [ theme ];
+  # Disable kvantum since we use the plasma theme
+  qt.style.catppuccin.enable = false;
 }

@@ -1,3 +1,9 @@
+{ lib, ... }:
+
+let
+  inherit (lib) mkDefault;
+in
+
 {
   imports = [ ./base.nix ];
 
@@ -37,6 +43,10 @@
   services.arrpc.enable = true;
 
   gtk.enable = true;
+  qt = {
+    enable = true;
+    style.name = mkDefault "kvantum";
+  };
 
   programs = {
     bat.enable = true;

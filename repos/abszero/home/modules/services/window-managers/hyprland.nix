@@ -2,7 +2,7 @@
 
 let
   inherit (lib) mkEnableOption mkIf mkDefault;
-  inherit (builtins) concatLists genList;
+  inherit (builtins) concatMap;
   cfg = config.abszero.wayland.windowManager.hyprland;
 in
 
@@ -26,47 +26,71 @@ in
         };
 
         input = {
+          repeat_rate = 50;
+          repeat_delay = 200;
           follow_mouse = 2; # Detach cursor focus from keyboard focus
+          mouse_refocus = false; # Don't move cursor to focused window
           touchpad = {
             natural_scroll = true;
             drag_lock = true; # Don't interrupt drag on short breaks
           };
         };
 
-        gestures.workspace_swipe = true;
+        gestures = {
+          workspace_swipe = true;
+          workspace_swipe_distance = 200;
+          workspace_swipe_direction_lock = false;
+          workspace_swipe_forever = true;
+        };
 
         misc = {
           vrr = 1;
+          middle_click_paste = false;
         };
 
         bind =
           [
-            "$mod,       w,       killactive"
-            "$mod,       Left,    movefocus,  l"
-            "$mod,       Right,   movefocus,  r"
-            "$mod,       Up,      movefocus,  u"
-            "$mod,       Down,    movefocus,  d"
-            "$mod,       Page_Up, fullscreen, 1"
-            "$mod+SHIFT, Page_Up, fullscreen, 0"
-            "$mod,       Space,   exec,       albert"
+            "$mod,       q,         exit"
+            "$mod,       w,         killactive"
+            "$mod,       Page_Up,   fullscreen,     0"
+            "$mod,       Page_Down, fullscreen,     1"
+            "$mod,       Space,     togglefloating"
+
+            "$mod,       Left,      movefocus,      l"
+            "$mod,       Right,     movefocus,      r"
+            "$mod,       Up,        movefocus,      u"
+            "$mod,       Down,      movefocus,      d"
+            "$mod+SHIFT, Left,      movewindow,     l"
+            "$mod+SHIFT, Right,     movewindow,     r"
+            "$mod+SHIFT, Up,        movewindow,     u"
+            "$mod+SHIFT, Down,      movewindow,     d"
+
+            "$mod,       Slash,     exec,           albert show"
+            "$mod,       t,         exec,           foot"
           ]
-          ++ concatLists (
-            genList (
-              i:
-              let
-                ws = toString (i + 1);
-              in
-              [
-                "$mod,       ${ws}, workspace,       ${ws}"
-                "$mod+SHIFT, ${ws}, movetoworkspace, ${ws}"
-              ]
-            ) 5
-          );
+          ++ concatMap
+            (i: [
+              "$mod,       ${i}, workspace,       ${i}"
+              "$mod+SHIFT, ${i}, movetoworkspace, ${i}"
+            ])
+            [
+              "1"
+              "2"
+              "3"
+              "4"
+              "5"
+            ];
 
         xwayland.use_nearest_neighbor = false;
 
         windowrulev2 = [
-          "immediate, class:osu!" # Enable tearing for osu!
+          "float, title:^Albert$"
+          "pin, title:^Albert$"
+          "size 600 600, title:^Albert$"
+          "center, title:^Albert$"
+          "noblur, title:^Albert$"
+          "noborder, title:^Albert$"
+          # "immediate, class:osu!" # Enable tearing for osu!
         ];
       };
     };

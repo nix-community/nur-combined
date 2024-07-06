@@ -19,7 +19,8 @@ in
       enable = true;
       settings = {
         general = {
-          lock_cmd = "pidof hyprlock || hyprlock";
+          # lock_cmd = "pidof hyprlock || hyprlock";
+          lock_cmd = "true";
           before_sleep_cmd = "loginctl lock-session";
           # To avoid having to press a key twice to turn on the display
           after_sleep_cmd = "hyprctl dispatch dpms on";

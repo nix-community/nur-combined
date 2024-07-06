@@ -4,6 +4,7 @@
     ./fonts.nix
   ];
 
+  # Complementary to catppuccin/nix
   i18n.inputMethod.fcitx5.catppuccin.enable = true;
 
   xdg.configFile."fcitx5/conf/classicui.conf".text = ''

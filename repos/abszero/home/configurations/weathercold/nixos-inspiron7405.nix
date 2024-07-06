@@ -21,7 +21,7 @@ optionalAttrs (readDir ./. ? "_base.nix") {
                 # inputs.bocchi-cursors.homeModules.bocchi-cursors-shadowBlack
                 base-firefox-vertical-tabs
                 base-nushell
-                catppuccin-eww
+                catppuccin-cursor
                 catppuccin-fcitx5
                 catppuccin-foot
                 catppuccin-hyprland
@@ -32,8 +32,6 @@ optionalAttrs (readDir ./. ? "_base.nix") {
               catppuccin.accent = "pink";
 
               wayland.windowManager.hyprland.settings.monitor = "eDP-1, preferred, auto, 1.25";
-
-              programs.eww.enable = true;
             };
           };
 

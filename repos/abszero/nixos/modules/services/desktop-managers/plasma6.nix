@@ -14,10 +14,7 @@ in
   options.abszero.services.desktopManager.plasma6.enable = mkEnableOption "the next generation desktop for Linux";
 
   config = mkIf cfg.enable {
-    services = {
-      desktopManager.plasma6.enable = true;
-      displayManager.sddm.wayland.compositor = "kwin";
-    };
+    services.desktopManager.plasma6.enable = true;
 
     environment.systemPackages =
       with pkgs;

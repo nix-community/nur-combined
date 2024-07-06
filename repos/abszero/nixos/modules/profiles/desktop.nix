@@ -19,24 +19,25 @@
     ];
     search = [ "~." ]; # Always use global name servers (shouldn't affect VPNs)
     dhcpcd.enable = false;
-    networkmanager = {
-      enable = true;
-      wifi = {
-        # backend = "iwd";
-        macAddress = "random";
-      };
-    };
-    # wireless.iwd = {
+    # networkmanager = {
     #   enable = true;
-    #   settings = {
-    #     General = {
-    #       EnableNetworkConfiguration = true;
-    #       AddressRandomization = "network";
-    #     };
-    #     Network.NameResolvingService = "systemd"; # Use resolved
-    #     Settings.AlwaysRandomizeAddress = true;
+    #   wifi = {
+    #     backend = "iwd";
+    #     macAddress = "random";
     #   };
     # };
+    wireless.iwd = {
+      enable = true;
+      settings = {
+        General = {
+          EnableNetworkConfiguration = true;
+          AddressRandomization = "network";
+          DisableANQP = false; # Use Hotspot 2.0
+        };
+        Network.NameResolvingService = "systemd"; # Use resolved
+        Settings.AlwaysRandomizeAddress = true;
+      };
+    };
   };
 
   services = {
@@ -69,6 +70,7 @@
 
   xdg = {
     portal = {
+      enable = true;
       # https://github.com/NixOS/nixpkgs/issues/160923
       xdgOpenUsePortal = true;
       extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];

@@ -1,7 +1,7 @@
-{ config, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 let
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf mkDefault;
   cfg = config.abszero.services.displayManager.sddm;
 in
 
@@ -10,6 +10,8 @@ in
 
   config.services.displayManager.sddm = mkIf cfg.enable {
     enable = true;
+    # Use Qt6 SDDM
+    package = mkDefault pkgs.kdePackages.sddm;
     wayland.enable = true;
   };
 }

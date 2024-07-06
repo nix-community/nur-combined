@@ -37,12 +37,10 @@ in
           catppuccin.configuration.imports = with self.homeModules; [
             catppuccin-catppuccin
             catppuccin-discord
-            catppuccin-eww
             catppuccin-fcitx5
             catppuccin-fonts
             catppuccin-foot
             catppuccin-hyprland
-            catppuccin-kvantum
             catppuccin-plasma
           ];
         };
