@@ -1,40 +1,41 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, nix-update-script
-, wrapQtAppsHook
-, autoconf
-, boost
-, catch2_3
-, cmake
-, compat-list
-, cpp-jwt
-, cubeb
-, discord-rpc
-, enet
-, fmt
-, glslang
-, libopus
-, libusb1
-, libva
-, lz4
-, nlohmann_json
-, nv-codec-headers-12
-, nx_tzdb
-, pkg-config
-, qtbase
-, qtmultimedia
-, qttools
-, qtwayland
-, qtwebengine
-, SDL2
-, vulkan-headers
-, vulkan-loader
-, yasm
-, zlib
-, zstd
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  nix-update-script,
+  wrapQtAppsHook,
+  autoconf,
+  boost,
+  catch2_3,
+  cmake,
+  compat-list,
+  cpp-jwt,
+  cubeb,
+  discord-rpc,
+  enet,
+  fmt,
+  glslang,
+  libopus,
+  libusb1,
+  libva,
+  lz4,
+  nlohmann_json,
+  nv-codec-headers-12,
+  nx_tzdb,
+  pkg-config,
+  qtbase,
+  qtmultimedia,
+  qttools,
+  qtwayland,
+  qtwebengine,
+  SDL2,
+  vulkan-headers,
+  vulkan-loader,
+  yasm,
+  zlib,
+  zstd,
 }:
-stdenv.mkDerivation(finalAttrs: {
+stdenv.mkDerivation (finalAttrs: {
   pname = "yuzu";
   version = "1727";
 
@@ -70,8 +71,8 @@ stdenv.mkDerivation(finalAttrs: {
     # vendored ffmpeg deps
     autoconf
     yasm
-    libva  # for accelerated video decode on non-nvidia
-    nv-codec-headers-12  # for accelerated video decode on nvidia
+    libva # for accelerated video decode on non-nvidia
+    nv-codec-headers-12 # for accelerated video decode on nvidia
     # end vendored ffmpeg deps
 
     fmt
@@ -161,7 +162,7 @@ stdenv.mkDerivation(finalAttrs: {
   '';
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version-regex" "mainline-0-(.*)" ];
+    extraArgs = ["--version-regex" "mainline-0-(.*)"];
   };
 
   meta = with lib; {
@@ -174,18 +175,13 @@ stdenv.mkDerivation(finalAttrs: {
       Using the early-access branch is recommended if you would like to try out experimental features, with a cost of stability.
     '';
     mainProgram = "yuzu";
-    platforms = [ "aarch64-linux" "x86_64-linux" ];
+    platforms = ["aarch64-linux" "x86_64-linux"];
     license = with licenses; [
       gpl3Plus
       # Icons
-      asl20 mit cc0
-    ];
-    maintainers = with maintainers; [
-      ashley
-      ivar
-      joshuafern
-      sbruder
-      k900
+      asl20
+      mit
+      cc0
     ];
   };
 })
