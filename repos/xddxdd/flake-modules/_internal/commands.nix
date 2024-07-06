@@ -97,10 +97,14 @@ _: {
             export PATH=${pkgs.nix-prefetch-git}/bin:$PATH
             nix flake update
             ${nvfetcher}
-            ${py}/bin/python3 pkgs/asterisk-digium-codecs/update.py
-            ${py}/bin/python3 pkgs/nvidia-grid/update.py
-            ${py}/bin/python3 pkgs/openj9-ibm-semeru/update.py
-            ${py}/bin/python3 pkgs/openjdk-adoptium/update.py
+            for S in $(find pkgs/ -name update.sh); do
+              echo "Executing $S"
+              bash "$S"
+            done
+            for S in $(find pkgs/ -name update.py); do
+              echo "Executing $S"
+              ${py}/bin/python3 "$S"
+            done
             ${readme}
           '';
       };

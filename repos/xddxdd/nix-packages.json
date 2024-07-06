@@ -816,13 +816,13 @@
   },
   "legacyPackages.x86_64-linux.lyrica": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration",
-    "pname": "lyrica-unstable",
-    "version": "2024-07-05"
+    "pname": "lyrica",
+    "version": "0.5"
   },
   "legacyPackages.x86_64-linux.lyrica-plasmoid": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component)",
-    "pname": "lyrica-unstable",
-    "version": "2024-07-05"
+    "pname": "lyrica",
+    "version": "0.5"
   },
   "legacyPackages.x86_64-linux.netboot-xyz": {
     "description": "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE.",
@@ -2626,13 +2626,13 @@
   },
   "legacyPackages.x86_64-linux.plasma-desktop-lyrics": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration",
-    "pname": "lyrica-unstable",
-    "version": "2024-07-05"
+    "pname": "lyrica",
+    "version": "0.5"
   },
   "legacyPackages.x86_64-linux.plasma-desktop-lyrics-plasmoid": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component)",
-    "pname": "lyrica-unstable",
-    "version": "2024-07-05"
+    "pname": "lyrica",
+    "version": "0.5"
   },
   "legacyPackages.x86_64-linux.plasma-panel-transparency-toggle": {
     "description": "A rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
@@ -3201,13 +3201,13 @@
   },
   "packages.x86_64-linux.lyrica": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration",
-    "pname": "lyrica-unstable",
-    "version": "2024-07-05"
+    "pname": "lyrica",
+    "version": "0.5"
   },
   "packages.x86_64-linux.lyrica-plasmoid": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component)",
-    "pname": "lyrica-unstable",
-    "version": "2024-07-05"
+    "pname": "lyrica",
+    "version": "0.5"
   },
   "packages.x86_64-linux.netboot-xyz": {
     "description": "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE.",
@@ -3341,13 +3341,13 @@
   },
   "packages.x86_64-linux.plasma-desktop-lyrics": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration",
-    "pname": "lyrica-unstable",
-    "version": "2024-07-05"
+    "pname": "lyrica",
+    "version": "0.5"
   },
   "packages.x86_64-linux.plasma-desktop-lyrics-plasmoid": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component)",
-    "pname": "lyrica-unstable",
-    "version": "2024-07-05"
+    "pname": "lyrica",
+    "version": "0.5"
   },
   "packages.x86_64-linux.plasma-panel-transparency-toggle": {
     "description": "A rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",

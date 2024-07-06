@@ -144,8 +144,8 @@ Or, use variables from this repository in case I change them:
 |  | `libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.2.6 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
 |  | `liboqs` | [liboqs](https://openquantumsafe.org) | 0.10.1 | C library for prototyping and experimenting with quantum-resistant cryptography |
 |  | `libqcef` | [libqcef](https://github.com/martyr-deepin/libqcef) | unstable-2019-11-23 | Qt5 binding of CEF |
-|  | `lyrica` | [lyrica](https://github.com/chiyuki0325/lyrica) | unstable-2024-07-05 | Linux desktop lyrics widget focused on simplicity and integration |
-|  | `lyrica-plasmoid` | [lyrica](https://github.com/chiyuki0325/lyrica) | unstable-2024-07-05 | Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component) |
+|  | `lyrica` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.5 | Linux desktop lyrics widget focused on simplicity and integration |
+|  | `lyrica-plasmoid` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.5 | Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component) |
 |  | `netboot-xyz` | [netboot-xyz](https://netboot.xyz/) | 2.0.79 | Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE. |
 |  | `netease-cloud-music` | [netease-cloud-music](https://music.163.com) | 1.2.1 | NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu) |
 |  | `netns-exec` | [netns-exec](https://github.com/pekman/netns-exec) | unstable-2016-07-30 | Run command in Linux network namespace as normal user |
@@ -168,8 +168,8 @@ Or, use variables from this repository in case I change them:
 |  | `peerbanhelper` | [peerbanhelper](https://github.com/Ghost-chu/PeerBanHelper) | 4.4.1 | 自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission |
 |  | `phpmyadmin` | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.1 | A web interface for MySQL and MariaDB |
 |  | `phppgadmin` | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | 7.14.7-mod | The premier web-based administration tool for PostgreSQL |
-|  | `plasma-desktop-lyrics` | [lyrica](https://github.com/chiyuki0325/lyrica) | unstable-2024-07-05 | Linux desktop lyrics widget focused on simplicity and integration |
-|  | `plasma-desktop-lyrics-plasmoid` | [lyrica](https://github.com/chiyuki0325/lyrica) | unstable-2024-07-05 | Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component) |
+|  | `plasma-desktop-lyrics` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.5 | Linux desktop lyrics widget focused on simplicity and integration |
+|  | `plasma-desktop-lyrics-plasmoid` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.5 | Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component) |
 |  | `plasma-panel-transparency-toggle` | [plasma-panel-transparency-toggle](https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6) | unstable-2024-04-17 | A rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6 |
 |  | `pocl` | [pocl](http://portablecl.org) | 6.0 | A portable open source (MIT-licensed) implementation of the OpenCL standard |
 |  | `procps4` | [procps4](https://gitlab.com/procps-ng/procps) | 4.0.4 | Utilities that give information about processes using the /proc filesystem |

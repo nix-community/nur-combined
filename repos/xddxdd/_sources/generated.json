@@ -1332,7 +1332,7 @@
     },
     "lyrica": {
         "cargoLocks": null,
-        "date": "2024-07-05",
+        "date": null,
         "extract": null,
         "name": "lyrica",
         "passthru": null,
@@ -1344,12 +1344,12 @@
             "name": null,
             "owner": "chiyuki0325",
             "repo": "lyrica",
-            "rev": "36c2b372f2cd9ee772631a1b29adc47a4f1bab60",
-            "sha256": "sha256-KUzN9ExIPMoUUCrxPUN/qErb211RQISBVdgCascPAyM=",
+            "rev": "v0.5",
+            "sha256": "sha256-5AHZeSVIGQRlCE5T4cVyfRIqdRvVdSfTeJSaPGQuYNA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "36c2b372f2cd9ee772631a1b29adc47a4f1bab60"
+        "version": "v0.5"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,

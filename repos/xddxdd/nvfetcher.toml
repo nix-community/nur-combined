@@ -291,7 +291,7 @@ src.github = "ggerganov/llama.cpp"
 fetch.github = "ggerganov/llama.cpp"
 
 [lyrica]
-src.git = "https://github.com/chiyuki0325/lyrica.git"
+src.github = "chiyuki0325/lyrica"
 fetch.github = "chiyuki0325/lyrica"
 
 [nbfc-linux-lantian]

@@ -744,15 +744,14 @@
   };
   lyrica = {
     pname = "lyrica";
-    version = "36c2b372f2cd9ee772631a1b29adc47a4f1bab60";
+    version = "v0.5";
     src = fetchFromGitHub {
       owner = "chiyuki0325";
       repo = "lyrica";
-      rev = "36c2b372f2cd9ee772631a1b29adc47a4f1bab60";
+      rev = "v0.5";
       fetchSubmodules = false;
-      sha256 = "sha256-KUzN9ExIPMoUUCrxPUN/qErb211RQISBVdgCascPAyM=";
+      sha256 = "sha256-5AHZeSVIGQRlCE5T4cVyfRIqdRvVdSfTeJSaPGQuYNA=";
     };
-    date = "2024-07-05";
   };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";
