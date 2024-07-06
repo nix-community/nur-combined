@@ -22,11 +22,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-GW5XEPFZ5f+dXsumRpSp/bLiE/zfWq08+CkQ2dC7QZk=",
+            "sha256": "sha256-CYKP1xHag6KcDFqTkJt9z/1cGwGfCfzr73la5fNMA90=",
             "type": "url",
-            "url": "https://github.com/enso-org/enso/releases/download/2024.1.1/enso-linux-x86_64-2024.1.1.AppImage"
+            "url": "https://github.com/enso-org/enso/releases/download/2024.2.3/enso-linux-x86_64-2024.2.3.AppImage"
         },
-        "version": "2024.1.1"
+        "version": "2024.2.3"
     },
     "guile-config": {
         "cargoLocks": null,
@@ -103,7 +103,7 @@
     "wasmfxtime": {
         "cargoLocks": {
             "./Cargo.lock": [
-                "./wasmfxtime-83757e599bd746bac86bbcadcc5afe4048568d0c/./Cargo.lock",
+                "./wasmfxtime-aed3a6217605c7dda3b99135ab3cbc425584fa32/./Cargo.lock",
                 {
                     "wasm-encoder-0.209.0": "sha256-6rtIhiADuBJTvInsP8gTEyyepEd+h6beSDpzUbOGE8A=",
                     "wasm-encoder-0.211.1": "sha256-+U1fDDqVHgYcjAQ4J6OpBGYi8n9dIoTPlkXEs6ZktZo=",
@@ -111,7 +111,7 @@
                 }
             ]
         },
-        "date": "2024-06-28",
+        "date": "2024-07-04",
         "extract": null,
         "name": "wasmfxtime",
         "passthru": null,
@@ -123,10 +123,10 @@
             "name": null,
             "owner": "wasmfx",
             "repo": "wasmfxtime",
-            "rev": "83757e599bd746bac86bbcadcc5afe4048568d0c",
-            "sha256": "sha256-HPhb+hJ8fOTuqsuuxgKaVxTFHsAIRXdH7S/W0/AeFH0=",
+            "rev": "aed3a6217605c7dda3b99135ab3cbc425584fa32",
+            "sha256": "sha256-aXgSAoQL1t9oW3ag1fSjb5pX3kcZPzZjNWMAd3HRDTM=",
             "type": "github"
         },
-        "version": "83757e599bd746bac86bbcadcc5afe4048568d0c"
+        "version": "aed3a6217605c7dda3b99135ab3cbc425584fa32"
     }
 }

@@ -553,13 +553,13 @@ let
         sha512 = "VVdYzXEn+cnbXpFgWs5hTT7OScegHVmLhJIR8Ufqk3iFD6A6j5iSX1KuBTfNEv4tdJWE2PzA6IVFtcLC7fN9wQ==";
       };
     };
-    "caniuse-lite-1.0.30001638" = {
+    "caniuse-lite-1.0.30001640" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001638";
+      version = "1.0.30001640";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001638.tgz";
-        sha512 = "5SuJUJ7cZnhPpeLHaH0c/HPAnAHZvS6ElWyHK9GSIbVOQABLzowiI2pjmpvZ1WEbkyz46iFd4UXlOHR5SqgfMQ==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001640.tgz";
+        sha512 = "lA4VMpW0PSUrFnkmVuEKBUovSWKhj7puyCg8StBChgu298N1AtuF1sKWEvfDuimSEDbhlb/KqPKC3fs1HbuQUA==";
       };
     };
     "chalk-2.4.2" = {
@@ -679,13 +679,13 @@ let
         sha512 = "eFuaLoy/Rxalv2kr+lqMlUnrDWV+3j4pljOIJgLIhI058IQfWJ7vXhyEIHu+HtC738klGALYxOKDO0bQP3tg8A==";
       };
     };
-    "electron-to-chromium-1.4.814" = {
+    "electron-to-chromium-1.4.817" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.4.814";
+      version = "1.4.817";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.814.tgz";
-        sha512 = "GVulpHjFu1Y9ZvikvbArHmAhZXtm3wHlpjTMcXNGKl4IQ4jMQjlnz8yMQYYqdLHKi/jEL2+CBC2akWVCoIGUdw==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.817.tgz";
+        sha512 = "3znu+lZMIbTe8ZOs360OMJvVroVF2NpNI8T5jfLnDetVvj0uNmIucZzQVYMSJfsu9f47Ssox1Gt46PR+R+1JUg==";
       };
     };
     "encoding-0.1.13" = {
@@ -1480,13 +1480,13 @@ let
         sha512 = "zoWr9ObaxALD3DOPfjPSqxt4fnZiWblxHIgeWqW8x7UqDzEtHEQLzji2cuJYQFCU6KmoJikOYAZlrTHHebjx2w==";
       };
     };
-    "update-browserslist-db-1.0.16" = {
+    "update-browserslist-db-1.1.0" = {
       name = "update-browserslist-db";
       packageName = "update-browserslist-db";
-      version = "1.0.16";
+      version = "1.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/update-browserslist-db/-/update-browserslist-db-1.0.16.tgz";
-        sha512 = "KVbTxlBYlckhF5wgfyZXTWnMn7MMZjMu9XG8bPlliUOP9ThaF4QnhP8qrjrH7DRzHfSk0oQv1wToW+iA5GajEQ==";
+        url = "https://registry.npmjs.org/update-browserslist-db/-/update-browserslist-db-1.1.0.tgz";
+        sha512 = "EdRAaAyk2cUE1wOf2DkEhzxqOQvFOoRJFNS6NeyJ01Gp2beMRpBAINjM2iDXE3KCuKhwnvHIQCJm6ThL2Z+HzQ==";
       };
     };
     "util-deprecate-1.0.2" = {
@@ -1615,7 +1615,7 @@ let
           sources."yallist-4.0.0"
         ];
       })
-      sources."caniuse-lite-1.0.30001638"
+      sources."caniuse-lite-1.0.30001640"
       sources."chalk-2.4.2"
       sources."chownr-2.0.0"
       sources."clean-stack-2.2.0"
@@ -1628,7 +1628,7 @@ let
       sources."convert-source-map-2.0.0"
       sources."debug-4.3.5"
       sources."defaults-1.0.4"
-      sources."electron-to-chromium-1.4.814"
+      sources."electron-to-chromium-1.4.817"
       sources."encoding-0.1.13"
       sources."err-code-2.0.3"
       sources."es-module-lexer-1.5.4"
@@ -1746,7 +1746,7 @@ let
       sources."to-fast-properties-2.0.0"
       sources."unique-filename-1.1.1"
       sources."unique-slug-2.0.2"
-      sources."update-browserslist-db-1.0.16"
+      sources."update-browserslist-db-1.1.0"
       sources."util-deprecate-1.0.2"
       sources."wcwidth-1.0.1"
       sources."wrappy-1.0.2"
