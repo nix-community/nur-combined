@@ -1,4 +1,4 @@
 [onagre]
-src.github = "onagre-launcher/onagre"
-fetch.github = "onagre-launcher/onagre"
+src.git = "https://github.com/onagre-launcher/onagre"
+fetch.git = "https://github.com/onagre-launcher/onagre"
 cargo_locks = ["Cargo.lock"]

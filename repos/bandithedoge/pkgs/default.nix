@@ -43,6 +43,7 @@
     sheepshaver-bin = callPackage' ./sheepshaver-bin;
     symbols-nerd-font = callPackage' ./symbols-nerd-font;
     tal = callPackages ./tal;
+    tonelib = callPackages ./tonelib;
     treeSitterGrammars = callPackages ./treeSitterGrammars;
     vgmtrans = callPackage' ./vgmtrans;
     vimPlugins = callPackages ./vimPlugins;

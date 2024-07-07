@@ -4,7 +4,8 @@
   ...
 }: let
   unwrapped = pkgs.rustPlatform.buildRustPackage {
-    inherit (sources.onagre) version src;
+    inherit (sources.onagre) src;
+    version = sources.onagre.date;
     pname = "onagre-unwrapped";
     cargoLock = sources.onagre.cargoLock."Cargo.lock";
   };

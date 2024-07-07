@@ -1,25 +1,27 @@
 {
-  "onagre": {
-    "cargoLocks": {
-      "Cargo.lock": ["./onagre-1.1.0/Cargo.lock", {}]
-    },
-    "date": null,
-    "extract": null,
-    "name": "onagre",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "onagre-launcher",
-      "repo": "onagre",
-      "rev": "1.1.0",
-      "sha256": "sha256-ASeLvgj2RyhsZQtkUTYeA7jWyhbLg8yl6HbN2A/Sl2M=",
-      "sparseCheckout": [],
-      "type": "github"
-    },
-    "version": "1.1.0"
-  }
+    "onagre": {
+        "cargoLocks": {
+            "Cargo.lock": [
+                "./onagre-543f1fe827f4b16408cdcc07c19fb839741ca0f5/Cargo.lock",
+                {}
+            ]
+        },
+        "date": "2024-04-18",
+        "extract": null,
+        "name": "onagre",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "543f1fe827f4b16408cdcc07c19fb839741ca0f5",
+            "sha256": "sha256-ASeLvgj2RyhsZQtkUTYeA7jWyhbLg8yl6HbN2A/Sl2M=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/onagre-launcher/onagre"
+        },
+        "version": "543f1fe827f4b16408cdcc07c19fb839741ca0f5"
+    }
 }

@@ -1,0 +1,24 @@
+[bassdrive]
+fetch.url = "https://www.tonelib.net/download/ToneLib-BassDrive-amd64.deb"
+src.webpage = "https://tonelib.net/downloads.html"
+src.regex = "<h3>TL BassDrive<\\/h3>\\s+<p>Version: (\\d+\\.\\d+\\.\\d+)<\\/p>"
+
+[easycomp]
+fetch.url = "https://tonelib.net/download/ToneLib-EasyComp-amd64.deb"
+src.webpage = "https://tonelib.net/downloads.html"
+src.regex = "<h3>TL&nbsp;EasyComp<\\/h3>\\s+<p>Version: (\\d+\\.\\d+\\.\\d+)<\\/p>"
+
+[noisereducer]
+fetch.url = "https://www.tonelib.net/download/ToneLib-NoiseReducer-amd64.deb"
+src.webpage = "https://tonelib.net/downloads.html"
+src.regex = "<h3>TL NoiseReducer<\\/h3>\\s+<p>Version: (\\d+\\.\\d+\\.\\d+)<\\/p>"
+
+[tubewarmth]
+fetch.url = "https://www.tonelib.net/download/ToneLib-TubeWarmth-amd64.deb"
+src.webpage = "https://tonelib.net/downloads.html"
+src.regex = "<h3>TL&nbsp;TubeWarmth<\\/h3>\\s+<p>Version: (\\d+\\.\\d+\\.\\d+)<\\/p>"
+
+[zoom]
+fetch.url = "https://www.tonelib.net/download/ToneLib-Zoom-amd64.deb"
+src.webpage = "https://tonelib.net/downloads.html"
+src.regex = "<h3>ToneLib Zoom<\\/h3>\\s+<p>Version: (\\d+\\.\\d+\\.\\d+)<\\/p>"
