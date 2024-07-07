@@ -8,6 +8,7 @@
   brotli,
   gd,
   git,
+  libmaxminddb,
   liburing,
   libxcrypt,
   libxml2,
@@ -55,6 +56,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     brotli
     gd
+    libmaxminddb
     liburing
     libxcrypt
     libxml2
@@ -69,6 +71,7 @@ stdenv.mkDerivation rec {
   preConfigure =
     let
       extraSrcs = [
+        "nginx-module-geoip2"
         "nginx-module-stream-sts"
         "nginx-module-sts"
         "nginx-module-vts"
@@ -130,6 +133,7 @@ stdenv.mkDerivation rec {
     "--with-stream_ssl_module"
     "--with-stream_ssl_preread_module"
 
+    "--add-module=bundle/nginx-module-geoip2"
     "--add-module=bundle/nginx-module-stream-sts"
     "--add-module=bundle/nginx-module-sts"
     "--add-module=bundle/nginx-module-vts"

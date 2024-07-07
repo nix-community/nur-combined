@@ -805,6 +805,18 @@
     };
     date = "2023-05-17";
   };
+  nginx-module-geoip2 = {
+    pname = "nginx-module-geoip2";
+    version = "445df24ef3781e488cee3dfe8a1e111997fc1dfe";
+    src = fetchFromGitHub {
+      owner = "leev";
+      repo = "ngx_http_geoip2_module";
+      rev = "445df24ef3781e488cee3dfe8a1e111997fc1dfe";
+      fetchSubmodules = false;
+      sha256 = "sha256-aO+ff+3fQ9FJgjkVdWUqsSS6ctHq/TXvyGRasW6fXcA=";
+    };
+    date = "2024-04-02";
+  };
   nginx-module-stream-sts = {
     pname = "nginx-module-stream-sts";
     version = "a60cd2fc2bdd689b8b4e12abcf71f7cf5018424a";

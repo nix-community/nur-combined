@@ -1444,6 +1444,27 @@
         },
         "version": "07d93b626ce5ea885cd16f9ab07fac3213c355d9"
     },
+    "nginx-module-geoip2": {
+        "cargoLocks": null,
+        "date": "2024-04-02",
+        "extract": null,
+        "name": "nginx-module-geoip2",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "leev",
+            "repo": "ngx_http_geoip2_module",
+            "rev": "445df24ef3781e488cee3dfe8a1e111997fc1dfe",
+            "sha256": "sha256-aO+ff+3fQ9FJgjkVdWUqsSS6ctHq/TXvyGRasW6fXcA=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "445df24ef3781e488cee3dfe8a1e111997fc1dfe"
+    },
     "nginx-module-stream-sts": {
         "cargoLocks": null,
         "date": "2022-09-16",

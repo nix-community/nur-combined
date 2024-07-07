@@ -315,6 +315,10 @@ git.fetchSubmodules = true
 src.git = "https://github.com/fullcone-nat-nftables/nft-fullcone.git"
 fetch.github = "fullcone-nat-nftables/nft-fullcone"
 
+[nginx-module-geoip2]
+src.git = "https://github.com/leev/ngx_http_geoip2_module.git"
+fetch.github = "leev/ngx_http_geoip2_module"
+
 [nginx-module-stream-sts]
 src.git = "https://github.com/vozlt/nginx-module-stream-sts.git"
 fetch.github = "vozlt/nginx-module-stream-sts"
