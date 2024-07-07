@@ -3350,10 +3350,10 @@
     };
     "ghosttext" = buildFirefoxXpiAddon {
       pname = "ghosttext";
-      version = "24.7.1";
+      version = "24.7.6";
       addonId = "ghosttext@bfred.it";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4312001/ghosttext-24.7.1.xpi";
-      sha256 = "da0e7a757b2784a155aad3cd0cd0daff775fa359ea20d40705256f7e841a2c71";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4315014/ghosttext-24.7.6.xpi";
+      sha256 = "a3827cea798f720f3f77a4f3055e5abe267110632c0c42ef13a0ff559ca0d085";
       meta = with lib;
       {
         homepage = "https://github.com/fregante/GhostText";
@@ -3903,10 +3903,10 @@
     };
     "hover-zoom-plus" = buildFirefoxXpiAddon {
       pname = "hover-zoom-plus";
-      version = "1.0.217";
+      version = "1.0.218";
       addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4289072/hover_zoom_plus-1.0.217.xpi";
-      sha256 = "cfa7cdca131114ed5743737a1e73a6cfc7308c0406c64155b3c54d6f77b71763";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4315249/hover_zoom_plus-1.0.218.xpi";
+      sha256 = "d9082a2751e229dc1c9c98533cea27593fb8e922c3261bba0b5d6367376b4e03";
       meta = with lib;
       {
         homepage = "https://github.com/extesy/hoverzoom/";
@@ -4872,6 +4872,10 @@
           "*://*.medicalxpress.com/*"
           "*://*.sciencex.com/*"
           "*://*.techxplore.com/*"
+          "*://*.spotify.com/*"
+          "*://*.songkick.com/*"
+          "*://*.nextdoor.com/*"
+          "*://*.polona.pl/*"
         ];
         platforms = platforms.all;
       };
