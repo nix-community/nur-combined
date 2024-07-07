@@ -13,14 +13,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "rpmlint";
-  version = "2.5.0";
+  version = "2.6.0";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "rpm-software-management";
     repo = "rpmlint";
     rev = version;
-    sha256 = "sha256-OaEwKLCg++4RRcgPvHCGH2RdvJ901aLIjmI+Z/KBysQ=";
+    sha256 = "sha256-SsDq7K7izvIKFs1MnFwbh+DH5vSPQG5/jfUZ28oIyFE=";
   };
 
   nativeBuildInputs = [
