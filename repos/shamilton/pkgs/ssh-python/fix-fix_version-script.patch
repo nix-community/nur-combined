@@ -1,0 +1,36 @@
+diff --color -ur a/ci/appveyor/fix_version.py b/ci/appveyor/fix_version.py
+--- a/ci/appveyor/fix_version.py	2022-06-14 14:10:22.368518265 +0200
++++ b/ci/appveyor/fix_version.py	2022-06-14 14:12:22.182168820 +0200
+@@ -4,19 +4,15 @@
+ import json
+ import sys
+ 
+-def get_describe_tag():
+-    return subprocess.check_output(['git', 'describe', '--tags']).strip().decode('utf-8')
+-
+-def make_version_file(basedir):
++def make_version_file(basedir, version):
+     rev = os.environ.get('APPVEYOR_REPO_COMMIT',
+                          subprocess.check_output(['git', 'rev-list', '--max-count=1', 'HEAD']).strip().decode('utf-8'))
+     basedir = os.path.abspath(basedir)
+-    git_desc = get_describe_tag()
+     version_json = {'date': datetime.now().isoformat(),
+                     'dirty': False,
+                     'error': None,
+                     'full-revisionid': rev,
+-                    'version': git_desc}
++                    'version': version}
+     data = """
+ import json
+ 
+@@ -33,7 +29,7 @@
+ 
+ 
+ if __name__ == "__main__":
+-    if not len(sys.argv) > 1:
+-        sys.stderr.write("Need basedir of repo" + os.linesep)
++    if not len(sys.argv) > 2:
++        sys.stderr.write("Need basedir of repo and version" + os.linesep)
+         sys.exit(1)
+-    make_version_file(sys.argv[1])
++    make_version_file(sys.argv[1], sys.argv[2])

@@ -1,6 +1,8 @@
 { tabbed
 , fetchFromGitHub
 , libbsd
+, zeromq
+, nix-gitignore
 }:
 (tabbed.override {
   patches = [ ./keys.patch ];
@@ -9,8 +11,10 @@
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "tabbed";
-    rev = "823e2981830be93aa68e2aba7f3b1e13f2e6e0c0";
-    sha256 = "1w6zzf86wnx6dymgfi0samrxgwl23z1ghnd2gv3gv25kvwp72vxy";
+    rev = "0946c7766fa8639ebe8d81751ad43604572ac495";
+    sha256 = "sha256-fZ8BCSWwraNAPlEwsu7srKzGdW2MYKxZfJkPm2Y/26o=";
   };
-  buildInputs = (old.buildInputs or []) ++ [ libbsd ];
+  # src = nix-gitignore.gitignoreSource [ ] /home/scott/GIT/tabbed;
+  buildInputs = (old.buildInputs or []) ++ [ libbsd zeromq ];
+  # dontStrip = true;
 })

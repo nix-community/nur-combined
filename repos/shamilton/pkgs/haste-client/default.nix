@@ -22,7 +22,7 @@ buildRubyGem rec {
   propagatedBuildInputs = [ deps ];
 
   meta = with lib; {
-    description = "Command line interface to the AnyStyle Parser and Finder";
+    description = "CLI Haste Client";
     homepage    = "https://rubygems.org/gems/haste";
     license     = licenses.mit;
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];

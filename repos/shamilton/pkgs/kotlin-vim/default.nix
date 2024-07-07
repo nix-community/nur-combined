@@ -1,17 +1,17 @@
 { lib
-, buildVimPluginFrom2Nix
+, buildVimPlugin
 , fetchFromGitHub
 }:
 
-buildVimPluginFrom2Nix {
-  pname = "kotlin";
-  version = "2021-04-20";
+buildVimPlugin {
+  pname = "kotlin-vim";
+  version = "2022-12-30";
 
   src = fetchFromGitHub {
     owner = "udalov";
     repo = "kotlin-vim";
-    rev = "e043f6a2ddcb0611e4afcb1871260a520e475c74";
-    sha256 = "0ygvicf8gcaskz33qkfl1yg1jiv0l9cyp8fn2rrnzdsb7amsss0v";
+    rev = "53fe045906df8eeb07cb77b078fc93acda6c90b8";
+    sha256 = "sha256-Eiwn2nQxb92gmcf3M5JW4HEnr9Uljyj5Sg/MA7Nc7ro=";
   };
 
   meta = with lib; {

@@ -11,8 +11,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "vimconfig";
-    rev = "77fbc4befaea0654fdfcf7d6bf0f2f7f9f87904d";
-    sha256 = "0cdrc72342ys7p9mxvdsw57wvl9l2x64k3gs298yx3f4j4kpx2ja";
+    rev = "56c2deba6eb830a9cc26b6c123732bb0afe7db89";
+    sha256 = "1zyf3wf9v537al477p1n4bcvxpvphlynd08l7m5pgjl4g31mgzsv";
   };
 
   propagatedBuildInputs = [ coreutils ];

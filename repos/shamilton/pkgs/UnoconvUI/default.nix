@@ -11,13 +11,13 @@
 
 mkDerivation rec {
   pname = "UnoconvUI";
-  version = "2020-12-30";
+  version = "2021-06-20";
 
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "UnoconvUI";
-    rev = "6a3d9ecf2be3739920d5514f75b4ab2539ee66a6";
-    sha256 = "1hzj8l4pds5zbw128cryynmk0cwnfj1bsadgv8r16wcghaxrcxyj";
+    rev = "7c3c71dd00224e249ae99165b9e2ae8d80502a90";
+    sha256 = "1wjdv10bhc1nbyzbfwmz1fbv63vjabjdmmnjjfv8avp672mlc6wa";
   };
 
   nativeBuildInputs = [ qmake qttools librsvg ];

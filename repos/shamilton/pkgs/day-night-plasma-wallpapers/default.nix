@@ -1,26 +1,30 @@
 { lib
-, stdenv
-, fetchFromGitHub
+, python3
+, dbus
 , python3Packages
-, coreutils
+, fetchFromGitHub 
 }:
-
-stdenv.mkDerivation rec {
+let
+  fixedDbusNext = python3Packages.dbus-next.overridePythonAttrs (old: {
+    checkPhase = builtins.replaceStrings ["not test_peer_interface"] ["not test_peer_interface and not test_tcp_connection_with_forwarding"] old.checkPhase;
+  });
+in
+python3Packages.buildPythonPackage rec {
   pname = "day-night-plasma-wallpapers";
-  version = "2020-05-30";
+  version = "2022-02-11";
 
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "Day-night-plasma-wallpapers";
-    rev = "1f6124fbc4f1297ada77d6d3155b5b494455c316";
-    sha256 = "0ribzd0svp9sp0j87lhfqb7kivh3hw38ldvr5ps8qkr778460fdl";
+    rev = "aae28f1267c5f6820719e87932b670233ed3bbfa";
+    sha256 = "sha256-tGEoiN+soP3S7ctNqNjChlqGtW8qMGD3ynX/5rIENfA=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ dbus-python ];
+  propagatedBuildInputs = [ fixedDbusNext ];
 
-  installPhase = ''
-    install -Dm 555 update-day-night-plasma-wallpapers.py $out/bin/update-day-night-plasma-wallpapers.py
-    install -Dm 555 update-day-night-plasma-wallpapers.py $out/.config/autostart-scripts/update-day-night-plasma-wallpapers.py
+  postInstall = ''
+    mkdir -p "$out/.config/autostart-scripts"
+    ln -s "$out/bin/update-day-night-plasma-wallpapers" "$out/.config/autostart-scripts/update-day-night-plasma-wallpapers"
   '';
 
   meta = with lib; {

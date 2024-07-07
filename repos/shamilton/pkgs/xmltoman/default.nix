@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Convert xml to groff (manpage) format";
     license = licenses.gpl2Only;
-    homepage = "https://github.com/tryone144/compton";
+    homepage = "https://github.com/atsb/xmltoman";
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;
   };

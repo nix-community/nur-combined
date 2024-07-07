@@ -23,7 +23,8 @@ python3Packages.buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Generates a latex formatted output from an xlsx cognitoform excel sheet, made for classes councils preparation.";
+    description = "Generates a latex formatted output from an xlsx cognitoform excel sheet, made for classes councils preparation";
+    homepage = "https://github.com/SCOTT-HAMILTON/CdC-cognitoform-result-generator";
     license = licenses.mit;
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;

@@ -1,12 +1,12 @@
 { lib
 , fetchFromGitHub
-, buildVimPluginFrom2Nix
+, buildVimPlugin
 , vim-async
 , vim-lsp
 , vim-asyncomplete
 , vim-asyncomplete-lsp
 }:
-buildVimPluginFrom2Nix rec {
+buildVimPlugin rec {
 
   pname = "vim-lsp-settings";
   version = "0.0.1";

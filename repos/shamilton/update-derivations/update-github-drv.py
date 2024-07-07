@@ -67,7 +67,7 @@ else:
             f'https://api.github.com/repos/{owner}/{repo}/tags?per_page=1',
             headers=headers).json()
     def clean_version(v):
-        match = re.search(r"v(.*)", v)
+        match = re.search(r"v\.?(.*)", v)
         if match:
             return match.group(1)
         else:
@@ -82,5 +82,10 @@ else:
         latest_tag = clean_version(response[0]['name'])
     except KeyError as e:
         print(f"Error with response `{response}` from github repo {owner}/{repo}: {e}")
-    if version.parse(drv_version) < version.parse(latest_tag):
+    try:
+        v_drv_version = version.parse(drv_version)
+    except version.InvalidVersion as e:
+        v_drv_version = None
+        print(f"unclear version   {name}@{drv_version} -> {latest_tag}")
+    if v_drv_version != None and v_drv_version < version.parse(latest_tag):
         print(f"stable   {name}@{drv_version} -> {latest_tag}")

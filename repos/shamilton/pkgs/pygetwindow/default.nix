@@ -19,7 +19,8 @@ python3Packages.buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Simple, cross-platform module for obtaining GUI information on applications' windows";
+    description = "Simple, module for obtaining GUI information on applications' windows";
+    homepage = "https://github.com/asweigart/pygetwindow";
     license = licenses.bsd3;
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;

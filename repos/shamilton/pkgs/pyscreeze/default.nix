@@ -3,33 +3,39 @@
 , fetchFromGitHub
 , xvfb-run
 , scrot
+, gnome-screenshot
+, which
+, nix-gitignore
 }:
 
 python3Packages.buildPythonPackage rec {
   pname = "PyScreeze";
-  version = "unstable";
+  version = "2023-06-14";
 
   src = fetchFromGitHub {
     owner = "asweigart";
     repo = "pyscreeze";
-    rev = "0446e87235e0079f591f0c49ece7d487dedc2f9a";
-    sha256 = "1dhcmvdlsv7y3mggmk7g4jsdwkjagfw7slmg3zln64f1ksvkfv7g";
+    rev = "eeca245a135cf171c163b3691300138518efa64e";
+    sha256 = "sha256-DH/ehS1LolOlyftX6icLru94ZZuCguMFE+KJ3snLjkg=";
   };
+  patches = [ ./find-gnome-screenshot.patch ];
+  # src = nix-gitignore.gitignoreSource [ ] /home/scott/GIT/pyscreeze;
 
-  nativeBuildInputs = [ xvfb-run ];
+  nativeBuildInputs = [ xvfb-run python3Packages.pytest scrot gnome-screenshot ];
   propagatedBuildInputs = with python3Packages; [
     pillow
   ];
-  checkInputs = with python3Packages; [ pytest xlib scrot ];
+  checkInputs = with python3Packages; [ pytest xlib scrot pillow gnome-screenshot which ];
 
   doCheck = true;
   checkPhase = ''
-    xvfb-run -s '-screen 0 800x600x24' \
+    XDG_SESSION_TYPE=x11 xvfb-run -s '-screen 0 800x600x24' \
       pytest
   '';
 
   meta = with lib; {
     description = "Simple, cross-platform screenshot module for Python 2 and 3";
+    homepage = "https://github.com/asweigart/pyscreeze";
     license = licenses.bsd3;
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;

@@ -40,10 +40,10 @@ in stdenv.mkDerivation rec {
     desktopName = "Xtreme Download Manager";
     type = "Application";
     exec = "xdman";
-    terminal = "false";
+    terminal = false;
     icon = "xdman";
     comment = "Powerfull download accelarator and video downloader";
-    categories = "Network;";
+    categories = [ "Network" ];
   };
 
   installPhase = ''

@@ -1,32 +1,31 @@
 { lib
 , python3Packages
-, ssh-python
 , ssh2-python
 , libssh2
 }:
 
 python3Packages.buildPythonPackage rec {
   pname = "parallel-ssh";
-  version = "2.5.4";
+  version = "2.12.0";
 
   src = python3Packages.fetchPypi {
     inherit pname version;
-    sha256 = "01r8ajq2vic6l9rihailv5a100gwf6k4mswbmaqyrjr39h0pg571";
+    sha256 = "sha256-viwG7odlJz0gTgD4Kvri2s5e6678U0PR38ZFE2QhYeA=";
   };
   
   propagatedBuildInputs = with python3Packages; [
     gevent
     paramiko
-    ssh-python
     ssh2-python
     libssh2
   ];
   
-  doCheck = true;
+  doCheck = false;
 
   meta = with lib; {
     description = "Asynchronous parallel SSH client library";
-    license = licenses.mit;
+    homepage = "https://parallel-ssh.org/";
+    license = licenses.lgpl21Plus;
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;
   };

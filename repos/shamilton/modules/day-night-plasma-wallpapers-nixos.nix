@@ -1,14 +1,12 @@
+{ day-night-plasma-wallpapers }:
 { config, lib, pkgs, options,
-  modulesPath
+  modulesPath, ...
 }:
 
 with lib;
 
 let
   cfg = config.services.day-night-plasma-wallpapers;
-  package-day-night-plasma-wallpapers = pkgs.callPackage ./../pkgs/day-night-plasma-wallpapers { 
-    qttools = pkgs.qt5.qttools;  
-  };
 in {
 
   options.services.day-night-plasma-wallpapers = {
@@ -16,7 +14,7 @@ in {
 
     package = mkOption {
       type = types.package;
-      default = package-day-night-plasma-wallpapers;
+      default = day-night-plasma-wallpapers;
       defaultText = "shamilton.day-night-plasma-wallpapers";
       description = "Day-night-plasma-wallpapers derivation to use.";
     };
@@ -28,7 +26,7 @@ in {
     };
   };
 
-  config = {
+  config = mkIf cfg.enable {
     systemd.user.services.day-night-plasma-wallpapers = {
       description = "Day-night-plasma-wallpapers: a software to update your wallpaper according to the day light";
       path = [ pkgs.qt5.qttools.bin cfg.package ];

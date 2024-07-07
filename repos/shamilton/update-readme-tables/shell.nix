@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> {} }:
 let
-  customPython = pkgs.python38.buildEnv.override {
-    extraLibs = with pkgs.python38Packages; [
+  customPython = pkgs.python3.buildEnv.override {
+    extraLibs = with pkgs.python3Packages; [
       pandas
       tabulate
     ];

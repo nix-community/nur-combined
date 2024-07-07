@@ -18,8 +18,12 @@ buildRustPackage rec {
   verifyCargoDeps = true;
 
   meta = with lib; {
-    description = "Check if tables and items in a .toml file are lexically sorted";
-    homepage = "https://github.com/devinr528/cargo-sort-ck";
+    description = "Blazing fast Rust implementation of tee";
+    longDescription = ''
+      Rust implementation of the tee command using splice() and tee()
+      Linux system calls. It is 4-5 times faster than GNU.
+    '';
+    homepage = "https://github.com/ArniDagur/InstantTee";
     license = licenses.mit;
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;

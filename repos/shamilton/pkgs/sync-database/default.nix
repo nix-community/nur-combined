@@ -4,17 +4,18 @@
 , parallel-ssh
 , libssh2
 , merge-keepass
+, nix-gitignore
 }:
 
 python3Packages.buildPythonPackage rec {
   pname = "sync-database";
-  version = "unstable";
+  version = "2023-07-11";
 
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "sync-database";
-    rev = "cd57461009298229762b27e5ae3bf6100b6196cb";
-    sha256 = "0m9gac1b6haaifi69lwybq1hlp631jbxyj79ccfxchfjxanhjhrr";
+    rev = "a4c3dd46ab634f1764bb694734e77cccb858ba0d";
+    sha256 = "sha256-XT3up7zUPqw0RGTMy0ceF6N7SVWLyEe18q+ZN3HZwWs=";
   };
 
   propagatedBuildInputs = with python3Packages; [
@@ -34,6 +35,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = with lib; {
     description = "Keepass databases synching script to ssh servers and phone";
+    homepage = "https://github.com/SCOTT-HAMILTON/sync-database";
     license = licenses.mit;
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;

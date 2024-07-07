@@ -29,6 +29,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = with lib; {
     description = "Pronote bot to open pronote or to open the physics and chemistry book at a specified page";
+    homepage = "https://github.com/SCOTT-HAMILTON/pronotebot";
     license = licenses.mit;
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;

@@ -20,6 +20,10 @@ let
         else if builtins.hasAttr "longDescription" drv.meta then
         drv.meta.longDescription else "")
         ) else "";
+      homepage = if builtins.hasAttr "meta" drv then (
+        if builtins.hasAttr "homepage" drv.meta then
+          drv.meta.homepage
+        else "") else "";
     }) attrs;
 
   writePackageList = drvs: pkgs.writeTextFile {

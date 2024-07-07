@@ -10,11 +10,11 @@
 
 buildPythonPackage rec {
   pname = "tabula-py";
-  version = "2.2.0";
+  version = "2.6.0";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "0f5qialmckw30jmd4mdw86m0zkxzfm713mzf9pvvmd0nfsrqnjxv";
+    sha256 = "sha256-sQuD0V5yCfz2XGTe4GS9stULBqfk4o/Jl0uSye8Uxcw=";
   };
   
   propagatedBuildInputs = [
@@ -29,6 +29,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Simple wrapper for tabula-java, read tables from PDF into DataFrame";
+    homepage = "https://github.com/chezou/tabula-py";
     license = licenses.mit;
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;

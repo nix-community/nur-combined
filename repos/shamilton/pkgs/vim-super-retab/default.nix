@@ -1,8 +1,8 @@
 { lib
-, buildVimPluginFrom2Nix
+, buildVimPlugin
 , fetchFromGitHub
 }:
-buildVimPluginFrom2Nix {
+buildVimPlugin {
 
   pname = "vim-super-retab";
   version = "2013-11-8";

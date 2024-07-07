@@ -12,22 +12,31 @@
 , oathToolkit
 , ki18n
 , libsodium
+, kdbusaddons
+, kwindowsystem
 }:
 
 mkDerivation rec {
   pname = "keysmith";
-  version = "0.2";
+  version = "23.04.0";
 
   src = fetchFromGitHub {
     owner = "KDE";
     repo = "keysmith";
     rev = "v${version}";
-    sha256 = "1gvzw23mly8cp7ag3xpbngpid9gqrfj8cyv9dar6i9j660bh03km";
+    sha256 = "sha256-NE1dpxupUVOEOOVQKwKeltqjfFR3j7EbMIC16C7+9wc=";
   };
 
   nativeBuildInputs = [ cmake extra-cmake-modules makeWrapper ];
-
-  buildInputs = [ libsodium ki18n kirigami2 qtquickcontrols2 qtbase ];
+  buildInputs = [
+    libsodium
+    ki18n
+    kirigami2
+    qtquickcontrols2
+    qtbase
+    kdbusaddons
+    kwindowsystem
+  ];
 
   meta = with lib; {
     description = "OTP client for Plasma Mobile and Desktop";

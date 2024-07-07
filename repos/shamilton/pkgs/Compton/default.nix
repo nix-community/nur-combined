@@ -1,18 +1,24 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, gnumake
 , dbus
-, pkg-config
+, gnumake
+, libX11
+, libXcomposite
+, libXdamage
+, libXext
+, libXinerama
+, libXrandr
+, libXrender
 , libconfig
-, pcre
 , libdrm
-, xlibs
 , libglvnd
 , linuxHeaders
+, pcre
+, pkg-config
 }:
-stdenv.mkDerivation rec {
 
+stdenv.mkDerivation rec {
   pname = "Compton";
   version = "0.1_beta2";
 
@@ -32,7 +38,20 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs = [ gnumake pkg-config ];
-  buildInputs = with xlibs; map lib.getDev [ libX11 libXcomposite libXdamage libXrender libXext libXrandr libXinerama libconfig dbus libglvnd libdrm pcre ];
+  buildInputs = [
+    libX11
+    libXcomposite
+    libXdamage
+    libXrender
+    libXext
+    libXrandr
+    libXinerama
+    libconfig
+    dbus
+    libglvnd
+    libdrm
+    pcre
+  ];
 
   meta = with lib; {
     description = "Compositor for X11";

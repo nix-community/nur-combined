@@ -54,9 +54,21 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "Argument Parser for Modern C++";
-    license = licenses.mit;
-    homepage = "https://github.com/p-ranav/argparse";
+    description = "Terrain analysis tool for the electromagnetic spectrum";
+    longDescription = ''
+      SPLAT! provides site engineering data such as the great circle distances
+      and bearings between sites, antenna elevation angles (uptilt),
+      depression angles (downtilt), antenna height above mean sea level,
+      antenna height above average terrain, bearings and distances to known
+      obstructions based on U.S. Geological Survey and Space Shuttle Radar
+      Topography Mission elevation data, path loss and field strength based
+      on the Longley-Rice Irregular Terrain as well as the new Irregular
+      Terrain With Obstructions (ITWOM v3.0) model, and minimum antenna height
+      requirements needed to establish line-of-sight communication paths and
+      Fresnel Zone clearances absent of obstructions due to terrain.
+    '';
+    license = licenses.gpl2Plus;
+    homepage = "https://www.qsl.net/kd2bd/splat.html";
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;
   };

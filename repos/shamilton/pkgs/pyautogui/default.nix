@@ -10,11 +10,11 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "PyAutoGUI";
-  version = "0.9.52";
+  version = "0.9.54";
 
   src = python3Packages.fetchPypi {
     inherit pname version;
-    sha256 = "1j7cb0xx8l3frvl5ddwlld7i6r79rv3i1l28igwwvjwbh5mwp1m4";
+    sha256 = "sha256-3R0p6P0RiUHLGT9031flxv+OklO5nHsE85z8afOuBLI=";
   };
 
   propagatedBuildInputs = with python3Packages; [
@@ -30,8 +30,8 @@ python3Packages.buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    longDescription = ''A cross-platform GUI automation Python module for
-    human beings. Used to programmatically control the mouse & keyboard.'';
+    description = ''GUI automation Python module for human beings'';
+    homepage = "https://github.com/asweigart/pyautogui";
     license = licenses.bsd3;
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;

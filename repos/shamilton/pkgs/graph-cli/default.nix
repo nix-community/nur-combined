@@ -4,12 +4,12 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "graph-cli";
-  version = "0.1.13";
+  version = "0.1.19";
 
   src = python3Packages.fetchPypi {
     inherit version;
     pname = "graph_cli";
-    sha256 = "04bp1y29rx3nlam4g233xcmbcbc7v3ihpbymi4m7bh7qi6qmvs39";
+    sha256 = "sha256-AOfUgeVgcTtuf5IuLYy1zFTBCjWZxu0OiZzUVXDIaSc=";
   };
   
   propagatedBuildInputs = with python3Packages; [ matplotlib pandas ];
@@ -17,9 +17,9 @@ python3Packages.buildPythonPackage rec {
   doCheck = true;
 
   meta = with lib; {
-    description = "Rtree: spatial index for Python GIS";
-    homepage = "https://rtree.readthedocs.io/en/latest/";
-    license = licenses.mit;
+    description = "CLI utility to create graphs from CSV files";
+    homepage = "https://github.com/mcastorina/graph-cli";
+    license = licenses.gpl3Plus;
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;
   };

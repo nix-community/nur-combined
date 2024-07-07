@@ -24,9 +24,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config autoreconfHook wrapGAppsHook ];
 
   meta = with lib; {
-    description = "Argument Parser for Modern C++";
-    license = licenses.mit;
-    homepage = "https://github.com/p-ranav/argparse";
+    description = "Program for timing mechanical watches";
+    license = licenses.gpl2Plus;
+    homepage = "https://github.com/vacaboja/tg";
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;
   };

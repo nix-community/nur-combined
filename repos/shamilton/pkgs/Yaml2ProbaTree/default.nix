@@ -23,6 +23,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = with lib; {
     description = "Converts a yaml structure to a LaTeX/TiKZ probability tree";
+    homepage = "https://github.com/SCOTT-HAMILTON/Yaml2ProbaTree";
     license = licenses.mit;
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;

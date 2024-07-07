@@ -6,24 +6,25 @@
 , dtc
 , coreutils
 , libraspberrypi
-, temp_min ? 40
-, temp_max ? 60
-, fan_min ? 0
-, fan_max ? 255
+, temp_max ? 70
 }:
 let
-  rpi-poe-overlay-source = ./rpi-poe.dts;
+  rpi-poe-dts = ./rpi-poe.dts;
   overlays_dir = callPackage({ dtc }: stdenvNoCC.mkDerivation {
     name = "overlays-with-rpi-poe-dtbo";
     nativeBuildInputs = [ dtc ];
     buildCommand = ''
       mkdir -p "$out"
-      dtc -I dts ${rpi-poe-overlay-source} -O dtb -@ -o "$out/rpi-poe.dtbo"
+      mkdir temp
+      pushd temp
+      cp ${rpi-poe-dts} ./rpi-poe.dts
+      dtc -I dts ./rpi-poe.dts -O dtb -@ -o "$out/rpi-poe.dtbo"
+      popd
     '';
   }) {};
 in
 stdenvNoCC.mkDerivation rec {
-  inherit temp_min temp_max fan_min fan_max overlays_dir;
+  inherit temp_max overlays_dir;
   pname = "rpi-fan";
   version = "unstable";
   
@@ -44,9 +45,8 @@ stdenvNoCC.mkDerivation rec {
   propagatedBuildInputs = [ bc coreutils libraspberrypi ];
 
   meta = with lib; {
-    description = "Argument Parser for Modern C++";
+    description = "Little bash script to that controls the rpi fans";
     license = licenses.mit;
-    homepage = "https://github.com/p-ranav/argparse";
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;
   };

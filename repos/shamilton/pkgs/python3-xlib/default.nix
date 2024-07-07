@@ -15,7 +15,8 @@ python3Packages.buildPythonPackage rec {
 
   meta = with lib; {
     description = "Python3 version of python-xlib";
-    license = licenses.gpl2;
+    homepage = "https://github.com/simonzack/python3-xlib";
+    license = licenses.gpl2Plus;
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;
   };

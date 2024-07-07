@@ -6,17 +6,17 @@
 }:
 python3Packages.buildPythonPackage rec {
   pname = "ssh2-python";
-  version = "0.26.0";
+  version = "1.0.0";
 
   src = python3Packages.fetchPypi {
     inherit pname version;
-    sha256 = "17llrzzmsfdd2sv4mhvx40azd28yihay33qspncvrlhjq68i4mgq";
+    sha256 = "sha256-r4noDDID54KbJO6miOr1xeJ5BxrtGIIji09E7CFE58U=";
   };
   
   nativeBuildInputs = with python3Packages; [ cmake setuptools ];
   buildInputs = [ openssl zlib ];
   propagatedBuildInputs = with python3Packages; [ cython ];
-  cmakeDir = "../libssh2";
+  cmakeDir = "../libssh2/libssh2";
 
   checkInputs = with python3Packages; [ pytest ];
 
@@ -28,6 +28,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = with lib; {
     description = "Super fast SSH2 protocol library";
+    homepage = "https://github.com/ParallelSSH/ssh2-python";
     license = licenses.lgpl2;
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;

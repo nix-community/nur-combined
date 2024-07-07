@@ -5,19 +5,20 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pytweening";
-  version = "1.0.3";
+  version = "2024-02-20";
 
   src = fetchFromGitHub {
     owner = "asweigart";
     repo = "pytweening";
-    rev = "20d74368e53dc7d0f77c810b624b2c90994f099d";
-    sha256 = "10d2wcpyilgnjj7c7klkd5s6lr5hxyqa2ww558jm0jvfhdxcdamm";
+    rev = "c622929950db00a8364bc26b836e6606c4d62614";
+    sha256 = "sha256-d38NingNX+Dwc1GUAEgqEViQCyiRWEQGvy5d1T30D1k=";
   };
 
   doCheck = false;
 
   meta = with lib; {
     description = "A set of tweening / easing functions implemented in Python";
+    homepage = "https://github.com/asweigart/pytweening";
     license = licenses.bsd3;
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;

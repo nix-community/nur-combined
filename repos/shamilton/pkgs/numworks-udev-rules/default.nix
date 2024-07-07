@@ -6,8 +6,8 @@ stdenv.mkDerivation rec {
 
   udevRules = fetchurl {
     # let's pin the latest commit in the repo which touched the udev rules file
-    url = "https://workshop.numworks.com/files/drivers/linux/50-numworks-calculator.rules";
-    sha256 = "1k3vl4q8pivk1dm6inb56ij4shjs17sn8lcnq8bxnx4j5d1mx2f7";
+    url = "https://cdn.numworks.com/f2be8a48/50-numworks-calculator.rules";
+    sha256 = "sha256-x4leQyuSdNsXwpZRZPUJWkJNZDRl2WhqC3PHizChe8w=";
   };
 
   dontUnpack = true;

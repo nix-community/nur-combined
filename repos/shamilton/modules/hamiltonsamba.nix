@@ -28,7 +28,7 @@ in {
         hosts allow = 192.168.1. 2a01:cb08:8d33:dd00:215f:3b13:29b8:21c3/64 localhost
         protocol = SMB3
         logging = systemd
-        log level = 4
+        log level = 0
         passdb backend = tdbsam
         netbios name = PiServer
         map to guest = Never

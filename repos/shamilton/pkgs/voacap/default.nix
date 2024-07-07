@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "HF Propagation Prediction and Ionospheric Communications Analysis";
     license     = licenses.cc0;
-    homepage    = "http://mcmc-jags.sourceforge.net";
+    homepage    = "https://github.com/jawatson/voacapl";
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.unix;
   };

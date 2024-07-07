@@ -1,5 +1,5 @@
 { config, lib, pkgs, options,
-home, modulesPath, specialArgs
+ ...
 }:
 
 with lib;
@@ -18,14 +18,14 @@ in {
     };
 
     lightColour = mkOption {
-      type = types.str;
-      default = "5000";
+      type = types.ints.unsigned;
+      default = 5000;
       description = "How many kelvins do you want when working the day ? The lower, the more red.";
     };
 
     nightColour = mkOption {
-      type = types.str;
-      default = "3000";
+      type = types.ints.unsigned;
+      default = 3000;
       description = "How many kelvins do you want when working late ? The lower, the more red thus the better it is for your eyes.";
     };
   };
@@ -46,9 +46,9 @@ in {
           dayTime = time.strftime("%d-%m-%y", time.localtime(time.time()))
           thresholdDate = time.strptime(dayTime+' '+thresholdTime, "%d-%m-%y %H:%M:%S")
           if thresholdDate>time.localtime(time.time()):
-            call(["redshift", "-P", "-O", "${cfg.lightColour}"])
+            call(["redshift", "-P", "-O", "${toString cfg.lightColour}"])
           else:
-            call(["redshift", "-P", "-O", "${cfg.nightColour}"])
+            call(["redshift", "-P", "-O", "${toString cfg.nightColour}"])
         '';
         executable = true;
       };
@@ -62,7 +62,7 @@ in {
         Service = {
           Type = "oneshot";
           # Environment = [ "\"PATH=${pkgs.coreutils}/bin\"" ];
-          ExecStart = "${pkgs.redshift}/bin/redshift -P -O "+cfg.nightColour;
+          ExecStart = "${pkgs.redshift}/bin/redshift -P -O " + toString cfg.nightColour;
         };
       };
     }

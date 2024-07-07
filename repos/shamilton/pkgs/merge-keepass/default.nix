@@ -5,16 +5,17 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "merge-keepass";
-  version = "unstable";
+  version = "2023-07-11";
 
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "merge-keepass";
-    rev = "ff314141625a558db1e6c91eadc77d0b780f4b61";
-    sha256 = "06yaxx5vvrm36kz6474da8n7a60cgpgwzkj7pp4pm6x2hn3pr6d7";
+    rev = "a3681fc3ee9e4ec59bbbacd447672f9f9115103e";
+    sha256 = "sha256-YS1OXxigl+ijtw31MLAp0oKxTEC+7q+3NnKZlQDEvn8=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ pykeepass click ];
+  nativeBuildInputs = with python3Packages; [ pytest ];
+  propagatedBuildInputs = with python3Packages; [ pykeepass click dateutils ];
   checkInputs = with python3Packages; [ pytest ];
 
   checkPhase = ''
@@ -25,6 +26,7 @@ python3Packages.buildPythonPackage rec {
 
   meta = with lib; {
     description = "Keepass Databases Merging script";
+    homepage = "http://github.com/SCOTT-HAMILTON/merge-keepass";
     license = licenses.mit;
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;

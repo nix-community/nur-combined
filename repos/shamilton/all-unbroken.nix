@@ -9,4 +9,4 @@ let
   onlyDerivations = attrs:
     lib.filterAttrs (n: v: lib.isDerivation v) attrs;
 in 
-lib.attrValues (onlyUnbroken (onlyDerivations shamilton))
+(onlyUnbroken (onlyDerivations shamilton))

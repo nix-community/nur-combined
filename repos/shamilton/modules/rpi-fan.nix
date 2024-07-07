@@ -62,15 +62,15 @@ in
     };
     services.logrotate = {
       enable = true;
-      paths = {
-        rpi-fan = {
-          path = "/var/log/rpi-fan/rpi-fan.log";
-          user = cfg.logUser;
-          group = cfg.logGroup;
-          frequency = "daily";
-          keep = 7;
-        };
-      };
+      extraConfig = ''
+        "${cfg.logFile}" {
+          su ${cfg.logUser} ${cfg.logGroup}
+          daily
+          rotate 7
+          missingok
+          notifempty
+        }
+      '';
     };
   };
 }

@@ -24,7 +24,8 @@ python3Packages.buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Keepass Databases Merging script";
+    description = "Converts an ODF school timetable to a c++ header to use with the omega agenda app (for numworks calculators)";
+    homepage = "https://github.com/SCOTT-HAMILTON/TimeTable2Header";
     license = licenses.mit;
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;

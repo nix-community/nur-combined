@@ -28,7 +28,7 @@ in {
     };
   };
 
-  config = {
+  config = mkIf cfg.enable {
     systemd.services.create-ap = {
       wantedBy = [ "multi-user.target" ];
       description = "Create AP Service";

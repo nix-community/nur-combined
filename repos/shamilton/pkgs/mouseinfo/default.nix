@@ -6,13 +6,13 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "MouseInfo";
-  version = "unstable";
+  version = "2023-05-05";
 
   src = fetchFromGitHub {
     owner = "asweigart";
     repo = "mouseinfo";
-    rev = "a323c0e7253e01366f12d023cb5e481c5a08eb5c";
-    sha256 = "0r6mngbapiccgpm8axbh8m9c5bv0chhf3r4700hddrgxrwyi3909";
+    rev = "23791fad3347efef405e1bbe65809a6394b1677d";
+    sha256 = "sha256-A1RN6aczG1c0jb1sMalGmJoZ/A4I1sHunlVcfym7o0c=";
   };
 
   propagatedBuildInputs = with python3Packages; [
@@ -22,17 +22,11 @@ python3Packages.buildPythonApplication rec {
     setuptools
   ];
 
-  # preBuild = ''
-  #   export PYTHONPATH=$PYTHONPATH:${makePythonPath propagatedBuildInputs}
-  # '';
-
   doCheck = false;
 
   meta = with lib; {
-    longDescription = ''
-      An application to display XY position and RGB color information for the
-      pixel currently under the mouse. Works on Python 2 and 3.
-    '';
+    description = "Displays XY position and RGB color under the mouse";
+    homepage = "https://github.com/asweigart/mouseinfo";
     license = licenses.gpl3;
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;

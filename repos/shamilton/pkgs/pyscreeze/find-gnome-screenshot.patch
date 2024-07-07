@@ -1,0 +1,35 @@
+diff --git a/pyscreeze/__init__.py b/pyscreeze/__init__.py
+index a8dd81a..0402558 100644
+--- a/pyscreeze/__init__.py
++++ b/pyscreeze/__init__.py
+@@ -11,6 +11,7 @@ import subprocess
+ import sys
+ import time
+ import errno
++import shutil
+ 
+ from contextlib import contextmanager
+ 
+@@ -62,17 +63,11 @@ GRAYSCALE_DEFAULT = True
+ USE_IMAGE_NOT_FOUND_EXCEPTION = False
+ 
+ GNOMESCREENSHOT_EXISTS = False
+-try:
+-    if sys.platform.startswith('linux'):
+-        whichProc = subprocess.Popen(['which', 'gnome-screenshot'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+-        GNOMESCREENSHOT_EXISTS = whichProc.wait() == 0
+-except OSError as ex:
+-    if ex.errno == errno.ENOENT:
+-        # if there is no "which" program to find gnome-screenshot, then assume there
+-        # is no gnome-screenshot.
+-        pass
+-    else:
+-        raise
++if shutil.which("gnome-screenshot"):
++    GNOMESCREENSHOT_EXISTS = True
++else:
++    result = subprocess.run("gnome-screenshot --version", capture_output=True, text=True)
++    raise Exception("shutil didn't find gnome-screenshot: {result.stdout}")
+ 
+ SCROT_EXISTS = False
+ try:

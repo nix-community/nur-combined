@@ -17,7 +17,7 @@ env:
   CACHIX_CACHE: scott-hamilton
   NIXPKGS_ALLOW_BROKEN: 0
   CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}
-  DEFAULT_NIX_CHANNEL: nixos-21.05
+  DEFAULT_NIX_CHANNEL: nixos-24.05
   # Allows you to run this workflow manually from the Actions tab
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -39,8 +39,10 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: master
-      - uses: cachix/install-nix-action@v12
-      - uses: cachix/cachix-action@v8
+      - uses: cachix/install-nix-action@v20
+        with:
+          extra_nix_config: "system-features = nixos-test benchmark big-parallel kvm"
+      - uses: cachix/cachix-action@v12
         with:
           name: '${{ env.CACHIX_CACHE }}'
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
@@ -54,18 +56,10 @@ jobs:
           else
             export NIX_PATH=nixpkgs=channel:${{ matrix.channel-branch }}
           fi
-          nix-build --argstr nixosVersion "${{ matrix.channel-branch }}" all-unbroken.nix --show-trace
-      - name: Save Build
-        if: always()
-        run: |
-          if [ "${{ matrix.channel-branch }}" = "master" ]; then
-            export NIX_PATH=nixpkgs=channel:${{ env.DEFAULT_NIX_CHANNEL }}
-          else
-            export NIX_PATH=nixpkgs=channel:${{ matrix.channel-branch }}
-          fi
-          # saving successful builds to the cache
-          nix-build --keep-going --argstr nixosVersion "${{ matrix.channel-branch }}" \
-                    all-unbroken.nix --show-trace | cachix push "${CACHIX_CACHE}"
+          nix-shell -p nix-eval-jobs --command 'CHANNEL_BRANCH="${{ matrix.channel-branch }}" ./scripts/build-ci.sh'
+          # if [ "${{ matrix.channel-branch }}" = "nixpkgs-unstable" ]; then
+          #   cachix watch-exec "${CACHIX_CACHE}" -- nix-build --argstr nixosVersion "${{ matrix.channel-branch }}" all-tests.nix --show-trace
+          # fi
       - name: Evaluations
         run: |
           if [ "${{ matrix.channel-branch }}" = "master" ]; then
@@ -78,10 +72,4 @@ jobs:
           nix eval --argstr nixosVersion "${{ matrix.channel-branch }}" -f default.nix 'overlays' --show-trace
       - name: Push
         run: |
-          if [ "${{ matrix.channel-branch }}" = "master" ]; then
-            export NIX_PATH=nixpkgs=channel:${{ env.DEFAULT_NIX_CHANNEL }}
-          else
-            export NIX_PATH=nixpkgs=channel:${{ matrix.channel-branch }}
-          fi
-          nix-build --argstr nixosVersion "${{ matrix.channel-branch }}" all-unbroken.nix | cachix push "${CACHIX_CACHE}"
           curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"

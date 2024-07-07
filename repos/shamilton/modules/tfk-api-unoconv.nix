@@ -27,6 +27,7 @@ in
       path = with pkgs; [ unoconv libreoffice-fresh ];
       environment = {
         PAYLOAD_MAX_SIZE = "${toString (cfg.maxPayloadSize*1048576)}";
+        SERVER_PORT = toString cfg.port;
       };
       serviceConfig = {
         Type = "simple";

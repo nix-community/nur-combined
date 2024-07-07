@@ -3,17 +3,26 @@
 , fetchFromGitHub
 , cmake
 }:
-stdenv.mkDerivation rec {
 
+stdenv.mkDerivation rec {
   pname = "argparse";
-  version = "2.1";
+  version = "3.0";
 
   src = fetchFromGitHub {
     owner = "p-ranav";
     repo = "argparse";
     rev = "v${version}";
-    sha256 = "09wp0i835g6a80w67a0qa2mlsn81m4661adlccyrkj7rby5hnz3c";
+    sha256 = "sha256-0fgMy7Q9BiQ/C1tmhuNpQgad8yzaLYxh5f6Ps38f2mk=";
   };
+
+  postPatch = ''
+    sed -i '/string(REPLACE/d' CMakeLists.txt
+    substituteInPlace 'CMakeLists.txt' \
+      --replace 'CMAKE_INSTALL_LIBDIR_ARCHIND' 'CMAKE_INSTALL_LIBDIR'
+    substituteInPlace 'packaging/pkgconfig.pc.in' \
+      --replace '@CMAKE_INSTALL_INCLUDEDIR@' \
+                'include'
+  '';
 
   nativeBuildInputs = [ cmake ];
 

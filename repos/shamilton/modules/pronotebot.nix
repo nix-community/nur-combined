@@ -1,5 +1,6 @@
 { config, lib, options,
-home, modulesPath, specialArgs
+home, modulesPath, specialArgs,
+...
 }:
 
 with lib;

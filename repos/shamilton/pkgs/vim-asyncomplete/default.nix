@@ -1,9 +1,9 @@
 { lib
-, buildVimPluginFrom2Nix
+, buildVimPlugin
 , fetchFromGitHub
 , coreutils
 }:
-buildVimPluginFrom2Nix rec {
+buildVimPlugin rec {
 
   pname = "vim-asyncomplete";
   version = "2.1.0";

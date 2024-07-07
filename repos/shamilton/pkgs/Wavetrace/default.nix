@@ -45,8 +45,9 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Pronote bot to open pronote or to open the physics and chemistry book at a specified page";
-    license = licenses.mit;
+    description = "Radio propagation modelling";
+    homepage = "https://github.com/NZRS/wavetrace";
+    license = licenses.agpl3Only;
     maintainers = [ "Scott Hamilton <sgn.hamilton+nixpkgs@protonmail.com>" ];
     platforms = platforms.linux;
   };

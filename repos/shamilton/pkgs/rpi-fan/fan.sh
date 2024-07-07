@@ -3,18 +3,7 @@
 # GLOBAL VARIABLES
 
 # Define min & max CPU temperature in Grad Celsius
-temp_min="@temp_min@"
 temp_max="@temp_max@"
-
-temp_delta=$(($temp_max - $temp_min))
-temp_delta_1_percent=$(bc <<< "scale=2 ; $temp_delta / 100")
-
-# Define min & max Fanspeed
-fan_min="@fan_min@"
-fan_max="@fan_max@"
-
-fan_delta=$(($fan_max - $fan_min))
-fan_delta_1_percent=$(bc <<< "scale=2 ; $fan_delta / 100")
 
 LOG_FILE=${LOG_FILE:=/var/log/rpi-fan/rpi-fan.log}
 LOG_FOLDER=${LOG_FILE%/*}
@@ -41,6 +30,7 @@ check_overlay
 # Main loop
 last_cpu_temp=-100
 last_level=0
+count=0
 while true
 do
 	check_overlay
@@ -56,39 +46,25 @@ do
 	# bringing CPU temperature in right format
 	cpu_temp_string="$(($cpu_temp/1000))°C"
 	cpu_temp=$(($cpu_temp/1000))
-	delta_cpu_temp=$(($cpu_temp - $temp_min))
 	delta_temp=$((cpu_temp-last_cpu_temp))
 	delta_temp=${delta_temp#-}
 
-	fan_speed_percent=$(bc <<< "scale=2 ; $delta_cpu_temp / $temp_delta_1_percent")
-
-	fan_speed=$(bc <<< "scale=0 ; ($fan_speed_percent * $fan_delta_1_percent + $fan_min) / 1")
-
-	if [ "$fan_speed" -gt "$fan_max" ];then
-		fan_speed=$fan_max
-	fi
-
-	if [ "$fan_speed" -lt "$fan_min" ];then
-		fan_speed=$fan_min
-	fi
-
 	level=0
-	if ((delta_temp >= 2)); then
-		echo "fan_speed : $fan_speed" >> $LOG_FILE
+	if ((delta_temp >= 3)); then
 		last_cpu_temp=$cpu_temp
-		if ((fan_speed >= 0 && fan_speed < 51)); then
+		if ((cpu_temp < 50)); then
 			level=0
 		fi
-		if ((fan_speed >= 51 && fan_speed < 102)); then
+		if ((cpu_temp >= 50 && cpu_temp < 60)); then
 			level=1
 		fi
-		if ((fan_speed >= 102 && fan_speed < 153)); then
+		if ((cpu_temp >= 60 && cpu_temp < 65)); then
 			level=2
 		fi
-		if ((fan_speed >= 153 && fan_speed < 204)); then
+		if ((cpu_temp >= 65 && cpu_temp < 70)); then
 			level=3
 		fi
-		if ((fan_speed >= 204)); then
+		if ((cpu_temp >= 70)); then
 			level=4
 		fi
 		last_level=$level
@@ -96,7 +72,11 @@ do
 	echo $last_level > /sys/class/thermal/cooling_device0/cur_state
 
 	# echo CPU status
-	echo "$(date '+%D %R') CPU $cpu_state with $cpu_temp_string, Δ$delta_temp°C, level is `cat /sys/class/thermal/cooling_device0/cur_state`." >> $LOG_FILE
+	count=$((count+1))
+	if [ $count -ge 30 ]; then
+		echo "$(date --iso-8601=s) CPU $cpu_state with $cpu_temp_string, Δ$delta_temp°C, level is `cat /sys/class/thermal/cooling_device0/cur_state`." >> $LOG_FILE
+		count=0
+	fi
 
 	sleep 3
 done

@@ -8,7 +8,12 @@ import sys
 def derivations_to_dataframe(derivations):
     new_dict = {'name':[], 'attribute path':[], 'description':[]}
     for drv in derivations:
-        new_dict['name'].append(drv['name'])
+        homepage = drv['homepage']
+        name = drv['name']
+        if homepage != "":
+            new_dict['name'].append(f"[{name}]({homepage})")
+        else:
+            new_dict['name'].append(name)
         new_dict['attribute path'].append(drv['attribute'])
         new_dict['description'].append(drv['description'].replace('\n', ' '))
     return DataFrame.from_dict(new_dict)
