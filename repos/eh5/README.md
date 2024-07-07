@@ -46,7 +46,6 @@ $ nix build github:EHfive/flakes#packages.aarch64-linux.ubootNanopiR2s
         eh5.nixosModules.default
         # or on demand
         #eh5.nixosModules.mosdns
-        #eh5.nixosModules.v2ray-next
         { pkgs, ... }: {
           nixpkgs.overlays = [
             # ...
@@ -68,50 +67,9 @@ $ nix build github:EHfive/flakes#packages.aarch64-linux.ubootNanopiR2s
 All packages in this repo are also re-exported into [github:nixos-cn/flakes](https://github.com/nixos-cn/flakes), you can install from it in same fashion as above.
 
 ```
-$ nix run github:nixos-cn/flakes#re-export.netease-cloud-music
+$ nix run github:nixos-cn/flakes#re-export.einat
 $ # or in full path
-$ nix run github:nixos-cn/flakes#legacyPackages.x86_64-linux.re-export.netease-cloud-music
+$ nix run github:nixos-cn/flakes#legacyPackages.x86_64-linux.re-export.einat
 ```
 
 </details>
-
-## packages
-
-### Base
-
-| Name                  | Description                                                | Platforms     |
-| --------------------- | ---------------------------------------------------------- | ------------- |
-| dovecot-fts-flatcurve | Dovecot FTS Flatcurve plugin (Xapian)                      | \*-linux      |
-| fake-hwclock          | Fake hardware clock                                        | \*            |
-| mosdns                | A DNS proxy                                                | \*            |
-| nix-gfx-mesa          | [nixGL](https://github.com/guibou/nixGL) but for Mesa only | \*            |
-| qcef                  | Qt5 binding of CEF                                         | x86_64-linux  |
-| stalwart-cli          | Stalwart JMAP server CLI                                   | \*            |
-| stalwart-imap         | Stalwart IMAP server (imap-to-jmap proxy)                  | \*            |
-| stalwart-jmap         | Stalwart JMAP server                                       | \*            |
-| ubootNanopiR2s        | U-Boot images for NanoPi R2S                               | aarch64-linux |
-
-### Extra
-
-| Name                          | Description                                                                                           | Platforms              |
-| ----------------------------- | ----------------------------------------------------------------------------------------------------- | ---------------------- |
-| sops-install-secrets-nonblock | sops-install-secrets but using non-blocking [getrandom(2)](https://man.archlinux.org/man/getrandom.2) | {x86_64,aarch64}-linux |
-
-## overlays
-
-### `.#overlays.default`
-
-Adds all base packages listed above.
-
-## nixosModules
-
-| Module                  | Description                                                                | Option                         |
-| ----------------------- | -------------------------------------------------------------------------- | ------------------------------ |
-| fake-hwclock            | Fake hardware clock service                                                | `services.fake-hwclock.enable` |
-| mosdns                  | mosdns service                                                             | `services.mosdns.*`            |
-| stalwart-jmap           | Stalwart JMAP server                                                       | `services.stalwart-jmap.*`     |
-| system-tarball-extlinux | `config.system.build.tarball` for systems using EXTLINUX style boot loader | `system.enableExtlinuxTarball` |
-| v2ray-rules-dat         | Auto update V2Ray rules dat                                                | `services.v2ray-rules-dat.*`   |
-| default                 | Imports all above modules                                                  |                                |
-
-Some of the modules requires some packages declared above, hence requiring `.#overlays.default` to be applied.
