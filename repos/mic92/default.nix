@@ -18,8 +18,6 @@ rec {
     fonts = [ "FiraCode" ];
   };
 
-  gatttool = pkgs.callPackage ./pkgs/gatttool { };
-
   gdb-dashboard = pkgs.callPackage ./pkgs/gdb-dashboard { };
 
   goatcounter = pkgs.callPackage ./pkgs/goatcounter { };
@@ -52,7 +50,7 @@ rec {
 
   rspamd-learn-spam-ham = pkgs.python3.pkgs.callPackage ./pkgs/rspam-learn-spam-ham { };
 
-  inherit (pkgs.callPackages ./pkgs/node-packages { }) speedscope reveal-md renovate;
+  inherit (pkgs.callPackages ./pkgs/node-packages { }) speedscope reveal-md;
 
   source-code-pro-nerdfonts = pkgs.nerdfonts.override {
     fonts = [ "SourceCodePro" ];

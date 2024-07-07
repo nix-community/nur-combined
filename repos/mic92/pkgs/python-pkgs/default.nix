@@ -1,14 +1,10 @@
 { callPackage }:
-rec {
+{
   chump = callPackage ./chump.nix { };
 
-  jupyterthemes = callPackage ./jupyterthemes.nix {
-    inherit lesscpy;
-  };
+  jupyterthemes = callPackage ./jupyterthemes.nix {};
 
   gatt = callPackage ./gatt.nix { };
-
-  lesscpy = callPackage ./lesscpy.nix { };
 
   pry = callPackage ./pry.nix { };
 
