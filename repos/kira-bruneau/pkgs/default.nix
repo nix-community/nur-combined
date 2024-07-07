@@ -107,7 +107,7 @@ in
 
   poke = callPackage ./applications/editors/poke { };
 
-  pokemmo-installer = callPackage ./games/pokemmo-installer { inherit (gnome) zenity; };
+  pokemmo-installer = callPackage ./games/pokemmo-installer { };
 
   protontricks = python3Packages.callPackage ./tools/package-management/protontricks {
     steam-run = steamPackages.steam-fhsenv-without-steam.run;
