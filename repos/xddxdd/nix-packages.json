@@ -481,8 +481,8 @@
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nginx": {
     "description": "OpenResty with Lan Tian modifications",
-    "pname": "nginx-lantian",
-    "version": "1.25.3.1"
+    "pname": "nginx-lantian-unstable",
+    "version": "2024-06-26"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.transmission-with-webui": {
     "description": "Fast, easy and free BitTorrent client",

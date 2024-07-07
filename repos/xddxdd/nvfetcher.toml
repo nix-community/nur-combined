@@ -363,10 +363,8 @@ src.git = "https://github.com/y1ndan/onepush.git"
 fetch.github = "y1ndan/onepush"
 
 [openresty]
-src.github = "openresty/openresty"
-src.from_pattern = "v(.*)"
-src.to_pattern = "\\1"
-fetch.url = "https://github.com/openresty/openresty/releases/download/v$ver/openresty-$ver.tar.gz"
+src.git = "https://github.com/openresty/openresty.git"
+fetch.github = "openresty/openresty"
 
 [openssl-oqs]
 src.git = "https://github.com/open-quantum-safe/openssl.git"

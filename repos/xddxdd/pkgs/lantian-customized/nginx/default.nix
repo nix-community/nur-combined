@@ -4,6 +4,7 @@
   stdenv,
   fetchurl,
   substituteAll,
+  callPackage,
   # nginx dependencies
   brotli,
   gd,
@@ -43,8 +44,8 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "nginx-lantian";
-  inherit (sources.openresty) version src;
-  nginxVersion = lib.versions.pad 3 version;
+  inherit (sources.openresty) version;
+  src = callPackage ./src.nix { inherit sources; };
 
   enableParallelBuilding = true;
 
@@ -90,7 +91,7 @@ stdenv.mkDerivation rec {
       chmod -R 755 .
       patchShebangs .
 
-      pushd bundle/nginx-${nginxVersion}
+      pushd bundle/nginx-1.*
       ${patch patchUseOpensslMd5Sha1}
       ${patch ./patches/nginx-plain.patch}
       ${patch ./patches/nginx-plain-proxy.patch}

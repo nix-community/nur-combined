@@ -936,11 +936,15 @@
   };
   openresty = {
     pname = "openresty";
-    version = "1.25.3.1";
-    src = fetchurl {
-      url = "https://github.com/openresty/openresty/releases/download/v1.25.3.1/openresty-1.25.3.1.tar.gz";
-      sha256 = "sha256-MuwaJTpaEyUDVaB1/mW31j7EXFYLviEzUPCZKlfNed8=";
+    version = "09efae3e6a51aa90228c58a179e7bbbdaf76ddf2";
+    src = fetchFromGitHub {
+      owner = "openresty";
+      repo = "openresty";
+      rev = "09efae3e6a51aa90228c58a179e7bbbdaf76ddf2";
+      fetchSubmodules = false;
+      sha256 = "sha256-Ec8jlWVitKeTeWUX3o69gN8koNoJBDM3qbblc6lEZb4=";
     };
+    date = "2024-06-26";
   };
   openssl-oqs = {
     pname = "openssl-oqs";
