@@ -3,7 +3,7 @@
 , fetchFromGitHub
 , pkg-config
 , rustfmt
-, clang
+, llvmPackages
 , elfutils
 , zlib
 , enableIpv6 ? false
@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [
     pkg-config
     rustfmt
-    clang
+    llvmPackages.clang-unwrapped
     rustPlatform.bindgenHook
     elfutils
     zlib
