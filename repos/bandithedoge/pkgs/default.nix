@@ -9,6 +9,7 @@
 
   packages = {
     basiliskii-bin = callPackage' ./basiliskii-bin;
+    bitdos-bin = callPackage' ./bitdos-bin;
     cardinal = callPackage' ./cardinal;
     cinelerra-gg-bin = callPackage' ./cinelerra-gg-bin;
     clap-info = callPackage' ./clap-info;

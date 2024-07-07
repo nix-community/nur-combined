@@ -4,8 +4,7 @@
   ...
 }:
 pkgs.rustPlatform.buildRustPackage {
-  inherit (sources.satty) pname src;
-  version = sources.satty.date;
+  inherit (sources.satty) pname version src;
   cargoLock = sources.satty.cargoLock."Cargo.lock";
 
   nativeBuildInputs = with pkgs; [

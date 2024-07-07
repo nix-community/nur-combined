@@ -1,4 +1,4 @@
 [satty]
-src.git = "https://github.com/gabm/Satty"
+src.github = "gabm/Satty"
 fetch.github = "gabm/Satty"
 cargo_locks = ["Cargo.lock"]

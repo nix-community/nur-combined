@@ -1,0 +1,3 @@
+[bitdos-bin]
+src.github = "astriiddev/BitDOS-VST"
+fetch.url = "https://github.com/astriiddev/BitDOS-VST/releases/download/$ver/BitDOS_linux_x86_64.7z"
