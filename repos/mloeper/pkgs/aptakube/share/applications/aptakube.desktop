@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=@version@
+Name=Aptakube
+Exec=@exec@
+StartupNotify=true
+Terminal=false
+Icon=@icon@
+Type=Application

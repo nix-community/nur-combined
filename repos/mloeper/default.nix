@@ -65,4 +65,5 @@ rec {
       jdk = pkgs.jetbrains.jdk;
     }).pycharm-professional;
   };
+  aptakube = pkgs.callPackage ./pkgs/aptakube { };
 }
