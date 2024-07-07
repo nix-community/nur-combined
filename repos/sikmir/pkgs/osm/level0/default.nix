@@ -1,35 +1,25 @@
 {
   lib,
-  stdenvNoCC,
   fetchFromGitHub,
+  php,
   conf ? null,
 }:
 
-stdenvNoCC.mkDerivation rec {
+php.buildComposerProject (finalAttrs: {
   pname = "level0";
-  version = "2021-06-08";
+  version = "2024-06-24";
 
   src = fetchFromGitHub {
     owner = "Zverik";
     repo = "Level0";
-    rev = "fa92855bce868bc7f5f8d3c1510985d97db1e3b8";
-    hash = "sha256-IendoFItO8w9z1HdDh9Z6vLvPrDRFRtYsLhOrIqDezM=";
+    rev = "390c8108c3cd7c7599129542ea48ed6f792213d1";
+    hash = "sha256-4gp3E4FdHAZX+PCi+v+f0cTVhB2MqkkIcGAQrXQqLZg=";
   };
 
-  postPatch = ''
-    substituteInPlace locales/deploy_locales \
-      --replace-fail "../www" "$out/www" \
-      --replace-fail "source " "#source "
-  '';
+  vendorHash = "sha256-+49ednqEuhTNO6t20SdkSYYSL9v8QNehxVWLgCuJWW0=";
 
   configFile = lib.optionalString (conf != null) (builtins.toFile "config.php" conf);
-  preBuild = lib.optionalString (conf != null) "cp ${configFile} www/config.php";
-
-  installPhase = ''
-    mkdir -p $out
-    cp -r www $out/www
-    (cd locales; ./deploy_locales)
-  '';
+  preBuild = lib.optionalString (conf != null) "cp ${finalAttrs.configFile} www/config.php";
 
   meta = {
     description = "Web-based OpenStreetMap Editor";
@@ -37,4 +27,4 @@ stdenvNoCC.mkDerivation rec {
     license = lib.licenses.wtfpl;
     maintainers = [ lib.maintainers.sikmir ];
   };
-}
+})

@@ -3,6 +3,8 @@
   stdenv,
   fetchFromSourcehut,
   installShellFiles,
+  hdf5,
+  libheif,
   libpng,
   libjpeg,
   libtiff,
@@ -14,18 +16,20 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "imscript";
-  version = "0-unstable-2024-05-21";
+  version = "0-unstable-2024-07-05";
 
   src = fetchFromSourcehut {
     owner = "~coco";
     repo = "imscript";
-    rev = "4471616ad570350c8b046d683c613178d949284e";
-    hash = "sha256-Dbtzaru63BXdi+1m0iKM0QGaunJB/52clgQOxVaJg60=";
+    rev = "b146c88ed05988e025ec10ff1e75471c57cd2542";
+    hash = "sha256-43jcjQJT/x3duP+uEUrhA/nTX+VHEDOoxtOPOqd78tQ=";
   };
 
   nativeBuildInputs = [ installShellFiles ];
 
   buildInputs = [
+    hdf5
+    libheif
     libpng
     libjpeg
     libtiff
