@@ -3,35 +3,38 @@
   stdenv,
   fetchFromGitHub,
   python3Packages,
+  pmtiles,
 }:
 
 python3Packages.buildPythonApplication rec {
   pname = "tilekiln";
-  version = "0.2.0";
+  version = "0.5.1";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "pnorman";
     repo = "tilekiln";
-    rev = version;
-    hash = "sha256-CLeZMfru8hnhotTAmdRc9hG473wD9gc4omD1G1XQkoQ=";
+    rev = "v${version}";
+    hash = "sha256-t/1oB0vMgbUEBDuwKeKoNwpAmCdqT3CR/M6p1lmurLk=";
   };
 
-  postPatch =
-    ''
-      sed -i '/setup_requires=/d' setup.py
-    ''
-    + lib.optionalString stdenv.isDarwin ''
-      sed -i 's/len(os.sched_getaffinity(0))/4/' tilekiln/scripts/__init__.py
-    '';
+  postPatch = lib.optionalString stdenv.isDarwin ''
+    sed -i 's/len(os.sched_getaffinity(0))/4/' tilekiln/scripts/{generate,serve}.py
+  '';
+
+  build-system = with python3Packages; [ hatchling hatch-vcs ];
 
   dependencies = with python3Packages; [
     click
-    pyyaml
+    fastapi
     fs
     jinja2
-    fastapi
+    pmtiles
+    prometheus_client
     psycopg
     psycopg.optional-dependencies.pool
+    pyyaml
+    tqdm
     uvicorn
   ];
 

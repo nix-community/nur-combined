@@ -101,9 +101,6 @@ lib.makeScope newScope (
     geotiler = callPackage ./development/python-modules/geotiler { };
     gpxelevations = callPackage ./development/python-modules/gpxelevations { };
     jsonseq = callPackage ./development/python-modules/jsonseq { };
-    large-image = callPackage ./development/python-modules/large-image { };
-    large-image-source-gdal =
-      (callPackage ./development/python-modules/large-image/sources.nix { }).source-gdal;
     modbus_tk = callPackage ./development/python-modules/modbus_tk {
       python3Packages = pkgs.python310Packages;
     };

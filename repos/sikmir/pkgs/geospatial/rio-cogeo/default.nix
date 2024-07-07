@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "rio-cogeo";
-  version = "5.3.2";
+  version = "5.3.3";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "cogeotiff";
     repo = "rio-cogeo";
     rev = version;
-    hash = "sha256-PzhUlip2LYO6DhC9O2aeoQGE59QXKq2e0v6/yxeFvjM=";
+    hash = "sha256-EV0bYS3uc1PtgW/inIQltss0sTYhS4MXirHqzIiuhZQ=";
   };
 
   build-system = with python3Packages; [ flit ];

@@ -10,13 +10,13 @@
 }:
 let
   pname = "titiler";
-  version = "0.18.1";
+  version = "0.18.5";
 
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "titiler";
     rev = version;
-    hash = "sha256-pKG2QTY49TJojxjfRFiRr/k/a+i12N2hIC0M5xOaP9w=";
+    hash = "sha256-9cQYj5Zfo5ZVlddNDvMmBmDD6m7dt6nPkhNQrMOO89g=";
   };
 
   meta = {
@@ -31,6 +31,10 @@ let
     pname = "${pname}.core";
     sourceRoot = "${src.name}/src/titiler/core";
     pyproject = true;
+
+    postPatch = ''
+      substituteInPlace pyproject.toml --replace "fastapi-slim>=0.111.0" "fastapi"
+    '';
 
     nativeBuildInputs = with python3Packages; [ pdm-pep517 ];
     dependencies = with python3Packages; [
