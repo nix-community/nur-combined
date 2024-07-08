@@ -2619,10 +2619,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.8";
+      version = "1.3.9";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4297783/faststream-1.3.8.xpi";
-      sha256 = "766fce4c66f0a4208d76abff57cce8d5546156ee044824d93ac3055d53e5e6a6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4315679/faststream-1.3.9.xpi";
+      sha256 = "c3552064531780b7f01a6230b1b0890e584803e54a645012e1a9f2dcac45aee3";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -3371,10 +3371,10 @@
     };
     "gitako-github-file-tree" = buildFirefoxXpiAddon {
       pname = "gitako-github-file-tree";
-      version = "3.12.0";
+      version = "3.12.1";
       addonId = "{983bd86b-9d6f-4394-92b8-63d844c4ce4c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4257370/gitako_github_file_tree-3.12.0.xpi";
-      sha256 = "ad4918d2cd55db59e03c888c5d78308637ed5913ae5b2232ee8fe07b8e07bce1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4315380/gitako_github_file_tree-3.12.1.xpi";
+      sha256 = "68bb06929b08d9c3aff55fdff411b4dc2f57e1752af358b018ab5003fbfeef69";
       meta = with lib;
       {
         homepage = "https://github.com/EnixCoda/Gitako";
@@ -5035,10 +5035,10 @@
     };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.1007";
+      version = "4.1071";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4308616/youtube_addon-4.1007.xpi";
-      sha256 = "76cb95e15ba6252d6a52a11e548147bf5907d51cbd63dd79045f38dc4813e567";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4313681/youtube_addon-4.1071.xpi";
+      sha256 = "f5ccddfed82676e79484a10aa89731b391b4348b5b9026dd6578865d888e4805";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
