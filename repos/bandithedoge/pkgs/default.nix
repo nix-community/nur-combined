@@ -24,6 +24,7 @@
     geonkick = callPackage' ./geonkick;
     giada = callPackage' ./giada;
     haskellPackages = callPackages ./haskellPackages;
+    hvcc = callPackage' ./hvcc;
     ildaeil = callPackage' ./ildaeil;
     keepmenu = callPackage' ./keepmenu;
     kiwmi = callPackage' ./kiwmi;

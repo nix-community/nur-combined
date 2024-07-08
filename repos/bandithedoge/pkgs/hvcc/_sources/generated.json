@@ -1,0 +1,43 @@
+{
+    "hvcc": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "hvcc",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Wasted-Audio",
+            "repo": "hvcc",
+            "rev": "v0.12.0",
+            "sha256": "sha256-7iivmozMcBJmeXg9erJl2IkzeP5/ykxNBR93ZZcQWzU=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.12.0"
+    },
+    "wstd2daisy": {
+        "cargoLocks": null,
+        "date": "2024-02-11",
+        "extract": null,
+        "name": "wstd2daisy",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "b3eb8104d5a48424e25dff5eec3aff603f425331",
+            "sha256": "sha256-eF4V55lJT045NFSPBq65LSgpzGB/kM2ko8OpYCgrOq4=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/Wasted-Audio/json2daisy"
+        },
+        "version": "b3eb8104d5a48424e25dff5eec3aff603f425331"
+    }
+}
