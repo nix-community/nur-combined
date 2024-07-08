@@ -15,11 +15,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "messenger-cli";
-  version = "0.2.0";
+  version = "0.3.0";
 
   src = fetchurl {
     url = "mirror://gnu/gnunet/messenger-cli-${finalAttrs.version}.tar.gz";
-    hash = "sha256-ZuGflZsMzPZ430boN/LKtEthayyyrxY0uIIWQasU7vY=";
+    hash = "sha256-FpZLJibjgZAAeqdQabgCYG0GRPERTAaZ4rjQ71o96nI=";
   };
 
   nativeBuildInputs = [

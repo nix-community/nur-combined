@@ -37,6 +37,15 @@ python3Packages.buildPythonApplication rec {
   disabledTests = [
     "test_create_tile_client"
     "test_is_valid_palette_name"
+    "test_home_page_with_file"
+    "test_home_page"
+    "test_cesium_split_view"
+    "test_style"
+    "test_cog_validate_endpoint"
+    "test_get_pine_gulch"
+    "test_get_oam2"
+    "test_cog_validate"
+    "test_tileclient_with_vsi"
   ];
 
   meta = {

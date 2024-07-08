@@ -25,11 +25,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "messenger-gtk";
-  version = "0.9.0";
+  version = "0.10.0";
 
   src = fetchurl {
     url = "mirror://gnu/gnunet/messenger-gtk-${finalAttrs.version}.tar.gz";
-    hash = "sha256-DqviYQ+zEy75mQEHKi90pkDgps4gM6YrjN9esrCmi0s=";
+    hash = "sha256-tyr909VUoB7gjKJglA94K3+nd0joCwL5Mqs/2MjE2pE=";
   };
 
   nativeBuildInputs = [
