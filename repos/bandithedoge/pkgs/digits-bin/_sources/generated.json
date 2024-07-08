@@ -1,0 +1,17 @@
+{
+    "digits-bin": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "digits-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-Toa9jvRrx6kghpb2zI9E6TcKtYLfvWQG9yFK+EyG1Jg=",
+            "type": "url",
+            "url": "http://www.extentofthejam.com/DigitsLinux_2_1.tar.gz"
+        },
+        "version": "2_1"
+    }
+}

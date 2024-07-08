@@ -14,6 +14,7 @@
     cinelerra-gg-bin = callPackage' ./cinelerra-gg-bin;
     clap-info = callPackage' ./clap-info;
     deemix-gui-bin = callPackage' ./deemix-gui-bin;
+    digits-bin = callPackage' ./digits-bin;
     distrho-ports = callPackage' ./distrho-ports;
     dpf-plugins = callPackage' ./dpf-plugins;
     emacsPackages = callPackages ./emacsPackages;
