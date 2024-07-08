@@ -19,6 +19,12 @@
   # “virt-manager: 2.2.1 -> 3.1.0”)
   #
   virt-manager-2 = pkgs.callPackage ./virt-manager-2.2.1.nix {
+    # virt-manager 2.2.1 is not compatible with Python >= 3.12 (it uses the
+    # obsolete `imp` module, which is no longer available).
+    python3Packages =
+      if lib.versionOlder (lib.getVersion pkgs.python3Packages.python) "3.12"
+      then pkgs.python3Packages
+      else pkgs.python311Packages;
     system-libvirt = pkgs.libvirt;
   };
 in
