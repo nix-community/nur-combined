@@ -12,6 +12,7 @@ buildGoModule rec {
   modRoot = "frontend";
 
   meta = with lib; {
+    mainProgram = "frontend";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint";
     homepage = "https://github.com/xddxdd/bird-lg-go";

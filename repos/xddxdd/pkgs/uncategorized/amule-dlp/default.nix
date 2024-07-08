@@ -9,6 +9,7 @@ amule.overrideAttrs (old: {
   patches = [ ];
 
   meta = old.meta // {
+    mainProgram = "amule";
     maintainers = with lib.maintainers; [ xddxdd ];
   };
 })

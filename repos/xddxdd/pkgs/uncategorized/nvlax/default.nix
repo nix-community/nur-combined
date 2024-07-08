@@ -108,6 +108,7 @@ stdenv.mkDerivation {
   ];
 
   meta = with lib; {
+    mainProgram = "nvlax_encode";
     maintainers = with lib.maintainers; [ xddxdd ];
     description =
       "Future-proof NvENC & NvFBC patcher"

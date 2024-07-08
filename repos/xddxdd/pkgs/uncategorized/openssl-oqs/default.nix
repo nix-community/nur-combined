@@ -135,6 +135,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
+    mainProgram = "openssl";
     maintainers = with lib.maintainers; [ xddxdd ];
     homepage = "https://www.openssl.org/";
     description = "A cryptographic library that implements the SSL and TLS protocols";

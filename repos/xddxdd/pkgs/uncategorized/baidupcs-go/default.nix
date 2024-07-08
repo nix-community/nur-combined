@@ -10,6 +10,7 @@ buildGoModule {
   doCheck = false;
 
   meta = with lib; {
+    mainProgram = "BaiduPCS-Go";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Baidu Netdisk commandline client, mimicking Linux shell file handling commands.";
     homepage = "https://github.com/qjfoidnh/BaiduPCS-Go";

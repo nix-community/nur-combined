@@ -24,6 +24,7 @@ rustPlatform.buildRustPackage {
   ];
 
   meta = with lib; {
+    mainProgram = "lyrica";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Linux desktop lyrics widget focused on simplicity and integration";
     homepage = "https://github.com/chiyuki0325/lyrica";

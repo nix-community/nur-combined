@@ -12,7 +12,7 @@
   cups,
   gdk-pixbuf,
   glib,
-  gnome,
+  gnome-themes-extra,
   gnome2,
   gtk2,
   libjpeg8,
@@ -43,7 +43,7 @@ let
     cups
     gdk-pixbuf
     glib
-    gnome.gnome-themes-extra
+    gnome-themes-extra
     gnome2.GConf
     gtk2
     libjpeg8

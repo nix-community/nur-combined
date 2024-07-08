@@ -44,6 +44,6 @@ python3Packages.buildPythonPackage {
     homepage = "https://github.com/runpod/runpod-python";
     license = licenses.mit;
     maintainers = with maintainers; [ xddxdd ];
-    mainProgram = "runpod-python";
+    mainProgram = "runpod";
   };
 }

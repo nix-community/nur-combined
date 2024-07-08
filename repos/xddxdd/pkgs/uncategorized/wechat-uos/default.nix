@@ -220,6 +220,7 @@ stdenv.mkDerivation {
   ];
 
   meta = with lib; {
+    mainProgram = "wechat-uos";
     maintainers = with lib.maintainers; [ xddxdd ];
     description =
       if enableSandbox then

@@ -11,6 +11,7 @@ googleearth-pro.overrideAttrs (old: {
     dpkg --fsys-tarfile $src | tar --extract -C deb
   '';
   meta = (builtins.removeAttrs old.meta [ "knownVulnerabilities" ]) // {
+    mainProgram = "googleearth-pro";
     maintainers = with lib.maintainers; [ xddxdd ];
     platforms = [ "x86_64-linux" ];
   };

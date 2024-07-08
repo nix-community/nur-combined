@@ -21,6 +21,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   meta = with lib; {
+    mainProgram = "genshinhelper";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "A Python library for miHoYo bbs and HoYoLAB Community.";
     homepage = "https://gitlab.com/y1ndan/genshinhelper2";

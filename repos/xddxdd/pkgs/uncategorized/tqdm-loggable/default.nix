@@ -16,6 +16,7 @@ python3Packages.buildPythonPackage {
   pythonImportsCheck = [ "tqdm_loggable" ];
 
   meta = with lib; {
+    mainProgram = "manual-tests";
     description = "TQDM progress bar helpers for logging and other headless application";
     homepage = "https://pypi.org/project/tqdm-loggable/";
     license = licenses.mit;

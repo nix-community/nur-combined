@@ -54,6 +54,7 @@ chromedriver.overrideAttrs (old: {
     '';
 
   meta = old.meta // {
+    mainProgram = "undetected_chromedriver";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Chromedriver with undetected-chromedriver patch";
   };

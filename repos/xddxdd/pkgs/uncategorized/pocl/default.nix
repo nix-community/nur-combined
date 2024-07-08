@@ -61,6 +61,7 @@ stdenv.mkDerivation {
   ];
 
   meta = with lib; {
+    mainProgram = "poclcc";
     description = "A portable open source (MIT-licensed) implementation of the OpenCL standard";
     homepage = "http://portablecl.org";
     license = licenses.mit;

@@ -9,7 +9,6 @@
   # Dependencies
   ffmpeg,
   glibc,
-  gnome,
   jq,
   lib,
   libmediainfo,
@@ -22,6 +21,7 @@
   vapoursynth,
   xdg-utils,
   xorg,
+  zenity,
   # MPV dependencies
   mpv-unwrapped,
   ...
@@ -51,7 +51,7 @@ let
     fakeLsof
     ffmpeg.bin
     glibc
-    gnome.zenity
+    zenity
     libmediainfo
     libsForQt5.qtbase
     libsForQt5.qtwayland
@@ -154,6 +154,7 @@ stdenv.mkDerivation {
   ];
 
   meta = with lib; {
+    mainProgram = "SVPManager";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player.";
     homepage = "https://www.svp-team.com/wiki/SVP:Linux";

@@ -1,11 +1,17 @@
 #!/usr/bin/env python
 import json
+import os
 import re
 import subprocess
 
 PLATFORMS = [
     "x86_64-linux",
     "aarch64-linux",
+]
+
+SKIP_BUILD = [
+    "deepspeech-gpu",
+    "deepspeech-wrappers",
 ]
 
 
@@ -27,6 +33,13 @@ def get_versions(platform: str) -> dict:
         stdout=subprocess.PIPE,
     )
     return json.loads(nix_output.stdout)
+
+
+def build_package(platform: str, package: str, output: str = "result") -> dict:
+    subprocess.run(
+        ["nix", "build", f".#legacyPackages.{platform}.{package}", "-o", output],
+        check=True,
+    )
 
 
 def verify_version(platform: str, name: str, version: str) -> bool:
@@ -74,6 +87,54 @@ def verify_package(platform: str, name: str, package: dict) -> bool:
     if not any([m.get("github") == "xddxdd" for m in package.get("maintainers", [])]):
         print(f"{platform}: {name}: xddxdd not in maintainers")
         valid = False
+
+    if not valid:
+        return valid
+
+    valid = validate_package_content(platform, name, package)
+    return valid
+
+
+def validate_package_content(platform: str, name: str, package: dict) -> bool:
+    if name in SKIP_BUILD:
+        return True
+
+    # Do not have compute power to build aarch64 packages
+    if platform != "x86_64-linux":
+        return True
+
+    if package.get("broken"):
+        return True
+
+    platforms = package.get("platforms")
+    if platforms and platform not in platforms:
+        return True
+
+    valid = True
+
+    try:
+        # print(f"{platform}: {name}: start build")
+        build_package(platform, name)
+    except Exception:
+        print(f"{platform}: {name}: package build failed")
+        valid = False
+
+    for file in os.listdir():
+        if not file.startswith("result"):
+            continue
+
+        main_program = package.get("mainProgram") or name
+        if os.path.exists(f"{file}/bin") and not os.path.exists(
+            f"{file}/bin/{main_program}"
+        ):
+            print(f"{platform}: {name}: main program {main_program} does not exist")
+            print(os.listdir(f"{file}/bin"))
+            valid = False
+
+    # Cleanup build results
+    for file in os.listdir():
+        if file.startswith("result"):
+            os.remove(file)
 
     return valid
 
