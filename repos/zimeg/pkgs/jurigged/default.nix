@@ -16,7 +16,7 @@ let
     };
 
     buildInputs = [
-      pkgs.python311Packages.poetry-core
+      pkgs.python3Packages.poetry-core
     ];
 
     meta = with lib; {
@@ -41,7 +41,7 @@ let
     };
 
     buildInputs = [
-      pkgs.python311Packages.poetry-core
+      pkgs.python3Packages.poetry-core
     ];
 
     meta = with lib; {

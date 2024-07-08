@@ -8,6 +8,7 @@ and are noted with a `!` in the message.
 
 ## Changes
 
+- fix(pkgs/jurigged): use the matching python version in build inputs 2024-07-07
 - feat(pkgs/jurigged): autoreload pythonic scripts fast and with heat 2024-07-07
 - ci(fix): push updates to the upstream cache from just macos runners 2024-06-29
 - docs: note the required steps for calling whole package derivations 2024-06-29
