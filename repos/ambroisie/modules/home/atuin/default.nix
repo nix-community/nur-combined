@@ -1,15 +1,19 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.my.home.atuin;
 in
 {
   options.my.home.atuin = with lib; {
     enable = my.mkDisableOption "atuin configuration";
+
+    # I want the full experience by default
+    package = mkPackageOption pkgs "atuin" { };
   };
 
   config = lib.mkIf cfg.enable {
     programs.atuin = {
       enable = true;
+      inherit (cfg) package;
 
       flags = [
         # I *despise* this hijacking of the up key, even though I use Ctrl-p

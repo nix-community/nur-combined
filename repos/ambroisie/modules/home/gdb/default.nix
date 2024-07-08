@@ -6,24 +6,19 @@ in
   options.my.home.gdb = with lib; {
     enable = my.mkDisableOption "gdb configuration";
 
+    package = mkPackageOption pkgs "gdb" { };
+
     rr = {
       enable = my.mkDisableOption "rr configuration";
 
-      package = mkOption {
-        type = types.package;
-        default = pkgs.rr;
-        defaultText = literalExample "pkgs.rr";
-        description = ''
-          Package providing rr
-        '';
-      };
+      package = mkPackageOption pkgs "rr" { };
     };
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
     {
       home.packages = with pkgs; [
-        gdb
+        cfg.package
       ];
 
       xdg = {

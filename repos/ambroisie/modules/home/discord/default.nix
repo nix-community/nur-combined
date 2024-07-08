@@ -7,11 +7,13 @@ in
 {
   options.my.home.discord = with lib; {
     enable = mkEnableOption "discord configuration";
+
+    package = mkPackageOption pkgs "discord" { };
   };
 
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
-      discord
+      cfg.package
     ];
 
     xdg.configFile."discord/settings.json".source =
