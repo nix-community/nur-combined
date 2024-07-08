@@ -16,16 +16,18 @@ in {
     hardware.sane.extraBackends = [cfg.package];
     sigprof.nixpkgs.permittedUnfreePackages = [
       "iscan"
+      "iscan-data"
+      "iscan-gt"
       "iscan-gt-f720-bundle"
-      "iscan-nt-bundle"
       "iscan-gt-s650-bundle"
       "iscan-gt-s80-bundle"
+      "iscan-gt-x750-bundle"
+      "iscan-gt-x770-bundle"
+      "iscan-gt-x820-bundle"
+      "iscan-nt-bundle"
+      "iscan-perfection-v550-bundle"
       "iscan-v330-bundle"
       "iscan-v370-bundle"
-      "iscan-gt-x820-bundle"
-      "iscan-gt-x770-bundle"
-      "iscan-gt-x750-bundle"
-      "iscan-data"
     ];
   };
 }
