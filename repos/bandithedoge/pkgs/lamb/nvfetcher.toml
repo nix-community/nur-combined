@@ -1,0 +1,5 @@
+[lamb]
+src.github = "magnetophon/lamb-rs"
+fetch.github = "magnetophon/lamb-rs"
+cargo_locks = ["Cargo.lock"]
+git.fetchSubmodules = true

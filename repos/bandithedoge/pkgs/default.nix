@@ -26,6 +26,7 @@
     ildaeil = callPackage' ./ildaeil;
     keepmenu = callPackage' ./keepmenu;
     kiwmi = callPackage' ./kiwmi;
+    lamb = callPackage' ./lamb;
     luaPackages = callPackages ./luaPackages;
     luakit = callPackage' ./luakit;
     lv2vst = callPackage' ./lv2vst;
