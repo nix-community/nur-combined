@@ -97,14 +97,6 @@ with final; {
   cubegui = final.callPackage ./pkgs/cubegui {inherit (final) cubelib;};
   arm-forge = libsForQt5.callPackage ./pkgs/arm-forge {};
 
-  datalad = builtins.trace "datalad: ${prev.datalad.version}" prev.datalad.overrideAttrs (o: {
-    patches =
-      (o.patches or [])
-      ++ [
-        ./pkgs/datalad-patool-de38d945c9d5bf9fd8f606d1dbeca472ce2bff27.patch
-      ];
-  });
-
   dwm = prev.dwm.override {
     patches = [
       ./pkgs/dwm/0001-dwm-pertag-20170513-ceac8c9.patch
