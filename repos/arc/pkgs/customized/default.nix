@@ -257,7 +257,9 @@ let
       inherit FindPythonInterpreter;
 
       meta = old.meta or { } // {
-        broken = old.meta.broken or false;
+        # TODO: fix!
+        #broken = old.meta.broken or false;
+        broken = true;
       };
 
       patches = [ ];
@@ -382,11 +384,14 @@ let
       ];
     });
 
-    electrum-cli = { lib, electrum, python3Packages }: let
-      electrum-cli = electrum.override { enableQt = false; };
+    electrum-cli = { lib, electrum, python3Packages, python311Packages ? python3Packages }: let
+      electrum-cli = electrum.override {
+        enableQt = false;
+        python3 = python311Packages.python;
+      };
     in electrum-cli.overridePythonAttrs (old: {
       propagatedBuildInputs = old.propagatedBuildInputs
-        ++ lib.optional (lib.versionOlder electrum.version "4.5.3") python3Packages.pyperclip;
+        ++ lib.optional (lib.versionOlder electrum.version "4.5.3") python311Packages.pyperclip;
 
       # work around nixpkgs breakage
       doCheck = false;
@@ -466,10 +471,11 @@ let
       patches = old.patches or [ ] ++ [ ./mpd_clientlib-buffer.patch ];
     });
 
-    qemu-vfio = { qemu, fetchpatch, lib, fetchurl, perl }: (qemu.override {
+    qemu-vfio = { qemu, fetchpatch, lib, fetchurl, perl, python311Packages ? pythonPackages, pythonPackages }: (qemu.override {
       gtkSupport = false;
       smartcardSupport = false;
       smbdSupport = true;
+      python3Packages = python311Packages;
       hostCpuTargets = [
         "${qemu.stdenv.hostPlatform.qemuArch}-softmmu"
         "aarch64-linux-user" "aarch64-softmmu"
