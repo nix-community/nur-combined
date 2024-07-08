@@ -1,4 +1,4 @@
 [satty]
 src.github = "gabm/Satty"
-fetch.github = "gabm/Satty"
+fetch.url = "https://github.com/gabm/Satty/archive/$ver.tar.gz"
 cargo_locks = ["Cargo.lock"]

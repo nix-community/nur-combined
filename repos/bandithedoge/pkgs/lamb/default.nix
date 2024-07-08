@@ -13,16 +13,16 @@ pkgs.rustPlatform.buildRustPackage {
   ];
 
   buildInputs = with pkgs; [
+    alsa-lib
     libGL
+    libjack2
     xorg.libX11
     xorg.libXcursor
     xorg.libxcb
     xorg.xcbutilwm
-    alsa-lib
-    libjack2
   ];
 
-  postBuild = ''
+  buildPhase = ''
     cargo xtask bundle lamb --release
   '';
 

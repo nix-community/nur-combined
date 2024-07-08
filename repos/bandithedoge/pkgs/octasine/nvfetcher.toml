@@ -1,4 +1,4 @@
 [octasine]
 src.github = "greatest-ape/OctaSine"
-fetch.github = "greatest-ape/OctaSine"
+fetch.url = "https://github.com/greatest-ape/OctaSine/archive/$ver.tar.gz"
 cargo_locks = ["Cargo.lock"]

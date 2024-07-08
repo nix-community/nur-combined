@@ -1,28 +1,22 @@
 {
-  "fennel-language-server": {
-    "cargoLocks": {
-      "Cargo.lock": [
-        "./fennel-language-server-59005549ca1191bf2aa364391e6bf2371889b4f8/Cargo.lock",
-        {}
-      ]
-    },
-    "date": "2023-06-29",
-    "extract": null,
-    "name": "fennel-language-server",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "owner": "rydesun",
-      "repo": "fennel-language-server",
-      "rev": "59005549ca1191bf2aa364391e6bf2371889b4f8",
-      "sha256": "sha256-pp1+lquYRFZLHvU9ArkdLY/kBsfaHoZ9x8wAbWpApck=",
-      "sparseCheckout": [],
-      "type": "github"
-    },
-    "version": "59005549ca1191bf2aa364391e6bf2371889b4f8"
-  }
+    "fennel-language-server": {
+        "cargoLocks": {
+            "Cargo.lock": [
+                "./fennel-language-server-59005549ca1191bf2aa364391e6bf2371889b4f8/Cargo.lock",
+                {}
+            ]
+        },
+        "date": "2023-06-29",
+        "extract": null,
+        "name": "fennel-language-server",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-rKp07bHlKHFiGKo3KlfkzLGGDEey9b+L/oRHq2IUpBg=",
+            "type": "url",
+            "url": "https://github.com/rydesun/fennel-language-server/archive/59005549ca1191bf2aa364391e6bf2371889b4f8.tar.gz"
+        },
+        "version": "59005549ca1191bf2aa364391e6bf2371889b4f8"
+    }
 }

@@ -1,4 +1,4 @@
 [fennel-language-server]
 src.git = "https://github.com/rydesun/fennel-language-server"
-fetch.github = "rydesun/fennel-language-server"
+fetch.url = "https://github.com/rydesun/fennel-language-server/archive/$ver.tar.gz"
 cargo_locks = ["Cargo.lock"]

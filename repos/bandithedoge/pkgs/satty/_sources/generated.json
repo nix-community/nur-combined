@@ -12,16 +12,10 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
             "name": null,
-            "owner": "gabm",
-            "repo": "Satty",
-            "rev": "v0.13.0",
-            "sha256": "sha256-sEAAK8WeDQrRY6IEaiQwsDdKXetjuMCjhElbM6S8vsA=",
-            "sparseCheckout": [],
-            "type": "github"
+            "sha256": "sha256-eQO5iGiUyGmDCJmU6au4ZK0siqzKAc9mqVNt5hmYIFI=",
+            "type": "url",
+            "url": "https://github.com/gabm/Satty/archive/v0.13.0.tar.gz"
         },
         "version": "v0.13.0"
     }

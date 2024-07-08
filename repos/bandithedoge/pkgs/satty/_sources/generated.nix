@@ -4,12 +4,9 @@
   satty = {
     pname = "satty";
     version = "v0.13.0";
-    src = fetchFromGitHub {
-      owner = "gabm";
-      repo = "Satty";
-      rev = "v0.13.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-sEAAK8WeDQrRY6IEaiQwsDdKXetjuMCjhElbM6S8vsA=";
+    src = fetchurl {
+      url = "https://github.com/gabm/Satty/archive/v0.13.0.tar.gz";
+      sha256 = "sha256-eQO5iGiUyGmDCJmU6au4ZK0siqzKAc9mqVNt5hmYIFI=";
     };
     cargoLock."Cargo.lock" = {
       lockFile = ./satty-v0.13.0/Cargo.lock;
