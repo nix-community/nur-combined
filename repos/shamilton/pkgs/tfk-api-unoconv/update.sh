@@ -1,5 +1,5 @@
 #! /usr/bin/env nix-shell
-#! nix-shell --pure -i bash -p nodejs_latest nodePackages.node2nix wget python3
+#! nix-shell -i bash -p nodejs_latest nodePackages.node2nix wget python3
 
 wget --no-check-certificate https://github.com/SCOTT-HAMILTON/tfk-api-unoconv/raw/master/package.json
 
@@ -20,7 +20,7 @@ python -c "$code"
 npm install
 rm -rf node_modules
 mv default.nix default.nix.save
-node2nix --nodejs-16 -l package-lock.json
+node2nix --nodejs-18 -l package-lock.json
 rm default.nix
 mv default.nix.save default.nix
 

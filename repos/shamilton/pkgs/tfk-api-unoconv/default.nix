@@ -5,7 +5,7 @@
     inherit system;
 },
 system ? builtins.currentSystem,
-nodejs ? pkgs."nodejs-14_x"
+nodejs ? pkgs."nodejs-18_x"
 }:
 
 let
@@ -24,14 +24,6 @@ in
 (import ./node-packages.nix {
   inherit (pkgs) fetchurl nix-gitignore stdenv lib fetchgit;
   inherit nodeEnv src;
-}).package.overrideAttrs (old: {
-  postInstall = ''
-    mkdir -p "$out/bin"
-    substituteInPlace "$out/lib/node_modules/tfk-api-unoconv/standalone.js" \
-      --replace '/usr/bin/env node' '${nodejs}/bin/node'
-    chmod +x "$out/lib/node_modules/tfk-api-unoconv/standalone.js"
-    ln -s "$out/lib/node_modules/tfk-api-unoconv/standalone.js" "$out/bin/tfk-api-unoconv"
-  '';
-})
+}).package
 
 

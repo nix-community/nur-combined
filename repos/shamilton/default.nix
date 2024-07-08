@@ -200,7 +200,7 @@ pkgs.lib.traceValFn (x:
   };
   tfk-api-unoconv = pkgs.callPackage ./pkgs/tfk-api-unoconv {
     inherit nixosVersion;
-    nodejs = pkgs."nodejs-16_x";
+    nodejs = pkgs."nodejs-18_x";
   };
   timetable2header = pkgs.callPackage ./pkgs/TimeTable2Header { };
   tg = pkgs.callPackage ./pkgs/tg  { };

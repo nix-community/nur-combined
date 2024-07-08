@@ -18,3 +18,5 @@ else
     echo "No new derivations to build, everything is up-to-date."
 fi
 rm -rf gcroot
+
+(nix-build --dry-run all-unbroken.nix 2>&1 | egrep -E 'these [0-9]{1,} derivations will be built:') && echo "Failed" && return 1
