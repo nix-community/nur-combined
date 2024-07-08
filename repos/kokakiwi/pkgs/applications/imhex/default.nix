@@ -1,6 +1,7 @@
 { lib, stdenv
 
 , fetchFromGitHub
+, autoPatchelfHook
 
 , cmake
 , llvm
@@ -13,6 +14,7 @@
 , gtk3
 , capstone
 , dbus
+, libGL
 , libGLU
 , glfw3
 , file
@@ -21,8 +23,23 @@
 , fmt_8
 , nlohmann_json
 , yara
+
+, libxkbcommon
+, libdecor
+, wayland
 }:
-stdenv.mkDerivation rec {
+let
+  glfw3-patched = glfw3.overrideAttrs (prev: {
+    postPatch = lib.optionalString stdenv.isLinux ''
+      substituteInPlace src/wl_init.c \
+        --replace-fail "libxkbcommon.so.0" "${lib.getLib libxkbcommon}/lib/libxkbcommon.so.0" \
+        --replace-fail "libdecor-0.so.0" "${lib.getLib libdecor}/lib/libdecor-0.so.0" \
+        --replace-fail "libwayland-client.so.0" "${lib.getLib wayland}/lib/libwayland-client.so.0" \
+        --replace-fail "libwayland-cursor.so.0" "${lib.getLib wayland}/lib/libwayland-cursor.so.0" \
+        --replace-fail "libwayland-egl.so.1" "${lib.getLib wayland}/lib/libwayland-egl.so.1"
+    '';
+  });
+in stdenv.mkDerivation rec {
   pname = "imhex";
   version = "1.35.3";
 
@@ -30,7 +47,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
     owner = "WerWolv";
     repo = "ImHex";
-    rev = "v${version}";
+    rev = "refs/tags/v${version}";
     hash = "sha256-8vhOOHfg4D9B9yYgnGZBpcjAjuL4M4oHHax9ad5PJtA=";
   };
 
@@ -43,7 +60,15 @@ stdenv.mkDerivation rec {
 
   outputs = [ "out" "sdk" ];
 
-  nativeBuildInputs = [ cmake llvm python3 perl pkg-config rsync ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    cmake
+    llvm
+    python3
+    perl
+    pkg-config
+    rsync
+  ];
 
   buildInputs = [
     capstone
@@ -51,7 +76,7 @@ stdenv.mkDerivation rec {
     dbus
     file
     fmt_8
-    glfw3
+    glfw3-patched
     gtk3
     jansson
     libGLU
@@ -68,6 +93,14 @@ stdenv.mkDerivation rec {
     "-DUSE_SYSTEM_LLVM=ON"
     "-DUSE_SYSTEM_NLOHMANN_JSON=ON"
     "-DUSE_SYSTEM_YARA=ON"
+  ];
+
+  autoPatchelfIgnoreMissingDeps = [
+    "*.hexpluglib"
+  ];
+  appendRunpaths = [
+    (lib.makeLibraryPath [ libGL ])
+    "${placeholder "out"}/lib/imhex/plugins"
   ];
 
   # rsync is used here so we can not copy the _schema.json files
