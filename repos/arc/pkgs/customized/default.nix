@@ -424,7 +424,11 @@ let
       doCheck = !hostPlatform.isDarwin;
     });
 
-    mpd-youtube-dl = { lib, mpd, fetchpatch, makeWrapper, youtube-dl }: mpd.overrideAttrs (old: let
+    youtube-dlp = { writeShellScriptBin, yt-dlp, lib }: writeShellScriptBin "youtube-dl" ''
+      exec ${lib.getExe yt-dlp} "$@"
+    '';
+
+    mpd-youtube-dl = { lib, mpd, fetchpatch, makeWrapper, writeShellScriptBin, youtube-dlp ? youtube-dl, youtube-dl ? null }: mpd.overrideAttrs (old: let
       patchVersion =
         if lib.versionOlder old.version "0.22" then "0.21.25"
         else if lib.versionOlder old.version "0.22.1" then "0.22"
@@ -454,7 +458,7 @@ let
 
       mesonFlags = old.mesonFlags ++ [ "-Dyoutube-dl=enabled" ];
       nativeBuildInputs = old.nativeBuildInputs ++ [ makeWrapper ];
-      depsPath = lib.makeBinPath [ youtube-dl ];
+      depsPath = lib.makeBinPath [ youtube-dlp ];
       postInstall = ''
         wrapProgram $out/bin/mpd --prefix PATH : $depsPath
       '';
