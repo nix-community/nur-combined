@@ -1036,6 +1036,69 @@
         },
         "version": "3.6.0"
     },
+    "kikoplay": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "kikoplay",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "KikoPlayProject",
+            "repo": "KikoPlay",
+            "rev": "1.0.3",
+            "sha256": "sha256-y+sT0aHDvKFNaJIxnGxDXZXUiCzuXVF7FPc8t//RMW4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "1.0.3"
+    },
+    "kikoplay-app": {
+        "cargoLocks": null,
+        "date": "2024-06-04",
+        "extract": null,
+        "name": "kikoplay-app",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "KikoPlayProject",
+            "repo": "KikoPlayApp",
+            "rev": "504e402573c47abf1a10fff60b54e9c7273e48b3",
+            "sha256": "sha256-TA4FC0SMk0b5Ibv78yRwBPZky0t8QC/ulTElia8ZzFM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "504e402573c47abf1a10fff60b54e9c7273e48b3"
+    },
+    "kikoplay-script": {
+        "cargoLocks": null,
+        "date": "2024-06-29",
+        "extract": null,
+        "name": "kikoplay-script",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "KikoPlayProject",
+            "repo": "KikoPlayScript",
+            "rev": "361aae4de60ab7636b3086d5ad2b7a63903a219b",
+            "sha256": "sha256-XLxnbhQoytDLE3dRFVxQtfFuTGQcqvYTBPzeqwTy5BQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "361aae4de60ab7636b3086d5ad2b7a63903a219b"
+    },
     "konnect": {
         "cargoLocks": null,
         "date": null,
@@ -2094,6 +2157,27 @@
             "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_9.0.1+ds-1_i386.deb"
         },
         "version": "9.0.1+ds-1"
+    },
+    "qhttpengine": {
+        "cargoLocks": null,
+        "date": "2018-03-22",
+        "extract": null,
+        "name": "qhttpengine",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "nitroshare",
+            "repo": "qhttpengine",
+            "rev": "43f55df51623621ed3efb4e42c7894586d988667",
+            "sha256": "sha256-XO56DUKyUIOhp+xpArMeoNHmlgAld9tUFMCY+tjyI4M=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "43f55df51623621ed3efb4e42c7894586d988667"
     },
     "qq-amd64": {
         "cargoLocks": null,
