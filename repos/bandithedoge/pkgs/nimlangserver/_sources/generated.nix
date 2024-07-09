@@ -63,17 +63,17 @@
   };
   json_serialization = {
     pname = "json_serialization";
-    version = "9cf79c034c411830174b5856deb933ee02bd0baa";
+    version = "89f7be1783b2f828a95dea1496fdac3510532997";
     src = fetchgit {
       url = "https://github.com/status-im/nim-json-serialization";
-      rev = "9cf79c034c411830174b5856deb933ee02bd0baa";
+      rev = "89f7be1783b2f828a95dea1496fdac3510532997";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [];
-      sha256 = "sha256-12qe70q6zGNAeyKIFN5wihcjjhO86ZW8F8ufHhaMDHU=";
+      sha256 = "sha256-ewh+xI67/mFAHfXved2j2eXN77QhpowdkawoKNnLqbI=";
     };
-    date = "2024-07-01";
+    date = "2024-07-03";
   };
   nimlangserver = {
     pname = "nimlangserver";

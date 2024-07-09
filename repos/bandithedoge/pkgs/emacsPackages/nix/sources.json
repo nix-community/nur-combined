@@ -41,10 +41,10 @@
     "homepage": null,
     "owner": "nemethf",
     "repo": "eglot-x",
-    "rev": "14aa967a431f0b4d4f9e787c98b208e28f488c0b",
-    "sha256": "0vdnzwlccx3zvjn8jic7n0n4g3c4ifibh0z0nk64a09v8hr2rbpx",
+    "rev": "ada0c9f32deac90038661f461966aae51707abff",
+    "sha256": "04qfbswxiw5418s0bh58nxprbzc3b23vi30dxg3jp781cn8ck6m9",
     "type": "tarball",
-    "url": "https://github.com/nemethf/eglot-x/archive/14aa967a431f0b4d4f9e787c98b208e28f488c0b.tar.gz",
+    "url": "https://github.com/nemethf/eglot-x/archive/ada0c9f32deac90038661f461966aae51707abff.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "eglot-yaml": {
@@ -77,10 +77,10 @@
     "homepage": "",
     "owner": "jdtsmith",
     "repo": "indent-bars",
-    "rev": "2d1d854ddaa5b0e19b69e73553675c2aaaed1641",
-    "sha256": "0h8njj8zvmlf62rng6sfrl86vc2rn2mmp8m72k3dg4hn70r8bjl1",
+    "rev": "756cfb0f55a6d0e3eccc6e12211aac922aa71a49",
+    "sha256": "1nn9cbip29xjkws8dabdhhk6j5qb2kqqyy3s4ypmqrw40mgywb43",
     "type": "tarball",
-    "url": "https://github.com/jdtsmith/indent-bars/archive/2d1d854ddaa5b0e19b69e73553675c2aaaed1641.tar.gz",
+    "url": "https://github.com/jdtsmith/indent-bars/archive/756cfb0f55a6d0e3eccc6e12211aac922aa71a49.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "on": {
@@ -125,10 +125,10 @@
     "homepage": "",
     "owner": "Fuco1",
     "repo": "smartparens",
-    "rev": "71eab0b1a92137453375590425378edc8748f4a7",
-    "sha256": "04lwj0qiihbh3vyaccp65q6000xhv5fnhnm8f2sc0yaxk0a8wc3g",
+    "rev": "ab475c78916d7b1666a495e3fe9c54b250195637",
+    "sha256": "0jd3296pkdajl57j4m5yak6xwf09mq4d1a03xilvhg4y4grha5ff",
     "type": "tarball",
-    "url": "https://github.com/Fuco1/smartparens/archive/71eab0b1a92137453375590425378edc8748f4a7.tar.gz",
+    "url": "https://github.com/Fuco1/smartparens/archive/ab475c78916d7b1666a495e3fe9c54b250195637.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   }
 }

@@ -126,13 +126,13 @@
         sha512 = "rB39LHWWPQYYlYfpv9qCoZOVioPCftKXXqrsyqN1mTWZM6dTnONT63Db+03vgrBbHzJN45IrgS/AGxw9iiqfEw==";
       };
     };
-    "acorn-8.12.0" = {
+    "acorn-8.12.1" = {
       name = "acorn";
       packageName = "acorn";
-      version = "8.12.0";
+      version = "8.12.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/acorn/-/acorn-8.12.0.tgz";
-        sha512 = "RTvkC4w+KNXrM39/lWCUaG0IbRkWdCv7W/IOW9oU6SawyxulvkQy5HQPVTKxEjczcUvapcrw3cFx/60VN/NRNw==";
+        url = "https://registry.npmjs.org/acorn/-/acorn-8.12.1.tgz";
+        sha512 = "tcpGyI9zbizT9JbV6oYE477V6mTlXvvi0T0G3SNIYE2apm/G5huBa1+K89VGeovbg+jycCrfhl3ADxErOuO6Jg==";
       };
     };
     "anymatch-3.1.3" = {
@@ -977,10 +977,10 @@ in {
   "@tailwindcss/language-server" = nodeEnv.buildNodePackage {
     name = "_at_tailwindcss_slash_language-server";
     packageName = "@tailwindcss/language-server";
-    version = "0.0.18";
+    version = "0.0.20";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@tailwindcss/language-server/-/language-server-0.0.18.tgz";
-      sha512 = "rUmbDLD6Iu5eUPabOI+qcr078B6tknQFv4XsD/NMPRpQ2XW8odIGdG8Df+Jt/OQ19LDsKlDsXYVaC902uqQcbA==";
+      url = "https://registry.npmjs.org/@tailwindcss/language-server/-/language-server-0.0.20.tgz";
+      sha512 = "T8ZkTj8CXgpdtR4bQ6c1UAKv1EvO1WmT8HCNxidCfNczYR+T4my0hiqMbnTyyGV1cBzsMxdAdZtiopRsaG7+hA==";
     };
     buildInputs = globalBuildInputs;
     meta = {
@@ -1044,7 +1044,7 @@ in {
       sources."@nodelib/fs.stat-2.0.5"
       sources."@nodelib/fs.walk-1.2.8"
       sources."@vscode/emmet-helper-2.9.3"
-      sources."acorn-8.12.0"
+      sources."acorn-8.12.1"
       sources."anymatch-3.1.3"
       sources."argparse-2.0.1"
       sources."binary-extensions-2.3.0"

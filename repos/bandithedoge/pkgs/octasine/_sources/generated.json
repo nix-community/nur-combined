@@ -1,27 +1,27 @@
 {
-    "octasine": {
-        "cargoLocks": {
-            "Cargo.lock": [
-                "./octasine-v0.9.1/Cargo.lock",
-                {
-                    "baseview-0.1.0": "sha256-QAkOTdA5krZPOUs7ExTVGfqK+sxG2A4H87GZgDl2LpU=",
-                    "iced_baseview-0.0.3": "sha256-BXGYNoRLZBE2DyJ/113u31ORxR2RrJ0A9fdKrhp3RiI=",
-                    "nih_plug_xtask-0.1.0": "sha256-9MXkZESUK/NbZqEpDI/myqhFu+sX72hSBz9685/SACM=",
-                    "reflink-0.1.3": "sha256-1o5d/mepjbDLuoZ2/49Bi6sFgVX4WdCuhGJkk8ulhcI="
-                }
-            ]
-        },
-        "date": null,
-        "extract": null,
-        "name": "octasine",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-tn/mGdeZtCAJVjBO3TvH8BlSMZ/LGhHAEJZi6yPiT3U=",
-            "type": "url",
-            "url": "https://github.com/greatest-ape/OctaSine/archive/v0.9.1.tar.gz"
-        },
-        "version": "v0.9.1"
-    }
+  "octasine": {
+    "cargoLocks": {
+      "Cargo.lock": [
+        "./octasine-v0.9.1/Cargo.lock",
+        {
+          "baseview-0.1.0": "sha256-QAkOTdA5krZPOUs7ExTVGfqK+sxG2A4H87GZgDl2LpU=",
+          "iced_baseview-0.0.3": "sha256-BXGYNoRLZBE2DyJ/113u31ORxR2RrJ0A9fdKrhp3RiI=",
+          "nih_plug_xtask-0.1.0": "sha256-9MXkZESUK/NbZqEpDI/myqhFu+sX72hSBz9685/SACM=",
+          "reflink-0.1.3": "sha256-1o5d/mepjbDLuoZ2/49Bi6sFgVX4WdCuhGJkk8ulhcI="
+        }
+      ]
+    },
+    "date": null,
+    "extract": null,
+    "name": "octasine",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-tn/mGdeZtCAJVjBO3TvH8BlSMZ/LGhHAEJZi6yPiT3U=",
+      "type": "url",
+      "url": "https://github.com/greatest-ape/OctaSine/archive/v0.9.1.tar.gz"
+    },
+    "version": "v0.9.1"
+  }
 }

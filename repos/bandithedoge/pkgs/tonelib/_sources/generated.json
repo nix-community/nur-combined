@@ -1,77 +1,77 @@
 {
-    "bassdrive": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "bassdrive",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-FybUm1iPCzqO1VMSvRCCUDa2+WO4+4UQ8p0Ab3RjHLc=",
-            "type": "url",
-            "url": "https://www.tonelib.net/download/ToneLib-BassDrive-amd64.deb"
-        },
-        "version": "1.5.0"
+  "bassdrive": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "bassdrive",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-FybUm1iPCzqO1VMSvRCCUDa2+WO4+4UQ8p0Ab3RjHLc=",
+      "type": "url",
+      "url": "https://www.tonelib.net/download/ToneLib-BassDrive-amd64.deb"
     },
-    "easycomp": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "easycomp",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-vGBruV8b3qJ1vNge/HtWPuYuLfYss3vSZfD6zXKH3Mo=",
-            "type": "url",
-            "url": "https://tonelib.net/download/ToneLib-EasyComp-amd64.deb"
-        },
-        "version": "2.0.0"
+    "version": "1.5.0"
+  },
+  "easycomp": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "easycomp",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-vGBruV8b3qJ1vNge/HtWPuYuLfYss3vSZfD6zXKH3Mo=",
+      "type": "url",
+      "url": "https://tonelib.net/download/ToneLib-EasyComp-amd64.deb"
     },
-    "noisereducer": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "noisereducer",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-XMEJS/m9Ofg8fD63prBoAcCE8F0qNpsCvDMHI4EfbL0=",
-            "type": "url",
-            "url": "https://www.tonelib.net/download/ToneLib-NoiseReducer-amd64.deb"
-        },
-        "version": "1.5.0"
+    "version": "2.0.0"
+  },
+  "noisereducer": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "noisereducer",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-XMEJS/m9Ofg8fD63prBoAcCE8F0qNpsCvDMHI4EfbL0=",
+      "type": "url",
+      "url": "https://www.tonelib.net/download/ToneLib-NoiseReducer-amd64.deb"
     },
-    "tubewarmth": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "tubewarmth",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-XBnyYoLCIE0hvQt91K3DHrjm4SkjzgwF3g4F5GBKZLg=",
-            "type": "url",
-            "url": "https://www.tonelib.net/download/ToneLib-TubeWarmth-amd64.deb"
-        },
-        "version": "1.5.0"
+    "version": "1.5.0"
+  },
+  "tubewarmth": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "tubewarmth",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-XBnyYoLCIE0hvQt91K3DHrjm4SkjzgwF3g4F5GBKZLg=",
+      "type": "url",
+      "url": "https://www.tonelib.net/download/ToneLib-TubeWarmth-amd64.deb"
     },
-    "zoom": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "zoom",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-4q2vM0/q7o/FracnO2xxnr27opqfVQoN7fsqTD9Tr/c=",
-            "type": "url",
-            "url": "https://www.tonelib.net/download/ToneLib-Zoom-amd64.deb"
-        },
-        "version": "4.3.1"
-    }
+    "version": "1.5.0"
+  },
+  "zoom": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "zoom",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-4q2vM0/q7o/FracnO2xxnr27opqfVQoN7fsqTD9Tr/c=",
+      "type": "url",
+      "url": "https://www.tonelib.net/download/ToneLib-Zoom-amd64.deb"
+    },
+    "version": "4.3.1"
+  }
 }
