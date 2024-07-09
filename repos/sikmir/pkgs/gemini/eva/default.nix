@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [
     gtk4
     openssl
-  ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameforks.Security;
+  ] ++ lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
 
   meta = {
     description = "Gemini protocol browser written in Rust using the gtk+ toolkit";

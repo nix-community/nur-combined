@@ -356,7 +356,7 @@ lib.makeScope newScope (
     mjs = callPackage ./misc/mjs { };
     modbus-tools = callPackage ./misc/modbus-tools { };
     modbus_sim_cli = callPackage ./misc/modbus_sim_cli { python3Packages = pkgs.python310Packages; };
-    morse-talk = callPackage ./misc/morse-talk { };
+    morse-talk = callPackage ./misc/morse-talk { python3Packages = pkgs.python311Packages; };
     musig = callPackage ./misc/musig { };
     mysql-to-sqlite3 = callPackage ./misc/mysql-to-sqlite3 { };
     nanodns = callPackage ./misc/nanodns { };
@@ -384,7 +384,6 @@ lib.makeScope newScope (
     shellprof = callPackage ./misc/shellprof { };
     socketcand = callPackage ./misc/socketcand { };
     subprocess = callPackage ./misc/subprocess { };
-    tabiew = callPackage ./misc/tabiew { };
     tcvt = callPackage ./misc/tcvt { };
     telegabber = callPackage ./misc/telegabber { };
     telegram-send = callPackage ./misc/telegram-send { };
