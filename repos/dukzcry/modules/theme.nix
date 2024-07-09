@@ -41,7 +41,7 @@ let
     cursor-size = gvariant.mkInt32 cfg.cursorSize;
   };
   breezeAttrs = {
-    gtk-theme = cfg.theme;
+    gtk-theme = "Breeze";
     font-name = cfg.font;
     cursor-theme = "breeze_cursors";
     icon-theme = "breeze";
