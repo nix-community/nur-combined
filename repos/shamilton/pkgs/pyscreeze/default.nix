@@ -5,11 +5,16 @@
 , scrot
 , gnome-screenshot
 , which
-, nix-gitignore
+, util-linux
+, xorg
 }:
-
+let
+  xlib-fixed = python3Packages.xlib.override {
+    nose = python3Packages.pynose;
+  };
+in
 python3Packages.buildPythonPackage rec {
-  pname = "PyScreeze";
+  pname = "PyScreeze-fixed";
   version = "2023-06-14";
 
   src = fetchFromGitHub {
@@ -25,7 +30,7 @@ python3Packages.buildPythonPackage rec {
   propagatedBuildInputs = with python3Packages; [
     pillow
   ];
-  checkInputs = with python3Packages; [ pytest xlib scrot pillow gnome-screenshot which ];
+  checkInputs = with python3Packages; [ pytest xlib-fixed scrot pillow gnome-screenshot which ];
 
   doCheck = true;
   checkPhase = ''

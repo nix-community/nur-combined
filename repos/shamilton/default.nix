@@ -128,7 +128,7 @@ pkgs.lib.traceValFn (x:
   };
   python3-xlib = pkgs.callPackage ./pkgs/python3-xlib { };
   pyrect = pkgs.callPackage ./pkgs/pyrect { };
-  pyscreeze = pkgs.callPackage ./pkgs/pyscreeze { inherit (pkgs.gnome) gnome-screenshot; };
+  pyscreeze = pkgs.callPackage ./pkgs/pyscreeze { };
   pytweening = pkgs.callPackage ./pkgs/pytweening { };
   pymecavideo = pkgs.callPackage ./pkgs/pymecavideo {
     inherit (pkgs.qt6) qttools wrapQtAppsHook;
