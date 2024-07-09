@@ -1,0 +1,13 @@
+# Nix
+result
+result-*
+
+# Update script
+update-git-commits.txt
+*.log
+
+# Direnv
+.direnv
+
+# Pre Commit Hooks
+.pre-commit-config.yaml
