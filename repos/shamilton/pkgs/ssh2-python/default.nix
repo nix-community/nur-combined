@@ -12,6 +12,8 @@ python3Packages.buildPythonPackage rec {
     inherit pname version;
     sha256 = "sha256-r4noDDID54KbJO6miOr1xeJ5BxrtGIIji09E7CFE58U=";
   };
+
+  patches = [ ./fix-versioneer.patch ];
   
   nativeBuildInputs = with python3Packages; [ cmake setuptools ];
   buildInputs = [ openssl zlib ];

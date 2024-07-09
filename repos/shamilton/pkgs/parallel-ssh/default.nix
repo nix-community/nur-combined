@@ -12,6 +12,8 @@ python3Packages.buildPythonPackage rec {
     inherit pname version;
     sha256 = "sha256-viwG7odlJz0gTgD4Kvri2s5e6678U0PR38ZFE2QhYeA=";
   };
+
+  patches = [ ./fix-versioneer.patch ];
   
   propagatedBuildInputs = with python3Packages; [
     gevent
