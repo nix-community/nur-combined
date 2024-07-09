@@ -4,14 +4,9 @@
   onagre = {
     pname = "onagre";
     version = "543f1fe827f4b16408cdcc07c19fb839741ca0f5";
-    src = fetchgit {
-      url = "https://github.com/onagre-launcher/onagre";
-      rev = "543f1fe827f4b16408cdcc07c19fb839741ca0f5";
-      fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [ ];
-      sha256 = "sha256-ASeLvgj2RyhsZQtkUTYeA7jWyhbLg8yl6HbN2A/Sl2M=";
+    src = fetchurl {
+      url = "https://github.com/onagre-launcher/onagre/archive/543f1fe827f4b16408cdcc07c19fb839741ca0f5.tar.gz";
+      sha256 = "sha256-s4Mysu+w9PoCIliRB6dZ+5YhrB1wgVmpaIeJwO4oIPA=";
     };
     cargoLock."Cargo.lock" = {
       lockFile = ./onagre-543f1fe827f4b16408cdcc07c19fb839741ca0f5/Cargo.lock;

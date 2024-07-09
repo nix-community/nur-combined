@@ -12,15 +12,10 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
             "name": null,
-            "rev": "543f1fe827f4b16408cdcc07c19fb839741ca0f5",
-            "sha256": "sha256-ASeLvgj2RyhsZQtkUTYeA7jWyhbLg8yl6HbN2A/Sl2M=",
-            "sparseCheckout": [],
-            "type": "git",
-            "url": "https://github.com/onagre-launcher/onagre"
+            "sha256": "sha256-s4Mysu+w9PoCIliRB6dZ+5YhrB1wgVmpaIeJwO4oIPA=",
+            "type": "url",
+            "url": "https://github.com/onagre-launcher/onagre/archive/543f1fe827f4b16408cdcc07c19fb839741ca0f5.tar.gz"
         },
         "version": "543f1fe827f4b16408cdcc07c19fb839741ca0f5"
     }
