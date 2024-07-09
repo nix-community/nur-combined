@@ -87,7 +87,7 @@
     config = if baseConfig != null then
       baseConfig
       // configs.${name} or { }
-      // lib.optionalAttrs (src ? rev && lib.hasPrefix "v" src.rev) {
+      // lib.optionalAttrs (src ? rev && lib.hasPrefix "v" (lib.removePrefix "refs/tags/" src.rev)) {
         prefix = "v";
       }
       // lib.optionalAttrs (!includePrereleases) {
