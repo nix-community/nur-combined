@@ -282,6 +282,8 @@ rec {
   };
   pyzo = pkgs.callPackage ./pkgs/pyzo {
     shellPython = self.mypython;
+    python3 = pkgs.python311;
+    python3Packages = pkgs.python311Packages;
   };
 } //
 # Derivations not supported on NUR
