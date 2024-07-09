@@ -183,15 +183,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "ca45187df94af6f6f68ee51cbf7adbcdd509c6d6";
+    version = "5ff0d450bd3c9d6d0f6facaa1357797be1fcf5e4";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "ca45187df94af6f6f68ee51cbf7adbcdd509c6d6";
+      rev = "5ff0d450bd3c9d6d0f6facaa1357797be1fcf5e4";
       fetchSubmodules = false;
-      sha256 = "sha256-mPZPwUSNeY7+PPFtNV9JJojeAqgUydUyrwB+lRGUFLs=";
+      sha256 = "sha256-pTdpeiP+9Y1NrDhxt5qcWrTb2IdGDBIsDPSD4qr4WHc=";
     };
-    date = "2024-07-05";
+    date = "2024-07-09";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -768,24 +768,24 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3342";
+    version = "b3347";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3342";
+      rev = "b3347";
       fetchSubmodules = false;
-      sha256 = "sha256-dMp3/B0gXT0WBZ/OxKoV8A2fLi/lRSrbZ1aVedgw+lI=";
+      sha256 = "sha256-ojRS+/ahJ3Y9ThYwyGMEHa6oHTEzN/BQvSkmuQI9+hA=";
     };
   };
   lyrica = {
     pname = "lyrica";
-    version = "v0.5";
+    version = "v0.7";
     src = fetchFromGitHub {
       owner = "chiyuki0325";
       repo = "lyrica";
-      rev = "v0.5";
+      rev = "v0.7";
       fetchSubmodules = false;
-      sha256 = "sha256-5AHZeSVIGQRlCE5T4cVyfRIqdRvVdSfTeJSaPGQuYNA=";
+      sha256 = "sha256-YcET6h1J6dc8VXKzccT4SThgRve7EpyuE6xa/wVTs5s=";
     };
   };
   nbfc-linux-lantian = {
@@ -971,15 +971,15 @@
   };
   openresty = {
     pname = "openresty";
-    version = "09efae3e6a51aa90228c58a179e7bbbdaf76ddf2";
+    version = "8b119bceb7288c15b8f6eabf38f00fda08f4ec47";
     src = fetchFromGitHub {
       owner = "openresty";
       repo = "openresty";
-      rev = "09efae3e6a51aa90228c58a179e7bbbdaf76ddf2";
+      rev = "8b119bceb7288c15b8f6eabf38f00fda08f4ec47";
       fetchSubmodules = false;
-      sha256 = "sha256-Ec8jlWVitKeTeWUX3o69gN8koNoJBDM3qbblc6lEZb4=";
+      sha256 = "sha256-tNd/+nsr/886+1ZP20yoVtBG3rhTc3LNV42KuPpxriA=";
     };
-    date = "2024-06-26";
+    date = "2024-07-09";
   };
   openssl-oqs = {
     pname = "openssl-oqs";

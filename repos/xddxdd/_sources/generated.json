@@ -328,7 +328,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-07-05",
+        "date": "2024-07-09",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -340,12 +340,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "ca45187df94af6f6f68ee51cbf7adbcdd509c6d6",
-            "sha256": "sha256-mPZPwUSNeY7+PPFtNV9JJojeAqgUydUyrwB+lRGUFLs=",
+            "rev": "5ff0d450bd3c9d6d0f6facaa1357797be1fcf5e4",
+            "sha256": "sha256-pTdpeiP+9Y1NrDhxt5qcWrTb2IdGDBIsDPSD4qr4WHc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ca45187df94af6f6f68ee51cbf7adbcdd509c6d6"
+        "version": "5ff0d450bd3c9d6d0f6facaa1357797be1fcf5e4"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1386,12 +1386,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3342",
-            "sha256": "sha256-dMp3/B0gXT0WBZ/OxKoV8A2fLi/lRSrbZ1aVedgw+lI=",
+            "rev": "b3347",
+            "sha256": "sha256-ojRS+/ahJ3Y9ThYwyGMEHa6oHTEzN/BQvSkmuQI9+hA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3342"
+        "version": "b3347"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -1407,12 +1407,12 @@
             "name": null,
             "owner": "chiyuki0325",
             "repo": "lyrica",
-            "rev": "v0.5",
-            "sha256": "sha256-5AHZeSVIGQRlCE5T4cVyfRIqdRvVdSfTeJSaPGQuYNA=",
+            "rev": "v0.7",
+            "sha256": "sha256-YcET6h1J6dc8VXKzccT4SThgRve7EpyuE6xa/wVTs5s=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.5"
+        "version": "v0.7"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -1740,7 +1740,7 @@
     },
     "openresty": {
         "cargoLocks": null,
-        "date": "2024-06-26",
+        "date": "2024-07-09",
         "extract": null,
         "name": "openresty",
         "passthru": null,
@@ -1752,12 +1752,12 @@
             "name": null,
             "owner": "openresty",
             "repo": "openresty",
-            "rev": "09efae3e6a51aa90228c58a179e7bbbdaf76ddf2",
-            "sha256": "sha256-Ec8jlWVitKeTeWUX3o69gN8koNoJBDM3qbblc6lEZb4=",
+            "rev": "8b119bceb7288c15b8f6eabf38f00fda08f4ec47",
+            "sha256": "sha256-tNd/+nsr/886+1ZP20yoVtBG3rhTc3LNV42KuPpxriA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "09efae3e6a51aa90228c58a179e7bbbdaf76ddf2"
+        "version": "8b119bceb7288c15b8f6eabf38f00fda08f4ec47"
     },
     "openssl-oqs": {
         "cargoLocks": null,
