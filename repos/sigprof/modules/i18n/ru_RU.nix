@@ -46,9 +46,9 @@ in {
     ];
 
     # Configure the X11 keymap.
-    services.xserver = mkIf config.services.xserver.enable {
+    services.xserver.xkb = mkIf config.services.xserver.enable {
       layout = "us,ru";
-      xkbOptions = "grp:shift_caps_switch,lv3:ralt_switch,grp_led:scroll,keypad:oss,kpdl:kposs,compose:menu,misc:typo,nbsp:level3n,shift:both_capslock";
+      options = "grp:shift_caps_switch,lv3:ralt_switch,grp_led:scroll,keypad:oss,kpdl:kposs,compose:menu,misc:typo,nbsp:level3n,shift:both_capslock";
     };
   };
 }
