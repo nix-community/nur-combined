@@ -1,5 +1,11 @@
 { packages }:
 {
   # Add your overlays here
-  nur-cryolitia = (final: prev: { nur-cryolitia = packages."${prev.system}"; });
+  nur-cryolitia = (
+    final: prev: {
+      nur-cryolitia = packages."${prev.system}" // {
+        pkgsStatic = packages."${prev.system}".pkgsStatic;
+      };
+    }
+  );
 }
