@@ -2067,10 +2067,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "128.0.20240704.121409";
+      version = "129.0.20240708.194140";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4314357/deutsch_de_language_pack-128.0.20240704.121409.xpi";
-      sha256 = "0b804f07c67329c5a680387782f3bc9ef15cf85930b4e4aea973ee6aceca1f89";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4316227/deutsch_de_language_pack-129.0.20240708.194140.xpi";
+      sha256 = "72abd36692d72786c1fcd250f2fd540cd93b6d0ae3496f2b68477ea50ea5b159";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3070,10 +3070,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "128.0.20240704.121409";
+      version = "129.0.20240708.194140";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4314333/francais_language_pack-128.0.20240704.121409.xpi";
-      sha256 = "75ba030445eae1e0c137c868903494987266b06631bddec3f8f09de346bc27a4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4316272/francais_language_pack-129.0.20240708.194140.xpi";
+      sha256 = "8ee9afc28590e7d649c84720c993b12e7e163619606ad6a4c2479273787fd8b9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -5514,10 +5514,10 @@
     };
     "jump-cutter" = buildFirefoxXpiAddon {
       pname = "jump-cutter";
-      version = "1.27.1";
+      version = "1.27.2";
       addonId = "jump-cutter@example.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4311895/jump_cutter-1.27.1.xpi";
-      sha256 = "8a4b68df1913b93efbda047b674965577585f89c5cb8d9d2982ed49a87d89dc9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4316171/jump_cutter-1.27.2.xpi";
+      sha256 = "7c5aeea47a852950a1184122a890b511d9ee426c969b2bd5fa048699da3c1273";
       meta = with lib;
       {
         description = "Watch lectures ~1.5x faster by fast-forwarding long pauses between sentences";
@@ -8139,10 +8139,10 @@
     };
     "polkadot-js" = buildFirefoxXpiAddon {
       pname = "polkadot-js";
-      version = "0.41.1";
+      version = "0.48.2";
       addonId = "{7e3ce1f0-15fb-4fb1-99c6-25774749ec6d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3865101/polkadot_js_extension-0.41.1.xpi";
-      sha256 = "8ddbe656dbbc11806b70fdf5b9faa4441524ddf5fb5a5b960cdbf377becf2256";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4313501/polkadot_js_extension-0.48.2.xpi";
+      sha256 = "15681f6b085235aab5769dc93335a51e713c2fd72985d9d9b143dd89fefd2563";
       meta = with lib;
       {
         homepage = "https://github.com/polkadot-js/extension";
@@ -12356,10 +12356,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.6.24.0";
+      version = "24.7.1.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4312273/yomitan-24.6.24.0.xpi";
-      sha256 = "b020904040c559d0d446806f85a7db5a3e24ea2b99f7d7877633a67635ff57a9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4315982/yomitan-24.7.1.0.xpi";
+      sha256 = "ccaad5c79f418d274b3ff3ec60eee7e203c305d4f5ce83ce286daf21c2c97a0c";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
