@@ -419,6 +419,7 @@ lib.makeScope newScope (
     mqtt-to-influxdb = callPackage ./mqtt/mqtt-to-influxdb { };
     mqtt-to-influxdb-forwarder = callPackage ./mqtt/mqtt-to-influxdb-forwarder { };
     nanosdk = callPackage ./mqtt/nanosdk { };
+    rmqtt = callPackage ./mqtt/rmqtt { };
     rumqtt = callPackage ./mqtt/rumqtt { };
 
     ### NAKARTE
