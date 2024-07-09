@@ -8,6 +8,7 @@
   callPackages = pkg: pkgs.lib.recurseIntoAttrs (callPackage' pkg);
 
   packages = {
+    airwindows-consolidated = callPackage' ./airwindows-consolidated;
     basiliskii-bin = callPackage' ./basiliskii-bin;
     bitdos-bin = callPackage' ./bitdos-bin;
     cardinal = callPackage' ./cardinal;

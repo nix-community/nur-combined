@@ -1,0 +1,13 @@
+[airwin2rack]
+src.git = "https://github.com/baconpaul/airwin2rack"
+fetch.git = "https://github.com/baconpaul/airwin2rack"
+git.fetchSubmodules = true
+
+[juce-7_0_12]
+src.manual = "7.0.12"
+fetch.github = "juce-framework/JUCE"
+
+[clap-juce-extensions]
+src.git = "https://github.com/free-audio/clap-juce-extensions"
+fetch.git = "https://github.com/free-audio/clap-juce-extensions"
+git.fetchSubmodules = true
