@@ -41,21 +41,21 @@ let
   });
 in stdenv.mkDerivation rec {
   pname = "imhex";
-  version = "1.35.3";
+  version = "1.35.4";
 
   src = fetchFromGitHub {
     fetchSubmodules = true;
     owner = "WerWolv";
     repo = "ImHex";
     rev = "refs/tags/v${version}";
-    hash = "sha256-8vhOOHfg4D9B9yYgnGZBpcjAjuL4M4oHHax9ad5PJtA=";
+    hash = "sha256-6QpmFkSMQpGlEzo7BHZn20c+q8CTDUB4yO87wMU5JT4=";
   };
 
   patterns = fetchFromGitHub {
     owner = "WerWolv";
     repo = "ImHex-Patterns";
     rev = "ImHex-v${version}";
-    hash = "sha256-h86qoFMSP9ehsXJXOccUK9Mfqe+DVObfSRT4TCtK0rY=";
+    hash = "sha256-7ch2KXkbkdRAvo3HyErWcth3kG4bzYvp9I5GZSsb/BQ=";
   };
 
   outputs = [ "out" "sdk" ];
