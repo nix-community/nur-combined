@@ -118,7 +118,10 @@
 
       nixosModules = import ./modules { inherit gpd-fan-driver; };
 
-      overlays = import ./overlays { inherit packages; };
+      overlays = import ./overlays {
+        inherit packages;
+        inherit legacyPackages;
+      };
 
       ciJobs = {
         cuda = lib.filterNurAttrs "x86_64-linux" (
