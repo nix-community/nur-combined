@@ -21,18 +21,6 @@
 }:
 let
   lib = pkgs.lib;
-  python_with_openpyxl305 = with pkgs; python3.override {
-    packageOverrides = with python3Packages; self: super: {
-      openpyxl = openpyxl.overrideAttrs (old: {
-        version = "3.0.5";
-        src = fetchPypi {
-          pname = "openpyxl";
-          version = "3.0.5";
-          sha256 = "06y7lbqnn0ga2x55az4hkqfs202fl6mkv3m5h0js2a01cnd1zq8q";
-        };
-      });
-    };
-  };
   kdeApplications = pkgs.libsForQt5.kdeApplications;
   # drogonNixPkgs = import (fetchTarball {
   #   url = "https://github.com/NixOS/NixPkgs/archive/cd0fa6156f486c583988d334202946ffa4b9ebe8.tar.gz";
@@ -106,7 +94,7 @@ pkgs.lib.traceValFn (x:
     inherit (self)ssh2-python;
   };
   pdf2timetable = pkgs.callPackage ./pkgs/Pdf2TimeTable {
-    inherit (python_with_openpyxl305.pkgs) buildPythonPackage numpy openpyxl pandas pypdf2 click;
+    inherit (pkgs.python3Packages) buildPythonPackage numpy openpyxl pandas pypdf2 click;
     inherit (self) tabula-py;
   };
   phidget22 = pkgs.callPackage ./pkgs/phidget22 { };
@@ -198,7 +186,7 @@ pkgs.lib.traceValFn (x:
     inherit (self) parallel-ssh merge-keepass;
   };
   tabula-py = pkgs.callPackage ./pkgs/tabula-py {
-    inherit (python_with_openpyxl305.pkgs) buildPythonPackage fetchPypi distro numpy pandas setuptools_scm setuptools;
+    inherit (pkgs.python3Packages) buildPythonPackage fetchPypi distro numpy pandas setuptools_scm setuptools;
   };
   tfk-api-unoconv = pkgs.callPackage ./pkgs/tfk-api-unoconv {
     inherit nixosVersion;

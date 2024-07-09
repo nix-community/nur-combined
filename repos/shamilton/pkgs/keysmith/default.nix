@@ -14,6 +14,7 @@
 , libsodium
 , kdbusaddons
 , kwindowsystem
+, pkg-config
 }:
 
 mkDerivation rec {
@@ -26,8 +27,7 @@ mkDerivation rec {
     rev = "v${version}";
     sha256 = "sha256-NE1dpxupUVOEOOVQKwKeltqjfFR3j7EbMIC16C7+9wc=";
   };
-
-  nativeBuildInputs = [ cmake extra-cmake-modules makeWrapper ];
+  nativeBuildInputs = [ cmake extra-cmake-modules makeWrapper pkg-config ];
   buildInputs = [
     libsodium
     ki18n
