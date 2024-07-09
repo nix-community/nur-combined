@@ -52,6 +52,7 @@
     treeSitterGrammars = callPackages ./treeSitterGrammars;
     vgmtrans = callPackage' ./vgmtrans;
     vimPlugins = callPackages ./vimPlugins;
+    waterfox-bin = callPackage' ./waterfox-bin;
     xplrPlugins = callPackages ./xplrPlugins;
     zrythm = callPackage' ./zrythm;
   };

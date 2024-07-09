@@ -1,0 +1,17 @@
+{
+  "waterfox-bin": {
+    "cargoLocks": null,
+    "date": null,
+    "extract": null,
+    "name": "waterfox-bin",
+    "passthru": null,
+    "pinned": false,
+    "src": {
+      "name": null,
+      "sha256": "sha256-aO2Zk9LxzliIWVm+meWKUMtzDteeX1NnjuU5tN4eX6g=",
+      "type": "url",
+      "url": "https://cdn1.waterfox.net/waterfox/releases/G6.0.17/Linux_x86_64/waterfox-G6.0.17.tar.bz2"
+    },
+    "version": "G6.0.17"
+  }
+}
