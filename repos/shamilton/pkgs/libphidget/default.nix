@@ -10,7 +10,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://cdn.phidgets.com/downloads/phidget22/libraries/linux/libphidget22.tar.gz";
-    sha256 = "sha256-w4rVaLmwyw7H0cz+HrjrzXwWtPHhEaGxB87t68kdSNg=";
+    sha256 = "sha256-mDoYVs0LhBb3+vzKjzYr9EmcrztmA4cy9xh5ONxHaxI=";
   };
 
   nativeBuildInputs = [ pkg-config ];

@@ -5,16 +5,17 @@
 , scrot
 , gnome-screenshot
 , which
+, nixosVersion
 , util-linux
 , xorg
 }:
 let
-  xlib-fixed = python3Packages.xlib.override {
+  xlib-fixed = if nixosVersion == "master" then  python3Packages.xlib.override {
     nose = python3Packages.pynose;
-  };
+  } else python3Packages.xlib;
 in
 python3Packages.buildPythonPackage rec {
-  pname = "PyScreeze-fixed";
+  pname = "PyScreeze";
   version = "2023-06-14";
 
   src = fetchFromGitHub {

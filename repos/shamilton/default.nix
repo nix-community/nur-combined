@@ -128,7 +128,9 @@ pkgs.lib.traceValFn (x:
   };
   python3-xlib = pkgs.callPackage ./pkgs/python3-xlib { };
   pyrect = pkgs.callPackage ./pkgs/pyrect { };
-  pyscreeze = pkgs.callPackage ./pkgs/pyscreeze { };
+  pyscreeze = pkgs.callPackage ./pkgs/pyscreeze ((
+    if nixosVersion == "master" then  { inherit (pkgs.gnome) gnome-screenshot; } else {}
+  ) // { inherit nixosVersion; });
   pytweening = pkgs.callPackage ./pkgs/pytweening { };
   pymecavideo = pkgs.callPackage ./pkgs/pymecavideo {
     inherit (pkgs.qt6) qttools wrapQtAppsHook;
@@ -292,7 +294,6 @@ rec {
   };
   pyzo = pkgs.callPackage ./pkgs/pyzo {
     shellPython = self.mypython;
-    python3Packages = pkgs.python311Packages;
   };
 } //
 # Derivations not supported on NUR
