@@ -13,4 +13,6 @@ with pkgs;
   mkxp-z = callPackage ./mkxp-z { };
 
   rgssad = callPackage ./rgssad { };
+
+  xonsh-direnv = callPackage ./xonsh-direnv { };
 }
