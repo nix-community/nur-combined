@@ -55,19 +55,19 @@ let
       "--without-gmp"
     ];
   });
-  rev = "8fcd6dd6056ebeda6c90b594079025da273a81fb";
+  rev = "67b98534d729d8620f91c3a71da85c5815a98022";
   short-rev = builtins.substring 0 7 rev;
 in
 
 stdenv.mkDerivation {
   pname = "mkxp-z";
-  version = "2.4.2-unstable-2024-04-30";
+  version = "2.4.2-unstable-2024-07-03";
 
   src = fetchFromGitHub {
     inherit rev;
     owner = "mkxp-z";
     repo = "mkxp-z";
-    hash = "sha256-h55flvWrfwWuyiOV4KGhbrg1e6jyVzG32pIv+mK+p4E=";
+    hash = "sha256-zqGvrtHO3eFeQOGjcPIo4lLk+d7Z+j493y1mN+wvKuk=";
   };
 
   nativeBuildInputs = [
