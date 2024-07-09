@@ -180,7 +180,7 @@ pkgs.lib.traceValFn (x:
   smtprelay = pkgs.callPackage ./pkgs/smtprelay { inherit (pkgs) buildGoModule; };
   spectacle-clipboard = pkgs.libsForQt5.callPackage ./pkgs/spectacle-clipboard { };
   splat = pkgs.callPackage ./pkgs/splat { };
-  ssh-python = pkgs.callPackage ./pkgs/ssh-python { };
+  ssh-python = with pkgs.python310Packages; pkgs.callPackage ./pkgs/ssh-python { python3Packages = pkgs.python310Packages; inherit pythonAtLeast; };
   ssh2-python = pkgs.callPackage ./pkgs/ssh2-python { };
   sync-database = pkgs.callPackage ./pkgs/sync-database {
     inherit (self) parallel-ssh merge-keepass;

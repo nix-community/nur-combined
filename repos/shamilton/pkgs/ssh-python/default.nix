@@ -7,11 +7,13 @@
 , openssh
 , git
 , octoprint
+, pythonAtLeast
 }:
 
 python3Packages.buildPythonPackage rec {
   pname = "ssh-python";
   version = "0.10.0";
+  disabled = pythonAtLeast "3.11";
 
   src = fetchFromGitHub {
     owner = "ParallelSSH";
@@ -21,6 +23,8 @@ python3Packages.buildPythonPackage rec {
     leaveDotGit = true;
     deepClone = true;
   };
+
+  patches = [ ./fix-versioneer.patch ./fix-fix_version-script.patch ];
 
   postPatch = ''
     substituteInPlace tests/embedded_server/openssh.py \
@@ -33,7 +37,6 @@ python3Packages.buildPythonPackage rec {
   buildInputs = [ zlib openssl libssh ];
   checkInputs = [ octoprint python3Packages.pytest ];
 
-  patches = [ ./fix-fix_version-script.patch ];
 
   preConfigure = ''
     python ci/appveyor/fix_version.py . ${version}
