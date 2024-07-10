@@ -1,6 +1,8 @@
 { lib
 , fetchFromGitHub
 , buildRustPackage
+, pkg-config
+, openssl
 }:
 
 buildRustPackage rec {
@@ -8,13 +10,16 @@ buildRustPackage rec {
   version = "2023-08-12";
 
   src = fetchFromGitHub {
-    owner = "C10udburst";
+    owner = "SCOTT-HAMILTON";
     repo = "chunkdrive";
-    rev = "142c0c7e75ebbea10485cb2796d93d34448566b3";
-    sha256 = "sha256-lrM6OLyZbTUvoW1rS3kJVPP69uaM216uGVTGQGdsLaM=";
+    rev = "7d8683699c899123b4d9838b59fa2adc63377a83";
+    sha256 = "sha256-kLuNaMBwf2+n1VD+9WhINGuZNxpFRiWubhz42ezNy18=";
   };
 
-  cargoSha256 = "sha256-1xZj6iuEpViZdr6NQG/d5nBYNDA0JtFtw7qFfr5wOL8=";
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ openssl ];
+
+  cargoSha256 = "sha256-zcfjzvWGLWMwz/fE3HIgjUtrMew9ZTPa59m69S3893Q=";
   verifyCargoDeps = true;
 
   meta = with lib; {
