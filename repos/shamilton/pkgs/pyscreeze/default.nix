@@ -10,7 +10,7 @@
 , xorg
 }:
 let
-  xlib-fixed = if nixosVersion == "master" then  python3Packages.xlib.override {
+  xlib-fixed = if nixosVersion != "nixpkgs-unstable" then  python3Packages.xlib.override {
     nose = python3Packages.pynose;
   } else python3Packages.xlib;
 in

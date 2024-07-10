@@ -14,12 +14,15 @@ if [[ ${#result[@]} -ne 0 ]]; then
     echo "Building the folling derivations: ${result[*]}"
     echo cachix watch-exec "${CACHIX_CACHE}" -- nix-build --argstr nixosVersion "${CHANNEL_BRANCH}" ${result[*]} --show-trace
     cachix watch-exec "${CACHIX_CACHE}" -- nix-build --argstr nixosVersion "${CHANNEL_BRANCH}" ${result[*]} --show-trace
-else
-    echo "No new derivations to build, everything is up-to-date."
 fi
 rm -rf gcroot
 
-nix-build --dry-run all-unbroken.nix 2>&1
-remaining=$(nix-build --dry-run all-unbroken.nix 2>&1 | awk '/^these.*derivations will be built/,/^these.*paths will be fetched/' | sed '1d;$d' | wc -l)
-echo "There remains $remaining derivations to be built..."
-(nix-build --dry-run all-unbroken.nix 2>&1 | egrep -E 'these [0-9]{1,} derivations will be built:') && echo "Failed" && exit 1
+remaining=$(nix-build --dry-run --argstr nixosVersion all-unbroken.nix 2>&1 | awk '/^these.*derivations will be built/,/^these.*paths will be fetched/' | sed '1d;$d')
+count=$(echo $remaining | wc -l)
+if [ $c -gt 0 ]; then
+    echo "There remains $count derivations to be built:"
+    echo $remaining
+    exit 1
+else
+    echo "No new derivations to build, everything is up-to-date."
+fi
