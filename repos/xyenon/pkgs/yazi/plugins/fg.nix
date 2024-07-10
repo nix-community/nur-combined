@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation {
   version = "0-unstable-2024-05-14";
 
   src = fetchFromGitHub {
-    owner = "DreamMaoMao";
+    owner = "XYenon";
     repo = "fg.yazi";
     rev = "677688ad48fbcb89578d7fd66ad4205f458be6d2";
     hash = "sha256-LZsIyvpJgriLYfw3ZeAgh1nsqXy1xSodXql34Paj6zw=";
