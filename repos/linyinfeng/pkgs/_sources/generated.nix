@@ -83,13 +83,13 @@
   };
   linux-intel-lts = {
     pname = "linux-intel-lts";
-    version = "lts-v6.6.35-linux-240702T091601Z";
+    version = "lts-v6.6.36-linux-240704T140504Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "linux-intel-lts";
-      rev = "lts-v6.6.35-linux-240702T091601Z";
+      rev = "lts-v6.6.36-linux-240704T140504Z";
       fetchSubmodules = false;
-      sha256 = "sha256-vSvwF3zw6mUvskJRH5+6akknarfUn8NGI5GKF+ftNbA=";
+      sha256 = "sha256-s/zX+oqkuLacnm595fIAds5deCvHa/7ZIuCJPGm+WRc=";
     };
   };
   linux-intel-mainline-tracking = {
@@ -522,17 +522,17 @@
   };
   waybar-git = {
     pname = "waybar-git";
-    version = "b26ab1f982c06ce48e96f3e4da8cde034296eb1d";
+    version = "44f39ca0ce53659df2c959fa9177cfe158f23273";
     src = fetchgit {
       url = "https://github.com/Alexays/Waybar.git";
-      rev = "b26ab1f982c06ce48e96f3e4da8cde034296eb1d";
+      rev = "44f39ca0ce53659df2c959fa9177cfe158f23273";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-aqzgRT6yyj4RuocXN+OE3Yn1lR3G2ttnAvFz6PNQcRA=";
+      sha256 = "sha256-n3qixP5VtEBD1XyNymtH66aPZHePfu0em1qJl93tdf0=";
     };
-    date = "2024-07-06";
+    date = "2024-07-09";
   };
   yacd = {
     pname = "yacd";
