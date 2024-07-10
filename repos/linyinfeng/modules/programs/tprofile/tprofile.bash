@@ -19,4 +19,4 @@ function tprofile {
   fi
 }
 
-tprofile > /dev/null # initialize
+tprofile >/dev/null # initialize
