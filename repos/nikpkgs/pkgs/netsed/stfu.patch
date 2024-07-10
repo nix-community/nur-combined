@@ -1,5 +1,5 @@
 diff --git a/netsed.c b/netsed.c
-index e51b81f..11e24b0 100644
+index e51b81f..abfa2a3 100644
 --- a/netsed.c
 +++ b/netsed.c
 @@ -537,7 +537,6 @@ void parse_params(int argc,char* argv[]) {
@@ -23,15 +23,17 @@ index e51b81f..11e24b0 100644
  }
  
  /// Bind and optionally listen to a socket for netsed server port.
-@@ -597,7 +592,6 @@ void bind_and_listen(int af, int tcp, const char *portstr) {
+@@ -595,9 +590,6 @@ void bind_and_listen(int af, int tcp, const char *portstr) {
+     //fcntl(lsock,F_SETFL,O_NONBLOCK);
+     /* Make our best to decide on dual-stacked listener. */
      one = (family == AF_UNSPEC) ? 0 /* All families */ : 1; /* Preconditioned addr */
-     if (res->ai_family == AF_INET6)
-       if (setsockopt(lsock, IPPROTO_IPV6, IPV6_V6ONLY, &one, sizeof(one)))
+-    if (res->ai_family == AF_INET6)
+-      if (setsockopt(lsock, IPPROTO_IPV6, IPV6_V6ONLY, &one, sizeof(one)))
 -        printf("    Failed to unset IPV6_V6ONLY: %s.\n", strerror(errno));
      if (bind(lsock, res->ai_addr, res->ai_addrlen) < 0) {
        ERR("bind(): %s", strerror(errno));
        close(lsock);
-@@ -649,9 +643,7 @@ int sed_the_buffer(int siz, int* live, int dir) {
+@@ -649,9 +641,7 @@ int sed_the_buffer(int siz, int* live, int dir) {
            if (k == (crule->fps - 1)) {
              changes++;
              gotchange=1;
@@ -41,7 +43,7 @@ index e51b81f..11e24b0 100644
              memcpy(&b2[newsize], crule->to, crule->ts);
              newsize += crule->ts;
              i = idx + crule->fs[k];
-@@ -681,9 +673,6 @@ int sed_the_buffer(int siz, int* live, int dir) {
+@@ -681,9 +671,6 @@ int sed_the_buffer(int siz, int* live, int dir) {
      }
    }
  
@@ -51,7 +53,7 @@ index e51b81f..11e24b0 100644
    return newsize;
  }
  
-@@ -709,7 +698,6 @@ void server2client_sed(struct tracker_s * conn) {
+@@ -709,7 +696,6 @@ void server2client_sed(struct tracker_s * conn) {
        conn->state = DISCONNECTED;
      }
      if (rd>0) {
@@ -59,7 +61,7 @@ index e51b81f..11e24b0 100644
        rd=sed_the_buffer(rd, conn->live, IN);
        conn->time = now;
        conn->state = ESTABLISHED;
-@@ -743,7 +731,6 @@ void client2server_sed(struct tracker_s * conn) {
+@@ -743,7 +729,6 @@ void client2server_sed(struct tracker_s * conn) {
  /// @param rd   size of b2 content.
  void b2server_sed(struct tracker_s * conn, ssize_t rd) {
      if (rd>0) {
@@ -67,7 +69,7 @@ index e51b81f..11e24b0 100644
        rd=sed_the_buffer(rd, conn->live, OUT);
        conn->time = now;
        if (write(conn->fsock,b2,rd)<=0) {
-@@ -802,19 +789,8 @@ int main(int argc,char* argv[]) {
+@@ -802,19 +787,8 @@ int main(int argc,char* argv[]) {
    if (res == NULL)
      error("Failed in resolving remote host.");
  
@@ -87,7 +89,7 @@ index e51b81f..11e24b0 100644
    signal(SIGPIPE, SIG_IGN);
    struct sigaction sa;
    sa.sa_flags = 0;
-@@ -917,7 +893,6 @@ int main(int argc,char* argv[]) {
+@@ -917,7 +891,6 @@ int main(int argc,char* argv[]) {
          int one=1;
          getnameinfo((struct sockaddr *) &s, l, ipstr, sizeof(ipstr),
                      portstr, sizeof(portstr), NI_NUMERICHOST | NI_NUMERICSERV);
@@ -95,7 +97,7 @@ index e51b81f..11e24b0 100644
          conn = malloc(sizeof(struct tracker_s));
          if(NULL == conn) error("netsed: unable to malloc() connection tracker struct");
          // protocol specific init
-@@ -950,7 +925,6 @@ int main(int argc,char* argv[]) {
+@@ -950,7 +923,6 @@ int main(int argc,char* argv[]) {
  #endif
          getnameinfo((struct sockaddr *) &s, l, ipstr, sizeof(ipstr),
                      portstr, sizeof(portstr), NI_NUMERICHOST | NI_NUMERICSERV);
@@ -103,7 +105,7 @@ index e51b81f..11e24b0 100644
          conpo = get_port((struct sockaddr *) &s);
  
          memcpy(&conho, &s, sizeof(conho));
-@@ -964,13 +938,11 @@ int main(int argc,char* argv[]) {
+@@ -964,13 +936,11 @@ int main(int argc,char* argv[]) {
          set_port((struct sockaddr *) &s, conpo);
          getnameinfo((struct sockaddr *) &s, l, ipstr, sizeof(ipstr),
                      portstr, sizeof(portstr), NI_NUMERICHOST | NI_NUMERICSERV);
