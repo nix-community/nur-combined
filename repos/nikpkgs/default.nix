@@ -22,7 +22,7 @@
   inotify-consumers      = pkgs.callPackage ./pkgs/inotify-consumers {};
   lilipod                = pkgs.callPackage ./pkgs/lilipod { };
   memtest-vulkan         = pkgs.callPackage ./pkgs/memtest-vulkan { };
-  netsed                 = pkgs.callPackage ./pkgs/netsed { };
+  netsed-quiet           = pkgs.callPackage ./pkgs/netsed { };
   ntfs2btrfs             = pkgs.callPackage ./pkgs/ntfs2btrfs { };
   obsidian-bin           = pkgs.callPackage ./pkgs/obsidian/appimage.nix { };
   overlayfs-tools        = pkgs.callPackage ./pkgs/overlayfs-tools { };

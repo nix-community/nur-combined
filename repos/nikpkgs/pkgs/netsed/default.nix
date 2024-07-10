@@ -15,6 +15,10 @@
 in stdenv.mkDerivation {
   inherit pname version src;
 
+  patches = [
+    ./stfu.patch
+  ];
+
   makeFlags = [
     "PREFIX=${builtins.placeholder "out"}"
   ];
