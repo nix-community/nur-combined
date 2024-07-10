@@ -1986,10 +1986,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2427.0";
+      version = "6.2428.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4312057/dashlane-6.2427.0.xpi";
-      sha256 = "93b5e68a8324ef83f4851222dfc8f4d6184e7ad6c7b85c8aad602b68fdaa3ad6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4315807/dashlane-6.2428.0.xpi";
+      sha256 = "e72bfc4cc2a5d689cebb800a187cba8d1b9b0090f5ca01367993c1bbaf50d7ad";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2619,10 +2619,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.9";
+      version = "1.3.10";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4315679/faststream-1.3.9.xpi";
-      sha256 = "c3552064531780b7f01a6230b1b0890e584803e54a645012e1a9f2dcac45aee3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4316923/faststream-1.3.10.xpi";
+      sha256 = "64af722180f5a5b067c6a38b0a4d792ad2382b78c0e998a411cecbe70cc5985e";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -2689,10 +2689,10 @@
     };
     "ficlab" = buildFirefoxXpiAddon {
       pname = "ficlab";
-      version = "1.0.108";
+      version = "1.0.109";
       addonId = "ficlab-helper@mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4281584/ficlab-1.0.108.xpi";
-      sha256 = "be102739a9ef908842cb9918912cd7ba3275e93d3607409a1dee644347204f79";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4316565/ficlab-1.0.109.xpi";
+      sha256 = "dd9d1d6b392b69b3b95750c55626e93a3013d902e5fa17c312bf699ba983e92a";
       meta = with lib;
       {
         homepage = "https://www.ficlab.com/";
@@ -3127,10 +3127,10 @@
     };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.12.11";
+      version = "8.12.13";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4294254/ghostery-8.12.11.xpi";
-      sha256 = "9847b61eb64fa4ec8e1e70d50575f3017f0af2156b295afba3e98421f4e90d12";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4314110/ghostery-8.12.13.xpi";
+      sha256 = "8c81f85c0ad054e94093020a4cb808afba20501eb6f18d08263e6f608f157c61";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -8852,10 +8852,10 @@
     };
     "proton-vpn" = buildFirefoxXpiAddon {
       pname = "proton-vpn";
-      version = "1.1.1";
+      version = "1.2.0";
       addonId = "vpn@proton.ch";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4306866/proton_vpn_firefox_extension-1.1.1.xpi";
-      sha256 = "56b33a2a79a7c79bed981509d2cc46f294cad95fce6997966126fb45d527bb8b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4314101/proton_vpn_firefox_extension-1.2.0.xpi";
+      sha256 = "b1db3fd7fabe6f32866f72c43dcb76254055235ff1ce72182eab9fab7061cf67";
       meta = with lib;
       {
         homepage = "https://protonvpn.com/";
@@ -9666,10 +9666,10 @@
     };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "13.0.1";
+      version = "13.0.2";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4308319/sidebartabs-13.0.1.xpi";
-      sha256 = "5ffbd484388c94b78a7c203cd57d5177047c0de594cefb96f7df69ec37495651";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4316905/sidebartabs-13.0.2.xpi";
+      sha256 = "dcaed21aad20439dd829ba1cd1bd8dc2d1aa5bb709a645d33edde37c0a900c62";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
