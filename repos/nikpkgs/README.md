@@ -101,6 +101,16 @@ Pull requests and issues are welcome, though expect my response to be pretty slo
 
 Use ``nix-build -A name_of_the_package``.
 
+# Developing/Editing packages
+
+This is merely a shortcut for me or anyone who is willing to contribute to this repo.
+
+ - ``cd`` to this directory
+ - ``nix repl --file .``
+ - ``:b package_name``
+ - ``:e package_name`` (will launch your fav editor of choice)
+ - rinse and repeat
+
 # License
 
 As per what I agreed to when I attempted to publish this to the NUR, the content of this repo is licensed under MIT, unless stated otherwise.
