@@ -32,7 +32,7 @@ let
     urls = [
       "https://download2.interactivebrokers.com/installers/tws/stable-standalone/tws-stable-standalone-linux-x64.sh"
     ];
-    sha256 = "sha256-L4wqWwnZX758Qp0Sksp5zZxya2DWNh55pD0qOPQjut8=";
+    sha256 = "sha256-PT/Sr/Qw7eRtjm5DjJkxaBVjdH18Ez8SzyqAb/EMDKw=";
   };
   jre = jdk11.override { enableJavaFX = true; };
   dynamicLibraries = [
