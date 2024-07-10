@@ -173,10 +173,12 @@ pkgs.lib.traceValFn (x:
     eom = mate.eom;
     inherit (self) merge-keepass;
   };
-  slick-greeter = with pkgs; pkgs.callPackage ./pkgs/slick-greeter {
-    inherit (gnome3) gnome-common slick-greeter;
+  slick-greeter = with pkgs; pkgs.callPackage ./pkgs/slick-greeter ({
+    inherit (gnome3) slick-greeter;
     inherit (cinnamon) xapps;
-  };
+  } // (if nixosVersion == "master" then {
+    inherit (gnome3) gnome-common;
+  } else {  }));
   smtprelay = pkgs.callPackage ./pkgs/smtprelay { inherit (pkgs) buildGoModule; };
   spectacle-clipboard = pkgs.libsForQt5.callPackage ./pkgs/spectacle-clipboard { };
   splat = pkgs.callPackage ./pkgs/splat { };
