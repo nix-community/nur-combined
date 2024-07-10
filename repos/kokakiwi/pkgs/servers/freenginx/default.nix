@@ -23,11 +23,11 @@
 }:
 stdenv.mkDerivation rec {
   pname = "freenginx";
-  version = "1.27.1";
+  version = "1.27.2";
 
   src = fetchurl {
     url = "https://freenginx.org/download/freenginx-${version}.tar.gz";
-    hash = "sha256-lXBgOxnylWYmG7vKZ8wBNDmH3gOi6nNU/L3vlPDtpDk=";
+    hash = "sha256-5DUA/z51ozoQGiU8wlLn663Eo9F+BJUed+cZ3aaLl9E=";
   };
 
   nativeBuildInputs = [
