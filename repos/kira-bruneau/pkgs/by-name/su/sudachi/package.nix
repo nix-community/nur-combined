@@ -31,7 +31,6 @@
   spirv-headers,
   catch2_3,
   vulkan-loader,
-  nix-update-script,
 }:
 
 let
@@ -158,10 +157,10 @@ stdenv.mkDerivation (finalAttrs: {
   qtWrapperArgs = [ "--prefix LD_LIBRARY_PATH : ${vulkan-loader}/lib" ];
 
   postInstall = ''
-    install -Dm444 $src/dist/72-sudachi-input.rules $out/lib/udev/rules.d/72-sudachi-input.rules
+    install -Dm444 "$src/dist/72-sudachi-input.rules" "$out/lib/udev/rules.d/72-sudachi-input.rules"
+    mkdir -p "$out/share/sudachi"
+    ln -s "$src" "$out/share/sudachi/src"
   '';
-
-  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     homepage = "https://sudachi-emu.com";
