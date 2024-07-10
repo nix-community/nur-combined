@@ -8,11 +8,11 @@
 
 stdenv.mkDerivation rec {
   pname = "ludii";
-  version = "1.3.12";
+  version = "1.3.13";
 
   src = fetchurl {
     url = "${rp}https://ludii.games/downloads/Ludii-${version}.jar";
-    hash = "sha256:c26a595220fa136ec7a528ae41d46f5a7944f0353062ae0dc765a2c3aa0bd426";
+    hash = "sha256-AMUfw0pt+aCIosde5aCk07HMBkYK6uUvl8MK5YJ0tqw=";
   };
 
   icon = fetchurl {
