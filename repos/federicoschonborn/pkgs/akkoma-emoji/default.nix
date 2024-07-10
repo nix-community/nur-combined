@@ -37,12 +37,12 @@
       inherit mkEmojiPack;
     }
     // builtins.mapAttrs (name: hash: mkEmojiPack { inherit name hash; }) {
-      blobbee = "sha256-4L3jd80OWndy0ZYMYAd1wMGzQOurkAVmH1uazKPzKjM=";
+      blobbee = "sha256-NnamiabNStT1grH2yxczFDUlVut0CQMBbGX3uIWTbwo=";
       fox = "sha256-EbEfbffz+MdVF33x7nP59je20xsq1+pkGeyTJVtKDTA=";
-      neobread = "sha256-IsFYobxBq7IsqW1pIa7ApwN8AnigTk6oWraIMi/o9W8=";
-      neocat = "sha256-Tsuh8c32fq8jZDjYLtfgeORtgzIivyDq/DHFDJT+Yr4=";
-      neodlr = "sha256-4algyDuhPgmm7BGuaPQCEeZOcQYWB0eMQ5jY1bpgNeU=";
-      neofox = "sha256-AvnM27ovf7AfeHSa4MmrVLjzBzLGOgY5dVesmb0LkQs=";
+      neobread = "sha256-ou9GCDoTTpvgqp35D1bFj7y0JybO4UDEofu03avhhaw=";
+      # neocat = "sha256-Tsuh8c32fq8jZDjYLtfgeORtgzIivyDq/DHFDJT+Yr4=";
+      neodlr = "sha256-Cx/eJnX1LTKYsb43OiefRApK8MtuIj+w6KI9tEQ99Xs=";
+      # neofox = "sha256-AvnM27ovf7AfeHSa4MmrVLjzBzLGOgY5dVesmb0LkQs=";
       neossb = "sha256-+4pHxLriFcB8Ryq44nim4sn4E7ENVaMEftsda67Vt7c=";
     }
   );

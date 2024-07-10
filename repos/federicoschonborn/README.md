@@ -202,7 +202,7 @@ A set of emojis featuring a rat.
 Various emoji packs I've made.
 
 - Name: `olivvybee-blobbee`
-- Version: 2024.06.21.1
+- Version: 2024.07.07.1
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - Maintainers:
@@ -226,7 +226,7 @@ Various emoji packs I've made.
 Various emoji packs I've made.
 
 - Name: `olivvybee-fox`
-- Version: 2024.06.21.1
+- Version: 2024.07.07.1
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - Maintainers:
@@ -250,31 +250,7 @@ Various emoji packs I've made.
 Various emoji packs I've made.
 
 - Name: `olivvybee-neobread`
-- Version: 2024.06.21.1
-- [Homepage](https://github.com/olivvybee/emojis)
-- License: Unfree
-- Maintainers:
-  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
-  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Package details
-  </summary>
-
-- [Source](./pkgs/akkoma-emoji/olivvybee/mkEmojiPack.nix#L32)
-- Outputs: **`out`**
-- Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `x86_64-windows`, `i686-windows`
-</details>
-
-### `akkoma-emoji.olivvybee.neocat` (🔒 Unfree)
-
-Various emoji packs I've made.
-
-- Name: `olivvybee-neocat`
-- Version: 2024.06.21.1
+- Version: 2024.07.07.1
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - Maintainers:
@@ -298,31 +274,7 @@ Various emoji packs I've made.
 Various emoji packs I've made.
 
 - Name: `olivvybee-neodlr`
-- Version: 2024.06.21.1
-- [Homepage](https://github.com/olivvybee/emojis)
-- License: Unfree
-- Maintainers:
-  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
-  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Package details
-  </summary>
-
-- [Source](./pkgs/akkoma-emoji/olivvybee/mkEmojiPack.nix#L32)
-- Outputs: **`out`**
-- Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `x86_64-windows`, `i686-windows`
-</details>
-
-### `akkoma-emoji.olivvybee.neofox` (🔒 Unfree)
-
-Various emoji packs I've made.
-
-- Name: `olivvybee-neofox`
-- Version: 2024.06.21.1
+- Version: 2024.07.07.1
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - Maintainers:
@@ -346,7 +298,7 @@ Various emoji packs I've made.
 Various emoji packs I've made.
 
 - Name: `olivvybee-neossb`
-- Version: 2024.06.21.1
+- Version: 2024.07.07.1
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - Maintainers:
@@ -637,9 +589,9 @@ Cargo Advent of Code Helper.
 Like neofetch, but much faster because written in C.
 
 - Name: `fastfetch`
-- Version: 2.17.2
+- Version: 2.18.0
 - [Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.17.2/CHANGELOG.md)
+- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.18.0/CHANGELOG.md)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
@@ -652,7 +604,7 @@ Like neofetch, but much faster because written in C.
     Package details
   </summary>
 
-- [Source](./pkgs/by-name/fastfetch/package.nix#L171)
+- [Source](./pkgs/by-name/fastfetch/package.nix#L175)
 - Outputs: **`out`**
 - Programs provided: **`fastfetch`**, `flashfetch`
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `x86_64-windows`, `i686-windows`
@@ -663,9 +615,9 @@ Like neofetch, but much faster because written in C.
 Like neofetch, but much faster because written in C (with all features disabled).
 
 - Name: `fastfetch-minimal`
-- Version: 2.17.2
+- Version: 2.18.0
 - [Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.17.2/CHANGELOG.md)
+- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.18.0/CHANGELOG.md)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
@@ -678,7 +630,7 @@ Like neofetch, but much faster because written in C (with all features disabled)
     Package details
   </summary>
 
-- [Source](./default.nix#L27)
+- [Source](./default.nix#L61)
 - Outputs: **`out`**
 - Programs provided: **`fastfetch`**, `flashfetch`
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `x86_64-windows`, `i686-windows`
@@ -777,7 +729,7 @@ A set of commands that manipulate GTAs on various levels (with all features enab
     Package details
   </summary>
 
-- [Source](./default.nix#L63)
+- [Source](./default.nix#L97)
 - Outputs: **`out`**
 - Programs provided: **`gta`**
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `x86_64-windows`, `i686-windows`
@@ -927,7 +879,7 @@ A library to make working with multidimensional arrays in C++ easy (with all fea
     Package details
   </summary>
 
-- [Source](./default.nix#L96)
+- [Source](./default.nix#L130)
 - Outputs: **`out`**
 - Programs provided: **`tgd`**
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `x86_64-windows`, `i686-windows`
@@ -963,7 +915,7 @@ Library for emitting text, XML, JSON, or HTML output.
 wlroots-based Wayland compositor designed for the Budgie Desktop.
 
 - Name: `magpie-wayland`
-- Version: 0.9.3-unstable-2024-07-05
+- Version: 0.9.3-unstable-2024-07-07
 - [Homepage](https://github.com/BuddiesOfBudgie/magpie)
 - License: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html)
 - Maintainers:
@@ -1202,7 +1154,7 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
     Package details
   </summary>
 
-- [Source](./default.nix#L127)
+- [Source](./default.nix#L161)
 - Outputs: **`out`**
 - Programs provided: **`raze`**
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `x86_64-windows`, `i686-windows`
@@ -1213,7 +1165,7 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 Sega Model 3 arcade machine emulator.
 
 - Name: `supermodel`
-- Version: 0-unstable-2024-07-05
+- Version: 0-unstable-2024-07-08
 - [Homepage](https://github.com/trzy/Supermodel)
 - License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - Maintainers:
@@ -1303,7 +1255,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
     Package details
   </summary>
 
-- [Source](./default.nix#L152)
+- [Source](./default.nix#L186)
 - Outputs: **`out`**
 - Programs provided: `airSanity`, `cubic`, `deconv`, `emap`, `gkms`, `gprobe`, `ilk`, `miter`, `mrender`, `ninspect`, `nrrdSanity`, `overrgb`, `pprobe`, `puller`, `qbert`, `spots`, `talkweb`, `tend`, `undos`, `ungantry`, `unu`, `vprobe`
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `x86_64-windows`, `i686-windows`
@@ -1328,7 +1280,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
     Package details
   </summary>
 
-- [Source](./default.nix#L164)
+- [Source](./default.nix#L198)
 - Outputs: **`out`**
 - Programs provided: `airSanity`, `cubic`, `deconv`, `emap`, `gkms`, `gprobe`, `ilk`, `miter`, `mrender`, `ninspect`, `nrrdSanity`, `overrgb`, `pprobe`, `puller`, `qbert`, `spots`, `talkweb`, `tend`, `undos`, `ungantry`, `unu`, `vprobe`
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `x86_64-windows`, `i686-windows`
@@ -1353,7 +1305,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
     Package details
   </summary>
 
-- [Source](./default.nix#L136)
+- [Source](./default.nix#L170)
 - Outputs: **`out`**
 - Programs provided: `gprobe`, `ilk`, `miter`, `mrender`, `nrrdSanity`, `overrgb`, `puller`, `tend`, `unu`, `vprobe`
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `x86_64-windows`, `i686-windows`
@@ -1413,7 +1365,7 @@ A game based on K-Shoot MANIA and Sound Voltex.
 Wisp turns indentation based syntax into Lisp.
 
 - Name: `wisp`
-- Version: 1.0.11
+- Version: 1.0.12
 - [Homepage](https://www.draketo.de/software/wisp)
 - License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - Maintainers:
@@ -1427,8 +1379,34 @@ Wisp turns indentation based syntax into Lisp.
     Package details
   </summary>
 
-- [Source](./pkgs/by-name/wisp/package.nix#L47)
+- [Source](./pkgs/by-name/wisp/package.nix#L39)
 - Outputs: **`out`**
 - Programs provided: **`wisp`**, `wisp2lisp`
+- Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `x86_64-windows`, `i686-windows`
+</details>
+
+### `yyjson`
+
+Fastest JSON library in C.
+
+- Name: `yyjson`
+- Version: 0.10.0
+- [Homepage](https://github.com/ibireme/yyjson)
+- [Changelog](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md)
+- License: [`MIT License`](https://spdx.org/licenses/MIT.html)
+- Maintainers:
+  - [Yohann Boniface](https://github.com/Sigmanificient) <[`sigmanificient@gmail.com`](mailto:sigmanificient@gmail.com)>
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
+  - [✉️ Mail to all maintainers](mailto:sigmanificient@gmail.com,federicoschonborn@disroot.org)
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Package details
+  </summary>
+
+- [Source](./pkgs/development/libraries/yyjson/default.nix#L23)
+- Outputs: **`out`**
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `x86_64-windows`, `i686-windows`
 </details>

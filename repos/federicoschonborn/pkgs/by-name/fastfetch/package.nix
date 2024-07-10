@@ -58,7 +58,11 @@
   chafa,
   enableZlib ? enableImagemagick,
   zlib,
-  enableEgl ? stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isBSD || stdenv.hostPlatform.isSunOS,
+  enableEgl ?
+    stdenv.hostPlatform.isLinux
+    || stdenv.hostPlatform.isBSD
+    || stdenv.hostPlatform.isWindows
+    || stdenv.hostPlatform.isSunOS,
   libGL,
   enableGlx ? stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isBSD || stdenv.hostPlatform.isSunOS,
   libglvnd,
@@ -87,13 +91,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastfetch";
-  version = "2.17.2";
+  version = "2.18.0";
 
   src = fetchFromGitHub {
     owner = "fastfetch-cli";
     repo = "fastfetch";
     rev = finalAttrs.version;
-    hash = "sha256-XQ0A1eeajiExrD440FVj5STjyMTYdIK0SyysFo/tF3o=";
+    hash = "sha256-SFEj/vBc5+ecqLG7sh5+fF5QIecu7AszBu1krKx5+6s=";
   };
 
   nativeBuildInputs = [

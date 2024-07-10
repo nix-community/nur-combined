@@ -10,7 +10,8 @@
 # which this is possible.
 
 {
-  pkgs ? import <nixpkgs> { },
+  system ? builtins.currentSystem,
+  pkgs ? import <nixpkgs> { inherit system; },
 }:
 
 let
@@ -37,7 +38,7 @@ let
 
   outputsOf = p: builtins.map (o: p.${o}) p.outputs;
 
-  nurAttrs = import ./default.nix { inherit pkgs; };
+  nurAttrs = import ./. { inherit system pkgs; };
 
   allPackages = flattenPackages (
     builtins.listToAttrs (

@@ -1,7 +1,6 @@
 {
-  pkgs ? import <nixpkgs> { },
+  system ? builtins.currentSystem,
+  pkgs ? import <nixpkgs> { inherit system; },
 }:
 
-pkgs.lib.extend (
-  _: prev: { maintainers = prev.maintainers // import ../maintainers/maintainers-list.nix; }
-)
+pkgs.lib.extend (import ./overlay.nix)

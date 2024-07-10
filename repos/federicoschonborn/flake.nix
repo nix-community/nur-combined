@@ -85,15 +85,17 @@
             };
           };
 
-          legacyPackages = import ./default.nix { inherit pkgs; };
+          legacyPackages = import ./. { inherit system pkgs; };
           packages = import ./flattenTree.nix config.legacyPackages;
 
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
+              deadnix
               jq
               nix-inspect
               nix-tree
               nushell
+              statix
               (writers.writeNuBin "just" (builtins.readFile ./just.nu))
             ];
 

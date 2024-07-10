@@ -29,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postFixup = ''
     wrapProgram $out/bin/wisp \
-      --set GUILE ${lib.getExe guile} \
+      --set GUILE ${lib.getExe' guile "guile"} \
       --prefix GUILE_LOAD_PATH : "$out/${guile.siteDir}:$GUILE_LOAD_PATH" \
       --prefix GUILE_LOAD_COMPILED_PATH : "$out/${guile.siteCcacheDir}:$GUILE_LOAD_COMPILED_PATH"
   '';

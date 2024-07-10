@@ -7,17 +7,51 @@
 #     nix-build -A mypackage
 
 {
-  pkgs ? import <nixpkgs> { },
-  lib ? pkgs.lib,
+  system ? builtins.currentSystem,
+  pkgs ? import <nixpkgs> { inherit system; },
 }:
+
+let
+  lib = import ./lib { inherit system pkgs; };
+in
 
 lib.makeScope pkgs.newScope (
   self:
   {
-    lib = import ./lib { inherit pkgs; };
+    inherit lib;
+
+    pkgsCross = builtins.mapAttrs (
+      _: system':
+      let
+        pkgs' = import pkgs.path {
+          inherit system;
+          crossSystem = system';
+        };
+      in
+      import ./default.nix {
+        system = system';
+        pkgs = pkgs';
+      }
+    ) lib.systems.examples;
 
     # Sets
     akkoma-emoji = lib.recurseIntoAttrs (self.callPackage ./pkgs/akkoma-emoji { inherit self; });
+
+    # Overrides
+    yyjson = pkgs.yyjson.overrideAttrs (
+      finalAttrs: prevAttrs: {
+        version = "0.10.0";
+        src = pkgs.fetchFromGitHub {
+          owner = "ibireme";
+          repo = "yyjson";
+          rev = finalAttrs.version;
+          hash = "sha256-mp9Oz08qTyhj3P6F1d81SX96vamUY/JWpD2DTYR+v04=";
+        };
+        meta = (prevAttrs.meta or { }) // {
+          maintainers = (prevAttrs.meta.maintainers or [ ]) ++ [ lib.maintainers.federicoschonborn ];
+        };
+      }
+    );
 
     # Variants
     fastfetchMinimal =

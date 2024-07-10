@@ -91,6 +91,11 @@ def "main inspect" [] {
     nix-inspect --path .
 }
 
+def "main lint" [] {
+    statix check
+    deadnix
+}
+
 def "main generate-program-list" [] {
     nix run ".#generate-program-list"
 }
