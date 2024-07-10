@@ -247,5 +247,9 @@ stdenv.mkDerivation rec {
     # I just made modifications
     platforms = platforms.unix;
     priority = 10; # Prefer virtiofsd from the virtiofsd package.
+
+    # NixOS 24.11 changed something python and it broke this entire package
+    # I am giving up
+    broken = true;
   };
 }
