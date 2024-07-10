@@ -10,15 +10,15 @@
 
 buildGoModule rec {
   pname = "matrix-media-repo";
-  version = "1.3.4";
+  version = "1.3.6";
   src = fetchFromGitHub {
     owner = "turt2live";
     repo = "matrix-media-repo";
     rev = "v${version}";
-    sha256 = "sha256-wC69OiB3HjRs/i46+E1YS+M4zKmvH5vENHyfgU7nt1I=";
+    sha256 = "sha256-Yrw+6WKHm9Y31YvW5iXnUDhIg0TcSctaouIGhAN4iBo=";
   };
 
-  vendorHash = "sha256-tt9TybU7oBM2qpJz9XpjrqBiCgoAxkxUOztu3eT6zPY=";
+  vendorHash = "sha256-lESa81bcpPCUGi7IDk7yEnyHFtWvBd9J7VHmB5EF9tg=";
 
   proxyVendor = true;
 
