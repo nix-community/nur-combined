@@ -1,31 +1,30 @@
 {
   lib,
-  stdenv,
-  fetchFromGitea,
+  stdenvNoCC,
+  fetchzip,
+  nix-update-script,
 }:
 
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "moonrabbits-neodog";
-  version = "0-unstable-2024-07-09";
+  version = "1.1.0";
 
-  src = fetchFromGitea {
-    domain = "git.gay";
-    owner = "moonrabbits";
-    repo = "neodog";
-    rev = "13e40f780f289d464488e87647eb9f0760ae1c81";
-    hash = "sha256-+nPjGZdXfdb53FPb/ku5iiYRGqC3jTTP1sC1hOaEwYo=";
+  src = fetchzip {
+    url = "https://git.gay/moonrabbits/neodog/releases/download/${finalAttrs.version}/neodog.tar.gz";
+    stripRoot = false;
+    hash = "sha256-CbK/tDAvNVC4LSZuTCNHRKnQO0TiV2i9m8fitJvM848=";
   };
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out
-    for dir in 256x animated; do
-      cp $(find $dir -name "*.png") $out
-    done
+    cp *.png $out
 
     runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Neodog emojis by @moonrabbits@shonk.phite.ro";
@@ -34,4 +33,4 @@ stdenv.mkDerivation {
     platforms = lib.platforms.all;
     maintainers = [ lib.maintainers.federicoschonborn ];
   };
-}
+})
