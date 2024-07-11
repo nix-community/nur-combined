@@ -1,6 +1,6 @@
 [carla-git]
 src.git = "https://github.com/falkTX/Carla"
-fetch.github = "falkTX/Carla"
+fetch.git = "https://github.com/falkTX/Carla"
 
 [zrythm]
 src.git = "https://gitlab.zrythm.org/zrythm/zrythm.git"
