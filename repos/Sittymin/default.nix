@@ -21,6 +21,7 @@
   oneapi-mkl = pkgs.callPackage ./pkgs/oneapi-mkl { };
   lxgw-neoxihei = pkgs.callPackage ./pkgs/lxgw-neoxihei { };
   rustdesk = pkgs.callPackage ./pkgs/rustdesk { };
+  thorium = pkgs.callPackage ./pkgs/thorium { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

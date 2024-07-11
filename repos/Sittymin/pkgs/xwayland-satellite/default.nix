@@ -11,8 +11,8 @@ rustPlatform.buildRustPackage {
   src = fetchFromGitHub ({
     owner = "Supreeeme";
     repo = "xwayland-satellite";
-    # 2024.7.5 commit
-    rev = "d32eae139dc7d2bdb288a308e76fc98a57a4e66b";
+    # newer commit
+    rev = "3140b7c83e0eade33abd94b1adac6a368db735f9";
     fetchSubmodules = false;
     sha256 = "sha256-NcvFk8u43Q/XiuHzO1yQX9veXy6frRBJZhDHz3ESUX0=";
   });
