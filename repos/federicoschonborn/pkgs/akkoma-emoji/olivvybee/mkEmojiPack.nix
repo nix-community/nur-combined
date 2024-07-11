@@ -29,7 +29,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "Various emoji packs I've made";
+    description = "Various emoji packs from Liv Asch";
     homepage = "https://github.com/olivvybee/emojis";
     license = lib.licenses.unfree; # TODO: ?
     platforms = lib.platforms.all;

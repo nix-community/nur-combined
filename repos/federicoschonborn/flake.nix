@@ -57,6 +57,7 @@
               allowUnfreePredicate =
                 p:
                 builtins.elem (lib.getName p) [
+                  "av70-neomouse"
                   "eevee-neopossum"
                   "eppa-neobun"
                   "eppa-neocube"
@@ -65,15 +66,15 @@
                   "fotoente-neomilk"
                   "fotoente-neotrain"
                   "mahiwa-neorat"
+                  "moonrabbits-neodog"
                   "renere-spinny-blobcats"
                   "renere-spinny-blobfoxes"
                   "renere-spinny-blobs"
                   "olivvybee-blobbee"
                   "olivvybee-fox"
                   "olivvybee-neobread"
-                  "olivvybee-neocat"
                   "olivvybee-neodlr"
-                  "olivvybee-neofox"
+                  "olivvybee-neofriends"
                   "olivvybee-neossb"
                   "volpeon-drgn"
                   "volpeon-floof"

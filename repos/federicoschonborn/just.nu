@@ -24,11 +24,11 @@ def "main build-all" [] {
 }
 
 def "main build-all-unstable" [] {
-    nix-unstable build --impure --expr 'import ./ci.nix { pkgs = import (builtins.getFlake "nixpkgs") { }; }' cacheOutputs
+    nix-unstable build --no-link --impure --expr 'import ./ci.nix { pkgs = import (builtins.getFlake "nixpkgs") { }; }' cacheOutputs
 }
 
 def "main build-all-stable" [] {
-    nix-stable build --impure --expr 'import ./ci.nix { pkgs = import (builtins.getFlake "nixpkgs") { }; }' cacheOutputs
+    nix-stable build --no-link --impure --expr 'import ./ci.nix { pkgs = import (builtins.getFlake "nixpkgs") { }; }' cacheOutputs
 }
 
 def "main build" [...packages: string] {
@@ -63,11 +63,11 @@ def "main rebuild-all" [] {
 }
 
 def "main rebuild-all-unstable" [] {
-    nix-unstable build --rebuild --impure --expr 'import ./ci.nix { pkgs = import (builtins.getFlake "nixpkgs") { }; }' cacheOutputs
+    nix-unstable build --rebuild --no-link --impure --expr 'import ./ci.nix { pkgs = import (builtins.getFlake "nixpkgs") { }; }' cacheOutputs
 }
 
 def "main rebuild-all-stable" [] {
-    nix-stable build --rebuild --impure --expr 'import ./ci.nix { pkgs = import (builtins.getFlake "nixpkgs-stable") { }; }' cacheOutputs
+    nix-stable build --rebuild --no-link --impure --expr 'import ./ci.nix { pkgs = import (builtins.getFlake "nixpkgs-stable") { }; }' cacheOutputs
 }
 
 def "main run-unstable" [package: string] {
