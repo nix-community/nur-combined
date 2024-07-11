@@ -2067,10 +2067,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "129.0.20240708.194140";
+      version = "129.0.20240710.91735";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4316227/deutsch_de_language_pack-129.0.20240708.194140.xpi";
-      sha256 = "72abd36692d72786c1fcd250f2fd540cd93b6d0ae3496f2b68477ea50ea5b159";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4317161/deutsch_de_language_pack-129.0.20240710.91735.xpi";
+      sha256 = "f8f3623e6398f2fdf710c3e898e5d645dd9584808b618166d6409614107e5364";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2619,10 +2619,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.10";
+      version = "1.3.11";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4316923/faststream-1.3.10.xpi";
-      sha256 = "64af722180f5a5b067c6a38b0a4d792ad2382b78c0e998a411cecbe70cc5985e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4317616/faststream-1.3.11.xpi";
+      sha256 = "fcb30d2982df601b81678af40f268b2b22959b57e61ba0f5e7c66a7669a3e86d";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -3070,10 +3070,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "129.0.20240708.194140";
+      version = "129.0.20240710.91735";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4316272/francais_language_pack-129.0.20240708.194140.xpi";
-      sha256 = "8ee9afc28590e7d649c84720c993b12e7e163619606ad6a4c2479273787fd8b9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4317198/francais_language_pack-129.0.20240710.91735.xpi";
+      sha256 = "80d6677916ae1623bb2b3f05983ddb342a252f2871ae70168fc397d371ad8fea";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -5006,10 +5006,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.7.1";
+      version = "1.7.5";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4313355/immersive_translate-1.7.1.xpi";
-      sha256 = "12c868ebfb809cf670c4a1fb146dc060e7ba307811b16546c27c26ad44d1efc7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4314764/immersive_translate-1.7.5.xpi";
+      sha256 = "2b2407eb9034ff81130481da27e632f757daa92aa5bfe60d3603938812f820f2";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -5035,10 +5035,10 @@
     };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.1071";
+      version = "4.1077";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4313681/youtube_addon-4.1071.xpi";
-      sha256 = "f5ccddfed82676e79484a10aa89731b391b4348b5b9026dd6578865d888e4805";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4315923/youtube_addon-4.1077.xpi";
+      sha256 = "2ddfa1a93f25f2e23e8488ab35c0831bd61e898c339c287efb9dbff91b38fe67";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -5606,10 +5606,10 @@
     };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.9.1";
+      version = "1.9.1.1";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4312170/keepassxc_browser-1.9.1.xpi";
-      sha256 = "cbd8d02401cfb42a93e0f1f1fa6ccf21be875bdac18bdb5634cb11c8263006ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4315216/keepassxc_browser-1.9.1.1.xpi";
+      sha256 = "94eb909e82507b228bc6c09e36d9043722bf0eaa36edbfe8b26d36e4b588f6f6";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -7015,10 +7015,10 @@
     };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "11.16.13";
+      version = "11.16.15";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4307737/ether_metamask-11.16.13.xpi";
-      sha256 = "84dc9c396677b2a983f032646b0467479dda66aa3638c2132d69e9a4afbc18a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4314725/ether_metamask-11.16.15.xpi";
+      sha256 = "0ae84354d844454142312a12a508154d29588659eb87fa6a03707601ded22105";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -7441,10 +7441,10 @@
     };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.29";
+      version = "11.4.30";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4206186/noscript-11.4.29.xpi";
-      sha256 = "05b98840b05ef2acbac333543e4b7c3d40fee2ce5fb4e29260b05e2ff6fe24cd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4315766/noscript-11.4.30.xpi";
+      sha256 = "e259ba4e83d459252f7db665d60290df658b482352cf4d818703f4f3fad40ce5";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -7870,10 +7870,10 @@
     };
     "paperpile" = buildFirefoxXpiAddon {
       pname = "paperpile";
-      version = "1.0.55";
+      version = "1.0.57";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4313948/paperpile_addon-1.0.55.xpi";
-      sha256 = "00d133758fbd8927c38494fb3aff11bb24317c75628dfbaddb908bf4d5e8faf5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4317062/paperpile_addon-1.0.57.xpi";
+      sha256 = "59223c2df28242ed374cbeb60e99a7d40376e0f588f15ccecac83a2f4c113277";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -8825,10 +8825,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.19.0";
+      version = "1.20.0";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4312876/proton_pass-1.19.0.xpi";
-      sha256 = "2d8d8c0f4e8d2118e2292be6f465201e3e020c10e2088116ed9c9f8923cc661f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4314861/proton_pass-1.20.0.xpi";
+      sha256 = "068f81a53467f7298e429a1f14c20163083b60aaebe0a08ee14d4829ae8618f3";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -9242,10 +9242,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.7.1";
+      version = "24.7.10";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4311993/refined_github-24.7.1.xpi";
-      sha256 = "da7e36569b2ef0b6c7b947637ee0af2b98e9dc1499eb06ba949e2f2030682bf1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4317387/refined_github-24.7.10.xpi";
+      sha256 = "cce26134ede7e2d44069aebfc743f379ac28139ff376976fbf19e72d266d371b";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
