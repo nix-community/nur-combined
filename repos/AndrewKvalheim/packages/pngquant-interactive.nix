@@ -8,6 +8,7 @@
 , curl
 , git
 , libXcursor
+, libXfixes
 , libXinerama
 , mesa
 , pango
@@ -29,7 +30,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-pyQevvMX7895pqlERs6N+kT1OxkTWwKW3fhNYzYve+8=";
 
   nativeBuildInputs = [ cmake curl git pkg-config ];
-  buildInputs = [ libXcursor libXinerama mesa pango ];
+  buildInputs = [ libXcursor libXfixes libXinerama mesa pango ];
 
   passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 

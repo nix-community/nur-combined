@@ -53,7 +53,6 @@ rec {
   mmdbinspect = pkgs.callPackage ./packages/mmdbinspect.nix { };
   nbt-explorer = pkgs.callPackage ./packages/nbt-explorer.nix { };
   pngquant-interactive = pkgs.callPackage ./packages/pngquant-interactive.nix { };
-  pnpm = pkgs.callPackage ./packages/pnpm.nix { };
   spf-check = pkgs.callPackage ./packages/spf-check.nix { };
   spf-tree = pkgs.callPackage ./packages/spf-tree.nix { };
   tile-stitch = pkgs.callPackage ./packages/tile-stitch.nix { };
