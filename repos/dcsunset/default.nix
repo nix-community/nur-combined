@@ -9,10 +9,10 @@
 { pkgs ? import <nixpkgs> { } }:
 
 let
-  mylib = import ./lib { inherit pkgs; }; # functions
+  dc-lib = import ./lib { inherit (pkgs) lib; }; # functions
 in {
   # The `lib`, `modules`, and `overlay` names are special
-  lib = mylib;
+  lib = dc-lib;
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
@@ -20,19 +20,19 @@ in {
     map (p: {
       name = p;
       value = pkgs.callPackage (./pkgs/emacs + "/${p}") { };
-    }) (mylib.listSubdirNames ./pkgs/emacs)
+    }) (dc-lib.listSubdirNames ./pkgs/emacs)
   );
 
   cspellDicts = builtins.listToAttrs (
     map (p: {
       name = p;
       value = pkgs.callPackage (./pkgs/cspell-dicts + "/${p}") { };
-    }) (mylib.listSubdirNames ./pkgs/cspell-dicts)
+    }) (dc-lib.listSubdirNames ./pkgs/cspell-dicts)
   );
 } // (builtins.listToAttrs (
   # top-level
   map (p: {
     name = p;
     value = pkgs.callPackage (./pkgs/top-level + "/${p}") { };
-  }) (mylib.listSubdirNames ./pkgs/top-level)
+  }) (dc-lib.listSubdirNames ./pkgs/top-level)
 ))

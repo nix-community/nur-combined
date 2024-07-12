@@ -19,6 +19,8 @@
       });
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
 
+      lib = import ./lib { inherit (nixpkgs) lib; };
+
       overlays = import ./overlays;
 
       modules = import ./modules;
