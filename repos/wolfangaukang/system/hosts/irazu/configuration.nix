@@ -19,21 +19,18 @@ in
       ./disk-setup.nix
       ./hardware-configuration.nix
       "${self}/system/profiles/workstation.nix"
-      "${self}/system/profiles/pantheon.nix"
+      "${self}/system/profiles/sway.nix"
     ];
 
   boot = {
-    zfs.package = pkgs.zfs_2_1; # TODO: Change until ZFS support and Virtualbox can be built
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_1;
+    zfs.package = pkgs.zfs_2_1;
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
   };
-
   networking.hostName = hostname;
-
   nixpkgs = {
     inherit overlays;
     hostPlatform = lib.mkDefault "x86_64-linux";
   };
-
   profile = {
     moonlander = {
       enable = true;
@@ -69,7 +66,6 @@ in
       };
     };
   };
-
   sops.secrets."machine_id" = {
     sopsFile = ./secrets.yml;
     mode = "0644";

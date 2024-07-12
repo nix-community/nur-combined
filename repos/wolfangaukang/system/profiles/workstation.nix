@@ -9,22 +9,17 @@ let
   inherit (inputs) self;
   localLib = import "${self}/lib" { inherit inputs lib; };
   inherit (localLib) obtainIPV4Address;
-  # Zerotier IPs
-  # TODO: Use a map here
-  ips = {
-    grimsnes = obtainIPV4Address "grimsnes" "activos";
-    surtsey = obtainIPV4Address "surtsey" "activos";
-    irazu = obtainIPV4Address "irazu" "activos";
-    arenal = obtainIPV4Address "arenal" "activos";
-    barva = obtainIPV4Address "barva" "activos";
-  };
+  ips = builtins.listToAttrs (map (host: { name = host; value = obtainIPV4Address "${host}" "activos"; }) [ "grimsnes" "surtsey" "irazu" "arenal" "barva" ]); # Zerotier IPs
 
 in
 {
-  imports = [
-    ./graphics.nix
-  ];
-
+  hardware = {
+    bluetooth = {
+      enable = true;
+      powerOnBoot = false;
+    };
+    graphics.enable = true;
+  };
   networking = {
     # TODO: Use a map here
     hosts = {

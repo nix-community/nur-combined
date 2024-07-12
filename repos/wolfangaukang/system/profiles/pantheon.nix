@@ -3,7 +3,10 @@
 , ...
 }:
 
-{
+let
+  inherit (lib) mkForce;
+
+in {
   imports = [
     ./xserver.nix
   ];
@@ -18,8 +21,12 @@
       epiphany
       # Email related stuff
       evolutionWithPlugins
-      gnome.geary
+      geary
     ];
+  };
+  programs = {
+    sway.enable = mkForce false;
+    hyprland.enable = mkForce false;
   };
   services = {
     pantheon = {

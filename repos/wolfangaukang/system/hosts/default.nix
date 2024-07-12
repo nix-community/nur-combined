@@ -20,6 +20,12 @@ in
     specialArgs = { inherit inputs localLib overlays; hostname = "irazu"; };
   };
 
+  vm = nixosSystem {
+    modules = [ ./pocosol ];
+    specialArgs = { inherit inputs localLib overlays; hostname = "pocosol"; };
+  };
+
+  # TODO: Migrate to nixosSystem
   barva = mkNixos {
     inherit inputs overlays;
     users = baseUsers.system;
@@ -41,9 +47,4 @@ in
       hm-users = users;
       extra-special-args = { inherit users; };
     };
-
-  vm = nixosSystem {
-    modules = [ ./pocosol ];
-    specialArgs = { inherit inputs localLib overlays; hostname = "pocosol"; };
-  };
 }

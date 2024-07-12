@@ -121,10 +121,7 @@ in
               gamescopeSession.enable = cfg.gaming.steam.enableGamescope;
             };
           };
-          hardware.opengl = {
-            extraPackages32 = [ libva ];
-            setLdLibraryPath = true;
-          };
+          hardware.graphics.extraPackages32 = [ libva ];
           profile = {
             specialisations.gaming.indicator = true;
             predicates.unfreePackages = [

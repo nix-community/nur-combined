@@ -9,8 +9,8 @@
 
 let
   inherit (inputs) self;
-  inherit (localLib) generateHyprlandMonitorConfig generateKanshiOutput;
-  hostDefaults = lib.importJSON "${self}/system/hosts/common/host_defaults.json";
+  inherit (localLib) generateHyprlandMonitorConfig generateKanshiOutput getHostDefaults;
+  hostInfo = getHostDefaults hostname;
   commands = import "${inputs.self}/home/users/bjorn/settings/wm-commands.nix" { inherit config lib pkgs; };
 
 in
@@ -18,6 +18,7 @@ in
   imports = [
     "${self}/home/users/bjorn"
     "${self}/home/users/bjorn/profiles/workstation.nix"
+    "${self}/home/users/bjorn/profiles/sway.nix"
   ];
 
   defaultajAgordoj.gui.terminal.font.size = 11;
@@ -28,22 +29,38 @@ in
     stremio
   ];
 
+  programs.waybar.settings.mainBar = {
+    modules-right = [ "backlight" "battery" ];
+    backlight."format" = "  {percent}%";
+    battery = {
+      "format" = "  {capacity}%";
+      "states" = {
+        "warning" = "20";
+        "critical" = "7";
+      };
+    };
+  };
+
   services.kanshi.settings = [
     {
       profile = {
         name = "docked";
         outputs = [
-          (generateKanshiOutput hostDefaults hostname)
+          (generateKanshiOutput hostInfo)
         ];
       };
     }
     {
       profile = {
         name = "connected";
-        outputs = [
-          (generateKanshiOutput hostDefaults hostname)
-          ((generateKanshiOutput hostDefaults "irazu") // { position = "0,-1080"; })
-        ];
+        outputs =
+          let
+            irazuInfo = getHostDefaults "irazu";
+          in [
+            (generateKanshiOutput hostInfo)
+            # Pick Irazu's monitor
+            ((generateKanshiOutput irazuInfo) // { position = "0,-1080"; })
+          ];
       };
     }
   ];
@@ -65,9 +82,6 @@ in
         keybindings = {
           "XF86MonBrightnessDown" = "exec --no-startup-id ${commands.brightness} set 5%-";
           "XF86MonBrightnessUp" = "exec --no-startup-id ${commands.brightness} set 5%+";
-          "XF86AudioLowerVolume" = "exec --no-startup-id ${commands.volume} -d 5";
-          "XF86AudioRaiseVolume" = "exec --no-startup-id ${commands.volume} -i 5";
-          "XF86AudioMute" = "exec --no-startup-id ${commands.volumeMute}";
           #"XF86Sleep" = "exec ${commands.lock}";
         };
       };
@@ -77,7 +91,7 @@ in
       '';
     };
     hyprland.settings = {
-      monitor = generateHyprlandMonitorConfig hostDefaults hostname;
+      monitor = generateHyprlandMonitorConfig hostInfo;
       gestures = {
         workspace_swipe = true;
         workspace_swipe_fingers = 3;

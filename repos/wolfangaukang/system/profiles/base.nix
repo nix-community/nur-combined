@@ -10,6 +10,7 @@ in
 {
   imports = [
     "${inputs.self}/system/modules/personal"
+    inputs.lix.nixosModules.default
   ];
   console.keyMap = "colemak";
 

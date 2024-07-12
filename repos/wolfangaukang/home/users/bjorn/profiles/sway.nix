@@ -3,134 +3,25 @@
 , config
 , osConfig
 , inputs
+, hostname
+, localLib
 , ...
 }:
 
 let
-  inherit (pkgs) nwg-look nordic pulsemixer rofiwl-custom waybar;
+  inherit (pkgs) waybar;
+  inherit (localLib) getHostDefaults;
+  hostInfo = getHostDefaults hostname;
   commands = import "${inputs.self}/home/users/bjorn/settings/wm-commands.nix" { inherit pkgs config lib; };
-
   mainMod = "Mod4";
 
 in
 {
-  home.packages = [
-    # Modding
-    nwg-look
-
-    # https://sourcegraph.com/github.com/Misterio77/nix-config@9ad4c4f6792e10c4cb5076353250344398bdbfa7/-/blob/home/misterio/features/desktop/common/default.nix
-    # GTK Theme
-    nordic
-
-    pulsemixer
-  ];
-  gtk = {
-    enable = true;
-    font.name = "Fira Sans 8";
-    gtk2.extraConfig = "gtk-application-prefer-dark-theme=1";
-    gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
-    gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
-  };
-  dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
-
-  programs = {
-    rofi = {
-      enable = true;
-      package = rofiwl-custom;
-      theme = "Arc-Dark";
-    };
-    swaylock = {
-      enable = true;
-      settings = {
-        daemonize = true;
-        ignore-empty-password = true;
-        indicator-caps-lock = true;
-        scaling = "fill";
-        image = "${config.home.homeDirectory}/.lock.jpg";
-      };
-    };
-    waybar = {
-      enable = true;
-      package = waybar.override {
-        hyprlandSupport = true;
-        pipewireSupport = true;
-        traySupport = true;
-      };
-      settings.mainBar = {
-        layer = "top";
-        position = "top";
-        height = 32;
-        output = [
-          "eDP-1"
-        ];
-        modules-left = [ "wlr/taskbar" ];
-        modules-center = [ "clock" ];
-        # https://sourcegraph.com/github.com/nix-community/home-manager@b787726a8413e11b074cde42704b4af32d95545c/-/blob/tests/modules/programs/waybar/settings-complex.nix?L9:14-9:20
-        modules-right = [ "idle_inhibitor" "tray" "wireplumber" "backlight" "network" "bluetooth" "battery" ];
-        # Modules
-        clock = {
-          interval = 30;
-          format = "{:%a %d %b %Y %H:%M}";
-          calendar = {
-            mode = "month";
-            weeks-pos = "left";
-            on-scroll = "1";
-          };
-        };
-        idle_inhibitor = {
-          "format" = "{icon}";
-          "format-icons" = {
-            "activated" = "";
-            "deactivated" = "";
-          };
-        };
-        wireplumber = {
-          "format" = "  {volume}%";
-          "format-muted" = "";
-          "on-click" = "${commands.volumeMute}";
-        };
-        backlight."format" = "  {percent}%";
-        battery = {
-          "format" = "  {capacity}%";
-          "states" = {
-            "warning" = "20";
-            "critical" = "7";
-          };
-        };
-        bluetooth = {
-          "format" = "   {status} ";
-          "format-disabled" = "";
-          "format-connected" = "   {device_alias} ";
-          "format-connected-battery" = "   {device_alias} {device_battery_percentage}% ";
-          "on-click" = "${lib.getExe commands.bluetoothToggle}";
-        };
-        network = {
-          "format-wifi" = "  {essid} ({signalStrength}%)";
-          "format-ethernet" = "  {ifname}";
-          "format-disconnected" = "";
-        };
-      };
-    };
-  };
-  # TODO: Kanshi https://sourcegraph.com/github.com/nix-community/home-manager@a561ad6ab38578c812cc9af3b04f2cc60ebf48c9/-/blob/tests/modules/services/kanshi/basic-configuration.nix?L3:14-3:20
-  # TODO: Customize Fnott
-  services = {
-    fnott.enable = true;
-    kanshi = {
-      enable = true;
-      systemdTarget = "hyprland-session.target";
-    };
-    swayidle = {
-      enable = true;
-      events = [
-        { event = "before-sleep"; command = "${commands.lock}"; }
-        { event = "lock"; command = "${commands.lock}"; }
-      ];
-      timeouts = [
-        { timeout = 300; command = "${commands.lock}"; }
-        { timeout = 600; command = "systemctl suspend"; }
-      ];
-    };
+  imports = [ ./wayland.nix ];
+  programs.waybar.package = waybar.override {
+    pipewireSupport = true;
+    swaySupport = config.wayland.windowManager.sway.enable;
+    traySupport = true;
   };
   wayland.windowManager.sway = {
     enable = osConfig.programs.sway.enable;
@@ -165,6 +56,9 @@ in
         "Ctrl+Print" = "exec --no-startup-id ${commands.screenshot "copy" "screen"}";
         "Ctrl+Alt+Print" = "exec --no-startup-id ${commands.screenshot "copy" "window"}";
         "Ctrl+Shift+Print" = "exec --no-startup-id ${commands.screenshot "copy" "area"}";
+        "XF86AudioLowerVolume" = "exec --no-startup-id ${commands.volume} -d 5";
+        "XF86AudioRaiseVolume" = "exec --no-startup-id ${commands.volume} -i 5";
+        "XF86AudioMute" = "exec --no-startup-id ${commands.volumeMute}";
 
         ## Tiles
         #"ALT, Tab, cyclenext"
@@ -187,7 +81,6 @@ in
         "${modifier}+Alt+u" = "layout tabbed";
         "${modifier}+Alt+y" = "layout toggle split";
         #"${modifier}, U, togglefloating"
-
 
         ## Workspace
         "${modifier}+Ctrl+1" = "workspace number 1";
@@ -221,10 +114,6 @@ in
         # https://www.reddit.com/r/hyprland/comments/xaujb9/a_couple_questions_about_hyprland/
         #"${mainMod}, P, pseudo, # dwindle"
         #"${mainMod}, J, togglesplit, # dwindle"
-        #"${mainMod}, left, movefocus, l"
-        #"${mainMod}, right, movefocus, r"
-        #"${mainMod}, up, movefocus, u"
-        #"${mainMod}, down, movefocus, d"
 
         ## Scroll workspace bind
         #"${mainMod} SHIFT, mouse_down, workspace, e+1"
@@ -236,17 +125,16 @@ in
         #"${mainMod} SHIFT, S, movetoworkspace, special:magic"
       #];
       };
-      output = {
-        "eDP-1" = {
-          bg = "${config.home.homeDirectory}/.wallpaper.jpg fill";
-        };
-      };
+      output = let mainDisplay = hostInfo.display.id;
+        in { "${mainDisplay}".bg = "${config.home.homeDirectory}/.wallpaper.jpg fill"; };
+      window.titlebar = false;
     };
     extraConfig = ''
       for_window [title="Choose a Firefox profile"] floating enable
       for_window [title="Picture-in-Picture"] floating enable
     '';
     wrapperFeatures.gtk = true;
+    xwayland = true;
     #settings = {
       #env = [
         #"XCURSOR_SIZE,24"
@@ -300,7 +188,6 @@ in
       #windowrulev2 = [
         #"suppressevent maximize, class:.*"
       #];
-#      
-    #};
+   #};
   };
 }

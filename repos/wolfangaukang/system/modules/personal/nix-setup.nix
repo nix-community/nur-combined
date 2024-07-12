@@ -1,4 +1,7 @@
-{ config, lib, pkgs, ... }:
+{ config
+, lib
+, ...
+}:
 
 with lib;
 let
@@ -8,45 +11,24 @@ in
 {
 
   options.profile.nix = {
-    enableAutoOptimise = mkOption {
-      default = false;
-      type = types.bool;
-      description = ''
-        Enables autoOptimiseStore
-      '';
-    };
-    enableFlakes = mkOption {
-      default = false;
-      type = types.bool;
-      description = ''
-        Enables flakes
-      '';
-    };
-    enableUseSandbox = mkOption {
-      default = false;
-      type = types.bool;
-      description = ''
-        Enables sandbox
-      '';
-    };
+    enableAutoOptimise = mkEnableOption "Enables autoOptimiseStore";
+    enableFlakes = mkEnableOption "Enables flakes";
+    enableUseSandbox = mkEnableOption "Enables sandbox";
   };
 
   config = mkMerge [
     {
       nix.settings = {
-        auto-optimise-store = mkIf cfg.enableAutoOptimise true;
-        sandbox = mkIf cfg.enableUseSandbox true;
+        auto-optimise-store = cfg.enableAutoOptimise;
+        sandbox = cfg.enableUseSandbox;
       };
     }
     (mkIf cfg.enableFlakes {
-      nix = {
-        package = pkgs.nixVersions.latest;
-        extraOptions = ''
-          experimental-features = nix-command flakes
-          keep-outputs = true
-          keep-derivations = true
-        '';
-      };
+      nix.extraOptions = ''
+        experimental-features = nix-command flakes
+        keep-outputs = true
+        keep-derivations = true
+      '';
     })
   ];
 }

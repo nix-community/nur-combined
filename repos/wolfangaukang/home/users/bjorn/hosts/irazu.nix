@@ -1,11 +1,17 @@
 { inputs
 , pkgs
+, config
 , osConfig
+, localLib
+, hostname
 , ...
 }:
 
 let
   inherit (inputs) self;
+  inherit (localLib) getHostDefaults;
+  hostInfo = getHostDefaults hostname;
+  mainDisplay =  hostInfo.display.id;
 
 in
 {
@@ -13,6 +19,7 @@ in
     "${self}/home/users/bjorn"
     "${self}/home/users/bjorn/profiles/workstation.nix"
     "${self}/home/users/bjorn/profiles/programs/mopidy.nix"
+    "${self}/home/users/bjorn/profiles/sway.nix"
   ];
 
   home.persistence = {
@@ -26,8 +33,6 @@ in
     #    ".mozilla"
     #    ".ssh/keys"
     #    #".thunderbird"
-    #    # TODO: Test using only .Upwork/Upwork/UserData/
-    #    ".Upwork"
     #    #".vscode-oss"
     #  ];
     #  files = [

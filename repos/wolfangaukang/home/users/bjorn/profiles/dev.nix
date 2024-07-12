@@ -3,11 +3,11 @@
 let
   userEmail = "d.ol.rod@tutanota.com";
   userName = "P.";
-  mkdir-devshell = pkgs.writeScriptBin "mkdir-devshell" (builtins.readFile "${inputs.dotfiles}/bin/devshell/mkdir-devshell");
+  mkdir-devenv = pkgs.writeScriptBin "mkdir-devenv" (builtins.readFile "${inputs.dotfiles}/bin/devenv/mkdir-devenv");
 
 in
 {
-  home.packages = [ mkdir-devshell ];
+  home.packages = [ mkdir-devenv ];
   programs = {
     git = {
       # FIXME: Make me private

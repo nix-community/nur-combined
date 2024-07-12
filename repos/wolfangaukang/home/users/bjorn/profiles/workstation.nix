@@ -12,8 +12,6 @@ let
 
 in
 {
-  imports = [ ./hyprland ];
-
   services.syncthing.enable = true;
 
   defaultajAgordoj.work.simplerisk.enable = osConfig.profile.specialisations.work.simplerisk.indicator;

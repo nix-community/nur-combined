@@ -21,8 +21,7 @@ in
     "${self}/system/profiles/sway.nix"
   ];
 
-  # TODO: Change until VirtualBox can be built
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_1;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_6;
   environment.etc.machine-id.source = config.sops.secrets."machine_id".path;
   networking.hostName = hostname;
   nixpkgs = {
@@ -31,7 +30,7 @@ in
   };
   profile = {
     batteryNotifier = {
-      enable = true;
+      enable = config.programs.sway.enable || config.programs.hyprland.enable;
       suspend.capacityValue = 3;
     };
     nix = {
