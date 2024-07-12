@@ -31,6 +31,9 @@ fetch.url = "https://github.com/qutebrowser/qutebrowser/releases/download/v$ver/
 src.git = "https://github.com/FelixKratz/SbarLua"
 src.branch = "main"
 fetch.github = "FelixKratz/SbarLua"
+# cannot build for x86_64-darwin
+# https://github.com/FelixKratz/SbarLua/issues/30
+pinned = true
 
 [skkeleton]
 src.git = "https://github.com/vim-skk/skkeleton"
