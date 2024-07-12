@@ -8,11 +8,13 @@
   carla-git = {
     pname = "carla-git";
     version = "c37d53a4216654118e711fa41e88e7e801d5bd9b";
-    src = fetchFromGitHub {
-      owner = "falkTX";
-      repo = "Carla";
+    src = fetchgit {
+      url = "https://github.com/falkTX/Carla";
       rev = "c37d53a4216654118e711fa41e88e7e801d5bd9b";
       fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [];
       sha256 = "sha256-nduM04HVZVNVCDsIIp/vcwL13Io5RgZaWRi+CfDbFwk=";
     };
     date = "2024-05-24";
