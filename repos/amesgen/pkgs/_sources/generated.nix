@@ -41,14 +41,6 @@
       sha256 = "sha256-lO89pt/EOYdu1juRcZtXD7yY44UCnRVXxLkzQa0AI+I=";
     };
   };
-  hellsmack = {
-    pname = "hellsmack";
-    version = "0.1.2.6";
-    src = fetchurl {
-      url = "https://github.com/amesgen/hellsmack/releases/download/v0.1.2.6/hellsmack-Linux.zip";
-      sha256 = "sha256-Bykic44/DRWKqzdgTyMGYI5luQzr3zt9UlYxGIstRj8=";
-    };
-  };
   hlint = {
     pname = "hlint";
     version = "3.8";

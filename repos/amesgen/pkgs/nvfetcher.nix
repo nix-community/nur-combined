@@ -21,11 +21,6 @@ in
   cabal-docspec-man = cabal-docspec // {
     fetch.url = "https://raw.githubusercontent.com/phadej/cabal-extras/cabal-docspec-$ver/cabal-docspec/cabal-docspec.1";
   };
-  hellsmack = github {
-    slug = "amesgen/hellsmack";
-    restUrl = "v$ver/hellsmack-Linux.zip";
-    src.prefix = "v";
-  };
   hlint = github {
     slug = "ndmitchell/hlint";
     restUrl = "v$ver/hlint-$ver-x86_64-linux.tar.gz";

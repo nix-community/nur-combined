@@ -38,53 +38,6 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
       };
     };
 
-  hellsmack =
-    { lib
-    , stdenv
-    , installShellFiles
-    , makeWrapper
-    , unzip
-
-    , curl
-    , libpulseaudio
-    , systemd
-    , alsa-lib
-    , flite
-    , xorg
-    }:
-    let
-      # see https://github.com/NixOS/nixpkgs/blob/f4f5cfb354b63ac74e03694ae88f0e078cbaa29b/pkgs/games/minecraft/default.nix#L44-L51
-      libPath = lib.makeLibraryPath [
-        curl
-        libpulseaudio
-        systemd
-        alsa-lib # needed for narrator
-        flite # needed for narrator
-        xorg.libXxf86vm # needed only for versions <1.13
-      ];
-    in
-    stdenv.mkDerivation rec {
-      inherit (nv.hellsmack) pname version src;
-      dontUnpack = true;
-      nativeBuildInputs = [ installShellFiles makeWrapper unzip ];
-      installPhase = ''
-        mkdir -p $out/bin
-        BIN=$out/bin/${pname}
-        unzip ${src}
-        install -m755 -D hellsmack $BIN
-        ${optparseApplicativeCompletions pname}
-        wrapProgram $BIN --prefix LD_LIBRARY_PATH : ${libPath}
-      '';
-
-      meta = {
-        description = "Minecraft stuff";
-        homepage = "https://github.com/amesgen/hellsmack";
-        license = lib.licenses.cc0;
-        sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-        platforms = [ "x86_64-linux" ];
-      };
-    };
-
   cabal-docspec =
     { lib
     , stdenv
@@ -212,6 +165,32 @@ lib.mapAttrs (_: pkg: pkgs.callPackage pkg { }) {
         description = "Format Haskell package descriptions";
         homepage = "https://github.com/tfausak/cabal-gild";
         license = lib.licenses.mit;
+        sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+        platforms = [ "x86_64-linux" ];
+      };
+    };
+
+  cabal-install =
+    { lib
+    , stdenv
+    , fetchurl
+    }:
+    stdenv.mkDerivation rec {
+      pname = "cabal-install";
+      version = "3.12.1.0";
+      src = fetchurl {
+        url = "https://downloads.haskell.org/cabal/cabal-install-${version}/cabal-install-${version}-x86_64-linux-alpine3_18.tar.xz";
+        hash = "sha256-jCdvVczzUNIwWxrMqAzufifUT2BbSYQBl9qoA9klDIE=";
+      };
+      sourceRoot = ".";
+
+      installPhase = ''
+        mkdir -p $out/bin
+        install -m755 -D cabal $out/bin/
+      '';
+
+      meta = {
+        inherit (pkgs.cabal-install.meta) description homepage license;
         sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
         platforms = [ "x86_64-linux" ];
       };

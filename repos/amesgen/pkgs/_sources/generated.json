@@ -74,21 +74,6 @@
         },
         "version": "0.16.2.0"
     },
-    "hellsmack": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "hellsmack",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-Bykic44/DRWKqzdgTyMGYI5luQzr3zt9UlYxGIstRj8=",
-            "type": "url",
-            "url": "https://github.com/amesgen/hellsmack/releases/download/v0.1.2.6/hellsmack-Linux.zip"
-        },
-        "version": "0.1.2.6"
-    },
     "hlint": {
         "cargoLocks": null,
         "date": null,
