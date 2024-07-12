@@ -7,7 +7,7 @@ let
   src = fetchgit {
     rev = "v${version}";
     url = "https://github.com/iden3/rapidsnark.git";
-    hash = "sha256-CqGdm/8rHDXl6gQGytxIkYnzMaQsZl08iaGr+KU79uE=";
+    hash = "sha256-JH+/4TE7oSDpcUFvKbmgwSAi4xDOZLabUFQ7VX6BH4Q";
     deepClone = true;
   };
   buildInputs = [ gmp ];
