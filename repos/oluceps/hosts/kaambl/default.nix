@@ -6,7 +6,7 @@
 }:
 {
   deployment = {
-    targetHost = "192.168.1.187";
+    targetHost = "192.168.1.188";
     targetUser = user;
     allowLocalDeployment = true;
     privilegeEscalationCommand = [

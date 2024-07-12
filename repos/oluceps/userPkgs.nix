@@ -31,7 +31,7 @@ with pkgs;
   kooha # recorder
 
   typst
-  blender-hip
+  # blender-hip
   ruffle
 
   # fractal
@@ -112,7 +112,6 @@ with pkgs;
   kate
   # cinnamon.nemo
   gnome.nautilus
-  gnome.dconf-editor
   gnome.gnome-boxes
   gnome.evince
   # zathura
@@ -192,9 +191,7 @@ with pkgs;
   tinymist
 ])
 ++ (with pkgs.nodePackages_latest; [
-  vscode-json-languageserver-bin
-  vscode-html-languageserver-bin
-  vscode-css-languageserver-bin
+  vscode-langservers-extracted
   bash-language-server
   vls
   prettier

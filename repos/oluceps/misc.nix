@@ -128,9 +128,9 @@
     pam = {
       u2f = {
         enable = true;
-        authFile = config.age.secrets."${user}.u2f".path;
+        settings.authFile = config.age.secrets."${user}.u2f".path;
+        settings.cue = true;
         control = "sufficient";
-        cue = true;
       };
       loginLimits = [
         {
@@ -149,7 +149,7 @@
 
   services = {
 
-    bpftune.enable = true;
+    # bpftune.enable = true;
 
     journald.extraConfig = ''
       SystemMaxUse=1G
@@ -209,7 +209,7 @@
     ssh = {
       startAgent = true;
       enableAskPassword = true;
-      askPassword = "${pkgs.gnome.seahorse}/libexec/seahorse/ssh-askpass";
+      askPassword = "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
     };
 
     git.enable = true;
@@ -230,6 +230,7 @@
           la = "eza --icons=auto --hyperlink --color=always --color-scale=all --color-scale-mode=gradient --git --git-repos -la";
           l = "eza --icons=auto --hyperlink --color=always --color-scale=all --color-scale-mode=gradient --git --git-repos -lh";
           nd = "cd /home/${user}/Src/nixos";
+          bl = "cd /home/${user}/Src/blog.nyaw.xyz";
           swc = "sudo nixos-rebuild switch --flake /home/${user}/Src/nixos";
           #--log-format internal-json -v 2>&1 | nom --json";
           daso = "sudo";

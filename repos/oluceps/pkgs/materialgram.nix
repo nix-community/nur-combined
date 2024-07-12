@@ -1,35 +1,22 @@
 {
   telegram-desktop,
   lib,
-  xdg-utils,
-  stdenv,
   fetchFromGitHub,
 }:
 telegram-desktop.overrideAttrs (
   finalAttrs: previousAttrs: {
     pname = "materialgram";
-    version = "5.1.7.1-unstable-2024-05-18";
+    version = "5.2.1.1";
 
     src = fetchFromGitHub {
       owner = "kukuruzka165";
       repo = "materialgram";
-      rev = "2fa4ffed4b9983a9104f3644631ff04885f388b6";
+      rev = "v${finalAttrs.version}";
       fetchSubmodules = true;
-      hash = "sha256-ULIh/uvdNqnRV7TG+dq/IcZDWoAJVz5I+1haehaQGU0=";
+      hash = "sha256-tofpm5oz4E7UaGw1rD39UF0c22sxhazLm9ZvKX0vHSk=";
     };
-
-    postFixup =
-      lib.optionalString stdenv.isLinux ''
-        # This is necessary to run Telegram in a pure environment.
-        # We also use gappsWrapperArgs from wrapGAppsHook.
-        wrapProgram $out/bin/${finalAttrs.meta.mainProgram} \
-          "''${gappsWrapperArgs[@]}" \
-          "''${qtWrapperArgs[@]}" \
-          --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
-      ''
-      + lib.optionalString stdenv.isDarwin ''
-        wrapQtApp $out/Applications/${finalAttrs.meta.mainProgram}.app/Contents/MacOS/${finalAttrs.meta.mainProgram}
-      '';
+    patches = [ (lib.elem 0 previousAttrs.patches) ];
+    # patches = [ ];
 
     meta = previousAttrs.meta // {
       description = "Telegram Desktop fork with material icons and some improvements";

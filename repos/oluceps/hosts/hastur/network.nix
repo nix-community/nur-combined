@@ -90,6 +90,14 @@
         MACAddressPolicy = "persistent";
       };
     };
+    links."20-ncm" = {
+      matchConfig.Driver = "cdc_ncm";
+      linkConfig = {
+        NamePolicy = "keep";
+        Name = "ncm";
+        MACAddressPolicy = "persistent";
+      };
+    };
     links."40-wlan0" = {
       matchConfig.MACAddress = "70:66:55:e7:1c:b1";
       linkConfig.Name = "wlan0";
@@ -186,6 +194,18 @@
         #     "wlan0"
         #   ];
         # };
+      };
+
+      "25-ncm" = {
+        matchConfig.Name = "ncm";
+        DHCP = "yes";
+        dhcpV4Config.RouteMetric = 2044;
+        dhcpV6Config.RouteMetric = 2044;
+        dhcpV4Config.UseDNS = false;
+        dhcpV6Config.UseDNS = false;
+        networkConfig = {
+          DNSSEC = true;
+        };
       };
 
       "30-rndis" = {

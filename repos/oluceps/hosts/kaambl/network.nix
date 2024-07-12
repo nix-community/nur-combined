@@ -83,6 +83,14 @@
         MACAddressPolicy = "persistent";
       };
     };
+    links."20-ncm" = {
+      matchConfig.Driver = "cdc_ncm";
+      linkConfig = {
+        NamePolicy = "keep";
+        Name = "ncm";
+        MACAddressPolicy = "persistent";
+      };
+    };
     links."40-wlan" = {
       matchConfig.Driver = "ath11k_pci";
       linkConfig.Name = "wlan0";
@@ -101,16 +109,16 @@
         };
         wireguardPeers = [
           {
-              PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
-              AllowedIPs = [ "10.0.1.0/24" ];
-              Endpoint = "127.0.0.1:41820";
-              PersistentKeepalive = 15;
+            PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
+            AllowedIPs = [ "10.0.1.0/24" ];
+            Endpoint = "127.0.0.1:41820";
+            PersistentKeepalive = 15;
           }
           {
-              PublicKey = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno=";
-              AllowedIPs = [ "10.0.2.0/24" ];
-              Endpoint = "116.196.112.43:51820";
-              PersistentKeepalive = 15;
+            PublicKey = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno=";
+            AllowedIPs = [ "10.0.2.0/24" ];
+            Endpoint = "116.196.112.43:51820";
+            PersistentKeepalive = 15;
           }
           # {
           #   wireguardPeerConfig = {
@@ -160,6 +168,17 @@
 
       "30-rndis" = {
         matchConfig.Name = "rndis";
+        DHCP = "yes";
+        dhcpV4Config.RouteMetric = 2044;
+        dhcpV6Config.RouteMetric = 2044;
+        dhcpV4Config.UseDNS = false;
+        dhcpV6Config.UseDNS = false;
+        networkConfig = {
+          DNSSEC = true;
+        };
+      };
+      "25-ncm" = {
+        matchConfig.Name = "ncm";
         DHCP = "yes";
         dhcpV4Config.RouteMetric = 2044;
         dhcpV6Config.RouteMetric = 2044;

@@ -196,9 +196,7 @@
       )
     )
     ++ (with pkgs.nodePackages; [
-      vscode-json-languageserver
       typescript-language-server
-      vscode-css-languageserver-bin
       node2nix
       markdownlint-cli2
       prettier

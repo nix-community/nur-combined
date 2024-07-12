@@ -9,8 +9,8 @@
   # Mobile device.
 
   system.stateVersion = "23.05"; # Did you read the comment?
-  users.mutableUsers = false;
-  system.etc.overlay.mutable = false;
+  users.mutableUsers = true;
+  system.etc.overlay.mutable = true;
 
   hardware.opengl.extraPackages = with pkgs; [
     rocm-opencl-icd

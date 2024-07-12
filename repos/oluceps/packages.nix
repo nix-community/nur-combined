@@ -27,14 +27,13 @@ let
       gitui
       nushell
       radicle
-      friture
+      # friture
       qemu-utils
       yubikey-personalization
       racket
       resign
       pv
       devenv
-      gnome.dconf-editor
       rustup
       [
         swagger-codegen3
@@ -133,7 +132,6 @@ let
       mcrcon
       zola
 
-      asciinema
       smartmontools
       difftastic
       btop
