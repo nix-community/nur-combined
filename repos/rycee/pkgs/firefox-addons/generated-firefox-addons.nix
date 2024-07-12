@@ -4936,10 +4936,10 @@
     };
     "i2p-in-private-browsing" = buildFirefoxXpiAddon {
       pname = "i2p-in-private-browsing";
-      version = "1.48";
+      version = "2.5.8";
       addonId = "i2ppb@eyedeekay.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4123613/i2p_in_private_browsing-1.48.xpi";
-      sha256 = "692f00963fd4360713a7f4c358f37af704a7d06c43b10c78e1db71af26dd3d7a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4317955/i2p_in_private_browsing-2.5.8.xpi";
+      sha256 = "7f9e4455bb7e5a61d74893cb456bd552a24479334205791801e96189054412ba";
       meta = with lib;
       {
         homepage = "https://github.com/eyedeekay/i2psetproxy.js";
@@ -11739,10 +11739,10 @@
     };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.19.0";
+      version = "2.20.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4289102/violentmonkey-2.19.0.xpi";
-      sha256 = "105433e09e87b33431f9b47351c13e189a6d9e6df9eb5d425b3d97676ea3dc3c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4315769/violentmonkey-2.20.0.xpi";
+      sha256 = "94fe88507ea47e8cc5ca80b76a6aaec44a486dbfd515a03f82f228dc24d49910";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
@@ -11826,10 +11826,10 @@
     };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.69";
+      version = "6.10.70";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4282900/wappalyzer-6.10.69.xpi";
-      sha256 = "c1aac3b1e0be09a0e576908a2bee83fa83522ffc0b0c60bf3f7d06a4c8009f2f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4316416/wappalyzer-6.10.70.xpi";
+      sha256 = "a96d8dda5808e689042aa25a177c011fc2060cd16d1c6613c0c4e928c76d34fc";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
