@@ -23,15 +23,15 @@
   };
   nixfmt = {
     pname = "nixfmt";
-    version = "698954723ecec3f91770460ecae762ce590f2d9e";
+    version = "83de1eceaae8a891ae52a3a2b82226540207309e";
     src = fetchFromGitHub {
       owner = "NixOS";
       repo = "nixfmt";
-      rev = "698954723ecec3f91770460ecae762ce590f2d9e";
+      rev = "83de1eceaae8a891ae52a3a2b82226540207309e";
       fetchSubmodules = false;
-      sha256 = "sha256-pVpyKFxlQY1BTmZef/XDWynIU4idtFdCi/ChIrs9Bcw=";
+      sha256 = "sha256-t9v7aAX7iBWLiI8DkOZbnDcJK5W3Xjhwpddlv+hO1FI=";
     };
-    date = "2024-07-03";
+    date = "2024-07-12";
   };
   nixpkgs-review = {
     pname = "nixpkgs-review";
@@ -75,15 +75,15 @@
   };
   skkeleton = {
     pname = "skkeleton";
-    version = "1c96108b9ba055f82c458ddb78638ec266c44af5";
+    version = "1791a21f8e60907526b05b7d28c76429f375133d";
     src = fetchFromGitHub {
       owner = "vim-skk";
       repo = "skkeleton";
-      rev = "1c96108b9ba055f82c458ddb78638ec266c44af5";
+      rev = "1791a21f8e60907526b05b7d28c76429f375133d";
       fetchSubmodules = false;
-      sha256 = "sha256-JSfwTUdssdOwVefvi5QVOL6+F16LdIUQoPDggbXgAYA=";
+      sha256 = "sha256-86eVr7s3PcD2rnZ3/86AMc72LydObQzWaVsiwOYpfCI=";
     };
-    date = "2024-06-16";
+    date = "2024-07-09";
   };
   vim-startuptime = {
     pname = "vim-startuptime";
