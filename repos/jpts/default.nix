@@ -37,6 +37,7 @@ let
       zstdSupport = true;
       c-aresSupport = true;
       ipv6Support = true;
+      websocketSupport = true;
     };
   };
 in

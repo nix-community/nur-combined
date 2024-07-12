@@ -27,6 +27,7 @@
 , http2Support ? true
 , nghttp2
 , http3Support ? false
+, websocketSupport ? false
 , nghttp3
 , ngtcp2
 , idnSupport ? false
@@ -72,14 +73,14 @@ assert !((lib.count (x: x) [ gnutlsSupport opensslSupport wolfsslSupport rustlsS
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "curl";
-  version = "8.7.1";
+  version = "8.8.0";
 
   src = fetchurl {
     urls = [
       "https://curl.haxx.se/download/curl-${finalAttrs.version}.tar.xz"
       "https://github.com/curl/curl/releases/download/curl-${finalAttrs.version}/curl-${finalAttrs.version}.tar.xz"
     ];
-    hash = "sha256-b+oqrGpGEPvQQAr7C83b5yWKZMY/H2jlhV68DGWXEM0=";
+    hash = "sha256-D1i7lfwzDIpG7rPfVwGw2Qydm/zEK9HNCHkdElUdRAA=";
   };
 
   outputs = [ "bin" "dev" "out" "man" "devdoc" ];
@@ -131,6 +132,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.enableFeature c-aresSupport "ares")
     (lib.enableFeature ldapSupport "ldap")
     (lib.enableFeature ldapSupport "ldaps")
+    (lib.enableFeature websocketSupport "websockets")
     (lib.enableFeature ipv6Support "ipv6")
     # --with-ca-fallback is only supported for openssl and gnutls https://github.com/curl/curl/blame/curl-8_0_1/acinclude.m4#L1640
     (lib.withFeature (opensslSupport || gnutlsSupport) "ca-fallback")
