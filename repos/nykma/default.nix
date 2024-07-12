@@ -15,4 +15,5 @@ rec {
   font-apple-color-emoji = pkgs.callPackage ./pkgs/font-apple-color-emoji { };
   onekey-wallet = pkgs.callPackage ./pkgs/onekey-wallet { };
   jwt-cpp = pkgs.callPackage ./pkgs/jwt-cpp { };
+  rapidsnark = pkgs.callPackage ./pkgs/rapidsnark { };
 }

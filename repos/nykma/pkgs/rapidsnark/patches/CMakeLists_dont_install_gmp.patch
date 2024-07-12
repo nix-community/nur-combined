@@ -1,0 +1,15 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index e982464..f075add 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -58,8 +58,8 @@ install(TARGETS prover verifier rapidsnark rapidsnarkStatic rapidsnarkStaticFrFq
+     BUNDLE DESTINATION ${CMAKE_INSTALL_PREFIX}/app
+     LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
+ 
+-install(FILES "${GMP_LIB_DIR}/${GMP_LIB_FILE}"
+-    DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
++# install(FILES "${GMP_LIB_DIR}/${GMP_LIB_FILE}"
++#     DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
+ 
+ install(FILES src/prover.h src/verifier.h
+     DESTINATION ${CMAKE_INSTALL_PREFIX}/include)
