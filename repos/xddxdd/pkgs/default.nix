@@ -175,6 +175,7 @@ mkScope (
     onepush = pkg ./uncategorized/onepush { };
     openssl-oqs = pkg ./uncategorized/openssl-oqs { inherit (pkgs.linuxPackages) cryptodev; };
     openssl-oqs-provider = pkg ./uncategorized/openssl-oqs-provider { };
+    openvswitch-dpdk = pkg ./uncategorized/openvswitch-dpdk { };
     osdlyrics = pkg ./uncategorized/osdlyrics { };
     palworld-exporter = pkg ./uncategorized/palworld-exporter { };
     palworld-worldoptions = pkg ./uncategorized/palworld-worldoptions { };
