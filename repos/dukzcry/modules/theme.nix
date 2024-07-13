@@ -26,9 +26,17 @@ let
       "gtk-icon-theme-name"
     else if n == "cursor-size" then
       "gtk-cursor-theme-size"
+    else if n == "color-scheme" then
+      "gtk-application-prefer-dark-theme"
     else
       n)
-  v) x;
+    (if n == "color-scheme" && v == "prefer-dark" then
+      "true"
+     else if n == "color-scheme" && v == "prefer-light" then
+      "false"
+     else
+       v)
+    ) x;
   gtk3 = matches (adwaita ++ breeze);
   gtk2 = cfg.enable && !gtk3;
   adwaita = [ "Adwaita" "Adwaita-dark" "HighContrast" "HighContrastInverse" ];
@@ -39,18 +47,20 @@ let
     cursor-theme = "Adwaita";
     icon-theme = "Adwaita";
     cursor-size = gvariant.mkInt32 cfg.cursorSize;
+    color-scheme = if cfg.preferDark then "prefer-dark" else "prefer-light";
   };
   breezeAttrs = {
     gtk-theme = "Breeze";
     font-name = cfg.font;
     cursor-theme = "breeze_cursors";
-    icon-theme = "breeze";
+    icon-theme = if cfg.preferDark then "breeze-dark" else "breeze";
     cursor-size = gvariant.mkInt32 cfg.cursorSize;
+    color-scheme = if cfg.preferDark then "prefer-dark" else "prefer-light";
   };
 in
 {
   options.theme = {
-    enable = mkEnableOption "Uniform look for Qt and GTK applications";
+    enable = mkEnableOption "uniform look for Qt and GTK applications";
     theme = mkOption {
       type = types.str;
     };
@@ -66,6 +76,7 @@ in
       type = with types; listOf package;
       default = [];
     };
+    preferDark = mkEnableOption "dark theme preference";
   };
 
   config = mkMerge [
