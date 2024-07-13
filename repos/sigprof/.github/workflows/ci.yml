@@ -212,6 +212,35 @@ jobs:
                   fi
                   ;;
               esac
+
+              # Handle system-specific channel skipping and renaming.
+              case "$system" in
+                (*-darwin)
+                  # NixOS channels should not be used on Darwin, because NixOS
+                  # channel bumps do not wait for any Darwin builds, therefore
+                  # some packages may be missing from binary caches, which may
+                  # result in lots of rebuilds.
+                  case "$channel" in
+                    (nixos-unstable)
+                      # Use `nixpkgs-unstable` instead of `nixos-unstable`, but
+                      # be careful to avoid duplicates if `nixpkgs-unstable` is
+                      # already present in the channel list.
+                      if [ -n "$have_nixpkgs_unstable" ]; then
+                        continue
+                      else
+                        channel="nixpkgs-unstable"
+                      fi
+                      ;;
+                    (nixos-*)
+                      # Use `nixpkgs-<version>-darwin` instead of
+                      # `nixos-<version>`.
+                      channel_version="${channel##nixos-}"
+                      channel="nixpkgs-${channel_version}-darwin"
+                      ;;
+                  esac
+                  ;;
+              esac
+
               nur_jobs_part="$(
                 NIX_PATH="nixpkgs=channel:$channel" \
                   nix eval --argstr system "$system" --json -f nur.nix lib.ciData.matrix |
