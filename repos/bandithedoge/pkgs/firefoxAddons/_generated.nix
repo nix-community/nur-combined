@@ -1404,10 +1404,10 @@
   };
   "steam-database" = buildFirefoxXpiAddon {
     pname = "steam-database";
-    version = "4.2.5";
+    version = "4.3.1";
     addonId = "firefox-extension@steamdb.info";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4310664/steam_database-4.2.5.xpi";
-    sha256 = "f4a1c57363f74d3fd73525a9d3136e322acf633152de433a8c0f9935c4fdfa20";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4316998/steam_database-4.3.1.xpi";
+    sha256 = "c708bc0a673cbb4322102ef53730067edc1eda311394bbbe423781ca0076bc72";
     meta = with lib; {
       homepage = "https://steamdb.info/";
       description = "Adds SteamDB links and new features on the Steam store and community. View lowest game prices and stats.";
@@ -1446,6 +1446,7 @@
         "https://steamcommunity.com/profiles/*/badges*"
         "https://steamcommunity.com/id/*/gamecards/*"
         "https://steamcommunity.com/profiles/*/gamecards/*"
+        "https://steamcommunity.com/market/multibuy*"
         "https://steamcommunity.com/games/*"
         "https://steamcommunity.com/sharedfiles/*"
         "https://steamcommunity.com/workshop/*"
