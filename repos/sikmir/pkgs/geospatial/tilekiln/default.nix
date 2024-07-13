@@ -22,7 +22,10 @@ python3Packages.buildPythonApplication rec {
     sed -i 's/len(os.sched_getaffinity(0))/4/' tilekiln/scripts/{generate,serve}.py
   '';
 
-  build-system = with python3Packages; [ hatchling hatch-vcs ];
+  build-system = with python3Packages; [
+    hatchling
+    hatch-vcs
+  ];
 
   dependencies = with python3Packages; [
     click
