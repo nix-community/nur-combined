@@ -406,6 +406,7 @@ lib.makeScope newScope (
     ioxy = callPackage ./mqtt/ioxy { };
     janus-mqtt-proxy = callPackage ./mqtt/janus-mqtt-proxy { };
     libumqtt = callPackage ./mqtt/libumqtt { };
+    mochi = callPackage ./mqtt/mochi { };
     mongoose = callPackage ./mqtt/mongoose { };
     mproxy = callPackage ./mqtt/mproxy { };
     mqcontrol = callPackage ./mqtt/mqcontrol { };
