@@ -2067,10 +2067,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "129.0.20240710.91735";
+      version = "129.0.20240712.91545";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4317161/deutsch_de_language_pack-129.0.20240710.91735.xpi";
-      sha256 = "f8f3623e6398f2fdf710c3e898e5d645dd9584808b618166d6409614107e5364";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4318525/deutsch_de_language_pack-129.0.20240712.91545.xpi";
+      sha256 = "607a58afb3e4ba3c73d087a7294d137a5fd14bc8b6cca58a5839e8ff76d9551b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3070,10 +3070,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "129.0.20240710.91735";
+      version = "129.0.20240712.91545";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4317198/francais_language_pack-129.0.20240710.91735.xpi";
-      sha256 = "80d6677916ae1623bb2b3f05983ddb342a252f2871ae70168fc397d371ad8fea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4318504/francais_language_pack-129.0.20240712.91545.xpi";
+      sha256 = "1ad6f91b5ac3595a274e35fb7dfcb60b33ebd2bf4f5b835fb7a588842940c7da";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -10072,10 +10072,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "4.2.5";
+      version = "4.3.1";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4310664/steam_database-4.2.5.xpi";
-      sha256 = "f4a1c57363f74d3fd73525a9d3136e322acf633152de433a8c0f9935c4fdfa20";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4316998/steam_database-4.3.1.xpi";
+      sha256 = "c708bc0a673cbb4322102ef53730067edc1eda311394bbbe423781ca0076bc72";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -10115,6 +10115,7 @@
           "https://steamcommunity.com/profiles/*/badges*"
           "https://steamcommunity.com/id/*/gamecards/*"
           "https://steamcommunity.com/profiles/*/gamecards/*"
+          "https://steamcommunity.com/market/multibuy*"
           "https://steamcommunity.com/games/*"
           "https://steamcommunity.com/sharedfiles/*"
           "https://steamcommunity.com/workshop/*"
