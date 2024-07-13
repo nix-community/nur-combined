@@ -89,6 +89,9 @@ stdenv.mkDerivation {
 
   passthru.updateScript = nix-update-script { };
 
+  # 2024-07-13 broken on nixos-unstable
+  preferLocalBuild = true;
+
   meta = with lib; {
     homepage = "https://github.com/YellowRoseCx/koboldcpp-rocm";
     description = "A simple one-file way to run various GGML models with KoboldAI's UI with AMD ROCm offloading";
