@@ -9,22 +9,22 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    x86_64-linux = "027fzci607k0h2p07y9dr81bk749kzb9531snjsax2iv7rlnvyvd";
-    aarch64-linux = "02fxs5jjgid9izw8rk9xi6j4hncp458qrvsdp3lv4rsimja43471";
-    x86_64-darwin = "0lpk6fc66mciq76iw8l47s0fvccnxnkzfjpqsvjx56iszkhnslhq";
-    aarch64-darwin = "0lpk6fc66mciq76iw8l47s0fvccnxnkzfjpqsvjx56iszkhnslhq";
+    x86_64-linux = "1s4sn8viw0q2s775y7ll8k5gh2hz5mq468c4cyr73hykyc87261l";
+    aarch64-linux = "04mj4kzzr18q0ynkrxdgi7x9hv9rpgrmx83n013zj2s1adcy1zb7";
+    x86_64-darwin = "0kk7i8hl8v32i82whgxhzfq01p3z7d0g5whzz05mhxzpfq8g7qgg";
+    aarch64-darwin = "0kk7i8hl8v32i82whgxhzfq01p3z7d0g5whzz05mhxzpfq8g7qgg";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/caarlos0/timer/releases/download/v1.4.3/timer_linux_amd64.tar.gz";
-    aarch64-linux = "https://github.com/caarlos0/timer/releases/download/v1.4.3/timer_linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/caarlos0/timer/releases/download/v1.4.3/timer_darwin_all.tar.gz";
-    aarch64-darwin = "https://github.com/caarlos0/timer/releases/download/v1.4.3/timer_darwin_all.tar.gz";
+    x86_64-linux = "https://github.com/caarlos0/timer/releases/download/v1.4.4/timer_linux_amd64.tar.gz";
+    aarch64-linux = "https://github.com/caarlos0/timer/releases/download/v1.4.4/timer_linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/caarlos0/timer/releases/download/v1.4.4/timer_darwin_all.tar.gz";
+    aarch64-darwin = "https://github.com/caarlos0/timer/releases/download/v1.4.4/timer_darwin_all.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "timer";
-  version = "1.4.3";
+  version = "1.4.4";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
