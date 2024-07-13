@@ -49,13 +49,11 @@
 
   security = {
     doas = {
-      enable = true;
+      enable = false;
       wheelNeedsPassword = false;
     };
-    sudo.enable = lib.mkForce false;
     sudo-rs = {
-      enable = lib.mkForce false;
-      # package = pkgs.sudo-rs;
+      enable = true;
       extraRules = [
         {
           users = [ "${user}" ];

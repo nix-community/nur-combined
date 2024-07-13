@@ -23,7 +23,7 @@
   srv.earlyoom.enable = true;
 
   boot.tmp.useTmpfs = true;
-
+  powerManagement.powertop.enable = true;
   virtualisation = {
     vmVariant = {
       virtualisation = {
@@ -128,9 +128,14 @@
     pam = {
       u2f = {
         enable = true;
-        settings.authFile = config.age.secrets."${user}.u2f".path;
+        settings.authfile = config.age.secrets."${user}.u2f".path;
         settings.cue = true;
         control = "sufficient";
+        debug = true;
+      };
+      services = {
+        sudo.u2fAuth = true;
+        login.u2fAuth = true;
       };
       loginLimits = [
         {
@@ -140,10 +145,10 @@
           value = "unlimited";
         }
       ];
-      services = {
-        sudo.u2fAuth = true;
-      };
     };
+    sudo.extraConfig = ''
+      Defaults lecture="never"
+    '';
     polkit.enable = true;
   };
 

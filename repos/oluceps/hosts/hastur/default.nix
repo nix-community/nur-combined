@@ -11,10 +11,6 @@
     buildOnTarget = true;
     allowLocalDeployment = true;
     targetUser = user;
-    privilegeEscalationCommand = [
-      "doas"
-      "--"
-    ];
   };
 
   imports =

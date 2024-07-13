@@ -173,7 +173,6 @@ let
       ]
       [
         broot
-        powertop
         ranger
         ripgrep
         qrencode

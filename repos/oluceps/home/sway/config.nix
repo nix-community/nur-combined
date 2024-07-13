@@ -191,7 +191,7 @@ in
 
   set $my_cursor graphite-light-nord
   set $my_cursor_size 22
- 
+
   seat seat0 xcursor_theme $my_cursor $my_cursor_size
   exec_always {
       gsettings set org.gnome.desktop.interface cursor-theme $my_cursor

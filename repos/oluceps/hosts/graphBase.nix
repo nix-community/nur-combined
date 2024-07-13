@@ -41,8 +41,28 @@
           "inode/mount-point"
         ] (_: "org.gnome.Nautilus.desktop");
     };
-    portal.wlr.enable = true;
-    portal.enable = true;
+    portal = {
+      enable = true;
+      wlr.enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      config = {
+        common = {
+          "default" = [ "gtk" ];
+          "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+          "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
+        };
+      };
+    };
+  };
+
+  systemd.user.targets.sway-session = {
+    unitConfig = {
+      Description = "sway compositor session";
+      Documentation = [ "man:systemd.special(7)" ];
+      BindsTo = [ "graphical-session.target" ];
+      Wants = [ "graphical-session-pre.target" ];
+      After = [ "graphical-session-pre.target" ];
+    };
   };
   programs = {
     dconf.enable = true;
@@ -236,17 +256,38 @@
   };
   services = {
 
+    swayidle = {
+      enable = true;
+      timeouts = [
+        # {
+        #   timeout = 900;
+        #   command = "/run/current-system/systemd/bin/systemctl suspend";
+        # }
+      ];
+      events = [
+        {
+          event = "lock";
+          command = "${pkgs.swaylock}/bin/swaylock";
+        }
+        {
+          event = "before-sleep";
+          command = "/run/current-system/systemd/bin/loginctl lock-session";
+        }
+      ];
+    };
+
     # desktopManager.cosmic.enable = true;
     # displayManager.cosmic-greeter.enable = true;
     greetd = {
       enable = true;
       settings = rec {
         initial_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd ${pkgs.writeShellScript "sway" ''
-            export $(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
-            systemctl --user import-environment
-            ${pkgs.openssh}/bin/ssh-add ${config.age.secrets.id.path}
-            exec sway
+          command = "${lib.getExe pkgs.greetd.tuigreet} --remember --time --cmd ${pkgs.writeShellScript "sway" ''
+            while read -r l; do
+              eval export $l
+            done < <(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
+
+            exec systemd-cat --identifier=sway sway
           ''}";
           inherit user;
         };
@@ -256,6 +297,14 @@
 
     acpid.enable = true;
     udev = {
+      extraRules = ''
+        ACTION=="remove",\
+         ENV{ID_BUS}=="usb",\
+         ENV{ID_MODEL_ID}=="0407",\
+         ENV{ID_VENDOR_ID}=="1050",\
+         ENV{ID_VENDOR}=="Yubico",\
+         RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
+      '';
       packages = with pkgs; [
         android-udev-rules
         # qmk-udev-rules

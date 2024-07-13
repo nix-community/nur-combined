@@ -62,7 +62,6 @@
       "zswap.enabled=1"
       "zswap.compressor=zstd"
       "zswap.zpool=zsmalloc"
-      "systemd.gpt_auto=0"
     ];
   };
 
