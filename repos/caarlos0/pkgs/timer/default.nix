@@ -2,29 +2,29 @@
 # vim: set ft=nix ts=2 sw=2 sts=2 et sta
 {
 system ? builtins.currentSystem
-, pkgs
 , lib
 , fetchurl
 , installShellFiles
+, stdenvNoCC
 }:
 let
   shaMap = {
-    x86_64-linux = "1kv14b3yc1fa45yw2xmwrwz7xsc05xxcjbayb54x81v1pm0sggsw";
-    aarch64-linux = "0kykr3bc3663jhvcx46hv5ri44h85wmfafhxk0sba5q49vhhsmva";
-    x86_64-darwin = "1w1cjs3b4095i0m4hgg7ndc9ccfnivpdam0b4a5d0vwm9xbjnlkz";
-    aarch64-darwin = "1w1cjs3b4095i0m4hgg7ndc9ccfnivpdam0b4a5d0vwm9xbjnlkz";
+    x86_64-linux = "0nc8nk4c0k9haj93bbhyxcrinxdy03ry5nig9kiflsd79dwkxprx";
+    aarch64-linux = "0idxmycyfxja0x68ffn1wvprdgxk9k6vjgjlxsy4iba54n3xf095";
+    x86_64-darwin = "0ksbh86h277vrgzn0vcxcms5i6ihnk43zr0yimimcacay40sz9nk";
+    aarch64-darwin = "0ksbh86h277vrgzn0vcxcms5i6ihnk43zr0yimimcacay40sz9nk";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/caarlos0/timer/releases/download/v1.4.1/timer_linux_amd64.tar.gz";
-    aarch64-linux = "https://github.com/caarlos0/timer/releases/download/v1.4.1/timer_linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/caarlos0/timer/releases/download/v1.4.1/timer_darwin_all.tar.gz";
-    aarch64-darwin = "https://github.com/caarlos0/timer/releases/download/v1.4.1/timer_darwin_all.tar.gz";
+    x86_64-linux = "https://github.com/caarlos0/timer/releases/download/v1.4.2/timer_linux_amd64.tar.gz";
+    aarch64-linux = "https://github.com/caarlos0/timer/releases/download/v1.4.2/timer_linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/caarlos0/timer/releases/download/v1.4.2/timer_darwin_all.tar.gz";
+    aarch64-darwin = "https://github.com/caarlos0/timer/releases/download/v1.4.2/timer_darwin_all.tar.gz";
   };
 in
-pkgs.stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "timer";
-  version = "1.4.1";
+  version = "1.4.2";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
@@ -47,6 +47,8 @@ pkgs.stdenv.mkDerivation {
     description = "Timer is like sleep, but reports progress.";
     homepage = "https://github.com/caarlos0/timer";
     license = lib.licenses.mit;
+
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
 
     platforms = [
       "aarch64-darwin"
