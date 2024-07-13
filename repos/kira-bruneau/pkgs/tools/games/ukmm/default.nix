@@ -5,6 +5,7 @@
 , pkg-config
 , wrapGAppsHook3
 , libglvnd
+, libxkbcommon
 , nix-update-script
 }:
 
@@ -36,7 +37,12 @@ rustPlatform.buildRustPackage rec {
   ];
 
   preFixup = ''
-    gappsWrapperArgs+=(--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libglvnd ]})
+    gappsWrapperArgs+=(--prefix LD_LIBRARY_PATH : ${
+      lib.makeLibraryPath [
+        libglvnd
+        libxkbcommon
+      ]
+    })
   '';
 
   cargoTestFlags = [
