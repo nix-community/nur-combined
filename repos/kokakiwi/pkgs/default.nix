@@ -33,6 +33,7 @@ let
     ots-cli = {
       _common = "ots";
     };
+    streampager = { };
     tumelune = { };
   };
 
