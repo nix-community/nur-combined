@@ -13,6 +13,6 @@ gnome.mutter.overrideAttrs (oldAttrs: {
   ];
   meta = oldAttrs.meta // {
     description = "GNOME mutter with https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/3751";
-    broken = true && stdenv.buildPlatform != stdenv.hostPlatform;
+    broken = true || stdenv.buildPlatform != stdenv.hostPlatform;
   };
 })
