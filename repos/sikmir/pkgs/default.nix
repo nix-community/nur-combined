@@ -402,6 +402,7 @@ lib.makeScope newScope (
     xfractint = callPackage ./misc/xfractint { };
     xtr = callPackage ./misc/xtr { };
     youtimetrack = callPackage ./misc/youtimetrack { };
+    zwave-js-ui = callPackage ./misc/zwave-js-ui { };
 
     ### MQTT
 
