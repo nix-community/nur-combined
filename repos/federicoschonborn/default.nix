@@ -38,7 +38,7 @@ lib.makeScope pkgs.newScope (
     akkoma-emoji = lib.recurseIntoAttrs (self.callPackage ./pkgs/akkoma-emoji { inherit self; });
 
     # Overrides
-    yyjson = pkgs.yyjson.overrideAttrs (
+    yyjson_0_10 = pkgs.yyjson.overrideAttrs (
       finalAttrs: prevAttrs: {
         version = "0.10.0";
         src = pkgs.fetchFromGitHub {

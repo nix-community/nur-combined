@@ -13,7 +13,7 @@
   wayland-protocols,
   wlroots_0_17,
   xorg,
-  nix-update-script,
+# nix-update-script,
 }:
 
 stdenv.mkDerivation {
@@ -45,12 +45,13 @@ stdenv.mkDerivation {
     xorg.xcbutilwm
   ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch=v1"
-    ];
-  };
+  # TODO: Enable once wlroots 0.18 is available
+  # passthru.updateScript = nix-update-script {
+  #   extraArgs = [
+  #     "--version"
+  #     "branch=v1"
+  #   ];
+  # };
 
   meta = {
     mainProgram = "magpie-wm";
