@@ -191,6 +191,7 @@ lib.makeScope newScope (
     elevation = callPackage ./geospatial/elevation { click = click-6-7; };
     garmindev = callPackage ./geospatial/qlandkartegt/garmindev.nix { };
     geoarrow-c = callPackage ./geospatial/geoarrow-c { };
+    geoarrow-pandas = callPackage ./geospatial/geoarrow-pandas { };
     geoarrow-pyarrow = callPackage ./geospatial/geoarrow-pyarrow { };
     geojson-pydantic = callPackage ./geospatial/geojson-pydantic { };
     geowebcache = callPackage ./geospatial/geowebcache { };
