@@ -75,6 +75,7 @@ jobs:
 
       - name: Build nix packages
         run: |
+          echo "::group::Preparing"
           env TMPDIR=/nix/tmpdir nix run .#ci -- ${{ matrix.system }}
 
       - name: Commit back to repository

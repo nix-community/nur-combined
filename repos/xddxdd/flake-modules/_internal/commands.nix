@@ -14,10 +14,12 @@ _: {
 
           # Workaround https://github.com/NixOS/nix/issues/6572
           SUBSTITUTED=1
+          TRY_NUM=0
           while [ "$SUBSTITUTED" -eq 1 ]; do
             SUBSTITUTED=0
+            TRY_NUM=$(( TRY_NUM + 1 ))
 
-            echo "::group::Building packages with nix-fast-build"
+            echo "::group::Try $TRY_NUM: Building packages with nix-fast-build"
             ${pkgs.nix-fast-build}/bin/nix-fast-build -f .#ciPackages.$1 --skip-cached --no-nom 2>&1 | tee $NIX_LOGFILE && exit 0
             echo "::endgroup::"
 
