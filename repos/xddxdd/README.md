@@ -85,7 +85,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (128 packages)</summary>
+<summary>Package set: (Uncategorized) (129 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -132,6 +132,7 @@ Or, use variables from this repository in case I change them:
 |  | `grasscutter` | [grasscutter](https://github.com/Grasscutters/Grasscutter) | 1.7.4 | A server software reimplementation for a certain anime game. |
 |  | `hath` | [hath](https://e-hentai.org/) | 1.6.2 | Hentai@Home |
 |  | `hesuvi-hrir` | [hesuvi-hrir](https://sourceforge.net/projects/hesuvi/) | 2.0.0.1 | Headphone Surround Virtualizations for Equalizer APO |
+|  | `hi3-ii-martian-font` | [hi3-ii-martian-font](https://github.com/Wenti-D/HI3IIMartianFont) | unstable-2023-10-12 | Font for Martian in Honkai Impact 3rd |
 |  | `hoyo-glyphs` | [hoyo-glyphs](https://github.com/SpeedyOrc-C/Hoyo-Glyphs) | unstable-2024-07-13 | Constructed scripts by Hoyoverse 米哈游的架空文字  |
 | `Broken` | `i915-sriov` | [i915-sriov](https://github.com/strongtz/i915-sriov-dkms) | unstable-2024-06-22 | DKMS module of Linux i915 driver with SR-IOV support |
 |  | `imewlconverter` | [imewlconverter](https://github.com/studyzy/imewlconverter) | 3.1.0 | ”深蓝词库转换“ 一款开源免费的输入法词库转换程序 |
@@ -284,66 +285,66 @@ Or, use variables from this repository in case I change them:
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-|  | `lantianLinuxXanmod.generic` | linux-src | 6.9.9-xanmod1 |  |
-|  | `lantianLinuxXanmod.generic-lto` | linux-src | 6.9.9-xanmod1 |  |
-|  | `lantianLinuxXanmod.latest-generic` | linux-src | 6.9.9-xanmod1 |  |
-|  | `lantianLinuxXanmod.latest-generic-lto` | linux-src | 6.9.9-xanmod1 |  |
-|  | `lantianLinuxXanmod.latest-x86_64-v1` | linux-src | 6.9.9-xanmod1 |  |
-|  | `lantianLinuxXanmod.latest-x86_64-v1-lto` | linux-src | 6.9.9-xanmod1 |  |
-|  | `lantianLinuxXanmod.latest-x86_64-v2` | linux-src | 6.9.9-xanmod1 |  |
-|  | `lantianLinuxXanmod.latest-x86_64-v2-lto` | linux-src | 6.9.9-xanmod1 |  |
-|  | `lantianLinuxXanmod.latest-x86_64-v3` | linux-src | 6.9.9-xanmod1 |  |
-|  | `lantianLinuxXanmod.latest-x86_64-v3-lto` | linux-src | 6.9.9-xanmod1 |  |
-|  | `lantianLinuxXanmod.latest-x86_64-v4` | linux-src | 6.9.9-xanmod1 |  |
-|  | `lantianLinuxXanmod.latest-x86_64-v4-lto` | linux-src | 6.9.9-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-generic` | linux-src | 6.6.39-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-generic-lto` | linux-src | 6.6.39-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-x86_64-v1` | linux-src | 6.6.39-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-x86_64-v1-lto` | linux-src | 6.6.39-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-x86_64-v2` | linux-src | 6.6.39-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-x86_64-v2-lto` | linux-src | 6.6.39-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-x86_64-v3` | linux-src | 6.6.39-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-x86_64-v3-lto` | linux-src | 6.6.39-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-x86_64-v4` | linux-src | 6.6.39-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-x86_64-v4-lto` | linux-src | 6.6.39-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_0-generic` | linux-src | 6.0.12-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_0-generic-lto` | linux-src | 6.0.12-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_0-x86_64-v1` | linux-src | 6.0.12-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_0-x86_64-v1-lto` | linux-src | 6.0.12-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_0-x86_64-v2` | linux-src | 6.0.12-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_0-x86_64-v2-lto` | linux-src | 6.0.12-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_0-x86_64-v3` | linux-src | 6.0.12-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_0-x86_64-v3-lto` | linux-src | 6.0.12-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_0-x86_64-v4` | linux-src | 6.0.12-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_0-x86_64-v4-lto` | linux-src | 6.0.12-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_1-generic` | linux-src | 6.1.77-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_1-generic-lto` | linux-src | 6.1.77-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_1-x86_64-v1` | linux-src | 6.1.77-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_1-x86_64-v1-lto` | linux-src | 6.1.77-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_1-x86_64-v2` | linux-src | 6.1.77-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_1-x86_64-v2-lto` | linux-src | 6.1.77-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_1-x86_64-v3` | linux-src | 6.1.77-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_1-x86_64-v3-lto` | linux-src | 6.1.77-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_1-x86_64-v4` | linux-src | 6.1.77-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_1-x86_64-v4-lto` | linux-src | 6.1.77-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_6-generic` | linux-src | 6.6.39-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_6-generic-lto` | linux-src | 6.6.39-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v1` | linux-src | 6.6.39-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v1-lto` | linux-src | 6.6.39-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v2` | linux-src | 6.6.39-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v2-lto` | linux-src | 6.6.39-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v3` | linux-src | 6.6.39-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v3-lto` | linux-src | 6.6.39-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v4` | linux-src | 6.6.39-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v4-lto` | linux-src | 6.6.39-xanmod1 |  |
-|  | `lantianLinuxXanmod.x86_64-v1` | linux-src | 6.9.9-xanmod1 |  |
-|  | `lantianLinuxXanmod.x86_64-v1-lto` | linux-src | 6.9.9-xanmod1 |  |
-|  | `lantianLinuxXanmod.x86_64-v2` | linux-src | 6.9.9-xanmod1 |  |
-|  | `lantianLinuxXanmod.x86_64-v2-lto` | linux-src | 6.9.9-xanmod1 |  |
-|  | `lantianLinuxXanmod.x86_64-v3` | linux-src | 6.9.9-xanmod1 |  |
-|  | `lantianLinuxXanmod.x86_64-v3-lto` | linux-src | 6.9.9-xanmod1 |  |
-|  | `lantianLinuxXanmod.x86_64-v4` | linux-src | 6.9.9-xanmod1 |  |
-|  | `lantianLinuxXanmod.x86_64-v4-lto` | linux-src | 6.9.9-xanmod1 |  |
+|  | `lantianLinuxXanmod.generic` | [linux](https://www.kernel.org/) | 6.9.9-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.generic-lto` | [linux](https://www.kernel.org/) | 6.9.9-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.latest-generic` | [linux](https://www.kernel.org/) | 6.9.9-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.latest-generic-lto` | [linux](https://www.kernel.org/) | 6.9.9-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.latest-x86_64-v1` | [linux](https://www.kernel.org/) | 6.9.9-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.latest-x86_64-v1-lto` | [linux](https://www.kernel.org/) | 6.9.9-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.latest-x86_64-v2` | [linux](https://www.kernel.org/) | 6.9.9-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.latest-x86_64-v2-lto` | [linux](https://www.kernel.org/) | 6.9.9-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.latest-x86_64-v3` | [linux](https://www.kernel.org/) | 6.9.9-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.latest-x86_64-v3-lto` | [linux](https://www.kernel.org/) | 6.9.9-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.latest-x86_64-v4` | [linux](https://www.kernel.org/) | 6.9.9-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.latest-x86_64-v4-lto` | [linux](https://www.kernel.org/) | 6.9.9-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.lts-generic` | [linux](https://www.kernel.org/) | 6.6.39-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.lts-generic-lto` | [linux](https://www.kernel.org/) | 6.6.39-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.lts-x86_64-v1` | [linux](https://www.kernel.org/) | 6.6.39-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.lts-x86_64-v1-lto` | [linux](https://www.kernel.org/) | 6.6.39-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.lts-x86_64-v2` | [linux](https://www.kernel.org/) | 6.6.39-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.lts-x86_64-v2-lto` | [linux](https://www.kernel.org/) | 6.6.39-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.lts-x86_64-v3` | [linux](https://www.kernel.org/) | 6.6.39-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.lts-x86_64-v3-lto` | [linux](https://www.kernel.org/) | 6.6.39-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.lts-x86_64-v4` | [linux](https://www.kernel.org/) | 6.6.39-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.lts-x86_64-v4-lto` | [linux](https://www.kernel.org/) | 6.6.39-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_0-generic` | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_0-generic-lto` | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_0-x86_64-v1` | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_0-x86_64-v1-lto` | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_0-x86_64-v2` | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_0-x86_64-v2-lto` | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_0-x86_64-v3` | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_0-x86_64-v3-lto` | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_0-x86_64-v4` | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_0-x86_64-v4-lto` | [linux](https://www.kernel.org/) | 6.0.12-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_1-generic` | [linux](https://www.kernel.org/) | 6.1.77-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_1-generic-lto` | [linux](https://www.kernel.org/) | 6.1.77-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_1-x86_64-v1` | [linux](https://www.kernel.org/) | 6.1.77-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_1-x86_64-v1-lto` | [linux](https://www.kernel.org/) | 6.1.77-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_1-x86_64-v2` | [linux](https://www.kernel.org/) | 6.1.77-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_1-x86_64-v2-lto` | [linux](https://www.kernel.org/) | 6.1.77-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_1-x86_64-v3` | [linux](https://www.kernel.org/) | 6.1.77-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_1-x86_64-v3-lto` | [linux](https://www.kernel.org/) | 6.1.77-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_1-x86_64-v4` | [linux](https://www.kernel.org/) | 6.1.77-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_1-x86_64-v4-lto` | [linux](https://www.kernel.org/) | 6.1.77-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_6-generic` | [linux](https://www.kernel.org/) | 6.6.39-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_6-generic-lto` | [linux](https://www.kernel.org/) | 6.6.39-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v1` | [linux](https://www.kernel.org/) | 6.6.39-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v1-lto` | [linux](https://www.kernel.org/) | 6.6.39-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v2` | [linux](https://www.kernel.org/) | 6.6.39-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v2-lto` | [linux](https://www.kernel.org/) | 6.6.39-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v3` | [linux](https://www.kernel.org/) | 6.6.39-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v3-lto` | [linux](https://www.kernel.org/) | 6.6.39-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v4` | [linux](https://www.kernel.org/) | 6.6.39-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v4-lto` | [linux](https://www.kernel.org/) | 6.6.39-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.x86_64-v1` | [linux](https://www.kernel.org/) | 6.9.9-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.x86_64-v1-lto` | [linux](https://www.kernel.org/) | 6.9.9-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.x86_64-v2` | [linux](https://www.kernel.org/) | 6.9.9-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.x86_64-v2-lto` | [linux](https://www.kernel.org/) | 6.9.9-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.x86_64-v3` | [linux](https://www.kernel.org/) | 6.9.9-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.x86_64-v3-lto` | [linux](https://www.kernel.org/) | 6.9.9-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.x86_64-v4` | [linux](https://www.kernel.org/) | 6.9.9-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.x86_64-v4-lto` | [linux](https://www.kernel.org/) | 6.9.9-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
 </details>
 
 <details>

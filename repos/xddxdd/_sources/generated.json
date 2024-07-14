@@ -883,6 +883,27 @@
         },
         "version": "74089192be9daf4bf3729be8d69981fa2615faa8"
     },
+    "hi3-ii-martian-font": {
+        "cargoLocks": null,
+        "date": "2023-10-12",
+        "extract": null,
+        "name": "hi3-ii-martian-font",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Wenti-D",
+            "repo": "HI3IIMartianFont",
+            "rev": "763609486b6e2f3af60903cd6ae52a61a278438f",
+            "sha256": "sha256-X1Yx2ADlEYZv0tpElkdv9kzn4lB+SDwpDq2q2tVvl+g=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "763609486b6e2f3af60903cd6ae52a61a278438f"
+    },
     "hoyo-glyphs": {
         "cargoLocks": null,
         "date": "2024-07-13",

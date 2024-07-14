@@ -151,6 +151,7 @@ mkScope (
     grasscutter = pkg ./uncategorized/grasscutter { };
     hath = pkg ./uncategorized/hath { };
     hesuvi-hrir = pkg ./uncategorized/hesuvi-hrir { };
+    hi3-ii-martian-font = pkg ./uncategorized/hi3-ii-martian-font { };
     hoyo-glyphs = pkg ./uncategorized/hoyo-glyphs { };
     imewlconverter = pkg ./uncategorized/imewlconverter { };
     jproxy = pkg ./uncategorized/jproxy { };

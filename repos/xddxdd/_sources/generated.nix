@@ -498,6 +498,18 @@
     };
     date = "2024-03-25";
   };
+  hi3-ii-martian-font = {
+    pname = "hi3-ii-martian-font";
+    version = "763609486b6e2f3af60903cd6ae52a61a278438f";
+    src = fetchFromGitHub {
+      owner = "Wenti-D";
+      repo = "HI3IIMartianFont";
+      rev = "763609486b6e2f3af60903cd6ae52a61a278438f";
+      fetchSubmodules = false;
+      sha256 = "sha256-X1Yx2ADlEYZv0tpElkdv9kzn4lB+SDwpDq2q2tVvl+g=";
+    };
+    date = "2023-10-12";
+  };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
     version = "6e613abff54862c1295d388c424c25df23986927";

@@ -193,6 +193,10 @@ fetch.url = "https://github.com/Grasscutters/Grasscutter/releases/download/v$ver
 src.git = "https://gitlab.com/YuukiPS/GC-Resources.git"
 fetch.git = "https://gitlab.com/YuukiPS/GC-Resources.git"
 
+[hi3-ii-martian-font]
+src.git = "https://github.com/Wenti-D/HI3IIMartianFont.git"
+fetch.github = "Wenti-D/HI3IIMartianFont"
+
 [hoyo-glyphs]
 src.git = "https://github.com/SpeedyOrc-C/Hoyo-Glyphs.git"
 fetch.github = "SpeedyOrc-C/Hoyo-Glyphs"
