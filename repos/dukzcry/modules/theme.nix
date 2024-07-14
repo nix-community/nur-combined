@@ -44,6 +44,9 @@ in
       type = types.str;
       default = "Adwaita";
     };
+    kvantumTheme = mkOption {
+      type = types.str;
+    };
     iconTheme = mkOption {
       type = types.str;
       default = "Adwaita";
@@ -61,7 +64,7 @@ in
       default = 24;
     };
     platform = mkOption {
-      type = types.enum [ "gtk2" "gtk3" ];
+      type = types.enum [ "gtk2" "gtk3" "kvantum" ];
       default = "gtk3";
     };
     extraPackages = mkOption {
@@ -99,10 +102,10 @@ in
       };
       environment.systemPackages = with pkgs; [ libsForQt5.qtstyleplugins qt6Packages.qt6gtk2 ];
     })
-    (mkIf (cfg.enable && cfg.platform == "gtk3") {
+    (mkIf (cfg.enable && (cfg.platform == "gtk3" || cfg.platform == "kvantum")) {
       environment.variables = {
         QT_QPA_PLATFORMTHEME = "gtk3";
-        QT_STYLE_OVERRIDE = cfg.theme;
+        QT_STYLE_OVERRIDE = if cfg.platform == "kvantum" then "kvantum" else cfg.theme;
       };
       environment.systemPackages = [
         (pkgs.runCommand "gtk3-schemas" {} ''
@@ -111,6 +114,12 @@ in
         '')
       ];
       environment.pathsToLink = [ "/share/glib-2.0" ];
+    })
+    (mkIf (cfg.enable && cfg.platform == "kvantum") {
+      environment.etc."xdg/Kvantum/kvantum.kvconfig".text = ''
+        theme=${cfg.kvantumTheme}
+      '';
+      environment.systemPackages = with pkgs; [ libsForQt5.qtstyleplugin-kvantum qt6Packages.qtstyleplugin-kvantum ];
     })
   ];
 }
