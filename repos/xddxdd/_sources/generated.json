@@ -1458,12 +1458,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3386",
-            "sha256": "sha256-4ucLxNRd7iQMO9W5kkFMze5FouBQ37B6eX6dRrBEe5c=",
+            "rev": "b3387",
+            "sha256": "sha256-pGZ3t1jwf48ZLw8D7JrM5S37ChOeFv9GhAkV1AnXU4o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3386"
+        "version": "b3387"
     },
     "lyrica": {
         "cargoLocks": null,
