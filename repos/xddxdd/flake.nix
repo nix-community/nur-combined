@@ -21,24 +21,29 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, flake-parts, ... }@inputs:
-    flake-parts.lib.mkFlake { inherit inputs; } ({ flake-parts-lib, ... }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-parts,
+      ...
+    }@inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      { flake-parts-lib, ... }:
       let
         inherit (flake-parts-lib) importApply;
         flakeModules = {
           auto-apps-shell = ./flake-modules/auto-apps-shell.nix;
           auto-colmena-hive = ./flake-modules/auto-colmena-hive.nix;
           commands = ./flake-modules/commands.nix;
-          lantian-pre-commit-hooks =
-            importApply ./flake-modules/lantian-pre-commit-hooks.nix {
-              inherit (inputs) pre-commit-hooks-nix;
-            };
-          lantian-treefmt = importApply ./flake-modules/lantian-treefmt.nix {
-            inherit (inputs) treefmt-nix;
+          lantian-pre-commit-hooks = importApply ./flake-modules/lantian-pre-commit-hooks.nix {
+            inherit (inputs) pre-commit-hooks-nix;
           };
+          lantian-treefmt = importApply ./flake-modules/lantian-treefmt.nix { inherit (inputs) treefmt-nix; };
           nixpkgs-options = ./flake-modules/nixpkgs-options.nix;
         };
-      in {
+      in
+      rec {
         imports = [
           ./flake-modules/_internal/ci-outputs.nix
           ./flake-modules/_internal/commands.nix
@@ -51,17 +56,28 @@
           flakeModules.nixpkgs-options
         ];
 
-        systems = [ "x86_64-linux" "aarch64-linux" ];
+        systems = [
+          "x86_64-linux"
+          "aarch64-linux"
+        ];
 
         flake = {
           overlay = self.overlays.default;
-          overlays = {
-            default = _final: prev:
-              import ./pkgs null {
-                pkgs = prev;
-                inherit inputs;
-              };
-          };
+          overlays =
+            {
+              default =
+                _final: prev:
+                import ./pkgs null {
+                  pkgs = prev;
+                  inherit inputs;
+                };
+            }
+            // (builtins.listToAttrs (
+              builtins.map (s: {
+                name = "pinnedNixpkgs-${s}";
+                value = self.legacyPackages.${s};
+              }) systems
+            ));
 
           inherit flakeModules;
 
@@ -74,10 +90,8 @@
             nix-cache-garnix = import ./modules/nix-cache-garnix.nix;
             openssl-oqs-provider = import ./modules/openssl-oqs-provider.nix;
             plasma-desktop-lyrics = import ./modules/lyrica.nix;
-            qemu-user-static-binfmt =
-              import ./modules/qemu-user-static-binfmt.nix;
-            wireguard-remove-lingering-links =
-              import ./modules/wireguard-remove-lingering-links.nix;
+            qemu-user-static-binfmt = import ./modules/qemu-user-static-binfmt.nix;
+            wireguard-remove-lingering-links = import ./modules/wireguard-remove-lingering-links.nix;
           };
         };
 
@@ -91,9 +105,12 @@
           overlays = [ self.overlays.default ];
         };
 
-        perSystem = { pkgs, ... }: {
-          packages = import ./pkgs null { inherit inputs pkgs; };
-          legacyPackages = import ./pkgs "legacy" { inherit inputs pkgs; };
-        };
-      });
+        perSystem =
+          { pkgs, ... }:
+          {
+            packages = import ./pkgs null { inherit inputs pkgs; };
+            legacyPackages = import ./pkgs "legacy" { inherit inputs pkgs; };
+          };
+      }
+    );
 }
