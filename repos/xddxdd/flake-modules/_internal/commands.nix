@@ -56,7 +56,10 @@ _: {
           FLAKEDIR=$(pwd)
 
           git clone --depth=1 https://github.com/nix-community/NUR.git "$TMPDIR"
+          cd "$TMPDIR/ci"
+          nix flake update
           cd "$TMPDIR"
+          sed -i "s/-p python3 /-p python311 /g" "$TMPDIR/bin/nur"
 
           cp ${../../repos.json} repos.json
           rm -f repos.json.lock
