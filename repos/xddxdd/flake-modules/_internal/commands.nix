@@ -23,6 +23,10 @@ _: {
             ${pkgs.nix-fast-build}/bin/nix-fast-build -f .#ciPackages.$1 --skip-cached --no-nom 2>&1 | tee $NIX_LOGFILE && exit 0
             echo "::endgroup::"
 
+            echo "::group::Try $TRY_NUM: Error log from nix-fast-build"
+            grep "ERROR:nix_fast_build" $NIX_LOGFILE || true
+            echo "::endgroup::"
+
             if grep -q "specified:" $NIX_LOGFILE; then
               if grep -q "got:" $NIX_LOGFILE; then
                 SPECIFIED_HASH=($(grep "specified:" $NIX_LOGFILE | cut -d":" -f2 | xargs))

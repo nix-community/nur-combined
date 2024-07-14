@@ -12,6 +12,7 @@ let
       requests
       selenium
       websockets
+      packaging
       undetected-chromedriver
     ]
   );
