@@ -1,7 +1,7 @@
 { stdenv, lib, fetchurl, autoPatchelfHook }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "ocis-bin";
-  version = "6.0.0";
+  version = "6.1.0";
 
   src = let
     inherit (stdenv.hostPlatform) system;
@@ -15,11 +15,11 @@ stdenv.mkDerivation (finalAttrs: {
       aarch64-darwin = "darwin-arm64";
     };
     sha256 = selectSystem {
-      x86_64-linux = "sha256-gF5RIEbWrD912kSAXiVgovZN3bGOvQDZDYkar2azpBQ=";
-      aarch64-linux = "sha256-51MnjUea64rxgnj6P1Pl3m/VQwnDB6//uPTz8VYI93g=";
-      i686-linux = "sha256-wP5ObJVhHnifPhHVWvuKZ1W1sSlEjca/MSydYjb9CTo=";
-      x86_64-darwin = "sha256-8NizERBNlGH13pgtaSOIwYg49VSf9K9DOzngR8ng7N8=";
-      aarch64-darwin = "sha256-qcXpUudyTMOExkqIJub6qvC4gpiawg8kOJ68qp+xm9g=";
+      x86_64-linux = "sha256-O/08Kj4O/UFomY8cmpzn0AdaS1gl6QvToeHlE/W9lYw=";
+      aarch64-linux = "sha256-I47II7FNEPbbjJmZYuiFecHEuYJB9oqfrVL2Dw2YOj0=";
+      i686-linux = "sha256-ptKUNtV8J9l4Dr2vIkm97zqZQ9STlk6ul1KMNhX8jfE=";
+      x86_64-darwin = "sha256-RtyG59K/PUgI4SG5VsoGMUkZIBz0jSVCkxBB7HTi10w=";
+      aarch64-darwin = "sha256-qC68zeXddeoa6t26TZX8YSXVeT2ljxeJTTl9ytXflHE=";
     };
   in fetchurl {
     url =
