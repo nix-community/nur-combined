@@ -209,6 +209,11 @@
     "pname": "asterisk",
     "version": "20-codec-siren7-1.0.7"
   },
+  "legacyPackages.x86_64-linux.axiom-syslog-proxy": {
+    "description": "A syslog push interface to Axiom.",
+    "pname": "axiom-syslog-proxy",
+    "version": "0.7.2"
+  },
   "legacyPackages.x86_64-linux.baidunetdisk": {
     "description": "Baidu Netdisk",
     "pname": "baidunetdisk",
@@ -2579,6 +2584,11 @@
     "pname": "openssl-oqs-provider-unstable",
     "version": "2024-06-26"
   },
+  "legacyPackages.x86_64-linux.openvswitch-dpdk": {
+    "description": "Multilayer virtual switch",
+    "pname": "openvswitch-dpdk",
+    "version": "3.3.0"
+  },
   "legacyPackages.x86_64-linux.osdlyrics": {
     "description": "Standalone lyrics fetcher/displayer (windowed and OSD mode).",
     "pname": "osdlyrics",
@@ -2933,6 +2943,11 @@
     "description": "",
     "pname": "merged-packages",
     "version": ""
+  },
+  "packages.x86_64-linux.axiom-syslog-proxy": {
+    "description": "A syslog push interface to Axiom.",
+    "pname": "axiom-syslog-proxy",
+    "version": "0.7.2"
   },
   "packages.x86_64-linux.baidunetdisk": {
     "description": "Baidu Netdisk",
@@ -3308,6 +3323,11 @@
     "description": "OpenSSL 3 provider containing post-quantum algorithms",
     "pname": "openssl-oqs-provider-unstable",
     "version": "2024-06-26"
+  },
+  "packages.x86_64-linux.openvswitch-dpdk": {
+    "description": "Multilayer virtual switch",
+    "pname": "openvswitch-dpdk",
+    "version": "3.3.0"
   },
   "packages.x86_64-linux.osdlyrics": {
     "description": "Standalone lyrics fetcher/displayer (windowed and OSD mode).",

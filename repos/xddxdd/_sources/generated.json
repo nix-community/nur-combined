@@ -167,6 +167,27 @@
         },
         "version": "717cc95983cdc357bc347d70be20ced21f935843"
     },
+    "axiom-syslog-proxy": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "axiom-syslog-proxy",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "axiomhq",
+            "repo": "axiom-syslog-proxy",
+            "rev": "v0.7.2",
+            "sha256": "sha256-+qaAIIQLlXXoH8uTWF2WxBpYdZVFMH1dMWCSAxkUay8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.7.2"
+    },
     "baidunetdisk": {
         "cargoLocks": null,
         "date": null,

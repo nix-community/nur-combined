@@ -96,6 +96,17 @@
     };
     date = "2024-06-01";
   };
+  axiom-syslog-proxy = {
+    pname = "axiom-syslog-proxy";
+    version = "v0.7.2";
+    src = fetchFromGitHub {
+      owner = "axiomhq";
+      repo = "axiom-syslog-proxy";
+      rev = "v0.7.2";
+      fetchSubmodules = false;
+      sha256 = "sha256-+qaAIIQLlXXoH8uTWF2WxBpYdZVFMH1dMWCSAxkUay8=";
+    };
+  };
   baidunetdisk = {
     pname = "baidunetdisk";
     version = "4.17.7";

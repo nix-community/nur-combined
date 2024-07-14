@@ -114,6 +114,7 @@ mkScope (
     # Other packages
     amule-dlp = pkg ./uncategorized/amule-dlp { };
     asterisk-g72x = pkg ./uncategorized/asterisk-g72x { };
+    axiom-syslog-proxy = pkg ./uncategorized/axiom-syslog-proxy { };
     baidunetdisk = pkg ./uncategorized/baidunetdisk { };
     baidupcs-go = pkg ./uncategorized/baidupcs-go { };
     bepasty = pkg ./uncategorized/bepasty { };

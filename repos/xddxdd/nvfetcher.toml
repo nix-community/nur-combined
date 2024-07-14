@@ -30,6 +30,10 @@ fetch.github = "traud/asterisk-gsm-efr"
 src.git = "https://github.com/zhaofengli/attic.git"
 fetch.github = "zhaofengli/attic"
 
+[axiom-syslog-proxy]
+src.github = "axiomhq/axiom-syslog-proxy"
+fetch.github = "axiomhq/axiom-syslog-proxy"
+
 [baidunetdisk]
 src.aur = "baidunetdisk-electron"
 src.from_pattern = "(.+)-(.+)"
