@@ -7,13 +7,13 @@
 
 stdenvNoCC.mkDerivation {
   pname = "ouch";
-  version = "0-unstable-2024-03-26";
+  version = "0.2.0-unstable-2024-07-13";
 
   src = fetchFromGitHub {
     owner = "ndtoan96";
     repo = "ouch.yazi";
-    rev = "694d149be5f96eaa0af68d677c17d11d2017c976";
-    hash = "sha256-J3vR9q4xHjJt56nlfd+c8FrmMVvLO78GiwSNcLkM4OU=";
+    rev = "fe6b0a60ce6b7b9a573b975fe3c0dfc79c0b2ac6";
+    hash = "sha256-Sc0TGzrdyQh61Pkc2nNUlk8jRLjVNaCJdFqZvgQ/Cp8=";
   };
 
   dontBuild = true;
@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater { tagPrefix = "v"; };
 
   meta = with lib; {
     description = "A Yazi plugin to preview archives";
