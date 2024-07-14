@@ -213,6 +213,14 @@ fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/teyvat
 src.manual = "1.000"
 fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/xianzhou-seal-1.000/Xianzhou-Seal-1.000.zip"
 
+[hoyo-glyphs-zzz-a]
+src.manual = "1.000"
+fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/zzz-a-1.000/ZZZ-A-1.000.zip"
+
+[hoyo-glyphs-zzz-system]
+src.manual = "1.000"
+fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/zzz-system-1.000/ZZZ-System-1.000.zip"
+
 [i915-sriov-dkms]
 src.git = "https://github.com/strongtz/i915-sriov-dkms.git"
 fetch.github = "strongtz/i915-sriov-dkms"

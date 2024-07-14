@@ -86,15 +86,15 @@
   };
   attic = {
     pname = "attic";
-    version = "717cc95983cdc357bc347d70be20ced21f935843";
+    version = "6139576a3ce6bb992e0f6c3022528ec233e45f00";
     src = fetchFromGitHub {
       owner = "zhaofengli";
       repo = "attic";
-      rev = "717cc95983cdc357bc347d70be20ced21f935843";
+      rev = "6139576a3ce6bb992e0f6c3022528ec233e45f00";
       fetchSubmodules = false;
-      sha256 = "sha256-kH04ReTjxOpQumgWnqy40vvQLSnLGxWP6RF3nq5Esrk=";
+      sha256 = "sha256-aKjJ/4l2I9+wNGTaOGRsuS3M1+IoTibqgEMPDikXm04=";
     };
-    date = "2024-06-01";
+    date = "2024-07-09";
   };
   axiom-syslog-proxy = {
     pname = "axiom-syslog-proxy";
@@ -194,15 +194,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "5ff0d450bd3c9d6d0f6facaa1357797be1fcf5e4";
+    version = "9507e82d756bb29339edd833ac75fbf229dd925d";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "5ff0d450bd3c9d6d0f6facaa1357797be1fcf5e4";
+      rev = "9507e82d756bb29339edd833ac75fbf229dd925d";
       fetchSubmodules = false;
-      sha256 = "sha256-pTdpeiP+9Y1NrDhxt5qcWrTb2IdGDBIsDPSD4qr4WHc=";
+      sha256 = "sha256-U3Q4JSqOM7nUKF2fjy3YAufFrGEoHIy1r6Ao4WxB/OY=";
     };
-    date = "2024-07-09";
+    date = "2024-07-13";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -293,21 +293,21 @@
   };
   decluttarr = {
     pname = "decluttarr";
-    version = "v1.46.0";
+    version = "v1.46.1";
     src = fetchFromGitHub {
       owner = "ManiMatter";
       repo = "decluttarr";
-      rev = "v1.46.0";
+      rev = "v1.46.1";
       fetchSubmodules = false;
-      sha256 = "sha256-JeI1u+sNBi3gu84Sml3CFSUSyY08G9/bZGS4qR+bB3g=";
+      sha256 = "sha256-yoq1CbYdsB3q7diB423PxGX5VYn1V+qObqV6CbewyZk=";
     };
   };
   dingtalk = {
     pname = "dingtalk";
-    version = "7.5.20.40605";
+    version = "7.5.20.40705";
     src = fetchurl {
-      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.20.40605_amd64.deb";
-      sha256 = "sha256-iA8QIbx6AyWgIhv5Jyv8hljy5+k1dRTjkhk0DBaX3Po=";
+      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.20.40705_amd64.deb";
+      sha256 = "sha256-PSbVKYDe47mZjDiAkEy7fJLADJ6f8Eiy5PfhUZ490r0=";
     };
   };
   douban-openapi-server = {
@@ -500,15 +500,15 @@
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
-    version = "1c02c254ef501918e684d6ef003a93d3e5e5abb7";
+    version = "6e613abff54862c1295d388c424c25df23986927";
     src = fetchFromGitHub {
       owner = "SpeedyOrc-C";
       repo = "Hoyo-Glyphs";
-      rev = "1c02c254ef501918e684d6ef003a93d3e5e5abb7";
+      rev = "6e613abff54862c1295d388c424c25df23986927";
       fetchSubmodules = false;
-      sha256 = "sha256-AiAv7InMSmQschyVnarkBdLGNBSZgGd3r72HGRT2DGc=";
+      sha256 = "sha256-Di0hI5t6awOTOVOc8R2V0o11LN2P5BsDoB7AvVo+Igg=";
     };
-    date = "2024-03-27";
+    date = "2024-07-13";
   };
   hoyo-glyphs-font-ainee = {
     pname = "hoyo-glyphs-font-ainee";
@@ -540,6 +540,22 @@
     src = fetchurl {
       url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/xianzhou-seal-1.000/Xianzhou-Seal-1.000.zip";
       sha256 = "sha256-1cXp5ZH6oY6LPdeN7EpiMJzO4SiXmeJTnLLrBPJD4g4=";
+    };
+  };
+  hoyo-glyphs-zzz-a = {
+    pname = "hoyo-glyphs-zzz-a";
+    version = "1.000";
+    src = fetchurl {
+      url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/zzz-a-1.000/ZZZ-A-1.000.zip";
+      sha256 = "sha256-QH+pywg6lDBqXww/sbGw8lH3gY5/xzhf2B1eLwr88bY=";
+    };
+  };
+  hoyo-glyphs-zzz-system = {
+    pname = "hoyo-glyphs-zzz-system";
+    version = "1.000";
+    src = fetchurl {
+      url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/zzz-system-1.000/ZZZ-System-1.000.zip";
+      sha256 = "sha256-HiqwvY3g55qxXIXU+098LaOvu7CZls+w1NdIwYonJ38=";
     };
   };
   i915-sriov-dkms = {
@@ -735,13 +751,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.9.8-xanmod1";
+    version = "6.9.9-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.9.8-xanmod1";
+      rev = "6.9.9-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-rSwvVt+DW7rc//aY6Ho8mllUy/3MKuAs/71UG+p07Iw=";
+      sha256 = "sha256-ZEU1RIgJ0ckyITFWZndEzXYwnTF39OviLxL9S5dEea4=";
     };
   };
   linux-xanmod-6_0 = {
@@ -768,24 +784,24 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.37-xanmod1";
+    version = "6.6.39-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.37-xanmod1";
+      rev = "6.6.39-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-EoGRWCa0nqokUzhq+WcmY1RRFv9uDvmrGdXCqZxTJ/U=";
+      sha256 = "sha256-s8rE92YVz+0SC/VRvItakp7Q6whFzskFkalqku6j43Y=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3347";
+    version = "b3386";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3347";
+      rev = "b3386";
       fetchSubmodules = false;
-      sha256 = "sha256-ojRS+/ahJ3Y9ThYwyGMEHa6oHTEzN/BQvSkmuQI9+hA=";
+      sha256 = "sha256-4ucLxNRd7iQMO9W5kkFMze5FouBQ37B6eX6dRrBEe5c=";
     };
   };
   lyrica = {
@@ -1029,15 +1045,15 @@
   };
   ovpn-dco = {
     pname = "ovpn-dco";
-    version = "4a58dbe09278f76bfef9e6f20638a53345fca9cd";
+    version = "d22d04e4cea22ff0dd5ae375a92de20ddd6317d4";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "ovpn-dco";
-      rev = "4a58dbe09278f76bfef9e6f20638a53345fca9cd";
+      rev = "d22d04e4cea22ff0dd5ae375a92de20ddd6317d4";
       fetchSubmodules = false;
-      sha256 = "sha256-mG5IL0tUanvFpAov5yrXSnrZS28VJsBn1eSU1bIe3bc=";
+      sha256 = "sha256-SjAp4rzi/DVm0QAFoRpFXwzuh04UJyQBRnfbyvjHgTo=";
     };
-    date = "2024-06-18";
+    date = "2024-07-12";
   };
   palworld-exporter = {
     pname = "palworld-exporter";
@@ -1322,10 +1338,10 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20240609";
+    version = "20240709";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20240609/moegirl.dict.yaml";
-      sha256 = "sha256-XC+hsILC58VVKlmUbaVw0IAqggterR4h5igjM3PQWO8=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20240709/moegirl.dict.yaml";
+      sha256 = "sha256-qUlE2DEyAZO3EZg39Hj5qrg++XfFpv7FBdUAk5iDpmU=";
     };
   };
   rime-zhwiki = {

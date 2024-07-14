@@ -14,6 +14,8 @@ stdenvNoCC.mkDerivation rec {
     sources.hoyo-glyphs-teyvat-black.src
     sources.hoyo-glyphs-xianzhou-seal.src
     sources.hoyo-glyphs-font-ainee.src
+    sources.hoyo-glyphs-zzz-a.src
+    sources.hoyo-glyphs-zzz-system.src
   ];
 
   sourceRoot = ".";

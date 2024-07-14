@@ -562,5 +562,45 @@
             "settings_version": "470.223.02",
             "settings_hash": "sha256-r6DuIH/rnsCm/y51iRgPNi5/kz+EFMVABREdTjBneZ0="
         }
+    },
+    "16.7": {
+        "urls": {
+            "https://foxi.buduanwang.vip/pan/vGPU/16.7/NVIDIA-GRID-Linux-KVM-535.183.04-535.183.06-538.78.zip": "07ia2djhlr8jfv3rrgblpf1wmqjc0sk3z8j7fa2l4cipr84amjsg"
+        },
+        "patches": {},
+        "host": {
+            "version": "535.183.04",
+            "persistenced_version": "535.183.01",
+            "persistenced_hash": "sha256-9DTOKOCoO65UpvQwAMwKO23AcCJGF+/UsUPLWO4XE6A=",
+            "settings_version": "535.183.01",
+            "settings_hash": "sha256-AvMbTjt7glMHzkQUOEaUgnA6pBAyvO+EstftK4EU+qA="
+        },
+        "guest": {
+            "version": "535.183.06",
+            "persistenced_version": "535.183.01",
+            "persistenced_hash": "sha256-9DTOKOCoO65UpvQwAMwKO23AcCJGF+/UsUPLWO4XE6A=",
+            "settings_version": "535.183.01",
+            "settings_hash": "sha256-AvMbTjt7glMHzkQUOEaUgnA6pBAyvO+EstftK4EU+qA="
+        }
+    },
+    "17.3": {
+        "urls": {
+            "https://foxi.buduanwang.vip/pan/vGPU/17.3/NVIDIA-GRID-Linux-KVM-550.90.05-550.90.07-552.74.zip": "0z9r6lyx35fqjwcc2d1l7ip6q9jq11xl352nh6v47ajvp2flxly9"
+        },
+        "patches": {},
+        "host": {
+            "version": "550.90.05",
+            "persistenced_version": "550.78",
+            "persistenced_hash": "sha256-qDGBAcZEN/ueHqWO2Y6UhhXJiW5625Kzo1m/oJhvbj4=",
+            "settings_version": "550.78",
+            "settings_hash": "sha256-lZiNZw4dJw4DI/6CI0h0AHbreLm825jlufuK9EB08iw="
+        },
+        "guest": {
+            "version": "550.90.07",
+            "persistenced_version": "550.90.07",
+            "persistenced_hash": "sha256-qe8e1Nxla7F0U88AbnOZm6cHxo57pnLCqtjdvOvq9jk=",
+            "settings_version": "550.90.07",
+            "settings_hash": "sha256-sX9dHEp9zH9t3RWp727lLCeJLo8QRAGhVb8iN6eX49g="
+        }
     }
 }

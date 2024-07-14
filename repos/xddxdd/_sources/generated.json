@@ -148,7 +148,7 @@
     },
     "attic": {
         "cargoLocks": null,
-        "date": "2024-06-01",
+        "date": "2024-07-09",
         "extract": null,
         "name": "attic",
         "passthru": null,
@@ -160,12 +160,12 @@
             "name": null,
             "owner": "zhaofengli",
             "repo": "attic",
-            "rev": "717cc95983cdc357bc347d70be20ced21f935843",
-            "sha256": "sha256-kH04ReTjxOpQumgWnqy40vvQLSnLGxWP6RF3nq5Esrk=",
+            "rev": "6139576a3ce6bb992e0f6c3022528ec233e45f00",
+            "sha256": "sha256-aKjJ/4l2I9+wNGTaOGRsuS3M1+IoTibqgEMPDikXm04=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "717cc95983cdc357bc347d70be20ced21f935843"
+        "version": "6139576a3ce6bb992e0f6c3022528ec233e45f00"
     },
     "axiom-syslog-proxy": {
         "cargoLocks": null,
@@ -349,7 +349,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-07-09",
+        "date": "2024-07-13",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -361,12 +361,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "5ff0d450bd3c9d6d0f6facaa1357797be1fcf5e4",
-            "sha256": "sha256-pTdpeiP+9Y1NrDhxt5qcWrTb2IdGDBIsDPSD4qr4WHc=",
+            "rev": "9507e82d756bb29339edd833ac75fbf229dd925d",
+            "sha256": "sha256-U3Q4JSqOM7nUKF2fjy3YAufFrGEoHIy1r6Ao4WxB/OY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5ff0d450bd3c9d6d0f6facaa1357797be1fcf5e4"
+        "version": "9507e82d756bb29339edd833ac75fbf229dd925d"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -538,12 +538,12 @@
             "name": null,
             "owner": "ManiMatter",
             "repo": "decluttarr",
-            "rev": "v1.46.0",
-            "sha256": "sha256-JeI1u+sNBi3gu84Sml3CFSUSyY08G9/bZGS4qR+bB3g=",
+            "rev": "v1.46.1",
+            "sha256": "sha256-yoq1CbYdsB3q7diB423PxGX5VYn1V+qObqV6CbewyZk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.46.0"
+        "version": "v1.46.1"
     },
     "dingtalk": {
         "cargoLocks": null,
@@ -554,11 +554,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-iA8QIbx6AyWgIhv5Jyv8hljy5+k1dRTjkhk0DBaX3Po=",
+            "sha256": "sha256-PSbVKYDe47mZjDiAkEy7fJLADJ6f8Eiy5PfhUZ490r0=",
             "type": "url",
-            "url": "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.20.40605_amd64.deb"
+            "url": "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.20.40705_amd64.deb"
         },
-        "version": "7.5.20.40605"
+        "version": "7.5.20.40705"
     },
     "douban-openapi-server": {
         "cargoLocks": null,
@@ -885,7 +885,7 @@
     },
     "hoyo-glyphs": {
         "cargoLocks": null,
-        "date": "2024-03-27",
+        "date": "2024-07-13",
         "extract": null,
         "name": "hoyo-glyphs",
         "passthru": null,
@@ -897,12 +897,12 @@
             "name": null,
             "owner": "SpeedyOrc-C",
             "repo": "Hoyo-Glyphs",
-            "rev": "1c02c254ef501918e684d6ef003a93d3e5e5abb7",
-            "sha256": "sha256-AiAv7InMSmQschyVnarkBdLGNBSZgGd3r72HGRT2DGc=",
+            "rev": "6e613abff54862c1295d388c424c25df23986927",
+            "sha256": "sha256-Di0hI5t6awOTOVOc8R2V0o11LN2P5BsDoB7AvVo+Igg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1c02c254ef501918e684d6ef003a93d3e5e5abb7"
+        "version": "6e613abff54862c1295d388c424c25df23986927"
     },
     "hoyo-glyphs-font-ainee": {
         "cargoLocks": null,
@@ -961,6 +961,36 @@
             "sha256": "sha256-1cXp5ZH6oY6LPdeN7EpiMJzO4SiXmeJTnLLrBPJD4g4=",
             "type": "url",
             "url": "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/xianzhou-seal-1.000/Xianzhou-Seal-1.000.zip"
+        },
+        "version": "1.000"
+    },
+    "hoyo-glyphs-zzz-a": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "hoyo-glyphs-zzz-a",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-QH+pywg6lDBqXww/sbGw8lH3gY5/xzhf2B1eLwr88bY=",
+            "type": "url",
+            "url": "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/zzz-a-1.000/ZZZ-A-1.000.zip"
+        },
+        "version": "1.000"
+    },
+    "hoyo-glyphs-zzz-system": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "hoyo-glyphs-zzz-system",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-HiqwvY3g55qxXIXU+098LaOvu7CZls+w1NdIwYonJ38=",
+            "type": "url",
+            "url": "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/zzz-system-1.000/ZZZ-System-1.000.zip"
         },
         "version": "1.000"
     },
@@ -1323,12 +1353,12 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.9.8-xanmod1",
-            "sha256": "sha256-rSwvVt+DW7rc//aY6Ho8mllUy/3MKuAs/71UG+p07Iw=",
+            "rev": "6.9.9-xanmod1",
+            "sha256": "sha256-ZEU1RIgJ0ckyITFWZndEzXYwnTF39OviLxL9S5dEea4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.9.8-xanmod1"
+        "version": "6.9.9-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1386,12 +1416,12 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.6.37-xanmod1",
-            "sha256": "sha256-EoGRWCa0nqokUzhq+WcmY1RRFv9uDvmrGdXCqZxTJ/U=",
+            "rev": "6.6.39-xanmod1",
+            "sha256": "sha256-s8rE92YVz+0SC/VRvItakp7Q6whFzskFkalqku6j43Y=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.6.37-xanmod1"
+        "version": "6.6.39-xanmod1"
     },
     "llama-cpp": {
         "cargoLocks": null,
@@ -1407,12 +1437,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3347",
-            "sha256": "sha256-ojRS+/ahJ3Y9ThYwyGMEHa6oHTEzN/BQvSkmuQI9+hA=",
+            "rev": "b3386",
+            "sha256": "sha256-4ucLxNRd7iQMO9W5kkFMze5FouBQ37B6eX6dRrBEe5c=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3347"
+        "version": "b3386"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -1845,7 +1875,7 @@
     },
     "ovpn-dco": {
         "cargoLocks": null,
-        "date": "2024-06-18",
+        "date": "2024-07-12",
         "extract": null,
         "name": "ovpn-dco",
         "passthru": null,
@@ -1857,12 +1887,12 @@
             "name": null,
             "owner": "OpenVPN",
             "repo": "ovpn-dco",
-            "rev": "4a58dbe09278f76bfef9e6f20638a53345fca9cd",
-            "sha256": "sha256-mG5IL0tUanvFpAov5yrXSnrZS28VJsBn1eSU1bIe3bc=",
+            "rev": "d22d04e4cea22ff0dd5ae375a92de20ddd6317d4",
+            "sha256": "sha256-SjAp4rzi/DVm0QAFoRpFXwzuh04UJyQBRnfbyvjHgTo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4a58dbe09278f76bfef9e6f20638a53345fca9cd"
+        "version": "d22d04e4cea22ff0dd5ae375a92de20ddd6317d4"
     },
     "palworld-exporter": {
         "cargoLocks": null,
@@ -2395,11 +2425,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-XC+hsILC58VVKlmUbaVw0IAqggterR4h5igjM3PQWO8=",
+            "sha256": "sha256-qUlE2DEyAZO3EZg39Hj5qrg++XfFpv7FBdUAk5iDpmU=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20240609/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20240709/moegirl.dict.yaml"
         },
-        "version": "20240609"
+        "version": "20240709"
     },
     "rime-zhwiki": {
         "cargoLocks": null,
