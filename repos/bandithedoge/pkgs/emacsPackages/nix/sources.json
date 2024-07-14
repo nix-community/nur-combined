@@ -125,10 +125,10 @@
     "homepage": "",
     "owner": "Fuco1",
     "repo": "smartparens",
-    "rev": "ab475c78916d7b1666a495e3fe9c54b250195637",
-    "sha256": "0jd3296pkdajl57j4m5yak6xwf09mq4d1a03xilvhg4y4grha5ff",
+    "rev": "c7519a1b69f196050a13e2230b7532893b077086",
+    "sha256": "06bdr3vcywg6k89d5dmvj4sdxh95y0jgh5xlddvmv2x0i8d7g69b",
     "type": "tarball",
-    "url": "https://github.com/Fuco1/smartparens/archive/ab475c78916d7b1666a495e3fe9c54b250195637.tar.gz",
+    "url": "https://github.com/Fuco1/smartparens/archive/c7519a1b69f196050a13e2230b7532893b077086.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   }
 }
