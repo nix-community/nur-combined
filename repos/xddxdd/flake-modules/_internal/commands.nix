@@ -13,24 +13,32 @@ _: {
           NIX_LOGFILE=nix-build-uncached.log
 
           # Workaround https://github.com/NixOS/nix/issues/6572
-          for i in {1..3}; do
-            ${pkgs.nix-build-uncached}/bin/nix-build-uncached ci.nix -A $1 --show-trace 2>&1 | tee $NIX_LOGFILE && exit 0
+          SUBSTITUTED=1
+          while [ "$SUBSTITUTED" -eq 1 ]; do
+            SUBSTITUTED=0
+
+            echo "::group::Building packages with nix-fast-build"
+            ${pkgs.nix-fast-build}/bin/nix-fast-build -f .#ciPackages.$1 --skip-cached --no-nom 2>&1 | tee $NIX_LOGFILE && exit 0
+            echo "::endgroup::"
+
             if grep -q "specified:" $NIX_LOGFILE; then
               if grep -q "got:" $NIX_LOGFILE; then
-                SAVEIFS=$IFS
-                IFS=$'\n'
+                SPECIFIED_HASH=($(grep "specified:" $NIX_LOGFILE | cut -d":" -f2 | xargs))
+                GOT_HASH=($(grep "got:" $NIX_LOGFILE | cut -d":" -f2 | xargs))
 
-                SPECIFIED_HASH=($(grep "specified:" $NIX_LOGFILE | cut -d":" -f2 | head -n1 | xargs))
-                GOT_HASH=($(grep "got:" $NIX_LOGFILE | cut -d":" -f2 | head -n1 | xargs))
+                for (( i=1; i<=''${#SPECIFIED_HASH[@]}; i++ )); do
+                  SUBSTITUTED=1
 
-                IFS=$SAVEIFS
-
-                for (( i=0; i<''${#SPECIFIED_HASH[@]}; i++ )); do
+                  echo "::group::Auto replace ''${SPECIFIED_HASH[$i]} with ''${GOT_HASH[$i]}"
                   echo "Auto replace ''${SPECIFIED_HASH[$i]} with ''${GOT_HASH[$i]}"
                   sed -i "s#''${SPECIFIED_HASH[$i]}#''${GOT_HASH[$i]}#g" $(find pkgs/ -name \*.nix) || true
+                  echo "::endgroup::"
+
                   SPECIFIED_HASH_OLD=$(nix hash convert --to nix32 "''${SPECIFIED_HASH[$i]}")
+                  echo "::group::Auto replace ''${SPECIFIED_HASH_OLD} with ''${GOT_HASH[$i]}"
                   echo "Auto replace ''${SPECIFIED_HASH_OLD} with ''${GOT_HASH[$i]}"
                   sed -i "s#''${SPECIFIED_HASH_OLD}#''${GOT_HASH[$i]}#g" $(find pkgs/ -name \*.nix) || true
+                  echo "::endgroup::"
                 done
               fi
             fi

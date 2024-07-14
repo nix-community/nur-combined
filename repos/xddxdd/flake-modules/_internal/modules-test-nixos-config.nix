@@ -37,15 +37,11 @@ in
             system.stateVersion = lib.trivial.release;
 
             # Add all CI packages
-            environment.etc =
-              (lib.mapAttrs' (
+            environment.etc = (
+              lib.mapAttrs' (
                 _n: v: lib.nameValuePair "ci-packages/${v.name}" { source = v; }
-              ) self.ciPackages.${system})
-              // (builtins.listToAttrs (
-                builtins.map (
-                  v: lib.nameValuePair "ci-outputs/${builtins.toString v.index}" { source = v.value; }
-                ) (enumerateList self.ciOutputs."${system}")
-              ));
+              ) self.ciPackages.${system}
+            );
           }
         ];
       }
