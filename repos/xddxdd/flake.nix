@@ -75,7 +75,7 @@
             // (builtins.listToAttrs (
               builtins.map (s: {
                 name = "pinnedNixpkgs-${s}";
-                value = self.legacyPackages.${s};
+                value = _final: _prev: self.legacyPackages.${s};
               }) systems
             ));
 
