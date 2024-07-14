@@ -34,13 +34,6 @@ rec {
         --replace "if ((binding->flags & BINDING_CODE) == 0) {" "if (false) {"
     '';
   });
-  #losslesscut-bin = super.losslesscut-bin.overrideAttrs (oldAttrs: rec {
-  #   = ''
-  #    exit 1
-  #    wrapProgram "$out/bin/losslesscut" \
-  #      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
-  #  '';
-  #});
 } // optionalAttrs (config.hardware.regdomain.enable or false) {
   inherit (pkgs.nur.repos.dukzcry) wireless-regdb;
   crda = super.crda.overrideAttrs (oldAttrs: rec {
