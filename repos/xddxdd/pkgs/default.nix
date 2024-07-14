@@ -186,8 +186,6 @@ mkScope (
     peerbanhelper = pkg ./uncategorized/peerbanhelper { };
     phpmyadmin = pkg ./uncategorized/phpmyadmin { };
     phppgadmin = pkg ./uncategorized/phppgadmin { };
-    plasma-desktop-lyrics = pkg ./uncategorized/lyrica { };
-    plasma-desktop-lyrics-plasmoid = pkg ./uncategorized/lyrica-plasmoid { };
     plasma-panel-transparency-toggle = pkg ./uncategorized/plasma-panel-transparency-toggle { };
     pocl = pkg ./uncategorized/pocl { };
     procps4 = pkg ./uncategorized/procps4 { };

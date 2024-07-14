@@ -2684,16 +2684,6 @@
     "pname": "plangothic-fonts-fallback-V1.8.5760",
     "version": ""
   },
-  "legacyPackages.x86_64-linux.plasma-desktop-lyrics": {
-    "description": "Linux desktop lyrics widget focused on simplicity and integration",
-    "pname": "lyrica",
-    "version": "0.7"
-  },
-  "legacyPackages.x86_64-linux.plasma-desktop-lyrics-plasmoid": {
-    "description": "Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component)",
-    "pname": "lyrica",
-    "version": "0.7"
-  },
   "legacyPackages.x86_64-linux.plasma-panel-transparency-toggle": {
     "description": "A rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
     "pname": "plasma-panel-transparency-toggle-unstable",
@@ -3423,16 +3413,6 @@
     "description": "",
     "pname": "merged-packages",
     "version": ""
-  },
-  "packages.x86_64-linux.plasma-desktop-lyrics": {
-    "description": "Linux desktop lyrics widget focused on simplicity and integration",
-    "pname": "lyrica",
-    "version": "0.7"
-  },
-  "packages.x86_64-linux.plasma-desktop-lyrics-plasmoid": {
-    "description": "Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component)",
-    "pname": "lyrica",
-    "version": "0.7"
   },
   "packages.x86_64-linux.plasma-panel-transparency-toggle": {
     "description": "A rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
