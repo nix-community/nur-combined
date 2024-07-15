@@ -11,15 +11,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "af4df5166b357668f8207fbdff46a802633f1a5d";
+    version = "323d86b2685a2420341e648bbc6c7b7c02029fa9";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "af4df5166b357668f8207fbdff46a802633f1a5d";
+      rev = "323d86b2685a2420341e648bbc6c7b7c02029fa9";
       fetchSubmodules = false;
-      sha256 = "sha256-5HTQk8eBkt++HZIsVK1eEZjmFNlqpEd3oYDjMBeTn/c=";
+      sha256 = "sha256-jKTOwbm0cNp8D5pinF4wtn5beQRlLmsnClg+8ooDkX0=";
     };
-    date = "2024-07-02";
+    date = "2024-07-15";
   };
   nixfmt = {
     pname = "nixfmt";
