@@ -2453,10 +2453,10 @@
     };
     "elasticvue" = buildFirefoxXpiAddon {
       pname = "elasticvue";
-      version = "1.0.8";
+      version = "1.0.9";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4291987/elasticvue-1.0.8.xpi";
-      sha256 = "09b65d81b328832c9fa212d5d147ed8014f532555526ec21ce72b724317e0094";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4319622/elasticvue-1.0.9.xpi";
+      sha256 = "db96c8e924a97c72ce01149cfebe6d826a71dd74e4f66f1f5b43d09d744d33cf";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
@@ -2619,10 +2619,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.11";
+      version = "1.3.12";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4317616/faststream-1.3.11.xpi";
-      sha256 = "fcb30d2982df601b81678af40f268b2b22959b57e61ba0f5e7c66a7669a3e86d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4319570/faststream-1.3.12.xpi";
+      sha256 = "80fbcb62ba693c83242daa1f1204a57765d1afd304876733d1400f6a437af684";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
