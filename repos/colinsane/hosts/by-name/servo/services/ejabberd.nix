@@ -51,54 +51,54 @@ lib.mkIf false
     {
       "3478" = {
         protocol = [ "tcp" "udp" ];
+        visibleTo.doof = true;
         visibleTo.lan = true;
-        visibleTo.wan = true;
         description = "colin-xmpp-stun-turn";
       };
       "5222" = {
         protocol = [ "tcp" ];
+        visibleTo.doof = true;
         visibleTo.lan = true;
-        visibleTo.wan = true;
         description = "colin-xmpp-client-to-server";
       };
       "5223" = {
         protocol = [ "tcp" ];
+        visibleTo.doof = true;
         visibleTo.lan = true;
-        visibleTo.wan = true;
         description = "colin-xmpps-client-to-server";  # XMPP over TLS
       };
       "5269" = {
         protocol = [ "tcp" ];
-        visibleTo.wan = true;
+        visibleTo.doof = true;
         description = "colin-xmpp-server-to-server";
       };
       "5270" = {
         protocol = [ "tcp" ];
-        visibleTo.wan = true;
+        visibleTo.doof = true;
         description = "colin-xmpps-server-to-server";  # XMPP over TLS
       };
       "5280" = {
         protocol = [ "tcp" ];
+        visibleTo.doof = true;
         visibleTo.lan = true;
-        visibleTo.wan = true;
         description = "colin-xmpp-bosh";
       };
       "5281" = {
         protocol = [ "tcp" ];
+        visibleTo.doof = true;
         visibleTo.lan = true;
-        visibleTo.wan = true;
         description = "colin-xmpp-bosh-https";
       };
       "5349" = {
         protocol = [ "tcp" ];
+        visibleTo.doof = true;
         visibleTo.lan = true;
-        visibleTo.wan = true;
         description = "colin-xmpp-stun-turn-over-tls";
       };
       "5443" = {
         protocol = [ "tcp" ];
+        visibleTo.doof = true;
         visibleTo.lan = true;
-        visibleTo.wan = true;
         description = "colin-xmpp-web-services";  # file uploads, websockets, admin
       };
     }
@@ -109,8 +109,8 @@ lib.mkIf false
         numPorts = turnPortHigh - turnPortLow + 1;
       in {
         protocol = [ "tcp" "udp" ];
+        visibleTo.doof = true;
         visibleTo.lan = true;
-        visibleTo.wan = true;
         description = "colin-xmpp-turn-${builtins.toString count}-of-${builtins.toString numPorts}";
       };
     })

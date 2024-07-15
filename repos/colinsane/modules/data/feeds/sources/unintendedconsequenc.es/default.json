@@ -1,9 +1,9 @@
 {
   "description": "systems | complexity | second-order effects",
   "is_podcast": false,
-  "site_name": "Unintended Consequences - systems | complexity | second-order effects",
+  "site_name": "Unintended Consequences",
   "site_url": "https://unintendedconsequenc.es",
   "title": "Unintended Consequences",
   "url": "https://unintendedconsequenc.es/feed/",
-  "velocity": 0.01
+  "velocity": 0.009
 }

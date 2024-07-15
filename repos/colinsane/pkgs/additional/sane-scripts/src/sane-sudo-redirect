@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p coreutils-full
+#!nix-shell -i bash -p bash -p coreutils-full
 
 # redirects to $1, when writing to $1 requires sudo permissions.
 # i.e. convert a failing command:

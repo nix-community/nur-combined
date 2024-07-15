@@ -1,0 +1,241 @@
+/* foreground (text)/background */
+@define-color fg0       #d8d8d8;
+@define-color fg1       #ffffff;
+@define-color bg0       #130c0c;
+@define-color bg1       #1c1716;
+/* green accents */
+@define-color accent-g0 #1f5e54;
+@define-color accent-g1 #418379;
+@define-color accent-g2 #63a89c;
+/* red accents */
+@define-color accent-r0 #c96262;
+@define-color accent-r1 #d27871;
+@define-color accent-r2 #ff968b;
+/* light (teal-white) accents */
+@define-color accent-l0 #e1f0ef;
+@define-color accent-l1 #f9fffc;
+
+
+* {
+  font-size: @fontSize@px;
+}
+
+#task-box-focused {
+  background-color: @accent-g2;
+}
+
+#playerctl-button {
+  background-color: rgba(0, 0, 0, 0.08);
+  background-image: none;
+  border: none;
+  box-shadow: none;
+  /* remove the 1px gap between buttons, since that causes color stripes if the background is a different color */
+  margin-left: -1;
+  margin-right: -1;
+  outline: none;
+  /* prevent the buttons from pushing the whole bar down */
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+#panel-top {
+  background: @accent-g1;
+  color: @fg1;
+}
+/* fix up the top bar sections so that the clock can be centered, even without forcing it to take 1/3rd of the bar */
+/* pair with `homogenous = false` in config. on overflow, the clock may be rendered on top of the left portion of the bar */
+/* and the right portion of the bar will render on top of all */
+#panel-top > box > box > box > #left-box {
+  margin-left: 0px;
+  margin-right: -16384px;
+}
+#panel-top > box > box > box > #center-box {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+#panel-top > box > box > box > box {
+  /* this is the *parent* of #right-box, which is uniquely under an unnamed "helper box" */
+  /* i have to address this parent, because otherwise only the controls are visible and the executors (including playerctl) */
+  /* are packed in a fill mode that pushes them off the visible section of the bar */
+  margin-left: -16384px;
+}
+
+#right-box > widget > * {
+  /* TODO: tune this for moby */
+  padding-right: 3px;
+  padding-left: 2px;
+}
+
+#swaync-label {
+  /* move the notification count closer to the bell icon */
+  margin-left: -3px;
+  /* TODO: this should be main font size -1 */
+  font-size: 14px;
+  color: @accent-r2;
+}
+
+/* increase the size of each workspace icon */
+#sway-workspaces-item > label {
+  padding-left: 1px;
+  padding-right: 1px;
+}
+/* default config highlights hovered workspace with a gray border */
+#sway-workspaces > widget:selected {
+  box-shadow: none;
+}
+
+/* the CSS nodes are difficult to determine.
+ * reference: <https://github.com/numixproject/numix-gtk-theme/blob/master/src/gtk-3.20/scss/widgets/_calendar.scss>
+ */
+#calendar-window {
+  background-color: @accent-l0;
+}
+calendar {
+  background-color: @accent-l0;
+}
+calendar :selected {
+  background-color: @accent-r1;
+}
+
+
+#controls-window {
+  border-radius: 15px;
+  background: @bg1;
+  color: @fg1;
+}
+
+/* default config highlights selected items with a green border */
+widget:selected {
+  box-shadow: none;
+  background-color: @accent-g0;
+}
+#controls-window widget:selected {
+  box-shadow: none;
+  background-color: @accent-r0;
+}
+
+/* default config puts a *ridiculous* amount of padding around the whole controls window */
+#controls-window > widget > .vertical {
+  margin-left: -20px;
+  margin-right: -20px;
+}
+#controls-window > widget > .vertical > .horizontal {
+  margin-top: -14px;  /* full reset would be -20px */
+  margin-bottom: -20px;
+}
+/* add back in a little bit of padding, but in a way such that my highlights apply to it */
+#controls-window .horizontal widget > box,
+#controls-window > widget > .vertical > .horizontal > .vertical > .horizontal
+{
+  padding-left: 12px;
+  padding-right: 12px;
+}
+#controls-window > widget > .vertical > .horizontal > .vertical > widget > box
+{
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+#controls-window > widget > .vertical > .horizontal > .vertical > box > widget > box
+{
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+/* hierarchy is .horizontal > {image, scale > { value, contents > trough > { slider, highlight } } } */
+scale {
+  padding-right: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+scale trough {
+  padding-left: 9px;
+  padding-right: 9px;
+  border-radius: 9px;
+  border-color: rgba(0, 0, 0, 0);
+  background: @bg0;
+}
+scale highlight {
+  border-radius: 9px;
+  border-color: rgba(0, 0, 0, 0);
+  margin: 0px;
+  margin-left: -9px;
+  background: @accent-r1;
+}
+scale slider {
+  margin-top: -3px;
+  margin-bottom: -3px;
+  background: @accent-l1;
+  min-height: 25px;
+  min-width: 25px;
+}
+
+#clock {
+  font-family: monospace;
+  font-size: @clockFontSize@px;
+}
+
+/* UNUSED IN MY CURRENT CONFIG: COPIED FROM SAMPLE CONFIG */
+
+/* Controls window in sample config uses this name */
+/* Brightness slider popup window in sample config uses this name */
+#brightness-popup {
+  border-radius: 15px;
+  background: @bg1;
+  color: @fg1;
+}
+#brightness-popup box {
+  padding: 15px;
+}
+
+/* Executors usually behave better in monospace fonts */
+#executor-label {
+  font-family: monospace;
+}
+
+/* Bottom panel in sample config uses this name */
+#panel-bottom {
+  background: #101010;
+  color: #eeeeee;
+}
+
+/* Sample executor-weather uses "css-name": "weather" */
+#weather {
+  font-size: 16px;
+}
+
+/* dwl-tags module */
+#dwl-tag-box {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#dwl-tag-occupied {
+  font-family: monospace;
+  color: #eee;
+  background-color: #006699;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+#dwl-tag-free {
+  font-family: monospace;
+  color: #eee;
+  background-color: rgba (32, 50, 90, 1.0);
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+#dwl-tag-urgent {
+  font-family: monospace;
+  color: #eee;
+  background-color: #ee6600;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+#dwl-tag-selected {
+  border: solid 2px;
+  border-color: #81a1c1;
+}

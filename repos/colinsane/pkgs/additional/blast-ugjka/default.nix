@@ -1,24 +1,25 @@
 { buildGoModule
 , fetchFromGitHub
 , lib
-, makeWrapper
+, makeBinaryWrapper
+, nix-update-script
 , pulseaudio
 }:
 buildGoModule rec {
   pname = "blast-ugjka";
-  version = "0.6.2";
+  version = "0.7.0";
 
   src = fetchFromGitHub {
     owner = "ugjka";
     repo = "blast";
     rev = "v${version}";
-    hash = "sha256-Y9Jj+UrrsyRfihHAdC354jb1385xqLIufB0DoikrXYM=";
+    hash = "sha256-yMwMG0y2ehq2dBMlv9hF+i0TgmMjW3ojBVGiqEUSrhU=";
   };
 
   vendorHash = "sha256-yPwLilMiDR1aSeuk8AEmuYPsHPRWqiByGLwgkdI5t+s=";
 
   nativeBuildInputs = [
-    makeWrapper
+    makeBinaryWrapper
   ];
 
   postInstall = ''
@@ -26,10 +27,12 @@ buildGoModule rec {
         --suffix PATH : ${lib.makeBinPath [ pulseaudio ]}
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = with lib; {
     description = "blast your linux audio to DLNA receivers";
     # license = licenses.mit;  # MIT + NoAI
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/ugjka/blast";
     maintainers = with maintainers; [ colinsane ];
     platforms = platforms.unix;
   };

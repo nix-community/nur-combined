@@ -5,10 +5,10 @@
 #   <https://gitlab.gnome.org/GNOME/geary/-/issues/1212>
 { config, lib, ... }:
 let
-  cfg = config.sane.programs."gnome.geary";
+  cfg = config.sane.programs."geary";
 in
 {
-  sane.programs."gnome.geary" = {
+  sane.programs."geary" = {
     configOption = with lib; mkOption {
       default = {};
       type = types.submodule {
@@ -37,7 +37,7 @@ in
     # fs.".config/geary".dir = {};
     # fs.".local/share/folks".dir = {};
 
-    buildCost = 2;  # uses webkitgtk 4.1
+    buildCost = 3;  # uses webkitgtk 4.1
     persist.byStore.private = [
       # attachments, and email -- contained in a sqlite db
       ".local/share/geary"

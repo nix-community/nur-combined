@@ -3,7 +3,7 @@
   sane.programs.s6-rc = {
     packageUnwrapped = pkgs.s6-rc.overrideAttrs (upstream: {
       nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ (with pkgs; [
-        makeWrapper
+        makeWrapper  # requires shell wrapper -- not binary -- so that env var args can be expanded by the wrapper
       ]);
       # s6-rc looks for files in /run/s6/{live,compiled,...} by default.
       # let's patch that to be a user-specific runtime dir, since i run it as an ordinary user.
@@ -11,12 +11,12 @@
       postInstall = (upstream.postInstall or "") + ''
         for prog in s6-rc s6-rc-bundle s6-rc-db s6-rc-format-upgrade s6-rc-init s6-rc-update; do
           wrapProgram "$bin/bin/$prog" \
-            --add-flags '-l $XDG_RUNTIME_DIR/s6/live'
+            --add-flags '-l' --add-flags '$XDG_RUNTIME_DIR/s6/live'
         done
       '';
     });
 
-    persist.private = [
+    persist.byStore.private = [
       ".local/share/s6/logs"
     ];
 

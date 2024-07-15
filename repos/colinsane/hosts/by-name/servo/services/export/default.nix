@@ -12,6 +12,10 @@
     device = "/var/media";
     options = [ "rbind" ];
   };
+  fileSystems."/var/export/pub" = {
+    device = "/var/www/sites/uninsane.org/share";
+    options = [ "rbind" ];
+  };
   # fileSystems."/var/export/playground" = {
   #   device = config.fileSystems."/mnt/persist/ext".device;
   #   fsType = "btrfs";
@@ -37,7 +41,8 @@
     wantedBy = [ "nfs.service" "sftpgo.service" ];
     file.text = ''
       - media/         read-only:  Videos, Music, Books, etc
-      - playground/    read-write: use it to share files with other users of this server
+      - playground/    read-write: use it to share files with other users of this server, inaccessible from the www
+      - pub/           read-only:  content made to be shared with the www
     '';
   };
 

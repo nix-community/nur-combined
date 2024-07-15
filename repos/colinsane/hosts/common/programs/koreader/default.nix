@@ -17,7 +17,7 @@
 #   - these are stored in `~/.config/koreader/data/dict`
 # - configure defaults:
 #   - edit keys in ~/.config/koreader/settings.reader.lua
-#     - default font size: `["copt_font_size"] = 28,`
+#     - default font size: `["copt_font_size"] = 30,`
 #     - home dir: `["home_dir"] = "/home/colin/Books",`
 { config, lib, pkgs, sane-lib, ... }:
 

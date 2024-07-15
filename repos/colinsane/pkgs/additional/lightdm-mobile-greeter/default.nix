@@ -56,7 +56,7 @@ rustPlatform.buildRustPackage rec {
     mkdir -p $out/share/applications
     substitute lightdm-mobile-greeter.desktop \
       $out/share/applications/lightdm-mobile-greeter.desktop \
-      --replace lightdm-mobile-greeter $out/bin/lightdm-mobile-greeter
+      --replace-fail lightdm-mobile-greeter $out/bin/lightdm-mobile-greeter
   '';
 
   passthru.xgreeters = linkFarm "lightdm-mobile-greeter-xgreeters" [{

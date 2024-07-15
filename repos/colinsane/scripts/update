@@ -1,0 +1,134 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p nix-update
+
+NIX_FILES_TOP=/home/colin/nixos
+
+usage() {
+  echo "update: update rev/hash for one or more packages"
+  echo "usage: update [options] [attr-path]"
+  echo ""
+  echo "options:"
+  echo "- --dry-run"
+  echo "- --verbose"
+  echo ""
+  echo "examples:"
+  echo "- update nixpkgs: update only the nixpkgs input"
+  echo "- update sane: update every package under the 'sane' attribute"
+  echo "- update: update everything i know how to update"
+  exit 1
+}
+
+warn() {
+  echo "$@"
+}
+info() {
+  echo "$@"
+}
+debug() {
+  if [ -n "$verbose" ]; then
+    echo "$@"
+  fi
+}
+
+hasEffect() {
+  if [ -n "$dryRun" ]; then
+    echo "dry-run: skip $@"
+  else
+    eval "$@"
+  fi
+}
+
+# usage: getPkgs outVar prefix
+getPkgs() {
+  local -n attrsArr="$1"
+  local attrPrefix="$2"
+  if [ -z "$attrPrefix" ]; then
+    attrPrefix=sane
+  fi
+
+  # nix-env doesn't seem to build anything when evaluating queries,
+  # but since i use Import From Derivation along paths which i also want to query,
+  # then i need to ensure those derivations are available for import.
+  debug "creating requisite .drv store paths"
+  nix-instantiate -A nix "$NIX_FILES_TOP"
+  nix-instantiate -A nixpkgs "$NIX_FILES_TOP"
+  debug "querying attributes which match '$attrPrefix'"
+  local attrs=$(nix-env -f "$NIX_FILES_TOP" --query --available --attr-path --no-name -A "$attrPrefix" --show-trace)
+  debug "got: $attrs"
+  attrsArr+=($attrs)
+}
+
+updateOnePkg() {
+  local attrPath="$1"
+
+  if [ -n "$ignore" ] && [[ "$attrPath" =~ ^"$ignore" ]]; then
+    warn "ignoring $attrPath"
+    return
+  fi
+
+  local updateScript=$(nix eval --raw -f "$NIX_FILES_TOP" $attrPath.passthru.updateScript --apply 'builtins.concatStringsSep "'" "'"')
+  if [ -z "$updateScript" ]; then
+    warn "don't know how to update '$attrPath'"
+    return
+  fi
+
+  # make sure everything needed to invoke the update script exists in-store
+  local context=$(nix eval --raw -f "$NIX_FILES_TOP" $attrPath.passthru.updateScript --apply 's: builtins.concatStringsSep " " (builtins.foldl'"'"' (acc: next: acc ++ next) [] (builtins.map builtins.attrNames (builtins.map builtins.getContext s)))')
+  for c in $context; do
+    debug "realizing updateScript requisite: $context"
+    nix-store --realize "$c" || true
+  done
+
+  local UPDATE_NIX_NAME=$(nix eval --raw -f "$NIX_FILES_TOP" $attrPath.name)
+  local UPDATE_NIX_PNAME=$(nix eval --raw -f "$NIX_FILES_TOP" $attrPath.pname)
+  local UPDATE_NIX_OLD_VERSION=$(nix eval --raw -f "$NIX_FILES_TOP" $attrPath.version)
+  info "updating: '$attrPath'"
+  debug "$updateScript"
+  (
+    # update script assumes $PWD is an entry point to a writable copy of my nix config,
+    # so provide that:
+    pushd "$NIX_FILES_TOP/integrations/nix-update"
+    # we lose spaces inside the exec args... could `nix eval` without `--raw` to fix that.
+    UPDATE_NIX_NAME="$UPDATE_NIX_NAME" UPDATE_NIX_PNAME="$UPDATE_NIX_PNAME" UPDATE_NIX_OLD_VERSION="$UPDATE_NIX_OLD_VERSION" UPDATE_NIX_ATTR_PATH="$attrPath" eval $updateScript
+    popd
+  )
+}
+
+dryRun=
+ignore=
+toplevelsToUpdate=()
+verbose=
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    case "$arg" in
+      (--help)
+        usage
+        ;;
+      (--dry-run)
+        dryRun=1
+        ;;
+      (--verbose)
+        verbose=1
+        ;;
+      (*)
+        toplevelsToUpdate+=("$arg")
+        ;;
+    esac
+  done
+  if [ "${#toplevelsToUpdate[@]}" -eq 0 ]; then
+    ignore=sane.feeds
+    toplevelsToUpdate=(sane)
+  fi
+}
+
+parseArgs "$@"
+pkgsToUpdate=()
+for t in "${toplevelsToUpdate[@]}"; do
+  getPkgs pkgsToUpdate "$t"
+done
+
+for p in "${pkgsToUpdate[@]}"; do
+  hasEffect updateOnePkg "$p"
+done

@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p nettools -p systemd
+#!nix-shell -i bash -p bash -p nettools -p systemd
 
 target="$1"
 shift

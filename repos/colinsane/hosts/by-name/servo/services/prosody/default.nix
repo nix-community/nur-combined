@@ -61,42 +61,42 @@ in
   ];
   sane.ports.ports."5000" = {
     protocol = [ "tcp" ];
+    visibleTo.doof = true;
     visibleTo.lan = true;
-    visibleTo.wan = true;
     description = "colin-xmpp-prosody-fileshare-proxy65";
   };
   sane.ports.ports."5222" = {
     protocol = [ "tcp" ];
+    visibleTo.doof = true;
     visibleTo.lan = true;
-    visibleTo.wan = true;
     description = "colin-xmpp-client-to-server";
   };
   sane.ports.ports."5223" = {
     protocol = [ "tcp" ];
+    visibleTo.doof = true;
     visibleTo.lan = true;
-    visibleTo.wan = true;
     description = "colin-xmpps-client-to-server";  # XMPP over TLS
   };
   sane.ports.ports."5269" = {
     protocol = [ "tcp" ];
-    visibleTo.wan = true;
+    visibleTo.doof = true;
     description = "colin-xmpp-server-to-server";
   };
   sane.ports.ports."5270" = {
     protocol = [ "tcp" ];
-    visibleTo.wan = true;
+    visibleTo.doof = true;
     description = "colin-xmpps-server-to-server";  # XMPP over TLS
   };
   sane.ports.ports."5280" = {
     protocol = [ "tcp" ];
+    visibleTo.doof = true;
     visibleTo.lan = true;
-    visibleTo.wan = true;
     description = "colin-xmpp-bosh";
   };
   sane.ports.ports."5281" = {
     protocol = [ "tcp" ];
+    visibleTo.doof = true;
     visibleTo.lan = true;
-    visibleTo.wan = true;
     description = "colin-xmpp-prosody-https";  # necessary?
   };
 

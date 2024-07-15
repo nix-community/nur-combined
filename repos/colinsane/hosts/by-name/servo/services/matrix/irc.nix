@@ -1,15 +1,13 @@
 # config docs:
 # - <https://github.com/matrix-org/matrix-appservice-irc/blob/develop/config.sample.yaml>
-#       probably want to remove that.
 { config, lib, ... }:
 
 let
-  ircServer = { name, additionalAddresses ? [], sasl ? true, port ? 6697 }: let
+  ircServer = { name, additionalAddresses ? [], ssl ? true, sasl ? true, port ? if ssl then 6697 else 6667 }: let
     lowerName = lib.toLower name;
   in {
     # XXX sasl: appservice doesn't support NickServ identification (only SASL, or PASS if sasl = false)
-    inherit name additionalAddresses sasl port;
-    ssl = true;
+    inherit additionalAddresses name port sasl ssl;
     botConfig = {
       # bot has no presence in IRC channel; only real Matrix users
       enabled = false;
@@ -129,6 +127,7 @@ in
     };
 
     ircService = {
+      logging.level = "warn";  # "error", "warn", "info", "debug"
       servers = {
         "irc.esper.net" = ircServer {
           name = "esper";
@@ -156,6 +155,10 @@ in
           # - #sxmo-offtopic
         };
         "irc.rizon.net" = ircServer { name = "Rizon"; };
+        "wigle.net" = ircServer {
+          name = "WiGLE";
+          ssl = false;
+        };
       };
     };
   };

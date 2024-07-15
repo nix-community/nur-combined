@@ -5,7 +5,7 @@
 #   - use as a launcher/file browser
 # - `rofi -sidebar-mode`
 #   - separate tabs for filebrowser, drun, etc.
-# - `rofi -pid /run/user/$UID/rofi.pid -replace`
+# - `rofi -pid $XDG_RUNTIME_DIR/rofi.pid -replace`
 #   - single-instance mode
 #   - pid is probably optional, just need `-replace`.
 #
@@ -48,6 +48,19 @@ let
         exec = "rofi -combi-modes filebrowser -show";
         desktopName = "rofi filebrowser";
       })
+      (pkgs.makeDesktopItem {
+        name = "rofi-applications";
+        exec = "rofi -combi-modes drun -show";
+        desktopName = "rofi applications";
+        mimeTypes = [ "application/x-desktop" ];
+        noDisplay = true;
+      })
+      (pkgs.makeDesktopItem {
+        name = "close";
+        exec = "true";
+        desktopName = "Close Menu";
+        mimeTypes = [ "application/x-desktop" ];
+      })
     ];
   });
   # rofi-emoji = pkgs.rofi-emoji.override {
@@ -85,6 +98,7 @@ in
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       ".local/share/applications"  #< to locate .desktop files
+      "Apps"  #< provide a means to transition from the filebrowser to the app launcher
       "Books/local"
       "Books/servo"
       "Music"
@@ -104,8 +118,12 @@ in
       "/mnt/servo/media"
       "/mnt/servo/playground"
     ];
+    sandbox.isolatePids = false; # for sane-open to toggle keyboard
 
     fs.".config/rofi/config.rasi".symlink.target = ./config.rasi;
+    fs."Apps".symlink.target = ".local/share/applications/rofi-applications.desktop";
+    fs."WiFi".symlink.target = ".local/share/applications/networkmanager_dmenu.desktop";
+    fs."close".symlink.target = ".local/share/applications/close.desktop";  #< provide an escape from the file browser
     persist.byStore.cryptClearOnBoot = [
       # this gets us a few things:
       # - file browser remembers its last directory
@@ -118,12 +136,12 @@ in
     packageUnwrapped = pkgs.static-nix-shell.mkBash {
       pname = "rofi-run-command";
       srcRoot = ./.;
-      pkgs = [ "sane-open-desktop" "xdg-utils" ];
+      pkgs = [ "sane-open" ];
     };
     sandbox.enable = false;  #< trivial script, and all our deps are sandboxed
 
     suggestedPrograms = [
-      "sane-open-desktop"
+      "sane-open"
       "xdg-utils"
     ];
   };
@@ -148,15 +166,15 @@ in
         })
       ];
     };
-    # if i could remove the sed, then maybe possible to not sandbox.
-    sandbox.method = "bwrap";
-    sandbox.whitelistWayland = true;
-    sandbox.extraHomePaths = [
-      ".cache/rofi"
-      ".config/rofi/config.rasi"
-    ];
+    sandbox.enable = false; # all dependencies are sandboxed
+    # sandbox.method = "bwrap";
+    # sandbox.whitelistWayland = true;
+    # sandbox.extraHomePaths = [
+    #   ".cache/rofi"
+    #   ".config/rofi/config.rasi"
+    # ];
 
-    suggestedPrograms = [ "rofi" ];
+    suggestedPrograms = [ "gnused" "rofi" "wtype" ];
 
     fs.".config/rofi-snippets/public.txt".symlink.target = ./snippets.txt;
     secrets.".config/rofi-snippets/private.txt" = ../../../../secrets/common/snippets.txt.bin;

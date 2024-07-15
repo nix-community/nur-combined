@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p feedbackd -p procps -p swaynotificationcenter -p util-linux
+#!nix-shell -i bash -p bash -p feedbackd -p procps -p swaynotificationcenter -p util-linux
 
 # this script does some really unusual indirection with the `start` action:
 # IT'S INTENTIONAL.

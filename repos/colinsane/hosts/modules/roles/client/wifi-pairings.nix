@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  install-nm = pkgs.static-nix-shell.mkPython3Bin {
+  install-nm = pkgs.static-nix-shell.mkPython3 {
     pname = "install-nm";
     srcRoot = ./.;
   };

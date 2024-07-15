@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p inotify-tools -p ncurses
+#!nix-shell -i bash -p bash -p inotify-tools -p ncurses
 # watches PWD for any changes underneath it and re-runs `cargo build --a>
 # optionally, provide your own build command as the first argument
 

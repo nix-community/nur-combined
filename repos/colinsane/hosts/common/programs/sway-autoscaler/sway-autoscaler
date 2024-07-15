@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p jq -p sway -p util-linux
+#!nix-shell -i bash -p bash -p jq -p sway -p util-linux
 
 help() {
   echo "queries the focused window and apply an appropriate display-wide scale."

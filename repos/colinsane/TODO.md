@@ -1,27 +1,36 @@
 ## BUGS
-- moby: swaync modem toggle doesn't work because of permissions
-  - it's trying to toggle a system service (modem)
-- moby: my mobile ISP is adding spoofed AAAA records that break things like wireguard
-  - it only does this when i use their DNS resolvers though: if i run my own recursive resolver, they won't mess with it.
-- moby: mpv uosc always starts at 40% volume
-  - is this just mpv remembering its last-played volume?
-- moby: rofi crashes sporadically
+- `rmDbusServices` may break sandboxing
+  - e.g. if the package ships a systemd unit which references $out, then make-sandboxed won't properly update that unit.
+  - `rmDbusServicesInPlace` is not affected
+- when moby wlan is explicitly set down (via ip link set wlan0 down), /var/lib/trust-dns/dhcp-configs doesn't get reset
+  - `ip monitor` can detect those manual link state changes (NM-dispatcher it seems cannot)
+  - or try dnsmasq?
+- trust-dns: can't recursively resolve api.mangadex.org
+  - nor `m.wikipedia.org` (`dyna.wikipedia.org`)
+  - and *sometimes* apple.com fails
+- sandbox: link cache means that if i update ~/.config/... files inline, sandboxed programs still see the old version
+- mpv: audiocast has mpv sending its output to the builtin speakers unless manually changed
 - mpv: no way to exit fullscreen video on moby
   - uosc hides controls on FS, and touch doesn't support unhiding
-- i accidentally create sub-splits in sway all the time
-  - especially on moby => unusable
-  - like toplevel is split L/R, and then the L is a tabbed view and the R is a tabbed view
-- Signal restart loop drains battery
-  - decrease s6 restart time?
 - `ssh` access doesn't grant same linux capabilities as login
-- ringer (i.e. dino incoming call) doesn't prevent moby from sleeping
-- sway mouse/kb hotplug doesn't work
-- `nix` operations from lappy hang when `desko` is unreachable
-  - could at least direct the cache to `http://desko-hn:5001`
-- sysvol (volume overlay): when casting with `blast`, sysvol doesn't react to volume changes
+- syshud (volume overlay): when casting with `blast`, syshud doesn't react to volume changes
+- moby: kaslr is effectively disabled
+  - `dmesg | grep "KASLR disabled due to lack of seed"`
+  - fix by adding `kaslrseed` to uboot script before `booti`
+    - <https://github.com/armbian/build/pull/4352>
+    - not sure how that's supposed to work with tow-boot; maybe i should just update tow-boot
+- moby: bpf is effectively disabled?
+  - `dmesg | grep 'systemd[1]: bpf-lsm: Failed to load BPF object: No such process'`
+  - `dmesg | grep 'hid_bpf: error while preloading HID BPF dispatcher: -22'`
+- `s6` is not re-entrant
+  - so if the desktop crashes, the login process from `unl0kr` fails to re-launch the GUI
+- nwg-panel will sometimes create nested bars (happens maybe when i turn an external display off, then on?)
+- wg-home is unreachable for a couple minutes when switching between LAN/WAN/3G
+  - because the endpoint DNS changes.
+  - causes calls to not transfer from WiFi -> cellular.
 
 ## REFACTORING:
-- REMOVE DEPRECATED `crypt` from sftpgo_auth_hook
+- add import checks to my Python nix-shell scripts
 - consolidate ~/dev and ~/ref
   - ~/dev becomes a link to ~/ref/cat/mine
 - fold hosts/common/home/ssh.nix -> hosts/common/users/colin.nix
@@ -38,21 +47,28 @@
 
 ### upstreaming
 - add updateScripts to all my packages in nixpkgs
-- REVIEW/integrate jellyfin dataDir config: <https://github.com/NixOS/nixpkgs/pull/233617>
 
 #### upstreaming to non-nixpkgs repos
 - gtk: build schemas even on cross compilation: <https://github.com/NixOS/nixpkgs/pull/247844>
 
 
 ## IMPROVEMENTS:
+- systemd/journalctl: use a less shit pager
+  - there's an env var for it: SYSTEMD_PAGER? and a flag for journalctl
+- kernels: ship the same kernel on every machine
+  - then i can tune the kernels for hardening, without duplicating that work 4 times
+- zfs: replace this with something which doesn't require a custom kernel build
+- mpv: add media looping controls (e.g. loop song, loop playlist)
+
 ### security/resilience
-- add FTPS support for WAN users of uninsane.org (and possibly require it?)
 - validate duplicity backups!
 - encrypt more ~ dirs (~/archives, ~/records, ..?)
   - best to do this after i know for sure i have good backups
 - /mnt/desko/home, etc, shouldn't include secrets (~/private)
   - 95% of its use is for remote media access and stuff which isn't in VCS (~/records)
 - port all sane.programs to be sandboxed
+  - sandbox `curlftpfs`
+  - sandbox `sshfs-fuse`
   - enforce that all `environment.packages` has a sandbox profile (or explicitly opts out)
   - revisit "non-sandboxable" apps and check that i'm not actually just missing mountpoints
     - LL_FS_RW=/ isn't enough -- need all mount points like `=/:/proc:/sys:...`.
@@ -63,33 +79,30 @@
     - <https://github.com/flatpak/xdg-dbus-proxy>
   - remove `.ssh` access from Firefox!
     - limit access to `~/knowledge/secrets` through an agent that requires GUI approval, so a firefox exploit can't steal all my logins
-  - port sane-sandboxed to a compiled language (hare?)
+  - port sanebox to a compiled language (hare?)
     - it adds like 50-70ms launch time _on my laptop_. i'd hate to know how much that is on the pinephone.
-  - remove /run/wrappers from the sandbox path
-    - they're mostly useless when using no-new-privs, just an opportunity to forget to specify deps
 - make dconf stuff less monolithic
   - i.e. per-app dconf profiles for those which need it. possible static config.
-- canaries for important services
-  - e.g. daily email checks; daily backup checks
-  - integrate `nix check` into Gitea actions?
+  - flatpak/spectrum has some stuff to proxy dconf per-app
 
 ### user experience
 - rofi: sort items case-insensitively
-- give `mpv` better `nice`ness?
-- xdg-desktop-portal shouldn't kill children on exit
-  - *maybe* a job for `setsid -f`?
 - replace starship prompt with something more efficient
   - watch `forkstat`: it does way too much
-- cleanup waybar so that it's not invoking playerctl every 2 seconds
+- cleanup waybar/nwg-panel so that it's not invoking playerctl every 2 seconds
+  - nwg-panel: doesn't know that virtual-desktop 10/TV exists
 - install apps:
+  - compass viewer (moby)
+    - <https://gitlab.com/lgtrombetta/compass> (not in nixpkgs as of 2024/07/14)
   - display QR codes for WiFi endpoints: <https://linuxphoneapps.org/apps/noappid.wisperwind.wifi2qr/>
   - shopping list (not in nixpkgs): <https://linuxphoneapps.org/apps/ro.hume.cosmin.shoppinglist/>
   - offline Wikipedia (or, add to `wike`)
   - offline docs viewer (gtk): <https://github.com/workbenchdev/Biblioteca>
   - some type of games manager/launcher
     - Gnome Highscore (retro games)?: <https://gitlab.gnome.org/World/highscore>
-  - better maps for mobile (Osmin (QtQuick)? Pure Maps (Qt/Kirigami)? Gnome Maps is improved in 45)
+  - better maps for mobile (Osmin (QtQuick)? Pure Maps (Qt/Kirigami)?)
   - note-taking app: <https://linuxphoneapps.org/categories/note-taking/>
+    - Folio is nice, uses standard markdown, though it only supports flat repos
   - OSK overlay specifically for mobile gaming
     - i.e. mock joysticks, for use with SuperTux and SuperTuxKart
 - install mobile-friendly games:
@@ -110,13 +123,12 @@
   - don't show MPRIS if no players detected
     - this is a problem of playerctld, i guess
   - add option to change audio output
-  - fix colors (red alert) to match overall theme
 - moby: tune GPS
-  - run only geoclue, and not gpsd, to save power?
+  - fix iio-sensor-proxy magnetometer scaling
   - tune QGPS setting in eg25-control, for less jitter?
-  - direct mepo to prefer gpsd, with fallback to geoclue, for better accuracy?
   - configure geoclue to do some smoothing?
-  - manually do smoothing, as some layer between mepo and geoclue/gpsd?
+  - manually do smoothing, as some layer between mepo and geoclue?
+- moby: port `freshen-agps` timer service to s6 (maybe i want some `s6-cron` or something)
 - moby: show battery state on ssh login
 - moby: improve gPodder launch time
 - moby: theme GTK apps (i.e. non-adwaita styles)
@@ -142,9 +154,9 @@
 - email: fix so that local mail doesn't go to junk
   - git sendmail flow adds the DKIM signatures, but gets delivered locally w/o having the sig checked, so goes into Junk
   - could change junk filter from "no DKIM success" to explicit "DKIM failed"
+  - add an auto-reply address (e.g. `reply-test@uninsane.org`) which reflects all incoming mail; use this (or a friend running this) for liveness checks
 
 ### perf
-- debug nixos-rebuild times
 - add `pkgs.impure-cached.<foo>` package set to build things with ccache enabled
   - every package here can be auto-generated, and marked with some env var so that it doesn't pollute the pure package set
   - would be super handy for package prototyping!

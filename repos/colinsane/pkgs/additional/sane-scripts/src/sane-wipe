@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p dconf -p libsecret -p s6-rc
+#!nix-shell -i bash -p bash -p dconf -p libsecret -p procps -p s6-rc
 
 help() {
   echo "usage: sane-wipe <resource>"
@@ -62,7 +62,9 @@ wipe_fractal() {
   secret-tool clear 'xdg:schema' 'org.gnome.Fractal'
   secret-tool clear 'xdg:schema' 'org.gnome.Fractal.Hack'
 
-  # N.B.: it may be necessary still to delete ~/.local/share/fractal/* (unsure)
+  echo "Fractal is wiped: you may now restart it and login."
+  echo "The initial sync may take up to an hour, after which you will be prompted to verify the session with another device."
+  echo "If this does not work, try deleting ~/.local/share/fractal/* in its entirety."
 }
 
 

@@ -1,6 +1,6 @@
 { static-nix-shell }:
-static-nix-shell.mkPython3Bin {
+static-nix-shell.mkPython3 {
   pname = "sane-die-with-parent";
   srcRoot = ./.;
-  pyPkgs = [ "psutil" ];
+  pkgs = [ "python3.pkgs.psutil" ];
 }

@@ -1,0 +1,21 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p feeds.update-feed -p gnused
+
+sources_dir=modules/data/feeds/sources
+# prettify the URL, by default
+name=$( \
+  echo "$1" \
+  | sed 's|^https://||' \
+  | sed 's|^http://||' \
+  | sed 's|^www\.||' \
+  | sed 's|/+$||' \
+)
+json_path="$sources_dir/$name/default.json"
+
+# the name could have slashes in it, so we want to mkdir -p that
+# but in a way where the least could go wrong.
+pushd "$sources_dir"; mkdir -p "$name"; popd
+
+# update.py: from `feeds.update-feed` (TODO: rename the binary!)
+update.py "$name" "$json_path"
+cat "$json_path"

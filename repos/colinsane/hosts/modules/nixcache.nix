@@ -39,9 +39,6 @@ in
     in {
       nixos = subOpt true;
       cachix = subOpt true;
-      # the interaction particularly between moby and nixcache.uninsane.org is just too finicky.
-      servo = subOpt false;
-      desko = subOpt false;
     };
     sane.nixcache.remote-builders.desko = mkOption {
       default = true;
@@ -57,14 +54,13 @@ in
     # use our own binary cache
     # to explicitly build from a specific cache (in case others are down):
     # - `nixos-rebuild ... --option substituters https://cache.nixos.org`
-    # - `nix build ... --substituters http://desko:5000`
+    # - `nix build ... --substituters ""`
     nix.settings.substituters = mkIf cfg.enable (lib.flatten [
-      (lib.optional cfg.substituters.servo  "https://nixcache.uninsane.org")
-      (lib.optional cfg.substituters.desko  "http://desko:${builtins.toString config.sane.services.nixserve.port}")
       (lib.optional cfg.substituters.nixos  "https://cache.nixos.org/")
       (lib.optional cfg.substituters.cachix "https://nix-community.cachix.org")
     ]);
-    # always trust our keys (so one can explicitly use a substituter even if it's not the default
+    # always trust our keys (so one can explicitly use a substituter even if it's not the default).
+    # note that these are also used to sign paths before deploying over SSH; not just nix-serve.
     nix.settings.trusted-public-keys = mkIf cfg.enable-trusted-keys [
       "nixcache.uninsane.org:r3WILM6+QrkmsLgqVQcEdibFD7Q/4gyzD9dGT33GP70="
       "desko:Q7mjjqoBMgNQ5P0e63sLur65A+D4f3Sv4QiycDIKxiI="

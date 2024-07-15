@@ -1,0 +1,59 @@
+commit 7aa759990b38b09abf9010dfe58e4cbdc1493282 (HEAD -> dev-sane)
+Author: Colin <colin@uninsane.org>
+Date:   2024-06-15 21:41:46 +0000
+
+    playerctl: remove backward/forward/music-note icons
+
+    these aren't worth the space cost on narrow devices (moby)
+
+diff --git a/nwg_panel/modules/playerctl.py b/nwg_panel/modules/playerctl.py
+index ff48d4c..43ae221 100644
+--- a/nwg_panel/modules/playerctl.py
++++ b/nwg_panel/modules/playerctl.py
+@@ -211,15 +211,6 @@ class Playerctl(Gtk.EventBox):
+         if self.settings["angle"] != 0.0:
+             button_box.set_orientation(Gtk.Orientation.VERTICAL)
+
+-        img = Gtk.Image()
+-        update_image(img, "media-skip-backward-symbolic", self.settings["icon-size"], icons_path=self.icons_path)
+-        btn = Gtk.Button()
+-        btn.set_image(img)
+-        if self.settings["button-css-name"]:
+-            btn.set_property("name", self.settings["button-css-name"])
+-        btn.connect("clicked", self.launch, self.PlayerOps.PREVIOUS)
+-        button_box.pack_start(btn, False, False, 1)
+-
+         self.play_pause_btn = Gtk.Button()
+         if self.settings["button-css-name"]:
+             self.play_pause_btn.set_property("name", self.settings["button-css-name"])
+@@ -229,15 +220,6 @@ class Playerctl(Gtk.EventBox):
+         self.play_pause_btn.connect("clicked", self.launch, self.PlayerOps.PLAY_PAUSE)
+         button_box.pack_start(self.play_pause_btn, False, False, 1)
+
+-        img = Gtk.Image()
+-        update_image(img, "media-skip-forward-symbolic", self.settings["icon-size"], icons_path=self.icons_path)
+-        btn = Gtk.Button()
+-        btn.set_image(img)
+-        if self.settings["button-css-name"]:
+-            btn.set_property("name", self.settings["button-css-name"])
+-        btn.connect("clicked", self.launch, self.PlayerOps.NEXT)
+-        button_box.pack_start(btn, False, False, 1)
+-
+         self.num_players_lbl = Gtk.Label.new("")
+         if self.settings["label-css-name"]:
+             self.num_players_lbl.set_property("name", self.settings["label-css-name"])
+@@ -257,13 +239,9 @@ class Playerctl(Gtk.EventBox):
+             self.box.pack_start(button_box, False, False, 2)
+             if self.settings["show-cover"]:
+                 self.box.pack_start(self.cover_img, False, False, 0)
+-            self.box.pack_start(self.num_players_lbl, False, False, 0)
+-            self.box.pack_start(self.label, False, False, 5)
+         else:
+             if self.settings["show-cover"]:
+                 self.box.pack_start(self.cover_img, False, False, 2)
+-            self.box.pack_start(self.num_players_lbl, False, False, 0)
+-            self.box.pack_start(self.label, False, False, 2)
+             self.box.pack_start(button_box, False, False, 10)
+
+     def launch(self, button, op):
+

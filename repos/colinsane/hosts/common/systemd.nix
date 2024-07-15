@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 let
   # N.B.: systemd doesn't like to honor its timeout settings.
   # a timeout of 20s is actually closer to 70s,
@@ -7,62 +7,12 @@ let
   haltTimeout = 10;
 in
 {
-  systemd.extraConfig = ''
-    # DefaultTimeoutStopSec defaults to 90s, and frequently blocks overall system shutdown.
-    DefaultTimeoutStopSec=${builtins.toString haltTimeout}
-  '';
-
-  systemd.user.extraConfig = ''
-    # DefaultTimeoutStopSec defaults to 90s, and frequently blocks overall system shutdown.
-    DefaultTimeoutStopSec=${builtins.toString haltTimeout}
-  '';
-
-  services.journald.extraConfig = ''
-    # docs: `man journald.conf`
-    # merged journald config is deployed to /etc/systemd/journald.conf
-    [Journal]
-    # disable journal compression because the underlying fs is compressed
-    Compress=no
-  '';
-
-  # decreasing the timeout for the manager itself ("Stop job is running for User Manager for UID 1000").
-  # TimeoutStopSec gets stripped from .override file for `user@`, so can't do it that way:
-  #   systemd.services."user@".serviceConfig.TimeoutStopSec = "20s";
-  # adding just TimeoutStopSec to `user@1000` causes it to lose all the other fields, including `ExecStart`:
-  #   systemd.services."user@1000".serviceConfig.TimeoutStopSec = "20s";
-  # so, just recreate the whole damn service as it appears with `systemd cat 'user@1000'`
-  # and modify the parts i care about.
-  systemd.services."user@1000" = {
-    description = "User Manager for UID %i";
-    documentation = [ "man:user@service(5)" ];
-    after = [
-      "user-runtime-dir@%i.service"
-      "dbus.service"
-      "systemd-oomd.service"
-    ];
-    requires = [ "user-runtime-dir@%i.service" ];
-    unitConfig.ignoreOnIsolate = true;
-
-    serviceConfig = {
-      User = "%i";
-      PAMName = "systemd-user";
-      Type = "notify-reload";
-      ExecStart = "${pkgs.systemd}/lib/systemd/systemd --user";
-      Slice = "user-%i.slice";
-      KillMode = "mixed";
-      Delegate = [ "pids" "memory" "cpu" ];
-      DelegateSubgroup = "init.scope";
-      TasksMax = "infinity";
-      TimeoutStopSec = "${builtins.toString haltTimeout}s";  #< default: 120s
-      KeyringMode = "inherit";
-      OOMScoreAdjust = 100;
-      MemoryPressureWatch = "skip";
-    };
-  };
-
-  # allow ordinary users to `reboot` or `shutdown`.
-  # source: <https://nixos.wiki/wiki/Polkit>
   security.polkit.extraConfig = ''
+    /* allow ordinary users to:
+     * - reboot
+     * - shutdown
+     * source: <https://nixos.wiki/wiki/Polkit>
+     */
     polkit.addRule(function(action, subject) {
       if (
         subject.isInGroup("users")
@@ -77,5 +27,43 @@ in
         return polkit.Result.YES;
       }
     })
+
+    /* allow members of wheel to:
+     * - systemctl daemon-reload
+     * - systemctl stop|start|restart SERVICE
+     */
+    polkit.addRule(function(action, subject) {
+      if (subject.isInGroup("wheel") && (
+        action.id == "org.freedesktop.systemd1.reload-daemon" ||
+        action.id == "org.freedesktop.systemd1.manage-units"
+      )) {
+        return polkit.Result.YES;
+      }
+    })
+  '';
+
+  services.journald.extraConfig = ''
+    # docs: `man journald.conf`
+    # merged journald config is deployed to /etc/systemd/journald.conf
+    [Journal]
+    # disable journal compression because the underlying fs is compressed
+    Compress=no
+  '';
+
+  # see: `man logind.conf`
+  # don’t shutdown when power button is short-pressed (commonly done an accident, or by cats).
+  #   but do on long-press: useful to gracefully power-off server.
+  services.logind.powerKey = "lock";
+  services.logind.powerKeyLongPress = "poweroff";
+  services.logind.lidSwitch = "lock";
+  # under logind, 'uaccess' tag would grant the logged in user access to a device.
+  # outside logind, map uaccess tag -> plugdev group to grant that access.
+  services.udev.extraRules = ''
+    TAG=="uaccess" GROUP="plugdev"
+  '';
+
+  systemd.extraConfig = ''
+    # DefaultTimeoutStopSec defaults to 90s, and frequently blocks overall system shutdown.
+    DefaultTimeoutStopSec=${builtins.toString haltTimeout}
   '';
 }

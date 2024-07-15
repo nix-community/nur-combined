@@ -9,10 +9,23 @@ let
     options.command = mkOption {
       type = types.str;
       default = name;
+      description = ''
+        shell command to run, e.g. "swaylock --indicator-idle-visible".
+      '';
     };
     options.desktop = mkOption {
       type = types.nullOr types.str;
       default = null;
+      description = ''
+        name of a .desktop file to launch, e.g. "swaylock.desktop".
+      '';
+    };
+    options.service = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = ''
+        name of a user service to start.
+      '';
     };
     options.delay = mkOption {
       type = types.int;
@@ -20,11 +33,24 @@ let
         how many seconds of idle time before triggering the command.
       '';
     };
-    config.command = lib.mkIf (config.desktop != null) "sane-open-desktop ${config.desktop}";
+    config.command = lib.mkMerge [
+      (lib.mkIf (config.desktop != null) (
+        lib.escapeShellArgs [ "sane-open" "--application" "${config.desktop}" ])
+      )
+      (lib.mkIf (config.service != null) (
+        lib.escapeShellArgs [ "s6-rc" "start" "${config.service}" ])
+      )
+    ];
   });
   screenOff = pkgs.writeShellScriptBin "screen-off" ''
     swaymsg -- output '*' power false
-    swaymsg -- input type:touch events disabled
+    # XXX(2024/06/09): `type:touch` method is documented, but now silently fails
+    # swaymsg -- input type:touch events disabled
+
+    local inputs=$(swaymsg -t get_inputs --raw | jq '. | map(select(.type == "touch")) | map(.identifier) | join(" ")' --raw-output)
+    for id in "''${inputs[@]}"; do
+      swaymsg -- input "$id" events disabled
+    done
   '';
 in
 {
@@ -46,9 +72,22 @@ in
       command = "${screenOff}/bin/screen-off";
       delay = lib.mkDefault 1500;  # 1500s = 25min
     };
+    config.actions.lock = {
+      # define a well-known action mostly to prevent accidentally shipping overlapping screen lockers...
+      delay = lib.mkDefault 1800;  # 1800 = 30min
+      # enable by default, but only if something else has installed a locker.
+      enable = lib.mkDefault cfg.actions.lock.command != "";
+      command = lib.mkDefault "";
+    };
+
+    suggestedPrograms = [
+      "jq"
+      # "sway"  #< required, but circular dep
+    ];
 
     sandbox.method = "bwrap";
     sandbox.whitelistDbus = [ "user" ];  #< might need system too, for inhibitors
+    sandbox.whitelistS6 = true;
     sandbox.whitelistWayland = true;
     sandbox.extraRuntimePaths = [ "sway" ];
 

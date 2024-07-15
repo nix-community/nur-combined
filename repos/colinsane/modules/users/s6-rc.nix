@@ -124,8 +124,10 @@ let
       # N.B. do not run the notifier from $HOME, else it won't know where to find the `data/check` program.
       # N.B. must be run with `&` + `wait`, else we lose the ability to `trap`.
       ${maybe-notify}env --chdir="$HOME" ${cli} <&0 &
-      wait
-      log "exiting"
+      wait $!
+      status=$?
+      log "exiting; propagating status: $status"
+      exit "$status"
     '';
   in {
     "${name}".dir = {
@@ -202,7 +204,7 @@ let
   # to decrease sandbox escaping, i want to run s6-svscan on a read-only directory
   # so other programs can't edit the service scripts.
   # in practice, that means putting the servicedirs in /nix/store, and linking selective pieces of state
-  # towards /run/user/{uid}/s6/live/..., the latter is shared with s6-rc.
+  # towards $XDG_RUNTIME_DIR/s6/live/..., the latter is shared with s6-rc.
   mkScanDir = livedir: compiled: pkgs.runCommandLocal "s6-scandir" { } ''
     cp -R "${compiled}/servicedirs" "$out"
     cd "$out"
@@ -231,6 +233,10 @@ let
     ln -s "${livedir}/servicedirs/.s6-svscan" .
   '';
 
+  concatNonNullLines = lines: lib.concatStringsSep "\n" (
+    lib.filter (line: line != null) lines
+  );
+
   # transform the `user.services` attrset into a s6 services list.
   s6SvcsFromConfigServices = services: lib.mapAttrsToList
     (name: service: rec {
@@ -243,7 +249,17 @@ let
         lib.filterAttrs (_: cfg: lib.elem name cfg.dependencyOf) services
       );
       down = maybe (type == "oneshot") service.cleanupCommand;
-      finish = maybe (type == "longrun") service.cleanupCommand;
+      finish = maybe (type == "longrun") (concatNonNullLines [
+        service.cleanupCommand
+        (maybe (service.restartCondition == "on-failure") ''
+          if [ "$1" -eq 0 ]; then
+            printf "service exited 0: not restarting\n"
+            s6-rc stop "$3"
+          else
+            printf "service exited non-zero: restarting (code: %d)\n" "$1"
+          fi
+        '')
+      ]);
       run = service.command;
       up = service.startCommand;
       type = if service.startCommand != null then
@@ -271,7 +287,7 @@ let
     services
   ;
 
-  # create a template s6 "live" dir, which can be copied at runtime in /run/user/{uid}/s6/live.
+  # create a template s6 "live" dir, which can be copied at runtime in $XDG_RUNTIME_DIR/s6/live.
   # this is like a minimal versio of `s6-rc-init`, but tightly coupled to my setup
   # wherein the scandir is external and selectively links back to the livedir
   mkLiveDir = compiled: pkgs.runCommandLocal "s6-livedir" {} ''
@@ -306,8 +322,8 @@ in
         )
       );
       compiled = compileServices sources;
-      uid = config'.users.users."${name}".uid;
-      scanDir = mkScanDir "/run/user/${builtins.toString uid}/s6/live" compiled;
+      xdg_runtime_dir = "/run/user/${name}";
+      scanDir = mkScanDir "${xdg_runtime_dir}/s6/live" compiled;
       liveDir = mkLiveDir compiled;
     in {
       fs.".config/s6/live".symlink.target = liveDir;

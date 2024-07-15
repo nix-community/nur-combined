@@ -1,0 +1,25 @@
+to add a host:
+- create the new nix targets
+  - hosts/by-name/HOST
+  - let the toplevel (flake.nix) know about HOST
+- build and flash an image
+- optionally expand the rootfs
+  - `cfdisk /dev/sda2` -> resize partition
+  - `mount /dev/sda2 boot`
+  - `btrfs filesystem resize max root`
+- setup required persistent directories
+  - `mkdir -p root/persist/private`
+  - `gocryptfs -init root/persist/private`
+  - then boot the device, and for every dangling symlink in ~/.local/share, ~/.cache, do `mkdir -p` on it
+- setup host ssh
+  - `mkdir -p root/persist/plaintext/etc/ssh/host_keys`
+  - boot the machine and let it create its own ssh keys
+  - add the pubkey to `hosts/common/hosts.nix`
+- setup user ssh
+  - `ssh-keygen`. don't enter any password; it's stored in a password-encrypted fs.
+  - add the pubkey to `hosts/common/hosts.nix`
+- allow the new host to view secrets
+  - instructions in hosts/common/secrets.nix
+  - run `ssh-to-age` on user/host pubkeys
+  - add age key to .sops.yaml
+  - update encrypted secrets: `sops updatekeys path/to/secret.yaml`

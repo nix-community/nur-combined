@@ -1,0 +1,12 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p bash -p brightnessctl
+dev="$1"
+if [ -z "$dev" ]; then
+  dev="white:flash"
+fi
+
+if [ "$(brightnessctl -d "$dev" get)" -gt 0 ]; then
+  brightnessctl -q -d "$dev" set "0%"
+else
+  brightnessctl -q -d "$dev" set "100%"
+fi

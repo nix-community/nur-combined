@@ -1,23 +1,28 @@
 # debugging:
 # - `journalctl -u systemd-networkd`
+# - `networkctl --help`
 #
 # docs:
 # - wireguard (nixos): <https://nixos.wiki/wiki/WireGuard#Setting_up_WireGuard_with_systemd-networkd>
 # - wireguard (arch): <https://wiki.archlinux.org/title/WireGuard>
 #
-# to route all internet traffic through a VPN endpoint, run `systemctl start vpn-${vpnName}`
+# to route all internet traffic through a VPN endpoint, run `sane-vpn up ${vpnName}`
+# to route an application's traffic through a VPN: `sane-vpn do ${vpnName} ${command[@]}`
 # to show the routing table: `ip rule`
 # to show the NAT rules used for bridging: `sudo iptables -t nat --list-rules -v`
+# to force a peer address change (e.g. DNS change): `wg set "${interface}" peer "${publicKey}" endpoint "${endpoint}"`
 #
 # the rough idea here is:
 # 1. each VPN has an IP address: if we originate a packet, and the source address is the VPN's address, then it gets routed over the VPN trivially.
-# 2a. create a bridge device for each VPN. traffic exiting that bridge is source-NAT'd to the VPN's address.
-# 2b. to route all traffic for a specific application (or container), give it access to only the bridge device.
-# 3a. create a separate routing table for each VPN, with table id = ID.
-# 3b. if a packet enters the VPN's table then it will be routed via the VPN.
-# 3c. to apply a VPN to all internet traffic, system-wide, a rule is added that forces each packet to enter that VPN's routing table.
+# 2a. create a separate routing table for each VPN, with table id = ID.
+# 2b. if a packet enters the VPN's table then it will be routed via the VPN.
+# 2c. to apply a VPN to all internet traffic, system-wide, a rule is added that forces each packet to enter that VPN's routing table.
 #     - that's done with `systemctl start vpn-$VPN`.
 #     - the VPN acts as the default route. so traffic destined to e.g. a LAN device do not traverse the VPN in this case. only internet traffic is VPN'd.
+# 3. to apply a VPN to internet traffic selectively, just proxy an applications traffic into the VPN device
+#   3a. use a network namespace and a userspace TCP stack (e.g. pasta/slirp4netns).
+#   3b. attach the VPN device to a bridge device, then connect that to a network namespace by using a veth pair.
+#   3c. juse use `sanebox`, which abstracts the above options.
 
 { config, lib, pkgs, sane-lib, ... }:
 let
@@ -40,21 +45,27 @@ let
       };
       fwmark = mkOption {
         type = types.int;
+        internal = true;
       };
+      # priority*: used externally, by e.g. `sane-vpn`
       priorityMain = mkOption {
         type = types.int;
+        internal = true;
       };
       priorityWgTable = mkOption {
         type = types.int;
+        internal = true;
       };
       priorityFwMark = mkOption {
         type = types.int;
+        internal = true;
       };
       isDefault = mkOption {
         type = types.bool;
         description = ''
           read-only value: set based on whichever VPN has the lowest id.
         '';
+        internal = true;
       };
       endpoint = mkOption {
         type = types.str;
@@ -76,6 +87,14 @@ let
           e.g. "172.27.12.34"
         '';
       };
+      subnetV4 = mkOption {
+        type = types.nullOr types.str;
+        description = ''
+          subnet dictating the range of IPs which should ALWAYS be routed through this VPN, no matter the system-wide settings.
+        '';
+        example = "24";
+        default = null;
+      };
       dns = mkOption {
         type = types.listOf types.str;
         default = [
@@ -84,13 +103,6 @@ let
         ];
         description = ''
           dns servers to use for traffic associated with this VPN.
-        '';
-      };
-      bridgeDevice = mkOption {
-        type = types.str;
-        default = "br-${name}";
-        description = ''
-          name of the bridge net device which will be created and configured so as to route all its outbound traffic over the VPN.
         '';
       };
       privateKeyFile = mkOption {
@@ -111,9 +123,7 @@ let
       priorityFwMark = config.id + 300;
     };
   });
-  mkVpnConfig = name: { id, dns, endpoint, publicKey, addrV4, privateKeyFile, bridgeDevice, priorityMain, priorityWgTable, priorityFwMark, fwmark, ... }: let
-    bridgeAddrV4 = "10.20.${builtins.toString id}.1/24";
-  in {
+  mkVpnConfig = name: { addrV4, dns, endpoint, fwmark, id, priorityMain, priorityWgTable, priorityFwMark, privateKeyFile, publicKey, subnetV4, ... }: {
     assertions = [
       {
         assertion = (lib.count (c: c.id == id) (builtins.attrValues cfg)) == 1;
@@ -132,14 +142,12 @@ let
         FirewallMark = fwmark;
       };
       wireguardPeers = [{
-        wireguardPeerConfig = {
-          AllowedIPs = [
-            "0.0.0.0/0"
-            "::/0"
-          ];
-          Endpoint = endpoint;
-          PublicKey = publicKey;
-        };
+        AllowedIPs = [
+          "0.0.0.0/0"
+          "::/0"
+        ];
+        Endpoint = endpoint;
+        PublicKey = publicKey;
       }];
     };
 
@@ -153,62 +161,43 @@ let
       # networkConfig.DNSDefaultRoute = true;
       # Domains = ~.: system DNS queries are sent to this link's DNS server
       # networkConfig.Domains = "~.";
-      routingPolicyRules = [
-        {
-          routingPolicyRuleConfig = {
-            # send traffic from the container bridge out over the VPN.
-            # the bridge itself does source nat (SNAT) to rewrite the packet source address to that of the VPNs
-            # -- but that happens in POSTROUTING: *after* the kernel decides which interface to give the packet to next.
-            # therefore, we have to route here based on the packet's address as it is in PREROUTING, i.e. the bridge address. weird!
-            Priority = priorityWgTable;
-            From = bridgeAddrV4;
-            Table = id;
-          };
-        }
-      ];
       routes = [{
-        routeConfig.Table = id;
-        routeConfig.Scope = "link";
-        routeConfig.Destination = "0.0.0.0/0";
-        routeConfig.Source = addrV4;
+        Table = id;
+        Scope = "link";
+        Destination = "0.0.0.0/0";
+        Source = addrV4;
+      }] ++ lib.optionals (subnetV4 != null) [{
+        Scope = "link";
+        Destination = "${addrV4}/${subnetV4}";
+        Source = addrV4;
       }];
       # RequiredForOnline => should `systemd-networkd-wait-online` fail if this network can't come up?
       linkConfig.RequiredForOnline = false;
     };
-
-    systemd.network.netdevs."99-${bridgeDevice}" = {
-      netdevConfig.Kind = "bridge";
-      netdevConfig.Name = bridgeDevice;
-    };
-
-    systemd.network.networks."51-${bridgeDevice}" = {
-      matchConfig.Name = bridgeDevice;
-      networkConfig.Description = "NATs inbound traffic to ${name}, intended for container isolation";
-      networkConfig.Address = [ bridgeAddrV4 ];
-      networkConfig.DNS = dns;
-      # ConfigureWithoutCarrier: a bridge with no attached interface has no carrier (this is to be expected).
-      #   systemd ordinarily waits for a carrier to be present before "configuring" the bridge.
-      #   i tell it to not do that, so that i can assign an IP address to the bridge before i connect it to anything.
-      #   alternative may be to issue the bridge a static MACAddress?
-      #   see: <https://github.com/systemd/systemd/issues/9252#issuecomment-808710185>
-      networkConfig.ConfigureWithoutCarrier = true;
-      # networkConfig.DHCPServer = true;
-      linkConfig.RequiredForOnline = false;
-    };
-
-    networking.localCommands = with pkgs; ''
-      # view rules with:
-      # - `sudo iptables -t nat --list-rules -v`
-      # rewrite the source address of every packet leaving the container so that it's routable by the wg tunnel.
-      # note that this alone doesn't get it routed *to* the wg device. we can't, since SNAT is POSTROUTING (not PREROUTING).
-      #   that part's done by an `ip rule` entry.
-      ${iptables}/bin/iptables -A POSTROUTING -t nat -s ${bridgeAddrV4} -j SNAT --to-source ${addrV4}
-    '';
+    systemd.network.config.networkConfig.ManageForeignRoutingPolicyRules = false;
 
     # linux will drop inbound packets if it thinks a reply to that packet wouldn't exit via the same interface (rpfilter).
     # wg-quick has a solution via `iptables -j CONNMARK`, and that does work for system-wide VPNs,
-    # but i couldn't get that to work for firejail/netns with SNAT, so set rpfilter to "loose".
+    # but i couldn't get that to work for netns with SNAT, so set rpfilter to "loose".
     networking.firewall.checkReversePath = "loose";
+
+    systemd.services."${name}-refresh" = {
+      # periodically re-apply peers, to ensure DNS mappings stay fresh
+      # borrowed from <repo:nixos/nixpkgs:nixos/modules/services/networking/wireguard.nix>
+      wantedBy = [ "network.target" ];
+      path = with pkgs; [ wireguard-tools ];
+      serviceConfig.Restart = "always";
+      serviceConfig.RestartSec = "60"; #< retry delay when we fail (because e.g. there's no network)
+      serviceConfig.Type = "simple";
+      unitConfig.StartLimitIntervalSec = 0;
+      script = ''
+        while wg set ${name} peer ${publicKey} endpoint ${endpoint}; do
+          echo "${name} set to:" "$(wg show ${name} endpoints)"
+          # in the normal case that DNS resolves, and whatnot, sleep before the next attempt
+          sleep 180
+        done
+      '';
+    };
 
     # networking.firewall.extraCommands = with pkgs; ''
     #   # wireguard packet marking. without this, rpfilter drops responses from a wireguard VPN

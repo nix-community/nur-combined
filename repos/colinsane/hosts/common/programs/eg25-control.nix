@@ -1,9 +1,22 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.eg25-control;
 in
 {
   sane.programs.eg25-control = {
+    suggestedPrograms = [ "mmcli" ];
+
+    sandbox.method = "bwrap";
+    sandbox.extraPaths = [
+      "/sys/class/modem-power"
+      "/sys/devices"
+      # "/var/lib/eg25-control"
+    ];
+    sandbox.net = "all";  #< for downloading the almanac
+    sandbox.whitelistDbus = [
+      "system"  #< used by `mmcli`
+    ];
+
     services.eg25-control-powered = {
       description = "eg25-control-powered: power to the Qualcomm eg25 modem used by PinePhone";
       startCommand = "eg25-control --power-on --verbose";
@@ -20,6 +33,8 @@ in
       cleanupCommand = "eg25-control --disable-gps --dump-debug-info --verbose";
       depends = [ "eg25-control-powered" ];
     };
+
+    persist.byStore.plaintext = [ ".cache/eg25-control" ];  #< for cached agps data
   };
 
   # TODO: port to s6
@@ -36,29 +51,19 @@ in
       ExecStart = "${cfg.package}/bin/eg25-control --ensure-agps-cache --verbose";
       Restart = "no";
 
-      User = "eg25-control";
-      WorkingDirectory = "/var/lib/eg25-control";
-      StateDirectory = "eg25-control";
+      User = "colin";
     };
     startAt = "hourly";  # this is a bit more than necessary, but idk systemd calendar syntax
     after = [ "network-online.target" "nss-lookup.target" ];
     requires = [ "network-online.target" ];
     # wantedBy = [ "network-online.target" ]; # auto-start immediately after boot
   };
-  users = lib.mkIf cfg.enabled {
-    groups.eg25-control = {};
-    users.eg25-control = {
-      group = "eg25-control";
-      isSystemUser = true;
-      home = "/var/lib/eg25-control";
-      extraGroups = [
-        "dialout"  # required to read /dev/ttyUSB1
-        "networkmanager"  # required to authenticate with mmcli
-      ];
-    };
-  };
-  sane.persist.sys.byStore.plaintext = lib.mkIf cfg.enabled [
-    # to persist agps data, i think.
-    { user = "eg25-control"; group = "eg25-control"; path = "/var/lib/eg25-control"; }
-  ];
+
+  services.udev.extraRules = let
+    chmod = "${pkgs.coreutils}/bin/chmod";
+    chown = "${pkgs.coreutils}/bin/chown";
+  in lib.optionalString cfg.enabled ''
+    # make Modem controllable by user
+    DRIVER=="modem-power", RUN+="${chmod} g+w /sys%p/powered", RUN+="${chown} :networkmanager /sys%p/powered"
+  '';
 }

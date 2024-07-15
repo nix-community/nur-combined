@@ -38,9 +38,10 @@ stdenv.mkDerivation rec {
 
   passthru = {
     extid = "magnolia@12.34";
-    updateScript = gitUpdater {
-      rev-prefix = "v";
-    };
+    # XXX: disabled because the upstream repo has disappeared, and gitlab auth hangs the updater
+    # updateScript = gitUpdater {
+    #   rev-prefix = "v";
+    # };
   };
 
   meta = {

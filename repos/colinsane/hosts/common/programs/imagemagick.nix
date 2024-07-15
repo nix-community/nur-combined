@@ -1,6 +1,8 @@
 { pkgs, ... }:
 {
   sane.programs.imagemagick = {
+    buildCost = 1;
+
     sandbox.method = "bwrap";
     sandbox.wrapperType = "inplace";  # /etc/ImageMagick-7/delegates.xml refers to bins by absolute path
     sandbox.whitelistPwd = true;

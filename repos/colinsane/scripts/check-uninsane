@@ -1,0 +1,119 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p curl -p dig -p iputils -p openssh
+
+echo "this script will check that uninsane.org is baseline operational"
+echo "it doesn't check all services, just the most critical ones"
+echo ""
+
+OVPNS_IPV4=185.157.162.178
+DOOF_IPV4=205.201.63.12
+
+usage() {
+  echo "usage: check-uninsane [flags ...]"
+  echo "flags:"
+  echo "- --verbose: show commands before running them"
+  exit 1
+}
+
+verbose=
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    case $arg in
+      (--verbose)
+        verbose=1
+        ;;
+      (*)
+        usage
+        ;;
+    esac
+  done
+}
+
+last_error=0
+check() {
+  local label=$1
+  shift
+  if [ -n "$verbose" ]; then
+    printf "checking %s (%s) \n" "$label" "$*"
+    "$@"
+  else
+    printf "checking %s\n" "$label"
+    "$@" > /dev/null
+  fi
+  local rc=$?
+  if [ $rc -ne 0 ]; then
+    last_error=$rc
+    printf "FAILED CHECK '%s'\n" "$label" >&2
+    echo "  $@" >&2
+  fi
+  return $rc
+}
+
+runOnHost() {
+  local host="$1"
+  shift
+  if [ "$host" = "$(hostname)" ]; then
+    "$@"
+  else
+    ssh "$host-hn" "$@"
+  fi
+}
+
+check "self-test" false 2> /dev/null
+if [ $last_error -eq 0 ]; then
+  echo "SELF-TEST FAILED" >&2
+  echo "SELF-TEST FAILED"
+  exit 1
+fi
+last_error=0
+
+parseArgs "$@"
+
+check "uninsane.org. DNS" nslookup uninsane.org.
+check "[1.1.1.1] uninsane.org. DNS" nslookup uninsane.org. 1.1.1.1
+check "[OVPNS] uninsane.org. DNS" nslookup uninsane.org. "$OVPNS_IPV4"
+check "[DOOF] uninsane.org. DNS" nslookup uninsane.org. "$DOOF_IPV4"
+
+check "https://uninsane.org online" curl --silent --fail-with-body https://uninsane.org
+check "https://matrix.uninsane.org online" curl --silent --fail-with-body https://matrix.uninsane.org
+check "https://fed.uninsane.org online" curl --silent --fail-with-body https://fed.uninsane.org
+
+# port 80 is accessible also from my VPNs
+check "http://uninsane.org online" curl --silent --fail-with-body http://uninsane.org
+check "[OVPNS] http://uninsane.org online" curl "--connect-to" "uninsane.org:80:$OVPNS_IPV4:80" --silent --fail-with-body http://uninsane.org
+check "[DOOF] http://uninsane.org online" curl "--connect-to" "uninsane.org:80:$DOOF_IPV4:80" --silent --fail-with-body http://uninsane.org
+
+# port 443 is accessible over doofnet
+check "[DOOF] https://uninsane.org online" curl "--connect-to" "uninsane.org:443:$DOOF_IPV4:443" --silent --fail-with-body https://uninsane.org
+check "[DOOF] https://matrix.uninsane.org online" curl "--connect-to" "matrix.uninsane.org:443:$DOOF_IPV4:443" --silent --fail-with-body https://matrix.uninsane.org
+
+check "uninsane.org DMARC record" nslookup -querytype=TXT _dmarc.uninsane.org.
+
+check "servo-hn wireguard network" ping -c 1 -W 3 servo-hn
+
+check "git.uninsane.org" git ls-remote https://git.uninsane.org/colin/nix-files.git --quiet
+
+check "ftps://ftp.uninsane.org" curl --silent ftps://ftp.uninsane.org/pub/test
+check "[DOOF] ftps://ftp.uninsane.org" curl "--connect-to" "ftp.uninsane.org:80:$DOOF_IPV4:80" --silent ftps://ftp.uninsane.org/pub/test
+
+_zpoolStatus() {
+  runOnHost servo zpool status | grep "errors: No known data errors"
+}
+check "zfs" _zpoolStatus
+check "Bitcoin Lightning" runOnHost servo clightning-sane status
+
+echo ""
+echo "systemctl --failed:"
+runOnHost servo systemctl -q --failed
+
+echo ""
+if [ $last_error -eq 0 ]; then
+  echo "SUCCESS"
+  echo "now manually test email services:"
+  echo "- <https://www.appmaildev.com/en/dkim>"
+else
+  echo "FAILED"
+  exit $last_error
+fi

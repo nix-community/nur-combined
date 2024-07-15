@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p "python3.withPackages (ps: [  ])"
+#!nix-shell -i python3 -p python3 -p python3.pkgs.passlib
 # vim: set filetype=python :
 #
 # available environment variables:
@@ -37,14 +37,16 @@
 # - it seems (empirically) that a user can't cd above their home directory.
 #   though i don't have a reference for that in the docs.
 
-import crypt
 import json
 import os
+import passlib.hosts
 
 from hmac import compare_digest
 
 authFail = dict(username="")
 
+PERM_DENY = []
+PERM_LIST = [ "list" ]
 PERM_RO = [ "list", "download" ]
 PERM_RW = [
   # read-only:
@@ -112,10 +114,8 @@ def isWireguard(ip: str) -> bool:
 
 def isTrustedCred(password: str) -> bool:
   for cred in TRUSTED_CREDS:
-    _, method, salt, hash_ = cred.split("$")
-    # assert method == "6", f"unrecognized crypt entry: {cred}"
-    if crypt.crypt(password, f"${method}${salt}") == cred:
-        return True
+    if passlib.hosts.linux_context.verify(password, cred):
+      return True
 
   return False
 
@@ -129,12 +129,14 @@ def getAuthResponse(ip: str, username: str, password: str) -> dict:
     return mkAuthOk(username, permissions = {
       "/": PERM_RW,
       "/playground": PERM_RW,
+      "/pub": PERM_RO,
     })
   if isWireguard(ip):
     # allow any user from wireguard
     return mkAuthOk(username, permissions = {
       "/": PERM_RW,
       "/playground": PERM_RW,
+      "/pub": PERM_RO,
     })
   if isLan(ip):
     if username == "anonymous":
@@ -142,7 +144,19 @@ def getAuthResponse(ip: str, username: str, password: str) -> dict:
       return mkAuthOk("anonymous", permissions = {
         "/": PERM_RO,
         "/playground": PERM_RW,
+        "/pub": PERM_RO,
       })
+  if username == "anonymous":
+    # anonymous users from the www can have even more limited access.
+    # mostly because i need an easy way to test WAN connectivity :-)
+    return mkAuthOk("anonymous", permissions = {
+      # "/": PERM_DENY,
+      "/": PERM_LIST,  #< REQUIRED, even for lftp to list a subdir
+      "/media": PERM_DENY,
+      "/playground": PERM_DENY,
+      "/pub": PERM_RO,
+      # "/README.md": PERM_RO,  #< does not work
+    })
 
   return authFail
 

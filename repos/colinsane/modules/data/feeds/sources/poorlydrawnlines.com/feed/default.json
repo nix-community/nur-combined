@@ -1,9 +1,9 @@
 {
   "description": "A Comic",
   "is_podcast": false,
-  "site_name": "Poorly Drawn Lines",
+  "site_name": "Poorly Drawn Lines | A Comic",
   "site_url": "https://poorlydrawnlines.com",
   "title": "Poorly Drawn Lines",
   "url": "https://poorlydrawnlines.com/feed/",
-  "velocity": 0.237
+  "velocity": 0.3
 }

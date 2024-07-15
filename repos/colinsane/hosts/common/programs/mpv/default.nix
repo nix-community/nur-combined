@@ -5,6 +5,8 @@
 # - <https://github.com/mpv-player/mpv/wiki>
 # extensions i use:
 # - <https://github.com/jonniek/mpv-playlistmanager>
+# - <https://github.com/ekisu/mpv-webm>
+# - <https://github.com/mfcc64/mpv-scripts/blob/master/visualizer.lua>
 # other extensions that could be useful:
 # - list: <https://github.com/stax76/awesome-mpv>
 # - list: <https://nudin.github.io/mpv-script-directory/>
@@ -124,63 +126,63 @@ let
           '"cycle fullscreen",'
     '';
   });
-  mpv-unwrapped = pkgs.mpv-unwrapped.overrideAttrs (upstream: {
-    version = "0.37.0-unstable-2024-03-31";
-    src = lib.warnIf (lib.versionOlder "0.37.0" upstream.version) "mpv outdated; remove patch?" pkgs.fetchFromGitHub {
-      owner = "mpv-player";
-      repo = "mpv";
-      rev = "4ce4bf1795e6dfd6f1ddf07fb348ce5d191ab1dc";
-      hash = "sha256-nOGuHq7SWDAygROV7qHtezDv1AsMpseImI8TVd3F+Oc=";
-    };
-    patches = [];
+  visualizer = pkgs.mpvScripts.visualizer.overrideAttrs (upstream: {
+    postPatch = (upstream.postPatch or "") + ''
+      # don't have the script register its own keybinding: i'll do it manually via input.conf.
+      # substituteInPlace visualizer.lua --replace-fail \
+      #   'mp.add_key_binding' '-- mp.add_key_binding'
+      substituteInPlace visualizer.lua --replace-fail \
+        'cycle_key = "c"' 'cycle_key = "v"'
+    '';
   });
 in
 {
   sane.programs.mpv = {
-    packageUnwrapped = pkgs.wrapMpv
-      (mpv-unwrapped.override rec {
+    packageUnwrapped = pkgs.mpv-unwrapped.wrapper {
+      mpv = pkgs.mpv-unwrapped.override rec {
         # N.B.: populating `self` to `luajit` is necessary for the resulting `lua.withPackages` function to preserve my override.
         # i use enable52Compat in order to get `table.unpack`.
         # i think using `luajit` here instead of `lua` is optional, just i get better perf with it :)
         lua = pkgs.luajit.override { enable52Compat = true; self = lua; };
-      })
-      {
-        scripts = [
-          pkgs.mpvScripts.mpris
-          pkgs.mpvScripts.mpv-playlistmanager
-          uosc
-          # pkgs.mpv-uosc-latest
-        ];
-        # extraMakeWrapperArgs = lib.optionals (cfg.config.vo != null) [
-        #   # 2023/08/29: fixes an error where mpv on moby launches with the message
-        #   #   "DRM_IOCTL_MODE_CREATE_DUMB failed: Cannot allocate memory"
-        #   #   audio still works, and controls, screenshotting, etc -- just not the actual rendering
-        #   #
-        #   #   this is likely a regression for mpv 0.36.0.
-        #   #   the actual error message *appears* to come from the mesa library, but it's tough to trace.
-        #   #
-        #   # 2024/03/02: no longer necessary, with mesa 23.3.1: <https://github.com/NixOS/nixpkgs/pull/265740>
-        #   #
-        #   # backend compatibility (2023/10/22):
-        #   # run with `--vo=help` to see a list of all output options.
-        #   # non-exhaustive (W=works, F=fails, A=audio-only, U=audio+ui only (no video))
-        #   # ? null             Null video output
-        #   # A (default)
-        #   # A dmabuf-wayland   Wayland dmabuf video output
-        #   # A libmpv           render API for libmpv  (mpv plays the audio, but doesn't even render a window)
-        #   # A vdpau            VDPAU with X11
-        #   # F drm              Direct Rendering Manager (software scaling)
-        #   # F gpu-next         Video output based on libplacebo
-        #   # F vaapi            VA API with X11
-        #   # F x11              X11 (software scaling)
-        #   # F xv               X11/Xv
-        #   # U gpu              Shader-based GPU Renderer
-        #   # W caca             libcaca  (terminal rendering)
-        #   # W sdl              SDL 2.0 Renderer
-        #   # W wlshm            Wayland SHM video output (software scaling)
-        #   "--add-flags" "--vo=${cfg.config.vo}"
-        # ];
       };
+      scripts = [
+        pkgs.mpvScripts.mpris
+        pkgs.mpvScripts.mpv-playlistmanager
+        pkgs.mpvScripts.mpv-webm
+        uosc
+        visualizer
+        # pkgs.mpv-uosc-latest
+      ];
+      # extraMakeWrapperArgs = lib.optionals (cfg.config.vo != null) [
+      #   # 2023/08/29: fixes an error where mpv on moby launches with the message
+      #   #   "DRM_IOCTL_MODE_CREATE_DUMB failed: Cannot allocate memory"
+      #   #   audio still works, and controls, screenshotting, etc -- just not the actual rendering
+      #   #
+      #   #   this is likely a regression for mpv 0.36.0.
+      #   #   the actual error message *appears* to come from the mesa library, but it's tough to trace.
+      #   #
+      #   # 2024/03/02: no longer necessary, with mesa 23.3.1: <https://github.com/NixOS/nixpkgs/pull/265740>
+      #   #
+      #   # backend compatibility (2023/10/22):
+      #   # run with `--vo=help` to see a list of all output options.
+      #   # non-exhaustive (W=works, F=fails, A=audio-only, U=audio+ui only (no video))
+      #   # ? null             Null video output
+      #   # A (default)
+      #   # A dmabuf-wayland   Wayland dmabuf video output
+      #   # A libmpv           render API for libmpv  (mpv plays the audio, but doesn't even render a window)
+      #   # A vdpau            VDPAU with X11
+      #   # F drm              Direct Rendering Manager (software scaling)
+      #   # F gpu-next         Video output based on libplacebo
+      #   # F vaapi            VA API with X11
+      #   # F x11              X11 (software scaling)
+      #   # F xv               X11/Xv
+      #   # U gpu              Shader-based GPU Renderer
+      #   # W caca             libcaca  (terminal rendering)
+      #   # W sdl              SDL 2.0 Renderer
+      #   # W wlshm            Wayland SHM video output (software scaling)
+      #   "--add-flags" "--vo=${cfg.config.vo}"
+      # ];
+    };
 
     suggestedPrograms = [
       "blast-to-default"
@@ -190,7 +192,7 @@ in
     ];
 
     sandbox.method = "bwrap";
-    sandbox.autodetectCliPaths = true;
+    sandbox.autodetectCliPaths = "parent";  #< especially for subtitle downloader; also nice for viewing albums
     sandbox.net = "all";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  #< mpris
@@ -213,6 +215,9 @@ in
       # for `watch_later`
       ".local/state/mpv"
     ];
+    persist.byStore.private = [
+      "Videos/mpv"
+    ];
     fs.".config/mpv/scripts/sane_cast/main.lua".symlink.target = ./sane_cast/main.lua;
     fs.".config/mpv/scripts/sane_sysvol/main.lua".symlink.target = ./sane_sysvol/main.lua;
     fs.".config/mpv/scripts/sane_sysvol/non_blocking_popen.lua".symlink.target = ./sane_sysvol/non_blocking_popen.lua;
@@ -222,6 +227,8 @@ in
     fs.".config/mpv/script-opts/console.conf".symlink.target = ./console.conf;
     fs.".config/mpv/script-opts/uosc.conf".symlink.target = ./uosc.conf;
     fs.".config/mpv/script-opts/playlistmanager.conf".symlink.target = ./playlistmanager.conf;
+    fs.".config/mpv/script-opts/webm.conf".symlink.target = ./webm.conf;
+    fs.".config/mpv/script-opts/visualizer.conf".symlink.target = ./visualizer.conf;
 
     # mime.priority = 200;  # default = 100; 200 means to yield to other apps
     mime.priority = 50;  # default = 100; 50 in order to take precedence over vlc.
@@ -234,9 +241,12 @@ in
     mime.associations."video/webm" = "mpv.desktop";
     mime.associations."video/x-flv" = "mpv.desktop";
     mime.associations."video/x-matroska" = "mpv.desktop";
-    mime.urlAssociations."^https?://(www.)?youtube.com/watch\?.*v=" = "mpv.desktop";
-    mime.urlAssociations."^https?://(www.)?youtube.com/v/" = "mpv.desktop";
-    mime.urlAssociations."^https?://(www.)?youtu.be/.+" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\.)?(www\.)?youtu.be/.+" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/embed/.+" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/playlist\?.*list=.+" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/shorts/.+" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/v/.+" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/watch\?.*v=.+" = "mpv.desktop";
   };
 }
 

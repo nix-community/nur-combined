@@ -1,6 +1,7 @@
 { ... }:
 {
   sane.programs.zathura = {
+    buildCost = 1;
     sandbox.method = "bwrap";
     sandbox.wrapperType = "inplace";  #< wrapper sets ZATHURA_PLUGINS_PATH to $out/lib/...
     sandbox.whitelistDri = true;

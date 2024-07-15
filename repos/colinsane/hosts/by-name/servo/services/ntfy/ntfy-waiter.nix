@@ -47,7 +47,7 @@ in
     };
     sane.ntfy-waiter.package = mkOption {
       type = types.package;
-      default = pkgs.static-nix-shell.mkPython3Bin {
+      default = pkgs.static-nix-shell.mkPython3 {
         pname = "ntfy-waiter";
         srcRoot = ./.;
         pkgs = [ "ntfy-sh" ];
@@ -62,8 +62,8 @@ in
     sane.ports.ports = lib.mkMerge (lib.forEach portRange (port: {
       "${builtins.toString port}" = {
         protocol = [ "tcp" ];
+        visibleTo.doof = true;
         visibleTo.lan = true;
-        visibleTo.wan = true;
         description = "colin-notification-waiter-${builtins.toString (port - portLow + 1)}-of-${builtins.toString numPorts}";
       };
     }));

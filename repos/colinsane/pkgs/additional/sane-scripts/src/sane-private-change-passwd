@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p gocryptfs -p rsync
+#!nix-shell -i bash -p bash -p gocryptfs -p rsync
 
 # HOW TO USE
 # ```sh

@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p jq -p playerctl
+#!nix-shell -i bash -p bash -p jq -p playerctl
 status=$(playerctl status 2> /dev/null | tr 'A-Z' 'a-z')
 if [ -z "$status" ]; then
   status="inactive"

@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p "python3.withPackages (ps: [  ])" -p blast-ugjka
+#!nix-shell -i python3 -p blast-ugjka -p python3
 # vim: set filetype=python :
 
 import logging
@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 # map from known devices -> required flags
 DEVICE_MAP = {
   "Theater TV": [],
-  "[LG] webOS TV OLED55C9PUA": [ "-usewav" ],
+  "Cuddlevision": [ "-usewav" ],
 }
 
 def get_ranked_ip_addrs():

@@ -17,14 +17,14 @@ in
   sane.ports.ports."80" = {
     protocol = [ "tcp" ];
     visibleTo.lan = true;
-    visibleTo.wan = true;
-    visibleTo.ovpn = true;  # so that letsencrypt can procure a cert for the mx record
+    visibleTo.ovpns = true;  # so that letsencrypt can procure a cert for the mx record
+    visibleTo.doof = true;
     description = "colin-http-uninsane.org";
   };
   sane.ports.ports."443" = {
     protocol = [ "tcp" ];
     visibleTo.lan = true;
-    visibleTo.wan = true;
+    visibleTo.doof = true;
     description = "colin-https-uninsane.org";
   };
 

@@ -14,7 +14,7 @@
 # show zfs datasets: `zfs list` (will be empty if haven't imported)
 # show zfs properties (e.g. compression): `zfs get all pool`
 # set zfs properties: `zfs set compression=on pool`
-{ ... }:
+{ lib, pkgs, ... }:
 
 {
   # hostId: not used for anything except zfs guardrail?
@@ -54,7 +54,7 @@
     options = [ "acl" ];  #< not sure if this `acl` flag is actually necessary. it mounts without it.
   };
   # services.zfs.zed = ... # TODO: zfs can send me emails when disks fail
-  sane.programs.sysadminUtils.suggestedPrograms = [ "zfs" ];
+  sane.programs.sysadminUtils.suggestedPrograms = [ "zfs-tools" ];
 
   sane.persist.stores."ext" = {
     origin = "/mnt/pool/persist";
@@ -130,6 +130,20 @@
     this directory exists on SSD, allowing for speedy access to specific datasets when necessary.
     the contents should be a subset of what's in ../media/datasets.
   '';
+
+  systemd.services.dedupe-media = {
+    description = "transparently de-duplicate /var/media entries by using block-level hardlinks";
+    script = ''
+      ${lib.getExe' pkgs.util-linux "hardlink"} /var/media --reflink=always --ignore-time --verbose
+    '';
+  };
+  systemd.timers.dedupe-media = {
+    wantedBy = [ "multi-user.target" ];
+    timerConfig = {
+      OnStartupSec = "23min";
+      OnUnitActiveSec = "720min";
+    };
+  };
 
   # btrfs doesn't easily support swapfiles
   # swapDevices = [

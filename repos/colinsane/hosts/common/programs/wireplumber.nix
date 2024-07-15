@@ -1,6 +1,11 @@
-{ ... }:
+{ config, pkgs, ... }:
 {
   sane.programs.wireplumber = {
+    packageUnwrapped = pkgs.wireplumber.override {
+      # use the same pipewire as configured to run against.
+      pipewire = config.sane.programs.pipewire.packageUnwrapped;
+    };
+
     sandbox.method = "bwrap";
     # sandbox.whitelistDbus = [
     #   "system"  #< so it can request better scheduling from rtkit
@@ -14,16 +19,13 @@
       "/dev/video0"
       "/dev/video1"
       "/dev/video2"
-      "/run/systemd"
+      # "/run/systemd"
       "/run/udev"
       "/sys/class/sound"
       "/sys/class/video4linux"
       "/sys/devices"
     ];
-    # sandbox.extraConfig = [
-    #   # needed if i want rtkit to grant this higher scheduling priority
-    #   "--sane-sandbox-keep-namespace" "pid"
-    # ];
+    sandbox.isolatePids = false;  #< needed if i want rtkit to grant this higher scheduling priority
 
     suggestedPrograms = [ "alsa-ucm-conf" ];
 

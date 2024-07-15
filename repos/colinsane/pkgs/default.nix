@@ -5,40 +5,44 @@
 # using the correct invocation is critical if any packages mentioned here are
 # additionally patched elsewhere
 #
-{ pkgs ? import <nixpkgs> {}, final ? null }:
+{ pkgs ? import ./additional/nixpkgs { }, final ? null }:
 let
   lib = pkgs.lib;
   unpatched = pkgs;
-
-  pythonPackagesOverlayFor = pkgs: py-final: py-prev: import ./python-packages {
-    inherit (py-final) callPackage;
-    inherit pkgs;
-  };
-  final' = if final != null then final else pkgs.appendOverlays [(_: _: sane-overlay)];
+  final' = if final != null then final else pkgs.extend (_: _: sane-overlay);
   sane-additional = with final'; {
     sane-data = import ../modules/data { inherit lib sane-lib; };
     sane-lib = import ../modules/lib final';
 
     ### ADDITIONAL PACKAGES
+    alsa-ucm-pinephone-manjaro = callPackage ./additional/alsa-ucm-pinephone-manjaro { };
+    alsa-ucm-pinephone-pmos = callPackage ./additional/alsa-ucm-pinephone-pmos { };
     blast-ugjka = callPackage ./additional/blast-ugjka { };
     bootpart-uefi-x86_64 = callPackage ./additional/bootpart-uefi-x86_64 { };
     cargoDocsetHook = callPackage ./additional/cargo-docset/hook.nix { };
     chatty-latest = callPackage ./additional/chatty-latest { };
+    clightning-sane = callPackage ./additional/clightning-sane { };
     codemadness-frontends = callPackage ./additional/codemadness-frontends { };
     codemadness-frontends_0_6 = codemadness-frontends.v0_6;
-    delfin = callPackage ./additional/delfin { };
+    crust-firmware-pinephone = callPackage ./additional/crust-firmware-pinephone { };
+    depthcharge-tools = callPackage ./additional/depthcharge-tools { };
     eg25-control = callPackage ./additional/eg25-control { };
     eg25-manager = callPackage ./additional/eg25-manager { };
+    fastcluster = callPackage ./additional/fastcluster { };
     feeds = lib.recurseIntoAttrs (callPackage ./additional/feeds { });
+    feedsearch-crawler = callPackage ./additional/feedsearch-crawler { };
     firefox-extensions = lib.recurseIntoAttrs (callPackage ./additional/firefox-extensions { });
     flare-signal-nixified = callPackage ./additional/flare-signal-nixified { };
+    fractal-nixified = callPackage ./additional/fractal-nixified { };
     geary-gtk4 = callPackage ./additional/geary-gtk4 { };
+    geoclue-ols = callPackage ./additional/geoclue-ols { };
     gopass-native-messaging-host = callPackage ./additional/gopass-native-messaging-host { };
     gpodder-adaptive = callPackage ./additional/gpodder-adaptive { };
     gpodder-adaptive-configured = callPackage ./additional/gpodder-configured {
       gpodder = final'.gpodder-adaptive;
     };
     gpodder-configured = callPackage ./additional/gpodder-configured { };
+    gps-share = callPackage ./additional/gps-share { };
     hackgregator = callPackage ./additional/hackgregator { };
     jellyfin-media-player-qt6 = callPackage ./additional/jellyfin-media-player-qt6 { };
     koreader-from-src = callPackage ./additional/koreader-from-src { };
@@ -46,52 +50,83 @@ let
     ldd-aarch64 = callPackage ./additional/ldd-aarch64 { };
     lemoa = callPackage ./additional/lemoa { };
     lemmy-lemonade = callPackage ./additional/lemonade { };  # XXX: nixpkgs already has a `lemonade` pkg
+    libdng = callPackage ./additional/libdng { };
+    libmegapixels = callPackage ./additional/libmegapixels { };
     lightdm-mobile-greeter = callPackage ./additional/lightdm-mobile-greeter { };
+    linux-exynos5-mainline = callPackage ./additional/linux-exynos5-mainline { };
     linux-firmware-megous = callPackage ./additional/linux-firmware-megous { };
     # XXX: eval error: need to port past linux_6_4
     # linux-manjaro = callPackage ./additional/linux-manjaro { };
     linux-megous = callPackage ./additional/linux-megous { };
+    linux-postmarketos-allwinner = callPackage ./additional/linux-postmarketos-allwinner { };
+    linux-postmarketos-exynos5 = callPackage ./additional/linux-postmarketos-exynos5 { };
+    listparser = callPackage ./additional/listparser { };
     mcg = callPackage ./additional/mcg { };
+    megapixels-next = callPackage ./additional/megapixels-next { };
+    mobile-nixos = callPackage ./additional/mobile-nixos { };
+    modemmanager-split = callPackage ./additional/modemmanager-split { };
     mx-sanebot = callPackage ./additional/mx-sanebot { };
+    networkmanager-split = callPackage ./additional/networkmanager-split { };
+    nixpkgs = callPackage ./additional/nixpkgs {
+      localSystem = stdenv.buildPlatform.system;
+      system = stdenv.hostPlatform.system;
+    };
+    nixpkgs-staging = nixpkgs.override { variant = "staging"; };
+    nixpkgs-next = nixpkgs.override { variant = "staging-next"; };
+    nixpkgs-wayland = callPackage ./additional/nixpkgs-wayland { };
+    opencellid = callPackage ./additional/opencellid { };
+    pa-dlna = callPackage ./additional/pa-dlna { };
     peerswap = callPackage ./additional/peerswap { };
     phog = callPackage ./additional/phog { };
     pipeline = callPackage ./additional/pipeline { };
+    pyln-bolt7 = callPackage ./additional/pyln-bolt7 { };
+    pyln-client = callPackage ./additional/pyln-client { };
+    pyln-proto = callPackage ./additional/pyln-proto { };
+    qmkPackages = recurseIntoAttrs (callPackage ./additional/qmk-packages { });
     rtl8723cs-firmware = callPackage ./additional/rtl8723cs-firmware { };
     rtl8723cs-wowlan = callPackage ./additional/rtl8723cs-wowlan { };
+    sane-backgrounds = callPackage ./additional/sane-backgrounds { };
     sane-cast = callPackage ./additional/sane-cast { };
     sane-die-with-parent = callPackage ./additional/sane-die-with-parent { };
-    sane-open-desktop = callPackage ./additional/sane-open-desktop { };
-    sane-sandboxed = callPackage ./additional/sane-sandboxed { };
+    sane-kernel-tools = lib.recurseIntoAttrs (callPackage ./additional/sane-kernel-tools { });
+    sane-nix-files = callPackage ./additional/sane-nix-files { };
+    sane-open = callPackage ./additional/sane-open { };
     sane-screenshot = callPackage ./additional/sane-screenshot { };
     sane-scripts = lib.recurseIntoAttrs (callPackage ./additional/sane-scripts { });
+    sane-sysload = callPackage ./additional/sane-sysload { };
     sane-weather = callPackage ./additional/sane-weather { };
+    sanebox = callPackage ./additional/sanebox { };
     schlock = callPackage ./additional/schlock { };
     signal-desktop-from-src = callPackage ./additional/signal-desktop-from-src { };
+    sops-nix = callPackage ./additional/sops-nix { };
     static-nix-shell = callPackage ./additional/static-nix-shell { };
     sublime-music-mobile = callPackage ./additional/sublime-music-mobile { };
     swaylock-mobile = callPackage ./additional/swaylock-mobile { };
     swaylock-plugin = callPackage ./additional/swaylock-plugin { };
     sxmo_swaylock = callPackage ./additional/sxmo_swaylock { };
+    sxmo-suspend = callPackage ./additional/sxmo-suspend { };
     sxmo-utils = callPackage ./additional/sxmo-utils { };
-    sysvol = callPackage ./additional/sysvol { };
+    syshud = callPackage ./additional/syshud { };
     tow-boot-pinephone = callPackage ./additional/tow-boot-pinephone { };
     tree-sitter-nix-shell = callPackage ./additional/tree-sitter-nix-shell { };
     trivial-builders = lib.recurseIntoAttrs (callPackage ./additional/trivial-builders { });
+    u-boot-pinephone = callPackage ./additional/u-boot-pinephone { };
+    uassets = callPackage ./additional/uassets { };
+    uninsane-dot-org = callPackage ./additional/uninsane-dot-org { };
     wvkbd-mk = callPackage ./additional/wvkbd-mk { };
     inherit (trivial-builders)
       copyIntoOwnPackage
+      deepLinkIntoOwnPackage
       linkIntoOwnPackage
       rmDbusServices
       rmDbusServicesInPlace
+      runCommandLocalOverridable
     ;
     unftp = callPackage ./additional/unftp { };
-    where-am-i = callPackage ./additional/where-am-i { };
     zecwallet-light-cli = callPackage ./additional/zecwallet-light-cli { };
 
     # packages i haven't used for a while, may or may not still work
     # fluffychat-moby = callPackage ./additional/fluffychat-moby { };
-    fractal-latest = callPackage ./additional/fractal-latest { };
-    fractal-nixified = callPackage ./additional/fractal-nixified { };
     # kaiteki = callPackage ./additional/kaiteki { };
 
     # old rpi packages that may or may not still work
@@ -136,22 +171,26 @@ let
 
     # modemmanager = callPackage ./patched/modemmanager { inherit (unpatched) modemmanager; };
 
-
-    ### PYTHON PACKAGES
-    pythonPackagesExtensions = (unpatched.pythonPackagesExtensions or []) ++ [
-      (pythonPackagesOverlayFor final')
-    ];
-    # when this scope's applied as an overlay pythonPackagesExtensions is propagated as desired.
-    # but when freestanding (e.g. NUR), it never gets plumbed into the outer pkgs, so we have to do that explicitly.
-    python3 = unpatched.python3.override {
-      packageOverrides = pythonPackagesOverlayFor final';
-    };
+    playerctl = unpatched.playerctl.overrideAttrs (upstream: {
+      patches = (upstream.patches or []) ++ [
+        (fetchpatch {
+          # playerctl, when used as a library, doesn't expect its user to `unref` it inside a glib signal.
+          # nwg-panel does this though, and then segfaults.
+          # playerctl project looks dead as of 2024/06/19, no hope for upstreaming this.
+          # TODO: consider removing this if nwg-panel code is changed to not trigger this.
+          # - <https://github.com/nwg-piotr/nwg-panel/issues/233>
+          name = "dbus_name_owner_changed_callback: acquire a ref on the manager before using it";
+          url = "https://git.uninsane.org/colin/playerctl/commit/bbcbbe4e03da93523b431ffee5b64e10b17b4f9f.patch";
+          hash = "sha256-l/w+ozga8blAB2wtEd1SPBE6wpHNXWk7NrOL7x10oUI=";
+        })
+      ];
+    });
   };
   sane-overlay = {
     sane = lib.recurseIntoAttrs (sane-additional // sane-patched);
   }
     # patched packages always override anything:
-    // (lib.mapAttrs (pname: _pkg: final'.sane."${pname}") sane-patched)
+    // sane-patched
     # "additional" packages only get added if their version is newer than upstream
     // (lib.mapAttrs
       (pname: _pkg: if unpatched ? "${pname}" && unpatched."${pname}" ? version && lib.versionAtLeast unpatched."${pname}".version final'.sane."${pname}".version  then

@@ -34,6 +34,7 @@ in
     ];
 
     sysadminUtils = declPackageSet [
+      "ausyscall"
       "bridge-utils"  # for brctl; debug linux "bridge" inet devices
       "btrfs-progs"
       "cacert.unbundled"  # some services require unbundled /etc/ssl/certs
@@ -43,17 +44,20 @@ in
       "dtc"  # device tree [de]compiler
       "e2fsprogs"  # resize2fs
       "efibootmgr"
+      "errno"
       "ethtool"
       "fatresize"
       "fd"
       "file"
       "forkstat"  # monitor every spawned/forked process
+      "free"
       # "fwupd"
       "gawk"
       "gdb"  # to debug segfaults
       "git"
       "gptfdisk"  # gdisk
       "hdparm"
+      "hping"
       "htop"
       "iftop"
       "inetutils"  # for telnet
@@ -66,18 +70,23 @@ in
       "lftp"
       # "libcap_ng"  # for `netcap`
       "lsof"
+      "man-pages"
+      "man-pages-posix"
       # "miniupnpc"
+      "mmcli"
       "nano"
       #  "ncdu"  # ncurses disk usage. doesn't cross compile (zig)
       "neovim"
       "netcat"
       "nethogs"
       "nmap"
+      "nmcli"
       "nvme-cli"  # nvme
       # "openssl"
       "parted"
       "pciutils"
       "powertop"
+      "ps"
       "pstree"
       "ripgrep"
       "s6-rc"  # service manager
@@ -91,6 +100,7 @@ in
       "usbutils"  # lsusb
       "util-linux"  # lsblk, lscpu, etc
       "valgrind"
+      "watch"
       "wget"
       "wirelesstools"  # iwlist
       # "xq"  # jq for XML
@@ -142,11 +152,12 @@ in
       # "ponymix"
       "pulsemixer"
       "python3-repl"
-      # "python3Packages.eyeD3"  # music tagging
+      # "python3.pkgs.eyeD3"  # music tagging
       "ripgrep"  # needed as a user package so that its user-level config file can be installed
       "rsync"
       "sane-scripts.bittorrent"
       "sane-scripts.cli"
+      "sc-im"
       # "snapper"
       "sops"  # for manually viewing secrets; outside `sane-secrets` (TODO: improve sane-secrets!)
       "speedtest-cli"
@@ -166,8 +177,12 @@ in
       # "gh"  # MS GitHub cli
       "nix-index"
       "nixpkgs-review"
+      "qmk-udev-rules"
       "sane-scripts.dev"
       "sequoia"
+      # "via"
+      "wally-cli"
+      # "zsa-udev-rules"
     ];
 
     consoleMediaUtils = declPackageSet [
@@ -176,6 +191,7 @@ in
       "ffmpeg"
       "go2tv"  # cast videos to UPNP/DLNA device (i.e. tv).
       "imagemagick"
+      "sane-cast"  # cast videos to UPNP/DLNA, with compatibility
       "sox"
       "yt-dlp"
     ];
@@ -206,6 +222,178 @@ in
       # "tree-sitter"
     ];
 
+    gameApps = declPackageSet [
+      "animatch"
+      "gnome-2048"
+      "gnome.hitori"  # like sudoku
+    ];
+
+    pcGameApps = declPackageSet [
+      # "andyetitmoves" # TODO: fix build!
+      # "armagetronad"  # tron/lightcycles; WAN and LAN multiplayer
+      "celeste64"
+      # "cutemaze"      # meh: trivial maze game; qt6 and keyboard-only
+      # "cuyo"          # trivial puyo-puyo clone
+      "endless-sky"     # space merchantilism/exploration
+      # "factorio"
+      "frozen-bubble"   # WAN + LAN + 1P/2P bubble bobble
+      "hase"            # WAN worms game
+      # "hedgewars"     # WAN + LAN worms game (5~10 people online at any moment; <https://hedgewars.org>)
+      # "libremines"    # meh: trivial minesweeper; qt6
+      # "mario0"        # SMB + portal
+      # "mindustry"
+      # "minesweep-rs"  # CLI minesweeper
+      # "nethack"
+      # "osu-lazer"
+      # "pinball"       # 3d pinball; kb/mouse. old sourceforge project
+      # "powermanga"    # STYLISH space invaders derivative (keyboard-only)
+      "shattered-pixel-dungeon"  # doesn't cross compile
+      "space-cadet-pinball"  # LMB/RMB controls (bindable though. volume buttons?)
+      "steam"
+      "superTux"  # keyboard-only controls
+      "superTuxKart"  # poor FPS on pinephone
+      "tumiki-fighters" # keyboard-only
+      "vvvvvv"  # keyboard-only controls
+      # "wine"
+    ];
+
+    guiApps = declPackageSet [
+      # package sets
+      "gameApps"
+      "guiBaseApps"
+    ];
+
+    guiBaseApps = declPackageSet [
+      # "abaddon"  # discord client
+      "alacritty"  # terminal emulator
+      "calls"  # gnome calls (dialer/handler)
+      "dbus"
+      "dconf"  # required by many packages, but not well-documented :(
+      # "delfin"  # Jellyfin client
+      "dialect"  # language translation
+      "dino"  # XMPP client
+      "dissent"  # Discord client (formerly known as: gtkcord4)
+      # "emote"
+      # "evince"  # PDF viewer
+      # "flare-signal"  # gtk4 signal client
+      # "foliate"  # e-book reader
+      "fractal"  # matrix client
+      "g4music"  # local music player
+      # "gnome.cheese"
+      # "gnome-feeds"  # RSS reader (with claimed mobile support)
+      # "gnome.file-roller"
+      "geary"  # adaptive e-mail client; uses webkitgtk 4.1
+      "gnome-calculator"
+      "gnome-calendar"
+      "gnome.gnome-clocks"
+      "gnome.gnome-maps"
+      # "gnome-podcasts"
+      # "gnome.gnome-system-monitor"
+      # "gnome.gnome-terminal"  # works on phosh
+      "gnome.gnome-weather"
+      # "seahorse"  # keyring/secret manager
+      "gnome-frog"  # OCR/QR decoder
+      "gpodder"
+      # "gst-device-monitor"  # for debugging audio/video
+      # "gthumb"
+      # "lemoa"  # lemmy app
+      # "libcamera"  # for `cam` binary (useful for debugging cameras)
+      "libnotify"  # for notify-send; debugging
+      # "lollypop"
+      "loupe"  # image viewer
+      "mate.engrampa"  # archive manager
+      "mepo"  # maps viewer
+      # "mesa-demos"  # for eglinfo, glxinfo & other testing tools
+      "mpv"
+      "networkmanagerapplet"  # for nm-connection-editor: it's better than not having any gui!
+      "ntfy-sh"  # notification service
+      # "newsflash"  # RSS viewer
+      "pavucontrol"
+      "pwvucontrol"  # pipewire version of pavu
+      # "picard"  # music tagging
+      # "libsForQt5.plasmatube"  # Youtube player
+      "signal-desktop"
+      # "snapshot"  # camera app
+      "spot"  # Gnome Spotify client
+      # "sublime-music"
+      # "tdesktop"  # broken on phosh
+      # "tokodon"
+      "tuba"  # mastodon/pleroma client (stores pw in keyring)
+      "vulkan-tools"  # vulkaninfo
+      # "whalebird"  # pleroma client (Electron). input is broken on phosh.
+      "xdg-terminal-exec"
+      "youtube-tui"
+      "zathura"  # PDF/CBZ/ePUB viewer
+    ];
+
+    handheldGuiApps = declPackageSet [
+      # "celluloid"  # mpv frontend
+      # "chatty"  # matrix/xmpp/irc client  (2023/12/29: disabled because broken cross build)
+      # "cozy"  # audiobook player
+      "epiphany"  # gnome's web browser
+      # "iotas"  # note taking app
+      "komikku"
+      "koreader"
+      "megapixels"  # camera app
+      "notejot"  # note taking, e.g. shopping list
+      "planify"  # todo-tracker/planner
+      "portfolio-filemanager"
+      "tangram"  # web browser
+      "wike"  # Wikipedia Reader
+      "xarchiver"  # archiver, backup option for when engrampa UI overflows screen and is unusale (xarchiver UI fails in different ways)
+    ];
+
+    pcGuiApps = declPackageSet [
+      # package sets
+      "pcGameApps"
+      "pcTuiApps"
+      ####
+      "audacity"
+      # "blanket"  # ambient noise generator
+      "brave"  # for the integrated wallet -- as a backup
+      # "cantata"  # music player (mpd frontend)
+      # "chromium"  # chromium takes hours to build. brave is chromium-based, distributed in binary form, so prefer it.
+      # "cups"
+      "discord"  # x86-only
+      # "electrum"
+      "element-desktop"
+      "firefox"
+      "font-manager"
+      # "gajim"  # XMPP client. cross build tries to import host gobject-introspection types (2023/09/01)
+      "gimp"  # broken on phosh
+      # "gnome.dconf-editor"
+      # "gnome.file-roller"
+      "gnome-disk-utility"
+      "nautilus"  # file browser
+      # "gnome.totem"  # video player, supposedly supports UPnP
+      # "handbrake"  #< TODO: fix build
+      "inkscape"
+      # "jellyfin-media-player"
+      "kdenlive"
+      # "keymapp"
+      # "kid3"  # audio tagging
+      "krita"
+      "libreoffice"  # TODO: replace with an office suite that uses saner packaging?
+      "losslesscut-bin"  # x86-only
+      # "makemkv"  # x86-only
+      # "monero-gui"  # x86-only
+      # "mumble"
+      # "nheko"  # Matrix chat client
+      # "nicotine-plus"  # soulseek client. before re-enabling this make sure it's properly sandboxed!
+      # "obsidian"
+      # "openscad"  # 3d modeling
+      # "rhythmbox"  # local music player
+      # "slic3r"
+      "soundconverter"
+      "spotify"  # x86-only
+      "tor-browser"  # x86-only
+      # "vlc"
+      "wireshark"  # could maybe ship the cli as sysadmin pkg
+      # "xterm"  # requires Xwayland
+      # "zecwallet-lite"  # x86-only
+      # "zulip"
+    ];
+
 
     # INDIVIDUAL PACKAGE DEFINITIONS
 
@@ -214,6 +402,13 @@ in
 
     backblaze-b2 = {};
 
+    bitcoind.sandbox.method = "bwrap";
+    bitcoind.sandbox.extraHomePaths = [
+      ".config/bitcoin/bitcoin.conf"
+    ];
+    bitcoind.sandbox.net = "all";  # actually needs only localhost
+
+    blanket.buildCost = 1;
     blanket.sandbox.method = "bwrap";
     blanket.sandbox.whitelistAudio = true;
     # blanket.sandbox.whitelistDbus = [ "user" ];  # TODO: untested
@@ -232,14 +427,6 @@ in
     bridge-utils.sandbox.method = "bwrap";  #< bwrap, landlock: both work
     bridge-utils.sandbox.net = "all";
 
-    brightnessctl.sandbox.method = "landlock";  # also bwrap, but landlock is more responsive
-    brightnessctl.sandbox.extraPaths = [
-      "/sys/class/backlight"
-      "/sys/class/leds"
-      "/sys/devices"
-    ];
-    brightnessctl.sandbox.whitelistDbus = [ "system" ];
-
     btrfs-progs.sandbox.method = "bwrap";  #< bwrap, landlock: both work
     btrfs-progs.sandbox.autodetectCliPaths = "existing";  # e.g. `btrfs filesystem df /my/fs`
 
@@ -248,6 +435,16 @@ in
     cargo.persist.byStore.plaintext = [ ".cargo" ];
 
     clang = {};
+
+    clightning.sandbox.method = "bwrap";
+    clightning.sandbox.extraHomePaths = [
+      ".lightning/bitcoin/lightning-rpc"
+    ];
+
+    clightning-sane.sandbox.method = "bwrap";
+    clightning-sane.sandbox.extraPaths = [
+      "/var/lib/clightning/bitcoin/lightning-rpc"
+    ];
 
     # cryptsetup: typical use is `cryptsetup open /dev/loopxyz mappedName`, and creates `/dev/mapper/mappedName`
     cryptsetup.sandbox.method = "landlock";
@@ -266,13 +463,14 @@ in
     ddrescue.sandbox.method = "landlock";  # TODO:sandbox: untested
     ddrescue.sandbox.autodetectCliPaths = "existingOrParent";
 
-    # auth token, preferences
+    delfin.buildCost = 1;
     delfin.sandbox.method = "bwrap";
     delfin.sandbox.whitelistAudio = true;
     delfin.sandbox.whitelistDbus = [ "user" ];  # else `mpris` plugin crashes the player
     delfin.sandbox.whitelistDri = true;
     delfin.sandbox.whitelistWayland = true;
     delfin.sandbox.net = "clearnet";
+    # auth token, preferences
     delfin.persist.byStore.private = [ ".config/delfin" ];
 
     dig.sandbox.method = "bwrap";
@@ -299,7 +497,7 @@ in
     ];
 
     dtc.sandbox.method = "bwrap";
-    dtc.sandbox.autodetectCliPaths = true;  # TODO:sandbox: untested
+    dtc.sandbox.autodetectCliPaths = "existingFile";  # TODO:sandbox: untested
 
     duplicity = {};
 
@@ -313,11 +511,13 @@ in
 
     eg25-control = {};
 
+    electrum.buildCost = 1;
     electrum.sandbox.method = "bwrap";  # TODO:sandbox: untested
     electrum.sandbox.net = "all";  # TODO: probably want to make this run behind a VPN, always
     electrum.sandbox.whitelistWayland = true;
     electrum.persist.byStore.cryptClearOnBoot = [ ".electrum" ];  #< TODO: use XDG dirs!
 
+    endless-sky.buildCost = 1;
     endless-sky.persist.byStore.plaintext = [ ".local/share/endless-sky" ];
     endless-sky.sandbox.method = "bwrap";
     endless-sky.sandbox.whitelistAudio = true;
@@ -333,10 +533,9 @@ in
     ethtool.sandbox.capabilities = [ "net_admin" ];
 
     # eza `ls` replacement
-    # landlock is OK, only `whitelistPwd` doesn't make the intermediate symlinks traversable, so it breaks on e.g. ~/Videos/servo/Shows/foo
     # eza.sandbox.method = "landlock";
-    eza.sandbox.method = "bwrap";
-    eza.sandbox.autodetectCliPaths = true;
+    eza.sandbox.method = "bwrap";  #< note that bwrap causes `/proc` files to be listed differently (e.g. `eza /proc/sys/net/ipv6/conf/`)
+    eza.sandbox.autodetectCliPaths = "existing";
     eza.sandbox.whitelistPwd = true;
     eza.sandbox.extraHomePaths = [
       # so that e.g. `eza -l ~` can show which symlink exist
@@ -348,7 +547,7 @@ in
     fatresize.sandbox.autodetectCliPaths = "parent";  # /dev/sda1 -> needs /dev/sda
 
     fd.sandbox.method = "landlock";
-    fd.sandbox.autodetectCliPaths = true;
+    fd.sandbox.autodetectCliPaths = "existing";
     fd.sandbox.whitelistPwd = true;
     fd.sandbox.extraHomePaths = [
       # let it follow symlinks to non-sensitive data
@@ -356,14 +555,15 @@ in
       ".persist/plaintext"
     ];
 
+    ffmpeg.buildCost = 1;
     ffmpeg.sandbox.method = "bwrap";
     ffmpeg.sandbox.autodetectCliPaths = "existingFileOrParent";  # it outputs uncreated files -> parent dir needs mounting
 
     file.sandbox.method = "bwrap";
-    file.sandbox.autodetectCliPaths = true;
+    file.sandbox.autodetectCliPaths = "existing";  #< file OR directory, yes
 
     findutils.sandbox.method = "bwrap";
-    findutils.sandbox.autodetectCliPaths = true;
+    findutils.sandbox.autodetectCliPaths = "existing";
     findutils.sandbox.whitelistPwd = true;
     findutils.sandbox.extraHomePaths = [
       # let it follow symlinks to non-sensitive data
@@ -373,6 +573,7 @@ in
 
     fluffychat-moby.persist.byStore.plaintext = [ ".local/share/chat.fluffy.fluffychat" ];
 
+    font-manager.buildCost = 1;
     font-manager.sandbox.method = "bwrap";
     font-manager.sandbox.whitelistWayland = true;
     font-manager.packageUnwrapped = pkgs.rmDbusServicesInPlace (pkgs.font-manager.override {
@@ -381,9 +582,7 @@ in
     });
 
     forkstat.sandbox.method = "landlock";  #< doesn't seem to support bwrap
-    forkstat.sandbox.extraConfig = [
-      "--sane-sandbox-keep-namespace" "pid"
-    ];
+    forkstat.sandbox.isolatePids = false;
     forkstat.sandbox.extraPaths = [
       "/proc"
     ];
@@ -397,11 +596,7 @@ in
 
     gawk.sandbox.method = "bwrap";  # TODO:sandbox: untested
     gawk.sandbox.wrapperType = "inplace";  # /share/gawk libraries refer to /libexec
-    gawk.sandbox.autodetectCliPaths = true;
-
-    gdb.sandbox.enable = false;  # gdb doesn't sandbox well. i don't know how you could.
-    # gdb.sandbox.method = "landlock";  # permission denied when trying to attach, even as root
-    gdb.sandbox.autodetectCliPaths = true;
+    gawk.sandbox.autodetectCliPaths = "existingFile";
 
     geoclue2-with-demo-agent = {};
 
@@ -409,6 +604,7 @@ in
     # TODO: we can populate gh's stuff statically; it even lets us use the same oauth across machines
     gh.persist.byStore.private = [ ".config/gh" ];
 
+    gimp.buildCost = 1;
     gimp.sandbox.method = "bwrap";
     gimp.sandbox.whitelistX = true;
     gimp.sandbox.whitelistWayland = true;
@@ -428,32 +624,44 @@ in
       "/tmp"  # "Cannot open display:" if it can't mount /tmp 👀
     ];
 
-    "gnome.gnome-calculator".sandbox.method = "bwrap";
-    "gnome.gnome-calculator".sandbox.whitelistWayland = true;
+    gnome-calculator.buildCost = 1;
+    gnome-calculator.sandbox.method = "bwrap";
+    gnome-calculator.sandbox.whitelistWayland = true;
 
+    gnome-calendar.buildCost = 1;
     # gnome-calendar surely has data to persist, but i use it strictly to do date math, not track events.
-    "gnome.gnome-calendar".sandbox.method = "bwrap";
-    "gnome.gnome-calendar".sandbox.whitelistWayland = true;
-
-    "gnome.gnome-clocks".sandbox.method = "bwrap";
-    "gnome.gnome-clocks".sandbox.whitelistWayland = true;
-    "gnome.gnome-clocks".suggestedPrograms = [ "dconf" ];
+    gnome-calendar.sandbox.method = "bwrap";
+    gnome-calendar.sandbox.whitelistWayland = true;
 
     # gnome-disks
-    "gnome.gnome-disk-utility".sandbox.method = "bwrap";
-    "gnome.gnome-disk-utility".sandbox.whitelistDbus = [ "system" ];
-    "gnome.gnome-disk-utility".sandbox.whitelistWayland = true;
+    gnome-disk-utility.buildCost = 1;
+    gnome-disk-utility.sandbox.method = "bwrap";
+    gnome-disk-utility.sandbox.whitelistDbus = [ "system" ];
+    gnome-disk-utility.sandbox.whitelistWayland = true;
+    gnome-disk-utility.sandbox.extraHomePaths = [
+      "tmp"
+      "use/iso"
+      # TODO: probably need /dev and such
+    ];
+
+    hping.sandbox.method = "landlock";
+    hping.sandbox.net = "all";
+    hping.sandbox.capabilities = [ "net_raw" ];
+    hping.sandbox.autodetectCliPaths = "existingFile";  # for sending packet data from file
 
     # seahorse: dump gnome-keyring secrets.
-    # N.B.: it can also manage ~/.ssh keys, but i explicitly don't add those to the sandbox for now.
-    "gnome.seahorse".sandbox.method = "bwrap";
-    "gnome.seahorse".sandbox.whitelistDbus = [ "user" ];
-    "gnome.seahorse".sandbox.whitelistWayland = true;
+    seahorse.buildCost = 1;
+    # N.B. it can lso manage ~/.ssh keys, but i explicitly don't add those to the sandbox for now.
+    seahorse.sandbox.method = "bwrap";
+    seahorse.sandbox.whitelistDbus = [ "user" ];
+    seahorse.sandbox.whitelistWayland = true;
 
+    gnome-2048.buildCost = 1;
     gnome-2048.sandbox.method = "bwrap";
     gnome-2048.sandbox.whitelistWayland = true;
     gnome-2048.persist.byStore.plaintext = [ ".local/share/gnome-2048/scores" ];
 
+    gnome-frog.buildCost = 1;
     gnome-frog.sandbox.method = "bwrap";
     gnome-frog.sandbox.whitelistWayland = true;
     gnome-frog.sandbox.whitelistDbus = [ "user" ];
@@ -480,11 +688,12 @@ in
     # 1. no number may appear unshaded more than once in the same row/column
     # 2. no two shaded tiles can be direct N/S/E/W neighbors
     # - win once (1) and (2) are satisfied
+    "gnome.hitori".buildCost = 1;
     "gnome.hitori".sandbox.method = "bwrap";
     "gnome.hitori".sandbox.whitelistWayland = true;
 
     gnugrep.sandbox.method = "bwrap";
-    gnugrep.sandbox.autodetectCliPaths = true;
+    gnugrep.sandbox.autodetectCliPaths = "existing";
     gnugrep.sandbox.whitelistPwd = true;
     gnugrep.sandbox.extraHomePaths = [
       # let it follow symlinks to non-sensitive data
@@ -492,7 +701,6 @@ in
       ".persist/plaintext"
     ];
 
-    # sed: there is an edgecase of `--file=<foo>`, wherein `foo` won't be whitelisted.
     gnused.sandbox.method = "bwrap";
     gnused.sandbox.autodetectCliPaths = "existingFile";
     gnused.sandbox.whitelistPwd = true;  #< `-i` flag creates a temporary file in pwd (?) and then moves it.
@@ -509,6 +717,7 @@ in
     grim.sandbox.autodetectCliPaths = "existingOrParent";
     grim.sandbox.whitelistWayland = true;
 
+    hase.buildCost = 1;
     hase.sandbox.method = "bwrap";
     hase.sandbox.net = "clearnet";
     hase.sandbox.whitelistAudio = true;
@@ -517,7 +726,7 @@ in
 
     # hdparm: has to be run as sudo. e.g. `sudo hdparm -i /dev/sda`
     hdparm.sandbox.method = "bwrap";
-    hdparm.sandbox.autodetectCliPaths = true;
+    hdparm.sandbox.autodetectCliPaths = "existingFile";
 
     host.sandbox.method = "landlock";
     host.sandbox.net = "all";  #< technically, only needs to contact localhost's DNS server
@@ -529,6 +738,7 @@ in
     # N.B.: inetutils' `ping` is shadowed by iputils' ping (by nixos, intentionally).
     inetutils.sandbox.method = "landlock";  # want to keep the same netns, at least.
 
+    inkscape.buildCost = 1;
     inkscape.sandbox.method = "bwrap";
     inkscape.sandbox.whitelistWayland = true;
     inkscape.sandbox.extraHomePaths = [
@@ -550,14 +760,17 @@ in
     ];
     iotop.sandbox.capabilities = [ "net_admin" ];
 
-    # provides `ip`, `routel`, others
-    iproute2.sandbox.method = "landlock";
-    iproute2.sandbox.net = "all";
-    iproute2.sandbox.capabilities = [ "net_admin" ];
-    iproute2.sandbox.extraPaths = [
-      "/run/netns"  # for `ip netns ...` to work
-      "/var/run/netns"
-    ];
+    # provides `ip`, `routel`, `bridge`, others.
+    # landlock works fine for most of these, but `ip netns exec` wants to attach to an existing namespace
+    # and that means we can't use ANY sandboxer for it.
+    iproute2.sandbox.enable = false;
+    # iproute2.sandbox.net = "all";
+    # iproute2.sandbox.capabilities = [ "net_admin" ];
+    # iproute2.sandbox.extraPaths = [
+    #   "/run/netns"  # for `ip netns ...` to work, but maybe not needed anymore?
+    #   "/sys/class/net"  # for `ip netns ...` to work
+    #   "/var/run/netns"
+    # ];
 
     iptables.sandbox.method = "landlock";
     iptables.sandbox.net = "all";
@@ -580,6 +793,7 @@ in
       "/proc"
     ];
 
+    krita.buildCost = 1;
     krita.sandbox.method = "bwrap";
     krita.sandbox.whitelistWayland = true;
     krita.sandbox.autodetectCliPaths = "existing";
@@ -595,11 +809,15 @@ in
       "tmp"
     ];
 
+    libcamera = {};
+
+    libcap.sandbox.enable = false;  #< for `capsh`, which i use as a sandboxer
     libcap_ng.sandbox.enable = false;  # there's something about /proc/$pid/fd which breaks `readlink`/stat with every sandbox technique (except capsh-only)
 
     libnotify.sandbox.method = "bwrap";
     libnotify.sandbox.whitelistDbus = [ "user" ];  # notify-send
 
+    losslesscut-bin.buildCost = 1;
     losslesscut-bin.sandbox.method = "bwrap";
     losslesscut-bin.sandbox.extraHomePaths = [
       "Music"
@@ -619,11 +837,20 @@ in
 
     lua = {};
 
+    man-pages.sandbox.enable = false;
+    man-pages-posix.sandbox.enable = false;
+
     mercurial.sandbox.method = "bwrap";  # TODO:sandbox: untested
     mercurial.sandbox.net = "clearnet";
     mercurial.sandbox.whitelistPwd = true;
 
+    mesa-demos.sandbox.method = "bwrap";
+    mesa-demos.sandbox.whitelistDri = true;
+    mesa-demos.sandbox.whitelistWayland = true;
+    mesa-demos.sandbox.whitelistX = true;
+
     # actual monero blockchain (not wallet/etc; safe to delete, just slow to regenerate)
+    monero-gui.buildCost = 1;
     # XXX: is it really safe to persist this? it doesn't have info that could de-anonymize if captured?
     monero-gui.persist.byStore.plaintext = [ ".bitmonero" ];
     monero-gui.sandbox.method = "bwrap";
@@ -632,6 +859,7 @@ in
       "records/finance/cryptocurrencies/monero"
     ];
 
+    mumble.buildCost = 1;
     mumble.persist.byStore.private = [ ".local/share/Mumble" ];
 
     nano.sandbox.method = "bwrap";
@@ -659,8 +887,14 @@ in
     nixpkgs-review.sandbox.wrapperType = "inplace";  #< shell completions use full paths
     nixpkgs-review.sandbox.net = "clearnet";
     nixpkgs-review.sandbox.whitelistPwd = true;
+    nixpkgs-review.sandbox.extraHomePaths = [
+      ".config/git"  #< it needs to know commiter name/email, even if not posting
+    ];
     nixpkgs-review.sandbox.extraPaths = [
       "/nix"
+    ];
+    nixpkgs-review.persist.byStore.cryptClearOnBoot = [
+      ".cache/nixpkgs-review"  #< help it not exhaust / tmpfs
     ];
 
     nmap.sandbox.method = "bwrap";
@@ -689,6 +923,8 @@ in
 
     # settings (electron app)
     obsidian.persist.byStore.plaintext = [ ".config/obsidian" ];
+
+    passt.sandbox.enable = false;  #< sandbox helper (netns specifically)
 
     parted.sandbox.method = "landlock";
     parted.sandbox.extraPaths = [
@@ -721,9 +957,7 @@ in
 
     # procps: free, pgrep, pidof, pkill, ps, pwait, top, uptime, couple others
     procps.sandbox.method = "bwrap";
-    procps.sandbox.extraConfig = [
-      "--sane-sandbox-keep-namespace" "pid"
-    ];
+    procps.sandbox.isolatePids = false;
 
     pstree.sandbox.method = "landlock";
     pstree.sandbox.extraPaths = [
@@ -735,6 +969,7 @@ in
     pulsemixer.sandbox.method = "landlock";
     pulsemixer.sandbox.whitelistAudio = true;
 
+    pwvucontrol.buildCost = 1;
     pwvucontrol.sandbox.method = "bwrap";
     pwvucontrol.sandbox.whitelistAudio = true;
     pwvucontrol.sandbox.whitelistDri = true;  # else perf on moby is unusable
@@ -742,7 +977,9 @@ in
 
     python3-repl.packageUnwrapped = pkgs.python3.withPackages (ps: with ps; [
       psutil
+      pykakasi
       requests
+      unidecode
     ]);
     python3-repl.sandbox.method = "bwrap";
     python3-repl.sandbox.net = "clearnet";
@@ -752,7 +989,7 @@ in
     ];
 
     qemu.sandbox.enable = false;  #< it's a launcher
-    qemu.buildCost = 1;
+    qemu.buildCost = 2;
 
     rsync.sandbox.method = "bwrap";
     rsync.sandbox.net = "clearnet";
@@ -760,21 +997,26 @@ in
 
     rustc = {};
 
-    sane-cast = {};  #< TODO: sandbox this the same way i sandbox go2tv
+    sane-cast.sandbox.method = "bwrap";
+    sane-cast.sandbox.net = "clearnet";
+    sane-cast.sandbox.autodetectCliPaths = "existingFile";
+    sane-cast.suggestedPrograms = [ "go2tv" ];
 
     sane-die-with-parent.sandbox.enable = false;  #< it's a launcher; can't sandbox
 
-    sane-open-desktop.sandbox.enable = false;  #< trivial script, and all our deps are sandboxed
-    sane-open-desktop.suggestedPrograms = [
-      "gdbus"
-    ];
+    sane-weather.sandbox.method = "bwrap";
+    sane-weather.sandbox.net = "clearnet";
+
+    sc-im.sandbox.method = "bwrap";
+    sc-im.sandbox.autodetectCliPaths = "existingFile";
 
     screen.sandbox.enable = false;  #< tty; needs to run anything
 
     sequoia.sandbox.method = "bwrap";  # TODO:sandbox: untested
     sequoia.sandbox.whitelistPwd = true;
-    sequoia.sandbox.autodetectCliPaths = true;
+    sequoia.sandbox.autodetectCliPaths = "existingFileOrParent";  # supports `-o <file-to-create>`
 
+    shattered-pixel-dungeon.buildCost = 1;
     shattered-pixel-dungeon.persist.byStore.plaintext = [ ".local/share/.shatteredpixel/shattered-pixel-dungeon" ];
     shattered-pixel-dungeon.sandbox.method = "bwrap";
     shattered-pixel-dungeon.sandbox.whitelistAudio = true;
@@ -782,6 +1024,7 @@ in
     shattered-pixel-dungeon.sandbox.whitelistWayland = true;
 
     # printer/filament settings
+    slic3r.buildCost = 1;
     slic3r.persist.byStore.plaintext = [ ".Slic3r" ];
 
     slurp.sandbox.method = "bwrap";
@@ -793,6 +1036,10 @@ in
     smartmontools.sandbox.autodetectCliPaths = "existing";
     smartmontools.sandbox.capabilities = [ "sys_rawio" ];
 
+    # snapshot camera, based on libcamera
+    # TODO: enable dma heaps for more efficient buffer sharing: <https://gitlab.com/postmarketOS/pmaports/-/issues/2789>
+    snapshot = {};
+
     sops.sandbox.method = "bwrap";  # TODO:sandbox: untested
     sops.sandbox.extraHomePaths = [
       ".config/sops"
@@ -802,13 +1049,16 @@ in
       "knowledge"
     ];
 
+    soundconverter.buildCost = 1;
     soundconverter.sandbox.method = "bwrap";
     soundconverter.sandbox.whitelistWayland = true;
     soundconverter.sandbox.extraHomePaths = [
       "Music"
       "tmp"
       "use"
+      ".config/dconf"
     ];
+    soundconverter.sandbox.whitelistDbus = [ "user" ];  # for dconf
     soundconverter.sandbox.extraPaths = [
       "/mnt/servo/media/Music"
       "/mnt/servo/media/games"
@@ -819,6 +1069,7 @@ in
     sox.sandbox.autodetectCliPaths = "existingFileOrParent";
     sox.sandbox.whitelistAudio = true;
 
+    space-cadet-pinball.buildCost = 1;
     space-cadet-pinball.persist.byStore.plaintext = [ ".local/share/SpaceCadetPinball" ];
     space-cadet-pinball.sandbox.method = "bwrap";
     space-cadet-pinball.sandbox.whitelistAudio = true;
@@ -839,6 +1090,7 @@ in
     subversion.sandbox.whitelistPwd = true;
     sudo.sandbox.enable = false;
 
+    superTux.buildCost = 1;
     superTux.sandbox.method = "bwrap";
     superTux.sandbox.wrapperType = "inplace";  # package Makefile incorrectly installs to $out/games/superTux instead of $out/share/games
     superTux.sandbox.whitelistAudio = true;
@@ -857,12 +1109,14 @@ in
 
     tdesktop.persist.byStore.private = [ ".local/share/TelegramDesktop" ];
 
+    tokodon.buildCost = 1;
     tokodon.persist.byStore.private = [ ".cache/KDE/tokodon" ];
 
     tree.sandbox.method = "landlock";
-    tree.sandbox.autodetectCliPaths = true;
+    tree.sandbox.autodetectCliPaths = "existing";
     tree.sandbox.whitelistPwd = true;
 
+    tumiki-fighters.buildCost = 1;
     tumiki-fighters.sandbox.method = "bwrap";
     tumiki-fighters.sandbox.whitelistAudio = true;
     tumiki-fighters.sandbox.whitelistDri = true;  #< not strictly necessary, but triples CPU perf
@@ -881,14 +1135,13 @@ in
       "/sys/bus/usb"
     ];
 
+    valgrind.buildCost = 1;
     valgrind.sandbox.enable = false;  #< it's a launcher: can't sandbox
-
-    visidata.sandbox.method = "bwrap";  # TODO:sandbox: untested
-    visidata.sandbox.autodetectCliPaths = true;
 
     # `vulkaninfo`, `vkcube`
     vulkan-tools.sandbox.method = "landlock";
 
+    vvvvvv.buildCost = 1;
     vvvvvv.sandbox.method = "bwrap";
     vvvvvv.sandbox.whitelistAudio = true;
     vvvvvv.sandbox.whitelistDri = true;  #< playable without, but burns noticably more CPU
@@ -902,6 +1155,8 @@ in
       "tmp"
     ];
 
+    watch.sandbox.enable = false;  #< it executes the command it's given
+
     wdisplays.sandbox.method = "bwrap";
     wdisplays.sandbox.whitelistWayland = true;
 
@@ -909,6 +1164,7 @@ in
     wget.sandbox.net = "all";
     wget.sandbox.whitelistPwd = true;  # saves to pwd by default
 
+    whalebird.buildCost = 1;
     whalebird.persist.byStore.private = [ ".config/Whalebird" ];
 
     # `wg`, `wg-quick`
@@ -923,6 +1179,8 @@ in
     wl-clipboard.sandbox.whitelistWayland = true;
 
     wtype = {};
+    wtype.sandbox.method = "bwrap";
+    wtype.sandbox.whitelistWayland = true;
 
     xwayland.sandbox.method = "bwrap";
     xwayland.sandbox.wrapperType = "inplace";  #< consumers use it as a library (e.g. wlroots)
@@ -937,11 +1195,45 @@ in
     yt-dlp.sandbox.method = "bwrap";  # TODO:sandbox: untested
     yt-dlp.sandbox.net = "all";
     yt-dlp.sandbox.whitelistPwd = true;  # saves to pwd by default
-
-    zfs = {};
   };
 
-  programs.feedbackd = lib.mkIf config.sane.programs.feedbackd.enabled {
+  sane.persist.sys.byStore.plaintext = lib.mkIf config.sane.programs.guiApps.enabled [
+    # "/var/lib/alsa"                # preserve output levels, default devices
+    { path = "/var/lib/systemd/backlight"; method = "bind"; }   # backlight brightness; bind because systemd T_T
+  ];
+
+  systemd.services."systemd-backlight@" = lib.mkIf config.sane.programs.guiApps.enabled {
+    after = [
+      "ensure-var-lib-systemd-backlight.service"
+    ];
+    wants = [
+      "ensure-var-lib-systemd-backlight.service"
+    ];
+  };
+
+  hardware.graphics = lib.mkIf config.sane.programs.guiApps.enabled ({
     enable = true;
+  } // (lib.optionalAttrs pkgs.stdenv.isx86_64 {
+    # for 32 bit applications
+    # upstream nixpkgs forbids setting enable32Bit unless specifically x86_64 (so aarch64 isn't allowed)
+    enable32Bit = lib.mkDefault true;
+  }));
+
+  system.activationScripts.notifyActive = lib.mkIf config.sane.programs.guiApps.enabled {
+    text = lib.concatStringsSep "\n" ([
+        ''
+          tryNotifyUser() {
+            local user="$1"
+            local new_path="$PATH:${pkgs.sudo}/bin:${pkgs.libnotify}/bin"
+            local version="$(cat $systemConfig/nixos-version)"
+            PATH="$new_path" sudo -u "$user" \
+              env PATH="$new_path" NIXOS_VERSION="$version" /bin/sh -c \
+              '. $HOME/.profile; dbus_file="$XDG_RUNTIME_DIR/bus"; if [ -z "$DBUS_SESSION_BUS_ADDRESS" ] && [ -e "$dbus_file" ]; then export DBUS_SESSION_BUS_ADDRESS="unix:path=$dbus_file"; fi ; if [ -n "$DBUS_SESSION_BUS_ADDRESS" ]; then notify-send "nixos activated" "version: $NIXOS_VERSION" ; fi'
+          }
+        ''
+      ] ++ lib.mapAttrsToList
+        (user: en: lib.optionalString en "tryNotifyUser ${user}")
+        config.sane.programs.guiApps.enableFor.user
+    );
   };
 }

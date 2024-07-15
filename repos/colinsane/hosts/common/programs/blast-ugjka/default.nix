@@ -31,7 +31,7 @@ in
 
   sane.programs.blast-to-default = {
     # helper to deal with blast's interactive CLI
-    packageUnwrapped = pkgs.static-nix-shell.mkPython3Bin {
+    packageUnwrapped = pkgs.static-nix-shell.mkPython3 {
       pname = "blast-to-default";
       pkgs = [ "blast-ugjka" ];
       srcRoot = ./.;
@@ -39,11 +39,9 @@ in
     sandbox.method = "bwrap";
     sandbox.whitelistAudio = true;
     sandbox.net = "clearnet";
-    sandbox.extraConfig = [
-      # else it fails to reap its children (or, maybe, it fails to hook its parent's death signal?)
-      # might be possible to remove this, but kinda hard to see a clean way.
-      "--sane-sandbox-keep-namespace" "pid"
-    ];
+    #v  else it fails to reap its children (or, maybe, it fails to hook its parent's death signal?)
+    #v  might be possible to remove this, but kinda hard to see a clean way.
+    sandbox.isolatePids = false;
     suggestedPrograms = [ "blast-ugjka" "sane-die-with-parent" ];
   };
 

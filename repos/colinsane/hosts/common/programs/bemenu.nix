@@ -87,7 +87,7 @@ let
 in
 {
   sane.programs.bemenu = {
-    sandbox.method = "bwrap";  # landlock works, but requires *all* of /run/user/$ID to be granted.
+    sandbox.method = "bwrap";  # landlock works, but requires *all* of $XDG_RUNTIME_DIR to be granted.
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       ".cache/fontconfig"  #< else it complains, and is *way* slower
@@ -95,7 +95,7 @@ in
 
     packageUnwrapped = pkgs.bemenu.overrideAttrs (upstream: {
       nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
-        pkgs.makeWrapper
+        pkgs.makeBinaryWrapper
       ];
       # can alternatively be specified as CLI flags
       postInstall = (upstream.postInstall or "") + ''

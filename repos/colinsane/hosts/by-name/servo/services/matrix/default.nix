@@ -1,6 +1,6 @@
 # docs: <https://nixos.wiki/wiki/Matrix>
 # docs: <https://nixos.org/manual/nixos/stable/index.html#module-services-matrix-synapse>
-# example config: <https://github.com/matrix-org/synapse/blob/develop/docs/sample_config.yaml>
+# example config: <https://github.com/element-hq/synapse/blob/develop/docs/sample_config.yaml>
 #
 # ENABLING PUSH NOTIFICATIONS (with UnifiedPush/ntfy):
 # - Matrix "pushers" API spec: <https://spec.matrix.org/latest/client-server-api/#post_matrixclientv3pushersset>
@@ -24,10 +24,8 @@
     { user = "matrix-synapse"; group = "matrix-synapse"; path = "/var/lib/matrix-synapse"; method = "bind"; }
   ];
   services.matrix-synapse.enable = true;
+  services.matrix-synapse.log.root.level = "WARNING";  # accepts "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL" (?)
   services.matrix-synapse.settings = {
-    # this changes the default log level from INFO to WARN.
-    # maybe there's an easier way?
-    log_config = ./synapse-log_level.yaml;
     server_name = "uninsane.org";
 
     # services.matrix-synapse.enable_registration_captcha = true;

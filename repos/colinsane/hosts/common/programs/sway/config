@@ -1,0 +1,270 @@
+# docs:
+# - `man 5 sway`
+#
+# xwayland enable|disable|force
+# - enable: lazily launch xwayland on first client connection
+# - disable: never launch xwayland
+# - force: launch xwayland immediately on boot
+# XWayland exposes a X11 server that translates the protocol to a wayland backend, allowing legacy x11-only GUI apps.
+# XWayland uses about 35MB RSS even when idle
+xwayland @xwayland@
+
+set $mod @mod@
+# N.B.: volume_up/volume_down are factored out because they're potentially used by `extra_lines` down below.
+# `@DEFAULT_AUDIO_SINK@` is interpreted by wireplumber; not nix
+set $volume_up wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+set $volume_down wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+set $mute wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+set $default_workspace_layout @workspace_layout@
+set $locker @locker@
+
+set $out_tv "LG Electronics LG TV 0x01010101"
+set $out_projector "MS Telematica TV 0x00000001"
+# TODO: these 0x... numbers change on occassion: i should ignore them.
+set $out_desko_1 "LG Electronics LG ULTRAWIDE 0x000C4694"
+set $out_desko_2 "Samsung Electric Company S22C300 0x5A365335"
+set $out_lappy "BOE 0x0637 Unknown"
+# DSI-1 a.k.a. "Unknown Unknown Unknown"
+set $out_moby "DSI-1"
+
+### default font (for e.g. window titles)
+font @font@
+
+### tab colors (#border #background #text [#indicator #childBorder])
+# focused & unfocused are the main interest
+# urgent is used when an inactive window wants attention (e.g. terminal rings a bell)
+# colors are synchronized with waybar and mpv
+client.focused          #1f5e54 #418379 #ffffff
+client.focused_inactive #1f5e54 #5f676a #ffffff
+client.unfocused        #1f5e54 #1f554c #b4b4b4
+client.urgent           #ff968b #ff968b #ffffff
+
+output '*' bg `ls $(echo ${XDG_DATA_DIRS//:/\/backgrounds\/sane-nixos-bg.png })/backgrounds/sane-nixos-bg.png` fill
+
+### pixel boundary between windows
+# hide_edge_borders --i3 means that single-window workspaces never show window bar
+hide_edge_borders --i3 smart
+default_border pixel 1
+titlebar_border_thickness 1
+# XX YY distance from edge of window title to edge of text
+# the YY distance here determines the heigh of the overall title
+titlebar_padding 12 1
+title_align center
+
+### focus_wrapping: behavior when trying to focus past the edge of a container
+####   no  => preserve last focus. helpful mostly when `focus_follows_mouse yes`
+focus_wrapping no
+focus_follows_mouse yes
+workspace_layout $default_workspace_layout
+
+
+### key bindings
+floating_modifier $mod
+#### media keys
+# --locked means to keep the binding active even when display is locked/off
+bindsym --locked $mod+Page_Up exec $volume_up
+bindsym --locked $mod+Page_Down exec $volume_down
+bindsym --locked XF86AudioMute exec $mute
+
+bindsym --locked $mod+Space exec playerctl play-pause
+bindsym --locked $mod+Shift+Page_Down exec playerctl previous
+bindsym --locked $mod+Shift+Page_Up exec playerctl next
+
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioStop exec playerctl stop
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioPrev exec playerctl previous
+bindsym --locked XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+
+#### special functions
+bindsym Print exec sane-open --application sane-screenshot.desktop
+bindsym $mod+Print exec sane-open --application sane-screenshot.desktop
+bindsym $mod+l exec s6-rc -b start $locker
+bindsym $mod+s exec sane-open --application rofi-snippets.desktop
+# bindsym $mod+slash exec sane-open splatmoji.desktop
+bindsym $mod+d exec sane-open --application rofi.desktop
+bindsym $mod+Return exec sane-open --application xdg-terminal-exec.desktop
+
+bindsym $mod+Shift+q kill
+# bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+bindsym $mod+Shift+c reload
+
+#### layout
+bindsym $mod+f fullscreen toggle
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+# bindsym $mod+b splith
+# bindsym $mod+v splitv
+# bindsym $mod+a focus parent
+# bindsym $mod+Shift+space floating toggle
+# bindsym $mod+space focus mode_toggle
+bindsym $mod+r mode resize
+
+#### movement
+bindsym $mod+Up focus up
+bindsym $mod+Down focus down
+bindsym $mod+Left focus left
+bindsym $mod+Right focus right
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Right move right
+
+#### workspaces
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace TV
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace TV
+
+#### "scratchpad" = ??
+# bindsym $mod+Shift+minus move scratchpad
+# bindsym $mod+minus scratchpad show
+
+mode "resize" {
+  bindsym $mod+r mode default
+  bindsym Escape mode default
+  bindsym Return mode default
+
+  bindsym Down resize grow height 30 px
+  bindsym Left resize shrink width 30 px
+  bindsym Right resize grow width 30 px
+  bindsym Up resize shrink height 30 px
+  bindsym h resize shrink width 30 px
+  bindsym j resize grow height 30 px
+  bindsym k resize shrink height 30 px
+  bindsym l resize grow width 30 px
+}
+
+
+### application-specific settings
+#### to obtain app-id's run `swaymsg -t get_tree`
+for_window [title="megapixels"] inhibit_idle open
+
+# workspace assignments
+workspace TV output $out_tv $out_projector
+for_window [workspace="TV"] fullscreen enable
+
+# mostly, messengers belong on WS 1
+assign [app_id="abaddon"] workspace number 1
+assign [app_id="geary"] workspace number 1
+assign [app_id="gnome-calls"] workspace number 1
+assign [app_id="im.dino.Dino"] workspace number 1
+assign [app_id="org.gnome.Fractal"] workspace number 1
+assign [app_id="signal"] workspace number 1
+assign [app_id="so.libdb.dissent"]  workspace number 1
+
+# window display settings
+# force KOReader to always display a titlebar, even when the only window being rendered.
+# desirable primarily to avoid slooow reflows when another app is opened. but also nice to have the book title rendered.
+for_window [app_id="KOReader"] border normal
+
+for_window [app_id="deadd-notification-center"] {
+  border none
+  # anchor it to the right edge of the screen
+  # hardcoding the width here: keep in sync
+  move position 100 ppt 0 ppt
+  move left 360
+}
+
+# Celeste64: only works if Celeste doesn't itself request fullscreen (else, random chance of which display it gets).
+#   so enter in-game options and disable "Fullscreen", then we manage it here ourselves
+for_window [app_id="Celeste64|mpv"] {
+  move to output $out_projector
+  move to output $out_tv
+  fullscreen enable  #< should be redundant with the rules for TV, but isn't for some reason
+}
+
+
+### displays & inputs
+input type:touchpad {
+    tap enabled
+    natural_scroll enabled
+}
+
+# caps as escape key
+input "type:keyboard" xkb_options caps:escape
+
+## SHARED
+# TV
+output $out_tv {
+  pos 1920,0
+  res 1920x1080
+  # 4k is limited to 30Hz; 1080p is the next-highest resolution (at 120Hz)
+  # res 3840x2160
+}
+# projector
+output $out_projector {
+  pos 5360,0
+  res 1920x1080
+}
+## DESKTOP
+output $out_desko_1 {
+  pos 0,0
+  res 3440x1440
+}
+output $out_desko_2 {
+  pos 3440,0
+  res 1920x1080
+}
+
+## LAPTOP
+# laptop internal display (a.k.a. "eDP-1")
+input "1386:20606:Wacom_Pen_and_multitouch_sensor_Pen" map_to_output $out_lappy
+input "1386:20606:Wacom_Pen_and_multitouch_sensor_Finger" map_to_output $out_lappy
+output $out_lappy {
+  pos 0,0
+  res 1920x1080
+}
+
+## MOBILE
+# pinephone internal display (a.k.a. "Unknown Unknown Unknown")
+input "1046:4097:Goodix_Capacitive_TouchScreen" map_to_output $out_moby
+output $out_moby {
+  # scale defaults to 2 in portrait mode, 1 in landscape
+  scale 2
+  # scale 1.6
+}
+
+# move the wayland socket that sway implicitly created to the place which other apps expect to find it
+exec --no-startup-id mv $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY $XDG_RUNTIME_DIR/$DESIRED_WAYLAND_DISPLAY
+exec --no-startup-id mv $XDG_RUNTIME_DIR/$WAYLAND_DISPLAY.lock $XDG_RUNTIME_DIR/$DESIRED_WAYLAND_DISPLAY.lock
+# i'm sure there's a simpler way. not certain that this actually updates the sway environment variables anyway
+# the double-$ means to set the variable at *runtime*, not at "compile-time" (so that it doesn't impact the line immediately above us
+set $$WAYLAND_DISPLAY "$(echo $DESIRED_WAYLAND_DISPLAY)"
+
+
+# manually export PATH here, since all my user services need that, and sanebox implementation depends on it.
+# also, manually export XDG_DATA_DIRS. glib fails in weird ways (e.g. thinks everything is application/x-octet-stream mime type) without it.
+# for more, see: <repo:nixos/nixpkgs:nixos/modules/programs/wayland/sway.nix>
+#
+# XXX: dbus-update-activation-environment --systemd is ASYNCHRONOUS. it returns before the systemd environment is actually updated.
+# hence, call `systemctl import-environment` ourselves. i could probably remove the dbus stuff and be safe, but at least for now it's an OK backup.
+# exec --no-startup-id systemctl --user import-environment PATH XDG_DATA_DIRS DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+# exec --no-startup-id dbus-update-activation-environment --systemd PATH XDG_DATA_DIRS DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
+
+# previously: `include /etc/sway/config.d/*` was needed for xdg-desktop-portal-* to work.
+# stock nixos `programs.sway` would setup /etc/sway/config.d with additional variables to import to the dbus env.
+# but now i'm doing that manually:
+# - DISPLAY
+# - WAYLAND_DISPLAY
+# - SWAYSOCK
+# - XDG_CURRENT_DESKTOP
+
+@extra_lines@

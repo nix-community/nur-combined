@@ -1,0 +1,13 @@
+diff --git a/arch/arm/boot/dts/samsung/exynos5250-snow-common.dtsi b/arch/arm/boot/dts/samsung/exynos5250-snow-common.dtsi
+index 65b000df176e..bc8060890137 100644
+--- a/arch/arm/boot/dts/samsung/exynos5250-snow-common.dtsi
++++ b/arch/arm/boot/dts/samsung/exynos5250-snow-common.dtsi
+@@ -205,7 +205,7 @@ backlight: backlight {
+ 	};
+ 
+ 	panel: panel {
+-		compatible = "auo,b116xw03";
++		compatible = "edp-panel";
+ 		power-supply = <&fet6>;
+ 		backlight = <&backlight>;
+ 

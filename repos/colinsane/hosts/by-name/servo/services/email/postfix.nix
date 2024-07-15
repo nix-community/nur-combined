@@ -1,6 +1,6 @@
 # postfix config options: <https://www.postfix.org/postconf.5.html>
 
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   submissionOptions = {
@@ -56,8 +56,7 @@ in
 
   sane.dns.zones."uninsane.org".inet = {
     MX."@" = "10 mx.uninsane.org.";
-    # XXX: RFC's specify that the MX record CANNOT BE A CNAME
-    A."mx" = "185.157.162.178";
+    A."mx" = "%AOVPNS%"; #< XXX: RFC's specify that the MX record CANNOT BE A CNAME. TODO: use "%AOVPNS%?
 
     # Sender Policy Framework:
     #   +mx     => mail passes if it originated from the MX

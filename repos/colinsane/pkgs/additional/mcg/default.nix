@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace src/meson.build \
-      --replace "python.find_installation('python3').full_path()" "'${pythonEnv}/bin/python3'"
+      --replace-fail "python.find_installation('python3').full_path()" "'${pythonEnv}/bin/python3'"
   '';
 
   nativeBuildInputs = [

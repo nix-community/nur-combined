@@ -1,0 +1,23 @@
+#!/bin/sh
+# remove artifacts which i've accidentally left lying around
+# e.g. `result -> /nix/store/...` symlinks
+
+pushd ~/nixos
+
+# if this exists it'll interfere with the search
+rm -f result
+
+for result in $(fd --follow result) $(fd -uuu result); do
+  if [[ "$(readlink "$result")" != /nix/store/* ]]; then
+    # not a build artifact
+    continue
+  fi
+  if [[ "$result" == build/* ]] || [[ "$result" == .working/* ]]; then
+    # intentionally preserved build artifact
+    continue
+  fi
+
+  echo "removing: $result"
+  unlink "$result"
+done
+popd

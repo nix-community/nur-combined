@@ -209,7 +209,7 @@ in
         };
         i-still-dont-care-about-cookies = {
           package = pkgs.firefox-extensions.i-still-dont-care-about-cookies;
-          enable = lib.mkDefault true;
+          enable = lib.mkDefault false;  #< obsoleted by uBlock Origin annoyances/cookies lists
         };
         open-in-mpv = {
           # test: `open-in-mpv 'mpv:///open?url=https://www.youtube.com/watch?v=dQw4w9WgXcQ'`
@@ -226,7 +226,7 @@ in
         };
         ublacklist = {
           package = pkgs.firefox-extensions.ublacklist;
-          enable = lib.mkDefault true;
+          enable = lib.mkDefault false;
         };
         ublock-origin = {
           package = pkgs.firefox-extensions.ublock-origin;
@@ -286,24 +286,35 @@ in
         # env.BROWSER = "${package}/bin/${cfg.browser.libName}";
         env.BROWSER = cfg.browser.libName;  # used by misc tools like xdg-email, as fallback
 
-        # uBlock filter list configuration.
-        # specifically, enable the GDPR cookie prompt blocker.
-        # data.toOverwrite.filterLists is additive (i.e. it supplements the default filters)
-        # this configuration method is documented here:
-        # - <https://github.com/gorhill/uBlock/issues/2986#issuecomment-364035002>
-        # the specific attribute path is found via scraping ublock code here:
-        # - <https://github.com/gorhill/uBlock/blob/master/src/js/storage.js>
-        # - <https://github.com/gorhill/uBlock/blob/master/assets/assets.json>
-        fs."${cfg.browser.dotDir}/managed-storage/uBlock0@raymondhill.net.json".symlink.text = ''
-          {
-           "name": "uBlock0@raymondhill.net",
-           "description": "ignored",
-           "type": "storage",
-           "data": {
-              "toOverwrite": "{\"filterLists\": [\"fanboy-cookiemonster\"]}"
-           }
-          }
-        '';
+        # uBlock configuration:
+        fs."${cfg.browser.dotDir}/managed-storage/uBlock0@raymondhill.net.json".symlink.target = cfg.addons.ublock-origin.package.makeConfig {
+          # more filter lists are available here:
+          # - <https://easylist.to>
+          #   - <https://github.com/easylist/easylist.git>
+          # - <https://github.com/yokoffing/filterlists>
+          filterFiles = let
+            getUasset = n: "${pkgs.uassets}/share/filters/${n}.txt";
+          in [
+            # default ublock filters:
+            (getUasset "ublock-filters")
+            (getUasset "ublock-badware")
+            (getUasset "ublock-privacy")
+            (getUasset "ublock-quick-fixes")
+            (getUasset "ublock-unbreak")
+            (getUasset "easylist")
+            (getUasset "easyprivacy")
+            # (getUasset "urlhaus-1")  #< TODO: i think this is the same as urlhaus-filter-online
+            (getUasset "urlhaus-filter-online")
+            # (getUasset "plowe-0")   #< TODO: where does this come from?
+            # (getUasset "ublock-cookies-adguard")  #< TODO: where does this come from?
+            # filters i've added:
+            (getUasset "easylist-annoyances")  #< blocks in-page popups, "social media content" (e.g. FB like button; improves loading time)
+            (getUasset "easylist-cookies")  #< blocks GDPR cookie consent popovers (e.g. at stackoverflow.com)
+            # (getUasset "ublock-annoyances-others")
+            # (getUasset "ublock-annoyances-cookies")
+          ];
+        };
+
         # TODO: this is better suited in `extraPrefs` during `wrapFirefox` call
         fs."${cfg.browser.dotDir}/${cfg.browser.libName}.overrides.cfg".symlink.text = ''
           // if we can't query the revocation status of a SSL cert because the issuer is offline,
@@ -327,6 +338,8 @@ in
           defaultPref("widget.use-xdg-desktop-portal.open-uri", 1);
 
           defaultPref("browser.toolbars.bookmarks.visibility", "never");
+          // configure which extensions are visible by default (TODO: requires a lot of trial and error)
+          // defaultPref("browser.uiCustomization.state", ...);
 
           // auto-open mpv:// URIs without prompting.
           // can do this with other protocols too (e.g. matrix?). see about:config for common handlers.
@@ -351,7 +364,7 @@ in
 
         # TODO: env.PASSWORD_STORE_DIR only needs to be present within the browser session.
         env.PASSWORD_STORE_DIR = "/home/colin/knowledge/secrets/accounts";
-        # alternative to PASSWORD_STORE_DIR, but firejail doesn't handle this symlink well
+        # alternative to PASSWORD_STORE_DIR:
         # fs.".password-store".symlink.target = lib.mkIf cfg.addons.browserpass-extension.enable "knowledge/secrets/accounts";
 
         # flush the cache to disk to avoid it taking up too much tmp.

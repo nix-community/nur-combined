@@ -1,5 +1,6 @@
-- nix_serve_privkey.bin:
+- nix_signing_key.bin:
     - generate with `nix-store --generate-binary-cache-key desko cache-priv-key.pem cache-pub-key.pem`
+    - used when deploying packages to a remote machine
 - colin-passwd.bin:
     - see <https://search.nixos.org/options?channel=unstable&show=users.users.%3Cname%3E.hashedPasswordFile&from=0&size=50&sort=relevance&type=packages&query=users.users>
     - update by running `sudo passwd colin` and then taking the 2nd item from the colin: line in /etc/shadow

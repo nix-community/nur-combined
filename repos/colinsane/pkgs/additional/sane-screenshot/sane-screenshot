@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p libnotify -p swappy -p sway-contrib.grimshot -p util-linux -p wl-clipboard
+#!nix-shell -i bash -p bash -p libnotify -p swappy -p sway-contrib.grimshot -p util-linux -p wl-clipboard
 
 # loosely inspired by reddit user u/dragobich
 # - <https://www.reddit.com/r/hyprland/comments/12tal0f/comment/jh8j4sy/>

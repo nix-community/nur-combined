@@ -3,31 +3,42 @@ let
   cfg = config.sane.programs.unl0kr;
 
   tty = "tty${builtins.toString cfg.config.vt}";
-  redirect-tty = pkgs.static-nix-shell.mkPython3Bin {
+  redirect-tty = pkgs.static-nix-shell.mkPython3 {
     pname = "redirect-tty";
     srcRoot = ./.;
   };
   launcher = pkgs.writeShellApplication {
     name = "unl0kr-login";
-    runtimeInputs = [
-      # TODO: since this invokes `login`, adding these deps to PATH is questionable
-      cfg.package
-      pkgs.shadow
-      redirect-tty
-    ];
     text = ''
-      # TODO: if unl0kr or the redirection fails unexpectedly, this will sit here indefinitely
-      #       (well, user can use /dev/stdin to auth -- if that's wired to a usable input device)
-      # could either:
+      extraPath=/run/current-system/sw/bin:/bin:${lib.makeBinPath [ cfg.package config.sane.programs.shadow.package redirect-tty ]}
+      locate() {
+        PATH=$PATH:$extraPath command -v "$1"
+      }
+
+      # give some time for the framebuffer device to appear;
+      # unl0kr depends on it but doesn't know to wait for it.
+      for _ in $(seq 25); do
+        if [ -e /dev/fb0 ]; then
+          break
+        fi
+        sleep 0.2
+      done
+
+      # TODO: make this more robust to failure.
+      # - if `unl0kr` fails, then the second `redirect-tty` sends a newline to `login`, causing it to exit and the service fails.
+      # - if `redirect-tty` fails, then... the service is left hanging.
+      # possible alternatives:
       # - wait on `unl0kr` to complete _before_ starting `login`, and re-introduce a timeout to `login`
       #   i.e. `pw=$(unl0kr); (sleep 1 && echo "$pw" | redirect-tty "/dev/(tty)") &; login -p <user>`
       #   but modified to not leak pword to CLI
       # - implement some sort of watchdog (e.g. detect spawned children?)
       # - set a timeout at the outer scope (which gets canceled upon successful login)
+      PATH=$PATH:$extraPath sh -c 'redirect-tty "/dev/${tty}" unl0kr ; sleep 2 ; redirect-tty "/dev/${tty}" echo ""' &
 
-      redirect-tty "/dev/${tty}" unl0kr &
-      # login -p: preserve environment
-      login -p ${cfg.config.user}
+      # N.B.: invoke `login` by full path instead of modifying `PATH`,
+      # because we don't want the user session to inherit the PATH of this script!
+      _login="$(locate login)"
+      "$_login" -p ${cfg.config.user}
     '';
   };
 in
@@ -83,29 +94,21 @@ in
       };
     };
 
-    fs.".profile".symlink.text = lib.mkMerge [
-      (lib.mkBefore ''
-        # setup primarySessionCommands here and let any other nix config populate it later
-        primarySessionCommands=()
-        initPrimarySession() {
-          for c in "''${primarySessionCommands[@]}"; do
-            eval "$c"
-          done
-        }
-      '')
-      # lib.mkAfter so that launching the DE happens *after* any other .profile setup.
-      (lib.mkAfter ''
-        # if already running a desktop environment, or if running from ssh, then `tty` will show /dev/pts/NN.
-        if [ "$(tty)" = "/dev/${tty}" ]; then
-          if (( ''${#primarySessionCommands[@]} )); then
-            echo "launching primary session commands in ${builtins.toString cfg.config.delay}s: ''${primarySessionCommands[*]}"
-            # if the `sleep` call here is `Ctrl+C'd`, then it'll exit false and the desktop isn't launched.
-            sleep ${builtins.toString cfg.config.delay} && \
-              initPrimarySession
-          fi
-        fi
-      '')
+    suggestedPrograms = [
+      "shadow"  #< for login
     ];
+
+    fs.".profile".symlink.text = ''
+      unl0krCheck() {
+        # if already running a desktop environment, or if running from ssh, then `tty` will show /dev/pts/NN.
+        # if the `sleep` call is `Ctrl+C'd`, then it'll exit false and the session commands won't be launched
+        [ "$(tty)" = "/dev/${tty}" ] && (( ''${#primarySessionCommands[@]} )) \
+          && echo "launching primary session commands in ${builtins.toString cfg.config.delay}s: ''${primarySessionCommands[*]}" \
+          && sleep ${builtins.toString cfg.config.delay}
+      }
+      primarySessionChecks+=('unl0krCheck')
+
+    '';
 
     # N.B.: this sandboxing applies to `unl0kr` itself -- the on-screen-keyboard;
     #       NOT to the wrapper which invokes `login`.
@@ -137,11 +140,9 @@ in
       serviceConfig.ExecStart = "${pkgs.util-linux}/bin/agetty --login-program '${cfg.config.launcher}/bin/unl0kr-login' --noclear --skip-login --keep-baud ${tty} 115200,38400,9600 $TERM";
 
       path = [
-        # necessary for `sane-sandboxed` to be found. TODO: add this to every systemd service.
+        # necessary for `sanebox` to be found. TODO: add this to every systemd service.
         "/run/current-system/sw"  # `/bin` is appended
       ];
-      # needed to find sane-sandbox profiles (TODO: add this to every service)
-      environment.XDG_DATA_DIRS = "/run/current-system/sw/share";
 
       serviceConfig.Type = "simple";
       serviceConfig.Restart = "always";

@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 {
   sane.programs.gnome-keyring = {
-    packageUnwrapped = pkgs.rmDbusServices pkgs.gnome.gnome-keyring;
+    packageUnwrapped = pkgs.rmDbusServices pkgs.gnome-keyring;
     sandbox.method = "bwrap";
     sandbox.whitelistDbus = [ "user" ];
     sandbox.extraRuntimePaths = [

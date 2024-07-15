@@ -1,0 +1,9 @@
+{
+  "description": "Do you want to cancel? \u2013 YES / CANCEL",
+  "is_podcast": false,
+  "site_name": "Grumpy Website",
+  "site_url": "https://grumpy.website",
+  "title": "Grumpy Website",
+  "url": "https://grumpy.website/feed.xml",
+  "velocity": 0.555
+}

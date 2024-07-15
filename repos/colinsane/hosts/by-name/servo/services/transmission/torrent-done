@@ -1,0 +1,68 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p acl -p bash -p coreutils -p findutils -p rsync
+
+# transmission invokes this with no args, and the following env vars:
+# - TR_TORRENT_DIR: full path to the folder i told transmission to download it to.
+#     e.g. /var/media/torrents/Videos/Film/Jason.Bourne-2016
+# optionally:
+# - TR_DRY_RUN=1
+# - TR_DEBUG=1
+
+DOWNLOAD_DIR=/var/media/torrents
+
+destructive() {
+  if [ -n "${TR_DRY_RUN-}" ]; then
+    echo "[dry-run] $*"
+  else
+    debug "$@"
+    "$@"
+  fi
+}
+debug() {
+  if [ -n "${TR_DEBUG-}" ]; then
+    echo "$@"
+  fi
+}
+
+echo "TR_TORRENT_DIR=$TR_TORRENT_DIR torrent-done $*"
+
+if [[ "$TR_TORRENT_DIR" =~ ^.*freeleech.*$ ]]; then
+  # freeleech torrents have no place in my permanent library
+  echo "freeleech: nothing to do"
+  exit 0
+fi
+if ! [[ "$TR_TORRENT_DIR" =~ ^$DOWNLOAD_DIR/.*$ ]]; then
+  echo "unexpected torrent dir, aborting: $TR_TORRENT_DIR"
+  exit 0
+fi
+
+REL_DIR="${TR_TORRENT_DIR#$DOWNLOAD_DIR/}"
+MEDIA_DIR="/var/media/$REL_DIR"
+
+destructive mkdir -p "$(dirname "$MEDIA_DIR")"
+destructive rsync -arv "$TR_TORRENT_DIR/" "$MEDIA_DIR/"
+# make the media rwx by anyone in the group
+destructive find "$MEDIA_DIR" -type d -exec setfacl --recursive --modify d:g::rwx,o::rx {} \;
+destructive find "$MEDIA_DIR" -type d -exec chmod g+rw,a+rx {} \;
+
+# if there's a single directory inside the media dir, then inline that
+subdirs=("$MEDIA_DIR"/*)
+debug "top-level items in torrent dir:" "${subdirs[@]}"
+if [ ${#subdirs[@]} -eq 1 ]; then
+  dirname="${subdirs[0]}"
+  debug "exactly one top-level item, checking if directory: $dirname"
+  if [ -d "$dirname" ]; then
+    destructive mv "$dirname"/* "$MEDIA_DIR/" && destructive rmdir "$dirname"
+  fi
+fi
+
+# remove noisy files:
+destructive find "$MEDIA_DIR/" -type f \(\
+     -iname '.*downloaded.?from.*' \
+  -o -iname 'source.txt' \
+  -o -iname 'upcoming.?releases.*' \
+  -o -iname 'www.YTS.*.jpg' \
+  -o -iname 'WWW.YIFY*.COM.jpg' \
+  -o -iname 'YIFY*.com.txt' \
+  -o -iname 'YTS*.com.txt' \
+  \) -exec rm {} \;

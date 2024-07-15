@@ -3,6 +3,8 @@
 { ... }:
 {
   sane.programs."gnome.gnome-weather" = {
+    buildCost = 1;
+
     sandbox.method = "bwrap";
     sandbox.wrapperType = "inplace";  #< /share/org.gnome.Weather/org.gnome.Weather file refers to bins by full path
     sandbox.whitelistWayland = true;

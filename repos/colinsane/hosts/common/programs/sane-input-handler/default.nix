@@ -36,29 +36,14 @@ let
     in assert terminal -> events == []; events;
 
   # trigger ${button}_hold_N every `holdTime` ms until ${button} is released
-  recurseHold = button: { count ? 1, maxHolds ? 5, prefix ? "", holdTime ? 600, ... }@opts: lib.optionalAttrs (count <= maxHolds) {
-    "${button}_released".terminal = true;  # end the hold -> back to root state
-    timeout = {
-      ms = holdTime;
-      trigger = "${prefix}${button}_hold_${builtins.toString count}";
-    } // (recurseHold button (opts // { count = count+1; }));
-  };
-
-  # trigger volup_tap_N or voldown_tap_N on every tap.
-  # if a volume button is held, then switch into `recurseHold`'s handling instead
-  volumeActions = { count ? 1, maxTaps ? 5, prefix ? "", timeout ? 600, ... }@opts: lib.optionalAttrs (count != maxTaps) {
-    volup_pressed = (recurseHold "volup" opts) // {
-      volup_released = {
-        trigger = "${prefix}volup_tap_${builtins.toString count}";
-        timeout.ms = timeout;
-      } // (volumeActions (opts // { count = count+1; }));
-    };
-    voldown_pressed = (recurseHold "voldown" opts) // {
-      voldown_released = {
-        trigger = "${prefix}voldown_tap_${builtins.toString count}";
-        timeout.ms = timeout;
-      } // (volumeActions (opts // { count = count+1; }));
-    };
+  recurseHold = button: { count ? 1, maxHolds ? 3, holdTime ? 1000 }@opts: {
+    trigger = "${button}_hold_${builtins.toString count}";
+    ms = holdTime;
+  } // lib.optionalAttrs (count < maxHolds) {
+    timeout = recurseHold button (opts // { count = count+1; });
+    # end the hold -> back to root state
+    # take care to omit this on the last hold though, so that there's always a strictly delay-driven path back to root
+    "${button}_released".terminal = true;
   };
 in
 {
@@ -88,18 +73,19 @@ in
       pname = "sane-input-handler";
       srcRoot = ./.;
       pkgs = {
-        inherit (pkgs) coreutils killall playerctl procps sane-open-desktop util-linux wireplumber;
+        inherit (pkgs) coreutils jq killall playerctl procps sane-open util-linux wireplumber;
         sway = config.sane.programs.sway.package.sway-unwrapped;
       };
     };
     suggestedPrograms = [
       "bonsai"
       # dependencies which get pulled in unconditionally:
+      "jq"
       "killall"
       "playerctl"
-      "procps"
-      "sane-open-desktop"
-      "sway"
+      "procps"  #< TODO: reduce to just those parts of procps which are really needed
+      "sane-open"
+      # "sway"  #< TODO: circular dependency :-(
       "wireplumber"
       # optional integrations:
       "megapixels"
@@ -111,9 +97,7 @@ in
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  #< to launch applications
     sandbox.extraRuntimePaths = [ "sway" ];
-    sandbox.extraConfig = [
-      "--sane-sandbox-keep-namespace" "pid"
-    ];
+    sandbox.isolatePids = false;  #< for toggling the keyboard
   };
 
   # sane.programs.actkbd = {
@@ -162,14 +146,16 @@ in
     power_pressed.voldown_pressed.trigger = "power_and_voldown";
 
     # map: volume taps and holds
-    volup_pressed = (volumeActions {}).volup_pressed // {
-      trigger = "volup_start";
-    };
-    voldown_pressed = (volumeActions {}).voldown_pressed // {
-      trigger = "voldown_start";
-    };
+    volup_pressed.trigger = "volup_start";
+    volup_pressed.volup_released.trigger = "volup_tap_1";
+    volup_pressed.timeout = recurseHold "volup" {};
+
+    voldown_pressed.trigger = "voldown_start";
+    voldown_pressed.voldown_released.trigger = "voldown_tap_1";
+    voldown_pressed.timeout = recurseHold "voldown" {};
   });
 
+  sane.programs.sway.sandbox.extraRuntimePaths = lib.mkIf cfg.enabled [ "bonsai" ];
   sane.programs.sway.config.extra_lines = lib.mkIf cfg.enabled (
     ''
       # bindsym --input-device=... :

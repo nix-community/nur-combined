@@ -75,6 +75,11 @@
 # HOW TO UPDATE
 # - `nix run '.#update.pkgs.signal-desktop-from-src'`
 # - delete `env.yarnOfflineCache.hash` and rebuild it
+# - check signal-desktop's package.json for new ringrtc/nodejs
+# - if sqlcipher fails then update sqlcipherTarball url/hash (rare)
+# errors which can be safely ignored:
+# - "Error: Could not detect abi for version 30.1.1 and runtime electron.  Updating "node-abi" might help solve this issue if it is a new release of electron"
+#   - <https://github.com/signalapp/Signal-Desktop/pull/6889>
 
 
 { lib
@@ -86,7 +91,7 @@
 , bash
 , buildPackages
 , cups
-, electron_27-bin
+, electron-bin
 , fetchurl
 , fetchFromGitHub
 , fetchYarnDeps
@@ -103,10 +108,10 @@
 , libxslt
 , makeShellWrapper
 , mesa
-, nodejs_18
 , nspr
 , nss
 , pango
+, pkgs
 , python3
 # , sqlite
 # , sqlcipher
@@ -116,12 +121,12 @@
 , yarn
 }:
 let
-  version = "7.0.0";
+  version = "7.14.0";
 
   ringrtcPrebuild = fetchurl {
     # version is found in signal-desktop's package.json as "@signalapp/ringrtc"
-    url = "https://build-artifacts.signal.org/libraries/ringrtc-desktop-build-v2.36.0.tar.gz";
-    hash = "sha256-BIp+2V0PVmRqAA4mXt28utAMOAY4GrRELP8tfETf3Ns=";
+    url = "https://build-artifacts.signal.org/libraries/ringrtc-desktop-build-v2.44.0.tar.gz";
+    hash = "sha256-pxfwfEpz6kOlvNcAmnCcwUncKAql8dDPnWUcDV6rWag=";
   };
   sqlcipherTarball = fetchurl {
     # this is a dependency of better-sqlite3.
@@ -130,6 +135,21 @@ let
     url = "https://build-artifacts.signal.org/desktop/sqlcipher-4.5.5-fts5-fix--3.0.7--0.2.1-ef53ea45ed92b928ecfd33c552d8d405263e86e63dec38e1ec63e1b0193b630b.tar.gz";
     hash = "sha256-71PqRe2SuSjs/TPFUtjUBSY+huY97Djh7GPhsBk7Yws=";
   };
+  # TODO: possibly i could instead use nodejs-slim (npm-less nodejs)
+  # mkNodeJs = pkgs: pkgs.nodejs_20.overrideAttrs (upstream:
+  #   let
+  #     # build with the same nodejs upstream expects in package.json (it will error if the version here is incorrect)
+  #     version = "20.9.0";
+  #     hash = "sha256-oj2WgQq/BFVCazSdR85TEPMwlbe8BXG5zFEPSBw6RRk=";
+  #   in {
+  #     inherit version;
+  #     src = fetchurl {
+  #       url = "https://nodejs.org/dist/v${version}/node-v${version}.tar.xz";
+  #       inherit hash;
+  #     };
+  #   }
+  # );
+  mkNodeJs = pkgs: pkgs.nodejs;
 
   # signal-fts5-extension = callPackage ./fts5-extension { };
   # bettersqlitePatch = substituteAll {
@@ -148,42 +168,23 @@ let
     repo = "Signal-Desktop";
     leaveDotGit = true;  # signal calculates the release date via `git`
     rev = "v${version}";
-    hash = "sha256-iIPDUMFGL2a6JKblSTY05nPSDhF4b4AvyO2k0NY9UJE=";
+    hash = "sha256-lsINz704lEU4W17ZPC0sR40FveUzn19/6B7K7f9B7do=";
   };
-  mkNodeJs = nodejs: nodejs.overrideAttrs (upstream:
-    let
-      # build with the same nodejs upstream expects in package.json (it will error if the version here is incorrect)
-      version = "18.18.2";
-      hash = "sha256-ckni8K+UPsOFmVBPSyor0x+5OHhykbbMymyLrfAeO1Y=";
-    in {
-      inherit version;
-      src = fetchurl {
-        url = "https://nodejs.org/dist/v${version}/node-v${version}.tar.xz";
-        inherit hash;
-      };
-    }
-  );
   yarnOfflineCache = fetchYarnDeps {
     yarnLock = "${src}/yarn.lock";
-    hash = "sha256-+IFzjTv3ghyFu0MRca2SO+tzeQPJGVW/KyWf7SdCmtQ=";
+    hash = "sha256-fAnAnpY+23T+u+HAK230/ebUhJQ+KYHK328HLL49qZA=";
   };
 
-  nodejs' = mkNodeJs nodejs_18;
-  # TODO: possibly i could instead use nodejs-slim (npm-less nodejs)
-  buildNodejs = mkNodeJs buildPackages.nodejs_18;
+  nodejs' = mkNodeJs pkgs;
+  buildNodejs = mkNodeJs buildPackages;
 
   buildYarn = buildPackages.yarn.override { nodejs = buildNodejs; };
 
-  # package.json locks electron to 25.y.z
-  # element-desktop uses electron_26
-  # nixpkgs has `electron` defaulted to electron_27
-  # alpine builds signal-desktop using its default electron version, i.e. 27.0.2
-  # verified working:
-  # - electron-bin  (26)
-  # - electron_27-bin (builds, haven't extensively tested the runtime)
+  # note that `package.json` locks the electron version, but we seem to not be strictly beholden to that.
+  # prefer to use the same electron version as everywhere else, and a `-bin` version to avoid 4hr rebuilds.
   # the non-bin varieties *seem* to ship the wrong `electron.headers` property.
   # - maybe they can work if i manually DL and ship the corresponding headers
-  electron' = electron_27-bin;
+  electron' = electron-bin;
 
   buildNpmArch = if stdenv.buildPlatform.isAarch64 then "arm64" else "x64";
   hostNpmArch = if stdenv.hostPlatform.isAarch64 then "arm64" else "x64";
@@ -200,7 +201,22 @@ stdenv.mkDerivation rec {
     # - without this, signal can be started with `signal-desktop & ; sleep 5; signal-desktop`
     #   - the second instance wakes the first one, and then exits
     ./show-on-launch.patch
+    ./no-mac-screen-share.patch
   ];
+
+  postPatch = ''
+    # unpin nodejs. i should probably *try* to keep these vaguely in sync, but it seems to work decently with these out of sync too (at least, if the major versions match?)
+    sed -i 's/"node": .*/"node": "${nodejs'.version}"/' package.json
+
+    # fixes build failure:
+    # > Fusing electron at /build/source/release/linux-unpacked/signal-desktop inspect-arguments=false
+    # >   ⨯ EACCES: permission denied, open '/build/source/release/linux-unpacked/signal-desktop'  failedTask=build stackTrace=Error: EACCES: permission denied, open '/build/source/release/linux-unpacked/signal-desktop'
+    # electron "fusing" (electron.flipFuses) seems to be configuring which functionality electron will support at runtime.
+    # notably: ELECTRON_RUN_AS_NODE, cookie encryption, NODE_OPTIONS env var, --inspect-* CLI args, app.asar validation
+    # skipping the fuse process seems relatively inconsequential
+    substituteInPlace ts/scripts/after-pack.ts \
+      --replace-fail 'await fuseElectron' '//await fuseElectron'
+  '';
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -246,17 +262,6 @@ stdenv.mkDerivation rec {
 
   # NIX_DEBUG = 6;
 
-  postPatch = ''
-    # fixes build failure:
-    # > Fusing electron at /build/source/release/linux-unpacked/signal-desktop inspect-arguments=false
-    # >   ⨯ EACCES: permission denied, open '/build/source/release/linux-unpacked/signal-desktop'  failedTask=build stackTrace=Error: EACCES: permission denied, open '/build/source/release/linux-unpacked/signal-desktop'
-    # electron "fusing" (electron.flipFuses) seems to be configuring which functionality electron will support at runtime.
-    # notably: ELECTRON_RUN_AS_NODE, cookie encryption, NODE_OPTIONS env var, --inspect-* CLI args, app.asar validation
-    # skipping the fuse process seems relatively inconsequential
-    substituteInPlace ts/scripts/after-pack.ts \
-      --replace 'await fuseElectron' '//await fuseElectron'
-  '';
-
   configurePhase = ''
     runHook preConfigure
 
@@ -298,11 +303,13 @@ stdenv.mkDerivation rec {
     pushd node_modules/@signalapp/ringrtc/
       tar -xzf ./scripts/prebuild.tar.gz
     popd
+
     cp ${sqlcipherTarball} node_modules/@signalapp/better-sqlite3/deps/sqlcipher.tar.gz
     pushd node_modules/@signalapp/better-sqlite3
       # node-gyp isn't consistently linked into better-sqlite's `node_modules` (maybe due to version mismatch with sinal-desktop's node-gyp?)
       PATH="$PATH:$(pwd)/../../.bin" yarn --offline build-release
     popd
+
     pushd node_modules/@signalapp/libsignal-client
       yarn node-gyp-build
     popd
@@ -344,6 +351,9 @@ stdenv.mkDerivation rec {
     # yarn generate:
     yarn build-module-protobuf --offline --frozen-lockfile
     yarn build:esbuild --offline --frozen-lockfile
+    # yarn build:dns-fallback --offline --frozen-lockfile  # requires network
+    yarn build:icu-types --offline --frozen-lockfile
+    yarn build:compact-locales --offline --frozen-lockfile
     yarn sass
     yarn get-expire-time
     yarn copy-components
@@ -389,15 +399,15 @@ stdenv.mkDerivation rec {
       --add-flags $out/lib/Signal/resources/app.asar \
       --suffix PATH : ${lib.makeBinPath [ xdg-utils ]} \
       --add-flags --ozone-platform-hint=auto \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform=wayland --enable-features=WaylandWindowDecorations}}" \
+      --add-flags "\''${WAYLAND_DISPLAY:+--ozone-platform=wayland --enable-features=WaylandWindowDecorations}" \
       --inherit-argv0
   '';
 
   passthru = {
     # inherit bettersqlitePatch signal-fts5-extension;
     updateScript = gitUpdater {
-      # TODO: prevent update to betas
       rev-prefix = "v";
+      ignoredVersions = "beta";
     };
     nodejs = nodejs';
     buildYarn = buildYarn;

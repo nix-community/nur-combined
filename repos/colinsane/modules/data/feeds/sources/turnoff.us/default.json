@@ -1,9 +1,9 @@
 {
-  "description": "turnoff.us is a geek comic site. Comics about Programming Languages, Web, Cloud, Linux, etc.",
+  "description": "{turnoff.us} is a webcomic that explores the worlds of programming, operating systems, and tech professional life.",
   "is_podcast": false,
   "site_name": "turnoff.us",
   "site_url": "http://turnoff.us",
-  "title": "turnoff.us - geek comic site",
+  "title": "turnoff.us",
   "url": "https://turnoff.us/feed.xml",
-  "velocity": 0.01
+  "velocity": 0.377
 }

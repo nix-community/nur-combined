@@ -1,7 +1,30 @@
+# SUPPORT:
+# - irc: #gnome-maps on irc.gimp.org
+# - Matrix: #gnome-maps:gnome.org  (unclear if bridged to IRC)
+#
+# INTEGRATIONS:
+# - uses https://graphhopper.com for routing
+#   - <https://github.com/graphhopper/graphhopper>  (not packaged for Nix)
+# - uses https://tile.openstreetmap.org for tiles
+# - uses https://overpass-api.de for ... ?
+# TIPS:
+# - use "Northwest" instead of "NW", and "Street" instead of "St", etc.
+#   otherwise, it might not find your destination!
 { pkgs, ... }:
 {
   sane.programs."gnome.gnome-maps" = {
-    packageUnwrapped = pkgs.rmDbusServices pkgs.gnome.gnome-maps;
+    packageUnwrapped = pkgs.rmDbusServicesInPlace (pkgs.gnome.gnome-maps.overrideAttrs (base: {
+      # default .desktop file is trying to do some dbus launch (?) which fails even *if* i install `gapplication` (glib.bin)
+      postPatch = (base.postPatch or "") + ''
+        substituteInPlace data/org.gnome.Maps.desktop.in.in \
+          --replace-fail 'Exec=gapplication launch @app-id@ %U' 'Exec=gnome-maps %U'
+      '';
+    }));
+    suggestedPrograms = [
+      "geoclue2"
+    ];
+
+    sandbox.wrapperType = "inplace";  #< /share directory contains Gir info which references libgnome-maps.so by path
     sandbox.method = "bwrap";
     sandbox.whitelistDri = true;  # for perf
     sandbox.whitelistDbus = [

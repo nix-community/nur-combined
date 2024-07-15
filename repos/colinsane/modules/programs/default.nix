@@ -2,8 +2,6 @@
 let
   saneCfg = config.sane;
   cfg = config.sane.programs;
-  fs-lib = sane-lib.fs;
-  path-lib = sane-lib.path;
 
   # create a map:
   # {
@@ -40,52 +38,41 @@ let
       package
     else
       let
-        makeProfile = pkgs.callPackage ./make-sandbox-profile.nix { };
-        makeSandboxed = pkgs.callPackage ./make-sandboxed.nix { sane-sandboxed = config.sane.programs.sane-sandboxed.package; };
+        makeSandboxArgs = pkgs.callPackage ./make-sandbox-args.nix { };
+        # makeSandboxed = pkgs.callPackage ./make-sandboxed.nix { sanebox = config.sane.programs.sanebox.package; };
+        makeSandboxed = pkgs.callPackage ./make-sandboxed.nix { };
 
-        # removeStorePaths: [ str ] -> [ str ], but remove store paths, because nix evals aren't allowed to contain any (for purity reasons?)
-        removeStorePaths = paths: lib.filter (p: !(lib.hasPrefix "/nix/store" p)) paths;
+        vpn = if sandbox.net == "vpn" then
+          lib.findSingle (v: v.default) null null (builtins.attrValues config.sane.vpn)
+        else if sandbox.net == "vpn.wg-home" then
+          config.sane.vpn.wg-home
+        else
+          null
+        ;
 
-        makeCanonical = paths: builtins.map path-lib.realpath paths;
-        # derefSymlinks: [ str ] -> [ str ]: for each path which is a symlink (or a child of a symlink'd dir), dereference one layer of symlink. else, drop it from the list.
-        derefSymlinks' = paths: builtins.map (fs-lib.derefSymlinkOrNull config.sane.fs) paths;
-        derefSymlinks = paths: lib.filter (p: p != null) (derefSymlinks' paths);
-        # expandSymlinksOnce: [ str ] -> [ str ], returning all the original paths plus dereferencing any symlinks and adding their targets to this list.
-        expandSymlinksOnce = paths: lib.unique (paths ++ removeStorePaths (makeCanonical (derefSymlinks paths)));
-        expandSymlinks = paths: lib.converge expandSymlinksOnce paths;
+        allowedHomePaths = builtins.attrNames fs ++ builtins.attrNames persist.byPath ++ sandbox.extraHomePaths;
+        allowedRunPaths = sandbox.extraRuntimePaths;
+        allowedPaths = [
+          "/nix/store"
+          "/bin/sh"
 
-        vpn = lib.findSingle (v: v.default) null null (builtins.attrValues config.sane.vpn);
+          "/etc"  #< especially for /etc/profiles/per-user/$USER/bin
+          "/run/current-system"  #< for basics like `ls`, and all this program's `suggestedPrograms` (/run/current-system/sw/bin)
+          # "/run/wrappers"  #< SUID wrappers. they don't mean much inside a namespace.
+          # /run/opengl-driver is a symlink into /nix/store; needed by e.g. mpv
+          "/run/opengl-driver"
+          "/run/opengl-driver-32"  #< XXX: doesn't exist on aarch64?
+          "/usr/bin/env"
+        ] ++ lib.optionals (sandbox.net == "all" && config.services.resolved.enable) [
+          "/run/systemd/resolve"  #< to allow reading /etc/resolv.conf, which ultimately symlinks here (if using systemd-resolved)
+        ] ++ lib.optionals (sandbox.net == "all" && config.services.avahi.enable) [
+          "/var/run/avahi-daemon"  #< yes, it has to be "/var/run/...". required for nss (e.g. `getent hosts desko.local`)
+        ] ++ lib.optionals (builtins.elem "system" sandbox.whitelistDbus) [
+          "/var/run/dbus/system_bus_socket"  #< XXX: use /var/run/..., for the rare program which requires that (i.e. avahi users)
+        ] ++ sandbox.extraPaths
+        ;
 
-        sandboxProfilesFor = userName: let
-          homeDir = config.sane.users."${userName}".home;
-          uid = config.users.users."${userName}".uid;
-          xdgRuntimeDir = "/run/user/${builtins.toString uid}";
-          fullHomePaths = lib.optionals (userName != null) (
-            builtins.map
-              (p: path-lib.concat [ homeDir p ])
-              (builtins.attrNames fs ++ builtins.attrNames persist.byPath ++ sandbox.extraHomePaths)
-          );
-          fullRuntimePaths = lib.optionals (userName != null) (
-            builtins.map
-              (p: path-lib.concat [ xdgRuntimeDir p ])
-              sandbox.extraRuntimePaths
-          );
-          allowedPaths = [
-            "/nix/store"
-            "/bin/sh"
-
-            "/etc"  #< especially for /etc/profiles/per-user/$USER/bin
-            "/run/current-system"  #< for basics like `ls`, and all this program's `suggestedPrograms` (/run/current-system/sw/bin)
-            "/run/wrappers"  #< SUID wrappers, in this case so that firejail can be re-entrant. TODO: remove!
-            "/run/systemd/resolve"  #< to allow reading /etc/resolv.conf, which ultimately symlinks here
-            # /run/opengl-driver is a symlink into /nix/store; needed by e.g. mpv
-            "/run/opengl-driver"
-            "/run/opengl-driver-32"  #< XXX: doesn't exist on aarch64?
-            "/usr/bin/env"
-          ] ++ lib.optionals (builtins.elem "system" sandbox.whitelistDbus) [ "/run/dbus/system_bus_socket" ]
-            ++ sandbox.extraPaths ++ fullHomePaths ++ fullRuntimePaths;
-        in makeProfile {
-          inherit pkgName;
+        sandboxArgs = makeSandboxArgs {
           inherit (sandbox)
             autodetectCliPaths
             capabilities
@@ -93,42 +80,32 @@ let
             method
             whitelistPwd
           ;
-          netDev = if sandbox.net == "vpn" then
-            vpn.bridgeDevice
+          netDev = if vpn != null then
+            vpn.name
           else
             sandbox.net;
-          dns = if sandbox.net == "vpn" then
+          netGateway = if vpn != null then
+            vpn.addrV4
+          else
+            null;
+          dns = if vpn != null then
             vpn.dns
           else
             null;
-          allowedPaths = expandSymlinks allowedPaths;
+          # the sandboxer should understand how to work with duplicated paths, but it's annoying => `lib.unique`
+          allowedPaths = lib.unique allowedPaths;
+          allowedHomePaths = lib.unique allowedHomePaths;
+          allowedRunPaths = lib.unique allowedRunPaths;
         };
-        defaultProfile = sandboxProfilesFor config.sane.defaultUser;
-        makeSandboxedArgs = {
+      in
+        makeSandboxed {
           inherit pkgName package;
           inherit (sandbox)
             embedSandboxer
             wrapperType
           ;
-        };
-      in
-        makeSandboxed (makeSandboxedArgs // {
-          passthru = {
-            inherit sandboxProfilesFor;
-            withEmbeddedSandboxer = makeSandboxed (makeSandboxedArgs // {
-              # embed the sandboxer AND a profile, whichever profile the package would have if installed by the default user.
-              # useful to iterate a package's sandbox config without redeploying.
-              embedSandboxer = true;
-              extraSandboxerArgs = [
-                "--sane-sandbox-profile-dir" "${defaultProfile}/share/sane-sandboxed/profiles"
-              ];
-            });
-            withEmbeddedSandboxerOnly = makeSandboxed (makeSandboxedArgs // {
-              # embed the sandboxer but no profile. useful pretty much only for testing changes within the actual sandboxer.
-              embedSandboxer = true;
-            });
-          };
-        })
+          extraSandboxerArgs = sandboxArgs;
+        }
   );
   pkgSpec = with lib; types.submodule ({ config, name, ... }: {
     options = {
@@ -249,27 +226,49 @@ let
         '';
       };
       services = mkOption {
-        type = types.attrsOf types.anything; # options.sane.users.value.type;
+        type = options.sane.user._options.services.type;
         default = {};
         description = ''
           user services to define if this package is enabled.
           acts as noop for root-enabled packages.
           see `sane.users.<user>.services` for options;
         '';
+        # TODO: this `apply` should by moved to where we pass the `services` down to `sane.users`
+        apply = lib.mapAttrs (svcName: svcCfg:
+          svcCfg // lib.optionalAttrs (builtins.tryEval svcCfg.description).success {
+            # ensure service dependencies based on what a service's program whitelists.
+            # only do this for the services which are *defined* by this program though (i.e. `scvCfg ? description`)
+            # so as to avoid idioms like when sway adds `graphical-session.partOf = default`
+            depends = svcCfg.depends
+              ++ lib.optionals (svcName != "dbus" && builtins.elem "user" config.sandbox.whitelistDbus && cfg.dbus.enabled) [
+              "dbus"
+            ] ++ lib.optionals ((!builtins.elem "wayland" svcCfg.partOf) && config.sandbox.whitelistWayland) [
+              "wayland"
+            ] ++ lib.optionals ((!builtins.elem "x11" svcCfg.partOf) && config.sandbox.whitelistX) [
+              "x11"
+            ] ++ lib.optionals ((!builtins.elem "sound" svcCfg.partOf) && config.sandbox.whitelistAudio) [
+              "sound"
+            ];
+          }
+        );
       };
       buildCost = mkOption {
-        type = types.enum [ 0 1 2 ];
+        type = types.enum [ 0 1 2 3 ];
         default = 0;
         description = ''
           whether this package is very slow, or has unique dependencies which are very slow to build.
           marking packages like this can be used to achieve faster, but limited, rebuilds/deploys (by omitting the package).
+          - 0: this package is necessary for baseline usability
+          - 1: this package is a nice-to-have, and not too costly to build
+          - 2: this package is a nice-to-have, but costly to build (e.g. `libreoffice`, some webkitgtk-based things)
+          - 3: this package is costly to build, and could go without (some lesser-used webkitgtk-based things)
         '';
       };
       sandbox.net = mkOption {
         type = types.coercedTo
           types.str
           (s: if s == "clearnet" || s == "localhost" then "all" else s)
-          (types.enum [ null "all" "vpn" ]);
+          (types.enum [ null "all" "vpn" "vpn.wg-home" ]);
         default = null;
         description = ''
           how this app should have its network traffic routed.
@@ -279,11 +278,12 @@ let
           - "localhost": only needs access to other services running on this host.
             currently, just an alias for "all".
           - "vpn": to route all traffic over the default VPN.
+          - "vpn.wg-home": to route all traffic over the wg-home VPN.
           - null: to maximally isolate from the network.
         '';
       };
       sandbox.method = mkOption {
-        type = types.nullOr (types.enum [ "bwrap" "capshonly" "firejail" "landlock" ]);
+        type = types.nullOr (types.enum [ "bwrap" "capshonly" "pastaonly" "landlock" ]);
         default = null;  #< TODO: default to something non-null
         description = ''
           how/whether to sandbox all binaries in the package.
@@ -336,6 +336,13 @@ let
         description = ''
           list of Linux capabilities the program needs. lowercase, and without the cap_ prefix.
           e.g. sandbox.capabilities = [ "net_admin" "net_raw" ];
+        '';
+      };
+      sandbox.isolatePids = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          whether to place the process in a new PID namespace, if the sandboxer supports that.
         '';
       };
       sandbox.whitelistAudio = mkOption {
@@ -423,10 +430,8 @@ let
         description = ''
           extra arguments to pass to the sandbox wrapper.
           example: [
-            "--sane-sandbox-firejail-arg"
-            "--whitelist=''${HOME}/.ssh"
-            "--sane-sandbox-firejail-arg"
-            "--keep-dev-shm"
+            "--sanebox-dns"
+            "1.1.1.1"
           ]
         '';
       };
@@ -462,9 +467,14 @@ let
         null
       else
         wrapPkg name config config.packageUnwrapped
-        ;
-      suggestedPrograms = lib.optionals (config.sandbox.method == "bwrap") [ "bubblewrap" ]
-        ++ lib.optionals (config.sandbox.method == "firejail") [ "firejail" ];
+      ;
+      suggestedPrograms = lib.optionals (config.sandbox.method == "bwrap") [
+        "bubblewrap" "passt"
+      ] ++ lib.optionals (config.sandbox.method == "pastaonly") [
+        "passt"
+      ] ++ lib.optionals (config.sandbox.method == "capshonly") [
+        "libcap"
+      ];
       # declare a fs dependency for each secret, but don't specify how to populate it yet.
       #   can't populate it here because it varies per-user.
       # this gets the symlink into the sandbox, but not the actual secret.
@@ -483,11 +493,28 @@ let
       sandbox.extraRuntimePaths =
         lib.optionals config.sandbox.whitelistAudio [ "pipewire" "pulse" ]  # this includes pipewire/pipewire-0-manager: is that ok?
         ++ lib.optionals (builtins.elem "user" config.sandbox.whitelistDbus) [ "bus" ]
-        ++ lib.optionals config.sandbox.whitelistWayland [ "wayland" ]  # app can still communicate with wayland server w/o this, if it has net access
+        ++ lib.optionals config.sandbox.whitelistWayland [ "wl" ]  # app can still communicate with wayland server w/o this, if it has net access
         ++ lib.optionals config.sandbox.whitelistS6 [ "s6" ]  # TODO: this allows re-writing the services themselves: don't allow that!
       ;
-      sandbox.extraConfig = lib.mkIf config.sandbox.usePortal [
-        "--sane-sandbox-portal"
+      sandbox.extraHomePaths = let
+        whitelistDir = dir: lib.optionals (lib.any (p: lib.hasPrefix "${dir}/" p) (builtins.attrNames config.fs)) [
+          dir
+        ];
+        mainProgram = (config.packageUnwrapped.meta or {}).mainProgram or null;
+      in
+        # assume the program is free to access any files in ~/.config/<name>, ~/.local/share/<name> -- if those exist.
+        # the benefit of this is that the program will see updates to its files made *outside* of the sandbox,
+        # allowing e.g. manual modification of ~/.config/FOO/thing.json to be seen by the program.
+        whitelistDir ".config/${name}"
+        ++ whitelistDir ".local/share/${name}"
+        # some packages, e.g. swaynotificationcenter, store the config under the binary name instead of the package name
+        ++ lib.optionals (mainProgram != null) (whitelistDir ".config/${mainProgram}")
+        ++ lib.optionals (mainProgram != null) (whitelistDir ".local/share/${mainProgram}")
+      ;
+      sandbox.extraConfig = lib.optionals config.sandbox.usePortal [
+        "--sanebox-portal"
+      ] ++ lib.optionals (!config.sandbox.isolatePids) [
+        "--sanebox-keep-namespace" "pid"
       ];
     };
   });
@@ -512,28 +539,24 @@ let
       "program ${name} specified no `sandbox.method`; please configure a method, or set sandbox.enable = false."
     ];
 
-    system.checks = lib.optionals (p.enabled && p.sandbox.enable && p.sandbox.method != null && p.package != null) [
+    system.checks = lib.mkIf (p.enabled && p.sandbox.enable && p.sandbox.method != null && p.package != null) [
       p.package.passthru.checkSandboxed
     ];
 
     # conditionally add to system PATH and env
     environment = lib.optionalAttrs (p.enabled && p.enableFor.system) {
-      systemPackages = lib.optionals (p.package != null) (
-        [ p.package ] ++ lib.optional (p.sandbox.enable && p.sandbox.method != null) (p.package.passthru.sandboxProfilesFor null)
-      );
+      systemPackages = lib.mkIf (p.package != null) [ p.package ];
       # sessionVariables are set by PAM, as opposed to environment.variables which goes in /etc/profile
       sessionVariables = p.env;
     };
 
     # conditionally add to user(s) PATH
     users.users = lib.mapAttrs (userName: en: {
-      packages = lib.optionals (p.package != null && en && p.enabled) (
-        [ p.package ] ++ lib.optional (p.sandbox.enable && p.sandbox.method != null) (p.package.passthru.sandboxProfilesFor userName)
-      );
+      packages = lib.mkIf (p.package != null && en && p.enabled) [ p.package ];
     }) p.enableFor.user;
 
     # conditionally persist relevant user dirs and create files
-    sane.users = lib.mapAttrs (user: en: lib.optionalAttrs (en && p.enabled) {
+    sane.users = lib.mapAttrs (user: en: lib.mkIf (en && p.enabled) {
       inherit (p) persist services;
       environment = p.env;
       fs = lib.mkMerge [
@@ -565,7 +588,7 @@ let
 
     # make secrets available for each user
     sops.secrets = lib.concatMapAttrs
-      (user: en: lib.optionalAttrs (en && p.enabled) (
+      (user: en: lib.mkIf (en && p.enabled) (
         lib.mapAttrs'
           (homePath: src: {
             # TODO: use the user's *actual* home directory, don't guess.
@@ -592,8 +615,8 @@ in
       default = {};
     };
     sane.maxBuildCost = mkOption {
-      type = types.enum [ 0 1 2 ];
-      default = 2;
+      type = types.enum [ 0 1 2 3 ];
+      default = 3;
       description = ''
         max build cost of programs to ship.
         set to 0 to get the fastest, but most restrictive build.
@@ -623,8 +646,7 @@ in
     in lib.mkMerge [
       (take (sane-lib.mkTypedMerge take configs))
       {
-        environment.pathsToLink = [ "/share/sane-sandboxed" ];
-        sane.programs.sane-sandboxed.enableFor.system = true;
+        sane.programs.sanebox.enableFor.system = true;
         # expose the pkgs -- as available to the system -- as a build target.
         system.build.pkgs = pkgs;
       }

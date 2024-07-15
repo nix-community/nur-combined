@@ -25,13 +25,13 @@ let
 in
 stdenv.mkDerivation (final: with final; {
   pname = "lemonade";
-  version = "2024.03.20";
+  version = "2024.04.22";
 
   src = fetchFromGitHub {
     owner = "mdwalters";
     repo = "lemonade";
     rev = version;
-    hash = "sha256-D9V14icURNc+U/GrPjIrCnVBrCw9v4GBmLtaMQABolA=";
+    hash = "sha256-Y8mU57ty7PXhCmPKByAf/nBH41NgfW97wfOfE5rWKZ0=";
   };
 
   postPatch = ''

@@ -17,11 +17,6 @@ let
 in
 {
   options = {
-    sane.image.enable = mkOption {
-      default = true;
-      type = types.bool;
-      description = "whether to enable image targets. even so they won't be built unless you specifically reference the `system.build.img` target.";
-    };
     # packages whose contents should be copied directly into the /boot partition.
     # e.g. EFI loaders, u-boot bootloader, etc.
     sane.image.extraBootFiles = mkOption {
@@ -57,9 +52,23 @@ in
       default = (16 * 1024 * 1024 - 34 * 512) * 1024 * 1024 - 1;
       type = types.nullOr types.int;
     };
+    sane.image.platformPartSize = mkOption {
+      default = null;
+      type = types.nullOr types.int;
+      description = ''
+        size of the platform firmware (or, bootloader) partition, in bytes.
+        most platforms don't need this. the primary user is "depthcharge" chromebooks.
+        the partition contents is taken from `config.system.build.platformPartition`.
+      '';
+    };
     sane.image.bootPartSize = mkOption {
-      default = 512 * 1024 * 1024;
+      default = 1024 * 1024 * 1024;
       type = types.int;
+      description = ''
+        size of the boot partition, in bytes.
+        don't skimp on this. nixos kernels are by default HUGE, and restricting this
+        will make kernel tweaking extra painful.
+      '';
     };
     sane.image.sectorSize = mkOption {
       default = 512;
@@ -102,11 +111,11 @@ in
     vfatUuidFromFs = fs: builtins.replaceStrings ["-"] [""] (uuidFromFs fs);
 
     fsBuilderMapBoot = {
-      "vfat" = pkgs.imageBuilder.fileSystem.makeESP;
+      "vfat" = pkgs.mobile-nixos.imageBuilder.fileSystem.makeESP;
     };
     fsBuilderMapNix = {
-      "ext4" = pkgs.imageBuilder.fileSystem.makeExt4;
-      "btrfs" = pkgs.imageBuilder.fileSystem.makeBtrfs;
+      "ext4" = pkgs.mobile-nixos.imageBuilder.fileSystem.makeExt4;
+      "btrfs" = pkgs.mobile-nixos.imageBuilder.fileSystem.makeBtrfs;
     };
 
     bootFsImg = fsBuilderMapBoot."${bootFs.fsType}" {
@@ -153,7 +162,7 @@ in
         cp -v ${closureInfo}/registration ./nix-path-registration
       '';
     };
-    img = (pkgs.imageBuilder.diskImage.makeGPT {
+    img = (pkgs.mobile-nixos.imageBuilder.diskImage.makeGPT {
       name = "nixos";
       diskID = vfatUuidFromFs bootFs;
       # leave some space for firmware
@@ -161,7 +170,16 @@ in
       # Tow-Boot manages to do that; not sure how.
       headerHole = cfg.extraGPTPadding;
       partitions = [
-        (pkgs.imageBuilder.gap cfg.firstPartGap)
+        (pkgs.mobile-nixos.imageBuilder.gap cfg.firstPartGap)
+      ] ++ lib.optionals (cfg.platformPartSize != null) [
+        {
+          name = "kernel";  #< TODO: is it safe to rename this?
+          filename = "${config.system.build.platformPartition}";
+          # from: <https://www.chromium.org/chromium-os/chromiumos-design-docs/disk-format>
+          partitionType = "FE3A2A5D-4F32-41A7-B725-ACCC3285A309";
+          length = cfg.platformPartSize;
+        }
+      ] ++ [
         bootFsImg
         nixFsImg
       ];
@@ -171,19 +189,21 @@ in
       };
     };
   in
-  lib.mkIf cfg.enable
   {
-    system.build.img = (if cfg.installBootloader == null then
-      img
-    else pkgs.runCommand "nixos-with-bootloader" {} ''
-      cp -vR ${img} $out
-      chmod -R +w $out
-      ${cfg.installBootloader}
-    '') // {
+    system.build.img = pkgs.runCommandLocal "nixos-with-bootloader" {
       passthru = {
         inherit bootFsImg nixFsImg;
-        withoutBootloader = img;
+        withoutBootloader = img;  #< XXX: this derivation places the image at $out/nixos.img
       };
-    };
+    } (
+      if cfg.installBootloader == null then ''
+        ln -s ${img}/nixos.img $out
+      '' else ''
+        cp ${img}/nixos.img $out
+        chmod +w $out
+        ${cfg.installBootloader}
+        chmod -w $out
+      ''
+    );
   };
 }

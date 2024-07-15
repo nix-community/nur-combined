@@ -161,8 +161,8 @@ python.pkgs.buildPythonApplication rec {
     sed -i "/--cov/d" setup.cfg
     sed -i "/--no-cov-on-fail/d" setup.cfg
     substituteInPlace pyproject.toml \
-      --replace 'deepdiff = "^5.8.1"' 'deepdiff = ">=5.8.1"' \
-      --replace 'python-Levenshtein = "^0.12.0"' 'levenshtein = ">=0.12.0"'
+      --replace-fail 'deepdiff = "^5.8.1"' 'deepdiff = ">=5.8.1"' \
+      --replace-fail 'python-Levenshtein = "^0.12.0"' 'levenshtein = ">=0.12.0"'
   '';
 
   # hook for gobject-introspection doesn't like strictDeps

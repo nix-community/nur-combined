@@ -1,13 +1,17 @@
 { config, lib,  sane-lib, ... }:
 
 let
-  keysForHost = hostName: let
-    hostCfg = config.sane.hosts.by-name."${hostName}";
-  in {
-    "root@${hostName}" = hostCfg.ssh.host_pubkey;
-    "colin@${hostName}" = lib.mkIf (hostCfg.ssh.user_pubkey != null && hostCfg.ssh.authorized) hostCfg.ssh.user_pubkey;
-  };
-  hostKeys = builtins.map keysForHost (builtins.attrNames config.sane.hosts.by-name);
+  hostKeys = lib.mapAttrsToList
+    (hostName: hostCfg:
+      # generate `root@servo`, `colin@servo`, `root@servo-hn`, `colin@servo-hn`, ... as a single attrset:
+      lib.foldl' (acc: alias: acc // {
+        "root@${alias}" = hostCfg.ssh.host_pubkey;
+        "colin@${alias}" = lib.mkIf (hostCfg.ssh.user_pubkey != null && hostCfg.ssh.authorized) hostCfg.ssh.user_pubkey;
+      })
+      {}
+      hostCfg.names
+    )
+    config.sane.hosts.by-name;
 in
 {
   sane.ssh.pubkeys = lib.mkMerge (hostKeys ++ [
@@ -25,10 +29,21 @@ in
     enable = true;
     settings.PermitRootLogin = "no";
     settings.PasswordAuthentication = false;
+    settings.UsePAM = lib.mkDefault false;  #< notably, disables systemd session tracking; incidentally disables pam_mount, etc.
   };
   sane.ports.ports."22" = {
     protocol = [ "tcp" ];
     visibleTo.lan = true;
     description = lib.mkDefault "colin-ssh";
   };
+
+  # sane.services.dropbear = {
+  #   enable = true;
+  #   port = 1022;
+  # };
+  # sane.ports.ports."1022" = {
+  #   protocol = [ "tcp" ];
+  #   visibleTo.lan = true;
+  #   description = lib.mkDefault "colin-dropbear-ssh";
+  # };
 }

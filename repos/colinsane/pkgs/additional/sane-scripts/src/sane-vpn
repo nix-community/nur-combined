@@ -1,5 +1,7 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p coreutils-full -p sane-scripts.ip-check
+#!nix-shell -i bash -p bash -p coreutils-full -p iproute2 -p jq -p sane-scripts.ip-check
+
+set -e
 
 usageDescription() {
   echo "sane-vpn: tool to route all system internet traffic through some VPN, or just one application's"
@@ -7,9 +9,11 @@ usageDescription() {
   echo "however, systemd --user has poor support for capabilities, hence this here is a bespoke script instead of a service"
   echo ""
   echo "usage:"
-  echo "sane-vpn up REGION"
-  echo "sane-vpn down REGION"
-  echo "sane-vpn do REGION COMMAND [COMMAND ARGS ...]"
+  echo "sane-vpn up [REGION]"
+  echo "sane-vpn down [REGION]"
+  echo "sane-vpn do [REGION [COMMAND ...] ]"
+  echo "sane-vpn do -- [COMMAND ...]"
+  echo "sane-vpn dns-fix"
   echo "sane-vpn help"
 }
 
@@ -22,12 +26,13 @@ vpns=()
 defaultVpn=
 
 # loaded from a specific ~/.config/sane-vpn/vpns profile
-id=
-fwmark=
-prioMain=
-prioFwMark=
-bridgeDevice=
+addrV4=
 dns=()
+fwmark=
+id=
+name=
+priorityFwMark=
+priorityMain=
 
 debug() {
   if [ -n "$SANE_VPN_DEBUG" ]; then
@@ -44,13 +49,7 @@ getVpns() {
 
 # load a specific VPN profile, `"$1"`
 sourceVpn() {
-  # populates:
-  # - id
-  # - fwmark
-  # - prioMain
-  # - prioFwMark
-  # - bridgeDevice
-  # - dns
+  # populates: variables declared above
   debug "sourcing: ~/.config/sane-vpn/vpns/$1"
   # TODO: don't blindly source this, but parse explicitly as `K=V`
   source ~/.config/sane-vpn/vpns/$1
@@ -65,15 +64,22 @@ canonicalizeRegion() {
     fi
   done
 
-  if [ -z "$region" ] || [ "$region" = "default" ]; then
+  if [ -z "$region" ] || [ "$region" = "default" ] || [ "$region" = "-" ] || [ "$region" = "--" ]; then
     debug "canonicalizing default region to '$defaultVpn'"
     region="$defaultVpn"
   fi
   debug "region after canonicalization: '$region'"
 }
 
+fixupCommand() {
+  command=("$@")
+  if [ ${#command} -eq 0 ]; then
+    command=("$SHELL")
+  fi
+}
+
 vpnToggle() {
-  verb="$1"
+  local verb="$1"
 
   debug "vpnToggle with:"
   debug "  id='$id'"
@@ -95,37 +101,53 @@ vpnToggle() {
 
 vpnDo() {
   debug "vpnDo with:"
-  debug "  bridgeDevice='$bridgeDevice'"
+  debug "  name='$name'"
+  debug "  addrV4='$addrV4'"
   debug "  dns='$dns'"
-  # TODO: switch to bwrap, or `sane-sandboxed`!
-  firejail --noprofile --net="$bridgeDevice" --dns="$dns" "$@"
+  debug "command: ${command[*]}"
+  # sanebox --sanebox-method pastaonly --sanebox-net-dev "$name" --sanebox-net-gateway "$addrV4" --sanebox-dns "$dns" "${command[@]}"
+  sanebox --sanebox-method bwrap --sanebox-keep-namespace all --sanebox-path / --sanebox-no-portal \
+    --sanebox-net-dev "$name" --sanebox-net-gateway "$addrV4" --sanebox-dns "$dns" \
+    "${command[@]}"
+}
+
+dnsFix() {
+  local dev=$(ip -j route get 255 | jq --raw-output '.[0]["dev"]')
+  debug "dev: $dev"
+  debug "command: ${command[*]}"
+  sanebox --sanebox-method bwrap --sanebox-keep-namespace all --sanebox-path / --sanebox-no-portal \
+    --sanebox-net-dev "$dev" --sanebox-dns "1.1.1.1" \
+    "${command[@]}"
 }
 
 usage() {
-  rc="$1"
-  msg="$2"
+  local rc="$1"
+  local msg="$2"
 
   test -n "$msg" && echo "$msg"
 
   usageDescription
   echo ""
   echo "regions:"
-  echo "$vpns"
+  for v in "${vpns[@]}"; do
+    echo "- $v"
+  done
 
   test -n "$rc" && exit "$rc"
 }
 
 parseCli() {
-  _oper="$1"
+  local oper="$1"
   shift
   region="$1"
-  shift
+  shift || true
 
   getVpns
   canonicalizeRegion
+  fixupCommand "$@"
   sourceVpn "$region"
 
-  case "$_oper" in
+  case $oper in
     (up)
       vpnToggle add
       ;;
@@ -135,11 +157,14 @@ parseCli() {
     (do)
       vpnDo "$@"
       ;;
+    (dns-fix)
+      dnsFix "$@"
+      ;;
     (--help|help|"")
       usage 0
       ;;
     (*)
-      usage 1 "invalid operation '$_oper'"
+      usage 1 "invalid operation '$oper'"
       ;;
   esac
 }

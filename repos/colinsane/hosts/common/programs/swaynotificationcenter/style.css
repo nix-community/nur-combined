@@ -30,7 +30,7 @@
 }
 
 button {
-  border-width: 2px;
+  border-width: 1px;
   border-color: alpha(@bg1, 0.9);
   color: @fg0;
   background-color: @bg0;
@@ -54,17 +54,33 @@ button:checked {
   border: none;
 }
 
+.widget-buttons-grid * {
+  /* allow the buttons to be directly in contact with eachother */
+  /* the full selector is .widget-buttons-grid > flowbox > flowboxchild */
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 .widget-buttons-grid button.toggle {
   /* text color for inactive buttons, and "Clear All" button.*/
   /* padding defaults to 16px; tighten, so i can squish it all onto one row */
   padding-left: 0px;
   padding-right: 0px;
+  border-radius: 1px;
+  font-size: 1.2rem;
 }
 
 .widget-buttons-grid, .widget-backlight, .widget-volume {
   /* default padding is 8px: tighten */
   padding-top: 6px;
   padding-bottom: 6px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.widget-buttons-grid {
+  /* extend the buttons nearly all the way to the edge */
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 /* hierarchy is .horizontal > {label, scale > contents > trough > { slider, highlight } } */

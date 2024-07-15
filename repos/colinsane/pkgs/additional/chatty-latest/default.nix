@@ -45,7 +45,7 @@ chatty.overrideAttrs (upstream: rec {
 
   postPatch = (upstream.postPatch or "") + ''
     substituteInPlace build-aux/meson/postinstall.py \
-      --replace 'gtk-update-icon-cache' 'gtk4-update-icon-cache'
+      --replace-fail 'gtk-update-icon-cache' 'gtk4-update-icon-cache'
   '';
 
   nativeBuildInputs = [

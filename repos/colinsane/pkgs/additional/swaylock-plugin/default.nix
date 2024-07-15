@@ -1,7 +1,7 @@
 # STATUS:
 # - can't find any virtual keyboard it works with
 # - run with `swaylock-plugin --command='/nix/store/my-virtual-keyboard-.../bin/vkbd'`
-#   - if it crashes, launch `sane-open-desktop swaylock.desktop` from another TTY
+#   - if it crashes, launch `sane-open swaylock.desktop` from another TTY
 #   - `cd /etc/pam.d; sudo cp swaylock swaylock-plugin`
 { lib, stdenv
 , cairo

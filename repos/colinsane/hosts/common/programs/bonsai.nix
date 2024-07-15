@@ -103,19 +103,37 @@ in
       };
     };
 
-    fs.".config/bonsai/bonsai_tree.json".symlink.text = builtins.toJSON cfg.config.transitions;
+    packageUnwrapped = pkgs.bonsai.overrideAttrs (upstream: {
+      # patch to place the socket in a subdirectory where it can be sandboxed
+      postPatch = (upstream.postPatch or "") + ''
+        substituteInPlace cmd/{bonsaictl,bonsaid}/main.ha \
+          --replace-fail 'path::set(&buf, statedir, "bonsai")' 'path::set(&buf, statedir, "bonsai/bonsai")'
+      '';
+    });
+
+    fs.".config/bonsai/bonsai_tree.json".symlink.target = pkgs.writers.writeJSON "bonsai_tree.json" cfg.config.transitions;
 
     sandbox.method = "bwrap";
     sandbox.extraRuntimePaths = [
-      "/"  #< just needs "bonsai", but needs to create it first...
+      "bonsai"
     ];
 
     services.bonsaid = {
       description = "bonsai: programmable input dispatcher";
+      dependencyOf = [ "sway" ];  # to ensure `$XDG_RUNTIME_DIR/bonsai` exists before sway binds it
       partOf = [ "graphical-session" ];
       # nice -n -11 chosen arbitrarily. i hope this will allow for faster response to inputs, but without audio underruns (pipewire is -21, dino -15-ish)
-      command = "nice -n -11 bonsaid -t $HOME/.config/bonsai/bonsai_tree.json";
-      cleanupCommand = "rm -f $XDG_RUNTIME_DIR/bonsai";
+      command = pkgs.writeShellScript "bonsai-start" ''
+        # TODO: don't create the sway directory here!
+        # i do it for now because sway and bonsai call into eachother; circular dependency:
+        # - sway -> bonsai -> sane-input-handler -> swaymsg
+        mkdir -p $XDG_RUNTIME_DIR/{bonsai,sway}
+        exec nice -n -11 bonsaid -t $HOME/.config/bonsai/bonsai_tree.json
+      '';
+      cleanupCommand = "rm -f $XDG_RUNTIME_DIR/bonsai/bonsai";
+      readiness.waitExists = [
+        "$XDG_RUNTIME_DIR/bonsai/bonsai"
+      ];
     };
   };
 }

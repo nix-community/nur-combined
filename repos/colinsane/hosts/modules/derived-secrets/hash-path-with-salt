@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash
+#!nix-shell -i bash -p bash
 file="$1"
 enc="$2"
 nibbles="$3"

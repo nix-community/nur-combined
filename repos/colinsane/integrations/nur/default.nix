@@ -1,5 +1,7 @@
 # Nix User Repository (NUR)
 # - <https://github.com/nix-community/NUR>
+# this file, as viewed by NUR consumers:
+# - <https://nur.nix-community.org/repos/colinsane/>
 #
 # this file is not reachable from the top-level of my nixos configs (i.e. toplevel flake.nix)
 # nor is it intended for anyone who wants to reference my config directly
@@ -29,7 +31,21 @@
 
 { pkgs ? import <nixpkgs> {} }:
 let
-  sanePkgs = import ../../pkgs { inherit pkgs; };
+  sanePkgs = builtins.removeAttrs (import ../../pkgs { inherit pkgs; }).sane [
+    # XXX(2024-07-14): these packages fail NUR check, due to weird Import-From-Derivation things (bugs?).
+    # see: <https://github.com/NixOS/nix/issues/9052>
+    "linux-exynos5-mainline"
+    "linux-megous"
+    "linux-postmarketos-allwinner"
+    "linux-postmarketos-exynos5"
+    "mobile-nixos"
+    "nixpkgs"
+    "nixpkgs-staging"
+    "nixpkgs-next"
+    "nixpkgs-wayland"
+    "sops-nix"
+    "uninsane-dot-org"
+  ];
 in
 ({
   overlays.pkgs = import ../../overlays/pkgs.nix;

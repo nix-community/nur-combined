@@ -6,7 +6,7 @@
 
 stdenv.mkDerivation {
   pname = "ctrl-shift-c-should-copy";
-  version = "unstable-2023-03-03";
+  version = "0-unstable-2023-03-03";
 
   src = fetchFromGitHub {
     owner = "jscher2000";

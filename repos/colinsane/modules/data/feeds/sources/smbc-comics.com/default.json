@@ -1,9 +1,9 @@
 {
   "description": "Latest Saturday Morning Breakfast Cereal comics and news",
   "is_podcast": false,
-  "site_name": "Saturday Morning Breakfast Cereal - Got You",
+  "site_name": "Saturday Morning Breakfast Cereal - Dave",
   "site_url": "https://www.smbc-comics.com",
   "title": "Saturday Morning Breakfast Cereal",
   "url": "https://www.smbc-comics.com/comic/rss",
-  "velocity": 1.172
+  "velocity": 0.999
 }

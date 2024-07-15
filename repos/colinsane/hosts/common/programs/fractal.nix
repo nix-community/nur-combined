@@ -24,8 +24,7 @@ in
 {
   sane.programs.fractal = {
     packageUnwrapped = pkgs.fractal-nixified.optimized;
-    # packageUnwrapped = pkgs.fractal-latest;
-    # packageUnwrapped = pkgs.fractal-next;
+    # packageUnwrapped = pkgs.fractal;
 
     sandbox.method = "bwrap";
     sandbox.net = "clearnet";

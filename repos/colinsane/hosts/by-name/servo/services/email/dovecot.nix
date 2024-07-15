@@ -8,14 +8,14 @@
 {
   sane.ports.ports."143" = {
     protocol = [ "tcp" ];
+    visibleTo.doof = true;
     visibleTo.lan = true;
-    visibleTo.wan = true;
     description = "colin-imap-imap.uninsane.org";
   };
   sane.ports.ports."993" = {
     protocol = [ "tcp" ];
+    visibleTo.doof = true;
     visibleTo.lan = true;
-    visibleTo.wan = true;
     description = "colin-imaps-imap.uninsane.org";
   };
 

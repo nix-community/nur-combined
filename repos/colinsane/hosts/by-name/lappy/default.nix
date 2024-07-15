@@ -9,16 +9,16 @@
   sane.roles.pc = true;
   sane.services.wg-home.enable = true;
   sane.services.wg-home.ip = config.sane.hosts.by-name."lappy".wg-home.ip;
+  sane.ovpn.addrV4 = "172.23.119.72";
+  # sane.ovpn.addrV6 = "fd00:0000:1337:cafe:1111:1111:0332:aa96/128";
 
   # sane.guest.enable = true;
-  boot.loader.efi.canTouchEfiVariables = false;
   sane.image.extraBootFiles = [ pkgs.bootpart-uefi-x86_64 ];
 
-  sane.programs.cups.enableFor.user.colin = true;
   sane.programs.stepmania.enableFor.user.colin = true;
   sane.programs.sway.enableFor.user.colin = true;
 
-  sane.programs."gnome.geary".config.autostart = true;
+  sane.programs.geary.config.autostart = true;
   sane.programs.signal-desktop.config.autostart = true;
 
   sops.secrets.colin-passwd.neededForUsers = true;
@@ -33,7 +33,4 @@
     SUBVOLUME = "/nix";
     ALLOW_USERS = [ "colin" ];
   };
-
-  # docs: https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion
-  system.stateVersion = "21.05";
 }

@@ -5,6 +5,7 @@
       # unar doesn't cross compile well, so disable support for it
       unar = null;
     };
+    buildCost = 1;
 
     sandbox.method = "bwrap";
     sandbox.whitelistWayland = true;

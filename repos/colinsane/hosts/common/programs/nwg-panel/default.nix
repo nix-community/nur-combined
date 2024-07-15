@@ -1,0 +1,220 @@
+# nwg-panel: a wayland status bar (like waybar, etc)
+# documentation is in the GitHub Wiki:
+# - <https://github.com/nwg-piotr/nwg-panel/wiki/Configuration>
+#
+# interactively configure with: `nwg-panel-config`
+# ^ note that this may interfere with the `nwg-panel` service
+{ config, lib, pkgs, ... }:
+let
+  cfg = config.sane.programs.nwg-panel;
+  mkEnableOption' = default: description: lib.mkOption {
+    type = lib.types.bool;
+    inherit default description;
+  };
+in
+{
+  sane.programs.torch-toggle = {
+    packageUnwrapped = pkgs.static-nix-shell.mkBash {
+      pname = "torch-toggle";
+      pkgs = [ "brightnessctl" ];
+      srcRoot = ./.;
+    };
+
+    suggestedPrograms = [
+      "brightnessctl"
+    ];
+    sandbox.enable = false;  # trivial, and all deps are sandboxed
+  };
+
+  sane.programs.nwg-panel = {
+    configOption = with lib; mkOption {
+      default = {};
+      type = types.submodule {
+        options = {
+          clockFontSize = mkOption {
+            type = types.int;
+            # what looks good:
+            # - 15px on moby
+            # - 24px on lappy
+            # there's about 10px padding total around this (above + below)
+            default = lib.min 24 (cfg.config.height - 11);
+          };
+          fontSize = mkOption {
+            type = types.int;
+            default = 16;
+          };
+          height = mkOption {
+            type = types.int;
+            default = 40;
+            description = ''
+              height of the top bar in px.
+            '';
+          };
+          locker = mkOption {
+            type = types.str;
+            default = config.sane.programs.swayidle.config.actions.lock.service;
+            description = ''
+              s6 service to start which can lock the screen
+            '';
+          };
+          torch = mkOption {
+            type = types.nullOr types.str;
+            default = null;
+            description = ''
+              device name for the torch (flashlight), if any.
+              find with `brightnessctl -l`
+            '';
+            example = "white:flash";
+          };
+          battery = mkEnableOption' true "display battery status";
+          brightness = mkEnableOption' true "display backlight level and slider";
+          mediaTitle = mkEnableOption' true "display title of current song/media";
+          mediaPrevNext = mkEnableOption' true "display prev/next button in media";
+          sysload = mkEnableOption' true "display system load info (cpu/memory)";
+          windowIcon = mkEnableOption' true "display icon of active window";
+          windowTitle = mkEnableOption' true "display title of active window";
+          workspaceNumbers = mkOption {
+            type = types.listOf types.str;
+            default = [
+              # TODO: workspace 10 should be rendered as "TV"
+              "1" "2" "3" "4" "5" "6" "7" "8" "9" "10"
+            ];
+            description = ''
+              workspaces to monitor
+            '';
+          };
+          workspaceHideEmpty = mkOption {
+            type = types.bool;
+            default = true;
+          };
+        };
+      };
+    };
+
+    packageUnwrapped = (pkgs.nwg-panel.override {
+      # XXX(2024/06/13): hyprland does not cross compile
+      hyprland = null;
+      # XXX(2024/06/13): wlr-randr does not cross compile
+      wlr-randr = null;  #< only used if not on sway/hyprland; or if using dwl
+      python3Packages = pkgs.python3Packages // {
+        dasbus = pkgs.python3Packages.dasbus.overridePythonAttrs (_: {
+          # XXX(2024/07/07): python3.12 update broke tests
+          doCheck = false;
+        });
+      };
+    }).overrideAttrs (base: {
+      # patches = (base.patches or []) ++ lib.optionals (!cfg.config.mediaPrevNext) [
+      #   ./playerctl-no-prev-next.diff
+      # ];
+      patches = (base.patches or []) ++ [
+        (pkgs.fetchpatch {
+          # upstreaming: <https://github.com/nwg-piotr/nwg-panel/pull/309>
+          url = "https://git.uninsane.org/colin/nwg-panel/commit/a714e4100c409feb02c454874d030d192bfb0ae5.patch";
+          name = "playerctl: add settings to control which elements are displayed";
+          hash = "sha256-OofS46wAI3EDE3JbYs/Nn+Vkw9TP1mwSFvk+vBERg2s=";
+        })
+      ];
+
+      # - disable the drop-down chevron by the controls.
+      #   it's precious space on moby, doesn't do much to help on lappy either.
+      # - disable brightness indicator for same reason.
+      # - *leave* the volume indicator: one *could* remove it, however on desko that would leave the controls pane empty
+      #   making the dropdown inaccessible
+      # also, remove padding from the items. i can manage that in css and the python padding prevents that.
+      postPatch = (base.postPatch or "") + ''
+        substituteInPlace nwg_panel/modules/controls.py --replace-fail \
+          'self.box.pack_start(box, False, False, 6)' \
+          'self.box.pack_start(box, False, False, 0)'
+
+        substituteInPlace nwg_panel/modules/controls.py --replace-fail \
+          'box.pack_start(self.pan_image, False, False, 4)' \
+          '# box.pack_start(self.pan_image, False, False, 0)'
+        substituteInPlace nwg_panel/modules/controls.py --replace-fail \
+          'box.pack_start(self.bri_image, False, False, 4)' \
+          '# box.pack_start(self.bri_image, False, False, 0)'
+
+        substituteInPlace nwg_panel/modules/controls.py --replace-fail \
+          'box.pack_start(self.vol_image, False, False, 4)' \
+          'box.pack_start(self.vol_image, False, False, 0)'
+      '';
+
+      # XXX(2024/06/13) the bluetooth stuff doesn't cross compile, so disable it
+      propagatedBuildInputs = lib.filter (p: p.pname != "pybluez") base.propagatedBuildInputs;
+
+      strictDeps = true;
+    });
+
+    suggestedPrograms = [
+      "brightnessctl"
+      "pactl"  # pactl required by `per-app-volume` component.
+    ] ++ lib.optionals (cfg.config.torch != null) [
+      "torch-toggle"
+    ];
+
+    fs.".config/nwg-panel/style.css".symlink.target = pkgs.substituteAll {
+      src = ./style.css;
+      inherit (cfg.config) fontSize clockFontSize;
+    };
+    fs.".config/nwg-panel/common-settings.json".symlink.target = ./common-settings.json;
+    fs.".config/nwg-panel/config".symlink.target = pkgs.writers.writeJSON "config" (import ./config.nix {
+      inherit (cfg.config) locker height mediaPrevNext windowIcon windowTitle workspaceHideEmpty workspaceNumbers;
+      # component order matters, mostly for the drop-down.
+      # default for most tools (e.g. swaync) is brightness control above volume.
+      controlsSettingsComponents =
+        lib.optionals cfg.config.brightness [
+          "brightness"
+        ] ++ [
+          "volume"
+          "per-app-volume"
+        ] ++ lib.optionals cfg.config.battery [
+          "battery"
+        ]
+      ;
+      controlsSettingsCustomItems = lib.optionals (cfg.config.torch != null) [
+        {
+          name = "Torch";
+          # icons: find them in /etc/profiles/per-user/colin/share/icons
+          # display-brightness-symbolic, keyboard-brightness-symbolic, night-light-symbolic
+          icon = "display-brightness-symbolic";
+          cmd = "torch-toggle ${cfg.config.torch}";
+        }
+      ];
+      modulesRight = [
+        "playerctl"
+      ] ++ lib.optionals cfg.config.sysload [
+        "executor-sysload"
+      ];
+      playerctlChars = if cfg.config.mediaTitle then 60 else 0;
+    });
+
+    sandbox.method = "bwrap";
+    sandbox.whitelistAudio = true;
+    sandbox.whitelistDri = true;
+    sandbox.whitelistS6 = true;
+    sandbox.whitelistWayland = true;
+    sandbox.whitelistDbus = [
+      "user"  # playerctl, swaync, ...
+      "system"  # for "shutdown" option to speak to systemd
+    ];
+    sandbox.extraPaths = [
+      "/run/systemd"  #< for "shutdown" option
+      "/sys/class/backlight"
+      "/sys/class/leds"  #< for torch/flashlight on moby
+      "/sys/class/power_supply"  #< for the battery indicator
+      "/sys/devices"
+    ];
+    sandbox.extraRuntimePaths = [ "sway" ];
+    sandbox.isolatePids = false;  #< nwg-panel restarts itself on display dis/connect, by killing all other instances.
+
+    services.nwg-panel = {
+      description = "nwg-panel status/topbar for wayland";
+      partOf = [ "graphical-session" ];
+
+      # to debug styling, run with GTK_DEBUG=interactive
+      # N.B.: G_MESSAGES_DEBUG=all causes the swaync icon to not render
+      # command = "env G_MESSAGES_DEBUG=all nwg-panel";
+      # XXX: try `nwg-panel & ; kill $$`. the inner nwg-panel doesn't die (without sane-die-with-parent), and hence the service would be prone to maintaining _multiple_ bars.
+      command = "nwg-panel";
+    };
+  };
+}

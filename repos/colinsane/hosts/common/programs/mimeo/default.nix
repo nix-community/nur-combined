@@ -5,7 +5,7 @@
 # alternative to mimeo is jaro: <https://github.com/isamert/jaro>
 { config, lib, pkgs, ... }:
 let
-  mimeo-open-desktop = pkgs.static-nix-shell.mkPython3Bin {
+  mimeo-open-desktop = pkgs.static-nix-shell.mkPython3 {
     pname = "mimeo-open-desktop";
     srcRoot = ./.;
     pkgs = [ "mimeo" ];
@@ -57,6 +57,7 @@ in
           desktopName = "Mimeo";
           exec = "mimeo %U";
           comment = "Open files by MIME-type or file name using regular expressions.";
+          noDisplay = true;
         })
       ];
 

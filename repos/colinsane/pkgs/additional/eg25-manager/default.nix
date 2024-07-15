@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace 'udev/80-modem-eg25.rules' \
-      --replace '/bin/grep' '${gnugrep}/bin/grep'
+      --replace-fail '/bin/grep' '${gnugrep}/bin/grep'
   '';
 
   depsBuildBuild = [

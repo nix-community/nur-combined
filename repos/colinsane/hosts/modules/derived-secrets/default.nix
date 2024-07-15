@@ -25,6 +25,14 @@ let
         type = types.str;
         default = "0600";
       };
+      acl.user = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+      };
+      acl.group = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+      };
     };
   };
 in
@@ -51,6 +59,9 @@ in
         (builtins.toString (c.len * 2))
       ];
       generated.acl.mode = c.acl.mode;
+      generated.acl.user = lib.mkIf (c.acl.user != null) c.acl.user;
+      generated.acl.group = lib.mkIf (c.acl.group != null) c.acl.group;
+      wantedBeforeBy = [ "local-fs-pre.target" ];
     }) cfg;
   };
 }

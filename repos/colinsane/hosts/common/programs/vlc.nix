@@ -16,7 +16,7 @@ in
     };
     sandbox.method = "bwrap";
     sandbox.net = "clearnet";
-    sandbox.autodetectCliPaths = true;
+    sandbox.autodetectCliPaths = "existing";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  # mpris
     sandbox.whitelistWayland = true;

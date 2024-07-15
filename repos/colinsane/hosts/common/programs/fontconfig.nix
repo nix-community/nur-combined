@@ -16,13 +16,11 @@ let
   # - 󰍦 (message bubble)
   # - 󰏲 (phone)
   # -  (weather/sun-behind-clouds)
-  # used particularly by sxmo utilities, but also a few of my own (e.g. conky)
+  # i use these icons mostly in conky, swaync.
   #
   # nerdfonts is very heavy. each font is 20-900 MiB (2 MiB per "variation")
   # lots of redundant data inside there, but no deduplication except whatever nix or the fs does implicitly.
   wantedNerdfonts = [
-    # used explicitly by SXMO
-    # "DejaVuSansMono"  # 25 MiB
     # good terminal/coding font. grab via nerdfonts for more emoji/unicode support
     "Hack"  # 26 MiB
     "Noto"  # 861 MiB

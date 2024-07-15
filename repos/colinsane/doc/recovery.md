@@ -1,0 +1,12 @@
+## deploying to SD card
+- build a toplevel config: `nix build '.#hostSystems.moby'`
+- mount a system:
+  - `mkdir -p root/{nix,boot}`
+  - `mount /dev/sdX1 root/boot`
+  - `mount /dev/sdX2 root/nix`
+- copy the config:
+  - `sudo nix copy --no-check-sigs --to root/ $(readlink result)`
+    - nix will copy stuff to `root/nix/store`
+- install the boot files:
+  - `sudo /nix/store/sbwpwngjlgw4f736ay9hgi69pj3fdwk5-extlinux-conf-builder.sh -d ./root/boot -t 5 -c $(readlink ./result)`
+    - extlinux-conf-builder can be found in `/run/current-system/bin/switch-to-configuration`

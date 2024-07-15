@@ -50,29 +50,13 @@ in
       };
     };
 
-    packageUnwrapped = (pkgs.dino.override {
+    packageUnwrapped = pkgs.dino.override {
       # XXX(2024/04/24): build without echo cancelation (i.e. force WITH_VOICE_PROCESSOR to be undefined).
       # this means that if the other end of the call is on speaker phone, i'm liable to hear my own voice
       # leave their speaker, enter their mic, and then return to me.
       # the benefit is a >50% reduction in CPU use. insignificant on any modern PC; make-or-break on a low-power Pinephone.
       webrtc-audio-processing = null;
-    }).overrideAttrs (upstream: {
-      # i'm updating experimentally to see if it improves call performance.
-      # i don't *think* this is actually necessary; i don't notice any difference.
-      version = "0.4.3-unstable-2024-04-01";
-      src = lib.warnIf (lib.versionOlder "0.4.3" upstream.version) "dino update: safe to remove sane patches" pkgs.fetchFromGitHub {
-        owner = "dino";
-        repo = "dino";
-        rev = "d9fa4daa6a7d16f5f0e2183a77ee2d07849dd9f3";
-        hash = "sha256-vJBIMsMLlK8Aw19fD2aFNtegXkjOqEgb3m1hi3fE5DE=";
-      };
-      checkPhase = ''
-        runHook preCheck
-        ./xmpp-vala-test
-        # ./signal-protocol-vala-test  # doesn't exist anymore
-        runHook postCheck
-      '';
-    });
+    };
 
     sandbox.method = "bwrap";
     sandbox.net = "clearnet";

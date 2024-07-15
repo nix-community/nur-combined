@@ -57,10 +57,8 @@ let
         domain = "gitlab.gnome.org";
         owner = "GNOME";
         repo = "fractal";
-        # rev = "6";
-        # hash = "sha256-J4Jb7G5Rfou3N7mytetIdLl0dGY5dSvTjnu8aj4kWXQ=";
-        rev = "8489c25e4b2433642e63fe263fc0145a96e0b9aa";  # 6-unstable-2024-01-31; last commit before libadwaita 1.5
-        hash = "sha256-SZjVQz3gHAJoxhjfq0N7UHs/0MVx8de4FVGxQ5ZJ7sg=";
+        rev = "7";
+        hash = "sha256-IfcThpsGATMD3Uj9tvw/aK7IVbiVT8sdZ088gRUqnlg=";
       };
       codegenUnits = 256;  #< this does get plumbed, but doesn't seem to affect build speed
       outputs = [ "out" ];  # default is "out" and "lib", but that somehow causes cycles
@@ -177,6 +175,10 @@ let
     };
 
     # TODO: upstream these into `pkgs/build-support/rust/default-crate-overrides.nix`
+    # figuring this out is largely guesswork based on seeing build failures and then cloning the
+    # crate and checking its build script. however, grepping the failed crate in nixpkgs can reveal
+    # users, and then see which other buildInputs consumers typically provide near these libraries.
+    # see also: <repo:nixos/nixpkgs:pkgs/build-support/rust/default-crate-overrides.nix>
 
     clang-sys = attrs: attrs // {
       LIBCLANG_PATH = "${buildPackages.llvmPackages.libclang.lib}/lib";
@@ -268,35 +270,6 @@ let
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ pipewire ];
     };
-    matrix-sdk-crypto = attrs: attrs // {
-      # src = fetchFromGitHub {
-      #   owner = "matrix-org";
-      #   repo = "matrix-rust-sdk";
-      #   # rev = "matrix-sdk-crypto-0.6.0";  # 2022-09-28. "use of undeclared crate or module `event_listener`"
-      #   # hash = "sha256-ozWzXrT+8U2BoJ/KDsRK+RIYpZTleXOw9U+KylRrnnE=";
-      #   # rev = "ceeb5e78b6de782726c50c973a8dbbd46f9b2904";  # main
-      #   # hash = "sha256-nq0pd/q8T92t7HKV+NzZwleeFWz6tAh9wuuDcf1y+Y8=";
-      #   # rev = "894f4c218dba51f39c5393e624bbc763f0ff97cb"; # 2023-11-20
-      #   # hash = "sha256-v1i0fm3E4a/tU+xLjs5qVVOJk696l+OMdDJ0P95XBhM=";
-      #   # rev = "8895ce40d13faa79012144c97044990284215758"; # 2023-11-07; tagged by fractal
-      #   rev = "4643bae28445e058080896a280083b32fd403146";  # old pin. "use of undeclared crate or module `base64`"
-      #   hash = "sha256-A1oKNbEx2A6WwvYcNSW53Fd6QWwr0QFJtrsJXO2KInE=";
-      # };
-      # src = pkgs.fetchgit {
-      #   url = "https://github.com/matrix-org/matrix-rust-sdk.git";
-      #   rev = "4643bae28445e058080896a280083b32fd403146";  # old pin. "use of undeclared crate or module `base64`"
-      #   hash = "sha256-A1oKNbEx2A6WwvYcNSW53Fd6QWwr0QFJtrsJXO2KInE=";
-      # };
-
-      # features = attrs.features ++ [ "ruma-common" ];
-      # buildInputs = [ cargoNix.workspaceMembers.ruma-common.build ];
-      # buildInputs = [
-      #   (cargoNix.internal.buildRustCrateWithFeatures {
-      #     packageId = "ruma-common";
-      #     features = [ "default" ];
-      #   })
-      # ];
-    };
     pipewire-sys = attrs: attrs // {
       nativeBuildInputs = [ pkg-config rustPlatform.bindgenHook ];
       buildInputs = [ pipewire ];
@@ -307,6 +280,11 @@ let
       #   export BINDGEN_EXTRA_CLANG_ARGS="$(< ${clang}/nix-support/cc-cflags) $(< ${clang}/nix-support/libc-cflags) $(< ${clang}/nix-support/libcxx-cxxflags) $NIX_CFLAGS_COMPILE"
       # '';
       # LIBCLANG_PATH = "${buildPackages.llvmPackages.libclang.lib}/lib";
+    };
+    rav1e = attrs: attrs // {
+      # TODO: `rav1e` is actually packaged in nixpkgs as a library:
+      #   is there any way i can reuse that?
+      CARGO_ENCODED_RUSTFLAGS = "";
     };
     ring = attrs: attrs // {
       # if after an update you see:
@@ -326,6 +304,10 @@ let
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ gtksourceview5 ];
     };
+    zune-jpeg = attrs: attrs // {
+      # it wants `type = [ "cdylib" "rlib" ]` but that causes a link format failure on cross compilation
+      type = [ "rlib" ];
+    };
   };
 
   defaultCrateOverrides' = defaultCrateOverrides // (lib.mapAttrs (crate: fn:
@@ -336,6 +318,11 @@ let
   crate2NixOverrides = crates: crates // {
     # crate2nix sometimes "misses" dependencies, or gets them wrong in a way that crateOverrides can't patch.
     # this function lets me patch over Cargo.nix without actually modifying it by hand.
+    ashpd = crates.ashpd // {
+      # specifically, it needs zvariant; providing that through zbus is a convenient way to also
+      # coerce the feature flags so as to reduce rebuilds
+      dependencies = crates.ashpd.dependencies ++ crates.zbus.dependencies;
+    };
     matrix-sdk = crates.matrix-sdk // {
       dependencies = crates.matrix-sdk.dependencies ++ [
         {
@@ -359,6 +346,15 @@ let
           packageId = "ruma-common";
         }
       ];
+    };
+    matrix-sdk-ui = crates.matrix-sdk-ui // {
+      dependencies = lib.forEach crates.matrix-sdk-ui.dependencies (d:
+        if d.name == "matrix-sdk" then d // {
+          # XXX(2024/06/04): experimental-oidc feature drags in p384, which fails armv7l cross
+          features = lib.remove "experimental-oidc" d.features;
+        } else
+          d
+      );
     };
   };
 

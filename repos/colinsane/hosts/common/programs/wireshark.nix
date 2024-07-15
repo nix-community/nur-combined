@@ -5,6 +5,7 @@ in
 {
   sane.programs.wireshark = {
     sandbox.method = "landlock";
+    sandbox.autodetectCliPaths = "existingFile";  #< for loading pcap files on CLI
     sandbox.whitelistWayland = true;
     sandbox.net = "all";
     sandbox.capabilities = [ "net_admin" "net_raw" ];
@@ -13,6 +14,6 @@ in
     ];
 
     fs.".config/wireshark".dir = {};
-    buildCost = 1;
+    buildCost = 2;
   };
 }

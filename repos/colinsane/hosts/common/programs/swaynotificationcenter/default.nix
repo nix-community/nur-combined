@@ -10,10 +10,16 @@
 # configuration:
 # - defaults: /run/current-system/etc/profiles/per-user/colin/etc/xdg/swaync/
 # - `man 5 swaync`
-# - view document tree: `GTK_DEBUG=interactive swaync`  (`systemctl stop --user swaync` first)
+# - view document tree: `GTK_DEBUG=interactive swaync`  (`s6 stop swaync` first)
 # - examples:
 #   - thread: <https://github.com/ErikReider/SwayNotificationCenter/discussions/183>
 #   - buttons-grid and menubar: <https://gist.github.com/JannisPetschenka/fb00eec3efea9c7fff8c38a01ce5d507>
+#
+# limitations:
+# - brightness slider always reports correct value, but can only *change* the brightness under systemd logind.
+#   - <repo:ErikReider/SwayNotificationCenter:src/controlCenter/widgets/backlight/backlightUtil.vala>
+#   - could be made to work, by writing to /sys/class/backlight/... (the file it reads)
+#
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.swaynotificationcenter;
@@ -28,9 +34,11 @@ in
       pkgs = [
         "s6"
         "s6-rc"
-        "systemd"
       ];
     };
+    sandbox.method = "bwrap";
+    sandbox.whitelistS6 = true;
+    sandbox.isolatePids = false;  #< XXX: not sure why, but swaync segfaults under load without this!
   };
 
   sane.programs.swaync-fbcli = {
@@ -44,6 +52,9 @@ in
         "util-linux"
       ];
     };
+    sandbox.method = "bwrap";
+    sandbox.whitelistDbus = [ "user" ];
+    sandbox.isolatePids = false;  # `swaync-fbcli stop` needs to be able to find the corresponding `swaync-fbcli start` process
   };
 
   sane.programs.swaynotificationcenter = {
@@ -57,12 +68,14 @@ in
               name of entry in /sys/class/backlight which indicates the primary backlight.
             '';
           };
+          enableBacklight = mkEnableOption "include a backlight slider in the swaync dropdown (requires an active session with systemd-logind)";
+          enableMpris = (mkEnableOption "show the currently playing media in the swaync dropdown, and navigation buttons") // { default = true; };
         };
       };
       default = {};
     };
 
-    # prevent dbus from automatically activating swaync so i can manage it as a systemd service instead
+    # prevent dbus from automatically activating swaync so i can manage it as a service instead
     packageUnwrapped = pkgs.rmDbusServices (pkgs.swaynotificationcenter.overrideAttrs (upstream: {
       version = "0.10.1-unstable-2024-04-16";
       # toggling the panel on 0.10.1 sometimes causes toggle-buttons to toggle.
@@ -74,6 +87,14 @@ in
         rev = "8cb9be59708bb051616d7e14d9fa0b87b86985af";
         hash = "sha256-UAegyzqutGulp6H7KplEfwHV0MfFfOHgYNNu+AQHx3g=";
       };
+
+      postPatch = (upstream.postPatch or "") + ''
+        # Gtk3 by default won't pack more than 7 items into one row of a FlowBox.
+        # but i want tighter control over my icon placement than that:
+        substituteInPlace src/controlCenter/widgets/buttonsGrid/buttonsGrid.vala --replace-fail \
+          'container.set_selection_mode' \
+          'container.max_children_per_line = 8; container.set_selection_mode'
+        '';
     }));
 
     suggestedPrograms = [
@@ -94,23 +115,6 @@ in
       "/sys/class/backlight"
       "/sys/devices"
     ];
-    sandbox.extraRuntimePaths = [
-      # systemd/private allows one to `systemctl --user {status,start,stop,...}`
-      # notably, it does *not* allow for `systemd-run` (that's dbus: org.freedesktop.systemd1.Manager.StartTransientUnit).
-      # that doesn't necessarily mean this is entirely safe against privilege escalation though.
-      # TODO: audit the safety of this systemd sandboxing.
-      # few alternatives:
-      # - superd
-      # - simply `xdg-open app://dino`, etc. `pkill` to stop, `pgrep` to query.
-      # - more robust: `xdg-open sane-service://start?service=dino`
-      #   - still need `pgrep` to query if it's running, or have the service mark a pid file
-      # - dbus activation for each app
-      "systemd/private"
-    ];
-    sandbox.extraConfig = [
-      # systemctl calls seem to require same pid namespace
-      "--sane-sandbox-keep-namespace" "pid"
-    ];
 
     # glib/gio applications support many notification backends ("portal", "gtk", "freedesktop", ...).
     # swaync implements only the `org.freedesktop.Notifications` dbus interface ("freedesktop"/fdo).
@@ -121,27 +125,14 @@ in
     env.GNOTIFICATION_BACKEND = "freedesktop";
 
     fs.".config/swaync/style.css".symlink.target = ./style.css;
-    fs.".config/swaync/config.json".symlink.text = builtins.toJSON {
+    fs.".config/swaync/config.json".symlink.target = pkgs.writers.writeJSON "config.json" {
       "$schema" = "/etc/xdg/swaync/configSchema.json";
-      positionX = "right";
-      positionY = "top";
-      layer = "overlay";
+      control-center-height = 600;
       control-center-layer = "top";
-      layer-shell = true;
-      cssPriority = "user";  # "application"|"user". "user" in order to override the system gtk theme.
-      control-center-margin-top = 0;
       control-center-margin-bottom = 0;
-      control-center-margin-right = 0;
       control-center-margin-left = 0;
-      notification-2fa-action = true;
-      notification-inline-replies = false;
-      notification-icon-size = 64;
-      notification-body-image-height = 100;
-      notification-body-image-width = 200;
-      timeout = 30;
-      timeout-low = 5;
-      timeout-critical = 0;
-      fit-to-screen = true;  #< have notification center take full vertical screen space
+      control-center-margin-right = 0;
+      control-center-margin-top = 0;
       # control-center-width:
       # pinephone native display is 720 x 1440
       # - for compositor scale=2.0 => 360
@@ -149,14 +140,28 @@ in
       # - for compositor scale=1.6 => 450
       # if it's set to something wider than the screen, then it overflows and items aren't visible.
       control-center-width = 360;
-      control-center-height = 600;
-      notification-window-width = 360;
-      keyboard-shortcuts = true;
-      image-visibility = "when-available";
-      transition-time = 100;
-      hide-on-clear = true;  #< hide control center when clicking "clear all"
+      cssPriority = "user";  # "application"|"user". "user" in order to override the system gtk theme.
+      fit-to-screen = true;  #< have notification center take full vertical screen space
       hide-on-action = true;
+      hide-on-clear = true;  #< hide control center when clicking "clear all"
+      image-visibility = "when-available";
+      keyboard-shortcuts = true;
+      layer = "overlay";
+      layer-shell = true;
+      notification-2fa-action = true;
+      notification-body-image-height = 100;
+      notification-body-image-width = 200;
+      notification-icon-size = 64;
+      notification-inline-replies = false;
+      notification-window-width = 360;
+      positionX = "right";
+      positionY = "top";
       script-fail-notify = true;
+      timeout = 30;
+      timeout-critical = 0;
+      timeout-low = 5;
+      transition-time = 100;
+
       inherit scripts;
       widgets = [
         # what to show in the notification center (and in which order).
@@ -169,9 +174,13 @@ in
         "dnd"
         "inhibitors"
         "buttons-grid"
+      ] ++ lib.optionals cfg.config.enableBacklight [
         "backlight"
+      ] ++ [
         "volume"
+      ] ++ lib.optionals cfg.config.enableMpris [
         "mpris"
+      ] ++ [
         "notifications"
       ];
       widget-config = {
@@ -184,12 +193,12 @@ in
           lib.optionals config.sane.programs.eg25-control.enabled [
             buttons.gps
             buttons.cell-modem
-          ] ++ lib.optionals false [
-            buttons.vpn
           ] ++ lib.optionals config.sane.programs.calls.config.autostart [
             buttons.gnome-calls
-          ] ++ lib.optionals config.sane.programs."gnome.geary".enabled [
-            buttons.geary
+          ] ++ lib.optionals config.sane.programs.dino.enabled [
+            buttons.dino
+          ] ++ lib.optionals config.sane.programs.fractal.enabled [
+            buttons.fractal
           # ] ++ lib.optionals config.sane.programs.abaddon.enabled [
           #   # XXX: disabled in favor of dissent: abaddon has troubles auto-connecting at start
           #   buttons.abaddon
@@ -197,10 +206,8 @@ in
             buttons.dissent
           ] ++ lib.optionals config.sane.programs.signal-desktop.enabled [
             buttons.signal-desktop
-          ] ++ lib.optionals config.sane.programs.dino.enabled [
-            buttons.dino
-          ] ++ lib.optionals config.sane.programs.fractal.enabled [
-            buttons.fractal
+          ] ++ lib.optionals config.sane.programs.geary.enabled [
+            buttons.geary
           ];
         };
         dnd = {
@@ -235,7 +242,10 @@ in
       depends = [ "sound" ]; #< TODO: else it will NEVER see the pulse socket in its sandbox
       partOf = [ "graphical-session" ];
 
-      command = "env G_MESSAGES_DEBUG=all swaync";
+      # N.B.: G_MESSAGES_DEBUG=all breaks DND mode:
+      #       messages are still hidden, but are not silent!
+      # command = "env G_MESSAGES_DEBUG=all SWAYNC_DEBUG=1 swaync";
+      command = "swaync";
       readiness.waitDbus = "org.freedesktop.Notifications";
     };
   };

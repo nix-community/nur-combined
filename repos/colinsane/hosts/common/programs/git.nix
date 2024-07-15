@@ -40,6 +40,7 @@ in
       alias.amend   = "commit --amend --no-edit";
       alias.br      = "branch";
       alias.co      = "checkout";
+      alias.com     = "commit";
       alias.cp      = "cherry-pick";
       alias.d       = "difftool";
       alias.dif     = "diff";  # common typo

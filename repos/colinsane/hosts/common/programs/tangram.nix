@@ -27,7 +27,7 @@ in
       '' + (upstream.preFixup or "");
     });
 
-    buildCost = 1;
+    buildCost = 2;
 
     sandbox.method = "bwrap";
     sandbox.net = "clearnet";

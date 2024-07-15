@@ -1,6 +1,8 @@
 { ... }:
 {
   sane.programs.spot = {
+    buildCost = 1;
+
     sandbox.method = "bwrap";
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;

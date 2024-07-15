@@ -4,7 +4,7 @@
 , wirelesstools
 }:
 
-static-nix-shell.mkPython3Bin {
+static-nix-shell.mkPython3 {
   pname = "rtl8723cs-wowlan";
   srcRoot = ./.;
   pkgs = {

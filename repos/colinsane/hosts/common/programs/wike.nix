@@ -20,7 +20,7 @@
       "/sys/devices"
     ];
 
-    buildCost = 1;
+    buildCost = 2;
 
     # wike probably meant to put everything here in a subdir, but didn't.
     # see: <https://github.com/hugolabe/Wike/issues/176>

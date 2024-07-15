@@ -15,39 +15,33 @@ in
     };
 
     # upstream alsa ships with PinePhone audio configs, but they don't actually produce sound.
-    # see: <https://github.com/alsa-project/alsa-ucm-conf/pull/134>
-    # these audio files come from some revision of:
-    # - <https://gitlab.manjaro.org/manjaro-arm/packages/community/phosh/alsa-ucm-pinephone>
+    # - still true as of 2024-05-26
+    # - see: <https://github.com/alsa-project/alsa-ucm-conf/pull/134>
     #
-    # alternative to patching is to plumb `ALSA_CONFIG_UCM2 = "${./ucm2}"` environment variable into the relevant places
-    # e.g. `systemd.services.pulseaudio.environment`.
-    # that leaves more opportunity for gaps (i.e. missing a service),
-    # on the other hand this method causes about 500 packages to be rebuilt (including qt5 and webkitgtk).
+    # we can substitute working UCM conf in two ways:
+    # 1. nixpkgs' override for the `alsa-ucm-conf` package
+    #   - that forces a rebuild of ~500 packages (including webkitgtk).
+    # 2. set ALSA_CONFIG_UCM2 = /path/to/ucm2 in the relevant places
+    #   - e.g. pulsewire service.
+    #   - easy to miss places, though.
     #
-    # note that with these files, the following audio device support:
-    # - headphones work.
-    # - "internal earpiece" works.
-    # - "internal speaker" doesn't work (but that's probably because i broke the ribbon cable)
-    # - "analog output" doesn't work.
-    packageUnwrapped = pkgs.alsa-ucm-conf.overrideAttrs (upstream: {
-      postPatch = (upstream.postPatch or "") + ''
-        cp ${./ucm2/PinePhone}/* ucm2/Allwinner/A64/PinePhone/
+    # alsa-ucm-pinephone-manjaro (2024-05-26):
+    # - headphones work
+    # - "internal earpiece" works
+    # - "internal speaker" is silent (maybe hardware issue)
+    # - 3.5mm connection is flapping when playing to my car, which eventually breaks audio and requires restarting wireplumber
+    # packageUnwrapped = pkgs.alsa-ucm-pinephone-manjaro.override {
+    #   inherit (cfg.config) preferEarpiece;
+    # };
+    # alsa-ucm-pinephone-pmos (2024-05-26):
+    # - headphones work
+    # - "internal earpiece" works
+    # - "internal speaker" is silent (maybe hardware issue)
+    packageUnwrapped = pkgs.alsa-ucm-pinephone-pmos.override {
+      inherit (cfg.config) preferEarpiece;
+    };
 
-        # fix the self-contained ucm files i source from to have correct path within the alsa-ucm-conf source tree
-        substituteInPlace ucm2/Allwinner/A64/PinePhone/PinePhone.conf \
-          --replace-fail 'HiFi.conf' '/Allwinner/A64/PinePhone/HiFi.conf'
-        substituteInPlace ucm2/Allwinner/A64/PinePhone/PinePhone.conf \
-          --replace-fail 'VoiceCall.conf' '/Allwinner/A64/PinePhone/VoiceCall.conf'
-      '' + lib.optionalString cfg.config.preferEarpiece ''
-        # decrease the priority of the internal speaker so that sounds are routed
-        # to the earpiece by default.
-        # this is just personal preference.
-        substituteInPlace ucm2/Allwinner/A64/PinePhone/{HiFi.conf,VoiceCall.conf} \
-          --replace-fail 'PlaybackPriority 300' 'PlaybackPriority 100'
-      '';
-    });
-
-    sandbox.enable = false;  #< only provides #out/share/alsa
+    sandbox.enable = false;  #< only provides $out/share/alsa
 
     # alsa-lib package only looks in its $out/share/alsa to find runtime config data, by default.
     # but ALSA_CONFIG_UCM2 is an env var that can override that.

@@ -1,0 +1,9 @@
+{
+  "description": "The podcast by the Linux Mint community for all users of Linux.",
+  "is_podcast": true,
+  "site_name": "mintCast",
+  "site_url": "https://mintcast.org",
+  "title": "mintCast",
+  "url": "https://mintcast.org/feed/podcast/",
+  "velocity": 0.121
+}

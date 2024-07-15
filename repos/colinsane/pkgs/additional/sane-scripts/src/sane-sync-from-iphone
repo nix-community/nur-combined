@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i zsh -p coreutils-full -p ifuse -p rsync
+#!nix-shell -i zsh -p coreutils-full -p ifuse -p rsync -p zsh
 # this really does need zsh because bash `test -e` behaves differently
 set -ex
 

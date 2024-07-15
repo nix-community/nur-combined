@@ -1,0 +1,30 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p bash -p rsync -p sane-scripts.sync-music
+
+usage() {
+  echo "sync <host> [passthrough flags]"
+  exit 1
+}
+
+host="$1"
+shift
+
+case "$host" in
+  desko)
+    test -d /mnt/servo/media/Music/Various.Artists && sane-sync-music --compat /mnt/servo/media/Music /mnt/desko/home/Music "$@"
+    ;;
+  lappy)
+    test -d /mnt/servo/media/Music/Various.Artists && sane-sync-music --compress --compat /mnt/servo/media/Music /mnt/lappy/home/Music "$@"
+    ;;
+  moby)
+    # copy photos/screenshots from moby to desko:
+    rsync -arv --exclude servo-macros /mnt/moby/home/Pictures/ /mnt/desko/home/Pictures/from/moby/
+    # copy books from servo to moby; delete old/untracked ones, but keep KOreader state files (sdr)
+    test -d /mnt/servo/media/Books/Books && rsync -arv --delete --exclude '*.sdr' /mnt/servo/media/Books/ /mnt/moby/home/Books/local/servo/
+    # copy music
+    test -d /mnt/servo/media/Music/Various.Artists && sane-sync-music --compat /mnt/servo/media/Music /mnt/moby/home/Music "$@"
+    ;;
+  (*)
+    usage
+    ;;
+esac

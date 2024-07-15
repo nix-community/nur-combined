@@ -34,7 +34,7 @@ in
 
     services.dconf = {
       description = "dconf configuration database/server";
-      partOf = [ "graphical-session" ];
+      partOf = [ "default" ];
       command = "${lib.getLib cfg.package}/libexec/dconf-service";
     };
 

@@ -7,50 +7,62 @@
 
 { config, lib, pkgs, ... }:
 let
-  def-ovpn = name: { endpoint, publicKey, addrV4, id }: {
-    sane.vpn."ovpnd-${name}" = {
-      inherit endpoint publicKey addrV4 id;
-      privateKeyFile = config.sops.secrets."wg/ovpnd_${name}_privkey".path;
+  # N.B.: OVPN issues each key (i.e. device) a different IP (addrV4), and requires you use it.
+  # the IP it issues can be used to connect to any of their VPNs.
+  # effectively the IP and key map 1-to-1.
+  # it seems to still be possible to keep two active tunnels on one device, using the same key/IP address, though.
+  def-ovpn = name: { endpoint, publicKey, id }: let
+    inherit (config.sane.ovpn) addrV4;
+  in {
+    sane.vpn."ovpnd-${name}" = lib.mkIf (addrV4 != null) {
+      inherit addrV4 endpoint publicKey id;
+      privateKeyFile = config.sops.secrets."ovpn_privkey".path;
       dns = [
         "46.227.67.134"
         "192.165.9.158"
+        # "2a07:a880:4601:10f0:cd45::1"
+        # "2001:67c:750:1:cafe:cd45::1"
       ];
     };
 
-    sops.secrets."wg/ovpnd_${name}_privkey" = {
+    sops.secrets."ovpn_privkey" = lib.mkIf (addrV4 != null) {
       # needs to be readable by systemd-network or else it says "Ignoring network device" and doesn't expose it to networkctl.
       owner = "systemd-network";
     };
   };
-in lib.mkMerge [
-  (def-ovpn "us" {
-    endpoint = "vpn31.prd.losangeles.ovpn.com:9929";
-    publicKey = "VW6bEWMOlOneta1bf6YFE25N/oMGh1E1UFBCfyggd0k=";
-    id = 1;
-    addrV4 = "172.27.237.218";
-    # addrV6 = "fd00:0000:1337:cafe:1111:1111:ab00:4c8f";
-  })
-  # TODO: us-atl disabled until i can give it a different link-local address and wireguard key than us-mi
-  # (def-ovpn "us-atl" {
-  #   endpoint = "vpn18.prd.atlanta.ovpn.com:9929";
-  #   publicKey = "Dpg/4v5s9u0YbrXukfrMpkA+XQqKIFpf8ZFgyw0IkE0=";
-  #   address = [
-  #     "172.21.182.178/32"
-  #     "fd00:0000:1337:cafe:1111:1111:cfcb:27e3/128"
-  #   ];
-  # })
-  (def-ovpn "us-mi" {
-    endpoint = "vpn34.prd.miami.ovpn.com:9929";
-    publicKey = "VtJz2irbu8mdkIQvzlsYhU+k9d55or9mx4A2a14t0V0=";
-    id = 2;
-    addrV4 = "172.21.182.178";
-    # addrV6 = "fd00:0000:1337:cafe:1111:1111:cfcb:27e3";
-  })
-  (def-ovpn "ukr" {
-    endpoint = "vpn96.prd.kyiv.ovpn.com:9929";
-    publicKey = "CjZcXDxaaKpW8b5As1EcNbI6+42A6BjWahwXDCwfVFg=";
-    id = 3;
-    addrV4 = "172.18.180.159";
-    # addrV6 = "fd00:0000:1337:cafe:1111:1111:ec5c:add3";
-  })
-]
+in {
+  options = with lib; {
+    sane.ovpn.addrV4 = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+      description = ''
+        ovpn issues one IP address per device.
+        set `null` to disable OVPN for this host.
+      '';
+    };
+  };
+
+  config = lib.mkMerge [
+    (def-ovpn "us" {
+      endpoint = "vpn31.prd.losangeles.ovpn.com:9929";
+      publicKey = "VW6bEWMOlOneta1bf6YFE25N/oMGh1E1UFBCfyggd0k=";
+      id = 1;
+    })
+    (def-ovpn "us-mi" {
+      endpoint = "vpn34.prd.miami.ovpn.com:9929";
+      publicKey = "VtJz2irbu8mdkIQvzlsYhU+k9d55or9mx4A2a14t0V0=";
+      id = 2;
+    })
+    (def-ovpn "ukr" {
+      endpoint = "vpn96.prd.kyiv.ovpn.com:9929";
+      publicKey = "CjZcXDxaaKpW8b5As1EcNbI6+42A6BjWahwXDCwfVFg=";
+      id = 3;
+    })
+    # TODO: us-atl disabled until i need it again, i guess.
+    # (def-ovpn "us-atl" {
+    #   endpoint = "vpn18.prd.atlanta.ovpn.com:9929";
+    #   publicKey = "Dpg/4v5s9u0YbrXukfrMpkA+XQqKIFpf8ZFgyw0IkE0=";
+    #   id = 4;
+    # })
+  ];
+}

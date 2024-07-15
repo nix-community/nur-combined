@@ -13,10 +13,9 @@ stdenv.mkDerivation {
   src = fetchurl {
     inherit url;
   };
-  passthru.updateScript = {
-    name = "feed-update-script";
-    command = [ "${update-feed}/bin/update.py" url jsonPath ];
-  };
+  passthru.updateScript = [
+    "${update-feed}/bin/update.py" url jsonPath
+  ];
   meta = {
     description = "metadata about any feeds available at ${feedName}";
     homepage = feedName;

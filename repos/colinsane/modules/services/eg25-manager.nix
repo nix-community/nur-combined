@@ -1,5 +1,4 @@
 # eg25-manager: <https://gitlab.com/mobian1/eg25-manager>
-# - used by sxmo, in <configs/default_hooks/sxmo_hook_restart_modem_daemons.sh>
 # - requires modemmanager (ModemManager.service)
 { config, lib, pkgs, ... }:
 let

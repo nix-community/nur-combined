@@ -1,3 +1,10 @@
+# config is loaded from the first one found:
+# - $PWD/config/%model.conf
+# - /etc/megapixels/config/%model.conf  (SYSCONFDIR)
+# - /usr/share/megapixels/config/%model.conf  (DATADIR -- maybe this is the package's own directory?)
+# debug with:
+# - LIBMEGAPIXELS_DEBUG=2 megapixels
+#   2 = log level debug. no higher values signify anything
 { pkgs, ... }:
 {
   sane.programs.megapixels = {
@@ -45,11 +52,9 @@
     sandbox.extraRuntimePaths = [
       "dconf"  #< else it's very spammy, and slow
     ];
-    sandbox.extraConfig = [
-      # XXX(2024/04/21): without this it fails to convert .dng -> .jpg.
-      #   "bwrap: open /proc/34/ns/ns failed: No such file or directory"
-      "--sane-sandbox-keep-namespace" "pid"
-    ];
+    # XXX(2024/04/21): without this it fails to convert .dng -> .jpg.
+    #   "bwrap: open /proc/34/ns/ns failed: No such file or directory"
+    sandbox.isolatePids = false;
 
     suggestedPrograms = [ "dconf" ];  #< not sure if necessary
   };

@@ -1,9 +1,9 @@
 {
-  "description": "<p>Weekly roundup of everything new in the Linux and Open Source world! May contain gaming and privacy related topics.</p>\n<p>This is a longer counterpart to the Linux and Open Source news videos available on The Linux Experiment Youtube Channel.</p>",
+  "description": "<p>Weekly roundup of everything new in the Linux and Open Source world! May contain gaming and privacy related topics.</p>\n<p>This is a longer counterpart to the Linux and Open Source news videos available on The Linux Experiment Youtube Channel.</p>\n<p>I\u2019m Nick, I\u2019ve been making Linux and Open Source related videos on YouTube since 2018, with a sizeable following of more than 300 000 subscribers. I\u2019ve been using Linux since 2006, starting with Ubuntu (like most people), and I have 12 years of experience in project management and UX, and that\u2019s the lens I use to view the progress of our Linux desktops and open source applications!</p>",
   "is_podcast": true,
   "site_name": "The Linux Experiment Podcasts",
   "site_url": "https://podcast.thelinuxexp.com",
-  "title": "Linux + Open Source News, by TLE",
+  "title": "Linux & Open Source News",
   "url": "https://podcast.thelinuxexp.com/@tlenewspodcast/feed.xml",
-  "velocity": 0.145
+  "velocity": 0.147
 }

@@ -3,6 +3,7 @@ keys:
   - &user_lappy_colin age1j2pqnl8j0krdzk6npe93s4nnqrzwx978qrc0u570gzlamqpnje9sc8le2g
   - &user_servo_colin age1z8fauff34cdecr6sjkre260luzxcca05kpcwvhx988d306tpcejsp63znu
   - &user_moby_colin age1zsrsvd7j6l62fjxpfd2qnhqlk8wk4p8r0dtxpe4sdgnh2474095qdu7xj9
+  - &host_crappy age1hl50ufuxnqy0jnk8fqeu4tclh4vte2xn2d59pxff0gun20vsmv5sp78chj
   - &host_desko age1vnw7lnfpdpjn62l3u5nyv5xt2c965k96p98kc43mcnyzpetrts9q54mc9v
   - &host_lappy age1w7mectcjku6x3sd8plm8wkn2qfrhv9n6zhzlf329e2r2uycgke8qkf9dyn
   - &host_servo age1tzlyex2z6t88tg9h82943e39shxhmqeyr7ywhlwpdjmyqsndv3qq27x0rf
@@ -15,6 +16,7 @@ creation_rules:
       - *user_lappy_colin
       - *user_servo_colin
       - *user_moby_colin
+      - *host_crappy
       - *host_desko
       - *host_lappy
       - *host_servo

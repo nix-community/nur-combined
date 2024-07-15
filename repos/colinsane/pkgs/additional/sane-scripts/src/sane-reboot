@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p nettools -p systemd
+#!nix-shell -i bash -p bash -p nettools -p systemd
 
 target="$1"
 shift
@@ -7,8 +7,10 @@ shift
 host="$(hostname)"
 if [ "$host" = "$target" ]
 then
-  # N.B.: anything other than just `reboot` with no args requires `sudo` privilegs (to write to /run/systemd/)
-  reboot "$@"
+  # N.B.: anything other than just `reboot` with no args requires `sudo` privileges (to write to /run/systemd/).
+  # `systemctl reboot -i` tells systemd to ignore inhibitors (i.e. other users logged in).
+  reboot "$@" || \
+    systemctl reboot -i "$@"
 else
   echo "WRONG MACHINE. you're on $host."
   exit 1

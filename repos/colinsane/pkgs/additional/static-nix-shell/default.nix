@@ -1,15 +1,35 @@
-{ pkgs
-, bash
-, lib
-, makeWrapper
-, python3
-, stdenv
-, zsh
+{
+  pkgs,
+  bash,
+  lib,
+  makeBinaryWrapper,
+  python3,
+  stdenv,
+  zsh,
 }:
 
 let
   inherit (builtins) attrNames attrValues concatStringsSep foldl' map typeOf;
   inherit (lib) concatMapAttrs;
+  # insert an element `ins` into a list `into`,
+  # at its proper location assuming `into` is lexicographically ordered.
+  # does not adjust the order of existing elements.
+  insertTopo = ins: into: let
+    insertedUnlessLast = builtins.foldl' (acc: next:
+      if builtins.elem ins acc then
+        acc ++ [ next ]
+      else if (lib.naturalSort [ ins next ]) == [ ins next ] then
+        acc ++ [ ins next ]
+      else
+        acc ++ [ next ]
+    ) [] into
+    ;
+  in
+    if builtins.elem ins insertedUnlessLast then
+      insertedUnlessLast
+    else
+      into ++ [ ins ]
+    ;
   pkgs' = pkgs;
   # create an attrset of
   #   <name> = expected string in the nix-shell invocation
@@ -55,21 +75,23 @@ in rec {
       pkgExprs
     );
     # allow any package to be a list of packages, to support things like
-    # -p python3Packages.foo.propagatedBuildInputs
+    # -p python3.pkgs.foo.propagatedBuildInputs
     pkgsEnv' = lib.flatten pkgsEnv;
-    doWrap = pkgsEnv' != [];
+
+    makeWrapperArgs = lib.optionals (pkgsEnv' != []) [
+      "--suffix" "PATH" ":" (lib.makeBinPath pkgsEnv')
+    ] ++ extraMakeWrapperArgs;
+    doWrap = makeWrapperArgs != [];
   in
     stdenv.mkDerivation (final: {
       version = "0.1.0";  # default version
       preferLocalBuild = true;
 
       nativeBuildInputs = (attrs.nativeBuildInputs or []) ++ [
-        makeWrapper
+        makeBinaryWrapper
       ];
 
-      makeWrapperArgs = [
-        "--suffix" "PATH" ":" (lib.makeBinPath pkgsEnv')
-      ] ++ extraMakeWrapperArgs;
+      inherit makeWrapperArgs;
 
       patchPhase = ''
         substituteInPlace ${srcPath} \
@@ -114,11 +136,11 @@ in rec {
   mkBash = { pname, pkgs ? {}, ...}@attrs:
     let
       pkgsAsAttrs = pkgsToAttrs "" pkgs' pkgs;
-      pkgsEnv = attrValues pkgsAsAttrs;
-      pkgExprs = attrNames pkgsAsAttrs;
+      pkgsEnv = [ bash ] ++ (attrValues pkgsAsAttrs);
+      pkgExprs = insertTopo "bash" (attrNames pkgsAsAttrs);
     in mkShell ({
       inherit pkgsEnv pkgExprs;
-      interpreter = "${bash}/bin/bash";
+      interpreter = lib.getExe bash;
     } // (removeAttrs attrs [ "bash" "pkgs" ])
   );
 
@@ -126,35 +148,33 @@ in rec {
   mkZsh = { pname, pkgs ? {}, ...}@attrs:
     let
       pkgsAsAttrs = pkgsToAttrs "" pkgs' pkgs;
-      pkgsEnv = attrValues pkgsAsAttrs;
-      pkgExprs = attrNames pkgsAsAttrs;
+      pkgsEnv = [ zsh ] ++ (attrValues pkgsAsAttrs);
+      pkgExprs = insertTopo "zsh" (attrNames pkgsAsAttrs);
     in mkShell ({
       inherit pkgsEnv pkgExprs;
-      interpreter = "${zsh}/bin/zsh";
+      interpreter = lib.getExe zsh;
     } // (removeAttrs attrs [ "pkgs" "zsh" ])
   );
 
-  # `mkShell` specialization for invocations of `nix-shell -p "python3.withPackages (...)"`
-  # pyPkgs argument is parsed the same as pkgs, except that names are assumed to be relative to `"ps"` if specified in list form.
-  # TODO: rename to `mkPython3` for consistency with e.g. `mkBash`
-  mkPython3Bin = { pname, pkgs ? {}, pyPkgs ? {}, ... }@attrs:
+  # `mkShell` specialization for invocations of `nix-shell -i python3 -p python3 ...`
+  mkPython3 = { pname, pkgs ? {}, ... }@attrs:
     let
-      pyEnv = python3.withPackages (ps: attrValues (
-        pkgsToAttrs "ps." ps pyPkgs
-      ));
-      pyPkgsStr = concatStringsSep " " (attrNames (
-        pkgsToAttrs "ps." {} pyPkgs
-      ));
-
       pkgsAsAttrs = pkgsToAttrs "" pkgs' pkgs;
       pkgsEnv = attrValues pkgsAsAttrs;
-      pkgExprs = [
-        "\"python3.withPackages (ps: [ ${pyPkgsStr} ])\""
-      ] ++ (attrNames pkgsAsAttrs);
+      pkgExprs = insertTopo "python3" (attrNames pkgsAsAttrs);
     in mkShell ({
       inherit pkgsEnv pkgExprs;
-      interpreter = pyEnv.interpreter;
+      interpreter = lib.getExe python3;
       interpreterName = "python3";
-    } // (removeAttrs attrs [ "pkgs" "pyPkgs" "python3" ])
+      # "wrapPythonPrograms" only adds libraries that are on `propagatedBuildInputs` onto the site path.
+      propagatedBuildInputs = lib.flatten pkgsEnv;
+
+      nativeBuildInputs = (attrs.nativeBuildInputs or []) ++ [
+        python3.pkgs.wrapPython
+      ];
+      postFixup = ''
+        wrapPythonPrograms
+      '';
+    } // (removeAttrs attrs [ "pkgs" "python3" ])
   );
 }

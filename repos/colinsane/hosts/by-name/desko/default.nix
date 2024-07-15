@@ -1,20 +1,24 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
   imports = [
     ./fs.nix
   ];
 
+  sane.services.trust-dns.asSystemResolver = false;  # TEMPORARY: TODO: re-enable trust-dns
+  # sane.programs.devPkgs.enableFor.user.colin = true;
   # sane.guest.enable = true;
 
-  # services.distccd.enable = true;
-  # sane.programs.distcc.enableFor.user.guest = true;
-
-  # TODO: remove emulation, but need to fix nixos-rebuild to moby for that.
-  # sane.roles.build-machine.emulation = true;
+  # don't enable wifi by default: it messes with connectivity.
+  # systemd.services.iwd.enable = false;
+  # networking.wireless.enable = false;
+  # systemd.services.wpa_supplicant.enable = false;
+  # sane.programs.wpa_supplicant.enableFor.user.colin = lib.mkForce false;
+  # sane.programs.wpa_supplicant.enableFor.system = lib.mkForce false;
+  # don't auto-connect to wifi networks
+  # see: <https://networkmanager.dev/docs/api/latest/NetworkManager.conf.html#device-spec>
+  networking.networkmanager.unmanaged = [ "type:wifi" ];
 
   sops.secrets.colin-passwd.neededForUsers = true;
-
-  sane.ports.openFirewall = true;  # for e.g. nix-serve
 
   sane.roles.build-machine.enable = true;
   sane.roles.client = true;
@@ -22,31 +26,28 @@
   sane.roles.pc = true;
   sane.services.wg-home.enable = true;
   sane.services.wg-home.ip = config.sane.hosts.by-name."desko".wg-home.ip;
+  sane.ovpn.addrV4 = "172.26.55.21";
+  # sane.ovpn.addrV6 = "fd00:0000:1337:cafe:1111:1111:20c1:a73c";
   sane.services.duplicity.enable = true;
-  sane.services.nixserve.secretKeyFile = config.sops.secrets.nix_serve_privkey.path;
 
-  sane.nixcache.substituters.desko = false;
   sane.nixcache.remote-builders.desko = false;
 
-  sane.programs.cups.enableFor.user.colin = true;
   sane.programs.sway.enableFor.user.colin = true;
   sane.programs.iphoneUtils.enableFor.user.colin = true;
   sane.programs.steam.enableFor.user.colin = true;
 
-  # sane.programs.devPkgs.enableFor.user.colin = true;
-
-  sane.programs."gnome.geary".config.autostart = true;
+  sane.programs.geary.config.autostart = true;
   sane.programs.signal-desktop.config.autostart = true;
 
-  boot.loader.efi.canTouchEfiVariables = false;
+  sane.programs.nwg-panel.config = {
+    battery = false;
+    brightness = false;
+  };
+
   sane.image.extraBootFiles = [ pkgs.bootpart-uefi-x86_64 ];
 
   # needed to use libimobiledevice/ifuse, for iphone sync
   services.usbmuxd.enable = true;
-
-  # don't enable wifi by default: it messes with connectivity.
-  systemd.services.iwd.enable = false;
-  systemd.services.wpa_supplicant.enable = false;
 
   # default config: https://man.archlinux.org/man/snapper-configs.5
   # defaults to something like:
@@ -59,7 +60,4 @@
     # TODO: ALLOW_USERS doesn't seem to work. still need `sudo snapper -c nix list`
     ALLOW_USERS = [ "colin" ];
   };
-
-  # docs: https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion
-  system.stateVersion = "21.05";
 }

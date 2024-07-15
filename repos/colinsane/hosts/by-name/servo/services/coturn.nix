@@ -29,7 +29,15 @@
 #   - bind the turn server to the veth connecting it to the VPN namespace (so it sends outgoing traffic to the right place).
 #   - NAT the turn port range from VPN into root namespace (so it receives incomming traffic).
 #   - this approach would fail the prosody conversations.im check, but i didn't notice *obvious* call routing errors.
-{ lib, ... }:
+#
+# debugging:
+# - log messages like 'usage: realm=<turn.uninsane.org>, username=<1715915193>, rp=14, rb=1516, sp=8, sb=684'
+#   - rp = received packets
+#   - rb = received bytes
+#   - sp = sent packets
+#   - sb = sent bytes
+
+{ config, lib, ... }:
 let
   # TURN port range (inclusive).
   # default coturn behavior is to use the upper quarter of all ports. i.e. 49152 - 65535.
@@ -48,7 +56,7 @@ in
   #       protocol = [ "tcp" "udp" ];
   #       # visibleTo.lan = true;
   #       # visibleTo.wan = true;
-  #       visibleTo.ovpn = true;  # forward traffic from the VPN to the root NS
+  #       visibleTo.ovpns = true;  # forward traffic from the VPN to the root NS
   #       description = "colin-stun-turn";
   #     };
   #     "5349" = {
@@ -56,7 +64,7 @@ in
   #       protocol = [ "tcp" ];
   #       # visibleTo.lan = true;
   #       # visibleTo.wan = true;
-  #       visibleTo.ovpn = true;
+  #       visibleTo.ovpns = true;
   #       description = "colin-stun-turn-over-tls";
   #     };
   #   }
@@ -69,7 +77,7 @@ in
   #       protocol = [ "tcp" "udp" ];
   #       # visibleTo.lan = true;
   #       # visibleTo.wan = true;
-  #       visibleTo.ovpn = true;
+  #       visibleTo.ovpns = true;
   #       description = "colin-turn-${builtins.toString count}-of-${builtins.toString numPorts}";
   #     };
   #   })
@@ -110,21 +118,24 @@ in
   services.coturn.realm = "turn.uninsane.org";
   services.coturn.cert = "/var/lib/acme/turn.uninsane.org/fullchain.pem";
   services.coturn.pkey = "/var/lib/acme/turn.uninsane.org/key.pem";
+
+  #v disable to allow unauthenticated access (or set `services.coturn.no-auth = true`)
   services.coturn.use-auth-secret = true;
   services.coturn.static-auth-secret-file = "/var/lib/coturn/shared_secret.bin";
-  services.coturn.lt-cred-mech = true;
+  services.coturn.lt-cred-mech = true; #< XXX: use-auth-secret overrides lt-cred-mech
+
   services.coturn.min-port = turnPortLow;
   services.coturn.max-port = turnPortHigh;
   # services.coturn.secure-stun = true;
   services.coturn.extraConfig = lib.concatStringsSep "\n" [
     "verbose"
-    # "Verbose"  #< even MORE verbosity than "verbose"
-    # "no-multicast-peers"  # disables sending to IPv4 broadcast addresses (e.g. 224.0.0.0/3)
-    # "listening-ip=10.0.1.5" "external-ip=185.157.162.178"  #< 2024/04/25: works, if running in root namespace
-    "listening-ip=185.157.162.178" "external-ip=185.157.162.178"
+    # "Verbose"  #< even MORE verbosity than "verbose"  (it's TOO MUCH verbosity really)
+    "no-multicast-peers"  # disables sending to IPv4 broadcast addresses (e.g. 224.0.0.0/3)
+    # "listening-ip=${config.sane.netns.ovpns.hostVethIpv4}" "external-ip=${config.sane.netns.ovpns.netnsPubIpv4}"  #< 2024/04/25: works, if running in root namespace
+    "listening-ip=${config.sane.netns.ovpns.netnsPubIpv4}" "external-ip=${config.sane.netns.ovpns.netnsPubIpv4}"
 
     # old attempts:
-    # "external-ip=185.157.162.178/10.0.1.5"
+    # "external-ip=${config.sane.netns.ovpns.netnsPubIpv4}/${config.sane.netns.ovpns.hostVethIpv4}"
     # "listening-ip=10.78.79.51"  # can be specified multiple times; omit for *
     # "external-ip=97.113.128.229/10.78.79.51"
     # "external-ip=97.113.128.229"

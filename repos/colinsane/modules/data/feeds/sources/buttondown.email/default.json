@@ -1,0 +1,9 @@
+{
+  "description": "Buttondown's blog \u2014 technical essays, feature updates, and more",
+  "is_podcast": false,
+  "site_name": "Buttondown",
+  "site_url": "https://buttondown.email",
+  "title": "Buttondown's blog",
+  "url": "https://buttondown.email/rss/blog.xml",
+  "velocity": 0.046
+}

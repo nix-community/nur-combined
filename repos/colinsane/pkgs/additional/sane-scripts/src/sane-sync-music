@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p "python3.withPackages (ps: [ ps.unidecode ])" -p ffmpeg -p sox
+#!nix-shell -i python3 -p ffmpeg -p python3 -p python3.pkgs.unidecode -p sox
 # vim: set filetype=python :
 import argparse
 import concurrent.futures
@@ -280,6 +280,7 @@ class Sync:
         in_files = { p.relative_to(self.in_dir) for p in Path(self.in_dir).rglob("*") if not p.is_dir() }
         logger.info(f'found {len(in_files)} files in source')
 
+        # create a map from source path to dest path
         in_out_map = ((in_f, self.target_name(in_f)) for in_f in in_files)
         in_out_map = dict((in_f, out_f) for (in_f, out_f) in in_out_map if out_f is not None)
         logger.info(f'recognized {len(in_files)} source files as media')
@@ -323,7 +324,11 @@ class Sync:
         '''
         for f in files:
             logger.info(f'removing {f}')
-            self.encoder.remove(Path(self.out_dir) / f)
+            f = Path(self.out_dir) / f
+            self.encoder.remove(f)
+            # if the directory is empty after removing this file, then remove the directory (and possibly prune its parents too)
+            if not os.listdir(f.parent):
+                os.removedirs(f.parent)
 
     def copy_one(self, src_name: Path, dest_name: Path) -> None:
         '''
@@ -379,7 +384,7 @@ def main() -> None:
     parser.add_argument("dest", help="destination directory")
     parser.add_argument("--compress", action='store_true', help="compress audio files (to mp3)")
     parser.add_argument("--compat", action='store_true', help="convert poorly supported file formats to better-supported formats (e.g. avoid wma)")
-    parser.add_argument("--jobs", help="number of cores to compress music with (default: all CPU cores)", default=None, type=int)
+    parser.add_argument("--jobs", help="number of cores to compress music with. N.B.: some remote filesystems (e.g. curlftpfs) suffer degraded perf when multithreading!", default=1, type=int)
     parser.add_argument("--dry-run", action='store_true', help="don't actually run any commands")
     parser.add_argument("--verbose", action='store_true', help="more logging")
     parser.add_argument("--quiet", action='store_true', help="less logging")
@@ -399,7 +404,7 @@ def main() -> None:
         compat=args.compat,
         force_copy=args.force_copy,
         dry_run=args.dry_run,
-        jobs=args.jobs,
+        jobs=args.jobs if args.jobs else None,
     )
 
 if __name__ == '__main__':

@@ -13,6 +13,8 @@
       '';
     });
 
+    buildCost = 1;
+
     sandbox.method = "bwrap";  # landlock gives: _multiprocessing.SemLock: Permission Denied
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  # mpris

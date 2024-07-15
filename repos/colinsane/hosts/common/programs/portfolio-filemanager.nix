@@ -24,11 +24,13 @@
       "/tmp"
       "/var"
     ];
-    sandbox.extraRuntimePaths = [
-      # not sure if these are actually necessary
-      "gvfs"
-      "gvfsd"
-    ];
+    # sandbox.extraRuntimePaths = [
+    #   # not sure if these are actually necessary
+    #   "gvfs"
+    #   "gvfsd"
+    # ];
+
+    # suggestedPrograms = [ "gvfs" ];  #< TODO: fix (ftp:// share, USB drive browsing)
 
     mime.priority = 160;  #< default is 100, so higher means we fall-back to other apps that might be more specialized
     mime.associations = {

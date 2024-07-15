@@ -1,5 +1,6 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p "python3.withPackages (ps: [ ps.sane-lib.ssdp ])" -p inetutils -p miniupnpc
+#!nix-shell -i python3 -p inetutils -p miniupnpc -p python3 -p sane-scripts.lib.ssdp
+# vim: set filetype=python :
 
 '''
 USAGE: sane-ip-port-forward [options] [proto:port[:desc]]*

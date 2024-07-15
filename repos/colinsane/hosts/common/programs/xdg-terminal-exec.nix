@@ -12,6 +12,7 @@
           name = "xdg-terminal-exec";
           exec = "xdg-terminal-exec";
           desktopName = "Default Terminal";
+          noDisplay = true;
         })
       ];
     });

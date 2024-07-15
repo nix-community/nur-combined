@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p "python3.withPackages (ps: [ ps.sane-lib.bt ])" -p sane-scripts.lib.bt.propagatedBuildInputs
+#!nix-shell -i python3 -p python3 -p sane-scripts.lib.bt
 # vim: set filetype=python :
 
 import argparse

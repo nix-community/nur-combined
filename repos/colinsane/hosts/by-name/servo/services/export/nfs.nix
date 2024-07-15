@@ -15,6 +15,7 @@
 # - could maybe be done with some mount option?
 
 { config, lib, ... }:
+lib.mkIf false  #< TODO: remove nfs altogether! it's not exactly the most secure
 {
   services.nfs.server.enable = true;
 

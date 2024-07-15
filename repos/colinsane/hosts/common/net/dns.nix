@@ -1,7 +1,6 @@
 # things to consider when changing these parameters:
 # - temporary VPN access (`sane-vpn up ...`)
 # - servo `ovpns` namespace (it *relies* on /etc/resolv.conf mentioning 127.0.0.53)
-# - jails: `firejail --net=br-ovpnd-us --noprofile --dns=46.227.67.134 ping 1.1.1.1`
 #
 # components:
 # - /etc/nsswitch.conf:
@@ -18,17 +17,22 @@
 #   - modern implementations hardcodes `127.0.0.53` and then systemd-resolved proxies everything (and caches).
 #
 # namespacing:
-# - each namespace can use a different /etc/resolv.conf to specify different DNS servers (see `firejail --dns=...`)
-# - nscd breaks namespacing: the host nscd is unaware of the guest's /etc/resolv.conf, and so direct's the guest's DNS requests to the host's servers.
-#   - this is fixed by either `firejail --blacklist=/var/run/nscd/socket`, or disabling nscd altogether.
-{ lib, ... }:
+# - each namespace may use a different /etc/resolv.conf to specify different DNS servers
+# - nscd breaks namespacing: the host nscd is unaware of the guest's /etc/resolv.conf, and so directs the guest's DNS requests to the host's servers.
+#   - this is fixed by either removing `/var/run/nscd/socket` from the namespace, or disabling nscd altogether.
+{ config, lib, pkgs, ... }:
+lib.mkMerge [
 {
+  sane.services.trust-dns.enable = lib.mkDefault config.sane.services.trust-dns.asSystemResolver;
+  sane.services.trust-dns.asSystemResolver = lib.mkDefault true;
+}
+(lib.mkIf (!config.sane.services.trust-dns.asSystemResolver) {
   # use systemd's stub resolver.
   # /etc/resolv.conf isn't sophisticated enough to use different servers per net namespace (or link).
   # instead, running the stub resolver on a known address in the root ns lets us rewrite packets
   # in servo's ovnps namespace to use the provider's DNS resolvers.
   # a weakness is we can only query 1 NS at a time (unless we were to clone the packets?)
-  # TODO: rework servo's netns to use `firejail`, which is capable of spoofing /etc/resolv.conf.
+  # TODO: improve trust-dns recursive resolver and then remove this
   services.resolved.enable = true;  #< to disable, set ` = lib.mkForce false`, as other systemd features default to enabling `resolved`.
   # without DNSSEC:
   # - dig matrix.org => works
@@ -44,7 +48,8 @@
     # stub resolver (just forwards upstream) lives on 127.0.0.54
     "127.0.0.53"
   ];
-
+})
+{
   # nscd -- the Name Service Caching Daemon -- caches DNS query responses
   # in a way that's unaware of my VPN routing, so routes are frequently poor against
   # services which advertise different IPs based on geolocation.
@@ -54,14 +59,35 @@
   # in the netns and we query upstream DNS more often than needed. hm.
   # services.nscd.enableNsncd = true;
 
-  # disabling nscd LOSES US SOME FUNCTIONALITY. in particular, only the glibc-builtin modules are accessible via /etc/resolv.conf.
+  # disabling nscd LOSES US SOME FUNCTIONALITY. in particular, only the glibc-builtin modules are accessible via /etc/resolv.conf (er, did i mean /etc/nsswitch.conf?).
   # - dns: glibc-bultin
   # - files: glibc-builtin
   # - myhostname: systemd
   # - mymachines: systemd
   # - resolve: systemd
   # in practice, i see no difference with nscd disabled.
+  # - the exception is when the system dns resolver doesn't do everything.
+  #   for example, systemd-resolved does mDNS. hickory-dns does not. a hickory-dns system won't be mDNS-capable.
   # disabling nscd VASTLY simplifies netns and process isolation. see explainer at top of file.
   services.nscd.enable = false;
-  system.nssModules = lib.mkForce [];
+  # system.nssModules = lib.mkForce [];
+  sane.silencedAssertions = [''.*Loading NSS modules from system.nssModules.*requires services.nscd.enable being set to true.*''];
+  # add NSS modules into their own subdirectory.
+  # then i can add just the NSS modules library path to the global LD_LIBRARY_PATH, rather than ALL of /run/current-system/sw/lib.
+  # TODO: i'm doing this so as to achieve mdns DNS resolution (avahi). it would be better to just have trust-dns delegate .local to avahi
+  #   (except avahi doesn't act as a local resolver over DNS protocol -- only dbus).
+  environment.systemPackages = [(pkgs.symlinkJoin {
+    name = "nss-modules";
+    paths = config.system.nssModules.list;
+    postBuild = ''
+      mkdir nss
+      mv $out/lib/libnss_* nss
+      rm -rf $out
+      mkdir -p $out/lib
+      mv nss $out/lib
+    '';
+  })];
+  environment.variables.LD_LIBRARY_PATH = [ "/run/current-system/sw/lib/nss" ];
+  systemd.globalEnvironment.LD_LIBRARY_PATH = "/run/current-system/sw/lib/nss";  #< specifically for `geoclue.service`
 }
+]

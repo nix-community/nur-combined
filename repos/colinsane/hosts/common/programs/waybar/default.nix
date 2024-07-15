@@ -79,7 +79,7 @@ in
       # not *required*, however this does cut down on some cross-compilation issues
       # and also avoids building entirely unused dependencies
       sway = config.sane.programs.sway.package.sway-unwrapped;
-      # hyprlandSupport = false;  #< doesn't cross
+      hyprlandSupport = false;  #< doesn't cross. hyprland clowns are forking deps even like `wayland-scanner`, too much maintenance.
     };
 
     sandbox.method = "bwrap";
@@ -91,17 +91,13 @@ in
     sandbox.whitelistWayland = true;
     sandbox.extraRuntimePaths = [
       "sway"
-      # "sxmo_status"  #< only necessary if relying on sxmo's statusbar periodicals service
     ];
     sandbox.extraPaths = [
-      # for wifi status on sxmo/phone
-      "/dev/rfkill"
+      # for wifi status on phone
+      # "/dev/rfkill"
       # for the battery indicator
       "/sys/class/power_supply"
       "/sys/devices"
-    ];
-    sandbox.extraHomePaths = [
-      ".config/sxmo/hooks"
     ];
 
     fs.".config/waybar/config".symlink.target =
@@ -114,7 +110,7 @@ in
     };
 
     services.waybar = {
-      description = "swaybar graphical header bar/tray for sway";
+      description = "waybar status/topbar for sway";
       partOf = [ "graphical-session" ];
 
       # env G_MESSAGES_DEBUG=all

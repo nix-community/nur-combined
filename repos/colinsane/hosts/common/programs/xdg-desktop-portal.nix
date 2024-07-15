@@ -89,7 +89,7 @@ in
     };
     # also available: ${cfg.package}/libexec/xdg-document-portal
     # - <https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.Documents.html>
-    # - shares files from its namespace with programs inside a namespace, via a fuse mount at /run/user/$uid/doc
+    # - shares files from its namespace with programs inside a namespace, via a fuse mount at $XDG_RUNTIME_DIR/doc
   };
 
   # after #603 is resolved, i can probably stop linking `{gtk,wlr}.portal` into ~

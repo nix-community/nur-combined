@@ -41,6 +41,9 @@ in
       };
     };
 
+    # disabling systemd causes pipewire to be built with direct udev support instead
+    packageUnwrapped = pkgs.pipewire.override { enableSystemd = false; };
+
     suggestedPrograms = [
       # "rtkit"
       "wireplumber"
@@ -60,9 +63,7 @@ in
     #   "system"
     # ];
     sandbox.wrapperType = "inplace";  #< its config files refer to its binaries by full path
-    sandbox.extraConfig = [
-      "--sane-sandbox-keep-namespace" "pid"
-    ];
+    sandbox.isolatePids = false;  #< TODO: why?
     sandbox.capabilities = [
       # if rtkit isn't present, and sandboxing is via landlock, these capabilities allow pipewire to claim higher scheduling priority
       "ipc_lock"
@@ -143,7 +144,7 @@ in
     # '';
 
     # see: <https://docs.pipewire.org/page_module_protocol_native.html>
-    # defaults to placing the socket in /run/user/$id/{pipewire-0,pipewire-0-manager,...}
+    # defaults to placing the socket in $XDG_RUNTIME_DIR/{pipewire-0,pipewire-0-manager,...}
     # but that's trickier to sandbox
     env.PIPEWIRE_RUNTIME_DIR = "$XDG_RUNTIME_DIR/pipewire";
 
@@ -179,6 +180,9 @@ in
       ];
       cleanupCommand = ''rm -f "$XDG_RUNTIME_DIR/pulse/{native,pid}"'';
     };
+
+    # bring up sound by default
+    services."sound".partOf = [ "default" ];
   };
 
   # taken from nixos/modules/services/desktops/pipewire/pipewire.nix

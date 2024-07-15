@@ -14,10 +14,12 @@
       };
     };
 
+    buildCost = 1;
+
     sandbox.method = "bwrap";
     sandbox.whitelistAudio = true;
     sandbox.whitelistWayland = true;
-    sandbox.autodetectCliPaths = true;
+    sandbox.autodetectCliPaths = "existingFile";
     sandbox.extraHomePaths = [
       # support media imports via file->open dir to some common media directories
       "tmp"

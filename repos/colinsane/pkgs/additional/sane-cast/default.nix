@@ -1,7 +1,7 @@
 { static-nix-shell }:
-static-nix-shell.mkPython3Bin {
+static-nix-shell.mkPython3 {
   pname = "sane-cast";
+  pkgs = [ "go2tv" ];
   srcRoot = ./.;
-  pyPkgs = [ ];
 }
 

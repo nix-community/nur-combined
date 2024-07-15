@@ -10,6 +10,6 @@
       ".local/share/io.github.alainm23.planify"
     ];
 
-    buildCost = 1;  # webkitgtk-6.0; slow for desktop
+    buildCost = 2;  # webkitgtk-6.0; slow for desktop
   };
 }

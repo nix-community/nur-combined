@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p coreutils-full -p file -p gnugrep
+#!nix-shell -i bash -p bash -p coreutils-full -p file -p gnugrep
 # traces a PATH lookup by printing the source, resolution, and any symlinks traversed
 # finally, prints the content of the file
 

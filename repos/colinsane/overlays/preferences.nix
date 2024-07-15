@@ -8,12 +8,12 @@
       withWebKit = false;
     };
   };
+  evolution-data-server = super.evolution-data-server.override {
+    # OAuth depends on webkitgtk_4_1: old, forces an annoying recompilation
+    enableOAuth2 = false;
+  };
 
   gnome = super.gnome.overrideScope (gself: gsuper: with gself; {
-    evolution-data-server = gsuper.evolution-data-server.override {
-      # OAuth depends on webkitgtk_4_1: old, forces an annoying recompilation
-      enableOAuth2 = false;
-    };
     gnome-control-center = gsuper.gnome-control-center.override {
       # i build goa without the "backend", to avoid webkit_4_1.
       # however gnome-control-center *directly* uses goa-backend because it manages the accounts...
@@ -44,14 +44,14 @@
     squeekboard = null;
   };
 
-  pipewire = super.pipewire.override {
-    # avoid a dep on python3.10-PyQt5, which has mixed qt5 versions.
-    # this means we lose firewire support (oh well..?)
-    # N.B.: ffado is already disabled for cross builds: this is only to prevent weird `targetPackages` related stuff.
-    # try `nix build '.#hostPkgs.moby.megapixels'` for example
-    ffadoSupport = false;
-    # ffado = null;
-  };
+  # pipewire = super.pipewire.override {
+  #   # avoid a dep on python3.10-PyQt5, which has mixed qt5 versions.
+  #   # this means we lose firewire support (oh well..?)
+  #   # N.B.: ffado is already disabled for cross builds: this is only to prevent weird `targetPackages` related stuff.
+  #   # try `nix build '.#hostPkgs.moby.megapixels'` for example
+  #   ffadoSupport = false;
+  #   # ffado = null;
+  # };
 
   # pythonPackagesExtensions = super.pythonPackagesExtensions ++ [
   #   (pySelf: pySuper: {
@@ -67,6 +67,12 @@
   #     });
   #   })
   # ];
+  swaynotificationcenter = super.swaynotificationcenter.override {
+    gvfs = gvfs.override {
+      # saves 20 minutes of build time and cross issues, for unused feature
+      samba = null;
+    };
+  };
 
   # 2023/12/10: zbar barcode scanner: used by megapixels, frog.
   # the video component does not cross compile (qt deps), but i don't need that.

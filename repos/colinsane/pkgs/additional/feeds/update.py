@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p "python3.withPackages (ps: [ ps.feedsearch-crawler ])"
+#!nix-shell -i python3 -p feedsearch-crawler -p python3
 
 from feedsearch_crawler import search, sort_urls
 from feedsearch_crawler.crawler import coerce_url

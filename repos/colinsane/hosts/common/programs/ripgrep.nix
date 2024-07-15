@@ -2,7 +2,7 @@
 {
   sane.programs.ripgrep = {
     sandbox.method = "bwrap";
-    sandbox.autodetectCliPaths = true;
+    sandbox.autodetectCliPaths = "existing";
     sandbox.whitelistPwd = true;
     sandbox.extraHomePaths = [
       # let it follow symlinks to non-sensitive data

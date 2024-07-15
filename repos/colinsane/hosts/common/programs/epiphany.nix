@@ -23,7 +23,7 @@
       "tmp"
     ];
 
-    buildCost = 1;
+    buildCost = 2;
 
     # XXX(2023/07/08): running on moby without `WEBKIT_DISABLE_SANDBOX...` fails, with:
     # - `bwrap: Can't make symlink at /var/run: File exists`

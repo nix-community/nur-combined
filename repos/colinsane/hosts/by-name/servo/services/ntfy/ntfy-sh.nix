@@ -86,7 +86,7 @@ in
   sane.ports.ports."${builtins.toString altPort}" = {
     protocol = [ "tcp" ];
     visibleTo.lan = true;
-    visibleTo.wan = true;
+    visibleTo.doof = true;
     description = "colin-ntfy.uninsane.org";
   };
 }

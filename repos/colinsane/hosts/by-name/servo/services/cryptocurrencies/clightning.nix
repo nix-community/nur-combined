@@ -116,7 +116,10 @@
   # - fee-per-satoshi=<ppm>
   # - feature configs (i.e. experimental-xyz options)
   sane.services.clightning.extraConfig = ''
-    log-level=debug:lightningd
+    # log levels: "io", "debug", "info", "unusual", "broken"
+    log-level=info:lightningd
+    # log-level=debug:lightningd
+
     # peerswap:
     # - config example: <https://github.com/fort-nix/nix-bitcoin/pull/462/files#diff-b357d832705b8ce8df1f41934d613f79adb77c4cd5cd9e9eb12a163fca3e16c6>
     # XXX: peerswap crashes clightning on launch. stacktrace is useless.
@@ -132,4 +135,5 @@
   };
 
   sane.programs.clightning.enableFor.user.colin = true;  # for debugging/admin: `lightning-cli`
+  sane.programs.clightning.packageUnwrapped = config.sane.services.clightning.package;
 }

@@ -50,7 +50,7 @@ in
   sane.programs.go2tv = {
     sandbox.method = "bwrap";
     sandbox.net = "clearnet";
-    sandbox.autodetectCliPaths = true;
+    sandbox.autodetectCliPaths = "existingFile";
     # for GUI invocation, allow the common media directories
     sandbox.extraHomePaths = [
       "Music"

@@ -1,10 +1,14 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p gnused -p rofi -p wtype
+#!nix-shell -i bash -p bash -p gnused -p rofi -p wtype
 
 # "bookmarking"/snippets inspired by Luke Smith:
 # - <https://www.youtube.com/watch?v=d_11QaTlf1I>
 
-snippet=$(cat ~/.config/rofi-snippets/public.txt ~/.config/rofi-snippets/private.txt | \
-  rofi -dmenu | \
-  sed 's/ #.*$//')
-wtype "$snippet"
+# rofi flags (see: `man rofi-dmenu`):
+# `-i`: case insensitive filtering
+# `-sync -ellipsize-mode middle`: for lengthy entries, replace the *middle* with an ellipsis instead of the end
+#   requires rofi 1.7.6, and `-sync`, wich must come *before* the `-dmenu` flag
+cat ~/.config/rofi-snippets/public.txt ~/.config/rofi-snippets/private.txt | \
+  rofi -sync -ellipsize-mode middle -dmenu -i | \
+  sed -z -e 's/  *#.*$//' -e 's/\n$//' | \
+  wtype -

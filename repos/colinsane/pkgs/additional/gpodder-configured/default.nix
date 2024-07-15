@@ -1,21 +1,18 @@
 {
-gnome-feeds
-, gpodder
-, makeWrapper
-, static-nix-shell
-, symlinkJoin
+  gpodder,
+  listparser,
+  makeWrapper,
+  static-nix-shell,
+  symlinkJoin,
 }:
 
 let
-  remove-extra = static-nix-shell.mkPython3Bin {
+  remove-extra = static-nix-shell.mkPython3 {
     pname = "gpodder-remove-extra";
     srcRoot = ./.;
-    pyPkgs = _ps: {
-      "gnome-feeds.listparser" = gnome-feeds.listparser;
-    };
     pkgs = {
       # important for this to explicitly use `gpodder` here, because it may be overriden/different from the toplevel `gpodder`!
-      inherit gpodder;
+      inherit gpodder listparser;
     };
   };
 in
@@ -23,7 +20,9 @@ in
 (symlinkJoin {
   name = "${gpodder.pname}-configured";
   paths = [ gpodder remove-extra ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [
+    makeWrapper
+  ];
 
   # gpodder keeps all its feeds in a sqlite3 database.
   # we can configure the feeds externally by wrapping gpodder and just instructing it to import

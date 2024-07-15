@@ -1,18 +1,24 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p nix
+#!nix-shell -i bash -p bash -p nix
 
 # script to reclaim some hard drive space
 # some of this is documented here:
 # - <https://nixos.wiki/wiki/Storage_optimization>
+
+if [ "$(id -u)" -ne 0 ]; then
+  echo 'must be run as root!'
+fi
 
 set -xeu
 
 # scan the store and hard-link identical files
 # nix-store --optimise
 
-# TODO: `nix-store --gc`?
 nix-collect-garbage --delete-older-than 30d
 
-if [ "$(id -u)" -ne 0 ]; then
-  echo "now re-run as root to free old system-level generations"
-fi
+set +x
+
+echo 'to free more space (e.g. boot space), manually manage the profiles'
+echo '- nix-env --profile /nix/var/nix/profiles/system --list-generations'
+echo '- nix-env --profile /nix/var/nix/profiles/system --delete-generations {first..last}'
+echo '- sudo sane-reclaim-boot-space`

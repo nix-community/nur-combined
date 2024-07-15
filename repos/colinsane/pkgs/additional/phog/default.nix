@@ -56,11 +56,11 @@ stdenv.mkDerivation rec {
     patchShebangs build-aux/post_install.py
     sed -i /phog_plugins_dir/d build-aux/post_install.py
     substituteInPlace src/greetd.c \
-      --replace '/usr/share/wayland-sessions' '/run/current-system/sw/share/wayland-sessions/' \
-      --replace '/usr/share/xsessions' '/run/current-system/sw/share/xsessions'
+      --replace-fail '/usr/share/wayland-sessions' '/run/current-system/sw/share/wayland-sessions/' \
+      --replace-fail '/usr/share/xsessions' '/run/current-system/sw/share/xsessions'
   '' + lib.optionalString (squeekboard == null) ''
     substituteInPlace data/phog.in \
-      --replace " & squeekboard" ""
+      --replace-fail " & squeekboard" ""
   '';
   preFixup = ''
     gappsWrapperArgs+=(

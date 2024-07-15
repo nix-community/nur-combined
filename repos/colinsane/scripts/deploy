@@ -1,0 +1,202 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p nettools
+
+SELF=$(hostname)
+
+usage() {
+  echo "deploy: deploy a nix config to a remote machine, possibly activating it"
+  echo ""
+  echo "usage: deploy [options] [host] [host2 ...]"
+  echo "options:"
+  echo "- --action copy|switch|test   (default: 'switch')"
+  echo "- --dry-run: show what would be done without actually doing it"
+  echo "- --pre: alias for --action copy --variant all all"
+  echo "- --reboot: reboot the target machine after deploying (whether deployment was 'successful' or not)"
+  echo "- --variant light|min|''|all  (default: '')"
+  echo ""
+  echo "common idioms:"
+  echo "- deploy all: deploy all hosts, sequentially"
+  echo "- deploy --pre: build and copy all hosts"
+  exho "- deploy desko lappy: build and deploy just those hosts"
+  echo "- deploy: deploy the local host"
+  exit 1
+}
+
+info() {
+  echo "[deploy]" "$@"
+}
+
+action=switch
+hosts=()
+defaultHost="$SELF"
+variants=()
+defaultVariant=
+nixArgs=()
+doReboot=
+dryRun=
+addHost() {
+  if [ "$1" = all ]; then
+    # order matters:
+    hosts+=(moby lappy desko servo crappy)
+  else
+    hosts+=("$1")
+  fi
+}
+addVariant() {
+  if [ "$1" = all ]; then
+    variants+=("-min" "-light" "" "-min-next" "-light-next" "-next")
+  elif [ -n "$1" ]; then
+    variants+=("-$1")
+  else
+    # "full" variant
+    variants+=("")
+  fi
+}
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    case "$arg" in
+      (--action)
+        action=$1
+        shift
+        ;;
+      (--dry-run)
+        dryRun=1
+        ;;
+      (--help)
+        usage
+        ;;
+      (--pre)
+        action=copy
+        defaultVariant=all
+        defaultHost=all
+        ;;
+      (--reboot)
+        doReboot=1
+        ;;
+      (--variant)
+        addVariant "$1"
+        shift
+        ;;
+      (all|crappy|desko|lappy|moby|servo)
+        addHost "$arg"
+        ;;
+      (*)
+        nixArgs+=("$arg")
+        ;;
+    esac
+  done
+
+  if [ "${#hosts[@]}" -eq 0 ] && [ -n "$defaultHost" ]; then
+    addHost "$defaultHost"
+  fi
+  if [ "${#variants[@]}" -eq 0 ]; then
+    addVariant "$defaultVariant"
+  fi
+}
+
+destructive() {
+  if [ -z "$dryRun" ]; then
+    "$@"
+  else
+    echo "dry-run: $@"
+  fi
+}
+
+runOnTarget() {
+  local host="$1"
+  shift
+  # run the command ($@) on the machine we're deploying to.
+  # if that's a remote machine, then do it via ssh, else local shell.
+  if [ -n "$host" ] && [ "$host" != "$SELF" ]; then
+    info "running on remote ($host):" "$@"
+    ssh "$host" "$@"
+  else
+    info "running locally ($SELF):" "$@"
+    "$@"
+  fi
+}
+
+# deployOneHost $host $variant
+deployOneHost() {
+  local host="$1"
+  local variant="$2"
+
+  info "building $host$variant ..."
+  destructive nix-build -A "hosts.$host$variant.toplevel" --out-link "./build/result-$host$variant" "${nixArgs[@]}" || return 1
+  storePath="$(readlink ./build/result-$host$variant)"
+  info "build $host$variant -> $storePath"
+
+  # mimic `nixos-rebuild --target-host`, in effect:
+  # - nix-copy-closure ...
+  # - nix-env --set ...
+  # - switch-to-configuration <boot|dry-activate|switch|test|>
+  # avoid the actual `nixos-rebuild` for a few reasons:
+  # - fewer nix evals
+  # - more introspectability and debuggability
+  # - sandbox friendliness (especially: `git` doesn't have to be run as root)
+
+  if [ -n "$host" ] && [ "$host" != "$SELF" ]; then
+    if [ -e /run/secrets/nix_signing_key ]; then
+      info "signing store paths ..."
+      destructive sudo nix store sign -r -k /run/secrets/nix_signing_key "$storePath"
+    else
+      info "not signing store paths: /run/secrets/nix_signing_key does not exist"
+    fi
+    # add more `-v` for more verbosity (up to 5).
+    # builders-use-substitutes false: optimizes so that the remote machine doesn't try to get paths from its substituters.
+    #   we already have all paths here, and the remote substitution is slow to check and SERIOUSLY flaky on moby in particular.
+    destructive nix copy -vv --option builders-use-substitutes false --to "ssh-ng://$host" "$storePath" || return 1
+  fi
+
+  if [ -n "$action" ] && [ "$action" != "copy" ]; then
+    info "activating profile... "
+    destructive runOnTarget "$host" sudo nix-env -p /nix/var/nix/profiles/system --set "$storePath" || return 1
+    destructive runOnTarget "$host" sudo "$storePath/bin/switch-to-configuration" "$action" || return 1
+    if [ -n "$doReboot" ]; then
+      info "rebooting $host"
+      destructive runOnTarget "$host" sane-reboot
+    fi
+  fi
+}
+
+failedDeploys=()
+deployHosts() {
+  local hosts=("$@")
+  for v in "${variants[@]}"; do
+    for h in "${hosts[@]}"; do
+      deployOneHost "$h" "$v" || \
+        failedDeploys+=("$h$v")
+    done
+  done
+}
+
+parseArgs "$@"
+
+# i care e.g. that full moby is deployed before crappy:
+earlyHosts=()
+lateHosts=()
+for host in "${hosts[@]}"; do
+  case $host in
+    (crappy)
+      lateHosts+=("$host")
+      ;;
+    (*)
+      earlyHosts+=("$host")
+      ;;
+  esac
+done
+
+deployHosts "${earlyHosts[@]}"
+deployHosts "${lateHosts[@]}"
+
+if [ "${#failedDeploys[@]}" -ne 0 ]; then
+  echo "FAILED DEPLOYMENT:"
+  for d in "${failedDeploys[@]}"; do
+    echo "- $d"
+  done
+  exit 1
+else
+  echo "SUCCESS"
+fi

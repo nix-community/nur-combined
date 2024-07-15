@@ -1,6 +1,8 @@
 { ... }:
 {
   sane.programs.superTuxKart = {
+    buildCost = 1;
+
     sandbox.method = "bwrap";
     sandbox.net = "clearnet";  # net play
     sandbox.whitelistAudio = true;

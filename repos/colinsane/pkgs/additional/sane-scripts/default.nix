@@ -1,32 +1,57 @@
-{ lib
-, python3Packages
-, static-nix-shell
-, symlinkJoin
-, transmission
+{
+  lib,
+  python3,
+  static-nix-shell,
+  stdenv,
+  symlinkJoin,
+  transmission_4,
 }:
 
 let
   sane-lib = {
     # TODO: we could simplify the lib/ folder structure
     # by auto-generating the setup.py files in `postPatch`, below
-    bt = python3Packages.buildPythonPackage {
+    bt = stdenv.mkDerivation {
       pname = "sane-lib-bt";
       version = "0.1.0";
-      format = "setuptools";
       src = ./src/lib/bt;
-      propagatedBuildInputs = [ transmission ];
+
+      nativeBuildInputs = [
+        python3.pkgs.pypaBuildHook
+        python3.pkgs.pypaInstallHook
+        python3.pkgs.setuptoolsBuildHook
+      ];
+      propagatedBuildInputs = [ transmission_4 ];
+      nativeCheckInputs = [
+        python3.pkgs.pythonImportsCheckHook
+      ];
+
       pythonImportChecks = [
         "sane_bt"
       ];
+      doCheck = true;
+      strictDeps = true;
     };
-    ssdp = python3Packages.buildPythonPackage {
+    ssdp = python3.pkgs.buildPythonPackage {
       pname = "sane-lib-ssdp";
       version = "0.1.0";
       format = "setuptools";
       src = ./src/lib/ssdp;
+
+      nativeBuildInputs = [
+        python3.pkgs.pypaBuildHook
+        python3.pkgs.pypaInstallHook
+        python3.pkgs.setuptoolsBuildHook
+      ];
+      nativeCheckInputs = [
+        python3.pkgs.pythonImportsCheckHook
+      ];
+
       pythonImportChecks = [
         "sane_ssdp"
       ];
+      doCheck = true;
+      strictDeps = true;
     };
   };
 
@@ -43,28 +68,25 @@ let
       srcRoot = ./src;
       pkgs = [ "duplicity" ];
     };
-    bt-add = static-nix-shell.mkPython3Bin {
+    bt-add = static-nix-shell.mkPython3 {
       pname = "sane-bt-add";
       srcRoot = ./src;
-      pyPkgs = [ "requests" "sane-lib.bt" ];
-      pkgs = [ "sane-scripts.lib.bt.propagatedBuildInputs" ];
+      pkgs = [ "python3.pkgs.requests" "sane-scripts.lib.bt" ];
     };
-    bt-rm = static-nix-shell.mkPython3Bin {
+    bt-rm = static-nix-shell.mkPython3 {
       pname = "sane-bt-rm";
       srcRoot = ./src;
-      pyPkgs = [ "sane-lib.bt" ];
-      pkgs = [ "sane-scripts.lib.bt.propagatedBuildInputs" ];
+      pkgs = [ "sane-scripts.lib.bt" ];
     };
-    bt-search = static-nix-shell.mkPython3Bin {
+    bt-search = static-nix-shell.mkPython3 {
       pname = "sane-bt-search";
       srcRoot = ./src;
-      pyPkgs = [ "natsort" "requests" ];
+      pkgs = [ "python3.pkgs.natsort" "python3.pkgs.requests" ];
     };
-    bt-show = static-nix-shell.mkPython3Bin {
+    bt-show = static-nix-shell.mkPython3 {
       pname = "sane-bt-show";
       srcRoot = ./src;
-      pyPkgs = [ "sane-lib.bt" ];
-      pkgs = [ "sane-scripts.lib.bt.propagatedBuildInputs" ];
+      pkgs = [ "sane-scripts.lib.bt" ];
     };
     clone = static-nix-shell.mkBash {
       pname = "sane-clone";
@@ -86,17 +108,15 @@ let
       srcRoot = ./src;
       pkgs = [ "findutils" ];
     };
-    ip-check = static-nix-shell.mkPython3Bin {
+    ip-check = static-nix-shell.mkPython3 {
       pname = "sane-ip-check";
       srcRoot = ./src;
-      pkgs = [ "miniupnpc" ];
-      pyPkgs = [ "requests" "sane-lib.ssdp" ];
+      pkgs = [ "miniupnpc" "python3.pkgs.requests" "sane-scripts.lib.ssdp" ];
     };
-    ip-port-forward = static-nix-shell.mkPython3Bin {
+    ip-port-forward = static-nix-shell.mkPython3 {
       pname = "sane-ip-port-forward";
       srcRoot = ./src;
-      pkgs = [ "inetutils" "miniupnpc" ];
-      pyPkgs = [ "sane-lib.ssdp" ];
+      pkgs = [ "inetutils" "miniupnpc" "sane-scripts.lib.ssdp"];
     };
     private-change-passwd = static-nix-shell.mkBash {
       pname = "sane-private-change-passwd";
@@ -133,7 +153,7 @@ let
       srcRoot = ./src;
       pkgs = [ "nettools" "systemd" ];
     };
-    reclaim-boot-space = static-nix-shell.mkPython3Bin {
+    reclaim-boot-space = static-nix-shell.mkPython3 {
       pname = "sane-reclaim-boot-space";
       srcRoot = ./src;
     };
@@ -177,21 +197,20 @@ let
       srcRoot = ./src;
       pkgs = [ "coreutils-full" "ifuse" "rsync" ];
     };
-    sync-music = static-nix-shell.mkPython3Bin {
+    sync-music = static-nix-shell.mkPython3 {
       pname = "sane-sync-music";
       srcRoot = ./src;
-      pkgs = [ "ffmpeg" "sox" ];
-      pyPkgs = [ "unidecode" ];
+      pkgs = [ "ffmpeg" "python3.pkgs.unidecode" "sox" ];
     };
-    tag-music = static-nix-shell.mkPython3Bin {
+    tag-music = static-nix-shell.mkPython3 {
       pname = "sane-tag-music";
       srcRoot = ./src;
-      pyPkgs = [ "mutagen" ];
+      pkgs = [ "python3.pkgs.mutagen" "python3.pkgs.pyexiftool" "python3.pkgs.pykakasi" "python3.pkgs.unidecode" ];
     };
     vpn = static-nix-shell.mkBash {
       pname = "sane-vpn";
       srcRoot = ./src;
-      pkgs = [ "coreutils-full" "sane-scripts.ip-check" ];
+      pkgs = [ "coreutils-full" "iproute2" "jq" "sane-scripts.ip-check" ];
     };
     which = static-nix-shell.mkBash {
       pname = "sane-which";
@@ -201,7 +220,7 @@ let
     wipe = static-nix-shell.mkBash {
       pname = "sane-wipe";
       srcRoot = ./src;
-      pkgs = [ "dconf" "libsecret" "s6-rc" ];
+      pkgs = [ "dconf" "libsecret" "procps" "s6-rc" ];
     };
   };
 in sane-bin // {

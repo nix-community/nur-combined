@@ -162,8 +162,10 @@ in
 
     "sane-scripts.reboot".sandbox = {
       method = "bwrap";
+      whitelistDbus = [
+        "system"
+      ];
       extraPaths = [
-        "/run/dbus"
         "/run/systemd"
       ];
     };
@@ -181,6 +183,7 @@ in
         ".config/sops"
       ];
     };
+    "sane-scripts.secrets-unlock".fs.".config/sops".dir = {};
 
     # sane-secrets-dump is a thin wrapper around sops + some utilities.
     # really i should sandbox just the utilities
@@ -200,13 +203,23 @@ in
 
     "sane-scripts.shutdown".sandbox = {
       method = "bwrap";
+      whitelistDbus = [
+        "system"
+      ];
       extraPaths = [
-        "/run/dbus"
         "/run/systemd"
       ];
     };
 
-    "sane-scripts.stop-all-servo" = {};
+    "sane-scripts.stop-all-servo".sandbox = {
+      method = "bwrap";
+      whitelistDbus = [
+        "system"
+      ];
+      extraPaths = [
+        "/run/systemd"
+      ];
+    };
 
     # if `tee` isn't trustworthy we have bigger problems
     "sane-scripts.sudo-redirect".sandbox.enable = false;
@@ -217,6 +230,7 @@ in
     "sane-scripts.tag-music".sandbox = {
       method = "bwrap";
       autodetectCliPaths = "existing";
+      whitelistPwd = true;  # for music renaming
     };
 
     "sane-scripts.vpn".fs = lib.foldl'
@@ -229,7 +243,8 @@ in
             fwmark=${builtins.toString vpnCfg.fwmark}
             priorityMain=${builtins.toString vpnCfg.priorityMain}
             priorityFwMark=${builtins.toString vpnCfg.priorityFwMark}
-            bridgeDevice=${vpnCfg.bridgeDevice}
+            addrV4=${vpnCfg.addrV4}
+            name=${vpnCfg.name}
             dns=(${lib.concatStringsSep " " vpnCfg.dns})
           '';
         } // (lib.optionalAttrs vpnCfg.isDefault {
@@ -239,19 +254,14 @@ in
       {}
       (builtins.attrNames config.sane.vpn);
     "sane-scripts.vpn".sandbox = {
-      method = "landlock";  #< bwrap can't handle `ip link` stuff even with cap_net_admin
-      net = "all";
-      capabilities = [ "net_admin" ];
-      extraHomePaths = [ ".config/sane-vpn" ];
+      enable = false;  #< bwrap can't handle `ip link`, and landlock can't handle bwrap/pasta for `sane-vpn do`
+      # method = "landlock";  #< bwrap can't handle `ip link` stuff even with cap_net_admin
+      # net = "all";
+      # capabilities = [ "net_admin" ];
+      # extraHomePaths = [ ".config/sane-vpn" ];
     };
 
-    "sane-scripts.which".sandbox = {
-      method = "bwrap";
-      extraHomePaths = [
-        # for SXMO
-        ".config/sxmo/hooks"
-      ];
-    };
+    "sane-scripts.which".sandbox.method = "bwrap";
 
     "sane-scripts.wipe".sandbox = {
       method = "bwrap";
@@ -283,5 +293,6 @@ in
         ".persist/private/.mozilla"
       ];
     };
+    "sane-scripts.wipe".suggestedPrograms = [ "pkill" ];
   };
 }

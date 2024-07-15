@@ -9,9 +9,10 @@
 
 { config, lib, pkgs, sane-lib, ... }:
 let
-  external_auth_hook = pkgs.static-nix-shell.mkPython3Bin {
+  external_auth_hook = pkgs.static-nix-shell.mkPython3 {
     pname = "external_auth_hook";
     srcRoot = ./.;
+    pkgs = [ "python3.pkgs.passlib" ];
   };
   # Client initiates a FTP "control connection" on port 21.
   # - this handles the client -> server commands, and the server -> client status, but not the actual data
@@ -26,13 +27,12 @@ in
     "21" = {
       protocol = [ "tcp" ];
       visibleTo.lan = true;
-      # visibleTo.wan = true;
       description = "colin-FTP server";
     };
     "990" = {
       protocol = [ "tcp" ];
+      visibleTo.doof = true;
       visibleTo.lan = true;
-      visibleTo.wan = true;
       description = "colin-FTPS server";
     };
   } // (sane-lib.mapToAttrs
@@ -40,8 +40,8 @@ in
       name = builtins.toString port;
       value = {
         protocol = [ "tcp" ];
+        visibleTo.doof = true;
         visibleTo.lan = true;
-        visibleTo.wan = true;
         description = "colin-FTP server data port range";
       };
     })
@@ -59,18 +59,8 @@ in
     enable = true;
     group = "export";
 
-    package = lib.warnIf (lib.versionOlder "2.5.6" pkgs.sftpgo.version) "sftpgo update: safe to use nixpkgs' sftpgo but keep my own `patches`" pkgs.buildGoModule {
-      inherit (pkgs.sftpgo) name ldflags nativeBuildInputs doCheck subPackages postInstall passthru meta;
-      version = "2.5.6-unstable-2024-04-18";
-      src = pkgs.fetchFromGitHub {
-        # need to use > 2.5.6 for sftpgo_safe_fileinfo.patch to apply
-        owner = "drakkan";
-        repo = "sftpgo";
-        rev = "950cf67e4c03a12c7e439802cabbb0b42d4ee5f5";
-        hash = "sha256-UfiFd9NK3DdZ1J+FPGZrM7r2mo9xlKi0dsSlLEinYXM=";
-      };
-      vendorHash = "sha256-n1/9A2em3BCtFX+132ualh4NQwkwewMxYIMOphJEamg=";
-      patches = (pkgs.sftpgo.patches or []) ++ [
+    package = pkgs.sftpgo.overrideAttrs (upstream: {
+      patches = (upstream.patches or []) ++ [
         # fix for compatibility with kodi:
         # ftp LIST operation returns entries over-the-wire like:
         # - dgrwxrwxr-x 1 ftp ftp            9 Apr  9 15:05 Videos
@@ -79,7 +69,7 @@ in
         # the full set of bits, from which i filter, is found here: <https://pkg.go.dev/io/fs#FileMode>
         ./safe_fileinfo.patch
       ];
-    };
+    });
 
     settings = {
       ftpd = {
@@ -110,6 +100,13 @@ in
             debug = true;
             tls_mode = 2;  # 2 = "implicit FTPS": client negotiates TLS before any FTP command.
           }
+          {
+            # binding this means any doof client can connect (TLS only)
+            address = config.sane.netns.doof.hostVethIpv4;
+            port = 990;
+            debug = true;
+            tls_mode = 2;  # 2 = "implicit FTPS": client negotiates TLS before any FTP command.
+          }
         ];
 
         # active mode is susceptible to "bounce attacks", without much benefit over passive mode
@@ -126,7 +123,7 @@ in
         banner = ''
           Welcome, friends, to Colin's FTP server! Also available via NFS on the same host, but LAN-only.
 
-          Read-only access (LAN-restricted):
+          Read-only access (LAN clients see everything; WAN clients can only see /pub):
           Username: "anonymous"
           Password: "anonymous"
 

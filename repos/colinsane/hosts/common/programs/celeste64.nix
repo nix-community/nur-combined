@@ -1,6 +1,8 @@
 { ... }:
 {
   sane.programs.celeste64 = {
+    buildCost = 1;
+
     sandbox.method = "bwrap";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDri = true;

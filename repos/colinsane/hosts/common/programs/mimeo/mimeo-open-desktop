@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p "python3.withPackages (ps: [  ])" -p mimeo
+#!nix-shell -i python3 -p mimeo -p python3
 
 # TODO: migrate nixpkgs mimeo to be `buildPythonPackage` to make it importable here.
 # see <doc/languages-frameworks/python.section.md>

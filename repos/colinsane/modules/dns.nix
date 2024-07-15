@@ -45,6 +45,7 @@ let
     $TTL ${toString zcfg.TTL}
     ${fmtRecordAttrs "IN" "SOA" zcfg.inet.SOA}
     ${fmtRecordAttrs "IN" "A" zcfg.inet.A}
+    ${fmtRecordAttrs "IN" "AAAA" zcfg.inet.AAAA}
     ${fmtRecordAttrs "IN" "CNAME" zcfg.inet.CNAME}
     ${fmtRecordAttrs "IN" "MX" zcfg.inet.MX}
     ${fmtRecordAttrs "IN" "NS" zcfg.inet.NS}
@@ -106,6 +107,11 @@ in
               A = mkOption {
                 type = types.attrsOf (listOrUnit types.str);
                 description = "IPv4 address record(s)";
+                default = {};
+              };
+              AAAA = mkOption {
+                type = types.attrsOf (listOrUnit types.str);
+                description = "IPv6 address record(s)";
                 default = {};
               };
               CNAME = mkOption {

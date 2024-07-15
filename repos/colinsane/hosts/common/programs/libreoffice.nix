@@ -8,7 +8,7 @@
     packageUnwrapped = pkgs.libreoffice-fresh;
     sandbox.method = "bwrap";
     sandbox.whitelistWayland = true;
-    sandbox.autodetectCliPaths = true;
+    sandbox.autodetectCliPaths = "existingFile";
     sandbox.extraHomePaths = [
       # allow a spot to save files.
       # with bwrap sandboxing, saving to e.g. ~/ succeeds but the data is inaccessible outside the sandbox,
@@ -16,7 +16,7 @@
       "tmp"
     ];
 
-    buildCost = 2;
+    buildCost = 3;
 
     # disable first-run stuff
     fs.".config/libreoffice/4/user/registrymodifications.xcu".symlink.text = ''

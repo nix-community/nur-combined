@@ -17,7 +17,7 @@ self = stdenv.mkDerivation rec {
 
   postPatch = ''
     # link dynamically
-    substituteInPlace Makefile --replace \
+    substituteInPlace Makefile --replace-fail \
       'LIBTLS_LDFLAGS_STATIC = -ltls -lssl -lcrypto -static' \
       'LIBTLS_LDFLAGS_STATIC = -ltls -lssl -lcrypto'
   '';

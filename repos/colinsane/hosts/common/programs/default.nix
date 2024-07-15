@@ -9,11 +9,15 @@
     ./animatch.nix
     ./assorted.nix
     ./audacity.nix
+    ./ausyscall.nix
+    ./avahi.nix
     ./bemenu.nix
     ./blast-ugjka
     ./bonsai.nix
     ./brave.nix
+    ./brightnessctl.nix
     ./bubblewrap.nix
+    ./callaudiod.nix
     ./calls.nix
     ./cantata.nix
     ./catt.nix
@@ -23,6 +27,7 @@
     ./cozy.nix
     ./cups.nix
     ./curlftpfs.nix
+    ./dbus.nix
     ./dconf.nix
     ./deadd-notification-center
     ./dialect.nix
@@ -33,36 +38,46 @@
     ./element-desktop.nix
     ./engrampa.nix
     ./epiphany.nix
+    ./errno.nix
     ./evince.nix
     ./fcitx5.nix
     ./feedbackd.nix
     ./firefox.nix
-    ./firejail.nix
     ./flare-signal.nix
     ./fontconfig.nix
     ./fractal.nix
+    ./free.nix
     ./frozen-bubble.nix
     ./fwupd.nix
     ./g4music.nix
     ./gajim.nix
+    ./gdb.nix
     ./gdbus.nix
     ./geary.nix
+    ./geoclue-demo-agent.nix
+    ./geoclue2.nix
     ./git.nix
+    ./gnome-clocks.nix
     ./gnome-feeds.nix
     ./gnome-keyring
     ./gnome-maps.nix
     ./gnome-weather.nix
     ./go2tv.nix
     ./gpodder.nix
+    ./gpsd.nix
+    ./gps-share.nix
     ./grimshot.nix
+    ./gst-device-monitor.nix
     ./gthumb.nix
     ./gvfs.nix
     ./handbrake.nix
     ./helix.nix
     ./htop
+    ./iio-sensor-proxy.nix
     ./imagemagick.nix
     ./jellyfin-media-player.nix
     ./kdenlive.nix
+    ./keymapp.nix
     ./komikku.nix
     ./koreader
     ./less.nix
@@ -74,36 +89,52 @@
     ./megapixels.nix
     ./mepo.nix
     ./mimeo
+    ./mmcli.nix
     ./mopidy.nix
     ./mpv
     ./msmtp.nix
     ./nautilus.nix
     ./neovim.nix
+    ./networkmanager_dmenu
     ./newsflash.nix
     ./nheko.nix
     ./nicotine-plus.nix
     ./nix-index.nix
+    ./nmcli.nix
     ./notejot.nix
     ./ntfy-sh.nix
+    ./nwg-panel
     ./objdump.nix
     ./obsidian.nix
     ./offlineimap.nix
+    ./ols.nix
     ./open-in-mpv.nix
+    ./pactl.nix
+    ./pidof.nix
     ./pipewire.nix
+    ./pkill.nix
     ./planify.nix
     ./portfolio-filemanager.nix
     ./playerctl.nix
+    ./ps.nix
+    ./qmk-udev-rules.nix
     ./rhythmbox.nix
     ./ripgrep.nix
     ./rofi
     ./rtkit.nix
     ./s6-rc.nix
     ./sane-input-handler
-    ./sane-sandboxed.nix
+    ./sane-open.nix
     ./sane-screenshot.nix
     ./sane-scripts.nix
+    ./sane-sysload.nix
+    ./sane-theme.nix
+    ./sanebox.nix
+    ./satellite.nix
     ./schlock.nix
+    ./seatd.nix
     ./sfeed.nix
+    ./shadow.nix
     ./signal-desktop.nix
     ./splatmoji.nix
     ./spot.nix
@@ -118,14 +149,19 @@
     ./swayidle.nix
     ./swaylock.nix
     ./swaynotificationcenter
-    ./sysvol.nix
+    ./switchboard.nix
+    ./syshud.nix
     ./tangram.nix
     ./tor-browser.nix
     ./tuba.nix
     ./unl0kr
+    ./via.nix
+    ./visidata.nix
     ./vlc.nix
+    ./wally-cli.nix
     ./waybar
     ./waylock.nix
+    ./where-am-i.nix
     ./wike.nix
     ./wine.nix
     ./wireplumber.nix
@@ -137,9 +173,13 @@
     ./xdg-desktop-portal-wlr.nix
     ./xdg-terminal-exec.nix
     ./xdg-utils.nix
+    ./youtube-tui.nix
     ./zathura.nix
     ./zeal.nix
     ./zecwallet-lite.nix
+    ./zulip.nix
+    ./zsa-udev-rules.nix
+    ./zfs-tools.nix
     ./zsh
   ];
 

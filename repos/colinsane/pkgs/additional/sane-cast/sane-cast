@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p "python3.withPackages (ps: [  ])" -p go2tv
+#!nix-shell -i python3 -p go2tv -p python3
 # vim: set filetype=python :
 """
 cast media (local video or audio files) to a device on the same network
@@ -40,10 +40,15 @@ class Device:
             url = self.url or other.url,
         )
 
+    def matches(self, filter: str) -> bool:
+        """ return True if the filter string occurs inside the identifier for this device """
+        clean = lambda s: "".join(c for c in s.lower() if c in "abcdefghijklmnopqrstuvwxyz0123456789")
+        return clean(filter) in clean(self.model)
+
 # ranked in order of preference
 KNOWN_DEVICES = [
     Device("Theater TV", Compat.RenameToMp4),
-    Device("[LG] webOS TV OLED55C9PUA", Compat.Default),
+    Device("Cuddlevision", Compat.Default),
 ]
 
 class Go2TvParser:
@@ -84,8 +89,7 @@ class Go2TvParser:
         self.partial_url = None
 
 class Go2TvDriver:
-    visible_devices = None
-    def scan_devices(self) -> None:
+    def scan_devices(self) -> list[Device]:
         go2tv = subprocess.Popen(
             [ "go2tv", "-l" ],
             stdout=subprocess.PIPE,
@@ -94,20 +98,7 @@ class Go2TvDriver:
         for line in iter(go2tv.stdout.readline, b''):
             parser.feed_line(line.decode("utf-8"))
 
-        self.visible_devices = parser.into_devices()
-
-    def rank_devices(self) -> list[Device]:
-        ranked = []
-        for known in KNOWN_DEVICES:
-            for vis in self.visible_devices:
-                if vis.model == known.model:
-                    ranked.append(known.augmented(vis))
-
-        for vis in self.visible_devices:
-            if not any(vis.model == r.model for r in ranked):
-                ranked.append(vis)
-
-        return ranked
+        return parser.into_devices()
 
     def cast_to(self, dev: Device, media: str) -> None:
         logger.info(f"casting to {dev.model} at {dev.url} with compat {dev.compat}")
@@ -134,15 +125,25 @@ class Go2TvDriver:
 
         os.execvp("go2tv", cli_args)
 
+def filter_devices(devices: list[Device], filter: str) -> list[Device]:
+    return [d for d in devices if d.matches(filter)]
 
-def choose_device(devices: list[Device]) -> Device | None:
-    if not devices:
-        logger.info("no devices found!")
-        return
 
-    if len(devices) == 1:
-        return devices[0]
+def rank_devices(devices: list[Device]) -> list[Device]:
+    ranked = []
+    for known in KNOWN_DEVICES:
+        for vis in devices:
+            if vis.model == known.model:
+                ranked.append(known.augmented(vis))
 
+    for vis in devices:
+        if not any(vis.model == r.model for r in ranked):
+            ranked.append(vis)
+
+    return ranked
+
+
+def ask_device(devices: list[Device]) -> Device | None:
     dev = None
     while dev is None:
         # TODO: use a GUI menu like zenity?
@@ -163,12 +164,21 @@ def choose_device(devices: list[Device]) -> Device | None:
 
     return dev
 
+def get_default_device(devices: list[Device]) -> Device | None:
+    if not devices:
+        logger.info("no devices found!")
+
+    if len(devices) == 1:
+        return devices[0]
+
 def main():
     logging.basicConfig()
     logging.getLogger().setLevel(logging.INFO)
 
     parser = argparse.ArgumentParser(description="cast media to a DLNA receiver in range")
     parser.add_argument("--verbose", action="store_true", help="more logging")
+    parser.add_argument("--always-ask", action="store_true", help="always ask which device to cast to, regardless how many are available")
+    parser.add_argument("--device", help="filter devices based on if this string is contained in their name (case-insensitive)")
     parser.add_argument("media", help="file or URL to send to the DLNA device")
 
     args = parser.parse_args()
@@ -177,10 +187,15 @@ def main():
         logger.setLevel(logging.DEBUG)
 
     go2tv = Go2TvDriver()
-    go2tv.scan_devices()
-    devices = go2tv.rank_devices()
+    devices = go2tv.scan_devices()
 
-    dev = choose_device(devices)
+    if args.device:
+        devices = filter_devices(devices, args.device)
+    devices = rank_devices(devices)
+
+    dev = get_default_device(devices)
+    if dev is None or args.always_ask:
+        dev = ask_device(devices)
     if dev:
         go2tv.cast_to(dev, args.media)
 

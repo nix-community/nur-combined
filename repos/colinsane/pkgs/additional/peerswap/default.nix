@@ -31,11 +31,11 @@ buildGoModule rec {
     # GOFLAGS or CGO_LDFLAGS could both sort of do this, but they struggle with the spaces/quoting of the above,
     # so instead i manually patch in the values
     substituteInPlace cmd/peerswap-plugin/main.go \
-      --replace 'var GitCommit string' 'var GitCommit string = "${src.rev}"'
+      --replace-fail 'var GitCommit string' 'var GitCommit string = "${src.rev}"'
     substituteInPlace cmd/peerswaplnd/peerswapd/main.go \
-      --replace 'var GitCommit string' 'var GitCommit string = "${src.rev}"'
+      --replace-fail 'var GitCommit string' 'var GitCommit string = "${src.rev}"'
     substituteInPlace cmd/peerswaplnd/pscli/main.go \
-      --replace 'var GitCommit string' 'var GitCommit string = "${src.rev}"'
+      --replace-fail 'var GitCommit string' 'var GitCommit string = "${src.rev}"'
   '';
 
   postInstall = ''

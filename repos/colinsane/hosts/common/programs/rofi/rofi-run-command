@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p sane-open-desktop -p xdg-utils
+#!nix-shell -i bash -p bash -p sane-open
 
 # use:
 # rofi-run-command <handler>.desktop [cmd [args ...]]
@@ -14,16 +14,11 @@ shift
 binArgs=("$@")
 
 if [ "$desktop" != .desktop ]; then
-  # launching an app; the file browser position is no longer interesting: clear it so it opens in ~ next time.
-  # better UX would be to manage this in the other branch:
-  # - open in ~ by default, regardless of last directory
-  # - after launching a *file*, when that file is closed, re-open rofi in that file's directory.
-  # however, `xdg-open` and the `OpenFile` xdg-desktop-portal API don't give any obvious way to block for the app to close.
-  rm -f ~/.cache/rofi/rofi3.filebrowsercache
-  exec sane-open-desktop "$desktop"
+  exec sane-open --auto-keyboard --application "$desktop"
 elif [ "$binary" = "xdg-open" ]; then
-  exec xdg-open "$@"
+  # the file we want to open could be a symlink to a .desktop file, so omit `--file` and let sane-open figure that part out for itself:
+  exec sane-open --auto-keyboard "${binArgs[@]}"
 fi
 
-printf "no .desktop file, and unexpected binary; not invoking: %s %s" "$binary" "${binArgs[*]}" > /dev/null
+printf "no .desktop file, and unexpected binary; not invoking: %s %s\n" "$binary" "${binArgs[*]}" >&2
 exit 1

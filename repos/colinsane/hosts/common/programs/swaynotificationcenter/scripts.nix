@@ -24,7 +24,7 @@
   # - SWAYNC_SUMMARY
 
   # rules to use for testing. trigger with:
-  # - `notify-send --app-id=foo subject body` (etc)
+  # - `notify-send --app-name=foo subject body` (etc)
   # should also be possible to trigger via any messaging app
   fbcli-test-im = {
     body = "test:message";

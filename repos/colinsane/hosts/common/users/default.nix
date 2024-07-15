@@ -21,6 +21,7 @@ in
   ];
 
   users.groups.media = {};
+  users.groups.plugdev = {};
 
   # Users are exactly these specified here;
   # old ones will be deleted (from /etc/passwd, etc) upon upgrade.
@@ -51,12 +52,6 @@ in
   sane.fs."/etc/shadow".symlink.target = "/var/lib/etc_secrets/shadow";
 
   # pam.d ordering (auth section only):
-  # /etc/pam.d/greetd:
-  #   auth optional pam_unix.so likeauth nullok # unix-early (order 11600)
-  #   auth optional /nix/store/051v0pwqfy1z7ld6087y99fdrv12113n-pam_mount-2.20/lib/security/pam_mount.so disable_interactive # mount (order 12000)
-  #   auth optional /nix/store/82zqzh7i88pxybcf48zapnz4v0jf19nm-gnome-keyring-42.1/lib/security/pam_gnome_keyring.so # gnome_keyring (order 12200)
-  #   auth sufficient pam_unix.so likeauth nullok try_first_pass # unix (order 12800)
-  #   auth required pam_deny.so # deny (order 13600)
   # /etc/pam.d/login:
   #   auth optional pam_unix.so likeauth nullok # unix-early (order 11600)
   #   auth optional /nix/store/051v0pwqfy1z7ld6087y99fdrv12113n-pam_mount-2.20/lib/security/pam_mount.so disable_interactive # mount (order 12000)
@@ -104,15 +99,6 @@ in
   # - pam_cap bug, and fix: <https://bugzilla.kernel.org/show_bug.cgi?id=212945#c5>
   # - may need to use keepcaps + defer: <https://bugzilla.kernel.org/show_bug.cgi?id=214377#c3>
 
-  # security.pam.services.greetd.rules = {
-  #   # 2024/01/28: greetd seems to get its caps from systemd (pid1), no matter what i do.
-  #   auth.pam_cap = {
-  #     order = 12700;
-  #     control = "optional";
-  #     modulePath = "${libcapForPam.pam}/lib/security/pam_cap.so";
-  #     args = [ "keepcaps" "defer" "debug" ];  #< doesn't take effect
-  #   };
-  # };
   security.pam.services.login.rules = {
     # keepcaps + defer WORKS
     auth.pam_cap = {

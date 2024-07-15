@@ -1,8 +1,8 @@
 { pkgs, ... }:
 {
-  sane.programs."gnome.nautilus" = {
+  sane.programs."nautilus" = {
     # some of its dbus services don't even refer to real paths
-    packageUnwrapped = pkgs.rmDbusServicesInPlace (pkgs.gnome.nautilus.overrideAttrs (orig: {
+    packageUnwrapped = pkgs.rmDbusServicesInPlace (pkgs.nautilus.overrideAttrs (orig: {
       # enable the "Audio and Video Properties" pane. see: <https://nixos.wiki/wiki/Nautilus>
       buildInputs = orig.buildInputs ++ (with pkgs.gst_all_1; [
         gst-plugins-good
@@ -10,9 +10,9 @@
       ]);
     }));
 
-    suggestedPrograms = [
-      "gvfs"  # browse ftp://, etc
-    ];
+    # suggestedPrograms = [
+    #   "gvfs"  # browse ftp://, etc  (TODO: fix!)
+    # ];
 
     sandbox.method = "bwrap";
     sandbox.whitelistDbus = [ "user" ];  # for portals launching apps
@@ -36,11 +36,11 @@
       "/tmp"
       "/var"
     ];
-    sandbox.extraRuntimePaths = [
-      # not sure if these are actually necessary
-      "gvfs"
-      "gvfsd"
-    ];
+    # sandbox.extraRuntimePaths = [
+    #   # not sure if these are actually necessary
+    #   "gvfs"
+    #   "gvfsd"
+    # ];
 
     mime.priority = 150;  #< default is 100, so higher means we fall-back to other apps that might be more specialized
     mime.associations = {

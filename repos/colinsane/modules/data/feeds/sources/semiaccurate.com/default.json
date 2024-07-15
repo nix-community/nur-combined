@@ -1,9 +1,9 @@
 {
   "description": "On Target Technology News",
   "is_podcast": false,
-  "site_name": "SemiAccurate - On Target Technology News",
+  "site_name": "SemiAccurate",
   "site_url": "https://semiaccurate.com",
   "title": "SemiAccurate",
   "url": "https://www.semiaccurate.com/feed/",
-  "velocity": 0.106
+  "velocity": 0.098
 }

@@ -18,17 +18,18 @@
 }:
 stdenv.mkDerivation {
   name = "linux-firmware-megous";
-  version = "unstable-2023-2023-05-06";
+  version = "unstable-2024-02-28";
   src = fetchgit {
     url = "https://megous.com/git/linux-firmware";
-    rev = "0510074346983ad33b3d52ce8f5d6a8f89a564a8";
-    hash = "sha256-qZVkGv4PCqKSYz92yy0+9oZY7dPW24rmj5obeaVXt0Y=";
+    rev = "93a06aaf905d3204b12a48de2fc8cbf384ce7c2b";
+    hash = "sha256-RrAeq1kx8PiJecW5eS9x8dkzSQayUCUBiBgMYEPk0Qs=";
   };
 
   dontBuild = true;
 
   installPhase = ''
     mkdir -p "$out/lib/firmware"
+    # XXX: copying the entire rtl_bt tree is quite a bit more than i actually need, but doesn't seem to cause trouble
     ${lib.optionalString rtl_bt "cp -R rtl_bt $out/lib/firmware"}
     ${lib.optionalString anx7688 "cp anx7688-fw.bin $out/lib/firmware"}
     ${lib.optionalString ov5640 "cp ov5640_af.bin $out/lib/firmware"}

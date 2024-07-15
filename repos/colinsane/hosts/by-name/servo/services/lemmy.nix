@@ -22,7 +22,7 @@ let
   #   #      "Change commandline flag to allow disabling video, since it is enabled by default"
   #   postPatch = (upstream.postPatch or "") + ''
   #     substituteInPlace src/validate.rs \
-  #       --replace 'if transcode_options.needs_reencode() {' 'if false {'
+  #       --replace-fail 'if transcode_options.needs_reencode() {' 'if false {'
   #   '';
   # });
 in {
@@ -46,6 +46,7 @@ in {
   };
   systemd.services.lemmy.environment = {
     RUST_BACKTRACE = "full";
+    RUST_LOG = "warn";
     # RUST_LOG = "debug";
     # RUST_LOG = "trace";
     # upstream defaults LEMMY_DATABASE_URL = "postgres:///lemmy?host=/run/postgresql";

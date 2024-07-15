@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p util-linux
+#!nix-shell -i bash -p bash -p util-linux
 
 # unlock the private store, run some command, and then re-lock the store
 # N.B.: `mount`ing requires elevated privileges (cap_sys_admin).

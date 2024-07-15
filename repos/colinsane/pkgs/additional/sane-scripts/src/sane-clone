@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p nix
+#!nix-shell -i bash -p bash -p nix
 
 # use like `eval $(sane-clone tuba)` to clone and cd into a tuba checkout
 

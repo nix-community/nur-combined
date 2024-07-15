@@ -8,6 +8,7 @@
     ./ids.nix
     ./programs
     ./image.nix
+    ./netns.nix
     ./persist
     ./ports.nix
     ./root-on-tmpfs.nix

@@ -1,14 +1,18 @@
 # docs: <https://git.sr.ht/~mil/mepo>
 # irc #mepo:irc.oftc.net
+#
 { config, lib, ... }:
-
 {
   sane.programs.mepo = {
     sandbox.method = "bwrap";
     sandbox.net = "all";  # for tiles *and* for localhost comm to gpsd
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
-    sandbox.whitelistDbus = [ "user" ];  # for geoclue
+    sandbox.whitelistDbus = [
+      "system"  # system is required for non-portal location services
+      "user"  #< not sure if "user" is necessary?
+    ];
+    sandbox.usePortal = false;  # TODO: set up portal-based location services
 
     persist.byStore.plaintext = [ ".cache/mepo/tiles" ];
     # ~/.cache/mepo/savestate has precise coordinates and pins: keep those private
@@ -16,11 +20,11 @@
       { type = "file"; path = ".cache/mepo/savestate"; }
     ];
 
-    # give mepo access to gpsd for location data, if that's enabled.
-    # same with geoclue2.
-    suggestedPrograms = lib.optional config.services.gpsd.enable "gpsd"
-      ++ lib.optional config.services.geoclue2.enable "geoclue2-with-demo-agent"
-    ;
+    # enable geoclue2 and gpsd for location data.
+    suggestedPrograms = [
+      "geoclue2"
+      # "gpsd"  #< not required, and mepo only uses it if geoclue is unavailable
+    ];
   };
 
   # programs.mepo = lib.mkIf config.sane.programs.mepo.enabled {

@@ -8,6 +8,8 @@
 { ... }:
 {
   sane.programs.g4music = {
+    buildCost = 1;
+
     sandbox.method = "bwrap";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  # mpris

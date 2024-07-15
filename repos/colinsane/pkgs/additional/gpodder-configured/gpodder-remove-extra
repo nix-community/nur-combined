@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p "python3.withPackages (ps: [ gnome-feeds.listparser ])" -p gpodder
+#!nix-shell -i python3 -p gpodder -p listparser -p python3
 
 from dataclasses import dataclass, field
 import listparser

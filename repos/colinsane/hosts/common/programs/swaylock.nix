@@ -4,18 +4,31 @@ let
 in
 {
   sane.programs.swaylock = {
-    packageUnwrapped = pkgs.swaylock.overrideAttrs (upstream: {
-      nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
-        pkgs.copyDesktopItems
-      ];
-      desktopItems = (upstream.desktopItems or []) ++ [
-        (pkgs.makeDesktopItem {
-          name = "swaylock";
-          exec = "swaylock --indicator-idle-visible --indicator-radius 100 --indicator-thickness 30";
-          desktopName = "Sway session locker";
-        })
-      ];
-    });
+    configOption = with lib; mkOption {
+      default = {};
+      type = types.submodule {
+        options.autolock = mkOption {
+          type = types.bool;
+          default = true;
+          description = ''
+            integrate with things like `swayidle` to auto-lock when appropriate.
+          '';
+        };
+      };
+    };
+
+    # packageUnwrapped = pkgs.swaylock.overrideAttrs (upstream: {
+    #   nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+    #     pkgs.copyDesktopItems
+    #   ];
+    #   desktopItems = (upstream.desktopItems or []) ++ [
+    #     (pkgs.makeDesktopItem {
+    #       name = "swaylock";
+    #       exec = "swaylock --indicator-idle-visible --indicator-radius 100 --indicator-thickness 30";
+    #       desktopName = "Sway session locker";
+    #     })
+    #   ];
+    # });
 
     sandbox.method = "bwrap";
     sandbox.extraPaths = [
@@ -26,11 +39,16 @@ in
       "/etc/shadow"
     ];
     sandbox.whitelistWayland = true;
+
+    services.swaylock = {
+      description = "swaylock screen locker";
+      command = "swaylock --indicator-idle-visible --indicator-radius 100 --indicator-thickness 30";
+      restartCondition = "on-failure";
+    };
   };
 
-  sane.programs.swayidle.config = lib.mkIf cfg.enabled {
-    actions.swaylock.desktop = "swaylock.desktop";
-    actions.swaylock.delay = 1800;
+  sane.programs.swayidle.config = lib.mkIf (cfg.enabled && cfg.config.autolock) {
+    actions.lock.service = "swaylock";
   };
 
   security.pam.services = lib.mkIf cfg.enabled {

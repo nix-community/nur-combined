@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p coreutils-full -p gnused
+#!nix-shell -i bash -p bash -p coreutils-full -p gnused
 
 # processes a tab-separated "deadlines" file and alerts for any upcoming events.
 #

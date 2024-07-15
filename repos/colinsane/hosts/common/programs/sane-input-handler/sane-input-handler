@@ -1,5 +1,6 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p coreutils -p killall -p playerctl -p procps -p sane-open-desktop -p sway -p util-linux -p wireplumber
+#!nix-shell -i bash -p bash -p coreutils -p jq -p killall -p playerctl -p procps -p sane-open -p sway -p util-linux -p wireplumber
+# vim: set filetype=bash :
 
 # input map considerations
 # - using compound actions causes delays.
@@ -12,8 +13,8 @@
 #
 # example of a design which considers these things:
 # - when unlocked:
-#   - volup tap       -> app menu
-#   - volup hold      -> file browser
+#   - volup tap       -> file browser
+#   - volup hold      -> app menu
 #   - voldown press   -> keyboard
 #   - voldown hold    -> terminal
 #   - power x2        -> screenoff
@@ -60,28 +61,85 @@ KEYBOARD="${KEYBOARD:-wvkbd-mobintl}"
 
 action="$1"
 
-isTouchOn() {
-  # success if all touch inputs have their events enabled
+showHelp() {
+  echo "usage: sane-input-handler <action>"
+  echo ""
+  echo "where action is one of:"
+  echo "- power_tap_{1,2}"
+  echo "- power_hold"
+  echo "- power_tap_1_hold"
+  echo "- power_and_volup"
+  echo "- power_and_voldown"
+  echo "- power_then_volup"
+  echo "- power_then_voldown"
+  echo "- volup_tap_{1,2,3}"
+  echo "- volup_hold_{1,2,3}"
+  echo "- voldown_tap_{1,2,3}"
+  echo "- voldown_hold_{1,2,3}"
+  echo "- voldown_start"
+}
+
+log() {
+  printf "sane-input-handler: %s\n" "$1"
+}
+
+## HELPERS
+
+# swaySetOutput true|false
+# turns the display on or off
+swaySetOutput() {
+  swaymsg -- output '*' power "$1"
+}
+# swaySetTouch enabled|disabled
+# turns touch input on or off
+swaySetTouch() {
+  # XXX(2024/06/09): `type:touch` method is documented, but now silently fails
+  # swaymsg -- input type:touch events "$1"
+
+  local inputs=$(swaymsg -t get_inputs --raw | jq '. | map(select(.type == "touch")) | map(.identifier) | join(" ")' --raw-output)
+  for id in "${inputs[@]}"; do
+    swaymsg -- input "$id" events "$1"
+  done
+}
+
+# success if all touch inputs have their events enabled
+swayGetTouch() {
   swaymsg -t get_inputs --raw \
     | jq --exit-status '. | map(select(.type == "touch")) | all(.libinput.send_events == "enabled")' \
     > /dev/null
 }
-isScreenOn() {
-  # success if all outputs have power
+# success if all outputs have power
+swayGetOutput() {
   swaymsg -t get_outputs --raw \
     | jq --exit-status '. | all(.power)' \
     > /dev/null
 }
 
 isAllOn() {
-  isTouchOn && isScreenOn
+  swayGetOutput && swayGetTouch
 }
 
 isInhibited() {
   pidof rofi
 }
 
+handleWith() {
+  local state=
+  if [ -n "$_isInhibited" ]; then
+    state="inhibited+"
+  fi
+  if [ -n "$_isAllOn" ]; then
+    state="${state}on"
+  else
+    state="${state}off"
+  fi
+  log "state=$state action=$action: handleWith: $*"
+  "$@"
+  exit $?
+}
 
+
+## HANDLERS
 ignore() {
   true
 }
@@ -93,35 +151,26 @@ unmapped() {
 }
 
 allOn() {
-  swaymsg -- output '*' power true
-  swaymsg -- input type:touch events enabled
+  swaySetOutput true
+  swaySetTouch enabled
 }
 allOff() {
-  swaymsg -- output '*' power false
-  swaymsg -- input type:touch events disabled
+  swaySetOutput false
+  swaySetTouch disabled
 }
 
 toggleKeyboard() {
-  local kbpid=$(pidof "$KEYBOARD")
-  if [ -z "$kbpid" ] || ! ( env kill -s RTMIN+0 "$kbpid" ); then
-    echo "sane-input-handler: failed to toggle keyboard: $KEYBOARD"
+  local keyboardPid=$(pidof "$KEYBOARD")
+  if [ -z "$keyboardPid" ]; then
+    log "cannot find $KEYBOARD"
+    return
   fi
+
+  # `env` so that we get the right `kill` binary instead of bash's builtin
+  env kill -s RTMIN+0 "$keyboardPid"
 }
 
-handleWith() {
-  state=
-  if [ -n "$_isInhibited" ]; then
-    state="inhibited+"
-  fi
-  if [ -n "$_isAllOn" ]; then
-    state="${state}on"
-  else
-    state="${state}off"
-  fi
-  echo "sane-input-handler: state=$state action=$action: handleWith: $@"
-  "$@"
-  exit 0
-}
+## DISPATCHERS
 
 dispatchDefault() {
   case "$action" in
@@ -169,11 +218,11 @@ dispatchOn() {
       ;;
     "power_and_volup")
       # power (hold) -> volup: take screenshot
-      handleWith sane-open-desktop sane-screenshot.desktop
+      handleWith sane-open --application sane-screenshot.desktop
       ;;
     "power_and_voldown")
       # power (hold) -> voldown: open camera
-      handleWith sane-open-desktop org.postmarketos.Megapixels.desktop
+      handleWith sane-open --auto-keyboard --application org.postmarketos.Megapixels.desktop
       ;;
     "power_then_volup")
       # power (tap) -> volup: rotate CCW
@@ -185,12 +234,14 @@ dispatchOn() {
       ;;
 
     "volup_tap_1")
-      # volume up once: system menu
-      handleWith sane-open-desktop rofi.desktop
+      # volume up once: filesystem browser
+      handleWith sane-open --auto-keyboard --application rofi-filebrowser.desktop
       ;;
     "volup_hold_1")
-      # volume up hold: just browse files
-      handleWith sane-open-desktop rofi-filebrowser.desktop
+      # volume up hold: browse files and apps
+      # reset fs directory: useful in case you get stuck in broken directory (e.g. one which lacks a `..` entry)
+      rm -f ~/.cache/rofi/rofi3.filebrowsercache
+      handleWith sane-open --auto-keyboard --application rofi.desktop
       ;;
 
     "voldown_start")
@@ -200,7 +251,7 @@ dispatchOn() {
     "voldown_hold_1")
       # hold voldown to launch terminal
       # note we already triggered the keyboard; that's fine: usually keyboard + terminal go together :)
-      handleWith sane-open-desktop xdg-terminal-exec.desktop
+      handleWith sane-open --auto-keyboard --application xdg-terminal-exec.desktop
       ;;
     "voldown_tap_1")
       # swallow, to prevent keyboard from also triggering media controls
@@ -226,19 +277,31 @@ dispatchInhibited() {
   esac
 }
 
-_isAllOn="$(isAllOn && echo 1 || true)"
+dispatchToplevel() {
+  _isAllOn="$(isAllOn && echo 1 || true)"
 
-if [ -z "$_isAllOn" ]; then
-  dispatchOff
-else
-  _isInhibited="$(isInhibited && echo 1 || true)"
-  if [ -n "$_isInhibited" ]; then
-    dispatchInhibited
+  if [ -z "$_isAllOn" ]; then
+    dispatchOff
   else
-    dispatchOn
+    _isInhibited="$(isInhibited && echo 1 || true)"
+    if [ -n "$_isInhibited" ]; then
+      dispatchInhibited
+    else
+      dispatchOn
+    fi
   fi
-fi
 
-dispatchDefault
+  dispatchDefault
+}
 
-handleWith unmapped
+case "$action" in
+  (--help)
+    showHelp
+    exit 0
+    ;;
+  (*)
+    dispatchToplevel
+    handleWith unmapped
+    ;;
+esac
+

@@ -50,7 +50,7 @@ let
   localShareApplicationsPkg = (pkgs.symlinkJoin {
     name = "user-local-share-applications";
     paths = builtins.map
-      (p: "${p.package}")
+      (p: builtins.toString p.package)
       (enabledProgramsWithPackage ++ [ { package=mimeappsListPkg; } ]);
   }).overrideAttrs (orig: {
     # like normal symlinkJoin, but don't error if the path doesn't exist

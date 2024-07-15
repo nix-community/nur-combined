@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p gnused
+#!nix-shell -i bash -p bash -p gnused
 # usage: install-bluetooth <source_dir> <destdir>
 # source_dir contains plain-text files of any filename.
 # for each file, this extracts the MAC and creates a symlink in destdir which

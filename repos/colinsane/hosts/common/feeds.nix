@@ -1,14 +1,9 @@
 # where to find good stuff?
 # - universal search/directory: <https://podcastindex.org>
+# - list of lists: <https://en.wikipedia.org/wiki/Category:Lists_of_podcasts>
 # - podcasts w/ a community: <https://lemmyverse.net/communities?query=podcast>
 # - podcast rec thread: <https://lemmy.ml/post/1565858>
 #
-# candidates:
-# - The Nonlinear Library (podcast): <https://forum.effectivealtruism.org/posts/JTZTBienqWEAjGDRv/listen-to-more-ea-content-with-the-nonlinear-library>
-#   - has ~10 posts per day, text-to-speech; i would need better tagging before adding this
-# - <https://www.metaculus.com/questions/11102/introducing-the-metaculus-journal-podcast/>
-#   - dead since 2022/10 - 2023/03
-
 { lib, sane-data, ... }:
 let
   hourly = { freq = "hourly"; };
@@ -80,12 +75,15 @@ let
     (fromDb "feeds.simplecast.com/wgl4xEgL" // rat)  # Econ Talk
     (fromDb "feeds.simplecast.com/xKJ93w_w" // uncat)  # Atlas Obscura
     (fromDb "feeds.transistor.fm/acquired" // tech)
+    (fromDb "feeds.twit.tv/floss.xml" // tech)
     (fromDb "fulltimenix.com" // tech)
     (fromDb "futureofcoding.org/episodes" // tech)
     (fromDb "hackerpublicradio.org" // tech)
     (fromDb "lexfridman.com/podcast" // rat)
+    (fromDb "linktr.ee/betteroffline" // pol)
     (fromDb "mapspodcast.libsyn.com" // uncat)  # Multidisciplinary Association for Psychedelic Studies
     (fromDb "microarch.club" // tech)
+    (fromDb "mintcast.org" // tech)
     (fromDb "omegataupodcast.net" // tech)  # 3/4 German; 1/4 eps are English
     (fromDb "omny.fm/shows/cool-people-who-did-cool-stuff" // pol)  # Maggie Killjoy -- referenced by Cory Doctorow
     (fromDb "omny.fm/shows/money-stuff-the-podcast")  # Matt Levine
@@ -102,6 +100,7 @@ let
     (fromDb "seattlenice.buzzsprout.com" // pol)
     (fromDb "srslywrong.com" // pol)
     (fromDb "sharkbytes.transistor.fm" // tech)  # Wireshark Podcast o_0
+    (fromDb "sharptech.fm/feed/podcast" // tech)
     (fromDb "sscpodcast.libsyn.com" // rat)  # Astral Codex Ten
     (fromDb "talesfromthebridge.buzzsprout.com" // tech)  # Sci-Fi? has Peter Watts; author of No Moods, Ads or Cutesy Fucking Icons (rifters.com)
     (fromDb "theamphour.com" // tech)
@@ -134,6 +133,7 @@ let
     (fromDb "artemis.sh" // tech)
     (fromDb "ascii.textfiles.com" // tech)  # Jason Scott
     (fromDb "austinvernon.site" // tech)
+    (fromDb "buttondown.email" // tech)
     (fromDb "ben-evans.com/benedictevans" // pol)
     (fromDb "bitbashing.io" // tech)
     (fromDb "bitsaboutmoney.com" // uncat)
@@ -191,8 +191,11 @@ let
     (fromDb "uninsane.org" // tech)
     (fromDb "unintendedconsequenc.es" // rat)
     (fromDb "vitalik.eth.limo" // tech)  # Vitalik Buterin
+    (fromDb "weekinethereumnews.com" // tech)
     (fromDb "willow.phantoma.online")  # wizard@xyzzy.link
     (fromDb "xn--gckvb8fzb.com" // tech)
+    (fromDb "xorvoid.com" // tech)
+    (fromDb "www.thebignewsletter.com" // pol)
     (mkSubstack "astralcodexten" // rat // daily)  # Scott Alexander
     (mkSubstack "eliqian" // rat // weekly)
     (mkSubstack "oversharing" // pol // daily)
@@ -236,7 +239,7 @@ let
     (fromDb "youtube.com/@TomScottGo")
     (fromDb "youtube.com/@Vihart")
     (fromDb "youtube.com/@Vox")
-    (fromDb "youtube.com/@Vsauce")
+    # (fromDb "youtube.com/@Vsauce")  # they're all like 1-minute long videos now? what happened @Vsauce?
 
     # (fromDb "youtube.com/@rossmanngroup" // pol // tech)  # Louis Rossmann
   ];
@@ -244,6 +247,7 @@ let
   images = [
     (fromDb "catandgirl.com" // img // humor)
     (fromDb "davidrevoy.com" // img // art)
+    (fromDb "grumpy.website" // img // humor)
     (fromDb "miniature-calendar.com" // img // art // daily)
     (fromDb "pbfcomics.com" // img // humor)
     (fromDb "poorlydrawnlines.com/feed" // img // humor)

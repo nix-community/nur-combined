@@ -1,6 +1,5 @@
 # simple RSS and Atom parser
 # - <https://codemadness.org/sfeed-simple-feed-parser.html>
-# - used by sxmo
 # - man 5 sfeedrc
 #
 # call `sfeed_update` to query each feed and populate entries in ~/.sfeed/feeds

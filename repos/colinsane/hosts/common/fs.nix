@@ -26,10 +26,6 @@ let
     # lazyMount: defer mounting until first access from userspace.
     # see: `man systemd.automount`, `man automount`, `man autofs`
     lazyMount = noauto ++ automount;
-    wg = [
-      "x-systemd.requires=wireguard-wg-home.service"
-      "x-systemd.after=wireguard-wg-home.service"
-    ];
 
     fuse = [
       "allow_other"  # allow users other than the one who mounts it to access it. needed, if systemd is the one mounting this fs (as root)
@@ -107,7 +103,8 @@ let
     ftp = common ++ fuseColin ++ [
       # "ftpfs_debug=2"
       "user=colin:ipauth"
-      "connect_timeout=10"
+      # connect_timeout=10: casting shows to T.V. fails partway through about half the time
+      "connect_timeout=20"
     ];
   };
   remoteHome = host: {
@@ -135,9 +132,9 @@ let
       device = "ftp://servo-hn:/${subdir}";
       noCheck = true;
       fsType = "fuse.curlftpfs";
-      options = fsOpts.ftp ++ fsOpts.noauto ++ fsOpts.wg;
+      options = fsOpts.ftp ++ fsOpts.noauto;
       # fsType = "nfs";
-      # options = fsOpts.nfs ++ fsOpts.lazyMount ++ fsOpts.wg;
+      # options = fsOpts.nfs ++ fsOpts.lazyMount;
     };
     systemd.services."automount-servo-${utils.escapeSystemdPath subdir}" = let
       fs = config.fileSystems."/mnt/servo/${subdir}";
@@ -215,6 +212,7 @@ lib.mkMerge [
     programs.fuse.userAllowOther = true;  #< necessary for `allow_other` or `allow_root` options.
   }
 
+  (remoteHome "crappy")
   (remoteHome "desko")
   (remoteHome "lappy")
   (remoteHome "moby")

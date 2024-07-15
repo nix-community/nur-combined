@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p gocryptfs
+#!nix-shell -i bash -p bash -p gocryptfs
 
 set -ex
 

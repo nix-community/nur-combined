@@ -6,9 +6,10 @@
     - generate pw hash with: `nix run nixpkgs.apacheHttpd -c htpasswd -nbB "" "my passwd"`
 - matrix_synapse_secrets:
     - for the smtp_pass; the rest isn't sensitive
-- nix_serve_privkey.bin:
+- nix_signing_key.bin:
     - generate with nix-store --generate-binary-cache-key nixcache.uninsane.org cache-priv-key.pem cache-pub-key.pem
     - pubkey: nixcache.uninsane.org:r3WILM6+QrkmsLgqVQcEdibFD7Q/4gyzD9dGT33GP70=
+    - used when deploying packages to a remote machine
 - wg_ovpns_privkey.bin: wireguard private key for OVPN
     - to generate:
         - wg genkey > wg0.private

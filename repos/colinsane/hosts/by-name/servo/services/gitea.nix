@@ -38,28 +38,34 @@
       ROOT_URL = "https://git.uninsane.org/";
     };
     service = {
-      # timeout for email approval. 5760 = 4 days
-      ACTIVE_CODE_LIVE_MINUTES = 5760;
+      # timeout for email approval. 5760 = 4 days. 10080 = 7 days
+      ACTIVE_CODE_LIVE_MINUTES = 10080;
       # REGISTER_EMAIL_CONFIRM = false;
       # REGISTER_MANUAL_CONFIRM = true;
       REGISTER_EMAIL_CONFIRM = true;
-      # not sure what this notified on?
+      # not sure what this notifies *on*...
       ENABLE_NOTIFY_MAIL = true;
       # defaults to image-based captcha.
       # also supports recaptcha (with custom URLs) or hCaptcha.
       ENABLE_CAPTCHA = true;
       NOREPLY_ADDRESS = "noreply.anonymous.git@uninsane.org";
     };
-    session.COOKIE_SECURE = true;
+    session = {
+      COOKIE_SECURE = true;
+      # keep me logged in for 30 days
+      SESSION_LIFE_TIME = 60 * 60 * 24 * 30;
+    };
     repository = {
       DEFAULT_BRANCH = "master";
+      ENABLE_PUSH_CREATE_USER = true;
+      ENABLE_PUSH_CREATE_ORG = true;
     };
     other = {
       SHOW_FOOTER_TEMPLATE_LOAD_TIME = false;
     };
     ui = {
-      # options: "auto", "gitea", "arc-green"
-      DEFAULT_THEME = "arc-green";
+      # options: "gitea-auto" (adapt to system theme), "gitea-dark", "gitea-light"
+      # DEFAULT_THEME = "gitea-auto";
       # cache frontend assets if true
       # USE_SERVICE_WORKER = true;
     };
@@ -68,9 +74,10 @@
       # alternative is to use nixos-level config:
       # services.gitea.mailerPasswordFile = ...
       ENABLED = true;
-      MAILER_TYPE = "sendmail";
       FROM = "notify.git@uninsane.org";
+      PROTOCOL = "sendmail";
       SENDMAIL_PATH = "${pkgs.postfix}/bin/sendmail";
+      SENDMAIL_ARGS = "--";  # most "sendmail" programs take options, "--" will prevent an email address being interpreted as an option.
     };
     time = {
       # options: ANSIC, UnixDate, RubyDate, RFC822, RFC822Z, RFC850, RFC1123, RFC1123Z, RFC3339, RFC3339Nano, Kitchen, Stamp, StampMilli, StampMicro, StampNano
@@ -89,6 +96,8 @@
       "/var/lib/gitea"
     ];
   };
+
+  services.openssh.settings.UsePAM = true;  #< required for `git` user to authenticate
 
   # hosted git (web view and for `git <cmd>` use
   # TODO: enable publog?
@@ -125,7 +134,7 @@
   sane.ports.ports."22" = {
     protocol = [ "tcp" ];
     visibleTo.lan = true;
-    visibleTo.wan = true;
+    visibleTo.doof = true;
     description = "colin-git@git.uninsane.org";
   };
 }

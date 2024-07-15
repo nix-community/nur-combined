@@ -21,6 +21,8 @@ let
 in
 {
   sane.programs.stepmania = {
+    buildCost = 1;
+
     sandbox.method = "bwrap";
     sandbox.wrapperType = "inplace";  #< non-standard packaging; binary lives at $out/stepmania-5.1/stepmania  (not even in an /opt dir)
     sandbox.whitelistAudio = true;

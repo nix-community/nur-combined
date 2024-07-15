@@ -34,7 +34,7 @@ in
     ];
 
     fs.".config/xdg-desktop-portal/portals/gtk.portal".symlink.target =
-      "${cfg.package}/share/xdg-desktop-portal/portals/gtk.portal";
+      "${cfg.packageUnwrapped}/share/xdg-desktop-portal/portals/gtk.portal";
     # XXX: overcome bug when manually setting `$XDG_DESKTOP_PORTAL_DIR`
     #      which causes *.portal files to be looked for in the toplevel instead of under `portals/`
     fs.".config/xdg-desktop-portal/gtk.portal".symlink.target = "portals/gtk.portal";

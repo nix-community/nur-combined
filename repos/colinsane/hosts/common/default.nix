@@ -1,23 +1,29 @@
 { config, lib, pkgs, ... }:
 {
   imports = [
+    ./boot.nix
     ./feeds.nix
     ./fs.nix
-    ./hardware
     ./home
     ./hosts.nix
     ./ids.nix
     ./machine-id.nix
     ./net
-    ./nix
+    ./nix.nix
     ./persist.nix
     ./polyunfill.nix
     ./programs
+    ./quirks.nix
     ./secrets.nix
     ./ssh.nix
     ./systemd.nix
     ./users
   ];
+
+
+  # docs: https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion
+  # this affects where nixos modules look for stateful data which might have been migrated across releases.
+  system.stateVersion = "21.11";
 
   sane.nixcache.enable-trusted-keys = true;
   sane.nixcache.enable = lib.mkDefault true;
@@ -25,9 +31,6 @@
   sane.root-on-tmpfs = lib.mkDefault true;
   sane.programs.sysadminUtils.enableFor.system = lib.mkDefault true;
   sane.programs.consoleUtils.enableFor.user.colin = lib.mkDefault true;
-
-  nixpkgs.config.allowUnfree = true;  # NIXPKGS_ALLOW_UNFREE=1
-  nixpkgs.config.allowBroken = true;  # NIXPKGS_ALLOW_BROKEN=1
 
   # time.timeZone = "America/Los_Angeles";
   time.timeZone = "Etc/UTC";  # DST is too confusing for me => use a stable timezone

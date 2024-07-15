@@ -55,7 +55,7 @@ in
     # - theme-demo
     # - timeout-completed
     # - window-close
-    fs.".config/feedbackd/themes/proxied.json".symlink.text = builtins.toJSON {
+    fs.".config/feedbackd/themes/proxied.json".symlink.target = pkgs.writers.writeJSON "proxied.json" {
       name = "proxied";
       parent-theme = "default";
       profiles = [
