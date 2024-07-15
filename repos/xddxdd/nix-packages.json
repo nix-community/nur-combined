@@ -487,7 +487,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Port of Facebook's LLaMA model in C/C++",
     "pname": "llama-cpp",
-    "version": "3387"
+    "version": "3392"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -2732,7 +2732,7 @@
   "legacyPackages.x86_64-linux.qq": {
     "description": "QQ for Linux",
     "pname": "qq",
-    "version": "3.2.9"
+    "version": "3.2.10"
   },
   "legacyPackages.x86_64-linux.qqmusic": {
     "description": "Tencent QQ Music",
@@ -3462,7 +3462,7 @@
   "packages.x86_64-linux.qq": {
     "description": "QQ for Linux",
     "pname": "qq",
-    "version": "3.2.9"
+    "version": "3.2.10"
   },
   "packages.x86_64-linux.qqmusic": {
     "description": "Tencent QQ Music",

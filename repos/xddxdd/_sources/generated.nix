@@ -194,15 +194,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "9507e82d756bb29339edd833ac75fbf229dd925d";
+    version = "175e57ac32a281617fa6c4aa38167ca108cf5b1a";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "9507e82d756bb29339edd833ac75fbf229dd925d";
+      rev = "175e57ac32a281617fa6c4aa38167ca108cf5b1a";
       fetchSubmodules = false;
-      sha256 = "sha256-U3Q4JSqOM7nUKF2fjy3YAufFrGEoHIy1r6Ao4WxB/OY=";
+      sha256 = "sha256-AkJNuNKXkyuVVimnUmC8ByV6uI2s/OVrh974QnBBnOs=";
     };
-    date = "2024-07-13";
+    date = "2024-07-14";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -807,13 +807,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3387";
+    version = "b3392";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3387";
+      rev = "b3392";
       fetchSubmodules = false;
-      sha256 = "sha256-pGZ3t1jwf48ZLw8D7JrM5S37ChOeFv9GhAkV1AnXU4o=";
+      sha256 = "sha256-9p5Zx+HvgTMdWjPr4MOYwGVXk2SA2lSr4No+nVWr9Go=";
     };
   };
   lyrica = {
@@ -1248,18 +1248,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "Linux/QQ_3.2.9_240617_amd64_01";
+    version = "Linux/QQ_3.2.10_240715_amd64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.9_240617_amd64_01.deb";
-      sha256 = "sha256-ofoelAzbuCgxSHsZciWSVkDFDv+zsW+AzZqjeNlaja0=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.10_240715_amd64_01.deb";
+      sha256 = "sha256-DOIYAzE1MF8TnkqefCXVUYk9N+xhP0pbYpRGN0dckAg=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "Linux/QQ_3.2.9_240617_arm64_01";
+    version = "Linux/QQ_3.2.10_240715_arm64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.9_240617_arm64_01.deb";
-      sha256 = "sha256-qC3eUc3Hs1nolZJhAds0Qx+tAlD/AR3scGxmcA8dtEw=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.10_240715_arm64_01.deb";
+      sha256 = "sha256-tw94UZXNdf0k90VmvZoj82fByQIXtK6ovkX0cCy3y5A=";
     };
   };
   qqmusic = {

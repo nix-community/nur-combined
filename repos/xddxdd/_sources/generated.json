@@ -349,7 +349,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-07-13",
+        "date": "2024-07-14",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -361,12 +361,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "9507e82d756bb29339edd833ac75fbf229dd925d",
-            "sha256": "sha256-U3Q4JSqOM7nUKF2fjy3YAufFrGEoHIy1r6Ao4WxB/OY=",
+            "rev": "175e57ac32a281617fa6c4aa38167ca108cf5b1a",
+            "sha256": "sha256-AkJNuNKXkyuVVimnUmC8ByV6uI2s/OVrh974QnBBnOs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9507e82d756bb29339edd833ac75fbf229dd925d"
+        "version": "175e57ac32a281617fa6c4aa38167ca108cf5b1a"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1458,12 +1458,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3387",
-            "sha256": "sha256-pGZ3t1jwf48ZLw8D7JrM5S37ChOeFv9GhAkV1AnXU4o=",
+            "rev": "b3392",
+            "sha256": "sha256-9p5Zx+HvgTMdWjPr4MOYwGVXk2SA2lSr4No+nVWr9Go=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3387"
+        "version": "b3392"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -2260,11 +2260,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ofoelAzbuCgxSHsZciWSVkDFDv+zsW+AzZqjeNlaja0=",
+            "sha256": "sha256-DOIYAzE1MF8TnkqefCXVUYk9N+xhP0pbYpRGN0dckAg=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.9_240617_amd64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.10_240715_amd64_01.deb"
         },
-        "version": "Linux/QQ_3.2.9_240617_amd64_01"
+        "version": "Linux/QQ_3.2.10_240715_amd64_01"
     },
     "qq-arm64": {
         "cargoLocks": null,
@@ -2275,11 +2275,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-qC3eUc3Hs1nolZJhAds0Qx+tAlD/AR3scGxmcA8dtEw=",
+            "sha256": "sha256-tw94UZXNdf0k90VmvZoj82fByQIXtK6ovkX0cCy3y5A=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.9_240617_arm64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.10_240715_arm64_01.deb"
         },
-        "version": "Linux/QQ_3.2.9_240617_arm64_01"
+        "version": "Linux/QQ_3.2.10_240715_arm64_01"
     },
     "qqmusic": {
         "cargoLocks": null,
