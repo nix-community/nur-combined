@@ -494,7 +494,7 @@
     },
     "rime-pinyin-simp": {
         "cargoLocks": null,
-        "date": "2023-01-04",
+        "date": "2024-07-14",
         "extract": null,
         "name": "rime-pinyin-simp",
         "passthru": null,
@@ -504,13 +504,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "52b9c75f085479799553f2499c4f4c611d618cdf",
-            "sha256": "sha256-crUFBV/u2vwC1kj2FF6lsJdIF28wIagKHpksGR/2Kf4=",
+            "rev": "c0b1cc5553caed77e1338adc08d6dc048c50c813",
+            "sha256": "sha256-HrUsgoKGDTii18zB/Mggyckech5arQuPaNeaueD6ItQ=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-pinyin-simp.git"
         },
-        "version": "52b9c75f085479799553f2499c4f4c611d618cdf"
+        "version": "c0b1cc5553caed77e1338adc08d6dc048c50c813"
     },
     "rime-prelude": {
         "cargoLocks": null,
@@ -785,26 +785,6 @@
             "type": "github"
         },
         "version": "svn1113"
-    },
-    "waybar-git": {
-        "cargoLocks": null,
-        "date": "2024-07-11",
-        "extract": null,
-        "name": "waybar-git",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": true,
-            "leaveDotGit": false,
-            "name": null,
-            "rev": "265566050984bb2364ecb72b0abd18e8868205b7",
-            "sha256": "sha256-S1lNkapwUFcLDo0mhlZZ1lUgUc3J8/5wzvO0ti07lsE=",
-            "sparseCheckout": [],
-            "type": "git",
-            "url": "https://github.com/Alexays/Waybar.git"
-        },
-        "version": "265566050984bb2364ecb72b0abd18e8868205b7"
     },
     "yacd": {
         "cargoLocks": null,

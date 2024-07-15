@@ -326,17 +326,17 @@
   };
   rime-pinyin-simp = {
     pname = "rime-pinyin-simp";
-    version = "52b9c75f085479799553f2499c4f4c611d618cdf";
+    version = "c0b1cc5553caed77e1338adc08d6dc048c50c813";
     src = fetchgit {
       url = "https://github.com/rime/rime-pinyin-simp.git";
-      rev = "52b9c75f085479799553f2499c4f4c611d618cdf";
+      rev = "c0b1cc5553caed77e1338adc08d6dc048c50c813";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-crUFBV/u2vwC1kj2FF6lsJdIF28wIagKHpksGR/2Kf4=";
+      sha256 = "sha256-HrUsgoKGDTii18zB/Mggyckech5arQuPaNeaueD6ItQ=";
     };
-    date = "2023-01-04";
+    date = "2024-07-14";
   };
   rime-prelude = {
     pname = "rime-prelude";
@@ -519,20 +519,6 @@
       fetchSubmodules = false;
       sha256 = "sha256-OKysOm44T9wrAaopp9HfLlox5InlpV33AHGXRSjhDqc=";
     };
-  };
-  waybar-git = {
-    pname = "waybar-git";
-    version = "265566050984bb2364ecb72b0abd18e8868205b7";
-    src = fetchgit {
-      url = "https://github.com/Alexays/Waybar.git";
-      rev = "265566050984bb2364ecb72b0abd18e8868205b7";
-      fetchSubmodules = true;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [ ];
-      sha256 = "sha256-S1lNkapwUFcLDo0mhlZZ1lUgUc3J8/5wzvO0ti07lsE=";
-    };
-    date = "2024-07-11";
   };
   yacd = {
     pname = "yacd";
