@@ -27,7 +27,7 @@
       "type": "url",
       "url": "https://tonelib.net/download/ToneLib-EasyComp-amd64.deb"
     },
-    "version": "2.0.0"
+    "version": "2.0.2"
   },
   "noisereducer": {
     "cargoLocks": null,
