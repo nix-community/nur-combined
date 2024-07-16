@@ -40,7 +40,8 @@ in
   (fetchpatch' {
     title = "nixos/networkmanager: split ModemManager bits into own module";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/316824";
-    hash = "sha256-woQijOvFaUj2qw5RNngY+F3hcJKihf4/c6C6/Y6mlL4=";
+    hash = "sha256-RWCZaEb6E+PZnYtqfIh3kAbcGIMKsHhdlOdupJrpw7w=";
+    # hash = "sha256-woQijOvFaUj2qw5RNngY+F3hcJKihf4/c6C6/Y6mlL4=";
     # saneCommit = "23bfba9b76757ffc00fc2be810009dcf92e2eaf2";
     # hash = "sha256-cn6ihwO3MyzdpVoJoQNKAHyo8GuGvFP6vr//7r9pzjE=";
   })

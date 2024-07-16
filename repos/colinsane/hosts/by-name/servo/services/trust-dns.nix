@@ -48,12 +48,10 @@ in
     # so, org. can specify ns2/ns3 as being to the VPN, with no mention of ns1. we provide ns1 here.
     A."ns1" =    "%ANATIVE%";
     A."ns2" =    "%ADOOF%";
-    A."ns3" =    "%AOVPNS%";
     A."ovpns" =  "%AOVPNS%";
     NS."@" = [
       "ns1.uninsane.org."
       "ns2.uninsane.org."
-      "ns3.uninsane.org."
     ];
   };
 
@@ -100,7 +98,9 @@ in
       substitutions = mkSubstitutions "doof";
       listenAddrsIpv4 = [
         config.sane.netns.doof.hostVethIpv4
-        config.sane.netns.ovpns.hostVethIpv4
+        config.sane.netns.doof.netnsPubIpv4
+        nativeAddrs."servo.lan"
+        # config.sane.netns.ovpns.hostVethIpv4
       ];
     };
     hn = {
@@ -128,11 +128,11 @@ in
       #   ];
       # };
     };
-    lan = {
-      substitutions = mkSubstitutions "lan";
-      listenAddrsIpv4 = [ nativeAddrs."servo.lan" ];
-      # port = 1053;
-    };
+    # lan = {
+    #   substitutions = mkSubstitutions "lan";
+    #   listenAddrsIpv4 = [ nativeAddrs."servo.lan" ];
+    #   # port = 1053;
+    # };
     # wan = {
     #   substitutions = mkSubstitutions "wan";
     #   listenAddrsIpv4 = [

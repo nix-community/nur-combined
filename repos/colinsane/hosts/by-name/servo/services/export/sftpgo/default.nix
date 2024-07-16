@@ -81,17 +81,17 @@ in
             debug = true;
           }
           {
-            # binding this means any LAN client can connect (also WAN traffic forwarded from the gateway)
-            address = "10.78.79.51";
-            port = 21;
-            debug = true;
-          }
-          {
             # binding this means any wireguard client can connect
             address = "10.0.10.5";
             port = 990;
             debug = true;
             tls_mode = 2;  # 2 = "implicit FTPS": client negotiates TLS before any FTP command.
+          }
+          {
+            # binding this means any LAN client can connect (also WAN traffic forwarded from the gateway)
+            address = "10.78.79.51";
+            port = 21;
+            debug = true;
           }
           {
             # binding this means any LAN client can connect (also WAN traffic forwarded from the gateway)
@@ -103,6 +103,13 @@ in
           {
             # binding this means any doof client can connect (TLS only)
             address = config.sane.netns.doof.hostVethIpv4;
+            port = 990;
+            debug = true;
+            tls_mode = 2;  # 2 = "implicit FTPS": client negotiates TLS before any FTP command.
+          }
+          {
+            # binding this means any LAN client can connect via `ftp.uninsane.org` (TLS only)
+            address = config.sane.netns.doof.netnsPubIpv4;
             port = 990;
             debug = true;
             tls_mode = 2;  # 2 = "implicit FTPS": client negotiates TLS before any FTP command.

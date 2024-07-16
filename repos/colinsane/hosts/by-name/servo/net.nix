@@ -30,6 +30,14 @@ in
 
   config = {
     networking.domain = "uninsane.org";
+    systemd.network.networks."50-eth0" = {
+      matchConfig.Name = "eth0";
+      networkConfig.Address = [
+        "205.201.63.12/32"
+        "10.78.79.51/22"
+      ];
+      networkConfig.DNS = [ "10.78.79.1" ];
+    };
 
     sane.ports.openFirewall = true;
     sane.ports.openUpnp = true;
