@@ -73,8 +73,9 @@ parseArgs "$@"
 
 check "uninsane.org. DNS" nslookup uninsane.org.
 check "[1.1.1.1] uninsane.org. DNS" nslookup uninsane.org. 1.1.1.1
-check "[OVPNS] uninsane.org. DNS" nslookup uninsane.org. "$OVPNS_IPV4"
 check "[DOOF] uninsane.org. DNS" nslookup uninsane.org. "$DOOF_IPV4"
+# OVPNS DNS is no longer used
+# check "[OVPNS] uninsane.org. DNS" nslookup uninsane.org. "$OVPNS_IPV4"
 
 check "https://uninsane.org online" curl --silent --fail-with-body https://uninsane.org
 check "https://matrix.uninsane.org online" curl --silent --fail-with-body https://matrix.uninsane.org
