@@ -591,7 +591,7 @@
 in {
   options.hardware.alsa = {
     enable = mkEnableOption "alsa" // {
-      default = config.sound.enable;
+      default = cfg.config != { } || cfg.extraConfig != "";
     };
     mappings = mkOption {
       type = with types; attrsOf (submodule mappingType);
