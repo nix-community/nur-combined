@@ -272,7 +272,7 @@ checksum = "7a81dae078cea95a014a339291cec439d2f232ebe854a9d672b796c6afafa9b7"
 
 [[package]]
 name = "dup-img-finder"
-version = "0.1.8"
+version = "0.1.9"
 dependencies = [
  "anyhow",
  "base64-url",
