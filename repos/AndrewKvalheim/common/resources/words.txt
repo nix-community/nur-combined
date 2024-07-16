@@ -525,6 +525,7 @@ keylogging
 keyrings
 keyserver
 KHTML
+Kitsap
 KMonad
 Kodi
 Krita
@@ -1201,6 +1202,7 @@ USB-C
 usbmuxd
 USD
 userland
+userscript
 userspace
 UTF
 UW
