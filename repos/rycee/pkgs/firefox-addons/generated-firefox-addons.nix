@@ -27,10 +27,10 @@
     };
     "2fas-two-factor-authentication" = buildFirefoxXpiAddon {
       pname = "2fas-two-factor-authentication";
-      version = "1.7.0";
+      version = "1.7.2";
       addonId = "admin@2fas.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4260315/2fas_two_factor_authentication-1.7.0.xpi";
-      sha256 = "86587973a8aaf87de496540ee1d2e216a3f267ddcb1c0cce1596915a3f88f209";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4320234/2fas_two_factor_authentication-1.7.2.xpi";
+      sha256 = "03e93ea0614631cbcb73a225036820f0ba1138974f5df2d5189957f8137602b8";
       meta = with lib;
       {
         homepage = "https://2fas.com/";
@@ -2067,10 +2067,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "129.0.20240712.91545";
+      version = "129.0.20240715.91606";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4318525/deutsch_de_language_pack-129.0.20240712.91545.xpi";
-      sha256 = "607a58afb3e4ba3c73d087a7294d137a5fd14bc8b6cca58a5839e8ff76d9551b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4320033/deutsch_de_language_pack-129.0.20240715.91606.xpi";
+      sha256 = "a30755230ec5f29f220600b28a1f73f998287ce663ca1f739b7ffd4a6deea9cd";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3070,10 +3070,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "129.0.20240712.91545";
+      version = "129.0.20240715.91606";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4318504/francais_language_pack-129.0.20240712.91545.xpi";
-      sha256 = "1ad6f91b5ac3595a274e35fb7dfcb60b33ebd2bf4f5b835fb7a588842940c7da";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4319978/francais_language_pack-129.0.20240715.91606.xpi";
+      sha256 = "67689961f79c4d28f18a21d74876a5584ae2e3c39de077fed1dd248f72b9b81d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -5706,10 +5706,10 @@
     };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "8.9.1";
+      version = "8.10.4";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4298468/languagetool-8.9.1.xpi";
-      sha256 = "0747fcd4d7066ac746d140b93870a37eb5cf3241c3a5759128c54bf12b14feea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4317259/languagetool-8.10.4.xpi";
+      sha256 = "cf5fed5704ac8b6d4052fcf5819d1aa46ee61c76811393a7e355064baa32679c";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -12357,10 +12357,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.7.1.0";
+      version = "24.7.8.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4315982/yomitan-24.7.1.0.xpi";
-      sha256 = "ccaad5c79f418d274b3ff3ec60eee7e203c305d4f5ce83ce286daf21c2c97a0c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4320417/yomitan-24.7.8.0.xpi";
+      sha256 = "506fb58f0d096f9b45e655356169de893055a3437d0408e0cc2d93c490e70579";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
