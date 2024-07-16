@@ -194,15 +194,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "175e57ac32a281617fa6c4aa38167ca108cf5b1a";
+    version = "165922494315b1807cce71202bb3d83c070f9a3e";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "175e57ac32a281617fa6c4aa38167ca108cf5b1a";
+      rev = "165922494315b1807cce71202bb3d83c070f9a3e";
       fetchSubmodules = false;
-      sha256 = "sha256-AkJNuNKXkyuVVimnUmC8ByV6uI2s/OVrh974QnBBnOs=";
+      sha256 = "sha256-9ULOFXJpEbf2hxtm73HPJfupWPadAhCE9Rt4462YnwY=";
     };
-    date = "2024-07-14";
+    date = "2024-07-15";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -763,13 +763,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.9.9-xanmod1";
+    version = "6.10.0-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.9.9-xanmod1";
+      rev = "6.10.0-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-ZEU1RIgJ0ckyITFWZndEzXYwnTF39OviLxL9S5dEea4=";
+      sha256 = "sha256-zsBSG8YFxW4kKWRVtdG6M87FHJJ/8qlmq/qWAGYeieg=";
     };
   };
   linux-xanmod-6_0 = {
@@ -796,24 +796,24 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.39-xanmod1";
+    version = "6.6.40-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.39-xanmod1";
+      rev = "6.6.40-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-s8rE92YVz+0SC/VRvItakp7Q6whFzskFkalqku6j43Y=";
+      sha256 = "sha256-UkeBSHtkyNvpLSiJiB8HTNmVJcKDVEftvFcQA497FLU=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3392";
+    version = "b3400";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3392";
+      rev = "b3400";
       fetchSubmodules = false;
-      sha256 = "sha256-9p5Zx+HvgTMdWjPr4MOYwGVXk2SA2lSr4No+nVWr9Go=";
+      sha256 = "sha256-FTKjPCk8F0PgK0xdS9APlM45gyKdLFVmxB2w67/T+A4=";
     };
   };
   lyrica = {
@@ -1102,10 +1102,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v4.4.1";
+    version = "v5.0.0";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.4.1/PeerBanHelper.jar";
-      sha256 = "sha256-LRwuRJRgw5HZiZXI0qmF1VKtNpHJY/9HSTibKWe8/zc=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v5.0.0/PeerBanHelper.jar";
+      sha256 = "sha256-P0lMr6agVGe2xnZv9nfqYYc3sgRqhSjqVz7yLaKKPzo=";
     };
   };
   phpmyadmin = {

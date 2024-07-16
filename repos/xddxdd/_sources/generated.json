@@ -349,7 +349,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-07-14",
+        "date": "2024-07-15",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -361,12 +361,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "175e57ac32a281617fa6c4aa38167ca108cf5b1a",
-            "sha256": "sha256-AkJNuNKXkyuVVimnUmC8ByV6uI2s/OVrh974QnBBnOs=",
+            "rev": "165922494315b1807cce71202bb3d83c070f9a3e",
+            "sha256": "sha256-9ULOFXJpEbf2hxtm73HPJfupWPadAhCE9Rt4462YnwY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "175e57ac32a281617fa6c4aa38167ca108cf5b1a"
+        "version": "165922494315b1807cce71202bb3d83c070f9a3e"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1374,12 +1374,12 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.9.9-xanmod1",
-            "sha256": "sha256-ZEU1RIgJ0ckyITFWZndEzXYwnTF39OviLxL9S5dEea4=",
+            "rev": "6.10.0-xanmod1",
+            "sha256": "sha256-zsBSG8YFxW4kKWRVtdG6M87FHJJ/8qlmq/qWAGYeieg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.9.9-xanmod1"
+        "version": "6.10.0-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1437,12 +1437,12 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.6.39-xanmod1",
-            "sha256": "sha256-s8rE92YVz+0SC/VRvItakp7Q6whFzskFkalqku6j43Y=",
+            "rev": "6.6.40-xanmod1",
+            "sha256": "sha256-UkeBSHtkyNvpLSiJiB8HTNmVJcKDVEftvFcQA497FLU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.6.39-xanmod1"
+        "version": "6.6.40-xanmod1"
     },
     "llama-cpp": {
         "cargoLocks": null,
@@ -1458,12 +1458,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3392",
-            "sha256": "sha256-9p5Zx+HvgTMdWjPr4MOYwGVXk2SA2lSr4No+nVWr9Go=",
+            "rev": "b3400",
+            "sha256": "sha256-FTKjPCk8F0PgK0xdS9APlM45gyKdLFVmxB2w67/T+A4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3392"
+        "version": "b3400"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -1987,11 +1987,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-LRwuRJRgw5HZiZXI0qmF1VKtNpHJY/9HSTibKWe8/zc=",
+            "sha256": "sha256-P0lMr6agVGe2xnZv9nfqYYc3sgRqhSjqVz7yLaKKPzo=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v4.4.1/PeerBanHelper.jar"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v5.0.0/PeerBanHelper.jar"
         },
-        "version": "v4.4.1"
+        "version": "v5.0.0"
     },
     "phpmyadmin": {
         "cargoLocks": null,
