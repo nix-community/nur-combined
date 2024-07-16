@@ -18,8 +18,8 @@ fi
 # make sure the device is mounted
 if ! (test -d /mnt/iphone/DCIM)
 then
-  umount /mnt/iphone || true
-  ifuse /mnt/iphone
+  sudo umount /mnt/iphone || true
+  sudo ifuse /mnt/iphone
 fi
 
-rsync -arv /mnt/iphone/DCIM/ /home/colin/Pictures/iphone/
+sudo rsync -arv /mnt/iphone/DCIM/ /home/colin/Pictures/from/iphone/

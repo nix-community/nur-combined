@@ -78,7 +78,8 @@ in
     # it's actively maintained though, and more of an overlay than a true fork.
     packageUnwrapped = pkgs.rofi-wayland.override {
       inherit rofi-unwrapped;
-      plugins = [
+      plugins = with pkgs; [
+        # rofi-calc  # not compatible with my rofi <https://github.com/svenstaro/rofi-calc>
         # rofi-[extended-]-file-browser: <https://github.com/marvinkreis/rofi-file-browser-extended>
         # because the builtin rofi filebrowser only partially lists ~/Videos/servo/Shows, seemingly at random.
         # but rofi-file-browser doesn't compile against my patched rofi (oops)
