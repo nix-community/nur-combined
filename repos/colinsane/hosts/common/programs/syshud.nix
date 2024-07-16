@@ -9,7 +9,25 @@
       # "/sys/devices"  #< only if you want it to actually show when the backlight changes
     ];
 
-    fs.".config/sys64/hud.css".symlink.text = ''
+    fs.".config/sys64/hud/config.conf".symlink.text = ''
+      [main]
+      # position={bottom,left,right,top} to attach to the corresponding screen ege
+      position=top
+      orientation=h
+      # width/height/icon_size are in pixels
+      width=256
+      height=39
+      icon_size=32
+      percentage=false
+      # margin=0 will position below the sway bar, but on top of the window title
+      margins=22 22 22 22
+      # timeout: notifier will be dismissed after N seconds (integer only)
+      timeout=1
+      transition=0
+      backlight=
+      monitors=audio_in,audio_out
+    '';
+    fs.".config/sys64/hud/style.css".symlink.text = ''
       window {
         background: transparent;
       }
@@ -61,17 +79,7 @@
       description = "syshud: volume monitor/notifier";
       depends = [ "sound" ];  #< specifically wireplumber-pulse
       partOf = [ "graphical-session" ];
-
-      # options:
-      # -p {bottom,left,right,top}  to attach to the corresponding screen edge
-      # -t N          for the notifier to be dismissed after N seconds (integer only)
-      # -T N          reveal/hide transition time in milliseconds
-      # -m N          to set the indicator this many pixels in from the edge.
-      #               it considers sway bars, but not window titles
-      # -{H,W} N      to set the height/width of the notifier, in px.
-      # -i N          to set the size of the volume icon
-      # -P            to hide percentage text
-      command = "syshud -p top -t 1 -T 0 -m 22 -H 39 -W 256 -i 32 -P";
+      command = "syshud";
     };
   };
 }

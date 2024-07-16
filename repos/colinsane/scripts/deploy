@@ -17,7 +17,7 @@ usage() {
   echo "common idioms:"
   echo "- deploy all: deploy all hosts, sequentially"
   echo "- deploy --pre: build and copy all hosts"
-  exho "- deploy desko lappy: build and deploy just those hosts"
+  echo "- deploy desko lappy: build and deploy just those hosts"
   echo "- deploy: deploy the local host"
   exit 1
 }
