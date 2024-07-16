@@ -26,6 +26,7 @@
     ./conky
     ./cozy.nix
     ./cups.nix
+    ./curl.nix
     ./curlftpfs.nix
     ./dbus.nix
     ./dconf.nix

@@ -39,8 +39,6 @@ lib.mkMerge [
       wantedBy = [ "multi-user.target" ];
       restartIfChanged = false;
 
-      path = [ "/run/current-system/sw" ];  #< so `sanebox` works
-
       serviceConfig = {
         Type = "simple";
         ExecStart = "${cfg.package}/bin/seatd -g seat";

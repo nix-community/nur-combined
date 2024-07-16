@@ -101,7 +101,7 @@ let
         else
           mv "$_dir/$_name" "$_dir/.sandboxed/"
         fi
-        makeBinaryWrapper ${sanebox'} "$_dir/$_name" ${lib.escapeShellArgs (lib.flatten (builtins.map (f: [ "--add-flags" f ]) extraSandboxArgs))} --add-flags "$_dir/.sandboxed/$_name"
+        makeBinaryWrapper ${sanebox'} "$_dir/$_name" --suffix PATH : /run/current-system/sw/libexec/sanebox ${lib.escapeShellArgs (lib.flatten (builtins.map (f: [ "--add-flags" f ]) extraSandboxArgs))} --add-flags "$_dir/.sandboxed/$_name"
       }
 
       crawlAndWrap() {

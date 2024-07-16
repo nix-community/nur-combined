@@ -1,6 +1,6 @@
 # strictly *decrease* the scope of the default nixos installation/config
 
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
   suidlessPam = pkgs.pam.overrideAttrs (upstream: {
     # nixpkgs' pam hardcodes unix_chkpwd path to the /run/wrappers one,
@@ -111,7 +111,11 @@ in
         # pkgs.which
         # pkgs.zstd
       ];
-    in lib.filter (p: ! builtins.elem p requiredPackages);
+      conveniencePackages = [
+        config.boot.kernelPackages.cpupower  # <repo:nixos/nixpkgs:nixos/modules/tasks/cpu-freq.nix> places it on PATH for convenience if powerManagement.cpuFreqGovernor is set
+        pkgs.kbd  # <repo:nixos/nixpkgs:nixos/modules/config/console.nix>  places it on PATH as part of console/virtual TTYs, but probably not needed unless you want to set console fonts
+      ];
+    in lib.filter (p: ! builtins.elem p (requiredPackages ++ conveniencePackages));
   };
 
   options.system.fsPackages = lib.mkOption {
@@ -212,5 +216,9 @@ in
 
     # see: <repo:nixos/nixpkgs:nixos/modules/virtualisation/nixos-containers.nix>
     boot.enableContainers = lib.mkDefault false;
+
+    # see: <repo:nixos/nixpkgs:nixos/modules/tasks/lvm.nix>
+    # lvm places `pkgs.lvm2` onto PATH, which has like 100 binaries
+    services.lvm.enable = lib.mkDefault false;
   };
 }

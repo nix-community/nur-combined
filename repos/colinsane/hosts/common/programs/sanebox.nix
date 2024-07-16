@@ -16,7 +16,7 @@ let
 in
 {
   sane.programs.sanebox = {
-    packageUnwrapped = pkgs.sanebox.override {
+    packageUnwrapped = (pkgs.sanebox.override {
       bubblewrap = cfg.bubblewrap.package;
       passt = cfg.passt.package;
       libcap = cfg.libcap.package;
@@ -25,10 +25,19 @@ in
         # the sandboxer may nag about one or the other wanting to be updated.
         linux = config.boot.kernelPackages.kernel;
       };
-    };
+    }).overrideAttrs (base: {
+      # create a directory which holds just the `sanebox` so that we
+      # can add sanebox as a dependency to binaries via `PATH=/run/current-system/libexec/sanebox` without forcing rebuild every time sanebox changes
+      postInstall = ''
+        mkdir -p $out/libexec/sanebox
+        ln -s $out/bin/sanebox $out/libexec/sanebox/sanebox
+      '';
+    });
 
     sandbox.enable = false;
   };
+
+  environment.pathsToLink = lib.mkIf cfg.sanebox.enabled [ "/libexec/sanebox" ];
 
   environment.etc = lib.mkIf cfg.sanebox.enabled {
     "sanebox/symlink-cache".text = lib.concatStringsSep "\n" (

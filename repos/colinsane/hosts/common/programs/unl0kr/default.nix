@@ -139,11 +139,6 @@ in
       # N.B.: exec paths here must be absolute. neither systemd nor agetty query PATH.
       serviceConfig.ExecStart = "${pkgs.util-linux}/bin/agetty --login-program '${cfg.config.launcher}/bin/unl0kr-login' --noclear --skip-login --keep-baud ${tty} 115200,38400,9600 $TERM";
 
-      path = [
-        # necessary for `sanebox` to be found. TODO: add this to every systemd service.
-        "/run/current-system/sw"  # `/bin` is appended
-      ];
-
       serviceConfig.Type = "simple";
       serviceConfig.Restart = "always";
       serviceConfig.RestartSec = "5";

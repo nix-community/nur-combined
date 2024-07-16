@@ -14,7 +14,6 @@
     # after = [ "polkit.service" ];
     # requires = [ "polkit.service" ];
     wantedBy = [ "network.target" ];  #< default is `multi-user.target`, somehow it doesn't auto-start with that...
-    path = [ "/run/current-system/sw" ];  #< so it can find `sanebox`
 
     # serviceConfig.Type = "dbus";
     # serviceConfig.BusName = "org.freedesktop.ModemManager1";
