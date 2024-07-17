@@ -15,7 +15,7 @@
   };
   easycomp = {
     pname = "easycomp";
-    version = "2.0.2";
+    version = "2.0.1";
     src = fetchurl {
       url = "https://tonelib.net/download/ToneLib-EasyComp-amd64.deb";
       sha256 = "sha256-vGBruV8b3qJ1vNge/HtWPuYuLfYss3vSZfD6zXKH3Mo=";

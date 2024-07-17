@@ -729,13 +729,13 @@
         sha512 = "5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==";
       };
     };
-    "semver-7.6.2" = {
+    "semver-7.6.3" = {
       name = "semver";
       packageName = "semver";
-      version = "7.6.2";
+      version = "7.6.3";
       src = fetchurl {
-        url = "https://registry.npmjs.org/semver/-/semver-7.6.2.tgz";
-        sha512 = "FNAIBWCx9qcRhoHcgcJ0gvU7SN1lYU2ZXuSfl04bSC5OpvDHFyJCjdNHomPXxjQlCBU67YW64PzY7/VIEH7F2w==";
+        url = "https://registry.npmjs.org/semver/-/semver-7.6.3.tgz";
+        sha512 = "oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==";
       };
     };
     "shebang-command-2.0.0" = {
@@ -846,13 +846,13 @@
         sha512 = "1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==";
       };
     };
-    "ufo-1.5.3" = {
+    "ufo-1.5.4" = {
       name = "ufo";
       packageName = "ufo";
-      version = "1.5.3";
+      version = "1.5.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ufo/-/ufo-1.5.3.tgz";
-        sha512 = "Y7HYmWaFwPUmkoQCUIAYpKqkOf+SbVj/2fJJZ4RJMCfZp0rTGwRbzQD+HghfnhKOjL9E01okqz+ncJskGYfBNw==";
+        url = "https://registry.npmjs.org/ufo/-/ufo-1.5.4.tgz";
+        sha512 = "UsUk3byDzKd04EyoZ7U4DOlxQaD14JUKQl6/P7wiX4FNvUfm3XL246n9W5AmqwW5RSFJ27NAuM0iLscAOYUiGQ==";
       };
     };
     "vscode-jsonrpc-6.0.0" = {
@@ -1124,7 +1124,7 @@ in {
       sources."readdirp-3.6.0"
       sources."reusify-1.0.4"
       sources."run-parallel-1.2.0"
-      sources."semver-7.6.2"
+      sources."semver-7.6.3"
       sources."shebang-command-2.0.0"
       sources."shebang-regex-3.0.0"
       sources."signal-exit-4.1.0"
@@ -1136,7 +1136,7 @@ in {
       sources."to-fast-properties-2.0.0"
       sources."to-regex-range-5.0.1"
       sources."type-detect-4.0.8"
-      sources."ufo-1.5.3"
+      sources."ufo-1.5.4"
       sources."vscode-jsonrpc-8.1.0"
       sources."vscode-languageserver-8.1.0"
       (sources."vscode-languageserver-protocol-3.17.3"
