@@ -1,23 +1,30 @@
-{ lib
-, stdenv
-, cairo
-, copyDesktopItems
-, fetchFromGitHub
-, fetchzip
-, gdk-pixbuf
-, getconf
-, libsodium
-, libxkbcommon
-, makeDesktopItem
-, meson
-, ninja
-, openssl
-, pam
-, pkg-config
-, scdoc
-, wayland
-, wayland-protocols
-, wayland-scanner
+{
+  lib,
+  stdenv,
+  cairo,
+  copyDesktopItems,
+  fetchFromGitHub,
+  fetchzip,
+  gdk-pixbuf,
+  getconf,
+  libsodium,
+  libxkbcommon,
+  makeDesktopItem,
+  meson,
+  ninja,
+  openssl,
+  pam,
+  pkg-config,
+  scdoc,
+  wayland,
+  wayland-protocols,
+  wayland-scanner,
+# hash strength, from <https://libsodium.gitbook.io/doc/password_hashing/default_phf#key-derivation>
+# options:
+# - "MODERATE" (default)
+# - "INTERACTIVE" (vaguely, 4x faster to unlock than "moderate")
+# - "SENSITIVE" (vaguely, 4x slower to decrypt than "moderate")
+  pwhashDifficulty ? "INTERACTIVE",
 }:
 stdenv.mkDerivation rec {
   pname = "schlock";
@@ -42,6 +49,9 @@ stdenv.mkDerivation rec {
     substituteInPlace main.c \
       --replace-fail 'if (!state.input_inhibit_manager)' 'if (false)' \
       --replace-fail 'zwlr_input_inhibit_manager_v1_get_inhibitor' '// '
+  '' + lib.optionalString (pwhashDifficulty != null) ''
+    substituteInPlace mkpin.c \
+      --replace-fail '_MODERATE' '_${pwhashDifficulty}'
   '';
 
   nativeBuildInputs = [

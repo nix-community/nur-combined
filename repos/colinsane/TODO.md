@@ -5,9 +5,6 @@
 - when moby wlan is explicitly set down (via ip link set wlan0 down), /var/lib/trust-dns/dhcp-configs doesn't get reset
   - `ip monitor` can detect those manual link state changes (NM-dispatcher it seems cannot)
   - or try dnsmasq?
-- trust-dns: can't recursively resolve api.mangadex.org
-  - nor `m.wikipedia.org` (`dyna.wikipedia.org`)
-  - and *sometimes* apple.com fails
 - sandbox: link cache means that if i update ~/.config/... files inline, sandboxed programs still see the old version
 - mpv: audiocast has mpv sending its output to the builtin speakers unless manually changed
 - mpv: no way to exit fullscreen video on moby
@@ -24,16 +21,13 @@
   - `dmesg | grep 'hid_bpf: error while preloading HID BPF dispatcher: -22'`
 - `s6` is not re-entrant
   - so if the desktop crashes, the login process from `unl0kr` fails to re-launch the GUI
-- nwg-panel will sometimes create nested bars (happens maybe when i turn an external display off, then on?)
-- wg-home is unreachable for a couple minutes when switching between LAN/WAN/3G
-  - because the endpoint DNS changes.
-  - causes calls to not transfer from WiFi -> cellular.
 
 ## REFACTORING:
 - add import checks to my Python nix-shell scripts
 - consolidate ~/dev and ~/ref
   - ~/dev becomes a link to ~/ref/cat/mine
 - fold hosts/common/home/ssh.nix -> hosts/common/users/colin.nix
+- don't hardcode IP addresses so much in servo
 
 ### sops/secrets
 - rework secrets to leverage `sane.fs`
@@ -59,6 +53,10 @@
   - then i can tune the kernels for hardening, without duplicating that work 4 times
 - zfs: replace this with something which doesn't require a custom kernel build
 - mpv: add media looping controls (e.g. loop song, loop playlist)
+- curlftpfs: replace with something better
+  - safer (rust? actively maintained? sandboxable?)
+  - handles spaces/symbols in filenames
+  - has better multi-stream perf (e.g. `sane-sync-music` should be able to copy N items in parallel)
 
 ### security/resilience
 - validate duplicity backups!

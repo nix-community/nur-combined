@@ -191,14 +191,16 @@ in
 
         # fix enough bugs inside the recursive resolver that it's compatible with my infra.
         # TODO: upstream these patches!
+        version = "0.24.1-unstable-2024-07-17";
         src = pkgs.fetchFromGitea {
           domain = "git.uninsane.org";
           owner = "colin";
           repo = "hickory-dns";
-          rev = "67649863faf2e08f63963a96a491a4025aaf8ed6";
-          hash = "sha256-vmVY8C0cCCFxy/4+g1vKZsAD5lMaufIExnFaSVVAhGM=";
+          rev = "b4c553e79c160604c8d67cd21c30f460d623de0f";  # Recursor: handle NS responses with a different type and no SOA  (fix: api.mangadex.org., m.wikipedia.org.)
+          hash = "sha256-u+1SfLx9Z0AYwIgNKQF7Yy1OK7le8FV5TkD0yQEvW2g=";
+          # rev = "67649863faf2e08f63963a96a491a4025aaf8ed6";  # recursor_test: backfill a test for CNAMEs which point to nonexistent records
         };
-        cargoHash = "sha256-NoWrQgTPOp99pEs73VQrfeU3m8fny2s20Mf9qxwiPtQ=";
+        cargoHash = "sha256-6Es5/gRqgsteWUHICdgcNlujJE9vrdr3tj/EKKyFsrY=";
       });
     };
     services.trust-dns.settings.directory = "/var/lib/trust-dns";
