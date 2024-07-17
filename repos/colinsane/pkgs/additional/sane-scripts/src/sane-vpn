@@ -146,10 +146,10 @@ vpnDo() {
   debug "  addrV4='$addrV4'"
   debug "  dns='$dns'"
   debug "command: ${command[*]}"
-  local dnsFlags=${dns:+--sanebox-dns $dns}
-  # sanebox --sanebox-method pastaonly --sanebox-net-dev "$name" --sanebox-net-gateway "$addrV4" --sanebox-dns "$dns" "${command[@]}"
+  local netFlags=${dns:+ --sanebox-dns $dns}${name:+ --sanebox-net-dev $name}${addrV4:+ --sanebox-net-gateway $addrV4}
+  # sanebox --sanebox-method pastaonly $netFlags "${command[@]}"
   sanebox --sanebox-method bwrap --sanebox-keep-namespace all --sanebox-path / --sanebox-no-portal \
-    --sanebox-net-dev "$name" --sanebox-net-gateway "$addrV4" $dnsFlags \
+    $netFlags \
     "${command[@]}"
 }
 
