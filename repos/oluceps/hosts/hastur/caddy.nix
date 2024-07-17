@@ -25,14 +25,14 @@
                           handle = [
                             {
                               handler = "reverse_proxy";
-                              upstreams = [ { dial = "localhost:8083"; } ];
+                              upstreams = [ { dial = "localhost:5000"; } ];
                             }
                           ];
                         }
                       ];
                     }
                   ];
-                  match = [ { host = [ "attic.nyaw.xyz" ]; } ];
+                  match = [ { host = [ "cache.nyaw.xyz" ]; } ];
                   terminal = true;
                 }
                 {
@@ -59,7 +59,7 @@
                 {
                   match = {
                     sni = [
-                      "attic.nyaw.xyz"
+                      "cache.nyaw.xyz"
                       "hastur.nyaw.xyz"
                       "s3.nyaw.xyz"
                     ];

@@ -255,14 +255,13 @@
     rtkit.enable = true;
   };
   services = {
-
     swayidle = {
       enable = true;
       timeouts = [
-        # {
-        #   timeout = 900;
-        #   command = "/run/current-system/systemd/bin/systemctl suspend";
-        # }
+        {
+          timeout = 900;
+          command = "${pkgs.swaylock}/bin/swaylock";
+        }
       ];
       events = [
         {

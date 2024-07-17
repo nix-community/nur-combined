@@ -34,6 +34,7 @@ let
       resign
       pv
       devenv
+      # gnome.dconf-editor
       rustup
       [
         swagger-codegen3

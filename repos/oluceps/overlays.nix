@@ -100,7 +100,7 @@ inputs': [
       #     sha256 = "sha256-nYA8W7iabaepiIsxDrCkG/WIFNrVdubk/AtFhIvYJB8=";
       #   };
       # });
-      sway-unwrapped = inputs'.nixpkgs-wayland.packages.sway-unwrapped;
+      # sway-unwrapped = inputs'.nixpkgs-wayland.packages.sway-unwrapped;
       # sway-unwrapped = prev.callPackage "${inputs.RyanGibb}/pkgs/sway-im/package.nix" {
       #   libdrm = final.libdrm;
       #   wlroots = prev.callPackage "${inputs.RyanGibb}/pkgs/wlroots/default.nix" {

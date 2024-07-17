@@ -39,6 +39,10 @@ in
         owner = "prometheus";
         group = "users";
       };
+      harmonia = {
+        rekeyFile = ../../sec/harmonia.age;
+        mode = "400";
+      };
     };
   };
   services.openssh.hostKeys = [

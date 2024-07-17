@@ -6,6 +6,7 @@
   lib,
   pkgs,
   modulesPath,
+  inputs,
   ...
 }:
 {
@@ -47,8 +48,9 @@
       "kvm-amd"
     ];
     # extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
-    kernelPackages = pkgs.linuxPackages_latest;
-    # inputs.nyx.packages.${pkgs.system}.linuxPackages_cachyos-lto-zen3;
+    kernelPackages =
+      # pkgs.linuxPackages_latest;
+      inputs.nyx.packages.${pkgs.system}.linuxPackages_cachyos-zen3;
     # binfmt.emulatedSystems = [
     #   "riscv64-linux"
     #   "aarch64-linux"

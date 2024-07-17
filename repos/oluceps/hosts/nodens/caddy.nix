@@ -114,7 +114,7 @@
                               transport = {
                                 protocol = "http";
                                 tls = {
-                                  server_name = "attic.nyaw.xyz";
+                                  server_name = "cache.nyaw.xyz";
                                 };
                               };
                               upstreams = [ { dial = "10.0.1.2:443"; } ];
@@ -124,7 +124,7 @@
                       ];
                     }
                   ];
-                  match = [ { host = [ "attic.nyaw.xyz" ]; } ];
+                  match = [ { host = [ "cache.nyaw.xyz" ]; } ];
                   terminal = true;
                 }
 

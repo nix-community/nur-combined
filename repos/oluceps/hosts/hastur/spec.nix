@@ -157,6 +157,10 @@
     radicle.enable = true;
     metrics.enable = true;
     fwupd.enable = true;
+    harmonia = {
+      enable = true;
+      signKeyPath = config.age.secrets.harmonia.path;
+    };
     realm = {
       enable = true;
       settings = {
