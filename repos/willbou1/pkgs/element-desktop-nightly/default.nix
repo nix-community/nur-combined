@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, dpkg, lib,
+{ stdenv, fetchurl, dpkg, lib, symlinkJoin, makeWrapper,
 alsaLib, atk, cairo, cups, curl, dbus, expat, fontconfig, freetype, gdk-pixbuf, glib, glibc, gnome2, gnome3, gtk3, libappindicator-gtk3, libdrm, libGL, libnotify, libpulseaudio, libsecret, libv4l, libxkbcommon, mesa, nspr, nss, pango, sqlcipher, systemd, wrapGAppsHook, xdg-utils, xorg, at-spi2-atk, libuuid, at-spi2-core }:
 
 ################################################################################
@@ -6,7 +6,7 @@ alsaLib, atk, cairo, cups, curl, dbus, expat, fontconfig, freetype, gdk-pixbuf, 
 # https://aur.archlinux.org/packages/element-desktop-nightly-bin
 ################################################################################
 let
-    version = "2024052001";
+    version = "2024071601";
 
     rpath = lib.makeLibraryPath [
         alsaLib
@@ -65,53 +65,64 @@ let
     src = if stdenv.hostPlatform.system == "x86_64-linux" then
         fetchurl {
             url = "https://packages.element.io/debian/pool/main/e/element-nightly/element-nightly_${version}_amd64.deb";
-           sha256 = "1lwrpd2rklw10gz5jqv58sfdnp7fkwgkhk5jhqc6q4n5dn6xrn8b"; 
+           sha256 = "b567ef79dbed36cecb4ab4e9479864a382f9664c878ec4d1872e0089a6fd577a"; 
         }
     else if stdenv.hostPlatform.system == "aarch64-linux" then
         fetchurl {
             url = "https://packages.element.io/debian/pool/main/e/element-nightly/element-nightly_${version}_arm64.deb";
-           sha256 = "1dcs0i35apkyw1hcqvs916i5x8jb1wiqp43x5zy4d0fkjh84hxai"; 
+           sha256 = "427d45d459688ceb56e5a07d00750e9be310635b9711e8880fbdfada5478f7cc"; 
         }
     else
         throw "element-desktop-nightly is not supported on ${stdenv.hostPlatform.system}";
 
-in stdenv.mkDerivation {
-    pname = "element-desktop-nightly";
-    inherit version;
-    inherit src;
-    system = stdenv.hostPlatform.system;
+    element-desktop-nightly-unwrapped = stdenv.mkDerivation {
+        pname = "element-desktop-nightly-unwrapped";
+        inherit version;
+        inherit src;
+        system = stdenv.hostPlatform.system;
 
-    buildInputs = [ dpkg ];
-    dontUnpack = true;
+        buildInputs = [ dpkg ];
+        dontUnpack = true;
 
-    nativeBuildInputs = [
-        wrapGAppsHook
-        glib
-        xdg-utils
-    ];
-    
-    installPhase = ''
-        mkdir -p $out
-        dpkg -x $src $out
-
-        cp -av $out/usr/* $out
-        rm -rf $out/usr
+        nativeBuildInputs = [
+            wrapGAppsHook
+            glib
+            xdg-utils
+        ];
         
-        mkdir -p $out/bin
-        ln -s $out/opt/Element-Nightly/element-desktop-nightly $out/bin/element-desktop-nightly
+        installPhase = ''
+            mkdir -p $out
+            dpkg -x $src $out
+
+            cp -av $out/usr/* $out
+            rm -rf $out/usr
+            
+            mkdir -p $out/bin
+            ln -s $out/opt/Element-Nightly/element-desktop-nightly $out/bin/element-desktop-nightly
+        '';
+
+        postFixup = ''
+            for file in $(find $out -type f \( -perm /0111 -o -name \*.so\* -or -name \*.node\* \) ); do
+                patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" "$file" || true
+                patchelf --set-rpath ${rpath}:$out/opt/Element-Nightly $file || true
+            done
+
+            # Fix the desktop link
+            substituteInPlace $out/share/applications/element-desktop-nightly.desktop \
+                --replace /opt $out/opt
+        '';
+
+    };
+
+in symlinkJoin {
+    name = "element-desktop-nightly";
+    paths = [ element-desktop-nightly-unwrapped ];
+    buildInputs = [ makeWrapper ];
+    postBuild = ''
+        # Fix for wayland and LTS nixpkgs
+        wrapProgram $out/bin/element-desktop-nightly --add-flags --ozone-platform=wayland \
+            --add-flags --enable-features=UseOzonePlatform,WebRTCPipeWireCapturer
     '';
-
-    postFixup = ''
-        for file in $(find $out -type f \( -perm /0111 -o -name \*.so\* -or -name \*.node\* \) ); do
-            patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" "$file" || true
-            patchelf --set-rpath ${rpath}:$out/opt/Element-Nightly $file || true
-        done
-
-        # Fix the desktop link
-        substituteInPlace $out/share/applications/element-desktop-nightly.desktop \
-            --replace /opt $out/opt
-    '';
-
     meta = with lib; {
         description = "A feature-rich client for Matrix.org (nightly unstable build)";
         homepage = "https://element.io";
