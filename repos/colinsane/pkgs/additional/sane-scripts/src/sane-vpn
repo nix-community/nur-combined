@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p coreutils-full -p iproute2 -p jq -p sane-scripts.ip-check
+#!nix-shell -i bash -p bash -p coreutils-full -p iproute2 -p jq -p sane-scripts.ip-check -p systemd
 
 set -e
 
@@ -9,12 +9,26 @@ usageDescription() {
   echo "however, systemd --user has poor support for capabilities, hence this here is a bespoke script instead of a service"
   echo ""
   echo "usage:"
+  echo "sane-vpn [flags ...] operation [operation flags]"
+  echo ""
+  echo "flags:"
+  echo "  --debug"
+  echo "  --no-proxy-dns"
+  echo ""
+  echo "operations:"
   echo "sane-vpn up [REGION]"
   echo "sane-vpn down [REGION]"
   echo "sane-vpn do [REGION [COMMAND ...] ]"
   echo "sane-vpn do -- [COMMAND ...]"
-  echo "sane-vpn dns-fix"
   echo "sane-vpn help"
+  echo ""
+  echo "idioms:"
+  echo "- sane-vpn do none [COMMAND ...]"
+  echo "  - run the command with a stub resolver instead of my recursive resolver, but no VPN."
+  echo "- sane-vpn up none"
+  echo "  - patch the entire system to use a stub resolver, but no VPN."
+  echo "- sane-vpn --no-proxy-dns up -- [COMMAND ...]"
+  echo "  - patch the system to route all traffic over the VPN, but use our stub resolver (still through the VPN) instead of delegating to the VPN owner's resolver"
 }
 
 
@@ -83,20 +97,47 @@ vpnToggle() {
 
   debug "vpnToggle with:"
   debug "  id='$id'"
+  debug "  dns='$dns'"
   debug "  fwmark='$fwmark'"
   debug "  priorityMain='$priorityMain'"
   debug "  priorityFwMark='$priorityFwMark'"
 
-  echo before: $(sane-ip-check --no-upnp)
+  set +e
+  echo before: $(sane-ip-check --no-upnp --retry-duration 2)
+  set -e
 
-  # first, allow all non-default routes (prefix-length != 0) a chance to route the packet.
-  # - this allows the wireguard tunnel itself to pass traffic via our LAN gateway.
-  # - incidentally, it allows traffic to LAN devices and other machine-local or virtual networks.
-  ip rule "$verb" from all lookup main suppress_prefixlength 0 priority "$priorityMain"
-  # if packet hasn't gone through the wg device yet (fwmark), then move it to the table which will cause it to.
-  ip rule "$verb" not from all fwmark "$fwmark" lookup "$id" priority "$priorityFwMark"
+  if [ "$region" != none ]; then
+    # first, allow all non-default routes (prefix-length != 0) a chance to route the packet.
+    # - this allows the wireguard tunnel itself to pass traffic via our LAN gateway.
+    # - incidentally, it allows traffic to LAN devices and other machine-local or virtual networks.
+    ip rule "$verb" from all lookup main suppress_prefixlength 0 priority "$priorityMain"
+
+    # if packet hasn't gone through the wg device yet (fwmark), then move it to the table which will cause it to.
+    ip rule "$verb" not from all fwmark "$fwmark" lookup "$id" priority "$priorityFwMark"
+  fi
+
+  dnsToggle "$verb"
 
   echo after:  $(sane-ip-check --no-upnp)
+}
+
+dnsToggle() {
+  # forward DNS to the VPN's resolver.
+  # we don't generally need to do this. only makes sense if our local recursive resolver isn't up to the job.
+  local verb="$1"
+  local zone=
+  if [ -n "$dns" ] && [ "$verb" = add ]; then
+    zone="
+      [[zones]]
+      zone = \".\"
+      zone_type = \"Forward\"
+      stores = { type = \"forward\", name_servers = [
+          { socket_addr = \"$dns:53\", protocol = \"udp\", trust_nx_responses = false }
+      ]}
+    "
+  fi
+  echo "$zone" > /var/lib/trust-dns/dhcp-configs/sane-vpn.toml
+  systemctl restart trust-dns-localhost
 }
 
 vpnDo() {
@@ -105,18 +146,10 @@ vpnDo() {
   debug "  addrV4='$addrV4'"
   debug "  dns='$dns'"
   debug "command: ${command[*]}"
+  local dnsFlags=${dns:+--sanebox-dns $dns}
   # sanebox --sanebox-method pastaonly --sanebox-net-dev "$name" --sanebox-net-gateway "$addrV4" --sanebox-dns "$dns" "${command[@]}"
   sanebox --sanebox-method bwrap --sanebox-keep-namespace all --sanebox-path / --sanebox-no-portal \
-    --sanebox-net-dev "$name" --sanebox-net-gateway "$addrV4" --sanebox-dns "$dns" \
-    "${command[@]}"
-}
-
-dnsFix() {
-  local dev=$(ip -j route get 255 | jq --raw-output '.[0]["dev"]')
-  debug "dev: $dev"
-  debug "command: ${command[*]}"
-  sanebox --sanebox-method bwrap --sanebox-keep-namespace all --sanebox-path / --sanebox-no-portal \
-    --sanebox-net-dev "$dev" --sanebox-dns "1.1.1.1" \
+    --sanebox-net-dev "$name" --sanebox-net-gateway "$addrV4" $dnsFlags \
     "${command[@]}"
 }
 
@@ -137,6 +170,27 @@ usage() {
 }
 
 parseCli() {
+  local noProxyDns=
+  while [ $# -ne 0 ]; do
+    local arg="$1"
+    case "$arg" in
+      (--debug)
+        SANE_VPN_DEBUG=1
+        shift
+        ;;
+      (--no-proxy-dns)
+        noProxyDns=1
+        shift
+        ;;
+      (-*)
+        usage 1 "unexpected flag: $arg"
+        ;;
+      (*)
+        break
+        ;;
+    esac
+  done
+
   local oper="$1"
   shift
   region="$1"
@@ -145,7 +199,16 @@ parseCli() {
   getVpns
   canonicalizeRegion
   fixupCommand "$@"
-  sourceVpn "$region"
+  if [ "$region" == none ]; then
+    name=$(ip -j route get 255 | jq --raw-output '.[0]["dev"]')
+    dns=(1.1.1.1 8.8.8.8)
+  else
+    sourceVpn "$region"
+  fi
+
+  if [ -n "$noProxyDns" ]; then
+    dns=()
+  fi
 
   case $oper in
     (up)
@@ -156,9 +219,6 @@ parseCli() {
       ;;
     (do)
       vpnDo "$@"
-      ;;
-    (dns-fix)
-      dnsFix "$@"
       ;;
     (--help|help|"")
       usage 0

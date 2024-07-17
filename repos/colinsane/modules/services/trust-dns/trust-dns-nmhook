@@ -35,7 +35,10 @@ class Ops:
             f.write(contents)
 
     def makedirs(self, path: str) -> None:
-        os.makedirs(os.path.join(self.base_dir, path), exist_ok=True)
+        path = os.path.join(self.base_dir, path)
+        os.makedirs(path, exist_ok=True)
+        # make it group writable
+        os.chmod(path, 0o775)
 
     def exec_(self, cli: list[str]) -> None:
         subprocess.check_output(cli)

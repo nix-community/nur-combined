@@ -14,10 +14,15 @@ import logging
 import requests
 import subprocess
 import sys
+import time
 
 from sane_ssdp import get_any_wan
 
 logger = logging.getLogger(__name__)
+
+# retry on failure to get IP address until this much time has elapsed.
+# not a strict deadline/timeout
+MAX_DURATION = 45.0
 
 def get_wan_fallback():
     "untrusted method in which to get the WAN IP"
@@ -29,12 +34,27 @@ def get_wan_fallback():
     else:
         return ip
 
-def main(format: str, try_upnp: bool, expect: str|None) -> None:
+def try_get_once(try_upnp: bool) -> tuple[str|None, str]:
     upnp_details = get_any_wan() if try_upnp else None
     if upnp_details:
         root_dev, _lan_ip, wan_ip = upnp_details
     else:
         root_dev, wan_ip = "", get_wan_fallback()
+
+    return root_dev, wan_ip
+
+def get_fault_tolerant(try_upnp: bool, retry_duration: float) -> tuple[str|None, str]:
+    start = time.time()
+    while True:
+        try:
+            return try_get_once(try_upnp)
+        except Exception as e:
+            logger.warn(e)
+            if time.time() - start > retry_duration:
+                raise
+
+def main(format: str, try_upnp: bool, retry_duration: float, expect: str|None) -> None:
+    root_dev, wan_ip = get_fault_tolerant(try_upnp, retry_duration)
 
     if expect:
         assert wan_ip == expect, f"actual IP {wan_ip} != expected IP {expect}"
@@ -56,6 +76,7 @@ if __name__ == '__main__':
     parser.add_argument("--json", action="store_true", help="output results in json format")
     parser.add_argument("--no-upnp", action="store_true", help="instead of asking the gateway for its IP address, discover my IP by querying a third-party public service")
     parser.add_argument("--expect", default=None, help="exit with error if IP address isn't as specified")
+    parser.add_argument("--retry-duration", default=MAX_DURATION, type=float, help="if the query fails, retry so long as we haven't already used this much time (soft timeout)")
 
     format = "plaintext"
     try_upnp = True
@@ -70,4 +91,4 @@ if __name__ == '__main__':
     if args.no_upnp:
         try_upnp = False
 
-    main(format=format, try_upnp=try_upnp, expect=args.expect)
+    main(format=format, try_upnp=try_upnp, retry_duration=args.retry_duration, expect=args.expect)
