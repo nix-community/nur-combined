@@ -15,6 +15,7 @@
   git,
   gnused,
   nix,
+  ncurses,
   nix-fast-build,
 }:
 
@@ -154,7 +155,13 @@ writeShellApplication {
     nix flake update
     git add flake.lock
     git commit --message 'flake.lock: update' --quiet || :
-    nix-fast-build --no-download
+
+    build_flags=()
+    if ! ${ncurses}/bin/infocmp -1 | grep clear; then
+      build_flags+=(--no-nom)
+    fi
+
+    nix-fast-build --no-download "''${build_flags[@]}"
     git switch --quiet -
     git rebase 'HEAD@{1}'
   '';
