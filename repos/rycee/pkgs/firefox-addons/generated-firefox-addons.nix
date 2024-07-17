@@ -1964,10 +1964,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.87";
+      version = "4.9.88";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4310627/darkreader-4.9.87.xpi";
-      sha256 = "0327d42e507979b0a0443b6aad24d011fea50dd020bcfd07b326bd3df285c79b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4317971/darkreader-4.9.88.xpi";
+      sha256 = "7a965d5880be9fbf8be81a106acd1968263b1acc2db0add580b30f2dd71954b3";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -2326,10 +2326,10 @@
     };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2024.6.13";
+      version = "2024.7.10";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4302639/duckduckgo_for_firefox-2024.6.13.xpi";
-      sha256 = "4273dee23f6cb785f38f12982d6c856fe1b62d42008d873f9e1228b230d6bd84";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4317796/duckduckgo_for_firefox-2024.7.10.xpi";
+      sha256 = "af5a94c1c5bc2564a092e581c06c283b43ca480d037e324e719df1775ba0a9ae";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -2619,10 +2619,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.12";
+      version = "1.3.13";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4319570/faststream-1.3.12.xpi";
-      sha256 = "80fbcb62ba693c83242daa1f1204a57765d1afd304876733d1400f6a437af684";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4321026/faststream-1.3.13.xpi";
+      sha256 = "21b224a416a667a8700161089bf7950cc7d8e44b5c4546244f8d8009c52296bd";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -5854,10 +5854,10 @@
     };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.8.4";
+      version = "2.8.5";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4280925/libredirect-2.8.4.xpi";
-      sha256 = "cd1f5780cf1ae20a05e4e2fbdc5a338c7d0aad9619a0b5824ede024c3a0933f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4320954/libredirect-2.8.5.xpi";
+      sha256 = "b0e07ae1480c9087c22a560d0601bee28cf79dda3083fc6757a9d2b56b58fa76";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io";
@@ -9165,10 +9165,10 @@
     };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "6.1.13";
+      version = "6.1.15";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4244682/reddit_moderator_toolbox-6.1.13.xpi";
-      sha256 = "ca2569493c167496ebc9c905b53bb9b1856ff35bc034493f36bcca85a64d0762";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4320830/reddit_moderator_toolbox-6.1.15.xpi";
+      sha256 = "f2ca6c38f3f0163afd027c7feea00ac3e2141a4a5a757af69dbabfa4636dd367";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
