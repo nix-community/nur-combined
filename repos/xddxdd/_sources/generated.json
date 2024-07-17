@@ -349,7 +349,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-07-15",
+        "date": "2024-07-16",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -361,12 +361,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "165922494315b1807cce71202bb3d83c070f9a3e",
-            "sha256": "sha256-9ULOFXJpEbf2hxtm73HPJfupWPadAhCE9Rt4462YnwY=",
+            "rev": "81c95a235a5121751ae5760cb86c7e441f126b61",
+            "sha256": "sha256-TIazqEMz/IEl6XBlfDZ4IYS3MisfAmWRgUfK4aKw57M=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "165922494315b1807cce71202bb3d83c070f9a3e"
+        "version": "81c95a235a5121751ae5760cb86c7e441f126b61"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1458,12 +1458,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3403",
-            "sha256": "sha256-brSCoR+xYj3hUF1OaT2SJJCzaBA0TnUSENMPl+337vw=",
+            "rev": "b3407",
+            "sha256": "sha256-q0y1SFk4+gb03msaMoJlyFMkTRm2nSGIWaQrnp69xnI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3403"
+        "version": "b3407"
     },
     "lyrica": {
         "cargoLocks": null,
