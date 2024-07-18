@@ -19,6 +19,7 @@ let
     neovim
     nix
     openfortivpn
+    pass
     podman
     radicale
     sing-box

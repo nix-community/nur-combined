@@ -43,6 +43,7 @@ _:
     ];
     users.nixos = {
       directories = [
+        ".android"
         ".cache"
         ".config"
         ".local"
@@ -50,7 +51,6 @@ _:
         ".nali"
         ".pki"
         ".ssh"
-        ".android"
         "repos"
       ];
     };

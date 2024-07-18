@@ -208,7 +208,7 @@ in
           };
           "Home Manager options" = {
             urls = [{
-              template = "https://home-manager-options.extranix.com/?query={searchTerms}&release=release-${config.home.stateVersion}";
+              template = "https://home-manager-options.extranix.com/?query={searchTerms}&release=master";
             }];
             icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
             definedAliases = [ "@hm" ];

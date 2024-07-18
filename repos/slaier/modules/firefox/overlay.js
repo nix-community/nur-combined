@@ -8,6 +8,7 @@ user_pref("security.OCSP.timeoutMilliseconds.soft", 5000);
 user_pref("browser.contentblocking.category", "standard");
 /*** [SECTION 2800]: SHUTDOWN & SANITIZING ***/
 user_pref("privacy.clearOnShutdown.history", false);
+user_pref("privacy.clearOnShutdown_v2.historyFormDataAndDownloads", false);
 /*** [SECTION 5000]: OPTIONAL OPSEC ***/
 user_pref("signon.rememberSignons", false);
 // end
