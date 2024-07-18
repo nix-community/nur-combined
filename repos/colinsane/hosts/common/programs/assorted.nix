@@ -945,7 +945,7 @@ in
       "/sys/devices"
     ];
 
-    "perlPackages.FileMimeInfo".sandbox.enable = false;  #< TODO: sandbox `mimetype` but not `mimeopen`.
+    "perlPackages.FileMimeInfo" = {};
 
     powertop.sandbox.method = "landlock";
     powertop.sandbox.capabilities = [ "ipc_lock" "sys_admin" ];

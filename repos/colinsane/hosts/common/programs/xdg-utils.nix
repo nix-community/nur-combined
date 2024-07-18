@@ -12,7 +12,11 @@
 
     # `mimetype` provides better mime associations than `file`
     # - see: <https://github.com/NixOS/nixpkgs/pull/285233#issuecomment-1940828629>
-    suggestedPrograms = [ "perlPackages.FileMimeInfo" ];
+    suggestedPrograms = [
+      # "perlPackages.FileMimeInfo"
+      "mimetype"
+      # "mimeopen"  #< optional, unclear what benefit
+    ];
 
     # alternative to letting the sandbox decide for itself: forcibly use the portal
     #   if the mime association list is not visible/in scope.

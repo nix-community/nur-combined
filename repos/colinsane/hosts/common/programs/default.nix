@@ -90,6 +90,7 @@
     ./megapixels.nix
     ./mepo.nix
     ./mimeo
+    ./mimetype.nix
     ./mmcli.nix
     ./mopidy.nix
     ./mpv
