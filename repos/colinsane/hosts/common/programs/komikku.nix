@@ -1,14 +1,14 @@
 { pkgs, ... }:
 {
   sane.programs.komikku = {
-    packageUnwrapped = pkgs.komikku.overrideAttrs (upstream: {
-      preFixup = ''
-        # 2024/02/21: render bug which affects only moby:
-        #             large images render blank in several gtk applications.
-        #             may resolve itself as gtk or mesa are updated.
-        gappsWrapperArgs+=(--set GSK_RENDERER cairo)
-      '' + (upstream.preFixup or "");
-    });
+    # packageUnwrapped = pkgs.komikku.overrideAttrs (upstream: {
+    #   preFixup = ''
+    #     # 2024/02/21: render bug which affects only moby:
+    #     #             large images render blank in several gtk applications.
+    #     #             may resolve itself as gtk or mesa are updated.
+    #     gappsWrapperArgs+=(--set GSK_RENDERER cairo)
+    #   '' + (upstream.preFixup or "");
+    # });
 
     sandbox.method = "bwrap";  # TODO:sandbox untested
     sandbox.net = "clearnet";
