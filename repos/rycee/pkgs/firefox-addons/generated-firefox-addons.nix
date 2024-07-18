@@ -2067,10 +2067,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "129.0.20240715.91606";
+      version = "129.0.20240717.91810";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4320033/deutsch_de_language_pack-129.0.20240715.91606.xpi";
-      sha256 = "a30755230ec5f29f220600b28a1f73f998287ce663ca1f739b7ffd4a6deea9cd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4321283/deutsch_de_language_pack-129.0.20240717.91810.xpi";
+      sha256 = "86adcfa6ba4bd91d0f017e81af8534f4f18957049a08dfd99197869f67a1be72";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3070,10 +3070,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "129.0.20240715.91606";
+      version = "129.0.20240717.91810";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4319978/francais_language_pack-129.0.20240715.91606.xpi";
-      sha256 = "67689961f79c4d28f18a21d74876a5584ae2e3c39de077fed1dd248f72b9b81d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4321345/francais_language_pack-129.0.20240717.91810.xpi";
+      sha256 = "f602f2fb3f4052c2a2a2f8a7349e1d45133e11df3a095de6fc6104604c6a5c1a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -5006,10 +5006,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.7.5";
+      version = "1.7.6";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4314764/immersive_translate-1.7.5.xpi";
-      sha256 = "2b2407eb9034ff81130481da27e632f757daa92aa5bfe60d3603938812f820f2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4318414/immersive_translate-1.7.6.xpi";
+      sha256 = "f728f58bdb4cb41a6351994fc245bfbcea0ae23a446a20e2466a6c683cbf0c55";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -5990,10 +5990,10 @@
     };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.69";
+      version = "2.6.70";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4303757/localcdn_fork_of_decentraleyes-2.6.69.xpi";
-      sha256 = "025be3d000eb9910f92c05e9716a645f9892a2e8862e22563a4e92c66f4824ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4318983/localcdn_fork_of_decentraleyes-2.6.70.xpi";
+      sha256 = "95e64db98bfbdaf566e3c2f77a6fd9ebfaed3b45a13795fd3ba8ed4721454e86";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -11241,10 +11241,10 @@
     };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2024.7.3.674";
+      version = "2024.7.17.853";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4313420/ublock_origin_lite-2024.7.3.674.xpi";
-      sha256 = "7dab62d4646cbd6adf5acacafce785835ed2e11d650d9f66116e6c9ded07abdd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4321502/ublock_origin_lite-2024.7.17.853.xpi";
+      sha256 = "1cce1623db9778e9e1b0cb2dd194e6dbb28b86f7b14af7ec1c18641a435da26c";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
