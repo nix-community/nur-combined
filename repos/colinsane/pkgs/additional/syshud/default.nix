@@ -7,15 +7,15 @@
 , wireplumber
 , wrapGAppsHook4
 }:
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "syshud";
-  version = "0-unstable-2024-07-15";
+  version = "0-unstable-2024-07-16";
 
   src = fetchFromGitHub {
     owner = "System64fumo";
     repo = "syshud";
-    rev = "bb4d8157ebb191d1b116d640c486762b4d697dff";
-    hash = "sha256-KiySPiFKH3R65fgNYWlxrr/oOTNH1/JEGkyuP2MA6Lg=";
+    rev = "d60c3bb6c8eefba743478fe7c183055fa057e69e";
+    hash = "sha256-2aVqCXUZYGtv6xIqbZ1yk3SZK45igZVgPl0byxTXu8E=";
   };
   postPatch = ''
     substituteInPlace Makefile \
@@ -33,7 +33,24 @@ stdenv.mkDerivation {
     wireplumber
   ];
 
-  makeFlags = [ "DESTDIR=${placeholder "out"}" ];
+  makeFlags = [
+    "DESTDIR=${placeholder "out"}"
+  ];
+
+  # populate version info used by `syshud -v`:
+  configurePhase = ''
+    runHook preConfigure
+
+    echo '#define GIT_COMMIT_MESSAGE "${finalAttrs.src.rev}"' >> src/git_info.hpp
+    echo '#define GIT_COMMIT_DATE "${lib.removePrefix "0-unstable-" finalAttrs.version}"' >> src/git_info.hpp
+
+    runHook postConfigure
+  '';
+
+  # syshud manually `dlopen`'s its library component
+  postInstall = ''
+    wrapProgram $out/bin/syshud --prefix LD_LIBRARY_PATH : $out/lib
+  '';
 
   passthru.updateScript = nix-update-script {
     extraArgs = [ "--version" "branch" ];
@@ -46,4 +63,4 @@ stdenv.mkDerivation {
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ colinsane ];
   };
-}
+})
