@@ -6,3 +6,7 @@
 
 [![Cachix Cache](https://img.shields.io/badge/cachix-ixhbinphoenix-blue.svg)](https://ixhbinphoenix.cachix.org)
 
+## Current packages:
+
+- [localbooru-bin](https://github.com/resucutie/localbooru) - `1.5.2` - packaged .deb from latest release
+- [todoit](https://git.ixhby.dev/ixhbinphoenix/todoit) - `0.1.2` - built from source

@@ -60,6 +60,6 @@ stdenv.mkDerivation {
     makeWrapper $out/usr/share/localbooru/localbooru $out/bin/localbooru-bin \
       "''${gappsWrapperArgs[@]}" \
       --prefix LD_LIBRARY_PATH : $out/usr/share/localbooru/lib:${lib.makeLibraryPath [ pkgs.mpv-unwrapped ]} \
-      --prefix PATH : ${lib.makeBinPath [ pkgs.xdg-user-dirs pkgs.gnome.zenity ]}
+      --prefix PATH : ${lib.makeBinPath [ pkgs.xdg-user-dirs pkgs.zenity ]}
   '';
 }
