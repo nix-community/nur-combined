@@ -32,14 +32,6 @@ stdenv.mkDerivation {
     export DESTDIR=$out
   '';
 
-  buildPhase = ''
-    make -j`nproc`
-  '';
-
-  installPhase = ''
-    make install
-  '';
-
   meta = {
     description = "Tiny FEL tools for Allwinner SOC";
     homepage = "https://xboot.org/xfel";
