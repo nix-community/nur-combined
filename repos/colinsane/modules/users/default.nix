@@ -260,6 +260,21 @@ let
               esac
             }
             sessionCommands+=('setVTNR')
+            setXdgSessionType() {
+              # some apps (e.g. Komikku) require XDG_SESSION_TYPE to be set
+              if [ -v "$XDG_SESSION_TYPE" ]; then
+                return
+              fi
+              case $XDG_VTNR in
+                (1)
+                  export XDG_SESSION_TYPE=wayland
+                  ;;
+                (*)
+                  export XDG_SESSION_TYPE=tty
+                  ;;
+              esac
+            }
+            sessionCommands+=('setXdgSessionType')
             sourceEnv() {
               # source env vars and the like, as systemd would. `man environment.d`
               for env in ~/.config/environment.d/*.conf; do
