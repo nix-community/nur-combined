@@ -91,10 +91,10 @@
     };
     "adblocker-ultimate" = buildFirefoxXpiAddon {
       pname = "adblocker-ultimate";
-      version = "3.8.25";
+      version = "3.8.26";
       addonId = "adblockultimate@adblockultimate.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4283621/adblocker_ultimate-3.8.25.xpi";
-      sha256 = "374e082dd1bdf6abdd09ae3e6efe461ccc230759095586bcaac7d9ba91ebf2a4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4320550/adblocker_ultimate-3.8.26.xpi";
+      sha256 = "b2a679083d79bb137fc72b7c8b2d1a245b9e767af8d43301a8eb64c2bd893cb5";
       meta = with lib;
       {
         homepage = "https://adblockultimate.net";
@@ -202,10 +202,10 @@
     };
     "alby" = buildFirefoxXpiAddon {
       pname = "alby";
-      version = "3.8.1";
+      version = "3.9.0";
       addonId = "extension@getalby.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4292894/alby-3.8.1.xpi";
-      sha256 = "278793c44ae6e22873647adb51b9a2e2cb04a3b3c6176afe32f4b54e58baa68b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4322107/alby-3.9.0.xpi";
+      sha256 = "f1cff1298510150187fc6111d88325f88d9f53b684d6b3edec67db4ce828fa36";
       meta = with lib;
       {
         homepage = "https://getAlby.com/";
@@ -7441,10 +7441,10 @@
     };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.30";
+      version = "11.4.31";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4315766/noscript-11.4.30.xpi";
-      sha256 = "e259ba4e83d459252f7db665d60290df658b482352cf4d818703f4f3fad40ce5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4320635/noscript-11.4.31.xpi";
+      sha256 = "b22c007534471a8fb74378e970ba79a536a44f88d81ad3852273b82a466d10c7";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -10988,10 +10988,10 @@
     };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.8.2";
+      version = "8.9.0";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4308350/ublacklist-8.8.2.xpi";
-      sha256 = "c900055ba4c98ea7362cd598b2aa35db6da55f6631e592d1a2f194c8eea0215a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4320210/ublacklist-8.9.0.xpi";
+      sha256 = "26c373a6af5b17175fae4f991c0340ad625776d740e3baacbac01bdbb2cee5d6";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
