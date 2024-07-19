@@ -22,6 +22,11 @@ in
       # documented here: <https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints>
       # Github actually uses multiple keys -- one per format
       "root@github.com" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl";
+
+      # documented: <https://www.rsync.net/resources/fingerprints.txt>
+      # extract keys with `ssh-keyscan sd1.rsync.net`
+      # validate fingerprint with `ssh-keyscan sd1.rsync.net | ssh-keygen -l -f -`
+      "root@*.rsync.net" = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINdUkGe6kKn5ssz4WRZKjcws0InbQqZayenzk9obmP1z";
     }
   ]);
 

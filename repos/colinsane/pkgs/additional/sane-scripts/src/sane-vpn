@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p coreutils-full -p iproute2 -p jq -p sane-scripts.ip-check -p systemd
+#!nix-shell -i bash -p bash -p coreutils-full -p iproute2 -p jq -p networkmanager-split.nmcli -p sane-scripts.ip-check -p systemd
 
 set -e
 
@@ -22,6 +22,10 @@ usageDescription() {
   echo "sane-vpn do -- [COMMAND ...]"
   echo "sane-vpn help"
   echo ""
+  echo "special regions:"
+  echo "- none: allow ALL network devices; don't actually re-route traffic through a VPN. useful to make only DNS changes"
+  echo "- unmetered: route traffic PLAINTEXT through whichever unmetered connections (i.e. eth/wifi) are up"
+  echo ""
   echo "idioms:"
   echo "- sane-vpn do none [COMMAND ...]"
   echo "  - run the command with a stub resolver instead of my recursive resolver, but no VPN."
@@ -29,6 +33,8 @@ usageDescription() {
   echo "  - patch the entire system to use a stub resolver, but no VPN."
   echo "- sane-vpn --no-proxy-dns up -- [COMMAND ...]"
   echo "  - patch the system to route all traffic over the VPN, but use our stub resolver (still through the VPN) instead of delegating to the VPN owner's resolver"
+  echo "- sane-vpn do unmetered [COMMAND ...]"
+  echo "  - run the command using only those interfaces which are unmetered (i.e. ethernet/wifi)"
 }
 
 
@@ -63,10 +69,43 @@ getVpns() {
 
 # load a specific VPN profile, `"$1"`
 sourceVpn() {
-  # populates: variables declared above
-  debug "sourcing: ~/.config/sane-vpn/vpns/$1"
-  # TODO: don't blindly source this, but parse explicitly as `K=V`
-  source ~/.config/sane-vpn/vpns/$1
+  local region="$1"
+  # populates (a subset of) variables declared above
+  case "$region" in
+    (none)
+      name=$(ip -j route get 255 | jq --raw-output '.[0]["dev"]')
+      dns=(1.1.1.1 8.8.8.8)
+      ;;
+    (unmetered)
+      # connect only to "unmetered" networks, i.e. ethernet/wifi -- NOT mobile
+      all_networks=$(nmcli --get-values DEVICE,TYPE,STATE device | tr " " "-")
+      ok_networks=()
+      # format is like "wlan0:wifi:connected" or "eth0:ethernet:disconnected"
+      for n in $all_networks; do
+        device=$(echo $n | cut -d ":" -f 1)
+        type=$(echo $n | cut -d ":" -f 2)
+        state=$(echo $n | cut -d ":" -f 3)
+        debug "considering $device ($type, $state)"
+        case "$type-$state" in
+          (ethernet-connected)
+            # ethernet gets high precedence
+            ok_networks=("$device" "${ok_networks[@]}")
+            ;;
+          (wifi-connected)
+            # wifi gets low precedence
+            ok_networks+=("$device")
+          ;;
+        esac
+      done
+      debug "choosing from networks: ${ok_networks[@]}"
+      name="${ok_networks[0]}"
+      ;;
+    (*)
+      debug "sourcing: ~/.config/sane-vpn/vpns/$1"
+      # TODO: don't blindly source this, but parse explicitly as `K=V`
+      source ~/.config/sane-vpn/vpns/$1
+      ;;
+  esac
 }
 
 canonicalizeRegion() {
@@ -106,7 +145,7 @@ vpnToggle() {
   echo before: $(sane-ip-check --no-upnp --retry-duration 2)
   set -e
 
-  if [ "$region" != none ]; then
+  if [ -n "$priorityMain" ] && [ -n "$priorityFwMark" ]; then
     # first, allow all non-default routes (prefix-length != 0) a chance to route the packet.
     # - this allows the wireguard tunnel itself to pass traffic via our LAN gateway.
     # - incidentally, it allows traffic to LAN devices and other machine-local or virtual networks.
@@ -199,12 +238,7 @@ parseCli() {
   getVpns
   canonicalizeRegion
   fixupCommand "$@"
-  if [ "$region" == none ]; then
-    name=$(ip -j route get 255 | jq --raw-output '.[0]["dev"]')
-    dns=(1.1.1.1 8.8.8.8)
-  else
-    sourceVpn "$region"
-  fi
+  sourceVpn "$region"
 
   if [ -n "$noProxyDns" ]; then
     dns=()

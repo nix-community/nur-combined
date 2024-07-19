@@ -381,7 +381,7 @@ in
       # "monero-gui"  # x86-only
       # "mumble"
       # "nheko"  # Matrix chat client
-      # "nicotine-plus"  # soulseek client. before re-enabling this make sure it's properly sandboxed!
+      "nicotine-plus"  # soulseek client
       # "obsidian"
       # "openscad"  # 3d modeling
       # "rhythmbox"  # local music player

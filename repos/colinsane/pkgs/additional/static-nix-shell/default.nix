@@ -106,8 +106,14 @@ in rec {
         mkdir -p $out/bin
         mv ${srcPath} $out/bin/${srcPath}
 
+        die() {
+          echo "$@"
+          exit 1
+        }
         # ensure that all nix-shell references were substituted
-        (! grep '#![ \t]*nix-shell' $out/bin/${srcPath}) || exit 1
+        (! grep '#![ \t]*nix-shell' $out/bin/${srcPath}) || die 'not all #!nix-shell directives were processed in ${srcPath}'
+        # ensure that there weren't some trailing deps we *didn't* substitute
+        grep '^# nix deps evaluated statically$' $out/bin/${srcPath} || die 'trailing characters in nix-shell directive for ${srcPath}'
 
       '' + lib.optionalString doWrap ''
         # add runtime dependencies to PATH

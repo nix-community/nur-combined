@@ -1,0 +1,27 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p bash -p nettools -p openssh -p rsync -p sane-scripts.vpn -p sanebox
+
+# rsync password auth doesn't work with rsync.net.
+# ssh keyfile auth *does* work, so i use that.
+# for setup, see: <https://www.rsync.net/resources/howto/ssh_keys.html>
+# - requires my pubkey to be copied to .ssh/authorized_keys on the remote.
+
+set -x
+
+# secret should include RN_USER
+source /run/secrets/rsync-net-env
+RN_ID=/run/secrets/rsync-net-id_ed25519
+PREFIX=$(hostname)
+
+test -n "$PREFIX" && test -n "$RN_USER" && test -f "$RN_ID"
+
+for dir in "$@"; do
+  if [[ "$dir" != */ ]]; then
+    dir="$dir/"
+  fi
+  remote_dir="$RN_USER@$RN_USER.rsync.net:$PREFIX$dir"
+
+  echo "syncing '$dir' to '$remote_dir'"
+  # N.B.: the `--exclude=$RN_ID` flag is a noop to get the ID file to be included in the sandbox...
+  sane-vpn do unmetered rsync --exclude="$RN_ID" -e "ssh -i $RN_ID" --mkpath -arv --delete "$dir" "$remote_dir"
+done

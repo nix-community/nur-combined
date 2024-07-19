@@ -43,7 +43,7 @@ let
         makeSandboxed = pkgs.callPackage ./make-sandboxed.nix { };
 
         vpn = if sandbox.net == "vpn" then
-          lib.findSingle (v: v.default) null null (builtins.attrValues config.sane.vpn)
+          lib.findSingle (v: v.isDefault) null null (builtins.attrValues config.sane.vpn)
         else if sandbox.net == "vpn.wg-home" then
           config.sane.vpn.wg-home
         else

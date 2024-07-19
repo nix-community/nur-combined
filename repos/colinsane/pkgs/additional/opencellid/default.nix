@@ -13,7 +13,7 @@ stdenv.mkDerivation {
     # this is a live url. updated daily? TODO: add an update script for this.
     # the API key should allow for at least 2 downloads per day
     url = "https://opencellid.org/ocid/downloads?token=${apiKey}&type=full&file=cell_towers.csv.gz";
-    hash = "sha256-uY9nHY/LHPJSqMjvIpRgiW++fzucRn1JwPdNXE63bq8=";
+    hash = "sha256-nXWdHp6kYSJP6jOq056Po9YrNj8vDNY+uxQaKA7iA2A=";
   };
 
   unpackPhase = ''

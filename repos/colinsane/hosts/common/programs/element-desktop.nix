@@ -45,6 +45,9 @@
       "Videos/servo"
       "tmp"
     ];
+    sandbox.extraPaths = [
+      "/dev/snd"  #< needed only when playing embedded audio (not embedded video!)
+    ];
 
     # creds/session keys, etc
     persist.byStore.private = [ ".config/Element" ];

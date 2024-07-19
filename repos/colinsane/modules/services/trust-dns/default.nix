@@ -3,6 +3,9 @@ let
   trust-dns-nmhook = pkgs.static-nix-shell.mkPython3 {
     pname = "trust-dns-nmhook";
     srcRoot = ./.;
+    pkgs = [
+      "systemd"
+    ];
   };
   cfg = config.sane.services.trust-dns;
   dns = config.sane.dns;
