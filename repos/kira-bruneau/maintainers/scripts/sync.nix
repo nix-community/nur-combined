@@ -26,7 +26,6 @@ let
       "nixos/modules/hardware/xpadneo.nix"
       "nixos/modules/programs/bash/undistract-me.nix"
       "nixos/modules/programs/gamemode.nix"
-      "nixos/modules/services/video/replay-sorcery.nix"
 
       "nixos/tests/xpadneo.nix"
 
@@ -56,7 +55,6 @@ let
       "pkgs/tools/graphics/mangohud"
       "pkgs/tools/graphics/vkbasalt"
       "pkgs/tools/package-management/protontricks"
-      "pkgs/tools/video/replay-sorcery"
 
       "pkgs/by-name/cc/ccache"
       "pkgs/by-name/cl/clonehero"
@@ -67,7 +65,6 @@ let
       "pkgs/by-name/mo/mozlz4a"
       "pkgs/by-name/ne/newsflash"
       "pkgs/by-name/po/poke"
-      "pkgs/by-name/re/replay-sorcery"
       "pkgs/by-name/te/texlab"
       "pkgs/by-name/uk/ukmm"
       "pkgs/by-name/un/undistract-me"

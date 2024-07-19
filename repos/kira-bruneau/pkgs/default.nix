@@ -118,8 +118,6 @@ in
     pythonModulesOverlay (prev.python3Packages // python3Packages) prev.python3Packages
   );
 
-  replay-sorcery = callPackage ./tools/video/replay-sorcery { };
-
   sudachi = qt6Packages.callPackage ./by-name/su/sudachi/package.nix { };
 
   swaylock-fprintd = callPackage ./by-name/sw/swaylock-fprintd/package.nix { };
