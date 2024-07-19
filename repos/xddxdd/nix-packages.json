@@ -282,7 +282,7 @@
   "legacyPackages.x86_64-linux.cryptodev-unstable": {
     "description": "Device that allows access to Linux kernel cryptographic drivers",
     "pname": "cryptodev-linux-unstable",
-    "version": "2024-07-03"
+    "version": "2024-07-19"
   },
   "legacyPackages.x86_64-linux.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed.",
@@ -417,7 +417,7 @@
   "legacyPackages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
     "pname": "i915-sriov-unstable",
-    "version": "2024-06-22"
+    "version": "2024-07-18"
   },
   "legacyPackages.x86_64-linux.imewlconverter": {
     "description": "”深蓝词库转换“ 一款开源免费的输入法词库转换程序",
@@ -437,12 +437,12 @@
   "legacyPackages.x86_64-linux.kata-image": {
     "description": "Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-images/default.nix)",
     "pname": "kata-image",
-    "version": "3.6.0"
+    "version": "3.7.0"
   },
   "legacyPackages.x86_64-linux.kata-runtime": {
     "description": "Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix)",
     "pname": "kata-runtime",
-    "version": "3.6.0"
+    "version": "3.7.0"
   },
   "legacyPackages.x86_64-linux.kernel": {
     "description": "The Linux kernel (with patches: bridge-stp-helper, request-key-helper)",
@@ -487,7 +487,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Port of Facebook's LLaMA model in C/C++",
     "pname": "llama-cpp",
-    "version": "3407"
+    "version": "3416"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -567,52 +567,52 @@
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.40-xanmod1"
+    "version": "6.6.41-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.40-xanmod1"
+    "version": "6.6.41-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v1": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.40-xanmod1"
+    "version": "6.6.41-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v1-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.40-xanmod1"
+    "version": "6.6.41-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v2": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.40-xanmod1"
+    "version": "6.6.41-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v2-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.40-xanmod1"
+    "version": "6.6.41-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v3": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.40-xanmod1"
+    "version": "6.6.41-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v3-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.40-xanmod1"
+    "version": "6.6.41-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v4": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.40-xanmod1"
+    "version": "6.6.41-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v4-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.40-xanmod1"
+    "version": "6.6.41-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_0-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
@@ -717,52 +717,52 @@
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.40-xanmod1"
+    "version": "6.6.41-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-generic-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.40-xanmod1"
+    "version": "6.6.41-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v1": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.40-xanmod1"
+    "version": "6.6.41-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v1-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.40-xanmod1"
+    "version": "6.6.41-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v2": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.40-xanmod1"
+    "version": "6.6.41-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v2-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.40-xanmod1"
+    "version": "6.6.41-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v3": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.40-xanmod1"
+    "version": "6.6.41-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v3-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.40-xanmod1"
+    "version": "6.6.41-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v4": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.40-xanmod1"
+    "version": "6.6.41-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v4-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.40-xanmod1"
+    "version": "6.6.41-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v1": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
@@ -842,7 +842,7 @@
   "legacyPackages.x86_64-linux.netboot-xyz": {
     "description": "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE.",
     "pname": "netboot-xyz",
-    "version": "2.0.79"
+    "version": "2.0.80"
   },
   "legacyPackages.x86_64-linux.netease-cloud-music": {
     "description": "NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu)",
@@ -2122,7 +2122,7 @@
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-11": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jdk-bin",
-    "version": "11.0.23_9_adopt"
+    "version": "11.0.24_8_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-11_0_12_7": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -2199,6 +2199,11 @@
     "pname": "openjdk-adoptium-jdk-bin",
     "version": "11.0.23_9_adopt"
   },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-11_0_24_8": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jdk-bin",
+    "version": "11.0.24_8_adopt"
+  },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-16": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jdk-bin",
@@ -2212,7 +2217,7 @@
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-17": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jdk-bin",
-    "version": "17.0.11_9_adopt"
+    "version": "17.0.12_7_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-17_0_10_7": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -2223,6 +2228,11 @@
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jdk-bin",
     "version": "17.0.11_9_adopt"
+  },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-17_0_12_7": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jdk-bin",
+    "version": "17.0.12_7_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-17_0_1_12": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -2312,7 +2322,7 @@
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-8": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jdk-bin",
-    "version": "8u412-b08_adopt"
+    "version": "8u422-b05_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-8u302_b08": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -2379,10 +2389,15 @@
     "pname": "openjdk-adoptium-jdk-bin",
     "version": "8u412-b08_adopt"
   },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jdk-bin-8u422_b05": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jdk-bin",
+    "version": "8u422-b05_adopt"
+  },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-11": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jre-bin",
-    "version": "11.0.23_9_adopt"
+    "version": "11.0.24_8_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-11_0_12_7": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -2459,10 +2474,15 @@
     "pname": "openjdk-adoptium-jre-bin",
     "version": "11.0.23_9_adopt"
   },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-11_0_24_8": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jre-bin",
+    "version": "11.0.24_8_adopt"
+  },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-17": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jre-bin",
-    "version": "17.0.11_9_adopt"
+    "version": "17.0.12_7_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-17_0_10_7": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -2473,6 +2493,11 @@
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jre-bin",
     "version": "17.0.11_9_adopt"
+  },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-17_0_12_7": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jre-bin",
+    "version": "17.0.12_7_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-17_0_1_12": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -2552,7 +2577,7 @@
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-8": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
     "pname": "openjdk-adoptium-jre-bin",
-    "version": "8u412-b08_adopt"
+    "version": "8u422-b05_adopt"
   },
   "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-8u302_b08": {
     "description": "OpenJDK binaries built by Eclipse Adoptium",
@@ -2619,6 +2644,11 @@
     "pname": "openjdk-adoptium-jre-bin",
     "version": "8u412-b08_adopt"
   },
+  "legacyPackages.x86_64-linux.openjdk-adoptium.jre-bin-8u422_b05": {
+    "description": "OpenJDK binaries built by Eclipse Adoptium",
+    "pname": "openjdk-adoptium-jre-bin",
+    "version": "8u422-b05_adopt"
+  },
   "legacyPackages.x86_64-linux.openssl-oqs": {
     "description": "A cryptographic library that implements the SSL and TLS protocols",
     "pname": "openssl-oqs",
@@ -2662,7 +2692,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "5.0.0"
+    "version": "5.0.3"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
@@ -2676,12 +2706,12 @@
   },
   "legacyPackages.x86_64-linux.plangothic-fonts.allideo": {
     "description": "Plangothic Project",
-    "pname": "plangothic-fonts-allideo-V1.8.5760",
+    "pname": "plangothic-fonts-allideo-V1.8.5764",
     "version": ""
   },
   "legacyPackages.x86_64-linux.plangothic-fonts.fallback": {
     "description": "Plangothic Project",
-    "pname": "plangothic-fonts-fallback-V1.8.5760",
+    "pname": "plangothic-fonts-fallback-V1.8.5764",
     "version": ""
   },
   "legacyPackages.x86_64-linux.plasma-panel-transparency-toggle": {
@@ -2722,7 +2752,7 @@
   "legacyPackages.x86_64-linux.qemu-user-static": {
     "description": "A generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "9.0.1+ds-1"
+    "version": "9.0.2+ds-1"
   },
   "legacyPackages.x86_64-linux.qhttpengine": {
     "description": "HTTP server for Qt applications",
@@ -2767,7 +2797,7 @@
   "legacyPackages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库 ",
     "pname": "rime-ice-unstable",
-    "version": "2024-07-03"
+    "version": "2024-07-19"
   },
   "legacyPackages.x86_64-linux.rime-moegirl": {
     "description": "Releases for dict of zh.moegirl.org.cn",
@@ -3052,7 +3082,7 @@
   "packages.x86_64-linux.cryptodev-unstable": {
     "description": "Device that allows access to Linux kernel cryptographic drivers",
     "pname": "cryptodev-linux-unstable",
-    "version": "2024-07-03"
+    "version": "2024-07-19"
   },
   "packages.x86_64-linux.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed.",
@@ -3187,7 +3217,7 @@
   "packages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
     "pname": "i915-sriov-unstable",
-    "version": "2024-06-22"
+    "version": "2024-07-18"
   },
   "packages.x86_64-linux.imewlconverter": {
     "description": "”深蓝词库转换“ 一款开源免费的输入法词库转换程序",
@@ -3207,12 +3237,12 @@
   "packages.x86_64-linux.kata-image": {
     "description": "Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-images/default.nix)",
     "pname": "kata-image",
-    "version": "3.6.0"
+    "version": "3.7.0"
   },
   "packages.x86_64-linux.kata-runtime": {
     "description": "Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix)",
     "pname": "kata-runtime",
-    "version": "3.6.0"
+    "version": "3.7.0"
   },
   "packages.x86_64-linux.kernel": {
     "description": "The Linux kernel (with patches: bridge-stp-helper, request-key-helper)",
@@ -3282,7 +3312,7 @@
   "packages.x86_64-linux.netboot-xyz": {
     "description": "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE.",
     "pname": "netboot-xyz",
-    "version": "2.0.79"
+    "version": "2.0.80"
   },
   "packages.x86_64-linux.netease-cloud-music": {
     "description": "NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu)",
@@ -3397,7 +3427,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "5.0.0"
+    "version": "5.0.3"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
@@ -3452,7 +3482,7 @@
   "packages.x86_64-linux.qemu-user-static": {
     "description": "A generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "9.0.1+ds-1"
+    "version": "9.0.2+ds-1"
   },
   "packages.x86_64-linux.qhttpengine": {
     "description": "HTTP server for Qt applications",
@@ -3497,7 +3527,7 @@
   "packages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库 ",
     "pname": "rime-ice-unstable",
-    "version": "2024-07-03"
+    "version": "2024-07-19"
   },
   "packages.x86_64-linux.rime-moegirl": {
     "description": "Releases for dict of zh.moegirl.org.cn",
