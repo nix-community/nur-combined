@@ -8,13 +8,13 @@
 {
   aws-sigv4-proxy = {
     pname = "aws-sigv4-proxy";
-    version = "v1.8";
+    version = "v1.9";
     src = fetchFromGitHub {
       owner = "awslabs";
       repo = "aws-sigv4-proxy";
-      rev = "v1.8";
+      rev = "v1.9";
       fetchSubmodules = false;
-      sha256 = "sha256-LYYEn+2UWHAc4GUCv3fXdQq21fKPwnjWemqLjLI9lDM=";
+      sha256 = "sha256-0yr3vT9s25fBasi1/sdQeBwIxWGndHfQfPkZcI0aHko=";
     };
   };
   cowrie = {
@@ -94,13 +94,13 @@
   };
   linux-intel-mainline-tracking = {
     pname = "linux-intel-mainline-tracking";
-    version = "mainline-tracking-v6.9-linux-240703T093948Z";
+    version = "mainline-tracking-v6.10-linux-240717T063713Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "mainline-tracking";
-      rev = "mainline-tracking-v6.9-linux-240703T093948Z";
+      rev = "mainline-tracking-v6.10-linux-240717T063713Z";
       fetchSubmodules = false;
-      sha256 = "sha256-PULGRKTKC6vyZluS+ofFN38SvM5gZAC+tKvKhmOwXpM=";
+      sha256 = "sha256-YUnAW9f0LbjjfnmWijKI2TtlswpRdtJePpNoDbGTbGQ=";
     };
   };
   lpac = {
@@ -284,17 +284,17 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "37ca416a9c755716d049c549b131276ddc440688";
+    version = "60a2d21d925e8259319d570779412c83e30318c0";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "37ca416a9c755716d049c549b131276ddc440688";
+      rev = "60a2d21d925e8259319d570779412c83e30318c0";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-uEE+KWkIjCvB/cuLNm94lFm7HLb9cCgFE7t6NCTVEoo=";
+      sha256 = "sha256-gAXs/fhNKoe43pYA0mDpbKrjx1FOwozEJuRJtIOGTf8=";
     };
-    date = "2024-07-03";
+    date = "2024-07-19";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
