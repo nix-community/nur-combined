@@ -31,6 +31,13 @@ in
   # })
 
   (fetchpatch' {
+    title = "python312Packages.contourpy: fix cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/328218";
+    saneCommit = "74a003b0af9820f6f7c6c62b3d2bec6df3a8d7b8";
+    hash = "sha256-PV/dkmTXr31Du8OwSaKwe2B0RibNs8r8v7UxLZ4IXYQ=";
+  })
+
+  (fetchpatch' {
     title = "unl0kr: 2.0.0 -> 3.2.0";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/319126";
     hash = "sha256-IfGayn+othMzp5Mc+0klBvUmykFwq95OKIJDvWL96d0=";

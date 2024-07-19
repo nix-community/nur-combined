@@ -335,6 +335,7 @@ in
       # "iotas"  # note taking app
       "komikku"
       "koreader"
+      "lgtrombetta-compass"
       "megapixels"  # camera app
       "notejot"  # note taking, e.g. shopping list
       "planify"  # todo-tracker/planner
@@ -534,8 +535,10 @@ in
     ethtool.sandbox.capabilities = [ "net_admin" ];
 
     # eza `ls` replacement
-    # eza.sandbox.method = "landlock";
-    eza.sandbox.method = "bwrap";  #< note that bwrap causes `/proc` files to be listed differently (e.g. `eza /proc/sys/net/ipv6/conf/`)
+    # bwrap causes `/proc` files to be listed differently (e.g. `eza /proc/sys/net/ipv6/conf/`)
+    # bwrap loses group info (so files owned by other users appear as owner "nobody")
+    eza.sandbox.method = "landlock";
+    # eza.sandbox.method = "bwrap";
     eza.sandbox.autodetectCliPaths = "existing";
     eza.sandbox.whitelistPwd = true;
     eza.sandbox.extraHomePaths = [
@@ -1170,10 +1173,12 @@ in
 
     # `wg`, `wg-quick`
     wireguard-tools.sandbox.method = "landlock";
+    wireguard-tools.sandbox.net = "all";
     wireguard-tools.sandbox.capabilities = [ "net_admin" ];
 
     # provides `iwconfig`, `iwlist`, `iwpriv`, ...
     wirelesstools.sandbox.method = "landlock";
+    wirelesstools.sandbox.net = "all";
     wirelesstools.sandbox.capabilities = [ "net_admin" ];
 
     wl-clipboard.sandbox.method = "bwrap";

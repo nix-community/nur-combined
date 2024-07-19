@@ -718,6 +718,7 @@ bwrapGetCli() {
 ## LANDLOCK BACKEND
 
 landlockPaths=
+landlockNetFlags=(LL_TCP_BIND= LL_TCP_CONNECT=)
 
 landlockSetup() {
   # other sandboxing methods would create fake /dev, /proc, /tmp filesystems
@@ -758,7 +759,12 @@ landlockIngestPath() {
   fi
 }
 landlockIngestNetDev() {
-  debug "landlockIngestNetDev: '$1': stubbed (landlock network is always unrestricted)"
+  local dev="$1"
+  if [ "$dev" == "all" ]; then
+    landlockNetFlags=()
+  else
+    debug "landlockIngestNetDev: $dev: unsupported (landlock cannot selectively restrict devices)"
+  fi
 }
 landlockIngestNetGateway() {
   debug "landlockIngestNetGateway: noop"
@@ -780,7 +786,7 @@ landlockGetCli() {
   locate _sandboxer "sandboxer" "$LANDLOCK_SANDBOXER_FALLBACK"
   locate _capsh "capsh" "$CAPSH_FALLBACK"
   locate _env "env" "$ENV_FALLBACK"
-  cliArgs=("$_env" LL_FS_RO= LL_FS_RW="$landlockPaths"
+  cliArgs=("$_env" LL_FS_RO= LL_FS_RW="$landlockPaths" "${landlockNetFlags[@]}"
     "$_sandboxer"
     "$_capsh" "--caps=$capshCapsArg" --no-new-privs --shell="$_env" -- "${portalEnv[@]}" "${cliArgs[@]}"
   )

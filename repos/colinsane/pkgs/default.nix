@@ -50,6 +50,7 @@ let
     ldd-aarch64 = callPackage ./additional/ldd-aarch64 { };
     lemoa = callPackage ./additional/lemoa { };
     lemmy-lemonade = callPackage ./additional/lemonade { };  # XXX: nixpkgs already has a `lemonade` pkg
+    lgtrombetta-compass = callPackage ./additional/lgtrombetta-compass { };
     libdng = callPackage ./additional/libdng { };
     libmegapixels = callPackage ./additional/libmegapixels { };
     lightdm-mobile-greeter = callPackage ./additional/lightdm-mobile-greeter { };

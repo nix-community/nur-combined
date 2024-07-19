@@ -1,9 +1,7 @@
 {
   lib,
   fetchFromGitHub,
-  # pypaBuildHook,
-  # pypaInstallHook,
-  pytestCheckHook,
+  python3,
   stdenv,
 }: stdenv.mkDerivation (finalAttrs: {
   # pname = "mypackage";
@@ -16,10 +14,16 @@
     # hash = "";
   };
 
+  postFixup = ''
+    wrapPythonPrograms
+  '';
+
   nativeBuildInputs = [
-    # poetry-core
-    # pypaBuildHook
-    # pypaInstallHook
+    # python3.pkgs.poetry-core
+    # python3.pkgs.pypaBuildHook
+    # python3.pkgs.pypaInstallHook
+    # python3.pkgs.pythonImportsCheckHook
+    python3.pkgs.wrapPython
   ];
 
   propagatedBuildInputs = [
@@ -27,7 +31,7 @@
   ];
 
   nativeCheckInputs = [
-    # pytestCheckHook
+    # python3.pkgs.pytestCheckHook
   ];
 
   pythonImportsCheck = [

@@ -83,6 +83,7 @@
     ./koreader
     ./less.nix
     ./lftp.nix
+    ./lgtrombetta-compass.nix
     ./libreoffice.nix
     ./lemoa.nix
     ./loupe.nix
