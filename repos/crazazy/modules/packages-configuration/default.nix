@@ -13,7 +13,7 @@ in
       "nixpkgs=${lib.cleanSource ../../.}"
       "nixos-config=/etc/nixos/configuration.nix" # nixos can't change if we change this to a relative path
     ];
-    settings.binaryCaches = [
+    settings.substituters = [
       "https://cache.nixos.org/"
       "https://crazazy.cachix.org"
       "https://emacsng.cachix.org"
@@ -22,7 +22,7 @@ in
       "https://nrdxp.cachix.org"
       "https://rycee.cachix.org"
     ];
-    settings.binaryCachePublicKeys = [
+    settings.trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" # public key given by nixos
       "crazazy.cachix.org-1:3KaIHK26pkvd5palJH5A4Re1Hn2+GDV+aXYnftMYAm4=" # my own cache
       "emacsng.cachix.org-1:i7wOr4YpdRpWWtShI8bT6V7lOTnPeI7Ho6HaZegFWMI=" # emacs-ng cache
