@@ -5,13 +5,13 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "ls-colors";
-  version = "unstable-2023-11-30";
+  version = "unstable-2023-12-13";
 
   src = fetchFromGitHub {
     owner = "trapd00r";
     repo = "LS_COLORS";
-    rev = "bcf78f74be4788ef224eadc7376ca780ae741e1e";
-    sha256 = "sha256-gf7mXbtKIMGB4K7/M4OzsQLWNdHUaB/TMsC1sS0eBWw=";
+    rev = "a283d79dcbb23a8679f4b1a07d04a80cab01c0ba";
+    sha256 = "sha256-DT9WmtyJ/wngoiOTXMcnstVbGh3BaFWrr8Zxm4g4b6U=";
   };
 
   dontBuild = true;
