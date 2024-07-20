@@ -1148,6 +1148,38 @@
         platforms = platforms.all;
       };
     };
+    "capital-one-eno" = buildFirefoxXpiAddon {
+      pname = "capital-one-eno";
+      version = "4.4.0";
+      addonId = "{4d5b7a5e-5232-9e45-97f4-f8e1ca2626e5}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4260140/capital_one_eno-4.4.0.xpi";
+      sha256 = "5b2447a8a620b44367082147603a3b6fb939b6edfe7d52a116b1a4155080dd12";
+      meta = with lib;
+      {
+        homepage = "https://www.capitalone.com/applications/eno/virtualnumbers/";
+        description = "Shop more securely through your desktop browser with Eno®, your Capital One® assistant.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [
+          "activeTab"
+          "tabs"
+          "storage"
+          "cookies"
+          "webRequest"
+          "webRequestBlocking"
+          "alarms"
+          "https://*.capitalone.com/*"
+          "http://*.capitalone.com/*"
+          "https://*/*"
+          "http://*/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "capture-print" = buildFirefoxXpiAddon {
       pname = "capture-print";
       version = "0.2.1";
@@ -2605,6 +2637,60 @@
           "tabs"
           "webRequestBlocking"
           "webRequest"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "fakespot-fake-reviews-amazon" = buildFirefoxXpiAddon {
+      pname = "fakespot-fake-reviews-amazon";
+      version = "1.3.2";
+      addonId = "{44df5123-f715-9146-bfaa-c6e8d4461d44}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4312344/fakespot_fake_reviews_amazon-1.3.2.xpi";
+      sha256 = "d090b800ae611890792c6211ce8b70d50d10b1ed23d28b92e6ebbe95775e2d0a";
+      meta = with lib;
+      {
+        description = "Protect yourself from bad sellers and fake reviews on Amazon and more!";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [
+          "identity"
+          "unlimitedStorage"
+          "http://*/*"
+          "https://*/*"
+          "activeTab"
+          "tabs"
+          "storage"
+          "cookies"
+          "*://*.fakespot.com/*"
+          "*://*.fakespot.local/*"
+          "*://*.amazon.com.au/*"
+          "*://*.amazon.co.uk/*"
+          "*://*.amazon.ca/*"
+          "*://*.amazon.us/*"
+          "*://*.amazon.com/*"
+          "*://*.amazon.in/*"
+          "*://*.amazon.de/*"
+          "*://*.amazon.fr/*"
+          "*://*.amazon.it/*"
+          "*://*.amazon.es/*"
+          "*://*.amazon.co.jp/*"
+          "*://*.ebay.com/*"
+          "*://*.ebay.co.uk/*"
+          "*://*.ebay.com.au/*"
+          "*://*.ebay.us/*"
+          "*://*.ebay.ca/*"
+          "*://*.walmart.com/*"
+          "*://*.google.com/search*"
+          "*://*.bestbuy.com/*"
+          "*://*.sephora.com/*"
+          "*://*.flipkart.com/*"
+          "*://*.flipkart.in/*"
+          "*://*.homedepot.com/*"
+          "<all_urls>"
         ];
         platforms = platforms.all;
       };

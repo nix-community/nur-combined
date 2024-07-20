@@ -149,6 +149,16 @@
     "slug": "canvasblocker"
   },
   {
+    "slug": "capital-one-eno",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
+  },
+  {
     "slug": "capture-print"
   },
   {
@@ -388,6 +398,16 @@
   },
   {
     "slug": "facebook-container"
+  },
+  {
+    "slug": "fakespot-fake-reviews-amazon",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
   },
   {
     "slug": "fastforwardteam",
