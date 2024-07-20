@@ -77,6 +77,9 @@
     "slug": "aw-watcher-web"
   },
   {
+    "slug": "awesome-rss"
+  },
+  {
     "slug": "batchcamp"
   },
   {
@@ -482,6 +485,9 @@
   },
   {
     "slug": "furiganaize"
+  },
+  {
+    "slug": "geminize"
   },
   {
     "slug": "gesturefy"
@@ -974,6 +980,9 @@
     }
   },
   {
+    "slug": "passbolt"
+  },
+  {
     "slug": "passff"
   },
   {
@@ -1069,6 +1078,9 @@
   },
   {
     "slug": "profile-switcher"
+  },
+  {
+    "slug": "prometheus-formatter"
   },
   {
     "slug": "promnesia"
@@ -1466,6 +1478,16 @@
     "slug": "unpaywall"
   },
   {
+    "slug": "untrap-for-youtube",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
+  },
+  {
     "slug": "unwanted-twitch"
   },
   {
@@ -1473,6 +1495,9 @@
   },
   {
     "slug": "userchrome-toggle"
+  },
+  {
+    "slug": "userchrome-toggle-extended"
   },
   {
     "slug": "video-downloadhelper",

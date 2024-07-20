@@ -660,6 +660,20 @@
         platforms = platforms.all;
       };
     };
+    "awesome-rss" = buildFirefoxXpiAddon {
+      pname = "awesome-rss";
+      version = "1.3.6resigned1";
+      addonId = "{97d566da-42c5-4ef4-a03b-5a2e5f7cbcb2}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4272927/awesome_rss-1.3.6resigned1.xpi";
+      sha256 = "383981387b37cba3ba1931235dfa58cb8b76ec7dff6195d1adbfde221a26c36b";
+      meta = with lib;
+      {
+        description = "Puts an RSS/Atom subscribe button back in URL bar.\n\nSupports \"Live Bookmarks\" (built-in), Feedly, &amp; Inoreader";
+        license = licenses.gpl3;
+        mozPermissions = [ "tabs" "storage" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
     "batchcamp" = buildFirefoxXpiAddon {
       pname = "batchcamp";
       version = "1.4.6";
@@ -3102,6 +3116,21 @@
           "tabs"
           "storage"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "geminize" = buildFirefoxXpiAddon {
+      pname = "geminize";
+      version = "1.0.4";
+      addonId = "{c72d8561-58ba-4250-b5b2-13cfea0b6c4e}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3708150/geminize-1.0.4.xpi";
+      sha256 = "2a65389bde2db1333a8341b147a9919daf1356876771195d7c20f61e75ebc139";
+      meta = with lib;
+      {
+        homepage = "https://gitlab.com/nocylah/geminize";
+        description = "Explore Project Gemini sites from Firefox!";
+        license = licenses.mit;
+        mozPermissions = [ "activeTab" "storage" "webNavigation" ];
         platforms = platforms.all;
       };
     };
@@ -7897,6 +7926,29 @@
         platforms = platforms.all;
       };
     };
+    "passbolt" = buildFirefoxXpiAddon {
+      pname = "passbolt";
+      version = "4.8.2";
+      addonId = "passbolt@passbolt.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4304662/passbolt-4.8.2.xpi";
+      sha256 = "546f46b6a6994ff50a486731046ec089b964a2cf9234cba4a551417bb7a409b0";
+      meta = with lib;
+      {
+        homepage = "https://www.passbolt.com";
+        description = "Passbolt is an open source password manager designed for collaboration. Securely create, manage and monitor your passwords. Share them instantly with your team.";
+        mozPermissions = [
+          "activeTab"
+          "clipboardWrite"
+          "tabs"
+          "storage"
+          "unlimitedStorage"
+          "*://*/*"
+          "alarms"
+          "cookies"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "passff" = buildFirefoxXpiAddon {
       pname = "passff";
       version = "1.19.5";
@@ -8769,6 +8821,21 @@
         description = "Create, manage and switch between browser profiles seamlessly.";
         license = licenses.gpl3;
         mozPermissions = [ "storage" "nativeMessaging" "tabs" ];
+        platforms = platforms.all;
+      };
+    };
+    "prometheus-formatter" = buildFirefoxXpiAddon {
+      pname = "prometheus-formatter";
+      version = "3.1.0";
+      addonId = "prometheus-formatter@frederic-hemberger.de";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4166150/prometheus_formatter-3.1.0.xpi";
+      sha256 = "2796e4a48ee6f813859ea252fe50dd0ab895bb570da4cb3caa3702d2f3413b22";
+      meta = with lib;
+      {
+        homepage = "https://github.com/fhemberger/prometheus-formatter";
+        description = "Makes plain Prometheus/OpenMetrics endpoints easier to read.";
+        license = licenses.mit;
+        mozPermissions = [ "storage" "http://*/*" "https://*/*" ];
         platforms = platforms.all;
       };
     };
@@ -11352,6 +11419,32 @@
         platforms = platforms.all;
       };
     };
+    "untrap-for-youtube" = buildFirefoxXpiAddon {
+      pname = "untrap-for-youtube";
+      version = "7.4";
+      addonId = "{2662ff67-b302-4363-95f3-b050218bd72c}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4320623/untrap_for_youtube-7.4.xpi";
+      sha256 = "4dece800eedbe5e79fd21c75089bda61d5a4806922e9c988aba227991037aed2";
+      meta = with lib;
+      {
+        homepage = "http://untrap.app";
+        description = "Hide YouTube recommendations, shorts, comments, suggestions, related videos, trending and other distractions.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [
+          "storage"
+          "activeTab"
+          "*://*.youtube.com/*"
+          "*://www.youtube.com/*"
+          "*://m.youtube.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "unwanted-twitch" = buildFirefoxXpiAddon {
       pname = "unwanted-twitch";
       version = "24.3.30";
@@ -11400,6 +11493,20 @@
       {
         description = "This extension allows you to toggle userchrome.css styles on-the-fly with buttons and hotkeys.";
         license = licenses.mit;
+        mozPermissions = [ "notifications" "storage" ];
+        platforms = platforms.all;
+      };
+    };
+    "userchrome-toggle-extended" = buildFirefoxXpiAddon {
+      pname = "userchrome-toggle-extended";
+      version = "1.5";
+      addonId = "userchrome-toggle-extended@n2ezr.ru";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4295256/userchrome_toggle_extended-1.5.xpi";
+      sha256 = "246778f3da3543bb324cf69e0b551e8bec745f9774fa6813789194b7b46197e4";
+      meta = with lib;
+      {
+        description = "This extension allows you to toggle userchrome.css styles on-the-fly with buttons and hotkeys. You'll be able to switch up to six styles";
+        license = licenses.mpl20;
         mozPermissions = [ "notifications" "storage" ];
         platforms = platforms.all;
       };

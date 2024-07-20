@@ -35,14 +35,14 @@ let
 
     "7tv" = packages.seventv;
 
-    bypass-paywalls-clean = let version = "3.7.1.0";
+    bypass-paywalls-clean = let version = "3.7.5.0";
     in buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
       inherit version;
       addonId = "magnolia@12.34";
       url =
         "https://github.com/bpc-clone/bpc_updates/releases/download/latest/bypass_paywalls_clean-${version}.xpi";
-      sha256 = "sha256-cXPIDD3PWfgeeATaFUUjRvQoqUT77t7PZM3J6Sf12UA=";
+      sha256 = "sha256-3qoe0N6bCWwIuVeOCL36qYfPEEwjcG1TJb2mDtUXOHA=";
       meta = with lib; {
         homepage = "https://twitter.com/Magnolia1234B";
         description = "Bypass Paywalls of (custom) news sites";
