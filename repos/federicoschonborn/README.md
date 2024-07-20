@@ -1415,7 +1415,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 
 - Name: `terraform-provider-desec`
 - Version: 0.5.0
-- [Homepage](https://github.com/Valodim/terraform-provider-desec)
+- [Homepage](https://registry.terraform.io/providers/Valodim/desec)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 
 <!-- markdownlint-disable-next-line no-inline-html -->

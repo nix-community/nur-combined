@@ -8,6 +8,6 @@
     spdx = "MIT";
     hash = "sha256-t+hpNI1Id8DrtQWuDj9OSdKkKMo/b1O2ViCSXjDxSlQ=";
     vendorHash = "sha256-Dcs1R3smMIRnjiGpt6ML1lsfYYl4ne8gK+BwDravhVI=";
-    homepage = "https://github.com/Valodim/terraform-provider-desec";
+    homepage = "https://registry.terraform.io/providers/Valodim/desec";
   };
 }
