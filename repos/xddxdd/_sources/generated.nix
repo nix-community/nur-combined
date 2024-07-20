@@ -194,13 +194,13 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "f1aa1ead49603fcae629345b1cb78481593ae046";
+    version = "0fbc1ba0da55046a795eca0e68959b750d8f50fd";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "f1aa1ead49603fcae629345b1cb78481593ae046";
+      rev = "0fbc1ba0da55046a795eca0e68959b750d8f50fd";
       fetchSubmodules = false;
-      sha256 = "sha256-IwGNB0oB+e4YMWkpYQL9KdB2zx3cLI1h7h04iBJulLg=";
+      sha256 = "sha256-+uiD+/7rWfhQ7BHHgZxJPkygP8/+P2hY3GVtNuZJEKo=";
     };
     date = "2024-07-19";
   };
@@ -572,15 +572,15 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "623aef5b6151a77f46cfa9cf4e97c68671316540";
+    version = "21a2f4a1f586ae8c53b8db1bfab27beaf3671b12";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "623aef5b6151a77f46cfa9cf4e97c68671316540";
+      rev = "21a2f4a1f586ae8c53b8db1bfab27beaf3671b12";
       fetchSubmodules = false;
-      sha256 = "sha256-mi+xdA4cYhppLohPIeoIgQqf+rskO+SCl02BmMP5TUw=";
+      sha256 = "sha256-DGuZ5QTemE7GAybFFgN+reBMOVB5A87wORmcKia6+Oo=";
     };
-    date = "2024-07-18";
+    date = "2024-07-20";
   };
   imewlconverter = {
     pname = "imewlconverter";
@@ -807,13 +807,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3416";
+    version = "b3423";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3416";
+      rev = "b3423";
       fetchSubmodules = false;
-      sha256 = "sha256-TBgrcWrlYQlCkz862oiAU4UkssiZzR/GJIRb4pgtMyQ=";
+      sha256 = "sha256-6PyB/nPFcKiXu9urlvEV7ex/Ey3bVyUZTCjAUsUuUMM=";
     };
   };
   lyrica = {
@@ -1102,10 +1102,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v5.0.3";
+    version = "v5.0.4";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v5.0.3/PeerBanHelper.jar";
-      sha256 = "sha256-sYDnZUTwg+hARwt3gJs3zxJdPpmLrWXuKkDHkjf8NHE=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v5.0.4/PeerBanHelper.jar";
+      sha256 = "sha256-V3fO+v17hBHFwW2LEK/VMzf2tQty0C1OoxEA7swcXfw=";
     };
   };
   phpmyadmin = {
