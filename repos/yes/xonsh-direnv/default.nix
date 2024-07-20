@@ -5,24 +5,19 @@
 
 python3.pkgs.buildPythonPackage rec {
   pname = "xonsh-direnv";
-  version = "1.7.0";
+  version = "1.6.3";
   format = "setuptools";
 
   src = fetchFromGitHub {
-    owner = "greg-hellings";
+    owner = "74th";
     repo = "xonsh-direnv";
     rev = version;
-    hash = "sha256-LPSYUK07TQuTI+u0EmUuGL48znUfRDVGEIS/mmzcETU=";
+    hash = "sha256-97c2cuqG0EitDdCM40r2IFOlRMHlKC4cLemJrPcxsZo=";
   };
-
-  postPatch = ''
-    substituteInPlace xontrib/direnv.xsh \
-      --replace-fail "\$DIRENV_DIR" "__xonsh__.env['DIRENV_DIR']"
-  '';
 
   meta = with lib; {
     description = "Direnv support for the xonsh shell";
-    homepage = "https://github.com/greg-hellings/xonsh-direnv";
+    homepage = "https://github.com/74th/xonsh-direnv";
     license = licenses.mit;
   };
 }
