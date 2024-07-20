@@ -6,11 +6,10 @@
   substituteAll,
   acm,
   markdown-mode,
+  basedpyright,
   git,
   go,
   gopls,
-  pyright,
-  ruff,
   tempel,
   unstableGitUpdater,
 }:
@@ -30,13 +29,13 @@ let
 in
 melpaBuild {
   pname = "lsp-bridge";
-  version = "0-unstable-2024-06-29";
+  version = "0-unstable-2024-07-14";
 
   src = fetchFromGitHub {
     owner = "manateelazycat";
     repo = "lsp-bridge";
-    rev = "0babcae1bb1fba67257916011a638675e07ec753";
-    hash = "sha256-jr0KF0MqeV6ULMWjB4hRJOyv2i7UP51owtIWcEAfvzU=";
+    rev = "023924926ae6adfbcf5458c350b90dea7c05d51b";
+    hash = "sha256-59bl4YbKS3HgrGJlUfM3LPabxKuuE+dT7CnVUJIl05k=";
   };
 
   patches = [
@@ -54,13 +53,15 @@ melpaBuild {
   ];
 
   checkInputs = [
+    # Emacs packages
+    tempel
+
+    # Executables
+    basedpyright
     git
     go
     gopls
-    pyright
     python
-    ruff
-    tempel
   ];
 
   files = ''
