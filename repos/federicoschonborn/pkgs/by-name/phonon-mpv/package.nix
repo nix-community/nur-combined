@@ -8,6 +8,7 @@
   kdePackages,
   mpv,
   qt6,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -38,6 +39,8 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "PHONON_BUILD_QT5" false)
     (lib.cmakeBool "PHONON_BUILD_QT6" true)
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Phonon Backend using MPV Player";
