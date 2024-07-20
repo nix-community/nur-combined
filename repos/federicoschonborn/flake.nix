@@ -112,28 +112,6 @@
                 program = lib.getExe value;
               })
               {
-                generate-program-list = pkgs.writeShellApplication {
-                  name = "generate-program-list";
-                  excludeShellChecks = [ "SC2129" ];
-                  text =
-                    ''
-                      echo "{" > meta/program-list.json
-                    ''
-                    + (builtins.concatStringsSep "\n" (
-                      lib.mapAttrsToList (name: value: ''
-                        if test -d ${value}/bin; then
-                          echo '  "${name}": ' >> meta/program-list.json
-                          ${lib.getExe pkgs.nushell} -c 'ls --short-names --long ${value}/bin | where type == "file" and mode =~ "x" | get name | sort | to json' >> meta/program-list.json
-                          echo ',' >> meta/program-list.json
-                        fi
-                      '') config.packages
-                    ))
-                    + ''
-                      echo "}" >> meta/program-list.json
-                      ${lib.getExe pkgs.nodePackages.prettier} --write meta/program-list.json
-                    '';
-                };
-
                 generate-readme =
                   let
                     packageList = pkgs.writeText "package-list.md" (
@@ -141,7 +119,20 @@
                         lib.mapAttrsToList (
                           name: value:
                           let
-                            programList = lib.importJSON ./meta/program-list.json;
+                            # 😱
+                            programList = lib.importJSON (
+                              pkgs.runCommand "program-list.json" { } ''
+                                { ${
+                                  builtins.concatStringsSep "\n" (
+                                    lib.mapAttrsToList (name: value: ''
+                                      if test -d ${value}/bin; then
+                                        ${lib.getExe pkgs.jq} -n '{"${name}": $ARGS.positional}' --args $(find ${value}/bin -type f -executable -not -name ".*" -printf "%f\n" | sort)
+                                      fi
+                                    '') config.packages
+                                  )
+                                } } | ${lib.getExe pkgs.jq} -s add > $out
+                              ''
+                            );
                             programs = programList.${name} or [ ];
 
                             description = value.meta.description or "";

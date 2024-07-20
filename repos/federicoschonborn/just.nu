@@ -96,12 +96,7 @@ def "main lint" [] {
     deadnix
 }
 
-def "main generate-program-list" [] {
-    nix run ".#generate-program-list"
-}
-
 def "main generate-readme" [] {
-    main generate-program-list
     nix run ".#generate-readme"
 }
 
