@@ -23,7 +23,7 @@
   srv.earlyoom.enable = true;
 
   boot.tmp.useTmpfs = true;
-  powerManagement.powertop.enable = true;
+  # powerManagement.powertop.enable = true;
   virtualisation = {
     vmVariant = {
       virtualisation = {

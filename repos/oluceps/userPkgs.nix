@@ -48,7 +48,7 @@ with pkgs;
   dosbox-staging
   meld
   # yubioath-flutter
-  openapi-generator-cli
+  openapi-generator
 
   gimp
   imv

@@ -17,6 +17,7 @@ let
     ;
 in
 {
+  disabledModules = [ "services/misc/radicle.nix" ];
   options.services.radicle = {
     enable = mkEnableOption "enable radicle seed node";
     listen = mkOption {

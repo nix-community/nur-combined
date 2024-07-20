@@ -27,7 +27,6 @@
     dates = "weekly";
     options = "--delete-older-than 10d";
   };
-  programs.sway.enable = true;
   programs.fish.loginShellInit = ''
     ${pkgs.openssh}/bin/ssh-add ${config.age.secrets.id.path}
   '';
@@ -116,8 +115,8 @@
     vaultwarden.enable = true;
     minecraft-servers.enable = false;
     matrix-conduit.enable = true;
-    coredns.enable = true;
-    # mosproxy.enable = true;
+    # coredns.enable = true;
+    mosproxy.enable = true;
     srs.enable = true;
 
     phantomsocks = {

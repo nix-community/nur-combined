@@ -20,6 +20,7 @@ let
 in
 {
 
+  disabledModules = [ "services/networking/realm.nix" ];
   options = {
     services.realm = {
       enable = mkEnableOption "realm";
