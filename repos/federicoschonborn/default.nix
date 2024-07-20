@@ -36,6 +36,7 @@ lib.makeScope pkgs.newScope (
 
     # Sets
     akkoma-emoji = lib.recurseIntoAttrs (self.callPackage ./pkgs/akkoma-emoji { });
+    terraform-providers = lib.recurseIntoAttrs (self.callPackage ./pkgs/terraform-providers { });
 
     # Overrides
     yyjson_0_10 = pkgs.yyjson.overrideAttrs (
