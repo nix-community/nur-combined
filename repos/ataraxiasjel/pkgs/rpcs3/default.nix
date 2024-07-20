@@ -32,10 +32,10 @@
 
 let
   # Keep these separate so the update script can regex them
-  rpcs3GitVersion = "16687-f3ceebabd";
-  rpcs3Version = "0.0.32-16687-f3ceebabd";
-  rpcs3Revision = "f3ceebabd9e45d14f8396ef47691d2a9e87731d9";
-  rpcs3Hash = "sha256-cCcgbOFTsiwTJFdjk8ZPV5uvzIoO+bGuybxo3zSab6Y=";
+  rpcs3GitVersion = "16696-5dc7a6a81";
+  rpcs3Version = "0.0.32-16696-5dc7a6a81";
+  rpcs3Revision = "5dc7a6a815f6a488b3fef12714dd516ffceba77a";
+  rpcs3Hash = "sha256-SXhP4pDL3BiiRfvgCJcm/vlRXOxL+AveLmdTygRn97M=";
 
   inherit (qt6Packages) qtbase qtmultimedia wrapQtAppsHook qtwayland;
 in
