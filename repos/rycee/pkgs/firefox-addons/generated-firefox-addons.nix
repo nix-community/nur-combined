@@ -1502,10 +1502,10 @@
     };
     "codecov" = buildFirefoxXpiAddon {
       pname = "codecov";
-      version = "0.4.4";
+      version = "0.4.5";
       addonId = "{f3924b0d-e29f-4593-b605-084b3d71ed9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4290613/codecov-0.4.4.xpi";
-      sha256 = "4f63a0c0619d9b62a8d49ae4a9c3d3e96483594698e66eb13294dc6be401f961";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4322718/codecov-0.4.5.xpi";
+      sha256 = "9d806094000cfa9e9e14f6f1d58fbaa1b3553ab7f0466d762ea1cef799d76871";
       meta = with lib;
       {
         homepage = "https://about.codecov.io";
@@ -1986,10 +1986,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2428.0";
+      version = "6.2429.4";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4315807/dashlane-6.2428.0.xpi";
-      sha256 = "e72bfc4cc2a5d689cebb800a187cba8d1b9b0090f5ca01367993c1bbaf50d7ad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4321180/dashlane-6.2429.4.xpi";
+      sha256 = "3852c1431d63d919dab1243ebed4aad4a68d153a8d8225f19caaf6ec7b2c3e55";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2067,10 +2067,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "129.0.20240717.91810";
+      version = "129.0.20240719.91629";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4321283/deutsch_de_language_pack-129.0.20240717.91810.xpi";
-      sha256 = "86adcfa6ba4bd91d0f017e81af8534f4f18957049a08dfd99197869f67a1be72";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4322432/deutsch_de_language_pack-129.0.20240719.91629.xpi";
+      sha256 = "fd5fdee648e9d01b0156fa8d971e344b5abe89cd7e7c7826c15ea1dc9df7fa9b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2619,10 +2619,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.13";
+      version = "1.3.14";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4321026/faststream-1.3.13.xpi";
-      sha256 = "21b224a416a667a8700161089bf7950cc7d8e44b5c4546244f8d8009c52296bd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4322229/faststream-1.3.14.xpi";
+      sha256 = "e0a16ff255ab043c3cc49ba14ea515d33aa9a2bbb52ba44b9ea37b4178b54645";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -3070,10 +3070,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "129.0.20240717.91810";
+      version = "129.0.20240719.91629";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4321345/francais_language_pack-129.0.20240717.91810.xpi";
-      sha256 = "f602f2fb3f4052c2a2a2f8a7349e1d45133e11df3a095de6fc6104604c6a5c1a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4322456/francais_language_pack-129.0.20240719.91629.xpi";
+      sha256 = "757ed6f3cf8c3c54fe9e40737abb8006df55a13f4747a260b74f68b9ab8483e3";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -8211,10 +8211,10 @@
     };
     "privacy-badger" = buildFirefoxXpiAddon {
       pname = "privacy-badger";
-      version = "2024.6.14";
+      version = "2024.7.17";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4303450/privacy_badger17-2024.6.14.xpi";
-      sha256 = "2abc0343d14151cadc48ad83d4b945c0b49adf19c802fdc9738ec55f38b98e29";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4321653/privacy_badger17-2024.7.17.xpi";
+      sha256 = "f7afc15d305966bafc9215f600acb0815c84402b7b8c763493387d19415deb0d";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
@@ -10072,10 +10072,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "4.3.1";
+      version = "4.4";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4316998/steam_database-4.3.1.xpi";
-      sha256 = "c708bc0a673cbb4322102ef53730067edc1eda311394bbbe423781ca0076bc72";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4321888/steam_database-4.4.xpi";
+      sha256 = "a44bb1367e86f5c4ea5662851d4dc46201b45f19fe3b2dcd05d64ebc84d214ab";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -11788,7 +11788,7 @@
       meta = with lib;
       {
         homepage = "https://w2g.tv";
-        description = "The official Watch2Gether Firefox extension allows you to share content from a supported site (Youtube, Vimeo, ...) directly into a Watch2Gether room. The new W2gSync feature allows you to sync-watch videos from any website on Watch2Gether.";
+        description = "With Watch2Gether you can watch videos together with your friends. Enhance your Watch2Gether experience with our official browser extension.";
         license = {
           shortName = "w2g.tv";
           fullName = "Watch2Gether Terms of Use";
