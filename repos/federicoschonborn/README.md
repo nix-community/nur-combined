@@ -25,7 +25,7 @@ There are mice.
     Package details
   </summary>
 
-- [Source](./pkgs/akkoma-emoji/av70/neomouse/package.nix#L60)
+- [Source](./pkgs/akkoma-emoji/av70/neomouse/package.nix#L57)
 - Outputs: **`out`**, `additional`, `spinnyMouse`
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `x86_64-windows`, `i686-windows`
 </details>
@@ -131,7 +131,7 @@ Source files for the neodino emoji.
 Source files for the neohaj emoji.
 
 - Name: `fotoente-neohaj`
-- Version: 0-unstable-2024-06-08
+- Version: 0-unstable-2024-07-14
 - [Homepage](https://codeberg.org/fotoente/neohaj)
 - License: Unfree
 - Maintainers:
@@ -661,9 +661,9 @@ Cargo Advent of Code Helper.
 Like neofetch, but much faster because written in C.
 
 - Name: `fastfetch`
-- Version: 2.18.0
+- Version: 2.18.1
 - [Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.18.0/CHANGELOG.md)
+- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.18.1/CHANGELOG.md)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
@@ -687,9 +687,9 @@ Like neofetch, but much faster because written in C.
 Like neofetch, but much faster because written in C (with all features disabled).
 
 - Name: `fastfetch-minimal`
-- Version: 2.18.0
+- Version: 2.18.1
 - [Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.18.0/CHANGELOG.md)
+- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.18.1/CHANGELOG.md)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
@@ -713,7 +713,7 @@ Like neofetch, but much faster because written in C (with all features disabled)
 A GNOME theme for Firefox.
 
 - Name: `firefox-gnome-theme`
-- Version: 127
+- Version: 128
 - [Homepage](https://github.com/rafaelmardojai/firefox-gnome-theme)
 - License: [`The Unlicense`](https://spdx.org/licenses/Unlicense.html)
 - Maintainers:
@@ -1001,7 +1001,7 @@ wlroots-based Wayland compositor designed for the Budgie Desktop.
     Package details
   </summary>
 
-- [Source](./pkgs/by-name/magpie-wayland/package.nix#L57)
+- [Source](./pkgs/by-name/magpie-wayland/package.nix#L58)
 - Outputs: **`out`**
 - Programs provided: **`magpie-wm`**
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`
@@ -1237,7 +1237,7 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 Sega Model 3 arcade machine emulator.
 
 - Name: `supermodel`
-- Version: 0-unstable-2024-07-08
+- Version: 0-unstable-2024-07-19
 - [Homepage](https://github.com/trzy/Supermodel)
 - License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - Maintainers:
@@ -1388,7 +1388,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 A GNOME theme for Thunderbird.
 
 - Name: `thunderbird-gnome-theme`
-- Version: 0-unstable-2024-03-18
+- Version: 115-unstable-2024-07-18
 - [Homepage](https://github.com/rafaelmardojai/thunderbird-gnome-theme)
 - License: [`The Unlicense`](https://spdx.org/licenses/Unlicense.html)
 - Maintainers:
@@ -1457,7 +1457,7 @@ Wisp turns indentation based syntax into Lisp.
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `x86_64-windows`, `i686-windows`
 </details>
 
-### `yyjson`
+### `yyjson_0_10`
 
 Fastest JSON library in C.
 
