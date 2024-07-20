@@ -97,6 +97,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://marlam.de/tgd/";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

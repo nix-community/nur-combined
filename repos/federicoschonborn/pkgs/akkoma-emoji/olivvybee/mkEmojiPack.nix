@@ -33,6 +33,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/olivvybee/emojis";
     license = lib.licenses.unfree; # TODO: ?
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

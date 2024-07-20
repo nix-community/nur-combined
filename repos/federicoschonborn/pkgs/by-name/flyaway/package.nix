@@ -60,6 +60,6 @@ stdenv.mkDerivation {
     homepage = "https://gitlab.com/serebit/flyaway";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

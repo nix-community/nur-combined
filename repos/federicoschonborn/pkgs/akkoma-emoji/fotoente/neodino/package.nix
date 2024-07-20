@@ -38,6 +38,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://codeberg.org/fotoente/neodino";
     license = lib.licenses.unfree; # TODO: ?
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

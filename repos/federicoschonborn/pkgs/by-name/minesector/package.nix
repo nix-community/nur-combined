@@ -42,6 +42,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/grassdne/minesector";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

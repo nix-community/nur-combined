@@ -112,6 +112,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://marlam.de/gta/";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.federicoschonborn ];
+    maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })
