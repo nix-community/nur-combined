@@ -4,43 +4,37 @@
   fetchFromGitHub,
 
   pytestCheckHook,
-  pytest-subprocess,
   xonsh,
 }:
 
 buildPythonPackage rec {
-  pname = "xontrib-fish-completer";
+  pname = "xontrib-whole-word-jumping";
   version = "0.0.1";
 
   src = fetchFromGitHub {
     owner = "xonsh";
-    repo = "xontrib-fish-completer";
+    repo = "xontrib-whole-word-jumping";
     rev = version;
-    hash = "sha256-PhhdZ3iLPDEIG9uDeR5ctJ9zz2+YORHBhbsiLrJckyA=";
+    hash = "sha256-zLAOGW9prjYDQBDITFNMggn4X1JTyAnVdjkBOH9gXPs=";
   };
 
   prePatch = ''
     substituteInPlace pyproject.toml \
-      --replace '"xonsh>=0.12.5"' ""
+      --replace '"xonsh>=0.12.5", ' ""
   '';
 
   preCheck = ''
     export HOME=$TMPDIR
   '';
 
-  disabledTests = [
-    "test_interpreter"
-  ];
-
   checkInputs = [
     pytestCheckHook
-    pytest-subprocess
     xonsh
   ];
 
   meta = with lib; {
-    description = "Populate rich completions using fish and remove the default bash based completer";
-    homepage = "https://github.com/xonsh/xontrib-fish-completer";
+    description = "Additional keyboard navigation for interactive xonsh shells";
+    homepage = "https://github.com/xonsh/xontrib-whole-word-jumping";
     license = licenses.mit;
     maintainers = [ maintainers.greg ];
   };

@@ -5,28 +5,35 @@
 # Having pkgs default to <nixpkgs> is fine though, and it lets you use short
 # commands such as:
 #     nix-build -A mypackage
-{pkgs ? import <nixpkgs> {}}: {
+{pkgs ? import <nixpkgs> {}}: let
+  backtrace = pkgs.python3Packages.callPackage ./pkgs/backtrace {};
+in {
+  inherit backtrace;
+
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib {inherit pkgs;}; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  xontrib-abbrevs = pkgs.callPackage ./pkgs/xontrib-abbrevs {};
-  xontrib-bashisms = pkgs.callPackage ./pkgs/xontrib-bashisms {};
-  xontrib-broot = pkgs.callPackage ./pkgs/xontrib-broot {};
-  xontrib-chatgpt = pkgs.callPackage ./pkgs/xontrib-chatgpt {};
-  xontrib-clp = pkgs.callPackage ./pkgs/xontrib-clp {};
-  xontrib-debug-tools = pkgs.callPackage ./pkgs/xontrib-debug-tools {};
-  xontrib-direnv = pkgs.callPackage ./pkgs/xontrib-direnv {};
-  xontrib-dot-dot = pkgs.callPackage ./pkgs/xontrib-dot-dot {};
-  xontrib-fish-completer = pkgs.callPackage ./pkgs/xontrib-fish-completer {};
-  xontrib-gitinfo = pkgs.callPackage ./pkgs/xontrib-gitinfo {};
-  xontrib-jedi = pkgs.callPackage ./pkgs/xontrib-jedi {};
-  xontrib-jupyter = pkgs.callPackage ./pkgs/xontrib-jupyter {};
-  xontrib-prompt-starship = pkgs.callPackage ./pkgs/xontrib-prompt-starship {};
-  xontrib-readable-traceback = pkgs.callPackage ./pkgs/xontrib-readable-traceback {};
-  xontrib-sh = pkgs.callPackage ./pkgs/xontrib-sh {};
-  xontrib-term-integrations = pkgs.callPackage ./pkgs/xontrib-term-integrations {};
-  xontrib-vox = pkgs.callPackage ./pkgs/xontrib-vox {};
-  xontrib-zoxide = pkgs.callPackage ./pkgs/xontrib-zoxide {};
+  xonsh-direnv = pkgs.python3Packages.callPackage ./pkgs/xonsh-direnv {};
+  xontrib-abbrevs = pkgs.python3Packages.callPackage ./pkgs/xontrib-abbrevs {};
+  xontrib-bashisms = pkgs.python3Packages.callPackage ./pkgs/xontrib-bashisms {};
+  xontrib-broot = pkgs.python3Packages.callPackage ./pkgs/xontrib-broot {};
+  xontrib-chatgpt = pkgs.python3Packages.callPackage ./pkgs/xontrib-chatgpt {};
+  xontrib-clp = pkgs.python3Packages.callPackage ./pkgs/xontrib-clp {};
+  xontrib-debug-tools = pkgs.python3Packages.callPackage ./pkgs/xontrib-debug-tools {};
+  xontrib-direnv = pkgs.python3Packages.callPackage ./pkgs/xontrib-direnv {};
+  xontrib-distributed = pkgs.python3Packages.callPackage ./pkgs/xontrib-distributed {};
+  xontrib-dot-dot = pkgs.python3Packages.callPackage ./pkgs/xontrib-dot-dot {};
+  xontrib-fish-completer = pkgs.python3Packages.callPackage ./pkgs/xontrib-fish-completer {};
+  xontrib-gitinfo = pkgs.python3Packages.callPackage ./pkgs/xontrib-gitinfo {};
+  xontrib-jedi = pkgs.python3Packages.callPackage ./pkgs/xontrib-jedi {};
+  xontrib-jupyter = pkgs.python3Packages.callPackage ./pkgs/xontrib-jupyter {};
+  xontrib-prompt-starship = pkgs.python3Packages.callPackage ./pkgs/xontrib-prompt-starship {};
+  xontrib-readable-traceback = pkgs.python3Packages.callPackage ./pkgs/xontrib-readable-traceback {inherit backtrace;};
+  xontrib-sh = pkgs.python3Packages.callPackage ./pkgs/xontrib-sh {};
+  xontrib-term-integrations = pkgs.python3Packages.callPackage ./pkgs/xontrib-term-integrations {};
+  xontrib-vox = pkgs.python3Packages.callPackage ./pkgs/xontrib-vox {};
+  xontrib-whole-word-jumping = pkgs.python3Packages.callPackage ./pkgs/xontrib-whole-word-jumping {};
+  xontrib-zoxide = pkgs.python3Packages.callPackage ./pkgs/xontrib-zoxide {};
 }

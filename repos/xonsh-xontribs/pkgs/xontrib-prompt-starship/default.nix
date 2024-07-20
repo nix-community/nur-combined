@@ -1,11 +1,14 @@
 {
-  pkgs,
-  python3,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  wheel,
+  lib,
 }:
-python3.pkgs.buildPythonPackage {
+buildPythonPackage {
   pname = "xontrib-prompt-starship";
   version = "0.3.6";
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "anki-code";
     repo = "xontrib-prompt-starship";
     rev = "d7603433bdb858ef8e38580247f099ac82d2660c";
@@ -14,16 +17,15 @@ python3.pkgs.buildPythonPackage {
 
   doCheck = false;
 
-  nativeBuildInputs = with pkgs.python3Packages; [
+  nativeBuildInputs = [
     setuptools
     wheel
   ];
 
-  meta = {
+  meta = with lib; {
     homepage = "https://github.com/anki-code/xontrib-prompt-starship";
-    license = ''
-      MIT
-    '';
-    description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) Starship prompt in xonsh shell.";
+    license = licenses.mit;
+    # maintainers = [maintainers.drmikecrowe];
+    description = "Starship prompt in the [xonsh shell](https://xon.sh).";
   };
 }

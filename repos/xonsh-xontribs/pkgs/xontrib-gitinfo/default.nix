@@ -1,14 +1,20 @@
 {
-  pkgs,
-  python3,
+  lib,
+  onefetch,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  pdm-pep517,
+  poetry-core,
+  wheel,
 }: let
   pname = "xontrib-gitinfo";
   version = "0.1.0";
 in
-  python3.pkgs.buildPythonPackage {
+  buildPythonPackage {
     inherit pname version;
 
-    src = pkgs.fetchFromGitHub {
+    src = fetchFromGitHub {
       owner = "dyuri";
       repo = "xontrib-gitinfo";
       rev = "b1ba458d85a6684088807d962b39980144685630";
@@ -17,31 +23,34 @@ in
 
     doCheck = false;
 
-    nativeBuildInputs = with pkgs; [
-      python3Packages.setuptools
-      python3Packages.wheel
+    nativeBuildInputs = [
+      setuptools
+      wheel
     ];
 
-    patchPhase = ''
-      echo "from setuptools import setup" > setup.py
-      echo "setup(" >> setup.py
-      echo "    name='${pname}'," >> setup.py
-      echo "    packages=['xontrib']," >> setup.py
-      echo "    package_dir={'xontrib': 'xontrib'}," >> setup.py
-      echo "    package_data={'xontrib': ['*.xsh']}," >> setup.py
-      echo "    zip_safe=False" >> setup.py
-      echo ")" >> setup.py
+    format = "pyproject";
+
+    build-system = [
+      setuptools
+      pdm-pep517
+      poetry-core
+    ];
+
+    postPatch = ''
+      substituteInPlace pyproject.toml \
+      --replace poetry.masonry.api poetry.core.masonry.api \
+      --replace "poetry>=" "poetry-core>="
+      touch xontrib/__init__.py
     '';
 
     dependencies = [
-      pkgs.onefetch
+      onefetch
     ];
 
-    meta = {
+    meta = with lib; {
       homepage = "https://github.com/dyuri/xontrib-gitinfo";
-      license = ''
-        MIT
-      '';
-      description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) # xontrib-gitinfo";
+      license = licenses.mit;
+      # maintainers = [maintainers.drmikecrowe];
+      description = "Displays git information on entering a repository folder in the [xonsh shell](https://xon.sh).";
     };
   }

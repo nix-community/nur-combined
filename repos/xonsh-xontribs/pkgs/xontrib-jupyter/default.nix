@@ -1,43 +1,54 @@
 {
+  buildPythonPackage,
+  lib,
+  fetchFromGitHub,
   pkgs,
-  python3,
-}: let
+
+  jupyter-client,
+  poetry-core,
+  pytestCheckHook,
+  xonsh,
+}:
+
+buildPythonPackage rec {
   pname = "xontrib-jupyter";
   version = "0.3.0";
-in
-  python3.pkgs.buildPythonPackage {
-    inherit pname version;
+  format = "pyproject";
 
-    src = pkgs.fetchFromGitHub {
-      owner = "xonsh";
-      repo = "xontrib-jupyter";
-      rev = "8b3b29312e0fea6259a6fd4f35ecd00c5efa5e8b";
-      sha256 = "sha256-2+N6bEXcZfviGNf20VJOPdh/L8kDeSktvnKMuQEo37U=";
-    };
+  src = fetchFromGitHub {
+    owner = "greg-hellings";
+    repo = "xontrib-jupyter";
+    # https://github.com/xonsh/xontrib-jupyter/pull/37
+    rev = "add_kwargs";
+    hash = "sha256-12IMDUIoW265asXrw8sikfWFFWZXPAF54fQr2lSjZVk=";
+  };
 
-    doCheck = false;
+  prePatch = ''
+    substituteInPlace pyproject.toml \
+      --replace 'xonsh = ">=0.12"' ""
+  '';
 
-    nativeBuildInputs = with pkgs.python3Packages; [
-      setuptools
-      wheel
-    ];
+  nativeBuildInputs = [
+    poetry-core
+  ];
 
-    patchPhase = ''
-      echo "from setuptools import setup" > setup.py
-      echo "setup(" >> setup.py
-      echo "    name='${pname}'," >> setup.py
-      echo "    packages=['xontrib']," >> setup.py
-      echo "    package_dir={'xontrib': 'xontrib'}," >> setup.py
-      echo "    package_data={'xontrib': ['*.xsh']}," >> setup.py
-      echo "    zip_safe=False" >> setup.py
-      echo ")" >> setup.py
-    '';
+  propagatedBuildInputs = [
+    jupyter-client
+  ];
 
-    meta = {
-      homepage = "https://github.com/xonsh/xontrib-jupyter";
-      license = ''
-        MIT
-      '';
-      description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) Xonsh kernel for Jupyter Notebook and Jupyter Lab allows to execute";
-    };
-  }
+  preCheck = ''
+    export HOME=$TMPDIR
+  '';
+
+  checkInputs = [
+    pytestCheckHook
+    xonsh
+  ];
+
+  meta = with lib; {
+    description = "Xonsh jupyter kernel allows to run Xonsh shell code in Jupyter, JupyterLab, Euporia, etc.";
+    homepage = "https://github.com/xonsh/xontrib-jupyter";
+    license = licenses.mit;
+    maintainers = [ maintainers.greg ];
+  };
+}

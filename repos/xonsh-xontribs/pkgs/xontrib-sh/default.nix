@@ -1,11 +1,14 @@
 {
-  pkgs,
-  python3,
+  buildPythonPackage,
+  fetchFromGitHub,
+  setuptools,
+  wheel,
+  lib,
 }:
-python3.pkgs.buildPythonPackage {
+buildPythonPackage {
   pname = "xontrib-sh";
   version = "0.3.1";
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "anki-code";
     repo = "xontrib-sh";
     rev = "a8f54908d001336cf7580f36233aa8f00978b479";
@@ -14,16 +17,15 @@ python3.pkgs.buildPythonPackage {
 
   doCheck = false;
 
-  nativeBuildInputs = with pkgs.python3Packages; [
+  nativeBuildInputs = [
     setuptools
     wheel
   ];
 
-  meta = {
+  meta = with lib; {
     homepage = "https://github.com/anki-code/xontrib-sh";
-    license = ''
-      BSD
-    '';
-    description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) Paste and run commands from bash, fish, zsh, tcsh in [xonsh shell](https://xon.sh).";
+    license = licenses.mit;
+    # maintainers = [maintainers.drmikecrowe];
+    description = "Paste and run commands from bash, fish, zsh, tcsh in the [xonsh shell](https://xon.sh).";
   };
 }

@@ -1,11 +1,15 @@
 {
-  pkgs,
-  python3,
+  buildPythonPackage,
+  lib,
+  fetchFromGitHub,
+  setuptools,
+  wheel,
+  poetry-core,
 }:
-python3.pkgs.buildPythonPackage {
+buildPythonPackage {
   pname = "xontrib-zoxide";
   version = "1.0.0";
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "dyuri";
     repo = "xontrib-zoxide";
     rev = "8140376cb9f3a2ea019982f9837cc427a157ecd9";
@@ -16,7 +20,7 @@ python3.pkgs.buildPythonPackage {
 
   doCheck = false;
 
-  nativeBuildInputs = with pkgs.python3Packages; [
+  nativeBuildInputs = [
     setuptools
     wheel
     poetry-core
@@ -27,9 +31,10 @@ python3.pkgs.buildPythonPackage {
     sed -ie "s@os.path.join(script_path,_cache_name)@os.path.join(os.environ.get('HOME'), '.cache', _cache_name)@" xontrib/zoxide/zoxide.py
   '';
 
-  meta = {
+  meta = with lib; {
     homepage = "https://github.com/dyuri/xontrib-zoxide";
-    license = "MIT";
-    description = "[how-to use in nix](https://github.com/drmikecrowe/nur-packages) Zoxide integration for xonsh";
+    license = licenses.mit;
+    # maintainers = [maintainers.drmikecrowe];
+    description = "Zoxide integration in the [xonsh shell](https://xon.sh).";
   };
 }

@@ -3,22 +3,22 @@
   lib,
   fetchFromGitHub,
 
-  jedi,
+  distributed,
   poetry-core,
   pytestCheckHook,
-  xonsh,
+  xonsh
 }:
 
 buildPythonPackage rec {
-  pname = "xontrib-jedi";
-  version = "0.1.0";
+  pname = "xontrib-distributed";
+  version = "0.0.4";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "xonsh";
-    repo = "xontrib-jedi";
+    repo = "xontrib-distributed";
     rev = "v${version}";
-    hash = "sha256-bHVSIN+V4dhKPgNURkvMQyAbz49gEgYtJ1LqDLo0wYY=";
+    hash = "sha256-Hb7S3PqHi0w6zb9ki8ADMtgdYVv8O5WQZMgJzKF74qE=";
   };
 
   prePatch = ''
@@ -31,14 +31,11 @@ buildPythonPackage rec {
   ];
 
   propagatedBuildInputs = [
-    jedi
+    distributed
   ];
 
-  preCheck = ''
-    export HOME=$TMPDIR
-    substituteInPlace tests/test_jedi.py \
-      --replace "/usr/bin" "${jedi}/bin"
-  '';
+  # v0.0.4 has no tests associated with it
+  doCheck = false;
 
   checkInputs = [
     pytestCheckHook
@@ -46,8 +43,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    description = "Xonsh Python mode completions using jedi";
-    homepage = "https://github.com/xonsh/xontrib-jedi";
+    description = "Dask Distributed integration for Xonsh";
+    homepage = "https://github.com/xonsh/xontrib-distributed";
     license = licenses.mit;
     maintainers = [ maintainers.greg ];
   };
