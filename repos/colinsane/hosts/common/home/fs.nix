@@ -1,21 +1,13 @@
 { config, lib, ... }:
 {
   sane.user.persist.byStore.plaintext = [
-    "archive"
+    # TODO: some of ~/dev should be private too, but maybe not all 800+ GB of it
+    # perhaps i ought to rethink how it's organized
     "dev"
-    # TODO: records should be private
-    "records"
     "ref"
-    "tmp"
     "use"
     "Books/local"
     "Music"
-    "Pictures/albums"
-    "Pictures/cat"
-    "Pictures/from"
-    "Pictures/Screenshots"  #< XXX: something is case-sensitive about this?
-    "Pictures/Photos"
-    "Videos/local"
 
     # these are persisted simply to save on RAM.
     # ~/.cache/nix can become several GB.
@@ -25,7 +17,17 @@
     ".cache/nix"
   ];
   sane.user.persist.byStore.private = [
+    "archive"
+    "Pictures/albums"
+    "Pictures/cat"
+    "Pictures/from"
+    "Pictures/Screenshots"  #< XXX: something is case-sensitive about this?
+    "Pictures/Photos"
+    "records"
+    "tmp"
+
     "knowledge"
+    "Videos/local"
   ];
 
   # convenience

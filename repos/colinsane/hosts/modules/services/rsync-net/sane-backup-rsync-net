@@ -23,5 +23,6 @@ for dir in "$@"; do
 
   echo "syncing '$dir' to '$remote_dir'"
   # N.B.: the `--exclude=$RN_ID` flag is a noop to get the ID file to be included in the sandbox...
-  sane-vpn do unmetered rsync --exclude="$RN_ID" -e "ssh -i $RN_ID" --mkpath -arv --delete "$dir" "$remote_dir"
+  # N.B.: manual flags instead of `-a -> -rlptgoD` because device files have a max path length which is too restricted
+  sane-vpn do unmetered rsync --exclude="$RN_ID" -e "ssh -i $RN_ID" --mkpath -rlptgov --delete "$dir" "$remote_dir"
 done

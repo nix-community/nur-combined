@@ -23,6 +23,8 @@
 
   sops.secrets.colin-passwd.neededForUsers = true;
 
+  sane.services.rsync-net.enable = true;
+
   # default config: https://man.archlinux.org/man/snapper-configs.5
   # defaults to something like:
   #   - hourly snapshots

@@ -32,6 +32,7 @@
   sane.nixcache.remote-builders.desko = false;
   sane.nixcache.remote-builders.servo = false;
   # sane.services.duplicity.enable = true;  # TODO: re-enable after HW upgrade
+  sane.services.rsync-net.enable = true;
 
   # automatically log in at the virtual consoles.
   # using root here makes sure we always have an escape hatch

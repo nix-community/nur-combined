@@ -247,6 +247,8 @@ in
     mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/shorts/.+" = "mpv.desktop";
     mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/v/.+" = "mpv.desktop";
     mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/watch\?.*v=.+" = "mpv.desktop";
+    #v Loupe image viewer can't open URIs, so use mpv instead
+    mime.urlAssociations."^https?://i\.imgur.com/.+" = "mpv.desktop";
   };
 }
 
