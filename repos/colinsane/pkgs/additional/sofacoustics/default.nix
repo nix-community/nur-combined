@@ -31,7 +31,7 @@ lib.makeScope newScope (self: with self; {
     dontUnpack = true;
     installPhase = ''
       mkdir -p $out/share/sofa
-      cp $src $out/share/sofa/${name}.sofa
+      cp $src $out/share/sofa/${database}-${name}.sofa
     '';
     doBuild = false;
 
