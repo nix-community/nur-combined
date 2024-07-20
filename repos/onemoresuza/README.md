@@ -1,3 +1,8 @@
+# NOTICE
+
+This repository has been archived in favor of
+[~onemoresuza/flake-pkgs](https://git.sr.ht/~onemoresuza/flake-pkgs) on [Sourcehut](https://sr.ht).
+
 # nur-packages
 
 [comment]: # "Remove this if you don't use github actions"
