@@ -99,6 +99,7 @@ let
     sanebox = callPackage ./additional/sanebox { };
     schlock = callPackage ./additional/schlock { };
     signal-desktop-from-src = callPackage ./additional/signal-desktop-from-src { };
+    sofacoustics = lib.recurseIntoAttrs (callPackage ./additional/sofacoustics { });
     sops-nix = callPackage ./additional/sops-nix { };
     static-nix-shell = callPackage ./additional/static-nix-shell { };
     sublime-music-mobile = callPackage ./additional/sublime-music-mobile { };
