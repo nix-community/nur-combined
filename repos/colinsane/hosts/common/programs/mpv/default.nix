@@ -41,7 +41,6 @@
 
 let
   cfg = config.sane.programs.mpv;
-  myHrtf = "${pkgs.sofacoustics.listen.irc_1052}/share/sofa/listen-irc_1052.sofa";
   uosc = pkgs.mpvScripts.uosc.overrideAttrs (upstream: {
     version = "5.2.0-unstable-2024-03-13";
     src = lib.warnIf (lib.versionOlder "5.2.0" upstream.version) "uosc outdated; remove patch?" pkgs.fetchFromGitHub {
@@ -138,6 +137,11 @@ let
   });
 in
 {
+  sane.programs.sofa-default = {
+    packageUnwrapped = pkgs.sofacoustics.listen.irc_1052.asDefault;
+    sandbox.enable = false;  #< data only
+  };
+
   sane.programs.mpv = {
     packageUnwrapped = pkgs.mpv-unwrapped.wrapper {
       mpv = pkgs.mpv-unwrapped.override rec {
@@ -146,7 +150,10 @@ in
         # i think using `luajit` here instead of `lua` is optional, just i get better perf with it :)
         lua = pkgs.luajit.override { enable52Compat = true; self = lua; };
         # ship a ffmpeg with sofa enabled, for surround-sound downmixing
-        ffmpeg = pkgs.ffmpeg-full;
+        # ffmpeg = pkgs.ffmpeg-full;
+        ffmpeg = pkgs.ffmpeg.override {
+          withMysofa = true;
+        };
       };
       scripts = [
         pkgs.mpvScripts.mpris
@@ -192,6 +199,7 @@ in
       "sane-cast"
       "sane-die-with-parent"
       "xdg-terminal-exec"
+      "sofa-default"
     ];
 
     sandbox.method = "bwrap";
@@ -224,7 +232,6 @@ in
     fs.".config/mpv/scripts/sane_cast/main.lua".symlink.target = ./sane_cast/main.lua;
     fs.".config/mpv/scripts/sane_sysvol/main.lua".symlink.target = ./sane_sysvol/main.lua;
     fs.".config/mpv/scripts/sane_sysvol/non_blocking_popen.lua".symlink.target = ./sane_sysvol/non_blocking_popen.lua;
-    fs.".config/mpv/hrtf.sofa".symlink.target = myHrtf;
     fs.".config/mpv/input.conf".symlink.target = ./input.conf;
     fs.".config/mpv/mpv.conf".symlink.target = ./mpv.conf;
     fs.".config/mpv/script-opts/osc.conf".symlink.target = ./osc.conf;
@@ -254,5 +261,9 @@ in
     #v Loupe image viewer can't open URIs, so use mpv instead
     mime.urlAssociations."^https?://i\.imgur.com/.+" = "mpv.desktop";
   };
+
+  environment.pathsToLink = lib.mkIf cfg.enabled [
+    "/share/libmysofa"
+  ];
 }
 

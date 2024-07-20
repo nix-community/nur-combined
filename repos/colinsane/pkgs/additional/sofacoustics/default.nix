@@ -3,24 +3,12 @@
   lib,
   newScope,
   nix-update-script,
-  stdenv,
+  runCommandLocal,
+  stdenvNoCC,
   symlinkJoin,
 }:
 lib.makeScope newScope (self: with self; {
-  # downloadSofacoustics = database: name: hash: fetchurl {
-  #   url = "https://sofacoustics.org/data/database/${database}/${name}.sofa";
-  #   pname = "${database}-${name}";
-  #   version = "0-unstable";
-  #   inherit hash;
-  #   recursiveHash = true;
-  #   postFetch = ''
-  #     mv $out ${name}
-  #     mkdir -p $out/share/sofa
-  #     mv ${name} $out/share/sofa/${name}.sofa
-  #   '';
-  #   passthru.updateScript = nix-update-script { };
-  # };
-  downloadSofacoustics = prefix: database: name: hash: stdenv.mkDerivation {
+  downloadSofacoustics = prefix: database: name: hash: stdenvNoCC.mkDerivation (finalAttrs: {
     name = "${database}-${name}";
     src = fetchurl {
       url = "${prefix}${name}.sofa";
@@ -30,8 +18,8 @@ lib.makeScope newScope (self: with self; {
 
     dontUnpack = true;
     installPhase = ''
-      mkdir -p $out/share/sofa
-      cp $src $out/share/sofa/${database}-${name}.sofa
+      mkdir -p $out/share/libmysofa
+      cp $src $out/share/libmysofa/${database}-${name}.sofa
     '';
     doBuild = false;
 
@@ -40,6 +28,200 @@ lib.makeScope newScope (self: with self; {
     passthru.updateScript = nix-update-script {
       extraArgs = [ "--version" "skip" ];
     };
+    passthru.asDefault = runCommandLocal "${database}-${name}-as-default" {} ''
+      mkdir -p $out/share/libmysofa
+      ln -s "${finalAttrs.finalPackage}/share/libmysofa/${database}-${name}.sofa" $out/share/libmysofa/default.sofa
+    '';
+  });
+
+  ari = lib.recurseIntoAttrs (lib.mapAttrs (downloadSofacoustics "https://sofacoustics.org/data/database/ari/hrtf%20" "ari") {
+    # in-the-ear measurements from real human subjects, complete with detailed anthropometric data.
+    # - <https://www.oeaw.ac.at/fileadmin/Institute/ISF/IMG/software/readme.pdf>
+    # - <https://www.sofaconventions.org/mediawiki/index.php/Files#Standard_(in-the-ear_canal)_HRTFs_of_humans>
+    # - anthropometrics: <https://www.oeaw.ac.at/fileadmin/Institute/ISF/IMG/software/anthro.mat>
+    # "hrtf, dtf: HRTFs and DTFs, respectively, equalized between 300 Hz and 18 kHz"
+    # "hrtf b/c/d, dtf b/c/d: HRTFs and DTFs, equalized between 50 Hz and 18 kHz for hi-fi auralizations ("b" vs. "c" and "d" differ each other in their starting positions and the order of measurement positions: b: 0°→0°, c/d: 270°→270°; subject being rotated clockwise ↻; "c" measurements were recorded until 2023 in the ARI lab in Wohllebengasse, "d" measuremens are recorded in the new ARI lab in Postsparkasse since 2024)."
+    b_nh2 = "sha256-+4EDf8Mn/RRUzuXaqj3bjKgIQGNFx1Pkxr8X211TzfM=";
+    b_nh4 = "sha256-OtBsa5OWymBOlfqYM8oKkm9CeCO/1rWgmEX0H3T+zUM=";
+    b_nh5 = "sha256-M+9YHle9vZgZSeLn+77w1bRDF8eQZ/N4kZhYPsJin0E=";
+    b_nh8 = "sha256-Oe9W6cUt6kANq/F9H45bDjZ3a0AgEyyYqzjoatMcx08=";
+    b_nh10 = "sha256-1PGp0w8G0dOi4qlHNYzT1nMLLT0mZOlTIrPPGIR4Phs=";
+    b_nh11 = "sha256-fk8qufFFFhoIDJCnew0AKR5httn9hnaY8v5qOBLi9g8=";
+    b_nh12 = "sha256-yzQLHq7OJkpBDUNJepyMZ0jCNuUOQn1fvuXkY9FcQlw=";
+    b_nh13 = "sha256-ex2pU7XB8EKZB01jBLg5xsSMK97uHrXfmmOHpn5Coe4=";
+    b_nh14 = "sha256-QyQZPLZInwhmL2lSKwbHLzOFbL6Wg+gUTzcJxdT6bHY=";
+    b_nh15 = "sha256-wlapIVqpwBuGwS8ehaAAUOPLN3R1ETkIi7NRRAufEe8=";
+    b_nh16 = "sha256-kSufYAxyTxwHI0RMmIFw/+Y6YxZe6xnHv66egRa3tJ8=";
+    b_nh17 = "sha256-Dvbe7+p8mqIFdqarwsj5fnk18A63gb0R1YJ87EBHY9Q=";
+    b_nh18 = "sha256-Lquu4S265wN6FEK1pZED0vmqwIRAShp4uYwhLiaHpM4=";
+    b_nh19 = "sha256-uhjQHraenubvFU0sav31n0P6klxP4OE9uhwP5GD4+Ro=";
+    b_nh21 = "sha256-MAKU5CSgjJOsBWDZalZ78OtWbjjjgYZZJfaQCWHpEkY=";
+    b_nh22 = "sha256-Yx7xKNxYLQ3QU3HsODFDfiuEJ3XOOVPFfbBgfIL2bOY=";
+    b_nh25 = "sha256-bPFACZS+ry0LK/IREc+bcz74O241tjE6KYwK1TWC3xM=";
+    b_nh27 = "sha256-Jb5QI5vCpmCiqqqQGMQ7kq+rn7dNZw2Kyi+Y1heaED0=";
+    b_nh28 = "sha256-7pdwN6+q0q9ScYaC61mn+zNTxKzNnGzUxxPrQ+6B3Dg=";
+    b_nh29 = "sha256-zqHxKEz5b7xxXOFAX1fftACPhyVsAXpx0CzLGMD8joM=";
+    b_nh30 = "sha256-VBzW36FWhGviMlQUpHkSWERxuZnZDdE2nxP55mXSOHU=";
+    b_nh31 = "sha256-BrLyX7L1sQX55kEE7nFl0ytnyvsHBZVR/zhU7PpfJBQ=";
+    b_nh32 = "sha256-xAgEM0q8cb+qlKvHfvN+n26hluZCG1+9nV1ry1ybFRw=";
+    b_nh33 = "sha256-60R41sIFKqUPApuxtIXzNVfaH91mqtq16E2v+hOBkzM=";
+    b_nh34 = "sha256-flr+hPEIFf2KcQlE4aQB7ZIadyte/nB3BnMjcnQHy1A=";
+    b_nh35 = "sha256-k3C2HSVKMvSWxeEmY87hGGAPCKhDOHh2Y0wf8OrO24U=";
+    b_nh36 = "sha256-BfWbyMb7X+NTwJwo+Ylxg+/Bdy6mGSrXXRfpOvyZYEI=";
+    b_nh38 = "sha256-kqSimiQA3A6wGh91ivcK+8EUiFCeA6YYiD1wWq16XR0=";
+    b_nh39 = "sha256-gTd3CTo/6nwRYbgYXPIIavzNsAvaO2IkEHy49I1CMjY=";
+    b_nh40 = "sha256-QoCmeDQgJU3jymaoNnHsKJ6oYJk9cFvaIwFfjhyZ9Kc=";
+    b_nh41 = "sha256-iEoAOLhxQ7SpiYmPIX9jIMMmb0y00X6WK5BGHy1/lH8=";
+    b_nh42 = "sha256-pcBUvmJGGZSotpCK03F4ySiPuvO1c96TVspa+ixeym8=";
+    b_nh43 = "sha256-DNd9YXfkXzzVsut8B3IGqtXyAIxHfs8hPczi4Oa6AMg=";
+    b_nh46 = "sha256-DWymzXYJMrDhAFpRIUepI1FVm2xYJ+epqZFHIRsfHqM=";
+    b_nh47 = "sha256-0v1Pl8eJ45WRFs2XiP/7Ew0tOE4Ejd3ut2K8EQd8hRI=";
+    b_nh52 = "sha256-UA20Un5UJj102KzpMkqP9taMQ60aq3lIoRO+yHpSM5M=";
+    b_nh53 = "sha256-4YI3C4v+3Uh99oFFWsT2ApXJFhlUHaSDkL09y74HOgA=";
+    b_nh54 = "sha256-9SEHtxnbewvwMxHqe5CBT0SGSPzQNxWzA9hiaRkSl2o=";
+    b_nh55 = "sha256-Uh5cqTR8lpkNtVn3VVxjWnzXk002CtF21VsddbbkcYg=";
+    b_nh56 = "sha256-dPrkAvcVQEjFWPwJBAC1bc5JMoKyGq+H3UFoGyRJ6Js=";
+    b_nh57 = "sha256-EeoMh5jRYmwPrGOqsNYD7enVxdXHhu5+Sajvzpo0FJM=";
+    b_nh58 = "sha256-0+aV/1vt5YtC1aJjgfvyqdRrtTKvBRLF8lN4qAiE46c=";
+    b_nh59 = "sha256-09ANGT2LgYSrZ2CwOnqTKOEBcVUE1rSop6XLNMan074=";
+    b_nh60 = "sha256-eEuApICw5vCG5IH9m6bM28TGzwl8zyXIlV4OjHCcZbQ=";
+    b_nh61 = "sha256-Ieo1ta1U0hVXgCmadWS6foeJAIQiX7mk722i9wxE2jU=";
+    b_nh62 = "sha256-sOGGnJaRoCFJnENDztg1XVq5jje+jkvUd+2snYTKAU8=";
+    b_nh63 = "sha256-zNa8bhBqtinMhp16N53G5e90jg0xk6Sm8LNtrETEDtY=";
+    b_nh64 = "sha256-zUnOYRZcHHSJ2Gjs093LsWUTE+VKfEWUiv+uoqDst2k=";
+    b_nh65 = "sha256-Y+USEjf186yzaPEncHzHYymKcbVwIE3OGVmQiMezbK4=";
+    b_nh66 = "sha256-tEohtuGvweY20hyfWBi15niKBHrHfaZ+jp+FjkLtO5E=";
+    b_nh68 = "sha256-+lf8735UDOOfj0bzQC0Qm+uANwQHPfWY2mVtemJZzzo=";
+    b_nh70 = "sha256-FtzwFi44Gc8xHnbShHgMQxiTOGASlbmHVxrE/Ewkkt8=";
+    b_nh71 = "sha256-7+yxCDI/fE537+14g2bQm5h6aCGoRcyke2JBgW0doCA=";
+    b_nh72 = "sha256-X53s5Xq4HntyE+J4bWvCMKYAKJel+kvCHiWT3HPSWiQ=";
+    b_nh74 = "sha256-/VdJXUp/0gn0+posUpcP/yl4sG7rwb3dIItHLQW8EFs=";
+    b_nh89 = "sha256-9p+e4pScvvNwYPSFcI+bW5UUKJ6e4P5Y77cxPzjsAy4=";
+    b_nh90 = "sha256-p1CIJS9aJ+zfepQlINsTvGARUKGnD/8VjznAHSArkfw=";
+    b_nh91 = "sha256-md6khrpOmDzD4FKHCBsOSeTludI9bX2hQHYEzLimJxo=";
+    b_nh92 = "sha256-E0FM0SD43doYSYLeo+KjoFrZgQbP/i+7iRRpcM+C3/g=";
+    b_nh93 = "sha256-oFjvG5P9CsuA9NqihfRG3rZ1t9QFGGe4R6CHPWghdqM=";
+    b_nh94 = "sha256-fZ8Tuw0OgGT2TLaGjLFyNvS3lab9XsDViuGBSzNRUb8=";
+    b_nh95 = "sha256-hRlOodsgeOg0L9FAmxsQclYFagtUweqnTl3q0kh56jE=";
+    b_nh96 = "sha256-xpec5uUfr2/ZxI7HFLo1vknsivfzB26bRha8P5m8BRw=";
+    b_nh102 = "sha256-IWRCAAqh2LqL8dijXpPWBKK63EY7rYnQu8jX9y7VtJ8=";
+    b_nh103 = "sha256-ghse5OIYPxrwdV5TKvZK0aAxcLQy/26uzKrj0b5a6vo=";
+    b_nh104 = "sha256-XZ9ps+s+CGkfhNN7TgOKENty5QjTq1C7bq3JCT8xpRk=";
+    b_nh110 = "sha256-M/FypprTC2sdi2JtVfdKKPNtidv4ItYVfMwkT/c1L+4=";
+    b_nh111 = "sha256-2BjGkMTdJQoHe6hlEE3Ej1lgLW/U5qaj8pn62fJRaZY=";
+    b_nh115 = "sha256-v+aKSnzTSHag6KU+6/wLPd+uKCJwERiwq6MiXN0KW14=";
+    b_nh120 = "sha256-IVSqoe53hfVGS+ztwCaFh+/rTuYnJQLzPHbTh+l+YoU=";
+    b_nh122 = "sha256-recRTBmflNaMNxRHERBIqXXkjQoNXUeEDH5ZKecbxVI=";
+    b_nh123 = "sha256-0di5CKWTHOZX6KdeeQdQ3cZQkZuP8APQV2COt7tjdKE=";
+    b_nh128 = "sha256-DifhdR97z1B30rnLMYcU+2hEviJvZCbvtQVmZcxWYiM=";
+    b_nh129 = "sha256-xkMGb6jUpOd79p7b5saifgtmhIUBQZFXHhAHOndq7Lw=";
+    b_nh130 = "sha256-hLCpqCxNUx0+FexZrREhZ3r/IulIkuTRExly3X7LqTg=";
+    b_nh131 = "sha256-EE+SmIp2FXqTlv8F7ewoaYjLKs2PTP3+vhU9R7+rt1k=";
+    b_nh132 = "sha256-IxsCtBh7Hj6emK2sOi6frOJGC8WrhKcxnZ2JoVZ3jp0=";
+    b_nh133 = "sha256-vM0X0KsaqyLo6zmXKjBK9DuiiVId/rTS6+z1FCG8juM=";
+    b_nh134 = "sha256-z4/gHjKNUebc7xYLWXvbMmoqQy5MTB+es8K82tthynI=";
+    b_nh135 = "sha256-2n86K0PHRnOAs3IrtRf5owl7ub8DqtjzLM+MeiVeSbw=";
+    b_nh136 = "sha256-nl3uUOTxaoqaKKfsAHL/2ItNuFArdAp4MyiXpWNnypM=";
+    b_nh137 = "sha256-1b9rM3ZJXNKDP3l8YjvsgkzXHpiX9ojVXctDyyQDuXg=";
+    b_nh138 = "sha256-UV0B7JsXjWP7JiTfnQedLNeFakTVFrC5DBqEobNMs4g=";
+    b_nh139 = "sha256-c14fbM9E37toMs9t521e6pr0AU9uK1SvQYmxxDNzvI0=";
+    b_nh140 = "sha256-tOCFgWOGBgK08WnbcVy3bRs93aD1Y79TRDba3AH+liA=";
+    b_nh143 = "sha256-ewfKhphyI23ABVBREbYOLiVMZzN4X91UwKI4TPWGrlg=";
+    b_nh146 = "sha256-VIV5n1jF4DCJpcjwlmlMuwckzOMWTuV9SxkRGVuDMjY=";
+    b_nh154 = "sha256-KWav5y7Du10zJYxh/NM0YPttTEI33m64+q+oss+7xUQ=";
+    b_nh156 = "sha256-raqe+5ntVr//xOnJG30NojpF5+6uq/dAxO0U9Z0x3k8=";
+    b_nh157 = "sha256-Emy1CwM/ACypX2Yuz/PS4uNRcmru1o1NyWqK9eNPVM0=";
+    b_nh158 = "sha256-VKEG/CKntuLjpVtyqZvuUeE1/iHag+52VKHcHElgSjA=";
+    b_nh159 = "sha256-3dzk9oAK/PtCXDTrrtVICsSJaoIQjmd9NLJpUZkSuQg=";
+    b_nh160 = "sha256-AYBKV26h8JRVBxhYQGL54N37pTS+U0BG4V3cFUtbv7s=";
+    b_nh161 = "sha256-SRGs4o9g6bl1ffaqQIaFsYFKTE+Tpa5uKhrtjwUIedI=";
+    b_nh162 = "sha256-xJ1mkfkRfgkuLBy5ZnjBOiefG+kqW1q0QKjjpf2M1Ck=";
+    b_nh163 = "sha256-3d75/8OL5lW8Wf6pYOy8hyeJZAJ6k3tWYTskmFl5c2Q=";
+    b_nh164 = "sha256-HUr3yuIpkShnnswgAqWPjNcHNL1NcemAPuI303TKZ24=";
+    b_nh165 = "sha256-FtF5KFr6swzqCTlqJ+sSc8my2J2Cz1d9fvt6pMFm+uY=";
+    b_nh166 = "sha256-7OBZtOuivPRdN7Skl53et/hN8r552uywL4JdEg0Yt9M=";
+    b_nh167 = "sha256-cbFhtQCmDfz42Blfj3uuWAT+Vi3HSBN+ft4XNxp2AI8=";
+    b_nh168 = "sha256-0SerECt7Day+eZQywUs4RR3aLU+j+MRhki+8FCs2YoE=";
+    b_nh170 = "sha256-QqD0vqE7o1b4l453t2F5JL4lyqaHqvbkxnihEFh+SUI=";
+    b_nh173 = "sha256-kOBwNgx6V72bJDJUW9DUHb6O/tn22sCe1bklrirw+bg=";
+    b_nh174 = "sha256-mQZyqyj9a45itY/ZbndTk3YDc99xCL2hYHh9mYMmv4s=";
+    b_nh206 = "sha256-dDGmDjgHNTA68emRv10KKWXAO7ZhtiFlmsl9w/4tWY8=";
+    b_nh207 = "sha256-3f3z9gLocy3gNRMQItCjVNji9J3mzLlr4N7HSfug+E0=";
+    b_nh209 = "sha256-um6lWKSMPecYQV7n4AHNfzKH1fvzk08Mn2b9Qj8rXmE=";
+    b_nh210 = "sha256-TKcdcGmh5RVkiDtCBldXKX8wTUP1YZCuF7/hzhhUDOY=";
+    b_nh211 = "sha256-O3UbWverecrKG8Pqw7yFOdRLJQ7HlzoQimWfedWon3U=";
+    b_nh225 = "sha256-G8CggWLSM373fJZQVCQzYwqwUJwcnA8lkGa8rd7wa+w=";
+    b_nh226 = "sha256-D9ozZPWa2Mhh8FNlc01WGUzZaZborq2bB2JrulsPJgk=";
+    b_nh227 = "sha256-5w/yYW/OULj+k7BFAuo1Btl75T/aaSytFM42zbCrve4=";
+    b_nh228 = "sha256-xwGOwGB0tO2RNAM1x9kgwME72W26WECIOz7jJTBaYWs=";
+    b_nh229 = "sha256-fNs6ppXMu6MWCa1OInpTjt9oe7RyENgutZlDSaafGYw=";
+    b_nh230 = "sha256-yjtX/m5gcaoePnTzOpKOxCst4EEXUjzgBA87dwoONTM=";
+    b_nh231 = "sha256-SDtNllkQfCOdNdQG7994zjmPrC68cT9qRy7M7FM1gkQ=";
+    b_nh232 = "sha256-/5BwQWJ5uIz0vHBakwFvCDqxOZmKJ1BaLqSx3h9Xk04=";
+    b_nh233 = "sha256-np8Spf1ZZ9iZUJCZ2TaRaHVqaiFqrr5+fLqI+G1SPVM=";
+    b_nh234 = "sha256-Q+CM/YDVfbk7SrHVK0ITMY4psj55WE/mJwprbmDm9Kg=";
+    b_nh235 = "sha256-nw5PkAd0Vq+0buOF6+99Q74KTIraRbbp69PcG51QJzk=";
+    b_nh236 = "sha256-8f5IuIEwIndS93toaYRdOnIqwJKyFAXU5mEe/SzFUXo=";
+    b_nh240 = "sha256-3gc5Q9AEJAvNRMT3TkiLE8upUKtLvgy8u6QcUDocyMQ=";
+    b_nh241 = "sha256-LXA+44AWQKSOZIrsgpuwk1G3K3GjlIVD7l+LgKVPVHQ=";
+    b_nh242 = "sha256-7qiv/f2XxseMAzwjStn56ZSbCmmkO5SXoI7ddvXtBGM=";
+    b_nh246 = "sha256-W8C4dQ8nEs3lEnAs/gNaHCTao79nHtUYb8g14DbNUaE=";
+    b_nh249 = "sha256-ywDdV/p7/ydzaBx4Ik+mvZzPtnFNbxLXKmKTA0NL2oI=";
+    b_nh251 = "sha256-DubXYNaMgWVbyeyP5VBZh/9jdrlp43EOmCcn4BhstLA=";
+    b_nh252 = "sha256-arFwlg5SG0RoOSMgTGuoleIACG9tZ8b4ExrRnDALa+w=";
+    b_nh253 = "sha256-TiXaWzYZA6O42QsV3mSOz4KrCJ9x/3AlGs1CWJKHd4A=";
+    b_nh257 = "sha256-DZLih5cRVD9YG1UnVv5x1/FQck9QdKD4kviiODwVveo=";
+    b_nh258 = "sha256-egdVMuHPKXBgKcwPPQYJjuSFRHrJW4+i1BjTwpxm3wo=";
+    b_nh259 = "sha256-k1c0IoA9Cdhl43764VcPJLuX38vz0ybBmhVdNBm5Cx4=";
+    b_nh677 = "sha256-eAENhQOjtAWnqRPhPMNDnMycKE/KTamFtlCFzwG3lKM=";
+    b_nh690 = "sha256-0gkXAO98Kgdp8kwrBY4otaGbOStBHB64Ux0ZP9L3Cdc=";
+    b_nh708 = "sha256-zhzzakWWthL1mVCk5RZoDO0q3vaPOJ+fbL2UmYYW90M=";
+    b_nh709 = "sha256-ZPAq39XJb+5uGQgqHEeNM7XJh31VErut4/Wdn6GE21A=";
+    b_nh710 = "sha256-ZBqqrvfI77Rm+/uc41u2kB1MZWz8gFertAXLL5N9ERo=";
+    b_nh711 = "sha256-aVQGDdmqPsGQ8wr8OZet0+2M29LZY9DsTAecdjQDN3c=";
+    b_nh719 = "sha256-kLlNEtlPeIjWbHCa7oCDuKFER2oXDNQp8ooIgYxRM1U=";
+    b_nh720 = "sha256-VWAyCCyPImwZv0dmbKCj9rqSV4TS9BaHDyEHcMMQBzg=";
+    b_nh724 = "sha256-IrkQsr3m4VXS6tE+c1vhj4Q0Qa58ArrOECULXFdl05A=";
+    b_nh740 = "sha256-xrwPdtroyegf4kTTlF3P9Jg1TIKzD72iKQ2ieRocQWk=";
+    b_nh741 = "sha256-eq0SY3UchgDGSz60G1wjxL0ZoPdeQOB2tVm2fTSWMXE=";
+    b_nh742 = "sha256-3ZJ7LYgNWT/Y4QRPtWs+LfZJPbTfL484ZoecJhXX31Q=";
+    b_nh768 = "sha256-27qwWmfCjxJ/Fg4EV3sRE93nxvG2px2xzk49IyzYlh0=";
+    b_nh769 = "sha256-0MCKWyxE6gfU0y/xKxqRjDsmFWTHmBTs0kxHQgeWsRE=";
+    b_nh770 = "sha256-R2wM0L7l5i/YSVvMIGRYVhubPnfYWEmcQcn8BK8qVoI=";
+    b_nh771 = "sha256-5jSsdWHu0l2ZpZNnwt4DiZvSl+iYmkpoxonhcZK+VeQ=";
+    b_nh772 = "sha256-eM9ri4K6YMhmezg6WeEEMfmaL/emD2qr1R07QR35UGo=";
+    b_nh777 = "sha256-rLQMWQ61HQGzx26F9mVGR2jIYLPAJb2SK8HcHyzqHXo=";
+    b_nh778 = "sha256-qdmGdmLCXRyr7ubweMwcxDSVOZGlcJQF9UIQ7sE69NA=";
+    b_nh779 = "sha256-WCSNQKvtiUV8fhpK2v8KrZ+6El0xDmr6qhk9jzdNjnw=";
+    b_nh780 = "sha256-Lx9qJTWkXUFgHjThME4gvDIHzZa/uCPUd08ZODwlgCo=";
+    b_nh781 = "sha256-voWwXAg9yxMsVhBz37nAqWao5cX2YQFReoriQBMqbzI=";
+    b_nh783 = "sha256-tDDVYGkKlsKIpD4EvzWCZcAtrScIHDzSCRNukdpPtNs=";
+    b_nh784 = "sha256-VqlWZESbs/ABR0SVmJJh/Z4iGL+nPb69T1fWA9TRJIA=";
+    b_nh785 = "sha256-RKk9QRAyf1XuE0Dn1ClqaPyXh3hBhv+qpGcejEwpsmw=";
+    b_nh786 = "sha256-h25/dfVSlG6Qlxf7fX7/++hUo6dCN3u09ZSdkvHp2uw=";
+    b_nh787 = "sha256-f2g04247YjjMqvjou5RcYdgWD7KCmtOkw+SP1PsaRzM=";
+    b_nh788 = "sha256-7RzXlaSfYz91mP1AH+wQLPskcZGhnee6b1CsVFK0Rkk=";
+    b_nh789 = "sha256-KlbCezG/cuuJVAEOufQwK/yQC0KOtHmuby5YgRFVTs4=";
+    b_nh790 = "sha256-a2y+XidAhLAMrkoRepBZNn1Ak6iEDU9PEBSDsrE2iFs=";
+    b_nh791 = "sha256-qKaoydvltPC1CWvvxwqQwkUxsf4DNyN+LGVLkcN7sEM=";
+    b_nh792 = "sha256-YeDPQvST/qpynxDm252jCimzH7lWnRdINfjtg3dHmb4=";
+    b_nh793 = "sha256-WEPlQ/DBRYrSViSZ7xOvvP5fUN+Eh5YfKpgyYh0J98g=";
+    b_nh794 = "sha256-7ZhQCmPVaKKLJvpY6mc6zqoOutTc0E8Q4e/N+HLUSkU=";
+    b_nh795 = "sha256-cNOO7ktMynxm8r4381KCsuei1k7BY6Ho+vhI+OwAbgU=";
+    b_nh796 = "sha256-sG4Ud6baEit9vu/c/6m9ngJiGJnnN4L+pvXEnE+Z5aI=";
+    b_nh805 = "sha256-UlhOOX2NA93AUZFT/YNUFIC8/T6vG16Ttsc1A42n488=";
+    b_nh821 = "sha256-fzEpsOPQ12bwyd9QDm1jGcCj7vjkr+Izox0cIziiGvQ=";
+    b_nh822 = "sha256-7dh7b2yc93ip4g360oA/jxVOj47u5VUBcXHzVQIpKUk=";
+    b_nh825 = "sha256-c+6PuIeUGf7BSNfyOta/oQyNY0eN5xO/WM75Wq7oL7I=";
+    b_nh826 = "sha256-Q6yCBQZioPd6hyEBPcznIslS+DSEqwxzaIesUU/7HMk=";
+    b_nh827 = "sha256-cKNEF0XCM7wxEafKBxQ26Oel47ByTNJyxoW2RML53Mo=";
+    b_nh828 = "sha256-dtDPTSRxeyJK37mgNPOjVNXOa3Zbzh4qD8YGvN3q8IM=";
+    b_nh829 = "sha256-zCCZCrJWrmbOJ0ib8nBUTMpJ8xqhybIT5nwdngUcMVw=";
+    b_nh830 = "sha256-aJY7uE60gL6W6PjBkqakbCDSyzAr3zG0tkhiWN0x5tM=";
+  });
+  ari-all = symlinkJoin {
+    name = "ari-all";
+    paths = builtins.attrValues (lib.removeAttrs ari [ "recurseForDerivations" ]);
   };
 
   listen = lib.recurseIntoAttrs (lib.mapAttrs (downloadSofacoustics "https://sofacoustics.org/data/database_sofa_0.6/listen/" "listen") {

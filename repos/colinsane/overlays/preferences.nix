@@ -13,6 +13,15 @@
     enableOAuth2 = false;
   };
 
+  ffmpeg = super.ffmpeg.override {
+    # required by mpv for spatial audio; enable it globally to avoid shipping many ffmpegs
+    withMysofa = true;
+  };
+  ffmpeg-full = super.ffmpeg-full.override {
+    # saves 20 minutes of build time and cross issues, for unused feature
+    withSamba = false;
+  };
+
   gnome = super.gnome.overrideScope (gself: gsuper: with gself; {
     gnome-control-center = gsuper.gnome-control-center.override {
       # i build goa without the "backend", to avoid webkit_4_1.
