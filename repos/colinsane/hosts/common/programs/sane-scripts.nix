@@ -25,7 +25,6 @@ in
       "sane-scripts.deadlines"
       "sane-scripts.find-dotfiles"
       "sane-scripts.ip-check"
-      "sane-scripts.private-change-passwd"
       "sane-scripts.private-do"
       "sane-scripts.private-init"
       "sane-scripts.private-lock"
@@ -119,14 +118,6 @@ in
 
     "sane-scripts.ip-port-forward" = {};
 
-    "sane-scripts.private-change-passwd".sandbox = {
-      method = "bwrap";
-      autodetectCliPaths = "existing";  #< for the new `private` location
-      capabilities = [ "sys_admin" ];  # it needs to mount the new store
-      extraHomePaths = [
-        ".persist/private"
-      ];
-    };
     "sane-scripts.private-do".sandbox = {
       # because `mount` is a cap_sys_admin syscall, there's no great way to mount stuff dynamically like this.
       # instead, we put ourselves in a mount namespace, do the mount, and drop into a shell or run a command.

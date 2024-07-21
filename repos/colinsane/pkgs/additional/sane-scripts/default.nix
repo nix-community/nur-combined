@@ -118,11 +118,6 @@ let
       srcRoot = ./src;
       pkgs = [ "inetutils" "miniupnpc" "sane-scripts.lib.ssdp"];
     };
-    private-change-passwd = static-nix-shell.mkBash {
-      pname = "sane-private-change-passwd";
-      srcRoot = ./src;
-      pkgs = [ "gocryptfs" "rsync" ];
-    };
     private-do = static-nix-shell.mkBash {
       pname = "sane-private-do";
       srcRoot = ./src;

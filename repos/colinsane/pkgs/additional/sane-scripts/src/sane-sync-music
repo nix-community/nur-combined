@@ -75,6 +75,10 @@ IGNORE = [
     '.nsf_',  #< "NES Sound File"
 ]
 
+# mp3 doesn't support surround sound (by default).
+# opus supports at least 5.1 and 7.1
+PREFERRED_LOSSY_FMT = '.opus'
+
 def approx_eq(a: float, b: float, threshold: float) -> bool:
     return abs(b - a) <= threshold
 
@@ -137,7 +141,7 @@ class TranscodePreferences:
         if input_ext in LOSSY_FMTS:
             return input_ext
         else:
-            return ".mp3"
+            return PREFERRED_LOSSY_FMT
 
     def get_compat_audio_output(self, input_ext: str) -> str:
         if input_ext in COMPAT_AUDIO_FMTS:
@@ -145,7 +149,7 @@ class TranscodePreferences:
         elif input_ext in LOSSLESS_FMTS:
             return ".flac"
         else:
-            return ".mp3"
+            return PREFERRED_LOSSY_FMT
 
 
 class Encoder:
@@ -191,8 +195,33 @@ class Encoder:
         self.destructive(None, os.remove, path)
 
     def convert(self, source: Path, dest: Path, target_samplerate: int | None) -> None:
-        assert dest.suffix == '.mp3', "conversion to a target other than mp3 not yet supported"
         logger.info(f'converting {source} -> {dest}')
+
+        codec_flags = []
+        if dest.suffix == '.mp3':
+            codec_flags = [
+                '-codec:a', 'libmp3lame',
+                '-qscale:a', '0',  # VBR0
+            ]
+        elif dest.suffix == '.opus':
+            codec_flags = [
+                '-codec:a', 'libopus',
+                # opus defaults to 96 kbps for stereo (which is not enough IMO). 300-something for 5.1.
+                # no easy way to specify behavior which scales here AFAICT, so ... ?
+                # recs: <https://wiki.xiph.org/Opus_Recommended_Settings>
+                '-b:a', '192000',
+            ]
+            if target_samplerate is not None:
+                # opus doesn't support 44.1 kHz, so use 48kHz instead.
+                # not sure about the other bitrates: these are speculative.
+                if target_samplerate > 96000:
+                    target_samplerate = 192000
+                elif target_samplerate > 48000:
+                    target_samplerate = 96000
+                else:
+                    target_samplerate = 48000
+        else:
+            assert False, f'conversion to {dest.suffix} not yet supported'
 
         samplerate_flags = ['-ar', str(target_samplerate)] if target_samplerate else []
 
@@ -202,9 +231,9 @@ class Encoder:
             '-y',  # force overwrite
             '-i', str(source),
             '-codec:v', 'copy',
-            '-codec:a', 'libmp3lame',
-            '-qscale:a', '0'
-        ] + samplerate_flags + [str(dest)])
+        ] + codec_flags + samplerate_flags + [
+          str(dest)
+        ])
 
     def cp_or_convert(self, source: Path, dest: Path) -> None:
         source_samplerate = None
