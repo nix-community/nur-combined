@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "modaled";
-  version = "0.8.4";
+  version = "0.9.0";
 
   src = fetchFromGitHub {
     owner = "DCsunset";
     repo = "modaled";
     rev = "v${version}";
-    hash = "sha256-ApzzW/wfdeHTUu8bkkBoqaA7R06W86qRopVRztr4Du8=";
+    hash = "sha256-H31yp7ZGUYrLkmZj/0Ft854Tz4wy8Zz3TRwcoT5M36A=";
   };
   buildInputs = [
     (emacsWithPackages (epkgs: []))
