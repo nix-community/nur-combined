@@ -85,7 +85,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (127 packages)</summary>
+<summary>Package set: (Uncategorized) (128 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -177,6 +177,7 @@ Or, use variables from this repository in case I change them:
 |  | `procps4` | [procps4](https://gitlab.com/procps-ng/procps) | 4.0.4 | Utilities that give information about processes using the /proc filesystem |
 |  | `pterodactyl-wings` | [pterodactyl-wings](https://pterodactyl.io) | 1.11.13 | The server control plane for Pterodactyl Panel. |
 |  | `py-rcon` | [py-rcon](https://github.com/ttk1/py-rcon) | 1.3.0 | Python implementation of RCON |
+|  | `qat` | [qat](https://www.intel.com/content/www/us/en/download/19734/intel-quickassist-technology-driver-for-linux-hw-version-1-x.html) | 4.25.0-00001 | Intel® QuickAssist Technology (Intel® QAT) provides cryptographic and compression acceleration capabilities used to improve performance and efficiency across the data center. |
 |  | `qbittorrent-enhanced-edition` | [qbittorrent-enhanced-edition](https://www.qbittorrent.org) | release-4.6.5.10 | Featureful free software BitTorrent client |
 |  | `qbittorrent-enhanced-edition-nox` | [qbittorrent-enhanced-edition](https://www.qbittorrent.org) | release-4.6.5.10 | Featureful free software BitTorrent client |
 |  | `qemu-user-static` | [qemu-user-static](http://www.qemu.org/) | 9.0.2+ds-1 | A generic and open source machine emulator and virtualizer |

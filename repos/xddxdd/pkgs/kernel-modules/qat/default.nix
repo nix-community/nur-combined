@@ -27,15 +27,24 @@ stdenv.mkDerivation rec {
 
   inherit (kernel) makeFlags;
   preBuild = ''
-    makeFlags="$makeFlags -C ${KSRC} M=$(pwd)"
+    makeFlags="$makeFlags -C ${KSRC} M=$(pwd) QAT_LEGACY_ALGORITHMS=y"
   '';
   installTargets = [ "modules_install" ];
 
-  # meta = {
-  #   maintainers = with lib.maintainers; [ xddxdd ];
-  #   description = "Aspeed Graphics Driver";
-  #   homepage = "https://www.aspeedtech.com/support_driver/";
-  #   license = lib.licenses.unfree;
-  #   platforms = lib.platforms.linux;
-  # };
+  postInstall = ''
+    find $out/lib/modules/${kernel.modDirVersion}/updates/drivers/crypto/qat/ -name \*.ko.\* -exec mv {} $out/lib/modules/${kernel.modDirVersion}/updates \;
+    rm -rf $out/lib/modules/${kernel.modDirVersion}/updates/drivers
+  '';
+
+  meta = {
+    maintainers = with lib.maintainers; [ xddxdd ];
+    description = "Intel® QuickAssist Technology (Intel® QAT) provides cryptographic and compression acceleration capabilities used to improve performance and efficiency across the data center.";
+    homepage = "https://www.intel.com/content/www/us/en/download/19734/intel-quickassist-technology-driver-for-linux-hw-version-1-x.html";
+    license = with lib.licenses; [
+      gpl2Only
+      bsd3
+      asl20
+    ];
+    platforms = lib.platforms.linux;
+  };
 }
