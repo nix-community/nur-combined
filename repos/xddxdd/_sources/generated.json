@@ -1152,7 +1152,7 @@
     },
     "kikoplay-script": {
         "cargoLocks": null,
-        "date": "2024-06-29",
+        "date": "2024-07-21",
         "extract": null,
         "name": "kikoplay-script",
         "passthru": null,
@@ -1164,12 +1164,12 @@
             "name": null,
             "owner": "KikoPlayProject",
             "repo": "KikoPlayScript",
-            "rev": "361aae4de60ab7636b3086d5ad2b7a63903a219b",
-            "sha256": "sha256-XLxnbhQoytDLE3dRFVxQtfFuTGQcqvYTBPzeqwTy5BQ=",
+            "rev": "0efa0aa479922ea7881966e3876263ccc3de1cf7",
+            "sha256": "sha256-saRI+/wk90Ldry85dh3PStKVQZjDECtPN58tJftkVJA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "361aae4de60ab7636b3086d5ad2b7a63903a219b"
+        "version": "0efa0aa479922ea7881966e3876263ccc3de1cf7"
     },
     "konnect": {
         "cargoLocks": null,
@@ -1458,12 +1458,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3423",
-            "sha256": "sha256-6PyB/nPFcKiXu9urlvEV7ex/Ey3bVyUZTCjAUsUuUMM=",
+            "rev": "b3428",
+            "sha256": "sha256-8C/53nosy6LRX/OwMkodkaIMB6x0e3NFajiCGClIaSc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3423"
+        "version": "b3428"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -1479,12 +1479,12 @@
             "name": null,
             "owner": "chiyuki0325",
             "repo": "lyrica",
-            "rev": "v0.7",
-            "sha256": "sha256-YcET6h1J6dc8VXKzccT4SThgRve7EpyuE6xa/wVTs5s=",
+            "rev": "v0.8",
+            "sha256": "sha256-hjLm4p/GY/TF+p+yV2aKM3z1ctdyw2vqiqiBGffkBU4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.7"
+        "version": "v0.8"
     },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
@@ -1987,11 +1987,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-V3fO+v17hBHFwW2LEK/VMzf2tQty0C1OoxEA7swcXfw=",
+            "sha256": "sha256-eGjTQfd9OZTnXgcmqit1yw23PF2l1+qsPonxNPHysww=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v5.0.4/PeerBanHelper.jar"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v5.0.6/PeerBanHelper.jar"
         },
-        "version": "v5.0.4"
+        "version": "v5.0.6"
     },
     "phpmyadmin": {
         "cargoLocks": null,

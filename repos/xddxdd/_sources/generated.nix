@@ -645,15 +645,15 @@
   };
   kikoplay-script = {
     pname = "kikoplay-script";
-    version = "361aae4de60ab7636b3086d5ad2b7a63903a219b";
+    version = "0efa0aa479922ea7881966e3876263ccc3de1cf7";
     src = fetchFromGitHub {
       owner = "KikoPlayProject";
       repo = "KikoPlayScript";
-      rev = "361aae4de60ab7636b3086d5ad2b7a63903a219b";
+      rev = "0efa0aa479922ea7881966e3876263ccc3de1cf7";
       fetchSubmodules = false;
-      sha256 = "sha256-XLxnbhQoytDLE3dRFVxQtfFuTGQcqvYTBPzeqwTy5BQ=";
+      sha256 = "sha256-saRI+/wk90Ldry85dh3PStKVQZjDECtPN58tJftkVJA=";
     };
-    date = "2024-06-29";
+    date = "2024-07-21";
   };
   konnect = {
     pname = "konnect";
@@ -807,24 +807,24 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3423";
+    version = "b3428";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3423";
+      rev = "b3428";
       fetchSubmodules = false;
-      sha256 = "sha256-6PyB/nPFcKiXu9urlvEV7ex/Ey3bVyUZTCjAUsUuUMM=";
+      sha256 = "sha256-8C/53nosy6LRX/OwMkodkaIMB6x0e3NFajiCGClIaSc=";
     };
   };
   lyrica = {
     pname = "lyrica";
-    version = "v0.7";
+    version = "v0.8";
     src = fetchFromGitHub {
       owner = "chiyuki0325";
       repo = "lyrica";
-      rev = "v0.7";
+      rev = "v0.8";
       fetchSubmodules = false;
-      sha256 = "sha256-YcET6h1J6dc8VXKzccT4SThgRve7EpyuE6xa/wVTs5s=";
+      sha256 = "sha256-hjLm4p/GY/TF+p+yV2aKM3z1ctdyw2vqiqiBGffkBU4=";
     };
   };
   nbfc-linux-lantian = {
@@ -1102,10 +1102,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v5.0.4";
+    version = "v5.0.6";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v5.0.4/PeerBanHelper.jar";
-      sha256 = "sha256-V3fO+v17hBHFwW2LEK/VMzf2tQty0C1OoxEA7swcXfw=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v5.0.6/PeerBanHelper.jar";
+      sha256 = "sha256-eGjTQfd9OZTnXgcmqit1yw23PF2l1+qsPonxNPHysww=";
     };
   };
   phpmyadmin = {
