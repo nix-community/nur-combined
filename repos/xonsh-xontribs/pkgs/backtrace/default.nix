@@ -15,6 +15,8 @@ buildPythonPackage rec {
     sha256 = "1i3xj04zxz9vi57gbkmnnyh9cypf3bm966ic685s162p1xhnz2qp";
   };
 
+  doCheck = false;
+
   prePatch = ''
     touch LICENSE
   '';

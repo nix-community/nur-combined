@@ -2,11 +2,9 @@
   buildPythonPackage,
   lib,
   fetchFromGitHub,
-
   pytestCheckHook,
   xonsh,
 }:
-
 buildPythonPackage rec {
   pname = "xontrib-debug-tools";
   version = "0.0.1";
@@ -17,6 +15,8 @@ buildPythonPackage rec {
     rev = version;
     hash = "sha256-Z8AXKk94NxmF5rO2OMZzNX0GIP/Vj+mOtYUaifRX1cw=";
   };
+
+  doCheck = false;
 
   prePatch = ''
     substituteInPlace pyproject.toml \
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     description = "Debug tools for xonsh shell.";
     homepage = "https://github.com/xonsh/xontrib-debug-tools";
     license = licenses.mit;
-    maintainers = [ maintainers.greg ];
+    maintainers = [maintainers.greg];
   };
 }

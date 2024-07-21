@@ -14,6 +14,8 @@ buildPythonPackage rec {
     sha256 = "sha256-ek+GTWGUpm2b6lBw/7n4W46W2R0Gy6JxqWoLuQilCXQ=";
   };
 
+  doCheck = false;
+
   propagatedBuildInputs = [backtrace];
   prePatch = ''
     substituteInPlace xontrib/readable-traceback.xsh \

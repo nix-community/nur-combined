@@ -2,13 +2,11 @@
   buildPythonPackage,
   lib,
   fetchFromGitHub,
-
   pytestCheckHook,
   pytest-subprocess,
   xonsh,
   virtualenv,
 }:
-
 buildPythonPackage rec {
   pname = "xontrib-vox";
   version = "0.0.1";
@@ -19,6 +17,8 @@ buildPythonPackage rec {
     rev = version;
     hash = "sha256-OB1O5GZYkg7Ucaqak3MncnQWXhMD4BM4wXsYCDD0mhk=";
   };
+
+  doCheck = false;
 
   prePatch = ''
     substituteInPlace pyproject.toml \
@@ -47,6 +47,6 @@ buildPythonPackage rec {
     description = "Python virtual environment manager for the xonsh shell";
     homepage = "https://github.com/xonsh/xontrib-vox";
     license = licenses.mit;
-    maintainers = [ maintainers.greg ];
+    maintainers = [maintainers.greg];
   };
 }

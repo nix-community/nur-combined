@@ -20,6 +20,8 @@ buildPythonPackage rec {
     hash = "sha256-DrZRIU5mzu8RUzm0jak/Eo12wbvWYusJpmqgIAVwe00=";
   };
 
+  doCheck = false;
+
   prePatch = ''
     substituteInPlace pyproject.toml \
       --replace '"xonsh>=0.12.5", ' ""

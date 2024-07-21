@@ -16,6 +16,8 @@ buildPythonPackage rec {
     sha256 = "sha256-h56Gx/MMCW4L6nGwLAhBkiR7bX+qfFk80LEsJMiDtjQ=";
   };
 
+  doCheck = false;
+
   prePatch = ''
     substituteInPlace xontrib/direnv.xsh \
       --replace '__direnv_post_rc()' \

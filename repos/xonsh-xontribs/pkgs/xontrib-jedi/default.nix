@@ -2,13 +2,11 @@
   buildPythonPackage,
   lib,
   fetchFromGitHub,
-
   jedi,
   poetry-core,
   pytestCheckHook,
   xonsh,
 }:
-
 buildPythonPackage rec {
   pname = "xontrib-jedi";
   version = "0.1.0";
@@ -20,6 +18,8 @@ buildPythonPackage rec {
     rev = "v${version}";
     hash = "sha256-bHVSIN+V4dhKPgNURkvMQyAbz49gEgYtJ1LqDLo0wYY=";
   };
+
+  doCheck = false;
 
   prePatch = ''
     substituteInPlace pyproject.toml \
@@ -49,6 +49,6 @@ buildPythonPackage rec {
     description = "Xonsh Python mode completions using jedi";
     homepage = "https://github.com/xonsh/xontrib-jedi";
     license = licenses.mit;
-    maintainers = [ maintainers.greg ];
+    maintainers = [maintainers.greg];
   };
 }

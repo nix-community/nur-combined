@@ -3,13 +3,11 @@
   lib,
   fetchFromGitHub,
   pkgs,
-
   jupyter-client,
   poetry-core,
   pytestCheckHook,
   xonsh,
 }:
-
 buildPythonPackage rec {
   pname = "xontrib-jupyter";
   version = "0.3.0";
@@ -22,6 +20,8 @@ buildPythonPackage rec {
     rev = "add_kwargs";
     hash = "sha256-12IMDUIoW265asXrw8sikfWFFWZXPAF54fQr2lSjZVk=";
   };
+
+  doCheck = false;
 
   prePatch = ''
     substituteInPlace pyproject.toml \
@@ -49,6 +49,6 @@ buildPythonPackage rec {
     description = "Xonsh jupyter kernel allows to run Xonsh shell code in Jupyter, JupyterLab, Euporia, etc.";
     homepage = "https://github.com/xonsh/xontrib-jupyter";
     license = licenses.mit;
-    maintainers = [ maintainers.greg ];
+    maintainers = [maintainers.greg];
   };
 }

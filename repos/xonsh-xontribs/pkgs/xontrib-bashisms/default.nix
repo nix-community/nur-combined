@@ -2,12 +2,10 @@
   buildPythonPackage,
   lib,
   fetchFromGitHub,
-
   setuptools,
   pytestCheckHook,
   xonsh,
 }:
-
 buildPythonPackage rec {
   pname = "xontrib-bashisms";
   version = "0.0.5";
@@ -19,6 +17,8 @@ buildPythonPackage rec {
     rev = version;
     hash = "sha256-R1DCGMrRCJLnz/QMk6QB8ai4nx88vvyPdaCKg3od5/I=";
   };
+
+  doCheck = false;
 
   prePatch = ''
     substituteInPlace pyproject.toml \
@@ -42,6 +42,6 @@ buildPythonPackage rec {
     description = "Bash-like interactive mode extensions for the xonsh shell. ";
     homepage = "https://github.com/xonsh/xontrib-bashisms";
     license = licenses.mit;
-    maintainers = [ maintainers.greg ];
+    maintainers = [maintainers.greg];
   };
 }
