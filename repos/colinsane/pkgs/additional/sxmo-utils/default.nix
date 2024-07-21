@@ -241,7 +241,8 @@ stdenv.mkDerivation rec {
   passthru = {
     inherit runtimeDeps;
     providedSessions = (lib.optional supportSway "swmo") ++ (lib.optional supportDwm "sxmo");
-    # updateScript = unstableGitUpdater { };
+    updateWithSuper = false;
+    updateScript = unstableGitUpdater { };
   };
 
   meta = {

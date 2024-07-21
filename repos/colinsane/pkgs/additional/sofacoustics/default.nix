@@ -8,6 +8,8 @@
   symlinkJoin,
 }:
 lib.makeScope newScope (self: with self; {
+  updateWithSuper = false;  #< don't update datasets unless user explicitly asks for that, because there are *so many*, and unchanging
+
   downloadSofacoustics = prefix: database: name: hash: stdenvNoCC.mkDerivation (finalAttrs: {
     name = "${database}-${name}";
     src = fetchurl {
@@ -41,6 +43,7 @@ lib.makeScope newScope (self: with self; {
     # - anthropometrics: <https://www.oeaw.ac.at/fileadmin/Institute/ISF/IMG/software/anthro.mat>
     # "hrtf, dtf: HRTFs and DTFs, respectively, equalized between 300 Hz and 18 kHz"
     # "hrtf b/c/d, dtf b/c/d: HRTFs and DTFs, equalized between 50 Hz and 18 kHz for hi-fi auralizations ("b" vs. "c" and "d" differ each other in their starting positions and the order of measurement positions: b: 0°→0°, c/d: 270°→270°; subject being rotated clockwise ↻; "c" measurements were recorded until 2023 in the ARI lab in Wohllebengasse, "d" measuremens are recorded in the new ARI lab in Postsparkasse since 2024)."
+
     b_nh2 = "sha256-+4EDf8Mn/RRUzuXaqj3bjKgIQGNFx1Pkxr8X211TzfM=";
     b_nh4 = "sha256-OtBsa5OWymBOlfqYM8oKkm9CeCO/1rWgmEX0H3T+zUM=";
     b_nh5 = "sha256-M+9YHle9vZgZSeLn+77w1bRDF8eQZ/N4kZhYPsJin0E=";
@@ -237,6 +240,7 @@ lib.makeScope newScope (self: with self; {
     # created by:
     # (python) for i in range(1002, 1060): print(f'irc_{i} = "sha256-irc_{i}";')
     # (sh) ./scripts/update sofacoustics.listen
+
     irc_1002 = "sha256-w+qp4F6fsg5ZGrR3nG+GWKa8tvDK/Rp9Ke8CTN4yJkY=";
     irc_1003 = "sha256-BjjOPHTud5pkv9Q1wPS4Ns2mVeul1Ub54BwHxfa+5/U=";
     irc_1004 = "sha256-wJ5udlnACbDvz3+KP2UP+hta+2b9p/NxSfihnq97EMA=";
@@ -317,6 +321,7 @@ lib.makeScope newScope (self: with self; {
     #
     # not present here: ICO2m_*, UV02m_*, UV05m_*, UV1m_*, UV2m_*.
     # - i don't understand the difference between those variants -- i think it's about numerical precision (so UV02m would be the best?)
+
     ICO1m_00001 = "sha256-OQRaNbvmj1Wctp0Md+pYDp8OdyVjf8/bLToXH+6mtsQ=";
     ICO1m_00002 = "sha256-3eooXmbggF1NB4J6xH17J2j/3IFwunpP/5+7oMyJaZw=";
     ICO1m_00003 = "sha256-Q03qYa7mHM63lAYh7VLQPiMwMnW681KDUr+oxrprILY=";

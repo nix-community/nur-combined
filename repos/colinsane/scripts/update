@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p nix-update
+#!nix-shell -i bash -p findutils -p nix-update
 
 NIX_FILES_TOP=/home/colin/nixos
 
@@ -52,8 +52,8 @@ getPkgs() {
   debug "creating requisite .drv store paths"
   nix-instantiate -A nix "$NIX_FILES_TOP"
   nix-instantiate -A nixpkgs "$NIX_FILES_TOP"
-  debug "querying attributes which match '$attrPrefix'"
-  local attrs=$(nix-env -f "$NIX_FILES_TOP" --query --available --attr-path --no-name -A "$attrPrefix" --show-trace)
+  debug "querying packages to update as part of '$attrPrefix'"
+  local attrs=$(nix eval --raw -f "$NIX_FILES_TOP" 'updateTargets."'"$attrPrefix"'"' --apply 'builtins.concatStringsSep " "')
   debug "got: $attrs"
   attrsArr+=($attrs)
 }
@@ -61,41 +61,33 @@ getPkgs() {
 updateOnePkg() {
   local attrPath="$1"
 
-  if [ -n "$ignore" ] && [[ "$attrPath" =~ ^"$ignore" ]]; then
-    warn "ignoring $attrPath"
-    return
-  fi
-
-  local updateScript=$(nix eval --raw -f "$NIX_FILES_TOP" $attrPath.passthru.updateScript --apply 'builtins.concatStringsSep "'" "'"')
+  local updateScript=$(nix eval --raw -f "$NIX_FILES_TOP" 'updateScripts."'"$attrPath"'"')
   if [ -z "$updateScript" ]; then
     warn "don't know how to update '$attrPath'"
     return
   fi
 
   # make sure everything needed to invoke the update script exists in-store
-  local context=$(nix eval --raw -f "$NIX_FILES_TOP" $attrPath.passthru.updateScript --apply 's: builtins.concatStringsSep " " (builtins.foldl'"'"' (acc: next: acc ++ next) [] (builtins.map builtins.attrNames (builtins.map builtins.getContext s)))')
+  local context=$(nix eval --raw -f "$NIX_FILES_TOP" 'updateScripts."'"$attrPath"'"' --apply 's: builtins.concatStringsSep " " (builtins.attrNames (builtins.getContext s))')
   for c in $context; do
     debug "realizing updateScript requisite: $context"
     nix-store --realize "$c" || true
   done
 
-  local UPDATE_NIX_NAME=$(nix eval --raw -f "$NIX_FILES_TOP" $attrPath.name)
-  local UPDATE_NIX_PNAME=$(nix eval --raw -f "$NIX_FILES_TOP" $attrPath.pname)
-  local UPDATE_NIX_OLD_VERSION=$(nix eval --raw -f "$NIX_FILES_TOP" $attrPath.version)
   info "updating: '$attrPath'"
   debug "$updateScript"
-  (
-    # update script assumes $PWD is an entry point to a writable copy of my nix config,
-    # so provide that:
-    pushd "$NIX_FILES_TOP/integrations/nix-update"
-    # we lose spaces inside the exec args... could `nix eval` without `--raw` to fix that.
-    UPDATE_NIX_NAME="$UPDATE_NIX_NAME" UPDATE_NIX_PNAME="$UPDATE_NIX_PNAME" UPDATE_NIX_OLD_VERSION="$UPDATE_NIX_OLD_VERSION" UPDATE_NIX_ATTR_PATH="$attrPath" eval $updateScript
-    popd
-  )
+  "$updateScript"
 }
 
+updatePkgsInParallel() {
+  debug "updating packages in parallel using xargs"
+  debug "- $@"
+  debug "- xargs -n 1 -P 4 $0 ${scriptFlags[*]}"
+  echo "$@" | xargs -n 1 -P 4 "$0" "${scriptFlags[@]}"
+}
+
+scriptFlags=()
 dryRun=
-ignore=
 toplevelsToUpdate=()
 verbose=
 parseArgs() {
@@ -107,9 +99,11 @@ parseArgs() {
         usage
         ;;
       (--dry-run)
+        scriptFlags+=(--dry-run)
         dryRun=1
         ;;
       (--verbose)
+        scriptFlags+=(--verbose)
         verbose=1
         ;;
       (*)
@@ -118,7 +112,6 @@ parseArgs() {
     esac
   done
   if [ "${#toplevelsToUpdate[@]}" -eq 0 ]; then
-    ignore=sane.feeds
     toplevelsToUpdate=(sane)
   fi
 }
@@ -129,6 +122,14 @@ for t in "${toplevelsToUpdate[@]}"; do
   getPkgs pkgsToUpdate "$t"
 done
 
-for p in "${pkgsToUpdate[@]}"; do
-  hasEffect updateOnePkg "$p"
-done
+case "${#pkgsToUpdate[@]}" in
+  (0)
+    echo "nothing to do"
+    ;;
+  (1)
+    hasEffect updateOnePkg "${pkgsToUpdate[0]}"
+    ;;
+  (*)
+    hasEffect updatePkgsInParallel "${pkgsToUpdate[@]}"
+    ;;
+esac
