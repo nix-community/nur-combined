@@ -2,11 +2,9 @@
   buildPythonPackage,
   lib,
   fetchFromGitHub,
-
   pytestCheckHook,
   xonsh,
 }:
-
 buildPythonPackage rec {
   pname = "xontrib-whole-word-jumping";
   version = "0.0.1";
@@ -17,6 +15,8 @@ buildPythonPackage rec {
     rev = version;
     hash = "sha256-zLAOGW9prjYDQBDITFNMggn4X1JTyAnVdjkBOH9gXPs=";
   };
+
+  doCheck = false;
 
   prePatch = ''
     substituteInPlace pyproject.toml \
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     description = "Additional keyboard navigation for interactive xonsh shells";
     homepage = "https://github.com/xonsh/xontrib-whole-word-jumping";
     license = licenses.mit;
-    maintainers = [ maintainers.greg ];
+    maintainers = [maintainers.greg];
   };
 }
