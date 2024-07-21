@@ -53,6 +53,7 @@ IMAGE_FMTS = [
 
 VIDEO_FMTS = [
     '.avi',
+    '.mkv',
     '.mov',
     '.mp4',
     '.webm',
@@ -60,6 +61,7 @@ VIDEO_FMTS = [
 
 METADATA_FMTS = [
     '.inf',
+    '.lrc',
     '.lyrics',
     '.nfo',
     '.pdf',
@@ -70,11 +72,7 @@ METADATA_FMTS = [
 NON_AUDIO_FMTS = IMAGE_FMTS + VIDEO_FMTS + METADATA_FMTS
 
 IGNORE = [
-    '.DS_Store',
-    '.cue',
-    '.log',
-    '.m3u',
-    '.nsf_',
+    '.nsf_',  #< "NES Sound File"
 ]
 
 def approx_eq(a: float, b: float, threshold: float) -> bool:

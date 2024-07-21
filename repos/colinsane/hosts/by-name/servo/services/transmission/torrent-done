@@ -57,11 +57,12 @@ if [ ${#subdirs[@]} -eq 1 ]; then
 fi
 
 # remove noisy files:
+# -iname means "insensitive", but the syntax is NOT regex -- more similar to shell matching
 destructive find "$MEDIA_DIR/" -type f \(\
-     -iname '.*downloaded.?from.*' \
+     -iname '*downloaded?from*' \
   -o -iname 'source.txt' \
-  -o -iname 'upcoming.?releases.*' \
-  -o -iname 'www.YTS.*.jpg' \
+  -o -iname '*upcoming?releases*' \
+  -o -iname 'www.YTS*.jpg' \
   -o -iname 'WWW.YIFY*.COM.jpg' \
   -o -iname 'YIFY*.com.txt' \
   -o -iname 'YTS*.com.txt' \
