@@ -1,10 +1,5 @@
 { lib, pkgs, ... }:
 {
-  programs.fish.loginShellInit = ''
-    set TTY1 (tty)
-    [ "$TTY1" = "/dev/tty1" ] && exec sway
-  '';
-
   services.pipewire = {
     enable = true;
     alsa.enable = true;

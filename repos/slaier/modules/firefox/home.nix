@@ -1,4 +1,4 @@
-{ config, pkgs, lib, nixosConfig, ... }:
+{ pkgs, lib, nixosConfig, ... }:
 with lib;
 let
   profilesPath =
@@ -36,10 +36,10 @@ in
         copy-link-text
         history-cleaner
         i-dont-care-about-cookies
-        keepassxc-browser
         localcdn
         new_tongwentang
         offline-qr-code-generator
+        passff
         rsshub-radar
         ublacklist
         violentmonkey
@@ -228,5 +228,8 @@ in
     source = pkgs.wavefox;
     recursive = true;
     force = true;
+  };
+  home.file.".mozilla/native-messaging-hosts/passff.json" = {
+    source = "${pkgs.passff-host}/lib/mozilla/native-messaging-hosts/passff.json";
   };
 }
