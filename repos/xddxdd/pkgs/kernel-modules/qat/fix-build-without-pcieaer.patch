@@ -1,0 +1,50 @@
+diff --git a/quickassist/qat/compat/qat_compat.c b/quickassist/qat/compat/qat_compat.c
+index 2f46d5d..a2b601f 100644
+--- a/quickassist/qat/compat/qat_compat.c
++++ b/quickassist/qat/compat/qat_compat.c
+@@ -393,7 +393,7 @@ void kfree_sensitive(const void *p)
+ }
+ #endif /* 5.9.x and older */
+ 
+-#if (KERNEL_VERSION(6, 6, 0) <= LINUX_VERSION_CODE)
++#if (KERNEL_VERSION(6, 6, 0) <= LINUX_VERSION_CODE && defined(CONFIG_PCIEAER))
+ static int pcie_aer_is_native(struct pci_dev *dev)
+ {
+ 	struct pci_host_bridge *host = pci_find_host_bridge(dev->bus);
+diff --git a/quickassist/qat/compat/qat_compat.h b/quickassist/qat/compat/qat_compat.h
+index 96c4216..a8688a6 100644
+--- a/quickassist/qat/compat/qat_compat.h
++++ b/quickassist/qat/compat/qat_compat.h
+@@ -545,7 +545,7 @@ static inline void crypto_request_complete(struct crypto_async_request *req,
+ }
+ #endif
+ 
+-#if (KERNEL_VERSION(6, 6, 0) <= LINUX_VERSION_CODE)
++#if (KERNEL_VERSION(6, 6, 0) <= LINUX_VERSION_CODE && defined(CONFIG_PCIEAER))
+ 
+ #define PCI_EXP_AER_FLAGS (PCI_EXP_DEVCTL_CERE | PCI_EXP_DEVCTL_NFERE | \
+ 			PCI_EXP_DEVCTL_FERE | PCI_EXP_DEVCTL_URRE)
+diff --git a/quickassist/qat/drivers/crypto/qat/qat_common/adf_aer.c b/quickassist/qat/drivers/crypto/qat/qat_common/adf_aer.c
+index 2db330c..1588884 100644
+--- a/quickassist/qat/drivers/crypto/qat/qat_common/adf_aer.c
++++ b/quickassist/qat/drivers/crypto/qat/qat_common/adf_aer.c
+@@ -426,7 +426,9 @@ int adf_enable_aer(struct adf_accel_dev *accel_dev, struct pci_driver *adf)
+ 	struct pci_dev *pdev = accel_to_pci_dev(accel_dev);
+ 
+ 	adf->err_handler = (struct pci_error_handlers *)(&adf_err_handler);
++#if (KERNEL_VERSION(6, 6, 0) <= LINUX_VERSION_CODE && defined(CONFIG_PCIEAER))
+ 	pci_enable_pcie_error_reporting(pdev);
++#endif
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(adf_enable_aer);
+@@ -445,7 +447,9 @@ void adf_disable_aer(struct adf_accel_dev *accel_dev)
+ {
+ 	struct pci_dev *pdev = accel_to_pci_dev(accel_dev);
+ 
++#if (KERNEL_VERSION(6, 6, 0) <= LINUX_VERSION_CODE && defined(CONFIG_PCIEAER))
+ 	pci_disable_pcie_error_reporting(pdev);
++#endif
+ }
+ EXPORT_SYMBOL_GPL(adf_disable_aer);
+ 

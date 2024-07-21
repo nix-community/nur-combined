@@ -2149,6 +2149,21 @@
         },
         "version": "v1.3.0"
     },
+    "qat": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "qat",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-0Dcq+t4EgebSJp7YDoe1zg2GHV6+PUaXfMd1hbkT8xI=",
+            "type": "url",
+            "url": "https://downloadmirror.intel.com/823135/QAT.L.4.25.0-00001.tar.gz"
+        },
+        "version": "823135/QAT.L.4.25.0-00001"
+    },
     "qbittorrent-enhanced-edition": {
         "cargoLocks": null,
         "date": null,

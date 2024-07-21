@@ -1191,6 +1191,14 @@
       sha256 = "sha256-IsbGSUXaayO8gfslfo2oIforjy5TW6xVdCDOXT2VmjQ=";
     };
   };
+  qat = {
+    pname = "qat";
+    version = "823135/QAT.L.4.25.0-00001";
+    src = fetchurl {
+      url = "https://downloadmirror.intel.com/823135/QAT.L.4.25.0-00001.tar.gz";
+      sha256 = "sha256-0Dcq+t4EgebSJp7YDoe1zg2GHV6+PUaXfMd1hbkT8xI=";
+    };
+  };
   qbittorrent-enhanced-edition = {
     pname = "qbittorrent-enhanced-edition";
     version = "release-4.6.5.10";
