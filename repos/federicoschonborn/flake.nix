@@ -105,187 +105,183 @@
             '';
           };
 
-          apps =
-            builtins.mapAttrs
-              (_: value: {
-                type = "app";
-                program = lib.getExe value;
-              })
-              {
-                generate-readme =
-                  let
-                    packageList = pkgs.writeText "package-list.md" (
-                      builtins.concatStringsSep "\n" (
-                        lib.mapAttrsToList (
-                          name: value:
+          apps = {
+            default.program = pkgs.writers.writeNuBin "just" (builtins.readFile ./just.nu);
+
+            generate-readme.program =
+              let
+                packageList = pkgs.writeText "package-list.md" (
+                  builtins.concatStringsSep "\n" (
+                    lib.mapAttrsToList (
+                      name: value:
+                      let
+                        # 😱
+                        programList = lib.importJSON (
+                          pkgs.runCommand "program-list.json" { } ''
+                            { ${
+                              builtins.concatStringsSep "\n" (
+                                lib.mapAttrsToList (name: value: ''
+                                  if test -d ${value}/bin; then
+                                    ${lib.getExe pkgs.jq} -n '{"${name}": $ARGS.positional}' --args $(find ${value}/bin -type f -executable -not -name ".*" -printf "%f\n" | sort)
+                                  fi
+                                '') config.packages
+                              )
+                            } } | ${lib.getExe pkgs.jq} -s add > $out
+                          ''
+                        );
+                        programs = programList.${name} or [ ];
+
+                        description = value.meta.description or "";
+                        longDescription = value.meta.longDescription or "";
+                        outputs = value.outputs or [ ];
+                        homepage = value.meta.homepage or "";
+                        changelog = value.meta.changelog or "";
+                        position = value.meta.position or "";
+                        licenses = lib.toList (value.meta.license or [ ]);
+                        maintainers = value.meta.maintainers or [ ];
+                        platforms = value.meta.platforms or [ ];
+                        mainProgram = value.meta.mainProgram or "";
+                        broken = value.meta.broken or false;
+                        unfree = value.meta.unfree or false;
+
+                        brokenIndicator = lib.optionalString broken " (💥 Broken)";
+                        unfreeIndicator = lib.optionalString unfree " (🔒 Unfree)";
+
+                        nameSection = "- Name: `${value.pname or value.name}`";
+
+                        versionSection = lib.optionalString (value ? version) "- Version: ${value.version}";
+
+                        descriptionSection = if longDescription != "" then longDescription else "${description}.";
+
+                        outputsSection =
                           let
-                            # 😱
-                            programList = lib.importJSON (
-                              pkgs.runCommand "program-list.json" { } ''
-                                { ${
-                                  builtins.concatStringsSep "\n" (
-                                    lib.mapAttrsToList (name: value: ''
-                                      if test -d ${value}/bin; then
-                                        ${lib.getExe pkgs.jq} -n '{"${name}": $ARGS.positional}' --args $(find ${value}/bin -type f -executable -not -name ".*" -printf "%f\n" | sort)
-                                      fi
-                                    '') config.packages
-                                  )
-                                } } | ${lib.getExe pkgs.jq} -s add > $out
-                              ''
-                            );
-                            programs = programList.${name} or [ ];
-
-                            description = value.meta.description or "";
-                            longDescription = value.meta.longDescription or "";
-                            outputs = value.outputs or [ ];
-                            homepage = value.meta.homepage or "";
-                            changelog = value.meta.changelog or "";
-                            position = value.meta.position or "";
-                            licenses = lib.toList (value.meta.license or [ ]);
-                            maintainers = value.meta.maintainers or [ ];
-                            platforms = value.meta.platforms or [ ];
-                            mainProgram = value.meta.mainProgram or "";
-                            broken = value.meta.broken or false;
-                            unfree = value.meta.unfree or false;
-
-                            brokenIndicator = lib.optionalString broken " (💥 Broken)";
-                            unfreeIndicator = lib.optionalString unfree " (🔒 Unfree)";
-
-                            nameSection = "- Name: `${value.pname or value.name}`";
-
-                            versionSection = lib.optionalString (value ? version) "- Version: ${value.version}";
-
-                            descriptionSection = if longDescription != "" then longDescription else "${description}.";
-
-                            outputsSection =
-                              let
-                                formatOutput = x: if x == value.outputName then "**`${x}`**" else "`${x}`";
-                              in
-                              lib.optionalString (outputs != [ ]) (
-                                "- Outputs: " + (builtins.concatStringsSep ", " (builtins.map formatOutput outputs))
-                              );
-
-                            homepageSection = lib.optionalString (homepage != "") "- [Homepage](${homepage})";
-
-                            changelogSection = lib.optionalString (changelog != "") "- [Changelog](${changelog})";
-
-                            sourceSection =
-                              let
-                                formatPosition =
-                                  x:
-                                  let
-                                    parts = builtins.match "/nix/store/.{32}-source/(.+):([[:digit:]]+)" x;
-                                    path = builtins.elemAt parts 0;
-                                    line = builtins.elemAt parts 1;
-                                  in
-                                  "./${path}#L${line}";
-                              in
-                              lib.optionalString (position != "") "- [Source](${formatPosition position})";
-
-                            licenseSection =
-                              let
-                                formatLicense = x: if x ? url then "[`${x.fullName}`](${x.url})" else x.fullName;
-                              in
-                              lib.optionalString (licenses != null) (
-                                "- License${if builtins.length licenses > 1 then "s" else ""}: "
-                                + (builtins.concatStringsSep ", " (builtins.map formatLicense licenses))
-                              );
-
-                            programsSection =
-                              let
-                                formatProgram = x: if x == mainProgram then "**`${x}`**" else "`${x}`";
-                              in
-                              lib.optionalString (programs != [ ]) (
-                                "- Programs provided: " + (builtins.concatStringsSep ", " (builtins.map formatProgram programs))
-                              );
-
-                            maintainersSection =
-                              let
-                                formatMaintainer =
-                                  x:
-                                  let
-                                    formattedName = if x ? github then "[${x.name}](https://github.com/${x.github})" else x.name;
-                                    formattedEmail = lib.optionalString (x ? email) " <[`${x.email}`](mailto:${x.email})>";
-                                  in
-                                  "  - ${formattedName}${formattedEmail}\n";
-                                allMaintainersLink =
-                                  if builtins.any (x: x ? email) maintainers then
-                                    "  - [✉️ Mail to all maintainers](mailto:"
-                                    + (builtins.concatStringsSep "," (builtins.map (x: x.email or null) maintainers))
-                                    + ")"
-                                  else
-                                    "";
-                              in
-                              lib.optionalString (maintainers != [ ]) (
-                                "- Maintainers:\n"
-                                + (builtins.concatStringsSep "" (builtins.map formatMaintainer maintainers))
-                                + allMaintainersLink
-                              );
-
-                            platformsSection =
-                              let
-                                formatPlatform = x: "`${x}`";
-                              in
-                              lib.optionalString (platforms != [ ]) (
-                                "- Platforms: " + (builtins.concatStringsSep ", " (builtins.map formatPlatform platforms))
-                              );
+                            formatOutput = x: if x == value.outputName then "**`${x}`**" else "`${x}`";
                           in
-                          builtins.concatStringsSep "\n" (
-                            builtins.filter (x: x != "") [
-                              ''
-                                ### `${name}`${unfreeIndicator}${brokenIndicator}
-                              ''
-                              descriptionSection
-                              nameSection
-                              versionSection
-                              homepageSection
-                              changelogSection
-                              licenseSection
-                              maintainersSection
-                              ''
+                          lib.optionalString (outputs != [ ]) (
+                            "- Outputs: " + (builtins.concatStringsSep ", " (builtins.map formatOutput outputs))
+                          );
 
-                                <!-- markdownlint-disable-next-line no-inline-html -->
-                                <details>
-                                  <!-- markdownlint-disable-next-line no-inline-html -->
-                                  <summary>
-                                    Package details
-                                  </summary>
-                              ''
-                              sourceSection
-                              outputsSection
-                              programsSection
-                              platformsSection
-                              ''
-                                </details>
-                              ''
-                            ]
-                          )
-                        ) config.packages
+                        homepageSection = lib.optionalString (homepage != "") "- [Homepage](${homepage})";
+
+                        changelogSection = lib.optionalString (changelog != "") "- [Changelog](${changelog})";
+
+                        sourceSection =
+                          let
+                            formatPosition =
+                              x:
+                              let
+                                parts = builtins.match "/nix/store/.{32}-source/(.+):([[:digit:]]+)" x;
+                                path = builtins.elemAt parts 0;
+                                line = builtins.elemAt parts 1;
+                              in
+                              "./${path}#L${line}";
+                          in
+                          lib.optionalString (position != "") "- [Source](${formatPosition position})";
+
+                        licenseSection =
+                          let
+                            formatLicense = x: if x ? url then "[`${x.fullName}`](${x.url})" else x.fullName;
+                          in
+                          lib.optionalString (licenses != null) (
+                            "- License${if builtins.length licenses > 1 then "s" else ""}: "
+                            + (builtins.concatStringsSep ", " (builtins.map formatLicense licenses))
+                          );
+
+                        programsSection =
+                          let
+                            formatProgram = x: if x == mainProgram then "**`${x}`**" else "`${x}`";
+                          in
+                          lib.optionalString (programs != [ ]) (
+                            "- Programs provided: " + (builtins.concatStringsSep ", " (builtins.map formatProgram programs))
+                          );
+
+                        maintainersSection =
+                          let
+                            formatMaintainer =
+                              x:
+                              let
+                                formattedName = if x ? github then "[${x.name}](https://github.com/${x.github})" else x.name;
+                                formattedEmail = lib.optionalString (x ? email) " <[`${x.email}`](mailto:${x.email})>";
+                              in
+                              "  - ${formattedName}${formattedEmail}\n";
+                            allMaintainersLink =
+                              if builtins.any (x: x ? email) maintainers then
+                                "  - [✉️ Mail to all maintainers](mailto:"
+                                + (builtins.concatStringsSep "," (builtins.map (x: x.email or null) maintainers))
+                                + ")"
+                              else
+                                "";
+                          in
+                          lib.optionalString (maintainers != [ ]) (
+                            "- Maintainers:\n"
+                            + (builtins.concatStringsSep "" (builtins.map formatMaintainer maintainers))
+                            + allMaintainersLink
+                          );
+
+                        platformsSection =
+                          let
+                            formatPlatform = x: "`${x}`";
+                          in
+                          lib.optionalString (platforms != [ ]) (
+                            "- Platforms: " + (builtins.concatStringsSep ", " (builtins.map formatPlatform platforms))
+                          );
+                      in
+                      builtins.concatStringsSep "\n" (
+                        builtins.filter (x: x != "") [
+                          ''
+                            ### `${name}`${unfreeIndicator}${brokenIndicator}
+                          ''
+                          descriptionSection
+                          nameSection
+                          versionSection
+                          homepageSection
+                          changelogSection
+                          licenseSection
+                          maintainersSection
+                          ''
+
+                            <!-- markdownlint-disable-next-line no-inline-html -->
+                            <details>
+                              <!-- markdownlint-disable-next-line no-inline-html -->
+                              <summary>
+                                Package details
+                              </summary>
+                          ''
+                          sourceSection
+                          outputsSection
+                          programsSection
+                          platformsSection
+                          ''
+                            </details>
+                          ''
+                        ]
                       )
-                    );
-                  in
-                  pkgs.writeShellApplication {
-                    name = "generate-readme";
-                    text = ''
-                      cat ${meta/README.tmpl.md} ${packageList} > README.md
-                      ${lib.getExe pkgs.nodePackages.prettier} --write README.md
-                    '';
-                  };
-
-                update = pkgs.writeShellApplication {
-                  name = "update";
-                  text = ''
-                    nix-shell --show-trace "${nixpkgs.outPath}/maintainers/scripts/update.nix" \
-                      --arg commit 'true' \
-                      --arg include-overlays "[(import ./overlay.nix)]" \
-                      --arg keep-going 'true' \
-                      --arg predicate '(
-                        let prefix = builtins.toPath ./pkgs; prefixLen = builtins.stringLength prefix;
-                        in (_: p: p.meta?position && (builtins.substring 0 prefixLen p.meta.position) == prefix)
-                      )'
-                  '';
-                };
+                    ) config.packages
+                  )
+                );
+              in
+              pkgs.writeShellApplication {
+                name = "generate-readme";
+                text = ''
+                  cat ${meta/README.tmpl.md} ${packageList} > README.md
+                  ${lib.getExe pkgs.nodePackages.prettier} --write README.md
+                '';
               };
+
+            update.program = pkgs.writeShellApplication {
+              name = "update";
+              text = ''
+                nix-shell --show-trace "${nixpkgs.outPath}/maintainers/scripts/update.nix" \
+                  --arg commit 'true' \
+                  --arg include-overlays "[(import ./overlay.nix)]" \
+                  --arg keep-going 'true' \
+                  --arg predicate '(
+                    let prefix = builtins.toPath ./pkgs; prefixLen = builtins.stringLength prefix;
+                    in (_: p: p.meta?position && (builtins.substring 0 prefixLen p.meta.position) == prefix)
+                  )'
+              '';
+            };
+          };
 
           pre-commit = {
             check.enable = true;
