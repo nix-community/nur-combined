@@ -2739,11 +2739,6 @@
     "pname": "python3.12-py-rcon",
     "version": "1.3.0"
   },
-  "legacyPackages.x86_64-linux.qat": {
-    "description": "Intel® QuickAssist Technology (Intel® QAT) provides cryptographic and compression acceleration capabilities used to improve performance and efficiency across the data center.",
-    "pname": "qat",
-    "version": "4.25.0-00001"
-  },
   "legacyPackages.x86_64-linux.qbittorrent-enhanced-edition": {
     "description": "Featureful free software BitTorrent client",
     "pname": "qbittorrent-enhanced-edition-release",
@@ -3473,11 +3468,6 @@
     "description": "Python implementation of RCON",
     "pname": "python3.12-py-rcon",
     "version": "1.3.0"
-  },
-  "packages.x86_64-linux.qat": {
-    "description": "Intel® QuickAssist Technology (Intel® QAT) provides cryptographic and compression acceleration capabilities used to improve performance and efficiency across the data center.",
-    "pname": "qat",
-    "version": "4.25.0-00001"
   },
   "packages.x86_64-linux.qbittorrent-enhanced-edition": {
     "description": "Featureful free software BitTorrent client",

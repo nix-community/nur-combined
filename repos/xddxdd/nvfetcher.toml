@@ -462,11 +462,6 @@ fetch.github = "pterodactyl/wings"
 src.github_tag = "ttk1/py-rcon"
 fetch.github = "ttk1/py-rcon"
 
-[qat]
-src.webpage = "https://www.intel.com/content/www/us/en/download/19734/intel-quickassist-technology-driver-for-linux-hw-version-1-x.html"
-src.regex = "\"https://downloadmirror.intel.com/([^\"]+).tar.gz\""
-fetch.url = "https://downloadmirror.intel.com/$ver.tar.gz"
-
 [qbittorrent-enhanced-edition]
 src.github = "c0re100/qBittorrent-Enhanced-Edition"
 fetch.github = "c0re100/qBittorrent-Enhanced-Edition"
