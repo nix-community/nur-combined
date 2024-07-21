@@ -26,6 +26,10 @@ let
   cfg = config.sane.programs.pipewire;
 in
 {
+  imports = [
+    ./sofa-default.nix
+  ];
+
   sane.programs.pipewire = {
      configOption = with lib; mkOption {
       default = {};
@@ -46,6 +50,7 @@ in
 
     suggestedPrograms = [
       # "rtkit"
+      "sofa-default"
       "wireplumber"
     ];
 
@@ -104,6 +109,8 @@ in
         default.clock.max-quantum = ${builtins.toString cfg.config.max-quantum}
       }
     '';
+    fs.".config/pipewire/pipewire.conf.d/20-spatializer-7.1.conf".symlink.target = ./20-spatializer-7.1.conf;
+
     # reduce realtime scheduling priority to prevent GPU instability,
     # but see the top of this file for other solutions.
     # fs.".config/pipewire/pipewire.conf.d/20-sane-rtkit.conf".symlink.text = ''
@@ -158,7 +165,7 @@ in
       command = pkgs.writeShellScript "pipewire-start" ''
         mkdir -p $PIPEWIRE_RUNTIME_DIR
         # nice -n -21 comes from pipewire defaults (niceness: -11)
-        exec nice -n -21 pipewire
+        PIPEWIRE_DEBUG=3 exec nice -n -21 pipewire
       '';
       readiness.waitExists = [
         "$PIPEWIRE_RUNTIME_DIR/pipewire-0"

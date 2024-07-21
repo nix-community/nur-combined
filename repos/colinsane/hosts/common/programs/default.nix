@@ -114,7 +114,7 @@
     ./open-in-mpv.nix
     ./pactl.nix
     ./pidof.nix
-    ./pipewire.nix
+    ./pipewire
     ./pkill.nix
     ./planify.nix
     ./portfolio-filemanager.nix
