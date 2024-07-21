@@ -43,8 +43,8 @@ jobs:
           git config --global user.email "xddxdd-bot@users.noreply.github.com"
           git config --global user.name "xddxdd-bot"
 
-          if git add . ; then
-            git commit -m "auto: update packages"
+          git add .
+          if git commit -m "auto: update packages" ; then
             git remote remove origin
             git remote add origin "https://xddxdd-bot:$API_TOKEN_GITHUB@github.com/xddxdd/nur-packages.git"
             git push -u origin master --force
