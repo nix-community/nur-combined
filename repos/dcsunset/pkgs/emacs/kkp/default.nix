@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation {
   pname = "kkp";
-  version = "unstable-2024-06-08";
+  version = "0-unstable-2024-07-21";
 
   src = fetchFromGitHub {
     owner = "DCsunset";
     repo = "kkp";
-    rev = "3e2dded6af47becc7d481a8ea60bb9637d182e25";
-    hash = "sha256-1fn46mKct6ETkTm0Gs7RjkZ6eahXBZyXAOMqAQujJE4=";
+    rev = "d6796cd0283e5b6301cf9fd22600049a04e45e65";
+    hash = "sha256-+r21xJuQD9ExzN5XFQ+DUMOJ2qxnLQa+8lSrSUJduN4=";
   };
   buildInputs = [
     (emacsWithPackages (epkgs: with epkgs; [ compat ]))
