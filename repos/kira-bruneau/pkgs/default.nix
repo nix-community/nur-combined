@@ -126,8 +126,6 @@ in
     inherit (darwin.apple_sdk.frameworks) Security CoreServices;
   };
 
-  themes = recurseIntoAttrs (callPackage ./data/themes { });
-
   ukmm = callPackage ./tools/games/ukmm { };
 
   undistract-me = callPackage ./shells/bash/undistract-me { };
