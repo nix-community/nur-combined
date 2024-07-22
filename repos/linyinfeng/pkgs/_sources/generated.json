@@ -116,11 +116,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Rh6IDGPdaAsuNLEE7mTrLmY2fQlaEH3QUCVNiO4+QDg=",
+            "sha256": "sha256-AgGhfZSiiIKjiwFfMW94mrLHaTTtwEQYn/K4/wCW3wM=",
             "type": "url",
-            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.12.8/app-x86_64.asar"
+            "url": "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.12.9/app-x86_64.asar"
         },
-        "version": "v2.12.8"
+        "version": "v2.12.9"
     },
     "linux-intel-lts": {
         "cargoLocks": null,
