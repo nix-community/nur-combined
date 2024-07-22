@@ -149,6 +149,7 @@ in
         pkgs.mpvScripts.mpris
         pkgs.mpvScripts.mpv-playlistmanager
         pkgs.mpvScripts.mpv-webm
+        pkgs.mpvScripts.sponsorblock
         uosc
         visualizer
         # pkgs.mpv-uosc-latest
@@ -223,12 +224,13 @@ in
     fs.".config/mpv/scripts/sane_sysvol/non_blocking_popen.lua".symlink.target = ./sane_sysvol/non_blocking_popen.lua;
     fs.".config/mpv/input.conf".symlink.target = ./input.conf;
     fs.".config/mpv/mpv.conf".symlink.target = ./mpv.conf;
-    fs.".config/mpv/script-opts/osc.conf".symlink.target = ./osc.conf;
     fs.".config/mpv/script-opts/console.conf".symlink.target = ./console.conf;
-    fs.".config/mpv/script-opts/uosc.conf".symlink.target = ./uosc.conf;
+    fs.".config/mpv/script-opts/osc.conf".symlink.target = ./osc.conf;
     fs.".config/mpv/script-opts/playlistmanager.conf".symlink.target = ./playlistmanager.conf;
-    fs.".config/mpv/script-opts/webm.conf".symlink.target = ./webm.conf;
+    fs.".config/mpv/script-opts/sponsorblock.conf".symlink.target = ./sponsorblock.conf;
+    fs.".config/mpv/script-opts/uosc.conf".symlink.target = ./uosc.conf;
     fs.".config/mpv/script-opts/visualizer.conf".symlink.target = ./visualizer.conf;
+    fs.".config/mpv/script-opts/webm.conf".symlink.target = ./webm.conf;
 
     # mime.priority = 200;  # default = 100; 200 means to yield to other apps
     mime.priority = 50;  # default = 100; 50 in order to take precedence over vlc.
