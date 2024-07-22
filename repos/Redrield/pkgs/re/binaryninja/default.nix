@@ -15,7 +15,9 @@
 , libxml2
 }:
 stdenv.mkDerivation {
-  name = "binaryninja";
+  pname = "binaryninja";
+  version = "4.1";
+
   buildInputs = [
     unzip
     libGL
@@ -41,7 +43,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url = "https://cdn.binary.ninja/installers/binaryninja_free_linux.zip";
-    sha256 = "07iqwzyipilr0n6axrqbpnl123dd8s3w9k2s3k15rk2g8pfr3l23";
+    hash = "sha256-nORxkdQhupDekk7lLScwxoCXdvi+WsD/LC40gwS5mBc";
   };
 
   #buildPhase = ":";
