@@ -4,6 +4,7 @@
   gitUpdater,
   gpodder,
   libhandy,
+  python3Packages,
 }:
 
 let
@@ -50,6 +51,10 @@ self = gpodder.overridePythonAttrs (upstream: rec {
   buildInputs = upstream.buildInputs ++ [
     libhandy
   ];
+  propagatedBuildInputs = upstream.propagatedBuildInputs ++ (with python3Packages; [
+    # necessary to enable to "youtube dl" extension (TODO: upstream into nixpkgs!)
+    yt-dlp
+  ]);
 
   passthru.updateScript = gitUpdater {
     rev-prefix = "adaptive/";
