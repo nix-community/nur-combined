@@ -2,6 +2,7 @@
 , stdenv
 , fetchFromGitHub
 , callPackage
+, fetchpatch
 
   # Required build tools
 , cmake
@@ -70,9 +71,16 @@ stdenv.mkDerivation (finalAttrs: {
 
   outputs = [ "out" "doc" ];
 
+  patches = [
+    # Hardcode system installed banks & presets
+    (fetchpatch {
+      url = "https://patch-diff.githubusercontent.com/raw/zynaddsubfx/zynaddsubfx/pull/295.patch";
+      hash = "sha256-UN62i9/JBs7uWTmHDKk3lkAxUXsVmIs6+6avOcL1NBg=";
+    })
+  ];
+
   postPatch = ''
     patchShebangs rtosc/test/test-port-checker.rb src/Tests/check-ports.rb
-    substituteInPlace src/Misc/Config.cpp --replace /usr $out
   '';
 
   nativeBuildInputs = [ cmake makeWrapper pkg-config ];
@@ -88,7 +96,11 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals (guiModule == "ntk") [ ntk cairo libXpm ]
     ++ lib.optionals (guiModule == "zest") [ libGL libX11 ];
 
-  cmakeFlags = [ "-DGuiModule=${guiModule}" ]
+  cmakeFlags =
+    [
+      "-DGuiModule=${guiModule}"
+      "-DZYN_DATADIR=${placeholder "out"}/share/zynaddsubfx"
+    ]
     # OSS library is included in glibc.
     # Must explicitly disable if support is not wanted.
     ++ lib.optional (!ossSupport) "-DOssEnable=OFF"
