@@ -194,7 +194,7 @@ class Encoder:
     def remove(self, path: Path) -> None:
         self.destructive(None, os.remove, path)
 
-    def convert(self, source: Path, dest: Path, target_samplerate: int | None) -> None:
+    def convert(self, source: Path, dest: Path, target_samplerate: int | None, target_chancount: int | None) -> None:
         logger.info(f'converting {source} -> {dest}')
 
         codec_flags = []
@@ -204,12 +204,16 @@ class Encoder:
                 '-qscale:a', '0',  # VBR0
             ]
         elif dest.suffix == '.opus':
+            # opus defaults to 96 kbps for stereo (which is not enough IMO). 300-something for 5.1.
+            # recs: <https://wiki.xiph.org/Opus_Recommended_Settings>
+            # my chosen numbers don't have any particular significance, they just look nice :)
+            if target_chancount <= 2:
+                bps = 192000
+            else:
+                bps = 72000 * target_chancount
             codec_flags = [
                 '-codec:a', 'libopus',
-                # opus defaults to 96 kbps for stereo (which is not enough IMO). 300-something for 5.1.
-                # no easy way to specify behavior which scales here AFAICT, so ... ?
-                # recs: <https://wiki.xiph.org/Opus_Recommended_Settings>
-                '-b:a', '192000',
+                '-b:a', str(bps),
             ]
             if target_samplerate is not None:
                 # opus doesn't support 44.1 kHz, so use 48kHz instead.
@@ -224,6 +228,7 @@ class Encoder:
             assert False, f'conversion to {dest.suffix} not yet supported'
 
         samplerate_flags = ['-ar', str(target_samplerate)] if target_samplerate else []
+        chancount_flags = [ '-ac', str(target_chancount)] if target_chancount else []
 
         self.check_output([
             'ffmpeg',
@@ -231,12 +236,13 @@ class Encoder:
             '-y',  # force overwrite
             '-i', str(source),
             '-codec:v', 'copy',
-        ] + codec_flags + samplerate_flags + [
+        ] + codec_flags + samplerate_flags + chancount_flags + [
           str(dest)
         ])
 
     def cp_or_convert(self, source: Path, dest: Path) -> None:
         source_samplerate = None
+        source_chancount = None
         if source.suffix.lower() not in NON_AUDIO_FMTS:
             try:
                 source_samplerate = int(
@@ -246,23 +252,31 @@ class Encoder:
                         quiet=True,
                     ).decode("utf-8").strip()
                 )
+                source_chancount = int(
+                    self.check_output(
+                        ['soxi', '-c', str(source)],
+                        has_side_effect=False,
+                        quiet=True,
+                    ).decode("utf-8").strip()
+                )
             except:
                 if source.suffix.lower() in ['.aac', '.m4a', '.wma']:
                     # sox is known to not support these formats
-                    logging.debug(f'unsupported extension for samplerate: {source}')
+                    logging.debug(f'unsupported extension for samplerate/channelcount: {source}')
                 else:
-                    logging.warning(f'unable to obtain samplerate for {source}')
+                    logging.warning(f'unable to obtain samplerate/channelcount for {source}')
 
         target_samplerate = self.prefs.desired_samplerate(source_samplerate)
+        target_chancount = source_chancount
         if source_samplerate and not target_samplerate:
             logging.warning(f'unable to map source sample rate: {source_samplerate}')
 
         if source_samplerate != target_samplerate:
             # resampling -> convert
-            self.convert(source, dest, target_samplerate)
+            self.convert(source, dest, target_samplerate, target_chancount)
         elif source.suffix.lower() != dest.suffix:
             # transcoding -> convert
-            self.convert(source, dest, target_samplerate)
+            self.convert(source, dest, target_samplerate, target_chancount)
         else:
             # neither resampling nor transcoding -> simple copy will suffice
             self.cp(source, dest)
