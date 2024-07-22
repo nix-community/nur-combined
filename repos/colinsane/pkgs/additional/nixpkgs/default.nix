@@ -27,12 +27,12 @@
 }:
 let
   lock = {
-    master.rev = "2d155950622fbf78b85e7fa36e337f35316b6c39";
-    master.sha256 = "sha256-NEhtoMPmRqu8J/py/EvtEp7wJ2BfXwzk1O61Un1tHNs=";
-    staging.rev = "2d155950622fbf78b85e7fa36e337f35316b6c39";
-    staging.sha256 = "sha256-NEhtoMPmRqu8J/py/EvtEp7wJ2BfXwzk1O61Un1tHNs=";
-    staging-next.rev = "2d155950622fbf78b85e7fa36e337f35316b6c39";
-    staging-next.sha256 = "sha256-NEhtoMPmRqu8J/py/EvtEp7wJ2BfXwzk1O61Un1tHNs=";
+    master.rev = "b841e48094d6eaad953f36dc0831434966dc7719";
+    master.sha256 = "sha256-Deu1qPoNm11gqVJR0BCGIBhGNAB4NlXDiElDWBtQN3I=";
+    staging.rev = "b841e48094d6eaad953f36dc0831434966dc7719";
+    staging.sha256 = "sha256-Deu1qPoNm11gqVJR0BCGIBhGNAB4NlXDiElDWBtQN3I=";
+    staging-next.rev = "b841e48094d6eaad953f36dc0831434966dc7719";
+    staging-next.sha256 = "sha256-Deu1qPoNm11gqVJR0BCGIBhGNAB4NlXDiElDWBtQN3I=";
   };
   lock' = lock."${variant}";
   unpatchedSrc = fetchzip {

@@ -80,6 +80,7 @@ in
       "neovim"
       "netcat"
       "nethogs"
+      "nix"
       "nmap"
       "nmcli"
       "nvme-cli"  # nvme

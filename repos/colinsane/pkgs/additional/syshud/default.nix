@@ -9,13 +9,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "syshud";
-  version = "0-unstable-2024-07-16";
+  version = "0-unstable-2024-07-21";
 
   src = fetchFromGitHub {
     owner = "System64fumo";
     repo = "syshud";
-    rev = "d60c3bb6c8eefba743478fe7c183055fa057e69e";
-    hash = "sha256-2aVqCXUZYGtv6xIqbZ1yk3SZK45igZVgPl0byxTXu8E=";
+    rev = "4af754de4e0b43b44c803d392e0425c00ee33982";
+    hash = "sha256-kiHCDISFtxR4zosBJxNFfbDHpeQT9R4cKRqZxk3ZZSY=";
   };
   postPatch = ''
     substituteInPlace Makefile \

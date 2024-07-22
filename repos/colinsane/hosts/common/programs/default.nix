@@ -103,6 +103,7 @@
     ./nheko.nix
     ./nicotine-plus.nix
     ./nix-index.nix
+    ./nix.nix
     ./nmcli.nix
     ./notejot.nix
     ./ntfy-sh.nix

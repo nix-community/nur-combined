@@ -10,7 +10,7 @@
     ./gitea.nix
     ./goaccess.nix
     ./ipfs.nix
-    ./jackett.nix
+    ./jackett
     ./jellyfin.nix
     ./kiwix-serve.nix
     ./komga.nix

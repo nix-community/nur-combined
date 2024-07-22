@@ -107,7 +107,6 @@ let
     swaylock-plugin = callPackage ./additional/swaylock-plugin { };
     sxmo_swaylock = callPackage ./additional/sxmo_swaylock { };
     sxmo-suspend = callPackage ./additional/sxmo-suspend { };
-    sxmo-utils = callPackage ./additional/sxmo-utils { };
     syshud = callPackage ./additional/syshud { };
     tow-boot-pinephone = callPackage ./additional/tow-boot-pinephone { };
     tree-sitter-nix-shell = callPackage ./additional/tree-sitter-nix-shell { };
@@ -167,9 +166,6 @@ let
     helix = callPackage ./patched/helix { inherit (unpatched) helix; };
 
     # ibus = callPackage ./patched/ibus { inherit (unpatched) ibus; };
-
-    # jackett doesn't allow customization of the bind address: this will probably always be here.
-    jackett = callPackage ./patched/jackett { inherit (unpatched) jackett; };
 
     # modemmanager = callPackage ./patched/modemmanager { inherit (unpatched) modemmanager; };
 
