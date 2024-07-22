@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchpatch,
   cmake,
   ninja,
   pkg-config,
@@ -91,14 +92,22 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastfetch";
-  version = "2.18.1";
+  version = "2.19.0";
 
   src = fetchFromGitHub {
     owner = "fastfetch-cli";
     repo = "fastfetch";
     rev = finalAttrs.version;
-    hash = "sha256-vm0KlJ3w71b6OzvbvJBu2hM71FqyjGpP222KguPgHEc=";
+    hash = "sha256-E1Hx2WRYFDbXLe2SN/kkqBFiFfzi722LtWIh3rexnhM=";
   };
+
+  patches = [
+    # CPU: fix double frequency value when using custom formation
+    (fetchpatch {
+      url = "https://github.com/fastfetch-cli/fastfetch/commit/b89eeaa95421c5c21e5927ab4ae8733cd03558e2.patch";
+      hash = "sha256-Ck6H6DCplWI5RzFu1NvL0LodpO7QEQpGFtslDvJw0H0=";
+    })
+  ];
 
   nativeBuildInputs = [
     cmake
