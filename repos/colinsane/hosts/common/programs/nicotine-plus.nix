@@ -1,7 +1,18 @@
 # soulseek music sharing GUI app
-{ ... }:
+{ pkgs, ... }:
 {
   sane.programs.nicotine-plus = {
+    packageUnwrapped = pkgs.nicotine-plus.overrideAttrs (upstream: {
+      # nicotine gets confused by permissions. it needs a *writeable* config or config.old to use either.
+      # but the secrets are not writable.
+      # so, copy config (the secret) to config.old on launch & make it writeable.
+      postInstall = ''
+        wrapProgramShell $out/bin/nicotine \
+          --run "cp --update=none ~/.config/nicotine/config ~/.config/nicotine/config.old" \
+          --run "chmod u+w ~/.config/nicotine/config.old"
+        ${upstream.postInstall}
+      '';
+    });
     sandbox.method = "bwrap";
     sandbox.whitelistDri = true;  #< required, else it fails to launch the gui
     sandbox.whitelistWayland = true;

@@ -1,7 +1,9 @@
 # repo: <https://github.com/Siriusmart/youtube-tui>
 # troubleshooting:
 # - "Invalid Request: This helps protect our community."
-#   - choose a different invidious instance (https://farside.link/)
+#   - choose a different invidious instance
+#     - <https://docs.invidious.io/instances/>
+#     - <https://farside.link/>
 #   - <https://github.com/Siriusmart/youtube-tui/issues/57>
 # thumbnail `images` options:
 # - None
@@ -35,7 +37,7 @@
       allow_unicode: true
       image_index: 4
       images: Sixels
-      invidious_instance: https://inv.nadeko.net
+      invidious_instance: https://inv.in.projectsegfau.lt
       legacy_input_handling: false
       message_bar_default: ready
       mouse_support: true
