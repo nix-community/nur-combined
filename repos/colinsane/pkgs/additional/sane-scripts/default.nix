@@ -205,7 +205,7 @@ let
     vpn = static-nix-shell.mkBash {
       pname = "sane-vpn";
       srcRoot = ./src;
-      pkgs = [ "coreutils-full" "iproute2" "jq" "networkmanager-split.nmcli" "sane-scripts.ip-check" "systemd" ];
+      pkgs = [ "coreutils-full" "iproute2" "jq" "networkmanager-split.nmcli" "sane-scripts.ip-check" "sanebox" "systemd" ];
     };
     which = static-nix-shell.mkBash {
       pname = "sane-which";

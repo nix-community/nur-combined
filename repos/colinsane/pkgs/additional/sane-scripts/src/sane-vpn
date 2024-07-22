@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p coreutils-full -p iproute2 -p jq -p networkmanager-split.nmcli -p sane-scripts.ip-check -p systemd
+#!nix-shell -i bash -p bash -p coreutils-full -p iproute2 -p jq -p networkmanager-split.nmcli -p sane-scripts.ip-check -p sanebox -p systemd
 
 set -e
 
@@ -99,6 +99,7 @@ sourceVpn() {
       done
       debug "choosing from networks: ${ok_networks[@]}"
       name="${ok_networks[0]}"
+      dns=(host)
       ;;
     (*)
       debug "sourcing: ~/.config/sane-vpn/vpns/$1"

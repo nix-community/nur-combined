@@ -1,0 +1,2 @@
+- colin-passwd.bin:
+  - generate with `mkpasswd -m sha512crypt`, or `mkpasswd --rounds=200000 --method=sha512crypt`

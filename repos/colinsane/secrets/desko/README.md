@@ -1,9 +1,7 @@
 - nix_signing_key.bin:
-    - generate with `nix-store --generate-binary-cache-key desko cache-priv-key.pem cache-pub-key.pem`
-    - used when deploying packages to a remote machine
+  - generate with `nix-store --generate-binary-cache-key desko cache-priv-key.pem cache-pub-key.pem`
+  - used when deploying packages to a remote machine
 - colin-passwd.bin:
-    - see <https://search.nixos.org/options?channel=unstable&show=users.users.%3Cname%3E.hashedPasswordFile&from=0&size=50&sort=relevance&type=packages&query=users.users>
-    - update by running `sudo passwd colin` and then taking the 2nd item from the colin: line in /etc/shadow
-    - N.B.: you MUST do `sudo passwd colin` instead of just `passwd`, i guess because of immutable users or something
+  - generate with `mkpasswd -m sha512crypt`, or `mkpasswd --rounds=2000000 --method=sha512crypt`
 - guest/authorized_keys.bin
-    - who's allowed to login to the guest account
+  - who's allowed to login to the guest account

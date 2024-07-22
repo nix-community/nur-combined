@@ -7,6 +7,7 @@
   - or try dnsmasq?
 - trust-dns can't resolve `abs.twimg.com`
 - trust-dns can't resolve `social.kernel.org`
+- trust-dns can't resolve my rsync.net address
 - sandbox: link cache means that if i update ~/.config/... files inline, sandboxed programs still see the old version
 - mpv: audiocast has mpv sending its output to the builtin speakers unless manually changed
 - mpv: no way to exit fullscreen video on moby

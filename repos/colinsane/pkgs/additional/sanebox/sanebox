@@ -122,9 +122,10 @@ usage() {
   echo '  --sanebox-no-portal'
   echo '      undo a previous `--sanebox-portal` arg'
   echo '  --sanebox-bwrap-arg <arg>'
+  echo '  --sanebox-pasta-arg <arg>'
   echo '  --sanebox-net-dev <iface>|all'
   echo '  --sanebox-net-gateway <ip-address>'
-  echo '  --sanebox-dns <server>'
+  echo '  --sanebox-dns <server>|host'
   echo '  --sanebox-keep-namespace <cgroup|ipc|pid|uts|all>'
   echo '      do not unshare the provided linux namespace'
   echo '  --sanebox-path <path>'
@@ -531,6 +532,11 @@ parseArgs() {
         shift
         bwrapFlags+=("$bwrapFlag")
         ;;
+      (--sanebox-pasta-arg)
+        local pastaArg=$1
+        shift
+        pastaArgs+=("$pastaArg")
+        ;;
       (--sanebox-net-dev)
         netDev=$1
         shift
@@ -852,6 +858,7 @@ capshonlyGetCli() {
 
 pastaArgs=()
 pastaNetSetup=
+pastaOutboundPorts=()
 pastaonlySetup() {
   debug "pastaonlySetup: noop"
 }
@@ -872,10 +879,21 @@ pastaonlyIngestNetGateway() {
   pastaArgs+=(--gateway "$1")
 }
 pastaonlyIngestDns() {
-  # NAT DNS requests to localhost to the VPN's DNS resolver
-  # claim the whole 127.0.0.x space, because some setups place the DNS on a different address of localhost.
-  pastaNetSetup="iptables -A OUTPUT -t nat -p udp --dport 53 -m iprange --dst-range 127.0.0.1-127.0.0.255 -j DNAT --to-destination $1:53; $pastaNetSetup"
-  pastaNetSetup="ip addr del 127.0.0.1/8 dev lo; $pastaNetSetup"
+  local dns=$1
+  case "$dns" in
+    (host)
+      # use the host's DNS resolver
+      if ! contains 53 "${pastaOutboundPorts[@]}"; then
+        pastaOutboundPorts+=(53)
+      fi
+      ;;
+    (*)
+      # NAT DNS requests to localhost to the VPN's DNS resolver
+      # claim the whole 127.0.0.x space, because some setups place the DNS on a different address of localhost.
+      pastaNetSetup="iptables -A OUTPUT -t nat -p udp --dport 53 -m iprange --dst-range 127.0.0.1-127.0.0.255 -j DNAT --to-destination $1:53; $pastaNetSetup"
+      pastaNetSetup="ip addr del 127.0.0.1/8 dev lo; $pastaNetSetup"
+      ;;
+  esac
 }
 pastaonlyIngestKeepNamespace() {
   :
@@ -890,8 +908,13 @@ pastaonlyGetCli() {
     "${cliArgs[@]}"
   )
   locate _pasta "pasta" "$PASTA_FALLBACK"
+  local pastaOutboundPortsStr=none
+  if [ "${#pastaOutboundPorts[@]}" -ne 0 ]; then
+    pastaOutboundPortsStr="${pastaOutboundPorts[*]}"
+    pastaOutboundPortsStr="${pastaOutboundPortsStr// /,}"
+  fi
   cliArgs=(
-    "$_pasta" --ipv4-only -U none -T none -u none -t none --config-net
+    "$_pasta" --ipv4-only -U "$pastaOutboundPortsStr" -T "$pastaOutboundPortsStr" -u none -t none --config-net
       "${pastaArgs[@]}" --
     "${cliArgs[@]}"
   )

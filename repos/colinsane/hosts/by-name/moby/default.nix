@@ -27,6 +27,8 @@
 
   sops.secrets.colin-passwd.neededForUsers = true;
 
+  sane.services.rsync-net.enable = true;
+
   sane.programs.sway.enableFor.user.colin = true;
   sane.programs.sway.config.mod = "Mod1";  #< alt key instead of Super
   sane.programs.blueberry.enableFor.user.colin = false;  # bluetooth manager: doesn't cross compile!
