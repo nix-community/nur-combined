@@ -807,13 +807,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3436";
+    version = "b3442";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3436";
+      rev = "b3442";
       fetchSubmodules = false;
-      sha256 = "sha256-aiwbm3BoTUX4rSl02EZt3iIjXxcSmT1OU/q+K2UCFXA=";
+      sha256 = "sha256-96XKSnz6Dy67HmIgW0cHC5aFp9WE0RrkfR4iUk9XNFo=";
     };
   };
   lyrica = {
@@ -1102,10 +1102,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v5.0.6";
+    version = "v5.0.7";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v5.0.6/PeerBanHelper.jar";
-      sha256 = "sha256-eGjTQfd9OZTnXgcmqit1yw23PF2l1+qsPonxNPHysww=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v5.0.7/PeerBanHelper.jar";
+      sha256 = "sha256-nUV4AJ6pyUoOYDme44M6LtqDiiashsGS/Fi+3qCaio4=";
     };
   };
   phpmyadmin = {
