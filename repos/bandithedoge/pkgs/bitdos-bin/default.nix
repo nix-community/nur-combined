@@ -15,9 +15,12 @@ pkgs.stdenv.mkDerivation {
 
   buildInputs = with pkgs; [
     curlWithGnuTls
+    fontconfig
     freetype
     stdenv.cc.cc.lib
   ];
+
+  autoPatchelfIgnoreMissingDeps = ["libcurl-nss.so.4"];
 
   buildPhase = ''
     mkdir -p $out/lib/{lv2,vst3}

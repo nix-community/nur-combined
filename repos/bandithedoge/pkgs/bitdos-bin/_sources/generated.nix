@@ -7,10 +7,10 @@
 }: {
   bitdos-bin = {
     pname = "bitdos-bin";
-    version = "1.1";
+    version = "1.2";
     src = fetchurl {
-      url = "https://github.com/astriiddev/BitDOS-VST/releases/download/1.1/BitDOS_linux_x86_64.7z";
-      sha256 = "sha256-q9w69BlgCXz3aJaedwo78m6v6X7cCsJDZSizoPcCTxY=";
+      url = "https://github.com/astriiddev/BitDOS-VST/releases/download/1.2/BitDOS_linux_x86_64.7z";
+      sha256 = "sha256-xQdYmZCXj2YfY/rtXY8Vew4Y/4qRWyR3uY4SeWcYVZ4=";
     };
   };
 }
