@@ -31,6 +31,12 @@ in
   # })
 
   (fetchpatch' {
+    title = "bonsai: 1.1.0 -> 1.2.0";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/329263";
+    hash = "sha256-dyECCn0gcqYwRvCzXISoNY4oNPSTRUyoNVmPApJqkno=";
+  })
+
+  (fetchpatch' {
     title = "python312Packages.contourpy: fix cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/328218";
     saneCommit = "74a003b0af9820f6f7c6c62b3d2bec6df3a8d7b8";

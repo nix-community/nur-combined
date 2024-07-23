@@ -6,7 +6,7 @@
 # for setup, see: <https://www.rsync.net/resources/howto/ssh_keys.html>
 # - requires my pubkey to be copied to .ssh/authorized_keys on the remote.
 
-set -x
+set -xeu
 
 # secret should include RN_USER
 source /run/secrets/rsync-net-env
@@ -15,14 +15,25 @@ PREFIX=$(hostname)
 
 test -n "$PREFIX" && test -n "$RN_USER" && test -f "$RN_ID"
 
+rc=
 for dir in "$@"; do
   if [[ "$dir" != */ ]]; then
     dir="$dir/"
   fi
   remote_dir="$RN_USER@$RN_USER.rsync.net:$PREFIX$dir"
 
+  now=$(date '+%s')
   echo "syncing '$dir' to '$remote_dir'"
+  echo "$now" > "$dir"/zzz-rsync-net-last-attempted
   # N.B.: the `--exclude=$RN_ID` flag is a noop to get the ID file to be included in the sandbox...
   # N.B.: manual flags instead of `-a -> -rlptgoD` because device files have a max path length which is too restricted
-  sane-vpn do unmetered rsync --exclude="$RN_ID" -e "ssh -i $RN_ID" --mkpath -rlptgov --delete "$dir" "$remote_dir"
+  if sane-vpn do unmetered rsync --exclude="$RN_ID" -e "ssh -i $RN_ID" --mkpath -rlptgov --delete "$dir" "$remote_dir"; then
+    echo "$now" > "$dir"/zzz-rsync-net-last-completed
+    rc=0$rc
+  else
+    rc=1
+    echo "FAILED TO BACKUP $dir"
+  fi
 done
+
+test -n "$rc" && exit $rc
