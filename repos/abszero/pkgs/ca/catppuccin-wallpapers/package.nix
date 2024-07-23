@@ -56,7 +56,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/zhichaoh/catppuccin-wallpapers";
     license = licenses.mit;
     maintainers = with maintainers; [ weathercold ];
-    mainProgram = "catppuccin-wallpapers";
     platforms = platforms.all;
   };
 }

@@ -13,13 +13,11 @@ in
 {
   options.abszero.services.desktopManager.plasma6.enable = mkEnableOption "the next generation desktop for Linux";
 
-  config = {
+  config = mkIf cfg.enable {
     qt = {
       platformTheme.name = "kde";
       style.name = null;
     };
-    programs.firefox.nativeMessagingHosts =
-      with pkgs.kdePackages;
-      mkIf cfg.enable [ plasma-browser-integration ];
+    programs.firefox.nativeMessagingHosts = with pkgs.kdePackages; [ plasma-browser-integration ];
   };
 }

@@ -11,26 +11,21 @@ let
       domainStrategy = "IPIfNonMatch";
       rules = [
         {
-          type = "field";
           domain = [ "geosite:category-ads-all" ];
           outboundTag = "block";
         }
         {
-          type = "field";
           port = 53;
           outboundTag = "dns-out";
         }
         # You don't want Network Time Protocol (NTP) servers to return the proxy
         # server's time
         {
-          type = "field";
           port = 123;
           outboundTag = "direct";
         }
         {
-          type = "field";
           domain = [
-            "geosite:bilibili"
             "geosite:tld-cn"
             "geosite:geolocation-cn"
             "geosite:private" # Yes this exists
@@ -40,7 +35,6 @@ let
         # Proxy is the default, but as IPIfNonMatch is used, we explicitly match
         # non-cn sites to avoid querying their IPs
         {
-          type = "field";
           domain = [
             "geosite:tld-!cn"
             "geosite:geolocation-!cn"
@@ -48,7 +42,6 @@ let
           outboundTag = "proxy";
         }
         {
-          type = "field";
           ip = [
             "geoip:cn"
             "geoip:private"

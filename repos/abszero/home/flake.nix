@@ -31,12 +31,6 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Data
-    catppuccin-fcitx5 = {
-      url = "github:catppuccin/fcitx5";
-      flake = false;
-    };
   };
 
   outputs =

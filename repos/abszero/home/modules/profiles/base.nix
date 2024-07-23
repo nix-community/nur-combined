@@ -1,19 +1,40 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+
+let
+  inherit (lib) mkIf mkDefault getExe;
+  inherit (lib.abszero.modules) mkExternalEnableOption;
+  cfg = config.abszero.profiles.base;
+in
 
 {
-  nixpkgs.config.allowUnfree = true;
+  imports = [ ../../../lib/modules/config/abszero.nix ];
 
-  home = {
-    stateVersion = "24.11";
-    # Print store diff using nvd
-    activation.diff = config.lib.dag.entryBefore [ "writeBoundary" ] ''
-      if [[ -v oldGenPath ]]; then
-        ${pkgs.nvd}/bin/nvd diff $oldGenPath $newGenPath
-      fi
-    '';
+  options.abszero.profiles.base.enable = mkExternalEnableOption config "base profile";
+
+  config = mkIf cfg.enable {
+    nixpkgs.config.allowUnfree = true;
+
+    home = {
+      stateVersion = "24.11";
+      # Print store diff using nvd
+      activation.diff = config.lib.dag.entryBefore [ "writeBoundary" ] ''
+        if [[ -v oldGenPath ]]; then
+          ${getExe pkgs.nvd} diff "$oldGenPath" "$newGenPath"
+        fi
+      '';
+      pointerCursor = {
+        gtk.enable = mkDefault true;
+        x11.enable = mkDefault true;
+      };
+    };
+
+    xdg.enable = true;
+
+    programs.home-manager.enable = true;
   };
-
-  xdg.enable = true;
-
-  programs.home-manager.enable = true;
 }

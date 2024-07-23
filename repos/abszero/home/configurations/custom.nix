@@ -1,7 +1,8 @@
-{ self, lib, ... }:
+# Example configuration
+{ lib, ... }:
 
 let
-  inherit (lib) optionalAttrs;
+  inherit (lib) mkIf singleton;
 
   system = "x86_64-linux"; # System architecture
   username = "custom";
@@ -16,35 +17,34 @@ in
 
   homeConfigurations."${username}@${hostName}" = {
     inherit system;
-    modules = [
-      self.homeModules.profiles-build-config
-      {
-        abszero = optionalAttrs (firefoxProfile != null) { programs.firefox.profile = firefoxProfile; };
+    homeDirectory = mkIf (homeDirectory != null) homeDirectory;
+    modules = singleton {
+      abszero = {
+        profiles.buildConfig.enable = true;
+        programs.firefox.profile = mkIf (firefoxProfile != null) firefoxProfile;
+      };
 
-        # You can have multiple specialisations, but only one can be default.
-        specialisation = {
-          colloid = {
-            default = true;
-            configuration.imports = with self.homeModules; [
-              colloid-fcitx5
-              colloid-firefox
-              colloid-fonts
-              colloid-gtk
-              colloid-plasma
-            ];
-          };
-
-          catppuccin.configuration.imports = with self.homeModules; [
-            catppuccin-catppuccin
-            catppuccin-discord
-            catppuccin-fcitx5
-            catppuccin-fonts
-            catppuccin-foot
-            catppuccin-hyprland
-            catppuccin-plasma
-          ];
+      specialisation = {
+        colloid.configuration.abszero.themes.colloid = {
+          fcitx5.enable = true;
+          firefox.enable = true;
+          fonts.enable = true;
+          gtk.enable = true;
+          plasma6.enable = true;
         };
-      }
-    ];
-  } // optionalAttrs (homeDirectory != null) { inherit homeDirectory; };
+
+        catppuccin.configuration.abszero.themes.catppuccin = {
+          enable = true;
+          discord.enable = true;
+          fcitx5.enable = true;
+          fonts.enable = true;
+          foot.enable = true;
+          hyprland.enable = true;
+          hyprpaper.nixosLogo = true;
+          plasma6.enable = true;
+          pointerCursor.enable = true;
+        };
+      };
+    };
+  };
 }

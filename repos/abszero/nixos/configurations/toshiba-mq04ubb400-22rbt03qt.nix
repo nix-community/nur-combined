@@ -1,4 +1,4 @@
-{ self, lib, ... }:
+{ inputs, lib, ... }:
 
 let
   inherit (builtins) fromJSON readFile;
@@ -8,12 +8,26 @@ let
 
   mainModule = {
     abszero = {
+      profiles.full.enable = true;
+
+      zramSwap.enable = true;
+
       users.admins = [ "weathercold" ];
-      services.xray = recursiveUpdate proxySettings {
-        # enable = true;
-        preset = "vless-tcp-xtls-reality-client";
-        reality.shortId = "77b852c767077a1a";
+
+      hardware.inspiron-7405.enable = true;
+
+      wayland.windowManager.hyprland.enable = true;
+
+      services = {
+        displayManager.tuigreet.enable = true;
+        xray = recursiveUpdate proxySettings {
+          enable = true;
+          preset = "vless-tcp-xtls-reality-client";
+          reality.shortId = "77b852c767077a1a";
+        };
       };
+
+      themes.catppuccin.enable = true;
     };
 
     # BIOS-compatible GPT layout
@@ -87,6 +101,8 @@ let
       };
     };
 
+    catppuccin.accent = "pink";
+
     users.users = rec {
       weathercold = {
         description = "Weathercold";
@@ -98,20 +114,7 @@ let
       };
     };
 
-    specialisation.plasma6-latte-pink.configuration = {
-      abszero.services.desktopManager.plasma6.enable = true;
-      catppuccin.accent = "pink";
-    };
-  };
-
-  hyprland-latte-pink = { config, lib, ... }:
-  {
-    # Take advantage of the fact that `config.specialisation` is unset on
-    # specialisations to disable inheritance of this module
-    config = lib.mkIf (config.specialisation != { }) {
-      abszero.wayland.windowManager.hyprland.enable = true;
-      catppuccin.accent = "pink";
-    };
+    documentation.enable = false; # Speed up builds
   };
 in
 
@@ -120,13 +123,9 @@ in
 
   nixosConfigurations.toshiba-mq04ubb400-22rbt03qt = {
     system = "x86_64-linux";
-    modules = with self.nixosModules; [
-      profiles-full
-      hardware-inspiron-7405
-      catppuccin-sddm
+    modules = [
+      inputs.nixos-hardware.nixosModules.dell-inspiron-7405
       mainModule
-      # hyprland-latte-pink is the default specialisation
-      hyprland-latte-pink
     ];
   };
 }

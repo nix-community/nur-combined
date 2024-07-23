@@ -1,7 +1,7 @@
 { lib }:
 
 # NUR disallows IFD, which means we can't fetch haumea and then use it during
-# evaluation. The solution is to merge haumea as a subtree prior to evaluation.
+# evaluation. The solution is to vendor haumea.
 let
   haumea = {
     lib = import ./haumea { inherit lib; };

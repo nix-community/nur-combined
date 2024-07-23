@@ -1,7 +1,22 @@
-{ pkgs, ... }:
 {
-  gtk = {
-    enable = true;
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+
+let
+  inherit (lib) mkIf;
+  inherit (lib.abszero.modules) mkExternalEnableOption;
+  cfg = config.abszero.themes.colloid.gtk;
+in
+
+{
+  imports = [ ../../../../lib/modules/config/abszero.nix ];
+
+  options.abszero.themes.colloid.gtk.enable = mkExternalEnableOption config "colloid gtk theme";
+
+  config.gtk = mkIf cfg.enable {
     theme = {
       package = pkgs.colloid-gtk-theme-git;
       name = "Colloid-Light";
@@ -9,32 +24,6 @@
     iconTheme = {
       package = pkgs.colloid-icon-theme;
       name = "Colloid";
-    };
-
-    gtk2.extraConfig = ''
-      gtk-enable-animations=1
-      gtk-primary-button-warps-slider=0
-      gtk-toolbar-style=3
-      gtk-menu-images=1
-      gtk-button-images=1
-    '';
-
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = false;
-      gtk-button-images = true;
-      gtk-decoration-layout = "icon:minimize,maximize,close";
-      gtk-enable-animations = true;
-      gtk-menu-images = true;
-      gtk-modules = "colorreload-gtk-module:window-decorations-gtk-module";
-      gtk-primary-button-warps-slider = false;
-      gtk-toolbar-style = 3;
-    };
-
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = false;
-      gtk-decoration-layout = "icon:minimize,maximize,close";
-      gtk-enable-animations = true;
-      gtk-primary-button-warps-slider = false;
     };
   };
 }

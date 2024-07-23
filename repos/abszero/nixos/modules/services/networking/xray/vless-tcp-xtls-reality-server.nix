@@ -3,7 +3,7 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkDefault;
   cfg = config.abszero.services.xray;
 
   xraySettings = {
@@ -23,12 +23,10 @@ let
         # using domain rules. We have to rely on the clients to send requests
         # to domains.
         {
-          type = "field";
           domain = [ "geosite:bilibili" ];
           outboundTag = "block";
         }
         {
-          type = "field";
           ip = [
             "geoip:cn"
             "geoip:private"
@@ -86,14 +84,25 @@ let
 in
 
 mkIf (cfg.enable && cfg.preset == "vless-tcp-xtls-reality-server") {
+  # Taken from https://github.com/bannedbook/fanqiang/blob/master/v2ss/server-cfg/sysctl-bbr-cake.conf
+  # It seems that bbr+cake is currently faster than bbrplus and bbrv2 (how
+  # weird). Need to periodically check for new updates.
+  boot.kernel.sysctl = {
+    "fs.file-max" = 1000000;
+    "net.core.default_qdisc" = mkDefault "cake";
+    "net.ipv4.tcp_congestion_control" = mkDefault "bbr";
+  };
+
   # Fix too many open files
   systemd.services.xray.serviceConfig = {
     LimitNPROC = 500;
     LimitNOFILE = 1000000;
   };
+
   networking.firewall = {
     allowedTCPPorts = [ 443 ];
     allowedUDPPorts = [ 443 ];
   };
+
   services.xray.settings = xraySettings;
 }

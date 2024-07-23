@@ -9,9 +9,12 @@
 Dotfiles powered by Nix™, plus a package overlay and a library of utility
 functions.
 
-I use [haumea](https://github.com/nix-community/haumea):
-- to generate lists and trees of modules for `home` and `nixos`;
-- as a module system for `lib`.
+## Highlights
+
+- [Xray vless-tcp-xtls-reality tproxy configuration](nixos/modules/services/networking/xray)
+- Using [haumea](https://github.com/nix-community/haumea):
+  - to generate lists and trees of modules for `home` and `nixos`
+  - as a module system for `lib`
 
 ## Repository Structure
 
@@ -26,23 +29,30 @@ be used as flake input by specifying a directory like this:
     ├ home/                                     home configurations
     │ ├ configurations/                         top-level home configurations
     │ │ ├ weathercold/                          my configurations
-    │ │ ├ custom.nix                            a custom example configuration
+    │ │ ├ custom.nix                            example configuration
     │ │ └ _options.nix                          configuration abstraction
     │ └ modules/                                home modules
-    │   ├ profiles/                             top-level home modules
-    │   ├ accounts/, programs/, services/, ...  options-based home modules
-    │   └ themes/                               home modules that need manual import
-    │     └ base/, colloid/, ...
+    │   ├ profiles/                             top-level home modules**
+    │   ├ accounts/, programs/, services/, ...
+    │   └ themes/                               **
     ├ nixos/                                    nixos configurations
     │ ├ configurations/                         top-level nixos configurations
     │ │ ├ nixos-inspiron7405.nix, ...           my configurations
     │ │ └ _options.nix                          configuration abstraction
     │ └ modules/                                nixos modules
-    │   ├ profiles/                             top-level nixos modules
-    │   ├ config/, i18n/, programs/, ...        options-based home modules
-    │   └ hardware/                             home modules that need manual import
+    │   ├ profiles/                             top-level nixos modules**
+    │   ├ config/, i18n/, programs/, ...
+    │   └ hardware/, themes/                    **
     ├ pkgs/                                     package repository (by-name)
-    └ lib/                                      library of utility functions
+    └ lib/                                      library of shared expressions
+      ├ modules/                                shared modules
+      └ src/                                    shared functions
+
+---
+
+\*\*: external modules exposed with `self.nixosModules` and `self.homeModules`.
+They are effective on import by default, but can be disabled with
+`config.abszero.enableExternalModulesByDefault`.
 
 ## Import Graph
 

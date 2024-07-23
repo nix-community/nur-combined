@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkEnableOption mkIf assertMsg;
+  inherit (lib) mkEnableOption mkIf singleton;
   cfg = config.abszero.programs.hyprlock;
 in
 
@@ -10,11 +10,10 @@ in
 
   # https://wiki.hyprland.org/Hypr-Ecosystem/hyprlock
   config = mkIf cfg.enable {
-    assertions = [
-      (assertMsg (
-        config.abszero.services.hypridle.enable == true
-      ) "hyprlock requires hypridle to be enabled")
-    ];
+    assertions = singleton {
+      assertion = config.abszero.services.hypridle.enable;
+      message = "hyprlock requires hypridle to be enabled";
+    };
     programs.hyprlock = {
       enable = true;
       settings = {

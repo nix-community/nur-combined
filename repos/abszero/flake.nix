@@ -53,12 +53,6 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Data
-    catppuccin-fcitx5 = {
-      url = "github:catppuccin/fcitx5";
-      flake = false;
-    };
   };
 
   outputs =
@@ -117,6 +111,7 @@
                 inputs'.nixd.packages.nixd
                 nil
                 nixfmt-rfc-style
+                nixos-anywhere
                 nix-init
                 nix-prefetch-github # Somehow not in nix-prefetch-scripts
                 nix-prefetch-scripts

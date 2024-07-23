@@ -1,16 +1,34 @@
-{ pkgs, ... }:
 {
-  fonts.fontconfig.enable = true;
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
-  home.packages = with pkgs; [
-    inconsolata-nerdfont
-    iosevka-bin
-    noto-fonts-cjk-sans
-  ];
+let
+  inherit (lib) mkIf;
+  inherit (lib.abszero.modules) mkExternalEnableOption;
+  cfg = config.abszero.themes.colloid.fonts;
+in
 
-  gtk.font = {
-    package = pkgs.open-sans;
-    name = "Open Sans";
-    size = 14;
+{
+  imports = [ ../../../../lib/modules/config/abszero.nix ];
+
+  options.abszero.themes.colloid.fonts.enable = mkExternalEnableOption config "fonts to use with colloid theme";
+
+  config = mkIf cfg.enable {
+    fonts.fontconfig.enable = true;
+
+    home.packages = with pkgs; [
+      inconsolata-nerdfont
+      iosevka-bin
+      noto-fonts-cjk-sans
+    ];
+
+    gtk.font = {
+      package = pkgs.open-sans;
+      name = "Open Sans";
+      size = 14;
+    };
   };
 }

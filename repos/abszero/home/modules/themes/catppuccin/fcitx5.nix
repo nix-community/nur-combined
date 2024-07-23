@@ -1,19 +1,34 @@
+# Complementary to catppuccin/nix
+{ config, lib, ... }:
+
+let
+  inherit (lib) mkIf;
+  inherit (lib.abszero.modules) mkExternalEnableOption;
+  cfg = config.abszero.themes.catppuccin;
+in
+
 {
   imports = [
-    ./catppuccin.nix
+    ../../../../lib/modules/themes/catppuccin/catppuccin.nix
     ./fonts.nix
   ];
 
-  # Complementary to catppuccin/nix
-  i18n.inputMethod.fcitx5.catppuccin.enable = true;
+  options.abszero.themes.catppuccin.fcitx5.enable = mkExternalEnableOption config "catppuccin fcitx5 theme. Complementary to catppuccin/nix";
 
-  xdg.configFile."fcitx5/conf/classicui.conf".text = ''
-    Vertical Candidate List=True
-    Font="Noto Sans 13"
-    MenuFont="Open Sans 13"
-    TrayFont="Open Sans 13"
-    TrayOutlineColor=#ffffff00
-    TrayTextColor=#000000
-    PreferTextIcon=True
-  '';
+  config = mkIf cfg.fcitx5.enable {
+    abszero.themes.catppuccin = {
+      enable = true;
+      fonts.enable = true;
+    };
+    i18n.inputMethod.fcitx5.catppuccin.enable = true;
+    xdg.configFile."fcitx5/conf/classicui.conf".text = ''
+      Vertical Candidate List=True
+      Font="Noto Sans 14"
+      MenuFont="Open Sans 14"
+      TrayFont="Open Sans 14"
+      TrayOutlineColor=#ffffff00
+      TrayTextColor=#000000
+      PreferTextIcon=True
+    '';
+  };
 }

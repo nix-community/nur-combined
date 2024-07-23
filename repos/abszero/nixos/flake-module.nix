@@ -8,10 +8,11 @@ in
   imports = toModuleList ./configurations;
 
   flake.nixosModules =
-    {
-      xray = ./modules/services/networking/xray/default.nix;
-    }
-    // toModuleAttr ./modules/themes
+    toModuleAttr ../lib/modules/themes
+    // toModuleAttr' ./modules/profiles
     // toModuleAttr' ./modules/hardware
-    // toModuleAttr' ./modules/profiles;
+    // toModuleAttr ./modules/themes
+    // {
+      xray = ./modules/services/networking/xray/default.nix;
+    };
 }

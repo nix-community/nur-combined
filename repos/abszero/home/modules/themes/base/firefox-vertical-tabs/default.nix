@@ -7,8 +7,15 @@
 
 let
   inherit (pkgs) fetchgit;
-  inherit (lib) mkBefore pipe filterAttrs;
-  cfg = config.abszero.programs.firefox;
+  inherit (lib)
+    mkBefore
+    mkIf
+    pipe
+    filterAttrs
+    ;
+  inherit (lib.abszero.modules) mkExternalEnableOption;
+  cfg = config.abszero.themes.base.firefox;
+  firefoxCfg = config.abszero.programs.firefox;
 
   firefox-vertical-tabs =
     with builtins;
@@ -28,7 +35,14 @@ let
 in
 
 {
-  imports = [ ../../../programs/firefox.nix ];
+  imports = [
+    ../../../../../lib/modules/config/abszero.nix
+    ../../../programs/firefox.nix
+  ];
 
-  programs.firefox.profiles.${cfg.profile}.userChrome = mkBefore ''@import "${firefox-vertical-tabs}/userChrome.css";'';
+  options.abszero.themes.base.firefox.verticalTabs = mkExternalEnableOption config "firefox vertical tabs";
+
+  config.programs.firefox.profiles.${firefoxCfg.profile}.userChrome = mkIf cfg.verticalTabs (
+    mkBefore ''@import "${firefox-vertical-tabs}/userChrome.css";''
+  );
 }

@@ -8,12 +8,10 @@ let
   xraySettings = {
     routing.rules = [
       {
-        type = "field";
         domain = [ "geosite:category-ads-all" ];
         outboundTag = "block";
       }
       {
-        type = "field";
         port = 53;
         outboundTag = "dns-out";
       }

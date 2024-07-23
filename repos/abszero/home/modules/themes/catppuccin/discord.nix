@@ -1,36 +1,48 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
+  inherit (lib) mkIf;
   inherit (builtins) readFile;
-  absCfg = config.abszero.catppuccin;
-  cfg = config.catppuccin;
+  inherit (lib.abszero.modules) mkExternalEnableOption;
+  cfg = config.abszero.themes.catppuccin;
+  ctpCfg = config.catppuccin;
 
   cssDir =
     pkgs.catppuccin-discord-git.override {
       themes0 =
-        if absCfg.useSystemPolarity then
+        if cfg.useSystemPolarity then
           [
-            "${absCfg.lightFlavor}-${cfg.accent}"
-            "${absCfg.darkFlavor}-${cfg.accent}"
+            "${cfg.lightFlavor}-${ctpCfg.accent}"
+            "${cfg.darkFlavor}-${ctpCfg.accent}"
           ]
         else
-          [ "${cfg.flavor}-${cfg.accent}" ];
+          [ "${ctpCfg.flavor}-${ctpCfg.accent}" ];
     }
     + "/share/catppuccin-discord";
 in
 
 {
-  imports = [ ./catppuccin.nix ];
+  imports = [ ../../../../lib/modules/themes/catppuccin/catppuccin.nix ];
 
-  programs.discocss.css =
-    if absCfg.useSystemPolarity then
-      ''
-        ${readFile (cssDir + "/catppuccin-${absCfg.lightFlavor}-${cfg.accent}.theme.css")}
+  options.abszero.themes.catppuccin.discord.enable = mkExternalEnableOption config "catppuccin discord theme";
 
-        @media (prefers-color-scheme: dark) {
-        ${readFile (cssDir + "/catppuccin-${absCfg.darkFlavor}-${cfg.accent}.theme.css")}
-        }
-      ''
-    else
-      readFile (cssDir + "/catppuccin-${cfg.flavor}-${cfg.accent}.theme.css");
+  config = mkIf cfg.discord.enable {
+    abszero.themes.catppuccin.enable = true;
+    programs.discocss.css =
+      if cfg.useSystemPolarity then
+        ''
+          ${readFile (cssDir + "/catppuccin-${cfg.lightFlavor}-${ctpCfg.accent}.theme.css")}
+
+          @media (prefers-color-scheme: dark) {
+          ${readFile (cssDir + "/catppuccin-${cfg.darkFlavor}-${ctpCfg.accent}.theme.css")}
+          }
+        ''
+      else
+        readFile (cssDir + "/catppuccin-${ctpCfg.flavor}-${ctpCfg.accent}.theme.css");
+  };
 }

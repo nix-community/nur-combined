@@ -1,0 +1,3 @@
+{ super }:
+
+super.extension "nix"

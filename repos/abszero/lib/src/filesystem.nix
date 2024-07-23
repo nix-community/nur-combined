@@ -7,9 +7,9 @@ let
     filter
     foldl'
     isAttrs
+    isPath
     attrNames
     attrValues
-    baseNameOf
     readDir
     readFile
     ;
@@ -41,6 +41,8 @@ let
 in
 
 rec {
+  # region builtins/lib-based
+
   /**
     readDir but the names are absolute paths
   */
@@ -132,7 +134,8 @@ rec {
     in
     filter (f: all (d: !hasPrefix d f || f == "${d}/default.nix") defaultDirs) files;
 
-  ### Haumea
+  # endregion
+  # region haumea-based
 
   transformers = {
     /**
@@ -140,6 +143,13 @@ rec {
       in that directory.
     */
     raiseDefault = _: v: v.default or v;
+
+    /**
+      Use parent directory path for `default.nix`. This is because nix treats
+      these two paths as different modules and doesn't deduplicate if both are
+      imported.
+    */
+    removeDefaultSuffix = _: v: if isPath v && baseNameOf v == "default.nix" then dirOf v else v;
 
     /**
       For pkgs/by-name
@@ -190,6 +200,7 @@ rec {
     haumea.lib.load {
       inherit src;
       loader = haumea.lib.loaders.path;
+      transformer = transformers.removeDefaultSuffix;
     };
 
   /**
@@ -204,6 +215,7 @@ rec {
       loader = haumea.lib.loaders.path;
       transformer = with transformers; [
         raiseDefault
+        removeDefaultSuffix
         flatten
       ];
     };
@@ -225,6 +237,7 @@ rec {
       loader = haumea.lib.loaders.path;
       transformer = with transformers; [
         raiseDefault
+        removeDefaultSuffix
         toList
       ];
     };
@@ -240,4 +253,6 @@ rec {
       loader = haumea.lib.loaders.path;
       transformer = transformers.callPackage pkgs;
     };
+
+  # endregion
 }

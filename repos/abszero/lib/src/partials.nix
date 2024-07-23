@@ -1,6 +1,8 @@
-{ super, lib }:
+{ super }:
 
-with super.attrsets;
+let
+  inherit (super.attrsets) recursiveMerge;
+in
 
 {
   partialFunc =

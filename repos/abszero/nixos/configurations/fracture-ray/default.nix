@@ -1,4 +1,10 @@
-# An Xray server deployed to Vultr
+# Xray server deployed to Vultr
+# Install:
+# 1. Upload NixOS ISO
+# 2. Boot from ISO
+# 3. Set root password
+# 4. `nixos-anywhere --flake <flake-path>#fracture-ray root@<ip>`
+# Deploy: `deploy -s path:.#fracture-ray`
 {
   self,
   inputs,
@@ -8,19 +14,24 @@
 
 let
   inherit (builtins) fromJSON readFile;
-  inherit (lib) mkForce recursiveUpdate;
+  inherit (lib) recursiveUpdate;
 
   proxySettings = fromJSON (readFile ./proxy.json);
 
   mainModule = {
     abszero = {
+      profiles.server.enable = true;
+      users.admins = [ "weathercold" ];
+      hardware.vultr-cc-intel-regular.enable = true;
       boot.loader = {
         # Vultr doesn't support UEFI??? Really???
-        systemd-boot.enable = mkForce false;
+        systemd-boot.enable = false;
         grub.enable = true;
       };
-      users.admins = [ "weathercold" ];
-      services.xray = recursiveUpdate proxySettings { preset = "vless-tcp-xtls-reality-server"; };
+      services.xray = recursiveUpdate proxySettings {
+        enable = true;
+        preset = "vless-tcp-xtls-reality-server";
+      };
     };
 
     disko.devices.disk.vda = {
@@ -77,15 +88,13 @@ let
         isNormalUser = true;
         hashedPassword = "$6$QOTimFq0v8u6oN.I$.m0BQc/tC6/8nluwwQT7AmkbJbfNoh2PnO9biVL4wgWA22zlb/0HheieexWgISAB67r/7floX3bQpZrUjZv9v.";
         openssh.authorizedKeys.keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIVP5FpnSD0dIEmsQXqvRCdVN9mw5v//B4E3USU9oIeZ Weathercold"
+          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDNpRiJBIfsEXVgHQ7NuJ7uk9TEEq97EG6bISYZp+Zt+ Weathercold"
         ];
       };
       root = {
         inherit (weathercold) hashedPassword openssh;
       };
     };
-
-    services.btrfs.autoScrub.enable = true;
   };
 in
 
@@ -94,9 +103,8 @@ in
 
   nixosConfigurations.fracture-ray = {
     system = "x86_64-linux";
-    modules = with self.nixosModules; [
-      profiles-xray
-      hardware-vultr-cc-intel-regular
+    modules = [
+      inputs.nixos-hardware.nixosModules.common-cpu-intel-cpu-only
       mainModule
     ];
   };

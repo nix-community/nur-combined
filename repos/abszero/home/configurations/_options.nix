@@ -8,7 +8,6 @@
 
 let
   inherit (inputs) home-manager;
-  inherit (builtins) head;
   inherit (lib)
     types
     mkOption
@@ -16,6 +15,7 @@ let
     flatten
     splitString
     ;
+  inherit (builtins) head;
   inherit (lib.abszero.filesystem) toModuleList;
   cfg = config.homeConfigurations;
 
@@ -64,11 +64,11 @@ in
         modules = flatten [
           inputs.catppuccin.homeManagerModules.catppuccin
           inputs.nix-index-database.hmModules.nix-index
-          (toModuleList ../modules/accounts)
-          (toModuleList ../modules/programs)
-          (toModuleList ../modules/services)
+          (toModuleList ../../lib/modules)
+          (toModuleList ../modules)
           c.modules
           {
+            abszero.enableExternalModulesByDefault = false;
             nixpkgs.overlays = [ (_: prev: import ../../pkgs { pkgs = prev; }) ];
             home = {
               inherit (c) username homeDirectory;

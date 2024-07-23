@@ -1,12 +1,28 @@
+{ config, lib, ... }:
+
+let
+  inherit (lib) mkIf;
+  inherit (lib.abszero.modules) mkExternalEnableOption;
+  cfg = config.abszero.themes.catppuccin;
+in
+
 {
   imports = [
-    ./catppuccin.nix
+    ../../../../lib/modules/themes/catppuccin/catppuccin.nix
     ./fonts.nix
   ];
 
-  services.displayManager.sddm.catppuccin = {
-    enable = true;
-    font = "Open Sans";
-    fontSize = "13";
+  options.abszero.themes.catppuccin.sddm.enable = mkExternalEnableOption config "catppuccin sddm theme. Complementary to catppuccin/nix";
+
+  config = mkIf cfg.sddm.enable {
+    abszero.themes.catppuccin = {
+      enable = true;
+      fonts.enable = true;
+    };
+    services.displayManager.sddm.catppuccin = {
+      enable = true;
+      font = "Open Sans";
+      fontSize = "14";
+    };
   };
 }

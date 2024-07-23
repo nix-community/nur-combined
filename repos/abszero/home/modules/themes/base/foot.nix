@@ -1,5 +1,17 @@
+{ config, lib, ... }:
+
+let
+  inherit (lib) mkIf;
+  inherit (lib.abszero.modules) mkExternalEnableOption;
+  cfg = config.abszero.themes.base.foot;
+in
+
 {
-  programs.foot.settings = {
+  imports = [ ../../../../lib/modules/config/abszero.nix ];
+
+  options.abszero.themes.base.foot.enable = mkExternalEnableOption config "base foot theme";
+
+  config.programs.foot.settings = mkIf cfg.enable {
     main.pad = "5x5center";
     cursor = {
       style = "beam";

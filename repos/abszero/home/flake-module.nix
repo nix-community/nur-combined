@@ -7,5 +7,8 @@ in
 {
   imports = toModuleList ./configurations;
 
-  flake.homeModules = toModuleAttr ./modules/themes // toModuleAttr' ./modules/profiles;
+  flake.homeModules =
+    toModuleAttr ../lib/modules/themes
+    // toModuleAttr' ./modules/profiles
+    // toModuleAttr ./modules/themes;
 }

@@ -2,6 +2,8 @@
 
 let
   inherit (lib) mkIf;
+  inherit (lib.abszero.modules) mkExternalEnableOption;
+  cfg = config.abszero.hardware.keyboard.halo65;
 
   keyboardCfg = {
     extraDefCfg = ''
@@ -61,26 +63,36 @@ let
 in
 
 {
-  imports = [ ../services/hardware/kanata.nix ];
+  imports = [
+    ../../../../lib/modules/config/abszero.nix
+    ../../services/hardware/kanata.nix
+  ];
 
-  services = mkIf config.abszero.services.kanata.enable {
-    # Add permanent static name when connected via Bluetooth
-    udev.extraRules = ''
-      KERNEL=="event[0-9]*", SUBSYSTEM=="input", \
-      ATTRS{phys}=="b4:0e:de:c7:65:27", ACTION=="add", \
-      SYMLINK+="input/bt-halo65"
-    '';
-    # It is not possible to put all three devices in one config because the
-    # service is only activated when all devices are found
-    kanata.keyboards = {
-      halo65-wired = keyboardCfg // {
-        devices = [ "/dev/input/by-id/usb-BY_Tech_NuPhy_Halo65-event-kbd" ];
-      };
-      halo65-wifi = keyboardCfg // {
-        devices = [ "/dev/input/by-id/usb-CX_2.4G_Wireless_Receiver-event-kbd" ];
-      };
-      halo65-bt = keyboardCfg // {
-        devices = [ "/dev/input/bt-halo65" ];
+  options.abszero.hardware.keyboard.halo65.enable = mkExternalEnableOption config "halo65 configuration";
+
+  config = mkIf cfg.enable {
+    abszero.services.kanata.enable = true;
+
+    services = {
+      # Add permanent static name when connected via Bluetooth
+      udev.extraRules = ''
+        KERNEL=="event[0-9]*", SUBSYSTEM=="input", \
+        ATTRS{phys}=="b4:0e:de:c7:65:27", ACTION=="add", \
+        SYMLINK+="input/bt-halo65"
+      '';
+
+      # It is not possible to put all three devices in one config because the
+      # service is only activated when all devices are found
+      kanata.keyboards = {
+        halo65-wired = keyboardCfg // {
+          devices = [ "/dev/input/by-id/usb-BY_Tech_NuPhy_Halo65-event-kbd" ];
+        };
+        halo65-wifi = keyboardCfg // {
+          devices = [ "/dev/input/by-id/usb-CX_2.4G_Wireless_Receiver-event-kbd" ];
+        };
+        halo65-bt = keyboardCfg // {
+          devices = [ "/dev/input/bt-halo65" ];
+        };
       };
     };
   };

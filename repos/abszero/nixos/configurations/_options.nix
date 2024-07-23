@@ -59,14 +59,11 @@ in
         modules = flatten [
           inputs.disko.nixosModules.disko
           inputs.catppuccin.nixosModules.catppuccin
-          (toModuleList ../modules/config)
-          (toModuleList ../modules/system)
-          (toModuleList ../modules/programs)
-          (toModuleList ../modules/services)
-          (toModuleList ../modules/i18n)
-          (toModuleList ../modules/virtualisation)
+          (toModuleList ../../lib/modules)
+          (toModuleList ../modules)
           c.modules
           {
+            abszero.enableExternalModulesByDefault = false;
             nixpkgs.overlays = [ (_: prev: import ../../pkgs { pkgs = prev; }) ];
             networking = {
               inherit (c) hostName;
