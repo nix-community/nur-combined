@@ -1,16 +1,16 @@
 { appimageTools, lib, fetchurl, ... }:
 let
-  version = "2.9.2-beta";
+  version = "2.9.2-Beta";
   # https://dl.snipaste.com/sha-1.txt
-  sha1 = "ddde675a223ab2e905f39bb9aeb14601814fec39";
+  hash = "sha256-oV69uABjzkbQdwb+1wRRxszhrwI4uyzhQZ4aXBnyeo8=";
 in
 appimageTools.wrapType2 {
   inherit version;
   pname = "snipaste";
 
   src = fetchurl {
-    url = "https://dl.snipaste.com/linux-beta";
-    inherit sha1;
+    url = "https://bitbucket.org/liule/snipaste/downloads/Snipaste-${version}-x86_64.AppImage";
+    inherit hash;
   };
 
   meta = with lib; {
