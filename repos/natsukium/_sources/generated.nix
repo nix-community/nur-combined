@@ -23,15 +23,15 @@
   };
   nixfmt = {
     pname = "nixfmt";
-    version = "83de1eceaae8a891ae52a3a2b82226540207309e";
+    version = "e819b2d0f9173f0c73d2e1fb4bc5155362046653";
     src = fetchFromGitHub {
       owner = "NixOS";
       repo = "nixfmt";
-      rev = "83de1eceaae8a891ae52a3a2b82226540207309e";
+      rev = "e819b2d0f9173f0c73d2e1fb4bc5155362046653";
       fetchSubmodules = false;
-      sha256 = "sha256-t9v7aAX7iBWLiI8DkOZbnDcJK5W3Xjhwpddlv+hO1FI=";
+      sha256 = "sha256-cmgmVWjNkXBOt3r5bzuVLk/+xv4TzcvcQ16W8kOmx90=";
     };
-    date = "2024-07-12";
+    date = "2024-07-18";
   };
   nixpkgs-review = {
     pname = "nixpkgs-review";
@@ -95,10 +95,10 @@
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "6.8.3381.46";
+    version = "6.8.3381.48";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.6.8.3381.46.universal.dmg";
-      sha256 = "sha256-p6mdM8pBJIsQ9ic90YwgDMy9lq0bBi+VOkCvZE8s/xM=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.6.8.3381.48.universal.dmg";
+      sha256 = "sha256-iZLfbMUodorVf2ITQeNnBBfzmZnwDmKOo2Sy+XbrTjQ=";
     };
   };
 }
