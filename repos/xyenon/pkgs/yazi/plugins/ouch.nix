@@ -7,13 +7,13 @@
 
 stdenvNoCC.mkDerivation {
   pname = "ouch";
-  version = "0.2.0-unstable-2024-07-13";
+  version = "0.2.1-unstable-2024-07-15";
 
   src = fetchFromGitHub {
     owner = "ndtoan96";
     repo = "ouch.yazi";
-    rev = "fe6b0a60ce6b7b9a573b975fe3c0dfc79c0b2ac6";
-    hash = "sha256-Sc0TGzrdyQh61Pkc2nNUlk8jRLjVNaCJdFqZvgQ/Cp8=";
+    rev = "251da6930ca8b7ee0384810086c3bf644caede3e";
+    hash = "sha256-yLt9aY6hUIOdBI5bMdCs7VYFJGyD3WIkmPxvWKNCskA=";
   };
 
   dontBuild = true;
