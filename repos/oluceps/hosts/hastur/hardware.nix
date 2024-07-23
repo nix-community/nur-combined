@@ -18,6 +18,10 @@
     fileSystems = [ "/persist" ];
   };
 
+  services.scx = {
+    enable = true;
+    scheduler = "scx_lavd";
+  };
   boot = {
     loader.efi = {
       canTouchEfiVariables = true;

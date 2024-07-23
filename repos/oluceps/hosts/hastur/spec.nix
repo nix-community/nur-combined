@@ -120,7 +120,7 @@
     srs.enable = true;
 
     phantomsocks = {
-      enable = true;
+      enable = false;
       override = {
         settings.interfaces = [
           {
