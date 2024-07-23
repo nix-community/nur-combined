@@ -2113,10 +2113,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "129.0.20240719.91629";
+      version = "129.0.20240722.91823";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4322432/deutsch_de_language_pack-129.0.20240719.91629.xpi";
-      sha256 = "fd5fdee648e9d01b0156fa8d971e344b5abe89cd7e7c7826c15ea1dc9df7fa9b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4323893/deutsch_de_language_pack-129.0.20240722.91823.xpi";
+      sha256 = "ab0207745b047843a753385f74db6e8262735b5c8cf60176337dfb418e1b6237";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3170,10 +3170,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "129.0.20240719.91629";
+      version = "129.0.20240722.91823";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4322456/francais_language_pack-129.0.20240719.91629.xpi";
-      sha256 = "757ed6f3cf8c3c54fe9e40737abb8006df55a13f4747a260b74f68b9ab8483e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4323815/francais_language_pack-129.0.20240722.91823.xpi";
+      sha256 = "f8c6d6191e7f476bb40540ac2a9d0f856ce294146be2633414ab880bac6283a2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3249,7 +3249,7 @@
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
-        description = "Ghostery is a powerful privacy extension. Block ads, stop trackers and speed up websites.";
+        description = "The best privacy tool and ad blocker extension for Firefox. Stop trackers, speed up websites and block ads everywhere including YouTube and Facebook.";
         license = licenses.mpl20;
         mozPermissions = [
           "webNavigation"
@@ -5121,10 +5121,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.7.6";
+      version = "1.7.7";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4318414/immersive_translate-1.7.6.xpi";
-      sha256 = "f728f58bdb4cb41a6351994fc245bfbcea0ae23a446a20e2466a6c683cbf0c55";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4321907/immersive_translate-1.7.7.xpi";
+      sha256 = "58609497fa94af785fca772889c6dfa11e7464451e21af6066caf3a56eea6683";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -9072,10 +9072,10 @@
     };
     "purpleadblock" = buildFirefoxXpiAddon {
       pname = "purpleadblock";
-      version = "2.6.5";
+      version = "2.6.6";
       addonId = "{a7399979-5203-4489-9861-b168187b52e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4280326/purpleadblock-2.6.5.xpi";
-      sha256 = "f4b724e2d26035165a82c8acda822b4fb9fff70e4c3417e3652fdc05f90bf5c2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4324056/purpleadblock-2.6.6.xpi";
+      sha256 = "87650ac6f4c07dec3868047d03afd11493aaca8f4d9f6d0d42747fe14ec365b7";
       meta = with lib;
       {
         description = "Purple AdBlock is a adblock for <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/45c441178c2a4b8efed92eca84091cb4171a2c325f054a4351164ea9d10563f8/http%3A//Twitch.tv\" rel=\"nofollow\">Twitch.tv</a>";
@@ -9153,7 +9153,7 @@
       meta = with lib;
       {
         homepage = "https://www.rabattcorner.ch";
-        description = "Mit der Rabattcorner Cashback-Erinnerung kannst du beim Online-Shoppen bei über 790 Partnern Geld zurück bekommen.";
+        description = "Mit der Rabattcorner Cashback-Erinnerung kannst du beim Online-Shoppen bei über 800 Partnern Geld zurück bekommen.";
         license = licenses.mpl20;
         mozPermissions = [
           "storage"
@@ -10728,10 +10728,10 @@
     };
     "theater-mode-for-youtube" = buildFirefoxXpiAddon {
       pname = "theater-mode-for-youtube";
-      version = "0.2.2";
+      version = "0.2.3";
       addonId = "{b8326f03-322f-4112-96bd-e7996548d99f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4141330/theater_mode_for_youtube-0.2.2.xpi";
-      sha256 = "700cd19d1b55c2f78edb088aacd905d5c59ff2dbeebd03a01c5c65bb27b24bac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4323643/theater_mode_for_youtube-0.2.3.xpi";
+      sha256 = "7dca9966a23dc58226c179f1d8aa8fbd2e603e273016281ff1d9ec5fe69fc186";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/youtube-tools.html?theater";
@@ -12550,10 +12550,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.7.8.0";
+      version = "24.7.15.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4320417/yomitan-24.7.8.0.xpi";
-      sha256 = "506fb58f0d096f9b45e655356169de893055a3437d0408e0cc2d93c490e70579";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4324058/yomitan-24.7.15.0.xpi";
+      sha256 = "755d10a0e1a22776bcd38891ba0be67d90b568aaaad1a830df80fe656a6e228a";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
