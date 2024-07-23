@@ -1,0 +1,31 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p bash -p nettools -p openssh -p rsync -p sane-scripts.vpn -p sanebox
+
+# secret should include RN_USER
+source /run/secrets/rsync-net-env
+RN_ID=/run/secrets/rsync-net-id_ed25519
+
+rc=0
+fail() {
+  printf "%b\n" "$1" >&2
+  rc=1
+}
+
+ssh -i "$RN_ID" "$RN_USER@$RN_USER.rsync.net" ls -al
+
+for host in desko lappy moby servo; do
+  dir=nix/persist/private
+  now=$(date +'%s')
+  last_attempted=$(ssh -i "$RN_ID" "$RN_USER@$RN_USER.rsync.net" -- cat "$host/$dir/zzz-rsync-net-last-attempted")
+  last_completed=$(ssh -i "$RN_ID" "$RN_USER@$RN_USER.rsync.net" -- cat "$host/$dir/zzz-rsync-net-last-completed")
+  age_attempted=$(( "$now" - "${last_attempted:-0}" ))
+  age_completed=$(( "$now" - "${last_completed:-0}" ))
+  if ! [[ "$age_completed" -lt 432000 ]]; then
+    fail "$host wasn't backed up within the last 5 days\n  completed: $age_completed seconds ago\n  tried: $age_attempted seconds ago"
+  fi
+  if ! [[ "$age_completed" -gt -3600 ]]; then
+    fail "$host was backed up in the future??"
+  fi
+done
+
+exit $rc
