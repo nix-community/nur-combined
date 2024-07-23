@@ -127,6 +127,7 @@ in
       # "dmidecode"
       "dtrx"  # `unar` alternative, "Do The Right eXtraction"
       # "efivar"
+      "exiftool"
       "eza"  # a better 'ls'
       # "flashrom"
       "git"  # needed as a user package, for config.

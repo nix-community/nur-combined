@@ -135,9 +135,9 @@ in
     # something inside pleroma invokes `sh` w/o specifying it by path, so this is needed to allow pleroma to start
     pkgs.bash
     # used by Pleroma to strip geo tags from uploads
-    pkgs.exiftool
+    config.sane.programs.exiftool.package
     # i saw some errors when pleroma was shutting down about it not being able to find `awk`. probably not critical
-    pkgs.gawk
+    config.sane.programs.gawk.package
     # needed for email operations like password reset
     pkgs.postfix
   ];

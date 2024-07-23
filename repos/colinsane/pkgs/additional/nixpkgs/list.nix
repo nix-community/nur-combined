@@ -34,7 +34,7 @@ in
     title = "python312Packages.contourpy: fix cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/328218";
     saneCommit = "74a003b0af9820f6f7c6c62b3d2bec6df3a8d7b8";
-    hash = "sha256-PV/dkmTXr31Du8OwSaKwe2B0RibNs8r8v7UxLZ4IXYQ=";
+    hash = "sha256-DQC3OkW8zROfr9Y/nu0Bx5CrNtPpL5CBnf/4KQFuzGc=";
   })
 
   (fetchpatch' {

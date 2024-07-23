@@ -197,8 +197,8 @@ let
       srcRoot = ./src;
       pkgs = [ "ffmpeg" "python3.pkgs.unidecode" "sox" ];
     };
-    tag-music = static-nix-shell.mkPython3 {
-      pname = "sane-tag-music";
+    tag-media = static-nix-shell.mkPython3 {
+      pname = "sane-tag-media";
       srcRoot = ./src;
       pkgs = [ "python3.pkgs.mutagen" "python3.pkgs.pyexiftool" "python3.pkgs.pykakasi" "python3.pkgs.unidecode" ];
     };

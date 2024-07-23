@@ -61,7 +61,7 @@
 # mutagen docs:
 # - <https://mutagen.readthedocs.io/en/latest/>
 """
-tool which runs over a complete music library or a subset of it and:
+tool which runs over a complete music library (or audiobooks, videos, ebooks (limited)) or a subset of it and:
 - detect tags which are missing or likely incorrect
 - write new tags to existing media
   - new tags are specified manually (--artist, --album, ...)
@@ -69,9 +69,9 @@ tool which runs over a complete music library or a subset of it and:
 
 this tool does NOT move or rename files. it only edits tags.
 
-USAGE: cd MUSIC_LIBRARY_TOP && sane-tag-music [options] fix-paths|fix-tags|print-missing|show [cmd-specific options] DIRECTORY [DIRECTORY ...]
+USAGE: cd MEDIA_LIBRARY_TOP && sane-tag-media [options] fix-paths|fix-tags|show-missing|show [cmd-specific options] DIRECTORY [DIRECTORY ...]
 
-scans DIRECTORY and guesses artist/album/title for each track, based on path relative to pwd.
+scans DIRECTORY and guesses artist/album/title for each file, based on path relative to pwd.
 if the guessed tags look more correct than the existing tags (i.e. if the existing file is missing a tag),
 then this updates the tags on-disk to reflect their path.
 
@@ -87,7 +87,7 @@ options:
   --title TITLE
   --trackno TRACK_NUMBER
   --derive                apply existing tags (e.g. album) found in the file set to any files in the set missing such tags
-  --type audio|image      skip files which aren't of some specific media type
+  --type audio|image|text skip files which aren't of some specific media type
 
 fix-tags options:
   --force: apply path-based tag to each file, even those which already have tags
@@ -130,14 +130,21 @@ IMAGE_EXTENSIONS = [
   "jpeg",
   "png",
 ]
+TEXT_EXTENSIONS = [
+  # "epub",  #< TODO: support using https://pypi.org/project/ebookmeta/  (not packaged, nor any equivalent, in nixpkgs as of 2024-07-23)
+  "pdf",
+]
 
 # some software encodes its name in the "producer" metadata field,
 # whereas i use that field to mean "producer" as "which studio produced this".
 KNOWN_SOFTWARE_PRODUCERS = [
   "Acrobat Distiller",
+  "Adobe Acrobat",
   "Adobe PDF",
   "Adobe Photoshop",
   "IJ Scan Utility",
+  "LibreOffice",
+  "OpenOffice.org",
   "PDFContext",
   "Xerox",
 ]
@@ -145,6 +152,7 @@ KNOWN_SOFTWARE_PRODUCERS = [
 class MediaType(Enum):
     Audio = "audio"
     Image = "image"
+    Text = "text"
     Other = "other"
 
 def maybe_romanize(a: str) -> str|None:
@@ -699,6 +707,7 @@ class MediaFile:
 
     @staticmethod
     def new(f: str) -> 'MediaFile':
+        f = os.path.normpath(f)  #< transform "./artist/album/file" -> "artist/album/file", so that path-based parsing doesn't have to care
         ext = os.path.splitext(f)[1][1:].lower()
         tag_field_names = TagFieldNames()
         meta = None
@@ -745,10 +754,14 @@ class MediaFile:
     def is_type(self, ty: MediaType) -> bool:
         is_audio = self.ext in AUDIO_EXTENSIONS
         is_image = self.ext in IMAGE_EXTENSIONS
+        is_text = self.ext in TEXT_EXTENSIONS
+        is_other = not (is_audio or is_image or is_text)
         want_audio = ty == MediaType.Audio
         want_image = ty == MediaType.Image
+        want_text = ty == MediaType.Text
+        want_other = ty == MediaType.Other
 
-        return is_audio == want_audio and is_image == want_image
+        return is_audio == want_audio and is_image == want_image and is_text == want_text and is_other == want_other
 
     def tags_on_disk(self) -> Tags:
         return Tags(
@@ -906,6 +919,9 @@ class Gatherer:
         for root in self.roots:
             _tags_seen, files = self.files_below(root)
             for file_, tags in files:
+                if self.media_type is not None and not file_.is_type(self.media_type):
+                    continue
+
                 ftags = file_.tags_on_disk()
                 if ftags == Tags():
                     ftags = Tags.from_path(file_.path_)
@@ -976,9 +992,9 @@ def main():
     show_parser.set_defaults(subcommand="show")
     show_parser.add_argument("path", nargs="+", help="relative path to a file or directory to show")
 
-    print_missing_parser = subparsers.add_parser("print-missing")
-    print_missing_parser.set_defaults(subcommand="print_missing")
-    print_missing_parser.add_argument("path", nargs="+", help="relative path to a file or directory to validate tags for")
+    show_missing_parser = subparsers.add_parser("show-missing")
+    show_missing_parser.set_defaults(subcommand="show_missing")
+    show_missing_parser.add_argument("path", nargs="+", help="relative path to a file or directory to validate tags for")
 
     fix_tags_parser = subparsers.add_parser("fix-tags")
     fix_tags_parser.set_defaults(subcommand="fix_tags")
@@ -1015,7 +1031,7 @@ def main():
     if args.subcommand == "show":
         for f, tags in gatherer.files():
             tagger.with_base_tags(tags).show(f)
-    elif args.subcommand == "print_missing":
+    elif args.subcommand == "show_missing":
         for f, tags in gatherer.files():
             tagger_ = tagger.with_base_tags(tags)
             if not tagger_.is_sufficiently_tagged(f):

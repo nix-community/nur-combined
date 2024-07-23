@@ -41,6 +41,7 @@
     ./epiphany.nix
     ./errno.nix
     ./evince.nix
+    ./exiftool.nix
     ./fcitx5.nix
     ./feedbackd.nix
     ./firefox.nix

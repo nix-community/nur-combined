@@ -38,7 +38,7 @@ in
       "sane-scripts.secrets-update-keys"
       "sane-scripts.shutdown"
       "sane-scripts.sudo-redirect"
-      "sane-scripts.tag-music"
+      "sane-scripts.tag-media"
       "sane-scripts.vpn"
       "sane-scripts.which"
       "sane-scripts.wipe"
@@ -218,7 +218,10 @@ in
     "sane-scripts.sync-music" = {};
     "sane-scripts.sync-from-iphone" = {};
 
-    "sane-scripts.tag-music".sandbox = {
+    "sane-scripts.tag-media".suggestedPrograms = [
+      "exiftool"  #< for (slightly) better sandboxing than default exiftool
+    ];
+    "sane-scripts.tag-media".sandbox = {
       method = "bwrap";
       autodetectCliPaths = "existing";
       whitelistPwd = true;  # for music renaming
