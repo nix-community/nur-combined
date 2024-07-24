@@ -7,8 +7,8 @@
   - or try dnsmasq?
 - trust-dns can't resolve `abs.twimg.com`
 - trust-dns can't resolve `social.kernel.org`
-- trust-dns can't resolve my rsync.net address
 - sandbox: link cache means that if i update ~/.config/... files inline, sandboxed programs still see the old version
+- mpv: continues to play past the end of some audio files
 - mpv: audiocast has mpv sending its output to the builtin speakers unless manually changed
 - mpv: no way to exit fullscreen video on moby
   - uosc hides controls on FS, and touch doesn't support unhiding
@@ -69,6 +69,7 @@
   - 95% of its use is for remote media access and stuff which isn't in VCS (~/records)
 - port all sane.programs to be sandboxed
   - sandbox `curlftpfs`
+  - sandbox `nix`
   - sandbox `sshfs-fuse`
   - enforce that all `environment.packages` has a sandbox profile (or explicitly opts out)
   - revisit "non-sandboxable" apps and check that i'm not actually just missing mountpoints
@@ -78,8 +79,6 @@
   - lock down dbus calls within the sandbox
     - otherwise anyone can `systemd-run --user ...` to potentially escape a sandbox
     - <https://github.com/flatpak/xdg-dbus-proxy>
-  - remove `.ssh` access from Firefox!
-    - limit access to `~/knowledge/secrets` through an agent that requires GUI approval, so a firefox exploit can't steal all my logins
   - port sanebox to a compiled language (hare?)
     - it adds like 50-70ms launch time _on my laptop_. i'd hate to know how much that is on the pinephone.
 - make dconf stuff less monolithic

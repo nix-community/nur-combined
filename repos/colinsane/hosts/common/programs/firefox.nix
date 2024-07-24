@@ -263,7 +263,7 @@ in
           # TODO: find a way to not expose ~/.ssh to firefox
           # - unlock sops at login (or before firefox launch)?
           # - see if ssh has a more formal type of subkey system?
-          ".ssh/id_ed25519"
+          # ".ssh/id_ed25519"
           # ".config/sops"
           "knowledge/secrets/accounts"
         ];

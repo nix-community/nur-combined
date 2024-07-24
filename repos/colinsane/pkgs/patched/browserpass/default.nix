@@ -1,29 +1,25 @@
-{ lib
-, browserpass
-, bash
-, fetchFromGitea
-, gnused
-, sane-scripts
-, sops
-, stdenv
-, substituteAll
+{
+  bash,
+  browserpass,
+  fetchFromGitea,
+  gnused,
+  lib,
+  sane-scripts,
+  sops,
+  static-nix-shell,
+  stdenv,
+  substituteAll,
 }:
 
 let
-  sane-browserpass-gpg = stdenv.mkDerivation {
-    pname = "sane-browserpass-gpg";
-    version = "0.1.0";
-    src = ./.;
-
-    inherit bash gnused sops;
-    sane_secrets_unlock = sane-scripts.secrets-unlock;  # XXX: must be snake_case
-    installPhase = ''
-      mkdir -p $out/bin
-      substituteAll ${./sops-gpg-adapter} $out/bin/gpg
-      chmod +x $out/bin/gpg
-      ln -s $out/bin/gpg $out/bin/gpg2
+  sops-gpg-adapter = static-nix-shell.mkBash {
+    pname = "sops-gpg-adapter";
+    srcRoot = ./.;
+    pkgs = [ "gnused" "sane-scripts.secrets-unlock" "sops" ];
+    postInstall = ''
+      ln -s sops-gpg-adapter $out/bin/gpg
+      ln -s sops-gpg-adapter $out/bin/gpg2
     '';
-
   };
 in
   browserpass.overrideAttrs (upstream: {
@@ -39,7 +35,7 @@ in
       make install
 
       wrapProgram $out/bin/browserpass \
-        --prefix PATH : ${lib.makeBinPath [ sane-browserpass-gpg ]}
+        --prefix PATH : ${lib.makeBinPath [ sops-gpg-adapter ]}
 
       # This path is used by our firefox wrapper for finding native messaging hosts
       mkdir -p $out/lib/mozilla/native-messaging-hosts
@@ -47,6 +43,6 @@ in
     '';
 
     passthru = (upstream.passthru or {}) // {
-      inherit sane-browserpass-gpg;
+      inherit sops-gpg-adapter;
     };
   })

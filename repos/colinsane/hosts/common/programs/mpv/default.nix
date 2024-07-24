@@ -151,7 +151,7 @@ in
         pkgs.mpvScripts.mpv-webm
         pkgs.mpvScripts.sponsorblock
         uosc
-        visualizer
+        # visualizer  #< XXX(2024-07-23): `visualizer` breaks auto-play-next-track (only when visualizations are disabled)
         # pkgs.mpv-uosc-latest
       ];
       # extraMakeWrapperArgs = lib.optionals (cfg.config.vo != null) [
