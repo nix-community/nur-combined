@@ -1,5 +1,5 @@
 {
-  pkgs,
+  stdenv,
   lib,
   python3,
   chromedriver,
@@ -16,47 +16,36 @@ let
       undetected-chromedriver
     ]
   );
-
-  specSystem =
-    if pkgs.system == "x86_64-linux" then
-      "linux64"
-    else if pkgs.system == "x86_64-darwin" then
-      "mac-x64"
-    else if pkgs.system == "aarch64-darwin" then
-      "mac-arm64"
-    else
-      throw "Unsupported system";
 in
-chromedriver.overrideAttrs (old: {
+stdenv.mkDerivation {
   pname = "undetected-chromedriver-bin";
+  inherit (chromedriver) version;
+
+  dontUnpack = true;
 
   postPatch = ''
     export HOME=$(pwd)
-    export CHROMEDRIVER=$(pwd)/chromedriver-${specSystem}/chromedriver
 
-    ls -alh
+    cp ${chromedriver}/bin/chromedriver .
+    chmod 755 chromedriver
 
     ${py}/bin/python <<EOF
     from undetected_chromedriver.patcher import Patcher
-    exit(not Patcher(executable_path="''${CHROMEDRIVER}").patch())
+    exit(not Patcher(executable_path="chromedriver").patch())
     EOF
 
     # Make sure chromedriver is properly patched
-    grep "undetected chromedriver" "''${CHROMEDRIVER}"
+    grep "undetected chromedriver" "chromedriver"
   '';
 
-  installPhase =
-    (builtins.replaceStrings [ "$out/bin/chromedriver" ] [
-      "$out/bin/undetected_chromedriver"
-    ] old.installPhase)
-    # Trick undetected-chromedriver python library into thinking that chromedriver is patched
-    + ''
-      echo "# undetected chromedriver" >> $out/bin/undetected_chromedriver
-    '';
+  installPhase = ''
+    mkdir -p $out/bin
+    cp chromedriver $out/bin/undetected_chromedriver
+  '';
 
-  meta = old.meta // {
+  meta = chromedriver.meta // {
     mainProgram = "undetected_chromedriver";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Chromedriver with undetected-chromedriver patch";
   };
-})
+}
