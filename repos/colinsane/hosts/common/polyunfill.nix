@@ -218,7 +218,12 @@ in
     boot.enableContainers = lib.mkDefault false;
 
     # see: <repo:nixos/nixpkgs:nixos/modules/tasks/lvm.nix>
-    # lvm places `pkgs.lvm2` onto PATH, which has like 100 binaries
+    # lvm places `pkgs.lvm2` onto PATH, which has like 100 binaries.
+    # it is, actually, needed for some userspace tools (cryptsetup). probably just the udev rules. try to reduce this set?
     services.lvm.enable = lib.mkDefault false;
+    services.udev.packages = [ pkgs.lvm2.out ];  #< N.B. `lvm2.out` != `lvm2`
+    # systemd.packages = [ pkgs.lvm2 ];
+    # systemd.tmpfiles.packages = [ pkgs.lvm2.out ];
+    # environment.systemPackages = [ pkgs.lvm2 ];
   };
 }
