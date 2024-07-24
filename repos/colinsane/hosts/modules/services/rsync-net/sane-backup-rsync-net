@@ -27,7 +27,7 @@ for dir in "$@"; do
   echo "$now" > "$dir"/zzz-rsync-net-last-attempted
   # N.B.: the `--exclude=$RN_ID` flag is a noop to get the ID file to be included in the sandbox...
   # N.B.: manual flags instead of `-a -> -rlptgoD` because device files have a max path length which is too restricted
-  if sane-vpn do unmetered rsync --exclude="$RN_ID" -e "ssh -i $RN_ID" --mkpath -rlptgov --delete "$dir" "$remote_dir"; then
+  if sane-vpn do unmetered -- rsync --exclude="$RN_ID" -e "ssh -i $RN_ID" --mkpath -rlptgov --delete "$dir" "$remote_dir"; then
     echo "$now" > "$dir"/zzz-rsync-net-last-completed
     rc=0$rc
   else

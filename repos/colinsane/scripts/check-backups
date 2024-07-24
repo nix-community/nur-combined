@@ -22,9 +22,10 @@ for host in desko lappy moby servo; do
   age_completed=$(( "$now" - "${last_completed:-0}" ))
   if ! [[ "$age_completed" -lt 432000 ]]; then
     fail "$host wasn't backed up within the last 5 days\n  completed: $age_completed seconds ago\n  tried: $age_attempted seconds ago"
-  fi
-  if ! [[ "$age_completed" -gt -3600 ]]; then
+  elif ! [[ "$age_completed" -gt -3600 ]]; then
     fail "$host was backed up in the future??"
+  else
+    echo "$host last backed up $age_completed seconds ago"
   fi
 done
 

@@ -2,9 +2,11 @@
 , bash
 , bubblewrap
 , coreutils
-, passt
+, iproute2
+, iptables
 , landlock-sandboxer
 , libcap
+, passt
 , substituteAll
 , profileDir ? "/share/sanebox/profiles"
 }:
@@ -23,10 +25,13 @@ stdenv.mkDerivation {
     runHook preBuild
     substitute $src sanebox \
       --replace-fail '@bwrap@' '${lib.getExe bubblewrap}' \
-      --replace-fail '@landlockSandboxer@' '${lib.getExe landlock-sandboxer}' \
       --replace-fail '@capsh@' '${lib.getExe' libcap "capsh"}' \
+      --replace-fail '@env@' '${lib.getExe' coreutils "env"}' \
+      --replace-fail '@ip@' '${lib.getExe' iproute2 "ip"}' \
+      --replace-fail '@iptables@' '${lib.getExe' iptables "iptables"}' \
+      --replace-fail '@landlockSandboxer@' '${lib.getExe landlock-sandboxer}' \
       --replace-fail '@pasta@' '${lib.getExe' passt "pasta"}' \
-      --replace-fail '@env@' '${lib.getExe' coreutils "env"}'
+
     runHook postBuild
   '';
 

@@ -202,10 +202,16 @@ let
       srcRoot = ./src;
       pkgs = [ "python3.pkgs.mutagen" "python3.pkgs.pyexiftool" "python3.pkgs.pykakasi" "python3.pkgs.unidecode" ];
     };
-    vpn = static-nix-shell.mkBash {
+    vpn = static-nix-shell.mkPython3 {
       pname = "sane-vpn";
       srcRoot = ./src;
-      pkgs = [ "coreutils-full" "iproute2" "jq" "networkmanager-split.nmcli" "sane-scripts.ip-check" "sanebox" "systemd" ];
+      pkgs = [
+        "iproute2"
+        "networkmanager-split.nmcli"
+        "sane-scripts.ip-check"
+        "sanebox"
+        "systemd"
+      ];
     };
     which = static-nix-shell.mkBash {
       pname = "sane-which";

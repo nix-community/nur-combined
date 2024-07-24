@@ -18,8 +18,10 @@ in
   sane.programs.sanebox = {
     packageUnwrapped = (pkgs.sanebox.override {
       bubblewrap = cfg.bubblewrap.package;
-      passt = cfg.passt.package;
+      iproute2 = cfg.iproute2.package;
+      iptables = cfg.iptables.package;
       libcap = cfg.libcap.package;
+      passt = cfg.passt.package;
       landlock-sandboxer = pkgs.landlock-sandboxer.override {
         # not strictly necessary (landlock ABI is versioned), however when sandboxer version != kernel version,
         # the sandboxer may nag about one or the other wanting to be updated.

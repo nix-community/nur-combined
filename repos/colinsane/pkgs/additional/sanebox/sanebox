@@ -3,10 +3,12 @@
 ## BUILD-TIME SUBSTITUTIONS
 ### <bin>_FALLBACK: if `<bin>` isn't on PATH, then use this instead
 BWRAP_FALLBACK='@bwrap@'
-LANDLOCK_SANDBOXER_FALLBACK='@landlockSandboxer@'
 CAPSH_FALLBACK='@capsh@'
-PASTA_FALLBACK='@pasta@'
 ENV_FALLBACK='@env@'
+IP_FALLBACK='@ip@'
+IPTABLES_FALLBACK='@iptables@'
+LANDLOCK_SANDBOXER_FALLBACK='@landlockSandboxer@'
+PASTA_FALLBACK='@pasta@'
 
 
 ## EARLY DEBUG HOOKS
@@ -888,10 +890,12 @@ pastaonlyIngestDns() {
       fi
       ;;
     (*)
+      locate _iptables "iptables" "$IPTABLES_FALLBACK"
+      locate _ip "ip" "$IP_FALLBACK"
       # NAT DNS requests to localhost to the VPN's DNS resolver
       # claim the whole 127.0.0.x space, because some setups place the DNS on a different address of localhost.
-      pastaNetSetup="iptables -A OUTPUT -t nat -p udp --dport 53 -m iprange --dst-range 127.0.0.1-127.0.0.255 -j DNAT --to-destination $1:53; $pastaNetSetup"
-      pastaNetSetup="ip addr del 127.0.0.1/8 dev lo; $pastaNetSetup"
+      pastaNetSetup="$_iptables -A OUTPUT -t nat -p udp --dport 53 -m iprange --dst-range 127.0.0.1-127.0.0.255 -j DNAT --to-destination $1:53; $pastaNetSetup"
+      pastaNetSetup="$_ip addr del 127.0.0.1/8 dev lo; $pastaNetSetup"
       ;;
   esac
 }

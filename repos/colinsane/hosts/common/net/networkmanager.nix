@@ -205,6 +205,12 @@ in {
     logging.level = "INFO";
 
     # main.dhcp = "internal";  #< default
+    # main.dns controls what to do when NM gets a DNS server via DHCP
+    # - "none"  (populate /run/NetworkManager/resolv.conf with DHCP settings)
+    # - "internal" (?)
+    # - "systemd-resolved" (tell systemd-resolved about it, and point /run/NetworkManager/resolv.conf -> systemd)
+    #   without this, systemd-resolved won't be able to resolve anything (because it has no upstream servers)
+    # note that NM's resolv.conf isn't (necessarily) /etc/resolv.conf -- that is managed by nixos (via symlinking)
     main.dns = if config.services.resolved.enable then
       "systemd-resolved"
     else if config.sane.services.trust-dns.enable && config.sane.services.trust-dns.asSystemResolver then

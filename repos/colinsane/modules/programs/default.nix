@@ -469,9 +469,9 @@ let
         wrapPkg name config config.packageUnwrapped
       ;
       suggestedPrograms = lib.optionals (config.sandbox.method == "bwrap") [
-        "bubblewrap" "passt"
+        "bubblewrap" "passt" "iproute2" "iptables"
       ] ++ lib.optionals (config.sandbox.method == "pastaonly") [
-        "passt"
+        "passt" "iproute2" "iptables"
       ] ++ lib.optionals (config.sandbox.method == "capshonly") [
         "libcap"
       ];

@@ -254,6 +254,13 @@ in
       # capabilities = [ "net_admin" ];
       # extraHomePaths = [ ".config/sane-vpn" ];
     };
+    "sane-scripts.vpn".suggestedPrograms = [
+      "gnugrep"
+      "gnused"
+      "iproute2"
+      "nmcli"
+      "sane-scripts.ip-check"
+    ];
 
     "sane-scripts.which".sandbox.method = "bwrap";
 
