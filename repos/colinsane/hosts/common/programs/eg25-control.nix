@@ -32,6 +32,7 @@ in
       startCommand = "eg25-control --enable-gps --dump-debug-info --verbose";
       cleanupCommand = "eg25-control --disable-gps --dump-debug-info --verbose";
       depends = [ "eg25-control-powered" ];
+      partOf = [ "gps" ];
     };
 
     persist.byStore.plaintext = [ ".cache/eg25-control" ];  #< for cached agps data

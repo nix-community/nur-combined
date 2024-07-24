@@ -41,14 +41,15 @@ in
         echo "using $dev for GPS NMEA"
         gps-share "$dev"
       '';
-      # TODO: this should be `partOf = [ "gps" ]`:
-      #   it fails to launch if the NMEA device doesn't yet exist, and so restart loop when modem is not booted
-      dependencyOf = [ "geoclue-agent" ];
+      # N.B.: it fails to launch if the NMEA device doesn't yet exist, so don't launch by default; only launch as part of GPS
+      # dependencyOf = [ "geoclue-agent" ];
+      partOf = [ "gps" ];
+      depends = [ "eg25-control-powered" ];
     };
 
     sandbox.method = "bwrap";
     sandbox.net = "all";
-    sandbox.autodetectCliPaths = "existingFile";
+    sandbox.autodetectCliPaths = "existing";  #< N.B.: `test -f /dev/ttyUSB1` fails, we can't use `existingFile`
   };
 
   # TODO: restrict this to just LAN devices!!

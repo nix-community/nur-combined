@@ -304,6 +304,11 @@ let
           description = "service (bundle) which is started upon successful graphical login";
           # partOf = [ "default" ];
         };
+        services."gps" = {
+          # "cheap" location providers -- such as on-demand wifi-based triangulation -- don't need to be gated behind this.
+          # grouping it like this is mostly a power-saving thing to make certain services not auto-launched
+          description = "service (bundle) which provides high-precision location info (e.g. from GPS)";
+        };
         services."sound" = {
           description = "service (bundle) which represents functional sound input/output when active";
           # partOf = [ "default" ];

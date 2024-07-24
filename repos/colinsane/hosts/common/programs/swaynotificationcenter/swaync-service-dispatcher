@@ -5,6 +5,18 @@
 # otherwise we invoke a s6-rc which does not know where to find files.
 export PATH="/etc/profiles/per-user/$(whoami)/bin:/run/current-system/sw/bin:$PATH"
 
+usage() {
+  echo "swaync-service-dispatcher <action> <service>"
+  echo ""
+  echo "actions:"
+  echo "- print <service>"
+  echo "  prints 'true' or 'false' based on if the service is wanted-up (i.e. started or starting)"
+  echo "- up <service>"
+  echo "- down <service>"
+  echo "- toggle <service>"
+  exit 1
+}
+
 action="$1"
 service="$2"
 
@@ -34,10 +46,10 @@ stopService() {
 }
 
 case "$action" in
-  print)
+  (print)
     checkActive
     ;;
-  toggle)
+  (toggle)
     case "$(checkActive)" in
       false)
         startService
@@ -46,5 +58,15 @@ case "$action" in
         stopService
         ;;
     esac
+    ;;
+  # these aren't needed by swaync; just handy because i can never remember how to use s6
+  (up)
+    startService
+    ;;
+  (down)
+    stopService
+    ;;
+  (*)
+    usage
     ;;
 esac

@@ -56,7 +56,7 @@ in
   (fetchpatch' {
     title = "hickory-dns: rename from trust-dns";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/316466";
-    hash = "sha256-aEqXvFj2OxUbrVsu+sCLND/Mv41gj3obv3mkB9NSbt0=";
+    hash = "sha256-9bnvkK7nC8d9OHwCKW05OxhSV6kNIHKg2AkYVUud1Vw=";
   })
 
   (fetchpatch' {
