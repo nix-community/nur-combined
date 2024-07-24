@@ -769,10 +769,10 @@
   };
   "material-icons-for-github" = buildFirefoxXpiAddon {
     pname = "material-icons-for-github";
-    version = "1.8.19";
+    version = "1.8.20";
     addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4324312/material_icons_for_github-1.8.19.xpi";
-    sha256 = "15512f0c5a8de2fec0e6a7c0afb19ee2905a4d95e3cfd5c497eb4d37f668c892";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4324876/material_icons_for_github-1.8.20.xpi";
+    sha256 = "6800086d25a16b4ab9e379bff7222f7b06de15c06b2429180f1ed31966420f37";
     meta = with lib; {
       homepage = "https://github.com/Claudiohbsantos/github-material-icons-extension";
       description = "Replace the file/folder icons on github file browsers with icons representing the file's type and which tool it is used by.";
@@ -795,17 +795,17 @@
   };
   "npm-hub" = buildFirefoxXpiAddon {
     pname = "npm-hub";
-    version = "2024.6.11";
+    version = "2024.7.23";
     addonId = "npm-hub@sikelianos.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4301389/npm_hub-2024.6.11.xpi";
-    sha256 = "9463e98c3fb7742c44906a984de55d3c1b1b730a126dfafdf167309e2803a9f9";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4324719/npm_hub-2024.7.23.xpi";
+    sha256 = "82fde183bced610a2f3ab66d5df1fb42bec1d34839798b6390b59ad300c58b9d";
     meta = with lib; {
       homepage = "https://github.com/npmhub/npmhub";
       description = "Explore npm dependencies on GitHub repos";
       license = licenses.mit;
       mozPermissions = [
-        "https://registry.npmjs.org/"
         "contextMenus"
+        "storage"
         "activeTab"
         "https://github.com/*"
       ];
@@ -1315,10 +1315,10 @@
   };
   "refined-github" = buildFirefoxXpiAddon {
     pname = "refined-github";
-    version = "24.7.10";
+    version = "24.7.23";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4317387/refined_github-24.7.10.xpi";
-    sha256 = "cce26134ede7e2d44069aebfc743f379ac28139ff376976fbf19e72d266d371b";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4324785/refined_github-24.7.23.xpi";
+    sha256 = "d510007d5ff8ee50230f2228623133cf3be01ad872024633ddc395b7c4b81a76";
     meta = with lib; {
       homepage = "https://github.com/refined-github/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";

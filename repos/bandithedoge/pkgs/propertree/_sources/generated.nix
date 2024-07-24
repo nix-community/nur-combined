@@ -7,16 +7,16 @@
 }: {
   propertree = {
     pname = "propertree";
-    version = "6bc4bd622f4d500b30c66d5d174490199bfec7b1";
+    version = "f797dce0f5016006103f19504440c0e841afc9b1";
     src = fetchgit {
       url = "https://github.com/corpnewt/ProperTree";
-      rev = "6bc4bd622f4d500b30c66d5d174490199bfec7b1";
+      rev = "f797dce0f5016006103f19504440c0e841afc9b1";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [];
-      sha256 = "sha256-Ei58ya/0QcpMHCIwlkluAzAn+Ya+FbxS/8QqyWVYnb8=";
+      sha256 = "sha256-vb34WKZFCRPykDgPlO1s/Gpos0yfEZ/wmtLcM/XXiz4=";
     };
-    date = "2024-07-22";
+    date = "2024-07-23";
   };
 }
