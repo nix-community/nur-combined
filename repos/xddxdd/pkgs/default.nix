@@ -13,6 +13,7 @@
 mode:
 {
   pkgs ? import <nixpkgs> { },
+  pkgs-24_05 ? pkgs,
   ...
 }:
 let
@@ -22,6 +23,8 @@ let
 
   ifNotNUR = p: if mode == "nur" then null else p;
 
+  nvfetcherLoader = pkgs.callPackage ../helpers/nvfetcher-loader.nix { };
+
   mkScope =
     f:
     builtins.removeAttrs
@@ -29,8 +32,7 @@ let
         self:
         let
           pkg = self.newScope rec {
-            inherit mkScope;
-            nvfetcherLoader = pkgs.callPackage ../helpers/nvfetcher-loader.nix { };
+            inherit mkScope nvfetcherLoader;
             sources = nvfetcherLoader ../_sources/generated.nix;
           };
         in
@@ -222,8 +224,13 @@ mkScope (
     undetected-chromedriver = pkg ./uncategorized/undetected-chromedriver { };
     undetected-chromedriver-bin = pkg ./uncategorized/undetected-chromedriver-bin { };
     vpp = pkg ./uncategorized/vpp { };
-    wechat-uos = pkg ./uncategorized/wechat-uos { };
-    wechat-uos-without-sandbox = pkg ./uncategorized/wechat-uos { enableSandbox = false; };
+    wechat-uos = pkgs-24_05.callPackage ./uncategorized/wechat-uos {
+      sources = nvfetcherLoader ../_sources/generated.nix;
+    };
+    wechat-uos-without-sandbox = pkgs-24_05.callPackage ./uncategorized/wechat-uos {
+      sources = nvfetcherLoader ../_sources/generated.nix;
+      enableSandbox = false;
+    };
 
     # Deprecated alias
     wechat-uos-bin = self.wechat-uos;

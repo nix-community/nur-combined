@@ -2,6 +2,7 @@
   description = "My personal NUR repository";
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-24_05.url = "github:NixOS/nixpkgs/nixos-24.05";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     nix-index-database = {
@@ -22,14 +23,9 @@
     };
   };
   outputs =
-    {
-      self,
-      nixpkgs,
-      flake-parts,
-      ...
-    }@inputs:
+    { self, flake-parts, ... }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } (
-      { flake-parts-lib, ... }:
+      { flake-parts-lib, config, ... }:
       let
         inherit (flake-parts-lib) importApply;
         flakeModules = {
@@ -42,6 +38,16 @@
           lantian-treefmt = importApply ./flake-modules/lantian-treefmt.nix { inherit (inputs) treefmt-nix; };
           nixpkgs-options = ./flake-modules/nixpkgs-options.nix;
         };
+
+        pkgsForSystem-24_05 =
+          system:
+          import inputs.nixpkgs-24_05 {
+            inherit system;
+            config = {
+              inherit (config.nixpkgs-options) allowUnfree;
+              inherit (config.nixpkgs-options) permittedInsecurePackages;
+            };
+          };
       in
       rec {
         imports = [
@@ -66,9 +72,10 @@
           overlays =
             {
               default =
-                _final: prev:
+                final: prev:
                 import ./pkgs null {
                   pkgs = prev;
+                  pkgs-24_05 = pkgsForSystem-24_05 final.system;
                   inherit inputs;
                 };
             }
@@ -105,10 +112,16 @@
         };
 
         perSystem =
-          { pkgs, ... }:
+          { pkgs, system, ... }:
           {
-            packages = import ./pkgs null { inherit inputs pkgs; };
-            legacyPackages = import ./pkgs "legacy" { inherit inputs pkgs; };
+            packages = import ./pkgs null {
+              inherit inputs pkgs;
+              pkgs-24_05 = pkgsForSystem-24_05 system;
+            };
+            legacyPackages = import ./pkgs "legacy" {
+              inherit inputs pkgs;
+              pkgs-24_05 = pkgsForSystem-24_05 system;
+            };
           };
       }
     );
