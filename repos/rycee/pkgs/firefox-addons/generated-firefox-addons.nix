@@ -2113,10 +2113,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "129.0.20240722.91823";
+      version = "128.0.20240722.223746";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4323893/deutsch_de_language_pack-129.0.20240722.91823.xpi";
-      sha256 = "ab0207745b047843a753385f74db6e8262735b5c8cf60176337dfb418e1b6237";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4324532/deutsch_de_language_pack-128.0.20240722.223746.xpi";
+      sha256 = "42bdb20807deac757a5bc8352884ac409ff8d6dc6c74e036efcf229ef9779016";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2499,10 +2499,10 @@
     };
     "elasticvue" = buildFirefoxXpiAddon {
       pname = "elasticvue";
-      version = "1.0.9";
+      version = "1.0.10";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4319622/elasticvue-1.0.9.xpi";
-      sha256 = "db96c8e924a97c72ce01149cfebe6d826a71dd74e4f66f1f5b43d09d744d33cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4324802/elasticvue-1.0.10.xpi";
+      sha256 = "dfa972b1efe494e3c1d4f93fa9b57abf2243b927427e3ac377074e5121b0dc9c";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
@@ -3170,10 +3170,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "129.0.20240722.91823";
+      version = "128.0.20240722.223746";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4323815/francais_language_pack-129.0.20240722.91823.xpi";
-      sha256 = "f8c6d6191e7f476bb40540ac2a9d0f856ce294146be2633414ab880bac6283a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4324472/francais_language_pack-128.0.20240722.223746.xpi";
+      sha256 = "ad49c0e097be8bc768d40cec6a6ae80d56e9216cd5dc4251101512ca83715c49";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -7182,10 +7182,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.14.3";
+      version = "2.15.5";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4293859/momentumdash-2.14.3.xpi";
-      sha256 = "bf0fa9e73abd94d72fab230b7b5ffcea7be72a5ad97ce38ab9b68c358b58b35a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4321492/momentumdash-2.15.5.xpi";
+      sha256 = "c9ed57ec4ca015dbe17dc556abd93b5c0f52236381788906c445af3ef91b9693";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -7683,10 +7683,10 @@
     };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.30.0";
+      version = "6.32.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4280859/okta_browser_plugin-6.30.0.xpi";
-      sha256 = "ceb0a877144f1255e706dbab11bb07da3facf1503e2f02375d9cbd83d7ff25cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4309594/okta_browser_plugin-6.32.0.xpi";
+      sha256 = "6b8352cb1e4f288c4513798ce6917650bc9078e277de202524ff186dd775ed8b";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -9395,10 +9395,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.7.10";
+      version = "24.7.23";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4317387/refined_github-24.7.10.xpi";
-      sha256 = "cce26134ede7e2d44069aebfc743f379ac28139ff376976fbf19e72d266d371b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4324785/refined_github-24.7.23.xpi";
+      sha256 = "d510007d5ff8ee50230f2228623133cf3be01ad872024633ddc395b7c4b81a76";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
