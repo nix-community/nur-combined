@@ -10,8 +10,15 @@ let
   cfg = config.sane.services.trust-dns;
   dns = config.sane.dns;
   toml = pkgs.formats.toml { };
-  instanceModule = with lib; types.submodule ({ config, ...}: {
+  instanceModule = with lib; types.submodule ({ config, name, ...}: {
     options = {
+      service = mkOption {
+        type = types.str;
+        default = "trust-dns-${name}";
+        description = ''
+          systemd service name corresponding to this instance (used internally and automatically set).
+        '';
+      };
       port = mkOption {
         type = types.port;
         default = 53;
@@ -243,7 +250,7 @@ in
       }
       (lib.mapAttrs'
         (flavor: instanceConfig: {
-          name = "trust-dns-${flavor}";
+          name = instanceConfig.service;
           value = mkSystemdService flavor instanceConfig;
         })
         cfg.instances

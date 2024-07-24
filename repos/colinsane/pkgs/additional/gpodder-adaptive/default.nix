@@ -4,7 +4,7 @@
   gitUpdater,
   gpodder,
   libhandy,
-  python3Packages,
+  python311Packages,
 }:
 
 let
@@ -51,7 +51,7 @@ self = gpodder.overridePythonAttrs (upstream: rec {
   buildInputs = upstream.buildInputs ++ [
     libhandy
   ];
-  propagatedBuildInputs = upstream.propagatedBuildInputs ++ (with python3Packages; [
+  propagatedBuildInputs = upstream.propagatedBuildInputs ++ (with python311Packages; [
     # necessary to enable to "youtube dl" extension (TODO: upstream into nixpkgs!)
     yt-dlp
   ]);

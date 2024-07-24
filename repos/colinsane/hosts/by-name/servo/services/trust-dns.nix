@@ -141,10 +141,5 @@ in
     # };
   };
 
-  sane.services.dyn-dns.restartOnChange = [
-    "trust-dns-doof.service"
-    "trust-dns-hn.service"
-    "trust-dns-lan.service"
-    # "trust-dns-wan.service"
-  ];
+  sane.services.dyn-dns.restartOnChange = lib.map (c: "${c.service}.service") (builtins.attrValues config.sane.services.trust-dns.instances);
 }
