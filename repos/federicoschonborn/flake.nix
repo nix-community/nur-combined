@@ -149,7 +149,7 @@
 
                         nameSection = "- Name: `${value.pname or value.name}`";
 
-                        versionSection = lib.optionalString (value ? version) "- Version: ${value.version}";
+                        versionSection = lib.optionalString (value ? version) "- Version: `${value.version}`";
 
                         descriptionSection = if longDescription != "" then longDescription else "${description}.";
 

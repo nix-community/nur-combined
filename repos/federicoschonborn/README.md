@@ -13,7 +13,7 @@ Personal [NUR](https://github.com/nix-community/NUR) repository.
 There are mice.
 
 - Name: `av70-neomouse`
-- Version: 1.1-1
+- Version: `1.1-1`
 - [Homepage](https://git.gay/av70/neomouse)
 - License: [`Creative Commons Attribution Non Commercial Share Alike 4.0`](https://spdx.org/licenses/CC-BY-NC-SA-4.0.html)
 - Maintainers:
@@ -37,7 +37,7 @@ There are mice.
 A set of emojis featuring a bun.
 
 - Name: `eevee-neopossum`
-- Version: 0-unstable-2024-03-04
+- Version: `0-unstable-2024-03-04`
 - [Homepage](https://mooi.moe/emoji.html)
 - License: Unfree
 - Maintainers:
@@ -61,7 +61,7 @@ A set of emojis featuring a bun.
 A set of emojis featuring a bun.
 
 - Name: `eppa-neobun`
-- Version: 0-unstable-2024-05-02
+- Version: `0-unstable-2024-05-02`
 - [Homepage](https://mooi.moe/emoji.html)
 - License: Unfree
 - Maintainers:
@@ -85,7 +85,7 @@ A set of emojis featuring a bun.
 A set of emojis featuring a familiar cube.
 
 - Name: `eppa-neocube`
-- Version: 0-unstable-2024-05-25
+- Version: `0-unstable-2024-05-25`
 - [Homepage](https://mooi.moe/emoji.html)
 - License: Unfree
 - Maintainers:
@@ -109,7 +109,7 @@ A set of emojis featuring a familiar cube.
 Source files for the neodino emoji.
 
 - Name: `fotoente-neodino`
-- Version: 0-unstable-2024-06-08
+- Version: `0-unstable-2024-06-08`
 - [Homepage](https://codeberg.org/fotoente/neodino)
 - License: Unfree
 - Maintainers:
@@ -133,7 +133,7 @@ Source files for the neodino emoji.
 Source files for the neohaj emoji.
 
 - Name: `fotoente-neohaj`
-- Version: 0-unstable-2024-07-14
+- Version: `0-unstable-2024-07-14`
 - [Homepage](https://codeberg.org/fotoente/neohaj)
 - License: Unfree
 - Maintainers:
@@ -157,7 +157,7 @@ Source files for the neohaj emoji.
 Source files for the neomilk emoji.
 
 - Name: `fotoente-neomilk`
-- Version: 0-unstable-2024-05-26
+- Version: `0-unstable-2024-05-26`
 - [Homepage](https://codeberg.org/fotoente/neomilk)
 - License: Unfree
 - Maintainers:
@@ -181,7 +181,7 @@ Source files for the neomilk emoji.
 Source files for the neotrain emoji.
 
 - Name: `fotoente-neotrain`
-- Version: 0-unstable-2024-05-20
+- Version: `0-unstable-2024-05-20`
 - [Homepage](https://codeberg.org/fotoente/neotrain)
 - License: Unfree
 - Maintainers:
@@ -228,7 +228,7 @@ A set of emojis featuring a rat.
 Neodog emojis by @moonrabbits@shonk.phite.ro.
 
 - Name: `moonrabbits-neodog`
-- Version: 1.1.0
+- Version: `1.1.0`
 - [Homepage](https://git.gay/moonrabbits/neodog)
 - License: [`Creative Commons Attribution Non Commercial Share Alike 4.0`](https://spdx.org/licenses/CC-BY-NC-SA-4.0.html)
 - Maintainers:
@@ -252,7 +252,7 @@ Neodog emojis by @moonrabbits@shonk.phite.ro.
 Various emoji packs from Liv Asch.
 
 - Name: `olivvybee-blobbee`
-- Version: 2024.07.07.1
+- Version: `2024.07.07.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - Maintainers:
@@ -276,7 +276,7 @@ Various emoji packs from Liv Asch.
 Various emoji packs from Liv Asch.
 
 - Name: `olivvybee-fox`
-- Version: 2024.07.07.1
+- Version: `2024.07.07.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - Maintainers:
@@ -300,7 +300,7 @@ Various emoji packs from Liv Asch.
 Various emoji packs from Liv Asch.
 
 - Name: `olivvybee-neobread`
-- Version: 2024.07.07.1
+- Version: `2024.07.07.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - Maintainers:
@@ -324,7 +324,7 @@ Various emoji packs from Liv Asch.
 Various emoji packs from Liv Asch.
 
 - Name: `olivvybee-neodlr`
-- Version: 2024.07.07.1
+- Version: `2024.07.07.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - Maintainers:
@@ -348,7 +348,7 @@ Various emoji packs from Liv Asch.
 Various emoji packs from Liv Asch.
 
 - Name: `olivvybee-neofriends`
-- Version: 2024.07.07.1
+- Version: `2024.07.07.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - Maintainers:
@@ -372,7 +372,7 @@ Various emoji packs from Liv Asch.
 Various emoji packs from Liv Asch.
 
 - Name: `olivvybee-neossb`
-- Version: 2024.07.07.1
+- Version: `2024.07.07.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - Maintainers:
@@ -396,7 +396,7 @@ Various emoji packs from Liv Asch.
 these are the spinny (pride) blobs of life.
 
 - Name: `renere-spinny-blobs`
-- Version: 0-unstable-2023-12-23
+- Version: `0-unstable-2023-12-23`
 - [Homepage](https://gitlab.com/renere/spinny_blobs)
 - License: Unfree
 - Maintainers:
@@ -420,7 +420,7 @@ these are the spinny (pride) blobs of life.
 drgn emoji pack.
 
 - Name: `volpeon-drgn`
-- Version: 3.1
+- Version: `3.1`
 - [Homepage](https://volpeon.ink/emojis/drgn/)
 - License: [`Creative Commons Attribution Non Commercial Share Alike 4.0`](https://spdx.org/licenses/CC-BY-NC-SA-4.0.html)
 - Maintainers:
@@ -444,7 +444,7 @@ drgn emoji pack.
 floof emoji pack.
 
 - Name: `volpeon-floof`
-- Version: 1.0
+- Version: `1.0`
 - [Homepage](https://volpeon.ink/emojis/floof/)
 - License: [`Creative Commons Attribution Non Commercial Share Alike 4.0`](https://spdx.org/licenses/CC-BY-NC-SA-4.0.html)
 - Maintainers:
@@ -468,7 +468,7 @@ floof emoji pack.
 gphn emoji pack.
 
 - Name: `volpeon-gphn`
-- Version: 1.2
+- Version: `1.2`
 - [Homepage](https://volpeon.ink/emojis/gphn/)
 - License: [`Creative Commons Attribution Non Commercial Share Alike 4.0`](https://spdx.org/licenses/CC-BY-NC-SA-4.0.html)
 - Maintainers:
@@ -492,7 +492,7 @@ gphn emoji pack.
 neocat emoji pack.
 
 - Name: `volpeon-neocat`
-- Version: 1.1
+- Version: `1.1`
 - [Homepage](https://volpeon.ink/emojis/neocat/)
 - License: [`Creative Commons Attribution Non Commercial Share Alike 4.0`](https://spdx.org/licenses/CC-BY-NC-SA-4.0.html)
 - Maintainers:
@@ -516,7 +516,7 @@ neocat emoji pack.
 neofox emoji pack.
 
 - Name: `volpeon-neofox`
-- Version: 1.3
+- Version: `1.3`
 - [Homepage](https://volpeon.ink/emojis/neofox/)
 - License: [`Creative Commons Attribution Non Commercial Share Alike 4.0`](https://spdx.org/licenses/CC-BY-NC-SA-4.0.html)
 - Maintainers:
@@ -540,7 +540,7 @@ neofox emoji pack.
 vlpn emoji pack.
 
 - Name: `volpeon-vlpn`
-- Version: 1.1
+- Version: `1.1`
 - [Homepage](https://volpeon.ink/emojis/vlpn/)
 - License: [`Creative Commons Attribution Non Commercial Share Alike 4.0`](https://spdx.org/licenses/CC-BY-NC-SA-4.0.html)
 - Maintainers:
@@ -564,7 +564,7 @@ vlpn emoji pack.
 An old cellphone arcade recreated for PC.
 
 - Name: `biplanes-revival`
-- Version: 1.1
+- Version: `1.1`
 - [Homepage](https://github.com/regular-dev/biplanes-revival)
 - License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - Maintainers:
@@ -589,7 +589,7 @@ An old cellphone arcade recreated for PC.
 An efficient menu for the MATE Desktop.
 
 - Name: `brisk-menu`
-- Version: 0.6.2
+- Version: `0.6.2`
 - [Homepage](https://github.com/getsolus/brisk-menu)
 - Licenses: [`GNU General Public License v2.0 only`](https://spdx.org/licenses/GPL-2.0-only.html), [`Creative Commons Attribution Share Alike 4.0`](https://spdx.org/licenses/CC-BY-SA-4.0.html)
 - Maintainers:
@@ -613,7 +613,7 @@ An efficient menu for the MATE Desktop.
 Alternative to GNU coreutils using software from FreeBSD.
 
 - Name: `bsdutils`
-- Version: 13.2
+- Version: `13.2`
 - [Homepage](https://github.com/dcantrell/bsdutils)
 - License: [`BSD 3-clause "New" or "Revised" License`](https://spdx.org/licenses/BSD-3-Clause.html)
 - Maintainers:
@@ -638,7 +638,7 @@ Alternative to GNU coreutils using software from FreeBSD.
 Cargo Advent of Code Helper.
 
 - Name: `cargo-aoc`
-- Version: 0.3.7
+- Version: `0.3.7`
 - [Homepage](https://github.com/gobanos/cargo-aoc)
 - Licenses: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html), [`MIT License`](https://spdx.org/licenses/MIT.html)
 - Maintainers:
@@ -663,7 +663,7 @@ Cargo Advent of Code Helper.
 Like neofetch, but much faster because written in C.
 
 - Name: `fastfetch`
-- Version: 2.19.1
+- Version: `2.19.1`
 - [Homepage](https://github.com/fastfetch-cli/fastfetch)
 - [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.19.1/CHANGELOG.md)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
@@ -689,7 +689,7 @@ Like neofetch, but much faster because written in C.
 Like neofetch, but much faster because written in C (with all features disabled).
 
 - Name: `fastfetch-minimal`
-- Version: 2.19.1
+- Version: `2.19.1`
 - [Homepage](https://github.com/fastfetch-cli/fastfetch)
 - [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.19.1/CHANGELOG.md)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
@@ -715,7 +715,7 @@ Like neofetch, but much faster because written in C (with all features disabled)
 A GNOME theme for Firefox.
 
 - Name: `firefox-gnome-theme`
-- Version: 128
+- Version: `128`
 - [Homepage](https://github.com/rafaelmardojai/firefox-gnome-theme)
 - License: [`The Unlicense`](https://spdx.org/licenses/Unlicense.html)
 - Maintainers:
@@ -739,7 +739,7 @@ A GNOME theme for Firefox.
 A test compositor to gain familiarity with Wayland and wlroots.
 
 - Name: `flyaway`
-- Version: 0-unstable-2023-07-04
+- Version: `0-unstable-2023-07-04`
 - [Homepage](https://gitlab.com/serebit/flyaway)
 - License: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html)
 - Maintainers:
@@ -764,7 +764,7 @@ A test compositor to gain familiarity with Wayland and wlroots.
 A set of commands that manipulate GTAs on various levels.
 
 - Name: `gtatool`
-- Version: 2.4.0
+- Version: `2.4.0`
 - [Homepage](https://marlam.de/gta/)
 - License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - Maintainers:
@@ -789,7 +789,7 @@ A set of commands that manipulate GTAs on various levels.
 A set of commands that manipulate GTAs on various levels (with all features enabled).
 
 - Name: `gtatool-full`
-- Version: 2.4.0
+- Version: `2.4.0`
 - [Homepage](https://marlam.de/gta/)
 - License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - Maintainers:
@@ -814,7 +814,7 @@ A set of commands that manipulate GTAs on various levels (with all features enab
 A language for building concurrent software with confidence.
 
 - Name: `inko`
-- Version: 0.15.0
+- Version: `0.15.0`
 - [Homepage](https://github.com/inko-lang/inko)
 - [Changelog](https://github.com/inko-lang/inko/blob/v0.15.0/CHANGELOG.md)
 - License: [`Mozilla Public License 2.0`](https://spdx.org/licenses/MPL-2.0.html)
@@ -840,7 +840,7 @@ A language for building concurrent software with confidence.
 Quick file preview for Dolphin.
 
 - Name: `kiview`
-- Version: 1.1
+- Version: `1.1`
 - [Homepage](https://invent.kde.org/danagost/Kiview)
 - License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - Maintainers:
@@ -865,7 +865,7 @@ Quick file preview for Dolphin.
 Dialect of Python with explicit variable declaration and block scoping, with a lightweight and easy-to-embed bytecode compiler and interpreter.
 
 - Name: `kuroko`
-- Version: 1.4.0
+- Version: `1.4.0`
 - [Homepage](https://github.com/kuroko-lang/kuroko)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - Maintainers:
@@ -890,7 +890,7 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 A library that reads and writes GTA files, with interfaces in C and C++.
 
 - Name: `libgta`
-- Version: 1.2.1
+- Version: `1.2.1`
 - [Homepage](https://marlam.de/gta/)
 - License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 - Maintainers:
@@ -914,7 +914,7 @@ A library that reads and writes GTA files, with interfaces in C and C++.
 A library to make working with multidimensional arrays in C++ easy.
 
 - Name: `libtgd`
-- Version: 4.3
+- Version: `4.3`
 - [Homepage](https://marlam.de/tgd/)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - Maintainers:
@@ -939,7 +939,7 @@ A library to make working with multidimensional arrays in C++ easy.
 A library to make working with multidimensional arrays in C++ easy (with all features enabled).
 
 - Name: `libtgd-full`
-- Version: 4.3
+- Version: `4.3`
 - [Homepage](https://marlam.de/tgd/)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - Maintainers:
@@ -964,7 +964,7 @@ A library to make working with multidimensional arrays in C++ easy (with all fea
 Library for emitting text, XML, JSON, or HTML output.
 
 - Name: `libxo`
-- Version: 1.7.5
+- Version: `1.7.5`
 - [Homepage](https://github.com/Juniper/libxo)
 - License: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html)
 - Maintainers:
@@ -989,7 +989,7 @@ Library for emitting text, XML, JSON, or HTML output.
 wlroots-based Wayland compositor designed for the Budgie Desktop.
 
 - Name: `magpie-wayland`
-- Version: 0.9.3-unstable-2024-07-07
+- Version: `0.9.3-unstable-2024-07-07`
 - [Homepage](https://github.com/BuddiesOfBudgie/magpie)
 - License: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html)
 - Maintainers:
@@ -1014,7 +1014,7 @@ wlroots-based Wayland compositor designed for the Budgie Desktop.
 MII Apple //e Emulator for Linux.
 
 - Name: `mii-emu`
-- Version: 1.9
+- Version: `1.9`
 - [Homepage](https://github.com/buserror/mii_emu)
 - [Changelog](https://github.com/buserror/mii_emu/blob/v1.9/CHANGELOG.md)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
@@ -1040,7 +1040,7 @@ MII Apple //e Emulator for Linux.
 Snazzy Minesweeper-based game built with SDL2.
 
 - Name: `minesector`
-- Version: 1.1.5
+- Version: `1.1.5`
 - [Homepage](https://github.com/grassdne/minesector)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - Maintainers:
@@ -1065,7 +1065,7 @@ Snazzy Minesweeper-based game built with SDL2.
 A convenient calculator for the command line.
 
 - Name: `mucalc`
-- Version: 2.1
+- Version: `2.1`
 - [Homepage](https://marlam.de/mucalc/)
 - License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - Maintainers:
@@ -1090,7 +1090,7 @@ A convenient calculator for the command line.
 A fun 2D retro platformer inspired by Sonic games and a game creation system.
 
 - Name: `opensurge`
-- Version: 0.6.1.1
+- Version: `0.6.1.1`
 - [Homepage](https://github.com/alemart/opensurge)
 - [Changelog](https://github.com/alemart/opensurge/blob/v0.6.1.1/CHANGES.md)
 - License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
@@ -1115,7 +1115,7 @@ A fun 2D retro platformer inspired by Sonic games and a game creation system.
 Phonon Backend using MPV Player.
 
 - Name: `phonon-mpv`
-- Version: 0.1.0
+- Version: `0.1.0`
 - [Homepage](https://github.com/OpenProgger/phonon-mpv)
 - License: [`GNU Lesser General Public License v2.1 only`](https://spdx.org/licenses/LGPL-2.1-only.html)
 - Maintainers:
@@ -1139,7 +1139,7 @@ Phonon Backend using MPV Player.
 Camera application for Plasma Mobile.
 
 - Name: `plasma-camera`
-- Version: 1.0-unstable-2024-07-10
+- Version: `1.0-unstable-2024-07-10`
 - [Homepage](https://invent.kde.org/plasma-mobile/plasma-camera)
 - License: [`GNU General Public License v3.0 only`](https://spdx.org/licenses/GPL-3.0-only.html)
 - Maintainers:
@@ -1164,7 +1164,7 @@ Camera application for Plasma Mobile.
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 
 - Name: `pnut`
-- Version: 0-unstable-2024-07-24
+- Version: `0-unstable-2024-07-24`
 - [Homepage](https://github.com/udem-dlteam/pnut)
 - License: [`BSD 2-clause "Simplified" License`](https://spdx.org/licenses/BSD-2-Clause.html)
 - Maintainers:
@@ -1189,7 +1189,7 @@ A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 A tool for learning programming basis with a simple Spanish pseudocode.
 
 - Name: `pseint`
-- Version: 20240122
+- Version: `20240122`
 - [Homepage](https://pseint.sourceforge.net/)
 - License: [`GNU General Public License v2.0 or later`](https://spdx.org/licenses/GPL-2.0-or-later.html)
 - Maintainers:
@@ -1213,7 +1213,7 @@ A tool for learning programming basis with a simple Spanish pseudocode.
 A a viewer for 2D data such as images, sensor data, simulations, renderings and videos.
 
 - Name: `qv`
-- Version: 5.2
+- Version: `5.2`
 - [Homepage](https://marlam.de/qv/)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - Maintainers:
@@ -1238,7 +1238,7 @@ A a viewer for 2D data such as images, sensor data, simulations, renderings and 
 Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood, Shadow Warrior, Redneck Rampage and Powerslave/Exhumed.
 
 - Name: `raze`
-- Version: 1.10.2
+- Version: `1.10.2`
 - [Homepage](https://github.com/ZDoom/Raze)
 - License: [`GNU General Public License v2.0`](https://spdx.org/licenses/GPL-2.0.html)
 - Maintainers:
@@ -1263,7 +1263,7 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood, Shadow Warrior, Redneck Rampage and Powerslave/Exhumed (with all features enabled).
 
 - Name: `raze-full`
-- Version: 1.10.2
+- Version: `1.10.2`
 - [Homepage](https://github.com/ZDoom/Raze)
 - License: [`GNU General Public License v2.0`](https://spdx.org/licenses/GPL-2.0.html)
 - Maintainers:
@@ -1288,7 +1288,7 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 Sega Model 3 arcade machine emulator.
 
 - Name: `supermodel`
-- Version: 0-unstable-2024-07-19
+- Version: `0-unstable-2024-07-19`
 - [Homepage](https://github.com/trzy/Supermodel)
 - License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - Maintainers:
@@ -1313,7 +1313,7 @@ Sega Model 3 arcade machine emulator.
 A scripting language for games.
 
 - Name: `surgescript`
-- Version: 0.6.0
+- Version: `0.6.0`
 - [Homepage](https://github.com/alemart/surgescript)
 - [Changelog](https://github.com/alemart/surgescript/blob/v0.6.0/CHANGES.md)
 - License: [`Apache License 2.0`](https://spdx.org/licenses/Apache-2.0.html)
@@ -1339,7 +1339,7 @@ A scripting language for games.
 A coordinated group of libraries for representing, processing, and visualizing scientific raster data.
 
 - Name: `teem`
-- Version: 1.11.0
+- Version: `1.11.0`
 - [Homepage](https://teem.sourceforge.net/)
 - License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 - Maintainers:
@@ -1364,7 +1364,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 A coordinated group of libraries for representing, processing, and visualizing scientific raster data (with experimental libraries and applications enabled).
 
 - Name: `teem-experimental`
-- Version: 1.11.0
+- Version: `1.11.0`
 - [Homepage](https://teem.sourceforge.net/)
 - License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 - Maintainers:
@@ -1389,7 +1389,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 A coordinated group of libraries for representing, processing, and visualizing scientific raster data (with experimental libraries and applications, and all features enabled).
 
 - Name: `teem-experimental-full`
-- Version: 1.11.0
+- Version: `1.11.0`
 - [Homepage](https://teem.sourceforge.net/)
 - License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 - Maintainers:
@@ -1414,7 +1414,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 A coordinated group of libraries for representing, processing, and visualizing scientific raster data (with all features enabled).
 
 - Name: `teem-full`
-- Version: 1.11.0
+- Version: `1.11.0`
 - [Homepage](https://teem.sourceforge.net/)
 - License: [`GNU Lesser General Public License v2.1 or later`](https://spdx.org/licenses/LGPL-2.1-or-later.html)
 - Maintainers:
@@ -1439,7 +1439,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 A GNOME theme for Thunderbird.
 
 - Name: `thunderbird-gnome-theme`
-- Version: 115-unstable-2024-07-18
+- Version: `115-unstable-2024-07-25`
 - [Homepage](https://github.com/rafaelmardojai/thunderbird-gnome-theme)
 - License: [`The Unlicense`](https://spdx.org/licenses/Unlicense.html)
 - Maintainers:
@@ -1463,7 +1463,7 @@ A GNOME theme for Thunderbird.
 A game based on K-Shoot MANIA and Sound Voltex.
 
 - Name: `unnamed-sdvx-clone`
-- Version: 0.6.0
+- Version: `0.6.0`
 - [Homepage](https://github.com/Drewol/unnamed-sdvx-clone)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - Maintainers:
@@ -1488,7 +1488,7 @@ A game based on K-Shoot MANIA and Sound Voltex.
 Wisp turns indentation based syntax into Lisp.
 
 - Name: `wisp`
-- Version: 1.0.12
+- Version: `1.0.12`
 - [Homepage](https://www.draketo.de/software/wisp)
 - License: [`GNU General Public License v3.0 or later`](https://spdx.org/licenses/GPL-3.0-or-later.html)
 - Maintainers:
@@ -1513,7 +1513,7 @@ Wisp turns indentation based syntax into Lisp.
 Detect non-inclusive language in your source code.
 
 - Name: `woke`
-- Version: 0.19.0
+- Version: `0.19.0`
 - [Homepage](https://github.com/get-woke/woke)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
 - Maintainers:
@@ -1538,7 +1538,7 @@ Detect non-inclusive language in your source code.
 Fastest JSON library in C.
 
 - Name: `yyjson`
-- Version: 0.10.0
+- Version: `0.10.0`
 - [Homepage](https://github.com/ibireme/yyjson)
 - [Changelog](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md)
 - License: [`MIT License`](https://spdx.org/licenses/MIT.html)
