@@ -14,6 +14,13 @@
   system.switch.enableNg = true;
   system.switch.enable = lib.mkForce false;
 
+  # system.forbiddenDependenciesRegexes = [ "perl" ];
+  # documentation.info.enable = lib.mkDefault false;
+  # system.disableInstallerTools = lib.mkDefault true;
+  # programs.less.lessopen = lib.mkDefault null;
+  # programs.command-not-found.enable = lib.mkDefault false;
+  # boot.enableContainers = lib.mkDefault false;
+
   systemd.services.nix-daemon.serviceConfig = {
     LimitNOFILE = lib.mkForce 500000000;
     Environment = [ "TMPDIR=/var/tmp/nix-daemon" ];
@@ -119,7 +126,7 @@
     '';
   };
 
-  # time.timeZone = "Asia/Singapore";
+  time.timeZone = "Asia/Singapore";
 
   console = {
     # font = "LatArCyrHeb-16";

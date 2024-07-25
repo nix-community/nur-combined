@@ -24,7 +24,10 @@
 
       ${user} = {
         initialHashedPassword = lib.mkDefault data.keys.hashedPasswd;
-        isNormalUser = true;
+        home = "/home/${user}";
+        group = user;
+        # isNormalUser = true;
+        isSystemUser = true;
         uid = 1000;
         extraGroups = [
           "wheel"
@@ -45,6 +48,7 @@
       root.shell = pkgs.fish;
     };
     groups.nixosvmtest = { };
+    groups.${user} = { };
   };
 
   security = {

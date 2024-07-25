@@ -34,6 +34,7 @@ in
       wants = [
         "network-online.target"
         "nss-lookup.target"
+        "mosproxy.service"
       ];
       description = "prom-ntfy-bridge Daemon";
       serviceConfig = {
