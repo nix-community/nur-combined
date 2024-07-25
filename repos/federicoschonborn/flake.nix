@@ -179,7 +179,7 @@
                                 path = builtins.elemAt parts 0;
                                 line = builtins.elemAt parts 1;
                               in
-                              if builtins.pathExists (./. + path) then
+                              if builtins.pathExists (lib.path.append ./. path) then
                                 "./${path}#L${line}"
                               else
                                 "https://github.com/NixOS/nixpkgs/blob/${nixpkgs.shortRev}/${path}#L${line}";
