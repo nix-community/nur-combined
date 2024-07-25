@@ -1,4 +1,6 @@
 local telescope = require("telescope")
+local telescope_builtin = require("telescope.builtin")
+local wk = require("which-key")
 
 telescope.setup({
     defaults = {
@@ -22,3 +24,14 @@ telescope.setup({
 
 telescope.load_extension("fzf")
 telescope.load_extension("lsp_handlers")
+
+local keys = {
+    { "<leader>f", group = "Fuzzy finder" },
+    { "<leader>fb", telescope_builtin.buffers, desc = "Open buffers" },
+    { "<leader>ff", telescope_builtin.git_files, desc = "Git tracked files" },
+    { "<leader>fF", telescope_builtin.find_files, desc = "Files" },
+    { "<leader>fg", telescope_builtin.live_grep, desc = "Grep string" },
+    { "<leader>fG", telescope_builtin.grep_string, desc = "Grep string under cursor" },
+}
+
+wk.add(keys)

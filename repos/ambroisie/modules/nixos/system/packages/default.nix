@@ -14,12 +14,14 @@ in
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      vim
       wget
     ];
 
     programs = {
-      vim.defaultEditor = true; # Modal editing is life
+      vim = {
+        enable = true;
+        defaultEditor = true; # Modal editing is life
+      };
 
       zsh = {
         enable = true; # Use integrations

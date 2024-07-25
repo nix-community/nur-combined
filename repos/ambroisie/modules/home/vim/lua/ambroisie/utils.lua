@@ -48,4 +48,22 @@ M.list_lsp_clients = function(bufnr)
     return names
 end
 
+--- partially apply a function with given arguments
+M.partial = function(f, ...)
+    local a = { ... }
+    local a_len = select("#", ...)
+
+    return function(...)
+        local tmp = { ... }
+        local tmp_len = select("#", ...)
+
+        -- Merge arg lists
+        for i = 1, tmp_len do
+            a[a_len + i] = tmp[i]
+        end
+
+        return f(unpack(a, 1, a_len + tmp_len))
+    end
+end
+
 return M

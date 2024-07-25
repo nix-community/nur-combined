@@ -87,31 +87,30 @@ M.on_attach = function(client, bufnr)
     end
 
     local keys = {
-        K = { vim.lsp.buf.hover, "Show symbol information" },
-        ["<C-k>"] = { vim.lsp.buf.signature_help, "Show signature information" },
-        ["gd"] = { vim.lsp.buf.definition, "Go to definition" },
-        ["gD"] = { vim.lsp.buf.declaration, "Go to declaration" },
-        ["gi"] = { vim.lsp.buf.implementation, "Go to implementation" },
-        ["gr"] = { vim.lsp.buf.references, "List all references" },
-
-        ["<leader>c"] = {
-            name = "Code",
-            a = { vim.lsp.buf.code_action, "Code actions" },
-            d = { cycle_diagnostics_display, "Cycle diagnostics display" },
-            D = { show_buffer_diagnostics, "Show buffer diagnostics" },
-            r = { vim.lsp.buf.rename, "Rename symbol" },
-            s = { vim.lsp.buf.signature_help, "Show signature" },
-            t = { vim.lsp.buf.type_definition, "Go to type definition" },
-            w = {
-                name = "Workspace",
-                a = { vim.lsp.buf.add_workspace_folder, "Add folder to workspace" },
-                l = { list_workspace_folders, "List folders in workspace" },
-                r = { vim.lsp.buf.remove_workspace_folder, "Remove folder from workspace" },
-            },
-        },
+        buffer = bufnr,
+        -- LSP navigation
+        { "K", vim.lsp.buf.hover, desc = "Show symbol information" },
+        { "<C-k>", vim.lsp.buf.signature_help, desc = "Show signature information" },
+        { "gd", vim.lsp.buf.definition, desc = "Go to definition" },
+        { "gD", vim.lsp.buf.declaration, desc = "Go to declaration" },
+        { "gi", vim.lsp.buf.implementation, desc = "Go to implementation" },
+        { "gr", vim.lsp.buf.references, desc = "List all references" },
+        -- Code
+        { "<leader>c", group = "Code" },
+        { "<leader>ca", vim.lsp.buf.code_action, desc = "Code actions" },
+        { "<leader>cd", cycle_diagnostics_display, desc = "Cycle diagnostics display" },
+        { "<leader>cD", show_buffer_diagnostics, desc = "Show buffer diagnostics" },
+        { "<leader>cr", vim.lsp.buf.rename, desc = "Rename symbol" },
+        { "<leader>cs", vim.lsp.buf.signature_help, desc = "Show signature" },
+        { "<leader>ct", vim.lsp.buf.type_definition, desc = "Go to type definition" },
+        -- Workspace
+        { "<leader>cw", group = "Workspace" },
+        { "<leader>cwa", vim.lsp.buf.add_workspace_folder, desc = "Add folder to workspace" },
+        { "<leader>cwl", list_workspace_folders, desc = "List folders in workspace" },
+        { "<leader>cwr", vim.lsp.buf.remove_workspace_folder, desc = "Remove folder from workspace" },
     }
 
-    wk.register(keys, { buffer = bufnr })
+    wk.add(keys)
 end
 
 return M

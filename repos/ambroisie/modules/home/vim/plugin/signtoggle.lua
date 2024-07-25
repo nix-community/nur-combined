@@ -4,17 +4,23 @@ local signtoggle = vim.api.nvim_create_augroup("signtoggle", { clear = true })
 vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "WinEnter" }, {
     pattern = "*",
     group = signtoggle,
-    command = "setlocal signcolumn=yes",
+    callback = function()
+        vim.opt.signcolumn = "yes"
+    end,
 })
 vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "WinLeave" }, {
     pattern = "*",
     group = signtoggle,
-    command = "setlocal signcolumn=yes",
+    callback = function()
+        vim.opt.signcolumn = "no"
+    end,
 })
 
 -- Never show the sign column in a terminal buffer
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
     pattern = "*",
     group = signtoggle,
-    command = "setlocal signcolumn=no",
+    callback = function()
+        vim.opt.signcolumn = "no"
+    end,
 })

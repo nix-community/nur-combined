@@ -1,7 +1,7 @@
 { lib, gawk, stdenvNoCC, stevenblack-blocklist }:
 stdenvNoCC.mkDerivation {
   name = "unbound-zones-adblock";
-  version = stevenblack-blocklist.rev;
+  inherit (stevenblack-blocklist) version;
 
   src = stevenblack-blocklist;
 
