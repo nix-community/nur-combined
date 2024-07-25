@@ -88,7 +88,6 @@ let
     (fromDb "omny.fm/shows/money-stuff-the-podcast")  # Matt Levine
     (fromDb "omny.fm/shows/the-dollop-with-dave-anthony-and-gareth-reynolds")  # The Dollop history/comedy
     (fromDb "originstories.libsyn.com" // uncat)
-    (fromDb "podcast.posttv.com/itunes/post-reports.xml" // pol)
     (fromDb "politicalorphanage.libsyn.com" // pol)
     (fromDb "reverseengineering.libsyn.com/rss" // tech)  # UnNamed Reverse Engineering Podcast
     (fromDb "rss.acast.com/deconstructed")  # The Intercept - Deconstructed
@@ -113,6 +112,7 @@ let
     # (fromDb "feeds.megaphone.fm/hubermanlab" // uncat)  # Daniel Huberman on sleep
     # (fromDb "feeds.simplecast.com/54nAGcIl" // pol)  # The Daily
     # (fromDb "feeds.simplecast.com/l2i9YnTd" // tech // pol)  # Hard Fork (NYtimes tech)
+    # (fromDb "podcast.posttv.com/itunes/post-reports.xml" // pol)
     # (fromDb "podcast.thelinuxexp.com" // tech)  # low-brow linux/foss PR announcements
     # (fromDb "rss.art19.com/your-welcome" // pol)  # Michael Malice - Your Welcome -- also available here: <https://origin.podcastone.com/podcast?categoryID2=2232>
     # (fromDb "rss.prod.firstlook.media/deconstructed/podcast.rss" // pol)  #< possible URL rot
@@ -238,9 +238,9 @@ let
     (fromDb "youtube.com/@TheB1M")
     (fromDb "youtube.com/@TomScottGo")
     (fromDb "youtube.com/@Vihart")
-    (fromDb "youtube.com/@Vox")
-    # (fromDb "youtube.com/@Vsauce")  # they're all like 1-minute long videos now? what happened @Vsauce?
 
+    # (fromDb "youtube.com/@Vox")
+    # (fromDb "youtube.com/@Vsauce")  # they're all like 1-minute long videos now? what happened @Vsauce?
     # (fromDb "youtube.com/@rossmanngroup" // pol // tech)  # Louis Rossmann
   ];
 
