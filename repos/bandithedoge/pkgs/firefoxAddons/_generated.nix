@@ -769,10 +769,10 @@
   };
   "material-icons-for-github" = buildFirefoxXpiAddon {
     pname = "material-icons-for-github";
-    version = "1.8.20";
+    version = "1.8.21";
     addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4324876/material_icons_for_github-1.8.20.xpi";
-    sha256 = "6800086d25a16b4ab9e379bff7222f7b06de15c06b2429180f1ed31966420f37";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4325591/material_icons_for_github-1.8.21.xpi";
+    sha256 = "3aa69f89880bb686cac8b2727bd9fcdfe1a0301890a62ce5643ed093d495b0a9";
     meta = with lib; {
       homepage = "https://github.com/Claudiohbsantos/github-material-icons-extension";
       description = "Replace the file/folder icons on github file browsers with icons representing the file's type and which tool it is used by.";
