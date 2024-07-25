@@ -31,8 +31,8 @@
       hash = "sha256-BZdExj2q/bqUD3k9uluOot2dlrWKA+vpad49EdgXKww=";
     };
     v7 = {
-      rev = "ba82142ff242ce385804bcb4287126de52d329f3";
-      hash = "sha256-3WX3dTWJoeApon1AH3XplBIvEosVNzchkjgi2C808B4=";
+      rev = "e1267803ea749cd93e9d5f81438011ea620d04af";
+      hash = "sha256-iIds0GnCHAyeIEdSD4aCCgDtnnwARh3NE470CywseS0=";
     };
   };
   mkOnlyOffice = {
@@ -71,16 +71,16 @@
   });
 in buildNpmPackage rec {
   pname = "cryptpad";
-  version = "2024.6.0";
+  version = "2024.6.1";
 
   src = fetchFromGitHub {
     owner = "cryptpad";
     repo = "cryptpad";
     rev = version;
-    hash = "sha256-huIhhnjatkaVfm1zDeqi88EX/nAUBQ0onPNOwn7hrX4=";
+    hash = "sha256-qwyXpTY8Ds7R5687PVGZa/rlEyrAZjNzJ4+VQZpF8v0=";
   };
 
-  npmDepsHash = "sha256-Oh1fBvP7OXC+VDiH3D+prHmi8pRrxld06n30sqw5apY=";
+  npmDepsHash = "sha256-GSTPsXqe/rxiDh5OW2t+ZY1YRNgRSDxkJ0pvcLIFtFw=";
 
   inherit nodejs;
 
