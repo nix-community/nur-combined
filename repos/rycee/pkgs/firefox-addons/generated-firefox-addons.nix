@@ -2113,10 +2113,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "128.0.20240722.223746";
+      version = "129.0.20240724.91519";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4324532/deutsch_de_language_pack-128.0.20240722.223746.xpi";
-      sha256 = "42bdb20807deac757a5bc8352884ac409ff8d6dc6c74e036efcf229ef9779016";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4325137/deutsch_de_language_pack-129.0.20240724.91519.xpi";
+      sha256 = "ee46aa1023a4a1ad91e2510f76723cfcca7378f3e4a8b47edff64e29acebbd48";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2719,10 +2719,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.14";
+      version = "1.3.15";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4322229/faststream-1.3.14.xpi";
-      sha256 = "e0a16ff255ab043c3cc49ba14ea515d33aa9a2bbb52ba44b9ea37b4178b54645";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4325566/faststream-1.3.15.xpi";
+      sha256 = "c687c2607bcb7dd9efd2cec044883908a235df367d224fa79d668e8e918d58db";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -3170,10 +3170,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "128.0.20240722.223746";
+      version = "129.0.20240724.91519";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4324472/francais_language_pack-128.0.20240722.223746.xpi";
-      sha256 = "ad49c0e097be8bc768d40cec6a6ae80d56e9216cd5dc4251101512ca83715c49";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4325145/francais_language_pack-129.0.20240724.91519.xpi";
+      sha256 = "c813452b35d8fd5e623413ba9e150dd310ab681a1d1930175d31ad1c4fce7d83";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -7811,10 +7811,10 @@
     };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.25.1";
+      version = "2.26.1";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4307081/1password_x_password_manager-2.25.1.xpi";
-      sha256 = "694ccd2a6464812ba8dbc09b143397516b16867a387a8f49290176d85e9845bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4321525/1password_x_password_manager-2.26.1.xpi";
+      sha256 = "d838bfb835e6c1004d99e9192b2e7243646669915400f3fa782ae03ef0765946";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -12550,10 +12550,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.7.15.0";
+      version = "24.7.24.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4324058/yomitan-24.7.15.0.xpi";
-      sha256 = "755d10a0e1a22776bcd38891ba0be67d90b568aaaad1a830df80fe656a6e228a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4325576/yomitan-24.7.24.0.xpi";
+      sha256 = "fac77a0cd7a196d4133afcc7fa6d2b790d53b63a75bcb32ab9fffe87c9581e66";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
