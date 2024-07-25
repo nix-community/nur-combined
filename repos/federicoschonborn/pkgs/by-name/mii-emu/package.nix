@@ -8,17 +8,18 @@
   libglvnd,
   pixman,
   xorg,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mii-emu";
-  version = "1.8";
+  version = "1.9";
 
   src = fetchFromGitHub {
     owner = "buserror";
     repo = "mii_emu";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-iCYQhiq3h1zZ5Odpf20GXDeP/W0BRNjNXzcm1yfeT9o=";
+    hash = "sha256-9bk1byEIjTzMkMKxJ/4RckM+g1XpZl9vgSizbFhD/N4=";
   };
 
   nativeBuildInputs = [ pkg-config ];
@@ -32,6 +33,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   makeFlags = [ "DESTDIR=${placeholder "out"}" ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     mainProgram = "mii_emu_gl";

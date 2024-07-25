@@ -2,6 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  nix-update-script,
 }:
 
 let
@@ -22,6 +23,8 @@ buildGoModule rec {
   vendorHash = "sha256-lRUvoCiE6AkYnyOCzev1o93OhXjJjBwEpT94JTbIeE8=";
 
   doCheck = false;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     mainProgram = "woke";

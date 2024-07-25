@@ -3,35 +3,49 @@
   stdenv,
   fetchFromGitLab,
   cmake,
-  extra-cmake-modules,
+  kdePackages,
   ninja,
-  libsForQt5,
+  python3,
+  qt6,
+  nix-update-script,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation {
   pname = "plasma-camera";
-  version = "1.0";
+  version = "1.0-unstable-2024-07-10";
 
   src = fetchFromGitLab {
     domain = "invent.kde.org";
     owner = "plasma-mobile";
     repo = "plasma-camera";
-    rev = finalAttrs.version;
-    hash = "sha256-PXpYS3hoeOrCCd1FpVoezYwf4eYsaDLRaTYHDqaec0U=";
+    rev = "73de8e63ed969595cc70ce88686e3458aa997da0";
+    hash = "sha256-CswF37czOLwU77U/qtF/TB46S3fNwtfIz3IZww1Pauc=";
   };
 
   nativeBuildInputs = [
     cmake
-    extra-cmake-modules
+    kdePackages.extra-cmake-modules
     ninja
-    libsForQt5.wrapQtAppsHook
+    python3
+    qt6.wrapQtAppsHook
   ];
 
   buildInputs = [
-    libsForQt5.qtbase
-    libsForQt5.qtquickcontrols2
-    libsForQt5.kirigami2
+    kdePackages.kconfig
+    kdePackages.kcoreaddons
+    kdePackages.ki18n
+    kdePackages.kirigami
+    qt6.qtbase
+    qt6.qtdeclarative
+    qt6.qtsvg
   ];
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = {
     mainProgram = "plasma-camera";
@@ -41,4 +55,4 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
-})
+}
