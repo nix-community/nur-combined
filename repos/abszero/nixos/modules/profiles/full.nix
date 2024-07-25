@@ -53,21 +53,15 @@ in
 
     programs = {
       dconf.enable = true;
-      # For vendor completions; config is managed by home-manager
-      fish.enable = true;
       kdeconnect.enable = true;
       nix-ld.enable = true;
-      ssh = {
-        enableAskPassword = true;
-        askPassword = "${pkgs.libsForQt5.ksshaskpass}/bin/ksshaskpass";
-      };
     };
 
     environment = {
       defaultPackages = [ ];
       systemPackages = with pkgs; [
         # TODO: Switch to anki-qt6 when it is no longer broken on Wayland
-        anki-bin-qt6
+        anki-bin-qt6-wayland
         aseprite
         ffmpeg_5-full
         gh

@@ -6,7 +6,12 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf mkMerge;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkDefault
+    mkMerge
+    ;
   cfg = config.abszero.services.desktopManager.plasma6;
 in
 
@@ -15,6 +20,9 @@ in
 
   config = mkIf cfg.enable {
     services.desktopManager.plasma6.enable = true;
+
+    # Package is set by nixos module
+    programs.ssh.enableAskPassword = mkDefault true;
 
     environment.systemPackages =
       with pkgs;

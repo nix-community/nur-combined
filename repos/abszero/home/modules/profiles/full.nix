@@ -22,10 +22,6 @@ in
         direnv.enable = true;
         dotdrop.enable = true;
         firefox.enable = true;
-        fish = {
-          enable = true;
-          enableNushellIntegration = true;
-        };
         git.enable = true;
         nushell.enable = true;
         starship.enable = true;
@@ -66,6 +62,11 @@ in
       helix.enable = true;
       nix-index-database.comma.enable = true;
       yazi.enable = true;
+      zsh = {
+        syntaxHighlighting.enable = true;
+        autosuggestion.enable = true;
+        enableVteIntegration = true;
+      };
     };
   };
 }

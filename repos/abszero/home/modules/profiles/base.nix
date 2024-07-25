@@ -6,7 +6,12 @@
 }:
 
 let
-  inherit (lib) mkIf mkDefault getExe;
+  inherit (lib)
+    mkIf
+    mkDefault
+    getExe
+    removePrefix
+    ;
   inherit (lib.abszero.modules) mkExternalEnableOption;
   cfg = config.abszero.profiles.base;
 in
@@ -35,6 +40,14 @@ in
 
     xdg.enable = true;
 
-    programs.home-manager.enable = true;
+    programs = {
+      home-manager.enable = true;
+      zsh = {
+        enable = true;
+        # Hack since `dotDir` is relative to home
+        dotDir = "${removePrefix "${config.home.homeDirectory}/" config.xdg.configHome}/zsh";
+        autocd = true;
+      };
+    };
   };
 }
