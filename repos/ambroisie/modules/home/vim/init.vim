@@ -100,6 +100,8 @@ gruvbox.setup({
         DiffChange = { fg = colors.aqua, bg = "NONE" },
         DiffDelete = { fg = colors.red, bg = "NONE" },
         DiffText = { fg = colors.yellow, bg = colors.bg0 },
+        -- Directories "pop" better in blue
+        Directory = { link = "GruvboxBlueBold" },
     }
 })
 EOF
