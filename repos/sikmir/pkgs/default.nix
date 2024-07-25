@@ -337,6 +337,7 @@ lib.makeScope newScope (
     dns-filter = callPackage ./misc/dns-filter { };
     docker-reg-tool = callPackage ./misc/docker-reg-tool { };
     docx2csv = callPackage ./misc/docx2csv { };
+    ffs = callPackage ./misc/ffs { };
     finalcut = callPackage ./misc/finalcut { };
     freeopcua = callPackage ./misc/freeopcua { };
     gaiagpsclient = callPackage ./misc/gaiagpsclient { };
@@ -392,6 +393,7 @@ lib.makeScope newScope (
     telegram-send = callPackage ./misc/telegram-send { };
     telnetpp = callPackage ./misc/telnetpp { };
     terminalpp = callPackage ./misc/terminalpp { };
+    tiny-frpc = callPackage ./misc/tiny-frpc { };
     tinyflux = callPackage ./misc/tinyflux { };
     tlstunnel = callPackage ./misc/tlstunnel { };
     turbo = callPackage ./misc/turbo { };
@@ -402,7 +404,6 @@ lib.makeScope newScope (
     xfractint = callPackage ./misc/xfractint { };
     xtr = callPackage ./misc/xtr { };
     youtimetrack = callPackage ./misc/youtimetrack { };
-    zwave-js-server = callPackage ./misc/zwave-js-server { };
     zwave-js-ui = callPackage ./misc/zwave-js-ui { };
 
     ### MQTT
