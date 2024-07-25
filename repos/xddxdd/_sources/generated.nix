@@ -194,15 +194,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "d89e025009e09aa477123548a4bb22a7853024bf";
+    version = "de482bd5ac6c0eb1671169d9a5cd5484e12226fb";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "d89e025009e09aa477123548a4bb22a7853024bf";
+      rev = "de482bd5ac6c0eb1671169d9a5cd5484e12226fb";
       fetchSubmodules = false;
-      sha256 = "sha256-+uFjlyLHaCr3AKlkPd27DsX/hQj5UXuh3Aw1YlmwlE0=";
+      sha256 = "sha256-vOzoDGnaUsW5JdPU4tbN6CC9pMxmITt5q2E2F8mVmqk=";
     };
-    date = "2024-07-23";
+    date = "2024-07-25";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -763,13 +763,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.10.0-xanmod1";
+    version = "6.10.1-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.10.0-xanmod1";
+      rev = "6.10.1-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-zsBSG8YFxW4kKWRVtdG6M87FHJJ/8qlmq/qWAGYeieg=";
+      sha256 = "sha256-dxWSHTawJvxK5yabBd7pu/7kE6awYogT4nB7K/Pj+BU=";
     };
   };
   linux-xanmod-6_0 = {
@@ -807,13 +807,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3449";
+    version = "b3458";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3449";
+      rev = "b3458";
       fetchSubmodules = false;
-      sha256 = "sha256-maOr4h7LeM3fqstHx9l77l4BZHZZYtQ5f7j3dqhI/zw=";
+      sha256 = "sha256-24LqGgkQJ9aTfTIq+2EP95122h2/TzkhuK6ue66mG0I=";
     };
   };
   lyrica = {
@@ -1102,10 +1102,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v5.0.7";
+    version = "v5.1.0";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v5.0.7/PeerBanHelper.jar";
-      sha256 = "sha256-nUV4AJ6pyUoOYDme44M6LtqDiiashsGS/Fi+3qCaio4=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v5.1.0/PeerBanHelper.jar";
+      sha256 = "sha256-m8BaoZ9O8R+WqgSewln6Gul6QTiCTrGMZloadtRr12c=";
     };
   };
   phpmyadmin = {

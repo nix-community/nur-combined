@@ -349,7 +349,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-07-23",
+        "date": "2024-07-25",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -361,12 +361,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "d89e025009e09aa477123548a4bb22a7853024bf",
-            "sha256": "sha256-+uFjlyLHaCr3AKlkPd27DsX/hQj5UXuh3Aw1YlmwlE0=",
+            "rev": "de482bd5ac6c0eb1671169d9a5cd5484e12226fb",
+            "sha256": "sha256-vOzoDGnaUsW5JdPU4tbN6CC9pMxmITt5q2E2F8mVmqk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d89e025009e09aa477123548a4bb22a7853024bf"
+        "version": "de482bd5ac6c0eb1671169d9a5cd5484e12226fb"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1374,12 +1374,12 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.10.0-xanmod1",
-            "sha256": "sha256-zsBSG8YFxW4kKWRVtdG6M87FHJJ/8qlmq/qWAGYeieg=",
+            "rev": "6.10.1-xanmod1",
+            "sha256": "sha256-dxWSHTawJvxK5yabBd7pu/7kE6awYogT4nB7K/Pj+BU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.10.0-xanmod1"
+        "version": "6.10.1-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1458,12 +1458,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3449",
-            "sha256": "sha256-maOr4h7LeM3fqstHx9l77l4BZHZZYtQ5f7j3dqhI/zw=",
+            "rev": "b3458",
+            "sha256": "sha256-24LqGgkQJ9aTfTIq+2EP95122h2/TzkhuK6ue66mG0I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3449"
+        "version": "b3458"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -1987,11 +1987,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-nUV4AJ6pyUoOYDme44M6LtqDiiashsGS/Fi+3qCaio4=",
+            "sha256": "sha256-m8BaoZ9O8R+WqgSewln6Gul6QTiCTrGMZloadtRr12c=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v5.0.7/PeerBanHelper.jar"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v5.1.0/PeerBanHelper.jar"
         },
-        "version": "v5.0.7"
+        "version": "v5.1.0"
     },
     "phpmyadmin": {
         "cargoLocks": null,
