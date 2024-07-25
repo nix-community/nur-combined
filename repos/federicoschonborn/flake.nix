@@ -144,10 +144,15 @@
                         broken = value.meta.broken or false;
                         unfree = value.meta.unfree or false;
 
-                        brokenIndicator = lib.optionalString broken " (💥 Broken)";
-                        unfreeIndicator = lib.optionalString unfree " (🔒 Unfree)";
+                        brokenSection = lib.optionalString broken ''
+                          **💥 NOTE:** This package has been marked as broken.
+                        '';
 
-                        nameSection = "- Name: `${value.pname or value.name}`";
+                        unfreeSection = lib.optionalString unfree ''
+                          **🔒 NOTE:** This package has an unfree license.
+                        '';
+
+                        pnameSection = "- Name: `${value.pname or value.name}`";
 
                         versionSection = lib.optionalString (value ? version) "- Version: `${value.version}`";
 
@@ -165,7 +170,7 @@
 
                         changelogSection = lib.optionalString (changelog != "") "- [Changelog](${changelog})";
 
-                        sourceSection =
+                        positionSection =
                           let
                             formatPosition =
                               x:
@@ -174,13 +179,16 @@
                                 path = builtins.elemAt parts 0;
                                 line = builtins.elemAt parts 1;
                               in
-                              "./${path}#L${line}";
+                              if builtins.pathExists (./. + path) then
+                                "./${path}#L${line}"
+                              else
+                                "https://github.com/NixOS/nixpkgs/blob/${nixpkgs.shortRev}/${path}#L${line}";
                           in
                           lib.optionalString (position != "") "- [Source](${formatPosition position})";
 
                         licenseSection =
                           let
-                            formatLicense = x: if x ? url then "[`${x.fullName}`](${x.url})" else x.fullName;
+                            formatLicense = x: if x ? url then "[`${x.spdxId}`](${x.url} '${x.fullName}')" else x.fullName;
                           in
                           lib.optionalString (licenses != null) (
                             "- License${if builtins.length licenses > 1 then "s" else ""}: "
@@ -229,14 +237,17 @@
                       builtins.concatStringsSep "\n" (
                         builtins.filter (x: x != "") [
                           ''
-                            ### `${name}`${unfreeIndicator}${brokenIndicator}
+                            ### `${name}`
                           ''
+                          brokenSection
+                          unfreeSection
                           descriptionSection
-                          nameSection
+                          pnameSection
                           versionSection
                           homepageSection
                           changelogSection
                           licenseSection
+                          positionSection
                           maintainersSection
                           ''
 
@@ -247,7 +258,6 @@
                                 Package details
                               </summary>
                           ''
-                          sourceSection
                           outputsSection
                           programsSection
                           platformsSection
@@ -293,6 +303,10 @@
               };
               deadnix.enable = true;
               statix.enable = true;
+              generate-readme = {
+                enable = true;
+                entry = "nix run --print-build-logs .#generate-readme";
+              };
             };
           };
 

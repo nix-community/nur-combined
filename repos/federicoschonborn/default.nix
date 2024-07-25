@@ -38,20 +38,21 @@ lib.makeScope pkgs.newScope (
     akkoma-emoji = lib.recurseIntoAttrs (self.callPackage ./pkgs/akkoma-emoji { });
 
     # Overrides
-    yyjson_0_10 = pkgs.yyjson.overrideAttrs (
-      finalAttrs: prevAttrs: {
-        version = "0.10.0";
-        src = pkgs.fetchFromGitHub {
-          owner = "ibireme";
-          repo = "yyjson";
-          rev = finalAttrs.version;
-          hash = "sha256-mp9Oz08qTyhj3P6F1d81SX96vamUY/JWpD2DTYR+v04=";
-        };
-        meta = (prevAttrs.meta or { }) // {
-          maintainers = (prevAttrs.meta.maintainers or [ ]) ++ [ lib.maintainers.federicoschonborn ];
-        };
-      }
-    );
+    yyjson_0_10 =
+      if lib.versionAtLeast pkgs.yyjson.version "0.10.0" then
+        pkgs.yyjson
+      else
+        pkgs.yyjson.overrideAttrs (
+          finalAttrs: _: {
+            version = "0.10.0";
+            src = pkgs.fetchFromGitHub {
+              owner = "ibireme";
+              repo = "yyjson";
+              rev = finalAttrs.version;
+              hash = "sha256-mp9Oz08qTyhj3P6F1d81SX96vamUY/JWpD2DTYR+v04=";
+            };
+          }
+        );
 
     # Variants
     fastfetchMinimal =
