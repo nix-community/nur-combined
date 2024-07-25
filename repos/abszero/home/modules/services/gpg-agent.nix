@@ -6,7 +6,7 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf mkDefault;
   cfg = config.abszero.services.gpg-agent;
 in
 
@@ -16,6 +16,6 @@ in
   config.services.gpg-agent = mkIf cfg.enable {
     enable = true;
     enableSshSupport = true;
-    pinentryPackage = pkgs.pinentry-gnome3;
+    pinentryPackage = mkDefault pkgs.pinentry-gnome3;
   };
 }

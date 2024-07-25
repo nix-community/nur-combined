@@ -18,6 +18,7 @@ in
       platformTheme.name = "kde";
       style.name = null;
     };
+    services.gpg-agent.pinentryPackage = pkgs.pinentry-qt;
     programs.firefox.nativeMessagingHosts = with pkgs.kdePackages; [ plasma-browser-integration ];
   };
 }
