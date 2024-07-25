@@ -110,25 +110,26 @@
 
             generate-readme.program =
               let
+                # 😱
+                programList = lib.importJSON (
+                  pkgs.runCommand "program-list.json" { } ''
+                    { ${
+                      builtins.concatStringsSep "\n" (
+                        lib.mapAttrsToList (name: value: ''
+                          if test -d ${value}/bin; then
+                            ${lib.getExe pkgs.jq} -n '{"${name}": $ARGS.positional}' --args $(find ${value}/bin -type f -executable -not -name ".*" -printf "%f\n" | sort)
+                          fi
+                        '') config.packages
+                      )
+                    } } | ${lib.getExe pkgs.jq} -s add > $out
+                  ''
+                );
+
                 packageList = pkgs.writeText "package-list.md" (
                   builtins.concatStringsSep "\n" (
                     lib.mapAttrsToList (
                       name: value:
                       let
-                        # 😱
-                        programList = lib.importJSON (
-                          pkgs.runCommand "program-list.json" { } ''
-                            { ${
-                              builtins.concatStringsSep "\n" (
-                                lib.mapAttrsToList (name: value: ''
-                                  if test -d ${value}/bin; then
-                                    ${lib.getExe pkgs.jq} -n '{"${name}": $ARGS.positional}' --args $(find ${value}/bin -type f -executable -not -name ".*" -printf "%f\n" | sort)
-                                  fi
-                                '') config.packages
-                              )
-                            } } | ${lib.getExe pkgs.jq} -s add > $out
-                          ''
-                        );
                         programs = programList.${name} or [ ];
 
                         description = value.meta.description or "";
@@ -163,7 +164,7 @@
                             formatOutput = x: if x == value.outputName then "**`${x}`**" else "`${x}`";
                           in
                           lib.optionalString (outputs != [ ]) (
-                            "- Outputs: " + (builtins.concatStringsSep ", " (builtins.map formatOutput outputs))
+                            "- Outputs: " + (lib.concatMapStringsSep ", " formatOutput outputs)
                           );
 
                         homepageSection = lib.optionalString (homepage != "") "- [Homepage](${homepage})";
@@ -192,7 +193,7 @@
                           in
                           lib.optionalString (licenses != null) (
                             "- License${if builtins.length licenses > 1 then "s" else ""}: "
-                            + (builtins.concatStringsSep ", " (builtins.map formatLicense licenses))
+                            + (lib.concatMapStringsSep ", " formatLicense licenses)
                           );
 
                         programsSection =
@@ -200,7 +201,7 @@
                             formatProgram = x: if x == mainProgram then "**`${x}`**" else "`${x}`";
                           in
                           lib.optionalString (programs != [ ]) (
-                            "- Programs provided: " + (builtins.concatStringsSep ", " (builtins.map formatProgram programs))
+                            "- Programs provided: " + (lib.concatMapStringsSep ", " formatProgram programs)
                           );
 
                         maintainersSection =
@@ -215,15 +216,13 @@
                             allMaintainersLink =
                               if builtins.any (x: x ? email) maintainers then
                                 "  - [✉️ Mail to all maintainers](mailto:"
-                                + (builtins.concatStringsSep "," (builtins.map (x: x.email or null) maintainers))
+                                + (lib.concatMapStringsSep "," (x: x.email or null) maintainers)
                                 + ")"
                               else
                                 "";
                           in
                           lib.optionalString (maintainers != [ ]) (
-                            "- Maintainers:\n"
-                            + (builtins.concatStringsSep "" (builtins.map formatMaintainer maintainers))
-                            + allMaintainersLink
+                            "- Maintainers:\n" + (lib.concatMapStringsSep "" formatMaintainer maintainers) + allMaintainersLink
                           );
 
                         platformsSection =
@@ -231,7 +230,7 @@
                             formatPlatform = x: "`${x}`";
                           in
                           lib.optionalString (platforms != [ ]) (
-                            "- Platforms: " + (builtins.concatStringsSep ", " (builtins.map formatPlatform platforms))
+                            "- Platforms: " + (lib.concatMapStringsSep ", " formatPlatform platforms)
                           );
                       in
                       builtins.concatStringsSep "\n" (
