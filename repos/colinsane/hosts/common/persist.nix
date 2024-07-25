@@ -11,7 +11,7 @@
     # TODO: these should be private.. somehow
     "/var/backup"  # for e.g. postgres dumps
   ];
-  sane.persist.sys.byStore.cryptClearOnBoot = [
+  sane.persist.sys.byStore.ephemeral = [
     "/var/lib/systemd/coredump"
   ];
 }

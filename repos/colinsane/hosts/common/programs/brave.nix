@@ -21,7 +21,7 @@
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
 
-    persist.byStore.cryptClearOnBoot = [
+    persist.byStore.ephemeral = [
       ".cache/BraveSoftware"
       ".config/BraveSoftware"
     ];

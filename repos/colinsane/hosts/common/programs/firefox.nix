@@ -160,7 +160,7 @@ let
       persistCache = mkOption {
         description = "optional store name to which persist browser cache";
         type = types.nullOr types.str;
-        default = "cryptClearOnBoot";
+        default = "ephemeral";
       };
       addons = mkOption {
         type = types.attrsOf addonOpts;
@@ -372,14 +372,14 @@ in
           if (cfg.persistData != null) then
             cfg.persistData
           else
-            "cryptClearOnBoot"
+            "ephemeral"
         ;
 
         persist.byPath."${cfg.browser.dotDir}/default".store =
           if (cfg.persistData != null) then
             cfg.persistData
           else
-            "cryptClearOnBoot"
+            "ephemeral"
         ;
       };
 

@@ -125,7 +125,7 @@ in
     fs."Apps".symlink.target = ".local/share/applications/rofi-applications.desktop";
     fs."WiFi".symlink.target = ".local/share/applications/networkmanager_dmenu.desktop";
     fs."close".symlink.target = ".local/share/applications/close.desktop";  #< provide an escape from the file browser
-    persist.byStore.cryptClearOnBoot = [
+    persist.byStore.ephemeral = [
       # this gets us a few things:
       # - file browser remembers its last directory
       # - caching of .desktop files (perf)

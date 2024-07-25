@@ -519,7 +519,7 @@ in
     electrum.sandbox.method = "bwrap";  # TODO:sandbox: untested
     electrum.sandbox.net = "all";  # TODO: probably want to make this run behind a VPN, always
     electrum.sandbox.whitelistWayland = true;
-    electrum.persist.byStore.cryptClearOnBoot = [ ".electrum" ];  #< TODO: use XDG dirs!
+    electrum.persist.byStore.ephemeral = [ ".electrum" ];  #< TODO: use XDG dirs!
 
     endless-sky.buildCost = 1;
     endless-sky.persist.byStore.plaintext = [ ".local/share/endless-sky" ];
@@ -685,7 +685,7 @@ in
       "Pictures/Screenshots"
       "Pictures/servo-macros"
     ];
-    gnome-frog.persist.byStore.cryptClearOnBoot = [
+    gnome-frog.persist.byStore.ephemeral = [
       ".local/share/tessdata"  # 15M; dunno what all it is.
     ];
 
@@ -899,7 +899,7 @@ in
     nixpkgs-review.sandbox.extraPaths = [
       "/nix"
     ];
-    nixpkgs-review.persist.byStore.cryptClearOnBoot = [
+    nixpkgs-review.persist.byStore.ephemeral = [
       ".cache/nixpkgs-review"  #< help it not exhaust / tmpfs
     ];
 

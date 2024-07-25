@@ -12,7 +12,7 @@
     sandbox.net = "clearnet";  # tor over VPN wouldn't make sense
     sandbox.whitelistAudio = true;
     sandbox.whitelistWayland = true;
-    persist.byStore.cryptClearOnBoot = [
+    persist.byStore.ephemeral = [
       ".local/share/tor-browser"
     ];
   };

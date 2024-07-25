@@ -24,7 +24,7 @@
       # also writes to ~/.cache/komikku
       ".local/share/komikku"
     ];
-    persist.byStore.cryptClearOnBoot = [
+    persist.byStore.ephemeral = [
       ".cache/komikku"
     ];
   };

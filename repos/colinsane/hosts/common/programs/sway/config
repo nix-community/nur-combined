@@ -194,7 +194,9 @@ for_window [app_id="Celeste64|mpv"] {
 
 ### displays & inputs
 input type:touchpad {
+    # see also: accel_profile, scroll_factor, tap_button_map, clickfinger_button_map
     tap enabled
+    middle_emulation disabled
     natural_scroll enabled
 }
 

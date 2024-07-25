@@ -36,7 +36,7 @@
   in {
     ".persist/private" = lib.mkIf persistEnabled { symlink.target = config.sane.persist.stores.private.origin; };
     ".persist/plaintext" = lib.mkIf persistEnabled { symlink.target = config.sane.persist.stores.plaintext.origin; };
-    ".persist/ephemeral" = lib.mkIf persistEnabled { symlink.target = config.sane.persist.stores.cryptClearOnBoot.origin; };
+    ".persist/ephemeral" = lib.mkIf persistEnabled { symlink.target = config.sane.persist.stores.ephemeral.origin; };
 
     "nixos".symlink.target = "dev/nixos";
 

@@ -1,6 +1,6 @@
 { config, ... }:
 {
-  sane.persist.sys.byStore.cryptClearOnBoot = [
+  sane.persist.sys.byStore.ephemeral = [
     # when running commands as root, some things may create ~/.cache entries.
     # notably:
     # - `/root/.cache/nix/` takes up ~10 MB on lappy/desko/servo
