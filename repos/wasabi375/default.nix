@@ -15,4 +15,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   procrastinate = pkgs.callPackage ./pkgs/procrastinate {};
+  vscode_codicons = pkgs.callPackage ./pkgs/fonts/vscode-codicons {};
 }

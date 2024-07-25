@@ -12,7 +12,7 @@ from the [NUR](https://github.com/nix-community/NUR) repository.
 ## Build package
 
 Before updating the repository make sure all packages can be build.
-To build a package locally use `nix build .#<pacakgename>`, 
+To build a package locally use `nix build .#<packagename>`, 
 e.g `nix build .#procrastinate`
 
 
