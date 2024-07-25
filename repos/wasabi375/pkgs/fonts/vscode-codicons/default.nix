@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
         description = "Microsoft VSCode Codicons font";
         homepage = "https://github.com/microsoft/vscode-codicons";
         license = with lib.licenses; [ mit cc-by-40];
-        # provanace TODO this should be some sort of binary provanance
+        # TODO provanace this should be some sort of binary provanance
     };
 
 }
