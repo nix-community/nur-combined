@@ -813,7 +813,7 @@ GNU Image Manipulation Program.
 - Version: `2.99.18`
 - [Homepage](https://www.gimp.org/)
 - License: [`GPL-3.0-or-later`](https://spdx.org/licenses/GPL-3.0-or-later.html "GNU General Public License v3.0 or later")
-- [Source](./pkgs/by-name/gimp3/package.nix#L179)
+- [Source](./pkgs/by-name/gimp3/package.nix#L199)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)

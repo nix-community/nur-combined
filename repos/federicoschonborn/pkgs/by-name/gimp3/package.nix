@@ -16,6 +16,7 @@
   pkg-config,
   python3,
   vala,
+  validatePkgConfig,
   wrapGAppsHook,
   aalib,
   alsa-lib,
@@ -65,6 +66,7 @@
   xorg,
   xz,
   zlib,
+  testers,
 }:
 
 let
@@ -97,6 +99,7 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
     pythonEnv
     vala
+    validatePkgConfig
     wrapGAppsHook
   ];
 
@@ -162,9 +165,13 @@ stdenv.mkDerivation (finalAttrs: {
   mesonFlags = [ (lib.mesonEnable "headless-tests" false) ];
 
   postPatch = ''
-    substituteInPlace meson.build --replace-fail "if not glib_networking_works" "if glib_networking_works"
     substituteInPlace devel-docs/reference/gimp{,-ui}/meson.build --replace-fail "'--fatal-warnings'" "# '--fatal-warnings'"
     patchShebangs --build app/tests/create_test_env.sh tools/gimp-mkenums
+  '';
+
+  preConfigure = ''
+    # The check runs before glib-networking is registered
+    export GIO_EXTRA_MODULES="${glib-networking}/lib/gio/modules:$GIO_EXTRA_MODULES"
   '';
 
   postFixup = ''
@@ -172,7 +179,20 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace $(grep -Rl /usr/bin/env $out/lib) --replace-fail "/usr/bin/env gimp-script-fu-interpreter-3.0" "$out/bin/gimp-script-fu-interpreter-3.0"
   '';
 
+  doCheck = true;
+
+  mesonCheckFlags = [
+    # Makes network requests
+    "--no-suite"
+    "gimp:desktop"
+  ];
+
   strictDeps = true;
+
+  passthru.tests.pkg-config = testers.hasPkgConfigModules {
+    package = finalAttrs.finalPackage;
+    versionCheck = true;
+  };
 
   meta = {
     mainProgram = "gimp";
@@ -181,5 +201,10 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];
+    pkgConfigModules = [
+      "gimp-3.0"
+      "gimpthumb-3.0"
+      "gimpui-3.0"
+    ];
   };
 })

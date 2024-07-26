@@ -302,10 +302,6 @@
               };
               deadnix.enable = true;
               statix.enable = true;
-              generate-readme = {
-                enable = true;
-                entry = "nix run --print-build-logs .#generate-readme";
-              };
             };
           };
 
