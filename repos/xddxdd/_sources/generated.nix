@@ -393,17 +393,6 @@
       sha256 = "sha256-Xw5oBsxsCzoqXZ3r6koVuVmRAi8Ys9e2CmKxBhLenHM=";
     };
   };
-  flaresolverr = {
-    pname = "flaresolverr";
-    version = "v3.3.21";
-    src = fetchFromGitHub {
-      owner = "FlareSolverr";
-      repo = "FlareSolverr";
-      rev = "v3.3.21";
-      fetchSubmodules = false;
-      sha256 = "sha256-M/snpYKZK3pgzlhYjRYEiAPlK9DUKYRiiu43KcrAy9g=";
-    };
-  };
   flasgger = {
     pname = "flasgger";
     version = "0.9.5";
@@ -1593,18 +1582,6 @@
       fetchSubmodules = false;
       sha256 = "sha256-mcqiTqu/KIZ+W9yvZfyFekjRdiVavkHVKVRh0xUytg0=";
     };
-  };
-  undetected-chromedriver = {
-    pname = "undetected-chromedriver";
-    version = "0aa5fbe252370b4cb2b95526add445392cad27ba";
-    src = fetchFromGitHub {
-      owner = "ultrafunkamsterdam";
-      repo = "undetected-chromedriver";
-      rev = "0aa5fbe252370b4cb2b95526add445392cad27ba";
-      fetchSubmodules = false;
-      sha256 = "sha256-Qe+GrsUPnhjJMDgjdUCloapjj0ggFlm/Dr42WLcmb1o=";
-    };
-    date = "2024-02-17";
   };
   vpp = {
     pname = "vpp";

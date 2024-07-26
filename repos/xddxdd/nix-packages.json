@@ -349,11 +349,6 @@
     "pname": "fcitx5-breeze",
     "version": "2.0.0"
   },
-  "legacyPackages.x86_64-linux.flaresolverr": {
-    "description": "Proxy server to bypass Cloudflare protection",
-    "pname": "flaresolverr",
-    "version": "3.3.21"
-  },
   "legacyPackages.x86_64-linux.flasgger": {
     "description": "Easy OpenAPI specs and Swagger UI for your Flask API",
     "pname": "python3.12-flasgger",
@@ -2929,16 +2924,6 @@
     "pname": "uksmd",
     "version": "1.2.11"
   },
-  "legacyPackages.x86_64-linux.undetected-chromedriver": {
-    "description": "Custom Selenium Chromedriver | Zero-Config | Passes ALL bot mitigation systems (like Distil / Imperva/ Datadadome / CloudFlare IUAM)",
-    "pname": "python3.12-undetected-chromedriver-unstable",
-    "version": "2024-02-17"
-  },
-  "legacyPackages.x86_64-linux.undetected-chromedriver-bin": {
-    "description": "Chromedriver with undetected-chromedriver patch",
-    "pname": "undetected-chromedriver-bin",
-    "version": "126.0.6478.182"
-  },
   "legacyPackages.x86_64-linux.vpp": {
     "description": "Vector Packet Processing",
     "pname": "vpp",
@@ -3148,11 +3133,6 @@
     "description": "Fcitx5 theme to match KDE's Breeze style",
     "pname": "fcitx5-breeze",
     "version": "2.0.0"
-  },
-  "packages.x86_64-linux.flaresolverr": {
-    "description": "Proxy server to bypass Cloudflare protection",
-    "pname": "flaresolverr",
-    "version": "3.3.21"
   },
   "packages.x86_64-linux.flasgger": {
     "description": "Easy OpenAPI specs and Swagger UI for your Flask API",
@@ -3618,16 +3598,6 @@
     "description": "Userspace KSM helper daemon",
     "pname": "uksmd",
     "version": "1.2.11"
-  },
-  "packages.x86_64-linux.undetected-chromedriver": {
-    "description": "Custom Selenium Chromedriver | Zero-Config | Passes ALL bot mitigation systems (like Distil / Imperva/ Datadadome / CloudFlare IUAM)",
-    "pname": "python3.12-undetected-chromedriver-unstable",
-    "version": "2024-02-17"
-  },
-  "packages.x86_64-linux.undetected-chromedriver-bin": {
-    "description": "Chromedriver with undetected-chromedriver patch",
-    "pname": "undetected-chromedriver-bin",
-    "version": "126.0.6478.182"
   },
   "packages.x86_64-linux.vpp": {
     "description": "Vector Packet Processing",

@@ -143,7 +143,6 @@ mkScope (
     etherguard = pkg ./uncategorized/etherguard { };
     fastapi-dls = pkg ./uncategorized/fastapi-dls { };
     fcitx5-breeze = pkg ./uncategorized/fcitx5-breeze { };
-    flaresolverr = pkg ./uncategorized/flaresolverr { };
     flasgger = pkg ./uncategorized/flasgger { };
     ftp-proxy = pkg ./uncategorized/ftp-proxy { };
     genshin-checkin-helper = pkg ./uncategorized/genshin-checkin-helper { };
@@ -221,8 +220,6 @@ mkScope (
     uesave = pkg ./uncategorized/uesave { };
     uesave-0_3_0 = pkg ./uncategorized/uesave/0_3_0.nix { };
     uksmd = pkg ./uncategorized/uksmd { };
-    undetected-chromedriver = pkg ./uncategorized/undetected-chromedriver { };
-    undetected-chromedriver-bin = pkg ./uncategorized/undetected-chromedriver-bin { };
     vpp = pkg ./uncategorized/vpp { };
     wechat-uos = pkgs-24_05.callPackage ./uncategorized/wechat-uos {
       sources = nvfetcherLoader ../_sources/generated.nix;

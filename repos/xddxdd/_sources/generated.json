@@ -699,27 +699,6 @@
         },
         "version": "2.0.0"
     },
-    "flaresolverr": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "flaresolverr",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "FlareSolverr",
-            "repo": "FlareSolverr",
-            "rev": "v3.3.21",
-            "sha256": "sha256-M/snpYKZK3pgzlhYjRYEiAPlK9DUKYRiiu43KcrAy9g=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v3.3.21"
-    },
     "flasgger": {
         "cargoLocks": null,
         "date": null,
@@ -2892,27 +2871,6 @@
             "type": "github"
         },
         "version": "v1.2.11"
-    },
-    "undetected-chromedriver": {
-        "cargoLocks": null,
-        "date": "2024-02-17",
-        "extract": null,
-        "name": "undetected-chromedriver",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "ultrafunkamsterdam",
-            "repo": "undetected-chromedriver",
-            "rev": "0aa5fbe252370b4cb2b95526add445392cad27ba",
-            "sha256": "sha256-Qe+GrsUPnhjJMDgjdUCloapjj0ggFlm/Dr42WLcmb1o=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "0aa5fbe252370b4cb2b95526add445392cad27ba"
     },
     "vpp": {
         "cargoLocks": null,
