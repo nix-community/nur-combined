@@ -15,11 +15,13 @@
   system.switch.enable = lib.mkForce false;
 
   # system.forbiddenDependenciesRegexes = [ "perl" ];
-  # documentation.info.enable = lib.mkDefault false;
-  # system.disableInstallerTools = lib.mkDefault true;
-  # programs.less.lessopen = lib.mkDefault null;
-  # programs.command-not-found.enable = lib.mkDefault false;
-  # boot.enableContainers = lib.mkDefault false;
+
+  # system.disableInstallerTools = true;
+  programs.less.lessopen = null;
+  programs.command-not-found.enable = false;
+  boot.enableContainers = false;
+  environment.defaultPackages = [ ];
+  documentation.info.enable = false;
 
   systemd.services.nix-daemon.serviceConfig = {
     LimitNOFILE = lib.mkForce 500000000;

@@ -140,10 +140,10 @@
   security.tpm2.pkcs11.enable = true;
   security.tpm2.tctiEnvironment.enable = true;
 
-  services.scx = {
-    enable = true;
-    scheduler = "scx_bpfland";
-  };
+  # services.scx = {
+  #   enable = true;
+  #   scheduler = "scx_bpfland";
+  # };
   boot = {
     loader.efi = {
       canTouchEfiVariables = true;
@@ -190,7 +190,7 @@
       "ec_sys"
       "uhid"
       "kvm-amd"
-      "brutal"
+      # "brutal"
       "dm_sflc"
     ];
     kernelParams = [
@@ -207,14 +207,14 @@
       in
       [
         v4l2loopback
-        (callPackage "${inputs.self}/pkgs/tcp-brutal.nix" { })
+        # (callPackage "${inputs.self}/pkgs/tcp-brutal.nix" { })
       ];
     kernelPackages =
       # (import inputs.nixpkgs-pin {
       #   system = "x86_64-linux";
       # })
-      # pkgs.linuxPackages_latest;
-      inputs.nyx.packages.${pkgs.system}.linuxPackages_cachyos;
+      pkgs.linuxPackages_latest;
+    # inputs.nyx.packages.${pkgs.system}.linuxPackages_cachyos;
 
     # kernelPatches =
     #   let patchPath = ../../.attachs/cachyos-kernel;

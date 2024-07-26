@@ -6,13 +6,13 @@
 }:
 {
   deployment = {
-    targetHost = "192.168.1.188";
+    targetHost = "192.168.1.190";
     targetUser = user;
     allowLocalDeployment = true;
-    privilegeEscalationCommand = [
-      "doas"
-      "--"
-    ];
+    # privilegeEscalationCommand = [
+    #   "doas"
+    #   "--"
+    # ];
   };
 
   imports = lib.sharedModules ++ [
