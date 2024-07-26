@@ -171,8 +171,6 @@ stdenv.mkDerivation (finalAttrs: {
     # - ZynAddSubFX LV2 & VST plugin fail to compile (not setup to use ObjC version of pugl)
     # - TTL generation crashes (`pointer being freed was not allocated`) for all VST plugins using AbstractFX
     # - Zest UI fails to start on pulg_setup: Could not open display, aborting.
-    #
-    # ntk build failure: https://github.com/NixOS/nixpkgs/issues/325948
-    broken = stdenv.isDarwin || guiModule == "ntk";
+    broken = stdenv.isDarwin;
   };
 })
