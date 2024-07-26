@@ -240,7 +240,9 @@ let
             # only do this for the services which are *defined* by this program though (i.e. `scvCfg ? description`)
             # so as to avoid idioms like when sway adds `graphical-session.partOf = default`
             depends = svcCfg.depends
-              ++ lib.optionals (svcName != "dbus" && builtins.elem "user" config.sandbox.whitelistDbus && cfg.dbus.enabled) [
+              ++ lib.optionals (((config.persist.byStore or {}).private or []) != []) [
+              "private-storage"
+            ] ++ lib.optionals (svcName != "dbus" && builtins.elem "user" config.sandbox.whitelistDbus && cfg.dbus.enabled) [
               "dbus"
             ] ++ lib.optionals ((!builtins.elem "wayland" svcCfg.partOf) && config.sandbox.whitelistWayland) [
               "wayland"

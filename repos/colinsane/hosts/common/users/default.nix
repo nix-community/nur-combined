@@ -32,8 +32,6 @@ in
     wheelNeedsPassword = false;
   };
 
-  security.pam.mount.enable = true;
-
   system.activationScripts.makeEtcShadowSandboxable = {
     deps = [ "users" ];
     text = ''

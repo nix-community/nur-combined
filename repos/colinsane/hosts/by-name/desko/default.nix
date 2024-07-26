@@ -33,6 +33,9 @@
 
   sane.nixcache.remote-builders.desko = false;
 
+  sane.programs.sane-private-unlock-remote.enableFor.user.colin = true;
+  sane.programs.sane-private-unlock-remote.config.hosts = [ "servo" ];
+
   sane.programs.sway.enableFor.user.colin = true;
   sane.programs.iphoneUtils.enableFor.user.colin = true;
   sane.programs.steam.enableFor.user.colin = true;

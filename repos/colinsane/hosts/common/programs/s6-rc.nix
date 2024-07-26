@@ -16,7 +16,9 @@
       '';
     });
 
-    persist.byStore.private = [
+    # N.B.: we can't persist anything to `private` storage at this point,
+    # because mounting the private storage generally relies on having a service manager running.
+    persist.byStore.ephemeral = [
       ".local/share/s6/logs"
     ];
 

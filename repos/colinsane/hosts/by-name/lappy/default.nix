@@ -15,6 +15,9 @@
   # sane.guest.enable = true;
   sane.image.extraBootFiles = [ pkgs.bootpart-uefi-x86_64 ];
 
+  sane.programs.sane-private-unlock-remote.enableFor.user.colin = true;
+  sane.programs.sane-private-unlock-remote.config.hosts = [ "servo" ];
+
   sane.programs.stepmania.enableFor.user.colin = true;
   sane.programs.sway.enableFor.user.colin = true;
 

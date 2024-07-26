@@ -374,10 +374,15 @@ in
         }
         function startS6WithLogging() {
           mkdir -p "${logBase}"  #< needs to exist for parallel s6-log call
+          # disable input echoing, so that user can use framebuffer applications (unl0kr) without keyboard echo characters writing to the same framebuffer
+          stty -echo
           startS6 2>&1 | s6-log -- T "${logBase}/catchall"
+          # should never be reached
+          stty echo
+          echo "s6 unexpectedly exited. dropping to shell."
         }
 
-        primarySessionCommands+=('startS6WithLogging &')
+        primarySessionCommands+=('startS6WithLogging')
       '';
     }));
   };

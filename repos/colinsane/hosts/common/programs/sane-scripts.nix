@@ -34,7 +34,6 @@ in
       "sane-scripts.reclaim-boot-space"
       "sane-scripts.reclaim-disk-space"
       "sane-scripts.secrets-dump"
-      "sane-scripts.secrets-unlock"
       "sane-scripts.secrets-update-keys"
       "sane-scripts.shutdown"
       "sane-scripts.sudo-redirect"
@@ -166,29 +165,11 @@ in
       extraPaths = [ "/nix/var/nix" ];
     };
 
-    "sane-scripts.secrets-unlock".sandbox = {
-      method = "bwrap";
-      extraHomePaths = [
-        ".ssh/id_ed25519"
-        ".ssh/id_ed25519.pub"
-        ".config/sops"
-      ];
-    };
-    "sane-scripts.secrets-unlock".fs.".config/sops".dir = {};
-    # automatically unlock the secrets at login.
-    # the alternative is to do it on-demand, which means giving lots of stuff access to my ssh key.
-    "sane-scripts.secrets-unlock".fs.".profile".symlink.text = ''
-      maybeUnlockSecrets() {
-        if test -f ~/.ssh/id_ed25519; then
-          sane-secrets-unlock
-        fi
-      }
-      sessionCommands+=('maybeUnlockSecrets')
-    '';
-
-    # sane-secrets-dump is a thin wrapper around sops + some utilities.
-    # really i should sandbox just the utilities
-    "sane-scripts.secrets-dump".sandbox.enable = false;
+    "sane-scripts.secrets-dump".sandbox.method = "bwrap";
+    "sane-scripts.secrets-dump".sandbox.extraHomePaths = [
+      ".config/sops"
+      "knowledge/secrets"
+    ];
     "sane-scripts.secrets-dump".suggestedPrograms = [
       "gnugrep"
       "oath-toolkit"

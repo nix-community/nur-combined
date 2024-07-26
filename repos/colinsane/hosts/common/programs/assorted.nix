@@ -160,6 +160,7 @@ in
       "rsync"
       "sane-scripts.bittorrent"
       "sane-scripts.cli"
+      "sane-secrets-unlock"
       "sc-im"
       # "snapper"
       "sops"  # for manually viewing secrets; outside `sane-secrets` (TODO: improve sane-secrets!)

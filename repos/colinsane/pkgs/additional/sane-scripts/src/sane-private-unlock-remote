@@ -1,0 +1,14 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p bash -p openssh -p sane-scripts.secrets-dump
+
+# unlock a remote private store by dropping the password in a discoverable place.
+# this only works if our own private store has been unlocked and this machine has access to the relevant secret.
+
+set -xeu
+
+host=$1
+passwd=$(sane-secrets-dump --field password "$host")
+
+test -n "$passwd"
+
+echo "$passwd" | ssh "$host" 'if ! test -f /mnt/persist/private/init; then cat /dev/stdin > /run/gocryptfs/private.key; fi'

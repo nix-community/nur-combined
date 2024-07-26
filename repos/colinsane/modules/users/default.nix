@@ -178,8 +178,7 @@ let
     config = lib.mkMerge [
       # if we're the default user, inherit whatever settings were routed to the default user
       (lib.mkIf config.default {
-        inherit (sane-user-cfg) fs persist environment;
-        services = lib.mapAttrs (_: lib.mkMerge) sane-user-cfg.services;
+        inherit (sane-user-cfg) fs environment persist services;
       })
       {
         fs."/".dir.acl = {
@@ -201,9 +200,12 @@ let
         #   - doesn't have to be numeric, could be "colin"
         # - XDG_SESSION_CLASS
         #   - e.g. "user"
+        # - XDG_SESSION_DESKTOP
+        #   - e.g. "Phosh"
         # - XDG_SESSION_TYPE
         #   - e.g. "tty", "wayland"
         # - XDG_VTNR
+        #   - e.g. `1`, or `2`. corresponds to some /dev/ttyN.
         # - SYSTEMD_EXEC_PID
         # some of my program-specific environment variables depend on some of these being set,
         # hence do that early:
@@ -239,42 +241,45 @@ let
               runCommands "''${sessionCommands[@]}"
             }
             maybeInitPrimarySession() {
-              for c in "''${primarySessionChecks[@]}"; do
-                if eval "$c"; then
-                  runCommands "''${primarySessionCommands[@]}"
-                  return
-                fi
-              done
+              local delay=3
+              if [ "$XDG_VTNR" = 1 ] \
+                && (( ''${#primarySessionCommands[@]} )) \
+                && echo "launching primary session commands in ''${delay}s: ''${primarySessionCommands[*]}" \
+                && sleep $delay \
+              ; then
+                runCommands "''${primarySessionCommands[@]}"
+              fi
             }
 
             setVTNR() {
-              # some desktops (e.g. sway) need to know which virtual TTY to render to
-              if [ -v "$XDG_VTNR" ]; then
-                return
-              fi
+              # some desktops (e.g. sway) need to know which virtual TTY to render to.
+              # it's also nice, to guess if a user logging into the "default" tty, or
+              # an auxiliary one
+
               local ttyPath=$(tty)
               case $ttyPath in
                 (/dev/tty*)
                   export XDG_VTNR=''${ttyPath#/dev/tty}
                   ;;
+                (*)
+                  # for terminals running inside a compositor, we do want to explicitly clear XDG_VTNR.
+                  # otherwise, sway will be launched from tty1, then the user will launch a terminal emulator inside sway, but the application will think it's running directly on tty1 (which it isn't)
+                  unset XDG_VTNR
+                  ;;
               esac
             }
             sessionCommands+=('setVTNR')
-            setXdgSessionType() {
-              # some apps (e.g. Komikku) require XDG_SESSION_TYPE to be set
-              if [ -v "$XDG_SESSION_TYPE" ]; then
-                return
-              fi
-              case $XDG_VTNR in
-                (1)
-                  export XDG_SESSION_TYPE=wayland
-                  ;;
-                (*)
-                  export XDG_SESSION_TYPE=tty
-                  ;;
-              esac
-            }
-            sessionCommands+=('setXdgSessionType')
+            # this is *probably not necessary*.
+            # historically, Komikku needed to know if it was running under X or Wayland, and used XDG_SESSION_TYPE for that.
+            # but unless this is a super common idiom, managing it here is just ugly.
+            # setXdgSessionType() {
+            #   case $(tty) in
+            #     (/dev/pts*)
+            #       export XDG_SESSION_TYPE=tty
+            #       ;;
+            #   esac
+            # }
+            # sessionCommands+=('setXdgSessionType')
             sourceEnv() {
               # source env vars and the like, as systemd would. `man environment.d`
               for env in ~/.config/environment.d/*.conf; do
@@ -308,6 +313,10 @@ let
           # "cheap" location providers -- such as on-demand wifi-based triangulation -- don't need to be gated behind this.
           # grouping it like this is mostly a power-saving thing to make certain services not auto-launched
           description = "service (bundle) which provides high-precision location info (e.g. from GPS)";
+        };
+        services."private-storage" = {
+          description = "service (bundle) which is active once the persist.private datastore has been opened";
+          dependencyOf = [ "graphical-session" ];  #< prevent any graphical environment from competing with the login/unlocker service over the framebuffer
         };
         services."sound" = {
           description = "service (bundle) which represents functional sound input/output when active";

@@ -117,4 +117,5 @@
   # '';
 
   sane.users.colin.default = true;
+  services.getty.autologinUser = lib.mkDefault "colin";
 }

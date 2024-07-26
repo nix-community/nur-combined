@@ -130,8 +130,10 @@
     ./s6-rc.nix
     ./sane-input-handler
     ./sane-open.nix
+    ./sane-private-unlock-remote.nix
     ./sane-screenshot.nix
     ./sane-scripts.nix
+    ./sane-secrets-unlock.nix
     ./sane-sysload.nix
     ./sane-theme.nix
     ./sanebox.nix

@@ -138,6 +138,11 @@ let
       srcRoot = ./src;
       pkgs = [ "util-linux.mount" ];
     };
+    private-unlock-remote = static-nix-shell.mkBash {
+      pname = "sane-private-unlock-remote";
+      srcRoot = ./src;
+      pkgs = [ "openssh" "sane-scripts.secrets-dump" ];
+    };
     rcp = static-nix-shell.mkBash {
       pname = "sane-rcp";
       srcRoot = ./src;

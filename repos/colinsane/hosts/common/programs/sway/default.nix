@@ -13,6 +13,7 @@ let
         echo "warning: required directory not found (create it?): $(dirname "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY")"
       test -e /tmp/.X11-unix || \
         echo "warning: required directory not found (create it?): /tmp/.X11-unix"
+
       # delete DISPLAY-related vars from env before launch, else sway will try to connect to a remote display.
       # (consider: nested sway sessions, where sway actually has a reason to read these)
       exec env -u DISPLAY -u WAYLAND_DISPLAY "DESIRED_WAYLAND_DISPLAY=$WAYLAND_DISPLAY" ${configuredSway}/bin/sway 2>&1
@@ -252,6 +253,7 @@ in
     # N.B.: gtk apps support absolute paths for this; webkit apps (e.g. geary) support only relative paths (relative to $XDG_RUNTIME_DIR)
     env.WAYLAND_DISPLAY = "wl/wayland-1";
 
+    services.private-storage.dependencyOf = [ "sway" ];  #< HACK: prevent unl0kr and sway from fighting over the tty
     services.sway = {
       description = "sway: tiling wayland desktop environment";
       partOf = [

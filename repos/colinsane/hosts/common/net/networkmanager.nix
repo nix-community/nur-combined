@@ -23,6 +23,7 @@ let
   networkmanager-split = pkgs.networkmanager-split.override { inherit networkmanager; };
 in {
   networking.networkmanager.enable = true;
+  systemd.network.wait-online.enable = false;  # systemd-networkd-wait-online.service reliably fails on lappy. docs don't match behavior. shit software.
   # plugins mostly add support for establishing different VPN connections.
   # the default plugin set includes mostly proprietary VPNs:
   # - fortisslvpn (Fortinet)
