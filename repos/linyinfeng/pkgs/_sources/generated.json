@@ -646,12 +646,12 @@
             "name": null,
             "owner": "microsoft",
             "repo": "secureboot_objects",
-            "rev": "v1.1.2",
-            "sha256": "sha256-KoNFPgxYICJ+Ly7NLf5VXDTLe/s6Ccgksyi4hbvaaxs=",
+            "rev": "v1.1.3",
+            "sha256": "sha256-FjGr3s/CODTR6K0VkA+xVQrE+zMzDKrSF0Vzx9dhi8g=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.1.2"
+        "version": "v1.1.3"
     },
     "swayosd": {
         "cargoLocks": {

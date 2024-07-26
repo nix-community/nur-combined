@@ -424,13 +424,13 @@
   };
   secureboot_objects = {
     pname = "secureboot_objects";
-    version = "v1.1.2";
+    version = "v1.1.3";
     src = fetchFromGitHub {
       owner = "microsoft";
       repo = "secureboot_objects";
-      rev = "v1.1.2";
+      rev = "v1.1.3";
       fetchSubmodules = false;
-      sha256 = "sha256-KoNFPgxYICJ+Ly7NLf5VXDTLe/s6Ccgksyi4hbvaaxs=";
+      sha256 = "sha256-FjGr3s/CODTR6K0VkA+xVQrE+zMzDKrSF0Vzx9dhi8g=";
     };
   };
   swayosd = {
