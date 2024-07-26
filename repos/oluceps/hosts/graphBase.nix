@@ -250,7 +250,6 @@
   };
   security = {
     pam.services.swaylock = { };
-    # Enable sound.
     rtkit.enable = true;
   };
   services = {

@@ -77,7 +77,6 @@
         "cpu",
         "memory",
         "battery",
-        "pulseaudio"
       ],
       "network": {
         "format": "{bandwidthDownOctets}",
