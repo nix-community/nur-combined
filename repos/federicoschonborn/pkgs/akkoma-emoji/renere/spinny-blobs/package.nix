@@ -2,7 +2,7 @@
   lib,
   stdenvNoCC,
   fetchFromGitLab,
-# nix-update-script,
+  nix-update-script,
 }:
 
 stdenvNoCC.mkDerivation {
@@ -33,13 +33,11 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru = {
-    # updateScript = nix-update-script {
-    #   extraArgs = [
-    #     "--version"
-    #     "branch"
-    #   ];
-    # };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
   };
 
   meta = {

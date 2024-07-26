@@ -2,6 +2,7 @@
   lib,
   stdenvNoCC,
   fetchzip,
+  nix-update-script,
 }:
 
 stdenvNoCC.mkDerivation (
@@ -52,6 +53,13 @@ stdenvNoCC.mkDerivation (
 
       runHook postInstall
     '';
+
+    passthru.updateScript = nix-update-script {
+      extraArgs = [
+        "--url"
+        "https://git.gay/av70/neomouse"
+      ];
+    };
 
     meta = {
       description = "There are mice";

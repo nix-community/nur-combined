@@ -117,7 +117,7 @@
                       builtins.concatStringsSep "\n" (
                         lib.mapAttrsToList (name: value: ''
                           if test -d ${value}/bin; then
-                            ${lib.getExe pkgs.jq} -n '{"${name}": $ARGS.positional}' --args $(find ${value}/bin -type f -executable -not -name ".*" -printf "%f\n" | sort)
+                            ${lib.getExe pkgs.jq} -n '{"${name}": $ARGS.positional}' --args $(find ${value}/bin \( -type f -or -type l \) -executable -not -name ".*" -printf "%f\n" | sort)
                           fi
                         '') config.packages
                       )
@@ -198,7 +198,7 @@
 
                         programsSection =
                           let
-                            formatProgram = x: if x == mainProgram then "**`${x}`**" else "`${x}`";
+                            formatProgram = x: if x == mainProgram || x == value.pname then "**`${x}`**" else "`${x}`";
                           in
                           lib.optionalString (programs != [ ]) (
                             "- Programs provided: " + (lib.concatMapStringsSep ", " formatProgram programs)
@@ -276,6 +276,15 @@
                   ${lib.getExe pkgs.nodePackages.prettier} --write README.md
                 '';
               };
+
+            no-updateScript.program = pkgs.writeShellApplication {
+              name = "no-updateScript";
+              text = builtins.concatStringsSep "\n" (
+                lib.mapAttrsToList (
+                  name: value: if !value.passthru ? updateScript then "echo '${name}'" else ""
+                ) config.packages
+              );
+            };
 
             update.program = pkgs.writeShellApplication {
               name = "update";

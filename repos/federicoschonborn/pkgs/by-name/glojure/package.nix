@@ -3,6 +3,7 @@
   buildGoModule,
   fetchFromGitHub,
   clojure,
+  nix-update-script,
 }:
 
 let
@@ -32,6 +33,8 @@ buildGoModule rec {
     # Requires network access
     "-skip=FuzzCLJConformance/seed"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     mainProgram = "glj";

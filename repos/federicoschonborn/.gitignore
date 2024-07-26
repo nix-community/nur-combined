@@ -5,6 +5,7 @@ result-*
 # Update script
 update-git-commits.txt
 *.log
+*.fetchlog
 
 # Direnv
 .direnv

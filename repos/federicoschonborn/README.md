@@ -18,7 +18,7 @@ There are mice.
 - Version: `1.1-1`
 - [Homepage](https://git.gay/av70/neomouse)
 - License: [`CC-BY-NC-SA-4.0`](https://spdx.org/licenses/CC-BY-NC-SA-4.0.html "Creative Commons Attribution Non Commercial Share Alike 4.0")
-- [Source](./pkgs/akkoma-emoji/av70/neomouse/package.nix#L57)
+- [Source](./pkgs/akkoma-emoji/av70/neomouse/package.nix#L65)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -433,7 +433,7 @@ these are the spinny (pride) blobs of life.
 - Version: `0-unstable-2023-12-23`
 - [Homepage](https://gitlab.com/renere/spinny_blobs)
 - License: Unfree
-- [Source](./pkgs/akkoma-emoji/renere/spinny-blobs/package.nix#L46)
+- [Source](./pkgs/akkoma-emoji/renere/spinny-blobs/package.nix#L44)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -675,7 +675,7 @@ Alternative to GNU coreutils using software from FreeBSD.
   </summary>
 
 - Outputs: **`out`**
-- Programs provided: `basename`, `bc`, `cat`, `chmod`, `chown`, `chroot`, `cksum`, `comm`, `cp`, `csplit`, `cut`, `date`, `dc`, `dd`, `df`, `dirname`, `du`, `echo`, `env`, `expand`, `expr`, `factor`, `false`, `find`, `fmt`, `fold`, `head`, `hexdump`, `hostname`, `id`, `install`, `join`, `kill`, `ln`, `logname`, `ls`, `mkdir`, `mkfifo`, `mknod`, `mktemp`, `mv`, `nice`, `nl`, `nohup`, `paste`, `pathchk`, `pr`, `printenv`, `printf`, `pwd`, `realpath`, `rm`, `rmdir`, `sed`, `seq`, `sleep`, `sort`, `split`, `stat`, `stdbuf`, `stty`, `sync`, `tail`, `tee`, `test`, `timeout`, `touch`, `tr`, `true`, `truncate`, `tsort`, `tty`, `uname`, `unexpand`, `uniq`, `users`, `wc`, `which`, `who`, `xargs`, `yes`
+- Programs provided: `[`, `basename`, `bc`, `cat`, `chgrp`, `chmod`, `chown`, `chroot`, `cksum`, `comm`, `cp`, `csplit`, `cut`, `date`, `dc`, `dd`, `df`, `dirname`, `du`, `echo`, `env`, `expand`, `expr`, `factor`, `false`, `find`, `fmt`, `fold`, `groups`, `hd`, `head`, `hexdump`, `hostname`, `id`, `install`, `join`, `kill`, `link`, `ln`, `logname`, `ls`, `mkdir`, `mkfifo`, `mknod`, `mktemp`, `mv`, `nice`, `nl`, `nohup`, `od`, `paste`, `pathchk`, `pr`, `printenv`, `printf`, `pwd`, `readlink`, `realpath`, `rm`, `rmdir`, `sed`, `seq`, `sleep`, `sort`, `split`, `stat`, `stdbuf`, `stty`, `sum`, `sync`, `tail`, `tee`, `test`, `timeout`, `touch`, `tr`, `true`, `truncate`, `tsort`, `tty`, `uname`, `unexpand`, `uniq`, `unlink`, `users`, `wc`, `which`, `who`, `whoami`, `xargs`, `yes`
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`
 </details>
 
@@ -826,7 +826,7 @@ GNU Image Manipulation Program.
   </summary>
 
 - Outputs: **`out`**
-- Programs provided: `gimp-2.99`, `gimp-console-2.99`, `gimp-script-fu-interpreter-3.0`, `gimp-test-clipboard-2.99`, `gimptool-2.99`
+- Programs provided: **`gimp`**, `gimp-2.99`, `gimp-console`, `gimp-console-2.99`, `gimp-script-fu-interpreter-3.0`, `gimp-test-clipboard`, `gimp-test-clipboard-2.99`, `gimptool`, `gimptool-2.99`
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`
 </details>
 
@@ -838,7 +838,7 @@ Clojure interpreter hosted on Go, with extensible interop support.
 - Version: `0.2.5`
 - [Homepage](https://github.com/glojurelang/glojure)
 - License: [`EPL-1.0`](https://spdx.org/licenses/EPL-1.0.html "Eclipse Public License 1.0")
-- [Source](./pkgs/by-name/glojure/package.nix#L38)
+- [Source](./pkgs/by-name/glojure/package.nix#L41)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1301,6 +1301,7 @@ A tool for learning programming basis with a simple Spanish pseudocode.
   </summary>
 
 - Outputs: **`out`**
+- Programs provided: `psdraw3`, `psdrawE`, **`pseint`**, `pseval`, `psexport`, `psterm`, `updatem`, `wxPSeInt`
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `x86_64-windows`, `i686-windows`
 </details>
 
