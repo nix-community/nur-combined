@@ -13,7 +13,12 @@ let
 in {
   # The `lib`, `modules`, and `overlay` names are special
   lib = dc-lib;
-  modules = import ./modules; # NixOS modules
+
+  modules = map (m: {
+    name = m;
+    value = import ./modules + "/${m}";
+  }) (dc-lib.listSubdirNames ./modules);
+
   overlays = import ./overlays; # nixpkgs overlays
 
   emacsPackages = builtins.listToAttrs (

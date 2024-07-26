@@ -1,4 +1,0 @@
-{
-  rangefs = ./rangefs;
-  lfreader = ./lfreader;
-}
