@@ -946,6 +946,9 @@
         "schmittlauch": {
             "url": "https://github.com/schmittlauch/nur-packages"
         },
+        "sebrut": {
+            "url": "https://github.com/SebRut/personal-nix-packages-repository"
+        },
         "sehqlr": {
             "url": "https://github.com/sehqlr/nur-packages"
         },
