@@ -828,13 +828,13 @@
         sha512 = "65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==";
       };
     };
-    "type-detect-4.0.8" = {
+    "type-detect-4.1.0" = {
       name = "type-detect";
       packageName = "type-detect";
-      version = "4.0.8";
+      version = "4.1.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/type-detect/-/type-detect-4.0.8.tgz";
-        sha512 = "0fr/mIH1dlO+x7TlcMy+bIDqKPsw/70tVyeHW787goQjhmqaZe10uwLujubK9q9Lg6Fiho1KUKDYz0Z7k7g5/g==";
+        url = "https://registry.npmjs.org/type-detect/-/type-detect-4.1.0.tgz";
+        sha512 = "Acylog8/luQ8L7il+geoSxhEkazvkslg7PSNKOX59mbB9cOveP5aq9h74Y7YU8yDpJwetzQQrfIwtf4Wp4LKcw==";
       };
     };
     "typescript-4.9.5" = {
@@ -1135,7 +1135,7 @@ in {
       sources."tar-6.2.1"
       sources."to-fast-properties-2.0.0"
       sources."to-regex-range-5.0.1"
-      sources."type-detect-4.0.8"
+      sources."type-detect-4.1.0"
       sources."ufo-1.5.4"
       sources."vscode-jsonrpc-8.1.0"
       sources."vscode-languageserver-8.1.0"

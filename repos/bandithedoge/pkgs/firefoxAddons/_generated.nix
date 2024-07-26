@@ -440,10 +440,10 @@
   };
   "github-isometric-contributions" = buildFirefoxXpiAddon {
     pname = "github-isometric-contributions";
-    version = "1.1.30";
+    version = "1.1.31";
     addonId = "isometric-contributions@jasonlong.me";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4258665/github_isometric_contributions-1.1.30.xpi";
-    sha256 = "7ddd0d58dab722773d78311eafa1630c18d20897345e7a85b84918253cd2dddd";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4326182/github_isometric_contributions-1.1.31.xpi";
+    sha256 = "bb55818eb558344debfbd0c19ae7ae287ba4d6fa3d119904fe088220c3661be8";
     meta = with lib; {
       description = "Renders an isometric pixel view of GitHub contribution graphs.";
       license = licenses.mit;
@@ -769,10 +769,10 @@
   };
   "material-icons-for-github" = buildFirefoxXpiAddon {
     pname = "material-icons-for-github";
-    version = "1.8.21";
+    version = "1.8.22";
     addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4325591/material_icons_for_github-1.8.21.xpi";
-    sha256 = "3aa69f89880bb686cac8b2727bd9fcdfe1a0301890a62ce5643ed093d495b0a9";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4326292/material_icons_for_github-1.8.22.xpi";
+    sha256 = "c18cb808a5746f193128da42936af2c7f8c121f3e73d6ac920cbdbc99a4ea004";
     meta = with lib; {
       homepage = "https://github.com/Claudiohbsantos/github-material-icons-extension";
       description = "Replace the file/folder icons on github file browsers with icons representing the file's type and which tool it is used by.";
