@@ -2113,10 +2113,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "129.0.20240724.91519";
+      version = "128.0.20240725.162350";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4325137/deutsch_de_language_pack-129.0.20240724.91519.xpi";
-      sha256 = "ee46aa1023a4a1ad91e2510f76723cfcca7378f3e4a8b47edff64e29acebbd48";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4326095/deutsch_de_language_pack-128.0.20240725.162350.xpi";
+      sha256 = "437d6a8d95c4bde60aa9c68bfacf7c3ab38faa0bd384d15f38362651c3283400";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2943,10 +2943,10 @@
     };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "5.2.4";
+      version = "5.2.5";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4313094/floccus-5.2.4.xpi";
-      sha256 = "bb0c57a8b2d866a5996d9f8abd41829e54cc1b01f867a8c2196cbb3f1e231398";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4325872/floccus-5.2.5.xpi";
+      sha256 = "420ae1ce34eff46cb50e46758f62ca6ad42a51c259bea9c176f55e7aa4cce797";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -3170,10 +3170,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "129.0.20240724.91519";
+      version = "128.0.20240725.162350";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4325145/francais_language_pack-129.0.20240724.91519.xpi";
-      sha256 = "c813452b35d8fd5e623413ba9e150dd310ab681a1d1930175d31ad1c4fce7d83";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4326093/francais_language_pack-128.0.20240725.162350.xpi";
+      sha256 = "71fe2d6db058cb0c3eceabdf95ba94c0adfa6f83f9c5d78028f56fc674b72399";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3532,10 +3532,10 @@
     };
     "github-isometric-contributions" = buildFirefoxXpiAddon {
       pname = "github-isometric-contributions";
-      version = "1.1.30";
+      version = "1.1.31";
       addonId = "isometric-contributions@jasonlong.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4258665/github_isometric_contributions-1.1.30.xpi";
-      sha256 = "7ddd0d58dab722773d78311eafa1630c18d20897345e7a85b84918253cd2dddd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4326182/github_isometric_contributions-1.1.31.xpi";
+      sha256 = "bb55818eb558344debfbd0c19ae7ae287ba4d6fa3d119904fe088220c3661be8";
       meta = with lib;
       {
         description = "Renders an isometric pixel view of GitHub contribution graphs.";
@@ -6165,10 +6165,10 @@
     };
     "mal-sync" = buildFirefoxXpiAddon {
       pname = "mal-sync";
-      version = "0.10.2";
+      version = "0.10.3";
       addonId = "{c84d89d9-a826-4015-957b-affebd9eb603}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4297936/mal_sync-0.10.2.xpi";
-      sha256 = "72f9cec6f4f32d5045f3681959402fd69427b98619732a97c0aeed1d611c0be1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4325773/mal_sync-0.10.3.xpi";
+      sha256 = "cb0d2c1b43c8f95580fa8e57cc26c0c238a478c82538002a1c99908a3c955bde";
       meta = with lib;
       {
         homepage = "https://github.com/lolamtisch/MALSync";
@@ -6285,6 +6285,7 @@
           "*://*.anitaku.to/*"
           "*://*.anitaku.so/*"
           "*://*.gogoanime3.co/*"
+          "*://*.anitaku.pe/*"
           "*://*.www.turkanime.tv/video/*"
           "*://*.www.turkanime.tv/anime/*"
           "*://*.www.turkanime.net/video/*"
@@ -6497,6 +6498,7 @@
           "*://*.asurascans.com/*"
           "*://*.asuracomics.com/*"
           "*://asuratoon.com/*"
+          "*://*.asuracomic.net/*"
           "*://an1me.nl/*"
           "*://an1me.to/*"
           "*://mangajar.com/manga/*"
@@ -6547,6 +6549,7 @@
           "*://*.animeworld.tv/play/*"
           "*://*.animeworld.so/play/*"
           "*://mangabuddy.com/*"
+          "*://hivetoon.com/*"
           "*://void-scans.com/*"
           "*://vvww.toonanime.cc/*"
           "*://*.adkami.com/*"
@@ -6556,6 +6559,7 @@
           "*://ani.wtf/anime/*"
           "*://animationdigitalnetwork.fr/*"
           "*://animationdigitalnetwork.de/*"
+          "*://animationdigitalnetwork.com/*"
           "*://aniyan.net/*"
           "*://docchi.pl/*"
           "*://franime.fr/*"
@@ -6592,6 +6596,8 @@
           "*://*.miruro.tv/*"
           "*://*.miruro.online/*"
           "*://latanime.org/*"
+          "*://*.mangaread.org/manga/*"
+          "*://bakashi.tv/*"
           "*://*.openload.co/*"
           "*://*.openload.pw/*"
           "*://*.streamango.com/*"
@@ -6698,6 +6704,7 @@
           "*://*.mixdrop.nu/e/*"
           "*://*.mixdrop.sx/e/*"
           "*://*.mixdrop.ms/e/*"
+          "*://*.mixdrop.ps/e/*"
           "*://gdriveplayer.me/embed*"
           "*://sendvid.net/v/*"
           "*://sendvid.com/embed/*"
@@ -6730,102 +6737,31 @@
           "*://*.plyr.link/*"
           "*://v.vvid.cc/*"
           "*://*.okanime.com/cdn/*/embed/?*"
-          "*://*.gogo-stream.com/streaming.php?*"
-          "*://*.gogo-stream.com/load.php?*"
-          "*://*.gogo-stream.com/loadserver.php?*"
-          "*://*.gogo-stream.com/embedplus*"
-          "*://*.gogo-play.net/streaming.php?*"
-          "*://*.gogo-play.net/load.php?*"
-          "*://*.gogo-play.net/loadserver.php?*"
-          "*://*.gogo-play.net/embedplus*"
-          "*://*.gogo-play.tv/streaming.php?*"
-          "*://*.gogo-play.tv/load.php?*"
-          "*://*.gogo-play.tv/loadserver.php?*"
-          "*://*.gogo-play.tv/embedplus*"
-          "*://*.streamani.net/streaming.php?*"
-          "*://*.streamani.net/load.php?*"
-          "*://*.streamani.net/loadserver.php?*"
-          "*://*.streamani.net/embedplus*"
-          "*://*.streamani.io/streaming.php?*"
-          "*://*.streamani.io/load.php?*"
-          "*://*.streamani.io/loadserver.php?*"
-          "*://*.streamani.io/embedplus*"
-          "*://*.goload.one/streaming.php?*"
-          "*://*.goload.one/load.php?*"
-          "*://*.goload.one/loadserver.php?*"
-          "*://*.goload.one/embedplus*"
-          "*://*.goload.pro/streaming.php?*"
-          "*://*.goload.pro/load.php?*"
-          "*://*.goload.pro/loadserver.php?*"
-          "*://*.goload.pro/embedplus*"
-          "*://*.goload.io/streaming.php?*"
-          "*://*.goload.io/load.php?*"
-          "*://*.goload.io/loadserver.php?*"
-          "*://*.goload.io/embedplus*"
-          "*://*.gogoplay1.com/streaming.php?*"
-          "*://*.gogoplay1.com/load.php?*"
-          "*://*.gogoplay1.com/loadserver.php?*"
-          "*://*.gogoplay1.com/embedplus*"
-          "*://*.gogoplay2.com/streaming.php?*"
-          "*://*.gogoplay2.com/load.php?*"
-          "*://*.gogoplay2.com/loadserver.php?*"
-          "*://*.gogoplay2.com/embedplus*"
-          "*://*.gogoplay4.com/streaming.php?*"
-          "*://*.gogoplay4.com/load.php?*"
-          "*://*.gogoplay4.com/loadserver.php?*"
-          "*://*.gogoplay4.com/embedplus*"
-          "*://*.gogoplay5.com/streaming.php?*"
-          "*://*.gogoplay5.com/load.php?*"
-          "*://*.gogoplay5.com/loadserver.php?*"
-          "*://*.gogoplay5.com/embedplus*"
-          "*://*.gogoplay.io/streaming.php?*"
-          "*://*.gogoplay.io/load.php?*"
-          "*://*.gogoplay.io/loadserver.php?*"
-          "*://*.gogoplay.io/embedplus*"
-          "*://*.gogohd.net/embedplus*"
-          "*://*.gogohd.net/streaming.php?*"
-          "*://*.gogohd.net/load.php?*"
-          "*://*.gogohd.net/loadserver.php?*"
-          "*://*.gogohd.pro/embedplus*"
-          "*://*.gogohd.pro/streaming.php?*"
-          "*://*.gogohd.pro/load.php?*"
-          "*://*.gogohd.pro/loadserver.php?*"
-          "*://*.gembedhd.com/embedplus*"
-          "*://*.gembedhd.com/streaming.php?*"
-          "*://*.gembedhd.com/load.php?*"
-          "*://*.gembedhd.com/loadserver.php?*"
-          "*://*.playgo1.cc/embedplus*"
-          "*://*.playgo1.cc/streaming.php?*"
-          "*://*.playgo1.cc/load.php?*"
-          "*://*.playgo1.cc/loadserver.php?*"
-          "*://*.anihdplay.com/embedplus*"
-          "*://*.anihdplay.com/streaming.php?*"
-          "*://*.anihdplay.com/load.php?*"
-          "*://*.anihdplay.com/loadserver.php?*"
-          "*://*.playtaku.net/embedplus*"
-          "*://*.playtaku.net/streaming.php?*"
-          "*://*.playtaku.net/load.php?*"
-          "*://*.playtaku.net/loadserver.php?*"
-          "*://*.playtaku.online/embedplus*"
-          "*://*.playtaku.online/streaming.php?*"
-          "*://*.playtaku.online/load.php?*"
-          "*://*.playtaku.online/loadserver.php?*"
-          "*://*.gotaku1.com/embedplus*"
-          "*://*.gotaku1.com/streaming.php?*"
-          "*://*.gotaku1.com/load.php?*"
-          "*://*.gotaku1.com/loadserver.php?*"
-          "*://*.goone.pro/embedplus*"
-          "*://*.goone.pro/streaming.php?*"
-          "*://*.goone.pro/load.php?*"
-          "*://*.goone.pro/loadserver.php?*"
-          "*://*.embtaku.pro/embedplus*"
-          "*://*.embtaku.pro/streaming.php?*"
-          "*://*.embtaku.pro/load.php?*"
-          "*://*.embtaku.pro/loadserver.php?*"
-          "*://*.embtaku.com/embedplus*"
-          "*://*.embtaku.com/streaming.php?*"
-          "*://*.embtaku.com/load.php?*"
-          "*://*.embtaku.com/loadserver.php?*"
+          "*://*.gogo-stream.com/*"
+          "*://*.gogo-play.net/*"
+          "*://*.gogo-play.tv/*"
+          "*://*.streamani.net/*"
+          "*://*.streamani.io/*"
+          "*://*.goload.one/*"
+          "*://*.goload.pro/*"
+          "*://*.goload.io/*"
+          "*://*.gogoplay1.com/*"
+          "*://*.gogoplay2.com/*"
+          "*://*.gogoplay4.com/*"
+          "*://*.gogoplay5.com/*"
+          "*://*.gogoplay.io/*"
+          "*://*.gogohd.net/*"
+          "*://*.gogohd.pro/*"
+          "*://*.gembedhd.com/*"
+          "*://*.playgo1.cc/*"
+          "*://*.anihdplay.com/*"
+          "*://*.playtaku.net/*"
+          "*://*.playtaku.online/*"
+          "*://*.gotaku1.com/*"
+          "*://*.goone.pro/*"
+          "*://*.embtaku.pro/*"
+          "*://*.embtaku.com/*"
+          "*://*.s3taku.com/*"
           "*://vivo.sx/embed/*"
           "*://play.api-web.site/*"
           "*://vidstream.pro/embed/*"
@@ -6851,6 +6787,8 @@
           "*://vidplay.online/e/*"
           "*://a9bfed0818.nl/e/*"
           "*://vid142.site/e/*"
+          "*://vid1a52.site/e/*"
+          "*://vid2a41.site/e/*"
           "*://streamsb.net/*"
           "*://streamsb.com/*"
           "*://sbembed.com/*"
@@ -6987,6 +6925,7 @@
           "*://sethniceletter.com/e/*"
           "*://brucevotewithin.com/e/*"
           "*://rebeccaneverbase.com/e/*"
+          "*://loriwithinfamily.com/e/*"
           "*://vidoo.tv/*"
           "*://nxload.com/*"
           "*://videobin.co/*"
@@ -7041,6 +6980,8 @@
           "*://rgeyyddl.skin/e/*"
           "*://designparty.sx/e/*"
           "*://c4qhk0je.xyz/e/*"
+          "*://1azayf9w.xyz/e/*"
+          "*://81u6xl9d.xyz/e/*"
           "*://mb.toonanime.xyz/dist/*"
           "*://aniyan.net/jwplayer/*"
           "*://*.googlevideo.com/videoplayback?*"
@@ -7059,6 +7000,8 @@
           "*://sfastwish.com/e/*"
           "*://awish.pro/e/*"
           "*://alions.pro/v/*"
+          "*://megaf.cc/e/*"
+          "*://doflix.net/*"
         ];
         platforms = platforms.all;
       };
@@ -8277,15 +8220,21 @@
     };
     "polkadot-js" = buildFirefoxXpiAddon {
       pname = "polkadot-js";
-      version = "0.48.2";
+      version = "0.49.3";
       addonId = "{7e3ce1f0-15fb-4fb1-99c6-25774749ec6d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4313501/polkadot_js_extension-0.48.2.xpi";
-      sha256 = "15681f6b085235aab5769dc93335a51e713c2fd72985d9d9b143dd89fefd2563";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4322628/polkadot_js_extension-0.49.3.xpi";
+      sha256 = "064f6963576f8273dd9448ed94aea0e2cdcc19b30a8e57e0ca3fd74328394de3";
       meta = with lib;
       {
         homepage = "https://github.com/polkadot-js/extension";
         description = "Manage your Polkadot accounts outside of dapps. Injects the accounts and allows signs transactions for a specific account.";
-        mozPermissions = [ "storage" "tabs" "http://*/*" "https://*/*" ];
+        mozPermissions = [
+          "storage"
+          "tabs"
+          "alarms"
+          "http://*/*"
+          "https://*/*"
+        ];
         platforms = platforms.all;
       };
     };
@@ -9206,10 +9155,10 @@
     };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "5.1.0";
+      version = "5.3.1";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4266360/react_devtools-5.1.0.xpi";
-      sha256 = "f40c6f549006f84f811588ca6473de502ddad3722bfa772537ad39f9f0d2eff9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4314064/react_devtools-5.3.1.xpi";
+      sha256 = "376f33d9b1219341eb8be16578b406b3f371c11aace55f68fcad4847e818f076";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -9961,10 +9910,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.51";
+      version = "1.22.54";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4310297/single_file-1.22.51.xpi";
-      sha256 = "a3e8ad79c4fa58e56272c8f89788fee78e2b584253c15e611e26028f13ee9daf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4324972/single_file-1.22.54.xpi";
+      sha256 = "b5c565f9754e5e45d6649cca851d3dec19e69a0eac39877160e49d3f6c354f4f";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -10538,10 +10487,10 @@
     };
     "tab-unload-for-tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tab-unload-for-tree-style-tab";
-      version = "6.16";
+      version = "6.17";
       addonId = "{7aa0a466-58f8-427b-8cd2-e94645c4edc2}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4250340/tab_unload_for_tree_style_tab-6.16.xpi";
-      sha256 = "39cff2d0811695b2c9ac16f4ded001bbb4e2e237becb64d23774548183786dde";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4326243/tab_unload_for_tree_style_tab-6.17.xpi";
+      sha256 = "243f48da0a7dd0834cb816bbdf0c16c503b3f5f273f9826478a70af11718bdca";
       meta = with lib;
       {
         homepage = "https://github.com/Lej77/tab-unloader-for-tree-style-tab";
@@ -11141,10 +11090,10 @@
     };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.9.0";
+      version = "8.9.1";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4320210/ublacklist-8.9.0.xpi";
-      sha256 = "26c373a6af5b17175fae4f991c0340ad625776d740e3baacbac01bdbb2cee5d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4323391/ublacklist-8.9.1.xpi";
+      sha256 = "0b20dbb34ac53fb03245c2559d55ca0e368a4182ee10271e43ff5cd97f3ddefc";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
