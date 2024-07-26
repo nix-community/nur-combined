@@ -1,0 +1,89 @@
+{
+  stdenv,
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  pkg-config,
+  glfw,
+  libX11,
+  libXcursor,
+  libXrandr,
+  libXinerama,
+  libXi,
+  libXxf86vm,
+  mage,
+  writeShellScriptBin,
+  git,
+  ...
+}:
+{
+  go-hass-agent = buildGoModule rec {
+    pname = "go-hass-agent";
+    version = "9.5.2";
+
+    src = fetchFromGitHub {
+      owner = "joshuar";
+      repo = "go-hass-agent";
+      rev = "v${version}";
+      hash = "sha256-TMpSAusWhThJEG3WyyhSg7elR2I0YNTryarJSwA9UiQ=";
+    };
+
+    vendorHash = "sha256-M5iB3MhVf4hikzS6GsTg0TLwQaQNwVYhNMvpolwn0d4=";
+
+        doCheck = false;
+
+    nativeBuildInputs =
+      let
+        fakeGit = writeShellScriptBin "git" ''
+          if [[ $@ = "describe --tags --always --dirty" ]]; then
+              echo "${version}"
+          elif [[ $@ = "rev-parse --short HEAD" ]]; then
+              echo "dummyrev"
+          elif [[ $@ = "log --date=iso8601-strict -1 --pretty=%ct" ]]; then
+              echo "0"
+          else
+              ${git}/bin/git $@
+          fi
+        '';
+      in
+      [
+        fakeGit
+        pkg-config
+        mage
+      ];
+    buildInputs = [
+      glfw
+      libX11
+      libXcursor
+      libXrandr
+      libXinerama
+      libXi
+      libXxf86vm
+    ];
+
+    buildPhase = ''
+      runHook preBuild
+
+      # Fixes “Error: error compiling magefiles” during build.
+      export HOME=$(mktemp -d)
+
+      mage -d build/magefiles -w . build:fast
+
+      runHook postBuild
+    '';
+
+    installPhase = ''
+      runHook preInstall
+      mv dist/go-hass-agent-amd64 dist/go-hass-agent
+    install -Dt $out/bin dist/go-hass-agent
+    runHook postInstall
+    '';
+
+    meta = {
+      description = "A Home Assistant, native app for desktop/laptop devices.";
+      homepage = "https://github.com/joshuar/go-hass-agent";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [ sebrut ];
+    };
+  };
+}
