@@ -25,10 +25,12 @@
 
       overlays = import ./overlays;
 
-      modules = map (m: {
-        name = m;
-        value = import ./modules + "/${m}";
-      }) (dc-lib.listSubdirNames ./modules);
+      modules = builtins.listToAttrs (
+        map (m: {
+          name = m;
+          value = import (./modules + "/${m}");
+        }) (dc-lib.listSubdirNames ./modules)
+      );
 
       devShells = forAllSystems (system: let
         pkgs = import nixpkgs { inherit system; };
