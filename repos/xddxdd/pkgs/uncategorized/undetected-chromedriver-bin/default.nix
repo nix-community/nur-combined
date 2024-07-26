@@ -26,11 +26,17 @@ stdenv.mkDerivation {
   postPatch = ''
     export HOME=$(pwd)
 
-    cp ${chromedriver}/bin/chromedriver .
+    if [ -f "${chromedriver}/bin/.chromedriver-wrapped" ]; then
+      cp "${chromedriver}/bin/.chromedriver-wrapped" chromedriver
+    else
+      cp "${chromedriver}/bin/chromedriver" chromedriver
+    fi
     chmod 755 chromedriver
 
     ${py}/bin/python <<EOF
+    import logging
     from undetected_chromedriver.patcher import Patcher
+    logging.basicConfig(level=logging.DEBUG)
     exit(not Patcher(executable_path="chromedriver").patch())
     EOF
 
