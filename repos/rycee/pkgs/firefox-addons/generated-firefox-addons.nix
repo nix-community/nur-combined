@@ -2113,10 +2113,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "128.0.20240725.162350";
+      version = "129.0.20240726.91552";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4326095/deutsch_de_language_pack-128.0.20240725.162350.xpi";
-      sha256 = "437d6a8d95c4bde60aa9c68bfacf7c3ab38faa0bd384d15f38362651c3283400";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4326524/deutsch_de_language_pack-129.0.20240726.91552.xpi";
+      sha256 = "e34185d217fa295e3f5a080d8225322ce343ee29801efe2eb857aab040b22cf9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2459,10 +2459,10 @@
     };
     "ecosia" = buildFirefoxXpiAddon {
       pname = "ecosia";
-      version = "4.1.2";
+      version = "4.1.3";
       addonId = "{d04b0b40-3dab-4f0b-97a6-04ec3eddbfb0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4297375/ecosia_the_green_search-4.1.2.xpi";
-      sha256 = "6074ac3c510c0c5ecbf7db833b2c0c1fd3b3423dfcb992b13b88fca30b20be91";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4324382/ecosia_the_green_search-4.1.3.xpi";
+      sha256 = "40fa7e3ac98ae37725c57286fa1fd753fd564e44108a99f9375310590eec567d";
       meta = with lib;
       {
         homepage = "http://www.ecosia.org";
@@ -3170,10 +3170,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "128.0.20240725.162350";
+      version = "129.0.20240726.91552";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4326093/francais_language_pack-128.0.20240725.162350.xpi";
-      sha256 = "71fe2d6db058cb0c3eceabdf95ba94c0adfa6f83f9c5d78028f56fc674b72399";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4326590/francais_language_pack-129.0.20240726.91552.xpi";
+      sha256 = "16d266bf004675f4635130abed6f1c7bd8cbffdb6ffcbac8e3475dfdfdf388f8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -7957,10 +7957,10 @@
     };
     "passbolt" = buildFirefoxXpiAddon {
       pname = "passbolt";
-      version = "4.8.2";
+      version = "4.9.1";
       addonId = "passbolt@passbolt.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4304662/passbolt-4.8.2.xpi";
-      sha256 = "546f46b6a6994ff50a486731046ec089b964a2cf9234cba4a551417bb7a409b0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4325047/passbolt-4.9.1.xpi";
+      sha256 = "402859381eec9be2059e5ee6003f2f8e2d2150cf0e3b613b515002589e14f509";
       meta = with lib;
       {
         homepage = "https://www.passbolt.com";
