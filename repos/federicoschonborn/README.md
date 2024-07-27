@@ -1385,7 +1385,7 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 Sega Model 3 arcade machine emulator.
 
 - Name: `supermodel`
-- Version: `0-unstable-2024-07-19`
+- Version: `0-unstable-2024-07-26`
 - [Homepage](https://github.com/trzy/Supermodel)
 - License: [`GPL-3.0-or-later`](https://spdx.org/licenses/GPL-3.0-or-later.html "GNU General Public License v3.0 or later")
 - [Source](./pkgs/by-name/supermodel/package.nix#L65)
@@ -1639,7 +1639,7 @@ Fastest JSON library in C.
 - [Homepage](https://github.com/ibireme/yyjson)
 - [Changelog](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](https://github.com/NixOS/nixpkgs/blob/4f02464/pkgs/development/libraries/yyjson/default.nix#L23)
+- [Source](https://github.com/NixOS/nixpkgs/blob/733453a/pkgs/development/libraries/yyjson/default.nix#L23)
 - Maintainers:
   - [Yohann Boniface](https://github.com/Sigmanificient) <[`sigmanificient@gmail.com`](mailto:sigmanificient@gmail.com)>
   - [✉️ Mail to all maintainers](mailto:sigmanificient@gmail.com)
