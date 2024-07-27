@@ -106,6 +106,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   makeFlags = [ "prefix=$(out)" ];
 
+  NIX_CFLAGS_COMPILE = "-std=c++17";
+
   dontWrapGApps = true;
 
   postFixup = ''
