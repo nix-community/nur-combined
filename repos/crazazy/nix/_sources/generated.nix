@@ -11,10 +11,10 @@
   };
   enso = {
     pname = "enso";
-    version = "2024.2.3";
+    version = "2024.3.1-rc3";
     src = fetchurl {
-      url = "https://github.com/enso-org/enso/releases/download/2024.2.3/enso-linux-x86_64-2024.2.3.AppImage";
-      sha256 = "sha256-CYKP1xHag6KcDFqTkJt9z/1cGwGfCfzr73la5fNMA90=";
+      url = "https://github.com/enso-org/enso/releases/download/2024.3.1-rc3/enso-linux-x86_64-2024.3.1-rc3.AppImage";
+      sha256 = "sha256-BTkdm9duSxeR8XlMBJaPF5nA1P/YQNJliY4PtuXh/5k=";
     };
   };
   guile-config = {
@@ -59,21 +59,21 @@
   };
   wasmfxtime = {
     pname = "wasmfxtime";
-    version = "ea784af2e230542863522dbeef650e26cb558561";
+    version = "2c108d4adf1a6854f8ecb409439298a77129e7a4";
     src = fetchFromGitHub {
       owner = "wasmfx";
       repo = "wasmfxtime";
-      rev = "ea784af2e230542863522dbeef650e26cb558561";
+      rev = "2c108d4adf1a6854f8ecb409439298a77129e7a4";
       fetchSubmodules = true;
-      sha256 = "sha256-sBlrgmmOu/BpYpRazrm7hXGECpYoq/+SquEae9+SVTs=";
+      sha256 = "sha256-6dhafv601BC0ON3HHJ5I9M5Q7CXVJHMnlkY/jWm46uo=";
     };
     cargoLock."./Cargo.lock" = {
-      lockFile = ./wasmfxtime-ea784af2e230542863522dbeef650e26cb558561/./Cargo.lock;
+      lockFile = ./wasmfxtime-2c108d4adf1a6854f8ecb409439298a77129e7a4/./Cargo.lock;
       outputHashes = {
         "wit-bindgen-0.28.0" = "sha256-O97wGJaFoWPJDD+feiRPmiEC+dovhcwgLitIaVIdqV0=";
         "wasm-encoder-0.214.0" = "sha256-xfUkdz4BWyl74de8MPPYExzKoFgPsiiPIcig7mEyPOM=";
       };
     };
-    date = "2024-07-17";
+    date = "2024-07-22";
   };
 }
