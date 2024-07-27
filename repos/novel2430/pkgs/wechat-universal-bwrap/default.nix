@@ -71,13 +71,13 @@ let
     src = builtins.fetchGit {
       url = "https://github.com/7Ji-PKGBUILDs/wechat-universal-bwrap.git"; 
       ref = "master";
-      rev = "03333f8ec6a06c0a6698197a8a9039b8c871c52e";
+      rev = "5e8ad25218b82b9bbacb0bd43dce2feb85998889";
     };
 
     buildPhase = ''
       echo "Building ${_lib_uos}.so stub by Zephyr Lykos..."
-      gcc -fPIC -shared ${_lib_uos}.c -o ${_lib_uos}.so
-      strip "${_lib_uos}.so"
+      mv libuosdevicea.Makefile Makefile
+      make
     '';
     installPhase = ''
       mkdir -p $out
@@ -118,6 +118,7 @@ let
 
   
   startScript = writeShellScript "wechat-start" ''
+    export QT_QPA_PLATFORM=xcb
     if [[ ''${XMODIFIERS} =~ fcitx ]]; then
       export QT_IM_MODULE=fcitx
       export GTK_IM_MODULE=fcitx
@@ -206,7 +207,7 @@ let
       "--bind \${WECHAT_FILES_DIR} \${WECHAT_FILES_DIR}"
       "--chdir $HOME"
       "--setenv QT_QPA_PLATFORM xcb"
-      "--setenv QT_AUTO_SCREEN_SCALE_FACTOR 1"
+      # "--setenv QT_AUTO_SCREEN_SCALE_FACTOR 1"
 
       "--ro-bind-try \${HOME}/.fontconfig{,}"
       "--ro-bind-try \${HOME}/.fonts{,}"
