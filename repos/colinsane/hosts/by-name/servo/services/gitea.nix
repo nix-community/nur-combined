@@ -2,9 +2,8 @@
 { config, pkgs, lib, ... }:
 
 {
-  sane.persist.sys.byStore.plaintext = [
-    # TODO: mode? could be more granular
-    { user = "git"; group = "gitea"; path = "/var/lib/gitea"; method = "bind"; }
+  sane.persist.sys.byStore.private = [
+    { user = "git"; group = "gitea"; mode = "0750"; path = "/var/lib/gitea"; method = "bind"; }
   ];
   services.gitea.enable = true;
   services.gitea.user = "git";  # default is 'gitea'

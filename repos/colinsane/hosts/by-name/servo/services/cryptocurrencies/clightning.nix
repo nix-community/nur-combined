@@ -72,7 +72,8 @@
 
 { config, pkgs, ... }:
 {
-  sane.persist.sys.byStore.ext = [
+  sane.persist.sys.byStore.private = [
+    # clightning takes up only a few MB. but then several hundred MB of crash logs that i should probably GC.
     { user = "clightning"; group = "clightning"; mode = "0710"; path = "/var/lib/clightning"; method = "bind"; }
   ];
 

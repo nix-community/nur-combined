@@ -3,7 +3,7 @@
 {
   # tor hidden service hostnames aren't deterministic, so persist.
   # might be able to get away with just persisting /var/lib/tor/onion, not sure.
-  sane.persist.sys.byStore.plaintext = [
+  sane.persist.sys.byStore.private = [
     { user = "tor"; group = "tor"; mode = "0710"; path = "/var/lib/tor"; method = "bind"; }
   ];
 

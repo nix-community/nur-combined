@@ -30,7 +30,7 @@ let
   altPort = 2587;
 in
 {
-  sane.persist.sys.byStore.plaintext = [
+  sane.persist.sys.byStore.private = [
     # not 100% necessary to persist this, but ntfy does keep a 12hr (by default) cache
     # for pushing notifications to users who become offline.
     # ACLs also live here.

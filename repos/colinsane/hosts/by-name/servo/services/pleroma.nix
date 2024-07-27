@@ -14,7 +14,8 @@ let
   # logLevel = "debug";
 in
 {
-  sane.persist.sys.byStore.plaintext = [
+  sane.persist.sys.byStore.private = [
+    # contains media i've uploaded to the server
     { user = "pleroma"; group = "pleroma"; path = "/var/lib/pleroma"; method = "bind"; }
   ];
   services.pleroma.enable = true;
