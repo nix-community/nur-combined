@@ -2,7 +2,7 @@
   description = "My System Config";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-23.11";
+    nixpkgs.url = "nixpkgs/nixos-24.05";
     unstable.url = "nixpkgs/nixos-unstable";
     parts = {
       url = "github:hercules-ci/flake-parts";
@@ -15,11 +15,10 @@
     sops-nix.url = "github:Mic92/sops-nix";
     nur.url = "github:nix-community/NUR";
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-index-database.url = "github:Mic92/nix-index-database";
-    ai.url = "github:eownerdead/nixified-ai";
   };
 
   outputs = inputs@{ self, parts, ... }:
@@ -38,20 +37,23 @@
               ai = inputs.ai.packages.${system};
             })
           ];
-          config.allowUnfreePredicate = pkg:
-            builtins.elem (inputs.nixpkgs.lib.getName pkg) [
-              "nvidia-x11"
-              "nvidia-settings"
-            ];
+          config = {
+            allowUnfreePredicate = pkg:
+              builtins.elem (inputs.nixpkgs.lib.getName pkg) [
+                "nvidia-x11"
+                "nvidia-settings"
+              ];
+            allowInsecurePredicate = _: true;
+          };
         };
 
-        formatter = pkgs.nixfmt;
+        formatter = pkgs.nixfmt-rfc-style;
 
         packages = import ./pkgs { inherit pkgs; };
 
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
-            nixfmt
+            nixfmt-rfc-style
             editorconfig-checker
             statix
             nix-init

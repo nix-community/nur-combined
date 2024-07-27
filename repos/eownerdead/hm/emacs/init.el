@@ -266,7 +266,10 @@
   (corfu-auto-delay 0.)
   (corfu-auto t))
 
-(use-package corfu-info)
+(use-package corfu-echo
+  :hook (corfu-mode . corfu-echo-mode)
+  :custom
+  (corfu-echo-delay nil))
 
 (use-package kind-icon
   :ensure t
@@ -345,13 +348,10 @@
                                     eldoc-documentation-strategy))
   (add-to-list 'eglot-server-programs '(nix-mode . ("nixd"))))
 
-(use-package eglot-tempel)
-
-(use-package tempel
+(use-package yasnippet
   :ensure t
-  :bind (:map tempel-map
-              ("<tab>" . tempel-next)
-              ("TAB" . tempel-next)))
+  :custom
+  (yas-global-mode t))
 
 (use-package dired
   :hook (dired-mode . dired-hide-details-mode)
@@ -392,6 +392,18 @@
   :hook (icomplete-minibuffer-setup . (lambda () (setq-local truncate-lines t)))
   :custom
   (fido-vertical-mode 1))
+
+(use-package embark
+  :ensure t
+  :bind (("C-." . embark-act)
+         ("C-;" . embark-dwim))
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command))
+
+(use-package embark-consult
+  :ensure t
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package consult
   :ensure t
@@ -440,11 +452,8 @@
      (save-excursion (eshell-bol) (point))
      (point) t)))
 
-(use-package coterm
-  :ensure t
-  :bind ("C-;" . coterm-char-mode-cycle)
-  :config
-  (coterm-mode))
+(use-package mistty
+  :ensure t)
 
 (use-package eshell
   :hook (eshell-mode . bash-completion-from-eshell)
@@ -469,6 +478,13 @@
   :ensure t
   :bind ("C-x g" . magit-status))
 
+(use-package forge
+  :ensure t
+  :after magit)
+
+(use-package multi-mode
+  :ensure t)
+
 ;; Programing languages
 
 (use-package elisp-mode
@@ -486,6 +502,15 @@
   :flymake-hook
   (python-mode flymake-collection-mypy
                flymake-collection-ruff))
+
+(use-package lua-mode
+  :ensure t)
+
+(use-package sml-mode
+  :ensure t)
+
+(use-package scala-mode
+  :ensure t)
 
 (use-package rust-mode
   :ensure t
@@ -517,6 +542,13 @@
   :ensure t
   :custom
   (markdown-header-scaling t))
+
+(use-package auctex
+  :ensure t
+  :hook ((TeX-mode . eglot-ensure)
+         (TeX-mode . prettify-symbols-mode))
+  :custom
+  (tex-engine 'luatex))
 
 (use-package proof-general
   :ensure t

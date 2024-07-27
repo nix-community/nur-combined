@@ -12,6 +12,8 @@ with lib; {
       alsa.enable = mkDefault true;
       pulse.enable = mkDefault true;
     };
+
+    hardware.pulseaudio.enable = mkForce false; # Conflicts.
   };
 }
 

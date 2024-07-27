@@ -3,7 +3,7 @@
 
   home.packages = with pkgs; [
     nixd
-    nixfmt
+    nixfmt-rfc-style
     statix
     hydra-check
     nix-output-monitor

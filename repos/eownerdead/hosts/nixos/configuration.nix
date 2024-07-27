@@ -72,7 +72,8 @@ in {
     };
     avahi = {
       enable = true;
-      nssmdns = true;
+      nssmdns4 = true;
+      nssmdns6 = true;
       publish = {
         enable = true;
         addresses = true;
@@ -87,22 +88,36 @@ in {
       displayManager.startx.enable = true;
     };
     snowflake-proxy.enable = true;
-    textgen = {
+    kubo = {
       enable = true;
-      settings = { dark_theme = false; };
-      extraArgs = [ "--api" ];
+      enableGC = true;
+      autoMount = true;
+      localDiscovery = true;
+    };
+    cloudflared = {
+      enable = true;
+      tunnels."92e4660b-3691-4157-a217-b288c6e45e62" = {
+        credentialsFile = "/var/lib/92e4660b-3691-4157-a217-b288c6e45e62.json";
+        default = "http_status:404";
+        ingress = {
+          "nixos.eownerdead.dedyn.io" = "ssh://localhost:22";
+        };
+      };
     };
   };
 
   programs.wireshark.enable = true;
 
-  hardware.opengl.enable = true;
+  hardware = {
+    opengl.enable = true;
+    nvidia-container-toolkit.enable = true;
+  };
 
   users.users.noobuser = {
     isNormalUser = true;
     hashedPasswordFile = sops.noobuserPassword.path;
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBY59B9RvaQW314iSWSIi9EWO+J6aNWImXoeZyLwQzSC openpgp:0x5CA54D63"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICe9DvgMExABKFYs71DimswPTn8S8Im7shTJMAFx/Jny openpgp:0x2EDEF31C"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN5bTpOOFrIF3IqOZqUsJUTziQduAzXOpNfsFM4Yat8F a@DESKTOP-R9IE7K2"
     ];
     extraGroups = [ "wheel" "wireshark" "adbusers" ];
@@ -114,25 +129,17 @@ in {
 
   i18n.defaultLocale = "ja_JP.UTF-8";
 
-  fonts.fonts = with pkgs; [ noto-fonts-cjk-sans noto-fonts-cjk-serif ];
+  fonts.packages = with pkgs; [ noto-fonts-cjk-sans noto-fonts-cjk-serif ];
 
   virtualisation = {
     podman = {
       enable = true;
       dockerCompat = true;
       autoPrune.enable = true;
-      enableNvidia = true;
     };
     oci-containers.backend = "podman";
     libvirtd.enable = true;
-    waydroid.enable = true;
   };
 
-  system = {
-    stateVersion = "23.11";
-    autoUpgrade = {
-      enable = true;
-      flake = "git+https://codeberg.org/eownerdead/flakes?ref=dev/nixos";
-    };
-  };
+  system.stateVersion = "24.05";
 }

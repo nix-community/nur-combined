@@ -29,7 +29,7 @@
     bat.enable = true;
     eza = {
       enable = true;
-      enableAliases = true;
+      enableBashIntegration = true;
     };
     direnv = {
       enable = true;

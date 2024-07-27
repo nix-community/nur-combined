@@ -4,6 +4,7 @@ with lib; {
     ./doas.nix
     ./encrypted-dns.nix
     ./flatpak.nix
+    ./intel-graphics.nix
     ./nix.nix
     ./nvidia.nix
     ./sound.nix
@@ -22,6 +23,8 @@ with lib; {
     };
 
     users.mutableUsers = false;
+
+    # networking.nftables.enable = true; # Instead of iptables
 
     services.envfs.enable = true;
   };

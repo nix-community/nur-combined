@@ -1,11 +1,13 @@
 { lib, pkgs, inputs, ... }: {
   imports = [
+    ../../hm
+
     ../noobuser/cli.nix
     ../noobuser/git.nix
+    ../noobuser/mercurial.nix
     ../noobuser/gpg.nix
     ../noobuser/pass.nix
     ../noobuser/firefox.nix
-    ../noobuser/emacs
 
     ../noobuser/dev/nix.nix
     ../noobuser/dev/py.nix
@@ -18,10 +20,11 @@
   home = {
     username = "noobuser";
     homeDirectory = "/home/noobuser";
-    stateVersion = "21.11";
+    stateVersion = "24.05";
 
     packages = with pkgs; [
       dconf
+      pijul
       android-tools
       wireshark
       gimp
@@ -42,7 +45,13 @@
       tigervnc
       wayfire
       patched
+      texlab
     ];
+  };
+
+  eownerdead.emacs = {
+    enable = true;
+    exwm.enable = true;
   };
 
   programs = {
