@@ -100,7 +100,7 @@ in
   security.pam.services.login.rules = {
     # keepcaps + defer WORKS
     auth.pam_cap = {
-      order = 12700;
+      order = 10100;  #< must be early, before "auth sufficient pam_unix.so"
       control = "optional";
       modulePath = "${libcapForPam.pam}/lib/security/pam_cap.so";
       args = [ "keepcaps" "defer" ];
