@@ -28,6 +28,7 @@ rec {
   homebox-bin = pkgs.callPackage ./pkgs/homebox-bin { };
   _3dslink = pkgs.callPackage ./pkgs/3dslink { };
   discordwikibot = pkgs.callPackage ./pkgs/discordwikibot { };
+  sd-format-linux = pkgs.callPackage ./pkgs/sd-format-linux { };
 
   mediawiki_1_39 = pkgs.callPackage ./pkgs/mediawiki {
     version = "1.39.8";
