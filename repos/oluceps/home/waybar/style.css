@@ -65,9 +65,9 @@ window#waybar.solo {
   padding-left: 10px;
 }
 
-#pulseaudio {
+#pulseaudio, #custom-pipewire {
 	color: rgba(217, 216, 216, 1);
-	padding: 3px 6px 3px 6px;
+	padding: 3px 8px 3px 6px;
 	margin: 2px 4px 2px 4px;
 	background: rgba(35, 31, 32, 0.5);
 	border-radius: 6px;

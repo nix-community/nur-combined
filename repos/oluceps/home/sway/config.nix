@@ -2,6 +2,7 @@
 let
   wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
   wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
+  pw-volume = "${pkgs.pw-volume}/bin/pw-volume";
   genDeps = n: lib.genAttrs n (name: lib.getExe pkgs.${name});
   bg = "${
     pkgs.fetchurl {
@@ -77,7 +78,7 @@ in
   client.placeholder #000000 #0c0c0c #ffffff #000000 #0c0c0c
   client.background a7c080
 
-  bindsym --no-repeat XF86AudioMute exec pamixer --toggle-mute
+  bindsym --no-repeat XF86AudioMute exec "${pw-volume} mute toggle; pkill -RTMIN+8 waybar"
   bindsym Alt+Print exec ${deps.grim} - | ${wl-copy} -t image/png
   bindsym Ctrl+Shift+l exec ${lib.getExe pkgs.swaylock}
   bindsym Mod4+0 workspace number 10
@@ -152,8 +153,8 @@ in
   bindsym Mod4+v splitv
   bindsym Mod4+w layout tabbed
   bindsym Print exec ${lib.getExe pkgs.sway-contrib.grimshot} copy area
-  bindsym XF86AudioLowerVolume exec pamixer -d 5
-  bindsym XF86AudioRaiseVolume exec pamixer -i 5
+  bindsym XF86AudioLowerVolume exec "${pw-volume} change -2.5%; pkill -RTMIN+8 waybar"
+  bindsym XF86AudioRaiseVolume exec "${pw-volume} change +2.5%; pkill -RTMIN+8 waybar"
   bindsym XF86MonBrightnessUp exec brightnessctl set +3%
   bindsym XF86MonBrightnessdown exec brightnessctl set 3%-
 

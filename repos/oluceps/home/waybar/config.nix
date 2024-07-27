@@ -77,6 +77,7 @@
         "cpu",
         "memory",
         "battery",
+        "custom/pipewire"
       ],
       "network": {
         "format": "{bandwidthDownOctets}",
@@ -87,6 +88,17 @@
         "tooltip": false
       },
       "position": "top",
+      "custom/pipewire": {
+      "exec": "${lib.getExe pkgs.pw-volume} status",
+      "return-type": "json",
+      "interval": "once",
+      "signal": 8,
+      "format": "{icon} {percentage}",
+      "format-icons": {
+             "mute": "x",
+             "default": ["󰕿", "󰖀", "󰕾"]
+           }
+       },
       "pulseaudio": {
         "format": "{volume}% {icon}",
         "format-icons": {
