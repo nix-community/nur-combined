@@ -769,10 +769,10 @@
   };
   "material-icons-for-github" = buildFirefoxXpiAddon {
     pname = "material-icons-for-github";
-    version = "1.8.22";
+    version = "1.8.23";
     addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4326292/material_icons_for_github-1.8.22.xpi";
-    sha256 = "c18cb808a5746f193128da42936af2c7f8c121f3e73d6ac920cbdbc99a4ea004";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4326942/material_icons_for_github-1.8.23.xpi";
+    sha256 = "3de7b40f46d40a6201e4fe06bf021af0d457b8acd6d4ba48a4a25231754d59b8";
     meta = with lib; {
       homepage = "https://github.com/Claudiohbsantos/github-material-icons-extension";
       description = "Replace the file/folder icons on github file browsers with icons representing the file's type and which tool it is used by.";
@@ -795,10 +795,10 @@
   };
   "npm-hub" = buildFirefoxXpiAddon {
     pname = "npm-hub";
-    version = "2024.7.23";
+    version = "2024.7.26";
     addonId = "npm-hub@sikelianos.com";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4324719/npm_hub-2024.7.23.xpi";
-    sha256 = "82fde183bced610a2f3ab66d5df1fb42bec1d34839798b6390b59ad300c58b9d";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4326828/npm_hub-2024.7.26.xpi";
+    sha256 = "cf15185521b7580f80fbcf179ad368c006a2d678b85d08bb688f0db937735a39";
     meta = with lib; {
       homepage = "https://github.com/npmhub/npmhub";
       description = "Explore npm dependencies on GitHub repos";

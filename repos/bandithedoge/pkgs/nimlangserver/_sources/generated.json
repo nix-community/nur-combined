@@ -81,7 +81,7 @@
   },
   "json_serialization": {
     "cargoLocks": null,
-    "date": "2024-07-24",
+    "date": "2024-07-27",
     "extract": null,
     "name": "json_serialization",
     "passthru": null,
@@ -91,13 +91,13 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "6ff807654fe2d469a9914f2d6f14447ea6d2ea19",
-      "sha256": "sha256-NfqaGb6bD5SnZMCXQgp26cRUBmIF/fjBxsnL2FysHJo=",
+      "rev": "8a4ed98bbd0a9479df15af2fa31da38a586ea6d5",
+      "sha256": "sha256-rrj6aoIEB2X/HSmWl7dnOJqaNWarQ9djyaP59u1nyuQ=",
       "sparseCheckout": [],
       "type": "git",
       "url": "https://github.com/status-im/nim-json-serialization"
     },
-    "version": "6ff807654fe2d469a9914f2d6f14447ea6d2ea19"
+    "version": "8a4ed98bbd0a9479df15af2fa31da38a586ea6d5"
   },
   "nimlangserver": {
     "cargoLocks": null,

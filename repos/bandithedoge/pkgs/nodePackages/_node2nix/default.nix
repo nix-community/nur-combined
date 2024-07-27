@@ -12,7 +12,7 @@
     inherit pkgs nodejs;
     libtool =
       if pkgs.stdenv.isDarwin
-      then pkgs.darwin.cctools
+      then pkgs.cctools or pkgs.darwin.cctools
       else null;
   };
 in
