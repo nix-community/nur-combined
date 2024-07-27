@@ -1,9 +1,6 @@
 { ... }:
 
 {
-  # store /home/colin/a/b in /mnt/persist/private/a/b instead of /mnt/persist/private/home/colin/a/b
-  sane.persist.stores.private.prefix = "/home/colin";
-
   sane.persist.sys.byStore.initrd = [
     "/var/log"
   ];
