@@ -248,11 +248,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-RW53J2C65LzMEE0N7OSeU6wC+ntbzcQ7DfB7zpcwL0s=",
+            "sha256": "sha256-3Corn6i4BGWDZUGbJk8P/W+e8BV4vFMVL6+A5youPKY=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.14.0-1/bilibili-asar-v1.14.0-1.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.14.0-2/bilibili-asar-v1.14.0-2.tar.gz"
         },
-        "version": "1.14.0-1"
+        "version": "1.14.0-2"
     },
     "bilibili-src": {
         "cargoLocks": null,
@@ -268,12 +268,12 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.14.0-1",
-            "sha256": "sha256-6byxBkNd6bPOuG7wW9KVUC20oCUTYGHrK2schQHmcG0=",
+            "rev": "v1.14.0-2",
+            "sha256": "sha256-p6Hl2VSrXnd8FknwdDpWgJe3vdij6C4kYBkCN9hJrsM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.0-1"
+        "version": "v1.14.0-2"
     },
     "bird-lg-go": {
         "cargoLocks": null,
@@ -349,7 +349,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-07-27",
+        "date": "2024-07-28",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -361,12 +361,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "f036a67118ed302c3611e82e0234f8d4279079af",
-            "sha256": "sha256-K2NtG1GYvneUL/Cil9W8Jqs5YCm+emkgTNbfrwvrwvY=",
+            "rev": "eff77909a6f66560c4ffed38f6a012a9235538e5",
+            "sha256": "sha256-A58n4Pcr1xaDNX1xwrcEFVrI1QrdiBbajiVbQVxMCr0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f036a67118ed302c3611e82e0234f8d4279079af"
+        "version": "eff77909a6f66560c4ffed38f6a012a9235538e5"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1437,12 +1437,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3469",
-            "sha256": "sha256-PePYXzA5idiW5aoJa5y0GdoyejuW21PvHTeSPQsdbn0=",
+            "rev": "b3484",
+            "sha256": "sha256-EWzvlL6oal01edHCrc8U48NizaSVzs/fCmg3U2DdK6Q=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3469"
+        "version": "b3484"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -2397,7 +2397,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-07-27",
+        "date": "2024-07-28",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -2409,12 +2409,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "49c1bd78f2262c7086d8ff4744e793c79593e8d4",
-            "sha256": "sha256-uC5OarAuM2Z4R0Dug/3wwBHp277XuauTKaMKPL/zXKc=",
+            "rev": "bf863a9edb8ffca653b13bc3c1c8e1ee71c9a051",
+            "sha256": "sha256-XlgzpwPnyUzPY7LuohYDTd/sDr/Zeu612CJtmRQsS7w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "49c1bd78f2262c7086d8ff4744e793c79593e8d4"
+        "version": "bf863a9edb8ffca653b13bc3c1c8e1ee71c9a051"
     },
     "rime-moegirl": {
         "cargoLocks": null,

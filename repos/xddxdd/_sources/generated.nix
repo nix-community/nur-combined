@@ -136,21 +136,21 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "1.14.0-1";
+    version = "1.14.0-2";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.14.0-1/bilibili-asar-v1.14.0-1.tar.gz";
-      sha256 = "sha256-RW53J2C65LzMEE0N7OSeU6wC+ntbzcQ7DfB7zpcwL0s=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.14.0-2/bilibili-asar-v1.14.0-2.tar.gz";
+      sha256 = "sha256-3Corn6i4BGWDZUGbJk8P/W+e8BV4vFMVL6+A5youPKY=";
     };
   };
   bilibili-src = {
     pname = "bilibili-src";
-    version = "v1.14.0-1";
+    version = "v1.14.0-2";
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      rev = "v1.14.0-1";
+      rev = "v1.14.0-2";
       fetchSubmodules = false;
-      sha256 = "sha256-6byxBkNd6bPOuG7wW9KVUC20oCUTYGHrK2schQHmcG0=";
+      sha256 = "sha256-p6Hl2VSrXnd8FknwdDpWgJe3vdij6C4kYBkCN9hJrsM=";
     };
   };
   bird-lg-go = {
@@ -194,15 +194,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "f036a67118ed302c3611e82e0234f8d4279079af";
+    version = "eff77909a6f66560c4ffed38f6a012a9235538e5";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "f036a67118ed302c3611e82e0234f8d4279079af";
+      rev = "eff77909a6f66560c4ffed38f6a012a9235538e5";
       fetchSubmodules = false;
-      sha256 = "sha256-K2NtG1GYvneUL/Cil9W8Jqs5YCm+emkgTNbfrwvrwvY=";
+      sha256 = "sha256-A58n4Pcr1xaDNX1xwrcEFVrI1QrdiBbajiVbQVxMCr0=";
     };
-    date = "2024-07-27";
+    date = "2024-07-28";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -796,13 +796,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3469";
+    version = "b3484";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3469";
+      rev = "b3484";
       fetchSubmodules = false;
-      sha256 = "sha256-PePYXzA5idiW5aoJa5y0GdoyejuW21PvHTeSPQsdbn0=";
+      sha256 = "sha256-EWzvlL6oal01edHCrc8U48NizaSVzs/fCmg3U2DdK6Q=";
     };
   };
   lyrica = {
@@ -1327,15 +1327,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "49c1bd78f2262c7086d8ff4744e793c79593e8d4";
+    version = "bf863a9edb8ffca653b13bc3c1c8e1ee71c9a051";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "49c1bd78f2262c7086d8ff4744e793c79593e8d4";
+      rev = "bf863a9edb8ffca653b13bc3c1c8e1ee71c9a051";
       fetchSubmodules = false;
-      sha256 = "sha256-uC5OarAuM2Z4R0Dug/3wwBHp277XuauTKaMKPL/zXKc=";
+      sha256 = "sha256-XlgzpwPnyUzPY7LuohYDTd/sDr/Zeu612CJtmRQsS7w=";
     };
-    date = "2024-07-27";
+    date = "2024-07-28";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
