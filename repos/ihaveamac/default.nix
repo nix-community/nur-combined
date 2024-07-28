@@ -37,6 +37,7 @@ rec {
   mediawiki_1_40 = pkgs.callPackage ./pkgs/mediawiki {
     version = "1.40.4";
     hash = "sha256-hUkUPBFma+u4SxT1pTzxMXCwcSEbf86BjNsNoF756J4=";
+    knownVulnerabilities = [ "MediaWiki 1.40 has been end-of-life since 2024-06-28." ];
   };
   mediawiki_1_41 = pkgs.callPackage ./pkgs/mediawiki {
     version = "1.41.2";
