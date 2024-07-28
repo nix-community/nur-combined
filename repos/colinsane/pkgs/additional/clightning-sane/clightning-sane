@@ -742,7 +742,7 @@ def main():
     logging.basicConfig()
     logger.setLevel(logging.INFO)
 
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(usage=__doc__)
     parser.add_argument("--verbose", action="store_true", help="more logging")
     parser.add_argument("--min-msat", default="999", help="min transaction size")
     parser.add_argument("--max-msat", default="1000000", help="max transaction size")
