@@ -20,7 +20,6 @@
     inherit (pkgs.darwin.apple_sdk.frameworks) Cocoa;
   };
   emacs-unlimited-select = pkgs.callPackage ./pkgs/emacs-unlimited-select { };
-  goatcounter = pkgs.callPackage ./pkgs/goatcounter { };
   porto = pkgs.callPackage ./pkgs/porto { };
   vanity-imports = pkgs.callPackage ./pkgs/vanity-imports { };
 }
