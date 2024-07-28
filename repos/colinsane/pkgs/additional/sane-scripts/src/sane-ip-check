@@ -49,9 +49,10 @@ def get_fault_tolerant(try_upnp: bool, retry_duration: float) -> tuple[str|None,
         try:
             return try_get_once(try_upnp)
         except Exception as e:
-            logger.warn(e)
+            logger.warning(e)
             if time.time() - start > retry_duration:
                 raise
+        time.sleep(1.0)
 
 def main(format: str, try_upnp: bool, retry_duration: float, expect: str|None) -> None:
     root_dev, wan_ip = get_fault_tolerant(try_upnp, retry_duration)

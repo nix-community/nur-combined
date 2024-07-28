@@ -6,9 +6,9 @@ let
   KiB = n: 1024*n;
 in
 {
-  sane.persist.sys.byStore.plaintext = [
-    # TODO: mode?
-    { user = "postgres"; group = "postgres"; path = "/var/lib/postgresql"; method = "bind"; }
+  sane.persist.sys.byStore.private = [
+    { user = "postgres"; group = "postgres"; mode = "0750"; path = "/var/lib/postgresql"; method = "bind"; }
+    { user = "postgres"; group = "postgres"; mode = "0750"; path = "/var/backup/postgresql"; method = "bind"; }
   ];
   services.postgresql.enable = true;
 

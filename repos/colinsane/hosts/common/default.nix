@@ -10,7 +10,6 @@
     ./machine-id.nix
     ./net
     ./nix.nix
-    ./persist.nix
     ./polyunfill.nix
     ./programs
     ./quirks.nix

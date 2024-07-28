@@ -99,6 +99,16 @@ in
         disable_symlinks on;
       '';
     };
+    locations."/share/Ubunchu/" = {
+      alias = "/var/media/Books/Visual/HiroshiSeo/Ubunchu/";
+      extraConfig = ''
+        # autoindex => render directory listings
+        autoindex on;
+        # don't follow any symlinks when serving files
+        # otherwise it allows a directory escape
+        disable_symlinks on;
+      '';
+    };
 
     # allow matrix users to discover that @user:uninsane.org is reachable via matrix.uninsane.org
     locations."= /.well-known/matrix/server".extraConfig =
@@ -180,7 +190,14 @@ in
 
   sane.persist.sys.byStore.plaintext = [
     { user = "acme"; group = "acme"; path = "/var/lib/acme"; method = "bind"; }
+  ];
+  sane.persist.sys.byStore.private = [
     { user = "colin"; group = "users"; path = "/var/www/sites"; method = "bind"; }
+  ];
+  sane.persist.sys.byStore.ephemeral = [
+    # logs *could* be persisted to private storage, but then there's the issue of
+    # "what if servo boots, isn't unlocked, and the whole / tmpfs is consumed by logs"
+    { user = "nginx"; group = "nginx"; path = "/var/log/nginx"; method = "bind"; }
   ];
 
   # let's encrypt default chain looks like:

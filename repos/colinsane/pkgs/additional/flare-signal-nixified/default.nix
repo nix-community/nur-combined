@@ -1,6 +1,5 @@
 # Cargo.nix and crate-hashes.json were created with:
 # - `nix run '.#crate2nix' -- generate -f ~/ref/repos/schmiddi-on-mobile/flare/Cargo.toml`
-# - `sed -i 's/target."curve25519_dalek_backend"/target."curve25519_dalek_backend" or ""/g' Cargo.nix`
 #
 # the generated Cargo.nix points to an impure source (~/ref/...), but that's resolved by overriding `src` below
 #
@@ -49,56 +48,8 @@ let
         domain = "gitlab.com";
         owner = "schmiddi-on-mobile";
         repo = "flare";
-        rev = "0.10.1-beta.6";
-        hash = "sha256-NhQu9gpnweI+kIWh3Mbb9bCQnfgthxocAqDRwG0m2Hg=";
-
-        # flare/Cargo.nix version compatibility:
-        # - flare 0.10.1-beta.6: compiles
-        # - flare 0.10.1-beta.5: can't crate2nix because Cargo.lock is out of date with Cargo.toml
-        # - flare 0.10.1-beta.4: compiles
-        # - flare 0.10.1-beta.2: requires gtk 4.11, not yet in nixpkgs
-        #   - <https://github.com/NixOS/nixpkgs/pull/247766>
-        #   - specifically, that's because of gdk4-sys 0.7.2.
-        #   - after 0.10.1-beta.1, there's a translations update, then immediately "ui(): Port to GTK 4.12 and Libadwaita 1.4"
-        #     so 0.10.1-beta.1 is effectively the last gtk 4.10 compatible version
-        # - flare 0.10.1-beta.1: uses a variant of serde_derive which doesn't cross compile in nixpkgs
-        #   - after serde_derive downgraded => 1.0.171:
-        #     ```
-        #     > 424 |             .send(manager.sync_contacts().await)
-        #     >     |                           ^^^^^^^^^^^^^ private method
-        #     >    --> /presage-d6d8fff/presage/src/manager.rs:650:5
-        #     >     = note: private method defined here
-
-        #     ```
-        # - flare 0.10.0: uses a version of serde_derive which doesn't cross compile in nixpkgs
-        #   - same error as 0.9.0 once serde_derive is downgraded to 1.0.171
-        # - flare 0.9.3: uses a version of serde_derive which doesn't cross compile in nixpkgs
-        #   - same error as 0.9.0 once serde_derive is downgraded to 1.0.171
-        # - flare 0.9.2: uses a version of serde_derive which doesn't cross compile in nixpkgs
-        #   - same error as 0.9.0 once serde_derive is downgraded to 1.0.171
-        # - flare 0.9.1: uses a version of serde_derive (1.0.175) which doesn't cross compile in nixpkgs
-        # - flare 16acc70ceb6e80eb2d87a92e72e2727e8b98b4db  (last rev before serde_derive 1.0.175): same error as 0.9.0
-        # - flare 0.9.0: deps build but crate itself fails because `mod config` is unknown (i.e. we didn't invoke meson and let it generate config.rs)
-        # rev = "0.10.1-beta.6";
-        # hash = "sha256-NhQu9gpnweI+kIWh3Mbb9bCQnfgthxocAqDRwG0m2Hg=";
-        # rev = "0.10.1-beta.5";
-        # hash = "sha256-AAxasck8rm8N73jcJU6qW+zR3qSAH5nsi4hTunSnW8Y=";
-        # rev = "0.10.1-beta.4";
-        # hash = "sha256-SkHARJ4V8t4dXITH+V36RIfPrWL5Bdju1gahCS2aiWo=";
-        # rev = "0.10.1-beta.2";
-        # hash = "sha256-xkTM8Jeyb89ZUo2lFKNm8HlTe8BTlO/flZmENRfDEm4=";
-        # rev = "0.10.1-beta.1";
-        # hash = "sha256-nUR3jnbjMJvI3XbguFLz5yQL3SAXzLkdVwXyhcMeZoc=";
-        # rev = "0.10.0";
-        # hash = "sha256-+9zpYW9xjLe78c2GRL6raFDR5g+R/JWxQzU/ZS+5JtY=";
-        # rev = "0.9.3";
-        # hash = "sha256-bTR3Jzzy8dVdBJ4Mo2PYstEnNzBVwiWE8hRBnJ7pJSs=";
-        # rev = "0.9.2";
-        # hash = "sha256-70OqHCe+NZ0dn1sjpkke5MtXU3bFgpwkm0TYlbXOUl8=";
-        # rev = "16acc70ceb6e80eb2d87a92e72e2727e8b98b4db";
-        # hash = "sha256-Lz7h5JUrqBUsvRICW3QacuO8rkeGBY9yroq/Gtb7nMw=";
-        # rev = "0.9.0";
-        # hash = "sha256-6p9uuK71fJvJs0U14jJEVb2mfpZWrCZZFE3eoZe9eVo=";
+        rev = "0.15.0";
+        hash = "sha256-sIT4oEmIV8TJ5MMxg3vxkvK+7PaIy/01kN9I2FTsfo0=";
       };
 
       codegenUnits = 16;  # speeds up the build a bit
@@ -109,7 +60,6 @@ let
         appstream-glib # for appstream-util
         blueprint-compiler
         desktop-file-utils # for update-desktop-database
-        gobject-introspection
         meson
         ninja
         pkg-config
@@ -119,11 +69,10 @@ let
       buildInputs = [
         gtksourceview5
         libadwaita
-        libsecret
+        # libsecret
         # libspelling  # optional feature. to enable, add it to `rootFeatures` above too.
-        protobuf
 
-        # To reproduce audio messages
+        # To reproduce audio messages (c/o nixpkgs flare-signal)
         gst_all_1.gstreamer
         gst_all_1.gst-plugins-base
         gst_all_1.gst-plugins-good
@@ -216,10 +165,6 @@ let
       installPhase = "ninjaInstallPhase";
     };
 
-    gdk-pixbuf-sys = attrs: attrs // {
-      nativeBuildInputs = [ pkg-config ];
-      buildInputs = [ gdk-pixbuf ];
-    };
     gdk4-wayland-sys = attrs: attrs // {
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ gtk4 ];  # depends on "gtk4_wayland"
@@ -228,25 +173,31 @@ let
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ gtk4 ];  # depends on "gtk4_x11"
     };
-    gio-sys = attrs: attrs // {
-      nativeBuildInputs = [ pkg-config ];
-      buildInputs = [ glib ];
-    };
-    gobject-sys = attrs: attrs // {
-      nativeBuildInputs = [ pkg-config ];
-      buildInputs = [ glib ];
-    };
     libadwaita-sys = attrs: attrs // {
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ libadwaita ];
     };
-    ring = attrs: attrs // {
-      # CARGO_MANIFEST_LINKS = "ring_core_0_17_5";
-      postPatch = (attrs.postPatch or "") + ''
-        substituteInPlace build.rs --replace \
-          'links = std::env::var("CARGO_MANIFEST_LINKS").unwrap();' 'links = "ring_core_0_17_5".to_string();'
-      '';
+    libsignal-protocol = attrs: attrs // {
+      nativeBuildInputs = [ protobuf ];  #< for `protoc`
     };
+    libsignal-service = attrs: attrs // {
+      nativeBuildInputs = [ protobuf ];  #< for `protoc`
+    };
+    presage-store-sled = attrs: attrs // {
+      nativeBuildInputs = [ protobuf ];  #< for `protoc`
+    };
+    rav1e = attrs: attrs // {
+      # TODO: `rav1e` is actually packaged in nixpkgs as a library:
+      #   is there any way i can reuse that?
+      CARGO_ENCODED_RUSTFLAGS = "";
+    };
+    # ring = attrs: attrs // {
+    #   # CARGO_MANIFEST_LINKS = "ring_core_0_17_5";
+    #   postPatch = (attrs.postPatch or "") + ''
+    #     substituteInPlace build.rs --replace \
+    #       'links = std::env::var("CARGO_MANIFEST_LINKS").unwrap();' 'links = "ring_core_0_17_5".to_string();'
+    #   '';
+    # };
     sourceview5-sys = attrs: attrs // {
       nativeBuildInputs = [ pkg-config ];
       buildInputs = [ gtksourceview5 ];
@@ -269,6 +220,16 @@ let
     attrs: fn ((defaultCrateOverrides."${crate}" or (a: a)) attrs)
   ) extraCrateOverrides);
 
+  crate2NixOverrides = crates: crates // {
+    # crate2nix sometimes "misses" dependencies, or gets them wrong in a way that crateOverrides can't patch.
+    # this function lets me patch over Cargo.nix without actually modifying it by hand.
+    ashpd = crates.ashpd // {
+      # specifically, it needs zvariant; providing that through zbus is a convenient way to also
+      # coerce the feature flags so as to reduce rebuilds
+      dependencies = crates.ashpd.dependencies ++ crates.zbus.dependencies;
+    };
+  };
+
   cargoNix = import ./Cargo.nix {
     inherit pkgs;
     release = false;  #< XXX(2023/12/06): `release=true` is incompatible with cross compilation
@@ -284,7 +245,7 @@ let
       }) crateArgs;
     in
       crateOverrideFn crateDeriv;
-    crateConfigs = cargoNix.internal.crates;
+    crateConfigs = crate2NixOverrides cargoNix.internal.crates;
     runTests = false;
   };
 in builtCrates.crates.flare.overrideAttrs (super: {

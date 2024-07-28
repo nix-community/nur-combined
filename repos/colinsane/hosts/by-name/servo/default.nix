@@ -35,8 +35,9 @@
   sane.services.rsync-net.enable = true;
 
   # automatically log in at the virtual consoles.
-  # using root here makes sure we always have an escape hatch
-  services.getty.autologinUser = "root";
+  # using root here makes sure we always have an escape hatch.
+  # XXX(2024-07-27): this is incompatible with my s6-rc stuff, which needs to auto-login as `colin` to start its user services.
+  # services.getty.autologinUser = "root";
 
   sane.image.extraBootFiles = [ pkgs.bootpart-uefi-x86_64 ];
 

@@ -35,9 +35,10 @@ let
   };
 in
 {
-  sane.persist.sys.byStore.plaintext = [
+  sane.persist.sys.byStore.private = [
     # TODO: mode? we need this specifically for the stats tracking in .config/
     { user = "transmission"; group = config.users.users.transmission.group; path = "/var/lib/transmission"; method = "bind"; }
+    { user = "transmission"; group = config.users.users.transmission.group; path = "/var/backup/torrents"; method = "bind"; }
   ];
   users.users.transmission.extraGroups = [ "media" ];
 

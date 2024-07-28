@@ -12,10 +12,6 @@
     device = "/var/media";
     options = [ "rbind" ];
   };
-  fileSystems."/var/export/pub" = {
-    device = "/var/www/sites/uninsane.org/share";
-    options = [ "rbind" ];
-  };
   # fileSystems."/var/export/playground" = {
   #   device = config.fileSystems."/mnt/persist/ext".device;
   #   fsType = "btrfs";
@@ -53,6 +49,13 @@
       - share files
       - write poetry
       - be a friendly troll
+    '';
+  };
+
+  sane.fs."/var/export/.public_for_test/test" = {
+    wantedBy = [ "nfs.service" "sftpgo.service" ];
+    file.text = ''
+      automated tests read this file to probe connectivity
     '';
   };
 }

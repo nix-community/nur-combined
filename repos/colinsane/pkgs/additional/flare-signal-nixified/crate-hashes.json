@@ -1,14 +1,15 @@
 {
-  "curve25519-dalek 4.0.0 (git+https://github.com/signalapp/curve25519-dalek?tag=signal-curve25519-4.0.0#463e5c7cba32561ffee8a281c4455ff3c25660d4)": "0baapyz09niwn0l64sy5cq1nc9jqsyn78wp7zw893g4mfxhyyi99",
-  "curve25519-dalek-derive 0.1.0 (git+https://github.com/signalapp/curve25519-dalek?tag=signal-curve25519-4.0.0#463e5c7cba32561ffee8a281c4455ff3c25660d4)": "0baapyz09niwn0l64sy5cq1nc9jqsyn78wp7zw893g4mfxhyyi99",
-  "libsignal-protocol 0.1.0 (git+https://github.com/signalapp/libsignal?tag=v0.32.0#72f046fe19a5eac22c7abcf9917956f240759364)": "00w7wbw7rw1lvjzpsw3v0fv7ixshpg7dj6dw2qwmdbk8p8xwjahl",
-  "libsignal-service 0.1.0 (git+https://github.com/direc85/libsignal-service-rs?rev=4d6ebf2#4d6ebf20a43c3214ef349a1f62d87970bf26d63c)": "18khsrgwkhhiyz96kkqr7awp8pcwj7sz4fj7i2r158d01zjli910",
-  "libsignal-service-hyper 0.1.0 (git+https://github.com/whisperfish/libsignal-service-rs?rev=2e3bd5813aa54abe354a46e78ac0ee164027b985#2e3bd5813aa54abe354a46e78ac0ee164027b985)": "1h8jj4mbi3kd014i8dcni5gazg3rchgpv2psxbcfvyg335c11z9n",
-  "poksho 0.7.0 (git+https://github.com/signalapp/libsignal?tag=v0.32.0#72f046fe19a5eac22c7abcf9917956f240759364)": "00w7wbw7rw1lvjzpsw3v0fv7ixshpg7dj6dw2qwmdbk8p8xwjahl",
-  "presage 0.6.0-dev (git+https://github.com/Schmiddiii/presage?rev=86ff0c3e857af8f2f1d3bbcc7d7152d774490951#86ff0c3e857af8f2f1d3bbcc7d7152d774490951)": "0vdxhcz0b4xg79mmj5jz6gmqadi94acf2abfcsgwkikhs2wm362n",
-  "presage-store-cipher 0.1.0 (git+https://github.com/Schmiddiii/presage?rev=86ff0c3e857af8f2f1d3bbcc7d7152d774490951#86ff0c3e857af8f2f1d3bbcc7d7152d774490951)": "0vdxhcz0b4xg79mmj5jz6gmqadi94acf2abfcsgwkikhs2wm362n",
-  "presage-store-sled 0.6.0-dev (git+https://github.com/Schmiddiii/presage?rev=86ff0c3e857af8f2f1d3bbcc7d7152d774490951#86ff0c3e857af8f2f1d3bbcc7d7152d774490951)": "0vdxhcz0b4xg79mmj5jz6gmqadi94acf2abfcsgwkikhs2wm362n",
-  "signal-crypto 0.1.0 (git+https://github.com/signalapp/libsignal?tag=v0.32.0#72f046fe19a5eac22c7abcf9917956f240759364)": "00w7wbw7rw1lvjzpsw3v0fv7ixshpg7dj6dw2qwmdbk8p8xwjahl",
-  "zkcredential 0.1.0 (git+https://github.com/signalapp/libsignal?tag=v0.32.0#72f046fe19a5eac22c7abcf9917956f240759364)": "00w7wbw7rw1lvjzpsw3v0fv7ixshpg7dj6dw2qwmdbk8p8xwjahl",
-  "zkgroup 0.9.0 (git+https://github.com/signalapp/libsignal?tag=v0.32.0#72f046fe19a5eac22c7abcf9917956f240759364)": "00w7wbw7rw1lvjzpsw3v0fv7ixshpg7dj6dw2qwmdbk8p8xwjahl"
+  "git+https://github.com/signalapp/curve25519-dalek?tag=signal-curve25519-4.1.3#4.1.3": "1013mg8xna6jjgq9kvpy0dlbhh5zv1wll9kw1fyplrhw91w7py3c",
+  "git+https://github.com/signalapp/curve25519-dalek?tag=signal-curve25519-4.1.3#curve25519-dalek-derive@0.1.1": "1013mg8xna6jjgq9kvpy0dlbhh5zv1wll9kw1fyplrhw91w7py3c",
+  "git+https://github.com/signalapp/libsignal?tag=v0.51.1#libsignal-core@0.1.0": "10rksaw86a8hbqhhjqiic995kss6s02sgrvfnr9sa0jmb8vci8g1",
+  "git+https://github.com/signalapp/libsignal?tag=v0.51.1#libsignal-protocol@0.1.0": "10rksaw86a8hbqhhjqiic995kss6s02sgrvfnr9sa0jmb8vci8g1",
+  "git+https://github.com/signalapp/libsignal?tag=v0.51.1#poksho@0.7.0": "10rksaw86a8hbqhhjqiic995kss6s02sgrvfnr9sa0jmb8vci8g1",
+  "git+https://github.com/signalapp/libsignal?tag=v0.51.1#signal-crypto@0.1.0": "10rksaw86a8hbqhhjqiic995kss6s02sgrvfnr9sa0jmb8vci8g1",
+  "git+https://github.com/signalapp/libsignal?tag=v0.51.1#zkcredential@0.1.0": "10rksaw86a8hbqhhjqiic995kss6s02sgrvfnr9sa0jmb8vci8g1",
+  "git+https://github.com/signalapp/libsignal?tag=v0.51.1#zkgroup@0.9.0": "10rksaw86a8hbqhhjqiic995kss6s02sgrvfnr9sa0jmb8vci8g1",
+  "git+https://github.com/whisperfish/libsignal-service-rs?rev=1b591540b908112816be131d6baa6eafba2129cb#libsignal-service-hyper@0.1.0": "18467sdwpkigahb5xz55dfnd8zmjy47v6aj0q9a5pjazm2kjmi2h",
+  "git+https://github.com/whisperfish/libsignal-service-rs?rev=1b591540b908112816be131d6baa6eafba2129cb#libsignal-service@0.1.0": "18467sdwpkigahb5xz55dfnd8zmjy47v6aj0q9a5pjazm2kjmi2h",
+  "git+https://github.com/whisperfish/presage?rev=e2392c42a0392397b9db782607fdd7ab2ea91b5f#0.6.2": "1a7lqk5vqfljhzfmw0lrmzvl743bgcfmrsa5iwf9hvzh6ndvfkg0",
+  "git+https://github.com/whisperfish/presage?rev=e2392c42a0392397b9db782607fdd7ab2ea91b5f#presage-store-cipher@0.1.0": "1a7lqk5vqfljhzfmw0lrmzvl743bgcfmrsa5iwf9hvzh6ndvfkg0",
+  "git+https://github.com/whisperfish/presage?rev=e2392c42a0392397b9db782607fdd7ab2ea91b5f#presage-store-sled@0.6.0-dev": "1a7lqk5vqfljhzfmw0lrmzvl743bgcfmrsa5iwf9hvzh6ndvfkg0"
 }

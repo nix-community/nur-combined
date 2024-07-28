@@ -75,7 +75,7 @@ def is_valid_search_domain(domain: str) -> bool:
     if len(comps) >= 2:
         # allow any search domain that's not a TLD.
         return True
-    logger.warn(f"invalid search domain {domain}")  # if you trigger this, then whitelist the search domain here
+    logger.warning(f"invalid search domain {domain}")  # if you trigger this, then whitelist the search domain here
     # it's ok to have a search domain of any length -- i'm just hesitant to allow hijacking of very large domain spaces.
     return False
 

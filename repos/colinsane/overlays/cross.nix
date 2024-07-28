@@ -346,8 +346,16 @@ in with final; {
     # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
     postPatch = (upstream.postPatch or "") + ''
       substituteInPlace data/resources/meson.build --replace-fail \
-        "find_program('blueprint-compiler')" \
-        "'env', 'GI_TYPELIB_PATH=${buildPackages.gdk-pixbuf.out}/lib/girepository-1.0:${buildPackages.harfbuzz.out}/lib/girepository-1.0:${buildPackages.gtk4.out}/lib/girepository-1.0:${buildPackages.graphene}/lib/girepository-1.0:${buildPackages.libadwaita}/lib/girepository-1.0:${buildPackages.pango.out}/lib/girepository-1.0', find_program('blueprint-compiler')"
+        "find_program('blueprint-compiler', version: '>= 0.12.0')" \
+        "'env', 'GI_TYPELIB_PATH=${typelibPath [
+          buildPackages.gdk-pixbuf
+          buildPackages.glib
+          buildPackages.graphene
+          buildPackages.gtk4
+          buildPackages.harfbuzz
+          buildPackages.libadwaita
+          buildPackages.pango
+        ]}', find_program('blueprint-compiler')"
     '';
   });
 

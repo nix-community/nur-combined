@@ -10,7 +10,9 @@
 { config, lib, pkgs, ... }:
 
 {
-  sane.persist.sys.byStore.plaintext = [
+  sane.persist.sys.byStore.ephemeral = [
+    # {data,downloads,incomplete,logs}: contains logs, search history, and downloads
+    # so, move the downloaded data to persistent storage regularly, or explicitly symlink that/persist it elsewhere
     { user = "slskd"; group = "media"; path = "/var/lib/slskd"; method = "bind"; }
   ];
   sops.secrets."slskd_env" = {

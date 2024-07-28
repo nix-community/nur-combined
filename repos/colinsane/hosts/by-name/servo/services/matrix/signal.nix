@@ -4,7 +4,7 @@
 
 lib.mkIf false  # disabled 2024/01/11: i don't use it, and pkgs.mautrix-signal had some API changes
 {
-  sane.persist.sys.byStore.plaintext = [
+  sane.persist.sys.byStore.private = [
     { user = "mautrix-signal"; group = "mautrix-signal"; path = "/var/lib/mautrix-signal"; method = "bind"; }
     { user = "signald"; group = "signald"; path = "/var/lib/signald"; method = "bind"; }
   ];

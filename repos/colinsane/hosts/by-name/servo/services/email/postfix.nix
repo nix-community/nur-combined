@@ -18,10 +18,10 @@ let
   };
 in
 {
-  sane.persist.sys.byStore.plaintext = [
+  sane.persist.sys.byStore.private = [
     # TODO: mode? could be more granular
     { user = "opendkim"; group = "opendkim"; path = "/var/lib/opendkim"; method = "bind"; }
-    { user = "root"; group = "root"; path = "/var/lib/postfix"; method = "bind"; }
+    { user = "root"; group = "root"; path = "/var/lib/postfix"; method = "bind"; }  #< probably not *all* of postfix needs to actually be persisted (e.g. not the conf dir)
     { user = "root"; group = "root"; path = "/var/spool/mail"; method = "bind"; }
     # *probably* don't need these dirs:
     # "/var/lib/dhparams"          # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/security/dhparams.nix

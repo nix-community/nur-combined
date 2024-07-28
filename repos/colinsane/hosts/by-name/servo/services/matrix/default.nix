@@ -20,11 +20,11 @@
     ./signal.nix
   ];
 
-  sane.persist.sys.byStore.plaintext = [
+  sane.persist.sys.byStore.private = [
     { user = "matrix-synapse"; group = "matrix-synapse"; path = "/var/lib/matrix-synapse"; method = "bind"; }
   ];
   services.matrix-synapse.enable = true;
-  services.matrix-synapse.log.root.level = "WARNING";  # accepts "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL" (?)
+  services.matrix-synapse.log.root.level = "ERROR";  # accepts "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL" (?)
   services.matrix-synapse.settings = {
     server_name = "uninsane.org";
 

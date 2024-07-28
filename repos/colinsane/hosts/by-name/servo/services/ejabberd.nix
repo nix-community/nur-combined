@@ -44,7 +44,7 @@ in
 # everything configured below was fine: used ejabberd for several months.
 lib.mkIf false
 {
-  sane.persist.sys.byStore.plaintext = [
+  sane.persist.sys.byStore.private = [
     { user = "ejabberd"; group = "ejabberd"; path = "/var/lib/ejabberd"; method = "bind"; }
   ];
   sane.ports.ports = lib.mkMerge ([

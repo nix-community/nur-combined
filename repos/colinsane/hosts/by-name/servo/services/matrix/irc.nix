@@ -99,7 +99,7 @@ in
     })
   ];
 
-  sane.persist.sys.byStore.plaintext = [
+  sane.persist.sys.byStore.private = [
     # TODO: mode?
     { user = "matrix-appservice-irc"; group = "matrix-appservice-irc"; path = "/var/lib/matrix-appservice-irc"; method = "bind"; }
   ];

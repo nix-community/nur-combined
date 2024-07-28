@@ -61,7 +61,7 @@ def resolve_torrent(uri: str) -> str:
             uri = f.name
 
     if not (uri.startswith("magnet:") or uri.endswith(".torrent")):
-        logger.warn(f"unknown type for torrent URI: {uri}")
+        logger.warning(f"unknown type for torrent URI: {uri}")
 
     return uri
 

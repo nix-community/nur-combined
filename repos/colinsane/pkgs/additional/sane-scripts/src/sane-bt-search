@@ -80,7 +80,7 @@ def tracker_rank(tracker: str):
     tracker_ = tracker.lower()
     if tracker_ in TRACKER_RANKS:
         return TRACKER_RANKS.index(tracker_)
-    logger.warn(f"unknown tracker: {tracker_!r}")
+    logger.warning(f"unknown tracker: {tracker_!r}")
     return len(TRACKER_RANKS)
 
 DROP_CATS = { "dvd", "hd", "misc", "other", "sd", "uhd" }

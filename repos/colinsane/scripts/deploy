@@ -11,7 +11,7 @@ usage() {
   echo "- --action copy|switch|test   (default: 'switch')"
   echo "- --dry-run: show what would be done without actually doing it"
   echo "- --pre: alias for --action copy --variant all all"
-  echo "- --reboot: reboot the target machine after deploying (whether deployment was 'successful' or not)"
+  echo "- --reboot: reboot the target machine after deploying (if deployed with no errors)"
   echo "- --variant light|min|''|all  (default: '')"
   echo ""
   echo "common idioms:"

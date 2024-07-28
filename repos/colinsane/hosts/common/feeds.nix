@@ -2,7 +2,9 @@
 # - universal search/directory: <https://podcastindex.org>
 # - list of lists: <https://en.wikipedia.org/wiki/Category:Lists_of_podcasts>
 # - podcasts w/ a community: <https://lemmyverse.net/communities?query=podcast>
-# - podcast rec thread: <https://lemmy.ml/post/1565858>
+# - podcast recs:
+#   - active lemmy: <https://slrpnk.net/c/podcasts>
+#   - old thread: <https://lemmy.ml/post/1565858>
 #
 { lib, sane-data, ... }:
 let

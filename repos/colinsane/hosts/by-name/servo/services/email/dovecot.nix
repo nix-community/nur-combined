@@ -83,8 +83,8 @@
     #   sieve_plugins = sieve_imapsieve
     # }
 
-    mail_debug = yes
-    auth_debug = yes
+    # mail_debug = yes
+    # auth_debug = yes
     # verbose_ssl = yes
   '';
 

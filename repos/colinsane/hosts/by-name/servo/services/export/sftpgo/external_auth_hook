@@ -129,14 +129,14 @@ def getAuthResponse(ip: str, username: str, password: str) -> dict:
     return mkAuthOk(username, permissions = {
       "/": PERM_RW,
       "/playground": PERM_RW,
-      "/pub": PERM_RO,
+      "/.public_for_test": PERM_RO,
     })
   if isWireguard(ip):
     # allow any user from wireguard
     return mkAuthOk(username, permissions = {
       "/": PERM_RW,
       "/playground": PERM_RW,
-      "/pub": PERM_RO,
+      "/.public_for_test": PERM_RO,
     })
   if isLan(ip):
     if username == "anonymous":
@@ -144,7 +144,7 @@ def getAuthResponse(ip: str, username: str, password: str) -> dict:
       return mkAuthOk("anonymous", permissions = {
         "/": PERM_RO,
         "/playground": PERM_RW,
-        "/pub": PERM_RO,
+        "/.public_for_test": PERM_RO,
       })
   if username == "anonymous":
     # anonymous users from the www can have even more limited access.
@@ -154,7 +154,7 @@ def getAuthResponse(ip: str, username: str, password: str) -> dict:
       "/": PERM_LIST,  #< REQUIRED, even for lftp to list a subdir
       "/media": PERM_DENY,
       "/playground": PERM_DENY,
-      "/pub": PERM_RO,
+      "/.public_for_test": PERM_RO,
       # "/README.md": PERM_RO,  #< does not work
     })
 

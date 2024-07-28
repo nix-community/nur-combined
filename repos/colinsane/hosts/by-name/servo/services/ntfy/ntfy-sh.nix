@@ -46,7 +46,7 @@ in
     # defaults to 45s.
     # note that the client may still do its own TCP-level keepalives, typically every 30s
     keepalive-interval = "15m";
-    log-level = "trace";  # trace, debug, info (default), warn, error
+    log-level = "info";  # trace, debug, info (default), warn, error
     auth-default-access = "deny-all";
   };
   systemd.services.ntfy-sh.serviceConfig.DynamicUser = lib.mkForce false;

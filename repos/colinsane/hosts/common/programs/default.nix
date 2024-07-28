@@ -126,6 +126,7 @@
     ./rhythmbox.nix
     ./ripgrep.nix
     ./rofi
+    ./rsyslog
     ./rtkit.nix
     ./s6-rc.nix
     ./sane-input-handler

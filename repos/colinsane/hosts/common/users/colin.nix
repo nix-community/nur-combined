@@ -44,14 +44,14 @@
     # - <https://github.com/g00pix/nixconf/blob/32c04f6fa843fed97639dd3f09e157668d3eea1f/profiles/sshfs.nix>
     # - <https://github.com/lourkeur/distro/blob/11173454c6bb50f7ccab28cc2c757dca21446d1d/nixos/profiles/users/louis-full.nix>
     # - <https://github.com/dnr/sample-nix-code/blob/03494480c1fae550c033aa54fd96aeb3827761c5/nixos/laptop.nix>
-    pamMount = let
-      priv = config.fileSystems."${config.sane.persist.stores.private.origin}";
-    in lib.mkIf config.sane.persist.enable {
-      fstype = priv.fsType;
-      path = priv.device;
-      mountpoint = priv.mountPoint;
-      options = builtins.concatStringsSep "," priv.options;
-    };
+    # pamMount = let
+    #   priv = config.fileSystems."${config.sane.persist.stores.private.origin}";
+    # in lib.mkIf config.sane.persist.enable {
+    #   fstype = priv.fsType;
+    #   path = priv.device;
+    #   mountpoint = priv.mountPoint;
+    #   options = builtins.concatStringsSep "," priv.options;
+    # };
   };
 
   # i explicitly set both `initialPassword` and `hashedPasswordFile`, so ignore the warning against this.

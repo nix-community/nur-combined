@@ -96,8 +96,8 @@ check "servo-hn wireguard network" ping -c 1 -W 3 servo-hn
 
 check "git.uninsane.org" git ls-remote https://git.uninsane.org/colin/nix-files.git --quiet
 
-check "ftps://ftp.uninsane.org" curl --silent ftps://ftp.uninsane.org/pub/test
-check "[DOOF] ftps://ftp.uninsane.org" curl "--connect-to" "ftp.uninsane.org:80:$DOOF_IPV4:80" --silent ftps://ftp.uninsane.org/pub/test
+check "ftps://ftp.uninsane.org" curl --silent ftps://ftp.uninsane.org/.public_for_test/test
+check "[DOOF] ftps://ftp.uninsane.org" curl "--connect-to" "ftp.uninsane.org:80:$DOOF_IPV4:80" --silent ftps://ftp.uninsane.org/.public_for_test/test
 
 _zpoolStatus() {
   runOnHost servo zpool status | grep "errors: No known data errors"

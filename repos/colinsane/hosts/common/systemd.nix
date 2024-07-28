@@ -7,6 +7,10 @@ let
   haltTimeout = 10;
 in
 {
+  sane.persist.sys.byStore.ephemeral = [
+    "/var/lib/systemd/coredump"
+  ];
+
   security.polkit.extraConfig = ''
     /* allow ordinary users to:
      * - reboot
@@ -42,13 +46,17 @@ in
     })
   '';
 
-  services.journald.extraConfig = ''
-    # docs: `man journald.conf`
-    # merged journald config is deployed to /etc/systemd/journald.conf
-    [Journal]
-    # disable journal compression because the underlying fs is compressed
-    Compress=no
-  '';
+  # hard to wrangle systemd early-logging and my persistence.
+  # instead, don't have systemd-journald try to persist its logs at all --
+  # use a separate program like rsyslogd (configured elsewhere) to ingest the journal into persistent storage
+  services.journald.storage = "volatile";
+  # services.journald.extraConfig = ''
+  #   # docs: `man journald.conf`
+  #   # merged journald config is deployed to /etc/systemd/journald.conf
+  #   [Journal]
+  #   # disable journal compression because the underlying fs is compressed
+  #   Compress=no
+  # '';
 
   # see: `man logind.conf`
   # don’t shutdown when power button is short-pressed (commonly done an accident, or by cats).
