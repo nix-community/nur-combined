@@ -12,8 +12,11 @@
   # Running database and web services.
 
   system.stateVersion = "22.11"; # Did you read the comment?
-  users.mutableUsers = true;
-  system.etc.overlay.mutable = true;
+  users.mutableUsers = false;
+  system.etc.overlay.mutable = false;
+  environment.etc."resolv.conf".text = ''
+    nameserver 127.0.0.1
+  '';
 
   zramSwap = {
     enable = false;
@@ -46,6 +49,7 @@
   systemd = {
     services = {
       atuin.serviceConfig.Environment = [ "RUST_LOG=debug" ];
+      pleroma.serviceConfig.LoadCredential = [ ("config.exs:" + config.age.secrets.pleroma.path) ];
       # atticd.serviceConfig.Environment = [
       #   "RUST_LOG=debug"
       #   "RUST_BACKTRACE=1"
@@ -118,6 +122,7 @@
     # coredns.enable = true;
     mosproxy.enable = true;
     srs.enable = true;
+    pleroma.enable = true;
 
     phantomsocks = {
       enable = false;
@@ -161,7 +166,7 @@
       signKeyPath = config.age.secrets.harmonia.path;
     };
     realm = {
-      enable = true;
+      enable = false;
       settings = {
         log.level = "warn";
         network = {

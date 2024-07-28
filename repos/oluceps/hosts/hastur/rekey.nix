@@ -43,6 +43,10 @@ in
         rekeyFile = ../../sec/harmonia.age;
         mode = "400";
       };
+      pleroma = {
+        rekeyFile = ../../sec/pleroma-secret.age;
+        mode = "400";
+      };
     };
   };
   services.openssh.hostKeys = [
