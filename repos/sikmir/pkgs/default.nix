@@ -320,6 +320,7 @@ lib.makeScope newScope (
 
     aamath = callPackage ./misc/aamath { };
     acp = callPackage ./misc/acp { };
+    ajv-cli = callPackage ./misc/ajv-cli { };
     apibackuper = callPackage ./misc/apibackuper { };
     arduinojson = callPackage ./misc/arduinojson { };
     ascii-dash = callPackage ./misc/ascii-dash { };
