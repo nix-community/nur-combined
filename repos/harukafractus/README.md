@@ -1,26 +1,26 @@
-# Infra
-(TBD README)Pretty much the everything nix repo(?)
+# Nix
+My Nix configuration for nix-darwin and Asahi Linux
 
-## Installation / Using nix-darwin
+Fix needed for sources: Create a Pull Request instead of pushing it directly 
 
-evaluation status: ![](https://github.com/harukafractus/infra/actions/workflows/darwin-system-build.yml/badge.svg)
+NUR: [![Build and populate cache](https://github.com/harukafractus/nix/actions/workflows/nur.yml/badge.svg)](https://github.com/harukafractus/nix/actions/workflows/nur.yml)
 
-
-1. Install Nix on Darwin using [The Determinate Nix Installer](https://github.com/DeterminateSystems/nix-installer):
-```sh
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install —no-confirm
+## Directory
 ```
-2. Clone this repository:
-```sh
-nix-shell -p git --command "git clone git@github.com:harukafractus/infra.git"
-```
-3. Apply:
-```sh
-nix run --extra-experimental-features "nix-command flakes" nix-darwin -- switch --flake .#haruka-air
+.
+├── devices             <- Device-specific configuration
+│  ├── _linux_options   <- Options for NixOS
+│  ├── nix-isnt-xnu     <- configuration.nix for NixOS on Asahi Linux
+│  └── walled-garden    <- Nix-darwin configs
+├── nur-everything      <- NUR Repo Exports
+└── users               <- User-specific configuration
+   ├── _homeOptions     <- Options for Home Manager
+   └── haruka           <- User haruka config
 ```
 
-### NixOS
-Use the following:
-```sh
-nixos-install --impure --flake https://github.com/harukafractus/infra.git#[the_machine]
+
+## Installation
+nix-darwin: Install Nix using the [Determinate Nix Installer](https://github.com/DeterminateSystems/nix-installer), clone the repo, install [nix-darwin](https://github.com/LnL7/nix-darwin) using:
+```
+nix run --extra-experimental-features "nix-command flakes" nix-darwin -- switch --flake .#[device_name]
 ```

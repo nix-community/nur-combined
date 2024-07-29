@@ -39,6 +39,8 @@
       wget
       bat
       unar
+      nano
+      python3
     ];
   }); in {
     nixosConfigurations."nix-isnt-xnu" = nixpkgs.lib.nixosSystem {
