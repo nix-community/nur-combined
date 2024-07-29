@@ -39,4 +39,5 @@ rec {
   ydcmd = callPackage ./pkgs/ydcmd.nix {};
   modplay = callPackage ./pkgs/modplay.nix {};
   metube = callPackage ./pkgs/metube.nix {};
+  catppuccin = callPackage ./pkgs/catppuccin.nix {};
 }
