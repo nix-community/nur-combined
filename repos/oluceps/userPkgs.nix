@@ -135,7 +135,7 @@ with pkgs;
   # gnomecast
   tetrio-desktop
 
-  ffmpeg_5-full
+  ffmpeg_7-full
 
   foot
 

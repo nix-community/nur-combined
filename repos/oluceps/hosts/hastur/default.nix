@@ -11,6 +11,10 @@
     buildOnTarget = true;
     allowLocalDeployment = true;
     targetUser = user;
+    # privilegeEscalationCommand = [
+    #   "run0"
+    #   "--"
+    # ];
   };
 
   imports =

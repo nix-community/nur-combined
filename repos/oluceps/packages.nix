@@ -23,6 +23,7 @@ let
       ))
     ];
     dev = [
+      ktistec
       gitoxide
       gitui
       nushell
@@ -67,7 +68,6 @@ let
 
       trunk
       cargo-expand
-      wasmer
       wasmtime
       comma
       nix-update

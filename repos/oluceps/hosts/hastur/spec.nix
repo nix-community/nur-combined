@@ -49,7 +49,7 @@
   systemd = {
     services = {
       atuin.serviceConfig.Environment = [ "RUST_LOG=debug" ];
-      pleroma.serviceConfig.LoadCredential = [ ("config.exs:" + config.age.secrets.pleroma.path) ];
+      # pleroma.serviceConfig.LoadCredential = [ ("config.exs:" + config.age.secrets.pleroma.path) ];
       # atticd.serviceConfig.Environment = [
       #   "RUST_LOG=debug"
       #   "RUST_BACKTRACE=1"
@@ -113,7 +113,7 @@
     # atticd.enable = true;
     atuin.enable = true;
     postgresql.enable = true;
-    photoprism.enable = true;
+    # photoprism.enable = true;
     mysql.enable = true;
     prometheus.enable = true;
     vaultwarden.enable = true;
