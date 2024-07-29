@@ -21,6 +21,9 @@
     enableACME = true;
     # inherit kTLS;
     locations."/".proxyPass = "http://127.0.0.1:8013";
+    locations."= /robots.txt".extraConfig = ''
+      return 200 "User-agent: *\nDisallow: /\n";
+    '';
   };
 
   sane.dns.zones."uninsane.org".inet.CNAME."w" = "native";

@@ -108,6 +108,10 @@
     locations."/" = {
       proxyPass = "http://127.0.0.1:3000";
     };
+    # fuck you @anthropic
+    locations."= /robots.txt".extraConfig = ''
+      return 200 "User-agent: *\nDisallow: /\n";
+    '';
     # gitea serves all `raw` files as content-type: plain, but i'd like to serve them as their actual content type.
     # or at least, enough to make specific pages viewable (serving unoriginal content as arbitrary content type is dangerous).
     locations."~ ^/colin/phone-case-cq/raw/.*.html" = {

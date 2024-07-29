@@ -58,6 +58,9 @@ in
       proxyPass = "http://${config.sane.netns.ovpns.netnsVethIpv4}:9117";
       recommendedProxySettings = true;
     };
+    locations."= /robots.txt".extraConfig = ''
+      return 200 "User-agent: *\nDisallow: /\n";
+    '';
   };
 
   sane.dns.zones."uninsane.org".inet.CNAME."jackett" = "native";

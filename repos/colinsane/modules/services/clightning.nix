@@ -163,7 +163,9 @@ in
 
         ReadWritePaths = [
           cfg.dataDir
-          "/var/lib/bitcoind-${cfg.bitcoindName}"  #< TODO: can this be ReadOnlyPaths?
+        ];
+        ReadOnlyPaths = [
+          "/var/lib/bitcoind-${cfg.bitcoindName}"  #< TODO: is this really needed?
         ];
         TimeoutStartSec = "360s";  #< give some chance in case bitcoind needs to sync
 

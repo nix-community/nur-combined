@@ -17,6 +17,9 @@ in
     locations."/" = {
       proxyPass = "http://127.0.0.1:${builtins.toString port}";
     };
+    locations."= /robots.txt".extraConfig = ''
+      return 200 "User-agent: *\nDisallow: /\n";
+    '';
   };
   sane.dns.zones."uninsane.org".inet.CNAME."komga" = "native";
 }

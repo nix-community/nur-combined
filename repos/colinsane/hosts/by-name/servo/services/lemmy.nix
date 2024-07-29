@@ -144,10 +144,38 @@ in {
   # - via CLI flags (overrides everything above)
   # some of the CLI flags have defaults, making it the only actual way to configure certain things even when docs claim otherwise.
   # CLI args: <https://git.asonix.dog/asonix/pict-rs#user-content-running>
-  systemd.services.pict-rs.serviceConfig.ExecStart = lib.mkForce (lib.concatStringsSep " " [
-    "${lib.getBin pict-rs}/bin/pict-rs run"
-    "--media-video-max-frame-count" (builtins.toString (30*60*60))
-    "--media-process-timeout 120"
-    "--media-video-allow-audio"  # allow audio
-  ]);
+  systemd.services.pict-rs = {
+    serviceConfig.ExecStart = lib.mkForce (lib.concatStringsSep " " [
+      "${lib.getBin pict-rs}/bin/pict-rs run"
+      "--media-video-max-frame-count" (builtins.toString (30*60*60))
+      "--media-process-timeout 120"
+      "--media-video-allow-audio"  # allow audio
+    ]);
+
+    # hardening (systemd-analyze security pict-rs)
+    # TODO: upstream into nixpkgs
+    serviceConfig.LockPersonality = true;
+    serviceConfig.NoNewPrivileges = true;
+    serviceConfig.MemoryDenyWriteExecute = true;
+    serviceConfig.PrivateDevices = true;
+    serviceConfig.PrivateMounts = true;
+    serviceConfig.PrivateTmp = true;
+    serviceConfig.PrivateUsers = true;
+    serviceConfig.ProcSubset = "pid";
+    serviceConfig.ProtectClock = true;
+    serviceConfig.ProtectControlGroups = true;
+    serviceConfig.ProtectHome = true;
+    serviceConfig.ProtectHostname = true;
+    serviceConfig.ProtectKernelLogs = true;
+    serviceConfig.ProtectKernelModules = true;
+    serviceConfig.ProtectKernelTunables = true;
+    serviceConfig.ProtectProc = "invisible";
+    serviceConfig.ProtectSystem = "strict";
+    serviceConfig.RemoveIPC = true;
+    serviceConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
+    serviceConfig.RestrictNamespaces = true;
+    serviceConfig.RestrictSUIDSGID = true;
+    serviceConfig.SystemCallArchitectures = "native";
+    serviceConfig.SystemCallFilter = [ "@system-service" ];
+  };
 }
