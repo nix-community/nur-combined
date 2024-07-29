@@ -121,14 +121,17 @@ let
       dir.acl.mode = "0700";
     };
   };
-  remoteServo = subdir: {
+  remoteServo = subdir: let
+    localPath = "/mnt/servo/${subdir}";
+    systemdName = utils.escapeSystemdPath localPath;
+  in {
     sane.programs.curlftpfs.enableFor.system = true;
-    sane.fs."/mnt/servo/${subdir}" = sane-lib.fs.wanted {
+    sane.fs."${localPath}" = sane-lib.fs.wanted {
       dir.acl.user = "colin";
       dir.acl.group = "users";
       dir.acl.mode = "0750";
     };
-    fileSystems."/mnt/servo/${subdir}" = {
+    fileSystems."${localPath}" = {
       device = "ftp://servo-hn:/${subdir}";
       noCheck = true;
       fsType = "fuse.curlftpfs";
@@ -136,37 +139,43 @@ let
       # fsType = "nfs";
       # options = fsOpts.nfs ++ fsOpts.lazyMount;
     };
-    systemd.services."automount-servo-${utils.escapeSystemdPath subdir}" = let
-      fs = config.fileSystems."/mnt/servo/${subdir}";
-    in {
-      # this is a *flaky* network mount, especially on moby.
-      # if done as a normal autofs mount, access will eternally block when network is dropped.
-      # notably, this would block *any* sandboxed app which allows media access, whether they actually try to use that media or not.
-      # a practical solution is this: mount as a service -- instead of autofs -- and unmount on timeout error, in a restart loop.
-      # until the ftp handshake succeeds, nothing is actually mounted to the vfs, so this doesn't slow down any I/O when network is down.
-      description = "automount /mnt/servo/${subdir} in a fault-tolerant and non-blocking manner";
+
+    systemd.mounts = let
+      fsEntry = config.fileSystems."${localPath}";
+    in [{
+      #VVV repeat what systemd would ordinarily scrape from /etc/fstab
+      where = localPath;
+      what = fsEntry.device;
+      type = fsEntry.fsType;
+      options = lib.concatStringsSep "," fsEntry.options;
       after = [ "network-online.target" ];
       requires = [ "network-online.target" ];
-      wantedBy = [ "default.target" ];
-
-      serviceConfig.Type = "simple";
-      serviceConfig.ExecStart = lib.escapeShellArgs [
-        "/usr/bin/env"
-        "PATH=/run/current-system/sw/bin"
-        "mount.${fs.fsType}"
-        "-f"  # foreground (i.e. don't daemonize)
-        "-s"  # single-threaded (TODO: it's probably ok to disable this?)
-        "-o"
-        (lib.concatStringsSep "," (lib.filter (o: !lib.hasPrefix "x-systemd." o) fs.options))
-        fs.device
-        "/mnt/servo/${subdir}"
+      wantedBy = [ "default.target" ];  #< TODO: move this into nixos fileSystems
+      #VVV patch so that when the mount fails, we start a timer to remount it.
+      #    and for a disconnection after a good mount (onSuccess), restart the timer to be more aggressive
+      onFailure = [ "${systemdName}.timer" ];
+      onSuccess = [ "${systemdName}-restart-timer.target" ];
+    }];
+    systemd.targets."${systemdName}-restart-timer" = {
+      # hack unit which, when started, stops the timer (if running), and then starts it again.
+      after = [ "${systemdName}.timer" ];
+      conflicts = [ "${systemdName}.timer" ];
+      upholds = [ "${systemdName}.timer" ];
+      unitConfig.StopWhenUnneeded = true;
+    };
+    systemd.timers."${systemdName}" = {
+      timerConfig.Unit = "${systemdName}.mount";
+      timerConfig.AccuracySec = "2s";
+      timerConfig.OnActiveSec = [
+        # try to remount at these timestamps, backing off gradually
+        # there seems to be an implicit mount attempt at t=0.
+        "10s"
+        "30s"
+        "60s"
+        "120s"
       ];
-      # not sure if this configures a linear, or exponential backoff.
-      # but the first restart will be after `RestartSec`, and the n'th restart (n = RestartSteps) will be RestartMaxDelaySec after the n-1'th exit.
-      serviceConfig.Restart = "always";
-      serviceConfig.RestartSec = "10s";
-      serviceConfig.RestartMaxDelaySec = "120s";
-      serviceConfig.RestartSteps = "5";
+      # cap the backoff to a fixed interval.
+      timerConfig.OnUnitActiveSec = [ "120s" ];
     };
   };
 in
