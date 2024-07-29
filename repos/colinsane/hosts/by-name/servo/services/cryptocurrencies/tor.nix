@@ -1,10 +1,10 @@
 # tor settings: <https://2019.www.torproject.org/docs/tor-manual.html.en>
 { lib, ... }:
 {
-  # tor hidden service hostnames aren't deterministic, so persist.
-  # might be able to get away with just persisting /var/lib/tor/onion, not sure.
-  sane.persist.sys.byStore.private = [
-    { user = "tor"; group = "tor"; mode = "0710"; path = "/var/lib/tor"; method = "bind"; }
+  sane.persist.sys.byStore.ephemeral = [
+    # N.B.: tor hidden service hostnames aren't deterministic, so if you need them
+    # to be preserved across reboots then persist /var/lib/tor/onion in "private" store.
+   { user = "tor"; group = "tor"; mode = "0710"; path = "/var/lib/tor"; method = "bind"; }
   ];
 
   # tor: `tor.enable` doesn't start a relay, exit node, proxy, etc. it's minimal.

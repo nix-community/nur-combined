@@ -1,0 +1,27 @@
+{ config, lib, pkgs, ... }:
+let
+  cfg = config.sane.programs.sane-deadlines;
+in
+{
+  sane.programs.sane-deadlines = {
+    configOption = with lib; mkOption {
+      default = {};
+      type = types.submodule {
+        options.showOnLogin = mkOption {
+          type = types.bool;
+          default = true;
+        };
+      };
+    };
+    packageUnwrapped = pkgs.sane-scripts.deadlines;
+
+    sandbox.method = "bwrap";
+    sandbox.extraHomePaths = [ "knowledge/planner/deadlines.tsv" ];
+
+    fs.".profile".symlink.text = lib.mkIf cfg.config.showOnLogin ''
+      if [ -z "$SSH_TTY" ]; then
+        sane-deadlines
+      fi
+    '';
+  };
+}

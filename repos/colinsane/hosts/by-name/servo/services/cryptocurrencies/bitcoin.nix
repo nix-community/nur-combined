@@ -20,6 +20,7 @@ let
   bitcoind = pkgs.bitcoind;
   # wrapper to run bitcoind with the tor onion address as externalip (computed at runtime)
   _bitcoindWithExternalIp = pkgs.writeShellScriptBin "bitcoind" ''
+    set -xeu
     externalip="$(cat /var/lib/tor/onion/bitcoind/hostname)"
     exec ${bitcoind}/bin/bitcoind "-externalip=$externalip" "$@"
   '';
@@ -63,23 +64,61 @@ in
       passwordHMAC = "30002c05d82daa210550e17a182db3f3$6071444151281e1aa8a2729f75e3e2d224e9d7cac3974810dab60e7c28ffaae4";
     };
     extraConfig = ''
+      # checkblocks: default 6: how many blocks to verify on start
+      checkblocks=3
       # don't load the wallet, and disable wallet RPC calls
       disablewallet=1
       # proxy all outbound traffic through Tor
       proxy=127.0.0.1:9050
     '';
+    extraCmdlineOptions = [
+      # "-debug"
+      # "-debug=estimatefee"
+      # "-debug=http"
+      # "-debug=net"
+      "-debug=proxy"
+      "-debug=rpc"
+      # "-debug=validation"
+    ];
   };
 
   users.users.bitcoind-mainnet.extraGroups = [ "tor" ];
 
-  systemd.services.bitcoind-mainnet.serviceConfig.RestartSec = "30s";  #< default is 0
+  systemd.services.bitcoind-mainnet = {
+    after = [ "tor.service" ];
+    requires = [ "tor.service" ];
+    serviceConfig.RestartSec = "30s";  #< default is 0
 
-  sane.users.colin.fs.".bitcoin/bitcoin.conf" = sane-lib.fs.wantedSymlinkTo config.sops.secrets."bitcoin.conf".path;
+    # hardening (systemd-analyze security bitcoind-mainnet)
+    serviceConfig.LockPersonality = true;
+    serviceConfig.MemoryDenyWriteExecute = "true";
+    serviceConfig.NoNewPrivileges = "true";
+    serviceConfig.PrivateDevices = "true";
+    serviceConfig.PrivateMounts = true;
+    serviceConfig.PrivateTmp = "true";
+    serviceConfig.PrivateUsers = true;
+    serviceConfig.ProcSubset = "pid";
+    serviceConfig.ProtectControlGroups = true;
+    serviceConfig.ProtectHome = true;
+    serviceConfig.ProtectHostname = true;
+    serviceConfig.ProtectKernelLogs = true;
+    serviceConfig.ProtectKernelModules = true;
+    serviceConfig.ProtectKernelTunables = true;
+    serviceConfig.ProtectProc = "invisible";
+    # serviceConfig.ProtectSystem = "strict";  #< TODO: try enabling?
+    serviceConfig.RemoveIPC = true;
+    # serviceConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";  #< TODO: try enabling?
+    serviceConfig.RestrictNamespaces = true;
+    serviceConfig.RestrictSUIDSGID = true;
+    serviceConfig.SystemCallArchitectures = "native";
+    # serviceConfig.SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];  #< TODO: try enabling?
+  };
+
   sops.secrets."bitcoin.conf" = {
     mode = "0600";
     owner = "colin";
     group = "users";
   };
 
-  sane.programs.bitcoind.enableFor.user.colin = true;  # for debugging/administration: `bitcoin-cli`
+  sane.programs.bitcoin-cli.enableFor.user.colin = true;  # for debugging/administration: `bitcoin-cli`
 }

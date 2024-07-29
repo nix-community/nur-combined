@@ -76,6 +76,12 @@
   #     });
   #   })
   # ];
+
+  rsyslog = super.rsyslog.override {
+    # XXX(2024-07-28): required for cross compilation
+    withGcrypt = false;
+  };
+
   swaynotificationcenter = super.swaynotificationcenter.override {
     gvfs = gvfs.override {
       # saves 20 minutes of build time and cross issues, for unused feature

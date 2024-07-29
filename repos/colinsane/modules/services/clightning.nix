@@ -149,20 +149,23 @@ in
   };
   config = lib.mkIf cfg.enable {
     systemd.services.clightning = {
-      path  = [ bitcoind.package ];
+      path  = [ bitcoind.package ];  #< TODO: maybe need only `sane.programs.bitcoin-cli.package` (sandboxed) ?
       # note the wantedBy bitcoind: this should make it so that a bitcoind restart causes clightning to also restart (instead of to only stop)
       wantedBy = [ "bitcoind-${cfg.bitcoindName}.service" "multi-user.target" ];
       requires = [ "bitcoind-${cfg.bitcoindName}.service" ];
       after = [ "bitcoind-${cfg.bitcoindName}.service" ];
 
       serviceConfig = {
-        # TODO: hardening
         ExecStart = "${cfg.package}/bin/lightningd --lightning-dir=${cfg.dataDir}";
         User = cfg.user;
-        Restart = "on-failure";
+        Restart = "always";
         RestartSec = "30s";
 
-        ReadWritePaths = [ cfg.dataDir ];
+        ReadWritePaths = [
+          cfg.dataDir
+          "/var/lib/bitcoind-${cfg.bitcoindName}"  #< TODO: can this be ReadOnlyPaths?
+        ];
+        TimeoutStartSec = "360s";  #< give some chance in case bitcoind needs to sync
 
         # hardening
         LockPersonality = true;
@@ -234,5 +237,10 @@ in
       symlink.target = cfg.dataDir;
       wantedBeforeBy = [ "clightning.service" ];
     };
+
+    sane.programs.lightning-cli = {
+      packageUnwrapped = pkgs.linkIntoOwnPackage cfg.package "bin/lightning-cli";
+    };
+
   };
 }

@@ -7,7 +7,7 @@
 # to run it in a oci-container: <https://github.com/barrucadu/nixfiles/blob/master/services/pleroma.nix>
 #
 # admin frontend: <https://fed.uninsane.org/pleroma/admin>
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   logLevel = "warn";
@@ -143,10 +143,39 @@ in
     pkgs.postfix
   ];
 
-  systemd.services.pleroma.serviceConfig = {
+  systemd.services.pleroma = {
     # postgres can be slow to service early requests, preventing pleroma from starting on the first try
-    Restart = "on-failure";
-    RestartSec = "10s";
+    serviceConfig.Restart = "on-failure";
+    serviceConfig.RestartSec = "10s";
+
+    # hardening (systemd-analyze security pleroma)
+    # XXX(2024-07-28): this hasn't been rigorously tested:
+    # possible that i've set something too strict and won't notice right away
+    serviceConfig.LockPersonality = true;
+    serviceConfig.NoNewPrivileges = true;
+    serviceConfig.MemoryDenyWriteExecute = true;
+    serviceConfig.PrivateDevices = lib.mkForce true;
+    serviceConfig.PrivateMounts = true;
+    serviceConfig.PrivateTmp = true;
+    serviceConfig.PrivateUsers = true;
+    serviceConfig.ProcSubset = "pid";
+
+    serviceConfig.ProtectClock = true;
+    serviceConfig.ProtectControlGroups = true;
+    serviceConfig.ProtectHome = true;
+    serviceConfig.ProtectHostname = true;
+    serviceConfig.ProtectKernelLogs = true;
+    serviceConfig.ProtectKernelModules = true;
+    serviceConfig.ProtectKernelTunables = true;
+    serviceConfig.ProtectProc = "invisible";
+    serviceConfig.ProtectSystem = lib.mkForce "strict";
+    serviceConfig.RemoveIPC = true;
+    serviceConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
+
+    serviceConfig.RestrictNamespaces = true;
+    serviceConfig.RestrictSUIDSGID = true;
+    serviceConfig.SystemCallArchitectures = "native";
+    serviceConfig.SystemCallFilter = [ "@system-service" ];
   };
 
   # systemd.services.pleroma.serviceConfig = {

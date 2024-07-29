@@ -30,11 +30,6 @@ in
     configOption = with lib; mkOption {
       default = {};
       type = types.submodule {
-        options.showDeadlines = mkOption {
-          type = types.bool;
-          default = true;
-          description = "show upcoming deadlines (from my PKM) upon shell init";
-        };
         options.starship = mkOption {
           type = types.bool;
           default = true;
@@ -61,9 +56,6 @@ in
     fs.".config/zsh/.zshrc".symlink.text = ''
       # zsh/prezto complains if zshrc doesn't exist or is empty;
       # preserve this comment to prevent that from ever happening.
-    '' + lib.optionalString cfg.config.showDeadlines ''
-      ${pkgs.sane-scripts.deadlines}/bin/sane-deadlines
-    '' + ''
 
       HISTFILE="$HOME/.local/share/zsh/history"
       HISTSIZE=1000000

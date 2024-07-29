@@ -22,6 +22,7 @@ variables available for formatting:
 - {mem_icon}
 - {mem_pct}
 and some presets, encapsulating the above:
+- {all}
 - {bat}
 - {cpu}
 - {mem}
@@ -382,6 +383,9 @@ class AllInfo:
 
     # user-facing format shorthands
     @property
+    def all(self) -> str:
+        return f"{self.bat_pct} {self.bat} {self.mem} {self.cpu}"
+    @property
     def bat(self) -> str:
         return f"{self.bat_icon}{self.bat_time}"
     @property
@@ -476,7 +480,7 @@ def main() -> None:
     parser.add_argument("--hour-suffix", default=SUFFIX_HR)
     parser.add_argument("--minute-suffix", default=SUFFIX_MIN)
     parser.add_argument("--percent-suffix", default=SUFFIX_PERCENT)
-    parser.add_argument("formatstr", nargs="+")
+    parser.add_argument("formatstr", nargs="*", default=["{all}"])
     args = parser.parse_args()
 
     if args.debug:
@@ -491,6 +495,7 @@ def main() -> None:
     info = AllInfo(f)
     formatstr = " ".join(args.formatstr)
     print(formatstr.format(
+      all=LazyFormatter(info, "all"),
       bat=LazyFormatter(info, "bat"),
       bat_icon=LazyFormatter(info, "bat_icon"),
       bat_pct=LazyFormatter(info, "bat_pct"),

@@ -159,9 +159,11 @@ in
       "ripgrep"  # needed as a user package so that its user-level config file can be installed
       "rsync"
       "rsyslog"  # KEEP THIS HERE if you want persistent logging
+      "sane-deadlines"
       "sane-scripts.bittorrent"
       "sane-scripts.cli"
       "sane-secrets-unlock"
+      "sane-sysload"
       "sc-im"
       # "snapper"
       "sops"  # for manually viewing secrets; outside `sane-secrets` (TODO: improve sane-secrets!)
@@ -407,12 +409,6 @@ in
     alsaUtils.sandbox.whitelistAudio = true;  #< not strictly necessary?
 
     backblaze-b2 = {};
-
-    bitcoind.sandbox.method = "bwrap";
-    bitcoind.sandbox.extraHomePaths = [
-      ".config/bitcoin/bitcoin.conf"
-    ];
-    bitcoind.sandbox.net = "all";  # actually needs only localhost
 
     blanket.buildCost = 1;
     blanket.sandbox.method = "bwrap";

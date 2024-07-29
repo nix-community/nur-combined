@@ -71,7 +71,7 @@
       workspaceHideEmpty = false;
     };
 
-    sane.programs.zsh.config.showDeadlines = false;  # unlikely to act on them when in shell
+    sane.programs.sane-deadlines.config.showOnLogin = false;  # unlikely to act on them when in shell
   };
 }
 

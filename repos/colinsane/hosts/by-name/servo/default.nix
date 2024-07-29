@@ -14,7 +14,7 @@
   # sane.programs.matrix-synapse.enableFor.user.colin = true;
 
   sane.roles.build-machine.enable = true;
-  sane.programs.zsh.config.showDeadlines = false;  # ~/knowledge doesn't always exist
+  sane.programs.sane-deadlines.config.showOnLogin = false;  # ~/knowledge doesn't always exist
   sane.programs.consoleUtils.suggestedPrograms = [
     "consoleMediaUtils"  # notably, for go2tv / casting
     "pcConsoleUtils"

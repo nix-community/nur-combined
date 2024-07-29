@@ -22,7 +22,6 @@ in
       "sane-scripts.dev-cargo-loop"
     ];
     "sane-scripts.cli" = declPackageSet [
-      "sane-scripts.deadlines"
       "sane-scripts.find-dotfiles"
       "sane-scripts.ip-check"
       "sane-scripts.private-do"
@@ -82,11 +81,6 @@ in
     # the idea of this script is to `cd` into a fresh clone...
     # but that's an ephemeral operation that would be lost when the sandbox closes.
     "sane-scripts.clone".sandbox.enable = false;
-
-    "sane-scripts.deadlines".sandbox = {
-      method = "bwrap";
-      extraHomePaths = [ "knowledge/planner/deadlines.tsv" ];
-    };
 
     "sane-scripts.dev-cargo-loop".sandbox = {
       method = "bwrap";

@@ -1,5 +1,6 @@
 # as of 2023/11/26: complete downloaded blockchain should be 200GiB on disk, give or take.
-{ ... }:
+{ lib, ... }:
+lib.mkIf false  #< 2024/07/27: i don't use it, too much surface-area for me to run it pro-bono (`systemd-analyze security monero`)
 {
   sane.persist.sys.byStore.ext = [
     # /var/lib/monero/lmdb is what consumes most of the space

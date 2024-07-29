@@ -12,7 +12,7 @@
 {
   sane.persist.sys.byStore.ephemeral = [
     # {data,downloads,incomplete,logs}: contains logs, search history, and downloads
-    # so, move the downloaded data to persistent storage regularly, or explicitly symlink that/persist it elsewhere
+    # so, move the downloaded data to persistent storage regularly, or configure the downloads/incomplete dirs to point to persisted storage (in nixpkgs slskd config)
     { user = "slskd"; group = "media"; path = "/var/lib/slskd"; method = "bind"; }
   ];
   sops.secrets."slskd_env" = {
@@ -70,12 +70,20 @@
     # flags.volatile = true;  # store searches and active transfers in RAM (completed transfers still go to disk). rec for btrfs/zfs
   };
 
-  systemd.services.slskd.serviceConfig = {
+  systemd.services.slskd = {
     # run this behind the OVPN static VPN
-    NetworkNamespacePath = "/run/netns/ovpns";
-    ExecStartPre = [ "${lib.getExe pkgs.sane-scripts.ip-check} --no-upnp --expect ${config.sane.netns.ovpns.netnsPubIpv4}" ];  # abort if public IP is not as expected
+    serviceConfig.NetworkNamespacePath = "/run/netns/ovpns";
+    serviceConfig.ExecStartPre = [ "${lib.getExe pkgs.sane-scripts.ip-check} --no-upnp --expect ${config.sane.netns.ovpns.netnsPubIpv4}" ];  # abort if public IP is not as expected
 
-    Restart = lib.mkForce "always";  # exits "success" when it fails to connect to soulseek server
-    RestartSec = "60s";
+    serviceConfig.Restart = lib.mkForce "always";  # exits "success" when it fails to connect to soulseek server
+    serviceConfig.RestartSec = "60s";
+
+    # hardening (systemd-analyze security slskd)
+    # upstream nixpkgs specifies moderate defaults; these are supplementary
+    # serviceConfig.MemoryDenyWriteExecute = true;
+    # serviceConfig.ProcSubset = "pid";
+    # serviceConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
+    # serviceConfig.SystemCallArchitectures = "native";
+    # serviceConfig.SystemCallFilter = [ "@system-service" ];
   };
 }

@@ -145,8 +145,8 @@ in (lib.makeScope newScope (self: with self; {
       extid = "webextension@metamask.io";
       pname = "ether-metamask";
       url = "https://github.com/MetaMask/metamask-extension/releases/download/v${version}/metamask-firefox-${version}.zip";
-      version = "attributions-v11.16.15";
-      hash = "sha256-M+Qkz9N35oGZRKEv/legPB2ARqJmBFL/H26zfnHFtbU=";
+      version = "11.16.16";
+      hash = "sha256-+RlchEf9k6QR5RFTZmpuEPu+HBATxwZTYOJzWnJ7dfM=";
     };
     fx_cast = fetchVersionedAddon rec {
       extid = "fx_cast@matt.tf";

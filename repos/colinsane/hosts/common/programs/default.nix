@@ -12,6 +12,7 @@
     ./ausyscall.nix
     ./avahi.nix
     ./bemenu.nix
+    ./bitcoin-cli.nix
     ./blast-ugjka
     ./bonsai.nix
     ./brave.nix
@@ -129,6 +130,7 @@
     ./rsyslog
     ./rtkit.nix
     ./s6-rc.nix
+    ./sane-deadlines.nix
     ./sane-input-handler
     ./sane-open.nix
     ./sane-private-unlock-remote.nix

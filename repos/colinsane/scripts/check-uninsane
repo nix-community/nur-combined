@@ -103,6 +103,39 @@ _zpoolStatus() {
   runOnHost servo zpool status | grep "errors: No known data errors"
 }
 check "zfs" _zpoolStatus
+
+check "bitcoind is responsive" runOnHost servo bitcoin-cli echo ping
+_bitcoindSynchronized() {
+  local info=$(runOnHost servo bitcoin-cli getblockchaininfo)
+  local infoRc=$?
+  echo "$info"
+  if [ $infoRc -ne 0 ]; then
+    return $infoRc
+  fi
+  # info like:
+  # {
+  #  "chain": "main",
+  #  "blocks": 854390,
+  #  "headers": 854395,
+  #  "bestblockhash": "0000000000000000000174d41cdf228666f80b2f23ad63feec9d9c0528ff8b1f",
+  #  "difficulty": 82047728459932.75,
+  #  "time": 1722203017,
+  #  "mediantime": 1722200322,
+  #  "verificationprogress": 0.9999830752447421,
+  #  "initialblockdownload": false,
+  #  "chainwork": "000000000000000000000000000000000000000085f224886efb655e8b4cb240",
+  #  "size_on_disk": 669526205080,
+  #  "pruned": false,
+  #  "warnings": ""
+  #}
+  local btcTime=$(echo "$info" | jq .time)
+  local btcBlocks=$(echo "$info" | jq .blocks)
+  local btcHeaders=$(echo "$info" | jq .headers)
+  local now=$(date '+%s')
+  [ $(( $now - $btcTime )) -lt $(( 2*60*60 )) ] && \
+    [ $(( $btcHeaders - $btcBlocks )) -lt 12 ]
+}
+check "Bitcoind synchronized" _bitcoindSynchronized
 check "Bitcoin Lightning" runOnHost servo clightning-sane status
 
 echo ""

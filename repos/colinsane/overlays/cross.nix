@@ -576,6 +576,9 @@ in with final; {
   #   # );
   # });
 
+  # 2024-07-28: out for PR: <https://github.com/NixOS/nixpkgs/pull/330681>
+  hiredis = mvToBuildInputs [ openssl ] prev.hiredis;
+
   # out for PR: <https://github.com/NixOS/nixpkgs/pull/263182>
   # hspell = prev.hspell.overrideAttrs (upstream: {
   #   # build perl is needed by the Makefile,

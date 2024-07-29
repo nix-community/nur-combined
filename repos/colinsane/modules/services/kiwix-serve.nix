@@ -39,17 +39,41 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.services.kiwix-serve = {
+    systemd.services.kiwix-serve = let
+      maybeListenAddress = lib.optionals (cfg.listenAddress != null) ["-l" cfg.listenAddress];
+      args = maybeListenAddress ++ ["-p" cfg.port] ++ cfg.zimPaths;
+    in {
       description = "Deliver ZIM file(s) articles via HTTP";
-      serviceConfig = let
-        maybeListenAddress = lib.optionals (cfg.listenAddress != null) ["-l" cfg.listenAddress];
-        args = maybeListenAddress ++ ["-p" cfg.port] ++ cfg.zimPaths;
-      in {
-        ExecStart = "${cfg.package}/bin/kiwix-serve ${lib.escapeShellArgs args}";
-        Type = "simple";
-      };
+      serviceConfig.ExecStart = "${cfg.package}/bin/kiwix-serve ${lib.escapeShellArgs args}";
+      serviceConfig.Type = "simple";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
+
+      # hardening (systemd-analyze security kiwix-serve)
+      serviceConfig.LockPersonality = true;
+      serviceConfig.MemoryDenyWriteExecute = true;
+      serviceConfig.NoNewPrivileges = true;
+      serviceConfig.PrivateDevices = true;
+      serviceConfig.PrivateMounts = true;
+      serviceConfig.PrivateTmp = true;
+      serviceConfig.PrivateUsers = true;
+      serviceConfig.ProcSubset = "pid";
+      serviceConfig.ProtectClock = true;
+      serviceConfig.ProtectControlGroups = true;
+      serviceConfig.ProtectHome = true;
+      serviceConfig.ProtectHostname = true;
+      serviceConfig.ProtectKernelLogs = true;
+      serviceConfig.ProtectKernelModules = true;
+      serviceConfig.ProtectKernelTunables = true;
+      serviceConfig.ProtectProc = "invisible";
+      serviceConfig.ProtectSystem = "strict";
+      serviceConfig.RemoveIPC = true;
+      serviceConfig.ReadPaths = cfg.zimPaths;
+      serviceConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
+      serviceConfig.RestrictNamespaces = true;
+      serviceConfig.RestrictSUIDSGID = true;
+      serviceConfig.SystemCallArchitectures = "native";
+      serviceConfig.SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
     };
   };
 }

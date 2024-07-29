@@ -106,6 +106,7 @@
   users.users.clightning.extraGroups = [ "tor" ];
 
   systemd.services.clightning.after = [ "tor.service" ];
+  systemd.services.clightning.requires = [ "tor.service" ];
 
   # lightning-config contains fields from here:
   # - <https://docs.corelightning.org/docs/configuration>
@@ -118,13 +119,15 @@
   # - feature configs (i.e. experimental-xyz options)
   sane.services.clightning.extraConfig = ''
     # log levels: "io", "debug", "info", "unusual", "broken"
-    log-level=info:lightningd
+    log-level=info
+    # log-level=info:lightningd
     # log-level=debug:lightningd
+    # log-level=debug
 
     # peerswap:
     # - config example: <https://github.com/fort-nix/nix-bitcoin/pull/462/files#diff-b357d832705b8ce8df1f41934d613f79adb77c4cd5cd9e9eb12a163fca3e16c6>
     # XXX: peerswap crashes clightning on launch. stacktrace is useless.
-    # plugin=${pkgs.peerswap}/bin/peerswap
+    # plugin={pkgs.peerswap}/bin/peerswap
     # peerswap-db-path=/var/lib/clightning/peerswap/swaps
     # peerswap-policy-path=...
   '';
@@ -135,6 +138,5 @@
     group = "clightning";
   };
 
-  sane.programs.clightning.enableFor.user.colin = true;  # for debugging/admin: `lightning-cli`
-  sane.programs.clightning.packageUnwrapped = config.sane.services.clightning.package;
+  sane.programs.lightning-cli.enableFor.user.colin = true;  # for debugging/admin:
 }

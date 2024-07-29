@@ -156,7 +156,7 @@ deployOneHost() {
     destructive runOnTarget "$host" sudo "$storePath/bin/switch-to-configuration" "$action" || return 1
     if [ -n "$doReboot" ]; then
       info "rebooting $host"
-      destructive runOnTarget "$host" sane-reboot
+      destructive runOnTarget "$host" sane-reboot "$host"
     fi
   fi
 }
