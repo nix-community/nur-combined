@@ -12,25 +12,27 @@
 let
   sway-lone-titlebar-unwrapped =
     (pkgs.sway-unwrapped.overrideAttrs (
-      _: _: {
+      _final: prev: {
         src = pkgs.fetchFromGitHub {
           owner = "svalaskevicius";
           repo = "sway";
-          rev = "hiding-lone-titlebar-scenegraph";
-          hash = "sha256-cXBEXWUj3n9txzpzDgl6lsNot1ag1sEE07WAwfCLWHc=";
+          #rev = "hiding-lone-titlebar-scenegraph";
+          rev = "c618290172b745e0d86daa92de479832171c1eb5";
+          hash = "sha256-U852/FLD6Ox41QfLXHbB3LagIg+I7th/9P1Opr8Tmpc=";
         };
+        mesonFlags = builtins.filter (e: e != "-Dxwayland=enabled") prev.mesonFlags;
       }
     )).override
       {
         enableXWayland = true;
         wlroots = pkgs.wlroots.overrideAttrs {
-          version = "0.18.0-dev";
+          version = "0.19.0-dev";
           src = pkgs.fetchFromGitLab {
             domain = "gitlab.freedesktop.org";
             owner = "wlroots";
             repo = "wlroots";
-            rev = "873e8e455892fbd6e85a8accd7e689e8e1a9c776";
-            hash = "sha256-5zX0ILonBFwAmx7NZYX9TgixDLt3wBVfgx6M24zcxMY=";
+            rev = "015bb8512ee314e1deb858cf7350b0220fc58702";
+            hash = "sha256-Awi0iSdtaqAxoXb8EMlZC6gvyW5QtsPrBAl41c2Y9rg=";
           };
           patches = [ ];
         };
@@ -129,6 +131,11 @@ let
       hpp-plot
       ;
   };
+  liblzf = pkgs.callPackage ./pkgs/liblzf { };
+  tinygltf = pkgs.callPackage ./pkgs/tinygltf { };
+  filament = pkgs.callPackage ./pkgs/filament { };
+  open3d = pkgs.callPackage ./pkgs/open3d { inherit liblzf tinygltf filament; };
+  py-open3d = pkgs.python3Packages.toPythonModule open3d;
 in
 {
   inherit
@@ -161,7 +168,9 @@ in
     hpp-romeo
     hpp-tutorial
     hpp-universal-robot
+    liblzf
     #multicontact-api
+    open3d
     proxsuite
     #py-multicontact-api
     py-hpp-corbaserver
@@ -172,7 +181,10 @@ in
     py-hpp-manipulation-corba
     py-hpp-practicals
     py-hpp-tutorial
+    py-open3d
     qgv
+    tinygltf
+    filament
     ;
 
   gruppled-white-lite-cursors = pkgs.callPackage ./pkgs/gruppled-lite-cursors {
