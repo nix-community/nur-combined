@@ -25,7 +25,7 @@ let
     )).override
       {
         enableXWayland = true;
-        wlroots = pkgs.wlroots.overrideAttrs {
+        wlroots = pkgs.wlroots.overrideAttrs (_finalAttrs: previousAttrs: {
           version = "0.19.0-dev";
           src = pkgs.fetchFromGitLab {
             domain = "gitlab.freedesktop.org";
@@ -35,7 +35,8 @@ let
             hash = "sha256-Awi0iSdtaqAxoXb8EMlZC6gvyW5QtsPrBAl41c2Y9rg=";
           };
           patches = [ ];
-        };
+          buildInputs = previousAttrs.buildInputs ++ [ pkgs.lcms2 ];
+        });
       };
   collada-dom = pkgs.callPackage ./pkgs/collada-dom { };
   qgv = pkgs.libsForQt5.callPackage ./pkgs/qgv { };
