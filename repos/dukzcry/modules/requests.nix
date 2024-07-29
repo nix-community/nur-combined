@@ -15,6 +15,7 @@ in {
     services.radarr.enable = true;
     services.radarr.group = config.services.transmission.group;
     services.jackett.enable = true;
+    # todo: replace with services.flaresolver option
     systemd.services.flaresolverr = {
       after = [ "network.target" ];
       serviceConfig = {
