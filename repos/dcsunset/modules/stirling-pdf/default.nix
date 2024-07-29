@@ -6,15 +6,20 @@ let
 in
 {
   options.services.stirling-pdf = {
-    enable = mkEnableOption "Enable stirling-pdf service";
+    enable = lib.mkEnableOption "the stirling-pdf service";
 
-    package = mkPackageOption pkgs "stirling-pdf" { };
+    package = lib.mkPackageOption pkgs "stirling-pdf" { };
 
-    environment = mkOption {
-      type = types.attrsOf (types.nullOr (types.either types.str types.path));
+    environment = lib.mkOption {
+      type = lib.types.attrsOf (
+        lib.types.oneOf [
+          lib.types.str
+          lib.types.int
+        ]
+      );
       default = { };
       example = {
-        SERVER_PORT = "8080";
+        SERVER_PORT = 8080;
         INSTALL_BOOK_AND_ADVANCED_HTML_OPS = "true";
       };
       description = ''
@@ -23,20 +28,21 @@ in
       '';
     };
 
-    environmentFile = mkOption {
-      type = types.nullOr types.path;
-      default = null;
+    environmentFiles = lib.mkOption {
+      type = lib.types.listOf lib.types.path;
+      default = [ ];
       description = ''
-        File containing additional environment variables to pass to Stirling PDF.
+        Files containing additional environment variables to pass to Stirling PDF.
+        Secrets should be added in environmentFiles instead of environment.
       '';
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     systemd.services.stirling-pdf = {
-      inherit (cfg) environment;
+      environment = lib.mapAttrs (_: toString) cfg.environment;
 
-      # following the LocalRunGuide
+      # following https://github.com/Stirling-Tools/Stirling-PDF#locally
       path = with pkgs; [
         unpaper
         libreoffice
@@ -56,8 +62,8 @@ in
         BindReadOnlyPaths = [ "${pkgs.tesseract}/share/tessdata:/usr/share/tessdata" ];
         CacheDirectory = "stirling-pdf";
         Environment = [ "HOME=%S/stirling-pdf" ];
-        EnvironmentFile = optional (cfg.environmentFile != null) cfg.environmentFile;
-        ExecStart = getExe cfg.package;
+        EnvironmentFile = cfg.environmentFiles;
+        ExecStart = lib.getExe cfg.package;
         RuntimeDirectory = "stirling-pdf";
         StateDirectory = "stirling-pdf";
         SuccessExitStatus = 143;
