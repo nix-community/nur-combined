@@ -12,8 +12,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "74th";
     repo = "xonsh-direnv";
-    rev = "3bea5847b9459c5799c64966ec85e624d0be69b9";
-    sha256 = "sha256-h56Gx/MMCW4L6nGwLAhBkiR7bX+qfFk80LEsJMiDtjQ=";
+    rev = "f96ecc0670b8744cc5ff8a0a900efe5de1dacb7e";
+    sha256 = "sha256-97c2cuqG0EitDdCM40r2IFOlRMHlKC4cLemJrPcxsZo=";
   };
 
   doCheck = false;

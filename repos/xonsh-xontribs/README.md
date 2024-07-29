@@ -20,7 +20,6 @@ The following xontribs are available in this NUR repo:
 - [xontrib-dot-dot](https://github.com/yggdr/xontrib-dotdot)
 - [xontrib-fish-completer](https://github.com/xonsh/xontrib-fish-completer)
 - [xontrib-gitinfo](https://github.com/dyuri/xontrib-gitinfo)
-- [xontrib-jedi](https://github.com/xonsh/xontrib-jedi)
 - [xontrib-jupyter](https://github.com/xonsh/xontrib-jupyter)
 - [xontrib-prompt-starship](https://github.com/anki-code/xontrib-prompt-starship)
 - [xontrib-readable-traceback](https://github.com/vaaaaanquish/xontrib-readable-traceback)
