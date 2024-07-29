@@ -24,6 +24,14 @@ jobs:
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             extra-platforms = i686-linux aarch64-linux arm-linux
+
+      - name: Cache Nvfetcher Database
+        id: cache-nvfetcher
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/nvfetcher
+          key: nvfetcher
+
       - name: Build nix packages
         run: |
           cat > secrets.toml <<EOF

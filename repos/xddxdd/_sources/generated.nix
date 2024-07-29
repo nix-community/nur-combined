@@ -752,13 +752,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.10.1-xanmod1";
+    version = "6.10.2-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.10.1-xanmod1";
+      rev = "6.10.2-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-dxWSHTawJvxK5yabBd7pu/7kE6awYogT4nB7K/Pj+BU=";
+      sha256 = "sha256-RBN44SMhpEbsjQj61ibnrC9pm1I1yEFd9fFRCjTsGDA=";
     };
   };
   linux-xanmod-6_0 = {
@@ -785,24 +785,24 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.42-xanmod1";
+    version = "6.6.43-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.42-xanmod1";
+      rev = "6.6.43-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-0YqvOObUHP2S8Jf1H+fzAZ+wOMoFt1BLxWilqt6ohVg=";
+      sha256 = "sha256-4o8qdAkqFjlRFS2k2zW9weSB1JQ5BFuDdcv26v9qYoA=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3484";
+    version = "b3485";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3484";
+      rev = "b3485";
       fetchSubmodules = false;
-      sha256 = "sha256-EWzvlL6oal01edHCrc8U48NizaSVzs/fCmg3U2DdK6Q=";
+      sha256 = "sha256-e0zjqxOzQyghkqiOZVgjWcjNpybONAXlLuro9IzCv9s=";
     };
   };
   lyrica = {

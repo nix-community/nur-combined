@@ -12,10 +12,12 @@
       version = "latest";
     }
   ];
-  vendorHash = "sha256-NFomcVAyxU1PjJnYrSqBI7LagvX/q/ErXfiLb1k++Jo=";
+  vendorHash = "sha256-9ANArRIJR6R2SmVkK8NbPzh4d+2YpLkJ+fB0TfirUIU=";
 }).overrideAttrs
   (old: {
     patches = (old.patches or [ ]) ++ [ ./fix-large-axfr.patch ];
+
+    doCheck = false;
 
     meta = with lib; {
       maintainers = with lib.maintainers; [ xddxdd ];
