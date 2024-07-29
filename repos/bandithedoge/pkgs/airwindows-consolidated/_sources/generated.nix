@@ -7,17 +7,17 @@
 }: {
   airwin2rack = {
     pname = "airwin2rack";
-    version = "4b92e3b340a92d26a5c628967e59b3a23c0258d9";
+    version = "dabd4121ba6fe3e8c5a51796186eb1c2e4b8482c";
     src = fetchgit {
       url = "https://github.com/baconpaul/airwin2rack";
-      rev = "4b92e3b340a92d26a5c628967e59b3a23c0258d9";
+      rev = "dabd4121ba6fe3e8c5a51796186eb1c2e4b8482c";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [];
-      sha256 = "sha256-xw6PcT5V82HuG94R22bEat4WzEanOxEZr6WpiP09uqI=";
+      sha256 = "sha256-c1htyB8vGF8p/UsmyNJtAVENwUXgN/fJYcMqM6868sA=";
     };
-    date = "2024-07-26";
+    date = "2024-07-28";
   };
   clap-juce-extensions = {
     pname = "clap-juce-extensions";

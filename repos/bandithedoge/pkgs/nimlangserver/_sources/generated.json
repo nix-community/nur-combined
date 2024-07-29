@@ -141,7 +141,7 @@
   },
   "stew": {
     "cargoLocks": null,
-    "date": "2024-07-19",
+    "date": "2024-07-28",
     "extract": null,
     "name": "stew",
     "passthru": null,
@@ -151,13 +151,13 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "54cc67cbb83f61b6e3168b09701758c5b805120a",
-      "sha256": "sha256-1FB8VK/CqAP7TLvuDf745KXNSi70Fb16DB4+UhTm4aU=",
+      "rev": "8e0e344f0fad80fe9a667e755499ae9e8ae8baf0",
+      "sha256": "sha256-Es497TNe1OLQtJL6fT0uOAjyCg4eUwHeB+btw5JlTFc=",
       "sparseCheckout": [],
       "type": "git",
       "url": "https://github.com/status-im/nim-stew"
     },
-    "version": "54cc67cbb83f61b6e3168b09701758c5b805120a"
+    "version": "8e0e344f0fad80fe9a667e755499ae9e8ae8baf0"
   },
   "zevv-with": {
     "cargoLocks": null,
