@@ -2149,10 +2149,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "5.0.2";
+      version = "5.1.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4303854/dictionaries-5.0.2.xpi";
-      sha256 = "f00f905cd86a02feaf05fe469d5120dd5cda2e8484ac7651aa32a098217b2eeb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4327462/dictionaries-5.1.0.xpi";
+      sha256 = "eeab6df25a4b639e1f3ec2c6d8a4013314d053283598958c9b31b6e1fa0c8add";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -2163,8 +2163,6 @@
           "tabs"
           "storage"
           "contextMenus"
-          "scripting"
-          "offscreen"
           "<all_urls>"
         ];
         platforms = platforms.all;
@@ -11343,10 +11341,10 @@
     };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2024.7.17.853";
+      version = "2024.7.28.888";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4321502/ublock_origin_lite-2024.7.17.853.xpi";
-      sha256 = "1cce1623db9778e9e1b0cb2dd194e6dbb28b86f7b14af7ec1c18641a435da26c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4327398/ublock_origin_lite-2024.7.28.888.xpi";
+      sha256 = "a2976e4a36f578be94f67fee3a3d745c5aa872758cc2592a4d12b2ca772c09f1";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
