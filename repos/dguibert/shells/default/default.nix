@@ -4,7 +4,7 @@
   ...
 }: {
   imports = [
-    inputs.pre-commit-hooks.flakeModule
+    inputs.git-hooks-nix.flakeModule
   ];
   perSystem = {
     config,
@@ -31,7 +31,7 @@
 
     pre-commit.settings.hooks = {
       #nixpkgs-fmt.enable = true;
-      alejandra.enable = true; # https://github.com/kamadorueda/alejandra/blob/main/integrations/pre-commit-hooks-nix/README.md
+      alejandra.enable = true;
       prettier.enable = true;
       trailing-whitespace = {
         enable = true;

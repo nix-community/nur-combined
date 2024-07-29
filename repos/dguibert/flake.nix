@@ -11,6 +11,7 @@
 
   inputs.nix.url = "github:dguibert/nix/pu"; # boehmgc 8.2.4
   inputs.nix.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.nix.inputs.git-hooks-nix.follows = "git-hooks-nix";
 
   # for overlays/updated-from-flake.nix
   inputs.dwl-src.flake = false;
@@ -24,8 +25,8 @@
   inputs.st-src.flake = false;
   inputs.st-src.url = "github:dguibert/st/pu";
 
-  inputs.pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
-  inputs.pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.git-hooks-nix.url = "github:cachix/git-hooks.nix";
+  inputs.git-hooks-nix.inputs.nixpkgs.follows = "nixpkgs";
 
   outputs = inputs @ {
     self,

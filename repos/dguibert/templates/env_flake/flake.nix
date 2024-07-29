@@ -15,9 +15,9 @@
   inputs.nur_dguibert_envs.inputs.nix.follows = "nix";
   inputs.nur_dguibert_envs.inputs.nix.inputs.nixpkgs.follows = "nixpkgs";
 
-  inputs.pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
-  inputs.pre-commit-hooks.inputs.flake-utils.follows = "flake-utils";
-  inputs.pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.git-hooks-nix.url = "github:cachix/git-hooks.nix";
+  inputs.git-hooks-nix.inputs.flake-utils.follows = "flake-utils";
+  inputs.git-hooks-nix.inputs.nixpkgs.follows = "nixpkgs";
 
   outputs = {
     self,
@@ -51,7 +51,7 @@
         pre-commit-check-shellHook = inputs.self.checks.${system}.pre-commit-check.shellHook;
       };
       checks = {
-        pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
+        pre-commit-check = inputs.git-hooks-nix.lib.${system}.run {
           src = ./.;
           hooks = {
             nixpkgs-fmt.enable = true;
