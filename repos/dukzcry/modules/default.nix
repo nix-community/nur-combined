@@ -28,4 +28,5 @@ rec {
   sunpaper = ./sunpaper.nix;
   requests = ./requests.nix;
   metube = ./metube.nix;
+  catppuccin = ./catppuccin.nix;
 }
