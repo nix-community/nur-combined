@@ -120,6 +120,7 @@ in
         theme=${cfg.kvantumTheme}
       '';
       environment.systemPackages = with pkgs; [ libsForQt5.qtstyleplugin-kvantum qt6Packages.qtstyleplugin-kvantum ];
+      environment.pathsToLink = [ "/share/Kvantum" ];
     })
   ];
 }

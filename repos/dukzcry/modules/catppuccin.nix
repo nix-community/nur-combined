@@ -26,7 +26,7 @@ in {
     environment.etc."xdg/foot/foot.ini".text = ''
       include=${catppuccin}/foot/catppuccin-${cfg.variant}.ini
     '';
-  
+
     theme = {
       enable = true;
       platform = "kvantum";
