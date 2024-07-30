@@ -110,9 +110,9 @@ in {
         ];
         packageFilters = let
           inherit (config.boot) zfs;
-          inherit (config.services) xserver;
+          /*inherit (config.services) xserver;
           nvEnabled = elem "nvidia" xserver.videoDrivers;
-          nvEnabledOpen = (nvEnabled && config.hardware.nvidia.open) || elem "nvidia-open" xserver.videoDrivers;
+          nvEnabledOpen = (nvEnabled && config.hardware.nvidia.open) || elem "nvidia-open" xserver.videoDrivers;*/
           zfsName = if zfs.enableUnstable then "zfsUnstable" else "zfs";
         in [
           (mkIf (elem "testing" cfg.select.disallowed) (_: packages: ! isTesting packages))
@@ -120,12 +120,12 @@ in {
           (mkIf (elem "hardened" cfg.select.disallowed) (_: packages: ! packages.isHardened))
           (mkIf (elem "libre" cfg.select.disallowed) (_: packages: ! packages.isLibre))
           (mkIf zfs.enabled (_: packages: ! packages.${zfsName}.meta.available))
-          (mkIf (nvEnabled && !nvEnabledOpen) (_: packages:
+          /*(mkIf (nvEnabled && !nvEnabledOpen) (_: packages:
             packages.nvidiaPackages.stable.meta.available || packages.nvidiaPackages.beta.meta.available
           ))
           (mkIf nvEnabledOpen (_: packages:
             packages.nvidiaPackages.stable.open.meta.available || packages.nvidiaPackages.beta.open.meta.available
-          ))
+          ))*/
         ];
       };
     };
