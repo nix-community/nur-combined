@@ -2,10 +2,10 @@
   {
     "10ten-ja-reader" = buildFirefoxXpiAddon {
       pname = "10ten-ja-reader";
-      version = "1.19.1";
+      version = "1.20.0";
       addonId = "{59812185-ea92-4cca-8ab7-cfcacee81281}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4299897/10ten_ja_reader-1.19.1.xpi";
-      sha256 = "e7e6ac877da00a8b08b68f265665a6317febdbb692350031fb133fcc2e92dd88";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4325631/10ten_ja_reader-1.20.0.xpi";
+      sha256 = "25215fe0211f2e01b5f7b75a3311214eb647999e48e4a77268e36e5ccc4efbd2";
       meta = with lib;
       {
         homepage = "https://github.com/birchill/10ten-ja-reader/";
@@ -2113,10 +2113,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "129.0.20240726.91552";
+      version = "129.0.20240729.133145";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4326524/deutsch_de_language_pack-129.0.20240726.91552.xpi";
-      sha256 = "e34185d217fa295e3f5a080d8225322ce343ee29801efe2eb857aab040b22cf9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4327879/deutsch_de_language_pack-129.0.20240729.133145.xpi";
+      sha256 = "3c499d0ce63337f255f25eebccdb5f0e0ee1de203ad86ed3dcd98afcd5abe97f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2552,10 +2552,10 @@
     };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.125.1";
+      version = "2.0.126";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4304694/enhancer_for_youtube-2.0.125.1.xpi";
-      sha256 = "bc3fdd06b1d701f2c6d5c07c5475a852c4703de62129e4cd7e999678b115df22";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4325319/enhancer_for_youtube-2.0.126.xpi";
+      sha256 = "56b497d46f075abcd74d2ede59ab9728e6fa14826a85d5ad9daaa2b653dd3138";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -3168,10 +3168,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "129.0.20240726.91552";
+      version = "129.0.20240729.133145";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4326590/francais_language_pack-129.0.20240726.91552.xpi";
-      sha256 = "16d266bf004675f4635130abed6f1c7bd8cbffdb6ffcbac8e3475dfdfdf388f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4327960/francais_language_pack-129.0.20240729.133145.xpi";
+      sha256 = "9d9809bc379991c73fda1fd6703345f502492571ffc5e1e041f39def62a36a83";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -5819,10 +5819,10 @@
     };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "8.10.4";
+      version = "8.9.1";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4317259/languagetool-8.10.4.xpi";
-      sha256 = "cf5fed5704ac8b6d4052fcf5819d1aa46ee61c76811393a7e355064baa32679c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4298468/languagetool-8.9.1.xpi";
+      sha256 = "0747fcd4d7066ac746d140b93870a37eb5cf3241c3a5759128c54bf12b14feea";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -9960,7 +9960,7 @@
       meta = with lib;
       {
         homepage = "https://gitlab.com/smart-referer/smart-referer";
-        description = "Improve your privacy by limiting Referer information leak!";
+        description = "Improve your privacy by limiting Referer information leak!\n\nPlease note that this extension has been largely superseded by better browser defaults for websites using HTTPS (almost all) and is not maintained anymore.";
         license = licenses.wtfpl;
         mozPermissions = [
           "menus"
