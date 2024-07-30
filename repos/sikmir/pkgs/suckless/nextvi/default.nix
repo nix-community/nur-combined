@@ -6,24 +6,24 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "nextvi";
-  version = "0-unstable-2024-05-11";
+  version = "0-unstable-2024-07-30";
 
   src = fetchFromGitHub {
     owner = "kyx0r";
     repo = "nextvi";
-    rev = "506b29c1ef7a8d267a5a398541cfc573c8948824";
-    hash = "sha256-xIXrRYHz9YRi0Tz5H3uelHS9cTju67cV1fxazw09Aic=";
+    rev = "30e5308e99ca759fefb117c9b376f5b2a484b924";
+    hash = "sha256-254XGECgg/sa9ZU6VdJugK4JYOmR0z26hJC077Q3EmM=";
   };
 
   buildPhase = ''
     runHook preBuild
-    sh ./build.sh
+    sh ./cbuild.sh
     runHook postBuild
   '';
 
   installPhase = ''
     runHook preInstall
-    PREFIX=$out sh ./build.sh install
+    PREFIX=$out sh ./cbuild.sh install
     runHook postInstall
   '';
 
