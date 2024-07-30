@@ -21,4 +21,4 @@ set +x
 echo 'to free more space (e.g. boot space), manually manage the profiles'
 echo '- nix-env --profile /nix/var/nix/profiles/system --list-generations'
 echo '- nix-env --profile /nix/var/nix/profiles/system --delete-generations {first..last}'
-echo '- sudo sane-reclaim-boot-space`
+echo '- sudo sane-reclaim-boot-space'
