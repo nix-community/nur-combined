@@ -38,7 +38,39 @@ in
       serviceConfig.Type = "simple";
       serviceConfig.Restart = "no";
       serviceConfig.User = "colin";
-      serviceConfig.Group = "users";
+
+      # hardening
+      serviceConfig.AmbientCapabilities = [
+        # needs to be able to read files owned by any user
+        "CAP_DAC_READ_SEARCH"
+      ];
+      serviceConfig.CapabilityBoundingSet = [ "CAP_DAC_READ_SEARCH" ];
+      serviceConfig.ReadWritePaths = builtins.map (d: "${d}/zzz-rsync-net") cfg.dirs;
+      serviceConfig.ReadOnlyPaths = "/nix/persist/private";
+      serviceConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
+
+      serviceConfig.LockPersonality = true;
+      serviceConfig.MemoryDenyWriteExecute = true;
+      serviceConfig.PrivateMounts = true;
+      serviceConfig.PrivateUsers = true;
+      serviceConfig.ProcSubset = "pid";
+      serviceConfig.ProtectClock = "true";
+      serviceConfig.ProtectControlGroups = true;
+      serviceConfig.ProtectHome = true;
+      serviceConfig.ProtectHostname = true;
+      serviceConfig.ProtectKernelLogs = true;
+      serviceConfig.ProtectKernelModules = true;
+      serviceConfig.ProtectKernelTunables = true;
+      serviceConfig.ProtectProc = "invisible";
+      serviceConfig.ProtectSystem = "strict";
+      serviceConfig.RemoveIPC = true;
+      serviceConfig.RestrictSUIDSGID = true;
+      serviceConfig.SystemCallArchitectures = "native";
+      serviceConfig.SystemCallFilter = "@system-service @mount";
+      # hardening exceptions:
+      serviceConfig.NoNewPrivileges = false;  #< bwrap'd dac_read_search
+      serviceConfig.PrivateDevices = false;  #< passt/pasta
+      serviceConfig.RestrictNamespaces = false;  #< bwrap
     };
     systemd.timers.rsync-net = {
       wantedBy = [ "multi-user.target" ];

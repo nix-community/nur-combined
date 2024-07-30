@@ -47,15 +47,13 @@ in
   (fetchpatch' {
     title = "unl0kr: 2.0.0 -> 3.2.0";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/319126";
-    hash = "sha256-IfGayn+othMzp5Mc+0klBvUmykFwq95OKIJDvWL96d0=";
-    # hash = "sha256-XZSUUfMsYvTITmiJ/yCDLYAtsgXqEV0iL0oxh3ifErw=";
+    hash = "sha256-XZSUUfMsYvTITmiJ/yCDLYAtsgXqEV0iL0oxh3ifErw=";
   })
 
   (fetchpatch' {
     title = "nixos/networkmanager: split ModemManager bits into own module";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/316824";
     hash = "sha256-RWCZaEb6E+PZnYtqfIh3kAbcGIMKsHhdlOdupJrpw7w=";
-    # hash = "sha256-woQijOvFaUj2qw5RNngY+F3hcJKihf4/c6C6/Y6mlL4=";
     # saneCommit = "23bfba9b76757ffc00fc2be810009dcf92e2eaf2";
     # hash = "sha256-cn6ihwO3MyzdpVoJoQNKAHyo8GuGvFP6vr//7r9pzjE=";
   })
@@ -94,14 +92,14 @@ in
     # see: <https://github.com/NixOS/nixpkgs/pull/284562#issuecomment-2079104081>
     title = "nixos/lemmy: fix nginx backend to proxy needed headers";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/306984";
-    saneCommit = "bd87a38b86f889a6902a356ab415eeead881766b";
     hash = "sha256-53X4ssdp02C8NOUL5mlbhR7qwE9/KWp6iLmz1ljJopE=";
+    saneCommit = "bd87a38b86f889a6902a356ab415eeead881766b";
   })
 
   (fetchpatch' {
     title = "libgweather: enable introspection on cross builds";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/251956";
-    hash = "sha256-IW+0u5lytIPU3xhgGtYgexXUrS2VFXAV6GC50jJS5ak=";
+    hash = "sha256-4IrZBNeGC6JmWgGcdJYb9ybwHROU39eZht7xWkkvWug=";
   })
 
   # (fetchpatch' {

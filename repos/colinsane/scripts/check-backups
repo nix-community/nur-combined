@@ -16,8 +16,8 @@ ssh -i "$RN_ID" "$RN_USER@$RN_USER.rsync.net" ls -al
 for host in desko lappy moby servo; do
   dir=nix/persist/private
   now=$(date +'%s')
-  last_attempted=$(ssh -i "$RN_ID" "$RN_USER@$RN_USER.rsync.net" -- cat "$host/$dir/zzz-rsync-net-last-attempted")
-  last_completed=$(ssh -i "$RN_ID" "$RN_USER@$RN_USER.rsync.net" -- cat "$host/$dir/zzz-rsync-net-last-completed")
+  last_attempted=$(ssh -i "$RN_ID" "$RN_USER@$RN_USER.rsync.net" -- cat "$host/$dir/zzz-rsync-net/last-attempted")
+  last_completed=$(ssh -i "$RN_ID" "$RN_USER@$RN_USER.rsync.net" -- cat "$host/$dir/zzz-rsync-net/last-completed")
   age_attempted=$(( "$now" - "${last_attempted:-0}" ))
   age_completed=$(( "$now" - "${last_completed:-0}" ))
   if ! [[ "$age_completed" -lt 432000 ]]; then
