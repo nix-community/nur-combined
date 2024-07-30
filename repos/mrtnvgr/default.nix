@@ -55,12 +55,12 @@ in rec {
   fetchurl-gz = p ./pkgs/fetchers/fetchurl-gz { };
 
   # Audio
-
   reaper-sws-extension = p ./pkgs/audio/reaper-sws-extension { };
   neuralnote = p ./pkgs/audio/neuralnote { };
   neural-amp-modeler-lv2 = p ./pkgs/audio/neural-amp-modeler-lv2 { };
   artworks = p ./pkgs/audio/artworks { };
   nam-trainer = p ./pkgs/audio/nam-trainer { };
+  # mod-desktop = p ./pkgs/audio/mod-desktop { };
 
   # Misc
   cbmp = p ./pkgs/misc/cbmp { };

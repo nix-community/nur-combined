@@ -29,13 +29,13 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "neural-amp-modeler";
-  version = "0.8.4";
+  version = "0.9.0";
 
   src = fetchFromGitHub {
     owner = "sdatkinson";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-dCAzX0TlIICv4I+/QGDCNDpTLQYeX9kb5bjHOwB2jkk=";
+    hash = "sha256-VgjSeOB3ayhgzv4pGMOdUYhHKFC23Nr6hIxQ/p9SZLw=";
   };
 
   dependencies = with python3Packages; [ numpy torch wavio transformers sounddevice scipy pytorch-lightning pydantic onnxruntime onnx matplotlib auraloss pytest ];
