@@ -90,6 +90,7 @@ in
     serviceConfig.RestartSec = "30s";  #< default is 0
 
     # hardening (systemd-analyze security bitcoind-mainnet)
+    serviceConfig.StateDirectory = "bitcoind-mainnet";
     serviceConfig.LockPersonality = true;
     serviceConfig.MemoryDenyWriteExecute = "true";
     serviceConfig.NoNewPrivileges = "true";
@@ -105,13 +106,13 @@ in
     serviceConfig.ProtectKernelModules = true;
     serviceConfig.ProtectKernelTunables = true;
     serviceConfig.ProtectProc = "invisible";
-    # serviceConfig.ProtectSystem = "strict";  #< TODO: try enabling?
+    serviceConfig.ProtectSystem = lib.mkForce "strict";
     serviceConfig.RemoveIPC = true;
-    # serviceConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";  #< TODO: try enabling?
+    serviceConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
     serviceConfig.RestrictNamespaces = true;
     serviceConfig.RestrictSUIDSGID = true;
     serviceConfig.SystemCallArchitectures = "native";
-    # serviceConfig.SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];  #< TODO: try enabling?
+    serviceConfig.SystemCallFilter = [ "@system-service" ];
   };
 
   sops.secrets."bitcoin.conf" = {

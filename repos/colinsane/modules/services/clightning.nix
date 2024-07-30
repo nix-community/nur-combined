@@ -149,51 +149,45 @@ in
   };
   config = lib.mkIf cfg.enable {
     systemd.services.clightning = {
-      path  = [ bitcoind.package ];  #< TODO: maybe need only `sane.programs.bitcoin-cli.package` (sandboxed) ?
+      path  = [ config.sane.programs.bitcoin-cli.package ];
       # note the wantedBy bitcoind: this should make it so that a bitcoind restart causes clightning to also restart (instead of to only stop)
       wantedBy = [ "bitcoind-${cfg.bitcoindName}.service" "multi-user.target" ];
       requires = [ "bitcoind-${cfg.bitcoindName}.service" ];
       after = [ "bitcoind-${cfg.bitcoindName}.service" ];
 
-      serviceConfig = {
-        ExecStart = "${cfg.package}/bin/lightningd --lightning-dir=${cfg.dataDir}";
-        User = cfg.user;
-        Restart = "always";
-        RestartSec = "30s";
+      serviceConfig.ExecStart = "${cfg.package}/bin/lightningd --lightning-dir=${cfg.dataDir}";
+      serviceConfig.User = cfg.user;
+      serviceConfig.Restart = "always";
+      serviceConfig.RestartSec = "30s";
 
-        ReadWritePaths = [
-          cfg.dataDir
-        ];
-        ReadOnlyPaths = [
-          "/var/lib/bitcoind-${cfg.bitcoindName}"  #< TODO: is this really needed?
-        ];
-        TimeoutStartSec = "360s";  #< give some chance in case bitcoind needs to sync
+      serviceConfig.ReadWritePaths = [ cfg.dataDir ];
+      serviceConfig.TimeoutStartSec = "600s";  #< give some chance in case bitcoind needs to sync
+      # hardening (systemd-analyze security clightning)
+      serviceConfig.LockPersonality = true;
+      serviceConfig.MemoryDenyWriteExecute = true;
+      serviceConfig.NoNewPrivileges = true;
+      serviceConfig.PrivateDevices = true;
+      serviceConfig.PrivateMounts = true;
+      serviceConfig.PrivateTmp = true;
+      serviceConfig.PrivateUsers = true;
+      serviceConfig.ProtectClock = true;
+      serviceConfig.ProtectControlGroups = true;
+      serviceConfig.ProtectHome = true;
+      serviceConfig.ProtectKernelModules = true;
+      serviceConfig.ProtectProc = "invisible";
+      serviceConfig.ProtectSystem = "strict";
+      serviceConfig.RemoveIPC = true;
+      serviceConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
+      serviceConfig.RestrictSUIDSGID = true;
+      serviceConfig.SystemCallArchitectures = "native";
 
-        # hardening
-        LockPersonality = true;
-        MemoryDenyWriteExecute = true;
-        NoNewPrivileges = true;
-        PrivateDevices = true;
-        PrivateMounts = true;
-        PrivateTmp = true;
-        PrivateUsers = true;
-        ProcSubset = "pid";
-        ProtectClock = true;
-        ProtectControlGroups = true;
-        ProtectHome = true;
-        ProtectHostname = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        ProtectProc = "invisible";
-        ProtectSystem = "strict";
-        RemoveIPC = true;
-        RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
-        RestrictNamespaces = true;
-        RestrictSUIDSGID = true;
-        SystemCallArchitectures = "native";
-        SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
-      };
+      #VVV relaxed because it uses bwrap sandboxing (sanebox)
+      serviceConfig.RestrictNamespaces = false;
+      serviceConfig.ProcSubset = "all";
+      serviceConfig.ProtectHostname = false;
+      serviceConfig.ProtectKernelLogs = false;
+      serviceConfig.ProtectKernelTunables = false;
+      serviceConfig.SystemCallFilter = [ "@system-service" "@mount" "~@resources" ];
 
       preStart = ''
         # Remove an existing socket so that `postStart` can detect when a new
@@ -212,7 +206,7 @@ in
       # Wait until the rpc socket appears
       postStart = ''
         while [[ ! -e ${cfg.networkDir}/lightning-rpc ]]; do
-            sleep 0.1
+            sleep 1
         done
         # Needed to enable lightning-cli for users with group 'clightning'
         chmod g+rx ${cfg.networkDir}
