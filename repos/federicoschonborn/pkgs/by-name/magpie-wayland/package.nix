@@ -9,7 +9,7 @@
   argparse,
   libxkbcommon,
   pixman,
-  systemd,
+  udev,
   wayland-protocols,
   wlroots_0_17,
   xorg,
@@ -38,7 +38,7 @@ stdenv.mkDerivation {
     argparse
     libxkbcommon
     pixman
-    systemd
+    udev
     wayland-protocols
     wlroots_0_17
     xorg.libxcb

@@ -9,7 +9,7 @@
   ninja,
   pixman,
   pkg-config,
-  systemd,
+  udev,
   wayland,
   wayland-protocols,
   wlroots_0_16,
@@ -39,7 +39,7 @@ stdenv.mkDerivation {
     libinput
     libxkbcommon
     pixman
-    systemd
+    udev
     wayland
     wayland-protocols
     wlroots_0_16
