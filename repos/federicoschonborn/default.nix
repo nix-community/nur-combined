@@ -7,18 +7,15 @@
 #     nix-build -A mypackage
 
 {
-  system ? builtins.currentSystem,
+  lib ? import <nixpkgs/lib>,
   pkgs ? import <nixpkgs> { inherit system; },
+  system ? builtins.currentSystem,
 }:
-
-let
-  lib = import ./lib { inherit system pkgs; };
-in
 
 lib.makeScope pkgs.newScope (
   self:
   {
-    inherit lib;
+    lib = import ./lib { inherit lib; };
 
     pkgsCross = builtins.mapAttrs (
       _: system':

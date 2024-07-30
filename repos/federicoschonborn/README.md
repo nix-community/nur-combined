@@ -739,7 +739,7 @@ Like neofetch, but much faster because written in C (with all features disabled)
 - [Homepage](https://github.com/fastfetch-cli/fastfetch)
 - [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.20.0/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](./default.nix#L62)
+- [Source](./default.nix#L59)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -888,7 +888,7 @@ A set of commands that manipulate GTAs on various levels (with all features enab
 - Version: `2.4.0`
 - [Homepage](https://marlam.de/gta/)
 - License: [`GPL-3.0-or-later`](https://spdx.org/licenses/GPL-3.0-or-later.html "GNU General Public License v3.0 or later")
-- [Source](./default.nix#L98)
+- [Source](./default.nix#L95)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1038,7 +1038,7 @@ A library to make working with multidimensional arrays in C++ easy (with all fea
 - Version: `4.3`
 - [Homepage](https://marlam.de/tgd/)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](./default.nix#L131)
+- [Source](./default.nix#L128)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1363,7 +1363,7 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 - Version: `1.10.2`
 - [Homepage](https://github.com/ZDoom/Raze)
 - License: [`GPL-2.0`](https://spdx.org/licenses/GPL-2.0.html "GNU General Public License v2.0")
-- [Source](./default.nix#L162)
+- [Source](./default.nix#L159)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1390,7 +1390,7 @@ Fan sequel to Super Mario 63.
 - Version: `0.8.0`
 - [Homepage](https://charpurrr.itch.io/super-mario-127)
 - License: Unfree
-- [Source](./pkgs/by-name/super-mario-127/package.nix#L45)
+- [Source](./pkgs/by-name/super-mario-127/package.nix#L59)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1491,7 +1491,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 - [Homepage](https://teem.sourceforge.net/)
 - License: [`LGPL-2.1-or-later`](https://spdx.org/licenses/LGPL-2.1-or-later.html "GNU Lesser General Public License v2.1 or later")
-- [Source](./default.nix#L187)
+- [Source](./default.nix#L184)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1516,7 +1516,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 - [Homepage](https://teem.sourceforge.net/)
 - License: [`LGPL-2.1-or-later`](https://spdx.org/licenses/LGPL-2.1-or-later.html "GNU Lesser General Public License v2.1 or later")
-- [Source](./default.nix#L199)
+- [Source](./default.nix#L196)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1541,7 +1541,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 - [Homepage](https://teem.sourceforge.net/)
 - License: [`LGPL-2.1-or-later`](https://spdx.org/licenses/LGPL-2.1-or-later.html "GNU Lesser General Public License v2.1 or later")
-- [Source](./default.nix#L171)
+- [Source](./default.nix#L168)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)

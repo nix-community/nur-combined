@@ -1,22 +1,35 @@
 {
   lib,
-  buildFHSEnv,
+  stdenvNoCC,
   requireFile,
-  runCommand,
+  buildFHSEnv,
   unzip,
 }:
 
 let
   version = "0.8.0";
-  zipFile = requireFile {
-    name = "SuperMario127v${version}Linux.zip";
-    url = "https://charpurrr.itch.io/super-mario-127";
-    hash = "sha256-l713xdEvwnOV8OMyDQ4/qU7VMj/uDViAJR5gl+R/vCU=";
-  };
-  zipContent = runCommand "content" { } ''
-    ${lib.getExe unzip} ${zipFile} -d $out
-    chmod +x $out/Super_Mario_127v${version}.x86_64
-  '';
+
+  super-mario-127 = stdenvNoCC.mkDerivation (finalAttrs: {
+    pname = "super-mario-127";
+    inherit version;
+
+    src = requireFile {
+      name = "SuperMario127v${finalAttrs.version}Linux.zip";
+      url = "https://charpurrr.itch.io/super-mario-127";
+      hash = "sha256-l713xdEvwnOV8OMyDQ4/qU7VMj/uDViAJR5gl+R/vCU=";
+    };
+
+    nativeBuildInputs = [ unzip ];
+
+    dontUnpack = true;
+
+    installPhase = ''
+      mkdir -p $out/{bin,opt/super-mario-127}
+      unzip $src -d $out/opt/super-mario-127
+      chmod +x $out/opt/super-mario-127/Super_Mario_127v${finalAttrs.version}.x86_64
+      ln -s $out/opt/super-mario-127/Super_Mario_127v${finalAttrs.version}.x86_64 $out/bin/super-mario-127
+    '';
+  });
 in
 
 buildFHSEnv {
@@ -24,7 +37,9 @@ buildFHSEnv {
   inherit version;
 
   targetPkgs =
-    pkgs: with pkgs; [
+    pkgs:
+    [ super-mario-127 ]
+    ++ (with pkgs; [
       alsa-lib
       libGL
       pulseaudio
@@ -36,12 +51,11 @@ buildFHSEnv {
       xorg.libXinerama
       xorg.libXrandr
       xorg.libXrender
-    ];
+    ]);
 
-  runScript = "${zipContent}/Super_Mario_127v${version}.x86_64 --verbose";
+  runScript = "super-mario-127";
 
   meta = {
-    mainProgram = "super-mario-127";
     description = "Fan sequel to Super Mario 63";
     homepage = "https://charpurrr.itch.io/super-mario-127";
     license = lib.licenses.unfree;

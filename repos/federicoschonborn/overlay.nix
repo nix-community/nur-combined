@@ -7,7 +7,7 @@ _: prev:
 let
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   nurAttrs = import ./. {
-    inherit (prev) system;
+    inherit (prev) lib system;
     pkgs = prev;
   };
 in

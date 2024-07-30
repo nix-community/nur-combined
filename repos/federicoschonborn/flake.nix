@@ -41,6 +41,10 @@
         "aarch64-darwin"
       ];
 
+      flake = {
+        lib = import ./lib { inherit (nixpkgs) lib; };
+      };
+
       perSystem =
         {
           lib,
@@ -89,7 +93,7 @@
             };
           };
 
-          legacyPackages = import ./. { inherit system pkgs; };
+          legacyPackages = import ./. { inherit lib pkgs system; };
           packages = import ./flattenTree.nix config.legacyPackages;
 
           devShells.default = pkgs.mkShell {

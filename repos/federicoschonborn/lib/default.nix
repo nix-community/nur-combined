@@ -1,6 +1,5 @@
 {
-  system ? builtins.currentSystem,
-  pkgs ? import <nixpkgs> { inherit system; },
+  lib ? import <nixpkgs/lib>,
 }:
 
-pkgs.lib.extend (import ./overlay.nix)
+lib.extend (import ./overlay.nix)
