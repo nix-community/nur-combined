@@ -173,8 +173,8 @@ in (lib.makeScope newScope (self: with self; {
       extid = "@ublacklist";
       pname = "ublacklist";
       url = "https://github.com/iorate/ublacklist/releases/download/v${version}/ublacklist-v${version}-firefox.zip";
-      version = "8.9.1";
-      hash = "sha256-8iBNqjm6uQ0SEHwEbAmYpMq4kqPkZP3z5XqBD8vG/rk=";
+      version = "8.9.2";
+      hash = "sha256-b+MBSeh+YC/qT88pupElPU531YyfvYe1aC1icHXfK3A=";
     };
     ublock-origin = fetchVersionedAddon rec {
       extid = "uBlock0@raymondhill.net";

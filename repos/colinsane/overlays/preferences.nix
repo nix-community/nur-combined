@@ -82,6 +82,11 @@
     withGcrypt = false;
   };
 
+  snapper = super.snapper.overrideAttrs (upstream: {
+    # XXX(2024-07-30): fix build failure
+    buildInputs = upstream.buildInputs ++ [ zlib ];
+  });
+
   swaynotificationcenter = super.swaynotificationcenter.override {
     gvfs = gvfs.override {
       # saves 20 minutes of build time and cross issues, for unused feature

@@ -27,12 +27,12 @@
 }:
 let
   lock = {
-    master.rev = "8ee1e50668dc70e118a2df57f4fcadced15c5cbe";
-    master.sha256 = "sha256-aTG1/6NvxOrdBqDKoz5xZhUrPuq/BG2Gzcdryn3EN00=";
-    staging.rev = "8ee1e50668dc70e118a2df57f4fcadced15c5cbe";
-    staging.sha256 = "sha256-aTG1/6NvxOrdBqDKoz5xZhUrPuq/BG2Gzcdryn3EN00=";
-    staging-next.rev = "8ee1e50668dc70e118a2df57f4fcadced15c5cbe";
-    staging-next.sha256 = "sha256-aTG1/6NvxOrdBqDKoz5xZhUrPuq/BG2Gzcdryn3EN00=";
+    master.rev = "170e9953db70bbfb7e1ecf557dbbcee749109953";
+    master.sha256 = "sha256-KdwYAhVIlEdIQQdvoEP4lGYqnhaa5rqXuRZ9mS4I9u0=";
+    staging.rev = "170e9953db70bbfb7e1ecf557dbbcee749109953";
+    staging.sha256 = "sha256-KdwYAhVIlEdIQQdvoEP4lGYqnhaa5rqXuRZ9mS4I9u0=";
+    staging-next.rev = "170e9953db70bbfb7e1ecf557dbbcee749109953";
+    staging-next.sha256 = "sha256-KdwYAhVIlEdIQQdvoEP4lGYqnhaa5rqXuRZ9mS4I9u0=";
   };
   lock' = lock."${variant}";
   unpatchedSrc = fetchzip {
@@ -81,7 +81,7 @@ in
     src.overrideAttrs (base: {
       # attributes needed for update scripts
       pname = "nixpkgs";
-      version = "24.05-unstable-2024-07-28";
+      version = "24.05-unstable-2024-07-29";
       passthru = (base.passthru or {}) // nixpkgs // {
         src = unpatchedSrc // {
           inherit (lock') rev;

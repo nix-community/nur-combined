@@ -1016,7 +1016,12 @@ in
 
     screen.sandbox.enable = false;  #< tty; needs to run anything
 
-    sequoia.sandbox.method = "bwrap";  # TODO:sandbox: untested
+    sequoia.packageUnwrapped = pkgs.sequoia.overrideAttrs (_: {
+      # XXX(2024-07-30): sq_autocrypt_import test failure: "Warning: 9B7DD433F254904A is expired."
+      doCheck = false;
+    });
+    sequoia.buildCost = 1;
+    sequoia.sandbox.method = "bwrap";
     sequoia.sandbox.whitelistPwd = true;
     sequoia.sandbox.autodetectCliPaths = "existingFileOrParent";  # supports `-o <file-to-create>`
 

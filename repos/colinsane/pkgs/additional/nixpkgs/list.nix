@@ -31,6 +31,13 @@ in
   # })
 
   (fetchpatch' {
+    # merged into staging 2024-07-25
+    title = "texinfo: set texinfo_cv_sys_iconv_converts_euc_cn=yes when crosscompiling";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/328919";
+    hash = "sha256-ugmBj3e3xwpqvgpg5diiJhJLHLhVg/34MUx+YRdy52A=";
+  })
+
+  (fetchpatch' {
     title = "python312Packages.contourpy: fix cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/328218";
     saneCommit = "74a003b0af9820f6f7c6c62b3d2bec6df3a8d7b8";
