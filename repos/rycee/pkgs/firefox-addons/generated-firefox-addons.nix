@@ -886,10 +886,10 @@
     };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2024.6.3";
+      version = "2024.7.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4307738/bitwarden_password_manager-2024.6.3.xpi";
-      sha256 = "d3c052e66a9daa390707c4481ec50c09bc3b6253cb222792c9a55aa4b5f4045a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4326285/bitwarden_password_manager-2024.7.1.xpi";
+      sha256 = "28c505df3b615f6a3c829afdcff74584ddc5eb1d3fb35f9848c18470fad93772";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -905,6 +905,7 @@
           "clipboardRead"
           "clipboardWrite"
           "idle"
+          "alarms"
           "webRequest"
           "webRequestBlocking"
           "webNavigation"
@@ -2032,10 +2033,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2429.4";
+      version = "6.2431.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4321180/dashlane-6.2429.4.xpi";
-      sha256 = "3852c1431d63d919dab1243ebed4aad4a68d153a8d8225f19caaf6ec7b2c3e55";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4327652/dashlane-6.2431.0.xpi";
+      sha256 = "bea9388d28f40bd217935d7c2f3a1aebe6dd7a8086043e46c944fcea30655ac1";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2370,10 +2371,10 @@
     };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2024.7.10";
+      version = "2024.7.24";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4317796/duckduckgo_for_firefox-2024.7.10.xpi";
-      sha256 = "af5a94c1c5bc2564a092e581c06c283b43ca480d037e324e719df1775ba0a9ae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4325805/duckduckgo_for_firefox-2024.7.24.xpi";
+      sha256 = "e1a71dff13da64d25341c18184da301b0f248434764563f90ad3de040da46b57";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -5193,10 +5194,10 @@
     };
     "indie-wiki-buddy" = buildFirefoxXpiAddon {
       pname = "indie-wiki-buddy";
-      version = "3.8.0";
+      version = "3.9.1";
       addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4299481/indie_wiki_buddy-3.8.0.xpi";
-      sha256 = "2b3978bbf8ea7186e3101b120ce009cddae33103e68aa8ab54512fc83ec3bb27";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4327050/indie_wiki_buddy-3.9.1.xpi";
+      sha256 = "30c839c33d88a00270015835d810836d55ede4ebe757308ea2ce539c0076e514";
       meta = with lib;
       {
         homepage = "https://getindie.wiki/";
@@ -7071,10 +7072,10 @@
     };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "11.16.15";
+      version = "11.16.16";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4314725/ether_metamask-11.16.15.xpi";
-      sha256 = "0ae84354d844454142312a12a508154d29588659eb87fa6a03707601ded22105";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4326873/ether_metamask-11.16.16.xpi";
+      sha256 = "c91ea731551b8f2fdf32a87735a60eb607541872e71969d623b3c462b8f7d67e";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -7926,10 +7927,10 @@
     };
     "paperpile" = buildFirefoxXpiAddon {
       pname = "paperpile";
-      version = "1.0.57";
+      version = "1.0.58";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4317062/paperpile_addon-1.0.57.xpi";
-      sha256 = "59223c2df28242ed374cbeb60e99a7d40376e0f588f15ccecac83a2f4c113277";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4328485/paperpile_addon-1.0.58.xpi";
+      sha256 = "7f20106781a2ba3aa6410bf0c76eaaadf7eaa3a4c97db1e0c8687222e6c175bd";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -9342,10 +9343,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.7.23";
+      version = "24.7.30";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4324785/refined_github-24.7.23.xpi";
-      sha256 = "d510007d5ff8ee50230f2228623133cf3be01ad872024633ddc395b7c4b81a76";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4328593/refined_github-24.7.30.xpi";
+      sha256 = "7cf73aa9da978f301cc57241c851cfeff884e009c301662d0f6424cda6e8c2dd";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -10172,10 +10173,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "4.4";
+      version = "4.5";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4321888/steam_database-4.4.xpi";
-      sha256 = "a44bb1367e86f5c4ea5662851d4dc46201b45f19fe3b2dcd05d64ebc84d214ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4326369/steam_database-4.5.xpi";
+      sha256 = "f4dff61843f35adfc2cf8e353e25a6a8e37836b770b4d1a35f48114f1cd21328";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
