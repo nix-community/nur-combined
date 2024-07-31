@@ -497,10 +497,10 @@
   };
   "indie-wiki-buddy" = buildFirefoxXpiAddon {
     pname = "indie-wiki-buddy";
-    version = "3.8.0";
+    version = "3.9.1";
     addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4299481/indie_wiki_buddy-3.8.0.xpi";
-    sha256 = "2b3978bbf8ea7186e3101b120ce009cddae33103e68aa8ab54512fc83ec3bb27";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4327050/indie_wiki_buddy-3.9.1.xpi";
+    sha256 = "30c839c33d88a00270015835d810836d55ede4ebe757308ea2ce539c0076e514";
     meta = with lib; {
       homepage = "https://getindie.wiki/";
       description = "Helping you discover quality, independent wikis!\n\nWhen visiting a Fandom wiki, Indie Wiki Buddy redirects or alerts you of independent alternatives. It also filters search engine results. BreezeWiki is also supported, to reduce clutter on Fandom.";
@@ -1315,10 +1315,10 @@
   };
   "refined-github" = buildFirefoxXpiAddon {
     pname = "refined-github";
-    version = "24.7.23";
+    version = "24.7.30";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4324785/refined_github-24.7.23.xpi";
-    sha256 = "d510007d5ff8ee50230f2228623133cf3be01ad872024633ddc395b7c4b81a76";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4328593/refined_github-24.7.30.xpi";
+    sha256 = "7cf73aa9da978f301cc57241c851cfeff884e009c301662d0f6424cda6e8c2dd";
     meta = with lib; {
       homepage = "https://github.com/refined-github/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";
@@ -1403,10 +1403,10 @@
   };
   "steam-database" = buildFirefoxXpiAddon {
     pname = "steam-database";
-    version = "4.4";
+    version = "4.5";
     addonId = "firefox-extension@steamdb.info";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4321888/steam_database-4.4.xpi";
-    sha256 = "a44bb1367e86f5c4ea5662851d4dc46201b45f19fe3b2dcd05d64ebc84d214ab";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4326369/steam_database-4.5.xpi";
+    sha256 = "f4dff61843f35adfc2cf8e353e25a6a8e37836b770b4d1a35f48114f1cd21328";
     meta = with lib; {
       homepage = "https://steamdb.info/";
       description = "Adds SteamDB links and new features on the Steam store and community. View lowest game prices and stats.";
