@@ -2,39 +2,47 @@
 # vim: set ft=nix ts=2 sw=2 sts=2 et sta
 {
 system ? builtins.currentSystem
-, pkgs
 , lib
 , fetchurl
 , installShellFiles
+, stdenvNoCC
 }:
 let
   shaMap = {
-    i686-linux = "0307j4px8pby8xiw7j18li0jiv93qjaapmflxpd3cj8rdbh9sb02";
-    x86_64-linux = "1369lli0jvfx0bdv2hmh9m8nar97mdczgk9sw1mdrzblbc1mjr96";
-    armv7l-linux = "0ka9b8fc682x647zkqm0mlwmj9fcqczh1jhf4v2iiwzgasfh6sg4";
-    aarch64-linux = "062076941wq0cw1x1dj31m43dm5wx7adspq8ll86cj2krbkp6gsv";
-    x86_64-darwin = "1ayhlpca6gmgnl0z8nbpva2jxkag6m590m8i5l36ghq69dwv5g7l";
-    aarch64-darwin = "0660hvir9c93f4bhw2vj4jzpr8ap3p44w71xfcp9ypvyg4r84s02";
+    i686-linux = "1509ihji2qsk5ifsg19xyxp87ki2sxjpzfk0r6zjm7p026755rg9";
+    x86_64-linux = "1459qqilxbxlwxywva9kccz9sh5vfccc5q43zamqw7kbwzydbayn";
+    armv7l-linux = "1mkji93g75dp8imk2irs2pnskz13dvwjgsdas56xfnc54wc4qz8w";
+    aarch64-linux = "0p4rmb2wyfzfq7d8rafsyxhdrkc2dnvbamhfpynizm3mb54bg3sg";
+    x86_64-darwin = "0rxjl8kccr4n3a5ma4w8bf9hyvvn3wkgq38nvf32msrv0pmfpqza";
+    aarch64-darwin = "1b1db181087zpwa1dj66cc72xfs0700lfwfh141zc8zbswhkmdq6";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.7.4/soft-serve_0.7.4_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.7.4/soft-serve_0.7.4_Linux_x86_64.tar.gz";
-    armv7l-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.7.4/soft-serve_0.7.4_Linux_arm.tar.gz";
-    aarch64-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.7.4/soft-serve_0.7.4_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/charmbracelet/soft-serve/releases/download/v0.7.4/soft-serve_0.7.4_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/charmbracelet/soft-serve/releases/download/v0.7.4/soft-serve_0.7.4_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.7.5/soft-serve_0.7.5_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.7.5/soft-serve_0.7.5_Linux_x86_64.tar.gz";
+    armv7l-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.7.5/soft-serve_0.7.5_Linux_arm.tar.gz";
+    aarch64-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.7.5/soft-serve_0.7.5_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/charmbracelet/soft-serve/releases/download/v0.7.5/soft-serve_0.7.5_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/charmbracelet/soft-serve/releases/download/v0.7.5/soft-serve_0.7.5_Darwin_arm64.tar.gz";
+  };
+  sourceRootMap = {
+    i686-linux = "soft-serve_0.7.5_Linux_i386";
+    x86_64-linux = "soft-serve_0.7.5_Linux_x86_64";
+    armv7l-linux = "soft-serve_0.7.5_Linux_arm";
+    aarch64-linux = "soft-serve_0.7.5_Linux_arm64";
+    x86_64-darwin = "soft-serve_0.7.5_Darwin_x86_64";
+    aarch64-darwin = "soft-serve_0.7.5_Darwin_arm64";
   };
 in
-pkgs.stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   pname = "soft-serve";
-  version = "0.7.4";
+  version = "0.7.5";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
   };
 
-  sourceRoot = ".";
+  sourceRoot = sourceRootMap.${system};
 
   nativeBuildInputs = [ installShellFiles ];
 
