@@ -274,7 +274,7 @@ Neodog emojis by @moonrabbits@shonk.phite.ro.
 Various emoji packs from Liv Asch.
 
 - Name: `olivvybee-blobbee`
-- Version: `2024.07.07.1`
+- Version: `2024.07.30.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - [Source](./pkgs/akkoma-emoji/olivvybee/mkEmojiPack.nix#L32)
@@ -300,7 +300,7 @@ Various emoji packs from Liv Asch.
 Various emoji packs from Liv Asch.
 
 - Name: `olivvybee-fox`
-- Version: `2024.07.07.1`
+- Version: `2024.07.30.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - [Source](./pkgs/akkoma-emoji/olivvybee/mkEmojiPack.nix#L32)
@@ -326,7 +326,7 @@ Various emoji packs from Liv Asch.
 Various emoji packs from Liv Asch.
 
 - Name: `olivvybee-neobread`
-- Version: `2024.07.07.1`
+- Version: `2024.07.30.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - [Source](./pkgs/akkoma-emoji/olivvybee/mkEmojiPack.nix#L32)
@@ -352,7 +352,7 @@ Various emoji packs from Liv Asch.
 Various emoji packs from Liv Asch.
 
 - Name: `olivvybee-neodlr`
-- Version: `2024.07.07.1`
+- Version: `2024.07.30.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - [Source](./pkgs/akkoma-emoji/olivvybee/mkEmojiPack.nix#L32)
@@ -378,7 +378,7 @@ Various emoji packs from Liv Asch.
 Various emoji packs from Liv Asch.
 
 - Name: `olivvybee-neofriends`
-- Version: `2024.07.07.1`
+- Version: `2024.07.30.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - [Source](./pkgs/akkoma-emoji/olivvybee/mkEmojiPack.nix#L32)
@@ -404,7 +404,7 @@ Various emoji packs from Liv Asch.
 Various emoji packs from Liv Asch.
 
 - Name: `olivvybee-neossb`
-- Version: `2024.07.07.1`
+- Version: `2024.07.30.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - [Source](./pkgs/akkoma-emoji/olivvybee/mkEmojiPack.nix#L32)
