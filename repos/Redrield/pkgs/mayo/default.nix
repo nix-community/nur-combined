@@ -7,8 +7,8 @@ stdenv.mkDerivation {
     owner = "fougue";
     repo = "mayo";
 
-    rev = "develop";
-    sha256 = "1p8j9m40b82wkmnpnfcdd61mha1v374vg7jbyfvkads5phrlgb3v";
+    rev = "97627a0f5c06ad0afc77f5843914046eb6123dda";
+    hash = "sha256-rK8aHpO6tn2yh8ZcdsWnMjlDryPgcO4ibYcPgm9Zs1U=";
   };
 
   nativeBuildInputs = [ cmake wrapQtAppsHook ];
