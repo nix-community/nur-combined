@@ -27,6 +27,8 @@ in {
       include=${catppuccin}/foot/catppuccin-${cfg.variant}.ini
     '';
 
+    environment.etc."swaylock.conf".text = builtins.readFile "${catppuccin}/swaylock/${cfg.variant}.conf";
+
     theme = {
       enable = true;
       platform = "kvantum";

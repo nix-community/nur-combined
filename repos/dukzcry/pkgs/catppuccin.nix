@@ -1,5 +1,5 @@
 let
-  validThemes = [ "i3" "mako" "foot" ];
+  validThemes = [ "i3" "mako" "foot" "swaylock" ];
 in
 { fetchFromGitHub
 , lib
@@ -38,6 +38,13 @@ let
       rev = "17e2bdc8a8d854e8d390919579f87ab7d5f86e38";
       hash = "sha256-L5/HvBe4jGTHNSCxFL+xRh8CKYO3NLJ0ksVJIQxjsZA=";
     };
+    swaylock = fetchFromGitHub {
+      name = "swaylock";
+      owner = "catppuccin";
+      repo = "swaylock";
+      rev = "77246bbbbf8926bdb8962cffab6616bc2b9e8a06";
+      hash = "sha256-AKiOeV9ggvsreC/lq2qXytUsR+x66Q0kpN2F4/Oh2Ao=";
+    };
   };
 in
 lib.checkListOfEnum "${pname}: variant" validVariants [ variant ]
@@ -74,6 +81,10 @@ stdenvNoCC.mkDerivation {
   '' + lib.optionalString (lib.elem "foot" themeList) ''
     mkdir -p $out/foot
     cp "${sources.foot}/themes/catppuccin-${variant}.ini" "$out/foot/"
+
+  '' + lib.optionalString (lib.elem "swaylock" themeList) ''
+    mkdir -p $out/swaylock
+    cp "${sources.swaylock}/themes/${variant}.conf" "$out/swaylock/"
 
   '' + ''
     runHook postInstall
