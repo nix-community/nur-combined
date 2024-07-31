@@ -9,13 +9,15 @@ let
     revert ? false,
   }:
     let
+      # XXX(2024-07-31): full_index=1 for reproducibility (prevent patch hashes from spontaneously changing)
+      # - <https://github.com/NixOS/nixpkgs/issues/257446#issuecomment-1736563091>
       url = if prUrl != null then
         # prUrl takes precedence over any specific commit
-        "${prUrl}.diff"
+        "${prUrl}.diff?full_index=1"
       else if saneCommit != null then
         "https://git.uninsane.org/colin/nixpkgs/commit/${saneCommit}.diff"
       else
-        "https://github.com/NixOS/nixpkgs/commit/${nixpkgsCommit}.patch"
+        "https://github.com/NixOS/nixpkgs/commit/${nixpkgsCommit}.patch?full_index=1"
       ;
     in fetchpatch2 (
       { inherit revert url; }
@@ -34,26 +36,26 @@ in
     # merged into staging 2024-07-25
     title = "texinfo: set texinfo_cv_sys_iconv_converts_euc_cn=yes when crosscompiling";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/328919";
-    hash = "sha256-ugmBj3e3xwpqvgpg5diiJhJLHLhVg/34MUx+YRdy52A=";
+    hash = "sha256-jPbFTg5YHBxAyhOaQGuiLVximKMj7ACXzCK89ddZyNQ=";
   })
 
   (fetchpatch' {
     title = "python312Packages.contourpy: fix cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/328218";
     saneCommit = "74a003b0af9820f6f7c6c62b3d2bec6df3a8d7b8";
-    hash = "sha256-PV/dkmTXr31Du8OwSaKwe2B0RibNs8r8v7UxLZ4IXYQ=";
+    hash = "sha256-+7iAefzfYzAHO+f+q5JROejGjCujnwhvt8ItkU562DA=";
   })
 
   (fetchpatch' {
     title = "unl0kr: 2.0.0 -> 3.2.0";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/319126";
-    hash = "sha256-XZSUUfMsYvTITmiJ/yCDLYAtsgXqEV0iL0oxh3ifErw=";
+    hash = "sha256-8rsX4Yrrp8lKrG3nySu8vvOofbxVRzpbjYVc+AQNqLs=";
   })
 
   (fetchpatch' {
     title = "nixos/networkmanager: split ModemManager bits into own module";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/316824";
-    hash = "sha256-RWCZaEb6E+PZnYtqfIh3kAbcGIMKsHhdlOdupJrpw7w=";
+    hash = "sha256-1wm23pSXN+gez/LnaIRrEXsy8hWAAy70RuJ+umVnJCI=";
     # saneCommit = "23bfba9b76757ffc00fc2be810009dcf92e2eaf2";
     # hash = "sha256-cn6ihwO3MyzdpVoJoQNKAHyo8GuGvFP6vr//7r9pzjE=";
   })
@@ -61,7 +63,7 @@ in
   (fetchpatch' {
     title = "hickory-dns: rename from trust-dns";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/316466";
-    hash = "sha256-9bnvkK7nC8d9OHwCKW05OxhSV6kNIHKg2AkYVUud1Vw=";
+    hash = "sha256-0A43xaBrROJUAENNZNTCB8HLeECVy4n6oMwZluRNBZ8=";
   })
 
   (fetchpatch' {
@@ -85,21 +87,21 @@ in
     # required for gpodder to build
     title = "python311Packages.mygpoclient: 1.8 -> 1.9";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/324734";
-    hash = "sha256-2maFCPpR8AdW+baRHF8QhigHN5mDqKiFKz84wBfIvu8=";
+    hash = "sha256-W2KBnwPonYCKO4TA9+mGbknxgJaZej7iX9dFLLXf/jw=";
   })
 
   (fetchpatch' {
     # see: <https://github.com/NixOS/nixpkgs/pull/284562#issuecomment-2079104081>
     title = "nixos/lemmy: fix nginx backend to proxy needed headers";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/306984";
-    hash = "sha256-53X4ssdp02C8NOUL5mlbhR7qwE9/KWp6iLmz1ljJopE=";
+    hash = "sha256-VErGtaZjsUNNXtVESFHAmQlTLabJfZBEftL/nYcpyyE=";
     saneCommit = "bd87a38b86f889a6902a356ab415eeead881766b";
   })
 
   (fetchpatch' {
     title = "libgweather: enable introspection on cross builds";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/251956";
-    hash = "sha256-4IrZBNeGC6JmWgGcdJYb9ybwHROU39eZht7xWkkvWug=";
+    hash = "sha256-ovWXFX6gMXM+E9yhX7GnDOB9f2HAZSjZRwGAVLTvFC0=";
   })
 
   # (fetchpatch' {
