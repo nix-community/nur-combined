@@ -1437,12 +1437,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3489",
-            "sha256": "sha256-yFfdNQtufGN6ZeKNmtEAh8f6HebapI241hf5bzh1S7A=",
+            "rev": "b3490",
+            "sha256": "sha256-sDqJqIyqw1cyuiw7cXFfG2vsw8MoIQ2hlCXMwOTw04Y=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3489"
+        "version": "b3490"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -2397,7 +2397,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-07-30",
+        "date": "2024-07-31",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -2409,12 +2409,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "eec59685c451c7f9ce28aa2cdf06caa5ccf940c0",
-            "sha256": "sha256-ZeNN5qFgync0OTKHJvs6wBTt4EHvM72wFSVT/R87I1I=",
+            "rev": "028ecec79f0e71ae91b2acdf9117083018c68221",
+            "sha256": "sha256-pWnESKSjVlwG2aRGi5qb78RXLtoXunJ3hr7FFhh9D6E=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "eec59685c451c7f9ce28aa2cdf06caa5ccf940c0"
+        "version": "028ecec79f0e71ae91b2acdf9117083018c68221"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -2523,12 +2523,12 @@
             "name": null,
             "owner": "SamToki",
             "repo": "IconDesign---Sam-Toki-Mouse-Cursors",
-            "rev": "v6.05",
-            "sha256": "sha256-RJHLNsxxi9Vl3cr5E7UbWY9ZkJwWQaUPBwGVImjIMnM=",
+            "rev": "v7.00",
+            "sha256": "sha256-sio1LFa1g2opNFMlupr7PQLBhhhYMjNSn7Kvjh9W8FI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.05"
+        "version": "v7.00"
     },
     "sgx-software-enable": {
         "cargoLocks": null,

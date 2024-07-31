@@ -796,13 +796,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3489";
+    version = "b3490";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3489";
+      rev = "b3490";
       fetchSubmodules = false;
-      sha256 = "sha256-yFfdNQtufGN6ZeKNmtEAh8f6HebapI241hf5bzh1S7A=";
+      sha256 = "sha256-sDqJqIyqw1cyuiw7cXFfG2vsw8MoIQ2hlCXMwOTw04Y=";
     };
   };
   lyrica = {
@@ -1326,15 +1326,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "eec59685c451c7f9ce28aa2cdf06caa5ccf940c0";
+    version = "028ecec79f0e71ae91b2acdf9117083018c68221";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "eec59685c451c7f9ce28aa2cdf06caa5ccf940c0";
+      rev = "028ecec79f0e71ae91b2acdf9117083018c68221";
       fetchSubmodules = false;
-      sha256 = "sha256-ZeNN5qFgync0OTKHJvs6wBTt4EHvM72wFSVT/R87I1I=";
+      sha256 = "sha256-pWnESKSjVlwG2aRGi5qb78RXLtoXunJ3hr7FFhh9D6E=";
     };
-    date = "2024-07-30";
+    date = "2024-07-31";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1388,13 +1388,13 @@
   };
   sam-toki-mouse-cursors = {
     pname = "sam-toki-mouse-cursors";
-    version = "v6.05";
+    version = "v7.00";
     src = fetchFromGitHub {
       owner = "SamToki";
       repo = "IconDesign---Sam-Toki-Mouse-Cursors";
-      rev = "v6.05";
+      rev = "v7.00";
       fetchSubmodules = false;
-      sha256 = "sha256-RJHLNsxxi9Vl3cr5E7UbWY9ZkJwWQaUPBwGVImjIMnM=";
+      sha256 = "sha256-sio1LFa1g2opNFMlupr7PQLBhhhYMjNSn7Kvjh9W8FI=";
     };
   };
   sgx-software-enable = {
