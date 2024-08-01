@@ -139,6 +139,7 @@ class WindowsInfParser:
         self.inf_path = inf_path
         self.dict, self.list = self._load(inf_path)
         self._substitute_all_variables()
+        print(self.dict)
 
     def _load(self, path: str) -> Tuple[
         CaseInsensitiveDict[str, CaseInsensitiveDict[str, str]],
@@ -156,12 +157,14 @@ class WindowsInfParser:
             if not line:
                 continue
 
-            match = re.match("^\[(.*)\]$", line, re.IGNORECASE | re.MULTILINE)
+            match = re.match(r"^\[(.*)\]$", line, re.IGNORECASE | re.MULTILINE)
             if match:
                 current_key = match[1]
                 continue
 
-            match = re.match("^(\S+)\s*=\s*(\S+)$", line, re.IGNORECASE | re.MULTILINE)
+            match = re.match(
+                r"^(\S+)\s*=\s*(\S.*)$", line, re.IGNORECASE | re.MULTILINE
+            )
             if match:
                 if current_key not in result_dict:
                     result_dict[current_key] = CaseInsensitiveDict()
@@ -211,6 +214,11 @@ class WindowsInfParser:
             os.path.dirname(self.inf_path), os.path.basename(cursor_path)
         )
 
+    def normalize_name(self, name: str) -> str:
+        name = re.sub(r"\W+$", "", name)
+        name = re.sub(r"\W+", "_", name)
+        return name
+
     def get_cursor_scheme(self):
         add_reg = self.dict.get("DefaultInstall", CaseInsensitiveDict()).get("AddReg")
 
@@ -229,7 +237,7 @@ class WindowsInfParser:
                 ):
                     cursors = shlex.split(args[3])
                     return {
-                        "__name__": args[2],
+                        "__name__": self.normalize_name(args[2]),
                         WindowsCursors.DEFAULT: self.get_cursor_path(cursors[0]),
                         WindowsCursors.HELP: self.get_cursor_path(cursors[1]),
                         WindowsCursors.PROGRESS: self.get_cursor_path(cursors[2]),

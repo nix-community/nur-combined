@@ -554,8 +554,8 @@ src.github = "runpod/runpod-python"
 fetch.github = "runpod/runpod-python"
 
 [sam-toki-mouse-cursors]
-src.github = "SamToki/IconDesign---Sam-Toki-Mouse-Cursors"
-fetch.github = "SamToki/IconDesign---Sam-Toki-Mouse-Cursors"
+src.github = "SamToki/Sam-Toki-Mouse-Cursors"
+fetch.github = "SamToki/Sam-Toki-Mouse-Cursors"
 
 [sgx-software-enable]
 src.git = "https://github.com/intel/sgx-software-enable.git"

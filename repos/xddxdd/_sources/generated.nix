@@ -1391,7 +1391,7 @@
     version = "v7.00";
     src = fetchFromGitHub {
       owner = "SamToki";
-      repo = "IconDesign---Sam-Toki-Mouse-Cursors";
+      repo = "Sam-Toki-Mouse-Cursors";
       rev = "v7.00";
       fetchSubmodules = false;
       sha256 = "sha256-sio1LFa1g2opNFMlupr7PQLBhhhYMjNSn7Kvjh9W8FI=";
