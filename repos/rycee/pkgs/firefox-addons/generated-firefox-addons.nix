@@ -768,10 +768,10 @@
     };
     "beyond-20" = buildFirefoxXpiAddon {
       pname = "beyond-20";
-      version = "2.9.4";
+      version = "2.9.5";
       addonId = "beyond20@kakaroto.homelinux.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4298785/beyond_20-2.9.4.xpi";
-      sha256 = "4102fae6de26fe416de0b27e03a9297d4d74d19f097d949755eeea2a3358f289";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4327233/beyond_20-2.9.5.xpi";
+      sha256 = "41a79ebeb9a8fbb5de3a23a052f1be2f22f7e2dfd9a5a71d921a1e4d871b4324";
       meta = with lib;
       {
         homepage = "https://beyond20.here-for-more.info";
@@ -2718,14 +2718,14 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.15";
+      version = "1.3.16";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4325566/faststream-1.3.15.xpi";
-      sha256 = "c687c2607bcb7dd9efd2cec044883908a235df367d224fa79d668e8e918d58db";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4328955/faststream-1.3.16.xpi";
+      sha256 = "a02815c2f3efc38466327cff2199ce45c961c3d428981d96fa62b72434336062";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
-        description = "Stream without buffering, a great video player and download accelerator all in one.";
+        description = "Stream videos without buffering in the browser. An extension that replaces bad video players on the internet with a better, accessible video player designed for your convenience.";
         license = {
           shortName = "allrightsreserved";
           fullName = "All Rights Reserved";
@@ -2910,10 +2910,10 @@
     };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.76";
+      version = "6.1.77";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4311612/flagfox-6.1.76.xpi";
-      sha256 = "01eee0e108389c3b73aebcdf0c6fec8e778308c16e427e49f9edff6e87fed671";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4328442/flagfox-6.1.77.xpi";
+      sha256 = "7b3b77a688b153d114f631c2749f1c1bf7ae4c69be82804d1a1afa29194d4f7c";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -5149,10 +5149,10 @@
     };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.1077";
+      version = "4.1085";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4315923/youtube_addon-4.1077.xpi";
-      sha256 = "2ddfa1a93f25f2e23e8488ab35c0831bd61e898c339c287efb9dbff91b38fe67";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4327508/youtube_addon-4.1085.xpi";
+      sha256 = "c77e29969b3c8af8e18c36e624ba04451f388fe820880e1f5d9a386bbc70aafb";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -5820,10 +5820,10 @@
     };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "8.9.1";
+      version = "8.10.4";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4298468/languagetool-8.9.1.xpi";
-      sha256 = "0747fcd4d7066ac746d140b93870a37eb5cf3241c3a5759128c54bf12b14feea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4317259/languagetool-8.10.4_kLk3srz.xpi";
+      sha256 = "6a8d859e8b1ebc6641f642e284d723cc07e5ae196c67dbb232d8d33ff96dce7c";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -7904,10 +7904,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "2024.7.1";
+      version = "2024.8.1";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4311814/pakkujs-2024.7.1.xpi";
-      sha256 = "c58a038cede0e8dd80e2e10d73911242f882e7e2d16ac8ba5f96475bd3867e6f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4328983/pakkujs-2024.8.1.xpi";
+      sha256 = "3c4f574f29e3669e224e50eef7aef9b69851f5b57c57215df74191c2609a7300";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
@@ -8926,10 +8926,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.20.0";
+      version = "1.21.1";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4314861/proton_pass-1.20.0.xpi";
-      sha256 = "068f81a53467f7298e429a1f14c20163083b60aaebe0a08ee14d4829ae8618f3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4327803/proton_pass-1.21.1.xpi";
+      sha256 = "195d9e46e3b361cd8e38c08e801ed6c5e4855a6f46adbcb7855d13cf2f2ee34d";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -11089,10 +11089,10 @@
     };
     "ublacklist" = buildFirefoxXpiAddon {
       pname = "ublacklist";
-      version = "8.9.1";
+      version = "8.9.2";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4323391/ublacklist-8.9.1.xpi";
-      sha256 = "0b20dbb34ac53fb03245c2559d55ca0e368a4182ee10271e43ff5cd97f3ddefc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4327308/ublacklist-8.9.2.xpi";
+      sha256 = "00d50c0ede7c6898935a8e6a9a5bd09d481382b0568e799a51c83104537f5b86";
       meta = with lib;
       {
         homepage = "https://iorate.github.io/ublacklist/";
@@ -11303,10 +11303,10 @@
     };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.58.0";
+      version = "1.59.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4290466/ublock_origin-1.58.0.xpi";
-      sha256 = "470c56994a7174db21578adce598b158a5dc0970c87c5cfe889ac632bd3085ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4328681/ublock_origin-1.59.0.xpi";
+      sha256 = "1db9c676a07d141f8d36dbbc24f9e3d64a6cc2340dbfc6c848bc4395f96cfb14";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
