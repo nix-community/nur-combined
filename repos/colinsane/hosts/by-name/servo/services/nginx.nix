@@ -29,6 +29,12 @@ in
   };
 
   services.nginx.enable = true;
+  # nginxStable is one release behind nginxMainline.
+  # nginx itself recommends running mainline; nixos defaults to stable.
+  # services.nginx.package = pkgs.nginxMainline;
+  # XXX(2024-07-31): nixos defaults to zlib-ng -- supposedly more performant, but spams log with
+  # "gzip filter failed to use preallocated memory: ..."
+  services.nginx.package = pkgs.nginxMainline.override { zlib = pkgs.zlib; };
   services.nginx.appendConfig = ''
     # use 1 process per core.
     # may want to increase worker_connections too, but `ulimit -n` must be increased first.
@@ -44,8 +50,10 @@ in
     log_format vcombined '$host:$server_port $remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referrer" "$http_user_agent"';
     access_log /var/log/nginx/private.log vcombined;
   '';
-  # sets gzip_comp_level = 5
+  # enables gzip and sets gzip_comp_level = 5
   services.nginx.recommendedGzipSettings = true;
+  # enables zstd and sets zstd_comp_level = 9
+  services.nginx.recommendedZstdSettings = true;
   # enables OCSP stapling (so clients don't need contact the OCSP server -- i do instead)
   # - doesn't seem to, actually: <https://www.ssllabs.com/ssltest/analyze.html?d=uninsane.org>
   # caches TLS sessions for 10m

@@ -38,10 +38,21 @@ systemctl stop \
   systemctl \
   tor \
   transmission \
+  trust-dns-doof \
   trust-dns-hn \
   trust-dns-hn-resolver \
   trust-dns-lan \
   trust-dns-wan \
   wireguard-wg-ovpns \
+  ntfy-waiter-0 \
+  ntfy-waiter-1 \
+  ntfy-waiter-2 \
+  ntfy-waiter-3 \
+  ntfy-waiter-4 \
+  ntfy-waiter-5 \
+  ntfy-waiter-6 \
+  ntfy-waiter-7 \
+  ntfy-waiter-8 \
+  ntfy-waiter-9 \
 
 # TODO: stop the freshrss timer
