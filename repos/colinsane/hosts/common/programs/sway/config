@@ -85,6 +85,7 @@ bindsym $mod+s exec sane-open --application rofi-snippets.desktop
 # bindsym $mod+slash exec sane-open splatmoji.desktop
 bindsym $mod+d exec sane-open --application rofi.desktop
 bindsym $mod+Return exec sane-open --application xdg-terminal-exec.desktop
+bindsym $mod+b exec sane-open --uri "https://uninsane.org/places"
 
 bindsym $mod+Shift+q kill
 # bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'

@@ -4,14 +4,17 @@
 set -e
 
 usage() {
-  echo "usage: sane-open [options] <org.my.desktop | /path/to/file>"
+  echo "usage: sane-open [options] <org.my.desktop | /path/to/file | URI>"
   echo "given some resource, ask the xdg-desktop-portal service to open it"
   echo "this could be either the name of an application, or a URI identifying a file"
   echo
   echo "options:"
   echo "--auto-keyboard: toggle the virtual keyboard state to whatever's preferred by the app"
   echo "--application <thing.desktop>: open the desktop file (by name, not path)"
+  echo "--debug: enable logging"
   echo "--file </path/to/file>: open the file using the default mime handler"
+  echo "--uri <uri>: open the URI using the default mime handler"
+  echo "  e.g. --uri https://uninsane.org"
   exit $1
 }
 
@@ -76,6 +79,10 @@ configureKeyboardFor_file() {
   configureKeyboardFor_application "$application"
 }
 
+configureKeyboardFor_uri() {
+  log "configureKeyboardFor_uri: $1"
+}
+
 open_application() {
   log "open_application: '$1'"
   gdbus call --session --timeout 10 \
@@ -83,16 +90,6 @@ open_application() {
     --object-path /org/freedesktop/portal/desktop \
     --method org.freedesktop.portal.DynamicLauncher.Launch \
     "$1" {}
-}
-open_file() {
-  # open the file, and then pass the fd to dbus
-  log "open_file: '$1'"
-  exec 3< "$1"
-  gdbus call --session --timeout 10 \
-    --dest org.freedesktop.portal.Desktop \
-    --object-path /org/freedesktop/portal/desktop \
-    --method org.freedesktop.portal.OpenURI.OpenFile \
-    "" 3 "{'ask': <false>}"
 }
 open_desktopFile() {
   log "open_desktopFile: '$1'"
@@ -106,6 +103,24 @@ open_desktopFile() {
     local target=$(basename "$path")
     open_application "$target"
   fi
+}
+open_file() {
+  # open the file, and then pass the fd to dbus
+  log "open_file: '$1'"
+  exec 3< "$1"
+  gdbus call --session --timeout 10 \
+    --dest org.freedesktop.portal.Desktop \
+    --object-path /org/freedesktop/portal/desktop \
+    --method org.freedesktop.portal.OpenURI.OpenFile \
+    "" 3 "{'ask': <false>}"
+}
+open_uri() {
+  log "open_uri: '$1'"
+  gdbus call --session --timeout 10 \
+    --dest org.freedesktop.portal.Desktop \
+    --object-path /org/freedesktop/portal/desktop \
+    --method org.freedesktop.portal.OpenURI.OpenURI \
+    "" "$1" "{'ask': <false>}"
 }
 
 # evaluate truthy and print desktop name as `FOO.desktop` if the provided file is a .desktop file suitable for open_application.
@@ -185,22 +200,28 @@ while [ $# -gt 0 ]; do
   arg="$1"
   shift
   case "$arg" in
-    "--auto-keyboard")
-      autoKeyboard=1
-      ;;
-    "--help")
-      usage 0
-      ;;
-    "--application")
+    ("--application")
       resourceType="application"
       ;;
-    "--desktop-file")
+    ("--auto-keyboard")
+      autoKeyboard=1
+      ;;
+    ("--debug")
+      SANE_OPEN_DEBUG=1
+      ;;
+    ("--desktop-file")
       resourceType="desktopFile"
       ;;
-    "--file")
+    ("--help")
+      usage 0
+      ;;
+    ("--file")
       resourceType="file"
       ;;
-    *)
+    ("--uri")
+      resourceType="uri"
+      ;;
+    (*)
       if [ $# -ne 0 ]; then
         usage 1
       fi
@@ -223,8 +244,8 @@ if [ -z "$resourceType" ]; then
     log "detected resourceType=application (warning: '$resource' is not visible on disk)"
     resourceType=application
   else
-    log "detected resourceType=file (warning: '$resource' is not visible on disk)"
-    resourceType=file
+    log "unknown resource; treating as URI: $resource"
+    resourceType=uri
   fi
 fi
 

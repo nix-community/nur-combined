@@ -63,6 +63,7 @@ let
     (fromDb "anchor.fm/s/2da69154/podcast/rss" // tech)  # POD OF JAKE -- https://podofjake.com/
     (fromDb "cast.postmarketos.org" // tech)
     (fromDb "congressionaldish.libsyn.com" // pol)  # Jennifer Briney
+    (fromDb "complexsystemspodcast.com" // tech)  # Patrick Mackenzie (from Bits About Money)
     (fromDb "craphound.com" // pol)  # Cory Doctorow -- both podcast & text entries
     (fromDb "darknetdiaries.com" // tech)
     (fromDb "feed.podbean.com/matrixlive/feed.xml" // tech)  # Matrix (chat) Live
