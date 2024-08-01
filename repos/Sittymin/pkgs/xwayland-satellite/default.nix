@@ -14,10 +14,10 @@ rustPlatform.buildRustPackage {
     # newer commit
     rev = "8892570093948de16a50e06b1a7d6890405de7a1";
     fetchSubmodules = false;
-    sha256 = "sha256-NcvFk8u43Q/XiuHzO1yQX9veXy6frRBJZhDHz3ESUX0=";
+    sha256 = "sha256-zk62B0tIf2SRNCeQnXxatq2gvjtaJ8xp3Hp9RB43xs0=";
   });
 
-  cargoSha256 = "sha256-xP3qGSaYw+cNnnsjCLwP3RKBpgW+wnIzid2rUepgSW8=";
+  cargoHash = "sha256-8SnFLRPUjQzEjr6yIY3p7YSflFONhaS9ss70ykBoTKg=";
 
   nativeBuildInputs = [
     rustPlatform.bindgenHook

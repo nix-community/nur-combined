@@ -155,7 +155,7 @@ buildDotnetModule rec {
     homepage = "https://github.com/EverestAPI/Olympus";
     changelog = "https://github.com/EverestAPI/Olympus/blob/main/changelog.txt";
     license = licenses.mit;
-    # maintainers = with maintainers; [ulysseszhan petingoso];
+    # maintainers = with maintainers; [ ulysseszhan petingoso ];
     mainProgram = "olympus";
     platforms = platforms.unix;
   };
