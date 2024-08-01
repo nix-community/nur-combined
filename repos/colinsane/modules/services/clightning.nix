@@ -33,14 +33,7 @@ in
   options = with lib; {
     sane.services.clightning = {
       enable = mkEnableOption "clightning, a Lightning Network implementation in C";
-      # package = mkPackageOption pkgs "clightning" { };
-      package = mkOption {
-        type = types.package;
-        default = pkgs.clightning.override {
-          # XXX(2024/07/07): build fails with default `python3`
-          python3 = pkgs.python311;
-        };
-      };
+      package = mkPackageOption pkgs "clightning" { };
       bitcoindName = mkOption {
         type = types.str;
         default = "mainnet";
@@ -233,10 +226,5 @@ in
       symlink.target = cfg.dataDir;
       wantedBeforeBy = [ "clightning.service" ];
     };
-
-    sane.programs.lightning-cli = {
-      packageUnwrapped = pkgs.linkBinIntoOwnPackage cfg.package "lightning-cli";
-    };
-
   };
 }

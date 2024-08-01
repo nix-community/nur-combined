@@ -151,25 +151,20 @@ let
     # - unpatched.XYZ draws (selectively) from the _unpatched_ package set.
     # see <overlays/pkgs.nix>
 
-    # XXX patching this is... really costly.
-    # prefer to set ALSA_CONFIG_UCM2 = "${pkgs.alsa-ucm-conf-sane}/share/alsa/ucm2" if possible instead.
-    # alsa-project = unpatched.alsa-project.overrideScope (sself: ssuper: {
-    #   alsa-ucm-conf = sself.callPackage ./additional/alsa-ucm-conf-sane { inherit (ssuper) alsa-ucm-conf; };
-    # });
+    #### short-term build fixes
+    clightning = unpatched.clightning.override {
+      # XXX(2024-07-07): build fails with default `python3`
+      python3 = pkgs.python311;
+    };
 
+    #### long-term patching
     browserpass = callPackage ./patched/browserpass { inherit (unpatched) browserpass; };
-
     # mozilla keeps nerfing itself and removing configuration options
     firefox-unwrapped = callPackage ./patched/firefox-unwrapped { inherit (unpatched) firefox-unwrapped; };
-
     gocryptfs = callPackage ./patched/gocryptfs { inherit (unpatched) gocryptfs; };
-
     helix = callPackage ./patched/helix { inherit (unpatched) helix; };
-
     # ibus = callPackage ./patched/ibus { inherit (unpatched) ibus; };
-
     # modemmanager = callPackage ./patched/modemmanager { inherit (unpatched) modemmanager; };
-
     playerctl = unpatched.playerctl.overrideAttrs (upstream: {
       patches = (upstream.patches or []) ++ [
         (fetchpatch {

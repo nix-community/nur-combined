@@ -438,11 +438,6 @@ in
 
     clang = {};
 
-    clightning.sandbox.method = "bwrap";
-    clightning.sandbox.extraHomePaths = [
-      ".lightning/bitcoin/lightning-rpc"
-    ];
-
     clightning-sane.sandbox.method = "bwrap";
     clightning-sane.sandbox.extraPaths = [
       "/var/lib/clightning/bitcoin/lightning-rpc"
@@ -820,6 +815,14 @@ in
 
     libnotify.sandbox.method = "bwrap";
     libnotify.sandbox.whitelistDbus = [ "user" ];  # notify-send
+
+    lightning-cli.packageUnwrapped = pkgs.linkBinIntoOwnPackage pkgs.clightning "lightning-cli";
+    lightning-cli.sandbox.method = "bwrap";
+    lightning-cli.sandbox.extraHomePaths = [
+      ".lightning/bitcoin/lightning-rpc"
+    ];
+    # `lightning-cli` finds its RPC file via `~/.lightning/bitcoin/lightning-rpc`, to message the daemon
+    lightning-cli.fs.".lightning".symlink.target = "/var/lib/clightning";
 
     losslesscut-bin.buildCost = 1;
     losslesscut-bin.sandbox.method = "bwrap";

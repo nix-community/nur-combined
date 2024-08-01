@@ -77,9 +77,6 @@
     { user = "clightning"; group = "clightning"; mode = "0710"; path = "/var/lib/clightning"; method = "bind"; }
   ];
 
-  # `lightning-cli` finds its RPC file via `~/.lightning/bitcoin/lightning-rpc`, to message the daemon
-  sane.user.fs.".lightning".symlink.target = "/var/lib/clightning";
-
   # see bitcoin.nix for how to generate this
   services.bitcoind.mainnet.rpc.users.clightning.passwordHMAC =
     "befcb82d9821049164db5217beb85439$2c31ac7db3124612e43893ae13b9527dbe464ab2d992e814602e7cb07dc28985";

@@ -52,7 +52,8 @@ self = gpodder.overridePythonAttrs (upstream: rec {
     libhandy
   ];
   propagatedBuildInputs = upstream.propagatedBuildInputs ++ (with python311Packages; [
-    # necessary to enable to "youtube dl" extension (TODO: upstream into nixpkgs!)
+    # necessary to enable to "youtube dl" extension
+    # upstreaming progress: <https://github.com/NixOS/nixpkgs/pull/331593>
     yt-dlp
   ]);
 
