@@ -17,14 +17,8 @@ stdenvNoCC.mkDerivation {
   '';
 
   nativeBuildInputs = [
-    dos2unix
     unzip
   ];
-
-  prePatch = ''
-    dos2unix vendor/seblucas/dot-php/doT.php
-  '';
-  patches = [ ./php80-fix.patch ];
 
   installPhase = ''
     mkdir $out
