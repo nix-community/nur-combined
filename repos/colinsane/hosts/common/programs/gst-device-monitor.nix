@@ -5,10 +5,9 @@
 { pkgs, ... }:
 {
   sane.programs.gst-device-monitor = {
-    packageUnwrapped = (pkgs.linkIntoOwnPackage pkgs.gst_all_1.gst-plugins-base [
-      "bin/gst-device-monitor-1.0"
-      "share/man/man1/gst-device-monitor-1.0.1.gz"
-    ]).overrideAttrs (base: {
+    packageUnwrapped = (
+      pkgs.linkBinIntoOwnPackage pkgs.gst_all_1.gst-plugins-base "gst-device-monitor-1.0"
+    ).overrideAttrs (base: {
       # XXX the binaries need `GST_PLUGIN_SYSTEM_PATH_1_0` set to function,
       # but nixpkgs doesn't set those (TODO: upstream this!)
       nativeBuildInputs = (base.nativeBuildInputs or []) ++ [

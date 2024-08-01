@@ -2,7 +2,7 @@
 { pkgs, ... }:
 {
   sane.programs.ausyscall = {
-    packageUnwrapped = pkgs.linkIntoOwnPackage pkgs.audit "bin/ausyscall";
+    packageUnwrapped = pkgs.linkBinIntoOwnPackage pkgs.audit "ausyscall";
 
     sandbox.method = "landlock";
   };

@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   sane.programs.pidof = {
-    packageUnwrapped = pkgs.linkIntoOwnPackage pkgs.procps "bin/pidof";
+    packageUnwrapped = pkgs.linkBinIntoOwnPackage pkgs.procps "pidof";
     sandbox.method = "bwrap";
     sandbox.isolatePids = false;
   };

@@ -105,6 +105,22 @@ let
     };
     # extraPrefs = ...
   }).overrideAttrs (base: {
+    nativeBuildInputs = (base.nativeBuildInputs or []) ++ [
+      pkgs.copyDesktopItems
+    ];
+    desktopItems = (base.desktopItems or []) ++ [
+      (pkgs.makeDesktopItem {
+        name = "${cfg.browser.libName}-in-vpn";
+        desktopName = "${cfg.browser.libName} (VPN)";
+        genericName = "Web Browser";
+        # N.B.: --new-instance ensures we don't reuse an existing non-vpn instance.
+        # OTOH, it may error about "only one instance can run at a time": close the non-VPN instance if you see that.
+        exec = "${lib.getExe pkgs.sane-scripts.vpn} do - -- ${cfg.browser.libName} --new-instance";
+        icon = cfg.browser.libName;
+        categories = [ "Network" "WebBrowser" ];
+        type = "Application";
+      })
+    ];
     # de-associate `ctrl+shift+c` from activating the devtools.
     # based on <https://stackoverflow.com/a/54260938>
     # TODO: could use `zip -f` to only update the one changed file, instead of rezipping everything.
@@ -130,7 +146,8 @@ let
       echo "omni.ja AFTER:"
       ls -l $out/lib/${cfg.browser.libName}/browser/omni.ja
 
-      # runHook postFixup to allow sane.programs sandbox wrappers to wrap the binaries
+      runHook postBuild
+      runHook postInstall
       runHook postFixup
     '';
   });

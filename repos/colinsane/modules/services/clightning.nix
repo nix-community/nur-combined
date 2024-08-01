@@ -235,7 +235,7 @@ in
     };
 
     sane.programs.lightning-cli = {
-      packageUnwrapped = pkgs.linkIntoOwnPackage cfg.package "bin/lightning-cli";
+      packageUnwrapped = pkgs.linkBinIntoOwnPackage cfg.package "lightning-cli";
     };
 
   };

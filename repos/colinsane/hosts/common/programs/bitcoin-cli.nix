@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   sane.programs.bitcoin-cli = {
-    packageUnwrapped = pkgs.linkIntoOwnPackage pkgs.bitcoind "bin/bitcoin-cli";
+    packageUnwrapped = pkgs.linkBinIntoOwnPackage pkgs.bitcoind "bitcoin-cli";
     sandbox.method = "bwrap";
     sandbox.autodetectCliPaths = "existing";  #< for `bitcoin-cli -datadir=/var/lib/...`
     sandbox.extraHomePaths = [

@@ -1,5 +1,6 @@
 { lib
 , deepLinkIntoOwnPackage
+, linkIntoOwnPackage
 , rmDbusServicesInPlace
 , runCommandLocalOverridable
 , stdenv
@@ -38,13 +39,45 @@
   linkIntoOwnPackage = pkg: path: let
     paths = if lib.isList path then path else [ path ];
     suffix = (lib.head paths) + (if paths != [ path ] then "-and-other-paths" else "");
+    bin = lib.getBin pkg;
+    man = lib.getMan pkg;
+    out = pkg;
+    wantMan = builtins.any (p: lib.hasPrefix "share/man" p || lib.hasPrefix "share/doc" p) paths;
   in
-    runCommandLocalOverridable "${pkg.pname or pkg.name}-${suffix}" { } ''
+    runCommandLocalOverridable "${pkg.pname or pkg.name}-${suffix}" {
+      outputs = [ "out" ] ++ lib.optionals wantMan [ "man" ];
+    } ''
+      tryLink() {
+        local srcPath="$1/$2"
+        local dirName=$(dirname "$2")
+        test -e "$srcPath" && mkdir -p "$out/$dirName" && ln -s "$srcPath" "$out/$2"
+      }
       for item in ${lib.escapeShellArgs paths}; do
-        mkdir -p "$out/$(dirname $item)"
-        ln -s "${pkg}/$item" "$out/$item"
+        tryLink "${bin}" "$item" ||
+          tryLink "${man}" "$item" ||
+          tryLink "${out}" "$item" ||
+          echo "failed to link $item" >&2
+      done
+
+      for item in share/doc share/man; do
+        if [ -e "$item" ]; then
+          moveToOutput "$item" "$man"
+        fi
       done
     '';
+
+  # `linkBinIntoOwnPackage myPkg "binary-name"`
+  # `linkBinIntoOwnPackage myPkg [ "cli-tool1" "cli-tool2" ]`
+  # `linkBinIntoOwnPackage myPkg [ ]`  -> link *all* of bin/
+  #
+  # in addition, all manpages/docs are linked into the output
+  linkBinIntoOwnPackage = pkg: path: let
+    path' = if path == [] then "" else path;  #< if handed an empty list, then link all of `bin`
+    paths = if lib.isList path' then path else [ path' ];  #< coerce to list
+    paths' = (lib.map (p: "bin/${p}") paths) ++ [ "share/doc" "share/man" ];
+  in
+    linkIntoOwnPackage pkg paths'
+  ;
 
   deepLinkIntoOwnPackage = pkg: symlinkJoin {
     name = pkg.pname or pkg.name;

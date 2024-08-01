@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   sane.programs.errno = {
-    # packageUnwrapped = pkgs.linkIntoOwnPackage pkgs.moreutils "bin/errno";
+    # packageUnwrapped = pkgs.linkBinIntoOwnPackage pkgs.moreutils "errno";
     # actually, don't build all of moreutils because not all of it builds for cross targets.
     packageUnwrapped = pkgs.moreutils.overrideAttrs (base: {
       makeFlags = (base.makeFlags or []) ++ [

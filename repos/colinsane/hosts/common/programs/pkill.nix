@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   sane.programs.pkill = {
-    packageUnwrapped = pkgs.linkIntoOwnPackage pkgs.procps "bin/pkill";
+    packageUnwrapped = pkgs.linkBinIntoOwnPackage pkgs.procps "pkill";
     sandbox.method = "bwrap";
     sandbox.isolatePids = false;
   };

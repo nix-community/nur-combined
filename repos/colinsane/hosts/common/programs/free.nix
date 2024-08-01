@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   sane.programs.free = {
-    packageUnwrapped = pkgs.linkIntoOwnPackage pkgs.procps "bin/free";
+    packageUnwrapped = pkgs.linkBinIntoOwnPackage pkgs.procps "free";
     sandbox.method = "bwrap";
     sandbox.isolatePids = false;
   };

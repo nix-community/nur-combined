@@ -118,6 +118,7 @@ let
     inherit (trivial-builders)
       copyIntoOwnPackage
       deepLinkIntoOwnPackage
+      linkBinIntoOwnPackage
       linkIntoOwnPackage
       rmDbusServices
       rmDbusServicesInPlace
