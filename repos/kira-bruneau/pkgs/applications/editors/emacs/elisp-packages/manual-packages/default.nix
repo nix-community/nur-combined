@@ -1,17 +1,13 @@
 pkgs: final: prev:
 
-with final;
-
 let
+  inherit (pkgs) lib;
   callPackage = pkgs.newScope final;
 in
-{
+lib.packagesFromDirectoryRecursive {
   inherit callPackage;
-
-  acm = callPackage ./acm { };
-
-  acm-terminal = callPackage ./acm-terminal { };
-
+  directory = ./.;
+} // {
   lsp-bridge = callPackage ./lsp-bridge {
     inherit (pkgs)
       basedpyright
