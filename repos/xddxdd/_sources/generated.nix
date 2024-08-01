@@ -86,15 +86,15 @@
   };
   attic = {
     pname = "attic";
-    version = "6139576a3ce6bb992e0f6c3022528ec233e45f00";
+    version = "e127acbf9a71ebc0c26bc8e28346822e0a6e16ba";
     src = fetchFromGitHub {
       owner = "zhaofengli";
       repo = "attic";
-      rev = "6139576a3ce6bb992e0f6c3022528ec233e45f00";
+      rev = "e127acbf9a71ebc0c26bc8e28346822e0a6e16ba";
       fetchSubmodules = false;
-      sha256 = "sha256-aKjJ/4l2I9+wNGTaOGRsuS3M1+IoTibqgEMPDikXm04=";
+      sha256 = "sha256-GJIz4M5HDB948Ex/8cPvbkrNzl/eKUE7/c21JBu4lb8=";
     };
-    date = "2024-07-09";
+    date = "2024-07-31";
   };
   axiom-syslog-proxy = {
     pname = "axiom-syslog-proxy";
@@ -796,13 +796,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3490";
+    version = "b3499";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3490";
+      rev = "b3499";
       fetchSubmodules = false;
-      sha256 = "sha256-sDqJqIyqw1cyuiw7cXFfG2vsw8MoIQ2hlCXMwOTw04Y=";
+      sha256 = "sha256-UFs+oCurHKOE/n/Y9gxR95EXfdSra+TzkxJgpbqLiHM=";
     };
   };
   lyrica = {
@@ -1326,15 +1326,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "028ecec79f0e71ae91b2acdf9117083018c68221";
+    version = "9c7d1287f46f1787a15ed47ae9a9d08bf99dff81";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "028ecec79f0e71ae91b2acdf9117083018c68221";
+      rev = "9c7d1287f46f1787a15ed47ae9a9d08bf99dff81";
       fetchSubmodules = false;
-      sha256 = "sha256-pWnESKSjVlwG2aRGi5qb78RXLtoXunJ3hr7FFhh9D6E=";
+      sha256 = "sha256-6Jw/tSRSkeg2EIAdb9UEXP9Ox6JQUWHx+ICS/cp7Sn0=";
     };
-    date = "2024-07-31";
+    date = "2024-08-01";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
