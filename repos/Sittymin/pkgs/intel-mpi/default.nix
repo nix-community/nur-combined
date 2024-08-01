@@ -72,4 +72,8 @@ stdenvNoCC.mkDerivation {
     mv doc $out/share/doc
     mv man $out/share/man
   '';
+  meta = {
+    broken = true;
+  };
+
 }

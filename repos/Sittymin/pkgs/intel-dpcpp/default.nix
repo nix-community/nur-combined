@@ -137,4 +137,8 @@ stdenvNoCC.mkDerivation {
 
     sed -r -i "s|^prefix=.*|prefix=$out|g" $out/lib/pkgconfig/openmp.pc
   '';
+  meta = {
+    broken = true;
+  };
+
 }
