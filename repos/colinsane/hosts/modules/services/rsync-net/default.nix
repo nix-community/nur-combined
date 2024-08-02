@@ -39,11 +39,20 @@ in
       serviceConfig.Restart = "no";
       serviceConfig.User = "colin";
 
-      # hardening
       serviceConfig.AmbientCapabilities = [
         # needs to be able to read files owned by any user
         "CAP_DAC_READ_SEARCH"
       ];
+      serviceConfig.RestrictNetworkInterfaces = [
+        # strictly forbid sending traffic over any non ethernet/wifi interface,
+        # because i don't want this e.g. consuming all my cellular data.
+        # TODO: test this. i don't know that the moby kernel/systemd actually supports these options
+        "lo"  # for DNS
+        "eth0"
+        "wlan0"
+      ];
+
+      # hardening
       serviceConfig.CapabilityBoundingSet = [ "CAP_DAC_READ_SEARCH" ];
       serviceConfig.ReadWritePaths = builtins.map (d: "${d}/zzz-rsync-net") cfg.dirs;
       serviceConfig.ReadOnlyPaths = "/nix/persist/private";

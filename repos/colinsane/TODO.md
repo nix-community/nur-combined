@@ -8,6 +8,7 @@
 - trust-dns can't resolve `abs.twimg.com`
 - trust-dns can't resolve `social.kernel.org`
 - trust-dns can't resolve `pe.usps.com`
+- trust-dns can't resolve `social.seattle.wa.us`
 - sandbox: link cache means that if i update ~/.config/... files inline, sandboxed programs still see the old version
 - mpv: continues to play past the end of some audio files
 - mpv: audiocast has mpv sending its output to the builtin speakers unless manually changed

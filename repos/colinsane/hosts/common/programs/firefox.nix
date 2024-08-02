@@ -113,9 +113,20 @@ let
         name = "${cfg.browser.libName}-in-vpn";
         desktopName = "${cfg.browser.libName} (VPN)";
         genericName = "Web Browser";
-        # N.B.: --new-instance ensures we don't reuse an existing non-vpn instance.
-        # OTOH, it may error about "only one instance can run at a time": close the non-VPN instance if you see that.
-        exec = "${lib.getExe pkgs.sane-scripts.vpn} do - -- ${cfg.browser.libName} --new-instance";
+        # N.B.: --new-instance ensures we don't reuse an existing differenty-namespaced instance.
+        # OTOH, it may error about "only one instance can run at a time": close the other instance if you see that.
+        exec = "${lib.getExe pkgs.sane-scripts.vpn} do default -- ${cfg.browser.libName} --new-instance";
+        icon = cfg.browser.libName;
+        categories = [ "Network" "WebBrowser" ];
+        type = "Application";
+      })
+      (pkgs.makeDesktopItem {
+        name = "${cfg.browser.libName}-stub-dns";
+        desktopName = "${cfg.browser.libName} (stub DNS)";
+        genericName = "Web Browser";
+        # N.B.: --new-instance ensures we don't reuse an existing differently-namespaced instance.
+        # OTOH, it may error about "only one instance can run at a time": close the other instance if you see that.
+        exec = "${lib.getExe pkgs.sane-scripts.vpn} do none -- ${cfg.browser.libName} --new-instance";
         icon = cfg.browser.libName;
         categories = [ "Network" "WebBrowser" ];
         type = "Application";

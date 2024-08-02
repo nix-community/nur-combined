@@ -10,7 +10,7 @@ usage:
 sane-vpn [flags ...] operation [operation flags]
 
 flags:
-  --debug
+  --verbose
   --no-proxy-dns
 
 operations:
