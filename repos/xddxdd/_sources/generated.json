@@ -538,12 +538,12 @@
             "name": null,
             "owner": "ManiMatter",
             "repo": "decluttarr",
-            "rev": "v1.46.1",
-            "sha256": "sha256-yoq1CbYdsB3q7diB423PxGX5VYn1V+qObqV6CbewyZk=",
+            "rev": "v1.47.0",
+            "sha256": "sha256-bi9s1UWkD7pQ3b7Lx9RrMeecl2HKOr22r9BoIVDXg1k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.46.1"
+        "version": "v1.47.0"
     },
     "dingtalk": {
         "cargoLocks": null,
@@ -1437,12 +1437,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3499",
-            "sha256": "sha256-UFs+oCurHKOE/n/Y9gxR95EXfdSra+TzkxJgpbqLiHM=",
+            "rev": "b3504",
+            "sha256": "sha256-ecdFExRGQchpYG2T4A53GCcCJ+2xIEklcYGIBhpuI+s=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3499"
+        "version": "b3504"
     },
     "lyrica": {
         "cargoLocks": null,
