@@ -117,28 +117,11 @@
 
             generate-readme.program =
               let
-                # 😱
-                programList = lib.importJSON (
-                  pkgs.runCommand "program-list.json" { } ''
-                    { ${
-                      builtins.concatStringsSep "\n" (
-                        lib.mapAttrsToList (name: value: ''
-                          if test -d ${value}/bin; then
-                            ${lib.getExe pkgs.jq} -n '{"${name}": $ARGS.positional}' --args $(find ${value}/bin \( -type f -or -type l \) -executable -not -name ".*" -printf "%f\n" | sort)
-                          fi
-                        '') config.packages
-                      )
-                    } } | ${lib.getExe pkgs.jq} -s add > $out
-                  ''
-                );
-
                 packageList = pkgs.writeText "package-list.md" (
                   builtins.concatStringsSep "\n" (
                     lib.mapAttrsToList (
                       name: value:
                       let
-                        programs = programList.${name} or [ ];
-
                         description = value.meta.description or "";
                         longDescription = value.meta.longDescription or "";
                         outputs = value.outputs or [ ];
@@ -148,7 +131,6 @@
                         licenses = lib.toList (value.meta.license or [ ]);
                         maintainers = value.meta.maintainers or [ ];
                         platforms = value.meta.platforms or [ ];
-                        mainProgram = value.meta.mainProgram or "";
                         broken = value.meta.broken or false;
                         unfree = value.meta.unfree or false;
 
@@ -201,14 +183,6 @@
                           lib.optionalString (licenses != null) (
                             "- License${if builtins.length licenses > 1 then "s" else ""}: "
                             + (lib.concatMapStringsSep ", " formatLicense licenses)
-                          );
-
-                        programsSection =
-                          let
-                            formatProgram = x: if x == mainProgram || x == value.pname then "**`${x}`**" else "`${x}`";
-                          in
-                          lib.optionalString (programs != [ ]) (
-                            "- Programs provided: " + (lib.concatMapStringsSep ", " formatProgram programs)
                           );
 
                         maintainersSection =
@@ -265,7 +239,6 @@
                               </summary>
                           ''
                           outputsSection
-                          programsSection
                           platformsSection
                           ''
                             </details>

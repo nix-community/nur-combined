@@ -5,16 +5,16 @@
   nix-update-script,
 }:
 
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "fotoente-neohaj";
-  version = "0-unstable-2024-07-29";
+  version = "0.1";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "fotoente";
     repo = "neohaj";
-    rev = "7e1e37008adf94ddae9fac7eae36830c147ba4f7";
-    hash = "sha256-XWWaDF0uCihU+Uwm4pexNkGIB45WAbtq5C0E848BdgU=";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-jZOxzR2gAjIVoQcIQTBwdWZ+L9a/Llge5pHTcdIMDdQ=";
   };
 
   installPhase = ''
@@ -26,12 +26,7 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
-  };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Source files for the neohaj emoji";
@@ -40,4 +35,4 @@ stdenvNoCC.mkDerivation {
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
-}
+})
