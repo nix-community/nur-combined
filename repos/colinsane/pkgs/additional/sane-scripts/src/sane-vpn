@@ -234,7 +234,7 @@ def vpn_do(config: VpnConfig, cmd: list[str]) -> None:
 
     wrapped_cmd = [
         "sanebox",
-        "--sanebox-method", "bwrap",
+        "--sanebox-method", "pastaonly",
         "--sanebox-keep-namespace", "all",
         "--sanebox-path", "/",
         "--sanebox-no-portal",

@@ -78,6 +78,7 @@ capabilities=()
 # keepNamespace:
 # - "cgroup"
 # - "ipc"
+# - "net"
 # - "pid": if this process may wany to query /proc/$PID/... of parent/sibling processes.
 # - "uts"
 # - "all": as if all the above were specified
@@ -89,11 +90,13 @@ netDev=
 netGateway=default
 # list of IP addresses to use for DNS servers inside the sandbox (not supported by all backends)
 dns=()
-# list of `VAR=VALUE` environment variables to add to the sandboxed program's environment
-portalEnv=()
+# VAR -> VALUE map of environment variables to add to the sandboxed program's environment
+declare -A portalEnv
 
 # arguments to forward onto a specific backend (if that backend is active)
-bwrapFlags=()
+bwrapArgs=()
+capshArgs=()
+pastaArgs=()
 
 usage() {
   echo 'sanebox: run a program inside a sandbox'
@@ -117,18 +120,20 @@ usage() {
   echo '      use a specific sandboxer'
   echo '  --sanebox-autodetect <existing|existingFile|existingFileOrParent|existingOrParent|parent>'
   echo '      add files which appear later as CLI arguments into the sandbox'
-  echo '  --sanebox-cap <sys_admin|net_raw|net_admin|...>'
+  echo '  --sanebox-cap <all|sys_admin|net_raw|net_admin|...>'
   echo '      allow the sandboxed program to use the provided linux capability (both inside and outside the sandbox)'
+  echo '      special cap "all" to preserve all capabilities possible'
   echo '  --sanebox-portal'
   echo '      set environment variables so that the sandboxed program will attempt to use xdg-desktop-portal for operations like opening files'
   echo '  --sanebox-no-portal'
   echo '      undo a previous `--sanebox-portal` arg'
   echo '  --sanebox-bwrap-arg <arg>'
+  echo '  --sanebox-capsh-arg <arg>'
   echo '  --sanebox-pasta-arg <arg>'
   echo '  --sanebox-net-dev <iface>|all'
   echo '  --sanebox-net-gateway <ip-address>'
   echo '  --sanebox-dns <server>|host'
-  echo '  --sanebox-keep-namespace <cgroup|ipc|pid|uts|all>'
+  echo '  --sanebox-keep-namespace <all|cgroup|ipc|net|pid|uts>'
   echo '      do not unshare the provided linux namespace'
   echo '  --sanebox-path <path>'
   echo '      allow access to the host <path> within the sandbox'
@@ -516,23 +521,45 @@ parseArgs() {
         # N.B.: these named temporary variables ensure that "set -x" causes $1 to be printed
         local cap=$1
         shift
-        capabilities+=("$cap")
+        if [ "$cap" = all ]; then
+          # this tries to remain exhaustive, but new capabilities are occassionally added to the kernel:
+          # add anything here as it's found to be missing
+          capabilities+=(
+            audit_control  audit_read    audit_write       block_suspend    bpf         checkpoint_restore
+            chown          dac_override  dac_read_search   fowner           fsetid      ipc_lock
+            ipc_owner      kill          lease             linux_immutable  mac_admin   mac_override
+            mknod          net_admin     net_bind_service  net_broadcast    net_raw     perfmon
+            setfcap        setgid        setpcap           setuid           sys_admin   sys_boot
+            sys_chroot     sys_module    sys_nice          sys_pacct        sys_ptrace  sys_rawio
+            sys_resource   sys_time      sys_tty_config    syslog           wake_alarm
+          )
+        else
+          capabilities+=("$cap")
+        fi
         ;;
       (--sanebox-portal)
         # instruct glib/gtk apps to perform actions such as opening external files via dbus calls to org.freedesktop.portal.*.
         # note that GIO_USE_PORTALS primarily acts as a *fallback*: apps only open files via the portal if they don't know how to themelves.
         # this switch is typically accompanied by removing all MIME associations from the app's view, then.
         # GTK_USE_PORTALS is the old name, beginning to be phased out as of 2023-10-02
-        portalEnv=("GIO_USE_PORTALS=1" "GTK_USE_PORTAL=1" "NIXOS_XDG_OPEN_USE_PORTAL=1")
+        portalEnv[GIO_USE_PORTALS]=1
+        portalEnv[GTK_USE_PORTAL]=1
+        portalEnv[NIXOS_XDG_OPEN_USE_PORTAL]=1
         ;;
       (--sanebox-no-portal)
         # override a previous --sanebox-portal call
-        portalEnv=()
+        unset portalEnv
+        declare -A portalEnv
         ;;
       (--sanebox-bwrap-arg)
-        local bwrapFlag=$1
+        local bwrapArg=$1
         shift
-        bwrapFlags+=("$bwrapFlag")
+        bwrapArgs+=("$bwrapArg")
+        ;;
+      (--sanebox-capsh-arg)
+        local capshArg=$1
+        shift
+        capshArgs+=("$capshArg")
         ;;
       (--sanebox-pasta-arg)
         local pastaArg=$1
@@ -559,9 +586,8 @@ parseArgs() {
       (--sanebox-keep-namespace)
         local namespace=$1
         shift
-        # TODO: should this include `net` namespace??
         if [ "$namespace" = all ]; then
-          keepNamespace+=("cgroup" "ipc" "pid" "uts")
+          keepNamespace+=("cgroup" "ipc" "net" "pid" "uts")
         else
           keepNamespace+=("$namespace")
         fi
@@ -620,15 +646,15 @@ bwrapIngestPath() {
   # - /mnt/servo                -> never hangs
   # may be possible to place ever mount in a subdir, and mount the super dir?
   # or maybe configure remote mounts to somehow never hang.
-  # test -r "$1" && bwrapFlags+=("--dev-bind-try" "$1" "$1")
+  # test -r "$1" && bwrapArgs+=("--dev-bind-try" "$1" "$1")
 
   # N.B.: test specifically whether this path is a link, not whether it's a non-symlink under a symlink'd dir.
   # this way, the filetype of this path is *always* the same both inside and outside the sandbox.
   readlinkOnce linkTarget "$1"
   if [ -n "$linkTarget" ]; then
-    bwrapFlags+=("--symlink" "$linkTarget" "$1")
+    bwrapArgs+=("--symlink" "$linkTarget" "$1")
   else
-    bwrapFlags+=("--dev-bind-try" "$1" "$1")
+    bwrapArgs+=("--dev-bind-try" "$1" "$1")
   fi
 
   # default to virtualizing a few directories in a way that's safe (doesn't impact outside environment)
@@ -675,6 +701,9 @@ bwrapIngestKeepNamespace() {
     (ipc)
       bwrapUnshareIpc=()
       ;;
+    (net)
+      bwrapUnshareNet=()
+      ;;
     (pid)
       bwrapUnsharePid=()
       ;;
@@ -684,38 +713,42 @@ bwrapIngestKeepNamespace() {
   esac
 }
 bwrapIngestCapability() {
-  bwrapFlags+=("--cap-add" "cap_$1")
+  bwrapArgs+=("--cap-add" "cap_$1")
 }
 
 bwrapGetCli() {
   # --unshare-all implies the following:
   # --unshare-pid: mean that the /proc mount does not expose /proc/$PID/ for every other process on the machine.
   # --unshare-net creates a new net namespace with only the loopback interface.
-  #               if `bwrapFlags` contains --share-net, thiss is canceled and the program sees an unsandboxed network.
+  #               if `bwrapArgs` contains --share-net, this is canceled and the program sees an unsandboxed network.
   # --unshare-ipc
   # --unshare-cgroup
   # --unshare-uts
   # --unshare-user (implicit to every non-suid call to bwrap)
   locate _bwrap "bwrap" "$BWRAP_FALLBACK"
-  locate _env "env" "$ENV_FALLBACK"
   if [ -n "$bwrapUsePasta" ]; then
     # pasta drops us into an environment where we're root, but some apps complain if run as root.
     # TODO: this really belongs on the `pastaonlyGetCli` side.
     # TODO: i think we need to add `/dev/net/tun` to the namespace for nested pasta calls to work?
-    bwrapFlags+=(
+    bwrapArgs+=(
       # --unshare-user is necessary for --uid to work when called as pseudo root
       --unshare-user
       --uid "$UID"
       --gid "${GROUPS[0]}"
     )
   fi
+
+  for envName in "${!portalEnv[@]}"; do
+    bwrapArgs+=(--setenv "$envName" "${portalEnv[$envName]}")
+  done
+
   cliArgs=(
     "$_bwrap" "${bwrapUnshareCgroup[@]}" "${bwrapUnshareIpc[@]}"
       "${bwrapUnshareNet[@]}" "${bwrapUnsharePid[@]}"
       "${bwrapUnshareUts[@]}"
       "${bwrapVirtualizeDev[@]}" "${bwrapVirtualizeProc[@]}" "${bwrapVirtualizeTmp[@]}"
-      "${bwrapFlags[@]}" --
-    "$_env" "${portalEnv[@]}" "${cliArgs[@]}"
+      "${bwrapArgs[@]}" --
+    "${cliArgs[@]}"
   )
   if [ -n "$bwrapUsePasta" ]; then
     pastaonlyGetCli
@@ -792,11 +825,11 @@ landlockGetCli() {
   # N.B: capsh passes its arg to bash (via /nix/store/.../bash), which means you have to `-c "my command"` to
   # invoke the actual user command.
   locate _sandboxer "sandboxer" "$LANDLOCK_SANDBOXER_FALLBACK"
-  locate _capsh "capsh" "$CAPSH_FALLBACK"
   locate _env "env" "$ENV_FALLBACK"
+  capshonlyGetCli
   cliArgs=("$_env" LL_FS_RO= LL_FS_RW="$landlockPaths" "${landlockNetFlags[@]}"
     "$_sandboxer"
-    "$_capsh" "--caps=$capshCapsArg" --no-new-privs --shell="$_env" -- "${portalEnv[@]}" "${cliArgs[@]}"
+    "${cliArgs[@]}"
   )
 }
 
@@ -849,8 +882,14 @@ capshonlyIngestCapability() {
 capshonlyGetCli() {
   locate _capsh "capsh" "$CAPSH_FALLBACK"
   locate _env "env" "$ENV_FALLBACK"
+
+  local envArgs=()
+  for envName in "${!portalEnv[@]}"; do
+    envArgs+=("$envName=${portalEnv[$envName]}")
+  done
+
   cliArgs=(
-    "$_capsh" "--caps=$capshCapsArg" --no-new-privs --shell="$_env" -- "${portalEnv[@]}" "${cliArgs[@]}"
+    "$_capsh" "--caps=$capshCapsArg" --no-new-privs --shell="$_env" "${capshArgs[@]}" -- "${envArgs[@]}" "${cliArgs[@]}"
   )
 }
 
@@ -858,7 +897,6 @@ capshonlyGetCli() {
 ## PASTA-ONLY BACKEND
 # this backend exists mostly as a helper for the bwrap backend
 
-pastaArgs=()
 pastaNetSetup=
 pastaOutboundPorts=()
 pastaonlySetup() {
@@ -912,11 +950,18 @@ pastaonlyGetCli() {
     "${cliArgs[@]}"
   )
   locate _pasta "pasta" "$PASTA_FALLBACK"
+
+  if [ "$UID" = 0 ]; then
+    # default pasta will change to `nobody` if invoked as root, but there are times i actually want to run as root.
+    pastaArgs+=(--runas 0)
+  fi
+
   local pastaOutboundPortsStr=none
   if [ "${#pastaOutboundPorts[@]}" -ne 0 ]; then
     pastaOutboundPortsStr="${pastaOutboundPorts[*]}"
     pastaOutboundPortsStr="${pastaOutboundPortsStr// /,}"
   fi
+
   cliArgs=(
     "$_pasta" --ipv4-only -U "$pastaOutboundPortsStr" -T "$pastaOutboundPortsStr" -u none -t none --config-net
       "${pastaArgs[@]}" --
