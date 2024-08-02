@@ -234,6 +234,20 @@ let
         description = "name of the systemd unit which mounts this path";
         default = mountNameFor path;
       };
+      mountConfig = mkOption {
+        type = types.attrs;
+        description = ''
+          attrset to add to the [Mount] section of the systemd unit file.
+        '';
+        default = {};
+      };
+      unitConfig = mkOption {
+        type = types.attrs;
+        description = ''
+          attrset to add to the [Unit] section of the systemd unit file.
+        '';
+        default = {};
+      };
     };
   };
 
@@ -268,7 +282,7 @@ let
   };
 
   # given a mountEntry definition, evaluate its toplevel `config` output.
-  mkMountConfig = path: opt: (let
+  mkMountConfig = path: opt: let
     device = config.fileSystems."${path}".device;
     underlying = cfg."${device}";
     isBind = opt.mount.bind != null;
@@ -278,12 +292,12 @@ let
     # - prepare the source directory -- assuming it's not an external device
     # - satisfy any user-specified prerequisites ("depends")
     requires = [ opt.generated.unit ]
-      ++ (if lib.hasPrefix "/dev/disk/" device then [] else [ underlying.unit ])
+      ++ (if lib.hasPrefix "/dev/disk/" device || lib.hasPrefix "ftp://" device then [] else [ underlying.unit ])
       ++ opt.mount.depends;
   in {
     fileSystems."${path}" = {
       device = ifBind opt.mount.bind;
-      options = (if isBind then ["bind"] else [])
+      options = (lib.optionals isBind [ "bind" ])
         ++ [
           # disable defaults: don't require this to be mount as part of local-fs.target
           # we'll handle that stuff precisely.
@@ -298,13 +312,26 @@ let
         ++ (builtins.map (unit: "x-systemd.wanted-by=${unit}") (opt.wantedBy ++ opt.wantedBeforeBy));
       noCheck = ifBind true;
     };
-  });
+    systemd.mounts = let
+      fsEntry = config.fileSystems."${path}";
+    in [{
+      where = path;
+      what = if fsEntry.device != null then fsEntry.device else "";
+      type = fsEntry.fsType;
+      options = lib.concatStringsSep "," fsEntry.options;
+      after = requires;
+      requires = requires;
+      before = opt.wantedBeforeBy;
+      wantedBy = opt.wantedBeforeBy;
+      inherit (opt.mount) mountConfig unitConfig;
+    }];
+  };
 
 
-  mkFsConfig = path: opt: lib.mkMerge [
-    (mkGeneratedConfig path opt)
-    (lib.mkIf (opt.mount != null) (mkMountConfig path opt))
-  ];
+  mkFsConfig = path: opt: lib.mkMerge (
+    [ (mkGeneratedConfig path opt) ] ++
+      lib.optional (opt.mount != null) (mkMountConfig path opt)
+  );
 
   # return all ancestors of this path.
   # e.g. ancestorsOf "/foo/bar/baz" => [ "/" "/foo" "/foo/bar" ]
@@ -358,6 +385,7 @@ in {
     let
       configs = lib.mapAttrsToList mkFsConfig cfg;
       take = f: {
+        systemd.mounts = f.systemd.mounts;
         systemd.services = f.systemd.services;
         fileSystems = f.fileSystems;
       };

@@ -126,6 +126,7 @@ let
     description = "trust-dns Domain Name Server (serving ${flavor})";
     unitConfig.Documentation = "https://trust-dns.org/";
     after = [ "network.target" ];
+    before = [ "network-online.target" ];  # most things assume they'll have DNS services alongside routability
     wantedBy = [ "network.target" ];
 
     preStart = lib.concatStringsSep "\n" (

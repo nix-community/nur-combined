@@ -1,7 +1,6 @@
 { config, lib, pkgs, sane-lib, utils, ... }:
 
 let
-  # TODO: parameterize!
   persist-base = "/nix/persist";
   origin = config.sane.persist.stores."private".origin;
   backing = sane-lib.path.concat [ persist-base "private" ];
@@ -93,7 +92,7 @@ lib.mkIf config.sane.persist.enable
     device = backing;
     fsType = "fuse.gocryptfs-private";
     options = [
-      "auto"
+      # "auto"
       "nofail"
       # "nodev"   # "Unknown parameter 'nodev'". gocryptfs requires this be passed as `-ko nodev`
       # "noexec"  # handful of scripts in ~/knowledge that are executable
@@ -112,22 +111,46 @@ lib.mkIf config.sane.persist.enable
   };
 
   # let sane.fs know about the mount
-  sane.fs."${origin}".mount = {};
+  sane.fs."${origin}" = {
+    wantedBy = [ "local-fs.target" ];
+    mount.depends = [
+      config.sane.fs."${backing}".unit
+      config.sane.fs."/run/gocryptfs".unit
+    ];
+    # unitConfig.DefaultDependencies = "no";
+    mount.mountConfig.TimeoutSec = "infinity";
+
+    # hardening (systemd-analyze security mnt-persist-private.mount)
+    mount.mountConfig.AmbientCapabilities = "";
+    # CAP_LEASE is probably not necessary -- does any fs user use leases?
+    mount.mountConfig.CapabilityBoundingSet = "CAP_SYS_ADMIN CAP_DAC_OVERRIDE CAP_DAC_READ_SEARCH CAP_CHOWN CAP_MKNOD CAP_LEASE CAP_SETGID CAP_SETUID CAP_FOWNER";
+    mount.mountConfig.LockPersonality = true;
+    mount.mountConfig.MemoryDenyWriteExecute = true;
+    mount.mountConfig.NoNewPrivileges = true;
+    mount.mountConfig.ProtectClock = true;
+    mount.mountConfig.ProtectHostname = true;
+    mount.mountConfig.RemoveIPC = true;
+    mount.mountConfig.RestrictAddressFamilies = "AF_UNIX";  # "none" works, but then it can't connect to the logger
+    mount.mountConfig.RestrictFileSystems = "@common-block devtmpfs fuse pipefs";
+    mount.mountConfig.RestrictNamespaces = true;
+    mount.mountConfig.RestrictNetworkInterfaces = "";
+    mount.mountConfig.RestrictRealtime = true;
+    mount.mountConfig.RestrictSUIDSGID = true;
+    mount.mountConfig.SystemCallArchitectures = "native";
+    mount.mountConfig.SystemCallFilter = [
+      # unfortunately, i need to keep @network-io (accept, bind, connect, listen, recv, send, socket, ...). not sure why (daemon control socket?).
+      "@system-service" "@mount" "~@cpu-emulation" "~@keyring"
+    ];
+    mount.mountConfig.IPAddressDeny = "any";
+    mount.mountConfig.DevicePolicy = "closed";  # only allow /dev/{null,zero,full,random,urandom}
+    mount.mountConfig.DeviceAllow = "/dev/fuse";
+    mount.mountConfig.SocketBindDeny = "any";
+  };
   # it also needs to know that the underlying device is an ordinary folder
-  sane.fs."${backing}" = sane-lib.fs.wanted {
-    dir.acl.user = config.sane.defaultUser;
-  };
-
-  sane.fs."/run/gocryptfs" = sane-lib.fs.wanted {
-    dir.acl.user = config.sane.defaultUser;
-    dir.acl.mode = "0700";
-  };
-
-  # in order for non-systemd `mount` to work, the mount point has to already be created, so make that a default target
-  systemd.units = let
-    originUnit = config.sane.fs."${origin}".generated.unit;
-  in {
-    "${originUnit}".wantedBy = [ "local-fs.target" ];
+  sane.fs."${backing}".dir.acl.user = config.sane.defaultUser;
+  sane.fs."/run/gocryptfs".dir.acl = {
+    user = config.sane.defaultUser;
+    mode = "0700";
   };
 
   system.fsPackages = [ gocryptfs-private ];
