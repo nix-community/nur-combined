@@ -2,7 +2,9 @@
   default =
     final: prev:
     let
-      nurPkgs = removeAttrs (import ../pkgs final prev) [
+      lib = prev.lib;
+
+      nurPkgs = removeAttrs (import ../pkgs { inherit lib; } final prev) [
         "callPackage"
         "emacsPackages"
         "linuxPackages"
@@ -11,17 +13,24 @@
 
       emacsPackagesOverlay =
         efinal: eprev:
-        removeAttrs (import ../pkgs/applications/editors/emacs/elisp-packages/manual-packages final efinal
-          eprev
-        ) [ "callPackage" ];
+        removeAttrs (import ../pkgs/applications/editors/emacs/elisp-packages/manual-packages {
+          inherit lib;
+          pkgs = final;
+        } efinal eprev) [ "callPackage" ];
 
       linuxModulesOverlay =
         lfinal: lprev:
-        removeAttrs (import ../pkgs/os-specific/linux/modules.nix final lfinal lprev) [ "callPackage" ];
+        removeAttrs (import ../pkgs/os-specific/linux/modules.nix {
+          inherit lib;
+          pkgs = final;
+        } lfinal lprev) [ "callPackage" ];
 
       pythonModulesOverlay =
         pyfinal: pyprev:
-        removeAttrs (import ../pkgs/development/python-modules final pyfinal pyprev) [ "callPackage" ];
+        removeAttrs (import ../pkgs/development/python-modules {
+          inherit lib;
+          pkgs = final;
+        } pyfinal pyprev) [ "callPackage" ];
     in
     nurPkgs
     // {

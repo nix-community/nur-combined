@@ -32,11 +32,13 @@
     // flake-utils.lib.eachDefaultSystem (
       system:
       let
+        lib = nixpkgs.lib;
+
         pkgs = import nixpkgs {
           config = {
             allowUnfreePredicate =
               pkg:
-              builtins.elem (builtins.parseDrvName (nixpkgs.lib.getName pkg)).name [
+              builtins.elem (builtins.parseDrvName (lib.getName pkg)).name [
                 "anytype"
                 "anytype-heart"
                 "anytype-nmh"
@@ -53,9 +55,9 @@
         flake-linter-lib = flake-linter.lib.${system};
 
         paths = flake-linter-lib.partitionToAttrs flake-linter-lib.commonPaths (
-          builtins.filter (
-            path: (builtins.all (ignore: !(nixpkgs.lib.hasSuffix ignore path)) [ "gemset.nix" ])
-          ) (flake-linter-lib.walkFlake ./.)
+          builtins.filter (path: (builtins.all (ignore: !(lib.hasSuffix ignore path)) [ "gemset.nix" ])) (
+            flake-linter-lib.walkFlake ./.
+          )
         );
 
         linter = flake-linter-lib.makeFlakeLinter {
@@ -75,7 +77,7 @@
           };
         };
 
-        nurPkgs = import ./pkgs (pkgs // nurPkgs) pkgs;
+        nurPkgs = import ./pkgs { inherit lib; } (pkgs // nurPkgs) pkgs;
 
         flatNurPkgs = flake-utils.lib.flattenTree nurPkgs;
       in
@@ -87,7 +89,7 @@
         apps = {
           sync = {
             type = "app";
-            program = nixpkgs.lib.getExe (
+            program = lib.getExe (
               nurPkgs.callPackage ./maintainers/scripts/sync.nix {
                 nix-fast-build = nix-fast-build.packages.${system}.default;
                 inherit nixpkgs;

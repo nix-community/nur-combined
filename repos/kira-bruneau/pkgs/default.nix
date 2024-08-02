@@ -1,3 +1,5 @@
+{ lib }:
+
 final: prev:
 
 with final;
@@ -5,10 +7,19 @@ with final;
 let
   callPackage = prev.newScope final;
 
-  emacsPackagesOverlay = import ./applications/editors/emacs/elisp-packages/manual-packages final;
+  emacsPackagesOverlay = import ./applications/editors/emacs/elisp-packages/manual-packages {
+    inherit lib;
+    pkgs = final;
+  };
 
   linuxModulesOverlay =
-    if stdenv.isLinux then import ./os-specific/linux/modules.nix final else lfinal: lprev: { };
+    if stdenv.isLinux then
+      import ./os-specific/linux/modules.nix {
+        inherit lib;
+        pkgs = final;
+      }
+    else
+      lfinal: lprev: { };
 
   mapDisabledToBroken =
     attrs:
@@ -19,33 +30,35 @@ let
       };
     };
 
-  removeFlakeRoot = path: lib.removePrefix "${toString ../.}/" path;
-
-  fixUpdateScriptArgs =
-    drv:
-    drv
-    // {
-      updateScript =
-        if builtins.isList drv.updateScript then
-          [ (builtins.head drv.updateScript) ]
-          ++ (builtins.map removeFlakeRoot (builtins.tail drv.updateScript))
-        else
-          drv.updateScript;
-    };
-
   pythonModulesOverlay =
     pyfinal:
-    import ./development/python-modules final (
-      pyfinal
-      // {
-        buildPythonApplication =
-          attrs: fixUpdateScriptArgs (pyfinal.buildPythonApplication (mapDisabledToBroken attrs));
-        buildPythonPackage =
-          attrs: fixUpdateScriptArgs (pyfinal.buildPythonPackage (mapDisabledToBroken attrs));
+    import ./development/python-modules
+      {
+        inherit lib;
+        pkgs = final;
       }
-    );
+      (
+        pyfinal
+        // {
+          buildPythonApplication = attrs: pyfinal.buildPythonApplication (mapDisabledToBroken attrs);
+          buildPythonPackage = attrs: pyfinal.buildPythonPackage (mapDisabledToBroken attrs);
+        }
+      );
 in
-{
+(lib.foldlAttrs
+  (
+    acc: _: attrs:
+    acc // attrs
+  )
+  { }
+  (
+    lib.packagesFromDirectoryRecursive {
+      inherit callPackage;
+      directory = ./by-name;
+    }
+  )
+)
+// {
   inherit callPackage;
 
   anytype = callPackage ./development/tools/misc/anytype { };
@@ -53,8 +66,6 @@ in
   anytype-heart = callPackage ./development/libraries/anytype-heart { };
 
   anytype-nmh = callPackage ./development/libraries/anytype-nmh { };
-
-  ccache = callPackage ./by-name/cc/ccache/package.nix { };
 
   clonehero = callPackage ./games/clonehero { };
 
@@ -119,8 +130,6 @@ in
   );
 
   sudachi = qt6Packages.callPackage ./by-name/su/sudachi/package.nix { };
-
-  swaylock-fprintd = callPackage ./by-name/sw/swaylock-fprintd/package.nix { };
 
   texlab = callPackage ./development/tools/misc/texlab {
     inherit (darwin.apple_sdk.frameworks) Security CoreServices;

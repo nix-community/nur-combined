@@ -3,7 +3,8 @@
 }:
 
 let
-  nurPkgs = import ./pkgs (pkgs // nurPkgs) pkgs;
+  lib = pkgs.lib;
+  nurPkgs = import ./pkgs { inherit lib; } (pkgs // nurPkgs) pkgs;
 in
 {
   # The `modules`, and `overlay` names are special
@@ -11,6 +12,6 @@ in
   overlays = import ./overlays; # nixpkgs overlays
 
   # Workaround to support auto-commiting with update script
-  inherit (pkgs) lib;
+  inherit lib;
 }
 // nurPkgs # nixpkgs packages

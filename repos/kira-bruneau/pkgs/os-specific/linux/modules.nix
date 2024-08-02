@@ -1,4 +1,6 @@
-pkgs: final: prev:
+{ lib, pkgs }:
+
+final: prev:
 
 with final;
 
