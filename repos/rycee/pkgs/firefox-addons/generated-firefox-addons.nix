@@ -146,10 +146,10 @@
     };
     "adnauseam" = buildFirefoxXpiAddon {
       pname = "adnauseam";
-      version = "3.21.4";
+      version = "3.22.0";
       addonId = "adnauseam@rednoise.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4282819/adnauseam-3.21.4.xpi";
-      sha256 = "a29a137c530be59612ebfbe0b13f1a9105bfe47cb868d1db4e51a9e7a0e9fa81";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4328793/adnauseam-3.22.0.xpi";
+      sha256 = "1648ecfc60892c356f9142e0c6fcb68928f6154e0887125726dd4b049c778ca0";
       meta = with lib;
       {
         homepage = "https://adnauseam.io";
@@ -177,7 +177,6 @@
           "https://forums.lanik.us/*"
           "https://github.com/*"
           "https://*.github.io/*"
-          "https://*.letsblock.it/*"
           "https://github.com/uBlockOrigin/*"
           "https://ublockorigin.github.io/*"
           "https://*.reddit.com/r/uBlockOrigin/*"
@@ -973,14 +972,14 @@
     };
     "british-english-dictionary-2" = buildFirefoxXpiAddon {
       pname = "british-english-dictionary-2";
-      version = "3.3.4";
+      version = "3.3.5";
       addonId = "marcoagpinto@mail.telepac.pt";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4312018/british_english_dictionary_2-3.3.4.xpi";
-      sha256 = "b4687541906c1ca9be4c1fbf6657c440f5af9ac6a4ed8b5bf84c5c9a7e56b8d0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4329597/british_english_dictionary_2-3.3.5.xpi";
+      sha256 = "94667a4ba38053153a96c3fc7482275d022e133d5d8acf869d76798c69c8327d";
       meta = with lib;
       {
         homepage = "https://proofingtoolgui.org";
-        description = "A fork of Mark Tyndall's add-on, based on David Bartlett's \nBritish Dictionary R1.19 for Firefox, Thunderbird and SeaMonkey.\n\nV3.3.4 has 140 000+ new words and also fixes.";
+        description = "A fork of Mark Tyndall's add-on, based on David Bartlett's \nBritish Dictionary R1.19 for Firefox, Thunderbird and SeaMonkey.\n\nV3.3.5 has 140 000+ new words and also fixes.";
         license = licenses.lgpl3;
         mozPermissions = [];
         platforms = platforms.all;
@@ -2114,10 +2113,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "129.0.20240729.133145";
+      version = "129.0.20240801.122119";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4327879/deutsch_de_language_pack-129.0.20240729.133145.xpi";
-      sha256 = "3c499d0ce63337f255f25eebccdb5f0e0ee1de203ad86ed3dcd98afcd5abe97f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4329966/deutsch_de_language_pack-129.0.20240801.122119.xpi";
+      sha256 = "b1424dd2d1281aca02657b9ecd50169f8240d7f6705b97867b1d3439832ff257";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2150,10 +2149,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "5.1.0";
+      version = "5.1.2";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4327462/dictionaries-5.1.0.xpi";
-      sha256 = "eeab6df25a4b639e1f3ec2c6d8a4013314d053283598958c9b31b6e1fa0c8add";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4330116/dictionaries-5.1.2.xpi";
+      sha256 = "4ca8cbeba7c0239be43fbcfc166cb357db86831b0a7c9dfdef6dd06b4b6d7a45";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -2296,10 +2295,10 @@
     };
     "download-with-jdownloader" = buildFirefoxXpiAddon {
       pname = "download-with-jdownloader";
-      version = "0.3.2";
+      version = "0.3.3";
       addonId = "{03e07985-30b0-4ae0-8b3e-0c7519b9bdf6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4135954/download_with_jdownloader-0.3.2.xpi";
-      sha256 = "cb731417a341412914b0cfa98506d50729508b54b8f623a484f5650401bd7385";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4328995/download_with_jdownloader-0.3.3.xpi";
+      sha256 = "bce14f25d60beca7740c636071fc0a731f26c477cdb1921a2660578f3e4512bc";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/download-with.html?from=jdownloader";
@@ -2312,6 +2311,7 @@
           "downloads"
           "contextMenus"
           "activeTab"
+          "scripting"
         ];
         platforms = platforms.all;
       };
@@ -3169,10 +3169,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "129.0.20240729.133145";
+      version = "129.0.20240801.122119";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4327960/francais_language_pack-129.0.20240729.133145.xpi";
-      sha256 = "9d9809bc379991c73fda1fd6703345f502492571ffc5e1e041f39def62a36a83";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4329895/francais_language_pack-129.0.20240801.122119.xpi";
+      sha256 = "969be04c198195a349f0862a78a766e31d7f3f3989f5653bd9320db7603be454";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -10820,10 +10820,10 @@
     };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "3.5.3";
+      version = "3.6.1";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4302491/tournesol_extension-3.5.3.xpi";
-      sha256 = "5debf2fe0d5234c226b1a47a52039e0dd75f0f65fe30a725fdb6cd60acec91d0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4329572/tournesol_extension-3.6.1.xpi";
+      sha256 = "6362fd2de2ea38cc52f04c8a8294bc57a38d78b1fa70fdc7ba657b9b907cec96";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
@@ -12090,10 +12090,10 @@
     };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "3.9.0";
+      version = "3.9.1";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4308290/web_scrobbler-3.9.0.xpi";
-      sha256 = "5caa0015c65e5177b106cf8419d0f07e25d0dc9af21d14e851ff67eca2788b01";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4329106/web_scrobbler-3.9.1.xpi";
+      sha256 = "e41101cd12ae88a6f6d05ccf25362313b3befd107a15b9535af13bef127f319f";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
