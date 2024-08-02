@@ -69,7 +69,7 @@ lib.mkIf config.sane.persist.enable
     mount.mountConfig.RestrictAddressFamilies = "AF_UNIX";  # "none" works, but then it can't connect to the logger
     #VVV this includes anything it reads from, e.g. /bin/sh; /nix/store/...
     # see `systemd-analyze filesystems` for a full list
-    mount.mountConfig.RestrictFileSystems = "@common-block devtmpfs fuse pipefs";
+    mount.mountConfig.RestrictFileSystems = "@common-block @basic-api fuse pipefs";
     mount.mountConfig.RestrictNamespaces = true;
     mount.mountConfig.RestrictNetworkInterfaces = "";
     mount.mountConfig.RestrictRealtime = true;

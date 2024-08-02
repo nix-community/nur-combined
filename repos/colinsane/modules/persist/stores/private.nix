@@ -131,7 +131,7 @@ lib.mkIf config.sane.persist.enable
     mount.mountConfig.ProtectHostname = true;
     mount.mountConfig.RemoveIPC = true;
     mount.mountConfig.RestrictAddressFamilies = "AF_UNIX";  # "none" works, but then it can't connect to the logger
-    mount.mountConfig.RestrictFileSystems = "@common-block devtmpfs fuse pipefs";
+    mount.mountConfig.RestrictFileSystems = "@common-block @basic-api fuse pipefs";
     mount.mountConfig.RestrictNamespaces = true;
     mount.mountConfig.RestrictNetworkInterfaces = "";
     mount.mountConfig.RestrictRealtime = true;

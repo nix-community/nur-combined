@@ -145,6 +145,7 @@ let
       mount.unitConfig.OnFailure = [ "${systemdName}.timer" ];
       mount.unitConfig.OnSuccess = [ "${systemdName}-restart-timer.target" ];
 
+      mount.mountConfig.TimeoutSec = "10s";
       mount.mountConfig.User = "colin";
       mount.mountConfig.Group = "users";
       # hardening (systemd-analyze security mnt-servo-playground.mount)
@@ -159,7 +160,7 @@ let
       mount.mountConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
       #VVV this includes anything it reads from, e.g. /bin/sh; /nix/store/...
       # see `systemd-analyze filesystems` for a full list
-      mount.mountConfig.RestrictFileSystems = "@common-block devtmpfs fuse";
+      mount.mountConfig.RestrictFileSystems = "@common-block @basic-api fuse";
       mount.mountConfig.RestrictNamespaces = true;
       mount.mountConfig.RestrictRealtime = true;
       mount.mountConfig.RestrictSUIDSGID = true;
