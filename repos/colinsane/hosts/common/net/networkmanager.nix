@@ -122,7 +122,12 @@ in {
   # fix NetworkManager-dispatcher to actually run as a daemon,
   # and sandbox it a bit
   systemd.services.NetworkManager-dispatcher = {
-    after = [ "trust-dns-localhost.service" ];  #< so that /var/lib/trust-dns will exist
+    #VVV so that /var/lib/trust-dns will exist (the hook needs to write here).
+    # but this creates a cycle: trust-dns-localhost > network.target > NetworkManager-dispatcher > trust-dns-localhost.
+    # (seemingly) impossible to remove the network.target dep on NetworkManager-dispatcher.
+    # beffore would be to have the dispatcher not write trust-dns files
+    # but rather just its own, and create a .path unit which restarts trust-dns appropriately.
+    # after = [ "trust-dns-localhost.service" ];
     # serviceConfig.ExecStart = [
     #   ""  # first blank line is to clear the upstream `ExecStart` field.
     #   "${cfg.package}/libexec/nm-dispatcher --persist"  # --persist is needed for it to actually run as a daemon

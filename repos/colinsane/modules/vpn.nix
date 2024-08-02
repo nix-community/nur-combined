@@ -154,7 +154,7 @@ let
     systemd.network.networks."50-${name}" = {
       # see: `man 5 systemd.network`
       matchConfig.Name = name;
-      networkConfig.Address = [ addrV4 ];
+      networkConfig.Address = [ "${addrV4}/32" ];
       networkConfig.DNS = dns;
       # TODO: `sane-vpn up <vpn>` should configure DNS to be sent over the VPN
       # DNSDefaultRoute: system DNS queries are sent to this link's DNS server

@@ -7,11 +7,10 @@
   - or try dnsmasq?
 - trust-dns can't resolve `abs.twimg.com`
 - trust-dns can't resolve `social.kernel.org`
+- trust-dns can't resolve `pe.usps.com`
 - sandbox: link cache means that if i update ~/.config/... files inline, sandboxed programs still see the old version
 - mpv: continues to play past the end of some audio files
 - mpv: audiocast has mpv sending its output to the builtin speakers unless manually changed
-- mpv: no way to exit fullscreen video on moby
-  - uosc hides controls on FS, and touch doesn't support unhiding
 - `ssh` access doesn't grant same linux capabilities as login
 - syshud (volume overlay): when casting with `blast`, syshud doesn't react to volume changes
 - moby: kaslr is effectively disabled
@@ -71,6 +70,10 @@
   - sandbox `curlftpfs`
   - sandbox `nix`
   - sandbox `sshfs-fuse`
+  - sandbox mount units
+    - gocryptfs: /mnt/persist/private
+    - curlftpfs: /mnt/servo/*
+    - sshfs: /mnt/{desko,lappy,moby}/home
   - enforce that all `environment.packages` has a sandbox profile (or explicitly opts out)
   - revisit "non-sandboxable" apps and check that i'm not actually just missing mountpoints
     - LL_FS_RW=/ isn't enough -- need all mount points like `=/:/proc:/sys:...`.
@@ -116,18 +119,17 @@
 
 #### moby
 - fix cpuidle (gets better power consumption): <https://xnux.eu/log/077.html>
+- fix cpupower for better power/perf
+  - `journalctl -u cpupower --boot` (problem is present on lappy, at least)
 - moby: tune keyboard layout
-- SwayNC:
-  - don't show MPRIS if no players detected
-    - this is a problem of playerctld, i guess
-  - add option to change audio output
+- SwayNC: add option to change audio output
 - moby: tune GPS
   - fix iio-sensor-proxy magnetometer scaling
   - tune QGPS setting in eg25-control, for less jitter?
   - configure geoclue to do some smoothing?
   - manually do smoothing, as some layer between mepo and geoclue?
+  - email wigle.net people to unlock API access
 - moby: port `freshen-agps` timer service to s6 (maybe i want some `s6-cron` or something)
-- moby: show battery state on ssh login
 - moby: improve gPodder launch time
 - moby: theme GTK apps (i.e. non-adwaita styles)
   - especially, make the menubar collapsible
@@ -136,6 +138,8 @@
 #### non-moby
 - RSS: integrate a paywall bypass
   - e.g. self-hosted [ladder](https://github.com/everywall/ladder) (like 12ft.io)
+- RSS: have podcasts get downloaded straight into ~/Videos/...
+  - and strip the ads out using Whisper transcription + asking a LLM where the ad breaks are
 - neovim: set up language server (lsp; rnix-lsp; nvim-lspconfig)
 - neovim: integrate LLMs
 - Helix: make copy-to-system clipboard be the default

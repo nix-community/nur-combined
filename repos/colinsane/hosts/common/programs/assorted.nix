@@ -1238,7 +1238,7 @@ in
         ''
           tryNotifyUser() {
             local user="$1"
-            local new_path="$PATH:${pkgs.sudo}/bin:${pkgs.libnotify}/bin"
+            local new_path="$PATH:/etc/profiles/per-user/$user/bin:${pkgs.sudo}/bin:${pkgs.libnotify}/bin"
             local version="$(cat $systemConfig/nixos-version)"
             PATH="$new_path" sudo -u "$user" \
               env PATH="$new_path" NIXOS_VERSION="$version" /bin/sh -c \
@@ -1246,7 +1246,7 @@ in
           }
         ''
       ] ++ lib.mapAttrsToList
-        (user: en: lib.optionalString en "tryNotifyUser ${user}")
+        (user: en: lib.optionalString en "tryNotifyUser ${user} > /dev/null")
         config.sane.programs.guiApps.enableFor.user
     );
   };

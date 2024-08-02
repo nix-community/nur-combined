@@ -103,6 +103,12 @@ stores = {{ type = "forward", name_servers = [
     return lines
 
 def apply_zone(nm_config: NmConfig, ops: Ops) -> None:
+    # if we want to write /var/lib/trust-dns here, then we have to make sure the service is started, so systemd can create the directory.
+    # ops.exec_([
+    #     "systemctl",
+    #     "start",
+    #     "trust-dns-localhost",
+    # ])
     specialized_config = ""
     for domain in nm_config.search_domains:
         if is_valid_search_domain(domain) and nm_config.nameservers:

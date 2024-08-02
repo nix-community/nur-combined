@@ -118,4 +118,8 @@
 
   sane.users.colin.default = true;
   services.getty.autologinUser = lib.mkDefault "colin";
+  security.pam.services.login.startSession = lib.mkForce false;  #< disable systemd integration
+
+  # systemd-user-sessions depends on remote-fs, causing login to take stupidly long
+  systemd.services."systemd-user-sessions".enable = false;
 }
