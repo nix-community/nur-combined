@@ -135,7 +135,7 @@ let
       buildNpmPackage = args: superBuildNpmPackage
         (args // rec {
           pname = "myosevka-${set}";
-          version = "30.3.3";
+          version = "31.0.0";
           src = fetchFromGitHub {
             owner = "be5invis";
             repo = "iosevka";
