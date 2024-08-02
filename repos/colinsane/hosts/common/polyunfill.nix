@@ -6,7 +6,6 @@ let
     # nixpkgs' pam hardcodes unix_chkpwd path to the /run/wrappers one,
     # but i don't want the wrapper, so undo that.
     # ideally i would patch this via an overlay, but pam is in the bootstrap so that forces a full rebuild.
-    # TODO: add a `package` option to the nixos' pam module and substitute it that way.
     postPatch = (if upstream.postPatch != null then upstream.postPatch else "") + ''
       substituteInPlace modules/pam_unix/Makefile.am --replace-fail \
         "/run/wrappers/bin/unix_chkpwd" "$out/bin/unix_chkpwd"
@@ -39,36 +38,29 @@ in
     ]));
   };
   options.security.pam.services = lib.mkOption {
-    apply = services: let
-      filtered = lib.filterAttrs (name: _: !(builtins.elem name [
-        # from <repo:nixos/nixpkgs:nixos/modules/security/pam.nix>
-        "i3lock"
-        "i3lock-color"
-        "vlock"
-        "xlock"
-        "xscreensaver"
-        "runuser"
-        "runuser-l"
-        # from ??
-        "chfn"
-        "chpasswd"
-        "chsh"
-        "groupadd"
-        "groupdel"
-        "groupmems"
-        "groupmod"
-        "useradd"
-        "userdel"
-        "usermod"
-        # from <repo:nixos/nixpkgs:nixos/modules/system/boot/systemd/user.nix>
-        "systemd-user"  #< N.B.: this causes the `systemd --user` service manager to not be started!
-      ])) services;
-    in lib.mapAttrs (_serviceName: service: service // {
-      # replace references with the old pam_unix, which calls into /run/wrappers/bin/unix_chkpwd,
-      # with a pam_unix that calls into unix_chkpwd via the nix store.
-      # TODO: use `security.pam.package` instead once <https://github.com/NixOS/nixpkgs/pull/314791> lands.
-      text = lib.replaceStrings [" pam_unix.so" ] [ " ${suidlessPam}/lib/security/pam_unix.so" ] service.text;
-    }) filtered;
+    apply = lib.filterAttrs (name: _: !(builtins.elem name [
+      # from <repo:nixos/nixpkgs:nixos/modules/security/pam.nix>
+      "i3lock"
+      "i3lock-color"
+      "vlock"
+      "xlock"
+      "xscreensaver"
+      "runuser"
+      "runuser-l"
+      # from ??
+      "chfn"
+      "chpasswd"
+      "chsh"
+      "groupadd"
+      "groupdel"
+      "groupmems"
+      "groupmod"
+      "useradd"
+      "userdel"
+      "usermod"
+      # from <repo:nixos/nixpkgs:nixos/modules/system/boot/systemd/user.nix>
+      "systemd-user"  #< N.B.: this causes the `systemd --user` service manager to not be started!
+    ]));
   };
 
   options.environment.systemPackages = lib.mkOption {
@@ -225,5 +217,7 @@ in
     # systemd.packages = [ pkgs.lvm2 ];
     # systemd.tmpfiles.packages = [ pkgs.lvm2.out ];
     # environment.systemPackages = [ pkgs.lvm2 ];
+
+    security.pam.package = suidlessPam;
   };
 }

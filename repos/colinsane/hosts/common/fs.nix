@@ -107,6 +107,9 @@ let
       "connect_timeout=20"
     ];
   };
+
+  ifSshAuthorized = lib.mkIf config.sane.hosts.by-name."${config.networking.hostName}".ssh.authorized;
+
   remoteHome = host: {
     sane.programs.sshfs-fuse.enableFor.system = true;
     fileSystems."/mnt/${host}/home" = {
@@ -245,10 +248,10 @@ lib.mkMerge [
     programs.fuse.userAllowOther = true;  #< necessary for `allow_other` or `allow_root` options.
   }
 
-  (remoteHome "crappy")
-  (remoteHome "desko")
-  (remoteHome "lappy")
-  (remoteHome "moby")
+  (ifSshAuthorized (remoteHome "crappy"))
+  (ifSshAuthorized (remoteHome "desko"))
+  (ifSshAuthorized (remoteHome "lappy"))
+  (ifSshAuthorized (remoteHome "moby"))
   # this granularity of servo media mounts is necessary to support sandboxing:
   # for flaky mounts, we can only bind the mountpoint itself into the sandbox,
   # so it's either this or unconditionally bind all of media/.

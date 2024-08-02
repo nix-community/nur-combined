@@ -118,7 +118,7 @@
 , xdg-utils
 }:
 let
-  version = "7.16.0";
+  version = "7.18.0";
 
   ringrtcPrebuild = fetchurl {
     # version is found in signal-desktop's package.json as "@signalapp/ringrtc"
@@ -150,7 +150,7 @@ let
     repo = "Signal-Desktop";
     leaveDotGit = true;  # signal calculates the release date via `git`
     rev = "v${version}";
-    hash = "sha256-HHpv+Kv7Y+653CBSpRePfWQmeRzznmdmUaU5AIxLQUw=";
+    hash = "sha256-5wv8xH3jwfb+I6a0/N7ZHQKNigBjFHHNX9rQDCMoHfY=";
   };
 
   # note that `package.json` locks the electron version, but we seem to not be strictly beholden to that.
@@ -167,7 +167,7 @@ buildNpmPackage rec {
   pname = "signal-desktop-from-src";
   inherit src version;
 
-  npmDepsHash = "sha256-CJTTLjP3eiJSa/ZWoeBP/9S1Krtb7ozsutRdH2HGfe8=";
+  npmDepsHash = "sha256-tHwlcbMsU65T6mnOkhsy4qfBEOvY9AneYtIpv954emg=";
 
   patches = [
     # ./debug.patch
