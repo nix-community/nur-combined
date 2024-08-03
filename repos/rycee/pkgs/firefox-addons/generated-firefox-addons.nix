@@ -287,10 +287,10 @@
     };
     "angular-devtools" = buildFirefoxXpiAddon {
       pname = "angular-devtools";
-      version = "1.0.16";
+      version = "1.0.17";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4284189/angular_devtools-1.0.16.xpi";
-      sha256 = "8e62abf3c513e88641fa2a00d32ca7e5eadb17f40ee1517686c8d3ef112f34aa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4329374/angular_devtools-1.0.17.xpi";
+      sha256 = "f8818e0a4635a7051ad3928a3f8f6bab3bf5e51f46705d31bca9bec617820cf6";
       meta = with lib;
       {
         homepage = "https://angular.dev/tools/devtools/";
@@ -1740,10 +1740,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.1.2";
+      version = "4.1.3";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4304438/control_panel_for_twitter-4.1.2.xpi";
-      sha256 = "e3d3941c6c2ed4ba1f3d2fe127430016bbdeaae8d9ba1e6ced5b4e0fda8cb082";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4330286/control_panel_for_twitter-4.1.3.xpi";
+      sha256 = "88403ea1538bf6790f9fdc55c4b7488d6699f56f07b216e0b70c2b88378207f1";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -2718,10 +2718,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.16";
+      version = "1.3.17";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4328955/faststream-1.3.16.xpi";
-      sha256 = "a02815c2f3efc38466327cff2199ce45c961c3d428981d96fa62b72434336062";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4330382/faststream-1.3.17.xpi";
+      sha256 = "4d6a78b275ba7176e1705706a00b4affdc01922415e4236b12dacb8b6ed3049e";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -5628,10 +5628,10 @@
     };
     "jump-cutter" = buildFirefoxXpiAddon {
       pname = "jump-cutter";
-      version = "1.27.2";
+      version = "1.27.3";
       addonId = "jump-cutter@example.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4316171/jump_cutter-1.27.2.xpi";
-      sha256 = "7c5aeea47a852950a1184122a890b511d9ee426c969b2bd5fa048699da3c1273";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4330636/jump_cutter-1.27.3.xpi";
+      sha256 = "3f15969206b0ad01e4cd52b038068b051dd09e5fc2685986e528f4efd53068ff";
       meta = with lib;
       {
         description = "Watch lectures ~1.5x faster by fast-forwarding long pauses between sentences";
@@ -5820,10 +5820,10 @@
     };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "8.10.4";
+      version = "8.11.2";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4317259/languagetool-8.10.4_kLk3srz.xpi";
-      sha256 = "6a8d859e8b1ebc6641f642e284d723cc07e5ae196c67dbb232d8d33ff96dce7c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4329853/languagetool-8.11.2.xpi";
+      sha256 = "bfac73229d0973370d163cd607ed36ada0aff46d597afee2c334cc58ec431210";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -8219,10 +8219,10 @@
     };
     "polkadot-js" = buildFirefoxXpiAddon {
       pname = "polkadot-js";
-      version = "0.49.3";
+      version = "0.50.1";
       addonId = "{7e3ce1f0-15fb-4fb1-99c6-25774749ec6d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4322628/polkadot_js_extension-0.49.3.xpi";
-      sha256 = "064f6963576f8273dd9448ed94aea0e2cdcc19b30a8e57e0ca3fd74328394de3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4329102/polkadot_js_extension-0.50.1.xpi";
+      sha256 = "f9c14339fa32a83a4da72119627d21c76e5e474db8d2553364e842e746d83b39";
       meta = with lib;
       {
         homepage = "https://github.com/polkadot-js/extension";
@@ -12614,10 +12614,10 @@
     };
     "youtube-screenshot-button" = buildFirefoxXpiAddon {
       pname = "youtube-screenshot-button";
-      version = "4.2.0";
+      version = "4.3.0";
       addonId = "{d8b32864-153d-47fb-93ea-c273c4d1ef17}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4207366/youtube_screenshot_button-4.2.0.xpi";
-      sha256 = "670ef9fbc2374001e3d91380c13bdc5739f2d61d061e53b7371128bb65ffe808";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4329975/youtube_screenshot_button-4.3.0.xpi";
+      sha256 = "4fc8c549b6502f68ce20d842a67da6e99acab7d9c5fa9d8f26e969c22a89dc85";
       meta = with lib;
       {
         homepage = "https://github.com/gurumukhi/youtube-screenshot";
@@ -12625,6 +12625,7 @@
         license = licenses.mpl20;
         mozPermissions = [
           "storage"
+          "downloads"
           "clipboardWrite"
           "notifications"
           "*://*.youtube.com/*"
