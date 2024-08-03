@@ -819,22 +819,18 @@ class MediaFile:
         self.meta.set_tag(self.tag_field_names.tracknumber, tags.tracknumber)
         self.meta.flush()
 
+class MediaFileWithNeighbors(MediaFile):
+    """
+    a MediaFile, augmented with tags that are common to all of its neighbors
+    """
+    neighbor_tags: Tags = Tags()
+
 class TagsProvider:
-    def __init__(self, ignore_existing: bool, override_existing: bool, derive: bool, manual_tags: Tags, neighbor_tags: Tags|None = None):
+    def __init__(self, ignore_existing: bool, override_existing: bool, derive: bool, manual_tags: Tags):
         self.ignore_existing = ignore_existing
         self.override_existing = override_existing
         self.derive = derive
         self.manual_tags = manual_tags
-        self.neighbor_tags = neighbor_tags or Tags()
-
-    def with_neighbor_tags(self, neighbor_tags: Tags) -> 'TagsProvider':
-        return TagsProvider(
-            ignore_existing=self.ignore_existing,
-            override_existing=self.override_existing,
-            derive=self.derive,
-            manual_tags=self.manual_tags,
-            neighbor_tags=neighbor_tags,
-        )
 
     def can_derive_from_neighbors(self) -> bool:
         return self.derive and not self.ignore_existing
@@ -856,7 +852,10 @@ class TagsProvider:
             # we can't generalize *any* tags to an artist item (e.g. Justice/artist.png)
             return my_derived_tags
 
-        neighbor_tags = self.neighbor_tags
+        if not isinstance(file_, MediaFileWithNeighbors):
+            return my_derived_tags
+
+        neighbor_tags = file_.neighbor_tags
         if self.override_existing:
             # our derived tags overrule anything generalized from our neighbors
             return my_derived_tags.or_(neighbor_tags)
@@ -963,29 +962,28 @@ class Gatherer:
         self.media_type = media_type
         self.tags_provider = tags_provider
 
-    def files(self) -> list[tuple[MediaFile, Tags]]:
+    def files(self) -> list[MediaFile]:
         """
-        returns a list where each item is a tuple of:
-        - a file to be processed
-        - additional tags which are applicable to that file
+        iterates over files which match the media_type.
+        note that the yielded file may actually be a more specialized MediaFileWithNeighbors instance,
+        in case we're deriving tags from neighboring files.
         """
         for root in self.roots:
             _tags_seen, files = self.files_below(root)
-            for file_, tags in files:
+            for file_ in files:
                 if self.media_type is not None and not file_.is_type(self.media_type):
                     continue
 
-                yield file_, tags
+                yield file_
 
-    def files_below(self, root: str) -> tuple[Tags, list[tuple[MediaFile, Tags]]]:
+    def files_below(self, root: str) -> tuple[Tags, list[MediaFileWithNeighbors]]:
         """
         returns: (tags_seen, files)
-        where each file is (file, derived_tag)
         """
         if not os.path.isdir(root):
             # single file
-            file_ = MediaFile.new(root)
-            return self.tags_provider.on_disk(file_), [ (file_, Tags()) ]
+            file_ = MediaFileWithNeighbors.new(root)
+            return self.tags_provider.on_disk(file_), [ file_ ]
 
         if not self.tags_provider.can_derive_from_neighbors():
             # directory, but don't derive any tags
@@ -1010,8 +1008,9 @@ class Gatherer:
         derived_tags.tracknumber = []
         def _gen():
             for files_below in filelists:
-                for file_, tags in files_below:
-                    yield file_, derived_tags
+                for file_ in files_below:
+                    file_.neighbor_tags = file_.neighbor_tags.or_(derived_tags)
+                    yield file_
 
         return tags_seen, _gen()
 
@@ -1075,22 +1074,20 @@ def main():
 
     gatherer = Gatherer(args.path, args.type, tags_provider)
 
-    def gather_files():
-        for f, tags in gatherer.files():
-            yield Tagger(dry_run=args.dry_run, tags_provider=tags_provider.with_neighbor_tags(tags)), f
+    tagger = Tagger(dry_run=args.dry_run, tags_provider=tags_provider)
 
     if args.subcommand == "show":
-        for tagger, f in gather_files():
+        for f in gatherer.files():
             tagger.show(f)
     elif args.subcommand == "show_missing":
-        for tagger, f in gather_files():
+        for f in gatherer.files():
             if not tagger.is_sufficiently_tagged(f):
                 tagger.show(f)
     elif args.subcommand == "fix_tags":
-        for tagger, f in gather_files():
+        for f in gatherer.files():
             tagger.tag_file(f)
     elif args.subcommand == "fix_paths":
-        for tagger, f in gather_files():
+        for f in gatherer.files():
             tagger.fix_path(f)
     else:
         assert False, f"unrecognized command {args.subcommand}"
