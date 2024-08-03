@@ -20,6 +20,8 @@ in
 
     fonts.fontconfig.enable = false;
 
+    security.sudo.wheelNeedsPassword = true;
+
     services.openssh = {
       enable = true;
       startWhenNeeded = true;

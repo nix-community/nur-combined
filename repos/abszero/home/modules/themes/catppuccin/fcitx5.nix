@@ -1,4 +1,3 @@
-# Complementary to catppuccin/nix
 { config, lib, ... }:
 
 let

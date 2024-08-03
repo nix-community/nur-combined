@@ -17,17 +17,11 @@ in
     wayland.windowManager.hyprland = {
       catppuccin.enable = true;
       settings = {
-        "$pink" = "ea76cb";
-        "$mauve" = "8839ef";
-        "$lavender" = "7287fd";
-        "$text" = "4c4f69";
-        "$surface0" = "9ca0b0";
-
         general = {
           border_size = 4;
           gaps_in = 8;
           "col.inactive_border" = "$surface0";
-          "col.active_border" = "$mauve $pink 45deg";
+          "col.active_border" = "$mauve $accent 45deg";
         };
 
         decoration = {

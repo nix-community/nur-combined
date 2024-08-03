@@ -4,8 +4,6 @@
   inputs = {
     # Repos
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    ## TODO: Actually use
-    # nur.url = "github:nix-community/NUR";
     nixd = {
       url = "github:nix-community/nixd";
       inputs = {
@@ -47,8 +45,8 @@
       url = "github:Weathercold/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    catppuccin.url = "github:catppuccin/nix";
-    # catppuccin.url = "github:Weathercold/nix/patch";
+    # catppuccin.url = "path:/home/weathercold/src/catppuccin-nix";
+    catppuccin.url = "github:Weathercold/nix/patch";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -95,7 +93,6 @@
           "x86_64-darwin"
           "aarch64-darwin"
           "aarch64-linux"
-          "armv7l-linux"
         ];
 
         perSystem =

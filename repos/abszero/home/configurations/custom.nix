@@ -22,6 +22,12 @@ in
       abszero = {
         profiles.buildConfig.enable = true;
         programs.firefox.profile = mkIf (firefoxProfile != null) firefoxProfile;
+        themes.base = {
+          firefox.verticalTabs = true;
+          foot.enable = true;
+          hyprland.dynamicCursors.enable = true;
+          nushell.enable = true;
+        };
       };
 
       specialisation = {

@@ -10,11 +10,13 @@ let
       themes = {
         base = {
           firefox.verticalTabs = true;
+          # hyprland.dynamicCursors.enable = true;
           nushell.enable = true;
         };
         catppuccin = {
           fcitx5.enable = true;
           foot.enable = true;
+          gtk.enable = true;
           hyprland.enable = true;
           hyprpaper.nixosLogo = true;
           pointerCursor.enable = true;
@@ -24,11 +26,13 @@ let
 
     catppuccin.accent = "pink";
 
-    manual.manpages.enable = false;
-
     wayland.windowManager.hyprland.settings.monitor = "eDP-1, preferred, auto, 1.25";
 
+    gtk.catppuccin.icon.enable = true;
+
     programs.man.enable = false; # Speed up builds
+
+    manual.manpages.enable = false;
   };
 in
 
@@ -36,7 +40,7 @@ in
 optionalAttrs (readDir ./. ? "_base.nix") {
   imports = [ ../_options.nix ];
 
-  homeConfigurations."weathercold@toshiba-mq04ubb400-22rbt03qt" = {
+  homeConfigurations."weathercold@nixos-disk" = {
     system = "x86_64-linux";
     modules = [
       # inputs.bocchi-cursors.homeModules.bocchi-cursors-shadowBlack

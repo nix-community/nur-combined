@@ -68,8 +68,8 @@ in
           ",           XF86AudioLowerVolume,  exec,           wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
           ",           XF86AudioRaiseVolume,  exec,           wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
           ",           XF86AudioMicMute,      exec,           wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-          ",           XF86MonBrightnessDown, exec,           brillo -u 500 -U 5"
-          ",           XF86MonBrightnessUp,   exec,           brillo -u 500 -A 5"
+          ",           XF86MonBrightnessDown, exec,           brillo -qu 200000 -U 5"
+          ",           XF86MonBrightnessUp,   exec,           brillo -qu 200000 -A 5"
 
           "$mod,       Slash,                 exec,           albert show"
           "$mod,       t,                     exec,           foot"

@@ -37,7 +37,7 @@ be used as flake input by specifying a directory like this:
     │   └ themes/                               **
     ├ nixos/                                    nixos configurations
     │ ├ configurations/                         top-level nixos configurations
-    │ │ ├ nixos-inspiron7405.nix, ...           my configurations
+    │ │ ├ nixos-inspiron.nix, ...               my configurations
     │ │ └ _options.nix                          configuration abstraction
     │ └ modules/                                nixos modules
     │   ├ profiles/                             top-level nixos modules**
@@ -59,7 +59,7 @@ They are effective on import by default, but can be disabled with
     nixfiles/flake.nix
     ├ home/flake-module.nix
     │ ├ configurations/custom.nix, ...
-    │ └ configurations/weathercold/nixos-inspiron7405.nix
+    │ └ configurations/weathercold/nixos-inspiron.nix
     │   ├ ../_options.nix
     │   └ _base.nix
     │     └ ../../modules/profiles/full.nix
@@ -68,9 +68,9 @@ They are effective on import by default, but can be disabled with
     ├ lib/default.nix
     │ └ src/*
     ├ nixos/flake-module.nix
-    │ └ configurations/nixos-inspiron7405.nix
+    │ └ configurations/nixos-inspiron.nix
     │   ├ _options.nix
-    │   ├ ../modules/hardware/inspiron-7405.nix
+    │   ├ ../modules/hardware/dell-inspiron-7405.nix
     │   └ ../modules/profiles/full.nix
     │     ├ ../hardware/halo65.nix, ...
     │     └ base.nix

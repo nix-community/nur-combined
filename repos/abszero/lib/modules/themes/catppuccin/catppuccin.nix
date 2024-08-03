@@ -20,6 +20,7 @@ in
 
   options.abszero.themes.catppuccin = {
     enable = mkExternalEnableOption config "configuration for catppuccin/nix";
+
     polarity = mkOption {
       type = types.enum [
         "light"
@@ -31,6 +32,7 @@ in
         automatic theme switching, or when useSystemPolarity is turned off.
       '';
     };
+
     useSystemPolarity = mkOption {
       type = types.bool;
       default = true;
@@ -39,6 +41,7 @@ in
         on the system theme polarity.
       '';
     };
+
     lightFlavor = mkOption {
       type = types.enum [
         "frappe"
@@ -51,6 +54,7 @@ in
         The light theme flavor (latte, frappe, macchiato, mocha).
       '';
     };
+
     darkFlavor = mkOption {
       type = types.enum [
         "frappe"
@@ -72,7 +76,6 @@ in
       flavor = cfg."${cfg.polarity}Flavor";
     };
 
-    # TODO: remove if unused
     lib.catppuccin.toTitleCase = s: toUpper (substring 0 1 s) + substring 1 100 s;
   };
 }

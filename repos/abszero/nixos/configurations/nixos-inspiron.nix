@@ -18,7 +18,7 @@ let
       abszero = {
         profiles.full.enable = true;
         users.admins = [ "weathercold" ];
-        hardware.inspiron-7405.enable = true;
+        hardware.dell-inspiron-7405.enable = true;
         services.xray = recursiveUpdate proxySettings {
           # enable = true;
           preset = "vless-tcp-xtls-reality-client";
@@ -133,7 +133,7 @@ in
 {
   imports = [ ./_options.nix ];
 
-  nixosConfigurations.nixos-inspiron7405 = {
+  nixosConfigurations.nixos-inspiron = {
     system = "x86_64-linux";
     modules = [
       inputs.nixos-hardware.nixosModules.dell-inspiron-7405

@@ -1,3 +1,4 @@
+# NixOS on toshiba-mq04ubb400-22rbt03qt, a portable HDD
 { inputs, lib, ... }:
 
 let
@@ -14,7 +15,7 @@ let
 
       users.admins = [ "weathercold" ];
 
-      hardware.inspiron-7405.enable = true;
+      hardware.redmi-book-pro-16-2024.enable = true;
 
       wayland.windowManager.hyprland.enable = true;
 
@@ -38,13 +39,13 @@ let
         type = "gpt";
         partitions = {
           bios = {
-            label = "toshiba-mq04ubb400-22rbt03qt-bios";
+            label = "ext-bios";
             size = "1M";
             type = "EF02"; # BIOS boot partition
             priority = 0;
           };
           esp = {
-            label = "toshiba-mq04ubb400-22rbt03qt-esp";
+            label = "ext-esp";
             size = "512M";
             type = "EF00"; # EFI system partition
             priority = 1;
@@ -64,7 +65,7 @@ let
             };
           };
           data = {
-            label = "toshiba-mq04ubb400-22rbt03qt-data";
+            label = "ext-data";
             size = "2T";
             priority = 2;
             content = {
@@ -79,7 +80,7 @@ let
             };
           };
           nixos = {
-            label = "toshiba-mq04ubb400-22rbt03qt-nixos";
+            label = "ext-nixos";
             end = "-16G";
             content = {
               type = "filesystem";
@@ -89,7 +90,7 @@ let
             };
           };
           swap = {
-            label = "toshiba-mq04ubb400-22rbt03qt-swap";
+            label = "ext-swap";
             size = "100%";
             content = {
               type = "swap";
@@ -114,17 +115,23 @@ let
       };
     };
 
-    documentation.enable = false; # Speed up builds
+    # Speed up builds
+    documentation = {
+      enable = false;
+      man.enable = false; # Disable man-db
+    };
   };
 in
 
 {
   imports = [ ./_options.nix ];
 
-  nixosConfigurations.toshiba-mq04ubb400-22rbt03qt = {
+  nixosConfigurations.nixos-disk = {
     system = "x86_64-linux";
     modules = [
-      inputs.nixos-hardware.nixosModules.dell-inspiron-7405
+      inputs.nixos-hardware.nixosModules.common-cpu-intel
+      inputs.nixos-hardware.nixosModules.common-pc-laptop
+      inputs.nixos-hardware.nixosModules.common-pc-ssd
       mainModule
     ];
   };

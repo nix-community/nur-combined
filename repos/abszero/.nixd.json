@@ -8,10 +8,10 @@
   },
   "options": {
     "nixos": {
-      "expr": "(builtins.getFlake (toString ./.)).nixosConfigurations.nixos-inspiron7405.options"
+      "expr": "(builtins.getFlake (toString ./.)).nixosConfigurations.nixos-inspiron.options"
     },
     "home-manager": {
-      "expr": "(builtins.getFlake (toString ./.)).homeConfigurations.\"weathercold@nixos-inspiron7405\".options"
+      "expr": "(builtins.getFlake (toString ./.)).homeConfigurations.\"weathercold@nixos-inspiron\".options"
     }
   }
 }

@@ -3,7 +3,7 @@
 let
   inherit (lib) mkIf;
   inherit (lib.abszero.modules) mkExternalEnableOption;
-  cfg = config.abszero.hardware.inspiron-7405;
+  cfg = config.abszero.hardware.dell-inspiron-7405;
 
   keyboardCfg = {
     devices = [
@@ -75,11 +75,11 @@ in
     ../services/hardware/kanata.nix
   ];
 
-  options.abszero.hardware.inspiron-7405.enable = mkExternalEnableOption config ''
-    inspiron-7405 configuration complementary to
+  options.abszero.hardware.dell-inspiron-7405.enable = mkExternalEnableOption config ''
+    Dell Inspiron 7405 configuration complementary to
     `inputs.nixos-hardware.nixosModules.dell-inspiron-7405`. Due to the
     nixos-hardware module being effective on import, it is not imported by this
-    module; you have to import it yourself.
+    module; you have to import it yourself
   '';
 
   config = mkIf cfg.enable {
@@ -109,7 +109,7 @@ in
         ACTION=="add", SYMLINK+="input/power_button"
       '';
 
-      kanata.keyboards.inspiron-7405 = keyboardCfg;
+      kanata.keyboards.dell-inspiron-7405 = keyboardCfg;
     };
   };
 }

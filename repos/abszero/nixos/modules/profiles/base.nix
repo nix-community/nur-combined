@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   pkgs,
   lib,
@@ -30,22 +31,27 @@ in
 
     nix = {
       package = pkgs.nixVersions.latest;
+
       channel.enable = false;
+
       gc = {
         automatic = true;
         dates = "daily";
         options = "--delete-older-than 7d";
       };
+
       settings = {
         trusted-users = [
           "root"
           "@wheel"
         ];
         substituters = [
+          # TEMP
           # CN mirror of https://cache.nixos.org
           "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-          "https://abszero.cachix.org"
-          "https://nix-community.cachix.org"
+          "https://mirrors.ustc.edu.cn/nix-channels/store"
+          # "https://abszero.cachix.org"
+          # "https://nix-community.cachix.org"
         ];
         trusted-public-keys = [
           "abszero.cachix.org-1:HXOydaS51jSWrM07Ko8AVtGdoBRT9F+QhdYQBiNDaM0="
@@ -53,6 +59,7 @@ in
         ];
         auto-optimise-store = true;
       };
+
       extraOptions = ''
         experimental-features = nix-command flakes auto-allocate-uids no-url-literals
         keep-outputs = true
@@ -92,7 +99,7 @@ in
       users = genAttrs config.abszero.users.admins (const {
         extraGroups = [
           "audio" # For pipeire
-          "video" # For brillo
+          "video" # For wluma and brillo
           "networkmanager"
         ];
       });
@@ -128,7 +135,7 @@ in
     security = {
       rtkit.enable = true;
       sudo = {
-        wheelNeedsPassword = false;
+        wheelNeedsPassword = mkDefault false;
         execWheelOnly = true;
       };
     };

@@ -32,6 +32,7 @@ in
           enable = true;
           enableFileSystems = true;
         };
+        wluma.enable = true;
       };
       programs = {
         neovim.enable = true;
@@ -92,7 +93,6 @@ in
         wev
         wget
         win2xcur
-        wluma
         xorg.xeyes
         zip
       ];

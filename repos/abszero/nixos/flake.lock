@@ -2,15 +2,16 @@
   "nodes": {
     "catppuccin": {
       "locked": {
-        "lastModified": 1720472194,
-        "narHash": "sha256-CYscFEts6tyvosc1T29nxhzIYJAj/1CCEkV3ZMzSN/c=",
-        "owner": "catppuccin",
+        "lastModified": 1722502366,
+        "narHash": "sha256-N6ZYU/ZK9w2H+zAICu976ADTePXxRG0gjqPjYyMYJoA=",
+        "owner": "Weathercold",
         "repo": "nix",
-        "rev": "d75d5803852fb0833767dc969a4581ac13204e22",
+        "rev": "9b8d80109649173930b182909eb6c1a5fc9f98d1",
         "type": "github"
       },
       "original": {
-        "owner": "catppuccin",
+        "owner": "Weathercold",
+        "ref": "patch",
         "repo": "nix",
         "type": "github"
       }

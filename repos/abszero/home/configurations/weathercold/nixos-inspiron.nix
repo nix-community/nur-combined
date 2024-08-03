@@ -21,11 +21,13 @@ let
         themes = {
           base = {
             firefox.verticalTabs = true;
+            # hyprland.dynamicCursors.enable = true;
             nushell.enable = true;
           };
           catppuccin = {
             fcitx5.enable = true;
             foot.enable = true;
+            gtk.enable = true;
             hyprland.enable = true;
             hyprpaper.nixosLogo = true;
             pointerCursor.enable = true;
@@ -36,6 +38,8 @@ let
       catppuccin.accent = "pink";
 
       wayland.windowManager.hyprland.settings.monitor = "eDP-1, preferred, auto, 1.25";
+
+      gtk.catppuccin.icon.enable = true;
     };
 
     plasma6-latte-pink = {
@@ -48,6 +52,7 @@ let
           };
           catppuccin = {
             foot.enable = true;
+            gtk.enable = true;
             plasma.enable = true;
           };
           colloid.fcitx5.enable = true;
@@ -55,6 +60,8 @@ let
       };
 
       catppuccin.accent = "pink";
+
+      gtk.catppuccin.icon.enable = true;
     };
   };
 in
@@ -63,7 +70,7 @@ in
 optionalAttrs (readDir ./. ? "_base.nix") {
   imports = [ ../_options.nix ];
 
-  homeConfigurations."weathercold@nixos-inspiron7405" = {
+  homeConfigurations."weathercold@nixos-inspiron" = {
     system = "x86_64-linux";
     modules = [
       # inputs.bocchi-cursors.homeModules.bocchi-cursors-shadowBlack

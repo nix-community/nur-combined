@@ -13,7 +13,7 @@ in
     Vultr Cloud Compute - Intel - Regular Performance configuration complementary
     to `inputs.nixos-hardware.nixosModules.common-cpu-intel-cpu-only`. Due to
     the nixos-hardware module being effective on import, it is not imported by
-    this module; you have to import it yourself.
+    this module; you have to import it yourself
   '';
 
   config = mkIf cfg.enable {

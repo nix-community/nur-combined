@@ -55,7 +55,7 @@ in
   config.flake.homeConfigurations = mapAttrs (
     _: c:
     withSystem c.system (
-      { pkgs, ... }:
+      { inputs', pkgs, ... }:
       home-manager.lib.homeManagerConfiguration {
         inherit pkgs lib;
         extraSpecialArgs = {
@@ -69,7 +69,12 @@ in
           c.modules
           {
             abszero.enableExternalModulesByDefault = false;
-            nixpkgs.overlays = [ (_: prev: import ../../pkgs { pkgs = prev; }) ];
+            nixpkgs.overlays = [
+              # (_: _: {
+              #   hyprlandPlugins.hypr-dynamic-cursors = inputs'.hypr-dynamic-cursors.packages.hypr-dynamic-cursors;
+              # })
+              (_: prev: import ../../pkgs { pkgs = prev; })
+            ];
             home = {
               inherit (c) username homeDirectory;
             };
