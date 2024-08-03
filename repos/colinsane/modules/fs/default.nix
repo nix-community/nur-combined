@@ -283,8 +283,8 @@ let
 
   # given a mountEntry definition, evaluate its toplevel `config` output.
   mkMountConfig = path: opt: let
-    device = config.fileSystems."${path}".device;
-    underlying = cfg."${device}";
+    fsEntry = config.fileSystems."${path}";
+    underlying = cfg."${fsEntry.device}";
     isBind = opt.mount.bind != null;
     ifBind = lib.mkIf isBind;
     # before mounting:
@@ -292,7 +292,7 @@ let
     # - prepare the source directory -- assuming it's not an external device
     # - satisfy any user-specified prerequisites ("depends")
     requires = [ opt.generated.unit ]
-      ++ (if lib.hasPrefix "/dev/disk/" device || lib.hasPrefix "ftp://" device then [] else [ underlying.unit ])
+      ++ (if lib.hasPrefix "/dev/disk/" fsEntry.device || lib.hasPrefix "fuse" (fsEntry.fsType or "unknown") then [] else [ underlying.unit ])
       ++ opt.mount.depends;
   in {
     fileSystems."${path}" = {
@@ -312,9 +312,7 @@ let
         ++ (builtins.map (unit: "x-systemd.wanted-by=${unit}") (opt.wantedBy ++ opt.wantedBeforeBy));
       noCheck = ifBind true;
     };
-    systemd.mounts = let
-      fsEntry = config.fileSystems."${path}";
-    in [{
+    systemd.mounts = [{
       where = path;
       what = if fsEntry.device != null then fsEntry.device else "";
       type = fsEntry.fsType;
