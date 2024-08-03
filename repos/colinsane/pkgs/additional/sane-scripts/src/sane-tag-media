@@ -86,11 +86,13 @@ options:
   --producer PRODUCER     use when the artist is a pseudonym, and this is their umbrella name.
   --title TITLE
   --trackno TRACK_NUMBER
-  --derive                apply existing tags (e.g. album) found in the file set to any files in the set missing such tags
+  --derive                apply existing tags (e.g. album) found in the file set to any files in the set missing such tags.
+                          additionally, extrapolate from the file path any missing tags.
+  --ignore-existing       completely ignore the existing on-disk tags. compute tags only from those manually provided, and what can be derived from the file path (if --derive was passed)
+  --override-existing     apply derived tags to each file, even those which already have tags.
+                          only makes sense when paired with --derive.
   --type audio|image|text skip files which aren't of some specific media type
 
-fix-tags options:
-  --force: apply path-based tag to each file, even those which already have tags
 """
 
 from dataclasses import dataclass
@@ -228,6 +230,27 @@ def loose_compare_lists(a: list[str], b: list[str]) -> bool:
     b = sorted(clean_for_loose_compare(i) for i in b)
     return a == b
 
+def choose_best(a: list[str], b: list[str]) -> list[str]:
+    primary = a[:]
+    secondary = b[:]
+    if len(primary) < len(secondary):
+        primary, secondary = secondar, primary
+
+    return substitute_from_if_better(primary, secondary)
+
+def substitute_from_if_better(primary: list[str], secondary: list[str]) -> list[str]:
+    """
+    if any item in secondary looks like a higher-fidelity equivalent to one in `primary`,
+    replace the one in `primary` with the better one from `secondary`
+    """
+    substituted = primary[:]
+    for s in secondary:
+        for i, p in enumerate(primary):
+            if p == clean_for_fs(s):
+                substituted[i] = s
+
+    return substituted
+
 def clean_for_fs(a: str, single_field: bool=False) -> str:
     preserve = 'abcdefghijklmnopqrstuvwxyz0123456789._-'
     a = romanize(a)
@@ -286,26 +309,52 @@ class Tags:
     def __repr__(self) -> str:
         return f"artist:{self.producer}/{self.albumartist}/{self.artist}, album:{self.album}, title:{self.title}, trackno:{self.tracknumber}"
 
-    def merge(self, other: 'Tags', merge_field) -> 'Tags':
+    def clone(self) -> 'Tags':
         return Tags(
-            album=merge_field(self.album, other.album),
-            albumartist=merge_field(self.albumartist, other.albumartist),
-            artist=merge_field(self.artist, other.artist),
-            producer=merge_field(self.producer, other.producer),
-            title=merge_field(self.title, other.title),
-            tracknumber=merge_field(self.tracknumber, other.tracknumber),
+            album=self.album,
+            albumartist=self.albumartist,
+            artist=self.artist,
+            producer=self.producer,
+            title=self.title,
+            tracknumber=self.tracknumber,
         )
+
+    def merge(self, other: 'Tags', merge_field) -> 'Tags':
+        new_tags = self.clone()
+        new_tags.merge_in_place(other, merge_field)
+        return new_tags
+
+    def map(self, f) -> 'Tags':
+        new_tags = self.clone()
+        new_tags.update(f)
+        return new_tags
+
+    def merge_in_place(self, other: 'Tags', merge_field) -> None:
+        self.album = merge_field(self.album, other.album)
+        self.albumartist = merge_field(self.albumartist, other.albumartist)
+        self.artist = merge_field(self.artist, other.artist)
+        self.producer = merge_field(self.producer, other.producer)
+        self.title = merge_field(self.title, other.title)
+        self.tracknumber = merge_field(self.tracknumber, other.tracknumber)
+
+    def update(self, f) -> None:
+        self.merge_in_place(self, lambda v, _: f(v))
 
     def or_(self, other: 'Tags') -> 'Tags':
         """
         substitute any tags missing tags in `self` with those from `fallback`.
         i.e. `self` takes precedence over `fallback`.
         """
-        # def merge_field(primary: list[str], secondary: list[str]) -> list[str]:
-        #     # primary_lower = [i.lower() for i in primary]
-        #     # return primary + [i for i in secondary if i.lower() not in primary_lower]
-        #     return primary or secondary
         return self.merge(other, lambda a, b: a or b)
+
+    def extrapolate_from(self, other: 'Tags') -> 'Tags':
+        """
+        if anything in @other looks like a better version of the same data in @self,
+        then use the better version.
+        for example, if @self has `The.Best.Original.Mix` where @other has `The Best (Original Mix)`,
+        then use @other's version instead of @self's
+        """
+        return self.merge(other, substitute_from_if_better)
 
     def union(self, other: 'Tags') -> 'Tags':
         def merge_field(a: list[str], b: list[str]) -> list[str]:
@@ -313,7 +362,7 @@ class Tags:
         return self.merge(other, merge_field)
 
     def unambiguous(self) -> 'Tags':
-        return self.merge(self, lambda f, _: f if len(f) == 1 else [])
+        return self.map(lambda f: f if len(f) == 1 else [])
 
     # def intersection(self, other: 'Tags') -> 'Tags':
     #     def merge_field(primary: list[str], secondary: list[str]):
@@ -329,13 +378,10 @@ class Tags:
             stripped = [ i.strip().replace('\u200b', '') for i in field ]
             unique = []
             for i in stripped:
-                if i not in unique:
+                if i and i not in unique:
                     unique.append(i)
             return unique
-        self.title = trim(self.title)
-        self.artist = trim(self.artist)
-        self.albumartist = trim(self.albumartist)
-        self.album = trim(self.album)
+        self.update(lambda f: trim(f))
 
     def cleanup_trackno(self) -> None:
         self.tracknumber = self.tracknumber[:]  # to avoid modifying shared structures
@@ -369,22 +415,13 @@ class Tags:
 
     def promote_albumartist(self) -> None:
         """
-        1. replace shorthands like "V.A." with "Various Artists".
-        2. if there's only an album artist, and no track artist, turn the album artist into the track artist.
-        3. if the artist and album artist are nearly identical, try to merge them.
+        1. if the artist and album artist are nearly identical, try to merge them.
+        2. if the artist is empty, but we know the album artist, then make that also be the artist.
         """
-
-        if loose_compare_lists(self.artist, self.albumartist):
-            # artist & album artist are nearly identical:
-            # probably guessed one of them from filename, which was lacking certain symbols of the actual artist.
-            # recover whichever of these fields had the fewer characters removed (i.e. is longest)
-            if len("".join(self.artist)) > len("".join(self.albumartist)):
-                self.albumartist = self.artist
-            elif self.albumartist == [clean_for_fs(a) for a in self.albumartist] and self.artist != [clean_for_fs(a) for a in self.artist]:
-                # the album artist was taken from disk (bad), but the artist was provided in some way that preserves more info
-                self.albumartist = self.artist
-            elif self.albumartist and all(self.albumartist):
-                self.artist = self.albumartist
+        self.albumartist, self.artist = (
+            substitute_from_if_better(self.albumartist, self.artist),
+            substitute_from_if_better(self.artist, self.albumartist),
+        )
 
         if self.artist == []:
             self.artist = self.albumartist
@@ -782,20 +819,54 @@ class MediaFile:
         self.meta.set_tag(self.tag_field_names.tracknumber, tags.tracknumber)
         self.meta.flush()
 
-class Tagger:
-    def __init__(self, dry_run: bool, force: bool, derive_from_path: bool, manual_tags: Tags):
-        self.dry_run = dry_run
-        self.force = force
+class TagsProvider:
+    def __init__(self, ignore_existing: bool, override_existing: bool, derive: bool, manual_tags: Tags, neighbor_tags: Tags|None = None):
+        self.ignore_existing = ignore_existing
+        self.override_existing = override_existing
+        self.derive = derive
         self.manual_tags = manual_tags
-        self.derive_from_path = derive_from_path
+        self.neighbor_tags = neighbor_tags or Tags()
 
-    def with_base_tags(self, fallback_tags: Tags) -> 'Tagger':
-        return Tagger(
-            dry_run = self.dry_run,
-            force = self.force,
-            manual_tags = self.manual_tags.or_(fallback_tags),
-            derive_from_path = self.derive_from_path,
+    def with_neighbor_tags(self, neighbor_tags: Tags) -> 'TagsProvider':
+        return TagsProvider(
+            ignore_existing=self.ignore_existing,
+            override_existing=self.override_existing,
+            derive=self.derive,
+            manual_tags=self.manual_tags,
+            neighbor_tags=neighbor_tags,
         )
+
+    def can_derive_from_neighbors(self) -> bool:
+        return self.derive and not self.ignore_existing
+
+    def on_disk(self, file_: MediaFile) -> Tags:
+        if self.ignore_existing:
+            return Tags()
+        return file_.tags_on_disk()
+
+    def derived(self, file_: MediaFile) -> Tags:
+        if not self.derive:
+            return Tags()
+
+        on_disk = self.on_disk(file_)
+        path_tags = Tags.from_path(file_.path_)
+        my_derived_tags = path_tags.extrapolate_from(on_disk)
+
+        if on_disk.is_artist_item(file_.ext):
+            # we can't generalize *any* tags to an artist item (e.g. Justice/artist.png)
+            return my_derived_tags
+
+        neighbor_tags = self.neighbor_tags
+        if self.override_existing:
+            # our derived tags overrule anything generalized from our neighbors
+            return my_derived_tags.or_(neighbor_tags)
+        else:
+            return neighbor_tags.or_(my_derived_tags)
+
+class Tagger:
+    def __init__(self, dry_run: bool, tags_provider: TagsProvider):
+        self.dry_run = dry_run
+        self.tags_provider = tags_provider
 
     def show(self, file_: MediaFile) -> None:
         tags = self.tags_for(file_)
@@ -814,31 +885,19 @@ class Tagger:
 
     def tags_for(self, file_: MediaFile) -> Tags:
         """
-        return the tags stored in @file_, plus any we can derive from its path or our manual tags.
+        return the tags stored in @file_, plus any we can derive from its path/neighbors, or our manual tags.
         """
-        old_tags = file_.tags_on_disk()
-        path_tags = Tags.from_path(file_.path_) if self.derive_from_path else Tags()
-        manual_tags = self.manual_tags
-        if self.force:
-            # manual_tags > path_tags > old_tags
-            new_tags = manual_tags.or_(path_tags).or_(old_tags)
+        manual = self.tags_provider.manual_tags
+        derived = self.tags_provider.derived(file_)
+        on_disk = self.tags_provider.on_disk(file_)
+
+        if self.tags_provider.override_existing:
+            # manual tags > derived tags > on_disk
+            new_tags = manual.or_(derived).or_(on_disk)
         else:
-            # manual_tags > old_tags > path_tags
-            # old_tags overrule path_tags
-            new_tags = manual_tags.or_(old_tags).or_(path_tags)
-            # special case that explicitly supplying empty tags should delete the existing
-            if manual_tags.album == [""]:
-                new_tags.album = []
-            if manual_tags.albumartist == [""]:
-                new_tags.albumartist = []
-            if manual_tags.artist == [""]:
-                new_tags.artist = []
-            if manual_tags.producer == [""]:
-                new_tags.producer = []
-            if manual_tags.title == [""]:
-                new_tags.title = []
-            if manual_tags.tracknumber == [""]:
-                new_tags.tracknumber = []
+            # manual tags > on_disk > derived tags
+            new_tags = manual.or_(on_disk).or_(derived)
+
         new_tags.trim_fields()
         new_tags.cleanup_trackno()
         new_tags.expand_shorthands()
@@ -856,9 +915,8 @@ class Tagger:
 
         self.show_tagdif(file_.path_, old_tags, new_tags)
 
-        if self.confirm():
-            if self.guard_dry_run("writing tags"):
-                file_.write_tags(new_tags)
+        if self.guard_dry_run("writing tags"):
+            file_.write_tags(new_tags)
 
     def fix_path(self, file_: MediaFile) -> None:
         tags = self.tags_for(file_)
@@ -873,11 +931,10 @@ class Tagger:
 
         self.show_pathdif(file_.path_, new_path)
 
-        if self.confirm():
-            if self.guard_dry_run(f"moving file"):
-                assert not os.path.exists(new_path), f"{file_.path_} -> {new_path} would clobber destination!"
-                # os.renames creates the necessary parents, and then prunes leaf directories
-                os.renames(file_.path_, new_path)
+        if self.guard_dry_run(f"moving file"):
+            assert not os.path.exists(new_path), f"{file_.path_} -> {new_path} would clobber destination!"
+            # os.renames creates the necessary parents, and then prunes leaf directories
+            os.renames(file_.path_, new_path)
 
     def show_pathdif(self, old_path: str, new_path: str):
         logger.info( "updating path:")
@@ -893,10 +950,6 @@ class Tagger:
         logger.debug(f"skipping unchanged {path_}")
         logger.debug(f"    {tags}")
 
-    def confirm(self) -> bool:
-        # TODO: actually prompt
-        return True
-
     def guard_dry_run(self, msg: str) -> bool:
         if self.dry_run:
             print(f"dry run: not {msg}")
@@ -905,10 +958,10 @@ class Tagger:
         return True
 
 class Gatherer:
-    def __init__(self, roots: list[str], media_type: MediaType|None = None, derive_tags: bool = False):
+    def __init__(self, roots: list[str], media_type: MediaType|None, tags_provider: TagsProvider):
         self.roots = roots
         self.media_type = media_type
-        self.derive_tags = derive_tags
+        self.tags_provider = tags_provider
 
     def files(self) -> list[tuple[MediaFile, Tags]]:
         """
@@ -922,14 +975,7 @@ class Gatherer:
                 if self.media_type is not None and not file_.is_type(self.media_type):
                     continue
 
-                ftags = file_.tags_on_disk()
-                if ftags == Tags():
-                    ftags = Tags.from_path(file_.path_)
-                if ftags.is_artist_item(file_.ext):
-                    # we can't generalize *any* tags to an artist item (e.g. Justice/artist.png)
-                    yield file_, Tags()
-                else:
-                    yield file_, tags
+                yield file_, tags
 
     def files_below(self, root: str) -> tuple[Tags, list[tuple[MediaFile, Tags]]]:
         """
@@ -939,9 +985,9 @@ class Gatherer:
         if not os.path.isdir(root):
             # single file
             file_ = MediaFile.new(root)
-            return file_.tags_on_disk(), [ (file_, Tags()) ]
+            return self.tags_provider.on_disk(file_), [ (file_, Tags()) ]
 
-        if not self.derive_tags:
+        if not self.tags_provider.can_derive_from_neighbors():
             # directory, but don't derive any tags
             def _gen():
                 for filename in os.listdir(root):
@@ -965,7 +1011,7 @@ class Gatherer:
         def _gen():
             for files_below in filelists:
                 for file_, tags in files_below:
-                    yield file_, tags.or_(derived_tags)
+                    yield file_, derived_tags
 
         return tags_seen, _gen()
 
@@ -980,10 +1026,12 @@ def main():
     parser.add_argument('--album', help="manually specify the tag")
     parser.add_argument('--album-artist', help="manually specify the tag")
     parser.add_argument('--artist', help="manually specify the tag")
+    parser.add_argument('--ignore-existing', action='store_true', default=False, help="completely ignore existing tags")
+    parser.add_argument('--override-existing', action='store_true', default=False, help="give higher precedence to derived tags than to existing tags")
     parser.add_argument('--producer', help="manually specify the tag")
     parser.add_argument('--title', help="manually specify the tag")
     parser.add_argument('--trackno', help="manually specify the tag")
-    parser.add_argument('--derive', action='store_true', help="apply tags already existing in one file (e.g. album tag) to adjacent files in the set")
+    parser.add_argument('--derive', action='store_true', default=False, help="apply tags already existing in one file (e.g. album tag) to adjacent files in the set")
     parser.add_argument('--type', type=MediaType, help="only apply operation to a specific type of media")
 
     subparsers = parser.add_subparsers(help="what to do")
@@ -998,7 +1046,6 @@ def main():
 
     fix_tags_parser = subparsers.add_parser("fix-tags")
     fix_tags_parser.set_defaults(subcommand="fix_tags")
-    fix_tags_parser.add_argument('--force', action='store_true', help="give higher credence to path-based and manual tags than any existing tags")
     fix_tags_parser.add_argument("path", nargs="+", help="relative path to a file to tag")
 
     fix_paths_parser = subparsers.add_parser("fix-paths")
@@ -1010,8 +1057,6 @@ def main():
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)
 
-    gatherer = Gatherer(args.path, args.type, getattr(args, "derive", False))
-
     manual_tags = Tags(
         album=[args.album] if args.album is not None else [],
         albumartist=[args.album_artist] if args.album_artist is not None else [],
@@ -1021,27 +1066,32 @@ def main():
         tracknumber=[args.trackno] if args.trackno is not None else [],
     )
 
-    tagger = Tagger(
-        dry_run=args.dry_run,
-        force=getattr(args, "force", False),
-        derive_from_path=getattr(args, "derive", False),
-        manual_tags=manual_tags,
+    tags_provider = TagsProvider(
+        ignore_existing=args.ignore_existing,
+        override_existing=args.override_existing,
+        derive=args.derive,
+        manual_tags=manual_tags
     )
 
+    gatherer = Gatherer(args.path, args.type, tags_provider)
+
+    def gather_files():
+        for f, tags in gatherer.files():
+            yield Tagger(dry_run=args.dry_run, tags_provider=tags_provider.with_neighbor_tags(tags)), f
+
     if args.subcommand == "show":
-        for f, tags in gatherer.files():
-            tagger.with_base_tags(tags).show(f)
+        for tagger, f in gather_files():
+            tagger.show(f)
     elif args.subcommand == "show_missing":
-        for f, tags in gatherer.files():
-            tagger_ = tagger.with_base_tags(tags)
-            if not tagger_.is_sufficiently_tagged(f):
+        for tagger, f in gather_files():
+            if not tagger.is_sufficiently_tagged(f):
                 tagger.show(f)
     elif args.subcommand == "fix_tags":
-        for f, tags in gatherer.files():
-            tagger.with_base_tags(tags).tag_file(f)
+        for tagger, f in gather_files():
+            tagger.tag_file(f)
     elif args.subcommand == "fix_paths":
-        for f, tags in gatherer.files():
-            tagger.with_base_tags(tags).fix_path(f)
+        for tagger, f in gather_files():
+            tagger.fix_path(f)
     else:
         assert False, f"unrecognized command {args.subcommand}"
 
