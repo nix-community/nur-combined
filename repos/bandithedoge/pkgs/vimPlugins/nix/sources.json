@@ -329,10 +329,10 @@
     "homepage": "",
     "owner": "Saecki",
     "repo": "crates.nvim",
-    "rev": "d1be10c1fcf4adb1eed2f2f510176db035efc68d",
-    "sha256": "08iq181vmm712vw6pxw7kljdgk3j2d7w0lvyq732mj7xdsik0yk4",
+    "rev": "1c924d5a9ea3496c4e1a02d0d51388ba809f8468",
+    "sha256": "1aig0p82q7sy3291671msh6yk945dnxczw6qg59n5w98aw8848cp",
     "type": "tarball",
-    "url": "https://github.com/Saecki/crates.nvim/archive/d1be10c1fcf4adb1eed2f2f510176db035efc68d.tar.gz",
+    "url": "https://github.com/Saecki/crates.nvim/archive/1c924d5a9ea3496c4e1a02d0d51388ba809f8468.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "cybu.nvim": {
@@ -593,10 +593,10 @@
     "homepage": null,
     "owner": "ibhagwan",
     "repo": "fzf-lua",
-    "rev": "afcc4b76ad3ab80526b6f1932a1514b22de8c187",
-    "sha256": "18gh2j1al3kkf8cqsdfy2a6bdlqg2fr7ww0m98acsikhbgg7hmdr",
+    "rev": "c59e076dddae6fa85f8a97da8ff5304014ba5768",
+    "sha256": "1vwjhicn5p1c9ydr9hzgpm8nwgvzq0pvz8i9waig02dqb3flm3pr",
     "type": "tarball",
-    "url": "https://github.com/ibhagwan/fzf-lua/archive/afcc4b76ad3ab80526b6f1932a1514b22de8c187.tar.gz",
+    "url": "https://github.com/ibhagwan/fzf-lua/archive/c59e076dddae6fa85f8a97da8ff5304014ba5768.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "galaxyline.nvim": {
@@ -821,10 +821,10 @@
     "homepage": "",
     "owner": "mrjones2014",
     "repo": "legendary.nvim",
-    "rev": "543bbbba4e7b54222362f312e1d2e3dac1eaae75",
-    "sha256": "0s85jl37znfc281fncsqrlrasbb121hzfqz89xi5ld46303rqzn6",
+    "rev": "c89be94fe96dc5eaba67ad9371263bc1eac75044",
+    "sha256": "1mq197p33ywp9cz2h38zx37nmgnqa0azz7c0c2s7n6mjxr6ych8h",
     "type": "tarball",
-    "url": "https://github.com/mrjones2014/legendary.nvim/archive/543bbbba4e7b54222362f312e1d2e3dac1eaae75.tar.gz",
+    "url": "https://github.com/mrjones2014/legendary.nvim/archive/c89be94fe96dc5eaba67ad9371263bc1eac75044.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "lsp_extensions.nvim": {
