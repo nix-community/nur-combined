@@ -1,45 +1,15 @@
 { modules, inputs, ... }:
 { config, pkgs, lib, ... }:
-let
-  modules-enable = with modules; [
-    aria2
-    bluetooth
-    common
-    croc
-    direnv
-    fcitx5
-    firefox
-    fish
-    fonts
-    git
-    grub
-    gtk
-    liferea
-    mpv
-    neovim
-    nix
-    openfortivpn
-    pass
-    podman
-    radicale
-    sing-box
-    sops
-    spotify
-    sway
-    users
-    vscode
-    waybar
-    inputs.nix-index-database.hmModules.nix-index
-  ];
-in
 {
-  imports = map (x: x.default or { }) modules-enable ++
+  imports = map (x: x.default or { }) (lib.attrValues modules) ++
     (with inputs; [
       nix-index-database.nixosModules.nix-index
       { programs.command-not-found.enable = false; }
     ]);
 
-  home-manager.users.nixos.imports = map (x: x.home or { }) modules-enable;
+  home-manager.users.nixos.imports = map (x: x.home or { }) (lib.attrValues modules) ++ [
+    inputs.nix-index-database.hmModules.nix-index
+  ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   nix.settings.extra-platforms = [ "aarch64-linux" ];
