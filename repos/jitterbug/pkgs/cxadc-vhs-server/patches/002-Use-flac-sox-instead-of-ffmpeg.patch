@@ -1,5 +1,5 @@
 diff --git a/README.md b/README.md
-index 76e8c53..0073dff 100644
+index 76e8c53..038bea0 100644
 --- a/README.md
 +++ b/README.md
 @@ -67,7 +67,9 @@ The script `local-capture.sh` is included in the repository to aid with local ca
@@ -13,7 +13,7 @@ index 76e8c53..0073dff 100644
  
  You can install the first three from most distros' default repositories: 
  
-@@ -91,22 +93,24 @@ A static ffmpeg build with libsoxr can be obtained from https://johnvansickle.co
+@@ -91,22 +93,25 @@ A static ffmpeg build with libsoxr can be obtained from https://johnvansickle.co
  
  ```text
  Usage: local-capture.sh [options] <basepath>
@@ -32,6 +32,7 @@ index 76e8c53..0073dff 100644
 +        --linear=               ALSA device identifier for linear (unset=default)
 +        --add-date              Add current date and time to the filenames
 +        --convert-linear        Convert linear to flac+u8
++        --linear-rate           Linear sample rate (unset=46875)
 +        --compress-video        Compress video
 +        --compress-video-level  Video compression level (unset=4)
 +        --compress-hifi         Compress hifi
@@ -52,7 +53,7 @@ index 76e8c53..0073dff 100644
 diff --git a/local-capture.sh b/local-capture.sh
 old mode 100644
 new mode 100755
-index 8843df8..bad2ee3
+index 8843df8..3e698f0
 --- a/local-capture.sh
 +++ b/local-capture.sh
 @@ -1,4 +1,4 @@
@@ -129,7 +130,18 @@ index 8843df8..bad2ee3
  fi
  
  for i in "$@"; do
-@@ -61,10 +89,18 @@ for i in "$@"; do
+@@ -49,6 +77,10 @@ for i in "$@"; do
+ 		LINEAR_DEVICE="${i#*=}"
+ 		shift # past argument=value
+ 		;;
++	--linear-rate=*)
++		LINEAR_RATE="${i#*=}"
++		shift # past argument=value
++		;;
+ 	--add-date)
+ 		ADD_DATE="YES"
+ 		shift # past argument with no value
+@@ -61,10 +93,18 @@ for i in "$@"; do
  		COMPRESS_VIDEO="YES"
  		shift # past argument with no value
  		;;
@@ -148,7 +160,7 @@ index 8843df8..bad2ee3
  	--resample-hifi)
  		RESAMPLE_HIFI="YES"
  		shift # past argument with no value
-@@ -88,16 +124,18 @@ done
+@@ -88,16 +128,19 @@ done
  
  function usage {
  	echo "Usage: $SCRIPT_NAME [options] <basepath>" >&2
@@ -165,6 +177,7 @@ index 8843df8..bad2ee3
 +	printf "\t--video=                Number of CX card to use for video capture (unset=disabled)\n" >&2
 +	printf "\t--hifi=                 Number of CX card to use for hifi capture (unset=disabled)\n" >&2
 +	printf "\t--linear=               ALSA device identifier for linear (unset=default)\n" >&2
++	printf "\t--linear-rate=          Linear sample rate (unset=46875)\n" >&2
 +	printf "\t--add-date              Add current date and time to the filenames\n" >&2
 +	printf "\t--convert-linear        Convert linear to flac+u8\n" >&2
 +	printf "\t--compress-video        Compress video\n" >&2
@@ -177,7 +190,7 @@ index 8843df8..bad2ee3
  	exit 1
  }
  
-@@ -112,14 +150,15 @@ fi
+@@ -112,14 +155,15 @@ fi
  
  if [ -z "${FFMPEG_CMD-}" ]; then
  	[ -n "${CONVERT_LINEAR-}" ] || echo "Converting linear requires ffmpeg." && exit 1
@@ -199,7 +212,27 @@ index 8843df8..bad2ee3
  fi
  
  OUTPUT_BASEPATH="$1"
-@@ -185,39 +224,46 @@ if [[ -n "${VIDEO_IDX-}" ]]; then
+@@ -157,8 +201,9 @@ sleep 0.5
+ curl -X GET --unix-socket "$SOCKET" -s "http:/d/" >/dev/null || die "Server unreachable: $?"
+ 
+ CXADC_COUNTER=0
++LINEAR_RATE=${LINEAR_RATE:=46875}
+ 
+-START_URL="http:/d/start?"
++START_URL="http:/d/start?lrate=${LINEAR_RATE}&"
+ if [[ -n "${CXADC_VIDEO-}" ]]; then
+ 	VIDEO_IDX="$CXADC_COUNTER"
+ 	((CXADC_COUNTER += 1))
+@@ -177,7 +222,7 @@ fi
+ 
+ START_RESULT=$(curl -X GET --unix-socket "$SOCKET" -s "$START_URL" || die "Cannot send start request to server: $?")
+ echo "$START_RESULT" | jq -r .state | xargs test "Running" "=" || die "Server failed to start capture: $(echo "$START_RESULT" | jq -r .fail_reason)"
+-LINEAR_RATE="$(echo "$START_RESULT" | jq -r .linear_rate)"
++RET_LINEAR_RATE="$(echo "$START_RESULT" | jq -r .linear_rate)"
+ 
+ if [[ -n "${VIDEO_IDX-}" ]]; then
+ 	if [[ -z "${COMPRESS_VIDEO-}" ]]; then
+@@ -185,39 +230,46 @@ if [[ -n "${VIDEO_IDX-}" ]]; then
  		curl -X GET --unix-socket "$SOCKET" -s --output "$VIDEO_PATH" "http:/d/cxadc?$VIDEO_IDX" &
  	else
  		VIDEO_PATH="$OUTPUT_BASEPATH-video.ldf"
@@ -266,3 +299,12 @@ index 8843df8..bad2ee3
  	fi
  	HIFI_PID=$!
  	echo "PID $HIFI_PID is capturing hifi to $HIFI_PATH"
+@@ -228,7 +280,7 @@ if [[ -n "${CONVERT_LINEAR-}" ]]; then
+ 	LINEAR_PATH="$OUTPUT_BASEPATH-linear.flac"
+ 	curl -X GET --unix-socket "$SOCKET" -s --output - "http:/d/linear" | "$FFMPEG_CMD" \
+ 		-hide_banner -loglevel error \
+-		-ar "$LINEAR_RATE" -ac 3 -f s24le -i - \
++		-ar "$RET_LINEAR_RATE" -ac 3 -f s24le -i - \
+ 		-filter_complex "[0:a]channelsplit=channel_layout=2.1[FL][FR][headswitch],[FL][FR]amerge=inputs=2[linear]" \
+ 		-map "[linear]" -compression_level 0 "$LINEAR_PATH" \
+ 		-map "[headswitch]" -f u8 "$HEADSWITCH_PATH" &
