@@ -194,15 +194,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "04fb9178158a7714aeb908c7a5310c4e0d6ea4b6";
+    version = "2026fbf7c1ff45dce3557a565fe85e24d6f7f326";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "04fb9178158a7714aeb908c7a5310c4e0d6ea4b6";
+      rev = "2026fbf7c1ff45dce3557a565fe85e24d6f7f326";
       fetchSubmodules = false;
-      sha256 = "sha256-KTvZxYy+UgLNg1DYBMrJrRdxDo3N5ususlrHyRBS7C8=";
+      sha256 = "sha256-H1w8jjba8vVzfsZJrTz5AFiqF24LIbWw55BF3X7Ef4o=";
     };
-    date = "2024-07-29";
+    date = "2024-08-03";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -304,10 +304,10 @@
   };
   dingtalk = {
     pname = "dingtalk";
-    version = "7.5.20.40705";
+    version = "7.6.0.40718";
     src = fetchurl {
-      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.5.20.40705_amd64.deb";
-      sha256 = "sha256-PSbVKYDe47mZjDiAkEy7fJLADJ6f8Eiy5PfhUZ490r0=";
+      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.6.0.40718_amd64.deb";
+      sha256 = "sha256-Fe/IwnuQzlc+Q3FqvQz2CjMLdA1ad8gAqmcjsHReToQ=";
     };
   };
   douban-openapi-server = {
@@ -796,13 +796,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3504";
+    version = "b3505";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3504";
+      rev = "b3505";
       fetchSubmodules = false;
-      sha256 = "sha256-ecdFExRGQchpYG2T4A53GCcCJ+2xIEklcYGIBhpuI+s=";
+      sha256 = "sha256-leKDmbwZHVglw+MOq1Ql5PF02fm+9p98kliMH1Kb21Y=";
     };
   };
   lyrica = {

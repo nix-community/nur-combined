@@ -302,7 +302,7 @@
   "legacyPackages.x86_64-linux.dingtalk": {
     "description": "钉钉",
     "pname": "dingtalk",
-    "version": "7.5.20.40705"
+    "version": "7.6.0.40718"
   },
   "legacyPackages.x86_64-linux.dn42-pingfinder": {
     "description": "DN42 Pingfinder",
@@ -482,7 +482,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Port of Facebook's LLaMA model in C/C++",
     "pname": "llama-cpp",
-    "version": "3504"
+    "version": "3505"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -3077,7 +3077,7 @@
   "packages.x86_64-linux.dingtalk": {
     "description": "钉钉",
     "pname": "dingtalk",
-    "version": "7.5.20.40705"
+    "version": "7.6.0.40718"
   },
   "packages.x86_64-linux.dn42-pingfinder": {
     "description": "DN42 Pingfinder",
