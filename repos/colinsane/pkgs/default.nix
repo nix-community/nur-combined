@@ -25,6 +25,7 @@ let
     codemadness-frontends = callPackage ./additional/codemadness-frontends { };
     codemadness-frontends_0_6 = codemadness-frontends.v0_6;
     crust-firmware-pinephone = callPackage ./additional/crust-firmware-pinephone { };
+    curlftpfs-sane = callPackage ./additional/curlftpfs-sane { };
     depthcharge-tools = callPackage ./additional/depthcharge-tools { };
     eg25-control = callPackage ./additional/eg25-control { };
     eg25-manager = callPackage ./additional/eg25-manager { };

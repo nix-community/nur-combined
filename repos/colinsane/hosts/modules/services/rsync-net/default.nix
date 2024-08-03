@@ -26,7 +26,7 @@ in
         note that this module does NOT add any encryption to the files (layer that yourself).
       '';
       default = lib.optionals config.sane.persist.enable [
-        config.sane.persist.stores."private".origin
+        "/nix/persist/private"  #< XXX: make sure to do the encrypted version, not /mnt/persist/private!
       ];
     };
   };
