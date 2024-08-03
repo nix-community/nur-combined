@@ -25,8 +25,8 @@ in
         list of directories to upload to rsync.net.
         note that this module does NOT add any encryption to the files (layer that yourself).
       '';
-      default = [
-        "/nix/persist/private"
+      default = lib.optionals config.sane.persist.enable [
+        config.sane.persist.stores."private".origin
       ];
     };
   };
@@ -55,15 +55,17 @@ in
       # hardening
       serviceConfig.CapabilityBoundingSet = [ "CAP_DAC_READ_SEARCH" ];
       serviceConfig.ReadWritePaths = builtins.map (d: "${d}/zzz-rsync-net") cfg.dirs;
-      serviceConfig.ReadOnlyPaths = "/nix/persist/private";
-      serviceConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
+      serviceConfig.ReadOnlyPaths = cfg.dirs;
+      serviceConfig.RestrictAddressFamilies = "AF_INET AF_INET6";
 
       serviceConfig.LockPersonality = true;
       serviceConfig.MemoryDenyWriteExecute = true;
+      serviceConfig.NoNewPrivileges = true;
+      serviceConfig.PrivateDevices = true;
       serviceConfig.PrivateMounts = true;
-      serviceConfig.PrivateUsers = true;
+      serviceConfig.PrivateTmp = true;
       serviceConfig.ProcSubset = "pid";
-      serviceConfig.ProtectClock = "true";
+      serviceConfig.ProtectClock = true;
       serviceConfig.ProtectControlGroups = true;
       serviceConfig.ProtectHome = true;
       serviceConfig.ProtectHostname = true;
@@ -73,13 +75,23 @@ in
       serviceConfig.ProtectProc = "invisible";
       serviceConfig.ProtectSystem = "strict";
       serviceConfig.RemoveIPC = true;
+      serviceConfig.RestrictFileSystems = "@basic-api @common-block @temporary";
+      serviceConfig.RestrictNamespaces = true;
       serviceConfig.RestrictSUIDSGID = true;
       serviceConfig.SystemCallArchitectures = "native";
-      serviceConfig.SystemCallFilter = "@system-service @mount";
+      serviceConfig.SystemCallFilter = [
+        "@system-service"
+        "~@chown"
+        "~@cpu-emulation"
+        "~@keyring"
+        "~@setuid"
+      ];
       # hardening exceptions:
-      serviceConfig.NoNewPrivileges = false;  #< bwrap'd dac_read_search
-      serviceConfig.PrivateDevices = false;  #< passt/pasta
-      serviceConfig.RestrictNamespaces = false;  #< bwrap
+      serviceConfig.PrivateUsers = false;  #< CAP_DAC_READ_SEARCH in the root namespace means we can't do any user namespacing
+      # serviceConfig.NoNewPrivileges = false;  #< bwrap'd dac_read_search
+      # serviceConfig.PrivateDevices = false;  #< passt/pasta
+      # serviceConfig.RestrictNamespaces = false;  #< bwrap
+      # serviceConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";  #< AF_NETLINK is for passt/pasta
     };
     systemd.timers.rsync-net = {
       wantedBy = [ "multi-user.target" ];
