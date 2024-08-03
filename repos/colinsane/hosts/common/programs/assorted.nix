@@ -1093,7 +1093,17 @@ in
 
     sqlite = {};
 
-    sshfs-fuse = {};  # used by fs.nix
+    sshfs-fuse.sandbox.enable = true;  # used by fs.nix
+    sshfs-fuse.sandbox.method = "bwrap";  #< N.B. if you call this from the CLI -- without `mount.fuse` -- set this to `none`
+    sshfs-fuse.sandbox.net = "all";
+    sshfs-fuse.sandbox.autodetectCliPaths = "parent";
+    # sshfs-fuse.sandbox.extraPaths = [
+    #   "/dev/fd"  # fuse.mount3 -o drop_privileges passes us data over /dev/fd/3
+    #   "/mnt"  # XXX: not sure why i need all this, instead of just /mnt/desko, or /mnt/desko/home, etc
+    # ];
+    sshfs-fuse.sandbox.extraHomePaths = [
+      ".ssh/id_ed25519"  #< TODO: add -o foo,bar=path/to/thing style arguments to autodetection
+    ];
 
     strace.sandbox.enable = false;  #< needs to `exec` its args, and therefore support *anything*
 
