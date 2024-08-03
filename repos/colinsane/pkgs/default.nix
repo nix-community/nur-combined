@@ -53,6 +53,7 @@ let
     lemmy-lemonade = callPackage ./additional/lemonade { };  # XXX: nixpkgs already has a `lemonade` pkg
     lgtrombetta-compass = callPackage ./additional/lgtrombetta-compass { };
     libdng = callPackage ./additional/libdng { };
+    libfuse-sane = callPackage ./additional/libfuse-sane { };
     libmegapixels = callPackage ./additional/libmegapixels { };
     lightdm-mobile-greeter = callPackage ./additional/lightdm-mobile-greeter { };
     linux-exynos5-mainline = callPackage ./additional/linux-exynos5-mainline { };

@@ -6,10 +6,11 @@ let
   backing = sane-lib.path.concat [ persist-base "ephemeral" ];
 
   gocryptfs-ephemeral = pkgs.writeShellApplication {
-    name = "mount.fuse.gocryptfs-ephemeral";
+    name = "gocryptfs-ephemeral";
     runtimeInputs = with pkgs; [
       coreutils-full
       gocryptfs
+      util-linux  #< gocryptfs complains that it can't exec `logger`, otherwise
     ];
     text = ''
       # mount invokes us like this. not sure if that's a guarantee or not:
@@ -25,7 +26,7 @@ let
       # that's inconsequential: we just care that it's not *persisted*.
       pw=$(dd if=/dev/random bs=128 count=1 | base64 --wrap=0)
       echo "$pw" | gocryptfs -quiet -passfile /dev/stdin -init "$backing"
-      echo "$pw" | gocryptfs -quiet -passfile /dev/stdin "$@"
+      echo "$pw" | exec gocryptfs -quiet -passfile /dev/stdin "$@"
     '';
   };
 in
@@ -40,11 +41,11 @@ lib.mkIf config.sane.persist.enable
   };
 
   fileSystems."${origin}" = {
-    device = backing;
-    fsType = "fuse.gocryptfs-ephemeral";
+    device = "${lib.getExe gocryptfs-ephemeral}#${backing}";
+    fsType = "fuse3";
     options = [
-      # "nodev"   # "Unknown parameter 'nodev'". gocryptfs requires this be passed as `-ko nodev`
-      # "nosuid"  # "Unknown parameter 'nosuid'". gocryptfs requires this be passed as `-ko nosuid` (also, nosuid is default)
+      "nodev"   # only works via mount.fuse; gocryptfs requires this be passed as `-ko nodev`
+      "nosuid"  # only works via mount.fuse; gocryptfs requires this be passed as `-ko nosuid` (also, nosuid is default)
       "allow_other"  # root ends up being the user that mounts this, so need to make it visible to other users.
       # "defaults"  # "unknown flag: --defaults. Try 'gocryptfs -help'"
     ];

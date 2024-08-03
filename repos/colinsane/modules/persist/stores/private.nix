@@ -6,11 +6,12 @@ let
   backing = sane-lib.path.concat [ persist-base "private" ];
 
   gocryptfs-private = pkgs.writeShellApplication {
-    name = "mount.fuse.gocryptfs-private";
+    name = "gocryptfs-private";
     runtimeInputs = with pkgs; [
       coreutils-full
       gocryptfs
       inotify-tools
+      util-linux  #< gocryptfs complains that it can't exec `logger`, otherwise
     ];
     text = ''
       # backing=$1
@@ -89,14 +90,14 @@ lib.mkIf config.sane.persist.enable
   };
 
   fileSystems."${origin}" = {
-    device = backing;
-    fsType = "fuse.gocryptfs-private";
+    device = "${lib.getExe gocryptfs-private}#${backing}";
+    fsType = "fuse3";
     options = [
       # "auto"
       "nofail"
-      # "nodev"   # "Unknown parameter 'nodev'". gocryptfs requires this be passed as `-ko nodev`
       # "noexec"  # handful of scripts in ~/knowledge that are executable
-      # "nosuid"  # "Unknown parameter 'nosuid'". gocryptfs requires this be passed as `-ko nosuid` (also nosuid is default)
+      "nodev"   # only works via mount.fuse; gocryptfs requires this be passed as `-ko nodev`
+      "nosuid"  # only works via mount.fuse; gocryptfs requires this be passed as `-ko nosuid` (also, nosuid is default)
       "allow_other"  # root ends up being the user that mounts this, so need to make it visible to other users.
       # "quiet"
       # "defaults"  # "unknown flag: --defaults. Try 'gocryptfs -help'"

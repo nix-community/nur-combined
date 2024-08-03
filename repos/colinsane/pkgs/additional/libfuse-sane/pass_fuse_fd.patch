@@ -1,0 +1,15 @@
+diff --git a/util/mount.fuse.c b/util/mount.fuse.c
+index b98fb2a..f46c4f7 100644
+--- a/util/mount.fuse.c
++++ b/util/mount.fuse.c
+@@ -327,6 +327,10 @@ int main(int argc, char *argv[])
+ 				if (strncmp(opt, "setuid=", 7) == 0) {
+ 					setuid_name = xstrdup(opt + 7);
+ 					ignore = 1;
++				} else if (strcmp(opt,
++						  "pass_fuse_fd") == 0) {
++					pass_fuse_fd = 1;
++					ignore = 1;
+ 				} else if (strcmp(opt,
+ 						  "drop_privileges") == 0) {
+ 					pass_fuse_fd = 1;

@@ -69,7 +69,7 @@ in
       "killall"
       "less"
       "lftp"
-      # "libcap_ng"  # for `netcap`
+      "libcap_ng"  # for `netcap`, `pscap`, `captest`
       "lsof"
       "man-pages"
       "man-pages-posix"
