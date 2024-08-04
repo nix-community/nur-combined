@@ -16,4 +16,5 @@
 
   ayugram-desktop = pkgs.callPackage ./pkgs/ayugram.nix { };
   sdhlt = pkgs.callPackage ./pkgs/sdhlt.nix { };
+  hashlink = pkgs.callPackage ./pkgs/updated/hashlink.nix { };
 }
