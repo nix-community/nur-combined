@@ -1,11 +1,11 @@
 { hashlink, lib, fetchFromGitHub }:
 hashlink.overrideAttrs (finalAttrs: previousAttrs: {
-    version = "1.4.0";
+    version = "1.14";
     src = fetchFromGitHub {
       owner = "HaxeFoundation";
       repo = "hashlink";
       rev = finalAttrs.version;
-      sha256 = lib.fakeHash;
+      sha256 = "sha256-rXw56zoFpLMzz8U3RHWGBF0dUFCUTjXShUEhzp2Qc5g="; 
     };
 
     postInstall = let
