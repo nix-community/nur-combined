@@ -234,7 +234,9 @@ def vpn_do(config: VpnConfig, cmd: list[str]) -> None:
 
     wrapped_cmd = [
         "sanebox",
-        "--sanebox-method", "pastaonly",
+        # method: pastaonly, should be enough, but it leaves us as root in the user namespace.
+        # some apps don't like that -- bwrap is the fix to have uid mapping
+        "--sanebox-method", "bwrap",
         "--sanebox-keep-namespace", "all",
         "--sanebox-path", "/",
         "--sanebox-no-portal",
