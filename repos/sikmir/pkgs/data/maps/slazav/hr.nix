@@ -4,38 +4,55 @@
   fetchFromGitHub,
   bc,
   cgpsmapper,
+  git,
   gmaptool,
+  libjpeg,
   mapsoft2,
+  netpbm,
+  sqlite,
+  zip,
 }:
 
 stdenv.mkDerivation {
   pname = "slazav-hr";
-  version = "2021-02-07";
+  version = "2024-08-03";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "map_hr";
-    rev = "f476649b5ff12fb6fa037e6fb023c1da19639b84";
-    sha256 = "0z2782smylf62ank8bpdhnvldqy46xai8ahg87yfyl203zcpp07h";
+    rev = "d65d437f4cb9a450538c17778f22f9e129773c39";
+    hash = "sha256-P+H6vXL+lvebhpup5KH6l5HZQiwPKvhCR8YsOmcItFE=";
+    leaveDotGit = true;
   };
 
   nativeBuildInputs = [
     bc
     cgpsmapper
+    git
     gmaptool
+    libjpeg
     mapsoft2
+    netpbm
+    sqlite
+    zip
   ];
+
+  preBuild = ''
+    export HOME=$TMPDIR
+  '';
 
   buildFlags = [
-    "directories"
-    "reg_img"
+    "in"
+    "out"
   ];
 
-  installPhase = "install -Dm644 OUT/all_*.img -t $out";
+  installPhase = ''
+    install -Dm644 OUT/* -t $out
+  '';
 
   meta = {
     description = "Slazav mountains";
-    homepage = "http://slazav.xyz/maps/";
+    homepage = "https://slazav.xyz/maps/hr.htm";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.all;

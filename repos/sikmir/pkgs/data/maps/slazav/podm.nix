@@ -4,38 +4,55 @@
   fetchFromGitHub,
   bc,
   cgpsmapper,
+  git,
   gmaptool,
+  libjpeg,
   mapsoft2,
+  netpbm,
+  sqlite,
+  zip,
 }:
 
 stdenv.mkDerivation {
   pname = "slazav-podm";
-  version = "2021-01-09";
+  version = "2024-06-16";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "map_podm";
-    rev = "c95a381155986f9f621e5d26b21bda041ad8c24f";
-    sha256 = "0jsrjzmg23rp3ay5149llqrq6pnr66wf7siphwn7gisz5g60pgpf";
+    rev = "f6357a7379567d5997325fd0f5b2078c327096f8";
+    hash = "sha256-j71hgn0ISol8Cna0EQgY18z182YZmMLyH2UIYwmamK8=";
+    leaveDotGit = true;
   };
 
   nativeBuildInputs = [
     bc
     cgpsmapper
+    git
     gmaptool
+    libjpeg
     mapsoft2
+    netpbm
+    sqlite
+    zip
   ];
+
+  preBuild = ''
+    export HOME=$TMPDIR
+  '';
 
   buildFlags = [
-    "directories"
-    "reg_img"
+    "in"
+    "out"
   ];
 
-  installPhase = "install -Dm644 OUT/all_*.img -t $out";
+  installPhase = ''
+    install -Dm644 OUT/* -t $out
+  '';
 
   meta = {
     description = "Slazav Moscow region map";
-    homepage = "http://slazav.xyz/maps/";
+    homepage = "https://slazav.xyz/maps/podm.htm";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.all;
