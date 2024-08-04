@@ -1,8 +1,8 @@
 {
   stdenv,
   lib,
+  pkgs,
   buildGoModule,
-  fetchFromGitHub,
   pkg-config,
   glfw,
   libX11,
@@ -20,7 +20,7 @@ buildGoModule rec {
   pname = "go-hass-agent";
   version = "9.5.2";
 
-  src = fetchFromGitHub {
+  src = pkgs.fetchFromGitHub {
     owner = "joshuar";
     repo = "go-hass-agent";
     rev = "v${version}";
