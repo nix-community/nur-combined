@@ -1,20 +1,21 @@
 { lib
 , buildGoModule
+, installShellFiles
 , fetchFromGitHub
 }:
 
 buildGoModule rec {
   pname = "etime";
-  version = "1.0.2";
+  version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "zimeg";
     repo = "emporia-time";
     rev = "refs/tags/v${version}";
-    hash = "sha256-MykqGYAHCkDqgYbJyo6iBy4U2745i5KRMcwecNhlHb8=";
+    hash = "sha256-8MuasxThi6JynfGIVAlU51C/7WfjobViKgcBU0gavvY=";
   };
 
-  vendorHash = "sha256-o8PEb6lXD/99+VSYX+NOLBR4hRa1/3EltDIVx9owjDk=";
+  vendorHash = "sha256-QzqIIwLngBxmb2BGTEVsYvO8PvFGOY9sytA6ERztpFs=";
 
   ldflags = [
     "-s"
@@ -22,8 +23,11 @@ buildGoModule rec {
     "-X main.version=v${version}"
   ];
 
+  nativeBuildInputs = [ installShellFiles ];
+
   postInstall = ''
     mv $out/bin/emporia-time $out/bin/etime
+    installManPage etime.1
   '';
 
   meta = with lib; {

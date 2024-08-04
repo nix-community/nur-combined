@@ -8,6 +8,7 @@ and are noted with a `!` in the message.
 
 ## Changes
 
+- chore(pkgs/etime): bump version to 1.1.0 which introduces man pages 2024-07-14
 - chore(pkgs/etime): bump version from 1.0.1 to the latest 1.0.2 tags 2024-07-14
 - fix(pkgs/jurigged): use the matching python version in build inputs 2024-07-07
 - feat(pkgs/jurigged): autoreload pythonic scripts fast and with heat 2024-07-07
