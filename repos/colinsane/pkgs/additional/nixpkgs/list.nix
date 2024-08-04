@@ -40,6 +40,12 @@ in
   })
 
   (fetchpatch' {
+    title = "hareThirdParty.hare-ev: 0-unstable-2024-07-07 -> 0-unstable-2024-07-11";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/328096";
+    hash = "sha256-imCdIJJQ9IMmPbjHwSHqbLF0+1WoTuA53TdgLXGDX4k=";
+  })
+
+  (fetchpatch' {
     title = "syshud: 0-unstable-2024-07-16 -> 0-unstable-2024-07-29";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/331931";
     hash = "sha256-TTWkGYaIMowK9OqSLTFELgCit0C5TYoeMyA1AowHjTA=";
