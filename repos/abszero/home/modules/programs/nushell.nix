@@ -13,15 +13,15 @@ in
 
     nushell = {
       enable = true;
+
       shellAliases = {
         "..." = "cd ../..";
         "...." = "cd ../../..";
         ani = "ani-cli";
         c = "clear";
         cat = "bat";
+        f = "fastfetch";
         lns = "ln -s";
-        nf = "neofetch";
-        zz = "z -";
       };
 
       # https://www.nushell.sh/book/configuration.html

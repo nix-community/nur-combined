@@ -37,10 +37,9 @@ in
       c = "clear";
       cat = "bat";
       lns = "ln -s";
-      nf = "neofetch";
+      f = "fastfetch";
       nvl = "~/src/lightnovel.sh/lightnovel.sh";
-      zz = "z -";
-    };
+          };
 
     services.arrpc.enable = true;
 
@@ -58,6 +57,7 @@ in
         git = true;
         icons = true;
       };
+      fastfetch.enable = true;
       fzf.enable = true;
       helix.enable = true;
       nix-index-database.comma.enable = true;

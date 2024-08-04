@@ -20,6 +20,7 @@ let
         profiles.hyprland.enable = true;
         themes = {
           base = {
+            fastfetch.enable = true;
             firefox.verticalTabs = true;
             # hyprland.dynamicCursors.enable = true;
             nushell.enable = true;
@@ -47,6 +48,7 @@ let
         services.desktopManager.plasma6.enable = true;
         themes = {
           base = {
+            fastfetch.enable = true;
             firefox.verticalTabs = true;
             nushell.enable = true;
           };
