@@ -1886,10 +1886,10 @@
     };
     "copy-selected-tabs-to-clipboard" = buildFirefoxXpiAddon {
       pname = "copy-selected-tabs-to-clipboard";
-      version = "1.6.5";
+      version = "1.6.6";
       addonId = "copy-selected-tabs-to-clipboard@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4300219/copy_selected_tabs_to_clipboar-1.6.5.xpi";
-      sha256 = "46bd79f0ca316c65b4c4339568dbced24e57c873efe2820ddfdf7030e7ab6b97";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4331022/copy_selected_tabs_to_clipboar-1.6.6.xpi";
+      sha256 = "d42b848e9bead731e9c57d92c9d0d8979b2c12d2372c311ba13e11f91943f627";
       meta = with lib;
       {
         description = "Provides ability to copy title and URL of selected tabs to the clipboard.";
@@ -2718,10 +2718,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.17";
+      version = "1.3.18.1";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4330382/faststream-1.3.17.xpi";
-      sha256 = "4d6a78b275ba7176e1705706a00b4affdc01922415e4236b12dacb8b6ed3049e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4330861/faststream-1.3.18.1.xpi";
+      sha256 = "e7d62fa480572a6e4285e917151a87a0ef0355dfe0b31acb7149ee9708901723";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -2739,6 +2739,8 @@
           "declarativeNetRequest"
           "https://www.bilibili.com/*"
           "https://www.bilibili.tv/*"
+          "https://www.facebook.com/*"
+          "https://www.instagram.com/*"
           "<all_urls>"
         ];
         platforms = platforms.all;
@@ -9343,10 +9345,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.7.30";
+      version = "24.8.3";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4328593/refined_github-24.7.30.xpi";
-      sha256 = "7cf73aa9da978f301cc57241c851cfeff884e009c301662d0f6424cda6e8c2dd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4330959/refined_github-24.8.3.xpi";
+      sha256 = "e3a03952691524466ac7968930595b727832ffdb2864c6699e6bf4a389865407";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
