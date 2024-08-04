@@ -3,15 +3,15 @@
 , vimUtils
 }:
 
-vimUtils.buildVimPlugin {
+vimUtils.buildVimPlugin rec {
   pname = "proximity.nvim";
-  version = "unreleased";
+  version = "0.1.0";
 
   src = fetchFromGitHub {
     owner = "zimeg";
     repo = "proximity.nvim";
-    rev = "bd47a30b82e6ff73758e3248995c83c098fb75e6";
-    sha256 = "sha256-k18izBl9qDWFmp5/CPmzPkbckMpmvvdykyePL4h1aFQ=";
+    rev = "v${version}";
+    sha256 = "sha256-jSfnsB1f08cLUVs2OzMtyCqptVLpeVWgp9Oyfp4GjBI=";
   };
 
   meta = with lib; {
