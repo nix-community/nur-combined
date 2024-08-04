@@ -13,11 +13,8 @@ buildPythonPackage rec {
     tree-sitter
   ];
   nativeBuildInputs = [
-    scikit-build-core
-    cmake
-    ninja
-    setuptools-scm
-  ] ++ scikit-build-core.optional-dependencies.pyproject;
+    setuptools
+  ];
   dontUseCmakeConfigure = true;
 
   meta = with lib; {

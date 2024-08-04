@@ -1,31 +1,34 @@
 { mySources
 , python3
+, librime
+, pkg-config
+, stdenv
 , lib
-, lsp-tree-sitter
-, tree-sitter-make
 }:
 
 with python3.pkgs;
 
 buildPythonPackage rec {
-  inherit (mySources.autotools-language-server) pname version src;
+  inherit (mySources.pyrime) pname version src;
   format = "pyproject";
   disabled = pythonOlder "3.6";
   propagatedBuildInputs = [
-    lsp-tree-sitter
-    tree-sitter-make
+    librime
+    colorama
+    ptpython
   ];
   nativeBuildInputs = [
-    setuptools-generate
-    setuptools-scm
+    meson-python
+    pkg-config
+    stdenv.cc
   ];
   pythonImportsCheck = [
-    "make_language_server"
+    "pyrime"
   ];
 
   meta = with lib; {
-    homepage = "https://autotools-language-server.readthedocs.io";
-    description = "autotools language server";
+    homepage = "https://pyrime.readthedocs.io";
+    description = "rime for python, attached to prompt-toolkit keybindings for some prompt-toolkit applications such as ptpython";
     license = licenses.gpl3;
     maintainers = with maintainers; [ Freed-Wu ];
     platforms = platforms.unix;

@@ -19,36 +19,44 @@ src.pypi = "translate-shell"
 fetch.pypi = "translate-shell"
 
 [lsp-tree-sitter]
-src.pypi = "lsp-tree-sitter"
-fetch.pypi = "lsp-tree-sitter"
-
-[autotools-language-server]
-src.pypi = "autotools-language-server"
-fetch.pypi = "autotools-language-server"
+src.pypi = "lsp_tree_sitter"
+fetch.pypi = "lsp_tree_sitter"
 
 [expect-language-server]
 src.pypi = "expect-language-server"
 fetch.pypi = "expect-language-server"
 
-[mutt-language-server]
-src.pypi = "mutt-language-server"
-fetch.pypi = "mutt-language-server"
-
-[requirements-language-server]
-src.pypi = "requirements-language-server"
-fetch.pypi = "requirements-language-server"
+[xilinx-language-server]
+src.pypi = "xilinx-language-server"
+fetch.pypi = "xilinx-language-server"
 
 [sublime-syntax-language-server]
 src.pypi = "sublime-syntax-language-server"
 fetch.pypi = "sublime-syntax-language-server"
 
+[autotools-language-server]
+src.pypi = "autotools-language-server"
+fetch.pypi = "autotools_language_server"
+
+[mutt-language-server]
+src.pypi = "mutt-language-server"
+fetch.pypi = "mutt_language_server"
+
+[requirements-language-server]
+src.pypi = "requirements-language-server"
+fetch.pypi = "requirements_language_server"
+
 [termux-language-server]
 src.pypi = "termux-language-server"
-fetch.pypi = "termux-language-server"
+fetch.pypi = "termux_language_server"
 
 [tmux-language-server]
 src.pypi = "tmux-language-server"
-fetch.pypi = "tmux-language-server"
+fetch.pypi = "tmux_language_server"
+
+[zathura-language-server]
+src.pypi = "zathura-language-server"
+fetch.pypi = "zathura_language_server"
 
 [tree-sitter-muttrc]
 src.pypi = "tree-sitter-muttrc"
@@ -66,18 +74,18 @@ fetch.pypi = "tree_sitter_zathurarc"
 src.github_tag = "tree-sitter-grammars/tree-sitter-requirements"
 fetch.github = "tree-sitter-grammars/tree-sitter-requirements"
 
-[tree-sitter-languages]
-src.github_tag = "grantjenks/py-tree-sitter-languages"
-fetch.github = "grantjenks/py-tree-sitter-languages"
+[tree-sitter-bash]
+src.github_tag = "tree-sitter/tree-sitter-bash"
+fetch.github = "tree-sitter/tree-sitter-bash"
 
-[xilinx-language-server]
-src.pypi = "xilinx-language-server"
-fetch.pypi = "xilinx-language-server"
-
-[zathura-language-server]
-src.pypi = "zathura-language-server"
-fetch.pypi = "zathura-language-server"
+[tree-sitter-make]
+src.github_tag = "Freed-Wu/tree-sitter-make"
+fetch.github = "Freed-Wu/tree-sitter-make"
 
 [mulimgviewer]
 src.pypi = "mulimgviewer"
 fetch.pypi = "mulimgviewer"
+
+[pyrime]
+src.pypi = "pyrime"
+fetch.pypi = "pyrime"

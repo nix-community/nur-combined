@@ -13,12 +13,8 @@ buildPythonPackage rec {
     tree-sitter
   ];
   nativeBuildInputs = [
-    scikit-build-core
-    cmake
-    ninja
-    setuptools-scm
-  ] ++ scikit-build-core.optional-dependencies.pyproject;
-  dontUseCmakeConfigure = true;
+    setuptools
+  ];
 
   meta = with lib; {
     homepage = "https://tree-sitter-tmux.readthedocs.io";

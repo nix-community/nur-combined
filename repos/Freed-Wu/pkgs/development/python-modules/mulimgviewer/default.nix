@@ -34,6 +34,8 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
+    # error: wxpython-4.2.1 not supported for interpreter python3.12
+    broken = true;
     homepage = "https://mulimgviewer.readthedocs.io";
     description = "MulimgViewer is a multi-image viewer that can open multiple images in one interface, which is convenient for image comparison and image stitching";
     license = licenses.gpl3;
