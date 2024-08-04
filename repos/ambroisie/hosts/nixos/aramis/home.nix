@@ -2,7 +2,7 @@
 {
   my.home = {
     # Use graphical pinentry
-    bitwarden.pinentry = pkgs.pinentry-gtk2;
+    bitwarden.pinentry = pkgs.pinentry-rofi;
     # Ebook library
     calibre.enable = true;
     # Some amount of social life
@@ -14,7 +14,7 @@
     # Blue light filter
     gammastep.enable = true;
     # Use a small popup to enter passwords
-    gpg.pinentry = pkgs.pinentry-gtk2;
+    gpg.pinentry = pkgs.pinentry-rofi;
     # Machine specific packages
     packages.additionalPackages = with pkgs; [
       element-desktop # Matrix client
