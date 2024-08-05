@@ -11,7 +11,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  hello = pkgs.callPackage ./pkgs/hello {};
-  linux_r2s = pkgs.callPackage ./pkgs/linux-r2s {};
+  # hello = pkgs.callPackage ./pkgs/hello {};
+  # linux_r2s = pkgs.callPackage ./pkgs/linux-r2s {};
   kubeedge = pkgs.callPackage ./pkgs/kubeedge {};
 }
