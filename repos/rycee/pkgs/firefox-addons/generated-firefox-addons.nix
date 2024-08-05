@@ -1582,10 +1582,10 @@
     };
     "competitive-companion" = buildFirefoxXpiAddon {
       pname = "competitive-companion";
-      version = "2.53.0";
+      version = "2.54.0";
       addonId = "{74e326aa-c645-4495-9287-b6febc5565a7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4293347/competitive_companion-2.53.0.xpi";
-      sha256 = "046e833d4cf47c28a71defed6dba462c5eb949207439c7acc5351c304a321575";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4331434/competitive_companion-2.54.0.xpi";
+      sha256 = "498d27e0a90cec115387128779757baa0dc2e47f37a1c3a7708ddfd07570c28a";
       meta = with lib;
       {
         homepage = "https://github.com/jmerle/competitive-companion";
@@ -5970,10 +5970,10 @@
     };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.8.5";
+      version = "2.9.0";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4320954/libredirect-2.8.5.xpi";
-      sha256 = "b0e07ae1480c9087c22a560d0601bee28cf79dda3083fc6757a9d2b56b58fa76";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4331333/libredirect-2.9.0.xpi";
+      sha256 = "469937f913e62c80918784ca87e5036526cf0394b371b43139c2673d2977114c";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io";
