@@ -11,8 +11,8 @@ rustPlatform.buildRustPackage rec {
   src = pkgs.fetchgit {
     url = "https://codeberg.org/SebRut/flathunter-rust";
     branchName = "main";
-    rev = "27b20b10d7f03fe6a1a3207b9bb209ad8b744bcd";
-    hash = "sha256-/W6PYKnngBd7IRZJwJgTy6LP/CgI189YVkU3MNrNEX0=";
+    rev = "6aad8edad1e35a06dae00e1e9625c10a04dad7b4";
+    hash = "sha256-35bM0goZw1M2yIJlUUxDDR+AUoFTFl3wYhRuwSE0yaE=";
   };
 
   nativeBuildInputs = [ sqlx-cli ];
