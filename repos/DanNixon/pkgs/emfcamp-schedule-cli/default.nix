@@ -4,7 +4,7 @@
   rustPlatform,
   installShellFiles,
 }:
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "emfcamp-schedule-cli";
   version = "2024-04-28";
 
@@ -23,12 +23,13 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = false;
 
-  postInstall = ''
-    installShellCompletion --cmd ${pname} \
-      --bash <($out/bin/${pname} shell-completions bash) \
-      --fish <($out/bin/${pname} shell-completions fish) \
-      --zsh <($out/bin/${pname} shell-completions zsh)
-  '';
+  # FIXME: not sure quite why this is causing build failures
+  # postInstall = ''
+  #   installShellCompletion --cmd ${pname} \
+  #     --bash <($out/bin/${pname} shell-completions bash) \
+  #     --fish <($out/bin/${pname} shell-completions fish) \
+  #     --zsh <($out/bin/${pname} shell-completions zsh)
+  # '';
 
   meta = {
     description = "A CLI client for the EMF camp schedule API.";
