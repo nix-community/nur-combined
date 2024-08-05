@@ -51,7 +51,7 @@
       inherit mkEmojiPack;
     }
     // builtins.mapAttrs (name: hash: mkEmojiPack { inherit name hash; }) {
-      blobbee = "sha256-NnamiabNStT1grH2yxczFDUlVut0CQMBbGX3uIWTbwo=";
+      blobbee = "sha256-54711jIGljEs0RhM8FXXYWXG2yZWCeWVW6WyVRC53mw=";
       fox = "sha256-EbEfbffz+MdVF33x7nP59je20xsq1+pkGeyTJVtKDTA=";
       neobread = "sha256-ou9GCDoTTpvgqp35D1bFj7y0JybO4UDEofu03avhhaw=";
       neodlr = "sha256-Cx/eJnX1LTKYsb43OiefRApK8MtuIj+w6KI9tEQ99Xs=";
