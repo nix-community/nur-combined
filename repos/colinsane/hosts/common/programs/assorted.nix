@@ -321,7 +321,7 @@ in
       # "libsForQt5.plasmatube"  # Youtube player
       "signal-desktop"
       # "snapshot"  # camera app
-      "spot"  # Gnome Spotify client
+      # "spot"  # Gnome Spotify client
       # "sublime-music"
       # "tdesktop"  # broken on phosh
       # "tokodon"
@@ -393,7 +393,7 @@ in
       # "rhythmbox"  # local music player
       # "slic3r"
       "soundconverter"
-      "spotify"  # x86-only
+      # "spotify"  # x86-only
       "tor-browser"  # x86-only
       # "vlc"
       "wireshark"  # could maybe ship the cli as sysadmin pkg
