@@ -20,6 +20,12 @@ buildGoModule rec {
     "edge/cmd/edgecore"
   ];
 
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/kubeedge/kubeedge/pkg/version.gitVersion=${version}"
+  ];
+
   meta = {
     description = "An open platform to enable Edge computing";
     homepage = "https://kubeedge.io";
