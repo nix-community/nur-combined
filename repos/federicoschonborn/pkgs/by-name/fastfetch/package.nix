@@ -12,36 +12,40 @@
   enableVulkan ?
     stdenv.hostPlatform.isLinux
     || stdenv.hostPlatform.isDarwin
-    || stdenv.hostPlatform.isBSD
+    || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isWindows
     || stdenv.hostPlatform.isAndroid
     || stdenv.hostPlatform.isSunOS,
   vulkan-loader,
-  enableWayland ? stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isBSD,
+  enableWayland ? stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD,
   wayland,
   enableXcbRandr ?
-    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isBSD || stdenv.hostPlatform.isSunOS,
-  enableXcb ? stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isBSD || stdenv.hostPlatform.isSunOS,
+    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD || stdenv.hostPlatform.isSunOS,
+  enableXcb ?
+    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD || stdenv.hostPlatform.isSunOS,
   enableXrandr ?
-    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isBSD || stdenv.hostPlatform.isSunOS,
-  enableX11 ? stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isBSD || stdenv.hostPlatform.isSunOS,
+    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD || stdenv.hostPlatform.isSunOS,
+  enableX11 ?
+    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD || stdenv.hostPlatform.isSunOS,
   xorg,
-  enableDrm ? stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isBSD || stdenv.hostPlatform.isSunOS,
+  enableDrm ?
+    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD || stdenv.hostPlatform.isSunOS,
   libdrm,
-  enableGio ? stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isBSD || stdenv.hostPlatform.isSunOS,
+  enableGio ?
+    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD || stdenv.hostPlatform.isSunOS,
   glib,
   enableDconf ?
-    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isBSD || stdenv.hostPlatform.isSunOS,
+    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD || stdenv.hostPlatform.isSunOS,
   dconf,
   enableDbus ?
-    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isBSD || stdenv.hostPlatform.isSunOS,
+    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD || stdenv.hostPlatform.isSunOS,
   dbus,
   enableXfconf ?
-    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isBSD || stdenv.hostPlatform.isSunOS,
+    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD || stdenv.hostPlatform.isSunOS,
   xfce,
   enableSqlite3 ?
     stdenv.hostPlatform.isLinux
-    || stdenv.hostPlatform.isBSD
+    || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isDarwin
     || stdenv.hostPlatform.isSunOS,
   sqlite,
@@ -50,7 +54,7 @@
   enableImagemagick ?
     stdenv.hostPlatform.isLinux
     || stdenv.hostPlatform.isDarwin
-    || stdenv.hostPlatform.isBSD
+    || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isWindows
     || stdenv.hostPlatform.isSunOS,
   imagemagick,
@@ -60,25 +64,24 @@
   zlib,
   enableEgl ?
     stdenv.hostPlatform.isLinux
-    || stdenv.hostPlatform.isBSD
+    || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isWindows
     || stdenv.hostPlatform.isSunOS,
   libGL,
-  enableGlx ? stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isBSD || stdenv.hostPlatform.isSunOS,
+  enableGlx ?
+    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD || stdenv.hostPlatform.isSunOS,
   libglvnd,
   enableOsmesa ?
-    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isBSD || stdenv.hostPlatform.isSunOS,
+    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD || stdenv.hostPlatform.isSunOS,
   mesa,
   enableOpencl ?
     stdenv.hostPlatform.isLinux
-    || stdenv.hostPlatform.isBSD
+    || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isWindows
     || stdenv.hostPlatform.isAndroid
     || stdenv.hostPlatform.isSunOS,
   ocl-icd,
   opencl-headers,
-  enableLibnm ? stdenv.hostPlatform.isLinux,
-  networkmanager,
   enableFreetype ? stdenv.hostPlatform.isAndroid,
   freetype,
   enablePulse ? stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isSunOS,
@@ -91,13 +94,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastfetch";
-  version = "2.20.0";
+  version = "2.21.0";
 
   src = fetchFromGitHub {
     owner = "fastfetch-cli";
     repo = "fastfetch";
     rev = finalAttrs.version;
-    hash = "sha256-8N2BG9eTZpAvnc1wiG6p7GJSCPfZ+NTbz8kLGPRg5HU=";
+    hash = "sha256-1bWWwMzbzECWARhl3ULMVF5QhbvrV5ShVT382BnRGg8=";
   };
 
   nativeBuildInputs = [
@@ -131,7 +134,6 @@ stdenv.mkDerivation (finalAttrs: {
       ocl-icd
       opencl-headers
     ]
-    ++ lib.optional enableLibnm networkmanager
     ++ lib.optional enableFreetype freetype
     ++ lib.optional enablePulse pulseaudio
     ++ lib.optional enableDdcutil ddcutil
@@ -161,7 +163,6 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "ENABLE_GLX" enableGlx)
     (lib.cmakeBool "ENABLE_OSMESA" enableOsmesa)
     (lib.cmakeBool "ENABLE_OPENCL" enableOpencl)
-    (lib.cmakeBool "ENABLE_LIBNM" enableLibnm)
     (lib.cmakeBool "ENABLE_FREETYPE" enableFreetype)
     (lib.cmakeBool "ENABLE_PULSE" enablePulse)
     (lib.cmakeBool "ENABLE_DDCUTIL" enableDdcutil)

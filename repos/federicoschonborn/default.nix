@@ -17,20 +17,6 @@ lib.makeScope pkgs.newScope (
   {
     lib = import ./lib { inherit lib; };
 
-    pkgsCross = builtins.mapAttrs (
-      _: system':
-      let
-        pkgs' = import pkgs.path {
-          inherit system;
-          crossSystem = system';
-        };
-      in
-      import ./default.nix {
-        system = system';
-        pkgs = pkgs';
-      }
-    ) lib.systems.examples;
-
     # Sets
     akkoma-emoji = lib.recurseIntoAttrs (self.callPackage ./pkgs/akkoma-emoji { });
 
@@ -81,7 +67,6 @@ lib.makeScope pkgs.newScope (
           enableGlx = false;
           enableOsmesa = false;
           enableOpencl = false;
-          enableLibnm = false;
           enableFreetype = false;
           enablePulse = false;
           enableDdcutil = false;

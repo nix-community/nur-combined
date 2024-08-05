@@ -4,19 +4,13 @@
   fetchzip,
 }:
 
-{
-  name,
-  version,
-  hash,
-}:
-
 stdenvNoCC.mkDerivation {
-  pname = "volpeon-${name}";
-  inherit version;
+  pname = "volpeon-gphn";
+  version = "1.2";
 
   src = fetchzip {
-    url = "https://volpeon.ink/emojis/${name}/${name}.zip";
-    inherit hash;
+    url = "https://volpeon.ink/emojis/gphn/gphn.zip";
+    hash = "sha256-p1MT/u7pzx2UBLQuVD0dMmZ/uacVN6fTOrTzqLZNkts=";
     stripRoot = false;
   };
 
@@ -30,8 +24,8 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "${name} emoji pack";
-    homepage = "https://volpeon.ink/emojis/${name}/";
+    description = "gphn emoji pack";
+    homepage = "https://volpeon.ink/emojis/gphn/";
     license = lib.licenses.cc-by-nc-sa-40;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ federicoschonborn ];

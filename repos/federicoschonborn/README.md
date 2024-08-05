@@ -277,7 +277,7 @@ Various emoji packs from Liv Asch.
 - Version: `2024.07.30.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
-- [Source](./pkgs/akkoma-emoji/olivvybee/mkEmojiPack.nix#L32)
+- [Source](./pkgs/akkoma-emoji/olivvybee/blobbee/package.nix#L30)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -303,7 +303,7 @@ Various emoji packs from Liv Asch.
 - Version: `2024.07.30.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
-- [Source](./pkgs/akkoma-emoji/olivvybee/mkEmojiPack.nix#L32)
+- [Source](./pkgs/akkoma-emoji/olivvybee/fox/package.nix#L30)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -329,7 +329,7 @@ Various emoji packs from Liv Asch.
 - Version: `2024.07.30.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
-- [Source](./pkgs/akkoma-emoji/olivvybee/mkEmojiPack.nix#L32)
+- [Source](./pkgs/akkoma-emoji/olivvybee/neobread/package.nix#L30)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -355,7 +355,7 @@ Various emoji packs from Liv Asch.
 - Version: `2024.07.30.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
-- [Source](./pkgs/akkoma-emoji/olivvybee/mkEmojiPack.nix#L32)
+- [Source](./pkgs/akkoma-emoji/olivvybee/neodlr/package.nix#L30)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -381,7 +381,7 @@ Various emoji packs from Liv Asch.
 - Version: `2024.07.30.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
-- [Source](./pkgs/akkoma-emoji/olivvybee/mkEmojiPack.nix#L32)
+- [Source](./pkgs/akkoma-emoji/olivvybee/neofriends/package.nix#L30)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -407,7 +407,7 @@ Various emoji packs from Liv Asch.
 - Version: `2024.07.30.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
-- [Source](./pkgs/akkoma-emoji/olivvybee/mkEmojiPack.nix#L32)
+- [Source](./pkgs/akkoma-emoji/olivvybee/neossb/package.nix#L30)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -459,7 +459,7 @@ drgn emoji pack.
 - Version: `3.1`
 - [Homepage](https://volpeon.ink/emojis/drgn/)
 - License: [`CC-BY-NC-SA-4.0`](https://spdx.org/licenses/CC-BY-NC-SA-4.0.html "Creative Commons Attribution Non Commercial Share Alike 4.0")
-- [Source](./pkgs/akkoma-emoji/volpeon/mkEmojiPack.nix#L33)
+- [Source](./pkgs/akkoma-emoji/volpeon/drgn/package.nix#L27)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -485,7 +485,7 @@ floof emoji pack.
 - Version: `1.0`
 - [Homepage](https://volpeon.ink/emojis/floof/)
 - License: [`CC-BY-NC-SA-4.0`](https://spdx.org/licenses/CC-BY-NC-SA-4.0.html "Creative Commons Attribution Non Commercial Share Alike 4.0")
-- [Source](./pkgs/akkoma-emoji/volpeon/mkEmojiPack.nix#L33)
+- [Source](./pkgs/akkoma-emoji/volpeon/floof/package.nix#L27)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -511,7 +511,7 @@ gphn emoji pack.
 - Version: `1.2`
 - [Homepage](https://volpeon.ink/emojis/gphn/)
 - License: [`CC-BY-NC-SA-4.0`](https://spdx.org/licenses/CC-BY-NC-SA-4.0.html "Creative Commons Attribution Non Commercial Share Alike 4.0")
-- [Source](./pkgs/akkoma-emoji/volpeon/mkEmojiPack.nix#L33)
+- [Source](./pkgs/akkoma-emoji/volpeon/gphn/package.nix#L27)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -537,7 +537,7 @@ neocat emoji pack.
 - Version: `1.1`
 - [Homepage](https://volpeon.ink/emojis/neocat/)
 - License: [`CC-BY-NC-SA-4.0`](https://spdx.org/licenses/CC-BY-NC-SA-4.0.html "Creative Commons Attribution Non Commercial Share Alike 4.0")
-- [Source](./pkgs/akkoma-emoji/volpeon/mkEmojiPack.nix#L33)
+- [Source](./pkgs/akkoma-emoji/volpeon/neocat/package.nix#L27)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -563,7 +563,7 @@ neofox emoji pack.
 - Version: `1.3`
 - [Homepage](https://volpeon.ink/emojis/neofox/)
 - License: [`CC-BY-NC-SA-4.0`](https://spdx.org/licenses/CC-BY-NC-SA-4.0.html "Creative Commons Attribution Non Commercial Share Alike 4.0")
-- [Source](./pkgs/akkoma-emoji/volpeon/mkEmojiPack.nix#L33)
+- [Source](./pkgs/akkoma-emoji/volpeon/neofox/package.nix#L27)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -589,7 +589,7 @@ vlpn emoji pack.
 - Version: `1.1`
 - [Homepage](https://volpeon.ink/emojis/vlpn/)
 - License: [`CC-BY-NC-SA-4.0`](https://spdx.org/licenses/CC-BY-NC-SA-4.0.html "Creative Commons Attribution Non Commercial Share Alike 4.0")
-- [Source](./pkgs/akkoma-emoji/volpeon/mkEmojiPack.nix#L33)
+- [Source](./pkgs/akkoma-emoji/volpeon/vlpn/package.nix#L27)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -706,11 +706,11 @@ Cargo Advent of Code Helper.
 Like neofetch, but much faster because written in C.
 
 - Name: `fastfetch`
-- Version: `2.20.0`
+- Version: `2.21.0`
 - [Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.20.0/CHANGELOG.md)
+- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.21.0/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](./pkgs/by-name/fastfetch/package.nix#L175)
+- [Source](./pkgs/by-name/fastfetch/package.nix#L176)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -731,11 +731,11 @@ Like neofetch, but much faster because written in C.
 Like neofetch, but much faster because written in C (with all features disabled).
 
 - Name: `fastfetch-minimal`
-- Version: `2.20.0`
+- Version: `2.21.0`
 - [Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.20.0/CHANGELOG.md)
+- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.21.0/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](./default.nix#L59)
+- [Source](./default.nix#L45)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -879,7 +879,7 @@ A set of commands that manipulate GTAs on various levels (with all features enab
 - Version: `2.4.0`
 - [Homepage](https://marlam.de/gta/)
 - License: [`GPL-3.0-or-later`](https://spdx.org/licenses/GPL-3.0-or-later.html "GNU General Public License v3.0 or later")
-- [Source](./default.nix#L95)
+- [Source](./default.nix#L80)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1024,7 +1024,7 @@ A library to make working with multidimensional arrays in C++ easy (with all fea
 - Version: `4.3`
 - [Homepage](https://marlam.de/tgd/)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](./default.nix#L128)
+- [Source](./default.nix#L113)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1338,7 +1338,7 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 - Version: `1.10.2`
 - [Homepage](https://github.com/ZDoom/Raze)
 - License: [`GPL-2.0`](https://spdx.org/licenses/GPL-2.0.html "GNU General Public License v2.0")
-- [Source](./default.nix#L159)
+- [Source](./default.nix#L144)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1461,7 +1461,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 - [Homepage](https://teem.sourceforge.net/)
 - License: [`LGPL-2.1-or-later`](https://spdx.org/licenses/LGPL-2.1-or-later.html "GNU Lesser General Public License v2.1 or later")
-- [Source](./default.nix#L184)
+- [Source](./default.nix#L169)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1485,7 +1485,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 - [Homepage](https://teem.sourceforge.net/)
 - License: [`LGPL-2.1-or-later`](https://spdx.org/licenses/LGPL-2.1-or-later.html "GNU Lesser General Public License v2.1 or later")
-- [Source](./default.nix#L196)
+- [Source](./default.nix#L181)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1509,7 +1509,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 - [Homepage](https://teem.sourceforge.net/)
 - License: [`LGPL-2.1-or-later`](https://spdx.org/licenses/LGPL-2.1-or-later.html "GNU Lesser General Public License v2.1 or later")
-- [Source](./default.nix#L168)
+- [Source](./default.nix#L153)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1630,7 +1630,7 @@ Fastest JSON library in C.
 - [Homepage](https://github.com/ibireme/yyjson)
 - [Changelog](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](https://github.com/NixOS/nixpkgs/blob/81610ab/pkgs/development/libraries/yyjson/default.nix#L23)
+- [Source](https://github.com/NixOS/nixpkgs/blob/785feb9/pkgs/development/libraries/yyjson/default.nix#L23)
 - Maintainers:
   - [Yohann Boniface](https://github.com/Sigmanificient) <[`sigmanificient@gmail.com`](mailto:sigmanificient@gmail.com)>
   - [✉️ Mail to all maintainers](mailto:sigmanificient@gmail.com)

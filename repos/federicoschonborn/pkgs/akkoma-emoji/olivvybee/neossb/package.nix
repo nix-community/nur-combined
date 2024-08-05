@@ -5,15 +5,13 @@
   nix-update-script,
 }:
 
-{ name, hash }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "olivvybee-${name}";
+  pname = "olivvybee-neossb";
   version = "2024.07.30.1";
 
   src = fetchzip {
-    url = "https://github.com/olivvybee/emojis/releases/download/${finalAttrs.version}/${name}.tar.gz";
-    inherit hash;
+    url = "https://github.com/olivvybee/emojis/releases/download/${finalAttrs.version}/neossb.tar.gz";
+    hash = "sha256-+4pHxLriFcB8Ryq44nim4sn4E7ENVaMEftsda67Vt7c=";
     stripRoot = false;
   };
 
