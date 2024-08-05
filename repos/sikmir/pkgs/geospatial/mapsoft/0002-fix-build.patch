@@ -1,0 +1,281 @@
+diff --git i/docs/man/ms2render.htm w/docs/man/ms2render.htm
+index 652acc2..b5750c3 100644
+--- i/docs/man/ms2render.htm
++++ w/docs/man/ms2render.htm
+@@ -493,7 +493,7 @@
+ <dt id="t---types-arg"><b>-t, --types &lt;arg&gt;</b></dt>
+ <dd>
+ 
+-<p>File with type information. Default: /usr/share/mapsoft2/types.cfg</p>
++<p>File with type information. Default: @out@/share/mapsoft2/types.cfg</p>
+ 
+ </dd>
+ <dt id="q---quite-arg"><b>-q, --quite &lt;arg&gt;</b></dt>
+@@ -559,7 +559,7 @@
+ <dt id="c---config-arg"><b>-c, --config &lt;arg&gt;</b></dt>
+ <dd>
+ 
+-<p>Configuration file for vector map rendering. Default: /usr/share/mapsoft2/render.cfg</p>
++<p>Configuration file for vector map rendering. Default: @out@/share/mapsoft2/render.cfg</p>
+ 
+ </dd>
+ <dt id="obj_scale-arg"><b>--obj_scale &lt;arg&gt;</b></dt>
+diff --git i/docs/man/ms2view.htm w/docs/man/ms2view.htm
+index f178b4a..1fed011 100644
+--- i/docs/man/ms2view.htm
++++ w/docs/man/ms2view.htm
+@@ -475,7 +475,7 @@
+ 
+ <h1 id="CUSTOMIZING-VIEWER-INTERFACE-WITH-CSS-STYLES">CUSTOMIZING VIEWER INTERFACE WITH CSS STYLES</h1>
+ 
+-<p>Structure of <b>ms2view</b> window is simple: a viewer, a main menu, a statusbar, tables with waypoints, tracks, and maps, a few dialogs, etc. Appearence of these elements is controlled by GTK3 theme. One can customize it using CSS styles. Styles are read from two places: <b>/usr/share/mapsoft2/mapsoft2.css</b> -- system-wide file. By default it contains a few definitions, mostly for making interface elements smaller. Some tips about viewer structure can be also find there. <b>$HOME/.mapsoft2/mapsoft2.css</b> -- user-specific file.</p>
++<p>Structure of <b>ms2view</b> window is simple: a viewer, a main menu, a statusbar, tables with waypoints, tracks, and maps, a few dialogs, etc. Appearence of these elements is controlled by GTK3 theme. One can customize it using CSS styles. Styles are read from two places: <b>@out@/share/mapsoft2/mapsoft2.css</b> -- system-wide file. By default it contains a few definitions, mostly for making interface elements smaller. Some tips about viewer structure can be also find there. <b>$HOME/.mapsoft2/mapsoft2.css</b> -- user-specific file.</p>
+ 
+ <p>Additional information about writing css styles can be found in GTK3 documentation or GTK theme sources:</p>
+ 
+diff --git i/docs/man/ms2view.txt w/docs/man/ms2view.txt
+index 5469cac..c165c1a 100644
+--- i/docs/man/ms2view.txt
++++ w/docs/man/ms2view.txt
+@@ -4,7 +4,7 @@ Structure of B<ms2view> window is simple: a viewer, a main menu, a
+ statusbar, tables with waypoints, tracks, and maps, a few dialogs, etc.
+ Appearence of these elements is controlled by GTK3 theme. One can
+ customize it using CSS styles. Styles are read from two places:
+-B</usr/share/mapsoft2/mapsoft2.css> -- system-wide file. By default it
++B<@out@/share/mapsoft2/mapsoft2.css> -- system-wide file. By default it
+ contains a few definitions, mostly for making interface elements smaller.
+ Some tips about viewer structure can be also find there.
+ B<$HOME/.mapsoft2/mapsoft2.css> -- user-specific file.
+diff --git i/docs/man/ms2vmap.htm w/docs/man/ms2vmap.htm
+index 8bbeac9..f6ddd9a 100644
+--- i/docs/man/ms2vmap.htm
++++ w/docs/man/ms2vmap.htm
+@@ -64,7 +64,7 @@ ms2vmap &lt;file&gt; ... -o &lt;out file&gt; [&lt;options&gt;]</code></pre>
+ <dt id="t---types-arg"><b>-t, --types &lt;arg&gt;</b></dt>
+ <dd>
+ 
+-<p>File with type information. Default: /usr/share/mapsoft2/types.cfg</p>
++<p>File with type information. Default: @out@/share/mapsoft2/types.cfg</p>
+ 
+ </dd>
+ <dt id="D---define-arg"><b>-D, --define &lt;arg&gt;</b></dt>
+diff --git i/docs/man/ms2vmapdb.htm w/docs/man/ms2vmapdb.htm
+index 8bd5943..c990a0f 100644
+--- i/docs/man/ms2vmapdb.htm
++++ w/docs/man/ms2vmapdb.htm
+@@ -238,7 +238,7 @@ ms2vmapdb fig_lib -- make fig library using typeinfo file</code></pre>
+ <dt id="t---types-arg"><b>-t, --types &lt;arg&gt;</b></dt>
+ <dd>
+ 
+-<p>File with type information. Default: /usr/share/mapsoft2/types.cfg</p>
++<p>File with type information. Default: @out@/share/mapsoft2/types.cfg</p>
+ 
+ </dd>
+ <dt id="D---define-arg"><b>-D, --define &lt;arg&gt;</b></dt>
+@@ -302,7 +302,7 @@ ms2vmapdb fig_lib -- make fig library using typeinfo file</code></pre>
+ <dt id="t---types-arg1"><b>-t, --types &lt;arg&gt;</b></dt>
+ <dd>
+ 
+-<p>File with type information. Default: /usr/share/mapsoft2/types.cfg</p>
++<p>File with type information. Default: @out@/share/mapsoft2/types.cfg</p>
+ 
+ </dd>
+ <dt id="D---define-arg1"><b>-D, --define &lt;arg&gt;</b></dt>
+@@ -436,7 +436,7 @@ ms2vmapdb fig_lib -- make fig library using typeinfo file</code></pre>
+ <dt id="t---types-arg2"><b>-t, --types &lt;arg&gt;</b></dt>
+ <dd>
+ 
+-<p>File with type information. Default: /usr/share/mapsoft2/types.cfg</p>
++<p>File with type information. Default: @out@/share/mapsoft2/types.cfg</p>
+ 
+ </dd>
+ <dt id="D---define-arg2"><b>-D, --define &lt;arg&gt;</b></dt>
+@@ -646,7 +646,7 @@ ms2vmapdb fig_lib -- make fig library using typeinfo file</code></pre>
+ <dt id="t---types-arg3"><b>-t, --types &lt;arg&gt;</b></dt>
+ <dd>
+ 
+-<p>File with type information. Default: /usr/share/mapsoft2/types.cfg</p>
++<p>File with type information. Default: @out@/share/mapsoft2/types.cfg</p>
+ 
+ </dd>
+ <dt id="D---define-arg3"><b>-D, --define &lt;arg&gt;</b></dt>
+Submodule modules contains modified content
+diff --git i/modules/mapview/action_manager.cpp w/modules/mapview/action_manager.cpp
+index ab16dae..272b454 100644
+--- i/modules/mapview/action_manager.cpp
++++ w/modules/mapview/action_manager.cpp
+@@ -75,7 +75,7 @@ ActionManager::ActionManager (Mapview * mapview_):
+     ADD_ACT(AMTrkDel,        "Edit")
+     ADD_ACT(AMEditData,      "Edit")
+ 
+-    AddMaps("Maps", std::string("/usr/share/") + DATADIR + "/" + MAPS_MENU_FILE);
++    AddMaps("Maps", std::string("@out@/share/") + DATADIR + "/" + MAPS_MENU_FILE);
+ 
+     if (getenv("HOME")) {
+       AddSep("Maps");
+diff --git i/modules/mapview/mapview.cpp w/modules/mapview/mapview.cpp
+index 6d461fb..5bd5367 100644
+--- i/modules/mapview/mapview.cpp
++++ w/modules/mapview/mapview.cpp
+@@ -367,7 +367,7 @@ Mapview::load_css(){
+   if (!style_context) throw Err() << "Mapview: can't get Gtk::StyleContext";
+ 
+   try{
+-    std::string css_glo = std::string("/usr/share/") + DATADIR + "/" + CSS_FILE;
++    std::string css_glo = std::string("@out@/share/") + DATADIR + "/" + CSS_FILE;
+     if (file_exists(css_glo) &&
+       css_provider->load_from_path(css_glo)){
+       auto screen = get_screen();
+diff --git i/modules/vmap2/vmap2gobj.cpp w/modules/vmap2/vmap2gobj.cpp
+index e11d3a7..bec01be 100644
+--- i/modules/vmap2/vmap2gobj.cpp
++++ w/modules/vmap2/vmap2gobj.cpp
+@@ -22,7 +22,7 @@ using namespace std;
+ void
+ ms2opt_add_vmap2_render(GetOptSet & opts){
+   const char *g = "VMAP2_RENDER";
+-  opts.add("config", 1,'c',g, "Configuration file for vector map rendering. Default: /usr/share/mapsoft2/render.cfg");
++  opts.add("config", 1,'c',g, "Configuration file for vector map rendering. Default: @out/share/mapsoft2/render.cfg");
+   opts.add("define",      1,0,g, "Definitions for vector map rendering (json object)");
+   opts.add("obj_scale",   1,0,g, "Rescaling factor for all objects, default 1.0.");
+   opts.add("vmap_minsc", 1,0,g, "Minimum map scale (calculated from the 'natural' "
+@@ -92,7 +92,7 @@ GObjVMap2::GObjVMap2(VMap2 & map, const Opt &o): GObjMulti(false), map(map) {
+   read_words_defs defs(o.get("define", Opt()));
+ 
+   int depth = 0;
+-  std::string cfg = opt.get<string>("config", "/usr/share/mapsoft2/render.cfg");
++  std::string cfg = opt.get<string>("config", "@out@/share/mapsoft2/render.cfg");
+   load_conf(cfg, defs, depth);
+ }
+ 
+diff --git i/modules/vmap2/vmap2types.cpp w/modules/vmap2/vmap2types.cpp
+index 6688736..ec77637 100644
+--- i/modules/vmap2/vmap2types.cpp
++++ w/modules/vmap2/vmap2types.cpp
+@@ -7,12 +7,12 @@
+ void
+ ms2opt_add_vmap2t(GetOptSet & opts){
+   const char *g = "VMAP2";
+-  opts.add("types",  1, 't', g, "File with type information. Default: /usr/share/mapsoft2/types.cfg");
++  opts.add("types",  1, 't', g, "File with type information. Default: @out@/share/mapsoft2/types.cfg");
+   opts.add("define", 1, 'D', g, "Define variables for type information file.");
+ }
+ 
+ VMap2types::VMap2types(const Opt & o){
+-  std::string file = o.get("types", "/usr/share/mapsoft2/types.cfg");
++  std::string file = o.get("types", "@out@/share/mapsoft2/types.cfg");
+   if (file == "") return;
+   read_words_defs defs(o.get("define", Opt()));
+   load(file, defs);
+diff --git i/vmap_data/scripts/vmaps.sh w/vmap_data/scripts/vmaps.sh
+index aa7537e..b0decd1 100644
+--- i/vmap_data/scripts/vmaps.sh
++++ w/vmap_data/scripts/vmaps.sh
+@@ -19,12 +19,12 @@ GRID=0;              # draw grid
+ 
+ CMAP=conf/cmap.png;        # Colormap
+ CMAP_SRC=                  # nomenclatere name used for colormap source
+-REND_CFG=/usr/share/mapsoft2/render.cfg;  # Render configuration
+-TYPEINFO=/usr/share/mapsoft2/types.cfg    # Type information
+-HTM_TEMPL=/usr/share/mapsoft2/map_templ.htm;    # template for htm page
++REND_CFG=@out@/share/mapsoft2/render.cfg;  # Render configuration
++TYPEINFO=@out@/share/mapsoft2/types.cfg    # Type information
++HTM_TEMPL=@out@/share/mapsoft2/map_templ.htm;    # template for htm page
+ 
+ # index files (one set per BRD2_DIR/*.gpx)
+-TYP=/usr/share/mapsoft2/slazav.typ
++TYP=@out@/share/mapsoft2/slazav.typ
+ EXTRA_TRACKS=;    # extra tracks to be added to index image
+ JPEG_SCALE=0.2;   # scale for jpeg preview images
+ INDEX_SCALE=0.05; # scale for index image (in addition to jpeg_scale)
+diff --git i/vmap_data/scripts/vmaps_get_fig w/vmap_data/scripts/vmaps_get_fig
+index fca52c1..e0bce0c 100755
+--- i/vmap_data/scripts/vmaps_get_fig
++++ w/vmap_data/scripts/vmaps_get_fig
+@@ -9,7 +9,7 @@
+ ##################################################
+ 
+ # read global configuration and functions
+-. vmaps.sh
++. @out@/bin/vmaps.sh
+ 
+ # read local configuration
+ . ./vmaps.conf
+diff --git i/vmap_data/scripts/vmaps_in w/vmap_data/scripts/vmaps_in
+index 0670772..4e6869c 100755
+--- i/vmap_data/scripts/vmaps_in
++++ w/vmap_data/scripts/vmaps_in
+@@ -9,7 +9,7 @@
+ ##################################################
+ 
+ # read global configuration and functions
+-. vmaps.sh
++. @out@/bin/vmaps.sh
+ 
+ # local configuration
+ . ./vmaps.conf
+diff --git i/vmap_data/scripts/vmaps_mbtiles w/vmap_data/scripts/vmaps_mbtiles
+index d751d1c..2ab5945 100755
+--- i/vmap_data/scripts/vmaps_mbtiles
++++ w/vmap_data/scripts/vmaps_mbtiles
+@@ -8,7 +8,7 @@
+ # see https://github.com/mapbox/mbtiles-spec/blob/master/1.3/spec.md
+ 
+ # read global configuration and functions
+-. vmaps.sh
++. @out@/bin/vmaps.sh
+ 
+ # read local configuration
+ . ./vmaps.conf
+diff --git i/vmap_data/scripts/vmaps_out w/vmap_data/scripts/vmaps_out
+index 8372b7f..288e5e2 100755
+--- i/vmap_data/scripts/vmaps_out
++++ w/vmap_data/scripts/vmaps_out
+@@ -12,7 +12,7 @@
+ ##################################################
+ 
+ # read global configuration and functions
+-. vmaps.sh
++. @out@/bin/vmaps.sh
+ 
+ # read local configuration
+ . ./vmaps.conf
+diff --git i/vmap_data/scripts/vmaps_preview w/vmap_data/scripts/vmaps_preview
+index 757dacc..4a7612c 100755
+--- i/vmap_data/scripts/vmaps_preview
++++ w/vmap_data/scripts/vmaps_preview
+@@ -3,7 +3,7 @@
+ ##################################################
+ 
+ # read global configuration and functions
+-. vmaps.sh
++. @out@/bin/vmaps.sh
+ 
+ # read local configuration
+ . ./vmaps.conf
+diff --git i/vmap_data/scripts/vmaps_sqlitedb w/vmap_data/scripts/vmaps_sqlitedb
+index 70a3d6b..e683232 100755
+--- i/vmap_data/scripts/vmaps_sqlitedb
++++ w/vmap_data/scripts/vmaps_sqlitedb
+@@ -6,7 +6,7 @@
+ # Tile format: x-y-z.png, z/x-y.png
+ 
+ # read global configuration and functions
+-. vmaps.sh
++. @out@/bin/vmaps.sh
+ 
+ # read local configuration
+ . ./vmaps.conf
+diff --git i/vmap_data/scripts/vmaps_wp_update w/vmap_data/scripts/vmaps_wp_update
+index 667057e..5ac21d7 100755
+--- i/vmap_data/scripts/vmaps_wp_update
++++ w/vmap_data/scripts/vmaps_wp_update
+@@ -12,7 +12,7 @@
+ ##################################################
+ 
+ # read global configuration and functions
+-. vmaps.sh
++. @out@/bin/vmaps.sh
+ 
+ # read local configuration
+ . ./vmaps.conf

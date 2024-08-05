@@ -40,25 +40,43 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  postPatch = ''
-    substituteInPlace modules/getopt/Makefile \
-      --replace-fail "SCRIPT_TESTS := getopt" ""
-    substituteInPlace modules/opt/Makefile \
-      --replace-fail "SIMPLE_TESTS := opt" ""
-    substituteInPlace modules/tmpdir/Makefile \
-      --replace-fail "SCRIPT_TESTS := tmpdir" ""
-    substituteInPlace modules/get_deps \
-      --replace-fail "/usr/bin/perl" "${perlPackages.perl}/bin/perl"
-    substituteInPlace modules/mapview/mapview.cpp \
-      --replace-fail "/usr/share" "$out/share"
-    patchShebangs .
+  patches = [ ./0002-fix-build.patch ];
 
-    substituteInPlace vmap_data/scripts/vmaps_preview --replace-fail "vmaps.sh" "$out/bin/vmaps.sh"
-    substituteInPlace vmap_data/scripts/vmaps_out --replace-fail "vmaps.sh" "$out/bin/vmaps.sh"
-    substituteInPlace vmap_data/scripts/vmaps_get_fig --replace-fail "vmaps.sh" "$out/bin/vmaps.sh"
-    substituteInPlace vmap_data/scripts/vmaps_in --replace-fail "vmaps.sh" "$out/bin/vmaps.sh"
-    substituteInPlace vmap_data/scripts/vmaps.sh --replace-fail "/usr" "$out"
-  '';
+  postPatch =
+    let
+      srcFiles = [
+        "docs/man/ms2render.htm"
+        "docs/man/ms2view.htm"
+        "docs/man/ms2view.txt"
+        "docs/man/ms2vmap.htm"
+        "docs/man/ms2vmapdb.htm"
+        "modules/mapview/action_manager.cpp"
+        "modules/mapview/mapview.cpp"
+        "modules/vmap2/vmap2gobj.cpp"
+        "modules/vmap2/vmap2types.cpp"
+        "vmap_data/scripts/vmaps.sh"
+        "vmap_data/scripts/vmaps_get_fig"
+        "vmap_data/scripts/vmaps_in"
+        "vmap_data/scripts/vmaps_mbtiles"
+        "vmap_data/scripts/vmaps_out"
+        "vmap_data/scripts/vmaps_preview"
+        "vmap_data/scripts/vmaps_sqlitedb"
+        "vmap_data/scripts/vmaps_wp_update"
+      ];
+    in
+    ''
+      ${lib.concatStringsSep "\n" (
+        map (
+          file: ''substituteInPlace ${file} --subst-var out''
+        ) srcFiles
+      )}
+
+      substituteInPlace modules/getopt/Makefile --replace-fail "SCRIPT_TESTS := getopt" ""
+      substituteInPlace modules/opt/Makefile --replace-fail "SIMPLE_TESTS := opt" ""
+      substituteInPlace modules/tmpdir/Makefile --replace-fail "SCRIPT_TESTS := tmpdir" ""
+      substituteInPlace modules/get_deps --replace-fail "/usr/bin/perl" "${perlPackages.perl}/bin/perl"
+      patchShebangs .
+    '';
 
   desktopItems = [
     (makeDesktopItem {
@@ -102,11 +120,12 @@ stdenv.mkDerivation (finalAttrs: {
     shapelib
   ];
 
-  SKIP_IMG_DIFFS = 1;
+  env = {
+    SKIP_IMG_DIFFS = 1;
+    NIX_CFLAGS_COMPILE = "-std=c++17";
+  };
 
   makeFlags = [ "prefix=$(out)" ];
-
-  NIX_CFLAGS_COMPILE = "-std=c++17";
 
   dontWrapGApps = true;
 
