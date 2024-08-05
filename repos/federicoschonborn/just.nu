@@ -79,7 +79,7 @@ def "main run-stable" [package: string] {
 }
 
 def "main update" [] {
-    nix flake update --commit-lock-file
+    nix flake update
     nix run ".#update"
 }
 
