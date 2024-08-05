@@ -11,6 +11,7 @@ lastpipe
 mktemp
 newermt
 nullglob
+pdfinfo
 readlink
 realpath
 setaf

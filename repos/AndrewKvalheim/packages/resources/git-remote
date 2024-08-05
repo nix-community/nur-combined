@@ -15,20 +15,34 @@ ssh="git@$hostname:$owner/$repo.git"
 
 if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   if git remote | grep --quiet "^$owner$"; then
-    echo "Configuring remote $owner/$repo for HTTPS fetch and SSH push" >&2
+    echo "Configuring remote [3m$owner/$repo[0m for HTTPS fetch and SSH push" >&2
 
     git remote set-url "$owner" "$https"
     git remote set-url --push "$owner" "$ssh"
   else
-    echo "Adding remote $owner/$repo with HTTPS fetch and SSH push" >&2
+    echo "Adding remote [3m$owner/$repo[0m with HTTPS fetch and SSH push" >&2
 
     git remote add -f "$owner" "$https"
     git remote set-url --push "$owner" "$ssh"
   fi
 else
-  echo "Cloning from remote $owner/$repo with HTTPS fetch and SSH push" >&2
+  echo "Cloning from remote [3m$owner/$repo[0m with HTTPS fetch and SSH push" >&2
 
   git clone --origin "$owner" "$https" "$repo"
   cd "$repo"
   git remote set-url --push "$owner" "$ssh"
 fi
+
+configure_requests() { local display="$1" ref="$2"
+  if ! git config --get-regexp 'remote\.[^.]+\.fetch' "refs/$ref" >/dev/null; then
+    echo "Configuring access to $display requests" >&2
+
+    git config --add "remote.$owner.fetch" "+refs/$ref/*/head:refs/remotes/$owner/#*"
+    git fetch "$owner"
+  fi
+}
+case "$hostname" in
+  'codeberg.org'|'github.com') configure_requests 'pull' 'pull';;
+  'gitlab.com') configure_requests 'merge' 'merge-requests';;
+  *) echo "Warning: Merge request configuration unknown for [3m$hostname[0m" >&2;;
+esac

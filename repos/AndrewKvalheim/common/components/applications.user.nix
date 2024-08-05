@@ -76,7 +76,7 @@ in
       httpie
       identity
       imagemagickBig
-      inkscape
+      (inkscape-with-extensions.override { inkscapeExtensions = with inkscape-extensions; [ applytransforms ]; })
       just
       just-local
       killall
@@ -93,6 +93,7 @@ in
       off
       pngquant
       pngtools
+      poppler_utils # pdfinfo
       pup
       pwgen
       qalculate-gtk

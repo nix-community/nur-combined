@@ -243,6 +243,7 @@ deconflate
 decryptable
 delayable
 delegators
+deliverability
 Delridge
 denormalize
 Dependabot
@@ -1001,6 +1002,7 @@ SpamAssassin
 SpamCop
 spamdexing
 spammy
+Spanaway
 sparkline
 sparklines
 SPDY
@@ -1231,6 +1233,7 @@ VSX
 waivable
 walkthrough
 walkthroughs
+Wallingford
 Wayback
 wayfinding
 WCAG
