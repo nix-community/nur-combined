@@ -40,10 +40,11 @@ REL_DIR="${TR_TORRENT_DIR#$DOWNLOAD_DIR/}"
 MEDIA_DIR="/var/media/$REL_DIR"
 
 destructive mkdir -p "$(dirname "$MEDIA_DIR")"
-destructive rsync -arv "$TR_TORRENT_DIR/" "$MEDIA_DIR/"
+destructive rsync -rlv "$TR_TORRENT_DIR/" "$MEDIA_DIR/"
 # make the media rwx by anyone in the group
 destructive find "$MEDIA_DIR" -type d -exec setfacl --recursive --modify d:g::rwx,o::rx {} \;
 destructive find "$MEDIA_DIR" -type d -exec chmod g+rw,a+rx {} \;
+destructive find "$MEDIA_DIR" -type f -exec chmod g+rw,a+r {} \;
 
 # if there's a single directory inside the media dir, then inline that
 subdirs=("$MEDIA_DIR"/*)

@@ -20,6 +20,7 @@
     ./nginx.nix
     ./nixos-prebuild.nix
     ./ntfy
+    ./ollama.nix
     ./pict-rs.nix
     ./pleroma.nix
     ./postgres.nix

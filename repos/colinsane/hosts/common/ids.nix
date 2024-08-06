@@ -63,6 +63,8 @@
   sane.ids.nix-serve.uid = 2420;
   sane.ids.nix-serve.gid = 2420;
   sane.ids.plugdev.gid = 2421;
+  sane.ids.ollama.uid = 2422;
+  sane.ids.ollama.gid = 2422;
 
   sane.ids.colin.uid = 1000;
   sane.ids.guest.uid = 1100;
