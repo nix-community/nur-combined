@@ -36,8 +36,10 @@
           } else if args.pname or "" != "" && args.version or "" != "" then {
             pname = strings.sanitizeDerivationName args.pname;
             version = strings.sanitizeDerivationName args.version;
-          } else optionalAttrs (args ? name) {
+          } else if args ? name then {
             name = strings.sanitizeDerivationName args.name;
+          } else {
+            name = strings.sanitizeDerivationName (baseNameOf url);
           };
       in retainAttrs (unusedWarn args) allowed // {
         url = mirrorUrl url;
