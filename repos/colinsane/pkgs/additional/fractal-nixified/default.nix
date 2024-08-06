@@ -57,8 +57,8 @@ let
         domain = "gitlab.gnome.org";
         owner = "GNOME";
         repo = "fractal";
-        rev = "7";
-        hash = "sha256-IfcThpsGATMD3Uj9tvw/aK7IVbiVT8sdZ088gRUqnlg=";
+        rev = "8";
+        hash = "sha256-a77+lPH2eqWTLFrYfcBXSvbyyYC52zSo+Rh/diqKYx4=";
       };
       codegenUnits = 256;  #< this does get plumbed, but doesn't seem to affect build speed
       outputs = [ "out" ];  # default is "out" and "lib", but that somehow causes cycles
