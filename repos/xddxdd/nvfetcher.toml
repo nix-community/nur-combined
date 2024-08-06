@@ -321,6 +321,10 @@ fetch.github = "ggerganov/llama.cpp"
 src.github = "chiyuki0325/lyrica"
 fetch.github = "chiyuki0325/lyrica"
 
+[mtkclient]
+src.github = "bkerler/mtkclient"
+fetch.github = "bkerler/mtkclient"
+
 [nbfc-linux-lantian]
 src.git = "https://github.com/xddxdd/nbfc-linux.git"
 fetch.github = "xddxdd/nbfc-linux"

@@ -1465,6 +1465,27 @@
         },
         "version": "v0.8"
     },
+    "mtkclient": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "mtkclient",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "bkerler",
+            "repo": "mtkclient",
+            "rev": "2.0.1.freeze",
+            "sha256": "sha256-y2VCfjds1fN2G9MHYZveT3NQqYF7RO26gBykHY1O6o8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "2.0.1.freeze"
+    },
     "nbfc-linux-lantian": {
         "cargoLocks": null,
         "date": "2022-06-13",

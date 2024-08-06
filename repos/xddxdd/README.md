@@ -85,7 +85,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (124 packages)</summary>
+<summary>Package set: (Uncategorized) (125 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -148,6 +148,7 @@ Or, use variables from this repository in case I change them:
 |  | `libqcef` | [libqcef](https://github.com/martyr-deepin/libqcef) | unstable-2019-11-23 | Qt5 binding of CEF |
 |  | `lyrica` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.8 | Linux desktop lyrics widget focused on simplicity and integration |
 |  | `lyrica-plasmoid` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.8 | Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component) |
+|  | `mtkclient` | [mtkclient](https://github.com/bkerler/mtkclient) | 2.0.1.freeze | MTK reverse engineering and flash tool |
 |  | `netboot-xyz` | [netboot-xyz](https://netboot.xyz/) | 2.0.80 | Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE. |
 |  | `netease-cloud-music` | [netease-cloud-music](https://music.163.com) | 1.2.1 | NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu) |
 |  | `netns-exec` | [netns-exec](https://github.com/pekman/netns-exec) | unstable-2016-07-30 | Run command in Linux network namespace as normal user |

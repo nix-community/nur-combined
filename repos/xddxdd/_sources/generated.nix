@@ -816,6 +816,17 @@
       sha256 = "sha256-hjLm4p/GY/TF+p+yV2aKM3z1ctdyw2vqiqiBGffkBU4=";
     };
   };
+  mtkclient = {
+    pname = "mtkclient";
+    version = "2.0.1.freeze";
+    src = fetchFromGitHub {
+      owner = "bkerler";
+      repo = "mtkclient";
+      rev = "2.0.1.freeze";
+      fetchSubmodules = false;
+      sha256 = "sha256-y2VCfjds1fN2G9MHYZveT3NQqYF7RO26gBykHY1O6o8=";
+    };
+  };
   nbfc-linux-lantian = {
     pname = "nbfc-linux-lantian";
     version = "32a49117ca3ff17d7681713a8dc8812323142dcb";

@@ -167,6 +167,7 @@ mkScope (
     liboqs = pkg ./uncategorized/liboqs { };
     lyrica = pkg ./uncategorized/lyrica { };
     lyrica-plasmoid = pkg ./uncategorized/lyrica-plasmoid { };
+    mtkclient = pkg ./uncategorized/mtkclient { };
     netboot-xyz = pkg ./uncategorized/netboot-xyz { };
     netease-cloud-music = pkg ./uncategorized/netease-cloud-music { };
     netns-exec = pkg ./uncategorized/netns-exec { };
