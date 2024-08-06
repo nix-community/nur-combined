@@ -472,8 +472,10 @@ let
       ;
       suggestedPrograms = lib.optionals (config.sandbox.method == "bwrap") [
         "bubblewrap" "passt" "iproute2" "iptables"
+      ] ++ lib.optionals (config.sandbox.method == "landlock") [
+        "landlock-sandboxer" "libcap"
       ] ++ lib.optionals (config.sandbox.method == "pastaonly") [
-        "passt" "iproute2" "iptables"
+        "passt" "iproute2" "iptables" "libcap"
       ] ++ lib.optionals (config.sandbox.method == "capshonly") [
         "libcap"
       ];

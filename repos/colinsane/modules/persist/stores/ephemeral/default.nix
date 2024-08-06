@@ -4,34 +4,35 @@ let
   persist-base = "/nix/persist";
   origin = config.sane.persist.stores."ephemeral".origin;
   backing = sane-lib.path.concat [ persist-base "ephemeral" ];
-
-  gocryptfs-ephemeral = pkgs.writeShellApplication {
-    name = "gocryptfs-ephemeral";
-    runtimeInputs = with pkgs; [
-      coreutils-full
-      gocryptfs
-      util-linux  #< gocryptfs complains that it can't exec `logger`, otherwise
-    ];
-    text = ''
-      # mount invokes us like this. not sure if that's a guarantee or not:
-      # <exe> <device> <mountpt> -o <flags>
-      backing=$1
-      # facing=$2
-
-      # backing might exist from the last boot, so wipe it:
-      rm -fr "$backing"
-      mkdir -p "$backing"
-
-      # the password shows up in /proc/.../env, briefly.
-      # that's inconsequential: we just care that it's not *persisted*.
-      pw=$(dd if=/dev/random bs=128 count=1 | base64 --wrap=0)
-      echo "$pw" | gocryptfs -quiet -passfile /dev/stdin -init "$backing"
-      echo "$pw" | exec gocryptfs -quiet -passfile /dev/stdin "$@"
-    '';
-  };
 in
 lib.mkIf config.sane.persist.enable
 {
+
+  sane.programs.gocryptfs-ephemeral = {
+    packageUnwrapped = pkgs.static-nix-shell.mkBash {
+      pname = "gocryptfs-ephemeral";
+      srcRoot = ./.;
+      pkgs = [
+        "coreutils-full"
+        "gocryptfs"
+      ];
+    };
+    sandbox.method = "landlock";
+    sandbox.autodetectCliPaths = "existing";
+    sandbox.capabilities = [
+      # "sys_admin"  #< omitted: not required if using fuse3-sane with -o pass_fuse_fd
+      "chown"
+      "dac_override"
+      "dac_read_search"
+      "fowner"
+      "lease"
+      "mknod"
+      "setgid"
+      "setuid"
+    ];
+    suggestedPrograms = [ "gocryptfs" ];
+  };
+
   sane.persist.stores."ephemeral" = {
     storeDescription = ''
       stored to disk, but encrypted to an in-memory key and cleared on every boot
@@ -41,13 +42,14 @@ lib.mkIf config.sane.persist.enable
   };
 
   fileSystems."${origin}" = {
-    device = "${lib.getExe gocryptfs-ephemeral}#${backing}";
-    fsType = "fuse3";
+    device = "gocryptfs-ephemeral#${backing}";
+    fsType = "fuse3.sane";
     options = [
       "nodev"   # only works via mount.fuse; gocryptfs requires this be passed as `-ko nodev`
       "nosuid"  # only works via mount.fuse; gocryptfs requires this be passed as `-ko nosuid` (also, nosuid is default)
       "allow_other"  # root ends up being the user that mounts this, so need to make it visible to other users.
       # "defaults"  # "unknown flag: --defaults. Try 'gocryptfs -help'"
+      "pass_fuse_fd"
     ];
     noCheck = true;
   };
@@ -58,7 +60,7 @@ lib.mkIf config.sane.persist.enable
       config.sane.fs."${backing}".unit
     ];
     # hardening (systemd-analyze security mnt-persist-ephemeral.mount)
-    mount.mountConfig.AmbientCapabilities = "";
+    mount.mountConfig.AmbientCapabilities = "CAP_SYS_ADMIN CAP_DAC_OVERRIDE CAP_DAC_READ_SEARCH CAP_CHOWN CAP_MKNOD CAP_LEASE CAP_SETGID CAP_SETUID CAP_FOWNER";
     # CAP_LEASE is probably not necessary -- does any fs user use leases?
     mount.mountConfig.CapabilityBoundingSet = "CAP_SYS_ADMIN CAP_DAC_OVERRIDE CAP_DAC_READ_SEARCH CAP_CHOWN CAP_MKNOD CAP_LEASE CAP_SETGID CAP_SETUID CAP_FOWNER";
     mount.mountConfig.LockPersonality = true;
@@ -78,7 +80,7 @@ lib.mkIf config.sane.persist.enable
     mount.mountConfig.SystemCallArchitectures = "native";
     mount.mountConfig.SystemCallFilter = [
       # unfortunately, i need to keep @network-io (accept, bind, connect, listen, recv, send, socket, ...). not sure why (daemon control socket?).
-      "@system-service" "@mount" "~@cpu-emulation" "~@keyring"
+      "@system-service" "@mount" "@sandbox" "~@cpu-emulation" "~@keyring"
     ];
     mount.mountConfig.IPAddressDeny = "any";
     mount.mountConfig.DevicePolicy = "closed";  # only allow /dev/{null,zero,full,random,urandom}
@@ -90,5 +92,6 @@ lib.mkIf config.sane.persist.enable
   };
   sane.fs."${backing}".dir = {};
 
-  system.fsPackages = [ gocryptfs-ephemeral ];  # fuse needs to find gocryptfs
+  sane.programs.gocryptfs-ephemeral.enableFor.system = true;
+  system.fsPackages = [ pkgs.libfuse-sane ];
 }

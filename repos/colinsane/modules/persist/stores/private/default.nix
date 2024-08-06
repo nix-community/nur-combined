@@ -4,73 +4,47 @@ let
   persist-base = "/nix/persist";
   origin = config.sane.persist.stores."private".origin;
   backing = sane-lib.path.concat [ persist-base "private" ];
-
-  gocryptfs-private = pkgs.writeShellApplication {
-    name = "gocryptfs-private";
-    runtimeInputs = with pkgs; [
-      coreutils-full
-      gocryptfs
-      inotify-tools
-      util-linux  #< gocryptfs complains that it can't exec `logger`, otherwise
-    ];
-    text = ''
-      # backing=$1
-      # facing=$2
-      mountArgs=("$@")
-      passdir=/run/gocryptfs
-      passfile="$passdir/private.key"
-
-      waitForPassfileOnce() {
-        local timeout=$1
-        if [ -f "$passfile" ]; then
-          return 0
-        else
-          # wait for some file to be created inside the directory.
-          # inotifywait returns 0 if the file was created. 1 or 2 if timeout was hit or it was interrupted by a different event.
-          inotifywait --timeout "$timeout" --event create "$passdir"
-          return 1  #< maybe it was created; we'll pick that up immediately, on next check
-        fi
-      }
-      waitForPassfile() {
-        # there's a race condition between testing the path and starting `inotifywait`.
-        # therefore, use a retry loop. exponential backoff to decrease the impact of the race condition,
-        # especially near the start of boot to allow for quick reboots even if/when i hit the race.
-        for timeout in 4 4 8 8 8 8 16 16 16 16 16 16 16 16; do
-          if waitForPassfileOnce "$timeout"; then
-            return 0
-          fi
-        done
-        while true; do
-          if waitForPassfileOnce 30; then
-            return 0
-          fi
-        done
-      }
-      tryOpenStore() {
-        # try to open the store (blocking), if it fails, then delete the passfile because the user probably entered the wrong password
-        echo "mounting with ''${mountArgs[*]}"
-        # gocryptfs will unlock the store, and *then* fork into the background.
-        # so when it returns, the files are either immediately accessible, or the mount failed (likely due to a bad password
-        if ! gocryptfs "''${mountArgs[@]}"; then
-          echo "failed mount (transient failure)"
-          rm -f "$passfile"
-          return 1
-        fi
-      }
-
-      waitForPassfile
-      while ! tryOpenStore; do
-        waitForPassfile
-      done
-      echo "mounted"
-      # mount is complete (successful), and backgrounded.
-      # remove the passfile even on successful mount, for vague safety reasons (particularly if the user were to explicitly unmount the private store).
-      rm -f "$passfile"
-    '';
-  };
 in
 lib.mkIf config.sane.persist.enable
 {
+  sane.programs."provision-private-key" = {
+    packageUnwrapped = pkgs.static-nix-shell.mkBash {
+      pname = "provision-private-key";
+      srcRoot = ./.;
+      pkgs = [
+        "coreutils-full"
+        "gocryptfs"
+        "inotify-tools"
+      ];
+    };
+    sandbox.method = "bwrap";
+    sandbox.autodetectCliPaths = "parent";
+  };
+  sane.programs.gocryptfs-private = {
+    packageUnwrapped = pkgs.static-nix-shell.mkBash {
+      pname = "gocryptfs-private";
+      srcRoot = ./.;
+      pkgs = [ "gocryptfs" ];
+    };
+    sandbox.method = "landlock";
+    sandbox.autodetectCliPaths = "existing";
+    sandbox.capabilities = [
+      # "sys_admin"  #< omitted: not required if using fuse3-sane with -o pass_fuse_fd
+      "chown"
+      "dac_override"
+      "dac_read_search"
+      "fowner"
+      "lease"
+      "mknod"
+      "setgid"
+      "setuid"
+    ];
+    sandbox.extraPaths = [
+      "/run/gocryptfs"  #< TODO: teach sanebox about `-o FLAG1=VALUE1,FLAG2=VALUE2` style of argument passing, then use `existingOrParent` autodetect, and remove this
+    ];
+    suggestedPrograms = [ "gocryptfs" ];
+  };
+
   sane.persist.stores."private" = {
     storeDescription = ''
       encrypted store which persists across boots.
@@ -90,8 +64,8 @@ lib.mkIf config.sane.persist.enable
   };
 
   fileSystems."${origin}" = {
-    device = "${lib.getExe gocryptfs-private}#${backing}";
-    fsType = "fuse3";
+    device = "gocryptfs-private#${backing}";
+    fsType = "fuse3.sane";
     options = [
       # "auto"
       "nofail"
@@ -107,6 +81,7 @@ lib.mkIf config.sane.persist.enable
       "x-systemd.mount-timeout=infinity"
       # "retry=10000"
       # "fg"
+      "pass_fuse_fd"
     ];
     noCheck = true;
   };
@@ -116,13 +91,13 @@ lib.mkIf config.sane.persist.enable
     wantedBy = [ "local-fs.target" ];
     mount.depends = [
       config.sane.fs."${backing}".unit
-      config.sane.fs."/run/gocryptfs".unit
+      config.sane.fs."/run/gocryptfs/private.key".unit
     ];
     # unitConfig.DefaultDependencies = "no";
     mount.mountConfig.TimeoutSec = "infinity";
 
     # hardening (systemd-analyze security mnt-persist-private.mount)
-    mount.mountConfig.AmbientCapabilities = "";
+    mount.mountConfig.AmbientCapabilities = "CAP_SYS_ADMIN CAP_DAC_OVERRIDE CAP_DAC_READ_SEARCH CAP_CHOWN CAP_MKNOD CAP_LEASE CAP_SETGID CAP_SETUID CAP_FOWNER";
     # CAP_LEASE is probably not necessary -- does any fs user use leases?
     mount.mountConfig.CapabilityBoundingSet = "CAP_SYS_ADMIN CAP_DAC_OVERRIDE CAP_DAC_READ_SEARCH CAP_CHOWN CAP_MKNOD CAP_LEASE CAP_SETGID CAP_SETUID CAP_FOWNER";
     mount.mountConfig.LockPersonality = true;
@@ -140,7 +115,7 @@ lib.mkIf config.sane.persist.enable
     mount.mountConfig.SystemCallArchitectures = "native";
     mount.mountConfig.SystemCallFilter = [
       # unfortunately, i need to keep @network-io (accept, bind, connect, listen, recv, send, socket, ...). not sure why (daemon control socket?).
-      "@system-service" "@mount" "~@cpu-emulation" "~@keyring"
+      "@system-service" "@mount" "@sandbox" "~@cpu-emulation" "~@keyring"
     ];
     mount.mountConfig.IPAddressDeny = "any";
     mount.mountConfig.DevicePolicy = "closed";  # only allow /dev/{null,zero,full,random,urandom}
@@ -148,13 +123,20 @@ lib.mkIf config.sane.persist.enable
     mount.mountConfig.SocketBindDeny = "any";
   };
   # it also needs to know that the underlying device is an ordinary folder
-  sane.fs."${backing}".dir.acl.user = config.sane.defaultUser;
+  sane.fs."${backing}".dir = {};
   sane.fs."/run/gocryptfs".dir.acl = {
-    user = config.sane.defaultUser;
-    mode = "0700";
+    user = config.sane.defaultUser;  #< must be user-writable so i can unlock it.
+    mode = "0770";
   };
+  sane.fs."/run/gocryptfs/private.key".generated.command = [
+    "${lib.getExe config.sane.programs.provision-private-key.package}"
+    "/run/gocryptfs/private.key"
+    "${backing}/gocryptfs.conf"
+  ];
 
-  system.fsPackages = [ gocryptfs-private ];
+  sane.programs."gocryptfs-private".enableFor.system = true;
+  sane.programs."provision-private-key".enableFor.system = true;
+  system.fsPackages = [ pkgs.libfuse-sane ];
 
   sane.user.services.gocryptfs-private = {
     description = "wait for /mnt/persist/private to be mounted";

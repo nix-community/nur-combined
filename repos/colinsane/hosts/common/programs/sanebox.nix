@@ -22,11 +22,12 @@ in
       iptables = cfg.iptables.package;
       libcap = cfg.libcap.package;
       passt = cfg.passt.package;
-      landlock-sandboxer = pkgs.landlock-sandboxer.override {
-        # not strictly necessary (landlock ABI is versioned), however when sandboxer version != kernel version,
-        # the sandboxer may nag about one or the other wanting to be updated.
-        linux = config.boot.kernelPackages.kernel;
-      };
+      landlock-sandboxer = cfg.landlock-sandboxer.package;
+      # landlock-sandboxer = pkgs.landlock-sandboxer.override {
+      #   # not strictly necessary (landlock ABI is versioned), however when sandboxer version != kernel version,
+      #   # the sandboxer may nag about one or the other wanting to be updated.
+      #   linux = config.boot.kernelPackages.kernel;
+      # };
     }).overrideAttrs (base: {
       # create a directory which holds just the `sanebox` so that we
       # can add sanebox as a dependency to binaries via `PATH=/run/current-system/libexec/sanebox` without forcing rebuild every time sanebox changes

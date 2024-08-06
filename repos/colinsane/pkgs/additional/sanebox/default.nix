@@ -31,6 +31,7 @@ stdenv.mkDerivation {
       --replace-fail '@iptables@' '${lib.getExe' iptables "iptables"}' \
       --replace-fail '@landlockSandboxer@' '${lib.getExe landlock-sandboxer}' \
       --replace-fail '@pasta@' '${lib.getExe' passt "pasta"}' \
+      --replace-fail '@readlink@' '${lib.getExe' coreutils "readlink"}' \
 
     runHook postBuild
   '';

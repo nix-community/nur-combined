@@ -9,6 +9,7 @@ IP_FALLBACK='@ip@'
 IPTABLES_FALLBACK='@iptables@'
 LANDLOCK_SANDBOXER_FALLBACK='@landlockSandboxer@'
 PASTA_FALLBACK='@pasta@'
+READLINK_FALLBACK='@readlink@'
 
 
 ## EARLY DEBUG HOOKS
@@ -316,7 +317,8 @@ readlinkOnce() {
     linkTarget=${linkCache[$path]}
   elif [ -L "$path" ]; then
     # path is a link, but not in the cache
-    linkTarget=$(readlink "$path")
+    locate _readlink "readlink" "$READLINK_FALLBACK"
+    linkTarget=$("$_readlink" "$path")
     # insert it into the cache, in case we traverse it again
     linkCache[$path]=$linkTarget
   else
@@ -768,7 +770,9 @@ landlockSetup() {
   # typical failure mode:
   # - /tmp: application can't perform its task
   # - /dev/{null,random,urandom,zero}: application warns but works around it
+  # - /dev/fd/*: application fails to open its stdin/stdout/etc
   paths+=(
+    /dev/fd
     /dev/null
     /dev/random
     /dev/urandom
@@ -824,7 +828,7 @@ landlockGetCli() {
   # so trampoline through `capsh` as well, to drop privs.
   # N.B: capsh passes its arg to bash (via /nix/store/.../bash), which means you have to `-c "my command"` to
   # invoke the actual user command.
-  locate _sandboxer "sandboxer" "$LANDLOCK_SANDBOXER_FALLBACK"
+  locate _sandboxer "landlock-sandboxer" "$LANDLOCK_SANDBOXER_FALLBACK"
   locate _env "env" "$ENV_FALLBACK"
   capshonlyGetCli
   cliArgs=("$_env" LL_FS_RO= LL_FS_RW="$landlockPaths" "${landlockNetFlags[@]}"
@@ -870,7 +874,7 @@ capshonlyIngestCapability() {
   # therefore, only grant it those capabilities i know will succeed.
   if capsh "--has-p=cap_$1" 2>/dev/null; then
     if [ -z "$capshCapsArg" ]; then
-      capshCapsArg=cap_$1=eip
+      capshCapsArg=cap_$1=ep
     else
       capshCapsArg=cap_$1,$capshCapsArg
     fi

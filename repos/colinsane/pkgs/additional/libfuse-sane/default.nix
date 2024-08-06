@@ -1,5 +1,6 @@
 {
-  fuse3
+  fuse3,
+  makeBinaryWrapper,
 }:
 let
   patched = fuse3.overrideAttrs (upstream: {
@@ -8,6 +9,15 @@ let
     patches = (upstream.patches or []) ++ [
       ./pass_fuse_fd.patch
     ];
+    nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+      makeBinaryWrapper
+    ];
+    # wrap so that it looks for mount helpers in /run/current-system/sw/bin,
+    # and furthermore so that those mount helpers inherit the sandboxed wrappers in /run/current-system/sw/bin
+    postInstall = (upstream.postInstall or "") + ''
+      wrapProgram $out/sbin/mount.fuse3 \
+        --suffix PATH : /run/current-system/sw/bin
+    '';
     postFixup = (upstream.postFixup or "") + ''
       ln -s $out/bin/mount.fuse3 $out/bin/mount.fuse3.sane
       moveToOutput bin/mount.fuse3.sane "$sane"

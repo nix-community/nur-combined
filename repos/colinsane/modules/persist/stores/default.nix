@@ -2,9 +2,9 @@
 
 {
   imports = [
-    ./ephemeral.nix
+    ./ephemeral
     ./initrd.nix
     ./plaintext.nix
-    ./private.nix
+    ./private
   ];
 }

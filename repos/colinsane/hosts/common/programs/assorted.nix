@@ -808,6 +808,8 @@ in
       "tmp"
     ];
 
+    landlock-sandboxer.sandbox.enable = false;  #< sandbox helper
+
     libcamera = {};
 
     libcap.sandbox.enable = false;  #< for `capsh`, which i use as a sandboxer

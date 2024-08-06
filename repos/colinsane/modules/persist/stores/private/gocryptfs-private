@@ -1,0 +1,6 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p bash -p gocryptfs
+
+passfile=/run/gocryptfs/private.key
+gocryptfs --sanebox-path "$passfile" "$@"
+rm "$passfile"

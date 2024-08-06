@@ -1,0 +1,46 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p bash -p coreutils-full -p gocryptfs -p inotify-tools
+
+passfile="$1"  # e.g. /run/gocryptfs/private.key
+conffile="$2"  # e.g. /nix/persist/private/gocryptfs.conf
+passdir=$(dirname "$passfile")
+
+waitForPassfileOnce() {
+  local timeout=$1
+  if [ -f "$passfile" ]; then
+    return 0
+  else
+    # wait for some file to be created inside the directory.
+    # inotifywait returns 0 if the file was created. 1 or 2 if timeout was hit or it was interrupted by a different event.
+    inotifywait --timeout "$timeout" --event create "$passdir"
+    return 1  #< maybe it was created; we'll pick that up immediately, on next check
+  fi
+}
+waitForPassfile() {
+  # there's a race condition between testing the path and starting `inotifywait`.
+  # therefore, use a retry loop. exponential backoff to decrease the impact of the race condition,
+  # especially near the start of boot to allow for quick reboots even if/when i hit the race.
+  for timeout in 4 4 8 8 8 8 16 16 16 16 16 16 16 16; do
+    if waitForPassfileOnce "$timeout"; then
+      return 0
+    fi
+  done
+  while true; do
+    if waitForPassfileOnce 30; then
+      return 0
+    fi
+  done
+}
+validatePassword() {
+  if ! cat "$passfile" | gocryptfs-xray -dumpmasterkey "$conffile" > /dev/null; then
+    echo "failed key validation"
+    rm -f "$passfile"
+    return 1
+  fi
+}
+
+waitForPassfile
+while ! validatePassword; do
+  waitForPassfile
+done
+echo "key provisioned"

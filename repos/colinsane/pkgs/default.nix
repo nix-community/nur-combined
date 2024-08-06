@@ -47,7 +47,7 @@ let
     hackgregator = callPackage ./additional/hackgregator { };
     jellyfin-media-player-qt6 = callPackage ./additional/jellyfin-media-player-qt6 { };
     koreader-from-src = callPackage ./additional/koreader-from-src { };
-    landlock-sandboxer = callPackage ./additional/landlock-sandboxer { };
+    landlock-sandboxer = callPackage ./additional/landlock-sandboxer { linux = linux_latest; };
     ldd-aarch64 = callPackage ./additional/ldd-aarch64 { };
     lemoa = callPackage ./additional/lemoa { };
     lemmy-lemonade = callPackage ./additional/lemonade { };  # XXX: nixpkgs already has a `lemonade` pkg

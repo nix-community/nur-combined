@@ -66,6 +66,7 @@
     ./gnome-maps.nix
     ./gnome-weather.nix
     ./go2tv.nix
+    ./gocryptfs.nix
     ./gpodder.nix
     ./gpsd.nix
     ./gps-share.nix
