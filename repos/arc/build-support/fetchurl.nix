@@ -10,6 +10,7 @@
       allowed = attrNames (functionArgs (nix-fetchurl.value));
       allowedUnused = [
         "urls" "meta" "passthru" "preferLocalBuild" "recursiveHash"
+        "pname" "version"
       ];
       unusedWarn = args: let
         unused = removeAttrs args (allowed ++ allowedUnused);
@@ -29,13 +30,19 @@
         else url;
       filterArgs = args: let
         url = if args ? urls && ! args ? url then head args.urls else args.url;
+        nameAttrs =
+          if args.showURLs or false then {
+            name = "urls";
+          } else if args.pname or "" != "" && args.version or "" != "" then {
+            pname = strings.sanitizeDerivationName args.pname;
+            version = strings.sanitizeDerivationName args.version;
+          } else optionalAttrs (args ? name) {
+            name = strings.sanitizeDerivationName args.name;
+          };
       in retainAttrs (unusedWarn args) allowed // {
         url = mirrorUrl url;
-      } // optionalAttrs (!(args.showURLs or false || args ? name)) {
-        name = strings.sanitizeDerivationName (baseNameOf url);
-      } // optionalAttrs (args ? name) {
-        name = strings.sanitizeDerivationName args.name;
-      } // optionalAttrs (args ? recursiveHash) { unpack = args.recursiveHash; };
+      } // nameAttrs
+      // optionalAttrs (args ? recursiveHash) { unpack = args.recursiveHash; };
       nixFetchurl = { meta ? {}, passthru ? {}, ... }@args:
         if !nix-fetchurl.success || needsNixpkgs args
         then fetchurl args
