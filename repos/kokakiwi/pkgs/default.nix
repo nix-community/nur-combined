@@ -25,6 +25,7 @@ let
 
   applications = importSub ./applications {
     aura = { };
+    enquirer = { };
     ferdium = { };
     go-mod-upgrade = { };
     imhex = { };
