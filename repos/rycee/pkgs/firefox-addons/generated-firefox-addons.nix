@@ -2113,10 +2113,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "129.0.20240801.122119";
+      version = "130.0.20240805.132937";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4329966/deutsch_de_language_pack-129.0.20240801.122119.xpi";
-      sha256 = "b1424dd2d1281aca02657b9ecd50169f8240d7f6705b97867b1d3439832ff257";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4331859/deutsch_de_language_pack-130.0.20240805.132937.xpi";
+      sha256 = "82411ac2168364e500e2b79a02feb4968552692c980635a9ff6c942fd491a117";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2333,10 +2333,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.45.0";
+      version = "2.45.1";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4313991/dualsub-2.45.0.xpi";
-      sha256 = "c23f1d642359560b4fd78944fb7df928dd58a491bc9e7c8d93e6ecf32a66f98e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4331541/dualsub-2.45.1.xpi";
+      sha256 = "2268a6d35753d041efc4ce6c361cf804b42590a7ddbaf89fc14090ea6b50e72e";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2718,10 +2718,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.18.1";
+      version = "1.3.19";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4330861/faststream-1.3.18.1.xpi";
-      sha256 = "e7d62fa480572a6e4285e917151a87a0ef0355dfe0b31acb7149ee9708901723";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4332152/faststream-1.3.19.xpi";
+      sha256 = "545f76217a872736b9b560533a18ae51adaebca7e415bf30a72db38ac82670ec";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -3171,10 +3171,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "129.0.20240801.122119";
+      version = "130.0.20240805.132937";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4329895/francais_language_pack-129.0.20240801.122119.xpi";
-      sha256 = "969be04c198195a349f0862a78a766e31d7f3f3989f5653bd9320db7603be454";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4331808/francais_language_pack-130.0.20240805.132937.xpi";
+      sha256 = "6bb4d33f36a18041caf89f17583a497a120a993c363f9bce854325774cc3fb9e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3223,10 +3223,10 @@
     };
     "gesturefy" = buildFirefoxXpiAddon {
       pname = "gesturefy";
-      version = "3.2.12";
+      version = "3.2.13";
       addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4264332/gesturefy-3.2.12.xpi";
-      sha256 = "28b8bb98971f61053ff59bb9c810a9527e4693dc98f9b2145dded1e77d1fe97e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4330901/gesturefy-3.2.13.xpi";
+      sha256 = "f0908a53854e07fc436d053ea5528d180e7425fd3084ca0921cc558fce1a208b";
       meta = with lib;
       {
         homepage = "https://github.com/Robbendebiene/Gesturefy";
@@ -8955,10 +8955,10 @@
     };
     "proton-vpn" = buildFirefoxXpiAddon {
       pname = "proton-vpn";
-      version = "1.2.0";
+      version = "1.2.1";
       addonId = "vpn@proton.ch";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4314101/proton_vpn_firefox_extension-1.2.0.xpi";
-      sha256 = "b1db3fd7fabe6f32866f72c43dcb76254055235ff1ce72182eab9fab7061cf67";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4329242/proton_vpn_firefox_extension-1.2.1.xpi";
+      sha256 = "dbb0ccbb66727638154a1bb7dda4345ca2d71daa866c1dded5e3c20ba87db611";
       meta = with lib;
       {
         homepage = "https://protonvpn.com/";
@@ -9911,10 +9911,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.54";
+      version = "1.22.55";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4324972/single_file-1.22.54.xpi";
-      sha256 = "b5c565f9754e5e45d6649cca851d3dec19e69a0eac39877160e49d3f6c354f4f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4330250/single_file-1.22.55.xpi";
+      sha256 = "058f46663486a2b91e817f4014b2fd8676cedd845d683c044bc844c7e388d9df";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -10884,10 +10884,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.0.20";
+      version = "4.0.21";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4310845/tree_style_tab-4.0.20.xpi";
-      sha256 = "1c1588dc4cafff49344cfc97df40d763651aea3964de774c925e460e8e307552";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4331020/tree_style_tab-4.0.21.xpi";
+      sha256 = "2865b81e8ff55db7eb64903ce95ccfe5b8676290a3c11e5375366c3d2694f805";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -11344,10 +11344,10 @@
     };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2024.7.28.888";
+      version = "2024.8.5.925";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4327398/ublock_origin_lite-2024.7.28.888.xpi";
-      sha256 = "a2976e4a36f578be94f67fee3a3d745c5aa872758cc2592a4d12b2ca772c09f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4331741/ublock_origin_lite-2024.8.5.925.xpi";
+      sha256 = "aea9da8df9872bc0b05121b9a9c93f099b46f27748fbf30f7943d059029cdcc2";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
@@ -11535,24 +11535,24 @@
     };
     "userchrome-toggle-extended" = buildFirefoxXpiAddon {
       pname = "userchrome-toggle-extended";
-      version = "1.5";
+      version = "2.0";
       addonId = "userchrome-toggle-extended@n2ezr.ru";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4295256/userchrome_toggle_extended-1.5.xpi";
-      sha256 = "246778f3da3543bb324cf69e0b551e8bec745f9774fa6813789194b7b46197e4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4331605/userchrome_toggle_extended-2.0.xpi";
+      sha256 = "02e0ad846fd29ee1fea1825a5be8030d9c3c0c822afa1a9a623c48dfd715b9ac";
       meta = with lib;
       {
         description = "This extension allows you to toggle userchrome.css styles on-the-fly with buttons and hotkeys. You'll be able to switch up to six styles";
         license = licenses.mpl20;
-        mozPermissions = [ "notifications" "storage" ];
+        mozPermissions = [ "storage" ];
         platforms = platforms.all;
       };
     };
     "video-downloadhelper" = buildFirefoxXpiAddon {
       pname = "video-downloadhelper";
-      version = "9.0.2.12";
+      version = "9.1.0.42";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4305354/video_downloadhelper-9.0.2.12.xpi";
-      sha256 = "eafc7833a069b9570f05eb93a256cea6e008c9637df17f38c8154c791dde8669";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4330505/video_downloadhelper-9.1.0.42.xpi";
+      sha256 = "700a2f04464be078733f28fd26b1fc7c1e2e21fb1606745a28ac9b471db1d570";
       meta = with lib;
       {
         homepage = "http://www.downloadhelper.net/";
@@ -11577,6 +11577,7 @@
           "contextMenus"
           "nativeMessaging"
           "*://*.downloadhelper.net/*"
+          "*://*.downloadhelper.net/changelog/mozilla/*"
           "*://*.downloadhelper.net/debugger"
         ];
         platforms = platforms.all;
