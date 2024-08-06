@@ -1,7 +1,7 @@
 {
   "vgmtrans": {
     "cargoLocks": null,
-    "date": "2024-08-04",
+    "date": "2024-08-05",
     "extract": null,
     "name": "vgmtrans",
     "passthru": null,
@@ -11,12 +11,12 @@
       "fetchSubmodules": true,
       "leaveDotGit": false,
       "name": null,
-      "rev": "43e9dd6f494d6167f4ada6a52ee4b96c903d1a7c",
-      "sha256": "sha256-ISJ+P3JweMyg4ZgyyD1yEaEDeVrXiUsBrhfY4lEzNKg=",
+      "rev": "99c0dbf6f25d6a093749530194beb6c66b61fdb6",
+      "sha256": "sha256-0RhWBw7X65U/zZKDz642f2fSMTu7Q5t7nWGcxHTELR8=",
       "sparseCheckout": [],
       "type": "git",
       "url": "https://github.com/vgmtrans/vgmtrans"
     },
-    "version": "43e9dd6f494d6167f4ada6a52ee4b96c903d1a7c"
+    "version": "99c0dbf6f25d6a093749530194beb6c66b61fdb6"
   }
 }
