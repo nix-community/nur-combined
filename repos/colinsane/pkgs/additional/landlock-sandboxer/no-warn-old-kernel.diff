@@ -1,0 +1,17 @@
+diff --git a/samples/landlock/sandboxer.c b/samples/landlock/sandboxer.c
+index e8223c3e781a..e4583b8447a1 100644
+--- a/samples/landlock/sandboxer.c
++++ b/samples/landlock/sandboxer.c
+@@ -326,12 +326,6 @@ int main(const int argc, char *const argv[], char *const *const envp)
+ 	case 4:
+ 		/* Removes LANDLOCK_ACCESS_FS_IOCTL_DEV for ABI < 5 */
+ 		ruleset_attr.handled_access_fs &= ~LANDLOCK_ACCESS_FS_IOCTL_DEV;
+-
+-		fprintf(stderr,
+-			"Hint: You should update the running kernel "
+-			"to leverage Landlock features "
+-			"provided by ABI version %d (instead of %d).\n",
+-			LANDLOCK_ABI_LAST, abi);
+ 		__attribute__((fallthrough));
+ 	case LANDLOCK_ABI_LAST:
+ 		break;
