@@ -50,8 +50,6 @@
 
 
 ## IMPROVEMENTS:
-- systemd/journalctl: use a less shit pager
-  - there's an env var for it: SYSTEMD_PAGER? and a flag for journalctl
 - kernels: ship the same kernel on every machine
   - then i can tune the kernels for hardening, without duplicating that work 4 times
 - zfs: replace this with something which doesn't require a custom kernel build
