@@ -121,6 +121,7 @@ let
       options = fsOpts.sshColin ++ fsOpts.lazyMount ++ [
         # drop_privileges: after `mount.fuse3` opens /dev/fuse, it will drop all capabilities before invoking sshfs
         "drop_privileges"
+        "auto_unmount"  #< ensures that when the fs exits, it releases its mountpoint. then systemd can recognize it as failed.
       ];
       noCheck = true;
     };
@@ -171,11 +172,18 @@ let
     systemdName = utils.escapeSystemdPath localPath;
   in {
     sane.programs.curlftpfs.enableFor.system = true;
+    system.fsPackages = [
+      config.sane.programs.curlftpfs.package
+    ];
     fileSystems."${localPath}" = {
-      device = "ftp://servo-hn:/${subdir}";
+      device = "curlftpfs#ftp://servo-hn:/${subdir}";
       noCheck = true;
-      fsType = "fuse.curlftpfs";
-      options = fsOpts.ftp ++ fsOpts.noauto;
+      fsType = "fuse3";
+      options = fsOpts.ftp ++ fsOpts.noauto ++ [
+        # drop_privileges: after `mount.fuse3` opens /dev/fuse, it will drop all capabilities before invoking sshfs
+        "drop_privileges"
+        "auto_unmount"  #< ensures that when the fs exits, it releases its mountpoint. then systemd can recognize it as failed.
+      ];
       # fsType = "nfs";
       # options = fsOpts.nfs ++ fsOpts.lazyMount;
     };
@@ -184,17 +192,18 @@ let
       dir.acl.group = "users";
       dir.acl.mode = "0750";
       wantedBy = [ "default.target" ];
-      mount.depends = [ "network-online.target" ];
+      mount.depends = [ "network-online.target" "${systemdName}-reachable.service" ];
       #VVV patch so that when the mount fails, we start a timer to remount it.
       #    and for a disconnection after a good mount (onSuccess), restart the timer to be more aggressive
       mount.unitConfig.OnFailure = [ "${systemdName}.timer" ];
       mount.unitConfig.OnSuccess = [ "${systemdName}-restart-timer.target" ];
 
       mount.mountConfig.TimeoutSec = "10s";
+      mount.mountConfig.ExecSearchPath = [ "/run/current-system/sw/bin" ];
       mount.mountConfig.User = "colin";
-      mount.mountConfig.AmbientCapabilities = "CAP_SYS_ADMIN";
+      mount.mountConfig.AmbientCapabilities = "CAP_SETPCAP CAP_SYS_ADMIN";
       # hardening (systemd-analyze security mnt-servo-playground.mount)
-      mount.mountConfig.CapabilityBoundingSet = "CAP_SYS_ADMIN";
+      mount.mountConfig.CapabilityBoundingSet = "CAP_SETPCAP CAP_SYS_ADMIN";
       mount.mountConfig.LockPersonality = true;
       mount.mountConfig.MemoryDenyWriteExecute = true;
       mount.mountConfig.NoNewPrivileges = true;
@@ -205,7 +214,6 @@ let
       #VVV this includes anything it reads from, e.g. /bin/sh; /nix/store/...
       # see `systemd-analyze filesystems` for a full list
       mount.mountConfig.RestrictFileSystems = "@common-block @basic-api fuse";
-      mount.mountConfig.RestrictNamespaces = true;
       mount.mountConfig.RestrictRealtime = true;
       mount.mountConfig.RestrictSUIDSGID = true;
       mount.mountConfig.SystemCallArchitectures = "native";
@@ -222,6 +230,62 @@ let
       mount.mountConfig.IPAddressAllow = "10.0.10.5";
       mount.mountConfig.DevicePolicy = "closed";  # only allow /dev/{null,zero,full,random,urandom}
       mount.mountConfig.DeviceAllow = "/dev/fuse";
+      # mount.mountConfig.RestrictNamespaces = true;
+    };
+
+    systemd.services."${systemdName}-reachable" = {
+      serviceConfig.ExecSearchPath = [ "/run/current-system/sw/bin" ];
+      serviceConfig.ExecStart = lib.escapeShellArgs [
+        "curlftpfs"
+        "ftp://servo-hn:/${subdir}"
+        "/dev/null"
+        "-o"
+        (lib.concatStringsSep "," ([ "exit_after_connect" ] ++ config.fileSystems."${localPath}".options))
+      ];
+      serviceConfig.RemainAfterExit = true;
+      serviceConfig.Type = "oneshot";
+      unitConfig.BindsTo = [ "${systemdName}.mount" ];
+      # hardening (systemd-analyze security mnt-servo-playground-reachable.service)
+      serviceConfig.AmbientCapabilities = "";
+      serviceConfig.CapabilityBoundingSet = "";
+      serviceConfig.DynamicUser = true;
+      serviceConfig.LockPersonality = true;
+      serviceConfig.MemoryDenyWriteExecute = true;
+      serviceConfig.NoNewPrivileges = true;
+      serviceConfig.PrivateDevices = true;
+      serviceConfig.PrivateMounts = true;
+      serviceConfig.PrivateTmp = true;
+      serviceConfig.PrivateUsers = true;
+      serviceConfig.ProcSubset = "all";
+      serviceConfig.ProtectClock = true;
+      serviceConfig.ProtectControlGroups = true;
+      serviceConfig.ProtectHome = true;
+      serviceConfig.ProtectKernelModules = true;
+      serviceConfig.ProtectProc = "invisible";
+      serviceConfig.ProtectSystem = "strict";
+      serviceConfig.RemoveIPC = true;
+      serviceConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
+      # serviceConfig.RestrictFileSystems = "@common-block @basic-api";  #< NOPE
+      serviceConfig.RestrictRealtime = true;
+      serviceConfig.RestrictSUIDSGID = true;
+      serviceConfig.SystemCallArchitectures = "native";
+      serviceConfig.SystemCallFilter = [
+        "@system-service"
+        "@mount"
+        "~@chown"
+        "~@cpu-emulation"
+        "~@keyring"
+        # "~@privileged"  #< NOPE
+        "~@resources"
+        # could remove some more probably
+      ];
+      serviceConfig.IPAddressDeny = "any";
+      serviceConfig.IPAddressAllow = "10.0.10.5";
+      serviceConfig.DevicePolicy = "closed";
+      # exceptions
+      serviceConfig.ProtectHostname = false;
+      serviceConfig.ProtectKernelLogs = false;
+      serviceConfig.ProtectKernelTunables = false;
     };
 
     systemd.targets."${systemdName}-restart-timer" = {
