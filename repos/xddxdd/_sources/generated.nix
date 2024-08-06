@@ -1593,6 +1593,17 @@
       sha256 = "sha256-mcqiTqu/KIZ+W9yvZfyFekjRdiVavkHVKVRh0xUytg0=";
     };
   };
+  vbmeta-disable-verification = {
+    pname = "vbmeta-disable-verification";
+    version = "v1.0";
+    src = fetchFromGitHub {
+      owner = "libxzr";
+      repo = "vbmeta-disable-verification";
+      rev = "v1.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-ml6RZkl2DT08sfJj9L1SGR6zNgRQ15ph0PPIPgxx7+M=";
+    };
+  };
   vpp = {
     pname = "vpp";
     version = "v24.06";

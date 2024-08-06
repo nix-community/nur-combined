@@ -221,6 +221,7 @@ mkScope (
     uesave = pkg ./uncategorized/uesave { };
     uesave-0_3_0 = pkg ./uncategorized/uesave/0_3_0.nix { };
     uksmd = pkg ./uncategorized/uksmd { };
+    vbmeta-disable-verification = pkg ./uncategorized/vbmeta-disable-verification { };
     vpp = pkg ./uncategorized/vpp { };
     wechat-uos = pkgs-24_05.callPackage ./uncategorized/wechat-uos {
       sources = nvfetcherLoader ../_sources/generated.nix;

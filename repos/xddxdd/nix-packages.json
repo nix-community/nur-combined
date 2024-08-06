@@ -2919,6 +2919,11 @@
     "pname": "uksmd",
     "version": "1.2.11"
   },
+  "legacyPackages.x86_64-linux.vbmeta-disable-verification": {
+    "description": "Patch Android vbmeta image and disable verification flags inside.",
+    "pname": "vbmeta-disable-verification",
+    "version": "1.0"
+  },
   "legacyPackages.x86_64-linux.vpp": {
     "description": "Vector Packet Processing",
     "pname": "vpp",
@@ -3598,6 +3603,11 @@
     "description": "Userspace KSM helper daemon",
     "pname": "uksmd",
     "version": "1.2.11"
+  },
+  "packages.x86_64-linux.vbmeta-disable-verification": {
+    "description": "Patch Android vbmeta image and disable verification flags inside.",
+    "pname": "vbmeta-disable-verification",
+    "version": "1.0"
   },
   "packages.x86_64-linux.vpp": {
     "description": "Vector Packet Processing",

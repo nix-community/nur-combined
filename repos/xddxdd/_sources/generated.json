@@ -2893,6 +2893,27 @@
         },
         "version": "v1.2.11"
     },
+    "vbmeta-disable-verification": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "vbmeta-disable-verification",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "libxzr",
+            "repo": "vbmeta-disable-verification",
+            "rev": "v1.0",
+            "sha256": "sha256-ml6RZkl2DT08sfJj9L1SGR6zNgRQ15ph0PPIPgxx7+M=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.0"
+    },
     "vpp": {
         "cargoLocks": null,
         "date": null,

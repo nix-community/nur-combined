@@ -653,6 +653,10 @@ fetch.github = "trumank/uesave-rs"
 src.github_tag = "CachyOS/uksmd"
 fetch.github = "CachyOS/uksmd"
 
+[vbmeta-disable-verification]
+src.github = "libxzr/vbmeta-disable-verification"
+fetch.github = "libxzr/vbmeta-disable-verification"
+
 [vpp]
 src.github_tag = "FDio/vpp"
 src.include_regex = "^v[0-9.]+$"
