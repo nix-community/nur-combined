@@ -184,6 +184,7 @@ in
     py-hpp-tutorial
     py-open3d
     qgv
+    sway-lone-titlebar-unwrapped
     tinygltf
     filament
     ;
