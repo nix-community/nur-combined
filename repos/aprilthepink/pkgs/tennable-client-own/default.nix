@@ -4,8 +4,8 @@ let
   version = "10.5.1";
 
   src = fetchurl {
-    url = "https://www.tenable.com/downloads/api/v1/public/pages/nessus-agents/downloads/21859/download?i_agree_to_tenable_license_agreement=true";
-    sha256 = "sha256-aQ3eFKQzxZZCUxwvzjY+/4sIJojbXzZWz7tsa06mTyA=";
+    url = "https://www.tenable.com/downloads/api/v1/public/pages/nessus-agents/downloads/23806/download?i_agree_to_tenable_license_agreement=true";
+    sha256 = "sha256-elQH4+Ce5xZcjwZgxQCLFZvMQ9mvgo9zF/K79as7Bd8=";
   };
 
   nessus-agent-install = writeShellScriptBin "nessus-agent-install" ''
