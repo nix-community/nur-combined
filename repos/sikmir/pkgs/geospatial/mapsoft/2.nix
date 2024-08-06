@@ -65,11 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
       ];
     in
     ''
-      ${lib.concatStringsSep "\n" (
-        map (
-          file: ''substituteInPlace ${file} --subst-var out''
-        ) srcFiles
-      )}
+      ${lib.concatStringsSep "\n" (map (file: ''substituteInPlace ${file} --subst-var out'') srcFiles)}
 
       substituteInPlace modules/getopt/Makefile --replace-fail "SCRIPT_TESTS := getopt" ""
       substituteInPlace modules/opt/Makefile --replace-fail "SIMPLE_TESTS := opt" ""
