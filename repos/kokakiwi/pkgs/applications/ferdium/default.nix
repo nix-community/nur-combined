@@ -77,18 +77,18 @@
   } // builtins.removeAttrs args [ "pname" "hash" ]);
 in stdenv.mkDerivation (final: {
   pname = "ferdium";
-  version = "6.7.5";
+  version = "6.7.6";
 
   src = fetchFromGitHub {
     owner = "ferdium";
     repo = "ferdium-app";
     rev = "v${final.version}";
-    hash = "sha256-H/RZzeLh53PSZiFC2/JdcASanhg+blwVzO1ne0J5zeI=";
+    hash = "sha256-1CrTF4yBq0OYXN/xTeKi2bf0k/mhHbJ9e6yY7tHLArY=";
   };
 
   pnpmDeps = mkPnpmDeps {
     inherit (final) pname version src;
-    hash = "sha256-TLJk7ZK8qr7e1GEt5LXANisvSzFcXPNjijnbeqsIMjE=";
+    hash = "sha256-QViCrhe0SrpbIAmnQj5holIExJXz7/UPfBOvkTSHUVE=";
   };
 
   recipes = stdenv.mkDerivation (recipesFinal: {
@@ -98,13 +98,13 @@ in stdenv.mkDerivation (final: {
     src = fetchFromGitHub {
       owner = "ferdium";
       repo = "ferdium-recipes";
-      rev = "7ce6da3f052c80f43400ab06121b6189c91246c6";
-      hash = "sha256-fUgHJ9NkPjyqJGHCHtBIQpVDu5AmQGfhRCJdiVMzc2I=";
+      rev = "e6d921aead128b51ef5f0eaa74e7b29038fe537a";
+      hash = "sha256-KOhRL5b2lcXBLtrtT/H6AzpAY83BptSmsvLE9jan0G8=";
     };
 
     pnpmDeps = mkPnpmDeps {
       inherit (recipesFinal) pname version src;
-      hash = "sha256-7QT1tUCslrOXnMsJB0ETwQnVm2+v9MD+BPx6zm+Ruhg=";
+      hash = "sha256-Pl3O0iwH6fDcCzNprjeHz6/1Z6oOTvZ2duxKJfrtJ6Y=";
     };
 
     inherit (fixupPackageJson) pnpmPatch;
@@ -219,6 +219,11 @@ in stdenv.mkDerivation (final: {
     terminal = false;
     comment = final.meta.description;
     categories = [ "Network" "InstantMessaging" ];
+  };
+
+  passthru = {
+    inherit pnpm;
+    inherit (final) recipes;
   };
 
   meta = {

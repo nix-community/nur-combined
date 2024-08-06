@@ -7,11 +7,11 @@
 , withNode ? true, nodejs
 }: stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "pnpm";
-  version = "9.3.0";
+  version = "9.6.0";
 
   src = fetchurl {
     url = "https://registry.npmjs.org/pnpm/-/pnpm-${finalAttrs.version}.tgz";
-    hash = "sha256-4fno0aFmB6Rt08FYtfen3HlFUB0cYiLUVNY9Az0dkY8=";
+    hash = "sha256-2uD36CLFayCXm7WWXjtzuL2rtri47xIdpthXUIWZyjU=";
   };
 
   # Remove binary files from src, we don't need them, and this way we make sure
