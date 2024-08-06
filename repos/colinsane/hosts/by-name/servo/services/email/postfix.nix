@@ -1,4 +1,6 @@
 # postfix config options: <https://www.postfix.org/postconf.5.html>
+# config files:
+# - /etc/postfix/main.cf
 
 { config, lib, pkgs, ... }:
 
@@ -175,23 +177,30 @@ in
 
 
   #### OUTGOING MESSAGE REWRITING:
-  services.postfix.enableHeaderChecks = true;
-  services.postfix.headerChecks = [
-    # intercept gitea registration confirmations and manually screen them
-    {
-      # headerChecks are somehow ignorant of alias rules: have to redirect to a real user
-      action = "REDIRECT colin@uninsane.org";
-      pattern = "/^Subject: Please activate your account/";
-    }
-    # intercept Matrix registration confirmations
-    {
-      action = "REDIRECT colin@uninsane.org";
-      pattern = "/^Subject:.*Validate your email/";
-    }
-    # XXX postfix only supports performing ONE action per header.
-    # {
-    #   action = "REPLACE Subject: git application: Please activate your account";
-    #   pattern = "/^Subject:.*activate your account/";
-    # }
-  ];
+  # - `man 5 header_checks`
+  #   - <https://www.postfix.org/header_checks.5.html>
+  # - populates `/var/lib/postfix/conf/header_checks`
+  # XXX(2024-08-06): registration gating via email matches is AWFUL:
+  # 1. bypassed if the service offers localization.
+  # 2. if i try to forward the registration request, it may match the filter again and get sent back to my inbox.
+  # 3. header checks are possibly under-used in the ecosystem, and may break postfix config.
+  # services.postfix.enableHeaderChecks = true;
+  # services.postfix.headerChecks = [
+  #   # intercept gitea registration confirmations and manually screen them
+  #   {
+  #     # headerChecks are somehow ignorant of alias rules: have to redirect to a real user
+  #     action = "REDIRECT colin@uninsane.org";
+  #     pattern = "/^Subject: Please activate your account/";
+  #   }
+  #   # intercept Matrix registration confirmations
+  #   {
+  #     action = "REDIRECT colin@uninsane.org";
+  #     pattern = "/^Subject:.*Validate your email/";
+  #   }
+  #   # XXX postfix only supports performing ONE action per header.
+  #   # {
+  #   #   action = "REPLACE Subject: git application: Please activate your account";
+  #   #   pattern = "/^Subject:.*activate your account/";
+  #   # }
+  # ];
 }

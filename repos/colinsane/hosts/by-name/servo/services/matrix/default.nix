@@ -30,7 +30,7 @@
 
     # services.matrix-synapse.enable_registration_captcha = true;
     # services.matrix-synapse.enable_registration_without_verification = true;
-    enable_registration = true;
+    # enable_registration = true;
     # services.matrix-synapse.registration_shared_secret = "<shared key goes here>";
 
     # default for listeners is port = 8448, tls = true, x_forwarded = false.

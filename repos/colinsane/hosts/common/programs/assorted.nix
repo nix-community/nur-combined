@@ -623,6 +623,8 @@ in
       "/tmp"  # "Cannot open display:" if it can't mount /tmp 👀
     ];
 
+    gitea = {};
+
     gnome-calculator.buildCost = 1;
     gnome-calculator.sandbox.method = "bwrap";
     gnome-calculator.sandbox.whitelistWayland = true;

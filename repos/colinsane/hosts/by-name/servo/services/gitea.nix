@@ -1,10 +1,14 @@
 # config options: <https://docs.gitea.io/en-us/administration/config-cheat-sheet/>
+# TODO: service shouldn't run as `git` user, but as `gitea`
 { config, pkgs, lib, ... }:
 
 {
   sane.persist.sys.byStore.private = [
     { user = "git"; group = "gitea"; mode = "0750"; path = "/var/lib/gitea"; method = "bind"; }
   ];
+
+  sane.programs.gitea.enableFor.user.colin = true;  # for admin, and monitoring
+
   services.gitea.enable = true;
   services.gitea.user = "git";  # default is 'gitea'
   services.gitea.database.type = "postgres";
@@ -40,14 +44,21 @@
       # timeout for email approval. 5760 = 4 days. 10080 = 7 days
       ACTIVE_CODE_LIVE_MINUTES = 10080;
       # REGISTER_EMAIL_CONFIRM = false;
-      # REGISTER_MANUAL_CONFIRM = true;
-      REGISTER_EMAIL_CONFIRM = true;
+      # REGISTER_EMAIL_CONFIRM = true;  #< override REGISTER_MANUAL_CONFIRM
+      REGISTER_MANUAL_CONFIRM = true;
       # not sure what this notifies *on*...
       ENABLE_NOTIFY_MAIL = true;
       # defaults to image-based captcha.
       # also supports recaptcha (with custom URLs) or hCaptcha.
       ENABLE_CAPTCHA = true;
       NOREPLY_ADDRESS = "noreply.anonymous.git@uninsane.org";
+      EMAIL_DOMAIN_BLOCKLIST = lib.concatStringsSep ", " [
+        "*.claychoen.top"
+        "*.gemmasmith.co.uk"
+        "*.jenniferlawrence.uk"
+        "*.sarahconnor.co.uk"
+        "*.marymarshall.co.uk"
+      ];
     };
     session = {
       COOKIE_SECURE = true;
