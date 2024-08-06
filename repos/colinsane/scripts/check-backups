@@ -18,14 +18,21 @@ for host in desko lappy moby servo; do
   now=$(date +'%s')
   last_attempted=$(ssh -i "$RN_ID" "$RN_USER@$RN_USER.rsync.net" -- cat "$host/$dir/zzz-rsync-net/last-attempted")
   last_completed=$(ssh -i "$RN_ID" "$RN_USER@$RN_USER.rsync.net" -- cat "$host/$dir/zzz-rsync-net/last-completed")
-  age_attempted=$(( "$now" - "${last_attempted:-0}" ))
-  age_completed=$(( "$now" - "${last_completed:-0}" ))
-  if ! [[ "$age_completed" -lt 432000 ]]; then
-    fail "$host wasn't backed up within the last 5 days\n  completed: $age_completed seconds ago\n  tried: $age_attempted seconds ago"
-  elif ! [[ "$age_completed" -gt -3600 ]]; then
+  age_attempted_s=$(( "$now" - "${last_attempted:-0}" ))
+  age_completed_s=$(( "$now" - "${last_completed:-0}" ))
+  age_attempted_hr=$(( "$age_attempted_s" / 3600 ))
+  age_completed_hr=$(( "$age_completed_s" / 3600 ))
+  if ! [[ "$age_completed_hr" -lt 120 ]]; then
+    fail "$host wasn't backed up within the last 5 days\n  completed: $age_completed_hr hours ago\n  tried: $age_attempted_hr hours ago"
+  elif ! [[ "$age_completed_hr" -gt -2 ]]; then
     fail "$host was backed up in the future??"
   else
-    echo "$host last backed up $age_completed seconds ago"
+    echo "$host last backed up $age_completed_hr hours ago"
+    if [ "$age_completed_hr" -gt 25 ]; then
+      echo "- last attempt was $age_attempted_hr hours ago"
+      echo "- attempts are made every 12hr, and 'completion' tracking is pessimistic:"
+      echo "- normal operation will have the last completion always between 12hr and 24hr old"
+    fi
   fi
 done
 

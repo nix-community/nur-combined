@@ -1,0 +1,20 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p coreutils -p gnugrep -p gnused -p openssh
+
+# checks regular admin tasks
+# - gitea: did any users request to register?
+
+rc=0
+
+accounts=$(ssh servo-hn sudo -u git gitea --config /var/lib/gitea/custom/conf/app.ini admin user list)
+unactivated=$(echo "$accounts" | sed 's/  */ /g' | cut -d' ' -f 3-4 | grep ' false$')
+
+if [ -n "$unactivated" ]; then
+  rc=1
+  echo "the following gitea users are unactivated:"
+  echo "  $unactivated"
+  echo "activate them on the web: <https://git.uninsane.org/admin/users>"
+  # CLI activation doesn't appear to be possible. no option under `gitea admin user ...`
+fi
+
+exit "$rc"
