@@ -1,5 +1,5 @@
 { lib, stdenv, pins
-, libsamplerate, pulseaudio, ffmpeg_5
+, libsamplerate, pulseaudio, ffmpeg
 }:
 
 stdenv.mkDerivation rec {
@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   src = pins.audio-async-loopback.outPath;
 
   buildInputs = [
-    libsamplerate pulseaudio ffmpeg_5
+    libsamplerate pulseaudio ffmpeg
   ];
 
   buildPhase = ''
