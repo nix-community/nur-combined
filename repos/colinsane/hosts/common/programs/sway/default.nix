@@ -208,7 +208,7 @@ in
     ];
     sandbox.extraPaths = [
       # "/dev/input"
-      "/run/seatd.sock"  #< required if not using `logind` systemd login manager
+      "/run/seatd"  #< required if not using `logind` systemd login manager
       # "/run/systemd/sessions"
       "/run/udev"
       "/sys/class/backlight"

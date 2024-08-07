@@ -81,6 +81,7 @@ capabilities=()
 # - "ipc"
 # - "net"
 # - "pid": if this process may wany to query /proc/$PID/... of parent/sibling processes.
+# - "user": only applicable if running as root
 # - "uts"
 # - "all": as if all the above were specified
 keepNamespace=()
@@ -589,7 +590,7 @@ parseArgs() {
         local namespace=$1
         shift
         if [ "$namespace" = all ]; then
-          keepNamespace+=("cgroup" "ipc" "net" "pid" "uts")
+          keepNamespace+=("cgroup" "ipc" "net" "pid" "user" "uts")
         else
           keepNamespace+=("$namespace")
         fi
@@ -627,6 +628,7 @@ bwrapUnshareCgroup=(--unshare-cgroup)
 bwrapUnshareIpc=(--unshare-ipc)
 bwrapUnshareNet=(--unshare-net)
 bwrapUnsharePid=(--unshare-pid)
+bwrapUnshareUts=(--unshare-user)
 bwrapUnshareUts=(--unshare-uts)
 bwrapVirtualizeDev=(--dev /dev)
 bwrapVirtualizeProc=(--proc /proc)
@@ -709,6 +711,9 @@ bwrapIngestKeepNamespace() {
     (pid)
       bwrapUnsharePid=()
       ;;
+    (user)
+      bwrapUnshareUser=()
+      ;;
     (uts)
       bwrapUnshareUts=()
       ;;
@@ -716,6 +721,10 @@ bwrapIngestKeepNamespace() {
 }
 bwrapIngestCapability() {
   bwrapArgs+=("--cap-add" "cap_$1")
+  # a program run inside a user namespace has no capabilities outside the namespace.
+  # so, disable the user namespace.
+  # N.B.: this only applies to root. non-root users still get a user namespace, because that's required in order to do any of the other namespacing.
+  # bwrapUnshareUser=()
 }
 
 bwrapGetCli() {
@@ -745,8 +754,12 @@ bwrapGetCli() {
   done
 
   cliArgs=(
-    "$_bwrap" "${bwrapUnshareCgroup[@]}" "${bwrapUnshareIpc[@]}"
-      "${bwrapUnshareNet[@]}" "${bwrapUnsharePid[@]}"
+    "$_bwrap" \
+      "${bwrapUnshareCgroup[@]}"
+      "${bwrapUnshareIpc[@]}"
+      "${bwrapUnshareNet[@]}"
+      "${bwrapUnsharePid[@]}"
+      "${bwrapUnshareUser[@]}"
       "${bwrapUnshareUts[@]}"
       "${bwrapVirtualizeDev[@]}" "${bwrapVirtualizeProc[@]}" "${bwrapVirtualizeTmp[@]}"
       "${bwrapArgs[@]}" --

@@ -10,7 +10,7 @@
     ];
     sandbox.capabilities = [
       # ipc_lock: used to `mlock` the secrets so they don't get swapped out.
-      # this is optional, and systemd likely doesn't propagate it anyway
+      # this is optional, and user namespacing (bwrap) likely doesn't propagate it anyway
       "ipc_lock"
     ];
 

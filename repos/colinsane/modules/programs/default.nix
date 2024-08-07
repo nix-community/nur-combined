@@ -347,6 +347,13 @@ let
           whether to place the process in a new PID namespace, if the sandboxer supports that.
         '';
       };
+      sandbox.isolateUsers = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          whether to place the process in a new user namespace, if the sandboxer supports that.
+        '';
+      };
       sandbox.whitelistAudio = mkOption {
         type = types.bool;
         default = false;
@@ -519,6 +526,8 @@ let
         "--sanebox-portal"
       ] ++ lib.optionals (!config.sandbox.isolatePids) [
         "--sanebox-keep-namespace" "pid"
+      ] ++ lib.optionals (!config.sandbox.isolateUsers) [
+        "--sanebox-keep-namespace" "user"
       ];
     };
   });
