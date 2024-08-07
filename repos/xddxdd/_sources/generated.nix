@@ -796,13 +796,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3529";
+    version = "b3539";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3529";
+      rev = "b3539";
       fetchSubmodules = false;
-      sha256 = "sha256-HxTIZ+v/AVeoOOOoUH83emWrg85AXzeSzBhxJB6h0TE=";
+      sha256 = "sha256-JhBzFY1/irvLyqmAiLXgzzZ97OOE6qeUy7W2IQK1Krw=";
     };
   };
   lyrica = {
@@ -1010,15 +1010,15 @@
   };
   openresty = {
     pname = "openresty";
-    version = "8b119bceb7288c15b8f6eabf38f00fda08f4ec47";
+    version = "4da52a05745c1b4293df790316356db88d83db96";
     src = fetchFromGitHub {
       owner = "openresty";
       repo = "openresty";
-      rev = "8b119bceb7288c15b8f6eabf38f00fda08f4ec47";
+      rev = "4da52a05745c1b4293df790316356db88d83db96";
       fetchSubmodules = false;
-      sha256 = "sha256-tNd/+nsr/886+1ZP20yoVtBG3rhTc3LNV42KuPpxriA=";
+      sha256 = "sha256-D8IjXV887nROyM1FJBOA5J411jpqW4qZJwxFhclw53Q=";
     };
-    date = "2024-07-09";
+    date = "2024-08-06";
   };
   openssl-oqs = {
     pname = "openssl-oqs";
@@ -1337,15 +1337,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "9c7d1287f46f1787a15ed47ae9a9d08bf99dff81";
+    version = "4ad08e5c08d9b18ec0dc9302645d87232efc642b";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "9c7d1287f46f1787a15ed47ae9a9d08bf99dff81";
+      rev = "4ad08e5c08d9b18ec0dc9302645d87232efc642b";
       fetchSubmodules = false;
-      sha256 = "sha256-6Jw/tSRSkeg2EIAdb9UEXP9Ox6JQUWHx+ICS/cp7Sn0=";
+      sha256 = "sha256-YT+YrBTdNvYawDr53l+nfvXSlR95D11LaBTJca7y8UQ=";
     };
-    date = "2024-08-01";
+    date = "2024-08-07";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
