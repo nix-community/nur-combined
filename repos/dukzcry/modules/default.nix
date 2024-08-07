@@ -15,7 +15,6 @@ rec {
   headless = ./headless.nix;
   regdomain = ./regdomain.nix;
   vpn = ./vpn.nix;
-  prometheus-nut-exporter = ./prometheus-nut-exporter.nix;
   hardware = ./hardware.nix;
   tun2socks = ./tun2socks.nix;
   cockpit = ./cockpit.nix;
