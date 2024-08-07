@@ -38,6 +38,7 @@ let
 in
 buildFHSEnv {
   name = "nessus-agent-shell";
+  inherit version;
 
   multiArch = true;
 
