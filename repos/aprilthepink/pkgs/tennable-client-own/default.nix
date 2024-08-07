@@ -1,4 +1,4 @@
-{ lib, buildFHSEnv, writeShellScriptBin, fetchurl, dpkg, stdenv }:
+{ lib, buildFHSEnv, writeShellScriptBin, writeShellScript, fetchurl, dpkg, stdenv }:
 
 let
   version = "10.5.1";
@@ -23,8 +23,8 @@ let
   ++ [ "/lib32" ];
 
   exportLDPath = ''
-    setenv LD_LIBRARY_PATH=${lib.concatStringsSep ":" ldPath}''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH
-    setenv STEAM_LD_LIBRARY_PATH="$STEAM_LD_LIBRARY_PATH''${STEAM_LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
+    export LD_LIBRARY_PATH=${lib.concatStringsSep ":" ldPath}''${LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH
+    export STEAM_LD_LIBRARY_PATH="$STEAM_LD_LIBRARY_PATH''${STEAM_LD_LIBRARY_PATH:+:}$LD_LIBRARY_PATH"
   '';
 
   envScript = ''
@@ -172,7 +172,7 @@ buildFHSEnv {
     attr
   ];
 
-  runScript = ''
+  runScript = writeShellScript "gay-wrapper.sh" ''
     ${exportLDPath}
 
     set -o allexport # Export the following env vars
