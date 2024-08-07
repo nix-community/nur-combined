@@ -5122,10 +5122,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.7.7";
+      version = "1.8.1";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4321907/immersive_translate-1.7.7.xpi";
-      sha256 = "58609497fa94af785fca772889c6dfa11e7464451e21af6066caf3a56eea6683";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4330442/immersive_translate-1.8.1.xpi";
+      sha256 = "e9630a0a5f1155bf335e04dc2b5320a8ca0da1b4cebd67a347eebb561850501c";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -5630,10 +5630,10 @@
     };
     "jump-cutter" = buildFirefoxXpiAddon {
       pname = "jump-cutter";
-      version = "1.27.3";
+      version = "1.27.5";
       addonId = "jump-cutter@example.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4330636/jump_cutter-1.27.3.xpi";
-      sha256 = "3f15969206b0ad01e4cd52b038068b051dd09e5fc2685986e528f4efd53068ff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4332321/jump_cutter-1.27.5.xpi";
+      sha256 = "0fd49972e82d0e1ae58bc256688f204b8a71d2a77392b6146aa72999d75a0a26";
       meta = with lib;
       {
         description = "Watch lectures ~1.5x faster by fast-forwarding long pauses between sentences";
@@ -7929,10 +7929,10 @@
     };
     "paperpile" = buildFirefoxXpiAddon {
       pname = "paperpile";
-      version = "1.0.58";
+      version = "1.0.59";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4328485/paperpile_addon-1.0.58.xpi";
-      sha256 = "7f20106781a2ba3aa6410bf0c76eaaadf7eaa3a4c97db1e0c8687222e6c175bd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4332363/paperpile_addon-1.0.59.xpi";
+      sha256 = "3279c579076fe1bc908a839bfa655bd4136bec95e237c988aebd82acd931acff";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
