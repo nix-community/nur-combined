@@ -1,26 +1,43 @@
 {
   lib,
-  buildNpmPackage,
+  stdenv,
   fetchFromGitHub,
+  nodejs,
+  npmHooks,
+  pnpm,
   nix-update-script,
 }:
 
-buildNpmPackage rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "ggt";
-  version = "1.0.4";
+  version = "1.0.6";
 
   src = fetchFromGitHub {
     owner = "gadget-inc";
     repo = "ggt";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-wHzkjcHC1VgWh51Uggzk7FmrqcWYBm+e6xOAHSKVPno=";
+    rev = "refs/tags/v${finalAttrs.version}";
+    hash = "sha256-Hlwd96ZHAnYg7pi0x5XeKSz2ICxKkMcZJDYvnNPuFz4=";
   };
 
-  postPatch = ''
-    ln -s npm-shrinkwrap.json package-lock.json
-  '';
+  strictDeps = true;
 
-  npmDepsHash = "sha256-Ml4Z/r1NQN8gaBrPKIE2e5GjpoxlrXV8jOx18Y7OzVs=";
+  nativeBuildInputs = [
+    nodejs
+    npmHooks.npmBuildHook
+    npmHooks.npmInstallHook
+    pnpm.configHook
+  ];
+
+  pnpmDeps = pnpm.fetchDeps {
+    inherit (finalAttrs) pname version src;
+    hash = "sha256-UyuYqCdvnBrStGvnX1dyBkd9RygjFdRHQwpLhkwYRgc=";
+  };
+
+  npmBuildScript = "build";
+
+  dontNpmPrune = true;
+
+  dontStrip = true;
 
   passthru.updateScript = nix-update-script { };
 
@@ -32,4 +49,4 @@ buildNpmPackage rec {
     maintainers = with maintainers; [ kira-bruneau ];
     mainProgram = "ggt";
   };
-}
+})

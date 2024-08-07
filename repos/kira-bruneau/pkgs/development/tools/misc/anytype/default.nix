@@ -5,6 +5,7 @@
   anytype-heart,
   anytype-nmh,
   copyDesktopItems,
+  jq,
   makeWrapper,
   pkg-config,
   libsecret,
@@ -18,19 +19,19 @@ let
   l10n-anytype-ts = fetchFromGitHub {
     owner = "anyproto";
     repo = "l10n-anytype-ts";
-    rev = "ead754cc90f50d6d90488744165e14de55717429";
-    hash = "sha256-wscjWGaI17yT7vbfy+EUL2g2AM8+6y6RNxpln8kt5ew=";
+    rev = "bb9a37f8cbc481e4895191b3628d0b6ae1ee14bd";
+    hash = "sha256-xiVhOyKTMtYEcF7bstjVr1fD0/0laHGSEJ80eLOxuxA=";
   };
 in
 buildNpmPackage rec {
   pname = "anytype";
-  version = "0.41.8-hotfix";
+  version = "0.42.3";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-ts";
     rev = "refs/tags/v${version}";
-    hash = "sha256-lEyK7oE3PdDXlW87IYnBYa/lN6ZhK82eMaWyQURpWfk=";
+    hash = "sha256-55r8hu/UOEIE4AZQYQmk/xY5SPX9ULLkNbEQyFV9hl4=";
   };
 
   patches = [
@@ -38,37 +39,10 @@ buildNpmPackage rec {
     ./fix-path-for-asar-unpack.patch
   ];
 
-  npmDepsHash = "sha256-nM5wotBnHwBLGV2/HMLTNMoFys69N8C5/JFUyqrj3yA=";
+  npmDepsHash = "sha256-OLEzqZAxS8XXPSqXVP6jGna/CrQLt+zHEaSDh7GlcYQ=";
 
-  # https://github.com/anyproto/anytype-ts/blob/v0.41.0/electron/js/util.js#L224-L231
-  enabledLangs = [
-    "cs-CZ"
-    "da-DK"
-    "de-DE"
-    "en-US"
-    "es-ES"
-    "fr-FR"
-    "hi-IN"
-    "id-ID"
-    "it-IT"
-    "lt-LT"
-    "ja-JP"
-    "ko-KR"
-    "nl-NL"
-    "no-NO"
-    "pl-PL"
-    "pt-BR"
-    "ro-RO"
-    "ru-RU"
-    "tr-TR"
-    "uk-UA"
-    "vi-VN"
-    "zh-CN"
-    "zh-TW"
-  ];
-
-  # middleware: https://github.com/anyproto/anytype-ts/blob/v0.41.0/update-ci.sh
-  # langs: https://github.com/anyproto/anytype-ts/blob/v0.41.0/electron/hook/locale.js
+  # middleware: https://github.com/anyproto/anytype-ts/blob/v0.42.3/update-ci.sh
+  # langs: https://github.com/anyproto/anytype-ts/blob/v0.42.3/electron/hook/locale.js
   postUnpack = ''
     if [ $(cat "$sourceRoot/middleware.version") != ${lib.escapeShellArg anytype-heart.version} ]; then
       echo 'ERROR: middleware version mismatch'
@@ -80,9 +54,9 @@ buildNpmPackage rec {
     ln -s ${anytype-heart}/share/anytype/json/* "$sourceRoot/dist/lib/json/generated"
     ln -s ${anytype-nmh}/bin/* "$sourceRoot/dist"
 
-    for lang in ''${enabledLangs[@]}; do
+    while IFS= read -r lang; do
       ln -s "${l10n-anytype-ts}/locales/$lang.json" "$sourceRoot/dist/lib/json/lang"
-    done
+    done < <(jq -r '.enabledLangs | .[]'  "$sourceRoot/electron/json/constant.json")
   '';
 
   env = {
@@ -93,6 +67,7 @@ buildNpmPackage rec {
 
   nativeBuildInputs = [
     copyDesktopItems
+    jq
     makeWrapper
     pkg-config
   ];

@@ -42,17 +42,17 @@ index 22de950fc..d0ced3b6f 100644
  
  const getHomeDir = () => {
 diff --git a/electron/js/window.js b/electron/js/window.js
-index 2c91e05a4..f3e323a12 100644
+index 902ed9048..2c603a728 100644
 --- a/electron/js/window.js
 +++ b/electron/js/window.js
 @@ -1,5 +1,5 @@
  const { app, BrowserWindow, nativeImage, dialog, screen } = require('electron');
 -const { is, fixPathForAsarUnpack } = require('electron-util');
 +const { is } = require('electron-util');
- const version = app.getVersion();
  const path = require('path');
  const windowStateKeeper = require('electron-window-state');
-@@ -31,7 +31,7 @@ class WindowManager {
+ const remote = require('@electron/remote/main');
+@@ -29,7 +29,7 @@ class WindowManager {
  			show: false,
  			titleBarStyle: 'hidden-inset',
  			webPreferences: {
