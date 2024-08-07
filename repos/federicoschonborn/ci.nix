@@ -18,7 +18,11 @@
 let
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: builtins.isAttrs p && p ? type && p.type == "derivation";
-  isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
+  isBuildable =
+    p:
+    !(p.meta.broken or false)
+    && p.meta.license.free or true
+    && (lib.elem system (p.meta.platforms or [ ]));
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: builtins.isAttrs p && p.recurseForDerivations or false;
   concatMap = builtins.concatMap or (f: xs: builtins.concatLists (builtins.map f xs));
