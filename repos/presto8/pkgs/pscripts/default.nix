@@ -5,13 +5,13 @@
 
 stdenv.mkDerivation(finalAttrs: rec {
   pname = "pscripts";
-  version = "2024-06-02";
+  version = "2024-08-07";
 
   src = fetchFromGitHub {
     owner = "presto8";
     repo = "pscripts";
     rev = "v${version}";
-    hash = "sha256-tcBje0RFoz/h6IDcjFLMcC93Wcb9ADVHYfGDGT94waI=";
+    hash = "sha256-EZ8CMhpFYTbj/PV5PaezqF5d9UQcKbM1Aduj8bgOIqM=";
   };
 
   dontConfigure = true;
