@@ -50,7 +50,7 @@ in {
   config = mkIf cfg.enable {
     systemd.services = (mapAttrs' (name: value: nameValuePair "tun2socks-${name}" ({
       description = "tun2socks ${name}";
-      path = with pkgs.nur.repos.dukzcry; [ tun2socks ];
+      path = with pkgs; [ tun2socks ];
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {

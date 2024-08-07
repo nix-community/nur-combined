@@ -24,7 +24,6 @@ rec {
   massdns = callPackage ./pkgs/massdns.nix {};
   wireless-regdb = callPackage ./pkgs/wireless-regdb {};
   prometheus-nut-exporter = callPackage ./pkgs/prometheus-nut-exporter.nix {};
-  tun2socks = callPackage ./pkgs/tun2socks.nix {};
   cockpit-machines = callPackage ./pkgs/cockpit/machines.nix {};
   cockpit-client = callPackage ./pkgs/cockpit/client.nix {};
   libvirt-dbus = callPackage ./pkgs/libvirt-dbus.nix {};
