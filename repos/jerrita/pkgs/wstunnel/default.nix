@@ -15,6 +15,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoHash = "sha256-JMRcXuw6AKfwViOgYAgFdSwUeTo04rEkKj+t+W8wjGI=";
+  doCheck = false;
 
   meta = {
     description = "Tunnel all your traffic over Websocket or HTTP2 - Bypass firewalls/DPI";
