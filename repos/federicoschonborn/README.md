@@ -248,7 +248,7 @@ A set of emojis featuring a rat.
 Neodog emojis by @moonrabbits@shonk.phite.ro.
 
 - Name: `moonrabbits-neodog`
-- Version: `1.1.0`
+- Version: `1.1.1`
 - [Homepage](https://git.gay/moonrabbits/neodog)
 - License: [`CC-BY-NC-SA-4.0`](https://spdx.org/licenses/CC-BY-NC-SA-4.0.html "Creative Commons Attribution Non Commercial Share Alike 4.0")
 - [Source](./pkgs/akkoma-emoji/moonrabbits/neodog/package.nix#L30)
@@ -1630,7 +1630,7 @@ Fastest JSON library in C.
 - [Homepage](https://github.com/ibireme/yyjson)
 - [Changelog](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](https://github.com/NixOS/nixpkgs/blob/785feb9/pkgs/development/libraries/yyjson/default.nix#L23)
+- [Source](https://github.com/NixOS/nixpkgs/blob/2a13929/pkgs/development/libraries/yyjson/default.nix#L23)
 - Maintainers:
   - [Yohann Boniface](https://github.com/Sigmanificient) <[`sigmanificient@gmail.com`](mailto:sigmanificient@gmail.com)>
   - [✉️ Mail to all maintainers](mailto:sigmanificient@gmail.com)

@@ -7,12 +7,12 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "moonrabbits-neodog";
-  version = "1.1.0";
+  version = "1.1.1";
 
   src = fetchzip {
     url = "https://git.gay/moonrabbits/neodog/releases/download/${finalAttrs.version}/neodog.tar.gz";
     stripRoot = false;
-    hash = "sha256-CbK/tDAvNVC4LSZuTCNHRKnQO0TiV2i9m8fitJvM848=";
+    hash = "sha256-YQl+/yVYfsp9iqKWl3ExA7JiZJfFoOXg/9XyKvoNkqk=";
   };
 
   installPhase = ''
