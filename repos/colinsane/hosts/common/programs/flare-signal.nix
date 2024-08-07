@@ -7,6 +7,10 @@
 #   - even `rsync`ing the data and keyrings from desko -> moby, still fails in that same manner.
 #   - console shows error messages. quite possibly an endianness mismatch somewhere
 # - moby (partially-emulated flare-signal): works! pairs and can send/receive messages, same as desko.
+### compatibility (2024-08-07):
+# - linking flare to iOS signal "works", but neither side can exchange messages nor contacts
+#   in iOS i see "A message from Colin could not be delivered"
+# - registering as primary device does not work ("you are not authorized", or some such)
 #
 ### debugging:
 # - `RUST_LOG=flare=trace flare`
@@ -73,5 +77,13 @@
       # and it persists some dconf settings (e.g. device name). reset with:
       # - `dconf reset -f /de/schmidhuberj/Flare/`.
     ];
+    #VVV flare complains if its data directory is a symlink, so put it in a subdirectory behind my persistence symlink.
+    env.FLARE_DATA_PATH = "$HOME/.local/share/flare/data";
+    # sandbox.method = "bwrap";
+    # sandbox.net = "clearnet";
+    # sandbox.whitelistWayland = true;
+    # sandbox.whitelistDbus = [
+    #   "user"  # so i can click on links, at least
+    # ];
   };
 }
