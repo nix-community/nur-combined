@@ -11,20 +11,20 @@
   pixman,
   udev,
   wayland-protocols,
-  wlroots_0_17,
+  wlroots,
   xorg,
-# nix-update-script,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation {
   pname = "magpie-wayland";
-  version = "0.9.3-unstable-2024-07-07";
+  version = "0.9.3-unstable-2024-07-14";
 
   src = fetchFromGitHub {
     owner = "BuddiesOfBudgie";
     repo = "magpie";
-    rev = "271ef83cebe597c405583287c724cab78dea0b81";
-    hash = "sha256-PcjMDU9en4eLC/Nq5XRuiV1ROEvPeLv8L+96u6tmCGg=";
+    rev = "0c658db5616633cd90c02624e5ce6c0f75428919";
+    hash = "sha256-xx1nJna+AJtggvAi7j8mdRW/WGA/636S1t80rNEpQLg=";
   };
 
   nativeBuildInputs = [
@@ -40,18 +40,17 @@ stdenv.mkDerivation {
     pixman
     udev
     wayland-protocols
-    wlroots_0_17
+    wlroots
     xorg.libxcb
     xorg.xcbutilwm
   ];
 
-  # TODO: Enable once wlroots 0.18 is available
-  # passthru.updateScript = nix-update-script {
-  #   extraArgs = [
-  #     "--version"
-  #     "branch=v1"
-  #   ];
-  # };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch=v1"
+    ];
+  };
 
   meta = {
     mainProgram = "magpie-wm";
@@ -59,6 +58,8 @@ stdenv.mkDerivation {
     homepage = "https://github.com/BuddiesOfBudgie/magpie";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
+    badPlatforms = lib.platforms.darwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
+    broken = lib.versionOlder wlroots.version "0.18";
   };
 }

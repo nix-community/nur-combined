@@ -44,7 +44,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Quick file preview for Dolphin";
     homepage = "https://invent.kde.org/danagost/Kiview";
     license = lib.licenses.gpl3Plus;
-    platforms = lib.platforms.all;
+    platforms = lib.platforms.unix;
+    badPlatforms = lib.platforms.darwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

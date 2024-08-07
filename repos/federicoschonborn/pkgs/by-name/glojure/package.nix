@@ -41,7 +41,7 @@ buildGoModule rec {
     description = "Clojure interpreter hosted on Go, with extensible interop support";
     homepage = "https://github.com/glojurelang/glojure";
     license = lib.licenses.epl10;
-    platforms = lib.platforms.all;
+    platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

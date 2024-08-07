@@ -46,7 +46,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood, Shadow Warrior, Redneck Rampage and Powerslave/Exhumed";
     homepage = "https://github.com/ZDoom/Raze";
     license = lib.licenses.gpl2;
-    platforms = lib.platforms.all;
+    platforms = lib.platforms.unix;
+    badPlatforms = lib.platforms.darwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

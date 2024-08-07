@@ -200,6 +200,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.gimp.org/";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
+    badPlatforms = lib.platforms.darwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
     pkgConfigModules = [
       "gimp-3.0"

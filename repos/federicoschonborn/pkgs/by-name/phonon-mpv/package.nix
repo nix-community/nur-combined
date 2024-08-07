@@ -46,7 +46,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Phonon Backend using MPV Player";
     homepage = "https://github.com/OpenProgger/phonon-mpv";
     license = lib.licenses.lgpl21Only;
-    platforms = lib.platforms.linux;
+    platforms = lib.platforms.unix;
+    badPlatforms = lib.platforms.darwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

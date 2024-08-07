@@ -44,7 +44,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "A a viewer for 2D data such as images, sensor data, simulations, renderings and videos";
     homepage = "https://marlam.de/qv/";
     license = lib.licenses.mit;
-    platforms = lib.platforms.all;
+    platforms = lib.platforms.unix;
+    badPlatforms = lib.platforms.darwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

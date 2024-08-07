@@ -20,11 +20,18 @@ let
   isDerivation = p: builtins.isAttrs p && p ? type && p.type == "derivation";
   isBuildable =
     p:
-    !(p.meta.broken or false)
-    && p.meta.license.free or true
-    && (lib.elem system (p.meta.platforms or [ ]));
+    p.meta.available or true
+    && !(p.meta.broken or false)
+    && !(p.meta.unsupported or false)
+    && p.meta.license.free or true;
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: builtins.isAttrs p && p.recurseForDerivations or false;
+
+  nameValuePair = n: v: {
+    name = n;
+    value = v;
+  };
+
   concatMap = builtins.concatMap or (f: xs: builtins.concatLists (builtins.map f xs));
 
   flattenPackages =
@@ -45,16 +52,15 @@ let
 
   nurAttrs = import ./. { inherit lib pkgs system; };
 
-  allPackages = flattenPackages (
+  nurPackages = flattenPackages (
     builtins.listToAttrs (
-      builtins.map (name: {
-        inherit name;
-        value = nurAttrs.${name};
-      }) (builtins.filter (n: !isReserved n) (builtins.attrNames nurAttrs))
+      builtins.map (n: nameValuePair n nurAttrs.${n}) (
+        builtins.filter (n: !isReserved n) (builtins.attrNames nurAttrs)
+      )
     )
   );
 
-  buildPackages = builtins.filter isBuildable allPackages;
+  buildPackages = builtins.filter isBuildable nurPackages;
   cachePackages = builtins.filter isCacheable buildPackages;
 
   buildOutputs = concatMap outputsOf buildPackages;
