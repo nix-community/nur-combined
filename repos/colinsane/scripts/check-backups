@@ -32,6 +32,8 @@ for host in desko lappy moby servo; do
       echo "- last attempt was $age_attempted_hr hours ago"
       echo "- attempts are made every 12hr, and 'completion' tracking is pessimistic:"
       echo "- normal operation will have the last completion always between 12hr and 24hr old"
+      echo "- check host's own view with:"
+      echo "  ssh $host cat /nix/persist/private/zzz-rsync-net/last-completed | sed 's/^/@/' | date -f /dev/stdin"
     fi
   fi
 done
