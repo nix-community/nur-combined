@@ -58,16 +58,6 @@ let
   sane-bin = {
     # anything added to this attrset gets symlink-joined into `sane-scripts`
     # and is made available through `sane-scripts.passthru`
-    backup-ls = static-nix-shell.mkBash {
-      pname = "sane-backup-ls";
-      srcRoot = ./src;
-      pkgs = [ "duplicity" ];
-    };
-    backup-restore = static-nix-shell.mkBash {
-      pname = "sane-backup-restore";
-      srcRoot = ./src;
-      pkgs = [ "duplicity" ];
-    };
     bt-add = static-nix-shell.mkPython3 {
       pname = "sane-bt-add";
       srcRoot = ./src;

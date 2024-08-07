@@ -7,10 +7,6 @@ let
 in
 {
   sane.programs = {
-    "sane-scripts.backup" = declPackageSet [
-      "sane-scripts.backup-ls"
-      "sane-scripts.backup-restore"
-    ];
     "sane-scripts.bittorrent" = declPackageSet [
       "sane-scripts.bt-add"
       "sane-scripts.bt-rm"
@@ -45,9 +41,6 @@ in
       "sane-scripts.ip-port-forward"
       "sane-scripts.sync-music"
     ];
-
-    "sane-scripts.backup-ls" = {};
-    "sane-scripts.backup-restore" = {};
 
     "sane-scripts.bt-add".sandbox = {
       method = "bwrap";

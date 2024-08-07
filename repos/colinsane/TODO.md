@@ -60,19 +60,12 @@
   - has better multi-stream perf (e.g. `sane-sync-music` should be able to copy N items in parallel)
 
 ### security/resilience
-- validate duplicity backups!
 - encrypt more ~ dirs (~/archives, ~/records, ..?)
   - best to do this after i know for sure i have good backups
 - /mnt/desko/home, etc, shouldn't include secrets (~/private)
   - 95% of its use is for remote media access and stuff which isn't in VCS (~/records)
 - port all sane.programs to be sandboxed
-  - sandbox `curlftpfs`
   - sandbox `nix`
-  - sandbox `sshfs-fuse`
-  - sandbox mount units
-    - gocryptfs: /mnt/persist/private
-    - curlftpfs: /mnt/servo/*
-    - sshfs: /mnt/{desko,lappy,moby}/home
   - enforce that all `environment.packages` has a sandbox profile (or explicitly opts out)
   - revisit "non-sandboxable" apps and check that i'm not actually just missing mountpoints
     - LL_FS_RW=/ isn't enough -- need all mount points like `=/:/proc:/sys:...`.

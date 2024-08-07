@@ -1,6 +1,11 @@
 # postfix config options: <https://www.postfix.org/postconf.5.html>
 # config files:
 # - /etc/postfix/main.cf
+# - /etc/postfix/master.cf
+#
+# logs:
+# - postfix logs directly to *syslog*,
+#   so check e.g. ~/.local/share/rsyslog
 
 { config, lib, pkgs, ... }:
 
@@ -22,12 +27,12 @@ in
 {
   sane.persist.sys.byStore.private = [
     # TODO: mode? could be more granular
-    { user = "opendkim"; group = "opendkim"; path = "/var/lib/opendkim"; method = "bind"; }
-    { user = "root"; group = "root"; path = "/var/lib/postfix"; method = "bind"; }  #< probably not *all* of postfix needs to actually be persisted (e.g. not the conf dir)
+    { user = "opendkim"; group = "opendkim"; path = "/var/lib/opendkim"; method = "bind"; }  #< TODO: migrate to secrets
     { user = "root"; group = "root"; path = "/var/spool/mail"; method = "bind"; }
     # *probably* don't need these dirs:
     # "/var/lib/dhparams"          # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/security/dhparams.nix
     # "/var/lib/dovecot"
+    # "/var/lib/postfix"
   ];
 
   # XXX(2023/10/20): opening these ports in the firewall has the OPPOSITE effect as intended.
@@ -97,6 +102,7 @@ in
   services.postfix.sslCert = "/var/lib/acme/mx.uninsane.org/fullchain.pem";
   services.postfix.sslKey = "/var/lib/acme/mx.uninsane.org/key.pem";
 
+  # see: `man 5 virtual`
   services.postfix.virtual = ''
     notify.matrix@uninsane.org matrix-synapse
     @uninsane.org colin
@@ -137,6 +143,20 @@ in
     # smtpd_sender_restrictions = reject_unknown_sender_domain
   };
 
+  # debugging options:
+  # services.postfix.masterConfig = {
+  #   "proxymap".args = [ "-v" ];
+  #   "proxywrite".args = [ "-v" ];
+  #   "relay".args = [ "-v" ];
+  #   "smtp".args = [ "-v" ];
+  #   "smtp_inet".args = [ "-v" ];
+  #   "submission".args = [ "-v" ];
+  #   "submissions".args = [ "-v" ];
+  #   "submissions".chroot = false;
+  #   "submissions".private = false;
+  #   "submissions".privileged = true;
+  # };
+
   services.postfix.enableSubmission = true;
   services.postfix.submissionOptions = submissionOptions;
   services.postfix.enableSubmissions = true;
@@ -144,6 +164,10 @@ in
 
   systemd.services.postfix.after = [ "wireguard-wg-ovpns.service" ];
   systemd.services.postfix.partOf = [ "wireguard-wg-ovpns.service" ];
+  systemd.services.postfix.unitConfig.RequiresMountsFor = [
+    "/var/spool/mail"  # spooky errors when postfix is run w/o this: `warning: connect #1 to subsystem private/proxymap: Connection refused`
+    "/var/lib/opendkim"
+  ];
   systemd.services.postfix.serviceConfig = {
     # run this behind the OVPN static VPN
     NetworkNamespacePath = "/run/netns/ovpns";

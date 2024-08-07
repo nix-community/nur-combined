@@ -28,7 +28,6 @@
   sane.services.wg-home.ip = config.sane.hosts.by-name."desko".wg-home.ip;
   sane.ovpn.addrV4 = "172.26.55.21";
   # sane.ovpn.addrV6 = "fd00:0000:1337:cafe:1111:1111:20c1:a73c";
-  sane.services.duplicity.enable = true;
   sane.services.rsync-net.enable = true;
 
   sane.nixcache.remote-builders.desko = false;

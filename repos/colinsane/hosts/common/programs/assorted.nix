@@ -109,9 +109,6 @@ in
       # "zfs"  # doesn't cross-compile (requires samba)
     ];
     sysadminExtraUtils = declPackageSet [
-      "backblaze-b2"
-      "duplicity"
-      "sane-scripts.backup"
       "sqlite"  # to debug sqlite3 databases
     ];
 
