@@ -115,11 +115,24 @@ in
     };
   };
 
-  fonts.packages = with pkgs; [
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-cjk-serif
-  ];
+  fonts = {
+    packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+    ];
+    fontDir.enable = true;
+    fontconfig.defaultFonts = {
+      serif = [
+        "DejaVu Serif"
+        "Noto Serif CJK JP"
+      ];
+      sansSerif = [
+        "DejaVu Sans"
+        "Noto Sans CJK JP"
+      ];
+    };
+  };
 
   fileSystems."/nix".neededForBoot = true;
 

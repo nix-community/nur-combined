@@ -22,6 +22,8 @@
     };
   };
 
+  services.gpg-agent.pinentryPackage = pkgs.pinentry-gnome3;
+
   dconf.settings = {
     "org/gnome/shell" = {
       enabled-extensions = [

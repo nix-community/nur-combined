@@ -17,6 +17,7 @@
     ../noobuser/pass.nix
     ../noobuser/firefox.nix
     ../noobuser/gnome.nix
+    ../noobuser/virt-manager.nix
 
     ../noobuser/dev/nix.nix
     ../noobuser/dev/py.nix
@@ -31,6 +32,8 @@
       jetbrains-mono
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
+      my.morisawa-biz-ud-gothic
+      my.morisawa-biz-ud-mincho
       gnome.dconf-editor
       tor-browser
       libreoffice
