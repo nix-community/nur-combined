@@ -13,7 +13,7 @@
     src = fetchFromGitHub {
       owner = "abba23";
       repo = "spotify-adblock";
-      rev = "master";
+      rev = "5a3281dee9f889afdeea7263558e7a715dcf5aab";
       hash = "sha256-UzpHAHpQx2MlmBNKm2turjeVmgp5zXKWm3nZbEo0mYE=";
     };
     cargoSha256 = "sha256-VwYMDEbFhGmpWCrdh/Aa49vvalh42C6E3/t067mxmoI=";
