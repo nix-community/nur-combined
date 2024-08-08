@@ -50,6 +50,7 @@ let
     ots = {
       _common = "ots";
     };
+    piped-proxy = { };
   };
 
 in mergeAttrsList [
