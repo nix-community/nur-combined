@@ -1249,10 +1249,10 @@
     };
     "chatgptbox" = buildFirefoxXpiAddon {
       pname = "chatgptbox";
-      version = "2.5.6";
+      version = "2.5.7";
       addonId = "{b764208e-0a98-436d-a599-c1baa044f829}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4296593/chatgptbox-2.5.6.xpi";
-      sha256 = "49dbe7558481b5c25cd79c4304329c6df0caa1e706fc43c105e81e4454e4c622";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4333089/chatgptbox-2.5.7.xpi";
+      sha256 = "159a3633f5e241fdbd329d89e79ddcd315295a6b102c4a4d65182ecf912d0bc8";
       meta = with lib;
       {
         homepage = "https://github.com/josStorer/chatGPTBox";
@@ -1995,10 +1995,10 @@
     };
     "darkcloud" = buildFirefoxXpiAddon {
       pname = "darkcloud";
-      version = "1.6.4";
+      version = "1.6.5";
       addonId = "{534c6d6e-de02-417d-a38e-4007d33914b6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4192631/darkcloud-1.6.4.xpi";
-      sha256 = "451ac92a52b46179ea3e8ca1d5df705e2ee7cfe1dee8abc873deca781b365550";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4332680/darkcloud-1.6.5.xpi";
+      sha256 = "679861c3682f8c942303b8ffac9a7ff716bdb582e60aba6691ec96f68037fb66";
       meta = with lib;
       {
         homepage = "http://acroma.rf.gd/darkcloud";
@@ -2032,10 +2032,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2431.0";
+      version = "6.2432.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4327652/dashlane-6.2431.0.xpi";
-      sha256 = "bea9388d28f40bd217935d7c2f3a1aebe6dd7a8086043e46c944fcea30655ac1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4331567/dashlane-6.2432.0.xpi";
+      sha256 = "8c6c7355b99d1faf1e96e025615ed69d9201502b158c878a450372660bc323f3";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2113,10 +2113,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "130.0.20240805.132937";
+      version = "130.0.20240807.91924";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4331859/deutsch_de_language_pack-130.0.20240805.132937.xpi";
-      sha256 = "82411ac2168364e500e2b79a02feb4968552692c980635a9ff6c942fd491a117";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4332998/deutsch_de_language_pack-130.0.20240807.91924.xpi";
+      sha256 = "2da9d908dfa5ed50602c0c90930161b9d7d4327b49caeee9c4dceee13b820104";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2149,10 +2149,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "5.1.2";
+      version = "5.1.3";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4330116/dictionaries-5.1.2.xpi";
-      sha256 = "4ca8cbeba7c0239be43fbcfc166cb357db86831b0a7c9dfdef6dd06b4b6d7a45";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4333283/dictionaries-5.1.3.xpi";
+      sha256 = "3f9b92239cbf18d6f0f2c0b6ce8a8b000276f8b0ee6d38855656b39d8264090d";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -3171,10 +3171,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "130.0.20240805.132937";
+      version = "130.0.20240807.91924";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4331808/francais_language_pack-130.0.20240805.132937.xpi";
-      sha256 = "6bb4d33f36a18041caf89f17583a497a120a993c363f9bce854325774cc3fb9e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4332901/francais_language_pack-130.0.20240807.91924.xpi";
+      sha256 = "99b7b72dc24746dafc7cd47e038c79d66befcc9a73264d6664ca540df514c423";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3797,10 +3797,10 @@
     };
     "greasemonkey" = buildFirefoxXpiAddon {
       pname = "greasemonkey";
-      version = "4.12.0";
+      version = "4.13";
       addonId = "{e4a8a97b-f2ed-450b-b12d-ee082ba24781}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4208821/greasemonkey-4.12.0.xpi";
-      sha256 = "7e03eac63d79e9b895712591556fef53455b42e959fef9eb6e94d7e759996a0a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4332091/greasemonkey-4.13.xpi";
+      sha256 = "31b9e9521eac579114ed20616851f4f984229fbe6d8ebd4dc4799eb48c59578c";
       meta = with lib;
       {
         homepage = "http://www.greasespot.net/";
@@ -9769,10 +9769,10 @@
     };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "13.0.2";
+      version = "14.0.0";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4316905/sidebartabs-13.0.2.xpi";
-      sha256 = "dcaed21aad20439dd829ba1cd1bd8dc2d1aa5bb709a645d33edde37c0a900c62";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4333366/sidebartabs-14.0.0.xpi";
+      sha256 = "53fe364b0d7780b24daeea51879c9477f7eff6a68d075ac6425ecb3948410618";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
@@ -12338,10 +12338,10 @@
     };
     "whowrotethat" = buildFirefoxXpiAddon {
       pname = "whowrotethat";
-      version = "0.22.1.0";
+      version = "0.22.2.0";
       addonId = "{7c53a467-2542-497a-86fb-59c2904a56d1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4259091/whowrotethat-0.22.1.0.xpi";
-      sha256 = "c91442ec587178f43bdb5add5abb881da21104a6d0ad4ddb0b0546753b2f63ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4333287/whowrotethat-0.22.2.0.xpi";
+      sha256 = "dfb24e750b7b150141c55353ea2f2159c161941782fe994175a256b73a60fab0";
       meta = with lib;
       {
         homepage = "https://www.mediawiki.org/wiki/WWT";
