@@ -172,7 +172,7 @@ in
       "wireplumber"  # used by sway config
       "wl-clipboard"
       "xdg-desktop-portal"
-      # "xdg-desktop-portal-gnome"
+      "xdg-desktop-portal-gnome"
       # xdg-desktop-portal-gtk provides portals for:
       # - org.freedesktop.impl.portal.Access
       # - org.freedesktop.impl.portal.Account
@@ -187,7 +187,7 @@ in
       # - org.freedesktop.impl.portal.Lockdown (@lockdown_iface@)
       # - org.freedesktop.impl.portal.Settings (@settings_iface@)
       # - org.freedesktop.impl.portal.Wallpaper (@wallpaper_iface@)
-      "xdg-desktop-portal-gtk"
+      # "xdg-desktop-portal-gtk"
       # xdg-desktop-portal-wlr provides portals for screenshots/screen sharing
       "xdg-desktop-portal-wlr"
       "xdg-terminal-exec"  # used by sway config

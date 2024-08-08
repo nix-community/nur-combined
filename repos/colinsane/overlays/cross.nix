@@ -1284,6 +1284,14 @@ in with final; {
   #     mvToNativeInputs [ gettext glib ] prev.xdg-desktop-portal-gnome
   #   )
   # );
+  xdg-desktop-portal-gnome = prev.xdg-desktop-portal-gnome.override {
+    # xdp-gnome uses libjxl as a gdk pixbuf loader,
+    # but nixpkgs' libjxl disables the pixbuf loader when cross compiling,
+    # so xdp-gnome fails, expecting a pixbuf loader where there is none.
+    # solution: disable the libjxl pixbuf loader (by replacing it with a working pixbuf, already used by xdp-gnome).
+    # this means no jpeg thumbnailing.
+    libjxl = webp-pixbuf-loader;
+  };
 
   # 2024/02/27: upstreaming is blocked on hyprland
   # waybar = (prev.waybar.override {
