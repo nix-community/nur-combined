@@ -51,6 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/dcantrell/bsdutils";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;
+    badPlatforms = lib.platforms.darwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

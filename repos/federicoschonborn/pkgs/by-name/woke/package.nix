@@ -9,7 +9,7 @@ let
   version = "0.19.0";
 in
 
-buildGoModule rec {
+buildGoModule {
   pname = "woke";
   inherit version;
 
@@ -31,7 +31,7 @@ buildGoModule rec {
     description = "Detect non-inclusive language in your source code";
     homepage = "https://github.com/get-woke/woke";
     license = lib.licenses.mit;
-    platforms = lib.platforms.all;
+    platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }
