@@ -1,7 +1,6 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    fortune
     file
     unzip
     p7zip
@@ -11,10 +10,6 @@
   programs = {
     bash = {
       enable = true;
-      initExtra = ''
-        fortune
-        echo
-      '';
       historyControl = [
         "erasedups"
         "ignoredups"
