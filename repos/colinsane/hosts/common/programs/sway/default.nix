@@ -172,6 +172,7 @@ in
       "wireplumber"  # used by sway config
       "wl-clipboard"
       "xdg-desktop-portal"
+      # "xdg-desktop-portal-gnome"
       # xdg-desktop-portal-gtk provides portals for:
       # - org.freedesktop.impl.portal.Access
       # - org.freedesktop.impl.portal.Account
@@ -226,7 +227,7 @@ in
     fs.".config/xdg-desktop-portal/sway-portals.conf".symlink.text = ''
       # portals.conf docs: <https://flatpak.github.io/xdg-desktop-portal/docs/portals.conf.html>
       [preferred]
-      default=wlr;gtk
+      default=wlr;gnome;gtk
     '';
 
     fs.".config/sway/config".symlink.target = pkgs.substituteAll {

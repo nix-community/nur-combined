@@ -1,0 +1,38 @@
+diff --git a/src/externalwindow-wayland.c b/src/externalwindow-wayland.c
+index 4ed62c7..329b9a8 100644
+--- a/src/externalwindow-wayland.c
++++ b/src/externalwindow-wayland.c
+@@ -259,33 +259,6 @@ init_external_window_wayland_display (GError **error)
+   g_autofree char *fd_str = NULL;
+   GdkDisplay *display;
+ 
+-  proxy = org_gnome_mutter_service_channel_proxy_new_for_bus_sync (
+-    G_BUS_TYPE_SESSION,
+-    (G_DBUS_PROXY_FLAGS_DO_NOT_AUTO_START |
+-     G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES |
+-     G_DBUS_PROXY_FLAGS_DO_NOT_CONNECT_SIGNALS),
+-    "org.gnome.Mutter.ServiceChannel",
+-    "/org/gnome/Mutter/ServiceChannel",
+-    NULL, error);
+-  if (!proxy)
+-    return NULL;
+-
+-  if (!org_gnome_mutter_service_channel_call_open_wayland_service_connection_sync (
+-        proxy,
+-        SERVICE_CLIENT_TYPE_PORTAL_BACKEND,
+-        NULL,
+-        &fd_variant,
+-        &fd_list,
+-        NULL, error))
+-    return NULL;
+-
+-  fd = g_unix_fd_list_get (fd_list, g_variant_get_handle (fd_variant), error);
+-  if (fd < 0)
+-    return NULL;
+-
+-  fd_str = g_strdup_printf ("%d", fd);
+-
+-  g_setenv ("WAYLAND_SOCKET", fd_str, TRUE);
+   gdk_set_allowed_backends ("wayland");
+   display = gdk_display_open (NULL);
+   g_assert (display);

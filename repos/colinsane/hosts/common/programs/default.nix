@@ -180,6 +180,7 @@
     ./wvkbd.nix
     ./xarchiver.nix
     ./xdg-desktop-portal.nix
+    ./xdg-desktop-portal-gnome
     ./xdg-desktop-portal-gtk.nix
     ./xdg-desktop-portal-wlr.nix
     ./xdg-terminal-exec.nix

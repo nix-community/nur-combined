@@ -155,7 +155,7 @@ in
       # "python3.pkgs.eyeD3"  # music tagging
       "ripgrep"  # needed as a user package so that its user-level config file can be installed
       "rsync"
-      "rsyslog"  # KEEP THIS HERE if you want persistent logging
+      # "rsyslog"  # KEEP THIS HERE if you want persistent logging (TODO: port to systemd, store in /var/log/...)
       "sane-deadlines"
       "sane-scripts.bittorrent"
       "sane-scripts.cli"

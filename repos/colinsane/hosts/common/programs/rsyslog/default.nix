@@ -5,6 +5,9 @@
 # since that component needs to run in initrd and before service setup.
 #
 # TODO: log rotation / retention policy. don't want to eat the whole HDD.
+# TODO: store these logs in /var/log/...
+#       and at that point it makes more sense to use a systemd service.
+#       i.e. revert `3a6a5ffe014761ff23220f5b4ecb74d8a9fdb8fd`
 { config, lib, ... }:
 {
   sane.programs.rsyslog = {
