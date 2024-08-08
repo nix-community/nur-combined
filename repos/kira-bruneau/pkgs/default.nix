@@ -30,6 +30,20 @@ let
       };
     };
 
+  removeFlakeRoot = path: lib.removePrefix "${toString ../.}/" path;
+
+  fixUpdateScriptArgs =
+    drv:
+    drv
+    // {
+      updateScript =
+        if builtins.isList drv.updateScript then
+          [ (builtins.head drv.updateScript) ]
+          ++ (builtins.map removeFlakeRoot (builtins.tail drv.updateScript))
+        else
+          drv.updateScript;
+    };
+
   pythonModulesOverlay =
     pyfinal:
     import ./development/python-modules
@@ -40,11 +54,15 @@ let
       (
         pyfinal
         // {
-          buildPythonApplication = attrs: pyfinal.buildPythonApplication (mapDisabledToBroken attrs);
-          buildPythonPackage = attrs: pyfinal.buildPythonPackage (mapDisabledToBroken attrs);
+          buildPythonApplication =
+            attrs: fixUpdateScriptArgs (pyfinal.buildPythonApplication (mapDisabledToBroken attrs));
+          buildPythonPackage =
+            attrs: fixUpdateScriptArgs (pyfinal.buildPythonPackage (mapDisabledToBroken attrs));
         }
       );
 in
+
+# Automatically import packages in ./by-name
 (lib.foldlAttrs
   (
     acc: _: attrs:
@@ -58,6 +76,24 @@ in
     }
   )
 )
+
+# Automatically reflect upstream supported python package sets
+// (builtins.foldl' (
+  acc: name:
+  if
+    builtins.match "python[0-9]+Packages" name != null && prev.${name}.recurseForDerivations or false
+  then
+    acc
+    // {
+      ${name} = recurseIntoAttrs (
+        lib.fix (self: pythonModulesOverlay (prev.${name} // self) prev.${name})
+      );
+    }
+  else
+    acc
+) { } (builtins.attrNames prev))
+
+# Manually defined packages
 // {
   inherit callPackage;
 
@@ -124,10 +160,6 @@ in
     steam-run = steamPackages.steam-fhsenv-without-steam.run;
     inherit winetricks yad;
   };
-
-  python3Packages = recurseIntoAttrs (
-    pythonModulesOverlay (prev.python3Packages // python3Packages) prev.python3Packages
-  );
 
   sudachi = qt6Packages.callPackage ./by-name/su/sudachi/package.nix { };
 
