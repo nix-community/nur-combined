@@ -35,6 +35,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   npmBuildScript = "build";
 
+  preInstall = ''
+    pnpm prune --prod
+  '';
+
   dontNpmPrune = true;
 
   dontStrip = true;
