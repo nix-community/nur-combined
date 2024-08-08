@@ -17,4 +17,5 @@ rec {
   jwt-cpp = pkgs.callPackage ./pkgs/jwt-cpp { };
   rapidsnark = pkgs.callPackage ./pkgs/rapidsnark { };
   aws-lambda-ric-nodejs = pkgs.callPackage ./pkgs/aws-lambda-ric-nodejs { };
+  v2ray-rules-dat = pkgs.callPackage ./pkgs/v2ray-rules-dat { };
 }
