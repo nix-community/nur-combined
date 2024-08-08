@@ -67,6 +67,6 @@ rustc cargo
     '';
     license = licenses.agpl3; # wrong
     platforms = platforms.darwin;
-    maintainers = with maintainers; [ endle ];
+    maintainers = with maintainers; [ maintainers.endle ];
   };
 }
