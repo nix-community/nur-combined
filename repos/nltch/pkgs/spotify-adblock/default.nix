@@ -14,6 +14,7 @@
       owner = "abba23";
       repo = "spotify-adblock";
       rev = "master";
+      hash = "sha256-UzpHAHpQx2MlmBNKm2turjeVmgp5zXKWm3nZbEo0mYE=";
     };
     cargoSha256 = "sha256-VwYMDEbFhGmpWCrdh/Aa49vvalh42C6E3/t067mxmoI=";
 
