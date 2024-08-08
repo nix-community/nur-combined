@@ -55,9 +55,36 @@
         flake-linter-lib = flake-linter.lib.${system};
 
         paths = flake-linter-lib.partitionToAttrs flake-linter-lib.commonPaths (
-          builtins.filter (path: (builtins.all (ignore: !(lib.hasSuffix ignore path)) [ "gemset.nix" ])) (
-            flake-linter-lib.walkFlake ./.
-          )
+          builtins.filter (
+            path:
+            (builtins.all (ignore: !(lib.hasSuffix ignore path)) [
+              "gemset.nix"
+              "nixos/modules/hardware/video/intel-gpu-tools.nix"
+              "nixos/modules/hardware/xpadneo.nix"
+              "nixos/modules/programs/bash/undistract-me.nix"
+              "nixos/modules/programs/gamemode.nix"
+              "nixos/tests/xpadneo.nix"
+              "pkgs/applications/audio/zynaddsubfx/default.nix"
+              "pkgs/applications/audio/zynaddsubfx/mruby-zest/default.nix"
+              "pkgs/applications/editors/poke/default.nix"
+              "pkgs/applications/networking/cluster/krane/default.nix"
+              "pkgs/applications/version-management/git-review/default.nix"
+              "pkgs/development/tools/misc/cmake-language-server/default.nix"
+              "pkgs/development/tools/misc/texlab/default.nix"
+              "pkgs/games/clonehero/default.nix"
+              "pkgs/os-specific/linux/xpadneo/default.nix"
+              "pkgs/shells/bash/undistract-me/default.nix"
+              "pkgs/tools/audio/yabridge/default.nix"
+              "pkgs/tools/audio/yabridgectl/default.nix"
+              "pkgs/tools/compression/mozlz4a/default.nix"
+              "pkgs/tools/games/gamemode/default.nix"
+              "pkgs/tools/games/ukmm/default.nix"
+              "pkgs/tools/graphics/goverlay/default.nix"
+              "pkgs/tools/graphics/mangohud/default.nix"
+              "pkgs/tools/graphics/vkbasalt/default.nix"
+              "pkgs/tools/package-management/protontricks/default.nix"
+            ])
+          ) (flake-linter-lib.walkFlake ./.)
         );
 
         linter = flake-linter-lib.makeFlakeLinter {
@@ -84,7 +111,9 @@
       rec {
         packages = flake-utils.lib.filterPackages system flatNurPkgs;
 
-        checks = packages;
+        checks = packages // {
+          flake-linter = linter.check;
+        };
 
         apps = {
           sync = {

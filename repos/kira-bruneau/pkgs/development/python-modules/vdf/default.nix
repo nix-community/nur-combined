@@ -4,7 +4,7 @@
   fetchFromGitHub,
   mock,
   pytestCheckHook,
-  nix-update-script
+  nix-update-script,
 }:
 
 buildPythonPackage rec {
