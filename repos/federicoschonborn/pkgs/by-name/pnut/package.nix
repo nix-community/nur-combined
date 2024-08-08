@@ -45,6 +45,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/udem-dlteam/pnut";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.unix;
+    badPlatforms = lib.platforms.darwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }
