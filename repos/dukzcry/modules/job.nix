@@ -18,7 +18,7 @@ in {
       environment.systemPackages = with pkgs; with pkgs.nur.repos.dukzcry; [ remmina ydcmd ];
       programs.evolution.plugins = [ pkgs.evolution-ews ];
     })
-    (mkIf (cfg.server && config.networking.nftables.enable) {
+    (mkIf cfg.server {
       networking.nftables.tables = {
         job = {
           family = "ip";
@@ -30,11 +30,6 @@ in {
           '';
         };
       };
-    })
-    (mkIf (cfg.server && !config.networking.nftables.enable) {
-      networking.firewall.extraCommands = ''
-        iptables -t nat -A POSTROUTING -o job -j MASQUERADE
-      '';
     })
   ];
 }
