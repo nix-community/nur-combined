@@ -1,4 +1,10 @@
-{ lib, pkgs, config, ... }: {
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+{
   options.eownerdead.emacs.exwm.enable = lib.mkEnableOption "Enable EXWM";
 
   config = lib.mkIf config.eownerdead.emacs.exwm.enable {
@@ -23,20 +29,19 @@
     xsession = {
       enable = true;
       numlock.enable = true;
-      windowManager.command =
-        "${config.programs.emacs.finalPackage}/bin/emacsclient -c -e '(exwm-init)'";
+      windowManager.command = "${config.programs.emacs.finalPackage}/bin/emacsclient -c -e '(exwm-init)'";
     };
 
-    home.file.".xinitrc".text =
-      config.home.file.${config.xsession.scriptPath}.text;
+    home.file.".xinitrc".text = config.home.file.${config.xsession.scriptPath}.text;
 
     xdg = {
       enable = true;
       mimeApps = {
         enable = true;
-        defaultApplications =
-          lib.attrsets.genAttrs [ "text/*" "inode/directory" ]
-          (_: [ "emacsclient.desktop" ]);
+        defaultApplications = lib.attrsets.genAttrs [
+          "text/*"
+          "inode/directory"
+        ] (_: [ "emacsclient.desktop" ]);
       };
     };
 

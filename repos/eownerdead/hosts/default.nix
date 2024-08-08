@@ -1,9 +1,18 @@
-{ self, inputs, withSystem, ... }: {
+{
+  self,
+  inputs,
+  withSystem,
+  ...
+}:
+{
   flake.nixosConfigurations = {
-    nixos = withSystem "x86_64-linux" ({ pkgs, system, ... }:
+    nixos = withSystem "x86_64-linux" (
+      { pkgs, system, ... }:
       inputs.nixpkgs.lib.nixosSystem rec {
         inherit system;
-        specialArgs = { inherit pkgs inputs; };
+        specialArgs = {
+          inherit pkgs inputs;
+        };
         modules = [
           inputs.self.nixosModules.eownerdead
           inputs.sops-nix.nixosModules.sops
@@ -12,18 +21,24 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = { inherit inputs; };
+              extraSpecialArgs = {
+                inherit inputs;
+              };
               users.noobuser = import (../. + "/users/noobuser@nixos");
             };
           }
           ./nixos/configuration.nix
         ];
-      });
+      }
+    );
 
-    slate = withSystem "x86_64-linux" ({ pkgs, system, ... }:
+    slate = withSystem "x86_64-linux" (
+      { pkgs, system, ... }:
       inputs.nixpkgs.lib.nixosSystem rec {
         inherit system;
-        specialArgs = { inherit pkgs inputs; };
+        specialArgs = {
+          inherit pkgs inputs;
+        };
         modules = [
           inputs.self.nixosModules.eownerdead
           inputs.disko.nixosModules.disko
@@ -34,18 +49,24 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = { inherit inputs; };
+              extraSpecialArgs = {
+                inherit inputs;
+              };
               users.eownerdead = import (../. + "/users/noobuser@slate");
             };
           }
           ./slate
         ];
-      });
+      }
+    );
 
-    home-tv = withSystem "x86_64-linux" ({ pkgs, system, ... }:
+    home-tv = withSystem "x86_64-linux" (
+      { pkgs, system, ... }:
       inputs.nixpkgs.lib.nixosSystem rec {
         inherit system;
-        specialArgs = { inherit pkgs inputs; };
+        specialArgs = {
+          inherit pkgs inputs;
+        };
         modules = [
           inputs.disko.nixosModules.disko
           inputs.sops-nix.nixosModules.sops
@@ -54,13 +75,15 @@
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              extraSpecialArgs = { inherit inputs; };
+              extraSpecialArgs = {
+                inherit inputs;
+              };
               users.noobuser = import (../. + "/users/noobuser@home-tv");
             };
           }
           ./home-tv/configuration.nix
         ];
-      });
+      }
+    );
   };
 }
-

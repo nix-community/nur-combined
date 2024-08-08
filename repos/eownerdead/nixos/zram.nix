@@ -1,4 +1,5 @@
-{ lib, config, ... }: {
+{ lib, config, ... }:
+{
   options.eownerdead.zram = lib.mkEnableOption ''
     Compressed RAM as swap.
   '';

@@ -1,5 +1,11 @@
-{ lib, pkgs, config, ... }:
-with lib; {
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+with lib;
+{
   options.eownerdead.encryptedDns = mkEnableOption (mdDoc ''
     Resolve domain name with encrypted DNS.
 
@@ -8,7 +14,10 @@ with lib; {
 
   config = mkIf config.eownerdead.encryptedDns {
     networking = {
-      nameservers = mkDefault [ "127.0.0.1" "::1" ];
+      nameservers = mkDefault [
+        "127.0.0.1"
+        "::1"
+      ];
       networkmanager.dns = mkDefault "none";
     };
 
@@ -22,4 +31,3 @@ with lib; {
     };
   };
 }
-

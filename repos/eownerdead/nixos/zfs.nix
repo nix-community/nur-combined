@@ -1,5 +1,11 @@
-{ lib, pkgs, config, ... }:
-with lib; {
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+with lib;
+{
   options.eownerdead.zfs = mkEnableOption (mdDoc ''
     I recommend when you are using ZFS.
   '');

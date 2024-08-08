@@ -1,6 +1,13 @@
-{ config, pkgs, nixpkgs, ... }:
-let sops = config.sops.secrets;
-in {
+{
+  config,
+  pkgs,
+  nixpkgs,
+  ...
+}:
+let
+  sops = config.sops.secrets;
+in
+{
   imports = [
     (import ./disko-config.nix {
       disk = "/dev/disk/by-id/ata-WDC_WD5000AAKX-60U6AA0_WD-WCC2E5PS4JDV";
@@ -41,7 +48,10 @@ in {
 
   fonts = {
     enableDefaultFonts = true;
-    fonts = with pkgs; [ noto-fonts-cjk-sans noto-fonts-cjk-serif ];
+    fonts = with pkgs; [
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+    ];
   };
 
   users.users.noobuser = {

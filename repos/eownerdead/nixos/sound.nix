@@ -1,5 +1,11 @@
-{ lib, pkgs, config, ... }:
-with lib; {
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+with lib;
+{
   options.eownerdead.sound = mkEnableOption (mdDoc ''
     See the (wiki)[https://nixos.wiki/wiki/PipeWire]
   '');
@@ -16,4 +22,3 @@ with lib; {
     hardware.pulseaudio.enable = mkForce false; # Conflicts.
   };
 }
-

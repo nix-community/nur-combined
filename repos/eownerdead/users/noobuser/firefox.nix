@@ -1,4 +1,5 @@
-{ lib, pkgs, ... }: {
+{ lib, pkgs, ... }:
+{
   programs.firefox = {
     enable = true;
     package = pkgs.firefox-wayland;
@@ -12,7 +13,8 @@
     };
   };
 
-  xdg.mimeApps.defaultApplications =
-    lib.attrsets.genAttrs [ "x-scheme-handler/http" "x-scheme-handler/https" ]
-    (_: [ "firefox.desktop" ]);
+  xdg.mimeApps.defaultApplications = lib.attrsets.genAttrs [
+    "x-scheme-handler/http"
+    "x-scheme-handler/https"
+  ] (_: [ "firefox.desktop" ]);
 }

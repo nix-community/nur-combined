@@ -1,5 +1,11 @@
-{ lib, pkgs, config, ... }:
-with lib; {
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+with lib;
+{
   options.eownerdead.flatpak = mkEnableOption (mdDoc ''
     See the (wiki)[https://nixos.wiki/wiki/Flatpak]
   '');

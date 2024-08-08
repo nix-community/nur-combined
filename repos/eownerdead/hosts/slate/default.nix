@@ -1,6 +1,14 @@
-{ lib, config, pkgs, nixpkgs, ... }:
-let sops = config.sops.secrets;
-in {
+{
+  lib,
+  config,
+  pkgs,
+  nixpkgs,
+  ...
+}:
+let
+  sops = config.sops.secrets;
+in
+{
   imports = [
     ./disko.nix
     ./hardware-configuration.nix
@@ -59,7 +67,12 @@ in {
   users.users.eownerdead = {
     isNormalUser = true;
     password = "test";
-    extraGroups = [ "wheel" "networkmanager" "wireshark" "libvirtd" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "wireshark"
+      "libvirtd"
+    ];
   };
 
   services = {
@@ -111,7 +124,10 @@ in {
   fileSystems."/nix".neededForBoot = true;
 
   environment = {
-    systemPackages = with pkgs; [ ntfs3g libwacom ];
+    systemPackages = with pkgs; [
+      ntfs3g
+      libwacom
+    ];
     persistence."/nix" = {
       hideMounts = true;
       directories = [

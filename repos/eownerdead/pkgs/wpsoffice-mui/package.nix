@@ -1,4 +1,8 @@
-{ wpsoffice, fetchzip, p7zip }:
+{
+  wpsoffice,
+  fetchzip,
+  p7zip,
+}:
 let
   mui = fetchzip {
     url = "https://github.com/wachin/wps-office-all-mui-win-language/releases/download/v11.1.0.11704/mui.7z";

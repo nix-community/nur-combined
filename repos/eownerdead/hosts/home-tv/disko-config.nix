@@ -1,4 +1,5 @@
-{ disk, ... }: {
+{ disk, ... }:
+{
   disko.devices = {
     disk = {
       "${disk}" = {
@@ -37,4 +38,3 @@
     };
   };
 }
-

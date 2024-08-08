@@ -1,4 +1,11 @@
-{ lib, pkgs, inputs, config, ... }: {
+{
+  lib,
+  pkgs,
+  inputs,
+  config,
+  ...
+}:
+{
   imports = [
     inputs.impermanence.nixosModules.home-manager.impermanence
 
@@ -86,11 +93,12 @@
       enable = true;
       package = pkgs.ungoogled-chromium;
       # https://github.com/NixOS/nixpkgs/issues/158449
-      extensions = [{
-        id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; # uBlock Origin
-      }];
+      extensions = [
+        {
+          id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; # uBlock Origin
+        }
+      ];
     };
     home-manager.enable = true;
   };
 }
-

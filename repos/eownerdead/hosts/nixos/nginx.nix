@@ -3,8 +3,7 @@ let
   sops = config.sops.secrets;
 
   cfCert = pkgs.fetchurl {
-    url =
-      "https://developers.cloudflare.com/ssl/static/authenticated_origin_pull_ca.pem";
+    url = "https://developers.cloudflare.com/ssl/static/authenticated_origin_pull_ca.pem";
     hash = "sha256-wU/tDOUhDbBxn+oR0fELM3UNwX1gmur0fHXp7/DXuEM=";
   };
 
@@ -17,7 +16,8 @@ let
       ssl_verify_client on;
     '';
   };
-in {
+in
+{
   sops.secrets.eownerdeadDedynIoCertKey.owner = config.services.nginx.user;
 
   services.nginx = {

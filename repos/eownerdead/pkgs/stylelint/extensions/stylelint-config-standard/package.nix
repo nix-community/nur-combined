@@ -1,4 +1,8 @@
-{ lib, buildNpmPackage, fetchFromGitHub }:
+{
+  lib,
+  buildNpmPackage,
+  fetchFromGitHub,
+}:
 buildNpmPackage rec {
   pname = "stylelint-config-standard";
   version = "36.0.0";
@@ -22,4 +26,3 @@ buildNpmPackage rec {
     platforms = platforms.all;
   };
 }
-

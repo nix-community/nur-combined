@@ -1,5 +1,6 @@
 { lib, config, ... }:
-with lib; {
+with lib;
+{
   imports = [
     ./doas.nix
     ./encrypted-dns.nix
@@ -32,4 +33,3 @@ with lib; {
     services.envfs.enable = true;
   };
 }
-

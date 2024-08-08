@@ -1,6 +1,14 @@
-{ config, pkgs, nixpkgs, inputs, ... }:
-let sops = config.sops.secrets;
-in {
+{
+  config,
+  pkgs,
+  nixpkgs,
+  inputs,
+  ...
+}:
+let
+  sops = config.sops.secrets;
+in
+{
   imports = [
     ./hardware-configuration.nix
 
@@ -30,8 +38,23 @@ in {
       };
       efi.canTouchEfiVariables = true;
     };
-    supportedFilesystems = [ "btrfs" "exfat" "ext4" "ntfs" "vfat" "xfs" "zfs" ];
-    kernelModules = [ "btrfs" "exfat" "ext4" "ntfs3" "vfat" "xfs" ];
+    supportedFilesystems = [
+      "btrfs"
+      "exfat"
+      "ext4"
+      "ntfs"
+      "vfat"
+      "xfs"
+      "zfs"
+    ];
+    kernelModules = [
+      "btrfs"
+      "exfat"
+      "ext4"
+      "ntfs3"
+      "vfat"
+      "xfs"
+    ];
   };
 
   time.timeZone = "Asia/Tokyo";
@@ -41,7 +64,10 @@ in {
     hostId = "8556b001";
     useNetworkd = true;
     useDHCP = false;
-    nameservers = [ "9.9.9.9" "149.112.112.112" ];
+    nameservers = [
+      "9.9.9.9"
+      "149.112.112.112"
+    ];
     defaultGateway = {
       interface = "enp42s0";
       address = "192.168.1.1";
@@ -51,10 +77,12 @@ in {
       address = "fe80::1";
     };
     interfaces.enp42s0.ipv4 = {
-      addresses = [{
-        address = "192.168.1.100";
-        prefixLength = 24;
-      }];
+      addresses = [
+        {
+          address = "192.168.1.100";
+          prefixLength = 24;
+        }
+      ];
     };
     firewall.allowedTCPPorts = [
       443 # https
@@ -120,16 +148,30 @@ in {
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICe9DvgMExABKFYs71DimswPTn8S8Im7shTJMAFx/Jny openpgp:0x2EDEF31C"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN5bTpOOFrIF3IqOZqUsJUTziQduAzXOpNfsFM4Yat8F a@DESKTOP-R9IE7K2"
     ];
-    extraGroups = [ "wheel" "wireshark" "adbusers" ];
+    extraGroups = [
+      "wheel"
+      "wireshark"
+      "adbusers"
+    ];
   };
 
   environment = {
-    systemPackages = with pkgs; [ wget home-manager ntfs3g cachix unzip glib ];
+    systemPackages = with pkgs; [
+      wget
+      home-manager
+      ntfs3g
+      cachix
+      unzip
+      glib
+    ];
   };
 
   i18n.defaultLocale = "ja_JP.UTF-8";
 
-  fonts.packages = with pkgs; [ noto-fonts-cjk-sans noto-fonts-cjk-serif ];
+  fonts.packages = with pkgs; [
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+  ];
 
   virtualisation = {
     podman = {

@@ -1,5 +1,11 @@
-{ lib, pkgs, config, ... }:
-with lib; {
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+with lib;
+{
   options.eownerdead.nvidia = mkEnableOption (mdDoc ''
     EOWNERDEAD recommended settings for NVIDIA graphic cards.
   '');
@@ -12,4 +18,3 @@ with lib; {
     };
   };
 }
-

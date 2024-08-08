@@ -1,4 +1,9 @@
-{ trivialBuild, fetchFromGitHub, eglot, tempel }:
+{
+  trivialBuild,
+  fetchFromGitHub,
+  eglot,
+  tempel,
+}:
 trivialBuild rec {
   pname = "eglot-tempel";
   version = "master";
@@ -10,6 +15,8 @@ trivialBuild rec {
     hash = "sha256-GBUHX8Qvcq212avnLhVKBTo8hz6I/OkfIY+YTKwfvQU=";
   };
 
-  packageRequires = [ eglot tempel ];
+  packageRequires = [
+    eglot
+    tempel
+  ];
 }
-

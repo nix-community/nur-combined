@@ -1,6 +1,9 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs;
-    [ pandoc ] ++ (with pkgs.nodePackages; [
+{ pkgs, ... }:
+{
+  home.packages =
+    with pkgs;
+    [ pandoc ]
+    ++ (with pkgs.nodePackages; [
       prettier
       markdownlint-cli2
       typescript

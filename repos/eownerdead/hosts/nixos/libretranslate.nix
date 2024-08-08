@@ -7,7 +7,6 @@
   #   }).outPath
   # ];
 
-
   # services.libretranslate = {
   #   enable = true;
   #   package = pkgs.libretranslate // {
@@ -24,7 +23,5 @@
     volumes = [ "lt-local:/home/libretranslate/.local" ];
   };
 
-  services.nginx.virtualHosts."libretranslate.eownerdead.dedyn.io".locations."/".proxyPass =
-    "http://0.0.0.0:5000";
-
+  services.nginx.virtualHosts."libretranslate.eownerdead.dedyn.io".locations."/".proxyPass = "http://0.0.0.0:5000";
 }

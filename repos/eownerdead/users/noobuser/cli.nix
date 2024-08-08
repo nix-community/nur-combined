@@ -1,5 +1,12 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs; [ fortune file unzip p7zip cheat ];
+{ pkgs, ... }:
+{
+  home.packages = with pkgs; [
+    fortune
+    file
+    unzip
+    p7zip
+    cheat
+  ];
 
   programs = {
     bash = {
@@ -8,7 +15,11 @@
         fortune
         echo
       '';
-      historyControl = [ "erasedups" "ignoredups" "ignorespace" ];
+      historyControl = [
+        "erasedups"
+        "ignoredups"
+        "ignorespace"
+      ];
     };
     readline = {
       enable = true;
@@ -38,7 +49,10 @@
     zoxide = {
       enable = true;
       enableBashIntegration = true;
-      options = [ "--cmd" "cd" ];
+      options = [
+        "--cmd"
+        "cd"
+      ];
     };
     jq.enable = true;
   };

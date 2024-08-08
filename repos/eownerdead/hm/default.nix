@@ -1,5 +1,4 @@
-{ lib, ... }: {
-  imports = [
-    ./emacs
-  ];
+{ lib, ... }:
+{
+  imports = [ ./emacs ];
 }

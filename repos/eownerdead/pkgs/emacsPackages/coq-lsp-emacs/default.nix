@@ -1,4 +1,8 @@
-{ trivialBuild, fetchFromGitHub, eglot }:
+{
+  trivialBuild,
+  fetchFromGitHub,
+  eglot,
+}:
 trivialBuild rec {
   pname = "coq-lsp-emacs";
   version = "master";
@@ -12,4 +16,3 @@ trivialBuild rec {
 
   packageRequires = [ eglot ];
 }
-

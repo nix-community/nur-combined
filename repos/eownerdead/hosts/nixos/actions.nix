@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
-let sops = config.sops.secrets;
-in {
+let
+  sops = config.sops.secrets;
+in
+{
   sops.secrets.codebergOrgRunnerToken = { };
 
   services = {

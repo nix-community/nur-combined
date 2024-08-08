@@ -1,7 +1,8 @@
 { config, pkgs, ... }:
 let
   email = config.accounts.email.accounts."eownerdead@disroot.org";
-in {
+in
+{
   imports = [ ./email.nix ];
 
   programs.git = {
@@ -34,4 +35,3 @@ in {
     };
   };
 }
-

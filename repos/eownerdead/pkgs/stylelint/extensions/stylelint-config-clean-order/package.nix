@@ -1,4 +1,8 @@
-{ lib, buildNpmPackage, fetchFromGitHub }:
+{
+  lib,
+  buildNpmPackage,
+  fetchFromGitHub,
+}:
 buildNpmPackage rec {
   pname = "stylelint-config-clean-order";
   version = "v5.4.0";
@@ -22,4 +26,3 @@ buildNpmPackage rec {
     platforms = platforms.all;
   };
 }
-

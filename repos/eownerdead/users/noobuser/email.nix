@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   accounts.email.accounts."eownerdead@disroot.org" = {
     address = "eownerdead@disroot.org";
     userName = "eownerdead@disroot.org";
@@ -13,4 +14,3 @@
     };
   };
 }
-

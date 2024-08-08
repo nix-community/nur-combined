@@ -1,4 +1,10 @@
-{ lib, pkgs, inputs, ... }: {
+{
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+{
   imports = [
     ../../hm
 
@@ -59,11 +65,12 @@
       enable = true;
       package = pkgs.ungoogled-chromium;
       # https://github.com/NixOS/nixpkgs/issues/158449
-      extensions = [{
-        id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; # uBlock Origin
-      }];
+      extensions = [
+        {
+          id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; # uBlock Origin
+        }
+      ];
     };
     home-manager.enable = true;
   };
 }
-

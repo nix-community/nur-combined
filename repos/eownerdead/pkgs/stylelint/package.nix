@@ -1,11 +1,19 @@
-{ lib, pkgs, writeShellScriptBin, makeWrapper, buildNpmPackage, fetchFromGitHub
+{
+  lib,
+  pkgs,
+  writeShellScriptBin,
+  makeWrapper,
+  buildNpmPackage,
+  fetchFromGitHub,
 }:
 let
-  env = f:
+  env =
+    f:
     writeShellScriptBin "stylelint" ''
       export NODE_PATH="$NODE_PATH:${
-        lib.makeSearchPath "lib/node_modules"
-        ([ stylelint ] ++ (f stylelint.extensions))
+        lib.makeSearchPath "lib/node_modules" (
+          [ stylelint ] ++ (f stylelint.extensions)
+        )
       }"
 
       exec ${stylelint}/bin/stylelint "$@"
@@ -26,8 +34,7 @@ let
 
     meta = with lib; {
       homepage = "https://stylelint.io/";
-      description =
-        "A mighty CSS linter that helps you avoid errors and enforce conventions.";
+      description = "A mighty CSS linter that helps you avoid errors and enforce conventions.";
       license = licenses.mit;
       maintainers = with maintainers; [ eownerdead ];
       mainProgram = "stylelint";
@@ -39,4 +46,5 @@ let
       withExtensions = env;
     };
   };
-in stylelint
+in
+stylelint

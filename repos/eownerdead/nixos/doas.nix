@@ -1,5 +1,11 @@
-{ lib, pkgs, config, ... }:
-with lib; {
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+with lib;
+{
   options.eownerdead.doas = mkEnableOption (mdDoc ''
     Use much simpler and more secure doas instead of sudo.
 
@@ -11,7 +17,12 @@ with lib; {
       sudo.enable = mkDefault false;
       doas = {
         enable = mkDefault true;
-        extraRules = [ { groups = [ "wheel" ]; persist = true; } ];
+        extraRules = [
+          {
+            groups = [ "wheel" ];
+            persist = true;
+          }
+        ];
       };
     };
 

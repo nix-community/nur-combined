@@ -1,11 +1,14 @@
-{ lib, stdenvNoCC, fetchzip }:
+{
+  lib,
+  stdenvNoCC,
+  fetchzip,
+}:
 stdenvNoCC.mkDerivation rec {
   pname = "morisawa-biz-ud-gothic";
   version = "1.051";
 
   src = fetchzip {
-    url =
-      "https://github.com/googlefonts/${pname}/releases/download/v${version}/BIZUDGothic.zip";
+    url = "https://github.com/googlefonts/${pname}/releases/download/v${version}/BIZUDGothic.zip";
     sha256 = "sha256-Rn9kKAxZdk1/0dT1Jh/V9bT/zKDCkLIjIjz3oGSiit8=";
     stripRoot = false;
   };
