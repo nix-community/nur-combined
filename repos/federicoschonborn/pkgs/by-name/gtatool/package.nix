@@ -112,7 +112,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://marlam.de/gta/";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
-    badPlatforms = lib.platforms.darwin;
+    badPlatforms = lib.platforms.darwin ++ lib.platforms.aarch64;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

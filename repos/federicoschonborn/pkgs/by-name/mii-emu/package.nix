@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/buserror/mii_emu/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    badPlatforms = lib.platforms.darwin;
+    badPlatforms = lib.platforms.darwin ++ lib.platforms.aarch64;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })
