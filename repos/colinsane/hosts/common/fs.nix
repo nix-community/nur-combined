@@ -357,6 +357,7 @@ lib.mkMerge [
   (ifSshAuthorized (remoteHome "desko"))
   (ifSshAuthorized (remoteHome "lappy"))
   (ifSshAuthorized (remoteHome "moby"))
+  (ifSshAuthorized (remoteHome "servo"))
   # this granularity of servo media mounts is necessary to support sandboxing:
   # for flaky mounts, we can only bind the mountpoint itself into the sandbox,
   # so it's either this or unconditionally bind all of media/.
