@@ -37,6 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   preInstall = ''
     pnpm prune --prod
+    sed -i -e '/^prunedAt:/d' -e '/^storeDir:/d' node_modules/.modules.yaml
   '';
 
   dontNpmPrune = true;
