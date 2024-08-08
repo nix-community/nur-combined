@@ -50,6 +50,21 @@ with lib; {
         };
       });
     })
+    ({ ... }: {
+      options.eownerdead.nixTmp = mkEnableOption ''
+        See the (issue)[https://github.com/NixOS/nixpkgs/issues/54707]
+      '';
+
+      config = mkIf config.eownerdead.nixTmp {
+        systemd.services.nix-daemon = {
+          environment.TMPDIR = "/nix/tmp";
+        };
+
+        systemd.tmpfiles.rules = [
+          "d /nix/tmp 0755 root root 1d"
+        ];
+      };
+    })
   ];
 
   options.eownerdead.nix = mkEnableOption (mdDoc ''
@@ -61,6 +76,7 @@ with lib; {
       gc = mkDefault true;
       flakes = mkDefault true;
       binaryCaches = mkDefault true;
+      nixTmp = mkDefault true;
     };
     nix.settings.auto-optimise-store = mkDefault true;
   };

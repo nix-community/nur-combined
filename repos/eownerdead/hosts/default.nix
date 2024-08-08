@@ -27,6 +27,7 @@
         modules = [
           inputs.self.nixosModules.eownerdead
           inputs.disko.nixosModules.disko
+          inputs.impermanence.nixosModules.impermanence
           inputs.sops-nix.nixosModules.sops
           inputs.home-manager.nixosModules.home-manager
           {

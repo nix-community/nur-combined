@@ -13,6 +13,7 @@ in {
     recommended = true;
     sound = true;
     intelGraphics = true;
+    libvirtd = true;
   };
 
   boot = {
@@ -21,6 +22,7 @@ in {
       efi.canTouchEfiVariables = true;
       systemd-boot.consoleMode = "0";
     };
+    initrd.checkJournalingFS = false; # Takes more than half an hour.
     plymouth.enable = true;
   };
 
@@ -53,14 +55,14 @@ in {
     };
   };
 
+  users.mutableUsers = lib.mkForce true;
   users.users.eownerdead = {
     isNormalUser = true;
     password = "test";
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "wireshark" "libvirtd" ];
   };
 
   services = {
-    homed.enable = true;
     printing.enable = true;
     avahi = {
       enable = true;
@@ -84,9 +86,46 @@ in {
       gnome-browser-connector.enable = false;
       gnome-keyring.enable = lib.mkForce false;
     };
+    wacom.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [ ntfs3g ];
+  programs = {
+    fuse.userAllowOther = true;
+    wireshark.enable = true;
+  };
+
+  security.pam = {
+    enableFscrypt = true;
+    services.login.gnupg = {
+      enable = true;
+      noAutostart = true;
+    };
+  };
+
+  fonts.packages = with pkgs; [
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
+  ];
+
+  fileSystems."/nix".neededForBoot = true;
+
+  environment = {
+    systemPackages = with pkgs; [ ntfs3g libwacom ];
+    persistence."/nix" = {
+      hideMounts = true;
+      directories = [
+        "/var/log"
+        "/var/lib/bluetooth"
+        "/var/lib/nixos"
+        "/var/lib/systemd/coredump"
+        "/etc/NetworkManager/system-connections"
+      ];
+      files = [ "/etc/machine-id" ];
+    };
+  };
+
+  virtualisation.libvirtd.enable = true;
 
   system.stateVersion = "24.05";
 }

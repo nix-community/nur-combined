@@ -12,6 +12,7 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    impermanence.url = "github:nix-community/impermanence";
     sops-nix.url = "github:Mic92/sops-nix";
     nur.url = "github:nix-community/NUR";
     home-manager = {
@@ -42,6 +43,7 @@
               builtins.elem (inputs.nixpkgs.lib.getName pkg) [
                 "nvidia-x11"
                 "nvidia-settings"
+                "wpsoffice-mui"
               ];
             allowInsecurePredicate = _: true;
           };
