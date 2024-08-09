@@ -1223,36 +1223,36 @@
     };
     "censor-tracker" = buildFirefoxXpiAddon {
       pname = "censor-tracker";
-      version = "18.2.0";
+      version = "4.1.1.0";
       addonId = "{5d0d1f87-5991-42d3-98c3-54878ead1ed1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4252094/censor_tracker-18.2.0.xpi";
-      sha256 = "6ad0db779f17e061b53271d4c0b5ade02feb4efe7ec4c8f45451d76211faeb43";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3883249/censor_tracker-4.1.1.0.xpi";
+      sha256 = "1c1b83f82209a16dbcdb31d03e9c6bbe8299ef6635b820509e0d52622bc0fdd9";
       meta = with lib;
       {
         homepage = "https://censortracker.org/en.html";
         description = "Censor Tracker is an extension that allows you to bypass Internet censorship, warns you about sites that transmit your data with government agencies, and detect new acts of censorship.";
         license = licenses.mit;
         mozPermissions = [
-          "<all_urls>"
-          "webRequest"
-          "alarms"
-          "activeTab"
-          "management"
-          "notifications"
+          "tabs"
           "proxy"
           "storage"
-          "tabs"
+          "activeTab"
+          "management"
+          "webRequest"
+          "notifications"
           "unlimitedStorage"
+          "webRequestBlocking"
+          "<all_urls>"
         ];
         platforms = platforms.all;
       };
     };
     "chatgptbox" = buildFirefoxXpiAddon {
       pname = "chatgptbox";
-      version = "2.5.7";
+      version = "2.5.8";
       addonId = "{b764208e-0a98-436d-a599-c1baa044f829}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4333089/chatgptbox-2.5.7.xpi";
-      sha256 = "159a3633f5e241fdbd329d89e79ddcd315295a6b102c4a4d65182ecf912d0bc8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4333480/chatgptbox-2.5.8.xpi";
+      sha256 = "fd7060017764d342622316c371cbcf77ee2f9c2446416c1bbb0e215dbb499205";
       meta = with lib;
       {
         homepage = "https://github.com/josStorer/chatGPTBox";
@@ -1995,10 +1995,10 @@
     };
     "darkcloud" = buildFirefoxXpiAddon {
       pname = "darkcloud";
-      version = "1.6.5";
+      version = "1.6.6";
       addonId = "{534c6d6e-de02-417d-a38e-4007d33914b6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4332680/darkcloud-1.6.5.xpi";
-      sha256 = "679861c3682f8c942303b8ffac9a7ff716bdb582e60aba6691ec96f68037fb66";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4333468/darkcloud-1.6.6.xpi";
+      sha256 = "f1960e87c73b73fed40a943f9a078e9077d90818fd683f7bddab826d37153334";
       meta = with lib;
       {
         homepage = "http://acroma.rf.gd/darkcloud";
@@ -7500,10 +7500,10 @@
     };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.31";
+      version = "11.4.34";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4320635/noscript-11.4.31.xpi";
-      sha256 = "b22c007534471a8fb74378e970ba79a536a44f88d81ad3852273b82a466d10c7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4333280/noscript-11.4.34.xpi";
+      sha256 = "e538163118e8e9dcabd6306b8a9abb3fccb556b7d87b68e18aa0997d121ba00a";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -7981,10 +7981,10 @@
     };
     "passff" = buildFirefoxXpiAddon {
       pname = "passff";
-      version = "1.19.5";
+      version = "1.20";
       addonId = "passff@invicem.pro";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4303400/passff-1.19.5.xpi";
-      sha256 = "03331d671c759b8689726aca7146cc2e2d9a4118d2d00e184dda20d1176e79e7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4333675/passff-1.20.xpi";
+      sha256 = "cf07997a5687f4a1db191b5229a97ff839ec29f581bce2b6fa42b141635e0f7d";
       meta = with lib;
       {
         homepage = "https://codeberg.org/PassFF/passff";
@@ -8928,10 +8928,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.21.1";
+      version = "1.21.2";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4327803/proton_pass-1.21.1.xpi";
-      sha256 = "195d9e46e3b361cd8e38c08e801ed6c5e4855a6f46adbcb7855d13cf2f2ee34d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4332444/proton_pass-1.21.2.xpi";
+      sha256 = "d2131f06e0fd5b364476ad02147cae30c8c8642076769c46f9aa7ad557439948";
       meta = with lib;
       {
         homepage = "https://proton.me";
