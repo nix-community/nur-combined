@@ -605,6 +605,7 @@ Melrose
 mentee
 mentees
 mergeable
+Meshtastic
 metaprogramming
 Metromile
 microcontroller

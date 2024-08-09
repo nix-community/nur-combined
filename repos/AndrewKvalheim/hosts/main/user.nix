@@ -44,6 +44,7 @@
     hugin
     jitsi-meet-electron
     josm
+    josm-hidpi
     kdenlive
     libreoffice
     mcaselector

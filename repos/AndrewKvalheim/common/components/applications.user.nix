@@ -76,6 +76,7 @@ in
       httpie
       identity
       imagemagickBig
+      img2pdf
       (inkscape-with-extensions.override { inkscapeExtensions = with inkscape-extensions; [ applytransforms ]; })
       just
       just-local
@@ -91,6 +92,8 @@ in
       nix-tree
       nixpkgs-review
       off
+      okular
+      pdfarranger
       pngquant
       pngtools
       poppler_utils # pdfinfo

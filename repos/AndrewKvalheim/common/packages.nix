@@ -51,6 +51,7 @@ specify {
   iosevka-custom = any;
   iptables_exporter = any;
   josm = { jre = resolved.graalvm-ce; extraJavaOpts = "--module-path=${resolved.graalvmCEPackages.graaljs}/modules"; }; # josm-scripting-plugin
+  josm-hidpi = any;
   josm-imagery-used = any;
   just-local = any;
   little-a-map = any;
