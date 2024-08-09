@@ -310,7 +310,7 @@ in
       "mpv"
       "networkmanagerapplet"  # for nm-connection-editor: it's better than not having any gui!
       "ntfy-sh"  # notification service
-      # "newsflash"  # RSS viewer
+      "newsflash"  # RSS viewer
       "pavucontrol"
       "pwvucontrol"  # pipewire version of pavu
       # "picard"  # music tagging
