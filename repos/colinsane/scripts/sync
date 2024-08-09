@@ -26,28 +26,41 @@ ifExists() {
   fi
 }
 
+homeMountFor() {
+  local want=$1
+  local me=$(hostname)
+  if [ "$want" = "$me" ]; then
+    echo "$HOME"
+  else
+    echo "/mnt/$want/home"
+  fi
+}
+
 syncHost() {
   local host=$1
   shift
   local syncFlags=("$@")
+  local deskoHome=$(homeMountFor desko)
+  local lappyHome=$(homeMountFor lappy)
+  local mobyHome=$(homeMountFor moby)
   case "$host" in
     (desko)
       ifExists /mnt/servo/media/Music/Various.Artists \
-        sane-sync-music --compat /mnt/servo/media/Music /mnt/desko/home/Music "${syncFlags[@]}"
+        sane-sync-music --compat /mnt/servo/media/Music "$deskoHome/Music" "${syncFlags[@]}"
       ;;
     (lappy)
       ifExists /mnt/servo/media/Music/Various.Artists \
-        sane-sync-music --compress --compat /mnt/servo/media/Music /mnt/lappy/home/Music "${syncFlags[@]}"
+        sane-sync-music --compress --compat /mnt/servo/media/Music "$lappyHome/Music" "${syncFlags[@]}"
       ;;
     (moby)
       # copy photos/screenshots from moby to desko:
-      rsync -arv --exclude servo-macros /mnt/moby/home/Pictures/ /mnt/desko/home/Pictures/from/moby/
+      rsync -arv --exclude servo-macros "$mobyHome/Pictures/" "$deskoHome/Pictures/from/moby/"
       # copy books from servo to moby; delete old/untracked ones, but keep KOreader state files (sdr)
       ifExists /mnt/servo/media/Books/Books \
-        rsync -arv --delete --exclude '*.sdr' /mnt/servo/media/Books/ /mnt/moby/home/Books/local/servo/
+        rsync -arv --delete --exclude '*.sdr' /mnt/servo/media/Books/ "$mobyHome/Books/local/servo/"
       # copy music
       ifExists /mnt/servo/media/Music/Various.Artists \
-        sane-sync-music --compat /mnt/servo/media/Music /mnt/moby/home/Music "${syncFlags[@]}"
+        sane-sync-music --compat /mnt/servo/media/Music "$mobyHome/Music" "${syncFlags[@]}"
       ;;
     (*)
       usage

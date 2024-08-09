@@ -40,23 +40,17 @@ in
   })
 
   (fetchpatch' {
+    title = "hare-ev: 2024-07-11 -> 2024-08-06";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/333378";
+    hash = "sha256-3RnqId/Rk0A5YyvsixLvKyLFOiFuvlThKdT00D6hjWI=";
+  })
+
+  (fetchpatch' {
     # this causes a rebuild of systemd and everything above it:
     # PR against staging is live: <https://github.com/NixOS/nixpkgs/pull/332399>
     title = "libcap: ship the optional 'captree' component";
     saneCommit = "30d6d5d6e86c490978b9615a9c685ffd92c81116";
     hash = "sha256-n8EERqqegrE+4Ogl7AuXkcRW9sgQhe5xyugZJrVr19Y=";
-  })
-
-  (fetchpatch' {
-    title = "hareThirdParty.hare-ev: 0-unstable-2024-07-07 -> 0-unstable-2024-07-11";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/328096";
-    hash = "sha256-imCdIJJQ9IMmPbjHwSHqbLF0+1WoTuA53TdgLXGDX4k=";
-  })
-
-  (fetchpatch' {
-    title = "syshud: 0-unstable-2024-07-16 -> 0-unstable-2024-07-29";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/331931";
-    hash = "sha256-TTWkGYaIMowK9OqSLTFELgCit0C5TYoeMyA1AowHjTA=";
   })
 
   (fetchpatch' {
