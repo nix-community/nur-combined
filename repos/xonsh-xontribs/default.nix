@@ -15,6 +15,7 @@ in {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  xonsh = pkgs.python3Packages.callPackage ./pkgs/xonsh {};
   xonsh-direnv = pkgs.python3Packages.callPackage ./pkgs/xonsh-direnv {};
   xontrib-abbrevs = pkgs.python3Packages.callPackage ./pkgs/xontrib-abbrevs {};
   xontrib-bashisms = pkgs.python3Packages.callPackage ./pkgs/xontrib-bashisms {};
@@ -22,7 +23,7 @@ in {
   xontrib-chatgpt = pkgs.python3Packages.callPackage ./pkgs/xontrib-chatgpt {};
   xontrib-clp = pkgs.python3Packages.callPackage ./pkgs/xontrib-clp {};
   xontrib-debug-tools = pkgs.python3Packages.callPackage ./pkgs/xontrib-debug-tools {};
-  xontrib-direnv = pkgs.python3Packages.callPackage ./pkgs/xontrib-direnv {};
+  xontrib-direnv = pkgs.python3Packages.callPackage ./pkgs/xonsh-direnv {};
   xontrib-distributed = pkgs.python3Packages.callPackage ./pkgs/xontrib-distributed {};
   xontrib-dot-dot = pkgs.python3Packages.callPackage ./pkgs/xontrib-dot-dot {};
   xontrib-fish-completer = pkgs.python3Packages.callPackage ./pkgs/xontrib-fish-completer {};
