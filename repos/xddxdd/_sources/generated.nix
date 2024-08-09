@@ -194,15 +194,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "8334d5a4da10d60aa37e61f39b919ad0f39cfa7d";
+    version = "c3045185574b08ebeb4fbd03b96a3802dfda0139";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "8334d5a4da10d60aa37e61f39b919ad0f39cfa7d";
+      rev = "c3045185574b08ebeb4fbd03b96a3802dfda0139";
       fetchSubmodules = false;
-      sha256 = "sha256-3nYM+scn1Tvb9tSMuXYm/LQ9kiWnwqrEmyDVeolhEp4=";
+      sha256 = "sha256-tuLAAN4VImiognykv/+m0mP5l1NtmaNa1ELBrBI7K/U=";
     };
-    date = "2024-08-05";
+    date = "2024-08-08";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -561,15 +561,15 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "fb2431a25a8e41bce949c22bb9fdc1c56054f9d2";
+    version = "9cc98d556cbe8e9fe9cbe75297e0038be8304bee";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "fb2431a25a8e41bce949c22bb9fdc1c56054f9d2";
+      rev = "9cc98d556cbe8e9fe9cbe75297e0038be8304bee";
       fetchSubmodules = false;
-      sha256 = "sha256-7KbDAnzP4c44D0Tq8hYtgpzVUwuEF26iDETemkFe52s=";
+      sha256 = "sha256-3xeHVdlWyFjlcW4WuN+FqLHzCxumyeznpouy2/KVRmU=";
     };
-    date = "2024-07-26";
+    date = "2024-08-09";
   };
   imewlconverter = {
     pname = "imewlconverter";
@@ -796,13 +796,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3539";
+    version = "b3556";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3539";
+      rev = "b3556";
       fetchSubmodules = false;
-      sha256 = "sha256-JhBzFY1/irvLyqmAiLXgzzZ97OOE6qeUy7W2IQK1Krw=";
+      sha256 = "sha256-nMpL2TP2QwTxNpt3quNW/01fd0xpzvRITVcFxOJrJok=";
     };
   };
   lyrica = {
@@ -1010,15 +1010,15 @@
   };
   openresty = {
     pname = "openresty";
-    version = "4da52a05745c1b4293df790316356db88d83db96";
+    version = "d3a190467e673444b8c92c6c4efb283141f3706e";
     src = fetchFromGitHub {
       owner = "openresty";
       repo = "openresty";
-      rev = "4da52a05745c1b4293df790316356db88d83db96";
+      rev = "d3a190467e673444b8c92c6c4efb283141f3706e";
       fetchSubmodules = false;
-      sha256 = "sha256-D8IjXV887nROyM1FJBOA5J411jpqW4qZJwxFhclw53Q=";
+      sha256 = "sha256-dsvE6/08kj2WDqfvD5UAqZ6eGrwpiBwvK2lBTZayWSg=";
     };
-    date = "2024-08-06";
+    date = "2024-08-08";
   };
   openssl-oqs = {
     pname = "openssl-oqs";
@@ -1247,18 +1247,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "Linux/QQ_3.2.10_240715_amd64_01";
+    version = "Linux/QQ_3.2.12_240808_amd64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.10_240715_amd64_01.deb";
-      sha256 = "sha256-DOIYAzE1MF8TnkqefCXVUYk9N+xhP0pbYpRGN0dckAg=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.12_240808_amd64_01.deb";
+      sha256 = "sha256-gzoM8xq51iUwzHWirXLd7LPMPQ36KxOyp0iS6az3y6E=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "Linux/QQ_3.2.10_240715_arm64_01";
+    version = "Linux/QQ_3.2.12_240808_arm64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.10_240715_arm64_01.deb";
-      sha256 = "sha256-tw94UZXNdf0k90VmvZoj82fByQIXtK6ovkX0cCy3y5A=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.12_240808_arm64_01.deb";
+      sha256 = "sha256-fx1+CNabeWNCRHzYh/nRnnBeFt5WyrMBIfzuw7e/CTc=";
     };
   };
   qqmusic = {
@@ -1337,15 +1337,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "4ad08e5c08d9b18ec0dc9302645d87232efc642b";
+    version = "f0bf04f32823e12ae9026ff046509c9bb7d2fb5f";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "4ad08e5c08d9b18ec0dc9302645d87232efc642b";
+      rev = "f0bf04f32823e12ae9026ff046509c9bb7d2fb5f";
       fetchSubmodules = false;
-      sha256 = "sha256-YT+YrBTdNvYawDr53l+nfvXSlR95D11LaBTJca7y8UQ=";
+      sha256 = "sha256-p3Wmv1NMx/Ie1ZblxVxgosb45ZhSY5UNxS7wml8fEE0=";
     };
-    date = "2024-08-07";
+    date = "2024-08-09";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
