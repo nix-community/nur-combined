@@ -9,7 +9,7 @@
 {
   lib ? import <nixpkgs/lib>,
   pkgs ? import <nixpkgs> { inherit system; },
-  system ? builtins.currentSystem,
+  system ? pkgs.system or builtins.currentSystem,
 }:
 
 lib.makeScope pkgs.newScope (
