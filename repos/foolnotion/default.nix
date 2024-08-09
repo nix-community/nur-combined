@@ -84,8 +84,6 @@
 
   q5go = pkgs.libsForQt5.callPackage ./pkgs/q5go { };
 
-  scid = pkgs.callPackage ./pkgs/scid { };
-
   scnlib = pkgs.callPackage ./pkgs/scnlib { };
 
   seq = pkgs.callPackage ./pkgs/seq { };
