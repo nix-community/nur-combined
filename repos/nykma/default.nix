@@ -8,7 +8,7 @@ rec {
   cups-detonger = pkgs.callPackage ./pkgs/cups-detonger { };
   snipaste = pkgs.callPackage ./pkgs/snipaste { };
   safeheron-crypto-suites = pkgs.callPackage ./pkgs/safeheron-crypto-suites { };
-  multi-party-sig = pkgs.callPackage ./pkgs/multi-party-sig { safeheron-crypto-suites = safeheron-crypto-suites; };
+  multi-party-sig = pkgs.callPackage ./pkgs/multi-party-sig { inherit safeheron-crypto-suites; };
   cryptopp-cmake = pkgs.callPackage ./pkgs/cryptopp-cmake { };
   orca-slicer = pkgs.callPackage ./pkgs/orca-slicer { };
   snips-sh = pkgs.callPackage ./pkgs/snips.sh { };
@@ -17,6 +17,6 @@ rec {
   jwt-cpp = pkgs.callPackage ./pkgs/jwt-cpp { };
   rapidsnark = pkgs.callPackage ./pkgs/rapidsnark { };
   aws-lambda-ric-nodejs = pkgs.callPackage ./pkgs/aws-lambda-ric-nodejs { };
-  v2ray-rules-dat = pkgs.callPackage ./pkgs/v2ray-rules-dat { };
   v2dat = pkgs.callPackage ./pkgs/v2dat { };
+  v2ray-rules-dat = pkgs.callPackage ./pkgs/v2ray-rules-dat { inherit v2dat; };
 }
