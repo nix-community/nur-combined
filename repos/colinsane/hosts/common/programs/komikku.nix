@@ -16,7 +16,7 @@
     sandbox.whitelistDri = true;  #< required
     sandbox.whitelistWayland = true;
 
-    buildCost = 2;
+    buildCost = 2;  # webkitgtk
 
     secrets.".local/share/komikku/keyrings/plaintext.keyring" = ../../../secrets/common/komikku_accounts.json.bin;
     # downloads end up here, and without the toplevel database komikku doesn't know they exist.
@@ -27,5 +27,8 @@
     persist.byStore.ephemeral = [
       ".cache/komikku"
     ];
+
+    # XXX(2024-08-08): komikku can handle URLs from sources it understands (maybe), but not files (even if encoded as file:// URI)
+    # mime.associations."application/vnd.comicbook+zip" = "info.febvre.Komikku.desktop";  # .cbz
   };
 }

@@ -280,7 +280,6 @@ in
       # "emote"
       # "evince"  # PDF viewer
       # "flare-signal"  # gtk4 signal client
-      # "foliate"  # e-book reader
       "fractal"  # matrix client
       "g4music"  # local music player
       # "gnome.cheese"
@@ -335,6 +334,7 @@ in
       # "chatty"  # matrix/xmpp/irc client  (2023/12/29: disabled because broken cross build)
       # "cozy"  # audiobook player
       "epiphany"  # gnome's web browser
+      "foliate"  # e-book reader
       # "iotas"  # note taking app
       "komikku"
       "koreader"

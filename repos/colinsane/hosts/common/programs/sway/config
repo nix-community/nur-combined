@@ -165,7 +165,8 @@ for_window [workspace="TV"] fullscreen enable
 # mostly, messengers belong on WS 1
 assign [app_id="abaddon"] workspace number 1
 assign [app_id="geary"] workspace number 1
-assign [app_id="gnome-calls"] workspace number 1
+assign [app_id="gnome-calls"] workspace number 1  # gnome-calls <= 46.3
+assign [app_id="org.gnome.Calls"] workspace number 1  # gnome-calls >= 47.0-beta
 assign [app_id="im.dino.Dino"] workspace number 1
 assign [app_id="org.gnome.Fractal"] workspace number 1
 assign [app_id="signal"] workspace number 1

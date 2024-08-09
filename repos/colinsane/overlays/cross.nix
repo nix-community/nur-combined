@@ -728,6 +728,12 @@ in with final; {
   #   outputs = lib.remove "devdoc" upstream.outputs;
   # });
 
+  libpeas2 = prev.libpeas2.overrideAttrs (upstream: {
+    mesonFlags = upstream.mesonFlags ++ [
+      "-Dlua51=false"  #< fails to find lua (probably it incorrectly checks the build machine)
+    ];
+  });
+
   # libsForQt5 = prev.libsForQt5.overrideScope (self: super: {
   #   phonon = super.phonon.overrideAttrs (orig: {
   #     # fixes "ECM (required version >= 5.60), Extra CMake Modules"
@@ -857,6 +863,76 @@ in with final; {
   # );
   # 2023/07/31: upstreaming is blocked on vpnc cross compilation
   # networkmanager-vpnc = mvToNativeInputs [ glib ] prev.networkmanager-vpnc;
+
+  newsflash = (prev.newsflash.override {
+    blueprint-compiler = buildPackages.writeShellScriptBin "blueprint-compiler" ''
+      export GI_TYPELIB_PATH=${typelibPath [
+        buildPackages.clapper
+        buildPackages.glib
+        buildPackages.gtk4
+        buildPackages.gst_all_1.gstreamer
+        buildPackages.gst_all_1.gst-plugins-base
+        buildPackages.gdk-pixbuf
+        buildPackages.pango
+        buildPackages.graphene
+        buildPackages.harfbuzz
+        buildPackages.libadwaita
+      ]}
+      exec ${lib.getExe buildPackages.blueprint-compiler} "$@"
+    '';
+  }).overrideAttrs (upstream: {
+    postPatch = (upstream.postPatch or "") + ''
+      substituteInPlace src/meson.build --replace-fail \
+        "'src' / rust_target" \
+        "'src' / '${rust.toRustTarget stdenv.hostPlatform}' / rust_target"
+
+      rm build.rs
+
+      export OUT_DIR=$(pwd)
+
+      # from build.rs:
+      glib-compile-resources --sourcedir=data/resources --target=icons.gresource data/resources/icons.gresource.xml
+      glib-compile-resources --sourcedir=data/resources --target=styles.gresource data/resources/styles.gresource.xml
+      substitute data/io.gitlab.news_flash.NewsFlash.appdata.xml.in.in \
+        data/resources/io.gitlab.news_flash.NewsFlash.appdata.xml \
+        --replace-fail '@appid@' 'io.gitlab.news_flash.NewsFlash'
+      glib-compile-resources --sourcedir=data/resources --target=appdata.gresource data/resources/appdata.gresource.xml
+    '';
+
+    # nixpkgs sets CARGO_BUILD_TARGET to the build platform target, so correct that.
+    # fixes openssl not being able to find its library
+    buildPhase = ''
+      runHook preBuild
+
+      ${rust.envVars.setEnv} "CARGO_BUILD_TARGET=${rust.toRustTarget stdenv.hostPlatform}" ninja -j$NIX_BUILD_CORES
+
+      runHook postBuild
+    '';
+
+    env = let
+      inherit buildPackages stdenv rust;
+      ccForBuild = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc";
+      cxxForBuild = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}c++";
+      ccForHost = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";
+      cxxForHost = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++";
+      rustBuildPlatform = rust.toRustTarget stdenv.buildPlatform;
+      rustTargetPlatform = rust.toRustTarget stdenv.hostPlatform;
+      rustTargetPlatformSpec = rust.toRustTargetSpec stdenv.hostPlatform;
+    in (upstream.env or {}) // {
+      # taken from <pkgs/build-support/rust/hooks/default.nix>
+      # fixes "cargo:warning=aarch64-unknown-linux-gnu-gcc: error: unrecognized command-line option ‘-m64’"
+      # XXX: these aren't necessarily valid environment variables: the referenced nix file is more clever to get them to work.
+      "CC_${rustBuildPlatform}" = "${ccForBuild}";
+      "CXX_${rustBuildPlatform}" = "${cxxForBuild}";
+      "CC_${rustTargetPlatform}" = "${ccForHost}";
+      "CXX_${rustTargetPlatform}" = "${cxxForHost}";
+      # fails to fix "Failed to find OpenSSL development headers."
+      # OPENSSL_NO_VENDOR = 1;
+      # OPENSSL_LIB_DIR = "${lib.getLib openssl}/lib";
+      # OPENSSL_DIR = "${lib.getDev openssl}";
+    };
+  });
+
   # fixes "properties/gresource.xml: Permission denied"
   #   - by providing glib-compile-resources
   # 2024/05/31: upstreaming is blocked on qtsvg, qtimageformats, qtx11extras

@@ -1,0 +1,50 @@
+{
+  "version": "2024.04",
+  "koreader": {
+    "hash": "sha256-BQnKoTj90wWZNxGn1C9iL8y1tozqdEHMgQDfQZo2axg="
+  },
+  "fbink": {
+    "rev": "1a989b30a195ca240a3cf37f9de61b4b3c7e891c",
+    "hash": "sha256-lXjAX0BoHW3L1E54d5J+wiAlAZXVmj9Y1Un8yaCwO8w="
+  },
+  "kobo-usbms": {
+    "rev": "v1.3.9",
+    "hash": "sha256-91B0FUnmpE6TP4Lg5mj6z/U1DZQTKiPhG3ccCSgY4mQ="
+  },
+  "leptonica": {
+    "rev": "1.74.1",
+    "hash": "sha256-SDXKam768xvZZvTbXe3sssvZyeLEEiY97Vrzx8hoc6g="
+  },
+  "libk2pdfopt": {
+    "rev": "47caea57aaf6200fc2b24669b6417fe6919926b7",
+    "hash": "sha256-8Em4neXTovhrTb+GBhs6kDFEdsQSt5KiYoHURwdtjPQ="
+  },
+  "lodepng": {
+    "rev": "d398e0f10d152a5d17fa30463474dc9f56523f9c",
+    "hash": "sha256-ApOHUgU6X1rHwyjAHA/0Nt+buDFqY2ttXEnEvdrRl3A="
+  },
+  "lunasvg": {
+    "rev": "59d6f6ba835c1b7c7a0f9d4ea540ec3981777885",
+    "hash": "sha256-gW2ikakS6Omz5upmy26nAo/jkGHYO2kjlB3UmKJBh1k="
+  },
+  "minizip": {
+    "rev": "0b46a2b4ca317b80bc53594688883f7188ac4d08",
+    "hash": "sha256-P/3MMMGYDqD9NmkYvw/thKpUNa3wNOSlBBjANHSonAg="
+  },
+  "mupdf": {
+    "rev": "1.13.0",
+    "hash": "sha256-pQejRon9fO9A1mhz3oLjBr1j4HveDLcQIWjR1/Rpy5Q="
+  },
+  "popen-noshell": {
+    "rev": "e715396a4951ee91c40a98d2824a130f158268bb",
+    "hash": "sha256-JeBZMsg6ZUGSnyZ4eds4w63gM/L73EsAnLaHOPpL6iM="
+  },
+  "tesseract": {
+    "rev": "60176fc5ae5e7f6bdef60c926a4b5ea03de2bfa7",
+    "hash": "sha256-FQvlrJ+Uy7+wtUxBuS5NdoToUwNRhYw2ju8Ya8MLyQw="
+  },
+  "turbo": {
+    "rev": "v2.1.3",
+    "hash": "sha256-vBRkFdc5a0FIt15HBz3TnqMZ+GGsqjEefnfJEpuVTBs="
+  }
+}

@@ -71,135 +71,142 @@
 , zsync
 }:
 let
-  version = "2024.04";
-  src = fetchFromGitHub {
-    owner = "koreader";
-    repo = "koreader";
-    name = "koreader";  # needed because `srcs = ` in the outer derivation is a list
-    fetchSubmodules = true;
-    rev = "v${version}";
-    hash = "sha256-BQnKoTj90wWZNxGn1C9iL8y1tozqdEHMgQDfQZo2axg=";
+  sourcesFor = pins: rec {
+    koreader = fetchFromGitHub {
+      owner = "koreader";
+      repo = "koreader";
+      name = "koreader";  # needed because `srcs = ` in the outer derivation is a list
+      fetchSubmodules = true;
+      rev = "v${pins.version}";
+      inherit (pins.koreader) hash;
+    };
+
+    fbink-src-ko = fetchFromGitHub {
+      owner = "NiLuJe";
+      repo = "FBInk";
+      name = "fbink";  # where to unpack this in `srcs`
+      inherit (pins.fbink) rev hash;
+    };
+
+    kobo-usbms-src-ko = fetchFromGitHub {
+      owner = "koreader";
+      repo = "KoboUSBMS";
+      name = "kobo-usbms";  # where to unpack this in `srcs`
+      inherit (pins.kobo-usbms) rev hash;
+    };
+
+    leptonica-src-ko = fetchFromGitHub {
+      # k2pdf needs leptonica src, because it actually patches it and builds it itself:
+      # - `cp -f $(LEPTONICA_MOD)/dewarp2.c $(LEPTONICA_DIR)/src/dewarp2.c`
+      # -  i.e. cp -f /build/koreader/base/thirdparty/libk2pdfopt/build/aarch64-unknown-linux-gnu/libk2pdfopt-prefix/src/libk2pdfopt/leptonica_mod/dewarp2.c ...
+      # k2pdf uses an old leptonica -- like 2015-2017-ish (1.74.1).
+      # seems it can be at least partially updated, by replacing `numaGetMedianVariation` with `numaGetMedianDevFromMedian` (drop-in replacement)
+      # and replacing references to `liblept.so` with `libleptonica.so`,
+      # but eventually this requires patching the tesseract Makefiles. could get intense, idk.
+      owner = "DanBloomberg";
+      repo = "leptonica";
+      name = "leptonica";  # where to unpack this in `srcs`
+      inherit (pins.leptonica) rev hash;
+    };
+
+    libk2pdfopt-src-ko = fetchFromGitHub {
+      owner = "koreader";
+      repo = "libk2pdfopt";
+      name = "libk2pdfopt";  # where to unpack this in `srcs`
+      inherit (pins.libk2pdfopt) rev hash;
+    };
+
+    lodepng-src-ko = fetchFromGitHub {
+      owner = "lvandeve";
+      repo = "lodepng";
+      name = "lodepng";  # where to unpack this in `srcs`
+      inherit (pins.lodepng) rev hash;
+    };
+
+    lunasvg-src-ko = fetchFromGitHub {
+      owner = "sammycage";
+      repo = "lunasvg";
+      name = "lunasvg";  # where to unpack this in `srcs`
+      inherit (pins.lunasvg) rev hash;
+    };
+
+    minizip-src-ko = fetchFromGitHub {
+      # this is actually just a very old version (2015) of `minizip-ng`
+      owner = "nmoinvaz";
+      repo = "minizip";
+      name = "minizip";  # where to unpack this in `srcs`
+      inherit (pins.minizip) rev hash;
+    };
+
+    mupdf-src-ko = fetchFromGitHub {
+      owner = "ArtifexSoftware";
+      repo = "mupdf";
+      name = "mupdf";  # where to unpack this in `srcs`
+      fetchSubmodules = true;  # specifically for jbig2dec, mujs, openjpeg
+      inherit (pins.mupdf) rev hash;
+    };
+
+    nanosvg-headers-ko = symlinkJoin {
+      # koreader's heavily-patched mupdf is dependent on a koreader-specific `stb_image_write` extension to nanosvg.
+      # nanosvg is used as a header-only library, so just patch that extension straight into the src.
+      name = "nanosvg-headers-ko";
+      paths = [
+        "${nanosvg.src}/src"
+        "${koreader}/base/thirdparty/nanosvg"
+      ];
+    };
+
+    popen-noshell-src-ko = fetchFromGitHub {
+      owner = "famzah";
+      repo = "popen-noshell";
+      name = "popen-noshell";
+      inherit (pins.popen-noshell) rev hash;
+    };
+
+    tesseract-src-ko = fetchFromGitHub {
+      # TODO: try using nixpkgs' tesseract.src (i doubt it will work)
+      owner = "tesseract-ocr";
+      repo = "tesseract";
+      name = "tesseract";
+      inherit (pins.tesseract) rev hash;
+    };
+
+    turbo-src-ko = fetchFromGitHub {
+      owner = "kernelsauce";
+      repo = "turbo";
+      name = "turbo";
+      inherit (pins.turbo) rev hash;
+    };
   };
 
-  fbink-src-ko = fetchFromGitHub {
-    owner = "NiLuJe";
-    repo = "FBInk";
-    name = "fbink";  # where to unpack this in `srcs`
-    rev = "1a989b30a195ca240a3cf37f9de61b4b3c7e891c";
-    hash = "sha256-lXjAX0BoHW3L1E54d5J+wiAlAZXVmj9Y1Un8yaCwO8w=";
-  };
-
-  kobo-usbms-src-ko = fetchFromGitHub {
-    owner = "koreader";
-    repo = "KoboUSBMS";
-    name = "kobo-usbms";  # where to unpack this in `srcs`
-    rev = "v1.3.9";
-    hash = "sha256-91B0FUnmpE6TP4Lg5mj6z/U1DZQTKiPhG3ccCSgY4mQ=";
-  };
-
-  leptonica-src-ko = fetchFromGitHub {
-    # k2pdf needs leptonica src, because it actually patches it and builds it itself:
-    # - `cp -f $(LEPTONICA_MOD)/dewarp2.c $(LEPTONICA_DIR)/src/dewarp2.c`
-    # -  i.e. cp -f /build/koreader/base/thirdparty/libk2pdfopt/build/aarch64-unknown-linux-gnu/libk2pdfopt-prefix/src/libk2pdfopt/leptonica_mod/dewarp2.c ...
-    # k2pdf uses an old leptonica -- like 2015-2017-ish (1.74.1).
-    # seems it can be at least partially updated, by replacing `numaGetMedianVariation` with `numaGetMedianDevFromMedian` (drop-in replacement)
-    # and replacing references to `liblept.so` with `libleptonica.so`,
-    # but eventually this requires patching the tesseract Makefiles. could get intense, idk.
-    owner = "DanBloomberg";
-    repo = "leptonica";
-    name = "leptonica";  # where to unpack this in `srcs`
-    rev = "1.74.1";
-    hash = "sha256-SDXKam768xvZZvTbXe3sssvZyeLEEiY97Vrzx8hoc6g=";
-  };
-
-  libk2pdfopt-src-ko = fetchFromGitHub {
-    owner = "koreader";
-    repo = "libk2pdfopt";
-    name = "libk2pdfopt";  # where to unpack this in `srcs`
-    rev = "47caea57aaf6200fc2b24669b6417fe6919926b7";
-    hash = "sha256-8Em4neXTovhrTb+GBhs6kDFEdsQSt5KiYoHURwdtjPQ=";
-  };
-
-  lodepng-src-ko = fetchFromGitHub {
-    owner = "lvandeve";
-    repo = "lodepng";
-    name = "lodepng";  # where to unpack this in `srcs`
-    rev = "d398e0f10d152a5d17fa30463474dc9f56523f9c";
-    hash = "sha256-ApOHUgU6X1rHwyjAHA/0Nt+buDFqY2ttXEnEvdrRl3A=";
-  };
-
-  lunasvg-src-ko = fetchFromGitHub {
-    owner = "sammycage";
-    repo = "lunasvg";
-    name = "lunasvg";  # where to unpack this in `srcs`
-    rev = "59d6f6ba835c1b7c7a0f9d4ea540ec3981777885";
-    hash = "sha256-gW2ikakS6Omz5upmy26nAo/jkGHYO2kjlB3UmKJBh1k=";
-  };
-
-  minizip-src-ko = fetchFromGitHub {
-    # this is actually just a very old version (2015) of `minizip-ng`
-    owner = "nmoinvaz";
-    repo = "minizip";
-    name = "minizip";  # where to unpack this in `srcs`
-    rev = "0b46a2b4ca317b80bc53594688883f7188ac4d08";
-    hash = "sha256-P/3MMMGYDqD9NmkYvw/thKpUNa3wNOSlBBjANHSonAg=";
-  };
-
-  mupdf-src-ko = fetchFromGitHub {
-    owner = "ArtifexSoftware";
-    repo = "mupdf";
-    name = "mupdf";  # where to unpack this in `srcs`
-    fetchSubmodules = true;  # specifically for jbig2dec, mujs, openjpeg
-    rev = "1.13.0";
-    hash = "sha256-pQejRon9fO9A1mhz3oLjBr1j4HveDLcQIWjR1/Rpy5Q=";
-  };
-
-  nanosvg-headers-ko = symlinkJoin {
-    # koreader's heavily-patched mupdf is dependent on a koreader-specific `stb_image_write` extension to nanosvg.
-    # nanosvg is used as a header-only library, so just patch that extension straight into the src.
-    name = "nanosvg-headers-ko";
-    paths = [
-      "${nanosvg.src}/src"
-      "${src}/base/thirdparty/nanosvg"
-    ];
-  };
-
-  popen-noshell-src-ko = fetchFromGitHub {
-    owner = "famzah";
-    repo = "popen-noshell";
-    name = "popen-noshell";
-    rev = "e715396a4951ee91c40a98d2824a130f158268bb";
-    hash = "sha256-JeBZMsg6ZUGSnyZ4eds4w63gM/L73EsAnLaHOPpL6iM=";
-  };
-
-  tesseract-src-ko = fetchFromGitHub {
-    # TODO: try using nixpkgs' tesseract.src (i doubt it will work)
-    owner = "tesseract-ocr";
-    repo = "tesseract";
-    name = "tesseract";
-    rev = "60176fc5ae5e7f6bdef60c926a4b5ea03de2bfa7";
-    hash = "sha256-FQvlrJ+Uy7+wtUxBuS5NdoToUwNRhYw2ju8Ya8MLyQw=";
-  };
-
-  turbo-src-ko = fetchFromGitHub {
-    owner = "kernelsauce";
-    repo = "turbo";
-    name = "turbo";
-    rev = "v2.1.3";
-    hash = "sha256-vBRkFdc5a0FIt15HBz3TnqMZ+GGsqjEefnfJEpuVTBs=";
-  };
-
-  # XXX: for some inscrutable reason, `enable52Compat` is *partially* broken, only when cross compiling.
-  # `table.unpack` is non-nil, but `table.pack` is nil.
-  # the normal path is for `enable52Compat` to set `env.NIX_CFLAGS_COMPILE = "-DLUAJIT_ENABLE_LUA52COMPAT";`
-  # which in turn sets `#define LJ_52 1`, and gates functions like `table.pack`, `table.unpack`.
-  # instead, koreader just removes the `#if LJ_52` gates. doing the same in nixpkgs seems to work.
-  # luajit52 = luajit.override { enable52Compat = true; self = luajit52; };
-  luajit52 = (luajit.override { self = luajit52; }).overrideAttrs (super: {
-    patches = (super.patches or []) ++ [
-      "${src}/base/thirdparty/luajit/koreader-luajit-enable-table_pack.patch"
-    ];
-  });
+  thirdparty = [
+    curl
+    czmq
+    djvulibre
+    dropbear
+    freetype
+    fribidi
+    gettext
+    giflib
+    glib
+    gnutar
+    harfbuzz
+    libiconvReal
+    libjpeg_turbo
+    libpng
+    libunibreak
+    libwebp
+    openssl
+    openssh
+    sdcv
+    SDL2
+    sqlite
+    utf8proc
+    zlib
+    zeromq4
+    zstd
+    zsync
+  ];
 
   overlayedLuaPkgs = luaPkgs: let
     ps = with ps; {
@@ -257,21 +264,6 @@ let
     } // luaPkgs;
   in ps;
 
-  luaEnv = luajit52.withPackages (ps: with (overlayedLuaPkgs ps); [
-    luajson
-    htmlparser
-    lua-spore
-    lpeg
-    luasec
-    luasocket
-    rapidjson
-  ]);
-
-  rockspecFor = luaPkgName: let
-    pkg = (overlayedLuaPkgs luaEnv.pkgs)."${luaPkgName}";
-  in
-    "${luaEnv}/${pkg.rocksSubdir}/${luaPkgName}/${pkg.rockspecVersion}/${luaPkgName}-${pkg.rockspecVersion}.rockspec";
-
   crossTargets = {
     # koreader-base Makefile targets to use when compiling for the given host platform
     # only used when cross compiling
@@ -310,6 +302,37 @@ let
 
   # mostly for k2pdf, which expects lib/ and include/ for each dep to live side-by-side
   libAndDev = pkg: fhsLib pkg { lib = true; include = true; };
+in
+stdenv.mkDerivation (finalAttrs: with finalAttrs; let
+  pins = lib.importJSON ./versions.json;
+  sources = sourcesFor pins;
+
+  # XXX: for some inscrutable reason, `enable52Compat` is *partially* broken, only when cross compiling.
+  # `table.unpack` is non-nil, but `table.pack` is nil.
+  # the normal path is for `enable52Compat` to set `env.NIX_CFLAGS_COMPILE = "-DLUAJIT_ENABLE_LUA52COMPAT";`
+  # which in turn sets `#define LJ_52 1`, and gates functions like `table.pack`, `table.unpack`.
+  # instead, koreader just removes the `#if LJ_52` gates. doing the same in nixpkgs seems to work.
+  # luajit52 = luajit.override { enable52Compat = true; self = luajit52; };
+  luajit52 = (luajit.override { self = luajit52; }).overrideAttrs (super: {
+    patches = (super.patches or []) ++ [
+      "${sources.koreader}/base/thirdparty/luajit/koreader-luajit-enable-table_pack.patch"
+    ];
+  });
+
+  luaEnv = luajit52.withPackages (ps: with (overlayedLuaPkgs ps); [
+    luajson
+    htmlparser
+    lua-spore
+    lpeg
+    luasec
+    luasocket
+    rapidjson
+  ]);
+
+  rockspecFor = luaPkgName: let
+    pkg = (overlayedLuaPkgs luaEnv.pkgs)."${luaPkgName}";
+  in
+    "${luaEnv}/${pkg.rocksSubdir}/${luaPkgName}/${pkg.rockspecVersion}/${luaPkgName}-${pkg.rockspecVersion}.rockspec";
 
   # these probably have more dirs than they really need.
   djvulibreAll = fhsLib djvulibre { lib=true; include=true; flatInclude=true; };
@@ -323,7 +346,7 @@ let
 
   # values to provide to koreader/base/Makefile.defs.
   # should be ok to put this in `makeFlags` array, but i can't get that to work!
-  makefileDefs = ''
+  makefileDefs = with sources; ''
     CURL_LIB="${lib.getLib curl}/lib/libcurl.so" \
     CURL_DIR="${lib.getDev curl}" \
     CZMQ_LIB="${lib.getLib czmq}/lib/libczmq.so" \
@@ -419,52 +442,22 @@ let
     ln -sf "${lib.getBin sdcv}/bin/sdcv" "${outdir}/sdcv"
     ln -sf "${lib.getBin zsync}/bin/zsync" "${outdir}/zsync2"
   '';
-
-  thirdparty = [
-    curl
-    czmq
-    djvulibre
-    dropbear
-    freetype
-    fribidi
-    gettext
-    giflib
-    glib
-    gnutar
-    harfbuzz
-    libiconvReal
-    libjpeg_turbo
-    libpng
-    libunibreak
-    libwebp
-    openssl
-    openssh
-    sdcv
-    SDL2
-    sqlite
-    utf8proc
-    zlib
-    zeromq4
-    zstd
-    zsync
-  ];
-in
-stdenv.mkDerivation rec {
+in {
   pname = "koreader-from-src";
-  inherit version;
+  inherit (pins) version;
   srcs = [
-    src
-    fbink-src-ko
-    kobo-usbms-src-ko
-    leptonica-src-ko
-    libk2pdfopt-src-ko
-    lodepng-src-ko
-    lunasvg-src-ko
-    minizip-src-ko
-    mupdf-src-ko
-    popen-noshell-src-ko
-    tesseract-src-ko
-    turbo-src-ko
+    sources.koreader
+    sources.fbink-src-ko
+    sources.kobo-usbms-src-ko
+    sources.leptonica-src-ko
+    sources.libk2pdfopt-src-ko
+    sources.lodepng-src-ko
+    sources.lunasvg-src-ko
+    sources.minizip-src-ko
+    sources.mupdf-src-ko
+    sources.popen-noshell-src-ko
+    sources.tesseract-src-ko
+    sources.turbo-src-ko
   ];
 
   patches = [
@@ -569,6 +562,8 @@ stdenv.mkDerivation rec {
       htmlparser
       lua-spore
     ;
+    # XXX: `update` doesn't update everything -- just the toplevel version/hash
+    updateScript = [ ./update ];
   };
 
   meta = with lib; {
@@ -580,4 +575,4 @@ stdenv.mkDerivation rec {
     license = licenses.agpl3Only;
     maintainers = with maintainers; [ colinsane contrun neonfuz];
   };
-}
+})

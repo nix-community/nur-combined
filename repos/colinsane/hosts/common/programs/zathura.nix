@@ -12,6 +12,7 @@
       ".local/share/zathura"
     ];
 
+    mime.priority = 150;  #< default is 100; fallback to more specialized cbz handlers, e.g.
     mime.associations."application/pdf" = "org.pwmt.zathura.desktop";
     mime.associations."application/vnd.comicbook+zip" = "org.pwmt.zathura.desktop";  # .cbz
     mime.associations."application/vnd.comicbook-rar" = "org.pwmt.zathura.desktop";  # .cbr

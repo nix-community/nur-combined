@@ -70,6 +70,7 @@ let
     modemmanager-split = callPackage ./additional/modemmanager-split { };
     mx-sanebot = callPackage ./additional/mx-sanebot { };
     networkmanager-split = callPackage ./additional/networkmanager-split { };
+    newsflash-nixified = callPackage ./additional/newsflash-nixified { };
     nixpkgs = callPackage ./additional/nixpkgs {
       localSystem = stdenv.buildPlatform.system;
       system = stdenv.hostPlatform.system;

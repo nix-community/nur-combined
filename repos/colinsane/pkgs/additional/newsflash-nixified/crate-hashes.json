@@ -1,0 +1,9 @@
+{
+  "git+https://gitlab.com/news-flash/article_scraper.git#article_scraper@2.1.0": "0hslszjmz41bkl9micb4q43dcljvcqddxgk204npwpr4k4gxfc6j",
+  "git+https://gitlab.com/news-flash/newsblur_api.git#newsblur_api@0.3.0": "054yg4nww6c7p7y1r1yy00056p5nzadaal3hjwjfpka96zrpnvcv",
+  "git+https://gitlab.com/news_flash/news_flash.git#news-flash@2.3.0-alpha.0": "0fb85k4mm775iq3z0z6nvk58qx42knihnn77izcbqkxrf970njmw",
+  "git+https://gitlab.gnome.org/JanGernert/clapper-rs.git#clapper-gtk-sys@0.0.1": "0hxdczh0dxmql4bmh71jrxkyhc8b3vbzay074mq8db30cczl7z29",
+  "git+https://gitlab.gnome.org/JanGernert/clapper-rs.git#clapper-gtk@0.1.0": "0hxdczh0dxmql4bmh71jrxkyhc8b3vbzay074mq8db30cczl7z29",
+  "git+https://gitlab.gnome.org/JanGernert/clapper-rs.git#clapper-sys@0.0.1": "0hxdczh0dxmql4bmh71jrxkyhc8b3vbzay074mq8db30cczl7z29",
+  "git+https://gitlab.gnome.org/JanGernert/clapper-rs.git#clapper@0.1.0": "0hxdczh0dxmql4bmh71jrxkyhc8b3vbzay074mq8db30cczl7z29"
+}

@@ -24,7 +24,23 @@ in
       };
     };
 
-    packageUnwrapped = pkgs.rmDbusServicesInPlace (pkgs.calls.overrideAttrs (upstream: {
+    packageUnwrapped = pkgs.rmDbusServicesInPlace ((pkgs.calls.override {
+      gtk3 = pkgs.gtk4;
+      libpeas = pkgs.libpeas2;
+      wrapGAppsHook3 = pkgs.wrapGAppsHook4;
+    }).overrideAttrs (upstream: {
+      # XXX(2024-08-08): v46.3 has a bug where if it has no network connection on launch, it forever stays disconnected & never retries
+      version = "47_beta.0-unstable-2024-08-08";
+      src = lib.warnIf (lib.versionOlder "47.0" upstream.version) "gnome-calls outdated; remove src override? (keep UI patches though!)" pkgs.fetchFromGitLab {
+        domain = "gitlab.gnome.org";
+        owner = "GNOME";
+        repo = "calls";
+        fetchSubmodules = true;
+        # rev = "main";
+        rev = "ff213579a52222e7c95e585843d97b5b817b2a8b";
+        hash = "sha256-0QYC8FJpfg/X2lIjBDooba2idUfpJNQhcpv8Z5I/B4k=";
+      };
+
       patches = (upstream.patches or []) ++ [
         (pkgs.fetchpatch {
           # usability improvement... if the UI is visible, then i can receive calls. otherwise, i can't!
@@ -32,6 +48,14 @@ in
           name = "exit on close (i.e. never daemonize)";
           hash = "sha256-NoVQV2TlkCcsBt0uwSyK82hBKySUW4pADrJVfLFvWgU=";
         })
+      ];
+
+      nativeBuildInputs = upstream.nativeBuildInputs ++ [
+        pkgs.dbus  #< for dbus-run-session (should be test only, but it's not)
+      ];
+
+      buildInputs = upstream.buildInputs ++ [
+        pkgs.libadwaita
       ];
     }));
 

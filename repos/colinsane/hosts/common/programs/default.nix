@@ -47,6 +47,7 @@
     ./feedbackd.nix
     ./firefox.nix
     ./flare-signal.nix
+    ./foliate.nix
     ./fontconfig.nix
     ./fractal.nix
     ./free.nix
