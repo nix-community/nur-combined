@@ -18,4 +18,5 @@ rec {
   rapidsnark = pkgs.callPackage ./pkgs/rapidsnark { };
   aws-lambda-ric-nodejs = pkgs.callPackage ./pkgs/aws-lambda-ric-nodejs { };
   v2ray-rules-dat = pkgs.callPackage ./pkgs/v2ray-rules-dat { };
+  v2dat = pkgs.callPackage ./pkgs/v2dat { };
 }

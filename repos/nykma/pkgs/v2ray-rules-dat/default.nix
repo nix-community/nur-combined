@@ -1,12 +1,25 @@
 { lib, fetchurl, stdenvNoCC,
   unzip }:
 let
-  version = "202408072210";
+  version = "202408082210";
   rules-zip = fetchurl {
     url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/${version}/rules.zip";
     hash = "sha256-zNJ3L2gt5tiMmG+mThZz+mN7z3XyFYxW240zS+FH+ls=";
   };
+  china-list = fetchurl {
+    url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/${version}/china-list.txt";
+    hash = "sha256-W0vtJPe6am/V27wJkZLbUs/gTyAV2o3997dnggoe6BA=";
+  };
 in
+# .
+# └── share
+#     └── v2ray-rules-dat
+#         ├── china-list.txt
+#         ├── direct-list.txt
+#         ├── geoip.dat
+#         ├── geosite.dat
+#         ├── proxy-list.txt
+#         └── reject-list.txt
 stdenvNoCC.mkDerivation {
   inherit version;
   pname = "v2ray-rules-dat";
@@ -20,6 +33,7 @@ stdenvNoCC.mkDerivation {
     mkdir -p $out/share/v2ray-rules-dat
     cp -r *.txt $out/share/v2ray-rules-dat
     cp -r *.dat $out/share/v2ray-rules-dat
+    cp ${china-list} $out/share/v2ray-rules-dat/china-list.txt
     chmod 444 $out/share/v2ray-rules-dat/*
     '';
 
