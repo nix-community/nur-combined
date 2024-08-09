@@ -243,13 +243,16 @@ in
     mime.associations."video/webm" = "mpv.desktop";
     mime.associations."video/x-flv" = "mpv.desktop";
     mime.associations."video/x-matroska" = "mpv.desktop";
-    mime.urlAssociations."^https?://(m\.)?(www\.)?youtu.be/.+" = "mpv.desktop";
-    mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/embed/.+" = "mpv.desktop";
-    mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/playlist\?.*list=.+" = "mpv.desktop";
-    mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/shorts/.+" = "mpv.desktop";
-    mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/v/.+" = "mpv.desktop";
-    mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/watch\?.*v=.+" = "mpv.desktop";
+    #v be the opener for YouTube videos
+    mime.urlAssociations."^https?://(m\.)?(www\.)?youtu.be/.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/embed/.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/playlist\?.*list=.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/shorts/.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/v/.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/watch\?.*v=.+$" = "mpv.desktop";
+    #v be the opener for A/V, generally. useful for e.g. feed readers like News Flash which open content through the portal
+    mime.urlAssociations."^https?://.*\.(mp3|mp4|ogg|ogv|opus|webm)(\\?.*)?$" = "mpv.desktop";
     #v Loupe image viewer can't open URIs, so use mpv instead
-    mime.urlAssociations."^https?://i\.imgur.com/.+" = "mpv.desktop";
+    mime.urlAssociations."^https?://i\.imgur.com/.+$" = "mpv.desktop";
   };
 }

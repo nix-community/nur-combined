@@ -18,6 +18,6 @@
     persist.byStore.ephemeral = [
       ".local/share/tor-browser"
     ];
-    mime.urlAssociations."^https?://.+\.onion" = "torbrowser.desktop";
+    mime.urlAssociations."^https?://.+\.onion$" = "torbrowser.desktop";
   };
 }
