@@ -42,6 +42,7 @@ buildGoModule rec {
     homepage = "https://github.com/glojurelang/glojure";
     license = lib.licenses.epl10;
     platforms = lib.platforms.unix;
+    badPlatforms = lib.platforms.i686;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }
