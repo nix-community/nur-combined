@@ -855,7 +855,8 @@ landlockGetCli() {
 # this backend exists because apps which are natively bwrap may complain about having ambient privileges.
 # then, run them in a capsh sandbox, which ignores any path sandboxing and just lowers privs to what's needed.
 
-capshCapsArg=
+# all=: means to clear all capabilities
+capshCapsArg="all="
 
 capshonlySetup() {
   debug "capshonlySetup: noop"
@@ -885,12 +886,32 @@ capshonlyIngestCapability() {
   # `capsh --caps=CAP_FOO=eip -- true` will fail if we don't have CAP_FOO,
   # but for my use i'd still like to try running the command even if i can't grant it all capabilities.
   # therefore, only grant it those capabilities i know will succeed.
-  if capsh "--has-p=cap_$1" 2>/dev/null; then
-    if [ -z "$capshCapsArg" ]; then
-      capshCapsArg=cap_$1=ep
-    else
-      capshCapsArg=cap_$1,$capshCapsArg
+  locate _capsh "capsh" "$CAPSH_FALLBACK"
+
+  local hasP=
+  local hasI=
+  if "$_capsh" "--has-a=cap_$1" 2>/dev/null; then
+    # XXX: this ambient special case could probably be removed:
+    # a capability can't be ambient without also being I and P, IIUC.
+    hasP=1
+    hasI=1
+  else
+    if "$_capsh" "--has-p=cap_$1" 2>/dev/null; then
+      hasP=1
     fi
+    if "$_capsh" "--has-i=cap_$1" 2>/dev/null; then
+      hasI=1
+    fi
+  fi
+  if [ -n "$hasI" ] || [ -n "$hasP" ]; then
+    # hasP means "able to add to E or I set.
+    # so, if we have the cap in *either* P or I, then we can place it in I here.
+    # only if we have it in P can we add it to P and E.
+    local ext=i
+    if [ -n "$hasP" ]; then
+      ext="e${ext}p"
+    fi
+    capshCapsArg="$capshCapsArg cap_$1+$ext"
   else
     debug "capsh: don't have capability $1"
   fi

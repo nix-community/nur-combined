@@ -185,7 +185,7 @@ let
       # periodically re-apply peers, to ensure DNS mappings stay fresh
       # borrowed from <repo:nixos/nixpkgs:nixos/modules/services/networking/wireguard.nix>
       wantedBy = [ "network.target" ];
-      path = with pkgs; [ wireguard-tools ];
+      path = [ config.sane.programs.wireguard-tools.package ];
       serviceConfig.Restart = "always";
       serviceConfig.RestartSec = "60"; #< retry delay when we fail (because e.g. there's no network)
       serviceConfig.Type = "simple";
@@ -197,6 +197,32 @@ let
           sleep 180
         done
       '';
+      # systemd hardening (systemd-analyze security wg-home-refresh.service)
+      serviceConfig.AmbientCapabilities = "CAP_NET_ADMIN";
+      serviceConfig.CapabilityBoundingSet = "CAP_NET_ADMIN";
+      serviceConfig.LockPersonality = true;
+      serviceConfig.MemoryDenyWriteExecute = true;
+      serviceConfig.NoNewPrivileges = true;
+      serviceConfig.ProtectClock = true;
+      serviceConfig.ProtectHostname = true;
+      serviceConfig.RemoveIPC = true;
+      serviceConfig.RestrictAddressFamilies = "AF_INET AF_INET6 AF_NETLINK";
+      #VVV this includes anything it reads from, e.g. /bin/sh; /nix/store/...
+      # see `systemd-analyze filesystems` for a full list
+      serviceConfig.RestrictFileSystems = "@common-block @basic-api";
+      serviceConfig.RestrictRealtime = true;
+      serviceConfig.RestrictSUIDSGID = true;
+      serviceConfig.SystemCallArchitectures = "native";
+      serviceConfig.SystemCallFilter = [
+        "@system-service"
+        "@sandbox"
+        "~@chown"
+        "~@cpu-emulation"
+        "~@keyring"
+      ];
+      serviceConfig.DevicePolicy = "closed";  # only allow /dev/{null,zero,full,random,urandom}
+      # serviceConfig.DeviceAllow = "/dev/...";
+      serviceConfig.RestrictNamespaces = true;
     };
 
     # networking.firewall.extraCommands = with pkgs; ''
