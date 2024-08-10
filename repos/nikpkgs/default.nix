@@ -34,5 +34,4 @@
   systemd-lock-handler   = pkgs.callPackage ./pkgs/systemd-lock-handler { };
   tailscale-systray      = pkgs.callPackage ./pkgs/tailscale-systray { };
   unison-gitignore       = pkgs.callPackage ./pkgs/unison-gitignore { };
-  wpa-supplicant-eduroam = pkgs.callPackage ./pkgs/wpa-supplicant-eduroam { };
 }
