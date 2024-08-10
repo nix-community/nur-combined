@@ -1,21 +1,30 @@
-{ lib, fetchPypi, buildPythonApplication, tabulate }:
+{
+  lib,
+  fetchPypi,
+  buildPythonApplication,
+  tabulate,
+  setuptools,
+}:
 
 buildPythonApplication rec {
   pname = "jtbl";
-  version = "1.3.1";
+  version = "1.6.0";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-HpnSLrTMNa/CpmiSjP13nFJtVb4Zqbyw4CcPqlgI98c=";
+    sha256 = "sha256-feDLCOuys6Blgimo7dQgTGlEy9nj4EckqeojWmHBFaU=";
   };
 
-  propagatedBuildInputs = [ tabulate ];
+  propagatedBuildInputs = [
+    setuptools
+    tabulate
+  ];
 
   pythonImportsCheck = [ "jtbl" ];
 
   meta = with lib; {
-    description =
-      "Simple CLI tool to print JSON and JSON Lines data as a table in the terminal";
+    description = "Simple CLI tool to print JSON and JSON Lines data as a table in the terminal";
     homepage = "https://github.com/kellyjonbrazil/jtbl";
     license = licenses.mit;
     platforms = platforms.unix;

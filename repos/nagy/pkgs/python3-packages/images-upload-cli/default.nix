@@ -1,35 +1,45 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, requests
-, click
-, pillow
-, python-dotenv
-, pyperclip
-, testers
-, images-upload-cli
-, poetry-core
-, poetry-dynamic-versioning
-, httpx
-, pythonRelaxDepsHook
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  requests,
+  click,
+  pillow,
+  python-dotenv,
+  pyperclip,
+  testers,
+  images-upload-cli,
+  poetry-core,
+  poetry-dynamic-versioning,
+  httpx,
+  loguru,
+  rich,
+  pythonRelaxDepsHook,
 }:
 
 buildPythonPackage rec {
   pname = "images-upload-cli";
-  version = "2.0.0";
+  version = "3.0.3";
   format = "pyproject";
 
   src = fetchPypi {
     pname = "images_upload_cli";
     inherit version;
-    hash = "sha256-XuaqLc/WhAPEkVqPSKs+SrLNHXlIuZUe+BNTpH1Af14=";
+    hash = "sha256-8eWPwlLZMn4LovQQsLafu/ERwAX14ivxjLI96DCRN/U=";
   };
 
-  nativeBuildInputs = [ pythonRelaxDepsHook poetry-core ];
+  nativeBuildInputs = [
+    pythonRelaxDepsHook
+    poetry-core
+  ];
 
   pythonImportsCheck = [ "images_upload_cli" ];
 
-  pythonRelaxDeps = [ "requests" "pillow" "httpx" ];
+  pythonRelaxDeps = [
+    "requests"
+    "pillow"
+    "httpx"
+  ];
 
   propagatedBuildInputs = [
     requests
@@ -39,6 +49,8 @@ buildPythonPackage rec {
     pyperclip
     poetry-dynamic-versioning
     httpx
+    loguru
+    rich
   ];
 
   passthru.tests.version = testers.testVersion { package = images-upload-cli; };
