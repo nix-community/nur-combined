@@ -28,14 +28,18 @@
 
   sane.services.rsync-net.enable = true;
 
+  # TODO: enable snapper (need to make `/nix` or `/nix/persist` a subvolume, somehow).
   # default config: https://man.archlinux.org/man/snapper-configs.5
   # defaults to something like:
   #   - hourly snapshots
   #   - auto cleanup; keep the last 10 hourlies, last 10 daylies, last 10 monthlys.
-  services.snapper.configs.nix = {
-    # TODO: for the impermanent setup, we'd prefer to just do /nix/persist,
-    # but that also requires setting up the persist dir as a subvol
-    SUBVOLUME = "/nix";
-    ALLOW_USERS = [ "colin" ];
-  };
+  # to list snapshots: `sudo snapper --config nix list`
+  # to take a snapshot: `sudo snapper --config nix create`
+  # services.snapper.configs.nix = {
+  #   # TODO: for the impermanent setup, we'd prefer to just do /nix/persist,
+  #   # but that also requires setting up the persist dir as a subvol
+  #   SUBVOLUME = "/nix";
+  #   # TODO: ALLOW_USERS doesn't seem to work. still need `sudo snapper -c nix list`
+  #   ALLOW_USERS = [ "colin" ];
+  # };
 }

@@ -63,8 +63,7 @@
   - has better multi-stream perf (e.g. `sane-sync-music` should be able to copy N items in parallel)
 
 ### security/resilience
-- encrypt more ~ dirs (~/archives, ~/records, ..?)
-  - best to do this after i know for sure i have good backups
+- enable `snapper` btrfs snapshots (`services.snapper`)
 - /mnt/desko/home, etc, shouldn't include secrets (~/private)
   - 95% of its use is for remote media access and stuff which isn't in VCS (~/records)
 - port all sane.programs to be sandboxed

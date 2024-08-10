@@ -74,4 +74,38 @@ in
     # DefaultTimeoutStopSec defaults to 90s, and frequently blocks overall system shutdown.
     DefaultTimeoutStopSec=${builtins.toString haltTimeout}
   '';
+
+  # hard base systemd services
+  # see: `systemd-analyze security`
+  systemd.services.systemd-rfkill.serviceConfig = {
+    AmbientCapabilities = "";
+    CapabilityBoundingSet = "";
+    DevicePolicy = "closed";
+    IPAddressDeny = "any";
+    LockPersonality = true;
+    MemoryDenyWriteExecute = true;
+    NoNewPrivileges = true;
+    PrivateDevices = true;
+    PrivateMounts = true;
+    PrivateNetwork = true;
+    PrivateTmp = true;
+    PrivateUsers = true;
+    ProcSubset = "pid";
+    ProtectClock = true;
+    ProtectControlGroups = true;
+    ProtectHome = true;
+    ProtectHostname = true;
+    ProtectKernelLogs = true;
+    ProtectKernelModules = true;
+    ProtectKernelTunables = true;
+    ProtectProc = "invisible";
+    ProtectSystem = "strict";
+    RemoveIPC = true;
+    RestrictAddressFamilies = "AF_UNIX";
+    RestrictNamespaces = true;
+    RestrictRealtime = true;
+    RestrictSUIDSGID = true;
+    SystemCallArchitectures = "native";
+    SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
+  };
 }
