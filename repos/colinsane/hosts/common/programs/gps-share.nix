@@ -25,6 +25,12 @@ in
       "jq"
       # and systemd, for udevadm
     ];
+
+    sandbox.method = "bwrap";
+    sandbox.net = "all";
+    sandbox.autodetectCliPaths = "existing";  #< N.B.: `test -f /dev/ttyUSB1` fails, we can't use `existingFile`
+    sandbox.whitelistDbus = [ "system" ];  #< to register with Avahi
+
     services.gps-share = {
       description = "gps-share: make local GPS serial readings available over Avahi";
       # usage:
@@ -46,10 +52,6 @@ in
       partOf = [ "gps" ];
       depends = [ "eg25-control-powered" ];
     };
-
-    sandbox.method = "bwrap";
-    sandbox.net = "all";
-    sandbox.autodetectCliPaths = "existing";  #< N.B.: `test -f /dev/ttyUSB1` fails, we can't use `existingFile`
   };
 
   # TODO: restrict this to just LAN devices!!
