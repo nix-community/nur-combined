@@ -166,15 +166,15 @@
   };
   boringssl-oqs = {
     pname = "boringssl-oqs";
-    version = "c4e62514e7f14ce5325226ccf9472617d810bcd0";
+    version = "503aaf04227fa4694a9ad9918ebf9d096a200277";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "boringssl";
-      rev = "c4e62514e7f14ce5325226ccf9472617d810bcd0";
+      rev = "503aaf04227fa4694a9ad9918ebf9d096a200277";
       fetchSubmodules = false;
-      sha256 = "sha256-Q4YQx9EahKV6I4kZJY+cTC8ss2j85RqXvmlvGNw5CWs=";
+      sha256 = "sha256-NNpxXJVTbV/cLnhQvpkApAl9rSjxmtUbAx3lUQjzqBU=";
     };
-    date = "2024-05-16";
+    date = "2024-08-09";
   };
   browser360-amd64 = {
     pname = "browser360-amd64";
@@ -194,15 +194,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "c3045185574b08ebeb4fbd03b96a3802dfda0139";
+    version = "7fa46ba88bb42eb52a32892332d143ef4bfcc708";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "c3045185574b08ebeb4fbd03b96a3802dfda0139";
+      rev = "7fa46ba88bb42eb52a32892332d143ef4bfcc708";
       fetchSubmodules = false;
-      sha256 = "sha256-tuLAAN4VImiognykv/+m0mP5l1NtmaNa1ELBrBI7K/U=";
+      sha256 = "sha256-8fUvbu/zSNAwzPlu3Yo05rXz/3Gd/UWAgXZ1AgJWwn4=";
     };
-    date = "2024-08-08";
+    date = "2024-08-09";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -796,13 +796,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3556";
+    version = "b3561";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3556";
+      rev = "b3561";
       fetchSubmodules = false;
-      sha256 = "sha256-nMpL2TP2QwTxNpt3quNW/01fd0xpzvRITVcFxOJrJok=";
+      sha256 = "sha256-ILkDlowt5ffr8n2CP+8tUYWBYRMtGt7fusEhgFDmbjg=";
     };
   };
   lyrica = {
@@ -1349,10 +1349,10 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20240709";
+    version = "20240809";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20240709/moegirl.dict.yaml";
-      sha256 = "sha256-qUlE2DEyAZO3EZg39Hj5qrg++XfFpv7FBdUAk5iDpmU=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20240809/moegirl.dict.yaml";
+      sha256 = "sha256-N3Z2AJkB+dyrkbaEbiJvsSpFA/ZQ3XyjRhnVuX5UaHo=";
     };
   };
   rime-zhwiki = {
