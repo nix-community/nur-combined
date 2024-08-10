@@ -2113,10 +2113,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "130.0.20240807.91924";
+      version = "130.0.20240809.91641";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4332998/deutsch_de_language_pack-130.0.20240807.91924.xpi";
-      sha256 = "2da9d908dfa5ed50602c0c90930161b9d7d4327b49caeee9c4dceee13b820104";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4334193/deutsch_de_language_pack-130.0.20240809.91641.xpi";
+      sha256 = "bce37fa4e6effa04fa9eb9b3cd6bb6674146f9853b67764fc0e98009612df702";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2412,10 +2412,10 @@
     };
     "ebates" = buildFirefoxXpiAddon {
       pname = "ebates";
-      version = "5.38.2";
+      version = "5.48.0";
       addonId = "{35d6291e-1d4b-f9b4-c52f-77e6410d1326}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4239706/ebates-5.38.2.xpi";
-      sha256 = "eca78e6366d0a1b7f8fb280363df3117de6f0b91ec959d9672d1bec984d30a8e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4332562/ebates-5.48.0.xpi";
+      sha256 = "f3fb98fe4ff55ff3f392d4794617410c1d8a1e2074868ec17ae01738a7ed75b5";
       meta = with lib;
       {
         homepage = "https://www.rakuten.com";
@@ -2426,10 +2426,12 @@
           "webNavigation"
           "webRequest"
           "storage"
-          "<all_urls>"
           "cookies"
           "alarms"
+          "scripting"
+          "<all_urls>"
           "https://*.rakuten.com/*"
+          "https://*.rakuten.co.uk/*"
         ];
         platforms = platforms.all;
       };
@@ -3171,10 +3173,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "130.0.20240807.91924";
+      version = "130.0.20240809.91641";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4332901/francais_language_pack-130.0.20240807.91924.xpi";
-      sha256 = "99b7b72dc24746dafc7cd47e038c79d66befcc9a73264d6664ca540df514c423";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4334181/francais_language_pack-130.0.20240809.91641.xpi";
+      sha256 = "0a82bc48bbd7f93ca22d190c074c364f0d1c6ad99a3c5528d2d906d474161e29";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -12369,10 +12371,10 @@
     };
     "widegithub" = buildFirefoxXpiAddon {
       pname = "widegithub";
-      version = "2.2.0";
+      version = "2.3.0";
       addonId = "{72742915-c83b-4485-9023-b55dc5a1e730}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4210749/widegithub-2.2.0.xpi";
-      sha256 = "eda26f434c35557da0df2736894cff6d30b73f5e6568b07cfa2c689dea5df530";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4334556/widegithub-2.3.0.xpi";
+      sha256 = "685c4631cc1e514487cc66974986cf7c6f22cc8c07b43b140b48551505fa988b";
       meta = with lib;
       {
         homepage = "https://github.com/fabiocchetti/wide-github/";
@@ -12617,10 +12619,10 @@
     };
     "youtube-screenshot-button" = buildFirefoxXpiAddon {
       pname = "youtube-screenshot-button";
-      version = "4.3.0";
+      version = "4.2.0";
       addonId = "{d8b32864-153d-47fb-93ea-c273c4d1ef17}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4329975/youtube_screenshot_button-4.3.0.xpi";
-      sha256 = "4fc8c549b6502f68ce20d842a67da6e99acab7d9c5fa9d8f26e969c22a89dc85";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4207366/youtube_screenshot_button-4.2.0.xpi";
+      sha256 = "670ef9fbc2374001e3d91380c13bdc5739f2d61d061e53b7371128bb65ffe808";
       meta = with lib;
       {
         homepage = "https://github.com/gurumukhi/youtube-screenshot";
@@ -12628,7 +12630,6 @@
         license = licenses.mpl20;
         mozPermissions = [
           "storage"
-          "downloads"
           "clipboardWrite"
           "notifications"
           "*://*.youtube.com/*"
