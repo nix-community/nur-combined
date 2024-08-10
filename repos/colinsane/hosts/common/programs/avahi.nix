@@ -13,6 +13,18 @@
 { config, lib, pkgs, ... }:
 {
   sane.programs.avahi = {
+    packageUnwrapped = pkgs.avahi.overrideAttrs (upstream: {
+      # avahi wants to do its own sandboxing opaque to systemd & maybe in conflict with my bwrap.
+      # --no-drop-root disables that, so that i can e.g. run it as User=avahi, etc.
+      # do this here, because the service isn't so easily patched.
+      postInstall = (upstream.postInstall or "") + ''
+        wrapProgram "$out/sbin/avahi-daemon" \
+          --add-flags --no-drop-root
+      '';
+      nativeBuildInputs = upstream.nativeBuildInputs ++ [
+        pkgs.makeBinaryWrapper
+      ];
+    });
     sandbox.method = "bwrap";
     sandbox.whitelistDbus = [ "system" ];
     sandbox.net = "all";  #< otherwise it will show 'null' in place of each interface name.
@@ -22,16 +34,7 @@
   };
   services.avahi = lib.mkIf config.sane.programs.avahi.enabled {
     enable = true;
-    package = (pkgs.writeShellScriptBin "avahi-daemon" ''
-      # avahi wants to do its own sandboxing opaque to systemd & maybe in conflict with my bwrap.
-      # --no-drop-root disables that, so that i can e.g. run it as User=avahi, etc.
-      exec "${lib.getExe' config.sane.programs.avahi.package "avahi-daemon"}" --no-drop-root "$@"
-    '').overrideAttrs (base: {
-      buildCommand = base.buildCommand + ''
-        # nixos avahi service expects to find the daemon at sbin/avahi-daemon
-        ln -s bin $out/sbin
-      '';
-    });
+    package = config.sane.programs.avahi.package;
     publish.enable = true;
     publish.userServices = true;
     nssmdns4 = true;
