@@ -68,8 +68,8 @@
       "test_alias_stability_exception"
       "test_complete_import"
       "test_subproc_output_format"
-      "tests/test_xontribs"
-      "tests/test_xontribs"
+      "test_xontribs"
+      "test_integrations"
 
       # https://github.com/xonsh/xonsh/issues/5569
       "test_spec_modifier_alias_output_format"
@@ -77,7 +77,6 @@
 
     disabledTestPaths = [
       # fails on sandbox
-      "tests/test_xontribs"
       "tests/xoreutils"
       "tests/completers/test_xompletions.py"
       "tests/completers/test_command_completers.py"
