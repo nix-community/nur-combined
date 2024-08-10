@@ -68,6 +68,10 @@
       "test_alias_stability_exception"
       "test_complete_import"
       "test_subproc_output_format"
+      "tests/completers/test_xompletions"
+      "tests/test_xontribs"
+      "tests/xoreutils/test_uname"
+      "tests/xoreutils/test_uptime"
 
       # https://github.com/xonsh/xonsh/issues/5569
       "test_spec_modifier_alias_output_format"
