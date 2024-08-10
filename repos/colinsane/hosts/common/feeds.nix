@@ -59,6 +59,7 @@ let
   podcasts = [
     (fromDb "acquiredlpbonussecretsecret.libsyn.com" // tech)  # ACQ2 - more "Acquired" episodes
     (fromDb "allinchamathjason.libsyn.com" // pol)
+    (fromDb "api.oyez.org/podcasts/oral-arguments/2015" // pol)  # Supreme Court Oral Arguments ("2015" in URL means nothing -- it's still updated)
     (fromDb "anchor.fm/s/34c7232c/podcast/rss" // tech)  # Civboot -- https://anchor.fm/civboot
     (fromDb "anchor.fm/s/2da69154/podcast/rss" // tech)  # POD OF JAKE -- https://podofjake.com/
     (fromDb "cast.postmarketos.org" // tech)

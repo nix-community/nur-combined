@@ -1,0 +1,9 @@
+{
+  "description": "Oral arguments before the Supreme Court of the United States, from Oyez.org.",
+  "is_podcast": true,
+  "site_name": "User account | Oyez Backend",
+  "site_url": "https://api.oyez.org",
+  "title": "U.S. Supreme Court Oral Arguments",
+  "url": "https://api.oyez.org/podcasts/oral-arguments/2015",
+  "velocity": 0.123
+}
