@@ -1,23 +1,30 @@
-{ lib
-, fetchPypi
-, buildPythonPackage
-, setuptools
-, anyio
-, poetry-core
-, typing-extensions
+{
+  lib,
+  fetchPypi,
+  buildPythonPackage,
+  setuptools,
+  anyio,
+  poetry-core,
+  typing-extensions,
+  pdm-backend,
 }:
 
 buildPythonPackage rec {
   pname = "asyncer";
-  version = "0.0.5";
+  version = "0.0.7";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-KXnz4Ey+3+XP63kCfc99AE/MRDCgygBmriBJDyGOwG4=";
+    sha256 = "sha256-1eVj+w9W64e5cleYRwNlik9bvbUv+FGz6O2GTMIAsdI=";
   };
 
-  propagatedBuildInputs = [ poetry-core anyio typing-extensions ];
+  propagatedBuildInputs = [
+    poetry-core
+    anyio
+    typing-extensions
+    pdm-backend
+  ];
 
   pythonImportsCheck = [ "asyncer" ];
 
