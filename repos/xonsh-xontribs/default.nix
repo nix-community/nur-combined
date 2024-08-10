@@ -15,8 +15,6 @@ in {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  xonsh-unwrapped = pkgs.python3Packages.callPackage ./pkgs/xonsh/package.nix {};
-  xonsh = pkgs.python3Packages.callPackage ./pkgs/xonsh/wrapper.nix {};
   xonsh-direnv = pkgs.python3Packages.callPackage ./pkgs/xonsh-direnv {};
   xontrib-abbrevs = pkgs.python3Packages.callPackage ./pkgs/xontrib-abbrevs {};
   xontrib-bashisms = pkgs.python3Packages.callPackage ./pkgs/xontrib-bashisms {};
