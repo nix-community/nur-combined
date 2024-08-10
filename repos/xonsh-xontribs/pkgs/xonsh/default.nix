@@ -77,6 +77,7 @@
 
     disabledTestPaths = [
       # fails on sandbox
+      "tests/test_xontribs"
       "tests/xoreutils"
       "tests/completers/test_xompletions.py"
       "tests/completers/test_command_completers.py"
