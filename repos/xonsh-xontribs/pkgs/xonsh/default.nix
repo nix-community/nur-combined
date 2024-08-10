@@ -69,8 +69,7 @@
       "test_complete_import"
       "test_subproc_output_format"
       "tests/test_xontribs"
-      "tests/xoreutils/test_uname"
-      "tests/xoreutils/test_uptime"
+      "tests/test_xontribs"
 
       # https://github.com/xonsh/xonsh/issues/5569
       "test_spec_modifier_alias_output_format"
@@ -78,6 +77,7 @@
 
     disabledTestPaths = [
       # fails on sandbox
+      "tests/xoreutils"
       "tests/completers/test_xompletions.py"
       "tests/completers/test_command_completers.py"
       "tests/test_ptk_highlight.py"
