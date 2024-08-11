@@ -1,0 +1,1 @@
+The default Wireshark only looks for extcap programs within a few specific locations, this creates a wrapper in order to expose specific extcap programs to Wireshark.

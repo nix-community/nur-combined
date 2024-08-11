@@ -1,0 +1,33 @@
+diff --git a/usrp.c b/usrp.c
+index 59a2fed..bc10fa7 100644
+--- a/usrp.c
++++ b/usrp.c
+@@ -6,7 +6,7 @@
+ #include <signal.h>
+ #include <stdio.h>
+ #include <string.h>
+-
++#include <complex.h>
+ #include <uhd.h>
+ 
+ #include "sdr.h"
+@@ -114,7 +114,7 @@ char *usrp_get_serial(char *name) {
+     char *dash;
+     if (strncmp(name, "usrp-", 5) != 0)
+         return NULL;
+-    dash = strchr(name, '-');
++    dash = strrchr(name, '-');
+     if (dash == NULL)
+         return NULL;
+     return dash + 1; // skip the dash
+@@ -156,8 +156,8 @@ void *usrp_stream_thread(void *arg) {
+     void *buf;
+     uhd_rx_metadata_error_code_t error_code;
+     uhd_stream_args_t stream_args = {
+-        .cpu_format = "fc32",
+-        .otw_format = "sc16",
++        .cpu_format = "sc8",
++        .otw_format = "sc8",
+         .args = "",
+         .channel_list = &channel,
+         .n_channels = 1

@@ -1,0 +1,46 @@
+From b61db737c5faf5595daf33ea75b6c576fcd26130 Mon Sep 17 00:00:00 2001
+From: Mathieu Rene <mathieu.rene@gmail.com>
+Date: Sun, 26 Feb 2023 08:53:20 -0500
+Subject: [PATCH] sd_notify
+
+---
+ OpenRGB.pro | 1 +
+ main.cpp    | 3 +++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/OpenRGB.pro b/OpenRGB.pro
+index edfe790c..1599aa3e 100644
+--- a/OpenRGB.pro
++++ b/OpenRGB.pro
+@@ -1642,6 +1642,7 @@ contains(QMAKE_PLATFORM, linux) {
+     -lmbedtls                                                                                   \
+     -lmbedcrypto                                                                                \
+     -ldl                                                                                        \
++    -lsystemd                                                                                   \
+ 
+     COMPILER_VERSION = $$system($$QMAKE_CXX " -dumpversion")
+     if (!versionAtLeast(COMPILER_VERSION, "9")) {
+diff --git a/main.cpp b/main.cpp
+index 683af3c6..341d41bd 100644
+--- a/main.cpp
++++ b/main.cpp
+@@ -18,6 +18,8 @@
+ #include <stdlib.h>
+ #include <thread>
+ 
++#include <systemd/sd-daemon.h>
++
+ #ifdef _MACOSX_X86_X64
+ #include "macUSPCIOAccess.h"
+ io_connect_t macUSPCIO_driver_connection;
+@@ -374,6 +376,7 @@ int main(int argc, char* argv[])
+     {
+         if(ret_flags & RET_FLAG_START_SERVER)
+         {
++            sd_notify(0, "READY=1");
+             if(!ResourceManager::get()->GetServer()->GetOnline())
+             {
+ #ifdef _MACOSX_X86_X64
+-- 
+2.39.1
+
