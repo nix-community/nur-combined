@@ -66,6 +66,11 @@ in {
     serviceConfig.User = "networkmanager";
     serviceConfig.Group = "networkmanager";
     serviceConfig.AmbientCapabilities = [
+      "CAP_NET_ADMIN"
+      "CAP_NET_RAW"
+      "CAP_NET_BIND_SERVICE"
+    ];
+    serviceConfig.CapabilityBoundingSet = [
       # "CAP_DAC_OVERRIDE"
       "CAP_NET_ADMIN"
       "CAP_NET_RAW"  #< required, else `libndp: ndp_sock_open: Failed to create ICMP6 socket.`
@@ -76,6 +81,7 @@ in {
     ];
     serviceConfig.LockPersonality = true;
     serviceConfig.NoNewPrivileges = true;
+    serviceConfig.MemoryDenyWriteExecute = true;
     serviceConfig.PrivateDevices = true;  # remount /dev with just the basics, syscall filter to block @raw-io
     serviceConfig.PrivateIPC = true;
     serviceConfig.PrivateTmp = true;
@@ -87,7 +93,10 @@ in {
     serviceConfig.ProtectKernelLogs = true;  # disable /proc/kmsg, /dev/kmsg
     serviceConfig.ProtectKernelModules = true;  # syscall filter to prevent module calls (probably not upstreamable: NM will want to load modules like `ppp`)
     serviceConfig.ProtectKernelTunables = true;  # but NM might need to write /proc/sys/net/...
+    serviceConfig.ProtectProc = "invisible";
+    serviceConfig.ProcSubset = "pid";
     serviceConfig.ProtectSystem = "strict";  # makes read-only: all but /dev, /proc, /sys.
+    serviceConfig.RemoveIPC = true;
     serviceConfig.RestrictAddressFamilies = [
       "AF_INET"
       "AF_INET6"
@@ -98,8 +107,14 @@ in {
       # AF_BLUETOOTH ?
       # AF_BRIDGE ?
     ];
+    serviceConfig.RestrictNamespaces = true;
     serviceConfig.RestrictSUIDSGID = true;
     serviceConfig.SystemCallArchitectures = "native";  # prevents e.g. aarch64 syscalls in the event that the kernel is multi-architecture.
+    serviceConfig.SystemCallFilter = [
+      "@system-service"
+      # TODO: restrict SystemCallFilter more aggressively
+    ];
+    # TODO: restrict `DeviceAllow`
     # from earlier `landlock` sandboxing, i know it needs these directories:
     # - "/proc/net"
     # - "/proc/sys/net"

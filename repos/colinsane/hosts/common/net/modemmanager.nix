@@ -37,7 +37,11 @@
     # serviceConfig.RestrictAddressFamilies = "AF_NETLINK AF_UNIX AF_QIPCRTR";
     # serviceConfig.NoNewPrivileges = true;
 
-    serviceConfig.CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];  #< TODO: make sure this is *really* taking effect, and isn't supplemental to upstream's `CAP_SYS_ADMIN` setting
+    serviceConfig.CapabilityBoundingSet = [
+      ""  #< reset upstream capabilities
+      "CAP_NET_ADMIN"
+      "CAP_SYS_ADMIN"  #< TODO: remove CAP_SYS_ADMIN!
+    ];
     serviceConfig.LockPersonality = true;
     # serviceConfig.PrivateUsers = true;  #< untried, not likely to work since it needs capabilities
     serviceConfig.PrivateTmp = true;
