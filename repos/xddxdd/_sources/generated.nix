@@ -194,15 +194,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "7fa46ba88bb42eb52a32892332d143ef4bfcc708";
+    version = "ad64793045a7010930da9acdb9bf04151b17e7f4";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "7fa46ba88bb42eb52a32892332d143ef4bfcc708";
+      rev = "ad64793045a7010930da9acdb9bf04151b17e7f4";
       fetchSubmodules = false;
-      sha256 = "sha256-8fUvbu/zSNAwzPlu3Yo05rXz/3Gd/UWAgXZ1AgJWwn4=";
+      sha256 = "sha256-tXbKpOa/Jwa8nxlvjakZDBiN/kdQd+ZTRUUBbH0AuhM=";
     };
-    date = "2024-08-09";
+    date = "2024-08-10";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -796,13 +796,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3561";
+    version = "b3565";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3561";
+      rev = "b3565";
       fetchSubmodules = false;
-      sha256 = "sha256-ILkDlowt5ffr8n2CP+8tUYWBYRMtGt7fusEhgFDmbjg=";
+      sha256 = "sha256-IcoAEj83iXvYfCDJ8o2D59o653Et/9z8/BxzmVEJZqI=";
     };
   };
   lyrica = {
@@ -841,18 +841,18 @@
   };
   netboot-xyz-efi = {
     pname = "netboot-xyz-efi";
-    version = "2.0.80";
+    version = "2.0.81";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.80/netboot.xyz.efi";
-      sha256 = "sha256-VGUgXY87iyQ9Qg5yYPYvmndawEiTWnIOIFTbiECbfnI=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.81/netboot.xyz.efi";
+      sha256 = "sha256-2Wd7wJZaxSktU13BeR2u8mCLXCcgR5p/R9Vcj3au9Tg=";
     };
   };
   netboot-xyz-lkrn = {
     pname = "netboot-xyz-lkrn";
-    version = "2.0.80";
+    version = "2.0.81";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.80/netboot.xyz.lkrn";
-      sha256 = "sha256-YWLiW/1Y2qiVT0jHYF2xFdOYb89Os94p3Q/ETaKojRA=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.81/netboot.xyz.lkrn";
+      sha256 = "sha256-Ov4NxF1UcE5y4uRP3jOmAF8fAEiIS4ThSiOZAoHQf7k=";
     };
   };
   netns-exec = {

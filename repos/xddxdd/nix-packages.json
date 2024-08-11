@@ -482,7 +482,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Port of Facebook's LLaMA model in C/C++",
     "pname": "llama-cpp",
-    "version": "3561"
+    "version": "3565"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -842,7 +842,7 @@
   "legacyPackages.x86_64-linux.netboot-xyz": {
     "description": "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE.",
     "pname": "netboot-xyz",
-    "version": "2.0.80"
+    "version": "2.0.81"
   },
   "legacyPackages.x86_64-linux.netease-cloud-music": {
     "description": "NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu)",
@@ -3347,7 +3347,7 @@
   "packages.x86_64-linux.netboot-xyz": {
     "description": "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE.",
     "pname": "netboot-xyz",
-    "version": "2.0.80"
+    "version": "2.0.81"
   },
   "packages.x86_64-linux.netease-cloud-music": {
     "description": "NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu)",
