@@ -47,6 +47,7 @@ in
       "efibootmgr"
       "errno"
       "ethtool"
+      "evtest"
       "fatresize"
       "fd"
       "file"
@@ -525,6 +526,12 @@ in
 
     ethtool.sandbox.method = "landlock";
     ethtool.sandbox.capabilities = [ "net_admin" ];
+
+    evtest.sandbox.method = "bwrap";
+    evtest.sandbox.autodetectCliPaths = "existingFile";  # `evtest /dev/foo` to monitor events for a specific device
+    evtest.sandbox.extraPaths = [
+      "/dev/input"
+    ];
 
     # eza `ls` replacement
     # bwrap causes `/proc` files to be listed differently (e.g. `eza /proc/sys/net/ipv6/conf/`)
