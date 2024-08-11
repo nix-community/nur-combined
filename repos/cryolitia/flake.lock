@@ -69,11 +69,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1723409705,
-        "narHash": "sha256-W8Y53zhmCG/hcb85mhYLxzVF3CA974vNG1MjT4XCb9U=",
+        "lastModified": 1723412900,
+        "narHash": "sha256-asu7ZhF5D3PdhlFhcrKPCsca259M/AjGSnqOCb31zGQ=",
         "owner": "Cryolitia",
         "repo": "pgp-sig2dot",
-        "rev": "93f1f2c280b9c5a4bb2a7447a6603b6a3dc1816d",
+        "rev": "fa010ac7d03fc592f5a634bc593f6813ca65d7c7",
         "type": "github"
       },
       "original": {
