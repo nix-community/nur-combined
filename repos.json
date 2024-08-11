@@ -729,6 +729,9 @@
         "mrcpkgs": {
             "url": "https://github.com/mrcjkb/nur-packages"
         },
+        "mrene": {
+            "url": "https://github.com/mrene/nur-packages"
+        },
         "mrtnvgr": {
             "url": "https://github.com/mrtnvgr/nurpkgs"
         },
