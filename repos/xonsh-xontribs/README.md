@@ -9,6 +9,10 @@
 - [Home Page](https://nur.nix-community.org/repos/xonsh-xontribs/)
 - [Github](https://github.com/drmikecrowe/nur-packages)
 
+Xonsh is now included in this NUR as well:
+
+- [xonsh 0.18.2](https://github.com/xonsh/xonsh) and [Xonsh Website](https://xon.sh)
+
 The following xontribs are available in this NUR repo:
 
 - [xontrib-abbrevs](https://github.com/xonsh/xontrib-abbrevs)
@@ -34,19 +38,19 @@ The following xontribs are available in this NUR repo:
 - Activate like this
 
 ```nix
-{ config, lib, pkgs, ... }: let
-  xonshWithXontribs = pkgs.xonsh.overrideAttrs (oldAttrs: {
-    propagatedBuildInputs =
-      oldAttrs.propagatedBuildInputs
-      ++ (with config.nur.repos.xonsh-xontribs; [
-        xontrib-term-integrations
-        xontrib-zoxide
-      ]);
-  });
+{ config, lib, ...  }: let
+  inherit (config.nur.repos) xonsh-xontribs;
 in {
-  programs.xonsh = {
-    enable = true;
-    package = xonshWithXontribs;
+  config = lib.mkIf (cfg.enable) {
+    programs.xonsh = with xonsh-xontribs; {
+      enable = true;
+      package = xonsh-wrapper.override {
+        extraPackages = ps: [
+          xontrib-direnv
+          xontrib-zoxide
+        ];
+      };
+    };
   };
 }
 ```
