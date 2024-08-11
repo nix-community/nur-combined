@@ -65,6 +65,9 @@ in
 
     suggestedPrograms = [ "gnome-keyring" ];
 
+    # direct room links opened from other programs, to fractal.
+    mime.urlAssociations."^https?://matrix.to/#/.+$" = "org.gnome.Fractal.desktop";
+
     services.fractal = {
       description = "fractal Matrix client";
       partOf = lib.mkIf cfg.config.autostart [ "graphical-session" ];

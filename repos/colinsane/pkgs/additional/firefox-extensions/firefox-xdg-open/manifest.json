@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "@firefox-xdg-open"
+    }
+  },
+  "name": "Firefox XDG Open",
+  "description": "Open URIs with the system handler.",
+  "version": "0.1.0",
+  "background": {
+    "page": "background.html"
+  },
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "contextMenus"
+  ]
+}

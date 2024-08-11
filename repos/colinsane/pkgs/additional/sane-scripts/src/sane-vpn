@@ -271,7 +271,7 @@ def vpn_toggle(config: VpnConfig, dir_: ToggleDir) -> None:
             "ip", "rule", verb,
             "not", "from", "all",
             "fwmark", str(config.fwmark),
-            "lookup", str(config.id),
+            "lookup", str(config.id_),
             "priority", str(config.priority_fwmark),
         ])
 
@@ -282,21 +282,21 @@ def vpn_toggle(config: VpnConfig, dir_: ToggleDir) -> None:
 
 def dns_toggle(dns: list[str], dir_: ToggleDir) -> None:
     if dir_ == ToggleDir.Up:
-        formatted_nameservers = "\n".join(
+        formatted_nameservers = ",\n".join(
             '{ socket_addr = "{ns}:53", protocol = "udp", trust_nx_responses = false }'.replace("{ns}", ns)
             for ns in dns
         )
-        text = '''
+        text = f'''
 [[zones]]
 zone = "."
 zone_type = "Forward"
-stores = { type = "forward", name_servers = [
-    {formatted_name_servers}
-]}
-'''.replace("{formatted_nameservers}", formatted_nameservers)
+stores = {{ type = "forward", name_servers = [
+    {formatted_nameservers}
+]}}
+'''
     elif dir_ == ToggleDir.Down:
         text = ""
-    with open("/var/lib/trust-dns/dhcp-config/sane-vpn.toml", "w") as f:
+    with open("/var/lib/trust-dns/dhcp-configs/sane-vpn.toml", "w") as f:
         f.write(text)
     subprocess.check_call([ "systemctl", "restart", "trust-dns-localhost" ])
 

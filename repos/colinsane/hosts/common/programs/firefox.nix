@@ -231,6 +231,10 @@ in
           package = pkgs.firefox-extensions.ether-metamask;
           enable = lib.mkDefault false;  # until i can disable the first-run notification
         };
+        firefox-xdg-open = {
+          package = pkgs.firefox-extensions.firefox-xdg-open;
+          enable = lib.mkDefault true;
+        };
         i2p-in-private-browsing = {
           package = pkgs.firefox-extensions.i2p-in-private-browsing;
           enable = lib.mkDefault config.services.i2p.enable;
@@ -298,6 +302,7 @@ in
         fs.".config/sops".dir = lib.mkIf cfg.addons.browserpass-extension.enable {};  #< needs to be created, not *just* added to the sandbox
 
         suggestedPrograms = [
+          "firefox-xdg-open"
           "open-in-mpv"
         ];
 

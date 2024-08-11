@@ -34,10 +34,7 @@ let
     extid = addon.passthru.extid;
     # merge our requirements into the derivation args
     args' = args // {
-      passthru = {
-        inherit extid;
-        original = addon;
-      } // (args.passthru or {});
+      passthru = addon.passthru // (args.passthru or {});
       nativeBuildInputs = [
         jq
         strip-nondeterminism
@@ -137,6 +134,7 @@ in (lib.makeScope newScope (self: with self; {
     browserpass-extension = callPackage ./browserpass-extension { };
     bypass-paywalls-clean = callPackage ./bypass-paywalls-clean { };
     ctrl-shift-c-should-copy = callPackage ./ctrl-shift-c-should-copy { };
+    firefox-xdg-open = callPackage ./firefox-xdg-open { };
     i-still-dont-care-about-cookies = callPackage ./i-still-dont-care-about-cookies { };
     open-in-mpv = callPackage ./open-in-mpv { };
     sidebery = callPackage ./sidebery { };

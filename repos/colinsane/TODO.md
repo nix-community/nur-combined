@@ -9,6 +9,7 @@
 - trust-dns can't resolve `social.kernel.org`
 - trust-dns can't resolve `pe.usps.com`
 - trust-dns can't resolve `social.seattle.wa.us`
+- trust-dns can't resolve `support.mozilla.org`
 - sandbox: link cache means that if i update ~/.config/... files inline, sandboxed programs still see the old version
 - mpv: continues to play past the end of some audio files
 - mpv: audiocast has mpv sending its output to the builtin speakers unless manually changed
@@ -61,6 +62,11 @@
   - safer (rust? actively maintained? sandboxable?)
   - handles spaces/symbols in filenames
   - has better multi-stream perf (e.g. `sane-sync-music` should be able to copy N items in parallel)
+- firefox: open *all* links (http, https, ...) with system handler
+  - removes the need for open-in-mpv, firefox-xdg-open, etc.
+  - matrix room links *just work*.
+  - `network.protocol-handler.external.https = true` in about:config *seems* to do this,
+    but breaks some webpages (e.g. Pleroma)
 
 ### security/resilience
 - enable `snapper` btrfs snapshots (`services.snapper`)

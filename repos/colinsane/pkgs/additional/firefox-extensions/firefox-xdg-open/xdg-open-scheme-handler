@@ -1,0 +1,9 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p bash -p xdg-utils
+
+uris=()
+for u in "$@"; do
+  uris+=("${u/xdg-open:/}")
+done
+
+xdg-open "${uris[@]}"

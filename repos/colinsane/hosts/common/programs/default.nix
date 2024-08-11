@@ -46,6 +46,7 @@
     ./fcitx5.nix
     ./feedbackd.nix
     ./firefox.nix
+    ./firefox-xdg-open.nix
     ./flare-signal.nix
     ./foliate.nix
     ./fontconfig.nix
