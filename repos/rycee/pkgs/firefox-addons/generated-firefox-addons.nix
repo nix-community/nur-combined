@@ -3468,10 +3468,10 @@
     };
     "ghosttext" = buildFirefoxXpiAddon {
       pname = "ghosttext";
-      version = "24.7.6";
+      version = "24.8.10";
       addonId = "ghosttext@bfred.it";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4315014/ghosttext-24.7.6.xpi";
-      sha256 = "a3827cea798f720f3f77a4f3055e5abe267110632c0c42ef13a0ff559ca0d085";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4334686/ghosttext-24.8.10.xpi";
+      sha256 = "86bfd2d31bf60c88e4ae72dbc1636977e88ce5603d01cf87b981db5b5bb98e21";
       meta = with lib;
       {
         homepage = "https://github.com/fregante/GhostText";
