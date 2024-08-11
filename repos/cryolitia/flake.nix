@@ -42,6 +42,12 @@
       url = "github:Cryolitia/gpd-fan-driver";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    pgp-sig2dot = {
+      url = "github:Cryolitia/pgp-sig2dot";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.rust-overlay.follows = "rust-overlay";
+    };
   };
   outputs =
     {
@@ -50,6 +56,7 @@
       gpd-linuxcontrols,
       rust-overlay,
       gpd-fan-driver,
+      pgp-sig2dot,
       ...
     }:
     let
@@ -104,6 +111,7 @@
               else
                 { }
             )
+            // pgp-sig2dot.packages.${system}
           )
         )
       );
