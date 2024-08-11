@@ -12,7 +12,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "drmikecrowe";
     repo = "xontrib-chatgpt";
-    rev = "a2f4957504188a415ed0679b1a527c15f630b97c";
+    rev = "465357afeb873d9564c7ffe619e6d635d05fa33a";
     sha256 = "sha256-liuG5m/9YdOxM8bSMv1J8aOI2F5Q4SKN5TGVOLEIXu4=";
   };
 
