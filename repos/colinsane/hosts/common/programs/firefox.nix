@@ -232,6 +232,7 @@ in
           enable = lib.mkDefault false;  # until i can disable the first-run notification
         };
         firefox-xdg-open = {
+          # test: `xdg-open xdg-open:https://uninsane.org`
           package = pkgs.firefox-extensions.firefox-xdg-open;
           enable = lib.mkDefault true;
         };
@@ -246,7 +247,7 @@ in
         open-in-mpv = {
           # test: `open-in-mpv 'mpv:///open?url=https://www.youtube.com/watch?v=dQw4w9WgXcQ'`
           package = pkgs.firefox-extensions.open-in-mpv;
-          enable = lib.mkDefault config.sane.programs.open-in-mpv.enabled;
+          enable = lib.mkDefault false;
         };
         sidebery = {
           package = pkgs.firefox-extensions.sidebery;
@@ -301,8 +302,9 @@ in
         ];
         fs.".config/sops".dir = lib.mkIf cfg.addons.browserpass-extension.enable {};  #< needs to be created, not *just* added to the sandbox
 
-        suggestedPrograms = [
+        suggestedPrograms = lib.optionals cfg.addons.firefox-xdg-open.enable [
           "firefox-xdg-open"
+        ] ++ lib.optionals cfg.addons.open-in-mpv.enable [
           "open-in-mpv"
         ];
 
@@ -374,13 +376,11 @@ in
           // configure which extensions are visible by default (TODO: requires a lot of trial and error)
           // defaultPref("browser.uiCustomization.state", ...);
 
-          // auto-open mpv:// URIs without prompting.
-          // can do this with other protocols too (e.g. matrix?). see about:config for common handlers.
-          defaultPref("network.protocol-handler.external.mpv", true);
-          // element:// for Element matrix client
-          defaultPref("network.protocol-handler.external.element", true);
-          // matrix: for Nheko matrix client
-          defaultPref("network.protocol-handler.external.matrix", true);
+          // auto-open specific URI schemes without prompting:
+          defaultPref("network.protocol-handler.external.xdg-open", true); // for firefox-xdg-open extension
+          defaultPref("network.protocol-handler.external.mpv", true); // for open-in-mpv extension
+          defaultPref("network.protocol-handler.external.element", true); // for Element matrix client
+          defaultPref("network.protocol-handler.external.matrix", true); // for Nheko matrix client
         '';
         # instruct Firefox to put the profile in a predictable directory (so we can do things like persist just it).
         # XXX: the directory *must* exist, even if empty; Firefox will not create the directory itself.
