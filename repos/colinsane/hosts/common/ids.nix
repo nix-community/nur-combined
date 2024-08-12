@@ -45,8 +45,8 @@
   sane.ids.pict-rs.gid = 2409;
   sane.ids.sftpgo.uid = 2410;
   sane.ids.sftpgo.gid = 2410;
-  sane.ids.trust-dns.uid = 2411;
-  sane.ids.trust-dns.gid = 2411;
+  sane.ids.hickory-dns.uid = 2411;  #< previously "trust-dns"
+  sane.ids.hickory-dns.gid = 2411;  #< previously "trust-dns"
   sane.ids.export.gid = 2412;
   sane.ids.nfsuser.uid = 2413;
   sane.ids.media.gid = 2414;

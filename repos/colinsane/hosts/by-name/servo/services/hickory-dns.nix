@@ -55,7 +55,7 @@ in
     ];
   };
 
-  services.trust-dns.settings.zones = [ "uninsane.org" ];
+  services.hickory-dns.settings.zones = [ "uninsane.org" ];
 
 
   networking.nat.enable = true;  #< TODO: try removing this?
@@ -83,8 +83,8 @@ in
   # };
 
 
-  sane.services.trust-dns.enable = true;
-  sane.services.trust-dns.instances = let
+  sane.services.hickory-dns.enable = true;
+  sane.services.hickory-dns.instances = let
     mkSubstitutions = flavor: {
       "%ADOOF%" = config.sane.netns.doof.netnsPubIpv4;
       "%ANATIVE%" = nativeAddrs."servo.${flavor}";
@@ -141,5 +141,5 @@ in
     # };
   };
 
-  sane.services.dyn-dns.restartOnChange = lib.map (c: "${c.service}.service") (builtins.attrValues config.sane.services.trust-dns.instances);
+  sane.services.dyn-dns.restartOnChange = lib.map (c: "${c.service}.service") (builtins.attrValues config.sane.services.hickory-dns.instances);
 }

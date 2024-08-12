@@ -20,7 +20,7 @@ in
       bubblewrap = cfg.bubblewrap.package;
       iproute2 = cfg.iproute2.package;
       iptables = cfg.iptables.package;
-      libcap = cfg.libcap.package;
+      libcap = cfg.capsh.package;  #< the sandboxer doesn't use any other libcap binaries
       passt = cfg.passt.package;
       landlock-sandboxer = cfg.landlock-sandboxer.package;
       # landlock-sandboxer = pkgs.landlock-sandboxer.override {

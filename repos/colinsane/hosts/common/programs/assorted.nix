@@ -38,6 +38,7 @@ in
       "bridge-utils"  # for brctl; debug linux "bridge" inet devices
       "btrfs-progs"
       "cacert.unbundled"  # some services require unbundled /etc/ssl/certs
+      "captree"
       "cryptsetup"
       "curl"
       "ddrescue"
@@ -430,7 +431,7 @@ in
     btrfs-progs.sandbox.method = "bwrap";  #< bwrap, landlock: both work
     btrfs-progs.sandbox.autodetectCliPaths = "existing";  # e.g. `btrfs filesystem df /my/fs`
 
-    "cacert.unbundled".sandbox.enable = false;
+    "cacert.unbundled".sandbox.enable = false;  #< data only
 
     cargo.persist.byStore.plaintext = [ ".cargo" ];
 
@@ -766,7 +767,7 @@ in
     iotop.sandbox.capabilities = [ "net_admin" ];
 
     # provides `ip`, `routel`, `bridge`, others.
-    # landlock works fine for most of these, but `ip netns exec` wants to attach to an existing namespace
+    # landlock works fine for most of these, but `ip netns exec` wants to attach to an existing namespace (which requires sudo)
     # and that means we can't use ANY sandboxer for it.
     iproute2.sandbox.enable = false;
     # iproute2.sandbox.net = "all";
@@ -818,8 +819,7 @@ in
 
     libcamera = {};
 
-    libcap.sandbox.enable = false;  #< for `capsh`, which i use as a sandboxer
-    libcap_ng.sandbox.enable = false;  # there's something about /proc/$pid/fd which breaks `readlink`/stat with every sandbox technique (except capsh-only)
+    libcap_ng.sandbox.enable = false;  # TODO: `pscap` can sandbox with bwrap, `captest` and `netcap` with landlock
 
     libnotify.sandbox.method = "bwrap";
     libnotify.sandbox.whitelistDbus = [ "user" ];  # notify-send
@@ -852,8 +852,8 @@ in
 
     lua = {};
 
-    man-pages.sandbox.enable = false;
-    man-pages-posix.sandbox.enable = false;
+    man-pages.sandbox.enable = false;  #< data only
+    man-pages-posix.sandbox.enable = false;  #< data only
 
     mercurial.sandbox.method = "bwrap";  # TODO:sandbox: untested
     mercurial.sandbox.net = "clearnet";
@@ -1060,7 +1060,7 @@ in
     # TODO: enable dma heaps for more efficient buffer sharing: <https://gitlab.com/postmarketOS/pmaports/-/issues/2789>
     snapshot = {};
 
-    sops.sandbox.method = "bwrap";  # TODO:sandbox: untested
+    sops.sandbox.method = "bwrap";
     sops.sandbox.extraHomePaths = [
       ".config/sops"
       "nixos"
@@ -1101,7 +1101,6 @@ in
 
     sqlite = {};
 
-    sshfs-fuse.sandbox.enable = true;  # used by fs.nix
     sshfs-fuse.sandbox.method = "bwrap";  #< N.B. if you call this from the CLI -- without `mount.fuse` -- set this to `none`
     sshfs-fuse.sandbox.net = "all";
     sshfs-fuse.sandbox.autodetectCliPaths = "parent";
@@ -1153,7 +1152,7 @@ in
     tumiki-fighters.sandbox.whitelistWayland = true;
     tumiki-fighters.sandbox.whitelistX = true;
 
-    util-linux.sandbox.enable = false;  #< TODO: possible to sandbox if i specific a different profile for each of its ~50 binaries
+    util-linux.sandbox.enable = false;  #< TODO: possible to sandbox if i specify a different profile for each of its ~50 binaries
 
     unzip.sandbox.method = "bwrap";
     unzip.sandbox.autodetectCliPaths = "existingOrParent";
@@ -1224,7 +1223,7 @@ in
 
     yarn.persist.byStore.plaintext = [ ".cache/yarn" ];
 
-    yt-dlp.sandbox.method = "bwrap";  # TODO:sandbox: untested
+    yt-dlp.sandbox.method = "bwrap";
     yt-dlp.sandbox.net = "all";
     yt-dlp.sandbox.whitelistPwd = true;  # saves to pwd by default
   };

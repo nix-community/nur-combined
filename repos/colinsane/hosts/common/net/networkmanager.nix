@@ -119,13 +119,13 @@ in {
     # - "/proc/net"
     # - "/proc/sys/net"
     # - "/run/NetworkManager"
-    # - "/run/systemd"  # for trust-dns-nmhook
+    # - "/run/systemd"  # for hickory-dns-nmhook
     # - "/run/udev"
     # - # "/run/wg-home.priv"
     # - "/sys/class"
     # - "/sys/devices"
     # - "/var/lib/NetworkManager"
-    # - "/var/lib/trust-dns"  #< for trust-dns-nmhook
+    # - "/var/lib/hickory-dns"  #< for hickory-dns-nmhook
     # - "/run/systemd"
   };
 
@@ -137,12 +137,12 @@ in {
   # fix NetworkManager-dispatcher to actually run as a daemon,
   # and sandbox it a bit
   systemd.services.NetworkManager-dispatcher = {
-    #VVV so that /var/lib/trust-dns will exist (the hook needs to write here).
-    # but this creates a cycle: trust-dns-localhost > network.target > NetworkManager-dispatcher > trust-dns-localhost.
+    #VVV so that /var/lib/hickory-dns will exist (the hook needs to write here).
+    # but this creates a cycle: hickory-dns-localhost > network.target > NetworkManager-dispatcher > hickory-dns-localhost.
     # (seemingly) impossible to remove the network.target dep on NetworkManager-dispatcher.
-    # beffore would be to have the dispatcher not write trust-dns files
-    # but rather just its own, and create a .path unit which restarts trust-dns appropriately.
-    # after = [ "trust-dns-localhost.service" ];
+    # beffore would be to have the dispatcher not write hickory-dns files
+    # but rather just its own, and create a .path unit which restarts hickory-dns appropriately.
+    # after = [ "hickory-dns-localhost.service" ];
     # serviceConfig.ExecStart = [
     #   ""  # first blank line is to clear the upstream `ExecStart` field.
     #   "${cfg.package}/libexec/nm-dispatcher --persist"  # --persist is needed for it to actually run as a daemon
@@ -150,7 +150,7 @@ in {
     # serviceConfig.Restart = "always";
     # serviceConfig.RestartSec = "1s";
 
-    # serviceConfig.DynamicUser = true;  #< not possible, else we lose group perms (so can't write to `trust-dns`'s files in the nm hook)
+    # serviceConfig.DynamicUser = true;  #< not possible, else we lose group perms (so can't write to `hickory-dns`'s files in the nm hook)
     serviceConfig.User = "networkmanager";  # TODO: should arguably use `DynamicUser`
     serviceConfig.Group = "networkmanager";
     serviceConfig.LockPersonality = true;
@@ -166,7 +166,7 @@ in {
     serviceConfig.ProtectKernelLogs = true;  # disable /proc/kmsg, /dev/kmsg
     serviceConfig.ProtectKernelModules = true;  # syscall filter to prevent module calls
     serviceConfig.ProtectKernelTunables = true;
-    serviceConfig.ProtectSystem = "full";  # makes read-only: /boot, /etc/, /usr. `strict` isn't possible due to trust-dns hook
+    serviceConfig.ProtectSystem = "full";  # makes read-only: /boot, /etc/, /usr. `strict` isn't possible due to hickory-dns hook
     serviceConfig.RestrictAddressFamilies = [
       "AF_UNIX"  # required, probably for dbus or systemd connectivity
     ];
@@ -234,7 +234,7 @@ in {
     # note that NM's resolv.conf isn't (necessarily) /etc/resolv.conf -- that is managed by nixos (via symlinking)
     main.dns = if config.services.resolved.enable then
       "systemd-resolved"
-    else if config.sane.services.trust-dns.enable && config.sane.services.trust-dns.asSystemResolver then
+    else if config.sane.services.hickory-dns.enable && config.sane.services.hickory-dns.asSystemResolver then
       "none"
     else
       "internal"
@@ -276,7 +276,7 @@ in {
   users.users.networkmanager = {
     isSystemUser = true;
     group = "networkmanager";
-    extraGroups = [ "trust-dns" ];
+    extraGroups = [ "hickory-dns" ];
   };
 
   # there is, unfortunately, no proper interface by which to plumb wpa_supplicant into the NixOS service, except by overlay.

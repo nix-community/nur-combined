@@ -21,6 +21,8 @@
     ./callaudiod.nix
     ./calls.nix
     ./cantata.nix
+    ./capsh.nix
+    ./captree.nix
     ./catt.nix
     ./celeste64.nix
     ./chatty.nix

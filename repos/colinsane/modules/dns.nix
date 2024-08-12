@@ -11,7 +11,7 @@ let
     # - any character may be encoded by `\DDD`, where `DDD` represents its ascii value in base 8.
     # - any non-digit `X` may be encoded by `\X`.
     # - stated in: <https://www.ietf.org/rfc/rfc1035.txt>: 5.1 Format
-    # - visible in <trust-dns:crates/proto/src/serialize/txt/zone_lex.rs:escape_seq>
+    # - visible in <hickory-dns:crates/proto/src/serialize/txt/zone_lex.rs:escape_seq>
     # for us, we can just replace `\` => `\\ and `"` -> `\"`
     TXT = value: "\"" + (lib.escape [ "\\" "\"" ] value) + "\"";
   };

@@ -23,16 +23,16 @@
 { config, lib, pkgs, ... }:
 lib.mkMerge [
 {
-  sane.services.trust-dns.enable = lib.mkDefault config.sane.services.trust-dns.asSystemResolver;
-  sane.services.trust-dns.asSystemResolver = lib.mkDefault true;
+  sane.services.hickory-dns.enable = lib.mkDefault config.sane.services.hickory-dns.asSystemResolver;
+  sane.services.hickory-dns.asSystemResolver = lib.mkDefault true;
 }
-(lib.mkIf (!config.sane.services.trust-dns.asSystemResolver) {
+(lib.mkIf (!config.sane.services.hickory-dns.asSystemResolver) {
   # use systemd's stub resolver.
   # /etc/resolv.conf isn't sophisticated enough to use different servers per net namespace (or link).
   # instead, running the stub resolver on a known address in the root ns lets us rewrite packets
   # in servo's ovnps namespace to use the provider's DNS resolvers.
   # a weakness is we can only query 1 NS at a time (unless we were to clone the packets?)
-  # TODO: improve trust-dns recursive resolver and then remove this
+  # TODO: improve hickory-dns recursive resolver and then remove this
   services.resolved.enable = true;  #< to disable, set ` = lib.mkForce false`, as other systemd features default to enabling `resolved`.
   # without DNSSEC:
   # - dig matrix.org => works
@@ -40,7 +40,7 @@ lib.mkMerge [
   # with default DNSSEC:
   # - dig matrix.org => works
   # - curl https://matrix.org => fails
-  # i don't know why. this might somehow be interfering with the DNS run on this device (trust-dns)
+  # i don't know why. this might somehow be interfering with the DNS run on this device (hickory-dns)
   services.resolved.dnssec = "false";
   networking.nameservers = [
     # use systemd-resolved resolver
@@ -74,7 +74,7 @@ lib.mkMerge [
   sane.silencedAssertions = [''.*Loading NSS modules from system.nssModules.*requires services.nscd.enable being set to true.*''];
   # add NSS modules into their own subdirectory.
   # then i can add just the NSS modules library path to the global LD_LIBRARY_PATH, rather than ALL of /run/current-system/sw/lib.
-  # TODO: i'm doing this so as to achieve mdns DNS resolution (avahi). it would be better to just have trust-dns delegate .local to avahi
+  # TODO: i'm doing this so as to achieve mdns DNS resolution (avahi). it would be better to just have hickory-dns delegate .local to avahi
   #   (except avahi doesn't act as a local resolver over DNS protocol -- only dbus).
   environment.systemPackages = [(pkgs.symlinkJoin {
     name = "nss-modules";

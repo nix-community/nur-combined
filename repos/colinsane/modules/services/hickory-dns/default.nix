@@ -1,20 +1,20 @@
 { config, lib, pkgs, ... }:
 let
-  trust-dns-nmhook = pkgs.static-nix-shell.mkPython3 {
-    pname = "trust-dns-nmhook";
+  hickory-dns-nmhook = pkgs.static-nix-shell.mkPython3 {
+    pname = "hickory-dns-nmhook";
     srcRoot = ./.;
     pkgs = [
       "systemd"
     ];
   };
-  cfg = config.sane.services.trust-dns;
+  cfg = config.sane.services.hickory-dns;
   dns = config.sane.dns;
   toml = pkgs.formats.toml { };
   instanceModule = with lib; types.submodule ({ config, name, ...}: {
     options = {
       service = mkOption {
         type = types.str;
-        default = "trust-dns-${name}";
+        default = "hickory-dns-${name}";
         description = ''
           systemd service name corresponding to this instance (used internally and automatically set).
         '';
@@ -41,7 +41,7 @@ let
         type = types.attrsOf types.str;
         default = {};
         description = ''
-          text substitutions to make on the config and zone file before starting trust-dns.
+          text substitutions to make on the config and zone file before starting hickory-dns.
         '';
         example = {
           "%CNAMESELF%" = "lappy";
@@ -98,12 +98,12 @@ let
   mkSystemdService = flavor: { includes, listenAddrsIpv4, listenAddrsIpv6, port, substitutions, extraConfig, ... }: let
     sed = "${pkgs.gnused}/bin/sed";
     baseConfig = (
-      lib.filterAttrsRecursive (_: v: v != null) config.services.trust-dns.settings
+      lib.filterAttrsRecursive (_: v: v != null) config.services.hickory-dns.settings
     ) // {
       listen_addrs_ipv4 = listenAddrsIpv4;
       listen_addrs_ipv6 = listenAddrsIpv6;
     };
-    configTemplate = toml.generate "trust-dns-${flavor}.toml" (baseConfig //
+    configTemplate = toml.generate "hickory-dns-${flavor}.toml" (baseConfig //
       (lib.mapAttrs (k: v:
         if k == "zones" then
           # append to the baseConfig instead of overriding it
@@ -113,7 +113,7 @@ let
       )
       extraConfig
     ));
-    configPath = "/var/lib/trust-dns/${flavor}-config.toml";
+    configPath = "/var/lib/hickory-dns/${flavor}-config.toml";
     sedArgs = builtins.map (key: ''-e "s/${key}/${substitutions."${key}"}/g"'') (
       # HACK: %ANATIVE% often expands to one of the other subtitutions (e.g. %AWAN%)
       # so we must expand it *first*.
@@ -123,34 +123,34 @@ let
     );
     subs = lib.concatStringsSep " " sedArgs;
   in {
-    description = "trust-dns Domain Name Server (serving ${flavor})";
-    unitConfig.Documentation = "https://trust-dns.org/";
+    description = "hickory-dns Domain Name Server (serving ${flavor})";
+    unitConfig.Documentation = "https://hickory-dns.org/";
     after = [ "network.target" ];
     before = [ "network-online.target" ];  # most things assume they'll have DNS services alongside routability
     wantedBy = [ "network.target" ];
 
     preStart = lib.concatStringsSep "\n" (
       [''
-        mkdir -p "/var/lib/trust-dns/${flavor}"
+        mkdir -p "/var/lib/hickory-dns/${flavor}"
         ${sed} ${subs} -e "" "${configTemplate}" \
           | cat - \
             ${lib.concatStringsSep " " includes} \
             > "${configPath}" || true
       ''] ++ lib.mapAttrsToList (zone: { rendered, ... }: ''
         ${sed} ${subs} -e "" ${pkgs.writeText "${zone}.zone.in" rendered} \
-          > "/var/lib/trust-dns/${flavor}/${zone}.zone"
+          > "/var/lib/hickory-dns/${flavor}/${zone}.zone"
       '') dns.zones
     );
 
-    serviceConfig = (config.systemd.services.hickory-dns or config.systemd.services.trust-dns).serviceConfig // {
+    serviceConfig = config.systemd.services.hickory-dns.serviceConfig // {
       ExecStart = lib.escapeShellArgs ([
-        "${lib.getExe config.services.trust-dns.package}"
+        "${lib.getExe config.services.hickory-dns.package}"
         "--port"     (builtins.toString port)
-        "--zonedir"  "/var/lib/trust-dns/${flavor}"
+        "--zonedir"  "/var/lib/hickory-dns/${flavor}"
         "--config"   "${configPath}"
-      ] ++ lib.optionals config.services.trust-dns.debug [
+      ] ++ lib.optionals config.services.hickory-dns.debug [
         "--debug"
-      ] ++ lib.optionals config.services.trust-dns.quiet [
+      ] ++ lib.optionals config.services.hickory-dns.quiet [
         "--quiet"
       ]);
       # servo/dyn-dns needs /var/lib/uninsane/wan.txt.
@@ -158,14 +158,14 @@ let
       # so just bind the deepest path which is guaranteed to exist.
       ReadOnlyPaths = [ "/var/lib" ];  #< TODO: scope this down!
     } // lib.optionalAttrs cfg.asSystemResolver {
-      # allow the group to write trust-dns state (needed by NetworkManager hook)
+      # allow the group to write hickory-dns state (needed by NetworkManager hook)
       StateDirectoryMode = "775";
     };
   };
 in
 {
   options = with lib; {
-    sane.services.trust-dns = {
+    sane.services.hickory-dns = {
       enable = mkOption {
         default = false;
         type = types.bool;
@@ -182,19 +182,19 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # enable nixpkgs' trust-dns so that i get its config generation
+    # enable nixpkgs' hickory-dns so that i get its config generation
     # but don't actually enable the systemd service... i'll instantiate *multiple* instances per interface further below
-    services.trust-dns.enable = true;
-    services.trust-dns.settings.zones = [];  #< TODO: remove once upstreamed (bad default)
+    services.hickory-dns.enable = true;
+    services.hickory-dns.settings.zones = [];  #< TODO: remove once upstreamed (bad default)
 
     # don't bind to IPv6 until i explicitly test that stack
-    services.trust-dns.settings.listen_addrs_ipv6 = [];
-    services.trust-dns.quiet = true;
-    # FIXME(2023/11/26): services.trust-dns.debug doesn't log requests: use RUST_LOG=debug env for that.
+    services.hickory-dns.settings.listen_addrs_ipv6 = [];
+    services.hickory-dns.quiet = true;
+    # FIXME(2023/11/26): services.hickory-dns.debug doesn't log requests: use RUST_LOG=debug env for that.
     # - see: <https://github.com/hickory-dns/hickory-dns/issues/2082>
-    # services.trust-dns.debug = true;
+    # services.hickory-dns.debug = true;
 
-    services.trust-dns.package = pkgs.trust-dns.override {
+    services.hickory-dns.package = pkgs.hickory-dns.override {
       rustPlatform.buildRustPackage = args: pkgs.rustPlatform.buildRustPackage (args // {
         buildFeatures = [
           "recursor"
@@ -214,11 +214,11 @@ in
         cargoHash = "sha256-6Es5/gRqgsteWUHICdgcNlujJE9vrdr3tj/EKKyFsrY=";
       });
     };
-    services.trust-dns.settings.directory = "/var/lib/trust-dns";
+    services.hickory-dns.settings.directory = "/var/lib/hickory-dns";
 
-    users.groups.trust-dns = {};
-    users.users.trust-dns = {
-      group = "trust-dns";
+    users.groups.hickory-dns = {};
+    users.users.hickory-dns = {
+      group = "hickory-dns";
       isSystemUser = true;
     };
 
@@ -227,27 +227,15 @@ in
         hickory-dns.enable = false;
         hickory-dns.serviceConfig = {
           DynamicUser = lib.mkForce false;
-          User = "trust-dns";
-          Group = "trust-dns";
+          User = "hickory-dns";
+          Group = "hickory-dns";
           wantedBy = lib.mkForce [];
           # there can be a lot of restarts as interfaces toggle,
           # particularly around the DHCP/NetworkManager stuff.
           StartLimitBurst = 60;
-          StateDirectory = lib.mkForce "trust-dns";
+          StateDirectory = lib.mkForce "hickory-dns";
         };
-
-        trust-dns.enable = false;
-        trust-dns.serviceConfig = {
-          DynamicUser = lib.mkForce false;
-          User = "trust-dns";
-          Group = "trust-dns";
-          wantedBy = lib.mkForce [];
-          # there can be a lot of restarts as interfaces toggle,
-          # particularly around the DHCP/NetworkManager stuff.
-          StartLimitBurst = 60;
-          StateDirectory = lib.mkForce "trust-dns";
-        };
-        # trust-dns.unitConfig.StartLimitIntervalSec = 60;
+        # hickory-dns.unitConfig.StartLimitIntervalSec = 60;
       }
       (lib.mapAttrs'
         (flavor: instanceConfig: {
@@ -259,28 +247,28 @@ in
     ];
 
     # run a hook whenever networking details change, so the DNS zone can be updated to reflect this
-    environment.etc."NetworkManager/dispatcher.d/60-trust-dns-nmhook" = lib.mkIf cfg.asSystemResolver {
-      source = "${trust-dns-nmhook}/bin/trust-dns-nmhook";
+    environment.etc."NetworkManager/dispatcher.d/60-hickory-dns-nmhook" = lib.mkIf cfg.asSystemResolver {
+      source = "${hickory-dns-nmhook}/bin/hickory-dns-nmhook";
     };
 
-    # allow NetworkManager (via trust-dns-nmhook) to restart trust-dns when necessary
+    # allow NetworkManager (via hickory-dns-nmhook) to restart hickory-dns when necessary
     # - source: <https://stackoverflow.com/questions/61480914/using-policykit-to-allow-non-root-users-to-start-and-stop-a-service>
     security.polkit.extraConfig = lib.mkIf cfg.asSystemResolver ''
       polkit.addRule(function(action, subject) {
-        if (subject.isInGroup("trust-dns") &&
+        if (subject.isInGroup("hickory-dns") &&
             action.id == "org.freedesktop.systemd1.manage-units" &&
-            action.lookup("unit") == "trust-dns-localhost.service") {
+            action.lookup("unit") == "hickory-dns-localhost.service") {
           return polkit.Result.YES;
         }
       });
     '';
 
-    sane.services.trust-dns.instances.localhost = lib.mkIf cfg.asSystemResolver {
+    sane.services.hickory-dns.instances.localhost = lib.mkIf cfg.asSystemResolver {
       listenAddrsIpv4 = [ "127.0.0.1" ];
       listenAddrsIpv6 = [ "::1" ];
       enableRecursiveResolver = true;
       # append zones discovered via DHCP to the resolver config.
-      includes = [ "/var/lib/trust-dns/dhcp-configs/*" ];
+      includes = [ "/var/lib/hickory-dns/dhcp-configs/*" ];
     };
     networking.nameservers = lib.mkIf cfg.asSystemResolver [
       "127.0.0.1"

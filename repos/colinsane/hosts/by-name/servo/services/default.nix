@@ -7,6 +7,7 @@
     ./ejabberd.nix
     ./freshrss.nix
     ./export
+    ./hickory-dns.nix
     ./gitea.nix
     ./goaccess.nix
     ./ipfs.nix
@@ -27,7 +28,6 @@
     ./prosody
     ./slskd.nix
     ./transmission
-    ./trust-dns.nix
     ./wikipedia.nix
   ];
 }

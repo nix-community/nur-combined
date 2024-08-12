@@ -40,18 +40,25 @@ in
   })
 
   (fetchpatch' {
+    title = "syshud: 0-unstable-2024-07-29 -> 0-unstable-2024-08-10";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/333975";
+    hash = "sha256-DMV9rnigWUGW6kcV5Ve151OEArMWroLcuoK6PdFjTHk=";
+  })
+
+  (fetchpatch' {
     title = "hare-ev: 2024-07-11 -> 2024-08-06";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/333378";
     hash = "sha256-3RnqId/Rk0A5YyvsixLvKyLFOiFuvlThKdT00D6hjWI=";
   })
 
-  (fetchpatch' {
-    # this causes a rebuild of systemd and everything above it:
-    # PR against staging is live: <https://github.com/NixOS/nixpkgs/pull/332399>
-    title = "libcap: ship the optional 'captree' component";
-    saneCommit = "30d6d5d6e86c490978b9615a9c685ffd92c81116";
-    hash = "sha256-n8EERqqegrE+4Ogl7AuXkcRW9sgQhe5xyugZJrVr19Y=";
-  })
+  # (fetchpatch' {
+  #   # this causes a rebuild of systemd and everything above it:
+  #   # PR against staging is live: <https://github.com/NixOS/nixpkgs/pull/332399>
+  #   title = "libcap: ship the optional 'captree' component";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/332399";
+  #   saneCommit = "30d6d5d6e86c490978b9615a9c685ffd92c81116";
+  #   hash = "sha256-hEcpS7r1K6yb5dcj2evbWajwIQaaSHKdLPQVg1LlCYE=";
+  # })
 
   (fetchpatch' {
     # merged into staging 2024-07-25
@@ -82,27 +89,19 @@ in
   })
 
   (fetchpatch' {
-    title = "hickory-dns: rename from trust-dns";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/316466";
-    hash = "sha256-0A43xaBrROJUAENNZNTCB8HLeECVy4n6oMwZluRNBZ8=";
-  })
-
-  (fetchpatch' {
     title = "passt: support cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/334097";
     saneCommit = "3ef36d3aa139f94e8716b0721856c5808937c9f2";
-    hash = "sha256-hAaFHlJdx1GjQIJG5zxTBHm+CbmR/zlKUB9eyxPQbOg=";
+    hash = "sha256-9qzfoG/CuJbppfg8q/mWNj306AK6TVE7y++CzpY+X9Y=";
   })
 
-  # branch: wip-ffado-cross / wip-ffado-cross2
-  (fetchpatch' {
-    # TODO: send out for review (after next staging -> master merge, so that it has jtojnar's changes)
-    # - <https://github.com/NixOS/nixpkgs/pull/306407>
-    # wait until python3 is fixed on cross, also: <https://github.com/NixOS/nixpkgs/pull/325218>
-    title = "ffado: support cross compilation";
-    saneCommit = "e58b053bff32ba825dc8783c2725fcefb37a3e14";
-    hash = "sha256-YMX+99HOvMpk+hVPIe+ThixEbK8JNxiyEhqxSkASZ2Q=";
-    # saneCommit = "001fe13a735cb9c6fad80525531e863f949e1495";
-  })
+  # (fetchpatch' {
+  #   # branch: 2024-08-11-wip-ffado-cross / pr-ffado-cross-2
+  #   title = "ffado: support cross compilation";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/334096";
+  #   saneCommit = "cd316aaa667b6758d6866b356f4040343ffb6f80";
+  #   hash = "sha256-r0jKr65dRkVU/LPfgZqNJArs2XWEudsgyYXs5bJpgj4=";
+  # })
 
   (fetchpatch' {
     # required for gpodder to build
@@ -122,7 +121,7 @@ in
   (fetchpatch' {
     title = "libgweather: enable introspection on cross builds";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/251956";
-    hash = "sha256-ovWXFX6gMXM+E9yhX7GnDOB9f2HAZSjZRwGAVLTvFC0=";
+    hash = "sha256-sFuuZpq/DlgFESJhvKj8UaZiA8JGsGpVmyx1s/0OKT8=";
   })
 
   # (fetchpatch' {
@@ -132,12 +131,6 @@ in
   #   hash = "sha256-Wau+PB+EUQDvWX8Kycw1sNrM3GkPVjKSS4niIDI0sjM=";
   # })
 
-  # (fetchpatch' {
-  #   title = "gthumb: make the webservices feature be optional";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/240602";
-  #   saneCommit = "e83130f2770c314b2a482e1792b010da66cdd5de";
-  #   hash = "sha256-GlYWpOVZvr0oFAs4RdSUf7LJD3FmGsCaTm32GPhbBfc=";
-  # })
   # (fetchpatch' {
   #   # TODO: send for review once hspell fix is merged <https://github.com/NixOS/nixpkgs/pull/263182>
   #   # this patch works as-is, but hspell keeps a ref to build perl and thereby pollutes this closure as well.
@@ -152,16 +145,6 @@ in
   #   hash = "sha256-UyZaNNp84zKShuo6zu0nfZ2FygHGcmV63Ww4Y4CtCF0=";
   # })
 
-  # (fetchpatch' {
-  #   title = "trust-dns: 0.23.0 -> 0.24.0";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/262466";
-  #   hash = "sha256-s8ra/tbD/xAfU3HI3wv+aQ0dip1kKQcVrJvLG6DNctY=";
-  # })
-  # (fetchpatch' {
-  #   title = "trust-dns: rebrand as hickory-dns";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/262268";
-  #   hash = "sha256-TxQiR+OS4YriLNViTg4H78Z3f3IjBVodiFAkOUCeNic=";
-  # })
   # (fetchpatch' {
   #   title = "rpm: 4.18.1 -> 4.19.0";
   #   prUrl = "https://github.com/NixOS/nixpkgs/pull/260558";
@@ -217,12 +200,6 @@ in
   #   hash = "sha256-rD0es4uUbaLMrI9ZB2HzPmRLyu/ixNBLAFyDJtFHNko=";
   # })
 
-  # (fetchpatch' {
-  #   # 2023/11/14: deps don't cross compile (e.g. pipewire; qtsvg)
-  #   title = "clapper: support cross compilation";
-  #   saneCommit = "8a171b49aca406f8220f016e56964b3fae53a3df";
-  #   hash = "sha256-R11IYatGhSXxZnJxJid519Oc9Kh56D9NT2/cxf2CLuM=";
-  # })
   # these probably work, but i don't use them
   # (fetchpatch' {
   #   title = "networkmanager-openvpn: support cross compilation";

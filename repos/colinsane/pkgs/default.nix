@@ -52,6 +52,7 @@ let
     lemoa = callPackage ./additional/lemoa { };
     lemmy-lemonade = callPackage ./additional/lemonade { };  # XXX: nixpkgs already has a `lemonade` pkg
     lgtrombetta-compass = callPackage ./additional/lgtrombetta-compass { };
+    libcap-with-captree = callPackage ./additional/libcap-with-captree { };
     libdng = callPackage ./additional/libdng { };
     libfuse-sane = callPackage ./additional/libfuse-sane { };
     libmegapixels = callPackage ./additional/libmegapixels { };

@@ -8,7 +8,9 @@ usage() {
   echo ""
   echo "usage: deploy [options] [host] [host2 ...]"
   echo "options:"
-  echo "- --action copy|switch|test   (default: 'switch')"
+  echo "- --copy: only build + copy files, nothing more"
+  echo "- --switch  (default)"
+  echo "- --test: switch to the new configuration, but do not make it bootable"
   echo "- --dry-run: show what would be done without actually doing it"
   echo "- --pre: alias for --action copy --variant all all"
   echo "- --reboot: reboot the target machine after deploying (if deployed with no errors)"
@@ -57,9 +59,8 @@ parseArgs() {
     local arg=$1
     shift
     case "$arg" in
-      (--action)
-        action=$1
-        shift
+      (--copy|--switch|--test)
+        action=${arg/--/}
         ;;
       (--dry-run)
         dryRun=1

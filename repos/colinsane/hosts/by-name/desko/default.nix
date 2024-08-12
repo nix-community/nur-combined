@@ -4,7 +4,7 @@
     ./fs.nix
   ];
 
-  sane.services.trust-dns.asSystemResolver = false;  # TEMPORARY: TODO: re-enable trust-dns
+  sane.services.hickory-dns.asSystemResolver = false;  # TEMPORARY: TODO: re-enable hickory-dns
   # sane.programs.devPkgs.enableFor.user.colin = true;
   # sane.guest.enable = true;
 

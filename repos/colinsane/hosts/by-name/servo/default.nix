@@ -21,7 +21,7 @@
     "sane-scripts.stop-all-servo"
   ];
   sane.services.dyn-dns.enable = true;
-  sane.services.trust-dns.asSystemResolver = false;  # TODO: enable once it's all working well
+  sane.services.hickory-dns.asSystemResolver = false;  # TODO: enable once it's all working well
   sane.services.wg-home.enable = true;
   sane.services.wg-home.visibleToWan = true;
   sane.services.wg-home.forwardToWan = true;

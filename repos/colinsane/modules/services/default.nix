@@ -5,7 +5,7 @@
     ./clightning.nix
     ./dyn-dns.nix
     ./eg25-manager.nix
+    ./hickory-dns
     ./kiwix-serve.nix
-    ./trust-dns
   ];
 }

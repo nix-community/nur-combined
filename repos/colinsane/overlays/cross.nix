@@ -315,32 +315,39 @@ in with final; {
   # });
 
   # 2024/05/31: upstreaming is blocked by qtsvg, appstream
-  flare-signal = prev.flare-signal.overrideAttrs (upstream: {
-    # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
-    postPatch = (upstream.postPatch or "") + ''
-      substituteInPlace data/resources/meson.build --replace-fail \
-        "find_program('blueprint-compiler')" \
-        "'env', 'GI_TYPELIB_PATH=${buildPackages.gdk-pixbuf.out}/lib/girepository-1.0:${buildPackages.harfbuzz.out}/lib/girepository-1.0:${buildPackages.gtk4.out}/lib/girepository-1.0:${buildPackages.graphene}/lib/girepository-1.0:${buildPackages.libadwaita}/lib/girepository-1.0:${buildPackages.pango.out}/lib/girepository-1.0', find_program('blueprint-compiler')"
-    '';
-     env = let
-       inherit buildPackages stdenv rust;
-       ccForBuild = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc";
-       cxxForBuild = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}c++";
-       ccForHost = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";
-       cxxForHost = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++";
-       rustBuildPlatform = rust.toRustTarget stdenv.buildPlatform;
-       rustTargetPlatform = rust.toRustTarget stdenv.hostPlatform;
-       rustTargetPlatformSpec = rust.toRustTargetSpec stdenv.hostPlatform;
-     in {
-       # taken from <pkgs/build-support/rust/hooks/default.nix>
-       # fixes "cargo:warning=aarch64-unknown-linux-gnu-gcc: error: unrecognized command-line option ‘-m64’"
-       # XXX: these aren't necessarily valid environment variables: the referenced nix file is more clever to get them to work.
-       "CC_${rustBuildPlatform}" = "${ccForBuild}";
-       "CXX_${rustBuildPlatform}" = "${cxxForBuild}";
-       "CC_${rustTargetPlatform}" = "${ccForHost}";
-       "CXX_${rustTargetPlatform}" = "${cxxForHost}";
-     };
-  });
+  # flare-signal = prev.flare-signal.overrideAttrs (upstream: {
+  #   # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
+  #   postPatch = (upstream.postPatch or "") + ''
+  #     substituteInPlace data/resources/meson.build --replace-fail \
+  #       "find_program('blueprint-compiler')" \
+  #       "'env', 'GI_TYPELIB_PATH=${typelibPath [
+  #         buildPackages.gdk-pixbuf
+  #         buildPackages.harfbuzz
+  #         buildPackages.gtk4
+  #         buildPackages.libadwaita
+  #         buildPackages.pango
+  #         buildPackages.graphene
+  #       ]}', find_program('blueprint-compiler')"
+  #   '';
+  #    env = let
+  #      inherit buildPackages stdenv rust;
+  #      ccForBuild = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc";
+  #      cxxForBuild = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}c++";
+  #      ccForHost = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";
+  #      cxxForHost = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++";
+  #      rustBuildPlatform = rust.toRustTarget stdenv.buildPlatform;
+  #      rustTargetPlatform = rust.toRustTarget stdenv.hostPlatform;
+  #      rustTargetPlatformSpec = rust.toRustTargetSpec stdenv.hostPlatform;
+  #    in {
+  #      # taken from <pkgs/build-support/rust/hooks/default.nix>
+  #      # fixes "cargo:warning=aarch64-unknown-linux-gnu-gcc: error: unrecognized command-line option ‘-m64’"
+  #      # XXX: these aren't necessarily valid environment variables: the referenced nix file is more clever to get them to work.
+  #      "CC_${rustBuildPlatform}" = "${ccForBuild}";
+  #      "CXX_${rustBuildPlatform}" = "${cxxForBuild}";
+  #      "CC_${rustTargetPlatform}" = "${ccForHost}";
+  #      "CXX_${rustTargetPlatform}" = "${cxxForHost}";
+  #    };
+  # });
 
   flare-signal-nixified = prev.flare-signal-nixified.overrideAttrs (upstream: {
     # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
@@ -404,16 +411,6 @@ in with final; {
   #   mesonFlags = (lib.remove "-Ddocs=enabled" upstream.mesonFlags) ++ [ "-Ddocs=disabled" ];
   #   outputs = lib.remove "devdoc" upstream.outputs;
   # });
-
-  # 2024/05/31: upstreaming is blocked on qtsvg (via pipewire)
-  # required by epiphany, gnome-settings-daemon
-  # N.B.: should be able to remove gnupg/ssh from {native}buildInputs when upstreaming
-  gcr_4 = prev.gcr_4.overrideAttrs (upstream: {
-    # fixes (meson): "ERROR: Program 'gpg2 gpg' not found or not executable"
-    mesonFlags = (upstream.mesonFlags or []) ++ [
-      "-Dgpg_path=${gnupg}/bin/gpg"
-    ];
-  });
 
   # 2024/05/31: upstreaming is blocked by qtsvg, appstream (out for review), libgweather (out for review)
   geary = prev.geary.overrideAttrs (upstream: {
@@ -511,7 +508,7 @@ in with final; {
     #   ];
     # });
     gnome-settings-daemon = super.gnome-settings-daemon.overrideAttrs (orig: {
-      # 2024/05/31: upstreaming is blocked on qtsvg (ffado), libgweather
+      # 2024/08/11: upstreaming is blocked on libgweather
       #   gsd is required by xdg-desktop-portal-gtk
       # pkg-config solves: "plugins/power/meson.build:22:0: ERROR: Dependency lookup for glib-2.0 with method 'pkgconfig' failed: Pkg-config binary for machine build machine not found."
       # stdenv.cc fixes: "plugins/power/meson.build:60:0: ERROR: No build machine compiler for 'plugins/power/gsd-power-enums-update.c'"
@@ -575,9 +572,6 @@ in with final; {
   #   #   mvToNativeInputs [ self.GConf ] super.gnome_vfs
   #   # );
   # });
-
-  # 2024-07-28: out for PR: <https://github.com/NixOS/nixpkgs/pull/330681>
-  hiredis = mvToBuildInputs [ openssl ] prev.hiredis;
 
   # out for PR: <https://github.com/NixOS/nixpkgs/pull/263182>
   # hspell = prev.hspell.overrideAttrs (upstream: {
@@ -662,20 +656,13 @@ in with final; {
   #   ];
   # });
 
-  lemoa = prev.lemoa.overrideAttrs (upstream:
+  lemoa = (prev.lemoa.override { cargo = crossCargo; }).overrideAttrs (upstream:
     let
       rustTargetPlatform = rust.toRustTarget stdenv.hostPlatform;
     in {
-      # nixpkgs sets CARGO_BUILD_TARGET to the build platform target, so correct that.
-      buildPhase = ''
-        runHook preBuild
-
+      preBuild = ''
         mkdir -p target/release
         ln -s ../${rustTargetPlatform}/release/lemoa target/release/lemoa
-
-        ${rust.envVars.setEnv} "CARGO_BUILD_TARGET=${rustTargetPlatform}" ninja -j$NIX_BUILD_CORES
-
-        runHook postBuild
       '';
     }
   );
@@ -745,32 +732,6 @@ in with final; {
   #   # to use non-emulated stdenv by default.
   #   mkDerivation = self.mkDerivationWith stdenv.mkDerivation;
   #   callPackage = self.newScope { inherit (self) qtCompatVersion qtModule srcs; inherit stdenv; };
-  # });
-
-  # 2024/05/31: better fix is to use CMAKE_CROSSCOMPILING_EMULATOR
-  # - <https://github.com/uninsane/nixpkgs/pull/new/pr-libphonenumber-cross>
-  # libphonenumber = prev.libphonenumber.overrideAttrs (upstream: {
-  #   # fix that phone number geolocation binary doesn't cross compile.
-  #   # it's CMAKE, and a google project, so the fix to cross compile is unlikely to *ever* make it upstream.
-  #   # see: <https://github.com/google/libphonenumber/pull/2604>
-  #   #
-  #   # the main (only?) user of this library is evolution-data-server,
-  #   # which is consumed by gnome-calender, calls, planify.
-  #   # maybe i can purge EDS from my system somehow.
-  #   # - geary: package doesn't even have EDS as an input; it speaks to it over dbus.
-  #   # - calls: package has EDS as input (unused?); speaks to it over dbus.
-  #   #   - it actually needs EDS though, for its `libebook-contacts` library: <https://gnome.pages.gitlab.gnome.org/evolution-data-server/libebook-contacts/>
-  #   # - gnome-calendar: package has EDS as input (unused?); speaks to it over dbus.
-  #   #   - it actually needs EDS though, for its `libedataserverui4` library: <https://gnome.pages.gitlab.gnome.org/evolution-data-server/libedataserverui4/>
-  #   # - planify: package has EDS as input (unused?); speaks to it over dbus.
-  #   #   - it actually needs EDS though, for its `libecal` library: <https://gnome.pages.gitlab.gnome.org/evolution-data-server/libecal/>
-  #   #   - it could be using evolution-data-server-gtk4 instead of EDS gtk3 though
-  #   #
-  #   # or build EDS with  `-DWITH_PHONENUMBER=OFF`
-  #   cmakeFlags = (upstream.cmakeFlags or []) ++ [
-  #     "-DPROTOC_BIN=${lib.getExe buildPackages.protobuf}"
-  #     "-DBUILD_GEOCODER=OFF"
-  #   ];
   # });
 
   # 2024/05/31: upstreaming blocked on qtsvg, libgweather, appstream, glycin-loaders
@@ -880,6 +841,7 @@ in with final; {
       ]}
       exec ${lib.getExe buildPackages.blueprint-compiler} "$@"
     '';
+    cargo = crossCargo;  #< fixes openssl not being able to find its library
   }).overrideAttrs (upstream: {
     postPatch = (upstream.postPatch or "") + ''
       substituteInPlace src/meson.build --replace-fail \
@@ -897,16 +859,6 @@ in with final; {
         data/resources/io.gitlab.news_flash.NewsFlash.appdata.xml \
         --replace-fail '@appid@' 'io.gitlab.news_flash.NewsFlash'
       glib-compile-resources --sourcedir=data/resources --target=appdata.gresource data/resources/appdata.gresource.xml
-    '';
-
-    # nixpkgs sets CARGO_BUILD_TARGET to the build platform target, so correct that.
-    # fixes openssl not being able to find its library
-    buildPhase = ''
-      runHook preBuild
-
-      ${rust.envVars.setEnv} "CARGO_BUILD_TARGET=${rust.toRustTarget stdenv.hostPlatform}" ninja -j$NIX_BUILD_CORES
-
-      runHook postBuild
     '';
 
     env = let
@@ -1003,7 +955,7 @@ in with final; {
   # });
 
   pantheon = prev.pantheon.overrideScope (self: super: {
-    # 2024/06/13: upstreaming is blocked by qtsvg/ffado
+    # 2024/08/11: upstreaming is unblocked
     switchboard-plug-network = super.switchboard-plug-network.overrideAttrs (upstream: {
       nativeBuildInputs = upstream.nativeBuildInputs ++ [
         buildPackages.gettext  # <for msgfmt
@@ -1055,7 +1007,9 @@ in with final; {
   # } prev.phosh-mobile-settings;
 
   # 2024/05/31: upstreaming is blocked on qtsvg, appstream
-  pwvucontrol = prev.pwvucontrol.overrideAttrs (upstream:
+  pwvucontrol = (prev.pwvucontrol.override {
+    cargo = crossCargo;
+  }).overrideAttrs (upstream:
   let
     rustTargetPlatform = rust.toRustTarget stdenv.hostPlatform;
   in {
@@ -1063,14 +1017,6 @@ in with final; {
       substituteInPlace src/meson.build --replace-fail \
         "'src' / rust_target" \
         "'src' / '${rustTargetPlatform}' / rust_target"
-    '';
-    # nixpkgs sets CARGO_BUILD_TARGET to the build platform target, so correct that.
-    buildPhase = ''
-      runHook preBuild
-
-      ${rust.envVars.setEnv} "CARGO_BUILD_TARGET=${rustTargetPlatform}" ninja -j$NIX_BUILD_CORES
-
-      runHook postBuild
     '';
   });
 
@@ -1191,38 +1137,26 @@ in with final; {
   });
 
   # 2024/05/31: upstreaming is blocked by qtsvg, appstream
-  spot = prev.spot.overrideAttrs (upstream:
-    let
-      rustTargetPlatform = rust.toRustTarget stdenv.hostPlatform;
-    in {
-      # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
-      postPatch = (upstream.postPatch or "") + ''
-        substituteInPlace src/meson.build \
-          --replace-fail \
-            "find_program('blueprint-compiler')" \
-            "'env', 'GI_TYPELIB_PATH=${typelibPath [
-              buildPackages.gdk-pixbuf
-              buildPackages.glib
-              buildPackages.graphene
-              buildPackages.gtk4
-              buildPackages.harfbuzz
-              buildPackages.libadwaita
-              buildPackages.pango
-            ]}', find_program('blueprint-compiler')" \
-          --replace-fail \
-            "meson.project_build_root() / cargo_output" \
-            "meson.project_build_root() / 'src' / '${rust.envVars.rustHostPlatformSpec}' / rust_target / meson.project_name()"
-      '';
-      # nixpkgs sets CARGO_BUILD_TARGET to the build platform target, so correct that.
-      buildPhase = ''
-        runHook preBuild
-
-        ${rust.envVars.setEnv} "CARGO_BUILD_TARGET=${rustTargetPlatform}" ninja -j$NIX_BUILD_CORES
-
-        runHook postBuild
-      '';
-    }
-  );
+  spot = (prev.spot.override { cargo = crossCargo; }).overrideAttrs (upstream: {
+    # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
+    postPatch = (upstream.postPatch or "") + ''
+      substituteInPlace src/meson.build \
+        --replace-fail \
+          "find_program('blueprint-compiler')" \
+          "'env', 'GI_TYPELIB_PATH=${typelibPath [
+            buildPackages.gdk-pixbuf
+            buildPackages.glib
+            buildPackages.graphene
+            buildPackages.gtk4
+            buildPackages.harfbuzz
+            buildPackages.libadwaita
+            buildPackages.pango
+          ]}', find_program('blueprint-compiler')" \
+        --replace-fail \
+          "meson.project_build_root() / cargo_output" \
+          "meson.project_build_root() / 'src' / '${rust.envVars.rustHostPlatformSpec}' / rust_target / meson.project_name()"
+    '';
+  });
 
   # 2024/05/31: upstreaming is unblocked
   # squeekboard = prev.squeekboard.overrideAttrs (upstream: {
@@ -1267,14 +1201,6 @@ in with final; {
   #     rustc
   #   ];
   # });
-
-  starship = prev.starship.overrideAttrs (base: {
-    # fix that shell completion installation wants to run host starship
-    postInstall = lib.replaceStrings
-      [ "$out/bin/starship" ]
-      [ "${stdenv.hostPlatform.emulator buildPackages} $out/bin/starship" ]
-      base.postInstall;
-  });
 
   # 2024/05/31: upstreaming is blocked by qtsvg, appstream
   tangram = prev.tangram.overrideAttrs (upstream: {
@@ -1348,9 +1274,6 @@ in with final; {
       "-Dpytest=disabled"
     ];
   });
-  # fixes "No package 'xdg-desktop-portal' found"
-  # 2023/12/08: upstreaming is blocked on argyllcms, flatpak, qtsvg (via pipewire/ffado)
-  xdg-desktop-portal-gtk = mvToBuildInputs [ xdg-desktop-portal ] prev.xdg-desktop-portal-gtk;
 
   # fixes: "data/meson.build:33:5: ERROR: Program 'msgfmt' not found or not executable"
   # fixes: "src/meson.build:25:0: ERROR: Program 'gdbus-codegen' not found or not executable"
@@ -1395,17 +1318,6 @@ in with final; {
   #   ];
   #   strictDeps = true;
   # });
-
-  # 2024/05/31: upstreaming is unblocked
-  # implemented: <https://github.com/NixOS/nixpkgs/pull/315119>
-  webp-pixbuf-loader = prev.webp-pixbuf-loader.overrideAttrs (upstream: {
-    # fixes: "Builder called die: Cannot wrap '/nix/store/kpp8qhzdjqgvw73llka5gpnsj0l4jlg8-gdk-pixbuf-aarch64-unknown-linux-gnu-2.42.10/bin/gdk-pixbuf-thumbnailer' because it is not an executable file"
-    # gdk-pixbuf doesn't create a `bin/` directory when cross-compiling, breaks some thumbnailing stuff.
-    # - gnome's gdk-pixbuf *explicitly* doesn't build thumbnailer on cross builds
-    # see `librsvg` for a more bullet-proof cross-compilation approach
-    postInstall = "";
-  });
-  # XXX: aarch64 webp-pixbuf-loader wanted by gdk-pixbuf-loaders.cache.drv, wanted by aarch64 gnome-control-center
 
   # 2024/05/31: upstreaming is blocked by qtsvg, appstream
   wike = prev.wike.overrideAttrs (upstream: {

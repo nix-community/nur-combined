@@ -2,14 +2,14 @@
 - `rmDbusServices` may break sandboxing
   - e.g. if the package ships a systemd unit which references $out, then make-sandboxed won't properly update that unit.
   - `rmDbusServicesInPlace` is not affected
-- when moby wlan is explicitly set down (via ip link set wlan0 down), /var/lib/trust-dns/dhcp-configs doesn't get reset
+- when moby wlan is explicitly set down (via ip link set wlan0 down), /var/lib/hickory-dns/dhcp-configs doesn't get reset
   - `ip monitor` can detect those manual link state changes (NM-dispatcher it seems cannot)
   - or try dnsmasq?
-- trust-dns can't resolve `abs.twimg.com`
-- trust-dns can't resolve `social.kernel.org`
-- trust-dns can't resolve `pe.usps.com`
-- trust-dns can't resolve `social.seattle.wa.us`
-- trust-dns can't resolve `support.mozilla.org`
+- hickory-dns can't resolve `abs.twimg.com`
+- hickory-dns can't resolve `social.kernel.org`
+- hickory-dns can't resolve `pe.usps.com`
+- hickory-dns can't resolve `social.seattle.wa.us`
+- hickory-dns can't resolve `support.mozilla.org`
 - sandbox: link cache means that if i update ~/.config/... files inline, sandboxed programs still see the old version
 - mpv: continues to play past the end of some audio files
 - mpv: audiocast has mpv sending its output to the builtin speakers unless manually changed

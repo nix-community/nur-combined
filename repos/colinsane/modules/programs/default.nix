@@ -480,11 +480,11 @@ let
       suggestedPrograms = lib.optionals (config.sandbox.method == "bwrap") [
         "bubblewrap" "passt" "iproute2" "iptables"
       ] ++ lib.optionals (config.sandbox.method == "landlock") [
-        "landlock-sandboxer" "libcap"
+        "landlock-sandboxer" "capsh"
       ] ++ lib.optionals (config.sandbox.method == "pastaonly") [
-        "passt" "iproute2" "iptables" "libcap"
+        "passt" "iproute2" "iptables" "capsh"
       ] ++ lib.optionals (config.sandbox.method == "capshonly") [
-        "libcap"
+        "capsh"
       ];
       # declare a fs dependency for each secret, but don't specify how to populate it yet.
       #   can't populate it here because it varies per-user.

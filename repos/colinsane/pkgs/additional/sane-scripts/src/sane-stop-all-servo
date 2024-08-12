@@ -9,6 +9,11 @@ systemctl stop \
   ejabberd \
   gitea \
   goaccess \
+  hickory-dns-doof \
+  hickory-dns-hn \
+  hickory-dns-hn-resolver \
+  hickory-dns-lan \
+  hickory-dns-wan \
   i2p \
   jackett \
   jellyfin \
@@ -38,11 +43,6 @@ systemctl stop \
   systemctl \
   tor \
   transmission \
-  trust-dns-doof \
-  trust-dns-hn \
-  trust-dns-hn-resolver \
-  trust-dns-lan \
-  trust-dns-wan \
   wireguard-wg-ovpns \
   ntfy-waiter-0 \
   ntfy-waiter-1 \

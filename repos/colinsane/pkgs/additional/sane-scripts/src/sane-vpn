@@ -296,9 +296,9 @@ stores = {{ type = "forward", name_servers = [
 '''
     elif dir_ == ToggleDir.Down:
         text = ""
-    with open("/var/lib/trust-dns/dhcp-configs/sane-vpn.toml", "w") as f:
+    with open("/var/lib/hickory-dns/dhcp-configs/sane-vpn.toml", "w") as f:
         f.write(text)
-    subprocess.check_call([ "systemctl", "restart", "trust-dns-localhost" ])
+    subprocess.check_call([ "systemctl", "restart", "hickory-dns-localhost" ])
 
 def main():
     logging.basicConfig()
