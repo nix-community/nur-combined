@@ -675,10 +675,10 @@
     };
     "batchcamp" = buildFirefoxXpiAddon {
       pname = "batchcamp";
-      version = "1.4.6";
+      version = "1.4.7";
       addonId = "{d44fa1f9-1400-401d-a79e-650d466ec6d6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4309868/batchcamp-1.4.6.xpi";
-      sha256 = "718cebc1484e0e41cb414592adc4cf7c5c3411ff525b848d0b7b1205f3b7e1ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4335028/batchcamp-1.4.7.xpi";
+      sha256 = "f062b4619bd992bea657d7487e7b331e064421b23f6839bdd2a0276b8a06ba14";
       meta = with lib;
       {
         homepage = "https://github.com/hyphmongo/batchcamp";
@@ -2149,10 +2149,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "5.1.3";
+      version = "5.1.4";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4333283/dictionaries-5.1.3.xpi";
-      sha256 = "3f9b92239cbf18d6f0f2c0b6ce8a8b000276f8b0ee6d38855656b39d8264090d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4335078/dictionaries-5.1.4.xpi";
+      sha256 = "f1f179e81b33e5619a2eb789891b37ad350b20d99f963be3721f1280e6fdcbb6";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
