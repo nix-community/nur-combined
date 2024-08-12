@@ -13,7 +13,7 @@
  }:
 
 let
-  extCapDir = symlinkJoin {
+  extCapDir = onlyBin (symlinkJoin {
     name = "wireshark-extcap-dir";
     paths = lib.optionals includeExtCaps [ ieee-802-15-4-sniffer ice9-bluetooth-sniffer ] ++ extCapPackages;
     postBuild = ''
@@ -25,21 +25,24 @@ let
       # wireshark calling into
       rm -f $out/bin/.[!.]*
     '';
-  };
+  });
 in
 
 symlinkJoin {
   name = "wireshark-wrapped";
   paths = [ wireshark ];
   nativeBuildInputs = [ makeWrapper ];
+  passthru = {
+    inherit extCapDir;
+  };
   postBuild = ''
   for file in $out/bin/*; do
-    wrapProgram $file --prefix WIRESHARK_EXTCAP_DIR : ${onlyBin extCapDir}/bin
+    wrapProgram $file --prefix WIRESHARK_EXTCAP_DIR : ${extCapDir}/bin
   done
   '' + lib.optionalString stdenv.isDarwin ''
   for file in $out/Applications/Wireshark.app/Contents/MacOS/*; do
     if [[ -f $file ]]; then
-      wrapProgram $file --prefix WIRESHARK_EXTCAP_DIR : ${onlyBin extCapDir}/bin
+      wrapProgram $file --prefix WIRESHARK_EXTCAP_DIR : ${extCapDir}/bin
     fi
   done
   '';

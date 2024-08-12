@@ -12,6 +12,7 @@ def augmented_parser():
     parser.add_argument("--extcap-interface", dest="extcap_interface", help="Provide the interface to capture from")
     parser.add_argument("--extcap-dlts", dest="extcap_dlts", help="Provide a list of dlts for the given interface", action="store_true")
     parser.add_argument("--extcap-config", dest="extcap_config", help="Provide a list of configurations for the given interface", action="store_true")
+    parser.add_argument("--extcap-version", dest="extcap_version", help="Provide the wireshark version being used")
     parser.add_argument("--capture", dest="capture", help="", action="store_true")
     parser.add_argument("--fifo", dest="output", type=str)
     return parser
@@ -89,6 +90,7 @@ def main():
     if options.extcap_interface != '':
         mapping = { DeviceRef.from_device(d).short_name(): DeviceRef.from_device(d).soapy_args() for d in SoapySDR.Device.enumerate() }
         options.device_args = mapping[options.extcap_interface]
+        del options.extcap_version
         del options.extcap_interface
         del options.capture
 
