@@ -11,13 +11,13 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "c5b601bbfbb553552a452be5bcba4cf6af31ae5b",
-      "sha256": "sha256-eoVtTrVgPxPNuHyvYrGTEub79mNwBH5BDaCa6nnSONI=",
+      "rev": "da911f14abbe1fcc6780e53212877686bb8103aa",
+      "sha256": "sha256-u0g0YYJczGXQSdnuAbg6rYx7EnO5aNmOqzyf3eJLew8=",
       "sparseCheckout": [],
       "type": "git",
       "url": "https://github.com/falkTX/Carla"
     },
-    "version": "c5b601bbfbb553552a452be5bcba4cf6af31ae5b"
+    "version": "da911f14abbe1fcc6780e53212877686bb8103aa"
   },
   "zrythm": {
     "cargoLocks": null,
