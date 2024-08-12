@@ -1,17 +1,17 @@
 {
   "prod": {
-    "version": "9.9.10105",
+    "version": "9.9.10109",
     "files": [
       {
-        "url": "ShadowPC-9.9.10105.AppImage",
-        "sha512": "Iv6Jnv7OZnXHkRNKF63Lk4PGleu1M4sMm2sRQ1mXuwRBy/hk9jc3ktbrCva4Ola9XYZuPpryeW5Si7aQeeVyOQ==",
-        "size": 179252643,
-        "blockMapSize": 187831
+        "url": "ShadowPC-9.9.10109.AppImage",
+        "sha512": "hOUx4jupjdvlHtmJ0lbVJd+mkQ7ZKbH86F8yWIE7SFcI9rUNcF8kZdGHJTdEnZn4I8LM3kpGMjlGiKXcVla1ng==",
+        "size": 179252636,
+        "blockMapSize": 187824
       }
     ],
-    "path": "ShadowPC-9.9.10105.AppImage",
-    "sha512": "Iv6Jnv7OZnXHkRNKF63Lk4PGleu1M4sMm2sRQ1mXuwRBy/hk9jc3ktbrCva4Ola9XYZuPpryeW5Si7aQeeVyOQ==",
-    "releaseDate": "2024-08-06T09:32:25.371Z"
+    "path": "ShadowPC-9.9.10109.AppImage",
+    "sha512": "hOUx4jupjdvlHtmJ0lbVJd+mkQ7ZKbH86F8yWIE7SFcI9rUNcF8kZdGHJTdEnZn4I8LM3kpGMjlGiKXcVla1ng==",
+    "releaseDate": "2024-08-08T15:23:15.864Z"
   },
   "preprod": {
     "version": "9.9.10104",
