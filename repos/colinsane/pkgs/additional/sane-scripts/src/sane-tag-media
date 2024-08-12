@@ -730,7 +730,49 @@ class TagFieldNames:
     tracknumber = "tracknumber"
 
 class MediaFile:
-    def __init__(self, path_: str, meta: MetadataImpl, tag_field_names: TagFieldNames):
+    def __init__(self, path_: str):
+        path_ = os.path.normpath(path_)  #< transform "./artist/album/file" -> "artist/album/file", so that path-based parsing doesn't have to care
+        ext = os.path.splitext(path_)[1][1:].lower()
+        tag_field_names = TagFieldNames()
+        meta = None
+
+        if ext == "aac":
+            tag_field_names.producer = "grouping"
+            meta = MutagenMetadata.new(path_, mutagen.easyid3.EasyID3)
+        elif ext == "flac":
+            meta = MutagenMetadata.new(path_, mutagen.flac.Open)
+        elif ext == "mp3":
+            tag_field_names.producer = "grouping"
+            meta = MutagenMetadata.new(path_, mutagen.mp3.EasyMP3)
+        elif ext in [ "m4a", "mp4" ]:
+            tag_field_names.producer = "grouping"
+            meta = MutagenMetadata.new(path_, mutagen.easymp4.EasyMP4)
+        elif ext in "ogg":
+            meta = MutagenMetadata.new(path_, mutagen.oggvorbis.OggVorbis) \
+                or MutagenMetadata.new(path_, mutagen.oggopus.OggOpus)
+        elif ext == "opus":
+            meta = MutagenMetadata.new(path_, mutagen.oggopus.OggOpus)
+        elif ext in [ "gif", "pdf" ]:
+            tag_field_names.album = "XMP:Album"
+            tag_field_names.albumartist = "XMP:Author"
+            tag_field_names.artist = "Artist"
+            tag_field_names.producer = "XMP:Producer"
+            tag_field_names.title = "Title"
+            meta = ExiftoolMetadata.new(path_)
+        elif ext in [ "jpg", "jpeg", "png" ]:
+            tag_field_names.album = "XMP:Album"
+            tag_field_names.artist = "Photographer"
+            tag_field_names.albumartist = "Artist"
+            tag_field_names.producer = "XMP:Producer"
+            tag_field_names.title = "Title"
+            tag_field_names.tracknumber = "ImageNumber"
+            meta = ExiftoolMetadata.new(path_)
+        else:
+            logger.debug(f"no metadata handler for {path_}")
+
+        if meta is None:
+            meta = InMemoryMetadata(path_)
+
         self.path_ = path_
         self.meta = meta
         self.tag_field_names = tag_field_names
@@ -741,52 +783,6 @@ class MediaFile:
     @property
     def ext(self):
         return os.path.splitext(self.path_)[1][1:].lower()
-
-    @staticmethod
-    def new(f: str) -> 'MediaFile':
-        f = os.path.normpath(f)  #< transform "./artist/album/file" -> "artist/album/file", so that path-based parsing doesn't have to care
-        ext = os.path.splitext(f)[1][1:].lower()
-        tag_field_names = TagFieldNames()
-        meta = None
-
-        if ext == "aac":
-            tag_field_names.producer = "grouping"
-            meta = MutagenMetadata.new(f, mutagen.easyid3.EasyID3)
-        elif ext == "flac":
-            meta = MutagenMetadata.new(f, mutagen.flac.Open)
-        elif ext == "mp3":
-            tag_field_names.producer = "grouping"
-            meta = MutagenMetadata.new(f, mutagen.mp3.EasyMP3)
-        elif ext in [ "m4a", "mp4" ]:
-            tag_field_names.producer = "grouping"
-            meta = MutagenMetadata.new(f, mutagen.easymp4.EasyMP4)
-        elif ext in "ogg":
-            meta = MutagenMetadata.new(f, mutagen.oggvorbis.OggVorbis) \
-                or MutagenMetadata.new(f, mutagen.oggopus.OggOpus)
-        elif ext == "opus":
-            meta = MutagenMetadata.new(f, mutagen.oggopus.OggOpus)
-        elif ext in [ "gif", "pdf" ]:
-            tag_field_names.album = "XMP:Album"
-            tag_field_names.albumartist = "XMP:Author"
-            tag_field_names.artist = "Artist"
-            tag_field_names.producer = "XMP:Producer"
-            tag_field_names.title = "Title"
-            meta = ExiftoolMetadata.new(f)
-        elif ext in [ "jpg", "jpeg", "png" ]:
-            tag_field_names.album = "XMP:Album"
-            tag_field_names.artist = "Photographer"
-            tag_field_names.albumartist = "Artist"
-            tag_field_names.producer = "XMP:Producer"
-            tag_field_names.title = "Title"
-            tag_field_names.tracknumber = "ImageNumber"
-            meta = ExiftoolMetadata.new(f)
-        else:
-            logger.debug(f"no metadata handler for {f}")
-
-        if meta is None:
-            meta = InMemoryMetadata(f)
-
-        return MediaFile(f, meta, tag_field_names)
 
     def is_type(self, ty: MediaType) -> bool:
         is_audio = self.ext in AUDIO_EXTENSIONS
@@ -855,7 +851,7 @@ class TagsProvider:
         if not isinstance(file_, MediaFileWithNeighbors):
             return my_derived_tags
 
-        neighbor_tags = file_.neighbor_tags
+        neighbor_tags = getattr(file_, "neighbor_tags", Tags())
         if self.override_existing:
             # our derived tags overrule anything generalized from our neighbors
             return my_derived_tags.or_(neighbor_tags)
@@ -982,7 +978,7 @@ class Gatherer:
         """
         if not os.path.isdir(root):
             # single file
-            file_ = MediaFileWithNeighbors.new(root)
+            file_ = MediaFileWithNeighbors(root)
             return self.tags_provider.on_disk(file_), [ file_ ]
 
         if not self.tags_provider.can_derive_from_neighbors():
