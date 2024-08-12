@@ -12,8 +12,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "drmikecrowe";
     repo = "xontrib-chatgpt";
-    rev = "465357afeb873d9564c7ffe619e6d635d05fa33a";
-    sha256 = "sha256-liuG5m/9YdOxM8bSMv1J8aOI2F5Q4SKN5TGVOLEIXu4=";
+    rev = "fdf6f7d13a8e6c354e3734cad0683215acd778c7";
+    sha256 = "sha256-yfakSYP3ql3uKOaEwbUy9zP1Q6NUlhzkshLMGzthSOM=";
   };
 
   doCheck = false;
