@@ -45,9 +45,11 @@ in {
     programs.xonsh = with xonsh-xontribs; {
       enable = true;
       package = xonsh-wrapper.override {
+        xonsh = xonsh;
         extraPackages = ps: [
           xontrib-direnv
           xontrib-zoxide
+          # ...
         ];
       };
     };
