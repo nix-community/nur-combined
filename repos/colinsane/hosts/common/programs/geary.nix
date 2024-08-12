@@ -23,6 +23,13 @@ in
     sandbox.net = "clearnet";
     sandbox.whitelistDbus = [ "user" ];  # notifications
     sandbox.whitelistWayland = true;
+    sandbox.extraHomePaths = [
+      # it shouldn't need these, but portal integration seems incomplete?
+      "tmp"
+      "Pictures/from"
+      "Pictures/Photos"
+      "Pictures/Screenshots"
+    ];
     sandbox.extraPaths = [
       # geary sandboxes *itself* with bwrap, and dbus-proxy which, confusingly, causes it to *require* these paths.
       # TODO: these could maybe be mounted empty. or maybe there's an env-var to disable geary's dbus-proxy.

@@ -16,7 +16,10 @@ let
 
       # delete DISPLAY-related vars from env before launch, else sway will try to connect to a remote display.
       # (consider: nested sway sessions, where sway actually has a reason to read these)
-      exec env -u DISPLAY -u WAYLAND_DISPLAY "DESIRED_WAYLAND_DISPLAY=$WAYLAND_DISPLAY" ${configuredSway}/bin/sway 2>&1
+      exec env -u DISPLAY -u WAYLAND_DISPLAY \
+        "DESIRED_WAYLAND_DISPLAY=$WAYLAND_DISPLAY" \
+        ${configuredSway}/bin/sway \
+        2>&1
     '';
   in
     pkgs.symlinkJoin {
@@ -253,6 +256,14 @@ in
     # docs: <https://discourse.ubuntu.com/t/environment-variables-for-wayland-hackers/12750>
     # N.B.: gtk apps support absolute paths for this; webkit apps (e.g. geary) support only relative paths (relative to $XDG_RUNTIME_DIR)
     env.WAYLAND_DISPLAY = "wl/wayland-1";
+    # XXX(2024-08-12): drmSyncobj causes sway to fail to create any output at launch:
+    # sway: 00:00:09.955 [ERROR] [wlr] [render/drm_syncobj.c:24] drmSyncobjCreate failed: Operation not supported
+    # sway: 00:00:09.955 [ERROR] [sway/desktop/output.c:545] Failed to create a scene output
+    # this is fixable in wlroots -- not via sway.
+    # - sway patch (reverting it does *not* fix): <https://github.com/swaywm/sway/pull/8156>
+    # - wlroot patch which introduced the bug: <https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4715>
+    # see (tracking): <https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4715#note_2523517>
+    env.WLR_RENDER_NO_EXPLICIT_SYNC = "1";
 
     services.private-storage.dependencyOf = [ "sway" ];  #< HACK: prevent unl0kr and sway from fighting over the tty
     services.sway = {

@@ -22,8 +22,17 @@
       "/"
       ".persist/ephemeral"
       ".persist/plaintext"
+      "Pictures/Photos"
+      "Pictures/Screenshots"
+      "Pictures/albums"
+      "Pictures/cat"
+      "Pictures/from"
+      "Videos/local"
+      "archive"
       "knowledge"
       "nixos"
+      "records"
+      "tmp"
     ];
     sandbox.extraPaths = [
       "/boot"

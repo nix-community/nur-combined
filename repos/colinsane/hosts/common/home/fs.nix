@@ -9,12 +9,9 @@
     "Books/local"
     "Music"
 
-    # these are persisted simply to save on RAM.
-    # ~/.cache/nix can become several GB.
-    # mesa_shader_cache is < 10 MB.
+    # this is persisted simply to save on RAM. mesa_shader_cache is < 10 MB.
     # TODO: integrate with sane.programs.sandbox?
     ".cache/mesa_shader_cache"
-    ".cache/nix"
   ];
   sane.user.persist.byStore.private = [
     "archive"
