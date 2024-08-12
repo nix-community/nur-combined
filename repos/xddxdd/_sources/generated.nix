@@ -194,15 +194,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "ad64793045a7010930da9acdb9bf04151b17e7f4";
+    version = "14801d80ef9b9346de90f3f2479603118c48ec5c";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "ad64793045a7010930da9acdb9bf04151b17e7f4";
+      rev = "14801d80ef9b9346de90f3f2479603118c48ec5c";
       fetchSubmodules = false;
-      sha256 = "sha256-tXbKpOa/Jwa8nxlvjakZDBiN/kdQd+ZTRUUBbH0AuhM=";
+      sha256 = "sha256-ss7BvOx8EMUA7W11l+7byqOyX3zhRxuzFo9iEJ04UVA=";
     };
-    date = "2024-08-10";
+    date = "2024-08-11";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -561,15 +561,15 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "9cc98d556cbe8e9fe9cbe75297e0038be8304bee";
+    version = "94c61cc345f7e145b6f1ff336846ccc0ae807b86";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "9cc98d556cbe8e9fe9cbe75297e0038be8304bee";
+      rev = "94c61cc345f7e145b6f1ff336846ccc0ae807b86";
       fetchSubmodules = false;
-      sha256 = "sha256-3xeHVdlWyFjlcW4WuN+FqLHzCxumyeznpouy2/KVRmU=";
+      sha256 = "sha256-JmGBVfXlxqCommGXVSx8ecz+1e/VC0Crc+4PadQHJsI=";
     };
-    date = "2024-08-09";
+    date = "2024-08-11";
   };
   imewlconverter = {
     pname = "imewlconverter";
@@ -752,13 +752,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.10.3-xanmod1";
+    version = "6.10.4-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.10.3-xanmod1";
+      rev = "6.10.4-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-Nwv7Ms8R6tTBK7oHeRf19S1OFCEJcf/fTXurHs+JI0Y=";
+      sha256 = "sha256-8iK821QbJcgXEeCWh1g1DlJ3gOD5eDErw0O7O+cEGwQ=";
     };
   };
   linux-xanmod-6_0 = {
@@ -785,24 +785,24 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.44-xanmod1";
+    version = "6.6.45-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.44-xanmod1";
+      rev = "6.6.45-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-kRMx0NVZNZ0xcEq+Bg9NkzHgRCnblbamxLKUbzfp6h0=";
+      sha256 = "sha256-sYAa/uIi076XJMHOSjOSQO/rK/wUWIpAfWb/EYDXvD0=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3565";
+    version = "b3571";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3565";
+      rev = "b3571";
       fetchSubmodules = false;
-      sha256 = "sha256-IcoAEj83iXvYfCDJ8o2D59o653Et/9z8/BxzmVEJZqI=";
+      sha256 = "sha256-fxQBehYcl8SUMONH8WJWYX5nV9c8eCcrIgAb1ycsyYE=";
     };
   };
   lyrica = {
@@ -1203,34 +1203,34 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "9.0.2+ds-2";
+    version = "9.0.2+ds-4";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_9.0.2+ds-2_amd64.deb";
-      sha256 = "sha256-vhtZquoj/WstW4E7LYbF6MZSo+DhKz2eVQu4DVTxVEQ=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_9.0.2+ds-4_amd64.deb";
+      sha256 = "sha256-qsjTSsHv9oCvmnTG2SY434QkFZQgp7oof3jVuV+RwTE=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "9.0.2+ds-2";
+    version = "9.0.2+ds-4";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_9.0.2+ds-2_arm64.deb";
-      sha256 = "sha256-P+hXScDHMEBB3ugsXzeQ8/oY7wN1SHQ2F1hNLNnz20o=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_9.0.2+ds-4_arm64.deb";
+      sha256 = "sha256-XZFTpSbNu704VMtOqmOYOzapRlPQhG84cOkLcIXphOU=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "9.0.2+ds-2";
+    version = "9.0.2+ds-2+b1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_9.0.2+ds-2_armhf.deb";
-      sha256 = "sha256-rS6CFStTNvtgkvYaD2Ui18KImG30AQ3lrqerY5Zt9z4=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_9.0.2+ds-2+b1_armhf.deb";
+      sha256 = "sha256-kN6HMvgH0/hqDLRimbXoXutO2WmHt3UlzTFG6+hCmxA=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "9.0.2+ds-2";
+    version = "9.0.2+ds-2+b1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_9.0.2+ds-2_i386.deb";
-      sha256 = "sha256-NS7MfgC8ysOxcOJHJEA+51gU2q1UcCEuUMGdkr+Ivxo=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_9.0.2+ds-2+b1_i386.deb";
+      sha256 = "sha256-2fn6ZhauR2t6WQga99lWoBzeruasAI+YOPUfQpiH+1E=";
     };
   };
   qhttpengine = {
