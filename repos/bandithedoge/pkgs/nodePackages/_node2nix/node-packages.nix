@@ -171,13 +171,13 @@
         sha512 = "yQbXgO/OSZVD2IsiLlro+7Hf6Q18EJrKSEsdoMzKePKXct3gvD8oLcOQdIzGupr5Fj+EDe8gO/lxc1BzfMpxvA==";
       };
     };
-    "bumpp-9.4.2" = {
+    "bumpp-9.5.1" = {
       name = "bumpp";
       packageName = "bumpp";
-      version = "9.4.2";
+      version = "9.5.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/bumpp/-/bumpp-9.4.2.tgz";
-        sha512 = "D0Cb5Mgxei7PObv4FkKQ19v1qSRhA3buQqCEQW6EU4+iort7JxL06DC6bZG5E0x/euZkaBuAQqOtFd2zIJKPjA==";
+        url = "https://registry.npmjs.org/bumpp/-/bumpp-9.5.1.tgz";
+        sha512 = "crWpuPh5/SO84HTsIIQbwFpjwg8Zadm3udyj2YfnSSijCvjxwdtmXy2vQh6GLMWJ5LgKwmmMIn85qJ4AIHKlhg==";
       };
     };
     "c12-1.11.1" = {
@@ -466,6 +466,15 @@
       src = fetchurl {
         url = "https://registry.npmjs.org/jsonc-parser/-/jsonc-parser-2.3.1.tgz";
         sha512 = "H8jvkz1O50L3dMZCsLqiuB2tA7muqbSg1AtGEkN0leAqGjsUzDJir3Zwr02BhqdcITPg3ei3mZ+HjMocAknhhg==";
+      };
+    };
+    "jsonc-parser-3.3.1" = {
+      name = "jsonc-parser";
+      packageName = "jsonc-parser";
+      version = "3.3.1";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/jsonc-parser/-/jsonc-parser-3.3.1.tgz";
+        sha512 = "HUgH65KyejrUFPvHFPbqOY0rsFip3Bo5wb4ngvdi1EpCYWUQDC5V+Y7mZws+DLkr4M//zQJoanu1SP+87Dv1oQ==";
       };
     };
     "kleur-3.0.3" = {
@@ -1049,7 +1058,12 @@ in {
       sources."argparse-2.0.1"
       sources."binary-extensions-2.3.0"
       sources."braces-3.0.3"
-      sources."bumpp-9.4.2"
+      (sources."bumpp-9.5.1"
+        // {
+          dependencies = [
+            sources."jsonc-parser-3.3.1"
+          ];
+        })
       sources."c12-1.11.1"
       sources."cac-6.7.14"
       sources."call-me-maybe-1.0.2"

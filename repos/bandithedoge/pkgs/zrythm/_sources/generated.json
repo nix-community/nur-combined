@@ -1,7 +1,7 @@
 {
   "carla-git": {
     "cargoLocks": null,
-    "date": "2024-08-11",
+    "date": "2024-08-12",
     "extract": null,
     "name": "carla-git",
     "passthru": null,
@@ -11,13 +11,13 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "da911f14abbe1fcc6780e53212877686bb8103aa",
-      "sha256": "sha256-u0g0YYJczGXQSdnuAbg6rYx7EnO5aNmOqzyf3eJLew8=",
+      "rev": "f5d488436fe96fbd2cbeaacbe5a734df4c01a159",
+      "sha256": "sha256-TKvgCbIwJjSppknX1WHEqvX6aiowrwjtGc55lcWtSmc=",
       "sparseCheckout": [],
       "type": "git",
       "url": "https://github.com/falkTX/Carla"
     },
-    "version": "da911f14abbe1fcc6780e53212877686bb8103aa"
+    "version": "f5d488436fe96fbd2cbeaacbe5a734df4c01a159"
   },
   "zrythm": {
     "cargoLocks": null,
