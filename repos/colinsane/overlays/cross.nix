@@ -339,29 +339,29 @@ in with final; {
     '';
   });
 
-  # 2024/08/12: upstreaming is unblocked
-  flatpak = prev.flatpak.overrideAttrs (upstream: {
-    # fixes "No package 'libxml-2.0' found"
-    buildInputs = upstream.buildInputs ++ [ libxml2 ];
-    configureFlags = upstream.configureFlags ++ [
-      "--enable-selinux-module=no"  # fixes "checking for /usr/share/selinux/devel/Makefile... configure: error: cannot check for file existence when cross compiling"
-      "--disable-gtk-doc"  # fixes "You must have gtk-doc >= 1.20 installed to build documentation for Flatpak"
-    ];
+  # 2024/08/12: upstreaming is unblocked, implemented on `pr-flatpak-cross`, out for PR: <https://github.com/NixOS/nixpkgs/pull/334324>
+  # flatpak = prev.flatpak.overrideAttrs (upstream: {
+  #   # fixes "No package 'libxml-2.0' found"
+  #   buildInputs = upstream.buildInputs ++ [ libxml2 ];
+  #   configureFlags = upstream.configureFlags ++ [
+  #     "--enable-selinux-module=no"  # fixes "checking for /usr/share/selinux/devel/Makefile... configure: error: cannot check for file existence when cross compiling"
+  #     "--disable-gtk-doc"  # fixes "You must have gtk-doc >= 1.20 installed to build documentation for Flatpak"
+  #   ];
 
-    postPatch = let
-      # copied from nixpkgs flatpak and modified to use buildPackages python
-      vsc-py = buildPackages.python3.withPackages (pp: [
-        pp.pyparsing
-      ]);
-    in ''
-      patchShebangs buildutil
-      patchShebangs tests
-      PATH=${lib.makeBinPath [vsc-py]}:$PATH patchShebangs --build subprojects/variant-schema-compiler/variant-schema-compiler
-    '' + ''
-      sed -i s:'\$BWRAP --version:${stdenv.hostPlatform.emulator buildPackages} \$BWRAP --version:' configure.ac
-      sed -i s:'\$DBUS_PROXY --version:${stdenv.hostPlatform.emulator buildPackages} \$DBUS_PROXY --version:' configure.ac
-    '';
-  });
+  #   postPatch = let
+  #     # copied from nixpkgs flatpak and modified to use buildPackages python
+  #     vsc-py = buildPackages.python3.withPackages (pp: [
+  #       pp.pyparsing
+  #     ]);
+  #   in ''
+  #     patchShebangs buildutil
+  #     patchShebangs tests
+  #     PATH=${lib.makeBinPath [vsc-py]}:$PATH patchShebangs --build subprojects/variant-schema-compiler/variant-schema-compiler
+  #   '' + ''
+  #     sed -i s:'\$BWRAP --version:${stdenv.hostPlatform.emulator buildPackages} \$BWRAP --version:' configure.ac
+  #     sed -i s:'\$DBUS_PROXY --version:${stdenv.hostPlatform.emulator buildPackages} \$DBUS_PROXY --version:' configure.ac
+  #   '';
+  # });
 
   # 2024/08/12: upstreaming is blocked by xdg-desktop-portal
   fractal = prev.fractal.overrideAttrs (upstream: {

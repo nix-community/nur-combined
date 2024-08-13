@@ -40,6 +40,15 @@ in
   })
 
   (fetchpatch' {
+    # branch: pr-flatpak-cross
+    title = "flatpak: support cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/334324";
+    saneCommit = "0656837e8bb3aae72245145ea8b2250eadad653d";
+    hash = "sha256-Jo37TmzEbqZQVlFtLQ/hI1AAPXS0dnkXh58eHpuwT5M=";
+    # hash = "sha256-/N3FQ0CZ8IOxEYci2UKOG0POYuTyCTH/ZWTRyjIOlEc=";
+  })
+
+  (fetchpatch' {
     title = "syshud: 0-unstable-2024-07-29 -> 0-unstable-2024-08-10";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/333975";
     hash = "sha256-DMV9rnigWUGW6kcV5Ve151OEArMWroLcuoK6PdFjTHk=";

@@ -32,6 +32,10 @@
   - "open in browser" works though -- in mpv
 - gnome-maps can't use geoclue *and* openstreetmap at the same time
   - get gnome-maps to speak xdg-desktop-portal, and this will be fixed
+- epiphany can't save cookies
+  - see under "preferences", cookies are disabled
+  - prevents logging into websites (OpenStreetMap)
+  - works when sandbox is disabled
 
 ## REFACTORING:
 - add import checks to my Python nix-shell scripts
