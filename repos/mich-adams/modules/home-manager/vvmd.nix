@@ -4,45 +4,38 @@ with lib;
 
 let
   cfg = config.services.vvmd;
-  tomlFormat = pkgs.formats.toml { };
 in {
-  meta.maintainers = [ maintainers.mich-adams ];
+  #meta.maintainers = [ maintainers.mich-adams ];
 
-  options = {
-    services.vvmd = {
-      enable = mkEnableOption "vvmd service";
+  options.services.vvmd = {
+    enable = mkEnableOption "vvmd";
 
+      package = mkOption {
+        type = types.package;
+        default = pkgs.vvmd;
+        description = "The package to use for vvmd.";
+      };
     };
 
-    config = mkIf serviceConfig.enable {
-      assertions = [
-        (lib.hm.assertions.assertPlatform "services.vvmd" pkgs
-        lib.platforms.linux)
-      ];
+    config = mkIf cfg.enable {
 
-      home.packages = [ pkgs.vvmd pkgs.vvmplayer ];
+      home.packages = [ cfg.package pkgs.vvmplayer ];
 
-      xdg.configFile."itd.toml" = lib.mkIf (serviceConfig.settings != { }) {
-        source = tomlFormat.generate "itd.toml" serviceConfig.settings;
-      };
-
-      systemd.user = {
-        services.vvmd = {
-          Unit = {
-            Description = "lower level daemon that retrieves Visual Voicemail";
-            After = [ "ModemManager.service" ];
-          };
-          Service = {
-            ExecStart = [
-              ""
-              "${pkgs.vvmd}/bin/vvmd"
-            ];
-            Restart = "always";
-          };
-          Install = { WantedBy = [ "default.target" ]; };
+      systemd.user.services."vvmd" = {
+        Unit = {
+          Description = "lower level daemon that retrieves Visual Voicemail";
+          After = [ "ModemManager.service" ];
         };
-
+        Service = {
+          ExecStart = [
+            ""
+            "${pkgs.vvmd}/bin/vvmd"
+          ];
+          Restart = "always";
+        };
+        Install = { WantedBy = [ "default.target" ]; };
       };
+
     };
-  }
+}
 
