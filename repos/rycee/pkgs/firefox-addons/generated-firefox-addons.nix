@@ -2113,10 +2113,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "130.0.20240809.91641";
+      version = "130.0.20240812.92056";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4334193/deutsch_de_language_pack-130.0.20240809.91641.xpi";
-      sha256 = "bce37fa4e6effa04fa9eb9b3cd6bb6674146f9853b67764fc0e98009612df702";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4335657/deutsch_de_language_pack-130.0.20240812.92056.xpi";
+      sha256 = "9f116dff5b26377024128eb22cf6c3dde52575c3044d2f71070bed587f7e738c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2720,10 +2720,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.19";
+      version = "1.3.20";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4332152/faststream-1.3.19.xpi";
-      sha256 = "545f76217a872736b9b560533a18ae51adaebca7e415bf30a72db38ac82670ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4336044/faststream-1.3.20.xpi";
+      sha256 = "50b3e98b02836d146d21b5d39d6941bca6946389deda8ec07084579e0cb2acfe";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -3173,10 +3173,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "130.0.20240809.91641";
+      version = "130.0.20240812.92056";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4334181/francais_language_pack-130.0.20240809.91641.xpi";
-      sha256 = "0a82bc48bbd7f93ca22d190c074c364f0d1c6ad99a3c5528d2d906d474161e29";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4335627/francais_language_pack-130.0.20240812.92056.xpi";
+      sha256 = "7bb76ee98fd72d5fe08b6d4f300d4b904368364ab6963e59c5a50f42da25b7d7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -5824,10 +5824,10 @@
     };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "8.11.2";
+      version = "8.11.6";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4329853/languagetool-8.11.2.xpi";
-      sha256 = "bfac73229d0973370d163cd607ed36ada0aff46d597afee2c334cc58ec431210";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4332776/languagetool-8.11.6.xpi";
+      sha256 = "dc14ac983d3fb5f91ea3930451529e1cb8919f79e375cdae293e6b49c6c419a4";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -8008,10 +8008,10 @@
     };
     "pay-by-privacy" = buildFirefoxXpiAddon {
       pname = "pay-by-privacy";
-      version = "2.4.0";
+      version = "2.4.1";
       addonId = "privacy@privacy.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4305104/pay_by_privacy-2.4.0.xpi";
-      sha256 = "34debb20b4d32402fb2449b1d3bf52f5b301cdbb6947cc12ab8165d6758bcaa9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4335806/pay_by_privacy-2.4.1.xpi";
+      sha256 = "8819ef46cbfb9d5a1afcc72ce3c3ea0cdec3a51e87331cd2b25195a36ff28c04";
       meta = with lib;
       {
         homepage = "https://privacy.com";
@@ -10886,10 +10886,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.0.21";
+      version = "4.0.22";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4331020/tree_style_tab-4.0.21.xpi";
-      sha256 = "2865b81e8ff55db7eb64903ce95ccfe5b8676290a3c11e5375366c3d2694f805";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4333810/tree_style_tab-4.0.22.xpi";
+      sha256 = "7712bb35bddaf4178a2847476c9dc4938c28e2661d02895fafefb2e3eae7fe9a";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -11346,10 +11346,10 @@
     };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2024.8.5.925";
+      version = "2024.8.12.902";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4331741/ublock_origin_lite-2024.8.5.925.xpi";
-      sha256 = "aea9da8df9872bc0b05121b9a9c93f099b46f27748fbf30f7943d059029cdcc2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4335824/ublock_origin_lite-2024.8.12.902.xpi";
+      sha256 = "83031c47fcaa62d6a1f2c9dd4c0eb0167569e3e764397d31000bc671e47afc05";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
@@ -12503,10 +12503,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.7.24.0";
+      version = "24.7.31.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4325576/yomitan-24.7.24.0.xpi";
-      sha256 = "fac77a0cd7a196d4133afcc7fa6d2b790d53b63a75bcb32ab9fffe87c9581e66";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4335835/yomitan-24.7.31.0.xpi";
+      sha256 = "63b57e2e4cfd48a1d7f2323e2ce3c8c87cda147b9674ab309cb4d0b238fd29bb";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
