@@ -115,21 +115,6 @@ in with final; {
   #     });
   #   };
 
-  # 2024/05/13: upstreaming is unblocked; out for review: <https://github.com/NixOS/nixpkgs/pull/305241>
-  appstream = prev.appstream.overrideAttrs (upstream: {
-    # fixes: "Message: Native appstream required for cross-building"
-    # error introduced in:
-    # - <https://github.com/ximion/appstream/pull/510>
-    # - <https://github.com/NixOS/nixpkgs/pull/273297>
-    postPatch = (upstream.postPatch or "") + ''
-      substituteInPlace data/meson.build \
-        --replace-fail 'meson.is_cross_build()' 'false'
-    '';
-    # nativeBuildInputs = upstream.nativeBuildInputs ++ [
-    #   prev.appstream
-    # ];
-  });
-
   # bamf: required via pantheon.switchboard -> wingpanel -> gala
   # bamf = prev.bamf.overrideAttrs (upstream: {
   #   # "You must have gtk-doc >= 1.0 installed to build documentation"
@@ -186,7 +171,7 @@ in with final; {
   #   shell = runtimeShell;
   # };
 
-  # 2024/05/31: upstreaming blocked by appstream, qtsvg
+  # 2024/08/12: upstreaming is blocked on libgweather, via evolution-data-server
   # fixes: "Exec format error: './calls-scan'"
   calls = prev.calls.overrideAttrs (upstream: {
     # TODO: try building with mesonEmulatorHook when i upstream this
@@ -197,16 +182,7 @@ in with final; {
     mesonFlags = lib.remove "-Dgtk_doc=true" upstream.mesonFlags;
   });
 
-  # 2024/05/31: upstreaming is blocked by qtsvg, appstream
-  # clapper = prev.clapper.overrideAttrs (upstream: {
-  #   # use the host gjs (meson's find_program expects it to be executable)
-  #   postPatch = (upstream.postPatch or "") + ''
-  #     substituteInPlace bin/meson.build \
-  #       --replace "find_program('gjs').path()" "'${gjs}/bin/gjs'"
-  #   '';
-  # });
-
-  # 2024/05/31: upstreaming is blocked by qtsvg, appstream
+  # 2024/08/12: upstreaming is unblocked
   delfin = prev.delfin.overrideAttrs (upstream: {
     nativeBuildInputs = upstream.nativeBuildInputs ++ [
       # fixes: loaders/meson.build:72:7: ERROR: Program 'msgfmt' not found or not executable
@@ -219,7 +195,7 @@ in with final; {
     '';
   });
 
-  # 2024/05/31: upstreaming is blocked by qtsvg, appstream
+  # 2024/08/12: upstreaming is unblocked
   dialect = prev.dialect.overrideAttrs (upstream: {
     # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
     postPatch = (upstream.postPatch or "") + ''
@@ -253,6 +229,7 @@ in with final; {
   #   binutils = binutils-unwrapped;
   # };
 
+  # 2024/08/12: upstreaming is unblocked
   # emacs = prev.emacs.override {
   #   nativeComp = false;  # will be renamed to `withNativeCompilation` in future
   #   # future: we can specify 'action-if-cross-compiling' to actually invoke the test programs:
@@ -292,15 +269,11 @@ in with final; {
     # ];
   });
 
-  fd = prev.fd.overrideAttrs (base: {
-    # fix that shell completion installation wants to run host fd
-    postInstall = lib.replaceStrings
-      [ "$out/bin/fd" ]
-      [ "${stdenv.hostPlatform.emulator buildPackages} $out/bin/fd" ]
-      base.postInstall;
-  });
+  # 2024/08/12: upstreaming is blocked on gnome-user-share (apache-httpd)
+  # fixes: "src/meson.build:106:0: ERROR: Program 'glib-compile-resources' not found or not executable"
+  # file-roller = mvToNativeInputs [ glib ] prev.file-roller;
 
-  # 2024/05/31: upstreaming is unblocked
+  # 2024/08/12: upstreaming is unblocked
   # firejail = prev.firejail.overrideAttrs (upstream: {
   #   # firejail executes its build outputs to produce the default filter list.
   #   # i think we *could* copy the default filters from pkgsBuildBuild, but that doesn't seem future proof
@@ -314,7 +287,7 @@ in with final; {
   #   '');
   # });
 
-  # 2024/05/31: upstreaming is blocked by qtsvg, appstream
+  # 2024/08/12: upstreaming is unblocked
   # flare-signal = prev.flare-signal.overrideAttrs (upstream: {
   #   # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
   #   postPatch = (upstream.postPatch or "") + ''
@@ -366,7 +339,7 @@ in with final; {
     '';
   });
 
-  # 2024/05/31: upstreaming is blocked on appstream
+  # 2024/08/12: upstreaming is unblocked
   flatpak = prev.flatpak.overrideAttrs (upstream: {
     # fixes "No package 'libxml-2.0' found"
     buildInputs = upstream.buildInputs ++ [ libxml2 ];
@@ -390,7 +363,7 @@ in with final; {
     '';
   });
 
-  # 2024/05/31: upstreaming is blocked by qtsvg, appstream
+  # 2024/08/12: upstreaming is blocked by xdg-desktop-portal
   fractal = prev.fractal.overrideAttrs (upstream: {
     postPatch = (upstream.postPatch or "") + ''
       substituteInPlace src/meson.build \
@@ -400,7 +373,7 @@ in with final; {
   });
 
   # solves (meson) "Run-time dependency libgcab-1.0 found: NO (tried pkgconfig and cmake)", and others.
-  # 2024/05/31: upstreaming is unblocked
+  # 2024/08/12: upstreaming is unblocked
   # fwupd = (addBuildInputs
   #   [ gcab ]
   #   (mvToBuildInputs [ gnutls ] prev.fwupd)
@@ -412,7 +385,7 @@ in with final; {
   #   outputs = lib.remove "devdoc" upstream.outputs;
   # });
 
-  # 2024/05/31: upstreaming is blocked by qtsvg, appstream (out for review), libgweather (out for review)
+  # 2024/08/12: upstreaming is blocked by libgweather (out for review) via evolution-data-server
   geary = prev.geary.overrideAttrs (upstream: {
     buildInputs = upstream.buildInputs ++ [
       # glib
@@ -462,27 +435,34 @@ in with final; {
     '';
   });
 
+  # 2024/08/12: upstreaming is blocked on gnome-user-share (apache-httpd)
+  # gnome-terminal = prev.gnome-terminal.overrideAttrs (orig: {
+  #   # fixes "meson.build:343:0: ERROR: Dependency "libpcre2-8" not found, tried pkgconfig"
+  #   buildInputs = orig.buildInputs ++ [ pcre2 ];
+  # });
+
   # 2024/05/08: fix: "meson.build:85:11: ERROR: Dependency "dbus-1" not found, tried pkgconfig".
-  # 2024/05/31: upstreaming is blocked by qtsvg, appstream
+  # 2024/08/12: upstreaming is unblocked
   gnome-online-accounts = mvToBuildInputs [ dbus ] prev.gnome-online-accounts;
 
-  gnome = prev.gnome.overrideScope (self: super: {
-    # 2024/05/31: upstreaming is blocked on appstream (out for review), gnome-user-share (apache-httpd, webp-pixbuf-loader), qtsvg
-    # fixes: "src/meson.build:106:0: ERROR: Program 'glib-compile-resources' not found or not executable"
-    # file-roller = mvToNativeInputs [ glib ] super.file-roller;
+  # 2024/08/12: upstreaming is blocked on apache-httpd (via mod_dnssd)
+  # fixes: meson.build:111:6: ERROR: Program 'glib-compile-schemas' not found or not executable
+  # gnome-user-share = addNativeInputs [ glib ] prev.gnome-user-share;
 
+  gnome = prev.gnome.overrideScope (self: super: {
     # 2024/05/31: upstreaming is blocked by a LOT: qtbase, qtsvg, webp-pixbuf-loader, libgweather, gnome-color-manager, appstream, apache-httpd, ibus
     # fixes "subprojects/gvc/meson.build:30:0: ERROR: Program 'glib-mkenums mkenums' not found or not executable"
     # gnome-control-center = mvToNativeInputs [ glib ] super.gnome-control-center;
 
     gnome-maps = super.gnome-maps.overrideAttrs (upstream: {
-      # 2024/05/31: upstreaming is blocked by libgweather, appstream, qtsvg (via pipewire/ffado)
+      # 2024/08/12: upstreaming is blocked by libgweather (direct dependency)
       postPatch = (upstream.postPatch or "") + ''
         # fixes: "ERROR: Program 'gjs' not found or not executable"
         substituteInPlace meson.build \
           --replace-fail "find_program('gjs')" "find_program('${gjs}/bin/gjs')"
       '';
     });
+    # 2024/08/12: upstreaming is blocked on ibus, libgweather
     # gnome-shell = super.gnome-shell.overrideAttrs (orig: {
     #   # fixes "meson.build:128:0: ERROR: Program 'gjs' not found or not executable"
     #   # does not fix "_giscanner.cpython-310-x86_64-linux-gnu.so: cannot open shared object file: No such file or directory"  (python import failure)
@@ -502,7 +482,6 @@ in with final; {
     #   # ];
     # });
     # gnome-shell = super.gnome-shell.overrideAttrs (upstream: {
-    #   # 2024/05/31: upstreaming is blocked on qtsvg, appstream, webp-pixbuf-loader, libgweather, ibus
     #   nativeBuildInputs = upstream.nativeBuildInputs ++ [
     #     gjs  # fixes "meson.build:128:0: ERROR: Program 'gjs' not found or not executable"
     #   ];
@@ -527,20 +506,12 @@ in with final; {
     #   '';
     # });
 
-    # 2023/08/01: upstreaming is blocked on argyllcms, gnome-keyring, gnome-clocks, ibus, libavif, webp-pixbuf-loader (gnome-shell)
+    # 2024/08/12: upstreaming is blocked on gnome-shell (ibus, libgweather)
     # fixes: "gdbus-codegen not found or executable"
     # gnome-session = mvToNativeInputs [ glib ] super.gnome-session;
-    # gnome-terminal = super.gnome-terminal.overrideAttrs (orig: {
-    #   # 2023/07/31: upstreaming is blocked on argyllcms, apache-httpd, gnome-keyring, libavif, gnome-clocks, ibus, webp-pixbuf-loader
-    #   # fixes "meson.build:343:0: ERROR: Dependency "libpcre2-8" not found, tried pkgconfig"
-    #   buildInputs = orig.buildInputs ++ [ pcre2 ];
-    # });
-    # 2023/07/31: upstreaming is blocked on apache-httpd
-    # fixes: meson.build:111:6: ERROR: Program 'glib-compile-schemas' not found or not executable
-    # gnome-user-share = addNativeInputs [ glib ] super.gnome-user-share;
 
     # mutter = super.mutter.overrideAttrs (orig: {
-    #   # 2024/02/27: upstreaming is blocked on appstream, possibly others
+    #   # 2024/08/12: upstreaming is blocked on libgweather (via gnome-settings-daemon)
     #   # N.B.: not all of this suitable to upstreaming, as-is.
     #   # mesa and xorgserver are removed here because they *themselves* don't build for `buildPackages` (temporarily: 2023/10/26)
     #   nativeBuildInputs = lib.subtractLists [ mesa xorg.xorgserver ] orig.nativeBuildInputs;
@@ -553,15 +524,6 @@ in with final; {
     #   outputs = lib.remove "devdoc" orig.outputs;
     #   postInstall = lib.replaceStrings [ "${glib.dev}" ] [ "${buildPackages.glib.dev}" ] orig.postInstall;
     # });
-    # nautilus = (
-    #   # 2023/11/21: upstreaming is blocked on apache-httpd, webp-pixbuf-loader, qtsvg
-    #   addInputs {
-    #     # fixes: "meson.build:123:0: ERROR: Dependency "libxml-2.0" not found, tried pkgconfig"
-    #     buildInputs = [ libxml2 ];
-    #     # fixes: "meson.build:226:6: ERROR: Program 'gtk-update-icon-cache' not found or not executable"
-    #     nativeBuildInputs = [ gtk4 ];
-    #   }
-    # );
   });
 
   # gnome2 = prev.gnome2.overrideScope (self: super: {
@@ -583,7 +545,7 @@ in with final; {
   #   '';
   # });
 
-  # 2024/05/31: upstreaming is unblocked
+  # 2024/08/12: upstreaming is unblocked
   # hyprland = mvToNativeInputs [ hwdata ] prev.hyprland;
   # hyprland = prev.hyprland.overrideAttrs (_: {
   #   depsBuildBuild = [ pkg-config ];
@@ -593,7 +555,7 @@ in with final; {
   # "setup: line 1595: ant: command not found"
   # i2p = mvToNativeInputs [ ant gettext ] prev.i2p;
 
-  # 2024/05/31: upstreaming is unblocked (see `pkgs/patched/ibus`)
+  # 2024/08/12: upstreaming is unblocked (see `pkgs/patched/ibus`)
   # ibus = prev.ibus.overrideAttrs (upstream: {
   #   nativeBuildInputs = upstream.nativeBuildInputs or [] ++ [
   #     glib  # fixes: ImportError: /nix/store/fi1rsalr11xg00dqwgzbf91jpl3zwygi-gobject-introspection-aarch64-unknown-linux-gnu-1.74.0/lib/gobject-introspection/giscanner/_giscanner.cpython-310-x86_64-linux-gnu.so: cannot open shared object file: No such file or directory
@@ -604,7 +566,7 @@ in with final; {
   #   ];
   # });
 
-  # 2024/05/31: upstreaming is blocked on appstream, qtsvg, lua, unicode-collation, etc
+  # 2024/08/12: upstreaming is blocked on lua, lpeg, pandoc, unicode-collation, etc
   iotas = prev.iotas.overrideAttrs (_: {
     # error: "<iotas> is not allowed to refer to the following paths: <build python>"
     # disallowedReferences = [];
@@ -632,7 +594,7 @@ in with final; {
   #   nativeBuildInputs = lib.remove [ qt6.wrapQtAppsHook ] upstream.nativeBuildInputs;
   # });
 
-  # 2024/05/31: upstreaming is blocked by qtsvg, appstream
+  # 2024/08/12: upstreaming is unblocked
   komikku = prev.komikku.overrideAttrs (upstream: {
     # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
     postPatch = (upstream.postPatch or "") + ''
@@ -650,6 +612,7 @@ in with final; {
     '';
   });
 
+  # 2024/08/12: upstreaming is unblocked -- but is this necessary?
   # koreader = prev.koreader.overrideAttrs (upstream: {
   #   nativeBuildInputs = upstream.nativeBuildInputs ++ [
   #     autoPatchelfHook
@@ -698,23 +661,7 @@ in with final; {
   #   '';
   # });
 
-  # 2024/05/31: upstreaming is blocked on appstream
-  # libpanel = prev.libpanel.overrideAttrs (upstream: {
-  #   doCheck = false;
-  #   # depsBuildBuild = (upstream.depsBuildBuild or []) ++ [
-  #   #   # fixes "Build-time dependency gi-docgen found: NO (tried pkgconfig and cmake)"
-  #   #   pkg-config
-  #   # ];
-  #   nativeBuildInputs = upstream.nativeBuildInputs ++ [
-  #     buildPackages.gtk4  # fixes "ERROR: Program 'gtk-update-icon-cache' not found or not executable"
-  #   ];
-  #   # it can't figure out where gi-docgen lives
-  #   mesonFlags = (upstream.mesonFlags or []) ++ [
-  #     "-Ddocs=disabled"
-  #   ];
-  #   outputs = lib.remove "devdoc" upstream.outputs;
-  # });
-
+  # 2024/08/12: upstreaming is unblocked
   libpeas2 = prev.libpeas2.overrideAttrs (upstream: {
     mesonFlags = upstream.mesonFlags ++ [
       "-Dlua51=false"  #< fails to find lua (probably it incorrectly checks the build machine)
@@ -734,7 +681,7 @@ in with final; {
   #   callPackage = self.newScope { inherit (self) qtCompatVersion qtModule srcs; inherit stdenv; };
   # });
 
-  # 2024/05/31: upstreaming blocked on qtsvg, libgweather, appstream, glycin-loaders
+  # 2024/08/12: upstreaming blocked on libgweather
   loupe = prev.loupe.overrideAttrs (upstream: {
     postPatch = (upstream.postPatch or "") + ''
       substituteInPlace src/meson.build \
@@ -743,7 +690,7 @@ in with final; {
     '';
   });
 
-  # 2024/05/31: upstreaming blocked on qtsvg, appstream, maybe others
+  # 2024/08/12: upstreaming is unblocked
   mepo = (prev.mepo.override {
     # nixpkgs mepo correctly puts `zig_0_12.hook` in nativeBuildInputs,
     # but for some reason that tries to use the host zig instead of the build zig.
@@ -778,6 +725,16 @@ in with final; {
     # - --help
     zigBuildFlags = [ "-Dtarget=aarch64-linux-gnu" ];
   });
+
+  # nautilus = (
+  #   # 2024/08/12: upstreaming is blocked on apache-httpd (via gnome-user-share)
+  #   addInputs {
+  #     # fixes: "meson.build:123:0: ERROR: Dependency "libxml-2.0" not found, tried pkgconfig"
+  #     buildInputs = [ libxml2 ];
+  #     # fixes: "meson.build:226:6: ERROR: Program 'gtk-update-icon-cache' not found or not executable"
+  #     nativeBuildInputs = [ gtk4 ];
+  #   }
+  # );
 
   # fixes: "ar: command not found"
   # `ar` is provided by bintools
@@ -825,6 +782,7 @@ in with final; {
   # 2023/07/31: upstreaming is blocked on vpnc cross compilation
   # networkmanager-vpnc = mvToNativeInputs [ glib ] prev.networkmanager-vpnc;
 
+  # 2024/08/12: upstreaming is unblocked
   newsflash = (prev.newsflash.override {
     blueprint-compiler = buildPackages.writeShellScriptBin "blueprint-compiler" ''
       export GI_TYPELIB_PATH=${typelibPath [
@@ -979,8 +937,9 @@ in with final; {
   });
 
   # fixes (meson) "Program 'glib-mkenums mkenums' not found or not executable"
-  # 2024/05/31: upstreaming is blocked on appstream, libgweather, qtsvg
+  # 2024/08/12: upstreaming is unblocked
   # phoc = mvToNativeInputs [ wayland-scanner glib ] prev.phoc;
+  # 2024/08/12: upstreaming is blocked on gnome-control-center, evolution-data-server, , ibus, libgweather, gnom-user-share, others
   # phosh = prev.phosh.overrideAttrs (upstream: {
   #   buildInputs = upstream.buildInputs ++ [
   #     libadwaita  # "plugins/meson.build:41:2: ERROR: Dependency "libadwaita-1" not found, tried pkgconfig"
@@ -1019,11 +978,6 @@ in with final; {
         "'src' / '${rustTargetPlatform}' / rust_target"
     '';
   });
-
-  # libsForQt5 = prev.libsForQt5.overrideScope (self: super: {
-  #   inherit stdenv;
-  #   inherit (self.stdenv) mkderivation;
-  # });
 
   # qt6 = prev.qt6.overrideScope (self: super: {
   #   # qtbase = super.qtbase.overrideAttrs (upstream: {
@@ -1126,7 +1080,7 @@ in with final; {
   #   };
   # });
 
-  # 2024/05/31: upstreaming is blocked by qtsvg, appstream
+  # 2024/08/12: upstreaming is unblocked
   snapshot = prev.snapshot.overrideAttrs (upstream: {
     # fixes "error: linker `cc` not found"
     postPatch = (upstream.postPatch or "") + ''
@@ -1136,7 +1090,7 @@ in with final; {
     '';
   });
 
-  # 2024/05/31: upstreaming is blocked by qtsvg, appstream
+  # 2024/08/12: upstreaming is unblocked
   spot = (prev.spot.override { cargo = crossCargo; }).overrideAttrs (upstream: {
     # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
     postPatch = (upstream.postPatch or "") + ''
@@ -1158,7 +1112,7 @@ in with final; {
     '';
   });
 
-  # 2024/05/31: upstreaming is unblocked
+  # 2024/08/12: upstreaming is unblocked
   # squeekboard = prev.squeekboard.overrideAttrs (upstream: {
   #   # fixes: "meson.build:1:0: ERROR: 'rust' compiler binary not defined in cross or native file"
   #   # new error: "meson.build:1:0: ERROR: Rust compiler rustc --target aarch64-unknown-linux-gnu -C linker=aarch64-unknown-linux-gnu-gcc can not compile programs."
@@ -1202,7 +1156,7 @@ in with final; {
   #   ];
   # });
 
-  # 2024/05/31: upstreaming is blocked by qtsvg, appstream
+  # 2024/08/12: upstreaming is unblocked
   tangram = prev.tangram.overrideAttrs (upstream: {
     # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
     # additionally, gsjpack has a shebang for the host gjs. patchShebangs --build doesn't fix that: just manually specify the build gjs
@@ -1239,13 +1193,13 @@ in with final; {
   #   });
   # };
 
-  # 2024/05/31: upstreaming is blocked on hdf5, thrift, others
+  # 2024/08/12: upstreaming is blocked on arrow-cpp, python-pyarrow, python-contourpy, python-matplotlib, python-hypy, etc
   # visidata = prev.visidata.override {
   #   # hdf5 / h5py don't cross-compile, but i don't use that file format anyway.
   #   # setting this to null means visidata will work as normal but not be able to load hdf files.
   #   h5py = null;
   # };
-  # 2024/05/31: upstreaming is blocked on qtsvg, qtx11extras
+  # 2024/08/12: upstreaming is blocked on qtsvg, qtx11extras, samba
   # vlc = prev.vlc.overrideAttrs (orig: {
   #   # fixes: "configure: error: could not find the LUA byte compiler"
   #   # fixes: "configure: error: protoc compiler needed for chromecast was not found"
@@ -1258,11 +1212,11 @@ in with final; {
   # });
 
   # fixes "perl: command not found"
-  # 2024/05/31: upstreaming is unblocked, but requires alternative fix
+  # 2024/08/12: upstreaming is unblocked, but requires alternative fix
   # - i think the build script tries to run the generated binary?
   # vpnc = mvToNativeInputs [ perl ] prev.vpnc;
 
-  # 2024/05/31: upstreaming is blocked on appstream
+  # 2024/08/12: upstreaming is blocked on flatpak
   xdg-desktop-portal = prev.xdg-desktop-portal.overrideAttrs (upstream: {
     nativeBuildInputs = upstream.nativeBuildInputs ++ [
       # fixes "meson.build:117:8: ERROR: Program 'bwrap' not found or not executable"
@@ -1277,7 +1231,7 @@ in with final; {
 
   # fixes: "data/meson.build:33:5: ERROR: Program 'msgfmt' not found or not executable"
   # fixes: "src/meson.build:25:0: ERROR: Program 'gdbus-codegen' not found or not executable"
-  # 2023/07/27: upstreaming is blocked on p11-kit cross compilation
+  # 2024/08/12: upstreaming is blocked on xdg-desktop-portal
   # xdg-desktop-portal-gnome = (
   #   addNativeInputs [ wayland-scanner ] (
   #     mvToNativeInputs [ gettext glib ] prev.xdg-desktop-portal-gnome
@@ -1292,7 +1246,7 @@ in with final; {
     libjxl = webp-pixbuf-loader;
   };
 
-  # 2024/02/27: upstreaming is blocked on hyprland
+  # 2024/08/12: upstreaming is blocked on hyprland
   # waybar = (prev.waybar.override {
   #   runTests = false;  #< upstream expects `catch2_3` as a runtime requirement
   #   hyprlandSupport = false;  # doesn't cross compile
@@ -1329,19 +1283,7 @@ in with final; {
     '';
   });
 
-  # wrapFirefox = prev.wrapFirefox.override {
-  #   buildPackages = buildPackages // {
-  #     # fixes "extract-binary-wrapper-cmd: line 2: strings: command not found"
-  #     # ^- in the `nix log` output of cross-compiled `firefox` (it's non-fatal)
-  #     makeBinaryWrapper = bpkgs.makeBinaryWrapper.overrideAttrs (upstream: {
-  #       passthru.extractCmd = bpkgs.writeShellScript "extract-binary-wrapper-cmd" ''
-  #         ${stdenv.cc.targetPrefix}strings -dw "$1" | sed -n '/^makeCWrapper/,/^$/ p'
-  #       '';
-  #     });
-  #   };
-  # };
-
-  # 2024/05/31: upstreaming is unblocked
+  # 2024/08/12: upstreaming is unblocked
   # fixes `hostPrograms.moby.neovim` (but breaks eval of `hostPkgs.moby.neovim` :o)
   # wrapNeovimUnstable = neovim: config: (prev.wrapNeovimUnstable neovim config).overrideAttrs (upstream: {
   #   # nvim wrapper has a sanity check that the plugins will load correctly.
