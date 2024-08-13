@@ -72,9 +72,9 @@ in {
     (mkIf (cfg.wayland && !cfg.dummy) {
       services.xserver.enable = true;
       services.xserver.autorun = cfg.autorun;
-      services.xserver.displayManager.autoLogin.enable = true;
-      services.xserver.displayManager.autoLogin.user = cfg.user;
-      services.xserver.displayManager.defaultSession = "sway";
+      services.displayManager.autoLogin.enable = true;
+      services.displayManager.autoLogin.user = cfg.user;
+      services.displayManager.defaultSession = "sway";
       services.xserver.displayManager.lightdm.greeter.enable = false;
     })
     (mkIf cfg.wayland {
