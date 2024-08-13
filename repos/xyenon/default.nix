@@ -20,7 +20,6 @@ rec {
 
   go-check = callPackage ./pkgs/go-check { };
   catp = callPackage ./pkgs/catp { };
-  github-copilot-cli = callPackage ./pkgs/github-copilot-cli { };
   immer-unstable = callPackage ./pkgs/immer { };
   zug-unstable = callPackage ./pkgs/zug { };
   lager-unstable = callPackage ./pkgs/lager { inherit immer-unstable zug-unstable; };
