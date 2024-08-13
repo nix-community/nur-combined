@@ -13,6 +13,32 @@ in
       ];
     });
 
+    sandbox.method = "bwrap";
+    sandbox.whitelistDbus = [ "user" ];  # speak to main xdg-desktop-portal
+    sandbox.whitelistWayland = true;
+    sandbox.extraHomePaths = [
+      ".local/share/applications"  # file opener needs to find .desktop files, for their icon/name.
+      # for file-chooser portal users (fractal, firefox, ...), need to provide anything they might want.
+      # i think (?) portal users can only access the files here interactively, i.e. by me interacting with the portal's visual filechooser,
+      # so shoving stuff here is trusting the portal but not granting any trust to the portal user.
+      "Books/local"
+      "Books/servo"
+      "Music"
+      "Pictures/albums"
+      "Pictures/cat"
+      "Pictures/from"
+      "Pictures/Photos"
+      "Pictures/Screenshots"
+      "Pictures/servo-macros"
+      "Videos/local"
+      "Videos/servo"
+      "archive"
+      "dev"
+      "ref"
+      "tmp"
+      "use"
+    ];
+
     fs.".config/xdg-desktop-portal/portals/gnome.portal".symlink.target =
       "${cfg.packageUnwrapped}/share/xdg-desktop-portal/portals/gnome.portal";
     # XXX: overcome bug when manually setting `$XDG_DESKTOP_PORTAL_DIR`

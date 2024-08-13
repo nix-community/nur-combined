@@ -92,7 +92,7 @@ in
     title = "passt: support cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/334097";
     saneCommit = "3ef36d3aa139f94e8716b0721856c5808937c9f2";
-    hash = "sha256-9qzfoG/CuJbppfg8q/mWNj306AK6TVE7y++CzpY+X9Y=";
+    hash = "sha256-w50SLYDgMqNAfq4bgjrd6ugxHbb0VjvHdzhuJl0lzs4=";
   })
 
   # (fetchpatch' {
