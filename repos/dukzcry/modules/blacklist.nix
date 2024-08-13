@@ -3,10 +3,10 @@
 with lib;
 
 let
-  cfg = config.services.vpn;
+  cfg = config.services.blacklist;
   tor =  cfg.enable && cfg.tor.enable;
 in {
-  options.services.vpn = {
+  options.services.blacklist = {
     enable = mkEnableOption "";
     address = mkOption {
       type = types.str;
@@ -63,7 +63,7 @@ in {
         TransPort = [{ addr = cfg.address; port = 9040; }];
       };
       networking.nftables.tables = {
-        vpn = {
+        blacklist = {
           family = "ip";
           content = ''
             chain out {

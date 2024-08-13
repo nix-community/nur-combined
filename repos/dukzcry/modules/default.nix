@@ -14,7 +14,7 @@ rec {
   server = ./server.nix;
   headless = ./headless.nix;
   regdomain = ./regdomain.nix;
-  vpn = ./vpn.nix;
+  blacklist = ./blacklist.nix;
   hardware = ./hardware.nix;
   tun2socks = ./tun2socks.nix;
   cockpit = ./cockpit.nix;
