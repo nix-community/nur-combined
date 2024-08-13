@@ -136,12 +136,12 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.6.43-linux-240729T053450Z",
-            "sha256": "sha256-LXsTMHWChEKUjt+JsdVUQM4KC8HxhiSbvEUfcdBGCEk=",
+            "rev": "lts-v6.6.44-linux-240808T092831Z",
+            "sha256": "sha256-+yKJ90NYOLjTPiSMT0lekpmcejXAQwb6mEDCMKtR6b4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "lts-v6.6.43-linux-240729T053450Z"
+        "version": "lts-v6.6.44-linux-240808T092831Z"
     },
     "linux-intel-mainline-tracking": {
         "cargoLocks": null,
@@ -434,7 +434,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-08-09",
+        "date": "2024-08-13",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -444,13 +444,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "f0bf04f32823e12ae9026ff046509c9bb7d2fb5f",
-            "sha256": "sha256-p3Wmv1NMx/Ie1ZblxVxgosb45ZhSY5UNxS7wml8fEE0=",
+            "rev": "f37863cbc5073d4adfe305fe5a9f3af3ae67814d",
+            "sha256": "sha256-hTqvsiAf0rYMzMqfsfPOJU7Rtbx0gQlpsjiKxBY2Hc8=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "f0bf04f32823e12ae9026ff046509c9bb7d2fb5f"
+        "version": "f37863cbc5073d4adfe305fe5a9f3af3ae67814d"
     },
     "rime-loengfan": {
         "cargoLocks": null,
