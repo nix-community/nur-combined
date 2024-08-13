@@ -28,6 +28,10 @@
   - `dmesg | grep 'hid_bpf: error while preloading HID BPF dispatcher: -22'`
 - `s6` is not re-entrant
   - so if the desktop crashes, the login process from `unl0kr` fails to re-launch the GUI
+- newflash on moby can't play videos
+  - "open in browser" works though -- in mpv
+- gnome-maps can't use geoclue *and* openstreetmap at the same time
+  - get gnome-maps to speak xdg-desktop-portal, and this will be fixed
 
 ## REFACTORING:
 - add import checks to my Python nix-shell scripts

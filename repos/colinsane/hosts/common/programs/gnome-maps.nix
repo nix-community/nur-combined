@@ -10,6 +10,12 @@
 # TIPS:
 # - use "Northwest" instead of "NW", and "Street" instead of "St", etc.
 #   otherwise, it might not find your destination!
+#
+# TODO:
+# - get gnome-maps to access location services via the xdg-desktop-portal.
+#   with it not using the portal, it can't open links via the web browser.
+#   additionally, that prevents OpenStreetMap sign-in.
+#   even temporarily enabling the portal for OSM doesn't work *after* the portal has been disabled -- because then gnome-maps can't access its passwords (?)
 { pkgs, ... }:
 {
   sane.programs."gnome.gnome-maps" = {
