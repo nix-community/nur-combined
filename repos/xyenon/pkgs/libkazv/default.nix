@@ -9,7 +9,7 @@
   zug-unstable,
   boost,
   nlohmann_json,
-  olm,
+  vodozemac-bindings-kazv-unstable,
   cryptopp,
   libcpr,
   catch2_3,
@@ -18,14 +18,14 @@
 
 stdenv.mkDerivation rec {
   pname = "libkazv";
-  version = "0.6.0-unstable-2024-08-03";
+  version = "0.7.0-unstable-2024-08-10";
 
   src = fetchFromGitLab {
     domain = "lily-is.land";
     owner = "kazv";
     repo = pname;
-    rev = "2e7c5ac9017d86a2598ffaf9dd720edc41b11a39";
-    hash = "sha256-tpCHjgxADXn6+KP2ul3UDyV5rx91knWSIqxs5ohyGj4=";
+    rev = "9f9f367e640c6b62f20105c728bc1a49069ce32c";
+    hash = "sha256-suKdLJ0+4CFJ8MuT1sJVd7SDu9hLTel3QlNSZf9+7+g=";
   };
 
   nativeBuildInputs = [
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     zug-unstable
     boost
     nlohmann_json
-    olm
+    vodozemac-bindings-kazv-unstable
     cryptopp
 
     libcpr
