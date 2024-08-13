@@ -3,10 +3,8 @@
 with lib;
 let
   cfg = config.services.headless;
-  resolution = head cfg.resolutions;
 in {
   options.services.headless = {
-    xorg = mkEnableOption "via X.Org";
     wayland = mkEnableOption "via Wayland";
     autorun = mkEnableOption "run by default";
     user = mkOption {
@@ -21,13 +19,9 @@ in {
       default = true;
       description = "Enable monitor emulation";
     };
-    resolutions = mkOption {
-      type = types.listOf types.attrs;
-      default = optionals cfg.dummy [ { x = 1920; y = 1080; } ];
-    };
-    devid = mkOption {
-      type = types.str;
-      example = "0000:07:00.0,1";
+    resolution = mkOption {
+      type = types.nullOr types.attrs;
+      default = if cfg.dummy then { x = 1920; y = 1080; } else null;
     };
     output = mkOption {
       type = types.str;
@@ -35,24 +29,6 @@ in {
     };
   };
   config = mkMerge [
-    (mkIf (cfg.xorg && cfg.dummy) {
-      boot.extraModprobeConfig = ''
-        options amdgpu virtual_display=${cfg.devid}
-      '';
-    })
-    (mkIf cfg.xorg {
-      services.xserver.enable = true;
-      services.xserver.autorun = cfg.autorun;
-      services.xserver.resolutions = cfg.resolutions;
-      services.displayManager.autoLogin.enable = true;
-      services.displayManager.autoLogin.user = cfg.user;
-      services.displayManager.defaultSession = "none+i3";
-      services.xserver.displayManager.lightdm.greeter.enable = false;
-      services.xserver.windowManager.i3.enable = true;
-      services.xserver.windowManager.i3.extraSessionCommands = ''
-        ${cfg.commands}
-      '';
-    })
     (mkIf (cfg.wayland && cfg.dummy) {
       programs.sway.extraSessionCommands = ''
         export WLR_BACKENDS=headless sway
@@ -81,11 +57,9 @@ in {
       programs.sway.enable = true;
       environment.etc."sway/config.d/headless.conf".source = pkgs.writeText "headless.conf" (''
         ${cfg.commands}
-      '' + optionalString (cfg.resolutions != []) ''
-        output ${cfg.output} resolution ${toString resolution.x}x${toString resolution.y}
+      '' + optionalString (cfg.resolution != null) ''
+        output ${cfg.output} resolution ${toString cfg.resolution.x}x${toString cfg.resolution.y}
       '');
-    })
-    (mkIf (cfg.xorg || cfg.wayland) {
       security.polkit.extraConfig = ''
         polkit.addRule(function(action, subject) {
           if (action.id == "org.freedesktop.login1.power-off" ||
