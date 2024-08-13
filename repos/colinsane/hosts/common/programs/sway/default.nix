@@ -62,21 +62,6 @@ let
       substituteInPlace types/wlr_xdg_activation_v1.c \
         --replace-fail 'if (token->seat != NULL)' 'if (false && token->seat != NULL)'
     '';
-    patches = (upstream.patches or []) ++ [
-      (pkgs.fetchpatch {
-        # XXX(2024-08-12): drmSyncobj causes sway to fail to create any output at launch:
-        # sway: 00:00:09.955 [ERROR] [wlr] [render/drm_syncobj.c:24] drmSyncobjCreate failed: Operation not supported
-        # sway: 00:00:09.955 [ERROR] [sway/desktop/output.c:545] Failed to create a scene output
-        # this is fixable in wlroots -- not via sway.
-        # - sway patch (reverting it does *not* fix): <https://github.com/swaywm/sway/pull/8156>
-        # - wlroot patch which introduced the bug: <https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4715>
-        # see (tracking): <https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4715#note_2523517>
-        # - <https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4781>
-        name = "render-gles2-check-for-DRM_CAP_SYNCOBJ_TIMELINE";
-        url = "https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4781.patch";
-        hash = "sha256-Z6m49DZutyTB54z4AGmjTUoE0EbF4tJ1GyOXC+gqQgU=";
-      })
-    ];
   });
   swayPackage = wrapSway (
     (pkgs.nixpkgs-wayland.sway-unwrapped.override {
