@@ -8,6 +8,10 @@
 # - the bot will reply with auto-generated username/password plus a SIP server endpoint.
 #   just copy those into gnome-calls' GUI configurator
 # - now gnome-calls can do outbound calls. inbound calls can be routed by messaging the bot: "configure calls"
+#
+# user guide:
+# - "Use for Calls" means, "when i click a tel: URI, use this account": <https://gitlab.gnome.org/GNOME/calls/-/issues/513>
+# - `calls -vvv` for verbosity
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.calls;
