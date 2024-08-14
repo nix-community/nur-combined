@@ -7,15 +7,15 @@
 }: {
   kmonad = {
     pname = "kmonad";
-    version = "2d11c6306ebd209796474da83efeefd607a30e6c";
+    version = "07cd1cb4fddb46a8d9de3bb9d06196d08b7a8ed2";
     src = fetchFromGitHub {
       owner = "kmonad";
       repo = "kmonad";
-      rev = "2d11c6306ebd209796474da83efeefd607a30e6c";
+      rev = "07cd1cb4fddb46a8d9de3bb9d06196d08b7a8ed2";
       fetchSubmodules = false;
-      sha256 = "sha256-X71EWTgnExZLfTfDEwQMJwTUkOZsw2lZ+XSaLLHq0Tk=";
+      sha256 = "sha256-sfgm8f50WpzuBObpl2DcEw6VDBl90wwFTF4CToWLyyM=";
     };
-    date = "2024-08-12";
+    date = "2024-08-13";
   };
   taffybar = {
     pname = "taffybar";
