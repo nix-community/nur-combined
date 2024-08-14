@@ -1,6 +1,6 @@
 {
   imports = [
-    itd = ./itd.nix
-    vvmd = ./vvmd.nix
+    ./itd.nix
+    ./vvmd.nix
   ];
 }
