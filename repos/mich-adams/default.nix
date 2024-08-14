@@ -12,20 +12,15 @@
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
-  hmModules = rec {
-    modules = pkgs.lib.attrValues rawModules;
-    rawModules = import ./modules/home-manager;
-  };
+  hmModules = import ./modules/home-manager; # Home Manager modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  #example-package = pkgs.callPackage ./pkgs/example-package { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
-  dosage = pkgs.callPackage ./pkgs/dosage { };
-  exercise-timer = pkgs.callPackage ./pkgs/exercise-timer { };
-  jogger = pkgs.callPackage ./pkgs/jogger { };
-  my-gnu-health = pkgs.callPackage ./pkgs/my-gnu-health { };
-  upscaler = pkgs.callPackage ./pkgs/upscaler { };
+  # Packages
+  dosage = pkgs.callPackage ./pkgs/dosage {};
+  exercise-timer = pkgs.callPackage ./pkgs/exercise-timer {};
+  jogger = pkgs.callPackage ./pkgs/jogger {};
+  my-gnu-health = pkgs.callPackage ./pkgs/my-gnu-health {};
+  upscaler = pkgs.callPackage ./pkgs/upscaler {};
   vvmd = pkgs.callPackage ./pkgs/vvmd.nix {};
   vvmplayer = pkgs.callPackage ./pkgs/vvmplayer.nix {};
 }
