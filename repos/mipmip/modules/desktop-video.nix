@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, unstable, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -6,8 +6,18 @@
     x264
     ffmpeg
     vlc
-    obs-studio
     vhs
+
+    (pkgs.wrapOBS {
+      plugins = with pkgs.obs-studio-plugins; [
+        wlrobs
+        advanced-scene-switcher
+        input-overlay
+
+        #obs-backgroundremoval
+        #obs-pipewire-audio-capture
+      ];
+    })
   ];
 }
 

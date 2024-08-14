@@ -31,7 +31,7 @@
 
       set -g status-interval 300     # redraw status line in seconds
 
-      # activity
+      # ACTIVITY
       set -g monitor-activity off
       set -g visual-activity off
 
@@ -49,9 +49,18 @@
       # START WITH MOUSE MODE ENABLED
       set -g mouse on
 
-      set -g default-terminal "screen-256color"
-      set -sa terminal-overrides ',xterm-256color:RGB'
+      ## THIS WORKED FOR ST but not for alacritty
+      # set -g default-terminal "screen-256color"
+      # set -sa terminal-overrides ',xterm-256color:RGB'
+
+      set -g default-terminal "$TERM"
+      set -ag terminal-overrides ",$TERM:Tc"
       setw -g xterm-keys on
+
+      # FIX HOME END KEYS
+      bind-key -n Home send Escape "OH"
+      bind-key -n End send Escape "OF"
+
       set -q -g status-utf8 on                  # expect UTF-8 (tmux < 2.2)
       setw -q -g utf8 on
 

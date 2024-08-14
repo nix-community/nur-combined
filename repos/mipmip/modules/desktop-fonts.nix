@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, unstable, ... }:
 
 let
   fontsList = with pkgs; [
@@ -9,11 +9,28 @@ let
     inter
     rubik
     lato
+    noto-fonts
+    noto-fonts-color-emoji
+    fira-code-nerdfont
+    liberation_ttf
     nerdfonts
+    inconsolata-nerdfont
+    ubuntu_font_family
   ];
 in
 {
-  environment.systemPackages = fontsList;
-  fonts.fonts = fontsList;
-}
+  fonts = {
+    enableDefaultPackages = true;
+    fontconfig.enable = true;
+    packages = fontsList;
 
+    fontconfig = {
+      defaultFonts = {
+        serif = [  "Liberation Serif"  ];
+        sansSerif = [ "Ubuntu" "Vazirmatn" ];
+        monospace = [ "Ubuntu Mono" ];
+      };
+    };
+  };
+  environment.systemPackages = fontsList;
+}

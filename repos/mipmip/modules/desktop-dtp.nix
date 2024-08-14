@@ -1,4 +1,4 @@
-{ config, lib, pkgs, nixpkgs-inkscape13, ... }:
+{ config, lib, pkgs, unstable, ... }:
 
 {
 
@@ -8,10 +8,12 @@
     zathura
     pdftk
     pdfarranger
+    ghostscript
     paperwork # could replace papermerge
 
     gimp
-    nixpkgs-inkscape13.inkscape-with-extensions
+    unstable.inkscape-with-extensions
+
     #nixpkgs-inkscape13.inkscape
     feh
     swappy

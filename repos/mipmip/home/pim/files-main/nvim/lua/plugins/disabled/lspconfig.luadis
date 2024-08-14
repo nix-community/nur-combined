@@ -129,6 +129,17 @@ return {
       }
 
       lsp.lua_ls.setup({
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = {
+                'vim',
+                'pandoc',
+                'require'
+              },
+            },
+          }
+        },
         capabilites = capabilities,
       })
 

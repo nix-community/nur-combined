@@ -12,7 +12,7 @@
 
   security.polkit.enable = true;
 
-  services.xserver.displayManager.sessionPackages = [ unstable.hyprland ];
+  services.displayManager.sessionPackages = [ unstable.hyprland ];
 
   xdg.portal = {
     enable = true;

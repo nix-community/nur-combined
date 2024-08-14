@@ -22,7 +22,7 @@
       icon           = "org.gnome.Console";
       settings       = {
         Keywords = "shell;prompt;command;commandline;cmd;";
-        StartupWMClass = "st-256color";
+        StartupWMClass = "xterm-256color";
       };
     };
 
@@ -41,22 +41,6 @@
       icon           = "gvim";
       settings       = {
         Keywords = "Text;editor;";
-      };
-    };
-
-    proton = {
-      type = "Application";
-      exec = "epiphany --application-mode=proton.desktop https://mail.proton.me";
-      icon = "proton";
-      startupNotify = true;
-      categories     = [ "Network" ];
-      terminal = false;
-      name= "proton";
-      genericName    = "Proton Mail Client";
-      comment = "Mail client in a browser";
-      settings       = {
-        Keywords = "browser;";
-        StartupWMClass = "protonmail";
       };
     };
 

@@ -8,6 +8,7 @@
     glxinfo
     lm_sensors
     usbutils
+    linux-firmware
   ];
 }
 

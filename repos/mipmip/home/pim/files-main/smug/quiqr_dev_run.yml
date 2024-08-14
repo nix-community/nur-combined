@@ -10,10 +10,10 @@ windows:
   - name: runquiqr
     layout: main-horizontal
     commands:
-      - nix-shell
+      - nix develop
       - npm run _electron-dev
     panes:
       - type: horizontal
         commands:
-          - nix-shell
-          - npm run _react-dev
+          - nix develop
+          - NODE_OPTIONS=--openssl-legacy-provider npm run _react-dev

@@ -1,4 +1,4 @@
-{ config, inputs, system, pkgs, unstable, ... }:
+{ config, lib, inputs, system, pkgs, unstable, ... }:
 
 {
   imports =
@@ -9,6 +9,7 @@
       ../../modules/desktop-firefox.nix
       ../../modules/desktop-gnome-45.nix
 
+      ../../modules/nur-my-pkgs.nix
       ../../modules/nix-vm-test.nix
     ];
 
@@ -18,7 +19,6 @@
        experimental-features = nix-command flakes
     '';
   };
-
 
   virtualisation.vmVariant = {
 

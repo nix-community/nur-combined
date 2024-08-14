@@ -1,16 +1,15 @@
 { lib, buildGoModule, fetchgit }:
 buildGoModule rec {
   pname = "embgit";
-  version = "0.6.0";
+  version = "0.6.3";
 
   src = fetchgit {
     url = "https://github.com/quiqr/embgit.git";
     rev = "${version}";
-    #sha256 = "sha256:04i1ijch1crmgx49nnl1rbly15gwwwm3hic22v1hgsf0d3zhm0sn";
-    sha256 = "sha256:0000000000000000000000000000000000000000000000000000";
+    sha256 = "sha256-8E/CQaIoeDsH61l7MEsb5QS8pMG/KM60xtkQ646otc8=";
   };
 
-  vendorSha256 = "sha256:0000000000000000000000000000000000000000000000000000";
+  vendorHash = "sha256-Ovzfw0hhkjhGb/ZV3Xc1ZTfD+GDJncnZ3YhXHzWmmhE=";
 
   meta = with lib; {
     description = ''

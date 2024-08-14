@@ -5,7 +5,8 @@
 
     smug
     tmux
-    urlview
+    #urlview
+    urlscan
 
   ];
 }

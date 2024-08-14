@@ -10,8 +10,13 @@
     drawio
     graphviz
 
+    # SHELL
+    gum
+
     # 2FA
     authenticator
+
+    sqlite
 
     # PASSWORDS
     gnupg
@@ -20,6 +25,9 @@
     pass
 
     unstable.nickel
+
+
+    vscode
     dhall
 
     # AWS
@@ -34,6 +42,9 @@
     ssmsh
 
     git-remote-codecommit
+
+    unstable.azure-cli
+    unstable.bruno
 
 
     # TERRAFORM

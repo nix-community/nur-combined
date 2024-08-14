@@ -13,13 +13,13 @@
 
   # IF TRUE WAYLAND WILL BE USED
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.defaultSession = "gnome";
+  services.displayManager.defaultSession = "gnome";
 
   services.flatpak.enable = true;
 
   # Configure keymap in X11
-  services.xserver.layout = "us";
-  services.xserver.xkbOptions = "caps:none,terminate:ctrl_alt_bks";
+  services.xserver.xkb.layout = "us";
+  services.xserver.xkb.options = "caps:none,terminate:ctrl_alt_bks";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;

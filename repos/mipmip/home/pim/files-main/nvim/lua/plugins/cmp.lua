@@ -39,13 +39,20 @@ return {
         ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
       }),
       sources = cmp.config.sources({
+        {
+          name = 'buffer',
+          option = {
+            get_bufnrs = function()
+              return vim.api.nvim_list_bufs()
+            end
+          },
+        },
         { name = 'nvim_lsp' },
         { name = 'luasnip' }, -- For luasnip users.
         -- { name = 'ultisnips' }, -- For ultisnips users.
         -- { name = 'snippy' }, -- For snippy users.
-      }, {
-          { name = 'buffer' },
-        })
+        }
+      )
     })
 
   end,

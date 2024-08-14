@@ -2,6 +2,7 @@ return {
   -- Git related plugins
 
   'tpope/vim-fugitive',
+  'tpope/vim-eunuch',
   'tpope/vim-rhubarb',
   'mcchrish/nnn.vim',
 

@@ -16,5 +16,5 @@ windows:
     panes:
       - type: horizontal
         commands:
-          - hugo server --renderToDisk --ignoreCache --forceSyncStatic --cleanDestinationDir --disableFastRender -e private -p 1314
+          - hugo server --ignoreCache --forceSyncStatic --cleanDestinationDir --disableFastRender -e private -p 1314
 

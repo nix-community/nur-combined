@@ -56,8 +56,8 @@
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
       binding = "<Super>Return";
-      command = "env st";
-      name = "st";
+      command = "env alacritty";
+      name = "alacritty";
     };
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {

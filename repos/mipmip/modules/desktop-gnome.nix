@@ -2,13 +2,15 @@
 
 {
 
+  services.gnome.gnome-keyring.enable = true;
+
   environment.gnome.excludePackages = (with pkgs; [
     gnome-photos
     gnome-tour
   ]) ++ (with pkgs.gnome; [
     cheese # webcam tool
     gnome-music
-    gedit # text editor
+    #gedit # text editor
     #epiphany # web browser
     geary # email reader
     #gnome-characters

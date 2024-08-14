@@ -21,6 +21,13 @@
   };
 
   home.file = {
+    ".config/sc-im" = {
+      source = ./sc-im;
+      recursive = true;
+    };
+  };
+
+  home.file = {
     ".tmux" = {
       source = ./tmux;
       recursive = true;
@@ -56,10 +63,17 @@
   };
 
   home.file = {
-    "./.config/alacritty.yml" = {
-      source = ./alacritty.yml;
+    "./.dirtygit.yml" = {
+      source = ./.dirtygit.yml;
     };
   };
+
+
+#  home.file = {
+#    "./.config/alacritty.yml" = {
+#      source = ./alacritty.yml;
+#    };
+#  };
 
   home.file = {
     ".config/skulls.yaml" = {

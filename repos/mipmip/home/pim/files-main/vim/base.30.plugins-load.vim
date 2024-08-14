@@ -68,7 +68,7 @@ Plug 'bkad/camelcasemotion'
 Plug 'szw/vim-maximizer'
 
 " VIM TEXT TOOLS
-Plug 'bronson/vim-trailing-whitespace'
+Plug 'bronson/vim-trailing-whitespace'    
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-surround'

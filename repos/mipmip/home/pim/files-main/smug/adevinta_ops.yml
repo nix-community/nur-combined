@@ -1,9 +1,0 @@
-session: adevinta-ops
-root: ~/tcAdevinta
-
-windows:
-- name: dsocks
-- name: proxychains
-- name: shell-ams
-- name: shell-dus
-- name: shell-non-prod

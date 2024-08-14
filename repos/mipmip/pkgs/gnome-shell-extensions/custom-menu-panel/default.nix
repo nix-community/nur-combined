@@ -34,11 +34,18 @@ in
       maintainers = with maintainers; [ mipmip ];
     };
 
+#    src = fetchFromGitHub {
+#      owner = "andreabenini";
+#      repo = "gnome-plugin.custom-menu-panel";
+#      rev = "e26f5ab";
+#      sha256 = "sha256-Vmc8owaV45rvf5ZWGSatXVQ9NBbvQVcSMq8NRBqvuko=";
+#    };
+
     src = fetchFromGitHub {
-      owner = "andreabenini";
+      owner = "fmuellner";
       repo = "gnome-plugin.custom-menu-panel";
-      rev = "e26f5ab";
-      sha256 = "sha256-Vmc8owaV45rvf5ZWGSatXVQ9NBbvQVcSMq8NRBqvuko=";
+      rev = "0cb25ae";
+      sha256 = "sha256-KRuIYmQW42U2FMjfGZ6hQpIVgmctRnqw0mPv1/7CfV8=";
     };
 
     dontBuild = true;

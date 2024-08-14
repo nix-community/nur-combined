@@ -5,9 +5,6 @@
   environment.systemPackages = with pkgs; [
 
     # terminals
-    alacritty
-    kitty
-    wezterm
     foot
 
     xclip
@@ -26,6 +23,9 @@
     #TRANSLATION TOOLS
     poedit
     intltool
+
+
+    super-productivity
   ];
 
 

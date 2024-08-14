@@ -111,7 +111,7 @@ tmux_conf_theme_terminal_title='#h ❐ #S ● #I #W'
 tmux_conf_theme_window_status_fg='#8a8a8a'              # light gray
 tmux_conf_theme_window_status_bg='#080808'              # dark gray
 tmux_conf_theme_window_status_attr='none'
-tmux_conf_theme_window_status_format='#I #W'
+tmux_conf_theme_window_status_format='#I #W#F'
 #tmux_conf_theme_window_status_format='#{circled_window_index} #W'
 #tmux_conf_theme_window_status_format='#I #W#{?window_bell_flag,🔔,}#{?window_zoomed_flag,🔍,}'
 
@@ -126,7 +126,7 @@ tmux_conf_theme_window_status_format='#I #W'
 tmux_conf_theme_window_status_current_fg='#000000'      # black
 tmux_conf_theme_window_status_current_bg='#00afff'      # light blue
 tmux_conf_theme_window_status_current_attr='bold'
-tmux_conf_theme_window_status_current_format='#I #W'
+tmux_conf_theme_window_status_current_format='#I #W#F'
 #tmux_conf_theme_window_status_current_format='#{circled_window_index} #W'
 #tmux_conf_theme_window_status_current_format='#I #W#{?window_zoomed_flag,🔍,}'
 

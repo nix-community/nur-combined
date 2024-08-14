@@ -24,12 +24,12 @@
   services.openssh.enable = true;
 
   services.cron.enable = true;
-  services.atd.enable = true;
+  #services.atd.enable = true;
 
-  services.lorri.enable = true;
+  #services.lorri.enable = true;
   services.journald.extraConfig = "SystemMaxUse=100M";
 
-  programs.fish.enable = true;
+  #programs.fish.enable = true;
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
   environment.shells = with pkgs; [ zsh ];

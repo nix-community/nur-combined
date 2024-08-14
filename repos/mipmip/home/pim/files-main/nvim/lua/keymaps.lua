@@ -74,3 +74,21 @@ commander.add({
     cat = "mychatgpt",
   },
 })
+
+
+local function keymapOptions(desc)
+    return {
+        noremap = true,
+        silent = true,
+        nowait = true,
+        desc = "GPT prompt " .. desc,
+    }
+end
+
+
+vim.keymap.set("v", "<C-g>a", ":<C-u>'<,'>GpAppend<cr>", keymapOptions("Visual Append (after)"))
+vim.keymap.set("v", "<C-g>t", ":<C-u>'<,'>GpTranslator<cr>", keymapOptions("GpTranlate"))
+
+vim.keymap.set("", ",c", ReloadHomeManagerNeoVimConf(), { expr = true, })
+vim.keymap.set("", ",s", ToggleSpell(vim.wo), { expr = true, })
+vim.keymap.set("", ",z", ":ZenMode<cr>")

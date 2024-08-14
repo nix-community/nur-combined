@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, inputs, system, pkgs, peerix, unstable, ... }:
+{ config, inputs, system, pkgs, peerix, ... }:
 
 {
   imports =
@@ -33,11 +33,12 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  hardware.enableAllFirmware = true;
 
   boot.initrd.systemd.enable = true;
   boot.initrd.verbose = false;
 
-  boot.kernelPackages = unstable.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
@@ -57,8 +58,7 @@
   networking.hostName = "lego1";
   networking.networkmanager.enable = true;
   networking.firewall.enable = false;
-  networking.useDHCP = lib.mkDefault true;
 
-  system.stateVersion = "22.11"; # Did you read the comment?
+  system.stateVersion = "24.05"; # Did you read the comment?
 
 }

@@ -6,6 +6,12 @@
   };
 
   home.file = {
+    ".config/sc-im/scimrc" = {
+      source = ./.config/sc-im/scimrc;
+    };
+  };
+
+  home.file = {
     ".bin" = {
       source = ./.bin;
       recursive = true;

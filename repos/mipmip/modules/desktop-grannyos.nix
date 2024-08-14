@@ -25,7 +25,7 @@
   ]) ++ (with pkgs.gnome; [
     cheese # webcam tool
     gnome-music
-    gedit # text editor
+    #gedit # text editor
     tali # poker game
     iagno # go game
     hitori # sudoku game

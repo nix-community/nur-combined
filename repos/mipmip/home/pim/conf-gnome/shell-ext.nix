@@ -8,7 +8,7 @@ let
 
   gnomeExtensionsWithOutConf = [
     mipmip_pkg.gnomeExtensions.custom-menu-panel
-    pkgs.gnomeExtensions.emoji-selector
+    pkgs.gnomeExtensions.emoji-copy
     pkgs.gnomeExtensions.espresso
     #pkgs.gnomeExtensions.lightdark-theme-switcher
     pkgs.gnomeExtensions.spotify-tray
@@ -20,7 +20,7 @@ let
     (import ./shell-ext-tray-icons-reloaded.nix { pkgs = pkgs; })
     (import ./shell-ext-color-picker.nix { pkgs = pkgs; })
     (import ./shell-ext-focus-changer.nix { pkgs = pkgs; })
-    (import ./shell-ext-favorites-menu.nix { unstable = unstable; })
+    #(import ./shell-ext-favorites-menu.nix { unstable = unstable; })
     (import ./shell-ext-dash-to-panel.nix { pkgs = pkgs; })
     #(import ./shell-ext-gs-git.nix { mipmip_pkg = mipmip_pkg; })
     (import ./shell-ext-useless-gaps.nix { unstable = unstable; })

@@ -8,7 +8,7 @@
     programs.zsh = {
       enable = true;
       autocd = true;
-      enableAutosuggestions = false;
+      autosuggestion.enable = false;
 
       oh-my-zsh = {
         enable = true;
