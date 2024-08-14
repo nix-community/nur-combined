@@ -5,13 +5,13 @@
 
 python3Packages.buildPythonApplication {
   name = "mail_replyer";
-  version = "0.1.0-20240527-08492c18d905";
+  version = "0.1.0-20240813-67b189e9dc0d";
   pyproject = true;
   src = fetchFromGitHub {
     owner = "JaviMerino";
     repo = "mail_replyer";
-    rev = "08492c18d905f885be663a07c75ee3d3ef256114";
-    hash = "sha256-F8dm1ddh1CsExcYLRUO55z4rQqVRBO2lzYhiyUH78zc=";
+    rev = "67b189e9dc0d7881967501973320d40e90bd1b48";
+    hash = "sha256-XUCkgsq16SjxVFNqzvsfG9JqF+N0tQCWk4G7aGvKEPU=";
   };
   buildInputs = [
     python3Packages.hatchling
