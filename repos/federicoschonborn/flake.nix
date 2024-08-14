@@ -102,7 +102,7 @@
           packages = import ./flattenTree.nix config.legacyPackages;
 
           devShells = {
-            default = pkgs.mkShell {
+            default = pkgs.mkShellNoCC {
               packages = with pkgs; [
                 deadnix
                 jq
@@ -117,7 +117,7 @@
               '';
             };
 
-            nix-build-uncached = pkgs.mkShell {
+            nix-build-uncached = pkgs.mkShellNoCC {
               packages = [
                 (pkgs.nix-build-uncached.overrideAttrs (_: _: { src = inputs.nix-build-uncached-src; }))
               ];
