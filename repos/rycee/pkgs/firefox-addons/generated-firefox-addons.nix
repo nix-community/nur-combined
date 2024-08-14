@@ -1223,26 +1223,26 @@
     };
     "censor-tracker" = buildFirefoxXpiAddon {
       pname = "censor-tracker";
-      version = "4.1.1.0";
+      version = "18.5.0";
       addonId = "{5d0d1f87-5991-42d3-98c3-54878ead1ed1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3883249/censor_tracker-4.1.1.0.xpi";
-      sha256 = "1c1b83f82209a16dbcdb31d03e9c6bbe8299ef6635b820509e0d52622bc0fdd9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4333567/censor_tracker-18.5.0.xpi";
+      sha256 = "5c90e1be3d1a1aa9cdafe51c84a0d1cdacd2cbb1445bf0e800e82bf1d85ec4b4";
       meta = with lib;
       {
         homepage = "https://censortracker.org/en.html";
         description = "Censor Tracker is an extension that allows you to bypass Internet censorship, warns you about sites that transmit your data with government agencies, and detect new acts of censorship.";
         license = licenses.mit;
         mozPermissions = [
-          "tabs"
-          "proxy"
-          "storage"
+          "<all_urls>"
+          "webRequest"
+          "alarms"
           "activeTab"
           "management"
-          "webRequest"
           "notifications"
+          "proxy"
+          "storage"
+          "tabs"
           "unlimitedStorage"
-          "webRequestBlocking"
-          "<all_urls>"
         ];
         platforms = platforms.all;
       };
@@ -1548,10 +1548,10 @@
     };
     "codecov" = buildFirefoxXpiAddon {
       pname = "codecov";
-      version = "0.4.5";
+      version = "0.4.6";
       addonId = "{f3924b0d-e29f-4593-b605-084b3d71ed9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4322718/codecov-0.4.5.xpi";
-      sha256 = "9d806094000cfa9e9e14f6f1d58fbaa1b3553ab7f0466d762ea1cef799d76871";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4336244/codecov-0.4.6.xpi";
+      sha256 = "2209bee4277834fa1b9dd6209a0ff70de975e25318e5d1c9f0c51fa7e0f03020";
       meta = with lib;
       {
         homepage = "https://about.codecov.io";
@@ -1740,10 +1740,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.1.3";
+      version = "4.2.1";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4330286/control_panel_for_twitter-4.1.3.xpi";
-      sha256 = "88403ea1538bf6790f9fdc55c4b7488d6699f56f07b216e0b70c2b88378207f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4334891/control_panel_for_twitter-4.2.1.xpi";
+      sha256 = "ba6680a8b3b8c55fa00657050d8839b56271e4f52abfe50c73c9d1b862c8a838";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -2720,10 +2720,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.20";
+      version = "1.3.20.1";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4336044/faststream-1.3.20.xpi";
-      sha256 = "50b3e98b02836d146d21b5d39d6941bca6946389deda8ec07084579e0cb2acfe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4336080/faststream-1.3.20.1.xpi";
+      sha256 = "c988720a26099a88b53121ee87283ef98694f48415a5c4f79eb779ed4fedef4a";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -5153,10 +5153,10 @@
     };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.1085";
+      version = "4.1093";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4327508/youtube_addon-4.1085.xpi";
-      sha256 = "c77e29969b3c8af8e18c36e624ba04451f388fe820880e1f5d9a386bbc70aafb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4334089/youtube_addon-4.1093.xpi";
+      sha256 = "b06c862d223bef895822114fc5be1a3a903c1464c11322d440725be5f068bf53";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -5171,6 +5171,7 @@
           "contextMenus"
           "storage"
           "https://www.youtube.com/*"
+          "https://m.youtube.com/*"
         ];
         platforms = platforms.all;
       };
@@ -5724,10 +5725,10 @@
     };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.9.1.1";
+      version = "1.9.2";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4315216/keepassxc_browser-1.9.1.1.xpi";
-      sha256 = "94eb909e82507b228bc6c09e36d9043722bf0eaa36edbfe8b26d36e4b588f6f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4335111/keepassxc_browser-1.9.2.xpi";
+      sha256 = "cbc085f0e1275d81af22e12fbc9627381d8eb891998a5ebbf5bc198f8d79a0bf";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -8223,10 +8224,10 @@
     };
     "polkadot-js" = buildFirefoxXpiAddon {
       pname = "polkadot-js";
-      version = "0.50.1";
+      version = "0.51.1";
       addonId = "{7e3ce1f0-15fb-4fb1-99c6-25774749ec6d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4329102/polkadot_js_extension-0.50.1.xpi";
-      sha256 = "f9c14339fa32a83a4da72119627d21c76e5e474db8d2553364e842e746d83b39";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4333568/polkadot_js_extension-0.51.1.xpi";
+      sha256 = "c9251b69d9decdf04b1528c4e2917d3639c818cf574eec5bb656ba2c278264ed";
       meta = with lib;
       {
         homepage = "https://github.com/polkadot-js/extension";
@@ -9347,10 +9348,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.8.3";
+      version = "24.8.13";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4330959/refined_github-24.8.3.xpi";
-      sha256 = "e3a03952691524466ac7968930595b727832ffdb2864c6699e6bf4a389865407";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4336164/refined_github-24.8.13.xpi";
+      sha256 = "0a48e32c041f6473d965059bf1bf37551c7e9c56d8a95dc082174e3cff0c2d22";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -10780,10 +10781,10 @@
     };
     "toolkit-for-ynab" = buildFirefoxXpiAddon {
       pname = "toolkit-for-ynab";
-      version = "3.14.0";
+      version = "3.15.0";
       addonId = "{4F1FB113-D7D8-40AE-A5BA-9300EAEA0F51}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4298051/toolkit_for_ynab-3.14.0.xpi";
-      sha256 = "70488e686555414091293fc467f4fdfa5529ea02287cb78820a36e23afac5c98";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4336302/toolkit_for_ynab-3.15.0.xpi";
+      sha256 = "79d187a44e0ef30027f9ce149057c8bf9d308ef115965b7e4aae762ac218f511";
       meta = with lib;
       {
         homepage = "https://github.com/toolkit-for-ynab/toolkit-for-ynab";
