@@ -1621,6 +1621,33 @@ Wisp turns indentation based syntax into Lisp.
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `x86_64-windows`, `i686-windows`
 </details>
 
+### `wlroots_0_16`
+
+Pluggable, composable, unopinionated modules for building a Wayland
+compositor; or about 50,000 lines of code you were going to write anyway.
+
+- Name: `wlroots`
+- Version: `0.16.2`
+- [Homepage](https://gitlab.freedesktop.org/wlroots/wlroots/)
+- [Changelog](https://gitlab.freedesktop.org/wlroots/wlroots/-/tags/0.16.2)
+- License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
+- [Source](./pkgs/by-name/wlroots_0_16/package.nix#L112)
+- Maintainers:
+  - [Michael Weiss](https://github.com/primeos) <[`dev.primeos@gmail.com`](mailto:dev.primeos@gmail.com)>
+  - [Patrick Hilhorst](https://github.com/Synthetica9) <[`nix@hilhorst.be`](mailto:nix@hilhorst.be)>
+  - [✉️ Mail to all maintainers](mailto:dev.primeos@gmail.com,nix@hilhorst.be)
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Package details
+  </summary>
+
+- Outputs: **`out`**, `examples`
+- Platforms: `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`
+</details>
+
 ### `woke`
 
 Detect non-inclusive language in your source code.

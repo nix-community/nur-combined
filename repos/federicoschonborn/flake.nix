@@ -18,6 +18,11 @@
         flake-compat.follows = "";
       };
     };
+
+    nix-build-uncached-src = {
+      url = "git+https://codeberg.org/FedericoSchonborn/nix-build-uncached";
+      flake = false;
+    };
   };
 
   outputs =
@@ -98,6 +103,7 @@
 
           devShells.default = pkgs.mkShell {
             packages = with pkgs; [
+              (nix-build-uncached.overrideAttrs (_: _: { src = inputs.nix-build-uncached-src; }))
               deadnix
               jq
               nix-inspect

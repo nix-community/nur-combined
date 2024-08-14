@@ -66,6 +66,22 @@
         "type": "github"
       }
     },
+    "nix-build-uncached-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1723599513,
+        "narHash": "sha256-9ttCd7HD+Sh2Wi0EHbr8pZTNCIreQn97E4Wl4Rvbz3Q=",
+        "ref": "refs/heads/master",
+        "rev": "45434d212cab5dc804624178239eb4b3fc145335",
+        "revCount": 132,
+        "type": "git",
+        "url": "https://codeberg.org/FedericoSchonborn/nix-build-uncached"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/FedericoSchonborn/nix-build-uncached"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1723572004,
@@ -102,6 +118,7 @@
       "inputs": {
         "flake-parts": "flake-parts",
         "git-hooks": "git-hooks",
+        "nix-build-uncached-src": "nix-build-uncached-src",
         "nixpkgs": "nixpkgs",
         "nixpkgs-stable": "nixpkgs-stable"
       }
