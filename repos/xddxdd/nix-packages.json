@@ -462,7 +462,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.attic-telnyx-compatible": {
     "description": "Attic (Nix binary cache) patched for Telnyx Cloud Storage compatibility",
     "pname": "attic-telnyx-compatible-unstable",
-    "version": "2024-07-31"
+    "version": "2024-08-13"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.coredns": {
     "description": "CoreDNS with Lan Tian's modifications",
@@ -482,7 +482,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Port of Facebook's LLaMA model in C/C++",
     "pname": "llama-cpp",
-    "version": "3578"
+    "version": "3583"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -1492,7 +1492,7 @@
   "legacyPackages.x86_64-linux.oci-arm-host-capacity": {
     "description": "This script allows to bypass Oracle Cloud Infrastructure 'Out of host capacity' error immediately when additional OCI capacity will appear in your Home Region / Availability domain.",
     "pname": "oci-arm-host-capacity-unstable",
-    "version": "2023-12-23"
+    "version": "2024-08-13"
   },
   "legacyPackages.x86_64-linux.onepush": {
     "description": "A Python library to send notifications to your iPhone, Discord, Telegram, WeChat, QQ and DingTalk.",
@@ -3402,7 +3402,7 @@
   "packages.x86_64-linux.oci-arm-host-capacity": {
     "description": "This script allows to bypass Oracle Cloud Infrastructure 'Out of host capacity' error immediately when additional OCI capacity will appear in your Home Region / Availability domain.",
     "pname": "oci-arm-host-capacity-unstable",
-    "version": "2023-12-23"
+    "version": "2024-08-13"
   },
   "packages.x86_64-linux.onepush": {
     "description": "A Python library to send notifications to your iPhone, Discord, Telegram, WeChat, QQ and DingTalk.",

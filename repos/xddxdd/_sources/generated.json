@@ -148,7 +148,7 @@
     },
     "attic": {
         "cargoLocks": null,
-        "date": "2024-07-31",
+        "date": "2024-08-13",
         "extract": null,
         "name": "attic",
         "passthru": null,
@@ -160,12 +160,12 @@
             "name": null,
             "owner": "zhaofengli",
             "repo": "attic",
-            "rev": "e127acbf9a71ebc0c26bc8e28346822e0a6e16ba",
-            "sha256": "sha256-GJIz4M5HDB948Ex/8cPvbkrNzl/eKUE7/c21JBu4lb8=",
+            "rev": "26b9417bde03edc6280d1f7ce709cd619cdb72d4",
+            "sha256": "sha256-FBaRmikNnCX+HQJXAfNJyiOl3sM1NrlxvcFwQDqwCyk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e127acbf9a71ebc0c26bc8e28346822e0a6e16ba"
+        "version": "26b9417bde03edc6280d1f7ce709cd619cdb72d4"
     },
     "axiom-syslog-proxy": {
         "cargoLocks": null,
@@ -1437,12 +1437,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3578",
-            "sha256": "sha256-TE0UFOSMBHETTr6Z/YGvoavjXzmLRyafi0A+vg27e30=",
+            "rev": "b3583",
+            "sha256": "sha256-gBXhlZnmgzrS599lPeJZ8wOVwXNUiD5PvwlaJH5BHRk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3578"
+        "version": "b3583"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -1770,7 +1770,7 @@
     },
     "oci-arm-host-capacity": {
         "cargoLocks": null,
-        "date": "2023-12-23",
+        "date": "2024-08-13",
         "extract": null,
         "name": "oci-arm-host-capacity",
         "passthru": null,
@@ -1782,12 +1782,12 @@
             "name": null,
             "owner": "hitrov",
             "repo": "oci-arm-host-capacity",
-            "rev": "369de7b2851f1b22db34f95ba02001d5c9f839c7",
-            "sha256": "sha256-2p0jpl2SlyEvZ+xvZMhZz9Mk+dHEfmxgd1Ht5o9cSFo=",
+            "rev": "ea70acaf92bedcf0900a9209bdd8c31106b0df83",
+            "sha256": "sha256-aCo6UDqG+9YVNf3W6pxmx1ml+ApdyyRhtzcVTaPdG/o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "369de7b2851f1b22db34f95ba02001d5c9f839c7"
+        "version": "ea70acaf92bedcf0900a9209bdd8c31106b0df83"
     },
     "onepush": {
         "cargoLocks": null,
