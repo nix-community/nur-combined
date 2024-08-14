@@ -13,6 +13,8 @@
 , gr-sandia_utils
 , gr-timing_utils
 , gr-fhss_utils
+, gr-smart_meters
+, gr-fosphor
 }:
 
 
@@ -47,6 +49,21 @@ stdenv.mkDerivation rec {
     gr-fhss_utils
   ];
 
+  passthru = 
+    let 
+    gnuradioPackages = {
+      inherit gr-pdu_utils gr-sandia_utils gr-timing_utils gr-fhss_utils gr-smart_meters gr-fosphor;
+    };
+    gr = (gnuradio.override {
+      extraPackages = builtins.attrValues gnuradioPackages;
+      extraPythonPackages = with gnuradio.python.pkgs; [ soapysdr simplekml (callPackage ../../python-packages/gmplot/package.nix {}) ];
+    }) // {
+      pkgs = gnuradio.pkgs.overrideScope (final: prev: gnuradioPackages);
+    };
+  in
+  {
+    gnuradio = gr;
+  };
   meta = with lib; {
     description = "";
     homepage = "https://github.com/BitBangingBytes/gr-smart_meters.git";

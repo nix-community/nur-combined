@@ -39,6 +39,7 @@ stdenv.mkDerivation rec {
     mpir
     boost
     volk
+    mpir
     gnuradio.python.pkgs.pybind11
     gnuradio.python.pkgs.numpy
   ];

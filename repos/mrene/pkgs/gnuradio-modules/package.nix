@@ -15,4 +15,5 @@ in
   gr-timing_utils = callPackage ./gr-timing_utils/package.nix { };
   gr-fhss_utils = callPackage ./gr-fhss_utils/package.nix { };
   gr-smart_meters = callPackage ./gr-smart_meters/package.nix { };
+  gr-fosphor = callPackage ./gr-fosphor/package.nix { };
 }))
