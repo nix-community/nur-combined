@@ -16,6 +16,7 @@
 , volk
 , openssl
 , curl
+, mpir
 }:
 
 stdenv.mkDerivation rec {
@@ -49,6 +50,7 @@ stdenv.mkDerivation rec {
     volk
     openssl
     curl
+    mpir
   ];
 
 

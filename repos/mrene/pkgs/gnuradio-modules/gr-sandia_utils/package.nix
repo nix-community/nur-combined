@@ -45,12 +45,16 @@ stdenv.mkDerivation rec {
     gr-pdu_utils
   ];
 
+  cmakeFlags = [
+    (lib.cmakeFeature "CMAKE_CXX_STANDARD" "14")
+  ];
+
   meta = with lib; {
     description = "Misc blocks";
     homepage = "https://github.com/sandialabs/gr-sandia_utils";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ ];
     mainProgram = "gr-sandia-utils";
-    platforms = platforms.all;
+    platforms = platforms.linux;
   };
 }

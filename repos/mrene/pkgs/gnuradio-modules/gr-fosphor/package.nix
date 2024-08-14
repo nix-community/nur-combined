@@ -16,6 +16,7 @@
 , libX11
 , qt5
 , libsForQt5
+, darwin
 }:
 
 stdenv.mkDerivation rec {
@@ -49,6 +50,8 @@ stdenv.mkDerivation rec {
     freetype
     libX11
     qt5.qtbase
+  ] ++ lib.optionals stdenv.isDarwin [
+    darwin.apple_sdk.frameworks.OpenCL
   ];
 
   dontWrapQtApps = true;
@@ -60,6 +63,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ ];
     mainProgram = "gr-fosphor";
-    platforms = platforms.all;
+    platforms = platforms.linux; # TODO: Fix darwin build
   };
 }

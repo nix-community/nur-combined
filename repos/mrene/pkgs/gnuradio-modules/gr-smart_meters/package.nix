@@ -70,6 +70,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ ];
     mainProgram = "gr-smart-meters";
-    platforms = platforms.all;
+    platforms = platforms.linux;
   };
 }
