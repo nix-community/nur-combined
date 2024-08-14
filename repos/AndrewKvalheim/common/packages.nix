@@ -75,7 +75,7 @@ specify {
     charliermarsh.ruff.version = "≥2024.22.0";
     compilouit.xkb.search = open-vsx;
     csstools.postcss.search = open-vsx;
-    earshinov.permute-lines.search = open-vsx;
+    earshinov.permute-lines.search = [ open-vsx vscode-marketplace ];
     earshinov.simple-alignment.search = open-vsx;
     eseom.nunjucks-template.search = open-vsx;
     exiasr.hadolint.search = open-vsx;
@@ -88,7 +88,7 @@ specify {
     ronnidc.nunjucks.search = [ open-vsx vscode-marketplace ];
     silvenon.mdx.search = open-vsx;
     sissel.shopify-liquid.search = open-vsx;
-    syler.sass-indented.search = open-vsx;
+    syler.sass-indented.search = [ open-vsx vscode-marketplace ];
     theaflowers.qalc.search = open-vsx;
     volkerdobler.insertnums.search = [ open-vsx vscode-marketplace ];
     ybaumes.highlight-trailing-white-spaces.search = open-vsx;

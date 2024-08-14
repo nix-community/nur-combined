@@ -841,6 +841,7 @@ proximately
 proxying
 PRs
 PSTN
+Publii
 pu-erh
 PulseAudio
 puppeting
@@ -860,6 +861,7 @@ queueing
 QUIC
 quincunx
 Rakefile
+RapidRide
 Raveena
 Ravenna
 reactively
@@ -1249,6 +1251,7 @@ WebRTC
 WebSocket
 WebSockets
 Wedgemount
+Weebly
 weekbeginning
 weekbeginnings
 Weezer
