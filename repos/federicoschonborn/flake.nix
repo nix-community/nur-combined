@@ -101,21 +101,27 @@
           legacyPackages = import ./. { inherit lib pkgs system; };
           packages = import ./flattenTree.nix config.legacyPackages;
 
-          devShells.default = pkgs.mkShell {
-            packages = with pkgs; [
-              (nix-build-uncached.overrideAttrs (_: _: { src = inputs.nix-build-uncached-src; }))
-              deadnix
-              jq
-              nix-inspect
-              nix-tree
-              nushell
-              statix
-              (writers.writeNuBin "just" (builtins.readFile ./just.nu))
-            ];
+          devShells = {
+            default = pkgs.mkShell {
+              packages = with pkgs; [
+                deadnix
+                jq
+                nix-inspect
+                nix-tree
+                nushell
+                statix
+              ];
 
-            shellHook = ''
-              ${config.pre-commit.installationScript}
-            '';
+              shellHook = ''
+                ${config.pre-commit.installationScript}
+              '';
+            };
+
+            nix-build-uncached = pkgs.mkShell {
+              packages = [
+                (pkgs.nix-build-uncached.overrideAttrs (_: _: { src = inputs.nix-build-uncached-src; }))
+              ];
+            };
           };
 
           apps = {
