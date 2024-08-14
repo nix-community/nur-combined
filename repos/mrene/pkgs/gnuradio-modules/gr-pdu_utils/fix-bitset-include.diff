@@ -1,0 +1,12 @@
+diff --git a/lib/pdu_align_impl.cc b/lib/pdu_align_impl.cc
+index 34a8a9b..d295a6e 100644
+--- a/lib/pdu_align_impl.cc
++++ b/lib/pdu_align_impl.cc
+@@ -15,6 +15,7 @@
+ #include <gnuradio/io_signature.h>
+ #include <gnuradio/pdu_utils/constants.h>
+ #include <volk/volk.h>
++#include <bitset>
+ 
+ namespace gr {
+ namespace pdu_utils {

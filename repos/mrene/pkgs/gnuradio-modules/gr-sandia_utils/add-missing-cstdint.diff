@@ -1,0 +1,12 @@
+diff --git a/lib/epoch_time.h b/lib/epoch_time.h
+index e6d2bfc..5fc6c77 100644
+--- a/lib/epoch_time.h
++++ b/lib/epoch_time.h
+@@ -13,6 +13,7 @@
+ #include <sys/time.h> /* struct timeval, gettimeofday */
+ #include <cmath>      /* modf */
+ #include <iostream>
++#include <cstdint>
+ 
+ namespace gr {
+ namespace sandia_utils {

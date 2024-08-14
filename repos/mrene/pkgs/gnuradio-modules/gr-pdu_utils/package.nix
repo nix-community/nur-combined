@@ -1,0 +1,54 @@
+{ lib
+, stdenv
+, fetchFromGitHub
+, cmake
+, pkg-config
+, gnuradio
+, spdlog
+, gmp
+, mpir
+, boost
+, volk
+}:
+
+stdenv.mkDerivation rec {
+  pname = "gr-pdu-utils";
+  version = "unstable-2022-11-28";
+
+  # src = ./gr-pdu_utils;
+  src = fetchFromGitHub {
+    owner = "sandialabs";
+    repo = "gr-pdu_utils";
+    rev = "68984503712114bbabb4d6b8814d3997144f025b";
+    hash = "sha256-FOvvE9lzxTxre7y2undXh0zuPfeJGv3+5R3t/UGAVfw=";
+  };
+
+  patches = [
+    ./fix-bitset-include.diff
+  ];
+
+  nativeBuildInputs = [
+    cmake
+    pkg-config
+  ];
+
+  buildInputs = [
+    gnuradio
+    spdlog
+    gmp
+    mpir
+    boost
+    volk
+    gnuradio.python.pkgs.pybind11
+    gnuradio.python.pkgs.numpy
+  ];
+
+  meta = with lib; {
+    description = "GNU Radio PDU Utilities";
+    homepage = "https://github.com/sandialabs/gr-pdu_utils.git";
+    license = licenses.gpl3Only;
+    maintainers = with maintainers; [ ];
+    mainProgram = "gr-pdu-utils";
+    platforms = platforms.all;
+  };
+}
