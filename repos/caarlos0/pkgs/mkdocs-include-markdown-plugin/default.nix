@@ -5,13 +5,13 @@
 
 python3.pkgs.buildPythonPackage rec {
   pname = "mkdocs-include-markdown-plugin";
-  version = "6.0.4";
+  version = "6.2.2";
   format = "wheel";
 
   src = fetchPypi rec {
     inherit version format;
     pname = "mkdocs_include_markdown_plugin";
-    hash = "sha256-57i17MQdaj4Wlpz/NyXsOjkbaOnf4aS042qFCL7NqDU=";
+    hash = "sha256-0pOVD2SZ0pRCkcp7m8SmDmUrv9PjpCtWT2zO7iaGlOc=";
     dist = python;
     python = "py3";
   };
