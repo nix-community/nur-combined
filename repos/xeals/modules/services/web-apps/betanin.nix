@@ -6,84 +6,79 @@ let
 
   cfg = config.services.betanin;
 
-  defaultUser = "betanin";
-  defaultGroup = "betanin";
-
   settingsFormat = pkgs.formats.toml { };
   beetsFormat = pkgs.formats.yaml { };
 in
 {
-  options = {
-    services.betanin = {
-      enable = lib.mkEnableOption "betanin";
+  options.services.betanin = {
+    enable = lib.mkEnableOption "betanin";
 
-      package = mkOption {
-        description = "Package containing betanin program.";
-        type = types.package;
-        default = pkgs.betanin or (import ../../.. { inherit pkgs; }).betanin;
-      };
+    package = mkOption {
+      description = "Package containing betanin program.";
+      type = types.package;
+      default = pkgs.betanin or (import ../../.. { inherit pkgs; }).betanin;
+    };
 
-      openFirewall = mkOption {
-        description = "Open ports in the firewall for the server.";
-        type = types.bool;
-        default = false;
-      };
+    openFirewall = mkOption {
+      description = "Open ports in the firewall for the server.";
+      type = types.bool;
+      default = false;
+    };
 
-      port = mkOption {
-        description = "Port to access betanin on.";
-        type = types.port;
-        default = 9393;
-      };
+    port = mkOption {
+      description = "Port to access betanin on.";
+      type = types.port;
+      default = 9393;
+    };
 
-      user = mkOption {
-        description = "User that the betanin program should run under.";
-        type = types.str;
-        default = defaultUser;
-      };
+    user = mkOption {
+      description = "User that the betanin program should run under.";
+      type = types.str;
+      default = "betanin";
+    };
 
-      group = mkOption {
-        description = "Group that the betanin program should run under.";
-        type = types.str;
-        default = defaultGroup;
-      };
+    group = mkOption {
+      description = "Group that the betanin program should run under.";
+      type = types.str;
+      default = "betanin";
+    };
 
-      dataDir = mkOption {
-        description = "Directory to store application data.";
-        type = types.str;
-        default = "/var/lib/betanin";
-      };
+    dataDir = mkOption {
+      description = "Directory to store application data.";
+      type = types.str;
+      default = "/var/lib/betanin";
+    };
 
-      settings = mkOption {
-        type = settingsFormat.type;
-        default = { };
-        example = lib.literalExpression ''
-          {
-            frontend = {
-              username = "foo";
-              password { _secret = "/run/secrets/betaninPasswordFile"; };
-            };
-            clients = {
-              api_key = { _secret = "/run/secrets/betaninApiKeyFile"; };
-            };
-            server = {
-              num_parallel_jobs = 1;
-            };
-          }
-        '';
-        description = lib.mdDoc ''
-          Configuration for betanin.
+    settings = mkOption {
+      type = settingsFormat.type;
+      default = { };
+      example = lib.literalExpression ''
+        {
+          frontend = {
+            username = "foo";
+            password = { _secret = "/run/secrets/betaninPasswordFile"; };
+          };
+          clients = {
+            api_key = { _secret = "/run/secrets/betaninApiKeyFile"; };
+          };
+          server = {
+            num_parallel_jobs = 1;
+          };
+        }
+      '';
+      description = ''
+        Configuration for betanin.
 
-          Options containing secret data should be set to an attribute set
-          containing the attribute `_secret` - a string pointing to a file
-          containing the value the option should be set to.
-        '';
-      };
+        Options containing secret data should be set to an attribute set
+        containing the attribute `_secret` - a string pointing to a file
+        containing the value the option should be set to.
+      '';
+    };
 
-      beets.settings = mkOption {
-        type = beetsFormat.type;
-        default = { };
-        description = lib.mdDoc "Configuration for beets used by betanin.";
-      };
+    beets.settings = mkOption {
+      type = beetsFormat.type;
+      default = { };
+      description = "Configuration for beets used by betanin.";
     };
   };
 
@@ -123,17 +118,14 @@ in
       {
         description = "Betanin service";
         wantedBy = [ "multi-user.target" ];
-        after = [ "networking.target" ];
+        after = [ "network.target" ];
+        path = [ pkgs.replace-secret ];
+
         environment = {
           HOME = cfg.dataDir;
         };
-        path = [ pkgs.replace-secret ];
 
         script = ''
-          mkdir -p ${cfg.dataDir}/.config/betanin \
-            ${cfg.dataDir}/.local/share/betanin \
-            ${cfg.dataDir}/.config/beets
-
           ln -sf ${beetsFile} ${cfg.dataDir}/.config/beets/config.yaml
           cat ${settingsFile} > ${cfg.dataDir}/.config/betanin/config.toml
           ${secretReplacements}
@@ -141,28 +133,34 @@ in
           ${cfg.package}/bin/betanin --port ${toString cfg.port}
         '';
 
-        serviceConfig = lib.mkMerge [
-          {
-            User = cfg.user;
-            Group = cfg.group;
-            PrivateTmp = true;
-            Restart = "always";
-            WorkingDirectory = cfg.dataDir;
-          }
-          (mkIf (cfg.dataDir == "/var/lib/betanin") {
-            StateDirectory = "betanin";
-          })
-        ];
+        serviceConfig = {
+          User = cfg.user;
+          Group = cfg.group;
+          PrivateTmp = true;
+          Restart = "always";
+          WorkingDirectory = cfg.dataDir;
+          StateDirectory = mkIf (cfg.dataDir == "/var/lib/betanin") "betanin";
+        };
       };
 
-    users.users = optionalAttrs (cfg.user == defaultUser) {
+    systemd.tmpfiles.rules = [
+      "d ${cfg.dataDir}                            0710 ${cfg.user} ${cfg.group} - -"
+      "d ${cfg.dataDir}/.config                    0750 ${cfg.user} ${cfg.group} - -"
+      "d ${cfg.dataDir}/.config/betanin            0750 ${cfg.user} ${cfg.group} - -"
+      "d ${cfg.dataDir}/.config/beets              0750 ${cfg.user} ${cfg.group} - -"
+      "d ${cfg.dataDir}/.local                     0750 ${cfg.user} ${cfg.group} - -"
+      "d ${cfg.dataDir}/.local/share               0750 ${cfg.user} ${cfg.group} - -"
+      "d ${cfg.dataDir}/.local/share/betanin       0750 ${cfg.user} ${cfg.group} - -"
+    ];
+
+    users.users = optionalAttrs (cfg.user == "betanin") {
       ${cfg.user} = {
         isSystemUser = true;
         group = cfg.group;
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == defaultGroup) {
+    users.groups = optionalAttrs (cfg.group == "betanin") {
       ${cfg.group} = { };
     };
   };
