@@ -22,7 +22,13 @@ let
     sourceRoot = "${src.name}/betanin_client";
 
     npmDepsHash = "sha256-VkCQKpkDCTDejv8eRAN2Zfbq8TlWLdtqVJU3fo9hQrI=";
+    NODE_ENV = "production";
     NODE_OPTIONS = "--openssl-legacy-provider";
+
+    npmInstallFlags = [ "--include=dev" ];
+    installPhase = ''
+      cp -r dist $out
+    '';
   };
 in
 python3.pkgs.buildPythonApplication {
@@ -32,14 +38,17 @@ python3.pkgs.buildPythonApplication {
 
   patches = [ ./paths.patch ];
   postPatch = ''
-    export clientDistDir="${client}/lib/node_modules/betanin/dist/"
+    export clientDistDir="${client}"
     export libPrefix="${python3.libPrefix}"
     substituteAllInPlace betanin/paths.py
+
+    # pythonRelaxDepsHook doesn't work
+    sed -i 's/Flask <3.0.0/Flask/' pyproject.toml
   '';
 
-  buildInputs = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [ setuptools ];
 
-  propagatedBuildInputs = (with python3.pkgs; [
+  dependencies = (with python3.pkgs; [
     apprise
     alembic
     click
