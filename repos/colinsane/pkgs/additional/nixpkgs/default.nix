@@ -28,11 +28,11 @@
 let
   lock = {
     master.rev = "02a8f81ccbc8fee8f0be9daf1b1e56830e78382c";
-    master.sha256 = "sha256-G/unx82K3n4G+Yi+ou9Pav+fEuPPW2G1WfgbmK+2/FI=";
-    staging.rev = "02a8f81ccbc8fee8f0be9daf1b1e56830e78382c";
-    staging.sha256 = "sha256-G/unx82K3n4G+Yi+ou9Pav+fEuPPW2G1WfgbmK+2/FI=";
-    staging-next.rev = "02a8f81ccbc8fee8f0be9daf1b1e56830e78382c";
-    staging-next.sha256 = "sha256-G/unx82K3n4G+Yi+ou9Pav+fEuPPW2G1WfgbmK+2/FI=";
+    master.sha256 = "sha256:0mcjiyp818vldkdg223bln7mwzsgdffnpgl6sg3cf5mfvh8hk0v3";
+    staging.rev = "558b07002999a26ed9bc67f372dd19f6a37b892e";
+    staging.sha256 = "sha256-xP/h4X4ms/gxugNFRxl4q0D1+RwrZA4RsI7okgVVS7E=";
+    staging-next.rev = "d353e29271bcbaab945b7c1c13208950590da9d3";
+    staging-next.sha256 = "sha256-0DdUd/mIqEe5JSWhLYQ1PHMvvrdmnYuVe7l4hWbGTm8=";
   };
   lock' = lock."${variant}";
   unpatchedSrc = fetchzip {

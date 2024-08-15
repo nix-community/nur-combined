@@ -83,6 +83,10 @@ in
       "gnome-keyring"  # to remember the password
     ];
 
+    mime.associations."x-scheme-handler/tel" = "org.gnome.Calls.desktop";
+    mime.associations."x-scheme-handler/sip" = "org.gnome.Calls.desktop";
+    mime.associations."x-scheme-handler/sips" = "org.gnome.Calls.desktop";
+
     services.gnome-calls = {
       description = "gnome-calls daemon to monitor incoming SIP calls";
       partOf = lib.mkIf cfg.config.autostart [ "graphical-session" ];

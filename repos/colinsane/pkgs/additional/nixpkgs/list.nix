@@ -44,7 +44,8 @@ in
     title = "flatpak: support cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/334324";
     saneCommit = "0656837e8bb3aae72245145ea8b2250eadad653d";
-    hash = "sha256-Jo37TmzEbqZQVlFtLQ/hI1AAPXS0dnkXh58eHpuwT5M=";
+    hash = "sha256-etogClsQ8USoBzfx8eYXUYp+C5VQ0wJs/1LumjtE+9E=";
+    # hash = "sha256-Jo37TmzEbqZQVlFtLQ/hI1AAPXS0dnkXh58eHpuwT5M=";
     # hash = "sha256-/N3FQ0CZ8IOxEYci2UKOG0POYuTyCTH/ZWTRyjIOlEc=";
   })
 
