@@ -101,12 +101,14 @@ lib.makeScope newScope (
     earthpy = callPackage ./development/python-modules/earthpy { };
     geotiler = callPackage ./development/python-modules/geotiler { };
     gpxelevations = callPackage ./development/python-modules/gpxelevations { };
+    hardpy = callPackage ./development/python-modules/hardpy { };
     jsonseq = callPackage ./development/python-modules/jsonseq { };
     modbus_tk = callPackage ./development/python-modules/modbus_tk {
       python3Packages = pkgs.python310Packages;
     };
     portolan = callPackage ./development/python-modules/portolan { };
     pyarrow_ops = callPackage ./development/python-modules/pyarrow_ops { };
+    pycouchdb = callPackage ./development/python-modules/pycouchdb { };
     pymbtiles = callPackage ./development/python-modules/pymbtiles { };
     pytest-docker-fixtures = callPackage ./development/python-modules/pytest-docker-fixtures { };
     pytest-mp = callPackage ./development/python-modules/pytest-mp { };
