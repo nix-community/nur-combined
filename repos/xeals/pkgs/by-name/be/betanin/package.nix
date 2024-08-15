@@ -1,71 +1,73 @@
 { lib
-, callPackage
+, buildNpmPackage
 , fetchFromGitHub
 , python3
 , beets
 }:
 
 let
-  py = python3.pkgs;
-
-  version = "0.4.0.ffe45c02";
+  version = "0.5.6";
 
   src = fetchFromGitHub {
-    owner = "xeals";
+    owner = "sentriz";
     repo = "betanin";
-    rev = "ffe45c028037fc1659f62a9cdc9e1413dc2f358d";
-    hash = "sha256-5d8Y7PDlhkdVRVX+KvpiQ2WYNRELwc+ya5s4Qi+YQpI=";
+    rev = "v${version}";
+    hash = "sha256-8JzZfxXzey6vGwsnpXTea/gTMFwmeeavimn5njHIEg0=";
   };
 
-  client = callPackage ./client {
-    inherit src version;
+  client = buildNpmPackage {
+    pname = "betanin_client";
+    inherit version src;
+
+    sourceRoot = "${src.name}/betanin_client";
+
+    npmDepsHash = "sha256-VkCQKpkDCTDejv8eRAN2Zfbq8TlWLdtqVJU3fo9hQrI=";
+    NODE_OPTIONS = "--openssl-legacy-provider";
   };
 in
-py.buildPythonApplication {
+python3.pkgs.buildPythonApplication {
   pname = "betanin";
   inherit version src;
-
-  clientDistDir = "${client}/lib/node_modules/betanin/dist/";
-
-  doCheck = false;
+  format = "pyproject";
 
   patches = [ ./paths.patch ];
   postPatch = ''
+    export clientDistDir="${client}/lib/node_modules/betanin/dist/"
     export libPrefix="${python3.libPrefix}"
     substituteAllInPlace betanin/paths.py
   '';
 
-  propagatedBuildInputs =
-    (builtins.attrValues {
-      inherit (py)
-        apprise
-        alembic
-        click
-        flask
-        flask-cors
-        flask-jwt-extended
-        flask_migrate
-        flask-restx
-        flask-socketio
-        flask-sqlalchemy
-        gevent
-        pyxdg
-        loguru
-        ptyprocess
-        python-engineio
-        python-socketio
-        sqlalchemy
-        sqlalchemy-utils
-        toml;
-    }) ++ [
-      beets
-    ];
+  buildInputs = with python3.pkgs; [ setuptools ];
+
+  propagatedBuildInputs = (with python3.pkgs; [
+    apprise
+    alembic
+    click
+    flask
+    flask-cors
+    flask-jwt-extended
+    flask_migrate
+    flask-restx
+    flask-socketio
+    flask-sqlalchemy
+    gevent
+    pyxdg
+    loguru
+    ptyprocess
+    python-engineio
+    python-socketio
+    sqlalchemy
+    sqlalchemy-utils
+    toml
+  ]) ++ [
+    beets
+  ];
 
   meta = {
     homepage = "https://github.com/sentriz/betanin";
     description = "beets based mitm of your torrent client and music player";
     license = lib.licenses.gpl3Only;
     maintainers = [ ];
-    platforms = python3.meta.platforms;
+    platforms = lib.platforms.linux;
   };
 }
