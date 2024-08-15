@@ -24,7 +24,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-2iJv0h2kC9T+nCb+Ht254bFxlVG8zxhElm/3hYf2EF4=";
   };
   
-  patches = [
+  patches = lib.optionals stdenv.isDarwin [
+    ./compile-fixes.diff
+  ] ++ lib.optionals (!stdenv.isDarwin) [
     ./add-missing-cstdint.diff
   ];
 
@@ -46,7 +48,7 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [
-    (lib.cmakeFeature "CMAKE_CXX_STANDARD" "14")
+    (lib.cmakeFeature "CMAKE_CXX_STANDARD" "11")
   ];
 
   meta = with lib; {
@@ -55,6 +57,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ ];
     mainProgram = "gr-sandia-utils";
-    platforms = platforms.linux;
+    platforms = platforms.unix;
   };
 }

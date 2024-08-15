@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ ];
     mainProgram = "gr-foo";
-    platforms = platforms.all;
+    platforms = platforms.unix;
   };
 }

@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ ];
     mainProgram = "gr-timing-utils";
-    platforms = platforms.linux;
+    platforms = platforms.unix;
   };
 }

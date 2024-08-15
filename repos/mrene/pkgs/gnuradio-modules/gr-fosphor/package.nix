@@ -17,12 +17,14 @@
 , qt5
 , libsForQt5
 , darwin
+, glfw
 }:
 
 stdenv.mkDerivation rec {
   pname = "gr-fosphor";
   version = "unstable-2024-03-23";
 
+  # src = ./gr-fosphor;
   src = fetchFromGitHub {
     owner = "osmocom";
     repo = "gr-fosphor";
@@ -45,17 +47,19 @@ stdenv.mkDerivation rec {
     gnuradio.python.pkgs.pybind11
     gnuradio.python.pkgs.numpy
     libGL
-    opencl-headers
-    ocl-icd
     freetype
     libX11
     qt5.qtbase
+    glfw
   ] ++ lib.optionals stdenv.isDarwin [
     darwin.apple_sdk.frameworks.OpenCL
+  ] ++ lib.optionals stdenv.isLinux [
+    opencl-headers
+    ocl-icd
   ];
 
   dontWrapQtApps = true;
-
+  NIX_CFLAGS_COMPILE = "-Wno-deprecated-declarations"; 
 
   meta = with lib; {
     description = "GNURadio block for spectrum visualization using GPU; mirror of https://gitea.osmocom.org/sdr/gr-fosphor";
@@ -63,6 +67,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ ];
     mainProgram = "gr-fosphor";
-    platforms = platforms.linux; # TODO: Fix darwin build
+    platforms = platforms.unix; # TODO: Fix darwin build
   };
 }

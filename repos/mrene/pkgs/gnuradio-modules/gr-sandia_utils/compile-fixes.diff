@@ -1,0 +1,59 @@
+diff --git a/lib/block_buffer_impl.cc b/lib/block_buffer_impl.cc
+index 456c1ab..02be7e0 100644
+--- a/lib/block_buffer_impl.cc
++++ b/lib/block_buffer_impl.cc
+@@ -157,7 +157,7 @@ int block_buffer_impl::general_work(int noutput_items,
+ 
+         // read as much as we can into the current buffer
+         size_t to_read =
+-            std::min((size_t)(ninput_items[0] - in_idx), d_nsamples - d_read_idx);
++            std::min((size_t)(ninput_items[0] - in_idx), (size_t)(d_nsamples - d_read_idx));
+ 
+ 
+         // update current rate
+@@ -313,9 +313,9 @@ int block_buffer_impl::general_work(int noutput_items,
+             int64_t numsamples_skipped =
+                 (d_buf[d_writing].abs_read_idx == 0)
+                     ? 0
+-                    : std::max(d_buf[d_writing].abs_read_idx - d_last_abs_read_idx -
+-                                   d_nsamples,
+-                               0lu);
++                    : std::max((uint64_t)(d_buf[d_writing].abs_read_idx - d_last_abs_read_idx -
++                                   d_nsamples),
++                               0llu);
+ 
+             // if there's not already an rx_time tag, and some samples were skipped,
+             // estimate and add an rx_time tag
+@@ -353,7 +353,7 @@ int block_buffer_impl::general_work(int noutput_items,
+ 
+         // write as much as we can from the current buffer
+         size_t to_write = std::min((size_t)(noutput_items - d_nreserved - out_idx),
+-                                   d_nsamples - d_write_idx);
++                                   (size_t)(d_nsamples - d_write_idx));
+ 
+         // write from buffer
+         char* dst = static_cast<char*>(output_items[0]) + d_itemsize * out_idx;
+diff --git a/lib/epoch_time.h b/lib/epoch_time.h
+index e6d2bfc..5fc6c77 100644
+--- a/lib/epoch_time.h
++++ b/lib/epoch_time.h
+@@ -13,6 +13,7 @@
+ #include <sys/time.h> /* struct timeval, gettimeofday */
+ #include <cmath>      /* modf */
+ #include <iostream>
++#include <cstdint>
+ 
+ namespace gr {
+ namespace sandia_utils {
+diff --git a/lib/vita49_tcp_msg_source_impl.cc b/lib/vita49_tcp_msg_source_impl.cc
+index 652feef..be92bac 100644
+--- a/lib/vita49_tcp_msg_source_impl.cc
++++ b/lib/vita49_tcp_msg_source_impl.cc
+@@ -15,7 +15,6 @@
+ #include <gnuradio/io_signature.h>
+ #include <gnuradio/sandia_utils/constants.h>
+ #include <arpa/inet.h>
+-#include <endian.h>
+ 
+ namespace gr
+ {

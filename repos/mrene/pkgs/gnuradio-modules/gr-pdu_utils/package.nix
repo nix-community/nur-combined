@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ ];
     mainProgram = "gr-pdu-utils";
-    platforms = platforms.all;
+    platforms = platforms.unix;
   };
 }

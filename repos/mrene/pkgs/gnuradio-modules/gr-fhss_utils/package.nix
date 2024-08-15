@@ -12,6 +12,7 @@
 , gr-pdu_utils
 , gr-sandia_utils
 , gr-timing_utils
+, llvmPackages_12
 }:
 
 stdenv.mkDerivation rec {
@@ -42,7 +43,7 @@ stdenv.mkDerivation rec {
     gr-sandia_utils
     gr-pdu_utils
     gr-timing_utils 
-  ];
+  ] ++ lib.optionals stdenv.isDarwin [ llvmPackages_12.openmp ];
 
   meta = with lib; {
     description = "Bursty modem utilities";
@@ -50,6 +51,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ ];
     mainProgram = "gr-fhss-utils";
-    platforms = platforms.linux;
+    platforms = platforms.unix;
   };
 }

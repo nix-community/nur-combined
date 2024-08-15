@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     maintainers = with maintainers; [ ];
     mainProgram = "gr-ieee802-15-4";
-    platforms = platforms.all;
+    platforms = platforms.unix;
   };
 }
