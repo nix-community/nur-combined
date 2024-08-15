@@ -12,7 +12,7 @@
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ gstreamer ];
 
-  cargoSha256 = "13y0lhd5c6zfnfskzwry2sv7398y16llpw3gw8ranvabhqakkyk2";
+  cargoHash = "sha256-Yvo5FYZLbasy4m/wS6kJHqVxthY+8z+1s+4bVhqkwI8=";
 
   libname = "libgstprotectbuffer" + hostPlatform.extensions.sharedLibrary;
   postInstall = ''

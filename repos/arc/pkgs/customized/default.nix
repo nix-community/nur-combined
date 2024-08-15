@@ -63,7 +63,7 @@ let
         sha256 = "1rd0r7j6dvi6m7h7qhhw7870kbnj7x64ba9w8hzaklw4yh8l82v3";
       }) ];
 
-      cargoSha256 = "1chxf0rgdps21rm3p2c0yn9z0gvzx095n74ryiv89y0d1gka5jy6";
+      cargoHash = "sha256-xsui5gsN+IR29JkcWxLofz/wk/WAiTtqDkLf9jJwHbI=";
       meta = rink.meta or { } // {
         broken = rink.meta.broken or false || true;
       };

@@ -12,7 +12,7 @@
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ gstreamer ];
 
-  cargoSha256 = "06igxaiyjp0lw4y0kibhwagc118hqs17gl78y1sfayai61dlx9gp";
+  cargoHash = "sha256-96VOWzBReeV08OjQd4LGEIXAnuJwxQk84RRc6aPqLxo=";
 
   libname = "libgstjpegtrunc" + hostPlatform.extensions.sharedLibrary;
   postInstall = ''

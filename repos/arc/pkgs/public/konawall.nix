@@ -16,5 +16,5 @@
     platforms = platforms.linux;
   };
 
-  cargoSha256 = "034njg7nx31lahnw906hvifihzij589braggnbp22bbyr0m5qiff";
+  cargoHash = "sha256-zkVcKsh+LSHusu+pvBIqMn4YXdzQgMQtVDSMbs+Tlgw=";
 }

@@ -11,7 +11,7 @@
       sha256 = "01h15sczxgc778avxsk7zakf9sakg7rx9dkjhmq4smx4pr5l033r";
     };
 
-    cargoSha256 = "17bj63lqx0wm39dxdc4mid80gzdpyv2z59fx5zndvz1ns260v5yy";
+    cargoHash = "sha256-3pcNjNA2/N3sL92l8sX2t/0HUIuVsNZbGpWDjukwcp0=";
   };
 
   cargo-download-arc = {
@@ -30,7 +30,7 @@
     nativeBuildInputs = lib.optional hostPlatform.isLinux pkg-config;
     buildInputs = lib.optional hostPlatform.isLinux openssl
       ++ lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
-    cargoSha256 = "sha256-oH+BBf9R5KHjj4shkngiOafRmMA2YXuC96acCV6VQwU=";
+    cargoHash = "sha256-oH+BBf9R5KHjj4shkngiOafRmMA2YXuC96acCV6VQwU=";
     cargoPatches = [ ./cargo-download-lock.patch ];
   };
 
@@ -45,7 +45,7 @@
     };
 
     cargoPatches = [ ./cargo-with-lock.patch ];
-    cargoSha256 = "07rv1laydzwkkicblrqlybp8w82qrdbj95pff93vi7012mii0mpc";
+    cargoHash = "sha256-7FYQYxUBnLhHcu6WJFfLWCCO7vIUZ7pYnJP/5hUNOx8=";
   };
 
   cargo-info = {
@@ -54,15 +54,19 @@
   , openssl, pkg-config
   }: rustPlatform.buildRustPackage rec {
     pname = "cargo-info";
-    version = "0.7.3";
+    version = "0.7.6";
     src = fetchFromGitLab {
       owner = "imp";
       repo = pname;
       rev = version;
-      sha256 = "sha256-m8YytirD9JBwssZFO6oQ9TGqjqvu1GxHN3z8WKLiKd4=";
+      sha256 = "sha256-02Zkp7Vc1M5iZsG4iJL30S73T2HHg3lqrPJ9mW3FOuk=";
     };
 
-    cargoSha256 = "sha256-gI/DGPCVEi4Mg9nYLaPpeqpV7LBbxoLP0ditU6hPS1w=";
+    postPatch = ''
+      echo 'pedantic = []' >> Cargo.toml
+    '';
+
+    cargoHash = "sha256-zp7qklME28HNGomAcQgrEi7W6zQ1QCJc4FjxtnKySUE=";
 
     nativeBuildInputs = lib.optional hostPlatform.isLinux pkg-config;
     buildInputs = lib.optional hostPlatform.isLinux openssl
@@ -83,7 +87,7 @@
     cargoPatches = [ ./cargo-binutils-lock.patch ];
     patches = [ ./cargo-binutils-path.patch ];
 
-    cargoSha256 = "0kkmqqdq1aknw6598nnwar9j254qlw45vf3byxskfy1qhq77ryql";
+    cargoHash = "sha256-FPt8DoY4eDd192u4XQinmBQhU1bcWpSK4XaqgBvGdU4=";
 
     doCheck = false;
 
@@ -133,7 +137,7 @@
     patches = [
       ./cargo-call-stack-warnings.patch
     ];
-    cargoSha256 = "sha256-2m62LRUh7N9WEWKxpJQU3Ut9D9j8ttDNu03Y+f8I/Lk=";
+    cargoHash = "sha256-2m62LRUh7N9WEWKxpJQU3Ut9D9j8ttDNu03Y+f8I/Lk=";
   };
 
   cargo-stack-sizes = {
@@ -151,7 +155,7 @@
 
     cargoPatches = [ ./cargo-stack-sizes-lock.patch ];
     patches = [ ./cargo-stack-sizes-warn.patch ./cargo-stack-sizes-features.patch ];
-    cargoSha256 = "1blkxw6ginvzmgijv6zsjny4q5wrb92xbsy0sqxziqgy2lvl02za";
+    cargoHash = "sha256-6gtANxX+4fg71sDr1UVamRdMvJX6my3jq3/b+Azvk64=";
 
     doCheck = false; # there are no tests
   };
@@ -169,7 +173,7 @@
       sha256 = "0lkg1xfabb1psxizbis7rymr70yz5l5rjsn6k7w5wpzqqsni0qyv";
     };
 
-    cargoSha256 = "1a7j4bqwa9zqmfvp851jlm9macvhsav31qxsiyl94xnn1l5yvwg1";
+    cargoHash = "sha256-4fHtCw3WdpKoj7rjMLbScDNVU6UyFHS3q/gnxfEi8qg=";
   };
 
   ladspa-rnnoise = {
@@ -195,7 +199,7 @@
 
     meta.platforms = lib.platforms.linux;
 
-    cargoSha256 = "1dlywwlrn06k3dwk7l93il32mp1ry890pg4zc16middiwzs4pdwq";
+    cargoHash = "sha256-mLdL9OextVhNYJ+8CxLyOdwqBo0j0TN5G9MAmynnnrY=";
   };
 
   rbw-bitw = {
@@ -223,7 +227,7 @@
       ++ lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
 
     cargoBuildFlags = ["--bin" "bitw" ];
-    cargoSha256 = "sha256-S1ioEb1/xCtScliXm/uxyeIKUiym2SSi+ziXzABVrYs=";
+    cargoHash = "sha256-S1ioEb1/xCtScliXm/uxyeIKUiym2SSi+ziXzABVrYs=";
 
     postInstall = lib.optionalString enableGpg ''
         wrapProgram $out/bin/bitw \

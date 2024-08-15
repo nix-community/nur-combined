@@ -56,7 +56,7 @@
 
     buildInputs = lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
 
-    cargoSha256 = "0q1kr27aq0lbkrsgi9gg5m3lq5352424a5k90dmbmbvhcj69kghr";
+    cargoHash = "sha256-Gb6ZjGRwr7pqA2kWRQQRZRRMRy3vpfh0nosCrI7IM2A=";
 
     preBuild = ''
       sed -e "s,\"kak-tree\",\"$out/bin/kak-tree\"," -i rc/tree.kak
@@ -83,7 +83,7 @@
 
     buildInputs = lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
 
-    cargoSha256 = "0ln4g7kihjp6fj06msi66ls8igcivgvrn5hnyk4jgg8izb8dg3j9";
+    cargoHash = "sha256-SY7X0PoRvSfJ9BYWm/fbkb2INDUm6mqAdOZKGOd5xFI=";
 
     defaultConfig = "share/kak/kak-lsp.toml";
     kakrc = "share/kak/autoload/kak-lsp.kak";
