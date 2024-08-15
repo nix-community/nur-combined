@@ -23,7 +23,7 @@ buildGoModule {
 
     homepage = "https://r4ygm.github.io/garlicshare/";
 
-    #maintainers = with maintainers; [ bbjubjub ];
+    maintainers = with maintainers; [ bbjubjub ];
 
     license = licenses.asl20;
   };
