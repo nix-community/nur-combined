@@ -194,15 +194,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "55e7f4f777dea8abcc9ead1b58f006fb32a5f3e4";
+    version = "303fede69c55b8804d604f4e8a3dbc5b9f0b348d";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "55e7f4f777dea8abcc9ead1b58f006fb32a5f3e4";
+      rev = "303fede69c55b8804d604f4e8a3dbc5b9f0b348d";
       fetchSubmodules = false;
-      sha256 = "sha256-BaE2zij+STwLnyq6aYejxcBctf0SWXIvMiM34Ur+CvI=";
+      sha256 = "sha256-bpzrG6mPoZh1ISFkHVUC3RfL6qpXvFFYRSP+zxoNeZU=";
     };
-    date = "2024-08-12";
+    date = "2024-08-15";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -752,13 +752,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.10.4-xanmod2";
+    version = "6.10.5-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.10.4-xanmod2";
+      rev = "6.10.5-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-sQ+LvrePp4laXH6tnxyfv+qajVNZZWktFJIK9xlbyV8=";
+      sha256 = "sha256-tETGtCNNgYj1IUNuI/Am5kimFndUC4O+cZwZzlPitFA=";
     };
   };
   linux-xanmod-6_0 = {
@@ -785,24 +785,24 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.45-xanmod2";
+    version = "6.6.46-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.45-xanmod2";
+      rev = "6.6.46-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-5mR8h6XP6Xqo4GI5wY+x3Z1Gb0ihFWTaJJfijXthL8M=";
+      sha256 = "sha256-ZtXFIHRM5YCb+5Ry3zcQt44OBqfhCI/Ig32jETUBrJo=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3583";
+    version = "b3585";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3583";
+      rev = "b3585";
       fetchSubmodules = false;
-      sha256 = "sha256-gBXhlZnmgzrS599lPeJZ8wOVwXNUiD5PvwlaJH5BHRk=";
+      sha256 = "sha256-BTnrBKEkDK4pkC8zXVJ80Z15e5FUFNELsPUa7IMw9Jw=";
     };
   };
   lyrica = {
@@ -1010,15 +1010,15 @@
   };
   openresty = {
     pname = "openresty";
-    version = "d3a190467e673444b8c92c6c4efb283141f3706e";
+    version = "2d1e490fa08e21907b19b3e7e6144868499783de";
     src = fetchFromGitHub {
       owner = "openresty";
       repo = "openresty";
-      rev = "d3a190467e673444b8c92c6c4efb283141f3706e";
+      rev = "2d1e490fa08e21907b19b3e7e6144868499783de";
       fetchSubmodules = false;
-      sha256 = "sha256-dsvE6/08kj2WDqfvD5UAqZ6eGrwpiBwvK2lBTZayWSg=";
+      sha256 = "sha256-VC9UYLt1wh91mTRrOlPHun+9CdSrnC3s2YLhOmljyvU=";
     };
-    date = "2024-08-08";
+    date = "2024-08-15";
   };
   openssl-oqs = {
     pname = "openssl-oqs";
