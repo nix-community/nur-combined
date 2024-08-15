@@ -2113,10 +2113,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "130.0.20240812.92056";
+      version = "130.0.20240814.121850";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4335657/deutsch_de_language_pack-130.0.20240812.92056.xpi";
-      sha256 = "9f116dff5b26377024128eb22cf6c3dde52575c3044d2f71070bed587f7e738c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4336805/deutsch_de_language_pack-130.0.20240814.121850.xpi";
+      sha256 = "cb86245696c00a1558aea6f60ee1ee969e3dbccbf102ec8ad11d32775675bea8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2720,10 +2720,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.20.1";
+      version = "1.3.20.2";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4336080/faststream-1.3.20.1.xpi";
-      sha256 = "c988720a26099a88b53121ee87283ef98694f48415a5c4f79eb779ed4fedef4a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4336752/faststream-1.3.20.2.xpi";
+      sha256 = "f088bc3b6c0e1b202b5cd2027872c3fbd592950edb40f5100ae8601c687dcb07";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -3173,10 +3173,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "130.0.20240812.92056";
+      version = "130.0.20240814.121850";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4335627/francais_language_pack-130.0.20240812.92056.xpi";
-      sha256 = "7bb76ee98fd72d5fe08b6d4f300d4b904368364ab6963e59c5a50f42da25b7d7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4336855/francais_language_pack-130.0.20240814.121850.xpi";
+      sha256 = "367030957339eab03c4fe0cc2cd15e18b110a387c943fcb2c109c1261857e81d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -7932,10 +7932,10 @@
     };
     "paperpile" = buildFirefoxXpiAddon {
       pname = "paperpile";
-      version = "1.0.59";
+      version = "1.0.60";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4332363/paperpile_addon-1.0.59.xpi";
-      sha256 = "3279c579076fe1bc908a839bfa655bd4136bec95e237c988aebd82acd931acff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4336656/paperpile_addon-1.0.60.xpi";
+      sha256 = "8b902e61863b68fb515c7724964699e1a1432c1c13eb1791262b0e768169d931";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
