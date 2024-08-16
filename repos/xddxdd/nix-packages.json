@@ -482,7 +482,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Port of Facebook's LLaMA model in C/C++",
     "pname": "llama-cpp",
-    "version": "3585"
+    "version": "3593"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
