@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../_roles/desktop.nix
+      ../_roles/dev-machine.nix
   ];
 
   nix = {
