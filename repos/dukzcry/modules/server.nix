@@ -45,7 +45,6 @@ in {
     (mkIf cfg.remote {
       environment.systemPackages = with pkgs; with pkgs.nur.repos.dukzcry; [
         moonlight-qt
-        steamlink
       ];
       services.yggdrasil = {
         enable = true;
