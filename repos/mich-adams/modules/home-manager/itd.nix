@@ -17,6 +17,12 @@ in {
       description = "Package providing itd";
     };
 
+    device = mkOption {
+      type = types.str;
+      default = null;
+      description = "mac address of infinitime";
+    };
+
     settings = mkOption {
       type = tomlFormat.type;
       default = {
@@ -33,7 +39,7 @@ in {
           reconnect = true;
           whitelist = {
             enabled = false;
-            devices = [];
+            devices = [ cfg.device ];
           };
         };
         on.connect.notify = false;

@@ -4,6 +4,8 @@ with lib;
 
 let
   cfg = config.services.vvmd;
+  pkgs.vvmd = pkgs.callPackage ../../pkgs/vvmd.nix;
+  pkgs.vvmplayer = pkgs.callPackage ../../pkgs/vvmplayer;
 in {
   #meta.maintainers = [ maintainers.mich-adams ];
 
@@ -19,7 +21,7 @@ in {
 
     config = mkIf cfg.enable {
 
-      home.packages = [ cfg.package pkgs.vvmplayer ];
+      home.packages = [ pkgs.vvmd pkgs.vvmplayer ];
 
       systemd.user.services."vvmd" = {
         Unit = {
