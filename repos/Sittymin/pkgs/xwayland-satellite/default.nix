@@ -12,9 +12,9 @@ rustPlatform.buildRustPackage {
     owner = "Supreeeme";
     repo = "xwayland-satellite";
     # newer commit
-    rev = "8892570093948de16a50e06b1a7d6890405de7a1";
+    rev = "95afa163a60167cd97bf6afa870bc117a1be3d03";
     fetchSubmodules = false;
-    sha256 = "sha256-zk62B0tIf2SRNCeQnXxatq2gvjtaJ8xp3Hp9RB43xs0=";
+    sha256 = "sha256-cUlTHg/F0tUpjS/uAIYKwrIRaKwuzdyFo3IiST6E7Fc=";
   });
 
   cargoHash = "sha256-8SnFLRPUjQzEjr6yIY3p7YSflFONhaS9ss70ykBoTKg=";
