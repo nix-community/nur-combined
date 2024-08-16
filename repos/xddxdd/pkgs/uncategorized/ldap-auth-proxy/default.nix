@@ -1,14 +1,17 @@
 {
   sources,
   lib,
-  buildGoPackage,
+  buildGoModule,
   ...
 }:
-buildGoPackage {
+buildGoModule {
   inherit (sources.ldap-auth-proxy) pname version src;
+  vendorHash = "sha256-drLTMaRelaz36ORl1qKndGYN2i6qRgJxy2D+wTDzmWA=";
 
-  goPackagePath = "github.com/pinepain/ldap-auth-proxy";
-  goDeps = ./deps.nix;
+  postPatch = ''
+    cp ${./go.mod} go.mod
+    cp ${./go.sum} go.sum
+  '';
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];

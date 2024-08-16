@@ -2,6 +2,7 @@
   lib,
   mpv-unwrapped,
   ocl-icd,
+  vapoursynth,
   ...
 }:
 let
@@ -27,6 +28,7 @@ in
   (old: {
     meta = old.meta // {
       maintainers = with lib.maintainers; [ xddxdd ];
+      inherit (vapoursynth.meta) platforms;
       inherit (mpv-unwrapped.meta) license;
     };
   })
