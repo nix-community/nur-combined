@@ -7932,10 +7932,10 @@
     };
     "paperpile" = buildFirefoxXpiAddon {
       pname = "paperpile";
-      version = "1.0.60";
+      version = "1.0.61";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4336656/paperpile_addon-1.0.60.xpi";
-      sha256 = "8b902e61863b68fb515c7724964699e1a1432c1c13eb1791262b0e768169d931";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4337464/paperpile_addon-1.0.61.xpi";
+      sha256 = "087e3ee7a21c787cf122608bbccccc2de13b35baeddd458f60e9bd03b7a92746";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
