@@ -32,18 +32,18 @@ _: {
                 SPECIFIED_HASH=($(grep "specified:" $NIX_LOGFILE | cut -d":" -f2 | xargs))
                 GOT_HASH=($(grep "got:" $NIX_LOGFILE | cut -d":" -f2 | xargs))
 
-                for (( i=1; i<=''${#SPECIFIED_HASH[@]}; i++ )); do
+                for (( i=0; i<''${#SPECIFIED_HASH[@]}; i++ )); do
                   SUBSTITUTED=1
 
-                  echo "::group::Auto replace ''${SPECIFIED_HASH[$i]} with ''${GOT_HASH[$i]}"
-                  echo "Auto replace ''${SPECIFIED_HASH[$i]} with ''${GOT_HASH[$i]}"
-                  sed -i "s#''${SPECIFIED_HASH[$i]}#''${GOT_HASH[$i]}#g" $(find pkgs/ -name \*.nix) || true
+                  echo "::group::Auto replace ''${SPECIFIED_HASH[@]:$i:1} with ''${GOT_HASH[@]:$i:1}"
+                  echo "Auto replace ''${SPECIFIED_HASH[@]:$i:1} with ''${GOT_HASH[@]:$i:1}"
+                  sed -i "s#''${SPECIFIED_HASH[@]:$i:1}#''${GOT_HASH[@]:$i:1}#g" $(find pkgs/ -name \*.nix) || true
                   echo "::endgroup::"
 
-                  SPECIFIED_HASH_OLD=$(nix hash convert --to nix32 "''${SPECIFIED_HASH[$i]}")
-                  echo "::group::Auto replace ''${SPECIFIED_HASH_OLD} with ''${GOT_HASH[$i]}"
-                  echo "Auto replace ''${SPECIFIED_HASH_OLD} with ''${GOT_HASH[$i]}"
-                  sed -i "s#''${SPECIFIED_HASH_OLD}#''${GOT_HASH[$i]}#g" $(find pkgs/ -name \*.nix) || true
+                  SPECIFIED_HASH_OLD=$(nix hash convert --to nix32 "''${SPECIFIED_HASH[@]:$i:1}" || nix hash to-base32 "''${SPECIFIED_HASH[@]:$i:1}")
+                  echo "::group::Auto replace ''${SPECIFIED_HASH_OLD} with ''${GOT_HASH[@]:$i:1}"
+                  echo "Auto replace ''${SPECIFIED_HASH_OLD} with ''${GOT_HASH[@]:$i:1}"
+                  sed -i "s#''${SPECIFIED_HASH_OLD}#''${GOT_HASH[@]:$i:1}#g" $(find pkgs/ -name \*.nix) || true
                   echo "::endgroup::"
                 done
               fi

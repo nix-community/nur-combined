@@ -165,6 +165,7 @@ mkScope (
     ldap-auth-proxy = pkg ./uncategorized/ldap-auth-proxy { };
     libnftnl-fullcone = pkg ./uncategorized/libnftnl-fullcone { };
     liboqs = pkg ./uncategorized/liboqs { };
+    liboqs-unstable = pkg ./uncategorized/liboqs/unstable.nix { };
     lyrica = pkg ./uncategorized/lyrica { };
     lyrica-plasmoid = pkg ./uncategorized/lyrica-plasmoid { };
     magiskboot = pkg ./uncategorized/magiskboot { };

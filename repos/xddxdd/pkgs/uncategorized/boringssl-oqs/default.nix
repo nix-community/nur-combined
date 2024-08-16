@@ -7,7 +7,7 @@
   ninja,
   perl,
   pkg-config,
-  liboqs,
+  liboqs-unstable,
   ...
 }:
 let
@@ -15,7 +15,7 @@ let
   cmakeFlags = [
     "-GNinja"
     "-DCMAKE_BUILD_TYPE=Release"
-    "-DLIBOQS_DIR=${liboqs}"
+    "-DLIBOQS_DIR=${liboqs-unstable}"
     "-DLIBOQS_SHARED=ON"
     "-DBUILD_SHARED_LIBS=ON"
     "-DCMAKE_SKIP_BUILD_RPATH=ON"
@@ -24,7 +24,7 @@ let
 in
 buildGoModule {
   inherit (sources.boringssl-oqs) pname version src;
-  vendorHash = "sha256-074bgtoBRS3SOxLrwZbBdK1jFpdCvF6tRtU1CkrhoDY=";
+  vendorHash = "sha256-CfkBfoN9tsq4eUKjuxfuCOOx1i/OHpjGaZvon52uxz4=";
   proxyVendor = true;
 
   enableParallelBuilding = true;
@@ -82,6 +82,5 @@ buildGoModule {
       mit
       bsd3
     ];
-    broken = true;
   };
 }

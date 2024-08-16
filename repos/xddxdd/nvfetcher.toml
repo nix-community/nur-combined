@@ -274,6 +274,10 @@ fetch.github = "xddxdd/libltnginx"
 src.github = "open-quantum-safe/liboqs"
 fetch.github = "open-quantum-safe/liboqs"
 
+[liboqs-unstable]
+src.git = "https://github.com/open-quantum-safe/liboqs.git"
+fetch.github = "open-quantum-safe/liboqs"
+
 [libqcef]
 src.git = "https://github.com/martyr-deepin/qcef.git"
 fetch.github = "martyr-deepin/qcef"

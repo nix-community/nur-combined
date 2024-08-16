@@ -1234,6 +1234,27 @@
         },
         "version": "0.10.1"
     },
+    "liboqs-unstable": {
+        "cargoLocks": null,
+        "date": "2024-08-12",
+        "extract": null,
+        "name": "liboqs-unstable",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "open-quantum-safe",
+            "repo": "liboqs",
+            "rev": "fc2264d150d0d94412c6ddb2f955c7077765556d",
+            "sha256": "sha256-z/ZrlhpqvcC3huCBytWt0UrBAQVqGQ7IjsUp1TPVWZY=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "fc2264d150d0d94412c6ddb2f955c7077765556d"
+    },
     "libqcef": {
         "cargoLocks": null,
         "date": "2019-11-23",
