@@ -57,6 +57,38 @@ in {
 }
 ```
 
+Probably the easiest way to use this is as an overlay for nixpkgs. In your flake, add both
+this repository and nixpkgs. Then apply this overlay when you import the nixpkgs overlay.
+
+```
+{
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/unstable";
+    xonsh-xontrib.url = "github:drmikecrowe/nur-packages";
+  };
+
+  outputs = { self, nixpkgs, xonsh-xontrib, ... }@inputs: {
+  let
+    packageSet = system: (import nixpkgs { inherit system; overlays = [ xonsh-xontrib.overlays ]; };
+  in {
+    devShells.x86_64-linux = let
+        pkgs = packageSet "x86_64-linux";
+    in {
+      buildInputs = with pkgs; [
+        xonsh.override {
+          extraPackages = (ps: [
+            ps.xonsh-direnv
+            ps.xontrib-vox
+          ]);
+        }
+      ];
+    };
+  };
+}
+```
+
+You should be able to use this similarly wherever you import nixpkgs by setting it as one over the overlays.
+
 ## Cachix Public Keys
 
 - [https://xonsh-xontribs.cachix.org](https://xonsh-xontribs.cachix.org)

@@ -23,6 +23,7 @@
         pkgs = import nixpkgs {inherit system;};
       });
     packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
+    overlays = import ./overlay.nix;
     devShells = forAllSystems (system: let
       pkgs = nixpkgs.legacyPackages.${system};
     in {
