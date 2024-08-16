@@ -1,5 +1,6 @@
 { lib, newScope, ... }:
 lib.makeScope newScope (self: with self; {
-  basekit = callPackage ./basekit { };
+  dpcpp-cpp = callPackage ./dpcpp-cpp { };
+  llvm = callPackage ./llvm { };
   mpi = callPackage ./mpi { };
 })
