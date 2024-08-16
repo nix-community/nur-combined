@@ -57,6 +57,7 @@ let
     };
 
   podcasts = [
+    (fromDb "404media.co/the-404-media-podcast" // tech)
     (fromDb "acquiredlpbonussecretsecret.libsyn.com" // tech)  # ACQ2 - more "Acquired" episodes
     (fromDb "allinchamathjason.libsyn.com" // pol)
     (fromDb "api.oyez.org/podcasts/oral-arguments/2015" // pol)  # Supreme Court Oral Arguments ("2015" in URL means nothing -- it's still updated)

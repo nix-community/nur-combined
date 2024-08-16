@@ -271,7 +271,6 @@ in
       sane.programs.firefox = {
         inherit packageUnwrapped;
         sandbox.method = "bwrap";  # landlock works, but requires all of /proc to be linked
-        sandbox.wrapperType = "inplace";  # trivial package; cheap enough to wrap inplace
         sandbox.net = "all";
         sandbox.whitelistAudio = true;
         sandbox.whitelistDbus = [ "user" ];  # mpris

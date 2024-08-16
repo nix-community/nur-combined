@@ -4,13 +4,15 @@
   buildPackages,
   file,
   gnugrep,
-  makeBinaryWrapper,
+  gnused,
+  makeWrapper,
   runCommandLocal,
   runtimeShell,
   sanebox,
   symlinkJoin,
   writeShellScriptBin,
   writeTextFile,
+  xorg,
 }:
 let
   fakeSaneSandboxed = writeShellScriptBin "sanebox" ''
@@ -60,7 +62,8 @@ let
       # the ordering here is specific: inject our deps BEFORE the unwrapped program's
       # so that the unwrapped's take precendence and we limit interference (e.g. makeWrapper impl)
       fakeSaneSandboxed
-      makeBinaryWrapper
+      gnugrep
+      makeWrapper
     ] ++ (unwrapped.nativeBuildInputs or []);
     disallowedReferences = (unwrapped.disallowedReferences or []) ++ [
       # the fake sandbox gates itself behind SANEBOX_DISABLE, so if it did end up deployed
@@ -70,28 +73,26 @@ let
 
     postFixup = (unwrapped.postFixup or "") + ''
       assertExecutable() {
-        # my programs refer to sanebox by name, not path, which triggers an over-eager assertion in nixpkgs (so, mask that)
-        :
+        :  # my programs refer to sanebox by name, not path, which triggers an over-eager assertion in nixpkgs (so, mask that)
       }
-      makeDocumentedCWrapper() {
-        # this is identical to nixpkgs' implementation, only replace execv with execvp, the latter which looks for the executable on PATH.
-        local src docs
-        src=$(makeCWrapper "$@")
-        src="''${src/return execv(/return execvp(}"
-        docs=$(docstring "$@")
-        printf '%s\n\n' "$src"
-        printf '%s\n' "$docs"
-      }
+      # makeDocumentedCWrapper() {
+      #   # this is identical to nixpkgs' implementation, only replace execv with execvp, the latter which looks for the executable on PATH.
+      #   local src=$(makeCWrapper "$@")
+      #   src="''${src/return execv(/return execvp(}"
+      #   local docs=$(docstring "$@")
+      #   printf '%s\n\n' "$src"
+      #   printf '%s\n' "$docs"
+      # }
 
       sandboxWrap() {
         local _dir="$1"
         local _name="$2"
+        echo "sandboxWrap $_dir/$_name"
 
         # N.B.: unlike stock `wrapProgram`, we place the unwrapped binary in a subdirectory and *preserve its name*.
         # the upside of this is that for applications which read "$0" to decide what to do (e.g. busybox, git)
         # they work as expected without any special hacks.
-        # if desired, makeWrapper-style naming could be achieved by leveraging `exec -a <original_name>`
-        # or `make-wrapper --inherit-argv0`
+        # though even so, the sandboxer still tries to preserve the $0 which it was invoked under
         mkdir -p "$_dir/.sandboxed"
         if [[ "$(readlink $_dir/$_name)" =~ ^\.\./ ]]; then
           # relative links which ascend a directory (into a non-bin/ directory)
@@ -101,18 +102,74 @@ let
         else
           mv "$_dir/$_name" "$_dir/.sandboxed/"
         fi
-        makeBinaryWrapper ${sanebox'} "$_dir/$_name" --suffix PATH : /run/current-system/sw/libexec/sanebox ${lib.escapeShellArgs (lib.flatten (builtins.map (f: [ "--add-flags" f ]) extraSandboxArgs))} --add-flags "$_dir/.sandboxed/$_name"
+        makeShellWrapper ${sanebox'} "$_dir/$_name" --suffix PATH : /run/current-system/sw/libexec/sanebox \
+          ${lib.escapeShellArgs (lib.flatten (builtins.map (f: [ "--add-flags" f ]) extraSandboxArgs))} \
+          --add-flags "$_dir/.sandboxed/$_name"
+        # `exec`ing a script with an interpreter will smash $0. instead, source it to preserve $0:
+        # - <https://github.com/NixOS/nixpkgs/issues/150841#issuecomment-995589961>
+        substituteInPlace "$_dir/$_name" \
+          --replace-fail 'exec ' 'source '
+      }
+
+      derefWhileInSameOutput() {
+        local output="$1"
+        local item="$2"
+        if [ -L "$item" ]; then
+          local target=$(readlink "$item")
+          if [[ "$target" =~ ^"$output"/ ]]; then
+            # absolute link back into the same package
+            item=$(derefWhileInSameOutput "$output" "$target")
+          elif [[ "$target" =~ ^/nix/store/ ]]; then
+            : # absolute link to another package: we're done
+          else
+            # relative link
+            local parent=$(dirname "$item")
+            target="$parent/$target"
+            item=$(derefWhileInSameOutput "$output" "$target")
+          fi
+        fi
+        echo "$item"
+      }
+      findUnwrapped() {
+        if [ -L "$1" ]; then
+          echo "$1"
+        else
+          local dir_=$(dirname "$1")
+          local file_=$(basename "$1")
+          local sandboxed="$dir_/.sandboxed/$file_"
+          local unwrapped="$dir_/.''${file_}-unwrapped"
+          if grep -q "$sandboxed" "$1"; then
+            echo "/dev/null"  #< already sandboxed
+          elif grep -q "$unwrapped" "$1"; then
+            echo $(findUnwrapped "$unwrapped")
+          else
+            echo "$1"
+          fi
+        fi
       }
 
       crawlAndWrap() {
-        local _dir="$1"
-        for _p in $(ls "$_dir/"); do
-          if [ -x "$_dir/$_p" ] && ! [ -d "$_dir/$_p" ]; then
-            sandboxWrap "$_dir" "$_p"
-          elif [ -d "$_dir/$_p" ]; then
-            crawlAndWrap "$_dir/$_p"
+        local output="$1"
+        local _dir="$2"
+        echo "crawlAndWrap $_dir"
+        local items=($(ls -a "$_dir/"))
+        for item in "''${items[@]}"; do
+          if [ "$item" != . ] && [ "$item" != .. ]; then
+            local target="$_dir/$item"
+            if [ -d "$target" ]; then
+              crawlAndWrap "$output" "$target"
+            elif [ -x "$target" ] && [[ "$item" != .* ]]; then
+              # in the case of symlinks, deref until we find the real file, or the symlink points outside the package
+              target=$(derefWhileInSameOutput "$output" "$target")
+              target=$(findUnwrapped "$target")
+              if [ "$target" != /dev/null ]; then
+                local parent=$(dirname "$target")
+                local bin=$(basename "$target")
+                sandboxWrap "$parent" "$bin"
+              fi
+            fi
+            # ignore all non-binaries or "hidden" binaries (to avoid double-wrapping)
           fi
-          # ignore all non-binaries
         done
       }
 
@@ -120,10 +177,10 @@ let
         local outdir=''${!output}
         echo "scanning output '$output' at $outdir for binaries to sandbox"
         if [ -e "$outdir/bin" ]; then
-          crawlAndWrap "$outdir/bin"
+          crawlAndWrap "$outdir" "$outdir/bin"
         fi
         if [ -e "$outdir/libexec" ]; then
-          crawlAndWrap "$outdir/libexec"
+          crawlAndWrap "$outdir" "$outdir/libexec"
         fi
       done
     '';
@@ -139,26 +196,68 @@ let
   ;
 
   # helper used for `wrapperType == "wrappedDerivation"` which simply symlinks all a package's binaries into a new derivation
-  symlinkBinaries = pkgName: package: (runCommandLocal "${pkgName}-bin-only" {} ''
+  symlinkDirs = suffix: symlinkRoots: pkgName: package: (runCommandLocal "${pkgName}-${suffix}" {
+    env.symlinkRoots = lib.concatStringsSep " " symlinkRoots;
+    nativeBuildInputs = [ gnused ];
+  } ''
     set -e
-    if [ -e "${package}/bin" ]; then
-      mkdir -p "$out/bin"
-      ${buildPackages.xorg.lndir}/bin/lndir "${package}/bin" "$out/bin"
-    fi
-    if [ "$(readlink ${package}/sbin)" == "bin" ]; then
-      # weird packages like wpa_supplicant depend on a sbin/ -> bin symlink in their service files
-      ln -s bin "$out/sbin"
-    fi
-    if [ -e "${package}/libexec" ]; then
-      mkdir -p "$out/libexec"
-      ${buildPackages.xorg.lndir}/bin/lndir "${package}/libexec" "$out/libexec"
-    fi
-    # allow downstream wrapping to hook this (and thereby actually wrap the binaries)
+    symlinkPath() {
+      if [ -e "$out/$1" ]; then
+        :  # already linked. may happen when e.g. the package has bin/foo, and sbin -> bin.
+      elif [ -L "${package}/$1" ]; then
+        local target=$(readlink "${package}/$1")
+        if [[ "$target" =~ ^${package}/ ]]; then
+          # absolute link back into the same package
+          echo "handling $1: descending into absolute symlink to same package: $target"
+          target=$(echo "$target" | sed 's:${package}/::')
+          ln -s "$out/$target" "$out/$1"
+          # create/link the backing path
+          # N.B.: if some leading component of the backing path is also a symlink... this might not work as expected.
+          local parent=$(dirname "$out/$target")
+          mkdir -p "$parent"
+          symlinkPath "$target"
+        elif [[ "$target" =~ ^/nix/store/ ]]; then
+          # absolute link to another package
+          echo "handling $1: symlinking absolute store path: $target"
+          ln -s "$target" "$out/$1"
+        else
+          # relative link
+          echo "handling $1: descending into relative symlink: $target"
+          ln -s "$target" "$out/$1"
+          local parent=$(dirname "$1")
+          local derefParent=$(dirname "$out/$parent/$target")
+          $(set -x && mkdir -p "$derefParent")
+          symlinkPath "$parent/$target"
+        fi
+      elif [ -d "${package}/$1" ]; then
+        echo "handling $1: descending into directory"
+        mkdir -p "$out/$1"
+        items=($(ls -a "${package}/$1"))
+        for item in "''${items[@]}"; do
+          if [ "$item" != . ] && [ "$item" != .. ] && [[ "$item" != .* ]]; then
+            symlinkPath "$1/$item"
+          fi
+        done
+      elif [ -e "${package}/$1" ]; then
+        echo "handling $1: symlinking ordinary file"
+        ln -s "${package}/$1" "$out/$1"
+      fi
+    }
+    mkdir -p "$out"
+    _symlinkRoots=($symlinkRoots)
+    for root in "''${_symlinkRoots[@]}"; do
+      echo "crawling top-level directory for symlinking: $root"
+      symlinkPath "$root"
+    done
+    # allow downstream wrapping to hook this (and thereby actually wrap binaries, etc)
+    runHook postInstall
     runHook postFixup
   '').overrideAttrs (_: {
     # specifically, preserve meta.priority
     meta = extractMeta package;
   });
+
+  symlinkBinaries = symlinkDirs "bin-only" [ "bin" "sbin" "libexec" ];
 
   # helper used for `wrapperType == "wrappedDerivation"` which ensures that any copied/symlinked share/ files (like .desktop) files
   # don't point to the unwrapped binaries.
@@ -185,6 +284,25 @@ let
           mv ./substituteResult "$_outPath"
         fi
       }
+
+      # remove any files which exist in sandoxedBin (makes it possible to sandbox /opt-style packages)
+      removeUnwanted() {
+        local file_=$(basename "$1")
+        if [ -f "$out/$1" ] || [ -L "$out/$1" ]; then
+          if [ -e "${sandboxedBin}/$1" ]; then
+            rm "$out/$1"
+          fi
+        elif [ -d "$out/$1" ]; then
+          local files=($(ls -a "$out/$1"))
+          for item in "''${files[@]}"; do
+            if [ "$item" != . ] && [ "$item" != .. ]; then
+              removeUnwanted "$1/$item"
+            fi
+          done
+        fi
+      }
+      removeUnwanted ""
+
       # fixup a few files i understand well enough
       for d in \
         $out/etc/xdg/autostart/*.desktop \
@@ -204,16 +322,16 @@ let
     passthru = (prevAttrs.passthru or {}) // {
       # check that sandboxedNonBin references only sandboxed binaries, and never the original unsandboxed binaries.
       # do this by dereferencing all sandboxedNonBin symlinks, and making `unsandboxed` a disallowedReference.
-      # further, since the sandboxed binaries intentionally reference the unsandboxed binaries,
-      # we have to patch those out as a way to whitelist them.
       checkSandboxed = let
-        sandboxedNonBin = fixHardcodedRefs unsandboxed "/dev/null" unsandboxedNonBin;
+        sandboxedNonBin = fixHardcodedRefs unsandboxed sandboxedBin unsandboxedNonBin;
       in runCommandLocal "${sandboxedNonBin.name}-check-sandboxed"
         { disallowedReferences = [ unsandboxed ]; }
+        # dereference every symlink, ensuring that whatever data is behind it does not reference non-sandboxed binaries.
+        # the dereference *can* fail, in case it's a relative symlink that refers to a part of the non-binaries we don't patch.
+        # in such case, this could lead to weird brokenness (e.g. no icons/images), so failing is reasonable.
+        # N.B.: this `checkSandboxed` protects against accidentally referencing unsandboxed binaries from data files (.deskop, .service, etc).
+        # there's an *additional* `checkSandboxed` further below which invokes every executable in the final package to make sure the binaries are truly sandboxed.
         ''
-          # dereference every symlink, ensuring that whatever data is behind it does not reference non-sandboxed binaries.
-          # the dereference *can* fail, in case it's a relative symlink that refers to a part of the non-binaries we don't patch.
-          # in such case, this could lead to weird brokenness (e.g. no icons/images), so failing is reasonable.
           cp -R --dereference "${sandboxedNonBin}" "$out"  # IF YOUR BUILD FAILS HERE, TRY SANDBOXING WITH "inplace"
         ''
       ;
@@ -224,26 +342,10 @@ let
   # patch them to use the sandboxed binaries,
   # and add some passthru metadata to enforce no lingering references to the unsandboxed binaries.
   sandboxNonBinaries = pkgName: unsandboxed: sandboxedBin: let
-    sandboxedWithoutFixedRefs = (runCommandLocal "${pkgName}-sandboxed-non-binary" {} ''
-      set -e
-      mkdir "$out"
-      # link in a limited subset of the directories.
-      # lib/ is the primary one to avoid, because of shared objects that would be unsandboxed if dlopen'd.
-      # all other directories are safe-ish, because they won't end up on PATH or LDPATH.
-      for dir in etc share; do
-        if [ -e "${unsandboxed}/$dir" ]; then
-          mkdir "$out/$dir"
-          ${buildPackages.xorg.lndir}/bin/lndir "${unsandboxed}/$dir" "$out/$dir"
-        fi
-      done
-      runHook postInstall
-    '').overrideAttrs (_: {
-      # specifically for meta.priority, though it shouldn't actually matter here.
-      meta = extractMeta unsandboxed;
-    });
+    sandboxedWithoutFixedRefs = symlinkDirs "non-bin" [ "etc" "share" ] pkgName unsandboxed;
   in fixHardcodedRefs unsandboxed sandboxedBin sandboxedWithoutFixedRefs;
 
-  # take the nearly-final sandboxed package, with binaries and and else, and
+  # take the nearly-final sandboxed package, with binaries and all else, and
   # populate passthru attributes the caller expects, like `checkSandboxed`.
   fixupMetaAndPassthru = pkgName: pkg: extraPassthru: pkg.overrideAttrs (finalAttrs: prevAttrs: let
     nonBin = (prevAttrs.passthru or {}).sandboxedNonBin or {};

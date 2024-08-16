@@ -10,6 +10,7 @@
 - hickory-dns can't resolve `pe.usps.com`
 - hickory-dns can't resolve `social.seattle.wa.us`
 - hickory-dns can't resolve `support.mozilla.org`
+- hickory-dns can't resolve `shows.acast.com`
 - sandbox: link cache means that if i update ~/.config/... files inline, sandboxed programs still see the old version
 - mpv: continues to play past the end of some audio files
 - mpv: audiocast has mpv sending its output to the builtin speakers unless manually changed

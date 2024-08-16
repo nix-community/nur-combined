@@ -390,7 +390,7 @@ in
       # "obsidian"
       # "openscad"  # 3d modeling
       # "rhythmbox"  # local music player
-      # "slic3r"
+      "slic3r"
       "soundconverter"
       # "spotify"  # x86-only
       "tor-browser"  # x86-only
@@ -416,7 +416,7 @@ in
     blanket.sandbox.whitelistWayland = true;
 
     blueberry.sandbox.method = "bwrap";
-    blueberry.sandbox.wrapperType = "inplace";  #< various /lib scripts refer to the bins by full path
+    blueberry.sandbox.wrapperType = "inplace";  #< it places binaries in /lib and then /etc/xdg/autostart files refer to the /lib paths, and fail to be patched
     blueberry.sandbox.whitelistWayland = true;
     blueberry.sandbox.extraPaths = [
       "/dev/rfkill"
@@ -476,7 +476,7 @@ in
     discord.persist.byStore.private = [ ".config/discord" ];
     discord.suggestedPrograms = [ "xwayland" ];
     discord.sandbox.method = "bwrap";
-    discord.sandbox.wrapperType = "inplace";  #< /opt-style packaging
+    discord.sandbox.wrapperType = "inplace";  #< package contains broken symlinks that my wrapper can't handle
     discord.sandbox.whitelistAudio = true;
     discord.sandbox.whitelistDbus = [ "user" ];  # needed for xdg-open
     discord.sandbox.whitelistWayland = true;
@@ -1045,7 +1045,12 @@ in
 
     # printer/filament settings
     slic3r.buildCost = 1;
-    slic3r.persist.byStore.plaintext = [ ".Slic3r" ];
+    # slic3r.persist.byStore.plaintext = [
+    #   ".Slic3r"  #< printer/filament settings
+    # ];
+    slic3r.sandbox.method = "bwrap";
+    slic3r.sandbox.autodetectCliPaths = "existingFileOrParent";  # slic3r <my-file>.stl -o <out>.gcode
+
 
     slurp.sandbox.method = "bwrap";
     slurp.sandbox.whitelistWayland = true;
@@ -1121,7 +1126,6 @@ in
 
     superTux.buildCost = 1;
     superTux.sandbox.method = "bwrap";
-    superTux.sandbox.wrapperType = "inplace";  # package Makefile incorrectly installs to $out/games/superTux instead of $out/share/games
     superTux.sandbox.whitelistAudio = true;
     superTux.sandbox.whitelistDri = true;
     superTux.sandbox.whitelistWayland = true;

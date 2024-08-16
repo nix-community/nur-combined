@@ -1,10 +1,26 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p feeds.update-feed -p gnused
 
+source=
+passthruArgs=()
+for arg in "$@"; do
+  case $arg in
+    (--*)
+      passthruArgs+=("$arg")
+      ;;
+    (*)
+      if [ -z "$source" ]; then
+        source="$arg"
+      else
+        passthruArgs+=("$arg")
+      fi
+  esac
+done
+
 sources_dir=modules/data/feeds/sources
 # prettify the URL, by default
 name=$( \
-  echo "$1" \
+  echo "$source" \
   | sed 's|^https://||' \
   | sed 's|^http://||' \
   | sed 's|^www\.||' \
@@ -17,5 +33,5 @@ json_path="$sources_dir/$name/default.json"
 pushd "$sources_dir"; mkdir -p "$name"; popd
 
 # update.py: from `feeds.update-feed` (TODO: rename the binary!)
-update.py "$name" "$json_path"
+update.py "$name" "$json_path" "${passthruArgs[@]}"
 cat "$json_path"

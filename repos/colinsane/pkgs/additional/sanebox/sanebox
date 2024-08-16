@@ -94,6 +94,14 @@ netGateway=default
 dns=()
 # VAR -> VALUE map of environment variables to add to the sandboxed program's environment
 declare -A portalEnv
+argv0=
+case "${0:-8}" in
+  ("sanebox"|"/sanebox")
+    ;;
+  (*)
+    argv0="$0"
+    ;;
+esac
 
 # arguments to forward onto a specific backend (if that backend is active)
 bwrapArgs=()
@@ -501,6 +509,7 @@ parseArgs() {
         # this lets the user do things like `mpv --sanebox-replace-cli sh` to enter a shell
         # with the sandbox that `mpv` would see.
         parseArgsExtra=()
+        argv0=
         ;;
       (--sanebox-disable)
         isDisable=1
@@ -754,7 +763,8 @@ bwrapGetCli() {
   done
 
   cliArgs=(
-    "$_bwrap" \
+    "$_bwrap"
+      --argv0 "$argv0"
       "${bwrapUnshareCgroup[@]}"
       "${bwrapUnshareIpc[@]}"
       "${bwrapUnshareNet[@]}"
@@ -766,7 +776,11 @@ bwrapGetCli() {
     "${cliArgs[@]}"
   )
   if [ -n "$bwrapUsePasta" ]; then
+    # not critical, but it's less confusing if we have pasta execute bwrap *as* "bwrap"
+    local _realArgv="$argv0"
+    argv0=bwrap
     pastaonlyGetCli
+    argv0="$_realArgv"
   fi
 }
 
@@ -921,7 +935,7 @@ capshonlyGetCli() {
   locate _capsh "capsh" "$CAPSH_FALLBACK"
   locate _env "env" "$ENV_FALLBACK"
 
-  local envArgs=()
+  local envArgs=(-a "$argv0")
   for envName in "${!portalEnv[@]}"; do
     envArgs+=("$envName=${portalEnv[$envName]}")
   done
@@ -984,7 +998,8 @@ pastaonlyIngestCapability() {
 pastaonlyGetCli() {
   cliArgs=(
     "/bin/sh" "-c"
-    "$pastaNetSetup exec"' "$0" "$@"'
+    "$pastaNetSetup exec"' "$@"'
+    "$argv0"  # first argument after `-c "..."` is interpreted by bash as the argv
     "${cliArgs[@]}"
   )
   locate _pasta "pasta" "$PASTA_FALLBACK"
@@ -1032,7 +1047,7 @@ noneIngestCapability() {
   :
 }
 noneGetCli() {
-  :
+  cliArgs=(-a "$argv0" "${cliArgs[@]}")
 }
 
 
@@ -1138,6 +1153,9 @@ parseArgsAndEnvironment() {
 
   parseArgs "$@"
   cliArgs+=("${parseArgsExtra[@]}")
+  if [ -z "$argv0" ]; then
+    argv0=${cliArgs[0]}
+  fi
 
   if [ -n "$SANEBOX_APPEND" ]; then
     parseArgs $SANEBOX_APPEND
@@ -1174,6 +1192,9 @@ ingestForBackend() {
 
 ## TOPLEVEL EXECUTION
 #  no code evaluated before this point should be dependent on user args / environment.
+
+# TODO: use `set -e`, only i'm using `return 1` in places for control flow.
+set +e
 
 parseArgsAndEnvironment "$@"
 

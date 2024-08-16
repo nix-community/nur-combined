@@ -199,7 +199,6 @@ in
     ];
 
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "inplace";  #< `sway` is a wrapper around `sway-unwrapped`, so cheap to sandbox
     sandbox.net = "all";  # TODO: shouldn't be needed! but without this, mouse/kb hotplug doesn't work.
     sandbox.whitelistAudio = true;  # it runs playerctl directly
     sandbox.whitelistDbus = [ "system" "user" ];  # to e.g. launch apps

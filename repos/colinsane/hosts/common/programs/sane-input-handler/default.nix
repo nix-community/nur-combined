@@ -74,7 +74,7 @@ in
       srcRoot = ./.;
       pkgs = {
         inherit (pkgs) coreutils jq killall playerctl procps sane-open util-linux wireplumber;
-        sway = config.sane.programs.sway.package.sway-unwrapped;
+        sway = config.sane.programs.sway.package;
       };
     };
     suggestedPrograms = [

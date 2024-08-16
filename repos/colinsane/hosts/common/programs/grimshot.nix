@@ -3,7 +3,7 @@
   sane.programs."sway-contrib.grimshot" = {
     packageUnwrapped = pkgs.sway-contrib.grimshot.override {
       # my `sway` is heavily patched to be cross compatible
-      sway-unwrapped = config.sane.programs.sway.package.sway-unwrapped;
+      sway-unwrapped = config.sane.programs.sway.package;
     };
     suggestedPrograms = [
       # runtime dependencies (grimshot is just a trivial shell script)

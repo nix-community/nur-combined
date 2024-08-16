@@ -26,7 +26,6 @@ in
 
     packageUnwrapped = pkgs.rmDbusServicesInPlace pkgs.dconf;
     sandbox.method = "bwrap";
-    sandbox.wrapperType = "inplace";  #< dbus/systemd services live in `.out` but point to `.lib` data.
     sandbox.whitelistDbus = [ "user" ];
     persist.byStore.private = [
       ".config/dconf"
