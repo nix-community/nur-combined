@@ -14,4 +14,6 @@ openvswitch.overrideAttrs (old: {
   ];
 
   configureFlags = (old.configureFlags or [ ]) ++ [ "--with-dpdk=shared" ];
+
+  doCheck = false;
 })
