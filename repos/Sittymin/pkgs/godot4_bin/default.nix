@@ -20,6 +20,12 @@
 , ...
 }:
 
+let
+  godotIcon = fetchurl {
+    url = "https://raw.githubusercontent.com/godotengine/godot/master/icon.svg";
+    sha256 = "sha256-epEgD5t/13ch698B6p9fm3sSk3zy613mzXQ4k5hewEg=";
+  };
+in
 stdenv.mkDerivation rec {
   pname = "godot";
   version = "4.3-stable";
@@ -59,6 +65,19 @@ stdenv.mkDerivation rec {
 
     makeWrapper $out/bin/godot-bin $out/bin/godot \
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath buildInputs}
+
+    mkdir -p $out/share/applications
+    cat > $out/share/applications/godot.desktop << EOF
+    [Desktop Entry]
+    Name=Godot Engine
+    Exec=$out/bin/godot
+    Icon=godot
+    Type=Application
+    Categories=Development;IDE;
+    EOF
+
+    mkdir -p $out/share/icons/hicolor/scalable/apps
+    cp ${godotIcon} $out/share/icons/hicolor/scalable/apps/godot.svg
 
     runHook postInstall
   '';
