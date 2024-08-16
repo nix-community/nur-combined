@@ -321,6 +321,10 @@ fetch.github = "ggerganov/llama.cpp"
 src.github = "chiyuki0325/lyrica"
 fetch.github = "chiyuki0325/lyrica"
 
+[magiskboot]
+src.github = "topjohnwu/Magisk"
+fetch.url = "https://github.com/topjohnwu/Magisk/releases/download/$ver/Magisk-$ver.apk"
+
 [mtkclient]
 src.github = "bkerler/mtkclient"
 fetch.github = "bkerler/mtkclient"

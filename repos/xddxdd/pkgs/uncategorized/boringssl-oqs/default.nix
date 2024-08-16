@@ -82,5 +82,6 @@ buildGoModule {
       mit
       bsd3
     ];
+    broken = true;
   };
 }

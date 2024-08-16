@@ -1465,6 +1465,21 @@
         },
         "version": "v0.8"
     },
+    "magiskboot": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "magiskboot",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-9RG9M9MkKRHQWwk5+RCjEz7yug4P8eCYEo+fPNDBZhA=",
+            "type": "url",
+            "url": "https://github.com/topjohnwu/Magisk/releases/download/v27.0/Magisk-v27.0.apk"
+        },
+        "version": "v27.0"
+    },
     "mtkclient": {
         "cargoLocks": null,
         "date": null,

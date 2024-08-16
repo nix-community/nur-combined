@@ -10,7 +10,7 @@ let
   python = python3.withPackages (
     p: with p; [
       dateutils
-      fastapi
+      (lib.hiPrio fastapi)
       markdown
       pycryptodome
       python-dotenv

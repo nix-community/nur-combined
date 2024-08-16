@@ -816,6 +816,14 @@
       sha256 = "sha256-hjLm4p/GY/TF+p+yV2aKM3z1ctdyw2vqiqiBGffkBU4=";
     };
   };
+  magiskboot = {
+    pname = "magiskboot";
+    version = "v27.0";
+    src = fetchurl {
+      url = "https://github.com/topjohnwu/Magisk/releases/download/v27.0/Magisk-v27.0.apk";
+      sha256 = "sha256-9RG9M9MkKRHQWwk5+RCjEz7yug4P8eCYEo+fPNDBZhA=";
+    };
+  };
   mtkclient = {
     pname = "mtkclient";
     version = "2.0.1.freeze";
