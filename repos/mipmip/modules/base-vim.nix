@@ -8,7 +8,7 @@
   environment.systemPackages = with pkgs; [
 
     ctags
-    pkgs-2211.sc-im
+    sc-im
 
     git-sync
     gitFull
