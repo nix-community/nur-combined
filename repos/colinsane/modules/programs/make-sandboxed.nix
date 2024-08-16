@@ -128,7 +128,8 @@ let
             item=$(derefWhileInSameOutput "$output" "$target")
           fi
         fi
-        echo "$item"
+        # canonicalize the path, to avoid wrapping the same item twice under different names
+        realpath --no-symlinks "$item"
       }
       findUnwrapped() {
         if [ -L "$1" ]; then
