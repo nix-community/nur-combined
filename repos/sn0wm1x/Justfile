@@ -10,6 +10,10 @@ build package:
 build-broken package:
   NIXPKGS_ALLOW_BROKEN=1 nix build .#{{package}} --impure
 
-# build unfree package.
-build-unfree package:
-  NIXPKGS_ALLOW_UNFREE=1 nix build .#{{package}} --impure
+# run package.
+run package:
+  nix run .#{{package}}
+
+# update flake lock.
+up:
+  nix flake update

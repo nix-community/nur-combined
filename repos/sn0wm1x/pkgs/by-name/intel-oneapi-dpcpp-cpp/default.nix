@@ -1,7 +1,12 @@
 { lib
+, stdenv
 , stdenvNoCC
 , fetchurl
+, autoPatchelfHook
 , rpmextract
+, ocl-icd
+  # , onnxruntime
+, zlib
 }:
 let
   major = "2024.2";
@@ -19,7 +24,14 @@ stdenvNoCC.mkDerivation ({
       hash = "sha256-iWG1HiCFbJ86FBrTUkXVEUJFI4qnXMM3EYrwETRhYiM=";
     };
 
-  nativeBuildInputs = [ rpmextract ];
+  nativeBuildInputs = [ autoPatchelfHook rpmextract ];
+
+  buildInputs = [
+    stdenv.cc.cc.lib
+    ocl-icd
+    # onnxruntime
+    zlib
+  ];
 
   dontUnpack = true;
   dontBuild = true;
@@ -34,10 +46,16 @@ stdenvNoCC.mkDerivation ({
     ls $out
 
     mkdir $out/bin
-    mv $out/opt/intel/oneapi/compiler/${major}/bin/ $out/bin/
+    mv $out/opt/intel/oneapi/compiler/${major}/bin/* $out/bin/
 
     mkdir $out/lib
-    mv $out/opt/intel/oneapi/compiler/${major}/lib/ $out/lib/
+    mv $out/opt/intel/oneapi/compiler/${major}/lib/* $out/lib/
+
+    # remove failed bin
+    # error: auto-patchelf could not satisfy dependency libonnxruntime.1.12.22.721.so
+    rm $out/bin/opencl-aot
+    rm $out/bin/compiler/clang
+    rm $out/bin/compiler/llvm-dwp
 
     rm -r $out/opt
 
@@ -45,6 +63,7 @@ stdenvNoCC.mkDerivation ({
   '';
 
   meta = {
+    broken = true;
     description = "Intel oneAPI DPC++/C++ Compiler";
     longDescription = "Standards driven high performance cross architecture DPC++/C++ compiler";
     homepage = "https://software.intel.com/content/www/us/en/develop/tools/oneapi.html";
