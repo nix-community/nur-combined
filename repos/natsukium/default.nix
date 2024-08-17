@@ -20,18 +20,15 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   bclm = pkgs.callPackage ./pkgs/bclm { };
-  colima = pkgs.colima;
   copyq = pkgs.copyq;
   emacs-plus = pkgs.callPackage ./pkgs/emacs-plus { source = sources.emacs-plus; };
   ligaturizer = pkgs.callPackage ./pkgs/ligaturizer { };
-  nixfmt = pkgs.nixfmt;
   nixpkgs-review = pkgs.nixpkgs-review;
   psipred = pkgs.callPackage ./pkgs/psipred { };
   qmk-toolbox = pkgs.callPackage ./pkgs/qmk-toolbox { source = sources.qmk-toolbox; };
   qutebrowser = pkgs.qutebrowser;
   rofi-rbw = pkgs.rofi-rbw;
   sbarlua = pkgs.callPackage ./pkgs/sbarlua { source = sources.sbarlua; };
-  vim-startuptime = pkgs.callPackage ./pkgs/vim-startuptime { source = sources.vim-startuptime; };
   vivaldi = pkgs.vivaldi;
   liga-hackgen-font = pkgs.callPackage ./pkgs/data/fonts/liga-hackgen { inherit ligaturizer; };
   liga-hackgen-nf-font = liga-hackgen-font.override { nerdfont = true; };

@@ -34,26 +34,6 @@
         },
         "version": "323d86b2685a2420341e648bbc6c7b7c02029fa9"
     },
-    "nixfmt": {
-        "cargoLocks": null,
-        "date": "2024-07-18",
-        "extract": null,
-        "name": "nixfmt",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "NixOS",
-            "repo": "nixfmt",
-            "rev": "e819b2d0f9173f0c73d2e1fb4bc5155362046653",
-            "sha256": "sha256-cmgmVWjNkXBOt3r5bzuVLk/+xv4TzcvcQ16W8kOmx90=",
-            "type": "github"
-        },
-        "version": "e819b2d0f9173f0c73d2e1fb4bc5155362046653"
-    },
     "nixpkgs-review": {
         "cargoLocks": null,
         "date": "2024-02-20",
@@ -143,21 +123,6 @@
             "type": "github"
         },
         "version": "0e5a7dc5984e6043ee6d3af81e0d8dbb554dca70"
-    },
-    "vim-startuptime": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "vim-startuptime",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-1IB0DZJ+pAME35jxM1whJ/R+D6ZX9rjxHmXnQBX/IdQ=",
-            "type": "url",
-            "url": "https://github.com/rhysd/vim-startuptime/archive/v1.3.2.tar.gz"
-        },
-        "version": "1.3.2"
     },
     "vivaldi-darwin": {
         "cargoLocks": null,
