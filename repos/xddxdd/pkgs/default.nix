@@ -53,7 +53,6 @@ mkScope (
     mergePkgs = self.callPackage ../helpers/merge-pkgs.nix {
       enableWrapper =
         !(builtins.elem mode [
-          "ci"
           "nur"
           "legacy"
         ]);
