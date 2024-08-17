@@ -2113,10 +2113,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "130.0.20240814.121850";
+      version = "130.0.20240816.112705";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4336805/deutsch_de_language_pack-130.0.20240814.121850.xpi";
-      sha256 = "cb86245696c00a1558aea6f60ee1ee969e3dbccbf102ec8ad11d32775675bea8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4337882/deutsch_de_language_pack-130.0.20240816.112705.xpi";
+      sha256 = "e9147058ebf40a096fa3c3a58dd01ffdf0bcaa96b24e90dc4bff8da87d4d6494";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3173,10 +3173,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "130.0.20240814.121850";
+      version = "130.0.20240816.112705";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4336855/francais_language_pack-130.0.20240814.121850.xpi";
-      sha256 = "367030957339eab03c4fe0cc2cd15e18b110a387c943fcb2c109c1261857e81d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4337956/francais_language_pack-130.0.20240816.112705.xpi";
+      sha256 = "3b73d8902d0bc34db37f0a245ebf0553f103bea395d3544dede3b12408aeee2a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -9914,10 +9914,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.55";
+      version = "1.22.59";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4330250/single_file-1.22.55.xpi";
-      sha256 = "058f46663486a2b91e817f4014b2fd8676cedd845d683c044bc844c7e388d9df";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4335620/single_file-1.22.59.xpi";
+      sha256 = "b9d2fa7cade21b5858e196f80bc1e42a1df78eddaca523c53ef9567b0a2966fd";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
