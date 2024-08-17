@@ -1,2 +1,5 @@
 {
+  imports = [
+    ./itd.nix
+  ];
 }
