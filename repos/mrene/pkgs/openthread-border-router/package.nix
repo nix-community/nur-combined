@@ -90,7 +90,7 @@ stdenv.mkDerivation {
     (lib.cmakeBool "OT_MLR" true)
     (lib.cmakeBool "OT_ECDSA" true)
     (lib.cmakeBool "OT_SERVICE" true)
-    (lib.cmakeBool "OT_ANYCASE_LOCATOR" true)
+    (lib.cmakeBool "OT_ANYCAST_LOCATOR" true)
     (lib.cmakeBool "OT_COVERAGE" true)
     (lib.cmakeBool "OT_DNS_CLIENT" true)
     (lib.cmakeBool "OT_NETDATA_PUBLISHER" true)
@@ -98,6 +98,9 @@ stdenv.mkDerivation {
     (lib.cmakeBool "OT_SRP_CLIENT" true)
     (lib.cmakeBool "OT_FULL_LOGS" true)
     (lib.cmakeBool "OT_UPTIME" true)
+
+    (lib.cmakeBool "OT_CHANNEL_MANAGER" true)
+    (lib.cmakeBool "OT_CHANNEL_MONITOR" true)
 
     # Required by protobuf
     (lib.cmakeFeature "CMAKE_CXX_STANDARD" "17")
