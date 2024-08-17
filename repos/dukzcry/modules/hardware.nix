@@ -63,7 +63,10 @@ in {
       '';
       programs.light.enable = true;
       users.users.${cfg.user}.extraGroups = [ "video" ];
-      boot.kernelParams = [ "mitigations=off" ];
+      boot.kernelParams = [ "mitigations=off" "quiet" "fbcon=vc:2-6" "console=tty0" ];
+      # https://github.com/NixOS/nixpkgs/issues/32555#issuecomment-1678447958
+      boot.loader.timeout = 0;
+      services.xserver.displayManager.lightdm.greeters.gtk.extraConfig = "background = #808080";
       services.tlp.enable = true;
       hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
       # https://github.com/NixOS/nixpkgs/issues/270809
