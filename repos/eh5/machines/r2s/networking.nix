@@ -54,6 +54,26 @@
     "net.netfilter.nf_conntrack_tcp_timeout_time_wait" = 1;
   };
 
+  services.timesyncd.extraConfig = ''
+    PollIntervalMinSec=16
+    PollIntervalMaxSec=180
+    ConnectionRetrySec=3
+  '';
+  systemd.additionalUpstreamSystemUnits = [
+    "systemd-time-wait-sync.service"
+  ];
+  services.fake-hwclock.enable = true;
+  networking.timeServers = [
+    "ntp.aliyun.com"
+    "ntp1.aliyun.com"
+    "ntp2.aliyun.com"
+    "ntp3.aliyun.com"
+    "ntp4.aliyun.com"
+    "ntp5.aliyun.com"
+    "ntp6.aliyun.com"
+    "ntp7.aliyun.com"
+  ];
+
   # required to set hostname, see <https://github.com/systemd/systemd/issues/16656>
   security.polkit.enable = true;
 
@@ -68,6 +88,18 @@
       ManageForeignRoutingPolicyRules = false;
       SpeedMeter = true;
     };
+  };
+
+  systemd.services."systemd-networkd" = {
+    serviceConfig = {
+      # avoid infinity restarting,
+      # we want to tty into the system as network is not functional
+      Restart = "no";
+    };
+  };
+  systemd.network.wait-online = {
+    ignoredInterfaces = [ "tun0" ];
+    timeout = 20;
   };
 
   systemd.network.links."10-intern0" = {

@@ -82,38 +82,6 @@
 
   services.lvm.enable = false;
 
-  services.timesyncd.extraConfig = ''
-    PollIntervalMinSec=16
-    PollIntervalMaxSec=180
-    ConnectionRetrySec=3
-  '';
-  systemd.additionalUpstreamSystemUnits = [
-    "systemd-time-wait-sync.service"
-  ];
-  services.fake-hwclock.enable = true;
-  networking.timeServers = [
-    "ntp.aliyun.com"
-    "ntp1.aliyun.com"
-    "ntp2.aliyun.com"
-    "ntp3.aliyun.com"
-    "ntp4.aliyun.com"
-    "ntp5.aliyun.com"
-    "ntp6.aliyun.com"
-    "ntp7.aliyun.com"
-  ];
-
-  systemd.services."systemd-networkd" = {
-    serviceConfig = {
-      # avoid infinity restarting,
-      # we want to tty into the system as network is not functional
-      Restart = "no";
-    };
-  };
-  systemd.network.wait-online = {
-    ignoredInterfaces = [ "tun0" ];
-    timeout = 20;
-  };
-
   systemd.services."wait-system-running" = {
     description = "Wait system running";
     serviceConfig = { Type = "simple"; };
@@ -129,6 +97,8 @@
     wants = [ "network-online.target" ];
     after = [ "network-online.target" ];
     script = ''
+      # Update: fixed since latest stable kernels, see
+      # <https://github.com/torvalds/linux/compare/adec57ff8e66aee632f3dd1f93787c13d112b7a1...4ea4d4808e342ddf89ba24b93ffa2057005aaced>
       # Somehow Linux kernel has not set gpio2-15(b7) conntecting LAN LED to "GPIO" pinmux, causing no output to LAN LED,
       # workaround it by setting pinmux register(GRF_GPIO2CL_IOMUX) manually.
       #
@@ -137,7 +107,7 @@
       #
       # 0xff100028 = 0xff100000(base address of GRF) + 0x28(offset of register GRF_GPIO2CL_IOMUX)
       # 0x00070000 = 0x0007 << 16 (write mask of bits 2:0) + 0x0000 (set gpio2_b7_sel bits 2:0 to 0, i.e. "GPIO" MUX)
-      ${pkgs.busybox}/bin/devmem 0xff100028 32 0x00070000
+      #${pkgs.busybox}/bin/devmem 0xff100028 32 0x00070000
 
       ${pkgs.kmod}/bin/modprobe ledtrig_netdev
       cd /sys/class/leds/nanopi-r2s:green:lan
