@@ -40,6 +40,7 @@ in {
       args.config = {
         checkMetaRecursively = true;
         permittedInsecurePackages = [
+          "olm-3.2.16"
           # allow notmuch/notmuch-vim to build
           "ruby-2.7.8"
           "openssl-1.1.1t"
