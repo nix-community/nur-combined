@@ -148,6 +148,7 @@ KNOWN_SOFTWARE_PRODUCERS = [
   "LibreOffice",
   "OpenOffice.org",
   "PDFContext",
+  "QuarkXPress",
   "Xerox",
 ]
 
