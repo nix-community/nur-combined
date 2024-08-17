@@ -39,9 +39,6 @@
   sane.programs.iphoneUtils.enableFor.user.colin = true;
   sane.programs.steam.enableFor.user.colin = true;
 
-  sane.programs.geary.config.autostart = true;
-  sane.programs.signal-desktop.config.autostart = true;
-
   sane.programs.nwg-panel.config = {
     battery = false;
     brightness = false;

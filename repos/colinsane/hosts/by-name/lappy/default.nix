@@ -21,9 +21,6 @@
   sane.programs.stepmania.enableFor.user.colin = true;
   sane.programs.sway.enableFor.user.colin = true;
 
-  sane.programs.geary.config.autostart = true;
-  sane.programs.signal-desktop.config.autostart = true;
-
   sops.secrets.colin-passwd.neededForUsers = true;
 
   sane.services.rsync-net.enable = true;

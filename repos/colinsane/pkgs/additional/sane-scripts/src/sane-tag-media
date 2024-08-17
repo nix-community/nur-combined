@@ -1,6 +1,48 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i python3 -p python3 -p python3.pkgs.mutagen -p python3.pkgs.pyexiftool -p python3.pkgs.pykakasi -p python3.pkgs.unidecode
 # vim: set filetype=python :
+"""
+tool which runs over a complete music library (or audiobooks, videos, ebooks (limited)) or a subset of it and:
+- fixes missing or incorrect tags:
+  - suggests likely tags based on file path
+  - from correctly-tagged files in the same directory
+  - or manually specified by the user
+- rewrites file paths based on tags (`AlbumArtist/AlbumTitle/TrackNumber-TrackTitle`)
+  - resulting paths are exclusively `[a-zA-Z0-9\._-]`
+  - characters outside this set are mapped to the nearest character. for example:
+    - `&` is replaced by `And`
+    - `ü` is replaced by `u`
+    - `百合` is replaced by `Yuri`  (pykakasi is used for romanization)
+    - ` ` is replaced by `.`
+  - albums released under an alias are given a path as follows, if tagged correctly:
+    - `Producer/AlbumArtist-AlbumTitle/TrackNumber-TrackTitle`
+    - for example, "HALLEY LABS" released an album under the alias of "BANDETTO":
+      - the paths are like: `HALLEY.LABS/BANDETTO-WAV.SLAVE/01-bouncy.castle.boogie.flac`
+      - tagged with `--producer "HALLEY LABS" --album-artist "BANDETTO" --album ".WAV SLAVE"`
+
+USAGE: cd MEDIA_LIBRARY_TOP && sane-tag-media [options] fix-paths|fix-tags|show-missing|show [cmd-specific options] DIRECTORY [DIRECTORY ...]
+
+DIRECTORY: specify `.` to scan the entire library.
+use relative paths here, like `SomeArtist` or `./SomeArtist/SomeAlbum`, so that it can better extract metadata fields from the paths.
+
+options:
+  --dry-run: only show what would be done, don't actually do it.
+  --verbose
+  --derive                apply existing tags (e.g. album) found in the file set to any files in the set missing such tags.
+                          additionally, extrapolate from the file path any missing tags.
+  --ignore-existing       completely ignore the existing on-disk tags. compute tags only from those manually provided, and what can be derived from the file path (if --derive was passed)
+  --override-existing     apply derived tags to each file, even those which already have tags.
+                          only makes sense when paired with --derive.
+  --type audio|image|text skip files which aren't of some specific media type
+manually writing metadata fields:
+  --album ALBUM
+  --album-artist ARTIST   often combined with DIRECTORY to tag an entire artist or album.
+  --artist ARTIST         track artist; usually the same as album-artist, except for compilation albums.
+  --producer PRODUCER     use when the artist is a pseudonym, and this is their umbrella name.
+  --title TITLE
+  --trackno TRACK_NUMBER
+
+"""
 #
 # standard tags:
 # - Vorbis Comments (FLAC): <https://www.exiftool.org/TagNames/Vorbis.html#Comments>
@@ -60,40 +102,6 @@
 #   - TrackNumber
 # mutagen docs:
 # - <https://mutagen.readthedocs.io/en/latest/>
-"""
-tool which runs over a complete music library (or audiobooks, videos, ebooks (limited)) or a subset of it and:
-- detect tags which are missing or likely incorrect
-- write new tags to existing media
-  - new tags are specified manually (--artist, --album, ...)
-  - OR determined via file path
-
-this tool does NOT move or rename files. it only edits tags.
-
-USAGE: cd MEDIA_LIBRARY_TOP && sane-tag-media [options] fix-paths|fix-tags|show-missing|show [cmd-specific options] DIRECTORY [DIRECTORY ...]
-
-scans DIRECTORY and guesses artist/album/title for each file, based on path relative to pwd.
-if the guessed tags look more correct than the existing tags (i.e. if the existing file is missing a tag),
-then this updates the tags on-disk to reflect their path.
-
-DIRECTORY: specify `.` to scan the entire library.
-
-options:
-  --dry-run: only show what would be done, don't actually do it.
-  --verbose
-  --album ALBUM           manually specify the tag, rather than guessing from path.
-  --album-artist ARTIST   often combined with DIRECTORY to tag an entire artist or album.
-  --artist ARTIST
-  --producer PRODUCER     use when the artist is a pseudonym, and this is their umbrella name.
-  --title TITLE
-  --trackno TRACK_NUMBER
-  --derive                apply existing tags (e.g. album) found in the file set to any files in the set missing such tags.
-                          additionally, extrapolate from the file path any missing tags.
-  --ignore-existing       completely ignore the existing on-disk tags. compute tags only from those manually provided, and what can be derived from the file path (if --derive was passed)
-  --override-existing     apply derived tags to each file, even those which already have tags.
-                          only makes sense when paired with --derive.
-  --type audio|image|text skip files which aren't of some specific media type
-
-"""
 
 from dataclasses import dataclass
 from enum import Enum
