@@ -17,6 +17,7 @@
   #example-package = pkgs.callPackage ./pkgs/example-package { };
   yacy = pkgs.callPackage ./pkgs/yacy { };
   xlink_kai = pkgs.callPackage ./pkgs/xlink_kai/package.nix { };
+  velocity = pkgs.callPackage ./pkgs/velocity { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
