@@ -8,10 +8,10 @@
     "pinned": false,
     "src": {
       "name": null,
-      "sha256": "sha256-dtzTtaBNxLy/sdLHBudVc46x6zq2EQBihZAuVEtqtrA=",
+      "sha256": "sha256-J51tEvym1xAr5XuVvjgD7uvu+ADG4x2HG3cd19X8mpk=",
       "type": "url",
-      "url": "https://github.com/JCWasmx86/mesonlsp/releases/download/v4.3.2/mesonlsp-x86_64-unknown-linux-musl.zip"
+      "url": "https://github.com/JCWasmx86/mesonlsp/releases/download/v4.3.3/mesonlsp-x86_64-unknown-linux-musl.zip"
     },
-    "version": "v4.3.2"
+    "version": "v4.3.3"
   }
 }
