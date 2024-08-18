@@ -8,19 +8,19 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "git-collage";
-  version = "0.4.2";
+  version = "0.4.3";
 
   src = fetchFromGitHub {
     owner = "DanNixon";
     repo = "${pname}";
     rev = "v${version}";
-    hash = "sha256-lLcfodG3xsKkmV75G8oCi+vii4XZOt+MOzLIqguyDQc=";
+    hash = "sha256-7XTWmXG6iz5I11ubcc4q2iCgFyXjKUSTroocpeLqy/g=";
   };
 
   nativeBuildInputs = [ installShellFiles pkg-config ];
   buildInputs = [ openssl ];
 
-  cargoHash = "sha256-zcU342oyouEmisAgiCnUtcJMxaZr8K0+/ujB1tx/LZI=";
+  cargoHash = "sha256-4Askw9Obh5E9D/LsmwObcVKC24iagGLCper/1BtL9V4=";
 
   postInstall = ''
     installShellCompletion --cmd ${pname} \

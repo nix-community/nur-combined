@@ -6,18 +6,18 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "metty";
-  version = "2024.3.1";
+  version = "2024.7.0";
 
   src = fetchFromGitHub {
     owner = "DanNixon";
     repo = "metty";
     rev = "v${version}";
-    hash = "sha256-N7xhGXLXSHAdWIhH7+CRekJ5lEORRZcLQcWr6mO6Chs=";
+    hash = "sha256-u4EhLuZIDzAMfesN1BLO5OzXphRVICKK5UxHYZFiGcI=";
   };
 
   nativeBuildInputs = [ installShellFiles ];
 
-  cargoHash = "sha256-/XSjTJU43umtZxkavwVrXiWFoDM8nox8AvHg3X3zZwM=";
+  cargoHash = "sha256-4xGeXYZfNPPVUHVg7rcTR29IpJzPKKfCEALmUwUD8zw=";
 
   # Nothing to test
   doCheck = false;

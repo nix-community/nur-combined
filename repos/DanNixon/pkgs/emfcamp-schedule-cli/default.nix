@@ -6,18 +6,18 @@
 }:
 rustPlatform.buildRustPackage {
   pname = "emfcamp-schedule-cli";
-  version = "2024-04-28";
+  version = "2024-08-17";
 
   src = fetchFromGitHub {
     owner = "DanNixon";
     repo = "emfcamp-schedule-api";
-    rev = "b6c3b7005cded9369a51602e20bc3b6d9f86f44a";
-    hash = "sha256-PnMLckK75BI/cE94xCK1bJYrovReXd9/UZHyxl/AFuI=";
+    rev = "edcabdbbbbf9469a02b7a915365d2f8e1a8d21a7";
+    hash = "sha256-l1xftUVQdSbcy1iEuyYp8n/16RqkgZ3HGJ4QIoHYEYU=";
   };
 
   nativeBuildInputs = [ installShellFiles ];
 
-  cargoHash = "sha256-QycpIushzoZKHc9PvLoqYfnr3WWAvt+jC7Q02ffjlS8=";
+  cargoHash = "sha256-rYUMxeSkOctRVV6RpgeMnP78z5sXlRi5SrKrVCoCBlo=";
 
   buildAndTestSubdir = "cli";
 

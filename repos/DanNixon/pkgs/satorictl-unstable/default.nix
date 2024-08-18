@@ -5,18 +5,18 @@
   pkg-config,
   openssl,
 }:
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "satorictl-unstable";
-  version = "2024-03-13";
+  version = "2024-08-14";
 
   src = fetchFromGitHub {
     owner = "DanNixon";
     repo = "satori";
-    rev = "342afa4635dbc577a1ef7ce6c05bbef1bcc65202";
-    hash = "sha256-O8ZdF86GtQhbugLqfbA5i5DcL+Twp0vg0vC1i/wpv0s=";
+    rev = "71a539ce1770af8c69b4657994e90e9be3c6e801";
+    hash = "sha256-8FH3iqAdc8URpH94vCpqs++TGldeDh1c69+WluzHRZ4=";
   };
 
-  cargoHash = "sha256-VYMUHR/NJbfx+wfkl6qUkRTyeVjjz/9f2IWgDISEtl8=";
+  cargoHash = "sha256-Tik1PRMpaurzc0FuAGglOKx225OHGJZGfQW+IPiZBfo=";
 
   buildAndTestSubdir = "ctl";
 
