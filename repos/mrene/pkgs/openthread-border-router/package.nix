@@ -11,29 +11,47 @@
 , boost
 , libnetfilter_queue
 , libnfnetlink
+, nodejs
+, buildPackages
+, buildNpmPackage
+, fetchNpmDeps
+, npmHooks
 }:
 let
+  pname = "ot-br-posix";
+  version = "unstable-2024-07-26";
+
+  src = fetchFromGitHub {
+      owner = "openthread";
+      repo = "ot-br-posix";
+      rev = "6f3dfdc7a7856086831a4e234812591f2a7cd793";
+      hash = "sha256-cp/CJB8ykQvbfSd/qjpGjIQ7ePRVSM+97YRacqUzw/c=";
+      fetchSubmodules = true;
+  };
+
+  # hass-addons contains a few patches
   hass-addons = fetchFromGitHub {
     owner = "home-assistant";
     repo = "addons";
     rev = "583a62a69fa92ca8fdf9a2f298270a50bb3663a1";
     hash = "sha256-u+lvU7mlJZqCCDIT4n7WnHyzAd0nZCh9Ddvqjs4SkHA=";
   };
-in
-stdenv.mkDerivation {
-  pname = "ot-br-posix";
-  version = "unstable-2024-07-26";
 
-  src = fetchFromGitHub {
-    owner = "openthread";
-    repo = "ot-br-posix";
-    rev = "6f3dfdc7a7856086831a4e234812591f2a7cd793";
-    hash = "sha256-cp/CJB8ykQvbfSd/qjpGjIQ7ePRVSM+97YRacqUzw/c=";
-    fetchSubmodules = true;
+  frontendModules = buildNpmPackage {
+    pname = "${pname}-frontend";
+    inherit version;
+    src = "${src}/src/web/web-service/frontend";
+    npmDepsHash = "sha256-7UVfPICyIbHEClpr3p7eDR46OUzS8mVf6P7phnDpVLk=";
+    dontNpmBuild = true;
   };
 
+in
+stdenv.mkDerivation {
+
+  inherit pname version src;
+
   # warning _FORTIFY_SOURCE requires compiling with optimization (-O)
-  hardeningDisable = [ "all" ]; 
+  env.NIX_CFLAGS_COMPILE = "-O";
 
   patches = [
     ./dont-install-systemd-units.patch
@@ -46,13 +64,18 @@ stdenv.mkDerivation {
     pushd third_party/openthread/repo
       patch -p1 -i "${hass-addons}/openthread_border_router/0001-channel-monitor-disable-by-default.patch"
     popd
-
   '';
 
   nativeBuildInputs = [
     pkg-config
     cmake
+    nodejs
   ];
+
+  # Adding npmConfigHook and manually passing fetchNpmDeps was resulting in ENOTCACHED errors
+  postConfigure = ''
+    ln -sf ${frontendModules}/lib/node_modules/otbr-web/node_modules ./src/web/web-service/frontend/
+  '';
 
   buildInputs =[
     avahi
@@ -70,7 +93,7 @@ stdenv.mkDerivation {
     (lib.cmakeBool "BUILD_TESTING" false)
 
     # Needs npm to build the frontend code, that's another day's project
-    (lib.cmakeBool "OTBR_WEB" false)
+    (lib.cmakeBool "OTBR_WEB" true)
     (lib.cmakeBool "OTBR_NAT64" true)
     (lib.cmakeBool "OTBR_BACKBONE_ROUTER" true)
     (lib.cmakeBool "OTBR_BORDER_ROUTING" true)
