@@ -3,6 +3,9 @@
   perSystem =
     { ... }:
     {
-      nixpkgs.overlays = [ inputs.nvfetcher.overlays.default ];
+      nixpkgs = {
+        config.allowInsecurePredicate = _: true;
+        overlays = [ inputs.nvfetcher.overlays.default ];
+      };
     };
 }
