@@ -2333,10 +2333,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.45.1";
+      version = "2.46.1";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4331541/dualsub-2.45.1.xpi";
-      sha256 = "2268a6d35753d041efc4ce6c361cf804b42590a7ddbaf89fc14090ea6b50e72e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4338381/dualsub-2.46.1.xpi";
+      sha256 = "29bd19a99bf1de9f444508dfd96b3c945638e8470e48b54bba3ae7049f6a51a2";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
