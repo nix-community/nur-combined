@@ -38,7 +38,15 @@
 # https://aur.archlinux.org/packages/wechat-uos-bwrap
 ################################################################################
 let
+  # zerocallusedregs hardening breaks WeChat
+  glibcWithoutHardening = stdenv.cc.libc.overrideAttrs (old: {
+    hardeningDisable = (old.hardeningDisable or [ ]) ++ [ "zerocallusedregs" ];
+  });
+
   libraries = [
+    # Make sure our glibc without hardening gets picked up first
+    (lib.hiPrio glibcWithoutHardening)
+
     alsa-lib
     at-spi2-atk
     at-spi2-core

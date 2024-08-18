@@ -13,7 +13,6 @@
 mode:
 {
   pkgs ? import <nixpkgs> { },
-  pkgs-24_05 ? pkgs,
   ...
 }:
 let
@@ -224,10 +223,10 @@ mkScope (
     uksmd = pkg ./uncategorized/uksmd { };
     vbmeta-disable-verification = pkg ./uncategorized/vbmeta-disable-verification { };
     vpp = pkg ./uncategorized/vpp { };
-    wechat-uos = pkgs-24_05.callPackage ./uncategorized/wechat-uos {
+    wechat-uos = pkg ./uncategorized/wechat-uos {
       sources = nvfetcherLoader ../_sources/generated.nix;
     };
-    wechat-uos-without-sandbox = pkgs-24_05.callPackage ./uncategorized/wechat-uos {
+    wechat-uos-without-sandbox = pkg ./uncategorized/wechat-uos {
       sources = nvfetcherLoader ../_sources/generated.nix;
       enableSandbox = false;
     };
