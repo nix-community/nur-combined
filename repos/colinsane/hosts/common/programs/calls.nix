@@ -12,6 +12,7 @@
 # user guide:
 # - "Use for Calls" means, "when i click a tel: URI, use this account": <https://gitlab.gnome.org/GNOME/calls/-/issues/513>
 # - `calls -vvv` for verbosity
+# - `SOFIA_DEBUG=9 NEA_DEBUG=9 NUA_DEBUG=9 NTA_DEBUG=9 SU_DEBUG=8 gnome-calls` to debug SIP related stuff
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.calls;
@@ -32,6 +33,19 @@ in
       gtk3 = pkgs.gtk4;
       libpeas = pkgs.libpeas2;
       wrapGAppsHook3 = pkgs.wrapGAppsHook4;
+      sofia_sip = pkgs.sofia_sip.overrideAttrs (upstream: {
+        # use linphone's sofia_sip.
+        # Freeswitch sofia_sip has a bug where a failed DNS query will never return to the caller.
+        # see `outgoing_answer_a`: in linphone's this already calls the user's callback; in Freeswitch there's a branch which leaves the caller hanging.
+        version = "1.13.45bc-unstable-2024-08-05";
+        src = pkgs.fetchFromGitLab {
+          domain = "gitlab.linphone.org";
+          owner = "BC/public/external";
+          repo = "sofia-sip";
+          rev = "b924a57e8eeb24e8b9afc5fd0fb9b51d5993fe5d";
+          hash = "sha256-1VbKV+eAJ80IMlubNl7774B7QvLv4hE8SXANDSD9sRU=";
+        };
+      });
     }).overrideAttrs (upstream: {
       # XXX(2024-08-08): v46.3 has a bug where if it has no network connection on launch, it forever stays disconnected & never retries
       version = "47_beta.0-unstable-2024-08-08";
@@ -47,10 +61,17 @@ in
 
       patches = (upstream.patches or []) ++ [
         (pkgs.fetchpatch {
-          # usability improvement... if the UI is visible, then i can receive calls. otherwise, i can't!
+          # usability improvement... ties the UI visibility to the connection state, so if the UI is gone, then i can't receive calls (and will hopefully notice that more easily!)
           url = "https://git.uninsane.org/colin/gnome-calls/commit/a19166d85927e59662fae189a780eed18bf876ce.patch";
           name = "exit on close (i.e. never daemonize)";
           hash = "sha256-NoVQV2TlkCcsBt0uwSyK82hBKySUW4pADrJVfLFvWgU=";
+        })
+        (pkgs.fetchpatch {
+          # solves the issue where flakey DNS (especially at boot) could take down call connectivity indefinitely.
+          # see: <https://gitlab.gnome.org/GNOME/calls/-/issues/659>
+          url = "https://git.uninsane.org/colin/gnome-calls/commit/db9192a69cff2b20b5e8870e34a9b1e694a81c7f.patch";
+          name = "sip: attempt reconnection anytime network is routable, not just when routability changes";
+          hash = "sha256-agPM3XKXiP5Rxrl26DNA+pnhEPTBEBQBxZe3CoptgII=";
         })
       ];
 
