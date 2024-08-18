@@ -7,7 +7,7 @@ tool which runs over a complete music library (or audiobooks, videos, ebooks (li
   - suggests likely tags based on file path
   - from correctly-tagged files in the same directory
   - or manually specified by the user
-- rewrites file paths based on tags (`AlbumArtist/AlbumTitle/TrackNumber-TrackTitle`)
+- rewrites file paths based on tags (by default: `AlbumArtist/AlbumTitle/TrackNumber-TrackTitle`)
   - resulting paths are exclusively `[a-zA-Z0-9\._-]`
   - characters outside this set are mapped to the nearest character. for example:
     - `&` is replaced by `And`
@@ -28,17 +28,20 @@ use relative paths here, like `SomeArtist` or `./SomeArtist/SomeAlbum`, so that 
 options:
   --dry-run: only show what would be done, don't actually do it.
   --verbose
-  --derive                apply existing tags (e.g. album) found in the file set to any files in the set missing such tags.
-                          additionally, extrapolate from the file path any missing tags.
-  --ignore-existing       completely ignore the existing on-disk tags. compute tags only from those manually provided, and what can be derived from the file path (if --derive was passed)
-  --override-existing     apply derived tags to each file, even those which already have tags.
-                          only makes sense when paired with --derive.
-  --type audio|image|text skip files which aren't of some specific media type
-manually writing metadata fields:
+  --derive                      apply existing tags (e.g. album) found in the file set to any files in the set missing such tags.
+                                additionally, extrapolate from the file path any missing tags.
+  --ignore-existing             completely ignore the existing on-disk tags. compute tags only from those manually provided, and what can be derived from the file path (if --derive was passed)
+  --override-existing           apply derived tags to each file, even those which already have tags.
+                                only makes sense when paired with --derive.
+  --type audio|image|text       skip files which aren't of some specific media type
+  --style music|video           file/folder structure to organize library into
+    music (default):  Album.Artist/Album/TrackNumber-Title
+    video:            Album.Artist/Title
+options for manually specifying metadata:
   --album ALBUM
-  --album-artist ARTIST   often combined with DIRECTORY to tag an entire artist or album.
-  --artist ARTIST         track artist; usually the same as album-artist, except for compilation albums.
-  --producer PRODUCER     use when the artist is a pseudonym, and this is their umbrella name.
+  --album-artist ARTIST         often combined with DIRECTORY to tag an entire artist or album.
+  --artist ARTIST               track artist; usually the same as album-artist, except for compilation albums.
+  --producer PRODUCER           use when the artist is a pseudonym, and this is their umbrella name.
   --title TITLE
   --trackno TRACK_NUMBER
 
@@ -165,6 +168,10 @@ class MediaType(Enum):
     Image = "image"
     Text = "text"
     Other = "other"
+
+class PathStyle(Enum):
+    Music = "music"
+    Video = "video"
 
 def maybe_romanize(a: str) -> str|None:
     if a == "( ͡° ͜ʖ ͡°)": return "Lenny"
@@ -479,15 +486,11 @@ class Tags:
 
         return False
 
-    def to_path(self, ext: str) -> str | None:
+    def to_path(self, style: PathStyle, ext: str) -> str | None:
         is_artist_item = self.is_artist_item(ext)
-        artist = self.albumartist or self.artist
-        if not (artist and self.album and self.title and ext or is_artist_item):
-            return None
-
-        artist = clean_fields_for_fs(artist, single_fields=False)
+        artist = clean_fields_for_fs(self.albumartist or self.artist, single_fields=False)
         album = clean_fields_for_fs(self.album)
-        trackno = self.tracknumber and clean_fields_for_fs(self.tracknumber)
+        trackno = clean_fields_for_fs(self.tracknumber)
         trackno = [f"{trackno:>02}"] if trackno else []
         if self.artist and self.albumartist == [ "Various Artists" ] \
                 and self.artist != [ "Various Artists" ] \
@@ -501,17 +504,22 @@ class Tags:
         if is_artist_item:
             return os.path.join(artist, filename)
 
-        if not (artist and album and title):
-            logger.warning(f"missing artist/album/title after cleaning path: {self} ({artist!r}, {album!r}, {title!r}")
-            return None
+        if style == PathStyle.Video:
+            return os.path.join(artist, filename)
+        elif style == PathStyle.Music:
+            if not (artist and album and title):
+                logger.warning(f"missing artist/album/title after cleaning path: {self} ({artist!r}, {album!r}, {title!r}")
+                return None
 
-        if self.producer:
-            producer = clean_fields_for_fs(self.producer)
-            if artist != "Various.Artists":
-                album = clean_fields_for_fs([artist, album])
-            return os.path.join(producer, album, filename)
+            if self.producer:
+                producer = clean_fields_for_fs(self.producer)
+                if artist != "Various.Artists":
+                    album = clean_fields_for_fs([artist, album])
+                return os.path.join(producer, album, filename)
+            else:
+                return os.path.join(artist, album, filename)
         else:
-            return os.path.join(artist, album, filename)
+            assert False, f"unknown PathStyle: {style}"
 
     @staticmethod
     def from_path(p: str) -> 'Tags':
@@ -922,9 +930,9 @@ class Tagger:
         if self.guard_dry_run("writing tags"):
             file_.write_tags(new_tags)
 
-    def fix_path(self, file_: MediaFile) -> None:
+    def fix_path(self, file_: MediaFile, style: PathStyle) -> None:
         tags = self.tags_for(file_)
-        new_path = tags.to_path(os.path.splitext(file_.path_)[1])
+        new_path = tags.to_path(style, os.path.splitext(file_.path_)[1])
         if new_path is None:
             logger.debug(f"skipping untagged file: {file_.path_}")
             logger.debug(f"  {tags}")
@@ -1036,6 +1044,7 @@ def main():
     parser.add_argument('--title', help="manually specify the tag")
     parser.add_argument('--trackno', help="manually specify the tag")
     parser.add_argument('--derive', action='store_true', default=False, help="apply tags already existing in one file (e.g. album tag) to adjacent files in the set")
+    parser.add_argument('--style', type=PathStyle, default=PathStyle.Music, help="how files should be organized into folders/paths")
     parser.add_argument('--type', type=MediaType, help="only apply operation to a specific type of media")
 
     subparsers = parser.add_subparsers(help="what to do")
@@ -1080,6 +1089,7 @@ def main():
     gatherer = Gatherer(args.path, args.type, tags_provider)
 
     tagger = Tagger(dry_run=args.dry_run, tags_provider=tags_provider)
+    style = args.style
 
     if args.subcommand == "show":
         for f in gatherer.files():
@@ -1093,7 +1103,7 @@ def main():
             tagger.tag_file(f)
     elif args.subcommand == "fix_paths":
         for f in gatherer.files():
-            tagger.fix_path(f)
+            tagger.fix_path(f, style)
     else:
         assert False, f"unrecognized command {args.subcommand}"
 
