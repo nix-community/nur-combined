@@ -808,13 +808,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3593";
+    version = "b3600";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3593";
+      rev = "b3600";
       fetchSubmodules = false;
-      sha256 = "sha256-1qSQA/szPxB+/wU96aUzaNmqOzqdxOv2VHDsgiBYaPY=";
+      sha256 = "sha256-k8MBX9B7A/gKewmC9MXTj7H/7nqv1c3pNiSa9ozwj34=";
     };
   };
   lyrica = {
@@ -1030,15 +1030,15 @@
   };
   openresty = {
     pname = "openresty";
-    version = "2d1e490fa08e21907b19b3e7e6144868499783de";
+    version = "9fb4098d729cd84c4f5d7fe112910f1ebe6e86d8";
     src = fetchFromGitHub {
       owner = "openresty";
       repo = "openresty";
-      rev = "2d1e490fa08e21907b19b3e7e6144868499783de";
+      rev = "9fb4098d729cd84c4f5d7fe112910f1ebe6e86d8";
       fetchSubmodules = false;
-      sha256 = "sha256-VC9UYLt1wh91mTRrOlPHun+9CdSrnC3s2YLhOmljyvU=";
+      sha256 = "sha256-H9Nd3QD/ag/8Urc/pl8OfBG2mZoIih4fZ7H0i098T78=";
     };
-    date = "2024-08-15";
+    date = "2024-08-16";
   };
   openssl-oqs = {
     pname = "openssl-oqs";
@@ -1121,10 +1121,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v5.1.0";
+    version = "v6.0.0";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v5.1.0/PeerBanHelper.jar";
-      sha256 = "sha256-m8BaoZ9O8R+WqgSewln6Gul6QTiCTrGMZloadtRr12c=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.0.0/PeerBanHelper.jar";
+      sha256 = "sha256-HDbX9kcAn9Ys5BkUBIz+/MRaQHybjzXb5/iSVK8Xcbo=";
     };
   };
   phpmyadmin = {
@@ -1357,15 +1357,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "f37863cbc5073d4adfe305fe5a9f3af3ae67814d";
+    version = "7942d9c328e113952f04821d09ffb541cb4997cc";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "f37863cbc5073d4adfe305fe5a9f3af3ae67814d";
+      rev = "7942d9c328e113952f04821d09ffb541cb4997cc";
       fetchSubmodules = false;
-      sha256 = "sha256-hTqvsiAf0rYMzMqfsfPOJU7Rtbx0gQlpsjiKxBY2Hc8=";
+      sha256 = "sha256-iCxB3+GnlvnF0nnyXAA/GJlCCE4rD7Uew+r366ZivhU=";
     };
-    date = "2024-08-13";
+    date = "2024-08-18";
   };
   rime-moegirl = {
     pname = "rime-moegirl";

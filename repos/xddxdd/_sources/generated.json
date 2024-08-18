@@ -1458,12 +1458,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3593",
-            "sha256": "sha256-1qSQA/szPxB+/wU96aUzaNmqOzqdxOv2VHDsgiBYaPY=",
+            "rev": "b3600",
+            "sha256": "sha256-k8MBX9B7A/gKewmC9MXTj7H/7nqv1c3pNiSa9ozwj34=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3593"
+        "version": "b3600"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -1848,7 +1848,7 @@
     },
     "openresty": {
         "cargoLocks": null,
-        "date": "2024-08-15",
+        "date": "2024-08-16",
         "extract": null,
         "name": "openresty",
         "passthru": null,
@@ -1860,12 +1860,12 @@
             "name": null,
             "owner": "openresty",
             "repo": "openresty",
-            "rev": "2d1e490fa08e21907b19b3e7e6144868499783de",
-            "sha256": "sha256-VC9UYLt1wh91mTRrOlPHun+9CdSrnC3s2YLhOmljyvU=",
+            "rev": "9fb4098d729cd84c4f5d7fe112910f1ebe6e86d8",
+            "sha256": "sha256-H9Nd3QD/ag/8Urc/pl8OfBG2mZoIih4fZ7H0i098T78=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2d1e490fa08e21907b19b3e7e6144868499783de"
+        "version": "9fb4098d729cd84c4f5d7fe112910f1ebe6e86d8"
     },
     "openssl-oqs": {
         "cargoLocks": null,
@@ -2023,11 +2023,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-m8BaoZ9O8R+WqgSewln6Gul6QTiCTrGMZloadtRr12c=",
+            "sha256": "sha256-HDbX9kcAn9Ys5BkUBIz+/MRaQHybjzXb5/iSVK8Xcbo=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v5.1.0/PeerBanHelper.jar"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.0.0/PeerBanHelper.jar"
         },
-        "version": "v5.1.0"
+        "version": "v6.0.0"
     },
     "phpmyadmin": {
         "cargoLocks": null,
@@ -2454,7 +2454,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-08-13",
+        "date": "2024-08-18",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -2466,12 +2466,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "f37863cbc5073d4adfe305fe5a9f3af3ae67814d",
-            "sha256": "sha256-hTqvsiAf0rYMzMqfsfPOJU7Rtbx0gQlpsjiKxBY2Hc8=",
+            "rev": "7942d9c328e113952f04821d09ffb541cb4997cc",
+            "sha256": "sha256-iCxB3+GnlvnF0nnyXAA/GJlCCE4rD7Uew+r366ZivhU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f37863cbc5073d4adfe305fe5a9f3af3ae67814d"
+        "version": "7942d9c328e113952f04821d09ffb541cb4997cc"
     },
     "rime-moegirl": {
         "cargoLocks": null,
