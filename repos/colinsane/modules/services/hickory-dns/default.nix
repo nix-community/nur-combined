@@ -197,21 +197,54 @@ in
     services.hickory-dns.package = pkgs.hickory-dns.override {
       rustPlatform.buildRustPackage = args: pkgs.rustPlatform.buildRustPackage (args // {
         buildFeatures = [
+          # to find available features: `rg 'feature ='`
+          "dnssec"  #< else the recursor doesn't compile
+          # "dnssec-openssl"  #< else dnssec doesn't compile
+          "dnssec-ring"  #< else dnssec doesn't compile
           "recursor"
+          # "backtrace"
+          # "dns-over-h3"
+          # "dns-over-https"
+          # "dns-over-https-rustls"
+          # "dns-over-native-tls"
+          # "dns-over-quic"
+          # "dns-over-rustls"
+          # "dns-over-tls"
+          # "dnssec-openssl"
+          # "mdns"
+          # "native-certs"
+          # "serde"
+          # "system-config"
+          # "tokio-runtime"
+          # "webpki-roots"
         ];
+
+        # XXX(2024-08-18): upstream hickory-dns has a recursive resolver *almost* as capable as my own.
+        # it fails against a few sites mine works on:
+        # - `en.wikipedia.org.`  (doesn't follow the CNAME)
+        # it fails against sites mine fails on:
+        # - `social.kernel.org.`
+        # - `support.mozilla.org.`
+        # version = "0.25.0-alpha.2";
+        # src = pkgs.fetchFromGitHub {
+        #   owner = "hickory-dns";
+        #   repo = "hickory-dns";
+        #   rev = "v0.25.0-alpha.2";
+        #   hash = "sha256-bEVApMM6/I3nF1lyRhd+7YtZuSAwiozRkMorRLhLOBY=";
+        # };
+        # cargoHash = "sha256-KFPwVFixLaL9cdXTAIVJUqmtW1V5GTmvFaK5N5SZKyU=";
 
         # fix enough bugs inside the recursive resolver that it's compatible with my infra.
         # TODO: upstream these patches!
-        version = "0.24.1-unstable-2024-07-17";
+        version = "0.24.1-unstable-2024-08-19";
         src = pkgs.fetchFromGitea {
           domain = "git.uninsane.org";
           owner = "colin";
           repo = "hickory-dns";
-          rev = "b4c553e79c160604c8d67cd21c30f460d623de0f";  # Recursor: handle NS responses with a different type and no SOA  (fix: api.mangadex.org., m.wikipedia.org.)
-          hash = "sha256-u+1SfLx9Z0AYwIgNKQF7Yy1OK7le8FV5TkD0yQEvW2g=";
-          # rev = "67649863faf2e08f63963a96a491a4025aaf8ed6";  # recursor_test: backfill a test for CNAMEs which point to nonexistent records
+          rev = "4fd7a8305e333117278e216fa9f81984f1e256b6";  # Recursor: handle NS responses with a different type and no SOA  (fix: api.mangadex.org., m.wikipedia.org.)
+          hash = "sha256-pNCuark/jvyRABR9Hdd60vndppaE3suvTP3UfCfsimI=";
         };
-        cargoHash = "sha256-6Es5/gRqgsteWUHICdgcNlujJE9vrdr3tj/EKKyFsrY=";
+        cargoHash = "sha256-6yV/qa1CVndHDs/7AK5wVTYIV8NmNqkHL3JPZUN31eM=";
       });
     };
     services.hickory-dns.settings.directory = "/var/lib/hickory-dns";

@@ -18,7 +18,6 @@
 - syshud (volume overlay): when casting with `blast`, syshud doesn't react to volume changes
 - moby: after bringing the modem up, powering it down loses *complete* net connectivity (i.e. wlan is gone as well)
 - dissent: if i launch it without net connectivity, it gets stuck at the login, and never tries again
-- calls: seems that it starts before net access, and then is forever disconnected (until i manually restart it)
 - moby: kaslr is effectively disabled
   - `dmesg | grep "KASLR disabled due to lack of seed"`
   - fix by adding `kaslrseed` to uboot script before `booti`
@@ -37,6 +36,8 @@
   - see under "preferences", cookies are disabled
   - prevents logging into websites (OpenStreetMap)
   - works when sandbox is disabled
+- swaync: DnD toggle doesn't do anything
+- moby: dino fails to launch?
 
 ## REFACTORING:
 - add import checks to my Python nix-shell scripts
