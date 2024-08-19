@@ -50,14 +50,14 @@ assert !((lib.count (x: x) [ gnutlsSupport opensslSupport wolfsslSupport rustlsS
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "curl";
-  version = "8.8.0";
+  version = "8.9.1";
 
   src = fetchurl {
     urls = [
       "https://curl.haxx.se/download/curl-${finalAttrs.version}.tar.xz"
       "https://github.com/curl/curl/releases/download/curl-${builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version}/curl-${finalAttrs.version}.tar.xz"
     ];
-    hash = "sha256-D1i7lfwzDIpG7rPfVwGw2Qydm/zEK9HNCHkdElUdRAA=";
+    hash = "sha256-8pL2zAUdW7q/cl74XUMt/qzIcR3XF+qXYSrlkGQ4AeU=";
   };
 
   # this could be accomplished by updateAutotoolsGnuConfigScriptsHook, but that causes infinite recursion
@@ -151,6 +151,8 @@ stdenv.mkDerivation (finalAttrs: {
       "--without-ca-path"
     ] ++ lib.optionals (!gnutlsSupport && !opensslSupport && !wolfsslSupport && !rustlsSupport) [
       "--without-ssl"
+    ] ++ lib.optionals (gnutlsSupport && !stdenv.isDarwin) [
+      "--with-ca-path=/etc/ssl/certs"
     ];
 
   CXX = "${stdenv.cc.targetPrefix}c++";
@@ -209,14 +211,14 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = with lib; {
-    changelog = "https://curl.se/changes.html#${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
+    changelog = "https://curl.se/ch/${finalAttrs.version}.html";
     description = "A command line tool for transferring files with URL syntax";
     homepage    = "https://curl.se/";
     license = licenses.curl;
     maintainers = with maintainers; [ lovek323 ];
     platforms = platforms.all;
     # Fails to link against static brotli or gss
-    broken = (stdenv.hostPlatform.isStatic && (brotliSupport || gssSupport || stdenv.hostPlatform.system == "x86_64-darwin")) || rustlsSupport;
+    broken = stdenv.hostPlatform.isStatic && (brotliSupport || gssSupport || stdenv.hostPlatform.system == "x86_64-darwin");
     pkgConfigModules = [ "libcurl" ];
     mainProgram = "curl";
   };

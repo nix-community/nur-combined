@@ -9,6 +9,7 @@ rec {
   jemalloc450         = pkgs.callPackage  ./pkgs/development/jemalloc/4.5.0.nix { };
   libcouchbase_2_10_4 = pkgs.callPackage  ./pkgs/development/libcouchbase/2.10.4.nix { openssl = pkgs.libressl; };
   libssh2             = pkgs.callPackage  ./pkgs/development/libssh2 { openssl = pkgs.libressl; };
+  libxml2_2_12        = pkgs.callPackage  ./pkgs/development/libxml2/2.12.nix { };
   spidermonkey_1_8_5  = pkgs.callPackage  ./pkgs/development/spidermonkey/1.8.5.nix { };
   mariadb_10_3        = pkgs.callPackage  ./pkgs/servers/mariadb/mariadb_10_3.nix { openssl = pkgs.libressl; inherit curl; inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; jemalloc450 = jemalloc450.override ({ disableInitExecTls = true; }); };
   mariadb_10_4        = pkgs.callPackage  ./pkgs/servers/mariadb/mariadb_10_4.nix { openssl = pkgs.libressl; inherit curl; inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; jemalloc450 = jemalloc450.override ({ disableInitExecTls = true; }); };
@@ -27,7 +28,7 @@ rec {
   uwimap              = pkgs.callPackage  ./pkgs/tools/uwimap { openssl = pkgs.libressl; };
 
   php-pearweb-phars   = pkgs.callPackage  ./pkgs/development/php/pearweb-phars.nix { };
-  inherit              (pkgs.callPackages ./pkgs/development/php { openssl = pkgs.libressl; inherit bison2; inherit curl; inherit uwimap; inherit php-pearweb-phars; config.php.ldap = false; config.php.pdo_odbc = false; config.php.pgsql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; }) php56 php71 php72 php73 php74 php80 php81 php82;
+  inherit              (pkgs.callPackages ./pkgs/development/php { openssl = pkgs.libressl; inherit bison2; inherit libxml2_2_12; inherit curl; inherit uwimap; inherit php-pearweb-phars; config.php.ldap = false; config.php.pdo_odbc = false; config.php.pgsql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; }) php56 php71 php72 php73 php74 php80 php81 php82;
 
   php56-unit          = php56.override { config.php.ldap = false; config.php.pdo_odbc = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; config.php.ipv6 = true; config.php.embed = true; config.php.apxs2 = false; config.php.systemd = false; config.php.phpdbg = false; config.php.cgi = false; config.php.fpm = false; };
   php71-unit          = php71.override { config.php.ldap = false; config.php.pdo_odbc = false; config.php.postgresql = false; config.php.pdo_pgsql = false; config.php.mssql = false; config.php.zts = true; config.php.ipv6 = true; config.php.embed = true; config.php.apxs2 = false; config.php.systemd = false; config.php.phpdbg = false; config.php.cgi = false; config.php.fpm = false; };
