@@ -1,0 +1,27 @@
+= zzzsy/flakes
+
+:description: My NixOS configuration
+:url-repo: https://codeberg.org/zzzsy/flakes
+
+image:https://img.shields.io/static/v1?label=Built%20with&message=nix&color=blue&style=flat&logo=nixos&link=https://nixos.org&labelColor=111212[link=https://nixos.org]
+image:https://github.com/zzzsyyy/flakes/actions/workflows/lint.yaml/badge.svg?branch=main[link=https://github.com/zzzsyyy/flakes/actions/workflows/lint.yaml]
+image:https://img.shields.io/badge/License-MIT-blue.svg[link=https://en.wikipedia.org/wiki/MIT_License]
+
+== Features
+
+* [x] layout link:https://flake.parts[flake parts]
+* [x] secrets link:https://github.com/Mic92/sops-nix[sops-nix]
+* [x] pkgs link:https://github.com/berberman/nvfetcher[nvfetcher]
+* [x] tmpfs as root: link:https:https://github.com/nix-community/impermanence[impermanence]
+* [x] shortcut link:https://just.systems/[justfile]
+* [x] Rime (yaml patch & link:https://github.com/iDvel/rime-ice[Rime-Ice])
+* [x] lint link:https://github.com/cachix/pre-commit-hooks.nix[pre-commit]
+* [x] Chaotic link:https://www.nyx.chaotic.cx[Nyx]
+* [x] secure boot link:https://github.com/nix-community/lanzaboote[lanzaboote]
+* [ ] dev environnments: slidev hugo python rust etc.
+* [x] overlays
+* [ ] sub-pkgs
+* [ ] POP
+* [ ] CI
+* [ ] nixify neovim using link:https://github.com/nix-community/nixvim[nixvim]
+

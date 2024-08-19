@@ -1,0 +1,3 @@
+patch:
+  speller/algebra:
+    __include: radical_pinyin.schema.yaml:/algebra_flypy

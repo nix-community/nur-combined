@@ -1,0 +1,29 @@
+[rime-ice]
+src.git = "https://github.com/iDvel/rime-ice"
+fetch.github = "iDvel/rime-ice"
+
+[librime-lua]
+src.git = "https://github.com/hchunhui/librime-lua"
+fetch.github = "hchunhui/librime-lua"
+
+[iosevka-zt]
+src.github = "zzzsyyy/Iosevka"
+fetch.url = "https://github.com/zzzsyyy/Iosevka/releases/download/v$ver/Iosevka-$ver.txz"
+src.prefix = "v"
+
+[plangothic]
+src.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic-Project"
+fetch.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic-Project"
+
+[firefox-gnome-theme]
+src.git = "https://github.com/rafaelmardojai/firefox-gnome-theme"
+fetch.github = "rafaelmardojai/firefox-gnome-theme"
+
+[lxgw-wenkai-screen]
+src.github = "lxgw/LxgwWenKai-Screen"
+fetch.url = "https://github.com/lxgw/LxgwWenKai-Screen/releases/download/$ver/LXGWWenKaiScreen.ttf"
+
+[dae]
+src.git = "https://github.com/daeuniverse/dae"
+fetch.github = "daeuniverse/dae"
+git.fetchSubmodules = true

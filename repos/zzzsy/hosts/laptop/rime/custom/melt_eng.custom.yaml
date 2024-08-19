@@ -1,0 +1,3 @@
+patch:
+  speller/algebra:
+    __include: melt_eng.schema.yaml:/algebra_flypy

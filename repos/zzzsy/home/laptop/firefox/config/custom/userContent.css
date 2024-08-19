@@ -1,0 +1,29 @@
+@media (-moz-bool-pref: "userContent.newTab.fullIcon") {
+  .top-site-outer .tile {
+    overflow: hidden;
+  }
+
+  .top-site-outer .tile .icon-wrapper {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+@media ( -moz-bool-pref: "userContent.newTab.hiddenSearchbar") {
+  .search-inner-wrapper {
+    display: none !important;
+  }
+  .logo-and-wordmark {
+    margin-bottom: 0 !important;
+  }
+}
+
+@media (-moz-bool-pref: "userContent.newTab.hiddenLogo") {
+  .logo-and-wordmark {
+    display: none !important;
+  }
+
+  .outer-wrapper:not(.fixed-search) .search-wrapper {
+    padding-top: 0 !important;
+  }
+}

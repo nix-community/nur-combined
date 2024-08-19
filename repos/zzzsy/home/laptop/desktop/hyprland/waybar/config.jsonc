@@ -1,0 +1,138 @@
+[
+  {
+    "layer": "top",
+    "position": "top",
+    "height": 24,
+    "spacing": 4,
+    "modules-left": [ "hyprland/window" ],
+    "modules-center": [
+      "clock",
+      "hyprland/workspaces"
+    ],
+    "modules-right": [
+      "network",
+      "bluetooth",
+      "pulseaudio",
+      "backlight",
+      "cpu",
+      "memory",
+      "hyprland/language",
+      "battery",
+      "tray"
+    ],
+    "backlight": {
+      "format": "{icon}",
+      "format-icons": [ "", "", "", "", "", "", "", "", "" ],
+      "format-alt": "<small>{percent}%</small>",
+      "tooltip-format": "{percent}%",
+      "reverse-scrolling": true
+    },
+    "battery": {
+      "bat": "BAT0",
+      "format": "{icon}",
+      "format-alt": "{capacity}",
+      "full-at": 96,
+      "states": {
+        "critical": 10
+      },
+      "format-icons": {
+        "default": [ "󱃍", "󰁺", "󰁻", "󰁼", "󰁼", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹" ],
+        "charging": [ "󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅" ]
+      },
+      "interval": 60,
+      "tooltip-format": "{capacity}% {power}W\n{time}"
+    },
+    "clock": {
+      "actions": {
+        "on-click-right": "mode"
+      },
+      "calendar": {
+        "format": {
+          "days": "<span color='#ecc6d9'><b>{}</b></span>",
+          "months": "<span color='#ffead3'><b>{}</b></span>",
+          "today": "<span color='#ff6699'><b><u>{}</u></b></span>",
+          "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+          "weeks": "<span color='#99ffdd'><b>{:%W}</b></span>"
+        },
+        "mode-mon-col": 3,
+        "weeks-pos": "right"
+      },
+      "format": "{:%T}",
+      "format-alt": "{:%A, %B %d, %Y (%R)}",
+      "interval": 1,
+      "timezone": "Asia/Shanghai",
+      "tooltip-format": "<tt><small>{calendar}</small></tt>"
+    },
+    "hyprland/workspaces": {
+      "format": "{icon}",
+      "format-icons": {
+        "active": "",
+        "default": ""
+      }
+    },
+    "hyprland/window": {
+      "format": {},
+      "rewrite": {
+        "": "<big></big> Desktop",
+        "(.+)": "$1",
+        "(.*) — Mozilla Firefox": "<big>󰈹</big> $1",
+        "(.*) — Firefox Nightly": "<big>󰈹</big> $1",
+        "(.*)Firefox Nightly": "<big>󰈹</big> Firefox",
+        "(.*)Mozilla Firefox": "<big>󰈹</big> Firefox",
+        "(.*) - VS Code": "<big>󰨞</big> $1",
+        "(.*) fish": "<big></big> $1"
+      },
+      "max-length": 50
+    },
+    "hyprland/language": {
+      "format-en": "A",
+      "format-fr": "Æ"
+    },
+    "cpu": {
+      "interval": 2,
+      "format": "<span font='6' rise='-12000'>{usage}</span>"
+    },
+    "memory": {
+      "interval": 2,
+      "format": "<span font='6' rise='+12000'>{percentage}</span>"
+    },
+    "bluetooth": {
+      "format": "",
+      "format-connected": "󰂱 <small>{device_alias}</small>",
+      "format-off": "󰂲",
+      "format-on": "",
+      "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+      "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+      "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+      "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+      "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%"
+    },
+    "network": {
+      "interval": 1,
+      "format-alt": "<span size='xx-small'>{essid}\n{ipaddr}</span>",
+      "format-wifi": "<small>{bandwidthUpOctets} {bandwidthDownOctets}</small>",
+      "tooltip-format": "<small>{cidr}{gwaddr}{frequency}{bandwidthTotalOctets}</small>",
+      "format-disconnected": "<small> 󰅛 </small>"
+    },
+    "pulseaudio": {
+      "reverse-scrolling": 1,
+      "format": "{icon} <small>{volume}%</small>",
+      "format-bluetooth": "<small>{volume}%</small> {icon}",
+      "format-icons": {
+        "default": [
+          "󰕿",
+          "󰖀",
+          "󰕾"
+        ]
+      },
+      "format-muted": "󰝟",
+      "scroll-step": 1
+    },
+    "tray": {
+      "show-passive-items": true,
+      "icon-size": 20,
+      "spacing": 5
+    }
+  }
+]
+

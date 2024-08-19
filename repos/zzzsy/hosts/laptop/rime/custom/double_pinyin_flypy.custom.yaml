@@ -1,0 +1,4 @@
+patch:
+  translator/preedit_format: {}
+  schema/name: ㄓ-双拼
+  speller/algebra/@next: abbrev/^(.).+$/$1/

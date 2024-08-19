@@ -1,0 +1,5 @@
+result
+result-*
+*.dae
+secret_*
+.pre-commit-config.yaml

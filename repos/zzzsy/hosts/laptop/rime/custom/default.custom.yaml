@@ -1,0 +1,31 @@
+patch:
+  schema_list:
+    - schema: double_pinyin_flypy
+    - schema: rime_ice
+  menu:
+    page_size: 8
+  switcher:
+    caption: 「选项」
+    hotkeys:
+      - Control+grave
+    option_list_separator: " | "
+  ascii_composer:
+    switch_key:
+      Caps_Lock: clear
+      Shift_L: commit_code
+      Shift_R: commit_code
+      Control_L: commit_text
+      Control_R: commit_text
+      Eisu_toggle: clear
+  
+  key_binder:
+    select_first_character: "bracketleft"
+    select_last_character: "bracketright"
+  
+    bindings:
+      - { when: has_menu, accept: minus, send: Page_Up }
+      - { when: has_menu, accept: equal, send: Page_Down }
+      - { when: paging, accept: comma, send: Page_Up }
+      - { when: has_menu, accept: period, send: Page_Down }
+      - { when: always, accept: Control+Shift+1, select: .next }
+  
