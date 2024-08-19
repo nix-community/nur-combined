@@ -205,7 +205,8 @@
     description = "Tweak network settings";
     serviceConfig = { Type = "simple"; };
     wantedBy = [ "multi-user.target" ];
-    after = [ "network.target" ];
+    wants = [ "network-online.target" ];
+    after = [ "network-online.target" ];
     script = ''
       # The {Rx,Tx}BufferSize systemd.link options for intern0 is not working, set manually
       ${pkgs.ethtool}/bin/ethtool -G intern0 rx 1024
