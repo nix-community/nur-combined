@@ -1159,6 +1159,10 @@
         },
         "zsien": {
             "url": "https://github.com/zsien/nur-packages"
+        },
+        "zzzsy": {
+            "file": "parts/nur.nix",
+            "url": "https://github.com/zzzsyyy/flakes"
         }
     }
 }
