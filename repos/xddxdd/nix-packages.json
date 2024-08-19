@@ -482,7 +482,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Port of Facebook's LLaMA model in C/C++",
     "pname": "llama-cpp",
-    "version": "3600"
+    "version": "3604"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -492,7 +492,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.nginx": {
     "description": "OpenResty with Lan Tian modifications",
     "pname": "nginx-lantian-unstable",
-    "version": "2024-08-16"
+    "version": "2024-08-19"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.transmission-with-webui": {
     "description": "Fast, easy and free BitTorrent client",
@@ -822,7 +822,7 @@
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs-unstable",
-    "version": "2024-08-12"
+    "version": "2024-08-18"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -2742,7 +2742,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "6.0.0"
+    "version": "6.0.1"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
@@ -3337,7 +3337,7 @@
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs-unstable",
-    "version": "2024-08-12"
+    "version": "2024-08-18"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -3482,7 +3482,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "6.0.0"
+    "version": "6.0.1"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",

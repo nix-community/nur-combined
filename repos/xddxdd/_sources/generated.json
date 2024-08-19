@@ -1236,7 +1236,7 @@
     },
     "liboqs-unstable": {
         "cargoLocks": null,
-        "date": "2024-08-12",
+        "date": "2024-08-18",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -1248,12 +1248,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "fc2264d150d0d94412c6ddb2f955c7077765556d",
-            "sha256": "sha256-z/ZrlhpqvcC3huCBytWt0UrBAQVqGQ7IjsUp1TPVWZY=",
+            "rev": "e520ec1c38444399cf4678bc65fa630ea1b1b0b8",
+            "sha256": "sha256-aaHvbuIx6lEL2QGOSsUFHVHwKNTcT9HiRaRPbQlY9ME=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "fc2264d150d0d94412c6ddb2f955c7077765556d"
+        "version": "e520ec1c38444399cf4678bc65fa630ea1b1b0b8"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1458,12 +1458,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3600",
-            "sha256": "sha256-k8MBX9B7A/gKewmC9MXTj7H/7nqv1c3pNiSa9ozwj34=",
+            "rev": "b3604",
+            "sha256": "sha256-o8rjZ8Revjg0cb7/RcyRl+g2BHBRlc3ryyeN1xiIB8g=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3600"
+        "version": "b3604"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -1848,7 +1848,7 @@
     },
     "openresty": {
         "cargoLocks": null,
-        "date": "2024-08-16",
+        "date": "2024-08-19",
         "extract": null,
         "name": "openresty",
         "passthru": null,
@@ -1860,12 +1860,12 @@
             "name": null,
             "owner": "openresty",
             "repo": "openresty",
-            "rev": "9fb4098d729cd84c4f5d7fe112910f1ebe6e86d8",
-            "sha256": "sha256-H9Nd3QD/ag/8Urc/pl8OfBG2mZoIih4fZ7H0i098T78=",
+            "rev": "0b57c3b04a1c5d49457a216cbd61b4910fa29ba4",
+            "sha256": "sha256-cELrhI0nD2MQK9nuCasSen3ScSKIho2LAvKtA03MRqg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9fb4098d729cd84c4f5d7fe112910f1ebe6e86d8"
+        "version": "0b57c3b04a1c5d49457a216cbd61b4910fa29ba4"
     },
     "openssl-oqs": {
         "cargoLocks": null,
@@ -2023,11 +2023,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-HDbX9kcAn9Ys5BkUBIz+/MRaQHybjzXb5/iSVK8Xcbo=",
+            "sha256": "sha256-1g3D9XvPVgCR8ft9UhbLlJT+0BpBIWDoLl0ZxsEwn+I=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.0.0/PeerBanHelper.jar"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.0.1/PeerBanHelper.jar"
         },
-        "version": "v6.0.0"
+        "version": "v6.0.1"
     },
     "phpmyadmin": {
         "cargoLocks": null,
