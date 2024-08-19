@@ -41,10 +41,10 @@
     "homepage": null,
     "owner": "nemethf",
     "repo": "eglot-x",
-    "rev": "7bdfd266b7ab9c7e052a2743a0f53ab529191f7d",
-    "sha256": "1yfvz2hnxzlkp5npsb0dk8h0y77n0y3dw3qmqfl5h3b3hsnvqdmd",
+    "rev": "135e51c7770434b7039721d28a3619166c5841d9",
+    "sha256": "06vvs8dgcnjvpxjh65w0xp85fgckrdq1dyjdw1fzwyvykm8nglqq",
     "type": "tarball",
-    "url": "https://github.com/nemethf/eglot-x/archive/7bdfd266b7ab9c7e052a2743a0f53ab529191f7d.tar.gz",
+    "url": "https://github.com/nemethf/eglot-x/archive/135e51c7770434b7039721d28a3619166c5841d9.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "eglot-yaml": {
@@ -77,10 +77,10 @@
     "homepage": "",
     "owner": "jdtsmith",
     "repo": "indent-bars",
-    "rev": "209817a622e2fbf9201a6c756928c9f320431449",
-    "sha256": "00i5kbk8hcpfmin7hlgrkyy8yszn3hns6vs8dgi3yac4bnzg7yjk",
+    "rev": "b72fa098d7c48d61fb4b508071bd77d054268f4e",
+    "sha256": "0ywfbgmignrpk019kvnzvvks9h9f108lq05fxy72vhvmvy7js764",
     "type": "tarball",
-    "url": "https://github.com/jdtsmith/indent-bars/archive/209817a622e2fbf9201a6c756928c9f320431449.tar.gz",
+    "url": "https://github.com/jdtsmith/indent-bars/archive/b72fa098d7c48d61fb4b508071bd77d054268f4e.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "on": {
