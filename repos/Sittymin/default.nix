@@ -23,6 +23,7 @@
   thorium = pkgs.callPackage ./pkgs/thorium { };
   apostrophe-2-6-3 = pkgs.callPackage ./pkgs/apostrophe { };
   godot4_bin = pkgs.callPackage ./pkgs/godot4_bin { };
+  reqable = pkgs.callPackage ./pkgs/reqable { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
