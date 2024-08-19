@@ -16,4 +16,8 @@ openvswitch.overrideAttrs (old: {
   configureFlags = (old.configureFlags or [ ]) ++ [ "--with-dpdk=shared" ];
 
   doCheck = false;
+
+  meta = old.meta // {
+    mainProgram = "ovs-vsctl";
+  };
 })

@@ -41,6 +41,7 @@ python3Packages.buildPythonPackage rec {
   '';
 
   meta = with lib; {
+    mainProgram = "mtk";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "MTK reverse engineering and flash tool";
     homepage = "https://github.com/bkerler/mtkclient";
