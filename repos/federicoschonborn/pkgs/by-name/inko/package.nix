@@ -6,18 +6,20 @@
   libxml2,
   ncurses,
   zlib,
-  llvmPackages_16,
+  llvmPackages_17,
   nix-update-script,
 }:
+
 let
-  version = "0.15.0";
+  version = "0.16.0";
   src = fetchFromGitHub {
     owner = "inko-lang";
     repo = "inko";
     rev = "v${version}";
-    hash = "sha256-Iojv8pTyILYpLFnoTlgUGmlfWWH0DgsGBRxzd3oRNwA=";
+    hash = "sha256-qsil2r0jVrh5WG7MOdQdAJMCY2gtEMYVAocvZBR53oM=";
   };
 in
+
 rustPlatform.buildRustPackage {
   pname = "inko";
   inherit version;
@@ -35,7 +37,7 @@ rustPlatform.buildRustPackage {
     zlib
   ];
 
-  env.LLVM_SYS_160_PREFIX = llvmPackages_16.llvm.dev;
+  env.LLVM_SYS_170_PREFIX = llvmPackages_17.llvm.dev;
 
   # Some of the tests require git to be installed.
   doCheck = false;

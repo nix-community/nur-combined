@@ -22,6 +22,11 @@ buildGoModule {
 
   vendorHash = "sha256-lRUvoCiE6AkYnyOCzev1o93OhXjJjBwEpT94JTbIeE8=";
 
+  ldflags = [
+    "-s"
+    "-w"
+  ];
+
   doCheck = false;
 
   passthru.updateScript = nix-update-script { };

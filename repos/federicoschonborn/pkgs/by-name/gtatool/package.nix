@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchFromGitHub {
     owner = "marlam";
-    repo = "gta-mirror";
+    repo = "gta";
     rev = "gtatool-${finalAttrs.version}";
     hash = "sha256-6MPQ32RkDBIZg96GWX+IpBpH6ROzXkrccHaMSiy/Bv0=";
   };

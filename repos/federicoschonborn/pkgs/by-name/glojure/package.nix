@@ -10,7 +10,7 @@ let
   version = "0.2.5";
 in
 
-buildGoModule rec {
+buildGoModule {
   pname = "glojure";
   inherit version;
 
@@ -24,6 +24,11 @@ buildGoModule rec {
   vendorHash = "sha256-bofeBp8aa/I5jhblv+BhqHX9tmD1hDgUBwEFJpLH/A8=";
 
   nativeBuildInputs = [ clojure ];
+
+  ldflags = [
+    "-s"
+    "-w"
+  ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

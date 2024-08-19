@@ -11,9 +11,13 @@
   nix-update-script,
 }:
 
-stdenv.mkDerivation rec {
-  pname = "brisk-menu";
+let
   version = "0.6.2";
+in
+
+stdenv.mkDerivation {
+  pname = "brisk-menu";
+  inherit version;
 
   src = fetchFromGitHub {
     owner = "getsolus";

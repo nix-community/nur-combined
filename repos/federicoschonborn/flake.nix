@@ -110,6 +110,8 @@
                 nix-tree
                 nushell
                 statix
+                nix-init
+                nix-update
               ];
 
               shellHook = ''

@@ -637,7 +637,7 @@ An efficient menu for the MATE Desktop.
 - Version: `0.6.2`
 - [Homepage](https://github.com/getsolus/brisk-menu)
 - Licenses: [`GPL-2.0-only`](https://spdx.org/licenses/GPL-2.0-only.html "GNU General Public License v2.0 only"), [`CC-BY-SA-4.0`](https://spdx.org/licenses/CC-BY-SA-4.0.html "Creative Commons Attribution Share Alike 4.0")
-- [Source](./pkgs/by-name/brisk-menu/package.nix#L42)
+- [Source](./pkgs/by-name/brisk-menu/package.nix#L46)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -658,7 +658,7 @@ An efficient menu for the MATE Desktop.
 Alternative to GNU coreutils using software from FreeBSD.
 
 - Name: `bsdutils`
-- Version: `13.1`
+- Version: `13.2`
 - [Homepage](https://github.com/dcantrell/bsdutils)
 - License: [`BSD-3-Clause`](https://spdx.org/licenses/BSD-3-Clause.html 'BSD 3-clause "New" or "Revised" License')
 - [Source](./pkgs/by-name/bsdutils/package.nix#L50)
@@ -675,6 +675,30 @@ Alternative to GNU coreutils using software from FreeBSD.
 
 - Outputs: **`out`**
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`
+</details>
+
+### `budgie-do-not-disturb-status`
+
+.
+
+- Name: `budgie-do-not-disturb-status`
+- Version: `1.0.1`
+- [Homepage](https://git.sr.ht/~ianmjones/budgie-do-not-disturb-status)
+- License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
+- [Source](./pkgs/by-name/budgie-do-not-disturb-status/package.nix#L35)
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Package details
+  </summary>
+
+- Outputs: **`out`**
+- Platforms: `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`
 </details>
 
 ### `cargo-aoc`
@@ -706,9 +730,9 @@ Cargo Advent of Code Helper.
 Like neofetch, but much faster because written in C.
 
 - Name: `fastfetch`
-- Version: `2.21.1`
+- Version: `2.21.3`
 - [Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.21.1/CHANGELOG.md)
+- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.21.3/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
 - [Source](./pkgs/by-name/fastfetch/package.nix#L176)
 - Maintainers:
@@ -731,9 +755,9 @@ Like neofetch, but much faster because written in C.
 Like neofetch, but much faster because written in C (with all features disabled).
 
 - Name: `fastfetch-minimal`
-- Version: `2.21.1`
+- Version: `2.21.3`
 - [Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.21.1/CHANGELOG.md)
+- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.21.3/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
 - [Source](./default.nix#L45)
 - Maintainers:
@@ -831,7 +855,7 @@ Clojure interpreter hosted on Go, with extensible interop support.
 - Version: `0.2.5`
 - [Homepage](https://github.com/glojurelang/glojure)
 - License: [`EPL-1.0`](https://spdx.org/licenses/EPL-1.0.html "Eclipse Public License 1.0")
-- [Source](./pkgs/by-name/glojure/package.nix#L41)
+- [Source](./pkgs/by-name/glojure/package.nix#L46)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -900,11 +924,11 @@ A set of commands that manipulate GTAs on various levels (with all features enab
 A language for building concurrent software with confidence.
 
 - Name: `inko`
-- Version: `0.15.0`
+- Version: `0.16.0`
 - [Homepage](https://github.com/inko-lang/inko)
-- [Changelog](https://github.com/inko-lang/inko/blob/v0.15.0/CHANGELOG.md)
+- [Changelog](https://github.com/inko-lang/inko/blob/v0.16.0/CHANGELOG.md)
 - License: [`MPL-2.0`](https://spdx.org/licenses/MPL-2.0.html "Mozilla Public License 2.0")
-- [Source](./pkgs/by-name/inko/package.nix#L47)
+- [Source](./pkgs/by-name/inko/package.nix#L49)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1069,7 +1093,7 @@ Library for emitting text, XML, JSON, or HTML output.
 wlroots-based Wayland compositor designed for the Budgie Desktop.
 
 - Name: `magpie-wayland`
-- Version: `0.9.3-unstable-2024-07-14`
+- Version: `0.9.3-unstable-2024-08-17`
 - [Homepage](https://github.com/BuddiesOfBudgie/magpie)
 - License: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
 - [Source](./pkgs/by-name/magpie-wayland/package.nix#L57)
@@ -1239,7 +1263,7 @@ Camera application for Plasma Mobile.
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 
 - Name: `pnut`
-- Version: `0-unstable-2024-08-09`
+- Version: `0-unstable-2024-08-16`
 - [Homepage](https://github.com/udem-dlteam/pnut)
 - License: [`BSD-2-Clause`](https://spdx.org/licenses/BSD-2-Clause.html 'BSD 2-clause "Simplified" License')
 - [Source](./pkgs/by-name/pnut/package.nix#L44)
@@ -1385,7 +1409,7 @@ Fan sequel to Super Mario 63.
 Sega Model 3 arcade machine emulator.
 
 - Name: `supermodel`
-- Version: `0-unstable-2024-08-11`
+- Version: `0-unstable-2024-08-17`
 - [Homepage](https://github.com/trzy/Supermodel)
 - License: [`GPL-3.0-or-later`](https://spdx.org/licenses/GPL-3.0-or-later.html "GNU General Public License v3.0 or later")
 - [Source](./pkgs/by-name/supermodel/package.nix#L65)
@@ -1656,7 +1680,7 @@ Detect non-inclusive language in your source code.
 - Version: `0.19.0`
 - [Homepage](https://github.com/get-woke/woke)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](./pkgs/by-name/woke/package.nix#L31)
+- [Source](./pkgs/by-name/woke/package.nix#L36)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1681,7 +1705,7 @@ Fastest JSON library in C.
 - [Homepage](https://github.com/ibireme/yyjson)
 - [Changelog](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](https://github.com/NixOS/nixpkgs/blob/1967487/pkgs/development/libraries/yyjson/default.nix#L23)
+- [Source](https://github.com/NixOS/nixpkgs/blob/a0d6390/pkgs/development/libraries/yyjson/default.nix#L23)
 - Maintainers:
   - [Yohann Boniface](https://github.com/Sigmanificient) <[`sigmanificient@gmail.com`](mailto:sigmanificient@gmail.com)>
   - [✉️ Mail to all maintainers](mailto:sigmanificient@gmail.com)

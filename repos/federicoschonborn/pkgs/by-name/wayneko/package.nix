@@ -5,10 +5,10 @@
   pkg-config,
   wayland-scanner,
   pixman,
-  nix-update-script,
+# nix-update-script,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "wayneko";
   version = "0-unstable-2024-03-29";
 
@@ -33,12 +33,12 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
-  };
+  # passthru.updateScript = nix-update-script {
+  #   extraArgs = [
+  #     "--version"
+  #     "branch"
+  #   ];
+  # };
 
   meta = {
     mainProgram = "wayneko";
