@@ -9,34 +9,34 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "0cb50wgzcfsfj6g9h8yhpnd1cmplir6zldbl72k0d30fni6c5zxz";
-    x86_64-linux = "02a7crwflxpv3574nhvbj8h1vvzvqz1qsdrhf3wwdx171yfi8mqd";
-    armv7l-linux = "1yaawxfsc1hyiqf73a08gs2b74vbngq6jipvc8gjpbirnl61cpja";
-    aarch64-linux = "0s679rsl9rgni0fm5jj96pdlsqhna1jlis5zcmrhbn10habyd6yy";
-    x86_64-darwin = "13jwqip6jbxmqv59v3h69iv69wvi7fl4bs90bpnmxvgym7ihgz62";
-    aarch64-darwin = "1fnsv5iya9d9y6irhj9y63ykmdc2bjnczy4wjav5z0ig9kgmwrn8";
+    i686-linux = "02sm6pabm2fzfl4ypyk2xqgzc30wmnypxbyz2s3p735qa12cykxh";
+    x86_64-linux = "10aar729gj8yz3x383laakighhsaycd6h7c248846hblnhw1i1as";
+    armv7l-linux = "1ffflbrc8q91k44b5pzkzx9xyl0b74f137cn58zyabi3dmsv6izl";
+    aarch64-linux = "0p3yx1zrldaqirqx1fyvv9m9j2y6yxs0am2mw16v7vgj5wjhagcp";
+    x86_64-darwin = "0fk8vwg12bsrsm9z8n83a9y42f19j25zi0xac10h7w2gwx7y0mwj";
+    aarch64-darwin = "03k05qyxmrp89ygxvfgvn7vy07xy0qm33g64klljp7iidwazyd5h";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/charmbracelet/markscribe/releases/download/v0.8.0/markscribe_0.8.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/charmbracelet/markscribe/releases/download/v0.8.0/markscribe_0.8.0_Linux_x86_64.tar.gz";
-    armv7l-linux = "https://github.com/charmbracelet/markscribe/releases/download/v0.8.0/markscribe_0.8.0_Linux_arm.tar.gz";
-    aarch64-linux = "https://github.com/charmbracelet/markscribe/releases/download/v0.8.0/markscribe_0.8.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/charmbracelet/markscribe/releases/download/v0.8.0/markscribe_0.8.0_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/charmbracelet/markscribe/releases/download/v0.8.0/markscribe_0.8.0_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/charmbracelet/markscribe/releases/download/v0.8.1/markscribe_0.8.1_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/charmbracelet/markscribe/releases/download/v0.8.1/markscribe_0.8.1_Linux_x86_64.tar.gz";
+    armv7l-linux = "https://github.com/charmbracelet/markscribe/releases/download/v0.8.1/markscribe_0.8.1_Linux_arm.tar.gz";
+    aarch64-linux = "https://github.com/charmbracelet/markscribe/releases/download/v0.8.1/markscribe_0.8.1_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/charmbracelet/markscribe/releases/download/v0.8.1/markscribe_0.8.1_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/charmbracelet/markscribe/releases/download/v0.8.1/markscribe_0.8.1_Darwin_arm64.tar.gz";
   };
   sourceRootMap = {
-    i686-linux = "markscribe_0.8.0_Linux_i386";
-    x86_64-linux = "markscribe_0.8.0_Linux_x86_64";
-    armv7l-linux = "markscribe_0.8.0_Linux_arm";
-    aarch64-linux = "markscribe_0.8.0_Linux_arm64";
-    x86_64-darwin = "markscribe_0.8.0_Darwin_x86_64";
-    aarch64-darwin = "markscribe_0.8.0_Darwin_arm64";
+    i686-linux = "markscribe_0.8.1_Linux_i386";
+    x86_64-linux = "markscribe_0.8.1_Linux_x86_64";
+    armv7l-linux = "markscribe_0.8.1_Linux_arm";
+    aarch64-linux = "markscribe_0.8.1_Linux_arm64";
+    x86_64-darwin = "markscribe_0.8.1_Darwin_x86_64";
+    aarch64-darwin = "markscribe_0.8.1_Darwin_arm64";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "markscribe";
-  version = "0.8.0";
+  version = "0.8.1";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
