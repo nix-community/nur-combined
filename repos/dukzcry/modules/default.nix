@@ -28,4 +28,5 @@ rec {
   requests = ./requests.nix;
   metube = ./metube.nix;
   catppuccin = ./catppuccin.nix;
+  zsh = ./zsh.nix;
 }
