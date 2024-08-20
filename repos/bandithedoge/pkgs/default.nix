@@ -34,6 +34,7 @@
     luakit = callPackage' ./luakit;
     lv2vst = callPackage' ./lv2vst;
     mesonlsp-bin = callPackage' ./mesonlsp-bin;
+    modstems = callPackage' ./modstems;
     nimlangserver = callPackage' ./nimlangserver;
     nodePackages = callPackages ./nodePackages;
     octasine = callPackage' ./octasine;

@@ -1,0 +1,22 @@
+{
+    "modstems": {
+        "cargoLocks": null,
+        "date": "2024-08-20",
+        "extract": null,
+        "name": "modstems",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "9a1b68176f4b10d1676723a36678788cf2790c1a",
+            "sha256": "sha256-Ffp6/CWNxf2L43cvTkZE9k35pScYsMF7UXh8IG721pw=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/bandithedoge/modstems"
+        },
+        "version": "9a1b68176f4b10d1676723a36678788cf2790c1a"
+    }
+}
