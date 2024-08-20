@@ -4,8 +4,8 @@ with lib;
 
 let
   cfg = config.services.vvmd;
-  pkgs.vvmd = pkgs.callPackage ../../pkgs/vvmd.nix;
-  pkgs.vvmplayer = pkgs.callPackage ../../pkgs/vvmplayer;
+  pkgs.vvmd = pkgs.callPackage ../../pkgs/vvmd.nix {};
+  pkgs.vvmplayer = pkgs.callPackage ../../pkgs/vvmplayer {};
 in {
   #meta.maintainers = [ maintainers.mich-adams ];
 
