@@ -2032,10 +2032,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2432.0";
+      version = "6.2433.3";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4331567/dashlane-6.2432.0.xpi";
-      sha256 = "8c6c7355b99d1faf1e96e025615ed69d9201502b158c878a450372660bc323f3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4336120/dashlane-6.2433.3.xpi";
+      sha256 = "5593813a0eff8f1582ce0f55a5b29dfadf5dfe6b0002e43fa818fa42f8c100b5";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2113,10 +2113,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "130.0.20240816.112705";
+      version = "129.0.20240819.150008";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4337882/deutsch_de_language_pack-130.0.20240816.112705.xpi";
-      sha256 = "e9147058ebf40a096fa3c3a58dd01ffdf0bcaa96b24e90dc4bff8da87d4d6494";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4339456/deutsch_de_language_pack-129.0.20240819.150008.xpi";
+      sha256 = "4e73065b08f79f49b1fa8990ca59b3e447a2fe7132efbc487026d0b598f772b9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3108,10 +3108,10 @@
     };
     "frame-extension" = buildFirefoxXpiAddon {
       pname = "frame-extension";
-      version = "0.11.0";
+      version = "0.12.0";
       addonId = "{77691beb-4c53-48de-ab20-6589a537717a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4246850/frame_extension-0.11.0.xpi";
-      sha256 = "abb8db2e2392941c3efbbb1069dd9edc194652125be19fc45adc5986f9f80c42";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4339491/frame_extension-0.12.0.xpi";
+      sha256 = "e9836fe1137d3fd4a7a1bbac434889459d3e8442df473c50c4717adaa592afcc";
       meta = with lib;
       {
         homepage = "https://github.com/floating/frame";
@@ -3119,11 +3119,12 @@
         license = licenses.gpl3;
         mozPermissions = [
           "activeTab"
-          "https://*/*"
-          "http://*/*"
-          "tabs"
+          "alarms"
           "idle"
+          "scripting"
           "file://*/*"
+          "http://*/*"
+          "https://*/*"
           "http://twitter.com/*"
           "https://twitter.com/*"
         ];
@@ -3173,10 +3174,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "130.0.20240816.112705";
+      version = "129.0.20240819.150008";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4337956/francais_language_pack-130.0.20240816.112705.xpi";
-      sha256 = "3b73d8902d0bc34db37f0a245ebf0553f103bea395d3544dede3b12408aeee2a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4339413/francais_language_pack-129.0.20240819.150008.xpi";
+      sha256 = "e39d3ebd21bc98bdce02344e1357bb45194015fd4bb24f413c0185a89f5fb1b8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3245,223 +3246,29 @@
     };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "8.12.13";
+      version = "10.4.1";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4314110/ghostery-8.12.13.xpi";
-      sha256 = "8c81f85c0ad054e94093020a4cb808afba20501eb6f18d08263e6f608f157c61";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4336273/ghostery-10.4.1.xpi";
+      sha256 = "0b46d8e0e027dcb66f47745e519f76f2192622b5c028b0e4870cd445f2751cff";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
         description = "The best privacy tool and ad blocker extension for Firefox. Stop trackers, speed up websites and block ads everywhere including YouTube and Facebook.";
         license = licenses.mpl20;
         mozPermissions = [
+          "alarms"
+          "cookies"
+          "storage"
+          "scripting"
+          "tabs"
           "webNavigation"
           "webRequest"
           "webRequestBlocking"
-          "cookies"
-          "tabs"
           "http://*/*"
           "https://*/*"
-          "storage"
-          "https://account.ghostery.com/*"
-          "https://account.ghosterystage.com/*"
-          "https://checkout.ghostery.com/*"
-          "https://checkout.ghosterystage.com/*"
+          "ws://*/*"
+          "wss://*/*"
           "*://www.youtube.com/*"
-          "*://*.google.com/*"
-          "*://*.google.ad/*"
-          "*://*.google.ae/*"
-          "*://*.google.com.af/*"
-          "*://*.google.com.ag/*"
-          "*://*.google.com.ai/*"
-          "*://*.google.al/*"
-          "*://*.google.am/*"
-          "*://*.google.co.ao/*"
-          "*://*.google.com.ar/*"
-          "*://*.google.as/*"
-          "*://*.google.at/*"
-          "*://*.google.com.au/*"
-          "*://*.google.az/*"
-          "*://*.google.ba/*"
-          "*://*.google.com.bd/*"
-          "*://*.google.be/*"
-          "*://*.google.bf/*"
-          "*://*.google.bg/*"
-          "*://*.google.com.bh/*"
-          "*://*.google.bi/*"
-          "*://*.google.bj/*"
-          "*://*.google.com.bn/*"
-          "*://*.google.com.bo/*"
-          "*://*.google.com.br/*"
-          "*://*.google.bs/*"
-          "*://*.google.bt/*"
-          "*://*.google.co.bw/*"
-          "*://*.google.by/*"
-          "*://*.google.com.bz/*"
-          "*://*.google.ca/*"
-          "*://*.google.cd/*"
-          "*://*.google.cf/*"
-          "*://*.google.cg/*"
-          "*://*.google.ch/*"
-          "*://*.google.ci/*"
-          "*://*.google.co.ck/*"
-          "*://*.google.cl/*"
-          "*://*.google.cm/*"
-          "*://*.google.cn/*"
-          "*://*.google.com.co/*"
-          "*://*.google.co.cr/*"
-          "*://*.google.com.cu/*"
-          "*://*.google.cv/*"
-          "*://*.google.com.cy/*"
-          "*://*.google.cz/*"
-          "*://*.google.de/*"
-          "*://*.google.dj/*"
-          "*://*.google.dk/*"
-          "*://*.google.dm/*"
-          "*://*.google.com.do/*"
-          "*://*.google.dz/*"
-          "*://*.google.com.ec/*"
-          "*://*.google.ee/*"
-          "*://*.google.com.eg/*"
-          "*://*.google.es/*"
-          "*://*.google.com.et/*"
-          "*://*.google.fi/*"
-          "*://*.google.com.fj/*"
-          "*://*.google.fm/*"
-          "*://*.google.fr/*"
-          "*://*.google.ga/*"
-          "*://*.google.ge/*"
-          "*://*.google.gg/*"
-          "*://*.google.com.gh/*"
-          "*://*.google.com.gi/*"
-          "*://*.google.gl/*"
-          "*://*.google.gm/*"
-          "*://*.google.gp/*"
-          "*://*.google.gr/*"
-          "*://*.google.com.gt/*"
-          "*://*.google.gy/*"
-          "*://*.google.com.hk/*"
-          "*://*.google.hn/*"
-          "*://*.google.hr/*"
-          "*://*.google.ht/*"
-          "*://*.google.hu/*"
-          "*://*.google.co.id/*"
-          "*://*.google.ie/*"
-          "*://*.google.co.il/*"
-          "*://*.google.im/*"
-          "*://*.google.co.in/*"
-          "*://*.google.iq/*"
-          "*://*.google.is/*"
-          "*://*.google.it/*"
-          "*://*.google.je/*"
-          "*://*.google.com.jm/*"
-          "*://*.google.jo/*"
-          "*://*.google.co.jp/*"
-          "*://*.google.co.ke/*"
-          "*://*.google.com.kh/*"
-          "*://*.google.ki/*"
-          "*://*.google.kg/*"
-          "*://*.google.co.kr/*"
-          "*://*.google.com.kw/*"
-          "*://*.google.kz/*"
-          "*://*.google.la/*"
-          "*://*.google.com.lb/*"
-          "*://*.google.li/*"
-          "*://*.google.lk/*"
-          "*://*.google.co.ls/*"
-          "*://*.google.lt/*"
-          "*://*.google.lu/*"
-          "*://*.google.lv/*"
-          "*://*.google.com.ly/*"
-          "*://*.google.co.ma/*"
-          "*://*.google.md/*"
-          "*://*.google.me/*"
-          "*://*.google.mg/*"
-          "*://*.google.mk/*"
-          "*://*.google.ml/*"
-          "*://*.google.com.mm/*"
-          "*://*.google.mn/*"
-          "*://*.google.ms/*"
-          "*://*.google.com.mt/*"
-          "*://*.google.mu/*"
-          "*://*.google.mv/*"
-          "*://*.google.mw/*"
-          "*://*.google.com.mx/*"
-          "*://*.google.com.my/*"
-          "*://*.google.co.mz/*"
-          "*://*.google.com.na/*"
-          "*://*.google.com.nf/*"
-          "*://*.google.com.ng/*"
-          "*://*.google.com.ni/*"
-          "*://*.google.ne/*"
-          "*://*.google.nl/*"
-          "*://*.google.no/*"
-          "*://*.google.com.np/*"
-          "*://*.google.nr/*"
-          "*://*.google.nu/*"
-          "*://*.google.co.nz/*"
-          "*://*.google.com.om/*"
-          "*://*.google.com.pa/*"
-          "*://*.google.com.pe/*"
-          "*://*.google.com.pg/*"
-          "*://*.google.com.ph/*"
-          "*://*.google.com.pk/*"
-          "*://*.google.pl/*"
-          "*://*.google.pn/*"
-          "*://*.google.com.pr/*"
-          "*://*.google.ps/*"
-          "*://*.google.pt/*"
-          "*://*.google.com.py/*"
-          "*://*.google.com.qa/*"
-          "*://*.google.ro/*"
-          "*://*.google.ru/*"
-          "*://*.google.rw/*"
-          "*://*.google.com.sa/*"
-          "*://*.google.com.sb/*"
-          "*://*.google.sc/*"
-          "*://*.google.se/*"
-          "*://*.google.com.sg/*"
-          "*://*.google.sh/*"
-          "*://*.google.si/*"
-          "*://*.google.sk/*"
-          "*://*.google.com.sl/*"
-          "*://*.google.sn/*"
-          "*://*.google.so/*"
-          "*://*.google.sm/*"
-          "*://*.google.sr/*"
-          "*://*.google.st/*"
-          "*://*.google.com.sv/*"
-          "*://*.google.td/*"
-          "*://*.google.tg/*"
-          "*://*.google.co.th/*"
-          "*://*.google.com.tj/*"
-          "*://*.google.tk/*"
-          "*://*.google.tl/*"
-          "*://*.google.tm/*"
-          "*://*.google.tn/*"
-          "*://*.google.to/*"
-          "*://*.google.com.tr/*"
-          "*://*.google.tt/*"
-          "*://*.google.com.tw/*"
-          "*://*.google.co.tz/*"
-          "*://*.google.com.ua/*"
-          "*://*.google.co.ug/*"
-          "*://*.google.co.uk/*"
-          "*://*.google.com.uy/*"
-          "*://*.google.co.uz/*"
-          "*://*.google.com.vc/*"
-          "*://*.google.co.ve/*"
-          "*://*.google.vg/*"
-          "*://*.google.co.vi/*"
-          "*://*.google.com.vn/*"
-          "*://*.google.vu/*"
-          "*://*.google.ws/*"
-          "*://*.google.rs/*"
-          "*://*.google.co.za/*"
-          "*://*.google.co.zm/*"
-          "*://*.google.co.zw/*"
-          "*://*.google.cat/*"
-          "*://*.google.ng/*"
         ];
         platforms = platforms.all;
       };
@@ -6022,10 +5829,10 @@
     };
     "lingq-importer2" = buildFirefoxXpiAddon {
       pname = "lingq-importer2";
-      version = "2.2.13";
+      version = "2.2.14";
       addonId = "{e84c7711-c738-409a-879d-3f20cb087563}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4221180/lingq_importer2-2.2.13.xpi";
-      sha256 = "6660d264b519e09c8c334d858a87fafe3cf13e3f0cf73c62032ca94d31e40571";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4339517/lingq_importer2-2.2.14.xpi";
+      sha256 = "fd904a4ef3788f5fadd1c863fbaabc4650aa4a121450fd0ea0d5e919935b13a8";
       meta = with lib;
       {
         homepage = "https://www.lingq.com/";
@@ -6109,10 +5916,10 @@
     };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.70";
+      version = "2.6.72";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4318983/localcdn_fork_of_decentraleyes-2.6.70.xpi";
-      sha256 = "95e64db98bfbdaf566e3c2f77a6fd9ebfaed3b45a13795fd3ba8ed4721454e86";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4336546/localcdn_fork_of_decentraleyes-2.6.72.xpi";
+      sha256 = "de15005831ca9f551b5aedbf0c29cbb2b872b548b59e6acd1ee0934179ba8d30";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -7129,10 +6936,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.15.5";
+      version = "2.15.11";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4321492/momentumdash-2.15.5.xpi";
-      sha256 = "c9ed57ec4ca015dbe17dc556abd93b5c0f52236381788906c445af3ef91b9693";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4336000/momentumdash-2.15.11.xpi";
+      sha256 = "712924c961ddbe71c30382d85c06907e80ba295ad56f134ddbba7601d4803a03";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -7758,10 +7565,10 @@
     };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "2.26.1";
+      version = "2.27.1";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4321525/1password_x_password_manager-2.26.1.xpi";
-      sha256 = "d838bfb835e6c1004d99e9192b2e7243646669915400f3fa782ae03ef0765946";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4333130/1password_x_password_manager-2.27.1.xpi";
+      sha256 = "675502aa7938d495066e1e56e3c579c1216687175da87161e1ae89d610467736";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -7984,10 +7791,10 @@
     };
     "passff" = buildFirefoxXpiAddon {
       pname = "passff";
-      version = "1.20";
+      version = "1.20.1";
       addonId = "passff@invicem.pro";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4333675/passff-1.20.xpi";
-      sha256 = "cf07997a5687f4a1db191b5229a97ff839ec29f581bce2b6fa42b141635e0f7d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4339137/passff-1.20.1.xpi";
+      sha256 = "7418b41a6ee43d380d42147a3632c0cf7e68591a4341effc5dc2e40a72575122";
       meta = with lib;
       {
         homepage = "https://codeberg.org/PassFF/passff";
@@ -8958,10 +8765,10 @@
     };
     "proton-vpn" = buildFirefoxXpiAddon {
       pname = "proton-vpn";
-      version = "1.2.1";
+      version = "1.2.2";
       addonId = "vpn@proton.ch";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4329242/proton_vpn_firefox_extension-1.2.1.xpi";
-      sha256 = "dbb0ccbb66727638154a1bb7dda4345ca2d71daa866c1dded5e3c20ba87db611";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4336346/proton_vpn_firefox_extension-1.2.2.xpi";
+      sha256 = "3fcdddf8db3904dfee167dfa2597a99d15a81708f99f15dcd7a894cafbd7bcd3";
       meta = with lib;
       {
         homepage = "https://protonvpn.com/";
@@ -9892,10 +9699,10 @@
     };
     "simplelogin" = buildFirefoxXpiAddon {
       pname = "simplelogin";
-      version = "2.11.0";
+      version = "3.0.5";
       addonId = "addon@simplelogin";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4236864/simplelogin-2.11.0.xpi";
-      sha256 = "e2e4cc49352ae6b6ca86c92292b469e48891f27b0c25f9102c1b5dd5e35728f0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4332232/simplelogin-3.0.5.xpi";
+      sha256 = "4c91de2e6ab4ca0f0ffc43e3f4b2b37d243bf311f7c690d0af6c2b44767fcee8";
       meta = with lib;
       {
         homepage = "https://simplelogin.io";
@@ -9905,7 +9712,8 @@
           "activeTab"
           "storage"
           "contextMenus"
-          "https://*.simplelogin.io/*"
+          "scripting"
+          "tabs"
           "http://*/*"
           "https://*/*"
         ];
@@ -11347,10 +11155,10 @@
     };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2024.8.12.902";
+      version = "2024.8.19.905";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4335824/ublock_origin_lite-2024.8.12.902.xpi";
-      sha256 = "83031c47fcaa62d6a1f2c9dd4c0eb0167569e3e764397d31000bc671e47afc05";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4339265/ublock_origin_lite-2024.8.19.905.xpi";
+      sha256 = "c6012cf2e43422561dec1a551ece86d8c03753e29b09c20b65f3c870eb7b21c5";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
