@@ -5,17 +5,13 @@
 , pkg-config
 , systemdLibs
 , avahi
-, dbus
 , protobuf
 , jsoncpp
 , boost
 , libnetfilter_queue
 , libnfnetlink
 , nodejs
-, buildPackages
 , buildNpmPackage
-, fetchNpmDeps
-, npmHooks
 }:
 let
   pname = "ot-br-posix";
@@ -44,7 +40,6 @@ let
     npmDepsHash = "sha256-7UVfPICyIbHEClpr3p7eDR46OUzS8mVf6P7phnDpVLk=";
     dontNpmBuild = true;
   };
-
 in
 stdenv.mkDerivation {
 
@@ -86,6 +81,17 @@ stdenv.mkDerivation {
     libnetfilter_queue
     libnfnetlink
   ];
+
+  postInstall = ''
+    mkdir -p $out/bin
+    cp ${src}/script/otbr-firewall $out/bin/
+    chmod +x $out/bin/otbr-firewall
+
+    # Patch the firewall script so we can run it within the systemd start script
+    sed -i 's/THREAD_IF=.*//' $out/bin/otbr-firewall
+    sed -i 's/.*init-functions//' $out/bin/otbr-firewall
+    sed -i 's/.*vars\.sh//' $out/bin/otbr-firewall
+  '';
 
   cmakeFlags = [
     # These defaults are from "examples/platforms/raspbian/default"
