@@ -371,6 +371,7 @@ buildNpmPackage rec {
       rev-prefix = "v";
       ignoredVersions = "beta";
     };
+    updateWithSuper = false;  #< TODO: enable auto-update, but i need a real updateScript for that instead of one which only updates top-level deps
   };
 
   meta = {

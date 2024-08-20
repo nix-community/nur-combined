@@ -40,19 +40,10 @@ in
   })
 
   (fetchpatch' {
-    # branch: pr-flatpak-cross
-    title = "flatpak: support cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/334324";
-    saneCommit = "0656837e8bb3aae72245145ea8b2250eadad653d";
-    hash = "sha256-etogClsQ8USoBzfx8eYXUYp+C5VQ0wJs/1LumjtE+9E=";
-    # hash = "sha256-Jo37TmzEbqZQVlFtLQ/hI1AAPXS0dnkXh58eHpuwT5M=";
-    # hash = "sha256-/N3FQ0CZ8IOxEYci2UKOG0POYuTyCTH/ZWTRyjIOlEc=";
-  })
-
-  (fetchpatch' {
-    title = "syshud: 0-unstable-2024-07-29 -> 0-unstable-2024-08-10";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/333975";
-    hash = "sha256-DMV9rnigWUGW6kcV5Ve151OEArMWroLcuoK6PdFjTHk=";
+    # TODO: send upstream: <https://github.com/uninsane/nixpkgs/pull/new/pr-flatpak-cross-2>
+    title = "flatpak: fix cross compilation for 1.14.10";
+    saneCommit = "8359a34a1b944082ea1bd76fee61819e7b86e00e";
+    hash = "sha256-OnWu15IgZREWOohUnF2uqHPQd920aEDJ7oBT4h5vpu4=";
   })
 
   (fetchpatch' {
@@ -69,13 +60,6 @@ in
   #   saneCommit = "30d6d5d6e86c490978b9615a9c685ffd92c81116";
   #   hash = "sha256-hEcpS7r1K6yb5dcj2evbWajwIQaaSHKdLPQVg1LlCYE=";
   # })
-
-  (fetchpatch' {
-    # merged into staging 2024-07-25
-    title = "texinfo: set texinfo_cv_sys_iconv_converts_euc_cn=yes when crosscompiling";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/328919";
-    hash = "sha256-jPbFTg5YHBxAyhOaQGuiLVximKMj7ACXzCK89ddZyNQ=";
-  })
 
   (fetchpatch' {
     title = "python312Packages.contourpy: fix cross compilation";
@@ -112,13 +96,6 @@ in
   #   saneCommit = "cd316aaa667b6758d6866b356f4040343ffb6f80";
   #   hash = "sha256-r0jKr65dRkVU/LPfgZqNJArs2XWEudsgyYXs5bJpgj4=";
   # })
-
-  (fetchpatch' {
-    # required for gpodder to build
-    title = "python311Packages.mygpoclient: 1.8 -> 1.9";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/324734";
-    hash = "sha256-W2KBnwPonYCKO4TA9+mGbknxgJaZej7iX9dFLLXf/jw=";
-  })
 
   (fetchpatch' {
     # see: <https://github.com/NixOS/nixpkgs/pull/284562#issuecomment-2079104081>

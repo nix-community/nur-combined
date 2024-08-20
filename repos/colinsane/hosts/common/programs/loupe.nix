@@ -13,6 +13,7 @@
     # }));
 
     sandbox.method = "bwrap";
+    sandbox.whitelistDri = true;  #< faster rendering
     sandbox.whitelistWayland = true;
     sandbox.autodetectCliPaths = "parent";
     sandbox.extraHomePaths = [

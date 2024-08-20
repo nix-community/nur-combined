@@ -115,6 +115,10 @@ in with final; {
   #     });
   #   };
 
+  # 2024/08/19: upstreaming is unblocked
+  ayatana-ido = addNativeInputs [ glib ] prev.ayatana-ido;
+  libayatana-indicator = addNativeInputs [ glib ] prev.libayatana-indicator;
+
   # bamf: required via pantheon.switchboard -> wingpanel -> gala
   # bamf = prev.bamf.overrideAttrs (upstream: {
   #   # "You must have gtk-doc >= 1.0 installed to build documentation"

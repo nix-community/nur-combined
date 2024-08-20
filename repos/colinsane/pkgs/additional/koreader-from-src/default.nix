@@ -562,8 +562,8 @@ in {
       htmlparser
       lua-spore
     ;
-    # XXX: `update` doesn't update everything -- just the toplevel version/hash
     updateScript = [ ./update ];
+    updateWithSuper = false;  # XXX: `update` doesn't update everything -- just the toplevel version/hash -- so disable unless i start using the package more
   };
 
   meta = with lib; {
