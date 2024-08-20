@@ -13,4 +13,5 @@ with pkgs.lib; {
       in if list == [] then acc
          else acc ++ (foldmap seed [(func x acc')] func xs);
   };
+  mkAfterAfter = mkOrder 1600;
 }
