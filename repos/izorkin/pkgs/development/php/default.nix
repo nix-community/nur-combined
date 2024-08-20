@@ -6,7 +6,7 @@
 , gd, freetype, libXpm, libavif, libjpeg, libpng, libwebp
 , gettext, gmp, libiconv, uwimap, pam
 , icu60, icu67, icu69
-, openldap, cyrus_sasl, libxml2_2_12, libxml2, libmcrypt, libxcrypt, pcre, pcre2
+, openldap, cyrus_sasl, libxml2, libmcrypt, libxcrypt, pcre, pcre2
 , unixODBC, postgresql, sqlite, readline, html-tidy
 , libxslt, zlib, libzip, libsodium, oniguruma
 }:
@@ -86,7 +86,6 @@ let
     let
       autoconf' =  if (versionOlder version "7.0") then autoconf271 else autoconf;
       libmcrypt' = libmcrypt.override { disablePosixThreads = true; };
-      libxml2' = if (versionAtLeast version "8.2") then libxml2 else libxml2_2_12;
       pcre' = if (versionAtLeast version "7.3") then pcre2 else pcre;
       icu' = if (versionOlder version "7.0") then icu60 else (if versionAtLeast version "8.0" then icu69 else (if versionAtLeast version "7.3" then icu69 else icu67));
 
@@ -132,7 +131,7 @@ let
         ++ optional intlSupport icu'
         ++ optionals ldapSupport [ openldap openssl ]
         ++ optional (ldapSupport && stdenv.isLinux) cyrus_sasl
-        ++ optional libxml2Support libxml2'
+        ++ optional libxml2Support libxml2
         ++ optional mcryptSupport libmcrypt'
         ++ optionals opensslSupport [ openssl openssl.dev ]
         ++ optional pdo_odbcSupport unixODBC
