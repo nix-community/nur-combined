@@ -2,7 +2,7 @@
 
 let
   pname = "joplin-desktop";
-  version = "2.14.20";
+  version = "3.1.3";
   desktopItem = makeDesktopItem {
      name = "Joplin";
      exec = "joplin-desktop";
@@ -14,7 +14,7 @@ in appimageTools.wrapType2 rec {
 
   src = fetchurl {
     url = "https://github.com/laurent22/joplin/releases/download/v${version}/Joplin-${version}.AppImage";
-    sha256 = "0846d1pv39fv7cl355hahp8zjai000dwmi9r8wzlzafhf8f7hlrd";
+    sha256 = "0ai1nlfvmj2064fc4ivmkrihbj191msydakzv7hscbi00c0234bp";
   };
 
   profile = ''
@@ -22,7 +22,6 @@ in appimageTools.wrapType2 rec {
     export XDG_DATA_DIRS=${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS
   '';
 
-  #multiPkgs = null; # no 32bit needed
   extraPkgs = appimageTools.defaultFhsEnvArgs.multiPkgs;
   extraInstallCommands = ''
     mkdir -p $out/share/applications
