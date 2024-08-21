@@ -15,12 +15,8 @@ let
       maxJobs = 4;
     }];
     nix.distributedBuilds = true;
-    nix.settings.substituters = [ "http://powerhorse:5000" ];
-    nix.settings.trusted-public-keys = [ "powerhorse-1:d6cps6qy6UuAaTquP0RwSePLhrmzz9xFjk+rVlmP2sY=" ];
     nix.extraOptions = ''
       builders-use-substitutes = true
-      # https://github.com/NixOS/nix/issues/3514
-      fallback = true
     '';
   };
 in {
@@ -73,10 +69,6 @@ in {
       systemd.services.ModemManager.wantedBy = [ "multi-user.target" "network.target" ];
     } // builder))
     (mkIf (cfg.enable && desktop) {
-      services.nix-serve = {
-        enable = true;
-        secretKeyFile = "/var/cache-priv-key.pem";
-      };
       nix.settings.cores = 8;
       nix.settings.trusted-users = [ cfg.user ];
       hardware.bluetooth.enable = true;
