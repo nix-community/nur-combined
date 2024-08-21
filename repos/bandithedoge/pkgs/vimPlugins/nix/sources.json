@@ -998,10 +998,10 @@
     "homepage": "",
     "owner": "folke",
     "repo": "neoconf.nvim",
-    "rev": "30b4b1cfed6776778c70ae1b92c5be417e055774",
-    "sha256": "0ay6swxyq5cpdiqcik1rhhw15fvg6548jgh37f3sms5afx2n33jk",
+    "rev": "59b5aa97496b074ebee43b97cfd9beb57ea1a312",
+    "sha256": "10ycj4prbqldzmnsf367jr2b25m173ivwxqxskkvjnn8kp1vvbr5",
     "type": "tarball",
-    "url": "https://github.com/folke/neoconf.nvim/archive/30b4b1cfed6776778c70ae1b92c5be417e055774.tar.gz",
+    "url": "https://github.com/folke/neoconf.nvim/archive/59b5aa97496b074ebee43b97cfd9beb57ea1a312.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "neodev.nvim": {
