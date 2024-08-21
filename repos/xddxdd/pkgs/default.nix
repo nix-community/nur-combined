@@ -85,8 +85,10 @@ mkScope (
       transmission-with-webui = pkg ./lantian-customized/transmission-with-webui { };
     };
 
-    lantianLinuxXanmod = ifNotCI (mergePkgs (pkg ./lantian-linux-xanmod { }));
-    lantianLinuxXanmodPackages = ifNotCI (mergePkgs (pkg ./lantian-linux-xanmod/packages.nix { }));
+    lantianLinuxXanmod = ifNotCI (mergePkgs (pkg ./lantian-linux-xanmod { inherit mode; }));
+    lantianLinuxXanmodPackages = ifNotCI (
+      mergePkgs (pkg ./lantian-linux-xanmod/packages.nix { inherit mode; })
+    );
 
     lantianPersonal = ifNotCI (mergePkgs {
       # Personal packages with no intention to be used by others

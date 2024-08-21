@@ -1,4 +1,5 @@
 {
+  mode ? null,
   callPackage,
   lib,
   linuxKernel,
@@ -6,6 +7,6 @@
   ...
 }:
 let
-  kernels = callPackage ./default.nix { inherit sources; };
+  kernels = callPackage ./default.nix { inherit mode sources; };
 in
 lib.mapAttrs (_n: v: linuxKernel.packagesFor v) kernels

@@ -1,4 +1,5 @@
 {
+  mode ? null,
   pkgs,
   stdenv,
   lib,
@@ -73,6 +74,16 @@ rec {
     };
   };
 
+  contentAddressedFlag =
+    if mode == "nur" then
+      { }
+    else
+      {
+        __contentAddressed = true;
+        outputHashAlgo = "sha256";
+        outputHashMode = "recursive";
+      };
+
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/kernel/linux-xanmod.nix
   mkKernel =
     {
@@ -101,7 +112,7 @@ rec {
         in
         rec {
           name = "cachyos-patches-combined.patch";
-          patch = pkgs.runCommandNoCC name { } ''
+          patch = pkgs.runCommandNoCC name contentAddressedFlag ''
             for F in ${cachyDir}/*.patch; do
               case "$F" in
                 # AMD pref core patch conflicts with me disabling AMD pstate for VMs
@@ -123,6 +134,25 @@ rec {
             done
           '';
         };
+
+      patches = [
+        pkgs.kernelPatches.bridge_stp_helper
+        pkgs.kernelPatches.request_key_helper
+        combinedPatchFromCachyOS
+      ] ++ patchesInPatchDir;
+
+      patchedSrc = pkgs.runCommandNoCC "linux-src" contentAddressedFlag (
+        ''
+          mkdir -p $out
+          cp -r ${src}/* $out/
+          chmod -R 755 $out
+
+          cd $out
+        ''
+        + (lib.concatMapStringsSep "\n" (p: ''
+          patch -p1 < ${p.patch}
+        '') patches)
+      );
     in
     lib.nameValuePair name (buildLinux {
       inherit lib;
@@ -130,7 +160,9 @@ rec {
 
       extraMakeFlags = if lto then ltoMakeflags else [ ];
 
-      inherit version src;
+      inherit version;
+      src = patchedSrc;
+
       modDirVersion =
         let
           splitted = lib.splitString "-" version;
@@ -157,12 +189,6 @@ rec {
             })
             // (if stdenv.isx86_64 then marchFlags."${x86_64-march}" else { })
           );
-
-      kernelPatches = [
-        pkgs.kernelPatches.bridge_stp_helper
-        pkgs.kernelPatches.request_key_helper
-        combinedPatchFromCachyOS
-      ] ++ patchesInPatchDir;
 
       extraMeta = {
         description =

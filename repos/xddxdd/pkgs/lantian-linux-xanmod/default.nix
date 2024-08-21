@@ -1,11 +1,12 @@
 {
+  mode ? null,
   callPackage,
   lib,
   sources,
   ...
 }:
 let
-  helpers = callPackage ./helpers.nix { };
+  helpers = callPackage ./helpers.nix { inherit mode; };
   inherit (helpers) mkKernel;
 
   x86_64-march = [
