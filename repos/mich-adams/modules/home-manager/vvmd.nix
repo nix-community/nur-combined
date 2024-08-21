@@ -12,14 +12,14 @@ in {
 
       package = mkOption {
         type = types.package;
-        default = pkgs.callPackage ../../vvmd.nix {};
+        default = pkgs.vvmd;
         description = "The package to use for vvmd.";
       };
     };
 
     config = mkIf cfg.enable {
 
-      home.packages = [ cfg.package (pkgs.callPackage ../../vvmplayer.nix {}) ];
+      home.packages = [ cfg.package pkgs.vvmplayer ];
 
       systemd.user.services."vvmd" = {
         Unit = {
