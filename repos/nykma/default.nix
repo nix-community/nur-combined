@@ -19,4 +19,5 @@ rec {
   aws-lambda-ric-nodejs = pkgs.callPackage ./pkgs/aws-lambda-ric-nodejs { };
   v2dat = pkgs.callPackage ./pkgs/v2dat { };
   v2ray-rules-dat = pkgs.callPackage ./pkgs/v2ray-rules-dat { inherit v2dat; };
+  zen-browser = pkgs.callPackage ./pkgs/zen-browser { };
 }
