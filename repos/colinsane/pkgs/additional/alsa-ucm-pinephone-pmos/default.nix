@@ -14,6 +14,7 @@ let
   };
   pmosAdditions = "${pmaports}/device/main/device-pine64-pinephone/ucm";
 in alsa-ucm-conf.overrideAttrs (upstream: {
+  version = upstream.version + "-unstable-pmos-2024-05-26";
   postInstall = (upstream.postInstall or "") + ''
     install -Dm644 -t $out/share/alsa/ucm2/PinePhone \
       ${pmosAdditions}/HiFi.conf \

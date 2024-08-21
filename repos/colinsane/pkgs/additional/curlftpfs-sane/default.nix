@@ -1,9 +1,21 @@
 {
+  curl,
   curlftpfs,
+  fetchpatch,
   fetchFromGitea,
   fuse3,
 }:
 (curlftpfs.override {
+  curl = curl.overrideAttrs (base: {
+    patches = (base.patches or []) ++ [
+      (fetchpatch {
+        # fix regression in curl 8.8.0 -> 8.9.0 which broke curlftpfs
+        url = "https://github.com/curl/curl/pull/14629.diff";
+        name = "setopt: allow CURLOPT_INTERFACE to be set to NULL";
+        hash = "sha256-cpiw0izhFY74y8xa7KEoQOtD79GBIfrm1hU3sLrObJg=";
+      })
+    ];
+  });
   fuse = fuse3;
 }).overrideAttrs (upstream: {
   # my (master branch) fork includes:

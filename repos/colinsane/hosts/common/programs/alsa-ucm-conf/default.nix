@@ -15,8 +15,9 @@ in
     };
 
     # upstream alsa ships with PinePhone audio configs, but they don't actually produce sound.
-    # - still true as of 2024-05-26
+    # - still true as of 2024-08-20
     # - see: <https://github.com/alsa-project/alsa-ucm-conf/pull/134>
+    # - see: <https://gitlab.com/postmarketOS/pmaports/-/issues/2115>
     #
     # we can substitute working UCM conf in two ways:
     # 1. nixpkgs' override for the `alsa-ucm-conf` package
