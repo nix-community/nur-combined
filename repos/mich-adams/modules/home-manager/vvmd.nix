@@ -13,6 +13,7 @@ in {
       package = mkOption {
         type = types.package;
         default = pkgs.nur.repos.mich-adams.vvmd;
+        defaultText = "pkgs.nur.repos.mich-adams.vvmd";
         description = "The package to use for vvmd.";
       };
     };
@@ -29,7 +30,7 @@ in {
         Service = {
           ExecStart = [
             ""
-            "${pkgs.vvmd}/bin/vvmd"
+            "${cfg.package}/bin/vvmd"
           ];
           Restart = "always";
         };
