@@ -5,6 +5,7 @@
   file,
   gnugrep,
   gnused,
+  linkFarm,
   makeWrapper,
   runCommandLocal,
   runtimeShell,
@@ -55,9 +56,7 @@ let
     env = (unwrapped.env or {}) // {
       SANEBOX_DISABLE = 1;
     };
-    # TODO: handle multi-output packages; until then, squash lib into the main output, particularly for `libexec`.
-    # (this line here only affects `inplace` style wrapping)
-    outputs = lib.remove "lib" (unwrapped.outputs or [ "out" ]);
+    outputs = unwrapped.outputs or [ "out" ];
     nativeBuildInputs = [
       # the ordering here is specific: inject our deps BEFORE the unwrapped program's
       # so that the unwrapped's take precendence and we limit interference (e.g. makeWrapper impl)
@@ -197,59 +196,77 @@ let
   ;
 
   # helper used for `wrapperType == "wrappedDerivation"` which simply symlinks all a package's binaries into a new derivation
-  symlinkDirs = suffix: symlinkRoots: pkgName: package: (runCommandLocal "${pkgName}-${suffix}" {
+  symlinkDirs = suffix: symlinkRoots: pkgName: package: let
+    # remove altogether some problem outputs which i don't have a use for in the deployed system
+    outputs = lib.remove "dev" (package.outputs or [ "out" ]);
+  in (runCommandLocal "${pkgName}-${suffix}" {
     env.symlinkRoots = lib.concatStringsSep " " symlinkRoots;
     nativeBuildInputs = [ gnused ];
+    inherit outputs;
+    propagatedBuildOutputs = [ ];  #< disable propagation, since we disabled the `dev` output via which things are ordinarily propagated
   } ''
     set -e
     symlinkPath() {
-      if [ -e "$out/$1" ]; then
+      local inbase="$1"
+      local outbase="$2"
+      local path="$3"
+      if [ -e "$outbase/$path" ]; then
         :  # already linked. may happen when e.g. the package has bin/foo, and sbin -> bin.
-      elif [ -L "${package}/$1" ]; then
-        local target=$(readlink "${package}/$1")
-        if [[ "$target" =~ ^${package}/ ]]; then
+      elif [ -L "$inbase/$path" ]; then
+        local target=$(readlink "$inbase/$path")
+        if [[ "$target" =~ ^$inbase/ ]]; then
           # absolute link back into the same package
-          echo "handling $1: descending into absolute symlink to same package: $target"
+          echo "handling $path: descending into absolute symlink to same package: $target"
           target=$(echo "$target" | sed 's:${package}/::')
-          ln -s "$out/$target" "$out/$1"
+          ln -s "$outbase/$target" "$outbase/$path"
           # create/link the backing path
           # N.B.: if some leading component of the backing path is also a symlink... this might not work as expected.
           local parent=$(dirname "$out/$target")
           mkdir -p "$parent"
-          symlinkPath "$target"
+          symlinkPath "$inbase" "$outbase" "$target"
         elif [[ "$target" =~ ^/nix/store/ ]]; then
           # absolute link to another package
-          echo "handling $1: symlinking absolute store path: $target"
-          ln -s "$target" "$out/$1"
+          echo "handling $path: symlinking absolute store path: $target"
+          ln -s "$target" "$outbase/$path"
         else
           # relative link
-          echo "handling $1: descending into relative symlink: $target"
-          ln -s "$target" "$out/$1"
-          local parent=$(dirname "$1")
-          local derefParent=$(dirname "$out/$parent/$target")
+          echo "handling $path: descending into relative symlink: $target"
+          ln -s "$target" "$outbase/$path"
+          local parent=$(dirname "$path")
+          local derefParent=$(dirname "$outbase/$parent/$target")
           $(set -x && mkdir -p "$derefParent")
-          symlinkPath "$parent/$target"
+          symlinkPath "$inbase" "$outbase" "$parent/$target"
         fi
-      elif [ -d "${package}/$1" ]; then
-        echo "handling $1: descending into directory"
-        mkdir -p "$out/$1"
-        items=($(ls -a "${package}/$1"))
+      elif [ -d "$inbase/$path" ]; then
+        echo "handling $path: descending into directory"
+        mkdir -p "$outbase/$path"
+        items=($(ls -a "$inbase/$path"))
         for item in "''${items[@]}"; do
           if [ "$item" != . ] && [ "$item" != .. ] && [[ "$item" != .* ]]; then
-            symlinkPath "$1/$item"
+            symlinkPath "$inbase" "$outbase" "$path/$item"
           fi
         done
-      elif [ -e "${package}/$1" ]; then
-        echo "handling $1: symlinking ordinary file"
-        ln -s "${package}/$1" "$out/$1"
+      elif [ -e "$inbase/$path" ]; then
+        echo "handling $path: symlinking ordinary file"
+        ln -s "$inbase/$path" "$outbase/$path"
       fi
     }
-    mkdir -p "$out"
-    _symlinkRoots=($symlinkRoots)
-    for root in "''${_symlinkRoots[@]}"; do
-      echo "crawling top-level directory for symlinking: $root"
-      symlinkPath "$root"
-    done
+
+    crawlOutput() {
+      local inbase="$1"
+      local outbase="$2"
+      mkdir -p "$outbase"
+      _symlinkRoots=($symlinkRoots)
+      for root in "''${_symlinkRoots[@]}"; do
+        echo "crawling top-level directory for symlinking: $inbase/$root -> $outbase"
+        symlinkPath "$inbase" "$outbase" "$root"
+      done
+    }
+
+    ${lib.concatMapStringsSep "\n" (o:
+      "crawlOutput ${package."${o}"} $" + o
+    ) outputs}
+
     # allow downstream wrapping to hook this (and thereby actually wrap binaries, etc)
     runHook postInstall
     runHook postFixup
@@ -288,55 +305,67 @@ let
 
       # remove any files which exist in sandoxedBin (makes it possible to sandbox /opt-style packages)
       removeUnwanted() {
-        local file_=$(basename "$1")
-        if [ -f "$out/$1" ] || [ -L "$out/$1" ]; then
-          if [ -e "${sandboxedBin}/$1" ]; then
-            rm "$out/$1"
-          fi
-        elif [ -d "$out/$1" ]; then
-          local files=($(ls -a "$out/$1"))
+        local outbase="$1"
+        local path="$2"
+        local file_=$(basename "$path")
+        if [ -f "$outbase/$path" ] || [ -L "$outbase/$path" ]; then
+          for sboxBase in ${lib.concatStringsSep " " sandboxedBin.all}; do
+            if [ -e "$sboxBase/$path" ]; then
+              rm "$outbase/$path"
+            fi
+          done
+        elif [ -d "$outbase/$path" ]; then
+          local files=($(ls -a "$outbase/$path"))
           for item in "''${files[@]}"; do
             if [ "$item" != . ] && [ "$item" != .. ]; then
-              removeUnwanted "$1/$item"
+              removeUnwanted "$outbase" "$path/$item"
             fi
           done
         fi
       }
-      removeUnwanted ""
 
-      # fixup a few files i understand well enough
-      for d in \
-        $out/etc/xdg/autostart/*.desktop \
-        $out/share/applications/*.desktop \
-        $out/share/dbus-1/{services,system-services}/*.service \
-        $out/{etc,lib,share}/systemd/{system,user}/*.service \
-      ; do
-        # Exec: dbus and desktop files
-        # ExecStart,ExecReload: systemd service files
-        for key in Exec ExecStart ExecReload; do
-          for binLoc in bin libexec sbin; do
-            trySubstitute "$d" "$key=%s/$binLoc/"
+      for output in $outputs; do
+        local outdir=''${!output}
+        removeUnwanted "$outdir" ""
+
+        # fixup a few files i understand well enough
+        for d in \
+          $outdir/etc/xdg/autostart/*.desktop \
+          $outdir/share/applications/*.desktop \
+          $outdir/share/dbus-1/{services,system-services}/*.service \
+          $outdir/{etc,lib,share}/systemd/{system,user}/*.service \
+        ; do
+          # Exec: dbus and desktop files
+          # ExecStart,ExecReload: systemd service files
+          for key in Exec ExecStart ExecReload; do
+            for binLoc in bin libexec sbin; do
+              trySubstitute "$d" "$key=%s/$binLoc/"
+            done
           done
         done
       done
     '';
-    passthru = (prevAttrs.passthru or {}) // {
+    passthru = let
       # check that sandboxedNonBin references only sandboxed binaries, and never the original unsandboxed binaries.
       # do this by dereferencing all sandboxedNonBin symlinks, and making `unsandboxed` a disallowedReference.
-      checkSandboxed = let
-        sandboxedNonBin = fixHardcodedRefs unsandboxed sandboxedBin unsandboxedNonBin;
-      in runCommandLocal "${sandboxedNonBin.name}-check-sandboxed"
-        { disallowedReferences = [ unsandboxed ]; }
+      sandboxedNonBin = fixHardcodedRefs unsandboxed sandboxedBin unsandboxedNonBin;
+      outputs = sandboxedNonBin.outputs or [ "out" ];
+      checkSandboxed = runCommandLocal "${sandboxedNonBin.name}-check-sandboxed"
+        {
+          inherit outputs;
+          disallowedReferences = [ unsandboxed ];
+          passthru.flat = linkFarm "${sandboxedNonBin.name}-check-sandboxed-flat" (builtins.map (o: { name = o; path = checkSandboxed."${o}"; }) outputs);
+        }
         # dereference every symlink, ensuring that whatever data is behind it does not reference non-sandboxed binaries.
         # the dereference *can* fail, in case it's a relative symlink that refers to a part of the non-binaries we don't patch.
         # in such case, this could lead to weird brokenness (e.g. no icons/images), so failing is reasonable.
         # N.B.: this `checkSandboxed` protects against accidentally referencing unsandboxed binaries from data files (.deskop, .service, etc).
         # there's an *additional* `checkSandboxed` further below which invokes every executable in the final package to make sure the binaries are truly sandboxed.
-        ''
-          cp -R --dereference "${sandboxedNonBin}" "$out"  # IF YOUR BUILD FAILS HERE, TRY SANDBOXING WITH "inplace"
-        ''
+        (lib.concatMapStringsSep "\n" (o:
+          "cp -R --dereference ${sandboxedNonBin."${o}"} $" + o
+        ) sandboxedNonBin.outputs or [ "out" ])
       ;
-    };
+    in (prevAttrs.passthru or {}) // { inherit checkSandboxed; };
   });
 
   # symlink the non-binary files from the unsandboxed package,
@@ -414,7 +443,7 @@ let
         test "$_numExec" -ne 0
         mkdir "$out"
         # forward prevAttrs checkSandboxed, to guarantee correctness for the /share directory (`sandboxNonBinaries`).
-        ln -s ${nonBin.checkSandboxed or "/dev/null"} "$out/sandboxed-non-binaries"
+        ln -s ${nonBin.checkSandboxed.flat or "/dev/null"} "$out/sandboxed-non-binaries"
       '';
     };
   });
@@ -450,21 +479,37 @@ let
           pkgName
           (symlinkBinaries pkgName unsandboxed);
         sandboxedNonBin = sandboxNonBinaries pkgName unsandboxed sandboxedBin;
-      in symlinkJoin {
-        name = "${pkgName}-sandboxed-all";
-        paths = [ sandboxedBin sandboxedNonBin ];
+        outputs = lib.unique (
+          (sandboxedBin.outputs or [ "out" ])
+          ++ (sandboxedNonBin.outputs or [ "out" ])
+        );
+      in runCommandLocal "${pkgName}-sandboxed-all" {
+        inherit outputs;
+        nativeBuildInputs = [ xorg.lndir ];
         passthru = { inherit sandboxedBin sandboxedNonBin unsandboxed; };
         # specifically, for priority
         meta = extractMeta sandboxedBin;
-      };
+      } ''
+        ${lib.concatMapStringsSep "\n" (o:
+          "mkdir -p $" + o + "\n"
+          + (lib.optionalString ((sandboxedBin."${o}" or null) != null) ("lndir -silent ${sandboxedBin.${o}} $" + o + "\n"))
+          + (lib.optionalString ((sandboxedNonBin."${o}" or null) != null) ("lndir -silent ${sandboxedNonBin.${o}} $" + o + "\n"))
+        ) outputs}
+        runHook postInstall
+        runHook postFixup
+      '';
     };
     packageWrapped = sandboxedBy."${wrapperType}";
-  in
-    fixupMetaAndPassthru pkgName packageWrapped (passthru // {
+    packageWithMeta = fixupMetaAndPassthru pkgName packageWrapped (passthru // {
       # allow the user to build this package, but sandboxed in a different manner.
       # e.g. `<pkg>.sandboxedBy.inplace`.
       # e.g. `<pkg>.sandboxedBy.wrappedDerivation.sandboxedNonBin`
       inherit sandboxedBy;
-    })
+    });
+  in if package.outputSpecified or false then
+    # packages like `dig` are actually aliases to `bind.dnsutils`, so preserve that
+    packageWithMeta."${package.outputName}"
+  else
+    packageWithMeta
   ;
 in make-sandboxed

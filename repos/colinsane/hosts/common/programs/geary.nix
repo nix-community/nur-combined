@@ -20,6 +20,7 @@ in
     };
 
     sandbox.method = "bwrap";
+    sandbox.wrapperType = "inplace";  #< XXX(2024-08-20): if executed from a directory different than the configured prefix, it fails to locate its sql migration files
     sandbox.net = "clearnet";
     sandbox.whitelistDbus = [ "user" ];  # notifications
     sandbox.whitelistWayland = true;

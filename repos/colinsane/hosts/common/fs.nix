@@ -183,6 +183,7 @@ let
         # drop_privileges: after `mount.fuse3` opens /dev/fuse, it will drop all capabilities before invoking sshfs
         "drop_privileges"
         "auto_unmount"  #< ensures that when the fs exits, it releases its mountpoint. then systemd can recognize it as failed.
+        "interface=0.0.0.0"  #< see: <https://github.com/curl/curl/discussions/14299>
       ];
       # fsType = "nfs";
       # options = fsOpts.nfs ++ fsOpts.lazyMount;
@@ -240,7 +241,10 @@ let
         "ftp://servo-hn:/${subdir}"
         "/dev/null"
         "-o"
-        (lib.concatStringsSep "," ([ "exit_after_connect" ] ++ config.fileSystems."${localPath}".options))
+        (lib.concatStringsSep "," ([
+          "exit_after_connect"
+          "interface=0.0.0.0"  #< see: <https://github.com/curl/curl/discussions/14299>
+        ] ++ config.fileSystems."${localPath}".options))
       ];
       serviceConfig.RemainAfterExit = true;
       serviceConfig.Type = "oneshot";

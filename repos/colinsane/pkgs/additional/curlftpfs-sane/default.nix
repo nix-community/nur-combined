@@ -16,8 +16,8 @@
     domain = "git.uninsane.org";
     owner = "colin";
     repo = "curlftpfs";
-    rev = "fuse3";
-    hash = "sha256-QwGbQuriNwnZscnYBEVp3Td6/ifiA8rtQcvtvmTnpbU=";
+    rev = "master";
+    hash = "sha256-bqkRHV4d1y349yIHAtXPMlfWciVCH/geW73id8aJwUs=";
   };
   # `mount` clears PATH before calling the mount helper (see util-linux/lib/env.c),
   # so the traditional /etc/fstab approach of fstype=fuse and device = curlftpfs#URI doesn't work.
