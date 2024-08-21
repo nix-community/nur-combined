@@ -1740,10 +1740,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.2.1";
+      version = "4.2.5";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4334891/control_panel_for_twitter-4.2.1.xpi";
-      sha256 = "ba6680a8b3b8c55fa00657050d8839b56271e4f52abfe50c73c9d1b862c8a838";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4337609/control_panel_for_twitter-4.2.5.xpi";
+      sha256 = "b7025a2edbd8f2b19d291f30cc0fa498a2688081a692fb97e5cedd6dc0e148c4";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -2333,10 +2333,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.46.1";
+      version = "2.46.2";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4338381/dualsub-2.46.1.xpi";
-      sha256 = "29bd19a99bf1de9f444508dfd96b3c945638e8470e48b54bba3ae7049f6a51a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4340016/dualsub-2.46.2.xpi";
+      sha256 = "f837fae18bc1afd7bc382571a7f2fdd0a7dc2740eaea067b5314f3231a121786";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -4861,10 +4861,10 @@
     };
     "i2p-in-private-browsing" = buildFirefoxXpiAddon {
       pname = "i2p-in-private-browsing";
-      version = "2.5.8";
+      version = "2.6.0";
       addonId = "i2ppb@eyedeekay.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4317955/i2p_in_private_browsing-2.5.8.xpi";
-      sha256 = "7f9e4455bb7e5a61d74893cb456bd552a24479334205791801e96189054412ba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4339795/i2p_in_private_browsing-2.6.0.xpi";
+      sha256 = "ab75b4c58e2e669d353632d4a920102576e81f6cff81d7a102a1f9cd7637ac79";
       meta = with lib;
       {
         homepage = "https://github.com/eyedeekay/i2psetproxy.js";
@@ -4931,10 +4931,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.8.1";
+      version = "1.8.2";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4330442/immersive_translate-1.8.1.xpi";
-      sha256 = "e9630a0a5f1155bf335e04dc2b5320a8ca0da1b4cebd67a347eebb561850501c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4336719/immersive_translate-1.8.2.xpi";
+      sha256 = "4ecc7740917a6c4a91c4dfcb588e1899bf846c939cf1a85773f4359ae5bfcfee";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -4960,10 +4960,10 @@
     };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.1093";
+      version = "4.1095";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4334089/youtube_addon-4.1093.xpi";
-      sha256 = "b06c862d223bef895822114fc5be1a3a903c1464c11322d440725be5f068bf53";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4339680/youtube_addon-4.1095.xpi";
+      sha256 = "48a6bf200a3e7f57b06a0f8e26dc5c7071e08c852354d6a2b9c4913d86f4f369";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -5380,10 +5380,10 @@
     };
     "javascript-restrictor" = buildFirefoxXpiAddon {
       pname = "javascript-restrictor";
-      version = "0.18.1";
+      version = "0.19";
       addonId = "jsr@javascriptrestrictor";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4310951/javascript_restrictor-0.18.1.xpi";
-      sha256 = "fbcef45827179d11064064346634fd74c338d98941456e1404700ef5feabea74";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4339678/javascript_restrictor-0.19.xpi";
+      sha256 = "5cb1dfdb609fde9cdf35c7b669855bc4a2dcac0d5e3e0a4e219367a61c709e0b";
       meta = with lib;
       {
         homepage = "https://jshelter.org";
@@ -5632,10 +5632,10 @@
     };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "8.11.6";
+      version = "8.11.7";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4332776/languagetool-8.11.6.xpi";
-      sha256 = "dc14ac983d3fb5f91ea3930451529e1cb8919f79e375cdae293e6b49c6c419a4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4337379/languagetool-8.11.7.xpi";
+      sha256 = "60a3564a300188fd9066e3f331f0350aabbe468a8de6a835d03654c18712afae";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -9155,10 +9155,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.8.13";
+      version = "24.8.20";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4336164/refined_github-24.8.13.xpi";
-      sha256 = "0a48e32c041f6473d965059bf1bf37551c7e9c56d8a95dc082174e3cff0c2d22";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4339819/refined_github-24.8.20.xpi";
+      sha256 = "03904cb0ee8b64eca5aea373914bedeb6aede40b5799f09088b7c3a703063c17";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -11736,10 +11736,10 @@
     };
     "w2g" = buildFirefoxXpiAddon {
       pname = "w2g";
-      version = "10.2";
+      version = "10.3";
       addonId = "{6ea0a676-b3ef-48aa-b23d-24c8876945fb}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4310191/w2g-10.2.xpi";
-      sha256 = "b981efd542fcfa9dbbcfcaffecfbc6d33797080195b42af058d83440a83eed3e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4337397/w2g-10.3.xpi";
+      sha256 = "cc0271c54fbdffdb401e85dd2634c0a7084c1796a03b28067d62ba6a048904e9";
       meta = with lib;
       {
         homepage = "https://w2g.tv";
@@ -11782,10 +11782,10 @@
     };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.70";
+      version = "6.10.71";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4316416/wappalyzer-6.10.70.xpi";
-      sha256 = "a96d8dda5808e689042aa25a177c011fc2060cd16d1c6613c0c4e928c76d34fc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4337540/wappalyzer-6.10.71.xpi";
+      sha256 = "4804029578f01f9d08cf95a13e4c62923a5a524afb94d5c5ecf9ff9e589f6185";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -12312,10 +12312,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.7.31.0";
+      version = "24.8.12.1";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4335835/yomitan-24.7.31.0.xpi";
-      sha256 = "63b57e2e4cfd48a1d7f2323e2ce3c8c87cda147b9674ab309cb4d0b238fd29bb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4339601/yomitan-24.8.12.1.xpi";
+      sha256 = "fc3d661d6a63522e0407d1c5541b5475a30d13fa74dbcea335e160d8dd535709";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
@@ -12428,10 +12428,10 @@
     };
     "youtube-screenshot-button" = buildFirefoxXpiAddon {
       pname = "youtube-screenshot-button";
-      version = "4.2.0";
+      version = "4.3.0.61";
       addonId = "{d8b32864-153d-47fb-93ea-c273c4d1ef17}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4207366/youtube_screenshot_button-4.2.0.xpi";
-      sha256 = "670ef9fbc2374001e3d91380c13bdc5739f2d61d061e53b7371128bb65ffe808";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4339643/youtube_screenshot_button-4.3.0.61.xpi";
+      sha256 = "36cc485cb8669d742338cdf970aece2f145c76177fd46926ffc6aafff86e6961";
       meta = with lib;
       {
         homepage = "https://github.com/gurumukhi/youtube-screenshot";
