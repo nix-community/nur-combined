@@ -18,11 +18,6 @@
         flake-compat.follows = "";
       };
     };
-
-    nix-build-uncached-src = {
-      url = "git+https://codeberg.org/FedericoSchonborn/nix-build-uncached";
-      flake = false;
-    };
   };
 
   outputs =
@@ -101,29 +96,21 @@
           legacyPackages = import ./. { inherit lib pkgs system; };
           packages = import ./flattenTree.nix config.legacyPackages;
 
-          devShells = {
-            default = pkgs.mkShellNoCC {
-              packages = with pkgs; [
-                deadnix
-                jq
-                nix-inspect
-                nix-tree
-                nushell
-                statix
-                nix-init
-                nix-update
-              ];
+          devShells.default = pkgs.mkShellNoCC {
+            packages = with pkgs; [
+              deadnix
+              jq
+              nix-inspect
+              nix-tree
+              nushell
+              statix
+              nix-init
+              nix-update
+            ];
 
-              shellHook = ''
-                ${config.pre-commit.installationScript}
-              '';
-            };
-
-            nix-build-uncached = pkgs.mkShellNoCC {
-              packages = [
-                (pkgs.nix-build-uncached.overrideAttrs (_: _: { src = inputs.nix-build-uncached-src; }))
-              ];
-            };
+            shellHook = ''
+              ${config.pre-commit.installationScript}
+            '';
           };
 
           apps = {

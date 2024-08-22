@@ -274,7 +274,7 @@ Neodog emojis by @moonrabbits@shonk.phite.ro.
 Various emoji packs from Liv Asch.
 
 - Name: `olivvybee-blobbee`
-- Version: `2024.07.30.1`
+- Version: `2024.08.21.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - [Source](./pkgs/akkoma-emoji/olivvybee/blobbee/package.nix#L30)
@@ -300,7 +300,7 @@ Various emoji packs from Liv Asch.
 Various emoji packs from Liv Asch.
 
 - Name: `olivvybee-fox`
-- Version: `2024.07.30.1`
+- Version: `2024.08.21.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - [Source](./pkgs/akkoma-emoji/olivvybee/fox/package.nix#L30)
@@ -326,7 +326,7 @@ Various emoji packs from Liv Asch.
 Various emoji packs from Liv Asch.
 
 - Name: `olivvybee-neobread`
-- Version: `2024.07.30.1`
+- Version: `2024.08.21.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - [Source](./pkgs/akkoma-emoji/olivvybee/neobread/package.nix#L30)
@@ -352,7 +352,7 @@ Various emoji packs from Liv Asch.
 Various emoji packs from Liv Asch.
 
 - Name: `olivvybee-neodlr`
-- Version: `2024.07.30.1`
+- Version: `2024.08.21.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - [Source](./pkgs/akkoma-emoji/olivvybee/neodlr/package.nix#L30)
@@ -378,7 +378,7 @@ Various emoji packs from Liv Asch.
 Various emoji packs from Liv Asch.
 
 - Name: `olivvybee-neofriends`
-- Version: `2024.07.30.1`
+- Version: `2024.08.21.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - [Source](./pkgs/akkoma-emoji/olivvybee/neofriends/package.nix#L30)
@@ -404,7 +404,7 @@ Various emoji packs from Liv Asch.
 Various emoji packs from Liv Asch.
 
 - Name: `olivvybee-neossb`
-- Version: `2024.07.30.1`
+- Version: `2024.08.21.1`
 - [Homepage](https://github.com/olivvybee/emojis)
 - License: Unfree
 - [Source](./pkgs/akkoma-emoji/olivvybee/neossb/package.nix#L30)
@@ -808,30 +808,6 @@ A test compositor to gain familiarity with Wayland and wlroots.
 - [Homepage](https://gitlab.com/serebit/flyaway)
 - License: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
 - [Source](./pkgs/by-name/flyaway/package.nix#L59)
-- Maintainers:
-  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
-  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Package details
-  </summary>
-
-- Outputs: **`out`**
-- Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`
-</details>
-
-### `gimp3`
-
-GNU Image Manipulation Program.
-
-- Name: `gimp`
-- Version: `2.99.18`
-- [Homepage](https://www.gimp.org/)
-- License: [`GPL-3.0-or-later`](https://spdx.org/licenses/GPL-3.0-or-later.html "GNU General Public License v3.0 or later")
-- [Source](./pkgs/by-name/gimp3/package.nix#L199)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1263,7 +1239,7 @@ Camera application for Plasma Mobile.
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 
 - Name: `pnut`
-- Version: `0-unstable-2024-08-16`
+- Version: `0-unstable-2024-08-19`
 - [Homepage](https://github.com/udem-dlteam/pnut)
 - License: [`BSD-2-Clause`](https://spdx.org/licenses/BSD-2-Clause.html 'BSD 2-clause "Simplified" License')
 - [Source](./pkgs/by-name/pnut/package.nix#L44)
@@ -1705,7 +1681,7 @@ Fastest JSON library in C.
 - [Homepage](https://github.com/ibireme/yyjson)
 - [Changelog](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](https://github.com/NixOS/nixpkgs/blob/a0d6390/pkgs/development/libraries/yyjson/default.nix#L23)
+- [Source](https://github.com/NixOS/nixpkgs/blob/36a9aea/pkgs/development/libraries/yyjson/default.nix#L23)
 - Maintainers:
   - [Yohann Boniface](https://github.com/Sigmanificient) <[`sigmanificient@gmail.com`](mailto:sigmanificient@gmail.com)>
   - [✉️ Mail to all maintainers](mailto:sigmanificient@gmail.com)

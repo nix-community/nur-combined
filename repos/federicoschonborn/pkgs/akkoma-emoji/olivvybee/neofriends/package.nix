@@ -7,11 +7,11 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "olivvybee-neofriends";
-  version = "2024.07.30.1";
+  version = "2024.08.21.1";
 
   src = fetchzip {
     url = "https://github.com/olivvybee/emojis/releases/download/${finalAttrs.version}/neofriends.tar.gz";
-    hash = "sha256-4IQNQ+idJeqO09GK0lLuFnXXyNggGGHpG+J3qTRW49Y=";
+    hash = "sha256-hbbQtvyguZlJAEWpuEbuPG1Fhvo7uh64UqEP9X4Bi7c=";
     stripRoot = false;
   };
 
