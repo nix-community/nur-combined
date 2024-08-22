@@ -25,7 +25,15 @@ with pythonPackages; let
   };
   matrix-nio = if lib.versionOlder pythonPackages.matrix-nio.version "0.21"
     then matrix-nio-0_21
-    else if pythonPackages.matrix-nio.version == "0.24.0" && lib.versionAtLeast pythonPackages.aiohttp-socks.version "0.9"
+    else if lib.isNixpkgsStable
+    then pythonPackages.matrix-nio.overridePythonAttrs (old: {
+      nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [
+        pythonRelaxDepsHook
+      ];
+      pythonRelaxDeps = [
+        "cachetools"
+      ];
+    }) else if pythonPackages.matrix-nio.version == "0.24.0" && lib.versionAtLeast pythonPackages.aiohttp-socks.version "0.9"
     then matrix-nio-0_24
     else pythonPackages.matrix-nio;
 
