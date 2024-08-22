@@ -81,9 +81,18 @@ in
 
   "pyload/credentials.age".publicKeys = all;
 
-  "sso/auth-key.age".publicKeys = all;
-  "sso/ambroisie/password-hash.age".publicKeys = all;
-  "sso/ambroisie/totp-secret.age".publicKeys = all;
+  "sso/auth-key.age" = {
+    owner = "nginx-sso";
+    publicKeys = all;
+  };
+  "sso/ambroisie/password-hash.age" = {
+    owner = "nginx-sso";
+    publicKeys = all;
+  };
+  "sso/ambroisie/totp-secret.age" = {
+    owner = "nginx-sso";
+    publicKeys = all;
+  };
 
   "tandoor-recipes/secret-key.age".publicKeys = all;
 
