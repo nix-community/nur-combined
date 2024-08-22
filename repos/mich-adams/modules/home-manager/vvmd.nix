@@ -23,7 +23,7 @@ in {
         Service = {
           ExecStart = [
             ""
-            "${cfg.package}/bin/vvmd"
+            "${(pkgs.callPackage ../../pkgs/vvmd.nix {})}/bin/vvmd"
           ];
           Restart = "always";
         };
