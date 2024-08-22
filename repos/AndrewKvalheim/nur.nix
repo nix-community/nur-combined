@@ -29,17 +29,16 @@ rec {
   co2monitor = pkgs.callPackage ./packages/co2monitor.nix { };
   decompiler-mc = pkgs.callPackage ./packages/decompiler-mc.nix { };
   dmarc-report-notifier = pkgs.callPackage ./packages/dmarc-report-notifier.nix {
-    # Dependency pkgs.python3Packages.parsedmarc was broken on 2024-03-12 by
-    # NixOS/nixpkgs#294305. A workaround was subsequently applied to dependent
-    # pkgs.parsedmarc in NixOS/nixpkgs#280940 but the library remains broken, so
-    # here we duplicate the workaround.
-    python3Packages = pkgs.lib.throwIfNot pkgs.python3Packages.parsedmarc.meta.broken
-      "python3Packages.parsedmarc is no longer broken"
-      (pkgs.python3.override {
-        packageOverrides = _: _: {
-          msgraph-core = pkgs.lib.findFirst (p: p.pname == "msgraph-core") null pkgs.parsedmarc.requiredPythonModules;
-        };
-      }).pkgs;
+    python3Packages = (pkgs.python3.override {
+      packageOverrides = _: _: {
+        # Dependency pkgs.python3Packages.parsedmarc was broken on 2024-03-12 by
+        # NixOS/nixpkgs#294305. A workaround was subsequently applied to dependent
+        # pkgs.parsedmarc in NixOS/nixpkgs#280940 but the library remains broken, so
+        # here we duplicate the workaround.
+        msgraph-core = pkgs.lib.throwIfNot pkgs.python3Packages.parsedmarc.meta.broken "python3Packages.parsedmarc is no longer broken"
+          (pkgs.lib.findFirst (p: p.pname == "msgraph-core") null pkgs.parsedmarc.requiredPythonModules);
+      };
+    }).pkgs;
   };
   fastnbt-tools = pkgs.callPackage ./packages/fastnbt-tools.nix { };
   fediblockhole = pkgs.callPackage ./packages/fediblockhole.nix { };

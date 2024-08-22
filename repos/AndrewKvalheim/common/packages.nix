@@ -7,7 +7,7 @@ let
   open-vsx = { _name = "open-vsx"; vscode-extensions = community-vscode-extensions.open-vsx; };
   vscode-marketplace = { _name = "vscode-marketplace"; vscode-extensions = community-vscode-extensions.vscode-marketplace; };
 in
-specify {
+(specify {
   add-words = any;
   affine-font = any;
   album-art = any;
@@ -54,6 +54,7 @@ specify {
   josm-hidpi = any;
   josm-imagery-used = any;
   just-local = any;
+  kitty.version = "≥0.35.1"; # kovidgoyal/kitty#7413
   little-a-map = any;
   minemap = any;
   mmdbinspect = any;
@@ -75,7 +76,7 @@ specify {
     charliermarsh.ruff.version = "≥2024.22.0";
     compilouit.xkb.search = open-vsx;
     csstools.postcss.search = open-vsx;
-    earshinov.permute-lines.search = [ open-vsx vscode-marketplace ];
+    earshinov.permute-lines.search = open-vsx;
     earshinov.simple-alignment.search = open-vsx;
     eseom.nunjucks-template.search = open-vsx;
     exiasr.hadolint.search = open-vsx;
@@ -88,12 +89,15 @@ specify {
     ronnidc.nunjucks.search = [ open-vsx vscode-marketplace ];
     silvenon.mdx.search = open-vsx;
     sissel.shopify-liquid.search = open-vsx;
-    syler.sass-indented.search = [ open-vsx vscode-marketplace ];
+    syler.sass-indented.search = open-vsx;
     theaflowers.qalc.search = open-vsx;
     volkerdobler.insertnums.search = [ open-vsx vscode-marketplace ];
     ybaumes.highlight-trailing-white-spaces.search = open-vsx;
   };
-  vscodium.gappsWrapperArgs = "--unset NIXOS_OZONE_WL"; # Workaround for blurriness and mangled keybindings
+  vscodium = {
+    gappsWrapperArgs = "--unset NIXOS_OZONE_WL"; # Workaround for blurriness and mangled keybindings
+    version = "≥1.92"; # Required by Syler.sass-indented
+  };
   whipper = {
     condition = w: w.dontWrapGApps or false; # NixOS/nixpkgs#316717
     patch = [ ../packages/resources/whipper_flac-level.patch ../packages/resources/whipper_speed.patch ../packages/resources/whipper_detect-tty.patch ];
@@ -108,4 +112,15 @@ specify {
   };
   zsh-abbr.condition = z: !z.meta.unfree;
   zsh-click = any;
+}) // {
+  pythonPackagesExtensions = stable.pythonPackagesExtensions ++ [
+    (_: pythonPackages: {
+      matrix-nio = pythonPackages.matrix-nio.overridePythonAttrs (matrix-nio: {
+        pythonRelaxDeps = matrix-nio.pythonRelaxDeps or [ ] ++ [ "aiohttp-socks" ]; # Pending matrix-nio/matrix-nio#516
+        nativeCheckInputs = # Check phase isn’t vulnerable to NixOS/nixpkgs#334638
+          let olm = stable.olm.overrideAttrs (olm: { meta = olm.meta // { knownVulnerabilities = builtins.filter (v: ! stable.lib.hasInfix "334638" v) olm.meta.knownVulnerabilities or [ ]; }; });
+          in map (p: if p.pname or null == "python-olm" then p.override { inherit olm; } else p) matrix-nio.nativeCheckInputs;
+      });
+    })
+  ];
 }

@@ -139,7 +139,10 @@ in
     };
 
     # Configuration
-    home.sessionVariables.ANSIBLE_NOCOWS = "✓";
+    home.sessionVariables = {
+      ANSIBLE_NOCOWS = "🐄"; # Workaround for ansible/ansible#10530
+      PYTHON_KEYRING_BACKEND = "keyring.backends.fail.Keyring"; # Workaround for python-poetry/poetry#8761
+    };
     xdg.configFile."autostart/emote.desktop".source = "${pkgs.emote}/share/applications/emote.desktop";
     xdg.configFile."cargo-release/release.toml".source = toTOML "release.toml" {
       push = false;
