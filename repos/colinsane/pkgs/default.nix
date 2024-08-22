@@ -19,6 +19,7 @@ let
     alsa-ucm-pinephone-pmos = callPackage ./additional/alsa-ucm-pinephone-pmos { };
     blast-ugjka = callPackage ./additional/blast-ugjka { };
     bootpart-uefi-x86_64 = callPackage ./additional/bootpart-uefi-x86_64 { };
+    bunpen = callPackage ./additional/bunpen { };
     cargoDocsetHook = callPackage ./additional/cargo-docset/hook.nix { };
     chatty-latest = callPackage ./additional/chatty-latest { };
     clightning-sane = callPackage ./additional/clightning-sane { };
