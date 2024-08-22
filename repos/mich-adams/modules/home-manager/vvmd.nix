@@ -13,7 +13,7 @@ in {
 
     config = mkIf cfg.enable {
 
-      home.packages = [ (pkgs.callPackage ../../pkgs/vvmplayer.nix) (pkgs.callPackage ../../pkgs/vvmd.nix {}) ];
+      home.packages = [ (pkgs.callPackage ../../pkgs/vvmplayer.nix {}) (pkgs.callPackage ../../pkgs/vvmd.nix {}) ];
 
       systemd.user.services."vvmd" = {
         Unit = {
