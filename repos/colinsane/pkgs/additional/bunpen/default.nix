@@ -9,6 +9,8 @@
   nativeBuildInputs = [ hareHook ];
   makeFlags = [ "PREFIX=${builtins.placeholder "out"}" ];
 
+  doCheck = true;
+
   meta = {
     description = "userspace sandbox helper";
     longDescription = ''

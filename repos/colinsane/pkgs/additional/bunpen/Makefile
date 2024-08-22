@@ -7,4 +7,7 @@ install:
 	mkdir -p $(PREFIX)/bin
 	install -m755 bunpen $(PREFIX)/bin
 
-.PHONY: all install
+test:
+	hare test src
+
+.PHONY: all install test
