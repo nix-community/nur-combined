@@ -33,6 +33,12 @@ in
   # })
 
   (fetchpatch' {
+    title = "librewolf-unwrapped: use nvidia explicit sync vendored patches";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/336304";
+    hash = "sha256-JkN7Yapfiz4FbxiCf/aPcnvaITXbZXGnTadBhVsAuFY=";
+  })
+
+  (fetchpatch' {
     title = "nixos/pam: replace apparmor warnings with assertions";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/332119";
     saneCommit = "17e5fa9dc3c6d9f1fbfa2b23f6e1ae5c7e17bebd";
