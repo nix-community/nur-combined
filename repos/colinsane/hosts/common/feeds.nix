@@ -86,6 +86,7 @@ let
     (fromDb "hackerpublicradio.org" // tech)
     (fromDb "lexfridman.com/podcast" // rat)
     (fromDb "linktr.ee/betteroffline" // pol)
+    (fromDb "linuxdevtime.com" // tech)
     (fromDb "mapspodcast.libsyn.com" // uncat)  # Multidisciplinary Association for Psychedelic Studies
     (fromDb "microarch.club" // tech)
     (fromDb "mintcast.org" // tech)
