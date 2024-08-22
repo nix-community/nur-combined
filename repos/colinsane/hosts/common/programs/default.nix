@@ -79,6 +79,7 @@
     ./gthumb.nix
     ./gvfs.nix
     ./handbrake.nix
+    ./haredoc.nix
     ./helix.nix
     ./htop
     ./iio-sensor-proxy.nix

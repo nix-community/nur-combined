@@ -181,6 +181,7 @@ in
 
     pcConsoleUtils = declPackageSet [
       # "gh"  # MS GitHub cli
+      "haredoc"
       "nix-index"
       "nixpkgs-review"
       "qmk-udev-rules"
