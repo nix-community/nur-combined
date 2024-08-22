@@ -9,18 +9,11 @@ in {
 
   options.services.vvmd = {
     enable = mkEnableOption "vvmd";
-
-      package = mkOption {
-        type = types.package;
-        default = pkgs.nur.repos.mich-adams.vvmd;
-        defaultText = "pkgs.nur.repos.mich-adams.vvmd";
-        description = "The package to use for vvmd.";
-      };
     };
 
     config = mkIf cfg.enable {
 
-      home.packages = [ cfg.package pkgs.nur.repos.mich-adams.vvmplayer ];
+      home.packages = [ (pkgs.callPackage ../../pkgs/vvmplayer.nix) (pkgs.callPackage ../../pkgs/vvmd.nix {}) ];
 
       systemd.user.services."vvmd" = {
         Unit = {
