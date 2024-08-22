@@ -101,6 +101,11 @@ call HotpopMap('nmap',     '',         ',/',         ':Ag ',                    
 call HotpopMap('map',      '',         '<leader>w',  ':silent FixWhitespace<cr>',          'Format',        'Fix all whitespace')
 call HotpopMap('noremap',  '',         '<c-]>',      ':call SearchUnderCursor()<CR>',      'FZF',           'SilverSearch word under cursor')
 
+call HotpopMap('inoremap', '',         '<C-k>',      '<C-R>=linny#btx()<CR>',              'Linny',         'Browse through Taxonomies INS Mode')
+call HotpopMap('nmap',     '',         '<C-k>',      ':start<CR> <C-R>=linny#btx()<CR>',   'Linny',         'Browse through Taxonomies')
+call HotpopMap('inoremap', '',         '<C-l>',      '<C-R>=linny#btr()<CR>',              'Linny',         'Browse through Terms INS Mode')
+call HotpopMap('nmap',     '',         '<C-l>',      ':start<CR> <C-R>=linny#btr()<CR>',   'Linny',         'Browse through Terms')
+
 " REMAPS
 
 call HotpopMap('map',      '',         '<leader>1',  ":call PMToggleView('nerdtree')<CR>", 'Left Panels',   'Toggle NERDTree panel')
@@ -112,10 +117,6 @@ call HotpopMap('nmap',     '',         '<leader>jf', ':%!jq '.'<CR>',           
 call HotpopMap('map',      '',         '<leader>tb', ':silent TableModeRealign<CR>',       'Writing',       'Markdown Table re-aling')
 call HotpopMap('xmap',     '',         'ga',         '<Plug>(EasyAlign)',                  'Align',         'Interactive EasyAlign in VIS mode E.g. vipga')
 call HotpopMap('nmap',     '',         'ga',         '<Plug>(EasyAlign)',                  'Align',         'Interactive EasyAlign for a motion/text object E.g. gaip')
-call HotpopMap('inoremap', '',         '<C-k>',      '<C-R>=linny#btx()<CR>',              'Linny',         'Browse through Taxonomies INS Mode')
-call HotpopMap('nmap',     '',         '<C-k>',      ':start<CR> <C-R>=linny#btx()<CR>',   'Linny',         'Browse through Taxonomies')
-call HotpopMap('inoremap', '',         '<C-l>',      '<C-R>=linny#btr()<CR>',              'Linny',         'Browse through Terms INS Mode')
-call HotpopMap('nmap',     '',         '<C-l>',      ':start<CR> <C-R>=linny#btr()<CR>',   'Linny',         'Browse through Terms')
 call HotpopMap('map',      '<silent>', ',ff',        ':!open "%:p:h"<CR><CR>',             'File',          'Open current file with OS default application')
 call HotpopMap('map',      '<silent>', ',o',         ':OIFM<CR>',                          'File',          'Show current file in Filemanager')
 call HotpopMap('map',      '<silent>', ',m',         ':MIP<CR>',                           'File',          'Open current file in MIP')

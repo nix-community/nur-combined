@@ -2,10 +2,10 @@
 
 {
   environment.systemPackages = with pkgs; [
-    unstable.prismlauncher
-    unstable.jdk17
-    unstable.minecraft
-    unstable.minecraft-server
+    #pkgs.prismlauncher
+    #pkgs.jdk17
+    #pkgs.minecraft
+    #pkgs.minecraft-server
   ];
 }
 

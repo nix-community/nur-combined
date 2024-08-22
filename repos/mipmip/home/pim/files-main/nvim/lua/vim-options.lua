@@ -1,6 +1,8 @@
-vim.g.linnycfg_path_wiki_content = vim.env.HOME .. '/secondbrain/wikiContent'
-vim.g.linnycfg_path_wiki_config = vim.env.HOME .. '/secondbrain/wikiConfig'
-vim.g.linnycfg_path_index = vim.env.HOME .. '/secondbrain/wikiIndex'
+vim.g.linny_open_notebook_path = vim.env.HOME .. '/secondbrain'
+--vim.g.linnycfg_path_wiki_content = vim.env.HOME .. '/secondbrain/wikiContent'
+--vim.g.linnycfg_path_wiki_config = vim.env.HOME .. '/secondbrain/wikiConfig'
+--vim.g.linnycfg_path_index = vim.env.HOME .. '/secondbrain/wikiIndex'
+
 vim.g.linny_menu_display_docs_count = 1
 vim.g.linny_menu_display_taxo_count = 1
 vim.g.linnycfg_setup_autocommands = 1
@@ -9,7 +11,6 @@ vim.g.linnycfg_setup_autocommands = 1
 vim.cmd [[
 let g:linny_wikitags_register = {}
 ]]
-
 
 vim.filetype.add({
   extension = {

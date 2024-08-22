@@ -5,16 +5,16 @@ home:
     - source: mipmip/secondbrain
     - source: mipmip/nixos
 
-awesomewm:
-  base_dir: ~/cAwesomeWm
-  repos:
-    - source: mipmip/awesomewm-screenshots
+#awesomewm:
+#  base_dir: ~/cAwesomeWm
+#  repos:
+#    - source: mipmip/awesomewm-screenshots
 
-dreammachine:
-  base_dir: ~/cDreamMachine
-  repos:
-    - source: mipmip/teledream
-    - source: techNative-B-V/slackdreams
+#dreammachine:
+#  base_dir: ~/cDreamMachine
+#  repos:
+#    - source: mipmip/teledream
+#    - source: techNative-B-V/slackdreams
 
 forks:
   base_dir: ~/cForks
@@ -33,6 +33,9 @@ github:
   base_dir: ~/cGithub
   repos:
     - source: mipmip/mipmip
+    - source: mipmip/g.it-depends
+    - source: mipmip/github-admin
+    - source: mipmip/skull
 
 gnome:
   base_dir: ~/cGnome
@@ -41,16 +44,16 @@ gnome:
     - source: mipmip/gnome-shell-extensions-highlight-focus
     - source: mipmip/gnome-shell-extensions-hotkeys-popup
     - source: mipmip/gnome-shell-extensions-useless-gaps
-    - source: mipmip/gnome-shell-extensions-dirty-git-indicator
-    - source: mipmip/hotkeys
-    - source: mipmip/gnome-plugin.custom-menu-panel
+    #    - source: mipmip/gnome-shell-extensions-dirty-git-indicator
+    #    - source: mipmip/hotkeys
+    #    - source: mipmip/gnome-plugin.custom-menu-panel
 
 linden:
   base_dir: ~/cLinden
   repos:
-    - source: linden-project/docker-frontmatter-md-to-pdf
     - source: linden-project/linden-project.github.io
     - source: linden-project/fred
+    - source: linden-project/linny-notebook-template
     - source: linden-project/linny.vim
       alert: this is cloned in ".vim/plugged/linny.vim"
 
@@ -59,10 +62,10 @@ nixdev:
   repos:
     - source: mipmip/home-manager-option-search
 
-passingtrain:
-  base_dir: ~/cPassingTrain
-  repos:
-    - source: passing-train/trajno
+#passingtrain:
+#  base_dir: ~/cPassingTrain
+#  repos:
+#    - source: passing-train/trajno
 
 cPimMarketingEco:
   base_dir: ~/cPimMarketingEco
@@ -121,26 +124,26 @@ technative:
     - source: TechNative-B-V/technative-docs-managed-services-handbook
     - source: TechNative-B-V/technative-docs-marcom-handbook
 
-adevinta:
-  base_dir: ~/tcAdevinta
-  repos:
-    - source: git@github.mpi-internal.com:platform-it/automobile-docs.git
-    - source: git@github.mpi-internal.com:platform-it/prometheus-cloudwatch-exporter
-    - source: git@github.mpi-internal.com:platform-it/terraform-module-elasticache.git
-    - source: git@github.mpi-internal.com:platform-it/ponto
-    - source: git@github.mpi-internal.com:automobile-it/automobile-opensearch-infrastructure
-    - source: git@github.mpi-internal.com:automobile-it/automobile-documentdb-infrastructure
-    - source: git@github.mpi-internal.com:automobile-it/automobile-elasticache-infrastructure
-    - source: git@github.mpi-internal.com:automobile-it/automobile_grafonnet
-    - source: git@github.mpi-internal.com:automobile-it/automobile-core-vitals-metrics.git
-    - source: git@github.mpi-internal.com:automobile-it/adsmetrics
-
-tracklib:
-  base_dir: ~/tcTracklib
-  repos:
-    - source: tracklib-technative/notes
-    - source: tracklib-technative/tracklib-awsaccount-323546098264-staging
-    - source: tracklib-technative/tracklib-awsaccount-382002351446-useraccount
+#adevinta:
+#  base_dir: ~/tcAdevinta
+#  repos:
+#    - source: git@github.mpi-internal.com:platform-it/automobile-docs.git
+#    - source: git@github.mpi-internal.com:platform-it/prometheus-cloudwatch-exporter
+#    - source: git@github.mpi-internal.com:platform-it/terraform-module-elasticache.git
+#    - source: git@github.mpi-internal.com:platform-it/ponto
+#    - source: git@github.mpi-internal.com:automobile-it/automobile-opensearch-infrastructure
+#    - source: git@github.mpi-internal.com:automobile-it/automobile-documentdb-infrastructure
+#    - source: git@github.mpi-internal.com:automobile-it/automobile-elasticache-infrastructure
+#    - source: git@github.mpi-internal.com:automobile-it/automobile_grafonnet
+#    - source: git@github.mpi-internal.com:automobile-it/automobile-core-vitals-metrics.git
+#    - source: git@github.mpi-internal.com:automobile-it/adsmetrics
+#
+#tracklib:
+#  base_dir: ~/tcTracklib
+#  repos:
+#    - source: tracklib-technative/notes
+#    - source: tracklib-technative/tracklib-awsaccount-323546098264-staging
+#    - source: tracklib-technative/tracklib-awsaccount-382002351446-useraccount
 
 #cSvg-stencils:
 #awesome-isometric
@@ -179,8 +182,6 @@ cTextUtils:
 #vim-show-in-filemanager
 
 #cUtils:
-#g.it-depends
-#github-admin
 #liszt.snel.city-frontend
 #minimake.sh
 #RUNME.sh

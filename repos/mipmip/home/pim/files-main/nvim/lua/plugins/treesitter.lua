@@ -12,8 +12,8 @@ return {
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = '<CR>',
-          scope_incremental = '<CR>',
+          init_selection = '<S-CR>', -- don't interfere with Linny Wiki Enter
+          scope_incremental = '<S-CR>', -- don't interfere with Linny Wiki Enter
           node_incremental = '<TAB>',
           node_decremental = '<S-TAB>',
         },

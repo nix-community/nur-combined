@@ -27,12 +27,12 @@ end
 --vim.api.nvim_create_user_command('ReloadHomeManagerNeoVimConf', ReloadHomeManagerNeoVimConf, {})
 
 
-function ToggleSpell(scope)
-  return function ()
-    scope.spell = not scope.spell
-    vim.cmd("redraw")
-    print("spell is " .. tostring(scope.spell))
-  end
-end
+--function ToggleSpell(scope)
+--  return function ()
+--    scope.spell = not scope.spell
+--    vim.cmd("redraw")
+--    print("spell is " .. tostring(scope.spell))
+--  end
+--end
 
 

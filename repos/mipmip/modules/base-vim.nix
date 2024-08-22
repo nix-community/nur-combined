@@ -20,6 +20,7 @@
     gopls
     #rnix-lsp
     unstable.nixd
+    marksman
     terraform-ls
     sumneko-lua-language-server
 

@@ -10,6 +10,8 @@ return {
   'junegunn/vim-easy-align',
   'SidOfc/mkdx',
   'vim-voom/VOoM',
+  'skywind3000/asyncrun.vim',
+  'vim-crystal/vim-crystal',
 
   -- 'mipmip/linny-wikitag-github',
 
@@ -22,5 +24,6 @@ return {
 
   'mipmip/vim-whitewriter',
   'mipmip/vim-petra',
+  'mipmip/vim-hotpop',
   'srcery-colors/srcery-vim',
 }
