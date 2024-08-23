@@ -11,7 +11,8 @@
   electron,
   makeWrapper,
   makeDesktopItem,
-  copyDesktopItems
+  copyDesktopItems,
+  imagemagick
 }:
 
 let
@@ -33,7 +34,7 @@ let
     categories = [ "Office" ];
   };
 in
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: rec {
   pname = "siyuan";
   version = "3.1.0";
 
@@ -81,6 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
     pnpm.configHook
     makeWrapper
     copyDesktopItems
+    imagemagick
   ];
 
   pnpmDeps = pnpm.fetchDeps {
@@ -140,6 +142,14 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://raw.githubusercontent.com/siyuan-note/siyuan/master/app/src/assets/icon.svg";
     hash = "sha256-S4YCU3wi6sgdKJyfsSL1T6dzZRfasVf92FD2uoHCwWo=";
   };
+
+    # TODO: complete these
+  postInstall = ''
+    for i in 16 24 48 64 96 128 256 512; do
+      mkdir -p $out/share/icons/hicolor/''${i}x''${i}/apps
+      convert -background none -resize ''${i}x''${i} ${icon} $out/share/icons/hicolor/''${i}x''${i}/apps/${pname}.png
+    done
+  '';
 
   desktopItems = [ desktopEntry ];
 
