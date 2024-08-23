@@ -3,11 +3,6 @@ use log;
 use strings;
 use os;
 use os::exec;
-use rt;
-
-fn no_new_privs() void = {
-  rt::prctl(rt::PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0)!;
-};
 
 fn do_exec(args: []str) never = {
   let joined = strings::join(" ", args...);
