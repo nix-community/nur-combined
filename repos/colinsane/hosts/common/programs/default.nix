@@ -18,6 +18,7 @@
     ./brave.nix
     ./brightnessctl.nix
     ./bubblewrap.nix
+    ./bunpen.nix
     ./callaudiod.nix
     ./calls.nix
     ./cantata.nix

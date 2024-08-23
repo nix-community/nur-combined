@@ -1,47 +1,66 @@
 { lib }:
-{ method
-, allowedPaths ? []
-, allowedHomePaths ? []
-, allowedRunPaths ? []
-, autodetectCliPaths ? false
-, capabilities ? []
-, dns ? null
-, netDev ? null
-, netGateway ? null
-, whitelistPwd ? false
-, extraConfig ? []
+{
+  method,
+  allowedPaths ? [],
+  allowedHomePaths ? [],
+  allowedRunPaths ? [],
+  autodetectCliPaths ? false,
+  capabilities ? [],
+  dns ? null,
+  keepPids ? false,
+  keepUsers ? false,
+  netDev ? null,
+  netGateway ? null,
+  usePortal ? false,
+  whitelistPwd ? false,
+  extraConfig ? [],
 }:
 let
-  allowPath = flavor: p: [
-    "--sanebox${flavor}-path"
-    p
-  ];
-  allowPaths = flavor: paths: lib.flatten (builtins.map (allowPath flavor) paths);
+  saneboxGenerators = {
+    autodetectCliPaths = style: [ "--sanebox-autodetect" style ];
+    capability = cap: [ "--sanebox-cap" cap ];
+    dns = addr: [ "--sanebox-dns" addr ];
+    keepPids = [ "--sanebox-keep-namespace" "pid" ];
+    keepUsers = [ "--sanebox-keep-namespace" "user" ];
+    method = method: [ "--sanebox-method" method ];
+    netDev = netDev: [ "--sanebox-net-dev" netDev ];
+    netGateway = netGateway: [ "--sanebox-net-gateway" netGateway ];
+    path = p: [ "--sanebox-path" p ];
+    path-home = p: [ "--sanebox-home-path" p ];
+    path-run = p: [ "--sanebox-run-path" p ];
+    usePortal = [ "--sanebox-portal" ];
+    whitelistPwd = [ "--sanebox-add-pwd" ];
+  };
+  bunpenGenerators = {
+    method = m: assert m == "bunpen"; [];
+    netDev = n: assert n == "all"; [ "--bunpen-keep-net" ];
+    path = p: [ "--bunpen-path" p ];
+    usePortal = [];  #< TODO: the sandboxer really shouldn't have to know about portals.
+  };
+  gen = if method == "bunpen" then
+    bunpenGenerators
+  else
+    saneboxGenerators
+  ;
+  allowPaths = flavor: paths: lib.flatten (builtins.map gen."path${flavor}" paths);
 
-  capabilityFlags = lib.flatten (builtins.map (c: [ "--sanebox-cap" c ]) capabilities);
+  capabilityFlags = lib.flatten (builtins.map gen.capability capabilities);
 
-  netItems = lib.optionals (netDev != null) [
-    "--sanebox-net-dev"
-    netDev
-  ] ++ lib.optionals (netGateway != null) [
-    "--sanebox-net-gateway"
-    netGateway
-  ] ++ lib.optionals (dns != null) (
-    lib.flatten (builtins.map
-      (addr: [ "--sanebox-dns" addr ])
-      dns
-    )
-  );
+  netItems = lib.optionals (netDev != null) (gen.netDev netDev)
+  ++ lib.optionals (netGateway != null) (gen.netGateway netGateway)
+  ++ lib.optionals (dns != null) (lib.flatten (builtins.map gen.dns dns))
+  ;
 
 in
-  [
-    "--sanebox-method" method
-  ]
+  (gen.method method)
   ++ netItems
   ++ allowPaths "" allowedPaths
   ++ allowPaths "-home" allowedHomePaths
   ++ allowPaths "-run" allowedRunPaths
   ++ capabilityFlags
-  ++ lib.optionals (autodetectCliPaths != null) [ "--sanebox-autodetect" autodetectCliPaths ]
-  ++ lib.optionals whitelistPwd [ "--sanebox-add-pwd" ]
+  ++ lib.optionals (autodetectCliPaths != null) (gen.autodetectCliPaths autodetectCliPaths)
+  ++ lib.optionals keepPids gen.keepPids
+  ++ lib.optionals keepUsers gen.keepUsers
+  ++ lib.optionals whitelistPwd gen.whitelistPwd
+  ++ lib.optionals usePortal gen.usePortal
   ++ extraConfig

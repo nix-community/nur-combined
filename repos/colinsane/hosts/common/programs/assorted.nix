@@ -735,7 +735,7 @@ in
     hdparm.sandbox.method = "bwrap";
     hdparm.sandbox.autodetectCliPaths = "existingFile";
 
-    host.sandbox.method = "landlock";
+    host.sandbox.method = "bunpen";
     host.sandbox.net = "all";  #< technically, only needs to contact localhost's DNS server
 
     iftop.sandbox.method = "landlock";

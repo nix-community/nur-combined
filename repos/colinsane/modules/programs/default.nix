@@ -39,7 +39,6 @@ let
     else
       let
         makeSandboxArgs = pkgs.callPackage ./make-sandbox-args.nix { };
-        # makeSandboxed = pkgs.callPackage ./make-sandboxed.nix { sanebox = config.sane.programs.sanebox.package; };
         makeSandboxed = pkgs.callPackage ./make-sandboxed.nix { };
 
         vpn = if sandbox.net == "vpn" then
@@ -78,6 +77,7 @@ let
             capabilities
             extraConfig
             method
+            usePortal
             whitelistPwd
           ;
           netDev = if vpn != null then
@@ -96,9 +96,17 @@ let
           allowedPaths = lib.unique allowedPaths;
           allowedHomePaths = lib.unique allowedHomePaths;
           allowedRunPaths = lib.unique allowedRunPaths;
+          keepPids = !sandbox.isolatePids;
+          keepUsers = !sandbox.isolateUsers;
         };
       in
-        makeSandboxed {
+        (makeSandboxed.override {
+          sanebox = if sandbox.method == "bunpen" then
+            pkgs.bunpen
+          else
+            pkgs.sanebox
+          ;
+        }) {
           inherit pkgName package;
           inherit (sandbox)
             embedSandboxer
@@ -285,7 +293,7 @@ let
         '';
       };
       sandbox.method = mkOption {
-        type = types.nullOr (types.enum [ "bwrap" "capshonly" "pastaonly" "landlock" ]);
+        type = types.nullOr (types.enum [ "bunpen" "bwrap" "capshonly" "pastaonly" "landlock" ]);
         default = null;  #< TODO: default to something non-null
         description = ''
           how/whether to sandbox all binaries in the package.
@@ -522,13 +530,6 @@ let
         ++ lib.optionals (mainProgram != null) (whitelistDir ".config/${mainProgram}")
         ++ lib.optionals (mainProgram != null) (whitelistDir ".local/share/${mainProgram}")
       ;
-      sandbox.extraConfig = lib.optionals config.sandbox.usePortal [
-        "--sanebox-portal"
-      ] ++ lib.optionals (!config.sandbox.isolatePids) [
-        "--sanebox-keep-namespace" "pid"
-      ] ++ lib.optionals (!config.sandbox.isolateUsers) [
-        "--sanebox-keep-namespace" "user"
-      ];
     };
   });
   toPkgSpec = with lib; types.coercedTo types.package (p: { package = p; }) pkgSpec;
@@ -659,6 +660,7 @@ in
     in lib.mkMerge [
       (take (sane-lib.mkTypedMerge take configs))
       {
+        sane.programs.bunpen.enableFor.system = true;
         sane.programs.sanebox.enableFor.system = true;
         # expose the pkgs -- as available to the system -- as a build target.
         system.build.pkgs = pkgs;

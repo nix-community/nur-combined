@@ -1,13 +1,13 @@
 all: bunpen
 
 bunpen:
-	hare build -o $@ src
+	hare build -o $@
 
 install:
 	mkdir -p $(PREFIX)/bin
 	install -m755 bunpen $(PREFIX)/bin
 
 test:
-	hare test src
+	hare test
 
 .PHONY: all install test

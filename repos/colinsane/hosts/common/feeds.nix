@@ -163,6 +163,7 @@ let
     (fromDb "interconnected.org/home/feed" // rat)  # Matt Webb -- engineering-ish, but dreamy
     (fromDb "jeffgeerling.com" // tech)
     (fromDb "jefftk.com" // tech)
+    (fromDb "justine.lol" // tech)
     (fromDb "jwz.org/blog" // tech // pol)  # DNA lounge guy, loooong-time blogger
     (fromDb "kill-the-newsletter.com/feeds/joh91bv7am2pnznv.xml" // pol)  # Matt Levine - Money Stuff
     (fromDb "kosmosghost.github.io/index.xml" // tech)

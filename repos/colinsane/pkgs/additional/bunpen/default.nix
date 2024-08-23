@@ -17,5 +17,6 @@
       run any executable in an isolated environment,
       selectively exposing the specific resources (paths, IPC) it needs.
     '';
+    mainProgram = "bunpen";
   };
 }

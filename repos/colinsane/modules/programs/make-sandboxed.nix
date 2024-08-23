@@ -16,7 +16,7 @@
   xorg,
 }:
 let
-  fakeSaneSandboxed = writeShellScriptBin "sanebox" ''
+  fakeSaneSandboxed = writeShellScriptBin sanebox.meta.mainProgram ''
     # behave like the real sanebox with SANEBOX_DISABLE=1,
     # but in a manner which avoids taking a dependency on the real sanebox.
     # the primary use for this is to allow a package's `check` phase to work even when sanebox isn't available.
@@ -27,12 +27,12 @@ let
       shift
     done
     if [ "$#" -eq 0 ]; then
-      >&2 echo "sanebox (mock): failed to parse args: ''${_origArgs[*]}"
+      >&2 echo "${sanebox.meta.mainProgram} (mock): failed to parse args: ''${_origArgs[*]}"
       exit 1
     fi
 
     if [ -z "$SANEBOX_DISABLE" ]; then
-      >&2 echo "sanebox (mock): not called with SANEBOX_DISABLE=1; unsure how to sandbox: ''${_origArgs[*]}"
+      >&2 echo "${sanebox.meta.mainProgram} (mock): not called with SANEBOX_DISABLE=1; unsure how to sandbox: ''${_origArgs[*]}"
       exit 1
     fi
     # assume that every argument after the binary name is an argument for the binary and not for the sandboxer.
@@ -101,13 +101,15 @@ let
         else
           mv "$_dir/$_name" "$_dir/.sandboxed/"
         fi
-        makeShellWrapper ${sanebox'} "$_dir/$_name" --suffix PATH : /run/current-system/sw/libexec/sanebox \
+        makeShellWrapper ${sanebox'} "$_dir/$_name" --suffix PATH : /run/current-system/sw/libexec/${sanebox.pname} \
           ${lib.escapeShellArgs (lib.flatten (builtins.map (f: [ "--add-flags" f ]) extraSandboxArgs))} \
           --add-flags "$_dir/.sandboxed/$_name"
         # `exec`ing a script with an interpreter will smash $0. instead, source it to preserve $0:
         # - <https://github.com/NixOS/nixpkgs/issues/150841#issuecomment-995589961>
-        substituteInPlace "$_dir/$_name" \
-          --replace-fail 'exec ' 'source '
+        if [ -n "${sanebox.interpreter or ""}" ]; then
+          substituteInPlace "$_dir/$_name" \
+            --replace-fail 'exec ' 'source '
+        fi
       }
 
       derefWhileInSameOutput() {
@@ -404,7 +406,7 @@ let
           set -x
           local realbin="$(realpath $dir/$binname)"
           local interpreter=$(file "$realbin" | grep --only-matching "a /nix/.* script" | cut -d" " -f2 || echo "")
-          ${stdenv.hostPlatform.emulator buildPackages} $interpreter "$dir/$binname" --sanebox-net-dev all --sanebox-dns default --sanebox-net-gateway default --sanebox-replace-cli echo "printing for test" \
+          echo 'echo "printing for test"' | ${stdenv.hostPlatform.emulator buildPackages} $interpreter "$dir/$binname" --sanebox-net-dev all --sanebox-dns default --sanebox-net-gateway default --sanebox-replace-cli /bin/sh --bunpen-drop-shell \
             | grep "printing for test"
           _numExec=$(( $_numExec + 1 ))
         }

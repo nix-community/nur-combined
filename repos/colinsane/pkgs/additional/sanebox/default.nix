@@ -45,6 +45,7 @@ stdenv.mkDerivation {
   '';
 
   passthru = {
+    interpreter = lib.getBin bash;
     runtimeDeps = [
       bubblewrap
       coreutils
