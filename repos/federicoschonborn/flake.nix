@@ -143,11 +143,12 @@
                           **🔒 NOTE:** This package has an unfree license.
                         '';
 
+                        descriptionSection =
+                          "${description}." + lib.optionalString (longDescription != "") "\n\n${longDescription}";
+
                         pnameSection = "- Name: `${value.pname or value.name}`";
 
                         versionSection = lib.optionalString (value ? version) "- Version: `${value.version}`";
-
-                        descriptionSection = if longDescription != "" then longDescription else "${description}.";
 
                         outputsSection =
                           let
@@ -196,10 +197,11 @@
                               in
                               "  - ${formattedName}${formattedEmail}\n";
                             allMaintainersLink =
-                              if builtins.any (x: x ? email) maintainers then
-                                "  - [✉️ Mail to all maintainers](mailto:"
-                                + (lib.concatMapStringsSep "," (x: x.email or null) maintainers)
-                                + ")"
+                              let
+                                emails = builtins.map (x: x.email) (builtins.filter (x: x ? email) maintainers);
+                              in
+                              if emails != [ ] then
+                                "  - [✉️ Mail to all maintainers](mailto:" + (builtins.concatStringsSep "," emails) + ")"
                               else
                                 "";
                           in

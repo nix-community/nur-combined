@@ -1,6 +1,6 @@
 #!/usr/bin/env nu
 
-const nix_flags = [--verbose --print-build-logs --keep-going --log-format multiline-with-logs --inputs-from .]
+const nix_flags = [--verbose --print-build-logs --keep-going --show-trace --log-format multiline-with-logs --inputs-from .]
 let current_system = uname | $"($in.machine)-($in.kernel-name)" | str downcase
 
 def --wrapped nix [...rest] {

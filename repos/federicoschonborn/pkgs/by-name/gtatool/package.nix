@@ -6,7 +6,7 @@
   pkg-config,
   texinfo,
   libgta,
-  # nix-update-script,
+  nix-update-script,
   withCsv ? true,
   withDatraw ? true,
   withPly ? true,
@@ -99,12 +99,12 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.withFeature withRaw "raw")
   ];
 
-  # passthru.updateScript = nix-update-script {
-  #   extraArgs = [
-  #     "--version-regex"
-  #     "gtatool-(.*)"
-  #   ];
-  # };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version-regex"
+      "gtatool-(.*)"
+    ];
+  };
 
   meta = {
     mainProgram = "gta";

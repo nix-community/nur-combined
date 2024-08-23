@@ -1623,6 +1623,8 @@ Wisp turns indentation based syntax into Lisp.
 
 ### `wlroots_0_16`
 
+A modular Wayland compositor library.
+
 Pluggable, composable, unopinionated modules for building a Wayland
 compositor; or about 50,000 lines of code you were going to write anyway.
 
@@ -1681,7 +1683,7 @@ Fastest JSON library in C.
 - [Homepage](https://github.com/ibireme/yyjson)
 - [Changelog](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](https://github.com/NixOS/nixpkgs/blob/36a9aea/pkgs/development/libraries/yyjson/default.nix#L23)
+- [Source](https://github.com/NixOS/nixpkgs/blob/4de4818/pkgs/development/libraries/yyjson/default.nix#L23)
 - Maintainers:
   - [Yohann Boniface](https://github.com/Sigmanificient) <[`sigmanificient@gmail.com`](mailto:sigmanificient@gmail.com)>
   - [✉️ Mail to all maintainers](mailto:sigmanificient@gmail.com)

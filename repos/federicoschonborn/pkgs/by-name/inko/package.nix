@@ -7,7 +7,7 @@
   ncurses,
   zlib,
   llvmPackages_17,
-# nix-update-script,
+  nix-update-script,
 }:
 
 let
@@ -42,7 +42,7 @@ rustPlatform.buildRustPackage {
   # Some of the tests require git to be installed.
   doCheck = false;
 
-  # passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     mainProgram = "inko";
