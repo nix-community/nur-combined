@@ -193,7 +193,6 @@ rec {
       extraMeta = {
         description =
           "Linux Xanmod Kernel with Lan Tian Modifications" + lib.optionalString lto " and Clang+ThinLTO";
-        broken = !stdenv.isx86_64;
       };
     });
 }
