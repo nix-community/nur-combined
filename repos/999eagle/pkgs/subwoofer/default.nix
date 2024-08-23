@@ -13,15 +13,15 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "subwoofer";
-  version = "unstable-2023-12-03";
+  version = "unstable-2024-08-23";
 
   src = fetchFromGitHub {
-    owner = "dynamicbark";
+    owner = "999eagle";
     repo = pname;
-    rev = "b6eca52ca872a7ce8cfe5ceb97651e36134a9df8";
-    hash = "sha256-19SL+kBcnA2wr0t+5RmGSdPxpHMDl48fSl1trFQZ3ss=";
+    rev = "c927f61f6457ef9e29928e45e5af992d5f84d00d";
+    hash = "sha256-OgbnblC0308JGeHL8GbL0CdUEqn3qPbenzGEA5FZaAg=";
   };
-  cargoHash = "sha256-GO165gMzsLEazG5y4PipW0pyBXNeveHXqaKIkbqbtA8=";
+  cargoHash = "sha256-I0sxR7B/ovdCf7hiAXmL+hCZ6ZNxI1gTvE/Z+x+CYRw=";
 
   nativeBuildInputs = [
     pkg-config
