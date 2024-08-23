@@ -43,7 +43,10 @@
     "eum": "89044045",
     "country": "GB",
     "manufacturer": "Kigen",
-    "products": [{ "pattern": "890440451167274948*", "name": "sysmoEUICC1-C2G" }]
+    "products": [
+      { "pattern": "890440451167274948*", "name": "sysmoEUICC1-C2G" },
+      { "pattern": "890440452167274948*", "name": "9eSIM" }
+    ]
   },
   {
     "eum": "89044047",
