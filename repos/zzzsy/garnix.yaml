@@ -4,4 +4,5 @@ builds:
   - 'packages.x86_64-linux.librime-lua'
   - 'packages.x86_64-linux.tsukimi'
   - 'packages.x86_64-linux.mutter'
+  - 'packages.x86_64-linux.gnome-shell'
   branch: main

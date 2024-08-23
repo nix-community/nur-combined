@@ -32,9 +32,14 @@
           allowUnfree = true;
         };
       };
-      packages = builtins.removeAttrs nur [
-        "overlays"
-        "modules"
-      ];
+      packages =
+        builtins.removeAttrs nur [
+          "overlays"
+          "modules"
+        ]
+        // {
+          mutter = pkgs.gnome.mutter;
+          gnome-shell = pkgs.gnome.gnome-shell;
+        };
     };
 }

@@ -12,17 +12,16 @@ image:https://img.shields.io/badge/License-MIT-blue.svg[link=https://en.wikipedi
 
 * [x] layout link:https://flake.parts[flake parts]
 * [x] secrets link:https://github.com/Mic92/sops-nix[sops-nix]
-* [x] pkgs link:https://github.com/berberman/nvfetcher[nvfetcher]
+* [x] pkgs update link:https://github.com/berberman/nvfetcher[nvfetcher]
 * [x] tmpfs as root: link:https:https://github.com/nix-community/impermanence[impermanence]
 * [x] shortcut link:https://just.systems/[justfile]
 * [x] Rime (yaml patch & link:https://github.com/iDvel/rime-ice[Rime-Ice])
 * [x] lint link:https://github.com/cachix/pre-commit-hooks.nix[pre-commit]
 * [x] Chaotic link:https://www.nyx.chaotic.cx[Nyx]
 * [x] secure boot link:https://github.com/nix-community/lanzaboote[lanzaboote]
+* [x] color shema link:https://stylix.danth.me[stylix]
 * [ ] dev environnments: slidev hugo python rust etc.
 * [x] overlays
 * [ ] sub-pkgs
-* [ ] POP
-* [ ] CI
-* [ ] nixify neovim using link:https://github.com/nix-community/nixvim[nixvim]
+* [x] CI
 
