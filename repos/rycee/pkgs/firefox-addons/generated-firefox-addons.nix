@@ -2644,10 +2644,10 @@
     };
     "fakespot-fake-reviews-amazon" = buildFirefoxXpiAddon {
       pname = "fakespot-fake-reviews-amazon";
-      version = "1.3.2";
+      version = "1.3.5";
       addonId = "{44df5123-f715-9146-bfaa-c6e8d4461d44}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4312344/fakespot_fake_reviews_amazon-1.3.2.xpi";
-      sha256 = "d090b800ae611890792c6211ce8b70d50d10b1ed23d28b92e6ebbe95775e2d0a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4340990/fakespot_fake_reviews_amazon-1.3.5.xpi";
+      sha256 = "b4243338447d29ec82295d7af78cf6b9dac5c5973fdb7692e8569a6af4e11108";
       meta = with lib;
       {
         description = "Protect yourself from bad sellers and fake reviews on Amazon and more!";
@@ -5780,10 +5780,10 @@
     };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.9.0";
+      version = "2.9.1";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4331333/libredirect-2.9.0.xpi";
-      sha256 = "469937f913e62c80918784ca87e5036526cf0394b371b43139c2673d2977114c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4340831/libredirect-2.9.1.xpi";
+      sha256 = "89864e121d42eb7351ee2378979f52069871eeb7035ab9f878fc4b74f1bee7ea";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io";
@@ -6754,10 +6754,10 @@
     };
     "markdownload" = buildFirefoxXpiAddon {
       pname = "markdownload";
-      version = "3.3.0";
+      version = "3.4.0";
       addonId = "{1c5e4c6f-5530-49a3-b216-31ce7d744db0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4204610/markdownload-3.3.0.xpi";
-      sha256 = "5b798144ede5534ffc46b9c8874970f064b224a635680c2d352b5364722d8214";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4341225/markdownload-3.4.0.xpi";
+      sha256 = "0524c38b6770d09a845ebaea42792043b19e8524dd1fa0cc9c53a658610e6c43";
       meta = with lib;
       {
         homepage = "https://github.com/deathau/markdown-clipper";
@@ -9651,10 +9651,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.59";
+      version = "1.22.61";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4335620/single_file-1.22.59.xpi";
-      sha256 = "b9d2fa7cade21b5858e196f80bc1e42a1df78eddaca523c53ef9567b0a2966fd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4339360/single_file-1.22.61.xpi";
+      sha256 = "002d164403923be95f616f11c6582708ca982b569659d9949176738bace6be0f";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -10009,10 +10009,10 @@
     };
     "stylus" = buildFirefoxXpiAddon {
       pname = "stylus";
-      version = "1.5.48";
+      version = "1.5.51";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4312995/styl_us-1.5.48.xpi";
-      sha256 = "c41434ff62124d16a8eb4e29876f2fb1850a6003957fb679b4f16e76621e9151";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4338993/styl_us-1.5.51.xpi";
+      sha256 = "4d7c184af2d81f40c35f33c77c4040dc4205908dbcf65e7c99fafd7d26e4814f";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -11197,10 +11197,10 @@
     };
     "untrap-for-youtube" = buildFirefoxXpiAddon {
       pname = "untrap-for-youtube";
-      version = "7.4";
+      version = "7.5";
       addonId = "{2662ff67-b302-4363-95f3-b050218bd72c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4320623/untrap_for_youtube-7.4.xpi";
-      sha256 = "4dece800eedbe5e79fd21c75089bda61d5a4806922e9c988aba227991037aed2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4340926/untrap_for_youtube-7.5.xpi";
+      sha256 = "0e08c295a5faf17ae73d6fadc7857a77571b7b84d0ec2cc99d12c981ded86eab";
       meta = with lib;
       {
         homepage = "http://untrap.app";
@@ -11275,10 +11275,10 @@
     };
     "userchrome-toggle-extended" = buildFirefoxXpiAddon {
       pname = "userchrome-toggle-extended";
-      version = "2.0";
+      version = "2.0.1";
       addonId = "userchrome-toggle-extended@n2ezr.ru";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4331605/userchrome_toggle_extended-2.0.xpi";
-      sha256 = "02e0ad846fd29ee1fea1825a5be8030d9c3c0c822afa1a9a623c48dfd715b9ac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4341014/userchrome_toggle_extended-2.0.1.xpi";
+      sha256 = "3f5be2684284c0b79aaad0f70872a87f21a9a1329a5eaf8e60090e6f0e6a741d";
       meta = with lib;
       {
         description = "This extension allows you to toggle userchrome.css styles on-the-fly with buttons and hotkeys. You'll be able to switch up to six styles";
