@@ -30,7 +30,7 @@ let
     nodePackages.pnpm
 
     git
-    hugo
+    # hugo
     just
 
     #ghc
@@ -72,6 +72,8 @@ let
     #steamguard-cli
     rclone
 
+    nur.repos.nykma.zen-browser
+
     #zsh
     jq
   ];
@@ -107,7 +109,7 @@ let
     my.tsukimi
 
     # matlab
-    vmware-workstation
+    # vmware-workstation
     adw-gtk3
     (ventoy.override {
       defaultGuiType = "gtk3";

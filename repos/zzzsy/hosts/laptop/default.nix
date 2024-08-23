@@ -33,6 +33,8 @@
   #   };
   # };
 
+  # stylix.enable = true;
+
   chaotic = {
     scx.enable = true;
     scx.scheduler = "scx_lavd";

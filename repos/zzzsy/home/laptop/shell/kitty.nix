@@ -9,7 +9,6 @@
       italic_font = "Iosevka ZT Semibold Italic";
       bold_italic_font = "ZT Semibold Extended Italic";
       enable_audio_bell = false;
-      remember_window_size = true;
       scrollback_lines = 8000;
       initial_window_width = 640;
       initial_window_height = 400;
@@ -20,6 +19,6 @@
       tab_bar_style = "powerline";
     };
     # https://github.com/kovidgoyal/kitty-themes/blob/master/themes.json
-    theme = "Everforest Dark Soft";
+    theme = "Everforest Dark Medium";
   };
 }

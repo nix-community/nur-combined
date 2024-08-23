@@ -8,12 +8,13 @@ let
     impermanence
     sops-nix
     chaotic
-    nixos-cosmic
+    # nixos-cosmic
     nvfetcher
     daeuniverse
     lanzaboote
     nix-matlab
     nur
+    stylix
     ;
 
   inherit (nixpkgs.lib) attrValues;
@@ -74,11 +75,12 @@ in
         impermanence.nixosModules.impermanence
         sops-nix.nixosModules.sops
         chaotic.nixosModules.default
-        nixos-cosmic.nixosModules.default
+        # nixos-cosmic.nixosModules.default
         daeuniverse.nixosModules.dae
         daeuniverse.nixosModules.daed
         lanzaboote.nixosModules.lanzaboote
         nur.nixosModules.nur
+        stylix.nixosModules.stylix
         # nixos-hardware.nixosModules.common-cpu-amd-pstate
         # nixos-hardware.nixosModules.common-gpu-amd
         # nixos-hardware.nixosModules.common-pc-ssd
