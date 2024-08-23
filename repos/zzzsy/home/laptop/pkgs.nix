@@ -107,6 +107,7 @@ let
     # gimp
     # minder
     my.tsukimi
+    materialgram
 
     # matlab
     # vmware-workstation
