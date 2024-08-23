@@ -21,7 +21,7 @@
   },
   "chronicles": {
     "cargoLocks": null,
-    "date": "2024-05-01",
+    "date": "2024-08-22",
     "extract": null,
     "name": "chronicles",
     "passthru": null,
@@ -31,13 +31,13 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "33761a5f77610d3f87f774244490eae43a9ac5a1",
-      "sha256": "sha256-JISBoYV3Ljbra/VYGTeIsLdK1cmK5oQKW08if/PnHB8=",
+      "rev": "a28bb9781ce74e725796c307ad05083e646872be",
+      "sha256": "sha256-Z6WepQea1qJk7Ff/YPIvg88RBaZA6Ci61UvDcr9c70U=",
       "sparseCheckout": [],
       "type": "git",
       "url": "https://github.com/status-im/nim-chronicles"
     },
-    "version": "33761a5f77610d3f87f774244490eae43a9ac5a1"
+    "version": "a28bb9781ce74e725796c307ad05083e646872be"
   },
   "faststreams": {
     "cargoLocks": null,
