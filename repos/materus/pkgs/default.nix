@@ -7,7 +7,7 @@ rec {
     prefixes = callPackage ./libs/amdgpu-pro-libs/prefixes.nix { };
     firmware = callPackage ./libs/amdgpu-pro-libs/firmware.nix { };
   };
-
+  svt-av1-psy = callPackage ./libs/svt-av1-psy.nix { };
 
   ffmpeg_7-amf-full = (pkgs.ffmpeg_7-full.overrideAttrs (finalAttrs: previousAttrs: { configureFlags = previousAttrs.configureFlags ++ [ "--enable-amf" ]; buildInputs = previousAttrs.buildInputs ++ [ pkgs.amf-headers ]; }));
 
