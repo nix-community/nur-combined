@@ -72,7 +72,7 @@ let
     #steamguard-cli
     rclone
 
-    nur.repos.nykma.zen-browser
+    my.zen-browser
 
     #zsh
     jq
