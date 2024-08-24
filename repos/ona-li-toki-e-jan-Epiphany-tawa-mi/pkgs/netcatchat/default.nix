@@ -4,6 +4,7 @@
 , netcat-openbsd
 , makeWrapper
 , lib
+, procps
 }:
 
 stdenv.mkDerivation rec {
@@ -18,14 +19,14 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs       = [ bash netcat-openbsd ];
+  buildInputs       = [ bash netcat-openbsd procps ];
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/bin
     cp netcatchat.sh $out/bin/netcatchat
-    wrapProgram $out/bin/netcatchat --prefix PATH : ${lib.makeBinPath [ netcat-openbsd ]}
+    wrapProgram $out/bin/netcatchat --prefix PATH : ${lib.makeBinPath [ netcat-openbsd procps ]}
 
     runHook postInstall
   '';
