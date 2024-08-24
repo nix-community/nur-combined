@@ -13,6 +13,7 @@
   openssl,
   gst_all_1,
   wrapGAppsHook4,
+  makeDesktopItem,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "tsukimi";
@@ -30,20 +31,38 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     wrapGAppsHook4
   ];
-  buildInputs = [
-    clapper
-    gdk-pixbuf
-    glib
-    gtk4
-    gsettings-desktop-schemas
-    libadwaita
-    openssl
-    mpv
-    gst_all_1.gst-plugins-base
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-good
-    gst_all_1.gst-plugins-ugly
+  buildInputs =
+    [
+      clapper
+      gdk-pixbuf
+      glib
+      gtk4
+      gsettings-desktop-schemas
+      libadwaita
+      openssl
+      mpv
+    ]
+    ++ (with gst_all_1; [
+      gst-plugins-base
+      gstreamer
+      gst-plugins-good
+      gst-plugins-bad
+      gst-plugins-ugly
+    ]);
+
+  desktopItems = [
+    (makeDesktopItem {
+      name = "Tsukimi";
+      exec = "tsukimi";
+      icon = "tsukimi";
+      desktopName = "tsukimi";
+      comment = meta.description;
+      categories = [
+        "AudioVideo"
+      ];
+    })
   ];
+
   doCheck = false;
 
   postInstall = ''
