@@ -2113,10 +2113,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "130.0.20240821.91813";
+      version = "130.0.20240823.112003";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4340314/deutsch_de_language_pack-130.0.20240821.91813.xpi";
-      sha256 = "e7a4a06a07a29308649fe122f652fe829aae6e8b600942137794dbfc8dda16f5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4341472/deutsch_de_language_pack-130.0.20240823.112003.xpi";
+      sha256 = "c6173f4a1f048bd532b50a85e374441b040040ae73beb3489279a226fb844516";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3174,10 +3174,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "130.0.20240821.91813";
+      version = "130.0.20240823.112003";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4340388/francais_language_pack-130.0.20240821.91813.xpi";
-      sha256 = "3e2911cac8bdda6006f7107195058ce59a66ad7d47467cd38879a9b8e571ecd3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4341490/francais_language_pack-130.0.20240823.112003.xpi";
+      sha256 = "69da5075a5885d6f8beb0dd794da72da3da4e633a53f1f19f382475724e00a84";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -11711,10 +11711,10 @@
     };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.71";
+      version = "6.10.72";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4337540/wappalyzer-6.10.71.xpi";
-      sha256 = "4804029578f01f9d08cf95a13e4c62923a5a524afb94d5c5ecf9ff9e589f6185";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4339997/wappalyzer-6.10.72.xpi";
+      sha256 = "23c96c1fffc00ddc9d53dfc4e198c888beee38fcec3bd791357680a3f431ca77";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -12160,7 +12160,7 @@
       meta = with lib;
       {
         homepage = "http://www.wikiwand.com";
-        description = "Good old Wikipedia gets a great new look";
+        description = "AI-driven wiki aggregator created to enhance user experience on Wikipedia by streamlining knowledge consumption";
         license = {
           shortName = "wikiwand";
           fullName = "Terms of Service - Wikiwand";
