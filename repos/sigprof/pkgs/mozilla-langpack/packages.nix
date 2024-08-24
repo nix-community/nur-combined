@@ -53,10 +53,11 @@ in
 
     # Make language pack packages for the specified app and all available
     # languages.
-    langpackPackagesFor = mozApp: let
+    langpackPackagesFor = appName: let
+      mozApp = pkgs.${appName};
       app = functions.getAppInfo (presets // {inherit lib mozApp;});
       langpacks = presets.mozLangpackSources.${app.name}.${app.majorKey}.${app.arch} or {};
-      packageName = mozLanguage: "${app.langpackBaseName}-${mozLanguage}";
+      packageName = mozLanguage: "${appName}-langpack-${mozLanguage}";
       package = mozLanguage: makeMozillaLangpack {inherit mozApp mozLanguage;};
     in
       lib.mapAttrs' (n: v: nameValuePair (packageName n) (package n)) langpacks;
@@ -70,7 +71,7 @@ in
       }
       # Export language pack packages for all available Mozilla-originated
       # packages from the supported set and all available languages.
-      // optionalAttrs (pkgs ? firefox) (langpackPackagesFor pkgs.firefox)
-      // optionalAttrs (pkgs ? firefox-esr) (langpackPackagesFor pkgs.firefox-esr)
-      // optionalAttrs (pkgs ? thunderbird) (langpackPackagesFor pkgs.thunderbird);
+      // optionalAttrs (pkgs ? firefox) (langpackPackagesFor "firefox")
+      // optionalAttrs (pkgs ? firefox-esr) (langpackPackagesFor "firefox-esr")
+      // optionalAttrs (pkgs ? thunderbird) (langpackPackagesFor "thunderbird");
   }
