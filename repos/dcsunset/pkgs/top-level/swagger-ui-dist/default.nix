@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ lib, stdenv, fetchurl }:
 
 stdenv.mkDerivation rec {
   pname = "swagger-ui-dist";
@@ -15,5 +15,11 @@ stdenv.mkDerivation rec {
     tar -xvf $src
     mv package ${pname}
   '';
+
+  meta = with lib; {
+    description = "collection of HTML, JavaScript, and CSS assets that dynamically generate beautiful documentation from a Swagger-compliant API";
+    homepage = "https://www.npmjs.com/package/swagger-ui-dist";
+    license = licenses.asl20;
+  };
 }
 
