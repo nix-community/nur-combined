@@ -35,7 +35,8 @@ export fn main() void = {
     net = opts.keep_net,
   };
 
-  rtext::no_new_privs();
+  rtext::no_new_privs()!;
+  restrict::namespace_restrict(&what);
   restrict::landlock_restrict(&what);
   if (opts.drop_shell) {
     do_exec(["/bin/sh"]);
