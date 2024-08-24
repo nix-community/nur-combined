@@ -513,13 +513,13 @@
         sha512 = "8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==";
       };
     };
-    "micromatch-4.0.7" = {
+    "micromatch-4.0.8" = {
       name = "micromatch";
       packageName = "micromatch";
-      version = "4.0.7";
+      version = "4.0.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/micromatch/-/micromatch-4.0.7.tgz";
-        sha512 = "LPP/3KorzCwBxfeUuZmaR6bG2kdeHSbe0P2tY3FLRU4vYrjYz5hI4QZwV0njUx3jeuKe67YukQ1LSPZBKDqO/Q==";
+        url = "https://registry.npmjs.org/micromatch/-/micromatch-4.0.8.tgz";
+        sha512 = "PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==";
       };
     };
     "mimic-fn-4.0.0" = {
@@ -986,10 +986,10 @@ in {
   "@tailwindcss/language-server" = nodeEnv.buildNodePackage {
     name = "_at_tailwindcss_slash_language-server";
     packageName = "@tailwindcss/language-server";
-    version = "0.0.22";
+    version = "0.0.23";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@tailwindcss/language-server/-/language-server-0.0.22.tgz";
-      sha512 = "DFMljwBlSKTpR0nMgJKE+YAOr4mlBqrNcLt1WWjb8byb6sLVW4u7oc28G/9ctPU4019SH0ptzxnxZerbvQZIzA==";
+      url = "https://registry.npmjs.org/@tailwindcss/language-server/-/language-server-0.0.23.tgz";
+      sha512 = "XaG0Vxp6jbjn7ifz2wo7GU43YVRG5MgVGxD+qLH1Ewru5Jux+uUsXKPtcuX/gOBKh5iRmQhHUdrcimYR0aVDgA==";
     };
     buildInputs = globalBuildInputs;
     meta = {
@@ -1105,7 +1105,7 @@ in {
       sources."magicast-0.3.4"
       sources."merge-stream-2.0.0"
       sources."merge2-1.4.1"
-      sources."micromatch-4.0.7"
+      sources."micromatch-4.0.8"
       sources."mimic-fn-4.0.0"
       sources."minipass-5.0.0"
       (sources."minizlib-2.1.2"
