@@ -6,16 +6,16 @@
 
 buildGoModule rec {
   pname = "mobsql";
-  version = "0.5.0";
+  version = "0.6.0";
 
   src = fetchFromSourcehut {
     owner = "~mil";
     repo = "mobsql";
     rev = "v${version}";
-    hash = "sha256-OKwl9SudYUGAjR8l3y7BCSmCIuDo7IKosh02TedLvnQ=";
+    hash = "sha256-jPx/We8a1L9hLDgxxg/pAfBkbT+cl7l8EmruYZ4maug=";
   };
 
-  vendorHash = "sha256-6+rwz/7SiizixkrYnuyzpKNhhS9fFNLdce+2cCQI1J8=";
+  vendorHash = "sha256-YqduGY9c4zRQscjqze3ZOAB8EYj+0/6V7NceRwLe3DY=";
 
   postInstall = ''
     mv $out/bin/{cli,mobsql}
