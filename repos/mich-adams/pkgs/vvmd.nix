@@ -19,13 +19,13 @@
 
 stdenv.mkDerivation rec {
   pname = "vvmd";
-  version = "0.18";
+  version = "1.0";
 
   src = fetchFromGitLab {
     owner = "kop316";
     repo = "vvmd";
     rev = version;
-    hash = "sha256-JajNeu9Zeia3hIRl1fAxEQeFzk0puvfD3sf+91w/wMc=";
+    hash = "sha256-mSY3O6qs33ymhIq5UUs5XEUta1F87n8QJLMbq6m0qWI=";
   };
 
   nativeBuildInputs = [ meson pkg-config cmake ];
