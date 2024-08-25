@@ -13,18 +13,18 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "aura";
-  version = "4.0.3";
+  version = "4.0.4";
 
   src = fetchFromGitHub {
     owner = "fosskers";
     repo = "aura";
     rev = "v${version}";
-    hash = "sha256-DBdzlhrE7T0mtMuGzrh36vlhpcJd5OVYqXLGJaju6HY=";
+    hash = "sha256-s/liYonPYiwr7Lfh8RmBY3mq9gzGpcSwjxgMg7KXUkY=";
   };
 
   sourceRoot = "${src.name}/rust";
 
-  cargoHash = "sha256-Vj8WezMIW260KdZyObRRGJGMac8GM24hQ+1wjZr3HHE=";
+  cargoHash = "sha256-CyFQyVZX3ujJdZDIpOw44ycR5T1/wli4RhNlRNk91gQ=";
 
   nativeBuildInputs = [
     installShellFiles
@@ -42,7 +42,12 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     installManPage \
-      ./man-pages/*
+      ../misc/aura.8
+
+    installShellCompletion --cmd aura \
+      --bash ../misc/completions/bashcompletion.sh \
+      --fish ../misc/completions/aura.fish \
+      --zsh ../misc/completions/_aura
   '';
 
   meta = with lib; {
