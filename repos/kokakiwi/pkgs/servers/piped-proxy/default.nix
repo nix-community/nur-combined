@@ -11,16 +11,16 @@
 }:
 rustPlatform.buildRustPackage {
   pname = "piped-proxy";
-  version = "0-unstable-2024-08-10";
+  version = "0-unstable-2024-08-19";
 
   src = fetchFromGitHub {
     owner = "TeamPiped";
     repo = "piped-proxy";
-    rev = "dce6ee79652343a25795bf6e42cf95b39c945346";
-    hash = "sha256-PqX7UjOwfe+aEQ2XxvKi1eAh7dZipfFlpfoDMeE1Wrg=";
+    rev = "79f27fbfc97fd99abc14772cab56c243be464407";
+    hash = "sha256-91pIfpZ4Ty2saucms8cJ/QeWD36kvoBTe/FqCqGw2IU=";
   };
 
-  cargoHash = "sha256-6ql6Gi7+jh7a9VC5u8/L8sfa93WRzbw1dLUTebY+9L4=";
+  cargoHash = "sha256-H0wq3y4ZxFbBqUt7RvJQYcdUVxE8JscepisYoRywz9k=";
 
   nativeBuildInputs = [
     pkg-config
