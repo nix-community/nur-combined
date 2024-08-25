@@ -15,18 +15,18 @@
 			"sha256": "75136176947df9701c6387fdc3420f29ec0414e845304e2582b17f62dfeb805f"
 		},
 		"librewolf-x64": {
-			"version": "129.0.1-1",
-			"url": "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/129.0.1-1/librewolf-129.0.1-1-macos-x86_64-package.dmg",
-			"sha256": "970c3acf573ea840862482e62eebd2512561b70d6278929fafb5a8c691f7cb61"
+			"version": "129.0.2-1",
+			"url": "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/129.0.2-1/librewolf-129.0.2-1-macos-x86_64-package.dmg",
+			"sha256": "3e1fd7eebde352b244999c807695ca4630e2313bb772b2e48b4185f8778c95d5"
 		},
 		"librewolf-arm64": {
-			"version": "129.0.1-1",
-			"url": "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/129.0.1-1/librewolf-129.0.1-1-macos-arm64-package.dmg",
-			"sha256": "ce33ed438ea0ea1d0c223e91cccfa8bd24007b1115218e0bba7774be5bc40e5e"
+			"version": "129.0.2-1",
+			"url": "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/129.0.2-1/librewolf-129.0.2-1-macos-arm64-package.dmg",
+			"sha256": "e317f830f0824a166ff81e92eeafddc0a8767c3659d61369dac6b877f12ca9e5"
 		},
 		"floorp": {
-			"version": "v11.17.6",
-			"url": "https://github.com/Floorp-Projects/Floorp/releases/download/v11.17.6/floorp-macOS-universal.dmg",
-			"sha256": "259d322fbeb906955181c1010f2f6dcbc40a13b120d7e71b68bd9161cba17367"
+			"version": "v11.17.7",
+			"url": "https://github.com/Floorp-Projects/Floorp/releases/download/v11.17.7/floorp-macOS-universal.dmg",
+			"sha256": "6c2eaf02907285ef6dc8dd7a44660aea867ffa505ba8df0ff885db1a8ab4723c"
 		}
 	}
