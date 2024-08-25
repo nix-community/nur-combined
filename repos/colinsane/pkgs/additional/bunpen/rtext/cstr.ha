@@ -17,7 +17,7 @@ fn make_cstr(scratch: []c::char, s: str) *c::char = {
       case null => void;
       case let data: *[*]u8 =>
         data[s_repr.length] = 0;
-        return c::nulstr(s);
+        return data: *c::char;
     };
   };
   // XXX: will `abort` if the string is larger than the buffer!

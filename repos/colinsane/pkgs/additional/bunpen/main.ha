@@ -2,21 +2,32 @@
 use config;
 use log;
 use restrict;
+use rt;
 use rtext;
 use strings;
 use os;
 use os::exec;
+use types::c;
 
-fn do_exec(args: []str) never = {
-  let joined = strings::join(" ", args...);
-  log::printfln("exec: {}", joined);
-  free(joined);
+fn do_exec(name: str, args: []str) (os::exec::error | void) = {
+  {
+    let joined = strings::join(" ", args...);
+    defer free(joined);
+    log::printfln("exec ({}): {}", name, joined);
+  };
 
-  let cmd = os::exec::cmd(args[0], args[1..]...)!;
-  os::exec::exec(&cmd);
+  let path = args[0];
+  args[0] = name;
+  rtext::check_error("exec", rtext::execve(path, args));
+
+  // XXX: os::exec::exec offers no way to preserve argv0, but the following
+  // works if you don't care about that:
+  // let cmd = os::exec::cmd(args[0], args[1..]...)?;
+  // os::exec::exec(&cmd);
 };
 
 export fn main() void = {
+  let name = os::args[0];
   let opts = config::parse_args(os::args[1..]);
 
   if (opts.help) {
@@ -39,8 +50,9 @@ export fn main() void = {
   restrict::namespace_restrict(&what);
   restrict::landlock_restrict(&what);
   if (opts.drop_shell) {
-    do_exec(["/bin/sh"]);
+    // TODO: respect the user's $SHELL
+    rtext::check_error("exec /bin/sh", do_exec("sh", ["/bin/sh"]));
   } else {
-    do_exec(opts.cmd);
+    rtext::check_error("exec <user command>", do_exec(name, opts.cmd));
   };
 };
