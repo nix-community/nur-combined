@@ -17,4 +17,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   lyricer = pkgs.callPackage ./pkgs/lyricer { };
+  audacious = pkgs.qt6Packages.callPackage ./pkgs/audacious { };
 }
