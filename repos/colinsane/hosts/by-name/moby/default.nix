@@ -30,10 +30,21 @@
 
   sane.programs.sway.enableFor.user.colin = true;
   sane.programs.sway.config.mod = "Mod1";  #< alt key instead of Super
-  sane.programs.blueberry.enableFor.user.colin = false;  # bluetooth manager: doesn't cross compile!
-  sane.programs.fcitx5.enableFor.user.colin = false;  # does not cross compile
-  sane.programs.mercurial.enableFor.user.colin = false;  # does not cross compile
+
+  # disable the following non-essential programs which fail to cross compile
+  sane.programs.bash-language-server.enableFor = { system = false; user.colin = false; };  # bash neovim LSP: doesn't cross compile (2024-08-26)
+  sane.programs.blueberry.enableFor.user.colin = false;  # bluetooth manager: doesn't cross compile
+  sane.programs.fcitx5.enableFor.user.colin = false;
+  sane.programs.ltex-ls.enableFor = { system = false; user.colin = false; };  # LaTeX/html/markdown neovim LSP: doesn't cross compile (2024-08-26)
+  sane.programs.lua-language-server.enableFor = { system = false; user.colin = false; };  # lua neovim LSP: doesn't cross compile (2024-08-26)
+  sane.programs.marksman.enableFor = { system = false; user.colin = false; };  # markdown neovim LSP: doesn't cross compile (2024-08-26)
+  sane.programs.mercurial.enableFor.user.colin = false;
   sane.programs.nvme-cli.enableFor.system = false;  # does not cross compile (libhugetlbfs)
+  sane.programs.pyright.enableFor = { system = false; user.colin = false; };  # python neovim LSP: doesn't cross compile (2024-08-26)
+
+  # disable the following non-essential programs which are excessively slow to build or large to copy
+  sane.programs.rust-analyzer.enableFor = { system = false; user.colin = false; };  # rust neovim LSP
+  sane.programs.typescript-language-server.enableFor = { system = false; user.colin = false; };  # rust js/TypeScript LSP
 
   # enabled for easier debugging
   sane.programs.eg25-control.enableFor.user.colin = true;

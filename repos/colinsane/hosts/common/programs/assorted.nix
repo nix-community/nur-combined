@@ -183,6 +183,7 @@ in
       # "gh"  # MS GitHub cli
       "haredoc"
       "nix-index"
+      "nixfmt-rfc-style"  # run `nixpkgs path/to/package.nix` before submitting stuff upstream
       "nixpkgs-review"
       "qmk-udev-rules"
       "sane-scripts.dev"
@@ -232,7 +233,7 @@ in
     gameApps = declPackageSet [
       "animatch"
       "gnome-2048"
-      "gnome.hitori"  # like sudoku
+      "hitori"  # like sudoku
     ];
 
     pcGameApps = declPackageSet [
@@ -291,14 +292,13 @@ in
       "geary"  # adaptive e-mail client; uses webkitgtk 4.1
       "gnome-calculator"
       "gnome-calendar"
-      "gnome.gnome-clocks"
-      "gnome.gnome-maps"
+      "gnome-clocks"
       # "gnome-podcasts"
       # "gnome.gnome-system-monitor"
       # "gnome.gnome-terminal"  # works on phosh
-      "gnome.gnome-weather"
-      # "seahorse"  # keyring/secret manager
       "gnome-frog"  # OCR/QR decoder
+      "gnome-maps"
+      "gnome-weather"
       "gpodder"
       # "gst-device-monitor"  # for debugging audio/video
       # "gthumb"
@@ -317,7 +317,7 @@ in
       "pavucontrol"
       "pwvucontrol"  # pipewire version of pavu
       # "picard"  # music tagging
-      # "libsForQt5.plasmatube"  # Youtube player
+      # "seahorse"  # keyring/secret manager
       "signal-desktop"
       # "snapshot"  # camera app
       # "spot"  # Gnome Spotify client
@@ -410,6 +410,9 @@ in
 
     backblaze-b2 = {};
 
+    bash-language-server.sandbox.method = "bwrap";
+    bash-language-server.sandbox.whitelistPwd = true;
+
     blanket.buildCost = 1;
     blanket.sandbox.method = "bwrap";
     blanket.sandbox.whitelistAudio = true;
@@ -435,8 +438,15 @@ in
     "cacert.unbundled".sandbox.enable = false;  #< data only
 
     cargo.persist.byStore.plaintext = [ ".cargo" ];
+    cargo.sandbox.method = "bwrap";  # probably this is too restrictive; i'm sandboxing it for rust-analyzer / neovim LSP
+    cargo.sandbox.whitelistPwd = true;
+    cargo.sandbox.net = "all";
+    cargo.sandbox.extraHomePaths = [ "dev" "ref" ];
 
     clang = {};
+
+    clang-tools.sandbox.method = "bwrap";
+    clang-tools.sandbox.whitelistPwd = true;
 
     clightning-sane.sandbox.method = "bwrap";
     clightning-sane.sandbox.extraPaths = [
@@ -695,9 +705,9 @@ in
     # 1. no number may appear unshaded more than once in the same row/column
     # 2. no two shaded tiles can be direct N/S/E/W neighbors
     # - win once (1) and (2) are satisfied
-    "gnome.hitori".buildCost = 1;
-    "gnome.hitori".sandbox.method = "bwrap";
-    "gnome.hitori".sandbox.whitelistWayland = true;
+    hitori.buildCost = 1;
+    hitori.sandbox.method = "bwrap";
+    hitori.sandbox.whitelistWayland = true;
 
     gnugrep.sandbox.method = "bwrap";
     gnugrep.sandbox.autodetectCliPaths = "existing";
@@ -851,10 +861,19 @@ in
     lsof.sandbox.method = "capshonly";  # lsof doesn't sandbox under bwrap or even landlock w/ full access to /
     lsof.sandbox.capabilities = [ "dac_override" "sys_ptrace" ];
 
+    ltex-ls.sandbox.method = "bwrap";
+    ltex-ls.sandbox.whitelistPwd = true;
+
     lua = {};
+
+    lua-language-server.sandbox.method = "bwrap";
+    lua-language-server.sandbox.whitelistPwd = true;
 
     man-pages.sandbox.enable = false;  #< data only
     man-pages-posix.sandbox.enable = false;  #< data only
+
+    marksman.sandbox.method = "bwrap";
+    marksman.sandbox.whitelistPwd = true;
 
     mercurial.sandbox.method = "bwrap";  # TODO:sandbox: untested
     mercurial.sandbox.net = "clearnet";
@@ -864,6 +883,8 @@ in
     mesa-demos.sandbox.whitelistDri = true;
     mesa-demos.sandbox.whitelistWayland = true;
     mesa-demos.sandbox.whitelistX = true;
+
+    meson = {};
 
     # actual monero blockchain (not wallet/etc; safe to delete, just slow to regenerate)
     monero-gui.buildCost = 1;
@@ -898,6 +919,16 @@ in
     networkmanagerapplet.sandbox.method = "bwrap";
     networkmanagerapplet.sandbox.whitelistWayland = true;
     networkmanagerapplet.sandbox.whitelistDbus = [ "system" ];
+
+    nil.sandbox.method = "bwrap";
+    nil.sandbox.whitelistPwd = true;
+    nil.sandbox.isolatePids = false;
+
+    nixd.sandbox.method = "bwrap";
+    nixd.sandbox.whitelistPwd = true;
+
+    nixfmt-rfc-style.sandbox.method = "bwrap";
+    nixfmt-rfc-style.sandbox.autodetectCliPaths = "existingDirOrParent";  #< it formats via rename
 
     nixpkgs-review.sandbox.method = "bwrap";
     nixpkgs-review.sandbox.wrapperType = "inplace";  #< shell completions use full paths
@@ -939,6 +970,9 @@ in
 
     # settings (electron app)
     obsidian.persist.byStore.plaintext = [ ".config/obsidian" ];
+
+    openscad-lsp.sandbox.method = "bwrap";
+    openscad-lsp.sandbox.whitelistPwd = true;
 
     passt.sandbox.enable = false;  #< sandbox helper (netns specifically)
 
@@ -991,6 +1025,9 @@ in
     pwvucontrol.sandbox.whitelistDri = true;  # else perf on moby is unusable
     pwvucontrol.sandbox.whitelistWayland = true;
 
+    pyright.sandbox.method = "bwrap";
+    pyright.sandbox.whitelistPwd = true;
+
     python3-repl.packageUnwrapped = pkgs.python3.withPackages (ps: with ps; [
       psutil
       pykakasi
@@ -1011,7 +1048,15 @@ in
     rsync.sandbox.net = "clearnet";
     rsync.sandbox.autodetectCliPaths = "existingOrParent";
 
+    rust-analyzer.sandbox.method = "bwrap";
+    rust-analyzer.sandbox.whitelistPwd = true;
+    rust-analyzer.suggestedPrograms = [
+      "cargo"
+    ];
+
     rustc = {};
+
+    rustup = {};
 
     sane-cast.sandbox.method = "bwrap";
     sane-cast.sandbox.net = "clearnet";
@@ -1150,6 +1195,9 @@ in
     tree.sandbox.autodetectCliPaths = "existing";
     tree.sandbox.whitelistPwd = true;
 
+    typescript-language-server.sandbox.method = "bwrap";
+    typescript-language-server.sandbox.whitelistPwd = true;
+
     tumiki-fighters.buildCost = 1;
     tumiki-fighters.sandbox.method = "bwrap";
     tumiki-fighters.sandbox.whitelistAudio = true;
@@ -1167,6 +1215,13 @@ in
     usbutils.sandbox.extraPaths = [
       "/sys/devices"
       "/sys/bus/usb"
+    ];
+
+    vala-language-server.sandbox.method = "bwrap";
+    vala-language-server.sandbox.whitelistPwd = true;
+    vala-language-server.suggestedPrograms = [
+      # might someday support cmake, too: <https://github.com/vala-lang/vala-language-server/issues/73>
+      "meson"
     ];
 
     valgrind.buildCost = 1;

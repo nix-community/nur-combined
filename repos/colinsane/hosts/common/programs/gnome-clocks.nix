@@ -1,6 +1,6 @@
 { pkgs, ... }: {
-  sane.programs."gnome.gnome-clocks" = {
-    packageUnwrapped = pkgs.gnome.gnome-clocks.overrideAttrs (upstream: {
+  sane.programs.gnome-clocks = {
+    packageUnwrapped = pkgs.gnome-clocks.overrideAttrs (upstream: {
       # TODO: upstream this
       buildInputs = upstream.buildInputs ++ (with pkgs; [
         # gnome-clocks needs `playbin` (gst-plugins-base) and `scaletempo` (gst-plugins-good)

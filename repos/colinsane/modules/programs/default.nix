@@ -328,7 +328,15 @@ let
       sandbox.autodetectCliPaths = mkOption {
         type = types.coercedTo types.bool
           (b: if b then "existing" else null)
-          (types.nullOr (types.enum [ "existing" "existingFile" "existingFileOrParent" "existingOrParent" "parent" ]));
+          (types.nullOr (types.enum [
+            "existing"
+            "existingDir"
+            "existingDirOrParent"
+            "existingFile"
+            "existingFileOrParent"
+            "existingOrParent"
+            "parent"
+          ]));
         default = null;
         description = ''
           if a CLI argument looks like a PATH, should we add it to the sandbox?

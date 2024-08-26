@@ -18,8 +18,8 @@
 #   even temporarily enabling the portal for OSM doesn't work *after* the portal has been disabled -- because then gnome-maps can't access its passwords (?)
 { pkgs, ... }:
 {
-  sane.programs."gnome.gnome-maps" = {
-    packageUnwrapped = pkgs.rmDbusServicesInPlace (pkgs.gnome.gnome-maps.overrideAttrs (base: {
+  sane.programs.gnome-maps = {
+    packageUnwrapped = pkgs.rmDbusServicesInPlace (pkgs.gnome-maps.overrideAttrs (base: {
       # default .desktop file is trying to do some dbus launch (?) which fails even *if* i install `gapplication` (glib.bin)
       postPatch = (base.postPatch or "") + ''
         substituteInPlace data/org.gnome.Maps.desktop.in.in \

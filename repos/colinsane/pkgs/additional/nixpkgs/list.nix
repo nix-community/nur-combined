@@ -33,29 +33,17 @@ in
   # })
 
   (fetchpatch' {
-    title = "librewolf-unwrapped: use nvidia explicit sync vendored patches";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/336304";
-    hash = "sha256-JkN7Yapfiz4FbxiCf/aPcnvaITXbZXGnTadBhVsAuFY=";
-  })
-
-  (fetchpatch' {
     title = "nixos/pam: replace apparmor warnings with assertions";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/332119";
-    saneCommit = "17e5fa9dc3c6d9f1fbfa2b23f6e1ae5c7e17bebd";
-    hash = "sha256-9UrJB/ijXL07H/SESquCCqI1boVoYpDcYqxD+Mx2Mwc=";
+    # saneCommit = "17e5fa9dc3c6d9f1fbfa2b23f6e1ae5c7e17bebd";
+    hash = "sha256-8aQ/kI5Gd78KqR1DmiXZpJMyeL2JLVW4ZAWkk8PbvEA=";
   })
 
   (fetchpatch' {
-    # TODO: send upstream: <https://github.com/uninsane/nixpkgs/pull/new/pr-flatpak-cross-2>
     title = "flatpak: fix cross compilation for 1.14.10";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/337412";
     saneCommit = "8359a34a1b944082ea1bd76fee61819e7b86e00e";
     hash = "sha256-OnWu15IgZREWOohUnF2uqHPQd920aEDJ7oBT4h5vpu4=";
-  })
-
-  (fetchpatch' {
-    title = "hare-ev: 2024-07-11 -> 2024-08-06";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/333378";
-    hash = "sha256-3RnqId/Rk0A5YyvsixLvKyLFOiFuvlThKdT00D6hjWI=";
   })
 
   # (fetchpatch' {

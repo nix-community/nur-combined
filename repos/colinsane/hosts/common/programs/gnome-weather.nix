@@ -2,7 +2,7 @@
 # cache dir is just for weather data (or maybe a http cache)
 { ... }:
 {
-  sane.programs."gnome.gnome-weather" = {
+  sane.programs.gnome-weather = {
     buildCost = 1;
 
     sandbox.method = "bwrap";

@@ -106,7 +106,7 @@
     ./mpv
     ./msmtp.nix
     ./nautilus.nix
-    ./neovim.nix
+    ./neovim
     ./networkmanager_dmenu
     ./newsflash.nix
     ./nheko.nix

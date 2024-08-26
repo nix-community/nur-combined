@@ -439,15 +439,24 @@ in with final; {
     '';
   });
 
+  gnome-maps = prev.gnome-maps.overrideAttrs (upstream: {
+    # 2024/08/12: upstreaming is blocked by libgweather (direct dependency)
+    postPatch = (upstream.postPatch or "") + ''
+      # fixes: "ERROR: Program 'gjs' not found or not executable"
+      substituteInPlace meson.build \
+        --replace-fail "find_program('gjs')" "find_program('${gjs}/bin/gjs')"
+    '';
+  });
+
+  # 2024/05/08: fix: "meson.build:85:11: ERROR: Dependency "dbus-1" not found, tried pkgconfig".
+  # 2024/08/12: upstreaming is unblocked
+  gnome-online-accounts = mvToBuildInputs [ dbus ] prev.gnome-online-accounts;
+
   # 2024/08/12: upstreaming is blocked on gnome-user-share (apache-httpd)
   # gnome-terminal = prev.gnome-terminal.overrideAttrs (orig: {
   #   # fixes "meson.build:343:0: ERROR: Dependency "libpcre2-8" not found, tried pkgconfig"
   #   buildInputs = orig.buildInputs ++ [ pcre2 ];
   # });
-
-  # 2024/05/08: fix: "meson.build:85:11: ERROR: Dependency "dbus-1" not found, tried pkgconfig".
-  # 2024/08/12: upstreaming is unblocked
-  gnome-online-accounts = mvToBuildInputs [ dbus ] prev.gnome-online-accounts;
 
   # 2024/08/12: upstreaming is blocked on apache-httpd (via mod_dnssd)
   # fixes: meson.build:111:6: ERROR: Program 'glib-compile-schemas' not found or not executable
@@ -457,15 +466,6 @@ in with final; {
     # 2024/05/31: upstreaming is blocked by a LOT: qtbase, qtsvg, webp-pixbuf-loader, libgweather, gnome-color-manager, appstream, apache-httpd, ibus
     # fixes "subprojects/gvc/meson.build:30:0: ERROR: Program 'glib-mkenums mkenums' not found or not executable"
     # gnome-control-center = mvToNativeInputs [ glib ] super.gnome-control-center;
-
-    gnome-maps = super.gnome-maps.overrideAttrs (upstream: {
-      # 2024/08/12: upstreaming is blocked by libgweather (direct dependency)
-      postPatch = (upstream.postPatch or "") + ''
-        # fixes: "ERROR: Program 'gjs' not found or not executable"
-        substituteInPlace meson.build \
-          --replace-fail "find_program('gjs')" "find_program('${gjs}/bin/gjs')"
-      '';
-    });
     # 2024/08/12: upstreaming is blocked on ibus, libgweather
     # gnome-shell = super.gnome-shell.overrideAttrs (orig: {
     #   # fixes "meson.build:128:0: ERROR: Program 'gjs' not found or not executable"

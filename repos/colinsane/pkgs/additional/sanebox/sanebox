@@ -66,9 +66,11 @@ cliArgs=()
 method=
 # autodetect: set non-empty to add any path-like entities intended for the binary's CLI, into its sandbox.
 # - "existing" (file or directory)
+# - "existingDir" (directory only; no files)
 # - "existingFile" (file only; no directories)
 # - "parent"
 # - "existingOrParent"
+# - "existingDirOrParent"
 # - "existingFileOrParent"
 autodetect=
 # paths: list of paths to make available inside the sandbox.
@@ -128,7 +130,7 @@ usage() {
   echo '      show what would be `exec`uted but do not perform any action'
   echo '  --sanebox-method <bwrap|capshonly|pastaonly|landlock|none>'
   echo '      use a specific sandboxer'
-  echo '  --sanebox-autodetect <existing|existingFile|existingFileOrParent|existingOrParent|parent>'
+  echo '  --sanebox-autodetect <existing|existingDir|existingDirOrParent|existingFile|existingFileOrParent|existingOrParent|parent>'
   echo '      add files which appear later as CLI arguments into the sandbox'
   echo '  --sanebox-cap <all|sys_admin|net_raw|net_admin|...>'
   echo '      allow the sandboxed program to use the provided linux capability (both inside and outside the sandbox)'
@@ -396,6 +398,15 @@ tryPath() {
       fi
       return 1
       ;;
+    (existingDir)
+      # the caller wants to access a directory, and explicitly *not* a file (though it could be a symlink *to a directory*)
+      if [ -d "$path" ]; then
+        relativeToPwd _absPath "$path"
+        paths+=("$_absPath")
+        return 0
+      fi
+      return 1
+      ;;
     (existingFile)
       # the caller wants to access a file, and explicitly *not* a directory (though it could be a symlink *to a file*)
       if [ -f "$path" ]; then
@@ -413,6 +424,10 @@ tryPath() {
     (existingOrParent)
       # the caller wants access to the path, or write access to the parent directory so it may create the path if it doesn't exist.
       tryPath "$path" "existing" || tryPath "$path" "parent"
+      ;;
+    (existingDirOrParent)
+      # the caller wants access to the directory, or write access to the parent directory in case the path doesn't exist or is a file
+      tryPath "$path" "existingDir" || tryPath "$path" "parent"
       ;;
     (existingFileOrParent)
       # the caller wants access to the file, or write access to the parent directory so it may create the file if it doesn't exist.

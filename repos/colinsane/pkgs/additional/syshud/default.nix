@@ -1,22 +1,26 @@
-{ lib, stdenv
-, fetchFromGitHub
-, gtk4-layer-shell
-, gtkmm4
-, pkg-config
-, nix-update-script
-, wireplumber
-, wrapGAppsHook4
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gtk4-layer-shell,
+  gtkmm4,
+  nix-update-script,
+  pkg-config,
+  wireplumber,
+  wrapGAppsHook4,
 }:
+
 stdenv.mkDerivation (finalAttrs: {
   pname = "syshud";
-  version = "0-unstable-2024-08-17";
+  version = "0-unstable-2024-08-24";
 
   src = fetchFromGitHub {
     owner = "System64fumo";
     repo = "syshud";
-    rev = "cbdef71520845c638774e0129fa124ad4df6db2f";
-    hash = "sha256-XTiiV+o+fgwMz7eBQDwNiESIkV28KQ1JK7urEb+Z9OA=";
+    rev = "93f94c866b0ed6326ec7cc6da04221e1feaafeef";
+    hash = "sha256-+l7WDDrdKiFZAGrtARC86hDrNML8BMYIw0Z4yg/bKsU=";
   };
+
   postPatch = ''
     substituteInPlace Makefile \
       --replace-fail 'pkg-config' ''${PKG_CONFIG}
@@ -24,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     pkg-config
-    wrapGAppsHook4  #< to plumb `GDK_PIXBUF_MODULE_FILE` through, and get not-blurry icons
+    wrapGAppsHook4
   ];
 
   buildInputs = [
@@ -54,13 +58,17 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version" "branch" ];
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
   };
 
   meta = {
-    description = "Simple heads up display written in gtkmm 4";
-    homepage = "https://github.com/System64fumo/syshud";
+    description = "simple heads up display written in gtkmm 4";
     mainProgram = "syshud";
+    homepage = "https://github.com/System64fumo/syshud";
+    license = lib.licenses.wtfpl;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ colinsane ];
   };
