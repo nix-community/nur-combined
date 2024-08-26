@@ -17,10 +17,12 @@
   charm = pkgs.callPackage ./pkgs/charm { };
   confettysh = pkgs.callPackage ./pkgs/confettysh { };
   freeze = pkgs.callPackage ./pkgs/freeze { };
+  glow = pkgs.callPackage ./pkgs/glow { };
   gum = pkgs.callPackage ./pkgs/gum { };
   melt = pkgs.callPackage ./pkgs/melt { };
   mods = pkgs.callPackage ./pkgs/mods { };
   pop = pkgs.callPackage ./pkgs/pop { };
+  skate = pkgs.callPackage ./pkgs/skate { };
   soft-serve = pkgs.callPackage ./pkgs/soft-serve { };
   vhs = pkgs.callPackage ./pkgs/vhs { };
   wishlist = pkgs.callPackage ./pkgs/wishlist { };
