@@ -3828,10 +3828,10 @@
     };
     "hover-zoom-plus" = buildFirefoxXpiAddon {
       pname = "hover-zoom-plus";
-      version = "1.0.218";
+      version = "1.0.219";
       addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4315249/hover_zoom_plus-1.0.218.xpi";
-      sha256 = "d9082a2751e229dc1c9c98533cea27593fb8e922c3261bba0b5d6367376b4e03";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4342533/hover_zoom_plus-1.0.219.xpi";
+      sha256 = "bd453c148c8b687f0638bf9b7ffeaa45c0612ce66475b12006bb03febce83dfa";
       meta = with lib;
       {
         homepage = "https://github.com/extesy/hoverzoom/";
@@ -4801,6 +4801,9 @@
           "*://*.songkick.com/*"
           "*://*.nextdoor.com/*"
           "*://*.polona.pl/*"
+          "*://*.raindrop.io/*"
+          "*://*.stackoverflow.com/*"
+          "*://*.uinotes.com/*"
         ];
         platforms = platforms.all;
       };
