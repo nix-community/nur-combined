@@ -81,6 +81,7 @@ in
         lanzaboote.nixosModules.lanzaboote
         nur.nixosModules.nur
         stylix.nixosModules.stylix
+        daeuniverse.nixosModules.dae
         # nixos-hardware.nixosModules.common-cpu-amd-pstate
         # nixos-hardware.nixosModules.common-gpu-amd
         # nixos-hardware.nixosModules.common-pc-ssd
