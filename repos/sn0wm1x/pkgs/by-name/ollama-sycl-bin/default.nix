@@ -5,9 +5,11 @@
 , makeWrapper
   # , intel-compute-runtime
 , callPackage
+, acceleration ? null
 }:
 let intel-compute-runtime-fix = callPackage ../intel-compute-runtime-fix { };
 in stdenv.mkDerivation rec {
+  inherit acceleration;
   pname = "ollama-sycl-bin";
   version = "0.0.2";
   preferLocalBuild = true;
