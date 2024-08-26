@@ -9,6 +9,7 @@
     sq # Swiss army knife for data
     jq
     yj
+    dasel
     jsonnet
 
   ];

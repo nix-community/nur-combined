@@ -1,7 +1,6 @@
-  let g:linny_open_notebook_path       = $HOME . '/cLinden/linny-notebook-template'
-  "let g:linnycfg_notebooks_paths = [ $HOME . '/cLinden/linny-notebook-template',  $HOME . '/secondbrain']
+let g:linny_open_notebook_path       = $HOME . '/secondbrain'
+"let g:linnycfg_notebooks_paths = [ $HOME . '/cLinden/linny-notebook-template',  $HOME . '/secondbrain']
 
-end
 
 if filereadable($HOME."/.i-am-second-brain")
   call linny#Init()

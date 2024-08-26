@@ -24,14 +24,19 @@ let
     "076504012268" = "playground pim";
   };
 
-  normalize_group = group : __concatStringsSep "_" (builtins.filter (x: builtins.typeOf x == "string") (__split " " (lib.strings.toLower group)));
+  # normalize_group = group : __concatStringsSep "_" (builtins.filter (x: builtins.typeOf x == "string") (__split " " (lib.strings.toLower group)));
+
+  normalize_string = instring : __concatStringsSep "_" (builtins.filter (x: builtins.typeOf x == "string") (__split " " (lib.strings.toLower instring)));
 
   account_name = account :
-      if builtins.hasAttr account.account_id alternative_names then alternative_names."${account.account_id}" else account.account_name;
+    if builtins.hasAttr account.account_id alternative_names then
+      alternative_names."${account.account_id}"
+    else
+      account.account_name;
 
   show_account = account :
     let
-      groupnorm = normalize_group account.customer_name;
+      groupnorm = normalize_string account.customer_name;
     in
 
     if builtins.hasAttr groupnorm groups && builtins.hasAttr "ignore" groups.${groupnorm} && groups.${groupnorm}.ignore == true then false
@@ -39,7 +44,7 @@ let
 
   tn_profile = {account_id, group } :
     let
-      groupnorm = normalize_group group;
+      groupnorm = normalize_string group;
     in
     {
       inherit group;
@@ -69,7 +74,7 @@ in
       };
     }
     // builtins.listToAttrs (builtins.map (account: {
-       name = "profile ${account_name account}";
+       name = "profile ${normalize_string (account_name account)}";
        value = tn_profile { account_id = account.account_id; group = account.customer_name; };
     }) (builtins.filter (account: show_account account) aws_accounts));
 

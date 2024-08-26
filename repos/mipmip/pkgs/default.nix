@@ -19,6 +19,7 @@ let
     skull                                 = pkgs.callPackage ./pims-projects/skull                          { };
     embgit                                = pkgs.callPackage ./pims-projects/embgit                         { };
     dirtygit                              = pkgs.callPackage ./pims-projects/dirtygit                       { };
+    jsonify-aws-dotfiles                  = pkgs.callPackage ./pims-projects/jsonify-aws-dotfiles           { };
     mip-crystal                           = pkgs.callPackage ./pims-projects/mip-crystal                    { };
     mip-rust                              = pkgs.callPackage ./pims-projects/mip-rust                       { };
 

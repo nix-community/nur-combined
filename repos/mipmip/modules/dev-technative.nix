@@ -34,6 +34,8 @@
     cw # cloudwatch in the terminal
     aws-mfa
     awsweeper
+    unstable.granted
+
     #unstable.cloud-nuke
     #unstable.aws-nuke
     unstable.awscli2

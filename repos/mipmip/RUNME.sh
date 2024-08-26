@@ -63,4 +63,12 @@ fixmacnixpath(){
   echo $PATH
   export  __HM_SESS_VARS_SOURCED
 }
+
+
+make_command "technativeawsupdate" "update account info from technative"
+technativeawsupdate(){
+  aws --profile=web_dns s3 cp s3://docs-mcs.technative.eu-longhorn/managed_service_accounts.json ~/.aws/
+}
+
+
 runme

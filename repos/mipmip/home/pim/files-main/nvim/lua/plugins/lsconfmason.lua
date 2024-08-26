@@ -48,17 +48,17 @@ return {
       lspconfig.rnix.setup({
         capabilites = capabilities,
       })
---      lspconfig.marksman.setup({
---        capabilites = capabilities,
---        cmd = {
---          "sh",
---          "-c",
---          "test -x /run/current-system/sw/bin/marksman && { /run/current-system/sw/bin/marksman server; } || { marksman server; }",
---        },
---        handlers = {
---          ["textDocument/publishDiagnostics"] = function() end,
---        },
---      })
+      lspconfig.marksman.setup({
+        capabilites = capabilities,
+        cmd = {
+          "sh",
+          "-c",
+          "test -x /run/current-system/sw/bin/marksman && { /run/current-system/sw/bin/marksman server; } || { marksman server; }",
+        },
+        handlers = {
+          ["textDocument/publishDiagnostics"] = function() end,
+        },
+      })
 
       lspconfig.terraformls.setup({
         capabilites = capabilities,
