@@ -25,6 +25,12 @@
         substituteInPlace data/org.gnome.Maps.desktop.in.in \
           --replace-fail 'Exec=gapplication launch @app-id@ %U' 'Exec=gnome-maps %U'
       '';
+      # TODO: set up portal-based location services, but until that works, explicitly disable portals here.
+      preFixup = (base.preFixup or "") + ''
+        gappsWrapperArgs+=(
+          --unset GIO_USE_PORTALS
+        )
+      '';
     }));
     suggestedPrograms = [
       "geoclue2"
@@ -39,7 +45,6 @@
     ];
     sandbox.whitelistWayland = true;
     sandbox.net = "clearnet";
-    sandbox.usePortal = false;  # TODO: set up portal-based location services
 
     persist.byStore.plaintext = [ ".cache/shumate" ];
     persist.byStore.private = [

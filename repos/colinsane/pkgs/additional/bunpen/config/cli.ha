@@ -41,10 +41,6 @@ export fn usage() void = {
   // fmt::println("  --bunpen-cap <all|sys_admin|net_raw|net_admin|...>")!;
   // fmt::println("      allow the sandboxed program to use the provided linux capability (both inside and outside the sandbox)")!;
   // fmt::println("      special cap "all" to preserve all capabilities possible")!;
-  // fmt::println("  --bunpen-portal")!;
-  // fmt::println("      set environment variables so that the sandboxed program will attempt to use xdg-desktop-portal for operations like opening files")!;
-  // fmt::println("  --bunpen-no-portal")!;
-  // fmt::println("      undo a previous `--bunpen-portal` arg")!;
   // fmt::println("  --bunpen-bwrap-arg <arg>")!;
   // fmt::println("  --bunpen-capsh-arg <arg>")!;
   // fmt::println("  --bunpen-pasta-arg <arg>")!;

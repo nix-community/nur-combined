@@ -1,14 +1,12 @@
 # useful vim config references:
 # - <repo:nix-community/nur-combined:repos/ambroisie/modules/home/vim>
-moduleArgs@{ config, lib, pkgs, ... }:
+moduleArgs@{ lib, pkgs, ... }:
 
 let
-  inherit (builtins) map;
-  inherit (lib) concatMapStrings mkIf optionalString;
   plugins = import ./plugins.nix moduleArgs;
-  plugin-packages = map (p: p.plugin) plugins;
-  plugin-configs = concatMapStrings (p:
-    optionalString
+  plugin-packages = builtins.map (p: p.plugin) plugins;
+  plugin-configs = lib.concatMapStrings (p:
+    lib.optionalString
       (p ? config) (
         if (p.type or "") == "viml" then
           p.config
@@ -27,7 +25,7 @@ in
       "bash-language-server"
       # "clang-tools"  # for c/c++. fails to follow #includes; "Too many errors emitted"
       "lua-language-server"
-      "ltex-ls"  # LaTeX, html, markdown spellchecker
+      # "ltex-ls"  # LaTeX, html, markdown spellchecker (but it's over-eager, and resource-heavy)
       "marksman"  # markdown
       "nixd"  # Nix
       "openscad-lsp"  # OpenSCAD (limited)

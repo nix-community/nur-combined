@@ -55,6 +55,8 @@ in
     # portal can use the same .desktop files from the rest of my config.
     fs.".local/share/xdg-desktop-portal/applications".symlink.target = "../applications";
 
+    env.GIO_USE_PORTALS = "1";  # instruct gio/gtk apps to use portal services; mostly not needed, except for legacy gtk3 apps like `geary`
+
     services.xdg-desktop-portal = {
       description = "xdg-desktop-portal freedesktop.org portal (URI opener, file chooser, etc)";
       partOf = [ "graphical-session" ];

@@ -94,8 +94,6 @@ netDev=
 netGateway=default
 # list of IP addresses to use for DNS servers inside the sandbox (not supported by all backends)
 dns=()
-# VAR -> VALUE map of environment variables to add to the sandboxed program's environment
-declare -A portalEnv
 argv0=
 case "${0:-8}" in
   ("sanebox"|"/sanebox")
@@ -135,10 +133,6 @@ usage() {
   echo '  --sanebox-cap <all|sys_admin|net_raw|net_admin|...>'
   echo '      allow the sandboxed program to use the provided linux capability (both inside and outside the sandbox)'
   echo '      special cap "all" to preserve all capabilities possible'
-  echo '  --sanebox-portal'
-  echo '      set environment variables so that the sandboxed program will attempt to use xdg-desktop-portal for operations like opening files'
-  echo '  --sanebox-no-portal'
-  echo '      undo a previous `--sanebox-portal` arg'
   echo '  --sanebox-bwrap-arg <arg>'
   echo '  --sanebox-capsh-arg <arg>'
   echo '  --sanebox-pasta-arg <arg>'
@@ -564,20 +558,6 @@ parseArgs() {
           capabilities+=("$cap")
         fi
         ;;
-      (--sanebox-portal)
-        # instruct glib/gtk apps to perform actions such as opening external files via dbus calls to org.freedesktop.portal.*.
-        # note that GIO_USE_PORTALS primarily acts as a *fallback*: apps only open files via the portal if they don't know how to themelves.
-        # this switch is typically accompanied by removing all MIME associations from the app's view, then.
-        # GTK_USE_PORTALS is the old name, beginning to be phased out as of 2023-10-02
-        portalEnv[GIO_USE_PORTALS]=1
-        portalEnv[GTK_USE_PORTAL]=1
-        portalEnv[NIXOS_XDG_OPEN_USE_PORTAL]=1
-        ;;
-      (--sanebox-no-portal)
-        # override a previous --sanebox-portal call
-        unset portalEnv
-        declare -A portalEnv
-        ;;
       (--sanebox-bwrap-arg)
         local bwrapArg=$1
         shift
@@ -773,10 +753,6 @@ bwrapGetCli() {
     )
   fi
 
-  for envName in "${!portalEnv[@]}"; do
-    bwrapArgs+=(--setenv "$envName" "${portalEnv[$envName]}")
-  done
-
   cliArgs=(
     "$_bwrap"
       --argv0 "$argv0"
@@ -950,13 +926,8 @@ capshonlyGetCli() {
   locate _capsh "capsh" "$CAPSH_FALLBACK"
   locate _env "env" "$ENV_FALLBACK"
 
-  local envArgs=(-a "$argv0")
-  for envName in "${!portalEnv[@]}"; do
-    envArgs+=("$envName=${portalEnv[$envName]}")
-  done
-
   cliArgs=(
-    "$_capsh" "--caps=$capshCapsArg" --no-new-privs --shell="$_env" "${capshArgs[@]}" -- "${envArgs[@]}" "${cliArgs[@]}"
+    "$_capsh" "--caps=$capshCapsArg" --no-new-privs --shell="$_env" "${capshArgs[@]}" -- -a "$argv0" "${cliArgs[@]}"
   )
 }
 

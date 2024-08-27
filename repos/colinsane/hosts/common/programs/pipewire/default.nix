@@ -74,7 +74,6 @@ in
       "ipc_lock"
       "sys_nice"
     ];
-    sandbox.usePortal = false;
     sandbox.extraPaths = [
       "/dev/snd"
       # desko/lappy don't need these, but moby complains if not present

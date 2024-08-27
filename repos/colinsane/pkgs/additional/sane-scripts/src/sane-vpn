@@ -239,7 +239,6 @@ def vpn_do(config: VpnConfig, cmd: list[str]) -> None:
         "--sanebox-method", "bwrap",
         "--sanebox-keep-namespace", "all",
         "--sanebox-path", "/",
-        "--sanebox-no-portal",
     ] + net_flags + cmd
 
     logger.debug(f"exec {wrapped_cmd}")

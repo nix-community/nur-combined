@@ -1,9 +1,17 @@
 # docs: <https://git.sr.ht/~mil/mepo>
 # irc #mepo:irc.oftc.net
 #
-{ config, lib, ... }:
+{ pkgs, ... }:
 {
   sane.programs.mepo = {
+    packageUnwrapped = pkgs.mepo.overrideAttrs (base: {
+      # TODO: set up portal-based location services, but until that works, explicitly disable portals here.
+      preFixup = (base.preFixup or "") + ''
+        gappsWrapperArgs+=(
+          --unset GIO_USE_PORTALS
+        )
+      '';
+    });
     sandbox.method = "bwrap";
     sandbox.net = "all";  # for tiles *and* for localhost comm to gpsd
     sandbox.whitelistDri = true;
@@ -12,7 +20,6 @@
       "system"  # system is required for non-portal location services
       "user"  #< not sure if "user" is necessary?
     ];
-    sandbox.usePortal = false;  # TODO: set up portal-based location services
 
     persist.byStore.plaintext = [ ".cache/mepo/tiles" ];
     # ~/.cache/mepo/savestate has precise coordinates and pins: keep those private

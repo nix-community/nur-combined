@@ -18,6 +18,8 @@
       # "mimeopen"  #< optional, unclear what benefit
     ];
 
+    env.NIXOS_XDG_OPEN_USE_PORTAL = "1";
+
     # alternative to letting the sandbox decide for itself: forcibly use the portal
     #   if the mime association list is not visible/in scope.
     # packageUnwrapped = pkgs.xdg-utils.overrideAttrs (base: {

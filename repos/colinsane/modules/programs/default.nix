@@ -77,7 +77,6 @@ let
             capabilities
             extraConfig
             method
-            usePortal
             whitelistPwd
           ;
           netDev = if vpn != null then
@@ -458,14 +457,6 @@ let
             "--sanebox-dns"
             "1.1.1.1"
           ]
-        '';
-      };
-      sandbox.usePortal = mkOption {
-        type = types.bool;
-        default = true;
-        description = ''
-          instruct the sandboxed program to open external applications
-          via calls to xdg-desktop-portal.
         '';
       };
       configOption = mkOption {

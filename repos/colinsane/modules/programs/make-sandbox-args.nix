@@ -11,7 +11,6 @@
   keepUsers ? false,
   netDev ? null,
   netGateway ? null,
-  usePortal ? false,
   whitelistPwd ? false,
   extraConfig ? [],
 }:
@@ -28,14 +27,12 @@ let
     path = p: [ "--sanebox-path" p ];
     path-home = p: [ "--sanebox-home-path" p ];
     path-run = p: [ "--sanebox-run-path" p ];
-    usePortal = [ "--sanebox-portal" ];
     whitelistPwd = [ "--sanebox-add-pwd" ];
   };
   bunpenGenerators = {
     method = m: assert m == "bunpen"; [];
     netDev = n: assert n == "all"; [ "--bunpen-keep-net" ];
     path = p: [ "--bunpen-path" p ];
-    usePortal = [];  #< TODO: the sandboxer really shouldn't have to know about portals.
   };
   gen = if method == "bunpen" then
     bunpenGenerators
@@ -62,5 +59,4 @@ in
   ++ lib.optionals keepPids gen.keepPids
   ++ lib.optionals keepUsers gen.keepUsers
   ++ lib.optionals whitelistPwd gen.whitelistPwd
-  ++ lib.optionals usePortal gen.usePortal
   ++ extraConfig
