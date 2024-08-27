@@ -44,6 +44,7 @@ in stdenv.mkDerivation rec {
   '';
 
   meta = {
+    broken = true; # WIP
     description =
       "Get up and running with large language models locally"
       + ", using SYCL for Intel GPU acceleration";
