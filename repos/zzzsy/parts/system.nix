@@ -15,6 +15,7 @@ let
     nix-matlab
     nur
     stylix
+    zig
     ;
 
   inherit (nixpkgs.lib) attrValues;
@@ -90,6 +91,7 @@ in
         self.overlays.mutter
         nix-matlab.overlay
         nur.overlay
+        zig.overlays.default
       ];
     }
   );

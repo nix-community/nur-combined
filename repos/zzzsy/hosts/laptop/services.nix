@@ -8,9 +8,9 @@
   services = {
     #desktopManager.cosmic.enable = true;
     #displayManager.cosmic-greeter.enable = true;
-    dbus.implementation = "broker"; # waiting https://github.com/NixOS/nixpkgs/pull/299812
+    dbus.implementation = "broker"; # lock dbus impl to dbus-broker
     udev.extraRules = ''
-      SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0666", GROUP="plugdev"
+      SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0666", GROUP="adbusers"
     '';
     fstrim.enable = true;
     openssh = {

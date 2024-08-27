@@ -28,7 +28,7 @@
 
     nur.url = "github:nix-community/NUR";
     stylix.url = "github:danth/stylix";
-
+    zig.url = "github:mitchellh/zig-overlay";
     #nixos-cosmic = {
     #  url = "github:lilyinstarlight/nixos-cosmic";
     #  inputs.nixpkgs.follows = "nixpkgs";

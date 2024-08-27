@@ -1,25 +1,28 @@
 { pkgs, ... }:
 
 let
-  extensions = with pkgs.gnomeExtensions; [
-    user-themes
-    screenshot-window-sizer
-    gsconnect
-    appindicator
-    removable-drive-menu
-    caffeine
-    dash-to-panel
-    # rounded-window-corners
-    customize-ibus
-    light-style
-    fuzzy-app-search
-    # pano
-    kimpanel
-    gtk4-desktop-icons-ng-ding
-  ];
+  extensions =
+    with pkgs.gnomeExtensions;
+    [
+      user-themes
+      screenshot-window-sizer
+      gsconnect
+      appindicator
+      removable-drive-menu
+      caffeine
+      dash-to-panel
+      # rounded-window-corners
+      customize-ibus
+      light-style
+      fuzzy-app-search
+      # pano
+      kimpanel
+      gtk4-desktop-icons-ng-ding
+    ]
+    ++ [ pkgs.my.gnome-shell-extension-pano ];
 in
 {
-  home.packages = extensions ++ [ pkgs.my.gnome-shell-extension-pano ];
+  home.packages = extensions;
   dconf.settings = {
     "org/gnome/shell" = {
       disable-user-extensions = false;
@@ -28,7 +31,7 @@ in
         "org.gnome.Nautilus.desktop"
         "firefox-beta.desktop"
         "code.desktop"
-        "org.telegram.desktop.desktop"
+        "io.github.kukuruzka165.materialgram.desktop"
         "kitty.desktop"
       ];
     };
