@@ -64,6 +64,8 @@ in {
 
   config = mkIf cfg.enable {
 
+    environment.systemPackages = [ pkgs.itd ];
+
     environment.etc."itd.toml".source = tomlFormat.generate "itd.toml" cfg.settings;
 
   };
