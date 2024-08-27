@@ -1,5 +1,5 @@
 {
-  imports = [ ./itd.nix ./vvmd.nix ];
+  imports = [ ./vvmd.nix ];
  # itd = ./itd.nix;
  # vvmd = ./vvmd.nix;
 }

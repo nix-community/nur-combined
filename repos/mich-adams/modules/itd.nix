@@ -11,6 +11,12 @@ in {
   options.services.itd = {
     enable = mkEnableOption "itd";
 
+    user = mkOption {
+      type = types.str;
+      default = null;
+      description = "User to install systemd service file under";
+    };
+
     device = mkOption {
       type = types.str;
       default = null;
@@ -67,6 +73,19 @@ in {
     environment.systemPackages = [ pkgs.itd ];
 
     environment.etc."itd.toml".source = tomlFormat.generate "itd.toml" cfg.settings;
+
+    systemd.user.services.itd = {
+      unitConfig = {
+        Description = "InfiniTime Daemon (itd)";
+        After = [ "bluetooth.target" ];
+      };
+      serviceConfig = {
+        ExecStart = "${pkgs.itd}/bin/itd";
+        Restart = "always";
+        StandardOutput = "journal";
+      };
+      wantedBy = [ "default.target" ];
+    };
 
   };
 }
