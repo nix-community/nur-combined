@@ -7,14 +7,14 @@
 
 rustPlatform.buildRustPackage {
   pname = "vodozemac-bindings-kazv";
-  version = "0-unstable-2024-08-07";
+  version = "0-unstable-2024-08-23";
 
   src = fetchFromGitLab {
     domain = "lily-is.land";
     owner = "kazv";
     repo = "vodozemac-bindings";
-    rev = "bcf7910f85018e5d02ad6b64a331495115a8bfb2";
-    hash = "sha256-EVZpsvQrQ+YHSJdS8InnfcFrRf6fxwA6atl2h9Wgc8g=";
+    rev = "ec4d3c147b50dbaf2b65490c48573d59c5012805";
+    hash = "sha256-pLDwjZEfmPVGBhltzFnZZgtGCN0RSYpfCZlQktDT0X8=";
   };
 
   postPatch = ''

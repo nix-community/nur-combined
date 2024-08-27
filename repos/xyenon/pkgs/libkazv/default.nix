@@ -4,28 +4,30 @@
   fetchFromGitLab,
   cmake,
   pkg-config,
-  lager-unstable,
-  immer-unstable,
-  zug-unstable,
+  lager,
+  immer,
+  zug,
   boost,
   nlohmann_json,
   vodozemac-bindings-kazv-unstable,
   cryptopp,
   libcpr,
+  libhttpserver,
+  libmicrohttpd,
   catch2_3,
   unstableGitUpdater,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "libkazv";
-  version = "0.7.0-unstable-2024-08-10";
+  version = "0.7.0-unstable-2024-08-20";
 
   src = fetchFromGitLab {
     domain = "lily-is.land";
     owner = "kazv";
-    repo = pname;
-    rev = "9f9f367e640c6b62f20105c728bc1a49069ce32c";
-    hash = "sha256-suKdLJ0+4CFJ8MuT1sJVd7SDu9hLTel3QlNSZf9+7+g=";
+    repo = "libkazv";
+    rev = "a913792a5c07d8fd2f25746db571244a15811f02";
+    hash = "sha256-aktlTmi1m4lv4R5uO2Yvoi3i/n065pscUP/CKbbreyc=";
   };
 
   nativeBuildInputs = [
@@ -33,26 +35,27 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  propagatedBuildInputs = [
-    lager-unstable
-    immer-unstable
-    zug-unstable
+  buildInputs = [
+    lager
+    immer
+    zug
     boost
     nlohmann_json
     vodozemac-bindings-kazv-unstable
     cryptopp
 
     libcpr
-
-    catch2_3
+    libhttpserver
+    libmicrohttpd
   ];
 
-  cmakeFlags = [
-    "-Dlibkazv_BUILD_KAZVJOB=ON"
-    "-Dlibkazv_INSTALL_HEADERS=ON"
-    "-Dlibkazv_BUILD_EXAMPLES=OFF"
-    "-Dlibkazv_BUILD_TESTS=ON"
-  ];
+  strictDeps = true;
+
+  cmakeFlags = [ (lib.cmakeBool "libkazv_BUILD_TESTS" finalAttrs.doCheck) ];
+
+  doCheck = true;
+
+  checkInputs = [ catch2_3 ];
 
   passthru.updateScript = unstableGitUpdater { tagPrefix = "v"; };
 
@@ -62,4 +65,4 @@ stdenv.mkDerivation rec {
     license = licenses.agpl3Plus;
     maintainers = with maintainers; [ xyenon ];
   };
-}
+})

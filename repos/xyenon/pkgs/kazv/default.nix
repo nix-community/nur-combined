@@ -10,10 +10,19 @@
   qtdeclarative,
   qtsvg,
   qtmultimedia,
+  qtimageformats,
+  qtwayland,
   kio,
   kirigami,
   kirigami-addons,
   kconfig,
+  knotifications,
+  boost,
+  lager,
+  immer,
+  zug,
+  cryptopp,
+  vodozemac-bindings-kazv-unstable,
   nlohmann_json,
   libkazv,
   cmark,
@@ -21,42 +30,52 @@
   unstableGitUpdater,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "kazv";
-  version = "0.5.0-unstable-2024-08-05";
+  version = "0.5.0-unstable-2024-08-20";
 
   src = fetchFromGitLab {
     domain = "lily-is.land";
     owner = "kazv";
-    repo = pname;
+    repo = "kazv";
     fetchSubmodules = true;
-    rev = "17ba2aec72e23b7bc921f30a578db29bc12dcb01";
-    hash = "sha256-3bQq7pdBxlg62AmG8h6bXsLGcSVQD1y6DD8fzucQ1oQ=";
+    rev = "e0e1bbf23afc852ab4892e7fb8213932fb0f5b32";
+    hash = "sha256-ay1b601rZPcgV1qQFxlDUxBopSUe9CYoUd4aBMAFfiE=";
   };
 
   nativeBuildInputs = [
     wrapQtAppsHook
     cmake
     pkg-config
+    extra-cmake-modules
   ];
 
   buildInputs = [
-    extra-cmake-modules
-
     qtbase
     qtdeclarative
     qtsvg
     qtmultimedia
+    qtimageformats
+    qtwayland
 
     kio
     kirigami
     kirigami-addons
     kconfig
+    knotifications
 
+    boost
+    lager
+    immer
+    zug
+    cryptopp
+    vodozemac-bindings-kazv-unstable
     nlohmann_json
     libkazv
     cmark
   ];
+
+  strictDeps = true;
 
   propagatedBuildInputs = [ breeze-icons ];
 
