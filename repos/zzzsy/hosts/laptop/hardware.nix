@@ -59,6 +59,7 @@ in
   fileSystems."/boot" = {
     device = "/dev/disk/by-partlabel/BOOT";
     fsType = "vfat";
+    options = [ "umask=0077" ];
   };
 
   swapDevices = [

@@ -1,24 +1,4 @@
 {
-    "dae": {
-        "cargoLocks": null,
-        "date": "2024-08-24",
-        "extract": null,
-        "name": "dae",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": true,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "daeuniverse",
-            "repo": "dae",
-            "rev": "00d569f2988868efe2471b2da08c3538c21d3287",
-            "sha256": "sha256-iIPrjZn8JMclQSK6gn3zPqw90x4N7tqK0pWmBe8KaN8=",
-            "type": "github"
-        },
-        "version": "00d569f2988868efe2471b2da08c3538c21d3287"
-    },
     "firefox-gnome-theme": {
         "cargoLocks": null,
         "date": "2024-08-08",
