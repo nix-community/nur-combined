@@ -1,18 +1,12 @@
 { stdenv
-, fetchurl
+, generated
 , lib
 }:
 
 stdenv.mkDerivation rec {
-  pname = "stash";
-  version = "0.24.3";
+  inherit (generated) pname version src;
 
-  src = fetchurl {
-    url = "https://github.com/stashapp/stash/releases/download/v${version}/stash-linux";
-    sha1 = "7e9aeafb68a360e9f1b19eb2d414d25f5f128bc0";
-  };
-
-  unpackPhase = ":";
+  dontUnpack = true;
 
   installPhase = ''
     install -m755 -D $src $out/bin/stash

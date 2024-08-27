@@ -1,21 +1,12 @@
 { python3Packages
-, fetchFromGitHub
+, generated
 , datasette-leaflet
 , lib
 }:
 
 with python3Packages;
 buildPythonPackage rec {
-  pname = "datasette-cluster-map";
-  version = "0.17.2";
-  pyproject = true;
-
-  src = fetchFromGitHub {
-    owner = "simonw";
-    repo = "datasette-cluster-map";
-    rev = version;
-    hash = "sha256-KSmL4xHkeXh8gVEUkvZBjYMlttPJHVr0AkbnRJ/NLFc=";
-  };
+  inherit (generated) pname version src;
 
   propagatedBuildInputs = [
     # datasette
@@ -28,6 +19,8 @@ buildPythonPackage rec {
     httpx
     sqlite-utils
   ];
+
+  pytestCheckPhase = ":"; # ModuleNotFoundError: No module named 'datasette_test'
 
   pythonImportsCheck = [ "datasette_cluster_map" ];
 

@@ -14,13 +14,13 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  datasette-leaflet = pkgs.callPackage ./pkgs/datasette-leaflet { };
-  datasette-cluster-map = pkgs.callPackage ./pkgs/datasette-cluster-map { inherit datasette-leaflet; };
+  datasette-leaflet = lib.callPackage "datasette-leaflet" { };
+  datasette-cluster-map = lib.callPackage "datasette-cluster-map" { inherit datasette-leaflet; };
 
-  beets-yearfixer = pkgs.callPackage ./pkgs/beets-yearfixer { };
-  beets-originquery = pkgs.callPackage ./pkgs/beets-originquery { };
-  beets-summarize = pkgs.callPackage ./pkgs/beets-summarize { };
-  beets-filetote = pkgs.callPackage ./pkgs/beets-filetote { };
+  beets-yearfixer = lib.callPackage "beets-yearfixer" { };
+  beets-originquery = lib.callPackage "beets-originquery" { };
+  beets-summarize = lib.callPackage "beets-summarize" { };
+  beets-filetote = lib.callPackage "beets-filetote" { };
 
-  stash = pkgs.callPackage ./pkgs/stash { };
+  stash = lib.callPackage "stash" { };
 }

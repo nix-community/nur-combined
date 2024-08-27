@@ -1,0 +1,27 @@
+[beets-filetote]
+src.github = "gtronset/beets-filetote"
+fetch.github = "gtronset/beets-filetote"
+
+[beets-originquery]
+src.github_tag = "x1ppy/beets-originquery"
+fetch.github = "x1ppy/beets-originquery"
+
+[beets-summarize]
+src.git = "https://github.com/steven-murray/beet-summarize"
+fetch.github = "steven-murray/beet-summarize"
+
+[beets-yearfixer]
+src.github = "adamjakab/BeetsPluginYearFixer"
+fetch.github = "adamjakab/BeetsPluginYearFixer"
+
+[datasette-cluster-map]
+src.github = "simonw/datasette-cluster-map"
+fetch.github = "simonw/datasette-cluster-map"
+
+[datasette-leaflet]
+src.github = "simonw/datasette-leaflet"
+fetch.github = "simonw/datasette-leaflet"
+
+[stash]
+src.github = "stashapp/stash"
+fetch.url = "https://github.com/stashapp/stash/releases/download/$ver/stash-linux"

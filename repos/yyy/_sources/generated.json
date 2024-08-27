@@ -1,0 +1,137 @@
+{
+    "beets-filetote": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "beets-filetote",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "gtronset",
+            "repo": "beets-filetote",
+            "rev": "v0.4.9",
+            "sha256": "sha256-pZ6c2XQMSiiPHyZMLSiSE+LXeCfi3HEWtsTK5DP9YZE=",
+            "type": "github"
+        },
+        "version": "v0.4.9"
+    },
+    "beets-originquery": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "beets-originquery",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "x1ppy",
+            "repo": "beets-originquery",
+            "rev": "1.0.2",
+            "sha256": "sha256-32S8Ik6rzw6kx69o9G/v7rVsVzGA1qv5pHegYDmTW68=",
+            "type": "github"
+        },
+        "version": "1.0.2"
+    },
+    "beets-summarize": {
+        "cargoLocks": null,
+        "date": "2024-03-01",
+        "extract": null,
+        "name": "beets-summarize",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "steven-murray",
+            "repo": "beet-summarize",
+            "rev": "eb804abacf6b58a7b2dec01c109e96605fd64d15",
+            "sha256": "sha256-HnvZuQBKXKxxk9bME+nTXUkdkX7ovDi50N7xRgvtIA8=",
+            "type": "github"
+        },
+        "version": "eb804abacf6b58a7b2dec01c109e96605fd64d15"
+    },
+    "beets-yearfixer": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "beets-yearfixer",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "adamjakab",
+            "repo": "BeetsPluginYearFixer",
+            "rev": "v0.0.5",
+            "sha256": "sha256-TDRkCihp+hB33e9LCBpUye+KobpTPrDMutMa4zHJQ68=",
+            "type": "github"
+        },
+        "version": "v0.0.5"
+    },
+    "datasette-cluster-map": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "datasette-cluster-map",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "simonw",
+            "repo": "datasette-cluster-map",
+            "rev": "0.18.2",
+            "sha256": "sha256-8QE0C1QTtLQvgvqFwN7PI8FO1wmsMWvHQjvhIyumE3g=",
+            "type": "github"
+        },
+        "version": "0.18.2"
+    },
+    "datasette-leaflet": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "datasette-leaflet",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "simonw",
+            "repo": "datasette-leaflet",
+            "rev": "0.2.2",
+            "sha256": "sha256-wkVzF96fdsjxbuitITgI9XOdfhE0W1aNCjP/I03tu8c=",
+            "type": "github"
+        },
+        "version": "0.2.2"
+    },
+    "stash": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "stash",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-w13NzlXQFMH5/iNXW56Saw3Wrlm9HWb3eidRcPxJxvo=",
+            "type": "url",
+            "url": "https://github.com/stashapp/stash/releases/download/v0.26.2/stash-linux"
+        },
+        "version": "v0.26.2"
+    }
+}
