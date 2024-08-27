@@ -37,15 +37,15 @@
     wantedBy = [ "nfs.service" "sftpgo.service" ];
     file.text = ''
       - media/         read-only:  Videos, Music, Books, etc
-      - playground/    read-write: use it to share files with other users of this server, inaccessible from the www
-      - pub/           read-only:  content made to be shared with the www
+      - playground/    read-write*: use it to share files with other users of this server, inaccessible from the www
+                                    *if you can't write to it, make sure you're connected to the WiFi and not mobile.
     '';
   };
 
   sane.fs."/var/export/playground/README.md" = {
     wantedBy = [ "nfs.service" "sftpgo.service" ];
     file.text = ''
-      this directory is intentionally read+write by anyone with access (i.e. on the LAN).
+      this directory is intentionally read+write by anyone with access.
       - share files
       - write poetry
       - be a friendly troll

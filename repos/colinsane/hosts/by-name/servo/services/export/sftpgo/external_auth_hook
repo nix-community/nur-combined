@@ -71,6 +71,9 @@ TRUSTED_CREDS = [
   # $<method>$<salt>$<hash>
   "$6$Zq3c2u4ghUH4S6EP$pOuRt13sEKfX31OqPbbd1LuhS21C9MICMc94iRdTAgdAcJ9h95gQH/6Jf6Ie4Obb0oxQtojRJ1Pd/9QHOlFMW."  #< m. rocket boy
 ]
+TRUSTED_VIEWING_OR_PLAYGROUND_CREDS = [
+  "$6$iikDajz5b.YH1.on$tfSzzBEtX8IeDiJJXCasOTxRTd7cFDKXU6dhlWYVhK6xDeJhV2fh6bmm1WIHItjIth9Eh9zNgUB8xibMIWCm/."
+];
 
 def mkAuthOk(username: str, permissions: dict[str, list[str]]) -> dict:
   return dict(
@@ -112,8 +115,8 @@ def isLan(ip: str) -> bool:
 def isWireguard(ip: str) -> bool:
   return ip.startswith("10.0.10.")
 
-def isTrustedCred(password: str) -> bool:
-  for cred in TRUSTED_CREDS:
+def isTrustedCred(password: str, credlist: list[str] = TRUSTED_CREDS) -> bool:
+  for cred in credlist:
     if passlib.hosts.linux_context.verify(password, cred):
       return True
 
@@ -128,6 +131,21 @@ def getAuthResponse(ip: str, username: str, password: str) -> dict:
     # allow r/w access from those with a special token
     return mkAuthOk(username, permissions = {
       "/": PERM_RW,
+      "/playground": PERM_RW,
+      "/.public_for_test": PERM_RO,
+    })
+  if isTrustedCred(password, TRUSTED_VIEWING_OR_PLAYGROUND_CREDS) and username != "colin":
+    return mkAuthOk(username, permissions = {
+      # error prone, but... not the worst if i miss something
+      "/": PERM_LIST,
+      "/media/archive": PERM_DENY,
+      "/media/Books": PERM_RO,
+      "/media/collections": PERM_DENY,
+      "/media/games": PERM_RO,
+      "/media/Music": PERM_RO,
+      "/media/Pictures": PERM_RO,
+      "/media/torrents": PERM_DENY,
+      "/media/Videos": PERM_RO,
       "/playground": PERM_RW,
       "/.public_for_test": PERM_RO,
     })

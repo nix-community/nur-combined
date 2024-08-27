@@ -43,7 +43,7 @@ in
     title = "flatpak: fix cross compilation for 1.14.10";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/337412";
     saneCommit = "8359a34a1b944082ea1bd76fee61819e7b86e00e";
-    hash = "sha256-OnWu15IgZREWOohUnF2uqHPQd920aEDJ7oBT4h5vpu4=";
+    hash = "sha256-Ia91L24UnMyg5CNFgBd6NnotP36NenYhhH6sV+5PFm4=";
   })
 
   # (fetchpatch' {
@@ -102,7 +102,7 @@ in
   (fetchpatch' {
     title = "libgweather: enable introspection on cross builds";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/251956";
-    hash = "sha256-sFuuZpq/DlgFESJhvKj8UaZiA8JGsGpVmyx1s/0OKT8=";
+    hash = "sha256-OyYOhX7ESKRPd8WO2jxVv9jOMcWbtnzSJEBnb9kQL5M=";
   })
 
   # (fetchpatch' {
