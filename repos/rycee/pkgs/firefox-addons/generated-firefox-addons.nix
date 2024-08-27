@@ -2032,10 +2032,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2433.3";
+      version = "6.2434.1";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4336120/dashlane-6.2433.3.xpi";
-      sha256 = "5593813a0eff8f1582ce0f55a5b29dfadf5dfe6b0002e43fa818fa42f8c100b5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4340170/dashlane-6.2434.1.xpi";
+      sha256 = "33cb19da55e44a7cdcaf63be89e9c3cd528e380ae8d515618a0973bb8861ce33";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2113,10 +2113,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "130.0.20240823.112003";
+      version = "130.0.20240826.200919";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4341472/deutsch_de_language_pack-130.0.20240823.112003.xpi";
-      sha256 = "c6173f4a1f048bd532b50a85e374441b040040ae73beb3489279a226fb844516";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4343334/deutsch_de_language_pack-130.0.20240826.200919.xpi";
+      sha256 = "166c6d7d0d2942f7f332eed678aa834c19c133ed9ae7b34baed1ac0a06d408d3";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2946,10 +2946,10 @@
     };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "5.2.5";
+      version = "5.2.6";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4325872/floccus-5.2.5.xpi";
-      sha256 = "420ae1ce34eff46cb50e46758f62ca6ad42a51c259bea9c176f55e7aa4cce797";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4342697/floccus-5.2.6.xpi";
+      sha256 = "9b0eaf1102cf18e20cac467528e155f35897eda6d5612f49e829bd6ac3970e93";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -3174,10 +3174,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "130.0.20240823.112003";
+      version = "130.0.20240826.200919";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4341490/francais_language_pack-130.0.20240823.112003.xpi";
-      sha256 = "69da5075a5885d6f8beb0dd794da72da3da4e633a53f1f19f382475724e00a84";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4343294/francais_language_pack-130.0.20240826.200919.xpi";
+      sha256 = "b0cb019f8262135f6608bc36c139907beec897e368be4460632548027b623b2e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3246,10 +3246,10 @@
     };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "10.4.1";
+      version = "10.4.2";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4336273/ghostery-10.4.1.xpi";
-      sha256 = "0b46d8e0e027dcb66f47745e519f76f2192622b5c028b0e4870cd445f2751cff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4340555/ghostery-10.4.2.xpi";
+      sha256 = "6863641aeecfe2447b88e1f1377917ddeca2e8cfa837bf299f61f2d35b5dd9ed";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -3639,7 +3639,7 @@
       sha256 = "de417b35a4747f5c51b2b73dd8db9d484953fcd8909f0c7d936ca7fc6f8ca4e2";
       meta = with lib;
       {
-        homepage = "https://gitlab.com/calvinchd/gruvbox-dark-firefox-theme";
+        homepage = "https://codeberg.org/calvinchd/GruvboxDarkFirefoxTheme";
         description = "Gruvbox dark theme for Firefox. Using <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/51b32595b55bba030aad1f22730eb7a787bb37c8a04d43f4a473d4b094b65ccb/https%3A//github.com/morhetz/gruvbox\" rel=\"nofollow\">https://github.com/morhetz/gruvbox</a> color palette";
         license = licenses.cc-by-30;
         mozPermissions = [];
@@ -4934,10 +4934,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.8.2";
+      version = "1.8.3";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4336719/immersive_translate-1.8.2.xpi";
-      sha256 = "4ecc7740917a6c4a91c4dfcb588e1899bf846c939cf1a85773f4359ae5bfcfee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4340283/immersive_translate-1.8.3.xpi";
+      sha256 = "c26b086c3e99f3e76beee9afcba9699dd3ca14954a96c4ccd2b5a9d7f482746d";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -5009,10 +5009,10 @@
     };
     "indie-wiki-buddy" = buildFirefoxXpiAddon {
       pname = "indie-wiki-buddy";
-      version = "3.9.1";
+      version = "3.10.1";
       addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4327050/indie_wiki_buddy-3.9.1.xpi";
-      sha256 = "30c839c33d88a00270015835d810836d55ede4ebe757308ea2ce539c0076e514";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4340783/indie_wiki_buddy-3.10.1.xpi";
+      sha256 = "d4fc7516b2f5cf8bd4d9d286d4b7b3790001970f5b979ca4de8749ab9a9e2899";
       meta = with lib;
       {
         homepage = "https://getindie.wiki/";
@@ -8670,10 +8670,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.21.2";
+      version = "1.22.2";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4332444/proton_pass-1.21.2.xpi";
-      sha256 = "d2131f06e0fd5b364476ad02147cae30c8c8642076769c46f9aa7ad557439948";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4341690/proton_pass-1.22.2.xpi";
+      sha256 = "4d7905ac8f0752b307ee4ab80e128ea6ec1e15d67cab5a98705e9fff77e6e3a0";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -9511,10 +9511,10 @@
     };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "14.0.0";
+      version = "14.0.2";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4333366/sidebartabs-14.0.0.xpi";
-      sha256 = "53fe364b0d7780b24daeea51879c9477f7eff6a68d075ac6425ecb3948410618";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4343433/sidebartabs-14.0.2.xpi";
+      sha256 = "49c9d2c1d0267eadbe95b97c7068149f62fd34620d47a226884009d2e138446a";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
@@ -12244,10 +12244,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.8.12.1";
+      version = "24.8.19.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4339601/yomitan-24.8.12.1.xpi";
-      sha256 = "fc3d661d6a63522e0407d1c5541b5475a30d13fa74dbcea335e160d8dd535709";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4343062/yomitan-24.8.19.0.xpi";
+      sha256 = "2a2e806d979a5b6f2d0186564c8394d872eaffdce51b2ae6b37cf72c036c7395";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
