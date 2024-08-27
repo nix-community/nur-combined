@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "cpp-flux";
-  version = "0.1.0";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "tcbrindle";
     repo = "flux";
-    rev = "b8047a547659d41e6c91f3a20c8acd42326de8ea";
-    hash = "sha256-yfIxg0ex1lqtC9epUzKaIMRUebRyygEIrlZvo/yyg6k=";
+    rev = "v${version}";
+    hash = "sha256-gmWDCPlvJOoCz3drVClC1zuJqIi5qclMZ9ADieBNtZ8=";
   };
 
   nativeBuildInputs = [ cmake ];
