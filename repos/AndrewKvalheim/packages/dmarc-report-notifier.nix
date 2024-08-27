@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
     domain = "codeberg.org";
     owner = "AndrewKvalheim";
     repo = "dmarc-report-notifier";
-    rev = "v${version}";
+    rev = "refs/tags/v${version}";
     hash = "sha256-qUVyGHmbGNh6G4J2+d7gDYJwF3LHZlyWMcroJqi7qZg=";
   };
 

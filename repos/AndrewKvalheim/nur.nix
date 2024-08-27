@@ -31,11 +31,8 @@ rec {
   dmarc-report-notifier = pkgs.callPackage ./packages/dmarc-report-notifier.nix {
     python3Packages = (pkgs.python3.override {
       packageOverrides = _: _: {
-        # Dependency pkgs.python3Packages.parsedmarc was broken on 2024-03-12 by
-        # NixOS/nixpkgs#294305. A workaround was subsequently applied to dependent
-        # pkgs.parsedmarc in NixOS/nixpkgs#280940 but the library remains broken, so
-        # here we duplicate the workaround.
-        msgraph-core = pkgs.lib.throwIfNot pkgs.python3Packages.parsedmarc.meta.broken "python3Packages.parsedmarc is no longer broken"
+        # Pending NixOS/nixpkgs#337081
+        msgraph-core = pkgs.lib.warnIfNot pkgs.python3Packages.parsedmarc.meta.broken "python3Packages.parsedmarc is no longer broken"
           (pkgs.lib.findFirst (p: p.pname == "msgraph-core") null pkgs.parsedmarc.requiredPythonModules);
       };
     }).pkgs;

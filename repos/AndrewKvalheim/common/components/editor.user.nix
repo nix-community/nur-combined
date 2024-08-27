@@ -34,6 +34,7 @@ in
       csstools.postcss
       earshinov.permute-lines
       earshinov.simple-alignment
+      editorconfig.editorconfig
       esbenp.prettier-vscode
       eseom.nunjucks-template
       exiasr.hadolint

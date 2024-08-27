@@ -11,7 +11,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "maxmind";
     repo = "mmdbinspect";
-    rev = "v${version}";
+    rev = "refs/tags/v${version}";
     hash = "sha256-PYn+NgJDZBP+9nIU0kxg9KYT0EV35omagspcsCpa9DM=";
     fetchSubmodules = true;
   };

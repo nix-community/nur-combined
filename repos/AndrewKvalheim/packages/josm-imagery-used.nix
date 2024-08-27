@@ -12,7 +12,7 @@ buildJosmPlugin rec {
     domain = "codeberg.org";
     owner = "AndrewKvalheim";
     repo = "imagery_used";
-    rev = "v${version}";
+    rev = "refs/tags/v${version}";
     hash = "sha256-JGYKN9ggUom48StabPoswoYymJiMo7tpXv/t2Ithurg=";
   };
 

@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
     domain = "codeberg.org";
     owner = "AndrewKvalheim";
     repo = "little-a-map";
-    rev = "v${version}";
+    rev = "refs/tags/v${version}";
     hash = "sha256-ZgD6Bi0m0q+NpMN6qvtMQgBo+6g1zDrMnOsuBaLg+9U=";
   };
 
@@ -33,6 +33,6 @@ rustPlatform.buildRustPackage rec {
     description = "Compositor of player-created Minecraft map items";
     homepage = "https://codeberg.org/AndrewKvalheim/little-a-map";
     license = lib.licenses.gpl3;
-    mainProgram = pname;
+    mainProgram = "little-a-map";
   };
 }

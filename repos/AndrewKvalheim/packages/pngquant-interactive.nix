@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
     domain = "codeberg.org";
     owner = "AndrewKvalheim";
     repo = "pngquant-interactive";
-    rev = "v${version}";
+    rev = "refs/tags/v${version}";
     hash = "sha256-lEXBQ6toomT8Q8QDGz5l+ywcCGcuO3gKBymMDMlk+ak=";
   };
 
@@ -38,6 +38,6 @@ rustPlatform.buildRustPackage rec {
     description = "Graphical interface for pngquant with a live preview";
     homepage = "https://codeberg.org/AndrewKvalheim/pngquant-interactive";
     license = lib.licenses.gpl3;
-    mainProgram = pname;
+    mainProgram = "pngquant-interactive";
   };
 }

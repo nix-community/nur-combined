@@ -860,6 +860,7 @@ Qubes
 queueing
 QUIC
 quincunx
+RackNerd
 Rakefile
 RapidRide
 Raveena
@@ -900,6 +901,7 @@ rentable
 reoccurrence
 ReplayGain
 repositioned
+reschedulable
 resending
 resholve
 Restreamer
