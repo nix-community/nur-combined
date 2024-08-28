@@ -55,7 +55,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://pseint.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    badPlatforms = lib.platforms.darwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

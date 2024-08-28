@@ -46,7 +46,6 @@ stdenv.mkDerivation {
     homepage = "https://git.sr.ht/~leon_plickat/wayneko";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
-    badPlatforms = lib.platforms.darwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

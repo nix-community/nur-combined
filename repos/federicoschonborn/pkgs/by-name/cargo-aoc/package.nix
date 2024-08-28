@@ -37,7 +37,6 @@ rustPlatform.buildRustPackage {
       mit
     ];
     platforms = lib.platforms.unix;
-    badPlatforms = lib.platforms.darwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }

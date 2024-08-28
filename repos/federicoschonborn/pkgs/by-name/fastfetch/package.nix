@@ -94,13 +94,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastfetch";
-  version = "2.21.3";
+  version = "2.22.0";
 
   src = fetchFromGitHub {
     owner = "fastfetch-cli";
     repo = "fastfetch";
     rev = finalAttrs.version;
-    hash = "sha256-AnURAH5tSIwmbLtB7FjjrOODGxrXbMOIqVjIBwOU+lo=";
+    hash = "sha256-ncaBMSV7n4RVA2376ExBv+a8bzuvuMttv3GlNaOH23k=";
   };
 
   nativeBuildInputs = [
@@ -178,7 +178,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/fastfetch-cli/fastfetch/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    badPlatforms = lib.platforms.darwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

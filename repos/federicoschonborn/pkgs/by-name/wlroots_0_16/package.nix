@@ -108,7 +108,7 @@ let
       # Test via TinyWL (the "minimum viable product" Wayland compositor based on wlroots):
       passthru.tests.tinywl = nixosTests.tinywl;
 
-      meta = with lib; {
+      meta = {
         description = "A modular Wayland compositor library";
         longDescription = ''
           Pluggable, composable, unopinionated modules for building a Wayland
@@ -116,11 +116,12 @@ let
         '';
         inherit (finalAttrs.src.meta) homepage;
         changelog = "https://gitlab.freedesktop.org/wlroots/wlroots/-/tags/${version}";
-        license = licenses.mit;
-        platforms = platforms.linux;
-        maintainers = with maintainers; [
+        license = lib.licenses.mit;
+        platforms = lib.platforms.linux;
+        maintainers = with lib.maintainers; [
           primeos
           synthetica
+          federicoschonborn
         ];
       };
     });

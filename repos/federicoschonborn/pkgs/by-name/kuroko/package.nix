@@ -26,7 +26,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/kuroko-lang/kuroko";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    badPlatforms = lib.platforms.aarch64;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

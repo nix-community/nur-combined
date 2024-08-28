@@ -32,7 +32,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/alemart/surgescript/blob/${finalAttrs.src.rev}/CHANGES.md";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    badPlatforms = lib.platforms.darwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

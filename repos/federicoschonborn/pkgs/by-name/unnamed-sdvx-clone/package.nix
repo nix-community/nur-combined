@@ -57,7 +57,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Drewol/unnamed-sdvx-clone";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    badPlatforms = lib.platforms.darwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 })

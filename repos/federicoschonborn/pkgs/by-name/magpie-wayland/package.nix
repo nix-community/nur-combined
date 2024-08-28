@@ -58,7 +58,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/BuddiesOfBudgie/magpie";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    badPlatforms = lib.platforms.darwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
     broken = lib.versionOlder wlroots.version "0.18";
   };

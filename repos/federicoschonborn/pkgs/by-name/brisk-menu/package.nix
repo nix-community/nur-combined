@@ -50,7 +50,6 @@ stdenv.mkDerivation {
       cc-by-sa-40
     ];
     platforms = lib.platforms.unix;
-    badPlatforms = lib.platforms.darwin;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };
 }
