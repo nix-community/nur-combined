@@ -486,13 +486,13 @@
         sha512 = "eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==";
       };
     };
-    "magicast-0.3.4" = {
+    "magicast-0.3.5" = {
       name = "magicast";
       packageName = "magicast";
-      version = "0.3.4";
+      version = "0.3.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/magicast/-/magicast-0.3.4.tgz";
-        sha512 = "TyDF/Pn36bBji9rWKHlZe+PZb6Mx5V8IHCSxk7X4aljM4e/vyDvZZYwHewdVaqiA0nb3ghfHU/6AUpDxWoER2Q==";
+        url = "https://registry.npmjs.org/magicast/-/magicast-0.3.5.tgz";
+        sha512 = "L0WhttDl+2BOsybvEOLK7fW3UA0OQ0IQ2d6Zl2x/a6vVRs3bAY0ECOSHHeL5jD+SbOpOCUEi0y1DgHEn9Qn1AQ==";
       };
     };
     "merge-stream-2.0.0" = {
@@ -1102,7 +1102,7 @@ in {
       sources."js-yaml-4.1.0"
       sources."jsonc-parser-2.3.1"
       sources."kleur-3.0.3"
-      sources."magicast-0.3.4"
+      sources."magicast-0.3.5"
       sources."merge-stream-2.0.0"
       sources."merge2-1.4.1"
       sources."micromatch-4.0.8"
