@@ -104,7 +104,25 @@
           };
         };
 
-        nurPkgs = import ./pkgs { inherit lib; } (pkgs // nurPkgs) pkgs;
+        nurPkgs = import ./pkgs { inherit lib; } (
+          pkgs
+          // nurPkgs
+          // {
+            nix-update-script = pkgs.nix-update-script.override {
+              nix-update = pkgs.nix-update.overrideAttrs (
+                attrs:
+                assert attrs.version == "1.5.0";
+                {
+                  version = "0-unstable-2024-08-21";
+                  src = attrs.src.override {
+                    rev = "737121eccb67542e8c004c64da833fede2e80c64";
+                    hash = "sha256-xn0dC4M3mfItxP+s3/v3Hz/CSKp74VH/gMfufKxl9/4=";
+                  };
+                }
+              );
+            };
+          }
+        ) pkgs;
 
         flatNurPkgs = flake-utils.lib.flattenTree nurPkgs;
       in

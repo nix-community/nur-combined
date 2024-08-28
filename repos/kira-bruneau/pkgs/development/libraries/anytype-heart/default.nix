@@ -63,7 +63,12 @@ buildGoModule rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version-regex"
+      ''^v(\d+\.\d+\.\d+)$''
+    ];
+  };
 
   meta = with lib; {
     description = "Shared library for Anytype clients";

@@ -116,7 +116,12 @@ buildNpmPackage rec {
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version-regex"
+      ''^v(\d+\.\d+\.\d+)$''
+    ];
+  };
 
   meta = with lib; {
     description = "Official Anytype client";
