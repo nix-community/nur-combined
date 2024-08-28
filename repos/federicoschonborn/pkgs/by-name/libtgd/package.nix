@@ -7,6 +7,7 @@
   ninja,
   pandoc,
   nix-update-script,
+
   withTool ? true,
   withDocs ? false,
   withStatic ? false,

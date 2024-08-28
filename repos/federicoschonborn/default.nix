@@ -14,11 +14,21 @@
 
 lib.makeScope pkgs.newScope (
   self:
-  {
+  lib.packagesFromDirectoryRecursive {
+    inherit (self) callPackage;
+    directory = ./pkgs/by-name;
+  }
+  // {
     lib = import ./lib { inherit lib; };
 
     # Sets
     akkoma-emoji = lib.recurseIntoAttrs (self.callPackage ./pkgs/akkoma-emoji { });
+
+    budgie-do-not-disturb-status =
+      if pkgs ? buildGo123Module then
+        self.callPackage ./pkgs/by-name/budgie-do-not-disturb-status/package.nix { }
+      else
+        null;
 
     # Overrides
     yyjson_0_10 =
@@ -191,9 +201,5 @@ lib.makeScope pkgs.newScope (
           withPng = true;
           withZlib = true;
         };
-  }
-  // lib.packagesFromDirectoryRecursive {
-    inherit (self) callPackage;
-    directory = ./pkgs/by-name;
   }
 )

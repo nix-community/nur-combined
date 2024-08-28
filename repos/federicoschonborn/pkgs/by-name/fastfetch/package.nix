@@ -90,6 +90,9 @@
   ddcutil,
   enableDirectxHeaders ? stdenv.hostPlatform.isLinux,
   directx-headers,
+  enableElf ?
+    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD || stdenv.hostPlatform.isAndroid,
+  libelf,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -137,7 +140,8 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional enableFreetype freetype
     ++ lib.optional enablePulse pulseaudio
     ++ lib.optional enableDdcutil ddcutil
-    ++ lib.optional enableDirectxHeaders directx-headers;
+    ++ lib.optional enableDirectxHeaders directx-headers
+    ++ lib.optional enableElf libelf;
 
   cmakeFlags = [
     (lib.cmakeOptionType "filepath" "CMAKE_INSTALL_SYSCONFDIR" "${placeholder "out"}/etc")
@@ -167,6 +171,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "ENABLE_PULSE" enablePulse)
     (lib.cmakeBool "ENABLE_DDCUTIL" enableDdcutil)
     (lib.cmakeBool "ENABLE_DIRECTX_HEADERS" enableDirectxHeaders)
+    (lib.cmakeBool "ENABLE_ELF" enableElf)
   ];
 
   passthru.updateScript = nix-update-script { };

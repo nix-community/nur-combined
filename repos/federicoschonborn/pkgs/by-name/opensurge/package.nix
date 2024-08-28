@@ -14,13 +14,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "opensurge";
-  version = "0.6.1.1";
+  version = "0.6.1.2";
 
   src = fetchFromGitHub {
     owner = "alemart";
     repo = "opensurge";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-eDTIfBmR2490ngULH0TzGBtEI27W1nqrrldzv+aTlsM=";
+    hash = "sha256-HvpKZ62mYy7XkZOnIn7QRA2rFVREFnKO1NO83aCR76k=";
   };
 
   nativeBuildInputs = [

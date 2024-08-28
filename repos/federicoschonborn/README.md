@@ -730,11 +730,11 @@ Cargo Advent of Code Helper.
 Like neofetch, but much faster because written in C.
 
 - Name: `fastfetch`
-- Version: `2.21.3`
+- Version: `2.22.0`
 - [Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.21.3/CHANGELOG.md)
+- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.22.0/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](./pkgs/by-name/fastfetch/package.nix#L176)
+- [Source](./pkgs/by-name/fastfetch/package.nix#L181)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -755,11 +755,11 @@ Like neofetch, but much faster because written in C.
 Like neofetch, but much faster because written in C (with all features disabled).
 
 - Name: `fastfetch-minimal`
-- Version: `2.21.3`
+- Version: `2.22.0`
 - [Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.21.3/CHANGELOG.md)
+- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.22.0/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](./default.nix#L45)
+- [Source](./default.nix#L55)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -855,7 +855,7 @@ A set of commands that manipulate GTAs on various levels.
 - Version: `2.4.0`
 - [Homepage](https://marlam.de/gta/)
 - License: [`GPL-3.0-or-later`](https://spdx.org/licenses/GPL-3.0-or-later.html "GNU General Public License v3.0 or later")
-- [Source](./pkgs/by-name/gtatool/package.nix#L111)
+- [Source](./pkgs/by-name/gtatool/package.nix#L112)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -879,7 +879,7 @@ A set of commands that manipulate GTAs on various levels (with all features enab
 - Version: `2.4.0`
 - [Homepage](https://marlam.de/gta/)
 - License: [`GPL-3.0-or-later`](https://spdx.org/licenses/GPL-3.0-or-later.html "GNU General Public License v3.0 or later")
-- [Source](./default.nix#L80)
+- [Source](./default.nix#L90)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1000,7 +1000,7 @@ A library to make working with multidimensional arrays in C++ easy.
 - Version: `4.3`
 - [Homepage](https://marlam.de/tgd/)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](./pkgs/by-name/libtgd/package.nix#L96)
+- [Source](./pkgs/by-name/libtgd/package.nix#L97)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1024,7 +1024,7 @@ A library to make working with multidimensional arrays in C++ easy (with all fea
 - Version: `4.3`
 - [Homepage](https://marlam.de/tgd/)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](./default.nix#L113)
+- [Source](./default.nix#L123)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1166,9 +1166,9 @@ A convenient calculator for the command line.
 A fun 2D retro platformer inspired by Sonic games and a game creation system.
 
 - Name: `opensurge`
-- Version: `0.6.1.1`
+- Version: `0.6.1.2`
 - [Homepage](https://github.com/alemart/opensurge)
-- [Changelog](https://github.com/alemart/opensurge/blob/v0.6.1.1/CHANGES.md)
+- [Changelog](https://github.com/alemart/opensurge/blob/v0.6.1.2/CHANGES.md)
 - License: [`GPL-3.0-only`](https://spdx.org/licenses/GPL-3.0-only.html "GNU General Public License v3.0 only")
 - [Source](./pkgs/by-name/opensurge/package.nix#L48)
 - Maintainers:
@@ -1338,7 +1338,7 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 - Version: `1.10.2`
 - [Homepage](https://github.com/ZDoom/Raze)
 - License: [`GPL-2.0`](https://spdx.org/licenses/GPL-2.0.html "GNU General Public License v2.0")
-- [Source](./default.nix#L144)
+- [Source](./default.nix#L154)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1385,7 +1385,7 @@ Fan sequel to Super Mario 63.
 Sega Model 3 arcade machine emulator.
 
 - Name: `supermodel`
-- Version: `0-unstable-2024-08-17`
+- Version: `0-unstable-2024-08-23`
 - [Homepage](https://github.com/trzy/Supermodel)
 - License: [`GPL-3.0-or-later`](https://spdx.org/licenses/GPL-3.0-or-later.html "GNU General Public License v3.0 or later")
 - [Source](./pkgs/by-name/supermodel/package.nix#L65)
@@ -1409,9 +1409,9 @@ Sega Model 3 arcade machine emulator.
 A scripting language for games.
 
 - Name: `surgescript`
-- Version: `0.6.0`
+- Version: `0.6.1`
 - [Homepage](https://github.com/alemart/surgescript)
-- [Changelog](https://github.com/alemart/surgescript/blob/v0.6.0/CHANGES.md)
+- [Changelog](https://github.com/alemart/surgescript/blob/v0.6.1/CHANGES.md)
 - License: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
 - [Source](./pkgs/by-name/surgescript/package.nix#L30)
 - Maintainers:
@@ -1437,7 +1437,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 - [Homepage](https://teem.sourceforge.net/)
 - License: [`LGPL-2.1-or-later`](https://spdx.org/licenses/LGPL-2.1-or-later.html "GNU Lesser General Public License v2.1 or later")
-- [Source](./pkgs/by-name/teem/package.nix#L52)
+- [Source](./pkgs/by-name/teem/package.nix#L54)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1461,7 +1461,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 - [Homepage](https://teem.sourceforge.net/)
 - License: [`LGPL-2.1-or-later`](https://spdx.org/licenses/LGPL-2.1-or-later.html "GNU Lesser General Public License v2.1 or later")
-- [Source](./default.nix#L169)
+- [Source](./default.nix#L179)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1485,7 +1485,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 - [Homepage](https://teem.sourceforge.net/)
 - License: [`LGPL-2.1-or-later`](https://spdx.org/licenses/LGPL-2.1-or-later.html "GNU Lesser General Public License v2.1 or later")
-- [Source](./default.nix#L181)
+- [Source](./default.nix#L191)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1509,7 +1509,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 - [Homepage](https://teem.sourceforge.net/)
 - License: [`LGPL-2.1-or-later`](https://spdx.org/licenses/LGPL-2.1-or-later.html "GNU Lesser General Public License v2.1 or later")
-- [Source](./default.nix#L153)
+- [Source](./default.nix#L163)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1637,7 +1637,8 @@ compositor; or about 50,000 lines of code you were going to write anyway.
 - Maintainers:
   - [Michael Weiss](https://github.com/primeos) <[`dev.primeos@gmail.com`](mailto:dev.primeos@gmail.com)>
   - [Patrick Hilhorst](https://github.com/Synthetica9) <[`nix@hilhorst.be`](mailto:nix@hilhorst.be)>
-  - [✉️ Mail to all maintainers](mailto:dev.primeos@gmail.com,nix@hilhorst.be)
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
+  - [✉️ Mail to all maintainers](mailto:dev.primeos@gmail.com,nix@hilhorst.be,federicoschonborn@disroot.org)
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
@@ -1683,7 +1684,7 @@ Fastest JSON library in C.
 - [Homepage](https://github.com/ibireme/yyjson)
 - [Changelog](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](https://github.com/NixOS/nixpkgs/blob/4de4818/pkgs/development/libraries/yyjson/default.nix#L23)
+- [Source](https://github.com/NixOS/nixpkgs/blob/a6292e3/pkgs/development/libraries/yyjson/default.nix#L23)
 - Maintainers:
   - [Yohann Boniface](https://github.com/Sigmanificient) <[`sigmanificient@gmail.com`](mailto:sigmanificient@gmail.com)>
   - [✉️ Mail to all maintainers](mailto:sigmanificient@gmail.com)
