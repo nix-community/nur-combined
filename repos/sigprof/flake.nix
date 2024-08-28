@@ -10,20 +10,19 @@
     flake-utils.url = "github:numtide/flake-utils";
     flake-utils.inputs.systems.follows = "systems";
 
-    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
-    pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
-    pre-commit-hooks.inputs.nixpkgs-stable.follows = "nixpkgs";
+    git-hooks-nix.url = "github:cachix/git-hooks.nix";
+    git-hooks-nix.inputs.nixpkgs.follows = "nixpkgs";
+    git-hooks-nix.inputs.nixpkgs-stable.follows = "nixpkgs";
 
     devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
-    devshell.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs = inputs @ {
     self,
     nixpkgs,
     flake-utils,
-    pre-commit-hooks,
+    git-hooks-nix,
     devshell,
     ...
   }:
@@ -50,7 +49,7 @@
           x86_64-darwin
           aarch64-linux
           aarch64-darwin
-          # No `i686-linux` because `pre-commit-hooks` does not evaluate
+          # No `i686-linux` because `git-hooks-nix` does not evaluate
         ];
       in
         flake-utils.lib.eachSystem checkedSystems (system: let
@@ -59,7 +58,7 @@
         in {
           checks =
             {
-              pre-commit = pre-commit-hooks.lib.${system}.run {
+              pre-commit = git-hooks-nix.lib.${system}.run {
                 src = ./.;
                 hooks = {
                   alejandra.enable = true;
@@ -85,7 +84,7 @@
             packages = [
               alejandra
             ];
-            devshell.startup.pre-commit-hooks.text = self.checks.${system}.pre-commit.shellHook;
+            devshell.startup.git-hooks-nix.text = self.checks.${system}.pre-commit.shellHook;
           };
         })
     );
