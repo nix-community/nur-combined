@@ -17,6 +17,7 @@ in
     inherit (vifino) artsy;
 
     opensoundmeter = pkgs.libsForQt5.callPackage ./opensoundmeter.nix {};
+    midimonster = callPackage ./midimonster.nix {};
 
     # Troglobit's software
     libuev = callPackage ./troglobit/libuev.nix {};
