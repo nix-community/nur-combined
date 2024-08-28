@@ -1,15 +1,15 @@
 { lib, buildGoModule, fetchgit }:
 buildGoModule rec {
   pname = "jsonify-aws-dotfiles";
-  version = "23fa3367707e2dbb12da31682b6725851ffc8c1f";
+  version = "4c60e320b23ee0fae085cfce0b13d3753e39e73e";
 
   src = fetchgit {
     url = "https://github.com/mipmip/jsonify-aws-dotfiles.git";
     rev = "${version}";
-    hash = "";
+    hash = "sha256-sL1kpWyAVLxoQRJa+m7XSIaM0kxhmE1kOLpnTZVQwB0=";
   };
 
-  vendorHash = "";
+  vendorHash = "sha256-W6XVd68MS0ungMgam8jefYMVhyiN6/DB+bliFzs2rdk=";
 
   meta = with lib; {
     description = ''

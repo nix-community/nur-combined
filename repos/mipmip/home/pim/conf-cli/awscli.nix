@@ -19,9 +19,11 @@ let
   alternative_regions = {
     "221539347604" = "us-east-2";
     "925937276627" = "us-east-2";
+    "556019936812" = "us-west-2";
   };
   alternative_names = {
     "076504012268" = "playground pim";
+    "556019936812" = "pastbook_stefano_cutello";
   };
 
   # normalize_group = group : __concatStringsSep "_" (builtins.filter (x: builtins.typeOf x == "string") (__split " " (lib.strings.toLower group)));

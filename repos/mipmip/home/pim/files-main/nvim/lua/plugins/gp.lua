@@ -54,12 +54,30 @@ return {
         	gp.cmd.ChatNew(params, agent.model, chat_system_prompt)
         end,
 
+--        Translator = function(gp, params)
+--          local template = "You are a Translator, please translate the following between English and Dutch."
+--        		.. "{{selection}}"
+--        		.. ""
+--        	local agent = gp.get_command_agent()
+--        	gp.Prompt(params, gp.Target.append, nil, agent.model, template, agent.system_prompt)
+--        end,
+
         Translator = function(gp, params)
-          local template = "You are a Translator, please translate the following between English and Dutch."
-        		.. "{{selection}}"
-        		.. ""
-        	local agent = gp.get_command_agent()
-        	gp.Prompt(params, gp.Target.append, nil, agent.model, template, agent.system_prompt)
+          local template = "You are a Translator, please translate between English and Dutch."
+          .. "{{selection}}"
+          .. ""
+
+          local agent = gp.get_chat_agent()
+          gp.Prompt(params, gp.Target.rewrite, agent, template)
+        end,
+
+        -- example of adding command which explains the selected code
+        xTranslator = function(gp, params)
+          local template = "I have the following code from {{filename}}:\n\n"
+          .. "```{{filetype}}\n{{selection}}\n```\n\n"
+          .. "Please respond by explaining the code above."
+          local agent = gp.get_chat_agent()
+          gp.Prompt(params, gp.Target.popup, agent, template)
         end,
 
         --

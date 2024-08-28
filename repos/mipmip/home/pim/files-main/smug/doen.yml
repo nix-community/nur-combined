@@ -8,7 +8,7 @@ windows:
   - name: doen
     layout: main-horizontal
     commands:
-      - lin
+      - nlin
   - name: sync
     layout: main-horizontal
     commands:
