@@ -24,12 +24,6 @@ lib.makeScope pkgs.newScope (
     # Sets
     akkoma-emoji = lib.recurseIntoAttrs (self.callPackage ./pkgs/akkoma-emoji { });
 
-    budgie-do-not-disturb-status =
-      if pkgs ? buildGo123Module then
-        self.callPackage ./pkgs/by-name/budgie-do-not-disturb-status/package.nix { }
-      else
-        null;
-
     # Overrides
     yyjson_0_10 =
       if lib.versionAtLeast pkgs.yyjson.version "0.10.0" then
