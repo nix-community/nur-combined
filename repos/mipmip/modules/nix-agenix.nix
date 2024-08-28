@@ -1,4 +1,10 @@
+{ config, lib, pkgs, ... }:
+
 {
+  environment.systemPackages = with pkgs; [
+    age
+  ];
+
   age.secrets = {
 
     openai-api-key = {
@@ -17,3 +23,6 @@
     };
   };
 }
+
+
+

@@ -5,7 +5,19 @@ let
   ## NOTE RUN aws --profile=web_dns s3 cp s3://docs-mcs.technative.eu-longhorn/managed_service_accounts.json ~/.aws/
   technative_profiles = /home/pim/.aws/managed_service_accounts.json;
 
-  aws_accounts = builtins.fromJSON (lib.readFile technative_profiles);
+  aws_accounts = [
+
+    {
+      account_id= "104144963194";
+      account_name = "wasnel-main";
+      customer_name = "W-A-Snel";
+      disabled = "False";
+      source_profile = "wasnel";
+      roles= "landing_zone_devops_administrator, landing_zone_devops_user, landing_zone_finops_review, TechnativeRole";
+    }
+
+    ]
+    ++ builtins.fromJSON (lib.readFile technative_profiles);
 
   groups = {
     mustad_hoofcare.color = "e5a50a";
@@ -44,13 +56,14 @@ let
     if builtins.hasAttr groupnorm groups && builtins.hasAttr "ignore" groups.${groupnorm} && groups.${groupnorm}.ignore == true then false
     else true;
 
-  tn_profile = {account_id, group } :
+  make_profile = {account, group } :
     let
       groupnorm = normalize_string group;
+      account_id = account.account_id;
     in
     {
       inherit group;
-      source_profile = "technative";
+      source_profile = if builtins.hasAttr "source_profile" account then account.source_profile else "technative";
       role_arn = "arn:aws:iam::${account_id}:role/landing_zone_devops_administrator";
       region = if builtins.hasAttr account_id alternative_regions then alternative_regions."${account_id}" else "eu-central-1";
       color = if builtins.hasAttr groupnorm groups && builtins.hasAttr "color" groups.${groupnorm}
@@ -77,7 +90,7 @@ in
     }
     // builtins.listToAttrs (builtins.map (account: {
        name = "profile ${normalize_string (account_name account)}";
-       value = tn_profile { account_id = account.account_id; group = account.customer_name; };
+       value = make_profile { account = account; group = account.customer_name; };
     }) (builtins.filter (account: show_account account) aws_accounts));
 
   };

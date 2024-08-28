@@ -42,6 +42,15 @@ cd /etc/nixos
 home-manager switch  --flake .#pim@ojs --impure
 ```
 
+### Add Agenix file
+
+1. add file registration in secrets/secrets.nix
+2. cd secrets
+3. create file or edit file `agenix -e aws-credentials-copy.age`
+4. add file purpose to modules/nix-agenix.nix
+
+example: `agenix -i ~/.ssh/id_ed25519 -e aws-credentials-copy.age`
+
 ### TODO
 
 - [x] fix NUR url, maybe nur.nix

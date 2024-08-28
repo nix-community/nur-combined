@@ -8,6 +8,8 @@ let
   systems = [ ojs lego1 rodin];
 in
 {
-  "openai-api-key.age".publicKeys = [ pim ojs lego1 rodin];
-  "openai-api-key-plain.age".publicKeys = [ pim ojs lego1 rodin];
+  "openai-api-key.age".publicKeys = [ pim  ojs lego1 rodin];
+  "openai-api-key-plain.age".publicKeys = [ pim  ojs lego1 rodin];
+
+  "aws-credentials-copy.age".publicKeys = [ pim  ojs lego1 rodin];
 }

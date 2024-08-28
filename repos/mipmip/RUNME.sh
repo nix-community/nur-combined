@@ -44,6 +44,17 @@ missing_modules(){
   done
 }
 
+make_command "setup_aws_key" "copy credentials-file"
+setup_aws_key(){
+  if [ ~/.aws/credentials ]; then
+    cp ~/.aws/credentials ~/.aws/credentials.bak
+    chmod 600 ~/.aws/credentials.bak
+  fi
+
+  age --decrypt -i ~/.ssh/id_ed25519 ./secrets/aws-credentials-copy.age > ~/.aws/credentials
+  chmod 600 ~/.aws/credentials
+}
+
 make_command "disable_mac_trackpad" "disable trackpad when it acts funny"
 disable_mac_trackpad(){
   xinput set-prop 13 "Device Enabled" 0
