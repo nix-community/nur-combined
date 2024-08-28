@@ -58,7 +58,7 @@ rec {
   parseIp = subnet: let
     split = splitString "/" subnet;
     addr = builtins.elemAt split 0;
-    len = builtins.elemAt split 1;
+    len = toInt (builtins.elemAt split 1);
   in {
     inherit addr len;
   };
@@ -73,22 +73,27 @@ rec {
   # Append a suffix to ipv4 subnet that ends with x.x.x.0/xx (len is kept)
   ipv4Append = subset: suffix: let
     ip = parseIp subset;
-  in "${ipv4Prefix ip.addr}${suffix}/${ip.len}";
+  in "${ipv4Prefix ip.addr}${suffix}/${toString ip.len}";
 
   # Append a suffix to ipv6 subnet that ends with ::/xx (len is kept)
   ipv6Append = subset: suffix: let
     ip = parseIp subset;
-  in "${ip.addr}${suffix}/${ip.len}";
+  in "${ip.addr}${suffix}/${toString ip.len}";
 
   # Check if it is ipv4 with optional len or optional port
   isIpv4 = addr: (builtins.match ''[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+((/[0-9]+)|(:[0-9]+))?'' addr) != null;
 
-  # Convert ipv4 subnet/len to reverse DNS domain based on len
-  ipv4RdnsDomain = subnet: let
-    ip = parseIp subnet;
-    n = (toInt ip.len) / 8;
-    p = sublist 0 n (splitString "." ip.addr);
-  in concatStringsSep "." (reverseList p);
+  # Convert ipv4 addr to reverse DNS zone domain based on len
+  ipv4RdnsZone = addr: len: let
+    n = len / 8;
+    p = reverseList (sublist 0 n (splitString "." addr));
+  in concatStringsSep "." p;
+
+  # Convert ipv4 addr to reverse DNS record name based on len
+  ipv4RdnsName = addr: len: let
+    n = 4 - len / 8;
+    p = sublist 0 n (reverseList (splitString "." addr));
+  in concatStringsSep "." p;
 
   # Epxand all zeros in ipv6 addr
   ipv6Expand = addr: let
@@ -100,10 +105,15 @@ rec {
     flatten (map (p: if p == "" then lists.replicate zeroLen "0000" else padStrLeft "0" 4 p) parts)
   );
 
-  # Convert ipv6 subnet/len to reverse DNS domain based on len
-  ipv6RdnsDomain = subnet: let
-    ip = parseIp subnet;
-    n = toInt ip.len / 4;
-    p = sublist 0 n (builtins.filter (v: v != ":") (stringToCharacters (ipv6Expand ip.addr)));
-  in concatStringsSep "." (reverseList p);
+  # Convert ipv6 addr to reverse DNS zone domain based on len
+  ipv6RdnsZone = addr: len: let
+    n = len / 4;
+    p = reverseList (sublist 0 n (builtins.filter (v: v != ":") (stringToCharacters (ipv6Expand addr))));
+  in concatStringsSep "." p;
+
+  # Convert ipv6 addr to reverse DNS record name based on len
+  ipv6RdnsName = addr: len: let
+    n = 32 - len / 4;
+    p = sublist 0 n (reverseList (builtins.filter (v: v != ":") (stringToCharacters (ipv6Expand addr))));
+  in concatStringsSep "." p;
 }
