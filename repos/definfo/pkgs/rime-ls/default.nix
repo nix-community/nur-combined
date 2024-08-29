@@ -1,9 +1,14 @@
 {
   lib,
+  stdenv,
   rustPlatform,
   fetchFromGitHub,
   pkg-config,
+  makeWrapper,
   librime,
+  rime-data,
+  symlinkJoin,
+  rimeDataPkgs ? [ rime-data ]
 }:
 rustPlatform.buildRustPackage rec {
   pname = "rime-ls";
@@ -12,8 +17,8 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "wlh320";
     repo = pname;
-    rev = "v${version}";
-    hash = "sha256-xzquG8DMvZGiszXrYGiv31QGDd776UbKrNnwzGv9DQ0=";
+    rev = "master";
+    hash = "sha256-zuZDnRUSMuQb+98GfRttka+IGj+G8RsvxUY1hwiMSOQ=";
   };
 
   cargoLock = {
@@ -23,6 +28,11 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
+  rimeDataDrv = symlinkJoin {
+    name = "rime-ls-rime-data";
+    paths = rimeDataPkgs;
+  };
+
   postPatch = ''
     ln -s ${./Cargo.lock} Cargo.lock
   '';
@@ -30,11 +40,20 @@ rustPlatform.buildRustPackage rec {
   nativeBuildInputs = [
     pkg-config
     rustPlatform.bindgenHook
+    makeWrapper
   ];
 
   buildInputs = [ librime ];
 
-  doCheck = false; # FIXME: test failed at test_get_candidates 
+  env.RIME_DATA_DIR = lib.optionalString stdenv.isLinux "${rimeDataDrv}/share/rime-data";
+  # doCheck = false;
+
+  postInstall = ''
+    mkdir -p $out/share/rime-data
+    cp -r "${rimeDataDrv}/share/rime-data/." $out/share/rime-data/
+    wrapProgram $out/bin/rime_ls \
+      --set RIME_DATA_DIR $out/share/rime-data
+  '';
 
   meta = {
     description = "A language server for Rime input method engine";
