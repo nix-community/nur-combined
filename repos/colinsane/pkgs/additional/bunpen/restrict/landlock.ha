@@ -1,6 +1,8 @@
 // vim: set shiftwidth=2 :
+use fs;
 use log;
 use os;
+use path;
 use rt;
 use rtext;
 
@@ -33,26 +35,25 @@ fn access_file() u64 = return
   rtext::LANDLOCK_ACCESS_FS_IOCTL_DEV
 ;
 
-fn allow_path_fd(ruleset_fd: u64, path_fd: i32) (rt::errno | u64) = {
+fn allow_path_fd(ruleset_fd: u64, path_fd: i32) (void | fs::error | rt::errno) = {
   let access = access_fs_roughly_rw();
-  let statbuf = rt::st { ... };
-  rt::fstat(path_fd, &statbuf)?;
+  let statbuf = os::fstat(path_fd)?;
 
-  if (statbuf.mode & rt::S_IFDIR == 0) {
+  if (!fs::isdir(statbuf.mode)) {
     // not a directory: remove all access modes which are only sensible for
     // directories, else landlock will fail.
     access = access & access_file();
   };
 
-  return rtext::landlock_add_rule(ruleset_fd, &rtext::landlock_path_beneath_attr {
+  rtext::landlock_add_rule(ruleset_fd, &rtext::landlock_path_beneath_attr {
     allowed_access = access,
     parent_fd = path_fd,
-  });
+  })?;
 };
 
 export fn landlock_restrict(what: *resources) void = {
   let abi = rtext::landlock_create_ruleset(null, rtext::LANDLOCK_CREATE_RULESET_VERSION)!;
-  log::printfln("found landlock version {}", abi);
+  log::printfln("[landlock] found version {}", abi);
 
   // determine the access modes we can ask this kernel to restrict on:
   let ruleset_attr = rtext::landlock_ruleset_attr {
@@ -74,17 +75,18 @@ export fn landlock_restrict(what: *resources) void = {
 
   if (what.net) {
     // un-restrict net access
-    log::println("landlock: permit net");
+    log::println("[landlock] permit net");
     ruleset_attr.handled_access_net = 0;
   }; // XXX: `what.net` only affects TCP. UDP, and ICMP remain possible always
 
   let ruleset_fd = rtext::landlock_create_ruleset(&ruleset_attr)!;
 
-  for (let path .. what.paths) {
-    log::printfln("landlock: permit path: {}", path);
-    match (rt::open(path, rt::O_PATH | rt::O_CLOEXEC, 0)) {  //< O_PATH allows for opening files which are `x` but not `r`
-      case rt::errno => log::printfln("omitting from sandbox (failed to `open`): {}", path);
-      case let path_fd: int => allow_path_fd(ruleset_fd, path_fd)!;
+  for (let pathbuf .. what.paths) {
+    let pathstr = path::string(&pathbuf);
+    log::printfln("[landlock] permit path: {}", pathstr);
+    match (rt::open(pathstr, rt::O_PATH | rt::O_CLOEXEC, 0)) {  //< O_PATH allows for opening files which are `x` but not `r`
+      case rt::errno => log::printfln("[landlock/path] omitting from sandbox (failed to `open`): {}", pathstr);
+      case let path_fd: int => rtext::swallow_error("[landlock/path] allow_path_fd", allow_path_fd(ruleset_fd, path_fd));
     };
   };
 

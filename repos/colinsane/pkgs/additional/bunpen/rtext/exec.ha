@@ -12,8 +12,7 @@ export fn execve(path: str, argv: []str, envp: []str = []) (rt::errno | void) = 
     make_cstr(&path_buf, path): uintptr: u64,
     // XXX: this "leaks" the c arrays, but not much can be done about that
     to_cstr_array(argv): *[*]nullable *const c::char: uintptr: u64,
-    0,
-    // to_cstr_array(envp): *[*]nullable *const c::char: uintptr: u64,
+    to_cstr_array(envp): *[*]nullable *const c::char: uintptr: u64,
   )?;
 };
 

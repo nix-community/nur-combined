@@ -138,6 +138,22 @@ let
 in
 {
   sane.programs.mpv = {
+    configOption = with lib; mkOption {
+      default = {};
+      type = types.submodule {
+        options = {
+          default_profile = mkOption {
+            type = types.enum [ "high-quality" "mid-range" "fast" ];
+            default = "mid-range";
+            description = ''
+              default mpv profile to use.
+              this affects options such as the default youtube stream settings.
+              see my `mpv.conf` for details
+            '';
+          };
+        };
+      };
+    };
     packageUnwrapped = pkgs.mpv-unwrapped.wrapper {
       mpv = pkgs.mpv-unwrapped.override rec {
         # N.B.: populating `self` to `luajit` is necessary for the resulting `lua.withPackages` function to preserve my override.
@@ -154,35 +170,6 @@ in
         # visualizer  #< XXX(2024-07-23): `visualizer` breaks auto-play-next-track (only when visualizations are disabled)
         # pkgs.mpv-uosc-latest
       ];
-      # extraMakeWrapperArgs = lib.optionals (cfg.config.vo != null) [
-      #   # 2023/08/29: fixes an error where mpv on moby launches with the message
-      #   #   "DRM_IOCTL_MODE_CREATE_DUMB failed: Cannot allocate memory"
-      #   #   audio still works, and controls, screenshotting, etc -- just not the actual rendering
-      #   #
-      #   #   this is likely a regression for mpv 0.36.0.
-      #   #   the actual error message *appears* to come from the mesa library, but it's tough to trace.
-      #   #
-      #   # 2024/03/02: no longer necessary, with mesa 23.3.1: <https://github.com/NixOS/nixpkgs/pull/265740>
-      #   #
-      #   # backend compatibility (2023/10/22):
-      #   # run with `--vo=help` to see a list of all output options.
-      #   # non-exhaustive (W=works, F=fails, A=audio-only, U=audio+ui only (no video))
-      #   # ? null             Null video output
-      #   # A (default)
-      #   # A dmabuf-wayland   Wayland dmabuf video output
-      #   # A libmpv           render API for libmpv  (mpv plays the audio, but doesn't even render a window)
-      #   # A vdpau            VDPAU with X11
-      #   # F drm              Direct Rendering Manager (software scaling)
-      #   # F gpu-next         Video output based on libplacebo
-      #   # F vaapi            VA API with X11
-      #   # F x11              X11 (software scaling)
-      #   # F xv               X11/Xv
-      #   # U gpu              Shader-based GPU Renderer
-      #   # W caca             libcaca  (terminal rendering)
-      #   # W sdl              SDL 2.0 Renderer
-      #   # W wlshm            Wayland SHM video output (software scaling)
-      #   "--add-flags" "--vo=${cfg.config.vo}"
-      # ];
     };
 
     suggestedPrograms = [
@@ -223,7 +210,10 @@ in
     fs.".config/mpv/scripts/sane_sysvol/main.lua".symlink.target = ./sane_sysvol/main.lua;
     fs.".config/mpv/scripts/sane_sysvol/non_blocking_popen.lua".symlink.target = ./sane_sysvol/non_blocking_popen.lua;
     fs.".config/mpv/input.conf".symlink.target = ./input.conf;
-    fs.".config/mpv/mpv.conf".symlink.target = ./mpv.conf;
+    fs.".config/mpv/mpv.conf".symlink.target = pkgs.substituteAll {
+      src = ./mpv.conf;
+      inherit (cfg.config) default_profile;
+    };
     fs.".config/mpv/script-opts/console.conf".symlink.target = ./console.conf;
     fs.".config/mpv/script-opts/osc.conf".symlink.target = ./osc.conf;
     fs.".config/mpv/script-opts/playlistmanager.conf".symlink.target = ./playlistmanager.conf;

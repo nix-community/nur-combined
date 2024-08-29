@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 {
   imports = [
     ./fs.nix
@@ -43,6 +43,8 @@
     battery = false;
     brightness = false;
   };
+
+  sane.programs.mpv.config.default_profile = "high-quality";
 
   sane.image.extraBootFiles = [ pkgs.bootpart-uefi-x86_64 ];
 

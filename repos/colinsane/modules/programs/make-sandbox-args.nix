@@ -30,9 +30,12 @@ let
     whitelistPwd = [ "--sanebox-add-pwd" ];
   };
   bunpenGenerators = {
+    autodetectCliPaths = style: [ "--bunpen-autodetect" style ];
     method = m: assert m == "bunpen"; [];
     netDev = n: assert n == "all"; [ "--bunpen-keep-net" ];
     path = p: [ "--bunpen-path" p ];
+    path-home = p: [ "--bunpen-home-path" p ];
+    path-run = p: [ "--bunpen-run-path" p ];
   };
   gen = if method == "bunpen" then
     bunpenGenerators

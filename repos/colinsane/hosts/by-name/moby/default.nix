@@ -6,7 +6,7 @@
 # - Mobian wiki: <https://wiki.mobian-project.org/doku.php?id=start>
 #   - recommended apps, chatrooms
 
-{ config, pkgs, lib, ... }:
+{ config, ... }:
 {
   imports = [
     ./fs.nix
@@ -70,6 +70,8 @@
     min-quantum = 2048;
     max-quantum = 8192;
   };
+
+  sane.programs.mpv.config.default_profile = "fast";
 
   # /boot space is at a premium. default was 20.
   # even 10 can be too much
