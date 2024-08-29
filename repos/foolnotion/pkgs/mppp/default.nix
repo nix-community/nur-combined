@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "mppp";
-  version = "1.0.2";
+  version = "1.0.3";
 
   src = fetchFromGitHub {
     owner = "bluescarni";
     repo = "mppp";
     rev = "v${version}";
-    hash = "sha256-rMBxeImeykF3r/I6lnA2va8XPHkNtL8OsORG0re2yOg=";
+    hash = "sha256-XNw7ndQs+KMsmPWLihYdfeRU/sI/ometxOVrJVVeGQA=";
   };
 
   nativeBuildInputs = [ cmake ];
