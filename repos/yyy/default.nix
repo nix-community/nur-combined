@@ -22,5 +22,9 @@ rec {
   beets-summarize = lib.callPackage "beets-summarize" { };
   beets-filetote = lib.callPackage "beets-filetote" { };
 
+  autobean = lib.callPackage "autobean" { };
+  autobean-refactor = lib.callPackage "autobean-refactor" { };
+  # fava-dashboards = lib.callPackage "fava-dashboards" { };
+
   stash = lib.callPackage "stash" { };
 }

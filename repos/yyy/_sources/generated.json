@@ -1,4 +1,34 @@
 {
+    "autobean": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "autobean",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-2gN9AyP66r2AwrTWJnRf+9W+TTfylRQkSAEea4tvKko=",
+            "type": "url",
+            "url": "https://pypi.org/packages/source/a/autobean/autobean-0.2.2.tar.gz"
+        },
+        "version": "0.2.2"
+    },
+    "autobean-refactor": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "autobean-refactor",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-YRzfHlcjSky1z8/zxe2IfWgLI9N5LksyHzCV1P7U7YE=",
+            "type": "url",
+            "url": "https://pypi.org/packages/source/a/autobean-refactor/autobean-refactor-0.2.5.tar.gz"
+        },
+        "version": "0.2.5"
+    },
     "beets-filetote": {
         "cargoLocks": null,
         "date": null,
@@ -118,6 +148,26 @@
             "type": "github"
         },
         "version": "0.2.2"
+    },
+    "fava-dashboards": {
+        "cargoLocks": null,
+        "date": "2024-08-14",
+        "extract": null,
+        "name": "fava-dashboards",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "andreasgerstmayr",
+            "repo": "fava-dashboards",
+            "rev": "50a0b7c8b20e50b15bf491329e1ecab6598d8b96",
+            "sha256": "sha256-Lzp4P1eF/oq7iRnGRxvEKlgZALHiLOpNKRsGDJPN4Zg=",
+            "type": "github"
+        },
+        "version": "50a0b7c8b20e50b15bf491329e1ecab6598d8b96"
     },
     "stash": {
         "cargoLocks": null,

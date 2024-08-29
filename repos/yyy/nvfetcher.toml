@@ -25,3 +25,15 @@ fetch.github = "simonw/datasette-leaflet"
 [stash]
 src.github = "stashapp/stash"
 fetch.url = "https://github.com/stashapp/stash/releases/download/$ver/stash-linux"
+
+[autobean]
+src.pypi = "autobean"
+fetch.pypi = "autobean"
+
+[autobean-refactor]
+src.pypi = "autobean-refactor"
+fetch.pypi = "autobean-refactor"
+
+# [fava-dashboards]
+# src.git = "https://github.com/andreasgerstmayr/fava-dashboards"
+# fetch.github = "andreasgerstmayr/fava-dashboards"
