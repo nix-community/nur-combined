@@ -322,6 +322,9 @@
     "slug": "download-with-jdownloader"
   },
   {
+    "slug": "downthemall"
+  },
+  {
     "slug": "dracula-dark-colorscheme"
   },
   {
@@ -430,6 +433,16 @@
     "slug": "fediact"
   },
   {
+    "slug": "feedbroreader",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
+  },
+  {
     "slug": "ff2mpv"
   },
   {
@@ -476,6 +489,9 @@
   },
   {
     "slug": "form-history-control"
+  },
+  {
+    "slug": "foxy-gestures"
   },
   {
     "slug": "foxyproxy-standard"
@@ -571,6 +587,9 @@
   },
   {
     "slug": "gsconnect"
+  },
+  {
+    "slug": "gàidhlig-language-pack"
   },
   {
     "slug": "görans-hemmasnickrade-ordli",
@@ -927,6 +946,9 @@
     }
   },
   {
+    "slug": "nyaa-linker"
+  },
+  {
     "slug": "octolinker"
   },
   {
@@ -1201,6 +1223,9 @@
   },
   {
     "slug": "save-page-we"
+  },
+  {
+    "slug": "scots-language-pack"
   },
   {
     "slug": "screenshot-capture-annotate"
@@ -1530,6 +1555,16 @@
     }
   },
   {
+    "slug": "video-resumer",
+    "license": {
+      "tag": "custom",
+      "shortName": "video-resumer",
+      "fullName": "Custom License for Video Resumer",
+      "url": "https://addons.mozilla.org/en-US/firefox/addon/video-resumer/license/",
+      "free": false
+    }
+  },
+  {
     "slug": "videospeed"
   },
   {
@@ -1648,6 +1683,9 @@
   },
   {
     "slug": "youtube-alternative-switch"
+  },
+  {
+    "slug": "youtube-high-definition"
   },
   {
     "slug": "youtube-nonstop"

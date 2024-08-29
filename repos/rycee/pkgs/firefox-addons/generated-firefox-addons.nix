@@ -2316,6 +2316,34 @@
         platforms = platforms.all;
       };
     };
+    "downthemall" = buildFirefoxXpiAddon {
+      pname = "downthemall";
+      version = "4.12.1";
+      addonId = "{DDC359D1-844A-42a7-9AA1-88A850A938A8}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4228862/downthemall-4.12.1.xpi";
+      sha256 = "4e652c23da2560d02246afa3eeeee442b6de3dddb1ee3ce10aaa214e57e676fd";
+      meta = with lib;
+      {
+        homepage = "https://www.downthemall.org/";
+        description = "The Mass Downloader for your browser";
+        license = licenses.gpl2;
+        mozPermissions = [
+          "<all_urls>"
+          "contextMenus"
+          "downloads"
+          "downloads.open"
+          "history"
+          "menus"
+          "notifications"
+          "sessions"
+          "storage"
+          "tabs"
+          "theme"
+          "webNavigation"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "dracula-dark-colorscheme" = buildFirefoxXpiAddon {
       pname = "dracula-dark-colorscheme";
       version = "1.10.0";
@@ -2770,6 +2798,35 @@
         platforms = platforms.all;
       };
     };
+    "feedbroreader" = buildFirefoxXpiAddon {
+      pname = "feedbroreader";
+      version = "4.16.3";
+      addonId = "{a9c2ad37-e940-4892-8dce-cd73c6cbbc0c}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4254656/feedbroreader-4.16.3.xpi";
+      sha256 = "1d588e721f68bdc965fb44d29376485502c622d5f26de33ca9312328530ade11";
+      meta = with lib;
+      {
+        homepage = "http://nodetics.com/feedbro";
+        description = "Advanced Feed Reader - Read news &amp; blogs or any RSS/Atom/RDF source.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [
+          "tabs"
+          "http://*/"
+          "https://*/"
+          "storage"
+          "unlimitedStorage"
+          "notifications"
+          "webRequest"
+          "webRequestBlocking"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "ff2mpv" = buildFirefoxXpiAddon {
       pname = "ff2mpv";
       version = "5.1.1";
@@ -3016,6 +3073,29 @@
           "clipboardWrite"
           "*://*/*"
           "file:///*"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "foxy-gestures" = buildFirefoxXpiAddon {
+      pname = "foxy-gestures";
+      version = "1.2.12";
+      addonId = "{e839c3f9-298e-4cd0-99e0-464431cb7c34}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3855097/foxy_gestures-1.2.12.xpi";
+      sha256 = "f6bd22ab66c779425dbda853a91cd12014dc245f253b7fc822f5c8366f1203ea";
+      meta = with lib;
+      {
+        homepage = "https://github.com/marklieberman/foxygestures";
+        description = "Mouse gestures for Firefox. A web extension alternative to FireGestures created by a long time FireGestures user.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "browserSettings"
+          "cookies"
+          "contextualIdentities"
+          "sessions"
+          "storage"
+          "tabs"
+          "<all_urls>"
         ];
         platforms = platforms.all;
       };
@@ -3658,6 +3738,20 @@
         description = "Share links with GSConnect, direct to the browser or by SMS. Requires at least v7 of the Gnome Shell extension to function.";
         license = licenses.gpl2;
         mozPermissions = [ "nativeMessaging" "tabs" "contextMenus" ];
+        platforms = platforms.all;
+      };
+    };
+    "gàidhlig-language-pack" = buildFirefoxXpiAddon {
+      pname = "gàidhlig-language-pack";
+      version = "130.0.20240826.200919";
+      addonId = "langpack-gd@firefox.mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4343282/gaidhlig_language_pack-130.0.20240826.200919.xpi";
+      sha256 = "07f871887e80ebe99f7a89a46049561ea0779efe01365239adba670c77a2dab2";
+      meta = with lib;
+      {
+        description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
+        license = licenses.mpl20;
+        mozPermissions = [];
         platforms = platforms.all;
       };
     };
@@ -7314,6 +7408,30 @@
         platforms = platforms.all;
       };
     };
+    "nyaa-linker" = buildFirefoxXpiAddon {
+      pname = "nyaa-linker";
+      version = "2.1.0";
+      addonId = "Metacor.Code@gmail.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4302266/nyaa_linker-2.1.0.xpi";
+      sha256 = "bf14d229b71360c4c0b01b7a7b364b8c4448134848e417d51f761bf54b0b905a";
+      meta = with lib;
+      {
+        description = "Adds a button to Anime and Manga database websites that opens a relevant Nyaa search";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "storage"
+          "tabs"
+          "*://*.myanimelist.net/*"
+          "*://*.anilist.co/*"
+          "*://*.kitsu.io/*"
+          "*://*.anime-planet.com/*"
+          "*://*.animenewsnetwork.com/encyclopedia/*"
+          "*://*.anidb.net/*"
+          "*://*.livechart.me/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "octolinker" = buildFirefoxXpiAddon {
       pname = "octolinker";
       version = "6.10.5";
@@ -9282,6 +9400,20 @@
           "notifications"
           "storage"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "scots-language-pack" = buildFirefoxXpiAddon {
+      pname = "scots-language-pack";
+      version = "130.0.20240826.200919";
+      addonId = "langpack-sco@firefox.mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4343325/scots_language_pack-130.0.20240826.200919.xpi";
+      sha256 = "d9a7ae2ab075054d098c130228eb3d5ac94e5e66201781d9e1fe10e6783ad882";
+      meta = with lib;
+      {
+        description = "Firefox Language Pack for Scots (sco)";
+        license = licenses.mpl20;
+        mozPermissions = [];
         platforms = platforms.all;
       };
     };
@@ -11326,6 +11458,32 @@
         platforms = platforms.all;
       };
     };
+    "video-resumer" = buildFirefoxXpiAddon {
+      pname = "video-resumer";
+      version = "1.2.4resigned1";
+      addonId = "videoresumer@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4270451/video_resumer-1.2.4resigned1.xpi";
+      sha256 = "e098a3acb92dcefa9d751676aad728082a6973fefc801ea47b239a88a828bea1";
+      meta = with lib;
+      {
+        description = "Automatically resumes YouTube videos from where you played them last. Without this extension, for example, when you click through YouTube videos, back and forth, they always start from the beginning.";
+        license = {
+          shortName = "video-resumer";
+          fullName = "Custom License for Video Resumer";
+          url = "https://addons.mozilla.org/en-US/firefox/addon/video-resumer/license/";
+          free = false;
+        };
+        mozPermissions = [
+          "storage"
+          "unlimitedStorage"
+          "alarms"
+          "*://*.youtube.com/*"
+          "*://*.youtube.com/embed/*"
+          "*://*.youtube-nocookie.com/embed/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "videospeed" = buildFirefoxXpiAddon {
       pname = "videospeed";
       version = "0.6.3.3";
@@ -12290,6 +12448,21 @@
         description = "Quickly switch videos between YouTube, Piped, Invidious and Chat Replay.";
         license = licenses.mit;
         mozPermissions = [ "tabs" "contextMenus" "storage" ];
+        platforms = platforms.all;
+      };
+    };
+    "youtube-high-definition" = buildFirefoxXpiAddon {
+      pname = "youtube-high-definition";
+      version = "118.0.5";
+      addonId = "{7b1bf0b6-a1b9-42b0-b75d-252036438bdc}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4169481/youtube_high_definition-118.0.5.xpi";
+      sha256 = "66d24520820ea01056219751f4c42bf49cb7c0a295eb53e63cf28d603ea42d50";
+      meta = with lib;
+      {
+        homepage = "http://barisderin.com/";
+        description = "YouTube High Definition is a powerful tool that automatically plays all YouTube videos in HD, changes video player size, offers auto-stop and mute, and much more.";
+        license = licenses.lgpl3;
+        mozPermissions = [ "storage" "*://*.youtube.com/*" ];
         platforms = platforms.all;
       };
     };
