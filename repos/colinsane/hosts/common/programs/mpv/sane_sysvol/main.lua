@@ -46,6 +46,7 @@ function sysvol_new()
       if mpv_vol == nil then
         return
       end
+      local volstr = tostring(mpv_vol) .. "%"
 
       local old_mpv_vol = nil
       if self.sysvol ~= nil then
@@ -59,7 +60,6 @@ function sysvol_new()
         return
       end
 
-      local volstr = tostring(mpv_vol) .. "%"
       msg.debug("setting system-wide volume:", old_mpv_vol, volstr)
       self.sysvol = (0.01*mpv_vol)^3
       subprocess({
