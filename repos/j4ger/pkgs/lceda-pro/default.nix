@@ -18,10 +18,10 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "lceda-pro";
-  version = "2.2.23.6";
+  version = "2.2.26.6";
   src = fetchzip {
     url = "https://image.lceda.cn/files/lceda-pro-linux-x64-${version}.zip";
-    hash = "sha256-cYukF0Mg9/cY7nUiYns8YS010KT6DwI5VzV6UJd2N7Q=";
+    hash = "sha256-ItlvRewQfO4pvdlqHNPWlWrndqJpR+aOFCswqIh1F7o=";
     stripRoot = false;
   };
 
