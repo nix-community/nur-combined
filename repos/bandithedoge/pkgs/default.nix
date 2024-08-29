@@ -51,6 +51,7 @@
     tal = callPackages ./tal;
     tonelib = callPackages ./tonelib;
     treeSitterGrammars = callPackages ./treeSitterGrammars;
+    umu = callPackage' ./umu;
     vgmtrans = callPackage' ./vgmtrans;
     vimPlugins = callPackages ./vimPlugins;
     waterfox-bin = callPackage' ./waterfox-bin;
