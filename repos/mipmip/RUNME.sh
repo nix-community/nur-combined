@@ -44,6 +44,7 @@ missing_modules(){
   done
 }
 
+# MACHINE BOOTSTRAP COMMAND
 make_command "setup_aws_key" "copy credentials-file"
 setup_aws_key(){
   if [ ~/.aws/credentials ]; then

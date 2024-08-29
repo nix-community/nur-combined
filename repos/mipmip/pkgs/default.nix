@@ -22,6 +22,7 @@ let
     jsonify-aws-dotfiles                  = pkgs.callPackage ./pims-projects/jsonify-aws-dotfiles           { };
     mip-crystal                           = pkgs.callPackage ./pims-projects/mip-crystal                    { };
     mip-rust                              = pkgs.callPackage ./pims-projects/mip-rust                       { };
+    bmc                                   = pkgs.callPackage ./pims-projects/bmc                            { };
 
 
     gnomeExtensions.gs-git                = pkgs.callPackage ./gnome-shell-extensions/gs-git                { };

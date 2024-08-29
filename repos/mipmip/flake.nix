@@ -35,6 +35,8 @@
 
     nixified-ai = { url = "github:nixified-ai/flake"; };
 
+    bmc.url = "github:wearetechnative/bmc";
+
   };
 
   outputs = {
@@ -49,7 +51,8 @@
 #    nixpkgs-inkscape13,
 #    nixpkgs-share-preview-03,
     agenix,
-    nixified-ai
+    nixified-ai,
+    bmc
   }:
 
   let
@@ -167,6 +170,9 @@
           agenixBin = {
             environment.systemPackages = [ agenix.packages."${system}".default ];
           };
+          bmcBin = {
+            environment.systemPackages = [ bmc.packages."${system}".bmc ];
+          };
 
         in [
           ./hosts/rodin/configuration.nix
@@ -184,6 +190,8 @@
 
           agenixBin
           agenix.nixosModules.default
+
+          bmcBin
 
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;

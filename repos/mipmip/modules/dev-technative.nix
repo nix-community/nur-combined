@@ -54,6 +54,9 @@
     terrascan
     terraformer
     tflint
+
+    #mipmip_pkg.bmc
+
     #tfswitch
     #unstable.terracognita
 
