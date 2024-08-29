@@ -1851,16 +1851,16 @@
     };
     "copy-link-text" = buildFirefoxXpiAddon {
       pname = "copy-link-text";
-      version = "1.6.4";
+      version = "1.6.5";
       addonId = "{b144be59-6bdc-41e0-9141-9f8d00373d93}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3883720/copy_link_text_webextension-1.6.4.xpi";
-      sha256 = "21fa5ee67f4e751e9b6f8b37ed75edd3d9d00ae57ea6227eaece965a490b4ce8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4344305/copy_link_text_webextension-1.6.5.xpi";
+      sha256 = "fab82edf1d10ccd8635b710141d930ab80b1f64fc2aa5e61150336d084739456";
       meta = with lib;
       {
         homepage = "https://github.com/def00111/copy-link-text";
         description = "Copy the text of the link.";
         license = licenses.mpl20;
-        mozPermissions = [ "clipboardWrite" "menus" ];
+        mozPermissions = [ "clipboardWrite" "menus" "scripting" ];
         platforms = platforms.all;
       };
     };
@@ -2149,10 +2149,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "5.1.4";
+      version = "5.1.5";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4335078/dictionaries-5.1.4.xpi";
-      sha256 = "f1f179e81b33e5619a2eb789891b37ad350b20d99f963be3721f1280e6fdcbb6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4344246/dictionaries-5.1.5.xpi";
+      sha256 = "8a8d060c0a6d035a26b78482104abc2cef08efb557cd371093302e25e1338dae";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -5635,10 +5635,10 @@
     };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "8.11.7";
+      version = "8.11.8";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4337379/languagetool-8.11.7.xpi";
-      sha256 = "60a3564a300188fd9066e3f331f0350aabbe468a8de6a835d03654c18712afae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4341696/languagetool-8.11.8.xpi";
+      sha256 = "2f1489f7180303be730ff2b16d6a432d07017c6cffd3fbfc39f37dc809a25fc8";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -7248,10 +7248,10 @@
     };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.34";
+      version = "11.4.35";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4333280/noscript-11.4.34.xpi";
-      sha256 = "e538163118e8e9dcabd6306b8a9abb3fccb556b7d87b68e18aa0997d121ba00a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4343311/noscript-11.4.35.xpi";
+      sha256 = "a448e4c2e0eb7ca5fb1b6d3189bc586b91a7ee6facecdd0424f1bfbf2b3016fb";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -7405,10 +7405,10 @@
     };
     "old-reddit-redirect" = buildFirefoxXpiAddon {
       pname = "old-reddit-redirect";
-      version = "1.8.1";
+      version = "1.8.2";
       addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4182157/old_reddit_redirect-1.8.1.xpi";
-      sha256 = "bd411715bb36bd535a0211a47bd69c73abefac6153164f7e00f5b57971397700";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4342347/old_reddit_redirect-1.8.2.xpi";
+      sha256 = "0b89437d21132be520fbdf8f55a81cc41dd5f6b50c2905b4c43b870718baddf1";
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
@@ -9143,10 +9143,10 @@
     };
     "return-youtube-dislikes" = buildFirefoxXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "3.0.0.16";
+      version = "3.0.0.17";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4308076/return_youtube_dislikes-3.0.0.16.xpi";
-      sha256 = "46356bf30f6a06fee3497133c0b69a39ab09f393fa7d4c0e4d1c89cee1d020e4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4342747/return_youtube_dislikes-3.0.0.17.xpi";
+      sha256 = "c9115baa653c22390089fd6f028c88b9ca9c56f25112ff13e497caba984df841";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
@@ -12156,10 +12156,10 @@
     };
     "wikiwand-wikipedia-modernized" = buildFirefoxXpiAddon {
       pname = "wikiwand-wikipedia-modernized";
-      version = "5.1.3";
+      version = "10.0.1";
       addonId = "jid1-D7momAzRw417Ag@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3694180/wikiwand_wikipedia_modernized-5.1.3.xpi";
-      sha256 = "ed6633af652b1e609aed8660b8251573265d38ee051c9e4c5920dbf19b325d86";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4341711/wikiwand_wikipedia_modernized-10.0.1.xpi";
+      sha256 = "ccd5e25bc14a7ce1ba9ada666e7bdb120b60beaf40c6c8ed77120e549171542a";
       meta = with lib;
       {
         homepage = "http://www.wikiwand.com";
@@ -12170,15 +12170,7 @@
           url = "https://www.wikiwand.com/terms";
           free = false;
         };
-        mozPermissions = [
-          "cookies"
-          "storage"
-          "webNavigation"
-          "webRequest"
-          "webRequestBlocking"
-          "*://*.wikipedia.org/*"
-          "*://*.wikiwand.com/*"
-        ];
+        mozPermissions = [ "webNavigation" "menus" ];
         platforms = platforms.all;
       };
     };
