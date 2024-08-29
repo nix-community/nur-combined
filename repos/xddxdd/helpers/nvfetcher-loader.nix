@@ -18,9 +18,12 @@ lib.mapAttrs (
           && (builtins.match "[0-9a-f]{40}" v.version != null)
           && (builtins.hasAttr "date" v)
         then
-          { version = "unstable-${v.date}"; }
+          {
+            version = "unstable-${v.date}";
+            rawVersion = v.version;
+          }
         else
-          { };
+          { rawVersion = v.version; };
     in
     lib.foldl lib.recursiveUpdate v [
       removeVersionPrefix

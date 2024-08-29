@@ -487,6 +487,18 @@
     };
     date = "2024-03-25";
   };
+  helium-gateway-rs = {
+    pname = "helium-gateway-rs";
+    version = "3bdab3e955468c616fbb70b70a37577c4c77cd17";
+    src = fetchFromGitHub {
+      owner = "helium";
+      repo = "gateway-rs";
+      rev = "3bdab3e955468c616fbb70b70a37577c4c77cd17";
+      fetchSubmodules = false;
+      sha256 = "sha256-kAeLnvh5N4W/BiBDmGPo097egliZsZJuD49dVsmlk8s=";
+    };
+    date = "2024-08-01";
+  };
   hi3-ii-martian-font = {
     pname = "hi3-ii-martian-font";
     version = "763609486b6e2f3af60903cd6ae52a61a278438f";
@@ -1487,6 +1499,18 @@
       url = "https://www.svp-team.com/files/svp4-linux.4.6.263.tar.bz2";
       sha256 = "sha256-HyRDVFHVmTan/Si3QjGQpC3za30way10d0Hk79oXG98=";
     };
+  };
+  sx1302-hal = {
+    pname = "sx1302-hal";
+    version = "3760434a18e6ba47b695c22786195e57cc6b4c1c";
+    src = fetchFromGitHub {
+      owner = "NebraLtd";
+      repo = "sx1302_hal";
+      rev = "3760434a18e6ba47b695c22786195e57cc6b4c1c";
+      fetchSubmodules = false;
+      sha256 = "sha256-8u4gQ1ifNrXzoOiXAZ535ZMZi8w6VRCljOC0u9xbJOg=";
+    };
+    date = "2023-02-06";
   };
   th-hak = {
     pname = "th-hak";

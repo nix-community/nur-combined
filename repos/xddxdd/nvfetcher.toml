@@ -192,6 +192,10 @@ fetch.url = "https://github.com/Grasscutters/Grasscutter/releases/download/v$ver
 src.git = "https://gitlab.com/YuukiPS/GC-Resources.git"
 fetch.git = "https://gitlab.com/YuukiPS/GC-Resources.git"
 
+[helium-gateway-rs]
+src.git = "https://github.com/helium/gateway-rs.git"
+fetch.github = "helium/gateway-rs"
+
 [hi3-ii-martian-font]
 src.git = "https://github.com/Wenti-D/HI3IIMartianFont.git"
 fetch.github = "Wenti-D/HI3IIMartianFont"
@@ -595,6 +599,10 @@ fetch.url = "https://www.svp-team.com/files/svp4-linux.$ver.tar.bz2"
 src.webpage = "https://github.com/Suwayomi/Suwayomi-Server/releases"
 src.regex = "/releases/download/(v[0-9\\.]+/Suwayomi-Server-v[0-9\\.]+-r[0-9]+)-"
 fetch.url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/$ver.jar"
+
+[sx1302-hal]
+src.git = "https://github.com/NebraLtd/sx1302_hal.git"
+fetch.github = "NebraLtd/sx1302_hal"
 
 [th-tshyn]
 src.webpage = "http://cheonhyeong.com/Simplified/download.html"

@@ -862,6 +862,27 @@
         },
         "version": "74089192be9daf4bf3729be8d69981fa2615faa8"
     },
+    "helium-gateway-rs": {
+        "cargoLocks": null,
+        "date": "2024-08-01",
+        "extract": null,
+        "name": "helium-gateway-rs",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "helium",
+            "repo": "gateway-rs",
+            "rev": "3bdab3e955468c616fbb70b70a37577c4c77cd17",
+            "sha256": "sha256-kAeLnvh5N4W/BiBDmGPo097egliZsZJuD49dVsmlk8s=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "3bdab3e955468c616fbb70b70a37577c4c77cd17"
+    },
     "hi3-ii-martian-font": {
         "cargoLocks": null,
         "date": "2023-10-12",
@@ -2694,6 +2715,27 @@
             "url": "https://www.svp-team.com/files/svp4-linux.4.6.263.tar.bz2"
         },
         "version": "4.6.263"
+    },
+    "sx1302-hal": {
+        "cargoLocks": null,
+        "date": "2023-02-06",
+        "extract": null,
+        "name": "sx1302-hal",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "NebraLtd",
+            "repo": "sx1302_hal",
+            "rev": "3760434a18e6ba47b695c22786195e57cc6b4c1c",
+            "sha256": "sha256-8u4gQ1ifNrXzoOiXAZ535ZMZi8w6VRCljOC0u9xbJOg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "3760434a18e6ba47b695c22786195e57cc6b4c1c"
     },
     "th-hak": {
         "cargoLocks": null,
