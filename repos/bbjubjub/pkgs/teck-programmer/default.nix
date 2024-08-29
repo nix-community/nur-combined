@@ -1,4 +1,4 @@
-{ pkgs, nodejs, stdenv }:
+{ pkgs, lib, nodejs, stdenv }:
 
 let
   nodePackages = import ./composition.nix {
@@ -7,7 +7,7 @@ let
   };
 in
   nodePackages.teck-programmer.override ({meta, ...}: {
-    nativeBuildInputs = [ final.node-gyp-build ];
+    nativeBuildInputs = [ nodePackages.node-gyp-build ];
     buildInputs = [ pkgs.libusb1 ];
     meta = meta // {
       license = lib.licenses.gpl3Plus;

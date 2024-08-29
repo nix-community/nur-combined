@@ -21,7 +21,5 @@ let
   semiphemeral = pkgs.python3Packages.callPackage pkgs/semiphemeral {};
 
   yaru-mixed-theme = self.yaru-classic-theme;  # alias added 2021-10-02
-
-  inherit (pkgs.nodejs_18.pkgs) teck-programmer;
 };
 in self

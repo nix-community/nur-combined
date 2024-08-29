@@ -67,4 +67,22 @@ in
     bypassCache = true;
     reconstructLock = true;
   };
+  node-gyp-build = nodeEnv.buildNodePackage {
+    name = "node-gyp-build";
+    packageName = "node-gyp-build";
+    version = "4.8.2";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.8.2.tgz";
+      sha512 = "IRUxE4BVsHWXkV/SFOut4qTlagw2aM8T5/vnTsmrHJvVoKueJHRc/JaFND7QDDc61kLYUJ6qlZM3sqTSyx2dTw==";
+    };
+    buildInputs = globalBuildInputs;
+    meta = {
+      description = "Build tool and bindings loader for node-gyp that supports prebuilds";
+      homepage = "https://github.com/prebuild/node-gyp-build";
+      license = "MIT";
+    };
+    production = true;
+    bypassCache = true;
+    reconstructLock = true;
+  };
 }
