@@ -403,6 +403,9 @@
     "slug": "facebook-container"
   },
   {
+    "slug": "facebook-tracking-removal"
+  },
+  {
     "slug": "fakespot-fake-reviews-amazon",
     "license": {
       "tag": "custom",
@@ -666,6 +669,9 @@
     "slug": "impulse-blocker"
   },
   {
+    "slug": "incognito-normal"
+  },
+  {
     "slug": "indie-wiki-buddy"
   },
   {
@@ -770,6 +776,9 @@
   },
   {
     "slug": "lesspass"
+  },
+  {
+    "slug": "lexicon"
   },
   {
     "slug": "libredirect"
@@ -1348,6 +1357,9 @@
     "slug": "surfingkeys_ff"
   },
   {
+    "slug": "swift-selection-search"
+  },
+  {
     "slug": "switchyomega"
   },
   {
@@ -1712,6 +1724,9 @@
   },
   {
     "slug": "youtube-shorts-block"
+  },
+  {
+    "slug": "zoom-image"
   },
   {
     "slug": "zoom-page-we"

@@ -2670,6 +2670,30 @@
         platforms = platforms.all;
       };
     };
+    "facebook-tracking-removal" = buildFirefoxXpiAddon {
+      pname = "facebook-tracking-removal";
+      version = "1.13.0";
+      addonId = "{bb1b80be-e6b3-40a1-9b6e-9d4073343f0b}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4305679/facebook_tracking_removal-1.13.0.xpi";
+      sha256 = "b0a963fa7f4850514166f26b46fa942efceefbb2876d15f176668548fb8100da";
+      meta = with lib;
+      {
+        homepage = "https://github.com/mgziminsky/FacebookTrackingRemoval";
+        description = "Removes Ads and the user interaction tracking on Facebook™.\nModified elements can optionally have a custom CSS style applied to them so that cleaned items can be more easily identified.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "alarms"
+          "declarativeNetRequestWithHostAccess"
+          "scripting"
+          "storage"
+          "webNavigation"
+          "*://*.facebook.com/*"
+          "*://*.messenger.com/*"
+          "*://*.facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "fakespot-fake-reviews-amazon" = buildFirefoxXpiAddon {
       pname = "fakespot-fake-reviews-amazon";
       version = "1.3.5";
@@ -5101,6 +5125,20 @@
         platforms = platforms.all;
       };
     };
+    "incognito-normal" = buildFirefoxXpiAddon {
+      pname = "incognito-normal";
+      version = "1.2.1resigned1";
+      addonId = "@incognitonormal";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4277691/incognito_normal-1.2.1resigned1.xpi";
+      sha256 = "210270aadc1e3228919de46fafb8fdd74ccd3b3a5e436325ade052c0c7b027d1";
+      meta = with lib;
+      {
+        description = "Quickly switch current tab, link or search text to Google from incognito window to normal window, or vice versa.";
+        license = licenses.mpl20;
+        mozPermissions = [ "tabs" "contextMenus" ];
+        platforms = platforms.all;
+      };
+    };
     "indie-wiki-buddy" = buildFirefoxXpiAddon {
       pname = "indie-wiki-buddy";
       version = "3.10.1";
@@ -5872,6 +5910,27 @@
         description = "Use LessPass add-on to generate complex passwords and log in  automatically to all your sites";
         license = licenses.gpl3;
         mozPermissions = [ "activeTab" ];
+        platforms = platforms.all;
+      };
+    };
+    "lexicon" = buildFirefoxXpiAddon {
+      pname = "lexicon";
+      version = "1.6.6";
+      addonId = "{b2f51f6b-a485-43dd-bebd-eb1ea3e9d9d2}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4327709/lexicon-1.6.6.xpi";
+      sha256 = "f887335819edff41c00779fd39c4bf941606d04a310a1f5b60f5921d1c78169f";
+      meta = with lib;
+      {
+        homepage = "https://github.com/akvedi/lexicon";
+        description = "Quickly Define Words While You Browse By Just Double Clicking On The Word, Create and Organize Your Own Word Bank With Personal Dictionary";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "storage"
+          "https://www.google.com/"
+          "contextMenus"
+          "activeTab"
+          "<all_urls>"
+        ];
         platforms = platforms.all;
       };
     };
@@ -10227,6 +10286,30 @@
         platforms = platforms.all;
       };
     };
+    "swift-selection-search" = buildFirefoxXpiAddon {
+      pname = "swift-selection-search";
+      version = "3.48.0";
+      addonId = "jid1-KdTtiCj6wxVAFA@jetpack";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3995012/swift_selection_search-3.48.0.xpi";
+      sha256 = "258bc59d93f376fc5bda1d025c22b057f98f7cc9a07b1ca5d16404fbf263be83";
+      meta = with lib;
+      {
+        homepage = "https://github.com/CanisLupus/swift-selection-search";
+        description = "Swiftly access your search engines in a popup panel when you select text in a webpage. Context menu also included!";
+        license = licenses.mit;
+        mozPermissions = [
+          "<all_urls>"
+          "clipboardWrite"
+          "contextMenus"
+          "search"
+          "storage"
+          "webNavigation"
+          "webRequest"
+          "webRequestBlocking"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "switchyomega" = buildFirefoxXpiAddon {
       pname = "switchyomega";
       version = "2.5.10";
@@ -12557,6 +12640,28 @@
           "storage"
           "*://*.youtube.com/*"
           "*://m.youtube.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "zoom-image" = buildFirefoxXpiAddon {
+      pname = "zoom-image";
+      version = "2.7.1";
+      addonId = "{b14f4076-e80d-4baa-8c7d-8c65dfd2519c}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3717935/zoom_image-2.7.1.xpi";
+      sha256 = "a4dd818b5a8a99b945de31797715c7d8d7350fcdfb2450ea6aff200d631c8941";
+      meta = with lib;
+      {
+        homepage = "http://crossblade.her.jp/addon/ff_zoomimage/index.php";
+        description = "As though the mouse wheel rotate by the right click on the images, you can do the images extenting / reducing / rotating and so on.\nIt can be expanded regardless of design. Also you can drag zoomed images.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "contextMenus"
+          "activeTab"
+          "storage"
+          "http://*/*"
+          "https://*/*"
+          "file://*/*"
         ];
         platforms = platforms.all;
       };
