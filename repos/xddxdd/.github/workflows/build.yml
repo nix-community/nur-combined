@@ -46,7 +46,8 @@ jobs:
         with:
           nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
-            experimental-features = nix-command flakes
+            experimental-features = nix-command flakes ca-derivations
+            extra-experimental-features = nix-command flakes ca-derivations
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             extra-platforms = i686-linux aarch64-linux arm-linux
             keep-going = true

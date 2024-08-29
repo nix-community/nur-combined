@@ -21,7 +21,8 @@ jobs:
         uses: cachix/install-nix-action@V27
         with:
           extra_nix_config: |
-            experimental-features = nix-command flakes
+            experimental-features = nix-command flakes ca-derivations
+            extra-experimental-features = nix-command flakes ca-derivations
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             extra-platforms = i686-linux aarch64-linux arm-linux
 
