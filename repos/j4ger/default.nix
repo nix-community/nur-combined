@@ -16,6 +16,7 @@
 
   lceda-pro = pkgs.callPackage ./pkgs/lceda-pro { };
   kwin_geometry_change = pkgs.callPackage ./pkgs/kwin_geometry_change {};
+  siyuan = pkgs.callPackage ./pkgs/siyuan {};
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
