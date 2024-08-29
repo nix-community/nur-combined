@@ -1,8 +1,13 @@
-{ lib, stdenv, cmake, fetchFromGitHub }:
+{ lib
+, stdenv
+, cmake
+, fetchFromGitHub
+, enableStatic ? stdenv.hostPlatform.isStatic
+}:
 
 stdenv.mkDerivation rec {
   pname = "trng";
-  version = "4.25";
+  version = "4.26";
 
   src = fetchFromGitHub {
     owner = "rabauke";
@@ -15,8 +20,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   cmakeFlags = [
-    "-DCMAKE_BUILD_TESTING=0"
-    "-DBUILD_SHARED_LIBS=0"
+    "-DCMAKE_BUILD_TESTING=OFF"
+    "-DBUILD_SHARED_LIBS=${if enableStatic then "OFF" else "ON"}"
   ];
 
 
