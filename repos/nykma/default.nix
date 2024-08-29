@@ -20,4 +20,6 @@ rec {
   v2dat = pkgs.callPackage ./pkgs/v2dat { };
   v2ray-rules-dat = pkgs.callPackage ./pkgs/v2ray-rules-dat { inherit v2dat; };
   zen-browser = pkgs.callPackage ./pkgs/zen-browser { };
+
+  font-iosvmata = pkgs.callPackage ./pkgs/font-iosvmata { };
 }
