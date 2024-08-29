@@ -45,13 +45,8 @@ export fn main() void = {
     case let other: config::cli_request => yield other;
   };
 
-  let what = restrict::resources {
-    paths = req.paths,
-    net = req.keep_net,
-  };
-
   rtext::no_new_privs()!;
-  restrict::namespace_restrict(&what);
-  restrict::landlock_restrict(&what);
+  restrict::namespace_restrict(&req.resources);
+  restrict::landlock_restrict(&req.resources);
   rtext::check_error("exec <user command>", do_exec(req.exec_bin, req.exec_args));
 };

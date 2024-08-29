@@ -4,6 +4,7 @@ use fs;
 use io;
 use log;
 use os;
+use os::exec;
 use path;
 use rt;
 use rtext;
@@ -22,16 +23,35 @@ export fn namespace_restrict(what: *resources) void = {
     rtext::CLONE_NEWIPC |
     rtext::CLONE_NEWNET |
     rtext::CLONE_NEWNS |
+    rtext::CLONE_NEWPID |
     rtext::CLONE_NEWUSER |
     rtext::CLONE_NEWUTS
   ;
   if (what.net) {
-    log::println("[namespace] permit net");
+    log::println("[namespace] keeping net namespace");
     what_to_unshare &= ~rtext::CLONE_NEWNET;
+  };
+  if (what.pid) {
+    log::println("[namespace] keeping pid namespace");
+    what_to_unshare &= ~rtext::CLONE_NEWPID;
+  } else {
+    log::println("TODO: namespacing without --bunpen-keep-pid is unsupported");
+    what_to_unshare &= ~rtext::CLONE_NEWPID;
   };
 
   log::printfln("[namespace] unshare {}", what_to_unshare);
   rtext::unshare(what_to_unshare)!;
+
+  if (!what.pid) {
+    // fork and become:
+    // - PID 1 in the namespace, which then launches the sandboxed program
+    // - a dummy process which waits for the above to exit and propagates its status
+    // TODO: it be possible after forking for the parent to `setns` to the
+    // child, and then have the child exit. this would require only a single
+    // long-run process instead of two (this process would need to explicitly
+    // make itself a reaper since it'll be PID 2).
+    rtext::check_error("[namespace/fork] forking new PID 1", fork_and_propagate());
+  };
 
   // before mounting anything, set up the uids and gids in this namespace.
   // without this, everything shows up as 65534 a.k.a. 'nobody' a.k.a. 'overflow',
@@ -48,6 +68,19 @@ export fn namespace_restrict(what: *resources) void = {
   rtext::swallow_error("namespace: restore $PWD", os::chdir(pwd));
 
   // TODO: CLONE_NEWPID (might not work without forking to also become reaper)
+};
+
+// fork and:
+// - in the child: continue execution as normal
+// - in the parent: wait for the child, then propagate its exit status
+fn fork_and_propagate() (void | os::exec::error) = {
+  match (os::exec::fork()?) {
+    case let child_pid: os::exec::process =>
+      let status = os::exec::wait(&child_pid)?;
+      log::printfln("[namespace/fork] child exited with {}", status.status);
+      os::exit(status.status);  // propagate exit code
+    case => log::println("[namespace/fork] continuing as child");
+  };
 };
 
 // reconfigures all the mounts so that after this call the only paths accessible

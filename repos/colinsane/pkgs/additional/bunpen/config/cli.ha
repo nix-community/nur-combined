@@ -15,6 +15,7 @@ export type cli_opts = struct {
   help: bool,
   home_paths: []str,
   keep_net: bool,
+  keep_pid: bool,
   paths: []str,
   run_paths: []str,
 };
@@ -28,7 +29,7 @@ export type autodetect = enum {
 };
 
 export fn usage() void = {
-  fmt::println("bunpen: run a program within an environment where access to external resources (files, net) is restricted (i.e. sandbox)")!;
+  fmt::println("bunpen: run a program within an environment where access to external resources (files, net, certain IPC, ...) is restricted (i.e. sandbox)")!;
   fmt::println("USAGE: bunpen [sandbox-arg ...] program [sandbox-arg|program-arg ...] [--] [program-arg ...]")!;
   fmt::println("")!;
   fmt::println("sandbox args and program args may be intermixed, but the first `--` anywhere signals the end of the sandbox args and the start of program args")!;
@@ -45,6 +46,8 @@ export fn usage() void = {
   fmt::println("      add files which appear later as CLI arguments into the sandbox")!;
   fmt::println("  --bunpen-keep-net")!;
   fmt::println("      allow unrestricted access to the network")!;
+  fmt::println("  --bunpen-keep-pid")!;
+  fmt::println("      allow this process to see other processes running on the machine")!;
   fmt::println("  --bunpen-path <path>")!;
   fmt::println("      allow access to the host <path> within the sandbox")!;
   fmt::println("      path is interpreted relative to the working directory if not absolute")!;
@@ -101,6 +104,7 @@ export fn parse_args(args: []str) (cli_opts | error) = {
       case "--bunpen-help"        =>  parsed.help = true;
       case "--bunpen-home-path"   =>  idx += 1; append(parsed.home_paths, expect_arg("--bunpen-home-path", next)?);
       case "--bunpen-keep-net"    =>  parsed.keep_net = true;
+      case "--bunpen-keep-pid"    =>  parsed.keep_pid = true;
       case "--bunpen-path"        =>  idx += 1; append(parsed.paths, expect_arg("--bunpen-path", next)?);
       case "--bunpen-run-path"    =>  idx += 1; append(parsed.run_paths, expect_arg("--bunpen-run-path", next)?);
       case                        =>  append(parsed.cmd, arg);

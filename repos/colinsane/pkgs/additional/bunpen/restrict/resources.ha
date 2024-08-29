@@ -8,4 +8,7 @@ export type resources = struct {
   // true to allow unrestricted net access.
   // false to maximally disable net access.
   net: bool,
+  // true to allow operations on other processes (e.g. viewing their cmdline,
+  // killing them, etc).
+  pid: bool,
 };

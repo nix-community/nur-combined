@@ -5,6 +5,7 @@ use fs;
 use log;
 use os;
 use path;
+use restrict;
 use rt;
 use rtext;
 
@@ -19,11 +20,8 @@ export type cli_request = struct {
   // path to the binary to be exec'd inside the sandbox.
   // if the user requested `--bunpen-drop-shell`, this will be their shell (e.g. /bin/sh).
   exec_bin: str,
-  keep_net: bool,
-  // absolute paths to the resources which should be made available to the
-  // sandbox. these may not all actually exist, and could contain entries like
-  // `/proc/self`; how to interpret such paths is left to the sandbox impl.
-  paths: []path::buffer,
+  // what to keep in the restricted environment (paths, network, etc)
+  resources: restrict::resources,
 };
 
 export fn ingest_cli_opts(opts: cli_opts) (cli_request | help) = {
@@ -51,23 +49,26 @@ export fn ingest_cli_opts(opts: cli_opts) (cli_request | help) = {
   };
 
   //---- ingest `home_paths` ----//
-  ingest_paths(&req.paths, opts.home_paths, os::getenv("HOME"));
+  ingest_paths(&req.resources.paths, opts.home_paths, os::getenv("HOME"));
 
   //---- ingest `keep_net` ----//
-  req.keep_net = opts.keep_net;
+  req.resources.net = opts.keep_net;
+
+  //---- ingest `keep_pid` ----//
+  req.resources.pid = opts.keep_pid;
 
   //---- ingest `paths` ----//
-  ingest_paths(&req.paths, opts.paths, os::getcwd(), true);
+  ingest_paths(&req.resources.paths, opts.paths, os::getcwd(), true);
 
   //---- ingest `run_paths` ----//
-  ingest_paths(&req.paths, opts.run_paths, os::getenv("XDG_RUNTIME_DIR"));
+  ingest_paths(&req.resources.paths, opts.run_paths, os::getenv("XDG_RUNTIME_DIR"));
 
   //---- ingest `autodetect` (must be done after exec_args) ----//
   match (opts.autodetect) {
     case let method: autodetect =>
       // N.B.: skip first arg, since that's the name of the executable and
       // surely not an argument
-      ingest_autodetect(&req.paths, req.exec_args[1..], method);
+      ingest_autodetect(&req.resources.paths, req.exec_args[1..], method);
     case void => void;
   };
 
