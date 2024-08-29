@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "lunasvg";
-  version = "2.3.9";
+  version = "2.4.1";
 
   src = fetchFromGitHub {
     owner = "sammycage";
     repo = "lunasvg";
     rev = "v${version}";
-    hash = "sha256-A/ONhRQ+NVw3tVlKq8HEz/wMSH+xT5WJO3w6wdH/2jc=";
+    hash = "sha256-U/ohYe5j/c7bGvEFkEHZPggdzt6vu9ThnzVgECG8AWk=";
   };
 
   nativeBuildInputs = [ cmake ];
