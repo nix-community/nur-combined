@@ -32,12 +32,7 @@ in
   git-diff-minecraft = any;
   git-remote = any;
   gnome.gnome-shell.patch = ../packages/resources/gnome-shell_screenshot-location.patch; # Pending GNOME/gnome-shell#5370
-  gnomeExtensions.forge.patch = [
-    (stable.fetchpatch { url = "https://patch-diff.githubusercontent.com/raw/forge-ext/forge/pull/392.patch"; hash = "sha256-XJEJDHr31tOq/kwRuUrm2/tu8L88giqVEzFZXet7/qY="; }) # forge-ext/forge#341
-    (stable.fetchpatch { url = "https://patch-diff.githubusercontent.com/raw/forge-ext/forge/pull/393.patch"; hash = "sha256-mAwhqzFgu6W0NT9wQlKFSA61O2Ta+GQ+1BzYIHSkbhU="; }) # forge-ext/forge#391
-    (stable.fetchpatch { url = "https://patch-diff.githubusercontent.com/raw/forge-ext/forge/pull/395.patch"; hash = "sha256-L/rvRP6e5v55WmZrUImgC3BvgqyG9yv7SKeRCFkKpYg="; }) # forge-ext/forge#395
-    ../packages/resources/forge_auto-tabbed.patch
-  ];
+  gnomeExtensions.paperwm.version = "≥121" /* 46.13.4 */;
   gopass-await.deps = { inherit (stable.gnome) zenity; };
   gopass-env = any;
   gopass-ydotool = any;
@@ -45,6 +40,7 @@ in
   graalvm-ce.overlay = g: stable.lib.throwIf (stable.lib.hasInfix "font" g.preFixup) "graalvm-ce no longer requires an overlay" { preFixup = g.preFixup + "\nfind \"$out\" -name libfontmanager.so -exec patchelf --add-needed libfontconfig.so {} \\;"; }; # Workaround for https://github.com/NixOS/nixpkgs/pull/215583#issuecomment-1615369844
   graalvmCEPackages.graaljs.overlay = g: stable.lib.throwIf (stable.lib.hasInfix "jvm" g.src.url) "graaljs no longer requires an overlay" { src = stable.fetchurl { url = builtins.replaceStrings [ "community" ] [ "community-jvm" ] g.src.url; hash = "sha256-fZCcRSuQm26qwZuS6ryIp4b9Br7xMmiu1ZUnJBOemT4="; }; buildInputs = g.buildInputs ++ stable.graalvm-ce.buildInputs; }; # https://discourse.nixos.org/t/36314
   gtk4-icon-browser = any;
+  htop.patch = ../packages/resources/htop_colors.patch; # htop-dev/htop#1416
   httpie.env.NIX_SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt"; # NixOS/nixpkgs#94666
   ios-safari-remote-debug-kit = any;
   ios-webkit-debug-proxy = any;
@@ -56,6 +52,7 @@ in
   just-local = any;
   kitty.version = "≥0.35.1"; # kovidgoyal/kitty#7413
   little-a-map = any;
+  mark-applier = any;
   minemap = any;
   mmdbinspect = any;
   mozjpeg-simple = any;

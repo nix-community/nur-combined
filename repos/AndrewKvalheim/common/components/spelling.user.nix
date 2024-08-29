@@ -21,7 +21,7 @@ in
   home.file.".cspell.json".text = toJSON {
     dictionaries = [ "custom" ];
     dictionaryDefinitions = [{ name = "custom"; path = formats.plaintext; }];
-    enableFiletypes = [ "haml" "liquid" "nix" "ruby" "shellscript" ];
+    enableFiletypes = [ "haml" "liquid" "nix" "ruby" "shellscript" "xml" ];
   };
 
   # Firefox

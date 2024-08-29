@@ -45,6 +45,7 @@ rec {
   iptables_exporter = pkgs.callPackage ./packages/iptables_exporter.nix { };
   josm-imagery-used = pkgs.callPackage ./packages/josm-imagery-used.nix { inherit buildJosmPlugin; };
   little-a-map = pkgs.callPackage ./packages/little-a-map.nix { };
+  mark-applier = pkgs.callPackage ./packages/mark-applier.nix { };
   minemap = pkgs.callPackage ./packages/minemap.nix { };
   mmdbinspect = pkgs.callPackage ./packages/mmdbinspect.nix { };
   nbt-explorer = pkgs.callPackage ./packages/nbt-explorer.nix { };

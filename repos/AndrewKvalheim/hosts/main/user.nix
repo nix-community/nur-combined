@@ -47,6 +47,7 @@
     josm-hidpi
     kdenlive
     libreoffice
+    mark-applier
     mcaselector
     minemap
     nbt-explorer

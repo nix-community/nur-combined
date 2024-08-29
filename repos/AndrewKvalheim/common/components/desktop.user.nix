@@ -1,17 +1,17 @@
 { config, lib, pkgs, ... }:
 
 let
+  inherit (builtins) toJSON;
   inherit (config) host;
   inherit (lib.generators) toINI;
-  inherit (lib.hm.gvariant) mkTuple mkUint32;
+  inherit (lib.hm.gvariant) mkTuple;
 
   palette = import ../resources/palette.nix { inherit lib pkgs; };
 
   extensions = with pkgs.gnomeExtensions; [
     appindicator
     caffeine
-    forge
-    notification-banner-position
+    paperwm
     run-or-raise
     system-monitor-next
     user-themes
@@ -36,20 +36,12 @@ in
   dconf.settings."org/gtk/settings/color-chooser".custom-colors = with palette.rgb;
     map ({ r, g, b }: mkTuple [ r g b 1.0 ])
       [ red green yellow blue orange purple ];
-  xdg.configFile."forge/stylesheet/forge/stylesheet.css".source = ../resources/forge.css;
 
   # Shell
   dconf.settings."org/gnome/desktop/interface".clock-format = "24h";
   dconf.settings."org/gnome/desktop/interface".clock-show-weekday = true;
   dconf.settings."org/gnome/desktop/interface".enable-hot-corners = false;
   dconf.settings."org/gnome/shell".enabled-extensions = map (e: e.extensionUuid) extensions;
-  dconf.settings."org/gnome/shell/extensions/forge" = {
-    auto-split-enabled = false;
-    float-always-on-top-enabled = false;
-    focus-border-toggle = false;
-    move-pointer-focus-enabled = false;
-    window-gap-size = mkUint32 0;
-  };
 
   # Disabled extensions notification
   xdg.configFile."autostart/disabled-extensions-notification.desktop".text = toINI { } {
@@ -74,14 +66,6 @@ in
 
   # Keyboard shortcuts
   dconf.settings."org/gnome/desktop/wm/keybindings" = {
-    maximize = [ ];
-    move-to-monitor-down = [ ];
-    move-to-monitor-up = [ ];
-    switch-applications = [ ];
-    switch-applications-backward = [ ];
-    switch-windows = [ "<Alt>Tab" ];
-    switch-windows-backward = [ "<Shift><Alt>Tab" ];
-    toggle-maximized = [ "<Super>Return" ];
     unmaximize = [ ];
   };
   dconf.settings."org/gnome/settings-daemon/plugins/media-keys".custom-keybindings = [
@@ -98,47 +82,95 @@ in
     command = "${pkgs.emote}/bin/emote";
     binding = "XF86Messenger";
   };
-  dconf.settings."org/gnome/shell/extensions/forge/keybindings" = {
-    con-split-horizontal = [ ];
-    con-split-layout-toggle = [ ];
-    con-split-vertical = [ ];
-    con-stacked-layout-toggle = [ ];
-    con-tabbed-layout-toggle = [ ];
-    con-tabbed-showtab-decoration-toggle = [ ];
-    focus-border-toggle = [ ];
-    prefs-open = [ ];
-    prefs-tiling-toggle = [ ];
-    window-focus-down = [ "<Super>Down" ];
-    window-focus-left = [ "<Shift><Alt>Page_Up" ];
-    window-focus-right = [ "<Shift><Alt>Page_Down" ];
-    window-focus-up = [ "<Super>Up" ];
-    window-gap-size-decrease = [ ];
-    window-gap-size-increase = [ ];
-    window-move-down = [ "<Control><Super>Down" ];
-    window-move-left = [ "<Shift><Control><Alt>Page_Up" ];
-    window-move-right = [ "<Shift><Control><Alt>Page_Down" ];
-    window-move-up = [ "<Control><Super>Up" ];
-    window-resize-bottom-decrease = [ ];
-    window-resize-bottom-increase = [ ];
-    window-resize-left-decrease = [ ];
-    window-resize-left-increase = [ ];
-    window-resize-right-decrease = [ ];
-    window-resize-right-increase = [ ];
-    window-resize-top-decrease = [ ];
-    window-resize-top-increase = [ ];
-    window-snap-center = [ ];
-    window-snap-one-third-left = [ ];
-    window-snap-one-third-right = [ ];
-    window-snap-two-third-left = [ ];
-    window-snap-two-third-right = [ ];
-    window-swap-down = [ ];
-    window-swap-last-active = [ ];
-    window-swap-left = [ ];
-    window-swap-right = [ ];
-    window-swap-up = [ ];
-    window-toggle-always-float = [ "<Super>F11" ];
-    window-toggle-float = [ ];
-    workspace-active-tile-toggle = [ ];
+  dconf.settings."org/gnome/shell/extensions/paperwm" =
+    let
+      # Parameters
+      cpl = 100 /* Rust */;
+      border = 4;
+      margin = 12;
+
+      # Derived
+      gap = border + margin;
+
+      # Widths
+      term = cpl * 15;
+      half = full / 2 - gap;
+      complementTerm = full - (term + gap) - gap;
+      full = 3840 - margin * 2;
+    in
+    {
+      cycle-width-steps = map (n: 1.0 * n) [ term half complementTerm ];
+      horizontal-margin = margin;
+      selection-border-radius-top = border;
+      selection-border-size = border;
+      show-focus-mode-icon = false;
+      show-open-position-icon = false;
+      show-window-position-bar = false;
+      vertical-margin = margin;
+      vertical-margin-bottom = margin;
+      window-gap = gap;
+      winprops = (map toJSON [
+        { wm_class = "*"; preferredWidth = "${toString term}px"; }
+        { wm_class = "emote"; scratch_layer = true; }
+        { wm_class = "qalculate-gtk"; preferredWidth = "960px"; }
+      ]);
+    };
+  dconf.settings."org/gnome/shell/extensions/paperwm/keybindings" = {
+    barf-out = [ "" ];
+    barf-out-active = [ "" ];
+    center-horizontally = [ "" ];
+    close-window = [ "" ];
+    cycle-height = [ "<Shift><Super>F12" ];
+    cycle-height-backwards = [ "<Shift><Super>F11" ];
+    cycle-width = [ "<Shift><Alt>F12" "<Super>F12" ];
+    cycle-width-backwards = [ "<Shift><Alt>F11" "<Super>F11" ];
+    live-alt-tab = [ "" ];
+    live-alt-tab-backward = [ "" ];
+    live-alt-tab-scratch = [ "" ];
+    live-alt-tab-scratch-backward = [ "" ];
+    move-left = [ "<Shift><Control><Alt>Page_Up" ];
+    move-monitor-above = [ "" ];
+    move-monitor-below = [ "" ];
+    move-monitor-left = [ "" ];
+    move-monitor-right = [ "" ];
+    move-previous-workspace = [ "" ];
+    move-previous-workspace-backward = [ "" ];
+    move-right = [ "<Shift><Control><Alt>Page_Down" ];
+    move-space-monitor-above = [ "" ];
+    move-space-monitor-below = [ "" ];
+    move-space-monitor-left = [ "" ];
+    move-space-monitor-right = [ "" ];
+    new-window = [ "" ];
+    paper-toggle-fullscreen = [ "" ];
+    previous-workspace = [ "" ];
+    previous-workspace-backward = [ "" ];
+    resize-h-dec = [ "" ];
+    resize-h-inc = [ "" ];
+    resize-w-dec = [ "" ];
+    resize-w-inc = [ "" ];
+    slurp-in = [ "" ];
+    swap-monitor-above = [ "" ];
+    swap-monitor-below = [ "" ];
+    swap-monitor-left = [ "" ];
+    swap-monitor-right = [ "" ];
+    switch-first = [ "" ];
+    switch-focus-mode = [ "" ];
+    switch-last = [ "" ];
+    switch-left = [ "<Shift><Alt>Page_Up" ];
+    switch-monitor-above = [ "" ];
+    switch-monitor-below = [ "" ];
+    switch-monitor-left = [ "" ];
+    switch-monitor-right = [ "" ];
+    switch-next = [ "" ];
+    switch-open-window-position = [ "" ];
+    switch-previous = [ "" ];
+    switch-right = [ "<Shift><Alt>Page_Down" ];
+    take-window = [ "<Shift><Alt>space" ];
+    toggle-maximize-width = [ "<Shift><Alt>F10" "<Super>F10" ];
+    toggle-scratch = [ "<Super>backslash" ];
+    toggle-scratch-layer = [ "<Shift><Super>bar" ];
+    toggle-scratch-window = [ "" ];
+    toggle-top-and-position-bar = [ "" ];
   };
   dconf.settings."org/gnome/shell/keybindings" = {
     toggle-quick-settings = [ ];

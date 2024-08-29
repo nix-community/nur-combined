@@ -344,6 +344,7 @@ FOSDEM
 FOSS
 FOSSASIA
 FOSSY
+framebuffer
 freedesktop
 freenode
 frictionless
@@ -495,6 +496,7 @@ Jimi
 JIT
 Jitsi
 JOSM
+journalctl
 Jpegli
 jq
 jQuery
@@ -760,6 +762,7 @@ paneer
 panini
 papasan
 paperkey
+PaperWM
 paprikash
 papyrologist
 Pasayten
