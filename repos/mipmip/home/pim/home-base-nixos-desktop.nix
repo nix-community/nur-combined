@@ -18,7 +18,7 @@
     ./conf-desktop-linux/xdg.nix
     ./conf-gnome
 
-    /home/pim/nixos/private/adevinta/home-manager/files-main
+    #/home/pim/nixos/private/adevinta/home-manager/files-main
   ];
 
 }

@@ -29,6 +29,7 @@
     rust-analyzer
     cargo
     rustc
+    vscode-langservers-extracted
     nodejs
 
     sox

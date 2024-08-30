@@ -56,6 +56,12 @@ setup_aws_key(){
   chmod 600 ~/.aws/credentials
 }
 
+make_command "copy_aws_other_accounts" "copy aws_other_accounts"
+copy_aws_other_accounts(){
+  age --decrypt -i ~/.ssh/id_ed25519 ./secrets/aws-accounts.json.age > ~/.aws/other_accounts.json
+  chmod 600 ~/.aws/other_accounts.json
+}
+
 make_command "disable_mac_trackpad" "disable trackpad when it acts funny"
 disable_mac_trackpad(){
   xinput set-prop 13 "Device Enabled" 0
@@ -76,11 +82,9 @@ fixmacnixpath(){
   export  __HM_SESS_VARS_SOURCED
 }
 
-
 make_command "technativeawsupdate" "update account info from technative"
 technativeawsupdate(){
   aws --profile=web_dns s3 cp s3://docs-mcs.technative.eu-longhorn/managed_service_accounts.json ~/.aws/
 }
-
 
 runme

@@ -12,4 +12,5 @@ in
   "openai-api-key-plain.age".publicKeys = [ pim  ojs lego1 rodin];
 
   "aws-credentials-copy.age".publicKeys = [ pim  ojs lego1 rodin];
+  "aws-accounts.json.age".publicKeys = [ pim  ojs lego1 rodin];
 }
