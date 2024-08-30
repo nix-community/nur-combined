@@ -2113,10 +2113,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "130.0.20240826.200919";
+      version = "130.0.20240829.75237";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4343334/deutsch_de_language_pack-130.0.20240826.200919.xpi";
-      sha256 = "166c6d7d0d2942f7f332eed678aa834c19c133ed9ae7b34baed1ac0a06d408d3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4344581/deutsch_de_language_pack-130.0.20240829.75237.xpi";
+      sha256 = "ff8d0318945718731f29d3cbff86d9084283195a989f712fa41da39529457571";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2772,14 +2772,14 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.22";
+      version = "1.3.23";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4342222/faststream-1.3.22.xpi";
-      sha256 = "eda60eeebc8162a8a3036cc10448c72e33027e6f22ac47fd0ad733fc9ac372a3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4344915/faststream-1.3.23.xpi";
+      sha256 = "f1c75b2a9ac010c27b5414c5bd08298513681e40894d6e8d5b92a0eee77cbaf9";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
-        description = "Stream videos without buffering in the browser. An extension that replaces bad video players on the internet with a better, accessible video player designed for your convenience.";
+        description = "Stream videos without buffering in the browser. An extension that gives you a better, accessible video player designed for your needs.";
         license = {
           shortName = "allrightsreserved";
           fullName = "All Rights Reserved";
@@ -3278,10 +3278,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "130.0.20240826.200919";
+      version = "130.0.20240829.75237";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4343294/francais_language_pack-130.0.20240826.200919.xpi";
-      sha256 = "b0cb019f8262135f6608bc36c139907beec897e368be4460632548027b623b2e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4344556/francais_language_pack-130.0.20240829.75237.xpi";
+      sha256 = "66405aa4418b1e398d0f64e27666f0991324d7392da6f6054cb88b80cc637ff7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3767,10 +3767,10 @@
     };
     "gàidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gàidhlig-language-pack";
-      version = "130.0.20240826.200919";
+      version = "130.0.20240829.75237";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4343282/gaidhlig_language_pack-130.0.20240826.200919.xpi";
-      sha256 = "07f871887e80ebe99f7a89a46049561ea0779efe01365239adba670c77a2dab2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4344621/gaidhlig_language_pack-130.0.20240829.75237.xpi";
+      sha256 = "9c5e579768eca424df585b01b390c84ac7aca820cbf994a7c511376f3a08af2d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -5667,10 +5667,10 @@
     };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.9.2";
+      version = "1.9.3";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4335111/keepassxc_browser-1.9.2.xpi";
-      sha256 = "cbc085f0e1275d81af22e12fbc9627381d8eb891998a5ebbf5bc198f8d79a0bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4342010/keepassxc_browser-1.9.3.xpi";
+      sha256 = "a330fa4fc659f04f835802bb0c5df0b9025adced995112cad19d4849a5f1957d";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -5797,10 +5797,10 @@
     };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.127.0.1";
+      version = "4.133.0";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4246455/lastpass_password_manager-4.127.0.1.xpi";
-      sha256 = "225c323fbd862a904a7c1b364a1f5beca792f8a5fa1deca0e9298b0cad7721bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4343091/lastpass_password_manager-4.133.0.xpi";
+      sha256 = "4512122651cef8d8597042a49464399099c2bf1fd79c4d4390a36de7dd87483b";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -5819,56 +5819,16 @@
           "storage"
           "nativeMessaging"
           "privacy"
-          "webRequest"
           "webNavigation"
+          "webRequest"
           "webRequestBlocking"
+          "alarms"
           "http://*/*"
           "https://*/*"
-          "file:///*"
-          "https://lastpass.com/acctsiframe.php*"
-          "https://lastpass.eu/acctsiframe.php*"
           "https://lastpass.com/vault/*"
-          "https://lastpass.com/?ac=1*"
-          "https://lastpass.com/recover.php*"
-          "https://lastpass.eu/recover.php*"
-          "https://www.lastpass.com/create-account/success*"
+          "https://lastpass.com/migrate/*"
           "https://lastpass.com/*"
           "https://backoffice.lastpass.com/*"
-          "https://lastpass.com/update_phone.php*"
-          "https://lastpass.com/misc_challenge.php*"
-          "https://lastpass.com/?securitychallenge=1*"
-          "https://lastpass.com/delete_account.php*"
-          "https://lastpass.com/otp.php*"
-          "https://lastpass.com/enterprise_options.php*"
-          "https://lastpass.com/?&ac=1*"
-          "https://lastpass.com/enterprise_users.php*"
-          "https://lastpass.com/misc_login.php*"
-          "https://lastpass.com/index.php*"
-          "https://lastpass.eu/update_phone.php*"
-          "https://lastpass.eu/misc_challenge.php*"
-          "https://lastpass.eu/?securitychallenge=1*"
-          "https://lastpass.eu/delete_account.php*"
-          "https://lastpass.eu/otp.php*"
-          "https://lastpass.eu/enterprise_options.php*"
-          "https://lastpass.eu/?&ac=1*"
-          "https://lastpass.eu/?ac=1*"
-          "https://lastpass.eu/vault/*"
-          "https://lastpass.eu/enterprise_users.php*"
-          "https://lastpass.eu/misc_login.php*"
-          "https://lastpass.eu/index.php*"
-          "https://backoffice.lastpass.com/acctsiframe.php*"
-          "https://backoffice.lastpass.com/update_phone.php*"
-          "https://backoffice.lastpass.com/misc_challenge.php*"
-          "https://backoffice.lastpass.com/?securitychallenge=1*"
-          "https://backoffice.lastpass.com/delete_account.php*"
-          "https://backoffice.lastpass.com/otp.php*"
-          "https://backoffice.lastpass.com/enterprise_options.php*"
-          "https://backoffice.lastpass.com/?&ac=1*"
-          "https://backoffice.lastpass.com/?ac=1*"
-          "https://backoffice.lastpass.com/vault/*"
-          "https://backoffice.lastpass.com/enterprise_users.php*"
-          "https://backoffice.lastpass.com/misc_login.php*"
-          "https://backoffice.lastpass.com/index.php*"
         ];
         platforms = platforms.all;
       };
@@ -6975,10 +6935,10 @@
     };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "11.16.16";
+      version = "12.0.6";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4326873/ether_metamask-11.16.16.xpi";
-      sha256 = "c91ea731551b8f2fdf32a87735a60eb607541872e71969d623b3c462b8f7d67e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4342782/ether_metamask-12.0.6.xpi";
+      sha256 = "a66e20bbe5ded1b9408420e4c2ffc82369cc3bfd27350afe25f2c0ef6b26ff3b";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -9464,10 +9424,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "130.0.20240826.200919";
+      version = "130.0.20240829.75237";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4343325/scots_language_pack-130.0.20240826.200919.xpi";
-      sha256 = "d9a7ae2ab075054d098c130228eb3d5ac94e5e66201781d9e1fe10e6783ad882";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4344611/scots_language_pack-130.0.20240829.75237.xpi";
+      sha256 = "e1fa889280a83d47ef3db2872b1ec43e952190ea399fd5e2ec982f835ec96702";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -12308,10 +12268,10 @@
     };
     "webhint" = buildFirefoxXpiAddon {
       pname = "webhint";
-      version = "2.4.16";
+      version = "2.4.17";
       addonId = "{e748cb59-4901-4bea-b74a-1d8dab98e3c7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4298671/webhint-2.4.16.xpi";
-      sha256 = "3709ff82efeb92c0e7301f3a3c54b528e51c6e5b4d3c617a38de03e15b01bb82";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4344764/webhint-2.4.17.xpi";
+      sha256 = "38e3b8244dc05dc3128daf7ed0a35f068afb76e839561eb93bfc3e509bd4752a";
       meta = with lib;
       {
         homepage = "https://webhint.io";
