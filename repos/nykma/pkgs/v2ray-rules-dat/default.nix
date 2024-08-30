@@ -2,10 +2,10 @@
   unzip, v2dat,
 }:
 let
-  version = "202408082210";
+  version = "202408292211";
   rules-zip = fetchurl {
     url = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/${version}/rules.zip";
-    hash = "sha256-zNJ3L2gt5tiMmG+mThZz+mN7z3XyFYxW240zS+FH+ls=";
+    hash = "sha256-re+0LizFvsyl4IZafTTYrfSvVlb9U1UhNwWhv/Ce7q8=";
   };
 in
 # .
