@@ -12,6 +12,7 @@
 
 let
   version = "0.16.0";
+
   src = fetchFromGitHub {
     owner = "inko-lang";
     repo = "inko";

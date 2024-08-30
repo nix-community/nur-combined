@@ -6,7 +6,7 @@
   bzip2,
   xz,
   zlib,
-# nix-update-script,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -30,12 +30,12 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
-  # passthru.updateScript = nix-update-script {
-  #   extraArgs = [
-  #     "--version-regex"
-  #     "libgta-(.*)"
-  #   ];
-  # };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version-regex"
+      "libgta-(.*)"
+    ];
+  };
 
   meta = {
     description = "A library that reads and writes GTA files, with interfaces in C and C++";

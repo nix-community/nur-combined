@@ -51,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchFromGitHub {
     owner = "marlam";
-    repo = "tgd-mirror";
+    repo = "tgd";
     rev = "tgd-${finalAttrs.version}";
     hash = "sha256-FRejQ4uijpKdrFYEc9PkPrDo8pLKXMmJCXFTZ9Hx6Ug=";
   };

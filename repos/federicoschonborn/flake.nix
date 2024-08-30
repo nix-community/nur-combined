@@ -41,6 +41,8 @@
         "aarch64-darwin"
       ];
 
+      debug = true;
+
       flake = {
         lib = import ./lib { inherit (nixpkgs) lib; };
       };

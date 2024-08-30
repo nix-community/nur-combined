@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchFromGitHub {
     owner = "marlam";
-    repo = "mucalc-mirror";
+    repo = "mucalc";
     rev = "mucalc-${finalAttrs.version}";
     hash = "sha256-qXqe9U7y3YrzSeJKgW53vkdNpPcAmxysxzT7SIlSzMo=";
   };
