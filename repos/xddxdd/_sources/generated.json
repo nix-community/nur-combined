@@ -349,7 +349,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-08-27",
+        "date": "2024-08-30",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -361,12 +361,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "b52e41f42fb581185daa50d1766417f3e7b6f4d6",
-            "sha256": "sha256-3HCxtd9o+L88SnvJkQHJRkUtgadqCC6xwIPffu69wrY=",
+            "rev": "6df1ab94e174708e3bd6fc5b7ba1f01a7da8c714",
+            "sha256": "sha256-Fzu/wpOgu2NsV2xIf2suR1evPEXxJBbgQu8oowmLFCw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b52e41f42fb581185daa50d1766417f3e7b6f4d6"
+        "version": "6df1ab94e174708e3bd6fc5b7ba1f01a7da8c714"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1395,12 +1395,12 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.10.6-xanmod1",
-            "sha256": "sha256-QG0rOysVFm+yeYbVX9OHotdq9IvCF+zxceUuG1yytrc=",
+            "rev": "6.10.7-xanmod1",
+            "sha256": "sha256-I2gtxaANJBmUlko7I9x1izLTyCBMqvUW/1Qx3a0H4uU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.10.6-xanmod1"
+        "version": "6.10.7-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1458,12 +1458,12 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.6.47-xanmod1",
-            "sha256": "sha256-FF5kOUC3wIGPjf2f9pogaR51L8kdwJIpAmGc1h/LdV8=",
+            "rev": "6.6.48-xanmod1",
+            "sha256": "sha256-Ayuq4qKWu/wgG3wiMNrgkcc6BNSUReqileNx4vYMtak=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.6.47-xanmod1"
+        "version": "6.6.48-xanmod1"
     },
     "llama-cpp": {
         "cargoLocks": null,
@@ -1479,12 +1479,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3639",
-            "sha256": "sha256-p30BHruHmWwPkaYargKm2l55N2YS52wvQIXsONPOdy4=",
+            "rev": "b3645",
+            "sha256": "sha256-8y1rR+suUhRpz1yQ5h157wQKLLGOAdmFAarehux2xeg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3639"
+        "version": "b3645"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -2487,12 +2487,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "4fbd67f1dcd45717330d1d6fb4d5ac94e1a80b27",
-            "sha256": "sha256-ZeP/T1aLBSNDXeacfEdPexCaE5e4Kl5X3a7q8vbsVVM=",
+            "rev": "0367c85243ecf22d064f45cab29a47a3a1652e80",
+            "sha256": "sha256-uzEN8xjfpEdYMDX2AisS0Df+V0+gdOeJGQxQJZIuffo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4fbd67f1dcd45717330d1d6fb4d5ac94e1a80b27"
+        "version": "0367c85243ecf22d064f45cab29a47a3a1652e80"
     },
     "rime-moegirl": {
         "cargoLocks": null,
