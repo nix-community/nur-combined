@@ -14,8 +14,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "qmk";
           repo = "qmk_firmware";
-          rev = "0.20.7";
-          sha256 = "sha256-S6EuLiMbJp7sgAVGV0M9DuinuVLwQ9hStjlA5w9VxOo=";
+          rev = "0.26.0";
+          sha256 = "sha256-TfsLZ/xMUfL/B457YqXfVDhbixJoxnkIFoH6bpqam94=";
           fetchSubmodules = true;
         };
 

@@ -81,14 +81,22 @@ stdenv.mkDerivation {
         hash = "sha256-MWN0gQke+zes2o9JYgiGQAtYMaF1E70aupvVlsQ+YRg=";
       })
       (fetchRFCBulk {
-        range = "8501-latest";
+        range = "8501-9000";
+        hash = "sha256-ATcSoCEhcpdWZWDDJPNBsAmdrMj1aBnkYEwy+WK6LVw=";
+      })
+      (fetchRFCBulk {
+        range = "9001-9500";
+        hash = "sha256-XPIFvgY+xQ4OrYmWkWoFcRMMp8MAY0YVXGIc7qVnqjo=";
+      })
+      (fetchRFCBulk {
+        range = "9501-latest";
         # even though we download the "latest" file, after removing files, that
         # we dont know. we should end up with the same hash regardless of
         # upstream file changes.
         postFetch = ''
-          find -not -regex ".*/rfc8[5-8][0-9][0-9]\\.txt" -delete
+          find -not -regex ".*/rfc95[0-9][0-9][0-9]\\.txt" -delete
         '';
-        hash = "sha256-5wKF5fwWuORSEfOvJuKHgRkZBOphJq4fr/kVQRNAfac=";
+        hash = "sha256-IE+PljP4tMB1q03RntIgRiRXAbpqGvTQLInpM0/D3MA=";
       })
     ];
   };
@@ -96,7 +104,6 @@ stdenv.mkDerivation {
     runHook preBuild
 
     install -Dt $out/share/rfc/ *.txt
-    (cd $out/share/rfc; gzip -9 *.txt)
 
     runHook postBuild
   '';
