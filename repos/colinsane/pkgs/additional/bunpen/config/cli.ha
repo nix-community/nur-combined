@@ -1,6 +1,7 @@
 // vim: set shiftwidth=2 :
 use fmt;
 use os;
+use rt::ext;
 
 export type error = !void;
 
@@ -14,18 +15,12 @@ export type cli_opts = struct {
   // `--bunpen-help`
   help: bool,
   home_paths: []str,
+  keep_all_caps: bool,
+  keep_caps: []rt::ext::cap,
   keep_net: bool,
   keep_pid: bool,
   paths: []str,
   run_paths: []str,
-};
-
-export type autodetect = enum {
-  EXISTING,
-  EXISTING_FILE,
-  EXISTING_FILE_OR_PARENT,
-  EXISTING_OR_PARENT,
-  PARENT,
 };
 
 export fn usage() void = {
@@ -44,6 +39,9 @@ export fn usage() void = {
   fmt::println("      instead of running the program, drop into an interactive shell")!;
   fmt::println("  --bunpen-autodetect <existing|existingFile|existingFileOrParent|existingOrParent|parent>")!;
   fmt::println("      add files which appear later as CLI arguments into the sandbox")!;
+  fmt::println("  --bunpen-cap <all|sys_admin|net_raw|net_admin|...>")!;
+  fmt::println("      allow the sandboxed program to use the provided linux capability (both inside and outside the sandbox)")!;
+  fmt::println("      special cap 'all' to preserve all capabilities possible")!;
   fmt::println("  --bunpen-keep-net")!;
   fmt::println("      allow unrestricted access to the network")!;
   fmt::println("  --bunpen-keep-pid")!;
@@ -64,9 +62,6 @@ export fn usage() void = {
   // fmt::println("      show what would be `exec`uted but do not perform any action")!;
   // fmt::println("  --bunpen-method <bwrap|capshonly|pastaonly|landlock|none>")!;
   // fmt::println("      use a specific sandboxer")!;
-  // fmt::println("  --bunpen-cap <all|sys_admin|net_raw|net_admin|...>")!;
-  // fmt::println("      allow the sandboxed program to use the provided linux capability (both inside and outside the sandbox)")!;
-  // fmt::println("      special cap "all" to preserve all capabilities possible")!;
   // fmt::println("  --bunpen-net-dev <iface>|all")!;
   // fmt::println("  --bunpen-net-gateway <ip-address>")!;
   // fmt::println("  --bunpen-dns <server>|host")!;
@@ -94,6 +89,7 @@ export fn parse_args(args: []str) (cli_opts | error) = {
     };
     switch (arg) {
       case "--bunpen-autodetect"  =>  idx += 1; parsed.autodetect = autodetect_fromstr(expect_arg("--bunpen-autodetect", next)?)?;
+      case "--bunpen-cap"  =>  idx += 1; parse_caparg(&parsed, expect_arg("--bunpen-cap", next)?)?;
       case "--bunpen-debug"       =>  parsed.debug = 2;
       case "--bunpen-debug=0"     =>  parsed.debug = 0;
       case "--bunpen-debug=1"     =>  parsed.debug = 1;
@@ -121,13 +117,10 @@ fn expect_arg(name: str, value: nullable *str) (str | error) = {
   };
 };
 
-fn autodetect_fromstr(v: str) (autodetect | error) = {
-  return switch (v) {
-    case "existing" => yield autodetect::EXISTING;
-    case "existingFile" => yield autodetect::EXISTING_FILE;
-    case "existingFileOrParent" => yield autodetect::EXISTING_FILE_OR_PARENT;
-    case "existingOrParent" => yield autodetect::EXISTING_OR_PARENT;
-    case "parent" => yield autodetect::PARENT;
-    case => yield error;
+fn parse_caparg(into: *cli_opts, arg: str) (void | error) = {
+  if (arg == "all") {
+    into.keep_all_caps = true;
+  } else {
+    append(into.keep_caps, capability_fromstr(arg)?);
   };
 };

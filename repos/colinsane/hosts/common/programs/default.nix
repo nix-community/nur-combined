@@ -123,6 +123,7 @@
     ./ols.nix
     ./open-in-mpv.nix
     ./pactl.nix
+    ./papers.nix
     ./pidof.nix
     ./pipewire
     ./pkill.nix

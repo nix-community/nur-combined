@@ -1,10 +1,11 @@
 // vim: set shiftwidth=2 :
 use config;
+use errors::ext;
 use log;
 use log::tree;
 use restrict;
 use rt;
-use rtext;
+use rt::ext;
 use strings;
 use os;
 use os::exec;
@@ -17,7 +18,7 @@ fn do_exec(path: str, args: []str) (os::exec::error | void) = {
     log::printfln("exec ({}): {}", path, joined);
   };
 
-  rtext::check_error("exec", rtext::execve(path, args, os::getenvs()));
+  errors::ext::check("exec", rt::ext::execve(path, args, os::getenvs()));
 
   // XXX: os::exec::exec offers no way to preserve argv0, but it does
   // work if you don't care about that:
@@ -45,8 +46,12 @@ export fn main() void = {
     case let other: config::cli_request => yield other;
   };
 
-  rtext::no_new_privs()!;
+  errors::ext::check("no_new_privs", rt::ext::no_new_privs());
   restrict::namespace_restrict(&req.resources);
-  restrict::landlock_restrict(&req.resources);
-  rtext::check_error("exec <user command>", do_exec(req.exec_bin, req.exec_args));
+  if (!req.resources.all_caps)
+    restrict::capability_restrict(&req.resources);
+  // XXX: landlock prevents other sandboxers like `bwrap` from executing,
+  // because it forbids all future `mount` syscalls. so don't landlock.
+  // restrict::landlock_restrict(&req.resources);
+  errors::ext::check("exec <user command>", do_exec(req.exec_bin, req.exec_args));
 };

@@ -1,4 +1,5 @@
 // vim: set shiftwidth=2 :
+use errors::ext;
 use fmt;
 use fs;
 use io;
@@ -7,7 +8,7 @@ use os;
 use os::exec;
 use path;
 use rt;
-use rtext;
+use rt::ext;
 use strings;
 use unix;
 
@@ -19,55 +20,57 @@ export fn namespace_restrict(what: *resources) void = {
 
   // unshare as much as possible, by default:
   let what_to_unshare =
-    rtext::CLONE_NEWCGROUP |
-    rtext::CLONE_NEWIPC |
-    rtext::CLONE_NEWNET |
-    rtext::CLONE_NEWNS |
-    rtext::CLONE_NEWPID |
-    rtext::CLONE_NEWUSER |
-    rtext::CLONE_NEWUTS
+    rt::ext::clone_flag::NEWCGROUP |
+    rt::ext::clone_flag::NEWIPC |
+    rt::ext::clone_flag::NEWNET |
+    rt::ext::clone_flag::NEWNS |
+    rt::ext::clone_flag::NEWPID |
+    rt::ext::clone_flag::NEWUSER |
+    rt::ext::clone_flag::NEWUTS
   ;
   if (what.net) {
     log::println("[namespace] keeping net namespace");
-    what_to_unshare &= ~rtext::CLONE_NEWNET;
+    what_to_unshare &= ~rt::ext::clone_flag::NEWNET;
   };
   if (what.pid) {
     log::println("[namespace] keeping pid namespace");
-    what_to_unshare &= ~rtext::CLONE_NEWPID;
-  } else {
-    log::println("TODO: namespacing without --bunpen-keep-pid is unsupported");
-    what_to_unshare &= ~rtext::CLONE_NEWPID;
+    what_to_unshare &= ~rt::ext::clone_flag::NEWPID;
   };
 
-  log::printfln("[namespace] unshare {}", what_to_unshare);
-  rtext::unshare(what_to_unshare)!;
-
-  if (!what.pid) {
-    // fork and become:
-    // - PID 1 in the namespace, which then launches the sandboxed program
-    // - a dummy process which waits for the above to exit and propagates its status
-    // TODO: it be possible after forking for the parent to `setns` to the
-    // child, and then have the child exit. this would require only a single
-    // long-run process instead of two (this process would need to explicitly
-    // make itself a reaper since it'll be PID 2).
-    rtext::check_error("[namespace/fork] forking new PID 1", fork_and_propagate());
-  };
+  log::printfln("[namespace] unshare {}", what_to_unshare: u64);
+  errors::ext::check("namespace: unshare", rt::ext::unshare(what_to_unshare));
 
   // before mounting anything, set up the uids and gids in this namespace.
   // without this, everything shows up as 65534 a.k.a. 'nobody' a.k.a. 'overflow',
   // and `mkdir` will return EOVERFLOW.
   // all this does is make it so that namespace operations under uid 1000 are
   // mapped to non-ns ops by the same user, and vice-versa
-  write_uid_map(uid, gid);
+  write_id_maps(uid, gid);
+
+  if (!what.pid) {
+    // fork and become:
+    // - PID 1 in the namespace, and exec into the sandboxed program
+    // - a dummy process in the outer namespace which waits for the above and propagates its exit status
+    //
+    // we must fork *before* mounting, else special mounts like /proc will fail.
+    //
+    // N.B.: other containers like to fork *twice*:
+    // - once to enter the namespace and become PID 1
+    // - a second time, when exec'ing the sandboxed program.
+    // that method allows for the sandbox program itself to exit, with its children outliving it.
+    //   (and the wrapper only exits once *all* orphaned children die).
+    // i don't need children to outlive the main process, so i fork once and let
+    // the sandboxed program be reaper for all its children.
+    errors::ext::check("[namespace/fork] forking new PID 1", fork_and_propagate());
+    // errors::ext::check("[namespace/fork] forking second time", fork_and_propagate());
+  };
 
   let pwd = strings::dup(os::getcwd());  // dup because API uses a static buffer
   defer(free(pwd));
   isolate_paths(what.paths);
   // try to change to the old working directory;
   // this can fail if it's not within the sandbox.
-  rtext::swallow_error("namespace: restore $PWD", os::chdir(pwd));
-
-  // TODO: CLONE_NEWPID (might not work without forking to also become reaper)
+  errors::ext::swallow("namespace: restore $PWD", os::chdir(pwd));
 };
 
 // fork and:
@@ -89,7 +92,7 @@ fn fork_and_propagate() (void | os::exec::error) = {
 fn isolate_paths(paths: []path::buffer) void = {
   // allow new mounts to propagate from the parent namespace into the child
   // namespace, but not vice versa:
-  rtext::check_error("[namespace] reconfigure / as MS_SLAVE", rtext::mount("/", "/", "", rtext::MS_SLAVE | rtext::MS_REC, null));
+  errors::ext::check("[namespace] reconfigure / as MS_SLAVE", rt::ext::mount("/", "/", "", rt::ext::mount_flag::SLAVE | rt::ext::mount_flag::REC, null));
 
   // in order to mount ANY directory from the old root into the new root,
   // they have to be totally disparate. if we kept the old root at / and the new
@@ -100,27 +103,61 @@ fn isolate_paths(paths: []path::buffer) void = {
   // 2. create a new rootfs at `new` and bind stuff into it.
   // 3. then pivot a 2nd time, into `new` (and drop `old` altogether)
 
-  rtext::check_error("[namespace] mount -t tmpfs tmpfs /tmp", rtext::mount("tmpfs", "/tmp", "tmpfs", 0, null));
+  errors::ext::check("[namespace] mount -t tmpfs tmpfs /tmp", rt::ext::mount("tmpfs", "/tmp", "tmpfs", rt::ext::mount_flag::NODEV | rt::ext::mount_flag::NOSUID, null));
 
   pivot_into("/tmp", "old");
   // now we have `/`, empty except for the old rootfs available at `/old`
 
   // prepare a new rootfs. it has to be its own mount (tmpfs), not just a dir.
-  rtext::check_error("[namespace] mkdir new", rt::mkdir("new", 0o755));
-  rtext::check_error("[namespace] mount -t tmpfs tmpfs new", rtext::mount("tmpfs", "new", "tmpfs", 0, null));
+  errors::ext::check("[namespace] mkdir new", rt::mkdir("new", 0o755));
+  errors::ext::check("[namespace] mount -t tmpfs tmpfs new", rt::ext::mount("tmpfs", "new", "tmpfs", 0, null));
+  // errors::ext::check("[namespace] mount -t tmpfs tmpfs new", rt::ext::mount("tmpfs", "new", "tmpfs", rt::ext::mount_flag::NODEV | rt::ext::mount_flag::NOSUID, null));
+  // errors::ext::check("[namespace] mount -o rbind new new", rt::ext::mount("new", "new", "", rt::ext::mount_flag::BIND | rt::ext::mount_flag::REC, null));
+
+  // try to mount a new /proc.
+  // - this is "safe" because we're not doing anything
+  //   the sandboxed program can't do. IOW, if this is unsafe, then the downstream
+  //   sandbox is unsafe, since it can do this same thing.
+  // - sandboxers like bwrap require a /proc, to query their own /proc/self/ns.
+  //   so grant them that.
+  //
+  // this will fail if `--bunpen-keep-pid` is specified, in which case the user
+  // may prefer to specify `--bunpen-path /proc` and bind-mount it instead.
+  // - bind-mounting /proc is _in theory_ safe (it's a namespace-aware fs),
+  //   but in practice there are namespacing bugs at least as recently as 2021:
+  //   <https://github.com/opencontainers/runc/issues/2826#issuecomment-915683044>
+  errors::ext::swallow("[namespace] mkdir new/proc", rt::mkdir("new/proc", 0o755));
+  errors::ext::swallow("[namespace] mount /new/proc", rt::ext::mount(
+    "proc", "new/proc", "proc", rt::ext::mount_flag::NOSUID | rt::ext::mount_flag::NOEXEC | rt::ext::mount_flag::NODEV, null
+  ));
+
+
+  // provide a new `/tmp` too.
+  errors::ext::swallow("[namespace] mkdir new/tmp", rt::mkdir("new/tmp", 0o777));
+  errors::ext::swallow("[namespace] mount -t tmpfs tmpfs new/tmp", rt::ext::mount("tmpfs", "new/tmp", "tmpfs", 0, null));
 
   // bind all the user-requested paths from `old/$p` into `new/$p`.
   // use the `dirfd` abstraction so that paths meant for `old` can't crawl out
   // of that virtual fs.
-  let old_fd = rt::open("old", rt::O_RDONLY | rt::O_CLOEXEC, rt::RESOLVE_NO_SYMLINKS: uint)!;
+  let old_fd = errors::ext::check_int(
+    "namespace setup: open /old",
+    rt::open("old", rt::O_RDONLY | rt::O_CLOEXEC, rt::RESOLVE_NO_SYMLINKS: uint)
+  );
   let old_fs = os::dirfdopen(old_fd);
   defer(free(old_fs));
-  let new_fd = rt::open("new", rt::O_RDONLY | rt::O_CLOEXEC, rt::RESOLVE_NO_SYMLINKS: uint)!;
+  let new_fd = errors::ext::check_int(
+    "namespace setup: open /new",
+    rt::open("new", rt::O_RDONLY | rt::O_CLOEXEC, rt::RESOLVE_NO_SYMLINKS: uint),
+  );
   let new_fs = os::dirfdopen(new_fd);
   defer(free(new_fs));
 
   for (let path .. paths) {
-    bind_leaf(old_fs, new_fs, &path);
+    errors::ext::swallow(
+      "[namespace] unable to bind {}",
+      bind_leaf(old_fs, new_fs, &path),
+      path::string(&path),
+    );
   };
 
   // pivot into the new rootfs
@@ -151,12 +188,12 @@ fn isolate_paths(paths: []path::buffer) void = {
 // - [x] path is too long  => does not create the leaf *nor any ancestors*.
 // - [x] canonical path points outside the fs (e.g. `..`, or `../new/proc`).
 //       does not create the leaf *nor any of its ancestors* at/after the `..`.
-fn bind_leaf(old_fs: *fs::fs, new_fs: *fs::fs, user_path: *path::buffer) void = {
+fn bind_leaf(old_fs: *fs::fs, new_fs: *fs::fs, user_path: *path::buffer) (void | path::error) = {
   let path_str = path::string(user_path);
   log::printfln("[namespace] permit path: {}", path_str);
 
   let it = path::iter(user_path);
-  let cur_path = path::init()!;
+  let cur_path = path::init()?;
   let cur_strpath = "";
   for (let comp => path::nextiter(&it)) {
     if (comp == "..") {
@@ -167,57 +204,25 @@ fn bind_leaf(old_fs: *fs::fs, new_fs: *fs::fs, user_path: *path::buffer) void = 
       // dirfd doesn't do well will absolute paths.
       comp = strings::sub(comp, 1, strings::end);
     };
-    cur_strpath = match (path::push(&cur_path, comp)) {
-      case let e: path::error =>
-        log::printfln("[namespace] unable to construct intermediate path for binding {} / {}: {}", cur_strpath, comp, path::strerror(e));
-        return;
-      case let other: str =>
-        yield other;
-    };
+    cur_strpath = path::push(&cur_path, comp)?;
 
-    match (bind_component(old_fs, new_fs, cur_strpath, path::iterrem(&it))) {
-      case let e: fs::error =>
-        log::printfln("[namespace] unable to copy intermediate path {} of {}: {}", cur_strpath, path_str, fs::strerror(e));
-        return;
-      case let e: path::error =>
-        log::printfln("[namespace] unable to copy intermediate path {} of {}: {}", cur_strpath, path_str, path::strerror(e));
-        return;
-      case void => void;
-    };
+    // hmm, should we swallow this, or raise?
+    // seems unlikely we'll fail to bind one part of the path, but then
+    // successfully bind the *next* part.
+    errors::ext::swallow(
+      "[namespace] unable to copy intermediate path {} of {}",
+      bind_component(old_fs, new_fs, cur_strpath, path::iterrem(&it)),
+      cur_strpath, path_str
+    );
   };
-
-  // and now, perform the actual bind mount:
-  // XXX: if the thing being mounted over is a symlink, the `mount` syscall will FAIL
-  // (and be swallowed). that's GOOD; we don't want to mount over a symlink.
-  let old_pathbuf = match (path::init("old", path_str)) {
-    case let e: path::error =>
-      log::printfln("[namespace] unable to construct old path for binding {}: {}", path_str, path::strerror(e));
-      return;
-    case let other: path::buffer =>
-      yield other;
-  };
-  let new_pathbuf = match (path::init("new", path_str)) {
-    case let e: path::error =>
-      log::printfln("[namespace] unable to construct new path for binding {}: {}", path_str, path::strerror(e));
-      return;
-    case let other: path::buffer =>
-      yield other;
-  };
-  log::printfln("[namespace/bind] mount {} {}", path::string(&old_pathbuf), path::string(&new_pathbuf));
-  rtext::swallow_error("[namespace/bind] bind_leaf: mount", rtext::mount(
-    path::string(&old_pathbuf), path::string(&new_pathbuf), "", rtext::MS_BIND | rtext::MS_REC, null
-  ));
 };
 
-fn bind_component(old_fs: *fs::fs, new_fs: *fs::fs, strpath: str, remaining: str) (void | fs::error | path::error) = {
+fn bind_component(old_fs: *fs::fs, new_fs: *fs::fs, strpath: str, remaining: str) (void | fs::error | path::error | rt::errno) = {
   match (fs::stat(new_fs, strpath)) {
-    case let e: fs::error => void;
+    case let e: fs::error => void; // hasn't been bound yet (good)
     case let other: fs::filestat => return; // already created
   };
   let st = fs::stat(old_fs, strpath)?;
-  // if (st.mode == mode_new) {
-  //   return; // already created
-  // };
 
   if (fs::islink(st.mode)) {
     let linktext = fs::readlink(old_fs, strpath)?;
@@ -233,7 +238,7 @@ fn bind_component(old_fs: *fs::fs, new_fs: *fs::fs, strpath: str, remaining: str
         // foo/bar/baz/fnord with foo -> target  => `foo/target/bar/baz`
         yield path::init(strpath, "..", linktext, remaining)?;
       };
-      bind_leaf(old_fs, new_fs, &target_path);
+      return bind_leaf(old_fs, new_fs, &target_path);
     };
   } else if (fs::isdir(st.mode)) {
     log::printfln("[namespace/bind] mkdir new/{}", strpath);
@@ -248,36 +253,62 @@ fn bind_component(old_fs: *fs::fs, new_fs: *fs::fs, strpath: str, remaining: str
     log::printfln("[namespace/bind] touch new/{}", strpath);
     fs::create(new_fs, strpath, st.mode)?;
   };
+
+  if (remaining != "")
+    return;  // nothing more to do for this path element
+
+  // and now, perform the actual bind mount:
+  let old_pathbuf = path::init("old", strpath)?;
+  let new_pathbuf = path::init("new", strpath)?;
+
+  log::printfln("[namespace/bind] mount {} {}", path::string(&old_pathbuf), path::string(&new_pathbuf));
+  rt::ext::mount(
+    path::string(&old_pathbuf),
+    path::string(&new_pathbuf),
+    "",
+    rt::ext::mount_flag::BIND | rt::ext::mount_flag::REC,
+    null,
+  )?;
 };
 
 // make `new_root` the new `/`, and optionally make the old root accessible
 // at some directory (to be created) underneath it.
 fn pivot_into(new_root: str, stash_old_root: (str|void) = void) void = {
   log::printfln("[namespace] pivot_root {}", new_root);
-  rtext::check_error("[namespace] cd <new_root>", os::chdir(new_root));
+  errors::ext::check("[namespace] cd <new_root>", os::chdir(new_root));
   match (stash_old_root) {
     case let old: str =>
-      rtext::check_error("[namespace] mkdir <stash_old_root>", rt::mkdir(old, 0o755));
-      rtext::check_error("[namespace] pivot_root . <stash_old_root>", rtext::pivot_root(".", old));
+      errors::ext::check("[namespace] mkdir <stash_old_root>", rt::mkdir(old, 0o755));
+      errors::ext::check("[namespace] pivot_root . <stash_old_root>", rt::ext::pivot_root(".", old));
     case void =>
-      rtext::check_error("[namespace] pivot_root . .", rtext::pivot_root(".", "."));
+      errors::ext::check("[namespace] pivot_root . .", rt::ext::pivot_root(".", "."));
       // drop the old rootfs. weird idiom, but documented in `man 2 pivot_root`.
-      rtext::check_error("[namespace] umount .", rt::umount2(".", rtext::MNT_DETACH));
+      errors::ext::check("[namespace] umount .", rt::umount2(".", rt::ext::umount_flag::MNT_DETACH));
   };
-  rtext::check_error("[namespace] cd /", os::chdir("/"));
+  errors::ext::check("[namespace] cd /", os::chdir("/"));
 };
 
-fn write_uid_map(uid: unix::uid, gid: unix::gid) void = {
-  let uid_fd = rt::open("/proc/self/uid_map", rt::O_RDWR | rt::O_CLOEXEC, 0)!;
+fn write_id_maps(uid: unix::uid, gid: unix::gid) void = {
+  errors::ext::swallow("[namespace] write /proc/self/uid_map", write_uid_map(uid));
+  errors::ext::swallow("[namespace] write /proc/self/setgroups", write_setgroups());
+  errors::ext::swallow("[namespace] write /proc/self/gid_map", write_gid_map(gid));
+};
+
+fn write_uid_map(uid: unix::uid) (void | rt::errno | io::error) = {
+  let uid_fd = rt::open("/proc/self/uid_map", rt::O_RDWR | rt::O_CLOEXEC, 0)?;
   let uid_buf: [4096]u8 = [0...];
   let uid_str = fmt::bsprintf(uid_buf, "{0} {0} 1\n", uid: uint);
-  io::write(uid_fd, strings::toutf8(uid_str))!;
+  io::write(uid_fd, strings::toutf8(uid_str))?;
+};
 
-  let setgroups_fd = rt::open("/proc/self/setgroups", rt::O_RDWR | rt::O_CLOEXEC, 0)!;
-  io::write(setgroups_fd, &['d': u8, 'e', 'n', 'y', '\n', 0])!;
+fn write_setgroups() (void | rt::errno | io::error) = {
+  let setgroups_fd = rt::open("/proc/self/setgroups", rt::O_RDWR | rt::O_CLOEXEC, 0)?;
+  io::write(setgroups_fd, &['d': u8, 'e', 'n', 'y', '\n', 0])?;
+};
 
-  let gid_fd = rt::open("/proc/self/gid_map", rt::O_RDWR | rt::O_CLOEXEC, 0)!;
+fn write_gid_map(gid: unix::gid) (void | rt::errno | io::error) = {
+  let gid_fd = rt::open("/proc/self/gid_map", rt::O_RDWR | rt::O_CLOEXEC, 0)?;
   let gid_buf: [4096]u8 = [0...];
   let gid_str = fmt::bsprintf(gid_buf, "{0} {0} 1\n", gid: uint);
-  io::write(gid_fd, strings::toutf8(gid_str))!;
+  io::write(gid_fd, strings::toutf8(gid_str))?;
 };

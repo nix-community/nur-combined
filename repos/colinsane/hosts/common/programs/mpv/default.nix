@@ -179,7 +179,7 @@ in
       "xdg-terminal-exec"
     ];
 
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.autodetectCliPaths = "parent";  #< especially for subtitle downloader; also nice for viewing albums
     sandbox.net = "all";
     sandbox.whitelistAudio = true;

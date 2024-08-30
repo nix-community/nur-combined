@@ -314,6 +314,7 @@ in
       "networkmanagerapplet"  # for nm-connection-editor: it's better than not having any gui!
       "ntfy-sh"  # notification service
       "newsflash"  # RSS viewer
+      "papers"  # PDF viewer
       "pavucontrol"
       "pwvucontrol"  # pipewire version of pavu
       # "picard"  # music tagging
@@ -329,7 +330,7 @@ in
       # "whalebird"  # pleroma client (Electron). input is broken on phosh.
       "xdg-terminal-exec"
       "youtube-tui"
-      "zathura"  # PDF/CBZ/ePUB viewer
+      # "zathura"  # PDF/CBZ/ePUB viewer
     ];
 
     handheldGuiApps = declPackageSet [

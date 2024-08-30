@@ -31,7 +31,24 @@ let
   };
   bunpenGenerators = {
     autodetectCliPaths = style: [ "--bunpen-autodetect" style ];
-    method = m: assert m == "bunpen"; [];
+    capability = cap: [ "--bunpen-cap" cap ];
+    method = m: assert m == "bunpen";
+      # smuggle in some defaults
+      (lib.concatMap (devnode: [ "--bunpen-path" "/dev/${devnode}" ]) [
+        # bwrap *binds* these when you ask for `--dev /dev`.
+        "full"
+        "null"
+        "random"
+        "tty"
+        "urandom"
+        "zero"
+        # these are symlinks to /proc/self/fd/...
+        "fd"
+        "stdin"
+        "stdout"
+        "stderr"
+        # bwrap also does some stuff for /dev/{console,core,ptmx,pts,shm}, i don't need those (yet?)
+      ]);
     netDev = n: assert n == "all"; [ "--bunpen-keep-net" ];
     path = p: [ "--bunpen-path" p ];
     path-home = p: [ "--bunpen-home-path" p ];
