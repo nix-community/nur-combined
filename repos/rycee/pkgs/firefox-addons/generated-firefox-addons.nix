@@ -1221,6 +1221,28 @@
         platforms = platforms.all;
       };
     };
+    "catppuccin-gh-file-explorer" = buildFirefoxXpiAddon {
+      pname = "catppuccin-gh-file-explorer";
+      version = "0.9.0";
+      addonId = "{bbb880ce-43c9-47ae-b746-c3e0096c5b76}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4338572/catppuccin_gh_file_explorer-0.9.0.xpi";
+      sha256 = "f7c6cfb838a5f782b706acc0402bc7868899127ef72afa18a5a58f9fae4d63bd";
+      meta = with lib;
+      {
+        homepage = "https://github.com/catppuccin/github-file-explorer-icons";
+        description = "Soothing pastel icons for GitHub File Explorer!";
+        license = licenses.mit;
+        mozPermissions = [
+          "storage"
+          "contextMenus"
+          "activeTab"
+          "*://codeberg.org/*"
+          "*://github.com/*"
+          "*://gitlab.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "censor-tracker" = buildFirefoxXpiAddon {
       pname = "censor-tracker";
       version = "18.5.0";
