@@ -43,7 +43,7 @@ stdenv.mkDerivation {
   meta = {
     mainProgram = "wayneko";
     description = "Display an animated neko cat on the bottom of an output";
-    homepage = "https://git.sr.ht/~leon_plickat/wayneko";
+    homepage = "https://sr.ht/~leon_plickat/wayneko/";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];
