@@ -521,10 +521,10 @@
     "homepage": "",
     "owner": "akinsho",
     "repo": "flutter-tools.nvim",
-    "rev": "cde66252ae44f4cafd130fd2c4e117dcd36b05b5",
-    "sha256": "139420wb832wgg07q932a4mdwmm5axv58cjg4fvzfpgj51ss2il5",
+    "rev": "ea1d398f543a54ba95357c3b8bb9d6f68eaec36c",
+    "sha256": "1kk62xsl8bv682w70x5szc2x2507rdv99mia1lzi9ii3xkdgsydn",
     "type": "tarball",
-    "url": "https://github.com/akinsho/flutter-tools.nvim/archive/cde66252ae44f4cafd130fd2c4e117dcd36b05b5.tar.gz",
+    "url": "https://github.com/akinsho/flutter-tools.nvim/archive/ea1d398f543a54ba95357c3b8bb9d6f68eaec36c.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "fm-nvim": {
@@ -1442,10 +1442,10 @@
     "homepage": "",
     "owner": "nvim-treesitter",
     "repo": "nvim-treesitter",
-    "rev": "585860a1865853d2c287c8ef534297da8115818e",
-    "sha256": "0a54y3wrza20mirbzqx5873h6kzwl70bjhwrkj247g39wrg4z2ki",
+    "rev": "ba921c9aef386ad895b0a6551968126ff90a288d",
+    "sha256": "1cw051dr548w18bd8h3rnx6lrjahdb9wjdw61lyhi8w1kiw5aw2j",
     "type": "tarball",
-    "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/585860a1865853d2c287c8ef534297da8115818e.tar.gz",
+    "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/ba921c9aef386ad895b0a6551968126ff90a288d.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "nvim-treesitter-textsubjects": {

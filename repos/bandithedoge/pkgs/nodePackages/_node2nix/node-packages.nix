@@ -297,13 +297,13 @@
         sha512 = "O5O5QNqtdlnQM2bmKHtJgyChcrFMgQuulI+WdiOw2NArzprUqqxUW6bgYtKvzKgrsYpuLWalOkdhNP+1jluhCA==";
       };
     };
-    "escalade-3.1.2" = {
+    "escalade-3.2.0" = {
       name = "escalade";
       packageName = "escalade";
-      version = "3.1.2";
+      version = "3.2.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/escalade/-/escalade-3.1.2.tgz";
-        sha512 = "ErCHMCae19vR8vQGe50xIsVomy19rg6gFu3+r3jkEO46suLMWBksvVyoGgQV+jOfl84ZSOSlmv6Gxa89PmTGmA==";
+        url = "https://registry.npmjs.org/escalade/-/escalade-3.2.0.tgz";
+        sha512 = "WUj2qlxaQtO4g6Pq5c29GTcWGDyd8itL8zTlipgECz3JesAiiOKotd8JU6otB3PACgG6xkJUyVhboMS+bje/jA==";
       };
     };
     "execa-8.0.1" = {
@@ -1077,7 +1077,7 @@ in {
       sources."destr-2.0.3"
       sources."dotenv-16.4.5"
       sources."emmet-2.4.7"
-      sources."escalade-3.1.2"
+      sources."escalade-3.2.0"
       sources."execa-8.0.1"
       sources."fast-glob-3.3.2"
       sources."fastq-1.17.1"
