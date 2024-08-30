@@ -1,7 +1,7 @@
 { pkgs, lib, fetchurl, stdenv }:
 let
   pname = "localbooru-bin";
-  version = "1.5.2";
+  version = "1.6.0-prerelease1";
 
   meta = {
     description = "Cross platform local booru collection that exclusively works on local storage, without selfhosting";
@@ -26,7 +26,7 @@ stdenv.mkDerivation {
 
   src = fetchArtifact {
     filename = "localbooru-linux.deb";
-    hash = "sha256-XSpwIhmATlOKaisQTD7wttOw/kZ1ZXHXwT6PL98WC2s=";
+    hash = "sha256-uuz1TW4t14OHiPyA5RfMGGJkUB35bLr5kwca/JjwCwQ=";
   };
 
   nativeBuildInputs = with pkgs; [
