@@ -8,7 +8,7 @@
   librime,
   rime-data,
   symlinkJoin,
-  rimeDataPkgs ? [ rime-data ]
+  rimeDataPkgs ? [ rime-data ],
 }:
 rustPlatform.buildRustPackage rec {
   pname = "rime-ls";
@@ -17,8 +17,8 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "wlh320";
     repo = pname;
-    rev = "master";
-    hash = "sha256-zuZDnRUSMuQb+98GfRttka+IGj+G8RsvxUY1hwiMSOQ=";
+    rev = "642a5466c4e523a0ab6bb7e2b896a33ce7aac828";
+    hash = "sha256-QrQVBY0ERvAL6g5xBEI+po0eQT2bqT7YLrgqd0pJF3I=";
   };
 
   cargoLock = {
@@ -28,14 +28,12 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
+  cargoHash = lib.fakeHash;
+
   rimeDataDrv = symlinkJoin {
     name = "rime-ls-rime-data";
     paths = rimeDataPkgs;
   };
-
-  postPatch = ''
-    ln -s ${./Cargo.lock} Cargo.lock
-  '';
 
   nativeBuildInputs = [
     pkg-config
