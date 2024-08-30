@@ -51,6 +51,7 @@ in
   pulseaudio-virtualmic = pkgs.callPackage ./pkgs/pulseaudio-virtualmic { };
   chatgpt-cli = pkgs.callPackage ./pkgs/chatgpt-cli { };
   logseq-doctor = pkgs.callPackage ./pkgs/logseq-doctor { };
+  fabric = pkgs.callPackage ./pkgs/fabric { };
 
   # RUn nvfetcher in the haskellPackages directory to update sources
   haskellPackages = callPackages ./pkgs/haskellPackages;

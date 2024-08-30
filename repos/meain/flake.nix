@@ -12,14 +12,15 @@
         "armv6l-linux"
         "armv7l-linux"
       ];
-      forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
+      forAllSystems = f: nixpkgs.lib.genAttrs systems f;
       templates = import ./templates;
     in
     {
       packages = forAllSystems (system: import ./default.nix {
         pkgs = import nixpkgs { inherit system; };
       });
-      templates = templates.templates;
+
+      inherit templates;
       defaultTemplate = templates.default;
     };
 }
