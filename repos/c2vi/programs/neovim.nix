@@ -16,6 +16,7 @@
 		coc.enable = true;
 		coc.settings = {
       "rust-analyzer.cargo.sysroot" = "discover";
+      "rust-analyzer.cargo.features" = "all";
 		  "rust-analyzer.server.path" = "/etc/profiles/per-user/me/bin/rust-analyzer";
 		  "coc.preferences.extensionUpdateCheck" = "never";
 		  "cSpellExt.enableDictionaries" = [ "german" ];
@@ -24,6 +25,11 @@
 		  "rust-analyzer.diagnostics.enable" = true;
 		  "rust-analyzer.checkOnSave.enable" = false;
 		  "languageserver" = {
+        "slint" = {
+          "filetypes" = [ "slint" ];
+          "command" = "slint-lsp";
+					"rootPatterns" =  [ ".slint" ];
+        };
 			  "vhdl" = {
 				  "command" = "/home/sebastian/work/config/nvim/language-servers/vhdl/vhdl-tool";
 				  "args" = [ "lsp" ];
@@ -44,6 +50,8 @@
 		};
 
 		extraConfig = ''
+
+      autocmd BufEnter *.slint :setlocal filetype=slint
 
 			syntax enable
 			filetype plugin indent on
@@ -387,7 +395,7 @@
 
 				vnoremap s :call Rust_toggle_comment()<Enter>
 
-				cnoreabbrev c call Cargo_ceck()
+				cnoreabbrev c call Cargo_check()
 				cnoreabbrev r call Cargo_run()
 				cnoreabbrev b call Cargo_build()
 
@@ -411,9 +419,14 @@
 			  autocmd TermOpen * nnoremap <buffer> J :lua Cargo_jump()<Enter>
 			augroup END
 
-			function Cargo_ceck()
+			function Cargo_check()
 				:w
 				:belowright 20split term://cargo check
+			endfunction
+
+			function Cargo_check_mize()
+				:w
+				:belowright 20split term://cargo check --bin mize --features os-binary
 			endfunction
 
 			function Rust_toggle_comment()

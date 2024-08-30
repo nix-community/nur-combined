@@ -3,10 +3,11 @@
 
   ################################### INPUTS #########################################
 	inputs = {
-		nixpkgs.url = "github:NixOS/nixpkgs/release-23.11";
+		nixpkgs.url = "github:NixOS/nixpkgs/release-24.05";
 		#nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
 		nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+		nixpkgs-old.url = "github:NixOS/nixpkgs/release-23.11";
 		
     nur.url = "github:nix-community/NUR";
 
@@ -18,6 +19,11 @@
     };
 
 		home-manager = {
+			url = "github:nix-community/home-manager/release-24.05";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
+
+		home-manager-old = {
 			url = "github:nix-community/home-manager/release-23.11";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
@@ -62,6 +68,23 @@
 
  		flake-utils.url = "github:numtide/flake-utils";
     systems.url = "github:nix-systems/default";
+    victorinix.url = "github:c2vi/victorinix";
+    victorinix.inputs.nixpkgs.follows = "nixpkgs";
+
+    ####### keyboard
+    zephyr-nix = {
+      url = "github:adisbladis/zephyr-nix";
+      #url = "/home/me/work/config/gitignore/zephyr-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    zmk-nix = {
+      url = "github:lilyinstarlight/zmk-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    keyboard-config = {
+      url = "github:eigatech/zmk-config/charybdis-3.5";
+      flake = false;
+    };
 	};
 
 	outputs = { self, nixpkgs, nixpkgs-unstable, nixos-generators, flake-utils, systems, ... }@inputs: 
@@ -118,24 +141,46 @@
   ############ packages ################
   packages = {
 
+    # nixpkgs with my overlays applied, for convenience
     pkgsOverlay = import nixpkgs {
       inherit system;
       overlays = [ (import ./overlays/static-overlay.nix) (import ./overlays/my-overlay.nix) ];
     };
 
+    # same with nixpkgs-unstable
     pkgsOverlayUnstable = import nixpkgs-unstable {
       inherit system;
       overlays = [ (import ./overlays/static-overlay.nix) (import ./overlays/my-overlay.nix) ];
     };
 
     acern = self.nixosConfigurations.acern.config.system.build.tarballBuilder;
-
     lush = self.nixosConfigurations.lush.config.system.build.sdImage;
-
     rpi = self.nixosConfigurations.rpi.config.system.build.sdImage;
 
     # collection of only my nur pkgs
-    nurPkgs = inputs.nixpkgs-unstable.legacyPackages.${system}.callPackage ./nur.nix {};
+    # my nur is unstable by default
+    mynurPkgs = inputs.nixpkgs-unstable.legacyPackages.${system}.callPackage ./nur.nix {};
+    mynurPkgsStable = inputs.nixpkgs.legacyPackages.${system}.callPackage ./nur.nix {};
+
+    nurPkgs = let tmp = import inputs.nixpkgs-unstable {
+      inherit system;
+      overlays = [ inputs.nur.overlay ];
+    }; in tmp.nur.repos;
+    
+    nurPkgsStable = let tmp = import inputs.nixpkgs {
+      inherit system;
+      overlays = [ inputs.nur.overlay ];
+    }; in tmp.nur.repos;
+
+    nurSrcs = let tmp = import inputs.nixpkgs-unstable {
+      inherit system;
+      overlays = [ inputs.nur.overlay ];
+    }; in tmp.nur.repo-sources;
+
+    nurSrcUrls = let tmp = import inputs.nixpkgs-unstable {
+      inherit system;
+      overlays = [ inputs.nur.overlay ];
+    }; in builtins.mapAttrs (name: value: value.inputDerivation.urls) tmp.nur.repo-sources;
 
     # collection of random things I played around with /built once
     # in seperate path to keep this flake cleaner
@@ -148,9 +193,19 @@
 			inherit confDir workDir secretsDir persistentDir tunepkgs mypkgs specialArgs eachSystem allSystems;
     };
 
+    pkgsCross.aarch64-multiplatform = (import ./nur.nix {pkgs = nixpkgs.legacyPackages.${system}.pkgsCross."aarch64-multiplatform";});
+
+    test-cbm = nixpkgs.legacyPackages.${system}.pkgsCross.aarch64-multiplatform.callPackage ./mods/cbm.nix {};
+
+
   }
   // # include nur packages from ./nur.nix
-  (import ./nur.nix {pkgs = nixpkgs.legacyPackages.${system};})
+  # my nur is unstable by default
+  (import ./nur.nix {pkgs = nixpkgs-unstable.legacyPackages.${system};})
+
+  #// # my idea on how to do cross compilaton with flakes....
+  #eachSystem allSystems (crossSystem: {
+  #})
   ;
 
   ############ apps ################
@@ -163,7 +218,7 @@
     };
     default = {
       type = "app";
-      program = "${self.packages.x86_64-linux.run-vm}/bin/run-vm";
+      program = "${self.packages.x86_64-linux.random.run-vm}/bin/run-vm";
     };
   };
 
@@ -188,13 +243,30 @@
 
     # I want to be able to referency my inputs as an output as well
     # eg usefull for nix eval github:c2vi/nixos#inputs.nixpkgs.rev to get the current pinned nixpkgs version
-    inherit inputs;
+    inherit inputs self;
 
   ############ homeModules ################
     homeModules = {
       #me-headless = import ./users/me/headless.nix;
       me-headless = import ./users/common/home.nix;
       me = import ./users/me/gui-home.nix;
+    };
+    
+    lib = {
+      flakeAddCross = config: pkgs-lambda: let
+        hostSystemShortString = config.system;
+        hostSystem = nixpkgs.lib.systems.parse.mkSystemFromString hostSystemShortString;
+        hostSystemFullString = "${hostSystem.cpu.name}-${hostSystem.vendor.name}-${hostSystem.kernel.name}-${hostSystem.abi.name}";
+      in
+      # we call the lambda like this to get the host packages
+      pkgs-lambda { crossSystemFullString = hostSystemFullString; }
+      # and then add the pkgsCross, where we call it for every cross system
+      // {
+        pkgsCross = {
+          aarch64-linux = pkgs-lambda { crossSystemFullString = "aarch64-unknown-linux-gnu"; };
+          x86_64-linux = pkgs-lambda { crossSystemFullString = "x86_64-unknown-linux-gnu"; };
+        };
+      };
     };
 
   ############ nixosConfigurations ################
@@ -255,8 +327,17 @@
       		];
    		};
 
+      # server that hosts stuff
+   		"fasu" = nixpkgs.lib.nixosSystem {
+				inherit specialArgs;
+      		system = "x86_64-linux";
+      		modules = [
+         		./hosts/fasu.nix
+      		];
+   		};
+
       # my server at home
-   		"rpi" = nixpkgs.lib.nixosSystem rec {
+   		"rpi" = inputs.nixpkgs-old.lib.nixosSystem rec {
 			  #inherit specialArgs;
         specialArgs = { inherit inputs confDir workDir secretsDir persistentDir self system; };
         system = "aarch64-linux";

@@ -85,8 +85,8 @@ sudo mount -t cifs //192.168.1.2/lan /home/me/lan -o x-gvfs-hide,username=guest,
 
 elif [ "$1" == "bat" ]
 then
-now=$(cat /sys/class/power_supply/BAT0/charge_now)
-full=$(cat /sys/class/power_supply/BAT0/charge_full)
+now=$(cat /sys/class/power_supply/BAT1/charge_now)
+full=$(cat /sys/class/power_supply/BAT1/charge_full)
 stat=$(python -c "print( round($now / float($full) *100) )")
 echo BAT0 at: ${stat}%
 
@@ -94,7 +94,7 @@ echo BAT0 at: ${stat}%
 
 elif [ "$1" == "bstat" ]
 then
-cat /sys/class/power_supply/BAT0/status
+cat /sys/class/power_supply/BAT1/status
 
 
 elif [ "$1" == "hibernate" ]

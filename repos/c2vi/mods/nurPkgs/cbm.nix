@@ -16,10 +16,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Ubm8jky8nbJZWVSlqipg22ZjlnsgdVmoQWxYi9cyags=";
 	};
 
-	nativeBuildInputs = [
-		ncurses
+  nativeBuildInputs = [
     autoreconfHook
-	];
+  ];
+  
+  buildInputs = [
+    ncurses
+  ];
 
   meta = with lib; {
     description = "A small pogram to display network traffic of interfaces in realtime";

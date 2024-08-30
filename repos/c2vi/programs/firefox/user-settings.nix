@@ -3,7 +3,7 @@
   # added over time
   "browser.tabs.insertAfterCurrent" = true;
   "browser.tabs.unloadOnLowMemory" = true;
-  "browser.low_commit_space_threshold_mb" = 1500;
+  "browser.low_commit_space_threshold_mb" = 3000;
 
   # general
   "extensions.autoDisableScopes" = 0;

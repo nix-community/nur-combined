@@ -118,13 +118,13 @@
 				};
 			};
 
-			key_bindings = [
+			keyboard.bindings = [
 			  { key = "V"; mods = "Control|Shift"; action = "Paste"; }
 			  { key = "C"; mods = "Control|Shift"; action = "Copy"; }
-			  { key = "J"; mods = "Control"; chars = ''\x1b\x5b\x42''; }
-			  { key = "K"; mods = "Control"; chars = ''\x1b\x5b\x41''; }
-			  { key = "H"; mods = "Control"; chars = ''\x1b\x5b\x44''; }
-			  { key = "L"; mods = "Control"; chars = ''\x1b\x5b\x43''; }
+			  { key = "J"; mods = "Control"; chars = ''\u001b\u005b\u0042''; }
+			  { key = "K"; mods = "Control"; chars = ''\u001b\u005b\u0041''; }
+			  { key = "H"; mods = "Control"; chars = ''\u001b\u005b\u0044''; }
+			  { key = "L"; mods = "Control"; chars = ''\u001b\u005b\u0043''; }
 			];
 		};
 	};

@@ -9,7 +9,7 @@
 		../common/nixos-headless.nix
     ../common/nixos.nix
 
-		inputs.home-manager.nixosModules.home-manager
+		inputs.home-manager-old.nixosModules.home-manager
 		../users/me/headless.nix
 		../users/root/default.nix
     ../users/server/headles.nix
@@ -134,7 +134,7 @@
         interface-name = "wlan0";
       };
       wifi = {
-        mac-address = "0C:96:E6:E3:64:03";
+        #mac-address = "92:A7:92:FD:3C:EA";
         mode = "ap";
         ssid = "c2vi-rpi";
       };
@@ -167,6 +167,8 @@
 
   ######################################### wstunnel #######################################
 
+  # broken with 24.05 and currently not used anyway
+  /*
   systemd.services.wstunnel = {
     enable = true;
     description = "WStunnel for SSH connections and Wireguard VPN";
@@ -180,6 +182,7 @@
     };
     wantedBy = [ "multi-user.target" ];
   };
+  */
 
   ###################################### dyndns ####################################
 
@@ -194,6 +197,7 @@
         ip=$(curl my.ip.fi)
         curl "http://dynv6.com/api/update?hostname=${builtins.readFile "${secretsDir}/dns-name-two"}&ipv4=$ip&token=${builtins.readFile "${secretsDir}/dns-name-two-token"}"
         curl "https://dynamicdns.park-your-domain.com/update?host=home&domain=${builtins.readFile "${secretsDir}/dns-name"}&password=${builtins.readFile "${secretsDir}/dns-name-token"}&ip=$ip"
+        curl "https://dynamicdns.park-your-domain.com/update?host=mc&domain=c2vi.dev&password=${builtins.readFile "${secretsDir}/dns-name-token"}&ip=$ip"
 
         # https://www.namecheap.com/support/knowledgebase/article.aspx/29/11/how-to-dynamically-update-the-hosts-ip-with-an-https-request/
       '';
@@ -295,11 +299,11 @@
         # Papierkorb
         "vfs object" = "recycle";
         "recycle:repository" = "/home/files/storage/files/trash-files";
-        "recycle:keeptree" = "No";
+        "recycle:keeptree" = "Yes";
         "recycle:versions" = "Yes";
         "recycle:touch" = "Yes";
         "recycle:touch_mtime" = "Yes";
-        "recycle:maxsize" = "8000";
+        "recycle:maxsize" = "80000";
       };
       lan = {
         "comment" = "gastordner";

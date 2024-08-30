@@ -46,15 +46,15 @@
 		shellAliases = {
       ports = "${pkgs.lsof}/bin/lsof -i -P -n";
       losetup = "${pkgs.util-linux}/bin/losetup";
-      log = let
-        log = pkgs.writeShellApplication {
-          name = "log";
+      #log = let
+        #log = pkgs.writeShellApplication {
+          #name = "log";
           #runtimeInputs = [ inputs.my-log.packages.${system}.pythonForLog ];
           #text = "cd /home/me/work/log/new; nix develop -c 'python ${workDir}/log/new/client.py'";
-          text = if system == "x86_64-linux" then ''${inputs.my-log.packages.${system}.pythonForLog}/bin/python ${workDir}/log/new/client.py "$@"'' else "echo system not x86_84-linux";
-        };
-        in "${log}/bin/log";
-      mi = "${workDir}/mize/run";
+          #text = if system == "x86_64-linux" then ''${inputs.my-log.packages.${system}.pythonForLog}/bin/python ${workDir}/log/new/client.py "$@"'' else "echo system not x86_84-linux";
+        #};
+        #in "${log}/bin/log";
+      mi = "nix run ${workDir}/mize";
       cdd = "/sdcard";
       n = "${pkgs.python3} ${self}/scripts/nav/main.py";
 			shutdown = "echo try harder.... xD";

@@ -6,20 +6,22 @@
 }:
 
 stdenv.mkDerivation rec {
-	pname = "cbm";
-	version = "0.3.2";
+	pname = "mac-telnet";
+	version = "0.5.1";
 
 	src = fetchFromGitHub {
 		owner = "haakonnessjoen";
 		repo = "MAC-Telnet";
-    rev = "master";
+    rev = "v${version}";
     sha256 = "sha256-8DgVlxvRHh5u0Tl9K0i1m7DUqg9h7uL94M7ZaBx3c5s=";
 	};
 
 	nativeBuildInputs = [
     autoreconfHook
-    openssl
 	];
+  buildInputs = [
+    openssl
+  ];
 
   configureFlags = [
     "--without-config"

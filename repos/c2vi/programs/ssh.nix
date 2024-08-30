@@ -65,11 +65,11 @@
 				user = "ubuntu";
 			};
       hec-builder = {
-				hostname = "10.5.5.56";
+				hostname = "10.5.5.72";
 				user = "root";
       };
-      priv-hec = {
-				hostname = "10.5.5.77";
+      old-hec-builder = {
+				hostname = "10.5.5.56";
 				user = "root";
       };
       storage = {

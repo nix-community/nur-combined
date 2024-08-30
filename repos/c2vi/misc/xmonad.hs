@@ -70,6 +70,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [
 
     -- launch a terminal
+    ((modm , xK_BackSpace), spawn $ XMonad.terminal conf),
+
     ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf),
 
     -- enable keyboard
@@ -94,6 +96,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     ((modm .|. shiftMask, xK_f), spawn "bash -c \"kill -9 $(pgrep firefox)\""),
 
     ((modm              , xK_d), spawn "xrandr --output eDP-1 --auto"),
+
+    -- launch mshot
+    ((modm .|. shiftMask, xK_m), spawn "mshot"),
 
 
     -- launch dmenu

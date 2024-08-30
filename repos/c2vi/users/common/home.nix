@@ -87,7 +87,7 @@
      # */
 
     # self packaged colored bandwith meter
-    (pkgs.callPackage ../../mods/cbm.nix {})
+    self.packages.${system}.cbm
 
   ];
 

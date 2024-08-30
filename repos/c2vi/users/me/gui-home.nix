@@ -45,7 +45,7 @@
     btrfs-progs
 
     # packages that i might not need everywhere??
-		wstunnel
+		#wstunnel
 		rclone
 		playerctl
 		alsa-utils
@@ -116,12 +116,12 @@
 		libvirt
 		virt-manager
 		freerdp
-    (pkgs.writeShellApplication {
-      name = "log";
+    #(pkgs.writeShellApplication {
+      #name = "log";
       #runtimeInputs = [ inputs.my-log.packages.${system}.pythonForLog ];
       #text = "cd /home/me/work/log/new; nix develop -c 'python ${workDir}/log/new/client.py'";
-      text = ''${inputs.my-log.packages.${system}.pythonForLog}/bin/python ${workDir}/log/new/client.py "$@"'';
-    })
+      #text = ''${inputs.my-log.packages.${system}.pythonForLog}/bin/python ${workDir}/log/new/client.py "$@"'';
+    #})
     (pkgs.writeShellApplication {
       name = "rpi";
       text = let 

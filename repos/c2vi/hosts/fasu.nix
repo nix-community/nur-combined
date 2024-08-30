@@ -12,7 +12,15 @@
     ../users/server/headles.nix
 	];
 
-  # mac address for wakeonlan: 00:19:99:fd:28:23
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/fasu-root";
+    fsType = "ext4";
+  };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-label/FASU-BOOT";
+    fsType = "vfat";
+  };
 
   # allow acern to ssh into server
   users.users.server.openssh.authorizedKeys.keys = [
@@ -27,17 +35,11 @@
     }
   ];
 
-  virtualisation.libvirtd = {
-    enable = true;
-    qemuOvmf = true;
-    qemuSwtpm = true;
-    #qemuOvmfPackage = pkgs.OVMFFull;
-  };
-
 	# Use the GRUB 2 boot loader.
 	boot.loader.grub = {
   	enable = true;
-    device = "/dev/disk/by-id/ata-TOSHIBA_MQ04ABF100_11MYT5RBT";
+    #device = "/dev/nbd1";
+    device = "nodev";
   	efiSupport = false;
 		extraConfig = ''
 			set timeout=2
@@ -74,8 +76,17 @@
     8080 # for mitm proxy
 
     25565 # mc server
+    25580 # wmc lobby server
     25566 # mc server
+    3306 # mariadb for wmc
+    6379 # redis for wmc
 	];
+	networking.firewall.allowedUDPPorts = [
+    25572 # wmc voice to velocity proxy
+    25800 # wmc voice lobby
+
+    19132 # mc bedrock port
+  ];
 
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
@@ -86,7 +97,6 @@
 
   environment.systemPackages = with pkgs; [
     ntfs3g
-    virtiofsd
   ];
 
 	nix.settings = {
@@ -96,25 +106,22 @@
       trusted-users = [ "me" ];
 	};
 
-
-  networking.useDHCP = false;
-  networking.bridges = {
-    "br0" = {
-      interfaces = [ "enp0s25" ];
-    };
-  };
-  networking.interfaces.br0.ipv4.addresses = [ {
-    address = "192.168.1.3";
-    prefixLength = 24;
-  } ];
 	networking = {
 		#usePredictableInterfaceNames = false;
 		defaultGateway = {
 			address = "192.168.1.1";
-			interface = "br0";
+			interface = "eth0";
 		};
-		hostName = "fusu";
+		hostName = "fasu";
 		nameservers = [ "1.1.1.1" "8.8.8.8" ];
+		interfaces = {
+			"enp0s25" = {
+				name = "eth0";
+				ipv4.addresses = [
+					{ address = "192.168.1.22"; prefixLength = 24;}
+				];
+			};
+		};
 	};
 
 }

@@ -1,0 +1,61 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/mouse.h>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/outputs.h>
+#include <dt-bindings/zmk/keys.h>
+
+&lt {
+    tapping-term-ms = <240>;
+    flavor = "balanced";
+    quick-tap-ms = <150>;
+};
+
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        Base {
+            label = "base";
+            bindings = <
+  &kp TAB   &kp Q  &kp W      &kp E      &kp R  &kp T    &kp U    &kp Z      &kp I    &kp O     &kp P    &kp BSPC
+  &kp ESC   &kp A  &kp S      &kp D      &kp F  &kp G    &kp J    &kp H      &kp K    &kp L  &to 1    &kp APOS
+&to 0   &kp Y  &kp X      &kp C      &kp V  &kp B    &kp M    &kp N  &kp COMMA  &kp DOT  &kp FSLH  &to 1
+                         &kp LGUI  &kp LCTRL  &kp ENTER   &kp LSHFT  &kp SPACE
+            >;
+
+            trackball-bindings = <&tmv_coarse> ;
+        };
+
+        Lower {
+            label = "numbers";
+            bindings = <
+      &trans  &trans    &kp UP    &kp MINUS   &kp BSLH      &kp EQUAL     &kp N7   &trans   &kp N8  &kp N9  &kp HOME   &kp BSPC
+      &trans  &kp LEFT  &to 3  &to 2     &to 0        &kp SEMI        &kp N4   &trans   &kp N5  &kp N6   &kp N0  &bootloader
+      &to 0    &trans    &trans     &kp LBKT  &kp RBKT    &kp SQT    &kp N1   &trans   &kp N2  &kp N3    &trans  &kp F20
+                                   &kp LGUI  &kp LALT    &kp ENTER    &kp LSHFT &kp SPACE
+            >;   
+        };
+
+        Raise {
+            label = "navigation";
+            bindings = <
+  &trans        &kp EXCL      &kp AT      &kp HASH       &kp DLLR      &kp PRCNT    &kp CARET   &kp AMPS  &kp KP_MULTIPLY  &kp LPAR  &kp RPAR    &kp BSPC
+  &bootloader    &bt BT_CLR   &bt BT_PRV  &bt BT_NXT     &to 0         &kp DOWN    &kp DOWN   &kp LEFT     &kp UP  &kp RIGHT  &kp BSLH  &bootloader
+  &to 0  &out OUT_TOG  &trans      &trans     &trans        &trans     &kp MINUS   &kp PLUS         &kp LBRC  &kp RBRC  &kp PIPE  &kp TILDE
+                                     &kp LGUI  &kp LALT  &kp ENTER       &kp LSHFT    &kp SPACE
+            >;
+        };
+
+        Mouse {
+            label = "mouse";
+            bindings = <
+&trans  &trans  &trans  &trans  &trans        &trans         &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &mkp RCLK  &mkp LCLK  &to 0    &sl 4         &trans  &kp N1  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans        &trans         &trans  &trans  &trans  &trans  &trans   &to 0
+                        &trans  &trans  &kp LEFT_ALT       &kp RGUI  &trans
+            >;
+        };
+
+    };
+};
