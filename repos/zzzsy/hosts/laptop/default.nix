@@ -63,6 +63,7 @@
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.sessionVariables.TERMINAL = [ "kitty" ];
+  environment.variables."EDITOR" = "hx"; # @TODO https://github.com/nix-community/home-manager/issues/4969
 
   time.timeZone = "Asia/Shanghai";
 

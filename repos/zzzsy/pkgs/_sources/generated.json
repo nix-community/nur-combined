@@ -91,7 +91,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-08-20",
+        "date": "2024-08-29",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -103,10 +103,10 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "0407f13bfd45e8ed82b7f26fe0c9642635184cb6",
-            "sha256": "sha256-OnXznPdxilrvMP/d1T9v8VQ2PeZ9xLHQzmNfLJl2bnA=",
+            "rev": "0367c85243ecf22d064f45cab29a47a3a1652e80",
+            "sha256": "sha256-uzEN8xjfpEdYMDX2AisS0Df+V0+gdOeJGQxQJZIuffo=",
             "type": "github"
         },
-        "version": "0407f13bfd45e8ed82b7f26fe0c9642635184cb6"
+        "version": "0367c85243ecf22d064f45cab29a47a3a1652e80"
     }
 }

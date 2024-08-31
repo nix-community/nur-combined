@@ -44,6 +44,8 @@
         seahorse
         gnome-calendar
         dconf-editor
+
+        ghostty
       ]
     );
     #++ (with pkgs.gnome; [ ]);

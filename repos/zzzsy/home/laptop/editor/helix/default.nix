@@ -3,6 +3,7 @@
 
   programs.helix = {
     enable = true;
+    defaultEditor = true;
     settings = {
       theme = "everforest_dark";
       keys.normal = {

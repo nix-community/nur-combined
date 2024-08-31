@@ -29,6 +29,9 @@
     nur.url = "github:nix-community/NUR";
     stylix.url = "github:danth/stylix";
     zig.url = "github:mitchellh/zig-overlay";
+    ghostty.url = "git+ssh://git@github.com/ghostty-org/ghostty";
+    ghostty.inputs.nixpkgs-stable.follows = "nixpkgs";
+    ghostty.inputs.nixpkgs-unstable.follows = "nixpkgs";
     #nixos-cosmic = {
     #  url = "github:lilyinstarlight/nixos-cosmic";
     #  inputs.nixpkgs.follows = "nixpkgs";

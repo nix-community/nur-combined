@@ -11,6 +11,7 @@ let
     # nixos-cosmic
     nvfetcher
     daeuniverse
+    ghostty
     lanzaboote
     nix-matlab
     nur
@@ -40,6 +41,7 @@ let
             nixpkgs = {
               overlays = [
                 (final: prev: {
+                  ghostty = ghostty.packages.x86_64-linux.default;
                   my = self.packages."${system}";
                   chaotic = chaotic.packages.${system};
                   stable = import inputs.nixpkgs-stable {

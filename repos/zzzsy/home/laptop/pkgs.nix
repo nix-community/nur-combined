@@ -87,6 +87,7 @@ let
     texlive.combined.scheme-full
     asciidoc-full
     ghex
+    handbrake
     #feishu
     #mathematica
     #virtualbox
@@ -108,6 +109,8 @@ let
     # minder
     my.tsukimi
     materialgram
+
+    #ghostty
 
     # matlab
     # vmware-workstation
