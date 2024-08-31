@@ -6,13 +6,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ste";
-  version = "0.7.1";
+  version = "0.7.4";
 
   src = fetchFromSourcehut {
     owner = "~strahinja";
     repo = "ste";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-rtwM2UZ+ncA5SPg5yt1HlacasdhTov6emiUnByE6VHM=";
+    hash = "sha256-fsqK6/9FUAgZ9jHDyqTP7nZTjALfem732qf8mpbltSg=";
   };
 
   FALLBACKVER = finalAttrs.version;
