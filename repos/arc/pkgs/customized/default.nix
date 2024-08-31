@@ -153,6 +153,10 @@ let
 
       doCheck = false;
 
+      patches = old.patches or [ ] ++ [
+        ./notmuch-ruby.patch
+      ];
+
       meta = old.meta or {} // {
         broken = old.meta.broken or false || hostPlatform.isDarwin;
       };
