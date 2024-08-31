@@ -70,6 +70,5 @@ python3Packages.buildPythonApplication {
     homepage = "https://github.com/flopp/GpxTrackPoster";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = true; # https://github.com/stravalib/stravalib/pull/459
   };
 }

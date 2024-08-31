@@ -158,6 +158,7 @@ lib.makeScope newScope (
     comitium = callPackage ./gemini/comitium { };
     eva = callPackage ./gemini/eva { };
     gelim = callPackage ./gemini/gelim { };
+    gem = callPackage ./gemini/gem { };
     gemcert = callPackage ./gemini/gemcert { };
     gemgen = callPackage ./gemini/gemgen { };
     gemini-ipfs-gateway = callPackage ./gemini/gemini-ipfs-gateway { };
