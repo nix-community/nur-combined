@@ -29,4 +29,5 @@ rec {
   metube = ./metube.nix;
   catppuccin = ./catppuccin.nix;
   zsh = ./zsh.nix;
+  branding = ./branding.nix;
 }
