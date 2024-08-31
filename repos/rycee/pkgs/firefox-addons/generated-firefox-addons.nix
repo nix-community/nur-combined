@@ -131,10 +131,10 @@
     };
     "addy_io" = buildFirefoxXpiAddon {
       pname = "addy_io";
-      version = "2.3.2";
+      version = "2.3.3";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4340302/addy_io-2.3.2.xpi";
-      sha256 = "574b5ce3c435367812086bf386a323864d24b85215a045476021bb84d39f2c30";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4345117/addy_io-2.3.3.xpi";
+      sha256 = "523226c1fba8d8b67f2e824ae635e5bd2e136d9fbc83cd7c766da038bc2c0614";
       meta = with lib;
       {
         homepage = "https://addy.io";
@@ -885,10 +885,10 @@
     };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2024.8.0";
+      version = "2024.8.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4340992/bitwarden_password_manager-2024.8.0.xpi";
-      sha256 = "8b7dba43a2820adce4d9ae497be119eac3802c01bd4b5a536941fbeea8adac59";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4343724/bitwarden_password_manager-2024.8.1.xpi";
+      sha256 = "52b19c69997bc392ebea26e12f1420b2bf42850df2a28dcd64b303396009554d";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -2054,10 +2054,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2434.1";
+      version = "6.2435.4";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4340170/dashlane-6.2434.1.xpi";
-      sha256 = "33cb19da55e44a7cdcaf63be89e9c3cd528e380ae8d515618a0973bb8861ce33";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4343528/dashlane-6.2435.4.xpi";
+      sha256 = "0d4bacf477f3e5f784d0dccfd3abaa183b1f76166def73f9f2f24a33827ad7f0";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2794,10 +2794,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.23";
+      version = "1.3.24";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4344915/faststream-1.3.23.xpi";
-      sha256 = "f1c75b2a9ac010c27b5414c5bd08298513681e40894d6e8d5b92a0eee77cbaf9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4345391/faststream-1.3.24.xpi";
+      sha256 = "6e9f20147b1a472c9d2b67e0e2c2e6e742956130dcd25f61dc83ce10455c5975";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -9246,10 +9246,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.8.26.1";
+      version = "24.8.30";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4343506/refined_github-24.8.26.1.xpi";
-      sha256 = "2d5f10788e1eff825632087696c09be5829ebb257c6dabf3ebf83af85f1ac9a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4345066/refined_github-24.8.30.xpi";
+      sha256 = "5ac5e48e8805182ba9dc1ff4fc6039139a7205f50db185ac1a25584140981560";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
