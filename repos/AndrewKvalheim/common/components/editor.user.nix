@@ -45,6 +45,7 @@ in
       irongeek.vscode-env
       joaompinto.vscode-graphviz
       jock.svg
+      jnbt.vscode-rufo
       jnoortheen.nix-ide
       karunamurti.haml
       kokakiwi.vscode-just
@@ -101,6 +102,7 @@ in
       "rubyLsp.customRubyCommand" = "PATH=${makeBinPath (with pkgs; [ nodejs ruby ruby-lsp ])}:$PATH";
       "ruff.path" = [ "${pkgs.ruff}/bin/ruff" ];
       "ruff.nativeServer" = true;
+      "rufo.exe" = "${pkgs.rufo}/bin/rufo";
       "shellcheck.executablePath" = "${pkgs.shellcheck}/bin/shellcheck";
       "stylelint.stylelintPath" = "${pkgs.nodePackages.stylelint}/lib/node_modules/stylelint";
 
@@ -290,7 +292,7 @@ in
       "[markdown]" = monospace // { "editor.tabSize" = 4; };
       "[plaintext]" = monospace;
       "[postcss]" = prettier;
-      "[ruby]" = monospace // { "editor.defaultFormatter" = "Shopify.ruby-lsp"; };
+      "[ruby]" = monospace;
       "[typescript]" = prettier;
       "[typescriptreact]" = prettier;
       "[yaml]" = monospace;

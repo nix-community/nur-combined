@@ -932,6 +932,7 @@ RSS
 rstest
 RTSP
 RuboCop
+Rufo
 runtimes
 Rustacean
 Rustaceans

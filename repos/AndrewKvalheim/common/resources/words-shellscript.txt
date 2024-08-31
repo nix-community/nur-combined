@@ -12,6 +12,8 @@ mktemp
 newermt
 nullglob
 pdfinfo
+popd
+pushd
 readlink
 realpath
 setaf
