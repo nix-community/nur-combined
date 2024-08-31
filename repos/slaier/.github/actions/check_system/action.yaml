@@ -1,0 +1,18 @@
+name: "Check System"
+description: "Build system"
+outputs:
+  out_path:
+    description: "Out path"
+    value: ${{ steps.build.outputs.out_path }}
+runs:
+  using: "composite"
+  steps:
+    - name: Build NixOS system
+      id: build
+      shell: bash
+      run: |
+        out_path=$(nix build \
+          .#nixosConfigurations.local.config.system.build.toplevel \
+          --no-link \
+          --print-out-paths)
+        echo "out_path=$out_path" >> $GITHUB_OUTPUT

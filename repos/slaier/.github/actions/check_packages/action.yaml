@@ -1,0 +1,19 @@
+name: "Check packages"
+description: "Build packages"
+runs:
+  using: "composite"
+  steps:
+    - name: Check evaluation
+      shell: bash
+      run: |
+        nix-env -f . -qa \* --meta --xml \
+          --allowed-uris https://static.rust-lang.org \
+          --option restrict-eval true \
+          --option allow-import-from-derivation true \
+          --drv-path --show-trace \
+          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+          -I $PWD
+
+    - name: Build nix packages
+      shell: bash
+      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
