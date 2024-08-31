@@ -86,15 +86,15 @@
   };
   attic = {
     pname = "attic";
-    version = "c2354f658582f7c870316dfce612cf7454720abe";
+    version = "f74cee00364a36e4db8d05dc9c98391e18d9b4f8";
     src = fetchFromGitHub {
       owner = "zhaofengli";
       repo = "attic";
-      rev = "c2354f658582f7c870316dfce612cf7454720abe";
+      rev = "f74cee00364a36e4db8d05dc9c98391e18d9b4f8";
       fetchSubmodules = false;
-      sha256 = "sha256-1W9Cw4xw8jb5zAF4YXN1PoAmClR9zS0k+Yyt6E8gfmE=";
+      sha256 = "sha256-vzmyW8Q6fG+QqlsYus+Xbo5s61ciXM4UpStZ2j5Pn54=";
     };
-    date = "2024-08-24";
+    date = "2024-08-30";
   };
   axiom-syslog-proxy = {
     pname = "axiom-syslog-proxy";
@@ -820,13 +820,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3645";
+    version = "b3649";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3645";
+      rev = "b3649";
       fetchSubmodules = false;
-      sha256 = "sha256-8y1rR+suUhRpz1yQ5h157wQKLLGOAdmFAarehux2xeg=";
+      sha256 = "sha256-pVFNJhdwq3aVOYrucejprnokvglWeUiQcntwMAwI2v8=";
     };
   };
   lyrica = {
