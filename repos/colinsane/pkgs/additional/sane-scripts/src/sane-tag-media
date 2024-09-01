@@ -8,7 +8,7 @@ tool which runs over a complete music library (or audiobooks, videos, ebooks (li
   - from correctly-tagged files in the same directory
   - or manually specified by the user
 - rewrites file paths based on tags (by default: `AlbumArtist/AlbumTitle/TrackNumber-TrackTitle`)
-  - resulting paths are exclusively `[a-zA-Z0-9\._-]`
+  - resulting paths are exclusively `[a-zA-Z0-9\\._-]`
   - characters outside this set are mapped to the nearest character. for example:
     - `&` is replaced by `And`
     - `ü` is replaced by `u`
