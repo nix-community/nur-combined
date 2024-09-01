@@ -99,6 +99,9 @@ parseArgs() {
 
 destructive() {
   if [ -z "$dryRun" ]; then
+    if [ -n "$ECHO_CMD" ]; then
+      echo "$@"
+    fi
     "$@"
   else
     echo "dry-run: $@"
@@ -148,7 +151,7 @@ deployOneHost() {
     # add more `-v` for more verbosity (up to 5).
     # builders-use-substitutes false: optimizes so that the remote machine doesn't try to get paths from its substituters.
     #   we already have all paths here, and the remote substitution is slow to check and SERIOUSLY flaky on moby in particular.
-    destructive nix copy -vv --option builders-use-substitutes false --to "ssh-ng://$host" "$storePath" || return 1
+    ECHO_CMD=1 destructive nix copy -vv --option builders-use-substitutes false --to "ssh-ng://$host" "$storePath" || return 1
   fi
 
   if [ -n "$action" ] && [ "$action" != "copy" ]; then

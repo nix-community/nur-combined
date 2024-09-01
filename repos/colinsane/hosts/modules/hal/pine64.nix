@@ -483,6 +483,31 @@ in
     # the filtering/calibration is bad that it causes the screen to go fully dark at times.
     # boot.blacklistedKernelModules = [ "stk3310" ];
 
+    boot.extraModprobeConfig = ''
+      # 2024-09-01: disable power-saving if using the rtw88 rtl8723cs WiFi driver
+      # power saving was observed to cause frequent disconnections and reconnections
+      # on mainline 6.10.7 and mainline 6.11.0-rc5.
+      # recommendation to disable lps was seen here:
+      # - <https://bbs.archlinux.org/viewtopic.php?id=273440>
+      #
+      # without this, `dmesg --follow` shows recurring events like:
+      # [   68.406648] wlan0: authenticate with xx:xx:xx:xx:xx:xx (local address=xx:xx:xx:xx:xx:xx)
+      # [   68.502376] wlan0: send auth to xx:xx:xx:xx:xx:xx (try 1/3)
+      # [   68.516573] wlan0: authenticated
+      # [   68.522666] wlan0: associate with xx:xx:xx:xx:xx:xx (try 1/3)
+      # [   68.541704] wlan0: RX AssocResp from xx:xx:xx:xx:xx:xx (capab=0x14xx status=0 aid=5)
+      # [   68.554838] wlan0: associated
+      #
+      # [  176.505711] wlan0: authenticate with xx:xx:xx:xx:xx:xx (local address=02:ba:7a:03:b4:a6)
+      # [  176.608752] wlan0: send auth to xx:xx:xx:xx:xx:xx (try 1/3)
+      # [  176.620025] wlan0: authenticated
+      # [  176.654670] wlan0: associate with xx:xx:xx:xx:xx:xx (try 1/3)
+      # [  176.690814] wlan0: RX AssocResp from xx:xx:xx:xx:xx:xx (capab=0x14xx status=0 aid=5)
+      # [  176.743676] wlan0: associated
+      #
+      options rtw88_core disable_lps_deep=y
+    '';
+
     boot.kernelParams = [
       # without this some GUI apps fail: `DRM_IOCTL_MODE_CREATE_DUMB failed: Cannot allocate memory`
       # this is because they can't allocate enough video ram.

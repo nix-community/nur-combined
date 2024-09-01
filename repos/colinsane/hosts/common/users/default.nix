@@ -1,4 +1,4 @@
-{ config, pkgs, lib, sane-lib, ... }:
+{ pkgs, ... }:
 
 let
   libcapForPam = pkgs.libcap;

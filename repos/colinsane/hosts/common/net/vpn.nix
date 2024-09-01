@@ -5,7 +5,7 @@
 # - generate config @ OVPN.com
 # - copy the Address, PublicKey, Endpoint from OVPN's config
 
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   # N.B.: OVPN issues each key (i.e. device) a different IP (addrV4), and requires you use it.
   # the IP it issues can be used to connect to any of their VPNs.

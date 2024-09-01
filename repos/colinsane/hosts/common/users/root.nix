@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 {
   sane.persist.sys.byStore.ephemeral = [
     # when running commands as root, some things may create ~/.cache entries.

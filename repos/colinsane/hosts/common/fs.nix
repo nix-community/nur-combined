@@ -2,7 +2,7 @@
 # - x-systemd options: <https://www.freedesktop.org/software/systemd/man/systemd.mount.html>
 # - fuse options: `man mount.fuse`
 
-{ config, lib, pkgs, sane-lib, utils, ... }:
+{ config, lib, utils, ... }:
 
 let
   fsOpts = rec {
@@ -64,39 +64,6 @@ let
     #   # we don't transform_symlinks because that breaks the validity of remote /nix stores
     #   "sftp_server=/run/wrappers/bin/sudo\\040/run/current-system/sw/libexec/sftp-server"
     # ];
-    # in the event of hunt NFS mounts, consider:
-    # - <https://unix.stackexchange.com/questions/31979/stop-broken-nfs-mounts-from-locking-a-directory>
-
-    # NFS options: <https://linux.die.net/man/5/nfs>
-    # actimeo=n  = how long (in seconds) to cache file/dir attributes (default: 3-60s)
-    # bg         = retry failed mounts in the background
-    # retry=n    = for how many minutes `mount` will retry NFS mount operation
-    # intr       = allow Ctrl+C to abort I/O (it will error with `EINTR`)
-    # soft       = on "major timeout", report I/O error to userspace
-    # softreval  = on "major timeout", service the request using known-stale cache results instead of erroring -- if such cache data exists
-    # retrans=n  = how many times to retry a NFS request before giving userspace a "server not responding" error (default: 3)
-    # timeo=n    = number of *deciseconds* to wait for a response before retrying it (default: 600)
-    #              note: client uses a linear backup, so the second request will have double this timeout, then triple, etc.
-    # proto=udp  = encapsulate protocol ops inside UDP packets instead of a TCP session.
-    #              requires `nfsvers=3` and a kernel compiled with `NFS_DISABLE_UDP_SUPPORT=n`.
-    #              UDP might be preferable to TCP because the latter is liable to hang for ~100s (kernel TCP timeout) after a link drop.
-    #              however, even UDP has issues with `umount` hanging.
-    #
-    # N.B.: don't change these without first testing the behavior of sandboxed apps on a flaky network.
-    nfs = common ++ [
-      # "actimeo=5"
-      # "bg"
-      "retrans=1"
-      "retry=0"
-      # "intr"
-      "soft"
-      "softreval"
-      "timeo=30"
-      "nofail"  # don't fail remote-fs.target when this mount fails  (not an option for sshfs else would be common)
-      # "proto=udp"  # default kernel config doesn't support NFS over UDP: <https://bugs.launchpad.net/ubuntu/+source/linux/+bug/1964093> (see comment 11).
-      # "nfsvers=3"  # NFSv4+ doesn't support UDP at *all*. it's ok to omit nfsvers -- server + client will negotiate v3 based on udp requirement. but omitting causes confusing mount errors when the server is *offline*, because the client defaults to v4 and thinks the udp option is a config error.
-      # "x-systemd.idle-timeout=10"  # auto-unmount after this much inactivity
-    ];
 
     # manually perform a ftp mount via e.g.
     #   curlftpfs -o ftpfs_debug=2,user=anonymous:anonymous,connect_timeout=10 -f -s ftp://servo-hn /mnt/my-ftp
@@ -184,8 +151,6 @@ let
         "drop_privileges"
         "auto_unmount"  #< ensures that when the fs exits, it releases its mountpoint. then systemd can recognize it as failed.
       ];
-      # fsType = "nfs";
-      # options = fsOpts.nfs ++ fsOpts.lazyMount;
     };
     sane.fs."${localPath}" = {
       dir.acl.user = "colin";
@@ -345,12 +310,6 @@ lib.mkMerge [
     # 100% should be "guaranteed" safe so long as the data is even *slightly* compressible.
     # but it decreases working memory under the heaviest of loads by however much space the compressed memory occupies (e.g. 50% if 2:1; 25% if 4:1)
     zramSwap.memoryPercent = 100;
-
-    # environment.pathsToLink = [
-    #   # needed to achieve superuser access for user-mounted filesystems (see sshRoot above)
-    #   # we can only link whole directories here, even though we're only interested in pkgs.openssh
-    #   "/libexec"
-    # ];
 
     programs.fuse.userAllowOther = true;  #< necessary for `allow_other` or `allow_root` options.
   }

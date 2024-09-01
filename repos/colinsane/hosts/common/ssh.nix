@@ -1,4 +1,4 @@
-{ config, lib,  sane-lib, ... }:
+{ config, lib, ... }:
 
 let
   hostKeys = lib.mapAttrsToList
