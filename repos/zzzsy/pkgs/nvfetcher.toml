@@ -9,6 +9,7 @@ fetch.github = "hchunhui/librime-lua"
 [iosevka-zt]
 src.github = "zzzsyyy/Iosevka"
 fetch.url = "https://github.com/zzzsyyy/Iosevka/releases/download/v$ver/Iosevka-$ver.txz"
+fetch.force = true
 src.prefix = "v"
 
 [plangothic]

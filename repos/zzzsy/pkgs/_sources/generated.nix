@@ -18,7 +18,7 @@
     version = "31.2.0";
     src = fetchurl {
       url = "https://github.com/zzzsyyy/Iosevka/releases/download/v31.2.0/Iosevka-31.2.0.txz";
-      sha256 = "sha256-LewaMYKw2T2qOxSWSCAZI/NZl1YOcsqroJFGhoBfVaw=";
+      sha256 = "sha256-9rL+gEuWqIYlTJ8GA6ylVEgDYj02HfQ08Jic8WWmhYA=";
     };
   };
   librime-lua = {
