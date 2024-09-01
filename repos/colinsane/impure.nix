@@ -13,13 +13,11 @@ let
   evalHost = { name, system, branch ? "master", variant ? null }:
   let
     pkgs = mkPkgs { inherit system; variant = branch; };
-  in pkgs.nixos (
-    [
-      (import ./hosts/instantiate.nix { hostName = name; inherit variant; })
-      (import ./modules)
-      pkgs.sops-nix.nixosModules.sops
-    ]
-  );
+  in pkgs.nixos [
+    (import ./hosts/instantiate.nix { hostName = name; inherit variant; })
+    (import ./modules)
+    pkgs.sops-nix.nixosModules.sops
+  ];
   mkFlavoredHost = args: let
     host = evalHost args;
     # expose the toplevel nixos system as the toplevel attribute itself,

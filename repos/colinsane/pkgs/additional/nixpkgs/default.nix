@@ -27,12 +27,12 @@
 }:
 let
   lock = {
-    master.rev = "61d815a20bdb9fd827c379de088a345aa8adfc60";
-    master.sha256 = "sha256-CyhuwWACUApIW7tq38FjddWdPhLHQXCXhhd/ivu4FeE=";
-    staging.rev = "61d815a20bdb9fd827c379de088a345aa8adfc60";
-    staging.sha256 = "sha256-CyhuwWACUApIW7tq38FjddWdPhLHQXCXhhd/ivu4FeE=";
-    staging-next.rev = "61d815a20bdb9fd827c379de088a345aa8adfc60";
-    staging-next.sha256 = "sha256-CyhuwWACUApIW7tq38FjddWdPhLHQXCXhhd/ivu4FeE=";
+    master.rev = "2d3ffea1966d409f7b9b14a18ee92307d983dedc";
+    master.sha256 = "sha256-ix/+UBfwAm3hXNFZ8h61gUW3HFowCLVdzcNHNXxKCpA=";
+    staging.rev = "2d3ffea1966d409f7b9b14a18ee92307d983dedc";
+    staging.sha256 = "sha256-ix/+UBfwAm3hXNFZ8h61gUW3HFowCLVdzcNHNXxKCpA=";
+    staging-next.rev = "2d3ffea1966d409f7b9b14a18ee92307d983dedc";
+    staging-next.sha256 = "sha256-ix/+UBfwAm3hXNFZ8h61gUW3HFowCLVdzcNHNXxKCpA=";
   };
   lock' = lock."${variant}";
   unpatchedSrc = fetchzip {
@@ -66,9 +66,6 @@ let
     config = {
       allowUnfree = true;  # NIXPKGS_ALLOW_UNFREE=1
       allowBroken = true;  # NIXPKGS_ALLOW_BROKEN=1
-      permittedInsecurePackages = [
-        "jitsi-meet-1.0.8043"  #< XXX(2024-08-17): used by element-web, and probably in a safe way. see: <https://github.com/NixOS/nixpkgs/pull/334638>
-      ];
     };
   } // (if (system != localSystem) then {
     # XXX(2023/12/11): cache.nixos.org uses `system = ...` instead of `hostPlatform.system`, and that choice impacts the closure of every package.
@@ -84,7 +81,7 @@ in
     src.overrideAttrs (base: {
       # attributes needed for update scripts
       pname = "nixpkgs";
-      version = "0-unstable-2024-08-25";
+      version = "0-unstable-2024-08-30";
       passthru = (base.passthru or {}) // nixpkgs // {
         src = unpatchedSrc // {
           inherit (lock') rev;

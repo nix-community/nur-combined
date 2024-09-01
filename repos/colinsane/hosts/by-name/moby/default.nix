@@ -31,6 +31,10 @@
   sane.programs.sway.enableFor.user.colin = true;
   sane.programs.sway.config.mod = "Mod1";  #< alt key instead of Super
 
+  # swap papers for zathura, since only one of these cross-compiles (TODO: enable cross compilation of papers!)
+  sane.programs.papers.enableFor.user.colin = false;
+  sane.programs.zathura.enableFor.user.colin = true;
+
   # disable the following non-essential programs which fail to cross compile
   sane.programs.bash-language-server.enableFor = { system = false; user.colin = false; };  # bash neovim LSP: doesn't cross compile (2024-08-26)
   sane.programs.blueberry.enableFor.user.colin = false;  # bluetooth manager: doesn't cross compile

@@ -300,10 +300,10 @@ in
       "gnome-maps"
       "gnome-weather"
       "gpodder"
-      # "gst-device-monitor"  # for debugging audio/video
+      "gst-device-monitor"  # for debugging audio/video
       # "gthumb"
       # "lemoa"  # lemmy app
-      # "libcamera"  # for `cam` binary (useful for debugging cameras)
+      "libcamera"  # for `cam` binary (useful for debugging cameras)
       "libnotify"  # for notify-send; debugging
       # "lollypop"
       "loupe"  # image viewer
@@ -320,7 +320,7 @@ in
       # "picard"  # music tagging
       # "seahorse"  # keyring/secret manager
       "signal-desktop"
-      # "snapshot"  # camera app
+      "snapshot"  # camera app
       # "spot"  # Gnome Spotify client
       # "sublime-music"
       # "tdesktop"  # broken on phosh
@@ -347,7 +347,7 @@ in
       "notejot"  # note taking, e.g. shopping list
       "planify"  # todo-tracker/planner
       "portfolio-filemanager"
-      "tangram"  # web browser
+      # "tangram"  # web browser
       "wike"  # Wikipedia Reader
       "xarchiver"  # archiver, backup option for when engrampa UI overflows screen and is unusale (xarchiver UI fails in different ways)
     ];

@@ -23,7 +23,7 @@
   - fix by adding `kaslrseed` to uboot script before `booti`
     - <https://github.com/armbian/build/pull/4352>
     - not sure how that's supposed to work with tow-boot; maybe i should just update tow-boot
-- moby: bpf is effectively disabled?
+- ~moby: bpf is effectively disabled?~  2024/08/31: running mainline linux, this is not a problem. unsure if still a problem if using linux-postmarketos-allwinner
   - `dmesg | grep 'systemd[1]: bpf-lsm: Failed to load BPF object: No such process'`
   - `dmesg | grep 'hid_bpf: error while preloading HID BPF dispatcher: -22'`
 - `s6` is not re-entrant
@@ -36,8 +36,6 @@
   - see under "preferences", cookies are disabled
   - prevents logging into websites (OpenStreetMap)
   - works when sandbox is disabled
-- swaync: DnD toggle doesn't do anything
-- moby: dino fails to launch?
 
 ## REFACTORING:
 - add import checks to my Python nix-shell scripts
@@ -77,6 +75,7 @@
   - matrix room links *just work*.
   - `network.protocol-handler.external.https = true` in about:config *seems* to do this,
     but breaks some webpages (e.g. Pleroma)
+- firefox: disable Ctrl+W shortcut
 
 ### security/resilience
 - enable `snapper` btrfs snapshots (`services.snapper`)
@@ -87,8 +86,6 @@
   - enforce that all `environment.packages` has a sandbox profile (or explicitly opts out)
   - revisit "non-sandboxable" apps and check that i'm not actually just missing mountpoints
     - LL_FS_RW=/ isn't enough -- need all mount points like `=/:/proc:/sys:...`.
-  - ensure non-bin package outputs are linked for sandboxed apps
-    - i.e. `outputs.man`, `outputs.debug`, `outputs.doc`, ...
   - lock down dbus calls within the sandbox
     - otherwise anyone can `systemd-run --user ...` to potentially escape a sandbox
     - <https://github.com/flatpak/xdg-dbus-proxy>
@@ -150,7 +147,6 @@
   - e.g. self-hosted [ladder](https://github.com/everywall/ladder) (like 12ft.io)
 - RSS: have podcasts get downloaded straight into ~/Videos/...
   - and strip the ads out using Whisper transcription + asking a LLM where the ad breaks are
-- neovim: set up language server (lsp; rnix-lsp; nvim-lspconfig)
 - neovim: integrate LLMs
 - Helix: make copy-to-system clipboard be the default
 - firefox/librewolf: persist history

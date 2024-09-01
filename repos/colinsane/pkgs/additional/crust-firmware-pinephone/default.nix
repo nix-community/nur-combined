@@ -4,7 +4,6 @@
   fetchFromGitHub,
   flex,
   lib,
-  pkgsCross,
   stdenv,
   yacc,
 }:

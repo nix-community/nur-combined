@@ -15,6 +15,46 @@ with pkgs.vimPlugins;
     '';
   }
   {
+    # LSP-capable code completion: <https://github.com/hrsh7th/nvim-cmp>
+    # type half a symbol, then `Ctrl+Space` to show autocomplete options, then `Enter` to autocomplete it.
+    # TODO: how to get incremental completion w/o requiring Ctrl+Space?
+    plugin = nvim-cmp;
+    config = ''
+      local cmp = require("cmp")
+      cmp.setup {
+        snippet = {
+          expand = function(args)
+            vim.snippet.expand(args.body)
+          end,
+        },
+        window = {
+          -- completion = cmp.config.window.bordered(),
+          -- documentation = cmp.config.window.bordered(),
+        },
+        mapping = cmp.mapping.preset.insert {
+          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<C-f>'] = cmp.mapping.scroll_docs(4),
+          ['<C-Space>'] = cmp.mapping.complete(),
+          ['<C-e>'] = cmp.mapping.abort(),
+          ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        },
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+        }, {
+          { name = 'buffer' },
+        })
+      }
+    '';
+  }
+  {
+    # used by nvim-cmp to find symbols in other buffers
+    plugin = cmp-buffer;
+  }
+  {
+    # used by nvim-cmp to find symbols in the LSP
+    plugin = cmp-nvim-lsp;
+  }
+  {
     # Language Server Plugin config:
     # - <https://github.com/neovim/nvim-lspconfig>
     # - docs: `:help lspconfig`
@@ -26,11 +66,14 @@ with pkgs.vimPlugins;
     plugin = nvim-lspconfig;
     config = ''
       local lspconfig = require("lspconfig")
+      local cmp_nvim_lsp = require("cmp_nvim_lsp")
+      local capabilities = cmp_nvim_lsp.default_capabilities()
 
     '' + lib.optionalString config.sane.programs.bash-language-server.enabled ''
       -- bash language server
       -- repo: <https://github.com/bash-lsp/bash-language-server>
       lspconfig.bashls.setup {
+        capabilities = capabilities,
         filetypes = { "bash", "sh", "zsh" },  -- defaults to just `sh`
         handlers = {
           -- the info and warnings are noisy and outright wrong most of the time
@@ -43,44 +86,60 @@ with pkgs.vimPlugins;
 
     '' + lib.optionalString config.sane.programs.clang-tools.enabled ''
       -- c/c++ language server
-      lspconfig.clangd.setup { }
+      lspconfig.clangd.setup {
+        capabilities = capabilities,
+      }
 
     '' + lib.optionalString config.sane.programs.ltex-ls.enabled ''
       -- LaTeX / html / markdown spellchecker
       -- repo: <https://github.com/valentjn/ltex-ls>
-      lspconfig.ltex.setup { }
+      lspconfig.ltex.setup {
+        capabilities = capabilities,
+      }
 
     '' + lib.optionalString config.sane.programs.lua-language-server.enabled ''
       -- Lua language server
-      lspconfig.lua_ls.setup { }
+      lspconfig.lua_ls.setup {
+        capabilities = capabilities,
+      }
 
     '' + lib.optionalString config.sane.programs.marksman.enabled ''
       -- Markdown language server
       -- repo: <https://github.com/artempyanykh/marksman>
       -- an alternative, specialized for PKMs: <https://github.com/Feel-ix-343/markdown-oxide>
-      lspconfig.marksman.setup { }
+      lspconfig.marksman.setup {
+        capabilities = capabilities,
+      }
 
     '' + lib.optionalString config.sane.programs.nil.enabled ''
       -- nix language server
       -- repo: <https://github.com/oxalica/nil>
       -- features: <https://github.com/oxalica/nil/blob/main/docs/features.md>
       -- a newer alternative is `nixd`: <https://github.com/nix-community/nixd>
-      lspconfig.nil_ls.setup { }
+      lspconfig.nil_ls.setup {
+        capabilities = capabilities,
+      }
 
     '' + lib.optionalString config.sane.programs.nixd.enabled ''
       -- nix language server
       -- repo: <https://github.com/nix-community/nixd>
       -- this is a bit nicer than `nil`, noting things like redundant parens, unused args, ...
-      lspconfig.nixd.setup { }
+      lspconfig.nixd.setup {
+        capabilities = capabilities,
+      }
 
     '' + lib.optionalString config.sane.programs.openscad-lsp.enabled ''
       -- openscad (.scad) language server
       -- repo: <https://github.com/Leathong/openscad-LSP>
-      lspconfig.openscad_lsp.setup { }
+      lspconfig.openscad_lsp.setup {
+        capabilities = capabilities,
+      }
 
     '' + lib.optionalString config.sane.programs.pyright.enabled ''
       -- python language server
-      lspconfig.pyright.setup { }
+      lspconfig.pyright.setup {
+        capabilities = capabilities,
+      }
 
     '' + lib.optionalString config.sane.programs.rust-analyzer.enabled ''
       -- Rust language server
@@ -88,21 +147,30 @@ with pkgs.vimPlugins;
       -- - thinks that `None` doesn't exist
       -- - can't autocomplete `std::` imports
       -- - but it CAN autocomplete stuff from non-std libraries (?)
-      lspconfig.rust_analyzer.setup { }
+      lspconfig.rust_analyzer.setup {
+        capabilities = capabilities,
+      }
 
     '' + lib.optionalString config.sane.programs.typescript-language-server.enabled ''
       -- Typescript language server
       -- repo: <https://github.com/typescript-language-server/typescript-language-server>
       -- requires tsconfig.json or jsconfig.json in the toplevel of the project directory
-      lspconfig.tsserver.setup { }
+      lspconfig.tsserver.setup {
+        capabilities = capabilities,
+      }
 
     '' + lib.optionalString config.sane.programs.vala-language-server.enabled ''
       -- Vala (gtk gui language) language server
-      lspconfig.vala_ls.setup { }
+      lspconfig.vala_ls.setup {
+        capabilities = capabilities,
+      }
     '';
   }
   {
     # docs: fzf-vim (fuzzy finder): https://github.com/junegunn/fzf.vim
+    # `:Rg <pattern>` to search the current directory and navigate to results
+    # - or `:RG <pattern>` to re-launch `rg` on every keystroke (better results; slower)
+    # - or `:Ag <pattern>`
     plugin = fzf-vim;
   }
   {
@@ -147,6 +215,11 @@ with pkgs.vimPlugins;
       vim.o.foldmethod = 'expr'
       vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
     '';
+  }
+  {
+    # show commit which last modified text under the cursor.
+    # trigger with `:GitMessenger` or `<leader>gm` (i.e. `\gm`)
+    plugin = git-messenger-vim;
   }
   {
     # docs: tex-conceal-vim: https://github.com/KeitaNakamura/tex-conceal.vim/

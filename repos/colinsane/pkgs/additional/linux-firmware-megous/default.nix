@@ -1,9 +1,10 @@
-{ stdenv
-, lib
-, fetchgit
-, anx7688 ? true  # USB-C chip (pinephone)
-, ov5640 ? true   # camera (pinephone: rear camera)
-, rtl_bt ? true   # rtl8723cs bluetooth (pinephone)
+{
+  fetchgit,
+  lib,
+  stdenv,
+  anx7688 ? true,  # USB-C chip (pinephone)
+  ov5640 ? true,   # camera (pinephone: rear camera)
+  rtl_bt ? true,   # rtl8723cs bluetooth (pinephone)
 # other files in megi's repo:
 # - brcm/
 #   - brcmfmac43362-*
@@ -35,7 +36,7 @@ stdenv.mkDerivation {
     ${lib.optionalString ov5640 "cp ov5640_af.bin $out/lib/firmware"}
   '';
 
-  meta = with lib; {
+  meta = {
     description = "firmware files associated with megi's kernel, particularly for the pinephone";
     homepage = "https://xnux.eu/howtos/build-pinephone-kernel.html#toc-firmware-files";
   };

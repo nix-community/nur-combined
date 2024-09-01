@@ -17,6 +17,7 @@ let
     ### ADDITIONAL PACKAGES
     alsa-ucm-pinephone-manjaro = callPackage ./additional/alsa-ucm-pinephone-manjaro { };
     alsa-ucm-pinephone-pmos = callPackage ./additional/alsa-ucm-pinephone-pmos { };
+    armbian-build = lib.recurseIntoAttrs (callPackage ./additional/armbian-build { });
     blast-ugjka = callPackage ./additional/blast-ugjka { };
     bootpart-uefi-x86_64 = callPackage ./additional/bootpart-uefi-x86_64 { };
     bunpen = callPackage ./additional/bunpen { };

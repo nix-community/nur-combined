@@ -113,7 +113,6 @@ let
     (fromDb "theamphour.com" // tech)
     (fromDb "techtalesshow.com" // tech)  # Corbin Davenport
     (fromDb "techwontsave.us" // pol)  # rec by Cory Doctorow
-    (fromDb "wakingup.libsyn.com" // pol)  # Sam Harris
     (fromDb "werenotwrong.fireside.fm" // pol)
     (mkPod "https://sfconservancy.org/casts/the-corresponding-source/feeds/ogg/" // tech)
 
@@ -127,6 +126,7 @@ let
     # (fromDb "rss.prod.firstlook.media/deconstructed/podcast.rss" // pol)  #< possible URL rot
     # (fromDb "rss.prod.firstlook.media/intercepted/podcast.rss" // pol)  #< possible URL rot
     # (fromDb "trashfuturepodcast.podbean.com" // pol)  # rec by Cory Doctorow, but way rambly
+    # (fromDb "wakingup.libsyn.com" // pol)  # Sam Harris, but he just repeats himself now
     # (mkPod "https://anchor.fm/s/21bc734/podcast/rss" // pol // infrequent)  # Emerge: making sense of what's next -- <https://www.whatisemerging.com/emergepodcast>
     # (mkPod "https://audioboom.com/channels/5097784.rss" // tech)  # Lateral with Tom Scott
     # (mkPod "https://feeds.megaphone.fm/RUNMED9919162779" // pol // infrequent)  # The Witch Trials of J.K. Rowling: <https://www.thefp.com/witchtrials>

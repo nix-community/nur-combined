@@ -1,4 +1,4 @@
-{ fetchpatch2, fetchurl, lib }:
+{ fetchpatch2 }:
 let
   fetchpatch' = {
     saneCommit ? null,
