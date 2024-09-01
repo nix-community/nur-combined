@@ -82,6 +82,7 @@ jobs:
 
       - name: Commit back to repository
         uses: stefanzweifel/git-auto-commit-action@v5
+        if: ${{ success() || failure() }}
         with:
           commit_message: 'auto: update package hashes'
 
