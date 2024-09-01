@@ -40,10 +40,15 @@ in
   })
 
   (fetchpatch' {
-    title = "flatpak: fix cross compilation for 1.14.10";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/337412";
-    saneCommit = "8359a34a1b944082ea1bd76fee61819e7b86e00e";
-    hash = "sha256-Ia91L24UnMyg5CNFgBd6NnotP36NenYhhH6sV+5PFm4=";
+    title = "ayatana-ido,libayatana-indicator: move to pkgs/by-name and fix cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/338790";
+    hash = "sha256-BbnXCFs5zD2IQhzvlH1bexEExg/kMf+N+WnXwdCdxP0=";
+  })
+
+  (fetchpatch' {
+    title = "pantheon.switchboard-plug-sound: fix cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/338799";
+    hash = "sha256-q/WhUH+NbeMALApCgSpQqe9eQ9jcod0EqEnTc19Qut4=";
   })
 
   # (fetchpatch' {

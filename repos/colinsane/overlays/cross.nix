@@ -115,9 +115,9 @@ in with final; {
   #     });
   #   };
 
-  # 2024/08/19: upstreaming is unblocked
-  ayatana-ido = addNativeInputs [ glib ] prev.ayatana-ido;
-  libayatana-indicator = addNativeInputs [ glib ] prev.libayatana-indicator;
+  # 2024/09/01: upstreaming is unblocked; PR: https://github.com/NixOS/nixpkgs/pull/338790
+  # ayatana-ido = addNativeInputs [ glib ] prev.ayatana-ido;
+  # libayatana-indicator = addNativeInputs [ glib ] prev.libayatana-indicator;
 
   # bamf: required via pantheon.switchboard -> wingpanel -> gala
   # bamf = prev.bamf.overrideAttrs (upstream: {
@@ -241,7 +241,7 @@ in with final; {
   # };
 
   evolution-data-server = prev.evolution-data-server.overrideAttrs (upstream: {
-    # 2024/05/31: upstreaming is blocked by appstream (out for PR), libgweather (out for PR)
+    # 2024/09/01: upstreaming is blocked by libgweather (out for PR)
     cmakeFlags = upstream.cmakeFlags ++ [
       "-DCMAKE_CROSSCOMPILING_EMULATOR=${stdenv.hostPlatform.emulator buildPackages}"
       "-DENABLE_TESTS=no"
@@ -343,30 +343,6 @@ in with final; {
     '';
   });
 
-  # 2024/08/12: upstreaming is unblocked, implemented on `pr-flatpak-cross`, out for PR: <https://github.com/NixOS/nixpkgs/pull/334324>
-  # flatpak = prev.flatpak.overrideAttrs (upstream: {
-  #   # fixes "No package 'libxml-2.0' found"
-  #   buildInputs = upstream.buildInputs ++ [ libxml2 ];
-  #   configureFlags = upstream.configureFlags ++ [
-  #     "--enable-selinux-module=no"  # fixes "checking for /usr/share/selinux/devel/Makefile... configure: error: cannot check for file existence when cross compiling"
-  #     "--disable-gtk-doc"  # fixes "You must have gtk-doc >= 1.20 installed to build documentation for Flatpak"
-  #   ];
-
-  #   postPatch = let
-  #     # copied from nixpkgs flatpak and modified to use buildPackages python
-  #     vsc-py = buildPackages.python3.withPackages (pp: [
-  #       pp.pyparsing
-  #     ]);
-  #   in ''
-  #     patchShebangs buildutil
-  #     patchShebangs tests
-  #     PATH=${lib.makeBinPath [vsc-py]}:$PATH patchShebangs --build subprojects/variant-schema-compiler/variant-schema-compiler
-  #   '' + ''
-  #     sed -i s:'\$BWRAP --version:${stdenv.hostPlatform.emulator buildPackages} \$BWRAP --version:' configure.ac
-  #     sed -i s:'\$DBUS_PROXY --version:${stdenv.hostPlatform.emulator buildPackages} \$DBUS_PROXY --version:' configure.ac
-  #   '';
-  # });
-
   # 2024/08/12: upstreaming is blocked by xdg-desktop-portal
   fractal = prev.fractal.overrideAttrs (upstream: {
     postPatch = (upstream.postPatch or "") + ''
@@ -398,7 +374,7 @@ in with final; {
     ];
   });
 
-  # 2024/05/31: upstreaming is unblocked
+  # 2024/09/01: upstreaming is unblocked
   glycin-loaders = prev.glycin-loaders.overrideAttrs (upstream: {
     nativeBuildInputs = upstream.nativeBuildInputs ++ [
       # fixes: loaders/meson.build:72:7: ERROR: Program 'msgfmt' not found or not executable
@@ -421,7 +397,7 @@ in with final; {
   #   });
   # });
 
-  # 2024/05/31: upstreaming is blocked on appstream, qtx11extras (via zbar)
+  # 2024/09/01: upstreaming is blocked on qtx11extras (via zbar)
   gnome-frog = prev.gnome-frog.overrideAttrs (upstream: {
     # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
     postPatch = (upstream.postPatch or "") + ''
@@ -449,7 +425,7 @@ in with final; {
   });
 
   # 2024/05/08: fix: "meson.build:85:11: ERROR: Dependency "dbus-1" not found, tried pkgconfig".
-  # 2024/08/12: upstreaming is unblocked
+  # 2024/09/01: upstreaming is blocked on gvfs -> samba
   gnome-online-accounts = mvToBuildInputs [ dbus ] prev.gnome-online-accounts;
 
   # 2024/08/12: upstreaming is blocked on gnome-user-share (apache-httpd)
@@ -917,27 +893,27 @@ in with final; {
   # });
 
   pantheon = prev.pantheon.overrideScope (self: super: {
-    # 2024/08/11: upstreaming is unblocked
+    # 2024/09/01: upstreaming is blocked on libayatana-indicator (out for review https://github.com/NixOS/nixpkgs/pull/338790)
     switchboard-plug-network = super.switchboard-plug-network.overrideAttrs (upstream: {
       nativeBuildInputs = upstream.nativeBuildInputs ++ [
         buildPackages.gettext  # <for msgfmt
       ];
     });
-    # 2024/06/13: upstreaming is unblocked; implemented on `pr-cross-switchboard-plugs-sound` branch
-    switchboard-plug-sound = super.switchboard-plug-sound.overrideAttrs (upstream: {
-      # depsBuildBuild = (upstream.depsBuildBuild or []) ++ [
-      #   pkg-config  #< so that it can find the right gettext/msgfmt
-      # ];
-      # everything requires an extra `buildPackages` than if i patched this inside nixpkgs itself: not sure why!
-      nativeBuildInputs = upstream.nativeBuildInputs ++ [
-        buildPackages.gettext  #< for msgfmt
-        # gettext  #< for msgfmt
-        buildPackages.glib
-      ];
-      env.PKG_CONFIG_GIO_2_0_GLIB_COMPILE_RESOURCES = "${lib.getDev buildPackages.buildPackages.glib}/bin/glib-compile-resources";
+    # 2024/09/01: upstreaming is unblocked; out for review: <https://github.com/NixOS/nixpkgs/pull/338799>
+    # switchboard-plug-sound = super.switchboard-plug-sound.overrideAttrs (upstream: {
+    #   # depsBuildBuild = (upstream.depsBuildBuild or []) ++ [
+    #   #   pkg-config  #< so that it can find the right gettext/msgfmt
+    #   # ];
+    #   # everything requires an extra `buildPackages` than if i patched this inside nixpkgs itself: not sure why!
+    #   nativeBuildInputs = upstream.nativeBuildInputs ++ [
+    #     buildPackages.gettext  #< for msgfmt
+    #     # gettext  #< for msgfmt
+    #     buildPackages.glib
+    #   ];
+    #   env.PKG_CONFIG_GIO_2_0_GLIB_COMPILE_RESOURCES = "${lib.getDev buildPackages.buildPackages.glib}/bin/glib-compile-resources";
 
-      strictDeps = true;
-    });
+    #   strictDeps = true;
+    # });
   });
 
   # fixes (meson) "Program 'glib-mkenums mkenums' not found or not executable"
@@ -969,7 +945,7 @@ in with final; {
   #   ];
   # } prev.phosh-mobile-settings;
 
-  # 2024/05/31: upstreaming is blocked on qtsvg, appstream
+  # 2024/09/01: upstreaming is unblocked
   pwvucontrol = (prev.pwvucontrol.override {
     cargo = crossCargo;
   }).overrideAttrs (upstream:
@@ -1220,7 +1196,7 @@ in with final; {
   # - i think the build script tries to run the generated binary?
   # vpnc = mvToNativeInputs [ perl ] prev.vpnc;
 
-  # 2024/08/12: upstreaming is blocked on flatpak
+  # 2024/09/01: upstreaming is unblocked
   xdg-desktop-portal = prev.xdg-desktop-portal.overrideAttrs (upstream: {
     nativeBuildInputs = upstream.nativeBuildInputs ++ [
       # fixes "meson.build:117:8: ERROR: Program 'bwrap' not found or not executable"
@@ -1277,7 +1253,7 @@ in with final; {
   #   strictDeps = true;
   # });
 
-  # 2024/05/31: upstreaming is blocked by qtsvg, appstream
+  # 2024/09/01: upstreaming is unblocked
   wike = prev.wike.overrideAttrs (upstream: {
     # error: "<wike> is not allowed to refer to the following paths: <build python>"
     # wike's meson build script sets host binaries to use build PYTHON
