@@ -1253,15 +1253,15 @@ in with final; {
   #   strictDeps = true;
   # });
 
-  # 2024/09/01: upstreaming is unblocked
-  wike = prev.wike.overrideAttrs (upstream: {
-    # error: "<wike> is not allowed to refer to the following paths: <build python>"
-    # wike's meson build script sets host binaries to use build PYTHON
-    # disallowedReferences = [];
-    postFixup = (upstream.postFixup or "") + ''
-      patchShebangs --update $out/share/wike/wike-sp
-    '';
-  });
+  # 2024/09/01: upstreaming is unblocked; out for PR <https://github.com/NixOS/nixpkgs/pull/338807>
+  # wike = prev.wike.overrideAttrs (upstream: {
+  #   # error: "<wike> is not allowed to refer to the following paths: <build python>"
+  #   # wike's meson build script sets host binaries to use build PYTHON
+  #   # disallowedReferences = [];
+  #   postFixup = (upstream.postFixup or "") + ''
+  #     patchShebangs --update $out/share/wike/wike-sp
+  #   '';
+  # });
 
   # 2024/08/12: upstreaming is unblocked
   # fixes `hostPrograms.moby.neovim` (but breaks eval of `hostPkgs.moby.neovim` :o)

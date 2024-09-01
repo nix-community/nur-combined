@@ -40,6 +40,12 @@ in
   })
 
   (fetchpatch' {
+    title = "wike: fix cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/338807";
+    hash = "sha256-qAoDQuv34gV1Etc/6Kj5U0c3HHsPAUR1Fshb456i5pA=";
+  })
+
+  (fetchpatch' {
     title = "ayatana-ido,libayatana-indicator: move to pkgs/by-name and fix cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/338790";
     hash = "sha256-BbnXCFs5zD2IQhzvlH1bexEExg/kMf+N+WnXwdCdxP0=";
