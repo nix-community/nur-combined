@@ -17,5 +17,24 @@ jobs:
       - uses: ./.github/actions/setup_nix
         with:
           cachix_token: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      - name: Build prepare
+        id: prepare
+        run: |
+          hash=$(nix eval \
+            .#nixosConfigurations.local.config.system.build.toplevel --raw | \
+            cut -d'/' -f4 | cut -d'-' -f1)
+          echo "hash=$hash" | tee -a $GITHUB_OUTPUT
+      - name: Restore flag
+        id: cache-nix
+        uses: actions/cache@v4
+        with:
+          path: /tmp/nixbid-${{ steps.prepare.outputs.hash }}
+          key: nix-${{ steps.prepare.outputs.hash }}
+          lookup-only: true
       - uses: ./.github/actions/check_packages
+        if: ${{ steps.cache-nix.outputs.cache-hit != 'true' }}
       - uses: ./.github/actions/check_system
+        if: ${{ steps.cache-nix.outputs.cache-hit != 'true' }}
+      - name: Cache flag
+        if: ${{ steps.cache-nix.outputs.cache-hit != 'true' }}
+        run: touch /tmp/nixbid-${{ steps.prepare.outputs.hash }}

@@ -61,7 +61,6 @@
     safeeyes
     sops
     tdesktop
-    tealdeer
     unrar
     unzip
     usbutils
