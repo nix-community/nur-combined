@@ -3,7 +3,8 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  soapysdr-with-plugins
+  soapysdr-with-plugins,
+  darwin
 }:
 
 stdenv.mkDerivation rec {
@@ -23,6 +24,9 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     soapysdr-with-plugins
+  ] ++ lib.optionals stdenv.isDarwin [ 
+    darwin.apple_sdk.frameworks.IOKit
+    darwin.apple_sdk.frameworks.Security
   ];
 
   meta = {
