@@ -31,7 +31,6 @@
 , physfs
 , pixman
 , pkg-config
-# , pkgsStatic
 , ruby
 , SDL2
 , SDL2_image
@@ -128,15 +127,9 @@ stdenv.mkDerivation {
       --replace-quiet "#include <SDL_" "#include <SDL2/SDL_"
   '';
 
-  # preConfigure = ''
-  #   pushd linux
-  #   make
-  #   source vars.sh
-  #   popd
-  # '';
-
   mesonFlags = [
     "-Dcjk_fallback_font=true"
+    "-Dmri_version=${ruby'.version.majMin}"
     "-Dworkdir_current=true"
   ];
 
