@@ -12,6 +12,7 @@ stdenv.mkDerivation rec {
     runHook preInstall
 
     install -Dm755 packet_forwarder/lora_pkt_fwd $out/bin/lora_pkt_fwd
+    install -Dm755 tools/reset_lgw.sh $out/bin/reset_lgw.sh
     install -Dm755 util_boot/boot $out/bin/boot
     install -Dm755 util_chip_id/chip_id $out/bin/chip_id
     install -Dm755 util_net_downlink/net_downlink $out/bin/net_downlink
