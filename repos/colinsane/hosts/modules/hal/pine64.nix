@@ -41,6 +41,33 @@ in
     # boot.kernelPatches = pkgs.armbian-build.patches.megous.series;
 
     boot.kernelPatches = with pkgs.armbian-build.patches.megous; [
+      # ANX7688 USB-C driver; required for display initialization and for battery charging
+      # byName."usb-typec-anx7688-Add-driver-for-ANX7688-USB-C-HDMI-bridge"
+      # byName."usb-typec-anx7688-Port-to-Linux-6.9"
+      # byName."usb-typec-anx7688-Port-to-Linux-6.10"
+      {
+        name = "usb: typec: anx7688: Add driver for ANX7688 USB-C HDMI bridge";
+        patch = pkgs.fetchurl {
+          # https://lore.kernel.org/lkml/ZhPM4XU8ttsFftBd@duo.ucw.cz/
+          name = "usb: typec: anx7688: Add driver for ANX7688 USB-C HDMI bridge";
+          url = "http://lore.kernel.org/lkml/ZhPM4XU8ttsFftBd@duo.ucw.cz/1-a.txt";
+          hash = "sha256-doJOtaJLvepgagkQH0oqzVR9VQY4ZbK/3gx4kKgKnLg=";
+        };
+      }
+      ### enable the ANX7688 in device tree
+      # HDMI patches: because the Type C patch references the hdmi node, incidentally, so need to create that first
+      byName."arm64-dts-allwinner-a64-Add-hdmi-sound-card"
+      byName."arm64-dts-allwinner-a64-Enable-hdmi-sound-card-on-boards-with-h"
+      # required for later patches to apply
+      byName."arm64-dts-sun50i-a64-pinephone-Add-front-back-cameras"
+      # this links ANX7688 into the pinephone-1.2 devicetree
+      byName."arm64-dts-sun50i-a64-pinephone-Add-Type-C-support-for-all-PP-va"
+
+      # enable /dev/modem-power; /sys/class/modem-power. my eg25-control script depends on it.
+      # XXX(2024-09-01): NOT compatible with Linux 6.11
+      byName."misc-modem-power-Power-manager-for-modems"
+      byName."arm64-dts-sun50i-a64-pinephone-Add-modem-power-manager"
+
       # byName."media-ov5640-Experiment-Try-to-disable-denoising-sharpening"
       # byName."media-ov5640-Sleep-after-poweroff-to-ensure-next-poweron-is-not"
       # byName."media-ov5640-Don-t-powerup-the-sensor-during-driver-probe"
@@ -95,9 +122,6 @@ in
       # byName."iio-adc-sun4i-gpadc-iio-Allow-to-use-sun5i-a13-gpadc-iio-from-D"
       # byName."mtd-spi-nor-Add-vdd-regulator-support"
       # byName."ARM-dts-sun5i-Add-soc-handle"
-      byName."arm64-dts-sun50i-a64-pinephone-Add-front-back-cameras"
-      byName."arm64-dts-sun50i-a64-pinephone-Add-Type-C-support-for-all-PP-va"
-      byName."arm64-dts-sun50i-a64-pinephone-Add-modem-power-manager"
       # byName."arm64-dts-sun50i-a64-pinephone-Fix-BH-modem-manager-behavior"
       # byName."arm64-dts-sun50i-a64-pinephone-Add-detailed-OCV-to-capactiy-con"
       # byName."arm64-dts-sun50i-a64-pinephone-Shorten-post-power-on-delay-on-m"
@@ -133,8 +157,6 @@ in
       # byName."sound-soc-sun8i-codec-Add-support-for-digital-part-of-the-AC100"
       # byName."ASoC-ec25-New-codec-driver-for-the-EC25-modem"
       # byName."ASOC-sun9i-hdmi-audio-Initial-implementation"
-      byName."arm64-dts-allwinner-a64-Add-hdmi-sound-card"
-      byName."arm64-dts-allwinner-a64-Enable-hdmi-sound-card-on-boards-with-h"
       # byName."arm64-dts-sun50i-a64-Set-fifo-size-for-uarts"
       # byName."Mark-some-slow-drivers-for-async-probe-with-PROBE_PREFER_ASYNCH"
       # byName."arm64-xor-Select-32regs-without-benchmark-to-speed-up-boot"
@@ -145,7 +167,6 @@ in
       # byName."firmware-arm_scpi-Support-unidirectional-mailbox-channels"
       # byName."arm64-dts-allwinner-a64-Add-SCPI-protocol"
       # byName."rtc-sun6i-Allow-RTC-wakeup-after-shutdown"
-      byName."misc-modem-power-Power-manager-for-modems"
       # byName."arm64-dts-sun50i-a64-Add-missing-trip-points-for-GPU"
       # byName."arm64-dts-allwinner-a64-Fix-LRADC-compatible"
       # byName."ASoC-codec-es8316-DAC-Soft-Ramp-Rate-is-just-a-2-bit-control"
@@ -187,9 +208,6 @@ in
       # byName."regulator-axp20x-Turn-N_VBUSEN-to-input-on-x-powers-sense-vbus-"
       # byName."drm-bridge-dw-hdmi-Allow-to-accept-HPD-status-from-other-driver"
       # byName."drm-bridge-dw-hdmi-Report-HDMI-hotplug-events"
-      byName."usb-typec-anx7688-Add-driver-for-ANX7688-USB-C-HDMI-bridge"
-      byName."usb-typec-anx7688-Port-to-Linux-6.9"
-      byName."usb-typec-anx7688-Port-to-Linux-6.10"
       # byName."dt-bindings-axp20x-adc-allow-to-use-TS-pin-as-GPADC"
       # byName."iio-adc-axp20x_adc-allow-to-set-TS-pin-to-GPADC-mode"
       # byName."power-axp20x_battery-Allow-to-set-target-voltage-to-4.35V"
@@ -504,6 +522,8 @@ in
       # [  176.654670] wlan0: associate with xx:xx:xx:xx:xx:xx (try 1/3)
       # [  176.690814] wlan0: RX AssocResp from xx:xx:xx:xx:xx:xx (capab=0x14xx status=0 aid=5)
       # [  176.743676] wlan0: associated
+      #
+      # N.B.: this doesn't solve *all* de-association issues, but i'm fairly (?) confident it reduces them
       #
       options rtw88_core disable_lps_deep=y
     '';

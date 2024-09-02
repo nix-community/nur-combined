@@ -1,4 +1,4 @@
-{ config, lib, options, pkgs, sane-lib, utils, ... }:
+{ config, lib, options, pkgs, sane-lib, ... }:
 let
   saneCfg = config.sane;
   cfg = config.sane.programs;

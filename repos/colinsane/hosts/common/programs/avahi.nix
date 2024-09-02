@@ -11,6 +11,9 @@
 #   nss-mdns goes through avahi-daemon, so there IS caching here
 #
 { config, lib, pkgs, ... }:
+let
+  cfg = config.sane.programs.avahi;
+in
 {
   sane.programs.avahi = {
     packageUnwrapped = pkgs.avahi.overrideAttrs (upstream: {
@@ -32,9 +35,10 @@
       "/"  #< TODO: decrease this, but be weary that the daemon might exit immediately
     ];
   };
-  services.avahi = lib.mkIf config.sane.programs.avahi.enabled {
+
+  services.avahi = lib.mkIf cfg.enabled {
     enable = true;
-    package = config.sane.programs.avahi.package;
+    package = cfg.package;
     publish.enable = true;
     publish.userServices = true;
     nssmdns4 = true;
@@ -53,7 +57,21 @@
     ];
   };
 
-  systemd.services.avahi-daemon = lib.mkIf config.sane.programs.avahi.enabled {
+  # fix "rpfilter drop ..." dmesg logspam.
+  # this might not be necessary?
+  networking.firewall.extraCommands = lib.mkIf cfg.enabled (with pkgs; ''
+    # after an outgoing mDNS query to the multicast address, open FW for incoming responses.
+    # ipset -! means "don't fail if set already exists"
+    ${ipset}/bin/ipset create -! mdns hash:ip,port timeout 10
+    ${iptables}/bin/iptables -A OUTPUT -d 239.255.255.250/32 -p udp -m udp --dport 5353 -j SET --add-set mdns src,src --exist
+    ${iptables}/bin/iptables -A INPUT -p udp -m set --match-set mdns dst,dst -j ACCEPT
+    # IPv6 ruleset. ff02::/16 means *any* link-local multicast group (so this is probably more broad than it needs to be)
+    ${ipset}/bin/ipset create -! mdns6 hash:ip,port timeout 10 family inet6
+    ${iptables}/bin/ip6tables -A OUTPUT -d 239.255.255.250/32 -p udp -m udp --dport 5353 -j SET --add-set mdns6 src,src --exist
+    ${iptables}/bin/ip6tables -A INPUT -p udp -m set --match-set mdns6 dst,dst -j ACCEPT
+  '');
+
+  systemd.services.avahi-daemon = lib.mkIf cfg.enabled {
     # hardening: see `systemd-analyze security avahi-daemon`
     serviceConfig.User = "avahi";
     serviceConfig.Group = "avahi";

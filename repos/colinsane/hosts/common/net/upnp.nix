@@ -16,5 +16,9 @@
     ${ipset}/bin/ipset create -! upnp hash:ip,port timeout 10
     ${iptables}/bin/iptables -A OUTPUT -d 239.255.255.250/32 -p udp -m udp --dport 1900 -j SET --add-set upnp src,src --exist
     ${iptables}/bin/iptables -A INPUT -p udp -m set --match-set upnp dst,dst -j ACCEPT
+    # IPv6 ruleset. ff02::/16 means *any* link-local multicast group (so this is probably more broad than it needs to be)
+    ${ipset}/bin/ipset create -! upnp6 hash:ip,port timeout 10 family inet6
+    ${iptables}/bin/ip6tables -A OUTPUT -d ff02::/16 -p udp -m udp --dport 1900 -j SET --add-set upnp6 src,src --exist
+    ${iptables}/bin/ip6tables -A INPUT -p udp -m set --match-set upnp6 dst,dst -j ACCEPT
   '';
 }

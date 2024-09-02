@@ -64,7 +64,12 @@
     # it's an impurity that touches way more than i need and tends to cause hard-to-debug eval issues
     # when it goes wrong. should i port my `nix-shell` scripts to something more tailored to my uses
     # and then delete `nixpkgs-overlays`?
-    "nixpkgs-overlays=/home/colin/dev/nixos/integrations/nixpkgs/nixpkgs-overlays.nix"
+    # "nixpkgs-overlays=/home/colin/dev/nixos/integrations/nixpkgs/nixpkgs-overlays.nix"
+    # XXX(2024-09-02): nix 2.24.4 errors when nixpkgs-overlays includes a symlink component:
+    # "error: path '/home/colin/dev' is a symlink"
+    # apparently nix has to explicitly handle symlinks in every place it might encounter them,
+    # so the fixes inside nix for this are manual and fragile. dereference it ourselves:
+    "${config.sane.fs."/home/colin/dev".symlink.target}/nixos/integrations/nixpkgs/nixpkgs-overlays.nix"
   ];
 
   # ensure new deployments have a source of this repo with which they can bootstrap.

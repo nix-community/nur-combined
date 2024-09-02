@@ -80,7 +80,10 @@ def main():
 
     prefer_podcast = args.podcast or existing_data.get("is_podcast", False)
 
-    items = try_scheme(url, "https") or try_scheme(url, "http")
+    items = try_scheme(url, "https") \
+        or try_scheme(url, "http") \
+        or try_scheme(f"www.{url}", "https") \
+        or try_scheme(f"www.{url}", "http") \
 
     # print all results
     serialized = [item.serialize() for item in items]

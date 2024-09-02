@@ -8,11 +8,8 @@
   linkFarm,
   makeWrapper,
   runCommandLocal,
-  runtimeShell,
   sanebox,
-  symlinkJoin,
   writeShellScriptBin,
-  writeTextFile,
   xorg,
 }:
 let
@@ -331,18 +328,23 @@ let
         removeUnwanted "$outdir" ""
 
         # fixup a few files i understand well enough
-        for d in \
-          $outdir/etc/xdg/autostart/*.desktop \
-          $outdir/share/applications/*.desktop \
-          $outdir/share/dbus-1/{services,system-services}/*.service \
-          $outdir/{etc,lib,share}/systemd/{system,user}/*.service \
-        ; do
-          # Exec: dbus and desktop files
-          # ExecStart,ExecReload: systemd service files
-          for key in Exec ExecStart ExecReload; do
-            for binLoc in bin libexec sbin; do
+        for binLoc in bin libexec sbin; do
+          for d in \
+            $outdir/etc/xdg/autostart/*.desktop \
+            $outdir/share/applications/*.desktop \
+            $outdir/share/dbus-1/{services,system-services}/*.service \
+          ; do
+            trySubstitute "$d" "Exec=%s/$binLoc/"
+          done
+
+          for d in $outdir/{etc,lib,share}/systemd/{system,user}/*.service; do
+            for key in ExecStart ExecReload; do
               trySubstitute "$d" "$key=%s/$binLoc/"
             done
+          done
+
+          for d in $outdir/share/polkit-1/actions/*.policy; do
+              trySubstitute "$d" '<annotate key="org.freedesktop.policykit.exec.path">'"%s/$binLoc/"
           done
         done
       done

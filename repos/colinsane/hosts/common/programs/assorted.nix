@@ -372,7 +372,8 @@ in
       "gimp"  # broken on phosh
       # "gnome.dconf-editor"
       # "gnome.file-roller"
-      "gnome-disk-utility"
+      # "gnome-disk-utility"
+      "gparted"
       "nautilus"  # file browser
       # "gnome.totem"  # video player, supposedly supports UPnP
       # "handbrake"  #< TODO: fix build
@@ -652,6 +653,7 @@ in
     gnome-calendar.sandbox.whitelistWayland = true;
 
     # gnome-disks
+    # XXX(2024-09-02): fails to show any disks even when run as `SANEBOX_DISABLE=1 sudo -E gnome-disks`.
     gnome-disk-utility.buildCost = 1;
     gnome-disk-utility.sandbox.method = "bwrap";
     gnome-disk-utility.sandbox.whitelistDbus = [ "system" ];
@@ -660,6 +662,18 @@ in
       "tmp"
       "use/iso"
       # TODO: probably need /dev and such
+    ];
+
+    # gparted: run with `sudo -E gparted` (-E to keep the wayland socket)
+    gparted.sandbox.method = "landlock";
+    gparted.sandbox.capabilities = [ "dac_override" "sys_admin" ];
+    gparted.sandbox.extraPaths = [
+      "/dev"  #< necessary to see any devices
+      "/proc"  #< silences segfaults when it invokes `pidof` on its children
+      "/sys"  #< silences "partition has been written but unable to inform the kernel ..."
+    ];
+    gparted.sandbox.extraRuntimePaths = [
+      "dconf"  #< silences "unable to create file '/run/user/colin/dconf/user': Permission denied.  dconf will not work properly."
     ];
 
     hping.sandbox.method = "landlock";
@@ -790,9 +804,10 @@ in
     #   "/var/run/netns"
     # ];
 
-    iptables.sandbox.method = "landlock";
-    iptables.sandbox.net = "all";
-    iptables.sandbox.capabilities = [ "net_admin" ];
+    iptables = {};  # TODO: sandbox
+    # iptables.sandbox.method = "landlock";
+    # iptables.sandbox.net = "all";
+    # iptables.sandbox.capabilities = [ "net_admin" ];
 
     # iputils provides `ping` (and arping, clockdiff, tracepath)
     iputils.sandbox.method = "landlock";

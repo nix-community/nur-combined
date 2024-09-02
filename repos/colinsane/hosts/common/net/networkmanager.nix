@@ -48,7 +48,9 @@ in {
       # allow the bus to owned by either root or networkmanager users
       # use the group here, that way ordinary users can be elevated to control networkmanager
       # (via e.g. `nmcli`)
-      for f in org.freedesktop.NetworkManager.conf nm-dispatcher.conf ; do
+      confs=(nm-dispatcher.conf)
+      confs+=(org.freedesktop.NetworkManager.conf)
+      for f in "''${confs[@]}" ; do
         substitute $out/share/dbus-1/system.d/$f \
           $out/share/dbus-1/system.d/networkmanager-$f \
           --replace-fail 'user="root"' 'group="networkmanager"'
@@ -92,9 +94,9 @@ in {
     serviceConfig.ProtectHostname = true;  # probably not upstreamable: prevents changing hostname
     serviceConfig.ProtectKernelLogs = true;  # disable /proc/kmsg, /dev/kmsg
     serviceConfig.ProtectKernelModules = true;  # syscall filter to prevent module calls (probably not upstreamable: NM will want to load modules like `ppp`)
-    serviceConfig.ProtectKernelTunables = true;  # but NM might need to write /proc/sys/net/...
+    # serviceConfig.ProtectKernelTunables = true;  # causes errors/warnings when opening files in /proc/sys/net/...; also breaks IPv6 SLAAC / link-local address creation!
     serviceConfig.ProtectProc = "invisible";
-    serviceConfig.ProcSubset = "pid";
+    serviceConfig.ProcSubset = "all";
     serviceConfig.ProtectSystem = "strict";  # makes read-only: all but /dev, /proc, /sys.
     serviceConfig.RemoveIPC = true;
     serviceConfig.RestrictAddressFamilies = [
