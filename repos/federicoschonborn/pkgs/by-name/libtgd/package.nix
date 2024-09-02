@@ -6,7 +6,7 @@
   doxygen,
   ninja,
   pandoc,
-  nix-update-script,
+  # nix-update-script,
 
   withTool ? true,
   withDocs ? false,
@@ -85,12 +85,12 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "TGD_STATIC" withStatic)
   ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version-regex"
-      "tgd-(.*)"
-    ];
-  };
+  # passthru.updateScript = nix-update-script {
+  #   extraArgs = [
+  #     "--version-regex"
+  #     "tgd-(.*)"
+  #   ];
+  # };
 
   meta = {
     mainProgram = "tgd";

@@ -264,25 +264,28 @@
 
             no-updateScript.program = pkgs.writeShellApplication {
               name = "no-updateScript";
-              text = builtins.concatStringsSep "\n" (
+              text = lib.concatLines (
                 lib.mapAttrsToList (
-                  name: value: if !value.passthru ? updateScript then "echo '${name}'" else ""
+                  name: value: lib.optionalString (!value ? updateScript) "echo '${name}'"
                 ) config.packages
               );
             };
 
             update.program = pkgs.writeShellApplication {
               name = "update";
-              text = ''
-                nix-shell --show-trace "${nixpkgs.outPath}/maintainers/scripts/update.nix" \
-                  --arg commit 'true' \
-                  --arg include-overlays "[(import ./overlay.nix)]" \
-                  --arg keep-going 'true' \
-                  --arg predicate '(
-                    let prefix = builtins.toPath ./pkgs; prefixLen = builtins.stringLength prefix;
-                    in (_: p: p.meta?position && (builtins.substring 0 prefixLen p.meta.position) == prefix)
-                  )'
-              '';
+              text = lib.concatLines (
+                lib.mapAttrsToList (
+                  name: value:
+                  lib.optionalString (value ? updateScript) (
+                    lib.concatMapStringsSep " " lib.escapeShellArg (
+                      value.updateScript
+                      ++ [
+                        name
+                      ]
+                    )
+                  )
+                ) config.packages
+              );
             };
           };
 

@@ -6,7 +6,7 @@
   ninja,
   qt6,
   libtgd,
-  nix-update-script,
+# nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -32,12 +32,12 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.qtwayland
   ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version-regex"
-      "qv-(.*)"
-    ];
-  };
+  # passthru.updateScript = nix-update-script {
+  #   extraArgs = [
+  #     "--version-regex"
+  #     "qv-(.*)"
+  #   ];
+  # };
 
   meta = {
     mainProgram = "qv";
