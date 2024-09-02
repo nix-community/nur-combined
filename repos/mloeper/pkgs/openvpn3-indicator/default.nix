@@ -23,6 +23,14 @@ python311Packages.buildPythonPackage {
     setproctitle
     openvpn3
   ];
+  propagatedBuildInputs = with python311Packages; [
+    setuptools
+    secretstorage
+    dbus-python
+    pygobject3
+    setproctitle
+    openvpn3
+  ];
   buildInputs = [
     # Adds AppIndicator3 namespace
     libappindicator-gtk3
