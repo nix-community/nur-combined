@@ -48,7 +48,7 @@
     ./exiftool.nix
     ./fcitx5.nix
     ./feedbackd.nix
-    ./firefox.nix
+    ./firefox
     ./firefox-xdg-open.nix
     ./flare-signal.nix
     ./foliate.nix
