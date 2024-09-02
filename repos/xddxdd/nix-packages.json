@@ -424,6 +424,11 @@
     "pname": "imewlconverter",
     "version": "3.1.0"
   },
+  "legacyPackages.x86_64-linux.inter-knot": {
+    "description": "绳网是一个游戏、技术交流平台",
+    "pname": "inter-knot",
+    "version": "2.11.0+14"
+  },
   "legacyPackages.x86_64-linux.jproxy": {
     "description": "A proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate ",
     "pname": "jproxy",
@@ -3278,6 +3283,11 @@
     "description": "”深蓝词库转换“ 一款开源免费的输入法词库转换程序",
     "pname": "imewlconverter",
     "version": "3.1.0"
+  },
+  "packages.x86_64-linux.inter-knot": {
+    "description": "绳网是一个游戏、技术交流平台",
+    "pname": "inter-knot",
+    "version": "2.11.0+14"
   },
   "packages.x86_64-linux.jproxy": {
     "description": "A proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate ",

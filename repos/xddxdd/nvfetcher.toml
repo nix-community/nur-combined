@@ -236,6 +236,10 @@ fetch.github = "strongtz/i915-sriov-dkms"
 src.github = "studyzy/imewlconverter"
 fetch.github = "studyzy/imewlconverter"
 
+[inter-knot]
+src.github = "share121/inter-knot"
+fetch.github = "share121/inter-knot"
+
 [jproxy]
 src.manual = "v3.4.1"
 fetch.url = "https://github.com/LuckyPuppy514/jproxy/releases/download/$ver/windows-$ver.zip"

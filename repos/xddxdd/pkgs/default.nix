@@ -157,6 +157,7 @@ mkScope (
     hi3-ii-martian-font = pkg ./uncategorized/hi3-ii-martian-font { };
     hoyo-glyphs = pkg ./uncategorized/hoyo-glyphs { };
     imewlconverter = pkg ./uncategorized/imewlconverter { };
+    inter-knot = pkg ./uncategorized/inter-knot { };
     jproxy = pkg ./uncategorized/jproxy { };
     kaixinsong-fonts = pkg ./uncategorized/kaixinsong-fonts { };
     kata-image = pkg ./uncategorized/kata-image { };

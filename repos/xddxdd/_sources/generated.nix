@@ -594,6 +594,17 @@
       sha256 = "sha256-TSB0SmRoI79nlGlFm/+FQ8GymhCEkuNKX0NXHHw0u8s=";
     };
   };
+  inter-knot = {
+    pname = "inter-knot";
+    version = "v2.11.0+14";
+    src = fetchFromGitHub {
+      owner = "share121";
+      repo = "inter-knot";
+      rev = "v2.11.0+14";
+      fetchSubmodules = false;
+      sha256 = "sha256-JAhL/LxWONwqObFpLNAo8CSm/Gc5Iej63btVwiyRn3w=";
+    };
+  };
   jproxy = {
     pname = "jproxy";
     version = "v3.4.1";
