@@ -67,10 +67,17 @@ export fn namespace_restrict(what: *resources) void = {
 
   let pwd = strings::dup(os::getcwd());  // dup because API uses a static buffer
   defer(free(pwd));
-  isolate_paths(what.paths);
+  isolate_paths(what);
   // try to change to the old working directory;
   // this can fail if it's not within the sandbox.
   errors::ext::swallow("namespace: restore $PWD", os::chdir(pwd));
+};
+
+// everything inside this struct is borrowed
+type ns_ctx = struct {
+  what: *resources,
+  old_fs: *fs::fs,
+  new_fs: *fs::fs,
 };
 
 // fork and:
@@ -88,8 +95,13 @@ fn fork_and_propagate() (void | os::exec::error) = {
 
 // reconfigures all the mounts so that after this call the only paths accessible
 // are those reachable from the provided `paths`.
-// N.B.: this function does NOT preserve the current working directory
-fn isolate_paths(paths: []path::buffer) void = {
+// N.B.: this function does NOT preserve the current working directory.
+// N.B.: if asked to mount `/foo/bar`, and then `/foo`, the second mount will
+//   obscure the first.
+//   i don't know if this really matters anywhere (maybe `/` and `/proc`?),
+//   `sanebox` behavior is to gather all paths, expand their symlinks,
+//   and then only bind-mount the top-most path in the case of overlap.
+fn isolate_paths(what: *resources) void = {
   // allow new mounts to propagate from the parent namespace into the child
   // namespace, but not vice versa:
   errors::ext::check("[namespace] reconfigure / as MS_SLAVE", rt::ext::mount("/", "/", "", rt::ext::mount_flag::SLAVE | rt::ext::mount_flag::REC, null));
@@ -131,10 +143,14 @@ fn isolate_paths(paths: []path::buffer) void = {
     "proc", "new/proc", "proc", rt::ext::mount_flag::NOSUID | rt::ext::mount_flag::NOEXEC | rt::ext::mount_flag::NODEV, null
   ));
 
-
   // provide a new `/tmp` too.
   errors::ext::swallow("[namespace] mkdir new/tmp", rt::mkdir("new/tmp", 0o777));
   errors::ext::swallow("[namespace] mount -t tmpfs tmpfs new/tmp", rt::ext::mount("tmpfs", "new/tmp", "tmpfs", 0, null));
+
+  // some apps (e.g. signal-desktop) require /dev/shm.
+  // /dev/shm is an ordinary tmpfs. we can get that just by `mkdir`ing it.
+  errors::ext::swallow("[namespace] mkdir new/dev", rt::mkdir("new/dev", 0o755));
+  errors::ext::swallow("[namespace] mkdir new/dev/shm", rt::mkdir("new/dev/shm", 0o777));
 
   // bind all the user-requested paths from `old/$p` into `new/$p`.
   // use the `dirfd` abstraction so that paths meant for `old` can't crawl out
@@ -152,10 +168,16 @@ fn isolate_paths(paths: []path::buffer) void = {
   let new_fs = os::dirfdopen(new_fd);
   defer(free(new_fs));
 
-  for (let path .. paths) {
+  let ctx = ns_ctx {
+    what = what,
+    old_fs = old_fs,
+    new_fs = new_fs,
+  };
+
+  for (let path .. what.paths) {
     errors::ext::swallow(
       "[namespace] unable to bind {}",
-      bind_leaf(old_fs, new_fs, &path),
+      bind_leaf(&ctx, &path),
       path::string(&path),
     );
   };
@@ -188,7 +210,7 @@ fn isolate_paths(paths: []path::buffer) void = {
 // - [x] path is too long  => does not create the leaf *nor any ancestors*.
 // - [x] canonical path points outside the fs (e.g. `..`, or `../new/proc`).
 //       does not create the leaf *nor any of its ancestors* at/after the `..`.
-fn bind_leaf(old_fs: *fs::fs, new_fs: *fs::fs, user_path: *path::buffer) (void | path::error) = {
+fn bind_leaf(ctx: *ns_ctx, user_path: *path::buffer) (void | path::error) = {
   let path_str = path::string(user_path);
   log::printfln("[namespace] permit path: {}", path_str);
 
@@ -200,50 +222,66 @@ fn bind_leaf(old_fs: *fs::fs, new_fs: *fs::fs, user_path: *path::buffer) (void |
       log::printfln("[namespace] not binding external path {} (of {})", cur_strpath, path_str);
       return;
     };
+
     if (path::abs(comp)) {
       // dirfd doesn't do well will absolute paths.
       comp = strings::sub(comp, 1, strings::end);
     };
     cur_strpath = path::push(&cur_path, comp)?;
 
+    if (cur_strpath == "proc" && !ctx.what.pid) {
+      // if we're inside a PID space, don't bind-mount /proc entries from the
+      // outer /proc mount as it confuses things like bwrap.
+      log::printfln("[namespace] not binding proc path {}", path_str);
+      return;
+    };
+
     // hmm, should we swallow this, or raise?
     // seems unlikely we'll fail to bind one part of the path, but then
     // successfully bind the *next* part.
     errors::ext::swallow(
       "[namespace] unable to copy intermediate path {} of {}",
-      bind_component(old_fs, new_fs, cur_strpath, path::iterrem(&it)),
+      bind_component(ctx, cur_strpath, path::iterrem(&it)),
       cur_strpath, path_str
     );
   };
 };
 
-fn bind_component(old_fs: *fs::fs, new_fs: *fs::fs, strpath: str, remaining: str) (void | fs::error | path::error | rt::errno) = {
-  match (fs::stat(new_fs, strpath)) {
-    case let e: fs::error => void; // hasn't been bound yet (good)
-    case let other: fs::filestat => return; // already created
+fn bind_component(ctx: *ns_ctx, strpath: str, remaining: str) (void | fs::error | path::error | rt::errno) = {
+  let new_exists = match (fs::stat(ctx.new_fs, strpath)) {
+    case let e: fs::error => yield false; // hasn't been bound yet
+    case let other: fs::filestat => yield true; // already created
   };
-  let st = fs::stat(old_fs, strpath)?;
+  let st = fs::stat(ctx.old_fs, strpath)?;
 
   if (fs::islink(st.mode)) {
-    let linktext = fs::readlink(old_fs, strpath)?;
+    if (new_exists) return;  // we already made the link
+    let linktext = fs::readlink(ctx.old_fs, strpath)?;
     log::printfln("[namespace/bind] ln new/{} -> {}", strpath, linktext);
-    fs::symlink(new_fs, linktext, strpath)?;
-    if (remaining != "") {
-      // bind the real path (or, the "more real" path, in case there are
-      // multiple layers of symlink).
-      let target_path: path::buffer = if (path::abs(linktext)) {
-        // foo/bar/baz/fnord with bar -> /target  => `/target/baz/fnord`
-        yield path::init(linktext, remaining)?;
-      } else {
-        // foo/bar/baz/fnord with foo -> target  => `foo/target/bar/baz`
-        yield path::init(strpath, "..", linktext, remaining)?;
-      };
-      return bind_leaf(old_fs, new_fs, &target_path);
+    fs::symlink(ctx.new_fs, linktext, strpath)?;
+
+    // bind the real path (or, the "more real" path, in case there are
+    // multiple layers of symlink).
+    let target_path: path::buffer = if (path::abs(linktext)) {
+      // foo/bar/baz/fnord with (bar -> /target)                  => `/target/baz/fnord`
+      // foo/bar/baz/fnord with (fnord -> /target, remaining="")  => `/target`
+      yield path::init(linktext, remaining)?;
+    } else {
+      // foo/bar/baz/fnord with (foo -> target)                   => `foo/target/bar/baz`
+      // foo/bar/baz/fnord with (fnord -> target, remaining="")   => `foo/bar/baz/target`
+      yield path::init(strpath, "..", linktext, remaining)?;
     };
+    return bind_leaf(ctx, &target_path);
   } else if (fs::isdir(st.mode)) {
-    log::printfln("[namespace/bind] mkdir new/{}", strpath);
-    fs::mkdir(new_fs, strpath, st.mode)?;
+    // don't recreate the directory if it exists, but DO try to bind-mount it.
+    //   we could have mounted something below it, and then discovered the need
+    //   to mount more.
+    if (!new_exists) {
+      log::printfln("[namespace/bind] mkdir new/{}", strpath);
+      fs::mkdir(ctx.new_fs, strpath, st.mode)?;
+    };
   } else {  // file-like
+    if (new_exists) return;  // we already bound the file
     if (remaining != "") {
       log::printfln("[namespace/bind] ignoring file where a non-terminal was expected: {}", strpath);
       return fs::wrongtype;
@@ -251,7 +289,7 @@ fn bind_component(old_fs: *fs::fs, new_fs: *fs::fs, strpath: str, remaining: str
 
     // TODO: tune options (optional parameter; default is fs::flag::TRUNC)
     log::printfln("[namespace/bind] touch new/{}", strpath);
-    fs::create(new_fs, strpath, st.mode)?;
+    fs::create(ctx.new_fs, strpath, st.mode)?;
   };
 
   if (remaining != "")

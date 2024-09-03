@@ -31,7 +31,7 @@ in
           --replace-fail '"login"' '"Default_keyring"'
       '';
     });
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  # notifications

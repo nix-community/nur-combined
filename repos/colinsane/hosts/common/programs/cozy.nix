@@ -15,7 +15,7 @@
 
     buildCost = 1;
 
-    sandbox.method = "bwrap";  # landlock gives: _multiprocessing.SemLock: Permission Denied
+    sandbox.method = "bwrap";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  # mpris
     sandbox.whitelistWayland = true;

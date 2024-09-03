@@ -1,5 +1,8 @@
 // vim: set shiftwidth=2 :
+use ascii;
+use errors;
 use rt;
+use strings;
 
 export type cap = enum {
   // In a system with the [_POSIX_CHOWN_RESTRICTED] option defined, this
@@ -258,9 +261,57 @@ export type cap = enum {
   // Allow writing to ns_last_pid
   CHECKPOINT_RESTORE = 40,
 };
+// iterate all caps via `for (let c = CAP_FIRST; c <= CAP_LAST; c += 1)`
+export const CAP_FIRST: cap = cap::CHOWN;
+export const CAP_LAST: cap = cap::CHECKPOINT_RESTORE;
 // bitset of the above. cap::FOO corresponds to the *index* of a bit here.
 // e.g. `let c: caps = (1 << cap::SYS_ADMIN)`
 export type caps = u64;
+
+export const CAPS_NONE: caps = 0;
+export const CAPS_ALL: caps = (
+  (1 << cap::AUDIT_CONTROL: u64) |
+  (1 << cap::AUDIT_READ: u64) |
+  (1 << cap::AUDIT_WRITE: u64) |
+  (1 << cap::BLOCK_SUSPEND: u64) |
+  (1 << cap::BPF: u64) |
+  (1 << cap::CHECKPOINT_RESTORE: u64) |
+  (1 << cap::CHOWN: u64) |
+  (1 << cap::DAC_OVERRIDE: u64) |
+  (1 << cap::DAC_READ_SEARCH: u64) |
+  (1 << cap::FOWNER: u64) |
+  (1 << cap::FSETID: u64) |
+  (1 << cap::IPC_LOCK: u64) |
+  (1 << cap::IPC_OWNER: u64) |
+  (1 << cap::KILL: u64) |
+  (1 << cap::LEASE: u64) |
+  (1 << cap::LINUX_IMMUTABLE: u64) |
+  (1 << cap::MAC_ADMIN: u64) |
+  (1 << cap::MAC_OVERRIDE: u64) |
+  (1 << cap::MKNOD: u64) |
+  (1 << cap::NET_ADMIN: u64) |
+  (1 << cap::NET_BIND_SERVICE: u64) |
+  (1 << cap::NET_BROADCAST: u64) |
+  (1 << cap::NET_RAW: u64) |
+  (1 << cap::PERFMON: u64) |
+  (1 << cap::SETFCAP: u64) |
+  (1 << cap::SETGID: u64) |
+  (1 << cap::SETPCAP: u64) |
+  (1 << cap::SETUID: u64) |
+  (1 << cap::SYSLOG: u64) |
+  (1 << cap::SYS_ADMIN: u64) |
+  (1 << cap::SYS_BOOT: u64) |
+  (1 << cap::SYS_CHROOT: u64) |
+  (1 << cap::SYS_MODULE: u64) |
+  (1 << cap::SYS_NICE: u64) |
+  (1 << cap::SYS_PACCT: u64) |
+  (1 << cap::SYS_PTRACE: u64) |
+  (1 << cap::SYS_RAWIO: u64) |
+  (1 << cap::SYS_RESOURCE: u64) |
+  (1 << cap::SYS_TIME: u64) |
+  (1 << cap::SYS_TTY_CONFIG: u64) |
+  (1 << cap::WAKE_ALARM: u64)
+): caps;
 
 
 type user_cap_header = struct {
@@ -288,10 +339,16 @@ const _LINUX_CAPABILITY_VERSION_3: u32 = 0x20080522;
 const _LINUX_CAPABILITY_U32S_3: u32 = 2;
 
 
+// no_new_privs makes `exec` not grant any capabilities which couldn't be
+// obtained without the `exec`. so SUID or SGID executables become just ordinary
+// executables (unless the process has CAP_SETUID?)
 export fn no_new_privs() (void | rt::errno) = {
   rt::prctl(rt::PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0)?;
 };
 
+// set the Effective, Permitted, and Inheritable capability vectors.
+// this does NOT effect the Ambient or Bounding capability sets;
+//   see PR_CAP_AMBIENT and PR_CAPBSET_DROP for that.
 export fn capset(eff: caps, prm: caps, inh: caps) (void | rt::errno) = {
   let hdr = user_cap_header {
     version = _LINUX_CAPABILITY_VERSION_3,
@@ -301,11 +358,11 @@ export fn capset(eff: caps, prm: caps, inh: caps) (void | rt::errno) = {
   // the API has some legacy such that we have to provide the lower 32 caps and
   // the upper 32 separately:
   let eff_lo = (eff & 0xFFFFFFFF): u32;
-  let eff_hi = ((eff << 32) & 0xFFFFFFFF): u32;
+  let eff_hi = ((eff >> 32) & 0xFFFFFFFF): u32;
   let prm_lo = (prm & 0xFFFFFFFF): u32;
-  let prm_hi = ((prm << 32) & 0xFFFFFFFF): u32;
+  let prm_hi = ((prm >> 32) & 0xFFFFFFFF): u32;
   let inh_lo = (inh & 0xFFFFFFFF): u32;
-  let inh_hi = ((inh << 32) & 0xFFFFFFFF): u32;
+  let inh_hi = ((inh >> 32) & 0xFFFFFFFF): u32;
   let data: [2]user_cap_data = [
     (user_cap_data {
       effective = eff_lo,
@@ -318,5 +375,200 @@ export fn capset(eff: caps, prm: caps, inh: caps) (void | rt::errno) = {
       inheritable = inh_hi,
     }),
   ];
-  syscall(rt::SYS_capset, &hdr: uintptr, &data: uintptr)?;
+  return syscall_0_on_success(rt::SYS_capset, &hdr: uintptr, &data: uintptr);
+};
+
+// add the provided capability to the ambient set.
+// the capability must already be in the permitted and inheritable sets (see `capset`).
+// will fail if PR_CAP_AMBIENT_LOWER secure bit has been set.
+export fn cap_ambient_raise(c: cap) (void | rt::errno) = {
+  rt::prctl(rt::PR_CAP_AMBIENT, rt::PR_CAP_AMBIENT_RAISE, c: u64, 0, 0)?;
+};
+
+// remove the provided capability from the ambient set.
+export fn cap_ambient_lower(c: cap) (void | rt::errno) = {
+  rt::prctl(rt::PR_CAP_AMBIENT, rt::PR_CAP_AMBIENT_LOWER, c: u64, 0, 0)?;
+};
+
+// drop the provided capability from the capability bounding set.
+// the effect is to make it so this thread generally can't acquire that capability
+// (combine that with NO_NEW_PRIVS to be certain).
+export fn capbset_drop(c: cap) (void | rt::errno) = {
+  rt::prctl(rt::PR_CAPBSET_DROP, c: u64, 0, 0, 0)?;
+};
+
+
+
+export fn cap_tostring(c: cap) str = {
+  switch (c) {
+    case cap::AUDIT_CONTROL => return "CAP_AUDIT_CONTROL";
+    case cap::AUDIT_READ => return "CAP_AUDIT_READ";
+    case cap::AUDIT_WRITE => return "CAP_AUDIT_WRITE";
+    case cap::BLOCK_SUSPEND => return "CAP_BLOCK_SUSPEND";
+    case cap::BPF => return "CAP_BPF";
+    case cap::CHECKPOINT_RESTORE => return "CAP_CHECKPOINT_RESTORE";
+    case cap::CHOWN => return "CAP_CHOWN";
+    case cap::DAC_OVERRIDE => return "CAP_DAC_OVERRIDE";
+    case cap::DAC_READ_SEARCH => return "CAP_DAC_READ_SEARCH";
+    case cap::FOWNER => return "CAP_FOWNER";
+    case cap::FSETID => return "CAP_FSETID";
+    case cap::IPC_LOCK => return "CAP_IPC_LOCK";
+    case cap::IPC_OWNER => return "CAP_IPC_OWNER";
+    case cap::KILL => return "CAP_KILL";
+    case cap::LEASE => return "CAP_LEASE";
+    case cap::LINUX_IMMUTABLE => return "CAP_LINUX_IMMUTABLE";
+    case cap::MAC_ADMIN => return "CAP_MAC_ADMIN";
+    case cap::MAC_OVERRIDE => return "CAP_MAC_OVERRIDE";
+    case cap::MKNOD => return "CAP_MKNOD";
+    case cap::NET_ADMIN => return "CAP_NET_ADMIN";
+    case cap::NET_BIND_SERVICE => return "CAP_NET_BIND_SERVICE";
+    case cap::NET_BROADCAST => return "CAP_NET_BROADCAST";
+    case cap::NET_RAW => return "CAP_NET_RAW";
+    case cap::PERFMON => return "CAP_PERFMON";
+    case cap::SETFCAP => return "CAP_SETFCAP";
+    case cap::SETGID => return "CAP_SETGID";
+    case cap::SETPCAP => return "CAP_SETPCAP";
+    case cap::SETUID => return "CAP_SETUID";
+    case cap::SYSLOG => return "CAP_SYSLOG";
+    case cap::SYS_ADMIN => return "CAP_SYS_ADMIN";
+    case cap::SYS_BOOT => return "CAP_SYS_BOOT";
+    case cap::SYS_CHROOT => return "CAP_SYS_CHROOT";
+    case cap::SYS_MODULE => return "CAP_SYS_MODULE";
+    case cap::SYS_NICE => return "CAP_SYS_NICE";
+    case cap::SYS_PACCT => return "CAP_SYS_PACCT";
+    case cap::SYS_PTRACE => return "CAP_SYS_PTRACE";
+    case cap::SYS_RAWIO => return "CAP_SYS_RAWIO";
+    case cap::SYS_RESOURCE => return "CAP_SYS_RESOURCE";
+    case cap::SYS_TIME => return "CAP_SYS_TIME";
+    case cap::SYS_TTY_CONFIG => return "CAP_SYS_TTY_CONFIG";
+    case cap::WAKE_ALARM => return "CAP_WAKE_ALARM";
+  };
+};
+
+export fn cap_fromstr(v: str) (cap | errors::invalid) = {
+  // strip leading CAP_ and allow either form.
+  if (len(v) > 4 && ascii::strcasecmp(strings::sub(v, 0, 4), "CAP_") == 0)
+    v = strings::sub(v, 4);
+
+  if (ascii::strcasecmp(v, "AUDIT_CONTROL") == 0)
+    return cap::AUDIT_CONTROL;
+  if (ascii::strcasecmp(v, "AUDIT_READ") == 0)
+    return cap::AUDIT_READ;
+  if (ascii::strcasecmp(v, "AUDIT_WRITE") == 0)
+    return cap::AUDIT_WRITE;
+  if (ascii::strcasecmp(v, "BLOCK_SUSPEND") == 0)
+    return cap::BLOCK_SUSPEND;
+  if (ascii::strcasecmp(v, "BPF") == 0)
+    return cap::BPF;
+  if (ascii::strcasecmp(v, "CHECKPOINT_RESTORE") == 0)
+    return cap::CHECKPOINT_RESTORE;
+  if (ascii::strcasecmp(v, "CHOWN") == 0)
+    return cap::CHOWN;
+  if (ascii::strcasecmp(v, "DAC_OVERRIDE") == 0)
+    return cap::DAC_OVERRIDE;
+  if (ascii::strcasecmp(v, "DAC_READ_SEARCH") == 0)
+    return cap::DAC_READ_SEARCH;
+  if (ascii::strcasecmp(v, "FOWNER") == 0)
+    return cap::FOWNER;
+  if (ascii::strcasecmp(v, "FSETID") == 0)
+    return cap::FSETID;
+  if (ascii::strcasecmp(v, "IPC_LOCK") == 0)
+    return cap::IPC_LOCK;
+  if (ascii::strcasecmp(v, "IPC_OWNER") == 0)
+    return cap::IPC_OWNER;
+  if (ascii::strcasecmp(v, "KILL") == 0)
+    return cap::KILL;
+  if (ascii::strcasecmp(v, "LEASE") == 0)
+    return cap::LEASE;
+  if (ascii::strcasecmp(v, "LINUX_IMMUTABLE") == 0)
+    return cap::LINUX_IMMUTABLE;
+  if (ascii::strcasecmp(v, "MAC_ADMIN") == 0)
+    return cap::MAC_ADMIN;
+  if (ascii::strcasecmp(v, "MAC_OVERRIDE") == 0)
+    return cap::MAC_OVERRIDE;
+  if (ascii::strcasecmp(v, "MKNOD") == 0)
+    return cap::MKNOD;
+  if (ascii::strcasecmp(v, "NET_ADMIN") == 0)
+    return cap::NET_ADMIN;
+  if (ascii::strcasecmp(v, "NET_BIND_SERVICE") == 0)
+    return cap::NET_BIND_SERVICE;
+  if (ascii::strcasecmp(v, "NET_BROADCAST") == 0)
+    return cap::NET_BROADCAST;
+  if (ascii::strcasecmp(v, "NET_RAW") == 0)
+    return cap::NET_RAW;
+  if (ascii::strcasecmp(v, "PERFMON") == 0)
+    return cap::PERFMON;
+  if (ascii::strcasecmp(v, "SETFCAP") == 0)
+    return cap::SETFCAP;
+  if (ascii::strcasecmp(v, "SETGID") == 0)
+    return cap::SETGID;
+  if (ascii::strcasecmp(v, "SETPCAP") == 0)
+    return cap::SETPCAP;
+  if (ascii::strcasecmp(v, "SETUID") == 0)
+    return cap::SETUID;
+  if (ascii::strcasecmp(v, "SYS_ADMIN") == 0)
+    return cap::SYS_ADMIN;
+  if (ascii::strcasecmp(v, "SYS_BOOT") == 0)
+    return cap::SYS_BOOT;
+  if (ascii::strcasecmp(v, "SYS_CHROOT") == 0)
+    return cap::SYS_CHROOT;
+  if (ascii::strcasecmp(v, "SYS_MODULE") == 0)
+    return cap::SYS_MODULE;
+  if (ascii::strcasecmp(v, "SYS_NICE") == 0)
+    return cap::SYS_NICE;
+  if (ascii::strcasecmp(v, "SYS_PACCT") == 0)
+    return cap::SYS_PACCT;
+  if (ascii::strcasecmp(v, "SYS_PTRACE") == 0)
+    return cap::SYS_PTRACE;
+  if (ascii::strcasecmp(v, "SYS_RAWIO") == 0)
+    return cap::SYS_RAWIO;
+  if (ascii::strcasecmp(v, "SYS_RESOURCE") == 0)
+    return cap::SYS_RESOURCE;
+  if (ascii::strcasecmp(v, "SYS_TIME") == 0)
+    return cap::SYS_TIME;
+  if (ascii::strcasecmp(v, "SYS_TTY_CONFIG") == 0)
+    return cap::SYS_TTY_CONFIG;
+  if (ascii::strcasecmp(v, "SYSLOG") == 0)
+    return cap::SYSLOG;
+  if (ascii::strcasecmp(v, "WAKE_ALARM") == 0)
+    return cap::WAKE_ALARM;
+
+  return errors::invalid;
+};
+
+// return true if `s` parses to `expect`
+fn _parse_eq(s: str, expect: (cap | errors::invalid)) bool = {
+  let got = cap_fromstr(s);
+  return match (expect) {
+    case let c: cap => yield match (got) {
+      case let c2: cap => yield c2 == c;
+      case => yield false;
+    };
+    case errors::invalid => yield match (got) {
+      case errors::invalid => yield true;
+      case => yield false;
+    };
+  };
+};
+
+@test fn cap_from_str_good() void = {
+  assert(_parse_eq("SYS_ADMIN", cap::SYS_ADMIN));
+  assert(_parse_eq("CAP_SYS_ADMIN", cap::SYS_ADMIN));
+
+  assert(_parse_eq("sys_admin", cap::SYS_ADMIN));
+  assert(_parse_eq("cap_sys_admin", cap::SYS_ADMIN));
+
+  assert(_parse_eq("CAP_sys_admin", cap::SYS_ADMIN));
+  assert(_parse_eq("cap_SYS_ADMIN", cap::SYS_ADMIN));
+};
+
+@test fn cap_from_str_bad() void = {
+  assert(_parse_eq("CAP_SYS_ADMIN_AND_MORE", errors::invalid));
+  assert(_parse_eq("SYS_ADMIN_CAP", errors::invalid));
+  assert(_parse_eq("SYS", errors::invalid));
+  assert(_parse_eq("", errors::invalid));
+};
+
+@test fn cap_roundtrip() void = {
+  assert(_parse_eq(cap_tostring(cap::SYS_ADMIN), cap::SYS_ADMIN));
 };

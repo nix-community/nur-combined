@@ -204,7 +204,7 @@ in
 
     inherit packageUnwrapped;
 
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.net = "all";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  # mpris

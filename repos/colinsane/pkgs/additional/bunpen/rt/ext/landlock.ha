@@ -78,17 +78,17 @@ export fn landlock_add_rule(
   ruleset_fd: u64,
   rule_attr: (*landlock_path_beneath_attr | *landlock_net_port_attr),
   flags: u64 = 0,
-) (rt::errno | u64) = {
+) (rt::errno | void) = {
   const (rule_type, rule_attr) = match (rule_attr) {
     case let p: *landlock_path_beneath_attr => yield (landlock_rule_type::PATH_BENEATH, p: uintptr);
     case let p: *landlock_net_port_attr => yield (landlock_rule_type::NET_PORT, p: uintptr);
   };
-  return syscall(__NR_landlock_add_rule, ruleset_fd: u64, rule_type, rule_attr: uintptr, flags);
+  return syscall_0_on_success(__NR_landlock_add_rule, ruleset_fd: u64, rule_type, rule_attr: uintptr, flags);
 };
 
 export fn landlock_restrict_self(
   ruleset_fd: u64,
   flags: u64 = 0,
-) (rt::errno | u64) = {
-  return syscall(__NR_landlock_restrict_self, ruleset_fd: u64, flags);
+) (rt::errno | void) = {
+  return syscall_0_on_success(__NR_landlock_restrict_self, ruleset_fd: u64, flags);
 };

@@ -15,48 +15,66 @@ use rt::ext;
 export type help = void;
 
 export type cli_request = struct {
-  // args to invoke the binary with.
-  // `exec_args[0]` is, by convention, the name of the executable,
-  // relevant for multi-call binaries like `busybox`.
-  exec_args: []str,
-  // path to the binary to be exec'd inside the sandbox.
-  // if the user requested `--bunpen-drop-shell`, this will be their shell (e.g. /bin/sh).
-  exec_bin: str,
+  exec_params: exec_params,
   // what to keep in the restricted environment (paths, network, etc)
   resources: restrict::resources,
 };
 
-export fn ingest_cli_opts(opts: cli_opts) (cli_request | help) = {
-  let req = cli_request { ... };
+export type exec_params = struct {
+  // args to invoke the binary with.
+  // `args[0]` is, by convention, the name of the executable,
+  // relevant for multi-call binaries like `busybox`.
+  args: []str,
+  // path to the binary to be exec'd inside the sandbox.
+  // if the user requested `--bunpen-drop-shell`, this will be their shell (e.g. /bin/sh), assuming `BUNPEN_DISABLE=1` wasn't specified.
+  bin: str,
+};
 
+fn cli_opts_get_exec_params(opts: cli_opts) exec_params = {
+  let params = exec_params { ... };
   //---- ingest `cmd` ----//
   if (len(os::args) > 0) {
     // forward argv0
-    append(req.exec_args, os::args[0]);
+    append(params.args, os::args[0]);
   };
 
   let saw_bin_path = false;
   for (let arg .. opts.cmd) {
     if (saw_bin_path) {
-      append(req.exec_args, arg);
+      append(params.args, arg);
     } else {
-      req.exec_bin = arg;
+      params.bin = arg;
       saw_bin_path = true;
     };
   };
+
+  return params;
+};
+
+export fn ingest_cli_opts(opts: cli_opts) (cli_request | exec_params | help) = {
+  let req = cli_request { ... };
 
   //---- ingest `help` ----//
   if (opts.help) {
     return help;
   };
 
-  //---- ingest `home_paths` ----//
-  ingest_paths(&req.resources.paths, opts.home_paths, os::getenv("HOME"));
-  //---- ingest `keep_all_caps` ----//
-  req.resources.all_caps = opts.keep_all_caps;
+  //---- ingest opts.cmd ----//
+  req.exec_params = cli_opts_get_exec_params(opts);
+
+  //---- ingest `disable` ----//
+  if (opts.disable)
+    return req.exec_params;
 
   //---- ingest `caps` ----//
   req.resources.caps = restrict::cap_array_to_caps(opts.keep_caps);
+
+
+  //---- ingest `home_paths` ----//
+  ingest_paths(&req.resources.paths, opts.home_paths, os::getenv("HOME"));
+  //---- ingest `keep_all_caps` ----//
+  if (opts.keep_all_caps)
+    req.resources.caps = rt::ext::CAPS_ALL;
 
   //---- ingest `keep_net` ----//
   req.resources.net = opts.keep_net;
@@ -70,12 +88,12 @@ export fn ingest_cli_opts(opts: cli_opts) (cli_request | help) = {
   //---- ingest `run_paths` ----//
   ingest_paths(&req.resources.paths, opts.run_paths, os::getenv("XDG_RUNTIME_DIR"));
 
-  //---- ingest `autodetect` (must be done after exec_args) ----//
+  //---- ingest `autodetect` (must be done after exec_params) ----//
   match (opts.autodetect) {
     case let method: autodetect =>
       // N.B.: skip first arg, since that's the name of the executable and
       // surely not an argument
-      ingest_paths(&req.resources.paths, req.exec_args[1..], os::getcwd(), true, method);
+      ingest_paths(&req.resources.paths, req.exec_params.args[1..], os::getcwd(), true, method);
     case void => void;
   };
 
@@ -83,9 +101,9 @@ export fn ingest_cli_opts(opts: cli_opts) (cli_request | help) = {
   if (opts.drop_shell) {
     // ignore the original command, and overwrite it with an interactive shell.
     // TODO: respect the user's `$SHELL`.
-    req.exec_bin = "/bin/sh";
-    delete(req.exec_args[..]);
-    append(req.exec_args, "sh");
+    req.exec_params.bin = "/bin/sh";
+    delete(req.exec_params.args[..]);
+    append(req.exec_params.args, "sh");
   };
 
   return req;

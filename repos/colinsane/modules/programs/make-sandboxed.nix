@@ -98,14 +98,17 @@ let
         else
           mv "$_dir/$_name" "$_dir/.sandboxed/"
         fi
+
         makeShellWrapper ${sanebox'} "$_dir/$_name" --suffix PATH : /run/current-system/sw/libexec/${sanebox.pname} \
+          --inherit-argv0 \
           ${lib.escapeShellArgs (lib.flatten (builtins.map (f: [ "--add-flags" f ]) extraSandboxArgs))} \
           --add-flags "$_dir/.sandboxed/$_name"
-        # `exec`ing a script with an interpreter will smash $0. instead, source it to preserve $0:
-        # - <https://github.com/NixOS/nixpkgs/issues/150841#issuecomment-995589961>
+
         if [ -n "${sanebox.interpreter or ""}" ]; then
+          # `exec`ing a script with an interpreter will smash $0. instead, source it to preserve $0:
+          # - <https://github.com/NixOS/nixpkgs/issues/150841#issuecomment-995589961>
           substituteInPlace "$_dir/$_name" \
-            --replace-fail 'exec ' 'source '
+            --replace-fail 'exec -a "$0" ' 'source '
         fi
       }
 

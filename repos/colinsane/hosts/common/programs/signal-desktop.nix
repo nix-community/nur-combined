@@ -22,7 +22,7 @@ in
     };
 
     packageUnwrapped = pkgs.signal-desktop-from-src;
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [

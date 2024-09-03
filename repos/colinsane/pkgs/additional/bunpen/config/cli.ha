@@ -1,9 +1,8 @@
 // vim: set shiftwidth=2 :
+use errors;
 use fmt;
 use os;
 use rt::ext;
-
-export type error = !void;
 
 export type cli_opts = struct {
   autodetect: (void | autodetect),
@@ -11,6 +10,7 @@ export type cli_opts = struct {
   cmd: []str,
   // `--bunpen-debug`
   debug: uint,
+  disable: bool,
   drop_shell: bool,
   // `--bunpen-help`
   help: bool,
@@ -78,8 +78,15 @@ export fn usage() void = {
   // fmt::println("      act as though the provided arg string appeared at the end of the CLI")!;
 };
 
-export fn parse_args(args: []str) (cli_opts | error) = {
+export fn parse_args(args: []str) (cli_opts | errors::invalid) = {
   let parsed = cli_opts { autodetect = void, ... };
+
+  let dis = match (os::getenv("BUNPEN_DISABLE")) {
+    case let d: str => yield d;
+    case void => yield "";
+  };
+  if (dis != "" && dis != "0")
+    parsed.disable = true;
 
   for (let idx: size = 0; idx < len(args); idx += 1) {
     let arg = args[idx];
@@ -110,17 +117,17 @@ export fn parse_args(args: []str) (cli_opts | error) = {
   return parsed;
 };
 
-fn expect_arg(name: str, value: nullable *str) (str | error) = {
+fn expect_arg(name: str, value: nullable *str) (str | errors::invalid) = {
   return match (value) {
-    case null => yield error;
+    case null => yield errors::invalid;
     case let v: *str => yield *v;
   };
 };
 
-fn parse_caparg(into: *cli_opts, arg: str) (void | error) = {
+fn parse_caparg(into: *cli_opts, arg: str) (void | errors::invalid) = {
   if (arg == "all") {
     into.keep_all_caps = true;
   } else {
-    append(into.keep_caps, capability_fromstr(arg)?);
+    append(into.keep_caps, rt::ext::cap_fromstr(arg)?);
   };
 };

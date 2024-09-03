@@ -39,5 +39,5 @@ export type clone_flags = u64;
 // };
 
 export fn unshare(flags: clone_flags) (void | rt::errno) = {
-  syscall(rt::SYS_unshare, flags)?;
+  return syscall_0_on_success(rt::SYS_unshare, flags);
 };

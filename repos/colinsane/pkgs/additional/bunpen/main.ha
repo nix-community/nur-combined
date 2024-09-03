@@ -1,5 +1,6 @@
 // vim: set shiftwidth=2 :
 use config;
+use errors;
 use errors::ext;
 use log;
 use log::tree;
@@ -15,7 +16,7 @@ fn do_exec(path: str, args: []str) (os::exec::error | void) = {
   {
     let joined = strings::join(" ", args...);
     defer free(joined);
-    log::printfln("exec ({}): {}", path, joined);
+    log::printfln("exec {} with argv: {}", path, joined);
   };
 
   errors::ext::check("exec", rt::ext::execve(path, args, os::getenvs()));
@@ -24,34 +25,47 @@ fn do_exec(path: str, args: []str) (os::exec::error | void) = {
   // work if you don't care about that:
 };
 
+fn prepare_env(req: config::cli_request) config::exec_params = {
+  {
+    let argv_str = strings::join(" ", os::args...);
+    defer free(argv_str);
+    log::printfln("invoked with: {}", argv_str);
+  };
+
+  // set no_new_privs early. this is a flag which prevents us from gaining privs
+  // via SUID/SGID executables, which we never intend to do.
+  errors::ext::check("no_new_privs", rt::ext::no_new_privs());
+  restrict::namespace_restrict(&req.resources);
+  restrict::capability_restrict(&req.resources);
+  // XXX: landlock prevents other sandboxers like `bwrap` from executing,
+  // because it forbids all future `mount` syscalls. so don't landlock.
+  // restrict::landlock_restrict(&req.resources);
+
+  return req.exec_params;
+};
+
 export fn main() void = {
   // install my logger, but defaulted to no logging.
   log::tree::install(tree::global);
 
-  let name = os::args[0];
   let opts = match (config::parse_args(os::args[1..])) {
-    case config::error =>
+    case errors::invalid =>
       config::usage();
       os::exit(1);
     case let other: config::cli_opts => yield other;
   };
 
-  // configure logging early
-  log::tree::set_level(tree::global, opts.debug);
-
-  let req = match (config::ingest_cli_opts(opts)) {
+  let exec_params = match (config::ingest_cli_opts(opts)) {
     case config::help =>
       config::usage();
       os::exit(0);
-    case let other: config::cli_request => yield other;
+    case let p: config::exec_params => yield p;  // run without sandboxing (BUNPEN_DISABLE=1)
+    case let req: config::cli_request =>
+      // configure logging early
+      log::tree::set_level(tree::global, opts.debug);
+
+      yield prepare_env(req);
   };
 
-  errors::ext::check("no_new_privs", rt::ext::no_new_privs());
-  restrict::namespace_restrict(&req.resources);
-  if (!req.resources.all_caps)
-    restrict::capability_restrict(&req.resources);
-  // XXX: landlock prevents other sandboxers like `bwrap` from executing,
-  // because it forbids all future `mount` syscalls. so don't landlock.
-  // restrict::landlock_restrict(&req.resources);
-  errors::ext::check("exec <user command>", do_exec(req.exec_bin, req.exec_args));
+  errors::ext::check("exec <user command>", do_exec(exec_params.bin, exec_params.args));
 };

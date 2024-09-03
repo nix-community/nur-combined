@@ -40,7 +40,7 @@ in
       # "vala-language-server"  #< 2024-08-26: fails to recognize any imported types, complains they're all `null`
     ];
 
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.autodetectCliPaths = "existingOrParent";
     sandbox.whitelistWayland = true;  # for system clipboard integration
     # sandbox.whitelistPwd = true;

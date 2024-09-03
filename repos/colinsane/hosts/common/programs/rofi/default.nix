@@ -94,7 +94,7 @@ in
       "rofi-run-command"
     ];
 
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.whitelistDbus = [ "user" ];  #< to launch apps via the portal
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
@@ -118,6 +118,7 @@ in
     sandbox.extraPaths = [
       "/mnt/servo/media"
       "/mnt/servo/playground"
+      "/proc"  #< if we wish to launch nested bwrap while we have isolatePids=false, a full /proc is necessary
     ];
     sandbox.isolatePids = false; # for sane-open to toggle keyboard
 
@@ -167,13 +168,12 @@ in
         })
       ];
     };
-    sandbox.enable = false; # all dependencies are sandboxed
-    # sandbox.method = "bwrap";
-    # sandbox.whitelistWayland = true;
-    # sandbox.extraHomePaths = [
-    #   ".cache/rofi"
-    #   ".config/rofi/config.rasi"
-    # ];
+    sandbox.method = "bunpen";
+    sandbox.whitelistWayland = true;
+    sandbox.extraHomePaths = [
+      ".cache/rofi"
+      ".config/rofi/config.rasi"
+    ];
 
     suggestedPrograms = [ "gnused" "rofi" "wtype" ];
 

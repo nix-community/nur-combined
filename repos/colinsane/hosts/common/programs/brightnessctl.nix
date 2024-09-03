@@ -4,7 +4,7 @@ let
 in
 {
   sane.programs.brightnessctl = {
-    sandbox.method = "landlock";  # also bwrap, but landlock is more responsive
+    sandbox.method = "bunpen";
     sandbox.extraPaths = [
       "/sys/class/backlight"
       "/sys/class/leds"

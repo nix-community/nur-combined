@@ -32,6 +32,7 @@ let
   bunpenGenerators = {
     autodetectCliPaths = style: [ "--bunpen-autodetect" style ];
     capability = cap: [ "--bunpen-cap" cap ];
+    keepPids = [ "--bunpen-keep-pid" ];
     method = m: assert m == "bunpen";
       # smuggle in some defaults
       (lib.concatMap (devnode: [ "--bunpen-path" "/dev/${devnode}" ]) [
@@ -53,6 +54,7 @@ let
     path = p: [ "--bunpen-path" p ];
     path-home = p: [ "--bunpen-home-path" p ];
     path-run = p: [ "--bunpen-run-path" p ];
+    whitelistPwd = [ "--bunpen-path" "." ];
   };
   gen = if method == "bunpen" then
     bunpenGenerators

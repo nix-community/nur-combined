@@ -69,7 +69,7 @@
     # "error: path '/home/colin/dev' is a symlink"
     # apparently nix has to explicitly handle symlinks in every place it might encounter them,
     # so the fixes inside nix for this are manual and fragile. dereference it ourselves:
-    "${config.sane.fs."/home/colin/dev".symlink.target}/nixos/integrations/nixpkgs/nixpkgs-overlays.nix"
+    "nixpkgs-overlays=${config.sane.fs."/home/colin/dev".symlink.target}/nixos/integrations/nixpkgs/nixpkgs-overlays.nix"
   ];
 
   # ensure new deployments have a source of this repo with which they can bootstrap.

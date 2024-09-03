@@ -407,12 +407,12 @@ in
 
     # INDIVIDUAL PACKAGE DEFINITIONS
 
-    alsaUtils.sandbox.method = "landlock";
+    alsaUtils.sandbox.method = "bunpen";  # amixer, aplay, speaker-test, ...
     alsaUtils.sandbox.whitelistAudio = true;  #< not strictly necessary?
 
     backblaze-b2 = {};
 
-    bash-language-server.sandbox.method = "bwrap";
+    bash-language-server.sandbox.method = "bunpen";
     bash-language-server.sandbox.whitelistPwd = true;
 
     blanket.buildCost = 1;
@@ -440,7 +440,7 @@ in
     "cacert.unbundled".sandbox.enable = false;  #< data only
 
     cargo.persist.byStore.plaintext = [ ".cargo" ];
-    cargo.sandbox.method = "bwrap";  # probably this is too restrictive; i'm sandboxing it for rust-analyzer / neovim LSP
+    cargo.sandbox.method = "bunpen";  # probably this is too restrictive; i'm sandboxing it for rust-analyzer / neovim LSP
     cargo.sandbox.whitelistPwd = true;
     cargo.sandbox.net = "all";
     cargo.sandbox.extraHomePaths = [ "dev" "ref" ];
@@ -482,7 +482,7 @@ in
     # auth token, preferences
     delfin.persist.byStore.private = [ ".config/delfin" ];
 
-    dig.sandbox.method = "bwrap";
+    dig.sandbox.method = "bunpen";
     dig.sandbox.net = "all";
 
     # creds, but also 200 MB of node modules, etc
@@ -563,7 +563,7 @@ in
     fatresize.sandbox.method = "landlock";
     fatresize.sandbox.autodetectCliPaths = "parent";  # /dev/sda1 -> needs /dev/sda
 
-    fd.sandbox.method = "landlock";
+    fd.sandbox.method = "bunpen";
     fd.sandbox.autodetectCliPaths = "existing";
     fd.sandbox.whitelistPwd = true;
     fd.sandbox.extraHomePaths = [
@@ -576,7 +576,7 @@ in
     ffmpeg.sandbox.method = "bwrap";
     ffmpeg.sandbox.autodetectCliPaths = "existingFileOrParent";  # it outputs uncreated files -> parent dir needs mounting
 
-    file.sandbox.method = "bwrap";
+    file.sandbox.method = "bunpen";
     file.sandbox.autodetectCliPaths = "existing";  #< file OR directory, yes
 
     findutils.sandbox.method = "bwrap";
@@ -598,13 +598,13 @@ in
       withWebkit = false;
     });
 
-    forkstat.sandbox.method = "landlock";  #< doesn't seem to support bwrap
+    forkstat.sandbox.method = "landlock";  #< doesn't support bwrap unless i do `--sanebox-keep-namespace pid --sanebox-keep-namespace net`
     forkstat.sandbox.isolatePids = false;
     forkstat.sandbox.extraPaths = [
       "/proc"
     ];
 
-    fuzzel.sandbox.method = "bwrap";  #< landlock nearly works, but unable to open ~/.cache
+    fuzzel.sandbox.method = "bwrap";
     fuzzel.sandbox.whitelistWayland = true;
     fuzzel.persist.byStore.private = [
       # this is a file of recent selections
@@ -724,7 +724,7 @@ in
     hitori.sandbox.method = "bwrap";
     hitori.sandbox.whitelistWayland = true;
 
-    gnugrep.sandbox.method = "bwrap";
+    gnugrep.sandbox.method = "bunpen";
     gnugrep.sandbox.autodetectCliPaths = "existing";
     gnugrep.sandbox.whitelistPwd = true;
     gnugrep.sandbox.extraHomePaths = [
@@ -733,7 +733,7 @@ in
       ".persist/plaintext"
     ];
 
-    gnused.sandbox.method = "bwrap";
+    gnused.sandbox.method = "bunpen";
     gnused.sandbox.autodetectCliPaths = "existingFile";
     gnused.sandbox.whitelistPwd = true;  #< `-i` flag creates a temporary file in pwd (?) and then moves it.
 
@@ -818,13 +818,14 @@ in
     iw.sandbox.net = "all";
     iw.sandbox.capabilities = [ "net_admin" ];
 
-    jq.sandbox.method = "bwrap";
+    jq.sandbox.method = "bunpen";
     jq.sandbox.autodetectCliPaths = "existingFile";
 
-    killall.sandbox.method = "landlock";
+    killall.sandbox.method = "bunpen";
     killall.sandbox.extraPaths = [
       "/proc"
     ];
+    killall.sandbox.isolatePids = false;
 
     krita.buildCost = 1;
     krita.sandbox.method = "bwrap";
@@ -882,16 +883,16 @@ in
 
     lua = {};
 
-    lua-language-server.sandbox.method = "bwrap";
+    lua-language-server.sandbox.method = "bunpen";
     lua-language-server.sandbox.whitelistPwd = true;
 
     man-pages.sandbox.enable = false;  #< data only
     man-pages-posix.sandbox.enable = false;  #< data only
 
-    marksman.sandbox.method = "bwrap";
+    marksman.sandbox.method = "bunpen";
     marksman.sandbox.whitelistPwd = true;
 
-    mercurial.sandbox.method = "bwrap";  # TODO:sandbox: untested
+    mercurial.sandbox.method = "bwrap";
     mercurial.sandbox.net = "clearnet";
     mercurial.sandbox.whitelistPwd = true;
 
@@ -915,7 +916,7 @@ in
     mumble.buildCost = 1;
     mumble.persist.byStore.private = [ ".local/share/Mumble" ];
 
-    nano.sandbox.method = "bwrap";
+    nano.sandbox.method = "bunpen";
     nano.sandbox.autodetectCliPaths = "existingFileOrParent";
 
     netcat.sandbox.method = "landlock";
@@ -940,7 +941,7 @@ in
     nil.sandbox.whitelistPwd = true;
     nil.sandbox.isolatePids = false;
 
-    nixd.sandbox.method = "bwrap";
+    nixd.sandbox.method = "bunpen";
     nixd.sandbox.whitelistPwd = true;
 
     nixfmt-rfc-style.sandbox.method = "bwrap";
@@ -960,13 +961,15 @@ in
       ".cache/nixpkgs-review"  #< help it not exhaust / tmpfs
     ];
 
-    nmap.sandbox.method = "bwrap";
+    nmap.sandbox.method = "bunpen";
     nmap.sandbox.net = "all";  # clearnet and lan
 
-    nmon.sandbox.method = "landlock";
+    nmon.sandbox.method = "bunpen";
     nmon.sandbox.extraPaths = [
       "/proc"
     ];
+    nmon.sandbox.isolatePids = false;
+    nmon.sandbox.net = "all";
 
     nodejs = {};
 
@@ -987,7 +990,7 @@ in
     # settings (electron app)
     obsidian.persist.byStore.plaintext = [ ".config/obsidian" ];
 
-    openscad-lsp.sandbox.method = "bwrap";
+    openscad-lsp.sandbox.method = "bunpen";
     openscad-lsp.sandbox.whitelistPwd = true;
 
     passt.sandbox.enable = false;  #< sandbox helper (netns specifically)
@@ -1000,7 +1003,7 @@ in
 
     patchelf = {};
 
-    pavucontrol.sandbox.method = "bwrap";
+    pavucontrol.sandbox.method = "bunpen";
     pavucontrol.sandbox.whitelistAudio = true;
     pavucontrol.sandbox.whitelistWayland = true;
 
@@ -1025,23 +1028,24 @@ in
     procps.sandbox.method = "bwrap";
     procps.sandbox.isolatePids = false;
 
-    pstree.sandbox.method = "landlock";
+    pstree.sandbox.method = "bunpen";
     pstree.sandbox.extraPaths = [
       "/proc"
     ];
+    pstree.sandbox.isolatePids = false;
 
     pulseaudio = {};
 
-    pulsemixer.sandbox.method = "landlock";
+    pulsemixer.sandbox.method = "bunpen";
     pulsemixer.sandbox.whitelistAudio = true;
 
     pwvucontrol.buildCost = 1;
-    pwvucontrol.sandbox.method = "bwrap";
+    pwvucontrol.sandbox.method = "bunpen";
     pwvucontrol.sandbox.whitelistAudio = true;
     pwvucontrol.sandbox.whitelistDri = true;  # else perf on moby is unusable
     pwvucontrol.sandbox.whitelistWayland = true;
 
-    pyright.sandbox.method = "bwrap";
+    pyright.sandbox.method = "bunpen";
     pyright.sandbox.whitelistPwd = true;
 
     python3-repl.packageUnwrapped = pkgs.python3.withPackages (ps: with ps; [
@@ -1050,10 +1054,10 @@ in
       requests
       unidecode
     ]);
-    python3-repl.sandbox.method = "bwrap";
+    python3-repl.sandbox.method = "bunpen";
     python3-repl.sandbox.net = "clearnet";
     python3-repl.sandbox.extraHomePaths = [
-      "/"
+      "/"  #< this is 'safe' because with don't expose .persist/private, so no .ssh/id_ed25519
       ".persist/plaintext"
     ];
 
@@ -1064,7 +1068,7 @@ in
     rsync.sandbox.net = "clearnet";
     rsync.sandbox.autodetectCliPaths = "existingOrParent";
 
-    rust-analyzer.sandbox.method = "bwrap";
+    rust-analyzer.sandbox.method = "bunpen";
     rust-analyzer.sandbox.whitelistPwd = true;
     rust-analyzer.suggestedPrograms = [
       "cargo"
@@ -1207,11 +1211,11 @@ in
     tokodon.buildCost = 1;
     tokodon.persist.byStore.private = [ ".cache/KDE/tokodon" ];
 
-    tree.sandbox.method = "landlock";
+    tree.sandbox.method = "bunpen";
     tree.sandbox.autodetectCliPaths = "existing";
     tree.sandbox.whitelistPwd = true;
 
-    typescript-language-server.sandbox.method = "bwrap";
+    typescript-language-server.sandbox.method = "bunpen";
     typescript-language-server.sandbox.whitelistPwd = true;
 
     tumiki-fighters.buildCost = 1;
@@ -1227,7 +1231,7 @@ in
     unzip.sandbox.autodetectCliPaths = "existingOrParent";
     unzip.sandbox.whitelistPwd = true;
 
-    usbutils.sandbox.method = "bwrap";  # breaks `usbhid-dump`, but `lsusb`, `usb-devices` work
+    usbutils.sandbox.method = "bunpen";  # breaks `usbhid-dump`, but `lsusb`, `usb-devices` work
     usbutils.sandbox.extraPaths = [
       "/sys/devices"
       "/sys/bus/usb"
@@ -1244,7 +1248,14 @@ in
     valgrind.sandbox.enable = false;  #< it's a launcher: can't sandbox
 
     # `vulkaninfo`, `vkcube`
-    vulkan-tools.sandbox.method = "landlock";
+    vulkan-tools.sandbox.method = "bunpen";
+    vulkan-tools.sandbox.whitelistDri = true;
+    vulkan-tools.sandbox.whitelistWayland = true;
+    vulkan-tools.sandbox.whitelistX = true;
+    vulkan-tools.sandbox.extraPaths = [
+      "/sys/dev/char"
+      "/sys/devices"
+    ];
 
     vvvvvv.buildCost = 1;
     vvvvvv.sandbox.method = "bwrap";
@@ -1265,7 +1276,7 @@ in
     wdisplays.sandbox.method = "bwrap";
     wdisplays.sandbox.whitelistWayland = true;
 
-    wget.sandbox.method = "bwrap";
+    wget.sandbox.method = "bunpen";
     wget.sandbox.net = "all";
     wget.sandbox.whitelistPwd = true;  # saves to pwd by default
 
@@ -1299,7 +1310,7 @@ in
 
     yarn.persist.byStore.plaintext = [ ".cache/yarn" ];
 
-    yt-dlp.sandbox.method = "bwrap";
+    yt-dlp.sandbox.method = "bunpen";
     yt-dlp.sandbox.net = "all";
     yt-dlp.sandbox.whitelistPwd = true;  # saves to pwd by default
   };

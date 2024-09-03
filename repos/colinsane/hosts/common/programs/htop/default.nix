@@ -1,7 +1,8 @@
 { ... }:
 {
   sane.programs.htop = {
-    sandbox.method = "landlock";
+    sandbox.method = "bunpen";
+    sandbox.isolatePids = false;
     sandbox.extraPaths = [
       "/proc"
       "/sys/devices"

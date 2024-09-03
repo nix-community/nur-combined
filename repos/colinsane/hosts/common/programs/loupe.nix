@@ -12,7 +12,7 @@
     #   '';
     # }));
 
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.whitelistDri = true;  #< faster rendering
     sandbox.whitelistWayland = true;
     sandbox.autodetectCliPaths = "parent";

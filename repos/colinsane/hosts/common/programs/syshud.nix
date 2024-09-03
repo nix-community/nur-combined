@@ -1,7 +1,7 @@
 { ... }:
 {
   sane.programs.syshud = {
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.whitelistAudio = true;
     sandbox.whitelistWayland = true;
     sandbox.extraPaths = [

@@ -60,12 +60,12 @@ export fn mount(source: str, target: str, fstype: str, mountflags: mount_flags, 
   let source_buf: [path::MAX]c::char = [0...];
   let target_buf: [path::MAX]c::char = [0...];
   let fstype_buf: [256]c::char = [0...];
-  syscall(
+  return syscall_0_on_success(
     rt::SYS_mount,
     make_cstr(&source_buf, source): uintptr: u64,
     make_cstr(&target_buf, target): uintptr: u64,
     make_cstr(&fstype_buf, fstype): uintptr: u64,
     mountflags,
     data: uintptr,
-  )?;
+  );
 };

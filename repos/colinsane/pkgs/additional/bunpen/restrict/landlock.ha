@@ -99,7 +99,7 @@ export fn landlock_restrict(what: *resources) void = {
     errors::ext::swallow("[landlock/path] omitting from sandbox: failed to add path", allow_path(ruleset_fd, pathstr));
   };
 
-  errors::ext::check_u64("landlock_restrict_self", rt::ext::landlock_restrict_self(ruleset_fd));
+  errors::ext::check("landlock_restrict_self", rt::ext::landlock_restrict_self(ruleset_fd));
 
   log::println("landlock restrictions activated");
 };
