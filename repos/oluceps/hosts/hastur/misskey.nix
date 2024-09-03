@@ -8,11 +8,11 @@
   systemd.services.podman-misskey = {
     after = [
       "dae.service"
-      "mosproxy.service"
+      "nss-lookup.target"
     ];
     requires = [
       "dae.service"
-      "mosproxy.service"
+      "nss-lookup.target"
     ];
     # serviceConfig = {
     #   ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";

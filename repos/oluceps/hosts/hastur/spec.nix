@@ -30,56 +30,23 @@
   programs.fish.loginShellInit = ''
     ${pkgs.openssh}/bin/ssh-add ${config.age.secrets.id.path}
   '';
-
-  # hardware = {
-  #   nvidia = {
-  #     package = config.boot.kernelPackages.nvidiaPackages.latest;
-  #     modesetting.enable = true;
-  #     powerManagement.enable = false;
-  #     open = false;
-  #   };
-
-  #   graphics = {
-  #     enable = true;
-  #   };
-  # };
   systemd = {
     services = {
+      alertmanager.serviceConfig.LoadCredential = [
+        "notifychan:${config.age.secrets.notifychan.path}"
+      ];
+
       atuin.serviceConfig.Environment = [ "RUST_LOG=debug" ];
-      # pleroma.serviceConfig.LoadCredential = [ ("config.exs:" + config.age.secrets.pleroma.path) ];
-      # atticd.serviceConfig.Environment = [
-      #   "RUST_LOG=debug"
-      #   "RUST_BACKTRACE=1"
-      # ];
-      # restic-backups-solid.serviceConfig.Environment = [ "GOGC=20" ];
+
+      prometheus.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
+        "prom"
+      ];
     };
 
-    # systemd.services.tester = {
-    #   serviceConfig = {
-    #     Type = "simple";
-    #     ExecStart = "exit 3";
-    #     ExecStopPost = lib.genNtfyMsgScriptPath "tags warning prio high" "info" "test";
-    #   };
-    #   wantedBy = [ "multi-user.target" ];
-    # };
-
-    # Given that our systems are headless, emergency mode is useless.
-    # We prefer the system to attempt to continue booting so
-    # that we can hopefully still access it remotely.
     enableEmergencyMode = false;
 
-    # For more detail, see:
-    #   https://0pointer.de/blog/projects/watchdog.html
     watchdog = {
-      # systemd will send a signal to the hardware watchdog at half
-      # the interval defined here, so every 10s.
-      # If the hardware watchdog does not get a signal for 20s,
-      # it will forcefully reboot the system.
       runtimeTime = "20s";
-      # Forcefully reboot if the final stage of the reboot
-      # hangs without progress for more than 30s.
-      # For more info, see:
-      #   https://utcc.utoronto.ca/~cks/space/blog/linux/SystemdShutdownWatchdog
       rebootTime = "30s";
     };
 
@@ -95,10 +62,6 @@
     9001
     6622
   ] ++ [ config.services.photoprism.port ];
-
-  systemd.services.prometheus.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
-    "prom"
-  ];
 
   services.smartd.notifications.systembus-notify.enable = true;
   srv = {
@@ -180,7 +143,6 @@
       };
     };
 
-    prom-ntfy-bridge.enable = true;
     # xserver.videoDrivers = [ "nvidia" ];
 
     # xserver.enable = true;

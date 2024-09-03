@@ -55,6 +55,10 @@ in
         rekeyFile = ../../sec/misskey.age;
         mode = "400";
       };
+      notifychan = {
+        rekeyFile = ../../sec/notifychan.age;
+        mode = "400";
+      };
     };
   };
   services.openssh.hostKeys = [

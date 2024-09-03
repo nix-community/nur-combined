@@ -7,6 +7,7 @@
 let
   targets = map (n: "${n}.nyaw.xyz") [
     "nodens"
+    "abhoth"
     # "colour"
     "hastur"
     "kaambl"
@@ -93,5 +94,41 @@ in
       ];
     }
   );
-  alertmanagers = [ { static_configs = [ { targets = [ "127.0.0.1:8009" ]; } ]; } ];
+  alertmanagers = [
+    {
+      static_configs = [
+        {
+          targets = (
+            let
+              cfg = config.services.prometheus;
+            in
+            [ "${cfg.alertmanager.listenAddress}:${builtins.toString cfg.alertmanager.port}" ]
+          );
+        }
+      ];
+    }
+  ];
+  alertmanager = {
+    enable = true;
+    webExternalUrl = "https://${config.networking.fqdn}/alert";
+    listenAddress = "127.0.0.1";
+    port = 9093;
+    extraFlags = [ ''--cluster.listen-address=""'' ];
+    configuration = {
+      receivers = [
+        {
+          name = "telegram";
+          telegram_configs = [
+            {
+              bot_token_file = "/run/credentials/alertmanager.service/notifychan";
+              chat_id = -1002215131569;
+            }
+          ];
+        }
+      ];
+      route = {
+        receiver = "telegram";
+      };
+    };
+  };
 }
