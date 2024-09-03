@@ -2135,10 +2135,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "130.0.20240829.75237";
+      version = "131.0.20240902.152327";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4344581/deutsch_de_language_pack-130.0.20240829.75237.xpi";
-      sha256 = "ff8d0318945718731f29d3cbff86d9084283195a989f712fa41da39529457571";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4346576/deutsch_de_language_pack-131.0.20240902.152327.xpi";
+      sha256 = "36093614a183f66724dd53714c87ccdded6fcaecdeb181a22b112d0c2a6fab21";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2165,27 +2165,6 @@
           "https://www.youtube.com/*"
           "https://www.youtube.com/?*"
           "https://www.youtube.com/watch*"
-        ];
-        platforms = platforms.all;
-      };
-    };
-    "dictionaries" = buildFirefoxXpiAddon {
-      pname = "dictionaries";
-      version = "5.1.5";
-      addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4344246/dictionaries-5.1.5.xpi";
-      sha256 = "8a8d060c0a6d035a26b78482104abc2cef08efb557cd371093302e25e1338dae";
-      meta = with lib;
-      {
-        homepage = "https://github.com/revir/dictionaries";
-        description = "Dictionariez: This extension help you reading articles, looking up words of any language in various dictionaries, and exporting words to Anki, facilitating your language learning process.";
-        license = licenses.gpl2;
-        mozPermissions = [
-          "activeTab"
-          "tabs"
-          "storage"
-          "contextMenus"
-          "<all_urls>"
         ];
         platforms = platforms.all;
       };
@@ -3300,10 +3279,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "130.0.20240829.75237";
+      version = "131.0.20240902.152327";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4344556/francais_language_pack-130.0.20240829.75237.xpi";
-      sha256 = "66405aa4418b1e398d0f64e27666f0991324d7392da6f6054cb88b80cc637ff7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4346494/francais_language_pack-131.0.20240902.152327.xpi";
+      sha256 = "3a6807f37ce2c17c327f0276c738a0b1232273f33e3f043008a2b3d4ab3a53ca";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3372,10 +3351,10 @@
     };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "10.4.2";
+      version = "10.4.3";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4340555/ghostery-10.4.2.xpi";
-      sha256 = "6863641aeecfe2447b88e1f1377917ddeca2e8cfa837bf299f61f2d35b5dd9ed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4343983/ghostery-10.4.3.xpi";
+      sha256 = "1d04e5f29ea5603a89dac5a9b27a8a2345b075eb04949098d98d2ce59b1de723";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -3789,10 +3768,10 @@
     };
     "gàidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gàidhlig-language-pack";
-      version = "130.0.20240829.75237";
+      version = "131.0.20240902.152327";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4344621/gaidhlig_language_pack-130.0.20240829.75237.xpi";
-      sha256 = "9c5e579768eca424df585b01b390c84ac7aca820cbf994a7c511376f3a08af2d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4346539/gaidhlig_language_pack-131.0.20240902.152327.xpi";
+      sha256 = "dcada8f26f6eb538241cfcf98e4fb835cbd8085ca2346374606d409ec38025dd";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -5967,10 +5946,10 @@
     };
     "lingq-importer2" = buildFirefoxXpiAddon {
       pname = "lingq-importer2";
-      version = "2.2.14";
+      version = "2.2.15";
       addonId = "{e84c7711-c738-409a-879d-3f20cb087563}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4339517/lingq_importer2-2.2.14.xpi";
-      sha256 = "fd904a4ef3788f5fadd1c863fbaabc4650aa4a121450fd0ea0d5e919935b13a8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4346648/lingq_importer2-2.2.15.xpi";
+      sha256 = "36560d8fd0f4a6f1a59ae6ccd439a2494d09b7f0dba26060174591e79847df69";
       meta = with lib;
       {
         homepage = "https://www.lingq.com/";
@@ -6039,10 +6018,10 @@
     };
     "linkhints" = buildFirefoxXpiAddon {
       pname = "linkhints";
-      version = "1.3.1";
+      version = "1.3.2";
       addonId = "linkhints@lydell.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3985677/linkhints-1.3.1.xpi";
-      sha256 = "ca0d9ed8d52e3ab62a9d3d7c2be29ae30d22f2ecd37eff5b38e34c130d96711b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4346347/linkhints-1.3.2.xpi";
+      sha256 = "ecd9a5b3868768b501ff94eb917d65d2b2ae9da5586966cc51ddb27e06c25c91";
       meta = with lib;
       {
         homepage = "https://lydell.github.io/LinkHints";
@@ -7451,10 +7430,10 @@
     };
     "nyaa-linker" = buildFirefoxXpiAddon {
       pname = "nyaa-linker";
-      version = "2.1.0";
+      version = "2.1.1";
       addonId = "Metacor.Code@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4302266/nyaa_linker-2.1.0.xpi";
-      sha256 = "bf14d229b71360c4c0b01b7a7b364b8c4448134848e417d51f761bf54b0b905a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4346436/nyaa_linker-2.1.1.xpi";
+      sha256 = "e9fba39f6e8353dab03f5837c96362db370a1df64412c61d0d6f730a48ec5189";
       meta = with lib;
       {
         description = "Adds a button to Anime and Manga database websites that opens a relevant Nyaa search";
@@ -7464,7 +7443,7 @@
           "tabs"
           "*://*.myanimelist.net/*"
           "*://*.anilist.co/*"
-          "*://*.kitsu.io/*"
+          "*://*.kitsu.app/*"
           "*://*.anime-planet.com/*"
           "*://*.animenewsnetwork.com/encyclopedia/*"
           "*://*.anidb.net/*"
@@ -7865,10 +7844,10 @@
     };
     "passbolt" = buildFirefoxXpiAddon {
       pname = "passbolt";
-      version = "4.9.1";
+      version = "4.9.2";
       addonId = "passbolt@passbolt.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4325047/passbolt-4.9.1.xpi";
-      sha256 = "402859381eec9be2059e5ee6003f2f8e2d2150cf0e3b613b515002589e14f509";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4344015/passbolt-4.9.2.xpi";
+      sha256 = "ca46bcfca403c94bb5e1526f510f802af78bac57bae0f4ce5a36b84d2ea85cf6";
       meta = with lib;
       {
         homepage = "https://www.passbolt.com";
@@ -9446,10 +9425,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "130.0.20240829.75237";
+      version = "131.0.20240902.152327";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4344611/scots_language_pack-130.0.20240829.75237.xpi";
-      sha256 = "e1fa889280a83d47ef3db2872b1ec43e952190ea399fd5e2ec982f835ec96702";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4346579/scots_language_pack-131.0.20240902.152327.xpi";
+      sha256 = "6e27a7b472bca62a7068caf05fff1e403d5835ce2773a986f854e50296280b23";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -9827,10 +9806,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.61";
+      version = "1.22.64";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4339360/single_file-1.22.61.xpi";
-      sha256 = "002d164403923be95f616f11c6582708ca982b569659d9949176738bace6be0f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4344693/single_file-1.22.64.xpi";
+      sha256 = "fbddbc0597e33df25f2a03a1bd45241c5d7db814dd605c3de51e0d1b2abd3abd";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -12459,10 +12438,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.8.19.0";
+      version = "24.8.26.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4343062/yomitan-24.8.19.0.xpi";
-      sha256 = "2a2e806d979a5b6f2d0186564c8394d872eaffdce51b2ae6b37cf72c036c7395";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4346613/yomitan-24.8.26.0.xpi";
+      sha256 = "fba4bc275fd6dc730d49507569d474f60e1d71494945a9d32f426cbe7a844d12";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
@@ -12518,16 +12497,20 @@
     };
     "youtube-high-definition" = buildFirefoxXpiAddon {
       pname = "youtube-high-definition";
-      version = "118.0.5";
+      version = "118.0.9";
       addonId = "{7b1bf0b6-a1b9-42b0-b75d-252036438bdc}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4169481/youtube_high_definition-118.0.5.xpi";
-      sha256 = "66d24520820ea01056219751f4c42bf49cb7c0a295eb53e63cf28d603ea42d50";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4344731/youtube_high_definition-118.0.9.xpi";
+      sha256 = "99195aac88a26aa194ace2f0075d9b4e7710ac3f0c700d18ad3db57b656ee517";
       meta = with lib;
       {
         homepage = "http://barisderin.com/";
         description = "YouTube High Definition is a powerful tool that automatically plays all YouTube videos in HD, changes video player size, offers auto-stop and mute, and much more.";
         license = licenses.lgpl3;
-        mozPermissions = [ "storage" "*://*.youtube.com/*" ];
+        mozPermissions = [
+          "storage"
+          "*://*.youtube.com/*"
+          "*://*.youtube-nocookie.com/*"
+        ];
         platforms = platforms.all;
       };
     };
