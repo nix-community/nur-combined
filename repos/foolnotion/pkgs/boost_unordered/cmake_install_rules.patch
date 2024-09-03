@@ -1,0 +1,61 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 0a29446..5adf5bd 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -44,3 +44,56 @@ if(BUS_INCLUDE_TESTS)
+   include(CTest)
+   add_subdirectory(test)
+ endif()
++
++if(PROJECT_IS_TOP_LEVEL)
++  include(CPack)
++endif()
++
++# install rules
++if(PROJECT_IS_TOP_LEVEL)
++  set(CMAKE_INSTALL_INCLUDEDIR include/boost CACHE PATH "")
++endif()
++
++include(CMakePackageConfigHelpers)
++include(GNUInstallDirs)
++# Allow package maintainers to freely override the path for the configs
++set(package boost_unordered)
++
++install(DIRECTORY include/ DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}" COMPONENT boost_unordered_Development)
++install(TARGETS boost_unordered EXPORT boost_unorderedTargets INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
++
++write_basic_package_version_file(
++    "${package}ConfigVersion.cmake"
++    COMPATIBILITY SameMajorVersion
++    ARCH_INDEPENDENT
++)
++
++set(
++    boost_unordered_INSTALL_CMAKEDIR "${CMAKE_INSTALL_DATADIR}/${package}"
++    CACHE PATH "CMake package config location relative to the install prefix"
++)
++mark_as_advanced(boost_unordered_INSTALL_CMAKEDIR)
++
++write_file(
++    "${PROJECT_BINARY_DIR}/${package}Config.cmake"
++    "include(\"${CMAKE_CURRENT_LIST_DIR}/${package}Targets.cmake\")"
++)
++
++install(
++    FILES "${PROJECT_BINARY_DIR}/${package}Config.cmake"
++    DESTINATION "${boost_unordered_INSTALL_CMAKEDIR}"
++    COMPONENT boost_unordered_Development
++)
++
++install(
++    FILES "${PROJECT_BINARY_DIR}/${package}ConfigVersion.cmake"
++    DESTINATION "${boost_unordered_INSTALL_CMAKEDIR}"
++    COMPONENT boost_unordered_Development
++)
++
++install(
++    EXPORT boost_unorderedTargets
++    NAMESPACE boost_unordered::
++    DESTINATION "${boost_unordered_INSTALL_CMAKEDIR}"
++    COMPONENT boost_unordered_Development
++)

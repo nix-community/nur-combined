@@ -24,6 +24,8 @@
 
   boost-hana = pkgs.callPackage ./pkgs/boost-hana { };
 
+  boost_unordered = pkgs.callPackage ./pkgs/boost_unordered { };
+
   byte-lite = pkgs.callPackage ./pkgs/byte-lite { };
 
   cmake-init = pkgs.python3Packages.callPackage ./pkgs/cmake-init { };
