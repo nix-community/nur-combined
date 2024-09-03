@@ -34,7 +34,7 @@
     # rustypaste.enable = true;
   };
   services = {
-    metric.enable = true;
+    metrics.enable = true;
     trojan-server.enable = true;
     hysteria.instances = [
       {

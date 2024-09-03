@@ -17,7 +17,6 @@
     upstream = [
       "quic://dns.alidns.com"
       "1.1.1.1"
-      "h3://dns.google/dns-query"
       "h3://dns.alidns.com/dns-query"
       "tls://dot.pub"
     ];

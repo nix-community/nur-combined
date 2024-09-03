@@ -8,8 +8,6 @@ let
   targets = map (n: "${n}.nyaw.xyz") [
     "nodens"
     "abhoth"
-    # "colour"
-    "hastur"
     "kaambl"
   ];
 in
@@ -39,18 +37,6 @@ in
         metrics_path = "/caddy";
         static_configs = [ { inherit targets; } ];
       }
-      # {
-      #   job_name = "mosproxy";
-      #   metrics_path = "/metrics";
-      #   static_configs = [
-      #     {
-      #       targets = [
-      #         # "10.0.1.2:9092"
-      #         "10.0.1.3:9092"
-      #       ];
-      #     }
-      #   ];
-      # }
       {
         job_name = "metrics";
         scheme = "https";
@@ -64,7 +50,10 @@ in
       {
         job_name = "metrics-notls";
         scheme = "http";
-        static_configs = [ { targets = [ "10.0.2.8:9100" ]; } ];
+        static_configs = [
+          { targets = [ "10.0.2.1:9100" ]; }
+          { targets = [ "10.0.2.2:9100" ]; }
+        ];
       }
     ];
   rules = lib.singleton (
@@ -96,6 +85,7 @@ in
   );
   alertmanagers = [
     {
+      path_prefix = "/alert";
       static_configs = [
         {
           targets = (
@@ -113,6 +103,7 @@ in
     webExternalUrl = "https://${config.networking.fqdn}/alert";
     listenAddress = "127.0.0.1";
     port = 9093;
+    logLevel = "info";
     extraFlags = [ ''--cluster.listen-address=""'' ];
     configuration = {
       receivers = [
@@ -122,12 +113,18 @@ in
             {
               bot_token_file = "/run/credentials/alertmanager.service/notifychan";
               chat_id = -1002215131569;
+              http_config = {
+                proxy_url = "http://127.0.0.1:1900";
+              };
             }
           ];
         }
       ];
       route = {
         receiver = "telegram";
+        group_wait = "2s";
+        group_interval = "30s";
+        repeat_interval = "5m";
       };
     };
   };

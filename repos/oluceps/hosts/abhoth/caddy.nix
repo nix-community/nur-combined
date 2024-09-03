@@ -88,6 +88,26 @@
                   ];
                   match = [ { host = [ "vault.nyaw.xyz" ]; } ];
                 }
+
+                {
+                  handle = [
+                    {
+                      handler = "subroute";
+                      routes = [
+                        {
+                          handle = [
+                            {
+                              handler = "reverse_proxy";
+                              upstreams = [ { dial = "10.0.3.2:3002"; } ];
+                            }
+                          ];
+                          match = [ { path = [ "/grafana/*" ]; } ];
+                        }
+                      ];
+                    }
+                  ];
+                  match = [ { host = [ "hastur.nyaw.xyz" ]; } ];
+                }
               ];
             };
           };
