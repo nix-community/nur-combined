@@ -148,7 +148,7 @@
     },
     "attic": {
         "cargoLocks": null,
-        "date": "2024-08-30",
+        "date": "2024-09-02",
         "extract": null,
         "name": "attic",
         "passthru": null,
@@ -160,12 +160,12 @@
             "name": null,
             "owner": "zhaofengli",
             "repo": "attic",
-            "rev": "f74cee00364a36e4db8d05dc9c98391e18d9b4f8",
-            "sha256": "sha256-vzmyW8Q6fG+QqlsYus+Xbo5s61ciXM4UpStZ2j5Pn54=",
+            "rev": "bea72d75b6165dfb529ba0c39cc6c7e9c7f0d234",
+            "sha256": "sha256-IdM+pZ6BnmD3o1fTJZ2BD43k7dwi1BbVfLDLpM1nE5s=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f74cee00364a36e4db8d05dc9c98391e18d9b4f8"
+        "version": "bea72d75b6165dfb529ba0c39cc6c7e9c7f0d234"
     },
     "axiom-syslog-proxy": {
         "cargoLocks": null,
@@ -326,11 +326,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-PzTIr0BPqWV1mu4AXXjwfbIUgvYA3300mAs8mzr7rks=",
+            "sha256": "sha256-W4LVhqfPDerpQ2IL+MspakF9uBXPbbkmIvnXGYFVcLg=",
             "type": "url",
-            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1015.24-1_amd64.deb"
+            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1016.4-1_amd64.deb"
         },
-        "version": "13.3.1015.24"
+        "version": "13.3.1016.4"
     },
     "browser360-arm64": {
         "cargoLocks": null,
@@ -341,11 +341,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-BS9fRvCd2k6f+sv7bt8+tFIqGQMkccye6Al0norIenU=",
+            "sha256": "sha256-K7G7JteDavc6hX+II9dLUgwTC3P015KCdsGvGx3geWg=",
             "type": "url",
-            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1015.24-1_arm64.deb"
+            "url": "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1016.4-1_arm64.deb"
         },
-        "version": "13.3.1015.24"
+        "version": "13.3.1016.4"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
@@ -1500,12 +1500,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3651",
-            "sha256": "sha256-ZxWC8E0bI4cj0Wvi/2sHVT/MfYzHPADvISaQ1QsrNF4=",
+            "rev": "b3658",
+            "sha256": "sha256-mKF/ah0Gmudo8lEUMMAuI+3zbDE6QVNXdc/R/bAadNE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3651"
+        "version": "b3658"
     },
     "lyrica": {
         "cargoLocks": null,

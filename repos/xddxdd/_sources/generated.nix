@@ -86,15 +86,15 @@
   };
   attic = {
     pname = "attic";
-    version = "f74cee00364a36e4db8d05dc9c98391e18d9b4f8";
+    version = "bea72d75b6165dfb529ba0c39cc6c7e9c7f0d234";
     src = fetchFromGitHub {
       owner = "zhaofengli";
       repo = "attic";
-      rev = "f74cee00364a36e4db8d05dc9c98391e18d9b4f8";
+      rev = "bea72d75b6165dfb529ba0c39cc6c7e9c7f0d234";
       fetchSubmodules = false;
-      sha256 = "sha256-vzmyW8Q6fG+QqlsYus+Xbo5s61ciXM4UpStZ2j5Pn54=";
+      sha256 = "sha256-IdM+pZ6BnmD3o1fTJZ2BD43k7dwi1BbVfLDLpM1nE5s=";
     };
-    date = "2024-08-30";
+    date = "2024-09-02";
   };
   axiom-syslog-proxy = {
     pname = "axiom-syslog-proxy";
@@ -178,18 +178,18 @@
   };
   browser360-amd64 = {
     pname = "browser360-amd64";
-    version = "13.3.1015.24";
+    version = "13.3.1016.4";
     src = fetchurl {
-      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1015.24-1_amd64.deb";
-      sha256 = "sha256-PzTIr0BPqWV1mu4AXXjwfbIUgvYA3300mAs8mzr7rks=";
+      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1016.4-1_amd64.deb";
+      sha256 = "sha256-W4LVhqfPDerpQ2IL+MspakF9uBXPbbkmIvnXGYFVcLg=";
     };
   };
   browser360-arm64 = {
     pname = "browser360-arm64";
-    version = "13.3.1015.24";
+    version = "13.3.1016.4";
     src = fetchurl {
-      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1015.24-1_arm64.deb";
-      sha256 = "sha256-BS9fRvCd2k6f+sv7bt8+tFIqGQMkccye6Al0norIenU=";
+      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.3.1016.4-1_arm64.deb";
+      sha256 = "sha256-K7G7JteDavc6hX+II9dLUgwTC3P015KCdsGvGx3geWg=";
     };
   };
   cachyos-kernel-patches = {
@@ -831,13 +831,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3651";
+    version = "b3658";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3651";
+      rev = "b3658";
       fetchSubmodules = false;
-      sha256 = "sha256-ZxWC8E0bI4cj0Wvi/2sHVT/MfYzHPADvISaQ1QsrNF4=";
+      sha256 = "sha256-mKF/ah0Gmudo8lEUMMAuI+3zbDE6QVNXdc/R/bAadNE=";
     };
   };
   lyrica = {
