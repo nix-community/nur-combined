@@ -31,10 +31,10 @@
   };
   tubewarmth = {
     pname = "tubewarmth";
-    version = "1.5.0";
+    version = "2.0.1";
     src = fetchurl {
       url = "https://www.tonelib.net/download/ToneLib-TubeWarmth-amd64.deb";
-      sha256 = "sha256-XBnyYoLCIE0hvQt91K3DHrjm4SkjzgwF3g4F5GBKZLg=";
+      sha256 = "sha256-Rr+3foO57ZwofoE0aq6aQq2DWT6RZkcl9+1TOxdbYwU=";
     };
   };
   zoom = {
