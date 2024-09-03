@@ -23,13 +23,13 @@
     home.packages = builtins.attrValues {
       inherit
         (pkgs)
+        ansel
         chromium # some websites only work there :(
         zotero
         ;
 
       inherit
         (pkgs.packages)
-        ansel
         spot
         ;
     };
