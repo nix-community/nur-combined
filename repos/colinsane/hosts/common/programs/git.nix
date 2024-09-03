@@ -18,7 +18,7 @@ in
         rm "$out/bin/git-jump"
       '';
     });
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.net = "clearnet";
     sandbox.whitelistPwd = true;
     sandbox.autodetectCliPaths = true;  # necessary for git-upload-pack

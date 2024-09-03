@@ -37,7 +37,7 @@
       allow_unicode: true
       image_index: 4
       images: Sixels
-      invidious_instance: https://inv.in.projectsegfau.lt
+      invidious_instance: https://yt.artemislena.eu
       legacy_input_handling: false
       message_bar_default: ready
       mouse_support: true
@@ -62,7 +62,7 @@
         sync_channel_info: true
         sync_videos_cooldown_secs: 600
     '';
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.net = "all";
     sandbox.extraHomePaths = [
       # ".config/youtube-tui"  #< it populates its own config, other than just main.yml

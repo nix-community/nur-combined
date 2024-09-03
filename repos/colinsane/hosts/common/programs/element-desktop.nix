@@ -27,7 +27,7 @@
 
     buildCost = 1;
 
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  # notifications

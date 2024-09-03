@@ -311,7 +311,7 @@ in
       "mepo"  # maps viewer
       # "mesa-demos"  # for eglinfo, glxinfo & other testing tools
       "mpv"
-      "networkmanagerapplet"  # for nm-connection-editor: it's better than not having any gui!
+      # "networkmanagerapplet"  # for nm-connection-editor GUI. XXX(2024-09-03): broken, probably by NetworkManager sandboxing
       "ntfy-sh"  # notification service
       "newsflash"  # RSS viewer
       "papers"  # PDF viewer
@@ -488,7 +488,7 @@ in
     # creds, but also 200 MB of node modules, etc
     discord.persist.byStore.private = [ ".config/discord" ];
     discord.suggestedPrograms = [ "xwayland" ];
-    discord.sandbox.method = "bwrap";
+    discord.sandbox.method = "bunpen";
     discord.sandbox.wrapperType = "inplace";  #< package contains broken symlinks that my wrapper can't handle
     discord.sandbox.whitelistAudio = true;
     discord.sandbox.whitelistDbus = [ "user" ];  # needed for xdg-open
@@ -541,7 +541,7 @@ in
     ethtool.sandbox.method = "landlock";
     ethtool.sandbox.capabilities = [ "net_admin" ];
 
-    evtest.sandbox.method = "bwrap";
+    evtest.sandbox.method = "bunpen";
     evtest.sandbox.autodetectCliPaths = "existingFile";  # `evtest /dev/foo` to monitor events for a specific device
     evtest.sandbox.extraPaths = [
       "/dev/input"
@@ -579,7 +579,7 @@ in
     file.sandbox.method = "bunpen";
     file.sandbox.autodetectCliPaths = "existing";  #< file OR directory, yes
 
-    findutils.sandbox.method = "bwrap";
+    findutils.sandbox.method = "bunpen";
     findutils.sandbox.autodetectCliPaths = "existing";
     findutils.sandbox.whitelistPwd = true;
     findutils.sandbox.extraHomePaths = [
@@ -591,7 +591,7 @@ in
     fluffychat-moby.persist.byStore.plaintext = [ ".local/share/chat.fluffy.fluffychat" ];
 
     font-manager.buildCost = 1;
-    font-manager.sandbox.method = "bwrap";
+    font-manager.sandbox.method = "bunpen";
     font-manager.sandbox.whitelistWayland = true;
     font-manager.packageUnwrapped = pkgs.rmDbusServicesInPlace (pkgs.font-manager.override {
       # build without the "Google Fonts" integration feature, to save closure / avoid webkitgtk_4_0
@@ -622,7 +622,7 @@ in
     gh.persist.byStore.private = [ ".config/gh" ];
 
     gimp.buildCost = 1;
-    gimp.sandbox.method = "bwrap";
+    gimp.sandbox.method = "bunpen";
     gimp.sandbox.whitelistX = true;
     gimp.sandbox.whitelistWayland = true;
     gimp.sandbox.extraHomePaths = [
@@ -644,13 +644,14 @@ in
     gitea = {};
 
     gnome-calculator.buildCost = 1;
-    gnome-calculator.sandbox.method = "bwrap";
+    gnome-calculator.sandbox.method = "bunpen";
     gnome-calculator.sandbox.whitelistWayland = true;
 
     gnome-calendar.buildCost = 1;
     # gnome-calendar surely has data to persist, but i use it strictly to do date math, not track events.
-    gnome-calendar.sandbox.method = "bwrap";
+    gnome-calendar.sandbox.method = "bunpen";
     gnome-calendar.sandbox.whitelistWayland = true;
+    gnome-calendar.sandbox.whitelistDbus = [ "user" ];
 
     # gnome-disks
     # XXX(2024-09-02): fails to show any disks even when run as `SANEBOX_DISABLE=1 sudo -E gnome-disks`.
@@ -689,12 +690,12 @@ in
     seahorse.sandbox.whitelistWayland = true;
 
     gnome-2048.buildCost = 1;
-    gnome-2048.sandbox.method = "bwrap";
+    gnome-2048.sandbox.method = "bunpen";
     gnome-2048.sandbox.whitelistWayland = true;
     gnome-2048.persist.byStore.plaintext = [ ".local/share/gnome-2048/scores" ];
 
     gnome-frog.buildCost = 1;
-    gnome-frog.sandbox.method = "bwrap";
+    gnome-frog.sandbox.method = "bunpen";
     gnome-frog.sandbox.whitelistWayland = true;
     gnome-frog.sandbox.whitelistDbus = [ "user" ];
     gnome-frog.sandbox.extraPaths = [
@@ -721,7 +722,7 @@ in
     # 2. no two shaded tiles can be direct N/S/E/W neighbors
     # - win once (1) and (2) are satisfied
     hitori.buildCost = 1;
-    hitori.sandbox.method = "bwrap";
+    hitori.sandbox.method = "bunpen";
     hitori.sandbox.whitelistWayland = true;
 
     gnugrep.sandbox.method = "bunpen";
@@ -745,12 +746,13 @@ in
     ];
     gptfdisk.sandbox.autodetectCliPaths = "existing";  #< sometimes you'll use gdisk on a device file.
 
-    grim.sandbox.method = "bwrap";
+    # N.B.: if the user doesn't specify an output path, `grim` will output to ~/Pictures (which isn't included in this sandbox)
+    grim.sandbox.method = "bunpen";
     grim.sandbox.autodetectCliPaths = "existingOrParent";
     grim.sandbox.whitelistWayland = true;
 
     hase.buildCost = 1;
-    hase.sandbox.method = "bwrap";
+    hase.sandbox.method = "bunpen";
     hase.sandbox.net = "clearnet";
     hase.sandbox.whitelistAudio = true;
     hase.sandbox.whitelistDri = true;
@@ -769,22 +771,6 @@ in
     # inetutils: ping, ifconfig, hostname, traceroute, whois, ....
     # N.B.: inetutils' `ping` is shadowed by iputils' ping (by nixos, intentionally).
     inetutils.sandbox.method = "landlock";  # want to keep the same netns, at least.
-
-    inkscape.buildCost = 1;
-    inkscape.sandbox.method = "bwrap";
-    inkscape.sandbox.whitelistWayland = true;
-    inkscape.sandbox.extraHomePaths = [
-      "Pictures/albums"
-      "Pictures/cat"
-      "Pictures/from"
-      "Pictures/Photos"
-      "Pictures/Screenshots"
-      "Pictures/servo-macros"
-      "dev"
-      "ref"
-      "tmp"
-    ];
-    inkscape.sandbox.autodetectCliPaths = true;
 
     iotop.sandbox.method = "landlock";
     iotop.sandbox.extraPaths = [
@@ -827,29 +813,13 @@ in
     ];
     killall.sandbox.isolatePids = false;
 
-    krita.buildCost = 1;
-    krita.sandbox.method = "bwrap";
-    krita.sandbox.whitelistWayland = true;
-    krita.sandbox.autodetectCliPaths = "existing";
-    krita.sandbox.extraHomePaths = [
-      "dev"
-      "Pictures/albums"
-      "Pictures/cat"
-      "Pictures/from"
-      "Pictures/Photos"
-      "Pictures/Screenshots"
-      "Pictures/servo-macros"
-      "ref"
-      "tmp"
-    ];
-
     landlock-sandboxer.sandbox.enable = false;  #< sandbox helper
 
     libcamera = {};
 
     libcap_ng.sandbox.enable = false;  # TODO: `pscap` can sandbox with bwrap, `captest` and `netcap` with landlock
 
-    libnotify.sandbox.method = "bwrap";
+    libnotify.sandbox.method = "bunpen";
     libnotify.sandbox.whitelistDbus = [ "user" ];  # notify-send
 
     lightning-cli.packageUnwrapped = pkgs.linkBinIntoOwnPackage pkgs.clightning "lightning-cli";
@@ -933,7 +903,7 @@ in
       "/proc"
     ];
 
-    networkmanagerapplet.sandbox.method = "bwrap";
+    networkmanagerapplet.sandbox.method = "bunpen";
     networkmanagerapplet.sandbox.whitelistWayland = true;
     networkmanagerapplet.sandbox.whitelistDbus = [ "system" ];
 
@@ -985,7 +955,7 @@ in
     nvme-cli.sandbox.capabilities = [ "sys_rawio" ];
 
     # contains only `oathtool`, which i only use for evaluating TOTP codes from CLI/stdin
-    oath-toolkit.sandbox.method = "bwrap";
+    oath-toolkit.sandbox.method = "bunpen";
 
     # settings (electron app)
     obsidian.persist.byStore.plaintext = [ ".config/obsidian" ];
@@ -1025,14 +995,13 @@ in
     ];
 
     # procps: free, pgrep, pidof, pkill, ps, pwait, top, uptime, couple others
-    procps.sandbox.method = "bwrap";
+    procps.sandbox.method = "bunpen";
     procps.sandbox.isolatePids = false;
+    procps.sandbox.extraPaths = [ "/proc" ];
 
     pstree.sandbox.method = "bunpen";
-    pstree.sandbox.extraPaths = [
-      "/proc"
-    ];
     pstree.sandbox.isolatePids = false;
+    pstree.sandbox.extraPaths = [ "/proc" ];
 
     pulseaudio = {};
 
@@ -1064,7 +1033,7 @@ in
     qemu.sandbox.enable = false;  #< it's a launcher
     qemu.buildCost = 2;
 
-    rsync.sandbox.method = "bwrap";
+    rsync.sandbox.method = "bunpen";
     rsync.sandbox.net = "clearnet";
     rsync.sandbox.autodetectCliPaths = "existingOrParent";
 
@@ -1085,7 +1054,7 @@ in
 
     sane-die-with-parent.sandbox.enable = false;  #< it's a launcher; can't sandbox
 
-    sane-weather.sandbox.method = "bwrap";
+    sane-weather.sandbox.method = "bunpen";
     sane-weather.sandbox.net = "clearnet";
 
     sc-im.sandbox.method = "bwrap";
@@ -1098,13 +1067,13 @@ in
       doCheck = false;
     });
     sequoia.buildCost = 1;
-    sequoia.sandbox.method = "bwrap";
+    sequoia.sandbox.method = "bunpen";
     sequoia.sandbox.whitelistPwd = true;
     sequoia.sandbox.autodetectCliPaths = "existingFileOrParent";  # supports `-o <file-to-create>`
 
     shattered-pixel-dungeon.buildCost = 1;
     shattered-pixel-dungeon.persist.byStore.plaintext = [ ".local/share/.shatteredpixel/shattered-pixel-dungeon" ];
-    shattered-pixel-dungeon.sandbox.method = "bwrap";
+    shattered-pixel-dungeon.sandbox.method = "bunpen";
     shattered-pixel-dungeon.sandbox.whitelistAudio = true;
     shattered-pixel-dungeon.sandbox.whitelistDri = true;
     shattered-pixel-dungeon.sandbox.whitelistWayland = true;
@@ -1114,9 +1083,8 @@ in
     # slic3r.persist.byStore.plaintext = [
     #   ".Slic3r"  #< printer/filament settings
     # ];
-    slic3r.sandbox.method = "bwrap";
+    slic3r.sandbox.method = "bunpen";
     slic3r.sandbox.autodetectCliPaths = "existingFileOrParent";  # slic3r <my-file>.stl -o <out>.gcode
-
 
     slurp.sandbox.method = "bwrap";
     slurp.sandbox.whitelistWayland = true;
@@ -1131,7 +1099,7 @@ in
     # TODO: enable dma heaps for more efficient buffer sharing: <https://gitlab.com/postmarketOS/pmaports/-/issues/2789>
     snapshot = {};
 
-    sops.sandbox.method = "bwrap";
+    sops.sandbox.method = "bunpen";
     sops.sandbox.extraHomePaths = [
       ".config/sops"
       "nixos"
@@ -1140,29 +1108,13 @@ in
       "knowledge"
     ];
 
-    soundconverter.buildCost = 1;
-    soundconverter.sandbox.method = "bwrap";
-    soundconverter.sandbox.whitelistWayland = true;
-    soundconverter.sandbox.extraHomePaths = [
-      "Music"
-      "tmp"
-      "use"
-      ".config/dconf"
-    ];
-    soundconverter.sandbox.whitelistDbus = [ "user" ];  # for dconf
-    soundconverter.sandbox.extraPaths = [
-      "/mnt/servo/media/Music"
-      "/mnt/servo/media/games"
-    ];
-    soundconverter.sandbox.autodetectCliPaths = "existingOrParent";
-
     sox.sandbox.method = "bwrap";
     sox.sandbox.autodetectCliPaths = "existingFileOrParent";
     sox.sandbox.whitelistAudio = true;
 
     space-cadet-pinball.buildCost = 1;
     space-cadet-pinball.persist.byStore.plaintext = [ ".local/share/SpaceCadetPinball" ];
-    space-cadet-pinball.sandbox.method = "bwrap";
+    space-cadet-pinball.sandbox.method = "bunpen";
     space-cadet-pinball.sandbox.whitelistAudio = true;
     space-cadet-pinball.sandbox.whitelistDri = true;
     space-cadet-pinball.sandbox.whitelistWayland = true;
@@ -1191,10 +1143,11 @@ in
     sudo.sandbox.enable = false;
 
     superTux.buildCost = 1;
-    superTux.sandbox.method = "bwrap";
+    superTux.sandbox.method = "bunpen";
     superTux.sandbox.whitelistAudio = true;
     superTux.sandbox.whitelistDri = true;
     superTux.sandbox.whitelistWayland = true;
+    superTux.sandbox.whitelistX = true;
     superTux.persist.byStore.plaintext = [ ".local/share/supertux2" ];
 
     swappy.sandbox.method = "bwrap";
@@ -1219,7 +1172,7 @@ in
     typescript-language-server.sandbox.whitelistPwd = true;
 
     tumiki-fighters.buildCost = 1;
-    tumiki-fighters.sandbox.method = "bwrap";
+    tumiki-fighters.sandbox.method = "bunpen";
     tumiki-fighters.sandbox.whitelistAudio = true;
     tumiki-fighters.sandbox.whitelistDri = true;  #< not strictly necessary, but triples CPU perf
     tumiki-fighters.sandbox.whitelistWayland = true;
@@ -1227,7 +1180,7 @@ in
 
     util-linux.sandbox.enable = false;  #< TODO: possible to sandbox if i specify a different profile for each of its ~50 binaries
 
-    unzip.sandbox.method = "bwrap";
+    unzip.sandbox.method = "bunpen";
     unzip.sandbox.autodetectCliPaths = "existingOrParent";
     unzip.sandbox.whitelistPwd = true;
 
@@ -1258,13 +1211,13 @@ in
     ];
 
     vvvvvv.buildCost = 1;
-    vvvvvv.sandbox.method = "bwrap";
+    vvvvvv.sandbox.method = "bunpen";
     vvvvvv.sandbox.whitelistAudio = true;
     vvvvvv.sandbox.whitelistDri = true;  #< playable without, but burns noticably more CPU
     vvvvvv.sandbox.whitelistWayland = true;
     vvvvvv.persist.byStore.plaintext = [ ".local/share/VVVVVV" ];
 
-    w3m.sandbox.method = "bwrap";
+    w3m.sandbox.method = "bunpen";
     w3m.sandbox.net = "all";
     w3m.sandbox.extraHomePaths = [
       # little-used feature, but you can save web pages :)
@@ -1273,7 +1226,7 @@ in
 
     watch.sandbox.enable = false;  #< it executes the command it's given
 
-    wdisplays.sandbox.method = "bwrap";
+    wdisplays.sandbox.method = "bunpen";
     wdisplays.sandbox.whitelistWayland = true;
 
     wget.sandbox.method = "bunpen";
@@ -1293,11 +1246,12 @@ in
     wirelesstools.sandbox.net = "all";
     wirelesstools.sandbox.capabilities = [ "net_admin" ];
 
-    wl-clipboard.sandbox.method = "bwrap";
+    wl-clipboard.sandbox.method = "bunpen";
     wl-clipboard.sandbox.whitelistWayland = true;
+    wl-clipboard.sandbox.isolatePids = false;  #< this is needed, but not sure why?
 
     wtype = {};
-    wtype.sandbox.method = "bwrap";
+    wtype.sandbox.method = "bunpen";
     wtype.sandbox.whitelistWayland = true;
 
     xwayland.sandbox.method = "bwrap";

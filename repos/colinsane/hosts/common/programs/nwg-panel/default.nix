@@ -187,7 +187,7 @@ in
       playerctlChars = if cfg.config.mediaTitle then 60 else 0;
     });
 
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDri = true;
     sandbox.whitelistS6 = true;
@@ -197,6 +197,7 @@ in
       "system"  # for "shutdown" option to speak to systemd
     ];
     sandbox.extraPaths = [
+      "/proc"  #< probably needed for recursive bwrap sandboxing?
       "/run/systemd"  #< for "shutdown" option
       "/sys/class/backlight"
       "/sys/class/leds"  #< for torch/flashlight on moby

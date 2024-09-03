@@ -5,7 +5,7 @@
   sane.programs.gnome-weather = {
     buildCost = 1;
 
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.wrapperType = "inplace";  #< /share/org.gnome.Weather/org.gnome.Weather file refers to bins by full path
     sandbox.whitelistWayland = true;
     sandbox.net = "clearnet";

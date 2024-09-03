@@ -22,7 +22,7 @@ in {
       ];
     });
 
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.whitelistDbus = [ "user" ];  # it won't launch without it, dunno exactly why.
     sandbox.whitelistWayland = true;
     sandbox.net = "clearnet";

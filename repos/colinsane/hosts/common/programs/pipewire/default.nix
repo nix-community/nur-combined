@@ -55,7 +55,7 @@ in
     ];
 
     # sandbox.method = "landlock";  #< works, including without rtkit
-    sandbox.method = "bwrap";  #< also works, but can't claim the full scheduling priority it wants
+    sandbox.method = "bunpen";  #< also works, but can't claim the full scheduling priority it wants
     sandbox.whitelistAudio = true;
     # sandbox.whitelistDbus = [
     #   # dbus is used for rtkit integration
@@ -80,6 +80,7 @@ in
       "/dev/video0"
       "/dev/video1"
       "/dev/video2"
+      "/proc"  #< because of isolatePids=false
     ];
     sandbox.extraHomePaths = [
       # pulseaudio cookie

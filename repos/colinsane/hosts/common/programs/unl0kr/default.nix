@@ -21,7 +21,7 @@ in
 
     # N.B.: this sandboxing applies to `unl0kr` itself -- the on-screen-keyboard;
     #       NOT to the wrapper which invokes `login`.
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.whitelistDri = true;
     sandbox.extraPaths = [
       "/dev/fb0"

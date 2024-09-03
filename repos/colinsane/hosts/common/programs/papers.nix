@@ -2,7 +2,7 @@
 {
   sane.programs.papers = {
     buildCost = 2;  #< webkitgtk
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.whitelistDbus = [ "user" ];  #< for clicking links
     sandbox.whitelistDri = true;  #< speedier
     sandbox.whitelistWayland = true;

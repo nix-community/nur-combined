@@ -25,7 +25,7 @@ in
     };
 
     packageUnwrapped = pkgs.rmDbusServicesInPlace pkgs.dconf;
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.whitelistDbus = [ "user" ];
     persist.byStore.private = [
       ".config/dconf"

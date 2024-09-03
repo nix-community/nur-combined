@@ -36,9 +36,10 @@ in
         "s6-rc"
       ];
     };
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.whitelistS6 = true;
     sandbox.isolatePids = false;  #< XXX: not sure why, but swaync segfaults under load without this!
+    sandbox.extraPaths = [ "/proc" ];
   };
 
   sane.programs.swaync-fbcli = {
@@ -52,9 +53,10 @@ in
         "util-linux"
       ];
     };
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.whitelistDbus = [ "user" ];
     sandbox.isolatePids = false;  # `swaync-fbcli stop` needs to be able to find the corresponding `swaync-fbcli start` process
+    sandbox.extraPaths = [ "/proc" ];
   };
 
   sane.programs.swaynotificationcenter = {
@@ -103,7 +105,7 @@ in
       "swaync-service-dispatcher"  #< used when toggling buttons
     ];
 
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [
       "user"  # mpris; portal

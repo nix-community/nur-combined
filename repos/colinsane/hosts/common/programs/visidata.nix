@@ -8,7 +8,7 @@
       doCheck = false;
     });
 
-    sandbox.method = "bwrap";  # TODO:sandbox: untested
+    sandbox.method = "bunpen";
     sandbox.autodetectCliPaths = true;
   };
 }

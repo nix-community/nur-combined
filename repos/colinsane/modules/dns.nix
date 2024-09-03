@@ -1,11 +1,9 @@
 # TODO: consider using this library for .zone file generation:
 # - <https://github.com/kirelagin/dns.nix>
-{ config, lib, pkgs, ... }:
+{ lib, ... }:
 
 with builtins;
 let
-  cfg = config.sane.dns;
-  toml = pkgs.formats.toml { };
   recordFormatters = {
     # quote rules for zone files:
     # - any character may be encoded by `\DDD`, where `DDD` represents its ascii value in base 8.

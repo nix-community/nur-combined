@@ -24,7 +24,7 @@ wipe_browser() {
     ~/.config/chromium/* \
     ~/.librewolf/default/* \
     ~/.local/share/epiphany/* \
-    ~/.mozilla/* \
+    ~/.mozilla/firefox/default/* \
     || true  # in case no matches
 
   # browsers like to stick around in the background so they can load faster

@@ -85,11 +85,13 @@
     ./htop
     ./iio-sensor-proxy.nix
     ./imagemagick.nix
+    ./inkscape.nix
     ./jellyfin-media-player.nix
     ./kdenlive.nix
     ./keymapp.nix
     ./komikku.nix
     ./koreader
+    ./krita.nix
     ./less.nix
     ./lftp.nix
     ./lgtrombetta-compass.nix
@@ -154,6 +156,7 @@
     ./sfeed.nix
     ./shadow.nix
     ./signal-desktop.nix
+    ./soundconverter.nix
     ./splatmoji.nix
     ./spot.nix
     ./spotify.nix

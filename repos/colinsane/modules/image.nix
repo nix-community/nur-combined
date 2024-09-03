@@ -9,7 +9,7 @@
 #
 # TODO: replace mobile-nixos parts with Disko <https://github.com/nix-community/disko>
 #   or just inline them here.
-{ config, lib, pkgs, utils, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -91,10 +91,6 @@ in
     };
   };
   config = let
-    # return true if super starts with sub
-    startsWith = super: sub: (
-      (builtins.substring 0 (builtins.stringLength sub) super) == sub
-    );
     # return the (string) path to get from `stem` to `path`
     # or errors if not a sub-path
     relPath = stem: path: (

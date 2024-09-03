@@ -2,7 +2,8 @@
 {
   sane.programs.pidof = {
     packageUnwrapped = pkgs.linkBinIntoOwnPackage pkgs.procps "pidof";
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.isolatePids = false;
+    sandbox.extraPaths = [ "/proc" ];
   };
 }

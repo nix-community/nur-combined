@@ -255,10 +255,13 @@ fn bind_component(ctx: *ns_ctx, strpath: str, remaining: str) (void | fs::error 
   let st = fs::stat(ctx.old_fs, strpath)?;
 
   if (fs::islink(st.mode)) {
-    if (new_exists) return;  // we already made the link
     let linktext = fs::readlink(ctx.old_fs, strpath)?;
-    log::printfln("[namespace/bind] ln new/{} -> {}", strpath, linktext);
-    fs::symlink(ctx.new_fs, linktext, strpath)?;
+    if (!new_exists) {
+      // we already made the link (but not necessarily what's *behind* it: maybe
+      // we bind-mounted its directory, and still need to mount the underlying)
+      log::printfln("[namespace/bind] ln new/{} -> {}", strpath, linktext);
+      fs::symlink(ctx.new_fs, linktext, strpath)?;
+    };
 
     // bind the real path (or, the "more real" path, in case there are
     // multiple layers of symlink).

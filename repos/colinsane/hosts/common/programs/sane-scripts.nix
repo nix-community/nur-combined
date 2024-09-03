@@ -58,14 +58,14 @@ in
     };
 
     "sane-scripts.bt-search".sandbox = {
-      method = "bwrap";
+      method = "bunpen";
       net = "clearnet";
       # TODO: migrate `jackett_apikey` to `secrets` api
       extraPaths = [ "/run/secrets/jackett_apikey" ];
     };
 
     "sane-scripts.bt-show".sandbox = {
-      method = "bwrap";
+      method = "bunpen";
       net = "clearnet";
       # TODO: migrate `transmission_passwd` to `secrets` api
       extraPaths = [ "/run/secrets/transmission_passwd" ];
@@ -98,7 +98,7 @@ in
     };
 
     "sane-scripts.ip-check".sandbox = {
-      method = "landlock";
+      method = "bunpen";
       net = "all";
     };
 
@@ -128,7 +128,7 @@ in
     "sane-scripts.private-unlock".sandbox.enable = false;
 
     "sane-scripts.reclaim-boot-space".sandbox = {
-      method = "bwrap";
+      method = "bunpen";
       extraPaths = [ "/boot" ];
     };
 
@@ -138,7 +138,7 @@ in
     "sane-scripts.rcp".suggestedPrograms = [ "rsync" ];
 
     "sane-scripts.reboot".sandbox = {
-      method = "bwrap";
+      method = "bunpen";
       whitelistDbus = [
         "system"
       ];
@@ -148,11 +148,11 @@ in
     };
 
     "sane-scripts.reclaim-disk-space".sandbox = {
-      method = "bwrap";
+      method = "bunpen";
       extraPaths = [ "/nix/var/nix" ];
     };
 
-    "sane-scripts.secrets-dump".sandbox.method = "bwrap";
+    "sane-scripts.secrets-dump".sandbox.method = "bunpen";
     "sane-scripts.secrets-dump".sandbox.extraHomePaths = [
       ".config/sops"
       "knowledge/secrets"
@@ -171,7 +171,7 @@ in
     ];
 
     "sane-scripts.shutdown".sandbox = {
-      method = "bwrap";
+      method = "bunpen";
       whitelistDbus = [
         "system"
       ];
@@ -200,7 +200,7 @@ in
       "exiftool"  #< for (slightly) better sandboxing than default exiftool
     ];
     "sane-scripts.tag-media".sandbox = {
-      method = "bwrap";
+      method = "bunpen";
       autodetectCliPaths = "existing";
       whitelistPwd = true;  # for music renaming
     };
@@ -240,10 +240,10 @@ in
       "sane-scripts.ip-check"
     ];
 
-    "sane-scripts.which".sandbox.method = "bwrap";
+    "sane-scripts.which".sandbox.method = "bunpen";
 
     "sane-scripts.wipe".sandbox = {
-      method = "bwrap";
+      method = "bunpen";
       whitelistDbus = [ "user" ];  #< for `secret-tool`
       whitelistS6 = true;  #< for stopping services before wiping
       extraHomePaths = [

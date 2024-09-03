@@ -24,7 +24,7 @@
 #   3b. attach the VPN device to a bridge device, then connect that to a network namespace by using a veth pair.
 #   3c. juse use `sanebox`, which abstracts the above options.
 
-{ config, lib, pkgs, sane-lib, ... }:
+{ config, lib, sane-lib, ... }:
 let
   cfg = config.sane.vpn;
   vpnOpts = with lib; types.submodule ({ name, config, ... }: {
@@ -49,10 +49,6 @@ let
       };
       # priority*: used externally, by e.g. `sane-vpn`
       priorityMain = mkOption {
-        type = types.int;
-        internal = true;
-      };
-      priorityWgTable = mkOption {
         type = types.int;
         internal = true;
       };
@@ -119,11 +115,10 @@ let
       isDefault = builtins.all (other: config.id <= other.id) (builtins.attrValues cfg);
       fwmark = config.id + 10000;
       priorityMain = config.id + 100;
-      priorityWgTable = config.id + 200;
       priorityFwMark = config.id + 300;
     };
   });
-  mkVpnConfig = name: { addrV4, dns, endpoint, fwmark, id, priorityMain, priorityWgTable, priorityFwMark, privateKeyFile, publicKey, subnetV4, ... }: {
+  mkVpnConfig = name: { addrV4, dns, endpoint, fwmark, id, privateKeyFile, publicKey, subnetV4, ... }: {
     assertions = [
       {
         assertion = (lib.count (c: c.id == id) (builtins.attrValues cfg)) == 1;

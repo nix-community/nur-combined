@@ -99,9 +99,11 @@ let
           mv "$_dir/$_name" "$_dir/.sandboxed/"
         fi
 
+        # N.B.: double `escapeShellArg`: once for the shell wrapper, and again for runtime because the shell wrapper doesn't escape.
+        # spotcheck this by seeing if animatch (requires a path "Holy Pangolin") works
         makeShellWrapper ${sanebox'} "$_dir/$_name" --suffix PATH : /run/current-system/sw/libexec/${sanebox.pname} \
           --inherit-argv0 \
-          ${lib.escapeShellArgs (lib.flatten (builtins.map (f: [ "--add-flags" f ]) extraSandboxArgs))} \
+          ${lib.escapeShellArgs (lib.flatten (builtins.map (f: [ "--add-flags" (lib.escapeShellArg f) ]) extraSandboxArgs))} \
           --add-flags "$_dir/.sandboxed/$_name"
 
         if [ -n "${sanebox.interpreter or ""}" ]; then

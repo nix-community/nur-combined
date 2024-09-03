@@ -16,7 +16,7 @@
 
     buildCost = 1;
 
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.whitelistAudio = true;
     sandbox.whitelistWayland = true;
     sandbox.autodetectCliPaths = "existingFile";

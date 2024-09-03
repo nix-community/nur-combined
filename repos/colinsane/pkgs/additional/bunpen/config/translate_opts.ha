@@ -7,6 +7,7 @@ use fs;
 use log;
 use os;
 use path;
+use regex;
 use restrict;
 use rt;
 use rt::ext;
@@ -63,8 +64,20 @@ export fn ingest_cli_opts(opts: cli_opts) (cli_request | exec_params | help) = {
   req.exec_params = cli_opts_get_exec_params(opts);
 
   //---- ingest `disable` ----//
-  if (opts.disable)
-    return req.exec_params;
+  if (opts.disable != "") {
+    if (opts.disable == "1" || opts.disable == "all" || opts.disable == "ALL" || opts.disable == "*")
+      return req.exec_params;
+    match (regex::compile(opts.disable)) {
+      case let re: regex::regex =>
+        defer regex::finish(&re);
+        if (regex::test(&re, req.exec_params.bin))
+          return req.exec_params;
+        if (len(req.exec_params.args) > 0 && regex::test(&re, req.exec_params.args[0]))
+          return req.exec_params;
+      case let e: regex::error =>
+        log::printfln("[config] failed to parse BUNPEN_DISABLE regex {}: {}", opts.disable, e);
+    };
+  };
 
   //---- ingest `caps` ----//
   req.resources.caps = restrict::cap_array_to_caps(opts.keep_caps);

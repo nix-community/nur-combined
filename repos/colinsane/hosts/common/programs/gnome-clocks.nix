@@ -12,7 +12,7 @@
     });
 
     buildCost = 1;
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  #< required (alongside .config/dconf) to remember timers
     sandbox.whitelistWayland = true;

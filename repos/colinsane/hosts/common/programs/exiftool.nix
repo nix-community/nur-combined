@@ -1,7 +1,7 @@
 { ... }:
 {
   sane.programs.exiftool = {
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.autodetectCliPaths = "existingFile";
   };
 }

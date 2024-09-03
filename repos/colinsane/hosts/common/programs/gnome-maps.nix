@@ -37,7 +37,7 @@
     ];
 
     sandbox.wrapperType = "inplace";  #< /share directory contains Gir info which references libgnome-maps.so by path
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.whitelistDri = true;  # for perf
     sandbox.whitelistDbus = [
       "system"  # system is required for non-portal location services
@@ -48,7 +48,7 @@
 
     persist.byStore.plaintext = [ ".cache/shumate" ];
     persist.byStore.private = [
-      ({ path = ".local/share/maps-places.json"; type = "file"; })
+      { path = ".local/share/maps-places.json"; type = "file"; }
     ];
   };
 }

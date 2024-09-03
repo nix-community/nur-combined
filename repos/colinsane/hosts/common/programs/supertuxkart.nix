@@ -3,7 +3,7 @@
   sane.programs.superTuxKart = {
     buildCost = 1;
 
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.net = "clearnet";  # net play
     sandbox.whitelistAudio = true;
     sandbox.whitelistDri = true;

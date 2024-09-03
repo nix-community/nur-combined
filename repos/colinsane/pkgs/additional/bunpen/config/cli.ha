@@ -10,7 +10,7 @@ export type cli_opts = struct {
   cmd: []str,
   // `--bunpen-debug`
   debug: uint,
-  disable: bool,
+  disable: str,
   drop_shell: bool,
   // `--bunpen-help`
   help: bool,
@@ -53,6 +53,15 @@ export fn usage() void = {
   fmt::println("      allow access to the host <path>, relative to HOME")!;
   fmt::println("  --bunpen-run-path <path>")!;
   fmt::println("      allow access to the host <path>, relative to XDG_RUNTIME_DIR")!;
+  fmt::println("the following environment variables are also considered and propagated to children:")!;
+  fmt::println("  BUNPEN_DISABLE=1 or BUNPEN_DISABLE=all")!;
+  fmt::println("      disables all sandboxing; exec the wrapped program directly")!;
+  fmt::println("  BUNPEN_DISABLE=progname")!;
+  fmt::println("      disables sandboxing for the specific 'progname'")!;
+  fmt::println("      any regular expression can be used here, e.g. 'sane-.*' would disable sanboxing for sane-which, sane-open, and so on")!;
+  fmt::println("      note that this doesn't enforce a complete match:")!;
+  fmt::println("      BUNPEN_DISABLE=host would disable sandboxing for 'host', 'hostname', and so on")!;
+  fmt::println("      consider BUNPEN_DISABLE='host$' to be more targeted")!;
   // fmt::println("  --bunpen-add-pwd")!;
   // fmt::println("      shorthand for `--bunpen-path $PWD`")!;
   // fmt::println("")!;
@@ -67,9 +76,6 @@ export fn usage() void = {
   // fmt::println("  --bunpen-dns <server>|host")!;
   // fmt::println("  --bunpen-keep-namespace <all|cgroup|ipc|net|pid|uts>")!;
   // fmt::println("      do not unshare the provided linux namespace")!;
-  // fmt::println("the following environment variables are also considered and propagated to children:")!;
-  // fmt::println("  BUNPEN_DISABLE=1")!;
-  // fmt::println("      equivalent to `--bunpen-disable`")!;
   // fmt::println("  BUNPEN_DEBUG=1")!;
   // fmt::println("      equivalent to `--bunpen-debug`, but activates earlier")!;
   // fmt::println("  BUNPEN_PREPEND=...")!;
@@ -81,12 +87,10 @@ export fn usage() void = {
 export fn parse_args(args: []str) (cli_opts | errors::invalid) = {
   let parsed = cli_opts { autodetect = void, ... };
 
-  let dis = match (os::getenv("BUNPEN_DISABLE")) {
+  parsed.disable = match (os::getenv("BUNPEN_DISABLE")) {
     case let d: str => yield d;
     case void => yield "";
   };
-  if (dis != "" && dis != "0")
-    parsed.disable = true;
 
   for (let idx: size = 0; idx < len(args); idx += 1) {
     let arg = args[idx];

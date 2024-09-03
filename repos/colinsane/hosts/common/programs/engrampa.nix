@@ -2,7 +2,7 @@
 {
   sane.programs."mate.engrampa" = {
     packageUnwrapped = pkgs.rmDbusServices pkgs.mate.engrampa;
-    sandbox.method = "bwrap";  # TODO:sandbox: untested
+    sandbox.method = "bunpen";
     sandbox.whitelistWayland = true;
     sandbox.autodetectCliPaths = "existingOrParent";
     sandbox.extraHomePaths = [

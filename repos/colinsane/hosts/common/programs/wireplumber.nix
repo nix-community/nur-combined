@@ -6,16 +6,17 @@
       pipewire = config.sane.programs.pipewire.packageUnwrapped;
     };
 
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     # sandbox.whitelistDbus = [
     #   "system"  #< so it can request better scheduling from rtkit
-    #   # "user"  #< TODO: is this needed?
+    #   # "user"  #< apparently not needed?
     # ];
     sandbox.whitelistAudio = true;
     sandbox.extraPaths = [
       # i think these video inputs (for e.g. webcam) are optional.
       "/dev/media0"
       "/dev/snd"
+      # vvv video* is for moby
       "/dev/video0"
       "/dev/video1"
       "/dev/video2"
@@ -25,7 +26,7 @@
       "/sys/class/video4linux"
       "/sys/devices"
     ];
-    sandbox.isolatePids = false;  #< needed if i want rtkit to grant this higher scheduling priority
+    # sandbox.isolatePids = false;  #< needed if i want rtkit to grant this higher scheduling priority
 
     suggestedPrograms = [ "alsa-ucm-conf" ];
 

@@ -1,7 +1,15 @@
+# use like:
+# ```
+#   $ lftp ftps://uninsane.org`
+#   lftp ~> ls
+#   ...
+#   lftp -> get README.me
+#   exit
+# ```
 { ... }:
 {
   sane.programs.lftp = {
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.net = "all";
     sandbox.extraPaths = [
       "Music"

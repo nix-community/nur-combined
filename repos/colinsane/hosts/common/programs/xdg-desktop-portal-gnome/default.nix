@@ -13,7 +13,7 @@ in
       ];
     });
 
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.whitelistDbus = [ "user" ];  # speak to main xdg-desktop-portal
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [

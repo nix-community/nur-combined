@@ -13,7 +13,7 @@
     else
       pkgs.runCommandLocal "brave-not-supported" {} "false"
     ;
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.wrapperType = "inplace";  #< package contains dangling symlinks which my wrapper doesn't understand
     sandbox.net = "all";
     sandbox.extraHomePaths = [

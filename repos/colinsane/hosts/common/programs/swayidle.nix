@@ -85,7 +85,7 @@ in
       # "sway"  #< required, but circular dep
     ];
 
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.whitelistDbus = [ "user" ];  #< might need system too, for inhibitors
     sandbox.whitelistS6 = true;
     sandbox.whitelistWayland = true;

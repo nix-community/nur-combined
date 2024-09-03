@@ -5,7 +5,7 @@ in
 {
   sane.programs."sane-private-unlock-remote" = {
     packageUnwrapped = pkgs.sane-scripts.private-unlock-remote;
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.net = "all";
     sandbox.extraHomePaths = [
       ".config/sops"

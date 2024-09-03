@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   cfg = config.sane.programs.swaylock;
 in
@@ -30,7 +30,7 @@ in
     #   ];
     # });
 
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.extraPaths = [
       # N.B.: we need to be able to follow /etc/shadow to wherever it's symlinked.
       # swaylock seems (?) to offload password checking to pam's `unix_chkpwd`,

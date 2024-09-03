@@ -20,7 +20,7 @@
       ];
     });
 
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.whitelistAudio = true;
     sandbox.extraPaths = [
       "/dev"  # tried, but failed to narrow this down (moby)

@@ -32,7 +32,7 @@ in
       '';
     });
 
-    sandbox.method = "bwrap";
+    sandbox.method = "bunpen";
     sandbox.extraRuntimePaths = [
       "/"  #< it needs to create a file in the root. TODO: move the bus handle into a sandboxable subdirectory
     ];
