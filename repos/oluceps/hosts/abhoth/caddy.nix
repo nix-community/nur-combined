@@ -73,17 +73,8 @@
                 {
                   handle = [
                     {
-                      handler = "subroute";
-                      routes = [
-                        {
-                          handle = [
-                            {
-                              handler = "reverse_proxy";
-                              upstreams = [ { dial = "10.0.3.2:8003"; } ];
-                            }
-                          ];
-                        }
-                      ];
+                      handler = "reverse_proxy";
+                      upstreams = [ { dial = "10.0.3.2:8003"; } ];
                     }
                   ];
                   match = [ { host = [ "vault.nyaw.xyz" ]; } ];
@@ -103,10 +94,84 @@
                           ];
                           match = [ { path = [ "/grafana/*" ]; } ];
                         }
+                        {
+                          handle = [
+                            {
+                              handler = "reverse_proxy";
+                              upstreams = [ { dial = "10.0.3.2:9090"; } ];
+                            }
+                          ];
+                          match = [ { path = [ "/prom/*" ]; } ];
+                        }
+                        {
+                          handle = [
+                            {
+                              handler = "reverse_proxy";
+                              transport = {
+                                protocol = "http";
+                                tls = {
+                                  server_name = "hastur.nyaw.xyz";
+                                };
+                              };
+                              upstreams = [ { dial = "10.0.3.2:443"; } ];
+                            }
+                          ];
+                          match = [ { path = [ "/metrics" ]; } ];
+                        }
                       ];
                     }
                   ];
                   match = [ { host = [ "hastur.nyaw.xyz" ]; } ];
+                }
+                {
+                  handle = [
+                    {
+                      handler = "subroute";
+                      routes = [
+                        {
+                          handle = [
+                            {
+                              handler = "reverse_proxy";
+                              transport = {
+                                protocol = "http";
+                                tls = {
+                                  server_name = "kaambl.nyaw.xyz";
+                                };
+                              };
+                              upstreams = [ { dial = "10.0.3.3:443"; } ];
+                            }
+                          ];
+                          match = [ { path = [ "/metrics" ]; } ];
+                        }
+                      ];
+                    }
+                  ];
+                  match = [ { host = [ "kaambl.nyaw.xyz" ]; } ];
+                }
+                {
+                  handle = [
+                    {
+                      handler = "subroute";
+                      routes = [
+                        {
+                          handle = [
+                            {
+                              handler = "reverse_proxy";
+                              transport = {
+                                protocol = "http";
+                                tls = {
+                                  server_name = "azasos.nyaw.xyz";
+                                };
+                              };
+                              upstreams = [ { dial = "10.0.2.1:443"; } ];
+                            }
+                          ];
+                          match = [ { path = [ "/metrics" ]; } ];
+                        }
+                      ];
+                    }
+                  ];
+                  match = [ { host = [ "azasos.nyaw.xyz" ]; } ];
                 }
               ];
             };

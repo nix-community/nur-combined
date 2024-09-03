@@ -7,8 +7,10 @@
 let
   targets = map (n: "${n}.nyaw.xyz") [
     "nodens"
-    "abhoth"
+    "abhoth" # single point
     "kaambl"
+    "azasos"
+    "hastur"
   ];
 in
 {
@@ -46,15 +48,14 @@ in
         };
         static_configs = [ { inherit targets; } ];
       }
-
-      {
-        job_name = "metrics-notls";
-        scheme = "http";
-        static_configs = [
-          { targets = [ "10.0.2.1:9100" ]; }
-          { targets = [ "10.0.2.2:9100" ]; }
-        ];
-      }
+      # {
+      #   job_name = "metrics-notls";
+      #   scheme = "http";
+      #   static_configs = [
+      #     { targets = [ "10.0.2.1:9100" ]; }
+      #     { targets = [ "10.0.2.2:9100" ]; }
+      #   ];
+      # }
     ];
   rules = lib.singleton (
     builtins.toJSON {

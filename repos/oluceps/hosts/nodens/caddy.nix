@@ -209,17 +209,8 @@
                 {
                   handle = [
                     {
-                      handler = "subroute";
-                      routes = [
-                        {
-                          handle = [
-                            {
-                              handler = "reverse_proxy";
-                              upstreams = [ { dial = "10.0.1.2:8003"; } ];
-                            }
-                          ];
-                        }
-                      ];
+                      handler = "reverse_proxy";
+                      upstreams = [ { dial = "10.0.1.2:8003"; } ];
                     }
                   ];
                   match = [ { host = [ "vault.nyaw.xyz" ]; } ];

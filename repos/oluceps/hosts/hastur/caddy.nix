@@ -47,6 +47,16 @@
                               upstreams = [ { dial = "localhost:3002"; } ];
                             }
                           ];
+                          match = [ { path = [ "/grafana/*" ]; } ];
+                        }
+                        {
+                          handle = [
+                            {
+                              handler = "reverse_proxy";
+                              upstreams = [ { dial = "localhost:9090"; } ];
+                            }
+                          ];
+                          match = [ { path = [ "/prom/*" ]; } ];
                         }
                       ];
                     }

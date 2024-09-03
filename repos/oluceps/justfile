@@ -44,12 +44,12 @@ build-all-host:
 build *args:
     #!/usr/bin/env nu
     use {{loc}}/util.nu
-    f b {{ args }}
+    util b {{ args }}
 
 deploy *args:
     #!/usr/bin/env nu
     use {{loc}}/util.nu
-    f d {{ args }}
+    util d {{ args }}
 
 encrypt-new *args:
     #!/usr/bin/env nu
@@ -99,17 +99,17 @@ decrypt *args:
     use {{loc}}/util.nu
     ['./sec' '{{ home }}/Sec'] |
       each {|| ls $in } | flatten | $in.name |
-              reduce {|it, acc| $it + (char newline) + $acc } | fzf | str trim | f de $in
+              reduce {|it, acc| $it + (char newline) + $acc } | fzf | str trim | util de $in
 
 remote-switch *args:
     #!/usr/bin/env nu
     use {{loc}}/util.nu
-    f rswc {{ args }}
+    util rswc {{ args }}
 
 check:
     #!/usr/bin/env nu
     use {{loc}}/util.nu
-    f chk
+    util chk
 
 rekey:
     agenix rekey -a
