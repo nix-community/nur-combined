@@ -17,14 +17,7 @@ in
     rev = "v${sources.beta.version}";
     sha256 = sources.beta.hash;
   };
-
-  patches = [
-    (fetchpatch {
-      url = "https://patch-diff.githubusercontent.com/raw/MaaAssistantArknights/MaaAssistantArknights/pull/10309.patch";
-      hash = "sha256-2qSowC604crKANEUv/+xghRQu+mMfia0TheHl6wpf7Y=";
-    })
-  ];
-
+  
   passthru.updateScript = ./update.sh;
 
   meta = oldAttrs.meta // {
