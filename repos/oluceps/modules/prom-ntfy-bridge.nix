@@ -27,9 +27,15 @@ in
   config = mkIf cfg.enable {
     systemd.services.prom-ntfy-bridge = {
       wantedBy = [ "multi-user.target" ];
+      requires = [
+        "dae.service"
+        "mosproxy.service"
+      ];
       after = [
         "network-online.target"
         "nss-lookup.target"
+        "dae.service"
+        "mosproxy.service"
       ];
       wants = [
         "network-online.target"

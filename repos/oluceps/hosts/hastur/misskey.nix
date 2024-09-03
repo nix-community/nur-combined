@@ -1,28 +1,39 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   services.redis.servers.misskey = {
     enable = true;
     port = 6379;
   };
-  services.misskey.enable = false;
-  environment.etc."misskey/default.yml".text = pkgs.lib.generators.toYAML { } {
-    url = "https://nyaw.xyz/";
-    port = 3000;
-    db = {
-      host = "/run/postgresql";
-      db = "misskey";
-      user = "misskey";
-    };
-    dbReplications = false;
-    redis = {
-      host = "127.0.0.1";
-      port = 6379;
-    };
-    id = "aid";
-    signToActivityPubGet = true;
-    allowedPrivateNetworks = [
-      "127.0.0.1/32"
-      "10.0.1.1/24"
+
+  systemd.services.podman-misskey = {
+    after = [
+      "dae.service"
+      "mosproxy.service"
     ];
+    requires = [
+      "dae.service"
+      "mosproxy.service"
+    ];
+    # serviceConfig = {
+    #   ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
+    # };
   };
+
+  virtualisation = {
+    oci-containers.backend = "podman";
+    oci-containers.containers = {
+      misskey = {
+        image = "docker.io/misskey/misskey:2024.8.0";
+        ports = [ "3000:3000/tcp" ];
+        volumes = [
+          "/var/lib/misskey/files:/misskey/files"
+          "/var/lib/misskey/config:/misskey/.config"
+        ];
+        extraOptions = [ "--network=host" ];
+      };
+    };
+  };
+  systemd.tmpfiles.rules = [
+    "C+ /var/lib/misskey/config/default.yml 0744 - - - ${config.age.secrets.misskey.path}"
+  ];
 }

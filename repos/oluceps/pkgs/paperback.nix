@@ -6,13 +6,13 @@
 
 rustPlatform.buildRustPackage {
   pname = "paperback";
-  version = "unstable-2024-07-24";
+  version = "0-unstable-2024-08-14";
 
   src = fetchFromGitHub {
     owner = "cyphar";
     repo = "paperback";
-    rev = "af9a2886f61312abfb7b4f914e076006dc4178c3";
-    hash = "sha256-ozCVR11vQEXZdXggxhvaGUCPt/ib0t6IniDrqc5BQE4=";
+    rev = "16f4655edf3be477525e7c84f56cf90f44339758";
+    hash = "sha256-p2MTXuKZE/mPPjm/HQn14lsWuPnFQgluuG6qOyTeBWA=";
   };
 
   cargoLock = {

@@ -2,6 +2,7 @@
 {
 
   services.resolved = {
+    enable = lib.mkForce false;
     llmnr = "false";
     dnssec = "false";
     extraConfig = ''
@@ -12,6 +13,12 @@
   };
   networking.domain = "nyaw.xyz";
   networking = {
+    timeServers = [
+      "ntp.sjtu.edu.cn"
+      "ntp1.aliyun.com"
+      "ntp.ntsc.ac.cn"
+      "cn.ntp.org.cn"
+    ];
     nameservers = [
       "223.5.5.5#dns.alidns.com"
       "120.53.53.53#dot.pub"
@@ -121,26 +128,31 @@
         };
         wireguardPeers = [
           {
-            wireguardPeerConfig = {
-              PublicKey = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM=";
-              AllowedIPs = [ "10.0.2.2/32" ];
-              PersistentKeepalive = 15;
-            };
+            PublicKey = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM=";
+            AllowedIPs = [ "10.0.2.2/32" ];
+            PersistentKeepalive = 15;
           }
           {
-            wireguardPeerConfig = {
-              PublicKey = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg=";
-              AllowedIPs = [ "10.0.2.3/32" ];
-              PersistentKeepalive = 15;
-            };
+            PublicKey = "69DTVyNbhMN6/cgLCpcZrh/kGoi1IyxV0QwVjDe5IQk=";
+            AllowedIPs = [ "10.0.2.6/32" ];
+            PersistentKeepalive = 15;
           }
           {
-            wireguardPeerConfig = {
-              PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
-              AllowedIPs = [ "10.0.0.0/16" ];
-              Endpoint = "127.0.0.1:41820";
-              PersistentKeepalive = 15;
-            };
+            PublicKey = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg=";
+            AllowedIPs = [ "10.0.2.3/32" ];
+            PersistentKeepalive = 15;
+          }
+          {
+            PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
+            AllowedIPs = [ "10.0.1.1/32" ];
+            Endpoint = "127.0.0.1:41820";
+            PersistentKeepalive = 15;
+          }
+          {
+            PublicKey = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A=";
+            AllowedIPs = [ "10.0.3.1/32" ];
+            Endpoint = "127.0.0.1:41821";
+            PersistentKeepalive = 15;
           }
         ];
       };
@@ -150,23 +162,28 @@
       "10-wg0" = {
         matchConfig.Name = "wg0";
         address = [
-          "10.0.1.8/24"
-          "10.0.2.8/24"
+          "10.0.2.1/24"
         ];
         networkConfig = {
           IPMasquerade = "ipv4";
-          IPForward = true;
+          IPv4Forwarding = true;
         };
 
-        # routes = [
-        #   {
-        #     routeConfig = {
-        #       Destination = "192.168.1.0/24";
-        #       Gateway = "10.0.2.8";
-        #       Scope = "link";
-        #     };
-        #   }
-        # ];
+        routes = [
+          {
+            routeConfig = {
+              Destination = "10.0.3.0/24";
+              Scope = "link";
+            };
+          }
+          {
+            routeConfig = {
+              Destination = "10.0.1.0/24";
+              Scope = "link";
+            };
+          }
+        ];
+
       };
 
       "20-wired" = {

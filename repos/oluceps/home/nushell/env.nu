@@ -48,9 +48,9 @@ $env.EDITOR = "hx"
 $env.VISUAL = "hx"
 
 
-let atuin_cache = "/home/elen/.cache/atuin"
-if not ($atuin_cache | path exists) {
-  mkdir $atuin_cache
-}
-/run/current-system/sw/bin/atuin init nu  | save --force /home/elen/.cache/atuin/init.nu
+# let atuin_cache = "/home/elen/.cache/atuin"
+# if not ($atuin_cache | path exists) {
+#   mkdir $atuin_cache
+# }
+# /run/current-system/sw/bin/atuin init nu  | save --force /home/elen/.cache/atuin/init.nu
 

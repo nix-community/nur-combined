@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   enable = true;
-  package = pkgs.postgresql_16;
+  package = pkgs.postgresql_16_jit;
   enableTCPIP = true;
   settings = {
     port = 5432;

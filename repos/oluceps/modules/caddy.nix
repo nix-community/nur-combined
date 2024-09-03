@@ -15,6 +15,7 @@ in
   options = {
     repack.caddy = {
       enable = lib.mkEnableOption "caddy api gateway";
+      package = lib.mkPackageOption pkgs "caddy-lim" { };
       settings = lib.mkOption {
         type = lib.types.submodule { freeformType = format.type; };
         default = { };
@@ -114,8 +115,8 @@ in
     systemd.services.caddy = {
       serviceConfig = {
         Type = "notify";
-        ExecStart = "${pkgs.caddy}/bin/caddy run --config /etc/caddy/config.json";
-        ExecReload = "${pkgs.caddy}/bin/caddy reload --force --config /etc/caddy/config.json";
+        ExecStart = "${cfg.package}/bin/caddy run --config /etc/caddy/config.json";
+        ExecReload = "${cfg.package}/bin/caddy reload --force --config /etc/caddy/config.json";
         DynamicUser = true;
         StateDirectory = "caddy";
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];

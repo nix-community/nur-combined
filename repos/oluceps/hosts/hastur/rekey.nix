@@ -47,6 +47,14 @@ in
         rekeyFile = ../../sec/pleroma-secret.age;
         mode = "400";
       };
+      meilisearch = {
+        rekeyFile = ../../sec/meilisearch.age;
+        mode = "444";
+      };
+      misskey = {
+        rekeyFile = ../../sec/misskey.age;
+        mode = "400";
+      };
     };
   };
   services.openssh.hostKeys = [

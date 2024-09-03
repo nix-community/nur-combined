@@ -13,6 +13,12 @@
     dockerCompat = true;
   };
 
+  users.mutableUsers = false;
+  system.etc.overlay.mutable = false;
+  environment.etc."resolv.conf".text = ''
+    nameserver 127.0.0.1
+  '';
+
   nix.gc = {
     automatic = true;
     dates = "weekly";
@@ -57,7 +63,7 @@
     fail2ban.enable = true;
     phantomsocks.enable = true;
     dae.enable = true;
-    coredns.enable = true;
+    mosproxy.enable = true;
     scrutiny.enable = true;
   };
 
@@ -73,6 +79,13 @@
         "/three"
       ];
     };
+
+    hysteria.instances = [
+      {
+        name = "nodens";
+        configFile = config.age.secrets.hyst-us-cli.path;
+      }
+    ];
 
     resolved.enable = lib.mkForce false;
     tailscale = {
@@ -112,13 +125,6 @@
     #     workingDirectory = "/home/${user}/Src/misskey";
     #   }
     # ];
-
-    hysteria.instances = [
-      {
-        name = "colour";
-        configFile = config.age.secrets.hyst-az-cli.path;
-      }
-    ];
 
     shadowsocks.instances = [
       {

@@ -74,7 +74,7 @@ in
                 pkgs.nuenv.writeScriptBin {
                   name = "snapy";
                   script = ''
-                    const date_format = %Y-%m-%d_%H:%M:%S%z
+                    const date_format = "%Y-%m-%d_%H:%M:%S%z"
 
                     # take snapshot
                     date now | format date $date_format | ${btrfs} subvol snapshot -r ${s.source} $'${s.source}/.snapshots/($in)'

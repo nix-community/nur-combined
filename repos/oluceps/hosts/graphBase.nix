@@ -66,7 +66,7 @@
   };
   programs = {
     dconf.enable = true;
-    anime-game-launcher.enable = true; # Adds launcher and /etc/hosts rules
+    anime-game-launcher.enable = false; # Adds launcher and /etc/hosts rules
     # niri.enable = true;
     sway = {
       enable = true;
@@ -85,6 +85,7 @@
       package = pkgs.steam.override { extraPkgs = pkgs: [ pkgs.maple-mono-SC-NF ]; };
       remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
       dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+      localNetworkGameTransfers.openFirewall = true;
     };
     firefox = {
       enable = true;
@@ -101,127 +102,6 @@
       };
     };
   };
-  environment.systemPackages =
-    lib.flatten (
-      lib.attrValues (
-        with pkgs;
-        {
-          crypt = [
-            # mieru
-            minisign
-            rage
-            age-plugin-yubikey
-            cryptsetup
-            tpm2-tss
-            tpm2-tools
-            yubikey-manager
-            monero-cli
-          ];
-
-          dev = [ vscode.fhs ];
-
-          lang = [
-            [
-              editorconfig-checker
-              kotlin-language-server
-              sumneko-lua-language-server
-              yaml-language-server
-              tree-sitter
-              stylua
-              biome
-              # black
-            ]
-            # languages related
-            [
-              zig
-              lldb
-              # haskell-language-server
-              gopls
-              cmake-language-server
-              zls
-              android-file-transfer
-              nixpkgs-review
-              shfmt
-            ]
-          ];
-          # wine = [
-          #   # bottles
-          #   wineWowPackages.stable
-
-          #   # support 32-bit only
-          #   # wine
-
-          #   # support 64-bit only
-          #   (wine.override { wineBuild = "wine64"; })
-
-          #   # wine-staging (version with experimental features)
-          #   wineWowPackages.staging
-
-          #   # winetricks (all versions)
-          #   winetricks
-
-          #   # native wayland support (unstable)
-          #   wineWowPackages.waylandFull
-          # ];
-
-          db = [ mongosh ];
-
-          web = [ hugo ];
-
-          de = with gnomeExtensions; [
-            simple-net-speed
-            paperwm
-          ];
-
-          virt = [
-            # virt-manager
-            virtiofsd
-            runwin
-            guix-run
-            runbkworm
-            bkworm
-            arch-run
-            # ubt-rv-run
-            #opulr-a-run
-            lunar-run
-            virt-viewer
-          ];
-          fs = [
-            gparted
-            e2fsprogs
-            fscrypt-experimental
-            f2fs-tools
-            compsize
-          ];
-
-          cmd = [
-            metasploit
-            # linuxKernel.packages.linux_latest_libre.cpupower
-            clean-home
-            just
-            typst
-            cosmic-term
-            acpi
-            swww
-          ];
-          bluetooth = [ bluetuith ];
-
-          sound = [ pulseaudio ];
-
-          display = [ cage ];
-
-          cursor = [ graphite-cursors ];
-        }
-      )
-    )
-    ++ (with pkgs.nodePackages; [
-      typescript-language-server
-      node2nix
-      markdownlint-cli2
-      prettier
-    ])
-
-  ;
   virtualisation = {
     libvirtd = {
       enable = false;
@@ -416,7 +296,8 @@
   i18n = {
 
     inputMethod = {
-      enabled = "fcitx5";
+      type = "fcitx5";
+      enable = true;
       fcitx5.addons = with pkgs; [
         fcitx5-chinese-addons
         fcitx5-mozc

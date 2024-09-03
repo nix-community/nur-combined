@@ -2,27 +2,32 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
-  data,
-  inputs,
+  inputs',
+  self,
   config,
   lib,
-  pkgs,
   modulesPath,
+  pkgs,
   ...
 }:
 
 {
 
   hardware.pulseaudio.enable = lib.mkForce false;
+  hardware.graphics = {
+    ## amdvlk: an open-source Vulkan driver from AMD
+    extraPackages = [ pkgs.amdvlk ];
+    extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
+  };
+
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
   services.btrfs.autoScrub = {
     enable = true;
     interval = "weekly";
-    fileSystems = [
-      "/persist"
-      "/three"
-    ];
+    fileSystems = [ "/persist" ];
   };
+
+  services.xserver.videoDrivers = [ "amdgpu" ];
   disko.devices = {
     disk = {
       nvme = {
@@ -136,24 +141,16 @@
 
   fileSystems."/persist".neededForBoot = true;
 
-  security.tpm2.enable = true;
-  security.tpm2.pkcs11.enable = true;
-  security.tpm2.tctiEnvironment.enable = true;
-
-  # services.scx = {
-  #   enable = true;
-  #   scheduler = "scx_bpfland";
-  # };
+  services.scx = {
+    enable = config.boot.kernelPackages == inputs'.nyx.packages.linuxPackages_cachyos;
+    scheduler = "scx_bpfland";
+  };
   boot = {
     loader.efi = {
       canTouchEfiVariables = true;
       efiSysMountPoint = "/efi";
     };
 
-    supportedFilesystems = [
-      "bcachefs"
-      "ntfs"
-    ];
     initrd = {
       systemd = {
         enable = true;
@@ -165,41 +162,25 @@
       };
       availableKernelModules = [
         "nvme"
+        "usbhid"
         "xhci_pci"
-        "ahci"
         "usb_storage"
-        "usbhid"
         "sd_mod"
-        "lz4"
-        "zsmalloc"
-        "xhci_hcd"
       ];
-      kernelModules = [
-        "tpm"
-        "tpm_tis"
-        "tpm_crb"
-        "kvm-amd"
-        "amdgpu"
-        "xhci_pci"
-        "usbhid"
-        "xhci_hcd"
-        "atkbd"
-      ];
+      kernelModules = [ "amdgpu" ];
     };
     kernelModules = [
-      "ec_sys"
-      "uhid"
       "kvm-amd"
-      # "brutal"
-      "dm_sflc"
+      # "dm_sflc"
     ];
     kernelParams = [
       "amd_pstate=active"
+      "amd_iommu=on"
+      "random.trust_cpu=off"
       "zswap.enabled=1"
+      "zswap.compressor=zstd"
       "zswap.zpool=zsmalloc"
-      "systemd.gpt_auto=0"
-      "noresume"
-      "acpi_os_name=\"Microsoft Windows NT\""
+      # "ia32_emulation=0"
     ];
     extraModulePackages =
       let
@@ -207,80 +188,21 @@
       in
       [
         v4l2loopback
-        # (callPackage "${inputs.self}/pkgs/tcp-brutal.nix" { })
+        (callPackage "${self}/pkgs/tcp-brutal.nix" { })
       ];
     kernelPackages =
-      # (import inputs.nixpkgs-pin {
-      #   system = "x86_64-linux";
-      # })
+      # inputs'.nyx.packages.linuxPackages_cachyos;
       pkgs.linuxPackages_latest;
-    # inputs.nyx.packages.${pkgs.system}.linuxPackages_cachyos;
-
-    # kernelPatches =
-    #   let patchPath = ../../.attachs/cachyos-kernel;
-    #   in map (name: { inherit name; patch = patchPath + ("/" + name); })
-    #     (with builtins;attrNames (readDir patchPath));
   };
 
-  # fileSystems."/" =
-  #   {
-  #     device = "none";
-  #     fsType = "tmpfs";
-  #     options = [ "defaults" "size=2G" "mode=755" ];
-  #   };
-
-  # fileSystems."/persist" =
-  #   {
-  #     device = "/dev/disk/by-uuid/3a718c71-9404-45ea-8435-2fbd31f46d53";
-  #     fsType = "btrfs";
-  #     options = [ "subvol=/persist" "compress-force=zstd:1" "noatime" "discard=async" "space_cache=v2" ];
-  #     neededForBoot = true;
-  #   };
-
-  # fileSystems."/nix" =
-  #   {
-  #     device = "/dev/disk/by-uuid/3a718c71-9404-45ea-8435-2fbd31f46d53";
-  #     fsType = "btrfs";
-  #     options = [ "subvol=/nix" "compress-force=zstd:1" "noatime" "discard=async" "space_cache=v2" ];
-  #   };
-
-  # fileSystems."/nix/var" =
-  #   {
-  #     device = "/dev/disk/by-uuid/a3df5e05-7a19-4734-89d7-c9bcfd4c2d70";
-  #     fsType = "xfs";
-  #     options = [ "noatime" ];
-  #   };
-
-  # fileSystems."/var" =
-  #   {
-  #     device = "/dev/disk/by-uuid/3a718c71-9404-45ea-8435-2fbd31f46d53";
-  #     fsType = "btrfs";
-  #     options = [ "subvol=/var" "compress-force=zstd:1" "noatime" "discard=async" "space_cache=v2" ];
-  #   };
-
-  # fileSystems."/tmp" = {
-  #   device = "/dev/disk/by-uuid/3a718c71-9404-45ea-8435-2fbd31f46d53";
-  #   fsType = "btrfs";
-  #   options = [ "subvol=/tmp" "noatime" "discard=async" "space_cache=v2" ];
-  # };
-
-  # fileSystems."/efi" =
-  #   {
-  #     device = "/dev/disk/by-partuuid/fe3e996f-7962-1f4b-8bac-e2c8bc420501";
-  #     fsType = "vfat";
-  #   };
-
-  # swapDevices =
-  #   [{ device = "/dev/disk/by-uuid/1bbdbdd0-3527-4de2-95c4-3bc316c90968"; }];
-
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp1s0.useDHCP = lib.mkDefault true;
 
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nixpkgs.hostPlatform = {
+    system = "x86_64-linux";
+    # gcc.arch = "znver3";
+    # gcc.tune = "znver3";
+  };
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot

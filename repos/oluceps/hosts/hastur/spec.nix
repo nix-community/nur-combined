@@ -1,10 +1,7 @@
 {
   pkgs,
-  data,
   config,
-  user,
   lib,
-  inputs,
   ...
 }:
 {
@@ -117,12 +114,12 @@
     mysql.enable = true;
     prometheus.enable = true;
     vaultwarden.enable = true;
-    minecraft-servers.enable = false;
     matrix-conduit.enable = true;
     # coredns.enable = true;
-    mosproxy.enable = true;
+    dnsproxy.enable = true;
     srs.enable = true;
-    pleroma.enable = true;
+    grafana.enable = true;
+    meilisearch.enable = true;
 
     phantomsocks = {
       enable = false;
@@ -158,12 +155,13 @@
     };
   };
   services = {
-    radicle.enable = true;
+    # ktistec.enable = true;
+    # radicle.enable = true;
     metrics.enable = true;
     fwupd.enable = true;
     harmonia = {
       enable = true;
-      signKeyPath = config.age.secrets.harmonia.path;
+      signKeyPaths = [ config.age.secrets.harmonia.path ];
     };
     realm = {
       enable = false;
@@ -207,7 +205,7 @@
     ];
 
     tailscale = {
-      enable = true;
+      enable = false;
       openFirewall = true;
     };
 
@@ -280,10 +278,10 @@
         name = "nodens";
         configFile = config.age.secrets.hyst-us-cli.path;
       }
-      # {
-      #   name = "colour";
-      #   configFile = config.age.secrets.hyst-az-cli.path;
-      # }
+      {
+        name = "abhoth";
+        configFile = config.age.secrets.hyst-la-cli.path;
+      }
     ];
 
     shadowsocks.instances = [

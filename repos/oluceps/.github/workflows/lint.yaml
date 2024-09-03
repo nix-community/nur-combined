@@ -9,9 +9,9 @@ jobs:
       - name: Install Nix
         uses: cachix/install-nix-action@V27
 
-      - name: Show
+      - name: Fmt check
         run: |
-          nix flake show --all-systems
+          nix run nixpkgs#nixfmt-rfc-style -- check
 
 name: lint
 on: 

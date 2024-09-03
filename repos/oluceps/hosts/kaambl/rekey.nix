@@ -26,6 +26,16 @@ in
         group = "root";
         name = "addr-map";
       };
+      rclone-conf = {
+        rekeyFile = ../../sec/rclone.age;
+      };
+
+      wgk = {
+        rekeyFile = ../../sec/wgk.age;
+        owner = "systemd-network";
+        group = "root";
+        mode = "400";
+      };
     };
   };
   services.openssh.hostKeys = [

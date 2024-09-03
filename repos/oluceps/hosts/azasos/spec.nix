@@ -10,6 +10,12 @@
 
   system.stateVersion = "24.05";
 
+  users.mutableUsers = false;
+  system.etc.overlay.mutable = false;
+  environment.etc."resolv.conf".text = ''
+    nameserver 127.0.0.1
+  '';
+
   nix.gc = {
     automatic = true;
     dates = "weekly";
@@ -23,8 +29,9 @@
   srv = {
     openssh.enable = true;
     fail2ban.enable = true;
-    dae.enable = true;
+    dae.enable = false;
     srs.enable = true;
+    mosproxy.enable = true;
   };
 
   services = {
@@ -55,6 +62,10 @@
       {
         name = "nodens";
         configFile = config.age.secrets.hyst-us-cli.path;
+      }
+      {
+        name = "abhoth";
+        configFile = config.age.secrets.hyst-la-cli.path;
       }
     ];
   };

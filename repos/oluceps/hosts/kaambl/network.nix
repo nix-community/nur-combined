@@ -11,6 +11,13 @@
     # dnsovertls = "opportunistic";
   };
   networking = {
+    timeServers = [
+      "ntp.sjtu.edu.cn"
+      "ntp1.aliyun.com"
+      "ntp.ntsc.ac.cn"
+      "cn.ntp.org.cn"
+    ];
+    usePredictableInterfaceNames = false;
     hosts = {
       "10.0.1.2" = [ "s3.nyaw.xyz" ];
       "10.0.2.2" = [ "attic.nyaw.xyz" ];
@@ -67,10 +74,10 @@
     enable = true;
 
     wait-online = {
-      enable = true;
+      enable = false;
       anyInterface = true;
       ignoredInterfaces = [
-        "wlan"
+        "wlan0"
         "wg*"
       ];
     };
@@ -120,6 +127,12 @@
             Endpoint = "116.196.112.43:51820";
             PersistentKeepalive = 15;
           }
+          {
+            PublicKey = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A=";
+            AllowedIPs = [ "10.0.3.0/24" ];
+            Endpoint = "127.0.0.1:41821";
+            PersistentKeepalive = 15;
+          }
           # {
           #   wireguardPeerConfig = {
           #     PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
@@ -138,6 +151,7 @@
         address = [
           "10.0.1.3/24"
           "10.0.2.3/24"
+          "10.0.3.3/24"
         ];
         DHCP = "no";
         # routes = [
@@ -162,8 +176,8 @@
         #   DNSOverTLS = false;
         # };
         # # REALLY IMPORTANT
-        dhcpV4Config.UseDNS = true;
-        dhcpV6Config.UseDNS = true;
+        dhcpV4Config.UseDNS = false;
+        dhcpV6Config.UseDNS = false;
       };
 
       "30-rndis" = {

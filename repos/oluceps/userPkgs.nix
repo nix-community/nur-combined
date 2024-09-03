@@ -1,13 +1,13 @@
 { pkgs, ... }:
 with pkgs;
 [
+  eva
   paperback
-  gtkcord4
   amberol
   mako
   # qq
   chromium
-  # dissent
+  discord
   celeste
   stellarium
   obsidian
@@ -38,11 +38,10 @@ with pkgs;
   # fractal
 
   # yuzu-mainline
-  photoprism
+  # photoprism
 
   virt-manager
   xdg-utils
-  fluffychat
   hyfetch
 
   # microsoft-edge
@@ -69,18 +68,12 @@ with pkgs;
 
   koreader
   cliphist
-  # realvnc-vnc-viewer
-  #    mathematica
   pcsctools
   ccid
 
-  # nrfconnect
-  # nrfutil
-  # nrf-command-line-tools
   yubikey-manager
 
   xdeltaUnstable
-  xterm
 
   # feeluown
   # feeluown-bilibili
@@ -111,16 +104,14 @@ with pkgs;
   lapce
   kate
   # cinnamon.nemo
-  gnome.nautilus
-  gnome.gnome-boxes
-  gnome.evince
+  nautilus
+  gnome-boxes
+  evince
   # zathura
 
   # social
   # discord
   tdesktop
-  materialgram
-  nheko
   element-desktop-wayland
   # thunderbird
   # fluffychat
@@ -129,7 +120,6 @@ with pkgs;
   alacritty
   rio
   appimage-run
-  lutris
   tofi
   # zoom-us
   # gnomecast
@@ -176,6 +166,7 @@ with pkgs;
   rust-analyzer
   # nil
   nixd
+  nil
   shfmt
   nixfmt-rfc-style
   # taplo

@@ -9,10 +9,10 @@
     targetHost = "nyaw.xyz";
     targetPort = 22;
     targetUser = user;
-    privilegeEscalationCommand = [
-      "doas"
-      "--"
-    ];
+    # privilegeEscalationCommand = [
+    #   "doas"
+    #   "--"
+    # ];
   };
 
   imports = lib.sharedModules ++ [

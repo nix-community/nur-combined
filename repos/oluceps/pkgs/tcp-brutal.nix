@@ -8,8 +8,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "apernet";
     repo = finalAttrs.name;
-    rev = "eaa1068184a485b2b53bf3d4c90c1a08d9eb209b";
-    hash = "sha256-8jIYFj+IH+Uz3RpjX+Tw4hFOS3/bc2v1ebsdRtGgeuA=";
+    rev = "204aeea3437a83599c1c1fa1b97e4425cfdfc49d";
+    hash = "sha256-rx8JgQtelssslJhFAEKq73LsiHGPoML9Gxvw0lsLacI=";
   };
 
   nativeBuildInputs = kernel.moduleBuildDependencies;

@@ -27,7 +27,7 @@
       ./spec.nix
       ./caddy.nix
       # ./nginx.nix
-      ../graphBase.nix
+      # ../graphBase.nix
 
       ../persist.nix
       ../secureboot.nix
@@ -41,15 +41,14 @@
       inputs.niri.nixosModules.niri
       ../../users.nix
 
-      inputs.misskey.nixosModules.default
       ./misskey.nix
+      ../dev.nix
     ]
     ++ (with inputs; [
       aagl.nixosModules.default
       disko.nixosModules.default
       attic.nixosModules.atticd
       # niri.nixosModules.niri
-      nix-minecraft.nixosModules.minecraft-servers
       # nixos-cosmic.nixosModules.default
       # inputs.j-link.nixosModule
     ]);

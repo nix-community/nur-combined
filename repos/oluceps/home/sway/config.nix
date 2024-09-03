@@ -207,7 +207,7 @@ in
 
   exec ${systemd-run-app} ${lib.getExe pkgs.firefox}
 
-  exec ${lib.getExe pkgs.materialgram}
+  exec ${systemd-run-app} ${lib.getExe pkgs.tdesktop}
 
   exec ${wl-paste} --type text --watch ${deps.cliphist} store
 

@@ -8,7 +8,7 @@ let
       yidhraHostPubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ2EINWqn8MoL0tzM1j3PlWQoDydVqKjqQZn0eg+CzVq";
       nodensHostPubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMcsSxaMn3hbiIvoHTWyVVTUZ5UjqUAmGlAwdiFmX/ey";
       azasosHostPubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGJOhSRZCY7nGhwhW6VaYGsT2dqRn5pA9Ic20bQVn4GJ";
-      abhothHostPubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH+Zc19g/x0M8nBhuM5xD5sTRYHHi4MzPEf/rdpTWCre";
+      abhothHostPubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEdLiwnXSTjiqejwzbaQX1msyhfq7Od8BH4TulcGAcTx";
       colourHostPubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINuN2Twf8uZqM56i0CO9AZJZIZ8c8s2ytq7RzOMaGH4H";
       eihortHostPubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIImlt3ABsoFfuPwiPR2vyO8sDAFEQtu3BKPqrCBdcsch";
       ageKey = "age1jr2x2m85wtte9p0s7d833e0ug8xf3cf8a33l9kjprc9vlxmvjycq05p2qq";
@@ -131,6 +131,50 @@ in
     else
       secs;
 
+  parentsOf =
+    path:
+    let
+      inherit (pkgs.lib)
+        optionalString
+        hasPrefix
+        take
+        length
+        foldl'
+        last
+        filter
+        concatMap
+        head
+        concatStringsSep
+        ;
+      dirListToPath = dirList: (concatStringsSep "/" dirList);
+
+      concatPaths =
+        paths:
+        let
+          prefix = optionalString (hasPrefix "/" (head paths)) "/";
+          path = dirListToPath (splitPath paths);
+        in
+        prefix + path;
+
+      splitPath =
+        paths:
+        (filter (s: builtins.typeOf s == "string" && s != "") (concatMap (builtins.split "/") paths));
+
+      prefix = optionalString (hasPrefix "/" path) "/";
+      split = splitPath [ path ];
+      parents = take ((length split) - 1) split;
+    in
+    foldl' (
+      state: item:
+      state
+      ++ [
+        (concatPaths [
+          (if state != [ ] then last state else prefix)
+          item
+        ])
+      ]
+    ) [ ] parents;
+
   parent =
     let
       inherit (inputs.nixpkgs.lib)
@@ -141,4 +185,25 @@ in
         ;
     in
     p: concatStringsSep "/" (reverseList (drop 1 (reverseList (splitString "/" p))));
+
+  decimalToBin =
+    i:
+    let
+      decToBin' =
+        n: if n == 0 then "" else decToBin' (builtins.div n 2) + builtins.toString (builtins.bitAnd n 1);
+
+      decToBin =
+        n:
+        let
+          bin = decToBin' (n);
+          paddedBin =
+            if builtins.stringLength bin < 8 then
+              builtins.substring 0 (8 - builtins.stringLength bin) "00000000" + bin
+            else
+              bin;
+        in
+        paddedBin;
+
+    in
+    decToBin i;
 }

@@ -1,0 +1,48 @@
+name: "Build and populate cache"
+on:
+  pull_request:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'flake.lock'
+      - 'pkgs'
+      
+  schedule:
+    # rebuild everyday at 2:51
+    # TIP: Choose a random time here so not all repositories are build at once:
+    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
+    - cron:  '13 10 * * *'
+jobs:
+  tests:
+    strategy:
+      matrix:
+        nurRepo:
+          - oluceps
+        cachixName:
+          - nixos-config
+        nixChannel:
+          - nixos-unstable
+          - nixpkgs-unstable
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install Nix
+      uses: DeterminateSystems/nix-installer-action@main
+      with:
+        extra-conf: |
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+          nix-path = nixpkgs=https://nixos.org/channels/${{ matrix.nixChannel }}/nixexprs.tar.xz
+
+    - name: Show nixpkgs version
+      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Check evaluation
+      run: |
+        nix-env -f . -qa \* --meta --xml \
+          --allowed-uris https://static.rust-lang.org \
+          --option restrict-eval true \
+          --option allow-import-from-derivation true \
+          --drv-path --show-trace \
+          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+          -I $PWD

@@ -172,6 +172,7 @@
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixpkgs-22.url = "github:NixOS/nixpkgs?rev=c91d0713ac476dfb367bbe12a7a048f6162f039c";
     niri.url = "github:sodiboo/niri-flake";
+    nixpkgs-factorio.url = "github:NixOS/nixpkgs?rev=1b9bd8dd0fd5b8be7fc3435f7446272354624b01";
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -179,6 +180,9 @@
     colmena = {
       url = "github:zhaofengli/colmena";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    ascii2char = {
+      url = "github:oluceps/nix-ascii2char";
     };
     lix = {
       url = "git+https://git.lix.systems/lix-project/lix";
@@ -198,12 +202,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     devshell.url = "github:numtide/devshell";
-    nixpkgs-wayland = {
-      url = "github:nix-community/nixpkgs-wayland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     tg-online-keeper.url = "github:oluceps/TelegramOnlineKeeper";
-    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     # tg-online-keeper.url = "/home/elen/Src/tg-online-keeper";
     disko = {
       url = "github:nix-community/disko";
@@ -250,16 +249,10 @@
       url = "github:oddlama/agenix-rekey";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    resign.url = "github:oluceps/resign";
-    nil.url = "github:oxalica/nil";
     nixd.url = "github:nix-community/nixd";
     nix-direnv.url = "github:nix-community/nix-direnv";
     nix-ld = {
       url = "github:Mic92/nix-ld";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    misskey = {
-      url = "github:Ninlives/misskey.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     pre-commit-hooks = {
@@ -282,13 +275,12 @@
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
     };
-    impermanence.url = "github:nix-community/impermanence";
+    impermanence.url = "github:oluceps/impermanence/regular-mount-var";
     prismlauncher = {
       url = "github:PrismLauncher/PrismLauncher";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     helix.url = "github:helix-editor/helix";
     berberman.url = "github:berberman/flakes";
-    # clansty.url = "github:clansty/flake";
   };
 }

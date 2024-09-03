@@ -11,8 +11,8 @@
 
   system.stateVersion = "22.11";
 
-  users.mutableUsers = true;
-  system.etc.overlay.mutable = true;
+  users.mutableUsers = false;
+  system.etc.overlay.mutable = false;
 
   nix.gc = {
     automatic = true;
@@ -25,6 +25,7 @@
     inherit ((import ../sysctl.nix { inherit lib; }).boot) kernel;
   };
 
+  systemd.services.matrix-sliding-sync.serviceConfig.RuntimeDirectory = [ "matrix-sliding-sync" ];
   systemd.services.trojan-server.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
     "nyaw.cert"
     "nyaw.key"
@@ -34,6 +35,8 @@
     openssh.enable = true;
     fail2ban.enable = true;
     rustypaste.enable = true;
+    matrix-sliding-sync.enable = true;
+
     coredns = {
       enable = true;
       override = {
@@ -86,7 +89,7 @@
     # copilot-gpt4.enable = true;
     factorio-manager = {
       enable = true;
-      factorioPackage = pkgs.factorio-headless;
+      factorioPackage = pkgs.factorio-headless-experimental;
       botConfigPath = config.age.secrets.factorio-manager-bot.path;
       initialGameStartArgs = [
         "--server-settings=${config.age.secrets.factorio-server.path}"

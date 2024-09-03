@@ -1,14 +1,14 @@
 {
-  inputs,
-  pkgs,
   config,
   lib,
   ...
 }:
 {
-  # server inside the cage.
 
-  system.stateVersion = "23.05";
+  system.stateVersion = "24.05";
+
+  users.mutableUsers = false;
+  system.etc.overlay.mutable = false;
 
   nix.gc = {
     automatic = true;
@@ -21,89 +21,50 @@
     inherit ((import ../sysctl.nix { inherit lib; }).boot) kernel;
   };
 
-  environment.systemPackages = with pkgs; [ factorio-headless ];
+  systemd.services.trojan-server.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
+    "nyaw.cert"
+    "nyaw.key"
+  ];
 
-  services =
-    (
-      let
-        importService = n: import ../../services/${n}.nix { inherit pkgs config inputs; };
-      in
-      lib.genAttrs [
-        "openssh"
-        "mosdns"
-        "fail2ban"
-        "dae"
-      ] (n: importService n)
-    )
-    // {
-      sing-box.enable = true;
+  srv = {
+    openssh.enable = true;
+    fail2ban.enable = true;
+    dnsproxy.enable = true;
 
-      juicity.instances = [
-        {
-          name = "only-cli";
-          configFile = config.age.secrets.jc-do.path;
-        }
-      ];
-
-      realm = {
-        enable = true;
-        settings = {
-          endpoints = [
-            {
-              local = "0.0.0.0:5000";
-              remote = "nyaw.xyz:4432";
-            }
-          ];
+    # rustypaste.enable = true;
+  };
+  services = {
+    trojan-server.enable = true;
+    hysteria.instances = [
+      {
+        name = "only";
+        serve = {
+          enable = true;
+          port = 4432;
         };
-      };
-      shadowsocks.instances = [
-        {
-          name = "abh";
-          configFile = config.age.secrets.ss-az.path;
-          serve = {
-            enable = true;
-            port = 6059;
-          };
-        }
-      ];
+        credentials = [
+          "key:${config.age.secrets."nyaw.key".path}"
+          "cert:${config.age.secrets."nyaw.cert".path}"
+        ];
+        configFile = config.age.secrets.hyst-us.path;
+      }
+    ];
 
-      factorio = {
-        enable = false;
-        openFirewall = false;
+    realm = {
+      enable = true;
+      settings = {
+        log.level = "warn";
+        network = {
+          no_tcp = false;
+          use_udp = true;
+        };
+        endpoints = [
+          {
+            listen = "[::]:34197";
+            remote = "144.126.208.183:34197";
+          }
+        ];
       };
     };
-
-  networking.firewall = {
-    allowedUDPPorts = [ 6059 ];
-    allowedTCPPorts = [ 6059 ];
   };
-
-  programs = {
-    git.enable = true;
-    fish.enable = true;
-  };
-  zramSwap = {
-    enable = true;
-    swapDevices = 1;
-    memoryPercent = 80;
-    algorithm = "zstd";
-  };
-
-  systemd = {
-    enableEmergencyMode = false;
-    watchdog = {
-      # systemd will send a signal to the hardware watchdog at half
-      # the interval defined here, so every 10s.
-      # If the hardware watchdog does not get a signal for 20s,
-      # it will forcefully reboot the system.
-      runtimeTime = "20s";
-      # Forcefully reboot if the final stage of the reboot
-      # hangs without progress for more than 30s.
-      # For more info, see:
-      #   https://utcc.utoronto.ca/~cks/space/blog/linux/SystemdShutdownWatchdog
-      rebootTime = "30s";
-    };
-  };
-
-  systemd.tmpfiles.rules = [ ];
 }

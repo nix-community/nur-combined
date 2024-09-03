@@ -33,7 +33,6 @@
       (genProxys [
         "ss"
         "sing"
-        "hyst-us"
         "juic-san"
         "naive"
         "dae.sub"
@@ -65,14 +64,7 @@
         "db.key"
         "db.pem"
       ])
-      // (genWg [
-        "wg"
-        "wgk"
-        "wgy"
-        "wga"
-        "wgc-warp"
-        "wge"
-      ])
+      // (genWg [ "wg" ])
       // (genGlobalR [ "ntfy-token" ])
       // {
         dae = {
@@ -94,13 +86,6 @@
           owner = "root";
           group = "users";
         };
-        hyst-us = {
-          rekeyFile = ./sec/hyst-us.age;
-          mode = "640";
-          owner = "root";
-          group = "users";
-          name = "hyst-us.yaml";
-        };
         hyst-us-cli = {
           rekeyFile = ./sec/hyst-us-cli.age;
           mode = "640";
@@ -108,12 +93,12 @@
           group = "users";
           name = "hyst-us-cli.yaml";
         };
-        hyst-az-cli = {
-          rekeyFile = ./sec/hyst-az-cli.age;
+        hyst-la-cli = {
+          rekeyFile = ./sec/hyst-la-cli.age;
           mode = "640";
           owner = "root";
           group = "users";
-          name = "hyst-az-cli.yaml";
+          name = "hyst-la-cli.yaml";
         };
       }
     );

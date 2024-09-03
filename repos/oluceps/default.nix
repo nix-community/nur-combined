@@ -11,6 +11,9 @@ let
     );
 
   shadowedPkgs = [
+    "patch"
+    "result"
+
     "tcp-brutal"
     "shufflecake"
 
@@ -22,7 +25,6 @@ let
     "runbkworm"
     "runwin"
     "ubt-rv-run"
-    "trojan-rs"
     "smartdns-rs"
     "lock"
     "violet"

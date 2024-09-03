@@ -30,6 +30,13 @@ in
         group = "users";
         name = "factorio-admin";
       };
+      hyst-us = {
+        rekeyFile = ../../sec/hyst-us.age;
+        mode = "640";
+        owner = "root";
+        group = "users";
+        name = "hyst-us.yaml";
+      };
       factorio-manager-bot = {
         rekeyFile = ../../sec/factorio-manager-bot.age;
         mode = "640";
@@ -50,6 +57,16 @@ in
         owner = "root";
         group = "root";
         name = "tg-env";
+      };
+      syncv3 = {
+        rekeyFile = ../../sec/syncv3.age;
+      };
+
+      wgn = {
+        rekeyFile = ../../sec/wgn.age;
+        owner = "systemd-network";
+        group = "root";
+        mode = "400";
       };
     };
   };

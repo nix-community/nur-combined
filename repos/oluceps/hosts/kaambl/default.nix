@@ -6,7 +6,7 @@
 }:
 {
   deployment = {
-    targetHost = "192.168.1.190";
+    targetHost = "192.168.1.186";
     targetUser = user;
     allowLocalDeployment = true;
     # privilegeEscalationCommand = [
@@ -33,6 +33,7 @@
     ../sysvars.nix
     inputs.niri.nixosModules.niri
     ../graphBase.nix
+    ../dev.nix
 
     ./caddy.nix
 

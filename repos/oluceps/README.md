@@ -25,9 +25,9 @@ with
 
 ```nix
 nix.settings = {
-  substituers = ["https://nur-pkgs.cachix.org"];
+  substituters = ["https://cache.garnix.io"];
   trusted-public-keys = [
-    "nur-pkgs.cachix.org-1:PAvPHVwmEBklQPwyNZfy4VQqQjzVIaFOkYYnmnKco78="
+    "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
   ];
 };
 ```

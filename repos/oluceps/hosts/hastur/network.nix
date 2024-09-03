@@ -11,6 +11,12 @@
     # dnsovertls = "true";
   };
   networking = {
+    timeServers = [
+      "ntp.sjtu.edu.cn"
+      "ntp1.aliyun.com"
+      "ntp.ntsc.ac.cn"
+      "cn.ntp.org.cn"
+    ];
     usePredictableInterfaceNames = false;
     resolvconf.useLocalResolver = true;
     nameservers = [
@@ -31,12 +37,14 @@
     domain = "nyaw.xyz";
     # replicates the default behaviour.
     enableIPv6 = true;
-    interfaces.eth0.wakeOnLan.enable = true;
+    # WARNING: THIS FAILED MY DHCP
+    # interfaces.eth0.wakeOnLan.enable = true;
     wireless.iwd.enable = true;
     useNetworkd = true;
-    useDHCP = true;
+    useDHCP = false;
     firewall = {
       enable = true;
+      checkReversePath = false;
       trustedInterfaces = [
         "virbr0"
         "wg*"
@@ -67,6 +75,7 @@
     };
     nftables.enable = true;
     networkmanager.enable = lib.mkForce false;
+    networkmanager.dns = "none";
   };
   systemd.network = {
     enable = true;
@@ -74,13 +83,16 @@
     wait-online = {
       enable = true;
       anyInterface = true;
-      ignoredInterfaces = [ "wlan0" ];
+      ignoredInterfaces = [
+        "wlan0"
+        "wg*"
+      ];
     };
 
-    links."10-eth0" = {
-      matchConfig.MACAddress = "3c:7c:3f:22:49:80";
-      linkConfig.Name = "eth0";
-    };
+    # links."10-eth0" = {
+    #   matchConfig.MACAddress = "3c:7c:3f:22:49:80";
+    #   linkConfig.Name = "eth0";
+    # };
 
     links."30-rndis" = {
       matchConfig.Driver = "rndis_host";
@@ -98,24 +110,24 @@
         MACAddressPolicy = "persistent";
       };
     };
-    links."40-wlan0" = {
-      matchConfig.MACAddress = "70:66:55:e7:1c:b1";
-      linkConfig.Name = "wlan0";
-    };
+    # links."40-wlan0" = {
+    #   matchConfig.MACAddress = "70:66:55:e7:1c:b1";
+    #   linkConfig.Name = "wlan0";
+    # };
 
     netdevs = {
-      bond0 = {
-        netdevConfig = {
-          Kind = "bond";
-          Name = "bond0";
-          # MTUBytes = "1300";
-        };
-        bondConfig = {
-          Mode = "active-backup";
-          PrimaryReselectPolicy = "always";
-          MIIMonitorSec = "1s";
-        };
-      };
+      # bond0 = {
+      #   netdevConfig = {
+      #     Kind = "bond";
+      #     Name = "bond0";
+      #     # MTUBytes = "1300";
+      #   };
+      #   bondConfig = {
+      #     Mode = "active-backup";
+      #     PrimaryReselectPolicy = "always";
+      #     MIIMonitorSec = "1s";
+      #   };
+      # };
 
       wg0 = {
         netdevConfig = {
@@ -139,15 +151,12 @@
             Endpoint = "127.0.0.1:41820";
             PersistentKeepalive = 15;
           }
-
-          # {
-          #   wireguardPeerConfig = {
-          #     PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
-          #     AllowedIPs = [ "10.0.1.9/32" "10.0.1.0/24" ];
-          #     Endpoint = "127.0.0.1:41821";
-          #     PersistentKeepalive = 15;
-          #   };
-          # }
+          {
+            PublicKey = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A=";
+            AllowedIPs = [ "10.0.3.0/24" ];
+            Endpoint = "127.0.0.1:41821";
+            PersistentKeepalive = 15;
+          }
         ];
       };
     };
@@ -159,6 +168,7 @@
         address = [
           "10.0.1.2/24"
           "10.0.2.2/24"
+          "10.0.3.2/24"
         ];
         DHCP = "no";
       };
@@ -181,19 +191,19 @@
 
       "8-eth0" = {
         matchConfig.Name = "eth0";
-        DHCP = "yes";
+        networkConfig = {
+          DHCP = "ipv4";
+          IPv6AcceptRA = true;
+        };
+        linkConfig.RequiredForOnline = "routable";
         # dhcpV4Config.RouteMetric = 2046;
         # dhcpV6Config.RouteMetric = 2046;
-        # dhcpV4Config.UseDNS = false;
-        # dhcpV6Config.UseDNS = false;
-        # address = [ "192.168.0.2/24" ];
-
-        # networkConfig = {
-        #   BindCarrier = [
-        #     "eth0"
-        #     "wlan0"
-        #   ];
-        # };
+        # address = [ "192.168.1.2/24" ];
+        # routes = [
+        #   # create default routes for both IPv6 and IPv4
+        #   { routeConfig.Gateway = "192.168.1.1"; }
+        #   { routeConfig.Gateway = "fe80::5e02:14ff:fea5:ad05"; }
+        # ];
       };
 
       "25-ncm" = {

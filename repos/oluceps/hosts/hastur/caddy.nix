@@ -44,6 +44,25 @@
                           handle = [
                             {
                               handler = "reverse_proxy";
+                              upstreams = [ { dial = "localhost:3002"; } ];
+                            }
+                          ];
+                        }
+                      ];
+                    }
+                  ];
+                  match = [ { host = [ "hastur.nyaw.xyz" ]; } ];
+                  terminal = true;
+                }
+                {
+                  handle = [
+                    {
+                      handler = "subroute";
+                      routes = [
+                        {
+                          handle = [
+                            {
+                              handler = "reverse_proxy";
                               upstreams = [ { dial = "localhost:9000"; } ];
                             }
                           ];

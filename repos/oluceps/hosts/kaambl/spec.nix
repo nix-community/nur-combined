@@ -3,16 +3,20 @@
   data,
   config,
   lib,
+  user,
   ...
 }:
 {
   # Mobile device.
 
   system.stateVersion = "23.05"; # Did you read the comment?
-  users.mutableUsers = true;
-  system.etc.overlay.mutable = true;
+  users.mutableUsers = false;
+  system.etc.overlay.mutable = false;
+  environment.etc."resolv.conf".text = ''
+    nameserver 127.0.0.1
+  '';
 
-  hardware.opengl.extraPackages = with pkgs; [
+  hardware.graphics.extraPackages = with pkgs; [
     rocm-opencl-icd
     rocm-opencl-runtime
   ];
@@ -26,10 +30,17 @@
     algorithm = "zstd";
   };
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 10d";
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 10d";
+    };
+    settings = {
+      trusted-public-keys = [ "cache.nyaw.xyz:wXLX+Wtj9giC/+hybqOEJ4FSZIOgOyk8Q6HJxxcZqKY=" ];
+      # enable when not in same network of hastur
+      substituters = [ "https://cache.nyaw.xyz" ];
+    };
   };
   programs.sway.enable = true;
   programs.gtklock.enable = true;
@@ -49,7 +60,8 @@
     phantomsocks.enable = true;
     # srs.enable = true;
     # coredns.enable = true;
-    coredns.enable = true;
+    # mosproxy.enable = true;
+    dnsproxy.enable = true;
     dae.enable = true;
     # smartdns.enable = true;
   };
@@ -59,6 +71,32 @@
 
     sing-box.enable = true;
 
+    restic = {
+      backups = {
+        critic = {
+          passwordFile = config.age.secrets.wg.path;
+          repository = "rclone:sec:crit";
+          rcloneConfigFile = config.age.secrets.rclone-conf.path;
+          paths = map (n: "/home/${user}/${n}") [
+            "Books"
+            "Pictures"
+            "Music"
+          ];
+          extraBackupArgs = [
+            "--exclude-caches"
+            "--no-scan"
+            "--retry-lock 2h"
+          ];
+          pruneOpts = [ "--keep-daily 3" ];
+          timerConfig = {
+            OnCalendar = "daily";
+            RandomizedDelaySec = "4h";
+            FixedRandomDelay = true;
+            Persistent = true;
+          };
+        };
+      };
+    };
     snapy.instances = [
       {
         name = "persist";
@@ -97,10 +135,10 @@
         name = "nodens";
         configFile = config.age.secrets.hyst-us-cli.path;
       }
-      # {
-      #   name = "colour";
-      #   configFile = config.age.secrets.hyst-az-cli.path;
-      # }
+      {
+        name = "abhoth";
+        configFile = config.age.secrets.hyst-la-cli.path;
+      }
     ];
 
     factorio = {

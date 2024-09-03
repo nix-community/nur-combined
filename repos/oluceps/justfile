@@ -4,7 +4,7 @@ alias c := check
 alias b := build
 alias d := deploy
 alias de := decrypt
-alias en := encrypt
+alias en := encrypt-new
 alias chk:= check
 alias ee := edit-sec
 alias r  := rekey
@@ -51,7 +51,7 @@ deploy *args:
     use {{loc}}/fn/f
     f d {{ args }}
 
-encrypt *args:
+encrypt-new *args:
     #!/usr/bin/env nu
     let age_pub = "/run/agenix/age"
     let output_dir = ['./sec/' '{{ home }}/Sec/'] |
@@ -62,6 +62,16 @@ encrypt *args:
     hx $tmp_path
     rage -e $tmp_path -i $age_pub -i {{ yubikey-ident }} -o $'($output_dir)($name).age'
     srm -C $tmp_path
+
+encrypt-exist *args:
+    #!/usr/bin/env nu
+    let age_pub = "/run/agenix/age"
+    let origin_file_to_enc = ['./sec' '{{ home }}/Sec']
+                                  | each {|| ls $in } | flatten | $in.name |
+                                  reduce {|it, acc| $it + (char newline) + $acc } |
+                                  fzf
+    rage -e $origin_file_to_enc -i $age_pub -i {{ yubikey-ident }} -o $'($origin_file_to_enc).age'
+    srm -C $origin_file_to_enc
 
 edit-sec *args:
     #!/usr/bin/env nu

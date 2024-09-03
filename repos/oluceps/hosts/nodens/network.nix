@@ -1,9 +1,17 @@
-{ config, lib, ... }:
+{
+  inputs,
+  config,
+  lib,
+  ...
+}:
 {
   services.resolved.enable = lib.mkForce false;
+  environment.etc."resolv.conf".text = ''
+    nameserver 127.0.0.1
+  '';
   networking = {
     domain = "nyaw.xyz";
-    resolvconf.useLocalResolver = true;
+    # resolvconf.useLocalResolver = true;
     firewall = {
       checkReversePath = false;
       enable = true;
@@ -42,7 +50,6 @@
     useDHCP = false;
 
     hostName = "nodens";
-    enableIPv6 = true;
 
     nftables = {
       enable = true;
@@ -81,21 +88,21 @@
       matchConfig.MACAddress = "62:16:bf:7c:57:a3";
       linkConfig.Name = "eth0";
     };
-    links."20-eth1" = {
-      matchConfig.MACAddress = "22:48:a2:5b:0b:f0";
-      linkConfig.Name = "eth1";
-    };
+    # links."20-eth1" = {
+    #   matchConfig.MACAddress = "22:48:a2:5b:0b:f0";
+    #   linkConfig.Name = "eth1";
+    # };
 
     netdevs = {
 
-      wg1 = {
+      wg0 = {
         netdevConfig = {
           Kind = "wireguard";
-          Name = "wg1";
+          Name = "wg0";
           MTUBytes = "1300";
         };
         wireguardConfig = {
-          PrivateKeyFile = config.age.secrets.wgy.path;
+          PrivateKeyFile = config.age.secrets.wgn.path;
           ListenPort = 51820;
         };
         wireguardPeers = [
@@ -116,47 +123,66 @@
           }
           {
             PublicKey = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno=";
-            AllowedIPs = [ "10.0.0.0/16" ];
+            AllowedIPs = [ "10.0.2.1/32" ];
+            PersistentKeepalive = 15;
           }
-          # {
-          #   wireguardPeerConfig = {
-          #     PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
-          #     AllowedIPs = [ "10.0.1.9/32" "10.0.0.0/24" ];
-          #   };
-          # }
+          {
+            PublicKey = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A=";
+            AllowedIPs = [ "10.0.3.1/32" ];
+            Endpoint = "38.47.119.151:51820";
+            PersistentKeepalive = 15;
+          }
         ];
       };
     };
 
     networks = {
-      "10-wg1" = {
-        matchConfig.Name = "wg1";
+      "10-wg0" = {
+        matchConfig.Name = "wg0";
         address = [
           "10.0.1.1/24"
-          "10.0.2.1/24"
         ];
         networkConfig = {
           IPMasquerade = "ipv4";
-          IPForward = true;
+          IPv4Forwarding = true;
         };
+
+        routes = [
+          {
+            routeConfig = {
+              Destination = "10.0.2.0/24";
+              Scope = "link";
+            };
+          }
+          {
+            routeConfig = {
+              Destination = "10.0.3.0/24";
+              Scope = "link";
+            };
+          }
+        ];
       };
 
       "20-eth0" = {
         matchConfig.Name = "eth0";
-        address = [
-          "144.126.208.183/20"
-          "2604:a880:4:1d0::5b:6000/64"
-        ];
+        DHCP = "no";
+        address =
+          [
+            "144.126.208.183/20"
+          ]
+          ++ (map (n: "2604:a880:4:1d0::5b:600${n}/124") (
+            (map inputs.ascii2char.asciiToChar ((lib.range 97 102))) ++ (map toString (lib.range 0 9))
+          ));
 
         routes = [
-          { routeConfig.Gateway = "144.126.208.1"; }
-          { routeConfig.Gateway = "2604:a880:4:1d0::1"; }
+          { Gateway = "144.126.208.1"; }
+          { Gateway = "2604:a880:4:1d0::1"; }
         ];
-        networkConfig = {
-          DNSSEC = true;
-          MulticastDNS = true;
-          DNSOverTLS = true;
-        };
+        # networkConfig = {
+        #   DNSSEC = true;
+        #   MulticastDNS = true;
+        #   DNSOverTLS = true;
+        # };
         # # REALLY IMPORTANT
         dhcpV4Config.UseDNS = false;
         dhcpV6Config.UseDNS = false;

@@ -1,4 +1,5 @@
-inputs': [
+{ inputs', inputs }:
+[
   (
     final: prev:
     prev.lib.genAttrs [
@@ -22,15 +23,21 @@ inputs': [
       #       inherit system;
       #     }).lazygit;
       inherit
-        (
-          (import inputs'.nixpkgs-master {
-            # inherit system;
-            config.allowUnfree = true;
-          })
-        )
+        (import inputs.nixpkgs-factorio {
+          inherit (prev) system;
+          config.allowUnfree = true;
+        })
         factorio-headless-experimental
         ;
 
+      composefs = prev.composefs.overrideAttrs (old: {
+        src = prev.fetchFromGitHub {
+          owner = "alexlarsson";
+          repo = "composefs";
+          rev = "5f2be1f64f531f520943825ead9d738045234922";
+          hash = "sha256-1hypzL7w7kF1FsO2P8CpqRA2Qd6KTfogGNPBETxV+hY=";
+        };
+      });
       helix = inputs'.helix.packages.default.override {
         includeGrammarIf =
           grammar:

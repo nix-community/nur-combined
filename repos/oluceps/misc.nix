@@ -13,6 +13,7 @@
   system.etc.overlay.enable = true;
   system.switch.enableNg = true;
   system.switch.enable = lib.mkForce false;
+  system.copySystemConfiguration = false;
 
   # system.forbiddenDependenciesRegexes = [ "perl" ];
 
@@ -27,9 +28,13 @@
     LimitNOFILE = lib.mkForce 500000000;
     Environment = [ "TMPDIR=/var/tmp/nix-daemon" ];
   };
-  systemd.oomd.enable = lib.mkForce false;
+  # systemd.oomd.enable = lib.mkForce false;
 
-  srv.earlyoom.enable = true;
+  # srv.earlyoom.enable = true;
+  environment.systemPackages = [
+    pkgs.atuin
+    pkgs.eza
+  ];
 
   boot.tmp.useTmpfs = true;
   # powerManagement.powertop.enable = true;
@@ -45,16 +50,24 @@
       enable = true;
       dockerSocket.enable = true;
       dockerCompat = true;
+      defaultNetwork.settings = {
+        dns_enabled = true;
+      };
     };
   };
   nix = {
     package = pkgs.nixVersions.stable;
-    registry = {
-      nixpkgs.flake = inputs.nixpkgs;
-      self.flake = inputs.self;
-    };
+    channel.enable = false;
+    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
 
     settings = {
+      system-features = [
+        "nixos-test"
+        "benchmark"
+        "big-parallel"
+        "kvm"
+      ] ++ [ "gccarch-znver3" ];
+      flake-registry = "";
       nix-path = [ "nixpkgs=${pkgs.path}" ];
       keep-outputs = true;
       keep-derivations = true;
@@ -73,7 +86,7 @@
         "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
         "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
         "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
-        "cache.nyaw.xyz:wXLX+Wtj9giC/+hybqOEJ4FSZIOgOyk8Q6HJxxcZqKY="
+        # "cache.nyaw.xyz:wXLX+Wtj9giC/+hybqOEJ4FSZIOgOyk8Q6HJxxcZqKY="
       ];
       extra-substituters = [ "https://cache.lix.systems" ];
       substituters =
@@ -92,7 +105,7 @@
         ++ [
           "https://cache.nixos.org"
           "https://cache.garnix.io"
-          "https://cache.nyaw.xyz"
+          # "https://cache.nyaw.xyz"
           # "https://cache.ngi0.nixos.org"
           # "https://mirror.sjtu.edu.cn/nix-channels/store"
         ];
@@ -165,6 +178,7 @@
   services = {
 
     # bpftune.enable = true;
+    chrony.enable = true;
 
     journald.extraConfig = ''
       SystemMaxUse=1G
@@ -207,7 +221,30 @@
   i18n.defaultLocale = "en_GB.UTF-8";
 
   environment.etc = {
+    "NIXOS".text = "";
     "machine-id".text = "b08dfa6083e7567a1921a715000001fb\n";
+    "sbctl/sbctl.conf".text = ''
+      keydir: /var/lib/sbctl/keys
+      guid: /var/lib/sbctl/GUID
+      files_db: /var/lib/sbctl/files.json
+      bundles_db: /var/lib/sbctl/bundles.json
+      landlock: true
+      db_additions:
+      - microsoft
+      keys:
+        pk:
+          privkey: /var/lib/sbctl/keys/PK/PK.key
+          pubkey: /var/lib/sbctl/keys/PK/PK.pem
+          type: file
+        kek:
+          privkey: /var/lib/sbctl/keys/KEK/KEK.key
+          pubkey: /var/lib/sbctl/keys/KEK/KEK.pem
+          type: file
+        db:
+          privkey: /var/lib/sbctl/keys/db/db.key
+          pubkey: /var/lib/sbctl/keys/db/db.pem
+          type: file
+    '';
   };
   programs = {
     direnv = {

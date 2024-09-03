@@ -7,7 +7,14 @@ in
     identityPaths = [ hostPrivKey ];
     rekey.hostPubkey = data.keys.eihortHostPubKey;
 
-    secrets = { };
+    secrets = {
+      wge = {
+        rekeyFile = ../../sec/wge.age;
+        owner = "systemd-network";
+        group = "root";
+        mode = "400";
+      };
+    };
   };
 
   services.openssh.hostKeys = [
