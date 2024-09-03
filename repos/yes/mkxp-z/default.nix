@@ -54,19 +54,19 @@ let
       "--without-gmp"
     ];
   });
-  rev = "347ef9f53cc3fae19240cd03752d7a04cf812da2";
+  rev = "a5d574984c68a7a2692fb9b212871f549af80874";
   short-rev = builtins.substring 0 7 rev;
 in
 
 stdenv.mkDerivation {
   pname = "mkxp-z";
-  version = "2.4.2-fix-memory-leaks-2024-08-03";
+  version = "2.4.2-unstable-2024-09-03";
 
   src = fetchFromGitHub {
     inherit rev;
     owner = "mkxp-z";
     repo = "mkxp-z";
-    hash = "sha256-WVAejW1Dot4ozFXO85Nz9oASbVJNBOv2NF3g1zzNkKo=";
+    hash = "sha256-IwfPgtMI+imq9b6SOwj6bIyxmU40huxGWwL6pYQORgk=";
   };
 
   nativeBuildInputs = [
@@ -136,9 +136,6 @@ stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out/bin
     install -Dm755 mkxp-z.x86_64 $out/bin/mkxp-z
-    # cp ../linux/mkxp-z.desktop $out/share/applications/
-    # cp ../linux/mkxp-z.png $out/share/pixmap/
-    # cp -r ../scripts $out/lib/mkxp-z/
   '';
 
   meta = with lib; {
