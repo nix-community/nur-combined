@@ -3314,6 +3314,20 @@
         platforms = platforms.all;
       };
     };
+    "gaidhlig-language-pack" = buildFirefoxXpiAddon {
+      pname = "gaidhlig-language-pack";
+      version = "131.0.20240902.152327";
+      addonId = "langpack-gd@firefox.mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4346539/gaidhlig_language_pack-131.0.20240902.152327.xpi";
+      sha256 = "dcada8f26f6eb538241cfcf98e4fb835cbd8085ca2346374606d409ec38025dd";
+      meta = with lib;
+      {
+        description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
+        license = licenses.mpl20;
+        mozPermissions = [];
+        platforms = platforms.all;
+      };
+    };
     "geminize" = buildFirefoxXpiAddon {
       pname = "geminize";
       version = "1.0.4";
@@ -3763,20 +3777,6 @@
         description = "Share links with GSConnect, direct to the browser or by SMS. Requires at least v7 of the Gnome Shell extension to function.";
         license = licenses.gpl2;
         mozPermissions = [ "nativeMessaging" "tabs" "contextMenus" ];
-        platforms = platforms.all;
-      };
-    };
-    "gàidhlig-language-pack" = buildFirefoxXpiAddon {
-      pname = "gàidhlig-language-pack";
-      version = "131.0.20240902.152327";
-      addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4346539/gaidhlig_language_pack-131.0.20240902.152327.xpi";
-      sha256 = "dcada8f26f6eb538241cfcf98e4fb835cbd8085ca2346374606d409ec38025dd";
-      meta = with lib;
-      {
-        description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
-        license = licenses.mpl20;
-        mozPermissions = [];
         platforms = platforms.all;
       };
     };
