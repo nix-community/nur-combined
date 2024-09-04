@@ -737,10 +737,10 @@
     };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.6.5";
+      version = "7.6.6";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4305097/betterttv-7.6.5.xpi";
-      sha256 = "364a1dadb2b3624abccccf10ced77889a6f6df5f456033ee9f31e270987c3a81";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4346010/betterttv-7.6.6.xpi";
+      sha256 = "3a12e255c4722f08ed56f7f8f117c2c678152917aac3dfbd1765a27a4fe7447a";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -795,16 +795,17 @@
     };
     "bibbot" = buildFirefoxXpiAddon {
       pname = "bibbot";
-      version = "0.37.0";
+      version = "0.38.1";
       addonId = "voebbot@stefanwehrmeyer.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4284684/bibbot-0.37.0.xpi";
-      sha256 = "ca346b70870800db914f625db3fa6d31b5d9a9c65377aefe56b50471ce59641a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4347294/bibbot-0.38.1.xpi";
+      sha256 = "a1c21c27aee9eded411957ca8bd44f998eb476686f154f2bf6ef29293212b91f";
       meta = with lib;
       {
         homepage = "https://github.com/stefanw/bibbot";
         description = "Durch ein Bibliothekskonto mit Pressedatenbankzugriff entfernt dieses Add-On die Paywall bei deutschen Nachrichtenseiten. Ein solches Bibliothekskonto ist Voraussetzung zur Nutzung des Add-On.";
         license = licenses.gpl3;
         mozPermissions = [
+          "activeTab"
           "tabs"
           "storage"
           "https://*.genios.de/*"
@@ -869,6 +870,7 @@
           "https://www.saarbruecker-zeitung.de/*"
           "https://www.idowa.de/*"
           "https://www.aachener-zeitung.de/*"
+          "https://www.nn.de/*"
         ];
         platforms = platforms.all;
       };
@@ -2125,10 +2127,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "131.0.20240902.152327";
+      version = "131.0.20240904.91632";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4346576/deutsch_de_language_pack-131.0.20240902.152327.xpi";
-      sha256 = "36093614a183f66724dd53714c87ccdded6fcaecdeb181a22b112d0c2a6fab21";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4347466/deutsch_de_language_pack-131.0.20240904.91632.xpi";
+      sha256 = "fa0f39a1fa43acfa749678682e2cf73fe0eb6f8b571dd1dd8362f60bf9560298";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3269,10 +3271,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "131.0.20240902.152327";
+      version = "131.0.20240904.91632";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4346494/francais_language_pack-131.0.20240902.152327.xpi";
-      sha256 = "3a6807f37ce2c17c327f0276c738a0b1232273f33e3f043008a2b3d4ab3a53ca";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4347427/francais_language_pack-131.0.20240904.91632.xpi";
+      sha256 = "6b01c59aad5b356f708950eb97be9b2fd0b7bb5cf62e0472fd68ce78bf924b1c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3306,10 +3308,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "131.0.20240902.152327";
+      version = "131.0.20240904.91632";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4346539/gaidhlig_language_pack-131.0.20240902.152327.xpi";
-      sha256 = "dcada8f26f6eb538241cfcf98e4fb835cbd8085ca2346374606d409ec38025dd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4347385/gaidhlig_language_pack-131.0.20240904.91632.xpi";
+      sha256 = "870f3a32cee36a3645d1be58da74780c057436a4dcf08747abe4bef3025c83e2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7023,7 +7025,7 @@
       sha256 = "bcd95a93684307bae03f02069ca519d115f279810de2011c62853d5fd5c5fb52";
       meta = with lib;
       {
-        homepage = "https://326486.xyz";
+        homepage = "https://e-z.bio/pnda";
         description = "Enhance your streaming experience with just one click\n\n• Greatly increase the list of sources available.\n• Start using the website without any friction.\n• Enjoy other supported websites or self-hosts.";
         license = licenses.mit;
         mozPermissions = [
@@ -9415,10 +9417,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "131.0.20240902.152327";
+      version = "131.0.20240904.91632";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4346579/scots_language_pack-131.0.20240902.152327.xpi";
-      sha256 = "6e27a7b472bca62a7068caf05fff1e403d5835ce2773a986f854e50296280b23";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4347372/scots_language_pack-131.0.20240904.91632.xpi";
+      sha256 = "9207d93f48cf85cb9492fe8a6b0886ce4fffdb18e0ad7e9cb9cc56028681e14a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -11253,10 +11255,10 @@
     };
     "ublock-origin-lite" = buildFirefoxXpiAddon {
       pname = "ublock-origin-lite";
-      version = "2024.8.21.996";
+      version = "2023.8.25.959";
       addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4340611/ublock_origin_lite-2024.8.21.996.xpi";
-      sha256 = "f27287d787e693f943cf85e056b02cc4f04753bc7757b2d48db29b290af8e212";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4158603/ublock_origin_lite-2023.8.25.959.xpi";
+      sha256 = "7d8ba024d025fa55f4a8bbc9c1acf3522cea5dd87be54aac2da0baac53d64f0b";
       meta = with lib;
       {
         homepage = "https://github.com/uBlockOrigin/uBOL-home";
@@ -11906,10 +11908,10 @@
     };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.72";
+      version = "6.10.73";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4339997/wappalyzer-6.10.72.xpi";
-      sha256 = "23c96c1fffc00ddc9d53dfc4e198c888beee38fcec3bd791357680a3f431ca77";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4345670/wappalyzer-6.10.73.xpi";
+      sha256 = "2eaa244b8148518357311125d1b5a57a4574c972074fe84334ebc20a2c331fe6";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
