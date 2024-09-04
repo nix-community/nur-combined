@@ -1,8 +1,8 @@
 { lib, appimageTools, fetchurl }:
 let
   pname = "zen-browser";
-  version = "1.0.0-a.26";
-  sha256 = "sha256-F2yC3tvRJ0HNPAa8lS6k58Z5O1YH/4aNNW+aZZJYmY0=";
+  version = "1.0.0-a.35";
+  sha256 = "sha256-l13Yhb4pRT1iiEQ+I3va41RKyl17+DDAuJEgz2uY6fY=";
   url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen-specific.AppImage";
   src = fetchurl {
     inherit url sha256;
