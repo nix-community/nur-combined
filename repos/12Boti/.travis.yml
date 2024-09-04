@@ -1,0 +1,40 @@
+version: ~> 1.0
+import: nix-community/nix-travis-ci:nix.yml@main
+
+sudo: false
+
+env:
+  global:
+    # Set this to cache your build results in cachix for faster builds
+    # in travis and for everyone who uses your cache.
+    #
+    # Format: Your cachix cache host name without the ".cachix.org" suffix.
+    # Example: mycache (for mycache.cachix.org)
+    #
+    # For this to work, you also need to set the  CACHIX_SIGNING_KEY
+    # in your repository settings in Travis.
+    # - CACHIX_CACHE=
+    # Set this to notify the global nur package registry that changes are
+    # available.
+    #
+    # The repo name as used in
+    # https://github.com/nix-community/NUR/blob/master/repos.json
+    - NUR_REPO="<YOUR_NUR_REPO_NAME_HERE>"
+
+matrix:
+  include:
+    - env: NIX_PATH=nixpkgs=channel:nixpkgs-unstable
+    - env: NIX_PATH=nixpkgs=channel:nixos-unstable
+    - env: NIX_PATH=nixpkgs=channel:nixos-20.03
+
+script:
+ - nix-build ci.nix -A buildOutputs
+ - nix eval -f default.nix 'lib'
+ - nix eval -f default.nix 'modules'
+ - nix eval -f default.nix 'overlays'
+
+after_success:
+  - if [ -n "${CACHIX_CACHE}" ]; then nix-build ci.nix -A cacheOutputs | cachix push "${CACHIX_CACHE}"; fi
+  - if [[ NUR_REPO != "<YOUR_NUR_REPO_NAME_HERE>" && "cron" != "${TRAVIS_EVENT_TYPE}" && "false" = "${TRAVIS_PULL_REQUEST}" && "master" = "${TRAVIS_BRANCH}" ]]; then
+      curl -XPOST "https://nur-update.herokuapp.com/update?repo=${NUR_REPO}"; fi
+
