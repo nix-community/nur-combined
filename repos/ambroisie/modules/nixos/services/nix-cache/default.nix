@@ -40,7 +40,7 @@ in
         inherit (cfg) priority;
       };
 
-      signKeyPath = cfg.secretKeyFile;
+      signKeyPaths = [ cfg.secretKeyFile ];
     };
 
     my.services.nginx.virtualHosts = {
