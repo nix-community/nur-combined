@@ -12,6 +12,23 @@ let
     "azasos"
     "hastur"
   ];
+  relabel_configs = [
+    {
+      source_labels = [ "__address__" ];
+      target_label = "__param_target";
+    }
+    {
+      source_labels = [ "__param_target" ];
+      target_label = "instance";
+    }
+    {
+      target_label = "__address__";
+      replacement =
+        with config.services.prometheus.exporters.blackbox;
+        "${listenAddress}:${toString port}";
+    }
+  ];
+
 in
 {
   enable = true;
@@ -47,6 +64,25 @@ in
           password_file = secPath;
         };
         static_configs = [ { inherit targets; } ];
+      }
+      {
+        job_name = "http";
+        scheme = "http";
+        metrics_path = "/probe";
+        params = {
+          module = [ "http_2xx" ];
+        };
+        static_configs = [
+          {
+            targets = [
+              "https://nyaw.xyz"
+              "https://matrix.nyaw.xyz"
+              "https://pb.nyaw.xyz"
+              "https://vault.nyaw.xyz"
+            ];
+          }
+        ];
+        inherit relabel_configs;
       }
       # {
       #   job_name = "metrics-notls";
