@@ -1,0 +1,27 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p bash -p nettools -p openssh -p rsync -p sane-scripts.vpn -p sanebox
+
+# rsync password auth doesn't work with rsync.net.
+# ssh keyfile auth *does* work, so i use that.
+# for setup, see: <https://www.rsync.net/resources/howto/ssh_keys.html>
+# - requires my pubkey to be copied to .ssh/authorized_keys on the remote.
+
+set -xe
+
+# secret should include RN_USER
+source /run/secrets/rsync-net-env
+RN_ID=/run/secrets/rsync-net-id_ed25519
+
+test -n "$RN_USER" && test -f "$RN_ID"
+
+#vvv one or both may be empty, to `ls` the remote
+srcdir="$1"
+destdir="$2"
+
+RN_ROOT="$RN_USER@$RN_USER.rsync.net"
+
+if [ -z "$destdir" ]; then
+  ssh -i "$RN_ID" "$RN_ROOT" ls "$srcdir"
+else
+  rsync -e "ssh -i $RN_ID" -rlptgov "$RN_ROOT:$srcdir" "$destdir"
+fi
