@@ -232,6 +232,11 @@
               #_module.args.pkgs-inkscape13 = importFromChannelForSystem system nixpkgs-inkscape13;
               #_module.args.pkgs-share-preview-03 = importFromChannelForSystem system nixpkgs-share-preview-03;
             };
+
+            bmcBin = {
+              environment.systemPackages = [ bmc.packages."${system}".bmc ];
+            };
+
           in [
             defaults
             ./hosts/lego1/configuration.nix
@@ -248,7 +253,7 @@
 
             { environment.systemPackages = [ agenix.packages."${system}".default ]; }
             agenix.nixosModules.default
-
+            bmcBin
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
