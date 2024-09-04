@@ -2,7 +2,7 @@
 #   https://xeiaso.net/blog/paranoid-nixos-2021-07-18
 #   https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/
 #   https://github.com/nix-community/impermanence
-{ config, lib, pkgs, utils, sane-lib, ... }:
+{ config, lib, sane-lib, ... }:
 
 with lib;
 let
@@ -164,7 +164,7 @@ let
       dirToAttrs = dir: {
         "${dir.path}" = builtins.removeAttrs dir ["path"];
       };
-      store-names = attrNames cfg.stores;
+      # store-names = attrNames cfg.stores;
       # :: (store -> entry -> AttrSet) -> [AttrSet]
       # applyToAllStores = f: lib.concatMap
       #   (store: map (f store) config.byStore."${store}")

@@ -510,7 +510,7 @@ let
       ;
       sandbox.extraRuntimePaths =
         lib.optionals config.sandbox.whitelistAudio [ "pipewire" "pulse" ]  # this includes pipewire/pipewire-0-manager: is that ok?
-        ++ lib.optionals (builtins.elem "user" config.sandbox.whitelistDbus) [ "bus" ]
+        ++ lib.optionals (builtins.elem "user" config.sandbox.whitelistDbus) [ "dbus" ]
         ++ lib.optionals config.sandbox.whitelistWayland [ "wl" ]  # app can still communicate with wayland server w/o this, if it has net access
         ++ lib.optionals config.sandbox.whitelistS6 [ "s6" ]  # TODO: this allows re-writing the services themselves: don't allow that!
       ;

@@ -34,11 +34,11 @@ in
 
     sandbox.method = "bunpen";
     sandbox.extraRuntimePaths = [
-      "/"  #< it needs to create a file in the root. TODO: move the bus handle into a sandboxable subdirectory
+      "dbus"
     ];
     sandbox.isolatePids = false;   #< not actually sure *why* this is necessary, but it is
 
-    env.DBUS_SESSION_BUS_ADDRESS = "unix:path=$XDG_RUNTIME_DIR/bus";
+    env.DBUS_SESSION_BUS_ADDRESS = "unix:path=$XDG_RUNTIME_DIR/dbus/bus";
 
     # normally systemd would create a dbus session for us, but if you configure it not to do that
     # then we can create our own. not sure if there's a dependency ordering issue here: lots
@@ -47,8 +47,12 @@ in
     services.dbus = {
       description = "dbus user session";
       partOf = lib.mkIf cfg.config.autostart [ "default" ];
-      command = "dbus-daemon --session --nofork --address=$DBUS_SESSION_BUS_ADDRESS";
-      readiness.waitExists = [ "$XDG_RUNTIME_DIR/bus" ];
+      command = pkgs.writeShellScript "dbus-start" ''
+        # have to create the dbus directory before launching so that it's available in the sandbox
+        mkdir -p "$XDG_RUNTIME_DIR/dbus"
+        dbus-daemon --session --nofork --address="$DBUS_SESSION_BUS_ADDRESS"
+      '';
+      readiness.waitExists = [ "$XDG_RUNTIME_DIR/dbus/bus" ];
     };
   };
 }

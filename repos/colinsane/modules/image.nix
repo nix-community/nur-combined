@@ -62,12 +62,13 @@ in
       '';
     };
     sane.image.bootPartSize = mkOption {
-      default = 1024 * 1024 * 1024;
+      default = 2 * 1024 * 1024 * 1024;
       type = types.int;
       description = ''
         size of the boot partition, in bytes.
         don't skimp on this. nixos kernels are by default HUGE, and restricting this
-        will make kernel tweaking extra painful.
+        will make kernel tweaking extra painful,
+        particularly on non-x86 platforms, most of which don't support compressed kernels.
       '';
     };
     sane.image.sectorSize = mkOption {
@@ -197,7 +198,9 @@ in
       '' else ''
         cp ${img}/nixos.img $out
         chmod +w $out
+        set -x
         ${cfg.installBootloader}
+        set +x
         chmod -w $out
       ''
     );

@@ -56,16 +56,22 @@ export type umount_flags = int;
 // XXX(2024-08-24): hare stdlib `mount` syscall has a bug where it mounts
 // `target` to `target`, not `source` to `target`.
 // TODO: fix upstream
-export fn mount(source: str, target: str, fstype: str, mountflags: mount_flags, data: nullable *opaque) (rt::errno | void) = {
+export fn mount(source: str, target: str, fstype: str, mountflags: mount_flags, data: (str | nullable *opaque)) (rt::errno | void) = {
   let source_buf: [path::MAX]c::char = [0...];
   let target_buf: [path::MAX]c::char = [0...];
   let fstype_buf: [256]c::char = [0...];
+  let data_buf: [4096]c::char = [0...];
+
+  let c_data: nullable *opaque = match (data) {
+    case let p: nullable *opaque => yield p;
+    case let p: str => yield make_cstr(&data_buf, p): nullable *opaque;
+  };
   return syscall_0_on_success(
     rt::SYS_mount,
     make_cstr(&source_buf, source): uintptr: u64,
     make_cstr(&target_buf, target): uintptr: u64,
     make_cstr(&fstype_buf, fstype): uintptr: u64,
     mountflags,
-    data: uintptr,
+    c_data: uintptr,
   );
 };

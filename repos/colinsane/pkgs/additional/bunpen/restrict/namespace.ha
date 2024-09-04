@@ -148,9 +148,41 @@ fn isolate_paths(what: *resources) void = {
   errors::ext::swallow("[namespace] mount -t tmpfs tmpfs new/tmp", rt::ext::mount("tmpfs", "new/tmp", "tmpfs", 0, null));
 
   // some apps (e.g. signal-desktop) require /dev/shm.
-  // /dev/shm is an ordinary tmpfs. we can get that just by `mkdir`ing it.
+  // /dev/shm is an ordinary tmpfs.
+  // bwrap has `/dev` be a tmpfs.
+  // however, it seems we can just `mkdir` these and not explicitly mount `tmpfs` on them.
+  log::println("[namespace] setting up /dev");
   errors::ext::swallow("[namespace] mkdir new/dev", rt::mkdir("new/dev", 0o755));
+  // errors::ext::swallow("[namespace] mount -t tmpfs tmpfs new/dev", rt::ext::mount("tmpfs", "new/dev", "tmpfs", 0, null));
   errors::ext::swallow("[namespace] mkdir new/dev/shm", rt::mkdir("new/dev/shm", 0o777));
+  // errors::ext::swallow("[namespace] mount -t tmpfs tmpfs new/dev/shm", rt::ext::mount("tmpfs", "new/dev/shm", "tmpfs", 0, null));
+
+  // some apps (e.g. aerc) require /dev/pts.
+  log::println("[namespace] setting up /dev/pts");
+  errors::ext::swallow("[namespace] mkdir new/dev/pts", rt::mkdir("new/dev/pts", 0o755));
+  errors::ext::swallow("[namespace] mount -t devpts devpts new/dev/pts", rt::ext::mount(
+    "devpts",
+    "new/dev/pts",
+    "devpts",
+    rt::ext::mount_flag::NOSUID | rt::ext::mount_flag::NOEXEC,
+    // "newinstance" is borrowed from bwrap, and google turns up: <https://bugzilla.redhat.com/show_bug.cgi?id=501718>
+    // it works with or without this flag, idk enough about the pty system to say.
+    "newinstance,ptmxmode=0666,mode=620",
+  ));
+  // /dev/ptmx and /dev/pts/ptmx are supposed to be one and the same?
+  // bwrap symlinks /dev/ptms -> /dev/pts/ptmx.
+  // bind-mounting ought to be the same, but i suppose symlinks are less fragile when recursively namespacing
+  errors::ext::swallow("[namespace] ln -s pts/ptmx new/dev/ptmx", fs::symlink(os::cwd, "pts/ptmx", "new/dev/ptmx"));
+
+  // XXX: bwrap binds /dev/console, but i haven't had a need to yet.
+  // fs::create(os::cwd, "new/dev/console", 0o444)!;
+  // errors::ext::swallow("[namespace] mount old/dev/pts/0 new/dev/console", rt::ext::mount(
+  //   "old/dev/pts/0",  //< TODO: don't hardcode `/dev/pts/0`, but use `ttyname`
+  //   "new/dev/console",
+  //   "",
+  //   rt::ext::mount_flag::BIND | rt::ext::mount_flag::REC,
+  //   null,
+  // ));
 
   // bind all the user-requested paths from `old/$p` into `new/$p`.
   // use the `dirfd` abstraction so that paths meant for `old` can't crawl out
@@ -329,27 +361,29 @@ fn pivot_into(new_root: str, stash_old_root: (str|void) = void) void = {
   errors::ext::check("[namespace] cd /", os::chdir("/"));
 };
 
+// these id maps are writable *once*.
+// - uid_map, gid_map: tell the kernel how uid's from the parent namespace
+//                     should be presented to members of the current namespace,
+//                     AND vice-versa.
+//   - each line has the format:
+//     `ID-inside-ns   ID-outside-ns   number-of-ids-to-map`
+//   - multiple lines are allowed
+//   - it seems as those ID-outside-ns can only be an ID controlled by the user
+//     that created the namespace (else: EPERM), which would make sense if this is a bidirectional mapping
 fn write_id_maps(uid: unix::uid, gid: unix::gid) void = {
-  errors::ext::swallow("[namespace] write /proc/self/uid_map", write_uid_map(uid));
+  errors::ext::swallow("[namespace] write /proc/self/uid_map", write_id_map("/proc/self/uid_map", uid));
   errors::ext::swallow("[namespace] write /proc/self/setgroups", write_setgroups());
-  errors::ext::swallow("[namespace] write /proc/self/gid_map", write_gid_map(gid));
+  errors::ext::swallow("[namespace] write /proc/self/gid_map", write_id_map("/proc/self/gid_map", gid));
 };
 
-fn write_uid_map(uid: unix::uid) (void | rt::errno | io::error) = {
-  let uid_fd = rt::open("/proc/self/uid_map", rt::O_RDWR | rt::O_CLOEXEC, 0)?;
-  let uid_buf: [4096]u8 = [0...];
-  let uid_str = fmt::bsprintf(uid_buf, "{0} {0} 1\n", uid: uint);
-  io::write(uid_fd, strings::toutf8(uid_str))?;
+fn write_id_map(which: str, id: uint) (void | rt::errno | io::error) = {
+  let id_fd = rt::open(which, rt::O_RDWR | rt::O_CLOEXEC, 0)?;
+  let id_buf: [4096]u8 = [0...];
+  let id_str = fmt::bsprintf(id_buf, "{0} {0} 1\n", id);
+  io::write(id_fd, strings::toutf8(id_str))?;
 };
 
 fn write_setgroups() (void | rt::errno | io::error) = {
   let setgroups_fd = rt::open("/proc/self/setgroups", rt::O_RDWR | rt::O_CLOEXEC, 0)?;
   io::write(setgroups_fd, &['d': u8, 'e', 'n', 'y', '\n', 0])?;
-};
-
-fn write_gid_map(gid: unix::gid) (void | rt::errno | io::error) = {
-  let gid_fd = rt::open("/proc/self/gid_map", rt::O_RDWR | rt::O_CLOEXEC, 0)?;
-  let gid_buf: [4096]u8 = [0...];
-  let gid_str = fmt::bsprintf(gid_buf, "{0} {0} 1\n", gid: uint);
-  io::write(gid_fd, strings::toutf8(gid_str))?;
 };

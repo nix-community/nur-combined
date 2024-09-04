@@ -1,4 +1,4 @@
-{ config, lib, pkgs, sane-lib, utils, ... }:
+{ config, lib, pkgs, sane-lib, ... }:
 
 let
   persist-base = "/nix/persist";

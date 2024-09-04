@@ -32,17 +32,22 @@ export fn strerror(what: error) str = {
   };
 };
 
-fn nonfatal(context: str, e: error, fmt_args: fmt::field...) void = {
+fn print_error_with_context(user_context: str, add_context: str, e: error, fmt_args: fmt::field...) void = {
   let context_buf: [4096]u8 = [0...];
   log::println(
-    fmt::bsprintf(context_buf[..], context, fmt_args...),
+    fmt::bsprintf(context_buf[..], user_context, fmt_args...),
     ":",
     strerror(e),
+    add_context,
   );
 };
 
+fn nonfatal(context: str, e: error, fmt_args: fmt::field...) void = {
+  print_error_with_context(context, "(nonfatal)", e, fmt_args...);
+};
+
 fn fatal(context: str, e: error, fmt_args: fmt::field...) never = {
-  nonfatal(context, e, fmt_args...);
+  print_error_with_context(context, "(FATAL)", e, fmt_args...);
   os::exit(255);
 };
 
@@ -73,4 +78,3 @@ export fn swallow(context: str, what: (void | ...error), fmt_args: fmt::field...
     case let e: error => nonfatal(context, e, fmt_args...);
   };
 };
-
