@@ -750,6 +750,9 @@
     "pname": "keybase"
   },
   {
+    "slug": "kiss-translator"
+  },
+  {
     "slug": "kristofferhagen-nord-theme"
   },
   {
@@ -1167,6 +1170,9 @@
     "slug": "pushbullet"
   },
   {
+    "slug": "pwas-for-firefox"
+  },
+  {
     "slug": "pywalfox"
   },
   {
@@ -1305,6 +1311,9 @@
     }
   },
   {
+    "slug": "smartproxy"
+  },
+  {
     "slug": "snoozetabs"
   },
   {
@@ -1431,6 +1440,9 @@
   },
   {
     "slug": "to-google-translate"
+  },
+  {
+    "slug": "toggl-button-time-tracker"
   },
   {
     "slug": "tokyo-night-v2"

@@ -5717,6 +5717,27 @@
         platforms = platforms.all;
       };
     };
+    "kiss-translator" = buildFirefoxXpiAddon {
+      pname = "kiss-translator";
+      version = "1.8.11";
+      addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4291806/kiss_translator-1.8.11.xpi";
+      sha256 = "89959d5b60cc39dfd8dbc59cfeab25d8e665d4f7a48a04d6da8c34ad136ab626";
+      meta = with lib;
+      {
+        homepage = "https://github.com/fishjar/kiss-translator";
+        description = "A simple bilingual translation extension &amp; Greasemonkey script";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "<all_urls>"
+          "storage"
+          "contextMenus"
+          "scripting"
+          "declarativeNetRequest"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "kristofferhagen-nord-theme" = buildFirefoxXpiAddon {
       pname = "kristofferhagen-nord-theme";
       version = "2.0";
@@ -8930,6 +8951,27 @@
         platforms = platforms.all;
       };
     };
+    "pwas-for-firefox" = buildFirefoxXpiAddon {
+      pname = "pwas-for-firefox";
+      version = "2.12.1";
+      addonId = "firefoxpwa@filips.si";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4293028/pwas_for_firefox-2.12.1.xpi";
+      sha256 = "9bc04202542ddfb4715675b0fb68483e79a87d389c35ae4e5a4c17a7f2177566";
+      meta = with lib;
+      {
+        homepage = "https://github.com/filips123/PWAsForFirefox";
+        description = "A tool to install, manage and use Progressive Web Apps (PWAs) in Mozilla Firefox";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "http://*/*"
+          "https://*/*"
+          "nativeMessaging"
+          "notifications"
+          "storage"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "pywalfox" = buildFirefoxXpiAddon {
       pname = "pywalfox";
       version = "2.0.11";
@@ -9863,6 +9905,31 @@
         platforms = platforms.all;
       };
     };
+    "smartproxy" = buildFirefoxXpiAddon {
+      pname = "smartproxy";
+      version = "1.5";
+      addonId = "smartproxy@salarcode.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4323346/smartproxy-1.5.xpi";
+      sha256 = "d53a6c2cdf87811259b7503b2109cced0b0e29cdec6f4a22b049fb28009819cc";
+      meta = with lib;
+      {
+        homepage = "https://github.com/salarcode/SmartProxy";
+        description = "SmartProxy is a smart automatic proxy switcher that will automatically enable/disable proxy for the sites you visit, based on customizable rules.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "<all_urls>"
+          "activeTab"
+          "tabs"
+          "proxy"
+          "webRequest"
+          "webRequestBlocking"
+          "storage"
+          "unlimitedStorage"
+          "notifications"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "snoozetabs" = buildFirefoxXpiAddon {
       pname = "snoozetabs";
       version = "1.1.2resigned1";
@@ -10654,6 +10721,29 @@
           "*://translate.google.cn/*"
           "*://translate.googleusercontent.com/*"
           "*://translate.googleusercontent.cn/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "toggl-button-time-tracker" = buildFirefoxXpiAddon {
+      pname = "toggl-button-time-tracker";
+      version = "4.1.1";
+      addonId = "toggl-button@toggl.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4346291/toggl_button_time_tracker-4.1.1.xpi";
+      sha256 = "b3b3a25989fd9c2f52f49727f8f645a06bc94f4b9d2bf573277a839f827b1256";
+      meta = with lib;
+      {
+        homepage = "https://toggl.com/track/";
+        description = "Puts a timer into any web tool and allows quick real time productivity tracking with all the data stored on your Toggl Track account. Time tracking has never been easier!";
+        license = licenses.mit;
+        mozPermissions = [
+          "activeTab"
+          "alarms"
+          "contextMenus"
+          "notifications"
+          "scripting"
+          "idle"
+          "storage"
         ];
         platforms = platforms.all;
       };
