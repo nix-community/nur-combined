@@ -180,13 +180,13 @@
         sha512 = "L0awRXkMY4MLasVy3dyfM+2aU2Q4tyCDU45O7hxiB2SHZF8jurw3nmyifrtFJ4cI/JZIvu5ChCtf0i8yLfnohQ==";
       };
     };
-    "c12-1.11.1" = {
+    "c12-1.11.2" = {
       name = "c12";
       packageName = "c12";
-      version = "1.11.1";
+      version = "1.11.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/c12/-/c12-1.11.1.tgz";
-        sha512 = "KDU0TvSvVdaYcQKQ6iPHATGz/7p/KiVjPg4vQrB6Jg/wX9R0yl5RZxWm9IoZqaIHD2+6PZd81+KMGwRr/lRIUg==";
+        url = "https://registry.npmjs.org/c12/-/c12-1.11.2.tgz";
+        sha512 = "oBs8a4uvSDO9dm8b7OCFW7+dgtVrwmwnrVXYzLm43ta7ep2jCn/0MhoUFygIWtxhyy6+/MG7/agvpY0U1Iemew==";
       };
     };
     "cac-6.7.14" = {
@@ -1064,7 +1064,7 @@ in {
             sources."jsonc-parser-3.3.1"
           ];
         })
-      sources."c12-1.11.1"
+      sources."c12-1.11.2"
       sources."cac-6.7.14"
       sources."call-me-maybe-1.0.2"
       sources."chokidar-3.6.0"
