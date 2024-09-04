@@ -123,9 +123,9 @@ in
       ];
       route = {
         receiver = "telegram";
-        group_wait = "2s";
-        group_interval = "30s";
-        repeat_interval = "5m";
+        group_wait = "30s";
+        group_interval = "2m";
+        repeat_interval = "10m";
       };
     };
   };

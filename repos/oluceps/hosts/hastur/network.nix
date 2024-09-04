@@ -171,6 +171,10 @@
           "10.0.3.2/24"
         ];
         DHCP = "no";
+        networkConfig = {
+          IPMasquerade = "ipv4";
+          IPv4Forwarding = true;
+        };
       };
 
       # "20-wired-bond0" = {

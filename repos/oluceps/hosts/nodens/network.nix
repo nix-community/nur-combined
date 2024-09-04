@@ -128,7 +128,7 @@
           }
           {
             PublicKey = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A=";
-            AllowedIPs = [ "10.0.3.1/32" ];
+            AllowedIPs = [ "10.0.3.1/24" ];
             Endpoint = "38.47.119.151:51820";
             PersistentKeepalive = 15;
           }
