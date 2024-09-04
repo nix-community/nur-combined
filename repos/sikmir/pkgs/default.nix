@@ -457,6 +457,7 @@ lib.makeScope newScope (
     map-machine = callPackage ./osm/map-machine { };
     map-stylizer = callPackage ./osm/map-stylizer { };
     maperitive = callPackage ./osm/maperitive { };
+    maproulette-python-client = callPackage ./osm/maproulette-python-client { };
     memphis = callPackage ./osm/memphis { };
     osm-3s = callPackage ./osm/osm-3s { };
     osm-area-tools = callPackage ./osm/osm-area-tools { };
