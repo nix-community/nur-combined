@@ -59,15 +59,10 @@ in
         StateDirectory = "nginx-sso";
         WorkingDirectory = "/var/lib/nginx-sso";
         # The files to be merged might not have the correct permissions
-        ExecStartPre = ''+${pkgs.writeShellScript "merge-nginx-sso-config" ''
+        ExecStartPre = pkgs.writeShellScript "merge-nginx-sso-config" ''
           rm -f '${confPath}'
           ${utils.genJqSecretsReplacementSnippet cfg.configuration confPath}
-
-          # Fix permissions
-          chown nginx-sso:nginx-sso ${confPath}
-          chmod 0600 ${confPath}
-        ''
-        }'';
+        '';
         ExecStart = lib.mkForce ''
           ${lib.getExe pkg} \
             --config ${confPath} \

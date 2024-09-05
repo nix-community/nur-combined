@@ -4,12 +4,13 @@
 # [1]: https://youtu.be/I26Ql-uX6AM
 { config, lib, ... }:
 let
-  cfg = config.my.services.pirate;
+  cfg = config.my.services.servarr;
 
   ports = {
     bazarr = 6767;
     lidarr = 8686;
     radarr = 7878;
+    readarr = 8787;
     sonarr = 8989;
   };
 
@@ -52,7 +53,7 @@ let
   ]);
 in
 {
-  options.my.services.pirate = {
+  options.my.services.servarr = {
     enable = lib.mkEnableOption "Media automation";
 
     bazarr = {
@@ -65,6 +66,10 @@ in
 
     radarr = {
       enable = lib.my.mkDisableOption "Radarr";
+    };
+
+    readarr = {
+      enable = lib.my.mkDisableOption "Readarr";
     };
 
     sonarr = {
@@ -85,6 +90,9 @@ in
     # Radarr for movies
     (mkFullConfig "radarr")
     (mkFail2Ban "radarr")
+    # Readarr for books
+    (mkFullConfig "readarr")
+    (mkFail2Ban "readarr")
     # Sonarr for shows
     (mkFullConfig "sonarr")
     (mkFail2Ban "sonarr")

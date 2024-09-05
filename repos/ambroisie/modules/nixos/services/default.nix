@@ -26,7 +26,6 @@
     ./nginx
     ./nix-cache
     ./paperless
-    ./pirate
     ./podgrab
     ./postgresql
     ./postgresql-backup
@@ -34,6 +33,7 @@
     ./quassel
     ./rss-bridge
     ./sabnzbd
+    ./servarr
     ./ssh-server
     ./tandoor-recipes
     ./tlp

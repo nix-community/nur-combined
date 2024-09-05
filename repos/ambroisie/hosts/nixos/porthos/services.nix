@@ -127,14 +127,6 @@ in
       passwordFile = secrets."paperless/password".path;
       secretKeyFile = secrets."paperless/secret-key".path;
     };
-    # The whole *arr software suite
-    pirate = {
-      enable = true;
-      # ... But not Lidarr because I don't care for music that much
-      lidarr = {
-        enable = false;
-      };
-    };
     # Podcast automatic downloader
     podgrab = {
       enable = true;
@@ -152,6 +144,14 @@ in
     rss-bridge.enable = true;
     # Usenet client
     sabnzbd.enable = true;
+    # The whole *arr software suite
+    servarr = {
+      enable = true;
+      # ... But not Lidarr because I don't care for music that much
+      lidarr = {
+        enable = false;
+      };
+    };
     # Because I stilll need to play sysadmin
     ssh-server.enable = true;
     # Recipe manager
