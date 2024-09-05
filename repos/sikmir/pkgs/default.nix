@@ -490,6 +490,7 @@ lib.makeScope newScope (
     adsb_deku = callPackage ./radio/adsb_deku { };
     ais-catcher = callPackage ./radio/ais-catcher { };
     aprsc = callPackage ./radio/aprsc { };
+    dump1090_rs = callPackage ./radio/dump1090_rs { };
     dumphfdl = callPackage ./radio/dumphfdl { };
     dumpvdl2 = callPackage ./radio/dumpvdl2 { };
     fmreceiver = libsForQt5.callPackage ./radio/fmreceiver { };

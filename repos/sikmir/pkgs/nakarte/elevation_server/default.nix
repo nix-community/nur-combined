@@ -2,22 +2,22 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  buildGoPackage,
+  buildGoModule,
   lz4,
 }:
 
-buildGoPackage rec {
+buildGoModule rec {
   pname = "elevation_server";
   version = "1.2.0";
 
   src = fetchFromGitHub {
-    owner = "wladich";
+    owner = "sikmir";
     repo = "elevation_server";
-    rev = version;
-    hash = "sha256-2mpBboPKIV+Wm2p3FHy3a+6H3+qJUOu2+F28MufzBwU=";
+    rev = "d8964ed01e81dea4bcd20cf6f7e092da4b2d5547";
+    hash = "sha256-nckgsaXtLd1D3gYqdAMF5VRRM4zkw4G6R0P//G9lqDM=";
   };
 
-  goPackagePath = "github.com/wladich/elevation_server";
+  vendorHash = "sha256-j43mafIXC1C4RvVIoqTV44kWSJgv1WDRphX3/G29Uxk=";
 
   subPackages = [
     "cmd/elevation_server"
@@ -26,14 +26,12 @@ buildGoPackage rec {
 
   buildInputs = [ lz4 ];
 
-  goDeps = ./deps.nix;
-
   meta = {
     description = "The server providing elevation data";
     homepage = "https://github.com/wladich/elevation_server";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
-    broken = stdenv.isDarwin;
+    mainProgram = "elevation_server";
   };
 }
