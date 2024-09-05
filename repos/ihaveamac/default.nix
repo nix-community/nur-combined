@@ -25,7 +25,7 @@ rec {
   makebax = pkgs.callPackage ./pkgs/makebax { };
   ctrtool = pkgs.callPackage ./pkgs/ctrtool { };
   makerom = pkgs.callPackage ./pkgs/makerom { };
-  homebox-bin = pkgs.callPackage ./pkgs/homebox-bin { };
+  homebox-bin = pkgs.lib.warn "homebox is now in nixpkgs: https://github.com/NixOS/nixpkgs/pull/320060" pkgs.callPackage ./pkgs/homebox-bin { };
   _3dslink = pkgs.callPackage ./pkgs/3dslink { };
   discordwikibot = pkgs.callPackage ./pkgs/discordwikibot { };
   sd-format-linux = pkgs.callPackage ./pkgs/sd-format-linux { };
