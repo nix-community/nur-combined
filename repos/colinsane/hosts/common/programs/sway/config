@@ -193,6 +193,11 @@ for_window [app_id="Celeste64|mpv"] {
   fullscreen enable  #< should be redundant with the rules for TV, but isn't for some reason
 }
 
+for_window [class="sm64ex" {
+  move to output $out_projector
+  move to output $out_tv
+}
+
 
 ### displays & inputs
 input type:touchpad {

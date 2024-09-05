@@ -156,6 +156,7 @@
     ./sfeed.nix
     ./shadow.nix
     ./signal-desktop.nix
+    ./sm64ex-coop.nix
     ./soundconverter.nix
     ./splatmoji.nix
     ./spot.nix

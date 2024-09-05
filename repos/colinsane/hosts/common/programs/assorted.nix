@@ -256,6 +256,7 @@ in
       # "pinball"       # 3d pinball; kb/mouse. old sourceforge project
       # "powermanga"    # STYLISH space invaders derivative (keyboard-only)
       "shattered-pixel-dungeon"  # doesn't cross compile
+      "sm64ex-coop"
       "space-cadet-pinball"  # LMB/RMB controls (bindable though. volume buttons?)
       "steam"
       "superTux"  # keyboard-only controls
