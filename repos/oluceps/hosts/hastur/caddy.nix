@@ -33,7 +33,6 @@
                     }
                   ];
                   match = [ { host = [ "cache.nyaw.xyz" ]; } ];
-                  terminal = true;
                 }
                 {
                   handle = [
@@ -47,7 +46,14 @@
                               upstreams = [ { dial = "localhost:3002"; } ];
                             }
                           ];
-                          match = [ { path = [ "/grafana/*" ]; } ];
+                          match = [
+                            {
+                              path = [
+                                "/grafana/*"
+                                "/grafana"
+                              ];
+                            }
+                          ];
                         }
                         {
                           handle = [
@@ -56,13 +62,19 @@
                               upstreams = [ { dial = "localhost:9090"; } ];
                             }
                           ];
-                          match = [ { path = [ "/prom/*" ]; } ];
+                          match = [
+                            {
+                              path = [
+                                "/prom/*"
+                                "/prom"
+                              ];
+                            }
+                          ];
                         }
                       ];
                     }
                   ];
                   match = [ { host = [ "hastur.nyaw.xyz" ]; } ];
-                  terminal = true;
                 }
                 {
                   handle = [
@@ -81,7 +93,6 @@
                     }
                   ];
                   match = [ { host = [ "s3.nyaw.xyz" ]; } ];
-                  terminal = true;
                 }
               ];
               tls_connection_policies = [
