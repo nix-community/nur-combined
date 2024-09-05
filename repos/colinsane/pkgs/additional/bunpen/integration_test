@@ -11,39 +11,51 @@ test_01_trivial() {
   bunpen --bunpen-path / /usr/bin/env true
 }
 
-# invoke by path
 test_02_invoke_by_path() {
   bunpen --bunpen-path / true
 }
 
-# invoke disabled
-test_03_disable_by_env_var() {
-  BUNPEN_DISABLE=1 bunpen true
+test_03_errors_on_invalid_file() {
+  bunpen --bunpen-path / this_file_does_not_exist && return 1 || true
 }
 
-# propagate exit code when disabled (i.e. it exec's)
-test_04_propagates_rc_when_disabled() {
-  BUNPEN_DISABLE=1 bunpen false && exit false || true
+test_04_disable_by_env_var() {
+  BUNPEN_DISABLE=1 bunpen /usr/bin/env true
 }
 
-# propagate exit code
-test_05_propagates_rc() {
-  bunpen --bunpen-path / false && exit false || true
+test_05_propagates_rc_when_disabled() {
+  BUNPEN_DISABLE=1 bunpen /usr/bin/env false && return 1 || true
 }
 
-# forwards stdout
-test_06_forwards_stdout() {
+test_06_propagates_rc() {
+  bunpen --bunpen-path / /usr/bin/env false && return 1 || true
+}
+
+test_07_propagates_rc() {
+  bunpen --bunpen-path / false && return 1 || true
+}
+
+test_08_forwards_stdout_when_disabled() {
+  local stdout=$(BUNPEN_DISABLE=1 bunpen --bunpen-path / echo "hello")
+  test "$stdout" = "hello"
+}
+
+test_09_forwards_stdout() {
   local stdout=$(bunpen --bunpen-path / echo "hello")
-  test "$stdout" -eq "hello"
+  test "$stdout" = "hello"
 }
 
+rc=0
 for f in $(declare -F); do
   if [[ "$f" =~ test_* ]]; then
     echo -n "$f: ..."
-    "$f" && echo " SUCCESS" || die " FAIL"
+    if "$f"; then
+      echo " SUCCESS"
+    else
+      rc=1
+      echo " FAIL"
+    fi
   fi
 done
 
-# for n in {01..06}; do
-#   $("test_$n_*)
-# done
+exit "$rc"

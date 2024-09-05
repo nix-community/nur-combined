@@ -77,12 +77,12 @@ let
 
   ifSshAuthorized = lib.mkIf config.sane.hosts.by-name."${config.networking.hostName}".ssh.authorized;
 
-  remoteHome = host: {
+  remoteHome = name: { host ? name }: {
     sane.programs.sshfs-fuse.enableFor.system = true;
     system.fsPackages = [
       config.sane.programs.sshfs-fuse.package
     ];
-    fileSystems."/mnt/${host}/home" = {
+    fileSystems."/mnt/${name}/home" = {
       device = "sshfs#colin@${host}:/home/colin";
       fsType = "fuse3";
       options = fsOpts.sshColin ++ fsOpts.lazyMount ++ [
@@ -92,7 +92,7 @@ let
       ];
       noCheck = true;
     };
-    sane.fs."/mnt/${host}/home" = {
+    sane.fs."/mnt/${name}/home" = {
       dir.acl.user = "colin";
       dir.acl.group = "users";
       dir.acl.mode = "0700";
@@ -314,11 +314,11 @@ lib.mkMerge [
     programs.fuse.userAllowOther = true;  #< necessary for `allow_other` or `allow_root` options.
   }
 
-  (ifSshAuthorized (remoteHome "crappy"))
-  (ifSshAuthorized (remoteHome "desko"))
-  (ifSshAuthorized (remoteHome "lappy"))
-  (ifSshAuthorized (remoteHome "moby"))
-  (ifSshAuthorized (remoteHome "servo"))
+  (ifSshAuthorized (remoteHome "crappy" {}))
+  (ifSshAuthorized (remoteHome "desko" {}))
+  (ifSshAuthorized (remoteHome "lappy" {}))
+  (ifSshAuthorized (remoteHome "moby" { host = "moby-hn"; }))
+  (ifSshAuthorized (remoteHome "servo" {}))
   # this granularity of servo media mounts is necessary to support sandboxing:
   # for flaky mounts, we can only bind the mountpoint itself into the sandbox,
   # so it's either this or unconditionally bind all of media/.

@@ -7,8 +7,8 @@ let
   src = fetchFromGitHub {
     owner = "nix-community";
     repo = "nixpkgs-wayland";
-    rev = "90cf4eb6d71f1ee8124fd57535a3569048771b33";
-    hash = "sha256-B5Ypgx4cO0syxPyUsHTIxVFT8xChPj494WJ5uIOefDM=";
+    rev = "52b72b12c456a5c0c87c40941ef79335e8d61104";
+    hash = "sha256-AeRcvPq2SLjpLP1cXe5SjFUmwuO5BY4bskRcrxRZtJU=";
   };
   flake = import "${src}/flake.nix";
   evaluated = flake.outputs {
@@ -25,7 +25,7 @@ let
 in src.overrideAttrs (base: {
   # attributes required by update scripts
   pname = "nixpkgs-wayland";
-  version = "0-unstable-2024-08-30";
+  version = "0-unstable-2024-09-02";
   src = src;
 
   # passthru only nixpkgs-wayland's own packages -- not the whole nixpkgs-with-nixpkgs-wayland-as-overlay:
