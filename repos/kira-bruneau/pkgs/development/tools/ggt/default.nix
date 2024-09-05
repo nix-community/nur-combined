@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ggt";
-  version = "1.1.0";
+  version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "gadget-inc";
     repo = "ggt";
     rev = "refs/tags/v${finalAttrs.version}";
-    hash = "sha256-An18VGnNBN2ly0pViYwU53aXaCtAKPrDTkBQ3E+ixpc=";
+    hash = "sha256-8Tk6WqUjZxD9nidJozLQX9yKCtiNBhywnldqBK+P+po=";
   };
 
   strictDeps = true;
