@@ -23,7 +23,7 @@
   # };
 
   services.scx = {
-    enable = true;
+    enable = false;
     scheduler = "scx_bpfland";
   };
   boot = {
@@ -46,7 +46,7 @@
     # extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
     kernelPackages =
       # pkgs.linuxPackages_latest;
-      inputs.nyx.packages.${pkgs.system}.linuxPackages_cachyos;
+      inputs.nyx.packages.${pkgs.system}.linuxPackages_cachyos-server;
     # binfmt.emulatedSystems = [
     #   "riscv64-linux"
     #   "aarch64-linux"
@@ -60,7 +60,7 @@
       "zswap.enabled=1"
       "zswap.compressor=zstd"
       "zswap.zpool=zsmalloc"
-      "ia32_emulation=0"
+      # "ia32_emulation=0"
     ];
   };
 
