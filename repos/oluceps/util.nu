@@ -36,7 +36,7 @@ export def b [
 ] {
 
   $nodes | par-each {|| 
-    (nix build $'.#nixosConfigurations.($in).config.system.build.toplevel') 
+    (nom build $'.#nixosConfigurations.($in).config.system.build.toplevel')
   }
 
 }
@@ -63,7 +63,7 @@ export def d [
 
 }
 
-const age_pub = /run/agenix/age
+const age_pub = "/run/agenix/age"
 
 
 export def de [path: string] {

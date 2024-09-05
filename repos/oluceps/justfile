@@ -32,19 +32,16 @@ test-bootstrap:
 
 build-all-host:
     #!/usr/bin/env nu
-    nix eval --impure --expr "(with builtins; (filter (n: !(elem n [\"resq\"]))
-        (attrNames (getFlake (toString ./.) ).nixosConfigurations)))"
-    | str replace -a '"' ''
-    | str replace '[ ' ''
-    | str replace ' ]' ''
-    | str trim
-    | split row ' '
+    open hosts/host.json
     | par-each { || nix build $'.#nixosConfigurations.($in).config.system.build.toplevel' -L; }
 
-build *args:
+build:
     #!/usr/bin/env nu
     use {{loc}}/util.nu
-    util b {{ args }}
+    open hosts/host.json
+    | reduce {|it, acc| $it + (char newline) + $acc }
+    | fzf
+    | util b $in
 
 deploy *args:
     #!/usr/bin/env nu
@@ -53,7 +50,7 @@ deploy *args:
 
 encrypt-new *args:
     #!/usr/bin/env nu
-    let age_pub = "/run/agenix/age"
+    const age_pub = "/run/agenix/age"
     let output_dir = ['./sec/' '{{ home }}/Sec/'] |
                        reduce {|it, acc| $it + (char newline) + $acc } | fzf
     echo "input file name: "

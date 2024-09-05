@@ -15,14 +15,7 @@ let
     "colour" # azure
     "eihort" # C222          # network censored
   */
-  generalHost = [
-    # "colour"
-    "nodens"
-    "kaambl"
-    "abhoth"
-    "azasos"
-    "eihort"
-  ];
+  generalHost = with builtins; fromJSON (readFile ./host.json);
 in
 {
   flake = withSystem "x86_64-linux" (
