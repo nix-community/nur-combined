@@ -201,39 +201,4 @@
 
     cargoHash = "sha256-mLdL9OextVhNYJ+8CxLyOdwqBo0j0TN5G9MAmynnnrY=";
   };
-
-  rbw-bitw = {
-    fetchFromGitHub
-  , rustPlatform
-  , makeWrapper
-  , pkg-config
-  , openssl
-  , gnupg, enableGpg ? true
-  , lib
-  , hostPlatform, darwin
-  }: rustPlatform.buildRustPackage rec {
-    pname = "rbw-bitw";
-    version = "2022-07-10";
-    src = fetchFromGitHub {
-      owner = "arcnmx";
-      repo = "rbw";
-      rev = "91b7a0518aeb7bbaefccf848e1610fb760ca09b0";
-      sha256 = "sha256-OmZGpAyKjVUqAx/0ZfaRzPUhpoc4IikxWLUGHOS04wo=";
-    };
-
-    nativeBuildInputs = [ pkg-config makeWrapper ];
-    buildInputs = [ openssl ]
-      ++ lib.optional enableGpg gnupg
-      ++ lib.optional hostPlatform.isDarwin darwin.apple_sdk.frameworks.Security;
-
-    cargoBuildFlags = ["--bin" "bitw" ];
-    cargoHash = "sha256-S1ioEb1/xCtScliXm/uxyeIKUiym2SSi+ziXzABVrYs=";
-
-    postInstall = lib.optionalString enableGpg ''
-        wrapProgram $out/bin/bitw \
-          --prefix PATH : ${gnupg}/bin
-    '';
-
-    doCheck = false;
-  };
 }
