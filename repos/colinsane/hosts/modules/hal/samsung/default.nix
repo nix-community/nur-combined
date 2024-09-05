@@ -83,6 +83,10 @@ in
     sane.hal.samsung.enable = lib.mkEnableOption "samsung-specific hardware support";
   };
 
+  imports = [
+    ./cross.nix
+  ];
+
   config = lib.mkIf cfg.enable {
     boot.initrd.compressor = "gzip";
     # boot.initrd.compressorArgs = [ "--ultra" "-22" ];

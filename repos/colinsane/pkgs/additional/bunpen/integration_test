@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -xeu
+
+# trivial:
+bunpen --bunpen-path / $(which true)
+
+# invoke by path
+bunpen --bunpen-path / true
+
+# forwards stdout
+stdout=$(bunpen --bunpen-path / echo "hello")
+test "$stdout" -eq "hello"
+
+# forwards exit code
+bunpen --bunpen-path / false && exit false || true

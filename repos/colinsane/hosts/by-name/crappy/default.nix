@@ -30,16 +30,4 @@
   # sane.programs.guiApps.enableFor.user.colin = false;
 
   # sane.programs.pcGuiApps.enableFor.user.colin = false;  #< errors!
-
-  sane.programs.blueberry.enableFor.user.colin = false;  # bluetooth manager: doesn't cross compile!
-  # sane.programs.brave.enableFor.user.colin = false;  # 2024/06/03: fails eval if enabled on cross
-  # sane.programs.firefox.enableFor.user.colin = false;  # 2024/06/03: this triggers an eval error in yarn stuff -- i'm doing IFD somewhere!!?
-  sane.programs.mepo.enableFor.user.colin = false;  # 2024/06/04: doesn't cross compile (nodejs)
-  sane.programs.mercurial.enableFor.user.colin = false;  # 2024/06/03: does not cross compile
-  sane.programs.nixpkgs-review.enableFor.user.colin = false;  # 2024/06/03: OOMs when cross compiling
-  sane.programs.ntfy-sh.enableFor.user.colin = false;  # 2024/06/04: doesn't cross compile (nodejs)
-  sane.programs.pwvucontrol.enableFor.user.colin = false;  # 2024/06/03: doesn't cross compile (libspa-sys)
-  sane.programs."sane-scripts.bt-search".enableFor.user.colin = false;  # 2024/06/03: does not cross compile
-  sane.programs.sequoia.enableFor.user.colin = false;  # 2024/06/03: does not cross compile
-  sane.programs.zathura.enableFor.user.colin = false;  # 2024/06/03: does not cross compile
 }

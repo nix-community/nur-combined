@@ -15,6 +15,7 @@ usage() {
   echo "- --pre: alias for --action copy --variant all all"
   echo "- --reboot: reboot the target machine after deploying (if deployed with no errors)"
   echo "- --variant light|min|''|all  (default: '')"
+  echo "- --wireguard: deploy over wireguard"
   echo ""
   echo "common idioms:"
   echo "- deploy all: deploy all hosts, sequentially"
@@ -36,6 +37,7 @@ defaultVariant=
 nixArgs=()
 doReboot=
 dryRun=
+wireguard=
 addHost() {
   if [ "$1" = all ]; then
     # order matters:
@@ -80,6 +82,9 @@ parseArgs() {
         addVariant "$1"
         shift
         ;;
+      (--wireguard)
+        wireguard=1
+        ;;
       (all|crappy|desko|lappy|moby|servo)
         addHost "$arg"
         ;;
@@ -105,6 +110,15 @@ destructive() {
     "$@"
   else
     echo "dry-run: $@"
+  fi
+}
+
+# return "$1" or "$1-hn", based on if wireguard was requested or not
+resolveHost() {
+  if [ -n "$wireguard" ]; then
+    echo "$1-hn"
+  else
+    echo "$1"
   fi
 }
 
@@ -141,6 +155,8 @@ deployOneHost() {
   # - more introspectability and debuggability
   # - sandbox friendliness (especially: `git` doesn't have to be run as root)
 
+  local netHost=$(resolveHost "$host")
+
   if [ -n "$host" ] && [ "$host" != "$SELF" ]; then
     if [ -e /run/secrets/nix_signing_key ]; then
       info "signing store paths ..."
@@ -151,16 +167,16 @@ deployOneHost() {
     # add more `-v` for more verbosity (up to 5).
     # builders-use-substitutes false: optimizes so that the remote machine doesn't try to get paths from its substituters.
     #   we already have all paths here, and the remote substitution is slow to check and SERIOUSLY flaky on moby in particular.
-    ECHO_CMD=1 destructive nix copy -vv --option builders-use-substitutes false --to "ssh-ng://$host" "$storePath" || return 1
+    ECHO_CMD=1 destructive nix copy -vv --option builders-use-substitutes false --to "ssh-ng://$netHost" "$storePath" || return 1
   fi
 
   if [ -n "$action" ] && [ "$action" != "copy" ]; then
     info "activating profile... "
-    destructive runOnTarget "$host" sudo nix-env -p /nix/var/nix/profiles/system --set "$storePath" || return 1
-    destructive runOnTarget "$host" sudo "$storePath/bin/switch-to-configuration" "$action" || return 1
+    destructive runOnTarget "$netHost" sudo nix-env -p /nix/var/nix/profiles/system --set "$storePath" || return 1
+    destructive runOnTarget "$netHost" sudo "$storePath/bin/switch-to-configuration" "$action" || return 1
     if [ -n "$doReboot" ]; then
       info "rebooting $host"
-      destructive runOnTarget "$host" sane-reboot "$host"
+      destructive runOnTarget "$netHost" sane-reboot "$host"
     fi
   fi
 }

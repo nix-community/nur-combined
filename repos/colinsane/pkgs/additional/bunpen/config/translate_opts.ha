@@ -11,6 +11,7 @@ use regex;
 use restrict;
 use rt;
 use rt::ext;
+use strings;
 
 // the user requested to see help.
 export type help = void;
@@ -33,10 +34,17 @@ export type exec_params = struct {
 
 fn cli_opts_get_exec_params(opts: cli_opts) exec_params = {
   let params = exec_params { ... };
+
   //---- ingest `cmd` ----//
   if (len(os::args) > 0) {
     // forward argv0
-    append(params.args, os::args[0]);
+    if ((os::args[0] == "bunpen" || strings::hassuffix(os::args[0], "/bunpen")) && len(opts.cmd) > 0) {
+      log::println("[config] using binary path as argv[0]");
+      append(params.args, opts.cmd[0]);
+    } else {
+      log::println("[config] forwarding argv[0]");
+      append(params.args, os::args[0]);
+    };
   };
 
   let saw_bin_path = false;

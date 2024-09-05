@@ -154,7 +154,7 @@ tryAsDesktopFile() {
 isLandscape() {
   # success if all outputs are landscape
   swaymsg -t get_outputs --raw \
-    | jq --exit-status '. | all(.transform == "90" or .transform == "270")' \
+    | jq --exit-status '. | all(.rect.width > .rect.height)' \
     > /dev/null
 }
 

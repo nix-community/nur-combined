@@ -55,13 +55,16 @@ export fn main() void = {
     case let other: config::cli_opts => yield other;
   };
 
+  // configure logging early if we know it won't get in the way of anything
+  if (opts.disable == "")
+    log::tree::set_level(tree::global, opts.debug);
+
   let exec_params = match (config::ingest_cli_opts(opts)) {
     case config::help =>
       config::usage();
       os::exit(0);
     case let p: config::exec_params => yield p;  // run without sandboxing (BUNPEN_DISABLE=1)
     case let req: config::cli_request =>
-      // configure logging early
       log::tree::set_level(tree::global, opts.debug);
 
       yield prepare_env(req);

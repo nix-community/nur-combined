@@ -9,5 +9,6 @@ install:
 
 test:
 	hare test
+	PATH=$(PWD):$(PATH) ./integration_test
 
 .PHONY: all install test
