@@ -35,16 +35,25 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableX11 libX11;
 
   meta = with lib; {
-    description = "Intel Media Driver for VAAPI — Broadwell+ iGPUs";
+    description = "LibVA implementation for the Linux Video4Linux2 Request API";
     longDescription = ''
-      The Intel Media Driver for VAAPI is a new VA-API (Video Acceleration API)
-      user mode driver supporting hardware accelerated decoding, encoding, and
-      video post processing for GEN based graphics hardware.
+      This is a fork that fixes the original bootlin's repository so that it actually compiles on modern Linux machines.
+
+      In order to use this you'll have to use the folllowing nixOS configuration:
+      {
+        hardware.opengl = {
+	  enable = true;
+	  extraPackages = [ this_package ];
+	};
+	environment.sessionVariables = {
+          LIBVA_DRIVER_NAME = "v4l2_request";
+	  LIBVA_V4L2_REQUEST_MEDIA_PATH = "/dev/video0"; # change this to point to your actual V4L2 decode/encode device
+	};
+      }
     '';
-    homepage = "https://github.com/intel/media-driver";
-    changelog = "https://github.com/intel/media-driver/releases/tag/intel-media-${version}";
-    license = with licenses; [ bsd3 mit ];
+    homepage = "https://github.com/fenrig/libva-v4l2-request/tree/${version}";
+    changelog = "https://github.com/fenrig/libva-v4l2-request/commits/${version}";
+    license = with licenses; [ lgpl21 mit ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ SuperSandro2000 ];
   };
 }
