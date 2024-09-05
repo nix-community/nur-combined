@@ -26,6 +26,7 @@
     ./nginx
     ./nix-cache
     ./paperless
+    ./pdf-edit
     ./podgrab
     ./postgresql
     ./postgresql-backup

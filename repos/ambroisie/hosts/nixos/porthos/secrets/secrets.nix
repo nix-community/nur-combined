@@ -77,6 +77,8 @@ in
   "paperless/password.age".publicKeys = all;
   "paperless/secret-key.age".publicKeys = all;
 
+  "pdf-edit/login.age".publicKeys = all;
+
   "podgrab/password.age".publicKeys = all;
 
   "pyload/credentials.age".publicKeys = all;
