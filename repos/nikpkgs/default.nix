@@ -19,7 +19,8 @@
   amdgpu-clocks          = pkgs.callPackage ./pkgs/amdgpu-clocks { };
   avahi2dns              = pkgs.callPackage ./pkgs/avahi2dns { };
   imhex-bin              = pkgs.callPackage ./pkgs/imhex/appimage.nix { };
-  inotify-consumers      = pkgs.callPackage ./pkgs/inotify-consumers {};
+  inotify-consumers      = pkgs.callPackage ./pkgs/inotify-consumers { };
+  libva-v4l2-request     = pkgs.callPackage ./pkgs/libva-v4l2-request { };
   lilipod                = pkgs.callPackage ./pkgs/lilipod { };
   memtest-vulkan         = pkgs.callPackage ./pkgs/memtest-vulkan { };
   netsed-quiet           = pkgs.callPackage ./pkgs/netsed { };
