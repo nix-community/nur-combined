@@ -3,13 +3,13 @@
 , fetchurl
 }:
 
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   pname = "ssim-downscaler";
-  version = "unstable-2023-09-26";
+  version = "unstable-2024-09-05";
 
   src = fetchurl {
-    url = "https://gist.githubusercontent.com/igv/36508af3ffc84410fe39761d6969be10/raw/a408bcf3c34a43f29ea4cdc4fa282ce956be5363/SSimDownscaler.glsl";
-    sha256 = "sha256-AEq2wv/Nxo9g6Y5e4I9aIin0plTcMqBG43FuOxbnR1w=";
+    url = "https://gist.githubusercontent.com/igv/36508af3ffc84410fe39761d6969be10/raw/38992bce7f9ff844f800820df0908692b65bb74a/SSimDownscaler.glsl";
+    sha256 = "sha256-9G9HEKFi0XBYudgu2GEFiLDATXvgfO9r8qjEB3go+AQ=";
   };
 
   dontUnpack = true;
