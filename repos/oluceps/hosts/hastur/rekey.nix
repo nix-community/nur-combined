@@ -59,6 +59,9 @@ in
         rekeyFile = ../../sec/notifychan.age;
         mode = "400";
       };
+      vault = {
+        rekeyFile = ../../sec/vault.age;
+      };
     };
   };
   services.openssh.hostKeys = [

@@ -52,7 +52,6 @@
         "minio"
         "prism"
         "aws-s3-cred"
-        "vault"
         "restic-repo"
         "restic-repo-crit"
         "restic-envs"
