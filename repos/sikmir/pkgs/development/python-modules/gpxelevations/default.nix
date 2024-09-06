@@ -18,6 +18,12 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-/AGvFE74sJTnn70VklQp0MG+7dsooavAdSTyV2oJM+I=";
   };
 
+  postPatch = ''
+    # https://docs.python.org/3/whatsnew/3.12.html#id3
+    substituteInPlace test.py \
+      --replace-fail assertNotEquals assertNotEqual
+  '';
+
   dependencies = with python3Packages; [
     requests
     gpxpy
