@@ -10,7 +10,7 @@
 }:
 let
   name = "tzpfms";
-  version = "0.3.4";
+  version = "0.4.0";
 in
 stdenv.mkDerivation rec {
   inherit name;
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     owner = "~nabijaczleweli";
     repo = name;
-    sha256 = "sha256-N8hhYzvvZuWcf4WR3W6iXLRWu7B9r2qr3acF+Q0PL6o=";
+    sha256 = "sha256-pXQzbKq4DiL0WtxeuoMF1EtzRFpR6fVzDR+ubQD8IEI=";
     leaveDotGit = true;
     fetchSubmodules = true; # required for leaveDotGit to work
   };

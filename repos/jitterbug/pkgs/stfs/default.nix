@@ -3,7 +3,7 @@
 , fetchFromGitHub
 }:
 let
-  version = "8f2e83c3828b9cb9891766f31b695d5f80c63e75";
+  version = "v0.1.1";
 in
 buildGoModule {
   inherit version;
@@ -13,10 +13,10 @@ buildGoModule {
     rev = version;
     owner = "pojntfx";
     repo = "stfs";
-    sha256 = "sha256-qX7f1GegpWHVpVqmqHunXeFt1tQZU0vihMkEz2k/NZc=";
+    sha256 = "sha256-2dl7VK3mwasusNLiLfNVNjaNSEKo+eKyFwOwUDL9RzA=";
   };
 
-  vendorHash = "sha256-zynSreuSMOn8oGbilLbATyHDz9NmgxLWsE3FAKYqzeU=";
+  vendorHash = "sha256-uyW1k5pJpSOlVJ6bDxEM/nQYGdrw0Inbdh4PGgNl5go=";
   doCheck = false;
 
   meta = with lib; {

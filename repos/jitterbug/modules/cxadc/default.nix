@@ -9,7 +9,7 @@ with types;
 
 let
   cfg = config.hardware.cxadc;
-  cxadc = config.boot.kernelPackages.callPackage (import ./cxadc.nix) { };
+  cxadc = config.boot.kernelPackages.callPackage (import ../../pkgs/cxadc) { };
 
   cxParameters = { ... }: {
     options = {
