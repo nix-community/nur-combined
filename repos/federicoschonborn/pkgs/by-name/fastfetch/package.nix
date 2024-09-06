@@ -93,17 +93,20 @@
   enableElf ?
     stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD || stdenv.hostPlatform.isAndroid,
   libelf,
+  enableLibzfs ?
+    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD || stdenv.hostPlatform.isSunOS,
+  zfs,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastfetch";
-  version = "2.22.0";
+  version = "2.23.0";
 
   src = fetchFromGitHub {
     owner = "fastfetch-cli";
     repo = "fastfetch";
     rev = finalAttrs.version;
-    hash = "sha256-ncaBMSV7n4RVA2376ExBv+a8bzuvuMttv3GlNaOH23k=";
+    hash = "sha256-ry7FWja/FGSTQU1IhfXUA778yO0T3O1cvYsS4pcqURY=";
   };
 
   nativeBuildInputs = [
@@ -141,7 +144,8 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional enablePulse pulseaudio
     ++ lib.optional enableDdcutil ddcutil
     ++ lib.optional enableDirectxHeaders directx-headers
-    ++ lib.optional enableElf libelf;
+    ++ lib.optional enableElf libelf
+    ++ lib.optional enableLibzfs zfs;
 
   cmakeFlags = [
     (lib.cmakeOptionType "filepath" "CMAKE_INSTALL_SYSCONFDIR" "${placeholder "out"}/etc")
@@ -172,6 +176,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "ENABLE_DDCUTIL" enableDdcutil)
     (lib.cmakeBool "ENABLE_DIRECTX_HEADERS" enableDirectxHeaders)
     (lib.cmakeBool "ENABLE_ELF" enableElf)
+    (lib.cmakeBool "ENABLE_LIBZFS" enableLibzfs)
   ];
 
   passthru.updateScript = nix-update-script { };

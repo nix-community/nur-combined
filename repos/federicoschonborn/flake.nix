@@ -293,7 +293,7 @@
             check.enable = true;
             settings.hooks = {
               # Nix
-              nixfmt = {
+              nixfmt-rfc-style = {
                 enable = true;
                 package = config.formatter;
               };
