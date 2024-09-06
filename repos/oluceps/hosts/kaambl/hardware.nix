@@ -190,9 +190,8 @@
         v4l2loopback
         (callPackage "${self}/pkgs/tcp-brutal.nix" { })
       ];
-    kernelPackages =
-      # inputs'.nyx.packages.linuxPackages_cachyos;
-      pkgs.linuxPackages_latest;
+    kernelPackages = inputs'.nyx.packages.linuxPackages_cachyos;
+    # pkgs.linuxPackages_latest;
   };
 
   networking.useDHCP = lib.mkDefault true;
