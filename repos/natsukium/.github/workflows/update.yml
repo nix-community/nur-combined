@@ -16,15 +16,7 @@ jobs:
     - name: Update sources
       run: nix run nixpkgs#nvfetcher
     - name: Update readme
-      run: |
-        nix run nixpkgs#emacs -- -l ob -l ob-shell --batch --eval "
-          (progn
-            (let ((org-confirm-babel-evaluate nil))
-            (dolist (file command-line-args-left)
-              (with-current-buffer (find-file-noselect file)
-                (org-babel-execute-buffer)
-                (save-buffer)))))
-          " README.org
+      run: nix develop -c update-readme
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v6
       with:

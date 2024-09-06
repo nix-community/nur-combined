@@ -15,6 +15,8 @@ jobs:
           experimental-features = nix-command flakes
     - name: Update flake inputs
       run: nix flake update
+    - name: Update readme
+      run: nix develop -c update-readme
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v6
       with:

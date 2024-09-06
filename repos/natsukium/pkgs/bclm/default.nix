@@ -53,6 +53,8 @@ swiftPackages.stdenv.mkDerivation rec {
     # error: failed to build module 'Combine'
     # this SDK is not supported by the compiler (the SDK is built with 'Apple Swift version 5.3.1 (swiftlang-1200.2.41 clang-1200.0.32.8)'
     # while this compiler is 'Swift version 5.8 (swift-5.8-RELEASE)'). Please select a toolchain which matches the SDK.
-    broken = stdenv.isx86_64;
+    # disable until swift is fixed
+    # https://github.com/NixOS/nixpkgs/issues/327836#issuecomment-2308417434
+    broken = true;
   };
 }
