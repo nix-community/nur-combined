@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   data,
   modulesPath,
   ...
@@ -9,6 +10,7 @@
 
   time.timeZone = "America/Los_Angeles";
   networking.nameservers = [ "8.8.8.8" ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   users.mutableUsers = false;
   users.users.root = {

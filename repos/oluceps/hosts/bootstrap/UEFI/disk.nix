@@ -28,7 +28,8 @@
             };
 
             root = {
-              size = "100%";
+              label = "ROOT";
+              end = "-0";
               content = {
                 type = "btrfs";
                 extraArgs = [
@@ -36,49 +37,46 @@
                   "--csum xxhash64"
                 ];
                 subvolumes = {
+                  "boot" = {
+                    mountpoint = "/boot";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
+                  "nix" = {
+                    mountpoint = "/nix";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                      "nodev"
+                      "nosuid"
+                    ];
+                  };
+                  "var" = {
+                    mountpoint = "/var";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                      "nodev"
+                      "nosuid"
+                    ];
+                  };
+                  "persist" = {
+                    mountpoint = "/persist";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
                   "root" = {
                     mountpoint = "/";
                     mountOptions = [
-                      "compress-force=zstd:1"
+                      "compress=zstd"
                       "noatime"
-                      "discard=async"
-                      "space_cache=v2"
-                      "nosuid"
                       "nodev"
-                    ];
-                  };
-                  "home" = {
-                    mountOptions = [
-                      "compress-force=zstd:1"
-                      "noatime"
-                      "discard=async"
-                      "space_cache=v2"
                       "nosuid"
-                      "nodev"
                     ];
-                    mountpoint = "/home";
-                  };
-                  "nix" = {
-                    mountOptions = [
-                      "compress-force=zstd:1"
-                      "noatime"
-                      "discard=async"
-                      "space_cache=v2"
-                      "nosuid"
-                      "nodev"
-                    ];
-                    mountpoint = "/nix";
-                  };
-                  "var" = {
-                    mountOptions = [
-                      "compress-force=zstd:1"
-                      "noatime"
-                      "discard=async"
-                      "space_cache=v2"
-                      "nosuid"
-                      "nodev"
-                    ];
-                    mountpoint = "/var";
                   };
                 };
               };
@@ -88,4 +86,16 @@
       };
     };
   };
+  # nodev = {
+  #   "/" = {
+  #     fsType = "tmpfs";
+  #     mountOptions = [
+  #       "relatime"
+  #       "nosuid"
+  #       "nodev"
+  #       "size=2G"
+  #       "mode=755"
+  #     ];
+  #   };
+  # };
 }

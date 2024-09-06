@@ -1,5 +1,6 @@
-{ user, ... }:
+{ inputs, user, ... }:
 {
+  imports = [ inputs.preservation.nixosModules.default ];
   preservation = {
     enable = true;
     preserveAt."/persist" = {

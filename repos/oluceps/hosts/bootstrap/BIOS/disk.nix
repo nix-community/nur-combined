@@ -40,11 +40,29 @@
                       "nosuid"
                     ];
                   };
+                  "var" = {
+                    mountpoint = "/var";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                      "nodev"
+                      "nosuid"
+                    ];
+                  };
                   "persist" = {
                     mountpoint = "/persist";
                     mountOptions = [
                       "compress=zstd"
                       "noatime"
+                    ];
+                  };
+                  "root" = {
+                    mountpoint = "/";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                      "nodev"
+                      "nosuid"
                     ];
                   };
                 };
@@ -54,17 +72,17 @@
         };
       };
     };
-    nodev = {
-      "/" = {
-        fsType = "tmpfs";
-        mountOptions = [
-          "relatime"
-          "nosuid"
-          "nodev"
-          "size=2G"
-          "mode=755"
-        ];
-      };
-    };
+    # nodev = {
+    #   "/" = {
+    #     fsType = "tmpfs";
+    #     mountOptions = [
+    #       "relatime"
+    #       "nosuid"
+    #       "nodev"
+    #       "size=2G"
+    #       "mode=755"
+    #     ];
+    #   };
+    # };
   };
 }
