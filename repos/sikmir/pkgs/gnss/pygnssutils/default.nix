@@ -8,14 +8,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pygnssutils";
-  version = "1.0.28";
+  version = "1.1.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pygnssutils";
     rev = "v${version}";
-    hash = "sha256-y2t/dyp2i7Y8XPNNqqMFSUp57Ze24kVQquv+COec1Uk=";
+    hash = "sha256-FCLvqs0B33WWN0F41X7PvdMSab9JwpJDFB6ycy/R6G8=";
   };
 
   postPatch = ''

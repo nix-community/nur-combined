@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "lchat";
-  version = "1.0-unstable-2023-09-24";
+  version = "1.0-unstable-2024-07-14";
 
   src = fetchFromGitHub {
     owner = "younix";
     repo = "lchat";
-    rev = "d8006087f3056c9fb37ac4d2c59825fc0e05933a";
-    hash = "sha256-KI9j/V3qml99HiFX+kHzeKkOpsqqDLoDhWzvM8ZggOU=";
+    rev = "0c43215d0b1981d1689105122da02b7e994e250a";
+    hash = "sha256-MfwEXwTmSqFHSfVrqdlaLbCkU4lgsGeXBTCAhvQZCUo=";
   };
 
   buildInputs = [ libgrapheme ];

@@ -461,7 +461,6 @@ lib.makeScope newScope (
     memphis = callPackage ./osm/memphis { };
     osm-3s = callPackage ./osm/osm-3s { };
     osm-area-tools = callPackage ./osm/osm-area-tools { };
-    osm-python-tools = callPackage ./osm/osm-python-tools { };
     osm-tags-transform = callPackage ./osm/osm-tags-transform { };
     osm2geojson = callPackage ./osm/osm2geojson { };
     osmcoastline = callPackage ./osm/osmcoastline { };

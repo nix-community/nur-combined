@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "radiolib";
-  version = "6.5.0";
+  version = "6.6.0";
 
   src = fetchFromGitHub {
     owner = "jgromes";
     repo = "RadioLib";
     rev = finalAttrs.version;
-    hash = "sha256-/s3a8P777cLyjLuSoPD89oh4bOHH4mh6NMadl2VpjpI=";
+    hash = "sha256-69elzuGH1z7AnzSp5DZ1y2H3RrXT0k3JFPBJ213Cy8o=";
     fetchSubmodules = true;
   };
 

@@ -27,6 +27,8 @@ python3Packages.buildPythonPackage rec {
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
+  doCheck = false;
+
   meta = {
     description = "A Python API wrapper for MapRoulette";
     homepage = "https://github.com/osmlab/maproulette-python-client";

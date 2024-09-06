@@ -7,6 +7,7 @@
   bzip2,
   expat,
   gdal,
+  geos,
   libosmium,
   protozero,
   sqlite,
@@ -31,6 +32,7 @@ stdenv.mkDerivation {
     bzip2
     expat
     gdal
+    geos
     libosmium
     protozero
     sqlite

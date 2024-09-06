@@ -7,7 +7,7 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pytest-shell-utilities";
-  version = "1.8.0";
+  version = "1.9.3";
   pyproject = true;
   disabled = python3Packages.pythonOlder "3.7";
 
@@ -15,7 +15,7 @@ python3Packages.buildPythonPackage rec {
     owner = "saltstack";
     repo = "pytest-shell-utilities";
     rev = version;
-    hash = "sha256-NyBHBDtuxfTN4/Tg3q0xGEVFJZmZRiaNfWqlyolYYL8=";
+    hash = "sha256-AzIspaE6eHaG7YcRtuXtYsjwqF2rvO2YRxdiFlWsHuw=";
   };
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
