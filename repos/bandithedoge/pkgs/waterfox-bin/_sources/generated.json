@@ -8,10 +8,10 @@
     "pinned": false,
     "src": {
       "name": null,
-      "sha256": "sha256-W1jWD6RvoqMjCinvRJ4MQbTPrD5ZxILrzL+pOGmTqpA=",
+      "sha256": "sha256-SOlxDpf0zjGyqnpvHmiBx9qiLpo61HrfLQivf0q/UJk=",
       "type": "url",
-      "url": "https://cdn1.waterfox.net/waterfox/releases/G6.0.18/Linux_x86_64/waterfox-G6.0.18.tar.bz2"
+      "url": "https://cdn1.waterfox.net/waterfox/releases/G6.0.19/Linux_x86_64/waterfox-G6.0.19.tar.bz2"
     },
-    "version": "G6.0.18"
+    "version": "G6.0.19"
   }
 }
