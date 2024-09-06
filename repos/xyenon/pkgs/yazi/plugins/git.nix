@@ -6,7 +6,7 @@
 }:
 
 stdenvNoCC.mkDerivation {
-  pname = "chmod";
+  pname = "git";
   version = "0-unstable-2024-09-05";
 
   src = fetchFromGitHub {
@@ -21,7 +21,7 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    cp -r chmod.yazi $out
+    cp -r git.yazi $out
 
     runHook postInstall
   '';
@@ -29,8 +29,8 @@ stdenvNoCC.mkDerivation {
   passthru.updateScript = unstableGitUpdater { };
 
   meta = with lib; {
-    description = "Execute chmod on the selected files to change their mode";
-    homepage = "https://github.com/yazi-rs/plugins/tree/main/chmod.yazi";
+    description = "Show the status of Git file changes as linemode in the file list";
+    homepage = "https://github.com/yazi-rs/plugins/tree/main/git.yazi";
     license = licenses.mit;
     maintainers = with maintainers; [ xyenon ];
   };
