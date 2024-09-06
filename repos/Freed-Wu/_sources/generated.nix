@@ -102,13 +102,13 @@
   };
   tree-sitter-bash = {
     pname = "tree-sitter-bash";
-    version = "v0.21.0";
+    version = "v0.23.1";
     src = fetchFromGitHub {
       owner = "tree-sitter";
       repo = "tree-sitter-bash";
-      rev = "v0.21.0";
+      rev = "v0.23.1";
       fetchSubmodules = false;
-      sha256 = "sha256-6Rfxh8Y6dg2wyQ9jYnbOaXm1SVfQDQ1B1tNqgpz6sY4=";
+      sha256 = "sha256-osQ2DMb5oOxQy1XqLYTYWXJK0Lq7rVfQP/LbulTEvq8=";
     };
   };
   tree-sitter-make = {
