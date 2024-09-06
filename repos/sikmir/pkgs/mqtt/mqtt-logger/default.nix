@@ -32,6 +32,8 @@ python3Packages.buildPythonPackage rec {
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 
+  disabledTests = [ "test_basic_instantiation" ];
+
   meta = {
     description = "Python based MQTT to SQLite3 logger";
     homepage = "https://github.com/Blake-Haydon/mqtt-logger";

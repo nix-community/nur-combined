@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "tilecloud";
-  version = "1.12.2";
+  version = "1.12.3";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "camptocamp";
     repo = "tilecloud";
     rev = version;
-    hash = "sha256-B/TMLif24HYjETyvsXf00/H/ComQjs8P92DQdtygWw4=";
+    hash = "sha256-yblAOBp9anvsVnF9q8jwnMoyNG42K+E3antBe5pkS7Y=";
   };
 
   patches = [ ./set-tmpl-path.patch ];
@@ -24,7 +24,9 @@ python3Packages.buildPythonApplication rec {
       --replace-fail "\"poetry-plugin-drop-python-upper-constraint\"" "" \
       --replace-fail "\"poetry-plugin-tweak-dependencies-version\"," "" \
       --replace-fail "\"poetry-plugin-tweak-dependencies-version>=1.1.0\"," "" \
-      --replace-fail "requests = \"2.32.2\"" "requests = \"*\""
+      --replace-fail "requests = \"2.32.3\"" "requests = \"*\"" \
+      --replace-fail "Pillow = \"10.3.0\"" "Pillow = \"*\"" \
+      --replace-fail "webob = \"1.8.8\"" "webob = \"*\""
   '';
 
   build-system = with python3Packages; [
