@@ -23,11 +23,11 @@ in
 
       xdg = {
         configFile."gdb/gdbinit".source = ./gdbinit;
-        dataFile. "gdb/.keep".text = "";
+        stateFile."gdb/.keep".text = "";
       };
 
       home.sessionVariables = {
-        GDBHISTFILE = "${config.xdg.dataHome}/gdb/gdb_history";
+        GDBHISTFILE = "${config.xdg.stateHome}/gdb/gdb_history";
       };
     }
 

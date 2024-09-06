@@ -15,7 +15,7 @@ in
       # Clear the screen on start and exit
       LESS = "-R -+X -c";
       # Better XDG compliance
-      LESSHISTFILE = "${config.xdg.dataHome}/less/history";
+      LESSHISTFILE = "${config.xdg.stateHome}/less/history";
       LESSKEY = "${config.xdg.configHome}/less/lesskey";
     };
   };

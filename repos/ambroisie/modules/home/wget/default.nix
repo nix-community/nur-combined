@@ -20,7 +20,7 @@ in
     };
 
     xdg.configFile."wgetrc".text = ''
-      hsts-file = ${config.xdg.dataHome}/wget-hsts
+      hsts-file = ${config.xdg.stateHome}/wget-hsts
     '';
   };
 }

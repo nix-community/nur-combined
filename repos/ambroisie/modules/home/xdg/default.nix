@@ -34,6 +34,9 @@ in
       "gdb/.keep".text = "";
       "tig/.keep".text = "";
     };
+    stateFile = {
+      "python/.keep".text = "";
+    };
   };
 
   # I want a tidier home
@@ -43,13 +46,13 @@ in
     CARGO_HOME = "${dataHome}/cargo";
     DOCKER_CONFIG = "${configHome}/docker";
     GRADLE_USER_HOME = "${dataHome}/gradle";
-    HISTFILE = "${dataHome}/bash/history";
+    HISTFILE = "${stateHome}/bash/history";
     INPUTRC = "${configHome}/readline/inputrc";
-    PSQL_HISTORY = "${dataHome}/psql_history";
+    PSQL_HISTORY = "${stateHome}/psql_history";
     PYTHONPYCACHEPREFIX = "${cacheHome}/python/";
     PYTHONUSERBASE = "${dataHome}/python/";
     PYTHON_HISTORY = "${stateHome}/python/history";
-    REDISCLI_HISTFILE = "${dataHome}/redis/rediscli_history";
+    REDISCLI_HISTFILE = "${stateHome}/redis/rediscli_history";
     REPO_CONFIG_DIR = "${configHome}/repo";
     XCOMPOSECACHE = "${dataHome}/X11/xcompose";
     _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=${configHome}/java";

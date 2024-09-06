@@ -68,7 +68,7 @@ in
           ignoreSpace = true;
           ignoreDups = true;
           share = false;
-          path = "${config.xdg.dataHome}/zsh/zsh_history";
+          path = "${config.xdg.stateHome}/zsh/zsh_history";
         };
 
         plugins = [
