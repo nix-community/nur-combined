@@ -36,6 +36,8 @@
     ../dev.nix
 
     ./caddy.nix
+    ../pam.nix
+    ../virt.nix
 
     inputs.aagl.nixosModules.default
     inputs.disko.nixosModules.default

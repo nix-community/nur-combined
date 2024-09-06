@@ -149,16 +149,12 @@
 
         routes = [
           {
-            routeConfig = {
-              Destination = "10.0.2.0/24";
-              Scope = "link";
-            };
+            Destination = "10.0.2.0/24";
+            Scope = "link";
           }
           {
-            routeConfig = {
-              Destination = "10.0.3.0/24";
-              Scope = "link";
-            };
+            Destination = "10.0.3.0/24";
+            Scope = "link";
           }
         ];
       };

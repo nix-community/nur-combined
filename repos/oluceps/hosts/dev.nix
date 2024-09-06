@@ -1,5 +1,11 @@
 { pkgs, lib, ... }:
 {
+
+  ssh = {
+    startAgent = true;
+    enableAskPassword = true;
+    askPassword = "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
+  };
   environment.systemPackages =
     lib.flatten (
       lib.attrValues (
@@ -184,4 +190,24 @@
       markdownlint-cli2
       prettier
     ]);
+  programs = {
+    git.enable = true;
+    bash.interactiveShellInit = ''
+      eval "$(${lib.getExe pkgs.atuin} init bash)"
+    '';
+    fish.interactiveShellInit = ''
+      ${pkgs.atuin}/bin/atuin init fish | source
+    '';
+    direnv = {
+      enable = true;
+      package = pkgs.direnv;
+      silent = false;
+      loadInNixShell = true;
+      direnvrcExtra = "";
+      nix-direnv = {
+        enable = true;
+        package = pkgs.nix-direnv;
+      };
+    };
+  };
 }

@@ -171,16 +171,12 @@
 
         routes = [
           {
-            routeConfig = {
-              Destination = "10.0.3.0/24";
-              Scope = "link";
-            };
+            Destination = "10.0.3.0/24";
+            Scope = "link";
           }
           {
-            routeConfig = {
-              Destination = "10.0.1.0/24";
-              Scope = "link";
-            };
+            Destination = "10.0.1.0/24";
+            Scope = "link";
           }
         ];
 

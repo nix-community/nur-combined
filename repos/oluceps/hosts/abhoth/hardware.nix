@@ -8,7 +8,10 @@
 {
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
   boot = {
-    loader.grub.device = "/dev/vda";
+    loader.grub = {
+      device = "/dev/vda";
+      configurationLimit = 1;
+    };
     initrd = {
       availableKernelModules = [
         "ata_piix"

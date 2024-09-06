@@ -37,6 +37,8 @@
       ../../age.nix
 
       ../sysctl.nix
+      ../pam.nix
+      ../virt.nix
 
       inputs.niri.nixosModules.niri
       ../../users.nix

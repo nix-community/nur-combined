@@ -4768,15 +4768,16 @@
         "yafas": "yafas"
       },
       "locked": {
-        "lastModified": 1725543928,
-        "narHash": "sha256-Xvu23ZAcHKS7KmOC9+qzpt5cr/jZh1CWrl4XVjSz9sg=",
-        "owner": "chaotic-cx",
+        "lastModified": 1725642216,
+        "narHash": "sha256-wNM4YqXNP+xdZO/okSPZ90PxR8hRVFy2Dd+uUWF0O7A=",
+        "owner": "oluceps",
         "repo": "nyx",
-        "rev": "84be007370920be4f66771500515018559f67390",
+        "rev": "44fe4458dc0ae51aaa65973ff511e2348cd3e64a",
         "type": "github"
       },
       "original": {
-        "owner": "chaotic-cx",
+        "owner": "oluceps",
+        "ref": "opt",
         "repo": "nyx",
         "type": "github"
       }

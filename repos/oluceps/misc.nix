@@ -17,7 +17,7 @@
 
   # system.forbiddenDependenciesRegexes = [ "perl" ];
 
-  # system.disableInstallerTools = true;
+  system.disableInstallerTools = true;
   programs.less.lessopen = null;
   programs.command-not-found.enable = false;
   boot.enableContainers = false;
@@ -32,29 +32,12 @@
 
   # srv.earlyoom.enable = true;
   environment.systemPackages = [
-    pkgs.atuin
     pkgs.eza
   ];
 
   boot.tmp.useTmpfs = true;
   # powerManagement.powertop.enable = true;
-  virtualisation = {
-    vmVariant = {
-      virtualisation = {
-        memorySize = 2048;
-        cores = 6;
-      };
-    };
-    docker.enable = false;
-    podman = {
-      enable = true;
-      dockerSocket.enable = true;
-      dockerCompat = true;
-      defaultNetwork.settings = {
-        dns_enabled = true;
-      };
-    };
-  };
+
   nix = {
     package = pkgs.nixVersions.stable;
     channel.enable = false;
@@ -152,26 +135,7 @@
   };
   security = {
     pki.certificateFiles = [ "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ];
-    pam = {
-      u2f = {
-        enable = true;
-        settings.authfile = config.age.secrets."${user}.u2f".path;
-        settings.cue = true;
-        control = "sufficient";
-      };
-      services = {
-        sudo.u2fAuth = true;
-        login.u2fAuth = true;
-      };
-      loginLimits = [
-        {
-          domain = "*";
-          type = "-";
-          item = "memlock";
-          value = "unlimited";
-        }
-      ];
-    };
+
     sudo.extraConfig = ''
       Defaults lecture="never"
     '';
@@ -191,9 +155,9 @@
   };
 
   documentation = {
-    enable = true;
-    nixos.enable = true;
-    man.enable = true;
+    enable = false;
+    nixos.enable = false;
+    man.enable = false;
   };
 
   systemd.tmpfiles.rules = [
@@ -250,32 +214,9 @@
     '';
   };
   programs = {
-    direnv = {
-      enable = true;
-      package = pkgs.direnv;
-      silent = false;
-      loadInNixShell = true;
-      direnvrcExtra = "";
-      nix-direnv = {
-        enable = true;
-        package = pkgs.nix-direnv;
-      };
-    };
-    ssh = {
-      startAgent = true;
-      enableAskPassword = true;
-      askPassword = "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
-    };
-
-    git.enable = true;
     bash = {
-      interactiveShellInit = ''
-        eval "$(${pkgs.zoxide}/bin/zoxide init bash)"
-        eval "$(${lib.getExe pkgs.atuin} init bash)"
-      '';
       blesh.enable = true;
     };
-    nix-ld.enable = true;
     fish = {
       enable = true;
       shellAliases =
@@ -369,8 +310,6 @@
               bind -M $mode \cf forward-char
             end
         end
-
-        ${pkgs.atuin}/bin/atuin init fish | source
       '';
     };
 
