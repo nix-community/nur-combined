@@ -2046,10 +2046,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2435.4";
+      version = "6.2436.1";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4343528/dashlane-6.2435.4.xpi";
-      sha256 = "0d4bacf477f3e5f784d0dccfd3abaa183b1f76166def73f9f2f24a33827ad7f0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4346296/dashlane-6.2436.1.xpi";
+      sha256 = "a252541cd956b6a499c2580f07b8cd060272490a714623afed34cd58745c9bc7";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2765,10 +2765,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.25";
+      version = "1.3.26";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4345632/faststream-1.3.25.xpi";
-      sha256 = "d83b8c593de58940e45d8991b0767c4e087cd75c6692d104d14247680b07d96a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4348174/faststream-1.3.26.xpi";
+      sha256 = "c29b068e926f5bd545915414c91975769a08e1bc931e1bb778a94bb745bd0c68";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -5074,10 +5074,10 @@
     };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.1095";
+      version = "4.1096";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4339680/youtube_addon-4.1095.xpi";
-      sha256 = "48a6bf200a3e7f57b06a0f8e26dc5c7071e08c852354d6a2b9c4913d86f4f369";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4346846/youtube_addon-4.1096.xpi";
+      sha256 = "9623eec44ab770fb62754cf6282a90af14e6870f2f454a3c528216e842683860";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -9840,10 +9840,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.64";
+      version = "1.22.66";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4344693/single_file-1.22.64.xpi";
-      sha256 = "fbddbc0597e33df25f2a03a1bd45241c5d7db814dd605c3de51e0d1b2abd3abd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4346807/single_file-1.22.66.xpi";
+      sha256 = "00f57fcc9a995f1b880e195c28025d6922fde7bb74096acd6158822b48c2c7a0";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -10440,10 +10440,10 @@
     };
     "tab-stash" = buildFirefoxXpiAddon {
       pname = "tab-stash";
-      version = "3.0.1";
+      version = "3.1";
       addonId = "tab-stash@condordes.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4308185/tab_stash-3.0.1.xpi";
-      sha256 = "0b26f417f14049faef7286cdb7658986961ed9e8ca36fddbd8ed79647d0a672e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4346650/tab_stash-3.1.xpi";
+      sha256 = "036f6a7167cdbfb419589c300be1e3a44856d8affd7c64f73ef7554607d19040";
       meta = with lib;
       {
         homepage = "https://josh-berry.github.io/tab-stash/";
