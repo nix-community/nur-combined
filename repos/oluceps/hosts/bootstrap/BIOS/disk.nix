@@ -1,4 +1,5 @@
 {
+  fileSystems."/persist".neededForBoot = true;
   disko.devices = {
     disk = {
       main = {
@@ -8,19 +9,61 @@
           type = "gpt";
           partitions = {
             boot = {
-              size = "1M";
-              type = "EF02"; # for grub MBR
+              type = "EF02";
+              label = "BOOT";
+              start = "0";
+              end = "+1M";
             };
             root = {
-              size = "100%";
+              label = "ROOT";
+              end = "-0";
               content = {
-                type = "filesystem";
-                format = "xfs";
-                mountpoint = "/";
+                type = "btrfs";
+                extraArgs = [
+                  "-f"
+                  "--csum xxhash64"
+                ];
+                subvolumes = {
+                  "boot" = {
+                    mountpoint = "/boot";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
+                  "nix" = {
+                    mountpoint = "/nix";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                      "nodev"
+                      "nosuid"
+                    ];
+                  };
+                  "persist" = {
+                    mountpoint = "/persist";
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
+                };
               };
             };
           };
         };
+      };
+    };
+    nodev = {
+      "/" = {
+        fsType = "tmpfs";
+        mountOptions = [
+          "relatime"
+          "nosuid"
+          "nodev"
+          "size=2G"
+          "mode=755"
+        ];
       };
     };
   };

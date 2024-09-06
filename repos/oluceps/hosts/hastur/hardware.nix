@@ -107,7 +107,7 @@
                     "block-group-tree"
                   ];
                   subvolumes = {
-                    "/persist" = {
+                    "persist" = {
                       mountpoint = "/persist";
                       mountOptions = [
                         "compress-force=lzo"
@@ -116,7 +116,7 @@
                         "space_cache=v2"
                       ];
                     };
-                    "/nix" = {
+                    "nix" = {
                       mountpoint = "/nix";
                       mountOptions = [
                         "compress-force=lzo"
@@ -127,7 +127,7 @@
                         "nosuid"
                       ];
                     };
-                    "/var" = {
+                    "var" = {
                       mountpoint = "/var";
                       mountOptions = [
                         "compress-force=lzo"
@@ -136,7 +136,7 @@
                         "space_cache=v2"
                       ];
                     };
-                    "/persist/tmp" = {
+                    "persist/tmp" = {
                       mountpoint = "/tmp";
                       mountOptions = [
                         "relatime"

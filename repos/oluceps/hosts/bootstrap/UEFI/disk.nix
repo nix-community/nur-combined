@@ -11,17 +11,11 @@
         content = {
           type = "gpt";
           partitions = {
-            boot = {
-              size = "1M";
-              type = "EF02"; # for grub MBR
-              priority = 0;
-            };
-
             ESP = {
               name = "ESP";
               size = "512M";
               type = "EF00";
-              priority = 1;
+              priority = 0;
               content = {
                 type = "filesystem";
                 format = "vfat";

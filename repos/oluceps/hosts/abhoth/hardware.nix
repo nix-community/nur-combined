@@ -46,6 +46,11 @@
   };
   fileSystems."/" = {
     device = "/dev/vda2";
-    fsType = "ext4";
+    fsType = "btrfs";
+    options = [
+      "compress-force=zstd:4"
+      "noatime"
+    ];
+    neededForBoot = true;
   };
 }
