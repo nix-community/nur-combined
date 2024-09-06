@@ -19,7 +19,7 @@
     rocm-opencl-runtime
   ];
   environment.sessionVariables = {
-    WLR_RENDERER = "vulkan";
+    # WLR_RENDERER = "vulkan";
   };
   zramSwap = {
     enable = false;

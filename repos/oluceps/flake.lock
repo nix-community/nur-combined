@@ -2878,22 +2878,6 @@
         "type": "github"
       }
     },
-    "impermanence": {
-      "locked": {
-        "lastModified": 1724235154,
-        "narHash": "sha256-pkorxKQdSemOCxbBPNxA/NAIJm55H5bROMEBYHppypc=",
-        "owner": "oluceps",
-        "repo": "impermanence",
-        "rev": "27ec4dfc863ee4c816411ce2bddb239e1c00e8fe",
-        "type": "github"
-      },
-      "original": {
-        "owner": "oluceps",
-        "ref": "regular-mount-var",
-        "repo": "impermanence",
-        "type": "github"
-      }
-    },
     "j-link": {
       "inputs": {
         "nixpkgs": "nixpkgs_18"
@@ -5170,6 +5154,21 @@
         "type": "github"
       }
     },
+    "preservation": {
+      "locked": {
+        "lastModified": 1725460242,
+        "narHash": "sha256-9n9Ygta1MCfpbF9D88tG2B4EL5nuSz4eIOAofGSlxoE=",
+        "owner": "WilliButz",
+        "repo": "preservation",
+        "rev": "02e731a820d05107bc648460f8630d0d80a5ffd4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "WilliButz",
+        "repo": "preservation",
+        "type": "github"
+      }
+    },
     "prismlauncher": {
       "inputs": {
         "flake-compat": "flake-compat_23",
@@ -5283,7 +5282,6 @@
         "fenix": "fenix_3",
         "flake-parts": "flake-parts_6",
         "helix": "helix",
-        "impermanence": "impermanence",
         "j-link": "j-link",
         "lanzaboote": "lanzaboote",
         "lix": "lix",
@@ -5302,6 +5300,7 @@
         "nuenv": "nuenv_2",
         "nyx": "nyx",
         "pre-commit-hooks": "pre-commit-hooks_8",
+        "preservation": "preservation",
         "prismlauncher": "prismlauncher",
         "radicle": "radicle",
         "ragenix": "ragenix",

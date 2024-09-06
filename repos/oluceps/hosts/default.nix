@@ -47,7 +47,6 @@ in
                   "agenix-rekey"
                   "android-nixpkgs"
                   "berberman"
-                  "attic"
                 ]);
             };
 

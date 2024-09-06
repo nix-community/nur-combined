@@ -40,7 +40,7 @@ in
     ++ (genModules [
       "agenix-rekey"
       "ragenix"
-      "impermanence"
+      "preservation"
       "lanzaboote"
       "catppuccin"
       "lix-module"

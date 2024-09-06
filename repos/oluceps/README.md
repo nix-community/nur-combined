@@ -16,7 +16,7 @@ with
 + [flake-parts](https://github.com/hercules-ci/flake-parts)
 + [agenix](https://github.com/ryantm/agenix) [rekey](https://github.com/oddlama/agenix-rekey)
 + [lanzaboote](https://github.com/nix-community/lanzaboote)
-+ [impermanence](https://github.com/nix-community/impermanence)
++ [preservation](https://github.com/WilliButz/preservation)
 + [disko](https://github.com/nix-community/disko)
 
 ---

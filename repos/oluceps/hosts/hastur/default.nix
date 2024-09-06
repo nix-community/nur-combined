@@ -47,7 +47,6 @@
     ++ (with inputs; [
       aagl.nixosModules.default
       disko.nixosModules.default
-      attic.nixosModules.atticd
       # niri.nixosModules.niri
       # nixos-cosmic.nixosModules.default
       # inputs.j-link.nixosModule
