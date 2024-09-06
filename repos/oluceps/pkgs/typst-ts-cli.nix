@@ -7,11 +7,10 @@
   bzip2,
   stdenv,
   darwin,
-  pkgs,
 }:
-let
-  rustPlatform = pkgs.makeRustPlatform { inherit (pkgs.fenix.minimal) cargo rustc; };
-in
+# let
+#   rustPlatform = pkgs.makeRustPlatform { inherit (pkgs.fenix.minimal) cargo rustc; };
+# in
 
 rustPlatform.buildRustPackage {
   pname = "typst-ts-cli";
