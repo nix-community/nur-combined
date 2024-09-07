@@ -163,11 +163,9 @@
 
         routes = [
           {
-            routeConfig = {
-              Destination = "::/0";
-              Gateway = "fe80::1";
-              Scope = "link";
-            };
+            Destination = "::/0";
+            Gateway = "fe80::1";
+            Scope = "link";
           }
         ];
       };

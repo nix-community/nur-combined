@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 {
 
-  ssh = {
+  programs.ssh = {
     startAgent = true;
     enableAskPassword = true;
     askPassword = "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";

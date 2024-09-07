@@ -10,7 +10,7 @@
   boot = {
     loader.grub = {
       device = "/dev/vda";
-      configurationLimit = 1;
+      configurationLimit = 3;
     };
     initrd = {
       availableKernelModules = [
@@ -52,5 +52,10 @@
       "noatime"
     ];
     neededForBoot = true;
+  };
+  # Auto enabled boot.loader.grub.copyKernels
+  fileSystems."/boot" = {
+    device = "/dev/vda3";
+    fsType = "vfat";
   };
 }

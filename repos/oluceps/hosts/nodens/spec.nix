@@ -37,32 +37,23 @@
     rustypaste.enable = true;
     matrix-sliding-sync.enable = true;
 
-    coredns = {
+    dnsproxy = {
       enable = true;
       override = {
-        config = ''
-          .:53 {
-              forward . 1.1.1.1 {
-                  expire 20s
-                  max_fails 1
-                  policy sequential
-                  health_check 1s
-              }
-              forward . tls://8.8.8.8 tls://8.8.4.4 {
-                  tls_servername dns.google
-                  expire 20s
-                  max_fails 1
-                  policy sequential
-                  health_check 1s
-              }
-              forward . tls://1.1.1.1 tls://1.0.0.1 {
-                  expire 20s
-                  max_fails 1
-                  policy sequential
-                  health_check 1s
-              }
-          }
-        '';
+        settings = {
+          bootstrap = [
+            "1.1.1.1"
+            "8.8.8.8"
+          ];
+          listen-addrs = [ "0.0.0.0" ];
+          listen-ports = [ 53 ];
+          upstream-mode = "parallel";
+          upstream = [
+            "1.1.1.1"
+            "8.8.8.8"
+            "https://dns.google/dns-query"
+          ];
+        };
       };
     };
   };
