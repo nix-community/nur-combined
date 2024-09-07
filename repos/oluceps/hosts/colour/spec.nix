@@ -46,48 +46,37 @@
 
   systemd.tmpfiles.rules = [ ];
 
-  services =
-    (
-      let
-        importService = n: import ../../services/${n}.nix { inherit pkgs config lib; };
-      in
-      lib.genAttrs [
-        "openssh"
-        "fail2ban"
-        "prometheus"
-      ] (n: importService n)
-    )
-    // {
+  services = {
+    prom-ntfy-bridge.enable = true;
+    metrics.enable = true;
 
-      prom-ntfy-bridge.enable = true;
-      metrics.enable = true;
-      juicity.instances = [
-        {
-          name = "only";
-          credentials = [
-            "key:${config.age.secrets."nyaw.key".path}"
-            "cert:${config.age.secrets."nyaw.cert".path}"
-          ];
-          serve = true;
-          openFirewall = 23180;
-          configFile = config.age.secrets.juic-san.path;
-        }
-      ];
-      hysteria.instances = [
-        {
-          name = "only";
-          serve = {
-            enable = true;
-            port = 4432;
-          };
-          credentials = [
-            "key:${config.age.secrets."nyaw.key".path}"
-            "cert:${config.age.secrets."nyaw.cert".path}"
-          ];
-          configFile = config.age.secrets.hyst-us.path;
-        }
-      ];
+    juicity.instances = {
+      only = {
+        enable = true;
+        credentials = [
+          "key:${config.age.secrets."nyaw.key".path}"
+          "cert:${config.age.secrets."nyaw.cert".path}"
+        ];
+        serve = true;
+        openFirewall = 23180;
+        configFile = config.age.secrets.juic-san.path;
+      };
     };
+    hysteria.instances = [
+      {
+        name = "only";
+        serve = {
+          enable = true;
+          port = 4432;
+        };
+        credentials = [
+          "key:${config.age.secrets."nyaw.key".path}"
+          "cert:${config.age.secrets."nyaw.cert".path}"
+        ];
+        configFile = config.age.secrets.hyst-us.path;
+      }
+    ];
+  };
 
   system.stateVersion = "24.05"; # Did you read the comment?
 }

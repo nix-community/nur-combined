@@ -28,6 +28,7 @@ let
     "smartdns-rs"
     "lock"
     "violet"
+    "typst-ts-cli"
   ];
 in
 (genFilteredDirAttrsV2 ./pkgs shadowedPkgs (name: pkgs.callPackage (./pkgs + "/${name}.nix") { }))

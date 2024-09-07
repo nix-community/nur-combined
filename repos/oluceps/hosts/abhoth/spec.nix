@@ -39,7 +39,7 @@
           ];
           listen-addrs = [ "0.0.0.0" ];
           listen-ports = [ 53 ];
-          upstream-mode = "parallel";
+          upstream-mode = "load_balance";
           upstream = [
             "1.1.1.1"
             "8.8.8.8"
