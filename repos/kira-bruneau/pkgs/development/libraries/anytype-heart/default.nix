@@ -10,13 +10,13 @@
 
 buildGoModule rec {
   pname = "anytype-heart";
-  version = "0.35.6";
+  version = "0.35.7";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-heart";
     rev = "refs/tags/v${version}";
-    hash = "sha256-GIc+AFsakWYQE92F0Pb6UDMP9L1fZKRWTEPtjDvei8w=";
+    hash = "sha256-uRcRu2+VIAChmsmgYvZewV6BrtTfANb3rsIwD5uwi+U=";
   };
 
   proxyVendor = true;
@@ -31,7 +31,7 @@ buildGoModule rec {
     protoc-gen-js
   ];
 
-  # https://github.com/anyproto/anytype-heart/blob/v0.35.6/.github/workflows/build.yml#L361
+  # https://github.com/anyproto/anytype-heart/blob/v0.35.7/.github/workflows/build.yml#L361
   tags = [
     "envproduction"
     "nographviz"

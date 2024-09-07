@@ -25,13 +25,13 @@ let
 in
 buildNpmPackage rec {
   pname = "anytype";
-  version = "0.42.6";
+  version = "0.42.8";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-ts";
     rev = "refs/tags/v${version}";
-    hash = "sha256-BkNQCREVu39DvmGknWW2omWlix2DMmOdWnLMi5hYzCE=";
+    hash = "sha256-ODOo8gk3zvq57p4W61AB+RLtXyM30xrlX1VojodlSz4=";
   };
 
   patches = [
@@ -39,10 +39,10 @@ buildNpmPackage rec {
     ./fix-path-for-asar-unpack.patch
   ];
 
-  npmDepsHash = "sha256-Ybfy8qctUTfDJARx6zFJyFEzyPNHLcxjLWQleOKfiBQ=";
+  npmDepsHash = "sha256-rI6CY3Mu13uTIHD8VxFOMhtcDTjkuKSSnjXOm4c9ppI=";
 
-  # middleware: https://github.com/anyproto/anytype-ts/blob/v0.42.6/update-ci.sh
-  # langs: https://github.com/anyproto/anytype-ts/blob/v0.42.6/electron/hook/locale.js
+  # middleware: https://github.com/anyproto/anytype-ts/blob/v0.42.8/update-ci.sh
+  # langs: https://github.com/anyproto/anytype-ts/blob/v0.42.8/electron/hook/locale.js
   postUnpack = ''
     if [ $(cat "$sourceRoot/middleware.version") != ${lib.escapeShellArg anytype-heart.version} ]; then
       echo 'ERROR: middleware version mismatch'
