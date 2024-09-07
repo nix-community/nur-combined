@@ -255,6 +255,7 @@
     nuenv.url = "github:DeterminateSystems/nuenv";
     agenix-rekey = {
       url = "github:oddlama/agenix-rekey";
+      # url = "/home/elen/Src/agenix-rekey";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixd.url = "github:nix-community/nixd";
