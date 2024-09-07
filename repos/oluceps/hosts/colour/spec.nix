@@ -47,35 +47,7 @@
   systemd.tmpfiles.rules = [ ];
 
   services = {
-    prom-ntfy-bridge.enable = true;
     metrics.enable = true;
-
-    juicity.instances = {
-      only = {
-        enable = true;
-        credentials = [
-          "key:${config.age.secrets."nyaw.key".path}"
-          "cert:${config.age.secrets."nyaw.cert".path}"
-        ];
-        serve = true;
-        openFirewall = 23180;
-        configFile = config.age.secrets.juic-san.path;
-      };
-    };
-    hysteria.instances = [
-      {
-        name = "only";
-        serve = {
-          enable = true;
-          port = 4432;
-        };
-        credentials = [
-          "key:${config.age.secrets."nyaw.key".path}"
-          "cert:${config.age.secrets."nyaw.cert".path}"
-        ];
-        configFile = config.age.secrets.hyst-us.path;
-      }
-    ];
   };
 
   system.stateVersion = "24.05"; # Did you read the comment?

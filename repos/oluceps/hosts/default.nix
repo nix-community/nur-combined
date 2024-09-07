@@ -1,3 +1,16 @@
+# let
+
+#   /*
+#     "hastur" # homeserver    # network censored
+#     "azasos" # tencent cloud # network censored
+#     "nodens" # digital ocean
+#     "yidhra" # aws lightsail
+#     "abhoth" # alicloud      # network censored
+#     "colour" # azure
+#     "eihort" # C222          # network censored
+#   */
+#   generalHost = with builtins; fromJSON (readFile ./host.json);
+# in
 {
   withSystem,
   self,
@@ -5,76 +18,10 @@
   ...
 }:
 let
-
-  /*
-    "hastur" # homeserver    # network censored
-    "azasos" # tencent cloud # network censored
-    "nodens" # digital ocean
-    "yidhra" # aws lightsail
-    "abhoth" # alicloud      # network censored
-    "colour" # azure
-    "eihort" # C222          # network censored
-  */
-  generalHost = with builtins; fromJSON (readFile ./host.json);
+  regularHosts = with builtins; (fromTOML (readFile ./sum.toml)).hosts;
 in
 {
-  flake = withSystem "x86_64-linux" (
-    {
-      config,
-      inputs',
-      system,
-      ...
-    }:
-    {
-      colmena =
-        let
-          inherit (self) lib;
-        in
-        {
-          meta = {
-            nixpkgs = import inputs.nixpkgs {
-              inherit system;
-              config = {
-                allowUnfree = true;
-                allowUnsupportedSystem = true;
-              };
-              overlays =
-                (import ../overlays.nix { inherit inputs' inputs; })
-                ++ (lib.genOverlays [
-                  "self"
-                  "fenix"
-                  "nuenv"
-                  "agenix-rekey"
-                  "android-nixpkgs"
-                  "berberman"
-                ]);
-            };
-
-            nodeNixpkgs = { };
-
-            specialArgs = {
-              inherit
-                lib
-                self
-                inputs
-                inputs'
-                ;
-              inherit (config) packages;
-              inherit (lib) data;
-            };
-
-            nodeSpecialArgs =
-              {
-                hastur = {
-                  user = "riro";
-                };
-              }
-              // (lib.genAttrs generalHost (n: {
-                user = "elen";
-              }));
-          };
-        }
-        // (lib.genAttrs (generalHost ++ [ "hastur" ]) (h: ./. + "/${h}"));
-    }
+  flake.nixosConfigurations = self.lib.genAttrs regularHosts (
+    n: import ./${n} { inherit withSystem self inputs; } # TODO: weird.. @ pattern not work here
   );
 }

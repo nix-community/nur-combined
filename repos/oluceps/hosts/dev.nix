@@ -1,10 +1,44 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  user,
+  ...
+}:
+{
+  programs = {
 
-  programs.ssh = {
-    startAgent = true;
-    enableAskPassword = true;
-    askPassword = "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
+    ssh = {
+      startAgent = true;
+      enableAskPassword = true;
+      askPassword = "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
+
+    };
+    nh = {
+      enable = true;
+      # clean.enable = true;
+      # clean.extraArgs = "--keep-since 4d --keep 7";
+      flake = "/home/${user}/Src/nixos";
+    };
+
+    git.enable = true;
+    bash.interactiveShellInit = ''
+      eval "$(${lib.getExe pkgs.atuin} init bash)"
+    '';
+    fish.interactiveShellInit = ''
+      ${pkgs.atuin}/bin/atuin init fish | source
+    '';
+    direnv = {
+      enable = true;
+      package = pkgs.direnv;
+      silent = false;
+      loadInNixShell = true;
+      direnvrcExtra = "";
+      nix-direnv = {
+        enable = true;
+        package = pkgs.nix-direnv;
+      };
+    };
+
   };
   environment.systemPackages =
     lib.flatten (
@@ -190,24 +224,4 @@
       markdownlint-cli2
       prettier
     ]);
-  programs = {
-    git.enable = true;
-    bash.interactiveShellInit = ''
-      eval "$(${lib.getExe pkgs.atuin} init bash)"
-    '';
-    fish.interactiveShellInit = ''
-      ${pkgs.atuin}/bin/atuin init fish | source
-    '';
-    direnv = {
-      enable = true;
-      package = pkgs.direnv;
-      silent = false;
-      loadInNixShell = true;
-      direnvrcExtra = "";
-      nix-direnv = {
-        enable = true;
-        package = pkgs.nix-direnv;
-      };
-    };
-  };
 }

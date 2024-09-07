@@ -9,13 +9,13 @@
 }:
 {
 
-  systemd.sysusers.enable = true;
+  # systemd.sysusers.enable = true;
   system.etc.overlay.enable = true;
   system.switch.enableNg = true;
   system.switch.enable = lib.mkForce false;
   system.copySystemConfiguration = false;
-
-  # system.forbiddenDependenciesRegexes = [ "perl" ];
+  
+  services.userborn.enable = true;
 
   system.disableInstallerTools = true;
   programs.less.lessopen = null;

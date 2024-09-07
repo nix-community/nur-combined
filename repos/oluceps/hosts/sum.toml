@@ -1,0 +1,11 @@
+hosts = [
+  "nodens",
+  "kaambl",
+  "abhoth",
+  "azasos",
+  "eihort",
+  # "bootstrap",
+  # "resq",
+  # "yidhra",
+  # "colour"
+]

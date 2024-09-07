@@ -92,10 +92,6 @@
       enable = true;
       openFirewall = true;
     };
-    report = {
-      enable = true;
-      calendars = [ "*-*-* 12:00:00" ];
-    };
     mosdns.enable = false;
     minio = {
       enable = true;

@@ -11,6 +11,7 @@
   system.stateVersion = "22.11"; # Did you read the comment?
   users.mutableUsers = false;
   system.etc.overlay.mutable = false;
+  # system.forbiddenDependenciesRegexes = [ "perl" ];
   environment.etc."resolv.conf".text = ''
     nameserver 127.0.0.1
   '';

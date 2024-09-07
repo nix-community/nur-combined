@@ -14,12 +14,7 @@
             devshell.flakeModule
             agenix-rekey.flakeModule
           ])
-          ++ [
-            ./hosts
-            ./hosts/livecd
-            ./hosts/bootstrap
-            ./hosts/resq
-          ];
+          ++ [ ./hosts ];
         debug = false;
         systems = [
           "x86_64-linux"
@@ -43,7 +38,6 @@
               overlays = with inputs; [
                 agenix-rekey.overlays.default
                 fenix.overlays.default
-                colmena.overlays.default
                 self.overlays.default
                 nuenv.overlays.default
               ];
@@ -55,10 +49,7 @@
             pre-commit = {
               check.enable = true;
               settings.hooks = {
-                nixfmt = {
-                  enable = true;
-                  entry = lib.mkForce "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
-                };
+                nixfmt-rfc-style.enable = true;
               };
             };
 
@@ -69,7 +60,7 @@
                 rage
                 b3sum
                 nushell
-                colmena
+                nixos-rebuild
               ];
             };
 
@@ -131,8 +122,6 @@
         flake = {
           lib = inputs.nixpkgs.lib.extend inputs.self.overlays.lib;
 
-          nixosConfigurations = ((inputs.colmena.lib.makeHive inputs.self.colmena).introspect (x: x)).nodes;
-
           overlays = {
             default =
               final: prev:
@@ -183,10 +172,6 @@
     };
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    colmena = {
-      url = "github:zhaofengli/colmena";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ascii2char = {
