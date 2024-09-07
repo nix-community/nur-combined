@@ -259,7 +259,7 @@
       inputs.agenix.follows = "agenix";
     };
     agenix = {
-      url = "github:oluceps/agenix/with-sysuser";
+      url = "github:ryantm/agenix?rev=dcb70a76b73f";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     fenix = {
