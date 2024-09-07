@@ -72,6 +72,7 @@ let
       "pkgs/by-name/xp/xpadneo"
       "pkgs/by-name/ya/yabridge"
       "pkgs/by-name/ya/yabridgectl"
+      "pkgs/by-name/ya/yarg"
       "pkgs/by-name/zy/zynaddsubfx"
     ]
   );
