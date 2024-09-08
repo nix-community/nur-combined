@@ -101,7 +101,8 @@
           };
         };
 
-        nixpkgs-options = {
+        nixpkgs-options.pkgs = {
+          sourceInput = inputs.nixpkgs;
           permittedInsecurePackages = [
             "electron-11.5.0"
             "electron-19.1.9"
