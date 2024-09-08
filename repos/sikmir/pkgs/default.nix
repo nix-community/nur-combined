@@ -390,6 +390,7 @@ lib.makeScope newScope (
     serial-studio-bin = callPackage ./misc/serial-studio/bin.nix { };
     serverpp = callPackage ./misc/serverpp { };
     shellprof = callPackage ./misc/shellprof { };
+    shifu = callPackage ./misc/shifu { };
     socketcand = callPackage ./misc/socketcand { };
     subprocess = callPackage ./misc/subprocess { };
     tcvt = callPackage ./misc/tcvt { };
