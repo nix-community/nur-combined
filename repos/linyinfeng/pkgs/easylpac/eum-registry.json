@@ -101,6 +101,7 @@
       { "pattern": "89086030202200000023100930*", "name": "5ber.eSIM" },
       { "pattern": "89086030202200000024000034*", "name": "5ber.eSIM" },
       { "pattern": "89086030202200000024000055*", "name": "Jianwei Tek" },
+      { "pattern": "89086030202200000024000059*", "name": "Sakura eSIM (Phase II)" },
       { "pattern": "89086030202200000024000083*", "name": "Plan B" }
     ]
   }
