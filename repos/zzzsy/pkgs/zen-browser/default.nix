@@ -6,10 +6,10 @@
 }:
 let
   pname = "zen-browser";
-  version = "1.0.0-a.35";
+  version = "1.0.0-a.37";
   hashes = {
-    specific = "sha256-l13Yhb4pRT1iiEQ+I3va41RKyl17+DDAuJEgz2uY6fY=";
-    generic = "sha256-7FkBAUawB0XN948gr/douaFh4AXQ+Mo2uCNnIOS7a6w=";
+    specific = "sha256-QE7wA/QksNoQOFVmsV4g0qw+abz8jOUxBHsGR/s2Afc=";
+    generic = "sha256-yLAlmY3EvPyRhnwyZbyYaOjb9hLklkhqFCm+4peKfBo=";
   };
 
   src = fetchurl {

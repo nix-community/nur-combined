@@ -14,6 +14,7 @@ let
     ghostty
     lanzaboote
     nix-matlab
+    neovim-nightly-overlay
     nur
     stylix
     zig
@@ -94,6 +95,7 @@ in
         nix-matlab.overlay
         nur.overlay
         zig.overlays.default
+        neovim-nightly-overlay.overlays.default
       ];
     }
   );
