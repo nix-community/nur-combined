@@ -13,18 +13,18 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "aura";
-  version = "4.0.4";
+  version = "4.0.5";
 
   src = fetchFromGitHub {
     owner = "fosskers";
     repo = "aura";
     rev = "v${version}";
-    hash = "sha256-s/liYonPYiwr7Lfh8RmBY3mq9gzGpcSwjxgMg7KXUkY=";
+    hash = "sha256-Pax8TfjrieMedzzcjrsfewNOOepWiY46NNs1gmvLu3A=";
   };
 
   sourceRoot = "${src.name}/rust";
 
-  cargoHash = "sha256-CyFQyVZX3ujJdZDIpOw44ycR5T1/wli4RhNlRNk91gQ=";
+  cargoHash = "sha256-UIZouWn++kEt6DdIrBQsVMLq+ucUCWjJYxGbDsx/CAk=";
 
   nativeBuildInputs = [
     installShellFiles
