@@ -476,6 +476,7 @@ lib.makeScope newScope (
     planetiler = callPackage ./osm/planetiler { };
     polytiles = callPackage ./osm/polytiles { };
     prettymapp = callPackage ./osm/prettymapp { };
+    py-osm-static-maps = callPackage ./osm/py-osm-static-maps { };
     pyrobuf = callPackage ./osm/pyrobuf { };
     pyrosm = callPackage ./osm/pyrosm { };
     sdlmap = callPackage ./osm/sdlmap { };
