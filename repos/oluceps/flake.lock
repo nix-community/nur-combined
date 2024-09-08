@@ -56,8 +56,8 @@
       },
       "original": {
         "owner": "ryantm",
-        "ref": "dcb70a76b73f",
         "repo": "agenix",
+        "rev": "dcb70a76b73f032353ac343187de4f3332b4cb66",
         "type": "github"
       }
     },
