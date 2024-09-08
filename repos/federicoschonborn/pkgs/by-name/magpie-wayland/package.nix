@@ -5,11 +5,12 @@
   meson,
   ninja,
   pkg-config,
-  wayland,
+  wayland-scanner,
   argparse,
   libxkbcommon,
   pixman,
   udev,
+  wayland,
   wayland-protocols,
   wlroots,
   xorg,
@@ -31,7 +32,7 @@ stdenv.mkDerivation {
     meson
     ninja
     pkg-config
-    wayland # wayland-scanner
+    wayland-scanner
   ];
 
   buildInputs = [
@@ -39,6 +40,7 @@ stdenv.mkDerivation {
     libxkbcommon
     pixman
     udev
+    wayland
     wayland-protocols
     wlroots
     xorg.libxcb

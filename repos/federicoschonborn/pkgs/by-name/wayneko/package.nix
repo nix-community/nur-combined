@@ -5,6 +5,7 @@
   pkg-config,
   wayland-scanner,
   pixman,
+  wayland,
 # nix-update-script,
 }:
 
@@ -26,7 +27,7 @@ stdenv.mkDerivation {
 
   buildInputs = [
     pixman
-    wayland-scanner.dev
+    wayland
   ];
 
   makeFlags = [ "PREFIX=${builtins.placeholder "out"}" ];
