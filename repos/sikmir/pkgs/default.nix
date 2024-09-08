@@ -83,6 +83,7 @@ lib.makeScope newScope (
 
     iso15765-canbus = callPackage ./development/libraries/iso15765-canbus { };
     isotp-c = callPackage ./development/libraries/isotp-c { };
+    jsontoolkit = callPackage ./development/libraries/jsontoolkit { };
     libgnunetchat = callPackage ./development/libraries/libgnunetchat { };
     libshell = callPackage ./development/libraries/libshell { };
     microjson = callPackage ./development/libraries/microjson { };
