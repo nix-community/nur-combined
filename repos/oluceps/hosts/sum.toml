@@ -1,12 +1,12 @@
 hosts = [
-  "hastur",
-  "nodens",
-  "kaambl",
-  "abhoth",
-  "azasos",
-  "eihort",
+  "hastur", # homeserver censored
+  "nodens", # digital ocean sf
+  "kaambl", # laptop
+  "abhoth", # vmiss
+  "azasos", # tencent cloud censored
+  "eihort", # nas
   # "bootstrap",
   # "resq",
-  # "yidhra",
-  # "colour"
+  # "yidhra", # aws lightsail
+  # "colour"  # colour
 ]
