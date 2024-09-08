@@ -309,10 +309,10 @@
     };
     "animalese-typing" = buildFirefoxXpiAddon {
       pname = "animalese-typing";
-      version = "1.38";
+      version = "1.42";
       addonId = "dagexviii.dev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4348826/animalese_typing-1.38.xpi";
-      sha256 = "ac97e68f6192f18f9b7d3498a00ff6766376954a5d176eeab641e9555d4eafa4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4349257/animalese_typing-1.42.xpi";
+      sha256 = "af86b7cdc2281d509376617fec1c43ede8f9d05f33bc7e65a156762de7f5292d";
       meta = with lib;
       {
         description = "Plays animal crossing villager sounds whenever you type! The official port of my Animalese Typing extension from the chrome store.";
