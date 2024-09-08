@@ -400,6 +400,7 @@ lib.makeScope newScope (
     tiny-frpc = callPackage ./misc/tiny-frpc { };
     tinyflux = callPackage ./misc/tinyflux { };
     tlstunnel = callPackage ./misc/tlstunnel { };
+    tsnsrv = callPackage ./misc/tsnsrv { };
     turbo = callPackage ./misc/turbo { };
     tvision = callPackage ./misc/tvision { };
     wik = callPackage ./misc/wik { };
