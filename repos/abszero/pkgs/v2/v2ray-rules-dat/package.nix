@@ -5,9 +5,9 @@
 }:
 
 let
-  version = "2024-09-01-01-15";
-  geoipHash = "1hrlq0d45aqschybxw5lmk3vg0pl67dk38lp6rgpvc6yfa9dl052";
-  geositeHash = "0brzzpaa0qmy3aal70xs1ysd3lxkpamdbpd68bw649qj3qc7jisz";
+  version = "2024-09-08-01-11";
+  geoipHash = "1vv1wnl1r99n1rj921c85g1hak4900cx99l94nqda3b2dwga66jz";
+  geositeHash = "12pjsxl3qnwjlr8k1yh0aqcygfld5pwpp8h84adyp1p0lvrl2cpi";
 
   repo = "https://github.com/techprober/v2ray-rules-dat";
   geoip = fetchurl {
