@@ -66,7 +66,7 @@ local keys = {
     { "]d", lsp.goto_next_diagnostic, desc = "Next diagnostic" },
 
     -- Enable option
-    { "[o", desc = "Enable option" },
+    { "[o", group = "Enable option" },
     { "[ob", desc = "Light background" },
     { "[oc", desc = "Cursor line" },
     { "[od", desc = "Diff" },
@@ -85,7 +85,7 @@ local keys = {
     { "[oz", desc = "Spell checking" },
 
     -- Disable option
-    { "]o", desc = "Disable option" },
+    { "]o", group = "Disable option" },
     { "]ob", desc = "Light background" },
     { "]oc", desc = "Cursor line" },
     { "]od", desc = "Diff" },
