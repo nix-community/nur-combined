@@ -37,33 +37,38 @@
                 {
                   handle = [
                     {
-                      handle = [
+                      handler = "subroute";
+                      routes = [
                         {
-                          handler = "reverse_proxy";
-                          upstreams = [ { dial = "localhost:3002"; } ];
-                        }
-                      ];
-                      match = [
-                        {
-                          path = [
-                            "/grafana/*"
-                            "/grafana"
+                          handle = [
+                            {
+                              handler = "reverse_proxy";
+                              upstreams = [ { dial = "localhost:3002"; } ];
+                            }
+                          ];
+                          match = [
+                            {
+                              path = [
+                                "/grafana/*"
+                                "/grafana"
+                              ];
+                            }
                           ];
                         }
-                      ];
-                    }
-                    {
-                      handle = [
                         {
-                          handler = "reverse_proxy";
-                          upstreams = [ { dial = "localhost:9090"; } ];
-                        }
-                      ];
-                      match = [
-                        {
-                          path = [
-                            "/prom/*"
-                            "/prom"
+                          handle = [
+                            {
+                              handler = "reverse_proxy";
+                              upstreams = [ { dial = "localhost:9090"; } ];
+                            }
+                          ];
+                          match = [
+                            {
+                              path = [
+                                "/prom/*"
+                                "/prom"
+                              ];
+                            }
                           ];
                         }
                       ];
