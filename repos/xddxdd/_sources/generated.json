@@ -148,7 +148,7 @@
     },
     "attic": {
         "cargoLocks": null,
-        "date": "2024-09-02",
+        "date": "2024-09-08",
         "extract": null,
         "name": "attic",
         "passthru": null,
@@ -160,12 +160,12 @@
             "name": null,
             "owner": "zhaofengli",
             "repo": "attic",
-            "rev": "bea72d75b6165dfb529ba0c39cc6c7e9c7f0d234",
-            "sha256": "sha256-IdM+pZ6BnmD3o1fTJZ2BD43k7dwi1BbVfLDLpM1nE5s=",
+            "rev": "aec90814a4ecbc40171d57eeef97c5cab4aaa7b4",
+            "sha256": "sha256-nVWCR86XDjx9Tq6RHsNvhD03nNzIeKKc7UTPnXLyrDY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "bea72d75b6165dfb529ba0c39cc6c7e9c7f0d234"
+        "version": "aec90814a4ecbc40171d57eeef97c5cab4aaa7b4"
     },
     "axiom-syslog-proxy": {
         "cargoLocks": null,
@@ -1410,12 +1410,12 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.10.8-xanmod1",
-            "sha256": "sha256-X1Go+5f8/pdsJFXcIIVXIQ3VIxHvoymMch4/pL0EuQY=",
+            "rev": "6.10.9-xanmod1",
+            "sha256": "sha256-hzSWeyJF2JeP12M1PP+CgcFKMahjTw4pE7PcAuozksw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.10.8-xanmod1"
+        "version": "6.10.9-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1473,12 +1473,12 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.6.49-xanmod1",
-            "sha256": "sha256-r8ySQC6fuZoCTUjmsnKINXvfS/qDsUh0QVTvGygS8hw=",
+            "rev": "6.6.50-xanmod1",
+            "sha256": "sha256-NaAJMsOlN1T/KfE2lbQdeoS/B9l2YdVMDdmrN9HygHw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.6.49-xanmod1"
+        "version": "6.6.50-xanmod1"
     },
     "llama-cpp": {
         "cargoLocks": null,
@@ -1494,12 +1494,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3699",
-            "sha256": "sha256-PpxGZr5aMaNTRIqfrCtsCjmLyly62+mrl6FR6OXyhLc=",
+            "rev": "b3707",
+            "sha256": "sha256-oiVEb+PMKumREdoV1vEzxfSWFlHNNMgxADgfpFsR8pE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3699"
+        "version": "b3707"
     },
     "lyrica": {
         "cargoLocks": null,

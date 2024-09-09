@@ -86,15 +86,15 @@
   };
   attic = {
     pname = "attic";
-    version = "bea72d75b6165dfb529ba0c39cc6c7e9c7f0d234";
+    version = "aec90814a4ecbc40171d57eeef97c5cab4aaa7b4";
     src = fetchFromGitHub {
       owner = "zhaofengli";
       repo = "attic";
-      rev = "bea72d75b6165dfb529ba0c39cc6c7e9c7f0d234";
+      rev = "aec90814a4ecbc40171d57eeef97c5cab4aaa7b4";
       fetchSubmodules = false;
-      sha256 = "sha256-IdM+pZ6BnmD3o1fTJZ2BD43k7dwi1BbVfLDLpM1nE5s=";
+      sha256 = "sha256-nVWCR86XDjx9Tq6RHsNvhD03nNzIeKKc7UTPnXLyrDY=";
     };
-    date = "2024-09-02";
+    date = "2024-09-08";
   };
   axiom-syslog-proxy = {
     pname = "axiom-syslog-proxy";
@@ -784,13 +784,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.10.8-xanmod1";
+    version = "6.10.9-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.10.8-xanmod1";
+      rev = "6.10.9-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-X1Go+5f8/pdsJFXcIIVXIQ3VIxHvoymMch4/pL0EuQY=";
+      sha256 = "sha256-hzSWeyJF2JeP12M1PP+CgcFKMahjTw4pE7PcAuozksw=";
     };
   };
   linux-xanmod-6_0 = {
@@ -817,24 +817,24 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.49-xanmod1";
+    version = "6.6.50-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.49-xanmod1";
+      rev = "6.6.50-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-r8ySQC6fuZoCTUjmsnKINXvfS/qDsUh0QVTvGygS8hw=";
+      sha256 = "sha256-NaAJMsOlN1T/KfE2lbQdeoS/B9l2YdVMDdmrN9HygHw=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3699";
+    version = "b3707";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3699";
+      rev = "b3707";
       fetchSubmodules = false;
-      sha256 = "sha256-PpxGZr5aMaNTRIqfrCtsCjmLyly62+mrl6FR6OXyhLc=";
+      sha256 = "sha256-oiVEb+PMKumREdoV1vEzxfSWFlHNNMgxADgfpFsR8pE=";
     };
   };
   lyrica = {
