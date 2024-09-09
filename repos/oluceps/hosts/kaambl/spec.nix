@@ -123,12 +123,12 @@
       # }
     ];
 
-    shadowsocks.instances = [
-      {
-        name = "kaambl-local";
-        configFile = config.age.secrets.ss.path;
-      }
-    ];
+    # shadowsocks.instances = [
+    #   {
+    #     name = "kaambl-local";
+    #     configFile = config.age.secrets.ss.path;
+    #   }
+    # ];
     hysteria.instances = [
       {
         name = "nodens";

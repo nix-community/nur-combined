@@ -20,6 +20,7 @@ let
     "NIXOS_OZONE_WL"
     "XCURSOR_THEME"
     "XCURSOR_SIZE"
+    "QT_IM_MODULES"
   ];
   extraCommands = [ "systemctl --user start sway-session.target" ];
   systemd-run-app = lib.getExe (
