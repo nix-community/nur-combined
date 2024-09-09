@@ -33,7 +33,12 @@ in
 {
   enable = true;
   webExternalUrl = "https://${config.networking.fqdn}/prom";
-  listenAddress = "0.0.0.0";
+  listenAddress = "127.0.0.1";
+  webConfigFile = (pkgs.formats.yaml { }).generate "web.yaml" {
+    basic_auth_users = {
+      prometheus = "$2b$05$bKuO7ehC6wKR28/pfhJZOuNyQFUtF7FwhkPFLwcbCMhfLRNUV54vm";
+    };
+  };
   port = 9090;
   retentionTime = "7d";
   globalConfig = {

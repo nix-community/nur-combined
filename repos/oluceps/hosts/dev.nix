@@ -69,6 +69,7 @@
             yubikey-manager
             monero-cli
             yubikey-personalization
+            opensc
           ];
 
           dev = [

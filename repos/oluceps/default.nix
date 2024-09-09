@@ -29,6 +29,7 @@ let
     "lock"
     "violet"
     "typst-ts-cli"
+    "python"
   ];
 in
 (genFilteredDirAttrsV2 ./pkgs shadowedPkgs (name: pkgs.callPackage (./pkgs + "/${name}.nix") { }))

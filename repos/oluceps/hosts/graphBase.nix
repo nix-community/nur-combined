@@ -211,6 +211,7 @@
         # qmk-udev-rules
         jlink-udev-rules
         yubikey-personalization
+        nitrokey-udev-rules
         libu2f-host
         via
         opensk-udev-rules

@@ -14,7 +14,6 @@
   system.switch.enableNg = true;
   system.switch.enable = lib.mkForce false;
   system.copySystemConfiguration = false;
-  
   services.userborn.enable = true;
 
   system.disableInstallerTools = true;
