@@ -16,7 +16,14 @@ stdenv.mkDerivation rec {
     hash  = "sha256-u6s6X52EfXCIsAYtHgelJYrDO8ktRL0EWZaj8rpJfbA=";
   };
 
-  buildInputs = [ gnuapl ];
+  nativeBuildInputs = [ gnuapl ];
+  buildInputs       = [ gnuapl ];
+
+  buildPhase = ''
+    # Run integration tests.
+    apl --script test.apl -- test tests/sources tests/outputs 2>test-errors.txt
+    cat test-errors.txt && [ "" = "$(cat test-errors.txt)" ]
+  '';
 
   installPhase = ''
     runHook preInstall
@@ -37,7 +44,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Hexdump utility";
     homepage    = "https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/AHD";
-    licenses    = [ licenses.gpl3Plus licenses.zlib ];
+    licenses    = with licenses; [ gpl3Plus zlib ];
     mainProgram = pname;
   };
 }
