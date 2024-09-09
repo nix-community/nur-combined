@@ -37,38 +37,33 @@
                 {
                   handle = [
                     {
-                      handler = "subroute";
-                      routes = [
+                      handle = [
                         {
-                          handle = [
-                            {
-                              handler = "reverse_proxy";
-                              upstreams = [ { dial = "localhost:3002"; } ];
-                            }
-                          ];
-                          match = [
-                            {
-                              path = [
-                                "/grafana/*"
-                                "/grafana"
-                              ];
-                            }
+                          handler = "reverse_proxy";
+                          upstreams = [ { dial = "localhost:3002"; } ];
+                        }
+                      ];
+                      match = [
+                        {
+                          path = [
+                            "/grafana/*"
+                            "/grafana"
                           ];
                         }
+                      ];
+                    }
+                    {
+                      handle = [
                         {
-                          handle = [
-                            {
-                              handler = "reverse_proxy";
-                              upstreams = [ { dial = "localhost:9090"; } ];
-                            }
-                          ];
-                          match = [
-                            {
-                              path = [
-                                "/prom/*"
-                                "/prom"
-                              ];
-                            }
+                          handler = "reverse_proxy";
+                          upstreams = [ { dial = "localhost:9090"; } ];
+                        }
+                      ];
+                      match = [
+                        {
+                          path = [
+                            "/prom/*"
+                            "/prom"
                           ];
                         }
                       ];
