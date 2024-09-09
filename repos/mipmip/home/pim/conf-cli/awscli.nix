@@ -86,6 +86,7 @@ in
         account_id = "technativebv";
         region = "eu-central-1";
         output = "table";
+        group = "Technative";
       };
     }
     // builtins.listToAttrs (builtins.map (account: {

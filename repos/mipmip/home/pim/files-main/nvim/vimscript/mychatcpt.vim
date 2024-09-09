@@ -59,7 +59,7 @@ endfunction
 
 " press <Tab> to expand or jump in a snippet. These can also be mapped separately
 " via <Plug>luasnip-expand-snippet and <Plug>luasnip-jump-next.
-imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>' 
+imap <silent><expr> <Tab> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Tab>'
 " -1 for jumping backwards.
 inoremap <silent> <S-Tab> <cmd>lua require'luasnip'.jump(-1)<Cr>
 
@@ -76,8 +76,8 @@ smap <silent><expr> <C-E> luasnip#choice_active() ? '<Plug>luasnip-next-choice' 
 
 call hotpop#init() "run this before other calls
 
-call HotpopMap('inoremap', '',         '<C-k>',      '<C-R>=linny#btx()<CR>',              'Linny',         'Browse through Taxonomies INS Mode')
-call HotpopMap('nmap',     '',         '<C-k>',      ':start<CR> <C-R>=linny#btx()<CR>',   'Linny',         'Browse through Taxonomies')
+call HotpopMap('inoremap', '',         '<C-h>',      '<C-R>=linny#btx()<CR>',              'Linny',         'Browse through Taxonomies INS Mode')
+call HotpopMap('nmap',     '',         '<C-h>',      ':start<CR> <C-R>=linny#btx()<CR>',   'Linny',         'Browse through Taxonomies')
 call HotpopMap('inoremap', '',         '<C-l>',      '<C-R>=linny#btr()<CR>',              'Linny',         'Browse through Terms INS Mode')
 call HotpopMap('nmap',     '',         '<C-l>',      ':start<CR> <C-R>=linny#btr()<CR>',   'Linny',         'Browse through Terms')
 call HotpopMap('map',      '<silent>', ',w',         ':LinnyWordToRegister<CR>',           'Linny',         'Put Linny Link of filename in register')
