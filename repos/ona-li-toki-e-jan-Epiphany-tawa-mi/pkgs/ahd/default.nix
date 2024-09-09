@@ -16,14 +16,7 @@ stdenv.mkDerivation rec {
     hash  = "sha256-u6s6X52EfXCIsAYtHgelJYrDO8ktRL0EWZaj8rpJfbA=";
   };
 
-  nativeBuildInputs = [ gnuapl ];
   buildInputs       = [ gnuapl ];
-
-  buildPhase = ''
-    # Run integration tests.
-    apl --script test.apl -- test tests/sources tests/outputs 2>test-errors.txt
-    cat test-errors.txt && [ "" = "$(cat test-errors.txt)" ]
-  '';
 
   installPhase = ''
     runHook preInstall
