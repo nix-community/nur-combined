@@ -6,13 +6,14 @@
 
 stdenv.mkDerivation rec {
   pname   = "ahd";
-  version = "0.1.3";
+  version = "0.1.4";
 
   src = fetchFromGitHub {
     owner = "ona-li-toki-e-jan-Epiphany-tawa-mi";
     repo  = "AHD";
-    rev   = version;
-    hash  = "sha256-pVHz6H9WoQpbfS3LYyGVJOkXx/BxaV4B3sE4O+vb1So=";
+    # Hotfix for crash on reading from stdin.
+    rev   = "69fcefc03b0d2a35b30a178a19da593582aa5749";
+    hash  = "sha256-u6s6X52EfXCIsAYtHgelJYrDO8ktRL0EWZaj8rpJfbA=";
   };
 
   buildInputs = [ gnuapl ];
@@ -20,8 +21,15 @@ stdenv.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin
+    mkdir -p $out/bin $out/lib
     cp ahd.apl $out/bin/${pname}
+    cp workspaces/* $out/lib
+
+    # Rewrite library loads to use paths from the Nix store.
+    sed -i "s|⊣ ⍎\")COPY_ONCE fio.apl\"|⊣ ⍎\")COPY_ONCE $out/lib/fio.apl\"|" \
+           $out/bin/${pname}
+    sed -i "s|⊣ ⍎\")COPY_ONCE logging.apl\"|⊣ ⍎\")COPY_ONCE $out/lib/logging.apl\"|" \
+        $out/bin/${pname}
 
     runHook postInstall
   '';
@@ -29,7 +37,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Hexdump utility";
     homepage    = "https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/AHD";
-    license     = licenses.gpl3Plus;
+    licenses    = [ licenses.gpl3Plus licenses.zlib ];
     mainProgram = pname;
   };
 }
