@@ -155,7 +155,6 @@
             PublicKey = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A=";
             AllowedIPs = [
               "10.0.3.0/24"
-              "10.0.1.1/32"
             ];
             Endpoint = "127.0.0.1:41821";
             PersistentKeepalive = 15;
