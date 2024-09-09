@@ -19,13 +19,6 @@ in
         owner = user;
         group = "users";
       };
-      addr-map = {
-        rekeyFile = ../../sec/addr-map.age;
-        mode = "640";
-        owner = user;
-        group = "root";
-        name = "addr-map";
-      };
       rclone-conf = {
         rekeyFile = ../../sec/rclone.age;
       };

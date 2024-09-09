@@ -26,13 +26,6 @@ in
         group = "users";
         name = "nextchat";
       };
-      addr-map = {
-        rekeyFile = ../../sec/addr-map.age;
-        mode = "640";
-        owner = user;
-        group = "root";
-        name = "addr-map";
-      };
       prom = {
         rekeyFile = ../../sec/prom.age;
         mode = "640";

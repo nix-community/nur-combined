@@ -1,17 +1,24 @@
 #!/usr/bin/env nu
 
-const map_path = "/run/agenix/addr-map"
+const map = [
+    [name,addr];
+    [hastur,root@10.0.1.2],
+    [kaambl,root@10.0.2.3],
+    [abhoth,root@38.47.119.151],
+    [azasos,root@116.196.112.43],
+    [eihort,root@10.0.1.6],
+    [nodens,root@144.126.208.183]
+  ];
 
 export-env {
   $env.get_addr = { |map, per| $map | where name == $per | $in.addr.0 }
+  $env.map = $map
 }
 
 export def br [
   nodes?: list<string>
   --builder (-b): string = "hastur"
 ] {
-
-  let map = (open $map_path | lines | split column ":" name addr)
 
   let target_addr = do $env.get_addr ($map) $builder
 
@@ -31,6 +38,7 @@ export def br [
 
 }
 
+# build
 export def b [
   nodes?: list<string>
 ] {
@@ -41,26 +49,29 @@ export def b [
 
 }
 
+# deploy
 export def d [
   nodes?: list<string>
   mode?: string = "switch"
   --builder (-b): string = "hastur"
 ] {
 
-  let map = (open $map_path | lines | split column ":" name addr)
-
   let get_addr = {|x| do $env.get_addr ($map) ($x)}
 
   let builder_addr = do $get_addr $builder
 
-  $nodes | par-each {||
-    (nixos-rebuild $mode
-      --flake $'.#($in)'
-      --target-host (do $get_addr $in)
-      --build-host $"($builder_addr)"
-      --use-remote-sudo)
+  if ($nodes == null) {
+    (sudo nixos-rebuild $mode
+        --flake .#
+        --build-host $builder_addr)
+  } else {
+    $nodes | par-each {||
+      (nixos-rebuild $mode
+        --flake .#
+        --target-host (do $get_addr $in)
+        --build-host $builder_addr)
+    }
   }
-
 }
 
 const age_pub = "/run/agenix/age"

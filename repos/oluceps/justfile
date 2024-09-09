@@ -98,11 +98,6 @@ decrypt *args:
       each {|| ls $in } | flatten | $in.name |
               reduce {|it, acc| $it + (char newline) + $acc } | fzf | str trim | util de $in
 
-remote-switch *args:
-    #!/usr/bin/env nu
-    use {{loc}}/util.nu
-    util rswc {{ args }}
-
 check:
     #!/usr/bin/env nu
     use {{loc}}/util.nu
