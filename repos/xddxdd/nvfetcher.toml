@@ -238,7 +238,7 @@ fetch.github = "studyzy/imewlconverter"
 
 [inter-knot]
 src.github = "share121/inter-knot"
-fetch.github = "share121/inter-knot"
+fetch.url = "https://github.com/share121/inter-knot/releases/download/$ver/inter_knot_linux.zip"
 
 [jproxy]
 src.manual = "v3.4.1"

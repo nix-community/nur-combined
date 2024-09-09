@@ -25,6 +25,8 @@ let
       colorama
       cython
       loguru
+      lupa
+      pandas
       pyenet
       setuptools
     ]
@@ -35,7 +37,9 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  patches = [ ./remove-logfile.patch ];
+  postPatch = ''
+    sed -i "/logfile/d" game_server/__init__.py
+  '';
 
   installPhase = ''
     mkdir -p $out/bin $out/opt

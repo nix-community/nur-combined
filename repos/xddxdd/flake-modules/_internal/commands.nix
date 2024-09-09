@@ -111,7 +111,7 @@ _: {
           in
           ''
             set -euo pipefail
-            export PATH=${pkgs.nix-prefetch-git}/bin:${pkgs.yq}/bin:$PATH
+            export PATH=${pkgs.nix-prefetch-git}/bin:$PATH
             nix flake update
             ${nvfetcher}
             for S in $(find pkgs/ -name update.sh); do

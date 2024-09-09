@@ -94,6 +94,8 @@ let
       qt6.wrapQtAppsHook
     ];
 
+    autoPatchelfFlags = [ "--keep-libc" ];
+
     buildInputs = libraries;
 
     unpackPhase = ''
