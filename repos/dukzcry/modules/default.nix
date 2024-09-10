@@ -30,4 +30,5 @@ rec {
   catppuccin = ./catppuccin.nix;
   zsh = ./zsh.nix;
   branding = ./branding.nix;
+  users = ./users.nix;
 }
