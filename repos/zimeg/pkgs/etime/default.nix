@@ -6,16 +6,16 @@
 
 buildGoModule rec {
   pname = "etime";
-  version = "1.1.0";
+  version = "1.1.1";
 
   src = fetchFromGitHub {
     owner = "zimeg";
     repo = "emporia-time";
     rev = "refs/tags/v${version}";
-    hash = "sha256-8MuasxThi6JynfGIVAlU51C/7WfjobViKgcBU0gavvY=";
+    hash = "sha256-3aEcnXC894mZw+KE2MCOt2j0ue4H1xyADGeGpBHcEsI=";
   };
 
-  vendorHash = "sha256-QzqIIwLngBxmb2BGTEVsYvO8PvFGOY9sytA6ERztpFs=";
+  vendorHash = "sha256-quw9iD00l5bFSYZQ1mLAs3nY8Q3roiMsSjOZqmt+ED4=";
 
   ldflags = [
     "-s"
