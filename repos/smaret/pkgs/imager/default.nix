@@ -7,12 +7,12 @@ let
 in
 
 stdenv.mkDerivation rec {
-  version = "3.9-05";
+  version = "4.0-02";
   pname = "imager";
 
   src = fetchurl {
-    url = "https://nuage.oasu.u-bordeaux.fr/index.php/s/PoxdxMTTYXqNwKF/download?path=%2F&files=imager-oct23.tar.gz";
-    sha256 = "sha256-TindDXQOZUmTQRagvTSDSVD+MXn7NlLjDqiIrASfxnw=";
+    url = "https://nuage.oasu.u-bordeaux.fr/index.php/s/PoxdxMTTYXqNwKF/download?path=%2F&files=imager-apr24.tar.gz";
+    sha256 = "sha256-IdtSdgrB1PUjWyyJ5v6QP9Wyx4MFPYyXhSHZlSsUXFU=";
   };
 
   nativeBuildInputs = [ pkg-config groff perl getopt gfortran which ];
@@ -20,7 +20,9 @@ stdenv.mkDerivation rec {
   buildInputs = [ gtk2-x11 lesstif cfitsio python3Env ncurses ]
     ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ CoreFoundation ]);
 
-  patches = [ ./wrapper.patch ./clang.patch ./aarch64.patch ./python-ldflags.patch ./uvmerge-malloc-fix.patch ];
+  # FIXME: Which of these patches are still needed?
+  #patches = [ ./wrapper.patch ./clang.patch ./aarch64.patch ./python-ldflags.patch ];
+  patches = [ ./wrapper.patch ];
 
   NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
 
