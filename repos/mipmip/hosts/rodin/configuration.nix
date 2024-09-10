@@ -29,6 +29,8 @@
   networking.networkmanager.enable = true;
   networking.firewall.enable = false;
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   system.stateVersion = "22.11";
 
   #PACKAGES WHICH NEED A CUDA CARD
