@@ -2,12 +2,12 @@
 
 const map = [
     [name,addr];
-    [hastur,root@10.0.1.2],
-    [kaambl,root@10.0.1.3],
-    [abhoth,root@38.47.119.151],
-    [azasos,root@116.196.112.43],
-    [eihort,root@10.0.1.6],
-    [nodens,root@144.126.208.183]
+    [hastur,riro@10.0.1.2],
+    [kaambl,elen@10.0.1.3],
+    [abhoth,elen@38.47.119.151],
+    [azasos,elen@116.196.112.43],
+    [eihort,elen@10.0.1.6],
+    [nodens,elen@144.126.208.183]
   ];
 
 export-env {
@@ -67,7 +67,8 @@ export def d [
       (nixos-rebuild $mode
         --flake .#
         --target-host (do $get_addr $in)
-        --build-host $builder_addr)
+        --build-host $builder_addr
+        --use-remote-sudo)
     }
   }
 }
