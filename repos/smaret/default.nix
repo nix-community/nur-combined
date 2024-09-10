@@ -1,9 +1,10 @@
 { pkgs ? import <nixpkgs> { } }:
 
 {
-  lib = import ./lib { inherit pkgs; };
-  modules = import ./modules;
-  overlays = import ./overlays;
+  # The `lib`, `modules`, and `overlays` names are special
+  lib = import ./lib { inherit pkgs; }; # functions
+  modules = import ./modules; # NixOS modules
+  overlays = import ./overlays; # nixpkgs overlays
 
   astrochem = pkgs.python3Packages.toPythonModule (
     pkgs.callPackage ./pkgs/astrochem {
