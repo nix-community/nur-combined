@@ -177,21 +177,8 @@
     ascii2char = {
       url = "github:oluceps/nix-ascii2char";
     };
-    lix = {
-      url = "git+https://git.lix.systems/lix-project/lix";
-      flake = false;
-    };
-    lix-module = {
-      url = "git+https://git.lix.systems/lix-project/nixos-module";
-      inputs.lix.follows = "lix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     radicle = {
       url = "git+https://seed.radicle.xyz/z3gqcJUoA1n9HaHKufZs5FCSGazv5.git";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    attic = {
-      url = "github:zhaofengli/attic";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     devshell.url = "github:numtide/devshell";

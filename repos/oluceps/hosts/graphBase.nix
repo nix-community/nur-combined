@@ -91,12 +91,12 @@
   programs = {
     dconf.enable = true;
     anime-game-launcher.enable = false; # Adds launcher and /etc/hosts rules
-    # niri.enable = true;
-    sway = {
-      enable = true;
-      xwayland.enable = true;
-      wrapperFeatures.gtk = true;
-    };
+    niri.enable = true;
+    # sway = {
+    #   enable = true;
+    #   xwayland.enable = true;
+    #   wrapperFeatures.gtk = true;
+    # };
     wireshark = {
       enable = true;
       package = pkgs.wireshark;
@@ -188,7 +188,7 @@
               eval export $l
             done < <(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
 
-            exec systemd-cat --identifier=sway sway
+            exec systemd-cat --identifier=niri niri
           ''}";
           inherit user;
         };
