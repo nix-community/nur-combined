@@ -106,7 +106,7 @@ in
       match is-active=true
       match is-focused=true
       open-maximized true
-      opacity 0.92
+      // opacity 0.92
   }
 
   window-rule {
@@ -132,16 +132,13 @@ in
       // You can change how the focus ring looks.
       focus-ring {
           // Uncomment this line to disable the focus ring.
-          off
+          // off
 
           // How many logical pixels the ring extends out from the windows.
           width 2
 
-          // Color of the ring on the active monitor: red, green, blue, alpha.
-          active-color 127 200 255 255
-
-          // Color of the ring on inactive monitors: red, green, blue, alpha.
-          inactive-color 80 80 80 255
+          active-color "#B28FCE"
+          inactive-color "#585b70"
       }
 
       // You can also add a border. It's similar to the focus ring, but always visible.
@@ -215,7 +212,7 @@ in
   // Uncomment this line to ask the clients to omit their client-side decorations if possible.
   // If the client will specifically ask for CSD, the request will be honored.
   // Additionally, clients will be informed that they are tiled, removing some rounded corners.
-  // prefer-no-csd
+  prefer-no-csd
 
   // You can change the path where screenshots are saved.
   // A ~ at the front will be expanded to the home directory.
@@ -270,8 +267,6 @@ in
       Mod+Up    { focus-window-up; }
       Mod+Right { focus-column-right; }
       Mod+H     { focus-column-left; }
-      Mod+J     { focus-window-down; }
-      Mod+K     { focus-window-up; }
       Mod+L     { focus-column-right; }
 
       Mod+Ctrl+Left  { move-column-left; }
@@ -279,16 +274,14 @@ in
       Mod+Ctrl+Up    { move-window-up; }
       Mod+Ctrl+Right { move-column-right; }
       Mod+Ctrl+H     { move-column-left; }
-      Mod+Ctrl+J     { move-window-down; }
-      Mod+Ctrl+K     { move-window-up; }
       Mod+Ctrl+L     { move-column-right; }
 
       // Alternative commands that move across workspaces when reaching
       // the first or last window in a column.
-      // Mod+J     { focus-window-or-workspace-down; }
-      // Mod+K     { focus-window-or-workspace-up; }
-      // Mod+Ctrl+J     { move-window-down-or-to-workspace-down; }
-      // Mod+Ctrl+K     { move-window-up-or-to-workspace-up; }
+      Mod+J     { focus-window-or-workspace-down; }
+      Mod+K     { focus-window-or-workspace-up; }
+      Mod+Ctrl+J     { move-window-down-or-to-workspace-down; }
+      Mod+Ctrl+K     { move-window-up-or-to-workspace-up; }
 
       Mod+Home { focus-column-first; }
       Mod+End  { focus-column-last; }

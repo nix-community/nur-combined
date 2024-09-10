@@ -111,7 +111,7 @@ with pkgs;
 
   # social
   # discord
-  tdesktop
+  materialgram
   element-desktop-wayland
   # thunderbird
   # fluffychat
