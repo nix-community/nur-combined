@@ -42,6 +42,7 @@ in
       "ragenix"
       "lanzaboote"
       "catppuccin"
+      "lix-module"
       "self"
     ])
     ++ (with inputs.dae.nixosModules; [

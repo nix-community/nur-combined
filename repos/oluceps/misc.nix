@@ -38,7 +38,7 @@
   # powerManagement.powertop.enable = true;
 
   nix = {
-    package = pkgs.nixVersions.latest;
+    package = pkgs.nixVersions.stable;
     channel.enable = false;
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
 

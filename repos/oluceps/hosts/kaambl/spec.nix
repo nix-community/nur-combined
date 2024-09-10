@@ -41,7 +41,7 @@
       substituters = [ "https://cache.nyaw.xyz" ];
     };
   };
-  programs.sway.enable = true;
+  programs.sway.enable = false;
   programs.gtklock.enable = true;
 
   systemd.user.services.add-ssh-keys = {

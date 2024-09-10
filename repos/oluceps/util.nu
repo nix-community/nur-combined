@@ -3,7 +3,7 @@
 const map = [
     [name,addr];
     [hastur,root@10.0.1.2],
-    [kaambl,root@10.0.2.3],
+    [kaambl,root@10.0.1.3],
     [abhoth,root@38.47.119.151],
     [azasos,root@116.196.112.43],
     [eihort,root@10.0.1.6],
@@ -61,9 +61,7 @@ export def d [
   let builder_addr = do $get_addr $builder
 
   if ($nodes == null) {
-    (sudo nixos-rebuild $mode
-        --flake .#
-        --build-host $builder_addr)
+    (nh os switch .)
   } else {
     $nodes | par-each {||
       (nixos-rebuild $mode
