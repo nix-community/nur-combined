@@ -492,7 +492,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "3707"
+    "version": "3720"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -832,7 +832,7 @@
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs-unstable",
-    "version": "2024-09-03"
+    "version": "2024-09-09"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -2752,7 +2752,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "6.1.2"
+    "version": "6.1.3"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
@@ -2862,7 +2862,7 @@
   "legacyPackages.x86_64-linux.rime-moegirl": {
     "description": "Releases for dict of zh.moegirl.org.cn",
     "pname": "rime-moegirl",
-    "version": "20240809"
+    "version": "20240909"
   },
   "legacyPackages.x86_64-linux.rime-zhwiki": {
     "description": "Fcitx 5 Pinyin Dictionary from zh.wikipedia.org",
@@ -2882,7 +2882,7 @@
   "legacyPackages.x86_64-linux.runpodctl": {
     "description": "RunPod CLI for pod management",
     "pname": "runpodctl",
-    "version": "1.14.3"
+    "version": "1.14.4"
   },
   "legacyPackages.x86_64-linux.sam-toki-mouse-cursors": {
     "description": "Original mouse cursors (pointers) for Windows, with minimalistic design.",
@@ -3362,7 +3362,7 @@
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs-unstable",
-    "version": "2024-09-03"
+    "version": "2024-09-09"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -3507,7 +3507,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "6.1.2"
+    "version": "6.1.3"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
@@ -3612,7 +3612,7 @@
   "packages.x86_64-linux.rime-moegirl": {
     "description": "Releases for dict of zh.moegirl.org.cn",
     "pname": "rime-moegirl",
-    "version": "20240809"
+    "version": "20240909"
   },
   "packages.x86_64-linux.rime-zhwiki": {
     "description": "Fcitx 5 Pinyin Dictionary from zh.wikipedia.org",
@@ -3632,7 +3632,7 @@
   "packages.x86_64-linux.runpodctl": {
     "description": "RunPod CLI for pod management",
     "pname": "runpodctl",
-    "version": "1.14.3"
+    "version": "1.14.4"
   },
   "packages.x86_64-linux.sam-toki-mouse-cursors": {
     "description": "Original mouse cursors (pointers) for Windows, with minimalistic design.",

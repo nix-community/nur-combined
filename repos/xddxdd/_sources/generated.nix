@@ -194,15 +194,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "93e6ac87c7fd60cef2971cf9b53d6ca3942d409c";
+    version = "0c4847f821b185552a5e7f3fd30e55d8e87c0214";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "93e6ac87c7fd60cef2971cf9b53d6ca3942d409c";
+      rev = "0c4847f821b185552a5e7f3fd30e55d8e87c0214";
       fetchSubmodules = false;
-      sha256 = "sha256-9Z16Umy4EM25MwTJIiyE0N7KrcYjSK7Z819KrhcV6F4=";
+      sha256 = "sha256-JM5PVdHTHUn7g3JYR+rwi9n7w0uel+0pP09oR8UWm5M=";
     };
-    date = "2024-09-08";
+    date = "2024-09-09";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -712,15 +712,15 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "d93a431aaf9ac929f267901509e968a5727c053c";
+    version = "b37c937a649ec9cdb82c4964f97aa7d8ec0c9b01";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "d93a431aaf9ac929f267901509e968a5727c053c";
+      rev = "b37c937a649ec9cdb82c4964f97aa7d8ec0c9b01";
       fetchSubmodules = false;
-      sha256 = "sha256-hU6TkIZeQ8DlbiYdhfdvsAR2yWqQgq+3SUbhHXk1Jqo=";
+      sha256 = "sha256-QuU03T0wmGE8qwuO+vK8eZXiwArh+QxsKf4SFNjEVMs=";
     };
-    date = "2024-09-03";
+    date = "2024-09-09";
   };
   libqcef = {
     pname = "libqcef";
@@ -828,13 +828,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3707";
+    version = "b3720";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3707";
+      rev = "b3720";
       fetchSubmodules = false;
-      sha256 = "sha256-oiVEb+PMKumREdoV1vEzxfSWFlHNNMgxADgfpFsR8pE=";
+      sha256 = "sha256-PHNGSWLZMWK8skn/DiO1SJ3HkqOx0mmW8Mi8GoVGMpY=";
     };
   };
   lyrica = {
@@ -1141,10 +1141,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v6.1.2";
+    version = "v6.1.3";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.1.2/PeerBanHelper.jar";
-      sha256 = "sha256-tqLwVEWdbRpr010F9LgKq/wBTgCnyVItfT9plVe65ko=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.1.3/PeerBanHelper.jar";
+      sha256 = "sha256-tX2k8QhJjioeQ/Yo0Dos5JcQrRHrg3B1VSU4aTHVM5U=";
     };
   };
   phpmyadmin = {
@@ -1389,10 +1389,10 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20240809";
+    version = "20240909";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20240809/moegirl.dict.yaml";
-      sha256 = "sha256-N3Z2AJkB+dyrkbaEbiJvsSpFA/ZQ3XyjRhnVuX5UaHo=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20240909/moegirl.dict.yaml";
+      sha256 = "sha256-Gem9W+R+jWIZAOyIdVCQRkxixQBjQ2QT8cJMHkty9Hc=";
     };
   };
   rime-zhwiki = {
@@ -1428,13 +1428,13 @@
   };
   runpodctl = {
     pname = "runpodctl";
-    version = "v1.14.3";
+    version = "v1.14.4";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpodctl";
-      rev = "v1.14.3";
+      rev = "v1.14.4";
       fetchSubmodules = false;
-      sha256 = "sha256-ot/xxCL0RnMG39KDqINdAj6BSX+OLY6CusmP9Ubn8QI=";
+      sha256 = "sha256-QU2gujECzT5mPkZi6siMO7IZRXNZHS0TchYxnG4Snj8=";
     };
   };
   sam-toki-mouse-cursors = {
