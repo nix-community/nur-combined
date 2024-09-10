@@ -13,6 +13,7 @@
 , file
 , ghostscript
 , wrapQtAppsHook
+, qttools
 , stdenv
 }:
 stdenv.mkDerivation rec {
@@ -25,7 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-huYAyT12U7a3RgRu3W4McYnhFYEvKCmKb59E9vOSXsE=";
   };
 
-  nativeBuildInputs = [ qmake wrapQtAppsHook pkg-config ];
+  nativeBuildInputs = [ qmake qttools wrapQtAppsHook pkg-config ];
   buildInputs = [
     qtbase
     qtsvg
@@ -38,6 +39,7 @@ stdenv.mkDerivation rec {
     ghostscript
   ];
   preConfigure = ''
+    lrelease qpdfview.pro
     qmakeFlags+=(*.pro)
   '';
 
