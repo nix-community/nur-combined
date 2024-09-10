@@ -3,10 +3,10 @@
   pkgs,
   lib,
   inputs',
-  user,
   ...
 }:
 {
+  imports = [ ./niri.nix ];
   environment.systemPackages = with inputs'.browser-previews.packages; [
     google-chrome-beta # Beta Release
 
@@ -88,10 +88,11 @@
       After = [ "graphical-session-pre.target" ];
     };
   };
+
   programs = {
     dconf.enable = true;
     anime-game-launcher.enable = false; # Adds launcher and /etc/hosts rules
-    niri.enable = true;
+
     # sway = {
     #   enable = true;
     #   xwayland.enable = true;
@@ -179,22 +180,6 @@
 
     # desktopManager.cosmic.enable = true;
     # displayManager.cosmic-greeter.enable = true;
-    greetd = {
-      enable = true;
-      settings = rec {
-        initial_session = {
-          command = "${lib.getExe pkgs.greetd.tuigreet} --remember --time --cmd ${pkgs.writeShellScript "sway" ''
-            while read -r l; do
-              eval export $l
-            done < <(/run/current-system/systemd/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)
-
-            exec systemd-cat --identifier=niri niri
-          ''}";
-          inherit user;
-        };
-        default_session = initial_session;
-      };
-    };
 
     acpid.enable = true;
     udev = {
