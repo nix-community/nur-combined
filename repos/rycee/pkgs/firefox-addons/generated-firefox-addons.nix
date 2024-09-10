@@ -2078,10 +2078,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.6.4";
+      version = "1.7.1";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4307344/dearrow-1.6.4.xpi";
-      sha256 = "b445a00128140109a5d22c9f03fc76bc9b6ceef4f2be676fa90484e4a8023078";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4347863/dearrow-1.7.1.xpi";
+      sha256 = "4bd5c4a1a7f928532480fef5cc13edb4049be6adb4aaf60644b5a417a09754ee";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -2127,10 +2127,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "131.0.20240906.91942";
+      version = "131.0.20240909.91655";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4348479/deutsch_de_language_pack-131.0.20240906.91942.xpi";
-      sha256 = "9418cf94dda87da2ca3254f185c27de0b244b7d0ad0692ef4f2c3c685a6baf6a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4349919/deutsch_de_language_pack-131.0.20240909.91655.xpi";
+      sha256 = "41d258825ce4db38c32054e02ebb2d4a0297d1f70892f6ab65adcc8c67759aed";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3271,10 +3271,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "131.0.20240906.91942";
+      version = "131.0.20240909.91655";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4348547/francais_language_pack-131.0.20240906.91942.xpi";
-      sha256 = "a859ae8d9c4d33921555ec585a4c9f2333c482624e7beb779d66cb7ba8ec299d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4349921/francais_language_pack-131.0.20240909.91655.xpi";
+      sha256 = "3ff17efa5d6b165a1e732df20c31b0825b98b306caf4c3f70b3df670786fff7b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3308,10 +3308,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "131.0.20240906.91942";
+      version = "131.0.20240909.91655";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4348518/gaidhlig_language_pack-131.0.20240906.91942.xpi";
-      sha256 = "59d9047d3b337430d888c3a6b3bd1ce6d76d4ea440cc6450c84f8d3e0c798844";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4349949/gaidhlig_language_pack-131.0.20240909.91655.xpi";
+      sha256 = "f1efa4d04fd4e068e65c1e355c61da9de986d5c49359d4b8660aa75079015dc7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -3939,10 +3939,10 @@
     };
     "hover-zoom-plus" = buildFirefoxXpiAddon {
       pname = "hover-zoom-plus";
-      version = "1.0.219";
+      version = "1.0.220";
       addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4342533/hover_zoom_plus-1.0.219.xpi";
-      sha256 = "bd453c148c8b687f0638bf9b7ffeaa45c0612ce66475b12006bb03febce83dfa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4350159/hover_zoom_plus-1.0.220.xpi";
+      sha256 = "bf826c7f2f9c8c6dfdd0440bf2d9b7dd16b74d6a8c5897fbe1e93827c2b0ecc3";
       meta = with lib;
       {
         homepage = "https://github.com/extesy/hoverzoom/";
@@ -4428,6 +4428,7 @@
           "*://*.rpggeek.com/*"
           "*://*.videogamegeek.com/*"
           "*://*.e621.net/*"
+          "*://*.e6ai.net/*"
           "*://*.e926.net/*"
           "*://danbooru.donmai.us/*"
           "*://*.jootix.com/*"
@@ -8953,10 +8954,10 @@
     };
     "pwas-for-firefox" = buildFirefoxXpiAddon {
       pname = "pwas-for-firefox";
-      version = "2.12.1";
+      version = "1.4.2";
       addonId = "firefoxpwa@filips.si";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4293028/pwas_for_firefox-2.12.1.xpi";
-      sha256 = "9bc04202542ddfb4715675b0fb68483e79a87d389c35ae4e5a4c17a7f2177566";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3957258/pwas_for_firefox-1.4.2.xpi";
+      sha256 = "f4679830f3e19ac67e7ed92ddc4ce159db067f6a605c089fb779938830531f21";
       meta = with lib;
       {
         homepage = "https://github.com/filips123/PWAsForFirefox";
@@ -8966,7 +8967,6 @@
           "http://*/*"
           "https://*/*"
           "nativeMessaging"
-          "notifications"
           "storage"
         ];
         platforms = platforms.all;
@@ -9459,10 +9459,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "131.0.20240906.91942";
+      version = "131.0.20240909.91655";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4348545/scots_language_pack-131.0.20240906.91942.xpi";
-      sha256 = "fa6f9f7c1bcd318e3c446e4383480338cbeff2a9c63b32d1d225d82e1804b390";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4349963/scots_language_pack-131.0.20240909.91655.xpi";
+      sha256 = "c7e88531af739479b4fdd9a8cc547a1404c236858fe01a656f0c0278fa659ea3";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10079,10 +10079,10 @@
     };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "2.0.4";
+      version = "2.0.5";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4257665/statshunters-2.0.4.xpi";
-      sha256 = "039709ca3cfe6cc9346dfcb081f1e647cd61756531a2d3a8150d6e1c7d539add";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4350195/statshunters-2.0.5.xpi";
+      sha256 = "e7c24eee3b98c49bd64833055edfe18081f5cdb10d9de1c72ac9559ba37956b8";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -12520,10 +12520,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.8.26.0";
+      version = "24.9.2.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4346613/yomitan-24.8.26.0.xpi";
-      sha256 = "fba4bc275fd6dc730d49507569d474f60e1d71494945a9d32f426cbe7a844d12";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4350165/yomitan-24.9.2.0.xpi";
+      sha256 = "707b91de027179feb29506a1562643ced75acd9b5c4a5b889aab9a22a38fc2d6";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
