@@ -1,13 +1,13 @@
 {
 		"standardnotes-x64": {
-			"version": "desktop@3.195.1",
-			"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.195.1/standard-notes-3.195.1-mac-x64.dmg",
-			"sha256": "47b3bb12c718ea8246d3648fcdaaeb9bd5ae3ce2b76984172ff7fdd9f1d575c5"
+			"version": "desktop@3.195.2",
+			"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.195.2/standard-notes-3.195.2-mac-x64.dmg",
+			"sha256": "08ae467f9606ed296a200ef80b340f8156f127db80863c527fcd6b4093a4c465"
 		},
 		"standardnotes-arm64": {
-			"version": "desktop@3.195.1",
-			"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.195.1/standard-notes-3.195.1-mac-arm64.dmg",
-			"sha256": "4a23c71d1379da043081d509c5f39d81a59723ac857b2f57e193cbd5ac9183fb"
+			"version": "desktop@3.195.2",
+			"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.195.2/standard-notes-3.195.2-mac-arm64.dmg",
+			"sha256": "5277886463ae35899dc65cf355218944980350cb795f30d65ad4814286219b7a"
 		},
 		"whisky": {
 			"version": "v2.3.2",
@@ -25,8 +25,8 @@
 			"sha256": "ac69fd6c00083593f22c21cc16408c5cf8f10a126018244b7c021286bbafccee"
 		},
 		"floorp": {
-			"version": "v11.18.0",
-			"url": "https://github.com/Floorp-Projects/Floorp/releases/download/v11.18.0/floorp-macOS-universal.dmg",
-			"sha256": "9c16c0fc1b33af2d0aada272c67ba5f0eb1b96845985e1e07366d1f0c07e6687"
+			"version": "v11.18.1",
+			"url": "https://github.com/Floorp-Projects/Floorp/releases/download/v11.18.1/floorp-macOS-universal.dmg",
+			"sha256": "db71a8b74b3a1ca8504518f8ac3645ada2b25ce55978c4c021afa524b45cf891"
 		}
 	}
