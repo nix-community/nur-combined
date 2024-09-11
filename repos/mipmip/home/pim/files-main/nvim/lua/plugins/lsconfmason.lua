@@ -20,14 +20,14 @@ return {
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       local lspconfig = require("lspconfig")
-      lspconfig.tsserver.setup({
-        capabilites = capabilities,
+      lspconfig.ts_ls.setup({
+        capabilities = capabilities,
       })
       lspconfig.html.setup({
-        capabilites = capabilities,
+        capabilities = capabilities,
       })
       lspconfig.jsonls.setup({
-        capabilites = capabilities,
+        capabilities = capabilities,
       })
 
       lspconfig.lua_ls.setup({
@@ -43,13 +43,13 @@ return {
             },
           }
         },
-        capabilites = capabilities,
+        capabilities = capabilities,
       })
       lspconfig.rnix.setup({
-        capabilites = capabilities,
+        capabilities = capabilities,
       })
       lspconfig.marksman.setup({
-        capabilites = capabilities,
+        capabilities = capabilities,
         cmd = {
           "sh",
           "-c",
@@ -61,15 +61,15 @@ return {
       })
 
       lspconfig.terraformls.setup({
-        capabilites = capabilities,
+        capabilities = capabilities,
       })
 
       lspconfig.crystalline.setup({
-        capabilites = capabilities,
+        capabilities = capabilities,
       })
 
       lspconfig.bashls.setup({
-        capabilites = capabilities,
+        capabilities = capabilities,
       })
 
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
