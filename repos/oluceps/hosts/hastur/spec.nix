@@ -36,6 +36,7 @@
       alertmanager.serviceConfig.LoadCredential = [
         "notifychan:${config.age.secrets.notifychan.path}"
       ];
+      radicle.serviceConfig.EnvironmentFile = config.age.secrets.radicle-pass;
 
       atuin.serviceConfig.Environment = [ "RUST_LOG=debug" ];
 
@@ -84,6 +85,7 @@
     srs.enable = true;
     grafana.enable = true;
     meilisearch.enable = true;
+    radicle.enable = true;
 
     phantomsocks = {
       enable = false;
