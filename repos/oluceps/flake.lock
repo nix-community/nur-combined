@@ -71,16 +71,18 @@
         "pre-commit-hooks": "pre-commit-hooks"
       },
       "locked": {
-        "dirtyRev": "a94d721bf6d7fbcddb5a5bc443527aec59411f9b-dirty",
-        "dirtyShortRev": "a94d721-dirty",
-        "lastModified": 1726066453,
+        "lastModified": 1726067238,
         "narHash": "sha256-XTORlnrN1Yv8JVf4ZGSJVHmtvLjyapYT6HkQ97BUvKQ=",
-        "type": "git",
-        "url": "file:///home/elen/Src/agenix-rekey"
+        "owner": "oddlama",
+        "repo": "agenix-rekey",
+        "rev": "418bdfab127de30bc3c988e0a7a153061d5e74af",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:///home/elen/Src/agenix-rekey"
+        "owner": "oddlama",
+        "repo": "agenix-rekey",
+        "rev": "418bdfab127de30bc3c988e0a7a153061d5e74af",
+        "type": "github"
       }
     },
     "android-nixpkgs": {

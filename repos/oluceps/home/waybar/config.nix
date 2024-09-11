@@ -29,13 +29,17 @@ builtins.toJSON (
       };
       "clock#1" = {
         format = "{:%H}";
+        tooltip-format = "{:%b %d}";
         interval = 1;
-        tooltip = false;
+        timezone = "Asia/Shanghai";
+        tooltip = true;
       } // niriCtlArg;
       "clock#2" = {
         format = "{:%M}";
+        tooltip-format = "{:%a}";
         interval = 1;
-        tooltip = false;
+        timezone = "Asia/Shanghai";
+        tooltip = true;
       } // niriCtlArg;
       pulseaudio = {
         tooltip = false;

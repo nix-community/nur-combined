@@ -235,8 +235,8 @@
     nixyDomains.flake = false;
     nuenv.url = "github:DeterminateSystems/nuenv";
     agenix-rekey = {
-      # url = "github:oddlama/agenix-rekey";
-      url = "/home/elen/Src/agenix-rekey";
+      url = "github:oddlama/agenix-rekey?rev=418bdfab127de30bc3c988e0a7a153061d5e74af";
+      # url = "/home/elen/Src/agenix-rekey";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixd.url = "github:nix-community/nixd";
