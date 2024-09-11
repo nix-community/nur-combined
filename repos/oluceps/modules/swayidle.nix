@@ -141,7 +141,10 @@ in
         Type = "simple";
         Restart = "always";
         # swayidle executes commands using "sh -c", so the PATH needs to contain a shell.
-        Environment = [ "PATH=${makeBinPath [ pkgs.bash ]}" ];
+        Environment = [
+          "PATH=${makeBinPath [ pkgs.bash ]}"
+          "WAYLAND_DISPLAY=wayland-1"
+        ];
         ExecStart = "${cfg.package}/bin/swayidle -w ${concatStringsSep " " args}";
       };
 

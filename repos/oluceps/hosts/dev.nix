@@ -79,6 +79,7 @@
             qemu-utils
             rustup
             linuxPackages_latest.perf
+            strace
             gitoxide
             gitui
             nushell
