@@ -29,7 +29,6 @@
         factorio-headless-experimental
         ;
 
-      inherit (inputs'.nixpkgs-wayland.packages) sway-unwrapped;
       inherit (inputs'.browser-previews.packages) google-chrome-beta;
 
       composefs = prev.composefs.overrideAttrs (old: {

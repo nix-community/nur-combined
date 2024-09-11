@@ -35,6 +35,7 @@ let
     "pulsemixer"
     "slurp"
     "swaybg"
+    "swaylock"
     "hyprpicker"
     "cliphist"
     "firefox"
@@ -111,7 +112,6 @@ in
 
   window-rule {
       match title="Firefox"
-      match app-id="org.telegram.desktop"
       match app-id="google-chrome-beta"
       match app-id="google-chrome"
       open-maximized true
@@ -198,8 +198,9 @@ in
   // Note that running niri as a session supports xdg-desktop-autostart,
   // which may be more convenient to use.
   spawn-at-startup "foot"
-  spawn-at-startup "firefox"
   spawn-at-startup "fcitx5" "-dr"
+  spawn-at-startup "google-chrome-beta"
+  spawn-at-startup "materialgram"
   spawn-at-startup "${wl-paste}" "--type" "text" "--watch" "${deps.cliphist}" "store"
   spawn-at-startup "${wl-paste}" "--type" "image" "--watch" "${deps.cliphist}" "store"
   cursor {
@@ -243,18 +244,18 @@ in
       // Suggested binds for running programs: terminal, app launcher, screen locker.
       Mod+Return { spawn "${systemd-run-app}" "foot"; }
       Mod+D { spawn "fuzzel" "-I" "-l" "7" "-x" "8" "-y" "7" "-P" "9" "-b" "ede3e7d9" "-r" "3" "-t" "8b614db3" "-C" "ede3e7d9" "-f" "Maple Mono SC NF:style=Regular:size=15" "-P" "10" "-B" "7"; }
-      Mod+Alt+L { spawn "swaylock"; }
+      Mod+Alt+L { spawn "${deps.swaylock}"; }
 
       Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
       Mod+WheelScrollUp   cooldown-ms=150 { focus-workspace-up; }
       Mod+WheelScrollRight                { focus-column-right; }
       Mod+WheelScrollLeft                 { focus-column-left; }
 
-      XF86AudioMute allow-when-locked=true { spawn "${pw-volume}" "mute" "toggle"; }
+      XF86AudioMute allow-when-locked=true { spawn "sh" "-c" "${pw-volume} mute toggle; pkill -RTMIN+8 waybar"; }
 
       // Example volume keys mappings for PipeWire & WirePlumber.
-      XF86AudioRaiseVolume { spawn "${pw-volume}" "change" "+0.5%"; }
-      XF86AudioLowerVolume { spawn "${pw-volume}" "change" "-0.5%"; }
+      XF86AudioRaiseVolume { spawn "sh" "-c" "${pw-volume} change +0.5%; pkill -RTMIN+8 waybar"; }
+      XF86AudioLowerVolume { spawn "sh" "-c" "${pw-volume} change -0.5%; pkill -RTMIN+8 waybar"; }
 
       XF86MonBrightnessUp { spawn "brightnessctl" "set" "3%+"; }
       XF86MonBrightnessdown { spawn "brightnessctl" "set" "3%-"; }
