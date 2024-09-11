@@ -16,7 +16,7 @@
     },
     "emacs-plus": {
         "cargoLocks": null,
-        "date": "2024-09-07",
+        "date": "2024-09-09",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -28,11 +28,11 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "ebf0972232615b8a514a4dbbdb6f2ce7f7632be0",
-            "sha256": "sha256-CfDdXsnKQK//a8BP8FJofgUHlZt+cGYY2gnA+jIbR98=",
+            "rev": "c6e5ad1b96570fbe3487d0ed94b5275b02b0b768",
+            "sha256": "sha256-V9SmXduQ9rZ5OeyYVTNX98BAgoFa1EsVFBJ95fbaq9Y=",
             "type": "github"
         },
-        "version": "ebf0972232615b8a514a4dbbdb6f2ce7f7632be0"
+        "version": "c6e5ad1b96570fbe3487d0ed94b5275b02b0b768"
     },
     "nixpkgs-review": {
         "cargoLocks": null,
@@ -106,7 +106,7 @@
     },
     "skkeleton": {
         "cargoLocks": null,
-        "date": "2024-09-03",
+        "date": "2024-09-10",
         "extract": null,
         "name": "skkeleton",
         "passthru": null,
@@ -118,11 +118,11 @@
             "name": null,
             "owner": "vim-skk",
             "repo": "skkeleton",
-            "rev": "882ec0c10856aadd0c2bf843b9b04cf16272a19b",
-            "sha256": "sha256-b3tDU4iz0tV3mebSPlmvXDSrvw8hdR5w0EPyDXjaiqA=",
+            "rev": "843b02bb4893938bb5fe31f81b28922c314bd7a6",
+            "sha256": "sha256-n0odWstft+Wmn7t4IsmSC5d2CIR2CpTyPo1JZ1bf964=",
             "type": "github"
         },
-        "version": "882ec0c10856aadd0c2bf843b9b04cf16272a19b"
+        "version": "843b02bb4893938bb5fe31f81b28922c314bd7a6"
     },
     "vivaldi-darwin": {
         "cargoLocks": null,
