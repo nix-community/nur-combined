@@ -7,18 +7,18 @@
 
 stdenv.mkDerivation {
   pname = "pnut";
-  version = "0-unstable-2024-09-05";
+  version = "0-unstable-2024-09-10";
 
   src = fetchFromGitHub {
     owner = "udem-dlteam";
     repo = "pnut";
-    rev = "c73549e29cb9b54fffe186d62cec6ef31ddef26e";
-    hash = "sha256-goGsmdhhIv5hbZYsrO8aTNHk9gPWobHl0kyuZnNb7SE=";
+    rev = "2add239b2fef328b91e3729d11018c659243daf4";
+    hash = "sha256-iPoFv1PfpbtBk3yaWuk/rqXSsRjq4qbiIsbywJhwf14=";
   };
 
   makeFlags = [
     "pnut-sh"
-    "pnut.sh"
+    "pnut-sh.sh"
   ];
 
   installPhase = ''
@@ -27,7 +27,7 @@ stdenv.mkDerivation {
     mkdir -p $out/bin
     ls build
     cp build/pnut-sh $out/bin/pnut
-    cp build/pnut.sh $out/bin/pnut.sh
+    cp build/pnut-sh.sh $out/bin/pnut.sh
 
     runHook postInstall
   '';
