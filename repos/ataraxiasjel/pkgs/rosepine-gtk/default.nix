@@ -10,13 +10,13 @@ builtins.mapAttrs
   (pname: attrs: stdenv.mkDerivation (attrs // {
     inherit pname;
 
-    version = "0-unstable-2023-02-20";
+    version = "0-unstable-2024-09-10";
 
     src = fetchFromGitHub {
       owner = "Fausto-Korpsvart";
       repo = "Rose-Pine-GTK-Theme";
-      rev = "95aa1f2b2cc30495b1fc5b614dc555b3eef0e27d";
-      hash = "sha256-I9UnEhXdJ+HSMFE6R+PRNN3PT6ZAAzqdtdQNQWt7o4Y=";
+      rev = "bc651787b5781f596865ea0b9c9c465b3ad29c85";
+      hash = "sha256-y/P/Mux5T2CBkp5XFFbm16URrQZpCNuXNIt80Agp61c=";
     };
 
     dontBuild = true;

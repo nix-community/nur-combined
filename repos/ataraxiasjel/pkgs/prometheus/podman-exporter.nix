@@ -11,13 +11,13 @@
 
 buildGoModule rec {
   pname = "prometheus-podman-exporter";
-  version = "1.13.0";
+  version = "1.13.1";
 
   src = fetchFromGitHub {
     owner = "containers";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-t0z7Hba3nDu6McoPbDhmYIKyvj0/lhxnKFC3hOsG/cI=";
+    hash = "sha256-iTniapVtVUYDOHg+Vqqlug9stoe8h2+qSO2IUKiQJFk=";
   };
 
   vendorHash = null;

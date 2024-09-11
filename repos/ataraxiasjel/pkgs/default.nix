@@ -8,7 +8,7 @@ rec {
   a2ln = pkgs.python3Packages.callPackage ./a2ln { };
   arkenfox-userjs = pkgs.callPackage ./arkenfox-userjs { };
   authentik = pkgs.callPackage ./authentik/package.nix { };
-  authentik-outposts = pkgs.recurseIntoAttrs (pkgs.callPackages ./authentik/outposts.nix { inherit authentik; });
+  authentik-outposts = pkgs.recurseIntoAttrs (pkgs.callPackages ./authentik/outposts.nix { });
   bibata-cursors-tokyonight = pkgs.callPackage ./bibata-cursors-tokyonight { };
   ceserver = pkgs.callPackage ./ceserver { };
   gruvbox-plus-icons = pkgs.callPackage ./gruvbox-plus-icons { };

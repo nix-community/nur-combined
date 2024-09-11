@@ -1,7 +1,7 @@
 { stdenv, lib, fetchurl, autoPatchelfHook }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "ocis-bin";
-  version = "6.2.0";
+  version = "6.3.0";
 
   src = let
     inherit (stdenv.hostPlatform) system;
@@ -15,11 +15,11 @@ stdenv.mkDerivation (finalAttrs: {
       aarch64-darwin = "darwin-arm64";
     };
     sha256 = selectSystem {
-      x86_64-linux = "sha256-PwMyNOzFpz/3zstnFpnzTklM9F9AUGjLhI8a7iAUEYo=";
-      aarch64-linux = "sha256-74a6pVv+WTV9YYEzF9L2BHFGgHUnFjRLCZLalSbrXmk=";
-      i686-linux = "sha256-BpiFVvjHIKxxNn/69geiUJ2wzW4S5yz0E90i1fyFjFk=";
-      x86_64-darwin = "sha256-IJty9a2TsLd+7WysAi7i45drMPiAybM7Gzk3LJTC4AQ=";
-      aarch64-darwin = "sha256-SFA7mTIE+bWz8Ryk2Jv5XfdE5AOhfjWlCJK8XYQ7CgU=";
+      x86_64-linux = "sha256-FHn6KzmgOnx8yqrlCU72T5UL3rBJ26VnJYbNO02hJng=";
+      aarch64-linux = "sha256-xma4/t78xVhLaJc7f3zOfRsPr0ZeQXB6tKzZks8lXxQ=";
+      i686-linux = "sha256-nTkgv98Rsj7+0RsiyWAdX8G+d2QoPp36FmAumpHqNSY=";
+      x86_64-darwin = "sha256-I+cDINpX41lRNIXHzuhbqGtpQ49BnxGwMbZ25DLdOuY=";
+      aarch64-darwin = "sha256-m7l4Ksil9XSTIVgI5sVgM/su5dS4QyA1Pm1SDtkkkho=";
     };
   in fetchurl {
     url =
@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = ./update.sh;
+  # passthru.updateScript = ./update.sh;
 
   meta = with lib; {
     description = "ownCloud Infinite Scale Stack";

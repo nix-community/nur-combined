@@ -28,14 +28,15 @@
 , SDL2
 , waylandSupport ? true
 , wayland
+, wrapGAppsHook3
 }:
 
 let
   # Keep these separate so the update script can regex them
-  rpcs3GitVersion = "16830-456ff10f0";
-  rpcs3Version = "0.0.32-16830-456ff10f0";
-  rpcs3Revision = "456ff10f02fc92c48b586303439124aeb6c7ed54";
-  rpcs3Hash = "sha256-xLNNDNUs+lzwAAid1KE7f8q438H/1unlw1tJf+X4KfI=";
+  rpcs3GitVersion = "16892-7e3b8b5cd";
+  rpcs3Version = "0.0.33-16892-7e3b8b5cd";
+  rpcs3Revision = "7e3b8b5cdb0c0579382a93d223bfb6e776999a35";
+  rpcs3Hash = "sha256-3wqJNn4/wP5f3+hUCvYjxrcuMZ6MegpuNot5Mq+DQdI=";
 
   inherit (qt6Packages) qtbase qtmultimedia wrapQtAppsHook qtwayland;
 in
@@ -51,7 +52,7 @@ stdenv.mkDerivation {
     hash = rpcs3Hash;
   };
 
-  passthru.updateScript = ./update.sh;
+  # passthru.updateScript = ./update.sh;
 
   preConfigure = ''
     cat > ./rpcs3/git-version.h <<EOF
@@ -81,7 +82,9 @@ stdenv.mkDerivation {
     (lib.cmakeBool "USE_FAUDIO" faudioSupport)
   ];
 
-  nativeBuildInputs = [ cmake pkg-config git wrapQtAppsHook ];
+  dontWrapGApps = true;
+
+  nativeBuildInputs = [ cmake pkg-config git wrapQtAppsHook wrapGAppsHook3 ];
 
   buildInputs = [
     qtbase qtmultimedia openal glew vulkan-headers vulkan-loader libpng ffmpeg
@@ -89,6 +92,10 @@ stdenv.mkDerivation {
   ] ++ cubeb.passthru.backendLibs
     ++ lib.optional faudioSupport faudio
     ++ lib.optionals waylandSupport [ wayland qtwayland ];
+
+  preFixup = ''
+    qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
+  '';
 
   postInstall = ''
     # Taken from https://wiki.rpcs3.net/index.php?title=Help:Controller_Configuration

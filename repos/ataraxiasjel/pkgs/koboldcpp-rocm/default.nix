@@ -9,13 +9,13 @@
 }:
 let
   pname = "koboldcpp-rocm";
-  version = "1.72.yr0-ROCm";
+  version = "1.74.yr0-ROCm";
 
   src = fetchFromGitHub {
     owner = "YellowRoseCx";
     repo = "koboldcpp-rocm";
-    rev = "f123ad3f234ffbe77c75495add2e84936b07bbe7";
-    hash = "sha256-uWBkfmYVTwTFdRahB1doyzkxsf+n7JCxD+MqxJ1ITBw=";
+    rev = "v${version}";
+    hash = "sha256-H+7nQoYy5uoCkHixwbrgQ9Sy9j0qbubwRcQRtWU7fTc=";
   };
 
   koboldcpp-libs = stdenv.mkDerivation {
@@ -82,7 +82,8 @@ stdenv.mkDerivation {
       --replace-warn "klite.embd" "$out/lib/klite.embd" \
       --replace-warn "kcpp_docs.embd" "$out/lib/kcpp_docs.embd" \
       --replace-quiet "rwkv_vocab.embd" "$out/lib/rwkv_vocab.embd" \
-      --replace-quiet "rwkv_world_vocab.embd" "$out/lib/rwkv_world_vocab.embd"
+      --replace-quiet "rwkv_world_vocab.embd" "$out/lib/rwkv_world_vocab.embd" \
+      --replace-fail \'rocminfo\' \'${rocmPackages.rocminfo}/bin/rocminfo\'
 
     runHook postInstall
   '';
