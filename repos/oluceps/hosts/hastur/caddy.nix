@@ -79,17 +79,8 @@
                 {
                   handle = [
                     {
-                      handler = "subroute";
-                      routes = [
-                        {
-                          handle = [
-                            {
-                              handler = "reverse_proxy";
-                              upstreams = [ { dial = "localhost:9000"; } ];
-                            }
-                          ];
-                        }
-                      ];
+                      handler = "reverse_proxy";
+                      upstreams = [ { dial = "localhost:9000"; } ];
                     }
                   ];
                   match = [ { host = [ "s3.nyaw.xyz" ]; } ];

@@ -1,10 +1,19 @@
-{ pkgs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 {
   enable = true;
-  httpd.listenPort = 8084;
+  httpd = {
+    enable = true;
+    listenPort = 8084;
+    listenAddress = "10.0.1.2";
+  };
   node.openFirewall = true;
-  privateKeyFile = "/var/lib/radicle/keys/radicle";
-  publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGXFsP8k2YCfN8WxpUbgwlEtf4At6Po76AiO+aZU1h3x radicle";
+  privateKeyFile = config.age.secrets.id.path;
+  publicKey = lib.data.keys.sshPubKey;
   settings = {
     cli = {
       hints = true;
@@ -50,10 +59,10 @@
       "z6Mkmqogy2qEM2ummccUthFEaaHvyYmYBYh3dbe9W4ebScxo@ash.radicle.garden:8776"
     ];
     publicExplorer = "https://app.radicle.xyz/nodes/$host/$rid$path";
-    web = {
-      pinned = {
-        repositories = [ "z2BAxuSMWoD3JujdWKCS3FoYEXE6V" ];
-      };
-    };
+    # web = {
+    # pinned = {
+    # repositories = [ "z2BAxuSMWoD3JujdWKCS3FoYEXE6V" ];
+    # };
+    # };
   };
 }

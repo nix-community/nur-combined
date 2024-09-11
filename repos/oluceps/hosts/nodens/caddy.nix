@@ -281,6 +281,15 @@
                   ];
                   match = [ { host = [ "ntfy.nyaw.xyz" ]; } ];
                 }
+                {
+                  handle = [
+                    {
+                      handler = "reverse_proxy";
+                      upstreams = [ { dial = "10.0.1.2:8084"; } ];
+                    }
+                  ];
+                  match = [ { host = [ "seed.nyaw.xyz" ]; } ];
+                }
               ];
             };
           };
