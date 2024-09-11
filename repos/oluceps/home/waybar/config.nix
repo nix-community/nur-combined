@@ -88,7 +88,6 @@ builtins.toJSON (
         };
       };
       layer = "top";
-      margin-top = 5;
       memory = {
         format = "{}";
         interval = 1;
@@ -113,7 +112,7 @@ builtins.toJSON (
       };
       position = "right";
       reload_style_on_change = true;
-      spacing = 8;
+      spacing = 0;
       "sway/mode" = {
         format = " {}";
       };

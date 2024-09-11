@@ -34,40 +34,40 @@ window#waybar {
     padding: 0px 4px 0px 4px;
 }
 #temperature {
-    margin: 0px 0px 0px 0px;
+    margin: 5px 0px 0px 0px;
     border-radius: 0px;
     color: rgba(250, 150, 110, 0.9);
     padding: 0px 4px 0px 4px;
 }
 
 #cpu {
-    margin: 0px 0px 0px 0px;
+    margin: 5px 0px 0px 0px;
     border-radius: 0px;
     color: rgba(250, 150, 110, 0.9);
     padding: 0px 4px 0px 4px;
 }
 #memory {
-    margin: 0px 0px 0px 0px;
+    margin: 5px 0px 0px 0px;
     border-radius: 0px;
     color: rgba(239, 187, 36, 0.96);
     padding: 0px 4px 0px 4px;
 }
 #battery {
-    margin: 0px 0px 0px 0px;
+    margin: 5px 0px 0px 0px;
     border-radius: 0px;
     color: rgba(165, 222, 228, 0.8);
     padding: 0px 4px 0px 4px;
 }
 
 #pulseaudio {
-    margin: 0px 0px 0px 0px;
+    margin: 5px 0px 0px 0px;
     border-radius: 0px;
     color: rgba(215, 196, 187, 1);
     padding: 0px 4px 0px 4px;
 }
 
 #custom-nirictl {
-    margin: 0px 0px 0px 0px;
+    margin: 0px 0px 5px 0px;
     border-radius: 0px;
     color: rgba(254, 223, 225, 1);
 }
