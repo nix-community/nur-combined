@@ -877,10 +877,10 @@
     };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2024.8.1";
+      version = "2024.8.2";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4343724/bitwarden_password_manager-2024.8.1.xpi";
-      sha256 = "52b19c69997bc392ebea26e12f1420b2bf42850df2a28dcd64b303396009554d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4348137/bitwarden_password_manager-2024.8.2.xpi";
+      sha256 = "46908d7ffafc276b7f0425341849d439ee8c0f75d755f6eee79f83a097ea8e7b";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -2765,10 +2765,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.26";
+      version = "1.3.27.2";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4348174/faststream-1.3.26.xpi";
-      sha256 = "c29b068e926f5bd545915414c91975769a08e1bc931e1bb778a94bb745bd0c68";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4350815/faststream-1.3.27.2.xpi";
+      sha256 = "a5a51cc8dc48e8314eb06a0395ad1006388593f13462896e15e2b0cbd9971ca9";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -5046,10 +5046,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.9.1";
+      version = "1.9.3";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4346845/immersive_translate-1.9.1.xpi";
-      sha256 = "4c7199a25501c14adbca7c2d75a924985f2538fc7b17d33f6c86af24345cadb4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4347944/immersive_translate-1.9.3.xpi";
+      sha256 = "55eaeb516bc2c3c58a199d54be79f983898f9d64b60cf1183ee36d1eee9207b4";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -7376,10 +7376,10 @@
     };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.35";
+      version = "11.4.37";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4343311/noscript-11.4.35.xpi";
-      sha256 = "a448e4c2e0eb7ca5fb1b6d3189bc586b91a7ee6facecdd0424f1bfbf2b3016fb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4349514/noscript-11.4.37.xpi";
+      sha256 = "5e9921599c63e0b357851ea7ca1354554b3af2c676bbbfff5687cafce4396c18";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -11550,10 +11550,10 @@
     };
     "video-downloadhelper" = buildFirefoxXpiAddon {
       pname = "video-downloadhelper";
-      version = "9.1.0.42";
+      version = "9.1.0.44";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4330505/video_downloadhelper-9.1.0.42.xpi";
-      sha256 = "700a2f04464be078733f28fd26b1fc7c1e2e21fb1606745a28ac9b471db1d570";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4347883/video_downloadhelper-9.1.0.44.xpi";
+      sha256 = "32270afc9eb92548f5d5c9a75f4a7d5c69c421cbcc993ae6c82da17bf314bfa4";
       meta = with lib;
       {
         homepage = "http://www.downloadhelper.net/";
