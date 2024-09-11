@@ -199,7 +199,7 @@ in
   // which may be more convenient to use.
   spawn-at-startup "foot"
   spawn-at-startup "fcitx5" "-dr"
-  spawn-at-startup "google-chrome-beta"
+  spawn-at-startup "google-chrome-beta" "--enable-features=UseOzonePlatform" "--ozone-platform=wayland" "--enable-wayland-ime" "--wayland-text-input-version=3" "--video-capture-use-gpu-memory-buffer" "--force-color-profile=display-p3-d65" "--use-gl=angle" "--use-angle=vulkan" "--enable-zero-copy" "--enable-features=CanvasOopRasterization,Vulkan,VulkanFromANGLE,DefaultANGLEVulkan,VaapiVideoEncoder,ScrollableTabStrip,OverlayScrollbar"
   spawn-at-startup "materialgram"
   spawn-at-startup "${wl-paste}" "--type" "text" "--watch" "${deps.cliphist}" "store"
   spawn-at-startup "${wl-paste}" "--type" "image" "--watch" "${deps.cliphist}" "store"
