@@ -15,6 +15,8 @@
   elf2uf2-rs = pkgs.callPackage ./pkgs/tooling/elf2uf2-rs { };
   probe-rs-tools = pkgs.callPackage ./pkgs/tooling/probe-rs-tools { };
   mayo = pkgs.libsForQt5.callPackage ./pkgs/mayo { };
+
+  ltsatool = pkgs.callPackage ./pkgs/school/ltsatool { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
