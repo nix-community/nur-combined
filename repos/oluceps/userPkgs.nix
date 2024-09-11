@@ -92,7 +92,6 @@ with pkgs;
 
   # reader
   calibre
-  obs-studio
   mdbook
   sioyek
   zathura
