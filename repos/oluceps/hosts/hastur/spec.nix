@@ -36,7 +36,6 @@
       alertmanager.serviceConfig.LoadCredential = [
         "notifychan:${config.age.secrets.notifychan.path}"
       ];
-      radicle.serviceConfig.EnvironmentFile = config.age.secrets.radicle-pass.path;
 
       atuin.serviceConfig.Environment = [ "RUST_LOG=debug" ];
 
