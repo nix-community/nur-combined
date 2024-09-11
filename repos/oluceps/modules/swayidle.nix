@@ -135,7 +135,11 @@ in
   config = mkIf cfg.enable {
 
     systemd.user.services.swayidle = {
+      bindsTo = [ "graphical-session.target" ];
       partOf = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      requisite = [ "graphical-session.target" ];
+      wantedBy = [ cfg.systemdTarget ];
 
       serviceConfig = {
         Type = "simple";
@@ -148,7 +152,6 @@ in
         ExecStart = "${cfg.package}/bin/swayidle -w ${concatStringsSep " " args}";
       };
 
-      wantedBy = [ cfg.systemdTarget ];
     };
   };
 }

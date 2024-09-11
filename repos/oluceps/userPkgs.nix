@@ -5,6 +5,7 @@ with pkgs;
   paperback
   amberol
   mako
+  xwayland-satellite
   # qq
   chromium
   discord

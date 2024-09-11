@@ -72,10 +72,13 @@ builtins.toJSON (
         return-type = "json";
         signal = 8;
       };
-      "custom/nirictl" = {
+      "custom/lightctl" = {
         format = "";
         tooltip = false;
-      } // niriCtlArg;
+        on-scroll-up = "${lib.getExe pkgs.brightnessctl} set 1%+";
+        on-scroll-down = "${lib.getExe pkgs.brightnessctl} set 1%-";
+        on-click = "loginctl lock-session";
+      };
       "group/time" = {
         modules = [
           "clock#1"
@@ -98,7 +101,7 @@ builtins.toJSON (
         tooltip = false;
       } // niriCtlArg;
       modules-center = [
-        "custom/nirictl"
+        "custom/lightctl"
         "group/time"
         "temperature"
         "cpu"

@@ -171,6 +171,7 @@
   services = {
     swayidle = {
       enable = true;
+      systemdTarget = "niri.service";
       timeouts = [
         {
           timeout = 900;
