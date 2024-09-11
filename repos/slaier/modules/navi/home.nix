@@ -1,6 +1,6 @@
 { pkgs, ... }:
 {
-  home.packages = [ pkgs.tealdeer ];
+  home.packages = with pkgs; [ tealdeer yq-go ];
   programs.navi = {
     enable = true;
     package = pkgs.navi.override (old: {
@@ -38,7 +38,7 @@
   };
   programs.fish.functions.naviq = {
     body = ''
-      set -l match (navi --print -q "^$argv[1]," $argv[2..])
+      set -l match (navi --print --tag-rules $argv[1],!osx,!bsd $argv[2..])
       if test -z "$match"
         return
       end
