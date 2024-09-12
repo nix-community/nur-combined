@@ -9,34 +9,34 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "081a1551dqax4pz87dv7hs4riavcb3v97zpklwkwix092zy8ddhy";
-    x86_64-linux = "1xl3gpnm6nbghvli8s3r0j9gnw5ckrd88lbihnab69hf8hx2x3k0";
-    armv7l-linux = "1izpr01hi9pjrcvj762gxnbr4bd6zp52lfcx2bz6nz62avic6ncf";
-    aarch64-linux = "0cv34d3rda8v8vxsnk3ar2hq30p3hnp9al1hl7gbbvs2bhzkijcc";
-    x86_64-darwin = "0kmdkynbmlj4qg88wzj90y4341xyp3n98rrpwbr98g4wz8gmfvkd";
-    aarch64-darwin = "1i4f99vhdmz800k6hm4qi2lfj5x1qpjb0mpfvy9is0v7bnsfdal9";
+    i686-linux = "1bnjvpv2hdpizk2mvyylxrzm5gihd1klkcdn8fkabynkwrmm489i";
+    x86_64-linux = "04135idbcmjv8c3b5g8zgmp500k5hm68bcafnmg3lw5mp3bfad5h";
+    armv7l-linux = "1qicnnd1ix1ljna5hpkmhji8j4kv2s5dhv0l9860jbpmbgpph5x4";
+    aarch64-linux = "12qf7kbrwd9g6zf96lrgi4rj81kb35r6c466qjj9ffgi70xlmh9k";
+    x86_64-darwin = "1nbi92dspapzs3snz2j2g7khggi8adakfhfv2b9c0aq39mg3q146";
+    aarch64-darwin = "0qbncw1cvmsp22sh7wlawxviqylzidvwz7rhxf4jhjd2jjg884p4";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/charmbracelet/mods/releases/download/v1.5.0/mods_1.5.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/charmbracelet/mods/releases/download/v1.5.0/mods_1.5.0_Linux_x86_64.tar.gz";
-    armv7l-linux = "https://github.com/charmbracelet/mods/releases/download/v1.5.0/mods_1.5.0_Linux_arm.tar.gz";
-    aarch64-linux = "https://github.com/charmbracelet/mods/releases/download/v1.5.0/mods_1.5.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/charmbracelet/mods/releases/download/v1.5.0/mods_1.5.0_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/charmbracelet/mods/releases/download/v1.5.0/mods_1.5.0_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/charmbracelet/mods/releases/download/v1.6.0/mods_1.6.0_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/charmbracelet/mods/releases/download/v1.6.0/mods_1.6.0_Linux_x86_64.tar.gz";
+    armv7l-linux = "https://github.com/charmbracelet/mods/releases/download/v1.6.0/mods_1.6.0_Linux_arm.tar.gz";
+    aarch64-linux = "https://github.com/charmbracelet/mods/releases/download/v1.6.0/mods_1.6.0_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/charmbracelet/mods/releases/download/v1.6.0/mods_1.6.0_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/charmbracelet/mods/releases/download/v1.6.0/mods_1.6.0_Darwin_arm64.tar.gz";
   };
   sourceRootMap = {
-    i686-linux = "mods_1.5.0_Linux_i386";
-    x86_64-linux = "mods_1.5.0_Linux_x86_64";
-    armv7l-linux = "mods_1.5.0_Linux_arm";
-    aarch64-linux = "mods_1.5.0_Linux_arm64";
-    x86_64-darwin = "mods_1.5.0_Darwin_x86_64";
-    aarch64-darwin = "mods_1.5.0_Darwin_arm64";
+    i686-linux = "mods_1.6.0_Linux_i386";
+    x86_64-linux = "mods_1.6.0_Linux_x86_64";
+    armv7l-linux = "mods_1.6.0_Linux_arm";
+    aarch64-linux = "mods_1.6.0_Linux_arm64";
+    x86_64-darwin = "mods_1.6.0_Darwin_x86_64";
+    aarch64-darwin = "mods_1.6.0_Darwin_arm64";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "mods";
-  version = "1.5.0";
+  version = "1.6.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
