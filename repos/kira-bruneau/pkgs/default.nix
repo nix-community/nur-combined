@@ -97,12 +97,6 @@ in
 // {
   inherit callPackage;
 
-  anytype = callPackage ./development/tools/misc/anytype { };
-
-  anytype-heart = callPackage ./development/libraries/anytype-heart { };
-
-  anytype-nmh = callPackage ./development/libraries/anytype-nmh { };
-
   clonehero = callPackage ./games/clonehero { };
 
   cmake-language-server = python3Packages.callPackage ./development/tools/misc/cmake-language-server {
@@ -116,8 +110,6 @@ in
   gamemode = callPackage ./tools/games/gamemode rec {
     libgamemode32 = (pkgsi686Linux.callPackage ./tools/games/gamemode { inherit libgamemode32; }).lib;
   };
-
-  ggt = callPackage ./development/tools/ggt { };
 
   git-review = python3Packages.callPackage ./applications/version-management/git-review { };
 
@@ -142,19 +134,13 @@ in
     inherit (prev.python3Packages) mako;
   };
 
-  mozlz4 = callPackage ./tools/compression/mozlz4 { };
-
   mozlz4a = callPackage ./tools/compression/mozlz4a { };
 
   newsflash = callPackage ./applications/networking/feedreaders/newsflash {
     webkitgtk = webkitgtk_6_0;
   };
 
-  pdfrip = callPackage ./tools/security/pdfrip { };
-
   poke = callPackage ./applications/editors/poke { };
-
-  pokemmo-installer = callPackage ./games/pokemmo-installer { };
 
   protontricks = python3Packages.callPackage ./tools/package-management/protontricks {
     steam-run = steamPackages.steam-fhsenv-without-steam.run;
@@ -171,7 +157,9 @@ in
 
   undistract-me = callPackage ./shells/bash/undistract-me { };
 
-  virtualparadise = callPackage ./games/virtualparadise { inherit (qt5) wrapQtAppsHook; };
+  virtualparadise = callPackage ./by-name/vi/virtualparadise/package.nix {
+    inherit (qt5) wrapQtAppsHook;
+  };
 
   vkbasalt = callPackage ./tools/graphics/vkbasalt rec {
     vkbasalt32 = pkgsi686Linux.callPackage ./tools/graphics/vkbasalt { inherit vkbasalt32; };

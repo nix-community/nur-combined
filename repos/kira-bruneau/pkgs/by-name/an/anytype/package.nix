@@ -20,7 +20,7 @@ let
     owner = "anyproto";
     repo = "l10n-anytype-ts";
     rev = "b2be402bb1939aec57b5f4f18c2abc0596df7e87";
-    hash = "sha256-rjkXkB1auOMesjjX0gUSUJU+dqkZdI9zRYODJTARhtQ=";
+    hash = "sha256-w03E78jwYShJVyUvVnMaSOveunyGwWRbyYCYo/46PfI=";
   };
 in
 buildNpmPackage rec {
