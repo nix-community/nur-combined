@@ -1,15 +1,20 @@
 name: "Build and populate cache"
 on:
   pull_request:
-  push:
-    branches:
-      - master
     paths:
       - '.github/**'
+      - 'flake.*'
+      - 'ci.nix'
+      - 'pkgs/**'
+  push:
+    paths:
+      - '.github/**'
+      - 'flake.*'
       - 'ci.nix'
       - 'pkgs/**'
   schedule:
     - cron:  '43 7 * * *'
+  workflow_dispatch:
 jobs:
   tests:
     strategy:
@@ -20,7 +25,6 @@ jobs:
           - ataraxiadev-foss
         nixPath:
           - nixpkgs=channel:nixos-unstable
-          - nixpkgs=channel:nixpkgs-unstable
           - nixpkgs=channel:nixos-24.05
     runs-on: ubuntu-latest
     permissions:
@@ -45,39 +49,30 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-    - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: Setup cachix
+    - name: Setup magic nix cache
+      uses: DeterminateSystems/magic-nix-cache-action@main
+    - name: Setup Cachix
       uses: cachix/cachix-action@v15
-      if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
       with:
-        name: ${{ matrix.cachixName }}
+        name: '${{ matrix.cachixName }}'
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - name: Update packages
-      if: (github.event_name == 'schedule') && (matrix.nixPath == 'nixpkgs=channel:nixos-unstable')
-      run: |
-        export GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
-        export TMPDIR=$(pwd)/tmp
-        mkdir -p $TMPDIR
-        nix eval --json --impure --expr '(import ./ci.nix {}).updatablePkgsNames' | jq -rc '.[]' | while read i; do ./update.py -P $i || true; done
+    - name: Show nixpkgs version
+      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Install essential packages
+      run: nix profile install nixpkgs#nix-eval-jobs nixpkgs#nix-fast-build nixpkgs#jq
     - name: Check evaluation
+      env:
+        NIXPKGS_ALLOW_UNFREE: 1
+        NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
       run: |
-        nix-env -f ./pkgs/default.nix -qa \* --meta --xml \
-          --allowed-uris https://static.rust-lang.org \
-          --option restrict-eval true \
-          --option allow-import-from-derivation true \
-          --drv-path --show-trace \
-          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-          -I $PWD
+        nix-eval-jobs --impure -I nixpkgs=$(nix-instantiate --find-file nixpkgs) --option restrict-eval true pkgs/default.nix > eval.json
+        if [[ $(jq '.|select(has("error"))|length>0' eval.json) == "true" ]]; then jq -r '.|select(has("error"))|.error' eval.json; exit 1; else echo "Eval successful!"; fi
     - name: Build nix packages
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
-    - name: Push changes
-      uses: stefanzweifel/git-auto-commit-action@v5
-      if: (github.event_name == 'schedule') && (matrix.nixPath == 'nixpkgs=channel:nixos-unstable')
-      with:
-        commit_message: Automated package updates
-        file_pattern: 'pkgs/**'
+      env:
+        NIXPKGS_ALLOW_UNFREE: 1
+        NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
+      run: nix-fast-build --option accept-flake-config true --skip-cached --no-nom --flake ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem)"
     - name: Trigger NUR update
-      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
+      if: (${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}) && (github.event_name != 'pull_request')
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"

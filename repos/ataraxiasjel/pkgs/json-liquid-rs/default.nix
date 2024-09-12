@@ -6,16 +6,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "json-liquid-rs";
-  version = "1.0.1";
+  version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "AtaraxiaSjel";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-E5lUdQUZvXyVdBVK/CYiV6DIbgdiOeR+NatZzlQWtrE=";
+    hash = "sha256-ehLytkiQnCk9JXnVzzsSWut8fTKGDOhy2SvOlvgJ3Dg=";
   };
 
-  cargoHash = "sha256-YDxdFotYYZsdvklaUsVzRp4erzLLvPNVyoaxeMPY8Io=";
+  cargoHash = "sha256-WfHrw4QEMmLU9vjyOgtrUu0PfbuXpvX4kCViKwrTg4o=";
 
   passthru.updateScript = nix-update-script { };
 

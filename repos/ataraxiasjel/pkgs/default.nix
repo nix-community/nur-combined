@@ -35,7 +35,6 @@ rec {
 
   inherit (pkgs.callPackage ./rosepine-gtk {}) rosepine-gtk-theme rosepine-gtk-icons;
   inherit (pkgs.callPackage ./tokyonight-gtk {}) tokyonight-gtk-theme tokyonight-gtk-icons;
-  roundcubePlugins = pkgs.recurseIntoAttrs (pkgs.callPackages ./roundcube-plugins { });
   python-pkgs = pkgs.recurseIntoAttrs (
     pkgs.python3Packages.callPackage ./python3Packages { }
   );
