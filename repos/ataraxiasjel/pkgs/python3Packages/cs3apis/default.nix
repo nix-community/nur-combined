@@ -29,6 +29,7 @@ buildPythonPackage rec {
 
   # TODO: fix version detection for v2
   # passthru.updateScript = nix-update-script { };
+  passthru.skipBulkUpdate = true;
 
   meta = with lib; {
     homepage = "https://github.com/cs3org/python-cs3apis/";

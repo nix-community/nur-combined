@@ -35,7 +35,7 @@ let
   isNotBroken = p: !(p.meta.broken or false);
   isBuildable = p: isNotBroken p && p.meta.license.free or true;
   isCacheable = p: !(p.meta.preferLocalBuild or false);
-  isUpdatable = p: isDerivation p && p ? updateScript;
+  isUpdatable = p: isDerivation p && (p.passthru ? updateScript && p.passthru.updateScript != null) && !(p.passthru.skipBulkUpdate or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
   flattenPkgs =

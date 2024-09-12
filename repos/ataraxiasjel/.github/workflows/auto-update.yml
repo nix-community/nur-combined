@@ -54,3 +54,5 @@ jobs:
         title: "[chore]: Bump packages to latest version"
         delete-branch: true
         reviewers: ataraxiasjel
+        add-paths: |
+          pkgs/**
