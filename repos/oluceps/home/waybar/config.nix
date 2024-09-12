@@ -101,13 +101,13 @@ builtins.toJSON (
         tooltip = false;
       } // niriCtlArg;
       modules-center = [
-        "custom/lightctl"
         "group/time"
         "temperature"
         "cpu"
         "memory"
         "battery"
         "pulseaudio"
+        "custom/lightctl"
       ];
       modules-left = [ ];
       modules-right = [ ];
