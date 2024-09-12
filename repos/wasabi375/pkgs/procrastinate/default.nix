@@ -8,10 +8,10 @@ rustPlatform.buildRustPackage rec {
         owner = "Wasabi375";
         repo = pname;
         rev = version;
-        hash = "sha256-cSNrdeztfxxTGRK17Lcnq9MQK7R2a8HysNmJ0PMJBz0=";
+        hash = "sha256-CNAkVGKUywtSqVN2wBDbSZVSbGE+IWKCqq8NqwU3nKo=";
     };
     
-    cargoHash = "sha256-lC7VI1Z8DnoMm7smkkVCbx9IRcn/UIkTb9Xsiw2ALvI=";
+    cargoHash = "sha256-JX20LDb7SWCeXRR2DnufMJV0CCdXFvESviJfhzKKugA=";
 
     meta = with lib; {
         description = "A suite of programs to send time delayed notifications";
