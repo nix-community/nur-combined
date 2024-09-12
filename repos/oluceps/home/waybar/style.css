@@ -14,7 +14,7 @@ window#waybar {
 
 .modules-center {
     background-color: rgba(67, 67, 67, 0.9);
-    border: 0px solid rgba(35, 35, 35, 0.85);
+    border: 0px solid transparent;
     padding: 10px 0px 10px 0px;
     margin: 0px 0px 0px 0px;
 }
