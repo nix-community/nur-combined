@@ -27,6 +27,7 @@
       sudo
       vim
       wget
+      tmux
 
       # it's good to have a variety of terminals (x11, Qt, GTK) to handle more failures
       xterm

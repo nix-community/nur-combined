@@ -9,5 +9,5 @@
 
   system.stateVersion = "22.05";
   nixpkgs.config.allowUnfree = true;
-  services.openssh.settings.PermitRootLogin = true;
+  #services.openssh.settings.PermitRootLogin = true;
 }

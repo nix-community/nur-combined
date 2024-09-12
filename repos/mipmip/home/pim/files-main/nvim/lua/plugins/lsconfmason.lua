@@ -45,7 +45,7 @@ return {
         },
         capabilities = capabilities,
       })
-      lspconfig.rnix.setup({
+      lspconfig.nil_ls.setup({
         capabilities = capabilities,
       })
       lspconfig.marksman.setup({

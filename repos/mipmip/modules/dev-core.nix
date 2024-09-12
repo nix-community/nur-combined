@@ -8,6 +8,7 @@
     gh # GitHub Cli
     mipmip_pkg.fred # needed for linny
     mipmip_pkg.skull
+    mipmip_pkg.shellstuff
     mipmip_pkg.dirtygit
     #mipmip_pkg.jsonify-aws-dotfiles
 
