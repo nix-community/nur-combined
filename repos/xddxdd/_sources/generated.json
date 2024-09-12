@@ -2251,9 +2251,9 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-brhZ0izh2TEEKQOOfyDprT+VnN12gSGr8VK8EvViTqc=",
+            "sha256": "sha256-gUqFdGwzG1IbobHqdPNGxdMYOJjaJG4WnJTy1HTuJyw=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_9.1.0+ds-3_amd64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-3_amd64.deb"
         },
         "version": "9.1.0+ds-3"
     },
@@ -2266,9 +2266,9 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-sCYo+4oc+F6t44NwnuWTh08RTSnPQ3MvGCyYsFFkrKo=",
+            "sha256": "sha256-kwpZfCwHD7TqAa30VqwFZ71vs9eP0E9aDgBQgQTuMHY=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_9.1.0+ds-3_arm64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-3_arm64.deb"
         },
         "version": "9.1.0+ds-3"
     },
@@ -2281,9 +2281,9 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-eLxWbxqtv+M2lc6zoQhHLf26pyXRBAvh4NR0rSBpRRs=",
+            "sha256": "sha256-VpbfrbHg2O4knKOhtNE1YLLndrBdOfBR4b1qqPt9NCo=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_9.1.0+ds-3_armhf.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-3_armhf.deb"
         },
         "version": "9.1.0+ds-3"
     },
@@ -2296,9 +2296,9 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-0+nKbuv+mP2lAvre3aAZCeQCnT6Q7paessQs9xESvyQ=",
+            "sha256": "sha256-1GMVw1jhxZ6sj59lfQbtwvO6XwiU1EdLLgQRfnXzmds=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user-static_9.1.0+ds-3_i386.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-3_i386.deb"
         },
         "version": "9.1.0+ds-3"
     },

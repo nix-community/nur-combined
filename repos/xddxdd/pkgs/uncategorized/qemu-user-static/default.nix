@@ -19,6 +19,10 @@ let
       installPhase = ''
         mkdir -p $out
         cp -r usr/bin $out/bin
+
+        for F in $out/bin/*; do
+          ln -sf ''${F} ''${F}-static
+        done
       '';
 
       dontFixup = true;
