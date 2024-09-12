@@ -9,6 +9,7 @@
   copyDesktopItems,
   makeWrapper,
   writeShellScriptBin,
+  callPackage,
   # Options
   enableSandbox ? true, # There are previous reports of WeChat scanning user files without authorization
   # WeChat dependencies
@@ -24,7 +25,6 @@
   mesa,
   nspr,
   nss,
-  openssl_1_1,
   pango,
   pciutils,
   qt6,
@@ -43,6 +43,8 @@ let
     hardeningDisable = (old.hardeningDisable or [ ]) ++ [ "zerocallusedregs" ];
   });
 
+  libuosdevicea-stub = callPackage ./libuosdevicea-stub.nix { };
+
   libraries = [
     # Make sure our glibc without hardening gets picked up first
     (lib.hiPrio glibcWithoutHardening)
@@ -59,7 +61,6 @@ let
     mesa
     nspr
     nss
-    openssl_1_1
     pango
     pciutils
     qt6.qt5compat
@@ -106,7 +107,9 @@ let
       mkdir -p $out
       tar xf data.tar.xz -C $out
 
-      install -Dm755 $out/opt/apps/com.tencent.wechat/files/libuosdevicea.so $out/lib/license/libuosdevicea.so
+      rm -f $out/opt/apps/com.tencent.wechat/files/libuosdevicea.so
+      install -Dm755 ${libuosdevicea-stub}/lib/libuosdevicea.so $out/opt/apps/com.tencent.wechat/files/libuosdevicea.so
+      install -Dm755 ${libuosdevicea-stub}/lib/libuosdevicea.so $out/lib/license/libuosdevicea.so
     '';
   };
 
@@ -132,6 +135,7 @@ let
       export IBUS_USE_PORTAL=1
     fi
 
+    export LD_PRELOAD=${glibcWithoutHardening}/lib/libc.so.6:$LD_PRELOAD
     exec ${resource}/opt/apps/com.tencent.wechat/files/wechat
   '';
 
