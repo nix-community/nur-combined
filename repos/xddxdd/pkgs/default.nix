@@ -193,6 +193,7 @@ mkScope (
     phpmyadmin = pkg ./uncategorized/phpmyadmin { };
     phppgadmin = pkg ./uncategorized/phppgadmin { };
     plasma-panel-transparency-toggle = pkg ./uncategorized/plasma-panel-transparency-toggle { };
+    plasma-smart-video-wallpaper-reborn = pkg ./uncategorized/plasma-smart-video-wallpaper-reborn { };
     pocl = pkg ./uncategorized/pocl { };
     procps4 = pkg ./uncategorized/procps4 { };
     pterodactyl-wings = pkg ./uncategorized/pterodactyl-wings { };

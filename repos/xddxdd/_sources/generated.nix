@@ -1177,6 +1177,17 @@
     };
     date = "2024-04-17";
   };
+  plasma-smart-video-wallpaper-reborn = {
+    pname = "plasma-smart-video-wallpaper-reborn";
+    version = "v0.4.1";
+    src = fetchFromGitHub {
+      owner = "luisbocanegra";
+      repo = "plasma-smart-video-wallpaper-reborn";
+      rev = "v0.4.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-FdNA4ijvx+v0b4mN9yNH4tYsnFVhUS4nFj0b0LBSy7o=";
+    };
+  };
   pocl = {
     pname = "pocl";
     version = "v6.0";

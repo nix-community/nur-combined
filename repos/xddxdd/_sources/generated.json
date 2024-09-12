@@ -2122,6 +2122,27 @@
         },
         "version": "739c70ffde6bb7670d57d3507804408ae13edf25"
     },
+    "plasma-smart-video-wallpaper-reborn": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "plasma-smart-video-wallpaper-reborn",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "luisbocanegra",
+            "repo": "plasma-smart-video-wallpaper-reborn",
+            "rev": "v0.4.1",
+            "sha256": "sha256-FdNA4ijvx+v0b4mN9yNH4tYsnFVhUS4nFj0b0LBSy7o=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.4.1"
+    },
     "pocl": {
         "cargoLocks": null,
         "date": null,

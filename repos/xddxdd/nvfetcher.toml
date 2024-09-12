@@ -461,6 +461,10 @@ fetch.github = "Fitzgerald-Porthmouth-Koenigsegg/Plangothic"
 src.git = "https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6.git"
 fetch.github = "sanjay-kr-commit/panelTransparencyToggleForPlasma6"
 
+[plasma-smart-video-wallpaper-reborn]
+src.github = "luisbocanegra/plasma-smart-video-wallpaper-reborn"
+fetch.github = "luisbocanegra/plasma-smart-video-wallpaper-reborn"
+
 [pocl]
 src.github = "pocl/pocl"
 fetch.github = "pocl/pocl"
