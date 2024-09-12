@@ -9,26 +9,26 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "16yhs7sffyjnkq42l3jf1rzr65hfbxv597w3g32i1h756p22b2bv";
-    x86_64-linux = "12m9km4lavhkrd1p7wcjkrwfqsjzwxg022sv0hlrynanlngr1y0v";
-    armv7l-linux = "0pj4a40gsd0xwa0xsdps994rcc234gz7cn3bcyickzjpfnnq1nv4";
-    aarch64-linux = "1sfx6naqy9g4l112jkjdhp0ick3vab3n4b2vrfi3cvr3r7cp79fr";
-    x86_64-darwin = "0hapfc42z5sm7ksdk9dylxwbpvy34c2nd8vy8yalnkr1azvb85jk";
-    aarch64-darwin = "10p5b65rlnc4lpc0kndsib9fcya9iy4mxd29b61zfi2nijwdshjv";
+    i686-linux = "0g040r011yay1nl5rgnpyyr8ixbwjic7hg2m3hkin9yzz2rk23n5";
+    x86_64-linux = "1255wly104g339z8sv564hvlwqb6sp6sxm23mski4vf6i3mbfyi4";
+    armv7l-linux = "18faw9fdfcgmy44xh7jh8f5215gbiihc0x3xwqh0as946pm0acq7";
+    aarch64-linux = "10mw0wdvr7x295vxnkxvww1wr0bwbi8d4mfccnyc8g2n9avs016c";
+    x86_64-darwin = "1shdsyvilj36a68420k29j1q186cmj3p8smpjyq1p98qnx8lddma";
+    aarch64-darwin = "077kj8qgls0s66p2v644lxx1lam25mhkl2ll5qra0bakkbi6cf00";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/goreleaser/goreleaser/releases/download/v2.2.0/goreleaser_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/goreleaser/goreleaser/releases/download/v2.2.0/goreleaser_Linux_x86_64.tar.gz";
-    armv7l-linux = "https://github.com/goreleaser/goreleaser/releases/download/v2.2.0/goreleaser_Linux_armv7.tar.gz";
-    aarch64-linux = "https://github.com/goreleaser/goreleaser/releases/download/v2.2.0/goreleaser_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/goreleaser/goreleaser/releases/download/v2.2.0/goreleaser_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/goreleaser/goreleaser/releases/download/v2.2.0/goreleaser_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/goreleaser/goreleaser/releases/download/v2.3.0/goreleaser_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/goreleaser/goreleaser/releases/download/v2.3.0/goreleaser_Linux_x86_64.tar.gz";
+    armv7l-linux = "https://github.com/goreleaser/goreleaser/releases/download/v2.3.0/goreleaser_Linux_armv7.tar.gz";
+    aarch64-linux = "https://github.com/goreleaser/goreleaser/releases/download/v2.3.0/goreleaser_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/goreleaser/goreleaser/releases/download/v2.3.0/goreleaser_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/goreleaser/goreleaser/releases/download/v2.3.0/goreleaser_Darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "goreleaser";
-  version = "2.2.0";
+  version = "2.3.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
