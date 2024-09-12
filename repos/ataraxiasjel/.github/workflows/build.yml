@@ -1,12 +1,8 @@
 name: "Build and populate cache"
 on:
-  pull_request:
-    paths:
-      - '.github/**'
-      - 'flake.*'
-      - 'ci.nix'
-      - 'pkgs/**'
   push:
+    branches:
+      - master
     paths:
       - '.github/**'
       - 'flake.*'
