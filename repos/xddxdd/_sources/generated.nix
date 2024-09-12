@@ -84,18 +84,6 @@
     };
     date = "2018-08-28";
   };
-  attic = {
-    pname = "attic";
-    version = "aec90814a4ecbc40171d57eeef97c5cab4aaa7b4";
-    src = fetchFromGitHub {
-      owner = "zhaofengli";
-      repo = "attic";
-      rev = "aec90814a4ecbc40171d57eeef97c5cab4aaa7b4";
-      fetchSubmodules = false;
-      sha256 = "sha256-nVWCR86XDjx9Tq6RHsNvhD03nNzIeKKc7UTPnXLyrDY=";
-    };
-    date = "2024-09-08";
-  };
   axiom-syslog-proxy = {
     pname = "axiom-syslog-proxy";
     version = "v0.7.2";

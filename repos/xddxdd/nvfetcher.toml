@@ -26,10 +26,6 @@ fetch.github = "arkadijs/asterisk-g72x"
 src.git = "https://github.com/traud/asterisk-gsm-efr.git"
 fetch.github = "traud/asterisk-gsm-efr"
 
-[attic]
-src.git = "https://github.com/zhaofengli/attic.git"
-fetch.github = "zhaofengli/attic"
-
 [axiom-syslog-proxy]
 src.github = "axiomhq/axiom-syslog-proxy"
 fetch.github = "axiomhq/axiom-syslog-proxy"

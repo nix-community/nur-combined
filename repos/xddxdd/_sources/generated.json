@@ -146,27 +146,6 @@
         },
         "version": "e91ef643a7ff341e1fdaa1c6ff63b3cdc52ac8b4"
     },
-    "attic": {
-        "cargoLocks": null,
-        "date": "2024-09-08",
-        "extract": null,
-        "name": "attic",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "zhaofengli",
-            "repo": "attic",
-            "rev": "aec90814a4ecbc40171d57eeef97c5cab4aaa7b4",
-            "sha256": "sha256-nVWCR86XDjx9Tq6RHsNvhD03nNzIeKKc7UTPnXLyrDY=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "aec90814a4ecbc40171d57eeef97c5cab4aaa7b4"
-    },
     "axiom-syslog-proxy": {
         "cargoLocks": null,
         "date": null,
