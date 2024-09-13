@@ -1100,9 +1100,6 @@
         "wamserma": {
             "url": "https://github.com/wamserma/nur-packages"
         },
-        "wasabi375": {
-            "url": "https://github.com/wasabi375/nix-wasabipkgs"
-        },
         "weirdpkgs": {
             "url": "https://github.com/weirdrock/weirdpkgs"
         },
