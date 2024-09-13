@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash  = "sha256-u6s6X52EfXCIsAYtHgelJYrDO8ktRL0EWZaj8rpJfbA=";
   };
 
-  buildInputs       = [ gnuapl ];
+  buildInputs = [ gnuapl ];
 
   installPhase = ''
     runHook preInstall
