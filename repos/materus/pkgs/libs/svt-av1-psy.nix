@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "svt-av1-psy";
-  version = "2.2.0";
+  version = "2.2.1";
 
   src = fetchFromGitHub {
     owner = "gianni-rosato";
     repo = "svt-av1-psy";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-NWEX7KyQbpUrMbDBQaJWindod85cLUeNqwEpaDPtWUw=";
+    hash = "sha256-4ds7yrUMp0O5/aWOkdnrANR1D3djajU/0ZeY6xJnpHI=";
   };
 
   nativeBuildInputs = [
