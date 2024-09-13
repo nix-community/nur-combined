@@ -5,13 +5,13 @@ let
   inherit (inputs)
     home-manager
     nixpkgs
-    impermanence
+    preservation
     sops-nix
     chaotic
     # nixos-cosmic
     nvfetcher
     daeuniverse
-    ghostty
+    #ghostty
     lanzaboote
     nix-matlab
     neovim-nightly-overlay
@@ -42,7 +42,7 @@ let
             nixpkgs = {
               overlays = [
                 (final: prev: {
-                  ghostty = ghostty.packages.x86_64-linux.default;
+                  #ghostty = ghostty.packages.x86_64-linux.default;
                   my = self.packages."${system}";
                   chaotic = chaotic.packages.${system};
                   stable = import inputs.nixpkgs-stable {
@@ -76,7 +76,7 @@ in
       system = "x86_64-linux";
       hostName = "laptop";
       modules = [
-        impermanence.nixosModules.impermanence
+        preservation.nixosModules.default
         sops-nix.nixosModules.sops
         chaotic.nixosModules.default
         # nixos-cosmic.nixosModules.default

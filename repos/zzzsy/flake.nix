@@ -10,7 +10,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     sops-nix.url = "github:Mic92/sops-nix";
-    impermanence.url = "github:nix-community/impermanence";
+    preservation.url = "github:WilliButz/preservation";
     flake-parts.url = "github:hercules-ci/flake-parts";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     daeuniverse.url = "github:daeuniverse/flake.nix/unstable";
@@ -31,9 +31,9 @@
     nur.url = "github:nix-community/NUR";
     stylix.url = "github:danth/stylix";
     zig.url = "github:mitchellh/zig-overlay";
-    ghostty.url = "git+ssh://git@github.com/ghostty-org/ghostty";
-    ghostty.inputs.nixpkgs-stable.follows = "nixpkgs";
-    ghostty.inputs.nixpkgs-unstable.follows = "nixpkgs";
+    #ghostty.url = "git+ssh://git@github.com/ghostty-org/ghostty";
+    #ghostty.inputs.nixpkgs-stable.follows = "nixpkgs";
+    #ghostty.inputs.nixpkgs-unstable.follows = "nixpkgs";
     #nixos-cosmic = {
     #  url = "github:lilyinstarlight/nixos-cosmic";
     #  inputs.nixpkgs.follows = "nixpkgs";

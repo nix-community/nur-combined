@@ -1,4 +1,9 @@
-{ lib, config, modulesPath, ... }:
+{
+  lib,
+  config,
+  modulesPath,
+  ...
+}:
 
 let
   btrfsSubvol =
@@ -28,15 +33,19 @@ in
     "sd_mod"
   ];
   boot.initrd.kernelModules = [ ];
+  boot.initrd.systemd.enable = true; # for perservation
   boot.kernelModules = [
     "kvm-amd"
     "acpi_call"
   ];
 
   # for obs virtual camera
-  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback acpi_call ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    v4l2loopback
+    acpi_call
+  ];
   boot.extraModprobeConfig = ''
-   options v4l2loopback exclusive_caps=1 video_nr=9 card_label="obs"
+    options v4l2loopback exclusive_caps=1 video_nr=9 card_label="obs"
   '';
 
   fileSystems."/" = {

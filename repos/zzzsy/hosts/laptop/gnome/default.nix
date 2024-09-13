@@ -45,7 +45,7 @@
         gnome-calendar
         dconf-editor
 
-        ghostty
+        # ghostty
       ]
     );
     #++ (with pkgs.gnome; [ ]);

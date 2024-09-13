@@ -88,6 +88,7 @@ let
     asciidoc-full
     ghex
     handbrake
+    scilab-bin
     #feishu
     #mathematica
     #virtualbox

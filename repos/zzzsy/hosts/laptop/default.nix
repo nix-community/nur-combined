@@ -12,26 +12,8 @@
     ./sops.nix
     ./lanzaboote.nix
     ./btrbk.nix
+    ./persist.nix
   ];
-  # xdg.portal = {
-  #   enable = true;
-  #   extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
-  # };
-  # systemd = {
-  #   user.services.polkit-gnome-authentication-agent-1 = {
-  #     description = "polkit-gnome-authentication-agent-1";
-  #     wantedBy = [ "graphical-session.target" ];
-  #     wants = [ "graphical-session.target" ];
-  #     after = [ "graphical-session.target" ];
-  #     serviceConfig = {
-  #       Type = "simple";
-  #       ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-  #       Restart = "on-failure";
-  #       RestartSec = 1;
-  #       TimeoutStopSec = 10;
-  #     };
-  #   };
-  # };
 
   # stylix.enable = true;
 
@@ -74,30 +56,10 @@
       "en_US.UTF-8/UTF-8"
     ];
   };
-  # security.pam.services.swaylock = {
-  #   text = ''
-  #     auth include login
-  #   '';
-  # };
 
   nixpkgs.config.allowUnfree = true;
 
   environment.pathsToLink = [ "/share/fish" ];
-
-  environment.persistence."/persist" = {
-    hideMounts = true;
-    directories = [
-      "/var"
-      "/root"
-      "/etc/NetworkManager/system-connections"
-      "/etc/secureboot"
-    ];
-    files = [
-      "/etc/machine-id"
-      "/etc/ssh/ssh_host_ed25519_key.pub"
-      "/etc/ssh/ssh_host_ed25519_key"
-    ];
-  };
 
   programs.gnupg.agent = {
     enable = true;
