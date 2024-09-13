@@ -11,15 +11,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "c6e5ad1b96570fbe3487d0ed94b5275b02b0b768";
+    version = "c814e799b4d3491eb375d01af6cfba4fb8cca2a6";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "c6e5ad1b96570fbe3487d0ed94b5275b02b0b768";
+      rev = "c814e799b4d3491eb375d01af6cfba4fb8cca2a6";
       fetchSubmodules = false;
-      sha256 = "sha256-V9SmXduQ9rZ5OeyYVTNX98BAgoFa1EsVFBJ95fbaq9Y=";
+      sha256 = "sha256-7SUwEeJvNc9/F1kaKPQviKC0VzISekkTW/MvmgMyuqM=";
     };
-    date = "2024-09-09";
+    date = "2024-09-12";
   };
   nixpkgs-review = {
     pname = "nixpkgs-review";
@@ -63,22 +63,22 @@
   };
   skkeleton = {
     pname = "skkeleton";
-    version = "843b02bb4893938bb5fe31f81b28922c314bd7a6";
+    version = "1cfb8fd95aebfdb7803b52dafe8e5e934f356127";
     src = fetchFromGitHub {
       owner = "vim-skk";
       repo = "skkeleton";
-      rev = "843b02bb4893938bb5fe31f81b28922c314bd7a6";
+      rev = "1cfb8fd95aebfdb7803b52dafe8e5e934f356127";
       fetchSubmodules = false;
-      sha256 = "sha256-n0odWstft+Wmn7t4IsmSC5d2CIR2CpTyPo1JZ1bf964=";
+      sha256 = "sha256-6rcQr15LGYgViZo+ZWW18kGvuELgD/49hZEFFVPR488=";
     };
-    date = "2024-09-10";
+    date = "2024-09-11";
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "6.9.3447.41";
+    version = "6.9.3447.44";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.6.9.3447.41.universal.dmg";
-      sha256 = "sha256-7QtXPjadRoqWFhGBf/pMm5R5YO0yYelNZ7XHpLhYGa8=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.6.9.3447.44.universal.dmg";
+      sha256 = "sha256-j7kxMk1c/BAgEdb9nTYt+ltQIcigm8jvTaNJiw8Gmeg=";
     };
   };
 }

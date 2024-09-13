@@ -16,7 +16,7 @@
     },
     "emacs-plus": {
         "cargoLocks": null,
-        "date": "2024-09-09",
+        "date": "2024-09-12",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -28,11 +28,11 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "c6e5ad1b96570fbe3487d0ed94b5275b02b0b768",
-            "sha256": "sha256-V9SmXduQ9rZ5OeyYVTNX98BAgoFa1EsVFBJ95fbaq9Y=",
+            "rev": "c814e799b4d3491eb375d01af6cfba4fb8cca2a6",
+            "sha256": "sha256-7SUwEeJvNc9/F1kaKPQviKC0VzISekkTW/MvmgMyuqM=",
             "type": "github"
         },
-        "version": "c6e5ad1b96570fbe3487d0ed94b5275b02b0b768"
+        "version": "c814e799b4d3491eb375d01af6cfba4fb8cca2a6"
     },
     "nixpkgs-review": {
         "cargoLocks": null,
@@ -106,7 +106,7 @@
     },
     "skkeleton": {
         "cargoLocks": null,
-        "date": "2024-09-10",
+        "date": "2024-09-11",
         "extract": null,
         "name": "skkeleton",
         "passthru": null,
@@ -118,11 +118,11 @@
             "name": null,
             "owner": "vim-skk",
             "repo": "skkeleton",
-            "rev": "843b02bb4893938bb5fe31f81b28922c314bd7a6",
-            "sha256": "sha256-n0odWstft+Wmn7t4IsmSC5d2CIR2CpTyPo1JZ1bf964=",
+            "rev": "1cfb8fd95aebfdb7803b52dafe8e5e934f356127",
+            "sha256": "sha256-6rcQr15LGYgViZo+ZWW18kGvuELgD/49hZEFFVPR488=",
             "type": "github"
         },
-        "version": "843b02bb4893938bb5fe31f81b28922c314bd7a6"
+        "version": "1cfb8fd95aebfdb7803b52dafe8e5e934f356127"
     },
     "vivaldi-darwin": {
         "cargoLocks": null,
@@ -133,10 +133,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-7QtXPjadRoqWFhGBf/pMm5R5YO0yYelNZ7XHpLhYGa8=",
+            "sha256": "sha256-j7kxMk1c/BAgEdb9nTYt+ltQIcigm8jvTaNJiw8Gmeg=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.6.9.3447.41.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.6.9.3447.44.universal.dmg"
         },
-        "version": "6.9.3447.41"
+        "version": "6.9.3447.44"
     }
 }
