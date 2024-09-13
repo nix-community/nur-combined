@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Cowsay in GnuAPL";
     homepage    = "https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/cowsAyPL";
-    license     = licenses.mit;
+    licenses    = with licenses; [ mit zlib ];
     mainProgram = pname;
   };
 }
