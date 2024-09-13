@@ -1,5 +1,6 @@
 {
   sources,
+  rustc,
   rustPlatform,
   lib,
   pkg-config,
@@ -40,5 +41,6 @@ rustPlatform.buildRustPackage {
     description = "A GTK based on screen display for keyboard shortcuts like caps-lock and volume";
     license = licenses.gpl3;
     maintainers = with maintainers; [ yinfeng ];
+    broken = !(lib.versionAtLeast rustc.version "1.75");
   };
 }

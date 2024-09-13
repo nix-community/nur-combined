@@ -75,21 +75,21 @@
   };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
-    version = "v2.12.15";
+    version = "v2.12.16";
     src = fetchurl {
-      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.12.15/app-x86_64.asar";
-      sha256 = "sha256-iytlRqeTf7uHjWbf59dxr9sxyVwn07UIbCEvPjn4/Sw=";
+      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.12.16/app-x86_64.asar";
+      sha256 = "sha256-E3SwzlFzGAmWJKbi/M8ZQcDEioo5CJ/n4XQJZZ0qfII=";
     };
   };
   linux-intel-lts = {
     pname = "linux-intel-lts";
-    version = "lts-v6.6.48-linux-240905T080843Z";
+    version = "lts-v6.6.48-linux-240910T215048Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "linux-intel-lts";
-      rev = "lts-v6.6.48-linux-240905T080843Z";
+      rev = "lts-v6.6.48-linux-240910T215048Z";
       fetchSubmodules = false;
-      sha256 = "sha256-sQK6v7ost+lj347vCOHPT+/lX5b5Q5DzExwiyLXONqk=";
+      sha256 = "sha256-pBS4sT585Bp9F6it1Atg3Yeq90Vd/rNsr64xzHLhLrw=";
     };
   };
   linux-intel-mainline-tracking = {
@@ -284,17 +284,17 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "0367c85243ecf22d064f45cab29a47a3a1652e80";
+    version = "1a3a57d067595f1dafbb73364811bc6c787441e7";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "0367c85243ecf22d064f45cab29a47a3a1652e80";
+      rev = "1a3a57d067595f1dafbb73364811bc6c787441e7";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-uzEN8xjfpEdYMDX2AisS0Df+V0+gdOeJGQxQJZIuffo=";
+      sha256 = "sha256-ta77Aw1Z0JZO3VRcAio7Kv/gGve2XPQTTflTm8ZYf34=";
     };
-    date = "2024-08-29";
+    date = "2024-09-13";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -435,23 +435,23 @@
   };
   swayosd = {
     pname = "swayosd";
-    version = "d304967ebb1057ef22dbb0e983082c7de5aceb7e";
+    version = "dbb8b721fe43d2feca8a22cfac9a387a6c38a180";
     src = fetchgit {
       url = "https://github.com/ErikReider/SwayOSD.git";
-      rev = "d304967ebb1057ef22dbb0e983082c7de5aceb7e";
+      rev = "dbb8b721fe43d2feca8a22cfac9a387a6c38a180";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-rPVPoqGKcWFBbh3rK+MtD5GvQjKKb1oku8XH/h5xzTE=";
+      sha256 = "sha256-GyvRWEzTxQxTAk+xCLFsHdd1SttBliOgJ6eZqAxQMME=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./swayosd-d304967ebb1057ef22dbb0e983082c7de5aceb7e/Cargo.lock;
+      lockFile = ./swayosd-dbb8b721fe43d2feca8a22cfac9a387a6c38a180/Cargo.lock;
       outputHashes = {
 
       };
     };
-    date = "2024-08-25";
+    date = "2024-09-11";
   };
   synapse-s3-storage-provider = {
     pname = "synapse-s3-storage-provider";
