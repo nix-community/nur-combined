@@ -23,6 +23,10 @@ buildGoModule rec {
 
   buildInputs = [ darwin.apple_sdk.frameworks.LocalAuthentication ];
 
+  preBuild = ''
+    export HOME=$TMPDIR
+  '';
+
   doCheck = false;
 
   meta = {
