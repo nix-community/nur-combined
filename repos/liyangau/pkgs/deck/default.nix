@@ -6,9 +6,9 @@
   fetchFromGitHub,
 }:
 let
-  short_hash = "cd7cdf7";
-  package_hash = "sha256-2EYHUx0tegoqT7r23DA1YWJB4TRxw6+dJfRH2LWIBCI=";
-  latest_version = "1.40.0";
+  short_hash = "74b1859";
+  package_hash = "sha256-wb7/g1g7gxKhZyK7GW+6aGwuD+Dkcdg2Zpc0JCxVPjM=";
+  latest_version = "1.40.1";
 in
 buildGoModule rec {
   pname = "deck";
@@ -30,10 +30,10 @@ buildGoModule rec {
     "-X github.com/kong/deck/cmd.COMMIT=${short_hash}"
   ];
 
-  vendorHash = "sha256-6s1ayRJKv3OxEIbYx2UD/7j1JQCLKWkcgew67lK+0NI=";
+  vendorHash = "sha256-8o3jXkhfRIGGPtw8ow+NyAYAuCJNrBlSyfdSI0pjvDQ=";
 
   proxyVendor = true;
-  
+
   postInstall = ''
     installShellCompletion --cmd deck \
       --bash <($out/bin/deck completion bash) \
