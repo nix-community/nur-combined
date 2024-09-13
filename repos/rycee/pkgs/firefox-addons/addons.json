@@ -1267,6 +1267,9 @@
     "pname": "search-by-image"
   },
   {
+    "slug": "session-sync"
+  },
+  {
     "slug": "shaarli"
   },
   {

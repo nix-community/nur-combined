@@ -9562,6 +9562,27 @@
         platforms = platforms.all;
       };
     };
+    "session-sync" = buildFirefoxXpiAddon {
+      pname = "session-sync";
+      version = "3.1.12";
+      addonId = "session-sync@gabrielivanica.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3352792/session_sync-3.1.12.xpi";
+      sha256 = "08d32133a87cf91cd8cc17af21093a5abc8605c1c03efb01e2eafa8368b56d13";
+      meta = with lib;
+      {
+        homepage = "https://github.com/ReDEnergy/SessionSync";
+        description = "Save sessions as bookmarks and access them across devices.\nAdvanced Session Manager: edit, save, change, restore.\nIt can also be your best Bookmark Manager";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "storage"
+          "bookmarks"
+          "tabs"
+          "clipboardWrite"
+          "unlimitedStorage"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "shaarli" = buildFirefoxXpiAddon {
       pname = "shaarli";
       version = "2.0.1resigned1";
