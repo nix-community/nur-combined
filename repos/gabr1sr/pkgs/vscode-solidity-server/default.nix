@@ -14,11 +14,11 @@ buildNpmPackage rec {
   src = fetchFromGitHub {
     owner = "juanfranblanco";
     repo = "vscode-solidity";
-    rev = "05521565af890337c0e20725840fab88d033913c";
-    hash = "sha256-PHgFVntRHlYyBMtxXFC1BliX7jyOMkZOLreL5aupapA=";
+    rev = "5097aa915b5a7daee4c997cdb48ec70c2be78a6c";
+    hash = "sha256-RzYq7bXo8EDNefHJeXrZbDPpm7jl+2kYdoctrqIGCa4=";
   };
 
-  npmDepsHash = "sha256-ZFoCnpEoJxCRVCi7uUYXlGVTiWBAXk3rR/i7+EGVfvM=";
+  npmDepsHash = "sha256-ceTB2NDlhqGgvEcQBEKVyUPyoJW28pQj1rIru69C8nM=";
 
   meta = {
     broken = false;
