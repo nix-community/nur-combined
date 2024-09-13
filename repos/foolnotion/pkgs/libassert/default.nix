@@ -1,13 +1,13 @@
 { lib, stdenv, fetchFromGitHub, cmake, cpptrace, magic-enum, zstd, libdwarf }:
 stdenv.mkDerivation rec {
   pname = "libassert";
-  version = "2.1.0";
+  version = "2.1.1";
 
   src = fetchFromGitHub {
     owner = "jeremy-rifkin";
     repo = "libassert";
     rev = "v${version}";
-    hash = "sha256-wc6EvZw0Rbc5NUdsucpZeG5YIoRXqjGoOZomWdEtDOo=";
+    hash = "sha256-dYvAPtYnOx/XfIMWuXLk1s1raGMCmoUWou17f4q2cqc=";
   };
 
   nativeBuildInputs = [ cmake ];
