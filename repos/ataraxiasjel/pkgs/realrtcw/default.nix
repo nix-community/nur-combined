@@ -1,14 +1,15 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, makeWrapper
-, opusfile
-, libogg
-, SDL2
-, freetype
-, libjpeg
-, openal
-, curl
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  makeWrapper,
+  opusfile,
+  libogg,
+  SDL2,
+  freetype,
+  libjpeg,
+  openal,
+  curl,
 }:
 stdenv.mkDerivation rec {
   pname = "realrtcw";
@@ -38,7 +39,13 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
 
   buildInputs = [
-    opusfile libogg SDL2 freetype libjpeg openal curl
+    opusfile
+    libogg
+    SDL2
+    freetype
+    libjpeg
+    openal
+    curl
   ];
 
   env.NIX_CFLAGS_COMPILE = toString [

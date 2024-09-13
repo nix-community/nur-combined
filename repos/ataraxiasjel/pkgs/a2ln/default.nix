@@ -1,16 +1,17 @@
-{ lib
-, buildPythonApplication
-, fetchFromGitHub
-, wrapGAppsHook
-, setuptools
-, pillow
-, pygobject3
-, pyzmq
-, qrcode
-, setproctitle
-, gobject-introspection
-, libnotify
-, nix-update-script
+{
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  wrapGAppsHook,
+  setuptools,
+  pillow,
+  pygobject3,
+  pyzmq,
+  qrcode,
+  setproctitle,
+  gobject-introspection,
+  libnotify,
+  nix-update-script,
 }:
 buildPythonApplication rec {
   pname = "a2ln";
@@ -25,7 +26,10 @@ buildPythonApplication rec {
 
   format = "pyproject";
 
-  buildInputs = [ wrapGAppsHook setuptools ];
+  buildInputs = [
+    wrapGAppsHook
+    setuptools
+  ];
 
   propagatedBuildInputs = [
     pillow

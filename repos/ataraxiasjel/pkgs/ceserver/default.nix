@@ -1,8 +1,9 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, zlib
-, nix-update-script
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  zlib,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {

@@ -1,17 +1,19 @@
-{ lib
-, stdenvNoCC
-, callPackages
-, fetchFromGitHub
-, fetchpatch
-, fetchzip
-, buildNpmPackage
-, buildGoModule
-, runCommand
-, openapi-generator-cli
-, nodejs
-, python312
-, codespell
-, makeWrapper }:
+{
+  lib,
+  stdenvNoCC,
+  callPackages,
+  fetchFromGitHub,
+  fetchpatch,
+  fetchzip,
+  buildNpmPackage,
+  buildGoModule,
+  runCommand,
+  openapi-generator-cli,
+  nodejs,
+  python312,
+  codespell,
+  makeWrapper,
+}:
 
 let
   version = "2024.6.4";
@@ -29,7 +31,10 @@ let
     homepage = "https://goauthentik.io/";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jvanbruegge risson ];
+    maintainers = with maintainers; [
+      jvanbruegge
+      risson
+    ];
   };
 
   website = buildNpmPackage {
@@ -80,7 +85,7 @@ let
     pname = "authentik-webui";
     inherit version meta;
 
-    src = runCommand "authentik-webui-source" {} ''
+    src = runCommand "authentik-webui-source" { } ''
       mkdir -p $out/web/node_modules/@goauthentik/
       cp -r ${src}/web $out/
       ln -s ${src}/package.json $out/
@@ -284,74 +289,76 @@ let
 
         nativeBuildInputs = [ prev.poetry-core ];
 
-        propagatedBuildInputs = with final; [
-          argon2-cffi
-          celery
-          channels
-          channels-redis
-          codespell
-          colorama
-          dacite
-          deepmerge
-          defusedxml
-          django
-          django-cte
-          django-filter
-          django-guardian
-          django-model-utils
-          django-pglock
-          django-prometheus
-          django-redis
-          django-storages
-          django-tenants
-          djangorestframework
-          djangorestframework-guardian2
-          docker
-          drf-spectacular
-          duo-client
-          facebook-sdk
-          fido2
-          flower
-          geoip2
-          google-api-python-client
-          gunicorn
-          jsonpatch
-          kubernetes
-          ldap3
-          lxml
-          msgraph-sdk
-          opencontainers
-          packaging
-          paramiko
-          psycopg
-          pydantic
-          pydantic-scim
-          pyjwt
-          pyyaml
-          requests-oauthlib
-          scim2-filter-parser
-          sentry-sdk
-          service-identity
-          setproctitle
-          structlog
-          swagger-spec-validator
-          tenant-schemas-celery
-          twilio
-          twisted
-          ua-parser
-          urllib3
-          uvicorn
-          watchdog
-          webauthn
-          wsproto
-          xmlsec
-          zxcvbn
-        ]
-        ++ channels.optional-dependencies.daphne
-        ++ django-storages.optional-dependencies.s3
-        ++ opencontainers.optional-dependencies.reggie
-        ++ psycopg.optional-dependencies.c
-        ++ uvicorn.optional-dependencies.standard;
+        propagatedBuildInputs =
+          with final;
+          [
+            argon2-cffi
+            celery
+            channels
+            channels-redis
+            codespell
+            colorama
+            dacite
+            deepmerge
+            defusedxml
+            django
+            django-cte
+            django-filter
+            django-guardian
+            django-model-utils
+            django-pglock
+            django-prometheus
+            django-redis
+            django-storages
+            django-tenants
+            djangorestframework
+            djangorestframework-guardian2
+            docker
+            drf-spectacular
+            duo-client
+            facebook-sdk
+            fido2
+            flower
+            geoip2
+            google-api-python-client
+            gunicorn
+            jsonpatch
+            kubernetes
+            ldap3
+            lxml
+            msgraph-sdk
+            opencontainers
+            packaging
+            paramiko
+            psycopg
+            pydantic
+            pydantic-scim
+            pyjwt
+            pyyaml
+            requests-oauthlib
+            scim2-filter-parser
+            sentry-sdk
+            service-identity
+            setproctitle
+            structlog
+            swagger-spec-validator
+            tenant-schemas-celery
+            twilio
+            twisted
+            ua-parser
+            urllib3
+            uvicorn
+            watchdog
+            webauthn
+            wsproto
+            xmlsec
+            zxcvbn
+          ]
+          ++ channels.optional-dependencies.daphne
+          ++ django-storages.optional-dependencies.s3
+          ++ opencontainers.optional-dependencies.reggie
+          ++ psycopg.optional-dependencies.c
+          ++ uvicorn.optional-dependencies.standard;
 
         postInstall = ''
           mkdir -p $out/web $out/website
@@ -392,7 +399,8 @@ let
     subPackages = [ "cmd/server" ];
   };
 
-in stdenvNoCC.mkDerivation {
+in
+stdenvNoCC.mkDerivation {
   pname = "authentik";
   inherit src version;
 
@@ -412,7 +420,12 @@ in stdenvNoCC.mkDerivation {
     cp -r lifecycle/ak $out/bin/
 
     wrapProgram $out/bin/ak \
-      --prefix PATH : ${lib.makeBinPath [ (python.withPackages (ps: [ps.authentik-django])) proxy ]} \
+      --prefix PATH : ${
+        lib.makeBinPath [
+          (python.withPackages (ps: [ ps.authentik-django ]))
+          proxy
+        ]
+      } \
       --set TMPDIR /dev/shm \
       --set PYTHONDONTWRITEBYTECODE 1 \
       --set PYTHONUNBUFFERED 1

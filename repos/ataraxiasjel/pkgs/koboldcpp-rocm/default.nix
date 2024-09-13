@@ -24,7 +24,11 @@ let
 
     enableParallelBuilding = true;
 
-    buildInputs = with rocmPackages; [ clr hipblas rocblas ];
+    buildInputs = with rocmPackages; [
+      clr
+      hipblas
+      rocblas
+    ];
 
     makeFlags = [
       "LLAMA_PORTABLE=1"
@@ -48,14 +52,12 @@ stdenv.mkDerivation {
   inherit pname version src;
 
   propagatedBuildInputs = [
-    (python3.withPackages (
-      ps: [
-        ps.numpy
-        ps.sentencepiece
-        ps.tkinter
-        customtkinter
-      ]
-    ))
+    (python3.withPackages (ps: [
+      ps.numpy
+      ps.sentencepiece
+      ps.tkinter
+      customtkinter
+    ]))
   ];
 
   dontBuild = true;

@@ -1,4 +1,6 @@
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 rec {
   lib = import ../lib { inherit pkgs; };
@@ -33,9 +35,7 @@ rec {
   wine-ge = pkgs.callPackage ./wine-ge { };
   wopiserver = pkgs.python3Packages.callPackage ./wopiserver { inherit (python-pkgs) cs3apis; };
 
-  inherit (pkgs.callPackage ./rosepine-gtk {}) rosepine-gtk-theme rosepine-gtk-icons;
-  inherit (pkgs.callPackage ./tokyonight-gtk {}) tokyonight-gtk-theme tokyonight-gtk-icons;
-  python-pkgs = pkgs.recurseIntoAttrs (
-    pkgs.python3Packages.callPackage ./python3Packages { }
-  );
+  inherit (pkgs.callPackage ./rosepine-gtk { }) rosepine-gtk-theme rosepine-gtk-icons;
+  inherit (pkgs.callPackage ./tokyonight-gtk { }) tokyonight-gtk-theme tokyonight-gtk-icons;
+  python-pkgs = pkgs.recurseIntoAttrs (pkgs.python3Packages.callPackage ./python3Packages { });
 }

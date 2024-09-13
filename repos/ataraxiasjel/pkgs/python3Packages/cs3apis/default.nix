@@ -6,7 +6,7 @@
   setuptools,
   setuptools-scm,
   grpcio,
-  # nix-update-script,
+# nix-update-script,
 }:
 
 buildPythonPackage rec {

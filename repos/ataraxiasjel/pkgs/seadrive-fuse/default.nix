@@ -1,22 +1,23 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, pkg-config
-, autoreconfHook
-, curl
-, fuse
-, intltool
-, jansson
-, libevent
-, libsearpc
-, libtool
-, libuuid
-, libwebsockets
-, openssl
-, python3
-, sqlite
-, vala
-, nix-update-script
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  pkg-config,
+  autoreconfHook,
+  curl,
+  fuse,
+  intltool,
+  jansson,
+  libevent,
+  libsearpc,
+  libtool,
+  libuuid,
+  libwebsockets,
+  openssl,
+  python3,
+  sqlite,
+  vala,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {
@@ -30,7 +31,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-t8gxZVge6rzp/N5s4F6cQhbnvsxtlvlWZwFETIBCEn0=";
   };
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
   buildInputs = [
     curl
     fuse

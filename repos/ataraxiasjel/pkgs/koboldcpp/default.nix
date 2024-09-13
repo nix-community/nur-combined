@@ -98,14 +98,12 @@ effectiveStdenv.mkDerivation {
   inherit pname version src;
 
   propagatedBuildInputs = [
-    (python3.withPackages (
-      ps: [
-        ps.numpy
-        ps.sentencepiece
-        ps.tkinter
-        customtkinter
-      ]
-    ))
+    (python3.withPackages (ps: [
+      ps.numpy
+      ps.sentencepiece
+      ps.tkinter
+      customtkinter
+    ]))
   ];
 
   dontBuild = true;

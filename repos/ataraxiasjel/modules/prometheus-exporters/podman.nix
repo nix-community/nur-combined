@@ -29,7 +29,7 @@ in
     };
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       description = lib.mdDoc ''
         Extra commandline options to pass to the ${name} exporter.
       '';
@@ -76,66 +76,78 @@ in
       '';
     };
   };
-  config = let
-    containersStorage = config.virtualisation.containers.storage.settings.storage.graphroot;
-  in mkIf cfg.enable {
-    virtualisation.podman.enable = true;
-    virtualisation.containers.containersConf.settings = {
-      engine.helper_binaries_dir = [ "${config.virtualisation.podman.package}/libexec/podman" ];
+  config =
+    let
+      containersStorage = config.virtualisation.containers.storage.settings.storage.graphroot;
+    in
+    mkIf cfg.enable {
+      virtualisation.podman.enable = true;
+      virtualisation.containers.containersConf.settings = {
+        engine.helper_binaries_dir = [ "${config.virtualisation.podman.package}/libexec/podman" ];
+      };
+
+      networking.firewall.extraCommands = mkIf cfg.openFirewall (concatStrings [
+        "ip46tables -A nixos-fw ${cfg.firewallFilter} "
+        "-m comment --comment ${name}-exporter -j nixos-fw-accept"
+      ]);
+
+      systemd.services."prometheus-${name}-exporter" = {
+        description = "Prometheus ${name} exporter service";
+        wantedBy = [ "multi-user.target" ];
+        wants = [ "podman.socket" ];
+        after = [
+          "podman.socket"
+          "network.target"
+        ];
+        path = with pkgs; [
+          runc
+          crun
+          conmon
+        ];
+        environment.HOME = "/tmp";
+        serviceConfig.ExecStart = ''
+          ${pkgs.prometheus-podman-exporter}/bin/prometheus-podman-exporter \
+            ${concatMapStringsSep " " (x: "--collector." + x) cfg.enabledCollectors} \
+            --web.listen-address ${cfg.listenAddress}:${toString cfg.port} \
+            ${concatStringsSep " " cfg.extraFlags}
+        '';
+        serviceConfig.ExecReload = "${pkgs.procps}/bin/kill -HUP $MAINPID";
+        serviceConfig.TimeoutStopSec = "20s";
+        serviceConfig.SendSIGKILL = "no";
+        serviceConfig.WorkingDirectory = "/tmp";
+
+        serviceConfig.Restart = "always";
+        serviceConfig.PrivateTmp = true;
+        serviceConfig.DynamicUser = false;
+        serviceConfig.User = cfg.user;
+        serviceConfig.Group = cfg.group;
+        # Hardening
+        serviceConfig.AmbientCapabilities = [ "CAP_SYS_ADMIN" ];
+        serviceConfig.CapabilityBoundingSet = [ "CAP_SYS_ADMIN" ];
+        serviceConfig.DeviceAllow = [ "" ];
+        serviceConfig.LockPersonality = true;
+        serviceConfig.MemoryDenyWriteExecute = true;
+        serviceConfig.NoNewPrivileges = true;
+        serviceConfig.PrivateDevices = true;
+        serviceConfig.ProtectClock = true;
+        serviceConfig.ProtectControlGroups = true;
+        serviceConfig.ProtectHome = true;
+        serviceConfig.ProtectHostname = true;
+        serviceConfig.ProtectKernelLogs = true;
+        serviceConfig.ProtectKernelModules = true;
+        serviceConfig.ProtectKernelTunables = true;
+        serviceConfig.ProtectSystem = "strict";
+        serviceConfig.ReadWritePaths = [ containersStorage ];
+        serviceConfig.RemoveIPC = true;
+        serviceConfig.RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+        ];
+        serviceConfig.RestrictNamespaces = true;
+        serviceConfig.RestrictRealtime = true;
+        serviceConfig.RestrictSUIDSGID = true;
+        serviceConfig.SystemCallArchitectures = "native";
+        serviceConfig.UMask = "0077";
+      };
     };
-
-    networking.firewall.extraCommands = mkIf cfg.openFirewall (concatStrings [
-      "ip46tables -A nixos-fw ${cfg.firewallFilter} "
-      "-m comment --comment ${name}-exporter -j nixos-fw-accept"
-    ]);
-
-    systemd.services."prometheus-${name}-exporter" = {
-      description = "Prometheus ${name} exporter service";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "podman.socket" ];
-      after = [ "podman.socket" "network.target" ];
-      path = with pkgs; [ runc crun conmon ];
-      environment.HOME = "/tmp";
-      serviceConfig.ExecStart = ''
-        ${pkgs.prometheus-podman-exporter}/bin/prometheus-podman-exporter \
-          ${concatMapStringsSep " " (x: "--collector." + x) cfg.enabledCollectors} \
-          --web.listen-address ${cfg.listenAddress}:${toString cfg.port} \
-          ${concatStringsSep " " cfg.extraFlags}
-      '';
-      serviceConfig.ExecReload = "${pkgs.procps}/bin/kill -HUP $MAINPID";
-      serviceConfig.TimeoutStopSec = "20s";
-      serviceConfig.SendSIGKILL = "no";
-      serviceConfig.WorkingDirectory = "/tmp";
-
-      serviceConfig.Restart = "always";
-      serviceConfig.PrivateTmp = true;
-      serviceConfig.DynamicUser = false;
-      serviceConfig.User = cfg.user;
-      serviceConfig.Group = cfg.group;
-      # Hardening
-      serviceConfig.AmbientCapabilities = [ "CAP_SYS_ADMIN" ];
-      serviceConfig.CapabilityBoundingSet = [ "CAP_SYS_ADMIN" ];
-      serviceConfig.DeviceAllow = [ "" ];
-      serviceConfig.LockPersonality = true;
-      serviceConfig.MemoryDenyWriteExecute = true;
-      serviceConfig.NoNewPrivileges = true;
-      serviceConfig.PrivateDevices = true;
-      serviceConfig.ProtectClock = true;
-      serviceConfig.ProtectControlGroups = true;
-      serviceConfig.ProtectHome = true;
-      serviceConfig.ProtectHostname = true;
-      serviceConfig.ProtectKernelLogs = true;
-      serviceConfig.ProtectKernelModules = true;
-      serviceConfig.ProtectKernelTunables = true;
-      serviceConfig.ProtectSystem = "strict";
-      serviceConfig.ReadWritePaths = [ containersStorage ];
-      serviceConfig.RemoveIPC = true;
-      serviceConfig.RestrictAddressFamilies = [ "AF_INET" "AF_INET6" ];
-      serviceConfig.RestrictNamespaces = true;
-      serviceConfig.RestrictRealtime = true;
-      serviceConfig.RestrictSUIDSGID = true;
-      serviceConfig.SystemCallArchitectures = "native";
-      serviceConfig.UMask = "0077";
-    };
-  };
 }

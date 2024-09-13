@@ -1,9 +1,10 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, makeWrapper
-, exiftool
-, nix-update-script
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  makeWrapper,
+  exiftool,
+  nix-update-script,
 }:
 
 buildGoModule rec {
@@ -33,6 +34,10 @@ buildGoModule rec {
     homepage = "https://github.com/MHNightCat/superfile";
     license = licenses.mit;
     maintainers = with maintainers; [ ataraxiasjel ];
-    platforms = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "aarch64-darwin"
+    ];
   };
 }

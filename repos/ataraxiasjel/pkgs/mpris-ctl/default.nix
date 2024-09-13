@@ -1,11 +1,12 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, installShellFiles
-, pkg-config
-, scdoc
-, dbus
-, nix-update-script
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  installShellFiles,
+  pkg-config,
+  scdoc,
+  dbus,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {
@@ -19,7 +20,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-KGwgSZQWqSVF+mY+PMkOKlu5gxYYdspgavNTklEGp/I=";
   };
 
-  nativeBuildInputs = [ pkg-config scdoc installShellFiles ];
+  nativeBuildInputs = [
+    pkg-config
+    scdoc
+    installShellFiles
+  ];
 
   buildInputs = [ dbus ];
 

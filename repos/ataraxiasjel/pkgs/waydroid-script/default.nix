@@ -1,14 +1,15 @@
-{ stdenv
-, lib
-, buildPythonApplication
-, fetchFromGitHub
-, substituteAll
-, inquirerpy
-, requests
-, tqdm
-, lzip
-, util-linux
-, nix-update-script
+{
+  stdenv,
+  lib,
+  buildPythonApplication,
+  fetchFromGitHub,
+  substituteAll,
+  inquirerpy,
+  requests,
+  tqdm,
+  lzip,
+  util-linux,
+  nix-update-script,
 }:
 let
   pname = "waydroid-script";
@@ -29,7 +30,8 @@ let
       cp -r bin/* $out/share/
     '';
   };
-in buildPythonApplication rec {
+in
+buildPythonApplication rec {
   inherit pname version src;
 
   propagatedBuildInputs = [
@@ -41,20 +43,21 @@ in buildPythonApplication rec {
     util-linux
   ];
 
-  postPatch = let
-    setup = substituteAll {
-      src = ./setup.py;
-      inherit pname;
-      desc = meta.description;
-      version = builtins.replaceStrings [ "-" ] [ "." ]
-        (lib.strings.removePrefix "0-unstable-" version);
-    };
-  in ''
-    ln -s ${setup} setup.py
+  postPatch =
+    let
+      setup = substituteAll {
+        src = ./setup.py;
+        inherit pname;
+        desc = meta.description;
+        version = builtins.replaceStrings [ "-" ] [ "." ] (lib.strings.removePrefix "0-unstable-" version);
+      };
+    in
+    ''
+      ln -s ${setup} setup.py
 
-    substituteInPlace stuff/general.py \
-      --replace-fail "os.path.dirname(__file__), \"..\", \"bin\"," "\"${resetprop}/share\","
-  '';
+      substituteInPlace stuff/general.py \
+        --replace-fail "os.path.dirname(__file__), \"..\", \"bin\"," "\"${resetprop}/share\","
+    '';
 
   passthru.updateScript = nix-update-script {
     extraArgs = [ "--version=branch" ];

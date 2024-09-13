@@ -1,8 +1,14 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.services.hoyolab-claim-bot;
-in {
+in
+{
   options.services.hoyolab-claim-bot = {
     enable = mkEnableOption "Hoyolab Daily Claim Bot";
     package = mkPackageOption pkgs "hoyolab-claim-bot" { };

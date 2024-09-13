@@ -1,7 +1,8 @@
-{ stdenv
-, lib
-, fetchurl
-, nix-update-script
+{
+  stdenv,
+  lib,
+  fetchurl,
+  nix-update-script,
 }:
 stdenv.mkDerivation rec {
   pname = "wine-ge-custom";
