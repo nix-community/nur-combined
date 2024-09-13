@@ -309,10 +309,10 @@
     };
     "animalese-typing" = buildFirefoxXpiAddon {
       pname = "animalese-typing";
-      version = "1.44";
+      version = "1.44.2";
       addonId = "dagexviii.dev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4351581/animalese_typing-1.44.xpi";
-      sha256 = "d253bb2995e4fc7784c820c76901ac720b1241d79d603c2312e52ee0bfe41b20";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4352152/animalese_typing-1.44.2.xpi";
+      sha256 = "2a54cf4648831d8d38db3b7b50e046ba74bf157d8783c34c6c2a8a4935329c42";
       meta = with lib;
       {
         description = "Plays animal crossing villager sounds whenever you type! The official port of my Animalese Typing extension from the chrome store.";
@@ -1965,16 +1965,16 @@
     };
     "dark-mode-webextension" = buildFirefoxXpiAddon {
       pname = "dark-mode-webextension";
-      version = "0.4.5";
+      version = "0.5.2";
       addonId = "{174b2d58-b983-4501-ab4b-07e71203cb43}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3970612/dark_mode_webextension-0.4.5.xpi";
-      sha256 = "3c270ae9ed6c5dd69bd19b6f634741648ccd51ded24dd4b3592eb55c2cb3fc09";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4349447/dark_mode_webextension-0.5.2.xpi";
+      sha256 = "31a681e1f1f5819b189a819d1166dd5809845ec69d4f9e8b422809456cfe4ac9";
       meta = with lib;
       {
         homepage = "https://mybrowseraddon.com/dark-mode.html";
         description = "A global dark theme for the web";
         license = licenses.mpl20;
-        mozPermissions = [ "storage" "<all_urls>" "contextMenus" ];
+        mozPermissions = [ "storage" "contextMenus" "<all_urls>" ];
         platforms = platforms.all;
       };
     };
@@ -2354,10 +2354,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.46.2";
+      version = "2.46.3";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4340016/dualsub-2.46.2.xpi";
-      sha256 = "f837fae18bc1afd7bc382571a7f2fdd0a7dc2740eaea067b5314f3231a121786";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4351735/dualsub-2.46.3.xpi";
+      sha256 = "d6d426fcb3801766817a75a463e72abc4642ddf199f3e8487ff57e8d9b8cd82b";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -6047,10 +6047,10 @@
     };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.72";
+      version = "2.6.73";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4336546/localcdn_fork_of_decentraleyes-2.6.72.xpi";
-      sha256 = "de15005831ca9f551b5aedbf0c29cbb2b872b548b59e6acd1ee0934179ba8d30";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4349721/localcdn_fork_of_decentraleyes-2.6.73.xpi";
+      sha256 = "790365940026e8f68496984dbc0d2fc8b007db4632c320b5db4ed710d768c878";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -7512,10 +7512,10 @@
     };
     "offline-qr-code-generator" = buildFirefoxXpiAddon {
       pname = "offline-qr-code-generator";
-      version = "1.8";
+      version = "1.9";
       addonId = "offline-qr-code@rugk.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3870992/offline_qr_code_generator-1.8.xpi";
-      sha256 = "449c236b88cf3fea2da31bdc004fdf6379face841b77ccc5096cba3afbd983de";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4349427/offline_qr_code_generator-1.9.xpi";
+      sha256 = "448c63fbd4036ed913b85a93ea57480fd7a8f8dbcaa7d8a24f99b34443a9fad1";
       meta = with lib;
       {
         homepage = "https://github.com/rugk/offline-qr-code";
@@ -9841,10 +9841,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.66";
+      version = "1.22.68";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4346807/single_file-1.22.66.xpi";
-      sha256 = "00f57fcc9a995f1b880e195c28025d6922fde7bb74096acd6158822b48c2c7a0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4349267/single_file-1.22.68.xpi";
+      sha256 = "a99410ce341b2d4fe0508c0c5b2985c99a8ec8546c8747ee1c161bef53098d63";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -10024,10 +10024,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.7";
+      version = "5.8.1";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4308094/sponsorblock-5.7.xpi";
-      sha256 = "05b7fadde5718cd44520a86e6b38b10816762df763767ef4bb879112ed77caae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4349352/sponsorblock-5.8.1.xpi";
+      sha256 = "001362fe0dfc6d5ea03fef4a2df75d6337d4ebd9cb829dff806920f5eab635e4";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -10686,10 +10686,10 @@
     };
     "to-deepl" = buildFirefoxXpiAddon {
       pname = "to-deepl";
-      version = "0.9.0";
+      version = "0.9.1";
       addonId = "{db420ff1-427a-4cda-b5e7-7d395b9f16e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4065186/to_deepl-0.9.0.xpi";
-      sha256 = "98dde9b41f4971b0795a7c884b34b578701752deafe9febcd870fc4b056afdf4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4350032/to_deepl-0.9.1.xpi";
+      sha256 = "0708e1a529194933f7b707180731fafd573fa877d24ac864b1e10cd988f3d495";
       meta = with lib;
       {
         homepage = "https://github.com/xpmn/firefox-to-deepl/";
@@ -11340,26 +11340,6 @@
           "https://github.com/uBlockOrigin/*"
           "https://ublockorigin.github.io/*"
           "https://*.reddit.com/r/uBlockOrigin/*"
-        ];
-        platforms = platforms.all;
-      };
-    };
-    "ublock-origin-lite" = buildFirefoxXpiAddon {
-      pname = "ublock-origin-lite";
-      version = "2023.8.25.959";
-      addonId = "uBOLite@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4158603/ublock_origin_lite-2023.8.25.959.xpi";
-      sha256 = "7d8ba024d025fa55f4a8bbc9c1acf3522cea5dd87be54aac2da0baac53d64f0b";
-      meta = with lib;
-      {
-        homepage = "https://github.com/uBlockOrigin/uBOL-home";
-        description = "A permission-less content blocker. Blocks ads, trackers, miners, and more immediately upon installation.";
-        license = licenses.gpl3;
-        mozPermissions = [
-          "activeTab"
-          "declarativeNetRequest"
-          "scripting"
-          "storage"
         ];
         platforms = platforms.all;
       };
