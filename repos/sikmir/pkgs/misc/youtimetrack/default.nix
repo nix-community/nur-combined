@@ -17,6 +17,8 @@ buildGoModule rec {
 
   vendorHash = "sha256-HRyjdTTwDmu/5NVpjqCwatYuWN15j3rTgrhv76uMS7I=";
 
+  __darwinAllowLocalNetworking = true;
+
   meta = {
     description = "CLI tools for YouTrack time management";
     homepage = "https://github.com/bullshitsoftware/youtimetrack";
