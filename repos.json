@@ -597,6 +597,9 @@
         "kf5grd": {
             "url": "https://github.com/kf5grd/nur-packages"
         },
+        "kinzokudev": {
+            "url": "https://github.com/kinzoku-dev/nur-kinzoku"
+        },
         "kira-bruneau": {
             "url": "https://gitlab.com/kira-bruneau/nur-packages"
         },
