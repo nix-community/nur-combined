@@ -1,0 +1,56 @@
+name: "Build and Populate Cache"
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    - cron:  '14 4 * * *'
+jobs:
+  tests:
+    strategy:
+      matrix:
+        nurRepo:
+          - anntnzrb
+        cachixName:
+          - anntnzrb
+        nixPath:
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@V28
+      with:
+        nix_path: "${{ matrix.nixPath }}"
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+    - name: Show nixpkgs Version
+      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+
+    - name: Setup cachix
+      uses: cachix/cachix-action@v15
+      with:
+        name: ${{ matrix.cachixName }}
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
+    - name: Check Nix Evaluation
+      run: |
+        nix-env -f . -qa \* --meta --xml \
+          --allowed-uris https://static.rust-lang.org \
+          --option restrict-eval true \
+          --option allow-import-from-derivation true \
+          --drv-path --show-trace \
+          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+          -I $PWD
+
+    - name: Build Nix Packages
+      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+
+    - name: Trigger NUR update
+      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
