@@ -120,6 +120,9 @@
         "angr": {
             "url": "https://github.com/angr/nixpkgs"
         },
+        "anntnzrb": {
+            "url": "https://github.com/anntnzrb/nurpkgs"
+        },
         "anthonyroussel": {
             "url": "https://github.com/anthonyroussel/nur-packages"
         },
