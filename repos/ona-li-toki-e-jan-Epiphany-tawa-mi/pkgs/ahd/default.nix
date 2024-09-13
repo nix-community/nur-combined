@@ -6,14 +6,13 @@
 
 stdenv.mkDerivation rec {
   pname   = "ahd";
-  version = "0.1.4";
+  version = "0.1.5";
 
   src = fetchFromGitHub {
     owner = "ona-li-toki-e-jan-Epiphany-tawa-mi";
     repo  = "AHD";
-    # Hotfix for crash on reading from stdin.
-    rev   = "69fcefc03b0d2a35b30a178a19da593582aa5749";
-    hash  = "sha256-u6s6X52EfXCIsAYtHgelJYrDO8ktRL0EWZaj8rpJfbA=";
+    rev   = version;
+    hash  = "sha256-VesCMC5bD/geTtO/O4nJxVtTXSzYHyCbEJCBalrtIrA=";
   };
 
   buildInputs = [ gnuapl ];
@@ -26,10 +25,11 @@ stdenv.mkDerivation rec {
     cp workspaces/* $out/lib
 
     # Rewrite library loads to use paths from the Nix store.
-    sed -i "s|⊣ ⍎\")COPY_ONCE fio.apl\"|⊣ ⍎\")COPY_ONCE $out/lib/fio.apl\"|" \
-           $out/bin/${pname}
-    sed -i "s|⊣ ⍎\")COPY_ONCE logging.apl\"|⊣ ⍎\")COPY_ONCE $out/lib/logging.apl\"|" \
+    sed -i -e "s|⊣ ⍎\")COPY_ONCE fio.apl\"|⊣ ⍎\")COPY_ONCE $out/lib/fio.apl\"|"      \
+        -e "s|⊣ ⍎\")COPY_ONCE logging.apl\"|⊣ ⍎\")COPY_ONCE $out/lib/logging.apl\"|" \
         $out/bin/${pname}
+    sed -i -e "s|⊣ ⍎\")COPY_ONCE fio.apl\"|⊣ ⍎\")COPY_ONCE $out/lib/fio.apl\"|" \
+        $out/lib/logging.apl
 
     runHook postInstall
   '';

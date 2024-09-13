@@ -6,15 +6,13 @@
 
 stdenv.mkDerivation rec {
   pname   = "cowsaypl";
-  version = "1.2.1";
+  version = "1.2.2";
 
   src = fetchFromGitHub {
     owner = "ona-li-toki-e-jan-Epiphany-tawa-mi";
     repo  = "cowsAyPL";
-    #rev   = "RELEASE-V${version}";
-    # Bug fix for reading from stdin.
-    rev   = "989ed1de3f27333e55d3cf2346206c8f61aebf9e";
-    hash  = "sha256-JpLCYpDtYQrAyjdtodH/pZS5r2t9em3YzItBWl6H8m8=";
+    rev   = "RELEASE-V${version}";
+    hash  = "sha256-EBl/LG+WlX8ygxY7j7xJNpf656cVcKtaDLiY3wStvYY=";
   };
 
   buildInputs = [ gnuapl ];
