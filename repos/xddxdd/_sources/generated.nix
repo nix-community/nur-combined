@@ -154,15 +154,15 @@
   };
   boringssl-oqs = {
     pname = "boringssl-oqs";
-    version = "6421f76cd7f58dfe3811daef18905d64e7a3fb42";
+    version = "8cb30263af6776f94be56e66a5536f84d53811b2";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "boringssl";
-      rev = "6421f76cd7f58dfe3811daef18905d64e7a3fb42";
+      rev = "8cb30263af6776f94be56e66a5536f84d53811b2";
       fetchSubmodules = false;
-      sha256 = "sha256-XEFrkzOfPbkdkHJP0Ny1WsJah1tsJjg44Am/u/hPARs=";
+      sha256 = "sha256-0DJ5E+cgH6zeD+QyQ+jSdH2n2BFt9c6IUmVJvbb9Q9I=";
     };
-    date = "2024-09-04";
+    date = "2024-09-14";
   };
   browser360-amd64 = {
     pname = "browser360-amd64";
@@ -182,15 +182,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "301ef0bda7322fa0cbd277da469edd77a7461f82";
+    version = "02e551d50c9a414baa1e5117f3b3321297cf86d2";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "301ef0bda7322fa0cbd277da469edd77a7461f82";
+      rev = "02e551d50c9a414baa1e5117f3b3321297cf86d2";
       fetchSubmodules = false;
-      sha256 = "sha256-iicVp0+aai1P7uWzFgAiBMAWf6O5e5i0Ho7FZkgGk6Y=";
+      sha256 = "sha256-nqXDyQS48DwrqYWTqV/YOUqpWElJUOA3JV678koDdf0=";
     };
-    date = "2024-09-10";
+    date = "2024-09-13";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -501,15 +501,15 @@
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
-    version = "6e613abff54862c1295d388c424c25df23986927";
+    version = "424f2634d4463cee71eaac34a2e0b9f89366bfac";
     src = fetchFromGitHub {
       owner = "SpeedyOrc-C";
       repo = "Hoyo-Glyphs";
-      rev = "6e613abff54862c1295d388c424c25df23986927";
+      rev = "424f2634d4463cee71eaac34a2e0b9f89366bfac";
       fetchSubmodules = false;
-      sha256 = "sha256-Di0hI5t6awOTOVOc8R2V0o11LN2P5BsDoB7AvVo+Igg=";
+      sha256 = "sha256-Jy+BHXqXQEtV1AAL2bUYkSg0lQ9qPAWLmV9NLlx8pwM=";
     };
-    date = "2024-07-13";
+    date = "2024-09-12";
   };
   hoyo-glyphs-font-ainee = {
     pname = "hoyo-glyphs-font-ainee";
@@ -700,15 +700,15 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "b37c937a649ec9cdb82c4964f97aa7d8ec0c9b01";
+    version = "306140ebb577180e7bc704714e82949f7b9d33cf";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "b37c937a649ec9cdb82c4964f97aa7d8ec0c9b01";
+      rev = "306140ebb577180e7bc704714e82949f7b9d33cf";
       fetchSubmodules = false;
-      sha256 = "sha256-QuU03T0wmGE8qwuO+vK8eZXiwArh+QxsKf4SFNjEVMs=";
+      sha256 = "sha256-pRXzLID2hPunjoKenp1jp8q1vtt14nyEKajl3DTRws0=";
     };
-    date = "2024-09-09";
+    date = "2024-09-13";
   };
   libqcef = {
     pname = "libqcef";
@@ -772,13 +772,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.10.9-xanmod1";
+    version = "6.10.10-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.10.9-xanmod1";
+      rev = "6.10.10-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-hzSWeyJF2JeP12M1PP+CgcFKMahjTw4pE7PcAuozksw=";
+      sha256 = "sha256-abxhlF0zmY9WvcQ+FnkR5fNMvrw+oTCIMaCs8DFJ+oA=";
     };
   };
   linux-xanmod-6_0 = {
@@ -805,24 +805,24 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.50-xanmod1";
+    version = "6.6.51-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.50-xanmod1";
+      rev = "6.6.51-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-NaAJMsOlN1T/KfE2lbQdeoS/B9l2YdVMDdmrN9HygHw=";
+      sha256 = "sha256-dNUTePfL6cAA0EmEG/D36dNJUobDRBHR5+BYrLIYot4=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3728";
+    version = "b3751";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3728";
+      rev = "b3751";
       fetchSubmodules = false;
-      sha256 = "sha256-o4C/DyHnPxfL+3ComDQDX+LKdHfLtQrmTgyNGGTqGbs=";
+      sha256 = "sha256-MaTA1drlREYCxSM4p8iMk5xdyj1dhJZSJajz8X1wLgI=";
     };
   };
   lyrica = {
@@ -1038,15 +1038,15 @@
   };
   openresty = {
     pname = "openresty";
-    version = "c58d90ce11d9a832ae2c9552ade869ada46449ec";
+    version = "efc930249e761aabe8bbf9d590279066060e41bb";
     src = fetchFromGitHub {
       owner = "openresty";
       repo = "openresty";
-      rev = "c58d90ce11d9a832ae2c9552ade869ada46449ec";
+      rev = "efc930249e761aabe8bbf9d590279066060e41bb";
       fetchSubmodules = false;
-      sha256 = "sha256-XYycgiIezoOSWpytqLu+sm810rAmzRnDhJM9vXHY9Tc=";
+      sha256 = "sha256-uF1M7YfRca73UlTyhP0YUe7qLRMwfg7uyeCC/mAZvTg=";
     };
-    date = "2024-08-21";
+    date = "2024-09-14";
   };
   openssl-oqs = {
     pname = "openssl-oqs";
@@ -1129,10 +1129,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v6.1.4";
+    version = "v6.2.1";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.1.4/PeerBanHelper.jar";
-      sha256 = "sha256-adTyE4jESvqTY2q915zys28pbY9Si1E30w0I2ZSo8Ik=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.2.1/PeerBanHelper.jar";
+      sha256 = "sha256-ENHsWfoOfS+/b0ypZrKfOWWP3RWBzmS46OCUERPAnU0=";
     };
   };
   phpmyadmin = {
@@ -1242,10 +1242,10 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "9.1.0+ds-3";
+    version = "9.1.0+ds-3+b1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-3_amd64.deb";
-      sha256 = "sha256-gUqFdGwzG1IbobHqdPNGxdMYOJjaJG4WnJTy1HTuJyw=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-3+b1_amd64.deb";
+      sha256 = "sha256-Qqy02QRwW+TPgh+vqhN1WE/5w9xDjxpqKWpdSzk2bBk=";
     };
   };
   qemu-user-static-arm64 = {
@@ -1266,10 +1266,10 @@
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "9.1.0+ds-3";
+    version = "9.1.0+ds-3+b1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-3_i386.deb";
-      sha256 = "sha256-1GMVw1jhxZ6sj59lfQbtwvO6XwiU1EdLLgQRfnXzmds=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-3+b1_i386.deb";
+      sha256 = "sha256-X0cnKZrNCmwphmtOKbfd6u8LJXkFGJQX5c18C8CisZ4=";
     };
   };
   qhttpengine = {
@@ -1376,15 +1376,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "0367c85243ecf22d064f45cab29a47a3a1652e80";
+    version = "2cf8aa100b6712ba3f0bbe9c68dd0cf88b57f4f4";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "0367c85243ecf22d064f45cab29a47a3a1652e80";
+      rev = "2cf8aa100b6712ba3f0bbe9c68dd0cf88b57f4f4";
       fetchSubmodules = false;
-      sha256 = "sha256-uzEN8xjfpEdYMDX2AisS0Df+V0+gdOeJGQxQJZIuffo=";
+      sha256 = "sha256-cSYeMe52asAkKgzIrUurimT+kO1bcOPpbt7Ux8WQUV4=";
     };
-    date = "2024-08-29";
+    date = "2024-09-13";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1676,18 +1676,18 @@
   };
   wine-wechat-x64 = {
     pname = "wine-wechat-x64";
-    version = "3.9.11.25";
+    version = "3.9.12.15";
     src = fetchurl {
-      url = "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.11.25/WeChatSetup-3.9.11.25.exe";
-      sha256 = "sha256-BKZo6g02zYljrMK5wPCv8MCnxz9GEnhj6h+Q6UJmQXE=";
+      url = "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.12.15/WeChatSetup-3.9.12.15.exe";
+      sha256 = "sha256-drTQ9Nwopnm+oJskcURJVuQ2gJgrMe7JWE6cz2lQRtk=";
     };
   };
   wine-wechat-x86 = {
     pname = "wine-wechat-x86";
-    version = "3.9.11.24";
+    version = "3.9.12.14";
     src = fetchurl {
-      url = "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.11.24/WeChatSetupX86-3.9.11.24.exe";
-      sha256 = "sha256-y2ArtcgsAMsVchADZjUscqZEKu9Ji+HKMKYRw0s2gYw=";
+      url = "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.12.14/WeChatSetupX86-3.9.12.14.exe";
+      sha256 = "sha256-iX9pwD+NXRAZkEjHE1NADZLUytFs20H9t9JdetO2MXo=";
     };
   };
   xstatic-asciinema-player = {

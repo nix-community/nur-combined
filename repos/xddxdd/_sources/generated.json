@@ -277,7 +277,7 @@
     },
     "boringssl-oqs": {
         "cargoLocks": null,
-        "date": "2024-09-04",
+        "date": "2024-09-14",
         "extract": null,
         "name": "boringssl-oqs",
         "passthru": null,
@@ -289,12 +289,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "boringssl",
-            "rev": "6421f76cd7f58dfe3811daef18905d64e7a3fb42",
-            "sha256": "sha256-XEFrkzOfPbkdkHJP0Ny1WsJah1tsJjg44Am/u/hPARs=",
+            "rev": "8cb30263af6776f94be56e66a5536f84d53811b2",
+            "sha256": "sha256-0DJ5E+cgH6zeD+QyQ+jSdH2n2BFt9c6IUmVJvbb9Q9I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6421f76cd7f58dfe3811daef18905d64e7a3fb42"
+        "version": "8cb30263af6776f94be56e66a5536f84d53811b2"
     },
     "browser360-amd64": {
         "cargoLocks": null,
@@ -328,7 +328,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-09-10",
+        "date": "2024-09-13",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -340,12 +340,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "301ef0bda7322fa0cbd277da469edd77a7461f82",
-            "sha256": "sha256-iicVp0+aai1P7uWzFgAiBMAWf6O5e5i0Ho7FZkgGk6Y=",
+            "rev": "02e551d50c9a414baa1e5117f3b3321297cf86d2",
+            "sha256": "sha256-nqXDyQS48DwrqYWTqV/YOUqpWElJUOA3JV678koDdf0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "301ef0bda7322fa0cbd277da469edd77a7461f82"
+        "version": "02e551d50c9a414baa1e5117f3b3321297cf86d2"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -885,7 +885,7 @@
     },
     "hoyo-glyphs": {
         "cargoLocks": null,
-        "date": "2024-07-13",
+        "date": "2024-09-12",
         "extract": null,
         "name": "hoyo-glyphs",
         "passthru": null,
@@ -897,12 +897,12 @@
             "name": null,
             "owner": "SpeedyOrc-C",
             "repo": "Hoyo-Glyphs",
-            "rev": "6e613abff54862c1295d388c424c25df23986927",
-            "sha256": "sha256-Di0hI5t6awOTOVOc8R2V0o11LN2P5BsDoB7AvVo+Igg=",
+            "rev": "424f2634d4463cee71eaac34a2e0b9f89366bfac",
+            "sha256": "sha256-Jy+BHXqXQEtV1AAL2bUYkSg0lQ9qPAWLmV9NLlx8pwM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6e613abff54862c1295d388c424c25df23986927"
+        "version": "424f2634d4463cee71eaac34a2e0b9f89366bfac"
     },
     "hoyo-glyphs-font-ainee": {
         "cargoLocks": null,
@@ -1251,7 +1251,7 @@
     },
     "liboqs-unstable": {
         "cargoLocks": null,
-        "date": "2024-09-09",
+        "date": "2024-09-13",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -1263,12 +1263,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "b37c937a649ec9cdb82c4964f97aa7d8ec0c9b01",
-            "sha256": "sha256-QuU03T0wmGE8qwuO+vK8eZXiwArh+QxsKf4SFNjEVMs=",
+            "rev": "306140ebb577180e7bc704714e82949f7b9d33cf",
+            "sha256": "sha256-pRXzLID2hPunjoKenp1jp8q1vtt14nyEKajl3DTRws0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b37c937a649ec9cdb82c4964f97aa7d8ec0c9b01"
+        "version": "306140ebb577180e7bc704714e82949f7b9d33cf"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1389,12 +1389,12 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.10.9-xanmod1",
-            "sha256": "sha256-hzSWeyJF2JeP12M1PP+CgcFKMahjTw4pE7PcAuozksw=",
+            "rev": "6.10.10-xanmod1",
+            "sha256": "sha256-abxhlF0zmY9WvcQ+FnkR5fNMvrw+oTCIMaCs8DFJ+oA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.10.9-xanmod1"
+        "version": "6.10.10-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1452,12 +1452,12 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.6.50-xanmod1",
-            "sha256": "sha256-NaAJMsOlN1T/KfE2lbQdeoS/B9l2YdVMDdmrN9HygHw=",
+            "rev": "6.6.51-xanmod1",
+            "sha256": "sha256-dNUTePfL6cAA0EmEG/D36dNJUobDRBHR5+BYrLIYot4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.6.50-xanmod1"
+        "version": "6.6.51-xanmod1"
     },
     "llama-cpp": {
         "cargoLocks": null,
@@ -1473,12 +1473,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3728",
-            "sha256": "sha256-o4C/DyHnPxfL+3ComDQDX+LKdHfLtQrmTgyNGGTqGbs=",
+            "rev": "b3751",
+            "sha256": "sha256-MaTA1drlREYCxSM4p8iMk5xdyj1dhJZSJajz8X1wLgI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3728"
+        "version": "b3751"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -1863,7 +1863,7 @@
     },
     "openresty": {
         "cargoLocks": null,
-        "date": "2024-08-21",
+        "date": "2024-09-14",
         "extract": null,
         "name": "openresty",
         "passthru": null,
@@ -1875,12 +1875,12 @@
             "name": null,
             "owner": "openresty",
             "repo": "openresty",
-            "rev": "c58d90ce11d9a832ae2c9552ade869ada46449ec",
-            "sha256": "sha256-XYycgiIezoOSWpytqLu+sm810rAmzRnDhJM9vXHY9Tc=",
+            "rev": "efc930249e761aabe8bbf9d590279066060e41bb",
+            "sha256": "sha256-uF1M7YfRca73UlTyhP0YUe7qLRMwfg7uyeCC/mAZvTg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c58d90ce11d9a832ae2c9552ade869ada46449ec"
+        "version": "efc930249e761aabe8bbf9d590279066060e41bb"
     },
     "openssl-oqs": {
         "cargoLocks": null,
@@ -2038,11 +2038,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-adTyE4jESvqTY2q915zys28pbY9Si1E30w0I2ZSo8Ik=",
+            "sha256": "sha256-ENHsWfoOfS+/b0ypZrKfOWWP3RWBzmS46OCUERPAnU0=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.1.4/PeerBanHelper.jar"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.2.1/PeerBanHelper.jar"
         },
-        "version": "v6.1.4"
+        "version": "v6.2.1"
     },
     "phpmyadmin": {
         "cargoLocks": null,
@@ -2251,11 +2251,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-gUqFdGwzG1IbobHqdPNGxdMYOJjaJG4WnJTy1HTuJyw=",
+            "sha256": "sha256-Qqy02QRwW+TPgh+vqhN1WE/5w9xDjxpqKWpdSzk2bBk=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-3_amd64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-3+b1_amd64.deb"
         },
-        "version": "9.1.0+ds-3"
+        "version": "9.1.0+ds-3+b1"
     },
     "qemu-user-static-arm64": {
         "cargoLocks": null,
@@ -2296,11 +2296,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-1GMVw1jhxZ6sj59lfQbtwvO6XwiU1EdLLgQRfnXzmds=",
+            "sha256": "sha256-X0cnKZrNCmwphmtOKbfd6u8LJXkFGJQX5c18C8CisZ4=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-3_i386.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-3+b1_i386.deb"
         },
-        "version": "9.1.0+ds-3"
+        "version": "9.1.0+ds-3+b1"
     },
     "qhttpengine": {
         "cargoLocks": null,
@@ -2490,7 +2490,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-08-29",
+        "date": "2024-09-13",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -2502,12 +2502,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "0367c85243ecf22d064f45cab29a47a3a1652e80",
-            "sha256": "sha256-uzEN8xjfpEdYMDX2AisS0Df+V0+gdOeJGQxQJZIuffo=",
+            "rev": "2cf8aa100b6712ba3f0bbe9c68dd0cf88b57f4f4",
+            "sha256": "sha256-cSYeMe52asAkKgzIrUurimT+kO1bcOPpbt7Ux8WQUV4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0367c85243ecf22d064f45cab29a47a3a1652e80"
+        "version": "2cf8aa100b6712ba3f0bbe9c68dd0cf88b57f4f4"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -3052,11 +3052,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-BKZo6g02zYljrMK5wPCv8MCnxz9GEnhj6h+Q6UJmQXE=",
+            "sha256": "sha256-drTQ9Nwopnm+oJskcURJVuQ2gJgrMe7JWE6cz2lQRtk=",
             "type": "url",
-            "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.11.25/WeChatSetup-3.9.11.25.exe"
+            "url": "https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.12.15/WeChatSetup-3.9.12.15.exe"
         },
-        "version": "3.9.11.25"
+        "version": "3.9.12.15"
     },
     "wine-wechat-x86": {
         "cargoLocks": null,
@@ -3067,11 +3067,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-y2ArtcgsAMsVchADZjUscqZEKu9Ji+HKMKYRw0s2gYw=",
+            "sha256": "sha256-iX9pwD+NXRAZkEjHE1NADZLUytFs20H9t9JdetO2MXo=",
             "type": "url",
-            "url": "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.11.24/WeChatSetupX86-3.9.11.24.exe"
+            "url": "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v3.9.12.14/WeChatSetupX86-3.9.12.14.exe"
         },
-        "version": "3.9.11.24"
+        "version": "3.9.12.14"
     },
     "xstatic-asciinema-player": {
         "cargoLocks": null,
