@@ -46,6 +46,7 @@ in
       ".local.justfile"
       ".venv/"
       ".vscode/"
+      "result"
     ];
 
     delta = {

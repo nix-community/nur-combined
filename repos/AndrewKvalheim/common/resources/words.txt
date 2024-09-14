@@ -33,6 +33,9 @@ Anki
 annotatable
 anonymized
 Ansible
+antimeme
+antimemetic
+antimemetics
 APNIC
 AppFolio
 AppIndicator
@@ -781,9 +784,11 @@ Pender
 Phanpy
 Phinney
 photogrammetry
+PhotoPrism
 photorealistic
 photoresistor
 photoshopped
+PhotoSync
 Picard
 Picasa
 Pictionary
@@ -1142,6 +1147,7 @@ unban
 unblockable
 unbreak
 unbreaks
+unbuffer
 uncategorized
 unclickable
 unclipped
@@ -1191,6 +1197,7 @@ unscope
 unscoped
 unsettable
 unsetting
+unstage
 unstaged
 unstick
 unsuffixed

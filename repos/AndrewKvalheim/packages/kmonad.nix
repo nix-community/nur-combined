@@ -122,7 +122,7 @@ let
     name = "kmonad-${keyboard.name}";
     value = {
       description = "KMonad trigger for ${keyboard.device}";
-      wantedBy = [ "default.target" ];
+      upheldBy = [ "default.target" ];
       pathConfig.Unit = "${name}.service";
       pathConfig.PathExists = keyboard.device;
     };

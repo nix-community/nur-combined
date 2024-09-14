@@ -1,11 +1,13 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let
   inherit (builtins) readFile;
+  inherit (lib) getExe;
+  inherit (pkgs) bash coreutils efficient-compression-tool findutils resholve;
 
-  handler = with pkgs; resholve.writeScriptBin "organize-downloads" {
-    interpreter = "${bash}/bin/bash";
-    inputs = [ coreutils efficient-compression-tool ];
+  handler = resholve.writeScriptBin "organize-downloads" {
+    interpreter = getExe bash;
+    inputs = [ coreutils efficient-compression-tool findutils ];
   } (readFile ./resources/organize-downloads);
 in
 {

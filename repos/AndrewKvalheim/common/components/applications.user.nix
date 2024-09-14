@@ -142,6 +142,7 @@ in
     home.sessionVariables = {
       ANSIBLE_NOCOWS = "🐄"; # Workaround for ansible/ansible#10530
       PYTHON_KEYRING_BACKEND = "keyring.backends.fail.Keyring"; # Workaround for python-poetry/poetry#8761
+      VAGRANT_APT_CACHE = "http://10.0.2.3:3142";
     };
     xdg.configFile."autostart/emote.desktop".source = "${pkgs.emote}/share/applications/emote.desktop";
     xdg.configFile."cargo-release/release.toml".source = toTOML "release.toml" {
@@ -174,6 +175,20 @@ in
       net-in-color = blue;
       net-out-color = red;
     };
+    home.file.".vagrant.d/Vagrantfile".text = ''
+      Vagrant.configure('2') do |config|
+        if ENV.include?('VAGRANT_APT_CACHE')
+          config.vm.provision :shell, name: 'APT cache', inline: <<~BASH
+            tee '/etc/apt/apt.conf.d/02cache' <<APT
+            Acquire::http::Proxy "#{ENV['VAGRANT_APT_CACHE']}";
+            Acquire::https::Proxy "false";
+            APT
+          BASH
+        else
+          config.trigger.before :up, warn: 'Set VAGRANT_APT_CACHE to use an APT caching proxy'
+        end
+      end
+    '';
     home.file.".visidatarc".text = with pkgs; toKeyValue { } {
       "options.clipboard_copy_cmd" = "${wl-clipboard}/bin/wl-copy";
       "options.clipboard_paste_cmd" = "${wl-clipboard}/bin/wl-paste --no-newline";

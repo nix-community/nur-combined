@@ -26,7 +26,10 @@ in
   emote.overlay = e: { postInstall = e.postInstall or "" + "\nsubstituteInPlace $out/share/applications/emote.desktop --replace-fail 'Exec=emote' \"Exec=$out/bin/emote\""; }; # Allow desktop entry as entrypoint
   fastnbt-tools = any;
   fediblockhole = any;
-  fedifetcher = { version = "≥7.1.7"; search = specify { fedifetcher.overlay = f: rec { version = "7.1.7"; src = f.src.override { rev = "refs/tags/v${version}"; hash = "sha256-1QLVhqyH0wb8om2pFJfmgJcYp9DTuT5KZpLy5InlRr8="; }; propagatedBuildInputs = f.propagatedBuildInputs ++ [ stable.python3Packages.xxhash ]; }; }; }; # nanos/FediFetcher#161
+  fedifetcher = {
+    version = "≥7.1.7"; # nanos/FediFetcher#161
+    overlay = f: let python = stable.lib.findFirst (p: p.pname or null == "python3") null f.nativeBuildInputs; in { propagatedBuildInputs = f.propagatedBuildInputs ++ [ python.pkgs.xxhash ]; }; # https://github.com/NixOS/nixpkgs/pull/341084#issuecomment-2350748884
+  };
   firefox.overlay = w: { buildCommand = w.buildCommand + "\nwrapProgram $executablePath --unset LC_TIME"; }; # Workaround for bugzilla#1269895
   git-diff-image = any;
   git-diff-minecraft = any;

@@ -403,6 +403,7 @@ in
         "**/.yarn" = true;
         "**/__pycache__" = true;
         "**/node_modules" = true;
+        "**/result" = true;
       };
       "rust-client.disableRustup" = true;
       "shellcheck.disableVersionCheck" = true;

@@ -12,6 +12,7 @@ in
 {
   imports = [
     ./components/applications.system.nix
+    ./components/apt-cache.system.nix
     ./components/backup.system.nix
     ./components/desktop.system.nix
     ./components/keyboard.system.nix
@@ -90,16 +91,14 @@ in
     };
 
     # Authorization
-    security.sudo.extraRules = [
-      {
-        groups = [ "wheel" ];
-        commands = [
-          { command = "/run/current-system/sw/bin/btrfs balance start --enqueue -dusage=50 -musage=50 /"; options = [ "NOPASSWD" ]; }
-          { command = "/run/current-system/sw/bin/nix-channel --update"; options = [ "NOPASSWD" ]; }
-          { command = "/run/current-system/sw/bin/poweroff"; options = [ "NOPASSWD" ]; }
-        ];
-      }
-    ];
+    security.sudo.extraRules = [{
+      groups = [ "wheel" ];
+      commands = [
+        { command = "/run/current-system/sw/bin/btrfs balance start --enqueue -dusage=50 -musage=50 /"; options = [ "NOPASSWD" ]; }
+        { command = "/run/current-system/sw/bin/nix-channel --update"; options = [ "NOPASSWD" ]; }
+        { command = "/run/current-system/sw/bin/poweroff"; options = [ "NOPASSWD" ]; }
+      ];
+    }];
 
     # SSH
     services.openssh = {

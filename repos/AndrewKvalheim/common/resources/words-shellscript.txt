@@ -17,5 +17,6 @@ pushd
 readlink
 realpath
 setaf
+setfacl
 sgr0
 usr
