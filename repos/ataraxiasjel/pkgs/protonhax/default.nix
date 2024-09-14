@@ -39,5 +39,6 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
     license = licenses.bsd3;
     maintainers = with maintainers; [ ataraxiasjel ];
+    mainProgram = "protonhax";
   };
 }

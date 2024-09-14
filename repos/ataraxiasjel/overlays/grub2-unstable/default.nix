@@ -1,4 +1,4 @@
-final: prev: {
+_final: prev: {
   grub2 = prev.grub2.overrideAttrs (attrs: {
     patches = [
       # argon2 patches from AUR: https://aur.archlinux.org/packages/grub-improved-luks2-git

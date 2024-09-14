@@ -1,41 +1,65 @@
 {
   pkgs ? import <nixpkgs> { },
+  lib ? pkgs.lib,
 }:
+let
+  pkgsWithNur = import pkgs.path {
+    inherit (pkgs) system;
+    config = pkgs.config // {
+      allowUnfree = true;
+    };
+    overlays = pkgs.overlays ++ [ nurOverlay ];
+  };
+  finalOverlay = nurOverlay pkgsWithNur pkgs;
 
-rec {
-  lib = import ../lib { inherit pkgs; };
+  nurOverlay = final: prev: {
+    a2ln = pkgs.python3Packages.callPackage ./a2ln { };
+    arkenfox-userjs = final.callPackage ./arkenfox-userjs { };
+    authentik = final.callPackage ./authentik/package.nix { };
+    authentik-outposts = final.recurseIntoAttrs (final.callPackages ./authentik/outposts.nix { });
+    bibata-cursors-tokyonight = final.callPackage ./bibata-cursors-tokyonight { };
+    ceserver = final.callPackage ./ceserver { };
+    gruvbox-plus-icons = final.callPackage ./gruvbox-plus-icons { };
+    hoyolab-claim-bot = final.callPackage ./hoyolab-claim-bot { };
+    json-liquid-rs = final.callPackage ./json-liquid-rs { };
+    kes = final.callPackage ./kes { };
+    koboldcpp = final.callPackage ./koboldcpp { };
+    koboldcpp-rocm = final.callPackage ./koboldcpp-rocm { };
+    mpris-ctl = final.callPackage ./mpris-ctl { };
+    ocis-bin = final.callPackage ./ocis-bin { };
+    packwiz = final.callPackage ./packwiz { };
+    prometheus-podman-exporter = final.callPackage ./prometheus/podman-exporter.nix { };
+    proton-ge = final.callPackage ./proton-ge { };
+    protonhax = final.callPackage ./protonhax { };
+    realrtcw = final.callPackage ./realrtcw { };
+    reshade-shaders = final.callPackage ./reshade-shaders { };
+    rpcs3 = final.qt6Packages.callPackage ./rpcs3 { };
+    seadrive-fuse = final.callPackage ./seadrive-fuse { };
+    superfile = final.callPackage ./superfile { };
+    waydroid-script = final.python3Packages.callPackage ./waydroid-script { };
+    whoogle-search = final.python3Packages.callPackage ./whoogle-search { };
+    wine-ge = final.callPackage ./wine-ge { };
+    wopiserver = final.python3Packages.callPackage ./wopiserver { };
+
+    inherit (final.callPackage ./rosepine-gtk { }) rosepine-gtk-theme rosepine-gtk-icons;
+    inherit (final.callPackage ./tokyonight-gtk { }) tokyonight-gtk-theme tokyonight-gtk-icons;
+
+    pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+      (
+        pyFinal: _pyPrev:
+        import ./python3Packages {
+          inherit (pyFinal) callPackage;
+          inherit lib;
+        }
+      )
+    ];
+    # expose nur python packages
+    python-pkgs = pkgs.recurseIntoAttrs (final.python3Packages.callPackage ./python3Packages { });
+  };
+in
+finalOverlay
+// {
+  lib = lib.extend (_: _: (pkgs.callPackage ../lib { }));
   modules = import ../modules;
   overlays = import ../overlays;
-
-  a2ln = pkgs.python3Packages.callPackage ./a2ln { };
-  arkenfox-userjs = pkgs.callPackage ./arkenfox-userjs { };
-  authentik = pkgs.callPackage ./authentik/package.nix { };
-  authentik-outposts = pkgs.recurseIntoAttrs (pkgs.callPackages ./authentik/outposts.nix { });
-  bibata-cursors-tokyonight = pkgs.callPackage ./bibata-cursors-tokyonight { };
-  ceserver = pkgs.callPackage ./ceserver { };
-  gruvbox-plus-icons = pkgs.callPackage ./gruvbox-plus-icons { };
-  hoyolab-claim-bot = pkgs.callPackage ./hoyolab-claim-bot { };
-  json-liquid-rs = pkgs.callPackage ./json-liquid-rs { };
-  kes = pkgs.callPackage ./kes { };
-  koboldcpp = pkgs.callPackage ./koboldcpp { inherit (python-pkgs) customtkinter; };
-  koboldcpp-rocm = pkgs.callPackage ./koboldcpp-rocm { inherit (python-pkgs) customtkinter; };
-  mpris-ctl = pkgs.callPackage ./mpris-ctl { };
-  ocis-bin = pkgs.callPackage ./ocis-bin { };
-  packwiz = pkgs.callPackage ./packwiz { };
-  prometheus-podman-exporter = pkgs.callPackage ./prometheus/podman-exporter.nix { };
-  proton-ge = pkgs.callPackage ./proton-ge { };
-  protonhax = pkgs.callPackage ./protonhax { };
-  realrtcw = pkgs.callPackage ./realrtcw { };
-  reshade-shaders = pkgs.callPackage ./reshade-shaders { };
-  rpcs3 = pkgs.qt6Packages.callPackage ./rpcs3 { };
-  seadrive-fuse = pkgs.callPackage ./seadrive-fuse { };
-  superfile = pkgs.callPackage ./superfile { };
-  waydroid-script = pkgs.python3Packages.callPackage ./waydroid-script { };
-  whoogle-search = pkgs.python3Packages.callPackage ./whoogle-search { };
-  wine-ge = pkgs.callPackage ./wine-ge { };
-  wopiserver = pkgs.python3Packages.callPackage ./wopiserver { inherit (python-pkgs) cs3apis; };
-
-  inherit (pkgs.callPackage ./rosepine-gtk { }) rosepine-gtk-theme rosepine-gtk-icons;
-  inherit (pkgs.callPackage ./tokyonight-gtk { }) tokyonight-gtk-theme tokyonight-gtk-icons;
-  python-pkgs = pkgs.recurseIntoAttrs (pkgs.python3Packages.callPackage ./python3Packages { });
 }

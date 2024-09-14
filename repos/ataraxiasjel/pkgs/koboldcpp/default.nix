@@ -2,8 +2,7 @@
   stdenv,
   lib,
   fetchFromGitHub,
-  python3,
-  customtkinter,
+  python3Packages,
   autoAddDriverRunpath ? cudaPackages.autoAddOpenGLRunpathHook, # remove after 24.05
 
   config,
@@ -97,13 +96,15 @@ in
 effectiveStdenv.mkDerivation {
   inherit pname version src;
 
-  propagatedBuildInputs = [
-    (python3.withPackages (ps: [
-      ps.numpy
-      ps.sentencepiece
-      ps.tkinter
-      customtkinter
-    ]))
+  nativeBuildInputs = [
+    python3Packages.wrapPython
+  ];
+
+  pythonPath = with python3Packages; [
+    numpy
+    sentencepiece
+    tkinter
+    customtkinter
   ];
 
   dontBuild = true;
@@ -136,10 +137,11 @@ effectiveStdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  postFixup = ''
+    wrapPythonPrograms
+  '';
 
-  # 2024-07-13 broken on nixos-unstable
-  preferLocalBuild = true;
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     homepage = "https://github.com/LostRuins/koboldcpp";
@@ -147,5 +149,6 @@ effectiveStdenv.mkDerivation {
     license = licenses.agpl3Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ataraxiasjel ];
+    mainProgram = "koboldcpp";
   };
 }

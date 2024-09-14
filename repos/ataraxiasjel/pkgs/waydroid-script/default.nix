@@ -69,5 +69,6 @@ buildPythonApplication rec {
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ataraxiasjel ];
+    mainProgram = "waydroid-script";
   };
 }

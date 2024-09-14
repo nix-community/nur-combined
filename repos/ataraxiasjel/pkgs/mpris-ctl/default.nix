@@ -54,5 +54,6 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     license = licenses.mit;
     maintainers = with maintainers; [ ataraxiasjel ];
+    mainProgram = "mpris-ctl";
   };
 }

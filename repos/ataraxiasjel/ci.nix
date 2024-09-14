@@ -61,7 +61,7 @@ let
     s:
     let
       f =
-        n: v:
+        _n: v:
         filterEmptyAttrs (
           if shouldRecurseForDerivations v then
             flattenAttrs v
@@ -88,7 +88,7 @@ let
 
   nurPkgs = flattenPkgs (listToAttrs (map (n: nameValuePair n nurAttrs.${n}) pkgsAttrNames));
 
-  filterEmptyAttrs = set: filterAttrs (n: v: v != { }) set;
+  filterEmptyAttrs = set: filterAttrs (_: v: v != { }) set;
 in
 rec {
   updatablePkgs = filterEmptyAttrs (flattenAttrs nurAttrs);

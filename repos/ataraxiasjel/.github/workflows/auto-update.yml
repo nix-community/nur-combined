@@ -35,12 +35,12 @@ jobs:
         GIT_AUTHOR_EMAIL: ataraxiasjel@users.noreply.github.com
         GIT_COMMITTER_NAME: AtaraxiaSjel (bot)
         GIT_COMMITTER_EMAIL: ataraxiasjel@users.noreply.github.com
-        GITHUB_TOKEN=: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NIXPKGS_ALLOW_UNFREE: 1
         NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
       timeout-minutes: 30
       continue-on-error: true
-      run: nix eval --json --impure --expr '(import ./ci.nix {}).updatablePkgsNames' | jq '.[]' | xargs -L1 ./update.py --commit --package
+      run: nix eval --json --impure --expr '(import ./ci.nix {}).updatablePkgsNames' | jq '.[]' | xargs -L1 nix-update --commit -f pkgs/default.nix
     - name: Check evaluation
       env:
         NIXPKGS_ALLOW_UNFREE: 1

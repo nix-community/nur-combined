@@ -77,5 +77,6 @@ buildPythonApplication rec {
     license = licenses.mit;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ataraxiasjel ];
+    mainProgram = "whoogle-search";
   };
 }

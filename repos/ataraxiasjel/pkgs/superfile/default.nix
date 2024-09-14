@@ -39,5 +39,6 @@ buildGoModule rec {
       "aarch64-linux"
       "aarch64-darwin"
     ];
+    mainProgram = "superfile";
   };
 }

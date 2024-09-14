@@ -3,6 +3,7 @@
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    devenv.url = "github:cachix/devenv";
   };
   outputs =
     inputs@{ flake-parts, nixpkgs, ... }:
@@ -15,10 +16,12 @@
         "armv6l-linux"
         "armv7l-linux"
       ];
+      imports = [
+        inputs.devenv.flakeModule
+      ];
       perSystem =
         {
           pkgs,
-          lib,
           system,
           ...
         }:
@@ -33,6 +36,21 @@
           # Get all packages from ci.nix
           packages = (import ./ci.nix { inherit pkgs; }).buildPkgs;
           checks = (import ./ci.nix { inherit pkgs; }).cachePkgs;
+          devenv.shells.default = {
+            packages = with pkgs; [
+              nix-update
+              nix-eval-jobs
+              nix-fast-build
+              jq
+            ];
+            pre-commit.hooks = {
+              actionlint.enable = true;
+              deadnix.enable = true;
+              flake-checker.enable = true;
+              nixfmt-rfc-style.enable = true;
+              ripsecrets.enable = true;
+            };
+          };
         };
       flake = {
         lib = import ./lib;

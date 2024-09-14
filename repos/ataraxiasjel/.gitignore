@@ -1,6 +1,7 @@
+/.devenv
+/.gcroot
+/gcroot
+
+.pre-commit-config.yaml
 result
 result-*
-build-*
-tmp
-/gcroot
-/.gcroot

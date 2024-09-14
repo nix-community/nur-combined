@@ -20,7 +20,7 @@ in
     '';
     type = types.attrsOf (
       types.submodule (
-        { config, name, ... }:
+        { ... }:
         {
           options = {
             settings = mkOption {

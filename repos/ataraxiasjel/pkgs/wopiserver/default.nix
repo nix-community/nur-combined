@@ -75,5 +75,6 @@ buildPythonApplication rec {
     license = licenses.asl20;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ataraxiasjel ];
+    mainProgram = "wopiserver";
   };
 }

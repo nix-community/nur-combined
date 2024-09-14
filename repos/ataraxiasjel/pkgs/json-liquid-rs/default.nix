@@ -29,5 +29,6 @@ rustPlatform.buildRustPackage rec {
       "aarch64-linux"
       "aarch64-darwin"
     ];
+    mainProgram = "json-liquid-rs";
   };
 }

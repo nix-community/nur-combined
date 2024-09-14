@@ -49,5 +49,6 @@ buildGoModule rec {
     homepage = "https://github.com/containers/prometheus-podman-exporter";
     license = licenses.asl20;
     maintainers = with maintainers; [ ataraxiasjel ];
+    mainProgram = "prometheus-podman-exporter";
   };
 }

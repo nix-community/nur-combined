@@ -46,5 +46,6 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     license = licenses.unfree;
     maintainers = with maintainers; [ ataraxiasjel ];
+    mainProgram = "ceserver";
   };
 }

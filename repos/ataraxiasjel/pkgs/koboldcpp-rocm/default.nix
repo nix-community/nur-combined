@@ -2,8 +2,7 @@
   stdenv,
   lib,
   fetchFromGitHub,
-  python3,
-  customtkinter,
+  python3Packages,
   rocmPackages,
   nix-update-script,
 }:
@@ -51,13 +50,15 @@ in
 stdenv.mkDerivation {
   inherit pname version src;
 
-  propagatedBuildInputs = [
-    (python3.withPackages (ps: [
-      ps.numpy
-      ps.sentencepiece
-      ps.tkinter
-      customtkinter
-    ]))
+  nativeBuildInputs = [
+    python3Packages.wrapPython
+  ];
+
+  pythonPath = with python3Packages; [
+    numpy
+    sentencepiece
+    tkinter
+    customtkinter
   ];
 
   dontBuild = true;
@@ -90,10 +91,11 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  postFixup = ''
+    wrapPythonPrograms
+  '';
 
-  # 2024-07-13 broken on nixos-unstable
-  preferLocalBuild = true;
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     homepage = "https://github.com/YellowRoseCx/koboldcpp-rocm";
@@ -101,5 +103,6 @@ stdenv.mkDerivation {
     license = licenses.agpl3Only;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ataraxiasjel ];
+    mainProgram = "koboldcpp";
   };
 }

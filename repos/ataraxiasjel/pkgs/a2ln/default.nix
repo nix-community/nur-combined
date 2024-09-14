@@ -52,5 +52,6 @@ buildPythonApplication rec {
     license = licenses.gpl3;
     platforms = platforms.linux;
     maintainers = with maintainers; [ ataraxiasjel ];
+    mainProgram = "a2ln";
   };
 }
