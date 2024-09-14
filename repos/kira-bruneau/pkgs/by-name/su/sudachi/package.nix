@@ -8,7 +8,6 @@
   pkg-config,
   qttools,
   wrapQtAppsHook,
-  vulkan-headers,
   boost,
   fmt,
   lz4,
@@ -62,10 +61,6 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
-    # vulkan-headers must come first, so the older propagated versions
-    # don't get picked up by accident
-    vulkan-headers
-
     boost
     fmt
     lz4
@@ -119,7 +114,6 @@ stdenv.mkDerivation (finalAttrs: {
     # NB: "external" here means "from the externals/ directory in the source",
     # so "off" means "use system"
     "-DSUDACHI_USE_EXTERNAL_SDL2=OFF"
-    "-DSUDACHI_USE_EXTERNAL_VULKAN_HEADERS=OFF"
 
     # don't use system ffmpeg, sudachi uses internal APIs
     "-DSUDACHI_USE_BUNDLED_FFMPEG=ON"
