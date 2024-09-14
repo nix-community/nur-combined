@@ -12,13 +12,13 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "rime-ls";
-  version = "0.3.0";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "wlh320";
     repo = pname;
-    rev = "642a5466c4e523a0ab6bb7e2b896a33ce7aac828";
-    hash = "sha256-QrQVBY0ERvAL6g5xBEI+po0eQT2bqT7YLrgqd0pJF3I=";
+    rev = "v0.4.0";
+    hash = "sha256-ZqoRFIF3ehfEeTN+ZU+/PAzA4JyS1403+sqZdzwJHA8=";
   };
 
   cargoLock = {
@@ -57,6 +57,5 @@ rustPlatform.buildRustPackage rec {
     description = "A language server for Rime input method engine";
     homepage = "https://github.com/wlh320/rime-ls";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ];
   };
 }
