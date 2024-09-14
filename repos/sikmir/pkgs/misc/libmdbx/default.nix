@@ -7,11 +7,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libmdbx";
-  version = "0.12.9";
+  version = "0.13.1";
 
   src = fetchurl {
     url = "https://libmdbx.dqdkfa.ru/release/libmdbx-amalgamated-${finalAttrs.version}.tar.xz";
-    hash = "sha256-bMxSd7+xPOdE+20hKN4LEcj1jIHB/gYXnOqsXCgSWm4=";
+    hash = "sha256-qrtr80uGmbBt5xeo+s+IIKL90bvkrg6QyaK72ziAGB0=";
   };
 
   sourceRoot = ".";
@@ -26,6 +26,5 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.free; # OpenLDAP Public License
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
-    broken = stdenv.isDarwin;
   };
 })
