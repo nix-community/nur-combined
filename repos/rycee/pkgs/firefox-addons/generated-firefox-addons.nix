@@ -309,13 +309,13 @@
     };
     "animalese-typing" = buildFirefoxXpiAddon {
       pname = "animalese-typing";
-      version = "1.44.2";
+      version = "1.44.3";
       addonId = "dagexviii.dev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4352152/animalese_typing-1.44.2.xpi";
-      sha256 = "2a54cf4648831d8d38db3b7b50e046ba74bf157d8783c34c6c2a8a4935329c42";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4352648/animalese_typing-1.44.3.xpi";
+      sha256 = "1429f71b78be0b870d489a61ef0c59d5c8bd8b463c326a377bb91cb43e2a4cd8";
       meta = with lib;
       {
-        description = "Plays animal crossing villager sounds whenever you type! The official port of my Animalese Typing extension from the chrome store.";
+        description = "Plays animal crossing villager sounds whenever you type!";
         license = licenses.mpl20;
         mozPermissions = [ "storage" "<all_urls>" ];
         platforms = platforms.all;
@@ -877,10 +877,10 @@
     };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2024.8.2";
+      version = "2024.9.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4348137/bitwarden_password_manager-2024.8.2.xpi";
-      sha256 = "46908d7ffafc276b7f0425341849d439ee8c0f75d755f6eee79f83a097ea8e7b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4350677/bitwarden_password_manager-2024.9.0.xpi";
+      sha256 = "8c8b97b445fe65cbdd91eda4bd07e8946d6c1b21ac89c771205a3b9225e2ef12";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -1215,10 +1215,10 @@
     };
     "catppuccin-gh-file-explorer" = buildFirefoxXpiAddon {
       pname = "catppuccin-gh-file-explorer";
-      version = "0.9.0";
+      version = "0.10.0";
       addonId = "{bbb880ce-43c9-47ae-b746-c3e0096c5b76}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4338572/catppuccin_gh_file_explorer-0.9.0.xpi";
-      sha256 = "f7c6cfb838a5f782b706acc0402bc7868899127ef72afa18a5a58f9fae4d63bd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4352836/catppuccin_gh_file_explorer-0.10.0.xpi";
+      sha256 = "fe51203d050fe7027b733ffaf5fae2328cee5a40ec627787c286dfb0940590df";
       meta = with lib;
       {
         homepage = "https://github.com/catppuccin/github-file-explorer-icons";
@@ -2127,10 +2127,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "131.0.20240911.93639";
+      version = "131.0.20240913.91444";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4351167/deutsch_de_language_pack-131.0.20240911.93639.xpi";
-      sha256 = "05bf807a01772f2e12088b72bfc57fdfcbd6c171dbc9cef136458f0701428d8f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4352421/deutsch_de_language_pack-131.0.20240913.91444.xpi";
+      sha256 = "f8ad5d1a4d161834e6ce87bc4cfe89695bbaf395c6e5232be5a8ee946cce8654";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3271,10 +3271,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "131.0.20240911.93639";
+      version = "131.0.20240913.91444";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4351192/francais_language_pack-131.0.20240911.93639.xpi";
-      sha256 = "37f41b6da70036980a0abeeebdcedf16df1b5fc7c144362b54b8d43521f2d4b9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4352475/francais_language_pack-131.0.20240913.91444.xpi";
+      sha256 = "f84f2f502609c0f22866badc877ffad47a9b006707e9beb30ced35abea462505";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3308,10 +3308,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "131.0.20240911.93639";
+      version = "131.0.20240913.91444";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4351170/gaidhlig_language_pack-131.0.20240911.93639.xpi";
-      sha256 = "fdef68e35c26731ea793316f467fa71a85210750cd400c2785cda90d3f3378d0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4352441/gaidhlig_language_pack-131.0.20240913.91444.xpi";
+      sha256 = "161fef6c25a55812af3b35638bd25d7235e491cd6029941eb8db217386a3439b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -5509,10 +5509,10 @@
     };
     "javascript-restrictor" = buildFirefoxXpiAddon {
       pname = "javascript-restrictor";
-      version = "0.19";
+      version = "0.19.1";
       addonId = "jsr@javascriptrestrictor";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4339678/javascript_restrictor-0.19.xpi";
-      sha256 = "5cb1dfdb609fde9cdf35c7b669855bc4a2dcac0d5e3e0a4e219367a61c709e0b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4352350/javascript_restrictor-0.19.1.xpi";
+      sha256 = "b8f6257aed11b74a580a1f8d427954ba9f0bf09017177bd82a9c663719d8f441";
       meta = with lib;
       {
         homepage = "https://jshelter.org";
@@ -5911,10 +5911,10 @@
     };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "2.9.1";
+      version = "3.0.0";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4340831/libredirect-2.9.1.xpi";
-      sha256 = "89864e121d42eb7351ee2378979f52069871eeb7035ab9f878fc4b74f1bee7ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4352736/libredirect-3.0.0.xpi";
+      sha256 = "2d6f612b754500d8b1ce0613a0ad20c4fdf8956c956b8bc7f09476e7519e64c8";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io";
@@ -9350,10 +9350,10 @@
     };
     "rsshub-radar" = buildFirefoxXpiAddon {
       pname = "rsshub-radar";
-      version = "2.0.19";
+      version = "2.0.20";
       addonId = "i@diygod.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4250199/rsshub_radar-2.0.19.xpi";
-      sha256 = "ecaf49abe0ddd7bdd4655245354c3fce87b94ac6e7fac90d4d4b74ffaa34ec3c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4352379/rsshub_radar-2.0.20.xpi";
+      sha256 = "f2d87ca1602b6345ee50172f285bcdc433ce5898a6c2378d9f5e9862fde8fc73";
       meta = with lib;
       {
         homepage = "https://github.com/DIYgod/RSSHub-Radar";
@@ -9460,10 +9460,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "131.0.20240911.93639";
+      version = "131.0.20240913.91444";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4351165/scots_language_pack-131.0.20240911.93639.xpi";
-      sha256 = "0d795693ed48e0d8aaec3e5044f82a6e97509548b01c8819121fb01f0aaff942";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4352465/scots_language_pack-131.0.20240913.91444.xpi";
+      sha256 = "cc18f566ee868277c49942540ba58f961cc3019d8b9743614dcab0810e88f023";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10151,10 +10151,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "4.5";
+      version = "4.6";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4326369/steam_database-4.5.xpi";
-      sha256 = "f4dff61843f35adfc2cf8e353e25a6a8e37836b770b4d1a35f48114f1cd21328";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4350553/steam_database-4.6.xpi";
+      sha256 = "8eae2f65fe7fa0f347433b9618b89d6dd668314b4052145b27152ab94a3781d4";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -10186,6 +10186,8 @@
           "https://steamcommunity.com/profiles/*/inventory*"
           "https://steamcommunity.com/id/*/stats*"
           "https://steamcommunity.com/profiles/*/stats*"
+          "https://steamcommunity.com/id/*/stats/CSGO*"
+          "https://steamcommunity.com/profiles/*/stats/CSGO*"
           "https://steamcommunity.com/stats/*/achievements*"
           "https://steamcommunity.com/tradeoffer/*"
           "https://steamcommunity.com/id/*/recommended/*"
