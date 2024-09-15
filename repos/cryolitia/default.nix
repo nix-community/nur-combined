@@ -25,28 +25,8 @@ builtins.trace "「我书写，则为我命令。我陈述，则为我规定。�
     maa-cli' = pkgs.maa-cli.override { maa-assistant-arknights = maa-assistant-arknights-nightly; };
   };
 
-  qemu-user = pkgs.callPackage ./pkgs/qemu-user {
-    inherit (pkgs.darwin.apple_sdk.frameworks)
-      CoreServices
-      Cocoa
-      Hypervisor
-      vmnet
-      ;
-    inherit (pkgs.darwin.stubs) rez setfile;
-    inherit (pkgs.darwin) sigtool;
-  };
-
   pkgsStatic = {
-    qemu-user = pkgs.pkgsStatic.callPackage ./pkgs/qemu-user {
-      inherit (pkgs.pkgsStatic.darwin.apple_sdk.frameworks)
-        CoreServices
-        Cocoa
-        Hypervisor
-        vmnet
-        ;
-      inherit (pkgs.pkgsStatic.darwin.stubs) rez setfile;
-      inherit (pkgs.pkgsStatic.darwin) sigtool;
-    };
+    
   };
 }
 // pkgs.lib.packagesFromDirectoryRecursive {

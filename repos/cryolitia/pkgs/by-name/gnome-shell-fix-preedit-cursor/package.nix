@@ -1,10 +1,10 @@
 {
-  gnome,
+  gnome-shell,
   fetchpatch,
   stdenv,
 }:
 
-gnome.gnome-shell.overrideAttrs (oldAttrs: {
+gnome-shell.overrideAttrs (oldAttrs: {
   patches = oldAttrs.patches ++ [
     (fetchpatch {
       url = "https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/3318.patch";

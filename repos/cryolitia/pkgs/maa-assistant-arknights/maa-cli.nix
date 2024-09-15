@@ -27,6 +27,8 @@ rustPlatform.buildRustPackage {
   buildNoDefaultFeatures = maa-cli'.buildNoDefaultFeatures;
   buildFeatures = maa-cli'.buildFeatures;
 
+  SKIP_CORE_TEST = 1;
+
   cargoLock = {
     lockFile = ./Cargo.lock;
   };

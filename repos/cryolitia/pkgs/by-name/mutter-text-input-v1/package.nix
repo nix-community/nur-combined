@@ -1,10 +1,10 @@
 {
-  gnome,
+  mutter,
   fetchpatch,
   stdenv,
 }:
 
-gnome.mutter.overrideAttrs (oldAttrs: {
+mutter.overrideAttrs (oldAttrs: {
   patches = oldAttrs.patches or [ ] ++ [
     (fetchpatch {
       url = "https://gitlab.gnome.org/GNOME/mutter/-/commit/6b9bbebbdc3a8b35f898a269227f36a36590359e.patch";
