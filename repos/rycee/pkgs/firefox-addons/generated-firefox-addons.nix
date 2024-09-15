@@ -2190,6 +2190,20 @@
         platforms = platforms.all;
       };
     };
+    "disable-facebook-news-feed" = buildFirefoxXpiAddon {
+      pname = "disable-facebook-news-feed";
+      version = "3.3";
+      addonId = "{85cd2b5d-b3bd-4037-8335-ced996a95092}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4015709/disable_facebook_news_feed-3.3.xpi";
+      sha256 = "8706de4ac241ff223ab9983b22c5805fcc8afb8477e574d9f873065fa72d4dbb";
+      meta = with lib;
+      {
+        description = "Removes News Feed from Facebook. Saves hours of scrolling.";
+        license = licenses.mpl20;
+        mozPermissions = [ "*://*.facebook.com/*" ];
+        platforms = platforms.all;
+      };
+    };
     "disable-javascript" = buildFirefoxXpiAddon {
       pname = "disable-javascript";
       version = "2.3.2resigned1";
@@ -5911,10 +5925,10 @@
     };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "3.0.0";
+      version = "3.0.1";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4352736/libredirect-3.0.0.xpi";
-      sha256 = "2d6f612b754500d8b1ce0613a0ad20c4fdf8956c956b8bc7f09476e7519e64c8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4353036/libredirect-3.0.1.xpi";
+      sha256 = "1c0fe68c3765250fc11fb3755f399efdec0003f6b11d87a2b132b9c936d9768c";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io";
@@ -6017,10 +6031,10 @@
     };
     "linkding-extension" = buildFirefoxXpiAddon {
       pname = "linkding-extension";
-      version = "1.10.0";
+      version = "1.11.0";
       addonId = "{61a05c39-ad45-4086-946f-32adb0a40a9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4304166/linkding_extension-1.10.0.xpi";
-      sha256 = "39010d4a328506915b1479dd710553baad66773b9ff3951a49d047b15ba1e070";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4352990/linkding_extension-1.11.0.xpi";
+      sha256 = "7bf1fba80f87ca9897d62eb831f6bbd73b743e47e83559226925cb3ecb1875e8";
       meta = with lib;
       {
         homepage = "https://github.com/sissbruecker/linkding-extension/";
