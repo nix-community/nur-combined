@@ -27,6 +27,14 @@ buildPhase() {
 }
 
 installPhase() {
+    # Install libGL and friends.
+
+    # since version 391, 32bit libraries are bundled in the 32/ sub-directory
+    if [ "$i686bundled" = "1" ]; then
+        mkdir -p "$lib32/lib"
+        # vGPU drivers do not have 32 bit libraries
+    fi
+
     mkdir -p "$out/lib"
     cp -prd *.so.* "$out/lib/"
     if [ -d tls ]; then
