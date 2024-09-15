@@ -113,7 +113,7 @@
       enable = true;
       package = pkgs.wireshark;
     };
-    kdeconnect.enable = true;
+    kdeconnect.enable = false;
     adb.enable = true;
     command-not-found.enable = false;
     steam = {
