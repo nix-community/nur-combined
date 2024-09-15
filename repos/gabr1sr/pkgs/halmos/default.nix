@@ -6,6 +6,10 @@ python3.pkgs.buildPythonPackage rec {
   pyproject = true;
   doCheck = false;
 
+  nativeBuildInputs = with python3.pkgs; [
+    z3-solver
+  ];
+  
   src = fetchPypi {
     inherit pname version;
     hash = "sha256-Va5gwyRePGHnFr3jtP1ec3diAQExXfVbwrrMpzV9euc=";
