@@ -26,11 +26,31 @@
 nix run github:sn0wm1x/ur#example-package
 ```
 
-###### nix flake
+###### nix flake (standalone)
+
+```nix
+# flake.nix
+{
+  inputs.sn0wm1x.url = "github:sn0wm1x/ur";
+  inputs.sn0wm1x.inputs.nixpkgs.follows = "nixpkgs";
+
+  outputs = {
+    nixosConfigurations.myConfig = nixpkgs.lib.nixosSystem {
+      # ...
+      modules = [
+        # nur.nixosModules.nur
+        sn0wm1x.nixosModules.hatsu
+      ];
+    };
+  };
+}
+```
+
+###### nix flake (combined)
 
 ```nix
 home.packages = with pkgs; [
-  nur-no-pkgs.repos.sn0wm1x.example-package
+  nur.repos.sn0wm1x.example-package
 ];
 ```
 

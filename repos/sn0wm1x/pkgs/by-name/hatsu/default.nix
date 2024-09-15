@@ -4,16 +4,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "hatsu";
-  version = "0.3.0-beta.1";
+  version = "0.3.0-beta.4";
 
   src = fetchFromGitHub {
     owner = "importantimport";
     repo = "hatsu";
     rev = "v${version}";
-    hash = "sha256-IzQVQ5wk6mAPGCDBjnLKYJ7/7vw0Hsj07lg89RbAk28=";
+    hash = "sha256-UKrnFI79+SHSqAlUWQiAMrTT+Nu+YwG77YGa8dHNPgY=";
   };
 
-  cargoHash = "sha256-8wsvmzv3gCxKClweku4VVRnX1gI2CTvJHfnaABVsj/Q=";
+  cargoHash = "sha256-DSYj1lCO2ll14ysykRiZ5NQIiAKwKYqVMwCCUENJ0Rc=";
 
   meta = {
     description = "Self-hosted and fully-automated ActivityPub bridge for static sites";
