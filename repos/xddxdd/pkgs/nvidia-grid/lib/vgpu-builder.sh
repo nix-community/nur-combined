@@ -20,6 +20,11 @@ buildPhase() {
             sed -i "s/test_configuration_option /true /g" conftest.sh
         fi
 
+        if [ -f "nvidia-vgpu-vfio/vgpu-vfio-mdev.c" ]; then
+            sed -i "s#int nv_vfio_mdev_register_driver()#int nv_vfio_mdev_register_driver(void)#g" nvidia-vgpu-vfio/vgpu-vfio-mdev.c
+            sed -i "s#void nv_vfio_mdev_unregister_driver()#void nv_vfio_mdev_unregister_driver(void)#g" nvidia-vgpu-vfio/vgpu-vfio-mdev.c
+        fi
+
         make $makeFlags -j $NIX_BUILD_CORES module
 
         cd ..
@@ -109,6 +114,9 @@ installPhase() {
         # FIXME: needs PATH and other fixes
         # install -Dm755 nvidia-bug-report.sh $bin/bin/nvidia-bug-report.sh
         install -Dm755 sriov-manage $bin/bin/sriov-manage
+
+        # Install vGPU config
+        install -Dm644 vgpuConfig.xml $bin/share/nvidia/vgpu/vgpuConfig.xml
     fi
 }
 
