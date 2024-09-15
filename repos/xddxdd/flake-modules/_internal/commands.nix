@@ -1,6 +1,11 @@
 _: {
   perSystem =
-    { pkgs, inputs', ... }:
+    {
+      pkgs,
+      lib,
+      inputs',
+      ...
+    }:
     {
       commands = rec {
         ci = ''
@@ -108,10 +113,17 @@ _: {
         update =
           let
             py = pkgs.python3.withPackages (p: with p; [ requests ]);
+            path = lib.makeBinPath [
+              pkgs.cargo
+              pkgs.gitMinimal
+              pkgs.nix-prefetch-git
+              py
+            ];
           in
           ''
             set -euo pipefail
-            export PATH=${pkgs.nix-prefetch-git}/bin:$PATH
+            export PATH=${path}:$PATH
+            echo "$PATH"
             nix flake update
             ${nvfetcher}
             for S in $(find pkgs/ -name update.sh); do

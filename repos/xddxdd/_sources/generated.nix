@@ -1655,6 +1655,17 @@
       sha256 = "sha256-ml6RZkl2DT08sfJj9L1SGR6zNgRQ15ph0PPIPgxx7+M=";
     };
   };
+  vgpu-unlock-rs = {
+    pname = "vgpu-unlock-rs";
+    version = "v2.4.0";
+    src = fetchFromGitHub {
+      owner = "mbilker";
+      repo = "vgpu_unlock-rs";
+      rev = "v2.4.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-N/JtAvwiEyGxh41KkxVyCR/utewOF1MrAjsTaVoekzM=";
+    };
+  };
   vpp = {
     pname = "vpp";
     version = "v24.06";

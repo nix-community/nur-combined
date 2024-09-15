@@ -228,6 +228,7 @@ mkScope (
     uesave-0_3_0 = pkg ./uncategorized/uesave/0_3_0.nix { };
     uksmd = pkg ./uncategorized/uksmd { };
     vbmeta-disable-verification = pkg ./uncategorized/vbmeta-disable-verification { };
+    vgpu-unlock-rs = pkg ./uncategorized/vgpu-unlock-rs { };
     vpp = pkg ./uncategorized/vpp { };
     wechat-uos = pkg ./uncategorized/wechat-uos {
       sources = nvfetcherLoader ../_sources/generated.nix;

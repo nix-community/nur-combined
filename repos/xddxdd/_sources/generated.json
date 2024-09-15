@@ -3007,6 +3007,27 @@
         },
         "version": "v1.0"
     },
+    "vgpu-unlock-rs": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "vgpu-unlock-rs",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "mbilker",
+            "repo": "vgpu_unlock-rs",
+            "rev": "v2.4.0",
+            "sha256": "sha256-N/JtAvwiEyGxh41KkxVyCR/utewOF1MrAjsTaVoekzM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.4.0"
+    },
     "vpp": {
         "cargoLocks": null,
         "date": null,

@@ -677,6 +677,10 @@ fetch.github = "CachyOS/uksmd"
 src.github = "libxzr/vbmeta-disable-verification"
 fetch.github = "libxzr/vbmeta-disable-verification"
 
+[vgpu-unlock-rs]
+src.github_tag = "mbilker/vgpu_unlock-rs"
+fetch.github = "mbilker/vgpu_unlock-rs"
+
 [vpp]
 src.github_tag = "FDio/vpp"
 src.include_regex = "^v[0-9.]+$"
