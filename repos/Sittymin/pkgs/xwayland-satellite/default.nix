@@ -11,10 +11,9 @@ rustPlatform.buildRustPackage {
   src = fetchFromGitHub ({
     owner = "Supreeeme";
     repo = "xwayland-satellite";
-    # newer commit
-    rev = "95afa163a60167cd97bf6afa870bc117a1be3d03";
+    rev = "b962a0f33b503aa39c9cf6919f488b664e5b79b4";
     fetchSubmodules = false;
-    sha256 = "sha256-cUlTHg/F0tUpjS/uAIYKwrIRaKwuzdyFo3IiST6E7Fc=";
+    sha256 = "sha256-OANPb73V/RQDqtpIcbzeJ93KuOHKFQv+1xXC44Ut7tY=";
   });
 
   cargoHash = "sha256-8SnFLRPUjQzEjr6yIY3p7YSflFONhaS9ss70ykBoTKg=";
@@ -30,6 +29,7 @@ rustPlatform.buildRustPackage {
 
   # RUSTFLAGS = "-L${xcb-util-cursor}/lib";
   PKG_CONFIG_PATH = "${xcb-util-cursor}/lib/pkgconfig";
+
   checkPhase = ''
     export XDG_RUNTIME_DIR=$(mktemp -d)
   '';

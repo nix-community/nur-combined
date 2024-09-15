@@ -16,11 +16,6 @@
 
   xwayland-satellite = pkgs.callPackage ./pkgs/xwayland-satellite { };
   olympus = pkgs.callPackage ./pkgs/olympus { };
-  intel-dpcpp = pkgs.callPackage ./pkgs/intel-dpcpp { };
-  intel-mpi = pkgs.callPackage ./pkgs/intel-mpi { };
-  oneapi-mkl = pkgs.callPackage ./pkgs/oneapi-mkl { };
-  lxgw-neoxihei = pkgs.callPackage ./pkgs/lxgw-neoxihei { };
-  thorium = pkgs.callPackage ./pkgs/thorium { };
   apostrophe-2-6-3 = pkgs.callPackage ./pkgs/apostrophe { };
   godot4_bin = pkgs.callPackage ./pkgs/godot4_bin { };
   reqable = pkgs.callPackage ./pkgs/reqable { };
