@@ -26,7 +26,7 @@ python3.pkgs.buildPythonPackage rec {
     sortedcontainers
     z3-solver
     toml
-  ];
+  ] ++ python3.pkgs.z3-solver.requiredPythonModules;
   
   meta = {
     broken = false;
