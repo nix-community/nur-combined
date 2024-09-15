@@ -43,6 +43,8 @@ stdenv.mkDerivation rec {
     qmakeFlags+=(*.pro)
   '';
 
+  __structuredAttrs = true;
+
   qmakeFlags = [
     "TARGET_INSTALL_PATH=${placeholder "out"}/bin"
     "PLUGIN_INSTALL_PATH=${placeholder "out"}/lib/qpdfview"
