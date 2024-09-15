@@ -1,0 +1,37 @@
+diff --git a/backend/src/settings/util.rs b/backend/src/settings/util.rs
+index 8cda62b..806f032 100644
+--- a/backend/src/settings/util.rs
++++ b/backend/src/settings/util.rs
+@@ -55,11 +55,10 @@ mod test {
+ 
+     fn cpu_with_online(status: bool) -> CpuJson {
+         CpuJson {
+-            root: None,
+             online: status,
+             clock_limits: None,
+             governor: "schedutil".to_owned(),
+-            root: Some("/".to_owned()),
++            root: None,
+         }
+     }
+ }
+diff --git a/backend/src/utility.rs b/backend/src/utility.rs
+index 9e8b9a3..d4d4fb5 100644
+--- a/backend/src/utility.rs
++++ b/backend/src/utility.rs
+@@ -173,6 +173,7 @@ mod generate {
+                 gpu: crate::persist::GpuJson::default(),
+                 battery: crate::persist::BatteryJson::default(),
+                 provider: None,
++                tags: vec![],
+             },
+         );
+         mini_variants.insert(
+@@ -186,6 +187,7 @@ mod generate {
+                 gpu: crate::persist::GpuJson::default(),
+                 battery: crate::persist::BatteryJson::default(),
+                 provider: None,
++                tags: vec![],
+             },
+         );
+         let savefile = crate::persist::FileJson {
