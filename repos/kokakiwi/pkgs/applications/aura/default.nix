@@ -1,4 +1,5 @@
 { lib
+, callPackage
 
 , fetchFromGitHub
 
@@ -11,7 +12,11 @@
 
 , withGit ? true, git
 }:
-rustPlatform.buildRustPackage rec {
+let
+  pacman' = if lib.versionAtLeast pacman.version "7.0.0"
+    then pacman
+    else callPackage ../../overrides/pacman { };
+in rustPlatform.buildRustPackage rec {
   pname = "aura";
   version = "4.0.7";
 
@@ -32,7 +37,7 @@ rustPlatform.buildRustPackage rec {
   ];
   buildInputs = [
     openssl
-    pacman
+    pacman'
   ]
   ++ lib.optional withGit git;
 
@@ -49,6 +54,8 @@ rustPlatform.buildRustPackage rec {
       --fish ../misc/completions/aura.fish \
       --zsh ../misc/completions/_aura
   '';
+
+  passthru.pacman = pacman';
 
   meta = with lib; {
     description = "A secure, multilingual package manager for Arch Linux and the AUR";
