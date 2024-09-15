@@ -1,4 +1,4 @@
-{ lib, python3, pythonOlder, buildPythonPackage, fetchPypi, setuptools }:
+{ lib, python3, fetchPypi, setuptools }:
 
 with python3.pkgs;
 
@@ -7,7 +7,6 @@ buildPythonPackage rec {
   version = "0.1.14";
   pyproject = true;
   doCheck = false;
-  disabled = pythonOlder "3.11";
 
   src = fetchPypi {
     inherit pname version;
