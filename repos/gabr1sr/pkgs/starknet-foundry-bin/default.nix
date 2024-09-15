@@ -83,6 +83,7 @@ stdenv.mkDerivation {
   doInstallCheck = true;
 
   meta = {
+    broken = true;
     description = "Blazing fast toolkit for developing Starknet contracts.";
     homepage = "https://github.com/foundry-rs/starknet-foundry";
 

@@ -88,6 +88,7 @@ stdenv.mkDerivation {
   doInstallCheck = true;
 
   meta = {
+    broken = true;
     description = "The Cairo package manager";
     homepage = "https://github.com/software-mansion/scarb";
 
