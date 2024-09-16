@@ -34,6 +34,9 @@ jobs:
           - arch: x86_64
             os: macos-latest
     runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+      id-token: write
     steps:
     - name: Free Disk Space (Ubuntu)
       if: ${{ matrix.os == 'ubuntu-latest' }}
