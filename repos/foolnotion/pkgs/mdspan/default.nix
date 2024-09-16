@@ -7,8 +7,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "kokkos";
     repo = "mdspan";
-    rev = "98a12b01b51b250d4f510878604d4047496d845d";
-    sha256 = "sha256-Hmg+p6xaMyh/gz1SP9Z+GNelm03pQU7lytG9stAhe7Y=";
+    rev = "92a12979e929b5921809e69b27cbd9d3796fa087";
+    sha256 = "sha256-nuOkh636tyY0DfUcp1FGHstgKG66PnebTdaDBvAgdwo=";
   };
 
   nativeBuildInputs = [ cmake ];
@@ -18,6 +18,7 @@ stdenv.mkDerivation rec {
     "-DMDSPAN_CXX_STANDARD=20"
     "-DMDSPAN_ENABLE_TESTS=OFF"
     "-DMDSPAN_ENABLE_BENCHMARKS=OFF"
+    "-DMDSPAN_INSTALL_STDMODE_HEADERS=ON"
   ];
 
   meta = with lib; {
