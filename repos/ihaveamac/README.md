@@ -33,3 +33,7 @@ Attributes listed on [the NUR](https://nur.nix-community.org/repos/ihaveamac/)
 ### services.lnshot.enable
 
 Enables the lnshot daemon to automatically link Steam screenshots.
+
+### services.lnshot.picturesName
+
+Name of the directory to manage inside the Pictures folder. Defaults to "Steam Screenshots".

@@ -5,7 +5,15 @@ let
   cfg = config.services.lnshot;
   lnshot = pkgs.callPackage ../pkgs/lnshot {};
 in {
-  options.services.lnshot = { enable = mkEnableOption "lnshot service"; };
+  options.services.lnshot = {
+    enable = mkEnableOption "lnshot service";
+
+    picturesName = mkOption {
+      description = "Name of the directory to manage inside the Pictures folder.";
+      type = types.str;
+      default = "Steam Screenshots";
+    };
+  };
 
   config = mkIf cfg.enable {
     home.packages = [ lnshot ];
@@ -15,7 +23,7 @@ in {
         Description = "Steam Screenshot Symlinking Service";
       };
       Service = {
-        ExecStart = "${lnshot}/bin/lnshot daemon";
+        ExecStart = "${lnshot}/bin/lnshot daemon -p ${lib.escapeShellArg cfg.picturesName}";
         Restart = "always";
       };
       Install = {
