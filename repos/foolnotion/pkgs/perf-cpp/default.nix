@@ -12,8 +12,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "foolnotion";
     repo = "perf-cpp";
-    rev = "d08b7705255f32af063d846050473a003f7bd126";
-    hash = "sha256-mbyvneFFb8TxYON2MTWC8QYhlZabxIW31zEeE1dBTw0=";
+    rev = "748c2bd6f60e392f74e2060d207c72cb77278771";
+    hash = "sha256-n7+bjKRWRhxn+Ev560uUqrgyETXMm35boNV2UwaBd70=";
   };
 
   nativeBuildInputs = [ cmake ];
