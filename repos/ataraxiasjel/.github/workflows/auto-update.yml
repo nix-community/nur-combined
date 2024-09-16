@@ -27,7 +27,7 @@ jobs:
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Install essential packages
-      run: nix profile install nixpkgs#nix-eval-jobs nixpkgs#jq
+      run: nix profile install nixpkgs#nix-eval-jobs nixpkgs#jq nixpkgs#nix-update
     - name: Update packages
       env:
         XDG_RUNTIME_DIR: ${{ github.workspace }}
