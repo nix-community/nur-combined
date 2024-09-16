@@ -2368,10 +2368,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.46.3";
+      version = "2.46.4";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4351735/dualsub-2.46.3.xpi";
-      sha256 = "d6d426fcb3801766817a75a463e72abc4642ddf199f3e8487ff57e8d9b8cd82b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4353247/dualsub-2.46.4.xpi";
+      sha256 = "ed72ae1c7c4d0df1bafd73ae5eacdd20cbeacff364e13089e819d2ed8c685bd6";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2779,10 +2779,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.27.2";
+      version = "1.3.28.1";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4350815/faststream-1.3.27.2.xpi";
-      sha256 = "a5a51cc8dc48e8314eb06a0395ad1006388593f13462896e15e2b0cbd9971ca9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4353587/faststream-1.3.28.1.xpi";
+      sha256 = "20cb0c244782be4fa40c2d7d43b0c99fcea79d29b5cfcf3c854c70cfe1d46d14";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -2802,6 +2802,10 @@
           "https://www.bilibili.tv/*"
           "https://www.facebook.com/*"
           "https://www.instagram.com/*"
+          "https://www.youtube.com/*"
+          "https://youtube.com/*"
+          "https://m.youtube.com/*"
+          "https://music.youtube.com/*"
           "<all_urls>"
         ];
         platforms = platforms.all;
