@@ -80,6 +80,8 @@
 
   pegtl = pkgs.callPackage ./pkgs/pegtl { };
 
+  perf-cpp = pkgs.callPackage ./pkgs/perf-cpp { };
+
   pmlb = pkgs.python3Packages.callPackage ./pkgs/pmlb { };
 
   q5go = pkgs.libsForQt5.callPackage ./pkgs/q5go { };
