@@ -61,9 +61,7 @@ jobs:
       env:
         NIXPKGS_ALLOW_UNFREE: 1
         NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
-      run: |
-        nix-eval-jobs --impure -I nixpkgs="$(nix-instantiate --find-file nixpkgs)" --option restrict-eval true pkgs/default.nix > eval.json
-        if [[ $(jq '.|select(has("error"))|length>0' eval.json) == "true" ]]; then jq -r '.|select(has("error"))|.error' eval.json; exit 1; else echo "Eval successful!"; fi
+      run: ./ci.sh --impure -I nixpkgs="$(nix-instantiate --find-file nixpkgs)" pkgs/default.nix
     - name: Build nix packages
       env:
         NIXPKGS_ALLOW_UNFREE: 1

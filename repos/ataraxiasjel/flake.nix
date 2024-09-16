@@ -22,6 +22,7 @@
       perSystem =
         {
           pkgs,
+          lib,
           system,
           ...
         }:
@@ -50,6 +51,8 @@
               nixfmt-rfc-style.enable = true;
               ripsecrets.enable = true;
             };
+            # https://github.com/cachix/devenv/issues/528
+            containers = lib.mkForce { };
           };
         };
       flake = {
