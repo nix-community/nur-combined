@@ -41,15 +41,10 @@
       };
       xwayland-satellite = {
         wantedBy = [ "niri.service" ];
-        bindsTo = [ "graphical-session.target" ];
-        partOf = [ "graphical-session.target" ];
         after = [ "graphical-session.target" ];
-        requisite = [ "graphical-session.target" ];
+        wants = [ "graphical-session.target" ];
         serviceConfig = {
-          Type = "notify";
-          NotifyAccess = "all";
           ExecStart = lib.getExe pkgs.xwayland-satellite;
-          StandardOutput = "journal";
           Restart = "on-failure";
         };
       };

@@ -1,7 +1,7 @@
 {
   description = "oluceps' flake";
   outputs =
-    inputs@{ flake-parts, ... }:
+    inputs@{ flake-parts, self, ... }:
     let
       extraLibs = (import ./hosts/lib.nix inputs);
     in
@@ -116,11 +116,11 @@
                   "livecd"
                   "bootstrap"
                 ]
-              ) inputs.self.nixosConfigurations;
+              ) self.nixosConfigurations;
           };
 
         flake = {
-          lib = inputs.nixpkgs.lib.extend inputs.self.overlays.lib;
+          lib = inputs.nixpkgs.lib.extend self.overlays.lib;
 
           overlays = {
             default =
