@@ -1,8 +1,8 @@
 { appimageTools, lib, fetchurl, ... }:
 let
-  version = "2.10";
+  version = "2.10.1";
   # https://dl.snipaste.com/sha-1.txt
-  hash = "sha256-W0lTRcCn3YyUK5Hio7o74NP3zvHw9+iffwXC0AnFg0Q=";
+  hash = "sha256-bQPTi/8TcUpC1eGoYu1WL7jTH1Ijv4vGVjbrFKP2Qk4=";
 in
 appimageTools.wrapType2 {
   inherit version;
