@@ -182,15 +182,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "02e551d50c9a414baa1e5117f3b3321297cf86d2";
+    version = "d3306622f2d86abe983ed05f1bfcd4a31645cd21";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "02e551d50c9a414baa1e5117f3b3321297cf86d2";
+      rev = "d3306622f2d86abe983ed05f1bfcd4a31645cd21";
       fetchSubmodules = false;
-      sha256 = "sha256-nqXDyQS48DwrqYWTqV/YOUqpWElJUOA3JV678koDdf0=";
+      sha256 = "sha256-bjrr/+1EenXb+0REP6HvWTIV5kvHvCWEBQJxL+D1/wQ=";
     };
-    date = "2024-09-13";
+    date = "2024-09-16";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -584,10 +584,10 @@
   };
   inter-knot = {
     pname = "inter-knot";
-    version = "v2.16.0+27";
+    version = "v2.16.7+34";
     src = fetchurl {
-      url = "https://github.com/share121/inter-knot/releases/download/v2.16.0+27/inter_knot_linux.zip";
-      sha256 = "sha256-QppO0gVQzi3RMlAcAcww36nxkJANCEeAYbThXTz4D5U=";
+      url = "https://github.com/share121/inter-knot/releases/download/v2.16.7+34/inter_knot_linux.zip";
+      sha256 = "sha256-R9MZwaAAh+JDgdF/PwvANitdsTYbhJDV99XV5aDuu88=";
     };
   };
   jproxy = {
@@ -816,13 +816,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3753";
+    version = "b3763";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3753";
+      rev = "b3763";
       fetchSubmodules = false;
-      sha256 = "sha256-Cl9E6z916G3+nzwxmg00UTPNGdldSUVoulQnD3xcCRc=";
+      sha256 = "sha256-btNZdOhHNz+di7aF4P8Xy+L3DbH3JNxE568ckze3PLU=";
     };
   };
   lyrica = {
@@ -1038,13 +1038,13 @@
   };
   openresty = {
     pname = "openresty";
-    version = "efc930249e761aabe8bbf9d590279066060e41bb";
+    version = "5ef14281cd2c7e9543c3d5d3f6354acfc8dec092";
     src = fetchFromGitHub {
       owner = "openresty";
       repo = "openresty";
-      rev = "efc930249e761aabe8bbf9d590279066060e41bb";
+      rev = "5ef14281cd2c7e9543c3d5d3f6354acfc8dec092";
       fetchSubmodules = false;
-      sha256 = "sha256-uF1M7YfRca73UlTyhP0YUe7qLRMwfg7uyeCC/mAZvTg=";
+      sha256 = "sha256-tWoPsAbVWHgVRXQ4M+AEvzT2OVgODLrtaNymle0PuE4=";
     };
     date = "2024-09-14";
   };
@@ -1250,18 +1250,18 @@
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "9.1.0+ds-3";
+    version = "9.1.0+ds-3+b1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-3_arm64.deb";
-      sha256 = "sha256-kwpZfCwHD7TqAa30VqwFZ71vs9eP0E9aDgBQgQTuMHY=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-3+b1_arm64.deb";
+      sha256 = "sha256-GFnJSOm8vvqEm7AQUHjW5rluj0UnSxCAqORnirB55Lc=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "9.1.0+ds-3";
+    version = "9.1.0+ds-3+b1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-3_armhf.deb";
-      sha256 = "sha256-VpbfrbHg2O4knKOhtNE1YLLndrBdOfBR4b1qqPt9NCo=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-3+b1_armhf.deb";
+      sha256 = "sha256-J6wJFpKsCikwE2NkJj0/FmggQs8EmHK9ruNHNeDEqBI=";
     };
   };
   qemu-user-static-i386 = {
@@ -1376,15 +1376,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "2cf8aa100b6712ba3f0bbe9c68dd0cf88b57f4f4";
+    version = "2ea99c5e4f3afaa24ebef61d17ea097557ca36b3";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "2cf8aa100b6712ba3f0bbe9c68dd0cf88b57f4f4";
+      rev = "2ea99c5e4f3afaa24ebef61d17ea097557ca36b3";
       fetchSubmodules = false;
-      sha256 = "sha256-cSYeMe52asAkKgzIrUurimT+kO1bcOPpbt7Ux8WQUV4=";
+      sha256 = "sha256-6leug6CxZjg855fjW2mKPLcmMTO/KE9xjLm9hbZH2Fo=";
     };
-    date = "2024-09-13";
+    date = "2024-09-16";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
