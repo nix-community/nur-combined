@@ -25,5 +25,7 @@ return {
   'mipmip/vim-whitewriter',
   'mipmip/vim-petra',
   'mipmip/vim-hotpop',
+  'mipmip/vim-nomisa',
+
   'srcery-colors/srcery-vim',
 }

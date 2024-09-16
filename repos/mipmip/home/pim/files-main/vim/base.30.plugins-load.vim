@@ -1,46 +1,33 @@
 call plug#begin('~/.vim/plugged')
 
-" MY PLUGINS
-"Plug 'mipmip/vim-fluid'
-Plug 'mipmip/vim-petra'
-Plug 'mipmip/vim-hotpop', { 'branch': 'main' }
-Plug 'mipmip/panelmanager.vim'
-Plug 'mipmip/vim-show-in-filemanager', { 'branch': 'main' }
-Plug 'mipmip/vim-open-mip', { 'branch': 'main' }
-
 if filereadable($HOME."/.i-am-second-brain")
-  Plug 'mipmip/vim-scimark'
-  Plug 'linden-project/linny.vim', { 'branch': 'main' }
-  Plug 'mipmip/linny-wikitag-github'
 
-  " writing
+  " MY PLUGINS
+  Plug 'mipmip/vim-fluid'
+  Plug 'mipmip/panelmanager.vim'
+  Plug 'mipmip/vim-run-in-blender'
+  Plug 'mipmip/vim-whitewriter',                { 'branch': 'main' }
+  Plug 'mipmip/vim-petra'
+
+  Plug 'mipmip/linny-wikitag-github'
+  Plug 'linden-project/linny.vim',              { 'branch': 'main' }
+
+  Plug 'mipmip/vim-show-in-filemanager',        { 'branch': 'main' }
+  Plug 'mipmip/vim-open-mip',                   { 'branch': 'main' }
+
+  Plug 'mipmip/vim-hotpop',                     { 'branch': 'main' }
+  Plug 'mipmip/vim-scimark'
+  Plug 'git@github.com:mipmip/vim-nomisa.git',  { 'branch': 'main' }
+
+  " OTHER DESKTOP PLUGINS
+
   Plug 'junegunn/goyo.vim'
   Plug 'reedes/vim-pencil'
   Plug 'vim-voom/VOoM'
-
   Plug 'tyru/open-browser.vim'
   Plug 'dhruvasagar/vim-table-mode'
-
-  " clean focus on mappings
   Plug 'SidOfc/mkdx'
-
   Plug 'https://git.sr.ht/~soywod/himalaya-vim'
-
-  " ----------------off
-
-  " MARKDOWN/YAML/ETC
-  "  Plug 'aserebryakov/vim-todo-lists'
-
-  "TOO SLOW
-  "  Plug 'godlygeek/tabular'
-  "  Plug 'preservim/vim-markdown'
-
-  " Nice
-  " great folding
-  " clean
-  " lacks promoting headings
-  "Plug 'gabrielelana/vim-markdown'
-  "Plug 'pedrohdz/vim-yaml-folds'
 
   " SNIPPETS
   if v:version >= 800 && (has('python') || has('python3'))
@@ -63,12 +50,11 @@ Plug 'junegunn/fzf.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-eunuch'
-
 Plug 'bkad/camelcasemotion'
 Plug 'szw/vim-maximizer'
 
 " VIM TEXT TOOLS
-Plug 'bronson/vim-trailing-whitespace'    
+Plug 'bronson/vim-trailing-whitespace'
 Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-surround'
@@ -96,14 +82,13 @@ Plug 'chr4/nginx.vim'
 Plug 'ledger/vim-ledger'
 
 Plug 'ap/vim-css-color'
+
 " SPELLING
 Plug 'rhysd/vim-grammarous'
 
 " COLORS
 Plug 'lifepillar/vim-solarized8'
 Plug 'logico/typewriter-vim'
-Plug 'mipmip/vim-whitewriter', { 'branch': 'main' }
-
 
 " ----------------off
 "Plug 'vifm/vifm.vim'
@@ -134,11 +119,7 @@ Plug 'mipmip/vim-whitewriter', { 'branch': 'main' }
 "Plug 'sonph/onehalf', { 'rtp': 'vim' }
 "Plug 'altercation/vim-colors-solarized'
 "Plug 'pbrisbin/vim-colors-off', { 'branch': 'main' }
-
-
-" TOO SLOW
 "Plug 'vim-airline/vim-airline'
-
 
 call plug#end()
 
