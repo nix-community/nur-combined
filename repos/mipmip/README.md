@@ -191,3 +191,17 @@ on pinephone
 ```
 /nix/store/nid92px7zybggpxh5j6bwzcpmjh10p8h-nixos-system-nixos-22.05.20220520.dfd8298/bin/switch-to-configuration switch
 ```
+
+# Nix-on-Droid (fairPhone)
+
+## Setup nix-on-droid
+
+ln -s ~/nixos/nix-on-droid ~/.config/
+
+## Apply nix config
+
+nix-on-droid switch -F ~/.config/nix-on-droid/flake.nix
+
+## SSH Connect
+
+ssh nix-on-droid@xxxxx -p8022

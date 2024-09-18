@@ -15,6 +15,7 @@
     #diffutils
     which
   
+    neovim
     tmux
     zsh
     procps
