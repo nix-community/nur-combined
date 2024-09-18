@@ -1,12 +1,13 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, getopt
-, cmark-gfm
-, wkhtmltopdf
-, gnused
-, makeWrapper
-, runCommand
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  getopt,
+  cmark-gfm,
+  wkhtmltopdf,
+  gnused,
+  makeWrapper,
+  runCommand,
 }:
 let
   deps = [
@@ -22,34 +23,32 @@ let
     sha256 = "sha256-Lbz9Xk5bNdcsgc0y/oBBnJOtDE1EtHOUcB3M3axabnI=";
     fetchSubmodules = true;
   };
-  examdown =
-    stdenv.mkDerivation
-      {
-        name = "examdown";
-        inherit src;
-        buildPhase = ''
-          patchShebangs .
-          sed -i 's/cmark/cmark-gfm --unsafe/g' src/examdown.sh
-          sed -i "s|wkhtmltopdf|wkhtmltopdf --enable-local-file-access|g" src/examdown.sh
-          make -s checkdeps
-          make -s build
-        '';
-        installPhase = ''
-          mkdir $out
-          make -s install PREFIX=$out
-          wrapProgram $out/bin/examdown --prefix PATH : ${lib.makeBinPath deps}
-        '';
-        buildInputs = deps;
-        nativeBuildInputs = [
-          makeWrapper
-        ];
-        passthru.tests = {
-          simple = runCommand "test" { } ''
-            ${examdown}/bin/examdown -o out.pdf ${src}/test/test.md
-            cp out.pdf $out
-          '';
-        };
-        meta.broken = true; # depends on qtwebkit, which is insecure
-      };
+  examdown = stdenv.mkDerivation {
+    name = "examdown";
+    inherit src;
+    buildPhase = ''
+      patchShebangs .
+      sed -i 's/cmark/cmark-gfm --unsafe/g' src/examdown.sh
+      sed -i "s|wkhtmltopdf|wkhtmltopdf --enable-local-file-access|g" src/examdown.sh
+      make -s checkdeps
+      make -s build
+    '';
+    installPhase = ''
+      mkdir $out
+      make -s install PREFIX=$out
+      wrapProgram $out/bin/examdown --prefix PATH : ${lib.makeBinPath deps}
+    '';
+    buildInputs = deps;
+    nativeBuildInputs = [
+      makeWrapper
+    ];
+    passthru.tests = {
+      simple = runCommand "test" { } ''
+        ${examdown}/bin/examdown -o out.pdf ${src}/test/test.md
+        cp out.pdf $out
+      '';
+    };
+    meta.broken = true; # depends on qtwebkit, which is insecure
+  };
 in
 examdown

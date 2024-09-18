@@ -1,10 +1,11 @@
-{ stdenv
-, fetchgit
-, cmake
-, SDL2
-, sndio
-, jack2
-, xorg
+{
+  stdenv,
+  fetchgit,
+  cmake,
+  SDL2,
+  sndio,
+  jack2,
+  xorg,
 }:
 let
   version = "0.2.0";

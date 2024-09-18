@@ -1,4 +1,9 @@
-{ fetchFromGitHub, rustPlatform, ghidra, makeWrapper }:
+{
+  fetchFromGitHub,
+  rustPlatform,
+  ghidra,
+  makeWrapper,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "cwe_checker";
   version = "master";

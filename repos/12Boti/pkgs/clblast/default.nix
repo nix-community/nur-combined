@@ -1,9 +1,10 @@
-{ stdenv
-, fetchFromGitHub
-, cmake
-, opencl-headers
-, ocl-icd
-, sd
+{
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  opencl-headers,
+  ocl-icd,
+  sd,
 }:
 let
   version = "1.6.0";
@@ -18,7 +19,10 @@ stdenv.mkDerivation {
     hash = "sha256-eRwSfP6p0+9yql7TiXZsExRMcnnBLXXW2hh1JliYU2I=";
   };
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ opencl-headers ocl-icd ];
+  buildInputs = [
+    opencl-headers
+    ocl-icd
+  ];
   postPatch = ''
     substituteInPlace clblast.pc.in \
       --replace '$'{prefix}/@CMAKE_INSTALL_INCLUDEDIR@ @CMAKE_INSTALL_FULL_INCLUDEDIR@ \
