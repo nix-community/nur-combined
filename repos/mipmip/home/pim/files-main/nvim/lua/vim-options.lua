@@ -1,16 +1,20 @@
-vim.g.linny_open_notebook_path = vim.env.HOME .. '/secondbrain'
---vim.g.linnycfg_path_wiki_content = vim.env.HOME .. '/secondbrain/wikiContent'
---vim.g.linnycfg_path_wiki_config = vim.env.HOME .. '/secondbrain/wikiConfig'
---vim.g.linnycfg_path_index = vim.env.HOME .. '/secondbrain/wikiIndex'
+local f=io.open( os.getenv( "HOME" ) .. "/.i-am-second-brain","r")
 
-vim.g.linny_menu_display_docs_count = 1
-vim.g.linny_menu_display_taxo_count = 1
-vim.g.linnycfg_setup_autocommands = 1
+if f~=nil then
+  io.close(f)
 
--- vim.g.linny_wikitags_register = {}
-vim.cmd [[
-let g:linny_wikitags_register = {}
-]]
+  vim.g.linny_open_notebook_path = vim.env.HOME .. '/secondbrain'
+
+  vim.g.linny_menu_display_docs_count = 1
+  vim.g.linny_menu_display_taxo_count = 1
+  vim.g.linnycfg_setup_autocommands = 1
+
+  vim.cmd [[
+    let g:linny_wikitags_register = {}
+  ]]
+
+end
+
 
 vim.filetype.add({
   extension = {

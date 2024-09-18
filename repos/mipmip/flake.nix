@@ -36,7 +36,8 @@
     nixified-ai = { url = "github:nixified-ai/flake"; };
 
     bmc.url = "github:wearetechnative/bmc";
-
+    dirtygit.url = "github:mipmip/dirtygit";
+    jsonify-aws-dotfiles.url = "github:mipmip/jsonify-aws-dotfiles";
   };
 
   outputs = {
@@ -52,6 +53,8 @@
 #    nixpkgs-share-preview-03,
     agenix,
     nixified-ai,
+    jsonify-aws-dotfiles,
+    dirtygit,
     bmc
   }:
 
@@ -89,6 +92,27 @@
     peerixPubkeys = " peerix-lego1:UEbvvZ0dbQbFqktNWaeo4hyTIBovOb/3Is/AuzBUNJI= peerix-ojs:6QILJzG+gTv8JlT8AT1ObVB3h+AXxWLQEkOI8ACEGm0= peerix-rodin:GKCOspilVSQTzFLxzzrtLtVAkB9X3Rkrw5qku4E8wkk=";
 
   in {
+
+    homeConfigurations."pim@tn-nixhost" = home-manager.lib.homeManagerConfiguration {
+      modules = [
+        (import ./home/pim/home-machine-tn-nixhost.nix)
+      ];
+
+      pkgs = pkgsForSystem "x86_64-linux";
+      extraSpecialArgs = {
+        username = "pim";
+        homedir = "/home/pim";
+        withLinny = false;
+        isDesktop = false;
+        tmuxPrefix = "b";
+        unstable = unstableForSystem "x86_64-linux";
+        bmc = bmc;
+        dirtygit = dirtygit;
+        jsonify-aws-dotfiles = jsonify-aws-dotfiles;
+
+      };
+    };
+
 
     homeConfigurations."pim@rodin" = home-manager.lib.homeManagerConfiguration {
       modules = [

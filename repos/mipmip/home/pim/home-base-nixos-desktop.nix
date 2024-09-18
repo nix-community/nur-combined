@@ -11,11 +11,17 @@
 
     ./home-base-all.nix
 
-    ./files-linux
+    ./gimp
+
+    ./files-linux # linux desktop stuff
+
+    ./conf-cli/alacritty.nix
+    ./conf-cli/terminals.nix
 
     ./conf-desktop-linux/firefox.nix
     ./conf-desktop-linux/obs.nix
     ./conf-desktop-linux/xdg.nix
+
     ./conf-gnome
   ];
 

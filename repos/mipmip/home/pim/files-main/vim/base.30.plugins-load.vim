@@ -1,10 +1,12 @@
 call plug#begin('~/.vim/plugged')
 
+  Plug 'mipmip/panelmanager.vim'
+  Plug 'mipmip/vim-hotpop',                     { 'branch': 'main' }
+
 if filereadable($HOME."/.i-am-second-brain")
 
   " MY PLUGINS
   Plug 'mipmip/vim-fluid'
-  Plug 'mipmip/panelmanager.vim'
   Plug 'mipmip/vim-run-in-blender'
   Plug 'mipmip/vim-whitewriter',                { 'branch': 'main' }
   Plug 'mipmip/vim-petra'
@@ -15,7 +17,6 @@ if filereadable($HOME."/.i-am-second-brain")
   Plug 'mipmip/vim-show-in-filemanager',        { 'branch': 'main' }
   Plug 'mipmip/vim-open-mip',                   { 'branch': 'main' }
 
-  Plug 'mipmip/vim-hotpop',                     { 'branch': 'main' }
   Plug 'mipmip/vim-scimark'
   Plug 'git@github.com:mipmip/vim-nomisa.git',  { 'branch': 'main' }
 
@@ -66,7 +67,8 @@ Plug 'fatih/vim-go'
 Plug 'LnL7/vim-nix'
 Plug 'hashivim/vim-terraform'
 Plug 'vim-ruby/vim-ruby'
-Plug 'evanleck/vim-svelte'
+Plug 'evanleck/vim-svelte',  { 'branch': 'main' }
+
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'rodjek/vim-puppet'
 Plug 'google/vim-jsonnet'

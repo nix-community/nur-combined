@@ -51,9 +51,15 @@ setup_aws_key(){
     cp ~/.aws/credentials ~/.aws/credentials.bak
     chmod 600 ~/.aws/credentials.bak
   fi
-
   age --decrypt -i ~/.ssh/id_ed25519 ./secrets/aws-credentials-copy.age > ~/.aws/credentials
   chmod 600 ~/.aws/credentials
+
+  if [ ~/.aws/config ]; then
+    cp ~/.aws/config ~/.aws/config.bak
+    chmod 600 ~/.aws/config.bak
+  fi
+  age --decrypt -i ~/.ssh/id_ed25519 ./secrets/aws-config-copy-first-time-only.age > ~/.aws/config
+  chmod 600 ~/.aws/config
 }
 
 make_command "copy_aws_other_accounts" "copy aws_other_accounts"
