@@ -46,6 +46,12 @@
     };
     home-manager-pine64.url = "github:nix-community/home-manager/release-22.05";
 
+    nix-on-droid = {
+      url = "github:nix-community/nix-on-droid/release-24.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+
   };
 
   outputs = {
@@ -65,7 +71,9 @@
 
     jsonify-aws-dotfiles, dirtygit, bmc,
 
-    nixpkgs-pine64, mobile-nixos, home-manager-pine64
+    nixpkgs-pine64, mobile-nixos, home-manager-pine64,
+
+    nix-on-droid
     } :
 
     let
@@ -384,6 +392,12 @@
         ];
       });
       pinephone-img = nixosConfigurations.pinephone.config.mobile.outputs.u-boot.disk-image;
+
+      nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
+        pkgs = import nixpkgs { system = "aarch64-linux"; };
+        modules = [ ./hosts/nix-on-droid/configuration.nix ];
+      };
+
 
     };
 
