@@ -14,7 +14,6 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  catapult = pkgs.callPackage ./pkgs/catapult { };
   cataclysm-dda = pkgs.callPackage ./pkgs/cataclysm-dda { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
