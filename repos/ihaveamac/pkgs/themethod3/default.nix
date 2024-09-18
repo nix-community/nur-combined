@@ -2,7 +2,7 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "themethod3";
-  version = "2024-02-24";
+  version = "2024-04-20";
 
   src = fetchFromGitHub {
     owner = "DarkRTA";

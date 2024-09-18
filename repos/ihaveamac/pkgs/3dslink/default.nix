@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "3dslink";
-  version = "0.6.1";
+  version = "0.6.3";
 
   src = fetchFromGitHub {
     owner = "devkitPro";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-XygsHIdfFpNnVLKO3r5QE+ALlX5DrxqKwkenuwgiIwA=";
+    hash = "sha256-0muL/vxYn4C9WlGgfsWO7hVsdCC2L5mtpdVvUaOK7f0=";
   };
 
   preConfigure = ''

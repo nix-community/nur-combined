@@ -14,7 +14,7 @@ Attributes listed on [the NUR](https://nur.nix-community.org/repos/ihaveamac/)
 * lnshot-0.1.3
 * save3ds-dev-2023-03-28
 * cleaninty-0.1.3
-* rvthtool-dev-2024-01-24
+* rvthtool-dev-2024-05-17
 * themethod3-2024-04-20
 * makebax-2019-01-22
 * ctrtool-1.2.0
@@ -24,7 +24,7 @@ Attributes listed on [the NUR](https://nur.nix-community.org/repos/ihaveamac/)
 * mediawiki-1.40.4
 * mediawiki-1.41.2
 * mediawiki-1.42.1
-* 3dslink-0.6.1 (as \_3dslink attribute)
+* 3dslink-0.6.3 (as \_3dslink attribute)
 * discordwikibot-2024-09-12
 * sd-format-linux-0.2.0
 
