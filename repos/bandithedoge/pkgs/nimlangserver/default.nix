@@ -8,14 +8,20 @@ pkgs.buildNimPackage {
   version = sources.nimlangserver.date;
 
   buildInputs = with sources; [
-    asynctools.src
+    bearssl.src
     chronicles.src
+    chronos.src
     faststreams.src
+    httputils.src
     json-rpc.src
     json_serialization.src
+    nimcrypto.src
+    results.src
     serialization.src
     stew.src
+    websock.src
     zevv-with.src
+    zlib.src
   ];
 
   doCheck = false;

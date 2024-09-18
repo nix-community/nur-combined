@@ -1,24 +1,39 @@
-[asynctools]
-src.git = "https://github.com/nickysn/asynctools"
-fetch.git = "https://github.com/nickysn/asynctools"
-src.branch = "fixes_for_nimlangserver"
+[bearssl]
+src.git = "https://github.com/status-im/nim-bearssl"
+fetch.git = "https://github.com/status-im/nim-bearssl"
+git.fetchSubmodules = true
 
 [chronicles]
 src.git = "https://github.com/status-im/nim-chronicles"
 fetch.git = "https://github.com/status-im/nim-chronicles"
 
+[chronos]
+src.git = "https://github.com/status-im/nim-chronos"
+fetch.git = "https://github.com/status-im/nim-chronos"
+
 [faststreams]
 src.git = "https://github.com/status-im/nim-faststreams"
 fetch.git = "https://github.com/status-im/nim-faststreams"
 
+[httputils]
+src.git = "https://github.com/status-im/nim-http-utils"
+fetch.git = "https://github.com/status-im/nim-http-utils"
+
 [json-rpc]
-src.git = "https://github.com/yyoncho/nim-json-rpc"
-fetch.git = "https://github.com/yyoncho/nim-json-rpc"
-src.branch = "notif-changes"
+src.git = "https://github.com/status-im/nim-json-rpc"
+fetch.git = "https://github.com/status-im/nim-json-rpc"
 
 [json_serialization]
 src.git = "https://github.com/status-im/nim-json-serialization"
 fetch.git = "https://github.com/status-im/nim-json-serialization"
+
+[nimcrypto]
+src.git = "https://github.com/cheatfate/nimcrypto"
+fetch.git = "https://github.com/cheatfate/nimcrypto"
+
+[results]
+src.git = "https://github.com/arnetheduck/nim-results"
+fetch.git = "https://github.com/arnetheduck/nim-results"
 
 [serialization]
 src.git = "https://github.com/status-im/nim-serialization"
@@ -28,9 +43,18 @@ fetch.git = "https://github.com/status-im/nim-serialization"
 src.git = "https://github.com/status-im/nim-stew"
 fetch.git = "https://github.com/status-im/nim-stew"
 
+[websock]
+src.git = "https://github.com/status-im/nim-websock"
+fetch.git = "https://github.com/status-im/nim-websock"
+
 [zevv-with]
 src.github = "zevv/with"
 fetch.github = "zevv/with"
+
+[zlib]
+src.git = "https://github.com/status-im/nim-zlib"
+fetch.git = "https://github.com/status-im/nim-zlib"
+git.fetchSubmodules = true
 
 [nimlangserver]
 src.git = "https://github.com/nim-lang/langserver"
