@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "dmarc-report-notifier";
-  version = "1.1.7";
+  version = "1.1.8";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "AndrewKvalheim";
     repo = "dmarc-report-notifier";
     rev = "refs/tags/v${version}";
-    hash = "sha256-qUVyGHmbGNh6G4J2+d7gDYJwF3LHZlyWMcroJqi7qZg=";
+    hash = "sha256-xoZDwAxzVkqmuR9JwyguL+HSahbbockikoDXZUle4Oo=";
   };
 
   format = "pyproject";

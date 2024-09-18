@@ -12,8 +12,14 @@ in
 {
   programs.bash = {
     enable = true;
+    historyControl = [ "ignorespace" ];
     historyFile = "${config.home.homeDirectory}/akorg/resource/bash-history";
-    initExtra = "PS1='\\[\\033[1;35m\\]$\\[\\033[0m\\] '";
+    historyFileSize = 1000000000;
+    historySize = 100000000;
+    initExtra = with palette.ansiFormat; ''
+      HISTTIMEFORMAT='%FT%T%z ' # RFC 3339
+      PS1='\[${magenta "\\]$\\["}\] '
+    '';
   };
 
   programs.bat.enable = true;

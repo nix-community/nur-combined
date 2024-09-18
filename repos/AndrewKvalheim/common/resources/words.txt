@@ -309,6 +309,7 @@ entrypoints
 EPUB
 ErgoDox
 ESM
+etckeeper
 Etherpad
 ethnicities
 everyperson
@@ -1135,6 +1136,7 @@ uBlock
 udev
 UDP
 UEFI
+UFW
 UI
 UID
 ultramarathon
@@ -1190,6 +1192,7 @@ unpaginating
 unpermitted
 unprefixed
 unproctored
+UnRAR
 unredaction
 unrendered
 unrepairable
