@@ -3,13 +3,13 @@
 {
   alist = {
     pname = "alist";
-    version = "v3.37.2";
+    version = "v3.37.3";
     src = fetchFromGitHub {
       owner = "alist-org";
       repo = "alist";
-      rev = "v3.37.2";
+      rev = "v3.37.3";
       fetchSubmodules = false;
-      sha256 = "sha256-num/144OdaQL8d+wKpk9Oj65IYicBM3hSZRtzbNGc8Y=";
+      sha256 = "sha256-1xrisAzbouve+yKauQJntd86KkqquG1RcYlQ1wcIt14=";
     };
   };
   cyrus-imapd = {
