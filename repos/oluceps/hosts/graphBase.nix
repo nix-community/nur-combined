@@ -116,9 +116,17 @@
     kdeconnect.enable = false;
     adb.enable = true;
     command-not-found.enable = false;
+    gamescope.enable = true;
     steam = {
       enable = true;
-      package = pkgs.steam.override { extraPkgs = pkgs: [ pkgs.maple-mono-SC-NF ]; };
+      package = pkgs.steam.override {
+        extraPkgs = pkgs: [
+          pkgs.maple-mono-SC-NF
+          pkgs.gamescope
+          pkgs.mangohud
+        ];
+      };
+      gamescopeSession.enable = true;
       remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
       dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
       localNetworkGameTransfers.openFirewall = true;
@@ -133,7 +141,7 @@
     gnupg = {
       agent = {
         enable = false;
-        pinentryPackage = pkgs.pinentry-curses;
+        pinentryPackage = pkgs.wayprompt;
         enableSSHSupport = true;
       };
     };
@@ -161,7 +169,7 @@
 
   qt = {
     enable = true;
-    platformTheme = "gnome";
+    platformTheme = "qt5ct";
     style = "adwaita";
   };
   security = {

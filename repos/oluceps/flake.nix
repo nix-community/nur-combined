@@ -219,7 +219,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     j-link.url = "github:liff/j-link-flake";
-    devenv.url = "github:cachix/devenv";
     aagl = {
       url = "github:ezKEa/aagl-gtk-on-nix";
       inputs.nixpkgs.follows = "nixpkgs";

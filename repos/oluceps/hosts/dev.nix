@@ -10,8 +10,8 @@
     ssh = {
       startAgent = true;
       enableAskPassword = true;
-      askPassword = "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
-
+      askPassword = "${pkgs.wayprompt}/bin/wayprompt-ssh-askpass";
+      # askPassword = "${pkgs.seahorse}/libexec/seahorse/ssh-askpass";
     };
     nh = {
       enable = true;
@@ -87,7 +87,6 @@
             # friture
 
             pv
-            devenv
             # gnome.dconf-editor
 
             [

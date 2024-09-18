@@ -15,6 +15,7 @@
     nameserver 127.0.0.1
   '';
 
+  services.logind.lidSwitch = "lock";
   hardware.graphics.extraPackages = with pkgs; [
     rocm-opencl-icd
     rocm-opencl-runtime
@@ -175,15 +176,15 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      jack.enable = true;
-      extraConfig.pipewire."92-low-latency" = {
-        context.properties = {
-          default.clock.rate = 48000;
-          default.clock.quantum = 256;
-          default.clock.min-quantum = 256;
-          default.clock.max-quantum = 256;
-        };
-      };
+      # jack.enable = true;
+      # extraConfig.pipewire."92-low-latency" = {
+      #   context.properties = {
+      #     default.clock.rate = 48000;
+      #     default.clock.quantum = 256;
+      #     default.clock.min-quantum = 256;
+      #     default.clock.max-quantum = 256;
+      #   };
+      # };
     };
   };
 
