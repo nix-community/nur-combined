@@ -328,7 +328,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-09-16",
+        "date": "2024-09-17",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -340,12 +340,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "7d9663f8963e78e85388b1f31e56ec9740975110",
-            "sha256": "sha256-TkEe/fxW/9HiRZEH/BEjmOpvXy3kF2QjteWaZeI3Mxw=",
+            "rev": "3a0e8612ffa2ae6c68f6018ef3cddf560687bd1f",
+            "sha256": "sha256-ndxnANpCjxXvNEfw5g7QBW/j94aRoSms/oeqqAxJ/n0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7d9663f8963e78e85388b1f31e56ec9740975110"
+        "version": "3a0e8612ffa2ae6c68f6018ef3cddf560687bd1f"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1045,11 +1045,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-JM+fuC9/QbG9Q7qBihDHxldeDePOVBcX1JcZdzIxeHQ=",
+            "sha256": "sha256-0+rYXM7kS1iHcc/NpHEFKtYDoLKET5XWhmA7Keh71lk=",
             "type": "url",
-            "url": "https://github.com/share121/inter-knot/releases/download/v2.16.8+35/inter_knot_linux.zip"
+            "url": "https://github.com/share121/inter-knot/releases/download/v2.16.9+36/inter_knot_linux.zip"
         },
-        "version": "v2.16.8+35"
+        "version": "v2.16.9+36"
     },
     "jproxy": {
         "cargoLocks": null,
@@ -1473,12 +1473,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3775",
-            "sha256": "sha256-2Y2iihWN7AESAgQDsL1osCYCy5XtQE7VV7MsBglE7xg=",
+            "rev": "b3782",
+            "sha256": "sha256-P/09ar3OjyqGvPJLgr65FJR2hayafHoY/+a3hfdMBzI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3775"
+        "version": "b3782"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -2038,11 +2038,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-2i1JWp1OEeO4vF9TXSHBb+HCYn3L0mDTK7/sceV/XuU=",
+            "sha256": "sha256-mQcqaAlgT/SSkFBDtFKG2rSRb8fSrGr4JPGuh+QJFV0=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.2.5/PeerBanHelper.jar"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.2.6/PeerBanHelper.jar"
         },
-        "version": "v6.2.5"
+        "version": "v6.2.6"
     },
     "phpmyadmin": {
         "cargoLocks": null,

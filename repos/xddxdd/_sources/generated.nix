@@ -182,15 +182,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "7d9663f8963e78e85388b1f31e56ec9740975110";
+    version = "3a0e8612ffa2ae6c68f6018ef3cddf560687bd1f";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "7d9663f8963e78e85388b1f31e56ec9740975110";
+      rev = "3a0e8612ffa2ae6c68f6018ef3cddf560687bd1f";
       fetchSubmodules = false;
-      sha256 = "sha256-TkEe/fxW/9HiRZEH/BEjmOpvXy3kF2QjteWaZeI3Mxw=";
+      sha256 = "sha256-ndxnANpCjxXvNEfw5g7QBW/j94aRoSms/oeqqAxJ/n0=";
     };
-    date = "2024-09-16";
+    date = "2024-09-17";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -584,10 +584,10 @@
   };
   inter-knot = {
     pname = "inter-knot";
-    version = "v2.16.8+35";
+    version = "v2.16.9+36";
     src = fetchurl {
-      url = "https://github.com/share121/inter-knot/releases/download/v2.16.8+35/inter_knot_linux.zip";
-      sha256 = "sha256-JM+fuC9/QbG9Q7qBihDHxldeDePOVBcX1JcZdzIxeHQ=";
+      url = "https://github.com/share121/inter-knot/releases/download/v2.16.9+36/inter_knot_linux.zip";
+      sha256 = "sha256-0+rYXM7kS1iHcc/NpHEFKtYDoLKET5XWhmA7Keh71lk=";
     };
   };
   jproxy = {
@@ -816,13 +816,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3775";
+    version = "b3782";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3775";
+      rev = "b3782";
       fetchSubmodules = false;
-      sha256 = "sha256-2Y2iihWN7AESAgQDsL1osCYCy5XtQE7VV7MsBglE7xg=";
+      sha256 = "sha256-P/09ar3OjyqGvPJLgr65FJR2hayafHoY/+a3hfdMBzI=";
     };
   };
   lyrica = {
@@ -1129,10 +1129,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v6.2.5";
+    version = "v6.2.6";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.2.5/PeerBanHelper.jar";
-      sha256 = "sha256-2i1JWp1OEeO4vF9TXSHBb+HCYn3L0mDTK7/sceV/XuU=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.2.6/PeerBanHelper.jar";
+      sha256 = "sha256-mQcqaAlgT/SSkFBDtFKG2rSRb8fSrGr4JPGuh+QJFV0=";
     };
   };
   phpmyadmin = {

@@ -427,7 +427,7 @@
   "legacyPackages.x86_64-linux.inter-knot": {
     "description": "绳网是一个游戏、技术交流平台",
     "pname": "inter-knot",
-    "version": "2.16.8+35"
+    "version": "2.16.9+36"
   },
   "legacyPackages.x86_64-linux.jproxy": {
     "description": "A proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate ",
@@ -492,7 +492,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "3775"
+    "version": "3782"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -2802,7 +2802,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "6.2.5"
+    "version": "6.2.6"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
@@ -3347,7 +3347,7 @@
   "packages.x86_64-linux.inter-knot": {
     "description": "绳网是一个游戏、技术交流平台",
     "pname": "inter-knot",
-    "version": "2.16.8+35"
+    "version": "2.16.9+36"
   },
   "packages.x86_64-linux.jproxy": {
     "description": "A proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate ",
@@ -3567,7 +3567,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "6.2.5"
+    "version": "6.2.6"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
