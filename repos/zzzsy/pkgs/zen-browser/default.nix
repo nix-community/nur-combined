@@ -6,15 +6,12 @@
 }:
 let
   pname = "zen-browser";
-  version = "1.0.0-a.39";
-  hashes = {
-    specific = "sha256-tFci3PttYYhkSPrABW8LHSm95h5v7t1GIZWzdtsOF9Q=";
-    generic = "sha256-PtG9YajTBkwg8GYPJKqJvSmME58Dy7Hw7UEBrryQ8qw=";
-  };
+  metadata = builtins.fromJSON (builtins.readFile ./metadata.json);
+  version = metadata.version;
 
   src = fetchurl {
     url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen-${variant}.AppImage";
-    hash = lib.getAttr variant hashes;
+    hash = lib.getAttr variant metadata;
   };
 
   extracted = appimageTools.extract {
@@ -31,6 +28,8 @@ appimageTools.wrapType2 {
     install -Dm 644 {${extracted}/usr/,$out}/share/icons/hicolor/128x128/apps/zen.png
     substituteInPlace $out/share/applications/zen.desktop --replace-fail 'Exec=zen' 'Exec=${pname}'
   '';
+
+  updateScript = ./update.sh;
 
   meta = with lib; {
     description = "Experience tranquillity while browsing the web without people tracking you!";

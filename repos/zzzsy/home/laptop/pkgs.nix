@@ -110,6 +110,8 @@ let
     # minder
     my.tsukimi
     materialgram
+    # my.llqqnt
+    wechat-uos
 
     #ghostty
 

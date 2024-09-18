@@ -32,14 +32,14 @@
         }
       ];
       privateKeyFile = config.sops.secrets."wg".path;
-      # postUp = ''
-      # ip rule add fwmark 0x800/0x800 table 1145
-      # ip -6 rule add fwmark 0x800/0x800 table 1145
-      # '';
-      # postDown = ''
-      # ip rule del fwmark 0x800/0x800 table 1145
-      # ip -6 rule del fwmark 0x800/0x800 table 1145
-      # '';
+      #postUp = ''
+      #  ip rule add fwmark 0x800/0x800 table 1145
+      #  ip -6 rule add fwmark 0x800/0x800 table 1145
+      #'';
+      #postDown = ''
+      #  ip rule del fwmark 0x800/0x800 table 1145
+      #  ip -6 rule del fwmark 0x800/0x800 table 1145
+      #'';
     };
   };
   services.zerotierone = {
