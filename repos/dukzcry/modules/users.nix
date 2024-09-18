@@ -9,6 +9,7 @@ with lib;
         uid = 1000;
         isNormalUser = true;
         extraGroups = [ "wheel" "libvirtd" ];
+        shell = pkgs.zsh;
       };
       Nina = {
         uid = 1001;

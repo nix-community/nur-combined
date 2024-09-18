@@ -9,7 +9,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    users.defaultUserShell = pkgs.zsh;
     programs.zsh.enable = true;
     programs.zsh.histSize = 1000000;
     programs.zsh.autosuggestions.enable = true;
