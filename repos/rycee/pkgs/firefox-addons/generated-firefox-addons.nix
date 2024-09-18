@@ -2024,10 +2024,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.89";
+      version = "4.9.92";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4341235/darkreader-4.9.89.xpi";
-      sha256 = "f4a5b4d5966d99cc68b31a9d2072cdb6388efefa9d45746f03d76e3c897c49be";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4351387/darkreader-4.9.92.xpi";
+      sha256 = "be55b3ea5bab95743d43823d9290fa820035b89c4d07943b568111d837a98226";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -2046,10 +2046,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2436.1";
+      version = "6.2438.1";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4346296/dashlane-6.2436.1.xpi";
-      sha256 = "a252541cd956b6a499c2580f07b8cd060272490a714623afed34cd58745c9bc7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4354576/dashlane-6.2438.1.xpi";
+      sha256 = "0c7d1badabc87537fe7a0c600a308843000bffc606f907dcb38261150251275d";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2127,10 +2127,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "131.0.20240913.91444";
+      version = "131.0.20240916.92141";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4352421/deutsch_de_language_pack-131.0.20240913.91444.xpi";
-      sha256 = "f8ad5d1a4d161834e6ce87bc4cfe89695bbaf395c6e5232be5a8ee946cce8654";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4353961/deutsch_de_language_pack-131.0.20240916.92141.xpi";
+      sha256 = "68db7aaa8b9ea30ef7fd29b95c3c0d993c6d329e36d7471fe4ba28db88c50dd9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3289,10 +3289,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "131.0.20240913.91444";
+      version = "131.0.20240916.92141";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4352475/francais_language_pack-131.0.20240913.91444.xpi";
-      sha256 = "f84f2f502609c0f22866badc877ffad47a9b006707e9beb30ced35abea462505";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4353953/francais_language_pack-131.0.20240916.92141.xpi";
+      sha256 = "c3a942170e41e477e7b3ae7c5bfb2410a05d602ef21635dc2e12e8b7084b8082";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3326,10 +3326,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "131.0.20240913.91444";
+      version = "131.0.20240916.92141";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4352441/gaidhlig_language_pack-131.0.20240913.91444.xpi";
-      sha256 = "161fef6c25a55812af3b35638bd25d7235e491cd6029941eb8db217386a3439b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4354013/gaidhlig_language_pack-131.0.20240916.92141.xpi";
+      sha256 = "1a9689cb4bf07c39f6d3f6473c6868b4514406c88770711ef1b865d74539b51d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -5064,10 +5064,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.9.3";
+      version = "1.9.6";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4347944/immersive_translate-1.9.3.xpi";
-      sha256 = "55eaeb516bc2c3c58a199d54be79f983898f9d64b60cf1183ee36d1eee9207b4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4352222/immersive_translate-1.9.6.xpi";
+      sha256 = "78b40c0124deb81103a27e6ca9ccb1048b06adafd2ac71f2ec9ac4bfaba6ead1";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -9112,10 +9112,10 @@
     };
     "read-aloud" = buildFirefoxXpiAddon {
       pname = "read-aloud";
-      version = "1.72.0";
+      version = "1.73.0";
       addonId = "{ddc62400-f22d-4dd3-8b4a-05837de53c2e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4302360/read_aloud-1.72.0.xpi";
-      sha256 = "2505f32c8b4b55504b08de9f432665040a5d71f65ddd664c7aaf9f23eb573fc2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4350883/read_aloud-1.73.0.xpi";
+      sha256 = "034e18ede7f8dc6314797b50c85b3e0ebc19467e621f1ced68d80dbc7bc5e210";
       meta = with lib;
       {
         description = "Read out loud the current web-page article with one click. Supports 40+ languages.";
@@ -9478,10 +9478,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "131.0.20240913.91444";
+      version = "131.0.20240916.92141";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4352465/scots_language_pack-131.0.20240913.91444.xpi";
-      sha256 = "cc18f566ee868277c49942540ba58f961cc3019d8b9743614dcab0810e88f023";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4353968/scots_language_pack-131.0.20240916.92141.xpi";
+      sha256 = "d6a9af409881453c14e6192516d7fea44c71f5a5e19aa103f13eaf89830bbe1d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10927,10 +10927,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.0.22";
+      version = "4.0.23";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4333810/tree_style_tab-4.0.22.xpi";
-      sha256 = "7712bb35bddaf4178a2847476c9dc4938c28e2661d02895fafefb2e3eae7fe9a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4350896/tree_style_tab-4.0.23.xpi";
+      sha256 = "d8061eff00b56ccfdd6fd290b14ef2c8ef692a14eb8db1a27529f21e43df1f30";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -12542,10 +12542,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.9.2.0";
+      version = "24.9.9.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4350165/yomitan-24.9.2.0.xpi";
-      sha256 = "707b91de027179feb29506a1562643ced75acd9b5c4a5b889aab9a22a38fc2d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4353902/yomitan-24.9.9.0.xpi";
+      sha256 = "83691f4e1aeb8daf72ad12910e60813e1d8988a3f799f2ec895541ef29334773";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
