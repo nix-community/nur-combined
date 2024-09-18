@@ -182,13 +182,13 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "d3306622f2d86abe983ed05f1bfcd4a31645cd21";
+    version = "7d9663f8963e78e85388b1f31e56ec9740975110";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "d3306622f2d86abe983ed05f1bfcd4a31645cd21";
+      rev = "7d9663f8963e78e85388b1f31e56ec9740975110";
       fetchSubmodules = false;
-      sha256 = "sha256-bjrr/+1EenXb+0REP6HvWTIV5kvHvCWEBQJxL+D1/wQ=";
+      sha256 = "sha256-TkEe/fxW/9HiRZEH/BEjmOpvXy3kF2QjteWaZeI3Mxw=";
     };
     date = "2024-09-16";
   };
@@ -584,10 +584,10 @@
   };
   inter-knot = {
     pname = "inter-knot";
-    version = "v2.16.7+34";
+    version = "v2.16.8+35";
     src = fetchurl {
-      url = "https://github.com/share121/inter-knot/releases/download/v2.16.7+34/inter_knot_linux.zip";
-      sha256 = "sha256-R9MZwaAAh+JDgdF/PwvANitdsTYbhJDV99XV5aDuu88=";
+      url = "https://github.com/share121/inter-knot/releases/download/v2.16.8+35/inter_knot_linux.zip";
+      sha256 = "sha256-JM+fuC9/QbG9Q7qBihDHxldeDePOVBcX1JcZdzIxeHQ=";
     };
   };
   jproxy = {
@@ -630,15 +630,15 @@
   };
   kikoplay-app = {
     pname = "kikoplay-app";
-    version = "504e402573c47abf1a10fff60b54e9c7273e48b3";
+    version = "2b6d08c0ec4eb1b791f916232149b8cca09c240b";
     src = fetchFromGitHub {
       owner = "KikoPlayProject";
       repo = "KikoPlayApp";
-      rev = "504e402573c47abf1a10fff60b54e9c7273e48b3";
+      rev = "2b6d08c0ec4eb1b791f916232149b8cca09c240b";
       fetchSubmodules = false;
-      sha256 = "sha256-TA4FC0SMk0b5Ibv78yRwBPZky0t8QC/ulTElia8ZzFM=";
+      sha256 = "sha256-fxsxn8h5U/No+QZtHMI9vDK7XQCmqTuXCEpHYarCm7E=";
     };
-    date = "2024-06-04";
+    date = "2024-09-17";
   };
   kikoplay-script = {
     pname = "kikoplay-script";
@@ -772,13 +772,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.10.10-xanmod1";
+    version = "6.11.0-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.10.10-xanmod1";
+      rev = "6.11.0-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-abxhlF0zmY9WvcQ+FnkR5fNMvrw+oTCIMaCs8DFJ+oA=";
+      sha256 = "sha256-cMT7xqDAwzuJsKSrqdCP+brIrCxgxQ/4fttFxbFiDNI=";
     };
   };
   linux-xanmod-6_0 = {
@@ -816,13 +816,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3763";
+    version = "b3775";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3763";
+      rev = "b3775";
       fetchSubmodules = false;
-      sha256 = "sha256-btNZdOhHNz+di7aF4P8Xy+L3DbH3JNxE568ckze3PLU=";
+      sha256 = "sha256-2Y2iihWN7AESAgQDsL1osCYCy5XtQE7VV7MsBglE7xg=";
     };
   };
   lyrica = {
@@ -1129,10 +1129,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v6.2.1";
+    version = "v6.2.5";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.2.1/PeerBanHelper.jar";
-      sha256 = "sha256-ENHsWfoOfS+/b0ypZrKfOWWP3RWBzmS46OCUERPAnU0=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.2.5/PeerBanHelper.jar";
+      sha256 = "sha256-2i1JWp1OEeO4vF9TXSHBb+HCYn3L0mDTK7/sceV/XuU=";
     };
   };
   phpmyadmin = {
@@ -1657,13 +1657,13 @@
   };
   vgpu-unlock-rs = {
     pname = "vgpu-unlock-rs";
-    version = "v2.4.0";
+    version = "v2.5.0";
     src = fetchFromGitHub {
       owner = "mbilker";
       repo = "vgpu_unlock-rs";
-      rev = "v2.4.0";
+      rev = "v2.5.0";
       fetchSubmodules = false;
-      sha256 = "sha256-N/JtAvwiEyGxh41KkxVyCR/utewOF1MrAjsTaVoekzM=";
+      sha256 = "sha256-5/cFc8JWgwxYm0JQX6aBGhIn2cNvGB4kh/w96P+lTgw=";
     };
   };
   vpp = {

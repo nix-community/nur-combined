@@ -427,7 +427,7 @@
   "legacyPackages.x86_64-linux.inter-knot": {
     "description": "绳网是一个游戏、技术交流平台",
     "pname": "inter-knot",
-    "version": "2.16.7+34"
+    "version": "2.16.8+35"
   },
   "legacyPackages.x86_64-linux.jproxy": {
     "description": "A proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate ",
@@ -492,7 +492,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "3763"
+    "version": "3775"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -512,62 +512,62 @@
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.10.10-xanmod1"
+    "version": "6.11.0-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.generic-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.10.10-xanmod1"
+    "version": "6.11.0-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.10.10-xanmod1"
+    "version": "6.11.0-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-generic-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.10.10-xanmod1"
+    "version": "6.11.0-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v1": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.10.10-xanmod1"
+    "version": "6.11.0-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v1-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.10.10-xanmod1"
+    "version": "6.11.0-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v2": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.10.10-xanmod1"
+    "version": "6.11.0-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v2-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.10.10-xanmod1"
+    "version": "6.11.0-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v3": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.10.10-xanmod1"
+    "version": "6.11.0-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v3-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.10.10-xanmod1"
+    "version": "6.11.0-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v4": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.10.10-xanmod1"
+    "version": "6.11.0-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v4-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.10.10-xanmod1"
+    "version": "6.11.0-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
@@ -772,42 +772,42 @@
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v1": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.10.10-xanmod1"
+    "version": "6.11.0-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v1-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.10.10-xanmod1"
+    "version": "6.11.0-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v2": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.10.10-xanmod1"
+    "version": "6.11.0-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v2-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.10.10-xanmod1"
+    "version": "6.11.0-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v3": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.10.10-xanmod1"
+    "version": "6.11.0-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v3-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.10.10-xanmod1"
+    "version": "6.11.0-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v4": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.10.10-xanmod1"
+    "version": "6.11.0-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v4-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.10.10-xanmod1"
+    "version": "6.11.0-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianPersonal.libltnginx": {
     "description": "",
@@ -2802,7 +2802,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "6.2.1"
+    "version": "6.2.5"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
@@ -3057,7 +3057,7 @@
   "legacyPackages.x86_64-linux.vgpu-unlock-rs": {
     "description": "Unlock vGPU functionality for consumer grade GPUs",
     "pname": "vgpu-unlock-rs",
-    "version": "2.4.0"
+    "version": "2.5.0"
   },
   "legacyPackages.x86_64-linux.vpp": {
     "description": "Vector Packet Processing",
@@ -3347,7 +3347,7 @@
   "packages.x86_64-linux.inter-knot": {
     "description": "绳网是一个游戏、技术交流平台",
     "pname": "inter-knot",
-    "version": "2.16.7+34"
+    "version": "2.16.8+35"
   },
   "packages.x86_64-linux.jproxy": {
     "description": "A proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate ",
@@ -3567,7 +3567,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "6.2.1"
+    "version": "6.2.5"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
@@ -3777,7 +3777,7 @@
   "packages.x86_64-linux.vgpu-unlock-rs": {
     "description": "Unlock vGPU functionality for consumer grade GPUs",
     "pname": "vgpu-unlock-rs",
-    "version": "2.4.0"
+    "version": "2.5.0"
   },
   "packages.x86_64-linux.vpp": {
     "description": "Vector Packet Processing",
