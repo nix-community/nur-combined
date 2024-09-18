@@ -38,6 +38,14 @@
     bmc.url = "github:wearetechnative/bmc";
     dirtygit.url = "github:mipmip/dirtygit";
     jsonify-aws-dotfiles.url = "github:mipmip/jsonify-aws-dotfiles";
+
+    nixpkgs-pine64.url = "nixpkgs/dfd82985c273aac6eced03625f454b334daae2e8";
+    mobile-nixos = {
+      url = "github:nixos/mobile-nixos/efbe2c3c5409c868309ae0770852638e623690b5";
+      flake = false;
+    };
+    home-manager-pine64.url = "github:nix-community/home-manager/release-22.05";
+
   };
 
   outputs = {
@@ -49,105 +57,79 @@
     alacritty-theme,
     peerix,
     unstable,
-#    nixpkgs-inkscape13,
-#    nixpkgs-share-preview-03,
+    #    nixpkgs-inkscape13,
+    #    nixpkgs-share-preview-03,
     agenix,
+
     nixified-ai,
-    jsonify-aws-dotfiles,
-    dirtygit,
-    bmc
-  }:
 
-  let
+    jsonify-aws-dotfiles, dirtygit, bmc,
 
-    pkgsForSystem = system: import nixpkgs {
-      overlays = [
-        (import ./overlays)
-        alacritty-theme.overlays.default
-      ];
-      inherit system;
-      config.allowUnfree = true;
-    };
+    nixpkgs-pine64, mobile-nixos, home-manager-pine64
+    } :
 
-#    nixpkgs-inkscape13ForSystem = system: import nixpkgs-inkscape13 {
-#      inherit system;
-#      config.allowUnfree = true;
-#    };
+    let
 
-    #pkgs-share-preview-03 = system: import nixpkgs-share-preview-03 {
-    #  inherit system;
-    #  config.allowUnfree = true;
-    #};
-
-    unstableForSystem = system: import unstable {
-      inherit system;
-      config.allowUnfree = true;
-    };
-
-    importFromChannelForSystem = system: channel: import channel {
-      inherit system;
-      config.allowUnfree = true;
-    };
-
-    peerixPubkeys = " peerix-lego1:UEbvvZ0dbQbFqktNWaeo4hyTIBovOb/3Is/AuzBUNJI= peerix-ojs:6QILJzG+gTv8JlT8AT1ObVB3h+AXxWLQEkOI8ACEGm0= peerix-rodin:GKCOspilVSQTzFLxzzrtLtVAkB9X3Rkrw5qku4E8wkk=";
-
-  in {
-
-    homeConfigurations."pim@tn-nixhost" = home-manager.lib.homeManagerConfiguration {
-      modules = [
-        (import ./home/pim/home-machine-tn-nixhost.nix)
-      ];
-
-      pkgs = pkgsForSystem "x86_64-linux";
-      extraSpecialArgs = {
-        username = "pim";
-        homedir = "/home/pim";
-        withLinny = false;
-        isDesktop = false;
-        tmuxPrefix = "b";
-        unstable = unstableForSystem "x86_64-linux";
-        bmc = bmc;
-        dirtygit = dirtygit;
-        jsonify-aws-dotfiles = jsonify-aws-dotfiles;
-
-      };
-    };
-
-
-    homeConfigurations."pim@rodin" = home-manager.lib.homeManagerConfiguration {
-      modules = [
-        (import ./home/pim/home-machine-rodin.nix)
-      ];
-
-      pkgs = pkgsForSystem "x86_64-linux";
-      extraSpecialArgs = {
-        username = "pim";
-        homedir = "/home/pim";
-        withLinny = true;
-        isDesktop = true;
-        tmuxPrefix = "a";
-        unstable = unstableForSystem "x86_64-linux";
-      };
-    };
-
-    homeConfigurations = {
-      "pim@adevintamac" = home-manager.lib.homeManagerConfiguration {
-        modules = [
-        (import ./home/pim/home-machine-adevinta.nix)
+      pkgsForSystem = system: import nixpkgs {
+        overlays = [
+          (import ./overlays)
+          alacritty-theme.overlays.default
         ];
-        pkgs = pkgsForSystem "x86_64-darwin";
+        inherit system;
+        config.allowUnfree = true;
+      };
+
+      #    nixpkgs-inkscape13ForSystem = system: import nixpkgs-inkscape13 {
+      #      inherit system;
+      #      config.allowUnfree = true;
+      #    };
+
+      #pkgs-share-preview-03 = system: import nixpkgs-share-preview-03 {
+      #  inherit system;
+      #  config.allowUnfree = true;
+      #};
+
+      unstableForSystem = system: import unstable {
+        inherit system;
+        config.allowUnfree = true;
+      };
+
+      importFromChannelForSystem = system: channel: import channel {
+        inherit system;
+        config.allowUnfree = true;
+      };
+
+      peerixPubkeys = " peerix-lego1:UEbvvZ0dbQbFqktNWaeo4hyTIBovOb/3Is/AuzBUNJI= peerix-ojs:6QILJzG+gTv8JlT8AT1ObVB3h+AXxWLQEkOI8ACEGm0= peerix-rodin:GKCOspilVSQTzFLxzzrtLtVAkB9X3Rkrw5qku4E8wkk=";
+
+    in
+      rec {
+
+      homeConfigurations."pim@tn-nixhost" = home-manager.lib.homeManagerConfiguration {
+        modules = [
+          (import ./home/pim/home-machine-tn-nixhost.nix)
+        ];
+
+        pkgs = pkgsForSystem "x86_64-linux";
         extraSpecialArgs = {
-          username = "pim.snel";
-          homedir = "/Users/pim.snel";
-          withLinny = true;
-          isDesktop = true;
-          tmuxPrefix = "a";
-          unstable = unstableForSystem "x86_64-darwin";
+          username = "pim";
+          homedir = "/home/pim";
+          withLinny = false;
+          isDesktop = false;
+          tmuxPrefix = "b";
+          unstable = unstableForSystem "x86_64-linux";
+          bmc = bmc;
+          dirtygit = dirtygit;
+          jsonify-aws-dotfiles = jsonify-aws-dotfiles;
+
         };
       };
 
-      "pim@lego1" = home-manager.lib.homeManagerConfiguration {
-        modules = [ (import ./home/pim/home-machine-lego1.nix) ];
+
+      homeConfigurations."pim@rodin" = home-manager.lib.homeManagerConfiguration {
+        modules = [
+          (import ./home/pim/home-machine-rodin.nix)
+        ];
+
         pkgs = pkgsForSystem "x86_64-linux";
         extraSpecialArgs = {
           username = "pim";
@@ -159,88 +141,117 @@
         };
       };
 
-      "pim@ojs" = home-manager.lib.homeManagerConfiguration {
-        modules = [ (import ./home/pim/home-machine-ojs.nix) ];
+      homeConfigurations = {
+        "pim@adevintamac" = home-manager.lib.homeManagerConfiguration {
+          modules = [
+            (import ./home/pim/home-machine-adevinta.nix)
+          ];
+          pkgs = pkgsForSystem "x86_64-darwin";
+          extraSpecialArgs = {
+            username = "pim.snel";
+            homedir = "/Users/pim.snel";
+            withLinny = true;
+            isDesktop = true;
+            tmuxPrefix = "a";
+            unstable = unstableForSystem "x86_64-darwin";
+          };
+        };
 
-        pkgs = pkgsForSystem "x86_64-linux";
-        extraSpecialArgs = {
-          username = "pim";
-          homedir = "/home/pim";
-          withLinny = true;
-          isDesktop = true;
-          tmuxPrefix = "a";
-          unstable = unstableForSystem "x86_64-linux";
+        "pim@lego1" = home-manager.lib.homeManagerConfiguration {
+          modules = [ (import ./home/pim/home-machine-lego1.nix) ];
+          pkgs = pkgsForSystem "x86_64-linux";
+          extraSpecialArgs = {
+            username = "pim";
+            homedir = "/home/pim";
+            withLinny = true;
+            isDesktop = true;
+            tmuxPrefix = "a";
+            unstable = unstableForSystem "x86_64-linux";
+          };
+        };
+
+        "pim@ojs" = home-manager.lib.homeManagerConfiguration {
+          modules = [ (import ./home/pim/home-machine-ojs.nix) ];
+
+          pkgs = pkgsForSystem "x86_64-linux";
+          extraSpecialArgs = {
+            username = "pim";
+            homedir = "/home/pim";
+            withLinny = true;
+            isDesktop = true;
+            tmuxPrefix = "a";
+            unstable = unstableForSystem "x86_64-linux";
+          };
         };
       };
-    };
 
-    nixosConfigurations.rodin = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.rodin = nixpkgs.lib.nixosSystem {
 
-      system = "x86_64-linux";
+        system = "x86_64-linux";
 
-      modules =
-        let
-          system = "x86_64-linux";
+        modules =
+          let
+            system = "x86_64-linux";
 
-          defaults = { pkgs, ... }: {
-            nixpkgs.overlays = [(import ./overlays)];
-            _module.args.unstable = importFromChannelForSystem system unstable;
-            _module.args.pkgs-2211 = importFromChannelForSystem system nixpkgs-2211;
-            #_module.args.pkgs-2311 = importFromChannelForSystem system nixpkgs-2311;
-            #_module.args.pkgs-inkscape13 = importFromChannelForSystem system nixpkgs-inkscape13;
-            #_module.args.pkgs-share-preview-03 = importFromChannelForSystem system nixpkgs-share-preview-03;
-          };
+            defaults = { pkgs, ... }: {
+              nixpkgs.overlays = [(import ./overlays)];
+              _module.args.unstable = importFromChannelForSystem system unstable;
+              _module.args.pkgs-2211 = importFromChannelForSystem system nixpkgs-2211;
+              #_module.args.pkgs-2311 = importFromChannelForSystem system nixpkgs-2311;
+              #_module.args.pkgs-inkscape13 = importFromChannelForSystem system nixpkgs-inkscape13;
+              #_module.args.pkgs-share-preview-03 = importFromChannelForSystem system nixpkgs-share-preview-03;
+            };
 
-          agenixBin = {
-            environment.systemPackages = [ agenix.packages."${system}".default ];
-          };
-          bmcBin = {
-            environment.systemPackages = [ bmc.packages."${system}".bmc ];
-          };
+            agenixBin = {
+              environment.systemPackages = [ agenix.packages."${system}".default ];
+            };
+            bmcBin = {
+              environment.systemPackages = [ bmc.packages."${system}".bmc ];
+            };
 
-        in [
-          ./hosts/rodin/configuration.nix
-          defaults
-#          peerix.nixosModules.peerix {
-#              services.peerix = {
-#                enable = true;
-#                package = peerix.packages.x86_64-linux.peerix;
-#                openFirewall = true; # UDP/12304
-#                privateKeyFile = ./hosts/lego1/peerix-private;
-#                publicKeyFile =  ./hosts/lego1/peerix-public;
-#                publicKey = peerixPubkeys;
-#              };
-#            }
+          in [
+            ./hosts/rodin/configuration.nix
+            defaults
+            #          peerix.nixosModules.peerix {
+            #              services.peerix = {
+            #                enable = true;
+            #                package = peerix.packages.x86_64-linux.peerix;
+            #                openFirewall = true; # UDP/12304
+            #                privateKeyFile = ./hosts/lego1/peerix-private;
+            #                publicKeyFile =  ./hosts/lego1/peerix-public;
+            #                publicKey = peerixPubkeys;
+            #              };
+            #            }
 
-          agenixBin
-          agenix.nixosModules.default
+            agenixBin
+            agenix.nixosModules.default
 
-          bmcBin
+            bmcBin
 
-          home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-          }
+            home-manager.nixosModules.home-manager {
+              home-manager.useGlobalPkgs = true;
+            }
 
-  ##          {
-  ##              imports = [
-  ##                nixified-ai.nixosModules.invokeai
-  ##              ];
-  ##
-  ##              environment.systemPackages = [
-  ##                nixified-ai.packages.${system}.invokeai-nvidia
-  ##              ];
-  ##
-  ##  #            services.invokeai = {
-  ##  #              enable = false;
-  ##  #              host = "0.0.0.0";
-  ##  #              nsfwChecker = false;
-  ##  #              package = nixified-ai.packages.${system}.invokeai-nvidia;
-  ##  #            };
-  ##
-  ##            }
+            ##          {
+            ##              imports = [
+            ##                nixified-ai.nixosModules.invokeai
+            ##              ];
+            ##
+            ##              environment.systemPackages = [
+            ##                nixified-ai.packages.${system}.invokeai-nvidia
+            ##              ];
+            ##
+            ##  #            services.invokeai = {
+            ##  #              enable = false;
+            ##  #              host = "0.0.0.0";
+            ##  #              nsfwChecker = false;
+            ##  #              package = nixified-ai.packages.${system}.invokeai-nvidia;
+            ##  #            };
+            ##
+            ##            }
 
 
-];
+          ];
       };
 
       nixosConfigurations.lego1 = nixpkgs.lib.nixosSystem {
@@ -264,16 +275,16 @@
           in [
             defaults
             ./hosts/lego1/configuration.nix
-#            peerix.nixosModules.peerix {
-#              services.peerix = {
-#                enable = true;
-#                package = peerix.packages.x86_64-linux.peerix;
-#                openFirewall = true; # UDP/12304
-#                privateKeyFile = ./hosts/lego1/peerix-private;
-#                publicKeyFile =  ./hosts/lego1/peerix-public;
-#                publicKey = peerixPubkeys;
-#              };
-#            }
+            #            peerix.nixosModules.peerix {
+            #              services.peerix = {
+            #                enable = true;
+            #                package = peerix.packages.x86_64-linux.peerix;
+            #                openFirewall = true; # UDP/12304
+            #                privateKeyFile = ./hosts/lego1/peerix-private;
+            #                publicKeyFile =  ./hosts/lego1/peerix-public;
+            #                publicKey = peerixPubkeys;
+            #              };
+            #            }
 
             { environment.systemPackages = [ agenix.packages."${system}".default ]; }
             agenix.nixosModules.default
@@ -283,84 +294,97 @@
               home-manager.useGlobalPkgs = true;
             }
           ];
-        };
+      };
 
-        nixosConfigurations.ojs = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.ojs = nixpkgs.lib.nixosSystem {
 
-          modules =
-            let
-              system = "x86_64-linux";
-              defaults = { pkgs, ... }: {
-                _module.args.unstable = unstableForSystem "x86_64-linux";
-                #_module.args.nixpkgs-inkscape13 = nixpkgs-inkscape13ForSystem "x86_64-linux";
+        modules =
+          let
+            system = "x86_64-linux";
+            defaults = { pkgs, ... }: {
+              _module.args.unstable = unstableForSystem "x86_64-linux";
+              #_module.args.nixpkgs-inkscape13 = nixpkgs-inkscape13ForSystem "x86_64-linux";
+            };
+          in [
+            defaults
+            ./hosts/ojs/configuration.nix
+            peerix.nixosModules.peerix {
+              services.peerix = {
+                enable = true;
+                package = peerix.packages.x86_64-linux.peerix;
+                openFirewall = true; # UDP/12304
+                privateKeyFile = ./hosts/ojs/peerix-private;
+                publicKeyFile =  ./hosts/ojs/peerix-public;
+                publicKey = peerixPubkeys;
               };
-            in [
-              defaults
-              ./hosts/ojs/configuration.nix
-              peerix.nixosModules.peerix {
-                services.peerix = {
-                  enable = true;
-                  package = peerix.packages.x86_64-linux.peerix;
-                  openFirewall = true; # UDP/12304
-                  privateKeyFile = ./hosts/ojs/peerix-private;
-                  publicKeyFile =  ./hosts/ojs/peerix-public;
-                  publicKey = peerixPubkeys;
-                };
-              }
+            }
 
-              { environment.systemPackages = [ agenix.packages."${system}".default ]; }
-              agenix.nixosModules.default
+            { environment.systemPackages = [ agenix.packages."${system}".default ]; }
+            agenix.nixosModules.default
 
-              home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-              }
-            ];
-          };
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+            }
+          ];
+      };
 
-        nixosConfigurations.gnome45 = nixpkgs-2311.lib.nixosSystem {
-          modules =
-            let
-              system = "x86_64-linux";
-            in
+      nixosConfigurations.gnome45 = nixpkgs-2311.lib.nixosSystem {
+        modules =
+          let
+            system = "x86_64-linux";
+          in
             [
-              {
-                nixpkgs.config.pkgs = import nixpkgs-2311 { inherit system; };
-              }
-              ./hosts/gnome-45/configuration.nix
-            ];
-        };
+            {
+              nixpkgs.config.pkgs = import nixpkgs-2311 { inherit system; };
+            }
+            ./hosts/gnome-45/configuration.nix
+          ];
+      };
 
-        nixosConfigurations.grannyos = nixpkgs-2311.lib.nixosSystem {
-          modules =
-            let
-              system = "x86_64-linux";
-            in
+      nixosConfigurations.grannyos = nixpkgs-2311.lib.nixosSystem {
+        modules =
+          let
+            system = "x86_64-linux";
+          in
             [
-              {
-                nixpkgs.config.pkgs = import nixpkgs-2311 { inherit system; };
-              }
-              ./hosts/grannyos/configuration.nix
-            ];
-          };
+            {
+              nixpkgs.config.pkgs = import nixpkgs-2311 { inherit system; };
+            }
+            ./hosts/grannyos/configuration.nix
+          ];
+      };
 
-        nixosConfigurations.billquick = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.billquick = nixpkgs.lib.nixosSystem {
 
-          modules =
-            let
-              defaults = { pkgs, ... }: {
-                _module.args.unstable = unstableForSystem "x86_64-linux";
-              };
-            in [
-              defaults
-              ./hosts/billquick/configuration.nix
-              .home-manager.nixosModules.home-manager
-              {
-                home-manager.useGlobalPkgs = true;
-              }
-            ];
+        modules =
+          let
+            defaults = { pkgs, ... }: {
+              _module.args.unstable = unstableForSystem "x86_64-linux";
+            };
+          in [
+            defaults
+            ./hosts/billquick/configuration.nix
+            .home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+            }
+          ];
 
-          };
-  };
+      };
+
+      nixosConfigurations.pinephone = (nixpkgs-pine64.lib.nixosSystem {
+        system = "aarch64-linux";
+        specialArgs = { home-manager = home-manager-pine64; };
+        modules = [
+          (import "${mobile-nixos}/lib/configuration.nix" {
+            device = "pine64-pinephone";
+          })
+          ./hosts/pesto/default.nix
+        ];
+      });
+      pinephone-img = nixosConfigurations.pinephone.config.mobile.outputs.u-boot.disk-image;
+
+    };
 
 }

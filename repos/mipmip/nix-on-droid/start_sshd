@@ -1,0 +1,2 @@
+$(which sshd) -f sshd_config -d
+

@@ -72,11 +72,11 @@ let
     };
 in
 {
-  imports = [
-    ../../../home-manager-modules/programs/awscli-cust.nix
-  ];
+    #  imports = [
+    #    ../../../home-manager-modules/programs/awscli-cust.nix
+    #  ];
 
-  programs.awscli-cust = {
+  programs.awscli = {
     package = unstable.awscli2;
     enable = true;
     settings = {
