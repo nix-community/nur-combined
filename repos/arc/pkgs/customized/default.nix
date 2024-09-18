@@ -418,6 +418,17 @@ let
       };
     });
 
+    zsh-globquote = { zsh, fetchpatch }: let
+      globquote = fetchpatch {
+        url = "https://github.com/arcnmx/zsh/commit/c277295ab0e4ff38076423ff61519c3e282d78e6.patch";
+        sha256 = "sha256-6/LzHTwyJU9/FPzgva6D4fio08L+WUV2tmSlhfda6No=";
+      };
+    in zsh.overrideAttrs (old: {
+      patches = old.patches or [ ] ++ [
+        globquote
+      ];
+    });
+
     jimtcl-minimal = { lib, hostPlatform, tcl, jimtcl, readline }: (jimtcl.override { SDL = null; SDL_gfx = null; sqlite = null; }).overrideAttrs (old: {
       pname = "jimtcl-minimal";
       NIX_CFLAGS_COMPILE = "";
