@@ -15,7 +15,7 @@ in {
 
   config = mkMerge [
     (mkIf cfg.client {
-      environment.systemPackages = with pkgs; with pkgs.nur.repos.dukzcry; [ remmina ydcmd ];
+      environment.systemPackages = with pkgs; with pkgs.nur.repos.dukzcry; [ remmina yandex-disk ];
       programs.evolution.plugins = [ pkgs.evolution-ews ];
     })
     (mkIf cfg.server {
