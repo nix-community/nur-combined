@@ -39,7 +39,6 @@ let
   };
 
   development = importSub ./development {
-    amber-lang = { };
   };
 
   servers = importSub ./servers {
