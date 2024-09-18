@@ -17,6 +17,8 @@
   mayo = pkgs.libsForQt5.callPackage ./pkgs/mayo { };
 
   ltsatool = pkgs.callPackage ./pkgs/school/ltsatool { };
+
+  flog-symbols-ttf = pkgs.callPackage ./pkgs/fonts/flog-symbols.nix { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
