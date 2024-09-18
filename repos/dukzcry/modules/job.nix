@@ -17,6 +17,9 @@ in {
     (mkIf cfg.client {
       environment.systemPackages = with pkgs; with pkgs.nur.repos.dukzcry; [ remmina yandex-disk ];
       programs.evolution.plugins = [ pkgs.evolution-ews ];
+      services.xserver.displayManager.sessionCommands = ''
+        yandex-disk start
+      '';
     })
     (mkIf cfg.server {
       networking.nftables.tables = {
