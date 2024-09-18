@@ -8,7 +8,7 @@
     hash = "sha256-JIXQ+P3AQW7EWVDHlR+Z4SWAxVAFO3d3KeB3QBGx+YQ=";
     meta = {
         description = "${lix-game.meta.description} (music files)";
-        inherit (lix-game.meta) homepage;
+        inherit (lix-game.meta) homepage maintainers;
         license = with lib.licenses; [
             cc0
             cc-by-40 # rubix

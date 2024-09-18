@@ -6,7 +6,8 @@
     lix-game-assets, lix-game-music, includeMusic ? true,
     useHighResTitleScreen ? lix-game-assets.useHighResTitleScreen,
     convertImagesToTrueColor ? lix-game-assets.convertImagesToTrueColor,
-    disableNativeImageLoader ? !convertImagesToTrueColor && stdenvNoCC.isDarwin
+    disableNativeImageLoader ? !convertImagesToTrueColor && stdenvNoCC.isDarwin,
+    maintainers
 }: with import ./lib.nix { inherit stdenvNoCC lib enet; }; let
     allegro5' = if disableNativeImageLoader then allegro5.overrideAttrs (old: {
         cmakeFlags = (old.cmakeFlags or []) ++ ["-DWANT_NATIVE_IMAGE_LOADER=off"];
@@ -111,6 +112,7 @@
                 lib.optionals includeMusic (lib.toList (lix-game-music.license or []))
             );
             mainProgram = "lix";
+            maintainers = [maintainers.Rhys-T];
         };
     };
 in lix-game

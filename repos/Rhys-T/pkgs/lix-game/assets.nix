@@ -30,7 +30,7 @@ in stdenvNoCC.mkDerivation {
     '';
     meta = {
         description = "${lix-game.meta.description} (game asset files)";
-        inherit (lix-game.meta) homepage;
+        inherit (lix-game.meta) homepage maintainers;
         license = with lib.licenses; [
             cc0
             bitstreamVera # data/fonts/djvusans.ttf

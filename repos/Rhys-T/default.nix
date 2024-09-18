@@ -13,12 +13,17 @@ rec {
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
+  
+  maintainers = import ./maintainers.nix;
 
   # example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
-  lix-game = pkgs.callPackage ./pkgs/lix-game { inherit lix-game-assets lix-game-music; };
+  
+  lix-game = pkgs.callPackage ./pkgs/lix-game { inherit lix-game-assets lix-game-music maintainers; };
   lix-game-assets = pkgs.callPackage ./pkgs/lix-game/assets.nix { inherit lix-game; };
   lix-game-music = pkgs.callPackage ./pkgs/lix-game/music.nix { inherit lix-game; };
   lix-game-server = pkgs.callPackage ./pkgs/lix-game/server.nix { inherit lix-game; };
+  
+  xscorch = pkgs.callPackage ./pkgs/xscorch { inherit maintainers; };
 }
