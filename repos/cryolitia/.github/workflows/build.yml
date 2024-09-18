@@ -74,13 +74,6 @@ jobs:
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
         extraPullNames: nix-community, cuda-maintainers
 
-    - name: Setup cachix (aarch64)
-      if: ${{ matrix.arch == 'aarch64' }}
-      uses: cachix/cachix-action@v15
-      with:
-        name: cryolitia
-        extraPullNames: nix-community
-
     - name: Build x86_64 nix packages
       if: ${{ matrix.os == 'ubuntu-latest' && matrix.arch == 'x86_64' }}
       run: nix run nixpkgs#nix-build-uncached -- -build-flags '-L' ./nix/ci.nix
