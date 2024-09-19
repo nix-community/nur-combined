@@ -9,3 +9,8 @@ windows:
   - name: switch
     commands:
     - echo "NIXOS"
+
+  - name: secrets
+    commands:
+    - echo "NIXOS"
+    root: "~/nixos/secrets"

@@ -146,6 +146,7 @@
           isDesktop = true;
           tmuxPrefix = "a";
           unstable = unstableForSystem "x86_64-linux";
+          jsonify-aws-dotfiles = jsonify-aws-dotfiles;
         };
       };
 
