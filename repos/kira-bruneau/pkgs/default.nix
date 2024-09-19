@@ -140,8 +140,6 @@ in
     webkitgtk = webkitgtk_6_0;
   };
 
-  poke = callPackage ./applications/editors/poke { };
-
   protontricks = python3Packages.callPackage ./tools/package-management/protontricks {
     steam-run = steamPackages.steam-fhsenv-without-steam.run;
     inherit winetricks yad;
