@@ -48,7 +48,7 @@ jobs:
             cachixName: rhys-t
             runner: macos-13
             nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
