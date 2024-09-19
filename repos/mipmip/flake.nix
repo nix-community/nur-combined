@@ -8,34 +8,26 @@
     nixpkgs-2311.url = "github:NixOS/nixpkgs/nixos-23.11";  # GNOME 45.2
     #nixpkgs-2405.url = "github:NixOS/nixpkgs/nixos-24.05";  # GNOME 46
 
-    alacritty-theme.url = "github:alexghr/alacritty-theme.nix";
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
 
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     #nixpkgs-inkscape13.url = "github:leiserfg/nixpkgs?ref=staging";
-    #nixpkgs-share-preview-03.url = "github:raboof/nixpkgs?ref=share-preview-init-at-0.3.0";
 
     ## HOME MANAGER
     home-manager.url = "github:nix-community/home-manager/release-24.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    #home-manager-main.url = "github:nix-community/home-manager";
-
     ## OTHER
     agenix.url = "github:ryantm/agenix";
 
-    peerix = {
-      #url = "github:cid-chan/peerix";
-      #url = "git+file:///home/pim/cNixos/peerix";
-      url = "github:mipmip/peerix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixified-ai = { url = "github:nixified-ai/flake"; };
 
+    alacritty-theme.url = "github:alexghr/alacritty-theme.nix";
+
     bmc.url = "github:wearetechnative/bmc";
+    race.url = "github:wearetechnative/race";
     dirtygit.url = "github:mipmip/dirtygit";
     jsonify-aws-dotfiles.url = "github:mipmip/jsonify-aws-dotfiles";
 
@@ -54,22 +46,20 @@
 
   };
 
-  outputs = {
+  outputs = inputs@{
     self,
     home-manager,
     nixpkgs,
     nixpkgs-2211,
     nixpkgs-2311,
     alacritty-theme,
-    peerix,
     unstable,
     #    nixpkgs-inkscape13,
-    #    nixpkgs-share-preview-03,
     agenix,
 
     nixified-ai,
 
-    jsonify-aws-dotfiles, dirtygit, bmc,
+    jsonify-aws-dotfiles, dirtygit, bmc, race,
 
     nixpkgs-pine64, mobile-nixos, home-manager-pine64,
 
@@ -92,11 +82,6 @@
       #      config.allowUnfree = true;
       #    };
 
-      #pkgs-share-preview-03 = system: import nixpkgs-share-preview-03 {
-      #  inherit system;
-      #  config.allowUnfree = true;
-      #};
-
       unstableForSystem = system: import unstable {
         inherit system;
         config.allowUnfree = true;
@@ -107,7 +92,15 @@
         config.allowUnfree = true;
       };
 
-      peerixPubkeys = " peerix-lego1:UEbvvZ0dbQbFqktNWaeo4hyTIBovOb/3Is/AuzBUNJI= peerix-ojs:6QILJzG+gTv8JlT8AT1ObVB3h+AXxWLQEkOI8ACEGm0= peerix-rodin:GKCOspilVSQTzFLxzzrtLtVAkB9X3Rkrw5qku4E8wkk=";
+      defaultSystem = "x86_64-linux";
+      extraPkgs = {
+        environment.systemPackages = [
+          agenix.packages."${defaultSystem}".default
+          bmc.packages."${defaultSystem}".bmc
+          jsonify-aws-dotfiles.packages."${defaultSystem}".jsonify-aws-dotfiles
+          race.packages."${defaultSystem}".race
+        ];
+      };
 
     in
       rec {
@@ -206,36 +199,14 @@
               nixpkgs.overlays = [(import ./overlays)];
               _module.args.unstable = importFromChannelForSystem system unstable;
               _module.args.pkgs-2211 = importFromChannelForSystem system nixpkgs-2211;
-              #_module.args.pkgs-2311 = importFromChannelForSystem system nixpkgs-2311;
-              #_module.args.pkgs-inkscape13 = importFromChannelForSystem system nixpkgs-inkscape13;
-              #_module.args.pkgs-share-preview-03 = importFromChannelForSystem system nixpkgs-share-preview-03;
             };
 
-            agenixBin = {
-              environment.systemPackages = [ agenix.packages."${system}".default ];
-            };
-            bmcBin = {
-              environment.systemPackages = [ bmc.packages."${system}".bmc ];
-            };
 
           in [
             ./hosts/rodin/configuration.nix
             defaults
-            #          peerix.nixosModules.peerix {
-            #              services.peerix = {
-            #                enable = true;
-            #                package = peerix.packages.x86_64-linux.peerix;
-            #                openFirewall = true; # UDP/12304
-            #                privateKeyFile = ./hosts/lego1/peerix-private;
-            #                publicKeyFile =  ./hosts/lego1/peerix-public;
-            #                publicKey = peerixPubkeys;
-            #              };
-            #            }
-
-            agenixBin
             agenix.nixosModules.default
-
-            bmcBin
+            extraPkgs
 
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
@@ -274,30 +245,18 @@
               _module.args.pkgs-2211 = importFromChannelForSystem system nixpkgs-2211;
               _module.args.pkgs-2311 = importFromChannelForSystem system nixpkgs-2311;
               #_module.args.pkgs-inkscape13 = importFromChannelForSystem system nixpkgs-inkscape13;
-              #_module.args.pkgs-share-preview-03 = importFromChannelForSystem system nixpkgs-share-preview-03;
             };
 
-            bmcBin = {
+            extraPkgs = {
               environment.systemPackages = [ bmc.packages."${system}".bmc ];
             };
 
           in [
             defaults
             ./hosts/lego1/configuration.nix
-            #            peerix.nixosModules.peerix {
-            #              services.peerix = {
-            #                enable = true;
-            #                package = peerix.packages.x86_64-linux.peerix;
-            #                openFirewall = true; # UDP/12304
-            #                privateKeyFile = ./hosts/lego1/peerix-private;
-            #                publicKeyFile =  ./hosts/lego1/peerix-public;
-            #                publicKey = peerixPubkeys;
-            #              };
-            #            }
 
-            { environment.systemPackages = [ agenix.packages."${system}".default ]; }
             agenix.nixosModules.default
-            bmcBin
+            extraPkgs
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -317,18 +276,8 @@
           in [
             defaults
             ./hosts/ojs/configuration.nix
-            peerix.nixosModules.peerix {
-              services.peerix = {
-                enable = true;
-                package = peerix.packages.x86_64-linux.peerix;
-                openFirewall = true; # UDP/12304
-                privateKeyFile = ./hosts/ojs/peerix-private;
-                publicKeyFile =  ./hosts/ojs/peerix-public;
-                publicKey = peerixPubkeys;
-              };
-            }
 
-            { environment.systemPackages = [ agenix.packages."${system}".default ]; }
+            extraPkgs
             agenix.nixosModules.default
 
             home-manager.nixosModules.home-manager

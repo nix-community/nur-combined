@@ -1,6 +1,13 @@
 {
 
   home.file = {
+    ".config/bmc" = {
+      source = ./bmc;
+      recursive = true;
+    };
+  };
+
+  home.file = {
     ".ohmyzsh-pim" = {
       source = ./.ohmyzsh-pim;
       recursive = true;
