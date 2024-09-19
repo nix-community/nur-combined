@@ -8,7 +8,9 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-rec {
+let
+  inherit (pkgs) recurseIntoAttrs;
+in rec {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -20,10 +22,9 @@ rec {
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
   
-  lix-game = pkgs.callPackage ./pkgs/lix-game { inherit lix-game-assets lix-game-music maintainers; };
-  lix-game-assets = pkgs.callPackage ./pkgs/lix-game/assets.nix { inherit lix-game; };
-  lix-game-music = pkgs.callPackage ./pkgs/lix-game/music.nix { inherit lix-game; };
-  lix-game-server = pkgs.callPackage ./pkgs/lix-game/server.nix { inherit lix-game; };
+  lix-game-packages = recurseIntoAttrs (pkgs.callPackage ./pkgs/lix-game { inherit maintainers; });
+  lix-game = lix-game-packages.game;
+  lix-game-server = lix-game-packages.server;
   
   xscorch = pkgs.callPackage ./pkgs/xscorch { inherit maintainers; };
 }
