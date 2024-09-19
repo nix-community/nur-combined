@@ -2127,10 +2127,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "131.0.20240916.92141";
+      version = "131.0.20240918.92116";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4353961/deutsch_de_language_pack-131.0.20240916.92141.xpi";
-      sha256 = "68db7aaa8b9ea30ef7fd29b95c3c0d993c6d329e36d7471fe4ba28db88c50dd9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4355105/deutsch_de_language_pack-131.0.20240918.92116.xpi";
+      sha256 = "97599b5a7a9c5771b2c41f4ceb5a92880e24131a315ddaf1fcec6880953c136c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2535,10 +2535,10 @@
     };
     "elasticvue" = buildFirefoxXpiAddon {
       pname = "elasticvue";
-      version = "1.0.11";
+      version = "1.0.12";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4351485/elasticvue-1.0.11.xpi";
-      sha256 = "ec6a1f0519d3d5747710de3d8e2a09ab61e237370b7bbe9c0dfc16ac696bca53";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4355479/elasticvue-1.0.12.xpi";
+      sha256 = "a03f5dc5420e7390d7a55188e8c217deb2b06811d7d65aeef92e70453b0226b7";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
@@ -3289,10 +3289,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "131.0.20240916.92141";
+      version = "131.0.20240918.92116";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4353953/francais_language_pack-131.0.20240916.92141.xpi";
-      sha256 = "c3a942170e41e477e7b3ae7c5bfb2410a05d602ef21635dc2e12e8b7084b8082";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4355145/francais_language_pack-131.0.20240918.92116.xpi";
+      sha256 = "17169b82ce4bad2eac600c9bca5ab3200f269efbb6faa8b84028329d2168f400";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3326,10 +3326,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "131.0.20240916.92141";
+      version = "131.0.20240918.92116";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4354013/gaidhlig_language_pack-131.0.20240916.92141.xpi";
-      sha256 = "1a9689cb4bf07c39f6d3f6473c6868b4514406c88770711ef1b865d74539b51d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4355189/gaidhlig_language_pack-131.0.20240918.92116.xpi";
+      sha256 = "3a82be6f727105887caa467c66930bf83c01c97bc7ee8c0bad6d1621cfe39355";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -9478,10 +9478,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "131.0.20240916.92141";
+      version = "131.0.20240918.92116";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4353968/scots_language_pack-131.0.20240916.92141.xpi";
-      sha256 = "d6a9af409881453c14e6192516d7fea44c71f5a5e19aa103f13eaf89830bbe1d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4355172/scots_language_pack-131.0.20240918.92116.xpi";
+      sha256 = "1abf869119b8aa98ee2a847fe3e0e3746a5d82820aff0273afeff305548623a5";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -11933,10 +11933,10 @@
     };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.20.0";
+      version = "2.23.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4315769/violentmonkey-2.20.0.xpi";
-      sha256 = "94fe88507ea47e8cc5ca80b76a6aaec44a486dbfd515a03f82f228dc24d49910";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4352761/violentmonkey-2.23.0.xpi";
+      sha256 = "b3eadf855b6093376590aa63ae05933c5812e9515c9acf558550a4f2c78ab49b";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
