@@ -277,7 +277,7 @@
     },
     "boringssl-oqs": {
         "cargoLocks": null,
-        "date": "2024-09-14",
+        "date": "2024-09-19",
         "extract": null,
         "name": "boringssl-oqs",
         "passthru": null,
@@ -289,12 +289,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "boringssl",
-            "rev": "8cb30263af6776f94be56e66a5536f84d53811b2",
-            "sha256": "sha256-0DJ5E+cgH6zeD+QyQ+jSdH2n2BFt9c6IUmVJvbb9Q9I=",
+            "rev": "d3ab1f9306b446be9049b09e3543e5acc6f9d09a",
+            "sha256": "sha256-746i9UkNb8PFVblFC+cMKwiaUGI62jWViqvgO/m/uM8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8cb30263af6776f94be56e66a5536f84d53811b2"
+        "version": "d3ab1f9306b446be9049b09e3543e5acc6f9d09a"
     },
     "browser360-amd64": {
         "cargoLocks": null,
@@ -328,7 +328,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-09-17",
+        "date": "2024-09-19",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -340,12 +340,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "3a0e8612ffa2ae6c68f6018ef3cddf560687bd1f",
-            "sha256": "sha256-ndxnANpCjxXvNEfw5g7QBW/j94aRoSms/oeqqAxJ/n0=",
+            "rev": "a12bec5a0467eb50cd810597edfc7ad85d38f686",
+            "sha256": "sha256-rFljleoXXn58RD1qQRxxzJS4zfaNJn5Rzyqy8jpgvas=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3a0e8612ffa2ae6c68f6018ef3cddf560687bd1f"
+        "version": "a12bec5a0467eb50cd810597edfc7ad85d38f686"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1452,12 +1452,12 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.6.51-xanmod1",
-            "sha256": "sha256-dNUTePfL6cAA0EmEG/D36dNJUobDRBHR5+BYrLIYot4=",
+            "rev": "6.6.52-xanmod1",
+            "sha256": "sha256-bTsxESXY0uhx9/UjUg9cATC1ErfkxF1gH8TXimYVzX4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.6.51-xanmod1"
+        "version": "6.6.52-xanmod1"
     },
     "llama-cpp": {
         "cargoLocks": null,
@@ -1473,12 +1473,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3782",
-            "sha256": "sha256-P/09ar3OjyqGvPJLgr65FJR2hayafHoY/+a3hfdMBzI=",
+            "rev": "b3786",
+            "sha256": "sha256-nsopZZJ/TepbHaklUzTdIxMa/MfBnMviI7VlN3oojJ4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3782"
+        "version": "b3786"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -1494,12 +1494,12 @@
             "name": null,
             "owner": "chiyuki0325",
             "repo": "lyrica",
-            "rev": "v0.9",
-            "sha256": "sha256-79WDfHOGMav7Y8uOuEDFIn9X4Xs2pDeT23kQPoqnBXY=",
+            "rev": "v0.10",
+            "sha256": "sha256-JSwBDxNoj0GbNJW/recPSddYZvVxV0rxvjsee8bkmXk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.9"
+        "version": "v0.10"
     },
     "magiskboot": {
         "cargoLocks": null,
@@ -1567,11 +1567,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-2Wd7wJZaxSktU13BeR2u8mCLXCcgR5p/R9Vcj3au9Tg=",
+            "sha256": "sha256-cO8MCkroQ0s/j8wnwwIWfnxEvChLeOZw+gD4wrYBAog=",
             "type": "url",
-            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.81/netboot.xyz.efi"
+            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.82/netboot.xyz.efi"
         },
-        "version": "2.0.81"
+        "version": "2.0.82"
     },
     "netboot-xyz-lkrn": {
         "cargoLocks": null,
@@ -1582,11 +1582,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Ov4NxF1UcE5y4uRP3jOmAF8fAEiIS4ThSiOZAoHQf7k=",
+            "sha256": "sha256-TwIpHtsyNoHXtXA5B3YnQA0T18tu6RU4CCuG00IVC6c=",
             "type": "url",
-            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.81/netboot.xyz.lkrn"
+            "url": "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.82/netboot.xyz.lkrn"
         },
-        "version": "2.0.81"
+        "version": "2.0.82"
     },
     "netns-exec": {
         "cargoLocks": null,
@@ -2038,11 +2038,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-mQcqaAlgT/SSkFBDtFKG2rSRb8fSrGr4JPGuh+QJFV0=",
+            "sha256": "sha256-2N2G2Dd9mcgI8O3Ph2T7SsaWvK0WYLV8TL5fk1ftOs8=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.2.6/PeerBanHelper.jar"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.2.7/PeerBanHelper.jar"
         },
-        "version": "v6.2.6"
+        "version": "v6.2.7"
     },
     "phpmyadmin": {
         "cargoLocks": null,
@@ -2332,11 +2332,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-NHK50KR2WuUm+HO//sFBUkhJPk6F45j5ShuaWksV1O4=",
+            "sha256": "sha256-AV9qV+A1PXNTqKBeEjcmXPO35SwtTIVbtXZx5XqxaDE=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.12_240902_amd64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.12_240919_amd64_01.deb"
         },
-        "version": "Linux/QQ_3.2.12_240902_amd64_01"
+        "version": "Linux/QQ_3.2.12_240919_amd64_01"
     },
     "qq-arm64": {
         "cargoLocks": null,
@@ -2347,11 +2347,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-V+lsBgwhpvVNYGm1d0DD9x/wD7/+bIDON8DAAABA42c=",
+            "sha256": "sha256-hLTVOEt0nTyFCtSSQnCnVcp5WNqs96Y6ZkXwYPE/oJs=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.12_240902_arm64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.12_240919_arm64_01.deb"
         },
-        "version": "Linux/QQ_3.2.12_240902_arm64_01"
+        "version": "Linux/QQ_3.2.12_240919_arm64_01"
     },
     "qqmusic": {
         "cargoLocks": null,

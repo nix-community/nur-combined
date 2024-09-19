@@ -154,15 +154,15 @@
   };
   boringssl-oqs = {
     pname = "boringssl-oqs";
-    version = "8cb30263af6776f94be56e66a5536f84d53811b2";
+    version = "d3ab1f9306b446be9049b09e3543e5acc6f9d09a";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "boringssl";
-      rev = "8cb30263af6776f94be56e66a5536f84d53811b2";
+      rev = "d3ab1f9306b446be9049b09e3543e5acc6f9d09a";
       fetchSubmodules = false;
-      sha256 = "sha256-0DJ5E+cgH6zeD+QyQ+jSdH2n2BFt9c6IUmVJvbb9Q9I=";
+      sha256 = "sha256-746i9UkNb8PFVblFC+cMKwiaUGI62jWViqvgO/m/uM8=";
     };
-    date = "2024-09-14";
+    date = "2024-09-19";
   };
   browser360-amd64 = {
     pname = "browser360-amd64";
@@ -182,15 +182,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "3a0e8612ffa2ae6c68f6018ef3cddf560687bd1f";
+    version = "a12bec5a0467eb50cd810597edfc7ad85d38f686";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "3a0e8612ffa2ae6c68f6018ef3cddf560687bd1f";
+      rev = "a12bec5a0467eb50cd810597edfc7ad85d38f686";
       fetchSubmodules = false;
-      sha256 = "sha256-ndxnANpCjxXvNEfw5g7QBW/j94aRoSms/oeqqAxJ/n0=";
+      sha256 = "sha256-rFljleoXXn58RD1qQRxxzJS4zfaNJn5Rzyqy8jpgvas=";
     };
-    date = "2024-09-17";
+    date = "2024-09-19";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -805,35 +805,35 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.51-xanmod1";
+    version = "6.6.52-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.51-xanmod1";
+      rev = "6.6.52-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-dNUTePfL6cAA0EmEG/D36dNJUobDRBHR5+BYrLIYot4=";
+      sha256 = "sha256-bTsxESXY0uhx9/UjUg9cATC1ErfkxF1gH8TXimYVzX4=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3782";
+    version = "b3786";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3782";
+      rev = "b3786";
       fetchSubmodules = false;
-      sha256 = "sha256-P/09ar3OjyqGvPJLgr65FJR2hayafHoY/+a3hfdMBzI=";
+      sha256 = "sha256-nsopZZJ/TepbHaklUzTdIxMa/MfBnMviI7VlN3oojJ4=";
     };
   };
   lyrica = {
     pname = "lyrica";
-    version = "v0.9";
+    version = "v0.10";
     src = fetchFromGitHub {
       owner = "chiyuki0325";
       repo = "lyrica";
-      rev = "v0.9";
+      rev = "v0.10";
       fetchSubmodules = false;
-      sha256 = "sha256-79WDfHOGMav7Y8uOuEDFIn9X4Xs2pDeT23kQPoqnBXY=";
+      sha256 = "sha256-JSwBDxNoj0GbNJW/recPSddYZvVxV0rxvjsee8bkmXk=";
     };
   };
   magiskboot = {
@@ -869,18 +869,18 @@
   };
   netboot-xyz-efi = {
     pname = "netboot-xyz-efi";
-    version = "2.0.81";
+    version = "2.0.82";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.81/netboot.xyz.efi";
-      sha256 = "sha256-2Wd7wJZaxSktU13BeR2u8mCLXCcgR5p/R9Vcj3au9Tg=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.82/netboot.xyz.efi";
+      sha256 = "sha256-cO8MCkroQ0s/j8wnwwIWfnxEvChLeOZw+gD4wrYBAog=";
     };
   };
   netboot-xyz-lkrn = {
     pname = "netboot-xyz-lkrn";
-    version = "2.0.81";
+    version = "2.0.82";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.81/netboot.xyz.lkrn";
-      sha256 = "sha256-Ov4NxF1UcE5y4uRP3jOmAF8fAEiIS4ThSiOZAoHQf7k=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.82/netboot.xyz.lkrn";
+      sha256 = "sha256-TwIpHtsyNoHXtXA5B3YnQA0T18tu6RU4CCuG00IVC6c=";
     };
   };
   netns-exec = {
@@ -1129,10 +1129,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v6.2.6";
+    version = "v6.2.7";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.2.6/PeerBanHelper.jar";
-      sha256 = "sha256-mQcqaAlgT/SSkFBDtFKG2rSRb8fSrGr4JPGuh+QJFV0=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.2.7/PeerBanHelper.jar";
+      sha256 = "sha256-2N2G2Dd9mcgI8O3Ph2T7SsaWvK0WYLV8TL5fk1ftOs8=";
     };
   };
   phpmyadmin = {
@@ -1286,18 +1286,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "Linux/QQ_3.2.12_240902_amd64_01";
+    version = "Linux/QQ_3.2.12_240919_amd64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.12_240902_amd64_01.deb";
-      sha256 = "sha256-NHK50KR2WuUm+HO//sFBUkhJPk6F45j5ShuaWksV1O4=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.12_240919_amd64_01.deb";
+      sha256 = "sha256-AV9qV+A1PXNTqKBeEjcmXPO35SwtTIVbtXZx5XqxaDE=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "Linux/QQ_3.2.12_240902_arm64_01";
+    version = "Linux/QQ_3.2.12_240919_arm64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.12_240902_arm64_01.deb";
-      sha256 = "sha256-V+lsBgwhpvVNYGm1d0DD9x/wD7/+bIDON8DAAABA42c=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.12_240919_arm64_01.deb";
+      sha256 = "sha256-hLTVOEt0nTyFCtSSQnCnVcp5WNqs96Y6ZkXwYPE/oJs=";
     };
   };
   qqmusic = {

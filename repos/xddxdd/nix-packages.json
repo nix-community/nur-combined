@@ -247,7 +247,7 @@
   "legacyPackages.x86_64-linux.boringssl-oqs": {
     "description": "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs",
     "pname": "boringssl-oqs-unstable",
-    "version": "2024-09-14"
+    "version": "2024-09-19"
   },
   "legacyPackages.x86_64-linux.browser360": {
     "description": "360 Browser",
@@ -492,7 +492,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "3782"
+    "version": "3786"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -572,52 +572,52 @@
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.51-xanmod1"
+    "version": "6.6.52-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.51-xanmod1"
+    "version": "6.6.52-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v1": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.51-xanmod1"
+    "version": "6.6.52-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v1-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.51-xanmod1"
+    "version": "6.6.52-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v2": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.51-xanmod1"
+    "version": "6.6.52-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v2-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.51-xanmod1"
+    "version": "6.6.52-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v3": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.51-xanmod1"
+    "version": "6.6.52-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v3-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.51-xanmod1"
+    "version": "6.6.52-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v4": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.51-xanmod1"
+    "version": "6.6.52-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v4-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.51-xanmod1"
+    "version": "6.6.52-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_0-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
@@ -722,52 +722,52 @@
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.51-xanmod1"
+    "version": "6.6.52-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-generic-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.51-xanmod1"
+    "version": "6.6.52-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v1": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.51-xanmod1"
+    "version": "6.6.52-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v1-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.51-xanmod1"
+    "version": "6.6.52-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v2": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.51-xanmod1"
+    "version": "6.6.52-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v2-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.51-xanmod1"
+    "version": "6.6.52-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v3": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.51-xanmod1"
+    "version": "6.6.52-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v3-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.51-xanmod1"
+    "version": "6.6.52-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v4": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.51-xanmod1"
+    "version": "6.6.52-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v4-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.51-xanmod1"
+    "version": "6.6.52-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v1": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
@@ -842,12 +842,12 @@
   "legacyPackages.x86_64-linux.lyrica": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration",
     "pname": "lyrica",
-    "version": "0.9"
+    "version": "0.10"
   },
   "legacyPackages.x86_64-linux.lyrica-plasmoid": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component)",
     "pname": "lyrica",
-    "version": "0.9"
+    "version": "0.10"
   },
   "legacyPackages.x86_64-linux.magiskboot": {
     "description": "A tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms.",
@@ -862,7 +862,7 @@
   "legacyPackages.x86_64-linux.netboot-xyz": {
     "description": "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE.",
     "pname": "netboot-xyz",
-    "version": "2.0.81"
+    "version": "2.0.82"
   },
   "legacyPackages.x86_64-linux.netease-cloud-music": {
     "description": "NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu)",
@@ -2802,7 +2802,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "6.2.6"
+    "version": "6.2.7"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
@@ -3167,7 +3167,7 @@
   "packages.x86_64-linux.boringssl-oqs": {
     "description": "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs",
     "pname": "boringssl-oqs-unstable",
-    "version": "2024-09-14"
+    "version": "2024-09-19"
   },
   "packages.x86_64-linux.browser360": {
     "description": "360 Browser",
@@ -3432,12 +3432,12 @@
   "packages.x86_64-linux.lyrica": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration",
     "pname": "lyrica",
-    "version": "0.9"
+    "version": "0.10"
   },
   "packages.x86_64-linux.lyrica-plasmoid": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component)",
     "pname": "lyrica",
-    "version": "0.9"
+    "version": "0.10"
   },
   "packages.x86_64-linux.magiskboot": {
     "description": "A tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms.",
@@ -3452,7 +3452,7 @@
   "packages.x86_64-linux.netboot-xyz": {
     "description": "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE.",
     "pname": "netboot-xyz",
-    "version": "2.0.81"
+    "version": "2.0.82"
   },
   "packages.x86_64-linux.netease-cloud-music": {
     "description": "NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu)",
@@ -3567,7 +3567,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "6.2.6"
+    "version": "6.2.7"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
