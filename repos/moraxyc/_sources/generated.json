@@ -13,12 +13,12 @@
             "name": null,
             "owner": "alist-org",
             "repo": "alist",
-            "rev": "v3.37.3",
-            "sha256": "sha256-1xrisAzbouve+yKauQJntd86KkqquG1RcYlQ1wcIt14=",
+            "rev": "v3.37.4",
+            "sha256": "sha256-xNkcekxb0Aw7trBPxc0/Akb0ntx4DKM9b+i5SQju2lw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.37.3"
+        "version": "v3.37.4"
     },
     "cyrus-imapd": {
         "cargoLocks": null,
