@@ -1,4 +1,13 @@
 #!/usr/bin/env bash
 
 profile=`smug list | gum filter`
+dir=`grep "root:" ~/.config/smug/${profile}.yml | head -1 | cut -d " " -f2`
+if [ -z $dir ] && [ $dir -eq ""]
+then
+  echo "no root defined"
+else
+  eval dir=$dir
+  mkdir -v -p "$dir"
+fi
 smug start $profile
+tmux switch -t "$profile"

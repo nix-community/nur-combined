@@ -1,0 +1,5 @@
+session: technative-docs
+root: ~/tcTNxDocs
+
+windows:
+- name: zsh

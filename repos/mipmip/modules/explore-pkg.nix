@@ -2,11 +2,11 @@
 
 {
   environment.systemPackages = with pkgs; [
-    unstable.zellij
+    #unstable.zellij
 
     unstable.zed-editor
-    etherape
-    cool-retro-term
+    #etherape
+    #cool-retro-term
 
 
 

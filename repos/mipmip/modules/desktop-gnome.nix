@@ -11,7 +11,7 @@
     cheese # webcam tool
     gnome-music
     #gedit # text editor
-    #epiphany # web browser
+    epiphany # web browser
     geary # email reader
     #gnome-characters
     tali # poker game
@@ -39,7 +39,7 @@
     kooha
 
     # MAIL
-    evolution
+    # evolution
 
     # UTILS
     gnome.gnome-tweaks
@@ -49,15 +49,15 @@
     # IMAGE
     #gnome.gnome-screenshot
     mipmip_pkg.gnome-screenshot
-    unstable.image-roll
-    gthumb
+    #unstable.image-roll
+    #gthumb
 
     #DEV
     glib.dev
-    glade
+    #glade
 
     #RSS
-    newsflash
+    #newsflash
   ];
 }
 

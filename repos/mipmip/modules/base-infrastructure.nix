@@ -3,7 +3,7 @@
 {
   environment.systemPackages = with pkgs; [
 
-    ansible
+    #    ansible
     pkgs-2211.terraform
     act # run github workflows locally
     notify # Notify allows sending the output from any tool to Slack, Discord and Telegram

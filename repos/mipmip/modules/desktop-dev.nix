@@ -17,7 +17,6 @@
 
     actionlint
 
-
     unstable.hugo # needed for linny
 
     #TRANSLATION TOOLS
