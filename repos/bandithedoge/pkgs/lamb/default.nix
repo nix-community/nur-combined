@@ -38,5 +38,6 @@ pkgs.rustPlatform.buildRustPackage {
     homepage = "https://github.com/magnetophon/lamb-rs";
     license = licenses.agpl3Only;
     platforms = platforms.linux;
+    broken = true; # weird rust dependency hash things happening
   };
 }
