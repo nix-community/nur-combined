@@ -124,6 +124,7 @@ in {
     source = sources.sampler;
     description = "TAL-Sampler is not just a sample player. It's a full featured analog modeled synthesizer with a sampler engine as sound source, including a powerful modulation matrix and high quality self-oscillating filters.";
     homepage = "https://tal-software.com/products/tal-sampler";
+    extraLibs = with pkgs; [fontconfig];
   };
 
   u-no-lx = mkTal {
