@@ -1,7 +1,7 @@
 {
   "dmenu-flexipatch": {
     "cargoLocks": null,
-    "date": "2024-07-18",
+    "date": "2024-09-19",
     "extract": null,
     "name": "dmenu-flexipatch",
     "passthru": null,
@@ -13,12 +13,12 @@
       "name": null,
       "owner": "bakkeby",
       "repo": "dmenu-flexipatch",
-      "rev": "ea263d099983e96efba408af6827e0cde9b69225",
-      "sha256": "sha256-x8FwyOmbfHDnYG6bvMRxeCejKEQLKGs9IWhAHTP5xNc=",
+      "rev": "43f0483d5a0bd854d5e405d84d4a566728e1a958",
+      "sha256": "sha256-ILIeOpSUA6TmsH5ykfk8Jf43v+eI3TR5+eFzGL+mE9U=",
       "sparseCheckout": [],
       "type": "github"
     },
-    "version": "ea263d099983e96efba408af6827e0cde9b69225"
+    "version": "43f0483d5a0bd854d5e405d84d4a566728e1a958"
   },
   "dwm-flexipatch": {
     "cargoLocks": null,

@@ -288,13 +288,13 @@
         sha512 = "ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==";
       };
     };
-    "emmet-2.4.7" = {
+    "emmet-2.4.8" = {
       name = "emmet";
       packageName = "emmet";
-      version = "2.4.7";
+      version = "2.4.8";
       src = fetchurl {
-        url = "https://registry.npmjs.org/emmet/-/emmet-2.4.7.tgz";
-        sha512 = "O5O5QNqtdlnQM2bmKHtJgyChcrFMgQuulI+WdiOw2NArzprUqqxUW6bgYtKvzKgrsYpuLWalOkdhNP+1jluhCA==";
+        url = "https://registry.npmjs.org/emmet/-/emmet-2.4.8.tgz";
+        sha512 = "wFe/dxsx7oi/M2UJ/3yBu4Fm24Irho6lqut4C1YFaZebCvCCMygoDGC7W6I+8+K8PAjfa/Ojn52UHi8WCdDiRA==";
       };
     };
     "escalade-3.2.0" = {
@@ -612,13 +612,13 @@
         sha512 = "E5GqaAYSnbb6n1qZyik2wjPDZON43FqOJO59+3OkWrnmQtjggrMOVnsyzfjxp/tS6nlYJBA4zRA5jSM2YaadMg==";
       };
     };
-    "ohash-1.1.3" = {
+    "ohash-1.1.4" = {
       name = "ohash";
       packageName = "ohash";
-      version = "1.1.3";
+      version = "1.1.4";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ohash/-/ohash-1.1.3.tgz";
-        sha512 = "zuHHiGTYTA1sYJ/wZN+t5HKZaH23i4yI1HMwbuXm24Nid7Dv0KcuRlKoNKS9UNfAVSBlnGLcuQrnOKWOZoEGaw==";
+        url = "https://registry.npmjs.org/ohash/-/ohash-1.1.4.tgz";
+        sha512 = "FlDryZAahJmEF3VR3w1KogSEdWX3WhA5GPakFx4J81kEAiHyLMpdLLElS8n8dfNadMgAne/MywcvmogzscVt4g==";
       };
     };
     "onetime-6.0.0" = {
@@ -1014,7 +1014,7 @@ in {
       sources."@emmetio/css-abbreviation-2.1.8"
       sources."@emmetio/scanner-1.0.4"
       sources."@types/node-17.0.45"
-      sources."emmet-2.4.7"
+      sources."emmet-2.4.8"
       sources."typescript-4.9.5"
       sources."vscode-jsonrpc-6.0.0"
       sources."vscode-languageserver-7.0.0"
@@ -1076,7 +1076,7 @@ in {
       sources."defu-6.1.4"
       sources."destr-2.0.3"
       sources."dotenv-16.4.5"
-      sources."emmet-2.4.7"
+      sources."emmet-2.4.8"
       sources."escalade-3.2.0"
       sources."execa-8.0.1"
       sources."fast-glob-3.3.2"
@@ -1125,7 +1125,7 @@ in {
           ];
         })
       sources."nypm-0.3.11"
-      sources."ohash-1.1.3"
+      sources."ohash-1.1.4"
       sources."onetime-6.0.0"
       sources."path-key-3.1.1"
       sources."pathe-1.1.2"

@@ -7,10 +7,10 @@
 }: {
   mesonlsp-bin = {
     pname = "mesonlsp-bin";
-    version = "v4.3.4";
+    version = "v4.3.5";
     src = fetchurl {
-      url = "https://github.com/JCWasmx86/mesonlsp/releases/download/v4.3.4/mesonlsp-x86_64-unknown-linux-musl.zip";
-      sha256 = "sha256-pApQxtW7f//dv3EdmsmfQh0AII5COHO312vrbrpEeJ4=";
+      url = "https://github.com/JCWasmx86/mesonlsp/releases/download/v4.3.5/mesonlsp-x86_64-unknown-linux-musl.zip";
+      sha256 = "sha256-q1yqSQCiHuaEfQsFJowAtA/Nl/P7eMTCd4JOMOgHPyM=";
     };
   };
 }

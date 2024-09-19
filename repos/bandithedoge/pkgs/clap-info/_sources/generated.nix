@@ -7,13 +7,13 @@
 }: {
   clap-info = {
     pname = "clap-info";
-    version = "v1.2.0";
+    version = "v1.2.1";
     src = fetchFromGitHub {
       owner = "free-audio";
       repo = "clap-info";
-      rev = "v1.2.0";
+      rev = "v1.2.1";
       fetchSubmodules = true;
-      sha256 = "sha256-efZexmsOuZskei34z9Lj2xdDOkEOYod8rqtOrVghMxw=";
+      sha256 = "sha256-eVnKgh3cCtv39o/YmyZ1OMnFEiT8rXV6T5Fz01ZENxE=";
     };
   };
 }

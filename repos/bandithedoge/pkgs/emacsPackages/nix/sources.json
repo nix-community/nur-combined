@@ -17,10 +17,10 @@
     "homepage": null,
     "owner": "jdtsmith",
     "repo": "eglot-booster",
-    "rev": "e19dd7ea81bada84c66e8bdd121408d9c0761fe6",
-    "sha256": "06rn253jil4ccr29hpcadvh3gya8hvi3kz916x2c93qlhmkghpdw",
+    "rev": "3f9159a8b7fe87e2f01280a2c4c98ca6dab49d13",
+    "sha256": "1aq5fpfasgm5lz8hk476c1zqyj33m024nx8w9qv4qrg88y5mq5n9",
     "type": "tarball",
-    "url": "https://github.com/jdtsmith/eglot-booster/archive/e19dd7ea81bada84c66e8bdd121408d9c0761fe6.tar.gz",
+    "url": "https://github.com/jdtsmith/eglot-booster/archive/3f9159a8b7fe87e2f01280a2c4c98ca6dab49d13.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "eglot-ltex": {
@@ -77,10 +77,10 @@
     "homepage": "",
     "owner": "jdtsmith",
     "repo": "indent-bars",
-    "rev": "c8376cf4373a6444ca88e88736db7576dedb51d6",
-    "sha256": "1h5d9b5chp8rnqhd4cir8ibzwy82qhgf4piysf20n89bn15s0irh",
+    "rev": "44cef7552e4784eda5c50584c29f97260ab1726e",
+    "sha256": "15685r5nprxqcrid1s7w046ba0dsxfda07czgx7isyi07jynvdjl",
     "type": "tarball",
-    "url": "https://github.com/jdtsmith/indent-bars/archive/c8376cf4373a6444ca88e88736db7576dedb51d6.tar.gz",
+    "url": "https://github.com/jdtsmith/indent-bars/archive/44cef7552e4784eda5c50584c29f97260ab1726e.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "on": {

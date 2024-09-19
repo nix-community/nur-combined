@@ -1373,10 +1373,10 @@
   };
   "sponsorblock" = buildFirefoxXpiAddon {
     pname = "sponsorblock";
-    version = "5.7";
+    version = "5.8.1";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4308094/sponsorblock-5.7.xpi";
-    sha256 = "05b7fadde5718cd44520a86e6b38b10816762df763767ef4bb879112ed77caae";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4349352/sponsorblock-5.8.1.xpi";
+    sha256 = "001362fe0dfc6d5ea03fef4a2df75d6337d4ebd9cb829dff806920f5eab635e4";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos. Other browsers: https://sponsor.ajay.app";
@@ -1393,10 +1393,10 @@
   };
   "steam-database" = buildFirefoxXpiAddon {
     pname = "steam-database";
-    version = "4.5";
+    version = "4.6";
     addonId = "firefox-extension@steamdb.info";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4326369/steam_database-4.5.xpi";
-    sha256 = "f4dff61843f35adfc2cf8e353e25a6a8e37836b770b4d1a35f48114f1cd21328";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4350553/steam_database-4.6.xpi";
+    sha256 = "8eae2f65fe7fa0f347433b9618b89d6dd668314b4052145b27152ab94a3781d4";
     meta = with lib; {
       homepage = "https://steamdb.info/";
       description = "Adds SteamDB links and new features on the Steam store and community. View lowest game prices and stats.";
@@ -1427,6 +1427,8 @@
         "https://steamcommunity.com/profiles/*/inventory*"
         "https://steamcommunity.com/id/*/stats*"
         "https://steamcommunity.com/profiles/*/stats*"
+        "https://steamcommunity.com/id/*/stats/CSGO*"
+        "https://steamcommunity.com/profiles/*/stats/CSGO*"
         "https://steamcommunity.com/stats/*/achievements*"
         "https://steamcommunity.com/tradeoffer/*"
         "https://steamcommunity.com/id/*/recommended/*"
@@ -1501,10 +1503,10 @@
   };
   "tree-style-tab" = buildFirefoxXpiAddon {
     pname = "tree-style-tab";
-    version = "4.0.22";
+    version = "4.0.23";
     addonId = "treestyletab@piro.sakura.ne.jp";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4333810/tree_style_tab-4.0.22.xpi";
-    sha256 = "7712bb35bddaf4178a2847476c9dc4938c28e2661d02895fafefb2e3eae7fe9a";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4350896/tree_style_tab-4.0.23.xpi";
+    sha256 = "d8061eff00b56ccfdd6fd290b14ef2c8ef692a14eb8db1a27529f21e43df1f30";
     meta = with lib; {
       homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
       description = "Show tabs like a tree.";
@@ -1602,10 +1604,10 @@
   };
   "violentmonkey" = buildFirefoxXpiAddon {
     pname = "violentmonkey";
-    version = "2.20.0";
+    version = "2.23.0";
     addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4315769/violentmonkey-2.20.0.xpi";
-    sha256 = "94fe88507ea47e8cc5ca80b76a6aaec44a486dbfd515a03f82f228dc24d49910";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4352761/violentmonkey-2.23.0.xpi";
+    sha256 = "b3eadf855b6093376590aa63ae05933c5812e9515c9acf558550a4f2c78ab49b";
     meta = with lib; {
       homepage = "https://violentmonkey.github.io/";
       description = "Userscript support for browsers, open source.";
