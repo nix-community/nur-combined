@@ -266,6 +266,7 @@ lib.makeScope newScope (
     ### GPX
 
     cmpgpx = callPackage ./gpx/cmpgpx { };
+    fitdecode = callPackage ./gpx/fitdecode { };
     garta = callPackage ./gpx/garta { };
     geojson2dm = callPackage ./gpx/geojson2dm { };
     gps-whatsnew = callPackage ./gpx/gps-whatsnew { };
