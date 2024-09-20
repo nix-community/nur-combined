@@ -26,16 +26,22 @@ runs:
     - name: Setup nix workspace
       shell: bash
       run: |
+        echo "::group::Create btrfs filesystem"
         sudo umount /nix
         sudo mkfs.btrfs -K -f /dev/mapper/buildvg-buildlv
         sudo mkdir -p /mnt/vglv
         sudo mount /dev/mapper/buildvg-buildlv /mnt/vglv
         sudo btrfs subvolume create /mnt/vglv/nix
         sudo btrfs subvolume create /mnt/vglv/tmp
-        sudo mount /dev/mapper/buildvg-buildlv -odefaults,subvol=/nix,compress=zstd,noattime /nix
+        echo "::endgroup::"
+        echo "::group::Mount /nix"
+        sudo mount /dev/mapper/buildvg-buildlv -odefaults,subvol=/nix,compress=zstd,noatime /nix
+        echo "::endgroup::"
+        echo "::group::Mount /tmp"
         sudo mount /dev/mapper/buildvg-buildlv -odefaults,subvol=/tmp /tmp
         sudo chmod 777 /tmp
         echo "TMPDIR=/tmp" >> "$GITHUB_ENV"
+        echo "::endgroup::"
 
     - uses: cachix/install-nix-action@V27
       with:
