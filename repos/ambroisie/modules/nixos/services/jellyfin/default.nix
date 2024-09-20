@@ -41,5 +41,21 @@ in
         };
       };
     };
+
+    services.fail2ban.jails = {
+      jellyfin = ''
+        enabled = true
+        filter = jellyfin
+        port = http,https
+      '';
+    };
+
+    environment.etc = {
+      "fail2ban/filter.d/jellyfin.conf".text = ''
+        [Definition]
+        failregex = ^.*Authentication request for .* has been denied \(IP: "?<ADDR>"?\)\.
+        journalmatch = _SYSTEMD_UNIT=jellyfin.service
+      '';
+    };
   };
 }
