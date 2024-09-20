@@ -119,6 +119,7 @@
           tmuxPrefix = "b";
           unstable = unstableForSystem "x86_64-linux";
           bmc = bmc;
+          race = race;
           dirtygit = dirtygit;
           jsonify-aws-dotfiles = jsonify-aws-dotfiles;
 

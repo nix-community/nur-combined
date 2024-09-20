@@ -1,4 +1,4 @@
-{ lib, config, pkgs, bmc, jsonify-aws-dotfiles, dirtygit, ... }:
+{ lib, config, pkgs, bmc, race, jsonify-aws-dotfiles, dirtygit, ... }:
 
 let
   system = "x86_64-linux";
@@ -14,7 +14,11 @@ in
     pkgs.gcc
     pkgs.pkg-config
     pkgs.gum
+    pkgs.granted
+    pkgs.smug
+    #pkgs.mipmip_pkg.shellstuff
     bmc.packages."${system}".bmc
+    race.packages."${system}".race
     dirtygit.packages."${system}".dirtygit
     jsonify-aws-dotfiles.packages."${system}".jsonify-aws-dotfiles
   ];
