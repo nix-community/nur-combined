@@ -22,7 +22,9 @@ in
       rclone-conf = {
         rekeyFile = ../../sec/rclone.age;
       };
-
+      garage = {
+        rekeyFile = ../../sec/garage.age;
+      };
       wgk = {
         rekeyFile = ../../sec/wgk.age;
         owner = "systemd-network";

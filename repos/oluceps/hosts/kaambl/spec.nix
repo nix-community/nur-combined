@@ -61,6 +61,7 @@
     openssh.enable = true;
     fail2ban.enable = true;
     phantomsocks.enable = true;
+    garage.enable = true;
     # srs.enable = true;
     # coredns.enable = true;
     # mosproxy.enable = true;

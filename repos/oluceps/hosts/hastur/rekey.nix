@@ -19,6 +19,9 @@ in
         owner = user;
         group = "users";
       };
+      restic-envs-dc3 = {
+        rekeyFile = ../../sec/restic-envs-dc3.age;
+      };
       nextchat = {
         rekeyFile = ../../sec/nextchat.age;
         mode = "400";
