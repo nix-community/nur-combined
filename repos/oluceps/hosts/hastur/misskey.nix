@@ -5,35 +5,37 @@
     port = 6379;
   };
 
-  systemd.services.podman-misskey = {
+  systemd.services.misskey = {
     after = [
-      "dae.service"
-      "nss-lookup.target"
+      "network-online.target"
+      "postgresql.service"
     ];
-    requires = [
-      "dae.service"
-      "nss-lookup.target"
-    ];
-    # serviceConfig = {
-    #   ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
-    # };
-  };
-
-  virtualisation = {
-    oci-containers.backend = "podman";
-    oci-containers.containers = {
-      misskey = {
-        image = "docker.io/misskey/misskey:2024.8.0";
-        ports = [ "3000:3000/tcp" ];
-        volumes = [
-          "/var/lib/misskey/files:/misskey/files"
-          "/var/lib/misskey/config:/misskey/.config"
-        ];
-        extraOptions = [ "--network=host" ];
-      };
+    wants = [ "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
+    environment = {
+      MISSKEY_CONFIG_YML = config.age.secrets.misskey.path;
+    };
+    serviceConfig = {
+      ExecStart = "${pkgs.misskey}/bin/misskey migrateandstart";
+      RuntimeDirectory = "misskey";
+      RuntimeDirectoryMode = "700";
+      StateDirectory = "misskey";
+      StateDirectoryMode = "700";
+      TimeoutSec = 60;
+      DynamicUser = true;
+      User = "misskey";
+      LockPersonality = true;
+      PrivateDevices = true;
+      PrivateUsers = true;
+      ProtectClock = true;
+      ProtectControlGroups = true;
+      ProtectHome = true;
+      ProtectHostname = true;
+      ProtectKernelLogs = true;
+      ProtectProc = "invisible";
+      ProtectKernelModules = true;
+      ProtectKernelTunables = true;
+      RestrictAddressFamilies = "AF_INET AF_INET6 AF_UNIX AF_NETLINK";
     };
   };
-  systemd.tmpfiles.rules = [
-    "C+ /var/lib/misskey/config/default.yml 0744 - - - ${config.age.secrets.misskey.path}"
-  ];
 }
