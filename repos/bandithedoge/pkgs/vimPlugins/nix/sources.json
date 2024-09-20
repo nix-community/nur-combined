@@ -317,10 +317,10 @@
     "homepage": "",
     "owner": "ms-jpq",
     "repo": "coq_nvim",
-    "rev": "924abb75a8d8f06eab4ddc3b78eeea506f73132c",
-    "sha256": "1wx2iapiwy7y1c8w18lb3klfayf7z6lvbnm9l59vl8xsb4m3k5hq",
+    "rev": "1c93db92bac10609fe42dcf1b7962a9b037852b4",
+    "sha256": "0799y1nj1271r93nnd1p0j77bwv0w0l03q2a6j0amdslswqfa9cn",
     "type": "tarball",
-    "url": "https://github.com/ms-jpq/coq_nvim/archive/924abb75a8d8f06eab4ddc3b78eeea506f73132c.tar.gz",
+    "url": "https://github.com/ms-jpq/coq_nvim/archive/1c93db92bac10609fe42dcf1b7962a9b037852b4.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "crates.nvim": {
@@ -1502,10 +1502,10 @@
     "homepage": null,
     "owner": "kyazdani42",
     "repo": "nvim-web-devicons",
-    "rev": "9154484705968658e9aab2b894d1b2a64bf9f83d",
-    "sha256": "164iyy9941jnya7qs33li9n5xic19zxis24lpb0w119vwcd16k9n",
+    "rev": "31bd21ac46b2b6039aa0b856ca02b018cf549ef7",
+    "sha256": "0bl08qlglxdn7dghpy8f15937qlyi4pqi9gnx0xwy3y2iy2vwh7v",
     "type": "tarball",
-    "url": "https://github.com/kyazdani42/nvim-web-devicons/archive/9154484705968658e9aab2b894d1b2a64bf9f83d.tar.gz",
+    "url": "https://github.com/kyazdani42/nvim-web-devicons/archive/31bd21ac46b2b6039aa0b856ca02b018cf549ef7.tar.gz",
     "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
   },
   "nvim-yati": {
