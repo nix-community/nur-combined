@@ -8972,10 +8972,10 @@
     };
     "pwas-for-firefox" = buildFirefoxXpiAddon {
       pname = "pwas-for-firefox";
-      version = "2.12.3";
+      version = "2.12.4";
       addonId = "firefoxpwa@filips.si";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4350177/pwas_for_firefox-2.12.3.xpi";
-      sha256 = "71ac6fd32740cf6bbaf8a1ba24b6b8b6d68e291b0d750ce3dabb8aa009d5c12a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4353516/pwas_for_firefox-2.12.4.xpi";
+      sha256 = "44f9c0d9d9dc820f3887261ffa01a4b69fb41e19099053513ee5a5818b248f02";
       meta = with lib;
       {
         homepage = "https://github.com/filips123/PWAsForFirefox";
@@ -12142,10 +12142,10 @@
     };
     "web-scrobbler" = buildFirefoxXpiAddon {
       pname = "web-scrobbler";
-      version = "3.9.1";
+      version = "3.10.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4329106/web_scrobbler-3.9.1.xpi";
-      sha256 = "e41101cd12ae88a6f6d05ccf25362313b3befd107a15b9535af13bef127f319f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4352947/web_scrobbler-3.10.0.xpi";
+      sha256 = "c2d8eab58419ed5564a67743f2a2fd868092d1104dbb20f14d3b932acf1ec7bb";
       meta = with lib;
       {
         homepage = "https://web-scrobbler.com";
