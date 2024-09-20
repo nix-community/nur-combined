@@ -127,6 +127,11 @@ in
       passwordFile = secrets."paperless/password".path;
       secretKeyFile = secrets."paperless/secret-key".path;
     };
+    # Sometimes, editing PDFs is useful
+    pdf-edit = {
+      enable = true;
+      loginFile = secrets."pdf-edit/login".path;
+    };
     # Podcast automatic downloader
     podgrab = {
       enable = true;
