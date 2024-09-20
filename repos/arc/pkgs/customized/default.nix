@@ -10,43 +10,58 @@ let
       doInstallCheck = !hostPlatform.isDarwin;
     });
 
-    nix-readline = { nix, readline, fetchurl, lib }: nix.overrideAttrs (old: {
+    nix-readline = { nix, readline, fetchurl, lib }: let
+      drv = nix.override {
+        editline = null;
+      };
+    patches = version: lib.optional (lib.versionOlder version "2.9") [
+      (fetchurl {
+        name = "readline-completion.patch";
+        url = "https://github.com/arcnmx/nix/commit/f4d1453c2b86aa576f1a707d47eb2174fd7e4a90.patch";
+        sha256 = "18b3bv0wjkx5hmrmhbzf6rl6swcx8ibk29c5pk4fysjd71rfd5d0";
+      }) (fetchurl {
+        name = "readline-sigint.patch";
+        url = "https://github.com/arcnmx/nix/commit/ac61a78a5471fd781ff7c165e8697c6b24a38d56.patch";
+        sha256 = "066dfalcjw38px9qr12p83s0zdacrw3a7n581apgq0rx8yxdp1vn";
+      }) (fetchurl {
+        name = "readline-history.patch";
+        url = "https://github.com/arcnmx/nix/commit/67789e9ff237d0e61de3fb8b05c8424c84493f12.patch";
+        sha256 = "11w4bm5ica2czdiank10mrmli78n9lh694zi3zpb4nrkzjlc02kd";
+      })
+    ] ++ lib.optional (lib.versionAtLeast version "2.9" && lib.versionOlder version "2.22") (fetchurl {
+      name = "readline-completion.patch";
+      url = "https://github.com/nixos/nix/compare/694b12052a2f3c830daa3acc7696b31a04afe329...arcnmx:ccf9184e142ce26465a0d59476ed35d47f1425d1.patch";
+      sha256 = "sha256-Np0SnSX13utWt33w7VsZAkw4ZiXUgy6GDvcwj+iOvCM";
+    }) ++ lib.optional (lib.versionOlder version "2.3.10") (fetchurl {
+      name = "json-uescape.patch";
+      url = "https://github.com/nixos/nix/commit/52a8f9295b828872586c5b9e5587064a25dae9b2.patch";
+      sha256 = "1dby05qwzxgiih6h2ka424qd7ia4krwxl4b8h96frv2v304lnrxl";
+    }) ++ lib.optional (lib.versionAtLeast version "2.13.0" && lib.versionOlder version "2.14.0") (fetchurl {
+      name = "fix-cmd-completion.patch";
+      url = "https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/7804.patch";
+      sha256 = "sha256-y/eBqiHB6j3oUBOACWpT+6XEiejVUCqkiT/bpNeIPlQ";
+    });
+    editlineOverrides = {
+      EDITLINE_LIBS = "${readline}/lib/libreadline${nix.stdenv.hostPlatform.extensions.sharedLibrary}";
+      EDITLINE_CFLAGS = "-DREADLINE";
+    };
+    in drv.overrideAttrs (old: {
       pname = "nix-readline";
       buildInputs = old.buildInputs ++ [ readline ];
-      patches = old.patches or [] ++ lib.optional (lib.versionOlder nix.version "2.9") [
-        (fetchurl {
-          name = "readline-completion.patch";
-          url = "https://github.com/arcnmx/nix/commit/f4d1453c2b86aa576f1a707d47eb2174fd7e4a90.patch";
-          sha256 = "18b3bv0wjkx5hmrmhbzf6rl6swcx8ibk29c5pk4fysjd71rfd5d0";
-        }) (fetchurl {
-          name = "readline-sigint.patch";
-          url = "https://github.com/arcnmx/nix/commit/ac61a78a5471fd781ff7c165e8697c6b24a38d56.patch";
-          sha256 = "066dfalcjw38px9qr12p83s0zdacrw3a7n581apgq0rx8yxdp1vn";
-        }) (fetchurl {
-          name = "readline-history.patch";
-          url = "https://github.com/arcnmx/nix/commit/67789e9ff237d0e61de3fb8b05c8424c84493f12.patch";
-          sha256 = "11w4bm5ica2czdiank10mrmli78n9lh694zi3zpb4nrkzjlc02kd";
-        })
-      ] ++ lib.optional (lib.versionAtLeast nix.version "2.9") (fetchurl {
-        name = "readline-completion.patch";
-        url = "https://github.com/nixos/nix/compare/694b12052a2f3c830daa3acc7696b31a04afe329...arcnmx:ccf9184e142ce26465a0d59476ed35d47f1425d1.patch";
-        sha256 = "sha256-Np0SnSX13utWt33w7VsZAkw4ZiXUgy6GDvcwj+iOvCM";
-      }) ++ lib.optional (lib.versionOlder nix.version "2.3.10") (fetchurl {
-        name = "json-uescape.patch";
-        url = "https://github.com/nixos/nix/commit/52a8f9295b828872586c5b9e5587064a25dae9b2.patch";
-        sha256 = "1dby05qwzxgiih6h2ka424qd7ia4krwxl4b8h96frv2v304lnrxl";
-      }) ++ lib.optional (lib.versionAtLeast nix.version "2.13.0" && lib.versionOlder nix.version "2.14.0") (fetchurl {
-        name = "fix-cmd-completion.patch";
-        url = "https://patch-diff.githubusercontent.com/raw/NixOS/nix/pull/7804.patch";
-        sha256 = "sha256-y/eBqiHB6j3oUBOACWpT+6XEiejVUCqkiT/bpNeIPlQ";
-      });
+      patches = old.patches or [] ++ patches old.version;
       EDITLINE_LIBS = "${readline}/lib/libreadline${nix.stdenv.hostPlatform.extensions.sharedLibrary}";
       EDITLINE_CFLAGS = "-DREADLINE";
       doInstallCheck = false; # old.doInstallCheck or false && !nix.stdenv.isDarwin;
-    });
+      configureFlags = old.configureFlags
+      ++ lib.optional (lib.versionAtLeast old.version "2.22") (lib.withFeatureAs true "readline-flavor" "readline");
+    } // lib.optionalAttrs (lib.versionOlder old.version "2.22") editlineOverrides);
 
     nix-readline-2_3 = { nix-readline, nix_2_3 ? nix, nix }: nix-readline.override {
       nix = nix_2_3;
+    };
+
+    nix-readline-2_22 = { nix-readline, nix_2_22 ? nixVersions.nix_2_22 or nix, nixVersions ? {}, nix }: nix-readline.override {
+      nix = nix_2_22;
     };
 
     rink-readline = { lib, rink, rustPlatform, fetchpatch }: rustPlatform.buildRustPackage {
