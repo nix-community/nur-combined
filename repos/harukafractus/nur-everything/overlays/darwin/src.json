@@ -10,9 +10,9 @@
 			"sha256": "bd2fa01eb393c25fa05df00302f9d47d3c506f0c28dd9c65182d601a1049ee4d"
 		},
 		"whisky": {
-			"version": "v2.3.2",
-			"url": "https://github.com/Whisky-App/Whisky/releases/download/v2.3.2/Whisky.zip",
-			"sha256": "75136176947df9701c6387fdc3420f29ec0414e845304e2582b17f62dfeb805f"
+			"version": "v2.3.3",
+			"url": "https://github.com/Whisky-App/Whisky/releases/download/v2.3.3/Whisky.zip",
+			"sha256": "385ed9ec848c1b057291b8bdf801cf6bf7e3eed9bdf3ac1a5a44b9c82fdc4034"
 		},
 		"librewolf-x64": {
 			"version": "130.0-3",
