@@ -49,6 +49,6 @@
 	gpgsign = true
 
 [user]
-	email = "i@oluceps.uk"
+	email = "secinia@outlook.com"
 	name = "oluceps"
 	signingKey = "/run/agenix/id"

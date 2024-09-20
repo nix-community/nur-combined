@@ -14,8 +14,11 @@
   environment.etc."resolv.conf".text = ''
     nameserver 127.0.0.1
   '';
-
-  services.logind.lidSwitch = "lock";
+  services.logind = {
+    lidSwitch = "suspend";
+    powerKey = "ignore"; # it sucks. laptop
+    powerKeyLongPress = "poweroff";
+  };
   hardware.graphics.extraPackages = with pkgs; [
     rocm-opencl-icd
     rocm-opencl-runtime

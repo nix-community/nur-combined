@@ -197,27 +197,27 @@
         #     Persistent = true;
         #   };
         # };
-        critic = {
-          passwordFile = config.age.secrets.wg.path;
-          repositoryFile = config.age.secrets.restic-repo-crit.path;
-          environmentFile = config.age.secrets.restic-envs-crit.path;
-          paths = [
-            "/var/lib/backup"
-            "/var/lib/private/matrix-conduit"
-          ];
-          extraBackupArgs = [
-            "--exclude-caches"
-            "--no-scan"
-            "--retry-lock 2h"
-          ];
-          pruneOpts = [ "--keep-daily 3" ];
-          timerConfig = {
-            OnCalendar = "daily";
-            RandomizedDelaySec = "4h";
-            FixedRandomDelay = true;
-            Persistent = true;
-          };
-        };
+        # critic = {
+        #   passwordFile = config.age.secrets.wg.path;
+        #   repositoryFile = config.age.secrets.restic-repo-crit.path;
+        #   environmentFile = config.age.secrets.restic-envs-crit.path;
+        #   paths = [
+        #     "/var/lib/backup"
+        #     "/var/lib/private/matrix-conduit"
+        #   ];
+        #   extraBackupArgs = [
+        #     "--exclude-caches"
+        #     "--no-scan"
+        #     "--retry-lock 2h"
+        #   ];
+        #   pruneOpts = [ "--keep-daily 3" ];
+        #   timerConfig = {
+        #     OnCalendar = "daily";
+        #     RandomizedDelaySec = "4h";
+        #     FixedRandomDelay = true;
+        #     Persistent = true;
+        #   };
+        # };
       };
     };
     # cloudflared = {
