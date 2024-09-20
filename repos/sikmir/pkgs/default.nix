@@ -97,6 +97,7 @@ lib.makeScope newScope (
     ### DEVELOPMENT / PYTHON MODULES
 
     click-6-7 = callPackage ./development/python-modules/click { };
+    config-path = callPackage ./development/python-modules/config-path { };
     contextily = callPackage ./development/python-modules/contextily { };
     curses-menu = callPackage ./development/python-modules/curses-menu { };
     earthpy = callPackage ./development/python-modules/earthpy { };
