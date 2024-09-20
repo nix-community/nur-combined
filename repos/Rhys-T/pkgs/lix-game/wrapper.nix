@@ -7,7 +7,7 @@
     common
 }: stdenvNoCC.mkDerivation {
     inherit (common) pname src version;
-    preferLocal = true;
+    preferLocalBuild = true;
     nativeBuildInputs = [lndir makeBinaryWrapper];
     unwrapped = game-unwrapped;
     inherit assets;

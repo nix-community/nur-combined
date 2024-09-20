@@ -20,6 +20,7 @@ in stdenvNoCC.mkDerivation {
     mkdir -p "$out"/share/lix
     cp -r data images levels "$out"/share/lix/
     '';
+    preferLocalBuild = !convertImagesToTrueColor;
     outputHash = hash;
     outputHashAlgo = hashAlgo;
     outputHashMode = "recursive";
