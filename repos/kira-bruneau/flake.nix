@@ -82,7 +82,6 @@
               "pkgs/tools/graphics/goverlay/default.nix"
               "pkgs/tools/graphics/mangohud/default.nix"
               "pkgs/tools/graphics/vkbasalt/default.nix"
-              "pkgs/tools/package-management/protontricks/default.nix"
             ])
           ) (flake-linter-lib.walkFlake ./.)
         );

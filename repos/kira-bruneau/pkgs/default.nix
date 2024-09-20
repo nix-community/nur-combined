@@ -80,14 +80,12 @@ in
 # Automatically reflect upstream supported python package sets
 // (builtins.foldl' (
   acc: name:
-  if
-    builtins.match "python[0-9]+Packages" name != null && prev.${name}.recurseForDerivations or false
-  then
+  if builtins.match "python[0-9]+Packages" name != null then
     acc
     // {
-      ${name} = recurseIntoAttrs (
-        lib.fix (self: pythonModulesOverlay (prev.${name} // self) prev.${name})
-      );
+      ${name} = (lib.fix (self: pythonModulesOverlay (prev.${name} // self) prev.${name})) // {
+        recurseForDerivations = prev.${name}.recurseForDerivations or false;
+      };
     }
   else
     acc
