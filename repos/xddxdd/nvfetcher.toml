@@ -143,10 +143,9 @@ src.git = "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git"
 fetch.git = "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git"
 
 [fcitx5-breeze]
-src.github = "scratch-er/fcitx5-breeze"
-src.from_pattern = "v(.*)"
-src.to_pattern = "\\1"
-fetch.url = "https://github.com/scratch-er/fcitx5-breeze/releases/download/v$ver/fcitx5-breeze-prebuilt-$ver.tar.gz"
+src.webpage = "https://gitlab.com/api/v4/projects/53966606/releases/"
+src.regex = "\"https://gitlab.com/scratch-er/fcitx5-breeze/-/archive/v([0-9\\.]+)/fcitx5-breeze-"
+fetch.url = "https://gitlab.com/scratch-er/fcitx5-breeze/-/archive/v$ver/fcitx5-breeze-v$ver.tar.gz"
 
 [flasgger]
 src.github = "flasgger/flasgger"
