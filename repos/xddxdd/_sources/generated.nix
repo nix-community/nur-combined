@@ -501,62 +501,10 @@
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
-    version = "424f2634d4463cee71eaac34a2e0b9f89366bfac";
-    src = fetchFromGitHub {
-      owner = "SpeedyOrc-C";
-      repo = "Hoyo-Glyphs";
-      rev = "424f2634d4463cee71eaac34a2e0b9f89366bfac";
-      fetchSubmodules = false;
-      sha256 = "sha256-Jy+BHXqXQEtV1AAL2bUYkSg0lQ9qPAWLmV9NLlx8pwM=";
-    };
-    date = "2024-09-12";
-  };
-  hoyo-glyphs-font-ainee = {
-    pname = "hoyo-glyphs-font-ainee";
-    version = "1.000";
+    version = "20240919";
     src = fetchurl {
-      url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/font-ainee-1.000/Font-Ainee-1.000.zip";
-      sha256 = "sha256-sgXvUveqzmDonB5+Q5zJEXYPg8cMimK+shwaWSVFkII=";
-    };
-  };
-  hoyo-glyphs-star-rail-neue = {
-    pname = "hoyo-glyphs-star-rail-neue";
-    version = "1.100";
-    src = fetchurl {
-      url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/star-rail-neue-1.100/Star-Rail-Neue-1.100.zip";
-      sha256 = "sha256-pOTen4C/z8Z3YS3YBgZK63Cf3YI/M+a6a3P7XuvLhGo=";
-    };
-  };
-  hoyo-glyphs-teyvat-black = {
-    pname = "hoyo-glyphs-teyvat-black";
-    version = "1.003";
-    src = fetchurl {
-      url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/teyvat-black-1.003/Teyvat-Black-1.003.zip";
-      sha256 = "sha256-AzaZEyxnmi18T2vQSsR+PZ1yGt5pqyvGKioMn2BStqk=";
-    };
-  };
-  hoyo-glyphs-xianzhou-seal = {
-    pname = "hoyo-glyphs-xianzhou-seal";
-    version = "1.000";
-    src = fetchurl {
-      url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/xianzhou-seal-1.000/Xianzhou-Seal-1.000.zip";
-      sha256 = "sha256-1cXp5ZH6oY6LPdeN7EpiMJzO4SiXmeJTnLLrBPJD4g4=";
-    };
-  };
-  hoyo-glyphs-zzz-a = {
-    pname = "hoyo-glyphs-zzz-a";
-    version = "1.000";
-    src = fetchurl {
-      url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/zzz-a-1.000/ZZZ-A-1.000.zip";
-      sha256 = "sha256-QH+pywg6lDBqXww/sbGw8lH3gY5/xzhf2B1eLwr88bY=";
-    };
-  };
-  hoyo-glyphs-zzz-system = {
-    pname = "hoyo-glyphs-zzz-system";
-    version = "1.000";
-    src = fetchurl {
-      url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/zzz-system-1.000/ZZZ-System-1.000.zip";
-      sha256 = "sha256-HiqwvY3g55qxXIXU+098LaOvu7CZls+w1NdIwYonJ38=";
+      url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/20240919/HoYo-Glyphs-20240919.zip";
+      sha256 = "sha256-62xaYCfk33+sMhNLohhYB7ptxKyloZcqXF0ogzP9CPM=";
     };
   };
   i915-sriov-dkms = {

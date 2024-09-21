@@ -6,17 +6,7 @@
   ...
 }:
 stdenvNoCC.mkDerivation rec {
-  inherit (sources.hoyo-glyphs) pname version;
-
-  srcs = [
-    sources.hoyo-glyphs.src
-    sources.hoyo-glyphs-star-rail-neue.src
-    sources.hoyo-glyphs-teyvat-black.src
-    sources.hoyo-glyphs-xianzhou-seal.src
-    sources.hoyo-glyphs-font-ainee.src
-    sources.hoyo-glyphs-zzz-a.src
-    sources.hoyo-glyphs-zzz-system.src
-  ];
+  inherit (sources.hoyo-glyphs) pname version src;
 
   sourceRoot = ".";
 

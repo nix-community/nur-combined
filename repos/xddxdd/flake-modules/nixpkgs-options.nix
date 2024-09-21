@@ -61,7 +61,7 @@ in
         lib.nameValuePair "${n}-patched" (
           (import v.sourceInput { inherit system; }).applyPatches {
             name = "nixpkgs-patched";
-            src = v.sourceInput;
+            src = builtins.toString v.sourceInput;
             inherit (v) patches;
           }
         )

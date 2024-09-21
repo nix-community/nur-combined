@@ -196,32 +196,8 @@ src.git = "https://github.com/Wenti-D/HI3IIMartianFont.git"
 fetch.github = "Wenti-D/HI3IIMartianFont"
 
 [hoyo-glyphs]
-src.git = "https://github.com/SpeedyOrc-C/Hoyo-Glyphs.git"
-fetch.github = "SpeedyOrc-C/Hoyo-Glyphs"
-
-[hoyo-glyphs-font-ainee]
-src.manual = "1.000"
-fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/font-ainee-1.000/Font-Ainee-1.000.zip"
-
-[hoyo-glyphs-star-rail-neue]
-src.manual = "1.100"
-fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/star-rail-neue-1.100/Star-Rail-Neue-1.100.zip"
-
-[hoyo-glyphs-teyvat-black]
-src.manual = "1.003"
-fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/teyvat-black-1.003/Teyvat-Black-1.003.zip"
-
-[hoyo-glyphs-xianzhou-seal]
-src.manual = "1.000"
-fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/xianzhou-seal-1.000/Xianzhou-Seal-1.000.zip"
-
-[hoyo-glyphs-zzz-a]
-src.manual = "1.000"
-fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/zzz-a-1.000/ZZZ-A-1.000.zip"
-
-[hoyo-glyphs-zzz-system]
-src.manual = "1.000"
-fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/zzz-system-1.000/ZZZ-System-1.000.zip"
+src.github = "SpeedyOrc-C/Hoyo-Glyphs"
+fetch.url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/$ver/HoYo-Glyphs-$ver.zip"
 
 [i915-sriov-dkms]
 src.git = "https://github.com/strongtz/i915-sriov-dkms.git"
