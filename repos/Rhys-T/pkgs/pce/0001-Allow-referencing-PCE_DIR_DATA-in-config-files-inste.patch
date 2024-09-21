@@ -1,0 +1,42 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Rhys-T <108157737+Rhys-T@users.noreply.github.com>
+Date: Sat, 21 Sep 2024 17:14:52 -0400
+Subject: [PATCH] Allow referencing $PCE_DIR_DATA in config files instead of
+ hardcoding it
+
+Note that this patch doesn't change the various Makefile.inc files. I'm leaving that to `postPatch` in order to handle both versions of PCE the same way.
+---
+ src/config.h.in | 1 +
+ src/lib/path.c  | 7 +++++++
+ 2 files changed, 8 insertions(+)
+
+diff --git a/src/config.h.in b/src/config.h.in
+index 1f296cf0..71702f82 100644
+--- a/src/config.h.in
++++ b/src/config.h.in
+@@ -80,6 +80,7 @@
+ #undef PCE_HOST_PPC
+ #undef PCE_HOST_SPARC
+ 
++#undef PCE_DIR_DATA
+ #undef PCE_DIR_ETC
+ 
+ #undef PCE_BUILD_IBMPC
+diff --git a/src/lib/path.c b/src/lib/path.c
+index 57785ea6..8a0a4429 100644
+--- a/src/lib/path.c
++++ b/src/lib/path.c
+@@ -107,6 +107,13 @@ void pce_path_clear (void)
+ 
+ int pce_path_add (const char *dir, int atend)
+ {
++	if(strncmp(dir, "$PCE_DIR_DATA", 13) == 0) {
++		char *expanded = pce_path_cat(PCE_DIR_DATA, dir+13);
++		int result = pce_path_add(expanded, atend);
++		free(expanded);
++		return result;
++	}
++
+ 	unsigned i, n;
+ 	char     **tmp;
+ 	char     *str;

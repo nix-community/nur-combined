@@ -25,4 +25,11 @@ rec {
   lix-game-server = lix-game-packages.server;
   
   xscorch = pkgs.callPackage ./pkgs/xscorch { inherit maintainers; };
+  
+  pce = pkgs.callPackage ./pkgs/pce { inherit maintainers; };
+  pce-with-unfree-roms = pkgs.callPackage ./pkgs/pce {
+    inherit maintainers;
+    enableUnfreeROMs = true;
+  };
+  pce-snapshot = pkgs.callPackage ./pkgs/pce/snapshot.nix { inherit maintainers; };
 }
