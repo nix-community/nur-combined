@@ -59,7 +59,7 @@ for source in sources:
         continue
 
     major_revision = source["version"]
-    version = re.match(r"<b>(.*)</b>", source["name"]).group(1)
+    version = re.search(r"<b>(.*)</b>", source["name"]).group(1)
 
     arch = source["arch"]
     if arch == "x64":

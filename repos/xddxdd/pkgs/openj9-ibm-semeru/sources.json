@@ -3790,5 +3790,109 @@
             "url": "https://github.com/ibmruntimes/semeru22-binaries/releases/download/jdk-22.0.1%2B8_openj9-0.45.0/ibm-semeru-open-jre_aarch64_linux_22.0.1_8_openj9-0.45.0.tar.gz",
             "sha256": "6a7a3f626d4672a17ad3b3b17f05ba29ecf37c479cd0434790a5566feffe92ef"
         }
+    },
+    "jdk-bin-23": {
+        "x86_64": {
+            "version": "23.0.0.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru23-binaries/releases/download/jdk-23%2B37_openj9-0.47.0/ibm-semeru-open-jdk_x64_linux_23_37_openj9-0.47.0.tar.gz",
+            "sha256": "95e1116a38567fa5b1799045f05d95bd23f419ff5c0baa2100d88f113a2cb48b"
+        },
+        "s390x": {
+            "version": "23.0.0.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru23-binaries/releases/download/jdk-23%2B37_openj9-0.47.0/ibm-semeru-open-jdk_s390x_linux_23_37_openj9-0.47.0.tar.gz",
+            "sha256": "d3841ef50ee457b2e20476923f861414cd23b38735945ffe3611120bdec6f841"
+        },
+        "ppc64le": {
+            "version": "23.0.0.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru23-binaries/releases/download/jdk-23%2B37_openj9-0.47.0/ibm-semeru-open-jdk_ppc64le_linux_23_37_openj9-0.47.0.tar.gz",
+            "sha256": "07cf7e80101d9d63d9b896f590f5df561a5868c3de0264e7b11c8d2c79cf20d2"
+        },
+        "aarch64": {
+            "version": "23.0.0.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru23-binaries/releases/download/jdk-23%2B37_openj9-0.47.0/ibm-semeru-open-jdk_aarch64_linux_23_37_openj9-0.47.0.tar.gz",
+            "sha256": "d5f711ef416afb5e83c1ebcb9aa0e232b984d23c3abee9dd3fc8edab2832a881"
+        }
+    },
+    "jre-bin-23": {
+        "x86_64": {
+            "version": "23.0.0.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru23-binaries/releases/download/jdk-23%2B37_openj9-0.47.0/ibm-semeru-open-jre_x64_linux_23_37_openj9-0.47.0.tar.gz",
+            "sha256": "07fbd261313f5121953936cdee0a02ed70f62e4dcc18b06b1072a26fdf37ddc7"
+        },
+        "s390x": {
+            "version": "23.0.0.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru23-binaries/releases/download/jdk-23%2B37_openj9-0.47.0/ibm-semeru-open-jre_s390x_linux_23_37_openj9-0.47.0.tar.gz",
+            "sha256": "3cbaeccbbe6ab1d14639a781264341e95abd16a813551bbd38c03f824e1cdffc"
+        },
+        "ppc64le": {
+            "version": "23.0.0.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru23-binaries/releases/download/jdk-23%2B37_openj9-0.47.0/ibm-semeru-open-jre_ppc64le_linux_23_37_openj9-0.47.0.tar.gz",
+            "sha256": "19418381d4deb34bff8aaceb9d951f967ba42a33a764a0e096d5282ad6566edc"
+        },
+        "aarch64": {
+            "version": "23.0.0.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru23-binaries/releases/download/jdk-23%2B37_openj9-0.47.0/ibm-semeru-open-jre_aarch64_linux_23_37_openj9-0.47.0.tar.gz",
+            "sha256": "df011058dbfbe58ed7cbd96ce9123ca13cedec3d3ffd106f4051fd8b6dbcf489"
+        }
+    },
+    "jdk-bin-23_0_0_0": {
+        "x86_64": {
+            "version": "23.0.0.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru23-binaries/releases/download/jdk-23%2B37_openj9-0.47.0/ibm-semeru-open-jdk_x64_linux_23_37_openj9-0.47.0.tar.gz",
+            "sha256": "95e1116a38567fa5b1799045f05d95bd23f419ff5c0baa2100d88f113a2cb48b"
+        },
+        "s390x": {
+            "version": "23.0.0.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru23-binaries/releases/download/jdk-23%2B37_openj9-0.47.0/ibm-semeru-open-jdk_s390x_linux_23_37_openj9-0.47.0.tar.gz",
+            "sha256": "d3841ef50ee457b2e20476923f861414cd23b38735945ffe3611120bdec6f841"
+        },
+        "ppc64le": {
+            "version": "23.0.0.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru23-binaries/releases/download/jdk-23%2B37_openj9-0.47.0/ibm-semeru-open-jdk_ppc64le_linux_23_37_openj9-0.47.0.tar.gz",
+            "sha256": "07cf7e80101d9d63d9b896f590f5df561a5868c3de0264e7b11c8d2c79cf20d2"
+        },
+        "aarch64": {
+            "version": "23.0.0.0",
+            "type": "jdk",
+            "url": "https://github.com/ibmruntimes/semeru23-binaries/releases/download/jdk-23%2B37_openj9-0.47.0/ibm-semeru-open-jdk_aarch64_linux_23_37_openj9-0.47.0.tar.gz",
+            "sha256": "d5f711ef416afb5e83c1ebcb9aa0e232b984d23c3abee9dd3fc8edab2832a881"
+        }
+    },
+    "jre-bin-23_0_0_0": {
+        "x86_64": {
+            "version": "23.0.0.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru23-binaries/releases/download/jdk-23%2B37_openj9-0.47.0/ibm-semeru-open-jre_x64_linux_23_37_openj9-0.47.0.tar.gz",
+            "sha256": "07fbd261313f5121953936cdee0a02ed70f62e4dcc18b06b1072a26fdf37ddc7"
+        },
+        "s390x": {
+            "version": "23.0.0.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru23-binaries/releases/download/jdk-23%2B37_openj9-0.47.0/ibm-semeru-open-jre_s390x_linux_23_37_openj9-0.47.0.tar.gz",
+            "sha256": "3cbaeccbbe6ab1d14639a781264341e95abd16a813551bbd38c03f824e1cdffc"
+        },
+        "ppc64le": {
+            "version": "23.0.0.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru23-binaries/releases/download/jdk-23%2B37_openj9-0.47.0/ibm-semeru-open-jre_ppc64le_linux_23_37_openj9-0.47.0.tar.gz",
+            "sha256": "19418381d4deb34bff8aaceb9d951f967ba42a33a764a0e096d5282ad6566edc"
+        },
+        "aarch64": {
+            "version": "23.0.0.0",
+            "type": "jre",
+            "url": "https://github.com/ibmruntimes/semeru23-binaries/releases/download/jdk-23%2B37_openj9-0.47.0/ibm-semeru-open-jre_aarch64_linux_23_37_openj9-0.47.0.tar.gz",
+            "sha256": "df011058dbfbe58ed7cbd96ce9123ca13cedec3d3ffd106f4051fd8b6dbcf489"
+        }
     }
 }
