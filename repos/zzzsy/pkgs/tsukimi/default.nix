@@ -1,46 +1,42 @@
 {
   lib,
-  mpv,
+  mpv-unwrapped,
   fetchFromGitHub,
   rustPlatform,
   pkg-config,
-  clapper,
-  gdk-pixbuf,
-  glib,
-  gtk4,
-  gsettings-desktop-schemas,
+  ffmpeg,
   libadwaita,
+  libepoxy,
   openssl,
   gst_all_1,
   wrapGAppsHook4,
   makeDesktopItem,
+  copyDesktopItems
 }:
 rustPlatform.buildRustPackage rec {
   pname = "tsukimi";
-  version = "0.8.2";
+  version = "0.12.2";
   src = fetchFromGitHub {
     owner = "tsukinaha";
     repo = "tsukimi";
     rev = "v${version}";
-    hash = "sha256-m6z1n0EQKlNe24l/3bUb+6iUoxnTVsJ6vqdUkyNEmmE=";
+    hash = "sha256-pJ+SUNGQS/kqBdOg21GgDeZThcjnB0FhgG00qLfqxYA=";
   };
 
-  cargoHash = "sha256-fRWp1VM9qXDl0zCV7v3bP4NJBLURDYUIthPwED25PDY=";
+  cargoHash = "sha256-PCJiSyfEgK8inzoRmRvnAU50kLnyVhNrgLrwtBUFpIU=";
 
   nativeBuildInputs = [
     pkg-config
     wrapGAppsHook4
+    copyDesktopItems
   ];
   buildInputs =
     [
-      clapper
-      gdk-pixbuf
-      glib
-      gtk4
-      gsettings-desktop-schemas
+      ffmpeg
+      libepoxy
       libadwaita
       openssl
-      mpv
+      mpv-unwrapped
     ]
     ++ (with gst_all_1; [
       gst-plugins-base
@@ -48,6 +44,7 @@ rustPlatform.buildRustPackage rec {
       gst-plugins-good
       gst-plugins-bad
       gst-plugins-ugly
+      gst-libav
     ]);
 
   desktopItems = [
@@ -65,11 +62,17 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = false;
 
+  postPatch = ''
+    substituteInPlace build.rs \
+      --replace-fail 'i18n/locale' "$out/share/locale"
+    substituteInPlace src/main.rs \
+      --replace-fail '/usr/share/locale' "$out/share/locale"
+  '';
+
   postInstall = ''
     install -Dm 644 -t "$out/share/pixmaps/" resources/ui/icons/tsukimi.png
     install -Dm 644 -t "$out/share/glib-2.0/schemas" moe.tsuna.tsukimi.gschema.xml
     glib-compile-schemas $out/share/glib-2.0/schemas/
-    cp -r "i18n/locale" "$out/share/locale"
   '';
 
   meta = {

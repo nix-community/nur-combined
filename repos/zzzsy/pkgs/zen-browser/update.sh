@@ -2,7 +2,7 @@
 
 set -exuo pipefail
 
-info=./metadata.json
+info=pkgs/zen-browser/metadata.json
 latestVersion=$(curl -s "https://api.github.com/repos/zen-browser/desktop/releases/latest" | jq --raw-output '.tag_name | sub("^v"; "")')
 currentVersion=$(jq -r '.version' "$info")
 

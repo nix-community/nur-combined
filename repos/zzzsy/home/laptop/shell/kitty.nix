@@ -14,7 +14,6 @@
       initial_window_width = 640;
       initial_window_height = 400;
       update_check_interval = 0;
-      background_opacity = "0.95";
       hide_window_decorations = true;
       tabs = true;
       tab_bar_style = "powerline";
