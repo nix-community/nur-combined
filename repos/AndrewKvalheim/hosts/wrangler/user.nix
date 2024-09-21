@@ -22,6 +22,8 @@ in
   host = {
     background = "file://${./resources/background.jpg}";
     cores = 16;
+    display_density = 2;
+    display_width = 3840;
     firefoxProfile = "f2y424q1.default";
     local = ./local;
   };

@@ -30,5 +30,6 @@ buildGoModule {
     description = "CO₂ and temperature monitor";
     homepage = "https://github.com/larsp/co2monitor";
     license = lib.licenses.mit;
+    mainProgram = "co2monitor";
   };
 }

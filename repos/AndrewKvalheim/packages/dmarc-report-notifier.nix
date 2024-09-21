@@ -35,5 +35,6 @@ python3Packages.buildPythonApplication rec {
     description = "Headless periodic DMARC report handler";
     homepage = "https://codeberg.org/AndrewKvalheim/dmarc-report-notifier";
     license = lib.licenses.gpl3;
+    mainProgram = "dmarc-report-notifier";
   };
 }

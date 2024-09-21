@@ -98,6 +98,7 @@ BlinkStick
 blockable
 blocklist
 blocklisted
+blocklisting
 blocklists
 blocky
 blogosphere
@@ -203,6 +204,7 @@ Corepack
 Coreutils
 counterintuitive
 COVID
+coworking
 CPAN
 CPNI
 crafter
@@ -375,6 +377,8 @@ gemset
 geolocation
 geoscience
 geospatial
+GID
+GIDs
 gif
 gifs
 GIFs
@@ -560,6 +564,7 @@ Libera.Chat
 libheif
 libjxl
 libnotify
+Libravatar
 libre
 LibrePlanet
 LibreWolf
@@ -714,6 +719,7 @@ NUR
 nvd
 NXDOMAIN
 OBD-II
+obfs4
 OCI
 OCSP
 Ogg
@@ -962,6 +968,7 @@ Scribus
 scriptable
 scrobble
 scrobbler
+scrobbling
 scrollback
 scroller
 scrutinee
@@ -1139,6 +1146,7 @@ UEFI
 UFW
 UI
 UID
+UIDs
 ultramarathon
 unactionable
 unallocated

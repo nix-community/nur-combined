@@ -26,10 +26,7 @@ in
   emote.overlay = e: { postInstall = e.postInstall or "" + "\nsubstituteInPlace $out/share/applications/emote.desktop --replace-fail 'Exec=emote' \"Exec=$out/bin/emote\""; }; # Allow desktop entry as entrypoint
   fastnbt-tools = any;
   fediblockhole = any;
-  fedifetcher = {
-    version = "≥7.1.7"; # nanos/FediFetcher#161
-    overlay = f: let python = stable.lib.findFirst (p: p.pname or null == "python3") null f.nativeBuildInputs; in { propagatedBuildInputs = f.propagatedBuildInputs ++ [ python.pkgs.xxhash ]; }; # https://github.com/NixOS/nixpkgs/pull/341084#issuecomment-2350748884
-  };
+  fedifetcher = { version = "≥7.1.12"; search = pr 342789; }; # nanos/FediFetcher#161
   firefox.overlay = w: { buildCommand = w.buildCommand + "\nwrapProgram $executablePath --unset LC_TIME"; }; # Workaround for bugzilla#1269895
   git-diff-image = any;
   git-diff-minecraft = any;
@@ -95,10 +92,7 @@ in
     volkerdobler.insertnums.search = [ open-vsx vscode-marketplace ];
     ybaumes.highlight-trailing-white-spaces.search = open-vsx;
   };
-  vscodium = {
-    gappsWrapperArgs = "--unset NIXOS_OZONE_WL"; # Workaround for blurriness and mangled keybindings
-    version = "≥1.92"; # Required by Syler.sass-indented
-  };
+  vscodium.version = "≥1.92"; # Required by Syler.sass-indented
   whipper = {
     condition = w: w.dontWrapGApps or false; # NixOS/nixpkgs#316717
     patch = [ ../packages/resources/whipper_flac-level.patch ../packages/resources/whipper_speed.patch ../packages/resources/whipper_detect-tty.patch ];

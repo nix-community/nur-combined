@@ -25,5 +25,6 @@ rustPlatform.buildRustPackage rec {
     description = "Prometheus exporter for iptables";
     homepage = "https://github.com/kbknapp/iptables_exporter";
     license = with lib.licenses; [ afl20 mit ];
+    mainProgram = "iptables_exporter";
   };
 }

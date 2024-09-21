@@ -29,6 +29,8 @@ in
   options.host = {
     background = mkOption { type = str; };
     cores = mkOption { type = int; };
+    display_density = mkOption { type = int; };
+    display_width = mkOption { type = int; };
     firefoxProfile = mkOption { type = str; };
     local = mkOption { type = path; };
   };

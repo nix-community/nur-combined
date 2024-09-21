@@ -24,6 +24,9 @@ in
     yaru-theme
   ] ++ extensions;
 
+  # Backend
+  dconf.settings."org/gnome/mutter".experimental-features = [ "scale-monitor-framebuffer" ]; # Workaround for paperwm/PaperWM#938
+
   # Theme
   dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
   dconf.settings."org/gnome/desktop/interface".cursor-theme = "Yaru";
@@ -85,21 +88,26 @@ in
   dconf.settings."org/gnome/shell/extensions/paperwm" =
     let
       # Parameters
-      cpl = 100 /* Rust */;
+      characters_per_line = 100 /* Rust */;
+      character_width = 7.5;
       border = 4;
       margin = 12;
 
       # Derived
       gap = border + margin;
 
-      # Widths
-      term = cpl * 15;
-      half = full / 2 - gap;
-      complementTerm = full - (term + gap) - gap;
-      full = 3840 - margin * 2;
+      # Reference widths
+      full = (host.display_width / host.display_density) - margin * 2;
+      externalFull = 3840 - margin * 2;
+
+      # Window widths
+      term = characters_per_line * character_width;
+      half = (full - gap) / 2;
+      complementTerm = full - (term + gap);
+      externalComplement2ComplementTerm = externalFull - (complementTerm + gap) * 2;
     in
     {
-      cycle-width-steps = map (n: 1.0 * n) [ term half complementTerm ];
+      cycle-width-steps = map (n: 1.0 * n) [ term half complementTerm externalComplement2ComplementTerm ];
       horizontal-margin = margin;
       selection-border-radius-top = border;
       selection-border-size = border;
@@ -110,9 +118,10 @@ in
       vertical-margin-bottom = margin;
       window-gap = gap;
       winprops = (map toJSON [
-        { wm_class = "*"; preferredWidth = "${toString term}px"; }
+        { wm_class = "*"; preferredWidth = "${toString half}px"; }
         { wm_class = "emote"; scratch_layer = true; }
-        { wm_class = "qalculate-gtk"; preferredWidth = "960px"; }
+        { wm_class = "qalculate-gtk"; preferredWidth = "480px"; }
+        { wm_class = "Tor Browser"; scratch_layer = true; }
       ]);
     };
   dconf.settings."org/gnome/shell/extensions/paperwm/keybindings" = {
