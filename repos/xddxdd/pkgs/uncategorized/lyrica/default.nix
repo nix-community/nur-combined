@@ -12,7 +12,7 @@ rustPlatform.buildRustPackage {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "netease-cloud-music-api-1.3.2" = "sha256-fVtp15P4o2eqtYvoArGoPhfX8QYJ+FRoOvB16if7KWQ=";
+      "netease-cloud-music-api-1.4.0" = "sha256-Vy0iOmH8DpaF1upYiHnHqHLhdhQjbRw94pbFdmv546A=";
     };
   };
 
