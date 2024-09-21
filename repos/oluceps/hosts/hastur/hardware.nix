@@ -4,9 +4,8 @@
 {
   config,
   lib,
-  pkgs,
   modulesPath,
-  inputs,
+  inputs',
   ...
 }:
 {
@@ -46,7 +45,7 @@
     # extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
     kernelPackages =
       # pkgs.linuxPackages_latest;
-      inputs.nyx.packages.${pkgs.system}.linuxPackages_cachyos-server;
+      inputs'.nyx.packages.linuxPackages_cachyos-server;
     # binfmt.emulatedSystems = [
     #   "riscv64-linux"
     #   "aarch64-linux"
