@@ -179,19 +179,19 @@
                           ];
                           match = [ { path = [ "/.well-known/matrix/client" ]; } ];
                         }
-                        {
-                          match = [ { path = [ "/.well-known/webfinger" ]; } ];
-                          handle = [
-                            {
-                              handler = "static_response";
-                              status_code = "302";
-                              headers = {
-                                Access-Control-Allow-Origin = [ "*" ];
-                                Location = [ "https://nyaw.xyz/{http.request.uri}" ];
-                              };
-                            }
-                          ];
-                        }
+                        # {
+                        #   match = [ { path = [ "/.well-known/webfinger" ]; } ];
+                        #   handle = [
+                        #     {
+                        #       handler = "static_response";
+                        #       status_code = "302";
+                        #       headers = {
+                        #         Access-Control-Allow-Origin = [ "*" ];
+                        #         Location = [ "https://nyaw.xyz/{http.request.uri}" ];
+                        #       };
+                        #     }
+                        #   ];
+                        # }
                         {
                           handle = [
                             {
