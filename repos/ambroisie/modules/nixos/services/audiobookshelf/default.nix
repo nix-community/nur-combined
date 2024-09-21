@@ -35,5 +35,21 @@ in
         };
       };
     };
+
+    services.fail2ban.jails = {
+      audiobookshelf = ''
+        enabled = true
+        filter = audiobookshelf
+        port = http,https
+      '';
+    };
+
+    environment.etc = {
+      "fail2ban/filter.d/audiobookshelf.conf".text = ''
+        [Definition]
+        failregex = ^.*ERROR: \[Auth\] Failed login attempt for username ".*" from ip <ADDR>
+        journalmatch = _SYSTEMD_UNIT=audiobookshelf.service
+      '';
+    };
   };
 }

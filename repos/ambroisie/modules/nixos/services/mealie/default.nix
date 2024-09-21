@@ -71,5 +71,21 @@ in
         };
       };
     };
+
+    services.fail2ban.jails = {
+      mealie = ''
+        enabled = true
+        filter = mealie
+        port = http,https
+      '';
+    };
+
+    environment.etc = {
+      "fail2ban/filter.d/mealie.conf".text = ''
+        [Definition]
+        failregex = ^.*ERROR.*Incorrect username or password from <HOST>
+        journalmatch = _SYSTEMD_UNIT=mealie.service
+      '';
+    };
   };
 }
