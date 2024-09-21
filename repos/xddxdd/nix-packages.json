@@ -347,7 +347,7 @@
   "legacyPackages.x86_64-linux.fcitx5-breeze": {
     "description": "Fcitx5 theme to match KDE's Breeze style",
     "pname": "fcitx5-breeze",
-    "version": "2.0.0"
+    "version": "3.1.0"
   },
   "legacyPackages.x86_64-linux.flasgger": {
     "description": "Easy OpenAPI specs and Swagger UI for your Flask API",
@@ -3267,7 +3267,7 @@
   "packages.x86_64-linux.fcitx5-breeze": {
     "description": "Fcitx5 theme to match KDE's Breeze style",
     "pname": "fcitx5-breeze",
-    "version": "2.0.0"
+    "version": "3.1.0"
   },
   "packages.x86_64-linux.flasgger": {
     "description": "Easy OpenAPI specs and Swagger UI for your Flask API",

@@ -2,14 +2,34 @@
   sources,
   stdenvNoCC,
   lib,
+  python3,
+  inkscape,
   ...
 }:
 stdenvNoCC.mkDerivation {
   inherit (sources.fcitx5-breeze) pname version src;
 
+  nativeBuildInputs = [
+    python3
+    inkscape
+  ];
+
+  buildPhase = ''
+    runHook preBuild
+
+    export HOME=$(pwd)
+    python build.py
+
+    runHook postBuild
+  '';
+
   installPhase = ''
-    mkdir $out
+    runHook preInstall
+
+    mkdir -p $out/share/fcitx5/themes
     ./install.sh $out
+
+    runHook postInstall
   '';
 
   meta = with lib; {
