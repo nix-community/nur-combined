@@ -260,8 +260,8 @@ in
       XF86AudioMute allow-when-locked=true { spawn "sh" "-c" "${pw-volume} mute toggle; pkill -RTMIN+8 waybar"; }
 
       // Example volume keys mappings for PipeWire & WirePlumber.
-      XF86AudioRaiseVolume { spawn "sh" "-c" "${pw-volume} change +0.5%; pkill -RTMIN+8 waybar"; }
-      XF86AudioLowerVolume { spawn "sh" "-c" "${pw-volume} change -0.5%; pkill -RTMIN+8 waybar"; }
+      XF86AudioRaiseVolume { spawn "sh" "-c" "${pw-volume} change +2%; pkill -RTMIN+8 waybar"; }
+      XF86AudioLowerVolume { spawn "sh" "-c" "${pw-volume} change -2%; pkill -RTMIN+8 waybar"; }
 
       XF86MonBrightnessUp { spawn "brightnessctl" "set" "3%+"; }
       XF86MonBrightnessdown { spawn "brightnessctl" "set" "3%-"; }
