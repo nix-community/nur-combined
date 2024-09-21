@@ -1,8 +1,8 @@
 { stable }:
 
 let
-  inherit (builtins) attrNames elemAt fetchGit filter functionArgs isAttrs isPath length mapAttrs match pathExists removeAttrs toJSON tryEval;
-  inherit (stable) callPackage makeWrapper symlinkJoin;
+  inherit (builtins) attrNames elemAt filter functionArgs isAttrs isPath length mapAttrs match pathExists removeAttrs toJSON tryEval;
+  inherit (stable) callPackage fetchgit makeWrapper symlinkJoin;
   inherit (stable.lib) attrByPath concatMapStringsSep concatStringsSep const escapeShellArg findFirst getAttrFromPath hasAttrByPath imap1 info mapAttrsToList optionalAttrs optionalString recurseIntoAttrs showAttrPath throwIf toList versionAtLeast;
 
   # Utilities
@@ -20,8 +20,8 @@ let
 
   # Repositories
   nur = (import ../nur.nix { pkgs = stable; }) // { _name = "NUR packages"; };
-  pin = rev: mkRepo "pin ${rev}" (fetchGit { name = "nixpkgs-pin-${toString rev}"; url = "https://github.com/NixOS/nixpkgs.git"; inherit rev; });
-  pr = id: mkRepo "PR #${toString id}" (fetchGit { name = "nixpkgs-pr-${toString id}"; url = "https://github.com/NixOS/nixpkgs.git"; ref = "refs/pull/${toString id}/head"; });
+  pin = rev: hash: mkRepo "pin ${rev}" (fetchgit { inherit hash rev; name = "nixpkgs-pin-${toString rev}"; url = "https://github.com/NixOS/nixpkgs.git"; });
+  pr = id: hash: mkRepo "PR #${toString id}" (fetchgit { inherit hash; name = "nixpkgs-pr-${toString id}"; url = "https://github.com/NixOS/nixpkgs.git"; rev = "refs/pull/${toString id}/head"; });
   unstable =
     if (tryEval (pathExists <unstable>)).value then mkRepo "unstable" <unstable>
     else info "No unstable channel found" null;
