@@ -1,13 +1,13 @@
 {
 		"standardnotes-x64": {
-			"version": "desktop@3.195.3",
-			"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.195.3/standard-notes-3.195.3-mac-x64.dmg",
-			"sha256": "ab2ec7bca7b72ada65d3b852deeef09255b0f2b8316c82d6c6732354367fbcfc"
+			"version": "desktop@3.195.4",
+			"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.195.4/standard-notes-3.195.4-mac-x64.dmg",
+			"sha256": "479444a7427524672568ff0295cdcf94cdbdbf441a0c339500f42373f40ef323"
 		},
 		"standardnotes-arm64": {
-			"version": "desktop@3.195.3",
-			"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.195.3/standard-notes-3.195.3-mac-arm64.dmg",
-			"sha256": "bd2fa01eb393c25fa05df00302f9d47d3c506f0c28dd9c65182d601a1049ee4d"
+			"version": "desktop@3.195.4",
+			"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.195.4/standard-notes-3.195.4-mac-arm64.dmg",
+			"sha256": "23de5e4d1e7e588c63ca4c010c55ac26781c885fae80a0a7ab0b7afaa15d58bc"
 		},
 		"whisky": {
 			"version": "v2.3.3",
@@ -15,14 +15,14 @@
 			"sha256": "385ed9ec848c1b057291b8bdf801cf6bf7e3eed9bdf3ac1a5a44b9c82fdc4034"
 		},
 		"librewolf-x64": {
-			"version": "130.0-3",
-			"url": "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/130.0-3/librewolf-130.0-3-macos-x86_64-package.dmg",
-			"sha256": "0cc383c1ede04580b8abd031739b7ce435892201d6b7a897fb044fdd2528ffd6"
+			"version": "130.0.1-1",
+			"url": "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/130.0.1-1/librewolf-130.0.1-1-macos-x86_64-package.dmg",
+			"sha256": "d9e8e1ba141a95154689af9cae52e4fdc3a1194c9565fd30ea5cc08a0c968365"
 		},
 		"librewolf-arm64": {
-			"version": "130.0-3",
-			"url": "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/130.0-3/librewolf-130.0-3-macos-arm64-package.dmg",
-			"sha256": "ac69fd6c00083593f22c21cc16408c5cf8f10a126018244b7c021286bbafccee"
+			"version": "130.0.1-1",
+			"url": "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/130.0.1-1/librewolf-130.0.1-1-macos-arm64-package.dmg",
+			"sha256": "9a8d2da8c23b19bb33441b09f229a3e40338795657f3e99cc9eac53903009003"
 		},
 		"floorp": {
 			"version": "v11.18.1",
