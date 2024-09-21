@@ -316,6 +316,10 @@ fetch.github = "bkerler/mtkclient"
 src.git = "https://github.com/xddxdd/nbfc-linux.git"
 fetch.github = "xddxdd/nbfc-linux"
 
+[ncmdump-rs]
+src.github = "iqiziqi/ncmdump.rs"
+fetch.github = "iqiziqi/ncmdump.rs"
+
 [netboot-xyz-efi]
 src.github = "netbootxyz/netboot.xyz"
 fetch.url = "https://github.com/netbootxyz/netboot.xyz/releases/download/$ver/netboot.xyz.efi"

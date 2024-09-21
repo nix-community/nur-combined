@@ -172,6 +172,7 @@ mkScope (
     lyrica-plasmoid = pkg ./uncategorized/lyrica-plasmoid { };
     magiskboot = pkg ./uncategorized/magiskboot { };
     mtkclient = pkg ./uncategorized/mtkclient { };
+    ncmdump-rs = pkg ./uncategorized/ncmdump-rs { };
     netboot-xyz = pkg ./uncategorized/netboot-xyz { };
     netease-cloud-music = pkg ./uncategorized/netease-cloud-music { };
     netns-exec = pkg ./uncategorized/netns-exec { };

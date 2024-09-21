@@ -815,6 +815,17 @@
     };
     date = "2022-06-13";
   };
+  ncmdump-rs = {
+    pname = "ncmdump-rs";
+    version = "0.8.0";
+    src = fetchFromGitHub {
+      owner = "iqiziqi";
+      repo = "ncmdump.rs";
+      rev = "0.8.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-do11HeySNtNCOt9mhlqPwdyjm+86ujfI7n0blSqYtvM=";
+    };
+  };
   netboot-xyz-efi = {
     pname = "netboot-xyz-efi";
     version = "2.0.82";

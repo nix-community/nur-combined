@@ -59,14 +59,10 @@ in
       packages = lib.mapAttrs' (
         n: v:
         lib.nameValuePair "${n}-patched" (
-          let
-            pkgs = import v.sourceInput { inherit system; };
-            emptyPatch = pkgs.writeText "empty.patch" "";
-          in
-          pkgs.applyPatches {
+          (import v.sourceInput { inherit system; }).applyPatches {
             name = "nixpkgs-patched";
             src = builtins.toString v.sourceInput;
-            patches = [ emptyPatch ] ++ v.patches;
+            inherit (v) patches;
           }
         )
       ) config.nixpkgs-options;

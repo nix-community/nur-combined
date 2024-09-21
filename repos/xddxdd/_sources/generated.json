@@ -1462,6 +1462,27 @@
         },
         "version": "32a49117ca3ff17d7681713a8dc8812323142dcb"
     },
+    "ncmdump-rs": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "ncmdump-rs",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "iqiziqi",
+            "repo": "ncmdump.rs",
+            "rev": "0.8.0",
+            "sha256": "sha256-do11HeySNtNCOt9mhlqPwdyjm+86ujfI7n0blSqYtvM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0.8.0"
+    },
     "netboot-xyz-efi": {
         "cargoLocks": null,
         "date": null,

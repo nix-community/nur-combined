@@ -411,8 +411,8 @@
   },
   "legacyPackages.x86_64-linux.hoyo-glyphs": {
     "description": "Constructed scripts by Hoyoverse 米哈游的架空文字 ",
-    "pname": "hoyo-glyphs-unstable",
-    "version": "2024-09-12"
+    "pname": "hoyo-glyphs",
+    "version": "20240919"
   },
   "legacyPackages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
@@ -858,6 +858,11 @@
     "description": "MTK reverse engineering and flash tool",
     "pname": "python3.12-mtkclient",
     "version": "2.0.1.freeze"
+  },
+  "legacyPackages.x86_64-linux.ncmdump-rs": {
+    "description": "NetEase Cloud Music copyright protection file dump by rust",
+    "pname": "ncmdump-rs",
+    "version": "0.8.0"
   },
   "legacyPackages.x86_64-linux.netboot-xyz": {
     "description": "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE.",
@@ -3331,8 +3336,8 @@
   },
   "packages.x86_64-linux.hoyo-glyphs": {
     "description": "Constructed scripts by Hoyoverse 米哈游的架空文字 ",
-    "pname": "hoyo-glyphs-unstable",
-    "version": "2024-09-12"
+    "pname": "hoyo-glyphs",
+    "version": "20240919"
   },
   "packages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
@@ -3448,6 +3453,11 @@
     "description": "MTK reverse engineering and flash tool",
     "pname": "python3.12-mtkclient",
     "version": "2.0.1.freeze"
+  },
+  "packages.x86_64-linux.ncmdump-rs": {
+    "description": "NetEase Cloud Music copyright protection file dump by rust",
+    "pname": "ncmdump-rs",
+    "version": "0.8.0"
   },
   "packages.x86_64-linux.netboot-xyz": {
     "description": "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE.",
