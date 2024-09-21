@@ -7,27 +7,27 @@
 }: {
   hvcc = {
     pname = "hvcc";
-    version = "v0.12.0";
+    version = "v0.12.1";
     src = fetchFromGitHub {
       owner = "Wasted-Audio";
       repo = "hvcc";
-      rev = "v0.12.0";
+      rev = "v0.12.1";
       fetchSubmodules = false;
-      sha256 = "sha256-7iivmozMcBJmeXg9erJl2IkzeP5/ykxNBR93ZZcQWzU=";
+      sha256 = "sha256-Ir4jqBSnrb+GdhCEw62fGPzgluZVX8Z0VQ0tadhFnpY=";
     };
   };
   wstd2daisy = {
     pname = "wstd2daisy";
-    version = "b3eb8104d5a48424e25dff5eec3aff603f425331";
+    version = "71e2982454d3410c5e4479c2d0dfa575a9826d17";
     src = fetchgit {
       url = "https://github.com/Wasted-Audio/json2daisy";
-      rev = "b3eb8104d5a48424e25dff5eec3aff603f425331";
+      rev = "71e2982454d3410c5e4479c2d0dfa575a9826d17";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [];
-      sha256 = "sha256-eF4V55lJT045NFSPBq65LSgpzGB/kM2ko8OpYCgrOq4=";
+      sha256 = "sha256-1QKYx9gocAKKWCP9uEmuhtFWCptCd+vBlga5keBxkzY=";
     };
-    date = "2024-02-11";
+    date = "2024-09-20";
   };
 }
