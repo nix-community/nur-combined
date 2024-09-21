@@ -5,13 +5,13 @@
 
 buildGoModule rec {
   pname = "chainlink";
-  version = "1.4.0";
+  version = "1.4.2";
 
   src = fetchFromGitHub {
     owner = "meain";
     repo = "chainlink";
     rev = "v${version}";
-    hash = "sha256-5fQYU1V3f29R+0oRGCBs/su8brOPIFbmK/ttz7B7Ass=";
+    hash = "sha256-qDro0wv6hBja7WUZTwiPcppATsLllph/J/WGeSdeqPE=";
   };
 
   vendorHash = "sha256-w5kWxb0nzDzpM//eSiCozyWHgB9epYVxwmid4ZV6tSc=";
