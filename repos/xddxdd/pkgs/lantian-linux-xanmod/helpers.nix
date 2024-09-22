@@ -185,7 +185,7 @@ rec {
             ])
             // (with lib.kernel; {
               LTO_NONE = no;
-              LTO_CLANG_FULL = yes;
+              LTO_CLANG_THIN = yes;
             })
             // (if stdenv.isx86_64 then marchFlags."${x86_64-march}" else { })
           );
