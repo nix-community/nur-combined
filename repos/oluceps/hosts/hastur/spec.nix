@@ -207,8 +207,8 @@
           environmentFile = config.age.secrets.restic-envs-dc3.path;
           ####
           paths = [
-            "/var/lib/backup"
-            "/var/lib/private/matrix-conduit"
+            "/var/.snapshots/latest/lib/backup"
+            "/var/.snapshots/latest/lib/private/matrix-conduit"
           ];
           extraBackupArgs = [
             "--exclude-caches"
