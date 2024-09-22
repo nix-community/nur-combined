@@ -34,8 +34,8 @@ let
             unfree ROM images.
         '';
     };
-    src'' = if !(includesUnfreeROMs && !enableUnfreeROMs) then src' else stdenvNoCC.mkDerivation {
-        name = "romless-${src'.name}";
+    src'' = if !(includesUnfreeROMs && !enableUnfreeROMs) then src' else src.withoutROMs or (stdenvNoCC.mkDerivation {
+        name = builtins.replaceStrings ["pce"] ["pce-without-unfree-roms"] src'.name;
         src = src';
         version_ = version;
         sourceRoot = ".";
@@ -51,7 +51,7 @@ let
                 -czf "$out" "pce-$version_"
         '';
         outputHash = src.hashWithoutROMs;
-    };
+    });
 in
 stdenv.mkDerivation {
     pname = "pce" + lib.optionalString enableUnfreeROMs "-with-unfree-roms";
