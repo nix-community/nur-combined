@@ -17,6 +17,7 @@ buildNpmPackage rec {
   nativeBuildInputs = [ pandoc ];
 
   meta = with lib; {
+    mainProgram = "bcmd";
     description = "Executing multiple commands in batches concurrently.";
     homepage = "https://github.com/DCsunset/batch-cmd";
     license = licenses.agpl3Only;
