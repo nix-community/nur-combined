@@ -36,5 +36,7 @@ in
       forceSSL = true;
       useACMEHost = config.networking.domain;
     };
+
+    # NOTE: unfortunately grocy does not log connection failures for fail2ban
   };
 }

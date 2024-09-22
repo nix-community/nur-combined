@@ -27,5 +27,7 @@ in
         inherit (cfg) port;
       };
     };
+
+    # NOTE: unfortunately flood does not log connection failures for fail2ban
   };
 }

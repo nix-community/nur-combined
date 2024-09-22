@@ -52,5 +52,21 @@ in
         inherit (cfg) port;
       };
     };
+
+    services.fail2ban.jails = {
+      navidrome = ''
+        enabled = true
+        filter = navidrome
+        port = http,https
+      '';
+    };
+
+    environment.etc = {
+      "fail2ban/filter.d/navidrome.conf".text = ''
+        [Definition]
+        failregex = ^.*msg="Unsuccessful login".*X-Real-Ip:\[<HOST>\]
+        journalmatch = _SYSTEMD_UNIT=navidrome.service
+      '';
+    };
   };
 }
