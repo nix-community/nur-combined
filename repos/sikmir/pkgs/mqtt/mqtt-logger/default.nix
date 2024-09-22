@@ -16,10 +16,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-AG8L2CD+YN6gWswDtsUtUMOA3xC2ro1f1YKYgc4jwXE=";
   };
 
-  postPatch = ''
-    sed -i 's/==.*//' requirements.txt
-    sed -i 's/rich = "^12.0.0"/rich = "*"/' pyproject.toml
-  '';
+  pythonRelaxDeps = [ "rich" ];
 
   build-system = with python3Packages; [ poetry-core ];
 

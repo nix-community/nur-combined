@@ -33,7 +33,6 @@ python3Packages.buildPythonApplication {
       --replace-fail "from stravalib.model import Activity" "from stravalib.model import DetailedActivity"
     substituteInPlace gpxtrackposter/cli.py \
       --subst-var out
-    sed -i 's/~=.*//' requirements.txt
   '';
 
   dependencies = with python3Packages; [

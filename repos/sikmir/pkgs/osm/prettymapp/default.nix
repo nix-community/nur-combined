@@ -16,8 +16,6 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-6UO2+pvtm3t6LjC2v91NJVLVo74Bdx1xzpHqvL15UCg=";
   };
 
-  postPatch = "sed -i 's/==.*//' requirements.txt";
-
   dependencies = with python3Packages; [ osmnx ];
 
   nativeCheckInputs = with python3Packages; [

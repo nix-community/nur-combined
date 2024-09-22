@@ -21,8 +21,6 @@ python3Packages.buildPythonApplication rec {
     requests
   ];
 
-  postPatch = "sed -i 's/==.*//' requirements.txt";
-
   doCheck = false;
 
   meta = {

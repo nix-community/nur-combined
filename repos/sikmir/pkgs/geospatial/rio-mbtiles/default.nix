@@ -16,11 +16,6 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-Kje443Qqs8+Jcv3PnTrMncaoaGDdjrzTcd42NYIenuU=";
   };
 
-  postPatch = ''
-    substituteInPlace setup.py \
-      --replace-fail "shapely~=1.7.0" "shapely"
-  '';
-
   dependencies = with python3Packages; [
     click
     cligj

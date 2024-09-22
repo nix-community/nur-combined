@@ -16,11 +16,6 @@ python3Packages.buildPythonApplication {
     hash = "sha256-DeEz1cVor2GBoQrDIHNWr5IYnPgBsTWr5xMuSM38MBw=";
   };
 
-  postPatch = ''
-    substituteInPlace setup.py \
-      --replace-fail "python-telegram-bot==20.6" "python-telegram-bot"
-  '';
-
   nativeBuildInputs = with python3Packages; [ pip ];
 
   dependencies = with python3Packages; [

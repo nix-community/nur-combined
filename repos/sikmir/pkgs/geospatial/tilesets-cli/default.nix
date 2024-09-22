@@ -19,8 +19,6 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-ZAPoHtrUA+D1mjWGJ/YvErYmWiXMS+tsPG+CokB9Iy8=";
   };
 
-  postPatch = "sed -i 's/~=.*\"/\"/' setup.py";
-
   dependencies = with python3Packages; [
     boto3
     click

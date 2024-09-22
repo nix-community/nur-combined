@@ -17,9 +17,10 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-nQiz1vrZz0sOoZFQaN9ZtzfDY3zn3Gk0jMdqORDDW3w=";
   };
 
-  postPatch = ''
-    substituteInPlace pyproject.toml --replace "requests == 2.25.1" "requests"
-  '';
+  pythonRelaxDeps = [
+    "requests"
+    "types-requests"
+  ];
 
   build-system = with python3Packages; [ flit ];
 

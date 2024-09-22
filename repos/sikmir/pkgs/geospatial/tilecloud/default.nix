@@ -17,16 +17,18 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-yblAOBp9anvsVnF9q8jwnMoyNG42K+E3antBe5pkS7Y=";
   };
 
+  pythonRelaxDeps = [
+    "pillow"
+    "webob"
+  ];
+
   patches = [ ./set-tmpl-path.patch ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace-fail "\"poetry-plugin-drop-python-upper-constraint\"" "" \
       --replace-fail "\"poetry-plugin-tweak-dependencies-version\"," "" \
-      --replace-fail "\"poetry-plugin-tweak-dependencies-version>=1.1.0\"," "" \
-      --replace-fail "requests = \"2.32.3\"" "requests = \"*\"" \
-      --replace-fail "Pillow = \"10.3.0\"" "Pillow = \"*\"" \
-      --replace-fail "webob = \"1.8.8\"" "webob = \"*\""
+      --replace-fail "\"poetry-plugin-tweak-dependencies-version>=1.1.0\"," ""
   '';
 
   build-system = with python3Packages; [

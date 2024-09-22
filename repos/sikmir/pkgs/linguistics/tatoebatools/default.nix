@@ -21,8 +21,6 @@ python3Packages.buildPythonApplication rec {
     lib.optional (!checkLang) ./dont-check-lang-validity.patch
     ++ lib.optional withCli ./cli.patch;
 
-  postPatch = "sed -i 's/==.*\"/\"/;s/>=.*\"/\"/' setup.py";
-
   dependencies =
     with python3Packages;
     [
