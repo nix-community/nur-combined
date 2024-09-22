@@ -26,31 +26,29 @@
     "nyaw.key"
   ];
 
-  srv = {
+  repack = {
     openssh.enable = true;
     fail2ban.enable = true;
     dnsproxy = {
       enable = true;
-      override = {
-        settings = {
-          bootstrap = [
-            "1.1.1.1"
-            "8.8.8.8"
-          ];
-          listen-addrs = [ "0.0.0.0" ];
-          listen-ports = [ 53 ];
-          upstream-mode = "load_balance";
-          upstream = [
-            "1.1.1.1"
-            "8.8.8.8"
-            "https://dns.google/dns-query"
-          ];
-        };
-      };
     };
     # rustypaste.enable = true;
   };
   services = {
+    dnsproxy.settings = lib.mkForce {
+      bootstrap = [
+        "1.1.1.1"
+        "8.8.8.8"
+      ];
+      listen-addrs = [ "0.0.0.0" ];
+      listen-ports = [ 53 ];
+      upstream-mode = "load_balance";
+      upstream = [
+        "1.1.1.1"
+        "8.8.8.8"
+        "https://dns.google/dns-query"
+      ];
+    };
     metrics.enable = true;
     trojan-server.enable = true;
     hysteria.instances = [

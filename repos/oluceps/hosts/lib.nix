@@ -36,7 +36,7 @@ in
   genOverlays = map (i: inputs.${i}.overlays.default);
 
   sharedModules =
-    [ ]
+    [ inputs.self.nixosModules.repack ]
     ++ (genModules [
       "agenix-rekey"
       "ragenix"

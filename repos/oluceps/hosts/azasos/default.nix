@@ -43,7 +43,6 @@ withSystem "x86_64-linux" (
       user = "elen";
     };
     modules = lib.sharedModules ++ [
-      ../../srv
       inputs.disko.nixosModules.default
       ./hardware.nix
       ./network.nix

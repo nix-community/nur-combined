@@ -32,20 +32,7 @@
     ${pkgs.openssh}/bin/ssh-add ${config.age.secrets.id.path}
   '';
   systemd = {
-    services = {
-      alertmanager.serviceConfig.LoadCredential = [
-        "notifychan:${config.age.secrets.notifychan.path}"
-      ];
-
-      atuin.serviceConfig.Environment = [ "RUST_LOG=debug" ];
-
-      prometheus.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
-        "prom"
-      ];
-    };
-
     enableEmergencyMode = false;
-
     watchdog = {
       runtimeTime = "20s";
       rebootTime = "30s";
@@ -65,7 +52,7 @@
   ] ++ [ config.services.photoprism.port ];
 
   services.smartd.notifications.systembus-notify.enable = true;
-  srv = {
+  repack = {
     openssh.enable = true;
     fail2ban.enable = true;
     dae.enable = true;
@@ -80,44 +67,12 @@
     vaultwarden.enable = true;
     matrix-conduit.enable = true;
     # coredns.enable = true;
+    misskey.enable = true;
     dnsproxy.enable = true;
     srs.enable = true;
     grafana.enable = true;
     meilisearch.enable = true;
     radicle.enable = true;
-
-    phantomsocks = {
-      enable = false;
-      override = {
-        settings.interfaces = [
-          {
-            device = "bond0";
-            dns = "tcp://208.67.220.220:5353";
-            hint = "w-seq,https,w-md5";
-            name = "default";
-          }
-          {
-            device = "bond0";
-            dns = "tcp://208.67.220.220:443";
-            hint = "ipv6,w-seq,w-md5";
-            name = "v6";
-          }
-          {
-            device = "bond0";
-            dns = "tcp://208.67.220.220:443";
-            hint = "df";
-            name = "df";
-          }
-          {
-            device = "bond0";
-            dns = "tcp://208.67.220.220:5353";
-            hint = "http,ttl";
-            name = "http";
-            ttl = 15;
-          }
-        ];
-      };
-    };
   };
   services = {
     # ktistec.enable = true;
@@ -174,57 +129,7 @@
     };
 
     sing-box.enable = true;
-    restic = {
-      backups = {
-        # solid = {
-        #   passwordFile = config.age.secrets.wg.path;
-        #   repositoryFile = config.age.secrets.restic-repo.path;
-        #   environmentFile = config.age.secrets.restic-envs.path;
-        #   paths = [
-        #     "/persist"
-        #     "/var"
-        #   ];
-        #   extraBackupArgs = [
-        #     "--one-file-system"
-        #     "--exclude-caches"
-        #     "--no-scan"
-        #     "--retry-lock 2h"
-        #   ];
-        #   timerConfig = {
-        #     OnCalendar = "daily";
-        #     RandomizedDelaySec = "4h";
-        #     FixedRandomDelay = true;
-        #     Persistent = true;
-        #   };
-        # };
-        critic = {
-          #### CLOUDFLARE R2 but connectivity bad
-          #   passwordFile = config.age.secrets.wg.path;
-          #   repositoryFile = config.age.secrets.restic-repo-crit.path;
-          #   environmentFile = config.age.secrets.restic-envs-crit.path;
-          passwordFile = config.age.secrets.wg.path;
-          repository = "s3:http://10.0.1.3:3900/crit";
-          environmentFile = config.age.secrets.restic-envs-dc3.path;
-          ####
-          paths = [
-            "/var/.snapshots/latest/lib/backup"
-            "/var/.snapshots/latest/lib/private/matrix-conduit"
-          ];
-          extraBackupArgs = [
-            "--exclude-caches"
-            "--no-scan"
-            "--retry-lock 2h"
-          ];
-          pruneOpts = [ "--keep-daily 3" ];
-          timerConfig = {
-            OnCalendar = "daily";
-            RandomizedDelaySec = "4h";
-            FixedRandomDelay = true;
-            Persistent = true;
-          };
-        };
-      };
-    };
+    
     hysteria.instances = [
       {
         name = "nodens";

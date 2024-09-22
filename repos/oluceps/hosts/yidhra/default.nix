@@ -50,7 +50,6 @@ withSystem "x86_64-linux" (
       ./network.nix
       ./rekey.nix
       ./spec.nix
-      ../../srv
       ../../age.nix
       ../../packages.nix
       ../../misc.nix

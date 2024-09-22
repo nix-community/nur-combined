@@ -1,4 +1,0 @@
-{ inputs, config, ... }:
-{
-  enable = true;
-}

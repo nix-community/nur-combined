@@ -43,13 +43,13 @@ withSystem "x86_64-linux" (
       user = "elen";
     };
     modules = lib.sharedModules ++ [
-      ../../srv
       ./hardware.nix
       ./network.nix
       ./rekey.nix
       ./spec.nix
       ../persist.nix
       ../secureboot.nix
+      ./restic.nix
       # inputs.home-manager.nixosModules.default
       # ../../home
       ../sysctl.nix

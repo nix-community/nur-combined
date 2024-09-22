@@ -1,9 +1,7 @@
 {
-  inputs,
   pkgs,
   config,
   lib,
-  user,
   ...
 }:
 {
@@ -24,40 +22,32 @@
     supportedFilesystems = [ "tcp_bbr" ];
     inherit ((import ../sysctl.nix { inherit lib; }).boot) kernel;
   };
-
-  systemd.services.matrix-sliding-sync.serviceConfig.RuntimeDirectory = [ "matrix-sliding-sync" ];
-  systemd.services.trojan-server.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
-    "nyaw.cert"
-    "nyaw.key"
-  ];
-
-  srv = {
+  repack = {
     openssh.enable = true;
     fail2ban.enable = true;
     rustypaste.enable = true;
     matrix-sliding-sync.enable = true;
-
+    trojan-server.enable = true;
     dnsproxy = {
       enable = true;
-      override = {
-        settings = {
-          bootstrap = [
-            "1.1.1.1"
-            "8.8.8.8"
-          ];
-          listen-addrs = [ "0.0.0.0" ];
-          listen-ports = [ 53 ];
-          upstream-mode = "parallel";
-          upstream = [
-            "1.1.1.1"
-            "8.8.8.8"
-            "https://dns.google/dns-query"
-          ];
-        };
-      };
     };
   };
   services = {
+    # override repack
+    dnsproxy.settings = lib.mkForce {
+      bootstrap = [
+        "1.1.1.1"
+        "8.8.8.8"
+      ];
+      listen-addrs = [ "0.0.0.0" ];
+      listen-ports = [ 53 ];
+      upstream-mode = "parallel";
+      upstream = [
+        "1.1.1.1"
+        "8.8.8.8"
+        "https://dns.google/dns-query"
+      ];
+    };
     realm = {
       enable = true;
       settings = {
@@ -75,7 +65,6 @@
       };
     };
     metrics.enable = true;
-    trojan-server.enable = true;
     do-agent.enable = true;
     # copilot-gpt4.enable = true;
     factorio-manager = {

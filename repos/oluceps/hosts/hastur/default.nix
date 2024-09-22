@@ -46,14 +46,12 @@ withSystem "x86_64-linux" (
     modules =
       lib.sharedModules
       ++ [
-        ../../srv
         ./hardware.nix
         ./network.nix
         ./rekey.nix
         ./spec.nix
         ./caddy.nix
-        # ./nginx.nix
-        # ../graphBase.nix
+        ./restic.nix
 
         ../persist.nix
         ../secureboot.nix
@@ -69,7 +67,6 @@ withSystem "x86_64-linux" (
         inputs.niri.nixosModules.niri
         ../../users.nix
 
-        ./misskey.nix
         ../dev.nix
       ]
       ++ (with inputs; [

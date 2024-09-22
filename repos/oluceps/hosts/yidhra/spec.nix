@@ -21,7 +21,7 @@
     inherit ((import ../sysctl.nix { inherit lib; }).boot) kernel;
   };
 
-  srv = {
+  repack = {
     openssh.enable = true;
     fail2ban.enable = true;
   };

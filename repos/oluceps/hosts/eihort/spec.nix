@@ -58,7 +58,7 @@
     supportedFilesystems = [ "tcp_bbr" ];
   };
   # environment.systemPackages = with pkgs;[ zfs ];
-  srv = {
+  repack = {
     openssh.enable = true;
     fail2ban.enable = true;
     phantomsocks.enable = true;

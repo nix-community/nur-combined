@@ -44,7 +44,6 @@ withSystem "x86_64-linux" (
       user = "elen";
     };
     modules = lib.sharedModules ++ [
-      ../../srv
       ../sysvars.nix
       ./hardware.nix
       ./network.nix

@@ -6,5 +6,5 @@
     "nyaw.key"
   ];
 
-  srv.nginx.enable = true;
+  repack.nginx.enable = true;
 }

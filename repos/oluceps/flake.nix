@@ -141,9 +141,12 @@
           nixosModules =
             let
               shadowedModules = [ "sundial" ];
-              modules = extraLibs.genFilteredDirAttrsV2 ./modules shadowedModules (
-                n: import (./modules + "/${n}.nix")
-              );
+              modules =
+                let
+                  genModule =
+                    dir: extraLibs.genFilteredDirAttrsV2 dir shadowedModules (n: import (dir + "/${n}.nix"));
+                in
+                (genModule ./modules) // { repack = ./repack; };
 
               default =
                 { ... }:

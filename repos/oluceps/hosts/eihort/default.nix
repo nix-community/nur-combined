@@ -45,7 +45,6 @@ withSystem "x86_64-linux" (
       ./spec.nix
       ./sysctl.nix
       ../persist.nix
-      ../../srv
       ../../age.nix
       ../../packages.nix
       ../../misc.nix
