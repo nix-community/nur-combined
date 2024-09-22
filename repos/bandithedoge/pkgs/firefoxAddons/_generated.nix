@@ -759,10 +759,10 @@
   };
   "material-icons-for-github" = buildFirefoxXpiAddon {
     pname = "material-icons-for-github";
-    version = "1.8.26";
+    version = "1.8.27";
     addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4356956/material_icons_for_github-1.8.26.xpi";
-    sha256 = "9b347280fb50ebdb2fe1c42d7188add171ce9940863f326a7fd721722530add4";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4357299/material_icons_for_github-1.8.27.xpi";
+    sha256 = "dc145c859b58b49c16ec07beac97738c4f7e811ebc47e5f9d6e45a116184a8e6";
     meta = with lib; {
       homepage = "https://github.com/Claudiohbsantos/github-material-icons-extension";
       description = "Replace the file/folder icons on github file browsers with icons representing the file's type and which tool it is used by.";
@@ -1305,10 +1305,10 @@
   };
   "refined-github" = buildFirefoxXpiAddon {
     pname = "refined-github";
-    version = "24.8.30";
+    version = "24.9.21";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4345066/refined_github-24.8.30.xpi";
-    sha256 = "5ac5e48e8805182ba9dc1ff4fc6039139a7205f50db185ac1a25584140981560";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4357180/refined_github-24.9.21.xpi";
+    sha256 = "b6cc27d1fb085573fd23dc0bdbaea958fad7adc2a8127fed8950ad5dd1dc9d07";
     meta = with lib; {
       homepage = "https://github.com/refined-github/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";
