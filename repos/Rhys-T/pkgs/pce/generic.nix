@@ -54,7 +54,7 @@ let
     };
 in
 stdenv.mkDerivation {
-    pname = "pce";
+    pname = "pce" + lib.optionalString enableUnfreeROMs "-with-unfree-roms";
     inherit version;
     src = src'';
     # The config file for PCE has to point to the ROM extension file in $out/share/pce
