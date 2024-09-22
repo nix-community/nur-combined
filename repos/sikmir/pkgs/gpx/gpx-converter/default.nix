@@ -15,6 +15,11 @@ python3Packages.buildPythonApplication {
     hash = "sha256-bT94phfkJiOQ8rZn783qOmIph6ck27z18rQQby9uEeg=";
   };
 
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace-fail "'pytest-runner'," ""
+  '';
+
   dependencies = with python3Packages; [
     gpxpy
     numpy
@@ -23,7 +28,6 @@ python3Packages.buildPythonApplication {
 
   nativeCheckInputs = with python3Packages; [
     pytestCheckHook
-    pytest-runner
   ];
 
   disabledTests = [ "test_gpx_to_dictionary" ];

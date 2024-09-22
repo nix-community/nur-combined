@@ -15,9 +15,13 @@ python3Packages.buildPythonPackage {
     hash = "sha256-7NEzRM9B/9f5ODNzDKws7t/9gqbJK7T9AuET+pT26P0=";
   };
 
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace-fail ", 'pytest-runner'" ""
+  '';
+
   nativeBuildInputs = with python3Packages; [
     cython
-    pytest-runner
   ];
 
   dependencies = with python3Packages; [ jinja2 ];
