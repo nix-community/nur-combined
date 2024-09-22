@@ -48,5 +48,21 @@ in
         inherit (cfg) port;
       };
     };
+
+    services.fail2ban.jails = {
+      miniflux = ''
+        enabled = true
+        filter = miniflux
+        port = http,https
+      '';
+    };
+
+    environment.etc = {
+      "fail2ban/filter.d/miniflux.conf".text = ''
+        [Definition]
+        failregex = ^.*msg="[^"]*(Incorrect|Invalid) username or password[^"]*".*client_ip=<ADDR>
+        journalmatch = _SYSTEMD_UNIT=miniflux.service
+      '';
+    };
   };
 }
