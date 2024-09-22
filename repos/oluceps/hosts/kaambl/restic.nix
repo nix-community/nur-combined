@@ -1,6 +1,6 @@
 { config, ... }:
 {
-  restic = {
+  services.restic = {
     backups = {
       # critic = {
       #   passwordFile = config.age.secrets.wg.path;
