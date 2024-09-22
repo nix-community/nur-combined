@@ -77,18 +77,18 @@
   } // builtins.removeAttrs args [ "pname" "hash" ]);
 in stdenv.mkDerivation (final: {
   pname = "ferdium";
-  version = "6.7.6";
+  version = "6.7.7";
 
   src = fetchFromGitHub {
     owner = "ferdium";
     repo = "ferdium-app";
     rev = "v${final.version}";
-    hash = "sha256-1CrTF4yBq0OYXN/xTeKi2bf0k/mhHbJ9e6yY7tHLArY=";
+    hash = "sha256-uASDeujHidDxP6fJNBrq+j+8z4j/M4nuUGhCXIDTcLw=";
   };
 
   pnpmDeps = mkPnpmDeps {
     inherit (final) pname version src;
-    hash = "sha256-QViCrhe0SrpbIAmnQj5holIExJXz7/UPfBOvkTSHUVE=";
+    hash = "sha256-LxLPBTEZac83DfMury/EFc9QrOPbqxkOHHFS8a2DxM0=";
   };
 
   recipes = stdenv.mkDerivation (recipesFinal: {
@@ -98,13 +98,13 @@ in stdenv.mkDerivation (final: {
     src = fetchFromGitHub {
       owner = "ferdium";
       repo = "ferdium-recipes";
-      rev = "e6d921aead128b51ef5f0eaa74e7b29038fe537a";
-      hash = "sha256-KOhRL5b2lcXBLtrtT/H6AzpAY83BptSmsvLE9jan0G8=";
+      rev = "e419e881b386c2fdc3faec145d8b6499b80fdf02";
+      hash = "sha256-dRBVA5P2EqExTMzuXrKczNZGSr+YYKPi8ZJkg3O0oi4=";
     };
 
     pnpmDeps = mkPnpmDeps {
       inherit (recipesFinal) pname version src;
-      hash = "sha256-Pl3O0iwH6fDcCzNprjeHz6/1Z6oOTvZ2duxKJfrtJ6Y=";
+      hash = "sha256-gQZr0nlfmRWSnzbOqNDtFDc1hf24cblA2fKEGlE6EuM=";
     };
 
     inherit (fixupPackageJson) pnpmPatch;
@@ -226,10 +226,11 @@ in stdenv.mkDerivation (final: {
     inherit (final) recipes;
   };
 
-  meta = {
+  meta = with lib; {
     description = "All your services in one place built by the community";
     homepage = "https://ferdium.org/";
-    license = lib.licenses.asl20;
+    changelog = "https://github.com/ferdium/ferdium-app/releases/tag/v${final.version}";
+    license = licenses.asl20;
     platforms = electron.meta.platforms;
     mainProgram = "ferdium";
   };
