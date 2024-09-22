@@ -5,17 +5,17 @@ in callPackage ./generic.nix (thruArgs // rec {
     includesUnfreeROMs = true;
     src = rec {
         name = "pce-${version}.tar.gz";
-        url = http://www.hampa.ch/pub/pce + "/pce-${version}.tar.gz";
+        url = "http://www.hampa.ch/pub/pce/pce-${version}.tar.gz";
         hashWithROMs = "sha256-qMBWD8vwzBVMj1ASGG89OVKv29FEtBkSTAmlb5uquZk=";
         hashWithoutROMs = "sha256-z65BS+arlhem1Z0CN9W5S4p4M3onQNqX804kFeRonME=";
         withoutROMs = fetchurl {
-            url = "https://raw.githubusercontent.com/Rhys-T/nur-packages/7d88b23d8051f76572d43178479638da1ca412cf/pce-without-unfree-roms-0.2.2.tar.gz";
+            url = "https://raw.githubusercontent.com/Rhys-T/nur-packages/7d88b23d8051f76572d43178479638da1ca412cf/pce-without-unfree-roms-${version}.tar.gz";
             hash = hashWithoutROMs;
         };
     };
     patches = [(fetchpatch {
         name = "0001-68000-Add-a-missing-extern-declaration.patch";
-        url = http://git.hampa.ch/pce.git/patch/f9ebfc33107a10436506861601b162df98ca743e;
+        url = "http://git.hampa.ch/pce.git/patch/f9ebfc33107a10436506861601b162df98ca743e";
         # Fix the changes to the copyright header comment,
         # because otherwise the patch doesn't apply correctly.
         decode = "sed 's/(C) 2005-2018/(C) 2005-2009/'";

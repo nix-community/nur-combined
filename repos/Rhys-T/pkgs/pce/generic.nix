@@ -84,7 +84,7 @@ stdenv.mkDerivation {
     meta = {
         description = "PC Emulator";
         longDescription = "PCE is a collection of microcomputer emulators.";
-        homepage = "http://hampa.ch/pce/";
+        homepage = "http://www.hampa.ch/pce/";
         changelog = "http://git.hampa.ch/pce.git/shortlog/${if gitRev != null then gitRev else "refs/tags/pce-${version}"}";
         license = [lib.licenses.gpl2Only] ++ lib.optional enableUnfreeROMs lib.licenses.unfree;
         maintainers = [maintainers.Rhys-T];
