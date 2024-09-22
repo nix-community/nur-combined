@@ -9278,10 +9278,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.8.30";
+      version = "24.9.21";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4345066/refined_github-24.8.30.xpi";
-      sha256 = "5ac5e48e8805182ba9dc1ff4fc6039139a7205f50db185ac1a25584140981560";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4357180/refined_github-24.9.21.xpi";
+      sha256 = "b6cc27d1fb085573fd23dc0bdbaea958fad7adc2a8127fed8950ad5dd1dc9d07";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -9947,10 +9947,10 @@
     };
     "smartproxy" = buildFirefoxXpiAddon {
       pname = "smartproxy";
-      version = "1.5";
+      version = "1.6";
       addonId = "smartproxy@salarcode.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4323346/smartproxy-1.5.xpi";
-      sha256 = "d53a6c2cdf87811259b7503b2109cced0b0e29cdec6f4a22b049fb28009819cc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4357030/smartproxy-1.6.xpi";
+      sha256 = "74cb79468bb5d38e628d3caeac5b5a31b4aa2812cbe0781202eec9a8b92b3a52";
       meta = with lib;
       {
         homepage = "https://github.com/salarcode/SmartProxy";
