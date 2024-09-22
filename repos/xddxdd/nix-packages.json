@@ -417,7 +417,7 @@
   "legacyPackages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
     "pname": "i915-sriov-unstable",
-    "version": "2024-08-11"
+    "version": "2024-09-22"
   },
   "legacyPackages.x86_64-linux.imewlconverter": {
     "description": "”深蓝词库转换“ 一款开源免费的输入法词库转换程序",
@@ -492,7 +492,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "3799"
+    "version": "3802"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -3362,7 +3362,7 @@
   "packages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
     "pname": "i915-sriov-unstable",
-    "version": "2024-08-11"
+    "version": "2024-09-22"
   },
   "packages.x86_64-linux.imewlconverter": {
     "description": "”深蓝词库转换“ 一款开源免费的输入法词库转换程序",

@@ -900,7 +900,7 @@
     },
     "i915-sriov-dkms": {
         "cargoLocks": null,
-        "date": "2024-08-11",
+        "date": "2024-09-22",
         "extract": null,
         "name": "i915-sriov-dkms",
         "passthru": null,
@@ -912,12 +912,12 @@
             "name": null,
             "owner": "strongtz",
             "repo": "i915-sriov-dkms",
-            "rev": "94c61cc345f7e145b6f1ff336846ccc0ae807b86",
-            "sha256": "sha256-JmGBVfXlxqCommGXVSx8ecz+1e/VC0Crc+4PadQHJsI=",
+            "rev": "13f855c39d0326bb2be6febb7f4317d50e7a3f34",
+            "sha256": "sha256-Km+FuHRBl2qe8q7MDDqmRfSJrCzPgI05MqdYak6fpGs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "94c61cc345f7e145b6f1ff336846ccc0ae807b86"
+        "version": "13f855c39d0326bb2be6febb7f4317d50e7a3f34"
     },
     "imewlconverter": {
         "cargoLocks": null,
@@ -1377,12 +1377,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3799",
-            "sha256": "sha256-eF3uhHpNY18PGfVgF5l7EmorUcEjPW/FX5gWTXQNbfg=",
+            "rev": "b3802",
+            "sha256": "sha256-Ze/1x3+ZIt3u7ZHW8jPurag46+tyFx9bR3/H/mF5QiA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3799"
+        "version": "b3802"
     },
     "lyrica": {
         "cargoLocks": null,

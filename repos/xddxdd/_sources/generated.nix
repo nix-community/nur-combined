@@ -509,15 +509,15 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "94c61cc345f7e145b6f1ff336846ccc0ae807b86";
+    version = "13f855c39d0326bb2be6febb7f4317d50e7a3f34";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "94c61cc345f7e145b6f1ff336846ccc0ae807b86";
+      rev = "13f855c39d0326bb2be6febb7f4317d50e7a3f34";
       fetchSubmodules = false;
-      sha256 = "sha256-JmGBVfXlxqCommGXVSx8ecz+1e/VC0Crc+4PadQHJsI=";
+      sha256 = "sha256-Km+FuHRBl2qe8q7MDDqmRfSJrCzPgI05MqdYak6fpGs=";
     };
-    date = "2024-08-11";
+    date = "2024-09-22";
   };
   imewlconverter = {
     pname = "imewlconverter";
@@ -764,13 +764,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3799";
+    version = "b3802";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3799";
+      rev = "b3802";
       fetchSubmodules = false;
-      sha256 = "sha256-eF3uhHpNY18PGfVgF5l7EmorUcEjPW/FX5gWTXQNbfg=";
+      sha256 = "sha256-Ze/1x3+ZIt3u7ZHW8jPurag46+tyFx9bR3/H/mF5QiA=";
     };
   };
   lyrica = {
