@@ -1,6 +1,6 @@
 {
     stdenv, stdenvNoCC, lib, requireFile,
-    version, src, patches ? [],
+    version, gitRev ? null, src, patches ? [],
     supportsSDL2, includesUnfreeROMs,
     withX11 ? false, withSDL ? if supportsSDL2 then 2 else 1,
     withReadline ? true,
@@ -84,6 +84,8 @@ stdenv.mkDerivation {
     meta = {
         description = "PC Emulator";
         longDescription = "PCE is a collection of microcomputer emulators.";
+        homepage = "http://hampa.ch/pce/";
+        changelog = "http://git.hampa.ch/pce.git/shortlog/${if gitRev != null then gitRev else "refs/tags/pce-${version}"}";
         license = [lib.licenses.gpl2Only] ++ lib.optional enableUnfreeROMs lib.licenses.unfree;
         maintainers = [maintainers.Rhys-T];
         sourceProvenance = with lib.sourceTypes; [
