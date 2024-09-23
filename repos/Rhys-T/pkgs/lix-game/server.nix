@@ -19,5 +19,8 @@
         description = "${common.meta.description} (standalone multiplayer server)";
         license = lib.licenses.cc0;
         mainProgram = "lixserv";
+        # derelict-enet currently only knows how to find the enet library for Windows, macOS, and Linux.
+        # It could probably be patched to work on *BSD if needed.
+        platforms = with lib.platforms; linux ++ darwin;
     };
 }

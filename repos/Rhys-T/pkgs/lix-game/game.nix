@@ -80,6 +80,9 @@
             description = "${common.meta.description} (game engine only)";
             license = lib.licenses.cc0;
             mainProgram = "lix";
+            # derelict-enet currently only knows how to find the enet library for Windows, macOS, and Linux.
+            # It could probably be patched to work on *BSD if needed.
+            platforms = with lib.platforms; linux ++ darwin;
         };
     };
 in lix-game
