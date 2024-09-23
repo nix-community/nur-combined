@@ -889,6 +889,8 @@ rebased
 rebasing
 Rebecca
 reblog
+recalibrate
+recalibrated
 reCAPTCHA
 reciprocative
 recompiler
@@ -1178,6 +1180,9 @@ unescape
 unescaped
 unevaluated
 unforgeable
+ungoogle
+ungoogled
+ungoogling
 unhandled
 unheld
 unhide
