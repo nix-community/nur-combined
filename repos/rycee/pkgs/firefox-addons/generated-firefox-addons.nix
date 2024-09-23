@@ -1215,10 +1215,10 @@
     };
     "catppuccin-gh-file-explorer" = buildFirefoxXpiAddon {
       pname = "catppuccin-gh-file-explorer";
-      version = "0.10.0";
+      version = "0.11.0";
       addonId = "{bbb880ce-43c9-47ae-b746-c3e0096c5b76}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4352836/catppuccin_gh_file_explorer-0.10.0.xpi";
-      sha256 = "fe51203d050fe7027b733ffaf5fae2328cee5a40ec627787c286dfb0940590df";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4357529/catppuccin_gh_file_explorer-0.11.0.xpi";
+      sha256 = "31d311298a0abfa81fb45efdfd1e9fbc8d26adc983e68334334cac3d7bc844cb";
       meta = with lib;
       {
         homepage = "https://github.com/catppuccin/github-file-explorer-icons";
@@ -2779,10 +2779,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.28.1";
+      version = "1.3.29";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4353587/faststream-1.3.28.1.xpi";
-      sha256 = "20cb0c244782be4fa40c2d7d43b0c99fcea79d29b5cfcf3c854c70cfe1d46d14";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4357596/faststream-1.3.29.xpi";
+      sha256 = "17de4f2008b4faf736bb5cfcf880989d49671348670812b332951638f21200df";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -2806,6 +2806,7 @@
           "https://youtube.com/*"
           "https://m.youtube.com/*"
           "https://music.youtube.com/*"
+          "https://www.youtube-nocookie.com/*"
           "<all_urls>"
         ];
         platforms = platforms.all;
@@ -5929,10 +5930,10 @@
     };
     "libredirect" = buildFirefoxXpiAddon {
       pname = "libredirect";
-      version = "3.0.1";
+      version = "3.0.2";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4353036/libredirect-3.0.1.xpi";
-      sha256 = "1c0fe68c3765250fc11fb3755f399efdec0003f6b11d87a2b132b9c936d9768c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4357391/libredirect-3.0.2.xpi";
+      sha256 = "9cf22f4a9ad7789c85bfff657b73ead7f846c7e340879801799114a850cc4e64";
       meta = with lib;
       {
         homepage = "https://libredirect.github.io";
