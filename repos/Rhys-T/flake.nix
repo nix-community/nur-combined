@@ -19,6 +19,6 @@
         pkgs = import nixpkgs { inherit system; };
       });
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
-      apps = forAllSystems (system: nixpkgs.lib.concatMapAttrs (name: value: (value.meta._Rhys-T.flakeApps or (name: value: {})) name value) self.packages.${system});
+      apps = forAllSystems (system: nixpkgs.lib.concatMapAttrs (name: value: (value._Rhys-T.flakeApps or (name: value: {})) name value) self.packages.${system});
     };
 }

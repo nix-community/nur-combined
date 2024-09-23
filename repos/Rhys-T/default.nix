@@ -39,4 +39,5 @@ rec {
     burgerspace = pkgs.callPackage ./pkgs/flatzebra/burgerspace.nix { inherit flatzebra maintainers; };
     
     hfsutils = pkgs.callPackage ./pkgs/hfsutils { inherit maintainers; };
+    hfsutils-tk = hfsutils.override { enableTclTk = true; };
 }

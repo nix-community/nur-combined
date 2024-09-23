@@ -99,10 +99,10 @@ stdenv.mkDerivation {
             # haven't gotten that part working under Nix yet.
             binaryBytecode
         ];
-        
-        _Rhys-T.flakeApps = pceName: pce: builtins.listToAttrs (map (appName: lib.nameValuePair (builtins.replaceStrings ["pce"] [appName] pceName) {
-            type = "app";
-            program = lib.getExe' pce appName;
-        }) appNames);
     };
+    
+    passthru._Rhys-T.flakeApps = pceName: pce: builtins.listToAttrs (map (appName: lib.nameValuePair (builtins.replaceStrings ["pce"] [appName] pceName) {
+        type = "app";
+        program = lib.getExe' pce appName;
+    }) appNames);
 }

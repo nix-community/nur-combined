@@ -102,10 +102,11 @@ in stdenv.mkDerivation (finalAttrs: let self = finalAttrs.finalPackage; in {
         '';
         homepage = "https://bub-n-bros.sourceforge.net/";
         knownVulnerabilities = [''
-            ${self.pname} depends on python277 (EOL).
+            ${self.pname} depends on python27 (EOL).
             Avoid exposing its server or client to untrusted networks.
         ''];
         license = with lib.licenses; [mit artistic2];
+        mainProgram = "bubbros";
         maintainers = [maintainers.Rhys-T];
     };
 })

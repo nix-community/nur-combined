@@ -17,6 +17,7 @@
         description = "Hamburger-smashing video game";
         homepage = "http://perso.b2b2c.ca/~sarrazip/dev/burgerspace.html";
         license = lib.licenses.gpl2Plus;
+        mainProgram = "burgerspace";
         maintainers = [maintainers.Rhys-T];
     };
 }

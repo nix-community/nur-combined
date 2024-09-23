@@ -1,0 +1,53 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Rhys-T <108157737+Rhys-T@users.noreply.github.com>
+Date: Mon, 23 Sep 2024 09:29:17 -0400
+Subject: [PATCH 1/2] Don't set[ug]id unless it's actually different
+
+On macOS, doing so trips the `issetugid` flag, causing AppKit (and by
+extension `xhfs`) to self-destruct - even if the [ug]id didn't
+actually change. Plus, there's no point in making system calls that
+won't actually do anything useful.
+---
+ suid.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/suid.c b/suid.c
+index be21ee2..2970f0e 100644
+--- a/suid.c
++++ b/suid.c
+@@ -69,13 +69,13 @@ void suid_enable(void)
+ {
+ # ifdef HAVE_SETREUID
+ 
+-  setreuid(-1, euid);
+-  setregid(-1, egid);
++  if(euid != uid) setreuid(-1, euid);
++  if(egid != gid) setregid(-1, egid);
+ 
+ # else
+ 
+-  setuid(euid);
+-  setgid(egid);
++  if(euid != uid) setuid(euid);
++  if(egid != gid) setgid(egid);
+ 
+ # endif
+ }
+@@ -88,13 +88,13 @@ void suid_disable(void)
+ {
+ # ifdef HAVE_SETREUID
+ 
+-  setreuid(-1, uid);
+-  setregid(-1, gid);
++  if(euid != uid) setreuid(-1, uid);
++  if(egid != gid) setregid(-1, gid);
+ 
+ # else
+ 
+-  setuid(uid);
+-  setgid(gid);
++  if(euid != uid) setuid(uid);
++  if(egid != gid) setgid(gid);
+ 
+ # endif
+ }
