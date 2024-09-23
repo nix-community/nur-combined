@@ -1,0 +1,12 @@
+diff --git a/src/core/cpu/arm_disasm.hpp b/src/core/cpu/arm_disasm.hpp
+index bd8ec0c..446c889 100644
+--- a/src/core/cpu/arm_disasm.hpp
++++ b/src/core/cpu/arm_disasm.hpp
+@@ -1,6 +1,7 @@
+ #ifndef ARM_DISASM_HPP
+ #define ARM_DISASM_HPP
+ 
++#include <cstdint>
+ #include <string>
+ 
+ enum ARM_INSTR

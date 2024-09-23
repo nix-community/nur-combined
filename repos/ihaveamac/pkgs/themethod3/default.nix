@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
     ./add-Cargo.lock.patch
   ];
 
-  cargoSha256 = "sha256-uUobNvQKDabJKyod1YThc9kGvK4cZfhIOL1uK1w0VAk=";
+  cargoHash = "sha256-ehDBjBZqyVwOBv1QBe2y+2xt1fvq46mRy7io+zuzHP4=";
 
   meta = with lib; {
     description = "Tool for decrypting all mogg files used by the Rock Band series";
