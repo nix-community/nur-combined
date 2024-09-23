@@ -2,15 +2,14 @@
 let
   cfg = config.services.hatsu;
 
+  sqliteLocal = cfg.database.type == "sqlite" && cfg.database.createLocally;
+
   env = {
     HATSU_LISTEN_HOST = cfg.host;
     HATSU_LISTEN_PORT = toString cfg.port;
     HATSU_DOMAIN = cfg.domain;
     HATSU_PRIMARY_ACCOUNT = cfg.primaryAccount;
     HATSU_DATABASE_URL = cfg.database.url;
-    # if cfg.database.url != null
-    # then cfg.database.url
-    # else (lib.mkIf (cfg.database.createLocally) "postgres:///hatsu?host=/run/postgresql&user=hatsu");
   } // (
     lib.mapAttrs (_: toString) cfg.settings
   );
@@ -24,12 +23,6 @@ in
 
     package = lib.mkPackageOption pkgs "hatsu" { };
 
-    host = lib.mkOption {
-      type = lib.types.str;
-      default = "127.0.0.1";
-      description = "Host where hatsu should listen for incoming requests.";
-    };
-
     port = lib.mkOption {
       type = lib.types.port;
       default = 3939;
@@ -42,24 +35,37 @@ in
       description = "The domain name of your instance (eg 'hatsu.local').";
     };
 
+    dataDir = lib.mkOption {
+      type = lib.types.str;
+      default = "/var/lib/hatsu";
+      description = "Hatsu data directory. (for sqlite database only)";
+    };
+
     database = {
       type = lib.mkOption {
         type = lib.types.enum [
           "sqlite"
-          "postgresql"
+          "postgres"
         ];
         default = "sqlite";
         description = "Database type.";
       };
 
       url = lib.mkOption {
-        type = lib.types.str;
-        description = "Database URL.";
-        default = "sqlite:///var/lib/hatsu/db.sqlite?mode=rwc";
+        type = lib.types.nullOr lib.types.str;
+        default =
+          if sqliteLocal then
+            "sqlite://${cfg.dataDir}/hatsu.sqlite?mode=rwc"
+          else null;
         example = "postgres://username:password@host/database";
+        description = "Database URL.";
       };
 
-      # createLocally = lib.mkEnableOption "Whether to create a local database automatically.";
+      createLocally = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Whether to create a local database automatically. (currently only supported for SQLite)";
+      };
     };
 
     settings = lib.mkOption {
@@ -77,25 +83,20 @@ in
 
   config = lib.mkIf cfg.enable
     {
-      users.groups.hatsu = { };
-      users.users.hatsu = {
-        group = "hatsu";
-        isSystemUser = true;
-      };
-
       systemd.services.hatsu = {
-        description = "Hatsu server";
         environment = env;
+
+        description = "Hatsu server";
         documentation = [ "https://hatsu.cli.rs/" ];
+
         wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ]; # ++ lib.optional cfg.database.createLocally "postgresql.service";
-        # requires = lib.optional cfg.database.createLocally "postgresql.service";
+        after = [ "network-online.target" ];
+        wants = [ "network-online.target" ];
+
         serviceConfig = {
-          ExecStart = "${cfg.package}/bin/hatsu";
-          Restart = "on-failure";
-          Group = "hatsu";
-          User = "hatsu";
-          StateDirectory = "hatsu";
+          DynamicUser = true;
+          WorkingDirectory = cfg.dataDir;
+          ExecStart = "${lib.getExe cfg.package}";
         };
       };
     };
