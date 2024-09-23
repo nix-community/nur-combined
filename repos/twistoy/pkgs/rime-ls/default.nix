@@ -8,13 +8,13 @@
 }:
 rustPlatform.buildRustPackage {
   pname = "rime-ls";
-  version = "2024-02-29";
+  version = "v0.4.0";
 
   src = fetchFromGitHub {
-    owner = "TwIStOy";
+    owner = "wlh320";
     repo = "rime-ls";
-    rev = "2d6e765e268b789ab02d177556f701db1711b16a";
-    sha256 = "sha256-Q1o/a1M8dy5mZDiWOVVhNl5rYzLsrRdL9dXfsLgcu1I=";
+    rev = "v0.4.0";
+    sha256 = "sha256-ZqoRFIF3ehfEeTN+ZU+/PAzA4JyS1403+sqZdzwJHA8=";
   };
 
   nativeBuildInputs = [
@@ -25,14 +25,11 @@ rustPlatform.buildRustPackage {
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "librime-sys-0.1.0" = "sha256-Q8JrPksXUhTNC4qCJgezYyC/WSZ0EP8aGs0duwwT7/k=";
+      "librime-sys-0.1.0" = "sha256-zJShR0uaKH42RYjTfrBFLM19Jaz2r/4rNn9QIumwTfA=";
     };
   };
 
-  postPatch = ''
-    # update Cargo.lock to fix build
-    ln -sf ${./Cargo.lock} Cargo.lock
-  '';
+  cargoHash = lib.fakeHash;
 
   C_INCLUDE_PATH = "${librime}/include";
   LIBRARY_PATH = "${librime}/lib";
