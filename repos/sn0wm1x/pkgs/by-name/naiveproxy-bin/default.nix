@@ -1,0 +1,50 @@
+{ stdenv
+, fetchurl
+, autoPatchelfHook
+, lib
+, ...
+}:
+stdenv.mkDerivation rec {
+  pname = "naiveproxy";
+  version = "128.0.6613.40-1";
+  preferLocalBuild = true;
+
+  src = fetchurl {
+    # aarch64-linux = {
+    #   url = "https://github.com/klzgrad/naiveproxy/releases/download/v${version}/naiveproxy-v${version}-linux-arm64.tar.xz";
+    #   hash = "";
+    # };
+    x86_64-linux = {
+      url = "https://github.com/klzgrad/naiveproxy/releases/download/v${version}/naiveproxy-v${version}-linux-x64.tar.xz";
+      hash = "sha256-wvORRJ3fepQpjX35Ks3U/8jBJhSqsGLyUDauzClUmYU=";
+    };
+  }.${stdenv.system} or (throw "naiveproxy-bin: ${stdenv.system} is unsupported.");
+
+  nativeBuildInputs = [ autoPatchelfHook ];
+  buildInputs = [ stdenv.cc.cc.libgcc ];
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/bin
+    install -Dm755 naive $out/bin/naiveproxy
+
+    mkdir -p $out/share/doc/naiveproxy
+    install -Dm644 -t $out/share/doc/naiveproxy LICENSE USAGE.txt
+
+    runHook postInstall
+  '';
+
+  meta = {
+    broken = stdenv.isAarch64; # WIP
+    description = "Self-hosted and fully-automated ActivityPub bridge for static sites";
+    homepage = "https://github.com/klzgrad/naiveproxy";
+    downloadPage = "https://github.com/klzgrad/naiveproxy/releases";
+    changelog = "https://github.com/klzgrad/naiveproxy/releases/tag/v${version}";
+    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    license = lib.licenses.bsd3;
+    mainProgram = "naiveproxy";
+    maintainers = with lib.maintainers; [ kwaa ];
+    platforms = lib.platforms.linux;
+  };
+}
