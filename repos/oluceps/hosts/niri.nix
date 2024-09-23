@@ -5,7 +5,11 @@
   ...
 }:
 {
-  programs.niri.enable = true;
+  programs.niri = {
+    # aligh waybar rpc etc
+    package = pkgs.niri;
+    enable = true;
+  };
   services.greetd = {
     enable = true;
     settings = rec {
@@ -33,7 +37,7 @@
         wantedBy = [ "niri.service" ];
         wants = [ "graphical-session.target" ];
         after = [ "graphical-session.target" ];
-        path = [ (lib.makeBinPath [ pkgs.pw-volume ]) ];
+        # path = [ (lib.makeBinPath [ pkgs.niri ]) ];
         serviceConfig = {
           ExecStart = lib.getExe pkgs.waybar;
           Restart = "on-failure";

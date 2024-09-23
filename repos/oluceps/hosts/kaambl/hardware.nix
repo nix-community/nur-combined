@@ -171,8 +171,6 @@
     };
     kernelModules = [
       "kvm-amd"
-      "dm_sflc"
-      "pico_rng"
       "brutal"
     ];
     kernelParams = [
@@ -191,8 +189,6 @@
       [
         v4l2loopback
         (callPackage "${self}/pkgs/tcp-brutal.nix" { })
-        (callPackage "${self}/pkgs/shufflecake.nix" { })
-        (callPackage "${self}/pkgs/pico-rng.nix" { })
       ];
     kernelPackages = inputs'.nyx.packages.linuxPackages_cachyos;
     # pkgs.linuxPackages_latest;

@@ -23,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
   nativeBuildInputs = kernel.moduleBuildDependencies;
   installPhase = ''
-    install -D $out/src/pico_rng.ko $out/lib/modules/${kernel.modDirVersion}/driver/pico_rng.ko
+    install -D $out/src/pico_rng.ko $out/lib/modules/${kernel.modDirVersion}/drivers/pico_rng.ko
     rm -r $out/src
   '';
 })
