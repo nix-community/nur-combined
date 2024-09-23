@@ -37,4 +37,6 @@ rec {
     
     flatzebra = pkgs.callPackage ./pkgs/flatzebra { inherit maintainers; };
     burgerspace = pkgs.callPackage ./pkgs/flatzebra/burgerspace.nix { inherit flatzebra maintainers; };
+    
+    hfsutils = pkgs.callPackage ./pkgs/hfsutils { inherit maintainers; };
 }
