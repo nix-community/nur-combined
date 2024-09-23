@@ -61,6 +61,7 @@
           ];
           crypt = [
             minisign
+            ent
             rage
             age-plugin-yubikey
             cryptsetup

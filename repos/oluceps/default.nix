@@ -30,6 +30,7 @@ let
     "violet"
     "typst-ts-cli"
     "python"
+    "pico-rng"
   ];
 in
 (genFilteredDirAttrsV2 ./pkgs shadowedPkgs (name: pkgs.callPackage (./pkgs + "/${name}.nix") { }))
