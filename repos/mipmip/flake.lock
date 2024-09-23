@@ -515,6 +515,21 @@
         "type": "indirect"
       }
     },
+    "nixpkgs_10": {
+      "locked": {
+        "lastModified": 1726838390,
+        "narHash": "sha256-NmcVhGElxDbmEWzgXsyAjlRhUus/nEqPC5So7BOJLUM=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "944b2aea7f0a2d7c79f72468106bc5510cbf5101",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixos-24.05",
+        "type": "indirect"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1703961334,
@@ -724,6 +739,7 @@
         "nixpkgs-2311": "nixpkgs-2311",
         "nixpkgs-pine64": "nixpkgs-pine64",
         "race": "race",
+        "shellstuff": "shellstuff",
         "unstable": "unstable"
       }
     },
@@ -740,6 +756,24 @@
       "original": {
         "owner": "andreymatin",
         "repo": "scss-reset",
+        "type": "github"
+      }
+    },
+    "shellstuff": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_10"
+      },
+      "locked": {
+        "lastModified": 1727085734,
+        "narHash": "sha256-jhn9pt0NiwTUB2HqL9oJgaWguckVPehR7J0N5pQFMmM=",
+        "owner": "mipmip",
+        "repo": "nix-shellstuff",
+        "rev": "e3a45aa51da6ec73758455cdd8276ec6be47d247",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mipmip",
+        "repo": "nix-shellstuff",
         "type": "github"
       }
     },

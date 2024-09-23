@@ -30,6 +30,7 @@
     race.url = "github:wearetechnative/race";
     dirtygit.url = "github:mipmip/dirtygit";
     jsonify-aws-dotfiles.url = "github:mipmip/jsonify-aws-dotfiles";
+    shellstuff.url = "github:mipmip/nix-shellstuff";
 
     nixpkgs-pine64.url = "nixpkgs/dfd82985c273aac6eced03625f454b334daae2e8";
     mobile-nixos = {
@@ -59,7 +60,7 @@
 
     nixified-ai,
 
-    jsonify-aws-dotfiles, dirtygit, bmc, race,
+    jsonify-aws-dotfiles, dirtygit, bmc, race, shellstuff,
 
     nixpkgs-pine64, mobile-nixos, home-manager-pine64,
 
@@ -99,6 +100,7 @@
           bmc.packages."${defaultSystem}".bmc
           jsonify-aws-dotfiles.packages."${defaultSystem}".jsonify-aws-dotfiles
           race.packages."${defaultSystem}".race
+          shellstuff.packages."${defaultSystem}".shellstuff
         ];
       };
 

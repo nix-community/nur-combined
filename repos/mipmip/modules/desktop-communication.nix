@@ -20,7 +20,6 @@
     v4l-utils
 
     zoom-us
-    skypeforlinux
     #rustdesk
     # teams
 
