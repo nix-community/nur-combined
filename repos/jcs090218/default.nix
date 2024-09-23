@@ -16,4 +16,5 @@
 
   # List of your packages!
   flx-rs = pkgs.callPackage ./pkgs/flx-rs { };
+  flxy-rs = pkgs.callPackage ./pkgs/flxy-rs { };
 }
