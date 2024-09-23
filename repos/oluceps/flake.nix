@@ -84,6 +84,7 @@
                   "glowsans" # multi pkgs
                   "opulr-a-run" # ?
                   "tcp-brutal" # kernelModule
+                  "pico-rng"
                   "shufflecake"
                 ];
               in
@@ -129,6 +130,7 @@
                 shadowedPkgs = [
                   "tcp-brutal"
                   "shufflecake"
+                  "pico-rng"
                 ];
               in
               extraLibs.genFilteredDirAttrsV2 ./pkgs shadowedPkgs (
