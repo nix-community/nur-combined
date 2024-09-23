@@ -7,6 +7,7 @@
     enableUnfreeROMs ? false,
     libX11 ? null, SDL ? null, SDL2 ? null,
     readline ? null,
+    appNames ? [],
     maintainers
 }:
 assert builtins.elem withSDL [false 1 2];
@@ -98,5 +99,10 @@ stdenv.mkDerivation {
             # haven't gotten that part working under Nix yet.
             binaryBytecode
         ];
+        
+        _Rhys-T.flakeApps = pceName: pce: builtins.listToAttrs (map (appName: lib.nameValuePair (builtins.replaceStrings ["pce"] [appName] pceName) {
+            type = "app";
+            program = lib.getExe' pce appName;
+        }) appNames);
     };
 }

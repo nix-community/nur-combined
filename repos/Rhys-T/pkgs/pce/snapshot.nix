@@ -11,4 +11,23 @@ in callPackage ./generic.nix (thruArgs // {
         hash = "sha256-9a6F2/DrjGby7f0IGOT1oEpeLuNdiedBgtVtZiiR8zQ=";
     };
     supportsSDL2 = true;
+    appNames = [
+        "aym"
+        "pce-atarist"
+        "pce-cpm80"
+        "pce-dos"
+        "pce-ibmpc"
+        "pce-img"
+        "pce-macplus"
+        "pce-rc759"
+        "pce-sim405"
+        "pce-simarm"
+        "pce-sims32"
+        "pce-spectrum"
+        "pce-vic20"
+        "pfi"
+        "pri"
+        "psi"
+        "pti"
+    ];
 })

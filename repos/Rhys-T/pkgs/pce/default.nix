@@ -22,4 +22,16 @@ in callPackage ./generic.nix (thruArgs // rec {
         hash = "sha256-T3Fc4yHANjpE1Peh7Fipuk5rqFrSCpGK1f5HWyz/Q5g=";
     })];
     supportsSDL2 = false;
+    appNames = [
+        "pbit"
+        "pce-ibmpc"
+        "pce-img"
+        "pce-macplus"
+        "pce-rc759"
+        "pce-sim405"
+        "pce-sim6502"
+        "pce-simarm"
+        "pce-sims32"
+        "pfdc"
+    ];
 })
