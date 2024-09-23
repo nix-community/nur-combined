@@ -20,7 +20,8 @@ python3.pkgs.buildPythonPackage rec {
     setuptools-scm
   ];
 
-  pythonRemoveDeps = [ "z3-solver" ]; # https://github.com/NixOS/nixpkgs/blob/1d28f484f4a92f6ef8facea80ea4e3fe3aa153bc/pkgs/development/python-modules/model-checker/default.nix#L24-L25
+  # z3 does not provide a dist-info, so python-runtime-deps-check will fail
+  pythonRemoveDeps = [ "z3-solver" ];
   
   dependencies = with python3.pkgs; [
     sortedcontainers
