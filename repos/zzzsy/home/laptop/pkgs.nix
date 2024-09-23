@@ -87,8 +87,8 @@ let
     texlive.combined.scheme-full
     asciidoc-full
     ghex
-    handbrake
-    scilab-bin
+    #handbrake
+    #scilab-bin
     #feishu
     #mathematica
     #virtualbox

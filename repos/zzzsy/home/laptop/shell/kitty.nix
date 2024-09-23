@@ -7,7 +7,7 @@
     settings = {
       tab_bar_edge = "top";
       bold_font = "Iosevka ZT Semibold Extended";
-      italic_font = "Iosevka ZT Semibold Italic";
+      italic_font = "Iosevka ZT Italic Extended";
       bold_italic_font = "ZT Semibold Extended Italic";
       enable_audio_bell = false;
       scrollback_lines = 8000;
@@ -24,6 +24,6 @@
       "alt+shift+right" = "resize_window wider";
     };
     # https://github.com/kovidgoyal/kitty-themes/blob/master/themes.json
-    theme = "Everforest Dark Medium";
+    themeFile = "everforest_dark_medium";
   };
 }
