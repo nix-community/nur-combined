@@ -10,10 +10,10 @@ stdenv.mkDerivation rec {
   preferLocalBuild = true;
 
   src = fetchurl {
-    # aarch64-linux = {
-    #   url = "https://github.com/klzgrad/naiveproxy/releases/download/v${version}/naiveproxy-v${version}-linux-arm64.tar.xz";
-    #   hash = "";
-    # };
+    aarch64-linux = {
+      url = "https://github.com/klzgrad/naiveproxy/releases/download/v${version}/naiveproxy-v${version}-linux-arm64.tar.xz";
+      hash = "sha256-xs2VH5DWR0Q0JphFNL/dthaWk6gnHY5Iw0TDEDyA3LY=";
+    };
     x86_64-linux = {
       url = "https://github.com/klzgrad/naiveproxy/releases/download/v${version}/naiveproxy-v${version}-linux-x64.tar.xz";
       hash = "sha256-wvORRJ3fepQpjX35Ks3U/8jBJhSqsGLyUDauzClUmYU=";
@@ -36,8 +36,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    broken = stdenv.isAarch64; # WIP
-    description = "Self-hosted and fully-automated ActivityPub bridge for static sites";
+    description = "Make a fortune quietly";
     homepage = "https://github.com/klzgrad/naiveproxy";
     downloadPage = "https://github.com/klzgrad/naiveproxy/releases";
     changelog = "https://github.com/klzgrad/naiveproxy/releases/tag/v${version}";
