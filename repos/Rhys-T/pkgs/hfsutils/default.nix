@@ -17,14 +17,14 @@ stdenv.mkDerivation rec {
         "ftp://ftp.mars.org/pub/hfs/${pname}-${baseversion}.tar.gz"
         "http://deb.debian.org/debian/pool/main/h/${pname}/${pname}_${baseversion}.orig.tar.gz"
       ];
-      sha256 = "0h4q51bjj5dvsmc2xx1l7ydii9jmfq5y066zkkn21fajsbb257dw";
+      hash = "sha256-vJ0i1tJSuSDsnN8Y4At2VaYYmz809C5Y1bsVKVcomEA=";
     })
 
     # Debian packaging files, for the patches
     (fetchurl {
       name = "patches-${baseversion}.tar.xz";
       url = "http://deb.debian.org/debian/pool/main/h/${pname}/${pname}_${version}.debian.tar.xz";
-      sha256 = "1b67vfcf679yk8yp1msyzsjfswpqh8mllkcrgbiy7l7a9ynvsp45";
+      hash = "sha256-hVy9rU/q0OPjeplNSiuC+HLtpP5e13A9mj4d45jbx6w=";
     })
   ];
 
