@@ -21,6 +21,9 @@ withSystem "x86_64-linux" (
       config = {
         allowUnfree = true;
         allowUnsupportedSystem = true;
+        permittedInsecurePackages = [
+          "olm-3.2.16"
+        ];
       };
       overlays =
         (import "${self}/overlays.nix" { inherit inputs' inputs; })

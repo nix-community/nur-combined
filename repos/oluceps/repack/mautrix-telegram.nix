@@ -1,0 +1,65 @@
+{ reIf, config, ... }:
+reIf {
+
+  systemd.services = {
+    mautrix-telegram.serviceConfig.RuntimeMaxSec = 86400;
+  };
+
+  services.mautrix-telegram = {
+    enable = true;
+    # environmentFile = config.age.secrets.mautrix-telegram.path;
+    serviceDependencies = [ "conduit.service" ];
+    settings = {
+      homeserver = {
+        address = "http://127.0.0.1:${toString config.services.matrix-conduit.settings.global.port}";
+        domain = config.services.matrix-conduit.settings.global.server_name;
+      };
+      appservice = {
+        address = "http://127.0.0.1:6169";
+        database = "postgres:///mautrix-telegram?host=/run/postgresql";
+        hostname = "127.0.0.1";
+        port = 6169;
+        provisioning.enabled = false;
+      };
+      bridge = {
+        displayname_template = "{displayname}";
+        public_portals = true;
+        delivery_error_reports = true;
+        incoming_bridge_error_reports = true;
+        bridge_matrix_leave = false;
+        relay_user_distinguishers = [ ];
+        create_group_on_invite = false;
+        animated_sticker = {
+          target = "webp";
+          convert_from_webm = true;
+        };
+        state_event_formats = {
+          join = "";
+          leave = "";
+          name_change = "";
+        };
+        permissions = {
+          "*" = "relaybot";
+          "@sec:nyaw.xyz" = "admin";
+        };
+        relaybot = {
+          authless_portals = false;
+        };
+      };
+      telegram = {
+        api_id = 611335;
+        api_hash = "d524b414d21f4d37f08684c1df41ac9c";
+        device_info = {
+          app_version = "3.5.2";
+        };
+        force_refresh_interval_seconds = 3600;
+      };
+      logging = {
+        loggers = {
+          mau.level = "WARNING";
+          telethon.level = "WARNING";
+        };
+      };
+    };
+  };
+}

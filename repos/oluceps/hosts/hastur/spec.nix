@@ -66,6 +66,7 @@
     prometheus.enable = true;
     vaultwarden.enable = true;
     matrix-conduit.enable = true;
+    mautrix-telegram.enable = true;
     # coredns.enable = true;
     misskey.enable = true;
     dnsproxy.enable = true;
@@ -129,7 +130,7 @@
     };
 
     sing-box.enable = true;
-    
+
     hysteria.instances = [
       {
         name = "nodens";
