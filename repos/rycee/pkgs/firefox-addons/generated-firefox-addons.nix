@@ -2,10 +2,10 @@
   {
     "10ten-ja-reader" = buildFirefoxXpiAddon {
       pname = "10ten-ja-reader";
-      version = "1.20.0";
+      version = "1.21.1";
       addonId = "{59812185-ea92-4cca-8ab7-cfcacee81281}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4325631/10ten_ja_reader-1.20.0.xpi";
-      sha256 = "25215fe0211f2e01b5f7b75a3311214eb647999e48e4a77268e36e5ccc4efbd2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4355635/10ten_ja_reader-1.21.1.xpi";
+      sha256 = "81d85cfdc03cb0c921cac84547e7a7a539af11ff9a81dd901b3f3bfa67ba45f1";
       meta = with lib;
       {
         homepage = "https://github.com/birchill/10ten-ja-reader/";
@@ -2127,10 +2127,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "131.0.20240920.91619";
+      version = "131.0.20240923.135042";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4356520/deutsch_de_language_pack-131.0.20240920.91619.xpi";
-      sha256 = "526630d326c32fb5ab53f9a7f627e1af2d17408b15d60e26572bdc0037662430";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4358253/deutsch_de_language_pack-131.0.20240923.135042.xpi";
+      sha256 = "c17db49b369c5c795ce5bc314e4a511448250270ecec701a9fac926ec42984af";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3290,10 +3290,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "131.0.20240920.91619";
+      version = "131.0.20240923.135042";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4356505/francais_language_pack-131.0.20240920.91619.xpi";
-      sha256 = "5681f46ae38d5c8dfd2a6a6a1dd54a9ec510eb1c4cc2d23ce1bd1d5895fdff00";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4358286/francais_language_pack-131.0.20240923.135042.xpi";
+      sha256 = "97b0759b61f2efb50d4689ceaafbb43b2287ddabd035780d9d8c25ae8a75f6a0";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3327,10 +3327,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "131.0.20240920.91619";
+      version = "131.0.20240923.135042";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4356536/gaidhlig_language_pack-131.0.20240920.91619.xpi";
-      sha256 = "6f8ddca2e8b7b6bbc5626169c42601960ed5fb47316c99063e4eaab7718a335b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4358204/gaidhlig_language_pack-131.0.20240923.135042.xpi";
+      sha256 = "d361c96531af7db6bc41d3c5997d0c7e7fcd66b8d9dafc4bf3a5028c397b9505";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -9479,10 +9479,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "131.0.20240920.91619";
+      version = "131.0.20240923.135042";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4356526/scots_language_pack-131.0.20240920.91619.xpi";
-      sha256 = "a7af545d93ce707232c56cd95508bfa87b6c35ccd6efca027ab4a1fe34ad4920";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4358229/scots_language_pack-131.0.20240923.135042.xpi";
+      sha256 = "1b829ae65fd5b523e9d0d60af769a718a66090736a9fee7190a411bb3d12e056";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -12543,10 +12543,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.9.9.0";
+      version = "24.9.16.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4353902/yomitan-24.9.9.0.xpi";
-      sha256 = "83691f4e1aeb8daf72ad12910e60813e1d8988a3f799f2ec895541ef29334773";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4358185/yomitan-24.9.16.0.xpi";
+      sha256 = "79840e665cccd13367ddda2b3168619b51ccab12907df1fe9efbb840d225a93d";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
