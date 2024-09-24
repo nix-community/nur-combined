@@ -5,7 +5,7 @@
   ...
 }:
 let
-  qemuPackage = pkgs.qemu-user-static;
+  qemuPackage = config.lantian.qemu-user-static-binfmt.package;
   qemuSuffix = "-static";
 
   # https://github.com/qemu/qemu/blob/master/scripts/qemu-binfmt-conf.sh
@@ -221,10 +221,17 @@ let
   enabled = pkgs.stdenv.isx86_64 || pkgs.stdenv.isAarch64;
 in
 {
-  options.lantian.qemu-user-static-binfmt.enable = lib.mkOption {
-    type = lib.types.bool;
-    default = true;
-    description = "Enable cross-architecture binfmt handling with qemu-user-static.";
+  options.lantian.qemu-user-static-binfmt = {
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable cross-architecture binfmt handling with qemu-user-static.";
+    };
+    package = lib.mkOption {
+      type = lib.types.package;
+      default = pkgs.qemu-user-static;
+      description = "Path to qemu-user-static package";
+    };
   };
 
   config = lib.mkIf config.lantian.qemu-user-static-binfmt.enable {

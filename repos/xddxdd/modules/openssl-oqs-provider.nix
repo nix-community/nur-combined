@@ -27,7 +27,7 @@ let
 
     [oqsprovider_sect]
     activate = 1
-    module = ${pkgs.openssl-oqs-provider}/lib/oqsprovider.so
+    module = ${config.programs.openssl-oqs-provider.package}/lib/oqsprovider.so
 
     # SSL Options
 
@@ -42,6 +42,11 @@ in
   options.programs.openssl-oqs-provider = {
     enable = lib.mkEnableOption (lib.mdDoc "load post-quantum algorithm provider for OpenSSL 3.x") // {
       default = true;
+    };
+    package = lib.mkOption {
+      type = lib.types.package;
+      default = pkgs.openssl-oqs-provider;
+      description = "Path to openssl-oqs-provider package";
     };
     curves = lib.mkOption {
       type = lib.types.listOf lib.types.str;

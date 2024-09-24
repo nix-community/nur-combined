@@ -12,22 +12,34 @@ let
 in
 {
   options = {
-    virtualisation.kata-containers.settings = lib.mkOption {
-      inherit (settingsFormat) type;
-      default = { };
-      description = ''
-        Settings for kata's configuration.toml
-      '';
+    virtualisation.kata-containers = {
+      imagePackage = lib.mkOption {
+        type = lib.types.package;
+        default = pkgs.kata-image;
+        description = "Path to kata-image package";
+      };
+      runtimePackage = lib.mkOption {
+        type = lib.types.package;
+        default = pkgs.kata-runtime;
+        description = "Path to kata-runtime package";
+      };
+      settings = lib.mkOption {
+        inherit (settingsFormat) type;
+        default = { };
+        description = ''
+          Settings for kata's configuration.toml
+        '';
+      };
     };
   };
   config = {
     environment.etc."/etc/kata-containers/configuration.toml".source = configFile;
 
     systemd.tmpfiles.rules = [
-      "L+ /var/lib/kata-containers - - - - ${pkgs.kata-image}/share/kata-containers"
+      "L+ /var/lib/kata-containers - - - - ${config.virtualisation.kata-containers.kata-image}/share/kata-containers"
     ];
 
-    virtualisation.docker.daemon.settings.runtimes.kata-runtime.path = "${pkgs.kata-runtime}/bin/kata-runtime";
-    virtualisation.podman.extraPackages = [ pkgs.kata-runtime ];
+    virtualisation.docker.daemon.settings.runtimes.kata-runtime.path = "${config.virtualisation.kata-containers.kata-runtime}/bin/kata-runtime";
+    virtualisation.podman.extraPackages = [ config.virtualisation.kata-containers.kata-runtime ];
   };
 }
