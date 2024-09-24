@@ -14,7 +14,7 @@ let
 
   rev = "${version}-${flavour}-${suffix}";
 
-  hash = "sha256-LFEyb8JqJrDUSkzlx5yhRUQENwvZLRrtY9rIth1ZlyU=";
+  hash = "sha256-caSKx/JtQDJbbeV+nqgWU6gW84jpdMNBLm5YBN48z0U=";
 in
 buildLinux (args // rec {
     inherit version modDirVersion;
@@ -35,7 +35,7 @@ buildLinux (args // rec {
 
       # AMD P-state driver.
       X86_AMD_PSTATE = lib.mkOverride 60 yes;
-      X86_AMD_PSTATE_UT = no;
+      X86_AMD_PSTATE_UT = lib.mkForce no;
 
       # Google's BBRv3 TCP congestion Control.
       TCP_CONG_BBR = yes;
@@ -69,11 +69,13 @@ buildLinux (args // rec {
       # Selected value for a balance between latency, performance and low power consumption.
       HZ = freeform "858";
       HZ_858 = yes;
-      HZ_1000 = no;
+      HZ_1000 = lib.mkForce no;
 
       SCHEDSTATS = lib.mkOverride 60 yes;
       HID = yes;
       UHID = yes;
+
+      SECURITY_APPARMOR_RESTRICT_USERNS = lib.mkForce no;
     };
 
     ignoreConfigErrors = true;
