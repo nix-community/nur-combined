@@ -7,7 +7,7 @@ reIf {
 
   services.mautrix-telegram = {
     enable = true;
-    # environmentFile = config.age.secrets.mautrix-telegram.path;
+    environmentFile = config.age.secrets.mautrix-tg.path;
     serviceDependencies = [ "conduit.service" ];
     settings = {
       homeserver = {

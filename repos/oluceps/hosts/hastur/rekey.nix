@@ -59,6 +59,9 @@ in
       vault = {
         rekeyFile = ../../sec/vault.age;
       };
+      mautrix-tg = {
+        rekeyFile = ../../sec/mautrix-tg.age;
+      };
     };
   };
   services.openssh.hostKeys = [
