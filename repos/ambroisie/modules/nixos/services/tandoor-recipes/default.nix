@@ -82,5 +82,7 @@ in
         };
       };
     };
+
+    # NOTE: unfortunately tandoor-recipes does not log connection failures for fail2ban
   };
 }
