@@ -99,6 +99,6 @@ let
   batchesAttrs = builtins.listToAttrs batches;
 in
 if mode == "ci" then
-  lib.filterAttrs (n: _v: lib.hasInfix "configfile" n) batchesAttrs
+  lib.filterAttrs (n: _v: lib.hasSuffix "configfile" n) batchesAttrs
 else
   batchesAttrs

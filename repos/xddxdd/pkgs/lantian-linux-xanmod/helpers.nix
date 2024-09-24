@@ -75,7 +75,8 @@ rec {
   };
 
   contentAddressedFlag =
-    if mode == "nur" then
+    # CI will fail with error: path '/0dwk1vcafg052kwvf2pd0l2rfm6bms0v91gi3nlx82r061vs2vbp' is not in the Nix store
+    if mode == "nur" || mode == "ci" then
       { }
     else
       {
