@@ -36,7 +36,7 @@
     },
     "nixpkgs-review": {
         "cargoLocks": null,
-        "date": "2024-02-20",
+        "date": "2024-09-23",
         "extract": null,
         "name": "nixpkgs-review",
         "passthru": null,
@@ -48,11 +48,11 @@
             "name": null,
             "owner": "natsukium",
             "repo": "nixpkgs-review",
-            "rev": "8e8f6f97a8259728f7bdbe8ca0aaec87d5f33cc9",
-            "sha256": "sha256-E8dtlnor79fKVGAGxwibntfSPCcjCmpAYLO+Dxku69k=",
+            "rev": "c012c3ebc4aa63dd47be1bf0063e8cf0949bc294",
+            "sha256": "sha256-Bzut7cuOHPrgvNSa2USZEuln8glMjKwhXyEoi5lSKZ8=",
             "type": "github"
         },
-        "version": "8e8f6f97a8259728f7bdbe8ca0aaec87d5f33cc9"
+        "version": "c012c3ebc4aa63dd47be1bf0063e8cf0949bc294"
     },
     "qmk-toolbox": {
         "cargoLocks": null,
