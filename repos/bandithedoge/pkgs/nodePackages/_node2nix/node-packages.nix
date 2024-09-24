@@ -288,13 +288,13 @@
         sha512 = "ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==";
       };
     };
-    "emmet-2.4.8" = {
+    "emmet-2.4.11" = {
       name = "emmet";
       packageName = "emmet";
-      version = "2.4.8";
+      version = "2.4.11";
       src = fetchurl {
-        url = "https://registry.npmjs.org/emmet/-/emmet-2.4.8.tgz";
-        sha512 = "wFe/dxsx7oi/M2UJ/3yBu4Fm24Irho6lqut4C1YFaZebCvCCMygoDGC7W6I+8+K8PAjfa/Ojn52UHi8WCdDiRA==";
+        url = "https://registry.npmjs.org/emmet/-/emmet-2.4.11.tgz";
+        sha512 = "23QPJB3moh/U9sT4rQzGgeyyGIrcM+GH5uVYg2C6wZIxAIJq7Ng3QLT79tl8FUwDXhyq9SusfknOrofAKqvgyQ==";
       };
     };
     "escalade-3.2.0" = {
@@ -1014,7 +1014,7 @@ in {
       sources."@emmetio/css-abbreviation-2.1.8"
       sources."@emmetio/scanner-1.0.4"
       sources."@types/node-17.0.45"
-      sources."emmet-2.4.8"
+      sources."emmet-2.4.11"
       sources."typescript-4.9.5"
       sources."vscode-jsonrpc-6.0.0"
       sources."vscode-languageserver-7.0.0"
@@ -1076,7 +1076,7 @@ in {
       sources."defu-6.1.4"
       sources."destr-2.0.3"
       sources."dotenv-16.4.5"
-      sources."emmet-2.4.8"
+      sources."emmet-2.4.11"
       sources."escalade-3.2.0"
       sources."execa-8.0.1"
       sources."fast-glob-3.3.2"

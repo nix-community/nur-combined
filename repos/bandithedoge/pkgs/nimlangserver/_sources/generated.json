@@ -21,7 +21,7 @@
   },
   "chronicles": {
     "cargoLocks": null,
-    "date": "2024-09-19",
+    "date": "2024-09-23",
     "extract": null,
     "name": "chronicles",
     "passthru": null,
@@ -31,13 +31,13 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "1ac2715bbbb1f2931ce2d32fe05b70f8d47fe413",
-      "sha256": "sha256-o4BnH/adagIb3vCzpqNjqexB3yyw4AxikHH84KJ6Kqg=",
+      "rev": "4524912fcacfd3965e32a9fe23c9bb12d48177ff",
+      "sha256": "sha256-89Siu/W7SC+D9EYUrKXyhAYgERgg2OIfFAYRaPegNEA=",
       "sparseCheckout": [],
       "type": "git",
       "url": "https://github.com/status-im/nim-chronicles"
     },
-    "version": "1ac2715bbbb1f2931ce2d32fe05b70f8d47fe413"
+    "version": "4524912fcacfd3965e32a9fe23c9bb12d48177ff"
   },
   "chronos": {
     "cargoLocks": null,
@@ -121,7 +121,7 @@
   },
   "json_serialization": {
     "cargoLocks": null,
-    "date": "2024-07-27",
+    "date": "2024-09-23",
     "extract": null,
     "name": "json_serialization",
     "passthru": null,
@@ -131,17 +131,17 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "8a4ed98bbd0a9479df15af2fa31da38a586ea6d5",
-      "sha256": "sha256-rrj6aoIEB2X/HSmWl7dnOJqaNWarQ9djyaP59u1nyuQ=",
+      "rev": "8b51cd8bc9b099d4dd3495d1b3c7f9231cddd251",
+      "sha256": "sha256-gyT3duSCDNgGHEzkJjLnmqyBW6kTCHX2T0c7CB/u8vQ=",
       "sparseCheckout": [],
       "type": "git",
       "url": "https://github.com/status-im/nim-json-serialization"
     },
-    "version": "8a4ed98bbd0a9479df15af2fa31da38a586ea6d5"
+    "version": "8b51cd8bc9b099d4dd3495d1b3c7f9231cddd251"
   },
   "nimcrypto": {
     "cargoLocks": null,
-    "date": "2024-06-07",
+    "date": "2024-09-23",
     "extract": null,
     "name": "nimcrypto",
     "passthru": null,
@@ -151,17 +151,17 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "71bca15508e2c0548f32b42a69bcfb1ccd9ab9ff",
-      "sha256": "sha256-AtWMCh8vnsi4/32M6Y1MT+DRSm7kIHEKScrl1h9vP0Y=",
+      "rev": "a0b65f2a0dba987c75eadf03f811fb5508fd3372",
+      "sha256": "sha256-3wCHB8gZB6xDbGZBPxBh7bK/yq4GlDGYOQScpxKFyD4=",
       "sparseCheckout": [],
       "type": "git",
       "url": "https://github.com/cheatfate/nimcrypto"
     },
-    "version": "71bca15508e2c0548f32b42a69bcfb1ccd9ab9ff"
+    "version": "a0b65f2a0dba987c75eadf03f811fb5508fd3372"
   },
   "nimlangserver": {
     "cargoLocks": null,
-    "date": "2024-09-20",
+    "date": "2024-09-23",
     "extract": null,
     "name": "nimlangserver",
     "passthru": null,
@@ -171,13 +171,13 @@
       "fetchSubmodules": false,
       "leaveDotGit": false,
       "name": null,
-      "rev": "c17fb97b2e73c34ff986342a22675c6c3e3ea432",
-      "sha256": "sha256-PxFPwGkq93266qY+bH/ODfym+71DmQcHFXdBJ2EWbeo=",
+      "rev": "1bd46086d1394364371db937020403357d9704fa",
+      "sha256": "sha256-rTlkbNuJbL9ke1FpHYVYduiYHUON6oACg20pBs0MaP4=",
       "sparseCheckout": [],
       "type": "git",
       "url": "https://github.com/nim-lang/langserver"
     },
-    "version": "c17fb97b2e73c34ff986342a22675c6c3e3ea432"
+    "version": "1bd46086d1394364371db937020403357d9704fa"
   },
   "results": {
     "cargoLocks": null,
