@@ -19,6 +19,7 @@
   scarb-bin = pkgs.callPackage ./pkgs/scarb-bin { };
   huff = pkgs.callPackage ./pkgs/huff { };
   halmos = pkgs.python3.pkgs.callPackage ./pkgs/halmos { };
+  solidity-metrics = pkgs.callPackage ./pkgs/solidity-metrics { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
