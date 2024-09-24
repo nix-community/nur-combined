@@ -115,6 +115,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   configureFlags = [
+      "--enable-versioned-symbols"
       # Build without manual
       "--disable-manual"
       (lib.enableFeature c-aresSupport "ares")
@@ -151,6 +152,8 @@ stdenv.mkDerivation (finalAttrs: {
       "--without-ca-path"
     ] ++ lib.optionals (!gnutlsSupport && !opensslSupport && !wolfsslSupport && !rustlsSupport) [
       "--without-ssl"
+    ] ++ lib.optionals (rustlsSupport && !stdenv.isDarwin) [
+      "--with-ca-bundle=/etc/ssl/certs/ca-certificates.crt"
     ] ++ lib.optionals (gnutlsSupport && !stdenv.isDarwin) [
       "--with-ca-path=/etc/ssl/certs"
     ];

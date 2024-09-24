@@ -249,9 +249,9 @@ let
       ++ optional (pdo_mysqlSupport && mysqlndSupport) "--with-pdo-mysql=mysqlnd"
       ++ optional (pdo_mysqlSupport || mysqliSupport) "--with-mysql-sock=/run/mysqld/mysqld.sock"
       ++ optional pdo_odbcSupport "--with-pdo-odbc=unixODBC,${unixODBC}"
-      ++ optional pdo_pgsqlSupport "--with-pdo-pgsql=${postgresql}"
+      ++ optional pdo_pgsqlSupport "--with-pdo-pgsql=${postgresql.dev}"
       ++ optional sqliteSupport "--with-pdo-sqlite=${sqlite.dev}"
-      ++ optional pgsqlSupport "--with-pgsql=${postgresql}"
+      ++ optional pgsqlSupport "--with-pgsql=${postgresql.dev}"
       ++ optional (!pharSupport) "--disable-phar"
       ++ optional readlineSupport "--with-readline=${readline.dev}"
       ++ optional soapSupport "--enable-soap"
@@ -502,7 +502,7 @@ in {
   };
 
   php82 = generic {
-    version = "8.2.22";
-    sha256 = "sha256-4xYb5VrXfzYr+XKETkjFhX41VL1rgYs3OfkhSRwAf0A=";
+    version = "8.2.23";
+    sha256 = "sha256-QlcXaRA0B4lf54fK9ufZPxLpmFGFqWsowIsrXg0Bkco=";
   };
 }
