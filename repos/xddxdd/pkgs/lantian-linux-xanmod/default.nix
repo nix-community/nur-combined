@@ -95,5 +95,10 @@ let
       definitionDir = ./v6_0;
       inherit (sources.linux-xanmod-6_0) version src;
     });
+
+  batchesAttrs = builtins.listToAttrs batches;
 in
-builtins.listToAttrs batches
+if mode == "ci" then
+  lib.filterAttrs (n: _v: lib.hasInfix "configfile" n) batchesAttrs
+else
+  batchesAttrs

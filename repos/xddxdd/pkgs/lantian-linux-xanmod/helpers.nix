@@ -153,46 +153,51 @@ rec {
           patch -p1 < ${p.patch}
         '') patches)
       );
-    in
-    lib.nameValuePair name (buildLinux {
-      inherit lib;
-      stdenv = if lto then stdenvLLVM else stdenv;
 
-      extraMakeFlags = if lto then ltoMakeflags else [ ];
+      kernelPackage = buildLinux {
+        inherit lib;
+        stdenv = if lto then stdenvLLVM else stdenv;
 
-      inherit version;
-      src = patchedSrc;
+        extraMakeFlags = if lto then ltoMakeflags else [ ];
 
-      modDirVersion =
-        let
-          splitted = lib.splitString "-" version;
-          ver0 = builtins.elemAt splitted 0;
-          ver1 = builtins.elemAt splitted 1;
-        in
-        "${ver0}-lantian-${ver1}";
+        inherit version;
+        src = patchedSrc;
 
-      structuredExtraConfig =
-        let
-          cfg = import configFile args;
-        in
-        if !lto then
-          cfg
-        else
-          (
-            (builtins.removeAttrs cfg [
-              "GCC_PLUGINS"
-              "FORTIFY_SOURCE"
-            ])
-            // (with lib.kernel; {
-              LTO_NONE = no;
-              LTO_CLANG_THIN = yes;
-            })
-            // (if stdenv.isx86_64 then marchFlags."${x86_64-march}" else { })
-          );
+        modDirVersion =
+          let
+            splitted = lib.splitString "-" version;
+            ver0 = builtins.elemAt splitted 0;
+            ver1 = builtins.elemAt splitted 1;
+          in
+          "${ver0}-lantian-${ver1}";
 
-      extraMeta = {
-        description =
-          "Linux Xanmod Kernel with Lan Tian Modifications" + lib.optionalString lto " and Clang+ThinLTO";
+        structuredExtraConfig =
+          let
+            cfg = import configFile args;
+          in
+          if !lto then
+            cfg
+          else
+            (
+              (builtins.removeAttrs cfg [
+                "GCC_PLUGINS"
+                "FORTIFY_SOURCE"
+              ])
+              // (with lib.kernel; {
+                LTO_NONE = no;
+                LTO_CLANG_THIN = yes;
+              })
+              // (if stdenv.isx86_64 then marchFlags."${x86_64-march}" else { })
+            );
+
+        extraMeta = {
+          description =
+            "Linux Xanmod Kernel with Lan Tian Modifications" + lib.optionalString lto " and Clang+ThinLTO";
+        };
       };
-    });
+    in
+    [
+      (lib.nameValuePair name kernelPackage)
+      (lib.nameValuePair "${name}-configfile" kernelPackage.configfile)
+    ];
 }
