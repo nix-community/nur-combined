@@ -2,6 +2,7 @@
 , pkgs
 , buildGoModule
 , fetchFromGitHub
+, makeWrapper
 }:
 buildGoModule rec {
   pname = "diffnav";
@@ -16,10 +17,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-doRzntvXr7O7kmFT3mWXLmMjx6BqrnIqL3mYYtcbGxw=";
 
-  propagatedBuildInputs = [ pkgs.delta ];
-
   postPatch = ''
     sed 's/1.22.6/1.22.5/' -i go.mod
+  '';
+
+  nativeBuildInputs = [ makeWrapper ];
+  postFixup = ''
+    wrapProgram $out/bin/diffnav \
+      --prefix PATH : ${lib.makeBinPath [ pkgs.delta ]}
   '';
 
   doCheck = false;
