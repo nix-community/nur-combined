@@ -13,12 +13,18 @@
 
 with builtins;
 let
+  inherit (pkgs.lib.meta) availableOn;
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: let
     licenseFromMeta = p.meta.license or [];
     licenseList = if builtins.isList licenseFromMeta then licenseFromMeta else [licenseFromMeta];
-  in !(p.meta.broken or false) && builtins.all (license: license.free or true) licenseList && (p.meta.knownVulnerabilities or []) == [];
+  in
+    availableOn pkgs.hostPlatform p &&
+    !(p.meta.broken or false) &&
+    builtins.all (license: license.free or true) licenseList &&
+    (p.meta.knownVulnerabilities or []) == []
+  ;
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
