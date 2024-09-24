@@ -116,10 +116,6 @@ with lib.kernel;
   # Below are tunes from nixpkgs (xanmod kernel)
   ################################################################
 
-  # AMD P-state driver
-  # Seems causing issues on an AMD VM?
-  X86_AMD_PSTATE = lib.mkForce no;
-
   # Paragon's NTFS3 driver
   NTFS3_FS = module;
   NTFS3_LZX_XPRESS = yes;

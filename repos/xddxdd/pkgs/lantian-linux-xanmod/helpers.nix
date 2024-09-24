@@ -129,6 +129,7 @@ rec {
                 *-clr.patch) continue;;
                 *-fixes.patch) continue;;
                 *-mm-*.patch) continue;;
+                ${lib.optionalString (lib.versionAtLeast "6.11" major) "*-ntsync.patch) continue;;"}
               esac
 
               cat "$F" >> $out
