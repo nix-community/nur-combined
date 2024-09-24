@@ -78,6 +78,16 @@
                   pkgs-24_05 = pkgsForSystem-24_05 final.system;
                   inherit inputs;
                 };
+              inSubTree = final: prev: {
+                nur-xddxdd = import ./pkgs null {
+                  pkgs = prev;
+                  pkgs-24_05 = pkgsForSystem-24_05 final.system;
+                  inherit inputs;
+                };
+              };
+              inSubTree-pinnedNixpkgs = final: _prev: {
+                nur-xddxdd = self.legacyPackages.${final.system};
+              };
             }
             // (builtins.listToAttrs (
               builtins.map (s: {
