@@ -30,7 +30,10 @@ stdenv.mkDerivation rec {
     install -Dm755 naive $out/bin/naiveproxy
 
     mkdir -p $out/share/doc/naiveproxy
-    install -Dm644 -t $out/share/doc/naiveproxy LICENSE USAGE.txt
+    install -Dm644 USAGE.txt $out/share/doc/naiveproxy/USAGE.txt
+    
+    mkdir -p $out/share/licenses/naiveproxy
+    install -Dm644 LICENSE $out/share/licenses/naiveproxy/LICENSE
 
     runHook postInstall
   '';
