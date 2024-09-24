@@ -1,4 +1,5 @@
 { lib
+, pkgs
 , buildGoModule
 , fetchFromGitHub
 }:
@@ -14,6 +15,8 @@ buildGoModule rec {
   };
 
   vendorHash = "sha256-doRzntvXr7O7kmFT3mWXLmMjx6BqrnIqL3mYYtcbGxw=";
+
+  propagatedBuildInputs = [ pkgs.delta ];
 
   postPatch = ''
     sed 's/1.22.6/1.22.5/' -i go.mod
