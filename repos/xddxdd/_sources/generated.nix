@@ -124,21 +124,21 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "1.14.0-2";
+    version = "1.14.2-1";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.14.0-2/bilibili-asar-v1.14.0-2.tar.gz";
-      sha256 = "sha256-3Corn6i4BGWDZUGbJk8P/W+e8BV4vFMVL6+A5youPKY=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.14.2-1/bilibili-asar-v1.14.2-1.tar.gz";
+      sha256 = "sha256-S9Ib/hn9Wzl1bFRJcGPDNWONJpbh0zUGcfdHDN7dPfY=";
     };
   };
   bilibili-src = {
     pname = "bilibili-src";
-    version = "v1.14.0-2";
+    version = "v1.14.2-1";
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      rev = "v1.14.0-2";
+      rev = "v1.14.2-1";
       fetchSubmodules = false;
-      sha256 = "sha256-p6Hl2VSrXnd8FknwdDpWgJe3vdij6C4kYBkCN9hJrsM=";
+      sha256 = "sha256-wNEfzmVk1WJHSiRGmf6BS9GvfXJ1FAaY1EkHAXqvUxY=";
     };
   };
   bird-lg-go = {
@@ -182,15 +182,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "3df5d8653a0636e9e43b010711a5cf55d4f1166b";
+    version = "b3f8d0a5d84e011a5b0f1b10c34af6637b49e085";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "3df5d8653a0636e9e43b010711a5cf55d4f1166b";
+      rev = "b3f8d0a5d84e011a5b0f1b10c34af6637b49e085";
       fetchSubmodules = false;
-      sha256 = "sha256-AhtIgXuBMgqwTx7uUx2OdtUp77RyFXNiAcKMoAuDHsI=";
+      sha256 = "sha256-/QhQBf5JL4zoIgXz44HbcDtaEgpiLkVyptuWfNLjL0g=";
     };
-    date = "2024-09-21";
+    date = "2024-09-23";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -509,15 +509,15 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "13f855c39d0326bb2be6febb7f4317d50e7a3f34";
+    version = "52020b4f469f9bd40c48e296e9a3e826a11df177";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "13f855c39d0326bb2be6febb7f4317d50e7a3f34";
+      rev = "52020b4f469f9bd40c48e296e9a3e826a11df177";
       fetchSubmodules = false;
-      sha256 = "sha256-Km+FuHRBl2qe8q7MDDqmRfSJrCzPgI05MqdYak6fpGs=";
+      sha256 = "sha256-YwPf8G1v4cVy/EEG3iMKe2wXIYrJY+l+7YZ95kE7T1s=";
     };
-    date = "2024-09-22";
+    date = "2024-09-24";
   };
   imewlconverter = {
     pname = "imewlconverter";
@@ -764,13 +764,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3802";
+    version = "b3820";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3802";
+      rev = "b3820";
       fetchSubmodules = false;
-      sha256 = "sha256-Ze/1x3+ZIt3u7ZHW8jPurag46+tyFx9bR3/H/mF5QiA=";
+      sha256 = "sha256-NtdLde636SJNajkhj47qgoRikXl6tpCUHDzFe/Aai0c=";
     };
   };
   lyrica = {

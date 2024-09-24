@@ -232,7 +232,7 @@
   "legacyPackages.x86_64-linux.bilibili": {
     "description": "Bilibili desktop client",
     "pname": "bilibili",
-    "version": "1.14.0-2"
+    "version": "1.14.2-1"
   },
   "legacyPackages.x86_64-linux.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
@@ -417,7 +417,7 @@
   "legacyPackages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
     "pname": "i915-sriov-unstable",
-    "version": "2024-09-22"
+    "version": "2024-09-24"
   },
   "legacyPackages.x86_64-linux.imewlconverter": {
     "description": "”深蓝词库转换“ 一款开源免费的输入法词库转换程序",
@@ -492,7 +492,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "3802"
+    "version": "3820"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -3477,7 +3477,7 @@
   "packages.x86_64-linux.bilibili": {
     "description": "Bilibili desktop client",
     "pname": "bilibili",
-    "version": "1.14.0-2"
+    "version": "1.14.2-1"
   },
   "packages.x86_64-linux.bird-lg-go": {
     "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
@@ -3662,7 +3662,7 @@
   "packages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
     "pname": "i915-sriov-unstable",
-    "version": "2024-09-22"
+    "version": "2024-09-24"
   },
   "packages.x86_64-linux.imewlconverter": {
     "description": "”深蓝词库转换“ 一款开源免费的输入法词库转换程序",
