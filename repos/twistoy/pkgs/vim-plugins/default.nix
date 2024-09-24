@@ -12,4 +12,7 @@
   codesnap-nvim = callPackage ./codesnap-nvim.nix {
     inherit buildVimPlugin;
   };
+  avante-nvim = callPackage ./avante-nvim {
+    inherit buildVimPlugin;
+  };
 }
