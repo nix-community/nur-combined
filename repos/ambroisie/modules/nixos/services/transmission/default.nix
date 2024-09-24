@@ -90,5 +90,7 @@ in
       allowedTCPPorts = [ cfg.peerPort ];
       allowedUDPPorts = [ cfg.peerPort ];
     };
+
+    # NOTE: unfortunately transmission does not log connection failures for fail2ban
   };
 }

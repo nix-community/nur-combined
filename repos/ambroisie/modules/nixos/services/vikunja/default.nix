@@ -99,5 +99,7 @@ in
         config.services.vikunja.settings.files.basepath
       ];
     };
+
+    # NOTE: unfortunately vikunja does not log connection failures for fail2ban
   };
 }
