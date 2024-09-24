@@ -40,4 +40,9 @@ rec {
     
     hfsutils = pkgs.callPackage ./pkgs/hfsutils { inherit maintainers; };
     hfsutils-tk = hfsutils.override { enableTclTk = true; };
+    
+    minivmac36 = pkgs.callPackage ./pkgs/minivmac/36.nix { inherit maintainers; };
+    minivmac37 = pkgs.callPackage ./pkgs/minivmac/37.nix { inherit maintainers; };
+    minivmac = minivmac36;
+    minivmac-unstable = minivmac37;
 }

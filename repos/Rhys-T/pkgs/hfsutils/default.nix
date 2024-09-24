@@ -38,9 +38,9 @@ stdenv.mkDerivation rec {
   '';
 
   patches = [
-    ./0001-Don-t-set-ug-id-unless-it-s-actually-different.patch
+    ./patches/0001-Don-t-set-ug-id-unless-it-s-actually-different.patch
   ] ++ lib.optionals enableTclTk [
-    ./0002-Rename-bitmaps-to-avoid-conflict-with-Mac-builtins.patch
+    ./patches/0002-Rename-bitmaps-to-avoid-conflict-with-Mac-builtins.patch
     (fetchpatch {
       name = "0003-xhfs-Use-Tcl_Alloc-Tcl_Free-as-required-when-interac.patch";
       url = https://github.com/JotaRandom/hfsutils/commit/e62ea3c5ac49ca894db853d966f1cd2cb808f35c.patch;

@@ -62,7 +62,7 @@ stdenv.mkDerivation {
     # to make certain features work. These patches allow the config file to refer to
     # $PCE_DIR_DATA in the 'path' setting, instead of having to update the config file
     # whenever the store path changes.
-    patches = patches ++ [./0001-Allow-referencing-PCE_DIR_DATA-in-config-files-inste.patch];
+    patches = patches ++ [./patches/0001-Allow-referencing-PCE_DIR_DATA-in-config-files-inste.patch];
     postPatch = ''
         for file in src/arch/*/Makefile.inc; do
             substituteInPlace "$file" --replace-quiet '"s]PCE_DIR_DATA]$(datadir)]g"' '"s]PCE_DIR_DATA]\$$PCE_DIR_DATA/pce]g"'
