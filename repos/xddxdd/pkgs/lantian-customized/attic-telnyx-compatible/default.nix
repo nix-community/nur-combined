@@ -10,4 +10,8 @@ attic-server.overrideAttrs (old: {
     + ''
       sed -i "/x-id/d" $cargoDepsCopy/aws-sdk-s3-*/src/operation/*.rs
     '';
+
+  meta = old.meta // {
+    maintainers = with lib.maintainers; [ xddxdd ];
+  };
 })

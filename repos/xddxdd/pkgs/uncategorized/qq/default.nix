@@ -59,10 +59,16 @@ stdenv.mkDerivation rec {
   buildInputs = libraries;
 
   unpackPhase = ''
+    runHook preUnpack
+
     ar x $src
+
+    runHook postUnpack
   '';
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/bin
     tar xf data.tar.xz -C $out
     mv $out/usr/* $out/
@@ -75,6 +81,8 @@ stdenv.mkDerivation rec {
 
     sed -i "s|Exec=.*|Exec=$out/bin/qq|" $out/share/applications/qq.desktop
     sed -i "s|Icon=.*|Icon=qq|" $out/share/applications/qq.desktop
+
+    runHook postInstall
   '';
 
   meta = with lib; {

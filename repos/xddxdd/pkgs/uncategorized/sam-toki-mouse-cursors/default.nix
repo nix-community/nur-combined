@@ -18,6 +18,8 @@ stdenvNoCC.mkDerivation rec {
   nativeBuildInputs = [ py ];
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/share/icons
 
     for INF in PROJECT/STMC/*.inf; do
@@ -28,6 +30,8 @@ stdenvNoCC.mkDerivation rec {
       CURSOR_NAME=$(grep -E "^Name=" tmp/cursor.theme | cut -d"=" -f2)
       mv tmp $out/share/icons/$CURSOR_NAME
     done
+
+    runHook postInstall
   '';
 
   meta = with lib; {

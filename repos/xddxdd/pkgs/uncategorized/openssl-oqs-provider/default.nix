@@ -45,7 +45,11 @@ stdenv.mkDerivation rec {
   '';
 
   installPhase = ''
+    runHook preInstall
+
     install -Dm755 lib/oqsprovider.so "$out/lib/oqsprovider.so"
+
+    runHook postInstall
   '';
 
   meta = with lib; {

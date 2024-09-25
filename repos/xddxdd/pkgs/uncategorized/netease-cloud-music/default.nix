@@ -84,8 +84,12 @@ stdenv.mkDerivation rec {
   };
 
   unpackPhase = ''
+    runHook preUnpack
+
     ar x $src
     tar xf data.tar.xz
+
+    runHook postUnpack
   '';
 
   nativeBuildInputs = [
@@ -99,6 +103,8 @@ stdenv.mkDerivation rec {
   dontWrapQtApps = true;
 
   installPhase = ''
+    runHook preInstall
+
     install -Dm755 opt/netease/netease-cloud-music/netease-cloud-music $out/bin/netease-cloud-music
 
     mkdir -p $out/share
@@ -111,6 +117,8 @@ stdenv.mkDerivation rec {
       --set XDG_SESSION_TYPE x11 \
       --set LD_PRELOAD "${libnetease-patch}/lib/libnetease-patch.so" \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}"
+
+    runHook postInstall
   '';
 
   meta = {

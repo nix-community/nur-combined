@@ -26,6 +26,8 @@ stdenv.mkDerivation {
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/bin $out/opt
     cp -r * $out/opt/
 
@@ -36,7 +38,9 @@ stdenv.mkDerivation {
       --add-flags "uvicorn" \
       --add-flags "--app-dir" \
       --add-flags "$out/opt/app" \
-      --add-flags "main:app" \
+      --add-flags "main:app"
+
+    runHook postInstall
   '';
 
   meta = with lib; {

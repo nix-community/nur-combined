@@ -16,6 +16,8 @@ stdenvNoCC.mkDerivation rec {
   ];
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/bin $out/opt
     cp -r * $out/opt/
 
@@ -24,7 +26,9 @@ stdenvNoCC.mkDerivation rec {
       --add-flags "-Xmx512m" \
       --add-flags "-Dfile.encoding=utf-8" \
       --add-flags "-jar" \
-      --add-flags "$out/opt/jproxy.jar" \
+      --add-flags "$out/opt/jproxy.jar"
+
+    runHook postInstall
   '';
 
   meta = with lib; {

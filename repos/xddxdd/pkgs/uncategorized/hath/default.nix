@@ -18,6 +18,8 @@ stdenvNoCC.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
+    runHook preInstall
+
     install -Dm644 HentaiAtHome.jar $out/opt/HentaiAtHome.jar
 
     mkdir -p $out/bin
@@ -25,7 +27,9 @@ stdenvNoCC.mkDerivation rec {
       --add-flags "-Xms16m" \
       --add-flags "-Xmx512m" \
       --add-flags "-jar" \
-      --add-flags "$out/opt/HentaiAtHome.jar" \
+      --add-flags "$out/opt/HentaiAtHome.jar"
+
+    runHook postInstall
   '';
 
   meta = with lib; {

@@ -17,13 +17,21 @@ stdenvNoCC.mkDerivation {
   ];
 
   buildPhase = ''
+    runHook preBuild
+
     libime_pinyindict -d CustomPinyinDictionary_Fcitx.dict temp.txt
     ImeWlConverterCmd -i:libpy temp.txt -o:rime CustomPinyinDictionary.dict.yaml
+
+    runHook postBuild
   '';
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/share/rime-data
     cp CustomPinyinDictionary.dict.yaml $out/share/rime-data/CustomPinyinDictionary.dict.yaml
+
+    runHook postInstall
   '';
 
   meta = with lib; {

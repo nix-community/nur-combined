@@ -76,8 +76,12 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   unpackPhase = ''
+    runHook preUnpack
+
     ar x $src
     tar xf data.tar.xz
+
+    runHook postUnpack
   '';
 
   installPhase = ''

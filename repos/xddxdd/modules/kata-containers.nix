@@ -36,10 +36,10 @@ in
     environment.etc."/etc/kata-containers/configuration.toml".source = configFile;
 
     systemd.tmpfiles.rules = [
-      "L+ /var/lib/kata-containers - - - - ${config.virtualisation.kata-containers.kata-image}/share/kata-containers"
+      "L+ /var/lib/kata-containers - - - - ${config.virtualisation.kata-containers.imagePackage}/share/kata-containers"
     ];
 
-    virtualisation.docker.daemon.settings.runtimes.kata-runtime.path = "${config.virtualisation.kata-containers.kata-runtime}/bin/kata-runtime";
-    virtualisation.podman.extraPackages = [ config.virtualisation.kata-containers.kata-runtime ];
+    virtualisation.docker.daemon.settings.runtimes.kata-runtime.path = "${config.virtualisation.kata-containers.runtimePackage}/bin/kata-runtime";
+    virtualisation.podman.extraPackages = [ config.virtualisation.kata-containers.runtimePackage ];
   };
 }

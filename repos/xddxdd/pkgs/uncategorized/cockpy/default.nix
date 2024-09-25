@@ -42,6 +42,8 @@ stdenv.mkDerivation {
   '';
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/bin $out/opt
 
     cp -r * $out/opt/
@@ -50,6 +52,8 @@ stdenv.mkDerivation {
       --prefix PYTHONPATH : "$out/opt" \
       --add-flags "-m" \
       --add-flags "cockpy"
+
+    runHook postInstall
   '';
 
   meta = with lib; {

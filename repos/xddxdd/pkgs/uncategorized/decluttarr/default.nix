@@ -23,9 +23,13 @@ stdenvNoCC.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/bin
     makeWrapper ${py}/bin/python3 $out/bin/decluttarr \
       --add-flags $src/main.py
+
+    runHook postInstall
   '';
 
   meta = with lib; {

@@ -8,8 +8,12 @@ stdenv.mkDerivation rec {
   inherit (sources.sgx-software-enable) pname version src;
 
   installPhase = ''
+    runHook preInstall
+
     install -Dm755 sgx_enable $out/bin/sgx_enable
     ln -sf $out/bin/sgx_enable $out/bin/sgx-software-enable
+
+    runHook postInstall
   '';
 
   meta = with lib; {

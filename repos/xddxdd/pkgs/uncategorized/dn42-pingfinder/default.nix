@@ -24,9 +24,13 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
   installPhase = ''
+    runHook preInstall
+
     install -Dm755 $src $out/bin/dn42-pingfinder
     wrapProgram $out/bin/dn42-pingfinder \
       --suffix PATH : "${additionalPath}"
+
+    runHook postInstall
   '';
 
   meta = with lib; {

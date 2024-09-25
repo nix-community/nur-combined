@@ -17,7 +17,11 @@ stdenvNoCC.mkDerivation rec {
   unpackCmd = "7z x $src";
 
   installPhase = ''
+    runHook preInstall
+
     cp -r hrir $out
+
+    runHook postInstall
   '';
 
   meta = with lib; {

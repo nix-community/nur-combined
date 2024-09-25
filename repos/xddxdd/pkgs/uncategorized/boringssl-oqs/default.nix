@@ -52,17 +52,26 @@ buildGoModule {
     ]
   );
 
+  # Hooks are already executed in ninjaBuildPhase
   buildPhase = ''
+    # runHook preBuild
+
     ninjaBuildPhase
+
+    # runHook postBuild
   '';
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $bin/bin $dev $out/lib
     mv tool/bssl              $bin/bin
     mv ssl/libssl.*           $out/lib
     mv crypto/libcrypto.*     $out/lib
     mv decrepit/libdecrepit.* $out/lib
     mv ../include $dev
+
+    runHook postInstall
   '';
 
   outputs = [

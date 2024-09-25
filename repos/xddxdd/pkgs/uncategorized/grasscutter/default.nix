@@ -26,6 +26,8 @@ stdenvNoCC.mkDerivation rec {
   ];
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/bin $out/opt
     install -Dm644 $src $out/grasscutter.jar
 
@@ -46,7 +48,9 @@ stdenvNoCC.mkDerivation rec {
       --run "cp -r $out/opt/* ." \
       --run "chmod -R +rw ." \
       --add-flags "-jar" \
-      --add-flags "$out/grasscutter.jar" \
+      --add-flags "$out/grasscutter.jar"
+
+    runHook postInstall
   '';
 
   meta = with lib; {

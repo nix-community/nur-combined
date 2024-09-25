@@ -8,8 +8,12 @@ stdenvNoCC.mkDerivation rec {
   inherit (sources.hi3-ii-martian-font) pname version src;
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/share/fonts/opentype/
     find . -name \*.otf -exec install -m644 {} $out/share/fonts/opentype/ \;
+
+    runHook postInstall
   '';
 
   meta = with lib; {

@@ -60,6 +60,8 @@ let
     dontStrip = 1;
 
     installPhase = ''
+      runHook preInstall
+
       cd ..
 
       mv $sourceRoot $out
@@ -96,6 +98,8 @@ let
           wrapProgram "$bin" --prefix LD_LIBRARY_PATH : "${runtimeLibraryPath}"
         fi
       done
+
+      runHook postInstall
     '';
 
     preFixup = ''

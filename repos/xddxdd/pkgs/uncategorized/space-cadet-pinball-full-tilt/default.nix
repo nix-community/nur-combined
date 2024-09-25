@@ -14,12 +14,16 @@ in
 space-cadet-pinball.overrideAttrs (old: {
   nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ unzip ];
 
-  postInstall =
-    (old.postInstall or "")
-    + ''
-      unzip ${fullTilt}
-      cp -r CADET/CADET.DAT CADET/SOUND $out/lib/SpaceCadetPinball/
-    '';
+  installPhase = ''
+    runHook preInstall
+
+    ${old.installPhase or ""}
+
+    unzip ${fullTilt}
+    cp -r CADET/CADET.DAT CADET/SOUND $out/lib/SpaceCadetPinball/
+
+    runHook postInstall
+  '';
 
   meta = old.meta // {
     maintainers = with lib.maintainers; [ xddxdd ];

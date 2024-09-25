@@ -11,8 +11,12 @@ stdenv.mkDerivation rec {
   buildInputs = [ fuse ];
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/bin
     install -m755 nul1fs nullfs nulnfs $out/bin/
+
+    runHook postInstall
   '';
 
   meta = with lib; {

@@ -11,11 +11,19 @@ stdenv.mkDerivation rec {
   buildInputs = [ ncurses ];
 
   buildPhase = ''
+    runHook preBuild
+
     make -f Makefile.lin gopherus
+
+    runHook postBuild
   '';
 
   installPhase = ''
+    runHook preInstall
+
     install -Dm755 gopherus $out/bin/gopherus
+
+    runHook postInstall
   '';
 
   meta = with lib; {

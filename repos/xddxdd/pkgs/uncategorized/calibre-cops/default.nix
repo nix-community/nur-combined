@@ -13,7 +13,11 @@ stdenvNoCC.mkDerivation {
   inherit (sources.calibre-cops) pname version src;
 
   unpackPhase = ''
+    runHook preUnpack
+
     unzip $src
+
+    runHook postUnpack
   '';
 
   nativeBuildInputs = [
@@ -21,9 +25,13 @@ stdenvNoCC.mkDerivation {
   ];
 
   installPhase = ''
+    runHook preInstall
+
     mkdir $out
     cp -r * $out/
     cp ${configFile} $out/config_local.php
+
+    runHook postInstall
   '';
 
   meta = with lib; {

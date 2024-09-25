@@ -11,10 +11,14 @@ stdenvNoCC.mkDerivation rec {
   inherit (sources.phpmyadmin) pname version src;
 
   installPhase = ''
+    runHook preInstall
+
     mkdir $out
     cp -r * $out/
     rm -rf $out/config.sample.inc.php $out/examples $out/setup $out/sql
     cp ${configFile} $out/config.inc.php
+
+    runHook postInstall
   '';
 
   meta = with lib; {

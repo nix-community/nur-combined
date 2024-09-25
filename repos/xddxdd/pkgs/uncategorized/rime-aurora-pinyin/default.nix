@@ -7,8 +7,12 @@
 stdenvNoCC.mkDerivation {
   inherit (sources.rime-aurora-pinyin) pname version src;
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/share/rime-data
     cp *.yaml $out/share/rime-data/
+
+    runHook postInstall
   '';
 
   meta = with lib; {

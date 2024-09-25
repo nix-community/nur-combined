@@ -21,8 +21,12 @@ let
       nativeBuildInputs = [ autoPatchelfHook ];
       buildInputs = [ curl ];
       installPhase = ''
+        runHook preInstall
+
         mkdir -p $out
         cp * $out/
+
+        runHook postInstall
       '';
 
       meta = with lib; {

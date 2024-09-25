@@ -105,7 +105,11 @@ stdenv.mkDerivation rec {
   dontCheck = true;
 
   installPhase = ''
+    runHook preInstall
+
     make install_sw install_ssldirs
+
+    runHook postInstall
   '';
 
   postInstall =

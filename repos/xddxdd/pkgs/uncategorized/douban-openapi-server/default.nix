@@ -31,6 +31,8 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/bin $out/opt
 
     cp -r * $out/opt/
@@ -39,6 +41,8 @@ stdenv.mkDerivation rec {
       --add-flags "--chdir" \
       --add-flags "$out/opt/" \
       --append-flags "app:app"
+
+    runHook postInstall
   '';
 
   meta = with lib; {

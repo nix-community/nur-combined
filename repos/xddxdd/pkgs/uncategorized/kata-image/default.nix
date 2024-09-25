@@ -9,8 +9,12 @@ stdenv.mkDerivation {
   inherit (sources.kata-image) version src;
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/share
     cp -r kata/share/kata-containers $out/share/kata-containers
+
+    runHook postInstall
   '';
 
   meta = with lib; {

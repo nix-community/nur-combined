@@ -41,8 +41,12 @@ buildPythonPackage rec {
   propagatedBuildInputs = [ numpy ];
 
   installPhase = ''
+    runHook preInstall
+
     cp $src ${wheelName}
     pip install --prefix=$out ${wheelName}
+
+    runHook postInstall
   '';
 
   makeWrapperArgs = [ "--prefix LD_LIBRARY_PATH : ${cudaLibPaths}" ];

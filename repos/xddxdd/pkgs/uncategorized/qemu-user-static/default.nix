@@ -12,17 +12,25 @@ let
       inherit (source) version src;
 
       unpackPhase = ''
+        runHook preUnpack
+
         ar x $src
         tar xf data.tar.xz
+
+        runHook postUnpack
       '';
 
       installPhase = ''
+        runHook preInstall
+
         mkdir -p $out
         cp -r usr/bin $out/bin
 
         for F in $out/bin/*; do
           ln -sf ''${F} ''${F}-static
         done
+
+        runHook postInstall
       '';
 
       dontFixup = true;

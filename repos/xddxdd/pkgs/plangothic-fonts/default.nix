@@ -11,9 +11,13 @@ let
       pname = "plangothic-fonts-${P1_variant}";
       inherit (sources.plangothic-fonts) version src;
       installPhase = ''
+        runHook preInstall
+
         mkdir -p $out/share/fonts/truetype/
         cp "PlangothicP1-Regular (${P1_variant}).ttf" $out/share/fonts/truetype/
         cp "PlangothicP2-Regular.ttf" $out/share/fonts/truetype/
+
+        runHook postInstall
       '';
 
       meta = with lib; {

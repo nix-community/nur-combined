@@ -7,9 +7,27 @@
 let
   composer2nixOutput = callPackage ./composer2nix { };
 in
-composer2nixOutput.overrideAttrs (_old: rec {
+composer2nixOutput.overrideAttrs (old: rec {
   inherit (sources.oci-arm-host-capacity) pname version src;
   name = "${pname}-${version}";
+
+  unpackPhase = ''
+    runHook preUnpack
+    ${old.unpackPhase or ""}
+    runHook postUnpack
+  '';
+
+  buildPhase = ''
+    runHook preBuild
+    ${old.buildPhase or ""}
+    runHook postBuild
+  '';
+
+  installPhase = ''
+    runHook preInstall
+    ${old.installPhase or ""}
+  '';
+  # runHook postInstall is already present in installPhase
 
   postFixup = ''
     substituteInPlace $out/index.php \

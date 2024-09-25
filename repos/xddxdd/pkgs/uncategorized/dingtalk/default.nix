@@ -155,6 +155,8 @@ stdenv.mkDerivation rec {
   dontWrapQtApps = true;
 
   unpackPhase = ''
+    runHook preUnpack
+
     ar x $src
     tar xf data.tar.xz
 
@@ -206,6 +208,8 @@ stdenv.mkDerivation rec {
     rm -rf release/Resources/{i18n/tool/*.exe,qss/mac}
     rm -rf release/swiftshader
     rm -rf release/xcbglintegrations
+
+    runHook postUnpack
   '';
 
   postInstall = ''
