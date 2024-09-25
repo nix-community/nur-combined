@@ -9,6 +9,7 @@ with pkgs;
   # qq
   chromium
   discord
+  apotris
   celeste
   stellarium
   obsidian
