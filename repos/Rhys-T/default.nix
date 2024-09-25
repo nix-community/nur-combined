@@ -21,7 +21,7 @@ rec {
         See <${meta.homepage}> for the actual Read Me.
         '';
         meta = {
-            homepage = "https://github.com/Rhys-T/nur-packages";
+            homepage = "https://github.com/Rhys-T/nur-packages#readme";
             knownVulnerabilities = [message];
         };
     } ''
