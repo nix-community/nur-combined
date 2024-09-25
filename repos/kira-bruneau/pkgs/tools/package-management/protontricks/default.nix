@@ -44,6 +44,12 @@ buildPythonApplication rec {
       revert = true;
       hash = "sha256-1U/LiAliKtk3ygbIBsmoavXN0RSykiiegtml+bO8CnI=";
     })
+
+    # Fix test_run_no_args test
+    (fetchpatch2 {
+      url = "https://github.com/Matoking/protontricks/commit/ff2381ad379a612e73f0d4604f1c9c3a012b3355.patch";
+      hash = "sha256-aiafLbiqS6TBBiQpfTYPVqhQs2OXYg/4yCtbuTv6Ug8=";
+    })
   ];
 
   nativeBuildInputs = [ setuptools-scm ];
@@ -76,11 +82,6 @@ buildPythonApplication rec {
   '';
 
   pythonImportsCheck = [ "protontricks" ];
-
-  disabledTests = [
-    # Running without args will try to launch GUI, which will fail in Nix sandbox
-    "test_run_no_args"
-  ];
 
   passthru.updateScript = nix-update-script { };
 

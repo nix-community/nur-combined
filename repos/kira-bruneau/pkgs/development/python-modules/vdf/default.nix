@@ -35,8 +35,8 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "vdf" ];
 
-  # The default python updater doesn't work because pygls doesn't use
-  # GitHub releases, only tags
+  # Use nix-update-script instead of the default python updater
+  # The python updater requires GitHub releases, but vdf only uses tags
   passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
