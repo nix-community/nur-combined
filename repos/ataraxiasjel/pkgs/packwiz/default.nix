@@ -8,13 +8,13 @@
 
 buildGoModule {
   pname = "packwiz";
-  version = "0-unstable-2024-08-28";
+  version = "0-unstable-2024-09-24";
 
   src = fetchFromGitHub {
     owner = "packwiz";
     repo = "packwiz";
-    rev = "0bb89a4872d8dc2c45af251345ee780cab7ab9ad";
-    sha256 = "sha256-LNKAyIPJSa3RddXRP912eZjLT6+r1wISKEXFHpZdavY=";
+    rev = "811dbc6f908b2b34a41abeee1c39839a611dd701";
+    sha256 = "sha256-38xPz5QAEWjQe3qLCGNAl92vBeNU013p75YpA4hFc7w=";
   };
 
   vendorHash = "sha256-krdrLQHM///dtdlfEhvSUDV2QljvxFc2ouMVQVhN7A0=";
