@@ -182,15 +182,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "b3f8d0a5d84e011a5b0f1b10c34af6637b49e085";
+    version = "2c8f0894daa80df888154cd6d40fdf894b4a4c4c";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "b3f8d0a5d84e011a5b0f1b10c34af6637b49e085";
+      rev = "2c8f0894daa80df888154cd6d40fdf894b4a4c4c";
       fetchSubmodules = false;
-      sha256 = "sha256-/QhQBf5JL4zoIgXz44HbcDtaEgpiLkVyptuWfNLjL0g=";
+      sha256 = "sha256-O4gP0Uzfw79e9oahumxIDnYhY1PuSxGWzx45+uM/3TQ=";
     };
-    date = "2024-09-23";
+    date = "2024-09-25";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -764,13 +764,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3820";
+    version = "b3823";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3820";
+      rev = "b3823";
       fetchSubmodules = false;
-      sha256 = "sha256-NtdLde636SJNajkhj47qgoRikXl6tpCUHDzFe/Aai0c=";
+      sha256 = "sha256-4ltmo3XwQRxLEiQHl81fpgE4LbsGBeyJO5H1Yb+tfHQ=";
     };
   };
   lyrica = {
@@ -1245,18 +1245,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "Linux/QQ_3.2.12_240919_amd64_01";
+    version = "Linux/QQ_3.2.12_240925_amd64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.12_240919_amd64_01.deb";
-      sha256 = "sha256-AV9qV+A1PXNTqKBeEjcmXPO35SwtTIVbtXZx5XqxaDE=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.12_240925_amd64_01.deb";
+      sha256 = "sha256-ws96ezfEYXZW5R+talKCB/5kN76JX81W1por7FjkhP8=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "Linux/QQ_3.2.12_240919_arm64_01";
+    version = "Linux/QQ_3.2.12_240925_arm64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.12_240919_arm64_01.deb";
-      sha256 = "sha256-hLTVOEt0nTyFCtSSQnCnVcp5WNqs96Y6ZkXwYPE/oJs=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.12_240925_arm64_01.deb";
+      sha256 = "sha256-tIXzUQ6DMiP3yNsg61lFX1PUXo3N1vFopZY5Cy/CTu4=";
     };
   };
   qqmusic = {
@@ -1335,15 +1335,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "2ea99c5e4f3afaa24ebef61d17ea097557ca36b3";
+    version = "ea74e40bec2bd6580fa8d807075cd107739ba6cd";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "2ea99c5e4f3afaa24ebef61d17ea097557ca36b3";
+      rev = "ea74e40bec2bd6580fa8d807075cd107739ba6cd";
       fetchSubmodules = false;
-      sha256 = "sha256-6leug6CxZjg855fjW2mKPLcmMTO/KE9xjLm9hbZH2Fo=";
+      sha256 = "sha256-R2K2LNycXqsUxXvMMq5fcQJUhDnhQMcTlvryMLeiKH0=";
     };
-    date = "2024-09-16";
+    date = "2024-09-25";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
