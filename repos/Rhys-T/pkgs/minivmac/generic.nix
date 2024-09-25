@@ -96,6 +96,18 @@ let
                     branch = lib.versions.major version;
                     platforms = builtins.attrNames targetCodes;
                     maintainers = [ maintainers.Rhys-T ];
+                    sourceProvenance = with lib.sourceTypes; [
+                        fromSource
+                        # The C code for Mini vMac contains pre-assembled machine code for:
+                        # - A replacement for the floppy disk driver that gets patched into ROM
+                        # - A driver ROM for the emulated video card (Macintosh II only)
+                        # They're machine code for real CPUs that existed, but in the context of
+                        # running them in an emulator - and because they actually _need_ to run
+                        # in the emulator - 'bytecode' seems like the closest available option.
+                        # Mini vMac includes the assembly code for these under extras/mydriver,
+                        # along with instructions on how to build the disk driver under MPW.
+                        binaryBytecode
+                    ];
                     mainProgram = execName;
                 };
             };
