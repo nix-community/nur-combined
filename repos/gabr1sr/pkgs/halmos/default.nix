@@ -2,7 +2,7 @@
 
 python3.pkgs.buildPythonPackage rec {
   pname = "halmos";
-  version = "0.1.14";
+  version = "0.2.0";
   pyproject = true;
   doCheck = false;
 
@@ -12,7 +12,7 @@ python3.pkgs.buildPythonPackage rec {
   
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-Va5gwyRePGHnFr3jtP1ec3diAQExXfVbwrrMpzV9euc=";
+    hash = "sha256-1Js1ovvPgAZLngArTmu0vhM9vk5LZTg68eYptsn3Ji4=";
   };
   
   build-system = with python3.pkgs; [
