@@ -8,8 +8,10 @@
 let
   targets = map (n: "${n}.nyaw.xyz") [
     "nodens"
-    "abhoth" # single point
-    # "kaambl"
+    # "abhoth" # recover in 1 Oct
+  ];
+  targets_notls = map (n: "${n}.nyaw.xyz") [
+    "kaambl"
     "azasos"
     "hastur"
   ];
@@ -81,6 +83,15 @@ reIf {
           static_configs = [ { inherit targets; } ];
         }
         {
+          job_name = "metrics-notls";
+          scheme = "http";
+          basic_auth = {
+            username = "prometheus";
+            password_file = secPath;
+          };
+          static_configs = [ { targets = targets_notls; } ];
+        }
+        {
           job_name = "http";
           scheme = "http";
           metrics_path = "/probe";
@@ -91,6 +102,7 @@ reIf {
             {
               targets = [
                 "https://nyaw.xyz"
+                "https://ntfy.nyaw.xyz"
                 "https://matrix.nyaw.xyz"
                 "https://pb.nyaw.xyz"
                 "https://vault.nyaw.xyz"
@@ -99,14 +111,6 @@ reIf {
           ];
           inherit relabel_configs;
         }
-        # {
-        #   job_name = "metrics-notls";
-        #   scheme = "http";
-        #   static_configs = [
-        #     { targets = [ "10.0.2.1:9100" ]; }
-        #     { targets = [ "10.0.2.2:9100" ]; }
-        #   ];
-        # }
       ];
     rules = lib.singleton (
       builtins.toJSON {

@@ -26,11 +26,13 @@
     # useHostResolvConf = true;
     hosts = {
       "127.0.0.1" = [
-        "attic.nyaw.xyz"
         "s3.nyaw.xyz"
+        "hastur.nyaw.xyz"
       ];
       "10.0.1.1" = [ "nodens.nyaw.xyz" ];
       "10.0.2.3" = [ "kaambl.nyaw.xyz" ];
+      "10.0.2.1" = [ "azasos.nyaw.xyz" ];
+      "10.0.3.1" = [ "abhoth.nyaw.xyz" ];
     };
 
     hostName = "hastur"; # Define your hostname.
