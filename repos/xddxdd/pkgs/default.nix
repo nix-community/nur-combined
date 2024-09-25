@@ -218,6 +218,7 @@ mkScope (
     sam-toki-mouse-cursors = pkg ./uncategorized/sam-toki-mouse-cursors { };
     sgx-software-enable = pkg ./uncategorized/sgx-software-enable { };
     smartrent_py = pkg ./uncategorized/smartrent_py { };
+    smfc = pkg ./uncategorized/smfc { };
     soggy = pkg ./uncategorized/soggy { };
     space-cadet-pinball-full-tilt = pkg ./uncategorized/space-cadet-pinball-full-tilt { };
     svp = pkg ./uncategorized/svp { };

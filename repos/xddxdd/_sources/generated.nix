@@ -1426,6 +1426,17 @@
       sha256 = "sha256-02RMZhytJrRYHGv1ugRY2MMHpk10TcoDgvRkEGIuabo=";
     };
   };
+  smfc = {
+    pname = "smfc";
+    version = "v3.5.1";
+    src = fetchFromGitHub {
+      owner = "petersulyok";
+      repo = "smfc";
+      rev = "v3.5.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-zfQDvh5j40UNwJanGS5acRyNB+3j5jcKC/vsPHRijtc=";
+    };
+  };
   soggy = {
     pname = "soggy";
     version = "2736cb094a51d186dabf2204a7599e9b8118f8dd";

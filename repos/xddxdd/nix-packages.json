@@ -3279,6 +3279,11 @@
     "pname": "python3.12-smartrent_py",
     "version": "0.4.0"
   },
+  "legacyPackages.x86_64-linux.smfc": {
+    "description": "Super Micro Fan Control",
+    "pname": "smfc",
+    "version": "3.5.1"
+  },
   "legacyPackages.x86_64-linux.soggy": {
     "description": "Experimental server emulator for a game I forgot its name",
     "pname": "soggy-unstable",
@@ -4043,6 +4048,11 @@
     "description": "Api for SmartRent locks, thermostats, moisture sensors and switches",
     "pname": "python3.12-smartrent_py",
     "version": "0.4.0"
+  },
+  "packages.x86_64-linux.smfc": {
+    "description": "Super Micro Fan Control",
+    "pname": "smfc",
+    "version": "3.5.1"
   },
   "packages.x86_64-linux.soggy": {
     "description": "Experimental server emulator for a game I forgot its name",

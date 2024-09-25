@@ -2584,6 +2584,27 @@
         },
         "version": "0.4.0"
     },
+    "smfc": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "smfc",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "petersulyok",
+            "repo": "smfc",
+            "rev": "v3.5.1",
+            "sha256": "sha256-zfQDvh5j40UNwJanGS5acRyNB+3j5jcKC/vsPHRijtc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v3.5.1"
+    },
     "soggy": {
         "cargoLocks": null,
         "date": "2022-12-14",

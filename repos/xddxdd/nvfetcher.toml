@@ -565,6 +565,10 @@ fetch.github = "intel/sgx-software-enable"
 src.manual = "0.4.0"
 fetch.pypi = "smartrent.py"
 
+[smfc]
+src.github = "petersulyok/smfc"
+fetch.github = "petersulyok/smfc"
+
 [soggy]
 src.git = "https://github.com/LDAsuku/soggy.git"
 fetch.github = "LDAsuku/soggy"
