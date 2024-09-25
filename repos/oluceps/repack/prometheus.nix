@@ -9,7 +9,7 @@ let
   targets = map (n: "${n}.nyaw.xyz") [
     "nodens"
     "abhoth" # single point
-    "kaambl"
+    # "kaambl"
     "azasos"
     "hastur"
   ];
