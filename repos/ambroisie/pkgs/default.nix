@@ -2,6 +2,8 @@
 pkgs.lib.makeScope pkgs.newScope (pkgs: {
   bw-pass = pkgs.callPackage ./bw-pass { };
 
+  cgt-calc = pkgs.callPackage ./cgt-calc { };
+
   change-audio = pkgs.callPackage ./change-audio { };
 
   change-backlight = pkgs.callPackage ./change-backlight { };
