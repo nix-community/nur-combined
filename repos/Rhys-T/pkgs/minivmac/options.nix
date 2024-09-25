@@ -1,6 +1,6 @@
 { pkgs ? import <nixpkgs> {} }: with pkgs;
 let
-    procStr = name: x: "-${name} ${x}";
+    procStr = name: x: lib.optionalString (x != null) "-${name} ${lib.escapeShellArg x}";
     procInt = name: x: if builtins.isInt x then "-${name} ${toString x}" else throw "not an integer";
     procBool = name: x: "-${name} ${if x then "1" else "0"}";
     procBoolNoArg = name: x: if x then "-${name}" else "";
@@ -12,7 +12,7 @@ let
     ];
     withOrder = o: f: {__functor = self: f; order = o;};
     optProc = {
-        targetCode = procstr "t";
+        targetCode = procStr "t";
         macType = procStr "m";
         localtalk = procBoolNoArg "lt";
         localtalkOver = procStr "lto";
@@ -38,6 +38,8 @@ let
         memory = procStr "mem";
         insertIthDisk = procBool "iid";
         keyMap = keyMap: builtins.concatStringsSep " " (lib.mapAttrsToList (realKey: macKey: "-km ${realKey} ${macKey}") keyMap);
+        maintainer = procStr "maintainer";
+        homepage = procStr "homepage";
         rawOptions = withOrder 100 (value: value);
     };
 in rec {
@@ -51,6 +53,10 @@ in rec {
     #   fixedF = lib.setFunctionArgs argCheckingF allArgs;
     # in fixedF;
     # takesOptions = f: takesOptions' { inherit f; };
+    defaultOptions = {
+        maintainer = "Rhys-T on GitHub";
+        homepage = "https://github.com/Rhys-T/nur-packages";
+    };
     extractOptions = builtins.intersectAttrs optProc;
     buildOptionsFrom = opts: lib.pipe (extractOptions opts) [
         (lib.mapAttrsToList (name: value: {
@@ -58,6 +64,8 @@ in rec {
             order = optProc.${name}.order or 0;
         }))
         (builtins.sort (x: y: x.order < y.order))
+        (builtins.map builtins.toString)
+        (lib.lists.remove "")
         (builtins.concatStringsSep " ")
     ];
 }

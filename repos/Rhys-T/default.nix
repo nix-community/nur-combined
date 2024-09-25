@@ -14,6 +14,21 @@ rec {
     modules = import ./modules; # NixOS modules
     overlays = import ./overlays; # nixpkgs overlays
     
+    _Read-Me-link = pkgs.runCommandLocal "___Read_Me___" rec {
+        message = ''
+        This is not a real package.
+        It's just here to add a Read Me link to <https://nur.nix-community.org/repos/rhys-t/>.
+        See <${meta.homepage}> for the actual Read Me.
+        '';
+        meta = {
+            homepage = "https://github.com/Rhys-T/nur-packages";
+            knownVulnerabilities = [message];
+        };
+    } ''
+        echo -E "$message" >&2
+        exit 1
+    '';
+    
     maintainers = import ./maintainers.nix;
 
     # example-package = pkgs.callPackage ./pkgs/example-package { };

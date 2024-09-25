@@ -15,16 +15,22 @@ let
             }
         else
         let
+            isAtLeast37 = (builtins.compareVersions "37a" version) <= 0;
             inherit (stdenv) hostPlatform;
             inherit (hostPlatform) isDarwin isLinux;
             targetCodes = {
                 x86_64-linux = "lx64";
                 i686-linux = "lx86";
                 x86_64-darwin = "mc64";
-            } // lib.optionalAttrs ((builtins.compareVersions "37a" version) <= 0) {
+            } // lib.optionalAttrs isAtLeast37 {
                 aarch64-darwin = "mcar";
             };
-            minivmacOptions = options.buildOptionsFrom args;
+            argsPlusDefaults = options.defaultOptions // args;
+            # Until 37.x, these two options need to be patched into setup/CNFGDLFT.i instead
+            argsForOptions = removeAttrs argsPlusDefaults (lib.optionals (!isAtLeast37) ["maintainer" "homepage"]);
+            
+            inherit (argsPlusDefaults) maintainer homepage;
+            minivmacOptions = options.buildOptionsFrom argsForOptions;
             targetCode = minivmacOptions.targetCode or targetCodes.${hostPlatform.system} or (throw ''
                 Platform ${hostPlatform.system} is not currently supported by this derivation.
                 If this platform is listed on one of:
@@ -39,7 +45,13 @@ let
                 pname = "minivmac";
                 inherit version src;
                 patches = lib.optionals applyMacDataPathPatch [ ./mac-data-path-from-env.patch ];
-                postPatch = lib.optionalString hostPlatform.isLinux ''
+                postPatch = lib.optionalString (!isAtLeast37 && (maintainer != null || homepage != null)) ''
+                substituteInPlace setup/CNFGDLFT.i ${
+                    lib.optionalString (maintainer != null) ''--replace-fail '#define kMaintainerName "unknown"' '#define kMaintainerName "'${lib.escapeShellArg maintainer}\"''
+                } ${
+                    lib.optionalString (homepage != null) ''--replace-fail '#define kStrHomePage "(unknown)"' '#define kStrHomePage "'${lib.escapeShellArg homepage}\"''
+                }
+                '' + lib.optionalString hostPlatform.isLinux ''
                 substituteInPlace src/SGLUALSA.h --replace-fail '"libasound.so.2"' "\"${alsaLib.out}/lib/libasound.so.2\""
                 '' + ''
                 for file in setup/*.i; do
@@ -59,7 +71,7 @@ let
                 '';
                 configurePhase = ''
                 cc -o setup_t setup/tool.c
-                ./setup_t -t ${targetCode} ${minivmacOptions} ${lib.optionalString (hostPlatform.isDarwin && (builtins.compareVersions "37a" version) <= 0) "-cl"} > setup.sh
+                ./setup_t -t ${targetCode} ${minivmacOptions} ${lib.optionalString (hostPlatform.isDarwin && isAtLeast37) "-cl"} > setup.sh
                 bash setup.sh
                 '';
                 # Mini vMac gets stuck in the background if I run it from a symlink in bin - use a wrapper instead

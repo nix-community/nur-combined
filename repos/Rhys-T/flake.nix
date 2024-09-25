@@ -1,6 +1,10 @@
 {
   description = "My personal NUR repository";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  nixConfig = {
+    extra-substituters = ["https://rhys-t.cachix.org"];
+    extra-trusted-public-keys = ["rhys-t.cachix.org-1:u01ifDlaQjvJbtMT1Saw+oaFX1Lf/Urw+ND0i/L4kgw="];
+  };
   outputs = { self, nixpkgs }:
     let
       systems = [
