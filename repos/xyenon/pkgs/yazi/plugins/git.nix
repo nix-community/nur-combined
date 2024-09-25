@@ -7,13 +7,13 @@
 
 stdenvNoCC.mkDerivation {
   pname = "git";
-  version = "0-unstable-2024-09-05";
+  version = "0-unstable-2024-09-24";
 
   src = fetchFromGitHub {
     owner = "yazi-rs";
     repo = "plugins";
-    rev = "9a1129cf3919f0a75865ba2cb05ba08ceee5a548";
-    hash = "sha256-g+NBP0Yg2IpunQckooB2r0KmH83YespD1jDllriNQZ8=";
+    rev = "c5785059611624e20a37ba573620f30acc28a26a";
+    hash = "sha256-wlSBtabIsEUJhuHmXwgpSnwZp9WaVQFBg6s1XXjubrE=";
   };
 
   dontBuild = true;
