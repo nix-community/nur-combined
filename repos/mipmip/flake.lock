@@ -57,6 +57,40 @@
         "type": "github"
       }
     },
+    "ameba-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1677051617,
+        "narHash": "sha256-coZU3cufQgSCid10zEvmHG7ddLbZhnrvl9ffw4Y6h74=",
+        "owner": "crystal-ameba",
+        "repo": "ameba",
+        "rev": "6f05df4006e82ba05a55dcfa831f6dbdb3b0191d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "crystal-ameba",
+        "ref": "v1.4.2",
+        "repo": "ameba",
+        "type": "github"
+      }
+    },
+    "bdwgc-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1661523039,
+        "narHash": "sha256-UYJQGeSykmfydGAmTlNJNyAPBasBkddOSoopBHiY7TI=",
+        "owner": "ivmai",
+        "repo": "bdwgc",
+        "rev": "cd1fbc1dbfd2cc888436944dd2784f39820698d7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ivmai",
+        "ref": "v8.2.2",
+        "repo": "bdwgc",
+        "type": "github"
+      }
+    },
     "bmc": {
       "inputs": {
         "nixpkgs": "nixpkgs_3"
@@ -72,6 +106,115 @@
       "original": {
         "owner": "wearetechnative",
         "repo": "bmc",
+        "type": "github"
+      }
+    },
+    "crystal-aarch64-darwin": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-eU5JsJBXLZBQu0y6u2qF3QImgIzra6j+gftWM1hzg8k=",
+        "type": "tarball",
+        "url": "https://github.com/crystal-lang/crystal/releases/download/1.7.3/crystal-1.7.3-1-darwin-universal.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/crystal-lang/crystal/releases/download/1.7.3/crystal-1.7.3-1-darwin-universal.tar.gz"
+      }
+    },
+    "crystal-flake": {
+      "inputs": {
+        "ameba-src": "ameba-src",
+        "bdwgc-src": "bdwgc-src",
+        "crystal-aarch64-darwin": "crystal-aarch64-darwin",
+        "crystal-i686-linux": "crystal-i686-linux",
+        "crystal-src": "crystal-src",
+        "crystal-x86_64-darwin": "crystal-x86_64-darwin",
+        "crystal-x86_64-linux": "crystal-x86_64-linux",
+        "crystalline-src": "crystalline-src",
+        "flake-parts": "flake-parts_4",
+        "nixpkgs": "nixpkgs_11"
+      },
+      "locked": {
+        "lastModified": 1679338490,
+        "narHash": "sha256-GTRkj188iFatAMGRXi9KxpmfNHZFp2r7S3zcgk98TFA=",
+        "owner": "manveru",
+        "repo": "crystal-flake",
+        "rev": "e0606dce817d2ec3ff2d193dae93eea380fd52ef",
+        "type": "github"
+      },
+      "original": {
+        "owner": "manveru",
+        "repo": "crystal-flake",
+        "type": "github"
+      }
+    },
+    "crystal-i686-linux": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-YMvEPfC+7qvhBQaeaGcvrgRQgdkAORDGzqB5YE40ODY=",
+        "type": "tarball",
+        "url": "https://github.com/crystal-lang/crystal/releases/download/1.7.3/crystal-1.7.3-1-linux-x86_64.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/crystal-lang/crystal/releases/download/1.7.3/crystal-1.7.3-1-linux-x86_64.tar.gz"
+      }
+    },
+    "crystal-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1678199101,
+        "narHash": "sha256-ULhLGHRIZbsKhaMvNhc+W74BwNgfEjHcMnVNApWY+EE=",
+        "owner": "crystal-lang",
+        "repo": "crystal",
+        "rev": "d61a01e185baf84046efce50832a97f097ba0a2f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "crystal-lang",
+        "ref": "1.7.3",
+        "repo": "crystal",
+        "type": "github"
+      }
+    },
+    "crystal-x86_64-darwin": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-eU5JsJBXLZBQu0y6u2qF3QImgIzra6j+gftWM1hzg8k=",
+        "type": "tarball",
+        "url": "https://github.com/crystal-lang/crystal/releases/download/1.7.3/crystal-1.7.3-1-darwin-universal.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/crystal-lang/crystal/releases/download/1.7.3/crystal-1.7.3-1-darwin-universal.tar.gz"
+      }
+    },
+    "crystal-x86_64-linux": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-YMvEPfC+7qvhBQaeaGcvrgRQgdkAORDGzqB5YE40ODY=",
+        "type": "tarball",
+        "url": "https://github.com/crystal-lang/crystal/releases/download/1.7.3/crystal-1.7.3-1-linux-x86_64.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/crystal-lang/crystal/releases/download/1.7.3/crystal-1.7.3-1-linux-x86_64.tar.gz"
+      }
+    },
+    "crystalline-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1673543445,
+        "narHash": "sha256-oNi2PXjrQbaUsTpV33jdACO0khPCaoq0FVN1tMZgwME=",
+        "owner": "elbywan",
+        "repo": "crystalline",
+        "rev": "c6a825edeb81bd6c3e433b083f52837958102888",
+        "type": "github"
+      },
+      "original": {
+        "owner": "elbywan",
+        "ref": "v0.8.0",
+        "repo": "crystalline",
         "type": "github"
       }
     },
@@ -173,6 +316,24 @@
       "original": {
         "id": "flake-parts",
         "type": "indirect"
+      }
+    },
+    "flake-parts_4": {
+      "inputs": {
+        "nixpkgs-lib": "nixpkgs-lib_2"
+      },
+      "locked": {
+        "lastModified": 1672152762,
+        "narHash": "sha256-U8iWWHgabN07zfbgedogMVWrEP1Zywyf3Yx3OYHSSgE=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "19e0f88324d90509141e192664ded98bb88ef9b2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
       }
     },
     "hercules-ci-effects": {
@@ -500,6 +661,24 @@
         "type": "github"
       }
     },
+    "nixpkgs-lib_2": {
+      "locked": {
+        "dir": "lib",
+        "lastModified": 1671359686,
+        "narHash": "sha256-3MpC6yZo+Xn9cPordGz2/ii6IJpP2n8LE8e/ebUXLrs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "04f574a1c0fde90b51bf68198e2297ca4e7cccf4",
+        "type": "github"
+      },
+      "original": {
+        "dir": "lib",
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-pine64": {
       "locked": {
         "lastModified": 1653060744,
@@ -528,6 +707,38 @@
         "id": "nixpkgs",
         "ref": "nixos-24.05",
         "type": "indirect"
+      }
+    },
+    "nixpkgs_11": {
+      "locked": {
+        "lastModified": 1677543769,
+        "narHash": "sha256-LwbqS8vGisXl2WHpK9r5+kodr0zoIT8F2YB0R4y1TsA=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b26d52c9feb6476580016e78935cbf96eb3e2115",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-22.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_12": {
+      "locked": {
+        "lastModified": 1679748960,
+        "narHash": "sha256-BP8XcYHyj1NxQi04RpyNW8e7KiXSoI+Fy1tXIK2GfdA=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "da26ae9f6ce2c9ab380c0f394488892616fc5a6a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-22.11",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "nixpkgs_2": {
@@ -740,6 +951,7 @@
         "nixpkgs-pine64": "nixpkgs-pine64",
         "race": "race",
         "shellstuff": "shellstuff",
+        "skull": "skull",
         "unstable": "unstable"
       }
     },
@@ -774,6 +986,25 @@
       "original": {
         "owner": "mipmip",
         "repo": "nix-shellstuff",
+        "type": "github"
+      }
+    },
+    "skull": {
+      "inputs": {
+        "crystal-flake": "crystal-flake",
+        "nixpkgs": "nixpkgs_12"
+      },
+      "locked": {
+        "lastModified": 1727090566,
+        "narHash": "sha256-IyqdUOdNiJKGFRyKuY/GymasxvN46H6Lj6+9hMpZrKA=",
+        "owner": "mipmip",
+        "repo": "skull",
+        "rev": "bd285efab4e1155235c5107a57b15d7eb5f57852",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mipmip",
+        "repo": "skull",
         "type": "github"
       }
     },

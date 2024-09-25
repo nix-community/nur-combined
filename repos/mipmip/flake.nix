@@ -28,9 +28,11 @@
 
     bmc.url = "github:wearetechnative/bmc";
     race.url = "github:wearetechnative/race";
-    dirtygit.url = "github:mipmip/dirtygit";
     jsonify-aws-dotfiles.url = "github:mipmip/jsonify-aws-dotfiles";
+
     shellstuff.url = "github:mipmip/nix-shellstuff";
+    dirtygit.url = "github:mipmip/dirtygit";
+    skull.url = "github:mipmip/skull";
 
     nixpkgs-pine64.url = "nixpkgs/dfd82985c273aac6eced03625f454b334daae2e8";
     mobile-nixos = {
@@ -60,11 +62,11 @@
 
     nixified-ai,
 
-    jsonify-aws-dotfiles, dirtygit, bmc, race, shellstuff,
+    jsonify-aws-dotfiles, dirtygit, bmc, race, shellstuff, skull,
 
     nixpkgs-pine64, mobile-nixos, home-manager-pine64,
 
-    nix-on-droid
+   nix-on-droid
     } :
 
     let
@@ -101,6 +103,7 @@
           jsonify-aws-dotfiles.packages."${defaultSystem}".jsonify-aws-dotfiles
           race.packages."${defaultSystem}".race
           shellstuff.packages."${defaultSystem}".shellstuff
+          skull.packages."${defaultSystem}".skull
         ];
       };
 
