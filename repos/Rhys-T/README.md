@@ -53,7 +53,13 @@ Therefore, I also have an alternative workaround implemented. If you set `conver
 
 There is a higher-resolution version of Lix's main menu background artwork available, but it hasn't made it into a release yet. Set this to `true` to use it.
 
-### `minivmac*` (Mini vMac)
+### `mame*`
+
+The `mame` derivation in nixpkgs is currently broken on macOS. By default, nixpkgs tries to target a minimum macOS version of 10.12, and MAME requires features from newer systems. I can get it to build for macOS 10.15+ by disabling the Metal renderer (`mame`), or for macOS 11 with the Metal renderer enabled (`mame-metal`). On Linux, this _should_ just become the normal MAME package as-is.
+
+(Meanwhile, `mame` also depends on `papirus-icon-theme`, which is marked Linux-only for reasons. So I'm cheating and extracting the one icon it actually needs as its own derivation on non-Linux systems.)
+
+### `minivmac*`
 
 I've made several of the [compile-time options](https://www.gryphel.com/c/minivmac/options.html) for Mini vMac available through `minivmac.override { ... }`. Until I can document this properly, look for the `optProc` block in `pkgs/minivmac/options.nix` to see what's available. For anything I haven't covered, you can override `rawOptions` with a string to add to the end of the `./setup_t` command.
 
@@ -67,7 +73,7 @@ minivmac37.override {
 }
 ```
 
-### `pce*` (PCE)
+### `pce*`
 
 The current release version (0.2.2) of the upstream PCE package includes unfree ROM images for several of the computers it emulates. By default, this derivation will use a tarball hosted in this repo's `distfiles` branch which has had these removed. If you want to install from the upstream tarball, use the `pce-with-unfree-roms` package.
 
