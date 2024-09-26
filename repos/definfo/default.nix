@@ -19,4 +19,5 @@
   lyricer = pkgs.callPackage ./pkgs/lyricer { };
   audacious = pkgs.qt6Packages.callPackage ./pkgs/audacious { };
   rime-ls = pkgs.callPackage ./pkgs/rime-ls { };
+  sjtu-canvas-helper = pkgs.callPackage ./pkgs/sjtu-canvas-helper { };
 }
