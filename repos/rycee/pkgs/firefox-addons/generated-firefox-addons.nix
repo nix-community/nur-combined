@@ -2447,10 +2447,10 @@
     };
     "ebates" = buildFirefoxXpiAddon {
       pname = "ebates";
-      version = "5.48.0";
+      version = "5.50.0";
       addonId = "{35d6291e-1d4b-f9b4-c52f-77e6410d1326}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4332562/ebates-5.48.0.xpi";
-      sha256 = "f3fb98fe4ff55ff3f392d4794617410c1d8a1e2074868ec17ae01738a7ed75b5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4356093/ebates-5.50.0.xpi";
+      sha256 = "0c0aaef5fb0b976362ac25067f198a59e7c56e20f0cc13f6b4f5ba74629cd1a7";
       meta = with lib;
       {
         homepage = "https://www.rakuten.com";
@@ -2703,10 +2703,10 @@
     };
     "fakespot-fake-reviews-amazon" = buildFirefoxXpiAddon {
       pname = "fakespot-fake-reviews-amazon";
-      version = "1.3.5";
+      version = "1.4.0";
       addonId = "{44df5123-f715-9146-bfaa-c6e8d4461d44}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4340990/fakespot_fake_reviews_amazon-1.3.5.xpi";
-      sha256 = "b4243338447d29ec82295d7af78cf6b9dac5c5973fdb7692e8569a6af4e11108";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4356055/fakespot_fake_reviews_amazon-1.4.0.xpi";
+      sha256 = "46e9d47b3989c3f1ae76c458fd59746e850a486ab727ba74ae8928df7bd88dc7";
       meta = with lib;
       {
         description = "Protect yourself from bad sellers and fake reviews on Amazon and more!";
@@ -3494,10 +3494,10 @@
     };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "2.2.2";
+      version = "2.2.3";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4307315/gitpod-2.2.2.xpi";
-      sha256 = "74e1edf69e55e38946cbdb11e664745fc0f7a7b1ddd5be13705727806b1b62b9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4359529/gitpod-2.2.3.xpi";
+      sha256 = "9c9e9b28fe552b5074db76d0bda06e16375a7b4b3fe26630460179b3e6126ccb";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
@@ -5068,10 +5068,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.9.6";
+      version = "1.9.7";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4352222/immersive_translate-1.9.6.xpi";
-      sha256 = "78b40c0124deb81103a27e6ca9ccb1048b06adafd2ac71f2ec9ac4bfaba6ead1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4356394/immersive_translate-1.9.7.xpi";
+      sha256 = "6beaf7cd75e47b76e0d59ecbbee45298711ffd5287e8aa3ca93558b4fcd2d709";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -7677,10 +7677,10 @@
     };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "8.10.44.34";
+      version = "8.10.46.26";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4347028/1password_x_password_manager-8.10.44.34.xpi";
-      sha256 = "ab46650e4c11c32ac3135f021103d42fb10335a15dc82a36692a075f3d5e1fe5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4355876/1password_x_password_manager-8.10.46.26.xpi";
+      sha256 = "dc97804c1ca57402fa5adf6ea0cc7795eb607468a9d6b5ff7e6ec9fdfd1c1b47";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -11937,10 +11937,10 @@
     };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.23.0";
+      version = "2.25.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4352761/violentmonkey-2.23.0.xpi";
-      sha256 = "b3eadf855b6093376590aa63ae05933c5812e9515c9acf558550a4f2c78ab49b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4358157/violentmonkey-2.25.0.xpi";
+      sha256 = "f6466e75d01c1dd42320300366bc501ccd7d2aa5afcefaeea37a54eadc8012d4";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
