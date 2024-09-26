@@ -3084,11 +3084,6 @@
     "pname": "openjdk-adoptium-jre-bin",
     "version": "8u422-b05_adopt"
   },
-  "legacyPackages.x86_64-linux.openssl-oqs": {
-    "description": "A cryptographic library that implements the SSL and TLS protocols",
-    "pname": "openssl-oqs",
-    "version": "1.1.1"
-  },
   "legacyPackages.x86_64-linux.openssl-oqs-provider": {
     "description": "OpenSSL 3 provider containing post-quantum algorithms",
     "pname": "openssl-oqs-provider",
@@ -3858,11 +3853,6 @@
     "description": "",
     "pname": "merged-packages",
     "version": ""
-  },
-  "packages.x86_64-linux.openssl-oqs": {
-    "description": "A cryptographic library that implements the SSL and TLS protocols",
-    "pname": "openssl-oqs",
-    "version": "1.1.1"
   },
   "packages.x86_64-linux.openssl-oqs-provider": {
     "description": "OpenSSL 3 provider containing post-quantum algorithms",

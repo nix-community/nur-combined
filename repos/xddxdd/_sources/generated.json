@@ -1807,27 +1807,6 @@
         },
         "version": "5ef14281cd2c7e9543c3d5d3f6354acfc8dec092"
     },
-    "openssl-oqs": {
-        "cargoLocks": null,
-        "date": "2023-07-19",
-        "extract": null,
-        "name": "openssl-oqs",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "open-quantum-safe",
-            "repo": "openssl",
-            "rev": "98ce60974b53ac99b975cf2418aabab7519f1dff",
-            "sha256": "sha256-pGXKS5GR/k+x3S7li0xsZIw4dJwyD4i0RY70ueWsgZo=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "98ce60974b53ac99b975cf2418aabab7519f1dff"
-    },
     "openssl-oqs-provider": {
         "cargoLocks": null,
         "date": null,

@@ -388,11 +388,6 @@ fetch.github = "y1ndan/onepush"
 src.git = "https://github.com/openresty/openresty.git"
 fetch.github = "openresty/openresty"
 
-[openssl-oqs]
-src.git = "https://github.com/open-quantum-safe/openssl.git"
-src.branch = "OQS-OpenSSL_1_1_1-stable"
-fetch.github = "open-quantum-safe/openssl"
-
 [openssl-oqs-provider]
 src.github = "open-quantum-safe/oqs-provider"
 fetch.github = "open-quantum-safe/oqs-provider"

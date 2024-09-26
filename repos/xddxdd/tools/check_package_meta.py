@@ -53,6 +53,9 @@ def verify_package_info(package_path: str, package_info: dict) -> bool:
     for phase in ["unpack", "patch", "configure", "build", "install", "fixup"]:
         if f"{phase}Phase" in package_info:
             command = package_info[f"{phase}Phase"]
+            if not command:
+                continue
+
             if f"runHook pre{phase.capitalize()}" not in command:
                 print(
                     f"{package_path}: runHook pre{phase.capitalize()} not in build script"

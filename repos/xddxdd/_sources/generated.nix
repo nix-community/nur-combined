@@ -1007,18 +1007,6 @@
     };
     date = "2024-09-14";
   };
-  openssl-oqs = {
-    pname = "openssl-oqs";
-    version = "98ce60974b53ac99b975cf2418aabab7519f1dff";
-    src = fetchFromGitHub {
-      owner = "open-quantum-safe";
-      repo = "openssl";
-      rev = "98ce60974b53ac99b975cf2418aabab7519f1dff";
-      fetchSubmodules = false;
-      sha256 = "sha256-pGXKS5GR/k+x3S7li0xsZIw4dJwyD4i0RY70ueWsgZo=";
-    };
-    date = "2023-07-19";
-  };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
     version = "0.6.1";
