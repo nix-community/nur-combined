@@ -1,0 +1,31 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Rhys-T <108157737+Rhys-T@users.noreply.github.com>
+Date: Thu, 26 Sep 2024 13:31:06 -0400
+Subject: [PATCH] monaco: fix out-of-bounds array access
+
+---
+ src/hbmame/drivers/monaco.cpp | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/src/hbmame/drivers/monaco.cpp b/src/hbmame/drivers/monaco.cpp
+index fdbebf52f59..495c25a3fb6 100644
+--- a/src/hbmame/drivers/monaco.cpp
++++ b/src/hbmame/drivers/monaco.cpp
+@@ -1457,10 +1457,13 @@ void monaco_state::machine_reset()
+ 	m_rescue_x = 0;
+ 	m_rescue_y = 0;
+ 	m_rescue_tile = 0;
+-	m_x[NUM_COMPUTER_CARS] = 0;
+-	m_y[NUM_COMPUTER_CARS] = 0;
+-	m_tile[NUM_COMPUTER_CARS] = 0;
+-	m_color[NUM_COMPUTER_CARS] = 0;
++	for(u8 i=0; i<NUM_COMPUTER_CARS; i++)
++	{
++		m_x[i] = 0;
++		m_y[i] = 0;
++		m_tile[i] = 0;
++		m_color[i] = 0;
++	}
+ 	m_led_high1 = 0;
+ 	m_led_high2 = 0;
+ 	m_led_high3 = 0;
