@@ -10,7 +10,7 @@
 # which this is possible.
 
 {
-  pkgs ? import <nixpkgs> { },
+  pkgs ? import <nixpkgs> { config.allowInsecurePredicate = _: true; },
 }:
 
 with builtins;

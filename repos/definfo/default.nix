@@ -7,7 +7,7 @@
 #     nix-build -A mypackage
 
 {
-  pkgs ? import <nixpkgs> { },
+  pkgs ? import <nixpkgs> { config.allowInsecurePredicate = _: true; },
 }:
 
 {
