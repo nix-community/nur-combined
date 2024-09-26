@@ -4,11 +4,6 @@ on:
   push:
     branches:
       - main
-  schedule:
-    # rebuild everyday at 2:51
-    # TIP: Choose a random time here so not all repositories are build at once:
-    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
-    - cron:  '51 2 * * *'
 jobs:
   tests:
     strategy:
@@ -44,9 +39,6 @@ jobs:
       uses: cachix/install-nix-action@v25
       with:
         github_access_token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Set and show nixpkgs version
-      run: |
-        nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version' -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/$(nix run nixpkgs#jq -- -r '.nodes.nixpkgs.locked.rev' flake.lock).tar.gz
     - name: Setup cachix
       uses: cachix/cachix-action@v15
       # Don't replace <YOUR_CACHIX_NAME> here!

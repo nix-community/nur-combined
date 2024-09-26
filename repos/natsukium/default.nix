@@ -22,6 +22,14 @@ rec {
   bclm = pkgs.callPackage ./pkgs/bclm { };
   copyq = pkgs.copyq;
   emacs-plus = pkgs.callPackage ./pkgs/emacs-plus { source = sources.emacs-plus; };
+  emacs29-plus = pkgs.callPackage ./pkgs/emacs-plus {
+    source = sources.emacs-plus;
+    emacs = pkgs.emacs29;
+  };
+  emacs30-plus = pkgs.callPackage ./pkgs/emacs-plus {
+    source = sources.emacs-plus;
+    emacs = pkgs.emacs30;
+  };
   ligaturizer = pkgs.callPackage ./pkgs/ligaturizer { };
   nixpkgs-review = pkgs.nixpkgs-review;
   psipred = pkgs.callPackage ./pkgs/psipred { };
