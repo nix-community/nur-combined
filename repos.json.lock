@@ -106,8 +106,8 @@
             "url": "https://github.com/Redrield/nurpkgs"
         },
         "Rhys-T": {
-            "rev": "56b90f3261633844fec35ff737aa3b01c8fd4f0b",
-            "sha256": "0l6pvvfg8kyimr7y69hq38vpjj9f07hvbjfs25prhx8xxjxy0yii",
+            "rev": "403f34526985aec331dc516c15012d145a45fdee",
+            "sha256": "15imirqb2nqc3fq2k82xcw2ybwqirmf5z31288qymfcv1rhldzcj",
             "url": "https://github.com/Rhys-T/nur-packages"
         },
         "Samuel-Martineau": {
@@ -196,8 +196,8 @@
             "url": "https://github.com/angr/nixpkgs"
         },
         "anntnzrb": {
-            "rev": "e9667b5b95ee127391e60dfe24f0cc411bba1a8d",
-            "sha256": "0y8hqnbhs3gafhgjbi1ynxlx27nmy7ljv4diy68wwq3qs9vijci1",
+            "rev": "9afb435622312b88bfeb453cb0e2c562bad8125a",
+            "sha256": "19gxzradrmnrhhw2bvlakngacfzsmgqpmw6z6d0vbx52pwbgpmmc",
             "url": "https://github.com/anntnzrb/nurpkgs"
         },
         "anthonyroussel": {
