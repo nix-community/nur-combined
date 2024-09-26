@@ -175,6 +175,7 @@
             isDesktop = true;
             tmuxPrefix = "a";
             unstable = unstableForSystem "x86_64-linux";
+            jsonify-aws-dotfiles = jsonify-aws-dotfiles;
           };
         };
 
@@ -253,9 +254,6 @@
               #_module.args.pkgs-inkscape13 = importFromChannelForSystem system nixpkgs-inkscape13;
             };
 
-            extraPkgs = {
-              environment.systemPackages = [ bmc.packages."${system}".bmc ];
-            };
 
           in [
             defaults

@@ -1,3 +1,4 @@
+
 function! ChatGPTTranslateSelect(mode)
     " call with visualmode() as the argument
     let [line_start, column_start] = getpos("'<")[1:2]
