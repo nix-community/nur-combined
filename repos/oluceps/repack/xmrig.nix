@@ -13,7 +13,7 @@ reIf {
       cuda = false;
       cpu = {
         enable = true;
-        max-threads-hint = 85;
+        max-threads-hint = 75;
       };
       pools = [
         {

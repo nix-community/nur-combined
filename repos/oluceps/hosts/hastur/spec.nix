@@ -74,6 +74,7 @@
     grafana.enable = true;
     meilisearch.enable = true;
     radicle.enable = true;
+    xmrig.enable = true;
   };
   services = {
     # ktistec.enable = true;
