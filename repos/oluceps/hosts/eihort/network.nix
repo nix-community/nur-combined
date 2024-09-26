@@ -116,8 +116,14 @@
             PersistentKeepalive = 15;
           }
           {
-            PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
-            AllowedIPs = [ "10.0.1.9/32" ];
+            PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
+            AllowedIPs = [ "10.0.1.0/24" ];
+            Endpoint = "127.0.0.1:41820";
+            PersistentKeepalive = 15;
+          }
+          {
+            PublicKey = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A=";
+            AllowedIPs = [ "10.0.3.0/24" ];
             Endpoint = "127.0.0.1:41821";
             PersistentKeepalive = 15;
           }

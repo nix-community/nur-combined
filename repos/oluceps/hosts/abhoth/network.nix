@@ -110,6 +110,11 @@
             PersistentKeepalive = 15;
           }
           {
+            PublicKey = "69DTVyNbhMN6/cgLCpcZrh/kGoi1IyxV0QwVjDe5IQk=";
+            AllowedIPs = [ "10.0.3.6/32" ];
+            PersistentKeepalive = 15;
+          }
+          {
             PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
             AllowedIPs = [ "10.0.1.1/24" ];
             Endpoint = "144.126.208.183:51820";

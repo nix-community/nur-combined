@@ -33,6 +33,7 @@
       "10.0.2.3" = [ "kaambl.nyaw.xyz" ];
       "10.0.2.1" = [ "azasos.nyaw.xyz" ];
       "10.0.3.1" = [ "abhoth.nyaw.xyz" ];
+      "192.168.1.158" = [ "eihort.nyaw.xyz" ];
     };
 
     hostName = "hastur"; # Define your hostname.
