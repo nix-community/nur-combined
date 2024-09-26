@@ -4,6 +4,7 @@ reIf {
     enable = true;
     flags = [
       "--cache"
+      "--cache-optimistic"
       "--edns"
       "--http3"
     ];

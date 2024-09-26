@@ -63,7 +63,7 @@
     fail2ban.enable = true;
     phantomsocks.enable = true;
     dae.enable = true;
-    mosproxy.enable = true;
+    dnsproxy.enable = true;
     scrutiny.enable = true;
   };
 
