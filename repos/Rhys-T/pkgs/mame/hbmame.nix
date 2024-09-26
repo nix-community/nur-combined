@@ -63,5 +63,6 @@
             [HBMAME forum at MameWorld.info](https://www.mameworld.info/ubbthreads/postlist.php?Cat=&Board=misfitmame).
         '';
         homepage = "https://hbmame.1emulation.com/";
+        mainProgram = "hbmame";
     };
 })
