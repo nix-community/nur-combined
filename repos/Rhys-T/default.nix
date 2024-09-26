@@ -60,4 +60,9 @@ rec {
     minivmac37 = pkgs.callPackage ./pkgs/minivmac/37.nix { inherit maintainers; };
     minivmac = minivmac36;
     minivmac-unstable = minivmac37;
+    
+    mame = pkgs.callPackage (pkgs.callPackage ./pkgs/mame {}) {};
+    mame-metal = pkgs.callPackage (pkgs.callPackage ./pkgs/mame {}) {
+        darwinMinVersion = "11.0";
+    };
 }
