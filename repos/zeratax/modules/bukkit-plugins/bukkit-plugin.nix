@@ -1,7 +1,11 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
-types.submodule ({ config, ... }:
-  let settingsFormat = pkgs.formats.yaml { };
+  types.submodule ({config, ...}: let
+    settingsFormat = pkgs.formats.yaml {};
   in {
     options = {
       package = mkOption {
