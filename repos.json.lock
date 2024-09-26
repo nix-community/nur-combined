@@ -106,8 +106,8 @@
             "url": "https://github.com/Redrield/nurpkgs"
         },
         "Rhys-T": {
-            "rev": "403f34526985aec331dc516c15012d145a45fdee",
-            "sha256": "15imirqb2nqc3fq2k82xcw2ybwqirmf5z31288qymfcv1rhldzcj",
+            "rev": "56b90f3261633844fec35ff737aa3b01c8fd4f0b",
+            "sha256": "0l6pvvfg8kyimr7y69hq38vpjj9f07hvbjfs25prhx8xxjxy0yii",
             "url": "https://github.com/Rhys-T/nur-packages"
         },
         "Samuel-Martineau": {
