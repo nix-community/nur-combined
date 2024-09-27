@@ -44,7 +44,7 @@ in {
     })
     (mkIf cfg.remote {
       environment.systemPackages = with pkgs; with pkgs.nur.repos.dukzcry; [
-        moonlight-qt
+        moonlight-qt syncthing
       ];
       services.yggdrasil = {
         enable = true;

@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "ydcmd";
-  version = "2.12.1";
+  version = "2.12.2";
 
   src = fetchFromGitHub {
     owner = "abbat";
     repo = "ydcmd";
     rev = "v${version}";
-    sha256 = "sha256-wO5xMzdyzoFONYS9WyIAeN3S2UYfB997QMg+iWkT5P4=";
+    sha256 = "sha256-fxYWsXHSqhkp9sltSmbTXDek5gS5aUvF3nm8H4MPmyM=";
   };
 
   propagatedBuildInputs = [
