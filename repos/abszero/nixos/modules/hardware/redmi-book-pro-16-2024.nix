@@ -1,7 +1,13 @@
-{ config, lib, ... }:
+# Still cannot boot atm
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
-  inherit (lib) mkIf optionalAttrs;
+  inherit (lib) mkIf mkForce;
   inherit (lib.abszero.modules) mkExternalEnableOption;
   cfg = config.abszero.hardware.redmi-book-pro-16-2024;
 
@@ -79,7 +85,7 @@ in
     abszero.services.kanata.enable = true;
 
     hardware = {
-      enableRedistributableFirmware = true;
+      enableAllFirmware = true;
       bluetooth.enable = true;
     };
 
@@ -90,6 +96,56 @@ in
         "nvme"
         "usb_storage"
       ];
+      # TEMP
+      initrd.kernelModules = [
+        "qrtr"
+        "soundwire_intel"
+        "ac97_bus"
+        "intel_uncore_frequency"
+        "intel_powerclamp"
+        "hid_sensor_als"
+        "crct10dif_pclmul"
+        "polyval_clmulni"
+        "hid_sensor_custom"
+        "intel_rapl_msr"
+        "ghash_clmulni_intel"
+        "processor_thermal_device_pci"
+        "ucsi_acpi"
+        "sha1_ssse3"
+        "rapl"
+        "i2c_hid_acpi"
+        "mei_gsc_proxy"
+        "intel_ishtp_hid"
+        "intel_cstate"
+        "intel_pmc_core"
+        "intel_uncore"
+        "i2c_i801"
+        "int3403_thermal"
+        "intel_lpss_pci"
+        "spi_nor"
+        "wmi_bmof"
+        "idma64"
+        "int3400_thermal"
+        "intel_ish_ipc"
+        "mac_hid"
+        "mei_me"
+        "intel_vpu"
+        "pinctrl_meteorlake"
+        "acpi_pad"
+        "acpi_tad"
+        "igen6_edac"
+        "pkcs8_key_parser"
+        "i2c_dev"
+        "crc32_pclmul"
+        "crc32c_intel"
+        "sha512_ssse3"
+        "sha256_ssse3"
+        "serio_raw"
+        "aesni_intel"
+        "spi_intel_pci"
+        "i8042"
+      ];
+      kernelPackages = mkForce pkgs.linuxPackages_latest;
       kernelModules = [ "kvm-intel" ];
     };
 

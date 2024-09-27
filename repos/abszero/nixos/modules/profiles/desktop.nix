@@ -18,7 +18,10 @@ in
   options.abszero.profiles.desktop.enable = mkExternalEnableOption config "desktop profile";
 
   config = mkIf cfg.enable {
-    abszero.profiles.base.enable = true;
+    abszero = {
+      profiles.base.enable = true;
+      boot.lanzaboote.enable = true;
+    };
 
     console.useXkbConfig = true; # use xkbOptions in tty.
 

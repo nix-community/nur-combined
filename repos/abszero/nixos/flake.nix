@@ -23,6 +23,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+    lanzaboote = {
+      # Fork that adds an UKI mode
+      url = "github:linyinfeng/lanzaboote/uki";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
     # catppuccin.url = "github:catppuccin/nix";
     catppuccin.url = "github:Weathercold/nix/patch";
   };

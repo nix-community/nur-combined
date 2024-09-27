@@ -1,5 +1,4 @@
 {
-  inputs,
   config,
   pkgs,
   lib,
@@ -24,10 +23,7 @@ in
   options.abszero.profiles.base.enable = mkExternalEnableOption config "base profile";
 
   config = mkIf cfg.enable {
-    abszero.boot = {
-      loader.systemd-boot.enable = mkDefault true;
-      quiet = true;
-    };
+    abszero.boot.quiet = true;
 
     nix = {
       package = pkgs.nixVersions.latest;
@@ -46,12 +42,11 @@ in
           "@wheel"
         ];
         substituters = [
-          # TEMP
-          # CN mirror of https://cache.nixos.org
-          "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-          "https://mirrors.ustc.edu.cn/nix-channels/store"
-          # "https://abszero.cachix.org"
-          # "https://nix-community.cachix.org"
+          # CN mirrors of https://cache.nixos.org
+          # "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+          # "https://mirrors.ustc.edu.cn/nix-channels/store"
+          "https://abszero.cachix.org"
+          "https://nix-community.cachix.org"
         ];
         trusted-public-keys = [
           "abszero.cachix.org-1:HXOydaS51jSWrM07Ko8AVtGdoBRT9F+QhdYQBiNDaM0="
@@ -88,7 +83,7 @@ in
       # Whether the installation process can modify EFI boot variables.
       loader.efi.canTouchEfiVariables = true;
 
-      kernelPackages = pkgs.linuxPackages_zen;
+      kernelPackages = pkgs.linuxKernel.packages.linux_zen;
       kernel.sysctl."vm.swappiness" = mkDefault 20;
 
       tmp.useTmpfs = true;

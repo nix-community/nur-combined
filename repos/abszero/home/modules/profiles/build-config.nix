@@ -1,7 +1,12 @@
-{ config, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
-  inherit (lib) mkForce mkIf;
+  inherit (lib) mkIf optionalAttrs;
   inherit (lib.abszero.modules) mkExternalEnableOption;
   cfg = config.abszero.profiles.buildConfig;
 in
@@ -14,10 +19,8 @@ in
   config = mkIf cfg.enable {
     abszero.profiles.base.enable = true;
 
-    home.packages = mkForce [ ];
-
-    # programs = builtins.mapAttrs
-    #   (_: v: optionalAttrs (v ? package) { package = pkgs.emptyDirectory; })
-    #   config.programs;
+    programs = builtins.mapAttrs (
+      _: v: optionalAttrs (v ? package) { package = pkgs.emptyDirectory; }
+    ) config.programs;
   };
 }

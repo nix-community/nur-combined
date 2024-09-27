@@ -4,13 +4,6 @@
   inputs = {
     # Repos
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixd = {
-      url = "github:nix-community/nixd";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
-    };
     # bocchi-cursors = {
     #   url = "github:Weathercold/Bocchi-Cursors";
     #   inputs = {
@@ -40,6 +33,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+    lanzaboote = {
+      # Fork that adds an UKI mode
+      url = "github:linyinfeng/lanzaboote/uki";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
     home-manager = {
       # Fork to add option to specify default specialisation
       url = "github:Weathercold/home-manager";
@@ -96,7 +97,7 @@
         ];
 
         perSystem =
-          { inputs', pkgs, ... }:
+          { pkgs, ... }:
           with pkgs;
           {
             formatter = nixfmt-rfc-style;
@@ -105,7 +106,7 @@
               packages = [
                 cachix
                 deploy-rs
-                inputs'.nixd.packages.nixd
+                nixd
                 nil
                 nixfmt-rfc-style
                 nixos-anywhere

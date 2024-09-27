@@ -64,7 +64,7 @@ in
         # TODO: Switch to anki-qt6 when it is no longer broken on Wayland
         anki-bin-qt6-wayland
         aseprite
-        ffmpeg_5-full
+        ffmpeg-full
         gh
         git-absorb
         git-secret

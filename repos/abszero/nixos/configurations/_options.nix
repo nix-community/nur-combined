@@ -58,6 +58,7 @@ in
         };
         modules = flatten [
           inputs.disko.nixosModules.disko
+          inputs.lanzaboote.nixosModules.lanzaboote
           inputs.catppuccin.nixosModules.catppuccin
           (toModuleList ../../lib/modules)
           (toModuleList ../modules)

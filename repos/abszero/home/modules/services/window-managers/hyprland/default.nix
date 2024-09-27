@@ -7,6 +7,8 @@ let
 in
 
 {
+  imports = [ ./mosaic-tiling.nix ];
+
   options.abszero.wayland.windowManager.hyprland.enable = mkEnableOption "Wayland compositor";
 
   config.wayland.windowManager.hyprland = mkIf cfg.enable {
@@ -98,7 +100,7 @@ in
         "size 666 560, title:.* - Anki"
         "pseudo, title:^KDE Connect$"
         "size 350 350, title:^KDE Connect$"
-        # "immediate, class:osu!" # Enable tearing for osu!
+        "immediate, class:osu!" # Enable tearing for osu!
         "pseudo, class:org\.gnome\.Solanum"
         "size 370 370, class:org\.gnome\.Solanum"
       ];

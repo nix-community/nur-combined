@@ -25,7 +25,7 @@ in
     };
     programs.foot = {
       catppuccin.enable = true;
-      settings.main.font = "Iosevka Term Extended:size=14";
+      settings.main.font = "Iosevka Term Extended:size=13";
     };
   };
 }

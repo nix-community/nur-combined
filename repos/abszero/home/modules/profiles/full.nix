@@ -39,7 +39,7 @@ in
       lns = "ln -s";
       f = "fastfetch";
       nvl = "~/src/lightnovel.sh/lightnovel.sh";
-          };
+    };
 
     services.arrpc.enable = true;
 

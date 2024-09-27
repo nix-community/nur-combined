@@ -23,11 +23,6 @@ let
       profiles.server.enable = true;
       users.admins = [ "weathercold" ];
       hardware.vultr-cc-intel-regular.enable = true;
-      boot.loader = {
-        # Vultr doesn't support UEFI??? Really???
-        systemd-boot.enable = false;
-        grub.enable = true;
-      };
       services.xray = recursiveUpdate proxySettings {
         enable = true;
         preset = "vless-tcp-xtls-reality-server";

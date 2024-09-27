@@ -22,7 +22,7 @@ let
       services = {
         displayManager.tuigreet.enable = true;
         xray = recursiveUpdate proxySettings {
-          enable = true;
+          # enable = true;
           preset = "vless-tcp-xtls-reality-client";
           reality.shortId = "77b852c767077a1a";
         };
