@@ -29,54 +29,18 @@
                   match = [ { host = [ "vault.nyaw.xyz" ]; } ];
                 }
                 {
-                  handle = [
+                  match = [
                     {
-                      handler = "subroute";
-                      routes = [
-                        {
-                          handle = [
-                            {
-                              handler = "reverse_proxy";
-                              upstreams = [ { dial = "10.0.1.2:6167"; } ];
-                            }
-                          ];
-                          match = [ { path = [ "/_matrix/*" ]; } ];
-                        }
-                        {
-                          handle = [
-                            {
-                              handler = "headers";
-                              response.set = {
-                                X-Frame-Options = [ "SAMEORIGIN" ];
-                                X-Content-Type-Options = [ "nosniff" ];
-                                X-XSS-Protection = [ "1; mode=block" ];
-                                Content-Security-Policy = [ "frame-ancestors 'self'" ];
-                              };
-
-                            }
-                            (
-                              let
-                                conf = {
-                                  default_server_config = {
-                                    "m.homeserver" = {
-                                      base_url = "https://matrix.nyaw.xyz";
-                                      server_name = "nyaw.xyz";
-                                    };
-                                  };
-                                  show_labs_settings = true;
-                                };
-                              in
-                              {
-                                handler = "file_server";
-                                root = "${pkgs.element-web.override { inherit conf; }}";
-                              }
-                            )
-                          ];
-                        }
-                      ];
+                      host = [ "matrix.nyaw.xyz" ];
+                      path = [ "/_matrix/*" ];
                     }
                   ];
-                  match = [ { host = [ "matrix.nyaw.xyz" ]; } ];
+                  handle = [
+                    {
+                      handler = "reverse_proxy";
+                      upstreams = [ { dial = "10.0.1.2:6167"; } ];
+                    }
+                  ];
                 }
                 {
                   handle = [
@@ -86,43 +50,58 @@
                         {
                           handle = [
                             {
-                              handler = "reverse_proxy";
-                              upstreams = [ { dial = "10.0.1.2:6167"; } ];
+                              handler = "rewrite";
+                              uri = "/olm.wasm";
                             }
                           ];
-                          match = [ { path = [ "/_matrix/*" ]; } ];
+                          match = [ { path = [ "/*/olm.wasm" ]; } ];
                         }
                         {
                           handle = [
                             {
-                              handler = "headers";
-                              response.set = {
-                                X-Frame-Options = [ "SAMEORIGIN" ];
-                                X-Content-Type-Options = [ "nosniff" ];
-                                X-XSS-Protection = [ "1; mode=block" ];
-                                Content-Security-Policy = [ "frame-ancestors 'self'" ];
-                              };
-
+                              handler = "rewrite";
+                              uri = "/index.html";
                             }
-                            (
-                              let
-                                conf = {
-                                  default_server_config = {
-                                    "m.homeserver" = {
-                                      base_url = "https://matrix.nyaw.xyz";
-                                      server_name = "nyaw.xyz";
-                                    };
-                                  };
-                                  show_labs_settings = true;
-                                };
-                              in
-                              {
-                                handler = "file_server";
-                                root = "${pkgs.element-web.override { inherit conf; }}";
-                              }
-                            )
+                          ];
+                          match = [
+                            {
+                              not = [
+                                { path = [ "/index.html" ]; }
+                                { path = [ "/public/*" ]; }
+                                { path = [ "/assets/*" ]; }
+                                { path = [ "/config.json" ]; }
+                                { path = [ "/manifest.json" ]; }
+                                { path = [ "/pdf.worker.min.js" ]; }
+                                { path = [ "/olm.wasm" ]; }
+                              ];
+                              path = [ "/*" ];
+                            }
                           ];
                         }
+                        (
+                          let
+                            conf = {
+                              defaultHomeserver = 0;
+                              homeserverList = [
+                                "nyaw.xyz"
+                                "converser.eu"
+                                "envs.net"
+                                "matrix.org"
+                                "monero.social"
+                                "mozilla.org"
+                                "xmr.se"
+                              ];
+                            };
+                          in
+                          {
+                            handle = [
+                              {
+                                handler = "file_server";
+                                root = "${pkgs.cinny.override { inherit conf; }}";
+                              }
+                            ];
+                          }
+                        )
                       ];
                     }
                   ];

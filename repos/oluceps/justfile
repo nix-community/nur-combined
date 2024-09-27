@@ -8,6 +8,7 @@ alias en := encrypt-new
 alias chk:= check
 alias ee := edit-sec
 alias r  := rekey
+alias s  := search-history
 
 yubikey-ident := './sec/age-yubikey-identity-7d5d5540.txt.pub'
 
@@ -123,3 +124,6 @@ cleanthebucket:
 
 resign-all:
     git filter-branch --commit-filter 'git commit-tree -S "$@";' -- --all
+
+search-history *args:
+    git log -S {{ args }}

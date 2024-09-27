@@ -17,7 +17,12 @@ withSystem "x86_64-linux" (
   lib.nixosSystem {
     pkgs = import inputs.nixpkgs {
       inherit system;
-      config = { };
+      config = {
+        permittedInsecurePackages = [
+          "cinny-4.2.1"
+          "cinny-unwrapped-4.2.1"
+        ];
+      };
       overlays =
         (import "${self}/overlays.nix" { inherit inputs' inputs; })
         ++ (self.lib.genOverlays [
