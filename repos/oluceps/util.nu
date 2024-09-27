@@ -1,18 +1,8 @@
 #!/usr/bin/env nu
 
-const map = [
-    [name,addr];
-    [hastur,riro@10.0.1.2],
-    [kaambl,elen@10.0.1.3],
-    [abhoth,elen@38.47.119.151],
-    [azasos,elen@116.196.112.43],
-    [eihort,elen@10.0.1.6],
-    [nodens,elen@144.126.208.183]
-  ];
-
 export-env {
   $env.get_addr = { |map, per| $map | where name == $per | $in.addr.0 }
-  $env.map = $map
+  $env.map = open ./hosts/sum.toml | $in.host
 }
 
 export def br [
@@ -20,7 +10,7 @@ export def br [
   --builder (-b): string = "hastur"
 ] {
 
-  let target_addr = do $env.get_addr ($map) $builder
+  let target_addr = do $env.get_addr ($env.map) $builder
 
   let h = hostname | str trim
 
@@ -56,7 +46,7 @@ export def d [
   --builder (-b): string = "hastur"
 ] {
 
-  let get_addr = {|x| do $env.get_addr ($map) ($x)}
+  let get_addr = {|x| do $env.get_addr ($env.map) ($x)}
 
   let builder_addr = do $get_addr $builder
 

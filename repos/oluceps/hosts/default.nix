@@ -7,13 +7,14 @@
 let
   inherit (builtins) readFile fromTOML;
   inherit (self.lib) pipe genAttrs;
-  inherit
-    (pipe ./sum.toml [
+  hosts = (
+    pipe ./sum.toml [
       readFile
       fromTOML
-    ])
-    hosts
-    ;
+      (i: i.host)
+      (map (i: i.name))
+    ]
+  );
 in
 {
   flake.nixosConfigurations = genAttrs hosts (
