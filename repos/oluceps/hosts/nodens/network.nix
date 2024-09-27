@@ -126,12 +126,12 @@
           }
           {
             PublicKey = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno=";
-            AllowedIPs = [ "10.0.2.1/24" ];
+            AllowedIPs = [ "10.0.2.0/24" ];
             PersistentKeepalive = 15;
           }
           {
             PublicKey = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A=";
-            AllowedIPs = [ "10.0.3.1/24" ];
+            AllowedIPs = [ "10.0.3.0/24" ];
             Endpoint = "38.47.119.151:51820";
             PersistentKeepalive = 15;
           }
@@ -169,13 +169,17 @@
           [
             "144.126.208.183/20"
           ]
-          ++ (map (n: "2604:a880:4:1d0::5b:600${n}/124") (
+          ++ (map (n: "2604:a880:4:1d0::5b:600${n}/64") (
             (map inputs.ascii2char.asciiToChar ((lib.range 97 102))) ++ (map toString (lib.range 0 9))
           ));
 
         routes = [
           { Gateway = "144.126.208.1"; }
-          { Gateway = "2604:a880:4:1d0::1"; }
+          {
+            Gateway = "2604:a880:4:1d0::1";
+            GatewayOnLink = true;
+            Scope = "link";
+          }
         ];
         # networkConfig = {
         #   DNSSEC = true;
