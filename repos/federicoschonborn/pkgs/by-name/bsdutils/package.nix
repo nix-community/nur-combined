@@ -17,13 +17,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bsdutils";
-  version = "13.1";
+  version = "13.2";
 
   src = fetchFromGitHub {
     owner = "dcantrell";
     repo = "bsdutils";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-rRB+H3nqVXRaEhxdgFOc3awq99jh8Tw+c5Qy5d9CK+0=";
+    hash = "sha256-sYxx79wQu1HFYKHYgRHqAA2sATXZ7WTxIZB6KBVnatU=";
   };
 
   nativeBuildInputs = [

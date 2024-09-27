@@ -90,8 +90,7 @@
   ddcutil,
   enableDirectxHeaders ? stdenv.hostPlatform.isLinux,
   directx-headers,
-  enableElf ?
-    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD || stdenv.hostPlatform.isAndroid,
+  enableElf ? stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isAndroid,
   libelf,
   enableLibzfs ?
     stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD || stdenv.hostPlatform.isSunOS,
@@ -100,13 +99,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastfetch";
-  version = "2.23.0";
+  version = "2.25.0";
 
   src = fetchFromGitHub {
     owner = "fastfetch-cli";
     repo = "fastfetch";
     rev = finalAttrs.version;
-    hash = "sha256-ry7FWja/FGSTQU1IhfXUA778yO0T3O1cvYsS4pcqURY=";
+    hash = "sha256-I8In6JK9XWM29QdAj3wU2WHn/RsrDJo7s5S7R79HV8g=";
   };
 
   nativeBuildInputs = [

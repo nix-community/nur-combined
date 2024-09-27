@@ -658,7 +658,7 @@ An efficient menu for the MATE Desktop.
 Alternative to GNU coreutils using software from FreeBSD.
 
 - Name: `bsdutils`
-- Version: `13.1`
+- Version: `13.2`
 - [Homepage](https://github.com/dcantrell/bsdutils)
 - License: [`BSD-3-Clause`](https://spdx.org/licenses/BSD-3-Clause.html 'BSD 3-clause "New" or "Revised" License')
 - [Source](./pkgs/by-name/bsdutils/package.nix#L50)
@@ -706,11 +706,11 @@ Cargo Advent of Code Helper.
 Like neofetch, but much faster because written in C.
 
 - Name: `fastfetch`
-- Version: `2.23.0`
+- Version: `2.25.0`
 - [Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.23.0/CHANGELOG.md)
+- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.25.0/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](./pkgs/by-name/fastfetch/package.nix#L186)
+- [Source](./pkgs/by-name/fastfetch/package.nix#L185)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -731,9 +731,9 @@ Like neofetch, but much faster because written in C.
 Like neofetch, but much faster because written in C (with all features disabled).
 
 - Name: `fastfetch-minimal`
-- Version: `2.23.0`
+- Version: `2.25.0`
 - [Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.23.0/CHANGELOG.md)
+- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.25.0/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
 - [Source](./default.nix#L41)
 - Maintainers:
@@ -1045,7 +1045,7 @@ Library for emitting text, XML, JSON, or HTML output.
 wlroots-based Wayland compositor designed for the Budgie Desktop.
 
 - Name: `magpie-wayland`
-- Version: `0.9.3-unstable-2024-08-17`
+- Version: `0.9.4-unstable-2024-08-17`
 - [Homepage](https://github.com/BuddiesOfBudgie/magpie)
 - License: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
 - [Source](./pkgs/by-name/magpie-wayland/package.nix#L59)
@@ -1069,9 +1069,9 @@ wlroots-based Wayland compositor designed for the Budgie Desktop.
 MII Apple //e Emulator for Linux.
 
 - Name: `mii-emu`
-- Version: `1.9`
+- Version: `1.95`
 - [Homepage](https://github.com/buserror/mii_emu)
-- [Changelog](https://github.com/buserror/mii_emu/blob/v1.9/CHANGELOG.md)
+- [Changelog](https://github.com/buserror/mii_emu/blob/v1.95/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
 - [Source](./pkgs/by-name/mii-emu/package.nix#L41)
 - Maintainers:
@@ -1191,7 +1191,7 @@ Phonon Backend using MPV Player.
 Camera application for Plasma Mobile.
 
 - Name: `plasma-camera`
-- Version: `1.0-unstable-2024-09-06`
+- Version: `1.0-unstable-2024-09-20`
 - [Homepage](https://invent.kde.org/plasma-mobile/plasma-camera)
 - License: [`GPL-3.0-only`](https://spdx.org/licenses/GPL-3.0-only.html "GNU General Public License v3.0 only")
 - [Source](./pkgs/by-name/plasma-camera/package.nix#L52)
@@ -1215,7 +1215,7 @@ Camera application for Plasma Mobile.
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 
 - Name: `pnut`
-- Version: `0-unstable-2024-09-10`
+- Version: `SLE2024-artifact-unstable-2024-09-26`
 - [Homepage](https://github.com/udem-dlteam/pnut)
 - License: [`BSD-2-Clause`](https://spdx.org/licenses/BSD-2-Clause.html 'BSD 2-clause "Simplified" License')
 - [Source](./pkgs/by-name/pnut/package.nix#L44)
@@ -1361,7 +1361,7 @@ Fan sequel to Super Mario 63.
 Sega Model 3 arcade machine emulator.
 
 - Name: `supermodel`
-- Version: `0-unstable-2024-08-28`
+- Version: `0-unstable-2024-09-27`
 - [Homepage](https://github.com/trzy/Supermodel)
 - License: [`GPL-3.0-or-later`](https://spdx.org/licenses/GPL-3.0-or-later.html "GNU General Public License v3.0 or later")
 - [Source](./pkgs/by-name/supermodel/package.nix#L65)
@@ -1660,7 +1660,7 @@ Fastest JSON library in C.
 - [Homepage](https://github.com/ibireme/yyjson)
 - [Changelog](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](https://github.com/NixOS/nixpkgs/blob/5775c25/pkgs/development/libraries/yyjson/default.nix#L23)
+- [Source](https://github.com/NixOS/nixpkgs/blob/28b5b8a/pkgs/development/libraries/yyjson/default.nix#L23)
 - Maintainers:
   - [Yohann Boniface](https://github.com/Sigmanificient) <[`sigmanificient@gmail.com`](mailto:sigmanificient@gmail.com)>
   - [✉️ Mail to all maintainers](mailto:sigmanificient@gmail.com)

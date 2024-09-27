@@ -19,7 +19,7 @@
 
 stdenv.mkDerivation {
   pname = "magpie-wayland";
-  version = "0.9.3-unstable-2024-08-17";
+  version = "0.9.4-unstable-2024-08-17";
 
   src = fetchFromGitHub {
     owner = "BuddiesOfBudgie";
