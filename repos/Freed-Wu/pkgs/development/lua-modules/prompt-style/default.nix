@@ -18,9 +18,6 @@ buildLuarocksPackage {
 
   disabled = luaOlder "5.1";
   propagatedBuildInputs = [ ansicolors luaprompt luafilesystem ];
-  postInstall = ''
-    rm -rf $out/bin
-  '';
   meta = {
     homepage = "https://github.com/wakatime/prompt-style.lua";
     description = "Lua plugin for powerlevel10k style prompt and WakaTime time tracking";
