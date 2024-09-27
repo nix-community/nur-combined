@@ -69,4 +69,13 @@ rec {
     hbmame-metal = pkgs.callPackage ./pkgs/mame/hbmame.nix { mame = mame-metal; };
     
     konify = pkgs.callPackage ./pkgs/konify { inherit maintainers; };
+    
+    # Can't just pass `-L` to `nix-build-uncached`: it ends up being passed to both
+    # old `nix-build` (which doesn't understand it) and new `nix build` (which does).
+    nix-build-uncached-logging = pkgs.callPackage ({nix-build-uncached}: nix-build-uncached.overrideAttrs (old: {
+        pname = old.pname + "-logging";
+        postPatch = (old.postPatch or "") + ''
+            substituteInPlace build.go --replace-fail '[]string{"build"}' '[]string{"build", "-L"}'
+        '';
+    })) {};
 }
