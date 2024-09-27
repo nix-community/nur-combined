@@ -1,13 +1,13 @@
 {
 		"standardnotes-x64": {
-			"version": "desktop@3.195.4",
-			"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.195.4/standard-notes-3.195.4-mac-x64.dmg",
-			"sha256": "479444a7427524672568ff0295cdcf94cdbdbf441a0c339500f42373f40ef323"
+			"version": "desktop@3.195.5",
+			"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.195.5/standard-notes-3.195.5-mac-x64.dmg",
+			"sha256": "5d8196bee4164f6e6f01a9177bc7335cb853c598aa9ef92408649bcb02261d15"
 		},
 		"standardnotes-arm64": {
-			"version": "desktop@3.195.4",
-			"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.195.4/standard-notes-3.195.4-mac-arm64.dmg",
-			"sha256": "23de5e4d1e7e588c63ca4c010c55ac26781c885fae80a0a7ab0b7afaa15d58bc"
+			"version": "desktop@3.195.5",
+			"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.195.5/standard-notes-3.195.5-mac-arm64.dmg",
+			"sha256": "94d490ccc78a52ebd041640c41a838dba327057e6d7da395e93dca85ba6bbc8c"
 		},
 		"whisky": {
 			"version": "v2.3.3",
