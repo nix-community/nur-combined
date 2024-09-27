@@ -1,7 +1,7 @@
 {
-  # withSystem,
+  withSystem,
   self,
-  # inputs,
+  inputs,
   ...
 }@args:
 let

@@ -31,7 +31,7 @@
     fail2ban.enable = true;
     dae.enable = false;
     srs.enable = true;
-    mosproxy.enable = true;
+    dnsproxy.enable = true;
   };
 
   services = {
