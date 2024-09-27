@@ -7398,10 +7398,10 @@
     };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.37";
+      version = "11.4.40";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4349514/noscript-11.4.37.xpi";
-      sha256 = "5e9921599c63e0b357851ea7ca1354554b3af2c676bbbfff5687cafce4396c18";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4357325/noscript-11.4.40.xpi";
+      sha256 = "242ead426159d871480a13062cbee08abc97da746cdc5c643aee2692e9adbbb2";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -10067,10 +10067,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.8.1";
+      version = "5.9";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4349352/sponsorblock-5.8.1.xpi";
-      sha256 = "001362fe0dfc6d5ea03fef4a2df75d6337d4ebd9cb829dff806920f5eab635e4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4357698/sponsorblock-5.9.xpi";
+      sha256 = "3bce9e8bcadd2117a18ea00ad418969102751b69c77709c3221d74737d3a7dff";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -11484,10 +11484,10 @@
     };
     "untrap-for-youtube" = buildFirefoxXpiAddon {
       pname = "untrap-for-youtube";
-      version = "7.5";
+      version = "7.6";
       addonId = "{2662ff67-b302-4363-95f3-b050218bd72c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4340926/untrap_for_youtube-7.5.xpi";
-      sha256 = "0e08c295a5faf17ae73d6fadc7857a77571b7b84d0ec2cc99d12c981ded86eab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4360064/untrap_for_youtube-7.6.xpi";
+      sha256 = "0eebdcc1964d3ac8fb4e9e10efacb43089f826afaaa860be7df409cc6b4fabf5";
       meta = with lib;
       {
         homepage = "http://untrap.app";
@@ -11501,6 +11501,7 @@
         mozPermissions = [
           "storage"
           "activeTab"
+          "nativeMessaging"
           "*://*.youtube.com/*"
           "*://www.youtube.com/*"
           "*://m.youtube.com/*"
