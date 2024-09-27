@@ -13,10 +13,10 @@
 
 stdenv.mkDerivation rec {
   pname = "sjtu-canvas-helper";
-  version = "1.3.15";
+  version = "1.3.16";
   src = fetchurl {
     url = "https://github.com/Okabe-Rintarou-0/SJTU-Canvas-Helper/releases/download/app-v${version}/sjtu-canvas-helper_${version}_amd64.deb";
-    hash = "sha256-2O0nqezQ/GcM+aC0tbWpP7W5z3/04cB1+BiZz7szD9E=";
+    hash = "sha256-7HhhsYfi5M/U1JFqxoOJd6PMC+9aNkt9AigbGTcLzyo=";
   };
 
   nativeBuildInputs = [
