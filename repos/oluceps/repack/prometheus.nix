@@ -107,6 +107,7 @@ reIf {
                 "https://matrix.nyaw.xyz"
                 "https://pb.nyaw.xyz"
                 "https://vault.nyaw.xyz"
+                "https://status.nyaw.xyz"
               ];
             }
           ];

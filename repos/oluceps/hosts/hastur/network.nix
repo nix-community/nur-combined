@@ -50,7 +50,7 @@
       checkReversePath = false;
       trustedInterfaces = [
         "virbr0"
-        "wg*"
+        "wg0"
         "podman*"
         "dae0"
       ];
@@ -88,7 +88,7 @@
       anyInterface = true;
       ignoredInterfaces = [
         "wlan0"
-        "wg*"
+        "wg0"
       ];
     };
 

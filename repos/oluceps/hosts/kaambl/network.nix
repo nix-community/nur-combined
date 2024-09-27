@@ -43,7 +43,6 @@
       trustedInterfaces = [
         "virbr0"
         "wg0"
-        "wg1"
         "podman*"
       ];
       allowedUDPPorts = [
@@ -86,7 +85,7 @@
       anyInterface = true;
       ignoredInterfaces = [
         "wlan0"
-        "wg*"
+        "wg0"
       ];
     };
 

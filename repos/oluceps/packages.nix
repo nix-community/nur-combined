@@ -107,6 +107,7 @@ let
         inetutils
         pciutils
         usbutils
+        rsync
       ]
     ];
     # # ripgrep-all 
