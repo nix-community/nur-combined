@@ -100,6 +100,9 @@ in
       # Shell
       bash-language-server
       shfmt
+
+      # Generic
+      typos-lsp
     ];
   };
 

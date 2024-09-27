@@ -13,7 +13,7 @@ in
       example = "/run/secrets/password.env";
       description = ''
         The path to a file containing the PASSWORD environment variable
-        definition for Podgrab's authentification.
+        definition for Podgrab's authentication.
       '';
     };
 

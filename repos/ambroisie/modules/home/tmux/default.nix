@@ -30,7 +30,7 @@ in
       });
 
       default = { ${config.my.home.terminal.program} = { }; };
-      defaultText = litteralExpression ''
+      defaultText = literalExpression ''
         { ''${config.my.home.terminal.program} = { }; };
       '';
       example = { xterm-256color = { }; };

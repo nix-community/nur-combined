@@ -157,7 +157,7 @@ in
         enable = false;
       };
     };
-    # Because I stilll need to play sysadmin
+    # Because I still need to play sysadmin
     ssh-server.enable = true;
     # Recipe manager
     tandoor-recipes = {

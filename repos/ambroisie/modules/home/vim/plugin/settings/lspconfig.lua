@@ -84,3 +84,11 @@ if utils.is_executable("starpls") then
         on_attach = lsp.on_attach,
     })
 end
+
+-- Generic
+if utils.is_executable("typos-lsp") then
+    lspconfig.typos_lsp.setup({
+        capabilities = capabilities,
+        on_attach = lsp.on_attach,
+    })
+end

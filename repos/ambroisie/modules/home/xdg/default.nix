@@ -11,7 +11,7 @@ in
     enable = true;
     # File types
     mime.enable = true;
-    # File associatons
+    # File associations
     mimeApps = {
       enable = true;
     };

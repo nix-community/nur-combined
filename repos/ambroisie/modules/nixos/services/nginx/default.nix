@@ -59,14 +59,12 @@ let
 
       extraConfig = mkOption {
         type = types.attrs; # FIXME: forward type of virtualHosts
-        example = litteralExample ''
-          {
-            locations."/socket" = {
-              proxyPass = "http://127.0.0.1:8096/";
-              proxyWebsockets = true;
-            };
-          }
-        '';
+        example = {
+          locations."/socket" = {
+            proxyPass = "http://127.0.0.1:8096/";
+            proxyWebsockets = true;
+          };
+        };
         default = { };
         description = ''
           Any extra configuration that should be applied to this virtual host.
@@ -100,26 +98,24 @@ in
     virtualHosts = mkOption {
       type = types.attrsOf virtualHostOption;
       default = { };
-      example = litteralExample ''
-        {
-          gitea = {
-            subdomain = "git";
-            port = 8080;
-          };
-          dev = {
-            root = "/var/www/dev";
-          };
-          jellyfin = {
-            port = 8096;
-            extraConfig = {
-              locations."/socket" = {
-                proxyPass = "http://127.0.0.1:8096/";
-                proxyWebsockets = true;
-              };
+      example = {
+        gitea = {
+          subdomain = "git";
+          port = 8080;
+        };
+        dev = {
+          root = "/var/www/dev";
+        };
+        jellyfin = {
+          port = 8096;
+          extraConfig = {
+            locations."/socket" = {
+              proxyPass = "http://127.0.0.1:8096/";
+              proxyWebsockets = true;
             };
           };
-        }
-      '';
+        };
+      };
       description = ''
         List of virtual hosts to set-up using default settings.
       '';
@@ -163,25 +159,21 @@ in
             };
           };
         });
-        example = litteralExample ''
-          {
-            alice = {
-              passwordHashFile = "/var/lib/nginx-sso/alice/password-hash.txt";
-              totpSecretFile = "/var/lib/nginx-sso/alice/totp-secret.txt";
-            };
-          }
-        '';
+        example = {
+          alice = {
+            passwordHashFile = "/var/lib/nginx-sso/alice/password-hash.txt";
+            totpSecretFile = "/var/lib/nginx-sso/alice/totp-secret.txt";
+          };
+        };
         description = "Definition of users";
       };
 
       groups = mkOption {
         type = with types; attrsOf (listOf str);
-        example = litteralExample ''
-          {
-            root = [ "alice" ];
-            users = [ "alice" "bob" ];
-          }
-        '';
+        example = {
+          root = [ "alice" ];
+          users = [ "alice" "bob" ];
+        };
         description = "Groups of users";
       };
     };

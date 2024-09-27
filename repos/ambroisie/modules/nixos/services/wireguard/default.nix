@@ -206,7 +206,7 @@ in
       ];
     }
 
-    # Additional inteface is only used to get access to "LAN" from wireguard
+    # Additional interface is only used to get access to "LAN" from wireguard
     (lib.mkIf cfg.internal.enable {
       networking.wg-quick.interfaces."${cfg.internal.name}" = mkInterface [
         "${cfg.net.v4.subnet}.0/${toString cfg.net.v4.mask}"

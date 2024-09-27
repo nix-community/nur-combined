@@ -12,7 +12,7 @@ setopt rc_quotes
 setopt auto_resume
 # Show history expansion before running a command
 setopt hist_verify
-# Append commands to history as they are exectuted
+# Append commands to history as they are executed
 setopt inc_append_history_time
 # Remove useless whitespace from commands
 setopt hist_reduce_blanks

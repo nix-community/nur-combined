@@ -58,7 +58,7 @@ in
 {
   config.accounts.email.accounts = {
     personal = lib.mkMerge [
-      # Common configuraton
+      # Common configuration
       (mkConfig {
         domain = "belanyi.fr";
         address = "bruno";
@@ -70,7 +70,7 @@ in
     ];
 
     gmail = lib.mkMerge [
-      # Common configuraton
+      # Common configuration
       (mkConfig {
         domain = "gmail.com";
         address = "brunobelanyi";

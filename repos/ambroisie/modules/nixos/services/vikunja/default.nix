@@ -41,7 +41,7 @@ in
         service = {
           # Only allow registration of users through the CLI
           enableregistration = false;
-          # Ues the host's timezone
+          # Use the host's timezone
           timezone = config.time.timeZone;
           # Use UNIX socket for serving the API
           unixsocket = socketPath;

@@ -42,7 +42,7 @@ end
 
 --- shared LSP configuration callback
 --- @param client native client configuration
---- @param bufnr int? buffer number of the attched client
+--- @param bufnr int? buffer number of the attached client
 M.on_attach = function(client, bufnr)
     -- Format on save
     lsp_format.on_attach(client, bufnr)

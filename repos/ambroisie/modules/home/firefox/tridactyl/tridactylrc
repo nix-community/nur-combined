@@ -4,7 +4,7 @@
 " Use dark color scheme
 colorscheme dark
 
-" Make tridactyl open Vim in my prefered terminal
+" Make tridactyl open Vim in my preferred terminal
 set editorcmd @editorcmd@
 
 " Remove editor file after use

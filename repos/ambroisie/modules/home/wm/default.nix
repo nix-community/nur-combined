@@ -58,7 +58,7 @@ in
               service = "some-service-name";
             }
           ];
-          description = "list of block configurations, merged with the defauls";
+          description = "list of block configurations, merged with the defaults";
         };
       };
     };

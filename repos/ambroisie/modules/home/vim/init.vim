@@ -1,4 +1,4 @@
-" Basic configuraion {{{
+" Basic configuration {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use UTF-8
 set encoding=utf-8

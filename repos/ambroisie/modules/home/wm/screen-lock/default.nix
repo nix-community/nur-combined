@@ -2,7 +2,7 @@
 let
   cfg = config.my.home.wm.screen-lock;
 
-  notficationCmd =
+  notificationCmd =
     let
       duration = toString (cfg.notify.delay * 1000);
       notifyCmd = "${lib.getExe pkgs.libnotify} -u critical -t ${duration}";
@@ -48,7 +48,7 @@ in
           "-notify"
           "${toString cfg.notify.delay}"
           "-notifier"
-          notficationCmd
+          notificationCmd
         ];
       };
     };

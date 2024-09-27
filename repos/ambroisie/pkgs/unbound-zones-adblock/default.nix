@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation {
     description = "Unified host lists, ready to be used by unbound";
     longDescription = ''
       This is a simple derivation based on StevenBlack's unified hosts list.
-      The files have been modified for easy use wih unbound.
+      The files have been modified for easy use with unbound.
     '';
     homepage = "https://github.com/StevenBlack/hosts";
     license = licenses.mit;

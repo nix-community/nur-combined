@@ -1,4 +1,4 @@
-# A low-ressource, full-featured git forge.
+# A low-resource, full-featured git forge.
 { config, lib, ... }:
 let
   cfg = config.my.services.gitea;
