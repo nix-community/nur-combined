@@ -5,7 +5,7 @@
     mameFunc = (
         { stdenv, callPackage, papirus-icon-theme, mame, darwinMinVersion ? "10.15", overrideSDK, ... }@args: let
             stdenv' = overrideSDK stdenv {
-                darwinMinVersion = "10.15";
+                inherit darwinMinVersion;
                 darwinSdkVersion = "11.0";
             };
             mame-icon = if (builtins.tryEval "${papirus-icon-theme}").success then
