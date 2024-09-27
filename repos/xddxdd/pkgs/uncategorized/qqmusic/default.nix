@@ -97,6 +97,7 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/bin
     makeWrapper $out/opt/qqmusic $out/bin/qqmusic \
       --argv0 "qqmusic" \
+      --add-flags "--no-sandbox" \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}"
 
     # Hex patch from https://aur.archlinux.org/packages/qqmusic-bin
