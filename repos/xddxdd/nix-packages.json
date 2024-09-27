@@ -492,7 +492,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "3827"
+    "version": "3829"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -3142,7 +3142,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "6.2.8"
+    "version": "6.3.0"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
@@ -3207,7 +3207,7 @@
   "legacyPackages.x86_64-linux.qemu-user-static": {
     "description": "A generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "9.1.0+ds-6"
+    "version": "9.1.0+ds-7"
   },
   "legacyPackages.x86_64-linux.qhttpengine": {
     "description": "HTTP server for Qt applications",
@@ -3272,7 +3272,7 @@
   "legacyPackages.x86_64-linux.runpod-python": {
     "description": "Python library for RunPod API and serverless worker SDK",
     "pname": "python3.12-runpod-python",
-    "version": "1.6.2"
+    "version": "1.7.1"
   },
   "legacyPackages.x86_64-linux.runpodctl": {
     "description": "RunPod CLI for pod management",
@@ -3912,7 +3912,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "6.2.8"
+    "version": "6.3.0"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
@@ -3972,7 +3972,7 @@
   "packages.x86_64-linux.qemu-user-static": {
     "description": "A generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "9.1.0+ds-6"
+    "version": "9.1.0+ds-7"
   },
   "packages.x86_64-linux.qhttpengine": {
     "description": "HTTP server for Qt applications",
@@ -4037,7 +4037,7 @@
   "packages.x86_64-linux.runpod-python": {
     "description": "Python library for RunPod API and serverless worker SDK",
     "pname": "python3.12-runpod-python",
-    "version": "1.6.2"
+    "version": "1.7.1"
   },
   "packages.x86_64-linux.runpodctl": {
     "description": "RunPod CLI for pod management",

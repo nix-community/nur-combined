@@ -182,15 +182,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "2c8f0894daa80df888154cd6d40fdf894b4a4c4c";
+    version = "7ae55e8c51f2e84c6c9429ed547f43af97f34754";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "2c8f0894daa80df888154cd6d40fdf894b4a4c4c";
+      rev = "7ae55e8c51f2e84c6c9429ed547f43af97f34754";
       fetchSubmodules = false;
-      sha256 = "sha256-O4gP0Uzfw79e9oahumxIDnYhY1PuSxGWzx45+uM/3TQ=";
+      sha256 = "sha256-uv/gy7UV+rwEz7W4QT1YSRRf6I9ANKNo6k6e8ZlIe88=";
     };
-    date = "2024-09-25";
+    date = "2024-09-27";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -764,13 +764,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3827";
+    version = "b3829";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3827";
+      rev = "b3829";
       fetchSubmodules = false;
-      sha256 = "sha256-lNyMhhWwkjzey5QlrB3149oWgSyMHOqPZ7ITl+INTno=";
+      sha256 = "sha256-8tMe3l7zF5b9gkxAxK6VH7ta/IrSkzRi006AUaDvI0I=";
     };
   };
   lyrica = {
@@ -1076,10 +1076,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v6.2.8";
+    version = "v6.3.0";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.2.8/PeerBanHelper.jar";
-      sha256 = "sha256-PrB39gN4+7uzz17qNFkzNX8ugVARS/LDk2dPO2XoA/E=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.3.0/PeerBanHelper.jar";
+      sha256 = "sha256-cuoc/m6TAc0D9SjwaGzX5LaA+uyFF41Uu81f0qZm+6M=";
     };
   };
   phpmyadmin = {
@@ -1189,34 +1189,34 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "9.1.0+ds-6";
+    version = "9.1.0+ds-7";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-6_amd64.deb";
-      sha256 = "sha256-igaL8+2RtkBre0jBNYN4Xvvp5dCNiHJfxFjxUXjQuQ0=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-7_amd64.deb";
+      sha256 = "sha256-7cvqaiiepzF1Bl2Q2Lf4+EIop4lgOgIlhG0oswD499c=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "9.1.0+ds-5";
+    version = "9.1.0+ds-7";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-5_arm64.deb";
-      sha256 = "sha256-lDseoDa2BjfOJtBZVLvbC4x8Km6hLZo0M9wHqGgiqGY=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-7_arm64.deb";
+      sha256 = "sha256-FoQXc8b7m7pQMpLpsJjPJgQN1fLq0sWuR8pojiMl83w=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "9.1.0+ds-5";
+    version = "9.1.0+ds-7";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-5_armhf.deb";
-      sha256 = "sha256-ppAOuZAqIN3Iixv38IAhvYWnJPaLuKgDBgwNI0Kzn9o=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-7_armhf.deb";
+      sha256 = "sha256-Z81HQ0pBiNnwvHzN7BCVAvTn1c+ci8HGv7E+tcA/XXs=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "9.1.0+ds-6";
+    version = "9.1.0+ds-7";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-6_i386.deb";
-      sha256 = "sha256-wlPdIPXWy6PegjyRgzEwnFu1l8rtxDM6Tfr6exC+jow=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-7_i386.deb";
+      sha256 = "sha256-D9rrAY8X201IJLmoOPwgbjhBg+HWTZEWhzLLZCNxk3s=";
     };
   };
   qhttpengine = {
@@ -1363,13 +1363,13 @@
   };
   runpod-python = {
     pname = "runpod-python";
-    version = "1.6.2";
+    version = "1.7.1";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpod-python";
-      rev = "1.6.2";
+      rev = "1.7.1";
       fetchSubmodules = false;
-      sha256 = "sha256-nVkrqVgNbbdq7UQWjWkPPYIYsRQVcTIVzy4wT69ZoyY=";
+      sha256 = "sha256-WsjDKbigR6cigJ+7ORxLhdGF+n2YPfGog/ttuu0ZakY=";
     };
   };
   runpodctl = {
