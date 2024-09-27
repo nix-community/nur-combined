@@ -50,6 +50,19 @@
                         {
                           handle = [
                             {
+                              handler = "headers";
+                              response.set = {
+                                X-Frame-Options = [ "SAMEORIGIN" ];
+                                X-Content-Type-Options = [ "nosniff" ];
+                                X-XSS-Protection = [ "1; mode=block" ];
+                                Content-Security-Policy = [ "frame-ancestors 'self'" ];
+                              };
+                            }
+                          ];
+                        }
+                        {
+                          handle = [
+                            {
                               handler = "rewrite";
                               uri = "/olm.wasm";
                             }
@@ -187,6 +200,27 @@
                     {
                       handler = "subroute";
                       routes = [
+                        {
+                          handle = [
+                            {
+                              handler = "headers";
+                              response = {
+                                set = {
+                                  Content-Type = [ "application/json" ];
+                                };
+                              };
+                            }
+                            {
+                              handler = "headers";
+                              response = {
+                                set = {
+                                  Access-Control-Allow-Origin = [ "*" ];
+                                };
+                              };
+                            }
+                          ];
+                          match = [ { path = [ "/.well-known/matrix/*" ]; } ];
+                        }
                         {
                           handle = [
                             {

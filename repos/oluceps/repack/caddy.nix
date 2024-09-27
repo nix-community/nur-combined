@@ -114,6 +114,7 @@ in
     environment.etc."caddy/config.json".source = configfile;
 
     systemd.services.caddy = {
+      preStart = "cp -f /etc/caddy/config.json /var/lib/caddy/backup.json";
       serviceConfig = {
         Type = "notify";
         ExecStart = "${cfg.package}/bin/caddy run --config /etc/caddy/config.json";
