@@ -8,7 +8,11 @@ the minimum configuration to start hatsu server would look like this:
 
 ```nix
 {
-  services.hatsu.enable = true;
+  services.hatsu = {
+    enable = true;
+    domain = "hatsu.local";
+    primaryAccount = "example.com";
+  };
 }
 ```
 
