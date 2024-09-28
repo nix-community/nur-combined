@@ -28,7 +28,25 @@
     removeKnownVulnerabilities = pkg: pkg.overrideAttrs (old: {
         meta = (old.meta or { }) // { knownVulnerabilities = [ ]; };
     });
-    python27ForBubBros = removeKnownVulnerabilities python27;
+    # We are removing `meta.knownVulnerabilities` from `python27`,
+    # and setting it in `bubbros` itself.
+    python27ForBubBros = (removeKnownVulnerabilities python27).override {
+        # strip down that python version as much as possible
+        # 'borrowed' from nixpkgs/pkgs/development/misc/resholve/default.nix
+        openssl = null;
+        bzip2 = null;
+        readline = null;
+        ncurses = null;
+        gdbm = null;
+        sqlite = null;
+        rebuildBytecode = false;
+        stripBytecode = true;
+        strip2to3 = true;
+        stripConfig = true;
+        stripIdlelib = true;
+        stripTests = true;
+        enableOptimizations = false;
+    };
     # .withPackages (ps: [
     #   pygame_2_0
     # ]);
@@ -102,7 +120,7 @@ in stdenv.mkDerivation (finalAttrs: let self = finalAttrs.finalPackage; in {
         '';
         homepage = "https://bub-n-bros.sourceforge.net/";
         knownVulnerabilities = [''
-            ${self.pname} depends on python27 (EOL).
+            ${self.pname} depends on python27 (EOL) and is unmaintained.
             Avoid exposing its server or client to untrusted networks.
         ''];
         license = with lib.licenses; [mit artistic2];
