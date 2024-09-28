@@ -1,0 +1,121 @@
+hotkey-overlay {
+    skip-at-startup
+}
+
+input {
+    keyboard {
+        repeat-delay 300
+        repeat-rate 30
+        xkb {
+            options "ctrl:nocaps"
+        }
+    }
+}
+
+layout {
+    gaps 2
+    default-column-width { proportion 1.0; }
+}
+
+spawn-at-startup "bash" "-c" "swaybg -i $XDG_DATA_HOME/backgrounds/nixos/nix-wallpaper-dracula.png"
+
+prefer-no-csd
+
+cursor {
+    xcursor-theme "capitaine-cursors"
+    xcursor-size 24
+}
+
+screenshot-path "~/.cache/screenshots/screenshot_from_%Y-%m-%d_%H-%M-%S.png"
+
+binds {
+    Mod+Shift+Slash { show-hotkey-overlay; }
+
+    Mod+Return { spawn "alacritty"; }
+    Mod+D { spawn "fuzzel"; }
+    Super+Alt+L { spawn "swaylock"; }
+
+    Mod+Q { close-window; }
+
+    Mod+Left  { focus-column-left; }
+    Mod+Down  { focus-window-down; }
+    Mod+Up    { focus-window-up; }
+    Mod+Right { focus-column-right; }
+    Mod+H     { focus-column-left; }
+    Mod+J     { focus-window-down; }
+    Mod+K     { focus-window-up; }
+    Mod+L     { focus-column-right; }
+
+    Mod+Ctrl+Left  { move-column-left; }
+    Mod+Ctrl+Down  { move-window-down; }
+    Mod+Ctrl+Up    { move-window-up; }
+    Mod+Ctrl+Right { move-column-right; }
+    Mod+Ctrl+H     { move-column-left; }
+    Mod+Ctrl+J     { move-window-down; }
+    Mod+Ctrl+K     { move-window-up; }
+    Mod+Ctrl+L     { move-column-right; }
+
+    Mod+Home { focus-column-first; }
+    Mod+End  { focus-column-last; }
+    Mod+Ctrl+Home { move-column-to-first; }
+    Mod+Ctrl+End  { move-column-to-last; }
+
+    Mod+Page_Down      { focus-workspace-down; }
+    Mod+Page_Up        { focus-workspace-up; }
+    Mod+U              { focus-workspace-down; }
+    Mod+I              { focus-workspace-up; }
+    Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
+    Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
+    Mod+Ctrl+U         { move-column-to-workspace-down; }
+    Mod+Ctrl+I         { move-column-to-workspace-up; }
+
+    Mod+Shift+Page_Down { move-workspace-down; }
+    Mod+Shift+Page_Up   { move-workspace-up; }
+    Mod+Shift+U         { move-workspace-down; }
+    Mod+Shift+I         { move-workspace-up; }
+
+    Mod+Shift+WheelScrollDown      cooldown-ms=150 { focus-workspace-down; }
+    Mod+Shift+WheelScrollUp        cooldown-ms=150 { focus-workspace-up; }
+    Mod+Shift+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Shift+Ctrl+WheelScrollUp   cooldown-ms=150 { move-column-to-workspace-up; }
+
+    Mod+WheelScrollDown      { focus-column-right; }
+    Mod+WheelScrollUp        { focus-column-left; }
+    Mod+Ctrl+WheelScrollDown { move-column-right; }
+    Mod+Ctrl+WheelScrollUp   { move-column-left; }
+
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    Mod+Ctrl+1 { move-column-to-workspace 1; }
+    Mod+Ctrl+2 { move-column-to-workspace 2; }
+    Mod+Ctrl+3 { move-column-to-workspace 3; }
+    Mod+Ctrl+4 { move-column-to-workspace 4; }
+    Mod+Ctrl+5 { move-column-to-workspace 5; }
+    Mod+Ctrl+6 { move-column-to-workspace 6; }
+    Mod+Ctrl+7 { move-column-to-workspace 7; }
+    Mod+Ctrl+8 { move-column-to-workspace 8; }
+    Mod+Ctrl+9 { move-column-to-workspace 9; }
+
+    Mod+R { switch-preset-column-width; }
+    Mod+F { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+    Mod+C { center-column; }
+
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
+
+    Mod+P { screenshot; }
+    Mod+Ctrl+P { screenshot-screen; }
+    Mod+Alt+P { screenshot-window; }
+
+    Mod+Shift+E { quit; }
+
+    Mod+Shift+P { power-off-monitors; }
+}

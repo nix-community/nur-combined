@@ -32,6 +32,10 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    niri = {
+      url = "github:sodiboo/niri-flake";
+    };
   };
 
   outputs = { self, nixpkgs, haumea, ... } @inputs:
