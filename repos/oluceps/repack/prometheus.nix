@@ -11,7 +11,7 @@ let
     # "abhoth" # recover in 1 Oct
   ];
   targets_notls = map (n: "${n}.nyaw.xyz") [
-    "kaambl"
+    # "kaambl"
     "azasos"
     "hastur"
   ];

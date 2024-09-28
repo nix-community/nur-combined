@@ -60,57 +60,38 @@
                             }
                           ];
                         }
-                        {
-                          handle = [
-                            {
-                              handler = "rewrite";
-                              uri = "/olm.wasm";
-                            }
-                          ];
-                          match = [ { path = [ "/*/olm.wasm" ]; } ];
-                        }
-                        {
-                          handle = [
-                            {
-                              handler = "rewrite";
-                              uri = "/index.html";
-                            }
-                          ];
-                          match = [
-                            {
-                              not = [
-                                { path = [ "/index.html" ]; }
-                                { path = [ "/public/*" ]; }
-                                { path = [ "/assets/*" ]; }
-                                { path = [ "/config.json" ]; }
-                                { path = [ "/manifest.json" ]; }
-                                { path = [ "/pdf.worker.min.js" ]; }
-                                { path = [ "/olm.wasm" ]; }
-                              ];
-                              path = [ "/*" ];
-                            }
-                          ];
-                        }
                         (
                           let
                             conf = {
-                              defaultHomeserver = 0;
-                              homeserverList = [
-                                "nyaw.xyz"
-                                "converser.eu"
-                                "envs.net"
-                                "matrix.org"
-                                "monero.social"
-                                "mozilla.org"
-                                "xmr.se"
-                              ];
+                              default_server_config = {
+                                "m.homeserver" = {
+                                  base_url = "https://matrix.nyaw.xyz";
+                                  server_name = "nyaw.xyz";
+                                };
+                              };
+                              show_labs_settings = true;
+
+                              # defaultHomeserver = 0;
+                              # homeserverList = [
+                              #   "nyaw.xyz"
+                              #   "converser.eu"
+                              #   "envs.net"
+                              #   "matrix.org"
+                              #   "monero.social"
+                              #   "mozilla.org"
+                              #   "xmr.se"
+                              # ];
+                              # hashRouter = {
+                              #   enabled = true;
+                              #   basename = "/";
+                              # };
                             };
                           in
                           {
                             handle = [
                               {
                                 handler = "file_server";
-                                root = "${pkgs.cinny.override { inherit conf; }}";
+                                root = "${pkgs.element-web.override { inherit conf; }}";
                               }
                             ];
                           }
@@ -206,14 +187,6 @@
                               handler = "headers";
                               response = {
                                 set = {
-                                  Content-Type = [ "application/json" ];
-                                };
-                              };
-                            }
-                            {
-                              handler = "headers";
-                              response = {
-                                set = {
                                   Access-Control-Allow-Origin = [ "*" ];
                                 };
                               };
@@ -225,11 +198,11 @@
                           handle = [
                             {
                               body = builtins.toJSON { "m.server" = "matrix.nyaw.xyz:443"; };
-                              status_code = 200;
-                              headers = {
-                                Access-Control-Allow-Origin = [ "*" ];
-                                Content-Type = [ "application/json" ];
-                              };
+                              # status_code = 200;
+                              # headers = {
+                              #   Access-Control-Allow-Origin = [ "*" ];
+                              #   Content-Type = [ "application/json" ];
+                              # };
                               handler = "static_response";
                             }
                           ];
@@ -239,6 +212,9 @@
                           handle = [
                             {
                               body = builtins.toJSON {
+                                "m.server" = {
+                                  base_url = "https://matrix.nyaw.xyz";
+                                };
                                 "m.homeserver" = {
                                   base_url = "https://matrix.nyaw.xyz";
                                 };
@@ -251,19 +227,6 @@
                           ];
                           match = [ { path = [ "/.well-known/matrix/client" ]; } ];
                         }
-                        # {
-                        #   match = [ { path = [ "/.well-known/webfinger" ]; } ];
-                        #   handle = [
-                        #     {
-                        #       handler = "static_response";
-                        #       status_code = "302";
-                        #       headers = {
-                        #         Access-Control-Allow-Origin = [ "*" ];
-                        #         Location = [ "https://nyaw.xyz/{http.request.uri}" ];
-                        #       };
-                        #     }
-                        #   ];
-                        # }
                         {
                           handle = [
                             {
