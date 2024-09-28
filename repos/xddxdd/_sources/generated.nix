@@ -637,26 +637,26 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "0.10.1";
+    version = "0.11.0";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "0.10.1";
+      rev = "0.11.0";
       fetchSubmodules = false;
-      sha256 = "sha256-zsSKFUs75K0Byxh3KVCZ8lIOf/vpbyMJXfk6fa2u+aE=";
+      sha256 = "sha256-+Gx1JPrJoeMix9DIF0rJQTivxN1lgaCIYFvJ1pnYZzM=";
     };
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "18db4c6a3d64d78994aa99fe518aa39b3bcd861e";
+    version = "a5528768a1e7a254707bad1b54d8e2f65c9490d2";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "18db4c6a3d64d78994aa99fe518aa39b3bcd861e";
+      rev = "a5528768a1e7a254707bad1b54d8e2f65c9490d2";
       fetchSubmodules = false;
-      sha256 = "sha256-9LYPjZ4U/RG6wai+G7EQ4W0m2wocDxFj/rml8DINiJw=";
+      sha256 = "sha256-BivIjF/yhCoK4ZXG9UBA8fasxoN1W28hVlQ3YCN3EX8=";
     };
-    date = "2024-09-25";
+    date = "2024-09-27";
   };
   libqcef = {
     pname = "libqcef";
@@ -1233,18 +1233,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "Linux/QQ_3.2.12_240925_amd64_01";
+    version = "Linux/QQ_3.2.12_240927_amd64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.12_240925_amd64_01.deb";
-      sha256 = "sha256-ws96ezfEYXZW5R+talKCB/5kN76JX81W1por7FjkhP8=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.12_240927_amd64_01.deb";
+      sha256 = "sha256-xBGSSxXDu+qUwj203i3iAkfI97iLtGOuGMGfEU6kCyQ=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "Linux/QQ_3.2.12_240925_arm64_01";
+    version = "Linux/QQ_3.2.12_240927_arm64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.12_240925_arm64_01.deb";
-      sha256 = "sha256-tIXzUQ6DMiP3yNsg61lFX1PUXo3N1vFopZY5Cy/CTu4=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.12_240927_arm64_01.deb";
+      sha256 = "sha256-VfM+p2cTNkDZc7sTftfTuRSMKVWwE6TerW25pA1MIR0=";
     };
   };
   qqmusic = {

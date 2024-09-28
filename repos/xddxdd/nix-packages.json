@@ -1127,12 +1127,12 @@
   "legacyPackages.x86_64-linux.liboqs": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0.10.1"
+    "version": "0.11.0"
   },
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs-unstable",
-    "version": "2024-09-25"
+    "version": "2024-09-27"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -3762,12 +3762,12 @@
   "packages.x86_64-linux.liboqs": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0.10.1"
+    "version": "0.11.0"
   },
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs-unstable",
-    "version": "2024-09-25"
+    "version": "2024-09-27"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
