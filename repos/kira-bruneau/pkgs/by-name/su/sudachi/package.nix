@@ -157,9 +157,9 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   meta = with lib; {
+    description = "Nintendo Switch emulator written in C++";
     homepage = "https://sudachi-emu.com";
     changelog = "https://github.com/sudachi-emu/sudachi/releases/tag/v${version}";
-    description = "Nintendo Switch emulator written in C++";
     mainProgram = "sudachi";
     platforms = [
       "aarch64-linux"
