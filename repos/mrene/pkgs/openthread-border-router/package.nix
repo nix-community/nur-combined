@@ -15,13 +15,13 @@
 }:
 let
   pname = "ot-br-posix";
-  version = "unstable-2024-07-26";
+  version = "unstable-2024-09-27";
 
   src = fetchFromGitHub {
       owner = "openthread";
       repo = "ot-br-posix";
-      rev = "6f3dfdc7a7856086831a4e234812591f2a7cd793";
-      hash = "sha256-cp/CJB8ykQvbfSd/qjpGjIQ7ePRVSM+97YRacqUzw/c=";
+      rev = "f2a7208dd470e5fd8e8064359ea7bd3942f9ca08";
+      hash = "sha256-/Fztdh/+02AW0o+7YPfX6C1LXCcqK9/R95t04unLSwA=";
       fetchSubmodules = true;
   };
 
@@ -52,7 +52,7 @@ stdenv.mkDerivation {
     ./dont-install-systemd-units.patch
     ./dont-use-boost-static-libs.patch
     "${hass-addons}/openthread_border_router/0002-rest-support-deleting-the-dataset.patch"
-    "${hass-addons}/openthread_border_router/0003-openthread-set-netif-route-metric-lower.patch"
+    #"${hass-addons}/openthread_border_router/0003-openthread-set-netif-route-metric-lower.patch"
   ];
 
   postPatch = ''
