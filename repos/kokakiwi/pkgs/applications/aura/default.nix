@@ -18,18 +18,18 @@ let
     else callPackage ../../overrides/pacman { };
 in rustPlatform.buildRustPackage rec {
   pname = "aura";
-  version = "4.0.7";
+  version = "4.0.8";
 
   src = fetchFromGitHub {
     owner = "fosskers";
     repo = "aura";
     rev = "v${version}";
-    hash = "sha256-Z9ldwfWK8q0Gez/s1f9ZNLKlzKOOmeaK1CTN2wOtmXg=";
+    hash = "sha256-/TYK32V5gROeT4Oobkrft/A3QdEwyz35IP37Jy89KEk=";
   };
 
   sourceRoot = "${src.name}/rust";
 
-  cargoHash = "sha256-VEItNt8rx65rkBrIDhCQhkEFp1XKXRqN+UrCbPlaTDg=";
+  cargoHash = "sha256-pfQsLbmDR1CxzTxlpunG+8yr7Q2ONHmO94x3SROCi9k=";
 
   nativeBuildInputs = [
     installShellFiles
