@@ -2,6 +2,7 @@
   lib,
   sources,
   stdenv,
+  openssl,
   python3,
   makeWrapper,
   ...
@@ -11,8 +12,10 @@ let
     p: with p; [
       dateutils
       (lib.hiPrio fastapi)
+      httpx
       markdown
       pycryptodome
+      pytest
       python-dotenv
       python-jose
       sqlalchemy
@@ -23,7 +26,27 @@ in
 stdenv.mkDerivation {
   inherit (sources.fastapi-dls) pname version src;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [
+    makeWrapper
+    openssl
+  ];
+
+  patches = [ ./fix-jose-interface-change.patch ];
+
+  doCheck = true;
+  checkPhase = ''
+    runHook preCheck
+
+    mkdir app/cert
+    openssl genrsa -out app/cert/instance.private.pem 2048
+    openssl rsa -in app/cert/instance.private.pem -outform PEM -pubout -out app/cert/instance.public.pem
+
+    pushd test
+    PYTHONPATH=$(pwd):$(pwd)/app ${python}/bin/python -m pytest main.py
+    popd
+
+    runHook postCheck
+  '';
 
   installPhase = ''
     runHook preInstall

@@ -1,0 +1,14 @@
+diff --git a/app/main.py b/app/main.py
+index 45b53aa..6b1fdb7 100644
+--- a/app/main.py
++++ b/app/main.py
+@@ -340,7 +340,8 @@ async def auth_v1_token(request: Request):
+     j, cur_time = json_loads((await request.body()).decode('utf-8')), datetime.utcnow()
+ 
+     try:
+-        payload = jwt.decode(token=j.get('auth_code'), key=jwt_decode_key)
++        algorithms = ['HS256', 'HS384', 'HS512', 'RS256', 'RS384', 'RS512', 'ES256', 'ES384', 'ES512']
++        payload = jwt.decode(token=j.get('auth_code'), key=jwt_decode_key, algorithms=algorithms)
+     except JWTError as e:
+         return JSONr(status_code=400, content={'status': 400, 'title': 'invalid token', 'detail': str(e)})
+ 
