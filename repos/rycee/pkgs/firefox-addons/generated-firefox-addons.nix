@@ -1596,10 +1596,10 @@
     };
     "competitive-companion" = buildFirefoxXpiAddon {
       pname = "competitive-companion";
-      version = "2.54.0";
+      version = "2.55.0";
       addonId = "{74e326aa-c645-4495-9287-b6febc5565a7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4331434/competitive_companion-2.54.0.xpi";
-      sha256 = "498d27e0a90cec115387128779757baa0dc2e47f37a1c3a7708ddfd07570c28a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4360921/competitive_companion-2.55.0.xpi";
+      sha256 = "0d542aaae25887b8d05e6bac77365440d9a0514b19c42afb1186bb98df26fe6d";
       meta = with lib;
       {
         homepage = "https://github.com/jmerle/competitive-companion";
@@ -2078,10 +2078,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.7.1";
+      version = "1.8";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4347863/dearrow-1.7.1.xpi";
-      sha256 = "4bd5c4a1a7f928532480fef5cc13edb4049be6adb4aaf60644b5a417a09754ee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4356986/dearrow-1.8.xpi";
+      sha256 = "354ce84f1475c172183758f63d7379ffe80d28e9a680f2ca3acf7b52f4eff431";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -3042,10 +3042,10 @@
     };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "5.2.7";
+      version = "5.3.0.2";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4349421/floccus-5.2.7.xpi";
-      sha256 = "ba8d93f0f0871ab533a34f8b48fd1cd148b17bc64d62526cbe388c0ff58c119b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4360762/floccus-5.3.0.2.xpi";
+      sha256 = "25b7cce38a3b96823739b6cf599c07ce1baedad83b30e75340ffd7535a9d4287";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -6129,10 +6129,10 @@
     };
     "mal-sync" = buildFirefoxXpiAddon {
       pname = "mal-sync";
-      version = "0.10.4";
+      version = "0.10.3";
       addonId = "{c84d89d9-a826-4015-957b-affebd9eb603}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4340167/mal_sync-0.10.4.xpi";
-      sha256 = "379e5b1bc90dd34bb785651aff3008b1f8aa9d88878f4f4e30b89f783d7504cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4325773/mal_sync-0.10.3.xpi";
+      sha256 = "cb0d2c1b43c8f95580fa8e57cc26c0c238a478c82538002a1c99908a3c955bde";
       meta = with lib;
       {
         homepage = "https://github.com/lolamtisch/MALSync";
@@ -6156,7 +6156,7 @@
           "*://malsync.moe/anilist/oauth*"
           "*://malsync.moe/shikimori/oauth*"
           "*://anilist.co/*"
-          "*://kitsu.app/*"
+          "*://kitsu.io/*"
           "*://simkl.com/*"
           "*://malsync.moe/pwa*"
           "*://*.9anime.to/watch/*"
@@ -6410,7 +6410,7 @@
           "*://animexinax.com/*"
           "*://monoschinos.com/*"
           "*://monoschinos2.com/*"
-          "*://smotret-anime.net/catalog/*"
+          "*://smotret-anime.com/catalog/*"
           "*://anime365.ru/catalog/*"
           "*://anime-365.ru/catalog/*"
           "*://animefire.net/*"
@@ -6438,7 +6438,7 @@
           "*://wuxiaworld.site/novel/*"
           "*://lscomic.com/*"
           "*://en.leviatanscans.com/*"
-          "*://reaperscans.com/*"
+          "*://reaperscans.com/comics/*"
           "*://lynxscans.com/*"
           "*://zeroscans.com/*"
           "*://reader.deathtollscans.net/*"
@@ -6510,7 +6510,6 @@
           "*://*.animetoast.cc/*"
           "*://luminousscans.com/*"
           "*://luminousscans.gg/*"
-          "*://luminous-scans.com/*"
           "*://*.animeworld.tv/play/*"
           "*://*.animeworld.so/play/*"
           "*://mangabuddy.com/*"
@@ -6545,9 +6544,9 @@
           "*://*.luciferdonghua.co.in/*"
           "*://neoxscans.com/*"
           "*://*.neoxscans.net/*"
-          "*://*.anix.to/*"
-          "*://*.anix.ac/*"
-          "*://*.anix.vc/*"
+          "*://*.anix.to/anime/*"
+          "*://*.anix.ac/anime/*"
+          "*://*.anix.vc/anime/*"
           "*://www.hinatasoul.com/anime*"
           "*://www.hinatasoul.com/videos/*"
           "*://ogladajanime.pl/*"
@@ -6563,7 +6562,6 @@
           "*://latanime.org/*"
           "*://*.mangaread.org/manga/*"
           "*://bakashi.tv/*"
-          "*://templescan.net/*"
           "*://*.openload.co/*"
           "*://*.openload.pw/*"
           "*://*.streamango.com/*"
@@ -6642,7 +6640,6 @@
           "*://*.flix555.com/*"
           "*://*.vshare.io/v/*"
           "*://ebd.cda.pl/*"
-          "*://www.lycoris.cafe/*"
           "*://*.replay.watch/*"
           "*://*.playhydrax.com/*"
           "*://hydrax.net/*"
@@ -6650,7 +6647,7 @@
           "*://*.streamium.xyz/*"
           "*://kodik.info/*"
           "*://aniboom.one/*"
-          "*://smotret-anime.net/translations/embed/*"
+          "*://smotret-anime.com/translations/embed/*"
           "*://anime365.ru/translations/embed/*"
           "*://anime-365.ru/translations/embed/*"
           "*://*.pstream.net/e/*"
@@ -6802,26 +6799,94 @@
           "*://www.aparat.com/video/video/embed/*"
           "*://vudeo.net/*"
           "*://voe.sx/e/*"
+          "*://voe-unblock.com/e/*"
+          "*://voe-unblock.net/e/*"
+          "*://voeunblock.com/e/*"
+          "*://voeunblock1.com/e/*"
+          "*://voeunblock2.com/e/*"
+          "*://voeunblock3.com/e/*"
+          "*://voeunbl0ck.com/e/*"
+          "*://voeunblck.com/e/*"
+          "*://voeunblk.com/e/*"
+          "*://voe-un-block.com/e/*"
+          "*://voeun-block.net/e/*"
+          "*://un-block-voe.net/e/*"
+          "*://v-o-e-unblock.com/e/*"
+          "*://audaciousdefaulthouse.com/e/*"
+          "*://launchreliantcleaverriver.com/e/*"
+          "*://reputationsheriffkennethsand.com/e/*"
+          "*://fittingcentermondaysunday.com/e/*"
+          "*://voe.bar/e/*"
+          "*://housecardsummerbutton.com/e/*"
+          "*://fraudclatterflyingcar.com/e/*"
+          "*://bigclatterhomesguideservice.com/e/*"
+          "*://uptodatefinishconferenceroom.com/e/*"
+          "*://realfinanceblogcenter.com/e/*"
+          "*://tinycat-voe-fashion.com/e/*"
+          "*://20demidistance9elongations.com/e/*"
+          "*://telyn610zoanthropy.com/e/*"
+          "*://toxitabellaeatrebates306.com/e/*"
+          "*://greaseball6eventual20.com/e/*"
+          "*://745mingiestblissfully.com/e/*"
+          "*://19turanosephantasia.com/e/*"
+          "*://30sensualizeexpression.com/e/*"
+          "*://321naturelikefurfuroid.com/e/*"
+          "*://449unceremoniousnasoseptal.com/e/*"
+          "*://guidon40hyporadius9.com/e/*"
+          "*://cyamidpulverulence530.com/e/*"
+          "*://boonlessbestselling244.com/e/*"
+          "*://antecoxalbobbing1010.com/e/*"
+          "*://matriculant401merited.com/e/*"
+          "*://scatch176duplicities.com/e/*"
+          "*://35volitantplimsoles5.com/e/*"
+          "*://tummulerviolableness.com/e/*"
+          "*://tubelessceliolymph.com/e/*"
+          "*://availedsmallest.com/e/*"
+          "*://counterclockwisejacky.com/e/*"
+          "*://monorhinouscassaba.com/e/*"
+          "*://urochsunloath.com/e/*"
+          "*://simpulumlamerop.com/e/*"
+          "*://sizyreelingly.com/e/*"
+          "*://rationalityaloelike.com/e/*"
+          "*://wolfdyslectic.com/e/*"
+          "*://metagnathtuggers.com/e/*"
           "*://gamoneinterrupted.com/e/*"
+          "*://chromotypic.com/e/*"
           "*://crownmakermacaronicism.com/e/*"
           "*://generatesnitrosate.com/e/*"
           "*://yodelswartlike.com/e/*"
+          "*://figeterpiazine.com/e/*"
           "*://cigarlessarefy.com/e/*"
           "*://valeronevijao.com/e/*"
           "*://strawberriesporail.com/e/*"
           "*://timberwoodanotia.com/e/*"
           "*://phenomenalityuniform.com/e/*"
+          "*://prefulfilloverdoor.com/e/*"
           "*://nonesnanking.com/e/*"
           "*://kathleenmemberhistory.com/e/*"
+          "*://denisegrowthwide.com/e/*"
+          "*://troyyourlead.com/e/*"
+          "*://stevenimaginelittle.com/e/*"
+          "*://edwardarriveoften.com/e/*"
+          "*://lukecomparetwo.com/e/*"
+          "*://kennethofficialitem.com/e/*"
           "*://bradleyviewdoctor.com/e/*"
+          "*://jamiesamewalk.com/e/*"
           "*://seanshowcould.com/e/*"
           "*://johntryopen.com/e/*"
           "*://morganoperationface.com/e/*"
+          "*://markstyleall.com/e/*"
+          "*://jayservicestuff.com/e/*"
+          "*://vincentincludesuccessful.com/e/*"
           "*://brookethoughi.com/e/*"
           "*://jamesstartstudent.com/e/*"
           "*://ryanagoinvolve.com/e/*"
           "*://jasonresponsemeasure.com/e/*"
+          "*://graceaddresscommunity.com/e/*"
           "*://shannonpersonalcost.com/e/*"
+          "*://cindyeyefinal.com/e/*"
+          "*://michaelapplysome.com/e/*"
+          "*://sethniceletter.com/e/*"
           "*://brucevotewithin.com/e/*"
           "*://rebeccaneverbase.com/e/*"
           "*://loriwithinfamily.com/e/*"
@@ -7828,10 +7893,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "2024.8.1";
+      version = "2024.10.2";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4328983/pakkujs-2024.8.1.xpi";
-      sha256 = "3c4f574f29e3669e224e50eef7aef9b69851f5b57c57215df74191c2609a7300";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4360495/pakkujs-2024.10.2.xpi";
+      sha256 = "9c1cd213caf3916087e37b113316979bef1ef013836532fc77552c247af737e2";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
@@ -9741,10 +9806,10 @@
     };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "14.0.2";
+      version = "15.0.0";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4343433/sidebartabs-14.0.2.xpi";
-      sha256 = "49c9d2c1d0267eadbe95b97c7068149f62fd34620d47a226884009d2e138446a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4361072/sidebartabs-15.0.0.xpi";
+      sha256 = "1b755d6f65d74cfef8ad1e3d3e9bc2c6565b458f6f46b646732cad3178ff62e3";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
@@ -10123,10 +10188,10 @@
     };
     "statshunters" = buildFirefoxXpiAddon {
       pname = "statshunters";
-      version = "2.0.5";
+      version = "2.0.6";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4350195/statshunters-2.0.5.xpi";
-      sha256 = "e7c24eee3b98c49bd64833055edfe18081f5cdb10d9de1c72ac9559ba37956b8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4361101/statshunters-2.0.6.xpi";
+      sha256 = "3342ea9c1386a39796072eb2cb0571eac6b3647af3d414fd22a64da022405d78";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -10134,7 +10199,7 @@
         license = licenses.mpl20;
         mozPermissions = [
           "storage"
-          "https://www.strava.com/routes/new*"
+          "https://www.strava.com/maps/*"
           "https://www.strava.com/routes/*/edit*"
           "https://www.komoot.com/*"
           "https://www.komoot.nl/*"
@@ -10846,14 +10911,14 @@
     };
     "torrent-control" = buildFirefoxXpiAddon {
       pname = "torrent-control";
-      version = "0.2.38";
+      version = "0.2.39";
       addonId = "{e6e36c9a-8323-446c-b720-a176017e38ff}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4310629/torrent_control-0.2.38.xpi";
-      sha256 = "d78b7def068eb874e69a519684d657d09d8aba94593903be096319a312f25898";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4360835/torrent_control-0.2.39.xpi";
+      sha256 = "4374426e8b04597fb7d24874b3d7a7acff44efe91c711f43feb332cf87793218";
       meta = with lib;
       {
         homepage = "https://github.com/Mika-/torrent-control";
-        description = "Send torrent and magnet links to your Bittorrent client's web interface. Supports BiglyBT, Cloud Torrent, Deluge, Flood, ruTorrent, Tixati, Transmission, tTorrent, µTorrent, Vuze and qBittorrent.";
+        description = "Send torrent and magnet links to your Bittorrent client's web interface. Supports BiglyBT, Cloud Torrent, Deluge, Flood, ruTorrent, Synology Download Station, Tixati, Transmission, tTorrent, µTorrent, Vuze and qBittorrent.";
         license = licenses.mit;
         mozPermissions = [
           "contextMenus"
@@ -11521,6 +11586,21 @@
         description = "Hide unwanted streams, games, categories, channels and tags on: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/467fe07ac13c13856de8dd6315fd58ddc3356ad980bae2d20314f29ad039768e/http%3A//twitch.tv\" rel=\"nofollow\">twitch.tv</a>";
         license = licenses.mit;
         mozPermissions = [ "storage" "https://www.twitch.tv/*" ];
+        platforms = platforms.all;
+      };
+    };
+    "uppity" = buildFirefoxXpiAddon {
+      pname = "uppity";
+      version = "2.2resigned1";
+      addonId = "{16cbd87c-eb99-4f5c-9825-83cf13ab7ff8}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4270233/uppity-2.2resigned1.xpi";
+      sha256 = "2696898c1bd077b81139f9639408c4966a47b234112a7eef0dfec8ddaca75b19";
+      meta = with lib;
+      {
+        homepage = "https://github.com/arantius/uppity";
+        description = "Navigate up one level (directory).  It will remove an in-page anchor, the querystring, the file, and the last directory in that order, whichever is first found...";
+        license = licenses.mit;
+        mozPermissions = [ "activeTab" "tabs" "webNavigation" ];
         platforms = platforms.all;
       };
     };
