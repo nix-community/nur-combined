@@ -139,7 +139,7 @@ in
   };
 
   protontricks = python3Packages.callPackage ./tools/package-management/protontricks {
-    steam-run = steamPackages.steam-fhsenv-without-steam.run;
+    steam-run = steam-run-free;
     inherit winetricks yad;
   };
 
