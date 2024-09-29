@@ -16,6 +16,10 @@ reIf {
       port = 6167;
       address = "0.0.0.0";
       # allow_registration = true;
+      turn_uris = [
+        "turn:nodens.nyaw.xyz?transport=udp"
+        "turn:nodens.nyaw.xyz?transport=tcp"
+      ];
     };
   };
 }

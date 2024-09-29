@@ -77,6 +77,13 @@
       ];
     };
 
+    coturn = {
+      enable = true;
+      # static-auth-secret-file = config.age.secrets.wg.path;
+      no-auth = true;
+      realm = config.networking.fqdn;
+    };
+
     ntfy-sh = {
       enable = true;
       settings = {

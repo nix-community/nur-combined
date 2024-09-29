@@ -76,18 +76,14 @@
           "inode/mount-point"
         ] (_: "org.gnome.Nautilus.desktop");
     };
-    # portal = {
-    #   enable = true;
-    #   wlr.enable = true;
-    #   extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    #   config = {
-    #     common = {
-    #       "default" = [ "gtk" ];
-    #       "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
-    #       "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
-    #     };
-    #   };
-    # };
+    portal = {
+      enable = true;
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+        pkgs.xdg-desktop-portal-gnome
+      ];
+      configPackages = [ pkgs.niri ];
+    };
   };
 
   systemd.user.targets.sway-session = {

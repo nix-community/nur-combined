@@ -30,6 +30,7 @@
         3330
         8880
         34197 # factorio
+        3478 # stun/turn
       ];
       allowedTCPPorts = [
         80
