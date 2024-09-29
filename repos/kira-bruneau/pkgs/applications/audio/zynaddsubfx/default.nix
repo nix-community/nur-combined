@@ -16,7 +16,7 @@
 , zlib
 
   # Optional dependencies
-, alsaSupport ? stdenv.isLinux
+, alsaSupport ? stdenv.hostPlatform.isLinux
 , alsa-lib
 , dssiSupport ? false
 , dssi
@@ -28,7 +28,7 @@
 , ossSupport ? true
 , portaudioSupport ? true
 , portaudio
-, sndioSupport ? stdenv.isOpenBSD
+, sndioSupport ? stdenv.hostPlatform.isOpenBSD
 , sndio
 
   # Optional GUI dependencies
@@ -124,7 +124,7 @@ stdenv.mkDerivation (finalAttrs: {
         lib.optionals lashSupport [ "PortChecker" ]
 
         # Tests fail on aarch64
-        ++ lib.optionals stdenv.isAarch64 [ "MessageTest" "UnisonTest" ];
+        ++ lib.optionals stdenv.hostPlatform.isAarch64 [ "MessageTest" "UnisonTest" ];
     in
     ''
       runHook preCheck
@@ -171,6 +171,6 @@ stdenv.mkDerivation (finalAttrs: {
     # - ZynAddSubFX LV2 & VST plugin fail to compile (not setup to use ObjC version of pugl)
     # - TTL generation crashes (`pointer being freed was not allocated`) for all VST plugins using AbstractFX
     # - Zest UI fails to start on pulg_setup: Could not open display, aborting.
-    broken = stdenv.isDarwin;
+    broken = stdenv.hostPlatform.isDarwin;
   };
 })

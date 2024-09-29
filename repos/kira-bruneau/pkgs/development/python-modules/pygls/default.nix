@@ -50,7 +50,7 @@ buildPythonPackage rec {
   # Fixes hanging tests on Darwin
   __darwinAllowLocalNetworking = true;
 
-  preCheck = lib.optionalString stdenv.isDarwin ''
+  preCheck = lib.optionalString stdenv.hostPlatform.isDarwin ''
     # Darwin issue: OSError: [Errno 24] Too many open files
     ulimit -n 1024
   '';

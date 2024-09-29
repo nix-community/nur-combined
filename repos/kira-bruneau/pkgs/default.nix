@@ -13,7 +13,7 @@ let
   };
 
   linuxModulesOverlay =
-    if stdenv.isLinux then
+    if stdenv.hostPlatform.isLinux then
       import ./os-specific/linux/modules.nix {
         inherit lib;
         pkgs = final;
