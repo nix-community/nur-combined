@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
     domain = "git.astron.nl";
     owner = "RD";
     repo = "pmt";
-    rev = "c6b44f2060b5c4ed143ae28bea8c48b64640b89d";
-    sha256 = "sha256-2YsG9YU+Ao9x0LHW9w7ImJoJx0LVGCGyjHbXijV/FFM=";
+    rev = "${version}";
+    hash = "sha256-SIV1pSHgRANYt80kMHxYY4vvH6uQl6sMwxMo0EznX6E=";
     fetchSubmodules = true;
   };
 
