@@ -16,7 +16,7 @@
   '';
   services.logind = {
     lidSwitch = "suspend";
-    powerKey = "ignore"; # it sucks. laptop
+    powerKey = "suspend"; # it sucks. laptop
     powerKeyLongPress = "poweroff";
   };
   hardware.graphics.extraPackages = with pkgs; [

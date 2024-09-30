@@ -172,7 +172,7 @@
     kernelModules = [
       "kvm-amd"
       # "pico_rng"
-      "brutal"
+      # "brutal"
     ];
     kernelParams = [
       "amd_pstate=active"
@@ -183,15 +183,15 @@
       "zswap.zpool=zsmalloc"
       # "ia32_emulation=0"
     ];
-    extraModulePackages =
-      let
-        inherit (config.boot.kernelPackages) v4l2loopback callPackage;
-      in
-      [
-        v4l2loopback
-        (callPackage "${self}/pkgs/tcp-brutal.nix" { })
-        # (callPackage "${self}/pkgs/pico-rng.nix" { })
-      ];
+    # extraModulePackages =
+    #   let
+    #     inherit (config.boot.kernelPackages) v4l2loopback callPackage;
+    #   in
+    #   [
+    #     v4l2loopback
+    #     (callPackage "${self}/pkgs/tcp-brutal.nix" { })
+    #     # (callPackage "${self}/pkgs/pico-rng.nix" { })
+    #   ];
     kernelPackages = inputs'.nyx.packages.linuxPackages_cachyos;
     # pkgs.linuxPackages_latest;
   };
