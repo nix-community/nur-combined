@@ -10,8 +10,10 @@ the minimum configuration to start hatsu server would look like this:
 {
   services.hatsu = {
     enable = true;
-    domain = "hatsu.local";
-    primaryAccount = "example.com";
+    settings = {
+      HATSU_DOMAIN = "hatsu.local";
+      HATSU_PRIMARY_ACCOUNT = "example.com";
+    };
   };
 }
 ```
