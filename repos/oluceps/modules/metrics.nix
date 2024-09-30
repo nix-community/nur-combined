@@ -31,6 +31,7 @@ in
       };
     };
 
+    repack.caddy.enable = true;
     repack.caddy.settings.apps.http.servers.srv0.routes = [
       {
         match = [
