@@ -81,5 +81,8 @@ rec {
         postPatch = (old.postPatch or "") + ''
             substituteInPlace build.go --replace-fail '[]string{"build"}' '[]string{"build", "-L"}'
         '';
+        meta = old.meta // {
+            description = "${old.meta.description} (logs build output)";
+        };
     })) {};
 }

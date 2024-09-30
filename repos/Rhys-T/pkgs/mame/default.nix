@@ -25,7 +25,7 @@
             }) else mame';
             mame''' = mame''.overrideAttrs (old: {
                 meta = (old.meta or {}) // {
-                    # description = "${old.meta.description or "MAME"} (fixed for macOS/Darwin)";
+                    description = "${old.meta.description or "MAME"} (fixed for macOS/Darwin)";
                     broken = false;
                 };
             });
