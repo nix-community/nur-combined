@@ -102,7 +102,7 @@ in
       url_style = "single";
 
       # Colors
-      dim_opacity = "0.5";
+      dim_opacity = "0.4";
       wayland_titlebar_color = black;
       foreground = white;
       background = black;

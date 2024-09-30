@@ -52,6 +52,7 @@ in
     # Packages
     home.packages = with pkgs; [
       add-words
+      binsider
       darktable
       gnome.dconf-editor
       dig

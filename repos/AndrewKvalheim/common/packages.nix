@@ -14,6 +14,7 @@ in
   ansible-vault-pass-client = any;
   apex = any;
   attachments = any;
+  binsider = any;
   buildJosmPlugin = any;
   cavif = any;
   ch57x-keyboard-tool = any;

@@ -128,6 +128,7 @@ in
         lsblk = "lsblk --output 'name,type,uuid,label,size,fstype,mountpoints' --paths";
         mv = "mv --no-clobber --verbose";
         p = "gopass";
+        path = "nix-build --pure '<nixpkgs>' --attr";
         pt = "gopass-ydotool";
         rm = "rm --one-file-system --verbose";
         rsync = "rsync --compress --compress-choice=zstd --human-readable";
