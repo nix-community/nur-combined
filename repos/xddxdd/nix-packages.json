@@ -487,7 +487,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "3837"
+    "version": "3849"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -3137,7 +3137,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "6.3.0"
+    "version": "6.4.1"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
@@ -3422,12 +3422,12 @@
   "legacyPackages.x86_64-linux.wine-wechat": {
     "description": "Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)",
     "pname": "wine-wechat",
-    "version": "3.9.12.15"
+    "version": "3.9.12.17"
   },
   "legacyPackages.x86_64-linux.wine-wechat-x86": {
     "description": "Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)",
     "pname": "wine-wechat-x86",
-    "version": "3.9.12.14"
+    "version": "3.9.12.16"
   },
   "legacyPackages.x86_64-linux.xstatic-asciinema-player": {
     "description": "asciinema-player packaged for setuptools (easy_install) / pip.",
@@ -3902,7 +3902,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "6.3.0"
+    "version": "6.4.1"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
@@ -4142,12 +4142,12 @@
   "packages.x86_64-linux.wine-wechat": {
     "description": "Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)",
     "pname": "wine-wechat",
-    "version": "3.9.12.15"
+    "version": "3.9.12.17"
   },
   "packages.x86_64-linux.wine-wechat-x86": {
     "description": "Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)",
     "pname": "wine-wechat-x86",
-    "version": "3.9.12.14"
+    "version": "3.9.12.16"
   },
   "packages.x86_64-linux.xstatic-asciinema-player": {
     "description": "asciinema-player packaged for setuptools (easy_install) / pip.",
