@@ -80,6 +80,7 @@ BDFL
 bento
 bikeshedding
 BIMI
+Binsider
 biohazard
 bioinformatician
 bioinformatics

@@ -7,7 +7,7 @@ let
   open-vsx = { _name = "open-vsx"; vscode-extensions = community-vscode-extensions.open-vsx; };
   vscode-marketplace = { _name = "vscode-marketplace"; vscode-extensions = community-vscode-extensions.vscode-marketplace; };
 in
-(specify {
+specify {
   add-words = any;
   affine-font = any;
   album-art = any;
@@ -108,15 +108,4 @@ in
   };
   zsh-abbr.condition = z: !z.meta.unfree;
   zsh-click = any;
-}) // {
-  pythonPackagesExtensions = stable.pythonPackagesExtensions ++ [
-    (_: pythonPackages: {
-      matrix-nio = pythonPackages.matrix-nio.overridePythonAttrs (matrix-nio: {
-        pythonRelaxDeps = matrix-nio.pythonRelaxDeps or [ ] ++ [ "aiohttp-socks" ]; # Pending matrix-nio/matrix-nio#516
-        nativeCheckInputs = # Check phase isn’t vulnerable to NixOS/nixpkgs#334638
-          let olm = stable.olm.overrideAttrs (olm: { meta = olm.meta // { knownVulnerabilities = builtins.filter (v: ! stable.lib.hasInfix "334638" v) olm.meta.knownVulnerabilities or [ ]; }; });
-          in map (p: if p.pname or null == "python-olm" then p.override { inherit olm; } else p) matrix-nio.nativeCheckInputs;
-      });
-    })
-  ];
 }
