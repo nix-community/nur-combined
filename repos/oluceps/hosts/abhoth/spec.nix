@@ -51,20 +51,18 @@
     };
     metrics.enable = true;
     trojan-server.enable = true;
-    hysteria.instances = [
-      {
-        name = "only";
-        serve = {
-          enable = true;
-          port = 4432;
-        };
+
+    hysteria.instances = {
+      only = {
+        serve = true;
+        openFirewall = 4432;
         credentials = [
           "key:${config.age.secrets."nyaw.key".path}"
           "cert:${config.age.secrets."nyaw.cert".path}"
         ];
         configFile = config.age.secrets.hyst-us.path;
-      }
-    ];
+      };
+    };
 
     realm = {
       enable = true;

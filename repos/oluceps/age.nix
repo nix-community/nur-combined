@@ -98,6 +98,13 @@
           group = "users";
           name = "hyst-la-cli.yaml";
         };
+        hyst-hk-cli = {
+          rekeyFile = ./sec/hyst-hk-cli.age;
+          mode = "640";
+          owner = "root";
+          group = "users";
+          name = "hyst-hk-cli.yaml";
+        };
       }
     );
   };

@@ -120,6 +120,11 @@
             PersistentKeepalive = 15;
           }
           {
+            PublicKey = "V3J9d8lUOk4WXj+dIiAZsuKJv3HxUl8J4HvX/s4eElY=";
+            AllowedIPs = [ "10.0.4.0/24" ];
+            PersistentKeepalive = 15;
+          }
+          {
             PublicKey = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno=";
             AllowedIPs = [ "10.0.2.1/24" ];
             PersistentKeepalive = 15;

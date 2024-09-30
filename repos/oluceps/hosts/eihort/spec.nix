@@ -84,12 +84,16 @@
       ];
     };
 
-    hysteria.instances = [
-      {
-        name = "nodens";
+    hysteria.instances = {
+      nodens = {
+        enable = true;
         configFile = config.age.secrets.hyst-us-cli.path;
-      }
-    ];
+      };
+      yidhra = {
+        enable = true;
+        configFile = config.age.secrets.hyst-hk-cli.path;
+      };
+    };
 
     resolved.enable = lib.mkForce false;
     tailscale = {

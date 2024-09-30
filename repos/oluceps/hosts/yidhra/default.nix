@@ -27,6 +27,7 @@ withSystem "x86_64-linux" (
       user = "elen";
     };
     modules = lib.sharedModules ++ [
+      inputs.disko.nixosModules.disko
       {
         nixpkgs = {
           hostPlatform = system;
@@ -41,12 +42,13 @@ withSystem "x86_64-linux" (
               "fenix"
               "nuenv"
               "agenix-rekey"
-              "nixpkgs-wayland"
             ]);
         };
       }
 
-      ./hardware.nix
+      ./disk.nix
+      ../persist-base.nix
+      ./boot.nix
       ./network.nix
       ./rekey.nix
       ./spec.nix

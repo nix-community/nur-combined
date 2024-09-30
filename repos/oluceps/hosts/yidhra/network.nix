@@ -1,7 +1,7 @@
 { config, lib, ... }:
 {
-  networking.domain = "ap-northeast-1.compute.internal";
   networking = {
+    domain = "nyaw.xyz";
     resolvconf.useLocalResolver = true;
     firewall = {
       checkReversePath = false;
@@ -37,9 +37,31 @@
     hostName = "yidhra";
     enableIPv6 = true;
 
-    nftables.enable = true;
+    nftables = {
+      enable = true;
+      # for hysteria port hopping
+      ruleset = ''
+        table ip nat {
+        	chain prerouting {
+        		type nat hook prerouting priority filter; policy accept;
+        		iifname "eth0" udp dport 40000-50000 counter packets 0 bytes 0 dnat to :4432
+        	}
+        }
+        table ip6 nat {
+        	chain prerouting {
+        		type nat hook prerouting priority filter; policy accept;
+        		iifname "eth0" udp dport 40000-50000 counter packets 0 bytes 0 dnat to :4432
+        	}
+        }
+      '';
+    };
     networkmanager.enable = lib.mkForce false;
     networkmanager.dns = "none";
+
+  };
+
+  services.resolved = {
+    enable = lib.mkForce false;
   };
   systemd.network = {
     enable = true;
@@ -53,17 +75,17 @@
       ];
     };
 
-    links."10-ens5" = {
-      matchConfig.MACAddress = "06:2f:f4:98:b8:13";
-      linkConfig.Name = "ens5";
+    links."10-eth0" = {
+      matchConfig.MACAddress = "00:16:3e:0c:cd:5d";
+      linkConfig.Name = "eth0";
     };
 
     netdevs = {
 
-      wg1 = {
+      wg0 = {
         netdevConfig = {
           Kind = "wireguard";
-          Name = "wg1";
+          Name = "wg0";
           MTUBytes = "1300";
         };
         wireguardConfig = {
@@ -72,63 +94,76 @@
         };
         wireguardPeers = [
           {
-            wireguardPeerConfig = {
-              PublicKey = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM=";
-              AllowedIPs = [ "10.0.1.2/32" ];
-              PersistentKeepalive = 15;
-            };
+            PublicKey = "BCbrvvMIoHATydMkZtF8c+CHlCpKUy1NW+aP0GnYfRM=";
+            AllowedIPs = [ "10.0.4.2/32" ];
+            PersistentKeepalive = 15;
           }
           {
-            wireguardPeerConfig = {
-              PublicKey = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg=";
-              AllowedIPs = [ "10.0.1.3/32" ];
-              PersistentKeepalive = 15;
-            };
+            PublicKey = "i7Li/BDu5g5+Buy6m6Jnr09Ne7xGI/CcNAbyK9KKbQg=";
+            AllowedIPs = [ "10.0.4.3/32" ];
+            PersistentKeepalive = 15;
           }
-
           {
-            wireguardPeerConfig = {
-              PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
-              AllowedIPs = [
-                "10.0.0.0/24"
-                "10.0.1.0/24"
-              ];
-              Endpoint = "111.229.162.99:51820";
-              PersistentKeepalive = 15;
-            };
+            PublicKey = "69DTVyNbhMN6/cgLCpcZrh/kGoi1IyxV0QwVjDe5IQk=";
+            AllowedIPs = [ "10.0.4.6/32" ];
+            PersistentKeepalive = 15;
+          }
+          {
+            PublicKey = "0wLrznvd32gloUHwgFqv+vlybBtEYQaUOwgqyfa3Fl4=";
+            AllowedIPs = [ "10.0.4.4/32" ];
+            PersistentKeepalive = 15;
+          }
+          {
+            PublicKey = "49xNnrpNKHAvYCDikO3XhiK94sUaSQ4leoCnTOQjWno=";
+            AllowedIPs = [ "10.0.2.0/24" ];
+            PersistentKeepalive = 15;
+          }
+          {
+            PublicKey = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A=";
+            AllowedIPs = [ "10.0.3.0/24" ];
+            Endpoint = "38.47.119.151:51820";
+            PersistentKeepalive = 15;
+          }
+          {
+            PublicKey = "+fuA9nUmFVKy2Ijfh5xfcnO9tpA/SkIL4ttiWKsxyXI=";
+            AllowedIPs = [ "10.0.1.0/24" ];
+            Endpoint = "144.126.208.183:51820";
+            PersistentKeepalive = 15;
           }
         ];
       };
     };
 
     networks = {
-      "10-wg1" = {
-        matchConfig.Name = "wg1";
+      "10-wg0" = {
+        matchConfig.Name = "wg0";
         address = [
-          "10.0.1.1/24"
-          "10.0.0.5/24"
+          "10.0.4.1/24"
         ];
         networkConfig = {
           IPMasquerade = "ipv4";
-          IPForward = true;
+          IPv4Forwarding = true;
         };
+
+        routes = [
+          {
+            Destination = "10.0.1.0/24";
+            Scope = "link";
+          }
+          {
+            Destination = "10.0.2.0/24";
+            Scope = "link";
+          }
+          {
+            Destination = "10.0.3.0/24";
+            Scope = "link";
+          }
+        ];
       };
 
-      "20-wired" = {
-        matchConfig.Name = "ens5";
+      "20-eth0" = {
+        matchConfig.Name = "eth0";
         DHCP = "yes";
-        dhcpV4Config.RouteMetric = 2046;
-        dhcpV6Config.RouteMetric = 2046;
-        networkConfig = {
-          # Bond = "bond1";
-          # PrimarySlave = true;
-          DNSSEC = true;
-          MulticastDNS = true;
-          DNSOverTLS = true;
-        };
-        # # REALLY IMPORTANT
-        dhcpV4Config.UseDNS = false;
-        dhcpV6Config.UseDNS = false;
       };
     };
   };

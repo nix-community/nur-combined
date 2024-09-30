@@ -140,6 +140,12 @@
             Endpoint = "127.0.0.1:41821";
             PersistentKeepalive = 15;
           }
+          {
+            PublicKey = "V3J9d8lUOk4WXj+dIiAZsuKJv3HxUl8J4HvX/s4eElY=";
+            AllowedIPs = [ "10.0.4.0/24" ];
+            Endpoint = "127.0.0.1:41822";
+            PersistentKeepalive = 15;
+          }
           # {
           #   wireguardPeerConfig = {
           #     PublicKey = "ANd++mjV7kYu/eKOEz17mf65bg8BeJ/ozBmuZxRT3w0=";
@@ -159,6 +165,7 @@
           "10.0.1.3/24"
           "10.0.2.3/24"
           "10.0.3.3/24"
+          "10.0.4.3/24"
         ];
         DHCP = "no";
         # routes = [

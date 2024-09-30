@@ -12,98 +12,93 @@ let
     mkPackageOption
     mkEnableOption
     mkIf
+    mapAttrs'
+    nameValuePair
+    optional
     ;
 in
 {
   disabledModules = [ "services/networking/hysteria.nix" ];
   options.services.hysteria = {
     instances = mkOption {
-      type = types.listOf (
+      description = "list of hysteria instance";
+      type = types.attrsOf (
         types.submodule {
           options = {
-            name = mkOption { type = types.str; };
+            enable = mkEnableOption "enable this hysteria instance";
             package = mkPackageOption pkgs "hysteria" { };
             credentials = mkOption {
               type = types.listOf types.str;
               default = [ ];
+              description = ''
+                Load extra credentials.
+                Could be written as systemd `LoadCredentials` format e.g.
+                `["key:/etc/hysteria-key"]` and access in config with
+                `/run/credentials/hysteria-$\{name}.service/key`
+              '';
             };
-            serve = mkOption {
-              type = types.submodule {
-                options = {
-                  enable = mkEnableOption "server";
-                  port = mkOption { type = types.port; };
-                };
-              };
-              default = {
-                enable = false;
-                port = 0;
-              };
+            openFirewall = mkOption {
+              type = with types; nullOr port;
+              default = null;
+              description = "Open firewall port";
             };
+            serve = mkEnableOption "using `hysteria-server` instead of `hysteria-client`";
             configFile = mkOption {
               type = types.str;
-              default = "/none";
+              default = "/etc/hysteria/config.yaml";
+              description = "Config file location, absolute path";
             };
           };
         }
       );
-      default = [ ];
+      default = { };
     };
   };
-  config =
-    mkIf (cfg.instances != [ ])
+  config = mkIf (cfg.instances != [ ]) {
+    environment.systemPackages = lib.unique (
+      lib.foldr (s: acc: acc ++ (optional s.enable s.package)) [ ] (builtins.attrValues cfg.instances)
+    );
 
-      {
+    # only allow udp port since hysteria based on udp
+    networking.firewall.allowedUDPPorts = lib.unique (
+      lib.foldr (
+        s: acc: acc ++ (lib.optional (s.enable && (s.openFirewall != null)) s.openFirewall)
+      ) [ ] (builtins.attrValues cfg.instances)
+    );
 
-        environment.systemPackages = lib.unique (
-          lib.foldr (s: acc: acc ++ [ s.package ]) [ ] cfg.instances
-        );
-
-        networking.firewall = (
-          lib.foldr (
-            s: acc: acc // { allowedUDPPorts = mkIf s.serve.enable [ s.serve.port ]; }
-          ) { } cfg.instances
-        );
-
-        systemd.services = lib.foldr (
-          s: acc:
-          acc
-          // {
-            "hysteria-${s.name}" = {
-              wantedBy = [ "multi-user.target" ];
-              after = [
-                "network-online.target"
-                "nss-lookup.target"
-              ];
-              wants = [
-                "network-online.target"
-                "nss-lookup.target"
-              ];
-              description = "hysteria daemon";
-              serviceConfig =
-                let
-                  binSuffix = if s.serve.enable then "server" else "client";
-                in
-                {
-                  DynamicUser = true;
-                  ExecStart = "${lib.getExe' s.package "hysteria"} ${binSuffix} --disable-update-check -c $\{CREDENTIALS_DIRECTORY}/config.yaml";
-                  LoadCredential = [ "config.yaml:${s.configFile}" ] ++ s.credentials;
-                  CapabilityBoundingSet = [
-                    "CAP_NET_ADMIN"
-                    "CAP_NET_BIND_SERVICE"
-                    "CAP_NET_RAW"
-                  ];
-
-                  AmbientCapabilities = [
-                    "CAP_NET_ADMIN"
-                    "CAP_NET_BIND_SERVICE"
-                    "CAP_NET_RAW"
-                  ];
-                  NoNewPrivileges = true;
-                  Restart = "on-failure";
-                  RestartSec = "5s";
-                };
-            };
-          }
-        ) { } cfg.instances;
-      };
+    systemd.services = mapAttrs' (
+      name: opts:
+      nameValuePair "hysteria-${name}" {
+        wantedBy = [ "multi-user.target" ];
+        after = [
+          "network.target"
+          "nss-lookup.target"
+        ];
+        description = "hysteria daemon";
+        serviceConfig =
+          let
+            binSuffix = if opts.serve then "server" else "client";
+          in
+          {
+            Type = "simple";
+            DynamicUser = true;
+            ExecStart = "${lib.getExe' opts.package "hysteria"} ${binSuffix} --disable-update-check -c $\{CREDENTIALS_DIRECTORY}/config.yaml";
+            LoadCredential = [ "config.yaml:${opts.configFile}" ] ++ opts.credentials;
+            AmbientCapabilities = [
+              "CAP_NET_ADMIN"
+              "CAP_NET_BIND_SERVICE"
+              "CAP_NET_RAW"
+            ];
+            CapabilityBoundingSet = [
+              "CAP_NET_ADMIN"
+              "CAP_NET_BIND_SERVICE"
+              "CAP_NET_RAW"
+            ];
+            LimitNPROC = 512;
+            LimitNOFILE = "infinity";
+            Restart = "on-failure";
+          };
+      }
+    ) cfg.instances;
+  };
 }

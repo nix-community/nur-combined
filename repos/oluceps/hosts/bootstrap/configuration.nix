@@ -8,8 +8,9 @@
 {
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
-  time.timeZone = "America/Los_Angeles";
+  time.timeZone = "Asia/Hong_Kong";
   networking.nameservers = [ "8.8.8.8" ];
+  networking.usePredictableInterfaceNames = false;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   users.mutableUsers = false;

@@ -131,6 +131,11 @@
             PersistentKeepalive = 15;
           }
           {
+            PublicKey = "V3J9d8lUOk4WXj+dIiAZsuKJv3HxUl8J4HvX/s4eElY=";
+            AllowedIPs = [ "10.0.4.0/24" ];
+            PersistentKeepalive = 15;
+          }
+          {
             PublicKey = "jQGcU+BULglJ9pUz/MmgOWhGRjpimogvEudwc8hMR0A=";
             AllowedIPs = [ "10.0.3.0/24" ];
             Endpoint = "38.47.119.151:51820";
@@ -158,6 +163,10 @@
           }
           {
             Destination = "10.0.3.0/24";
+            Scope = "link";
+          }
+          {
+            Destination = "10.0.4.0/24";
             Scope = "link";
           }
         ];

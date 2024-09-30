@@ -132,17 +132,20 @@
 
     sing-box.enable = true;
 
-    hysteria.instances = [
-      {
-        name = "nodens";
+    hysteria.instances = {
+      nodens = {
+        enable = true;
         configFile = config.age.secrets.hyst-us-cli.path;
-      }
-      {
-        name = "abhoth";
+      };
+      abhoth = {
+        enable = true;
         configFile = config.age.secrets.hyst-la-cli.path;
-      }
-    ];
-
+      };
+      yidhra = {
+        enable = true;
+        configFile = config.age.secrets.hyst-hk-cli.path;
+      };
+    };
     shadowsocks.instances = [
       {
         name = "rha";

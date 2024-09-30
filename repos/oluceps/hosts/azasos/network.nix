@@ -152,6 +152,12 @@
             Endpoint = "127.0.0.1:41821";
             PersistentKeepalive = 15;
           }
+          {
+            PublicKey = "V3J9d8lUOk4WXj+dIiAZsuKJv3HxUl8J4HvX/s4eElY=";
+            AllowedIPs = [ "10.0.4.0/24" ];
+            Endpoint = "127.0.0.1:41822";
+            PersistentKeepalive = 15;
+          }
         ];
       };
     };
@@ -174,6 +180,10 @@
           }
           {
             Destination = "10.0.1.0/24";
+            Scope = "link";
+          }
+          {
+            Destination = "10.0.4.0/24";
             Scope = "link";
           }
         ];
