@@ -61,7 +61,6 @@ specify {
   off = any;
   picard.overlay = p: { preFixup = p.preFixup + "\nmakeWrapperArgs+=(--prefix PATH : ${stable.lib.makeBinPath [ resolved.rsgain ]})"; }; # NixOS/nixpkgs#255222
   pngquant-interactive = any;
-  ruby_2_7.search = pin "5a83f6f984f387d47373f6f0c43b97a64e7755c0"; # Removed in NixOS/nixpkgs#270286 but still specified by https://pages.github.com/versions/
   ruff.version = "≥0.4.5"; # ruff server
   signal-desktop.gappsWrapperArgs = "--add-flags --use-tray-icon"; # Enable tray icon
   spf-check = any;
