@@ -3,29 +3,20 @@
   callPackage,
   lib,
   _meta,
-  newScope,
-  packages,
+  _packages,
   ...
 }:
 let
-  nurPackages = builtins.removeAttrs (lib.makeScope newScope packages) [
-    "newScope"
-    "callPackage"
-    "overrideScope"
-    "overrideScope'"
-    "packages"
-  ];
-
   inherit (callPackage ../../../helpers/flatten-pkgs.nix { })
     isIndependentDerivation
     isHiddenName
-    shouldRecurseForDerivations
+    isTargetPlatform'
     flattenPkgs'
     ;
 
   packageSets = lib.filterAttrs (
-    n: v: (builtins.tryEval v).success && !(isHiddenName n) && (shouldRecurseForDerivations v)
-  ) nurPackages;
+    n: v: (builtins.tryEval v).success && !(isHiddenName n) && !(lib.isDerivation v)
+  ) _packages;
 
   packageList =
     prefix: ps:
@@ -33,10 +24,10 @@ let
       (
         v:
         let
-          tags = lib.optional v.broken "Broken"
-          # Golang packages set a lot of architectures
-          # ++ builtins.map (v: "Arch: ${v}") v.platforms
-          ;
+          tags =
+            (lib.optional v.broken "Broken")
+            ++ (lib.optional (isTargetPlatform' "x86_64-linux" v) "x86_64-linux")
+            ++ (lib.optional (isTargetPlatform' "aarch64-linux" v) "aarch64-linux");
         in
         "| ${lib.concatMapStringsSep " " (v: "`${v}`") tags} | `${v.path}` | ${
           if v.url != null then "[${v.pname}](${v.url})" else v.pname
@@ -70,7 +61,7 @@ let
     '';
 
   uncategorizedOutput = packageSetOutput "(Uncategorized)" "" (
-    lib.filterAttrs (_n: v: (builtins.tryEval v).success && isIndependentDerivation v) nurPackages
+    lib.filterAttrs (_n: v: (builtins.tryEval v).success && isIndependentDerivation v) _packages
   );
 
   packageSetsOutput = builtins.concatStringsSep "\n" (

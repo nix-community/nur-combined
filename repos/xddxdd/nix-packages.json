@@ -449,11 +449,6 @@
     "pname": "kata-runtime",
     "version": "3.9.0"
   },
-  "legacyPackages.x86_64-linux.kernel": {
-    "description": "The Linux kernel (with patches: bridge-stp-helper, request-key-helper)",
-    "pname": "linux",
-    "version": "6.6.52"
-  },
   "legacyPackages.x86_64-linux.kikoplay": {
     "description": "KikoPlay - NOT ONLY A Full-Featured Danmu Player 不仅仅是全功能弹幕播放器 ",
     "pname": "kikoplay",
@@ -3713,11 +3708,6 @@
     "description": "Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix)",
     "pname": "kata-runtime",
     "version": "3.9.0"
-  },
-  "packages.x86_64-linux.kernel": {
-    "description": "The Linux kernel (with patches: bridge-stp-helper, request-key-helper)",
-    "pname": "linux",
-    "version": "6.6.52"
   },
   "packages.x86_64-linux.kikoplay": {
     "description": "KikoPlay - NOT ONLY A Full-Featured Danmu Player 不仅仅是全功能弹幕播放器 ",

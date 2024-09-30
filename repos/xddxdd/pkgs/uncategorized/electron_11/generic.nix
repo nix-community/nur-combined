@@ -2,7 +2,6 @@
 {
   lib,
   stdenv,
-  libXScrnSaver,
   makeWrapper,
   fetchurl,
   wrapGAppsHook,
@@ -13,7 +12,6 @@
   libdrm,
   mesa,
   libxkbcommon,
-  libxshmfence,
   libGL,
   alsa-lib,
   cairo,
@@ -114,9 +112,9 @@ let
       libdrm
       mesa
     ]
-    ++ lib.optionals (lib.versionOlder version "10.0.0") [ libXScrnSaver ]
+    ++ lib.optionals (lib.versionOlder version "10.0.0") [ xorg.libXScrnSaver ]
     ++ lib.optionals (lib.versionAtLeast version "11.0.0") [ libxkbcommon ]
-    ++ lib.optionals (lib.versionAtLeast version "12.0.0") [ libxshmfence ]
+    ++ lib.optionals (lib.versionAtLeast version "12.0.0") [ xorg.libxshmfence ]
     ++ lib.optionals (lib.versionAtLeast version "17.0.0") [ libGL ]
   );
 

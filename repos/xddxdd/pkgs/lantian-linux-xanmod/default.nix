@@ -100,5 +100,7 @@ let
 in
 if mode == "ci" then
   lib.filterAttrs (n: _v: lib.hasSuffix "configfile" n) batchesAttrs
+else if mode == "nur" then
+  lib.filterAttrs (n: _v: !lib.hasSuffix "configfile" n) batchesAttrs
 else
   batchesAttrs
