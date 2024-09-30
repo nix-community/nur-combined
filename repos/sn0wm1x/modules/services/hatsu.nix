@@ -15,28 +15,23 @@ in
 
     package = lib.mkPackageOption pkgs "hatsu" { };
 
-    dataDir = lib.mkOption {
-      type = lib.types.str;
-      default = "/var/lib/hatsu";
-      description = "Data directory for hatsu.";
-    };
-
     settings = lib.mkOption {
       type = lib.types.submodule {
         freeformType =
           with lib.types;
           attrsOf (
             nullOr (oneOf [
+              bool
+              int
+              port
               str
-              path
-              package
             ])
           );
+
         options = {
           HATSU_DATABASE_URL = lib.mkOption {
             type = lib.types.str;
-            default = "sqlite://${cfg.dataDir}/hatsu.sqlite?mode=rwc";
-            defaultText = "sqlite://\${config.services.hatsu.dataDir}/hatsu.sqlite?mode=rwc";
+            default = "sqlite:///var/lib/hatsu/hatsu.sqlite?mode=rwc";
             example = "postgres://username:password@host/database";
             description = "Database URL.";
           };
@@ -54,6 +49,7 @@ in
 
           HATSU_LISTEN_PORT = lib.mkOption {
             type = lib.types.port;
+            apply = toString;
             default = 3939;
             description = "Port where hatsu should listen for incoming requests.";
           };
@@ -64,14 +60,14 @@ in
           };
         };
       };
+
       default = { };
+
       description = ''
-        See [Environments](https://hatsu.cli.rs/admins/environments.html) for available settings.
+        Configuration for Hatsu, see
+        <link xlink:href="https://hatsu.cli.rs/admins/environments.html"/>
+        for supported values.
       '';
-      example = {
-        HATSU_NODE_NAME = "nixos/modules";
-        HATSU_NODE_DESCRIPTION = "services/web-apps/hatsu.nix";
-      };
     };
   };
 
@@ -91,9 +87,9 @@ in
         DynamicUser = true;
         ExecStart = "${lib.getExe cfg.package}";
         Restart = "on-failure";
-        StateDirectory = lib.mkIf (cfg.dataDir == "/var/lib/hatsu") "hatsu";
+        StateDirectory = "hatsu";
         Type = "simple";
-        WorkingDirectory = cfg.dataDir;
+        WorkingDirectory = "/var/lib/hatsu";
       };
     };
   };
