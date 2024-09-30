@@ -16,6 +16,7 @@
     ./grocy
     ./indexers
     ./jellyfin
+    ./komga
     ./lohr
     ./matrix
     ./mealie
