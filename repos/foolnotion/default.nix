@@ -30,6 +30,8 @@
 
   cmake-init = pkgs.python3Packages.callPackage ./pkgs/cmake-init { };
 
+  cmake-utils = pkgs.callPackage ./pkgs/cmake-utils { };
+
   cmaketools = pkgs.python3Packages.callPackage ./pkgs/cmaketools { };
 
   cpp-flux = pkgs.callPackage ./pkgs/cpp-flux { };
@@ -54,7 +56,11 @@
 
   gch-small-vector = pkgs.callPackage ./pkgs/gch-small-vector { };
 
+  gtl = pkgs.callPackage ./pkgs/gtl { };
+
   koivisto = pkgs.callPackage ./pkgs/koivisto { };
+
+  ktl = pkgs.callPackage ./pkgs/ktl { cmake-utils = cmake-utils; };
 
   lexy = pkgs.callPackage ./pkgs/lexy { };
 
@@ -76,6 +82,8 @@
 
   mppp = pkgs.callPackage ./pkgs/mppp { };
 
+  parallel-hashmap = pkgs.callPackage ./pkgs/parallel-hashmap { };
+
   pareto = pkgs.python3Packages.callPackage ./pkgs/pareto { };
 
   pegtl = pkgs.callPackage ./pkgs/pegtl { };
@@ -83,6 +91,8 @@
   perf-cpp = pkgs.callPackage ./pkgs/perf-cpp { };
 
   pmlb = pkgs.python3Packages.callPackage ./pkgs/pmlb { };
+
+  pmt = pkgs.callPackage ./pkgs/pmt { };
 
   q5go = pkgs.libsForQt5.callPackage ./pkgs/q5go { };
 

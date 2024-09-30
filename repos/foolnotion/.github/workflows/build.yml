@@ -42,7 +42,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
     - name: Install nix
-      uses: cachix/install-nix-action@V28
+      uses: cachix/install-nix-action@v29
       with:
         nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
@@ -61,7 +61,7 @@ jobs:
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \
-          --allowed-uris https://static.rust-lang.org \
+          --allowed-uris "https://static.rust-lang.org https://github.com https://raw.githubusercontent.com" \
           --option restrict-eval true \
           --option allow-import-from-derivation true \
           --drv-path --show-trace \
