@@ -1,5 +1,0 @@
-{
-  loadPackages,
-  ...
-}:
-loadPackages ./. { }

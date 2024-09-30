@@ -1,7 +1,5 @@
 {
-  sources,
   lib,
-  stdenv,
   attic-server,
 }:
 attic-server.overrideAttrs (old: {
