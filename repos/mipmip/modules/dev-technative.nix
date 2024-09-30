@@ -26,6 +26,8 @@
 
     unstable.nickel
 
+    attic-client
+
 
     vscode
     dhall

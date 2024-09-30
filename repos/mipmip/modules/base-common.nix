@@ -47,6 +47,9 @@
 
     # GRAPHIC
     imagemagick
+    imgp
+    oxipng
+    pngquant
 
     # PYthon
     python3Full
