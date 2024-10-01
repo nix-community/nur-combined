@@ -182,15 +182,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "f6a370866994a6808fe23ce80099295f1fec687b";
+    version = "ce173887a058646c80e3320e211bfc852eb7121f";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "f6a370866994a6808fe23ce80099295f1fec687b";
+      rev = "ce173887a058646c80e3320e211bfc852eb7121f";
       fetchSubmodules = false;
-      sha256 = "sha256-9d6hxYfVNxPeBX8X9/bZ4NIwHHfS1piK7T51EOPFA2w=";
+      sha256 = "sha256-DConYljgMFjUnPYfsbsOnqQZ+AD0iSL3+TI6PirgMmU=";
     };
-    date = "2024-09-30";
+    date = "2024-10-01";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -648,15 +648,15 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "a5528768a1e7a254707bad1b54d8e2f65c9490d2";
+    version = "7f4c89b26fc2a59dd314950f1663eaff037dff72";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "a5528768a1e7a254707bad1b54d8e2f65c9490d2";
+      rev = "7f4c89b26fc2a59dd314950f1663eaff037dff72";
       fetchSubmodules = false;
-      sha256 = "sha256-BivIjF/yhCoK4ZXG9UBA8fasxoN1W28hVlQ3YCN3EX8=";
+      sha256 = "sha256-Y+NhvYU85saN3ZMmM35erZywJrsvsN5C5gjjmGo1eaA=";
     };
-    date = "2024-09-27";
+    date = "2024-09-30";
   };
   libqcef = {
     pname = "libqcef";
@@ -720,13 +720,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.11.0-xanmod1";
+    version = "6.11.1-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.11.0-xanmod1";
+      rev = "6.11.1-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-cMT7xqDAwzuJsKSrqdCP+brIrCxgxQ/4fttFxbFiDNI=";
+      sha256 = "sha256-Wev7qAJ0U4AtE8WTJpNGK63WVhcTBD5oPVKcZDTwJXQ=";
     };
   };
   linux-xanmod-6_0 = {
@@ -753,24 +753,24 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.52-xanmod1";
+    version = "6.6.53-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.52-xanmod1";
+      rev = "6.6.53-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-bTsxESXY0uhx9/UjUg9cATC1ErfkxF1gH8TXimYVzX4=";
+      sha256 = "sha256-hNEAwPV2ZFUzWMBDZAVNIcdVR+XrIaQamj+rXERPo8Q=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3849";
+    version = "b3853";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3849";
+      rev = "b3853";
       fetchSubmodules = false;
-      sha256 = "sha256-omzVjdC2mYspv5iQaK7pzCvVSf28thYW+MiBqzWFOwo=";
+      sha256 = "sha256-5QDaGvVutUdUA1UxPq24RaccTgY6lj3doQeIti3Hg0k=";
     };
   };
   lyrica = {
