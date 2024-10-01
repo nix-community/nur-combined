@@ -12,8 +12,8 @@
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
     in
     {
-      nixosModules = import ./modules;
-      # homeManagerModules = import ./modules/home;
+      homeManagerModules = import ./modules/home-manager;
+      nixosModules = import ./modules/nixos;
 
       overlays = import ./overlays;
 
