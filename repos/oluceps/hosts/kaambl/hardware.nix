@@ -181,6 +181,7 @@
       "zswap.enabled=1"
       "zswap.compressor=zstd"
       "zswap.zpool=zsmalloc"
+      "bdev_allow_write_mounted=0"
       # "ia32_emulation=0"
     ];
     # extraModulePackages =
