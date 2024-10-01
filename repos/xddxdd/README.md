@@ -85,7 +85,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (133 packages)</summary>
+<summary>Package set: (Uncategorized) (134 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -214,6 +214,7 @@ Or, use variables from this repository in case I change them:
 |  | `uksmd` | [uksmd](https://github.com/CachyOS/uksmd) | 1.2.11 | Userspace KSM helper daemon |
 |  | `vbmeta-disable-verification` | [vbmeta-disable-verification](https://github.com/libxzr/vbmeta-disable-verification) | 1.0 | Patch Android vbmeta image and disable verification flags inside. |
 |  | `vgpu-unlock-rs` | [vgpu-unlock-rs](https://github.com/mbilker/vgpu_unlock-rs) | 2.5.0 | Unlock vGPU functionality for consumer grade GPUs |
+|  | `vk-hdr-layer` | [vk-hdr-layer](https://github.com/Zamundaaa/VK_hdr_layer) | unstable-2024-04-27 | Vulkan layer utilizing a small color management / HDR protocol for experimentation |
 |  | `vpp` | [vpp](https://wiki.fd.io/view/VPP/What_is_VPP%3F) | 24.06 | Vector Packet Processing |
 | `x86_64-linux` | `wechat-uos` | [wechat-uos](https://weixin.qq.com/) | 1.0.0.241 | WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
 | `x86_64-linux` | `wechat-uos-bin` | [wechat-uos](https://weixin.qq.com/) | 1.0.0.241 | WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |

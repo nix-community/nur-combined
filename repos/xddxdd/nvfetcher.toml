@@ -659,6 +659,14 @@ fetch.github = "libxzr/vbmeta-disable-verification"
 src.github_tag = "mbilker/vgpu_unlock-rs"
 fetch.github = "mbilker/vgpu_unlock-rs"
 
+[vk-hdr-layer]
+src.git = "https://github.com/Zamundaaa/VK_hdr_layer.git"
+fetch.github = "Zamundaaa/VK_hdr_layer"
+
+[vkroots]
+src.git = "https://github.com/misyltoad/vkroots.git"
+fetch.github = "misyltoad/vkroots"
+
 [vpp]
 src.github_tag = "FDio/vpp"
 src.include_regex = "^v[0-9.]+$"

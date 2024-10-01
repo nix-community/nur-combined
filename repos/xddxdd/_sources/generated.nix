@@ -1624,6 +1624,30 @@
       sha256 = "sha256-5/cFc8JWgwxYm0JQX6aBGhIn2cNvGB4kh/w96P+lTgw=";
     };
   };
+  vk-hdr-layer = {
+    pname = "vk-hdr-layer";
+    version = "e47dc6da924cd361b0082f5c27fe5e923377bb54";
+    src = fetchFromGitHub {
+      owner = "Zamundaaa";
+      repo = "VK_hdr_layer";
+      rev = "e47dc6da924cd361b0082f5c27fe5e923377bb54";
+      fetchSubmodules = false;
+      sha256 = "sha256-9ENtgS+gqjD19/Zc+TlrfCohp69fY7WZ1AUSWGC56VU=";
+    };
+    date = "2024-04-27";
+  };
+  vkroots = {
+    pname = "vkroots";
+    version = "5106d8a0df95de66cc58dc1ea37e69c99afc9540";
+    src = fetchFromGitHub {
+      owner = "misyltoad";
+      repo = "vkroots";
+      rev = "5106d8a0df95de66cc58dc1ea37e69c99afc9540";
+      fetchSubmodules = false;
+      sha256 = "sha256-SgHFIWjifZ5L10/1RL7lXoX6evS5LsFvFKWMhHEHN0M=";
+    };
+    date = "2024-04-30";
+  };
   vpp = {
     pname = "vpp";
     version = "v24.06";

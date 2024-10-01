@@ -11,12 +11,11 @@ let
     isIndependentDerivation
     isHiddenName
     isTargetPlatform'
-    shouldRecurseForDerivations
     flattenPkgs'
     ;
 
   packageSets = lib.filterAttrs (
-    n: v: (builtins.tryEval v).success && !(isHiddenName n) && (shouldRecurseForDerivations v)
+    n: v: (builtins.tryEval v).success && !(isHiddenName n) && !(lib.isDerivation v)
   ) _packages;
 
   allPlatforms = [

@@ -2953,6 +2953,48 @@
         },
         "version": "v2.5.0"
     },
+    "vk-hdr-layer": {
+        "cargoLocks": null,
+        "date": "2024-04-27",
+        "extract": null,
+        "name": "vk-hdr-layer",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Zamundaaa",
+            "repo": "VK_hdr_layer",
+            "rev": "e47dc6da924cd361b0082f5c27fe5e923377bb54",
+            "sha256": "sha256-9ENtgS+gqjD19/Zc+TlrfCohp69fY7WZ1AUSWGC56VU=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "e47dc6da924cd361b0082f5c27fe5e923377bb54"
+    },
+    "vkroots": {
+        "cargoLocks": null,
+        "date": "2024-04-30",
+        "extract": null,
+        "name": "vkroots",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "misyltoad",
+            "repo": "vkroots",
+            "rev": "5106d8a0df95de66cc58dc1ea37e69c99afc9540",
+            "sha256": "sha256-SgHFIWjifZ5L10/1RL7lXoX6evS5LsFvFKWMhHEHN0M=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "5106d8a0df95de66cc58dc1ea37e69c99afc9540"
+    },
     "vpp": {
         "cargoLocks": null,
         "date": null,

@@ -3399,6 +3399,11 @@
     "pname": "vgpu-unlock-rs",
     "version": "2.5.0"
   },
+  "legacyPackages.x86_64-linux.vk-hdr-layer": {
+    "description": "Vulkan layer utilizing a small color management / HDR protocol for experimentation",
+    "pname": "vk-hdr-layer-unstable",
+    "version": "2024-04-27"
+  },
   "legacyPackages.x86_64-linux.vpp": {
     "description": "Vector Packet Processing",
     "pname": "vpp",
@@ -4118,6 +4123,11 @@
     "description": "Unlock vGPU functionality for consumer grade GPUs",
     "pname": "vgpu-unlock-rs",
     "version": "2.5.0"
+  },
+  "packages.x86_64-linux.vk-hdr-layer": {
+    "description": "Vulkan layer utilizing a small color management / HDR protocol for experimentation",
+    "pname": "vk-hdr-layer-unstable",
+    "version": "2024-04-27"
   },
   "packages.x86_64-linux.vpp": {
     "description": "Vector Packet Processing",
