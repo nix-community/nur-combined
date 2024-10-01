@@ -33,9 +33,10 @@ for event, el in ET.iterparse(sys.argv[1]):
 	roms = []
 	for romEl in el.findall('rom'):
 		romFile = romEl.get('name')
-		if romEl.get('merge', romFile) != romFile:
-			ET.dump(el)
-			raise ValueError()
+		#if romEl.get('merge', romFile) != romFile:
+			#ET.dump(el)
+			#raise ValueError()
+			# TODO handle merge properly
 		offset = int(romEl.get('offset'), 16)
 		size = int(romEl.get('size'), 16)
 		mameRegion = romEl.get('region')
@@ -51,6 +52,8 @@ for event, el in ET.iterparse(sys.argv[1]):
 			region = 'prom'
 		elif mameRegion == 'namco':
 			region = 'soundprom'
+		elif mameRegion == 'gdp02_prom':
+			continue
 		else:
 			raise ValueError(mameRegion)
 		crc32 = int(romEl.get('crc'), 16)
@@ -76,4 +79,3 @@ with open(sys.argv[2], 'w') as f:
 with open(sys.argv[3], 'w') as f:
 	for l in lists:
 		print(l, file=f)
-	
