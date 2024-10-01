@@ -93,7 +93,7 @@ rec {
         };
     })) {};
     
-    _Rhys-T._ciOnly.mac = pkgs.lib.optionalAttrs pkgs.hostPlatform.isDarwin {
+    _ciOnly.mac = pkgs.lib.optionalAttrs pkgs.hostPlatform.isDarwin (pkgs.lib.recurseIntoAttrs {
         wine64Full = pkgs.wine64Packages.full;
-    };
+    });
 }
