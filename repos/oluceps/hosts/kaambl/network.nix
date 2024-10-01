@@ -20,7 +20,6 @@
     usePredictableInterfaceNames = false;
     hosts = {
       "127.0.0.1" = [
-        "s3.nyaw.xyz"
         "kaambl.nyaw.xyz"
       ];
       "10.0.1.1" = [ "nodens.nyaw.xyz" ];
