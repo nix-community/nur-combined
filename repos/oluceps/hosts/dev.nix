@@ -183,6 +183,7 @@
             e2fsprogs
             fscrypt-experimental
             f2fs-tools
+            cifs-utils
           ];
 
           cmd = [

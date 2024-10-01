@@ -55,6 +55,14 @@
               {
                 handle = [
                   {
+                    handler = "encode";
+                    encodings = {
+                      zstd = {
+                        level = "better";
+                      };
+                    };
+                  }
+                  {
                     handler = "reverse_proxy";
                     transport = {
                       protocol = "http";

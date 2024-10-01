@@ -9,7 +9,7 @@ reIf {
         "server string" = "smbnix";
         "netbios name" = "smbnix";
         "security" = "user";
-        "hosts allow" = "192.168.1. 127.0.0.1 localhost";
+        "hosts allow" = "192.168.1. 127.0.0.1 localhost 10.0.";
         "hosts deny" = "0.0.0.0/0";
         "guest account" = "nobody";
         "map to guest" = "bad user";
@@ -18,7 +18,7 @@ reIf {
         "path" = "/three/storage/public";
         "browseable" = "yes";
         "read only" = "yes";
-        "guest ok" = "no";
+        "guest ok" = "yes";
         "create mask" = "0644";
         "directory mask" = "0755";
         "force user" = "elen";
