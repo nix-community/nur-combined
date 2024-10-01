@@ -9,17 +9,17 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cudatext-bin";
-  version = "1.214.0.0";
+  version = "1.216.6.0";
 
   src =
     {
       "aarch64-darwin" = fetchurl {
         url = "mirror://sourceforge/cudatext/cudatext-macos-cocoa-aarch64-${finalAttrs.version}.dmg";
-        hash = "sha256-DU2QtKjPsHBw8hBb2t7cmYvUQ3UodgcW4Hp9kEyEzBI=";
+        hash = "sha256-9IyvKHqR1G4JukQjoCBQMxp0y6M2v+aloX5ZcU2b7HY=";
       };
       "x86_64-darwin" = fetchurl {
         url = "mirror://sourceforge/cudatext/cudatext-macos-cocoa-amd64-${finalAttrs.version}.dmg";
-        hash = "sha256-oGmUcPmnlqKn4mGVhbnFjM1FJ7H3uUg9Z7MKvt2By2Y=";
+        hash = "sha256-QVjhJOGRyLkxDRxPKZ2d/TbXN0tDNcY7EZIx8/OnjPA=";
       };
     }
     .${stdenv.hostPlatform.system};
