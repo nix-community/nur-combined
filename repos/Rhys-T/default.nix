@@ -92,4 +92,8 @@ rec {
             description = "${old.meta.description} (logs build output)";
         };
     })) {};
+    
+    _Rhys-T._ciOnly.mac = pkgs.lib.optionalAttrs pkgs.hostPlatform.isDarwin {
+        wine64Full = pkgs.wine64Packages.full;
+    };
 }
