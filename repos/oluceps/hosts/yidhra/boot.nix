@@ -9,7 +9,6 @@
       "earlyprintk=ttyS0"
       "rootdelay=300"
       "ia32_emulation=0"
-      "bdev_allow_write_mounted=0"
     ];
     kernelPackages = pkgs.linuxPackages_latest;
     initrd = {

@@ -71,7 +71,11 @@ in
       nameValuePair "hysteria-${name}" {
         wantedBy = [ "multi-user.target" ];
         after = [
-          "network.target"
+          "network-online.target"
+          "nss-lookup.target"
+        ];
+        wants = [
+          "network-online.target"
           "nss-lookup.target"
         ];
         description = "hysteria daemon";

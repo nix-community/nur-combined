@@ -31,6 +31,7 @@
     kernelParams = [
       "audit=0"
       "net.ifnames=0"
+      "ia32_emulation=0"
     ];
 
     initrd = {
