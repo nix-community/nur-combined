@@ -67,7 +67,7 @@ I've made several of the [compile-time options](https://www.gryphel.com/c/minivm
 
 ```nix
 minivmac.override {
-    pname = "minivmac-se";
+    pname = "minivmac-se"; # optional - default name will be in this format
     macModel = "SE";
 }
 ```
