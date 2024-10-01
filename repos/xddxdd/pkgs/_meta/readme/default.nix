@@ -15,7 +15,7 @@ let
     ;
 
   packageSets = lib.filterAttrs (
-    n: v: (builtins.tryEval v).success && !(isHiddenName n) && !(lib.isDerivation v)
+    n: v: v != null && (builtins.tryEval v).success && !(isHiddenName n) && !(lib.isDerivation v)
   ) _packages;
 
   allPlatforms = [
