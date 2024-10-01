@@ -3,8 +3,9 @@
 # so if you correctly mark packages as
 #
 # - broken (using `meta.broken`),
-# - unfree (using `meta.license.free`), and
-# - locally built (using `preferLocalBuild`)
+# - unfree (using `meta.license.free`),
+# - platform-specific (using `meta.platform` and `meta.badPlatforms`), and
+# - uncacheable (using `allowSubstitutes`)
 #
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
@@ -13,19 +14,19 @@
 
 with builtins;
 let
-  inherit (pkgs.lib.meta) availableOn;
+  inherit (pkgs) lib;
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: let
     licenseFromMeta = p.meta.license or [];
     licenseList = if builtins.isList licenseFromMeta then licenseFromMeta else [licenseFromMeta];
   in
-    availableOn pkgs.hostPlatform p &&
+    lib.meta.availableOn pkgs.hostPlatform p &&
     !(p.meta.broken or false) &&
     builtins.all (license: license.free or true) licenseList &&
     (p.meta.knownVulnerabilities or []) == []
   ;
-  isCacheable = p: !(p.preferLocalBuild or false);
+  isCacheable = p: (p.allowSubstitutes or true);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
   nameValuePair = n: v: { name = n; value = v; };
@@ -43,7 +44,10 @@ let
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 
-  nurAttrs = import ./default.nix { inherit pkgs; };
+  nurAttrs' = import ./default.nix { inherit pkgs; };
+  nurAttrs = nurAttrs' // lib.optionalAttrs (nurAttrs'?_ciOnly) {
+    _ciOnly = lib.recurseIntoAttrs nurAttrs'._ciOnly;
+  };
 
   nurPkgs =
     flattenPkgs

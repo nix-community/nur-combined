@@ -74,6 +74,10 @@ rec {
     pacifi3d = pkgs.callPackage ./pkgs/pacifi3d { inherit maintainers; };
     pacifi3d-mame = pacifi3d.override { romsFromMAME = mame; };
     pacifi3d-hbmame = pacifi3d.override { romsFromMAME = hbmame; };
+    _ciOnly.pacifi3d-rom-xmls = pkgs.lib.recurseIntoAttrs {
+        mame = pacifi3d-mame.romsFromXML;
+        hbmame = pacifi3d-hbmame.romsFromXML;
+    };
     
     konify = pkgs.callPackage ./pkgs/konify { inherit maintainers; };
     

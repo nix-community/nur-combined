@@ -93,4 +93,7 @@ in stdenv.mkDerivation rec {
         license = lib.licenses.unfree;
         maintainers = [maintainers.Rhys-T];
     };
+    passthru = {
+        inherit romsFromMAME romsFromXML;
+    };
 }
