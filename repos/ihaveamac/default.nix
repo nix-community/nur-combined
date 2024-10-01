@@ -34,8 +34,8 @@ rec {
   corgi3ds = pkgs.libsForQt5.callPackage ./pkgs/corgi3ds { };
 
   mediawiki_1_39 = pkgs.callPackage ./pkgs/mediawiki {
-    version = "1.39.8";
-    hash = "sha256-rSf8yOY2F5wryiH/5hnW0uYtNDkNaCiwZ3/HaG5qCmo=";
+    version = "1.39.10";
+    hash = "sha256-mL8OakLrzEsWXDhToXNo5lVhmqz9qMYSH/6tWUDuHhM=";
   };
   mediawiki_1_40 = pkgs.callPackage ./pkgs/mediawiki {
     version = "1.40.4";
@@ -43,12 +43,12 @@ rec {
     knownVulnerabilities = [ "MediaWiki 1.40 has been end-of-life since 2024-06-28." ];
   };
   mediawiki_1_41 = pkgs.callPackage ./pkgs/mediawiki {
-    version = "1.41.2";
-    hash = "sha256-UrtCw071AvZt/FSSGVq2rBVobK6m2Ir9JICyjL1rHOU=";
+    version = "1.41.4";
+    hash = "sha256-hL6qJdTt0bWB4HgejqvLxWCjIjkNKromMPzE28rIuaI=";
   };
   mediawiki_1_42 = pkgs.callPackage ./pkgs/mediawiki {
-    version = "1.42.1";
-    hash = "sha256-7IevlaNd0Jw01S4CeVZSoDCrcpVeQx8IynIqc3N+ulM=";
+    version = "1.42.3";
+    hash = "sha256-4FVjA/HYRnnNk5sykMyrP4nLxp02B/8dRJymxZU7ILw=";
   };
 
   kwin-move-window = pkgs.callPackage ./pkgs/kwin-move-window { };
