@@ -18,7 +18,7 @@ jobs:
           image: tonistiigi/binfmt:latest
           platforms: all
       - name: Install nix
-        uses: cachix/install-nix-action@V28
+        uses: cachix/install-nix-action@v29
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes ca-derivations
