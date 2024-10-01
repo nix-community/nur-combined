@@ -41,32 +41,6 @@ in
               match = [
                 {
                   host = [ config.networking.fqdn ];
-                  path = [
-                    "/prom"
-                    "/prom/*"
-                  ];
-                }
-              ];
-              handle = [
-                {
-                  handler = "authentication";
-                  providers.http_basic.accounts = [
-                    {
-                      username = "prometheus";
-                      password = "$2b$05$eZjq0oUqZzxgqdRaCRsKROuE96w9Y0aKSri3uGPccckPivESAinB6";
-                    }
-                  ];
-                }
-                {
-                  handler = "reverse_proxy";
-                  upstreams = [ { dial = "10.0.1.2:9090"; } ];
-                }
-              ];
-            }
-            {
-              match = [
-                {
-                  host = [ config.networking.fqdn ];
                   path = [ "/caddy" ];
                 }
               ];

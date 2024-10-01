@@ -14,7 +14,10 @@ let
       (i: i.host)
       (map (i: i.name))
     ]
-    ++ [ "bootstrap" ];
+    ++ [
+      "bootstrap"
+      "livecd"
+    ];
 in
 {
   flake.nixosConfigurations = genAttrs hosts (

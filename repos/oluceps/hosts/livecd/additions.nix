@@ -36,10 +36,9 @@
 
   systemd.services.nix-daemon = {
     serviceConfig.LimitNOFILE = lib.mkForce 500000000;
-    path = [ pkgs.netcat-openbsd ];
   };
   nix = {
-    package = pkgs.nixVersions.git;
+    package = pkgs.nixVersions.stable;
     registry = {
       nixpkgs.flake = inputs.nixpkgs;
       self.flake = inputs.self;
@@ -117,7 +116,7 @@
         sudo mkdir /mnt/{persist,etc,var,efi,nix}
         sudo mount -o compress=zstd,discard=async,noatime,subvol=nix /dev/$1 /mnt/nix
         sudo mount -o compress=zstd,discard=async,noatime,subvol=persist /dev/$1 /mnt/persist
-        sudo mount /dev/nvme0n1p1 /mnt/efi
+        echo "please manually mount efi system"
         sudo mount -o bind /mnt/persist/etc /mnt/etc
         sudo mount -o bind /mnt/persist/var /mnt/var
         echo "mount finished."

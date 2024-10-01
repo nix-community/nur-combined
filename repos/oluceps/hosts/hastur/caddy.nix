@@ -100,6 +100,33 @@
                   ];
                   match = [ { host = [ "s3.nyaw.xyz" ]; } ];
                 }
+
+                {
+                  match = [
+                    {
+                      host = [ config.networking.fqdn ];
+                      path = [
+                        "/prom"
+                        "/prom/*"
+                      ];
+                    }
+                  ];
+                  handle = [
+                    {
+                      handler = "authentication";
+                      providers.http_basic.accounts = [
+                        {
+                          username = "prometheus";
+                          password = "$2b$05$eZjq0oUqZzxgqdRaCRsKROuE96w9Y0aKSri3uGPccckPivESAinB6";
+                        }
+                      ];
+                    }
+                    {
+                      handler = "reverse_proxy";
+                      upstreams = [ { dial = "127.0.0.1:9090"; } ];
+                    }
+                  ];
+                }
               ];
               tls_connection_policies = [
                 {

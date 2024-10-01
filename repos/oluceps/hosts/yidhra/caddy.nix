@@ -42,26 +42,5 @@
         match = [ { host = [ "s3.nyaw.xyz" ]; } ];
       }
     ];
-    settings.apps.http.servers.srv0.tls_connection_policies = [
-      {
-        match = {
-          sni = [
-            "s3.nyaw.xyz"
-          ];
-        };
-        certificate_selection = {
-          any_tag = [ "cert0" ];
-        };
-      }
-    ];
-
-    settings.apps.tls.certificates.load_files = [
-      {
-        certificate = "/run/credentials/caddy.service/nyaw.cert";
-        key = "/run/credentials/caddy.service/nyaw.key";
-        tags = [ "cert0" ];
-      }
-    ];
-
   };
 }
