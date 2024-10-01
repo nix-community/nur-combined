@@ -62,6 +62,7 @@
     useDHCP = false;
 
     hostName = "eihort";
+    domain = "nyaw.xyz";
     enableIPv6 = true;
     nftables = {
       enable = true;

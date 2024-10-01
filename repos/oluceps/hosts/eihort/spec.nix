@@ -65,6 +65,7 @@
     dae.enable = true;
     dnsproxy.enable = true;
     scrutiny.enable = true;
+    samba.enable = true;
   };
 
   services = {
