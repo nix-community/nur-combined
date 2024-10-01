@@ -33,7 +33,7 @@ rec {
       }
     );
 
-  createCallGroup =
+  createCallGroupDeps =
     _packages: callPackage:
     let
       loadPackages =
@@ -48,8 +48,7 @@ rec {
             (mapping."${n}" or (v: v)) pkg
           );
     in
-    path:
-    pkgs.callPackage path {
+    {
       inherit
         _packages
         callPackage
@@ -62,13 +61,41 @@ rec {
         ;
     };
 
+  createCallGroup =
+    _packages: callPackage: path:
+    pkgs.callPackage path (createCallGroupDeps _packages callPackage);
+
+  createLoadPackages =
+    callPackage: path: mapping:
+    lib.genAttrs
+      (builtins.filter (v: !(lib.hasSuffix ".nix" v)) (builtins.attrNames (builtins.readDir path)))
+      (
+        n:
+        let
+          pkg = callPackage (path + "/${n}") { };
+        in
+        (mapping."${n}" or (v: v)) pkg
+      );
+
+  _doGroupPackages =
+    callGroup: groups: lib.mapAttrs (_n: callGroup) (lib.filterAttrs (_n: v: v != null) groups);
+
+  doFlatGroupPackages =
+    _packages: groups:
+    let
+      callPackage = createCallPackage _packages;
+      callGroupDeps = createCallGroupDeps _packages callPackage;
+      callGroup = p: import p callGroupDeps;
+    in
+    _doGroupPackages callGroup groups;
+
   doGroupPackages =
     _packages: groups:
     let
       callPackage = createCallPackage _packages;
       callGroup = createCallGroup _packages callPackage;
     in
-    lib.mapAttrs (_n: v: callGroup v) (lib.filterAttrs (_n: v: v != null) groups);
+    _doGroupPackages callGroup groups;
 
   doMergePkgs = lib.mapAttrs (_n: v: if lib.isDerivation v then v else mergePkgs v);
 }
