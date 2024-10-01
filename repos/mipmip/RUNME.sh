@@ -9,6 +9,11 @@ nixclean(){
   sudo rm -Rf /root/.cache/nix/eval-cache-v2
 }
 
+make_command "nixoptimise" "Run nix store optimise"
+nixclean(){
+  sudo nix store optimise
+}
+
 make_command "macbrew" "Run brew bundle"
 macbrew(){
   cd ~ && brew bundle

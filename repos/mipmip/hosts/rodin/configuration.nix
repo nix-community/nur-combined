@@ -13,6 +13,9 @@
 
   nix = {
     package = pkgs.nixFlakes;
+    settings.trusted-substituters = [
+      "http://attic.np-tools.technative.cloud:8080/jeroen"
+    ];
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
