@@ -31,6 +31,7 @@
   enableDrm ?
     stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD || stdenv.hostPlatform.isSunOS,
   libdrm,
+  enableDrmAmdgpu ? stdenv.hostPlatform.isLinux,
   enableGio ?
     stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD || stdenv.hostPlatform.isSunOS,
   glib,
@@ -99,13 +100,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastfetch";
-  version = "2.25.0";
+  version = "2.26.1";
 
   src = fetchFromGitHub {
     owner = "fastfetch-cli";
     repo = "fastfetch";
     rev = finalAttrs.version;
-    hash = "sha256-I8In6JK9XWM29QdAj3wU2WHn/RsrDJo7s5S7R79HV8g=";
+    hash = "sha256-0TRhMK45mfCft56R07lUbnxjfQrIAXONy4f6ykpc5X8=";
   };
 
   nativeBuildInputs = [
@@ -122,7 +123,7 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional (enableXcb || enableXcbRandr) xorg.libxcb
     ++ lib.optional enableXrandr xorg.libXrandr
     ++ lib.optional enableX11 xorg.libX11
-    ++ lib.optional enableDrm libdrm
+    ++ lib.optional (enableDrm || enableDrmAmdgpu) libdrm
     ++ lib.optional enableGio glib
     ++ lib.optional enableDconf dconf
     ++ lib.optional enableDbus dbus
@@ -156,6 +157,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "ENABLE_XRANDR" enableXrandr)
     (lib.cmakeBool "ENABLE_X11" enableX11)
     (lib.cmakeBool "ENABLE_DRM" enableDrm)
+    (lib.cmakeBool "ENABLE_DRM_AMDGPU" enableDrmAmdgpu)
     (lib.cmakeBool "ENABLE_GIO" enableGio)
     (lib.cmakeBool "ENABLE_DCONF" enableDconf)
     (lib.cmakeBool "ENABLE_DBUS" enableDbus)
@@ -176,6 +178,8 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "ENABLE_DIRECTX_HEADERS" enableDirectxHeaders)
     (lib.cmakeBool "ENABLE_ELF" enableElf)
     (lib.cmakeBool "ENABLE_LIBZFS" enableLibzfs)
+    # Requires networking
+    (lib.cmakeBool "ENABLE_EMBEDDED_PCIIDS" false)
   ];
 
   passthru.updateScript = nix-update-script { };

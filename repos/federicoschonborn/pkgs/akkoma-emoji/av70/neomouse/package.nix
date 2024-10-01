@@ -11,29 +11,29 @@ stdenvNoCC.mkDerivation (
     srcs = {
       neomouse = fetchzip {
         name = "neomouse";
-        url = "https://git.gay/av70/neomouse/releases/download/${finalAttrs.version}/neomouse-${finalAttrs.version}.zip";
+        url = "https://git.gay/av70/neomouse/releases/download/${finalAttrs.version}/neomouse.zip";
         stripRoot = false;
-        hash = "sha256-2ru+YOJc0DVOi0VX0WJw/AWmZrKzGR5qiUrlNK7QM9w=";
+        hash = "sha256-4C2zu+tkBWikbxpM4VDahezmg+EqBnOytt7cIQAfSQI=";
       };
 
       additional = fetchzip {
         name = "additionalSrc";
         url = "https://git.gay/av70/neomouse/releases/download/${finalAttrs.version}/neomouse-additional.zip";
         stripRoot = false;
-        hash = "sha256-fKycKcFa/f7Tigmswz8MLi8UP1KLF/34pnZmgOajshA=";
+        hash = "sha256-Pe62g/13m4X93eLllhOZ8bunMMqKtNp0shJzmhg6tpU=";
       };
 
       spinny-mouse = fetchzip {
         name = "spinnyMouseSrc";
         url = "https://git.gay/av70/neomouse/releases/download/${finalAttrs.version}/spinny-mouse.zip";
         stripRoot = false;
-        hash = "sha256-ZyJ5T608YmNx2l6/sXVhoHkhjTd5qngClNtVsCGVQn0=";
+        hash = "sha256-Fl4qxJL+o++3NfW+2mSjsEAEYO4/CkwE9ZS5T0RY7LU=";
       };
     };
   in
   {
     pname = "av70-neomouse";
-    version = "1.1-1";
+    version = "1.2";
 
     outputs = [
       "out"

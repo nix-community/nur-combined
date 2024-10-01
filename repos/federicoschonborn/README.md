@@ -15,7 +15,7 @@ Personal [NUR](https://github.com/nix-community/NUR) repository.
 There are mice.
 
 - Name: `av70-neomouse`
-- Version: `1.1-1`
+- Version: `1.2`
 - [Homepage](https://git.gay/av70/neomouse)
 - License: [`CC-BY-NC-SA-4.0`](https://spdx.org/licenses/CC-BY-NC-SA-4.0.html "Creative Commons Attribution Non Commercial Share Alike 4.0")
 - [Source](./pkgs/akkoma-emoji/av70/neomouse/package.nix#L65)
@@ -706,11 +706,11 @@ Cargo Advent of Code Helper.
 Like neofetch, but much faster because written in C.
 
 - Name: `fastfetch`
-- Version: `2.25.0`
+- Version: `2.26.1`
 - [Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.25.0/CHANGELOG.md)
+- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.26.1/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](./pkgs/by-name/fastfetch/package.nix#L185)
+- [Source](./pkgs/by-name/fastfetch/package.nix#L189)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -731,11 +731,11 @@ Like neofetch, but much faster because written in C.
 Like neofetch, but much faster because written in C (with all features disabled).
 
 - Name: `fastfetch-minimal`
-- Version: `2.25.0`
+- Version: `2.26.1`
 - [Homepage](https://github.com/fastfetch-cli/fastfetch)
-- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.25.0/CHANGELOG.md)
+- [Changelog](https://github.com/fastfetch-cli/fastfetch/blob/2.26.1/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](./default.nix#L41)
+- [Source](./default.nix#L49)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -855,7 +855,7 @@ A set of commands that manipulate GTAs on various levels (with all features enab
 - Version: `2.4.0`
 - [Homepage](https://marlam.de/gta/)
 - License: [`GPL-3.0-or-later`](https://spdx.org/licenses/GPL-3.0-or-later.html "GNU General Public License v3.0 or later")
-- [Source](./default.nix#L77)
+- [Source](./default.nix#L87)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1000,7 +1000,7 @@ A library to make working with multidimensional arrays in C++ easy (with all fea
 - Version: `4.3`
 - [Homepage](https://marlam.de/tgd/)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](./default.nix#L109)
+- [Source](./default.nix#L120)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1215,7 +1215,7 @@ Camera application for Plasma Mobile.
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 
 - Name: `pnut`
-- Version: `SLE2024-artifact-unstable-2024-09-26`
+- Version: `SLE2024-artifact-unstable-2024-10-01`
 - [Homepage](https://github.com/udem-dlteam/pnut)
 - License: [`BSD-2-Clause`](https://spdx.org/licenses/BSD-2-Clause.html 'BSD 2-clause "Simplified" License')
 - [Source](./pkgs/by-name/pnut/package.nix#L44)
@@ -1314,7 +1314,7 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 - Version: `1.10.2`
 - [Homepage](https://github.com/ZDoom/Raze)
 - License: [`GPL-2.0`](https://spdx.org/licenses/GPL-2.0.html "GNU General Public License v2.0")
-- [Source](./default.nix#L139)
+- [Source](./default.nix#L151)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1361,7 +1361,7 @@ Fan sequel to Super Mario 63.
 Sega Model 3 arcade machine emulator.
 
 - Name: `supermodel`
-- Version: `0-unstable-2024-09-27`
+- Version: `0-unstable-2024-09-30`
 - [Homepage](https://github.com/trzy/Supermodel)
 - License: [`GPL-3.0-or-later`](https://spdx.org/licenses/GPL-3.0-or-later.html "GNU General Public License v3.0 or later")
 - [Source](./pkgs/by-name/supermodel/package.nix#L65)
@@ -1437,7 +1437,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 - [Homepage](https://teem.sourceforge.net/)
 - License: [`LGPL-2.1-or-later`](https://spdx.org/licenses/LGPL-2.1-or-later.html "GNU Lesser General Public License v2.1 or later")
-- [Source](./default.nix#L162)
+- [Source](./default.nix#L176)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1461,7 +1461,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 - [Homepage](https://teem.sourceforge.net/)
 - License: [`LGPL-2.1-or-later`](https://spdx.org/licenses/LGPL-2.1-or-later.html "GNU Lesser General Public License v2.1 or later")
-- [Source](./default.nix#L173)
+- [Source](./default.nix#L188)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1485,7 +1485,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Version: `1.11.0`
 - [Homepage](https://teem.sourceforge.net/)
 - License: [`LGPL-2.1-or-later`](https://spdx.org/licenses/LGPL-2.1-or-later.html "GNU Lesser General Public License v2.1 or later")
-- [Source](./default.nix#L147)
+- [Source](./default.nix#L160)
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) <[`federicoschonborn@disroot.org`](mailto:federicoschonborn@disroot.org)>
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1660,7 +1660,7 @@ Fastest JSON library in C.
 - [Homepage](https://github.com/ibireme/yyjson)
 - [Changelog](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](https://github.com/NixOS/nixpkgs/blob/28b5b8a/pkgs/development/libraries/yyjson/default.nix#L23)
+- [Source](https://github.com/NixOS/nixpkgs/blob/9682b21/pkgs/development/libraries/yyjson/default.nix#L23)
 - Maintainers:
   - [Yohann Boniface](https://github.com/Sigmanificient) <[`sigmanificient@gmail.com`](mailto:sigmanificient@gmail.com)>
   - [✉️ Mail to all maintainers](mailto:sigmanificient@gmail.com)
