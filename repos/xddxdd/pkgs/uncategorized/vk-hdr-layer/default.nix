@@ -2,7 +2,6 @@
   stdenv,
   sources,
   lib,
-  cmake,
   meson,
   ninja,
   pkg-config,
@@ -16,7 +15,6 @@
 stdenv.mkDerivation rec {
   inherit (sources.vk-hdr-layer) pname version src;
   nativeBuildInputs = [
-    cmake
     meson
     ninja
     pkg-config
