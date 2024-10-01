@@ -7,13 +7,13 @@
 
 stdenvNoCC.mkDerivation {
   pname = "chmod";
-  version = "0-unstable-2024-09-24";
+  version = "0-unstable-2024-10-01";
 
   src = fetchFromGitHub {
     owner = "yazi-rs";
     repo = "plugins";
-    rev = "c5785059611624e20a37ba573620f30acc28a26a";
-    hash = "sha256-wlSBtabIsEUJhuHmXwgpSnwZp9WaVQFBg6s1XXjubrE=";
+    rev = "74a837c6eafba59e22dc3d8d8ec630934580c70c";
+    hash = "sha256-h+CoRLRyC+fJogfAoOw7twXSRkUotbgnS3gBFvlxNlw=";
   };
 
   dontBuild = true;
