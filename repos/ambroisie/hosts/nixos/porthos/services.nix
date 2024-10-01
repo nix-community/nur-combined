@@ -132,13 +132,6 @@ in
       enable = true;
       loginFile = secrets."pdf-edit/login".path;
     };
-    # Podcast automatic downloader
-    podgrab = {
-      enable = true;
-      passwordFile = secrets."podgrab/password".path;
-      dataDir = "/data/media/podcasts";
-      port = 9598;
-    };
     # Regular backups
     postgresql-backup.enable = true;
     pyload = {
