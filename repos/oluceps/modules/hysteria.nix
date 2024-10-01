@@ -99,6 +99,6 @@ in
             Restart = "on-failure";
           };
       }
-    ) cfg.instances;
+    ) (lib.filterAttrs (_: v: v.enable) cfg.instances);
   };
 }
