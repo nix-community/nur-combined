@@ -1,14 +1,13 @@
 {
-  pkgs,
   buildGoModule,
   lib,
   installShellFiles,
   fetchFromGitHub,
 }:
 let
-  short_hash = "74b1859";
-  package_hash = "sha256-wb7/g1g7gxKhZyK7GW+6aGwuD+Dkcdg2Zpc0JCxVPjM=";
-  latest_version = "1.40.1";
+  short_hash = "cd165de";
+  package_hash = "sha256-n6WASCtDwBX4FASSWI17JpU7rDXIeSidPWhj/MB2tUs=";
+  latest_version = "1.40.3";
 in
 buildGoModule rec {
   pname = "deck";
@@ -17,7 +16,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "Kong";
     repo = "deck";
-    rev = "v${version}";
+    rev = "refs/tags/v${version}";
     hash = "${package_hash}";
   };
 
@@ -25,12 +24,16 @@ buildGoModule rec {
 
   CGO_ENABLED = 0;
 
+  flags = [
+    "-trimpath"
+  ];
+
   ldflags = [
     "-s -w -X github.com/kong/deck/cmd.VERSION=${version}"
     "-X github.com/kong/deck/cmd.COMMIT=${short_hash}"
   ];
 
-  vendorHash = "sha256-8o3jXkhfRIGGPtw8ow+NyAYAuCJNrBlSyfdSI0pjvDQ=";
+  vendorHash = "sha256-csoSvu7uce1diB4EsQCRRt08mX+rJoxfZqAtaoo0x4M=";
 
   proxyVendor = true;
 
@@ -41,10 +44,10 @@ buildGoModule rec {
       --zsh <($out/bin/deck completion zsh)
   '';
 
-  meta = with lib; {
+  meta = {
     description = "A configuration management and drift detection tool for Kong";
     homepage = "https://github.com/Kong/deck";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ liyangau ];
+    license = lib.licenses.asl20;
+    maintainers = with lib.maintainers; [ liyangau ];
   };
 }
