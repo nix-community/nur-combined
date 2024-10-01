@@ -13,7 +13,7 @@ let
     withOrder = o: f: {__functor = self: f; order = o;};
     optProc = {
         targetCode = procStr "t";
-        macType = procStr "m";
+        macModel = procStr "m";
         localtalk = procBoolNoArg "lt";
         localtalkOver = procStr "lto";
         resolution = resStr: let
@@ -57,7 +57,12 @@ in rec {
         maintainer = "Rhys-T on GitHub";
         homepage = "https://github.com/Rhys-T/nur-packages";
     };
-    extractOptions = builtins.intersectAttrs optProc;
+    extractOptions = args: builtins.intersectAttrs optProc (
+        args // 
+        lib.optionalAttrs (args?macType) (lib.warn "macType is deprecated, use macModel" {
+            macModel = args.macType;
+        })
+    );
     buildOptionsFrom = opts: lib.pipe (extractOptions opts) [
         (lib.mapAttrsToList (name: value: {
             __toString = self: optProc.${name} value;

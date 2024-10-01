@@ -61,6 +61,9 @@ rec {
     minivmac = minivmac36;
     minivmac-unstable = minivmac37;
     
+    minivmac-ii = minivmac.override { macModel = "II"; };
+    minivmac-ii-unstable = minivmac-unstable.override { macModel = "II"; };
+    
     mame = pkgs.callPackage (pkgs.callPackage ./pkgs/mame {}) {};
     mame-metal = pkgs.callPackage (pkgs.callPackage ./pkgs/mame {}) {
         darwinMinVersion = "11.0";
