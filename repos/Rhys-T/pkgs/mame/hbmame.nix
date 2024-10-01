@@ -20,7 +20,7 @@
             keywords = [ "Game" "Emulator" "Arcade" ];
         })
     ];
-    patches = [
+    patches = lib.optionals (builtins.compareVersions version "0.245.20" <= 0) [
         ./patches/hbmame/0001-monaco-fix-out-of-bounds-array-access.patch
     ] ++ map (patch: if lib.hasInfix "001-use-absolute-paths" (""+patch) then fetchpatch {
         url = "https://raw.githubusercontent.com/NixOS/nixpkgs/83d89a2fadf3ce1f67cfc5e49e62e474df04507b/pkgs/applications/emulators/mame/001-use-absolute-paths.diff";
