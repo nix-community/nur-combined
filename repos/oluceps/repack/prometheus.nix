@@ -8,12 +8,13 @@
 let
   targets = map (n: "${n}.nyaw.xyz") [
     "nodens"
-    "yidhra"
     # "abhoth" # recover in 1 Oct
   ];
   targets_notls = map (n: "${n}.nyaw.xyz") [
     # "kaambl"
+    "yidhra"
     "azasos"
+    "yidhra"
     "hastur"
   ];
   relabel_configs = [
