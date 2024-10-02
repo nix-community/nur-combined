@@ -7,7 +7,7 @@ SN0WM1X-style configuration for some programs/services. If you like some of my c
 ```nix
 { inputs, ...}: {
   imports = [
-    inputs.sn0wm1x.nixosModules.sn0wm1x
+    # inputs.sn0wm1x.nixosModules.sn0wm1x # not yet
     ...
   ];
 
@@ -24,5 +24,23 @@ Usually they have a simple enable option, but the configuration may vary dependi
 {
   programs.fastfetch.enable = true;
   programs.fastfetch.sn0wm1x = true;
+}
+```
+
+## sn0wm1x.{nixosModules,homeManagerModules}.experimental
+
+WIP modules, often placed here because I haven't tested it yet.
+
+```nix
+{ inputs, ...}: {
+  imports = [
+    inputs.sn0wm1x.nixosModules.experimental
+    ...
+  ];
+
+  home-manager.sharedModules = [
+    # inputs.sn0wm1x.homeManagerModules.experimental # not yet
+    ...
+  ];
 }
 ```
