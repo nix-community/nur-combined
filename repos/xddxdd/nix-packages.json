@@ -487,7 +487,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "3853"
+    "version": "3864"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -3202,7 +3202,7 @@
   "legacyPackages.x86_64-linux.qemu-user-static": {
     "description": "A generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "9.1.0+ds-7"
+    "version": "9.1.0+ds-8"
   },
   "legacyPackages.x86_64-linux.qhttpengine": {
     "description": "HTTP server for Qt applications",
@@ -3967,7 +3967,7 @@
   "packages.x86_64-linux.qemu-user-static": {
     "description": "A generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "9.1.0+ds-7"
+    "version": "9.1.0+ds-8"
   },
   "packages.x86_64-linux.qhttpengine": {
     "description": "HTTP server for Qt applications",

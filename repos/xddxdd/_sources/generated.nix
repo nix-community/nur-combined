@@ -182,13 +182,13 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "ce173887a058646c80e3320e211bfc852eb7121f";
+    version = "adac8640245790cfb2677222751ef17e906fa933";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "ce173887a058646c80e3320e211bfc852eb7121f";
+      rev = "adac8640245790cfb2677222751ef17e906fa933";
       fetchSubmodules = false;
-      sha256 = "sha256-DConYljgMFjUnPYfsbsOnqQZ+AD0iSL3+TI6PirgMmU=";
+      sha256 = "sha256-H/dLMXcW2GACLhJIZx6hVhtFxUNY/xZq3TgdgWX2K28=";
     };
     date = "2024-10-01";
   };
@@ -578,15 +578,15 @@
   };
   kikoplay-app = {
     pname = "kikoplay-app";
-    version = "2b6d08c0ec4eb1b791f916232149b8cca09c240b";
+    version = "1e9c0a2e0a0b34ce4f8b97c712afacd85708f848";
     src = fetchFromGitHub {
       owner = "KikoPlayProject";
       repo = "KikoPlayApp";
-      rev = "2b6d08c0ec4eb1b791f916232149b8cca09c240b";
+      rev = "1e9c0a2e0a0b34ce4f8b97c712afacd85708f848";
       fetchSubmodules = false;
-      sha256 = "sha256-fxsxn8h5U/No+QZtHMI9vDK7XQCmqTuXCEpHYarCm7E=";
+      sha256 = "sha256-ditVnsOHirCw/ve96c0evBYWG+1YQpsQXht7vgto8/o=";
     };
-    date = "2024-09-17";
+    date = "2024-10-01";
   };
   kikoplay-script = {
     pname = "kikoplay-script";
@@ -764,13 +764,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3853";
+    version = "b3864";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3853";
+      rev = "b3864";
       fetchSubmodules = false;
-      sha256 = "sha256-5QDaGvVutUdUA1UxPq24RaccTgY6lj3doQeIti3Hg0k=";
+      sha256 = "sha256-OSwKpJs8t/yGn8pKBIg/s/hBVjqiOu/D5cxKwtraIHk=";
     };
   };
   lyrica = {
@@ -916,13 +916,13 @@
   };
   nginx-njs = {
     pname = "nginx-njs";
-    version = "0.8.5";
+    version = "0.8.6";
     src = fetchFromGitHub {
       owner = "nginx";
       repo = "njs";
-      rev = "0.8.5";
+      rev = "0.8.6";
       fetchSubmodules = false;
-      sha256 = "sha256-urn1NMtjj2oqQ30jycrtFom76GLauaoxWkSimL/79Q8=";
+      sha256 = "sha256-EPWx5Qff4DsyV5zM/qcgilBnCMcLLEdwvoVPe0xNd7s=";
     };
   };
   ngx_brotli = {
@@ -1189,34 +1189,34 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "9.1.0+ds-7";
+    version = "9.1.0+ds-8";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-7_amd64.deb";
-      sha256 = "sha256-7cvqaiiepzF1Bl2Q2Lf4+EIop4lgOgIlhG0oswD499c=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-8_amd64.deb";
+      sha256 = "sha256-JxaT2TsGI+ySD1Fbyrm6dUesXFnoPW7QZo7RMmcvGsg=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "9.1.0+ds-7";
+    version = "9.1.0+ds-8";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-7_arm64.deb";
-      sha256 = "sha256-FoQXc8b7m7pQMpLpsJjPJgQN1fLq0sWuR8pojiMl83w=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-8_arm64.deb";
+      sha256 = "sha256-a0aHpTdx8x1o1zRp8JTOhMWQDEvIPaHJ8G/BkMw8kBY=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "9.1.0+ds-7";
+    version = "9.1.0+ds-8";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-7_armhf.deb";
-      sha256 = "sha256-Z81HQ0pBiNnwvHzN7BCVAvTn1c+ci8HGv7E+tcA/XXs=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-8_armhf.deb";
+      sha256 = "sha256-iAtMJ/eQKKvPYVFj6unDniN67tnfoZGk6+hELJE4S2Y=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "9.1.0+ds-7";
+    version = "9.1.0+ds-8";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-7_i386.deb";
-      sha256 = "sha256-D9rrAY8X201IJLmoOPwgbjhBg+HWTZEWhzLLZCNxk3s=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-8_i386.deb";
+      sha256 = "sha256-8//kl7JYtfw0qrmzxAdkduDxX9vryp8uFm7DQnabYP4=";
     };
   };
   qhttpengine = {
