@@ -42,16 +42,16 @@
     };
   };
 
-#  home.file = {
-#    "./.hotkeys-popup-custom.json" = {
-#      source = ./.hotkeys-popup-custom.json;
-#    };
-#  };
-
   home.file = {
-    "./.hotkeys-custom.json" = {
-      source = ./.hotkeys-custom.json;
+    "./.config/myhotkeys/keys.json" = {
+        source = ./.hotkeys-custom.json;
     };
   };
+
+  #  home.file = {
+  #    "./.hotkeys-custom.json" = {
+  #      source = ./.hotkeys-custom.json;
+  #    };
+  #  };
 
 }

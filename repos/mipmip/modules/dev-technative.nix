@@ -25,12 +25,11 @@
     pass
 
     unstable.nickel
+    dhall
 
     attic-client
 
-
     vscode
-    dhall
 
     # AWS
     cw # cloudwatch in the terminal
@@ -45,39 +44,20 @@
     aws-vault
     ssmsh
 
-    git-remote-codecommit
+    #git-remote-codecommit
 
-    unstable.azure-cli
-    unstable.bruno
-
+    #azure-cli
+    #unstable.bruno # UI for testing API's
 
     # TERRAFORM
     terraform-docs
     terrascan
     terraformer
     tflint
-
-    #mipmip_pkg.bmc
-
     #tfswitch
     #unstable.terracognita
 
 
-    #RANDSTAD
-    #citrix_workspace
-
-    #TRACKLIB
-    #wireguard-tools
-    #unstable.nodePackages.aws-cdk
-
-    #ADEVINTA
-    #unstable.globalprotect-openconnect
-    #openconnect
-    proxychains
-
-    #VNC ADEVINTA
-    remmina
-    #realvnc-vnc-viewer
 
   ];
 }

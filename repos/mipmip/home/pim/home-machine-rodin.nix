@@ -5,71 +5,31 @@ let
 in
 {
   imports = [
-    ./home-base-nixos-desktop.nix
-    ./files-secondbrain
-    ./files-i-am-desktop
+    ./_hm-modules
+    ./_roles/home-base-all.nix
+    ./_roles/home-base-nixos-desktop.nix
 
-    ./hm-modules/programs/smug.nix
+    ./conf-cli/smug_and_skull.nix
   ];
 
-  programs.smug = {
-    enable = true;
-    projects.blog = {
-      root = "~/Developer/blog";
-      before_start = [
-        "docker-compose -f my-microservices/docker-compose.yml up -d"  # my-microservices/docker-compose.yml is a relative to `root`-al
-      ];
-      env = {
-        FOO = "bar";
-      };
-      stop = [
-        "docker stop $(docker ps -q)"
-      ];
-      windows = [
-        {
-          name = "code";
-          root = "blog";
-          manual = true;
-          layout = "main-vertical";
-          commands = [
-            "docker-compose start"
-          ];
-          panes = [
-            {
-              type = "horizontal";
-              root = ".";
-              commands = [
-                "docker-compose exec php /bin/sh"
-                "clear"
-              ];
-            }
-          ];
-        }
+  services.secondbrain.enable = true;
 
-        {
-          name = "infrastructure";
-          root = "~/Developer/blog/my-microservices";
-          layout = "tiled";
-          commands = [
-            "docker-compose start"
-          ];
-          panes = [
-            {
-              type = "horizontal";
-              root = ".";
-              commands = [
-                "docker-compose up -d"
-                "docker-compose exec php /bin/sh"
-                "clear"
-              ];
-            }
-          ];
-        }
-      ];
-
-    };
-  };
-
+  #  programs.myhotkeys."Gnome Extra".cyclewindow.key = "<ALT>grave";
+  #  programs.myhotkeys."Gnome Extra".cyclewindow.description = "Cycle windows within same Application";
+  #  programs.myhotkeys.enable = true;
+  #  programs.myhotkeys.hotkey_groups = [
+  #    {
+  #      name = "Gnome Extra";
+  #      shortcuts = [
+  #        {
+  #          key = "<ALT>grave";
+  #          description = "Cycle windows within same Application";
+  #        }
+  #      ];
+  #    }
+  #
+  #  ];
+  #
 
   dconf.settings = {
     "org/gnome/desktop/input-sources" = {

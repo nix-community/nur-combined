@@ -15,12 +15,16 @@
     shellAliases = {
 
       open = "xdg-open";
+
       t = "tmux a || smug start lobby && smug start doen && smug start sudo && smug start nixos && smug start tekst";
+
       lin = "vim -c LinnyStart";
       nlin = "nvim -c LinnyStart /home/pim/secondbrain/wikiContent/doen_werk.md";
+
       tn = "tmux new -d -s";
       tmxa = "tmux unbind C-a && tmux set-option -g prefix C-a && tmux bind-key C-a send-prefix";
       tmxb = "tmux unbind C-b && tmux set-option -g prefix C-b && tmux bind-key C-b send-prefix";
+
       smugs = "smug start doen && smug start sudo && smug start nixos && smug start lobby";
       smugs_q = "smug start quiqr_dev_run && smug start quiqr_data";
       smugs_tn = "smug start technative_aws && smug start technative_docs && smug start technative_weare";
@@ -31,14 +35,9 @@
       crb_diff = "diff -qr ~/.aws /mnt/cryptobox/encrypim/.aws; diff -qr ~/.ssh /mnt/cryptobox/encrypim/.ssh";
 
       # technative
-      tn_aws_mfa = "aws-mfa --profile technative --device arn:aws:iam::521402697040:mfa/pim@technative.nl";
+      #tn_aws_mfa = "aws-mfa --profile technative --device arn:aws:iam::521402697040:mfa/pim@technative.nl";
 
-      # adevinta
-      ffadevinta = "MOZ_ENABLE_WAYLAND=0 proxychains4 firefox -P adevinta --class ffextra --no-remote";
-      adeff = "MOZ_ENABLE_WAYLAND=0 proxychains4 firefox -P adevinta --class ffextra --no-remote";
-      adedsocksamf = "ssh -D 9050 pim.snel@192.168.0.139";
-      adedsockshur = "ssh -D 9050 pim.snel@192.168.13.26";
-      adedmoshamf = "mosh pim.snel@192.168.0.139 --server=/usr/local/bin/mosh-server";
+      firefox_with_yellow_car = "MOZ_ENABLE_WAYLAND=0 proxychains4 firefox -P adevinta --class ffextra --no-remote";
 
       sshpw = "ssh -o PubkeyAuthentication=no -o PreferredAuthentications=password";
 

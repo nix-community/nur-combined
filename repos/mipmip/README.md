@@ -1,6 +1,5 @@
 # Nix, NixOS and Home Manager for mipmip's machine park
 
-
 This is my mono-repository for my machines configuration and my dotfiles.
 
 ## Features
@@ -10,6 +9,7 @@ This is my mono-repository for my machines configuration and my dotfiles.
 - Custom patched Suckless Terminal (st)
 
 ### Mentional NUR's
+
 - A 32 bits Brother printer driver
 - Some Gnome Extensions packed directly from Github (useful is maintainers keep behind supporting the latest Gnome Versions)
 - mip.rs, a fast and suckless markdown viewer written in Rust.
@@ -55,11 +55,11 @@ example: `agenix -i ~/.ssh/id_ed25519 -e aws-credentials-copy.age`
 
 - [x] fix NUR url, maybe nur.nix
 - [x] home manager flake
+- [x] delete i-am-desktop
+- [x] new method i-am-secondbrain
 - [ ] public features and documentation Usage
 - [ ] setup firefox profiles: https://discourse.nixos.org/t/help-setting-up-firefox-with-home-manager/23333
 - [ ] install firefox language packs from nur
-- [ ] delete i-am-desktop
-- [ ] new method i-am-secondbrain
 - [ ] tmux A or B
 
 Lego1

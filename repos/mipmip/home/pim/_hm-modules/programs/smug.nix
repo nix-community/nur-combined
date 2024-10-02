@@ -138,7 +138,7 @@ in {
       cleanedProjects = lib.filterAttrsRecursive (name: value: value != null) cfg.projects;
 
       mkProjects = lib.attrsets.mapAttrs' (k: v: {
-        name = "${config.home.homeDirectory}/.config/smug-test/${k}.yml";
+        name = "${config.home.homeDirectory}/.config/smug/${k}.yml";
         value.source =
           let
             prjConf = v // { session = k; windows = lib.lists.forEach v.windows (winprop: lib.filterAttrsRecursive (name: value: value != null) winprop );};

@@ -5,7 +5,9 @@ let
 in
 {
   imports = [
-    ./home-base-nixos-desktop.nix
+    ./_roles/home-base-all.nix
+    ./_roles/home-base-nixos-desktop.nix
+
     ./files-secondbrain
     ./files-i-am-desktop
   ];

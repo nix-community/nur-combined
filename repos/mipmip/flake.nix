@@ -28,8 +28,9 @@
 
     bmc.url = "github:wearetechnative/bmc";
     race.url = "github:wearetechnative/race";
-    jsonify-aws-dotfiles.url = "github:mipmip/jsonify-aws-dotfiles";
 
+    jsonify-aws-dotfiles.url = "github:mipmip/jsonify-aws-dotfiles";
+    myhotkeys.url = "github:mipmip/gnome-hotkeys.cr/0.2.6";
     shellstuff.url = "github:mipmip/nix-shellstuff";
     dirtygit.url = "github:mipmip/dirtygit";
     skull.url = "github:mipmip/skull";
@@ -62,7 +63,7 @@
 
     nixified-ai,
 
-    jsonify-aws-dotfiles, dirtygit, bmc, race, shellstuff, skull,
+    jsonify-aws-dotfiles, dirtygit, bmc, race, shellstuff, skull, myhotkeys,
 
     nixpkgs-pine64, mobile-nixos, home-manager-pine64,
 
@@ -102,6 +103,8 @@
           bmc.packages."${defaultSystem}".bmc
           jsonify-aws-dotfiles.packages."${defaultSystem}".jsonify-aws-dotfiles
           race.packages."${defaultSystem}".race
+          dirtygit.packages."${defaultSystem}".dirtygit
+          myhotkeys.packages."${defaultSystem}".myhotkeys
           shellstuff.packages."${defaultSystem}".shellstuff
           skull.packages."${defaultSystem}".skull
         ];
@@ -150,20 +153,6 @@
       };
 
       homeConfigurations = {
-        "pim@adevintamac" = home-manager.lib.homeManagerConfiguration {
-          modules = [
-            (import ./home/pim/home-machine-adevinta.nix)
-          ];
-          pkgs = pkgsForSystem "x86_64-darwin";
-          extraSpecialArgs = {
-            username = "pim.snel";
-            homedir = "/Users/pim.snel";
-            withLinny = true;
-            isDesktop = true;
-            tmuxPrefix = "a";
-            unstable = unstableForSystem "x86_64-darwin";
-          };
-        };
 
         "pim@lego1" = home-manager.lib.homeManagerConfiguration {
           modules = [ (import ./home/pim/home-machine-lego1.nix) ];

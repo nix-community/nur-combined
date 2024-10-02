@@ -96,7 +96,7 @@
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom7" = {
       binding = "<Super>s";
-      command = "/home/pim/cGnome/gnome-hotkeys.cr/bin/myhotkeys /home/pim/.hotkeys-custom.json";
+      command = "myhotkeys";
       name = "myhotkeys";
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom8" = {

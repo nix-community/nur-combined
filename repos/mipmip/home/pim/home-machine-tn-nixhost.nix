@@ -5,6 +5,7 @@ let
 in
 {
   imports = [
+    ./_hm-modules
     ./home-base-all.nix
   ];
 

@@ -5,11 +5,15 @@ let
   system = "x86_64-linux";
 in
   {
+
+
     imports = [
-      ./home-base-nixos-desktop.nix
-      ./files-secondbrain
-      ./files-i-am-desktop
+      ./_hm-modules
+      ./_roles/home-base-all.nix
+      ./_roles/home-base-nixos-desktop.nix
     ];
+
+    services.secondbrain.enable = true;
 
     home.packages = [
       pkgs.neovim
