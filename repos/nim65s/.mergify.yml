@@ -1,0 +1,12 @@
+pull_request_rules:
+  - name: merge automatically when CI passes and PR is approved
+    conditions:
+      - check-success = "tests (nixpkgs=channel:nixos-unstable, nim65s, nim65s)"
+      - check-success = "pre-commit.ci - pr"
+      - or:
+        - approved-reviews-by = nim65s
+        - author = nim65s
+        - author = pre-commit-ci[bot]
+        - author = dependabot[bot]
+    actions:
+      merge:

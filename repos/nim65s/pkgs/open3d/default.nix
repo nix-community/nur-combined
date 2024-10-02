@@ -58,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "BUILD_PYTHON_MODULE" pythonSupport)
     "-DBUILD_SHARED_LIBS=ON"
     "-DBUILD_UNIT_TESTS=ON"
-    "-DBUILD_ISPC_MODULE=OFF"  # TODO: it really tries to fetch stuff
+    "-DBUILD_ISPC_MODULE=OFF" # TODO: it really tries to fetch stuff
     #"-DENABLE_HEADLESS_RENDERING=ON" it is either that or GUI
     "-DUSE_SYSTEM_BLAS=ON"
     "-DUSE_SYSTEM_ASSIMP=ON"
@@ -92,9 +92,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-DPREFER_OSX_HOMEBREW=OFF"
   ];
 
-  propagatedBuildInputs = lib.optionals pythonSupport [
-    python3Packages.pinocchio
-  ];
+  propagatedBuildInputs = lib.optionals pythonSupport [ python3Packages.pinocchio ];
 
   meta = {
     description = "Open3D: A Modern Library for 3D Data Processing";

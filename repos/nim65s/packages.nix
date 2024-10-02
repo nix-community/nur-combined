@@ -25,113 +25,21 @@ let
     )).override
       {
         enableXWayland = true;
-        wlroots = pkgs.wlroots.overrideAttrs (_finalAttrs: previousAttrs: {
-          version = "0.19.0-dev";
-          src = pkgs.fetchFromGitLab {
-            domain = "gitlab.freedesktop.org";
-            owner = "wlroots";
-            repo = "wlroots";
-            rev = "015bb8512ee314e1deb858cf7350b0220fc58702";
-            hash = "sha256-Awi0iSdtaqAxoXb8EMlZC6gvyW5QtsPrBAl41c2Y9rg=";
-          };
-          patches = [ ];
-          buildInputs = previousAttrs.buildInputs ++ [ pkgs.lcms2 ];
-        });
+        wlroots = pkgs.wlroots.overrideAttrs (
+          _finalAttrs: previousAttrs: {
+            version = "0.19.0-dev";
+            src = pkgs.fetchFromGitLab {
+              domain = "gitlab.freedesktop.org";
+              owner = "wlroots";
+              repo = "wlroots";
+              rev = "015bb8512ee314e1deb858cf7350b0220fc58702";
+              hash = "sha256-Awi0iSdtaqAxoXb8EMlZC6gvyW5QtsPrBAl41c2Y9rg=";
+            };
+            patches = [ ];
+            buildInputs = previousAttrs.buildInputs ++ [ pkgs.lcms2 ];
+          }
+        );
       };
-  collada-dom = pkgs.callPackage ./pkgs/collada-dom { };
-  qgv = pkgs.libsForQt5.callPackage ./pkgs/qgv { };
-  osgqt = pkgs.callPackage ./pkgs/osgqt { };
-  gepetto-viewer-base = pkgs.callPackage ./pkgs/gepetto-viewer-base { inherit osgqt qgv; };
-  py-gepetto-viewer-base = pkgs.python3Packages.toPythonModule gepetto-viewer-base;
-  gepetto-viewer-corba = pkgs.callPackage ./pkgs/gepetto-viewer-corba {
-    inherit gepetto-viewer-base;
-  };
-  py-gepetto-viewer-corba = pkgs.python3Packages.toPythonModule gepetto-viewer-corba;
-  ndcurves = pkgs.callPackage ./pkgs/ndcurves { };
-  py-ndcurves = pkgs.python3Packages.toPythonModule (
-    pkgs.callPackage ./pkgs/ndcurves { pythonSupport = true; }
-  );
-  #multicontact-api = pkgs.callPackage ./pkgs/multicontact-api { };
-  #py-multicontact-api = pkgs.python3Packages.toPythonModule (
-  #pkgs.callPackage ./pkgs/multicontact-api {
-  #pythonSupport = true;
-  #}
-  #);
-
-  proxsuite = pkgs.callPackage ./pkgs/proxsuite { };
-  hpp-centroidal-dynamics = pkgs.callPackage ./pkgs/hpp-centroidal-dynamics { };
-  py-hpp-centroidal-dynamics = pkgs.python3Packages.toPythonModule (
-    pkgs.callPackage ./pkgs/hpp-centroidal-dynamics { pythonSupport = true; }
-  );
-  hpp-bezier-com-traj = pkgs.callPackage ./pkgs/hpp-bezier-com-traj {
-    inherit
-      hpp-centroidal-dynamics
-      py-hpp-centroidal-dynamics
-      ndcurves
-      py-ndcurves
-      ;
-  };
-  py-hpp-bezier-com-traj = pkgs.python3Packages.toPythonModule (
-    pkgs.callPackage ./pkgs/hpp-bezier-com-traj {
-      pythonSupport = true;
-      inherit
-        hpp-centroidal-dynamics
-        py-hpp-centroidal-dynamics
-        ndcurves
-        py-ndcurves
-        ;
-    }
-  );
-  hpp-environments = pkgs.callPackage ./pkgs/hpp-environments { };
-  hpp-universal-robot = pkgs.callPackage ./pkgs/hpp-universal-robot { };
-  hpp-util = pkgs.callPackage ./pkgs/hpp-util { };
-  hpp-statistics = pkgs.callPackage ./pkgs/hpp-statistics { inherit hpp-util; };
-  hpp-template-corba = pkgs.callPackage ./pkgs/hpp-template-corba { inherit hpp-util; };
-  hpp-pinocchio = pkgs.callPackage ./pkgs/hpp-pinocchio { inherit hpp-environments hpp-util; };
-  hpp-constraints = pkgs.callPackage ./pkgs/hpp-constraints { inherit hpp-pinocchio hpp-statistics; };
-  hpp-baxter = pkgs.callPackage ./pkgs/hpp-baxter { };
-  hpp-core = pkgs.callPackage ./pkgs/hpp-core {
-    inherit
-      hpp-constraints
-      hpp-pinocchio
-      hpp-statistics
-      proxsuite
-      ;
-  };
-  hpp-manipulation = pkgs.callPackage ./pkgs/hpp-manipulation {
-    inherit hpp-core hpp-universal-robot;
-  };
-  hpp-manipulation-urdf = pkgs.callPackage ./pkgs/hpp-manipulation-urdf { inherit hpp-manipulation; };
-  hpp-corbaserver = pkgs.callPackage ./pkgs/hpp-corbaserver { inherit hpp-core hpp-template-corba; };
-  py-hpp-corbaserver = pkgs.python3Packages.toPythonModule hpp-corbaserver;
-  hpp-romeo = pkgs.callPackage ./pkgs/hpp-romeo { inherit hpp-corbaserver; };
-  hpp-manipulation-corba = pkgs.callPackage ./pkgs/hpp-manipulation-corba {
-    inherit hpp-corbaserver hpp-manipulation-urdf;
-  };
-  py-hpp-manipulation-corba = pkgs.python3Packages.toPythonModule hpp-manipulation-corba;
-  hpp-tutorial = pkgs.callPackage ./pkgs/hpp-tutorial { inherit hpp-manipulation-corba; };
-  py-hpp-tutorial = pkgs.python3Packages.toPythonModule hpp-tutorial;
-  hpp-gepetto-viewer = pkgs.callPackage ./pkgs/hpp-gepetto-viewer {
-    inherit gepetto-viewer-corba hpp-corbaserver;
-  };
-  py-hpp-gepetto-viewer = pkgs.python3Packages.toPythonModule hpp-gepetto-viewer;
-  hpp-plot = pkgs.callPackage ./pkgs/hpp-plot {
-    inherit gepetto-viewer-corba hpp-manipulation-corba;
-  };
-  hpp-gui = pkgs.callPackage ./pkgs/hpp-gui { inherit gepetto-viewer-corba hpp-manipulation-corba; };
-  hpp-practicals = pkgs.callPackage ./pkgs/hpp-practicals {
-    inherit hpp-gepetto-viewer hpp-gui hpp-plot;
-  };
-  py-hpp-practicals = pkgs.python3Packages.toPythonModule hpp-practicals;
-  gepetto-viewer = pkgs.callPackage ./pkgs/gepetto-viewer {
-    inherit
-      gepetto-viewer-base
-      gepetto-viewer-corba
-      hpp-gepetto-viewer
-      hpp-gui
-      hpp-plot
-      ;
-  };
   liblzf = pkgs.callPackage ./pkgs/liblzf { };
   tinygltf = pkgs.callPackage ./pkgs/tinygltf { };
   filament = pkgs.callPackage ./pkgs/filament { };
@@ -140,58 +48,16 @@ let
 in
 {
   inherit
-    collada-dom
-    gepetto-viewer
-    gepetto-viewer-base
-    py-gepetto-viewer-base
-    gepetto-viewer-corba
-    py-gepetto-viewer-corba
-    ndcurves
-    osgqt
-    hpp-centroidal-dynamics
-    hpp-bezier-com-traj
-    hpp-gui
-    hpp-util
-    hpp-environments
-    hpp-statistics
-    hpp-template-corba
-    hpp-pinocchio
-    hpp-constraints
-    hpp-corbaserver
-    hpp-baxter
-    hpp-core
-    hpp-gepetto-viewer
-    hpp-manipulation
-    hpp-manipulation-corba
-    hpp-manipulation-urdf
-    hpp-plot
-    hpp-practicals
-    hpp-romeo
-    hpp-tutorial
-    hpp-universal-robot
     liblzf
     #multicontact-api
     open3d
-    proxsuite
     #py-multicontact-api
-    py-hpp-corbaserver
-    py-hpp-gepetto-viewer
-    py-ndcurves
-    py-hpp-centroidal-dynamics
-    py-hpp-bezier-com-traj
-    py-hpp-manipulation-corba
-    py-hpp-practicals
-    py-hpp-tutorial
     py-open3d
-    qgv
     sway-lone-titlebar-unwrapped
     tinygltf
     filament
     ;
 
-  gruppled-white-lite-cursors = pkgs.callPackage ./pkgs/gruppled-lite-cursors {
-    theme = "gruppled_white_lite";
-  };
   sauce-code-pro = pkgs.nerdfonts.override { fonts = [ "SourceCodePro" ]; };
   sway-lone-titlebar = pkgs.sway.override { sway-unwrapped = sway-lone-titlebar-unwrapped; };
 }

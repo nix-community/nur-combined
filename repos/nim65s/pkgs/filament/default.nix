@@ -9,7 +9,7 @@
   libXi,
   libXcomposite,
   libXxf86vm,
-  libX11
+  libX11,
 }:
 
 clangStdenv.mkDerivation rec {
