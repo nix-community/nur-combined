@@ -30,11 +30,10 @@ lib.makeScope pkgs.newScope (
         pkgs.yyjson
       else
         pkgs.yyjson.overrideAttrs (
-          finalAttrs: _: {
+          finalAttrs: prevAttrs: {
             version = "0.10.0";
             src = pkgs.fetchFromGitHub {
-              owner = "ibireme";
-              repo = "yyjson";
+              inherit (prevAttrs.src) owner repo;
               rev = finalAttrs.version;
               hash = "sha256-mp9Oz08qTyhj3P6F1d81SX96vamUY/JWpD2DTYR+v04=";
             };
@@ -43,13 +42,15 @@ lib.makeScope pkgs.newScope (
 
     # Variants
     fastfetchMinimal =
-      (self.fastfetch.overrideAttrs (prevAttrs: {
-        pname = "${prevAttrs.pname}-minimal";
-        meta = prevAttrs.meta // {
-          description = "${prevAttrs.meta.description} (with all features disabled)";
-          mainProgram = "fastfetch";
-        };
-      })).override
+      (self.fastfetch.overrideAttrs (
+        _: prevAttrs: {
+          pname = "${prevAttrs.pname}-minimal";
+          meta = prevAttrs.meta // {
+            description = "${prevAttrs.meta.description} (with all features disabled)";
+            mainProgram = "fastfetch";
+          };
+        }
+      )).override
         {
           enableVulkan = false;
           enableWayland = false;
@@ -81,12 +82,14 @@ lib.makeScope pkgs.newScope (
         };
 
     gtatoolFull =
-      (self.gtatool.overrideAttrs (prevAttrs: {
-        pname = "${prevAttrs.pname}-full";
-        meta = prevAttrs.meta // {
-          description = "${prevAttrs.meta.description} (with all features enabled)";
-        };
-      })).override
+      (self.gtatool.overrideAttrs (
+        _: prevAttrs: {
+          pname = "${prevAttrs.pname}-full";
+          meta = prevAttrs.meta // {
+            description = "${prevAttrs.meta.description} (with all features enabled)";
+          };
+        }
+      )).override
         {
           # Broken
           withBashCompletion = false;
@@ -114,12 +117,14 @@ lib.makeScope pkgs.newScope (
         };
 
     libtgdFull =
-      (self.libtgd.overrideAttrs (prevAttrs: {
-        pname = "${prevAttrs.pname}-full";
-        meta = prevAttrs.meta // {
-          description = "${prevAttrs.meta.description} (with all features enabled)";
-        };
-      })).override
+      (self.libtgd.overrideAttrs (
+        _: prevAttrs: {
+          pname = "${prevAttrs.pname}-full";
+          meta = prevAttrs.meta // {
+            description = "${prevAttrs.meta.description} (with all features enabled)";
+          };
+        }
+      )).override
         {
           withTool = true;
           withDocs = true;
@@ -145,21 +150,25 @@ lib.makeScope pkgs.newScope (
         };
 
     razeFull =
-      (self.raze.overrideAttrs (prevAttrs: {
-        pname = "${prevAttrs.pname}-full";
-        meta = prevAttrs.meta // {
-          description = "${prevAttrs.meta.description} (with all features enabled)";
-        };
-      })).override
+      (self.raze.overrideAttrs (
+        _: prevAttrs: {
+          pname = "${prevAttrs.pname}-full";
+          meta = prevAttrs.meta // {
+            description = "${prevAttrs.meta.description} (with all features enabled)";
+          };
+        }
+      )).override
         { withGtk3 = true; };
 
     teemFull =
-      (self.teem.overrideAttrs (prevAttrs: {
-        pname = "${prevAttrs.pname}-full";
-        meta = prevAttrs.meta // {
-          description = "${prevAttrs.meta.description} (with all features enabled)";
-        };
-      })).override
+      (self.teem.overrideAttrs (
+        _: prevAttrs: {
+          pname = "${prevAttrs.pname}-full";
+          meta = prevAttrs.meta // {
+            description = "${prevAttrs.meta.description} (with all features enabled)";
+          };
+        }
+      )).override
         {
           withBzip2 = true;
           withPthread = true;
@@ -170,24 +179,28 @@ lib.makeScope pkgs.newScope (
         };
 
     teemExperimental =
-      (self.teem.overrideAttrs (prevAttrs: {
-        pname = "${prevAttrs.pname}-experimental";
-        meta = prevAttrs.meta // {
-          description = "${prevAttrs.meta.description} (with experimental libraries and applications enabled)";
-        };
-      })).override
+      (self.teem.overrideAttrs (
+        _: prevAttrs: {
+          pname = "${prevAttrs.pname}-experimental";
+          meta = prevAttrs.meta // {
+            description = "${prevAttrs.meta.description} (with experimental libraries and applications enabled)";
+          };
+        }
+      )).override
         {
           withExperimentalApps = true;
           withExperimentalLibs = true;
         };
 
     teemExperimentalFull =
-      (self.teem.overrideAttrs (prevAttrs: {
-        pname = "${prevAttrs.pname}-experimental-full";
-        meta = prevAttrs.meta // {
-          description = "${prevAttrs.meta.description} (with experimental libraries and applications, and all features enabled)";
-        };
-      })).override
+      (self.teem.overrideAttrs (
+        _: prevAttrs: {
+          pname = "${prevAttrs.pname}-experimental-full";
+          meta = prevAttrs.meta // {
+            description = "${prevAttrs.meta.description} (with experimental libraries and applications, and all features enabled)";
+          };
+        }
+      )).override
         {
           withExperimentalApps = true;
           withExperimentalLibs = true;
