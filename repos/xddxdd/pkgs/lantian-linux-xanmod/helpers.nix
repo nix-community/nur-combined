@@ -116,9 +116,6 @@ rec {
           patch = pkgs.runCommandNoCC name contentAddressedFlag ''
             for F in ${cachyDir}/*.patch; do
               case "$F" in
-                # AMD pref core patch conflicts with me disabling AMD pstate for VMs
-                *-amd-pref-core.patch) continue;;
-
                 # Patches already included in Xanmod
                 *-bbr2.patch) continue;;
                 *-bbr3.patch) continue;;
