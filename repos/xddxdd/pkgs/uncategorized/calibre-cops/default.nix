@@ -2,7 +2,6 @@
   sources,
   lib,
   stdenvNoCC,
-  dos2unix,
   unzip,
   ...
 }:

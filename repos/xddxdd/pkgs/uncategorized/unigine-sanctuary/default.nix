@@ -68,6 +68,8 @@ stdenv.mkDerivation rec {
   ];
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/bin
     makeWrapper ${distPackage}/bin/Sanctuary $out/bin/unigine-sanctuary \
       --chdir ${distPackage} \
@@ -78,6 +80,8 @@ stdenv.mkDerivation rec {
       --add-flags "${distPackage}/data/unigine.cfg" \
       --add-flags "-data_path" \
       --add-flags "../../"
+
+    runHook postInstall
   '';
 
   desktopItems = [

@@ -1,5 +1,4 @@
 {
-  self,
   lib,
   flake-parts-lib,
   inputs,
@@ -19,9 +18,9 @@ in
   imports = [ ciPackagesOptionModule ];
 
   perSystem =
-    { pkgs, system, ... }:
+    { pkgs, ... }:
     let
-      inherit (pkgs.callPackage ../../helpers/is-buildable.nix { }) isBuildable isSourceFetchable;
+      inherit (pkgs.callPackage ../../helpers/is-buildable.nix { }) isBuildable;
       nvfetcherLoader = pkgs.callPackage ../../helpers/nvfetcher-loader.nix { };
       sources = nvfetcherLoader ../../_sources/generated.nix;
     in
