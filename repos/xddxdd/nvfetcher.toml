@@ -651,6 +651,31 @@ fetch.github = "trumank/uesave-rs"
 src.github_tag = "CachyOS/uksmd"
 fetch.github = "CachyOS/uksmd"
 
+[unigine-heaven]
+src.webpage = "https://benchmark.unigine.com/heaven"
+src.regex = "\"https://assets.unigine.com/d/Unigine_Heaven-([0-9\\.]+).run\""
+fetch.url = "https://assets.unigine.com/d/Unigine_Heaven-$ver.run"
+
+[unigine-sanctuary]
+src.webpage = "https://benchmark.unigine.com/sanctuary"
+src.regex = "\"https://assets.unigine.com/d/Unigine_Sanctuary-([0-9\\.]+).run\""
+fetch.url = "https://assets.unigine.com/d/Unigine_Sanctuary-$ver.run"
+
+[unigine-superposition]
+src.webpage = "https://benchmark.unigine.com/superposition"
+src.regex = "\"https://assets.unigine.com/d/Unigine_Superposition-([0-9\\.]+).run\""
+fetch.url = "https://assets.unigine.com/d/Unigine_Superposition-$ver.run"
+
+[unigine-tropics]
+src.webpage = "https://benchmark.unigine.com/tropics"
+src.regex = "\"https://assets.unigine.com/d/Unigine_Tropics-([0-9\\.]+).run\""
+fetch.url = "https://assets.unigine.com/d/Unigine_Tropics-$ver.run"
+
+[unigine-valley]
+src.webpage = "https://benchmark.unigine.com/valley"
+src.regex = "\"https://assets.unigine.com/d/Unigine_Valley-([0-9\\.]+).run\""
+fetch.url = "https://assets.unigine.com/d/Unigine_Valley-$ver.run"
+
 [vbmeta-disable-verification]
 src.github = "libxzr/vbmeta-disable-verification"
 fetch.github = "libxzr/vbmeta-disable-verification"

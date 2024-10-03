@@ -2911,6 +2911,81 @@
         },
         "version": "v1.2.11"
     },
+    "unigine-heaven": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "unigine-heaven",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-G7AgSpvZsL2/L+I6oMMhKZBcs4cEAJi4FTMt2zlvNqc=",
+            "type": "url",
+            "url": "https://assets.unigine.com/d/Unigine_Heaven-4.0.run"
+        },
+        "version": "4.0"
+    },
+    "unigine-sanctuary": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "unigine-sanctuary",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-KKi70ctkEm+tx0kjBMWVKMLDrJ1TsPH+CKLDMXA6OdU=",
+            "type": "url",
+            "url": "https://assets.unigine.com/d/Unigine_Sanctuary-2.3.run"
+        },
+        "version": "2.3"
+    },
+    "unigine-superposition": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "unigine-superposition",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-zZ634FUbLggErgMn3OfnH0MF8eDcjeD6vshdkc6nH4o=",
+            "type": "url",
+            "url": "https://assets.unigine.com/d/Unigine_Superposition-1.1.run"
+        },
+        "version": "1.1"
+    },
+    "unigine-tropics": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "unigine-tropics",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-/eA1i42/PMcoBbUJIGS66j7QpZ13oPkOi1Y6Q27TikU=",
+            "type": "url",
+            "url": "https://assets.unigine.com/d/Unigine_Tropics-1.3.run"
+        },
+        "version": "1.3"
+    },
+    "unigine-valley": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "unigine-valley",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-XwyL0kMRGFURgrq79fHCD7FOekB4lpckDcr1RkQ2YPQ=",
+            "type": "url",
+            "url": "https://assets.unigine.com/d/Unigine_Valley-1.0.run"
+        },
+        "version": "1.0"
+    },
     "vbmeta-disable-verification": {
         "cargoLocks": null,
         "date": null,

@@ -1602,6 +1602,46 @@
       sha256 = "sha256-mcqiTqu/KIZ+W9yvZfyFekjRdiVavkHVKVRh0xUytg0=";
     };
   };
+  unigine-heaven = {
+    pname = "unigine-heaven";
+    version = "4.0";
+    src = fetchurl {
+      url = "https://assets.unigine.com/d/Unigine_Heaven-4.0.run";
+      sha256 = "sha256-G7AgSpvZsL2/L+I6oMMhKZBcs4cEAJi4FTMt2zlvNqc=";
+    };
+  };
+  unigine-sanctuary = {
+    pname = "unigine-sanctuary";
+    version = "2.3";
+    src = fetchurl {
+      url = "https://assets.unigine.com/d/Unigine_Sanctuary-2.3.run";
+      sha256 = "sha256-KKi70ctkEm+tx0kjBMWVKMLDrJ1TsPH+CKLDMXA6OdU=";
+    };
+  };
+  unigine-superposition = {
+    pname = "unigine-superposition";
+    version = "1.1";
+    src = fetchurl {
+      url = "https://assets.unigine.com/d/Unigine_Superposition-1.1.run";
+      sha256 = "sha256-zZ634FUbLggErgMn3OfnH0MF8eDcjeD6vshdkc6nH4o=";
+    };
+  };
+  unigine-tropics = {
+    pname = "unigine-tropics";
+    version = "1.3";
+    src = fetchurl {
+      url = "https://assets.unigine.com/d/Unigine_Tropics-1.3.run";
+      sha256 = "sha256-/eA1i42/PMcoBbUJIGS66j7QpZ13oPkOi1Y6Q27TikU=";
+    };
+  };
+  unigine-valley = {
+    pname = "unigine-valley";
+    version = "1.0";
+    src = fetchurl {
+      url = "https://assets.unigine.com/d/Unigine_Valley-1.0.run";
+      sha256 = "sha256-XwyL0kMRGFURgrq79fHCD7FOekB4lpckDcr1RkQ2YPQ=";
+    };
+  };
   vbmeta-disable-verification = {
     pname = "vbmeta-disable-verification";
     version = "v1.0";
