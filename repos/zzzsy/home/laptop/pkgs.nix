@@ -108,9 +108,8 @@ let
     # gaphor
     # gimp
     # minder
-    my.tsukimi
+    tsukimi
     materialgram
-    # my.llqqnt
     wechat-uos
 
     #ghostty

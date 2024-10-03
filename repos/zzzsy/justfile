@@ -51,3 +51,7 @@ nvfetcher:
 
 rm:
   find . -type l -name 'result' -exec rm {} +
+
+upkgs:
+  just nvfetcher
+  bash ./pkgs/zen-browser/update.sh

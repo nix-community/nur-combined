@@ -19,7 +19,7 @@ image:https://img.shields.io/badge/License-MIT-blue.svg[link=https://en.wikipedi
 * [x] lint link:https://github.com/cachix/pre-commit-hooks.nix[pre-commit]
 * [x] Chaotic link:https://www.nyx.chaotic.cx[Nyx]
 * [x] secure boot link:https://github.com/nix-community/lanzaboote[lanzaboote]
-* [x] color shema link:https://stylix.danth.me[stylix]
+* [ ] color shema link:https://stylix.danth.me[stylix]
 * [ ] dev environnments: slidev hugo python rust etc.
 * [x] overlays
 * [ ] sub-pkgs

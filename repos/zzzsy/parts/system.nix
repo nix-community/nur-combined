@@ -16,7 +16,7 @@ let
     nix-matlab
     neovim-nightly-overlay
     nur
-    stylix
+    #stylix
     zig
     ;
 
@@ -84,7 +84,7 @@ in
         daeuniverse.nixosModules.daed
         lanzaboote.nixosModules.lanzaboote
         nur.nixosModules.nur
-        stylix.nixosModules.stylix
+        #stylix.nixosModules.stylix
         daeuniverse.nixosModules.dae
         # nixos-hardware.nixosModules.common-cpu-amd-pstate
         # nixos-hardware.nixosModules.common-gpu-amd
