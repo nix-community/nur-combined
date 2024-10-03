@@ -2,7 +2,7 @@
   stdenv,
   lib,
   pkgs,
-  buildGoModule,
+  buildGo123Module, # workaround till buildGoModule uses go 1.23 by default
   pkg-config,
   glfw,
   libX11,
@@ -16,18 +16,18 @@
   git,
   ...
 }:
-buildGoModule rec {
+buildGo123Module rec {
   pname = "go-hass-agent";
-  version = "9.5.2";
+  version = "10.3.0";
 
   src = pkgs.fetchFromGitHub {
     owner = "joshuar";
     repo = "go-hass-agent";
     rev = "v${version}";
-    hash = "sha256-TMpSAusWhThJEG3WyyhSg7elR2I0YNTryarJSwA9UiQ=";
+    hash = "sha256-IFM3LP2j3wrjGx1IJ9jzGUsOr0rTcd/7rNYP0AuGB40=";
   };
 
-  vendorHash = "sha256-M5iB3MhVf4hikzS6GsTg0TLwQaQNwVYhNMvpolwn0d4=";
+  vendorHash = "sha256-qEGvNjgBbJvmUQa3UPS4eoBbmo5HCuxWsxv1zyjpZx0=";
 
   doCheck = false;
 
