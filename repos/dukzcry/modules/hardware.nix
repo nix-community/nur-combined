@@ -39,7 +39,7 @@ in {
       systemd.watchdog.runtimeTime = "30s";
       systemd.watchdog.rebootTime = "10m";
       systemd.watchdog.kexecTime = "10m";
-      powerManagement.cpuFreqGovernor = lib.mkDefault "schedutil";
+      powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
       services.udev.extraRules = ''
         ACTION=="add", SUBSYSTEM=="block", KERNEL=="sd[a-z]", ENV{ID_SERIAL_SHORT}=="WD-WXS2E902C67R", RUN+="${pkgs.hdparm}/bin/hdparm -B 255 -S 0 /dev/%k"
       '';
