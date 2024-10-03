@@ -182,15 +182,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "adac8640245790cfb2677222751ef17e906fa933";
+    version = "58e7b9716e8dc7ea92feeadec79f4bbbf48b0ea7";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "adac8640245790cfb2677222751ef17e906fa933";
+      rev = "58e7b9716e8dc7ea92feeadec79f4bbbf48b0ea7";
       fetchSubmodules = false;
-      sha256 = "sha256-H/dLMXcW2GACLhJIZx6hVhtFxUNY/xZq3TgdgWX2K28=";
+      sha256 = "sha256-Z/a/Y9jHVdqlELq/Ntct9K7p1NV85BX9FszKyZ9M4Vk=";
     };
-    date = "2024-10-01";
+    date = "2024-10-02";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -764,13 +764,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3864";
+    version = "b3869";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3864";
+      rev = "b3869";
       fetchSubmodules = false;
-      sha256 = "sha256-OSwKpJs8t/yGn8pKBIg/s/hBVjqiOu/D5cxKwtraIHk=";
+      sha256 = "sha256-W5w+yaF2D2bMguUYlQJETsYVWzYCl/AsCGWYa+sfx3I=";
     };
   };
   lyrica = {
