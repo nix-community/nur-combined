@@ -76,7 +76,7 @@
         name = "persist";
         source = "/persist";
         keep = "2day";
-        timerConfig.onCalendar = "*:0/3";
+        timerConfig.onCalendar = "*:0/5";
       }
       {
         name = "var";
