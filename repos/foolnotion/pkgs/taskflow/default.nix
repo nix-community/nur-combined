@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "taskflow";
-  version = "3.7.0";
+  version = "3.8.0";
 
   src = fetchFromGitHub {
     repo = "taskflow";
     owner = "taskflow";
     rev = "v${version}";
-    sha256 = "sha256-q2IYhG84hPIZhuogWf6ojDG9S9ZyuJz9s14kQyIc6t0=";
+    sha256 = "sha256-gim1QQKtzMXz8BmNg5YeN4mcveiid5MrS8IrTaTtZ1Y=";
   };
 
   nativeBuildInputs = [ cmake ];
