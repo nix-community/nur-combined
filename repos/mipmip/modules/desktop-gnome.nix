@@ -25,6 +25,7 @@
 
   environment.systemPackages = with pkgs; [
 
+
     #NIX/GNOME/HOMEMANAGER
     dconf2nix
 
@@ -55,6 +56,8 @@
     #DEV
     glib.dev
     #glade
+    cambalache
+    #gnome-builder
 
     #RSS
     #newsflash

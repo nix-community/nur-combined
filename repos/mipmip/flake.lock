@@ -497,16 +497,16 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1727888579,
-        "narHash": "sha256-AeWSpeWJrJ+1Zkqo+m3R0TPAvJ9xVukrQiqSz9CT5aM=",
+        "lastModified": 1727995226,
+        "narHash": "sha256-LqBqVlkrVlLTyJQ9CuFDEoevtpUEt+AzAJ8SYRZk82c=",
         "owner": "mipmip",
         "repo": "gnome-hotkeys.cr",
-        "rev": "ade31201569cd437ee5f55b09a534a285fdc8f11",
+        "rev": "58a1c8774105a06da25e05221309943618b602e3",
         "type": "github"
       },
       "original": {
         "owner": "mipmip",
-        "ref": "0.2.6",
+        "ref": "0.2.7",
         "repo": "gnome-hotkeys.cr",
         "type": "github"
       }

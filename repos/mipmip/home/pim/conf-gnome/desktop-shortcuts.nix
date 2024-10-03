@@ -27,6 +27,10 @@
       cycle-windows                = [ "<Super>Escape" ];
     };
 
+    "org/gnome/shell/keybindings" = {
+      toggle-quick-settings        = [ "<Shift><Control>s" ];
+    };
+
     "org/gnome/mutter/keybindings" = {
       toggle-tiled-left = [ "<Primary><Shift>Left" ];
       toggle-tiled-right = [ "<Primary><Shift>Right" ];
@@ -96,7 +100,7 @@
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom7" = {
       binding = "<Super>s";
-      command = "myhotkeys";
+      command = "myhotkeys -x -g";
       name = "myhotkeys";
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom8" = {
