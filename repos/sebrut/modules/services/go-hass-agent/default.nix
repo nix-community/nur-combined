@@ -10,24 +10,16 @@ in
   };
 
   config = mkIf cfg.enable {
-    users.users.go-hass-agent = {
-      isSystemUser = true;
-      group = "go-hass-agent";
-    };
     systemd.services.go-hass-agent = {
       wantedBy = [ "default.target" ];
 
       unitConfig = {
+        Type = "simple";
         Wants = [ "network-online.target" ];
         After = [ "network.online.target" ];
       };
 
       serviceConfig = {
-        Type = "simple";
-
-        User = "gohassagent";
-        Group = "gohassagent";
-
         ExecStart = "${lib.getExe config.nur.repos.sebrut.go-hass-agent} --terminal run";
       };
     };
