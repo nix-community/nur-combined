@@ -756,7 +756,7 @@ Like neofetch, but much faster because written in C (with all features disabled)
 A GNOME theme for Firefox.
 
 - Name: `firefox-gnome-theme`
-- Version: `129`
+- Version: `131`
 - [Homepage](https://github.com/rafaelmardojai/firefox-gnome-theme)
 - License: [`Unlicense`](https://spdx.org/licenses/Unlicense.html "The Unlicense")
 - [Source](./pkgs/by-name/firefox-gnome-theme/package.nix#L31)
@@ -1660,7 +1660,7 @@ Fastest JSON library in C.
 - [Homepage](https://github.com/ibireme/yyjson)
 - [Changelog](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md)
 - License: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- [Source](https://github.com/NixOS/nixpkgs/blob/9682b21/pkgs/development/libraries/yyjson/default.nix#L23)
+- [Source](https://github.com/NixOS/nixpkgs/blob/eeeb90a/pkgs/development/libraries/yyjson/default.nix#L23)
 - Maintainers:
   - [Yohann Boniface](https://github.com/Sigmanificient) <[`sigmanificient@gmail.com`](mailto:sigmanificient@gmail.com)>
   - [✉️ Mail to all maintainers](mailto:sigmanificient@gmail.com)
