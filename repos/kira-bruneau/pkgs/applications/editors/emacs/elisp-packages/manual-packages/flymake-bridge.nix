@@ -3,7 +3,7 @@
   melpaBuild,
   fetchFromGitHub,
   lsp-bridge,
-  unstableGitUpdater,
+  nix-update-script,
 }:
 
 melpaBuild {
@@ -19,7 +19,7 @@ melpaBuild {
 
   packageRequires = [ lsp-bridge ];
 
-  passthru.updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     description = "lsp-bridge Flymake backend for server diagnostics";
