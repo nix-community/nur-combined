@@ -665,10 +665,10 @@
     };
     "batchcamp" = buildFirefoxXpiAddon {
       pname = "batchcamp";
-      version = "1.4.7";
+      version = "1.4.8";
       addonId = "{d44fa1f9-1400-401d-a79e-650d466ec6d6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4335028/batchcamp-1.4.7.xpi";
-      sha256 = "f062b4619bd992bea657d7487e7b331e064421b23f6839bdd2a0276b8a06ba14";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4361245/batchcamp-1.4.8.xpi";
+      sha256 = "4f195cf36fe22253584e46b910ec8d30f1684abb30379f157d002ee9ca1bf92a";
       meta = with lib;
       {
         homepage = "https://github.com/hyphmongo/batchcamp";
@@ -757,10 +757,10 @@
     };
     "beyond-20" = buildFirefoxXpiAddon {
       pname = "beyond-20";
-      version = "2.9.5";
+      version = "2.9.6";
       addonId = "beyond20@kakaroto.homelinux.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4327233/beyond_20-2.9.5.xpi";
-      sha256 = "41a79ebeb9a8fbb5de3a23a052f1be2f22f7e2dfd9a5a71d921a1e4d871b4324";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4357634/beyond_20-2.9.6.xpi";
+      sha256 = "2dfbf578489b972ae242e1bdb1b76ac98216f55d80fae02eee70279b803680eb";
       meta = with lib;
       {
         homepage = "https://beyond20.here-for-more.info";
@@ -774,6 +774,8 @@
           "*://app.roll20.net/editor/"
           "*://*.dndbeyond.com/*"
           "*://*.forge-vtt.com/game"
+          "*://discord.com/*"
+          "*://1199271093882589195.discordsays.com/*"
           "*://*.dndbeyond.com/*characters/*"
           "*://*.dndbeyond.com/characters"
           "*://*.dndbeyond.com/monsters/*"
@@ -908,10 +910,10 @@
     };
     "blocktube" = buildFirefoxXpiAddon {
       pname = "blocktube";
-      version = "0.4.2";
+      version = "0.4.3";
       addonId = "{58204f8b-01c2-4bbc-98f8-9a90458fd9ef}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4247450/blocktube-0.4.2.xpi";
-      sha256 = "bab25393b1d0a57d99d010112351bd89a66924412fb505c391d4b30d42194719";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4357196/blocktube-0.4.3.xpi";
+      sha256 = "19748b4c038b5ccc3540e243ffb51583626e18285877ebc735d3d7663d1e8690";
       meta = with lib;
       {
         homepage = "https://github.com/amitbl/blocktube";
@@ -1531,6 +1533,26 @@
         platforms = platforms.all;
       };
     };
+    "click-and-read" = buildFirefoxXpiAddon {
+      pname = "click-and-read";
+      version = "3.19.7";
+      addonId = "inist.users@gmail.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4361725/click_and_read-3.19.7.xpi";
+      sha256 = "c2732bbb8bef061bcefa3859ea4f2fea86ec81305ffde8cb71aa0541ca4d9d81";
+      meta = with lib;
+      {
+        homepage = "https://clickandread.inist.fr/";
+        description = "Developed by the CNRS to facilitate access to documents, the extension scans the web page you visit for document identifiers (DOI, PMID, PII) and adds a link if the resource is available.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "<all_urls>"
+          "storage"
+          "webNavigation"
+          "notifications"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "cliget" = buildFirefoxXpiAddon {
       pname = "cliget";
       version = "2.1.0";
@@ -2024,10 +2046,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.92";
+      version = "4.9.94";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4351387/darkreader-4.9.92.xpi";
-      sha256 = "be55b3ea5bab95743d43823d9290fa820035b89c4d07943b568111d837a98226";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4359254/darkreader-4.9.94.xpi";
+      sha256 = "251c4e7d0a30c0cab006803600e59ab92dcc0c606429740d42677846d4c9ccd6";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -2046,10 +2068,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2438.1";
+      version = "6.2440.1";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4354576/dashlane-6.2438.1.xpi";
-      sha256 = "0c7d1badabc87537fe7a0c600a308843000bffc606f907dcb38261150251275d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4361789/dashlane-6.2440.1.xpi";
+      sha256 = "1b91623c533a93e5b922bf829c5a0499048d0e0994a6737b256edfa123ec5527";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2127,10 +2149,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "131.0.20240923.135042";
+      version = "132.0.20241002.112648";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4358253/deutsch_de_language_pack-131.0.20240923.135042.xpi";
-      sha256 = "c17db49b369c5c795ce5bc314e4a511448250270ecec701a9fac926ec42984af";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4363056/deutsch_de_language_pack-132.0.20241002.112648.xpi";
+      sha256 = "8518e799367135581ccb7bbdd62b85c4b22319d91cc15d47457aab6bab4dd1e3";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2779,10 +2801,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.29.1";
+      version = "1.3.30";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4358877/faststream-1.3.29.1.xpi";
-      sha256 = "7c77f5fee7fcb93438c7de04ffde2aa6afaeb484b273fa6a4e35ff10a1805038";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4362174/faststream-1.3.30.xpi";
+      sha256 = "479228a81a9a45f6868a675e9ce20c992aff295d2d6a9e894675909de2674804";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -2888,10 +2910,10 @@
     };
     "ficlab" = buildFirefoxXpiAddon {
       pname = "ficlab";
-      version = "1.0.109";
+      version = "1.0.110";
       addonId = "ficlab-helper@mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4316565/ficlab-1.0.109.xpi";
-      sha256 = "dd9d1d6b392b69b3b95750c55626e93a3013d902e5fa17c312bf699ba983e92a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4361174/ficlab-1.0.110.xpi";
+      sha256 = "d73fba49753f525fba5c3baf1ed75a524f3e05cb1f0d5c84b11c8b7651da2098";
       meta = with lib;
       {
         homepage = "https://www.ficlab.com/";
@@ -3293,10 +3315,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "131.0.20240923.135042";
+      version = "132.0.20241002.112648";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4358286/francais_language_pack-131.0.20240923.135042.xpi";
-      sha256 = "97b0759b61f2efb50d4689ceaafbb43b2287ddabd035780d9d8c25ae8a75f6a0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4363034/francais_language_pack-132.0.20241002.112648.xpi";
+      sha256 = "41e31217d9b7bd99c79410319f5246127ee22f9b8bc83e2af5a99eefee5978ff";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3330,10 +3352,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "131.0.20240923.135042";
+      version = "132.0.20241002.112648";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4358204/gaidhlig_language_pack-131.0.20240923.135042.xpi";
-      sha256 = "d361c96531af7db6bc41d3c5997d0c7e7fcd66b8d9dafc4bf3a5028c397b9505";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4363092/gaidhlig_language_pack-132.0.20241002.112648.xpi";
+      sha256 = "9bfb19544b46e040d0dbd08890a18155381692adc286aa516802eba28b426f1e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -3494,10 +3516,10 @@
     };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "2.2.3";
+      version = "2.3.0";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4359529/gitpod-2.2.3.xpi";
-      sha256 = "9c9e9b28fe552b5074db76d0bda06e16375a7b4b3fe26630460179b3e6126ccb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4363595/gitpod-2.3.0.xpi";
+      sha256 = "e28bd46a00b971da7ae7e9b2e11ea2cb7649b3886497a036fa27908575a4e297";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
@@ -3518,6 +3540,7 @@
           "https://github.com/*"
           "https://gitlab.com/*"
           "https://bitbucket.org/*"
+          "https://dev.azure.com/*"
         ];
         platforms = platforms.all;
       };
@@ -5834,10 +5857,10 @@
     };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.133.0";
+      version = "4.134.0";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4343091/lastpass_password_manager-4.133.0.xpi";
-      sha256 = "4512122651cef8d8597042a49464399099c2bf1fd79c4d4390a36de7dd87483b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4357922/lastpass_password_manager-4.134.0.xpi";
+      sha256 = "5d7d322d48de67c37cd767789891f5da4a2c021ee47e33fc429b3fdb1ca2f8ab";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -6039,16 +6062,231 @@
     };
     "linkding-extension" = buildFirefoxXpiAddon {
       pname = "linkding-extension";
-      version = "1.11.0";
+      version = "1.12.0";
       addonId = "{61a05c39-ad45-4086-946f-32adb0a40a9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4352990/linkding_extension-1.11.0.xpi";
-      sha256 = "7bf1fba80f87ca9897d62eb831f6bbd73b743e47e83559226925cb3ecb1875e8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4363366/linkding_extension-1.12.0.xpi";
+      sha256 = "3f69db7a9a9414f9464f9deb9b13d69ab00dbbdf517a765e55dbea66c5983b26";
       meta = with lib;
       {
         homepage = "https://github.com/sissbruecker/linkding-extension/";
         description = "Companion extension for the linkding bookmark manager";
         license = licenses.mit;
         mozPermissions = [ "tabs" "http://*/*" "https://*/*" ];
+        platforms = platforms.all;
+      };
+    };
+    "linkding-injector" = buildFirefoxXpiAddon {
+      pname = "linkding-injector";
+      version = "1.3.4";
+      addonId = "{19561335-5a63-4b4e-8182-1eced17f9b47}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4190205/linkding_injector-1.3.4.xpi";
+      sha256 = "3eb979e0f51eca48f945d82042b0ddd3bb78d438bbae7d3d76edc77ec7ca0e70";
+      meta = with lib;
+      {
+        homepage = "https://github.com/Fivefold/linkding-injector";
+        description = "Injects search results from the linkding bookmark service into search pages like google and duckduckgo";
+        license = licenses.mit;
+        mozPermissions = [
+          "https://*/*"
+          "http://*/*"
+          "storage"
+          "*://duckduckgo.com/*"
+          "*://search.brave.com/*"
+          "*://kagi.com/*"
+          "*://www.qwant.com/*"
+          "*://*/search?*"
+          "*://*/search"
+          "*://*.google.com/*"
+          "*://*.google.ad/*"
+          "*://*.google.ae/*"
+          "*://*.google.com.af/*"
+          "*://*.google.com.ag/*"
+          "*://*.google.com.ai/*"
+          "*://*.google.al/*"
+          "*://*.google.am/*"
+          "*://*.google.co.ao/*"
+          "*://*.google.com.ar/*"
+          "*://*.google.as/*"
+          "*://*.google.at/*"
+          "*://*.google.com.au/*"
+          "*://*.google.az/*"
+          "*://*.google.ba/*"
+          "*://*.google.com.bd/*"
+          "*://*.google.be/*"
+          "*://*.google.bf/*"
+          "*://*.google.bg/*"
+          "*://*.google.com.bh/*"
+          "*://*.google.bi/*"
+          "*://*.google.bj/*"
+          "*://*.google.com.bn/*"
+          "*://*.google.com.bo/*"
+          "*://*.google.com.br/*"
+          "*://*.google.bs/*"
+          "*://*.google.bt/*"
+          "*://*.google.co.bw/*"
+          "*://*.google.by/*"
+          "*://*.google.com.bz/*"
+          "*://*.google.ca/*"
+          "*://*.google.cd/*"
+          "*://*.google.cf/*"
+          "*://*.google.cg/*"
+          "*://*.google.ch/*"
+          "*://*.google.ci/*"
+          "*://*.google.co.ck/*"
+          "*://*.google.cl/*"
+          "*://*.google.cm/*"
+          "*://*.google.cn/*"
+          "*://*.google.com.co/*"
+          "*://*.google.co.cr/*"
+          "*://*.google.com.cu/*"
+          "*://*.google.cv/*"
+          "*://*.google.com.cy/*"
+          "*://*.google.cz/*"
+          "*://*.google.de/*"
+          "*://*.google.dj/*"
+          "*://*.google.dk/*"
+          "*://*.google.dm/*"
+          "*://*.google.com.do/*"
+          "*://*.google.dz/*"
+          "*://*.google.com.ec/*"
+          "*://*.google.ee/*"
+          "*://*.google.com.eg/*"
+          "*://*.google.es/*"
+          "*://*.google.com.et/*"
+          "*://*.google.fi/*"
+          "*://*.google.com.fj/*"
+          "*://*.google.fm/*"
+          "*://*.google.fr/*"
+          "*://*.google.ga/*"
+          "*://*.google.ge/*"
+          "*://*.google.gg/*"
+          "*://*.google.com.gh/*"
+          "*://*.google.com.gi/*"
+          "*://*.google.gl/*"
+          "*://*.google.gm/*"
+          "*://*.google.gr/*"
+          "*://*.google.com.gt/*"
+          "*://*.google.gy/*"
+          "*://*.google.com.hk/*"
+          "*://*.google.hn/*"
+          "*://*.google.hr/*"
+          "*://*.google.ht/*"
+          "*://*.google.hu/*"
+          "*://*.google.co.id/*"
+          "*://*.google.ie/*"
+          "*://*.google.co.il/*"
+          "*://*.google.im/*"
+          "*://*.google.coIn/*"
+          "*://*.google.iq/*"
+          "*://*.google.is/*"
+          "*://*.google.it/*"
+          "*://*.google.je/*"
+          "*://*.google.com.jm/*"
+          "*://*.google.jo/*"
+          "*://*.google.co.jp/*"
+          "*://*.google.co.ke/*"
+          "*://*.google.com.kh/*"
+          "*://*.google.ki/*"
+          "*://*.google.kg/*"
+          "*://*.google.co.kr/*"
+          "*://*.google.com.kw/*"
+          "*://*.google.kz/*"
+          "*://*.google.la/*"
+          "*://*.google.com.lb/*"
+          "*://*.google.li/*"
+          "*://*.google.lk/*"
+          "*://*.google.co.ls/*"
+          "*://*.google.lt/*"
+          "*://*.google.lu/*"
+          "*://*.google.lv/*"
+          "*://*.google.com.ly/*"
+          "*://*.google.co.ma/*"
+          "*://*.google.md/*"
+          "*://*.google.me/*"
+          "*://*.google.mg/*"
+          "*://*.google.mk/*"
+          "*://*.google.ml/*"
+          "*://*.google.com.mm/*"
+          "*://*.google.mn/*"
+          "*://*.google.ms/*"
+          "*://*.google.com.mt/*"
+          "*://*.google.mu/*"
+          "*://*.google.mv/*"
+          "*://*.google.mw/*"
+          "*://*.google.com.mx/*"
+          "*://*.google.com.my/*"
+          "*://*.google.co.mz/*"
+          "*://*.google.com.na/*"
+          "*://*.google.com.ng/*"
+          "*://*.google.com.ni/*"
+          "*://*.google.ne/*"
+          "*://*.google.nl/*"
+          "*://*.google.no/*"
+          "*://*.google.com.np/*"
+          "*://*.google.nr/*"
+          "*://*.google.nu/*"
+          "*://*.google.co.nz/*"
+          "*://*.google.com.om/*"
+          "*://*.google.com.pa/*"
+          "*://*.google.com.pe/*"
+          "*://*.google.com.pg/*"
+          "*://*.google.com.ph/*"
+          "*://*.google.com.pk/*"
+          "*://*.google.pl/*"
+          "*://*.google.pn/*"
+          "*://*.google.com.pr/*"
+          "*://*.google.ps/*"
+          "*://*.google.pt/*"
+          "*://*.google.com.py/*"
+          "*://*.google.com.qa/*"
+          "*://*.google.ro/*"
+          "*://*.google.ru/*"
+          "*://*.google.rw/*"
+          "*://*.google.com.sa/*"
+          "*://*.google.com.sb/*"
+          "*://*.google.sc/*"
+          "*://*.google.se/*"
+          "*://*.google.com.sg/*"
+          "*://*.google.sh/*"
+          "*://*.google.si/*"
+          "*://*.google.sk/*"
+          "*://*.google.com.sl/*"
+          "*://*.google.sn/*"
+          "*://*.google.so/*"
+          "*://*.google.sm/*"
+          "*://*.google.sr/*"
+          "*://*.google.st/*"
+          "*://*.google.com.sv/*"
+          "*://*.google.td/*"
+          "*://*.google.tg/*"
+          "*://*.google.co.th/*"
+          "*://*.google.com.tj/*"
+          "*://*.google.tl/*"
+          "*://*.google.tm/*"
+          "*://*.google.tn/*"
+          "*://*.google.to/*"
+          "*://*.google.com.tr/*"
+          "*://*.google.tt/*"
+          "*://*.google.com.tw/*"
+          "*://*.google.co.tz/*"
+          "*://*.google.com.ua/*"
+          "*://*.google.co.ug/*"
+          "*://*.google.co.uk/*"
+          "*://*.google.com.uy/*"
+          "*://*.google.co.uz/*"
+          "*://*.google.com.vc/*"
+          "*://*.google.co.ve/*"
+          "*://*.google.vg/*"
+          "*://*.google.co.vi/*"
+          "*://*.google.com.vn/*"
+          "*://*.google.vu/*"
+          "*://*.google.ws/*"
+          "*://*.google.rs/*"
+          "*://*.google.co.za/*"
+          "*://*.google.co.zm/*"
+          "*://*.google.co.zw/*"
+          "*://*.google.cat/*"
+        ];
         platforms = platforms.all;
       };
     };
@@ -6972,10 +7210,10 @@
     };
     "markdownload" = buildFirefoxXpiAddon {
       pname = "markdownload";
-      version = "3.4.0";
+      version = "3.2.0";
       addonId = "{1c5e4c6f-5530-49a3-b216-31ce7d744db0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4341225/markdownload-3.4.0.xpi";
-      sha256 = "0524c38b6770d09a845ebaea42792043b19e8524dd1fa0cc9c53a658610e6c43";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4006297/markdownload-3.2.0.xpi";
+      sha256 = "d5df4544d1775242872cb3be968188ba281684d5b741da45392b4364278d7119";
       meta = with lib;
       {
         homepage = "https://github.com/deathau/markdown-clipper";
@@ -7032,6 +7270,23 @@
         description = "Soft pastel pink light theme with a few darker Evil maya accents. Fairly bright but should be comfortable for most users.";
         license = licenses.cc-by-30;
         mozPermissions = [];
+        platforms = platforms.all;
+      };
+    };
+    "mergify" = buildFirefoxXpiAddon {
+      pname = "mergify";
+      version = "1.0.10";
+      addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4362877/mergify-1.0.10.xpi";
+      sha256 = "54ad51efc78f2e1dc63875a61df2c6ada7b144e8ea5becfd497613d4d6a089e3";
+      meta = with lib;
+      {
+        description = "Mergify extension for GitHub";
+        license = licenses.asl20;
+        mozPermissions = [
+          "https://github.com/*"
+          "https://dashboard.mergify.com/*"
+        ];
         platforms = platforms.all;
       };
     };
@@ -7893,10 +8148,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "2024.10.2";
+      version = "2024.10.3";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4360495/pakkujs-2024.10.2.xpi";
-      sha256 = "9c1cd213caf3916087e37b113316979bef1ef013836532fc77552c247af737e2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4362401/pakkujs-2024.10.3.xpi";
+      sha256 = "bc6fd10882b0e82027f842ae5246c8113c0b3c03e23e55d8812d97f2011d83c7";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
@@ -7945,10 +8200,10 @@
     };
     "passbolt" = buildFirefoxXpiAddon {
       pname = "passbolt";
-      version = "4.9.2";
+      version = "4.9.3";
       addonId = "passbolt@passbolt.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4344015/passbolt-4.9.2.xpi";
-      sha256 = "ca46bcfca403c94bb5e1526f510f802af78bac57bae0f4ce5a36b84d2ea85cf6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4347268/passbolt-4.9.3.xpi";
+      sha256 = "c17926b508f6a5a70e0b0071e9c5a17e97b95d3acbd9ab60b0a54e5af792f9eb";
       meta = with lib;
       {
         homepage = "https://www.passbolt.com";
@@ -8909,10 +9164,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.22.3";
+      version = "1.23.0";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4344990/proton_pass-1.22.3.xpi";
-      sha256 = "e74105570c528e9f5159fb029316fe9da0884d8a595df30e05c74503edabe761";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4355813/proton_pass-1.23.0.xpi";
+      sha256 = "870bbd32763a7f7b54e326c74596082992684cf0218b71d14bb5df52ee1a7288";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -9041,10 +9296,10 @@
     };
     "pwas-for-firefox" = buildFirefoxXpiAddon {
       pname = "pwas-for-firefox";
-      version = "2.12.4";
+      version = "2.12.5";
       addonId = "firefoxpwa@filips.si";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4353516/pwas_for_firefox-2.12.4.xpi";
-      sha256 = "44f9c0d9d9dc820f3887261ffa01a4b69fb41e19099053513ee5a5818b248f02";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4360044/pwas_for_firefox-2.12.5.xpi";
+      sha256 = "cc8caf700222fc062795bde1081a14395e55b1b6a50a4519c8741d74346b6b11";
       meta = with lib;
       {
         homepage = "https://github.com/filips123/PWAsForFirefox";
@@ -9158,21 +9413,19 @@
     };
     "react-devtools" = buildFirefoxXpiAddon {
       pname = "react-devtools";
-      version = "5.3.1";
+      version = "6.0.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4314064/react_devtools-5.3.1.xpi";
-      sha256 = "376f33d9b1219341eb8be16578b406b3f371c11aace55f68fcad4847e818f076";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4360002/react_devtools-6.0.0.xpi";
+      sha256 = "ed862b7bc65fc67a2cac53c3e4607ab9e54f4871656b048dcc42f49f613a0664";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
         description = "React Developer Tools is a tool that allows you to inspect a React tree, including the component hierarchy, props, state, and more. To get started, just open the Firefox devtools and switch to the \"⚛️ Components\" or \"⚛️ Profiler\" tab.";
         license = licenses.mit;
         mozPermissions = [
-          "file:///*"
-          "http://*/*"
-          "https://*/*"
-          "clipboardWrite"
           "scripting"
+          "storage"
+          "tabs"
           "devtools"
           "<all_urls>"
         ];
@@ -9246,10 +9499,10 @@
     };
     "reddit-enhancement-suite" = buildFirefoxXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.24.6";
+      version = "5.24.7";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4282309/reddit_enhancement_suite-5.24.6.xpi";
-      sha256 = "8065fa2d119e6f6bde2a0d7d2e1696e45709a1583de63bb700eeaa31876f146a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4357190/reddit_enhancement_suite-5.24.7.xpi";
+      sha256 = "f5b4325eba0e6d5be36bf07a5324bdca97a2e44824df83005193a73ca5d7f260";
       meta = with lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -9347,10 +9600,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.9.21";
+      version = "24.10.1";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4357180/refined_github-24.9.21.xpi";
-      sha256 = "b6cc27d1fb085573fd23dc0bdbaea958fad7adc2a8127fed8950ad5dd1dc9d07";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4362555/refined_github-24.10.1.xpi";
+      sha256 = "d922b9094365977860ec490d66fa96b004bb8446084930111514b2d8a6143c1d";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -9547,10 +9800,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "131.0.20240923.135042";
+      version = "132.0.20241002.112648";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4358229/scots_language_pack-131.0.20240923.135042.xpi";
-      sha256 = "1b829ae65fd5b523e9d0d60af769a718a66090736a9fee7190a411bb3d12e056";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4362929/scots_language_pack-132.0.20241002.112648.xpi";
+      sha256 = "d337aa73cd8b27b6c167f47b14db88df8b76839b8a7726532be8f4336001a547";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -9646,6 +9899,26 @@
         description = "Add a custom search engine and export/import all the search urls and icon urls for all search engines added to Firefox.";
         license = licenses.mit;
         mozPermissions = [ "contextMenus" "activeTab" "notifications" ];
+        platforms = platforms.all;
+      };
+    };
+    "semantic-scholar" = buildFirefoxXpiAddon {
+      pname = "semantic-scholar";
+      version = "0.3.9";
+      addonId = "{881084f6-35f8-44c0-b249-15646548bdbf}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3669467/semantic_scholar-0.3.9.xpi";
+      sha256 = "9f18f79117bddf77889c5a049bc835e6ed2fcaf0bfcf2ebbaee15585a7d9f6bf";
+      meta = with lib;
+      {
+        homepage = "https://www.semanticscholar.org";
+        description = "Quickly view research papers and search results on Semantic Scholar, the free, AI-powered academic search engine from the Allen Institute for AI (AI2).";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [ "activeTab" ];
         platforms = platforms.all;
       };
     };
@@ -10016,10 +10289,10 @@
     };
     "smartproxy" = buildFirefoxXpiAddon {
       pname = "smartproxy";
-      version = "1.6";
+      version = "1.6.1";
       addonId = "smartproxy@salarcode.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4357030/smartproxy-1.6.xpi";
-      sha256 = "74cb79468bb5d38e628d3caeac5b5a31b4aa2812cbe0781202eec9a8b92b3a52";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4361752/smartproxy-1.6.1.xpi";
+      sha256 = "1549d4c4d67c5d23dad7ebeae7b28350bffd8452c61eabe9dee81537428d490b";
       meta = with lib;
       {
         homepage = "https://github.com/salarcode/SmartProxy";
@@ -10132,10 +10405,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.9";
+      version = "5.9.3";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4357698/sponsorblock-5.9.xpi";
-      sha256 = "3bce9e8bcadd2117a18ea00ad418969102751b69c77709c3221d74737d3a7dff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4360577/sponsorblock-5.9.3.xpi";
+      sha256 = "ea3d137e458f1a87f406cbb39f3099ee673918c40c1bad5b48bc26e9bfc8be62";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -10712,10 +10985,10 @@
     };
     "tetrio-plus" = buildFirefoxXpiAddon {
       pname = "tetrio-plus";
-      version = "0.26.0";
+      version = "0.27.4";
       addonId = "tetrio-plus@example.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4224653/tetrio_plus-0.26.0.xpi";
-      sha256 = "65fc3803914285d81d05bcd8b914d565352b7bf2fd62e6102182cc9850e2ae2e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4362132/tetrio_plus-0.27.4.xpi";
+      sha256 = "bb408739643fa3dc8af173f0b713a51ce2720fe28ddd28a96823eb98af69b130";
       meta = with lib;
       {
         description = "Custom skins, background music, sound effects, (animated) backgrounds, input display, and touch control support for <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/d94d4f4d9a39d7847f4259e0053e02794a2d7361e70cf03a773b53993e17363d/http%3A//TETR.IO\" rel=\"nofollow\">TETR.IO</a>.";
@@ -11417,10 +11690,10 @@
     };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.59.0";
+      version = "1.60.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4328681/ublock_origin-1.59.0.xpi";
-      sha256 = "1db9c676a07d141f8d36dbbc24f9e3d64a6cc2340dbfc6c848bc4395f96cfb14";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4359936/ublock_origin-1.60.0.xpi";
+      sha256 = "e2cda9b2a1b0a7f6e5ef0da9f87f28df52f8560587ba2e51a3003121cfb81600";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -11477,10 +11750,10 @@
     };
     "ukrainian-dictionary" = buildFirefoxXpiAddon {
       pname = "ukrainian-dictionary";
-      version = "6.4.4";
+      version = "6.5.3";
       addonId = "uk-ua@dictionaries.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4255824/ukrainian_dictionary-6.4.4.xpi";
-      sha256 = "47f2714c36dc2ce40f6ae6d13f44bf01909dbc01f7b43b8d922a24d22439e8ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4363637/ukrainian_dictionary-6.5.3.xpi";
+      sha256 = "73533dff27609f66d326159980e7d731f022c23fefbb933605e2892b740d6d1a";
       meta = with lib;
       {
         homepage = "https://github.com/brown-uk/dict_uk";
@@ -11549,10 +11822,10 @@
     };
     "untrap-for-youtube" = buildFirefoxXpiAddon {
       pname = "untrap-for-youtube";
-      version = "7.6";
+      version = "7.7";
       addonId = "{2662ff67-b302-4363-95f3-b050218bd72c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4360064/untrap_for_youtube-7.6.xpi";
-      sha256 = "0eebdcc1964d3ac8fb4e9e10efacb43089f826afaaa860be7df409cc6b4fabf5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4362399/untrap_for_youtube-7.7.xpi";
+      sha256 = "3d2700e33da02540834ef1e74d10f5e75950280de586852ddf8db25785b3e824";
       meta = with lib;
       {
         homepage = "http://untrap.app";
@@ -11566,7 +11839,6 @@
         mozPermissions = [
           "storage"
           "activeTab"
-          "nativeMessaging"
           "*://*.youtube.com/*"
           "*://www.youtube.com/*"
           "*://m.youtube.com/*"
@@ -12018,10 +12290,10 @@
     };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.25.0";
+      version = "2.26.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4358157/violentmonkey-2.25.0.xpi";
-      sha256 = "f6466e75d01c1dd42320300366bc501ccd7d2aa5afcefaeea37a54eadc8012d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4362578/violentmonkey-2.26.0.xpi";
+      sha256 = "47b61fd463602a38bf67591ab94c60d3f1a02ad4f81b9a8a3de97d5461b2e12e";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
@@ -12168,7 +12440,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/dessant/web-archives#readme";
-        description = "View archived and cached versions of web pages on 10+ search engines, such as the Wayback Machine, Archive․is, Google, Bing and Yandex.";
+        description = "View archived and cached versions of web pages on various search engines, such as the Wayback Machine and Archive․is.";
         license = licenses.gpl3Only;
         mozPermissions = [
           "alarms"

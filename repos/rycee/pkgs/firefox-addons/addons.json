@@ -180,6 +180,9 @@
     "slug": "clearurls"
   },
   {
+    "slug": "click-and-read"
+  },
+  {
     "slug": "cliget"
   },
   {
@@ -813,6 +816,9 @@
     "slug": "linkding-extension"
   },
   {
+    "slug": "linkding-injector"
+  },
+  {
     "slug": "linkhints"
   },
   {
@@ -847,6 +853,13 @@
   },
   {
     "slug": "maya-light"
+  },
+  {
+    "slug": "mergify",
+    "license": {
+      "tag": "predefined",
+      "shortName": "asl20"
+    }
   },
   {
     "slug": "modheader-firefox",
@@ -1267,6 +1280,16 @@
     "pname": "search-by-image"
   },
   {
+    "slug": "semantic-scholar",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
+  },
+  {
     "slug": "session-sync"
   },
   {
@@ -1530,9 +1553,6 @@
   },
   {
     "slug": "ublock-origin"
-  },
-  {
-    "slug": "ublock-origin-lite"
   },
   {
     "slug": "ubo-scope"
