@@ -47,17 +47,17 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1725734591,
-        "narHash": "sha256-XICcds9SL4mIY54pPa87fufhtuDXa2z5rB+WOxhXIUs=",
+        "lastModified": 1728048376,
+        "narHash": "sha256-EmFx4hTC7hf4MTJ3S0JScJlyJZquqKdmqWWYOgxKz8U=",
         "owner": "ryantm",
         "repo": "agenix",
-        "rev": "dcb70a76b73f032353ac343187de4f3332b4cb66",
+        "rev": "5c17dedc8123bb4cf0311d1d97b95be427083375",
         "type": "github"
       },
       "original": {
         "owner": "ryantm",
         "repo": "agenix",
-        "rev": "dcb70a76b73f032353ac343187de4f3332b4cb66",
+        "rev": "5c17dedc8123bb4cf0311d1d97b95be427083375",
         "type": "github"
       }
     },

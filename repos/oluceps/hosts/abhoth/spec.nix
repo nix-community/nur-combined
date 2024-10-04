@@ -54,6 +54,7 @@
 
     hysteria.instances = {
       only = {
+        enable = true;
         serve = true;
         openFirewall = 4432;
         credentials = [

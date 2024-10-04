@@ -259,7 +259,7 @@
       inputs.agenix.follows = "agenix";
     };
     agenix = {
-      url = "github:ryantm/agenix?rev=dcb70a76b73f032353ac343187de4f3332b4cb66";
+      url = "github:ryantm/agenix?rev=5c17dedc8123bb4cf0311d1d97b95be427083375";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     fenix = {
