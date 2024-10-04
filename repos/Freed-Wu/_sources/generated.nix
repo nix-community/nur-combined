@@ -3,10 +3,10 @@
 {
   autotools-language-server = {
     pname = "autotools-language-server";
-    version = "0.0.20";
+    version = "0.0.21";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/a/autotools_language_server/autotools_language_server-0.0.20.tar.gz";
-      sha256 = "sha256-W/jUooAl7WPI2+KVJqoHpAF70iUynrr2NdhyickpyE4=";
+      url = "https://pypi.org/packages/source/a/autotools_language_server/autotools_language_server-0.0.21.tar.gz";
+      sha256 = "sha256-2akB42TCpcrQQAHSKP5yRJUjRm0lN8DR70Uw/B4m/9M=";
     };
   };
   expect-language-server = {
@@ -46,10 +46,10 @@
   };
   mutt-language-server = {
     pname = "mutt-language-server";
-    version = "0.0.11";
+    version = "0.0.12";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/m/mutt_language_server/mutt_language_server-0.0.11.tar.gz";
-      sha256 = "sha256-TIEUaINebINNhQdOaZg4h9cKFxnV3H6wpukX4/ZaBAc=";
+      url = "https://pypi.org/packages/source/m/mutt_language_server/mutt_language_server-0.0.12.tar.gz";
+      sha256 = "sha256-bzBhVkH/Np8kQSWou1hZBYXCJfBDg/d0knJY4Ht7A9g=";
     };
   };
   pyrime = {
@@ -78,10 +78,10 @@
   };
   termux-language-server = {
     pname = "termux-language-server";
-    version = "0.0.25";
+    version = "0.0.26";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/termux_language_server/termux_language_server-0.0.25.tar.gz";
-      sha256 = "sha256-V2ITPsMNqn4F1CQHVoZ388CGcG+1ZKR8dfojAkPR0rU=";
+      url = "https://pypi.org/packages/source/t/termux_language_server/termux_language_server-0.0.26.tar.gz";
+      sha256 = "sha256-PM/mel9hgrXR88mDU4F1O/W6M6V/TxUgFxKtID44mV4=";
     };
   };
   tmux-language-server = {
