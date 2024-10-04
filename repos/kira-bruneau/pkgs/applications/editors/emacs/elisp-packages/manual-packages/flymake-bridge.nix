@@ -8,7 +8,7 @@
 
 melpaBuild {
   pname = "flymake-bridge";
-  version = "0-unstable-2023-10-09";
+  version = "0-unstable-2023-10-08";
 
   src = fetchFromGitHub {
     owner = "liuyinz";
