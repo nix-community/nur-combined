@@ -16,6 +16,7 @@
   libxslt,
   pcre,
   perl,
+  quickjs-ng,
   quictls,
   which,
   zlib,
@@ -64,6 +65,7 @@ stdenv.mkDerivation rec {
     libxslt
     pcre
     perl
+    quickjs-ng
     quictls
     zlib
     zstd
@@ -109,6 +111,10 @@ stdenv.mkDerivation rec {
 
       pushd bundle/stream-echo-nginx-module
       ${patch ./patches/stream-echo-nginx-module.patch}
+      popd
+
+      pushd bundle/nginx-njs
+      sed -i "s#-lquickjs.lto#-lqjs#g" nginx/config
       popd
     '';
 
