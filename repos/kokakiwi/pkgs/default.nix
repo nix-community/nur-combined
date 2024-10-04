@@ -24,6 +24,7 @@ let
   );
 
   applications = importSub ./applications {
+    agree = { };
     aura = { };
     enquirer = { };
     ferdium = { };
