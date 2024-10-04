@@ -182,15 +182,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "58e7b9716e8dc7ea92feeadec79f4bbbf48b0ea7";
+    version = "e94b9116072bc7fa28490602dc7cf8490c6419ed";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "58e7b9716e8dc7ea92feeadec79f4bbbf48b0ea7";
+      rev = "e94b9116072bc7fa28490602dc7cf8490c6419ed";
       fetchSubmodules = false;
-      sha256 = "sha256-Z/a/Y9jHVdqlELq/Ntct9K7p1NV85BX9FszKyZ9M4Vk=";
+      sha256 = "sha256-7F8THSiFrZkZQC2ePqS6KdZzskFMKj5u3JZzye+l5xA=";
     };
-    date = "2024-10-02";
+    date = "2024-10-04";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -509,15 +509,15 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "52020b4f469f9bd40c48e296e9a3e826a11df177";
+    version = "e26ce8952e465762fc0743731aa377ec0b2889ff";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "52020b4f469f9bd40c48e296e9a3e826a11df177";
+      rev = "e26ce8952e465762fc0743731aa377ec0b2889ff";
       fetchSubmodules = false;
-      sha256 = "sha256-YwPf8G1v4cVy/EEG3iMKe2wXIYrJY+l+7YZ95kE7T1s=";
+      sha256 = "sha256-O+7ZehoVOYYdCTboF9XGBR9G6I72987AdbbF1JkrsBc=";
     };
-    date = "2024-09-24";
+    date = "2024-10-04";
   };
   imewlconverter = {
     pname = "imewlconverter";
@@ -648,15 +648,15 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "7f4c89b26fc2a59dd314950f1663eaff037dff72";
+    version = "329869f5592e555923eedd100249d2a10f546f3e";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "7f4c89b26fc2a59dd314950f1663eaff037dff72";
+      rev = "329869f5592e555923eedd100249d2a10f546f3e";
       fetchSubmodules = false;
-      sha256 = "sha256-Y+NhvYU85saN3ZMmM35erZywJrsvsN5C5gjjmGo1eaA=";
+      sha256 = "sha256-6zwC4ouiBB8PHUKslyPrEIYVjwaoEzPjGWH/ruXze3s=";
     };
-    date = "2024-09-30";
+    date = "2024-10-03";
   };
   libqcef = {
     pname = "libqcef";
@@ -764,13 +764,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3869";
+    version = "b3878";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3869";
+      rev = "b3878";
       fetchSubmodules = false;
-      sha256 = "sha256-W5w+yaF2D2bMguUYlQJETsYVWzYCl/AsCGWYa+sfx3I=";
+      sha256 = "sha256-RZw8eZMOsP69pA/7pDHagK1o80nL1+iO+WdM1Nu3thA=";
     };
   };
   lyrica = {

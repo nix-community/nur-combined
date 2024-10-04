@@ -134,7 +134,7 @@ Or, use variables from this repository in case I change them:
 |  | `hesuvi-hrir` | [hesuvi-hrir](https://sourceforge.net/projects/hesuvi/) | 2.0.0.1 | Headphone Surround Virtualizations for Equalizer APO |
 |  | `hi3-ii-martian-font` | [hi3-ii-martian-font](https://github.com/Wenti-D/HI3IIMartianFont) | unstable-2023-10-12 | Font for Martian in Honkai Impact 3rd |
 |  | `hoyo-glyphs` | [hoyo-glyphs](https://github.com/SpeedyOrc-C/Hoyo-Glyphs) | 20240919 | Constructed scripts by Hoyoverse 米哈游的架空文字  |
-| `x86_64-linux` | `i915-sriov` | [i915-sriov](https://github.com/strongtz/i915-sriov-dkms) | unstable-2024-09-24 | DKMS module of Linux i915 driver with SR-IOV support |
+| `x86_64-linux` | `i915-sriov` | [i915-sriov](https://github.com/strongtz/i915-sriov-dkms) | unstable-2024-10-04 | DKMS module of Linux i915 driver with SR-IOV support |
 |  | `imewlconverter` | [imewlconverter](https://github.com/studyzy/imewlconverter) | 3.1.0 | ”深蓝词库转换“ 一款开源免费的输入法词库转换程序 |
 | `x86_64-linux` | `inter-knot` | [inter-knot](https://inot.top) | 2.16.9+36 | 绳网是一个游戏、技术交流平台 |
 |  | `jproxy` | [jproxy](https://github.com/LuckyPuppy514/jproxy) | 3.4.1 | A proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate  |
@@ -146,7 +146,7 @@ Or, use variables from this repository in case I change them:
 |  | `ldap-auth-proxy` | [ldap-auth-proxy](https://github.com/pinepain/ldap-auth-proxy) | unstable-2020-07-29 | A simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend. |
 |  | `libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.2.7 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
 |  | `liboqs` | [liboqs](https://openquantumsafe.org) | 0.11.0 | C library for prototyping and experimenting with quantum-resistant cryptography |
-|  | `liboqs-unstable` | [liboqs](https://openquantumsafe.org) | unstable-2024-09-30 | C library for prototyping and experimenting with quantum-resistant cryptography |
+|  | `liboqs-unstable` | [liboqs](https://openquantumsafe.org) | unstable-2024-10-03 | C library for prototyping and experimenting with quantum-resistant cryptography |
 | `x86_64-linux` | `libqcef` | [libqcef](https://github.com/martyr-deepin/libqcef) | unstable-2019-11-23 | Qt5 binding of CEF |
 |  | `lyrica` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.10 | Linux desktop lyrics widget focused on simplicity and integration |
 |  | `lyrica-plasmoid` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.10 | Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component) |
@@ -284,7 +284,7 @@ Or, use variables from this repository in case I change them:
 |  | `lantianCustomized.coredns` | [coredns](https://github.com/xddxdd/coredns) | 1.11.3 | CoreDNS with Lan Tian's modifications |
 |  | `lantianCustomized.firefox-icon-mikozilla-fireyae` | [firefox-icon-mikozilla-fireyae](https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/) |  | Custom icon "Mikozilla Fireyae" for Firefox |
 |  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.11.2 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
-|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggerganov/llama.cpp/) | 3869 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
+|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggerganov/llama.cpp/) | 3878 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
 |  | `lantianCustomized.nbfc-linux` | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | unstable-2022-06-13 | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
 |  | `lantianCustomized.nginx` | [nginx-lantian](https://openresty.org) | unstable-2024-09-14 | OpenResty with Lan Tian modifications |
 |  | `lantianCustomized.transmission-with-webui` | [transmission](https://www.transmissionbt.com/) | 4.0.6 | Fast, easy and free BitTorrent client |
