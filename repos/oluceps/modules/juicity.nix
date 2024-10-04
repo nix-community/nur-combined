@@ -78,6 +78,10 @@ in
           "network.target"
           "nss-lookup.target"
         ];
+        wants = [
+          "network-online.target"
+          "nss-lookup.target"
+        ];
         description = "juicity daemon";
         serviceConfig =
           let
@@ -100,7 +104,7 @@ in
             ];
             LimitNPROC = 512;
             LimitNOFILE = "infinity";
-            Restart = "on-failure";
+            Restart = "always";
           };
       }
     ) (lib.filterAttrs (_: v: v.enable) cfg.instances);

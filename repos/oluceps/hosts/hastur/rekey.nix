@@ -50,7 +50,6 @@ in
       misskey = {
         rekeyFile = ../../sec/misskey.age;
         mode = "400";
-        owner = "misskey";
       };
       notifychan = {
         rekeyFile = ../../sec/notifychan.age;

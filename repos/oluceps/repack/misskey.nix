@@ -18,9 +18,10 @@ reIf {
     wants = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
     environment = {
-      MISSKEY_CONFIG_YML = config.age.secrets.misskey.path;
+      MISSKEY_CONFIG_YML = "/run/credentials/misskey.service/config";
     };
     serviceConfig = {
+      LoadCredential = [ "config:${config.age.secrets.misskey.path}" ];
       ExecStart = "${pkgs.misskey}/bin/misskey migrateandstart";
       RuntimeDirectory = "misskey";
       RuntimeDirectoryMode = "700";
