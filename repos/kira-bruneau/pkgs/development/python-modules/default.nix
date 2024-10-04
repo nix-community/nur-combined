@@ -1,8 +1,6 @@
-{ lib, pkgs }:
+{ pkgs, ... }:
 
 final: prev:
-
-with final;
 
 let
   callPackage = pkgs.newScope final;

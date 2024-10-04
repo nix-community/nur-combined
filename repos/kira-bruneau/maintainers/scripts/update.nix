@@ -1,6 +1,5 @@
 {
   lib,
-  stdenv,
   writeText,
   writeShellScript,
   packages,

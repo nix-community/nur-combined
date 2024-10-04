@@ -97,6 +97,13 @@
               };
             };
 
+            nixf-tidy-fix = {
+              paths = paths.nix;
+              settings = {
+                variable-lookup = true;
+              };
+            };
+
             nixfmt-rfc-style.paths = paths.nix;
 
             prettier.paths = paths.markdown;

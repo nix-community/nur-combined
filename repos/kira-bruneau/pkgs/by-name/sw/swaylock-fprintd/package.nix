@@ -4,7 +4,7 @@
   substituteAll,
   fprintd,
   dbus,
-  unstableGitUpdater,
+  nix-update-script,
 }:
 
 swaylock.overrideAttrs (attrs: {
@@ -30,6 +30,5 @@ swaylock.overrideAttrs (attrs: {
     fprintd
   ];
 
-  pos = __curPos;
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 })
