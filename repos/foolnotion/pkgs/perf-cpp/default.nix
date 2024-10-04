@@ -7,18 +7,18 @@
 
 stdenv.mkDerivation rec {
   pname = "perf-cpp";
-  version = "0.6.0";
+  version = "0.7.0";
 
   src = fetchFromGitHub {
-    owner = "foolnotion";
+    owner = "jmuehlig";
     repo = "perf-cpp";
-    rev = "59c22842571c1c17a5df9c7e86167e6ce5b0550f";
-    hash = "sha256-Miv9vLymQuTmJsqDiPaAyhNlto5wOdJ83ZlkogXYoek=";
+    rev = "f9b81a48e6dfd789a053b917624060cf72f7f3b2";
+    hash = "sha256-6lhrRtjNgoJ1muLDECM/ktX5cEuJkSuUClskubHWyMc=";
   };
 
   nativeBuildInputs = [ cmake ];
 
-  cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ] ++ lib.optional buildShared "-DBUILD_SHARED_LIBS=ON";
+  cmakeFlags = [ ] ++ lib.optional buildShared "-DBUILD_SHARED_LIBS=ON";
 
   meta = with lib; {
     description = "C++ library to make performance analysis more intuitive and focused";
