@@ -72,6 +72,7 @@ in
       gopass-env
       gopass-ydotool
       gtk4-icon-browser
+      guetzli
       guvcview
       htop
       httpie

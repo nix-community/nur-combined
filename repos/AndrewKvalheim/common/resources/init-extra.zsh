@@ -70,4 +70,4 @@ idiff() { compare "$@" png:- | kitty +kitten icat }
 mkcd() { mkdir --parents "$@" && cd "${@:$#}" }
 nest() { mv --no-clobber --verbose "$1" "$1.original" && mkdir "$1" && mv --no-clobber --verbose "$1.original" "$1/$(basename "$1")" }
 rd() { diff --recursive --unified "$@" | delta }
-rdw() { diff --ignore-all-space --recursive --unified "$@" | delta }
+rdw() { diff --ignore-all-space --ignore-blank-lines --recursive --unified "$@" | delta }
