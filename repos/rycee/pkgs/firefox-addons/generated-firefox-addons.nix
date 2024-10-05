@@ -2149,10 +2149,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "132.0.20241002.112648";
+      version = "132.0.20241004.91740";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4363056/deutsch_de_language_pack-132.0.20241002.112648.xpi";
-      sha256 = "8518e799367135581ccb7bbdd62b85c4b22319d91cc15d47457aab6bab4dd1e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4364071/deutsch_de_language_pack-132.0.20241004.91740.xpi";
+      sha256 = "6fe7e0a23f055dc3489d2a5ae48b296e0df2a48259d71ea971bf27f505b1146f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3315,10 +3315,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "132.0.20241002.112648";
+      version = "132.0.20241004.91740";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4363034/francais_language_pack-132.0.20241002.112648.xpi";
-      sha256 = "41e31217d9b7bd99c79410319f5246127ee22f9b8bc83e2af5a99eefee5978ff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4364003/francais_language_pack-132.0.20241004.91740.xpi";
+      sha256 = "b06783d75b91b0fcca646d7db59f485bd1d42d5f1b99fb6263be6a86b1ad745c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3352,10 +3352,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "132.0.20241002.112648";
+      version = "132.0.20241004.91740";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4363092/gaidhlig_language_pack-132.0.20241002.112648.xpi";
-      sha256 = "9bfb19544b46e040d0dbd08890a18155381692adc286aa516802eba28b426f1e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4364010/gaidhlig_language_pack-132.0.20241004.91740.xpi";
+      sha256 = "7cba80030b225e4fdb07eb23d1c3e364ecf354ebb774d8510268e768af87ba82";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -3604,14 +3604,14 @@
     };
     "gopass-bridge" = buildFirefoxXpiAddon {
       pname = "gopass-bridge";
-      version = "0.9.0";
+      version = "1.0.0";
       addonId = "{eec37db0-22ad-4bf1-9068-5ae08df8c7e9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3933988/gopass_bridge-0.9.0.xpi";
-      sha256 = "3ef72f32eabc9092591076a2093b3341cb1a9e6c57631655a97c7bcecab80420";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4364396/gopass_bridge-1.0.0.xpi";
+      sha256 = "f073b83e73c010d8f783c53a562ee424af9f56acb98e74aa466fef8414fc53b8";
       meta = with lib;
       {
         homepage = "https://github.com/gopasspw/gopassbridge";
-        description = "Gopass Bridge allows searching and inserting login credentials from the gopass password manager ( <a rel=\"nofollow\" href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/fa484fa7cde64c1be04f689a80902fdf34bfe274b8675213f619c3a13e6606ab/https%3A//www.gopass.pw/\">https://www.gopass.pw/</a> ).";
+        description = "Gopass Bridge allows searching, inserting and managing login credentials from the gopass password manager.";
         license = licenses.mit;
         mozPermissions = [
           "<all_urls>"
@@ -5021,10 +5021,10 @@
     };
     "i2p-in-private-browsing" = buildFirefoxXpiAddon {
       pname = "i2p-in-private-browsing";
-      version = "2.6.0";
+      version = "2.7.0";
       addonId = "i2ppb@eyedeekay.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4339795/i2p_in_private_browsing-2.6.0.xpi";
-      sha256 = "ab75b4c58e2e669d353632d4a920102576e81f6cff81d7a102a1f9cd7637ac79";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4364373/i2p_in_private_browsing-2.7.0.xpi";
+      sha256 = "7f5a09ed83b11e74f2b7308b42b80687187e83cf414d2dddfe0780c1d575c2fb";
       meta = with lib;
       {
         homepage = "https://github.com/eyedeekay/i2psetproxy.js";
@@ -5628,10 +5628,10 @@
     };
     "kagi-search" = buildFirefoxXpiAddon {
       pname = "kagi-search";
-      version = "0.7.1";
+      version = "0.7.2";
       addonId = "search@kagi.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4307128/kagi_search_for_firefox-0.7.1.xpi";
-      sha256 = "78c28702ebe56d920a64010f413540880065c45eae2ee58823941d7e1fd49059";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4360390/kagi_search_for_firefox-0.7.2.xpi";
+      sha256 = "ea55fbfdc8afd574f954317c9ad0a63cd9a65387d2a1ef01ec230677d2098ed4";
       meta = with lib;
       {
         homepage = "https://kagi.com";
@@ -9800,10 +9800,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "132.0.20241002.112648";
+      version = "132.0.20241004.91740";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4362929/scots_language_pack-132.0.20241002.112648.xpi";
-      sha256 = "d337aa73cd8b27b6c167f47b14db88df8b76839b8a7726532be8f4336001a547";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4364053/scots_language_pack-132.0.20241004.91740.xpi";
+      sha256 = "0506982a2ffd84d4112ef2d70eb51fd612bb41856a70dd76b5940470aadbc0ec";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
