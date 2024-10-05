@@ -12,7 +12,7 @@ let
         themes = {
           base = {
             fastfetch.enable = true;
-            firefox.verticalTabs = true;
+            # firefox.verticalTabs = true;
             # hyprland.dynamicCursors.enable = true;
             nushell.enable = true;
           };
@@ -51,7 +51,7 @@ in
 optionalAttrs (readDir ./. ? "_base.nix") {
   imports = [ ../_options.nix ];
 
-  homeConfigurations."weathercold@arch-disk" = {
+  homeConfigurations."weathercold@cachyos-redmibook" = {
     system = "x86_64-linux";
     modules = [
       # inputs.bocchi-cursors.homeModules.bocchi-cursors-shadowBlack

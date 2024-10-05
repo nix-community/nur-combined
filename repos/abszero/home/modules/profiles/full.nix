@@ -21,7 +21,7 @@ in
         carapace.enable = true;
         direnv.enable = true;
         dotdrop.enable = true;
-        firefox.enable = true;
+        # firefox.enable = true;
         git.enable = true;
         nushell.enable = true;
         starship.enable = true;
@@ -38,7 +38,7 @@ in
       cat = "bat";
       lns = "ln -s";
       f = "fastfetch";
-      nvl = "~/src/lightnovel.sh/lightnovel.sh";
+      nvl = "lightnovel.sh";
     };
 
     services.arrpc.enable = true;
