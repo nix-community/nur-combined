@@ -13,6 +13,8 @@ rec {
 
   lib = {
     inherit (import ./common/resources/lib.nix { inherit (pkgs) lib; })
+      chebyshev
+      chebyshevWithDomain
       contrastRatio
       linearRgbToRgb
       oklchToCss
