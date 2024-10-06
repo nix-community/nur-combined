@@ -3199,11 +3199,6 @@
     "pname": "qbittorrent-enhanced-edition-release",
     "version": "4.6.7.10"
   },
-  "legacyPackages.x86_64-linux.qemu-user-static": {
-    "description": "A generic and open source machine emulator and virtualizer",
-    "pname": "qemu-user-static",
-    "version": "9.1.0+ds-8"
-  },
   "legacyPackages.x86_64-linux.qhttpengine": {
     "description": "HTTP server for Qt applications",
     "pname": "qhttpengine-unstable",
@@ -3988,11 +3983,6 @@
     "description": "Featureful free software BitTorrent client",
     "pname": "qbittorrent-enhanced-edition-release",
     "version": "4.6.7.10"
-  },
-  "packages.x86_64-linux.qemu-user-static": {
-    "description": "A generic and open source machine emulator and virtualizer",
-    "pname": "qemu-user-static",
-    "version": "9.1.0+ds-8"
   },
   "packages.x86_64-linux.qhttpengine": {
     "description": "HTTP server for Qt applications",
