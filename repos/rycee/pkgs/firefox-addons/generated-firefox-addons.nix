@@ -13020,10 +13020,10 @@
     };
     "youtube-redux" = buildFirefoxXpiAddon {
       pname = "youtube-redux";
-      version = "3.4.1";
+      version = "3.5.0";
       addonId = "{2d4c0962-e9ff-4cad-8039-9a8b80d9b8b6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4224361/youtube_redux-3.4.1.xpi";
-      sha256 = "734dee3b7d32ca972af10dd462b0d9d5af0939ad54627733bd83b15a0021176e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4364791/youtube_redux-3.5.0.xpi";
+      sha256 = "d207395ec4c6cde1c37713c4ba972b0726c9f170cabd36621a96b803322316b2";
       meta = with lib;
       {
         description = "Replicate old YouTube look and features within the modern layout!";
