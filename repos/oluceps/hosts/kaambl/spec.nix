@@ -1,7 +1,7 @@
 {
   pkgs,
   config,
-  user,
+  lib,
   ...
 }:
 {
@@ -48,6 +48,7 @@
   programs.sway.enable = false;
   programs.gtklock.enable = true;
 
+  systemd.oomd.enable = lib.mkForce false;
   systemd.user.services.add-ssh-keys = {
     script = ''
       eval `${pkgs.openssh}/bin/ssh-agent -s`
@@ -64,6 +65,7 @@
     garage.enable = true;
     dae.enable = true;
     dnsproxy.enable = true;
+    earlyoom.enable = true;
   };
 
   services = {
