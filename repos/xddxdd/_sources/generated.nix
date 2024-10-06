@@ -182,13 +182,13 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "e94b9116072bc7fa28490602dc7cf8490c6419ed";
+    version = "f648c80b3f83f152b23b5c6833413f4bcaa5ea6b";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "e94b9116072bc7fa28490602dc7cf8490c6419ed";
+      rev = "f648c80b3f83f152b23b5c6833413f4bcaa5ea6b";
       fetchSubmodules = false;
-      sha256 = "sha256-7F8THSiFrZkZQC2ePqS6KdZzskFMKj5u3JZzye+l5xA=";
+      sha256 = "sha256-IRQL8sd6Fx8LoydzL3K48bgszN9ZBCx9bg6krTCb0pM=";
     };
     date = "2024-10-04";
   };
@@ -720,13 +720,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.11.1-xanmod1";
+    version = "6.11.2-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.11.1-xanmod1";
+      rev = "6.11.2-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-Wev7qAJ0U4AtE8WTJpNGK63WVhcTBD5oPVKcZDTwJXQ=";
+      sha256 = "sha256-4BXPZs8lp/O/JGWFIO/J1HyOjByaqWQ9O6/jx76TIDs=";
     };
   };
   linux-xanmod-6_0 = {
@@ -753,24 +753,24 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.53-xanmod1";
+    version = "6.6.54-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.53-xanmod1";
+      rev = "6.6.54-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-hNEAwPV2ZFUzWMBDZAVNIcdVR+XrIaQamj+rXERPo8Q=";
+      sha256 = "sha256-i6Rm0Qasgxpw9XcK938IJ+qZ+V2z82zpuly2Au2J18Q=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3878";
+    version = "b3887";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3878";
+      rev = "b3887";
       fetchSubmodules = false;
-      sha256 = "sha256-RZw8eZMOsP69pA/7pDHagK1o80nL1+iO+WdM1Nu3thA=";
+      sha256 = "sha256-dZXJBOaMZgfPosv5QSTh06ht1O2vbADU2seo4DC0Ifw=";
     };
   };
   lyrica = {
