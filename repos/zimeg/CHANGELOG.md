@@ -8,6 +8,7 @@ and are noted with a `!` in the message.
 
 ## Changes
 
+- feat(pkgs/telescope-git-conflicts-nvim): preview conflict in editor 2024-10-05
 - chore(pkgs/etime): bump version to 1.1.1 for fixed bugs with 1.21.6 2024-09-09
 - chore(pkgs/proximity-nvim): mark the latest tagged version of 0.1.0 2024-08-04
 - chore(pkgs/etime): bump version to 1.1.0 which introduces man pages 2024-08-03
