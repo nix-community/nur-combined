@@ -1,70 +1,74 @@
-{ pkgs
-, lib
-, fetchurl
-, fetchFromGitHub
-, buildPythonPackage
-, setuptools-scm
-, pymatting
-, jsonschema
-, filetype
-, scikitimage
-, installShellFiles
-, pillow
-, tqdm
-, fastapi
-, numpy
-, uvicorn
-, asyncer
-, aiohttp
-, gradio
-, onnxruntime
-, opencv4
-, runCommandLocal
-, rembg
-, pooch
-, watchdog
-, symlinkJoin
-, imagehash
-, testers
+{
+  pkgs,
+  lib,
+  fetchurl,
+  fetchFromGitHub,
+  buildPythonPackage,
+  setuptools-scm,
+  pymatting,
+  jsonschema,
+  filetype,
+  scikitimage,
+  installShellFiles,
+  pillow,
+  tqdm,
+  fastapi,
+  numpy,
+  uvicorn,
+  asyncer,
+  aiohttp,
+  gradio,
+  onnxruntime,
+  opencv4,
+  runCommandLocal,
+  rembg,
+  pooch,
+  watchdog,
+  symlinkJoin,
+  imagehash,
+  testers,
 }:
 
 let
-  models = lib.mapAttrsToList
-    (name: hash:
-      fetchurl {
-        inherit name hash;
-        url =
-          "https://github.com/danielgatis/rembg/releases/download/v0.0.0/${name}.onnx";
-      })
-    {
-      u2net = "sha256-jRDS87t1rjttUnx3lE/F59zZSymAnUenOaenKKkStJE=";
-      u2netp = "sha256-MJyEaSWN2nQnk9zg6+qObdOTF0+Jk0cz7MixTHb03dg=";
-      u2net_human_seg = "sha256-AetqKaXE2O2zC1atrZuzoqBTUzjkgHJKIT4Kz9LRxzw=";
-      u2net_cloth_seg = "sha256-bSy8J7+9yYnh/TJWVtZZAuzGo8y+lLLTZV7BFO/LEo4=";
-      silueta = "sha256-ddpsjS+Alux0PQcZUb5ztKi8ez5R2aZiXWNkT5D/7ts=";
-      isnet-general-use = "sha256-YJIOmcRUZPK6V77irQjJGaUrv4UnOelpR/u0NYwNlko=";
-    };
+  models =
+    lib.mapAttrsToList
+      (
+        name: hash:
+        fetchurl {
+          inherit name hash;
+          url = "https://github.com/danielgatis/rembg/releases/download/v0.0.0/${name}.onnx";
+        }
+      )
+      {
+        u2net = "sha256-jRDS87t1rjttUnx3lE/F59zZSymAnUenOaenKKkStJE=";
+        u2netp = "sha256-MJyEaSWN2nQnk9zg6+qObdOTF0+Jk0cz7MixTHb03dg=";
+        u2net_human_seg = "sha256-AetqKaXE2O2zC1atrZuzoqBTUzjkgHJKIT4Kz9LRxzw=";
+        u2net_cloth_seg = "sha256-bSy8J7+9yYnh/TJWVtZZAuzGo8y+lLLTZV7BFO/LEo4=";
+        silueta = "sha256-ddpsjS+Alux0PQcZUb5ztKi8ez5R2aZiXWNkT5D/7ts=";
+        isnet-general-use = "sha256-YJIOmcRUZPK6V77irQjJGaUrv4UnOelpR/u0NYwNlko=";
+      };
   U2NET_HOME = symlinkJoin {
     name = "u2net-home";
-    paths = map
-      (x:
-        runCommandLocal "u2net_home" { }
-          "mkdir $out && ln -s ${x} $out/${x.name}.onnx ")
-      models;
+    paths = map (
+      x: runCommandLocal "u2net_home" { } "mkdir $out && ln -s ${x} $out/${x.name}.onnx "
+    ) models;
   };
 in
 buildPythonPackage rec {
   pname = "rembg";
-  version = "2.0.55";
+  version = "2.0.59";
 
   src = fetchFromGitHub {
     owner = "danielgatis";
     repo = "rembg";
     rev = "v${version}";
-    sha256 = "sha256-2a9lOr2k+G0AoxMafYIlAVbHrnA7SXicne2GPD1Yxqg=";
+    sha256 = "sha256-ESsKsTj0SlzyeLaxyof6lEDJQ5ZiPprEGqDClKfVZWw=";
   };
 
-  nativeBuildInputs = [ setuptools-scm installShellFiles ];
+  nativeBuildInputs = [
+    setuptools-scm
+    installShellFiles
+  ];
 
   # pythonRelaxDeps = true;
 
@@ -103,13 +107,12 @@ buildPythonPackage rec {
     export NUMBA_CACHE_DIR=$TMPDIR
   '';
   # doInstallCheck = false;
-  doCheck=false;
+  doCheck = false;
   # pythonImportsCheck = [ "rembg" ];
 
-  passthru.tests.version =
-    (testers.testVersion { package = rembg; }).overrideAttrs {
-      NUMBA_CACHE_DIR = "/tmp";
-    };
+  passthru.tests.version = (testers.testVersion { package = rembg; }).overrideAttrs {
+    NUMBA_CACHE_DIR = "/tmp";
+  };
 
   meta = with lib; {
     description = "Tool to remove images background";
