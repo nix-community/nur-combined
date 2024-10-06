@@ -39,6 +39,7 @@
 
   nix = {
     package = pkgs.nixVersions.stable;
+    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
     channel.enable = false;
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
 
@@ -102,6 +103,7 @@
         "cgroups"
         "recursive-nix"
         "ca-derivations"
+        "pipe-operator"
       ];
       auto-allocate-uids = true;
       use-cgroups = true;

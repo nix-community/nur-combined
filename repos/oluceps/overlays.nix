@@ -3,7 +3,6 @@
   (
     final: prev:
     prev.lib.genAttrs [
-      "nil"
       "ragenix"
       "prismlauncher"
       "resign"
