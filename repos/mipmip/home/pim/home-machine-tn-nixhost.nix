@@ -6,11 +6,10 @@ in
 {
   imports = [
     ./_hm-modules
-    ./home-base-all.nix
+    ./_roles/home-base-all.nix
   ];
 
   home.packages = [
-    pkgs.neovim
     pkgs.gnumake
     pkgs.gcc
     pkgs.pkg-config

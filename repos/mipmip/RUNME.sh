@@ -14,11 +14,11 @@ nixclean(){
   sudo nix store optimise
 }
 
-make_command "macbrew" "Run brew bundle"
-macbrew(){
-  cd ~ && brew bundle
-}
-
+#make_command "macbrew" "Run brew bundle"
+#macbrew(){
+#  cd ~ && brew bundle
+#}
+#
 make_command "pcirescan" "Rescan for devices that don't wake up"
 pcirescan(){
   sudo echo "1" /sys/bus/pci/rescan
@@ -50,8 +50,11 @@ missing_modules(){
 }
 
 # MACHINE BOOTSTRAP COMMAND
-make_command "setup_aws_key" "copy credentials-file"
+make_command "setup_aws_key" "bootstrap AWS configuration on new machine"
 setup_aws_key(){
+  mkdir -p ~/.aws
+  chmod 700 ~/.aws
+
   if [ ~/.aws/credentials ]; then
     cp ~/.aws/credentials ~/.aws/credentials.bak
     chmod 600 ~/.aws/credentials.bak
@@ -65,37 +68,42 @@ setup_aws_key(){
   fi
   age --decrypt -i ~/.ssh/id_ed25519 ./secrets/aws-config-copy-first-time-only.age > ~/.aws/config
   chmod 600 ~/.aws/config
+
+  copy_aws_other_accounts
+  technativeawsupdate
 }
 
-make_command "copy_aws_other_accounts" "copy aws_other_accounts"
+make_command "technativeawsupdate" "update AWS account info from technative"
+technativeawsupdate(){
+  aws-mfa --profile technative --device arn:aws:iam::521402697040:mfa/pim@technative.nl
+  aws --profile=technative-web_dns s3 cp s3://docs-mcs.technative.eu-longhorn/managed_service_accounts.json ~/.aws/
+}
+
+make_command "copy_aws_other_accounts" "copy AWS other accounts"
 copy_aws_other_accounts(){
   age --decrypt -i ~/.ssh/id_ed25519 ./secrets/aws-accounts.json.age > ~/.aws/other_accounts.json
   chmod 600 ~/.aws/other_accounts.json
 }
 
-make_command "disable_mac_trackpad" "disable trackpad when it acts funny"
-disable_mac_trackpad(){
-  xinput set-prop 13 "Device Enabled" 0
-}
-
-make_command "fixmacnixpath" "set nix path on the mac"
-fixmacnixpath(){
-  set -a
-  . /nix/var/nix/profiles/default/etc/profile.d/nix.sh
-  . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-  . ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-
-  export NIX_PROFILES
-  export NIX_SSL_CERT_FILE
-  export MANPATH="$NIX_LINK/share/man:$MANPATH"
-  export PATH=$PATH
-  echo $PATH
-  export  __HM_SESS_VARS_SOURCED
-}
-
-make_command "technativeawsupdate" "update account info from technative"
-technativeawsupdate(){
-  aws --profile=technative-web_dns s3 cp s3://docs-mcs.technative.eu-longhorn/managed_service_accounts.json ~/.aws/
-}
-
-runme
+#make_command "disable_mac_trackpad" "disable trackpad when it acts funny"
+#disable_mac_trackpad(){
+#  xinput set-prop 13 "Device Enabled" 0
+#}
+#
+#make_command "fixmacnixpath" "set nix path on the mac"
+#fixmacnixpath(){
+#  set -a
+#  . /nix/var/nix/profiles/default/etc/profile.d/nix.sh
+#  . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+#  . ~/.nix-profile/etc/profile.d/hm-session-vars.sh
+#
+#  export NIX_PROFILES
+#  export NIX_SSL_CERT_FILE
+#  export MANPATH="$NIX_LINK/share/man:$MANPATH"
+#  export PATH=$PATH
+#  echo $PATH
+#  export  __HM_SESS_VARS_SOURCED
+#}
+#
+#
+#runme
