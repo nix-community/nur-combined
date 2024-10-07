@@ -4,6 +4,7 @@
     allegro5, enet,
     makeBinaryWrapper, desktopToDarwinBundle, writeDarwinBundle,
     disableNativeImageLoader,
+    pkg-config,
     common
 }: let
     allegro5' = if disableNativeImageLoader then allegro5.overrideAttrs (old: {
@@ -23,19 +24,12 @@
         inherit (common) version src;
         dubLock = ./dub-lock.json;
         dubBuildType = "releaseXDG";
-        nativeBuildInputs = lib.optionals stdenvNoCC.isDarwin [makeBinaryWrapper (desktopToDarwinBundleWithCustomPlistEntries {
+        nativeBuildInputs = [pkg-config] ++ lib.optionals stdenvNoCC.isDarwin [makeBinaryWrapper (desktopToDarwinBundleWithCustomPlistEntries {
             CFBundleIdentifier = "com.lixgame.Lix";
             LSApplicationCategoryType = "public.app-category.puzzle-games";
             NSHighResolutionCapable = true;
         })];
         buildInputs = [allegro5' enet];
-        postPatch = ''
-        sed -E -i '
-            /libs-posix/ a\
-            "allegro", "allegro_audio", "allegro_font",
-            /libs-posix/,/\]/ s/-5//g
-        ' dub.json
-        '';
         
         # Ugly hack: I need to patch a few dub dependencies, and they're copied in by configurePhase, so I have to do it here.
         # Patch #1: Make derelict-enet use the full path to enet, so we don't have to handle it in a wrapper.
