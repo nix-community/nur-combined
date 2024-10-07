@@ -1,22 +1,19 @@
+{ lib, ... }:
 let
   modules = {
     networking = {
-      netns = import ./networking/netns.nix;
-      shadowsocks-rust = import ./networking/shadowsocks-rust.nix;
+      netns = ./networking/netns.nix;
+      shadowsocks-rust = ./networking/shadowsocks-rust.nix;
     };
     services = {
-      pueue = import ./services/pueue.nix;
-      qbittorrent = import ./services/qbittorrent.nix;
+      pueue = ./services/pueue.nix;
+      qbittorrent = ./services/qbittorrent.nix;
     };
   };
 
-  inherit (builtins) attrValues;
-  concat = lists:
-    builtins.foldl' (acc: elem: acc ++ elem) [ ] lists;
-
-  all-modules = concat [
-    (attrValues modules.networking)
-    (attrValues modules.services)
+  all-modules = lib.concat [
+    (lib.attrValues modules.networking)
+    (lib.attrValues modules.services)
   ];
 in modules // {
   inherit all-modules;

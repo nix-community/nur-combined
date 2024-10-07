@@ -10,6 +10,9 @@ let
 
   top-level = {
     lib = importSet ./lib;
-    modules = import ./modules;
+    modules = import ./modules {
+      inherit pkgs;
+      inherit (pkgs) lib;
+    };
   };
 in packages // top-level
