@@ -28,6 +28,8 @@
       "10.0.4.6" = [ "eihort.nyaw.xyz" ];
       "10.0.1.2" = [
         "s3.nyaw.xyz"
+      ];
+      "10.0.4.2" = [
         "hastur.nyaw.xyz"
       ];
     };
