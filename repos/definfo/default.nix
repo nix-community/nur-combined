@@ -10,15 +10,18 @@
   pkgs ? import <nixpkgs> { config.allowInsecurePredicate = _: true; },
 }:
 
+let
+  source = (import ./_sources/generated.nix) { inherit (pkgs) fetchgit fetchurl fetchFromGitHub dockerTools; }; # nvfetcher
+in
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  lyricer = pkgs.callPackage ./pkgs/lyricer { };
-  audacious = pkgs.qt6Packages.callPackage ./pkgs/audacious { };
-  rime-ls = pkgs.callPackage ./pkgs/rime-ls { };
-  sjtu-canvas-helper = pkgs.callPackage ./pkgs/sjtu-canvas-helper { };
-  flexcpp = pkgs.callPackage ./pkgs/flexc++ { };
+  lyricer = pkgs.callPackage ./pkgs/lyricer { source = source.lyricer;  };
+  audacious = pkgs.qt6Packages.callPackage ./pkgs/audacious { source = source.audacious; };
+  rime-ls = pkgs.callPackage ./pkgs/rime-ls { source = source.rime-ls; };
+  sjtu-canvas-helper = pkgs.callPackage ./pkgs/sjtu-canvas-helper { source = source.sjtu-canvas-helper; };
+  flexcpp = pkgs.callPackage ./pkgs/flexc++ { source = source.flexcpp; };
 }

@@ -1,4 +1,5 @@
 {
+  source,
   lib,
   stdenv,
   fetchurl,
@@ -12,21 +13,16 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "sjtu-canvas-helper";
-  version = "1.3.16";
-  src = fetchurl {
-    url = "https://github.com/Okabe-Rintarou-0/SJTU-Canvas-Helper/releases/download/app-v${version}/sjtu-canvas-helper_${version}_amd64.deb";
-    hash = "sha256-7HhhsYfi5M/U1JFqxoOJd6PMC+9aNkt9AigbGTcLzyo=";
-  };
+  inherit (source) pname src version ;
 
   nativeBuildInputs = [
     dpkg
     wrapGAppsHook3
     autoPatchelfHook
   ];
-  
+
   buildInputs = [
-    openssl_1_1
+    openssl_1_1 # ! insecure
     webkitgtk
     stdenv.cc.cc
   ];

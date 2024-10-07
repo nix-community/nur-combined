@@ -1,8 +1,8 @@
 {
+  source,
   lib,
   stdenv,
   rustPlatform,
-  fetchFromGitHub,
   pkg-config,
   makeWrapper,
   librime,
@@ -11,24 +11,9 @@
   rimeDataPkgs ? [ rime-data ],
 }:
 rustPlatform.buildRustPackage rec {
-  pname = "rime-ls";
-  version = "0.4.0";
+  inherit (source) pname src version;
 
-  src = fetchFromGitHub {
-    owner = "wlh320";
-    repo = pname;
-    rev = "v${version}";
-    hash = "sha256-ZqoRFIF3ehfEeTN+ZU+/PAzA4JyS1403+sqZdzwJHA8=";
-  };
-
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-    outputHashes = {
-      "librime-sys-0.1.0" = "sha256-zJShR0uaKH42RYjTfrBFLM19Jaz2r/4rNn9QIumwTfA=";
-    };
-  };
-
-  cargoHash = lib.fakeHash;
+  cargoLock = source.cargoLock."Cargo.lock";
 
   rimeDataDrv = symlinkJoin {
     name = "rime-ls-rime-data";

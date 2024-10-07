@@ -1,0 +1,112 @@
+{
+    "audacious": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "audacious",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "audacious-media-player",
+            "repo": "audacious",
+            "rev": "audacious-4.4.1",
+            "sha256": "sha256-Bz/OI38+IFTHlBH3p2NTzSj8YD/7Xd4JeWpHgCSpMXw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "audacious-4.4.1"
+    },
+    "flexcpp": {
+        "cargoLocks": null,
+        "date": "2024-06-22",
+        "extract": null,
+        "name": "flexcpp",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "dcc05b1f1d2610572666b7ac77200ed41f558503",
+            "sha256": "sha256-hnsWJATdA24kxuOmH7x8HMH9nPFXAAThofXvshuWk0s=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://gitlab.com/fbb-git/flexcpp"
+        },
+        "version": "dcc05b1f1d2610572666b7ac77200ed41f558503"
+    },
+    "lyricer": {
+        "cargoLocks": {
+            "Cargo.lock": [
+                "./lyricer-f0f8d99b23102755ce7c70830127b23cfde96f3e/Cargo.lock",
+                {}
+            ]
+        },
+        "date": "2020-11-15",
+        "extract": null,
+        "name": "lyricer",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "moelife-coder",
+            "repo": "lyricer",
+            "rev": "f0f8d99b23102755ce7c70830127b23cfde96f3e",
+            "sha256": "sha256-sviP/0b77uu+C9ihfHnYNwIehStBp5m2WIDW9sqVq1k=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "f0f8d99b23102755ce7c70830127b23cfde96f3e"
+    },
+    "rime-ls": {
+        "cargoLocks": {
+            "Cargo.lock": [
+                "./rime-ls-v0.4.0/Cargo.lock",
+                {
+                    "librime-sys-0.1.0": "sha256-zJShR0uaKH42RYjTfrBFLM19Jaz2r/4rNn9QIumwTfA="
+                }
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "rime-ls",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "wlh320",
+            "repo": "rime-ls",
+            "rev": "v0.4.0",
+            "sha256": "sha256-ZqoRFIF3ehfEeTN+ZU+/PAzA4JyS1403+sqZdzwJHA8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.4.0"
+    },
+    "sjtu-canvas-helper": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "sjtu-canvas-helper",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-dQUgiX2zWZA/2sH3gFPkZ7OQbyEJxEtG61piwmncFNU=",
+            "type": "url",
+            "url": "https://github.com/Okabe-Rintarou-0/SJTU-Canvas-Helper/releases/download/app-v1.3.19/sjtu-canvas-helper_1.3.19_amd64.deb"
+        },
+        "version": "1.3.19"
+    }
+}

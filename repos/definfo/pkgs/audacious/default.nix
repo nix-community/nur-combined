@@ -1,8 +1,8 @@
 {
+  source,
   lib,
   stdenv,
   audacious-plugins,
-  fetchFromGitHub,
   meson,
   ninja,
   pkg-config,
@@ -13,16 +13,8 @@
   wrapGAppsHook,
 }:
 
-stdenv.mkDerivation rec {
-  pname = "audacious";
-  version = "4.4";
-
-  src = fetchFromGitHub {
-    owner = "audacious-media-player";
-    repo = "audacious";
-    rev = "${pname}-${version}";
-    hash = "sha256-qAJztvNI3uGmQfECJJ7tJ/xLLgMU5OiW0O3ZSJhvt0k=";
-  };
+stdenv.mkDerivation {
+  inherit (source) pname version src;
 
   nativeBuildInputs = [
     meson

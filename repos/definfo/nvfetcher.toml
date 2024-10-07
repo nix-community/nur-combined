@@ -1,0 +1,22 @@
+[audacious]
+src.github = "audacious-media-player/audacious"
+fetch.github = "audacious-media-player/audacious"
+
+[flexcpp]
+src.git = "https://gitlab.com/fbb-git/flexcpp"
+fetch.git = "https://gitlab.com/fbb-git/flexcpp"
+
+[lyricer]
+src.git = "https://github.com/moelife-coder/lyricer"
+fetch.github = "moelife-coder/lyricer"
+cargo_locks = ["Cargo.lock"]
+
+[rime-ls]
+src.github = "wlh320/rime-ls"
+fetch.github = "wlh320/rime-ls"
+cargo_locks = ["Cargo.lock"]
+
+[sjtu-canvas-helper]
+src.github = "Okabe-Rintarou-0/SJTU-Canvas-Helper"
+src.prefix = "app-v"
+fetch.url = "https://github.com/Okabe-Rintarou-0/SJTU-Canvas-Helper/releases/download/app-v$ver/sjtu-canvas-helper_$ver_amd64.deb"

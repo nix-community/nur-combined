@@ -1,22 +1,14 @@
 {
+  source,
   lib,
   stdenv,
-  fetchFromGitLab,
   bobcat,
   icmake,
   yodl,
 }:
 
-stdenv.mkDerivation rec {
-  pname = "flexc++";
-  version = "2.16.00";
-
-  src = fetchFromGitLab {
-    owner = "fbb-git";
-    repo = "flexcpp";
-    rev = version;
-    hash = "sha256-hnsWJATdA24kxuOmH7x8HMH9nPFXAAThofXvshuWk0s=";
-  };
+stdenv.mkDerivation {
+  inherit (source) pname version src;
 
   setSourceRoot = ''
     sourceRoot=$(echo */flexc++)
