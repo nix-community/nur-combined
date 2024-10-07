@@ -281,13 +281,13 @@
   };
   decluttarr = {
     pname = "decluttarr";
-    version = "v1.47.1";
+    version = "v1.48.0";
     src = fetchFromGitHub {
       owner = "ManiMatter";
       repo = "decluttarr";
-      rev = "v1.47.1";
+      rev = "v1.48.0";
       fetchSubmodules = false;
-      sha256 = "sha256-TvCTM8if7kohdw94af0kD+xZb+nHWsM2ljZWW6gG0b0=";
+      sha256 = "sha256-xbKUTacOBI9yGvQdvsaKKuUvPl3Fm/VD0s8Gt3gKYlA=";
     };
   };
   dingtalk = {
@@ -764,13 +764,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3887";
+    version = "b3889";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3887";
+      rev = "b3889";
       fetchSubmodules = false;
-      sha256 = "sha256-dZXJBOaMZgfPosv5QSTh06ht1O2vbADU2seo4DC0Ifw=";
+      sha256 = "sha256-n3/IwGkI1F/rVc8ordr3vu/+35xOa7LCsRdLpKVd7iI=";
     };
   };
   lyrica = {

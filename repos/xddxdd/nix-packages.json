@@ -287,7 +287,7 @@
   "legacyPackages.x86_64-linux.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed.",
     "pname": "decluttarr",
-    "version": "1.47.1"
+    "version": "1.48.0"
   },
   "legacyPackages.x86_64-linux.deepspeech-gpu": {
     "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers.",
@@ -487,7 +487,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "3887"
+    "version": "3889"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
@@ -3572,7 +3572,7 @@
   "packages.x86_64-linux.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed.",
     "pname": "decluttarr",
-    "version": "1.47.1"
+    "version": "1.48.0"
   },
   "packages.x86_64-linux.deepspeech-gpu": {
     "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers.",
