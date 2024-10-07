@@ -129,6 +129,7 @@
           bmc = bmc;
           race = race;
           dirtygit = dirtygit;
+          inherit shellstuff;
           jsonify-aws-dotfiles = jsonify-aws-dotfiles;
 
         };
@@ -149,6 +150,7 @@
           tmuxPrefix = "a";
           unstable = unstableForSystem "x86_64-linux";
           jsonify-aws-dotfiles = jsonify-aws-dotfiles;
+          extraPkgs = extraPkgs;
         };
       };
 
