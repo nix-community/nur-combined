@@ -7,7 +7,7 @@ let
     };
   };
 
-  all-modules = lib.concat [
+  all-modules = lib.concatLists [
     (lib.attrValues modules.programs)
     (lib.attrValues modules.services)
   ];

@@ -11,7 +11,7 @@ let
     };
   };
 
-  all-modules = lib.concat [
+  all-modules = lib.concatLists [
     (lib.attrValues modules.networking)
     (lib.attrValues modules.services)
   ];
