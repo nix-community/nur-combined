@@ -11,6 +11,7 @@
     "nyaw.key"
   ];
 
+  repack.caddy-matrix-web.enable = true;
   repack.caddy = {
     enable = true;
     settings.apps.http.servers.srv0.routes = [
