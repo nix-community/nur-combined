@@ -6,13 +6,16 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> {} }:
 
-rec {
+let result = pkgs.lib.makeScope pkgs.newScope (self: let
+    inherit (self) callPackage;
+in {
     # The `lib`, `modules`, and `overlays` names are special
-    lib = import ./lib { inherit pkgs; }; # functions
-    modules = import ./modules; # NixOS modules
-    overlays = import ./overlays; # nixpkgs overlays
+    # Renamed here to avoid shadowing their builtin nixpkgs counterparts in callPackage
+    myLib = import ./lib { inherit pkgs; }; # functions
+    myModules = import ./modules; # NixOS modules
+    myOverlays = import ./overlays; # nixpkgs overlays
     
     _Read-Me-link = pkgs.runCommandLocal "___Read_Me___" rec {
         message = ''
@@ -30,60 +33,51 @@ rec {
     '';
     
     maintainers = import ./maintainers.nix;
-
-    # example-package = pkgs.callPackage ./pkgs/example-package { };
-    # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-    # ...
     
-    lix-game-packages = pkgs.callPackage ./pkgs/lix-game { inherit maintainers; };
-    lix-game = lix-game-packages.game;
-    lix-game-server = lix-game-packages.server;
+    lix-game-packages = callPackage ./pkgs/lix-game {};
+    lix-game = self.lix-game-packages.game;
+    lix-game-server = self.lix-game-packages.server;
     
-    xscorch = pkgs.callPackage ./pkgs/xscorch { inherit maintainers; };
+    xscorch = callPackage ./pkgs/xscorch {};
     
-    pce = pkgs.callPackage ./pkgs/pce { inherit maintainers; };
-    pce-with-unfree-roms = pkgs.callPackage ./pkgs/pce {
-        inherit maintainers;
-        enableUnfreeROMs = true;
-    };
-    pce-snapshot = pkgs.callPackage ./pkgs/pce/snapshot.nix { inherit maintainers; };
+    pce = callPackage ./pkgs/pce {};
+    pce-with-unfree-roms = self.pce.override { enableUnfreeROMs = true; };
+    pce-snapshot = callPackage ./pkgs/pce/snapshot.nix {};
     
-    bubbros = pkgs.callPackage ./pkgs/bubbros { inherit maintainers; };
+    bubbros = callPackage ./pkgs/bubbros {};
     
-    flatzebra = pkgs.callPackage ./pkgs/flatzebra { inherit maintainers; };
-    burgerspace = pkgs.callPackage ./pkgs/flatzebra/burgerspace.nix { inherit flatzebra maintainers; };
+    flatzebra = callPackage ./pkgs/flatzebra {};
+    burgerspace = callPackage ./pkgs/flatzebra/burgerspace.nix {};
     
-    hfsutils = pkgs.callPackage ./pkgs/hfsutils { inherit maintainers; };
-    hfsutils-tk = hfsutils.override { enableTclTk = true; };
+    hfsutils = callPackage ./pkgs/hfsutils {};
+    hfsutils-tk = self.hfsutils.override { enableTclTk = true; };
     
-    minivmac36 = pkgs.callPackage ./pkgs/minivmac/36.nix { inherit maintainers; };
-    minivmac37 = pkgs.callPackage ./pkgs/minivmac/37.nix { inherit maintainers; };
-    minivmac = minivmac36;
-    minivmac-unstable = minivmac37;
+    minivmac36 = callPackage ./pkgs/minivmac/36.nix {};
+    minivmac37 = callPackage ./pkgs/minivmac/37.nix {};
+    minivmac = self.minivmac36;
+    minivmac-unstable = self.minivmac37;
     
-    minivmac-ii = minivmac.override { macModel = "II"; };
-    minivmac-ii-unstable = minivmac-unstable.override { macModel = "II"; };
+    minivmac-ii = self.minivmac.override { macModel = "II"; };
+    minivmac-ii-unstable = self.minivmac-unstable.override { macModel = "II"; };
     
-    mame = pkgs.callPackage (pkgs.callPackage ./pkgs/mame {}) {};
-    mame-metal = pkgs.callPackage (pkgs.callPackage ./pkgs/mame {}) {
-        darwinMinVersion = "11.0";
-    };
-    hbmame = pkgs.callPackage ./pkgs/mame/hbmame.nix { inherit mame; };
-    hbmame-metal = pkgs.callPackage ./pkgs/mame/hbmame.nix { mame = mame-metal; };
+    mame = callPackage (pkgs.callPackage ./pkgs/mame {}) {};
+    mame-metal = self.mame.override { darwinMinVersion = "11.0"; };
+    hbmame = callPackage ./pkgs/mame/hbmame.nix {};
+    hbmame-metal = self.hbmame.override { mame = self.mame-metal; };
     
-    pacifi3d = pkgs.callPackage ./pkgs/pacifi3d { inherit maintainers; };
-    pacifi3d-mame = pacifi3d.override { romsFromMAME = mame; };
-    pacifi3d-hbmame = pacifi3d.override { romsFromMAME = hbmame; };
+    pacifi3d = callPackage ./pkgs/pacifi3d {};
+    pacifi3d-mame = self.pacifi3d.override { romsFromMAME = self.mame; };
+    pacifi3d-hbmame = self.pacifi3d.override { romsFromMAME = self.hbmame; };
     _ciOnly.pacifi3d-rom-xmls = pkgs.lib.recurseIntoAttrs {
-        mame = pacifi3d-mame.romsFromXML;
-        hbmame = pacifi3d-hbmame.romsFromXML;
+        mame = self.pacifi3d-mame.romsFromXML;
+        hbmame = self.pacifi3d-hbmame.romsFromXML;
     };
     
-    konify = pkgs.callPackage ./pkgs/konify { inherit maintainers; };
+    konify = callPackage ./pkgs/konify {};
     
     # Can't just pass `-L` to `nix-build-uncached`: it ends up being passed to both
     # old `nix-build` (which doesn't understand it) and new `nix build` (which does).
-    nix-build-uncached-logging = pkgs.callPackage ({nix-build-uncached}: nix-build-uncached.overrideAttrs (old: {
+    nix-build-uncached-logging = callPackage ({nix-build-uncached}: nix-build-uncached.overrideAttrs (old: {
         pname = old.pname + "-logging";
         postPatch = (old.postPatch or "") + ''
             substituteInPlace build.go --replace-fail '[]string{"build"}' '[]string{"build", "-L"}'
@@ -96,4 +90,8 @@ rec {
     _ciOnly.mac = pkgs.lib.optionalAttrs pkgs.hostPlatform.isDarwin (pkgs.lib.recurseIntoAttrs {
         wine64Full = pkgs.wine64Packages.full;
     });
+}); in result // {
+    lib = result.myLib;
+    modules = result.myModules;
+    overlays = result.myOverlays;
 }

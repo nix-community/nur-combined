@@ -1,9 +1,8 @@
 { mame, lib }: let
-    mameForArgSpecs = mame;
-    mameArgSpecs = lib.mapAttrs (k: v: true) (lib.functionArgs mameForArgSpecs.override);
+    mameArgSpecs = lib.mapAttrs (k: v: true) (lib.functionArgs mame.override);
     myArgSpecs = lib.functionArgs mameFunc;
     mameFunc = (
-        { stdenv, callPackage, papirus-icon-theme, mame, darwinMinVersion ? "10.15", overrideSDK, ... }@args: let
+        { stdenv, callPackage, papirus-icon-theme, darwinMinVersion ? "10.15", overrideSDK, ... }@args: let
             stdenv' = overrideSDK stdenv {
                 inherit darwinMinVersion;
                 darwinSdkVersion = "11.0";
