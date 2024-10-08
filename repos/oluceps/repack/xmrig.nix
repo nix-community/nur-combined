@@ -6,8 +6,8 @@
 }:
 reIf {
   systemd.services.xmrig.serviceConfig = {
-    CPUSchedulingPolicy = "fifo";
-    CPUSchedulingPriority = 10;
+    CPUSchedulingPolicy = "idle";
+    Nice = 14;
   };
   services.xmrig = {
     enable = true;
@@ -17,7 +17,7 @@ reIf {
       cuda = false;
       cpu = {
         enable = true;
-        max-threads-hint = 75;
+        max-threads-hint = 95;
       };
       pools = [
         {
