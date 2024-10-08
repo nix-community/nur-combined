@@ -2,13 +2,16 @@
 
 {
 
-  services.onedrive.enable = false;
 
   environment.systemPackages = with pkgs; [
 
     # DIAGRAM
     drawio
     graphviz
+
+    # OFFICE365
+    onedrivegui
+    onedrive
 
     # SHELL
     gum

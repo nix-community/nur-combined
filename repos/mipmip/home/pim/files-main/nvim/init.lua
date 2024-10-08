@@ -21,7 +21,7 @@ require("lazy").setup("plugins")
 require("functions")
 require("keymaps")
 
-vim.cmd('source ' .. vim.fn.stdpath("config") .. '/vimscript/mychatcpt.vim')
+vim.cmd('source ' .. vim.fn.stdpath("config") .. '/vimscript/hotkeys.vim')
 vim.cmd('source ' .. vim.fn.stdpath("config") .. '/vimscript/wip.vim')
 
 vim.api.nvim_create_augroup("neotree", {})

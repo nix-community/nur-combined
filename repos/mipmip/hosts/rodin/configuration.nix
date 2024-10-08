@@ -48,6 +48,8 @@
     kernel = "https://boot.netboot.xyz";
   };
 
+  #services.onedrive.enable = true;
+
   networking.hosts = {
     "127.0.0.1" = [
       "ojs"

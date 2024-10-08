@@ -5,6 +5,10 @@
     enable = true;
   };
 
+  home.packages = [
+    pkgs.nil
+  ];
+
 #  programs.neovim = {
 #    plugins = with pkgs.vimPlugins; [
 #      nvim-treesitter.withAllGrammars

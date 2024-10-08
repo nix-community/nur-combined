@@ -26,6 +26,7 @@ return {
   'mipmip/vim-petra',
   'mipmip/vim-hotpop',
   'mipmip/vim-nomisa',
+  'mipmip/vim-show-in-filemanager',
 
   'srcery-colors/srcery-vim',
 }
