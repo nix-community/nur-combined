@@ -5,6 +5,10 @@
   ...
 }:
 reIf {
+  systemd.services.xmrig.serviceConfig = {
+    CPUSchedulingPolicy = "fifo";
+    CPUSchedulingPriority = 10;
+  };
   services.xmrig = {
     enable = true;
     settings = {
