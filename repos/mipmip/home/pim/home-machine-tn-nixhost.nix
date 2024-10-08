@@ -16,7 +16,12 @@ in
     pkgs.gum
     pkgs.granted
     pkgs.smug
-    #pkgs.mipmip_pkg.shellstuff
+    pkgs.nil
+    pkgs.terraform-ls
+    pkgs.silver-searcher
+    pkgs.fzf
+    pkgs.ripgrep
+
     shellstuff.packages."${system}".shellstuff
     bmc.packages."${system}".bmc
     race.packages."${system}".race
