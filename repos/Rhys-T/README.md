@@ -26,7 +26,7 @@ Upstream is just called [Lix](https://www.lixgame.com/). I had originally writte
 
 The game consists of several derivations that are somewhat interdependent (the game engine, the assets, the music, and the wrapper that puts it all together, as well as a standalone multiplayer server). To simplify the code and put all the configuration in one place, I've implemented it as a package set, or scope. To change the settings, instead of the base `lix-game` package, install something like this:
 ```nix
-(lix-game-packages.overrideScope {
+(lix-game-packages.overrideScope (self: super: {
     # Default values are shown here
     
     # Workarounds for SimonN/LixD#431 - see below
@@ -38,7 +38,7 @@ The game consists of several derivations that are somewhat interdependent (the g
     
     # self-explanatory
     includeMusic = true;
-}).game
+})).game
 ```
 
 #### SimonN/LixD#431 - Magic pink won't become transparent on macOS
