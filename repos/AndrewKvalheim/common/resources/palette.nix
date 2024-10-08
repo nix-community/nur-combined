@@ -2,7 +2,7 @@
 
 let
   inherit (builtins) listToAttrs mapAttrs;
-  inherit (lib) concatLines imap0 mapAttrsRecursive mapAttrsToList nameValuePair;
+  inherit (lib) concatLines imap0 mapAttrsRecursiveCond mapAttrsToList nameValuePair;
   inherit (import ./lib.nix { inherit lib; }) findLowest rgbToAnsi;
   inherit ((import ../../nur.nix { inherit pkgs; }).lib) contrastRatio linearRgbToRgb oklchToCss oklchToLinearRgb rgbToHex sgr;
 
@@ -71,18 +71,22 @@ in
 rec {
   ansi =
     let
-      base = listToAttrs (imap0 (i: n: nameValuePair n (toString (30 + i))) ansiNames);
-      effect = p: mapAttrs (_: a: "${p};${a}") base;
+      base = listToAttrs (imap0 (i: n: nameValuePair n { off = "39"; on = toString (30 + i); }) ansiNames);
+      effect = off: on: mapAttrs (_: b: { off = "${off}${b.off}"; on = "${on};${b.on}"; }) base;
     in
-    base // { bold = effect "1"; dim = effect "2" // { italic = effect "2;3"; }; italic = effect "3"; };
+    base // {
+      bold = effect "22" "1";
+      dim = effect "22" "2" // { italic = effect "22;23" "2;3"; };
+      italic = effect "23" "3";
+    };
 
-  ansiFormat = mapAttrsRecursive (_: sgr) ansi;
+  ansiFormat = mapAttrsRecursiveCond (a: ! a ? off) (_: { off, on }: sgr off on) ansi;
 
   hex = mapAttrs (_: c: c.hex) colors;
 
   report = concatLines (mapAttrsToList
     (name: { ansi, css, hex, rgb, ... }:
-      "${sgr ansi "██ ${name}"} ${ansiFormat.black "${css} ≈ ${hex}"}")
+      "${sgr ansi.off ansi.on "██ ${name}"} ${ansiFormat.black "${css} ≈ ${hex}"}")
     colors
   );
 

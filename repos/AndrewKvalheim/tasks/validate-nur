@@ -18,13 +18,13 @@ for channel in 'unstable' 'nixpkgs'; do
   nix-env "${nix_args[@]}" --file 'nur.nix' --query '*' --available --meta --json \
   | jq --raw-output 'to_entries[] | "\(.key)\(.value.meta.broken)"' \
   | while IFS='' read -r name broken; do
-    echo "[36mValidating $name@$channel[0m"
+    echo "[36mValidating $name@$channel[39m"
     if [[ $broken == 'true' ]]; then
-      results+=("[33m$name@$channel marked as broken[0m")
+      results+=("[33m$name@$channel marked as broken[39m")
     elif nix-build "${nix_args[@]}" 'nur.nix' --attr "$name" --no-out-link; then
       results+=("$name@$channel successfully built")
     else
-      results+=("[31m$name@$channel failed to build[0m")
+      results+=("[31m$name@$channel failed to build[39m")
       code='1'
     fi
   done

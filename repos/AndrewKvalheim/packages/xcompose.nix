@@ -1,49 +1,12 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) concatLines concatMapStringsSep mapAttrsToList mkIf mkOption stringToCharacters;
+  inherit (lib) concatLines concatMapStringsSep genAttrs id mapAttrsToList mkIf mkOption stringToCharacters;
   inherit (lib.types) attrsOf str;
 
   names =
+    (genAttrs (stringToCharacters "0123456789abcdefghijklmnopqrstuvwxyz") id) //
     {
-      "0" = "0";
-      "1" = "1";
-      "2" = "2";
-      "3" = "3";
-      "4" = "4";
-      "5" = "5";
-      "6" = "6";
-      "7" = "7";
-      "8" = "8";
-      "9" = "9";
-
-      "a" = "a";
-      "b" = "b";
-      "c" = "c";
-      "d" = "d";
-      "e" = "e";
-      "f" = "f";
-      "g" = "g";
-      "h" = "h";
-      "i" = "i";
-      "j" = "j";
-      "k" = "k";
-      "l" = "l";
-      "m" = "m";
-      "n" = "n";
-      "o" = "o";
-      "p" = "p";
-      "q" = "q";
-      "r" = "r";
-      "s" = "s";
-      "t" = "t";
-      "u" = "u";
-      "v" = "v";
-      "w" = "w";
-      "x" = "x";
-      "y" = "y";
-      "z" = "z";
-
       " " = "space";
       "_" = "underscore";
       "-" = "minus";

@@ -2,7 +2,7 @@
 set -Eeuxo pipefail
 
 sudo-hint() {
-  sudo --prompt "[sudo [;2m$1[0m] password for %p: " "$@"
+  sudo --prompt "[sudo [2m$1[22m] password for %p: " "$@"
 }
 
 # Containers / virtual machines

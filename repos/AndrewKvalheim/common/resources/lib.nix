@@ -23,7 +23,7 @@ rec {
   # Adapted from https://www.w3.org/WAI/WCAG22/Techniques/general/G18
   contrastRatio = linearRgb1: linearRgb2:
     let
-      linearRgbToRelativeLuminance = rgb: with rgb; 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      linearRgbToRelativeLuminance = { r, g, b }: 0.2126 * r + 0.7152 * g + 0.0722 * b;
       flare = 0.05;
       ratio = light: dark: (light + flare) / (dark + flare);
 
@@ -64,7 +64,7 @@ rec {
   # Adapted from https://bottosson.github.io/posts/colorwrong/#what-can-we-do%3F
   linearRgbToRgb =
     let
-      # Chebyshev approximation of pow(x, 1/2.4) pending NixOS/nix#10387
+      # Chebyshev approximation of pow(x, 1/2.4) calculated using https://stuffmatic.com/chebyshev/, pending NixOS/nix#10387
       pow124 = chebyshevWithDomain 0.0031308 1 [
         ( 1.35260207301243970000) 0.38736989090862184000 (-0.08938836754963890000) 0.03917078116806109500
         (-0.02150246605817849500) 0.01327548250086058700 (-0.00881110971315325000) 0.00614173454829631900
@@ -112,7 +112,7 @@ rec {
 
   printablePad = width: placeholder: text: text + replicate (width - printableLength text) placeholder;
 
-  rgbToAnsi = rgb: with mapAttrs (_: v: toString (round (v * 255))) rgb; "38;2;${r};${g};${b}";
+  rgbToAnsi = rgb: with mapAttrs (_: v: toString (round (v * 255))) rgb; { off = "39"; on = "38;2;${r};${g};${b}"; };
 
   rgbToHex = { r, g, b }:
     let f = x: fixedWidthNumber 2 (toHexString (round (x * 255)));
@@ -120,5 +120,5 @@ rec {
 
   round = x: floor (x + 0.5);
 
-  sgr = n: t: "[${n}m${t}[0m";
+  sgr = off: on: text: "[${on}m${text}[${off}m";
 }

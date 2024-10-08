@@ -135,7 +135,7 @@ in
         set-clipboard = "wl-copy --type 'TEXT'";
         watch = "watch --color";
         wd = "git diff --no-index --word-diff --word-diff-regex '.'";
-        xev = "echo 'Use ${sgr "1" "wev"} instead.' >&2; return 1";
+        xev = "echo 'Use ${sgr "22" "1" "wev"} instead.' >&2; return 1";
       };
   };
 
@@ -171,7 +171,7 @@ in
     undo = "git restore --patch";
   };
 
-  home.sessionVariables.EZA_COLORS = concatStringsSep ":" (mapAttrsToList (k: v: "${k}=${v}") (with palette.ansi; {
+  home.sessionVariables.EZA_COLORS = concatStringsSep ":" (mapAttrsToList (k: v: "${k}=${v.on}") (with palette.ansi; {
     ur = dim.white; # permission user-read
     uw = dim.white; # permission user-write
     ux = bold.green; # permission user-execute when file
@@ -200,7 +200,7 @@ in
     cc = bold.yellow; # escaped character
   }));
 
-  home.sessionVariables.LS_COLORS = concatStringsSep ":" (mapAttrsToList (k: v: "${k}=${v}") (with palette.ansi; {
+  home.sessionVariables.LS_COLORS = concatStringsSep ":" (mapAttrsToList (k: v: "${k}=${v.on}") (with palette.ansi; {
     di = bold.cyan; # directories
     ex = green; # executable files
     fi = white; # regular files
