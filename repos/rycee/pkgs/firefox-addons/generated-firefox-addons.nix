@@ -1535,10 +1535,10 @@
     };
     "click-and-read" = buildFirefoxXpiAddon {
       pname = "click-and-read";
-      version = "3.19.7";
+      version = "3.19.8";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4361725/click_and_read-3.19.7.xpi";
-      sha256 = "c2732bbb8bef061bcefa3859ea4f2fea86ec81305ffde8cb71aa0541ca4d9d81";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4365233/click_and_read-3.19.8.xpi";
+      sha256 = "cc5ad45918778240ce929af27bc2b4544ee500b9fafaa3c65318856ca3708f5f";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -2149,10 +2149,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "132.0.20241004.91740";
+      version = "132.0.20241007.91632";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4364071/deutsch_de_language_pack-132.0.20241004.91740.xpi";
-      sha256 = "6fe7e0a23f055dc3489d2a5ae48b296e0df2a48259d71ea971bf27f505b1146f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4365458/deutsch_de_language_pack-132.0.20241007.91632.xpi";
+      sha256 = "becc91b04e822ac391844908f34624485472da80f4707349530232185d148e9b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2801,10 +2801,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.31";
+      version = "1.3.31.1";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4365202/faststream-1.3.31.xpi";
-      sha256 = "2c6631d747f6f21ed73a731793222920631788d30fac84c473dee6afbd67bebf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4365724/faststream-1.3.31.1.xpi";
+      sha256 = "d5f917009349d737e12431bdbfed9e4f0f1eefc7a97c3ff79a4dd87bb02adf0f";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -3032,10 +3032,10 @@
     };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.78";
+      version = "6.1.79";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4345347/flagfox-6.1.78.xpi";
-      sha256 = "8b6fc8033dac21d4c3d056485b928e263b938a036d34694177cb665ff396944f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4361489/flagfox-6.1.79.xpi";
+      sha256 = "06d5c7a8788b724da9a93d46a0b68879daf4644e86b5c6ed000ae567b0bebd56";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -3315,10 +3315,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "132.0.20241004.91740";
+      version = "132.0.20241007.91632";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4364003/francais_language_pack-132.0.20241004.91740.xpi";
-      sha256 = "b06783d75b91b0fcca646d7db59f485bd1d42d5f1b99fb6263be6a86b1ad745c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4365454/francais_language_pack-132.0.20241007.91632.xpi";
+      sha256 = "5b9e7667b0139278198e85f597a136fec55fe2c1c8d3962a0e9c41f6c6b275b8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3352,10 +3352,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "132.0.20241004.91740";
+      version = "132.0.20241007.91632";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4364010/gaidhlig_language_pack-132.0.20241004.91740.xpi";
-      sha256 = "7cba80030b225e4fdb07eb23d1c3e364ecf354ebb774d8510268e768af87ba82";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4365479/gaidhlig_language_pack-132.0.20241007.91632.xpi";
+      sha256 = "c36f455fe92b9afc8a977872792f68add1faef56db221c38a4beabb1dfbc91c4";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -9800,10 +9800,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "132.0.20241004.91740";
+      version = "132.0.20241007.91632";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4364053/scots_language_pack-132.0.20241004.91740.xpi";
-      sha256 = "0506982a2ffd84d4112ef2d70eb51fd612bb41856a70dd76b5940470aadbc0ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4365465/scots_language_pack-132.0.20241007.91632.xpi";
+      sha256 = "0fc9f97355dac59664614eb4c89ede9916307f4ce6331009d68c7c47de90dc27";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10222,10 +10222,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.70";
+      version = "1.22.71";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4355962/single_file-1.22.70.xpi";
-      sha256 = "aa92c125e6394e4114eede03fa660de6bc96ddf6ffdfb23161f939931243ecb8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4360569/single_file-1.22.71.xpi";
+      sha256 = "204891414ff779f8076c6de07850cbb1f6ece82ff6958337e8c57d65c60d5b6c";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -11822,10 +11822,10 @@
     };
     "untrap-for-youtube" = buildFirefoxXpiAddon {
       pname = "untrap-for-youtube";
-      version = "7.7";
+      version = "7.8";
       addonId = "{2662ff67-b302-4363-95f3-b050218bd72c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4362399/untrap_for_youtube-7.7.xpi";
-      sha256 = "3d2700e33da02540834ef1e74d10f5e75950280de586852ddf8db25785b3e824";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4365253/untrap_for_youtube-7.8.xpi";
+      sha256 = "61adb33c1c173173abe59070d293549e3b73e0a108bb3170c950355e4b063369";
       meta = with lib;
       {
         homepage = "http://untrap.app";
