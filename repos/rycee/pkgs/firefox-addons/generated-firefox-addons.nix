@@ -737,10 +737,10 @@
     };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.6.6";
+      version = "7.6.7";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4346010/betterttv-7.6.6.xpi";
-      sha256 = "3a12e255c4722f08ed56f7f8f117c2c678152917aac3dfbd1765a27a4fe7447a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4360870/betterttv-7.6.7.xpi";
+      sha256 = "d8c70c159422b3d56127e292bd20b359c80dff828bf91883e1c2f2179b47430b";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -2149,10 +2149,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "132.0.20241007.91632";
+      version = "132.0.20241008.203725";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4365458/deutsch_de_language_pack-132.0.20241007.91632.xpi";
-      sha256 = "becc91b04e822ac391844908f34624485472da80f4707349530232185d148e9b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4366890/deutsch_de_language_pack-132.0.20241008.203725.xpi";
+      sha256 = "7b25cf155ecbefd2d16c2807cd9458d4dec86c652ec8753a9c339637b6d4f8ec";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2476,7 +2476,7 @@
       meta = with lib;
       {
         homepage = "https://www.rakuten.com";
-        description = "Start shopping smarter with Cash Back and coupons. By clicking Add to Firefox you agree to the Rakuten Extension <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/8b9325bcbde33c23c7bcf3d7e6409074294d4d283d8d2465beb954789b8adbd9/https%3A//www.rakuten.com/help/article/rakuten-cash-back-button-privacy-notice-360052819794\" rel=\"nofollow\">Terms &amp; Conditions</a>";
+        description = "Start shopping smarter with Cash Back and coupons. By clicking Add to Firefox you agree to the Rakuten Extension Terms & Conditions";
         license = licenses.mpl20;
         mozPermissions = [
           "tabs"
@@ -3315,10 +3315,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "132.0.20241007.91632";
+      version = "132.0.20241008.203725";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4365454/francais_language_pack-132.0.20241007.91632.xpi";
-      sha256 = "5b9e7667b0139278198e85f597a136fec55fe2c1c8d3962a0e9c41f6c6b275b8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4366848/francais_language_pack-132.0.20241008.203725.xpi";
+      sha256 = "af81b77110c59d1e9e27baedce2251d66892d0f03cdb5469f684d2295791e340";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3352,10 +3352,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "132.0.20241007.91632";
+      version = "132.0.20241008.203725";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4365479/gaidhlig_language_pack-132.0.20241007.91632.xpi";
-      sha256 = "c36f455fe92b9afc8a977872792f68add1faef56db221c38a4beabb1dfbc91c4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4366829/gaidhlig_language_pack-132.0.20241008.203725.xpi";
+      sha256 = "e856b0706e3d8f2f465cb8f233834f5bd2fce7e2e36f6ece305d6c9cc071a3ab";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -5091,10 +5091,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.9.7";
+      version = "1.9.8";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4356394/immersive_translate-1.9.7.xpi";
-      sha256 = "6beaf7cd75e47b76e0d59ecbbee45298711ffd5287e8aa3ca93558b4fcd2d709";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4361147/immersive_translate-1.9.8.xpi";
+      sha256 = "bdd053890335119346edb1b7213df52976e8f5f4ea83e7b18620fad877a042ef";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -8171,10 +8171,10 @@
     };
     "paperpile" = buildFirefoxXpiAddon {
       pname = "paperpile";
-      version = "1.0.64";
+      version = "1.0.65";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4358638/paperpile_addon-1.0.64.xpi";
-      sha256 = "7bf1989bd9377959e84e1ac17bacb0832e4be0f4e561b857cd70f655c54edcc8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4366195/paperpile_addon-1.0.65.xpi";
+      sha256 = "baaa1a2a667470f42494a018d14fa35958e0697da6d3f45e180cbb3b84bbb4e2";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -9800,10 +9800,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "132.0.20241007.91632";
+      version = "132.0.20241008.203725";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4365465/scots_language_pack-132.0.20241007.91632.xpi";
-      sha256 = "0fc9f97355dac59664614eb4c89ede9916307f4ce6331009d68c7c47de90dc27";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4366893/scots_language_pack-132.0.20241008.203725.xpi";
+      sha256 = "dec8fa3241c7344be50daabe110c81d8be609e9d4807472de5894a61f0b44f52";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10824,10 +10824,10 @@
     };
     "tab-stash" = buildFirefoxXpiAddon {
       pname = "tab-stash";
-      version = "3.1";
+      version = "3.1.1";
       addonId = "tab-stash@condordes.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4346650/tab_stash-3.1.xpi";
-      sha256 = "036f6a7167cdbfb419589c300be1e3a44856d8affd7c64f73ef7554607d19040";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4361352/tab_stash-3.1.1.xpi";
+      sha256 = "7f95a8c5aeea4b1ada280b97b38ec60adaee91c3eb1f87e972ac038e960b0de2";
       meta = with lib;
       {
         homepage = "https://josh-berry.github.io/tab-stash/";
@@ -12433,10 +12433,10 @@
     };
     "web-archives" = buildFirefoxXpiAddon {
       pname = "web-archives";
-      version = "6.1.1";
+      version = "7.0.0";
       addonId = "{d07ccf11-c0cd-4938-a265-2a4d6ad01189}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4307780/view_page_archive-6.1.1.xpi";
-      sha256 = "ce2274e4378bff016b5fe1fbd694e27e97eb3156e8517676a694dd57ede1e614";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4361316/view_page_archive-7.0.0.xpi";
+      sha256 = "89e4bf47885b185a63599b1c26c579ccb9a04ebc63a66a66d5a293dbfe356431";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/web-archives#readme";
@@ -12899,10 +12899,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.9.16.0";
+      version = "24.9.23.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4358185/yomitan-24.9.16.0.xpi";
-      sha256 = "79840e665cccd13367ddda2b3168619b51ccab12907df1fe9efbb840d225a93d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4366060/yomitan-24.9.23.0.xpi";
+      sha256 = "f3d20e3053b427f8b83a17b97ce33a7af4163f795b0340e7762bc817c90f79dc";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
