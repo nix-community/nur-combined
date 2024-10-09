@@ -182,15 +182,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "cc09fbed8e988553ff4e9942a7598a219e381dc1";
+    version = "c5c4fd2fc6085b41375b7d2a44aa81643bd56ca9";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "cc09fbed8e988553ff4e9942a7598a219e381dc1";
+      rev = "c5c4fd2fc6085b41375b7d2a44aa81643bd56ca9";
       fetchSubmodules = false;
-      sha256 = "sha256-kA52OIcY2j9FcPy0AWQu/A2/04SzfbPiTzB6Tdcyh0A=";
+      sha256 = "sha256-GSpOxp0DZqz+Vwv69TCeFL/Amq1f6eYfQudGX7U6EOE=";
     };
-    date = "2024-10-07";
+    date = "2024-10-09";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -764,13 +764,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3896";
+    version = "b3899";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3896";
+      rev = "b3899";
       fetchSubmodules = false;
-      sha256 = "sha256-2N7yfI0N4Up+aYzq7++BqMXZhuPcQGskSuq0TUcK5V0=";
+      sha256 = "sha256-vGSN2vrfi5Nxx93M4w7p5L2VrG0HxlhWciLGI3bjP+U=";
     };
   };
   lyrica = {
@@ -1009,13 +1009,13 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "0.6.1";
+    version = "0.7.0";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "0.6.1";
+      rev = "0.7.0";
       fetchSubmodules = false;
-      sha256 = "sha256-AW0rOszXm9Hy55b2fQ2mpZulhXjYwvztwL6DIFgIzjA=";
+      sha256 = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
     };
   };
   osdlyrics = {
@@ -1291,15 +1291,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "ea74e40bec2bd6580fa8d807075cd107739ba6cd";
+    version = "06074ecb7b6d39a2fb9dbe83c9fa2bd9e5472991";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "ea74e40bec2bd6580fa8d807075cd107739ba6cd";
+      rev = "06074ecb7b6d39a2fb9dbe83c9fa2bd9e5472991";
       fetchSubmodules = false;
-      sha256 = "sha256-R2K2LNycXqsUxXvMMq5fcQJUhDnhQMcTlvryMLeiKH0=";
+      sha256 = "sha256-Koh7wwj6zPkfes+jTtGd87rxi3lx3twYCtTzEdovXbw=";
     };
-    date = "2024-09-25";
+    date = "2024-10-09";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1331,13 +1331,13 @@
   };
   runpod-python = {
     pname = "runpod-python";
-    version = "1.7.1";
+    version = "1.7.2";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpod-python";
-      rev = "1.7.1";
+      rev = "1.7.2";
       fetchSubmodules = false;
-      sha256 = "sha256-WsjDKbigR6cigJ+7ORxLhdGF+n2YPfGog/ttuu0ZakY=";
+      sha256 = "sha256-sTZHdNAQEqfUGQa18N7MTwRky3KNQvznJmD4ZPJ/AM0=";
     };
   };
   runpodctl = {
