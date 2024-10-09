@@ -15,14 +15,14 @@
 			"sha256": "385ed9ec848c1b057291b8bdf801cf6bf7e3eed9bdf3ac1a5a44b9c82fdc4034"
 		},
 		"librewolf-x64": {
-			"version": "130.0.1-1",
-			"url": "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/130.0.1-1/librewolf-130.0.1-1-macos-x86_64-package.dmg",
-			"sha256": "d9e8e1ba141a95154689af9cae52e4fdc3a1194c9565fd30ea5cc08a0c968365"
+			"version": "131.0-1",
+			"url": "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/131.0-1/librewolf-131.0-1-macos-x86_64-package.dmg",
+			"sha256": "c7a7f393b04c334d34117cf547e5d30662885f715e648e37f3112937dec5f330"
 		},
 		"librewolf-arm64": {
-			"version": "130.0.1-1",
-			"url": "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/130.0.1-1/librewolf-130.0.1-1-macos-arm64-package.dmg",
-			"sha256": "9a8d2da8c23b19bb33441b09f229a3e40338795657f3e99cc9eac53903009003"
+			"version": "131.0-1",
+			"url": "https://gitlab.com/api/v4/projects/44042130/packages/generic/librewolf/131.0-1/librewolf-131.0-1-macos-arm64-package.dmg",
+			"sha256": "fae907030209c11f2be237eab9badd2874fe217a00c6d1fb5dc44db59074af16"
 		},
 		"floorp": {
 			"version": "v11.19.0",
