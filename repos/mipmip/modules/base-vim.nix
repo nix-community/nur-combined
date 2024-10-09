@@ -13,7 +13,7 @@
     git-sync
     gitFull
 
-    unstable.neovim
+    #unstable.neovim
 
     #language servers
     sqls

@@ -16,7 +16,6 @@ in
     services.secondbrain.enable = true;
 
     home.packages = [
-      pkgs.neovim
       pkgs.gnumake
       pkgs.gcc
       pkgs.pkg-config
