@@ -1,27 +1,33 @@
-{ lib, fetchFromGitHub, buildPythonPackage, dbus }:
+{
+  lib,
+  fetchFromGitLab,
+  buildPythonPackage,
+  dbus,
+}:
 
-buildPythonPackage rec {
+buildPythonPackage {
   pname = "dbussy";
-  version = "unstable-2022-09-03";
+  version = "0-unstable-2024-08-30";
 
-  src = fetchFromGitHub {
-    owner = "Ldo";
-    repo = pname;
-    rev = "71616a370d3f59ef1681d26f5df77c1545d5bc04";
-    sha256 = "sha256-WlyiW1LlVpYsIHOR/SUhA5+vGMp/RZmPK7T63iycyvc=";
+  src = fetchFromGitLab {
+    owner = "ldo";
+    repo = "dbussy";
+    rev = "35726d27fd0142ca13fb59e4e0a32e9d85b06659";
+    sha256 = "sha256-aS8XvUirb50N8UHaedVP4It5SXhUq4m4Bo1fHTGWBgw=";
   };
 
   pythonImportsCheck = [ "dbussy" ];
 
   prePatch = ''
     substituteInPlace dbussy.py \
-        --replace libdbus-1.so.3 ${dbus.lib}/lib/libdbus-1.so.3
+      --replace libdbus-1.so.3 ${dbus.lib}/lib/libdbus-1.so.3
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Python binding for D-Bus using asyncio";
     homepage = "https://github.com/ldo/dbussy";
-    license = licenses.lgpl21;
-    platforms = platforms.linux;
+    license = lib.licenses.lgpl21;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ nagy ];
   };
 }

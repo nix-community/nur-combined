@@ -20,65 +20,76 @@
 { pkgs, lib, ... }:
 
 let
-  evalhmconfig = config:
+  evalhmconfig =
+    config:
     (import "${pkgs.home-manager.src}/modules" {
       inherit pkgs;
-      configuration = { ... }: {
-        imports = [ config.homeconfig ];
-        # simulate state version. needed for flake build.
-        home.stateVersion = "23.05";
-        home.username = "user";
-        home.homeDirectory = "/home/user/";
-      };
+      configuration =
+        { ... }:
+        {
+          imports = [ config.homeconfig ];
+          # simulate state version. needed for flake build.
+          home.stateVersion = "23.05";
+          home.username = "user";
+          home.homeDirectory = "/home/user/";
+        };
     }).config;
 in
 {
   imports = [
     # mpv
-    ({ config, ... }:
-      let hmconfig = evalhmconfig config;
-      in {
+    (
+      { config, ... }:
+      let
+        hmconfig = evalhmconfig config;
+      in
+      {
         # write the config files from  ~/.config/mpv into /etc
-        environment = lib.mkIf
-          (config.services.xserver.enable && hmconfig.programs.mpv.enable)
-          {
-            etc."mpv/input.conf".text =
-              lib.mkIf (hmconfig.xdg.configFile ? "mpv/input.conf")
-                hmconfig.xdg.configFile."mpv/input.conf".text;
-            etc."mpv/mpv.conf".text =
-              lib.mkIf (hmconfig.xdg.configFile ? "mpv/mpv.conf")
-                hmconfig.xdg.configFile."mpv/mpv.conf".text;
-            systemPackages = [ hmconfig.programs.mpv.package ];
-            variables.MPV_HOME = "/etc/mpv";
-          };
-      })
+        environment = lib.mkIf (config.services.xserver.enable && hmconfig.programs.mpv.enable) {
+          etc."mpv/input.conf".text = lib.mkIf (
+            hmconfig.xdg.configFile ? "mpv/input.conf"
+          ) hmconfig.xdg.configFile."mpv/input.conf".text;
+          etc."mpv/mpv.conf".text = lib.mkIf (
+            hmconfig.xdg.configFile ? "mpv/mpv.conf"
+          ) hmconfig.xdg.configFile."mpv/mpv.conf".text;
+          systemPackages = [ hmconfig.programs.mpv.package ];
+          variables.MPV_HOME = "/etc/mpv";
+        };
+      }
+    )
     # readline
-    ({ config, ... }:
-      let hmconfig = evalhmconfig config;
-      in {
-        assertions = [{
-          assertion = hmconfig.programs.readline.includeSystemConfig == false;
-          message =
-            "Readline system config cannot be included in home-manager modules";
-        }];
-        # write the config file from ~/.inputrc into /etc
-        environment.etc."inputrc".text =
-          lib.mkIf (hmconfig.home.file ? ".inputrc")
-            hmconfig.home.file.".inputrc".text;
-      })
-    # zathura
-    ({ config, ... }:
-      let hmconfig = evalhmconfig config;
-      in {
-        # write the config file from  ~/.config/zathura into /etc
-        environment = lib.mkIf
-          (config.services.xserver.enable && hmconfig.programs.zathura.enable)
+    (
+      { config, ... }:
+      let
+        hmconfig = evalhmconfig config;
+      in
+      {
+        assertions = [
           {
-            etc."zathurarc".text =
-              hmconfig.xdg.configFile."zathura/zathurarc".text;
-            systemPackages = [ hmconfig.programs.zathura.package ];
-          };
-      })
+            assertion = hmconfig.programs.readline.includeSystemConfig == false;
+            message = "Readline system config cannot be included in home-manager modules";
+          }
+        ];
+        # write the config file from ~/.inputrc into /etc
+        environment.etc."inputrc".text = lib.mkIf (
+          hmconfig.home.file ? ".inputrc"
+        ) hmconfig.home.file.".inputrc".text;
+      }
+    )
+    # zathura
+    (
+      { config, ... }:
+      let
+        hmconfig = evalhmconfig config;
+      in
+      {
+        # write the config file from  ~/.config/zathura into /etc
+        environment = lib.mkIf (config.services.xserver.enable && hmconfig.programs.zathura.enable) {
+          etc."zathurarc".text = hmconfig.xdg.configFile."zathura/zathurarc".text;
+          systemPackages = [ hmconfig.programs.zathura.package ];
+        };
+      }
+    )
   ];
 
   # placeholder for home-manager config

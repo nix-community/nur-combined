@@ -17,7 +17,6 @@ fetchzip {
 
   meta = {
     description = "The Common Lisp HyperSpec";
-    homepage =
-      "http://www.lispworks.com/documentation/HyperSpec/Front/index.htm";
+    homepage = "http://www.lispworks.com/documentation/HyperSpec/Front/index.htm";
   };
 }

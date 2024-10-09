@@ -1,4 +1,9 @@
-{ lib, stdenv, fetchFromGitHub, gawk }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  gawk,
+}:
 
 stdenv.mkDerivation rec {
   pname = "jj";
@@ -11,14 +16,17 @@ stdenv.mkDerivation rec {
     hash = "sha256-6MQY2amBa9NZKLwl5XdwWK3/mw5gkpv8hdykA9UQrgg=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" "CC:=$(CC)" ];
+  makeFlags = [
+    "PREFIX=$(out)"
+    "CC:=$(CC)"
+  ];
 
   buildInputs = [ gawk ]; # to patch shebangs
 
   meta = with lib; {
-    inherit (src.meta) homepage;
     description = "An evolution of the suckless ii(1) file-based IRC client";
     license = licenses.mit;
+    homepage = "https://github.com/aaronNGi/jj";
     mainProgram = "jjd";
   };
 }

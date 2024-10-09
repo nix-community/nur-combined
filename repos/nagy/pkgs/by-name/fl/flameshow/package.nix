@@ -1,4 +1,11 @@
-{ lib, fetchPypi, python3, testers, flameshow, iteround }:
+{
+  lib,
+  fetchPypi,
+  python3,
+  testers,
+  flameshow,
+  iteround,
+}:
 
 python3.pkgs.buildPythonPackage rec {
   pname = "flameshow";

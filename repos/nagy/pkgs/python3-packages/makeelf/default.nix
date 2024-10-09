@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "ELF reader-writer library";
-    homepage = "https://pypi.org/project/makeelf";
+    homepage = "https://pypi.org/project/makeelf/";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ nagy ];
   };

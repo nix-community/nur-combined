@@ -11,12 +11,12 @@
 
 buildPythonPackage rec {
   pname = "asyncer";
-  version = "0.0.7";
+  version = "0.0.8";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-1eVj+w9W64e5cleYRwNlik9bvbUv+FGz6O2GTMIAsdI=";
+    sha256 = "sha256-pYnZgPV+IO+wftkdDb5n8dL9ND5xQsZtOgmfBcYgc5w=";
   };
 
   propagatedBuildInputs = [
