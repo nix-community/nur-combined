@@ -18,14 +18,9 @@
 - [celeste-classic](https://celesteclassic.github.io)
 - [celeste-classic-2](https://mattmakesgames.itch.io/celeste-classic-2)
 
-### Fonts
-
-- _[comic-code](https://tosche.net/fonts/comic-code)_
-
 ### Audio
 
 - [reaper-sws-extension](https://www.sws-extension.org)
-- [neuralnote](https://github.com/DamRsn/NeuralNote)
 - [neural-amp-modeler-lv2](https://github.com/mikeoliphant/neural-amp-modeler-lv2)
 - [artworks](https://github.com/mrtnvgr/artworks)
 - [nam-trainer](https://github.com/sdatkinson/neural-amp-modeler)
@@ -40,7 +35,3 @@
 - **obs-wayland** - obs with plugins for wayland and pipewire support
 - **cascadia-code-nerd-font** - Cascadia Code with Nerd Font symbols
 - **cascadia-mono-nerd-font** - Cascadia Mono with Nerd Font symbols
-
-### Misc
-
-- [cbmp](https://github.com/ful1e5/cbmp)
