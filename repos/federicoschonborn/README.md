@@ -621,6 +621,11 @@ Cargo Advent of Code Helper.
 
 Tool to generate flags for your CPU.
 
+> [!WARNING]
+> 💥 This package has been marked as broken in the following platforms:
+>
+> `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`
+
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
   <!-- markdownlint-disable-next-line no-inline-html -->
@@ -1160,6 +1165,11 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 ### `resolve-march-native` `5.1.0` [🌐](https://github.com/hartwork/resolve-march-native "Homepage")
 
 Tool to determine what GCC flags -march=native would resolve into.
+
+> [!WARNING]
+> 💥 This package has been marked as broken in the following platforms:
+>
+> `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>

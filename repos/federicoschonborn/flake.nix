@@ -135,6 +135,7 @@
                         licenses = lib.toList (value.meta.license or [ ]);
                         maintainers = value.meta.maintainers or [ ];
                         platforms = value.meta.platforms or [ ];
+                        badPlatforms = builtins.filter builtins.isString (value.meta.badPlatforms or [ ]);
                         broken = value.meta.broken or false;
                         unfree = value.meta.unfree or false;
 
@@ -143,6 +144,13 @@
                         brokenSection = lib.optionalString broken ''
                           > [!WARNING]
                           > 💥 This package has been marked as broken.
+                        '';
+
+                        badPlatformsSection = lib.optionalString (badPlatforms != [ ]) ''
+                          > [!WARNING]
+                          > 💥 This package has been marked as broken in the following platforms:
+                          >
+                          > ${lib.concatMapStringsSep ", " (x: "`${x}`") badPlatforms}
                         '';
 
                         unfreeSection = lib.optionalString unfree ''
@@ -227,6 +235,7 @@
                           ''
                           descriptionSection
                           brokenSection
+                          badPlatformsSection
                           unfreeSection
                           ''
 
