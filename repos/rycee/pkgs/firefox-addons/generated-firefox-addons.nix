@@ -1658,10 +1658,10 @@
     };
     "consent-o-matic" = buildFirefoxXpiAddon {
       pname = "consent-o-matic";
-      version = "1.1.0";
+      version = "1.1.3";
       addonId = "gdpr@cavi.au.dk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4298698/consent_o_matic-1.1.0.xpi";
-      sha256 = "c23631cdf746fcf2896e99ba0dbc6192bd92c24275d05b0802dc7d7038b4815a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4362793/consent_o_matic-1.1.3.xpi";
+      sha256 = "a3ca5c64ac50376366beb4cce610d0af80e687c8c6a8c21a107c6118059896f8";
       meta = with lib;
       {
         homepage = "https://consentomatic.au.dk/";
@@ -3064,10 +3064,10 @@
     };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "5.3.0.2";
+      version = "5.3.1";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4360762/floccus-5.3.0.2.xpi";
-      sha256 = "25b7cce38a3b96823739b6cf599c07ce1baedad83b30e75340ffd7535a9d4287";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4367114/floccus-5.3.1.xpi";
+      sha256 = "11e917118d059aced688f5ef467782b7a1326297db27ba92ff2379f72e5a43b6";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -7718,10 +7718,10 @@
     };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.40";
+      version = "11.4.42";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4357325/noscript-11.4.40.xpi";
-      sha256 = "242ead426159d871480a13062cbee08abc97da746cdc5c643aee2692e9adbbb2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4363712/noscript-11.4.42.xpi";
+      sha256 = "fd2d420afd93829bb6fe30ec6f8ba926d3d54d7583b8bbd822053b8cd13c0472";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -9959,10 +9959,10 @@
     };
     "shinigami-eyes" = buildFirefoxXpiAddon {
       pname = "shinigami-eyes";
-      version = "1.0.35";
+      version = "1.0.37";
       addonId = "shinigamieyes@shinigamieyes";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4297364/shinigami_eyes-1.0.35.xpi";
-      sha256 = "da46596783f8cb55c24feb8920843825263178d61be483d588e4e47496f9ca9d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4362425/shinigami_eyes-1.0.37.xpi";
+      sha256 = "e6a7f9833a1c3aa482ebad33388506aac953cff422cee27a46b1511e052f337c";
       meta = with lib;
       {
         homepage = "https://shinigami-eyes.github.io/";
@@ -9979,10 +9979,10 @@
           "*://*.x.com/*"
           "*://*.medium.com/*"
           "*://disqus.com/*"
-          "*://*.tumblr.com/*"
+          "*://tumblr.com/*"
+          "*://www.tumblr.com/*"
           "*://*.wikipedia.org/*"
           "*://*.rationalwiki.org/*"
-          "*://cohost.org/*"
           "*://*.bsky.app/*"
           "*://anarchism.space/*"
           "*://aus.social/*"
@@ -10426,10 +10426,10 @@
     };
     "startpage-private-search" = buildFirefoxXpiAddon {
       pname = "startpage-private-search";
-      version = "2.0.1";
+      version = "2.0.2";
       addonId = "{20fc2e06-e3e4-4b2b-812b-ab431220cada}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4204954/startpage_private_search-2.0.1.xpi";
-      sha256 = "53d5e5868f1175b43675534b0628ad27ab79c7448c52b71963518fd8320c50b7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4362482/startpage_private_search-2.0.2.xpi";
+      sha256 = "d0e0008bd76bc7c5edd89998940e4c8a75f17c391af938ba933be7dd2a8e1414";
       meta = with lib;
       {
         description = "This extension protects users from being tracked while allowing them to search the web in complete private mode.";
@@ -11069,10 +11069,10 @@
     };
     "to-deepl" = buildFirefoxXpiAddon {
       pname = "to-deepl";
-      version = "0.9.1";
+      version = "0.9.2";
       addonId = "{db420ff1-427a-4cda-b5e7-7d395b9f16e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4350032/to_deepl-0.9.1.xpi";
-      sha256 = "0708e1a529194933f7b707180731fafd573fa877d24ac864b1e10cd988f3d495";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4363104/to_deepl-0.9.2.xpi";
+      sha256 = "73e90921f98370ffc1593e5972dec54074ca0f38879b0c2c9525272c3c27faa9";
       meta = with lib;
       {
         homepage = "https://github.com/xpmn/firefox-to-deepl/";
