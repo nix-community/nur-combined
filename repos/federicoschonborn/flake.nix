@@ -124,56 +124,36 @@
                 packageList = pkgs.writeText "package-list.md" (
                   builtins.concatStringsSep "\n" (
                     lib.mapAttrsToList (
-                      name: value:
+                      drvPath:
+                      {
+                        name ? drvPath,
+                        pname ? name,
+                        version ? "",
+                        outputs ? [ ],
+                        outputName ? "",
+                        meta ? { },
+                        ...
+                      }:
                       let
-                        description = value.meta.description or "";
-                        longDescription = value.meta.longDescription or "";
-                        outputs = value.outputs or [ ];
-                        homepage = value.meta.homepage or "";
-                        changelog = value.meta.changelog or "";
-                        position = value.meta.position or "";
-                        licenses = lib.toList (value.meta.license or [ ]);
-                        maintainers = value.meta.maintainers or [ ];
-                        platforms = value.meta.platforms or [ ];
-                        badPlatforms = builtins.filter builtins.isString (value.meta.badPlatforms or [ ]);
-                        broken = value.meta.broken or false;
-                        unfree = value.meta.unfree or false;
+                        description = meta.description or "";
+                        longDescription = meta.longDescription or "";
+                        homepage = meta.homepage or "";
+                        changelog = meta.changelog or "";
+                        position = meta.position or "";
+                        licenses = lib.toList (meta.license or [ ]);
+                        maintainers = meta.maintainers or [ ];
+                        badPlatforms = meta.badPlatforms or [ ];
+                        platforms = lib.subtractLists badPlatforms (meta.platforms or [ ]);
+                        broken = meta.broken or false;
+                        unfree = meta.unfree or false;
 
-                        versionPart = lib.optionalString (value ? version) " `${value.version}`";
-
-                        brokenSection = lib.optionalString broken ''
-                          > [!WARNING]
-                          > 💥 This package has been marked as broken.
-                        '';
-
-                        badPlatformsSection = lib.optionalString (badPlatforms != [ ]) ''
-                          > [!WARNING]
-                          > 💥 This package has been marked as broken in the following platforms:
-                          >
-                          > ${lib.concatMapStringsSep ", " (x: "`${x}`") badPlatforms}
-                        '';
-
-                        unfreeSection = lib.optionalString unfree ''
-                          > [!WARNING]
-                          > 🔒 This package has an unfree license.
-                        '';
-
-                        descriptionSection =
-                          "${description}.\n" + lib.optionalString (longDescription != "") "\n\n${longDescription}";
-
-                        outputsSection =
-                          let
-                            formatOutput = x: if x == value.outputName then "**`${x}`**" else "`${x}`";
-                          in
-                          lib.optionalString (outputs != [ ]) (
-                            "- Outputs: " + (lib.concatMapStringsSep ", " formatOutput outputs)
-                          );
+                        versionPart = lib.optionalString (version != "") " `${version}`";
 
                         homepagePart = lib.optionalString (homepage != "") " [🌐](${homepage} \"Homepage\")";
 
                         changelogPart = lib.optionalString (changelog != "") " [📰](${changelog} \"Changelog\")";
 
-                        positionSection =
+                        sourcePart =
                           let
                             formatPosition =
                               x:
@@ -187,7 +167,30 @@
                               else
                                 "https://github.com/NixOS/nixpkgs/blob/${nixpkgs.shortRev}/${path}#L${line}";
                           in
-                          lib.optionalString (position != "") "- [Source](${formatPosition position})";
+                          lib.optionalString (position != "") " [📦](${formatPosition position} \"Source\")";
+
+                        brokenSection = lib.optionalString broken ''
+                          > [!WARNING]
+                          > 💥 This package has been marked as broken.
+                        '';
+
+                        unfreeSection = lib.optionalString unfree ''
+                          > [!WARNING]
+                          > 🔒 This package has an unfree license.
+                        '';
+
+                        descriptionSection =
+                          "${description}.\n" + lib.optionalString (longDescription != "") "\n\n${longDescription}";
+
+                        pnameSection = "- Name: `${pname}`";
+
+                        outputsSection =
+                          let
+                            formatOutput = x: if x == outputName then "**`${x}`**" else "`${x}`";
+                          in
+                          lib.optionalString (outputs != [ ]) (
+                            "- Outputs: " + (lib.concatMapStringsSep ", " formatOutput outputs)
+                          );
 
                         licenseSection =
                           let
@@ -204,7 +207,7 @@
                               x:
                               let
                                 formattedName = if x ? github then "[${x.name}](https://github.com/${x.github})" else x.name;
-                                formattedEmail = lib.optionalString (x ? email) " <[`${x.email}`](mailto:${x.email})>";
+                                formattedEmail = lib.optionalString (x ? email) " [✉️](mailto:${x.email})";
                               in
                               "  - ${formattedName}${formattedEmail}\n";
                             allMaintainersLink =
@@ -231,11 +234,10 @@
                       builtins.concatStringsSep "\n" (
                         builtins.filter (x: x != "") [
                           ''
-                            ### `${name}`${versionPart}${homepagePart}${changelogPart}
+                            ### `${drvPath}`${versionPart}${homepagePart}${changelogPart}${sourcePart}
                           ''
                           descriptionSection
                           brokenSection
-                          badPlatformsSection
                           unfreeSection
                           ''
 
@@ -246,8 +248,8 @@
                                 Details
                               </summary>
                           ''
+                          pnameSection
                           licenseSection
-                          positionSection
                           maintainersSection
                           outputsSection
                           platformsSection
