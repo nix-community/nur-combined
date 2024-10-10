@@ -21,6 +21,7 @@
     hosts = {
       "127.0.0.1" = [
         "kaambl.nyaw.xyz"
+        "dns.nyaw.xyz"
       ];
       "10.0.1.1" = [ "nodens.nyaw.xyz" ];
       "10.0.2.1" = [ "azasos.nyaw.xyz" ];

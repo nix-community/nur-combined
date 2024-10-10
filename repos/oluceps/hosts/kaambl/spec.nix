@@ -64,7 +64,20 @@
     phantomsocks.enable = true;
     garage.enable = true;
     dae.enable = true;
-    dnsproxy.enable = true;
+    dnsproxy = {
+      enable = true;
+      loadCert = true;
+      extraFlags = [
+        "--edns-addr=211.140.13.188"
+        "-l"
+        "127.0.0.1"
+        "--quic-port=853"
+        "--https-port=843"
+        "--http3"
+        "--tls-crt=/run/credentials/dnsproxy.service/nyaw.cert"
+        "--tls-key=/run/credentials/dnsproxy.service/nyaw.key"
+      ];
+    };
     earlyoom.enable = true;
     arti.enable = true;
   };

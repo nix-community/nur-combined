@@ -15,7 +15,6 @@
           servers = {
             srv0 = {
               routes = [
-
               ];
               tls_connection_policies = [
                 {
