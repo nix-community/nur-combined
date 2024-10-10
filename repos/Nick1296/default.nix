@@ -19,6 +19,7 @@
   vivado-2019-2 = pkgs.callPackage ./pkgs/vivado/2019.2.nix { };
   sweet-theme = pkgs.callPackage ./pkgs/sweet-theme { };
   nordic = pkgs.callPackage ./pkgs/nordic { };
+  doomemacs-icons = pkgs.callPackage ./pkgs/doomemacs-icons { };
   utterly-round-plasma-style =
     pkgs.callPackage ./pkgs/utterly-round-plasma-style { };
   utterly-sweet-plasma-theme =
