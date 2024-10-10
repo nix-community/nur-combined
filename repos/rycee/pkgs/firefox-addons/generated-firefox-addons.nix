@@ -1535,10 +1535,10 @@
     };
     "click-and-read" = buildFirefoxXpiAddon {
       pname = "click-and-read";
-      version = "3.19.8";
+      version = "3.20.0";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4365233/click_and_read-3.19.8.xpi";
-      sha256 = "cc5ad45918778240ce929af27bc2b4544ee500b9fafaa3c65318856ca3708f5f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4367656/click_and_read-3.20.0.xpi";
+      sha256 = "2ec136be98721aeadbd0927f33b946d07dddffc2079dbbf9c9d7bf3504b8142f";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -3874,6 +3874,35 @@
         platforms = platforms.all;
       };
     };
+    "hcfy" = buildFirefoxXpiAddon {
+      pname = "hcfy";
+      version = "10.14.1";
+      addonId = "{0982b844-4f35-48b7-9811-6832d916f21c}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4334571/hcfy-10.14.1.xpi";
+      sha256 = "3ac441b21c1d5423ea96a7cafd1cbc74bc895990e5d7dfd58167cb43c88fb255";
+      meta = with lib;
+      {
+        homepage = "https://hcfy.ai";
+        description = "一站式划词 / 截图 / 网页全文 / 音视频 AI 翻译扩展，支持谷歌、DeepL、ChatGPT、百度等 9 个国内外主流翻译服务，均可用于全文翻译。能在 PDF 里使用。支持辅助键、快捷键、悬浮取词。";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [
+          "<all_urls>"
+          "contextMenus"
+          "storage"
+          "clipboardWrite"
+          "clipboardRead"
+          "webRequest"
+          "webRequestBlocking"
+          "alarms"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "header-editor" = buildFirefoxXpiAddon {
       pname = "header-editor";
       version = "4.1.1";
@@ -3938,6 +3967,21 @@
           "tabs"
           "webRequest"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "hoarder" = buildFirefoxXpiAddon {
+      pname = "hoarder";
+      version = "1.2.3";
+      addonId = "addon@hoarder.app";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4357468/hoarder-1.2.3.xpi";
+      sha256 = "749f0a83b648a49637d4f7278e05f4eb6e75517ecac1f9846f72f0d2e57bfc6b";
+      meta = with lib;
+      {
+        homepage = "https://hoarder.app";
+        description = "An extension to bookmark links to hoarder.app.";
+        license = licenses.lgpl3;
+        mozPermissions = [ "storage" "tabs" "contextMenus" ];
         platforms = platforms.all;
       };
     };
@@ -8200,10 +8244,10 @@
     };
     "passbolt" = buildFirefoxXpiAddon {
       pname = "passbolt";
-      version = "4.9.3";
+      version = "4.9.4";
       addonId = "passbolt@passbolt.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4347268/passbolt-4.9.3.xpi";
-      sha256 = "c17926b508f6a5a70e0b0071e9c5a17e97b95d3acbd9ab60b0a54e5af792f9eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4363360/passbolt-4.9.4.xpi";
+      sha256 = "c0d1a08695b6fd8dcd036d619205c029a6755bce70fe46ebcd05f7a7969dc4f2";
       meta = with lib;
       {
         homepage = "https://www.passbolt.com";
@@ -10405,10 +10449,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.9.3";
+      version = "5.9.4";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4360577/sponsorblock-5.9.3.xpi";
-      sha256 = "ea3d137e458f1a87f406cbb39f3099ee673918c40c1bad5b48bc26e9bfc8be62";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4364207/sponsorblock-5.9.4.xpi";
+      sha256 = "1bff70a70685caaf444b57984a26c910a456bbbcc50d24d2d58a081ba114f7a3";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -10511,10 +10555,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "4.6";
+      version = "4.7";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4350553/steam_database-4.6.xpi";
-      sha256 = "8eae2f65fe7fa0f347433b9618b89d6dd668314b4052145b27152ab94a3781d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4363931/steam_database-4.7.xpi";
+      sha256 = "482cf0c66da7e6638451f3ee98c11168f8c31395902227112c00fad3057dc3a5";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
