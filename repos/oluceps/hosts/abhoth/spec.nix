@@ -31,6 +31,7 @@
     fail2ban.enable = true;
     dnsproxy = {
       enable = true;
+      extraFlags = [ "--ipv6-disabled" ];
     };
     # rustypaste.enable = true;
   };

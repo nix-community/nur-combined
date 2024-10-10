@@ -30,6 +30,7 @@
     trojan-server.enable = true;
     dnsproxy = {
       enable = true;
+      extraFlags = [ "--ipv6-disabled" ];
     };
   };
   services = {

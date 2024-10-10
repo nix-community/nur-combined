@@ -31,7 +31,10 @@
     fail2ban.enable = true;
     dae.enable = false;
     srs.enable = true;
-    dnsproxy.enable = true;
+    dnsproxy = {
+      enable = true;
+      extraFlags = [ "--ipv6-disabled" ];
+    };
   };
 
   services = {
