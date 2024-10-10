@@ -1,6 +1,6 @@
 { lib,stdenvNoCC, fetchFromGitHub }:
 stdenvNoCC.mkDerivation rec {
-  name = "doomemacs-icons-${version}";
+  name = "doomemacs-icons";
   version = "2023-03-10";
   src = fetchFromGitHub {
     owner = "jaidetree";
@@ -11,9 +11,9 @@ stdenvNoCC.mkDerivation rec {
   dontUnpack = true;
   installPhase = ''
     mkdir -p $out/share/doomemacs-icons/{abject,cute,emacs}-doom
-    cp $src/abject-doom/doom.* $out/share/doomemacs-icons/abject-doom/
-    cp $src/cute-doom/doom.* $out/share/doomemacs-icons/cute-doom/
-    cp $src/emacs-doom/doom.* $out/share/doomemacs-icons/emacs-doom/
+    cp $src/abject-doom/*.* $out/share/doomemacs-icons/abject-doom/
+    cp $src/cute-doom/*.* $out/share/doomemacs-icons/cute-doom/
+    cp $src/emacs-doom/*.* $out/share/doomemacs-icons/emacs-doom/
     '';
   meta = with lib; {
     description = "A proposed doom Emacs icon";
