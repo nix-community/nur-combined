@@ -66,6 +66,7 @@
     dae.enable = true;
     dnsproxy.enable = true;
     earlyoom.enable = true;
+    arti.enable = true;
   };
 
   services = {
