@@ -1,6 +1,5 @@
 { lib
 , stdenv
-, xmake
 , fetchFromGitHub
 , unzip
 , glib
