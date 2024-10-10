@@ -2,9 +2,9 @@
   cacert, glib-networking, ... }:
 let
   pname = "orca-slicer";
-  version = "2.1.1";
-  sha256 = "sha256-kvM1rBGEJhjRqQt3a8+I0o4ahB1Uc9qB+4PzhYoNQdM=";
-  url = "https://github.com/SoftFever/OrcaSlicer/releases/download/v${version}/OrcaSlicer_Linux_V${version}.AppImage";
+  version = "2.2.0-beta";
+  sha256 = "sha256-jTRfcs84MDbiM6G/sYM9eV8tEGINa1irPGmuFfj+tTM=";
+  url = "https://github.com/SoftFever/OrcaSlicer/releases/download/v${version}/OrcaSlicer_Linux_Ubuntu2404_V${version}.AppImage";
   src = fetchurl {
     inherit url sha256;
   };
