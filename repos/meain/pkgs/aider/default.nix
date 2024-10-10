@@ -12,7 +12,7 @@ let
     self = python3;
     packageOverrides = _: super: { tree-sitter = super.tree-sitter_0_21; };
   };
-  version = "0.54.0";
+  version = "0.58.0";
   overlays = [
     (self: super: {
       # Disable doCheck for all dependencies
@@ -33,10 +33,10 @@ python3.pkgs.buildPythonApplication {
     owner = "paul-gauthier";
     repo = "aider";
     rev = "refs/tags/v${version}";
-    hash = "sha256-ysNhfhFGSDhEQLQLP26Lv6qmZehmwtQTSlAqJVPD5O8=";
+    hash = "sha256-rdN2a/Tr7r8hC9HnQaavby8BLThBYbg9jLu9ppMT1HI=";
   };
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [ setuptools-scm ];
 
   dependencies =
     with python3.pkgs;
@@ -51,6 +51,7 @@ python3.pkgs.buildPythonApplication {
       gitpython
       grep-ast
       importlib-resources
+      json5
       jsonschema
       jiter
       litellm
@@ -58,13 +59,16 @@ python3.pkgs.buildPythonApplication {
       numpy
       packaging
       pathspec
+      pexpect
       pillow
       playwright
       prompt-toolkit
+      ptyprocess
       pypager
       pypandoc
       pyperclip
       pyyaml
+      psutil
       rich
       scipy
       sounddevice
@@ -121,6 +125,6 @@ python3.pkgs.buildPythonApplication {
     homepage = "https://github.com/paul-gauthier/aider";
     license = lib.licenses.asl20;
     mainProgram = "aider";
-    maintainers = with lib.maintainers; [ taha-yassine ];
+    maintainers = with lib.maintainers; [ meain ];
   };
 }

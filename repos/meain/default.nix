@@ -52,7 +52,7 @@ in
   chatgpt-cli = pkgs.callPackage ./pkgs/chatgpt-cli { };
   logseq-doctor = pkgs.callPackage ./pkgs/logseq-doctor { };
   fabric = pkgs.callPackage ./pkgs/fabric { };
-  aider = pkgs.callPackage ./pkgs/aider { };
+  # aider = pkgs.callPackage ./pkgs/aider { };
 
   # RUn nvfetcher in the haskellPackages directory to update sources
   haskellPackages = callPackages ./pkgs/haskellPackages;
