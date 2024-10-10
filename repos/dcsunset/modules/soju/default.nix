@@ -27,7 +27,7 @@ let
   '';
 
   sojuctl = pkgs.writeShellScriptBin "sojuctl" ''
-    exec ${cfg.package}/bin/sojuctl --config ${cfg.configFile} "$@"
+    exec ${lib.getExe' cfg.package "sojuctl"} --config ${cfg.configFile} "$@"
   '';
 in
 {
@@ -118,7 +118,7 @@ in
         Path to config file. If this option is set, it will override any
         configuration done using other options.
       '';
-      example = "~/soju.conf";
+      example = "./soju.conf";
     };
   };
 
@@ -145,7 +145,7 @@ in
       serviceConfig = {
         DynamicUser = true;
         Restart = "always";
-        ExecStart = "${cfg.package}/bin/soju -config ${cfg.configFile}";
+        ExecStart = "${lib.getExe' cfg.package "soju"} -config ${cfg.configFile}";
         StateDirectory = "soju";
         RuntimeDirectory = "soju";
       };
