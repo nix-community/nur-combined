@@ -42,6 +42,7 @@ in {
       powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
       services.udev.extraRules = ''
         ACTION=="add", SUBSYSTEM=="block", KERNEL=="sd[a-z]", ENV{ID_SERIAL_SHORT}=="WD-WXS2E902C67R", RUN+="${pkgs.hdparm}/bin/hdparm -B 255 -S 0 /dev/%k"
+        ACTION=="add", SUBSYSTEM=="block", KERNEL=="sd[a-z]", ENV{ID_SERIAL_SHORT}=="WWD1JS70", RUN+="${pkgs.hdparm}/bin/hdparm -B 255 -S 0 /dev/%k"
       '';
     } // builder))
     (mkIf (cfg.enable && laptop) ({
