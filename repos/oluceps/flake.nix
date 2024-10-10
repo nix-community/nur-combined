@@ -60,7 +60,6 @@
                 rage
                 b3sum
                 nushell
-                nixos-rebuild
               ];
             };
 

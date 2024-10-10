@@ -74,6 +74,7 @@
           ];
 
           dev = [
+            nixos-rebuild
             vscode.fhs
             nodejs_latest.pkgs.pnpm
             nodejs_latest
