@@ -2125,27 +2125,6 @@
         },
         "version": "v1.3.0"
     },
-    "qbittorrent-enhanced-edition": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "qbittorrent-enhanced-edition",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "c0re100",
-            "repo": "qBittorrent-Enhanced-Edition",
-            "rev": "release-4.6.7.10",
-            "sha256": "sha256-Mr376nH2pE6NMF9IdDhZULwqkRr7472OZnKO86hb6ZI=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "release-4.6.7.10"
-    },
     "qhttpengine": {
         "cargoLocks": null,
         "date": "2018-03-22",

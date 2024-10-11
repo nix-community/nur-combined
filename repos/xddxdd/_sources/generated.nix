@@ -1176,17 +1176,6 @@
       sha256 = "sha256-IsbGSUXaayO8gfslfo2oIforjy5TW6xVdCDOXT2VmjQ=";
     };
   };
-  qbittorrent-enhanced-edition = {
-    pname = "qbittorrent-enhanced-edition";
-    version = "release-4.6.7.10";
-    src = fetchFromGitHub {
-      owner = "c0re100";
-      repo = "qBittorrent-Enhanced-Edition";
-      rev = "release-4.6.7.10";
-      fetchSubmodules = false;
-      sha256 = "sha256-Mr376nH2pE6NMF9IdDhZULwqkRr7472OZnKO86hb6ZI=";
-    };
-  };
   qhttpengine = {
     pname = "qhttpengine";
     version = "43f55df51623621ed3efb4e42c7894586d988667";

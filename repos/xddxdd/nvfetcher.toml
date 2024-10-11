@@ -455,10 +455,6 @@ fetch.github = "pterodactyl/wings"
 src.github_tag = "ttk1/py-rcon"
 fetch.github = "ttk1/py-rcon"
 
-[qbittorrent-enhanced-edition]
-src.github = "c0re100/qBittorrent-Enhanced-Edition"
-fetch.github = "c0re100/qBittorrent-Enhanced-Edition"
-
 [qhttpengine]
 src.git = "https://github.com/nitroshare/qhttpengine.git"
 fetch.github = "nitroshare/qhttpengine"
