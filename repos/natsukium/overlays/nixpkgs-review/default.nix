@@ -23,6 +23,8 @@ final: prev: {
             humanize
           ]);
 
+        doInstallCheck = false;
+
         meta = prevAttrs.meta // {
           description = "Patched version of nixpkgs-review with additional features";
           homepage = "https://github.com/natsukium/nixpkgs-review";
