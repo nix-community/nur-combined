@@ -66,6 +66,20 @@
         platforms = platforms.all;
       };
     };
+    "absolute-enable-right-click" = buildFirefoxXpiAddon {
+      pname = "absolute-enable-right-click";
+      version = "1.3.9resigned1";
+      addonId = "{9350bc42-47fb-4598-ae0f-825e3dd9ceba}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4274207/absolute_enable_right_click-1.3.9resigned1.xpi";
+      sha256 = "46cd0be06eb1decc2095b1afd47fd11aee80db7d5576b59f8794246ef65301ff";
+      meta = with lib;
+      {
+        description = "Force Enable Right Click &amp; Copy";
+        license = licenses.bsd2;
+        mozPermissions = [ "tabs" "storage" "activeTab" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
     "adaptive-tab-bar-colour" = buildFirefoxXpiAddon {
       pname = "adaptive-tab-bar-colour";
       version = "2.1.4";
