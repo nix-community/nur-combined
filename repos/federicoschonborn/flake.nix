@@ -197,7 +197,7 @@
                             formatLicense = x: if x ? url then "[`${x.spdxId}`](${x.url} '${x.fullName}')" else x.fullName;
                           in
                           lib.optionalString (licenses != null) (
-                            "- License${if builtins.length licenses > 1 then "s" else ""}: "
+                            "- License${lib.optionalString (builtins.length licenses > 1) "s"}: "
                             + (lib.concatMapStringsSep ", " formatLicense licenses)
                           );
 
@@ -209,27 +209,28 @@
                                 formattedName = if x ? github then "[${x.name}](https://github.com/${x.github})" else x.name;
                                 formattedEmail = lib.optionalString (x ? email) " [✉️](mailto:${x.email})";
                               in
-                              "  - ${formattedName}${formattedEmail}\n";
+                              "${formattedName}${formattedEmail}";
                             allMaintainersLink =
                               let
                                 emails = builtins.map (x: x.email) (builtins.filter (x: x ? email) maintainers);
                               in
-                              if emails != [ ] then
-                                "  - [✉️ Mail to all maintainers](mailto:" + (builtins.concatStringsSep "," emails) + ")"
-                              else
-                                "";
+                              lib.optionalString (builtins.length emails > 1) (
+                                "\n  - [✉️ Mail to all maintainers](mailto:" + (builtins.concatStringsSep "," emails) + ")"
+                              );
                           in
                           lib.optionalString (maintainers != [ ]) (
-                            "- Maintainers:\n" + (lib.concatMapStringsSep "" formatMaintainer maintainers) + allMaintainersLink
+                            "- Maintainer${lib.optionalString (builtins.length maintainers > 1) "s"}:"
+                            + (
+                              if builtins.length maintainers > 1 then
+                                ("\n  - " + (lib.concatMapStringsSep "\n  - " formatMaintainer maintainers) + allMaintainersLink)
+                              else
+                                (" " + (formatMaintainer (builtins.elemAt maintainers 0)))
+                            )
                           );
 
-                        platformsSection =
-                          let
-                            formatPlatform = x: "`${x}`";
-                          in
-                          lib.optionalString (platforms != [ ]) (
-                            "- Platforms: " + (lib.concatMapStringsSep ", " formatPlatform platforms)
-                          );
+                        platformsSection = lib.optionalString (platforms != [ ]) (
+                          "- Platforms: " + (lib.concatMapStringsSep ", " (x: "`${x}`") platforms)
+                        );
                       in
                       builtins.concatStringsSep "\n" (
                         builtins.filter (x: x != "") [
