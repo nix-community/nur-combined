@@ -8,3 +8,8 @@ Includes:
 1. Legacy GraalVM Community Edition (11, 17, 19)
 2. Interactivebrokers Trading Workstation (TWS)
 
+# Test
+
+```bash
+nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+```

@@ -1,7 +1,7 @@
 { lib
 , stdenv
 , makeWrapper
-, jdk11
+, jdk17
 , fetchurl
 , glib
 , gtk3
@@ -34,7 +34,7 @@ let
     ];
     sha256 = "sha256-wgGjbyMpzvp4GirAkBcCDIkGLCsP+5YDbvvGbxOraKw=";
   };
-  jre = jdk11.override { enableJavaFX = true; };
+  jre = jdk17.override { enableJavaFX = true; };
   dynamicLibraries = [
     glib
     gtk3
