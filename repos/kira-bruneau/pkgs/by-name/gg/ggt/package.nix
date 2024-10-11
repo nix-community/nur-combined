@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ggt";
-  version = "1.3.2";
+  version = "1.3.3";
 
   src = fetchFromGitHub {
     owner = "gadget-inc";
     repo = "ggt";
     rev = "refs/tags/v${finalAttrs.version}";
-    hash = "sha256-eb7/bxcnFB/gPKMgDtj4jyJCwAnwChOOT4U2vhyBUxE=";
+    hash = "sha256-NTsYGxQadAwhgxGFBY0I97g+8QnYHw0S5uqy0JHRtf0=";
   };
 
   strictDeps = true;
@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   pnpmDeps = pnpm.fetchDeps {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-7QIO7EmYx/55LIigmpQ3GHvjbuNmvVQISD/zR+7u+zs=";
+    hash = "sha256-RtSresp5pywp8GvATS8gDuZzHUlATnCpupMCsKyWk94=";
   };
 
   npmBuildScript = "build";
