@@ -161,6 +161,7 @@ in
     gf = "git fetch --all --jobs 4 --prune";
     gff = "git fetch --all --jobs 4 --prune && git merge --ff-only";
     gh = "git-remote github.com";
+    gist = "git-remote gist.github.com";
     gl = "git-remote gitlab.com";
     h = "tig --all";
     hs = "home-manager switch";

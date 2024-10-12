@@ -2,13 +2,14 @@
 set -Eeuo pipefail
 
 if [[ ! ( "${2-}" =~ ^([-_[:alnum:]]+)/([-_.[:alnum:]]+)$ ) ]]; then
-  echo "Usage: ${0##*/} <hostname> <owner>/<repo>" >&2
+  echo "Usage: ${0##*/} <hostname> <owner>/<repo> [local path]" >&2
   exit 1
 fi
 
 hostname="$1"
 owner="${BASH_REMATCH[1]}"
 repo="${BASH_REMATCH[2]}"
+path="${3:-$repo}"
 
 https="https://$hostname/$owner/$repo.git"
 ssh="git@$hostname:$owner/$repo.git"
@@ -28,8 +29,8 @@ if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
 else
   echo "Cloning from remote [3m$owner/$repo[23m with HTTPS fetch and SSH push" >&2
 
-  git clone --origin "$owner" "$https" "$repo"
-  cd "$repo"
+  git clone --origin "$owner" "$https" "$path"
+  cd "$path"
   git remote set-url --push "$owner" "$ssh"
 fi
 
@@ -43,6 +44,7 @@ configure_requests() { local display="$1" ref="$2"
 }
 case "$hostname" in
   'codeberg.org'|'github.com') configure_requests 'pull' 'pull';;
+  'gist.github.com');;
   'gitlab.com') configure_requests 'merge' 'merge-requests';;
   *) echo "Warning: Merge request configuration unknown for [3m$hostname[23m" >&2;;
 esac

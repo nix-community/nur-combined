@@ -50,6 +50,7 @@ in
       karunamurti.haml
       kokakiwi.vscode-just
       leighlondon.eml
+      loriscro.super
       matthewpi.caddyfile-support
       mechatroner.rainbow-csv
       mhutchie.git-graph
@@ -57,6 +58,7 @@ in
       ms-pyright.pyright
       ms-python.isort
       ms-python.python
+      ms-vscode.wasm-wasi-core # Dependency of loriscro.super
       ms-vsliveshare.vsliveshare
       pkief.material-icon-theme
       ronnidc.nunjucks
@@ -285,7 +287,7 @@ in
       "[css]" = prettier;
       "[diff]" = monospace;
       "[git-commit]" = monospace // { "editor.rulers" = [ 50 72 ]; "rewrap.wrappingColumn" = 72; };
-      "[html]" = prettier;
+      "[html]" = prettier // { "editor.formatOnSave" = false; /* Workaround for kristoff-it/superhtml#33 */ };
       "[javascript]" = prettier;
       "[json]" = prettier;
       "[jsonc]" = prettier;

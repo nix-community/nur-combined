@@ -80,6 +80,7 @@ in
       imagemagickBig
       img2pdf
       (inkscape-with-extensions.override { inkscapeExtensions = with inkscape-extensions; [ applytransforms ]; })
+      ipcalc
       just
       just-local
       killall

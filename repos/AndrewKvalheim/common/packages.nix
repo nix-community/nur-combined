@@ -83,7 +83,9 @@ specify {
     joaompinto.vscode-graphviz.search = open-vsx;
     kokakiwi.vscode-just.search = open-vsx;
     leighlondon.eml.search = [ open-vsx vscode-marketplace ];
+    loriscro.super.search = [ open-vsx ];
     mitchdenny.ecdc.search = open-vsx;
+    ms-vscode.wasm-wasi-core.search = [ open-vsx ];
     ronnidc.nunjucks.search = [ open-vsx vscode-marketplace ];
     silvenon.mdx.search = open-vsx;
     sissel.shopify-liquid.search = open-vsx;
