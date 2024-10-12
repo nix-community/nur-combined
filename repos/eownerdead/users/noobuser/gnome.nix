@@ -3,7 +3,10 @@
   home = {
     packages =
       with pkgs;
-      [ gnome.dconf-editor ]
+      [
+        gnome.dconf-editor
+        my.fullscreen-to-new-workspace
+      ]
       ++ (with pkgs.gnomeExtensions; [
         customize-ibus
         enhanced-osk

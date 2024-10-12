@@ -20,6 +20,22 @@
         "type": "github"
       }
     },
+    "docker-nixpkgs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1722973350,
+        "narHash": "sha256-CGXnLRVAo0hN62PfLEnNfB6jaTQAupDLS+1ZCHDTPiE=",
+        "owner": "nix-community",
+        "repo": "docker-nixpkgs",
+        "rev": "bccad7f19ef17f19aa39f23ea9b5b4ad2031b505",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "docker-nixpkgs",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -139,11 +155,11 @@
     },
     "nur": {
       "locked": {
-        "lastModified": 1728738105,
-        "narHash": "sha256-vNgee7PBdBgZWe4fe179ZrTRLvnNWzrZzYJE0y72R/I=",
+        "lastModified": 1728728489,
+        "narHash": "sha256-qq0IzZ2I56156aezqbhXCiDF4Qr1Oxamw4s+vCYhqeg=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "4293bf4c0d6da26298350af7fff8800fb59d9b77",
+        "rev": "79466d1c9bac4f779dd10a06deb7cae51be4540e",
         "type": "github"
       },
       "original": {
@@ -175,6 +191,7 @@
     "root": {
       "inputs": {
         "disko": "disko",
+        "docker-nixpkgs": "docker-nixpkgs",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "nix-index-database": "nix-index-database",

@@ -28,6 +28,8 @@
   (delete-by-moving-to-trash t)
   (window-resize-pixelwise t)
   (frame-resize-pixelwise t)
+  (enable-recursive-minibuffers t)
+  (read-extended-command-predicate #'command-completion-default-include-p)
 
   ;; Built-in Modus themes
   (require-theme 'modus-theme)
@@ -39,7 +41,7 @@
   :config
   (setq-default completion-ignore-case t) ; Non customize variable
   (set-face-attribute
-   'default nil :font "JetBrains Mono NL" :height 120))
+   'default nil :font "mononoki"))
 
 (use-package simple
   :custom
@@ -58,7 +60,7 @@
 
 (use-package pixel-scroll
   :custom
-  (pixel-scroll-mode t))
+  (pixel-scroll-precision-mode t))
 
 (use-package adaptive-wrap
   :ensure t
@@ -123,40 +125,6 @@
   (tab-bar-mode t)
   (tab-bar-show nil))
 
-(use-package exwm
-  :ensure t
-  :hook (exwm-update-title
-          . (lambda () (exwm-workspace-rename-buffer exwm-title)))
-  :bind (:map exwm-mode-map
-         ("\C-q" . exwm-input-send-next-key))
-  :custom
-  (exwm-input-simulation-keys '(([?\C-b] . [left])
-                                ([?\M-b] . [C-left])
-                                ([?\C-f] . [right])
-                                ([?\M-f] . [C-right])
-                                ([?\C-p] . [up])
-                                ([?\C-n] . [down])
-                                ([?\C-a] . [home])
-                                ([?\C-e] . [end])
-                                ([?\M-v] . [prior])
-                                ([?\C-v] . [next])
-                                ([?\C-d] . [delete])
-                                ([?\M-d] . [C-S-right delete])
-                                ([?\C-h] . [backspace])
-                                ([?\M-h] . [C-S-left delete])
-                                ([?\C-k] . [S-end delete])
-                                ([?\C-w] . [?\C-x])
-                                ([?\M-w] . [?\C-c])
-                                ([?\C-y] . [?\C-v])
-                                ([?\C-s] . [?\C-f])))
-  :config
-  (push ?\C-\\ exwm-input-prefix-keys)
-  (exwm-enable))
-
-(use-package exwm-systemtray
-  :config
-  (exwm-systemtray-enable))
-
 (use-package proced
   :hook (proced-mode . nix-prettify-mode)
   :custom
@@ -168,16 +136,11 @@
 (use-package daemons
   :ensure t)
 
-(use-package pipewire
-  :ensure t
-  :bind (("<XF86AudioRaiseVolume>" . pipewire-increase-volume)
-         ("<XF86AudioLowerVolume>" . pipewire-decrease-volume)
-         ("<XF86AudioMute>" . pipewire-toggle-muted)
-         ("<XF86AudioMicMute>" . pipewire-toggle-microphone)))
-
 (use-package paren
   :custom
-  (show-paren-mode t))
+  (show-paren-mode t)
+  (show-paren-style 'expression)
+  (show-paren-when-point-inside-paren t))
 
 (use-package elec-pair
   :hook ((prog-mode conf-mode) . electric-pair-mode)
@@ -331,6 +294,9 @@
 (use-package gud
   :hook gud-tooltip-mode)
 
+(use-package dape
+  :ensure t)
+
 (use-package flymake-collection
   :ensure t
   :hook (after-init . flymake-collection-hook-setup))
@@ -346,7 +312,7 @@
   :config
   (setq-default eglot-stay-out-of '(flymake-diagnostic-functions
                                     eldoc-documentation-strategy))
-  (add-to-list 'eglot-server-programs '(nix-mode . ("nixd"))))
+  (add-to-list 'eglot-server-programs '(nix-ts-mode . ("nixd"))))
 
 (use-package yasnippet
   :ensure t
@@ -388,10 +354,16 @@
   :custom
   (direnv-mode t))
 
-(use-package icomplete
-  :hook (icomplete-minibuffer-setup . (lambda () (setq-local truncate-lines t)))
-  :custom
-  (fido-vertical-mode 1))
+(use-package vertico
+  :ensure t
+  :bind (:map vertico-map
+              ("?" . minibuffer-completion-help))
+  :init
+  (vertico-mode))
+
+(use-package vertico-mouse
+  :after vertico
+  :hook (vertico-mode . vertico-mouse-mode))
 
 (use-package embark
   :ensure t
@@ -522,6 +494,10 @@
   :custom
   (nix-indent-function #'nix-indent-line)
   (nix-repl-executable-args '("repl" "--show-trace")))
+
+(use-package nix-ts-mode
+  :ensure t
+  :mode "\\.nix\\'")
 
 (use-package haskell-mode
   :ensure t

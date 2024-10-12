@@ -13,25 +13,26 @@ let
       builtins.fromJSON (
         builtins.readFile (
           pkgs.runCommand "from-use-package" {
-            nativeBuildInputs = with pkgs; [ epkgs.emacs ];
+            nativeBuildInputs = [ epkgs.emacs ];
           } "emacs --script ${./use-package-list.el} ${initEl} > $out || true"
         )
       )
     );
 in
 {
-  imports = [ ./exwm.nix ];
-
   options.eownerdead.emacs.enable = lib.mkEnableOption "Enable emacs";
 
   config = lib.mkIf cfg.enable {
     home = {
-      packages = with pkgs; [ emacs-all-the-icons-fonts ];
+      packages = with pkgs; [
+        emacs-all-the-icons-fonts
+        mononoki
+      ];
     };
 
     programs.emacs = {
       enable = true;
-      package = if cfg.exwm.enable then pkgs.emacs29-gtk3 else pkgs.emacs29-pgtk;
+      package = pkgs.emacs29-pgtk;
       extraConfig = builtins.readFile ./init.el;
       extraPackages =
         epkgs:

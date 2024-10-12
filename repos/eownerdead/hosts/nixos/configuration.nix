@@ -109,11 +109,17 @@ in
       };
     };
     printing.enable = true;
-    udisks2.enable = true;
-    gvfs.enable = true;
     xserver = {
       enable = true;
-      displayManager.startx.enable = true;
+      desktopManager.gnome.enable = true;
+      displayManager = {
+        startx.enable = true;
+        gdm.enable = true;
+      };
+    };
+    gnome = {
+      gnome-browser-connector.enable = false;
+      gnome-keyring.enable = false;
     };
     snowflake-proxy.enable = true;
     kubo = {
@@ -132,6 +138,8 @@ in
         };
       };
     };
+    usbmuxd.enable = true;
+    hardware.openrgb.enable = true;
   };
 
   programs.wireshark.enable = true;
@@ -166,7 +174,13 @@ in
     ];
   };
 
-  i18n.defaultLocale = "ja_JP.UTF-8";
+  i18n = {
+    defaultLocale = "ja_JP.UTF-8";
+    inputMethod.ibus = {
+      enabled = true;
+      engines = with pkgs.ibus-engines; [ mozc ];
+    };
+  };
 
   fonts.packages = with pkgs; [
     noto-fonts-cjk-sans

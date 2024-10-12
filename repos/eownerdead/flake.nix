@@ -20,10 +20,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-index-database.url = "github:Mic92/nix-index-database";
+    docker-nixpkgs = {
+      url = "github:nix-community/docker-nixpkgs";
+      flake = false;
+    };
   };
 
   outputs =
     inputs@{ self, parts, ... }:
+    let
+      inherit (inputs.nixpkgs) lib;
+    in
     parts.lib.mkFlake { inherit inputs; } rec {
       imports = [ ./hosts ];
       systems = [ "x86_64-linux" ];
@@ -45,15 +52,23 @@
                 my = import ./pkgs { pkgs = super; };
                 ai = inputs.ai.packages.${system};
               })
+              (import "${inputs.docker-nixpkgs}/overlay.nix")
             ];
             config = {
               allowUnfreePredicate =
                 pkg:
-                builtins.elem (inputs.nixpkgs.lib.getName pkg) [
+                let
+                  name = inputs.nixpkgs.lib.getName pkg;
+                in
+                builtins.elem name [
                   "nvidia-x11"
                   "nvidia-settings"
+                  "libnvjitlink"
+                  "libnpp"
                   "wpsoffice-mui"
-                ];
+                ]
+                || (lib.hasPrefix "cuda" name)
+                || (lib.hasPrefix "libcu" name);
               allowInsecurePredicate = _: true;
             };
           };

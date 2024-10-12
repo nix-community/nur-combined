@@ -11,6 +11,7 @@ with lib;
   '');
 
   config = mkIf config.eownerdead.nvidia {
+    environment.systemPackages = with pkgs; [ nvtopPackages.nvidia ];
     services.xserver.videoDrivers = mkDefault [ "nvidia" ];
     hardware.nvidia = {
       modesetting.enable = mkDefault true;

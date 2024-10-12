@@ -1,15 +1,14 @@
 name: update-flake-lock
 on:
   workflow_dispatch:
+  push:
+    - main
   schedule:
     - cron: '0 0 * * *' # Run every days.
 
 jobs:
   lockfile:
-    runs-on: docker
-    container:
-       # nixos/nix doesn't work because it doesn't have /bin/sleep.
-      image: nixpkgs/nix-flakes:nixos-23.05
+    runs-on: nixos
     steps:
       - name: Install dependencies
         run: |-

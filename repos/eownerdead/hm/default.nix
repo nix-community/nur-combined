@@ -1,4 +1,7 @@
 { lib, ... }:
 {
-  imports = [ ./emacs ];
+  imports = [
+    ./emacs
+    ./gnome.nix
+  ];
 }

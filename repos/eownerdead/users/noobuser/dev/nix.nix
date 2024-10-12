@@ -13,6 +13,7 @@
     nurl
     nix-init
     nixpkgs-review
+    nix-fast-build
   ];
 
   programs.nix-index = {

@@ -16,7 +16,6 @@
     ../noobuser/gpg.nix
     ../noobuser/pass.nix
     ../noobuser/firefox.nix
-    ../noobuser/gnome.nix
     ../noobuser/virt-manager.nix
 
     ../noobuser/dev/nix.nix
@@ -87,7 +86,10 @@
     configFile."mozc/config1.db".source = ../noobuser/config1.db;
   };
 
-  eownerdead.emacs.enable = true;
+  eownerdead = {
+    emacs.enable = true;
+    gnome.enable = true;
+  };
 
   fonts.fontconfig.enable = true;
 

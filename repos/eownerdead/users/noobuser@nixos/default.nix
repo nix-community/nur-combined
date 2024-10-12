@@ -41,6 +41,7 @@
       virt-manager
       libreoffice
       darktable
+      unstable.art
       hdrmerge
       hugin
       my.morisawa-biz-ud-gothic
@@ -50,14 +51,16 @@
       anki
       tigervnc
       wayfire
-      patched
       texlab
+      libimobiledevice
+      openrgb-with-all-plugins
+      resources
     ];
   };
 
-  eownerdead.emacs = {
-    enable = true;
-    exwm.enable = true;
+  eownerdead = {
+    emacs.enable = true;
+    gnome.enable = true;
   };
 
   programs = {
