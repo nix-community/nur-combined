@@ -12,6 +12,7 @@
     else
       null;
   jurigged = pkgs.callPackage ./pkgs/jurigged { };
+  llrt = pkgs.callPackage ./pkgs/llrt { };
   proximity-nvim = pkgs.callPackage ./pkgs/proximity-nvim { };
   telescope-git-conflicts-nvim = pkgs.callPackage ./pkgs/telescope-git-conflicts-nvim { };
   zsh-wd = pkgs.callPackage ./pkgs/zsh-wd { };
