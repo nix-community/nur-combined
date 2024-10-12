@@ -489,6 +489,11 @@
     "pname": "llama-cpp",
     "version": "3899"
   },
+  "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
+    "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
+    "pname": "materialgram",
+    "version": "5.5.4.1"
+  },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
     "pname": "nbfc-linux-lantian-unstable",
@@ -1147,7 +1152,7 @@
   "legacyPackages.x86_64-linux.magiskboot": {
     "description": "A tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms.",
     "pname": "magiskboot",
-    "version": "27.0"
+    "version": "28.0"
   },
   "legacyPackages.x86_64-linux.mtkclient": {
     "description": "MTK reverse engineering and flash tool",
@@ -3792,7 +3797,7 @@
   "packages.x86_64-linux.magiskboot": {
     "description": "A tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms.",
     "pname": "magiskboot",
-    "version": "27.0"
+    "version": "28.0"
   },
   "packages.x86_64-linux.mtkclient": {
     "description": "MTK reverse engineering and flash tool",

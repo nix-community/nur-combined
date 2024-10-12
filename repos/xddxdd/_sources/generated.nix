@@ -786,10 +786,10 @@
   };
   magiskboot = {
     pname = "magiskboot";
-    version = "v27.0";
+    version = "v28.0";
     src = fetchurl {
-      url = "https://github.com/topjohnwu/Magisk/releases/download/v27.0/Magisk-v27.0.apk";
-      sha256 = "sha256-9RG9M9MkKRHQWwk5+RCjEz7yug4P8eCYEo+fPNDBZhA=";
+      url = "https://github.com/topjohnwu/Magisk/releases/download/v28.0/app-release.apk";
+      sha256 = "sha256-Gx7rrCn4qxpB5fILvc7vszQek7w9VaD5lckCsP6Hf+I=";
     };
   };
   mtkclient = {
