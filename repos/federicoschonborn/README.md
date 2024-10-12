@@ -959,7 +959,7 @@ Camera application for Plasma Mobile.
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`
 </details>
 
-### `pnut` `SLE2024-artifact-unstable-2024-10-08` [🌐](https://github.com/udem-dlteam/pnut "Homepage") [📦](./pkgs/by-name/pnut/package.nix#L44 "Source")
+### `pnut` `SLE2024-artifact-unstable-2024-10-11` [🌐](https://github.com/udem-dlteam/pnut "Homepage") [📦](./pkgs/by-name/pnut/package.nix#L44 "Source")
 
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 
