@@ -75,6 +75,9 @@ in {
     
     konify = callPackage ./pkgs/konify {};
     
+    asciiportal = callPackage ./pkgs/asciiportal {};
+    asciiportal-git = callPackage ./pkgs/asciiportal/git.nix {};
+    
     # Can't just pass `-L` to `nix-build-uncached`: it ends up being passed to both
     # old `nix-build` (which doesn't understand it) and new `nix build` (which does).
     nix-build-uncached-logging = callPackage ({nix-build-uncached}: nix-build-uncached.overrideAttrs (old: {
