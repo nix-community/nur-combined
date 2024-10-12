@@ -4,6 +4,7 @@ with pkgs;
   eva
   paperback
   amberol
+  nix-weather
   mako
   xwayland-satellite
   # qq
