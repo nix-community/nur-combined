@@ -924,10 +924,10 @@
     };
     "blocktube" = buildFirefoxXpiAddon {
       pname = "blocktube";
-      version = "0.4.3";
+      version = "0.4.4";
       addonId = "{58204f8b-01c2-4bbc-98f8-9a90458fd9ef}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4357196/blocktube-0.4.3.xpi";
-      sha256 = "19748b4c038b5ccc3540e243ffb51583626e18285877ebc735d3d7663d1e8690";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4365801/blocktube-0.4.4.xpi";
+      sha256 = "683d7f0e2c34fea779b32afa04731cba879c457ae6baed68187f372af214fb0e";
       meta = with lib;
       {
         homepage = "https://github.com/amitbl/blocktube";
@@ -2082,10 +2082,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2440.1";
+      version = "6.2441.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4361789/dashlane-6.2440.1.xpi";
-      sha256 = "1b91623c533a93e5b922bf829c5a0499048d0e0994a6737b256edfa123ec5527";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4365264/dashlane-6.2441.0.xpi";
+      sha256 = "b092765d73362d65bbe11386664997b08be6c9374f3b1522272175d4f74d8e98";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2163,10 +2163,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "132.0.20241008.203725";
+      version = "132.0.20241011.91831";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4366890/deutsch_de_language_pack-132.0.20241008.203725.xpi";
-      sha256 = "7b25cf155ecbefd2d16c2807cd9458d4dec86c652ec8753a9c339637b6d4f8ec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4368250/deutsch_de_language_pack-132.0.20241011.91831.xpi";
+      sha256 = "c3417362ae695bdd5b788bf83f1b7d635cd304c132b9f65707c56f9e8299c5b0";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3329,10 +3329,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "132.0.20241008.203725";
+      version = "132.0.20241011.91831";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4366848/francais_language_pack-132.0.20241008.203725.xpi";
-      sha256 = "af81b77110c59d1e9e27baedce2251d66892d0f03cdb5469f684d2295791e340";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4368316/francais_language_pack-132.0.20241011.91831.xpi";
+      sha256 = "189fa552998ca9285f87024079fba400f36f5421ad9386421e0a7244fbf17af8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3366,10 +3366,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "132.0.20241008.203725";
+      version = "132.0.20241011.91831";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4366829/gaidhlig_language_pack-132.0.20241008.203725.xpi";
-      sha256 = "e856b0706e3d8f2f465cb8f233834f5bd2fce7e2e36f6ece305d6c9cc071a3ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4368321/gaidhlig_language_pack-132.0.20241011.91831.xpi";
+      sha256 = "ddf2efa5e4d1ea59cd5eff146635d7394999f7e6753e0383c42b090442608a88";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -6365,10 +6365,10 @@
     };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.73";
+      version = "2.6.74";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4349721/localcdn_fork_of_decentraleyes-2.6.73.xpi";
-      sha256 = "790365940026e8f68496984dbc0d2fc8b007db4632c320b5db4ed710d768c878";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4364493/localcdn_fork_of_decentraleyes-2.6.74.xpi";
+      sha256 = "869dac224a476fdc638d45d5c399fd475b5a9dfcbaad12f20d9f9cf19aeea870";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -6425,10 +6425,10 @@
     };
     "mal-sync" = buildFirefoxXpiAddon {
       pname = "mal-sync";
-      version = "0.10.3";
+      version = "0.10.4";
       addonId = "{c84d89d9-a826-4015-957b-affebd9eb603}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4325773/mal_sync-0.10.3.xpi";
-      sha256 = "cb0d2c1b43c8f95580fa8e57cc26c0c238a478c82538002a1c99908a3c955bde";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4340167/mal_sync-0.10.4_FEogeJR.xpi";
+      sha256 = "eefdbafbd77a89e0777fac37e36162704f10782bc431391b6ea7e4e18782b5a4";
       meta = with lib;
       {
         homepage = "https://github.com/lolamtisch/MALSync";
@@ -6452,7 +6452,7 @@
           "*://malsync.moe/anilist/oauth*"
           "*://malsync.moe/shikimori/oauth*"
           "*://anilist.co/*"
-          "*://kitsu.io/*"
+          "*://kitsu.app/*"
           "*://simkl.com/*"
           "*://malsync.moe/pwa*"
           "*://*.9anime.to/watch/*"
@@ -6706,7 +6706,7 @@
           "*://animexinax.com/*"
           "*://monoschinos.com/*"
           "*://monoschinos2.com/*"
-          "*://smotret-anime.com/catalog/*"
+          "*://smotret-anime.net/catalog/*"
           "*://anime365.ru/catalog/*"
           "*://anime-365.ru/catalog/*"
           "*://animefire.net/*"
@@ -6734,7 +6734,7 @@
           "*://wuxiaworld.site/novel/*"
           "*://lscomic.com/*"
           "*://en.leviatanscans.com/*"
-          "*://reaperscans.com/comics/*"
+          "*://reaperscans.com/*"
           "*://lynxscans.com/*"
           "*://zeroscans.com/*"
           "*://reader.deathtollscans.net/*"
@@ -6806,6 +6806,7 @@
           "*://*.animetoast.cc/*"
           "*://luminousscans.com/*"
           "*://luminousscans.gg/*"
+          "*://luminous-scans.com/*"
           "*://*.animeworld.tv/play/*"
           "*://*.animeworld.so/play/*"
           "*://mangabuddy.com/*"
@@ -6840,9 +6841,9 @@
           "*://*.luciferdonghua.co.in/*"
           "*://neoxscans.com/*"
           "*://*.neoxscans.net/*"
-          "*://*.anix.to/anime/*"
-          "*://*.anix.ac/anime/*"
-          "*://*.anix.vc/anime/*"
+          "*://*.anix.to/*"
+          "*://*.anix.ac/*"
+          "*://*.anix.vc/*"
           "*://www.hinatasoul.com/anime*"
           "*://www.hinatasoul.com/videos/*"
           "*://ogladajanime.pl/*"
@@ -6858,6 +6859,7 @@
           "*://latanime.org/*"
           "*://*.mangaread.org/manga/*"
           "*://bakashi.tv/*"
+          "*://templescan.net/*"
           "*://*.openload.co/*"
           "*://*.openload.pw/*"
           "*://*.streamango.com/*"
@@ -6936,6 +6938,7 @@
           "*://*.flix555.com/*"
           "*://*.vshare.io/v/*"
           "*://ebd.cda.pl/*"
+          "*://www.lycoris.cafe/*"
           "*://*.replay.watch/*"
           "*://*.playhydrax.com/*"
           "*://hydrax.net/*"
@@ -6943,7 +6946,7 @@
           "*://*.streamium.xyz/*"
           "*://kodik.info/*"
           "*://aniboom.one/*"
-          "*://smotret-anime.com/translations/embed/*"
+          "*://smotret-anime.net/translations/embed/*"
           "*://anime365.ru/translations/embed/*"
           "*://anime-365.ru/translations/embed/*"
           "*://*.pstream.net/e/*"
@@ -7095,94 +7098,26 @@
           "*://www.aparat.com/video/video/embed/*"
           "*://vudeo.net/*"
           "*://voe.sx/e/*"
-          "*://voe-unblock.com/e/*"
-          "*://voe-unblock.net/e/*"
-          "*://voeunblock.com/e/*"
-          "*://voeunblock1.com/e/*"
-          "*://voeunblock2.com/e/*"
-          "*://voeunblock3.com/e/*"
-          "*://voeunbl0ck.com/e/*"
-          "*://voeunblck.com/e/*"
-          "*://voeunblk.com/e/*"
-          "*://voe-un-block.com/e/*"
-          "*://voeun-block.net/e/*"
-          "*://un-block-voe.net/e/*"
-          "*://v-o-e-unblock.com/e/*"
-          "*://audaciousdefaulthouse.com/e/*"
-          "*://launchreliantcleaverriver.com/e/*"
-          "*://reputationsheriffkennethsand.com/e/*"
-          "*://fittingcentermondaysunday.com/e/*"
-          "*://voe.bar/e/*"
-          "*://housecardsummerbutton.com/e/*"
-          "*://fraudclatterflyingcar.com/e/*"
-          "*://bigclatterhomesguideservice.com/e/*"
-          "*://uptodatefinishconferenceroom.com/e/*"
-          "*://realfinanceblogcenter.com/e/*"
-          "*://tinycat-voe-fashion.com/e/*"
-          "*://20demidistance9elongations.com/e/*"
-          "*://telyn610zoanthropy.com/e/*"
-          "*://toxitabellaeatrebates306.com/e/*"
-          "*://greaseball6eventual20.com/e/*"
-          "*://745mingiestblissfully.com/e/*"
-          "*://19turanosephantasia.com/e/*"
-          "*://30sensualizeexpression.com/e/*"
-          "*://321naturelikefurfuroid.com/e/*"
-          "*://449unceremoniousnasoseptal.com/e/*"
-          "*://guidon40hyporadius9.com/e/*"
-          "*://cyamidpulverulence530.com/e/*"
-          "*://boonlessbestselling244.com/e/*"
-          "*://antecoxalbobbing1010.com/e/*"
-          "*://matriculant401merited.com/e/*"
-          "*://scatch176duplicities.com/e/*"
-          "*://35volitantplimsoles5.com/e/*"
-          "*://tummulerviolableness.com/e/*"
-          "*://tubelessceliolymph.com/e/*"
-          "*://availedsmallest.com/e/*"
-          "*://counterclockwisejacky.com/e/*"
-          "*://monorhinouscassaba.com/e/*"
-          "*://urochsunloath.com/e/*"
-          "*://simpulumlamerop.com/e/*"
-          "*://sizyreelingly.com/e/*"
-          "*://rationalityaloelike.com/e/*"
-          "*://wolfdyslectic.com/e/*"
-          "*://metagnathtuggers.com/e/*"
           "*://gamoneinterrupted.com/e/*"
-          "*://chromotypic.com/e/*"
           "*://crownmakermacaronicism.com/e/*"
           "*://generatesnitrosate.com/e/*"
           "*://yodelswartlike.com/e/*"
-          "*://figeterpiazine.com/e/*"
           "*://cigarlessarefy.com/e/*"
           "*://valeronevijao.com/e/*"
           "*://strawberriesporail.com/e/*"
           "*://timberwoodanotia.com/e/*"
           "*://phenomenalityuniform.com/e/*"
-          "*://prefulfilloverdoor.com/e/*"
           "*://nonesnanking.com/e/*"
           "*://kathleenmemberhistory.com/e/*"
-          "*://denisegrowthwide.com/e/*"
-          "*://troyyourlead.com/e/*"
-          "*://stevenimaginelittle.com/e/*"
-          "*://edwardarriveoften.com/e/*"
-          "*://lukecomparetwo.com/e/*"
-          "*://kennethofficialitem.com/e/*"
           "*://bradleyviewdoctor.com/e/*"
-          "*://jamiesamewalk.com/e/*"
           "*://seanshowcould.com/e/*"
           "*://johntryopen.com/e/*"
           "*://morganoperationface.com/e/*"
-          "*://markstyleall.com/e/*"
-          "*://jayservicestuff.com/e/*"
-          "*://vincentincludesuccessful.com/e/*"
           "*://brookethoughi.com/e/*"
           "*://jamesstartstudent.com/e/*"
           "*://ryanagoinvolve.com/e/*"
           "*://jasonresponsemeasure.com/e/*"
-          "*://graceaddresscommunity.com/e/*"
           "*://shannonpersonalcost.com/e/*"
-          "*://cindyeyefinal.com/e/*"
-          "*://michaelapplysome.com/e/*"
-          "*://sethniceletter.com/e/*"
           "*://brucevotewithin.com/e/*"
           "*://rebeccaneverbase.com/e/*"
           "*://loriwithinfamily.com/e/*"
@@ -9658,10 +9593,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.10.1";
+      version = "24.10.11";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4362555/refined_github-24.10.1.xpi";
-      sha256 = "d922b9094365977860ec490d66fa96b004bb8446084930111514b2d8a6143c1d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4368223/refined_github-24.10.11.xpi";
+      sha256 = "50226092e730bbe5a71475dfc3ac2a84173c799193a7cbcab1249fcd94773a51";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -9858,10 +9793,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "132.0.20241008.203725";
+      version = "132.0.20241011.91831";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4366893/scots_language_pack-132.0.20241008.203725.xpi";
-      sha256 = "dec8fa3241c7344be50daabe110c81d8be609e9d4807472de5894a61f0b44f52";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4368284/scots_language_pack-132.0.20241011.91831.xpi";
+      sha256 = "875e2cd1916da1df23115ff863f308a620801bd4bb52ffffb454ef1bf36ebe83";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
