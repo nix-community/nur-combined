@@ -21,17 +21,17 @@ let
 
       (deflayer canary
         @>q  _    _    _    _    _    _    _    _    _    _    _    +    _    _
-        tab  w    l    y    p    k    z    x    o    u    ;    _    _    _    _
-        esc  c    r    s    t    b    f    n    e    i    a    _         @<>r _
+        _    w    l    y    p    k    z    x    o    u    ;    _    _    _    _
+        @esc c    r    s    t    b    f    n    e    i    a    _         _    _
         @ls  j    v    d    g    q    m    h    /    ,    .         @rs  _    _
-        @lc  @lm  @la            _              @ra                 _    _    _)
+        _    _    _              _              _                   _    _    _)
 
       (deflayer qwerty
         @>c  _    _    _    _    _    _    _    _    _    _    _    +    _    _
-        tab  q    w    e    r    t    y    u    i    o    p    _    _    _    _
-        esc  a    s    d    f    g    h    j    k    l    ;    _         @<>r _
-        lsft z    x    c    v    b    n    m    ,    .    /         rsft _    _
-        lctl lmet lalt           _              ralt                _    _    _)
+        _    q    w    e    r    t    y    u    i    o    p    _    _    _    _
+        @esc a    s    d    f    g    h    j    k    l    ;    _         _    _
+        @ls  z    x    c    v    b    n    m    ,    .    /         @rs  _    _
+        _    _    _              _              _                   _    _    _)
 
       (deflayer shift
         _    _    _    _    _    _    _    _    _    _    _    _    @=   _    _
@@ -40,24 +40,20 @@ let
         _    _    _    _    _    _    _    _    _    _    _         _    _    _
         _    _    _              _              _                   _    _    _)
 
-      (deflayer raise
-        _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _    _
+      (deflayer lower
+        _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _    ins
         _    _    _    _    _    _    _    _    _    _    _    _    _    _    _
-        _    _    _    _    _    _    _    _    _    _    _    _         _    _
-        _    _    _    _    _    _    _    _    _    _    _         _    _    _
+        _    _    _    _    _    _    _    left down up   rght _         _    _
+        _    _    _    _    _    _    _    _    _    _    _         _    _    home
         _    _    _              _              _                   _    _    _)
 
       (defalias
         >q  (tap-dance 150 (` (layer-switch qwerty)))
         >c  (tap-dance 150 (` (layer-switch canary)))
-        <>r (tap-hold-press 150 150 ret (layer-while-held raise))
+        esc (tap-hold-press 150 150 esc (layer-while-held lower))
         ls  (multi lsft (layer-while-held shift))
-        lc  (multi lctl (layer-while-held qwerty))
-        lm  (multi lmet (layer-while-held qwerty))
-        la  (multi lalt (layer-while-held qwerty))
         rs  (multi rsft (layer-while-held shift))
-        ra  (multi ralt (layer-while-held qwerty))
-        =   (multi (release-key lsft) (release-key rsft) =))
+        =   (unshift =))
     '';
   };
 in
