@@ -40,10 +40,6 @@ in {
       systemd.watchdog.rebootTime = "10m";
       systemd.watchdog.kexecTime = "10m";
       powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-      services.udev.extraRules = ''
-        ACTION=="add", SUBSYSTEM=="block", KERNEL=="sd[a-z]", ENV{ID_SERIAL_SHORT}=="WD-WXS2E902C67R", RUN+="${pkgs.hdparm}/bin/hdparm -B 255 -S 0 /dev/%k"
-        ACTION=="add", SUBSYSTEM=="block", KERNEL=="sd[a-z]", ENV{ID_SERIAL_SHORT}=="WWD1JS70", RUN+="${pkgs.hdparm}/bin/hdparm -B 255 -S 0 /dev/%k"
-      '';
     } // builder))
     (mkIf (cfg.enable && laptop) ({
       hardware.bluetooth.enable = true;
@@ -64,6 +60,7 @@ in {
       hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
       # https://github.com/NixOS/nixpkgs/issues/270809
       systemd.services.ModemManager.wantedBy = [ "multi-user.target" "network.target" ];
+      powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
     } // builder))
     (mkIf (cfg.enable && desktop) {
       nix.settings.cores = 8;
