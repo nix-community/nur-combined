@@ -106,7 +106,7 @@
     },
     "asterisk-g72x": {
         "cargoLocks": null,
-        "date": "2024-09-10",
+        "date": "2024-10-12",
         "extract": null,
         "name": "asterisk-g72x",
         "passthru": null,
@@ -118,12 +118,12 @@
             "name": null,
             "owner": "arkadijs",
             "repo": "asterisk-g72x",
-            "rev": "e903db50886eef9ee7b2e6cba186575690db9fbe",
-            "sha256": "sha256-6DGVfIObcaOFN9ySouH5rPP1wfTeqh7A0anFrmm+OtQ=",
+            "rev": "19103066c460de6cb2d8257c558401607a9d7208",
+            "sha256": "sha256-cjzX+QFp0KZEdtVznjqkhORd6JfeLYpxP9L0NTzhu90=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e903db50886eef9ee7b2e6cba186575690db9fbe"
+        "version": "19103066c460de6cb2d8257c558401607a9d7208"
     },
     "asterisk-gsm-efr": {
         "cargoLocks": null,
@@ -277,7 +277,7 @@
     },
     "boringssl-oqs": {
         "cargoLocks": null,
-        "date": "2024-09-19",
+        "date": "2024-10-09",
         "extract": null,
         "name": "boringssl-oqs",
         "passthru": null,
@@ -289,12 +289,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "boringssl",
-            "rev": "d3ab1f9306b446be9049b09e3543e5acc6f9d09a",
-            "sha256": "sha256-746i9UkNb8PFVblFC+cMKwiaUGI62jWViqvgO/m/uM8=",
+            "rev": "0599bb559d3be76a98f0940d494411b6a8e0b18e",
+            "sha256": "sha256-vPKFxoIvT/94iWuR5aQ+TwbiWAuotLnS9IMkNFMYcE8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d3ab1f9306b446be9049b09e3543e5acc6f9d09a"
+        "version": "0599bb559d3be76a98f0940d494411b6a8e0b18e"
     },
     "browser360-amd64": {
         "cargoLocks": null,
@@ -328,7 +328,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-10-09",
+        "date": "2024-10-10",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -340,12 +340,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "c5c4fd2fc6085b41375b7d2a44aa81643bd56ca9",
-            "sha256": "sha256-GSpOxp0DZqz+Vwv69TCeFL/Amq1f6eYfQudGX7U6EOE=",
+            "rev": "03b544a12677b9c217dabf49498cd2eda56b72f1",
+            "sha256": "sha256-KLzosgv4dMoRr3fvFdpwX85MqJldT1H/3AKW584v6OY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c5c4fd2fc6085b41375b7d2a44aa81643bd56ca9"
+        "version": "03b544a12677b9c217dabf49498cd2eda56b72f1"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -484,7 +484,7 @@
     },
     "cryptodev-linux": {
         "cargoLocks": null,
-        "date": "2024-08-26",
+        "date": "2024-10-10",
         "extract": null,
         "name": "cryptodev-linux",
         "passthru": null,
@@ -496,12 +496,12 @@
             "name": null,
             "owner": "cryptodev-linux",
             "repo": "cryptodev-linux",
-            "rev": "3a9375633e11b244c2fee651ced32e1734296fbc",
-            "sha256": "sha256-VV0RKr+CxIiTdxxSLhfrP7xk6HrQYixpI1XmNyqcfv0=",
+            "rev": "277d4574c10bb8e16ab6ab3f38b8e1cb6cd6c678",
+            "sha256": "sha256-y66uwoCaGzCWwH+v7IriMHZSU3LqJvpzQAjXUUvowig=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3a9375633e11b244c2fee651ced32e1734296fbc"
+        "version": "277d4574c10bb8e16ab6ab3f38b8e1cb6cd6c678"
     },
     "decluttarr": {
         "cargoLocks": null,
@@ -517,12 +517,12 @@
             "name": null,
             "owner": "ManiMatter",
             "repo": "decluttarr",
-            "rev": "v1.48.0",
-            "sha256": "sha256-xbKUTacOBI9yGvQdvsaKKuUvPl3Fm/VD0s8Gt3gKYlA=",
+            "rev": "v1.48.1",
+            "sha256": "sha256-HnYuxWaIvO44ArwERKJ82FH/O7vb6w9/FNO0iO0Ntkw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.48.0"
+        "version": "v1.48.1"
     },
     "dingtalk": {
         "cargoLocks": null,
@@ -933,12 +933,12 @@
             "name": null,
             "owner": "studyzy",
             "repo": "imewlconverter",
-            "rev": "v3.1.0",
-            "sha256": "sha256-TSB0SmRoI79nlGlFm/+FQ8GymhCEkuNKX0NXHHw0u8s=",
+            "rev": "v3.1.1",
+            "sha256": "sha256-lrYqQWh+PZreJ6oJg+OCipiqUyfG/2moP/n+jR+Kcj8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.1.0"
+        "version": "v3.1.1"
     },
     "inter-knot": {
         "cargoLocks": null,
@@ -1155,7 +1155,7 @@
     },
     "liboqs-unstable": {
         "cargoLocks": null,
-        "date": "2024-10-03",
+        "date": "2024-10-09",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -1167,12 +1167,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "329869f5592e555923eedd100249d2a10f546f3e",
-            "sha256": "sha256-6zwC4ouiBB8PHUKslyPrEIYVjwaoEzPjGWH/ruXze3s=",
+            "rev": "9aa2e1481cd0c242658ec8e92776741feabec163",
+            "sha256": "sha256-lR+Zu3KqDFE2bPTR4DLITK0DQwWItTaPhJNLqwiNgp8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "329869f5592e555923eedd100249d2a10f546f3e"
+        "version": "9aa2e1481cd0c242658ec8e92776741feabec163"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1293,12 +1293,12 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.11.2-xanmod1",
-            "sha256": "sha256-4BXPZs8lp/O/JGWFIO/J1HyOjByaqWQ9O6/jx76TIDs=",
+            "rev": "6.11.3-xanmod2",
+            "sha256": "sha256-HdWU61RGearLcUxB6pdw8PMQclbfUlPOl6NAJZODl1A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.11.2-xanmod1"
+        "version": "6.11.3-xanmod2"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1356,12 +1356,12 @@
             "name": null,
             "owner": "xanmod",
             "repo": "linux",
-            "rev": "6.6.54-xanmod1",
-            "sha256": "sha256-i6Rm0Qasgxpw9XcK938IJ+qZ+V2z82zpuly2Au2J18Q=",
+            "rev": "6.6.56-xanmod1",
+            "sha256": "sha256-5EgCIMS6eZWPB8t6z6ts5sSHoeawja0diWuh/DNnvqw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6.6.54-xanmod1"
+        "version": "6.6.56-xanmod1"
     },
     "llama-cpp": {
         "cargoLocks": null,
@@ -1377,12 +1377,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3899",
-            "sha256": "sha256-vGSN2vrfi5Nxx93M4w7p5L2VrG0HxlhWciLGI3bjP+U=",
+            "rev": "b3909",
+            "sha256": "sha256-S523i98kxcnlfBInQujz6OfF4+252FZOzkCM80howp8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3899"
+        "version": "b3909"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -1788,7 +1788,7 @@
     },
     "openresty": {
         "cargoLocks": null,
-        "date": "2024-09-14",
+        "date": "2024-10-10",
         "extract": null,
         "name": "openresty",
         "passthru": null,
@@ -1800,12 +1800,12 @@
             "name": null,
             "owner": "openresty",
             "repo": "openresty",
-            "rev": "5ef14281cd2c7e9543c3d5d3f6354acfc8dec092",
-            "sha256": "sha256-tWoPsAbVWHgVRXQ4M+AEvzT2OVgODLrtaNymle0PuE4=",
+            "rev": "8c37412c31621225e7aa7e825b5b50106c9c71c4",
+            "sha256": "sha256-bpUMAV126ADCA39Dg4M2piS+QkN8wynkBRJqKDO4El4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5ef14281cd2c7e9543c3d5d3f6354acfc8dec092"
+        "version": "8c37412c31621225e7aa7e825b5b50106c9c71c4"
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
@@ -1822,7 +1822,7 @@
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
             "rev": "0.7.0",
-            "sha256": "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=",
+            "sha256": "sha256-v7YIE5uzBvQHfi2hqkkRrW0F3K4haZyuoKHxAtRqQDA=",
             "sparseCheckout": [],
             "type": "github"
         },
@@ -1942,11 +1942,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-X0Qx4Qm2ZvQGAsl3hqCj63XT/WHQbxk+rljWnxWcqjo=",
+            "sha256": "sha256-vZQSC8ttR28kceyUfT7KHsWvELTsphqYAk1reAA7hRk=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.4.1/PeerBanHelper.jar"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.4.4/PeerBanHelper.jar"
         },
-        "version": "v6.4.1"
+        "version": "v6.4.4"
     },
     "phpmyadmin": {
         "cargoLocks": null,
@@ -1998,12 +1998,12 @@
             "name": null,
             "owner": "Fitzgerald-Porthmouth-Koenigsegg",
             "repo": "Plangothic",
-            "rev": "V1.8.5764",
-            "sha256": "sha256-+vKUWaqBwM4WUon9pEC5Fg/HngKQuhTkWXDF8g9ov1w=",
+            "rev": "V1.9.5766",
+            "sha256": "sha256-wdDhKINEHNrayliUwOXNg0jIg4/W3TH9VjETblJGqvE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "V1.8.5764"
+        "version": "V1.9.5766"
     },
     "plasma-panel-transparency-toggle": {
         "cargoLocks": null,
@@ -2313,7 +2313,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-10-09",
+        "date": "2024-10-12",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -2325,12 +2325,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "06074ecb7b6d39a2fb9dbe83c9fa2bd9e5472991",
-            "sha256": "sha256-Koh7wwj6zPkfes+jTtGd87rxi3lx3twYCtTzEdovXbw=",
+            "rev": "87a7de47e92c124b7eda18fcd8e7fa3b9c42fa4e",
+            "sha256": "sha256-fs6110pav1NnVFnDIqWciMnI8yKiJrGeBFOL7dAmYLs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "06074ecb7b6d39a2fb9dbe83c9fa2bd9e5472991"
+        "version": "87a7de47e92c124b7eda18fcd8e7fa3b9c42fa4e"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -2341,11 +2341,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Gem9W+R+jWIZAOyIdVCQRkxixQBjQ2QT8cJMHkty9Hc=",
+            "sha256": "sha256-G96BILorMWL6QXt5DYnyKZiF+9VHrMVCqN4rqFJQ2/o=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20240909/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20241009/moegirl.dict.yaml"
         },
-        "version": "20240909"
+        "version": "20241009"
     },
     "rime-zhwiki": {
         "cargoLocks": null,
