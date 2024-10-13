@@ -191,7 +191,7 @@ in
                   type = "date";
                 }
                 {
-                  format = "%-I:%M";
+                  format = "%R";
                   type = "time";
                 }
               ]
