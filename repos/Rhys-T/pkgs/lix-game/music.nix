@@ -4,10 +4,24 @@
     # Snapshot taken on:      2024-09-02
     version = "0-unstable-2023-04-15";
     # Upstream archive isn't versioned - make sure the hash doesn't change on us
+    # See also: https://github.com/SimonN/LixD/issues/457
     urls = [
         "https://media.githubusercontent.com/media/Rhys-T/nur-packages/f77995a2952eacba9bef8c0af1603119a906770a/lix-music.zip"
         "https://web.archive.org/web/20240902001641/https://www.lixgame.com/dow/lix-music.zip"
+        # If all else fails, extract it from the binary release of the game and fix it up in postFetch:
+        "https://github.com/SimonN/LixD/releases/download/v${common.version}/lix-${common.version}-linux64.zip"
     ];
+    postFetch = ''
+        shopt -s extglob
+        if [[ -d "$out"/music ]]; then
+            pushd "$out"
+            rm -r ./!(music)
+            mv music/* .
+            rmdir music
+            popd
+        fi
+        shopt -u extglob
+    '';
     hash = "sha256-JIXQ+P3AQW7EWVDHlR+Z4SWAxVAFO3d3KeB3QBGx+YQ=";
     meta = common.meta // {
         description = "${common.meta.description} (music files)";
