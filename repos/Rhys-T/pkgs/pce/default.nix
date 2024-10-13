@@ -9,7 +9,7 @@ in callPackage ./generic.nix (thruArgs // rec {
         hashWithROMs = "sha256-qMBWD8vwzBVMj1ASGG89OVKv29FEtBkSTAmlb5uquZk=";
         hashWithoutROMs = "sha256-z65BS+arlhem1Z0CN9W5S4p4M3onQNqX804kFeRonME=";
         withoutROMs = fetchurl {
-            url = "https://raw.githubusercontent.com/Rhys-T/nur-packages/7d88b23d8051f76572d43178479638da1ca412cf/pce-without-unfree-roms-${version}.tar.gz";
+            url = "https://media.githubusercontent.com/media/Rhys-T/nur-packages/f77995a2952eacba9bef8c0af1603119a906770a/pce-without-unfree-roms-${version}.tar.gz";
             hash = hashWithoutROMs;
         };
     };
