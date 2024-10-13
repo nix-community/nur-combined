@@ -3618,10 +3618,10 @@
     };
     "gopass-bridge" = buildFirefoxXpiAddon {
       pname = "gopass-bridge";
-      version = "1.0.0";
+      version = "2.0.0";
       addonId = "{eec37db0-22ad-4bf1-9068-5ae08df8c7e9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4364396/gopass_bridge-1.0.0.xpi";
-      sha256 = "f073b83e73c010d8f783c53a562ee424af9f56acb98e74aa466fef8414fc53b8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4368853/gopass_bridge-2.0.0.xpi";
+      sha256 = "597cdc25544730ec0aa028eee27ca5d636899927588fe2b9ca4ae906e6979a91";
       meta = with lib;
       {
         homepage = "https://github.com/gopasspw/gopassbridge";
@@ -6120,16 +6120,16 @@
     };
     "linkding-extension" = buildFirefoxXpiAddon {
       pname = "linkding-extension";
-      version = "1.12.0";
+      version = "1.12.1";
       addonId = "{61a05c39-ad45-4086-946f-32adb0a40a9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4363366/linkding_extension-1.12.0.xpi";
-      sha256 = "3f69db7a9a9414f9464f9deb9b13d69ab00dbbdf517a765e55dbea66c5983b26";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4368731/linkding_extension-1.12.1.xpi";
+      sha256 = "2d42e395a7ea07a5c7a6594f244b24414d1caf667252bf82237c2736f9627cb3";
       meta = with lib;
       {
         homepage = "https://github.com/sissbruecker/linkding-extension/";
         description = "Companion extension for the linkding bookmark manager";
         license = licenses.mit;
-        mozPermissions = [ "tabs" "http://*/*" "https://*/*" ];
+        mozPermissions = [ "tabs" "storage" "http://*/*" "https://*/*" ];
         platforms = platforms.all;
       };
     };
