@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation (finalAttr: {
   pname = "bmi260";
-  version = "0.0.2";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "hhd-dev";
     repo = finalAttr.pname;
     rev = "v${finalAttr.version}";
-    hash = "sha256-J0npD75QqOGY1QUoznBjQ+jX28gq5u6b0JZOseclwE8=";
+    hash = "sha256-EFous0pPpCuVoCsFz6/4NryQRSH9Jw9Qng+RY1hiX1c=";
   };
 
   hardeningDisable = [ "pic" ];
