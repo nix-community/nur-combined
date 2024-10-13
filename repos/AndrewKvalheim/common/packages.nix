@@ -94,7 +94,6 @@ specify {
     volkerdobler.insertnums.search = [ open-vsx vscode-marketplace ];
     ybaumes.highlight-trailing-white-spaces.search = open-vsx;
   };
-  vscodium.version = "≥1.92"; # Required by Syler.sass-indented
   whipper = {
     condition = w: w.dontWrapGApps or false; # NixOS/nixpkgs#316717
     patch = [ ../packages/resources/whipper_flac-level.patch ../packages/resources/whipper_speed.patch ../packages/resources/whipper_detect-tty.patch ];
