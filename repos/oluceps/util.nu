@@ -40,6 +40,7 @@ export def b [
 }
 
 # deploy
+# all op with hostname
 export def d [
   nodes?: list<string>
   mode?: string = "switch"
@@ -53,12 +54,19 @@ export def d [
   if ($nodes == null) {
     (nh os switch .)
   } else {
-    $nodes | par-each {||
-      (nixos-rebuild $mode
-        --flake .#
-        --target-host (do $get_addr $in)
-        --build-host $builder_addr
-        --use-remote-sudo)
+    use std log;
+    $nodes | par-each {|per|
+      let per_node_addr = do $get_addr $per;
+      let out_path = (nom build $'.#nixosConfigurations.($per).config.system.build.toplevel'
+         --no-link --json |
+         from json |
+         $in.0.outputs.out)
+      nix copy --substitute-on-destination --to $'ssh://($per_node_addr)' $out_path
+
+      log info "copy closure complete";
+      log info $'deploying ($out_path)(char newline)-> ($per) | ($per_node_addr)'
+
+      ssh -t $'ssh://($per_node_addr)' $'sudo ($out_path)/bin/switch-to-configuration ($mode)'
     }
   }
 }
@@ -66,6 +74,7 @@ export def d [
 const age_pub = "/run/agenix/age"
 
 
+# decrypt
 export def de [path: string] {
   let tmp_path = (mktemp -t)
   rage -d $path -i $age_pub -o $tmp_path # -i ./age-yubikey-identity-7d5d5540.txt.pub
