@@ -48,6 +48,9 @@
           cyrus-imap = import ./modules/cyrus-imap.nix;
           gost = import ./modules/gost.nix;
         };
+        flakeModules = {
+          commands = import ./flake-modules/commands.nix;
+        };
       };
 
       perSystem =
