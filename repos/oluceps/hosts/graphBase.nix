@@ -179,13 +179,13 @@
       timeouts = [
         {
           timeout = 900;
-          command = "${pkgs.swaylock}/bin/swaylock";
+          command = "${pkgs.hyprlock}/bin/hyprlock --immediate";
         }
       ];
       events = [
         {
           event = "lock";
-          command = "${pkgs.swaylock}/bin/swaylock";
+          command = "${pkgs.hyprlock}/bin/hyprlock --immediate";
         }
         {
           event = "before-sleep";

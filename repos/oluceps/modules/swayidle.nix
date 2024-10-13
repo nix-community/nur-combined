@@ -146,7 +146,60 @@ in
         Restart = "always";
         # swayidle executes commands using "sh -c", so the PATH needs to contain a shell.
         Environment = [
-          "PATH=${makeBinPath [ pkgs.bash ]}"
+          "PATH=${
+            let
+              genGetFormattedDate =
+                { format, type }:
+                {
+                  stdenv,
+                  writeTextDir,
+                }:
+                stdenv.mkDerivation (finalAttrs: {
+                  name = "simple-date";
+                  src = writeTextDir "src/get-date.c" ''
+                    #include <stdio.h>
+                    #include <sys/time.h>
+                    #include <time.h>
+
+                    int main() {
+                        struct timeval tv;
+                        struct tm *tm;
+                        char buffer[30];
+
+                        gettimeofday(&tv, NULL);
+                        tm = localtime(&tv.tv_sec);
+                        strftime(buffer, 30, "${format}", tm);
+                        printf("%s\n", buffer);
+
+                        return 0;
+                    }
+                  '';
+
+                  buildPhase = ''
+                    mkdir -p $out
+                    gcc $src/src/get-date.c
+                  '';
+                  installPhase = ''
+                    install -Dm555 a.out $out/bin/get-${type}
+                  '';
+                });
+            in
+            (
+              [
+                {
+                  format = "%A, %B %d";
+                  type = "date";
+                }
+                {
+                  format = "%-I:%M";
+                  type = "time";
+                }
+              ]
+              |> map genGetFormattedDate
+              |> map (i: pkgs.callPackage i { })
+              |> makeBinPath
+            )
+          }"
           "WAYLAND_DISPLAY=wayland-1"
         ];
         ExecStart = "${cfg.package}/bin/swayidle -w ${concatStringsSep " " args}";

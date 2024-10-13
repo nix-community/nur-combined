@@ -10,6 +10,7 @@
     package = pkgs.niri;
     enable = true;
   };
+  programs.hyprlock.enable = true;
   services.greetd = {
     enable = true;
     settings = rec {

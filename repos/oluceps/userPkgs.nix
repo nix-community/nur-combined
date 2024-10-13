@@ -1,6 +1,7 @@
 { pkgs, ... }:
 with pkgs;
 [
+  turbo
   eva
   paperback
   amberol
