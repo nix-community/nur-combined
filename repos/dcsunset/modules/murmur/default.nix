@@ -69,6 +69,24 @@ in
         '';
       };
 
+      user = mkOption {
+        type = types.str;
+        default = "murmur";
+        description = ''
+          The name of an existing user to use to run the service.
+          If not specified, the default user will be created.
+        '';
+      };
+
+      group = mkOption {
+        type = types.str;
+        default = "murmur";
+        description = ''
+          The name of an existing group to use to run the service.
+          If not specified, the default group will be created.
+        '';
+      };
+
       stateDir = mkOption {
         type = types.str;
         default = "/var/lib/murmur";
@@ -297,14 +315,14 @@ in
   };
 
   config = mkIf cfg.enable {
-    users.users.murmur = {
+    users.users.murmur = mkIf (cfg.user == "murmur") {
       description     = "Murmur Service user";
       home            = cfg.stateDir;
       createHome      = true;
       uid             = config.ids.uids.murmur;
       group           = "murmur";
     };
-    users.groups.murmur = {
+    users.groups.murmur = mkIf (cfg.group == "murmur") {
       gid             = config.ids.gids.murmur;
     };
 
@@ -332,8 +350,8 @@ in
         Restart = "always";
         RuntimeDirectory = "murmur";
         RuntimeDirectoryMode = "0700";
-        User = "murmur";
-        Group = "murmur";
+        User = cfg.user;
+        Group = cfg.group;
 
         # service hardening
         AmbientCapabilities = "CAP_NET_BIND_SERVICE";
@@ -351,6 +369,7 @@ in
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectSystem = "full";
+        ReadWritePaths = [ cfg.stateDir ];
         RestrictAddressFamilies = "~AF_PACKET AF_NETLINK";
         RestrictNamespaces = true;
         RestrictSUIDSGID = true;
