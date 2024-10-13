@@ -84,7 +84,9 @@ jobs:
 
     - name: Build darwin nix packages
       if: ${{ matrix.os == 'macos-latest'}}
-      run: nix run nixpkgs#nix-build-uncached -- -build-flags '-L' ./nix/ci_darwin.nix
+      run: |
+        nix-build --dry-run ./nix/ci_darwin.nix --show-trace
+        nix run nixpkgs#nix-build-uncached -- -build-flags '-L' ./nix/ci_darwin.nix
 
     - name: Trigger NUR update
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=Cryolitia"
