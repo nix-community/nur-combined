@@ -31,6 +31,7 @@
     dnsproxy = {
       enable = true;
     };
+    reuse-cert.enable = true;
   };
   services = {
     # override repack

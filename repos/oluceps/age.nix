@@ -24,13 +24,13 @@
             rekeyFile = ./sec/${n}.age;
             inherit owner group mode;
           });
-        genProxys = i: gen i "root" "users" "400";
+        genHard = i: gen i "root" "users" "400";
         genMaterial = i: gen i user "users" "400";
         genBoot = i: gen i "root" "root" "400";
         genWg = i: gen i "systemd-network" "root" "400";
         genGlobalR = i: gen i "root" "root" "444";
       in
-      (genProxys [
+      (genHard [
         "ss"
         "sing"
         "juic-san"
@@ -39,6 +39,7 @@
         "jc-do"
         "ss-az"
         "trojan-server"
+        "porkbun-api"
       ])
       // (genMaterial [
         "atuin"

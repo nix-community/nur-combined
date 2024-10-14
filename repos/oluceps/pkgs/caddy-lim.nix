@@ -1,6 +1,6 @@
 {
   lib,
-  buildGoModule,
+  buildGo123Module,
   fetchFromGitHub,
   nixosTests,
   caddy,
@@ -17,18 +17,18 @@ let
     hash = "sha256-O4s7PhSUTXoNEIi+zYASx8AgClMC5rs7se863G6w+l0=";
   };
 in
-buildGoModule {
+buildGo123Module {
   pname = "caddy";
   inherit version;
 
   src = fetchFromGitHub {
     owner = "oluceps";
     repo = "caddy";
-    rev = "d99c2f4942ce24de252335af6cb893e3fd9d24c8";
-    hash = "sha256-jmfA2UghPDfmAVpV8uv7Im+6tt2KlpGli7nKmvph378=";
+    rev = "f4800137137c30443c299bead6a33c7787dac5b3";
+    hash = "sha256-ZYPwkJ+nm8DDEObRxq8XwRlWmUwEwpoyQptgS/vCqA4=";
   };
 
-  vendorHash = "sha256-pt/ELoKnBZZgERsljCpAQSNT/mJvsXcizP8fSm2tP6E=";
+  vendorHash = "sha256-rOKEsiKa5MettrMiMaAyql1jLIUGzSZ2tNaq8iscdcw=";
 
   subPackages = [ "cmd/caddy" ];
 
