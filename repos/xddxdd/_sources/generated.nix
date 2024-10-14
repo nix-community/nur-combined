@@ -182,15 +182,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "03b544a12677b9c217dabf49498cd2eda56b72f1";
+    version = "f2307047e697f207a186b4c09acf603cec848d95";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "03b544a12677b9c217dabf49498cd2eda56b72f1";
+      rev = "f2307047e697f207a186b4c09acf603cec848d95";
       fetchSubmodules = false;
-      sha256 = "sha256-KLzosgv4dMoRr3fvFdpwX85MqJldT1H/3AKW584v6OY=";
+      sha256 = "sha256-gd/jwt3WqFIOueKgnWvDzy9DB0UoiFnX46daKeeqYzI=";
     };
-    date = "2024-10-10";
+    date = "2024-10-14";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -764,13 +764,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3912";
+    version = "b3917";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3912";
+      rev = "b3917";
       fetchSubmodules = false;
-      sha256 = "sha256-aC/y7kHwEO7W7S8DIeP7A4UZ7SS5w9bQi2m1CxvX8tg=";
+      sha256 = "sha256-/8hZNDjA2JXDvkr91FAZa0fMKV0novZa7o1SjuGOXKI=";
     };
   };
   lyrica = {
@@ -1076,10 +1076,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v6.4.5";
+    version = "v6.4.6";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.4.5/PeerBanHelper.jar";
-      sha256 = "sha256-SeH1lE/jTePQrTes+YXxFFgL09oEgrXM0UySW0E9XT8=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.4.6/PeerBanHelper.jar";
+      sha256 = "sha256-NHCNVJPUiQTx0ch4KE3fxewcqJNQfa0x5uhMgOeHEbU=";
     };
   };
   phpmyadmin = {

@@ -328,7 +328,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-10-10",
+        "date": "2024-10-14",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -340,12 +340,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "03b544a12677b9c217dabf49498cd2eda56b72f1",
-            "sha256": "sha256-KLzosgv4dMoRr3fvFdpwX85MqJldT1H/3AKW584v6OY=",
+            "rev": "f2307047e697f207a186b4c09acf603cec848d95",
+            "sha256": "sha256-gd/jwt3WqFIOueKgnWvDzy9DB0UoiFnX46daKeeqYzI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "03b544a12677b9c217dabf49498cd2eda56b72f1"
+        "version": "f2307047e697f207a186b4c09acf603cec848d95"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1377,12 +1377,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3912",
-            "sha256": "sha256-aC/y7kHwEO7W7S8DIeP7A4UZ7SS5w9bQi2m1CxvX8tg=",
+            "rev": "b3917",
+            "sha256": "sha256-/8hZNDjA2JXDvkr91FAZa0fMKV0novZa7o1SjuGOXKI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3912"
+        "version": "b3917"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -1942,11 +1942,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-SeH1lE/jTePQrTes+YXxFFgL09oEgrXM0UySW0E9XT8=",
+            "sha256": "sha256-NHCNVJPUiQTx0ch4KE3fxewcqJNQfa0x5uhMgOeHEbU=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.4.5/PeerBanHelper.jar"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.4.6/PeerBanHelper.jar"
         },
-        "version": "v6.4.5"
+        "version": "v6.4.6"
     },
     "phpmyadmin": {
         "cargoLocks": null,
