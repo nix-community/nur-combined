@@ -26,12 +26,9 @@ reIf (
         acc
         // {
           ${i.name} = {
-            serviceConfig.LoadCredential = lib.mkIf i.cond (
-              (map (lib.genCredPath config)) [
-                "nyaw.cert"
-                "nyaw.key"
-              ]
-            );
+            serviceConfig.BindReadOnlyPaths = lib.mkIf i.cond [
+              "-/var/lib/caddy/certificates/acme-v02.api.letsencrypt.org-directory/"
+            ];
           };
         }
       ) { } nameCondPair)
