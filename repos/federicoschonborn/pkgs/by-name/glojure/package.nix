@@ -7,7 +7,7 @@
 }:
 
 let
-  version = "0.2.5";
+  version = "0.2.6";
 in
 
 buildGoModule {
@@ -18,7 +18,7 @@ buildGoModule {
     owner = "glojurelang";
     repo = "glojure";
     rev = "v${version}";
-    hash = "sha256-Dm4rBCCUElR8Qbz1m9ae3JyNdr7pXFZn0cMYSQLrNY0=";
+    hash = "sha256-WzyslO3YaGPJnINDSjk3AcjC/raVh5c5K2a6EBZC4Rk=";
   };
 
   vendorHash = "sha256-bofeBp8aa/I5jhblv+BhqHX9tmD1hDgUBwEFJpLH/A8=";
