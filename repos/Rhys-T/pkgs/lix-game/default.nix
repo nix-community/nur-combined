@@ -11,7 +11,7 @@ in lib.makeScope newScope (self: let inherit (self) callPackage; in {
     highResTitleScreen = callPackage ./highResTitleScreen.nix {};
     
     convertImagesToTrueColor = isDarwin;
-    disableNativeImageLoader = callPackage ({convertImagesToTrueColor}: isDarwin && !convertImagesToTrueColor) {};
+    disableNativeImageLoader = isDarwin && !self.convertImagesToTrueColor;
     useHighResTitleScreen = false;
     includeMusic = true;
 })
