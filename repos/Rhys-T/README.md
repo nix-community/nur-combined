@@ -16,11 +16,25 @@ Uncomment this if you use travis:
 
 ## Package-specific notes
 
+### `hbmame`
+
+Takes the upstream `mame` derivation to base itself off of as an argument. If you want to override dependencies and such, you'll currently need to override them on `mame`, then override `mame` on `hbmame`:
+
+```nix
+hbmame.override (old: {
+    mame = old.mame.override {
+        # ...
+    };
+})
+```
+
+By default, this is based on the `mame` derivation from this repo, which also includes fixes to build on macOS/Darwin. There's also an `hbmame-metal` based on `mame-metal` - see [the `mame` notes](#mame) below for more details.
+
 ### `hfsutils`
 
 `hfsutils-tk` is the variant built with Tcl/Tk, which includes the `hfs`, `hfssh`, and `xhfs` commands. (I don't currently have one with Tcl only.)
 
-### `lix-game` (Lix)
+### `lix-game`
 
 Upstream is just called [Lix](https://www.lixgame.com/). I had originally written this package as an overlay, and called it `lix-game` to distinguish it from the Nix fork also called Lix. ([`lix-game` is the name Repology uses for it.](https://repology.org/project/lix-game/versions)) I have not yet changed the executable name, though - it's still just `lix`.
 
@@ -53,13 +67,13 @@ Therefore, I also have an alternative workaround implemented. If you set `conver
 
 There is a higher-resolution version of Lix's main menu background artwork available, but it hasn't made it into a release yet. Set this to `true` to use it.
 
-### `mame*`
+### `mame`
 
 The `mame` derivation in nixpkgs is currently broken on macOS. By default, nixpkgs tries to target a minimum macOS version of 10.12, and MAME requires features from newer systems. I can get it to build for macOS 10.15+ by disabling the Metal renderer (`mame`), or for macOS 11 with the Metal renderer enabled (`mame-metal`). On Linux, this _should_ just become the normal MAME package as-is.
 
 (Meanwhile, `mame` also depends on `papirus-icon-theme`, which is marked Linux-only for reasons. So I'm cheating and extracting the one icon it actually needs as its own derivation on non-Linux systems.)
 
-### `minivmac*`
+### `minivmac`
 
 I've made several of the [compile-time options](https://www.gryphel.com/c/minivmac/options.html) for Mini vMac available through `minivmac.override { ... }`. Until I can document this properly, look for the `optProc` block in `pkgs/minivmac/options.nix` to see what's available. For anything I haven't covered, you can override `rawOptions` with a string to add to the end of the `./setup_t` command.
 
@@ -82,7 +96,7 @@ minivmac37.override {
 }
 ```
 
-### `pce*`
+### `pce`
 
 The current release version (0.2.2) of the upstream PCE package includes unfree ROM images for several of the computers it emulates. By default, this derivation will use a tarball hosted in this repo's `distfiles` branch which has had these removed. If you want to install from the upstream tarball, use the `pce-with-unfree-roms` package.
 

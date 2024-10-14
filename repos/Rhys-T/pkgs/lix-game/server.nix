@@ -1,4 +1,4 @@
-{ stdenvNoCC, lib, buildDubPackage, enet, common }: with import ./lib.nix { inherit stdenvNoCC lib enet; }; buildDubPackage {
+{ lib, buildDubPackage, enet, common }: buildDubPackage {
     pname = "${common.pname}-server";
     inherit (common) version src;
     # dubLock = ./dub-lock.server.json;

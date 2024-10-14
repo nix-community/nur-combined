@@ -1,4 +1,4 @@
-{ fetchFromGitHub, fetchzip, lib, enet, stdenvNoCC, maintainers }: rec {
+{ fetchFromGitHub, fetchzip, lib, enet, hostPlatform, maintainers }: rec {
     pname = "lix-game";
     version = "0.10.26";
     src = fetchFromGitHub {
@@ -23,7 +23,7 @@
         maintainers = [maintainers.Rhys-T];
     };
     patchEnetBindings = let
-        libExtension = if stdenvNoCC.isDarwin then "dylib" else "so";
+        libExtension = if hostPlatform.isDarwin then "dylib" else "so";
     in ''
         for file in "$DUB_HOME"/packages/derelict-enet/*/derelict-enet/source/derelict/enet/enet.d; do
             substituteInPlace "$file" --replace-fail '"libenet.${libExtension}"' '"${lib.getLib enet}/lib/libenet.${libExtension}"'

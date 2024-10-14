@@ -1,5 +1,5 @@
-{ lib, newScope, maintainers, stdenvNoCC }: let
-    inherit (stdenvNoCC) isDarwin;
+{ lib, newScope, maintainers, hostPlatform }: let
+    inherit (hostPlatform) isDarwin;
 in lib.makeScope newScope (self: let inherit (self) callPackage; in {
     game = callPackage ./wrapper.nix {};
     game-unwrapped = callPackage ./game.nix {};
