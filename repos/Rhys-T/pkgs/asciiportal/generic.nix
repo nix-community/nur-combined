@@ -28,7 +28,7 @@ in stdenv.mkDerivation rec {
     '';
     patches = [ (fetchpatch {
         name = "0001-Fix-undefined-behaviour.patch";
-        url = https://patch-diff.githubusercontent.com/raw/cymonsgames/ASCIIpOrtal/pull/25.patch;
+        url = "https://patch-diff.githubusercontent.com/raw/cymonsgames/ASCIIpOrtal/pull/25.patch";
         hash = "sha256-gUe1n5TTE7Lm7Bj0hq8gYVt2x0Mioe1nMZtnRbQxvVg=";
     }) ];
     postPatch = ''
