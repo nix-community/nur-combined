@@ -6,11 +6,6 @@
 }:
 {
 
-  systemd.services.caddy.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
-    "nyaw.cert"
-    "nyaw.key"
-  ];
-
   repack.caddy-matrix-web.enable = true;
   repack.caddy = {
     enable = true;
