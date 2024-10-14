@@ -1,3 +1,5 @@
 {
-  nix-mirror = ./nix-mirror;
+  # Add your NixOS modules here
+  #
+  # my-module = ./my-module;
 }

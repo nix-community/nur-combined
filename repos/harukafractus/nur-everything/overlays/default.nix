@@ -1,5 +1,5 @@
 {
   # Add your overlays here
   #
-  darwin = import ./darwin;
+  mac-apps = import ./mac-apps;
 }
