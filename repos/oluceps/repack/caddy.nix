@@ -86,18 +86,24 @@ in
     };
 
     environment.etc."caddy/config.json".source = configfile;
+    environment.systemPackages = [ cfg.package ];
 
     systemd.services.caddy = {
       preStart = "cp -f /etc/caddy/config.json /var/lib/caddy/backup.json";
-      serviceConfig = {
-        Type = "notify";
-        ExecStart = "${cfg.package}/bin/caddy run --config /etc/caddy/config.json";
-        ExecReload = "${cfg.package}/bin/caddy reload --force --config /etc/caddy/config.json";
-        DynamicUser = true;
-        StateDirectory = "caddy";
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-        Environment = [ "XDG_DATA_HOME=%S" ];
-      };
+      serviceConfig =
+        let
+          caddyBin = "${cfg.package}/bin/caddy";
+        in
+        {
+          Type = "notify";
+          ExecStartPre = "${caddyBin} validate --config /etc/caddy/config.json";
+          ExecStart = "${caddyBin} run --config /etc/caddy/config.json";
+          ExecReload = "${caddyBin} reload --force --config /etc/caddy/config.json";
+          DynamicUser = true;
+          StateDirectory = "caddy";
+          AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+          Environment = [ "XDG_DATA_HOME=%S" ];
+        };
       wantedBy = [ "multi-user.target" ];
       after = [
         "network.target"
