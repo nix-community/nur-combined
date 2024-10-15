@@ -13,10 +13,10 @@ reIf (
         name = "trojan-server";
         cond = (config.services.trojan-server.enable);
       }
-      {
-        name = "hysteria-only";
-        cond = (builtins.any (i: i.serve) (lib.attrValues config.services.hysteria.instances));
-      }
+      # {
+      #   name = "hysteria-only";
+      #   cond = (builtins.any (i: i.serve) (lib.attrValues config.services.hysteria.instances));
+      # }
     ];
   in
   {
@@ -26,11 +26,14 @@ reIf (
         acc
         // {
           ${i.name} = {
+            # wildcard
             serviceConfig.LoadCredential = lib.mkIf i.cond (
               map
                 (
                   s:
-                  "${s}:/var/lib/caddy/certificates/acme-v02.api.letsencrypt.org-directory/wildcard_.nyaw.xyz/wildcard_.nyaw.xyz.${s}"
+                  s
+                  + ":"
+                  + "/var/lib/caddy/certificates/acme-v02.api.letsencrypt.org-directory/wildcard_.nyaw.xyz/wildcard_.nyaw.xyz.${s}"
                 )
                 [
                   "key"
@@ -42,6 +45,25 @@ reIf (
       ) { } nameCondPair)
       // {
         caddy.serviceConfig.EnvironmentFile = config.age.secrets.porkbun-api.path;
+        hysteria-only.serviceConfig.LoadCredential = [
+          "crt:${config.age.secrets."nyaw.cert".path}"
+          "key:${config.age.secrets."nyaw.key".path}"
+        ];
+        # hysteria-only.serviceConfig.LoadCredential =
+        #   lib.mkIf (builtins.any (i: i.serve) (lib.attrValues config.services.hysteria.instances))
+        #     (
+        #       map
+        #         (
+        #           s:
+        #           s
+        #           + ":"
+        #           + "/var/lib/caddy/certificates/acme-v02.api.letsencrypt.org-directory/nyaw.xyz/nyaw.xyz.${s}"
+        #         )
+        #         [
+        #           "key"
+        #           "crt"
+        #         ]
+        #     );
       };
   }
 )
