@@ -41,6 +41,6 @@ gitignore:
 
 # if true, walking the directory tree underneath the `include` directories
 # will traverse directories pointed to be symlinks
-followsymlinks: true
+followsymlinks: false
 
 edit_command: st -d %WORKING_DIRECTORY

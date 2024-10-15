@@ -36,13 +36,13 @@ in
       per-window = false;
       sources = [ (mkTuple [ "xkb" "us" ]) ];
       xkb-options = [
-
         "altwin:swap_alt_win"
 
         "grp:alt_shift_toggle"
         "lv3:ralt_switch"
         "compose:ralt"
-        "caps:none"];
+        "caps:none"
+      ];
     };
   };
 

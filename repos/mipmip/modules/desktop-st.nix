@@ -16,7 +16,9 @@
 #          sha256 = "1mz7dlyc5zykmvk8q33v2090d3immxzrd06x1snyv28z4q0szds8";
 #        })
 #
-        ../resources/st/st-color_schemes-0.8.4.diff
+        # Disabled color_schemes is it messes with the colors in so many apps
+        # ../resources/st/st-color_schemes-0.8.4.diff
+
         ../resources/st/st-cyclefonts-lineheight-0.8.4.diff
         ../resources/st/st-vertcenter-20180320-6ac8c8a.diff
         ../resources/st/st-blinking_cursor-0.8.4-custom2.diff

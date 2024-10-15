@@ -10,7 +10,7 @@ nixclean(){
 }
 
 make_command "nixoptimise" "Run nix store optimise"
-nixclean(){
+nixoptimise(){
   sudo nix store optimise
 }
 
@@ -77,12 +77,15 @@ make_command "technativeawsupdate" "update AWS account info from technative"
 technativeawsupdate(){
   aws-mfa --profile technative --device arn:aws:iam::521402697040:mfa/pim@technative.nl
   aws --profile=technative-web_dns s3 cp s3://docs-mcs.technative.eu-longhorn/managed_service_accounts.json ~/.aws/
+  echo "Don't forget to run home-manager again"
 }
 
 make_command "copy_aws_other_accounts" "copy AWS other accounts"
 copy_aws_other_accounts(){
   age --decrypt -i ~/.ssh/id_ed25519 ./secrets/aws-accounts.json.age > ~/.aws/other_accounts.json
   chmod 600 ~/.aws/other_accounts.json
+  echo "Don't forget to run home-manager again"
+
 }
 
 #make_command "disable_mac_trackpad" "disable trackpad when it acts funny"
@@ -106,4 +109,4 @@ copy_aws_other_accounts(){
 #}
 #
 #
-#runme
+runme

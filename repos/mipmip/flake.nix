@@ -135,24 +135,13 @@
         };
       };
 
-
-      homeConfigurations."pim@rodin" = home-manager.lib.homeManagerConfiguration {
-        modules = [
-          (import ./home/pim/home-machine-rodin.nix)
-        ];
-
-        pkgs = pkgsForSystem "x86_64-linux";
-        extraSpecialArgs = {
-          username = "pim";
-          homedir = "/home/pim";
-          withLinny = true;
-          isDesktop = true;
-          tmuxPrefix = "a";
-          unstable = unstableForSystem "x86_64-linux";
-          jsonify-aws-dotfiles = jsonify-aws-dotfiles;
-          extraPkgs = extraPkgs;
-        };
-      };
+      homeConfigurations."pim@rodin" = home-manager.lib.homeManagerConfiguration (import ./rodinHomeConf.nix ({
+        pkgsForSystem = pkgsForSystem;
+        inherit unstableForSystem;
+        inherit jsonify-aws-dotfiles;
+        inherit extraPkgs;
+        isDesktop = true;
+      }));
 
       homeConfigurations = {
 

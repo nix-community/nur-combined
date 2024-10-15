@@ -4,9 +4,6 @@
 , glib
 , gettext
 , sassc
-, gitUpdater
-, gnome
-, unzip
 }:
 
 let
@@ -21,7 +18,7 @@ let
   sourceDir= ".";
 
 in
-  stdenv.mkDerivation rec {
+  stdenv.mkDerivation {
     pname = "gnome-shell-extension-${extensionName}";
     version = extensionVersion;
 

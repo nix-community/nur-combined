@@ -9,7 +9,7 @@
 
   home.file = {
     ".ohmyzsh-pim" = {
-      source = ./.ohmyzsh-pim;
+      source = ./ohmyzsh-pim;
       recursive = true;
     };
   };
@@ -64,14 +64,8 @@
 #  };
 
   home.file = {
-    "./.ansible.cfg" = {
-      source = ./.ansible.cfg;
-    };
-  };
-
-  home.file = {
     "./.dirtygit.yml" = {
-      source = ./.dirtygit.yml;
+      source = ./dirtygit.yml;
     };
   };
 

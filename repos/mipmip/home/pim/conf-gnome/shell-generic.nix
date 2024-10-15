@@ -7,13 +7,11 @@
       disable-user-extensions = false;
 
       favorite-apps = [
-        "nemo.desktop"
-#        "org.gnome.Evolution.desktop"
         "firefox.desktop"
         "Alacritty.desktop"
-#        "virtualbox.desktop"
-#        "org.gnome.Calendar.desktop"
-        "org.inkscape.Inkscape.desktop" ];
+        "org.gnome.Nautilus.desktop"
+        "org.inkscape.Inkscape.desktop"
+      ];
     };
 
     "org/gnome/shell/keybindings" = {

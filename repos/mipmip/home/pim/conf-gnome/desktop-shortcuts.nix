@@ -2,6 +2,7 @@
 
 # Custom Gnome keyboard keys are listed here:
 # https://discussion.fedoraproject.org/t/custom-keyboard-layout-in-gnome-wayland/68923
+# https://help.ubuntu.com/community/GtkComposeTable
 {
   dconf.settings = {
 
@@ -53,6 +54,7 @@
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom7/"
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom8/"
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom9/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom10/"
       ];
       screensaver = [];
       search = [ "<Super>/" ];
@@ -113,6 +115,13 @@
       binding = "<Shift><Super>asciicircum";
       command = "slack";
       name = "slack";
+    };
+
+    ## TODO add to hotkeys
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom10" = {
+      binding = "<Shift><Super>ampersand";
+      command = "st -e smg";
+      name = "smg (choose tmux project)";
     };
   };
 }

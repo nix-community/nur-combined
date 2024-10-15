@@ -33,6 +33,7 @@
     attic-client
 
     vscode
+    unstable.dbgate
 
     # AWS
     cw # cloudwatch in the terminal
