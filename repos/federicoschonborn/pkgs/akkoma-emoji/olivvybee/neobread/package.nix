@@ -7,11 +7,11 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "olivvybee-neobread";
-  version = "2024.09.08.1";
+  version = "2024.10.14.1";
 
   src = fetchzip {
     url = "https://github.com/olivvybee/emojis/releases/download/${finalAttrs.version}/neobread.tar.gz";
-    hash = "sha256-vblyOZlx5FGhaCfjogWk+msH5JcF9JVOH2ySqmYkr6o=";
+    hash = "sha256-kJMTiQfB9S86y3lFk68bGhejUSxtX1rlQf+Aau4rAIE=";
     stripRoot = false;
   };
 

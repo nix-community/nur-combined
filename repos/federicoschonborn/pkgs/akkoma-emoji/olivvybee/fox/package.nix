@@ -7,7 +7,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "olivvybee-fox";
-  version = "2024.09.08.1";
+  version = "2024.10.14.1";
 
   src = fetchzip {
     url = "https://github.com/olivvybee/emojis/releases/download/${finalAttrs.version}/fox.tar.gz";

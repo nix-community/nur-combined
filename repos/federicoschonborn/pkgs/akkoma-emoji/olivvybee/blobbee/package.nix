@@ -7,11 +7,11 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "olivvybee-blobbee";
-  version = "2024.09.08.1";
+  version = "2024.10.14.1";
 
   src = fetchzip {
     url = "https://github.com/olivvybee/emojis/releases/download/${finalAttrs.version}/blobbee.tar.gz";
-    hash = "sha256-ECFTzAuDiofa0LMrlJ2Vkk1xK0k6raFXukNB50J1mtU=";
+    hash = "sha256-/oNb+SaM9H0xVWuSYSJU2CB7IZ5J4qCS2X3iAFklxPY=";
     stripRoot = false;
   };
 
