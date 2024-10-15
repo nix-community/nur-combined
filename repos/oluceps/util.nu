@@ -50,7 +50,8 @@ export def d [
 
   let get_addr = {|x| do $env.get_addr ($env.map) ($x)}
 
-  let extra_builder_args = if ($builder != null) { [--max-jobs 0 --builders (do $get_addr $builder)] } else {[]}
+  let machine_spec = "i686-linux,x86_64-linux - - - big-parallel"
+  let extra_builder_args = if ($builder != null) { [--max-jobs 0 --builders $'(do $get_addr $builder) ($machine_spec)'] } else {[]}
   print $extra_builder_args
 
   if ($nodes == null or $nodes == []) {

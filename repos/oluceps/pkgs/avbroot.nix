@@ -11,13 +11,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "avbroot";
-  version = "3.3.0";
+  version = "3.8.0";
 
   src = fetchFromGitHub {
     owner = "chenxiaolong";
     repo = "avbroot";
     rev = "v${version}";
-    hash = "sha256-RaRG9atZ7I+oyEh59UQ6nvIwc3oEYPrGcNbYEDWK0nw=";
+    hash = "sha256-p+SZGhUXkoAf0CX5f2bdB06MyCjIodd3rpwRb5O2yYU=";
   };
 
   cargoLock = {
