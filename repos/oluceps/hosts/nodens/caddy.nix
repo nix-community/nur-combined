@@ -17,13 +17,13 @@
               handle = [
                 {
                   handler = "acme_server";
-                  challenges = "dns-01";
+                  challenges = [ "dns-01" ];
                   resolvers = [
                     "udp://8.8.8.8:53"
                     "udp://1.1.1.1:53"
                   ];
                   policy = {
-                    allow.domains = [ "*" ];
+                    # allow.domains = [ "nyaw.xyz" ];
                     allow_wildcard_names = true;
                   };
                 }

@@ -14,7 +14,7 @@ reIf (
         cond = (config.services.trojan-server.enable);
       }
       {
-        name = "hysteria";
+        name = "hysteria-only";
         cond = (builtins.any (i: i.serve) (lib.attrValues config.services.hysteria.instances));
       }
     ];
@@ -26,9 +26,17 @@ reIf (
         acc
         // {
           ${i.name} = {
-            serviceConfig.BindReadOnlyPaths = lib.mkIf i.cond [
-              "-/var/lib/caddy/certificates/acme-v02.api.letsencrypt.org-directory/"
-            ];
+            serviceConfig.LoadCredential = lib.mkIf i.cond (
+              map
+                (
+                  s:
+                  "${s}:/var/lib/caddy/certificates/acme-v02.api.letsencrypt.org-directory/wildcard_.nyaw.xyz/wildcard_.nyaw.xyz.${s}"
+                )
+                [
+                  "key"
+                  "crt"
+                ]
+            );
           };
         }
       ) { } nameCondPair)
