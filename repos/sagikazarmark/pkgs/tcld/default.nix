@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "tcld";
-  version = "0.23.0";
+  version = "0.32.0";
 
   src = fetchFromGitHub {
     owner = "temporalio";
     repo = "tcld";
     rev = "v${version}";
-    sha256 = "sha256-zUmnmiCNBRC8QVsLWq6na/8OeOREo4US6VCyA1BPeGw=";
+    sha256 = "sha256-lynKAfk6A5rV66+mdiLLnBTdz+E7tzAd73qFkptYHDE=";
   };
 
-  vendorHash = "sha256-Erv+GGbduDMxPV7i9ywzlMv0EopCAiWMLSXqU3mZFs0=";
+  vendorHash = "sha256-BrlKbIY+DFfsJgXWdNxYwLWZoSr6CIuNSaPpLgzniTQ=";
 
   ldflags = [
     "-X github.com/temporalio/tcld/app.date=unknown"
