@@ -63,7 +63,8 @@ export def d [
          from json |
          $in.0.outputs.out)
 
-      nix copy --substitute-on-destination --to $'ssh://($per_node_addr)' $out_path
+     # --substitute-on-destination
+     nix copy  --to $'ssh://($per_node_addr)' $out_path
 
       log info "copy closure complete";
       return [$per, $per_node_addr, $out_path];

@@ -11,6 +11,8 @@
   system.stateVersion = "24.05";
 
   users.mutableUsers = false;
+  services.userborn.enable = true;
+  system.etc.overlay.enable = true;
   system.etc.overlay.mutable = false;
   environment.etc."resolv.conf".text = ''
     nameserver 127.0.0.1

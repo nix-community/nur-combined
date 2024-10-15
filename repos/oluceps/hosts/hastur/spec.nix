@@ -10,7 +10,9 @@
 
   system.stateVersion = "22.11"; # Did you read the comment?
   users.mutableUsers = false;
-  system.etc.overlay.mutable = false;
+  # services.userborn.enable = true;
+  # system.etc.overlay.enable = false;
+  # system.etc.overlay.mutable = false;
   # system.forbiddenDependenciesRegexes = [ "perl" ];
   environment.etc."resolv.conf".text = ''
     nameserver 127.0.0.1
@@ -24,7 +26,7 @@
   };
 
   nix.gc = {
-    automatic = true;
+    # automatic = true;
     dates = "weekly";
     options = "--delete-older-than 10d";
   };
@@ -65,8 +67,8 @@
     mysql.enable = true;
     prometheus.enable = true;
     vaultwarden.enable = true;
-    matrix-conduit.enable = true;
-    mautrix-telegram.enable = true;
+    # matrix-conduit.enable = true;
+    # mautrix-telegram.enable = true;
     # coredns.enable = true;
     misskey.enable = true;
     dnsproxy.enable = true;
@@ -75,6 +77,7 @@
     meilisearch.enable = true;
     radicle.enable = true;
     xmrig.enable = true;
+    reuse-cert.enable = true;
   };
   services = {
     # ktistec.enable = true;

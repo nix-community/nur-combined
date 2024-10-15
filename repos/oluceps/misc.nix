@@ -10,11 +10,9 @@
 {
 
   # systemd.sysusers.enable = true;
-  system.etc.overlay.enable = true;
   system.switch.enableNg = true;
   system.switch.enable = lib.mkForce false;
   system.copySystemConfiguration = false;
-  services.userborn.enable = true;
 
   system.disableInstallerTools = true;
   programs.less.lessopen = null;

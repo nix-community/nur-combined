@@ -1,6 +1,6 @@
 [[host]]
 name = "hastur" # homeserver censored
-addr = "riro@10.0.1.2"
+addr = "riro@10.0.4.2"
 
 [[host]]
 name = "kaambl" # laptop

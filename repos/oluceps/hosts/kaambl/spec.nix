@@ -9,7 +9,9 @@
 
   system.stateVersion = "23.05"; # Did you read the comment?
   users.mutableUsers = false;
-  system.etc.overlay.mutable = false;
+  services.userborn.enable = true;
+  # system.etc.overlay.enable = true;
+  # system.etc.overlay.mutable = false;
   # system.forbiddenDependenciesRegexes = [ "perl" ];
   environment.etc."resolv.conf".text = ''
     nameserver 127.0.0.1

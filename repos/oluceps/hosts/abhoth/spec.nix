@@ -8,6 +8,8 @@
   system.stateVersion = "24.05";
 
   users.mutableUsers = false;
+  services.userborn.enable = true;
+  system.etc.overlay.enable = true;
   system.etc.overlay.mutable = false;
 
   nix.gc = {

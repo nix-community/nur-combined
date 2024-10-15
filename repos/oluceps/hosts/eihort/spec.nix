@@ -7,6 +7,9 @@
 }:
 
 {
+
+  system.etc.overlay.enable = true;
+  services.userborn.enable = true;
   virtualisation.podman = {
     enable = true;
     dockerSocket.enable = true;

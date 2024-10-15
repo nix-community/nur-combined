@@ -78,6 +78,9 @@ in
           "network-online.target"
           "nss-lookup.target"
         ];
+        unitConfig = {
+          StartLimitIntervalSec = 0;
+        };
         description = "hysteria daemon";
         serviceConfig =
           let
@@ -103,7 +106,6 @@ in
             LimitNOFILE = "infinity";
             Restart = "always";
             RestartSec = 1;
-            StartLimitIntervalSec = 0;
           };
       }
     ) (lib.filterAttrs (_: v: v.enable) cfg.instances);
