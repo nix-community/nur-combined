@@ -1231,10 +1231,10 @@
     };
     "catppuccin-gh-file-explorer" = buildFirefoxXpiAddon {
       pname = "catppuccin-gh-file-explorer";
-      version = "0.11.0";
+      version = "0.12.0";
       addonId = "{bbb880ce-43c9-47ae-b746-c3e0096c5b76}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4357529/catppuccin_gh_file_explorer-0.11.0.xpi";
-      sha256 = "31d311298a0abfa81fb45efdfd1e9fbc8d26adc983e68334334cac3d7bc844cb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4369870/catppuccin_gh_file_explorer-0.12.0.xpi";
+      sha256 = "f788efd703da24b135e0e1d00478f6c921807591005d281e3eeb6aaab5d338a5";
       meta = with lib;
       {
         homepage = "https://github.com/catppuccin/github-file-explorer-icons";
@@ -1632,10 +1632,10 @@
     };
     "competitive-companion" = buildFirefoxXpiAddon {
       pname = "competitive-companion";
-      version = "2.55.0";
+      version = "2.56.0";
       addonId = "{74e326aa-c645-4495-9287-b6febc5565a7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4360921/competitive_companion-2.55.0.xpi";
-      sha256 = "0d542aaae25887b8d05e6bac77365440d9a0514b19c42afb1186bb98df26fe6d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4370051/competitive_companion-2.56.0.xpi";
+      sha256 = "c3c32f9a235cd197e217345183aafee011112529451b7b9d4698eb6b76803e23";
       meta = with lib;
       {
         homepage = "https://github.com/jmerle/competitive-companion";
@@ -2163,10 +2163,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "131.0.20241011.205646";
+      version = "132.0.20241014.91808";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4369285/deutsch_de_language_pack-131.0.20241011.205646.xpi";
-      sha256 = "df09385f9cdcf3ee7d0d067b719ad4b14c196695503700a19eccb94b7c6696b7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4369795/deutsch_de_language_pack-132.0.20241014.91808.xpi";
+      sha256 = "16d8cbf6b5a9d1c839b1df1b6d7d373594f2014fdafbd572e76cb8037fd1caac";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2531,10 +2531,10 @@
     };
     "ecosia" = buildFirefoxXpiAddon {
       pname = "ecosia";
-      version = "4.1.3";
+      version = "4.1.4";
       addonId = "{d04b0b40-3dab-4f0b-97a6-04ec3eddbfb0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4324382/ecosia_the_green_search-4.1.3.xpi";
-      sha256 = "40fa7e3ac98ae37725c57286fa1fd753fd564e44108a99f9375310590eec567d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4365355/ecosia_the_green_search-4.1.4.xpi";
+      sha256 = "2fe9a08b60ee9ac8371065f451b6d6bddad68b9667b71809385550f2ccc49960";
       meta = with lib;
       {
         homepage = "http://www.ecosia.org";
@@ -3329,10 +3329,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "131.0.20241011.205646";
+      version = "132.0.20241014.91808";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4369304/francais_language_pack-131.0.20241011.205646.xpi";
-      sha256 = "9ee427b2b33c127128038b2818df515bdcb5068bd883bc5825f9e2c07cf860f2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4369804/francais_language_pack-132.0.20241014.91808.xpi";
+      sha256 = "891988d7fe9fd4362623012623cfa0460a5658564634a3965858e36a7dc10ddd";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3366,10 +3366,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "131.0.20241011.205646";
+      version = "132.0.20241014.91808";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4369353/gaidhlig_language_pack-131.0.20241011.205646.xpi";
-      sha256 = "d36acbcfdb358cee515b0c0dc845ec4f3c34d37874297189bb513d2717c6f042";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4369763/gaidhlig_language_pack-132.0.20241014.91808.xpi";
+      sha256 = "df8e95a18d3085aa08a9d698990e9040f13a14f885513060477fffcb2fe9728c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7862,10 +7862,10 @@
     };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.33.0";
+      version = "6.34.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4347096/okta_browser_plugin-6.33.0.xpi";
-      sha256 = "f098c3d32f10dcc9125ea29c7afac29c828f732cee1a221a4e44f98c9f9ec1e5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4358245/okta_browser_plugin-6.34.0.xpi";
+      sha256 = "6fa09e208f71be7f661ea50928ed91320cbee7a20ae9d26bbcc57b1a7a8a1216";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -9157,10 +9157,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.23.0";
+      version = "1.23.1";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4355813/proton_pass-1.23.0.xpi";
-      sha256 = "870bbd32763a7f7b54e326c74596082992684cf0218b71d14bb5df52ee1a7288";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4365686/proton_pass-1.23.1.xpi";
+      sha256 = "623b66113a59144cf1c54c89037c9b45905418b21b6584e168e8803acddf7059";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -9593,10 +9593,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.10.11";
+      version = "24.10.14";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4368223/refined_github-24.10.11.xpi";
-      sha256 = "50226092e730bbe5a71475dfc3ac2a84173c799193a7cbcab1249fcd94773a51";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4370053/refined_github-24.10.14.xpi";
+      sha256 = "6995cee48fdbe39e847dcd717155b451432b94720d2909df0bd352a200925aaf";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -9609,7 +9609,6 @@
           "activeTab"
           "alarms"
           "https://github.com/*"
-          "https://api.github.com/*"
           "https://gist.github.com/*"
         ];
         platforms = platforms.all;
@@ -9683,10 +9682,10 @@
     };
     "rsshub-radar" = buildFirefoxXpiAddon {
       pname = "rsshub-radar";
-      version = "2.0.20";
+      version = "2.0.21";
       addonId = "i@diygod.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4352379/rsshub_radar-2.0.20.xpi";
-      sha256 = "f2d87ca1602b6345ee50172f285bcdc433ce5898a6c2378d9f5e9862fde8fc73";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4369623/rsshub_radar-2.0.21.xpi";
+      sha256 = "ffa6bd7d98080feea5e551f4873b02ec923af061f1db79c22accad2e14458e1e";
       meta = with lib;
       {
         homepage = "https://github.com/DIYgod/RSSHub-Radar";
@@ -9793,10 +9792,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "131.0.20241011.205646";
+      version = "132.0.20241014.91808";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4369279/scots_language_pack-131.0.20241011.205646.xpi";
-      sha256 = "dc582f1895b294fa55ce68784728089d89b5653f26827bef421fb9f419a3d097";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4369856/scots_language_pack-132.0.20241014.91808.xpi";
+      sha256 = "8c109b036f7f881774fec80bd756f1449675891a5d61d4c868e9bc5cc6fa8b67";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -12892,10 +12891,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.9.23.0";
+      version = "24.10.7.1";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4366060/yomitan-24.9.23.0.xpi";
-      sha256 = "f3d20e3053b427f8b83a17b97ce33a7af4163f795b0340e7762bc817c90f79dc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4369918/yomitan-24.10.7.1.xpi";
+      sha256 = "0c4a52da2bb1bc324e6c50953093d331b032216a6fc98d1dce94d69ec53ef0fc";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
