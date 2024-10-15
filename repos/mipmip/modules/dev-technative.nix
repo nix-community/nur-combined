@@ -62,6 +62,7 @@
     #unstable.terracognita
 
 
+    vulnix
 
   ];
 }
