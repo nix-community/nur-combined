@@ -5,7 +5,12 @@
   ...
 }:
 let
-  inherit (lib) mkOption types mkIf;
+  inherit (lib)
+    mkOption
+    types
+    mkIf
+    optionals
+    ;
 
   cfg = config.services.trojan-server;
 in
@@ -39,7 +44,12 @@ in
       serviceConfig = {
         DynamicUser = true;
         ExecStart = "${lib.getExe' cfg.package "sing-box"} run -c $\{CREDENTIALS_DIRECTORY}/config.json -D $STATE_DIRECTORY";
-        LoadCredential = [ ("config.json:" + cfg.configFile) ];
+        LoadCredential =
+          [ ("config.json:" + cfg.configFile) ]
+          ++ (optionals (!(config ? repack && config.repack.reuse-cert.enable)) [
+            "crt:${config.age.secrets."nyaw.cert".path}"
+            "key:${config.age.secrets."nyaw.key".path}"
+          ]);
         StateDirectory = "trojan-server";
         CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];

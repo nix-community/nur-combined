@@ -1,8 +1,11 @@
 { config, lib, ... }:
 {
+
+  environment.etc."resolv.conf".text = ''
+    nameserver 127.0.0.1
+  '';
   networking = {
     domain = "nyaw.xyz";
-    resolvconf.useLocalResolver = true;
     firewall = {
       checkReversePath = false;
       enable = true;

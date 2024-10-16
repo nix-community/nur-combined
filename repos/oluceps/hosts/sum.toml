@@ -24,4 +24,4 @@ addr = "elen@144.126.208.183"
 
 [[host]]
 name = "yidhra" # feral chicken
-addr = "root@8.210.47.13"
+addr = "elen@8.210.47.13"
