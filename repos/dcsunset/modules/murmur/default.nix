@@ -88,10 +88,10 @@ in
       };
 
       stateDir = mkOption {
-        type = types.str;
+        type = types.path;
         default = "/var/lib/murmur";
         description = ''
-          State directory.
+          Directory to store data for the server.
         '';
       };
 
@@ -283,7 +283,7 @@ in
       environmentFile = mkOption {
         type = types.nullOr types.path;
         default = null;
-        example = "/var/lib/murmur/murmurd.env";
+        example = literalExpression ''"''${config.services.murmur.stateDir}/murmurd.env"'';
         description = ''
           Environment file as defined in {manpage}`systemd.exec(5)`.
 
@@ -320,7 +320,7 @@ in
       home            = cfg.stateDir;
       createHome      = true;
       uid             = config.ids.uids.murmur;
-      group           = "murmur";
+      group           = cfg.group;
     };
     users.groups.murmur = mkIf (cfg.group == "murmur") {
       gid             = config.ids.gids.murmur;
@@ -369,7 +369,6 @@ in
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         ProtectSystem = "full";
-        ReadWritePaths = [ cfg.stateDir ];
         RestrictAddressFamilies = "~AF_PACKET AF_NETLINK";
         RestrictNamespaces = true;
         RestrictSUIDSGID = true;
@@ -388,7 +387,7 @@ in
           "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
           "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
         <busconfig>
-          <policy user="murmur">
+          <policy user="${cfg.user}">
             <allow own="net.sourceforge.mumble.murmur"/>
           </policy>
 
@@ -433,4 +432,6 @@ in
       }
     '';
   };
+
+  # meta.maintainers = with lib.maintainers; [ felixsinger ];
 }
