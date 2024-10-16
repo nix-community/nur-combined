@@ -32,10 +32,16 @@ use_android() {
             -b|--build-tools)
                 build_tools_version="$2"
                 shift 2
+                if ! [ -e "$ANDROID_HOME/build-tools/$build_tools_version" ]; then
+                    log_error "use_android: build-tools version '$build_tools_version' does not exist"
+                fi
                 ;;
             -n|--ndk)
                 ndk_version="$2"
                 shift 2
+                if ! [ -e "$ANDROID_HOME/ndk/$ndk_version" ]; then
+                    log_error "use_android: NDK version '$ndk_version' does not exist"
+                fi
                 ;;
             --)
                 shift

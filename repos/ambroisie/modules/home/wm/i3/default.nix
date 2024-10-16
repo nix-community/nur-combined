@@ -371,8 +371,7 @@ in
           };
 
         startup = [
-          # FIXME
-          # { commdand; always; notification; }
+          # NOTE: rely on systemd user services instead...
         ];
 
         window = {
