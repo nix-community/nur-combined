@@ -13,13 +13,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "sdr-server";
-  version = "1.1.21";
+  version = "1.1.26";
 
   src = fetchFromGitHub {
     owner = "dernasherbrezon";
     repo = "sdr-server";
     rev = finalAttrs.version;
-    hash = "sha256-7X8woFT0PoIfnwcBwhPRJ4ZijtlZDBsCrTUhxbozrjI=";
+    hash = "sha256-knZHFErORSwqQV3G1ynRwtnylYfeE7qX4m4SZN57Tf8=";
   };
 
   nativeBuildInputs = [

@@ -6,13 +6,13 @@
 
 python3Packages.buildPythonApplication {
   pname = "py-osm-static-maps";
-  version = "0-unstable-2023-09-23";
+  version = "0-unstable-2024-10-16";
 
   src = fetchFromGitHub {
     owner = "NHellFire";
     repo = "py-osm-static-maps";
-    rev = "8c78104781467adf3432dd2b3a659f47b6bc8c2e";
-    hash = "sha256-6/Sd1owLiEUGY7hcmGQKJnL5RRhCsRjdAWK2HV4TXVg=";
+    rev = "0ef9cee293f0b1aeb64838da186076f35cebc16d";
+    hash = "sha256-5+7hPRzryiH9fC2cY+/IDZAAxGw2wYZvSR9V+EjVN1I=";
   };
 
   dependencies = with python3Packages; [
