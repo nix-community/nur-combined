@@ -764,13 +764,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3917";
+    version = "b3923";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3917";
+      rev = "b3923";
       fetchSubmodules = false;
-      sha256 = "sha256-/8hZNDjA2JXDvkr91FAZa0fMKV0novZa7o1SjuGOXKI=";
+      sha256 = "sha256-zWJDMrH7/GA/+olpC3qCgtjuwejm+d+88mcl65ctgUs=";
     };
   };
   lyrica = {
