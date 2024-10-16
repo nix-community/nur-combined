@@ -109,7 +109,7 @@ with lib.kernel;
   ZSWAP_ZPOOL_DEFAULT_ZSMALLOC = yes;
   ZSWAP_DEFAULT_ON = yes;
   ZBUD = lib.mkForce no;
-  Z3FOLD = no;
+  Z3FOLD_DEPRECATED = no;
   ZSMALLOC = lib.mkForce yes;
 
   ################################################################
