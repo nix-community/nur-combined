@@ -166,7 +166,7 @@
       enable = true;
       location = "/var/lib/backup/postgresql";
       compression = "zstd";
-      startAt = "*-*-* 04:00:00";
+      startAt = "*-*-* 0,12:00:00";
     };
 
     pipewire = {
