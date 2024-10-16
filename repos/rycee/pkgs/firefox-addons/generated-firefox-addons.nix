@@ -2001,10 +2001,10 @@
     };
     "dark-mode-webextension" = buildFirefoxXpiAddon {
       pname = "dark-mode-webextension";
-      version = "0.5.2";
+      version = "0.5.3";
       addonId = "{174b2d58-b983-4501-ab4b-07e71203cb43}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4349447/dark_mode_webextension-0.5.2.xpi";
-      sha256 = "31a681e1f1f5819b189a819d1166dd5809845ec69d4f9e8b422809456cfe4ac9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4367168/dark_mode_webextension-0.5.3.xpi";
+      sha256 = "9c87edea2289025d0a60197227f1a4dbee9ab7b067a27e22431f2b8e69eb0691";
       meta = with lib;
       {
         homepage = "https://mybrowseraddon.com/dark-mode.html";
@@ -2404,10 +2404,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.46.4";
+      version = "2.46.5";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4353247/dualsub-2.46.4.xpi";
-      sha256 = "ed72ae1c7c4d0df1bafd73ae5eacdd20cbeacff364e13089e819d2ed8c685bd6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4370175/dualsub-2.46.5.xpi";
+      sha256 = "e6ef99b8a850b72550c6249b244d58b81ebe8234d4d62952d38c9976136f0fd4";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -5238,10 +5238,10 @@
     };
     "indie-wiki-buddy" = buildFirefoxXpiAddon {
       pname = "indie-wiki-buddy";
-      version = "3.10.1";
+      version = "3.11.0";
       addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4340783/indie_wiki_buddy-3.10.1.xpi";
-      sha256 = "d4fc7516b2f5cf8bd4d9d286d4b7b3790001970f5b979ca4de8749ab9a9e2899";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4367565/indie_wiki_buddy-3.11.0.xpi";
+      sha256 = "415889791d30e3426dba185dcf567ddfe30f69abc39a5e9e115fe8f06ea849d0";
       meta = with lib;
       {
         homepage = "https://getindie.wiki/";
@@ -7337,10 +7337,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.15.13";
+      version = "2.16.7";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4347122/momentumdash-2.15.13.xpi";
-      sha256 = "68e195e0cec8cd0781c491f8dab8578373791590eb69c0deaf23fe2ff7858a2b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4366660/momentumdash-2.16.7.xpi";
+      sha256 = "cc6aad4e95aa5de82bddf8271ddbe99c52be91da07d150f3473cd2e565cbabe1";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -7355,6 +7355,7 @@
           "unlimitedStorage"
           "https://*.momentumdash.com/*"
           "alarms"
+          "idle"
         ];
         platforms = platforms.all;
       };
