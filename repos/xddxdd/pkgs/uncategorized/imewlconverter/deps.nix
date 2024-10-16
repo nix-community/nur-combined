@@ -4,13 +4,18 @@
 { fetchNuGet }:
 [
   (fetchNuGet {
+    pname = "CSharpier";
+    version = "0.27.3";
+    hash = "sha256-9g5WA+ii6ovKVGwpTaNIhs/Oti9YLwd//UhbNbBkn8E=";
+  })
+  (fetchNuGet {
     pname = "SharpZipLib";
     version = "1.4.2";
-    sha256 = "0ijrzz2szxjmv2cipk7rpmg14dfaigdkg7xabjvb38ih56m9a27y";
+    hash = "sha256-/giVqikworG2XKqfN9uLyjUSXr35zBuZ2FX2r8X/WUY=";
   })
   (fetchNuGet {
     pname = "UTF.Unknown";
     version = "2.5.1";
-    sha256 = "0giks1ww539m4r5kzdyzkq0cvfi5k50va9idjz93rclgljl96gpl";
+    hash = "sha256-9D6TqKSPsjzSly0mtUGZJbrNAJ7ftz9LJjWNwnnQMz4=";
   })
 ]
