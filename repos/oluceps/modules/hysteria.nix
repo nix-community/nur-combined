@@ -89,7 +89,7 @@ in
           {
             Type = "simple";
             DynamicUser = true;
-            ExecStart = "${lib.getExe' opts.package "hysteria"} ${binSuffix} --disable-update-check -c $\{CREDENTIALS_DIRECTORY}/config.yaml";
+            ExecStart = "${lib.getExe' opts.package "hysteria"} ${binSuffix} -c $\{CREDENTIALS_DIRECTORY}/config.yaml";
             LoadCredential = [ "config.yaml:${opts.configFile}" ] ++ opts.credentials;
             Environment = [ "HYSTERIA_DISABLE_UPDATE_CHECK=1" ];
             AmbientCapabilities = [

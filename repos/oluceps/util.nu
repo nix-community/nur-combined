@@ -55,7 +55,7 @@ export def d [
   print $extra_builder_args
 
   if ($nodes == null or $nodes == []) {
-    (nh os switch . -- ...($extra_builder_args))
+    (nh os $mode . -- ...($extra_builder_args))
   } else {
     use std log;
 
@@ -71,10 +71,11 @@ export def d [
 
       log info "copy closure complete";
       return [$per, $per_node_addr, $out_path];
-    } | par-each {|| {name: $in.0, addr: $in.1, path: $in.2}} | each {|i|
-          log info $'deploying ($i.path)(char newline)-> ($i.name) | ($i.addr)'
-          ssh -t $'ssh://($i.addr)' $'sudo ($i.path)/bin/switch-to-configuration ($mode)'
-        }
+    }
+    | par-each {|| {name: $in.0, addr: $in.1, path: $in.2}} | each {|i|
+        log info $'deploying ($i.path)(char newline)-> ($i.name) | ($i.addr)'
+        ssh -t $'ssh://($i.addr)' $'sudo ($i.path)/bin/switch-to-configuration ($mode)'
+      }
   }
 }
 

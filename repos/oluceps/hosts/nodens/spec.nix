@@ -123,10 +123,10 @@
         enable = true;
         serve = true;
         openFirewall = 4432;
-        credentials = [
-          "key:${config.age.secrets."nyaw.key".path}"
-          "cert:${config.age.secrets."nyaw.cert".path}"
-        ];
+        # credentials = [
+        #   "key:${config.age.secrets."nyaw.key".path}"
+        #   "cert:${config.age.secrets."nyaw.cert".path}"
+        # ];
         configFile = config.age.secrets.hyst-us.path;
       };
     };
