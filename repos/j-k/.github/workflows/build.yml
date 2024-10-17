@@ -26,7 +26,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3.0.2
       - name: Install nix
-        uses: cachix/install-nix-action@v17
+        uses: cachix/install-nix-action@v20
         with:
           nix_path: ${{ matrix.nixPath }}
           extra_nix_config: |

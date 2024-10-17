@@ -8,7 +8,9 @@
 #
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 with builtins;
 let
@@ -18,16 +20,24 @@ let
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
-  nameValuePair = n: v: { name = n; value = v; };
+  nameValuePair = n: v: {
+    name = n;
+    value = v;
+  };
 
   concatMap = builtins.concatMap or (f: xs: concatLists (map f xs));
 
-  flattenPkgs = s:
+  flattenPkgs =
+    s:
     let
-      f = p:
-        if shouldRecurseForDerivations p then flattenPkgs p
-        else if isDerivation p then [ p ]
-        else [ ];
+      f =
+        p:
+        if shouldRecurseForDerivations p then
+          flattenPkgs p
+        else if isDerivation p then
+          [ p ]
+        else
+          [ ];
     in
     concatMap f (attrValues s);
 
@@ -35,12 +45,11 @@ let
 
   nurAttrs = import ./default.nix { inherit pkgs; };
 
-  nurPkgs =
-    flattenPkgs
-      (listToAttrs
-        (map (n: nameValuePair n nurAttrs.${n})
-          (filter (n: !isReserved n)
-            (attrNames nurAttrs))));
+  nurPkgs = flattenPkgs (
+    listToAttrs (
+      map (n: nameValuePair n nurAttrs.${n}) (filter (n: !isReserved n) (attrNames nurAttrs))
+    )
+  );
 in
 rec {
   buildPkgs = filter isBuildable nurPkgs;

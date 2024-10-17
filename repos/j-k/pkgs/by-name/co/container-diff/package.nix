@@ -1,4 +1,8 @@
-{ lib, buildGoModule, fetchFromGitHub }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+}:
 
 buildGoModule rec {
   pname = "container-diff";
@@ -8,14 +12,18 @@ buildGoModule rec {
     owner = "GoogleContainerTools";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-4sk6DqScaNf0tMZQ6Hj40ZEklFTUFwAkN63v67nUFn8=";
+    hash = "sha256-4sk6DqScaNf0tMZQ6Hj40ZEklFTUFwAkN63v67nUFn8=";
   };
-  vendorSha256 = null;
+  vendorHash = null;
 
   # Don't build documentation tooling
   excludedPackages = "hack";
 
-  ldflags = [ "-s" "-w" "-X github.com/GoogleContainerTools/container-diff/version.version=${version}" ];
+  ldflags = [
+    "-s"
+    "-w"
+    "-X github.com/GoogleContainerTools/container-diff/version.version=${version}"
+  ];
 
   preCheck = ''
     # Remove test that requires networking
