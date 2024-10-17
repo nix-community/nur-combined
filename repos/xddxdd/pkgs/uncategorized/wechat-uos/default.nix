@@ -179,6 +179,8 @@ let
       "--chdir $HOME"
       "--setenv QT_QPA_PLATFORM xcb"
       "--setenv QT_AUTO_SCREEN_SCALE_FACTOR 1"
+    ] ++ [
+      "--tmpfs ${glibcWithoutHardening}/etc"
     ];
 
     unshareUser = true;
