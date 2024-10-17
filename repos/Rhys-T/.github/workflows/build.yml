@@ -20,7 +20,7 @@ jobs:
       - name: Define matrix
         id: matrix
         run: |
-          jq -nfr - << EOF > "$GITHUB_OUTPUT"
+          jq -nfr /dev/stdin << 'EOF' > "$GITHUB_OUTPUT"
             "Rhys-T" as $nurRepo |
             "rhys-t" as $cachixName |
             [
@@ -33,7 +33,7 @@ jobs:
             [
               {runner: $runners[], nixpkgs: $nixpkgss[]} |
               select((.runner | startswith("ubuntu")) or (.nixpkgs | startswith("nixpkgs"))) |
-              .nixPath = "https://github.com/NixOS/nixpkgs/archive/refs/heads/\(.nixpkgs).tar.gz" |
+              .nixPath = "nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/\(.nixpkgs).tar.gz" |
               del(.nixpkgs) |
               if .runner | contains("+qemu-") then
                 (.runner | split("+qemu-")) as [$realRunner, $qemuSystem] |
