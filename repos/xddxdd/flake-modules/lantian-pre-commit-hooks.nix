@@ -40,7 +40,6 @@
                 in
                 "${treefmt}/bin/treefmt --clear-cache --fail-on-change";
               always_run = true;
-              pass_filenames = false;
             };
           };
         };
