@@ -134,9 +134,7 @@ in
 
   mozlz4a = callPackage ./tools/compression/mozlz4a { };
 
-  newsflash = callPackage ./applications/networking/feedreaders/newsflash {
-    webkitgtk = webkitgtk_6_0;
-  };
+  newsflash = callPackage ./applications/networking/feedreaders/newsflash { };
 
   protontricks = python3Packages.callPackage ./tools/package-management/protontricks {
     steam-run = steam-run-free;
