@@ -9,24 +9,24 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "1025j5gyi34v64iy48rzjj69dw2gnk6jxg7g3rhhlrnxqfpkf0pz";
-    x86_64-linux = "16kf5c2df2gva3d92zp6dj61hwg19cs10414hcc7gvn6a79r1n3l";
-    aarch64-linux = "1yw22dgyzhh52px1cc6k88nywacdf4rvmglii24myiyhll9c99xq";
-    x86_64-darwin = "0g0dckri2q42r00g8y3wyrk7lrmb3lk3mqa6l8n6qwj3amw9cmc3";
-    aarch64-darwin = "0g0dckri2q42r00g8y3wyrk7lrmb3lk3mqa6l8n6qwj3amw9cmc3";
+    i686-linux = "1ks64pfmr1p8ak71h5lllkvj4q818r50cd10w329cfikgxvjlgc0";
+    x86_64-linux = "07rsjc909xdf0zj0npmb3xly0x8gkdk3xy335278km7pggranag1";
+    aarch64-linux = "0lyyal8mwhkl7rm2a4s8cz765b0zslvly1gvigpc2w96dkd266mw";
+    x86_64-darwin = "1bgbl50jfspff527ja28jz53rnmx9pkdphg8ph4342bbmxlc8pvd";
+    aarch64-darwin = "1bgbl50jfspff527ja28jz53rnmx9pkdphg8ph4342bbmxlc8pvd";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/robinovitch61/kl/releases/download/v0.2.0/kl_0.2.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/robinovitch61/kl/releases/download/v0.2.0/kl_0.2.0_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://github.com/robinovitch61/kl/releases/download/v0.2.0/kl_0.2.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/robinovitch61/kl/releases/download/v0.2.0/kl_0.2.0_Darwin_all.tar.gz";
-    aarch64-darwin = "https://github.com/robinovitch61/kl/releases/download/v0.2.0/kl_0.2.0_Darwin_all.tar.gz";
+    i686-linux = "https://github.com/robinovitch61/kl/releases/download/v0.3.0/kl_0.3.0_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/robinovitch61/kl/releases/download/v0.3.0/kl_0.3.0_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://github.com/robinovitch61/kl/releases/download/v0.3.0/kl_0.3.0_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/robinovitch61/kl/releases/download/v0.3.0/kl_0.3.0_Darwin_all.tar.gz";
+    aarch64-darwin = "https://github.com/robinovitch61/kl/releases/download/v0.3.0/kl_0.3.0_Darwin_all.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "kl";
-  version = "0.2.0";
+  version = "0.3.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
