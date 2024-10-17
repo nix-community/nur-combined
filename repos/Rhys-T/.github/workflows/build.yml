@@ -12,43 +12,44 @@ on:
     # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
     - cron:  '30 3 * * *'
 jobs:
+  define-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - name: Define matrix
+        id: matrix
+        run: |
+          jq -nfr - << EOF > "$GITHUB_OUTPUT"
+            "Rhys-T" as $nurRepo |
+            "rhys-t" as $cachixName |
+            [
+              "ubuntu-latest",
+              # "ubuntu-latest+qemu-aarch64",
+              "macos-13",
+              "macos-latest"
+            ] as $runners |
+            ["nixpkgs-unstable", "nixos-unstable", "nixos-24.05"] as $nixpkgss |
+            [
+              {runner: $runners[], nixpkgs: $nixpkgss[]} |
+              select((.runner | startswith("ubuntu")) or (.nixpkgs | startswith("nixpkgs"))) |
+              .nixPath = "https://github.com/NixOS/nixpkgs/archive/refs/heads/\(.nixpkgs).tar.gz" |
+              del(.nixpkgs) |
+              if .runner | contains("+qemu-") then
+                (.runner | split("+qemu-")) as [$realRunner, $qemuSystem] |
+                . + {runner: $realRunner, $qemuSystem}
+              else
+                .
+              end |
+              . + {$nurRepo, $cachixName}
+            ] |
+            {include: .} |
+            @json "matrix=\(.)"
+          EOF
   tests:
+    needs: define-matrix
     strategy:
-      matrix:
-        # Set this to notify the global nur package registry that changes are
-        # available.
-        #
-        # The repo name as used in
-        # https://github.com/nix-community/NUR/blob/master/repos.json
-        nurRepo:
-          - Rhys-T
-        # Set this to cache your build results in cachix for faster builds
-        # in CI and for everyone who uses your cache.
-        #
-        # Format: Your cachix cache host name without the ".cachix.org" suffix.
-        # Example: mycache (for mycache.cachix.org)
-        #
-        # For this to work, you also need to set the CACHIX_SIGNING_KEY or
-        # CACHIX_AUTH_TOKEN secret in your repository secrets settings in
-        # Github found at
-        # https://github.com/<your_githubname>/nur-packages/settings/secrets
-        cachixName:
-          - rhys-t
-        nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-24.05.tar.gz
-        runner:
-          - ubuntu-latest
-        include:
-          - nurRepo: Rhys-T
-            cachixName: rhys-t
-            runner: macos-latest
-            nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
-          - nurRepo: Rhys-T
-            cachixName: rhys-t
-            runner: macos-13
-            nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+      matrix: ${{ fromJson(needs.define-matrix.outputs.matrix) }}
     runs-on: ${{ matrix.runner }}
     steps:
     - name: Checkout repository
