@@ -893,10 +893,10 @@
     };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2024.9.1";
+      version = "2024.10.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4355865/bitwarden_password_manager-2024.9.1.xpi";
-      sha256 = "f484fbcd1e45e4a68f2eec8fb8c22fed5a77f1a00b515f38c167e36b4d6118bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4363548/bitwarden_password_manager-2024.10.0.xpi";
+      sha256 = "9ea9428444870a74ae1999d77eb12d97a45275c85e83d6afdcbc4597fa3eccfb";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -2163,10 +2163,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "132.0.20241014.91808";
+      version = "132.0.20241016.91706";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4369795/deutsch_de_language_pack-132.0.20241014.91808.xpi";
-      sha256 = "16d8cbf6b5a9d1c839b1df1b6d7d373594f2014fdafbd572e76cb8037fd1caac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4370879/deutsch_de_language_pack-132.0.20241016.91706.xpi";
+      sha256 = "93a6e67518c7cf6357f9201fca6a24a46afba01bfc66f02951ced22a4c5040b3";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3329,10 +3329,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "132.0.20241014.91808";
+      version = "132.0.20241016.91706";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4369804/francais_language_pack-132.0.20241014.91808.xpi";
-      sha256 = "891988d7fe9fd4362623012623cfa0460a5658564634a3965858e36a7dc10ddd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4370938/francais_language_pack-132.0.20241016.91706.xpi";
+      sha256 = "5bed744b1e3b4297ab6f99a44d4d2408b1c27b83f3c1e27b168e80f30c05959b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3366,10 +3366,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "132.0.20241014.91808";
+      version = "132.0.20241016.91706";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4369763/gaidhlig_language_pack-132.0.20241014.91808.xpi";
-      sha256 = "df8e95a18d3085aa08a9d698990e9040f13a14f885513060477fffcb2fe9728c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4370915/gaidhlig_language_pack-132.0.20241016.91706.xpi";
+      sha256 = "e1c155b9c29a99ebf47e9cce5e4f83b2f9cc694a74022c788016f38817514fb7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -9718,23 +9718,20 @@
     };
     "rust-search-extension" = buildFirefoxXpiAddon {
       pname = "rust-search-extension";
-      version = "1.13.0";
+      version = "2.0.0";
       addonId = "{04188724-64d3-497b-a4fd-7caffe6eab29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4236369/rust_search_extension-1.13.0.xpi";
-      sha256 = "59ddefdab6cd7dbe5fb368fe6fac2eace052060bf9357dd39bc9c7ff3439be13";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4370710/rust_search_extension-2.0.0.xpi";
+      sha256 = "a5b1abb26f3997c5cd3e8a90273f1c88e1efeb1a4204ce6bbdc9260a9dbf5aee";
       meta = with lib;
       {
         homepage = "https://rust.extension.sh";
         description = "The ultimate search extension for Rust\n\nSearch std docs, crates, builtin attributes, official books, and error codes, etc in your address bar instantly.\n<a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/4af48e3229ba03b454fb9b352a7e5a4c038e1bcc6721bf744b781a5e96b9e798/https%3A//rust.extension.sh\" rel=\"nofollow\">https://rust.extension.sh</a>";
         license = licenses.mpl20;
         mozPermissions = [
-          "*://crates.io/api/v1/crates/*"
-          "https://rust.extension.sh/*"
           "storage"
           "unlimitedStorage"
           "*://docs.rs/*"
           "*://doc.rust-lang.org/*"
-          "*://doc.rust-lang.org/nightly/nightly-rustc/*"
           "*://rust.extension.sh/update"
         ];
         platforms = platforms.all;
@@ -9793,10 +9790,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "132.0.20241014.91808";
+      version = "132.0.20241016.91706";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4369856/scots_language_pack-132.0.20241014.91808.xpi";
-      sha256 = "8c109b036f7f881774fec80bd756f1449675891a5d61d4c868e9bc5cc6fa8b67";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4370859/scots_language_pack-132.0.20241016.91706.xpi";
+      sha256 = "d2bc21dba87f406a5991890dcc56a0383c663d7daeda57e3979749b54e0c9125";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10072,10 +10069,10 @@
     };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "15.0.0";
+      version = "15.0.1";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4361072/sidebartabs-15.0.0.xpi";
-      sha256 = "1b755d6f65d74cfef8ad1e3d3e9bc2c6565b458f6f46b646732cad3178ff62e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4370769/sidebartabs-15.0.1.xpi";
+      sha256 = "e747f8646b6aa2cd1ede05478ac5065456bba1d7da393436c92bd13ec576df53";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
@@ -10903,10 +10900,10 @@
     };
     "tampermonkey" = buildFirefoxXpiAddon {
       pname = "tampermonkey";
-      version = "5.1.1";
+      version = "5.3.1";
       addonId = "firefox@tampermonkey.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4282688/tampermonkey-5.1.1.xpi";
-      sha256 = "31e05e99fdd3f196bb5e529173f94b0a7b5a18727818a8d2a10ea375df8550ed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4367975/tampermonkey-5.3.1.xpi";
+      sha256 = "f7ef17e2badb899897a561b11bb7c38691af21dc8bf7491f6d61baab64fc93e1";
       meta = with lib;
       {
         homepage = "https://tampermonkey.net";
