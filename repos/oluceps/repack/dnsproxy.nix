@@ -36,7 +36,6 @@ in
         listen-ports = [ 53 ];
         upstream-mode = "parallel";
         upstream = [
-          "h3://dns.google/dns-query"
           "quic://unfiltered.adguard-dns.com"
           "quic://dns.alidns.com"
           "sdns://AgcAAAAAAAAABzEuMC4wLjGgENk8mGSlIfMGXMOlIlCcKvq7AVgcrZxtjon911-ep0cg63Ul-I8NlFj4GplQGb_TTLiczclX57DvMV8Q-JdjgRgSZG5zLmNsb3VkZmxhcmUuY29tCi9kbnMtcXVlcnk"

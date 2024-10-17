@@ -72,9 +72,10 @@ export def d [
       log info "copy closure complete";
       return [$per, $per_node_addr, $out_path];
     }
-    | par-each {|| {name: $in.0, addr: $in.1, path: $in.2}} | each {|i|
+    | par-each {|| {name: $in.0, addr: $in.1, path: $in.2}}
+    | each {|i|
         log info $'deploying ($i.path)(char newline)-> ($i.name) | ($i.addr)'
-        ssh -t $'ssh://($i.addr)' $'sudo ($i.path)/bin/switch-to-configuration ($mode)'  o+e>|
+        ssh -t $'ssh://($i.addr)' $'sudo ($i.path)/bin/switch-to-configuration ($mode)' | complete
       }
   }
 }
