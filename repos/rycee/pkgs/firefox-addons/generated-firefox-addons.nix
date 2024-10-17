@@ -751,10 +751,10 @@
     };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.6.7";
+      version = "7.6.8";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4360870/betterttv-7.6.7.xpi";
-      sha256 = "d8c70c159422b3d56127e292bd20b359c80dff828bf91883e1c2f2179b47430b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4368481/betterttv-7.6.8.xpi";
+      sha256 = "ccc67fd7b1630263d78542f5f84072c7f3cf71e822e7544fdd3e472d58cc52af";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -1790,10 +1790,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.2.5";
+      version = "4.3.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4337609/control_panel_for_twitter-4.2.5.xpi";
-      sha256 = "b7025a2edbd8f2b19d291f30cc0fa498a2688081a692fb97e5cedd6dc0e148c4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4368084/control_panel_for_twitter-4.3.0.xpi";
+      sha256 = "1c88b887fc1948eb7826fcbf44f579232db29d66ac2a108ae9a2aee5cf1e6615";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -1860,10 +1860,10 @@
     };
     "cookies-txt" = buildFirefoxXpiAddon {
       pname = "cookies-txt";
-      version = "0.6";
+      version = "0.7";
       addonId = "{12cf650b-1822-40aa-bff0-996df6948878}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4203553/cookies_txt-0.6.xpi";
-      sha256 = "62344e9fc9c24f8dad1fd2ee48b7b90fe818db4216c9e950c5070886593b28ad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4368538/cookies_txt-0.7.xpi";
+      sha256 = "04ff7cf1fbebdba3c112fbd4d4ea83f90a08d8a267e63d44cca210659080930e";
       meta = with lib;
       {
         description = "Exports all cookies to a Netscape HTTP Cookie File, as used by curl, wget, and youtube-dl, among others.";
@@ -7396,6 +7396,21 @@
         platforms = platforms.all;
       };
     };
+    "mtab" = buildFirefoxXpiAddon {
+      pname = "mtab";
+      version = "1.6.1";
+      addonId = "contact@maxhu.dev";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4370570/mtab-1.6.1.xpi";
+      sha256 = "92eff962f0573a631b9f42ddfe69788f653be6e6ccd1e6d3c31ea663ff29ff9f";
+      meta = with lib;
+      {
+        homepage = "https://github.com/maxhu08/mtab";
+        description = "a simple configurable new tab extension";
+        license = licenses.mit;
+        mozPermissions = [ "storage" "bookmarks" ];
+        platforms = platforms.all;
+      };
+    };
     "multi-account-containers" = buildFirefoxXpiAddon {
       pname = "multi-account-containers";
       version = "8.2.0";
@@ -8457,10 +8472,10 @@
     };
     "polkadot-js" = buildFirefoxXpiAddon {
       pname = "polkadot-js";
-      version = "0.52.2";
+      version = "0.53.1";
       addonId = "{7e3ce1f0-15fb-4fb1-99c6-25774749ec6d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4337736/polkadot_js_extension-0.52.2.xpi";
-      sha256 = "460c8078f8943b6786d5b8ddf393afe1ce8d9f6c45d0fb16b90095dc740bc72c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4368115/polkadot_js_extension-0.53.1.xpi";
+      sha256 = "7fbe6b7aaef3d7ca4a9d5af892033f342f4bad059068e7d62b24c6dad932c722";
       meta = with lib;
       {
         homepage = "https://github.com/polkadot-js/extension";
