@@ -20,15 +20,15 @@ jobs:
       - name: Define matrix
         id: matrix
         run: |
-          jq -nfr /dev/stdin << 'EOF' > "$GITHUB_OUTPUT"
+          jq -nrf /dev/stdin << 'EOF' > "$GITHUB_OUTPUT"
             "Rhys-T" as $nurRepo |
             "rhys-t" as $cachixName |
             [
               "ubuntu-latest",
-              # "ubuntu-latest+qemu-aarch64",
+              "ubuntu-latest+qemu-aarch64-linux",
               "macos-13",
-              "macos-latest"
-            ] as $runners |
+              "macos-latest",
+            empty] as $runners |
             ["nixpkgs-unstable", "nixos-unstable", "nixos-24.05"] as $nixpkgss |
             [
               {runner: $runners[], nixpkgs: $nixpkgss[]} |
@@ -54,6 +54,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+    - name: Install qemu-user-static
+      if: ${{ matrix.qemuSystem != null }}
+      run: sudo apt install qemu-user-static
     - name: Install nix
       uses: cachix/install-nix-action@v30
       with:
@@ -82,7 +85,7 @@ jobs:
           -I $PWD
     - name: Build nix packages
       # run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
-      run: nix shell -f '.' nix-build-uncached-logging -c nix-build-uncached ci.nix -A cacheOutputs
+      run: nix shell -f '.' nix-build-uncached-logging -c nix-build-uncached ci.nix ${{ matrix.qemuSystem && format('--extra-platforms {0} --argstr platform {0}', matrix.qemuSystem)}} -A cacheOutputs
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}

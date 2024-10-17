@@ -10,7 +10,15 @@
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  platform ? null,
+  pkgs ? import <nixpkgs> (if platform != null then {
+    localSystem = platform;
+    packageOverrides = pkgs: {
+      inherit (import <nixpkgs> {}) fetchurl; # Don't emulate curl and such
+    };
+  } else {})
+}:
 
 with builtins;
 let
