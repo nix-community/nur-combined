@@ -764,13 +764,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3923";
+    version = "b3933";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3923";
+      rev = "b3933";
       fetchSubmodules = false;
-      sha256 = "sha256-zWJDMrH7/GA/+olpC3qCgtjuwejm+d+88mcl65ctgUs=";
+      sha256 = "sha256-+nZCHEWNV7yBJjYYR4+SZMh+A7Gxy8FrVFWA1C99bWQ=";
     };
   };
   lyrica = {
@@ -1320,13 +1320,13 @@
   };
   runpod-python = {
     pname = "runpod-python";
-    version = "1.7.2";
+    version = "1.7.3";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpod-python";
-      rev = "1.7.2";
+      rev = "1.7.3";
       fetchSubmodules = false;
-      sha256 = "sha256-sTZHdNAQEqfUGQa18N7MTwRky3KNQvznJmD4ZPJ/AM0=";
+      sha256 = "sha256-MoNH/xtwBYJH45z4zoKA/kncQOstjExljDMZJmrn2pM=";
     };
   };
   runpodctl = {
