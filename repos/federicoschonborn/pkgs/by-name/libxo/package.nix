@@ -4,6 +4,7 @@
   fetchFromGitHub,
   autoreconfHook,
   libtool,
+  testers,
   nix-update-script,
 }:
 
@@ -22,7 +23,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   makeFlags = [ "LIBTOOL=${libtool}/bin/libtool" ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru = {
+    tests.pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
+
+    updateScript = nix-update-script { };
+  };
 
   meta = {
     mainProgram = "xo";
@@ -31,5 +36,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.bsd2;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ federicoschonborn ];
+    pkgConfigModules = [ "libxo" ];
   };
 })

@@ -7,6 +7,7 @@
   pkg-config,
   python3,
   yyjson_0_10,
+  testers,
   nix-update-script,
 
   enableVulkan ?
@@ -222,7 +223,11 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "ENABLE_EMBEDDED_PCIIDS" false)
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru = {
+    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+
+    updateScript = nix-update-script { };
+  };
 
   meta = {
     mainProgram = "fastfetch";

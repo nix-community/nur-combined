@@ -131,10 +131,13 @@
                         version ? "",
                         outputs ? [ ],
                         outputName ? "",
+                        passthru ? { },
                         meta ? { },
                         ...
                       }:
                       let
+                        tests = passthru.tests or { };
+                        updateScript = passthru.updateScript or null;
                         description = meta.description or "";
                         longDescription = meta.longDescription or "";
                         homepage = meta.homepage or "";
@@ -144,6 +147,7 @@
                         maintainers = meta.maintainers or [ ];
                         badPlatforms = meta.badPlatforms or [ ];
                         platforms = lib.subtractLists badPlatforms (meta.platforms or [ ]);
+                        pkgConfigModules = meta.pkgConfigModules or [ ];
                         broken = meta.broken or false;
                         unfree = meta.unfree or false;
 
@@ -190,6 +194,24 @@
                           in
                           lib.optionalString (outputs != [ ]) (
                             "- Outputs: " + (lib.concatMapStringsSep ", " formatOutput outputs)
+                          );
+
+                        testsSection =
+                          let
+                            formatTest = x: "`${x}`";
+                          in
+                          lib.optionalString (tests != { }) (
+                            "- Tests: " + (lib.concatMapStringsSep ", " formatTest (builtins.attrNames tests))
+                          );
+
+                        updateScriptSection = "- Update Script: ${if updateScript != null then "✔️" else "❌"}";
+
+                        pkgConfigSection =
+                          let
+                            formatModule = x: "`${x}.pc`";
+                          in
+                          lib.optionalString (pkgConfigModules != [ ]) (
+                            "- `pkg-config` Modules: " + (lib.concatMapStringsSep ", " formatModule pkgConfigModules)
                           );
 
                         licenseSection =
@@ -251,9 +273,12 @@
                           ''
                           pnameSection
                           licenseSection
+                          platformsSection
                           maintainersSection
                           outputsSection
-                          platformsSection
+                          testsSection
+                          updateScriptSection
+                          pkgConfigSection
                           ''
                             </details>
                           ''
