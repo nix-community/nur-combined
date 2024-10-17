@@ -61,7 +61,7 @@ withSystem "x86_64-linux" (
         ../../packages.nix
         ../../misc.nix
         ../sysvars.nix
-        ../../age.nix
+        ../../age
 
         ../sysctl.nix
         ../pam.nix

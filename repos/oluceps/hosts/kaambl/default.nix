@@ -53,7 +53,7 @@ withSystem "x86_64-linux" (
       # inputs.home-manager.nixosModules.default
       # ../../home
       ../sysctl.nix
-      ../../age.nix
+      ../../age
       ../../packages.nix
       ../../misc.nix
       ../../users.nix

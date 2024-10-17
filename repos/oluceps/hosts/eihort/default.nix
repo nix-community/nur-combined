@@ -45,7 +45,7 @@ withSystem "x86_64-linux" (
       ./spec.nix
       ./sysctl.nix
       ../persist.nix
-      ../../age.nix
+      ../../age
       ../../packages.nix
       ../../misc.nix
       ../../users.nix

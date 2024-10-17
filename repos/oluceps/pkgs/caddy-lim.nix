@@ -24,11 +24,11 @@ buildGo123Module {
   src = fetchFromGitHub {
     owner = "oluceps";
     repo = "caddy";
-    rev = "f4800137137c30443c299bead6a33c7787dac5b3";
-    hash = "sha256-ZYPwkJ+nm8DDEObRxq8XwRlWmUwEwpoyQptgS/vCqA4=";
+    rev = "df99d6df370c94ebc5e3442060ca72a484adfb6b";
+    hash = "sha256-ySJ42icPs1ERcNwhL3or+6+ZJqoc7Waz9HXGeExCgzI=";
   };
 
-  vendorHash = "sha256-rOKEsiKa5MettrMiMaAyql1jLIUGzSZ2tNaq8iscdcw=";
+  vendorHash = "sha256-a+92jrOWqmaqiiF3lahLYaRpJ0RP0QW9/+esrcPPZBw=";
 
   subPackages = [ "cmd/caddy" ];
 

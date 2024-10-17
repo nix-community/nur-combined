@@ -53,7 +53,7 @@ withSystem "x86_64-linux" (
       ./network.nix
       ./rekey.nix
       ./spec.nix
-      ../../age.nix
+      ../../age
       ../../packages.nix
       ../../misc.nix
       ../../users.nix

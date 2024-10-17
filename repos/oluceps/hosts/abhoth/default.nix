@@ -49,7 +49,7 @@ withSystem "x86_64-linux" (
       ./network.nix
       ./rekey.nix
       ./spec.nix
-      ../../age.nix
+      ../../age
       ./caddy.nix
       # ../../packages.nix
       ../../misc.nix

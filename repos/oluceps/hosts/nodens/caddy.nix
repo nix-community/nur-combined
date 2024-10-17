@@ -113,25 +113,6 @@
                     {
                       handle = [
                         {
-                          handler = "subroute";
-                          routes = [
-                            {
-                              handle = [
-                                {
-                                  handler = "reverse_proxy";
-                                  upstreams = [ { dial = "10.0.1.2:8888"; } ];
-                                }
-                              ];
-                            }
-                          ];
-                        }
-                      ];
-                      match = [ { host = [ "api.atuin.nyaw.xyz" ]; } ];
-                    }
-
-                    {
-                      handle = [
-                        {
                           handler = "rate_limit";
                           rate_limits = {
                             static = {
@@ -156,6 +137,7 @@
                       ];
                       match = [ { host = [ "pb.nyaw.xyz" ]; } ];
                     }
+
                     {
                       handle = [
                         {
@@ -203,11 +185,37 @@
                       ];
                       match = [ { host = [ "seed.nyaw.xyz" ]; } ];
                     }
-
+                    # {
+                    #   handle = [
+                    #     {
+                    #       handler = "forward_proxy";
+                    #       # auth_credentials = [ "{env.NAIVE_AUTH}" ];
+                    #       auth_credentials = [ "bear encode 2ce" ];
+                    #       hide_ip = true;
+                    #       hide_via = true;
+                    #       probe_resistance = { };
+                    #     }
+                    #     {
+                    #       body = builtins.toJSON { "u" = "wot m8?"; };
+                    #       handler = "static_response";
+                    #     }
+                    #   ];
+                    #   match = [ { host = [ "cdn.nyaw.xyz" ]; } ];
+                    # }
                   ];
                 }
               ];
               match = [ { host = [ "*.nyaw.xyz" ]; } ];
+            }
+
+            {
+              handle = [
+                {
+                  handler = "reverse_proxy";
+                  upstreams = [ { dial = "10.0.1.2:8888"; } ];
+                }
+              ];
+              match = [ { host = [ "api.atuin.nyaw.xyz" ]; } ];
             }
 
             {
