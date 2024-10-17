@@ -35,14 +35,17 @@ let
 
     "7tv" = packages.seventv;
 
-    bypass-paywalls-clean = let version = "3.8.4.0";
+    # Upstream deletes old versions from the repository, causing builds to fail.
+    # The download link should be updated pending
+    # https://github.com/bpc-clone/bypass-paywalls-firefox-clean/issues/232
+    bypass-paywalls-clean = let version = "3.8.7.0";
     in buildFirefoxXpiAddon {
       pname = "bypass-paywalls-clean";
       inherit version;
       addonId = "magnolia@12.34";
       url =
         "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-${version}.xpi";
-      sha256 = "sha256-b9TvyOqnp4XZt6InW3atMuM11JP8LtrYv1ERby+i3EU=";
+      sha256 = "sha256-A+V4BFjBn+TcKifWrVOnzuSaW5ROTNLqWI5MUIzBx9Y=";
       meta = with lib; {
         homepage = "https://twitter.com/Magnolia1234B";
         description = "Bypass Paywalls of (custom) news sites";
