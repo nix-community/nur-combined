@@ -14,10 +14,11 @@
   wayland-protocols,
   wlroots,
   xorg,
+  # testers,
   nix-update-script,
 }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation (_: {
   pname = "magpie-wayland";
   version = "0.9.4-unstable-2024-08-17";
 
@@ -47,11 +48,16 @@ stdenv.mkDerivation {
     xorg.xcbutilwm
   ];
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch=v1"
-    ];
+  passthru = {
+    # Buddy thinks it's 1.0...
+    # tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--version"
+        "branch=v1"
+      ];
+    };
   };
 
   meta = {
@@ -63,4 +69,4 @@ stdenv.mkDerivation {
     maintainers = with lib.maintainers; [ federicoschonborn ];
     broken = lib.versionOlder wlroots.version "0.18";
   };
-}
+})

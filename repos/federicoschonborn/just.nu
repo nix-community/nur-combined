@@ -78,6 +78,16 @@ def "main run-stable" [package: string] {
     nix-stable run $".#($package)"
 }
 
+def "main path-info-unstable" [package: string] {
+    main build-unstable $package
+    nix-unstable path-info $".#($package)"
+}
+
+def "main path-info-stable" [package: string] {
+    main build-stable $package
+    nix-stable path-info $".#($package)"
+}
+
 def "main update" [] {
     nix flake update
     nix run ".#update"

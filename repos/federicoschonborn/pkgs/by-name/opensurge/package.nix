@@ -9,6 +9,7 @@
   surgescript,
   physfs,
   xorg,
+  testers,
   nix-update-script,
 }:
 
@@ -37,14 +38,20 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   cmakeFlags = [
+    "-DGAME_BINDIR=${placeholder "out"}/bin"
     "-DDESKTOP_ICON_PATH=${placeholder "out"}/share/pixmaps"
     "-DDESKTOP_METAINFO_PATH=${placeholder "out"}/share/metainfo"
     "-DDESKTOP_ENTRY_PATH=${placeholder "out"}/share/applications"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru = {
+    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+
+    updateScript = nix-update-script { };
+  };
 
   meta = {
+    mainProgram = "opensurge";
     description = "A fun 2D retro platformer inspired by Sonic games and a game creation system";
     homepage = "https://github.com/alemart/opensurge";
     changelog = "https://github.com/alemart/opensurge/blob/${finalAttrs.src.rev}/CHANGES.md";

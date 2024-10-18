@@ -4,6 +4,7 @@
   fetchzip,
   cmake,
   ninja,
+  testers,
 
   withStatic ? false,
   withBzip2 ? false,
@@ -49,6 +50,11 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "BUILD_SHARED_LIBS" (!withStatic))
     (lib.cmakeBool "Teem_PTHREAD" withPthread)
   ];
+
+  passthru.tests.version = testers.testVersion {
+    package = finalAttrs.finalPackage;
+    command = "ilk --version";
+  };
 
   meta = {
     description = "A coordinated group of libraries for representing, processing, and visualizing scientific raster data";

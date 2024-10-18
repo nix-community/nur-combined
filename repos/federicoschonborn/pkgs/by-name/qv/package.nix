@@ -6,6 +6,7 @@
   ninja,
   qt6,
   libtgd,
+# testers,
 # nix-update-script,
 }:
 
@@ -32,12 +33,17 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.qtwayland
   ];
 
-  # passthru.updateScript = nix-update-script {
-  #   extraArgs = [
-  #     "--version-regex"
-  #     "qv-(.*)"
-  #   ];
-  # };
+  passthru = {
+    # Immediately exits on this test, otherwise works fine, maybe something Qt related?
+    # tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+
+    # updateScript = nix-update-script {
+    #   extraArgs = [
+    #     "--version-regex"
+    #     "qv-(.*)"
+    #   ];
+    # };
+  };
 
   meta = {
     mainProgram = "qv";

@@ -46,10 +46,9 @@ stdenvNoCC.mkDerivation (
     installPhase = ''
       runHook preInstall
 
-      mkdir -p $out $additional $spinnyMouse
-      cp -r ${srcs.neomouse}/{meta.json,*.{gif,png}} $out
-      cp -r ${srcs.additional}/{meta.json,*.png} $additional
-      cp -r ${srcs.spinny-mouse}/{meta.json,*.gif} $spinnyMouse
+      cp -r ${srcs.neomouse} $out
+      cp -r ${srcs.additional} $additional
+      cp -r ${srcs.spinny-mouse} $spinnyMouse
 
       runHook postInstall
     '';

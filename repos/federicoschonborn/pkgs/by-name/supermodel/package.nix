@@ -33,12 +33,10 @@ stdenv.mkDerivation {
     zlib
   ];
 
+  makefile = "Makefiles/Makefile.UNIX";
+
   makeFlags =
-    [
-      "-f"
-      "Makefiles/Makefile.UNIX"
-    ]
-    ++ lib.optional debugBuild "DEBUG=1"
+    lib.optional debugBuild "DEBUG=1"
     ++ lib.optional enableNetBoard "NET_BOARD=1"
     ++ lib.optional enableDebugger "ENABLE_DEBUGGER=1";
 

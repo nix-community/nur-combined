@@ -6,6 +6,7 @@
   ninja,
   muparser,
   readline,
+  testers,
 # nix-update-script,
 }:
 
@@ -30,12 +31,16 @@ stdenv.mkDerivation (finalAttrs: {
     readline
   ];
 
-  # passthru.updateScript = nix-update-script {
-  #   extraArgs = [
-  #     "--version-regex"
-  #     "mucalc-(.*)"
-  #   ];
-  # };
+  passthru = {
+    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+
+    # updateScript = nix-update-script {
+    #   extraArgs = [
+    #     "--version-regex"
+    #     "mucalc-(.*)"
+    #   ];
+    # };
+  };
 
   meta = {
     mainProgram = "mucalc";

@@ -4,6 +4,7 @@
   fetchFromGitHub,
   cmake,
   ninja,
+  testers,
   nix-update-script,
 }:
 
@@ -23,7 +24,14 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru = {
+    tests = {
+      version = testers.testVersion { package = finalAttrs.finalPackage; };
+      pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
+    };
+
+    updateScript = nix-update-script { };
+  };
 
   meta = {
     mainProgram = "surgescript";
@@ -33,5 +41,9 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];
+    pkgConfigModules = [
+      "surgescript"
+      "surgescript-static"
+    ];
   };
 })

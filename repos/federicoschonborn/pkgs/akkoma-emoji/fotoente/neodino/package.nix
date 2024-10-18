@@ -20,8 +20,7 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out
-    cp high-res/png/*.png $out
+    cp -r high-res/png $out
 
     runHook postInstall
   '';

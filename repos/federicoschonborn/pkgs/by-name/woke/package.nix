@@ -2,6 +2,8 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  testers,
+  woke,
   nix-update-script,
 }:
 
@@ -29,7 +31,11 @@ buildGoModule {
 
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru = {
+    tests.version = testers.testVersion { package = woke; };
+
+    updateScript = nix-update-script { };
+  };
 
   meta = {
     mainProgram = "woke";

@@ -23,5 +23,6 @@ runCommand "lapce-plugin-${author}-${name}-${version}.volt"
     outputHash = hash;
   }
   ''
-    curl $(curl https://plugins.lapce.dev/api/v1/plugins/${author}/${name}/${version}/download) -o $out
+    # The /download endpoint returns a Cloudflare URL 🥴
+    curl "$(curl https://plugins.lapce.dev/api/v1/plugins/${author}/${name}/${version}/download)" -o "$out"
   ''

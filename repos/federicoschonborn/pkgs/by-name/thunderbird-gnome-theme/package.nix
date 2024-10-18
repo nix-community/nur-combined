@@ -19,8 +19,7 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/
-    cp -r $src/* $out/
+    cp -r $src $out/
 
     runHook postInstall
   '';

@@ -5,11 +5,12 @@
 }:
 
 stdenvNoCC.mkDerivation {
-  name = "mahiwa-neorat";
+  pname = "volpeon-blobfox";
+  version = "1.6";
 
   src = fetchzip {
-    url = "https://emoji-repo.absturztau.be/repo/neorat.zip";
-    hash = "sha256-MwOxj1Kb0tVjpHy5C7E5dAXdiUSetH4iQUpz/q1Opbo=";
+    url = "https://volpeon.ink/emojis/blobfox/blobfox.zip";
+    hash = "sha256-MR+ULE+0GKjMm5WoZ2t1jlK1TrhRx6DLfRg8q2cV/0k=";
     stripRoot = false;
   };
 
@@ -22,9 +23,9 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "A set of emojis featuring a rat";
-    homepage = "https://mahiwa.monster/gift.html";
-    license = lib.licenses.unfree; # TODO: ?
+    description = "blobfox emoji pack";
+    homepage = "https://volpeon.ink/emojis/blobfox/";
+    license = lib.licenses.asl20;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ federicoschonborn ];
   };

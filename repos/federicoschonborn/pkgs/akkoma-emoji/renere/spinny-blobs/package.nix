@@ -25,10 +25,9 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out $blobcatsOnly $blobfoxesOnly
-    cp render/{cat,fox}/trimmed/*.gif $out
-    cp render/cat/trimmed/*.gif $blobcatsOnly
-    cp render/fox/trimmed/*.gif $blobfoxesOnly
+    cp -r render/{cat,fox}/trimmed $out
+    cp -r render/cat/trimmed $blobcatsOnly
+    cp -r render/fox/trimmed $blobfoxesOnly
 
     runHook postInstall
   '';

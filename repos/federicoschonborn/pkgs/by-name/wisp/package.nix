@@ -5,6 +5,7 @@
   pkg-config,
   makeWrapper,
   guile,
+  testers,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -33,6 +34,12 @@ stdenv.mkDerivation (finalAttrs: {
       --prefix GUILE_LOAD_PATH : "$out/${guile.siteDir}:$GUILE_LOAD_PATH" \
       --prefix GUILE_LOAD_COMPILED_PATH : "$out/${guile.siteCcacheDir}:$GUILE_LOAD_COMPILED_PATH"
   '';
+
+  passthru.tests.version = testers.testVersion {
+    package = finalAttrs.finalPackage;
+    # Wisp runs as the Guile REPL
+    inherit (guile) version;
+  };
 
   meta = {
     mainProgram = "wisp";

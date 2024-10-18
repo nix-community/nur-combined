@@ -46,7 +46,8 @@ stdenvNoCC.mkDerivation (
     } // builtins.removeAttrs meta [ "sourceProvenance" ];
   }
   // builtins.removeAttrs args [
-    "pluginName"
+    "author"
+    "name"
     "version"
     "hash"
     "meta"
