@@ -15,7 +15,7 @@ let
       sshPubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEv3S53gBU3Hqvr5o5g+yrn1B7eiaE5Y/OIFlTwU+NEG";
       skSshPubKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIH+HwSzDbhJOIs8cMuUaCsvwqfla4GY6EuD1yGuNkX6QAAAADnNzaDoxNjg5NTQzMzc1";
     };
-    xmrAddr = "46TckNysSV7PdNA3PW134heWh4Nv3Fxv7Lab7aqw6utMEFK5qJypgteRZppWfsYnZAeoi7sddUP41Sr2YfFqr4urBiE1Xbw";
+    xmrAddr = (./sum.toml |> builtins.readFile |> fromTOML).api.misc.donate.Monero;
   };
 
   genModules = map (

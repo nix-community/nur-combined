@@ -25,3 +25,51 @@ addr = "elen@144.126.208.183"
 [[host]]
 name = "yidhra" # feral chicken
 addr = "elen@8.210.47.13"
+
+[api._links.self]
+href = "https://api.nyaw.xyz"
+
+[[api.site]]
+id = "misskey_nyaw"
+name = "Misskey Instance"
+target = "https://nyaw.xyz/"
+
+[[api.site]]
+id = "ntfy"
+name = "Ntfy Server"
+target = "https://ntfy.nyaw.xyz/"
+
+[[api.site]]
+id = "blog_nyaw"
+name = "Blog"
+target = "https://blog.nyaw.xyz/"
+
+[[api.site]]
+id = "matrix_web_client"
+name = "Matrix Web Client"
+target = "https://matrix.nyaw.xyz/"
+
+[[api.site]]
+id = "nix_cache"
+name = "Harmonia - Nix Cache"
+target = "https://cache.nyaw.xyz/"
+
+[[api.site]]
+id = "pastebin"
+name = "Pastebin"
+target = "https://pb.nyaw.xyz/"
+
+[[api.site]]
+id = "vaultwarden"
+name = "Vaultwarden Web"
+target = "https://vault.nyaw.xyz/"
+
+[api.misc.misskey_online]
+url = "https://blog.nyaw.xyz/api/online"
+method = "GET"
+description = "bool value"
+
+[api.misc.donate]
+Monero = "46TckNysSV7PdNA3PW134heWh4Nv3Fxv7Lab7aqw6utMEFK5qJypgteRZppWfsYnZAeoi7sddUP41Sr2YfFqr4urBiE1Xbw"
+Solana = "AqRNAHbp12wk6HMSd8cffFz1NXXigBiU14LLecP4Rkxo"
+ERC-20 = "0xAD109D5E5CE7EF7F6263AA5238d6fb1b40516e68"
