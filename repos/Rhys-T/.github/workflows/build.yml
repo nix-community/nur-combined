@@ -48,7 +48,6 @@ jobs:
       matrix: ${{ fromJson(needs.define-matrix.outputs.matrix) }}
     name: ${{ matrix.displayRunner }} - ${{ matrix.nixpkgs }}
     runs-on: ${{ matrix.runner }}
-    timeout-minutes: 720
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
