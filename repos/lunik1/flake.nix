@@ -39,6 +39,7 @@
           mkShell {
             inherit (self.checks.${system}.pre-commit-check) shellHook;
             buildInputs = [
+              nix-output-monitor
               nix-update
               nixpkgs-fmt
               nixpkgs-lint
