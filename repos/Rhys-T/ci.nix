@@ -29,6 +29,7 @@ let
     licenseFromMeta = p.meta.license or [];
     licenseList = if builtins.isList licenseFromMeta then licenseFromMeta else [licenseFromMeta];
   in
+    (platform != "aarch64-linux" || !lib.hasInfix "hbmame" (p.name or "")) &&
     lib.meta.availableOn pkgs.hostPlatform p &&
     !(p.meta.broken or false) &&
     builtins.all (license: license.free or true) licenseList &&
