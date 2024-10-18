@@ -10,7 +10,7 @@ telegram-desktop.overrideAttrs (old: {
     (sources.telegram-desktop-patches.src + "/0001-Disable-sponsored-messages.patch")
     (sources.telegram-desktop-patches.src + "/0002-Disable-saving-restrictions.patch")
     (sources.telegram-desktop-patches.src + "/0003-Disable-invite-peeking-restrictions.patch")
-    (sources.telegram-desktop-patches.src + "/0005-Option-to-disable-stories.patch")
+    ./disable-stories.patch
   ];
 
   # Disable account limit
