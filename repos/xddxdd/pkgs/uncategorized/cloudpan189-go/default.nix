@@ -1,5 +1,5 @@
 {
-  buildGoModule,
+  buildGo122Module,
   lib,
   sources,
   stdenvNoCC,
@@ -8,7 +8,7 @@
 }:
 let
   inherit (sources.cloudpan189-go) pname version;
-  cmd = buildGoModule {
+  cmd = buildGo122Module {
     inherit pname version;
     inherit (sources.cloudpan189-go) src;
     vendorHash = "sha256-6t4wJqUGJneR6Hv7Dotr4P9MTA1oQcCe/ujDojS0g8s=";

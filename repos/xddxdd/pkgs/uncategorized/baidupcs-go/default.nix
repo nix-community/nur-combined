@@ -1,10 +1,10 @@
 {
-  buildGoModule,
+  buildGo122Module,
   lib,
   sources,
   ...
 }:
-buildGoModule {
+buildGo122Module {
   inherit (sources.baidupcs-go) pname version src;
   vendorHash = "sha256-msTlXtidxLTe3xjxTOWCqx/epFT0XPdwGPantDJUGpc=";
   doCheck = false;
