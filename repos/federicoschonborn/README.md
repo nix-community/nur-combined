@@ -804,6 +804,7 @@ Rust for Lapce: powered by Rust Analyzer.
 - Maintainer: [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
 - Update Script: ❌
+- Source Provenance: `binaryBytecode`
 </details>
 
 ### `libgta` `1.2.1` [🌐](https://marlam.de/gta/ "Homepage") [📦](./pkgs/by-name/libgta/package.nix#L46 "Source")

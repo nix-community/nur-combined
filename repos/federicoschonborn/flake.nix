@@ -148,6 +148,7 @@
                         maintainers = meta.maintainers or [ ];
                         badPlatforms = meta.badPlatforms or [ ];
                         platforms = lib.subtractLists badPlatforms (meta.platforms or [ ]);
+                        sourceProvenance = meta.sourceProvenance or [ ];
                         pkgConfigModules = meta.pkgConfigModules or [ ];
                         broken = meta.broken or false;
                         unfree = meta.unfree or false;
@@ -207,6 +208,14 @@
                           );
 
                         updateScriptSection = "- Update Script: ${if updateScript != null then "✔️" else "❌"}";
+
+                        sourceProvenanceSection =
+                          let
+                            formatProvenance = x: "`${x.shortName}`";
+                          in
+                          lib.optionalString (sourceProvenance != [ ]) (
+                            "- Source Provenance: " + (lib.concatMapStringsSep ", " formatProvenance sourceProvenance)
+                          );
 
                         pkgConfigSection =
                           let
@@ -280,6 +289,7 @@
                           outputsSection
                           testsSection
                           updateScriptSection
+                          sourceProvenanceSection
                           pkgConfigSection
                           ''
                             </details>
