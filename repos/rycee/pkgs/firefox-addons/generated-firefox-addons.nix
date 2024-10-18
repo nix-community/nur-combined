@@ -891,6 +891,20 @@
         platforms = platforms.all;
       };
     };
+    "bionic-reader" = buildFirefoxXpiAddon {
+      pname = "bionic-reader";
+      version = "1.6.25";
+      addonId = "{c2ecdf60-7077-4bfa-b9c2-4892a8ded8c6}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4218879/bionic_reader-1.6.25.xpi";
+      sha256 = "d759562525f8db7d066c72bee662ab93f28c530a947adec579c5094bc1034aa4";
+      meta = with lib;
+      {
+        description = "- Apply Bionic Reading style with adjustable strength to a webpage.\n- Adjustable vowels for different languages.\n- Adjustable font family, font size, font weight and font opacity.\n- Support Unicode characters.\n- Apply dark mode to a webpage.";
+        license = licenses.mpl20;
+        mozPermissions = [ "storage" "tabs" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
       version = "2024.10.0";
@@ -8181,10 +8195,10 @@
     };
     "paperpile" = buildFirefoxXpiAddon {
       pname = "paperpile";
-      version = "1.0.65";
+      version = "1.0.69";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4366195/paperpile_addon-1.0.65.xpi";
-      sha256 = "baaa1a2a667470f42494a018d14fa35958e0697da6d3f45e180cbb3b84bbb4e2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4372028/paperpile_addon-1.0.69.xpi";
+      sha256 = "ecd530cf97efcd76c7f920874924baac2530d95a371b08674913c60f16943d27";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -11238,6 +11252,27 @@
         platforms = platforms.all;
       };
     };
+    "tranquility-1" = buildFirefoxXpiAddon {
+      pname = "tranquility-1";
+      version = "3.0.26";
+      addonId = "tranquility@ushnisha.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4300302/tranquility_1-3.0.26.xpi";
+      sha256 = "0effa816ae196eca8f2403c62738b182e6e7ce26477bafda8f27d3f958996330";
+      meta = with lib;
+      {
+        homepage = "https://github.com/ushnisha/tranquility-reader-webextensions";
+        description = "Tranquility Reader improves the readability of web articles by removing unnecessary elements like ads, images, social sharing widgets, and other distracting fluff.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "<all_urls>"
+          "activeTab"
+          "storage"
+          "alarms"
+          "contextMenus"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "translate-web-pages" = buildFirefoxXpiAddon {
       pname = "translate-web-pages";
       version = "10.0.1.1";
@@ -12362,6 +12397,28 @@
           "https://stage-rooms.w2g.tv/*"
           "https://stage.w2g.tv/*"
           "https://staging.w2g.tv/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "wakatimes" = buildFirefoxXpiAddon {
+      pname = "wakatimes";
+      version = "4.0.9";
+      addonId = "addons@wakatime.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4369526/wakatimes-4.0.9.xpi";
+      sha256 = "e0e7eb918ac91cdad624e5cc63b3bc11da2458a8422d514cc7015eeff0b1a93d";
+      meta = with lib;
+      {
+        homepage = "https://wakatime.com";
+        description = "Automatic time tracking for Firefox.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "alarms"
+          "tabs"
+          "storage"
+          "activeTab"
+          "devtools"
+          "<all_urls>"
         ];
         platforms = platforms.all;
       };
