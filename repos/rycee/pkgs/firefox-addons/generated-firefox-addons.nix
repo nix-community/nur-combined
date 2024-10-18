@@ -160,10 +160,10 @@
     };
     "adnauseam" = buildFirefoxXpiAddon {
       pname = "adnauseam";
-      version = "3.22.0";
+      version = "3.23.2";
       addonId = "adnauseam@rednoise.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4328793/adnauseam-3.22.0.xpi";
-      sha256 = "1648ecfc60892c356f9142e0c6fcb68928f6154e0887125726dd4b049c778ca0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4368589/adnauseam-3.23.2.xpi";
+      sha256 = "91e3562961030f0c65f0a9c06cd8be09da32ba754bbcc40cadeb3b1e08189e69";
       meta = with lib;
       {
         homepage = "https://adnauseam.io";
@@ -2745,6 +2745,7 @@
       sha256 = "46e9d47b3989c3f1ae76c458fd59746e850a486ab727ba74ae8928df7bd88dc7";
       meta = with lib;
       {
+        homepage = "https://fakespot.com";
         description = "Protect yourself from bad sellers and fake reviews on Amazon and more!";
         license = {
           shortName = "allrightsreserved";
@@ -3530,10 +3531,10 @@
     };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "2.3.0";
+      version = "2.3.1";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4363595/gitpod-2.3.0.xpi";
-      sha256 = "e28bd46a00b971da7ae7e9b2e11ea2cb7649b3886497a036fa27908575a4e297";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4371637/gitpod-2.3.1.xpi";
+      sha256 = "00bf73a6d54568f203ff19b08425937ffd5d431ee85c30bd78f1d36d07af4505";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
