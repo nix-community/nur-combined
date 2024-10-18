@@ -631,7 +631,7 @@ Like neofetch, but much faster because written in C.
 - Update Script: ✔️
 </details>
 
-### `fastfetchMinimal` `2.27.1` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/blob/2.27.1/CHANGELOG.md "Changelog") [📦](./default.nix#L49 "Source")
+### `fastfetchMinimal` `2.27.1` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/blob/2.27.1/CHANGELOG.md "Changelog") [📦](./default.nix#L50 "Source")
 
 Like neofetch, but much faster because written in C (with all features disabled).
 
@@ -709,7 +709,7 @@ A set of commands that manipulate GTAs on various levels.
 - Update Script: ❌
 </details>
 
-### `gtatoolFull` `2.4.0` [🌐](https://marlam.de/gta/ "Homepage") [📦](./default.nix#L89 "Source")
+### `gtatoolFull` `2.4.0` [🌐](https://marlam.de/gta/ "Homepage") [📦](./default.nix#L90 "Source")
 
 A set of commands that manipulate GTAs on various levels (with all features enabled).
 
@@ -788,6 +788,24 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Update Script: ✔️
 </details>
 
+### `lapce-plugins.lapce-rust` `0.3.1932` [🌐](https://github.com/lapce/lapce-rust "Homepage") [📦](./pkgs/lapce-plugins/default.nix#L13 "Source")
+
+Rust for Lapce: powered by Rust Analyzer.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-dzhou121-lapce-rust`
+- License: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainer: [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
 ### `libgta` `1.2.1` [🌐](https://marlam.de/gta/ "Homepage") [📦](./pkgs/by-name/libgta/package.nix#L46 "Source")
 
 A library that reads and writes GTA files, with interfaces in C and C++.
@@ -829,7 +847,7 @@ A library to make working with multidimensional arrays in C++ easy.
 - Update Script: ❌
 </details>
 
-### `libtgdFull` `4.3` [🌐](https://marlam.de/tgd/ "Homepage") [📦](./default.nix#L124 "Source")
+### `libtgdFull` `4.3` [🌐](https://marlam.de/tgd/ "Homepage") [📦](./default.nix#L125 "Source")
 
 A library to make working with multidimensional arrays in C++ easy (with all features enabled).
 
@@ -1079,7 +1097,7 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 - Update Script: ✔️
 </details>
 
-### `razeFull` `1.10.2` [🌐](https://github.com/ZDoom/Raze "Homepage") [📦](./default.nix#L157 "Source")
+### `razeFull` `1.10.2` [🌐](https://github.com/ZDoom/Raze "Homepage") [📦](./default.nix#L158 "Source")
 
 Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood, Shadow Warrior, Redneck Rampage and Powerslave/Exhumed (with all features enabled).
 
@@ -1177,7 +1195,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Update Script: ❌
 </details>
 
-### `teemExperimental` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L186 "Source")
+### `teemExperimental` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L187 "Source")
 
 A coordinated group of libraries for representing, processing, and visualizing scientific raster data (with experimental libraries and applications enabled).
 
@@ -1196,7 +1214,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Update Script: ❌
 </details>
 
-### `teemExperimentalFull` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L200 "Source")
+### `teemExperimentalFull` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L201 "Source")
 
 A coordinated group of libraries for representing, processing, and visualizing scientific raster data (with experimental libraries and applications, and all features enabled).
 
@@ -1215,7 +1233,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Update Script: ❌
 </details>
 
-### `teemFull` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L168 "Source")
+### `teemFull` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L169 "Source")
 
 A coordinated group of libraries for representing, processing, and visualizing scientific raster data (with all features enabled).
 

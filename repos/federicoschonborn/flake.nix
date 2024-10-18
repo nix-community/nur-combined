@@ -91,6 +91,7 @@
                   "volpeon-neofox"
                   "volpeon-vlpn"
 
+                  "lapce-nix"
                   "super-mario-127"
                 ];
             };
@@ -183,8 +184,9 @@
                           > 🔒 This package has an unfree license.
                         '';
 
-                        descriptionSection =
-                          "${description}.\n" + lib.optionalString (longDescription != "") "\n\n${longDescription}";
+                        descriptionSection = lib.optionalString (description != "") (
+                          "${description}.\n" + lib.optionalString (longDescription != "") "\n\n${longDescription}"
+                        );
 
                         pnameSection = "- Name: `${pname}`";
 

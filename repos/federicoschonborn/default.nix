@@ -23,6 +23,7 @@ lib.makeScope pkgs.newScope (
 
     # Sets
     akkoma-emoji = lib.recurseIntoAttrs (self.callPackage ./pkgs/akkoma-emoji { });
+    lapce-plugins = lib.recurseIntoAttrs (self.callPackage ./pkgs/lapce-plugins { });
 
     # Overrides
     yyjson_0_10 =
