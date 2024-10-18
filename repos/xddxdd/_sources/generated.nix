@@ -1015,7 +1015,7 @@
       repo = "oqs-provider";
       rev = "0.7.0";
       fetchSubmodules = false;
-      sha256 = "sha256-v7YIE5uzBvQHfi2hqkkRrW0F3K4haZyuoKHxAtRqQDA=";
+      sha256 = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
     };
   };
   osdlyrics = {
@@ -1174,6 +1174,38 @@
       rev = "v1.3.0";
       fetchSubmodules = false;
       sha256 = "sha256-IsbGSUXaayO8gfslfo2oIforjy5TW6xVdCDOXT2VmjQ=";
+    };
+  };
+  qemu-user-static-amd64 = {
+    pname = "qemu-user-static-amd64";
+    version = "9.1.0+ds-8";
+    src = fetchurl {
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-8_amd64.deb";
+      sha256 = "sha256-JxaT2TsGI+ySD1Fbyrm6dUesXFnoPW7QZo7RMmcvGsg=";
+    };
+  };
+  qemu-user-static-arm64 = {
+    pname = "qemu-user-static-arm64";
+    version = "9.1.0+ds-8";
+    src = fetchurl {
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-8_arm64.deb";
+      sha256 = "sha256-a0aHpTdx8x1o1zRp8JTOhMWQDEvIPaHJ8G/BkMw8kBY=";
+    };
+  };
+  qemu-user-static-armhf = {
+    pname = "qemu-user-static-armhf";
+    version = "9.1.0+ds-8";
+    src = fetchurl {
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-8_armhf.deb";
+      sha256 = "sha256-iAtMJ/eQKKvPYVFj6unDniN67tnfoZGk6+hELJE4S2Y=";
+    };
+  };
+  qemu-user-static-i386 = {
+    pname = "qemu-user-static-i386";
+    version = "9.1.0+ds-8";
+    src = fetchurl {
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-8_i386.deb";
+      sha256 = "sha256-8//kl7JYtfw0qrmzxAdkduDxX9vryp8uFm7DQnabYP4=";
     };
   };
   qhttpengine = {

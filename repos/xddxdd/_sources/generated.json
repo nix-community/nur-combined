@@ -1822,7 +1822,7 @@
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
             "rev": "0.7.0",
-            "sha256": "sha256-v7YIE5uzBvQHfi2hqkkRrW0F3K4haZyuoKHxAtRqQDA=",
+            "sha256": "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=",
             "sparseCheckout": [],
             "type": "github"
         },
@@ -2124,6 +2124,66 @@
             "type": "github"
         },
         "version": "v1.3.0"
+    },
+    "qemu-user-static-amd64": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "qemu-user-static-amd64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-JxaT2TsGI+ySD1Fbyrm6dUesXFnoPW7QZo7RMmcvGsg=",
+            "type": "url",
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-8_amd64.deb"
+        },
+        "version": "9.1.0+ds-8"
+    },
+    "qemu-user-static-arm64": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "qemu-user-static-arm64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-a0aHpTdx8x1o1zRp8JTOhMWQDEvIPaHJ8G/BkMw8kBY=",
+            "type": "url",
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-8_arm64.deb"
+        },
+        "version": "9.1.0+ds-8"
+    },
+    "qemu-user-static-armhf": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "qemu-user-static-armhf",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-iAtMJ/eQKKvPYVFj6unDniN67tnfoZGk6+hELJE4S2Y=",
+            "type": "url",
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-8_armhf.deb"
+        },
+        "version": "9.1.0+ds-8"
+    },
+    "qemu-user-static-i386": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "qemu-user-static-i386",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-8//kl7JYtfw0qrmzxAdkduDxX9vryp8uFm7DQnabYP4=",
+            "type": "url",
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-8_i386.deb"
+        },
+        "version": "9.1.0+ds-8"
     },
     "qhttpengine": {
         "cargoLocks": null,

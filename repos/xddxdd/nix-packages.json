@@ -3214,6 +3214,11 @@
     "pname": "python3.12-py-rcon",
     "version": "1.3.0"
   },
+  "legacyPackages.x86_64-linux.qemu-user-static": {
+    "description": "A generic and open source machine emulator and virtualizer",
+    "pname": "qemu-user-static",
+    "version": "9.1.0+ds-8"
+  },
   "legacyPackages.x86_64-linux.qhttpengine": {
     "description": "HTTP server for Qt applications",
     "pname": "qhttpengine-unstable",
@@ -3988,6 +3993,11 @@
     "description": "Python implementation of RCON",
     "pname": "python3.12-py-rcon",
     "version": "1.3.0"
+  },
+  "packages.x86_64-linux.qemu-user-static": {
+    "description": "A generic and open source machine emulator and virtualizer",
+    "pname": "qemu-user-static",
+    "version": "9.1.0+ds-8"
   },
   "packages.x86_64-linux.qhttpengine": {
     "description": "HTTP server for Qt applications",
