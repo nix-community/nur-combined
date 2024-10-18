@@ -1466,6 +1466,18 @@
     };
     date = "2023-02-06";
   };
+  telegram-desktop-patches = {
+    pname = "telegram-desktop-patches";
+    version = "90c55b41f8c2eae3a92e8190df0de1f39af9b2dc";
+    src = fetchFromGitHub {
+      owner = "huakim";
+      repo = "telegram-desktop-patches";
+      rev = "90c55b41f8c2eae3a92e8190df0de1f39af9b2dc";
+      fetchSubmodules = false;
+      sha256 = "sha256-nxhV6oscLJlPKdRAMNde9jcVI1xFtXtjRgzbSTvhEOI=";
+    };
+    date = "2024-10-13";
+  };
   th-hak = {
     pname = "th-hak";
     version = "4.0.0";

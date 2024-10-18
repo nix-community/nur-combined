@@ -504,6 +504,11 @@
     "pname": "nginx-lantian-unstable",
     "version": "2024-10-10"
   },
+  "legacyPackages.x86_64-linux.lantianCustomized.telegram-desktop": {
+    "description": "Telegram Desktop messaging app (Without anti-features)",
+    "pname": "telegram-desktop",
+    "version": "5.6.1-unstable-2024-10-12"
+  },
   "legacyPackages.x86_64-linux.lantianCustomized.transmission-with-webui": {
     "description": "Fast, easy and free BitTorrent client",
     "pname": "transmission",

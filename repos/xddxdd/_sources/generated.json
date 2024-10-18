@@ -2656,6 +2656,27 @@
         },
         "version": "3760434a18e6ba47b695c22786195e57cc6b4c1c"
     },
+    "telegram-desktop-patches": {
+        "cargoLocks": null,
+        "date": "2024-10-13",
+        "extract": null,
+        "name": "telegram-desktop-patches",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "huakim",
+            "repo": "telegram-desktop-patches",
+            "rev": "90c55b41f8c2eae3a92e8190df0de1f39af9b2dc",
+            "sha256": "sha256-nxhV6oscLJlPKdRAMNde9jcVI1xFtXtjRgzbSTvhEOI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "90c55b41f8c2eae3a92e8190df0de1f39af9b2dc"
+    },
     "th-hak": {
         "cargoLocks": null,
         "date": null,

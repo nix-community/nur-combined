@@ -582,6 +582,10 @@ fetch.url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/$ver.
 src.git = "https://github.com/NebraLtd/sx1302_hal.git"
 fetch.github = "NebraLtd/sx1302_hal"
 
+[telegram-desktop-patches]
+src.git = "https://github.com/huakim/telegram-desktop-patches.git"
+fetch.github = "huakim/telegram-desktop-patches"
+
 [th-tshyn]
 src.webpage = "http://cheonhyeong.com/Simplified/download.html"
 src.regex = "File/TH-Tshyn-([0-9.]+).7z"
