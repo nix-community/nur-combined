@@ -13,6 +13,7 @@ on:
     - cron:  '30 3 * * *'
 jobs:
   define-matrix:
+    name: Define job matrix
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.matrix.outputs.matrix }}
@@ -24,24 +25,19 @@ jobs:
             "Rhys-T" as $nurRepo |
             "rhys-t" as $cachixName |
             [
-              "ubuntu-latest",
-              "ubuntu-latest+qemu-aarch64-linux",
-              "macos-13",
-              "macos-latest",
+              "Linux x86-64/ubuntu-latest",
+              "Linux ARM64/ubuntu-latest+qemu-aarch64-linux",
+              "macOS x86-64/macos-13",
+              "macOS ARM64/macos-latest",
             empty] as $runners |
             ["nixpkgs-unstable", "nixos-unstable", "nixos-24.05"] as $nixpkgss |
             [
-              {runner: $runners[], nixpkgs: $nixpkgss[]} |
-              select((.runner | startswith("ubuntu")) or (.nixpkgs | startswith("nixpkgs"))) |
-              .nixPath = "nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/\(.nixpkgs).tar.gz" |
-              del(.nixpkgs) |
-              if .runner | contains("+qemu-") then
-                (.runner | split("+qemu-")) as [$realRunner, $qemuSystem] |
-                . + {runner: $realRunner, $qemuSystem}
-              else
-                .
-              end |
-              . + {$nurRepo, $cachixName}
+              $runners[] as $runner |
+              $nixpkgss[] as $nixpkgs |
+              ($runner | split("/")) as [$displayRunner, $runner] |
+              select(($runner | startswith("ubuntu")) or ($nixpkgs | startswith("nixpkgs"))) |
+              ($runner | split("+qemu-")) as [$runner, $qemuSystem] |
+              {$displayRunner, $runner, $qemuSystem, $nixpkgs, $nurRepo, $cachixName}
             ] |
             {include: .} |
             @json "matrix=\(.)"
@@ -50,6 +46,7 @@ jobs:
     needs: define-matrix
     strategy:
       matrix: ${{ fromJson(needs.define-matrix.outputs.matrix) }}
+    name: ${{ matrix.displayRunner }} - ${{ matrix.nixpkgs }}
     runs-on: ${{ matrix.runner }}
     steps:
     - name: Checkout repository
@@ -60,7 +57,7 @@ jobs:
     - name: Install nix
       uses: cachix/install-nix-action@v30
       with:
-        nix_path: "${{ matrix.nixPath }}"
+        nix_path: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/${{ matrix.nixpkgs }}.tar.gz"
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
