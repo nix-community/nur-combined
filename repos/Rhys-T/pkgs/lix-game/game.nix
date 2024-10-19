@@ -1,13 +1,33 @@
 {
-    stdenvNoCC, lib, buildDubPackage,
+    stdenv, lib, buildDubPackage,
     fetchFromGitHub,
     allegro5, enet,
     makeBinaryWrapper, desktopToDarwinBundle, writeDarwinBundle,
     disableNativeImageLoader,
     pkg-config,
+    overrideSDK, fetchpatch,
     common
 }: let
-    allegro5' = if disableNativeImageLoader then allegro5.overrideAttrs (old: {
+    inherit (stdenv) isDarwin;
+    allegro5' = if disableNativeImageLoader == "CIImage" then (allegro5.override {
+        stdenv = overrideSDK stdenv {
+            darwinMinVersion = "10.14";
+            darwinSdkVersion = "11.0";
+        };
+    }).overrideAttrs (old: {
+        # src = fetchFromGitHub {
+        #     owner = "pedro-w";
+        #     repo = "allegro5";
+        #     rev = "c196fe292eb28d20e2d21d639651bbafc78373f2";
+        #     hash = "sha256-PyAQN1CfR3PfG2lUZIYc+eCcULHSbWvMWKQgonS7xHo=";
+        # };
+        patches = (old.patches or []) ++ [
+            (fetchpatch {
+                url = "https://github.com/pedro-w/allegro5/commit/c196fe292eb28d20e2d21d639651bbafc78373f2.patch";
+                hash = "sha256-lwAfRu10EPxUwsqpyd7j4Ic01A0UvFMhzML8qpWrFIE=";
+            })
+        ];
+    }) else if disableNativeImageLoader then allegro5.overrideAttrs (old: {
         cmakeFlags = (old.cmakeFlags or []) ++ ["-DWANT_NATIVE_IMAGE_LOADER=off"];
     }) else allegro5;
     desktopToDarwinBundleWithCustomPlistEntries = plistExtra: desktopToDarwinBundle.overrideAttrs (old: {
@@ -24,17 +44,21 @@
         inherit (common) version src;
         dubLock = ./dub-lock.json;
         dubBuildType = "releaseXDG";
-        nativeBuildInputs = [pkg-config] ++ lib.optionals stdenvNoCC.isDarwin [makeBinaryWrapper (desktopToDarwinBundleWithCustomPlistEntries {
+        nativeBuildInputs = [pkg-config] ++ lib.optionals isDarwin [makeBinaryWrapper (desktopToDarwinBundleWithCustomPlistEntries {
             CFBundleIdentifier = "com.lixgame.Lix";
             LSApplicationCategoryType = "public.app-category.puzzle-games";
             NSHighResolutionCapable = true;
         })];
         buildInputs = [allegro5' enet];
         
+        ${if disableNativeImageLoader == "CIImage" then "postPatch" else null} = ''
+            substituteInPlace src/basics/alleg5.d --replace-fail '"Allegro %d.%d.%d"' '"Allegro %d.%d.%d (with pedro-w CIImage loader)"'
+        '';
+        
         # Ugly hack: I need to patch a few dub dependencies, and they're copied in by configurePhase, so I have to do it here.
         # Patch #1: Make derelict-enet use the full path to enet, so we don't have to handle it in a wrapper.
         # Patch #2 (Darwin only): Include the changes from <https://github.com/SiegeLord/DAllegro5/issues/56> to make the .app bundle work.
-        postConfigure = common.patchEnetBindings + lib.optionalString stdenvNoCC.isDarwin ''
+        postConfigure = common.patchEnetBindings + lib.optionalString isDarwin ''
         for dir in "$DUB_HOME"/packages/allegro/*/allegro/; do
             patch -d "$dir" -p1 < ${./patches/DAllegro/fix-56-run-from-darwin-app-bundle.patch}
         done
@@ -51,7 +75,7 @@
             "$out"/share/doc \
             "$out"/share/licenses/lix
         cp bin/lix "$out"/bin
-        '' + lib.optionalString stdenvNoCC.isDarwin (
+        '' + lib.optionalString isDarwin (
             let
                 libsToWrapWith = [
                     allegro5'   # The allegro5 derivation doesn't currently run fixDarwinDylibNames.

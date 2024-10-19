@@ -38,6 +38,21 @@ in {
     lix-game-packages = callPackage ./pkgs/lix-game {};
     lix-game = self.lix-game-packages.game;
     lix-game-server = self.lix-game-packages.server;
+    lix-game-libpng = if pkgs.hostPlatform.isDarwin then (self.lix-game-packages.overrideScope (self: super: {
+        convertImagesToTrueColor = false;
+    })).game else self.lix-game;
+    lix-game-CIImage = if pkgs.hostPlatform.isDarwin then (self.lix-game-packages.overrideScope (self: super: {
+        convertImagesToTrueColor = false;
+        disableNativeImageLoader = "CIImage";
+    })).game else self.lix-game;
+    _ciOnly.lix-game = {
+        lix-game-assets = (self.lix-game-packages.overrideScope (self: super: {
+            convertImagesToTrueColor = false;
+        })).assets;
+        lix-game-assets-PNG32 = (self.lix-game-packages.overrideScope (self: super: {
+            convertImagesToTrueColor = true;
+        })).assets;
+    };
     
     xscorch = callPackage ./pkgs/xscorch {};
     
