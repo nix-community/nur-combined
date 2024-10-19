@@ -3,10 +3,10 @@
   services.rustic = {
     backups = {
       critic = {
-        profiles = lib.genAttrs [
+        profiles = map (n: config.age.secrets.${n}.path) [
           "general.toml"
           "on-kaambl.toml"
-        ] (n: config.age.secrets.${n}.path);
+        ];
 
         timerConfig = {
           OnCalendar = "*-*-* 2,14:00:00";
@@ -16,11 +16,10 @@
         };
       };
       solid = {
-        profiles = lib.genAttrs [
+        profiles = map (n: config.age.secrets.${n}.path) [
           "general.toml"
           "on-eihort.toml"
-        ] (n: config.age.secrets.${n}.path);
-
+        ];
         timerConfig = {
           OnCalendar = "*-*-* 3,15:00:00";
           RandomizedDelaySec = "4h";

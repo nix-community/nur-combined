@@ -9,6 +9,7 @@ let
   cfg = config.services.rustic;
   inherit (lib)
     mkOption
+    listToAttrs
     foldl'
     types
     removeSuffix
@@ -33,9 +34,9 @@ in
           options = {
             package = mkPackageOption pkgs "rustic" { };
             profiles = mkOption {
-              type = with types; attrsOf str;
-              default = { };
-              description = "profiles file = path";
+              type = with types; listOf str;
+              default = [ ];
+              description = "profiles file path";
             };
             timerConfig = mkOption {
               type = types.nullOr (types.attrsOf unitOption);
@@ -62,12 +63,11 @@ in
   };
   config = mkIf (cfg.backups != [ ]) {
     environment.systemPackages = [ pkgs.rustic ];
-    environment.etc = mapAttrs' (name: path: {
-      name = "rustic/" + name;
-      value = {
-        source = path;
-      };
-    }) (foldl' (acc: i: acc // i.profiles) { } (attrValues cfg.backups));
+    environment.etc = listToAttrs (
+      map (n: nameValuePair ("rustic/" + removeSuffix ".toml" (baseNameOf n)) { source = n; }) (
+        foldl' (acc: i: acc ++ i.profiles) [ ] (attrValues cfg.backups)
+      )
+    );
 
     systemd.services = mapAttrs' (
       name: opts:
@@ -91,7 +91,7 @@ in
           ExecStart =
             let
               profileArgs = lib.concatStringsSep " " (
-                map (i: "-P ${removeSuffix ".toml" i}") (attrNames opts.profiles)
+                map (i: "-P ${removeSuffix ".toml" (baseNameOf i)}") (opts.profiles)
               );
               baseCmd = (lib.getExe' opts.package "rustic") + " " + profileArgs;
             in
