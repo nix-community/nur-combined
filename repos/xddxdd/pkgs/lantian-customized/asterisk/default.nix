@@ -40,7 +40,11 @@ in
 
   postPatch =
     (lib.concatStrings (builtins.map (p: "echo ${p}; patch -p0 < ${p}\n") myPatches))
-    + (old.postPatch or "");
+    + (old.postPatch or "")
+    + ''
+      # Use normal music volume instead of reducing it to 1/4
+      substituteInPlace apps/app_mp3.c --replace-fail '"-f", "8192",' ""
+    '';
 
   preConfigure =
     ''
