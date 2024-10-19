@@ -1,0 +1,25 @@
+root = true
+
+[*]
+indent_style = tab
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[{.direnv,.git}/**]
+indent_style = unset
+indent_size = unset
+end_of_line = unset
+trim_trailing_whitespace = unset
+insert_final_newline = unset
+
+[*.yaml]
+indent_style = space
+
+[.vscode/*.json]
+insert_final_newline = false
+
+[*.md]
+trim_trailing_whitespace = false
