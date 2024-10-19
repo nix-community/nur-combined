@@ -215,10 +215,10 @@
     };
     "alby" = buildFirefoxXpiAddon {
       pname = "alby";
-      version = "3.9.1";
+      version = "3.9.2";
       addonId = "extension@getalby.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4349480/alby-3.9.1.xpi";
-      sha256 = "4309097732555a381e33222673de37e0d0df4dd88e22624b81aabdb247bdf7c5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4372121/alby-3.9.2.xpi";
+      sha256 = "772c74d5396b119caeecac5efa1e86a4e5da109387db707609673562bdac7a43";
       meta = with lib;
       {
         homepage = "https://getAlby.com/";
@@ -771,10 +771,10 @@
     };
     "beyond-20" = buildFirefoxXpiAddon {
       pname = "beyond-20";
-      version = "2.9.6";
+      version = "2.9.8";
       addonId = "beyond20@kakaroto.homelinux.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4357634/beyond_20-2.9.6.xpi";
-      sha256 = "2dfbf578489b972ae242e1bdb1b76ac98216f55d80fae02eee70279b803680eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4368887/beyond_20-2.9.8.xpi";
+      sha256 = "43a7fd8908d29a53381ead6db093b138c0695db415cf62cd574c3a614798e424";
       meta = with lib;
       {
         homepage = "https://beyond20.here-for-more.info";
@@ -2096,10 +2096,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2441.0";
+      version = "6.2442.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4365264/dashlane-6.2441.0.xpi";
-      sha256 = "b092765d73362d65bbe11386664997b08be6c9374f3b1522272175d4f74d8e98";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4369787/dashlane-6.2442.0.xpi";
+      sha256 = "d4a58189ae37e5adadd2dcb0c365491b95b8c0875457d6218c81312e437e2ad6";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2177,10 +2177,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "132.0.20241016.91706";
+      version = "132.0.20241018.91619";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4370879/deutsch_de_language_pack-132.0.20241016.91706.xpi";
-      sha256 = "93a6e67518c7cf6357f9201fca6a24a46afba01bfc66f02951ced22a4c5040b3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4372205/deutsch_de_language_pack-132.0.20241018.91619.xpi";
+      sha256 = "53d07964c095eeac0dbe244889481ceb5fd5b42e85127603405c17f33a363527";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3344,10 +3344,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "132.0.20241016.91706";
+      version = "132.0.20241018.91619";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4370938/francais_language_pack-132.0.20241016.91706.xpi";
-      sha256 = "5bed744b1e3b4297ab6f99a44d4d2408b1c27b83f3c1e27b168e80f30c05959b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4372275/francais_language_pack-132.0.20241018.91619.xpi";
+      sha256 = "e1f492d0a0cac3001a8cc9537ab9c79673b7b80c36938f8dfe2cc5cffa2ac8b6";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3381,10 +3381,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "132.0.20241016.91706";
+      version = "132.0.20241018.91619";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4370915/gaidhlig_language_pack-132.0.20241016.91706.xpi";
-      sha256 = "e1c155b9c29a99ebf47e9cce5e4f83b2f9cc694a74022c788016f38817514fb7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4372277/gaidhlig_language_pack-132.0.20241018.91619.xpi";
+      sha256 = "2466c56b629995e6e27a4ba0d8f86a10f57a8aa558666b828bfd8fe8825d8e7c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -3545,10 +3545,10 @@
     };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "2.3.1";
+      version = "2.3.3";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4371637/gitpod-2.3.1.xpi";
-      sha256 = "00bf73a6d54568f203ff19b08425937ffd5d431ee85c30bd78f1d36d07af4505";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4372342/gitpod-2.3.3.xpi";
+      sha256 = "b119f6a4fbb9b008532ec7de407b80d7c26bf0e658c95db1ea67dcc135474e49";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
@@ -5164,10 +5164,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.9.8";
+      version = "1.10.2";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4361147/immersive_translate-1.9.8.xpi";
-      sha256 = "bdd053890335119346edb1b7213df52976e8f5f4ea83e7b18620fad877a042ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4368755/immersive_translate-1.10.2.xpi";
+      sha256 = "83287adbc9cdbbf9cf6365c7f11a8b10d2cb41fc7b009de4a2ef4eb4035e9a8a";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -9820,10 +9820,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "132.0.20241016.91706";
+      version = "132.0.20241018.91619";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4370859/scots_language_pack-132.0.20241016.91706.xpi";
-      sha256 = "d2bc21dba87f406a5991890dcc56a0383c663d7daeda57e3979749b54e0c9125";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4372235/scots_language_pack-132.0.20241018.91619.xpi";
+      sha256 = "a860554fe98572c9a2846e5b4d8875b3ee37d37e9dee469f6ec68dac48236af4";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
