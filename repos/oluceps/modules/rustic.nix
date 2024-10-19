@@ -14,7 +14,6 @@ let
     types
     removeSuffix
     mkPackageOption
-    attrNames
     attrValues
     mkIf
     mapAttrs'
@@ -64,7 +63,7 @@ in
   config = mkIf (cfg.backups != [ ]) {
     environment.systemPackages = [ pkgs.rustic ];
     environment.etc = listToAttrs (
-      map (n: nameValuePair ("rustic/" + removeSuffix ".toml" (baseNameOf n)) { source = n; }) (
+      map (n: nameValuePair ("rustic/" + (baseNameOf n)) { source = n; }) (
         foldl' (acc: i: acc ++ i.profiles) [ ] (attrValues cfg.backups)
       )
     );
@@ -84,9 +83,7 @@ in
         description = "rustic ${name} backup";
         serviceConfig = {
           Type = "oneshot";
-          RuntimeDirectory = "rustic-backups-${name}";
-          CacheDirectory = "rustic-backups-${name}";
-          CacheDirectoryMode = "0700";
+          Environment = [ "RUSTIC_CACHE_DIR=/var/cache/rustic" ];
           PrivateTmp = true;
           ExecStart =
             let
