@@ -12,7 +12,9 @@
 
     rekey = {
       extraEncryptionPubkeys = [ data.keys.ageKey ];
-      masterIdentities = [ (self + "/sec/age-yubikey-identity-7d5d5540.txt.pub") ];
+      masterIdentities = [
+        (self + "/sec/age-yubikey-identity-7d5d5540.txt.pub")
+      ];
       storageMode = "local";
       localStorageDir = self + "/sec/rekeyed/${config.networking.hostName}";
     };
@@ -41,6 +43,8 @@
         "ss-az"
         "trojan-server"
         "caddy"
+        "general.toml"
+        "on-kaambl.toml"
       ])
       // (genMaterial [
 
@@ -57,10 +61,10 @@
         "minio"
         "prism"
         "aws-s3-cred"
-        "restic-repo"
-        "restic-repo-crit"
-        "restic-envs"
-        "restic-envs-crit"
+        # "rustic-repo"
+        # "rustic-repo-crit"
+        # "rustic-envs"
+        # "rustic-envs-crit"
         "attic"
       ])
       // (genBoot [

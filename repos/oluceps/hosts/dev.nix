@@ -222,6 +222,7 @@
             distrobox
             dmidecode
             nix-output-monitor
+            rustic
 
           ];
           info = [
