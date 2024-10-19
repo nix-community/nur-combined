@@ -45,7 +45,7 @@ in {
         convertImagesToTrueColor = false;
         disableNativeImageLoader = "CIImage";
     })).game else self.lix-game;
-    _ciOnly.lix-game = {
+    _ciOnly.lix-game = pkgs.lib.recurseIntoAttrs {
         lix-game-assets = (self.lix-game-packages.overrideScope (self: super: {
             convertImagesToTrueColor = false;
         })).assets;
