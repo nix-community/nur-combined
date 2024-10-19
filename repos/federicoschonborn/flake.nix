@@ -97,7 +97,6 @@
                   "volpeon-raccoon"
                   "volpeon-vlpn"
 
-                  "lapce-nix"
                   "super-mario-127"
                 ];
             };
@@ -227,7 +226,7 @@
                         );
                       in
                       builtins.concatStringsSep "\n" (
-                        builtins.filter (x: x != "") [
+                        builtins.filter (x: x != "" && !(lib.hasPrefix "lapce-plugins." path)) [
                           ''
                             ### `${path}`${versionPart}${homepagePart}${changelogPart}${sourcePart}
                           ''
