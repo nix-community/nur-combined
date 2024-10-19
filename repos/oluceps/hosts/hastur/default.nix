@@ -54,7 +54,7 @@ withSystem "x86_64-linux" (
         ./rekey.nix
         ./spec.nix
         ./caddy.nix
-        ./restic.nix
+        ./backup.nix
 
         ../persist.nix
         ../secureboot.nix

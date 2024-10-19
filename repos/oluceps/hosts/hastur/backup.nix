@@ -9,7 +9,7 @@
     }) (lib.attrNames config.services.restic.backups)
   );
 
-  services.restic = {
+  services.rustic = {
     backups = {
       # solid = {
       #   passwordFile = config.age.secrets.wg.path;
@@ -46,7 +46,7 @@
           "/var/.snapshots/latest/lib/private/matrix-conduit"
         ];
         extraBackupArgs = [
-          "--exclude-caches"
+          # "--exclude-caches"
           "--no-scan"
           "--retry-lock 2h"
         ];
