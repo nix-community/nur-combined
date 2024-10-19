@@ -22,25 +22,34 @@ jobs:
         id: matrix
         run: |
           jq -nrf /dev/stdin << 'EOF' > "$GITHUB_OUTPUT"
+            
             "Rhys-T" as $nurRepo |
             "rhys-t" as $cachixName |
+            
             [
               "Linux x86-64/ubuntu-latest",
               "Linux ARM64/ubuntu-latest+qemu-aarch64-linux",
               "macOS x86-64/macos-13",
               "macOS ARM64/macos-latest",
             empty] as $runners |
-            ["nixpkgs-unstable", "nixos-unstable", "nixos-24.05"] as $nixpkgss |
+            
             [
+              "nixpkgs-unstable",
+              "nixos-unstable",
+              "nixos-24.05",
+            empty] as $nixpkgss |
+            
+            {include: [
               $runners[] as $runner |
               $nixpkgss[] as $nixpkgs |
               ($runner | split("/")) as [$displayRunner, $runner] |
               select(($runner | startswith("ubuntu")) or ($nixpkgs | startswith("nixpkgs"))) |
               ($runner | split("+qemu-")) as [$runner, $qemuSystem] |
               {$displayRunner, $runner, $qemuSystem, $nixpkgs, $nurRepo, $cachixName}
-            ] |
-            {include: .} |
+            ]} |
+            
             @json "matrix=\(.)"
+            
           EOF
   tests:
     needs: define-matrix
