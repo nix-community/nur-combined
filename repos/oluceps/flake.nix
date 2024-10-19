@@ -207,7 +207,7 @@
     };
     conduit = {
       url = "github:girlbossceo/conduwuit";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
     nyx = {
       # url = "/home/elen/Src/nyx";

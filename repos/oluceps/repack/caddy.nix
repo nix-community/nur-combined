@@ -90,6 +90,9 @@ in
 
     systemd.services.caddy = {
       preStart = "cp -f /etc/caddy/config.json /var/lib/caddy/backup.json";
+      unitConfig = {
+        StartLimitIntervalSec = 0;
+      };
       serviceConfig =
         let
           caddyBin = "${cfg.package}/bin/caddy";
@@ -103,6 +106,8 @@ in
           StateDirectory = "caddy";
           AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
           Environment = [ "XDG_DATA_HOME=%S" ];
+          Restart = "always";
+          RestartSec = 1;
         };
       wantedBy = [ "multi-user.target" ];
       after = [
