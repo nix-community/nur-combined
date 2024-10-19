@@ -994,9 +994,9 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Update Script: ✔️
 </details>
 
-### `lapce-plugins.catppuccin` `0.1.18` [🌐](https://github.com/catppuccin/lapce "Homepage") [📦](./pkgs/lapce-plugins/default.nix#L13 "Source")
+### `lapce-plugins.90s-anime` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/elo1lson/90s-anime "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
 
-Soothing pastel theme for Lapce.
+A tasteful but still practical colorful theme for Lapce. Great for purple color lovers <3..
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
@@ -1005,8 +1005,208 @@ Soothing pastel theme for Lapce.
     Details
   </summary>
 
-- Name: `lapce-plugin-Catppuccin-Holdings-catppuccin`
-- Licenses: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
+- Name: `lapce-plugin-elo1lson-90s-anime`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.adwaita` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/ayhon/adwaita "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Adwaita colors for GNOME.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-ayhon-adwaita`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.alabaster-theme` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/SimY4/alabaster-theme "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Tonsky's Alabaster theme for Lapce.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-SimY4-alabaster-theme`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.aleph` `0.3.2` [🌐](https://plugins.lapce.dev/plugins/MinusGix/aleph "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Dark and colorful theme.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-MinusGix-aleph`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.aswad` `0.3.0` [🌐](https://plugins.lapce.dev/plugins/ahmrz/aswad "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+A dark theme for Lapce Editor.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-ahmrz-aswad`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.aura-theme` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/ItzSwirlz/aura-theme "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+A beautiful dark theme for Lapce.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-ItzSwirlz-aura-theme`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.ayu` `0.1.2` [🌐](https://plugins.lapce.dev/plugins/WalterOfNone/ayu "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+The Ayu theme.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-WalterOfNone-ayu`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.black-iris` `0.1.11` [🌐](https://plugins.lapce.dev/plugins/p-yukusai/black-iris "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+A dark theme with pastel colors.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-p-yukusai-black-iris`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.bright-pastel-icons` `0.0.0` [🌐](https://plugins.lapce.dev/plugins/c-sleuth/bright-pastel-icons "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Bright Pastel icon theme for Lapce.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-c-sleuth-bright-pastel-icons`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.catppuccin` `0.1.18` [🌐](https://plugins.lapce.dev/plugins/ghishadow/catppuccin "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+🐭 Soothing pastel theme for Lapce.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-ghishadow-catppuccin`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.csharp` `2.0.0` [🌐](https://plugins.lapce.dev/plugins/sharpSteff/csharp "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+C# for lapce using csharp-ls.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-sharpSteff-csharp`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
@@ -1015,7 +1215,353 @@ Soothing pastel theme for Lapce.
 - Source Provenance: `binaryBytecode`
 </details>
 
-### `lapce-plugins.lapce-crates` `0.1.0` [🌐](https://github.com/MathiasPius/lapce-crates "Homepage") [📦](./pkgs/lapce-plugins/default.nix#L26 "Source")
+### `lapce-plugins.darcula` `0.3.0` [🌐](https://plugins.lapce.dev/plugins/BillyDM/darcula "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Darcula color theme.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-BillyDM-darcula`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.dark-forest` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/MinusGix/dark-forest "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+A dimly lit forest.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-MinusGix-dark-forest`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.discord` `0.2.1` [🌐](https://plugins.lapce.dev/plugins/sleepy-kitten/discord "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Discord like theme.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-sleepy-kitten-discord`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.dou-lapcord` `2.1.3` [🌐](https://plugins.lapce.dev/plugins/Hyduez/dou-lapcord "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Discord Rich Presence extension for Lapce..
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Hyduez-dou-lapcord`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.dou.lapcord` `2.0.1` [🌐](https://plugins.lapce.dev/plugins/Hyduez/dou.lapcord "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Discord Rich Presence extension for Lapce Editor..
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Hyduez-dou.lapcord`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.dracula` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/d4rkr41n/dracula "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+A dark theme for Lapce.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-d4rkr41n-dracula`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.eclipse-theme` `0.0.3` [🌐](https://plugins.lapce.dev/plugins/Lucas3oo/eclipse-theme "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Lapce theme similar to Eclipse light. Theme name: 'Eclipse Light'..
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Lucas3oo-eclipse-theme`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.everblush` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/Incognitux/everblush "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+A Dark, Vibrant and Beatiful colorscheme.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Incognitux-everblush`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.forest-night-theme` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/Notiee/forest-night-theme "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+A true black theme with tasteful forest green accents..
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Notiee-forest-night-theme`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.github-theme` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/jsanchezba/github-theme "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+GitHub Light Theme.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-jsanchezba-github-theme`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.gruvbox` `0.2.0` [🌐](https://plugins.lapce.dev/plugins/NachiketNamjoshi/gruvbox "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+The Iconic Gruvbox Theme.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-NachiketNamjoshi-gruvbox`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.guose` `0.0.2` [🌐](https://plugins.lapce.dev/plugins/lotosbin/guose "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+China Color Theme.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-lotosbin-guose`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.kanagawa` `0.0.6` [🌐](https://plugins.lapce.dev/plugins/ghishadow/kanagawa "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+dark colorscheme inspired by the colors of the famous painting by Katsushika Hokusai. (based on Neovim theme).
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-ghishadow-kanagawa`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.lapce-angular` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/Stanislav-Lapata/lapce-angular "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Angular plugin for the Lapce Editor - Powered by angular.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Stanislav-Lapata-lapce-angular`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-astro` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/robinv8/lapce-astro "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Astro language support for Lapce.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-robinv8-lapce-astro`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-copilot` `1.0.1` [🌐](https://plugins.lapce.dev/plugins/MinusGix/lapce-copilot "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Unofficial Github Copilot plugin.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-MinusGix-lapce-copilot`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-cpp-clangd` `2024.2.0` [🌐](https://plugins.lapce.dev/plugins/panekj/lapce-cpp-clangd "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+C/C++ language support.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-panekj-lapce-cpp-clangd`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-crates` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/MathiasPius/lapce-crates "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
 
 Crates.io integration for Cargo.toml.
 
@@ -1036,7 +1582,111 @@ Crates.io integration for Cargo.toml.
 - Source Provenance: `binaryBytecode`
 </details>
 
-### `lapce-plugins.lapce-go` `2023.1.0` [🌐](https://github.com/lapce-community/lapce-go "Homepage") [📦](./pkgs/lapce-plugins/default.nix#L39 "Source")
+### `lapce-plugins.lapce-css` `0.0.2` [🌐](https://plugins.lapce.dev/plugins/elo1lson/lapce-css "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Adds CSS and SCSS support.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-elo1lson-lapce-css`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-dart` `0.3.0` [🌐](https://plugins.lapce.dev/plugins/zarathir/lapce-dart "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Dart for Lapce: powered by dart language-server.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-zarathir-lapce-dart`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-deno` `0.0.1+deno.1.41.0` [🌐](https://plugins.lapce.dev/plugins/panekj/lapce-deno "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+TypeScript, JavaScript and Markdown language support via Deno LSP.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-panekj-lapce-deno`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-elixir` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/jimsynz/lapce-elixir "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Elixir for Lapce: powered by elixir-ls.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-jimsynz-lapce-elixir`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-github-themes` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/ThePoultryMan/lapce-github-themes "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Various themes based off of GitHub's themes..
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-ThePoultryMan-lapce-github-themes`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.lapce-go` `2023.1.0` [🌐](https://plugins.lapce.dev/plugins/panekj/lapce-go "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
 
 Go for Lapce using gopls.
 
@@ -1057,7 +1707,384 @@ Go for Lapce using gopls.
 - Source Provenance: `binaryBytecode`
 </details>
 
-### `lapce-plugins.lapce-rust` `0.3.1932` [🌐](https://github.com/lapce/lapce-rust "Homepage") [📦](./pkgs/lapce-plugins/default.nix#L52 "Source")
+### `lapce-plugins.lapce-html` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/CroxxN/lapce-html "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+HTML lsp for Lapce.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-CroxxN-lapce-html`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-java` `0.3.0` [🌐](https://plugins.lapce.dev/plugins/oknozor/lapce-java "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Lapce LSP plugin for java, powered by Eclipse JDT Language Server.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-oknozor-lapce-java`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-julia-ls` `0.0.5` [🌐](https://plugins.lapce.dev/plugins/VarLad/lapce-julia-ls "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Julia plugin for the Lapce Editor - Powered by LanguageServer.jl.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-VarLad-lapce-julia-ls`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-lldb` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/dzhou121/lapce-lldb "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+A debugger powered by LLDB..
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-dzhou121-lapce-lldb`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-markdown` `0.3.2` [🌐](https://plugins.lapce.dev/plugins/zarathir/lapce-markdown "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Markdown powered by Marksman.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-zarathir-lapce-markdown`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-material-icon-theme` `0.0.1-beta1` [🌐](https://plugins.lapce.dev/plugins/panekj/lapce-material-icon-theme "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Material icon theme for Lapce.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-panekj-lapce-material-icon-theme`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.lapce-nix` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/MrFoxPro/lapce-nix "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Plugin for oxalica/nil: Nix Language server, an incremental analysis assistent for writing in Nix..
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-MrFoxPro-lapce-nix`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-php-intelephense` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/dajoha/lapce-php-intelephense "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Php for Lapce using Intelephense.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-dajoha-lapce-php-intelephense`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-plugin-all-in-one` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/hangj/lapce-plugin-all-in-one "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+hangj's personal plugin for lapce.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-hangj-lapce-plugin-all-in-one`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-plugin-rewrap` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/sschober/lapce-plugin-rewrap "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Lapce plugin for rewrapping text at defined column widths..
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-sschober-lapce-plugin-rewrap`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-powershell` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/instance-id/lapce-powershell "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+PowerShell language support for Lapce provided by PowerShell Editor Services.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-instance-id-lapce-powershell`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-prisma` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/tingfeng-key/lapce-prisma "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Prisma plugin for lapce.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-tingfeng-key-lapce-prisma`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-pyright` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/abreumatheus/lapce-pyright "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Pyright LSP for the Lapce editor..
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-abreumatheus-lapce-pyright`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-python` `0.3.4` [🌐](https://plugins.lapce.dev/plugins/superlou/lapce-python "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Python for Lapce using python-lsp-server.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-superlou-lapce-python`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-python-nouse` `0.4.0` [🌐](https://plugins.lapce.dev/plugins/akhildevelops/lapce-python-nouse "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Don't use this plugin, use https://plugins.lapce.dev/plugins/superlou/lapce-python.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-akhildevelops-lapce-python-nouse`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-racket` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/nekodival/lapce-racket "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Simple racket plugin for lapce.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-nekodival-lapce-racket`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-rome` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/xiaoxin-sky/lapce-rome "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+a Faster(⚡) formatter, linter, bundler, and more for JavaScript, TypeScript, JSON, HTML, Markdown, and CSS..
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-xiaoxin-sky-lapce-rome`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-ruff-lsp` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/abreumatheus/lapce-ruff-lsp "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Ruff LSP support for the Lapce editor..
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-abreumatheus-lapce-ruff-lsp`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-rust` `0.3.1932` [🌐](https://plugins.lapce.dev/plugins/dzhou121/lapce-rust "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
 
 Rust for Lapce: powered by Rust Analyzer.
 
@@ -1078,7 +2105,91 @@ Rust for Lapce: powered by Rust Analyzer.
 - Source Provenance: `binaryBytecode`
 </details>
 
-### `lapce-plugins.lapce-toml` `0.0.0` [🌐](https://github.com/panekj/lapce-toml "Homepage") [📦](./pkgs/lapce-plugins/default.nix#L65 "Source")
+### `lapce-plugins.lapce-solargraph` `0.1.2` [🌐](https://plugins.lapce.dev/plugins/Stanislav-Lapata/lapce-solargraph "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Ruby plugin for the Lapce Editor - Powered by solargraph.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Stanislav-Lapata-lapce-solargraph`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-svelte` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/brocococonut/lapce-svelte "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Svelte plugin for lapce.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-brocococonut-lapce-svelte`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-swift` `0.1.4` [🌐](https://plugins.lapce.dev/plugins/ghishadow/lapce-swift "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Swift for Lapce: powered by sourcekit-lsp.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-ghishadow-lapce-swift`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-terraform-ls` `0.0.2+terraform-ls.0.32.7` [🌐](https://plugins.lapce.dev/plugins/panekj/lapce-terraform-ls "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Terraform support for Lapce.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-panekj-lapce-terraform-ls`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-toml` `0.0.0` [🌐](https://plugins.lapce.dev/plugins/panekj/lapce-toml "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
 
 TOML for Lapce.
 
@@ -1097,6 +2208,575 @@ TOML for Lapce.
 - Outputs: **`out`**
 - Update Script: ❌
 - Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-typescript` `2022.11.0` [🌐](https://plugins.lapce.dev/plugins/panekj/lapce-typescript "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Typescript & Javascript language support.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-panekj-lapce-typescript`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-vue` `0.0.2` [🌐](https://plugins.lapce.dev/plugins/xiaoxin-sky/lapce-vue "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+vue auto-complete,ts type-check,diagnosis.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-xiaoxin-sky-lapce-vue`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-yaml` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/panekj/lapce-yaml "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+YAML for Lapce: powered by yaml-language-server.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-panekj-lapce-yaml`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lapce-zig` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/ghishadow/lapce-zig "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Zig for Lapce: powered by Zig Language Server.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-ghishadow-lapce-zig`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.lightpink` `0.2.8` [🌐](https://plugins.lapce.dev/plugins/ghishadow/lightpink "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Cute Light Pink.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-ghishadow-lightpink`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.lldb-win` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/jm-observer/lldb-win "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+lldb for Lapce.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-jm-observer-lldb-win`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.marge` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/Jalkhov/marge "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+A soft theme inspired in Mariana from Sublime Text 4.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Jalkhov-marge`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.material-theme` `1.2.0` [🌐](https://plugins.lapce.dev/plugins/Codextor/material-theme "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Material Theme for Lapce.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Codextor-material-theme`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.milk-tea` `0.0.2` [🌐](https://plugins.lapce.dev/plugins/wpkelso/milk-tea "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Theme based around milk tea in its many forms.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-wpkelso-milk-tea`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.monokai` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/KennanHunter/monokai "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+The Classic Monokai Theme.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-KennanHunter-monokai`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.monokai-vscode` `1.0.0` [🌐](https://plugins.lapce.dev/plugins/Stepland/monokai-vscode "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Port of the Monokai theme from VSCode.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Stepland-monokai-vscode`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.neon-night` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/heartbeast42/neon-night "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Dark Neon theme inspired by the cyberpunk aesthetic and genera, hints of vapor-wave and notes of the 80's.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-heartbeast42-neon-night`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.neonight` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/DissolveDZ/neonight "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+A modern dark theme made specifically for Lapce.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-DissolveDZ-neonight`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.nord-theme` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/ItzSwirlz/nord-theme "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+An arctic, north-bluish color palette..
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-ItzSwirlz-nord-theme`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.nordyu-theme` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/dyu/nordyu-theme "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Nord-based color scheme..
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-dyu-nordyu-theme`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.nushell-lsp` `0.1.0-rc2` [🌐](https://plugins.lapce.dev/plugins/timon-schelling/nushell-lsp "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Nushell language plugin using nushell's integrated lsp.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-timon-schelling-nushell-lsp`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.ocean-space-refined` `0.1.2` [🌐](https://plugins.lapce.dev/plugins/Mikastiv/ocean-space-refined "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+The Deep Oceanic Blue Theme.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Mikastiv-ocean-space-refined`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.pastel-collection-lapce` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/c-sleuth/pastel-collection-lapce "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+A collection of pastel themes for Lapce.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-c-sleuth-pastel-collection-lapce`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.rose-pine` `0.2.6` [🌐](https://plugins.lapce.dev/plugins/ghishadow/rose-pine "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Soho vibes for Lapce.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-ghishadow-rose-pine`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.rs4lapce` `0.2.0` [🌐](https://plugins.lapce.dev/plugins/HTGAzureX1212/rs4lapce "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Rust plugin for Lapce, powered by Rust Analyzer.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-HTGAzureX1212-rs4lapce`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.solarized` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/foxlldev/solarized "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Solarized theme for Lapce editor.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-foxlldev-solarized`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.spaceduck` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/ConnorSMorrison/spaceduck "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Lapce theme of Spaceduck.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-ConnorSMorrison-spaceduck`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.thrift-ls` `0.0.3` [🌐](https://plugins.lapce.dev/plugins/joyme123/thrift-ls "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+thrift language server.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-joyme123-thrift-ls`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.tokyo-night` `0.2.0` [🌐](https://plugins.lapce.dev/plugins/ghishadow/tokyo-night "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+A clean, dark Lapce theme that celebrates the lights of Downtown Tokyo at night..
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-ghishadow-tokyo-night`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.typst-lsp` `0.13.0` [🌐](https://plugins.lapce.dev/plugins/nvarner/typst-lsp "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+A language server for Typst.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-nvarner-typst-lsp`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapce-plugins.vscode-themes` `2022.11.0` [🌐](https://plugins.lapce.dev/plugins/panekj/vscode-themes "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Default dark/light theme used in VS Code.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-panekj-vscode-themes`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.xcodedark-theme` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/JarWarren/xcodedark-theme "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Xcode's "Default (Dark)" theme..
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-JarWarren-xcodedark-theme`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapce-plugins.xcodelight-theme` `0.1.2` [🌐](https://plugins.lapce.dev/plugins/JarWarren/xcodelight-theme "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Xcode's "Default (Light)" theme..
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-JarWarren-xcodelight-theme`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
 </details>
 
 ### `libgta` `1.2.1` [🌐](https://marlam.de/gta/ "Homepage") [📦](./pkgs/by-name/libgta/package.nix#L46 "Source")

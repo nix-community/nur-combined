@@ -10,6 +10,7 @@
   name,
   version,
   hash,
+  wasm ? true,
   meta ? { },
   ...
 }@args:
@@ -41,15 +42,27 @@ stdenvNoCC.mkDerivation (
       runHook postInstall
     '';
 
-    meta = {
-      sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
-    } // builtins.removeAttrs meta [ "sourceProvenance" ];
+    meta = lib.mergeAttrsList [
+      # Default values.
+      {
+        homepage = "https://plugins.lapce.dev/plugins/${author}/${name}";
+      }
+
+      # Set sourceProvenance if the plugin contains a WASM binary.
+      (lib.optionalAttrs wasm {
+        sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
+      })
+
+      # Finally, merge the user's meta attributes.
+      meta
+    ];
   }
   // builtins.removeAttrs args [
     "author"
     "name"
     "version"
     "hash"
+    "wasm"
     "meta"
   ]
 )

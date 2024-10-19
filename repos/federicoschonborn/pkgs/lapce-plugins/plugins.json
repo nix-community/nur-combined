@@ -1,0 +1,722 @@
+[
+  {
+    "author": "dzhou121",
+    "name": "lapce-rust",
+    "version": "0.3.1932",
+    "description": "Rust for Lapce: powered by Rust Analyzer",
+    "wasm": true,
+    "hash": "sha256-LJ5tb37aIlTvbW5qCQBs9rOEV9M48BmzGsZD2J6WPw0="
+  },
+  {
+    "author": "panekj",
+    "name": "lapce-material-icon-theme",
+    "version": "0.0.1-beta1",
+    "description": "Material icon theme for Lapce",
+    "wasm": false,
+    "hash": "sha256-rdnghlwYJy+oE7Fp76LuO+6bIUcYYJzxiJA8kLFKLbE="
+  },
+  {
+    "author": "panekj",
+    "name": "lapce-typescript",
+    "version": "2022.11.0",
+    "description": "Typescript & Javascript language support",
+    "wasm": true,
+    "hash": "sha256-DChRrXfWSL1lynP7yhP4J+OMsr5A/tyWCv9FS/Ks0ew="
+  },
+  {
+    "author": "superlou",
+    "name": "lapce-python",
+    "version": "0.3.4",
+    "description": "Python for Lapce using python-lsp-server",
+    "wasm": true,
+    "hash": "sha256-YJyuSr2csIOVqW7pEbp2tmnSFioi+fXA4U/8JZPqWf0="
+  },
+  {
+    "author": "panekj",
+    "name": "lapce-cpp-clangd",
+    "version": "2024.2.0",
+    "description": "C/C++ language support",
+    "wasm": true,
+    "hash": "sha256-RHmJdyw7xj0AuDelcbKlmst05IVTMHSadR68porPGQU="
+  },
+  {
+    "author": "zarathir",
+    "name": "lapce-markdown",
+    "version": "0.3.2",
+    "description": "Markdown powered by Marksman",
+    "wasm": true,
+    "hash": "sha256-+fn9enUr9y663m/3xloFau1yuJ34GDHDVWmOwYrSAbY="
+  },
+  {
+    "author": "panekj",
+    "name": "lapce-toml",
+    "version": "0.0.0",
+    "description": "TOML for Lapce",
+    "wasm": true,
+    "hash": "sha256-hSXo5d7DuresKfN8lDlC8SCJ/+NeWZcAH8Xbp3kUwNc="
+  },
+  {
+    "author": "panekj",
+    "name": "lapce-go",
+    "version": "2023.1.0",
+    "description": "Go for Lapce using gopls",
+    "wasm": true,
+    "hash": "sha256-HZJW28ve7xLoNOBxKNfFnPWs/Prk+/znvUh8jI6YwMI="
+  },
+  {
+    "author": "panekj",
+    "name": "vscode-themes",
+    "version": "2022.11.0",
+    "description": "Default dark/light theme used in VS Code",
+    "wasm": false,
+    "hash": "sha256-ZwCc8KtdgSiovy92c3yr1/tWGitiq9PJblT89TBz+ek="
+  },
+  {
+    "author": "CroxxN",
+    "name": "lapce-html",
+    "version": "0.0.1",
+    "description": "HTML lsp for Lapce",
+    "wasm": true,
+    "hash": "sha256-/uazWNQ7mDWPsCAffChz2xyYiJXmKksGkBNiqXKroHg="
+  },
+  {
+    "author": "panekj",
+    "name": "lapce-yaml",
+    "version": "0.0.1",
+    "description": "YAML for Lapce: powered by yaml-language-server",
+    "wasm": true,
+    "hash": "sha256-UV21phSBkZMKV4guArxedRgIB5nJlgcukbhmHDc/baU="
+  },
+  {
+    "author": "ghishadow",
+    "name": "tokyo-night",
+    "version": "0.2.0",
+    "description": "A clean, dark Lapce theme that celebrates the lights of Downtown Tokyo at night.",
+    "wasm": false,
+    "hash": "sha256-JTHsKph1tdHMH0jG9+hzJ+iEtXhQWH42H3CD8ih5e+A="
+  },
+  {
+    "author": "d4rkr41n",
+    "name": "dracula",
+    "version": "0.1.0",
+    "description": "A dark theme for Lapce",
+    "wasm": false,
+    "hash": "sha256-25Suo8qjZjnZ2txsgLLokidZFZEYo7sjBL2ELYL87/Q="
+  },
+  {
+    "author": "ghishadow",
+    "name": "catppuccin",
+    "version": "0.1.18",
+    "description": "🐭 Soothing pastel theme for Lapce",
+    "wasm": false,
+    "hash": "sha256-0J/35D2Vf/TAwpl/hEq0TThikzJWF0yYQd/XrIj+xDo="
+  },
+  {
+    "author": "oknozor",
+    "name": "lapce-java",
+    "version": "0.3.0",
+    "description": "Lapce LSP plugin for java, powered by Eclipse JDT Language Server",
+    "wasm": true,
+    "hash": "sha256-KbODyIE5QOxCjRBR3c2efuf6QlfxGPLS6zYnMkkUm5s="
+  },
+  {
+    "author": "elo1lson",
+    "name": "lapce-css",
+    "version": "0.0.2",
+    "description": "Adds CSS and SCSS support",
+    "wasm": true,
+    "hash": "sha256-zqYxsS4Eyd40sp2jrDfAK2j8tJ0o4YVSjY429UTjbSQ="
+  },
+  {
+    "author": "xiaoxin-sky",
+    "name": "lapce-rome",
+    "version": "0.0.1",
+    "description": "a Faster(⚡)  formatter, linter, bundler, and more for JavaScript, TypeScript, JSON, HTML, Markdown, and CSS.",
+    "wasm": true,
+    "hash": "sha256-fChbExavT24DVvtqQMmXdrlvqTUoaUb5WtQly82PSiY="
+  },
+  {
+    "author": "WalterOfNone",
+    "name": "ayu",
+    "version": "0.1.2",
+    "description": "The Ayu theme",
+    "wasm": false,
+    "hash": "sha256-8m9joh8VTkd4fzNevFmZROsQ5Cl7si84oVQ01nTCjdo="
+  },
+  {
+    "author": "xiaoxin-sky",
+    "name": "lapce-vue",
+    "version": "0.0.2",
+    "description": "vue auto-complete,ts type-check,diagnosis",
+    "wasm": true,
+    "hash": "sha256-vE+jAYMO2+F/XLJQBfFmlelLHS1VJsfFs1YBvbrHsxw="
+  },
+  {
+    "author": "ItzSwirlz",
+    "name": "nord-theme",
+    "version": "0.1.1",
+    "description": "An arctic, north-bluish color palette.",
+    "wasm": false,
+    "hash": "sha256-9iCJQlhfhiPAyxp+duPRYbhKl5hmJP4V+xEgZ9BBBZA="
+  },
+  {
+    "author": "dajoha",
+    "name": "lapce-php-intelephense",
+    "version": "0.1.0",
+    "description": "Php for Lapce using Intelephense",
+    "wasm": true,
+    "hash": "sha256-j3yaijcIbVx28kjHJQSEsTPlu3lgS0uomu9mfvy0/Qw="
+  },
+  {
+    "author": "abreumatheus",
+    "name": "lapce-pyright",
+    "version": "0.1.1",
+    "description": "Pyright LSP for the Lapce editor.",
+    "wasm": true,
+    "hash": "sha256-C1YOg6WcRcN7+br9eCiUzSQVAj/JloH9+fY9IME1bpg="
+  },
+  {
+    "author": "NachiketNamjoshi",
+    "name": "gruvbox",
+    "version": "0.2.0",
+    "description": "The Iconic Gruvbox Theme",
+    "wasm": false,
+    "hash": "sha256-k7/MylUTXhQtVKHweTAl1ddkUotStr7rdsmmwYKEZOA="
+  },
+  {
+    "author": "KennanHunter",
+    "name": "monokai",
+    "version": "0.1.0",
+    "description": "The Classic Monokai Theme",
+    "wasm": false,
+    "hash": "sha256-2wQ7sFBxWXgFhxWN6xkSRpNag4iJCNtIhbIqm97LIAI="
+  },
+  {
+    "author": "abreumatheus",
+    "name": "lapce-ruff-lsp",
+    "version": "0.1.1",
+    "description": "Ruff LSP support for the Lapce editor.",
+    "wasm": true,
+    "hash": "sha256-ttYWC+GEQlFZR+Qu2rMLiKFDNsFeILRzDl6XQeiqqt0="
+  },
+  {
+    "author": "MinusGix",
+    "name": "aleph",
+    "version": "0.3.2",
+    "description": "Dark and colorful theme",
+    "wasm": false,
+    "hash": "sha256-ByXVdX0MVZJFN74uWecFgh/BZL6F90OeWdH75RAC17A="
+  },
+  {
+    "author": "ghishadow",
+    "name": "lapce-zig",
+    "version": "0.1.1",
+    "description": "Zig for Lapce: powered by Zig Language Server",
+    "wasm": true,
+    "hash": "sha256-VIqEOoeti283CbdNP+IreRW19lNey5QVWWUWNhclAhU="
+  },
+  {
+    "author": "sharpSteff",
+    "name": "csharp",
+    "version": "2.0.0",
+    "description": "C# for lapce using csharp-ls",
+    "wasm": true,
+    "hash": "sha256-2wa11YRRSQVEXHkVQch1lsIVmoiHh1KMFTi2HeQAv2g="
+  },
+  {
+    "author": "p-yukusai",
+    "name": "black-iris",
+    "version": "0.1.11",
+    "description": "A dark theme with pastel colors",
+    "wasm": false,
+    "hash": "sha256-Olgf3dcDHwdr9HavrxyPAWTf8rRthpYIRCdaVV3lrWM="
+  },
+  {
+    "author": "MathiasPius",
+    "name": "lapce-crates",
+    "version": "0.1.0",
+    "description": "Crates.io integration for Cargo.toml",
+    "wasm": true,
+    "hash": "sha256-tyUn0a1FoRlMRYFPfSy7FzP2FFZ52s197kAma2rpgXA="
+  },
+  {
+    "author": "zarathir",
+    "name": "lapce-dart",
+    "version": "0.3.0",
+    "description": "Dart for Lapce: powered by dart language-server",
+    "wasm": true,
+    "hash": "sha256-XFWBOURWxso4d8sq9Bruh7i5bT5qrSJXr9Qz9AX8GOs="
+  },
+  {
+    "author": "brocococonut",
+    "name": "lapce-svelte",
+    "version": "0.1.0",
+    "description": "Svelte plugin for lapce",
+    "wasm": true,
+    "hash": "sha256-XnvhI3FC3JpItPhF7cmpG6Hej/D1UZlW3xdbnz1cI0I="
+  },
+  {
+    "author": "sleepy-kitten",
+    "name": "discord",
+    "version": "0.2.1",
+    "description": "Discord like theme",
+    "wasm": false,
+    "hash": "sha256-FepeooMjFgKonCcYtF5cPazWP4lEo4gEnIqUzU5tSxU="
+  },
+  {
+    "author": "ghishadow",
+    "name": "kanagawa",
+    "version": "0.0.6",
+    "description": "dark colorscheme inspired by the colors of the famous painting by Katsushika Hokusai. (based on Neovim theme)",
+    "wasm": false,
+    "hash": "sha256-LdNSPVF7tG4EbN50yU4yKENO6wPWkg9Y7qv7pcZoKSQ="
+  },
+  {
+    "author": "MinusGix",
+    "name": "dark-forest",
+    "version": "0.1.1",
+    "description": "A dimly lit forest",
+    "wasm": false,
+    "hash": "sha256-hYcz54F8ryq5m9drLAvYDPOhbZpOFL0CkZuQeebU26w="
+  },
+  {
+    "author": "ghishadow",
+    "name": "rose-pine",
+    "version": "0.2.6",
+    "description": "Soho vibes for Lapce",
+    "wasm": false,
+    "hash": "sha256-V3F+JD5qXA1isT11yHtWZ6vIQx0h7VJaVGrIXL6CGnM="
+  },
+  {
+    "author": "jsanchezba",
+    "name": "github-theme",
+    "version": "0.1.1",
+    "description": "GitHub Light Theme",
+    "wasm": false,
+    "hash": "sha256-vHJSZ9x/vcIBlEzA/81RtAqdSCN20I/E618RmS476Os="
+  },
+  {
+    "author": "panekj",
+    "name": "lapce-terraform-ls",
+    "version": "0.0.2+terraform-ls.0.32.7",
+    "description": "Terraform support for Lapce",
+    "wasm": true,
+    "hash": "sha256-hKjT+as+XuXKmSwKsu2p4UdYhc71KojzhZMX/JNoQjw="
+  },
+  {
+    "author": "ItzSwirlz",
+    "name": "aura-theme",
+    "version": "0.1.0",
+    "description": "A beautiful dark theme for Lapce",
+    "wasm": false,
+    "hash": "sha256-n44Ap5s0tmM0Ouf0VUm8IMLOboayLSFnpps9jmUjoFU="
+  },
+  {
+    "author": "JarWarren",
+    "name": "xcodedark-theme",
+    "version": "0.1.1",
+    "description": "Xcode's \"Default (Dark)\" theme.",
+    "wasm": false,
+    "hash": "sha256-4U/QhsTzQAJCqabdezbl36ivrd0+l4rxUPH2b0C/AJ0="
+  },
+  {
+    "author": "Stanislav-Lapata",
+    "name": "lapce-angular",
+    "version": "0.1.0",
+    "description": "Angular plugin for the Lapce Editor - Powered by angular",
+    "wasm": true,
+    "hash": "sha256-0LgJZr/2FxxK9Ys3QXojhAYU3hnaZOzW0RgZvA3Pago="
+  },
+  {
+    "author": "instance-id",
+    "name": "lapce-powershell",
+    "version": "0.0.1",
+    "description": "PowerShell language support for Lapce provided by PowerShell Editor Services",
+    "wasm": true,
+    "hash": "sha256-gQttyneWYYolPnIrBHggbk2XZU9C4+l6SFqfR+rF5L0="
+  },
+  {
+    "author": "ConnorSMorrison",
+    "name": "spaceduck",
+    "version": "0.0.1",
+    "description": "Lapce theme of Spaceduck",
+    "wasm": false,
+    "hash": "sha256-HjtzZSC161c9EH7sCogzphXMuH1VGTt1rODp0UC9Dh4="
+  },
+  {
+    "author": "panekj",
+    "name": "lapce-deno",
+    "version": "0.0.1+deno.1.41.0",
+    "description": "TypeScript, JavaScript and Markdown language support via Deno LSP",
+    "wasm": true,
+    "hash": "sha256-m+aW3TVtaO4E263qPjMRJrjbixr5EHWzLeFRbpGs+pU="
+  },
+  {
+    "author": "Stanislav-Lapata",
+    "name": "lapce-solargraph",
+    "version": "0.1.2",
+    "description": "Ruby plugin for the Lapce Editor - Powered by solargraph",
+    "wasm": true,
+    "hash": "sha256-ogi8ZaMp0CYNUYFd91ykGsn/rEoTXSBgsZJni932p9I="
+  },
+  {
+    "author": "ayhon",
+    "name": "adwaita",
+    "version": "0.1.0",
+    "description": "Adwaita colors for GNOME",
+    "wasm": false,
+    "hash": "sha256-V6KKc506Iy+AyTbgUhcyoS/oRqWYK14FN+D0VenZuD4="
+  },
+  {
+    "author": "foxlldev",
+    "name": "solarized",
+    "version": "0.1.1",
+    "description": "Solarized theme for Lapce editor",
+    "wasm": false,
+    "hash": "sha256-649WE9BcR80HwKnEYEM3O5EgfAiKb/cZFM3bXjjf854="
+  },
+  {
+    "author": "ghishadow",
+    "name": "lapce-swift",
+    "version": "0.1.4",
+    "description": "Swift for Lapce: powered by sourcekit-lsp",
+    "wasm": true,
+    "hash": "sha256-UjHzSX3dMA13AlA73BKtbGnUKVy3h7zN2Um0cv/3fN0="
+  },
+  {
+    "author": "VarLad",
+    "name": "lapce-julia-ls",
+    "version": "0.0.5",
+    "description": "Julia plugin for the Lapce Editor - Powered by LanguageServer.jl",
+    "wasm": true,
+    "hash": "sha256-FGjDsNj4Z4q3GIwJysBgkE2ws/XQZYK2L7yMIuTkaUU="
+  },
+  {
+    "author": "elo1lson",
+    "name": "90s-anime",
+    "version": "0.1.0",
+    "description": "A tasteful but still practical colorful theme for Lapce. Great for purple color lovers <3.",
+    "wasm": false,
+    "hash": "sha256-XDpidaJY3yAQEJ0IjjW9OZFKLWPt5Hn71A7SX3r+110="
+  },
+  {
+    "author": "ahmrz",
+    "name": "aswad",
+    "version": "0.3.0",
+    "description": "A dark theme for Lapce Editor",
+    "wasm": false,
+    "hash": "sha256-E3CwLOOKkFBzbgFHq1ANs35vsbL3XkuZRZvDvEtZXDA="
+  },
+  {
+    "author": "BillyDM",
+    "name": "darcula",
+    "version": "0.3.0",
+    "description": "Darcula color theme",
+    "wasm": false,
+    "hash": "sha256-yJBmYBZYXpSMd25KpmovTay1p/teegwHxgqQ5FgWN0U="
+  },
+  {
+    "author": "dyu",
+    "name": "nordyu-theme",
+    "version": "0.1.0",
+    "description": "Nord-based color scheme.",
+    "wasm": false,
+    "hash": "sha256-E+bP2ZlUcBZDmOK7vQSGuLMGV1pzl6Zt4jdTuwsI83A="
+  },
+  {
+    "author": "MrFoxPro",
+    "name": "lapce-nix",
+    "version": "0.0.1",
+    "description": "Plugin for oxalica/nil: Nix Language server, an incremental analysis assistent for writing in Nix.",
+    "wasm": true,
+    "hash": "sha256-n+j8p6sB/Bxdp0iY6Gty9Zkpv9Rg34HjKsT1gUuGDzQ="
+  },
+  {
+    "author": "robinv8",
+    "name": "lapce-astro",
+    "version": "0.0.1",
+    "description": "Astro language support for Lapce",
+    "wasm": true,
+    "hash": "sha256-as92p0ZnBfdNPjKrzknaQx7Mj0W5IU2EZgER7rL+EiI="
+  },
+  {
+    "author": "Incognitux",
+    "name": "everblush",
+    "version": "0.1.0",
+    "description": "A Dark, Vibrant and Beatiful colorscheme",
+    "wasm": false,
+    "hash": "sha256-b2BCnJT6MAzZhpmcjtHaqLxjU8aw25FfyRy7w/o7NWI="
+  },
+  {
+    "author": "tingfeng-key",
+    "name": "lapce-prisma",
+    "version": "0.1.0",
+    "description": "Prisma plugin for lapce",
+    "wasm": true,
+    "hash": "sha256-akbIqaKu9qA/+oPyBwLKY/gpEfG5IXNxr2W0bm2URdU="
+  },
+  {
+    "author": "dzhou121",
+    "name": "lapce-lldb",
+    "version": "0.1.1",
+    "description": "A debugger powered by LLDB.",
+    "wasm": true,
+    "hash": "sha256-pO1jjG6oOr1N7X/fmivJ3YnAjB/nSSbccMtuS92/y90="
+  },
+  {
+    "author": "Mikastiv",
+    "name": "ocean-space-refined",
+    "version": "0.1.2",
+    "description": "The Deep Oceanic Blue Theme",
+    "wasm": false,
+    "hash": "sha256-+n9Q+e9qzGOqH4hgyh5m09flCpcujhw/6osKdaAqWu8="
+  },
+  {
+    "author": "HTGAzureX1212",
+    "name": "rs4lapce",
+    "version": "0.2.0",
+    "description": "Rust plugin for Lapce, powered by Rust Analyzer",
+    "wasm": true,
+    "hash": "sha256-DzvI540fYBoiibdhZWlhbbxJJnN2z9NQSVLR06druCA="
+  },
+  {
+    "author": "Hyduez",
+    "name": "dou.lapcord",
+    "version": "2.0.1",
+    "description": "Discord Rich Presence extension for Lapce Editor.",
+    "wasm": true,
+    "hash": "sha256-jjtY9mKq5homhFZkw2XND5GGAxkH23HJZ4vaYHpHDvk="
+  },
+  {
+    "author": "JarWarren",
+    "name": "xcodelight-theme",
+    "version": "0.1.2",
+    "description": "Xcode's \"Default (Light)\" theme.",
+    "wasm": false,
+    "hash": "sha256-AiLxEJNLlrKiKcjyiGYSAlmktZUsYiPY1R2HnL56Ruk="
+  },
+  {
+    "author": "ghishadow",
+    "name": "lightpink",
+    "version": "0.2.8",
+    "description": "Cute Light Pink",
+    "wasm": false,
+    "hash": "sha256-oVZ+CRexvBlN1s1sDlAV2qoKFY4ZSmNbPhhqhNWz+M8="
+  },
+  {
+    "author": "SimY4",
+    "name": "alabaster-theme",
+    "version": "0.1.0",
+    "description": "Tonsky's Alabaster theme for Lapce",
+    "wasm": false,
+    "hash": "sha256-J6OKBYixnNf/BBUlZvk14RZFDUgjA6SQ/GoJ5FJO4bs="
+  },
+  {
+    "author": "heartbeast42",
+    "name": "neon-night",
+    "version": "0.1.0",
+    "description": "Dark Neon theme inspired by the cyberpunk aesthetic and genera, hints of vapor-wave and notes of the 80's",
+    "wasm": false,
+    "hash": "sha256-jTccfuX6uzi/1CI6Ml5Wnp9SY7cJSktTD9nGtirfpaU="
+  },
+  {
+    "author": "MinusGix",
+    "name": "lapce-copilot",
+    "version": "1.0.1",
+    "description": "Unofficial Github Copilot plugin",
+    "wasm": true,
+    "hash": "sha256-+p0BGte0R9cZPNUIkDpItC3s8YZA50bq53Ydjth6n0U="
+  },
+  {
+    "author": "wpkelso",
+    "name": "milk-tea",
+    "version": "0.0.2",
+    "description": "Theme based around milk tea in its many forms",
+    "wasm": false,
+    "hash": "sha256-PERWKCqyUOLAMKJI3fESCY/1gQ/hbsBoySMOQPX088M="
+  },
+  {
+    "author": "c-sleuth",
+    "name": "bright-pastel-icons",
+    "version": "0.0.0",
+    "description": "Bright Pastel icon theme for Lapce",
+    "wasm": false,
+    "hash": "sha256-+v3cUgKrghxSjCNLgwuWRn/HSIhUu7ERhE8yIEyvz8A="
+  },
+  {
+    "author": "Codextor",
+    "name": "material-theme",
+    "version": "1.2.0",
+    "description": "Material Theme for Lapce",
+    "wasm": false,
+    "hash": "sha256-qHE80Ickzm6qZcuMVb91BIvsRT7sivz34uByILdf1iY="
+  },
+  {
+    "author": "Jalkhov",
+    "name": "marge",
+    "version": "0.1.0",
+    "description": "A soft theme inspired in Mariana from Sublime Text 4",
+    "wasm": false,
+    "hash": "sha256-5BlX4GeqDUdnPVqBjTIRCKaHw/LY9mefLghFKzoIIxs="
+  },
+  {
+    "author": "Hyduez",
+    "name": "dou-lapcord",
+    "version": "2.1.3",
+    "description": "Discord Rich Presence extension for Lapce.",
+    "wasm": true,
+    "hash": "sha256-Rze956JhxnuArJIUjDplzT/k8ThxK/ESSpGBQqcPiC4="
+  },
+  {
+    "author": "sschober",
+    "name": "lapce-plugin-rewrap",
+    "version": "0.0.1",
+    "description": "Lapce plugin for rewrapping text at defined column widths.",
+    "wasm": true,
+    "hash": "sha256-GgQ0479WQeMgcSYP7Os/JqMiX1AvHwNIfjEsxSfZHEc="
+  },
+  {
+    "author": "Lucas3oo",
+    "name": "eclipse-theme",
+    "version": "0.0.3",
+    "description": "Lapce theme similar to Eclipse light. Theme name: 'Eclipse Light'.",
+    "wasm": false,
+    "hash": "sha256-/CIXzGoudKs2fEumzBLlSppCx4edy42p0dQqm7I3ltc="
+  },
+  {
+    "author": "akhildevelops",
+    "name": "lapce-python-nouse",
+    "version": "0.4.0",
+    "description": "Don't use this plugin, use https://plugins.lapce.dev/plugins/superlou/lapce-python",
+    "wasm": true,
+    "hash": "sha256-Acm9iMOMFCusvzY/BwIMxIFTwnD/EW3eomVrE7I6qdk="
+  },
+  {
+    "author": "nvarner",
+    "name": "typst-lsp",
+    "version": "0.13.0",
+    "description": "A language server for Typst",
+    "wasm": true,
+    "hash": "sha256-ibo6fbq7+WvWVZGp1UB8bf+AeXTn70b5fCIkvTmfivQ="
+  },
+  {
+    "author": "Notiee",
+    "name": "forest-night-theme",
+    "version": "0.1.1",
+    "description": "A true black theme with tasteful forest green accents.",
+    "wasm": false,
+    "hash": "sha256-G0/L20thvMn9fXBMp7VW5Ci0SJKDb2YNan2rtA4FBAw="
+  },
+  {
+    "author": "DissolveDZ",
+    "name": "neonight",
+    "version": "0.1.0",
+    "description": "A modern dark theme made specifically for Lapce",
+    "wasm": false,
+    "hash": "sha256-QKnf0zXbbLG8yTkGNJXoYemY521Fjr/hMTYSVYQywP0="
+  },
+  {
+    "author": "lotosbin",
+    "name": "guose",
+    "version": "0.0.2",
+    "description": "China Color Theme",
+    "wasm": false,
+    "hash": "sha256-pER+Jk1kc1EFseaHV7umqZFjDZ4A+qXuEXy3opBV558="
+  },
+  {
+    "author": "vikaskaliramna",
+    "name": "lapce-deno",
+    "version": "0.0.0",
+    "description": "Deno",
+    "wasm": true,
+    "hash": "sha256-+hu/qxytlyhAbSqGuDC/Qz53bqHSXhN0OAse+zGErAE="
+  },
+  {
+    "author": "c-sleuth",
+    "name": "pastel-collection-lapce",
+    "version": "0.1.0",
+    "description": "A collection of pastel themes for Lapce",
+    "wasm": false,
+    "hash": "sha256-wtODtc/oAxBB1wH5uQ4c/8g/Awa8kVDlvfxeRwcYUvs="
+  },
+  {
+    "author": "timon-schelling",
+    "name": "nushell-lsp",
+    "version": "0.1.0-rc2",
+    "description": "Nushell language plugin using nushell's integrated lsp",
+    "wasm": true,
+    "hash": "sha256-/s982zGl85kxRoibwSpRiXxXD1Dgq6OUVvMXIUPP//4="
+  },
+  {
+    "author": "hangj",
+    "name": "lapce-plugin-all-in-one",
+    "version": "0.1.0",
+    "description": "hangj's personal plugin for lapce",
+    "wasm": true,
+    "hash": "sha256-swiW0j4f6hfnC4dHL+dImfmU0AmY1rjxIIbEaanoc40="
+  },
+  {
+    "author": "ThePoultryMan",
+    "name": "lapce-github-themes",
+    "version": "0.1.0",
+    "description": "Various themes based off of GitHub's themes.",
+    "wasm": false,
+    "hash": "sha256-8Bmxr7sKDiAVqqghJitoKtTRJJpWHT4RNRSeP1j9U6s="
+  },
+  {
+    "author": "Stepland",
+    "name": "monokai-vscode",
+    "version": "1.0.0",
+    "description": "Port of the Monokai theme from VSCode",
+    "wasm": false,
+    "hash": "sha256-NoalGt6R+gwPHTHEg35ppbM4u3aeyq9aaU6Mm2jwc78="
+  },
+  {
+    "author": "joyme123",
+    "name": "thrift-ls",
+    "version": "0.0.3",
+    "description": "thrift language server",
+    "wasm": true,
+    "hash": "sha256-XEfe7D/sKH5umJcDZ/JtCqniLAaWXNn0Ygbjp1Wmw24="
+  },
+  {
+    "author": "nekodival",
+    "name": "lapce-racket",
+    "version": "0.0.1",
+    "description": "Simple racket plugin for lapce",
+    "wasm": true,
+    "hash": "sha256-2CJie32BY6pdbNi1D08u6nBmycOANexMGv4mEHqu9oA="
+  },
+  {
+    "author": "jimsynz",
+    "name": "lapce-elixir",
+    "version": "0.1.0",
+    "description": "Elixir for Lapce: powered by elixir-ls",
+    "wasm": true,
+    "hash": "sha256-EXVksYNe3F1TpQr7C80F9l1m2Q0Xh4U3soNLjLtvQcY="
+  },
+  {
+    "author": "nullndr",
+    "name": "lapce-material-icon-theme",
+    "version": "0.0.1",
+    "description": "Material icon theme for Lapce",
+    "wasm": false,
+    "hash": "sha256-fq+VjvEjylX1mOwpVL4lyoEoYi1Ddla3ERbeoXwl+eM="
+  },
+  {
+    "author": "jm-observer",
+    "name": "lldb-win",
+    "version": "0.0.1",
+    "description": "lldb for Lapce",
+    "wasm": true,
+    "hash": "sha256-UVN047LcCuQhltCm/U0DD45znla6qTHrpdvQTkS5ZZU="
+  },
+  {
+    "author": "Catppuccin-Holdings",
+    "name": "catppuccin",
+    "version": "0.1.18",
+    "description": "🐭 Soothing pastel theme for Lapce",
+    "wasm": false,
+    "hash": "sha256-CMZez58yYmgC07MX4jw7s3fccCMK2WP51oII/7GmOBw="
+  }
+]
