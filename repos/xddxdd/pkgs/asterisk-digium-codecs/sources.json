@@ -1,453 +1,825 @@
 {
-    "13": {
-        "opus": {
+    "1.4": {
+        "g729a": {
             "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_opus/asterisk-13.0/x86-32/codec_opus-13.0_1.3.0-x86_32.tar.gz",
-                "version": "1.3.0",
-                "hash": "1xnjbgxk5shk1lc7ayagf1szsz3m67jziwb4iqwq3fnc3ldhx5xr"
+                "hash": "1j73rybs3gjchqjpw97lbyrdqm334x1dqvgnxvg4vxac8vq8rrx4",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-1.4/x86-32/codec_g729a-1.4_3.1.5-athlon_32.tar.gz",
+                "version": "3.1.5"
             },
             "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_opus/asterisk-13.0/x86-64/codec_opus-13.0_1.3.0-x86_64.tar.gz",
-                "version": "1.3.0",
-                "hash": "07slms1v8rzw16gq9kjvny08c9f14lzwc4kch6m024nl5fa3ilm5"
-            }
-        },
-        "silk": {
-            "32": {
-                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-13.0/x86-32/codec_silk-13.0_1.0.3-x86_32.tar.gz",
-                "version": "1.0.3",
-                "hash": "0hg31j1gphmyipbs7r87x16b29hy43g6idkypkxya2d9km7w6b4v"
-            },
-            "64": {
-                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-13.0/x86-64/codec_silk-13.0_1.0.3-x86_64.tar.gz",
-                "version": "1.0.3",
-                "hash": "0rainwfwmi0wpl9y3h0gficd3ag1cppcn5jjcsrlm01a1ir9hyx3"
-            }
-        },
-        "siren7": {
-            "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren7/asterisk-13.0/x86-32/codec_siren7-13.0_1.0.7-x86_32.tar.gz",
-                "version": "1.0.7",
-                "hash": "1bsl0rpzm5j6972a6449clb9j8pzdk7l9zqq36rsbw2c8z6pb1p1"
-            },
-            "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren7/asterisk-13.0/x86-64/codec_siren7-13.0_1.0.7-x86_64.tar.gz",
-                "version": "1.0.7",
-                "hash": "0f50wlnc5d9r545vryw60yr3izngnxmvxjhxmb23kyg6ii6jghcy"
-            }
-        },
-        "siren14": {
-            "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren14/asterisk-13.0/x86-32/codec_siren14-13.0_1.0.7-x86_32.tar.gz",
-                "version": "1.0.7",
-                "hash": "0k1m41ip4zmy974j7ifxbimmkpw77vzz3xp3nn9w1dfkknjv8vdd"
-            },
-            "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren14/asterisk-13.0/x86-64/codec_siren14-13.0_1.0.7-x86_64.tar.gz",
-                "version": "1.0.7",
-                "hash": "0la4hlvvb0iz9l7px4wzbp7ys887p4hxhrcgdrm7wl97xw8bl51q"
+                "hash": "1k664kijs11aa2jg7kq8m2km9bgqy7yrhpigl2z94ql1a1761sb1",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-1.4/x86-64/codec_g729a-1.4_3.1.5-barcelona_64.tar.gz",
+                "version": "3.1.5"
             }
         }
     },
-    "14": {
-        "opus": {
+    "1.6.2.0": {
+        "g729a": {
             "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_opus/asterisk-14.0/x86-32/codec_opus-14.0_1.3.0-x86_32.tar.gz",
-                "version": "1.3.0",
-                "hash": "0m6n3zrrzb3q7qy2snqpwwzx4b09hrrw93zxry1cq5b6h6bx1ykm"
+                "hash": "1lnd51bprx8p3m53j3w9h3059pb3kx40wj49kxhc5h8q3bg0anwj",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-1.6.2.0/x86-32/codec_g729a-1.6.2.0_3.1.5-athlon_32.tar.gz",
+                "version": "3.1.5"
             },
             "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_opus/asterisk-14.0/x86-64/codec_opus-14.0_1.3.0-x86_64.tar.gz",
-                "version": "1.3.0",
-                "hash": "17p4ab64v1wmsysmhckby1ml703qp4y1k1invia44bx94272x0rz"
-            }
-        },
-        "silk": {
-            "32": {
-                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-14.0/x86-32/codec_silk-14.0_1.0.3-x86_32.tar.gz",
-                "version": "1.0.3",
-                "hash": "0wf85lyg21vh1qgwnij887khy5fkz69ir93dmlczsbqk0hmv74hg"
-            },
-            "64": {
-                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-14.0/x86-64/codec_silk-14.0_1.0.3-x86_64.tar.gz",
-                "version": "1.0.3",
-                "hash": "1z8v6hyc4b0vj9dnmzcfa1whsj70bnj2a4sl8f8ygdzc24n31p26"
-            }
-        },
-        "siren7": {
-            "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren7/asterisk-14.0/x86-32/codec_siren7-14.0_1.0.7-x86_32.tar.gz",
-                "version": "1.0.7",
-                "hash": "0rdbcb3bg9h4pm7qkkq2zvzlnn7csxcq91xdln5421yw1csrdx21"
-            },
-            "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren7/asterisk-14.0/x86-64/codec_siren7-14.0_1.0.7-x86_64.tar.gz",
-                "version": "1.0.7",
-                "hash": "0ka12xhbdgahazz2zmxwdncvavp7x0z770hw2d60mq0v65vjc88w"
+                "hash": "01v4izrr88by836655vjn8c0ihfw54ijbyv0qpgrflhf2bb705d6",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-1.6.2.0/x86-64/codec_g729a-1.6.2.0_3.1.5-barcelona_64.tar.gz",
+                "version": "3.1.5"
             }
         },
         "siren14": {
             "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren14/asterisk-14.0/x86-32/codec_siren14-14.0_1.0.7-x86_32.tar.gz",
-                "version": "1.0.7",
-                "hash": "1h2ra2vzgy4iq9r7gdf3y0na2lmis671r3rs1g4lfsphfpwmy1bz"
+                "hash": "1lgzhh7m2sybyjzf02q6v558xsyaw0cmy1y3p1swfirhp8h3q6gf",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-1.6.2.0/x86-32/codec_siren14-1.6.2.0_1.0.5-athlon_32.tar.gz",
+                "version": "1.0.5"
             },
             "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren14/asterisk-14.0/x86-64/codec_siren14-14.0_1.0.7-x86_64.tar.gz",
-                "version": "1.0.7",
-                "hash": "1cwiyyw32id0gijriiv5wd52gb9milqay14gidna219vk12kg1lk"
+                "hash": "1csdsk3ghrplrh5lkk6vdzh7s5v50y7bnj0i6hycpbvjcl1lp80v",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-1.6.2.0/x86-64/codec_siren14-1.6.2.0_1.0.5-barcelona_64.tar.gz",
+                "version": "1.0.5"
+            }
+        },
+        "siren7": {
+            "32": {
+                "hash": "039s5ng01z8c8sink2cap52ck8bbiaypg31kj8xvflkaf2v0bnw1",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-1.6.2.0/x86-32/codec_siren7-1.6.2.0_1.0.5-athlon_32.tar.gz",
+                "version": "1.0.5"
+            },
+            "64": {
+                "hash": "02l8aclkw9zd456kgnl0gan5ijsja039fl56xhp3h34wi8xg38ym",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-1.6.2.0/x86-64/codec_siren7-1.6.2.0_1.0.5-barcelona_64.tar.gz",
+                "version": "1.0.5"
             }
         }
     },
-    "15": {
-        "opus": {
+    "1.8.0": {
+        "g729a": {
             "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_opus/asterisk-15.0/x86-32/codec_opus-15.0_1.3.0-x86_32.tar.gz",
-                "version": "1.3.0",
-                "hash": "1bgq44kzl8apjf3ld5092sjwfl9v4kx4h9mmpi37f5qkryb6maad"
+                "hash": "1vzm319wsjsp9nwh20y5aiq94gfz71w10w9x17pjz3l343z8h9fp",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-1.8.0/x86-32/codec_g729a-1.8.0_3.1.6-athlon_32.tar.gz",
+                "version": "3.1.6"
             },
             "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_opus/asterisk-15.0/x86-64/codec_opus-15.0_1.3.0-x86_64.tar.gz",
-                "version": "1.3.0",
-                "hash": "1k054hn8k0f9yy4pclicsk74jibsarpccr598i9bldwbw2vj8ljh"
-            }
-        },
-        "silk": {
-            "32": {
-                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-15.0/x86-32/codec_silk-15.0_1.0.3-x86_32.tar.gz",
-                "version": "1.0.3",
-                "hash": "0n8d8ric4kfxffg8j6bipqyp52mb88wjh1v5aajajg2h56bfk9x7"
-            },
-            "64": {
-                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-15.0/x86-64/codec_silk-15.0_1.0.3-x86_64.tar.gz",
-                "version": "1.0.3",
-                "hash": "0mxq2sf7fzpky57ggld4fdljzr1haw8k5q67yrjxyw2bds2yqish"
-            }
-        },
-        "siren7": {
-            "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren7/asterisk-15.0/x86-32/codec_siren7-15.0_1.0.7-x86_32.tar.gz",
-                "version": "1.0.7",
-                "hash": "1pmcxnp0rvyxabvkcfqvhy0x95bmh5gmzyqy2a8crzbm0c9zzrvl"
-            },
-            "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren7/asterisk-15.0/x86-64/codec_siren7-15.0_1.0.7-x86_64.tar.gz",
-                "version": "1.0.7",
-                "hash": "0ynzbj1myhcgypphx1hpjia50sgk6g62gvbl655r13jxbr2d08a7"
+                "hash": "1zw05p96slhimh0hlbq20yizywd3kckk55r6kw894awrfridv61w",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-1.8.0/x86-64/codec_g729a-1.8.0_3.1.6-barcelona_64.tar.gz",
+                "version": "3.1.6"
             }
         },
         "siren14": {
             "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren14/asterisk-15.0/x86-32/codec_siren14-15.0_1.0.7-x86_32.tar.gz",
-                "version": "1.0.7",
-                "hash": "1ma0w5jpa6jicn60irfhihd34715bj8r8yzmz3sqvxz3fpv1cb1v"
+                "hash": "1520j04jh21gfpcbj1acwp58v5i8053ybj5bdq1fwcb34mc3g7lb",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-1.8.0/x86-32/codec_siren14-1.8.0_1.0.5-athlon_32.tar.gz",
+                "version": "1.0.5"
             },
             "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren14/asterisk-15.0/x86-64/codec_siren14-15.0_1.0.7-x86_64.tar.gz",
-                "version": "1.0.7",
-                "hash": "1plzph1qvw2qigcr7l1mlzdaj6fzgl1aa82pdwlm45va5yzjhwzl"
+                "hash": "1k560ccbgnx0d9k3pq54zi4lmm3capqkjdb78w1yidp2nm176f3k",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-1.8.0/x86-64/codec_siren14-1.8.0_1.0.5-barcelona_64.tar.gz",
+                "version": "1.0.5"
+            }
+        },
+        "siren7": {
+            "32": {
+                "hash": "17wgcwx62lmww9498ccd8vka4ppymlmpvsnb91nq3k6w0rb4m0kc",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-1.8.0/x86-32/codec_siren7-1.8.0_1.0.5-athlon_32.tar.gz",
+                "version": "1.0.5"
+            },
+            "64": {
+                "hash": "0bnm3ncxn1xv9aipp5094avi88fb3ax02hvh4akkgla66b4x8bj1",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-1.8.0/x86-64/codec_siren7-1.8.0_1.0.5-barcelona_64.tar.gz",
+                "version": "1.0.5"
             }
         }
     },
-    "16": {
-        "opus": {
+    "1.8.4": {
+        "g729a": {
             "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_opus/asterisk-16.0/x86-32/codec_opus-16.0_1.3.0-x86_32.tar.gz",
-                "version": "1.3.0",
-                "hash": "1yp5g4xj9y3b06lm20p56npzfl4hp4acj29c5bm2c6aa9akz0s2a"
+                "hash": "05hkkm59a9f9xwmb3isk4b1bx98q58fn0i3lfw5smigqknsf9xh8",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-1.8.4/x86-32/codec_g729a-1.8.4_3.1.8-x86_32.tar.gz",
+                "version": "3.1.8"
             },
             "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_opus/asterisk-16.0/x86-64/codec_opus-16.0_1.3.0-x86_64.tar.gz",
-                "version": "1.3.0",
-                "hash": "1axsrlr1a0ki4gvxqbh2cmnzgkvyvpgqxpg82hlq2gr0ilnp1c3a"
-            }
-        },
-        "silk": {
-            "32": {
-                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-16.0/x86-32/codec_silk-16.0_1.0.3-x86_32.tar.gz",
-                "version": "1.0.3",
-                "hash": "05sihaz7z9kpx4j1qwirnwmvwmyjfjsqymzal3hydi8f7asy0nkl"
-            },
-            "64": {
-                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-16.0/x86-64/codec_silk-16.0_1.0.3-x86_64.tar.gz",
-                "version": "1.0.3",
-                "hash": "1c7p624lqzswmqpin80d2612pz0wgiai9hq7zvzziipg60sqlhyf"
-            }
-        },
-        "siren7": {
-            "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren7/asterisk-16.0/x86-32/codec_siren7-16.0_1.0.7-x86_32.tar.gz",
-                "version": "1.0.7",
-                "hash": "1wnkqwcr32i06qxdk2krh0d6gjzgqkjsnqazyr2h0kxky98z82hi"
-            },
-            "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren7/asterisk-16.0/x86-64/codec_siren7-16.0_1.0.7-x86_64.tar.gz",
-                "version": "1.0.7",
-                "hash": "14v79hhbyz4h4p31pnma4yc2rna46mb9wzx1s996drk58y1vjj0j"
-            }
-        },
-        "siren14": {
-            "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren14/asterisk-16.0/x86-32/codec_siren14-16.0_1.0.7-x86_32.tar.gz",
-                "version": "1.0.7",
-                "hash": "1xyv9ip0kh2mb3r7ilp7bspfkvgwi3a2z77scw217jgfjg9w8ryi"
-            },
-            "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren14/asterisk-16.0/x86-64/codec_siren14-16.0_1.0.7-x86_64.tar.gz",
-                "version": "1.0.7",
-                "hash": "1zvqcim4p055jsa6mvf0ampihd8c57b2vqw5sln1vmrk78xk6q55"
+                "hash": "0wyjdg0ghnb4vr6hscdibbbj85jya78ikxmw60im06q5vkkxa8x4",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-1.8.4/x86-64/codec_g729a-1.8.4_3.1.8-x86_64.tar.gz",
+                "version": "3.1.8"
             }
         }
     },
-    "17": {
-        "opus": {
+    "10": {
+        "g729a": {
             "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_opus/asterisk-17.0/x86-32/codec_opus-17.0_1.3.0-x86_32.tar.gz",
-                "version": "1.3.0",
-                "hash": "0hshy75l6x5kfsmhqbjzggl72kya5bvh4fhx7yndzhvrkv71346b"
+                "hash": "1pq1ixxc8gjc2d3dgvs1jxm3w9msxh6s2cp86ljr3c20b3jnh62z",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-10.0/x86-32/codec_g729a-10.0_3.1.5-athlon_32.tar.gz",
+                "version": "3.1.5"
             },
             "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_opus/asterisk-17.0/x86-64/codec_opus-17.0_1.3.0-x86_64.tar.gz",
-                "version": "1.3.0",
-                "hash": "1ajd47l7spfn2ha88vj3d77j50qi1hx5khsnksmq00n89zjh1w3f"
+                "hash": "0wd0ydm8x90f581q8kby77xlngbgzznvy6kbbhzrmrixdqbjy1rr",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-10.0/x86-64/codec_g729a-10.0_3.1.5-barcelona_64.tar.gz",
+                "version": "3.1.5"
             }
         },
         "silk": {
             "32": {
-                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-17.0/x86-32/codec_silk-17.0_1.0.3-x86_32.tar.gz",
-                "version": "1.0.3",
-                "hash": "1888f48fii5mmn17h9wadl36dkifasadaiahggabipgpfrkn3wgi"
+                "hash": "07xlb0hiljih9axpfbyx0xv3iybg75nax08wi17va98wn2l2rs98",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-10.0/x86-32/codec_silk-10.0_1.0.0-athlon_32.tar.gz",
+                "version": "1.0.0"
             },
             "64": {
-                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-17.0/x86-64/codec_silk-17.0_1.0.3-x86_64.tar.gz",
-                "version": "1.0.3",
-                "hash": "0mqlsv0kfnybq4p0vk7hbml1aq7n3mj3gd3s5b63anjxnwrp1sk2"
-            }
-        },
-        "siren7": {
-            "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren7/asterisk-17.0/x86-32/codec_siren7-17.0_1.0.7-x86_32.tar.gz",
-                "version": "1.0.7",
-                "hash": "0pk75n18ni4r26n578va9v3ljgglw4vcg583w5ic9axm46j965c8"
-            },
-            "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren7/asterisk-17.0/x86-64/codec_siren7-17.0_1.0.7-x86_64.tar.gz",
-                "version": "1.0.7",
-                "hash": "092x8nf3ivdh7gmcmmzskph5a4ncjm4ghnd1vzi8qa90p4y23aiw"
+                "hash": "10bfxybih6jhygrhlqba2v5hgiwmvbpwbhsk3vllkqjhjzr89q80",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-10.0/x86-64/codec_silk-10.0_1.0.0-barcelona_64.tar.gz",
+                "version": "1.0.0"
             }
         },
         "siren14": {
             "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren14/asterisk-17.0/x86-32/codec_siren14-17.0_1.0.7-x86_32.tar.gz",
-                "version": "1.0.7",
-                "hash": "1k1a7z1la1x2rg9rwvz9qyzh005w6labq8fz13i96m29i0fhw72m"
+                "hash": "1kl07zpxlmvpnl291p3zirz1npw7vyfxkdn417k6l0qznbhfiym0",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-10.0/x86-32/codec_siren14-10.0_1.0.5-athlon_32.tar.gz",
+                "version": "1.0.5"
             },
             "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren14/asterisk-17.0/x86-64/codec_siren14-17.0_1.0.7-x86_64.tar.gz",
-                "version": "1.0.7",
-                "hash": "1pz915a2i7fxzlmnixqm3qki28qghl1m32xj44dybhxychbhzf8h"
-            }
-        }
-    },
-    "18": {
-        "opus": {
-            "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_opus/asterisk-18.0/x86-32/codec_opus-18.0_1.3.0-x86_32.tar.gz",
-                "version": "1.3.0",
-                "hash": "01zjhw560w6dadmbag3r6yv0n251k9j699yxzsgkd9xy53pcrfq1"
-            },
-            "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_opus/asterisk-18.0/x86-64/codec_opus-18.0_1.3.0-x86_64.tar.gz",
-                "version": "1.3.0",
-                "hash": "0d9qglrdjqv3y1cp7hnkzn5p4wpbpcfl4cmi7aww0v9gb0syaj2z"
-            }
-        },
-        "silk": {
-            "32": {
-                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-18.0/x86-32/codec_silk-18.0_1.0.3-x86_32.tar.gz",
-                "version": "1.0.3",
-                "hash": "0alrm97a37vf8fjazgp130kwihhpwnizsl1ml4qfdvcqcm6s6v9v"
-            },
-            "64": {
-                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-18.0/x86-64/codec_silk-18.0_1.0.3-x86_64.tar.gz",
-                "version": "1.0.3",
-                "hash": "1p3iqdhn141ckg6r71pbbsal2c2aayfvwkvrjrqz1z2jzilxdy2s"
+                "hash": "1fmy6abfhz5p84lhinna45l02kb63izdydms7fz4wnlpr9rbai1y",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-10.0/x86-64/codec_siren14-10.0_1.0.5-barcelona_64.tar.gz",
+                "version": "1.0.5"
             }
         },
         "siren7": {
             "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren7/asterisk-18.0/x86-32/codec_siren7-18.0_1.0.7-x86_32.tar.gz",
-                "version": "1.0.7",
-                "hash": "00jpv1k4wsv98anvkfqjfdgfj6q8cczr7yj34xwbh61h9paim3ps"
+                "hash": "1qdm0b8jsdijpcl7bnbwl7gmjs3mxyy4alljsgvnlq9839rn8k99",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-10.0/x86-32/codec_siren7-10.0_1.0.5-athlon_32.tar.gz",
+                "version": "1.0.5"
             },
             "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren7/asterisk-18.0/x86-64/codec_siren7-18.0_1.0.7-x86_64.tar.gz",
-                "version": "1.0.7",
-                "hash": "1ppp2dr2lgpxfy2g7z304cw4zwwlqlwjhpg457kfxbjb1rjks9xa"
-            }
-        },
-        "siren14": {
-            "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren14/asterisk-18.0/x86-32/codec_siren14-18.0_1.0.7-x86_32.tar.gz",
-                "version": "1.0.7",
-                "hash": "1lzbmwrmyzivzlhn4gq7472amhprplsknvbad0hmb4bfl5nwm6h1"
-            },
-            "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren14/asterisk-18.0/x86-64/codec_siren14-18.0_1.0.7-x86_64.tar.gz",
-                "version": "1.0.7",
-                "hash": "1zci8006nmnjn6p034vjvl8jh6vcsv2ja4mxh422v0sjdfcpm0zv"
-            }
-        }
-    },
-    "19": {
-        "opus": {
-            "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_opus/asterisk-19.0/x86-32/codec_opus-19.0_1.3.0-x86_32.tar.gz",
-                "version": "1.3.0",
-                "hash": "0g68gxfawyfkaysbcl56g5rgh01mfnkwqdy9c9sy625shy8s1d3d"
-            },
-            "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_opus/asterisk-19.0/x86-64/codec_opus-19.0_1.3.0-x86_64.tar.gz",
-                "version": "1.3.0",
-                "hash": "0m84jmh2vd47hnk6l3fddqxj84lifb3rj4nmhs2mvbgkq2flsv37"
-            }
-        },
-        "silk": {
-            "32": {
-                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-19.0/x86-32/codec_silk-19.0_1.0.3-x86_32.tar.gz",
-                "version": "1.0.3",
-                "hash": "1xvwkb099b0ij1079vh89wg50vfq32j8yvs6vrzy8nfwkvfifzc8"
-            },
-            "64": {
-                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-19.0/x86-64/codec_silk-19.0_1.0.3-x86_64.tar.gz",
-                "version": "1.0.3",
-                "hash": "0pnf3lhbbgg7brk0r1rnddm5g80mhd0ky7lln04z1rkygar3mvr4"
-            }
-        },
-        "siren7": {
-            "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren7/asterisk-19.0/x86-32/codec_siren7-19.0_1.0.7-x86_32.tar.gz",
-                "version": "1.0.7",
-                "hash": "0pxs207acc0ylyymvkaaabq9wrvxqma1247g8gi1vx8c0hx6mqxb"
-            },
-            "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren7/asterisk-19.0/x86-64/codec_siren7-19.0_1.0.7-x86_64.tar.gz",
-                "version": "1.0.7",
-                "hash": "1r7i3k54xyvkvwjg2yjdfn3ljh72458m74ihw61ch50jvp4cw03i"
-            }
-        },
-        "siren14": {
-            "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren14/asterisk-19.0/x86-32/codec_siren14-19.0_1.0.7-x86_32.tar.gz",
-                "version": "1.0.7",
-                "hash": "1c5vnpwczkmgknfnf2p8z25a4px028663n1qipfmyb2m6sqilr9p"
-            },
-            "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren14/asterisk-19.0/x86-64/codec_siren14-19.0_1.0.7-x86_64.tar.gz",
-                "version": "1.0.7",
-                "hash": "0p3grki2idnvzailxcr5pxm414xvlza6l05hiqi1jzhg8kwmh2hc"
-            }
-        }
-    },
-    "20": {
-        "opus": {
-            "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_opus/asterisk-20.0/x86-32/codec_opus-20.0_1.3.0-x86_32.tar.gz",
-                "version": "1.3.0",
-                "hash": "0p586fm8kn0qrfyrkxg8lmnm2pmqw6qdfv5lpmsaraqsn5wc7r3r"
-            },
-            "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_opus/asterisk-20.0/x86-64/codec_opus-20.0_1.3.0-x86_64.tar.gz",
-                "version": "1.3.0",
-                "hash": "19hdq1x954zfxv5gsi3ffqgp0kz2sgx4lh97vwrxvvbyfpnfnfhp"
-            }
-        },
-        "silk": {
-            "32": {
-                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-20.0/x86-32/codec_silk-20.0_1.0.3-x86_32.tar.gz",
-                "version": "1.0.3",
-                "hash": "110yqvjdprlw0vssr4b10n9d6gsj1g9c3mcl0c16vr3120vyvmiv"
-            },
-            "64": {
-                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-20.0/x86-64/codec_silk-20.0_1.0.3-x86_64.tar.gz",
-                "version": "1.0.3",
-                "hash": "0n77mc6qdkkjbx5ghd5ls1rdbnji9l0r2yypavhp1x98s1kc01yz"
-            }
-        },
-        "siren7": {
-            "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren7/asterisk-20.0/x86-32/codec_siren7-20.0_1.0.7-x86_32.tar.gz",
-                "version": "1.0.7",
-                "hash": "15v11rjr4smfsk69v9vaa1s8ql9cdyqyky896p0mp5d1pry6wrsp"
-            },
-            "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren7/asterisk-20.0/x86-64/codec_siren7-20.0_1.0.7-x86_64.tar.gz",
-                "version": "1.0.7",
-                "hash": "1i8qsir6rlnd91pfhan2ywkzibc2c1j9adlw5z968pmvdx78lmz0"
-            }
-        },
-        "siren14": {
-            "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren14/asterisk-20.0/x86-32/codec_siren14-20.0_1.0.7-x86_32.tar.gz",
-                "version": "1.0.7",
-                "hash": "1yy7fr3v0hna0d53dzxvbcsafiv86gx9p54l5g62923cxiqp20si"
-            },
-            "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren14/asterisk-20.0/x86-64/codec_siren14-20.0_1.0.7-x86_64.tar.gz",
-                "version": "1.0.7",
-                "hash": "004zrw109b8v1vwp9ydm55bc8n9m5j434y2sgrr16aakygq0w152"
+                "hash": "109kf08gazld88g3bxigir7y1x1vxx4jsckxsixiixrswh3bb0w1",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-10.0/x86-64/codec_siren7-10.0_1.0.5-barcelona_64.tar.gz",
+                "version": "1.0.5"
             }
         }
     },
     "11": {
-        "silk": {
+        "g729a": {
             "32": {
-                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-11.0/x86-32/codec_silk-11.0_1.0.3-x86_32.tar.gz",
-                "version": "1.0.3",
-                "hash": "1zvkwm2v7m3cw3abv0dscwz9wkiaw5zca18lldw154iv20x1icw0"
+                "hash": "1nalx9nvs9prgn11r8k05yi15jlxqd5sybgyvbm24l37bdigsp4i",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-11.0/x86-32/codec_g729a-11.0_3.1.9-x86_32.tar.gz",
+                "version": "3.1.9"
             },
             "64": {
-                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-11.0/x86-64/codec_silk-11.0_1.0.3-x86_64.tar.gz",
-                "version": "1.0.3",
-                "hash": "18kn07v6ihcpks4vyx6v0gz5769fck1q145mmxprzr1p3mxrjw5a"
+                "hash": "0bnr73ix18vb1qrvq3qr0kvrz2wpafhw6868hjf9b7zz635c70bh",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-11.0/x86-64/codec_g729a-11.0_3.1.9-x86_64.tar.gz",
+                "version": "3.1.9"
             }
         },
-        "siren7": {
+        "silk": {
             "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren7/asterisk-11.0/x86-32/codec_siren7-11.0_1.0.7-x86_32.tar.gz",
-                "version": "1.0.7",
-                "hash": "0489mp8a2gkh2wr42gwhs6b5k1nwjqqy54ix09y6jsidk61328m5"
+                "hash": "1zvkwm2v7m3cw3abv0dscwz9wkiaw5zca18lldw154iv20x1icw0",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-11.0/x86-32/codec_silk-11.0_1.0.3-x86_32.tar.gz",
+                "version": "1.0.3"
             },
             "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren7/asterisk-11.0/x86-64/codec_siren7-11.0_1.0.7-x86_64.tar.gz",
-                "version": "1.0.7",
-                "hash": "0mj91aa8fnj4arzfpdjzx195n5npp9jm5m3d916g9vzrybfc2gfm"
+                "hash": "18kn07v6ihcpks4vyx6v0gz5769fck1q145mmxprzr1p3mxrjw5a",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-11.0/x86-64/codec_silk-11.0_1.0.3-x86_64.tar.gz",
+                "version": "1.0.3"
             }
         },
         "siren14": {
             "32": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren14/asterisk-11.0/x86-32/codec_siren14-11.0_1.0.7-x86_32.tar.gz",
-                "version": "1.0.7",
-                "hash": "02c65c0ay7kainjygf9zgljag2rqj0fz9c5lixf8z9wm0va6plbn"
+                "hash": "02c65c0ay7kainjygf9zgljag2rqj0fz9c5lixf8z9wm0va6plbn",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-11.0/x86-32/codec_siren14-11.0_1.0.7-x86_32.tar.gz",
+                "version": "1.0.7"
             },
             "64": {
-                "url": "http://downloads.digium.com/pub/telephony/codec_siren14/asterisk-11.0/x86-64/codec_siren14-11.0_1.0.7-x86_64.tar.gz",
-                "version": "1.0.7",
-                "hash": "1mk6b4jm5g9nr8v3j59ag6qp44i0v9qz3mmxlrj54icbjy6gga9z"
+                "hash": "1mk6b4jm5g9nr8v3j59ag6qp44i0v9qz3mmxlrj54icbjy6gga9z",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-11.0/x86-64/codec_siren14-11.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        },
+        "siren7": {
+            "32": {
+                "hash": "0489mp8a2gkh2wr42gwhs6b5k1nwjqqy54ix09y6jsidk61328m5",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-11.0/x86-32/codec_siren7-11.0_1.0.7-x86_32.tar.gz",
+                "version": "1.0.7"
+            },
+            "64": {
+                "hash": "0mj91aa8fnj4arzfpdjzx195n5npp9jm5m3d916g9vzrybfc2gfm",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-11.0/x86-64/codec_siren7-11.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
             }
         }
     },
     "12": {
-        "silk": {
+        "g729a": {
             "32": {
-                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-12.0/x86-32/codec_silk-12.0_1.0.3-x86_32.tar.gz",
-                "version": "1.0.3",
-                "hash": "0c31il9lhcddnqyc780mjggaglsa1965fwdjl6k4mdhl14j2msrc"
+                "hash": "1dniyr14hi3n3a23j6gcqwfg7mpbrisx3zcm3pixp3r8w998ni3l",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-12.0/x86-32/codec_g729a-12.0_3.1.7-athlon_32.tar.gz",
+                "version": "3.1.7"
             },
             "64": {
+                "hash": "1q6s5y8snd0jxz3vqj93binacy2nzx2cdh37860m63kkmm1vbihf",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-12.0/x86-64/codec_g729a-12.0_3.1.7-barcelona_64.tar.gz",
+                "version": "3.1.7"
+            }
+        },
+        "silk": {
+            "32": {
+                "hash": "0c31il9lhcddnqyc780mjggaglsa1965fwdjl6k4mdhl14j2msrc",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-12.0/x86-32/codec_silk-12.0_1.0.3-x86_32.tar.gz",
+                "version": "1.0.3"
+            },
+            "64": {
+                "hash": "09jmbqhw52hx4dkw2n5nyzphyzjc1qfck0pvidca0swa4zrmh9pa",
                 "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-12.0/x86-64/codec_silk-12.0_1.0.3-x86_64.tar.gz",
-                "version": "1.0.3",
-                "hash": "09jmbqhw52hx4dkw2n5nyzphyzjc1qfck0pvidca0swa4zrmh9pa"
+                "version": "1.0.3"
+            }
+        },
+        "siren14": {
+            "32": {
+                "hash": "0wwi5nqpzr6sizm85pzwvi2c47z87qnjii70ikbmrn1s4mrp6qz9",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-12.0/x86-32/codec_siren14-12.0_1.0.5-athlon_32.tar.gz",
+                "version": "1.0.5"
+            },
+            "64": {
+                "hash": "07vl33a0qx7kh7z2dqj8wwnns4b3306s6xrygpwdq8ja1rp1ipf1",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-12.0/x86-64/codec_siren14-12.0_1.0.5-barcelona_64.tar.gz",
+                "version": "1.0.5"
+            }
+        },
+        "siren7": {
+            "32": {
+                "hash": "18pj76wch50fxb87zrip5rd0n7in4vsn65paim06fpnw6kwy6fsj",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-12.0/x86-32/codec_siren7-12.0_1.0.5-athlon_32.tar.gz",
+                "version": "1.0.5"
+            },
+            "64": {
+                "hash": "1mfsbaqg45624rdsgmr4s75xsw4lnq8ckcj32vn8xbk7cl146ax4",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-12.0/x86-64/codec_siren7-12.0_1.0.5-barcelona_64.tar.gz",
+                "version": "1.0.5"
+            }
+        }
+    },
+    "13": {
+        "g729a": {
+            "32": {
+                "hash": "0ibvk8plwvhaplm3n8csn9zb392i1qy0pgby50xv4wb3qdi18772",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-13.0/x86-32/codec_g729a-13.0_3.1.10-x86_32.tar.gz",
+                "version": "3.1.10"
+            },
+            "64": {
+                "hash": "1zmzbhbl4rkzad1vg83xsjrbd8j72r1jfmq8vawp3rsgylh2jr2q",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-13.0/x86-64/codec_g729a-13.0_3.1.10-x86_64.tar.gz",
+                "version": "3.1.10"
+            }
+        },
+        "opus": {
+            "32": {
+                "hash": "1xnjbgxk5shk1lc7ayagf1szsz3m67jziwb4iqwq3fnc3ldhx5xr",
+                "url": "https://downloads.digium.com/pub/telephony/codec_opus/asterisk-13.0/x86-32/codec_opus-13.0_1.3.0-x86_32.tar.gz",
+                "version": "1.3.0"
+            },
+            "64": {
+                "hash": "07slms1v8rzw16gq9kjvny08c9f14lzwc4kch6m024nl5fa3ilm5",
+                "url": "https://downloads.digium.com/pub/telephony/codec_opus/asterisk-13.0/x86-64/codec_opus-13.0_1.3.0-x86_64.tar.gz",
+                "version": "1.3.0"
+            }
+        },
+        "silk": {
+            "32": {
+                "hash": "0hg31j1gphmyipbs7r87x16b29hy43g6idkypkxya2d9km7w6b4v",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-13.0/x86-32/codec_silk-13.0_1.0.3-x86_32.tar.gz",
+                "version": "1.0.3"
+            },
+            "64": {
+                "hash": "0rainwfwmi0wpl9y3h0gficd3ag1cppcn5jjcsrlm01a1ir9hyx3",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-13.0/x86-64/codec_silk-13.0_1.0.3-x86_64.tar.gz",
+                "version": "1.0.3"
+            }
+        },
+        "siren14": {
+            "32": {
+                "hash": "0k1m41ip4zmy974j7ifxbimmkpw77vzz3xp3nn9w1dfkknjv8vdd",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-13.0/x86-32/codec_siren14-13.0_1.0.7-x86_32.tar.gz",
+                "version": "1.0.7"
+            },
+            "64": {
+                "hash": "0la4hlvvb0iz9l7px4wzbp7ys887p4hxhrcgdrm7wl97xw8bl51q",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-13.0/x86-64/codec_siren14-13.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        },
+        "siren7": {
+            "32": {
+                "hash": "1bsl0rpzm5j6972a6449clb9j8pzdk7l9zqq36rsbw2c8z6pb1p1",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-13.0/x86-32/codec_siren7-13.0_1.0.7-x86_32.tar.gz",
+                "version": "1.0.7"
+            },
+            "64": {
+                "hash": "0f50wlnc5d9r545vryw60yr3izngnxmvxjhxmb23kyg6ii6jghcy",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-13.0/x86-64/codec_siren7-13.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        }
+    },
+    "14": {
+        "g729a": {
+            "32": {
+                "hash": "04rzm8pcf62vvfb6wc8gpwmnm7gb223lpfcn6lnsi6rs4ygnvxcv",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-14.0/x86-32/codec_g729a-14.0_3.1.9-x86_32.tar.gz",
+                "version": "3.1.9"
+            },
+            "64": {
+                "hash": "1kja1rc2ljk6cm7i8s37rvm5gi1k6zfpi72bzz4igbr8k5l2y17j",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-14.0/x86-64/codec_g729a-14.0_3.1.9-x86_64.tar.gz",
+                "version": "3.1.9"
+            }
+        },
+        "opus": {
+            "32": {
+                "hash": "0m6n3zrrzb3q7qy2snqpwwzx4b09hrrw93zxry1cq5b6h6bx1ykm",
+                "url": "https://downloads.digium.com/pub/telephony/codec_opus/asterisk-14.0/x86-32/codec_opus-14.0_1.3.0-x86_32.tar.gz",
+                "version": "1.3.0"
+            },
+            "64": {
+                "hash": "17p4ab64v1wmsysmhckby1ml703qp4y1k1invia44bx94272x0rz",
+                "url": "https://downloads.digium.com/pub/telephony/codec_opus/asterisk-14.0/x86-64/codec_opus-14.0_1.3.0-x86_64.tar.gz",
+                "version": "1.3.0"
+            }
+        },
+        "silk": {
+            "32": {
+                "hash": "0wf85lyg21vh1qgwnij887khy5fkz69ir93dmlczsbqk0hmv74hg",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-14.0/x86-32/codec_silk-14.0_1.0.3-x86_32.tar.gz",
+                "version": "1.0.3"
+            },
+            "64": {
+                "hash": "1z8v6hyc4b0vj9dnmzcfa1whsj70bnj2a4sl8f8ygdzc24n31p26",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-14.0/x86-64/codec_silk-14.0_1.0.3-x86_64.tar.gz",
+                "version": "1.0.3"
+            }
+        },
+        "siren14": {
+            "32": {
+                "hash": "1h2ra2vzgy4iq9r7gdf3y0na2lmis671r3rs1g4lfsphfpwmy1bz",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-14.0/x86-32/codec_siren14-14.0_1.0.7-x86_32.tar.gz",
+                "version": "1.0.7"
+            },
+            "64": {
+                "hash": "1cwiyyw32id0gijriiv5wd52gb9milqay14gidna219vk12kg1lk",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-14.0/x86-64/codec_siren14-14.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        },
+        "siren7": {
+            "32": {
+                "hash": "0rdbcb3bg9h4pm7qkkq2zvzlnn7csxcq91xdln5421yw1csrdx21",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-14.0/x86-32/codec_siren7-14.0_1.0.7-x86_32.tar.gz",
+                "version": "1.0.7"
+            },
+            "64": {
+                "hash": "0ka12xhbdgahazz2zmxwdncvavp7x0z770hw2d60mq0v65vjc88w",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-14.0/x86-64/codec_siren7-14.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        }
+    },
+    "15": {
+        "g729a": {
+            "32": {
+                "hash": "1jdzmj0qq80757ls4z5jiwb8x91d4mvk9ryq2wk9rgl10zqm52da",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-15.0/x86-32/codec_g729a-15.0_3.1.9-x86_32.tar.gz",
+                "version": "3.1.9"
+            },
+            "64": {
+                "hash": "08b6qzk5rqvg2284l35am89ya1mym29rzpmprffhfq4r3pv2rmrn",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-15.0/x86-64/codec_g729a-15.0_3.1.9-x86_64.tar.gz",
+                "version": "3.1.9"
+            }
+        },
+        "opus": {
+            "32": {
+                "hash": "1bgq44kzl8apjf3ld5092sjwfl9v4kx4h9mmpi37f5qkryb6maad",
+                "url": "https://downloads.digium.com/pub/telephony/codec_opus/asterisk-15.0/x86-32/codec_opus-15.0_1.3.0-x86_32.tar.gz",
+                "version": "1.3.0"
+            },
+            "64": {
+                "hash": "1k054hn8k0f9yy4pclicsk74jibsarpccr598i9bldwbw2vj8ljh",
+                "url": "https://downloads.digium.com/pub/telephony/codec_opus/asterisk-15.0/x86-64/codec_opus-15.0_1.3.0-x86_64.tar.gz",
+                "version": "1.3.0"
+            }
+        },
+        "silk": {
+            "32": {
+                "hash": "0n8d8ric4kfxffg8j6bipqyp52mb88wjh1v5aajajg2h56bfk9x7",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-15.0/x86-32/codec_silk-15.0_1.0.3-x86_32.tar.gz",
+                "version": "1.0.3"
+            },
+            "64": {
+                "hash": "0mxq2sf7fzpky57ggld4fdljzr1haw8k5q67yrjxyw2bds2yqish",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-15.0/x86-64/codec_silk-15.0_1.0.3-x86_64.tar.gz",
+                "version": "1.0.3"
+            }
+        },
+        "siren14": {
+            "32": {
+                "hash": "1ma0w5jpa6jicn60irfhihd34715bj8r8yzmz3sqvxz3fpv1cb1v",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-15.0/x86-32/codec_siren14-15.0_1.0.7-x86_32.tar.gz",
+                "version": "1.0.7"
+            },
+            "64": {
+                "hash": "1plzph1qvw2qigcr7l1mlzdaj6fzgl1aa82pdwlm45va5yzjhwzl",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-15.0/x86-64/codec_siren14-15.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        },
+        "siren7": {
+            "32": {
+                "hash": "1pmcxnp0rvyxabvkcfqvhy0x95bmh5gmzyqy2a8crzbm0c9zzrvl",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-15.0/x86-32/codec_siren7-15.0_1.0.7-x86_32.tar.gz",
+                "version": "1.0.7"
+            },
+            "64": {
+                "hash": "0ynzbj1myhcgypphx1hpjia50sgk6g62gvbl655r13jxbr2d08a7",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-15.0/x86-64/codec_siren7-15.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        }
+    },
+    "16": {
+        "g729a": {
+            "32": {
+                "hash": "0f8zkyddhyhdk829f3blz8b1hc0znqm7gr419bmqmfizzgxkj7l5",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-16.0/x86-32/codec_g729a-16.0_3.1.10-x86_32.tar.gz",
+                "version": "3.1.10"
+            },
+            "64": {
+                "hash": "0xmvf7rmwbg4i8nhb97l1yxnacgsx44vjfjgr2mvh6lpshwj1q3r",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-16.0/x86-64/codec_g729a-16.0_3.1.10-x86_64.tar.gz",
+                "version": "3.1.10"
+            }
+        },
+        "opus": {
+            "32": {
+                "hash": "1yp5g4xj9y3b06lm20p56npzfl4hp4acj29c5bm2c6aa9akz0s2a",
+                "url": "https://downloads.digium.com/pub/telephony/codec_opus/asterisk-16.0/x86-32/codec_opus-16.0_1.3.0-x86_32.tar.gz",
+                "version": "1.3.0"
+            },
+            "64": {
+                "hash": "1axsrlr1a0ki4gvxqbh2cmnzgkvyvpgqxpg82hlq2gr0ilnp1c3a",
+                "url": "https://downloads.digium.com/pub/telephony/codec_opus/asterisk-16.0/x86-64/codec_opus-16.0_1.3.0-x86_64.tar.gz",
+                "version": "1.3.0"
+            }
+        },
+        "silk": {
+            "32": {
+                "hash": "05sihaz7z9kpx4j1qwirnwmvwmyjfjsqymzal3hydi8f7asy0nkl",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-16.0/x86-32/codec_silk-16.0_1.0.3-x86_32.tar.gz",
+                "version": "1.0.3"
+            },
+            "64": {
+                "hash": "1c7p624lqzswmqpin80d2612pz0wgiai9hq7zvzziipg60sqlhyf",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-16.0/x86-64/codec_silk-16.0_1.0.3-x86_64.tar.gz",
+                "version": "1.0.3"
+            }
+        },
+        "siren14": {
+            "32": {
+                "hash": "1xyv9ip0kh2mb3r7ilp7bspfkvgwi3a2z77scw217jgfjg9w8ryi",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-16.0/x86-32/codec_siren14-16.0_1.0.7-x86_32.tar.gz",
+                "version": "1.0.7"
+            },
+            "64": {
+                "hash": "1zvqcim4p055jsa6mvf0ampihd8c57b2vqw5sln1vmrk78xk6q55",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-16.0/x86-64/codec_siren14-16.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        },
+        "siren7": {
+            "32": {
+                "hash": "1wnkqwcr32i06qxdk2krh0d6gjzgqkjsnqazyr2h0kxky98z82hi",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-16.0/x86-32/codec_siren7-16.0_1.0.7-x86_32.tar.gz",
+                "version": "1.0.7"
+            },
+            "64": {
+                "hash": "14v79hhbyz4h4p31pnma4yc2rna46mb9wzx1s996drk58y1vjj0j",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-16.0/x86-64/codec_siren7-16.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        }
+    },
+    "17": {
+        "g729a": {
+            "32": {
+                "hash": "12fp45251glx8vnlv04cw6xd8hz5hp3x72s4nysxfzkyi7xbgkwk",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-17.0/x86-32/codec_g729a-17.0_3.1.9-x86_32.tar.gz",
+                "version": "3.1.9"
+            },
+            "64": {
+                "hash": "1babkdv2p3n2i9555xd5hwxrm1z0g7a8adxa1yzwlfsn75l864q0",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-17.0/x86-64/codec_g729a-17.0_3.1.9-x86_64.tar.gz",
+                "version": "3.1.9"
+            }
+        },
+        "opus": {
+            "32": {
+                "hash": "0hshy75l6x5kfsmhqbjzggl72kya5bvh4fhx7yndzhvrkv71346b",
+                "url": "https://downloads.digium.com/pub/telephony/codec_opus/asterisk-17.0/x86-32/codec_opus-17.0_1.3.0-x86_32.tar.gz",
+                "version": "1.3.0"
+            },
+            "64": {
+                "hash": "1ajd47l7spfn2ha88vj3d77j50qi1hx5khsnksmq00n89zjh1w3f",
+                "url": "https://downloads.digium.com/pub/telephony/codec_opus/asterisk-17.0/x86-64/codec_opus-17.0_1.3.0-x86_64.tar.gz",
+                "version": "1.3.0"
+            }
+        },
+        "silk": {
+            "32": {
+                "hash": "1888f48fii5mmn17h9wadl36dkifasadaiahggabipgpfrkn3wgi",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-17.0/x86-32/codec_silk-17.0_1.0.3-x86_32.tar.gz",
+                "version": "1.0.3"
+            },
+            "64": {
+                "hash": "0mqlsv0kfnybq4p0vk7hbml1aq7n3mj3gd3s5b63anjxnwrp1sk2",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-17.0/x86-64/codec_silk-17.0_1.0.3-x86_64.tar.gz",
+                "version": "1.0.3"
+            }
+        },
+        "siren14": {
+            "32": {
+                "hash": "1k1a7z1la1x2rg9rwvz9qyzh005w6labq8fz13i96m29i0fhw72m",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-17.0/x86-32/codec_siren14-17.0_1.0.7-x86_32.tar.gz",
+                "version": "1.0.7"
+            },
+            "64": {
+                "hash": "1pz915a2i7fxzlmnixqm3qki28qghl1m32xj44dybhxychbhzf8h",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-17.0/x86-64/codec_siren14-17.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        },
+        "siren7": {
+            "32": {
+                "hash": "0pk75n18ni4r26n578va9v3ljgglw4vcg583w5ic9axm46j965c8",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-17.0/x86-32/codec_siren7-17.0_1.0.7-x86_32.tar.gz",
+                "version": "1.0.7"
+            },
+            "64": {
+                "hash": "092x8nf3ivdh7gmcmmzskph5a4ncjm4ghnd1vzi8qa90p4y23aiw",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-17.0/x86-64/codec_siren7-17.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        }
+    },
+    "18": {
+        "g729a": {
+            "32": {
+                "hash": "1zqbva00cxj12g1qrq6hbrs4r5wsrk1y353hfdplxz0w7hxqq4fx",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-18.0/x86-32/codec_g729a-18.0_3.1.10-x86_32.tar.gz",
+                "version": "3.1.10"
+            },
+            "64": {
+                "hash": "0diyahsgwh1zz0914hwjam808r20ywxvjarhii6ggfxrcs89abl7",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-18.0/x86-64/codec_g729a-18.0_3.1.10-x86_64.tar.gz",
+                "version": "3.1.10"
+            }
+        },
+        "opus": {
+            "32": {
+                "hash": "01zjhw560w6dadmbag3r6yv0n251k9j699yxzsgkd9xy53pcrfq1",
+                "url": "https://downloads.digium.com/pub/telephony/codec_opus/asterisk-18.0/x86-32/codec_opus-18.0_1.3.0-x86_32.tar.gz",
+                "version": "1.3.0"
+            },
+            "64": {
+                "hash": "0d9qglrdjqv3y1cp7hnkzn5p4wpbpcfl4cmi7aww0v9gb0syaj2z",
+                "url": "https://downloads.digium.com/pub/telephony/codec_opus/asterisk-18.0/x86-64/codec_opus-18.0_1.3.0-x86_64.tar.gz",
+                "version": "1.3.0"
+            }
+        },
+        "silk": {
+            "32": {
+                "hash": "0alrm97a37vf8fjazgp130kwihhpwnizsl1ml4qfdvcqcm6s6v9v",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-18.0/x86-32/codec_silk-18.0_1.0.3-x86_32.tar.gz",
+                "version": "1.0.3"
+            },
+            "64": {
+                "hash": "1p3iqdhn141ckg6r71pbbsal2c2aayfvwkvrjrqz1z2jzilxdy2s",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-18.0/x86-64/codec_silk-18.0_1.0.3-x86_64.tar.gz",
+                "version": "1.0.3"
+            }
+        },
+        "siren14": {
+            "32": {
+                "hash": "1lzbmwrmyzivzlhn4gq7472amhprplsknvbad0hmb4bfl5nwm6h1",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-18.0/x86-32/codec_siren14-18.0_1.0.7-x86_32.tar.gz",
+                "version": "1.0.7"
+            },
+            "64": {
+                "hash": "1zci8006nmnjn6p034vjvl8jh6vcsv2ja4mxh422v0sjdfcpm0zv",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-18.0/x86-64/codec_siren14-18.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        },
+        "siren7": {
+            "32": {
+                "hash": "00jpv1k4wsv98anvkfqjfdgfj6q8cczr7yj34xwbh61h9paim3ps",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-18.0/x86-32/codec_siren7-18.0_1.0.7-x86_32.tar.gz",
+                "version": "1.0.7"
+            },
+            "64": {
+                "hash": "1ppp2dr2lgpxfy2g7z304cw4zwwlqlwjhpg457kfxbjb1rjks9xa",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-18.0/x86-64/codec_siren7-18.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        }
+    },
+    "19": {
+        "g729a": {
+            "32": {
+                "hash": "1kz9lv282q7cnx62nfhfgwl30kk7m9s1l6d0hh28xzrw6yq6ma5m",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-19.0/x86-32/codec_g729a-19.0_3.1.10-x86_32.tar.gz",
+                "version": "3.1.10"
+            },
+            "64": {
+                "hash": "0z51af1gg22m5imnfl421nnz6jvj2w6nhhbnzrrxkb5sdanss5dn",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-19.0/x86-64/codec_g729a-19.0_3.1.10-x86_64.tar.gz",
+                "version": "3.1.10"
+            }
+        },
+        "opus": {
+            "32": {
+                "hash": "0g68gxfawyfkaysbcl56g5rgh01mfnkwqdy9c9sy625shy8s1d3d",
+                "url": "https://downloads.digium.com/pub/telephony/codec_opus/asterisk-19.0/x86-32/codec_opus-19.0_1.3.0-x86_32.tar.gz",
+                "version": "1.3.0"
+            },
+            "64": {
+                "hash": "0m84jmh2vd47hnk6l3fddqxj84lifb3rj4nmhs2mvbgkq2flsv37",
+                "url": "https://downloads.digium.com/pub/telephony/codec_opus/asterisk-19.0/x86-64/codec_opus-19.0_1.3.0-x86_64.tar.gz",
+                "version": "1.3.0"
+            }
+        },
+        "silk": {
+            "32": {
+                "hash": "1xvwkb099b0ij1079vh89wg50vfq32j8yvs6vrzy8nfwkvfifzc8",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-19.0/x86-32/codec_silk-19.0_1.0.3-x86_32.tar.gz",
+                "version": "1.0.3"
+            },
+            "64": {
+                "hash": "0pnf3lhbbgg7brk0r1rnddm5g80mhd0ky7lln04z1rkygar3mvr4",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-19.0/x86-64/codec_silk-19.0_1.0.3-x86_64.tar.gz",
+                "version": "1.0.3"
+            }
+        },
+        "siren14": {
+            "32": {
+                "hash": "1c5vnpwczkmgknfnf2p8z25a4px028663n1qipfmyb2m6sqilr9p",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-19.0/x86-32/codec_siren14-19.0_1.0.7-x86_32.tar.gz",
+                "version": "1.0.7"
+            },
+            "64": {
+                "hash": "0p3grki2idnvzailxcr5pxm414xvlza6l05hiqi1jzhg8kwmh2hc",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-19.0/x86-64/codec_siren14-19.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        },
+        "siren7": {
+            "32": {
+                "hash": "0pxs207acc0ylyymvkaaabq9wrvxqma1247g8gi1vx8c0hx6mqxb",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-19.0/x86-32/codec_siren7-19.0_1.0.7-x86_32.tar.gz",
+                "version": "1.0.7"
+            },
+            "64": {
+                "hash": "1r7i3k54xyvkvwjg2yjdfn3ljh72458m74ihw61ch50jvp4cw03i",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-19.0/x86-64/codec_siren7-19.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        }
+    },
+    "20": {
+        "g729a": {
+            "32": {
+                "hash": "17nrbn3pfkmsz2by24xl5jcf78z22n19yr7jljlm7yb7v61p9dpn",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-20.0/x86-32/codec_g729a-20.0_3.1.10-x86_32.tar.gz",
+                "version": "3.1.10"
+            },
+            "64": {
+                "hash": "02zq7wy9bnijk06nmc254v3mqxbr5ng1l090v5y2h99syr9c1vhh",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-20.0/x86-64/codec_g729a-20.0_3.1.10-x86_64.tar.gz",
+                "version": "3.1.10"
+            }
+        },
+        "opus": {
+            "32": {
+                "hash": "0p586fm8kn0qrfyrkxg8lmnm2pmqw6qdfv5lpmsaraqsn5wc7r3r",
+                "url": "https://downloads.digium.com/pub/telephony/codec_opus/asterisk-20.0/x86-32/codec_opus-20.0_1.3.0-x86_32.tar.gz",
+                "version": "1.3.0"
+            },
+            "64": {
+                "hash": "19hdq1x954zfxv5gsi3ffqgp0kz2sgx4lh97vwrxvvbyfpnfnfhp",
+                "url": "https://downloads.digium.com/pub/telephony/codec_opus/asterisk-20.0/x86-64/codec_opus-20.0_1.3.0-x86_64.tar.gz",
+                "version": "1.3.0"
+            }
+        },
+        "silk": {
+            "32": {
+                "hash": "110yqvjdprlw0vssr4b10n9d6gsj1g9c3mcl0c16vr3120vyvmiv",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-20.0/x86-32/codec_silk-20.0_1.0.3-x86_32.tar.gz",
+                "version": "1.0.3"
+            },
+            "64": {
+                "hash": "0n77mc6qdkkjbx5ghd5ls1rdbnji9l0r2yypavhp1x98s1kc01yz",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-20.0/x86-64/codec_silk-20.0_1.0.3-x86_64.tar.gz",
+                "version": "1.0.3"
+            }
+        },
+        "siren14": {
+            "32": {
+                "hash": "1yy7fr3v0hna0d53dzxvbcsafiv86gx9p54l5g62923cxiqp20si",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-20.0/x86-32/codec_siren14-20.0_1.0.7-x86_32.tar.gz",
+                "version": "1.0.7"
+            },
+            "64": {
+                "hash": "004zrw109b8v1vwp9ydm55bc8n9m5j434y2sgrr16aakygq0w152",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-20.0/x86-64/codec_siren14-20.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        },
+        "siren7": {
+            "32": {
+                "hash": "15v11rjr4smfsk69v9vaa1s8ql9cdyqyky896p0mp5d1pry6wrsp",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-20.0/x86-32/codec_siren7-20.0_1.0.7-x86_32.tar.gz",
+                "version": "1.0.7"
+            },
+            "64": {
+                "hash": "1i8qsir6rlnd91pfhan2ywkzibc2c1j9adlw5z968pmvdx78lmz0",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-20.0/x86-64/codec_siren7-20.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        }
+    },
+    "21": {
+        "g729a": {
+            "64": {
+                "hash": "1rgqg2dblp66xcjscjzkms3xh1nc3ikwkl7wg8r5ffplpcamy2kx",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-21.0/x86-64/codec_g729a-21.0_3.1.10-x86_64.tar.gz",
+                "version": "3.1.10"
+            }
+        },
+        "opus": {
+            "64": {
+                "hash": "097dcg4zbvmc0ah3i1l53kk7kvd7rrr02a08iwybna6agx0myx2a",
+                "url": "https://downloads.digium.com/pub/telephony/codec_opus/asterisk-21.0/x86-64/codec_opus-21.0_1.3.0-x86_64.tar.gz",
+                "version": "1.3.0"
+            }
+        },
+        "silk": {
+            "64": {
+                "hash": "1chq95ik4j5nydjh3sk6klrnl95izz6wrs0a3ial33didpq4f6rz",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-21.0/x86-64/codec_silk-21.0_1.0.3-x86_64.tar.gz",
+                "version": "1.0.3"
+            }
+        },
+        "siren14": {
+            "64": {
+                "hash": "020zzq3xhf7svd4nxr1b0h2nhq13wwkn6mfiwskmh5j7qpzwpmr9",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-21.0/x86-64/codec_siren14-21.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        },
+        "siren7": {
+            "64": {
+                "hash": "1ybsmf8ld61218qvvbigkp01zs0g72r1n3vlacrbm6a4a1i6sa81",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-21.0/x86-64/codec_siren7-21.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        }
+    },
+    "22": {
+        "g729a": {
+            "64": {
+                "hash": "0xxkn01bchgx8qqq7wa29nhh27syy0jw68lq8ss9x1iqy4nbs0la",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-22.0/x86-64/codec_g729a-22.0_3.1.10-x86_64.tar.gz",
+                "version": "3.1.10"
+            }
+        },
+        "opus": {
+            "64": {
+                "hash": "03g2f82f3cbcqwgjxa6xsa5p70h30nic244v3qkq8v09gwynp7l8",
+                "url": "https://downloads.digium.com/pub/telephony/codec_opus/asterisk-22.0/x86-64/codec_opus-22.0_1.3.0-x86_64.tar.gz",
+                "version": "1.3.0"
+            }
+        },
+        "silk": {
+            "64": {
+                "hash": "0p4zbj4pi31zr13pd1g78wd97aipwaxydpjcr0dpr4i3kfna58dc",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-22.0/x86-64/codec_silk-22.0_1.0.3-x86_64.tar.gz",
+                "version": "1.0.3"
+            }
+        },
+        "siren14": {
+            "64": {
+                "hash": "1gl822axqnb6sqgnghzclp3qaka1axnnd8dpsbg26m45gnajhb69",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren14/asterisk-22.0/x86-64/codec_siren14-22.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        },
+        "siren7": {
+            "64": {
+                "hash": "1df82kn7b8j37aa6paq153wvxxyr9748ri7kznw744a221fd3vps",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-22.0/x86-64/codec_siren7-22.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
             }
         }
     }

@@ -1,44 +1,74 @@
-import ast
 import json
 import os
 import re
 import subprocess
 import sys
+from typing import Dict, List
 
 import requests
 
 
-def get_script_path():
+def get_script_path() -> str:
     return os.path.dirname(os.path.realpath(sys.argv[0]))
 
 
-def get_selector(name: str):
+def get_codecs() -> List[str]:
     session = requests.Session()
     session.headers.update(
         {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36"
         }
     )
-    sources = session.get(
-        f"https://downloads.digium.com/pub/telephony/codec_{name}/selector-{name}.js"
+    page = session.get("https://downloads.digium.com/pub/telephony/").text
+    return re.findall(r'href="codec_([^/]+)/"', page)
+
+
+def get_versions(name: str) -> Dict[str, Dict[str, str]]:
+    session = requests.Session()
+    session.headers.update(
+        {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.67 Safari/537.36"
+        }
+    )
+    versions_page = session.get(
+        f"https://downloads.digium.com/pub/telephony/codec_{name}/"
     ).text
 
-    # Find body of json value
-    sources = re.match(r"var modules = ([^;]+);", sources).group(1)
+    versions = re.findall(r'href="asterisk-([0-9\.]+)/"', versions_page)
+    bits = ["32", "64"]
 
-    # Reformat into python dict format
-    sources = sources.replace("'", '"')
-    sources = sources.replace("{", "{\n")
-    sources = sources.replace("}", "}\n")
-    sources = re.sub(r'^\s+"?([^\s^"]+)"?\s*:', r'"\1":', sources, flags=re.MULTILINE)
-    sources = sources.replace("true", "True")
-    sources = sources.replace("false", "False")
+    result = {}
+    for version in versions:
+        for bit in bits:
+            try:
+                download_url = f"https://downloads.digium.com/pub/telephony/codec_{name}/asterisk-{version}/x86-{bit}/"
+                download_page = session.get(download_url).text
 
-    # Load dict
-    sources = ast.literal_eval(sources)
-    sources = sources[list(sources.keys())[0]]
+                filenames = re.findall(
+                    rf'href="(codec_{name}-{version}_([0-9\.]+)[^"]+)"', download_page
+                )
+                latest_filename = filenames[0]
+                for filename in filenames:
+                    current_version = filename[1]
+                    for a, b in zip(
+                        current_version.split("."), latest_filename[1].split(".")
+                    ):
+                        if int(a) > int(b):
+                            latest_filename = filename
+                            break
 
-    return sources
+                if version not in result:
+                    result[version] = {}
+                result[version][bit] = download_url + latest_filename[0]
+            except KeyboardInterrupt:
+                raise
+            except Exception as e:
+                print(
+                    f"Cannot get download URL for {name}, asterisk {version}, {bit} bit: {e}"
+                )
+                continue
+
+    return result
 
 
 def nix_prefetch_url(url: str):
@@ -49,29 +79,28 @@ def nix_prefetch_url(url: str):
 
 
 def add_versions(name: str, result: dict):
-    sources = get_selector(name)
+    versions = get_versions(name)
 
-    for k in sources["versions"]:
-        major = k.split(".")[0]
+    for asterisk_version, bits in versions.items():
+        if asterisk_version.count(".") == 1 and asterisk_version.endswith(".0"):
+            major = asterisk_version.split(".")[0]
+        else:
+            major = asterisk_version
+
         if major not in result:
             result[major] = {}
         if name not in result[major]:
             result[major][name] = {}
 
-        v = sources["versions"][k]
-        for bits in sources["bits"]:
-            if bits not in result[major][name]:
-                url = "{download_base}/{directory}/x86-{bits}/codec_{name}-{file_version}_{version}-x86_{bits}.tar.gz".format(
-                    download_base=sources["download_base"],
-                    name=name,
-                    directory=v["directory"],
-                    bits=bits,
-                    file_version=v["file_version"],
-                    version=sources["version"],
-                )
-                result[major][name][bits] = {
+        for bit, url in bits.items():
+            if bit not in result[major][name]:
+                codec_version = re.search(
+                    rf"/codec_{name}-{asterisk_version}_([0-9\.]+)",
+                    url,
+                )[1]
+                result[major][name][bit] = {
                     "url": url,
-                    "version": sources["version"],
+                    "version": codec_version,
                     "hash": nix_prefetch_url(url),
                 }
 
@@ -83,9 +112,12 @@ try:
 except Exception:
     result = {}
 
-for library in ["opus", "silk", "siren7", "siren14"]:
+for library in get_codecs():
+    if library == "g729":
+        # g729 module is the same as g729a
+        continue
     add_versions(library, result)
 
 # Write as json
 with open(get_script_path() + "/sources.json", "w") as f:
-    f.write(json.dumps(result, indent=4))
+    f.write(json.dumps(result, indent=4, sort_keys=True))
