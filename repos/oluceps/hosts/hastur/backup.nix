@@ -46,9 +46,7 @@
           "/var/.snapshots/latest/lib/private/matrix-conduit"
         ];
         extraBackupArgs = [
-          # "--exclude-caches"
           "--no-scan"
-          "--retry-lock 2h"
         ];
         pruneOpts = [ "--keep-daily 3" ];
         timerConfig = {
