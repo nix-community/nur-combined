@@ -44,7 +44,6 @@
         "trojan-server"
         "caddy"
         "general.toml"
-        "on-kaambl.toml"
       ])
       // (genMaterial [
 
