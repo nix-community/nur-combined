@@ -11,5 +11,6 @@ attic-server.overrideAttrs (old: {
 
   meta = old.meta // {
     maintainers = with lib.maintainers; [ xddxdd ];
+    mainProgram = "atticd";
   };
 })
