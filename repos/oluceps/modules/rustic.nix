@@ -9,20 +9,22 @@ let
   cfg = config.services.rustic;
   inherit (lib)
     mkOption
+    foldl'
     types
+    removeSuffix
     mkPackageOption
-    mkEnableOption
+    attrNames
+    attrValues
     mkIf
     mapAttrs'
     filterAttrs
     nameValuePair
-    optional
     ;
   inherit (utils.systemdUtils.unitOptions) unitOption;
 
 in
 {
-  # disabledModules = [ "services/networking/rustic.nix" ];
+  disabledModules = [ "services/backup/rustic-rs.nix" ];
   options.services.rustic = {
     backups = mkOption {
       description = "list of rustic instance";
@@ -31,14 +33,9 @@ in
           options = {
             package = mkPackageOption pkgs "rustic" { };
             profiles = mkOption {
-              type = with types; listOf str;
-              default = [ ];
-              description = "profiles";
-            };
-            credentials = mkOption {
-              type = with types; listOf str;
-              default = [ ];
-              description = "credential (profile) list";
+              type = with types; attrsOf str;
+              default = { };
+              description = "profiles file = path";
             };
             timerConfig = mkOption {
               type = types.nullOr (types.attrsOf unitOption);
@@ -65,6 +62,12 @@ in
   };
   config = mkIf (cfg.backups != [ ]) {
     environment.systemPackages = [ pkgs.rustic ];
+    environment.etc = mapAttrs' (name: path: {
+      name = "rustic/" + name;
+      value = {
+        source = path;
+      };
+    }) (foldl' (acc: i: acc // i.profiles) { } (attrValues cfg.backups));
 
     systemd.services = mapAttrs' (
       name: opts:
@@ -86,18 +89,18 @@ in
           RuntimeDirectory = "rustic-backups-${name}";
           CacheDirectory = "rustic-backups-${name}";
           CacheDirectoryMode = "0700";
-          WorkingDirectory = "%E{CREDENTIALS_DIRECTORY}";
           PrivateTmp = true;
           ExecStart =
             let
-              profileArgs = lib.concatStringsSep " " (map (i: "-P ${i}") opts.profiles);
+              profileArgs = lib.concatStringsSep " " (
+                map (i: "-P ${removeSuffix ".toml" i}") (attrNames opts.profiles)
+              );
               baseCmd = (lib.getExe' opts.package "rustic") + " " + profileArgs;
             in
             map (n: baseCmd + " " + n) [
               "backup"
               "check"
             ];
-          LoadCredential = opts.credentials;
         };
       }
     ) cfg.backups;

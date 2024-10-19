@@ -3,16 +3,10 @@
   services.rustic = {
     backups = {
       critic = {
-        profiles = [
-          "general"
-          "on-kaambl"
-        ];
-       credentials = (
-          (map (lib.genCredPath config)) [
-            "general.toml"
-            "on-kaambl.toml"
-          ]
-        );
+        profiles = lib.genAttrs [
+          "general.toml"
+          "on-kaambl.toml"
+        ] (n: config.age.secrets.${n}.path);
 
         timerConfig = {
           OnCalendar = "*-*-* 2,14:00:00";
