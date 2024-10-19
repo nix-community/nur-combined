@@ -72,7 +72,6 @@ in
     systemd.services = mapAttrs' (
       name: opts:
       nameValuePair "rustic-backups-${name}" {
-        wantedBy = [ "multi-user.target" ];
         after = [
           "network-online.target"
           "nss-lookup.target"
@@ -82,8 +81,7 @@ in
           "nss-lookup.target"
         ];
         restartIfChanged = false;
-
-        description = "rustic backup";
+        description = "rustic ${name} backup";
         serviceConfig = {
           Type = "oneshot";
           RuntimeDirectory = "rustic-backups-${name}";

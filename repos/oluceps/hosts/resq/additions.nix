@@ -160,7 +160,6 @@
       nali
       lynx
       nethogs
-      restic
       w3m
       whois
       dig
