@@ -96,10 +96,12 @@ lib.makeScope newScope (
 
     ### DEVELOPMENT / PYTHON MODULES
 
+    bounded-pool-executor = callPackage ./development/python-modules/bounded-pool-executor { };
     click-6-7 = callPackage ./development/python-modules/click { };
     config-path = callPackage ./development/python-modules/config-path { };
     contextily = callPackage ./development/python-modules/contextily { };
     curses-menu = callPackage ./development/python-modules/curses-menu { };
+    earthaccess = callPackage ./development/python-modules/earthaccess { };
     earthpy = callPackage ./development/python-modules/earthpy { };
     geotiler = callPackage ./development/python-modules/geotiler { };
     gpxelevations = callPackage ./development/python-modules/gpxelevations { };
@@ -109,6 +111,7 @@ lib.makeScope newScope (
       python3Packages = pkgs.python310Packages;
     };
     portolan = callPackage ./development/python-modules/portolan { };
+    pqdm = callPackage ./development/python-modules/pqdm { };
     pyarrow_ops = callPackage ./development/python-modules/pyarrow_ops { };
     pycouchdb = callPackage ./development/python-modules/pycouchdb { };
     pymbtiles = callPackage ./development/python-modules/pymbtiles { };
@@ -116,7 +119,9 @@ lib.makeScope newScope (
     pytest-mp = callPackage ./development/python-modules/pytest-mp { };
     pytest-shell-utilities = callPackage ./development/python-modules/pytest-shell-utilities { };
     pytest-skip-markers = callPackage ./development/python-modules/pytest-skip-markers { };
+    python-cmr = callPackage ./development/python-modules/python-cmr { };
     s2sphere = callPackage ./development/python-modules/s2sphere { };
+    tinynetrc = callPackage ./development/python-modules/tinynetrc { };
 
     ### EMBEDDED
 
