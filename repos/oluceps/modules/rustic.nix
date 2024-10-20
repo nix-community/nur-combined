@@ -43,7 +43,7 @@ in
                 OnCalendar = "daily";
                 Persistent = true;
               };
-              description = lib.mdDoc ''
+              description = ''
                 When to run the backup. See {manpage}`systemd.timer(5)` for
                 details. If null no timer is created and the backup will only
                 run when explicitly started.
