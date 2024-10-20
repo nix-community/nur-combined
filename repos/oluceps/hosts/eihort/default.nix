@@ -43,6 +43,7 @@ withSystem "x86_64-linux" (
       ./network.nix
       ./rekey.nix
       ./spec.nix
+      ./caddy.nix
       ./sysctl.nix
       ../persist.nix
       ../../age
