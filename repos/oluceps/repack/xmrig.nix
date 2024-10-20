@@ -10,7 +10,7 @@ reIf {
     Nice = 14;
   };
   services.xmrig = {
-    enable = true;
+    enable = false;
     settings = {
       autosave = true;
       opencl = false;
