@@ -78,8 +78,8 @@
       monitor =
       path = ${
         pkgs.fetchurl {
-          url = "https://s3.nyaw.xyz/misskey//112935e6-3d7f-4b7a-ba4d-f34b10f8c46f.webp";
-          hash = "sha256-hrvoogQH4WLnW4rfnayOyC9YeRqM/9WdWgwQMfNP3Wg=";
+          url = "https://s3.nyaw.xyz/misskey//a9edc77f-c775-475c-924f-9f13dd97e343.png";
+          hash = "sha256-mVpr5sOD2HUBQ1mIt8RZ1gSe1QBRmYBbxEOP7lfjMQ4=";
         }
       }
       size = 100
