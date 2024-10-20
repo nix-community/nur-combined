@@ -11204,10 +11204,10 @@
     };
     "torrent-control" = buildFirefoxXpiAddon {
       pname = "torrent-control";
-      version = "0.2.39";
+      version = "0.2.40";
       addonId = "{e6e36c9a-8323-446c-b720-a176017e38ff}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4360835/torrent_control-0.2.39.xpi";
-      sha256 = "4374426e8b04597fb7d24874b3d7a7acff44efe91c711f43feb332cf87793218";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4372842/torrent_control-0.2.40.xpi";
+      sha256 = "72a55833b5eeae813363ad7ad0acbd8133840c2a393a64a95ff85b4c66dd8dc2";
       meta = with lib;
       {
         homepage = "https://github.com/Mika-/torrent-control";
@@ -13083,10 +13083,10 @@
     };
     "youtube-redux" = buildFirefoxXpiAddon {
       pname = "youtube-redux";
-      version = "3.5.0";
+      version = "3.5.1";
       addonId = "{2d4c0962-e9ff-4cad-8039-9a8b80d9b8b6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4364791/youtube_redux-3.5.0.xpi";
-      sha256 = "d207395ec4c6cde1c37713c4ba972b0726c9f170cabd36621a96b803322316b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4372832/youtube_redux-3.5.1.xpi";
+      sha256 = "a82bf775e30968064f67cce1a8a5df69d89bd8389d7842633f403800a555667e";
       meta = with lib;
       {
         description = "Replicate old YouTube look and features within the modern layout!";
