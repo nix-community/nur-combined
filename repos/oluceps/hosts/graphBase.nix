@@ -179,7 +179,7 @@
       timeouts = [
         {
           timeout = 900;
-          command = "${pkgs.hyprlock}/bin/hyprlock --immediate";
+          command = "/run/current-system/systemd/bin/systemctl suspend";
         }
       ];
       events = [

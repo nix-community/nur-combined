@@ -60,6 +60,7 @@
             ))
           ];
           crypt = [
+            openssl
             minisign
             ent
             rage
