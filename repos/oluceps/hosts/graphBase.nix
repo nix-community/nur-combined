@@ -215,7 +215,7 @@
         nitrokey-udev-rules
         libu2f-host
         via
-        opensk-udev-rules
+        # opensk-udev-rules
         nrf-udev-rules
       ];
     };

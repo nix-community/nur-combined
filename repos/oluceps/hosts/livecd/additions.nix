@@ -121,7 +121,6 @@
         sudo mount -o bind /mnt/persist/var /mnt/var
         echo "mount finished."
       '')
-      rage
       nftables
       tor
       iperf3
@@ -136,7 +135,7 @@
       wget
       mtr-gui
       hysteria
-      tuic
+      foot
       socat
       arti
       miniserve
@@ -158,6 +157,7 @@
       # common
       hexyl
       jq
+      cage
       fx
       bottom
       lsd
