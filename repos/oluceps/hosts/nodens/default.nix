@@ -22,6 +22,11 @@ withSystem "x86_64-linux" (
           "cinny-4.2.1"
           "cinny-unwrapped-4.2.1"
         ];
+        allowUnfreePredicate =
+          pkg:
+          builtins.elem (lib.getName pkg) [
+            "factorio-headless"
+          ];
       };
       overlays =
         (import "${self}/overlays.nix" { inherit inputs' inputs; })
@@ -43,13 +48,13 @@ withSystem "x86_64-linux" (
       user = "elen";
     };
     modules = lib.sharedModules ++ [
-      ../sysvars.nix
+      # ../sysvars.nix
       ./hardware.nix
       ./network.nix
       ./rekey.nix
       ./spec.nix
       ./caddy.nix
-      ../../age
+      (lib.iage "cloud")
       ../../packages.nix
       ../../misc.nix
       ../../users.nix

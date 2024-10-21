@@ -39,8 +39,6 @@ export def b [
 
 }
 
-# /nix/store/6p33aybdjmhnilj7ymbfhgivl94bcg4y-system-path/bin/systemd-run -E LOCALE_ARCHIVE -E NIXOS_INSTALL_BOOTLOADER= --collect --no-ask-password --pipe --quiet --same-dir --service-type=exec --unit=nixos-rebuild-switch-to-configuration --wait /nix/store/80p580pppp385sg8k1rq59088kfb3a2d-nixos-system-eihort-24.11.20241019.6125359/bin/switch-to-configuration switch
-
 # deploy
 # all op with hostname
 export def d [
@@ -77,7 +75,7 @@ export def d [
     | par-each {|| {name: $in.0, addr: $in.1, path: $in.2}}
     | each {|i|
         log info $'deploying ($i.path)(char newline)-> ($i.name) | ($i.addr)'
-        ssh -t $'ssh://($i.addr)' $'sudo ($i.path)/bin/switch-to-configuration ($mode)' | complete
+        ssh -t $'ssh://($i.addr)' $'sudo systemd-run -E LOCALE_ARCHIVE --collect --no-ask-password --pipe --quiet --same-dir --service-type=exec --unit=nixos-rebuild-switch-to-configuration --wait ($i.path)/bin/switch-to-configuration ($mode)' | complete
       }
   }
 }

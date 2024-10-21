@@ -108,10 +108,10 @@
     juicity.instances = {
       only = {
         enable = true;
-        credentials = [
-          "key:${config.age.secrets."nyaw.key".path}"
-          "cert:${config.age.secrets."nyaw.cert".path}"
-        ];
+        # credentials = [
+        #   "key:${config.age.secrets."nyaw.key".path}"
+        #   "cert:${config.age.secrets."nyaw.cert".path}"
+        # ];
         serve = true;
         openFirewall = 23180;
         configFile = config.age.secrets.juic-san.path;

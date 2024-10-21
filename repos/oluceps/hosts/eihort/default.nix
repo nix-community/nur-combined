@@ -46,7 +46,7 @@ withSystem "x86_64-linux" (
       ./caddy.nix
       ./sysctl.nix
       ../persist.nix
-      ../../age
+      (lib.iage "trust")
       ../../packages.nix
       ../../misc.nix
       ../../users.nix

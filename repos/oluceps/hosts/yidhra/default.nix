@@ -53,7 +53,7 @@ withSystem "x86_64-linux" (
       ./network.nix
       ./rekey.nix
       ./spec.nix
-      ../../age
+      (lib.iage "cloud")
       ../../packages.nix
       ../../misc.nix
       ../../users.nix

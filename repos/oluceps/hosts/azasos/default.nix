@@ -49,7 +49,7 @@ withSystem "x86_64-linux" (
       ./rekey.nix
       ./spec.nix
       ./caddy.nix
-      ../../age
+      (lib.iage "cloud")
       ../../packages.nix
       ../../misc.nix
       ../../users.nix

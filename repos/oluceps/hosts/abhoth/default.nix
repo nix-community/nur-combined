@@ -44,12 +44,11 @@ withSystem "x86_64-linux" (
       user = "elen";
     };
     modules = lib.sharedModules ++ [
-      ../sysvars.nix
       ./hardware.nix
       ./network.nix
       ./rekey.nix
       ./spec.nix
-      ../../age
+      (lib.iage "cloud")
       ./caddy.nix
       # ../../packages.nix
       ../../misc.nix

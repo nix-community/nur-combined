@@ -6,7 +6,7 @@
 }:
 
 withSystem "x86_64-linux" (
-  _ctx@{
+  ctx@{
     config,
     inputs',
     system,
@@ -15,7 +15,7 @@ withSystem "x86_64-linux" (
   let
     inherit (self) lib;
   in
-  lib.nixosSystem {
+  lib.nixosSystem rec {
     pkgs = import inputs.nixpkgs {
       inherit system;
       config = {
@@ -61,7 +61,7 @@ withSystem "x86_64-linux" (
         ../../packages.nix
         ../../misc.nix
         ../sysvars.nix
-        ../../age
+        (lib.iage "trust")
 
         ../sysctl.nix
         ../pam.nix

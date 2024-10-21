@@ -35,6 +35,8 @@ in
 
   genOverlays = map (i: inputs.${i}.overlays.default);
 
+  iage = type: import ../age { inherit type; };
+
   sharedModules =
     [ inputs.self.nixosModules.repack ]
     ++ (genModules [

@@ -1,9 +1,12 @@
 {
+  type ? "default",
+}:
+{
   config,
   data,
-  lib,
   user,
   self,
+  lib,
   ...
 }:
 {
@@ -23,85 +26,40 @@
       let
         gen =
           ns: owner: group: mode:
-          lib.genAttrs ns (n: {
+          self.lib.genAttrs ns (n: {
             rekeyFile = ../sec/${n}.age;
             inherit owner group mode;
           });
-        genHard = i: gen i "root" "users" "400";
-        genMaterial = i: gen i user "users" "400";
-        genBoot = i: gen i "root" "root" "400";
-        genWg = i: gen i "systemd-network" "root" "400";
-        genGlobalR = i: gen i "root" "root" "444";
+        hard = i: gen i "root" "users" "400";
+        userRo = i: gen i user "users" "400";
+        rootRo = i: gen i "root" "root" "400";
+        sdnetRo = i: gen i "systemd-network" "root" "400";
+        rrr = i: gen i "root" "root" "444";
+        gener = {
+          inherit
+            hard
+            userRo
+            rootRo
+            sdnetRo
+            rrr
+            lib
+            ;
+        };
       in
-      (genHard [
+      (hard [
         "ss"
         "sing"
-        "juic-san"
-        "naive"
-        "dae.sub"
-        "jc-do"
-        "ss-az"
         "trojan-server"
         "caddy"
-        "general.toml"
       ])
-      // (genMaterial [
-
+      // (userRo [
         "nyaw.cert"
         "nyaw.key"
-        "atuin"
-        "atuin_key"
-        "ssh-cfg"
-        "riro.u2f"
-        "elen.u2f"
         "gh-token"
-        "age"
-        "pub"
-        "minio"
-        "prism"
-        "aws-s3-cred"
-        # "rustic-repo"
-        # "rustic-repo-crit"
-        # "rustic-envs"
-        # "rustic-envs-crit"
-        "attic"
       ])
-      // (genBoot [
-        "db.key"
-        "db.pem"
-      ])
-      // (genWg [ "wg" ])
-      // (genGlobalR [ "ntfy-token" ])
-      // {
-        dae = {
-          rekeyFile = ../sec/dae.age;
-          mode = "640";
-          owner = "root";
-          group = "users";
-          name = "d.dae";
-        };
-        hyst-us-cli = {
-          rekeyFile = ../sec/hyst-us-cli.age;
-          mode = "640";
-          owner = "root";
-          group = "users";
-          name = "hyst-us-cli.yaml";
-        };
-        hyst-la-cli = {
-          rekeyFile = ../sec/hyst-la-cli.age;
-          mode = "640";
-          owner = "root";
-          group = "users";
-          name = "hyst-la-cli.yaml";
-        };
-        hyst-hk-cli = {
-          rekeyFile = ../sec/hyst-hk-cli.age;
-          mode = "640";
-          owner = "root";
-          group = "users";
-          name = "hyst-hk-cli.yaml";
-        };
-      }
+      // (sdnetRo [ "wg" ])
+      // (rrr [ "ntfy-token" ])
+      // (if type != "default" then (import ./${type}.nix gener) else { })
     );
   };
 }
