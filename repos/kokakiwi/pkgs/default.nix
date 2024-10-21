@@ -35,6 +35,7 @@ let
     ots-cli = {
       _common = "ots";
     };
+    sccache = { };
     streampager = { };
     tumelune = { };
   };
