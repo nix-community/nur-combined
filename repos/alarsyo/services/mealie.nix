@@ -59,15 +59,15 @@ in {
 
     systemd.services = {
       mealie = {
-        after = [ "postgresql.service" ];
-        requires = [ "postgresql.service" ];
+        after = ["postgresql.service"];
+        requires = ["postgresql.service"];
       };
     };
 
     # Set-up database
     services.postgresql = {
       enable = true;
-      ensureDatabases = [ "mealie" ];
+      ensureDatabases = ["mealie"];
       ensureUsers = [
         {
           name = "mealie";
