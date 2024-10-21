@@ -34,8 +34,9 @@ in
 
       serviceConfig = {
         Type = "simple";
+        DynamicUser = true;
         ExecStart = "${cfg.package}/bin/rustypaste";
-        StateDirectory = "paste";
+        StateDirectory = "rustypaste";
         Environment = "CONFIG=${settingsFormat.generate "config.toml" cfg.settings}";
         Restart = "on-failure";
       };
