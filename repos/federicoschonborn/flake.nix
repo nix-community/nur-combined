@@ -226,7 +226,7 @@
                         );
                       in
                       builtins.concatStringsSep "\n" (
-                        builtins.filter (x: x != "" && !(lib.hasPrefix "lapce-plugins." path)) [
+                        builtins.filter (x: x != "") [
                           ''
                             ### `${path}`${versionPart}${homepagePart}${changelogPart}${sourcePart}
                           ''

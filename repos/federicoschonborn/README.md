@@ -821,7 +821,7 @@ Like neofetch, but much faster because written in C.
 - Update Script: ✔️
 </details>
 
-### `fastfetchMinimal` `2.27.1` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/blob/2.27.1/CHANGELOG.md "Changelog") [📦](./default.nix#L52 "Source")
+### `fastfetchMinimal` `2.27.1` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/blob/2.27.1/CHANGELOG.md "Changelog") [📦](./default.nix#L50 "Source")
 
 Like neofetch, but much faster because written in C (with all features disabled).
 
@@ -907,7 +907,7 @@ A set of commands that manipulate GTAs on various levels.
 - Update Script: ❌
 </details>
 
-### `gtatoolFull` `2.4.0` [🌐](https://marlam.de/gta/ "Homepage") [📦](./default.nix#L92 "Source")
+### `gtatoolFull` `2.4.0` [🌐](https://marlam.de/gta/ "Homepage") [📦](./default.nix#L90 "Source")
 
 A set of commands that manipulate GTAs on various levels (with all features enabled).
 
@@ -2845,7 +2845,7 @@ A library to make working with multidimensional arrays in C++ easy.
 - Update Script: ❌
 </details>
 
-### `libtgdFull` `4.3` [🌐](https://marlam.de/tgd/ "Homepage") [📦](./default.nix#L127 "Source")
+### `libtgdFull` `4.3` [🌐](https://marlam.de/tgd/ "Homepage") [📦](./default.nix#L125 "Source")
 
 A library to make working with multidimensional arrays in C++ easy (with all features enabled).
 
@@ -3123,7 +3123,7 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 - Update Script: ✔️
 </details>
 
-### `razeFull` `1.10.2` [🌐](https://github.com/ZDoom/Raze "Homepage") [📦](./default.nix#L160 "Source")
+### `razeFull` `1.10.2` [🌐](https://github.com/ZDoom/Raze "Homepage") [📦](./default.nix#L158 "Source")
 
 Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood, Shadow Warrior, Redneck Rampage and Powerslave/Exhumed (with all features enabled).
 
@@ -3234,7 +3234,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Update Script: ❌
 </details>
 
-### `teemExperimental` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L189 "Source")
+### `teemExperimental` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L187 "Source")
 
 A coordinated group of libraries for representing, processing, and visualizing scientific raster data (with experimental libraries and applications enabled).
 
@@ -3256,7 +3256,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Update Script: ❌
 </details>
 
-### `teemExperimentalFull` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L203 "Source")
+### `teemExperimentalFull` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L201 "Source")
 
 A coordinated group of libraries for representing, processing, and visualizing scientific raster data (with experimental libraries and applications, and all features enabled).
 
@@ -3278,7 +3278,7 @@ A coordinated group of libraries for representing, processing, and visualizing s
 - Update Script: ❌
 </details>
 
-### `teemFull` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L171 "Source")
+### `teemFull` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L169 "Source")
 
 A coordinated group of libraries for representing, processing, and visualizing scientific raster data (with all features enabled).
 
