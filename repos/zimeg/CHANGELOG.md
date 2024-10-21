@@ -8,6 +8,7 @@ and are noted with a `!` in the message.
 
 ## Changes
 
+- feat(pkgs/telescope-git-conflicts-nvim)!: remove for upstream build 2024-10-20
 - feat(pkgs/llrt): hash distributed builds of the low latency runtime 2024-10-12
 - feat(pkgs/telescope-git-conflicts-nvim): preview conflict in editor 2024-10-05
 - chore(pkgs/etime): bump version to 1.1.1 for fixed bugs with 1.21.6 2024-09-09
