@@ -17,6 +17,8 @@
   domain = config.networking.domain;
   hostname = config.networking.hostName;
   fqdn = "${hostname}.${domain}";
+  pkg = pkgs.unstable.mealie;
+  listenAddress = "127.0.0.1";
 in {
   options.my.services.mealie = let
     inherit (lib) types;
@@ -27,40 +29,61 @@ in {
       example = 8080;
       description = "Internal port for Mealie webapp";
     };
+    credentialsFile = lib.mkOption {
+      type = types.nullOr types.path;
+      default = null;
+      example = "/run/secrets/mealie-credentials.env";
+      description = ''
+        File containing credentials used in mealie such as {env}`POSTGRES_PASSWORD`
+        or sensitive LDAP options.
+
+        Expects the format of an `EnvironmentFile=`, as described by {manpage}`systemd.exec(5)`.
+      '';
+    };
   };
 
-  config = mkIf cfg.enable {
-    services.mealie = {
-      enable = true;
-      package = pkgs.unstable.mealie;
-      listenAddress = "127.0.0.1";
-      port = cfg.port;
+  # FIXME(NixOS 24.11) Copy pasted from nixpkgs master module, because some needed changes weren't in stable yet.
+  config = mkIf cfg.enable (let
+    settings = {
+      ALLOW_SIGNUP = "false";
+      BASE_URL = "https://mealie.${domain}";
+      TZ = config.time.timeZone;
 
-      settings = {
-        ALLOW_SIGNUP = "false";
-        BASE_URL = "https://mealie.${domain}";
-        TZ = config.time.timeZone;
+      # Use PostgreSQL
+      DB_ENGINE = "postgres";
 
-        # Use PostgreSQL
-        DB_ENGINE = "postgres";
-
-        # Settings for Mealie 1.2
-        #POSTGRES_USER = "mealie";
-        #POSTGRES_PASSWORD = "";
-        #POSTGRES_SERVER = "/run/postgresql";
-        ## Pydantic and/or mealie doesn't handle the URI correctly, hijack it
-        ## with query parameters...
-        #POSTGRES_DB = "mealie?host=/run/postgresql&dbname=mealie";
-
-        # Settings for Mealie 1.7+, when that gets into NixOS stable
-        POSTGRES_URL_OVERRIDE = "postgresql://mealie:@/mealie?host=/run/postgresql";
-      };
+      # Settings for Mealie 1.7+
+      POSTGRES_URL_OVERRIDE = "postgresql://mealie:@/mealie?host=/run/postgresql";
     };
-
+  in {
     systemd.services = {
       mealie = {
-        after = ["postgresql.service"];
+        after = ["network-online.target" "postgresql.service"];
         requires = ["postgresql.service"];
+        wants = ["network-online.target"];
+        wantedBy = ["multi-user.target"];
+
+        description = "Mealie, a self hosted recipe manager and meal planner";
+
+        environment =
+          {
+            PRODUCTION = "true";
+            API_PORT = toString cfg.port;
+            BASE_URL = "http://localhost:${toString cfg.port}";
+            DATA_DIR = "/var/lib/mealie";
+            CRF_MODEL_PATH = "/var/lib/mealie/model.crfmodel";
+          }
+          // (builtins.mapAttrs (_: val: toString val) settings);
+
+        serviceConfig = {
+          DynamicUser = true;
+          User = "mealie";
+          ExecStartPre = "${pkg}/libexec/init_db";
+          ExecStart = "${lib.getExe pkg} -b ${listenAddress}:${builtins.toString cfg.port}";
+          EnvironmentFile = lib.mkIf (cfg.credentialsFile != null) cfg.credentialsFile;
+          StateDirectory = "mealie";
+          StandardOutput = "journal";
+        };
       };
     };
 
@@ -85,7 +108,7 @@ in {
       useACMEHost = fqdn;
 
       locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString cfg.port}/";
+        proxyPass = "http://${listenAddress}:${toString cfg.port}/";
         proxyWebsockets = true;
       };
     };
@@ -95,5 +118,5 @@ in {
     my.services.restic-backup = {
       paths = ["/var/lib/mealie"];
     };
-  };
+  });
 }
