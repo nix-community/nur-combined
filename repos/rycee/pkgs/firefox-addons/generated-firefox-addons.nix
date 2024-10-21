@@ -1225,10 +1225,10 @@
     };
     "castkodi" = buildFirefoxXpiAddon {
       pname = "castkodi";
-      version = "7.11.0";
+      version = "7.12.0";
       addonId = "castkodi@regseb.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4314822/castkodi-7.11.0.xpi";
-      sha256 = "ea4334092c3639174d55264ca2ea2a2d260e116b7a70418b2188560790261b64";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4373190/castkodi-7.12.0.xpi";
+      sha256 = "24b0fd96ee2d68e8f597d117c3500243ff3d65c745ecc15c4263227f86be6330";
       meta = with lib;
       {
         homepage = "https://github.com/regseb/castkodi";
