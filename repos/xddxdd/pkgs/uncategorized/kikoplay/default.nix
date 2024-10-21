@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     mainProgram = "KikoPlay";
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "KikoPlay - NOT ONLY A Full-Featured Danmu Player 不仅仅是全功能弹幕播放器 ";
+    description = "KikoPlay - NOT ONLY A Full-Featured Danmu Player 不仅仅是全功能弹幕播放器";
     homepage = "https://kikoplay.fun";
     license = lib.licenses.gpl3Only;
   };

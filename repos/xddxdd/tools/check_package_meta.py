@@ -5,7 +5,7 @@ import os
 import random
 import re
 import subprocess
-from typing import List
+from typing import List, Optional
 
 SKIP_CHECK = [
     "kernel",
@@ -81,8 +81,12 @@ def verify_package_meta(package_path: str, meta: dict) -> bool:
 
     valid = True
 
-    if not meta.get("description"):
+    description: Optional[str] = meta.get("description")
+    if not description:
         print(f"{package_path}: no description set")
+        valid = False
+    elif description.startswith(" ") or description.endswith(" "):
+        print(f"{package_path}: description has space at beginning or end")
         valid = False
 
     if not meta.get("homepage"):

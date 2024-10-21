@@ -23,7 +23,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "Constructed scripts by Hoyoverse 米哈游的架空文字 ";
+    description = "Constructed scripts by Hoyoverse 米哈游的架空文字";
     homepage = "https://github.com/SpeedyOrc-C/Hoyo-Glyphs";
     license = with lib.licenses; [ unfreeRedistributable ];
   };
