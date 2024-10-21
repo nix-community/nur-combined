@@ -76,7 +76,7 @@
     grafana.enable = true;
     meilisearch.enable = true;
     radicle.enable = true;
-    xmrig.enable = true;
+    # xmrig.enable = true;
     reuse-cert.enable = true;
   };
   services = {

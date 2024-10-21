@@ -179,7 +179,7 @@
       timeouts = [
         {
           timeout = 900;
-          command = "/run/current-system/systemd/bin/systemctl suspend";
+          command = "${lib.getExe pkgs.niri} msg action power-off-monitors";
         }
       ];
       events = [
