@@ -103,6 +103,7 @@ let
         unzip
         zip
         coreutils
+        juicefs
         inetutils
         pciutils
         usbutils

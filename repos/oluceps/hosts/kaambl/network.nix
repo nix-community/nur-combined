@@ -26,7 +26,10 @@
       "10.0.1.1" = [ "nodens.nyaw.xyz" ];
       "10.0.2.1" = [ "azasos.nyaw.xyz" ];
       "10.0.3.1" = [ "abhoth.nyaw.xyz" ];
-      "10.0.4.6" = [ "eihort.nyaw.xyz" ];
+      "10.0.4.6" = [
+        "eihort.nyaw.xyz"
+        "nas.nyaw.xyz"
+      ];
       "10.0.1.2" = [
         "s3.nyaw.xyz"
       ];

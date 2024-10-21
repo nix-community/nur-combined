@@ -16,6 +16,7 @@
     dockerCompat = true;
   };
 
+  environment.systemPackages = [ pkgs.gdu ];
   users.mutableUsers = false;
   system.etc.overlay.mutable = false;
   environment.etc."resolv.conf".text = ''
@@ -27,36 +28,6 @@
     dates = "weekly";
     options = "--delete-older-than 10d";
   };
-  # systemd.services.mount-three = {
-  #   description = "mount pool 3";
-  #   script =
-  #     let
-  #       diskId = map (n: "/dev/disk/by-id/" + n) [
-  #         # "nvme-INTEL_MEMPEK1J016GAH_PHBT82920C53016N"
-  #         "wwn-0x5000cca05838bc98"
-  #         "wwn-0x5000cca0583a5e34"
-  #         "wwn-0x5000cca04608e534"
-  #         "wwn-0x5000cca0583880c4"
-  #       ];
-  #     in
-  #     # chain call
-  #     toString (
-  #       lib.getExe (
-  #         pkgs.nuenv.writeScriptBin {
-  #           name = "mount";
-  #           script =
-  #             let
-  #               mount = "/run/current-system/sw/bin/mount --onlyonce -o noatime,nodev,nosuid -t bcachefs ${lib.concatStringsSep ":" diskId} /three";
-  #             in
-  #             ''
-  #               do { ${mount} } | complete
-  #             '';
-  #         }
-  #       )
-  #     );
-  #   wantedBy = [ "multi-user.target" ];
-  # };
-
   boot = {
     supportedFilesystems = [ "tcp_bbr" ];
   };
@@ -68,7 +39,7 @@
     dae.enable = true;
     dnsproxy.enable = true;
     scrutiny.enable = true;
-    samba.enable = true;
+    postgresql.enable = true;
   };
 
   services = {
@@ -126,13 +97,6 @@
         timerConfig.onCalendar = "daily";
       }
     ];
-
-    # compose-up.instances = [
-    #   {
-    #     name = "misskey";
-    #     workingDirectory = "/home/${user}/Src/misskey";
-    #   }
-    # ];
 
     shadowsocks.instances = [
       {

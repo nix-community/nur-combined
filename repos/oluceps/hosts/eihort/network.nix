@@ -5,6 +5,7 @@
     hosts = {
       "127.0.0.1" = [
         "eihort.nyaw.xyz"
+        "nas.nyaw.xyz"
       ];
       "10.0.1.1" = [ "nodens.nyaw.xyz" ];
       "10.0.2.3" = [ "kaambl.nyaw.xyz" ];

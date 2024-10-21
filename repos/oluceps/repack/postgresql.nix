@@ -1,4 +1,9 @@
-{ reIf, pkgs, ... }:
+{
+  reIf,
+  lib,
+  pkgs,
+  ...
+}:
 reIf {
   services.postgresql = {
     enable = true;
@@ -23,10 +28,10 @@ reIf {
       max_parallel_workers = 4;
       max_parallel_maintenance_workers = 2;
     };
-    authentication = pkgs.lib.mkOverride 10 ''
+
+    authentication = lib.mkOverride 10 ''
       #type database  DBuser  auth-method
       local all       all     trust
-      local misskey misskey peer map=misskey
 
       #type database DBuser origin-address auth-method
       # ipv4
@@ -37,15 +42,5 @@ reIf {
       host all       all     ::1/128        trust
     '';
 
-    ensureDatabases = [ "misskey" ];
-    ensureUsers = [
-      {
-        name = "misskey";
-        ensureDBOwnership = true;
-      }
-    ];
-    identMap = ''
-      misskey misskey misskey
-    '';
   };
 }

@@ -166,6 +166,40 @@
       "space_cache=v2"
     ];
   };
+  fileSystems."/var/cache/jfs" = {
+    device = "/dev/disk/by-id/nvme-eui.00000000000000008ce38e10014c244a";
+    fsType = "btrfs";
+    options = [
+      "compress-force=zstd:3"
+      "noatime"
+      "subvol=cache"
+    ];
+  };
 
+  # systemd.mounts = [
+  #   {
+  #     description = "Juicefs";
+
+  #     after = [
+  #       "var-cache-jfs.mount"
+  #       "minio.service"
+  #     ];
+  #     where = "/share";
+  #     what = "postgres://juice:357d39bcd7d040cb@/juicemeta?host=/var/run/postgresql/";
+  #     type = "juicefs";
+  #     # options = "";
+  #     options = "_netdev,allow_other,writeback_cache";
+  #     mountConfig = {
+  #       Environment = [
+  #         "AWS_DEFAULT_REGION=ap-east-1"
+  #       ];
+  #     };
+
+  #     wantedBy = [
+  #       "remote-fs.target"
+  #       "multi-user.target"
+  #     ];
+  #   }
+  # ];
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
