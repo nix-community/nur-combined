@@ -12465,6 +12465,31 @@
         platforms = platforms.all;
       };
     };
+    "watchmarker-for-youtube" = buildFirefoxXpiAddon {
+      pname = "watchmarker-for-youtube";
+      version = "4.6.1";
+      addonId = "yourect@coderect.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4231706/watchmarker_for_youtube-4.6.1.xpi";
+      sha256 = "a9c804bb9af200404bb809d248a50d2c6482bc322dd24914f76fad1cf29a1c80";
+      meta = with lib;
+      {
+        homepage = "http://sniklaus.com/";
+        description = "Automatically mark videos on Youtube that you have already watched.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "alarms"
+          "downloads"
+          "history"
+          "tabs"
+          "cookies"
+          "webRequest"
+          "webRequestBlocking"
+          "https://www.youtube.com/*"
+          "*://www.youtube.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "wayback-machine" = buildFirefoxXpiAddon {
       pname = "wayback-machine";
       version = "3.2";
