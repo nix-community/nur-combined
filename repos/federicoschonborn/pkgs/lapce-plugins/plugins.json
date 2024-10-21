@@ -320,20 +320,20 @@
     "hash": "sha256-4U/QhsTzQAJCqabdezbl36ivrd0+l4rxUPH2b0C/AJ0="
   },
   {
-    "author": "Stanislav-Lapata",
-    "name": "lapce-angular",
-    "version": "0.1.0",
-    "description": "Angular plugin for the Lapce Editor - Powered by angular",
-    "wasm": true,
-    "hash": "sha256-0LgJZr/2FxxK9Ys3QXojhAYU3hnaZOzW0RgZvA3Pago="
-  },
-  {
     "author": "instance-id",
     "name": "lapce-powershell",
     "version": "0.0.1",
     "description": "PowerShell language support for Lapce provided by PowerShell Editor Services",
     "wasm": true,
     "hash": "sha256-gQttyneWYYolPnIrBHggbk2XZU9C4+l6SFqfR+rF5L0="
+  },
+  {
+    "author": "Stanislav-Lapata",
+    "name": "lapce-angular",
+    "version": "0.1.0",
+    "description": "Angular plugin for the Lapce Editor - Powered by angular",
+    "wasm": true,
+    "hash": "sha256-0LgJZr/2FxxK9Ys3QXojhAYU3hnaZOzW0RgZvA3Pago="
   },
   {
     "author": "ConnorSMorrison",
@@ -346,10 +346,10 @@
   {
     "author": "panekj",
     "name": "lapce-deno",
-    "version": "0.0.1+deno.1.41.0",
+    "version": "0.0.1+deno.2.0.2",
     "description": "TypeScript, JavaScript and Markdown language support via Deno LSP",
     "wasm": true,
-    "hash": "sha256-m+aW3TVtaO4E263qPjMRJrjbixr5EHWzLeFRbpGs+pU="
+    "hash": "sha256-iZBRn4X0sq6I+CygrzA0S/ZuWObAfwpTzIiaXPVUlfA="
   },
   {
     "author": "Stanislav-Lapata",
@@ -464,20 +464,20 @@
     "hash": "sha256-pO1jjG6oOr1N7X/fmivJ3YnAjB/nSSbccMtuS92/y90="
   },
   {
-    "author": "Mikastiv",
-    "name": "ocean-space-refined",
-    "version": "0.1.2",
-    "description": "The Deep Oceanic Blue Theme",
-    "wasm": false,
-    "hash": "sha256-+n9Q+e9qzGOqH4hgyh5m09flCpcujhw/6osKdaAqWu8="
-  },
-  {
     "author": "HTGAzureX1212",
     "name": "rs4lapce",
     "version": "0.2.0",
     "description": "Rust plugin for Lapce, powered by Rust Analyzer",
     "wasm": true,
     "hash": "sha256-DzvI540fYBoiibdhZWlhbbxJJnN2z9NQSVLR06druCA="
+  },
+  {
+    "author": "Mikastiv",
+    "name": "ocean-space-refined",
+    "version": "0.1.2",
+    "description": "The Deep Oceanic Blue Theme",
+    "wasm": false,
+    "hash": "sha256-+n9Q+e9qzGOqH4hgyh5m09flCpcujhw/6osKdaAqWu8="
   },
   {
     "author": "Hyduez",
@@ -592,20 +592,20 @@
     "hash": "sha256-Acm9iMOMFCusvzY/BwIMxIFTwnD/EW3eomVrE7I6qdk="
   },
   {
-    "author": "nvarner",
-    "name": "typst-lsp",
-    "version": "0.13.0",
-    "description": "A language server for Typst",
-    "wasm": true,
-    "hash": "sha256-ibo6fbq7+WvWVZGp1UB8bf+AeXTn70b5fCIkvTmfivQ="
-  },
-  {
     "author": "Notiee",
     "name": "forest-night-theme",
     "version": "0.1.1",
     "description": "A true black theme with tasteful forest green accents.",
     "wasm": false,
     "hash": "sha256-G0/L20thvMn9fXBMp7VW5Ci0SJKDb2YNan2rtA4FBAw="
+  },
+  {
+    "author": "nvarner",
+    "name": "typst-lsp",
+    "version": "0.13.0",
+    "description": "A language server for Typst",
+    "wasm": true,
+    "hash": "sha256-ibo6fbq7+WvWVZGp1UB8bf+AeXTn70b5fCIkvTmfivQ="
   },
   {
     "author": "DissolveDZ",
@@ -688,20 +688,20 @@
     "hash": "sha256-2CJie32BY6pdbNi1D08u6nBmycOANexMGv4mEHqu9oA="
   },
   {
-    "author": "jimsynz",
-    "name": "lapce-elixir",
-    "version": "0.1.0",
-    "description": "Elixir for Lapce: powered by elixir-ls",
-    "wasm": true,
-    "hash": "sha256-EXVksYNe3F1TpQr7C80F9l1m2Q0Xh4U3soNLjLtvQcY="
-  },
-  {
     "author": "nullndr",
     "name": "lapce-material-icon-theme",
     "version": "0.0.1",
     "description": "Material icon theme for Lapce",
     "wasm": false,
     "hash": "sha256-fq+VjvEjylX1mOwpVL4lyoEoYi1Ddla3ERbeoXwl+eM="
+  },
+  {
+    "author": "jimsynz",
+    "name": "lapce-elixir",
+    "version": "0.1.0",
+    "description": "Elixir for Lapce: powered by elixir-ls",
+    "wasm": true,
+    "hash": "sha256-EXVksYNe3F1TpQr7C80F9l1m2Q0Xh4U3soNLjLtvQcY="
   },
   {
     "author": "jm-observer",
@@ -718,5 +718,13 @@
     "description": "🐭 Soothing pastel theme for Lapce",
     "wasm": false,
     "hash": "sha256-CMZez58yYmgC07MX4jw7s3fccCMK2WP51oII/7GmOBw="
+  },
+  {
+    "author": "X64D",
+    "name": "lapce-tinymist",
+    "version": "0.0.1",
+    "description": "Tinymist for Lapce",
+    "wasm": true,
+    "hash": "sha256-iSudWviA2XX0yhbdq8UVyeWXLh9TCIAdRQwjGWrfD54="
   }
 ]

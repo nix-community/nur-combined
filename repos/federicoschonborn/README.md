@@ -1624,7 +1624,7 @@ Dart for Lapce: powered by dart language-server.
 - Source Provenance: `binaryBytecode`
 </details>
 
-### `lapcePlugins.lapce-deno` `0.0.1+deno.1.41.0` [🌐](https://plugins.lapce.dev/plugins/panekj/lapce-deno "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+### `lapcePlugins.lapce-deno` `0.0.1+deno.2.0.2` [🌐](https://plugins.lapce.dev/plugins/panekj/lapce-deno "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
 
 TypeScript, JavaScript and Markdown language support via Deno LSP.
 
@@ -2180,6 +2180,27 @@ Terraform support for Lapce.
   </summary>
 
 - Name: `lapce-plugin-panekj-lapce-terraform-ls`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapcePlugins.lapce-tinymist` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/X64D/lapce-tinymist "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Tinymist for Lapce.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-X64D-lapce-tinymist`
 - Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
@@ -2890,7 +2911,7 @@ wlroots-based Wayland compositor designed for the Budgie Desktop.
 - Update Script: ✔️
 </details>
 
-### `mii-emu` `1.95` [🌐](https://github.com/buserror/mii_emu "Homepage") [📰](https://github.com/buserror/mii_emu/blob/v1.95/CHANGELOG.md "Changelog") [📦](./pkgs/by-name/mii-emu/package.nix#L41 "Source")
+### `mii-emu` `1.96` [🌐](https://github.com/buserror/mii_emu "Homepage") [📰](https://github.com/buserror/mii_emu/blob/v1.96/CHANGELOG.md "Changelog") [📦](./pkgs/by-name/mii-emu/package.nix#L41 "Source")
 
 MII Apple //e Emulator for Linux.
 
@@ -3018,7 +3039,7 @@ Camera application for Plasma Mobile.
 - Update Script: ✔️
 </details>
 
-### `pnut` `SLE2024-artifact-unstable-2024-10-11` [🌐](https://github.com/udem-dlteam/pnut "Homepage") [📦](./pkgs/by-name/pnut/package.nix#L44 "Source")
+### `pnut` `SLE2024-artifact-unstable-2024-10-20` [🌐](https://github.com/udem-dlteam/pnut "Homepage") [📦](./pkgs/by-name/pnut/package.nix#L44 "Source")
 
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 
@@ -3147,7 +3168,7 @@ Fan sequel to Super Mario 63.
 - Update Script: ❌
 </details>
 
-### `supermodel` `0-unstable-2024-10-13` [🌐](https://github.com/trzy/Supermodel "Homepage") [📦](./pkgs/by-name/supermodel/package.nix#L63 "Source")
+### `supermodel` `0-unstable-2024-10-20` [🌐](https://github.com/trzy/Supermodel "Homepage") [📦](./pkgs/by-name/supermodel/package.nix#L63 "Source")
 
 Sega Model 3 arcade machine emulator.
 
@@ -3365,7 +3386,7 @@ Detect non-inclusive language in your source code.
 - Update Script: ✔️
 </details>
 
-### `yyjson_0_10` `0.10.0` [🌐](https://github.com/ibireme/yyjson "Homepage") [📰](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md "Changelog") [📦](https://github.com/NixOS/nixpkgs/blob/7881fbf/pkgs/development/libraries/yyjson/default.nix#L23 "Source")
+### `yyjson_0_10` `0.10.0` [🌐](https://github.com/ibireme/yyjson "Homepage") [📰](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md "Changelog") [📦](https://github.com/NixOS/nixpkgs/blob/ccc0c21/pkgs/development/libraries/yyjson/default.nix#L23 "Source")
 
 Fastest JSON library in C.
 
