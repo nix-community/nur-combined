@@ -39,6 +39,24 @@ in
         StateDirectory = "rustypaste";
         Environment = "CONFIG=${settingsFormat.generate "config.toml" cfg.settings}";
         Restart = "on-failure";
+
+        ProtectSystem = "full";
+        ProtectHome = "tmpfs";
+        PrivateTmp = true;
+        PrivateDevices = true;
+        ProtectKernelTunables = true;
+        ProtectKernelModules = true;
+        ProtectKernelLogs = true;
+        ProtectControlGroups = true;
+        MemoryDenyWriteExecute = true;
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_NETLINK"
+          "AF_UNIX"
+        ];
+        LockPersonality = true;
+        RestrictRealtime = true;
+        ProtectClock = true;
       };
     };
   };
