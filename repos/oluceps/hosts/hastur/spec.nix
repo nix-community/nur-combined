@@ -162,13 +162,6 @@
 
     gvfs.enable = false;
 
-    postgresqlBackup = {
-      enable = true;
-      location = "/var/lib/backup/postgresql";
-      compression = "zstd";
-      startAt = "*-*-* 0,12:00:00";
-    };
-
     pipewire = {
       enable = true;
       alsa.enable = true;
