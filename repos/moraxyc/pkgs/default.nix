@@ -50,7 +50,6 @@ mkScope (
     mergePkgs = self.callPackage ../flakes/fn/merge-pkgs.nix { enableWrapper = mode != "nur"; };
   in
   {
-    cyrus-imapd = pkg ./cyrus-imapd { };
     alist = pkg ./alist { };
   }
 )
