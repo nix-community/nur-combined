@@ -25,7 +25,8 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    cp -r render/{cat,fox}/trimmed $out
+    cp -r render/cat/trimmed/. $out
+    cp -r render/fox/trimmed/. $out
     cp -r render/cat/trimmed $blobcatsOnly
     cp -r render/fox/trimmed $blobfoxesOnly
 

@@ -312,11 +312,4 @@
           formatter = pkgs.nixfmt-rfc-style;
         };
     };
-
-  nixConfig = {
-    extra-substituters = [ "https://federicoschonborn.cachix.org" ];
-    extra-trusted-public-keys = [
-      "federicoschonborn.cachix.org-1:tqctt7S1zZuwKcakzMxeATNq+dhmh2v6cq+oBf4hgIU="
-    ];
-  };
 }

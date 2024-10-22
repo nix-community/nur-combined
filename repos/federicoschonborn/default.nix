@@ -46,9 +46,8 @@ lib.makeScope pkgs.newScope (
       (self.fastfetch.overrideAttrs (
         _: prevAttrs: {
           pname = "${prevAttrs.pname}-minimal";
-          meta = prevAttrs.meta // {
+          meta = (prevAttrs.meta or { }) // {
             description = "${prevAttrs.meta.description} (with all features disabled)";
-            mainProgram = "fastfetch";
           };
         }
       )).override
@@ -86,7 +85,7 @@ lib.makeScope pkgs.newScope (
       (self.gtatool.overrideAttrs (
         _: prevAttrs: {
           pname = "${prevAttrs.pname}-full";
-          meta = prevAttrs.meta // {
+          meta = (prevAttrs.meta or { }) // {
             description = "${prevAttrs.meta.description} (with all features enabled)";
           };
         }
@@ -121,7 +120,7 @@ lib.makeScope pkgs.newScope (
       (self.libtgd.overrideAttrs (
         _: prevAttrs: {
           pname = "${prevAttrs.pname}-full";
-          meta = prevAttrs.meta // {
+          meta = (prevAttrs.meta or { }) // {
             description = "${prevAttrs.meta.description} (with all features enabled)";
           };
         }
@@ -154,7 +153,7 @@ lib.makeScope pkgs.newScope (
       (self.raze.overrideAttrs (
         _: prevAttrs: {
           pname = "${prevAttrs.pname}-full";
-          meta = prevAttrs.meta // {
+          meta = (prevAttrs.meta or { }) // {
             description = "${prevAttrs.meta.description} (with all features enabled)";
           };
         }
@@ -165,7 +164,7 @@ lib.makeScope pkgs.newScope (
       (self.teem.overrideAttrs (
         _: prevAttrs: {
           pname = "${prevAttrs.pname}-full";
-          meta = prevAttrs.meta // {
+          meta = (prevAttrs.meta or { }) // {
             description = "${prevAttrs.meta.description} (with all features enabled)";
           };
         }
@@ -183,7 +182,7 @@ lib.makeScope pkgs.newScope (
       (self.teem.overrideAttrs (
         _: prevAttrs: {
           pname = "${prevAttrs.pname}-experimental";
-          meta = prevAttrs.meta // {
+          meta = (prevAttrs.meta or { }) // {
             description = "${prevAttrs.meta.description} (with experimental libraries and applications enabled)";
           };
         }
@@ -197,7 +196,7 @@ lib.makeScope pkgs.newScope (
       (self.teem.overrideAttrs (
         _: prevAttrs: {
           pname = "${prevAttrs.pname}-experimental-full";
-          meta = prevAttrs.meta // {
+          meta = (prevAttrs.meta or { }) // {
             description = "${prevAttrs.meta.description} (with experimental libraries and applications, and all features enabled)";
           };
         }

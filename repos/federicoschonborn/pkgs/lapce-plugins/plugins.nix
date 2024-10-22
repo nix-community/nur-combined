@@ -1,13 +1,13 @@
 { lib, mkLapcePlugin }:
 
 builtins.listToAttrs (
-  builtins.map (attrs: {
-    inherit (attrs) name;
+  builtins.map (plugin: {
+    inherit (plugin) name;
     value = mkLapcePlugin (
-      builtins.removeAttrs attrs [ "description" ]
+      builtins.removeAttrs plugin [ "description" ]
       // {
         meta = {
-          inherit (attrs) description;
+          inherit (plugin) description;
           license = lib.licenses.asl20;
           maintainers = [ lib.maintainers.federicoschonborn ];
         };

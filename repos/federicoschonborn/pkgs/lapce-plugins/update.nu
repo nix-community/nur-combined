@@ -5,16 +5,12 @@ const COLUMNS = [author name version description wasm]
 
 mut plugins = []
 
-let probe = http get $"https://plugins.lapce.dev/api/v1/plugins/?limit=0"
-let total = $probe.total
+let total = http get $"https://plugins.lapce.dev/api/v1/plugins/?limit=0" | get total
+print --stderr $total
 
-let object = http get $"https://plugins.lapce.dev/api/v1/plugins/?limit=($total)"
-print --stderr $object
-
-let remote_plugins = $object.plugins | select ...$COLUMNS
+let remote_plugins = http get $"https://plugins.lapce.dev/api/v1/plugins/?limit=($total)" | get plugins | select ...$COLUMNS
 print --stderr $remote_plugins
 
-mut hashed_plugins = []
 for plugin in $remote_plugins {
 	try {
 		let url = http get --raw $"https://plugins.lapce.dev/api/v1/plugins/($plugin.author)/($plugin.name)/($plugin.version)/download"
@@ -31,7 +27,5 @@ for plugin in $remote_plugins {
 	}
 }
 
-$plugins = $plugins | append $hashed_plugins
 print --stderr $plugins
-
 $plugins | to json
