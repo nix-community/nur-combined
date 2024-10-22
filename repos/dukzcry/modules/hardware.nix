@@ -41,6 +41,7 @@ in {
       systemd.watchdog.kexecTime = "10m";
       services.udev.extraRules = ''
         ACTION=="add", SUBSYSTEM=="block", KERNEL=="sd[a-z]", ENV{ID_SERIAL_SHORT}=="WD-WXS2E902C67R", RUN+="${pkgs.hdparm}/bin/hdparm -B 254 /dev/%k"
+        ACTION=="add", SUBSYSTEM=="block", KERNEL=="sd[a-z]", ENV{ID_SERIAL_SHORT}=="WWD1JS70", RUN+="${pkgs.hdparm}/bin/hdparm -S 1 /dev/%k"
       '';
     } // builder))
     (mkIf (cfg.enable && laptop) ({
