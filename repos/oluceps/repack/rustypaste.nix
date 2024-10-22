@@ -86,7 +86,7 @@ reIf {
         max_content_length = "10MB";
         timeout = "30s";
         upload_path = "/var/lib/rustypaste/";
-        duplicate_files = true;
+        duplicate_files = false;
         url = "https://pb.nyaw.xyz";
       };
     };
