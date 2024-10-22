@@ -26,7 +26,7 @@ builtins.trace "「我书写，则为我命令。我陈述，则为我规定。�
   };
 
   pkgsStatic = {
-    
+
   };
 }
 // pkgs.lib.packagesFromDirectoryRecursive {

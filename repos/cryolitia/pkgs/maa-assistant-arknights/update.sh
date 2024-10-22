@@ -20,14 +20,32 @@ cargo_hash_cli=$(nix store prefetch-file --json https://raw.githubusercontent.co
 
 curl https://raw.githubusercontent.com/MaaAssistantArknights/maa-cli/${rev_cli}/Cargo.lock -o $directory/Cargo.lock
 
+version_beta=${version_beta#*v}
+name_cli=${name_cli#*v}
+old_version=$(jq -r '.beta.version' $directory/pin.json)
+old_cli=$(jq -r '."maa-cli".name' $directory/pin.json)
+
+commit_message=""
+if [ "$old_version" != "$version_beta" ]; then
+  commit_message="maa-assistant-arknights-nightly: $old_version -> $version_beta"
+fi
+
+if [ "$old_version" != "$version_beta" ] && [ "$old_cli" != "$name_cli" ]; then
+  commit_message="$commit_message,"
+fi
+
+if [ "$old_cli" != "$name_cli" ]; then
+  commit_message="$commit_message maa-cli: $old_cli -> $name_cli"
+fi
+
 cat > $directory/pin.json << EOF
 {
   "beta": {
-    "version": "${version_beta#*v}",
+    "version": "$version_beta",
     "hash": "$hash_beta"
   },
   "maa-cli": {
-    "name": "${name_cli#*v}",
+    "name": "$name_cli",
     "version": "$rev_cli",
     "hash": "$hash_cli",
     "cargoHash": "$cargo_hash_cli"
@@ -35,4 +53,8 @@ cat > $directory/pin.json << EOF
 }
 EOF
 
-cat $directory/pin.json
+git --no-pager diff $directory/pin.json
+
+git add $directory/pin.json
+
+git commit -m "$commit_message"

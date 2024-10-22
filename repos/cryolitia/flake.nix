@@ -5,7 +5,7 @@
       "nix-command"
       "flakes"
     ];
-    
+
     extra-substituters = [
       "https://cryolitia.cachix.org"
       "https://nix-community.cachix.org"

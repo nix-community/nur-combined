@@ -37,28 +37,12 @@ jobs:
           git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
           git show -s
 
-      - name: Update maa-assistant-arknights
-        continue-on-error: true
+      - name: Update packages
         run: |
-          cd pkgs/maa-assistant-arknights
-          ./update.sh
+          nix run nixpkgs#nix-update -- --commit --format --flake bmi260
+          nix run nixpkgs#nix-update -- --commit --format --flake get-lrc
+          nix run nixpkgs#nix-update -- --commit --format --flake mdbook-typst-pdf
 
-          set +e
+          ./pkgs/maa-assistant-arknights/update.sh
 
-          git add .
-          git status
-          git commit -m "maa-assistant-arknights: update at $(date +'%Y-%m-%dT%H:%M:%S')"
-          git push
-      
-      - name: Update mdbok-typst-pdf
-        continue-on-error: true
-        run: |
-          cd pkgs/by-name/mdbook-typst-pdf
-          ./update.sh
-
-          set +e
-
-          git add .
-          git status
-          git commit -m "mdbook-typst-pdf: update at $(date +'%Y-%m-%dT%H:%M:%S')"
           git push
