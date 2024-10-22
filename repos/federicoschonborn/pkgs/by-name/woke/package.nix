@@ -29,7 +29,18 @@ buildGoModule {
     "-w"
   ];
 
-  doCheck = false;
+  checkFlags =
+    let
+      skipTests = [
+        # Requires network access
+        "TestNewConfig/load-config-with-url"
+        "TestNewConfig/load-remote-config-valid-url"
+
+        # Requires Git
+        "TestIgnoreTestSuite/TestGetRootGitDir"
+      ];
+    in
+    [ ("-skip=" + builtins.concatStringsSep "|" skipTests) ];
 
   passthru = {
     tests.version = testers.testVersion { package = woke; };
