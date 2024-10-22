@@ -3,7 +3,7 @@
   ...
 }:
 reIf {
-  postgresqlBackup = {
+  services.postgresqlBackup = {
     enable = true;
     location = "/var/lib/backup/postgresql";
     compression = "zstd";

@@ -1,7 +1,7 @@
 { config, lib, ... }:
 {
   repack.postgresql-backup.enable = true;
-  systemd.services.postgresqlBackup.onSuccess = "rustic-backups-critic.service";
+  systemd.services.postgresqlBackup.onSuccess = [ "rustic-backups-critic.service" ];
   services.rustic = {
     backups = {
       critic = {
@@ -9,6 +9,7 @@
           "general.toml"
           "on-kaambl.toml"
         ];
+        timerConfig = null;
       };
 
       solid = {
@@ -17,7 +18,7 @@
           "on-eihort.toml"
         ];
         timerConfig = {
-          OnCalendar = "*-*-* 3,15:00:00";
+          OnCalendar = "*-*-* 3:00:00";
           RandomizedDelaySec = "4h";
           FixedRandomDelay = true;
           Persistent = true;
