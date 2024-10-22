@@ -18,6 +18,7 @@ let
   asterisk-g72x-actual = asterisk-g72x.override { asterisk = asterisk-actual; };
   _3gpp-evs = callPackage ./3gpp-evs.nix { };
 
+  # Patches that use patch -p0
   myPatches = [
     "${sources.asterisk-amr.src}/codec_amr.patch"
     "${sources.asterisk-amr.src}/build_tools.patch"
@@ -40,11 +41,12 @@ in
 
   postPatch =
     (lib.concatStrings (builtins.map (p: "echo ${p}; patch -p0 < ${p}\n") myPatches))
-    + (old.postPatch or "")
-    + ''
-      # Use normal music volume instead of reducing it to 1/4
-      substituteInPlace apps/app_mp3.c --replace-fail '"-f", "8192",' ""
-    '';
+    + (old.postPatch or "");
+
+  # Patches that use patch -p1
+  patches = [
+    ./mp3player-use-ffmpeg.patch
+  ];
 
   preConfigure =
     ''
