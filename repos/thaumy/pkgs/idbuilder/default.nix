@@ -86,7 +86,7 @@ let
 
     jq
     yarn
-    rust-bin.nightly."2023-05-24".minimal
+    rust-bin.nightly."2024-10-21".minimal
   ];
 in
 rustPlatform.buildRustPackage {

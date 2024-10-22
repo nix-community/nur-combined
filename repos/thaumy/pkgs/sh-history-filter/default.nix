@@ -28,7 +28,7 @@ let
   };
 
   buildTimeDeps = with extended-pkgs; [
-    rust-bin.nightly."2023-09-06".minimal
+    rust-bin.nightly."2024-10-21".minimal
   ];
 in
 rustPlatform.buildRustPackage {

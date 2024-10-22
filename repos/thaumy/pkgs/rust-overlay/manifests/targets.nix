@@ -104,4 +104,22 @@
   _102 = "x86_64-unknown-fuchsia";
   _103 = "loongarch64-unknown-linux-gnu";
   _104 = "wasm32-wasi-preview1-threads";
+  _105 = "loongarch64-unknown-none";
+  _106 = "loongarch64-unknown-none-softfloat";
+  _107 = "riscv32imafc-unknown-none-elf";
+  _108 = "aarch64-unknown-linux-ohos";
+  _109 = "armv7-unknown-linux-ohos";
+  _110 = "wasm32-wasip1";
+  _111 = "x86_64-unknown-linux-ohos";
+  _112 = "wasm32-wasip1-threads";
+  _113 = "riscv32im-unknown-none-elf";
+  _114 = "aarch64-pc-windows-gnullvm";
+  _115 = "i686-pc-windows-gnullvm";
+  _116 = "x86_64-pc-windows-gnullvm";
+  _117 = "arm64ec-pc-windows-msvc";
+  _118 = "loongarch64-unknown-linux-musl";
+  _119 = "wasm32-wasip2";
+  _120 = "riscv64gc-unknown-linux-musl";
+  _121 = "aarch64-apple-ios-macabi";
+  _122 = "x86_64-apple-ios-macabi";
 }
