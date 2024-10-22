@@ -27,10 +27,10 @@
     };
     "2fas-two-factor-authentication" = buildFirefoxXpiAddon {
       pname = "2fas-two-factor-authentication";
-      version = "1.7.2";
+      version = "1.7.3";
       addonId = "admin@2fas.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4320234/2fas_two_factor_authentication-1.7.2.xpi";
-      sha256 = "03e93ea0614631cbcb73a225036820f0ba1138974f5df2d5189957f8137602b8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4373796/2fas_two_factor_authentication-1.7.3.xpi";
+      sha256 = "fe3ddab5b5b7414682a4336314e4d5dc180a43cea3009818784c14504a1e2472";
       meta = with lib;
       {
         homepage = "https://2fas.com/";
@@ -2177,10 +2177,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "132.0.20241018.91619";
+      version = "132.0.20241021.175835";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4372205/deutsch_de_language_pack-132.0.20241018.91619.xpi";
-      sha256 = "53d07964c095eeac0dbe244889481ceb5fd5b42e85127603405c17f33a363527";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4374032/deutsch_de_language_pack-132.0.20241021.175835.xpi";
+      sha256 = "110e1840ae712183a68d7fe5fd0e05ddb83dd70b63eda40bc80085141ab49233";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3344,10 +3344,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "132.0.20241018.91619";
+      version = "132.0.20241021.175835";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4372275/francais_language_pack-132.0.20241018.91619.xpi";
-      sha256 = "e1f492d0a0cac3001a8cc9537ab9c79673b7b80c36938f8dfe2cc5cffa2ac8b6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4374053/francais_language_pack-132.0.20241021.175835.xpi";
+      sha256 = "f424a1eafadd57e8cc441a67332d249ee611003ae4ee2fee7c468bd58f0171cd";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3381,10 +3381,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "132.0.20241018.91619";
+      version = "132.0.20241021.175835";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4372277/gaidhlig_language_pack-132.0.20241018.91619.xpi";
-      sha256 = "2466c56b629995e6e27a4ba0d8f86a10f57a8aa558666b828bfd8fe8825d8e7c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4374047/gaidhlig_language_pack-132.0.20241021.175835.xpi";
+      sha256 = "e61d243bf13dff1525e1120fa5bc80ee2222e6a405dd2061fde0d5b3dafd92ba";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -9820,10 +9820,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "132.0.20241018.91619";
+      version = "132.0.20241021.175835";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4372235/scots_language_pack-132.0.20241018.91619.xpi";
-      sha256 = "a860554fe98572c9a2846e5b4d8875b3ee37d37e9dee469f6ec68dac48236af4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4374073/scots_language_pack-132.0.20241021.175835.xpi";
+      sha256 = "7a415e4b3cd4102e506f0cd93bec8c5993662881cc443d98b193df1eb3a77fcc";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10242,10 +10242,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.71";
+      version = "1.22.72";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4360569/single_file-1.22.71.xpi";
-      sha256 = "204891414ff779f8076c6de07850cbb1f6ece82ff6958337e8c57d65c60d5b6c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4370054/single_file-1.22.72.xpi";
+      sha256 = "98012de2fa7a5edc790aaecbc3a1d9534eebaf637be0d0c6110ab167aaedd21c";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
