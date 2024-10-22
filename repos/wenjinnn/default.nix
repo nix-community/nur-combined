@@ -16,7 +16,7 @@
 
   # example-package = pkgs.callPackage ./pkgs/example-package { };
   wechat-universal = pkgs.callPackage ./pkgs/wechat-universal {};
-  wechat-lisence = pkgs.callPackage ./pkgs/wechat-lisence {};
+  wechat-license = pkgs.callPackage ./pkgs/wechat-license {};
 
   hiddify-next = pkgs.callPackage ./pkgs/hiddify-next { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
