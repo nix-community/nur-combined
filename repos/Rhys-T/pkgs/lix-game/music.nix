@@ -1,4 +1,4 @@
-{ fetchzip, lib, common }: fetchzip {
+{ fetchzip, lib, common }: fetchzip rec {
     pname = "${common.pname}-music";
     # Upstream Last-Modified: 2023-04-15 ("Sat, 15 Apr 2023 20:58:14 GMT")
     # Snapshot taken on:      2024-09-02
@@ -6,7 +6,7 @@
     # Upstream archive isn't versioned - make sure the hash doesn't change on us
     # See also: https://github.com/SimonN/LixD/issues/457
     urls = [
-        "https://media.githubusercontent.com/media/Rhys-T/nur-packages/f77995a2952eacba9bef8c0af1603119a906770a/lix-music.zip"
+        "https://media.githubusercontent.com/media/Rhys-T/nur-packages/78d0c2965aeefcdf611c56624698ecb512245e4f/lix-music-${version}.zip"
         "https://web.archive.org/web/20240902001641/https://www.lixgame.com/dow/lix-music.zip"
         # If all else fails, extract it from the binary release of the game and fix it up in postFetch:
         "https://github.com/SimonN/LixD/releases/download/v${common.version}/lix-${common.version}-linux64.zip"
