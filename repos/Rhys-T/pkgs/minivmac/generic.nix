@@ -7,7 +7,7 @@ let
         version,
         src,
         applyMacDataPathPatch ? false,
-        callPackage, lib, runCommandLocal, makeBinaryWrapper, stdenv, darwin ? null, Cocoa ? darwin.apple_sdk.frameworks.Cocoa, xorg, alsaLib, maintainers, ...
+        callPackage, lib, runCommandLocal, makeBinaryWrapper, stdenv, darwin ? null, Cocoa ? darwin.apple_sdk.frameworks.Cocoa, xorg, alsa-lib, maintainers, ...
     }@args:
         let
             options = callPackage ./options.nix { };
@@ -46,7 +46,7 @@ let
                 lib.optionalString (homepage != null) ''--replace-fail '#define kStrHomePage "(unknown)"' '#define kStrHomePage "'${lib.escapeShellArg homepage}\"''
             }
             '' + lib.optionalString hostPlatform.isLinux ''
-            substituteInPlace src/SGLUALSA.h --replace-fail '"libasound.so.2"' "\"${alsaLib.out}/lib/libasound.so.2\""
+            substituteInPlace src/SGLUALSA.h --replace-fail '"libasound.so.2"' "\"${lib.getLib alsa-lib}/lib/libasound.so.2\""
             '' + ''
             for file in setup/*.i; do
                 sed -E -i '
