@@ -181,11 +181,16 @@
           timeout = 900;
           command = "${lib.getExe pkgs.niri} msg action power-off-monitors";
         }
+        {
+          timeout = 901;
+          command = "/run/current-system/systemd/bin/loginctl lock-session";
+        }
       ];
       events = [
         {
           event = "lock";
-          command = "${pkgs.hyprlock}/bin/hyprlock --immediate";
+          # command = "${pkgs.hyprlock}/bin/hyprlock --immediate";
+          command = "${pkgs.swaylock}/bin/swaylock";
         }
         {
           event = "before-sleep";
