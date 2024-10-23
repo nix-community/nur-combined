@@ -13,7 +13,7 @@ in {
 
     config = mkIf cfg.enable {
 
-      home.packages = [ (pkgs.callPackage ../../pkgs/vvmplayer.nix {}) (pkgs.callPackage ../../pkgs/vvmd.nix {}) ];
+      home.packages = [ (pkgs.callPackage ./vvmplayer.nix {}) (pkgs.callPackage ./vvmd.nix {}) ];
 
       systemd.user.services."vvmd" = {
         Unit = {
@@ -23,7 +23,7 @@ in {
         Service = {
           ExecStart = [
             ""
-            "${(pkgs.callPackage ../../pkgs/vvmd.nix {})}/bin/vvmd"
+            "${(pkgs.callPackage ./vvmd.nix {})}/bin/vvmd"
           ];
           Restart = "always";
         };
