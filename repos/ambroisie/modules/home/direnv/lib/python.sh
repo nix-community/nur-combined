@@ -1,4 +1,4 @@
-#shellcheck shell=bash
+# shellcheck shell=bash
 
 layout_poetry() {
     if ! has poetry; then

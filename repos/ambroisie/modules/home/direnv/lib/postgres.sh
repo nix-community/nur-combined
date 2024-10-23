@@ -1,4 +1,4 @@
-#shellcheck shell=bash
+# shellcheck shell=bash
 
 layout_postgres() {
     if ! has postgres || ! has initdb; then

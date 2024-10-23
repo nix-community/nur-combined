@@ -1,4 +1,4 @@
-#shellcheck shell=bash
+# shellcheck shell=bash
 
 # shellcheck disable=2155
 use_android() {

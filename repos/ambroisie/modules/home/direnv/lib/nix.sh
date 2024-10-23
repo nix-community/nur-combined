@@ -1,4 +1,4 @@
-#shellcheck shell=bash
+# shellcheck shell=bash
 
 use_pkgs() {
     if ! has nix; then
