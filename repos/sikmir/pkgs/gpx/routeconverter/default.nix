@@ -8,16 +8,16 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "routeconverter";
-  version = "3.0";
+  version = "3.1";
 
   srcs = [
     (fetchurl {
       url = "https://static.routeconverter.com/download/previous-releases/${finalAttrs.version}/RouteConverterLinuxOpenSource.jar";
-      hash = "sha256-j8mzGa4s/oCurnwkeH3a/HiOsIaH7H5fWKcwucJxUB8=";
+      hash = "sha256-noGM3Vwv8O7EWMnqhkctA7gyB+So5pZyzfatjt0KN54=";
     })
     (fetchurl {
       url = "https://static.routeconverter.com/download/previous-releases/${finalAttrs.version}/RouteConverterCmdLine.jar";
-      hash = "sha256-Dceii5IwFpwIuwoTA4VXogLLETkDgyyrtO7bM5YxiVA=";
+      hash = "sha256-EMnSeeklQyQkWBJFZmHm58RbPJTrhQx2qtO0rXTa4HA=";
     })
   ];
 

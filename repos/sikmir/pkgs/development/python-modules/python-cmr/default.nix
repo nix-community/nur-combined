@@ -24,7 +24,10 @@ python3Packages.buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook vcrpy ];
+  nativeCheckInputs = with python3Packages; [
+    pytestCheckHook
+    vcrpy
+  ];
 
   disabledTestPaths = [ "tests/test_multiple_queries.py" ];
 

@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pyrtcm";
-  version = "1.1.1";
+  version = "1.1.2";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pyrtcm";
     rev = "v${version}";
-    hash = "sha256-YD/ewNEv0iPwKk606Q1Mg4qFAUb9Jse5z5S1QZvq/kY=";
+    hash = "sha256-qnWN19SoskqqN0uZVs+MgOME41FsX4f9rdOWd/g8TRg=";
   };
 
   build-system = with python3Packages; [ setuptools ];
