@@ -208,6 +208,9 @@
             "submodules": true,
             "url": "https://github.com/blakat360/nur-packages"
         },
+        "breakingtv": {
+            "url": "https://github.com/BreakingTV/nur-packages"
+        },
         "brpaz": {
             "url": "https://github.com/brpaz/nur-packages"
         },
