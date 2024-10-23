@@ -53,8 +53,8 @@ cat > $directory/pin.json << EOF
 }
 EOF
 
-git --no-pager diff $directory/pin.json
+git --no-pager diff $directory
 
-git add $directory/pin.json
+git add $directory
 
 git commit -m "$commit_message"
