@@ -19,26 +19,5 @@
             "type": "github"
         },
         "version": "v3.38.0"
-    },
-    "cyrus-imapd": {
-        "cargoLocks": null,
-        "date": null,
-        "extract": null,
-        "name": "cyrus-imapd",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "cyrusimap",
-            "repo": "cyrus-imapd",
-            "rev": "cyrus-imapd-3.10.0",
-            "sha256": "sha256-dyybRqmrVX+ERGpToS5JjGC6S/B0t967dLCWfeUrLKA=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "cyrus-imapd-3.10.0"
     }
 }

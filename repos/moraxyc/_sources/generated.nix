@@ -12,15 +12,4 @@
       sha256 = "sha256-1nqveTEYrN9kYAOMTbLPw0MFNNNbFOqej+d+aTLAZ1o=";
     };
   };
-  cyrus-imapd = {
-    pname = "cyrus-imapd";
-    version = "cyrus-imapd-3.10.0";
-    src = fetchFromGitHub {
-      owner = "cyrusimap";
-      repo = "cyrus-imapd";
-      rev = "cyrus-imapd-3.10.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-dyybRqmrVX+ERGpToS5JjGC6S/B0t967dLCWfeUrLKA=";
-    };
-  };
 }
