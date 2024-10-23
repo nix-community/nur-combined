@@ -17,27 +17,6 @@
   in {
     # Fix for flashplayer-standalone being dropped from nixpkgs, -_-''
     flashplayer-standalone = self.callPackage ../pkgs/flashplayer-standalone.nix { };
-    # Use mosh newer than 1.3.2 to get proper truecolor support
-    mosh = if versionAtLeast (getVersion super.mosh) "1.3.3"
-      then super.mosh
-      else super.mosh.overrideAttrs (oldAttrs: rec {
-        name = "${pname}-${version}";
-        pname = "mosh";
-        version = "unstable-2020-05-18";
-        src = pins.mosh.outPath;
-        patches = [
-          (super.path + /pkgs/tools/networking/mosh/ssh_path.patch)
-          (super.path + /pkgs/tools/networking/mosh/utempter_path.patch)
-          (super.path + /pkgs/tools/networking/mosh/mosh-client_path.patch)
-          (super.path + /pkgs/tools/networking/mosh/bash_completion_datadir.patch)
-        ];
-        postPatch = ''
-          substituteInPlace scripts/mosh.pl \
-              --subst-var-by ssh "${super.openssh}/bin/ssh"
-          substituteInPlace scripts/mosh.pl \
-              --subst-var-by mosh-client "$out/bin/mosh-client"
-        '';
-      });
   };
 
   # Pinned old flashplayer versions

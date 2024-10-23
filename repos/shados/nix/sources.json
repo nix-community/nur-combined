@@ -188,19 +188,6 @@
         "url": "https://github.com/Shados/moonscript/archive/4764b210454bfcd8a836567c9d239e99d349ff56.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "mosh": {
-        "branch": "master",
-        "builtin": false,
-        "description": "Mobile Shell",
-        "homepage": "https://mosh.org",
-        "owner": "mobile-shell",
-        "repo": "mosh",
-        "rev": "e023e81c08897c95271b4f4f0726ec165bb6e1bd",
-        "sha256": "136967mf51k7x51xd9997zq92gychg2l4q1niyig9zmr4054jv2z",
-        "type": "tarball",
-        "url": "https://github.com/mobile-shell/mosh/archive/e023e81c08897c95271b4f4f0726ec165bb6e1bd.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "naersk": {
         "branch": "master",
         "builtin": false,
@@ -228,10 +215,10 @@
         "homepage": "",
         "owner": "dyc3",
         "repo": "steamguard-cli",
-        "rev": "84f488a7bdbc184ac0615700c1b0f7a64e7b77a7",
-        "sha256": "1xqr145xsc6cfdm7pr3rrcm4qbznfj7c9423wafyjah3gfrpkhkd",
+        "rev": "296a183e6224c67dfbd54ac713aee2d6a4bb68c0",
+        "sha256": "0779ihw5fk4qz17kg962hcc7g17pqqkkkh75vrsw8zcx49ij5v1s",
         "type": "tarball",
-        "url": "https://github.com/dyc3/steamguard-cli/archive/84f488a7bdbc184ac0615700c1b0f7a64e7b77a7.tar.gz",
+        "url": "https://github.com/dyc3/steamguard-cli/archive/296a183e6224c67dfbd54ac713aee2d6a4bb68c0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "switch-dbibackend": {
