@@ -4,9 +4,9 @@
     "hash": "sha256-BFg0ppFebkIlm4xmF0BtMBky8pHXbEyp6e5Zk63RPE8="
   },
   "maa-cli": {
-    "name": "0.5.0-beta.3.alpha.1+sha.6de6869",
-    "version": "6de68692bc3f3fe588d36180107601b9f3369cd3",
-    "hash": "sha256-hlxV+7UEiqqZBt83cvaBmLCzAclcY1oj0D1WQNtJwow=",
-    "cargoHash": "sha256-qh/7KheZlZA5cJpINRIfpheyrYfCps8d7kRpu88tbKc="
+    "name": "0.5.1",
+    "version": "bd30ef0f3a31a146d2df03d69621e809a6e23622",
+    "hash": "sha256-k2mDqsxM6eveIFfdRu6ZxRsIgkA2qZxLfLNeWAEFCfs=",
+    "cargoHash": "sha256-2nlOWclCRZo148vP7BNXIsmLqg7QfeYcqIbd2x7gltk="
   }
 }
