@@ -1,6 +1,7 @@
 {
   lib,
   rustPlatform,
+  rustc,
   fetchFromGitHub,
   libffi,
   libxml2,
@@ -57,5 +58,6 @@ rustPlatform.buildRustPackage {
     license = lib.licenses.mpl20;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ federicoschonborn ];
+    broken = lib.versionOlder rustc.version "1.78.0";
   };
 }

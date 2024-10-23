@@ -278,18 +278,42 @@
               );
             };
 
+            tests.program = pkgs.writeShellApplication {
+              name = "tests";
+              text =
+                let
+                  isBuildable =
+                    p:
+                    p.meta.available or true
+                    && !(p.meta.broken or false)
+                    && !(p.meta.unsupported or false)
+                    && p.meta.license.free or true;
+                in
+                ''
+                  echo '${
+                    builtins.toJSON (
+                      lib.filter (x: x != "") (
+                        lib.flatten (
+                          lib.mapAttrsToList (
+                            name: value:
+                            lib.optionalString (isBuildable value && value ? tests && value.tests != { }) (
+                              builtins.map (testName: ".#${name}.tests.${testName}") (builtins.attrNames value.tests)
+                            )
+                          ) config.packages
+                        )
+                      )
+                    )
+                  }'
+                '';
+            };
+
             update.program = pkgs.writeShellApplication {
               name = "update";
               text = lib.concatLines (
                 lib.mapAttrsToList (
                   name: value:
                   lib.optionalString (value ? updateScript) (
-                    lib.concatMapStringsSep " " lib.escapeShellArg (
-                      value.updateScript
-                      ++ [
-                        name
-                      ]
-                    )
+                    lib.concatMapStringsSep " " lib.escapeShellArg (value.updateScript ++ [ name ])
                   )
                 ) config.packages
               );

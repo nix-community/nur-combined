@@ -27,6 +27,7 @@ buildGoModule {
   ldflags = [
     "-s"
     "-w"
+    "-X github.com/get-woke/woke/cmd.Version=${version}"
   ];
 
   checkFlags =

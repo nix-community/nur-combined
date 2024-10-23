@@ -929,7 +929,7 @@ A set of commands that manipulate GTAs on various levels (with all features enab
 - Update Script: ❌
 </details>
 
-### `inko` `0.16.0` [🌐](https://github.com/inko-lang/inko "Homepage") [📰](https://github.com/inko-lang/inko/blob/v0.16.0/CHANGELOG.md "Changelog") [📦](./pkgs/by-name/inko/package.nix#L54 "Source")
+### `inko` `0.16.0` [🌐](https://github.com/inko-lang/inko "Homepage") [📰](https://github.com/inko-lang/inko/blob/v0.16.0/CHANGELOG.md "Changelog") [📦](./pkgs/by-name/inko/package.nix#L55 "Source")
 
 A language for building concurrent software with confidence.
 
@@ -3321,6 +3321,28 @@ A GNOME theme for Thunderbird.
 - Update Script: ✔️
 </details>
 
+### `volts` `0.2.1` [🌐](https://github.com/lapce/lapce-volts "Homepage") [📦](./pkgs/by-name/volts/package.nix#L36 "Source")
+
+CLI tool for publishing and managing Lapce plugins.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `volts`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Platforms: `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `i686-freebsd`, `x86_64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv6l-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv64-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `powerpc-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `armv7a-darwin`, `armv5tel-linux`, `armv7a-linux`, `m68k-linux`, `mips-linux`, `mips64-linux`, `mipsel-linux`, `mips64el-linux`, `riscv32-linux`, `armv6l-netbsd`, `mipsel-netbsd`, `riscv64-netbsd`, `x86_64-redox`
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Tests: `version`
+- Update Script: ❌
+</details>
+
 ### `wayneko` `0-unstable-2024-03-29` [🌐](https://sr.ht/~leon_plickat/wayneko/ "Homepage") [📦](./pkgs/by-name/wayneko/package.nix#L46 "Source")
 
 Display an animated neko cat on the bottom of an output.
@@ -3364,7 +3386,7 @@ Wisp turns indentation based syntax into Lisp.
 - Update Script: ❌
 </details>
 
-### `woke` `0.19.0` [🌐](https://github.com/get-woke/woke "Homepage") [📦](./pkgs/by-name/woke/package.nix#L53 "Source")
+### `woke` `0.19.0` [🌐](https://github.com/get-woke/woke "Homepage") [📦](./pkgs/by-name/woke/package.nix#L54 "Source")
 
 Detect non-inclusive language in your source code.
 

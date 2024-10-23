@@ -32,7 +32,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/projg2/cpuid2cpuflags";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.unix;
-    badPlatforms = lib.platforms.darwin;
     maintainers = [ lib.maintainers.federicoschonborn ];
   };
 })

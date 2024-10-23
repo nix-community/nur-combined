@@ -78,6 +78,18 @@ def "main run-stable" [package: string] {
     nix-stable run $".#($package)"
 }
 
+def "main test-stable" [] {
+    let tests = main run-stable tests | from json
+
+    nix-stable build ...$tests
+}
+
+def "main test-unstable" [] {
+    let tests = main run-unstable tests | from json
+
+    nix-unstable build ...$tests
+}
+
 def "main path-info-unstable" [package: string] {
     main build-unstable $package
     nix-unstable path-info $".#($package)"
