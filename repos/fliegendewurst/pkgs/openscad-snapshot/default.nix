@@ -1,11 +1,11 @@
-{ lib, fetchurl, appimageTools, openscad, makeWrapper, makeDesktopItem }:
+{ lib, fetchurl, appimageTools, openscad, makeDesktopItem }:
 
 let
   pname = "openscad";
-  version = "2023.08.25.ai16051";
+  version = "2024.10.23.ai20994";
   src = fetchurl {
     url = "https://files.openscad.org/snapshots/OpenSCAD-${version}-x86_64.AppImage";
-    sha256 = "sha256-mEGmkL2lL7JxK0nRPLtnfg4vxtkK3URz351eyuRHZPE=";
+    hash = "sha256-2iltY9JcyfCn6IvoSRBlZy3ugt8UWjchYp3B7nW8hMo=";
   };
 
   desktopItem = makeDesktopItem {
@@ -26,10 +26,6 @@ appimageTools.wrapType2 {
   inherit pname version src;
 
   extraInstallCommands = ''
-    source "${makeWrapper}/nix-support/setup-hook"
-    wrapProgram $out/bin/${pname}-${version} \
-        --unset QT_PLUGIN_PATH
-
     mkdir -p $out/share
     cp -rt $out/share ${desktopItem}/share/applications ${appimageContents}/usr/share/icons
   '';
