@@ -253,6 +253,7 @@ lib.makeScope newScope (
     vt2geojson = callPackage ./geospatial/vt2geojson { };
     titiler = callPackage ./geospatial/titiler { };
     tilecloud = callPackage ./geospatial/tilecloud { };
+    wms-tiles-downloader = callPackage ./geospatial/wms-tiles-downloader { };
 
     ### GNSS
 
