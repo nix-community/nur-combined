@@ -409,7 +409,7 @@ let
         python3 = python311Packages.python;
       };
     in electrum-cli.overridePythonAttrs (old: {
-      propagatedBuildInputs = old.propagatedBuildInputs
+      ${if old ? propagatedBuildInputs then "propagatedBuildInputs" else null} = old.propagatedBuildInputs
         ++ lib.optional (lib.versionOlder electrum.version "4.5.3") python311Packages.pyperclip;
 
       # work around nixpkgs breakage
