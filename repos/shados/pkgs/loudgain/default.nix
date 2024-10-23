@@ -16,6 +16,18 @@ stdenv.mkDerivation rec {
       sha256 = "sha256-h6SduvURdmyNb1X8I8g6MDaes9aNshWd0ifwWJhVTzw=";
       name = "loudgain-ffmpeg5.patch";
     })
+    (fetchpatch {
+      # See loudgain PR #65
+      url = "https://github.com/hughmcmaster/loudgain/commit/ad9c7f8ddf0907d408b3d2fbf4d00ecb55af8d13.patch";
+      sha256 = "sha256-7BJ8Za6T4KpMCvPMhEddAqv5YzndTLW/Tid6im5jpIc=";
+      name = "loudgain-gcc14.patch";
+    })
+    (fetchpatch {
+      # See loudgain PR #66
+      url = "https://github.com/hughmcmaster/loudgain/commit/50741b98fb4b932759f05e8d208d80d93bcc8261.patch";
+      sha256 = "sha256-A05pVQ+hUZBgSSU2OvclyOHmpxG7qRpcpJ2ThUGhC+s=";
+      name = "loudgain-ffmpeg7.patch";
+    })
   ];
 
   nativeBuildInputs = [
