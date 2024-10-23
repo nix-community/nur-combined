@@ -1,0 +1,13 @@
+diff --git a/config.h b/config.h
+index 2b8dcba..c9f90e2 100644
+--- a/config.h
++++ b/config.h
+@@ -38,7 +38,7 @@
+ #define ns_config_h
+ 
+ 
+-#define MEMDEBUG_SIMULATIONS
++// #define MEMDEBUG_SIMULATIONS
+ 
+ /* pick up standard types */
+ #include <sys/types.h>
