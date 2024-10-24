@@ -63,7 +63,7 @@
     # atticd.enable = true;
     atuin.enable = true;
     postgresql.enable = true;
-    # photoprism.enable = true;
+    photoprism.enable = true;
     mysql.enable = true;
     prometheus.enable = true;
     vaultwarden.enable = true;
