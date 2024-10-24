@@ -94,6 +94,19 @@ in {
     asciiportal = callPackage ./pkgs/asciiportal {};
     asciiportal-git = callPackage ./pkgs/asciiportal/git.nix {};
     
+    icbm3d = pkgs.icbm3d.overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+            substituteInPlace makefile --replace-fail 'CC=' '#CC='
+            substituteInPlace randnum.c --replace-fail 'stdio.h' 'stdlib.h'
+            sed -i '1i\
+            #include <string.h>' text.c
+        '';
+        meta = old.meta // {
+            description = "${old.meta.description or "icbm3d"} (fixed for macOS/Darwin)";
+            platforms = old.meta.platforms ++ pkgs.lib.platforms.darwin;
+        };
+    });
+    
     # Can't just pass `-L` to `nix-build-uncached`: it ends up being passed to both
     # old `nix-build` (which doesn't understand it) and new `nix build` (which does).
     nix-build-uncached-logging = callPackage ({nix-build-uncached}: nix-build-uncached.overrideAttrs (old: {
