@@ -1,7 +1,12 @@
-{ lib, pkgs, ... }@args:
+{
+  lib,
+  pkgs,
+  user,
+  ...
+}@args:
 # https://gist.github.com/thalesmg/ae5dc3c5359aed78a33243add14a887d
 let
-  configPlace = "~/.config";
+  configPlace = "/home/${user}/.config";
 
   inherit (builtins) readDir foldl' attrNames;
   inherit (lib.attrsets) filterAttrs setAttrByPath recursiveUpdate;

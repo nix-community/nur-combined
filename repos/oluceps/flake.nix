@@ -28,9 +28,6 @@
             lib,
             ...
           }:
-          let
-            homeCfgAttr = (import ./home { inherit pkgs lib; });
-          in
           {
 
             _module.args.pkgs = import inputs.nixpkgs {
@@ -70,18 +67,6 @@
                 b3sum
                 nushell
               ];
-            };
-
-            apps.default = {
-              type = "app";
-              program = pkgs.writeShellScriptBin "link-home" (
-                lib.concatStringsSep "\n" (
-                  lib.foldlAttrs (
-                    acc: n: v:
-                    acc ++ lib.singleton "mkdir -p ${extraLibs.parent n}; ln -sf ${v} ${n}"
-                  ) [ ] homeCfgAttr
-                )
-              );
             };
 
             packages =

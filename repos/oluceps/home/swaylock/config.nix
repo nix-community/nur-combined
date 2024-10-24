@@ -1,18 +1,15 @@
 { pkgs, ... }:
 let
   img = pkgs.fetchurl {
-    url = "https://maxwell.ydns.eu/git/rnhmjoj/nix-slim/raw/branch/master/background.png";
-    name = "img.jpg";
-    hash = "sha256-kqvVGHOaD7shJrvYfhLDvDs62r20wi8Sajth16Spsrk=";
+    url = "https://s3.nyaw.xyz/misskey//54f23f73-cd56-49ac-abf2-3c4ab3409c5a.jpg";
+    name = "54f23f73-cd56-49ac-abf2-3c4ab3409c5a";
+    hash = "sha256-AlQEyfi5f1cavux0advHDMQBfue14NPQhiXPUFpo/Bs=";
   };
-  img-blurred = pkgs.runCommand "img.jpg" {
-    nativeBuildInputs = with pkgs; [ imagemagick ];
-  } "convert -blur 14x5 ${img} $out";
 in
 ''
   daemonize
   font=Hanken Grotesk
-  image=${img-blurred}
+  image=${img}
   indicator-radius=100
   indicator-thickness=15
   inside-clear-color=563F2E00
