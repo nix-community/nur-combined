@@ -1563,10 +1563,10 @@
     };
     "click-and-read" = buildFirefoxXpiAddon {
       pname = "click-and-read";
-      version = "3.20.0";
+      version = "3.21.0";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4367656/click_and_read-3.20.0.xpi";
-      sha256 = "2ec136be98721aeadbd0927f33b946d07dddffc2079dbbf9c9d7bf3504b8142f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4374926/click_and_read-3.21.0.xpi";
+      sha256 = "b156d70ce27297b3f2064a55d53d12c0f3c0c47fd0ab3ac680b76255046e51e6";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -8021,10 +8021,10 @@
     };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "8.10.46.26";
+      version = "8.10.48.25";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4355876/1password_x_password_manager-8.10.46.26.xpi";
-      sha256 = "dc97804c1ca57402fa5adf6ea0cc7795eb607468a9d6b5ff7e6ec9fdfd1c1b47";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4370505/1password_x_password_manager-8.10.48.25.xpi";
+      sha256 = "85dac283f4d6ddb06f07f27a6793480e0006e7ddb925808674a2cd7b284ccf49";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -12440,10 +12440,10 @@
     };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.74";
+      version = "6.10.75";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4355576/wappalyzer-6.10.74.xpi";
-      sha256 = "e8ac54102eb1a54ad67e136cc16aadcd0cc31235dc5eae30f2742799430f39da";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4370565/wappalyzer-6.10.75.xpi";
+      sha256 = "94d4623fd98d3920970140385edef82ce603fcfc22d225c949c73f7e81723036";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
