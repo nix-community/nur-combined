@@ -26,6 +26,7 @@ python3Packages.buildPythonPackage {
     python3Packages.paramiko
     python3Packages.prettytable
     python3Packages.py-cpuinfo
+    python3Packages.pynacl
     python3Packages.requests
     python3Packages.setuptools
     python3Packages.setuptools_scm

@@ -27,5 +27,6 @@ materialgram.overrideAttrs (old: {
   meta = old.meta // {
     description = "${old.meta.description} (Without anti-features)";
     maintainers = with lib.maintainers; [ xddxdd ];
+    broken = lib.versionOlder old.version "5.6.2";
   };
 })
