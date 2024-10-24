@@ -1,6 +1,5 @@
 { pkgs, ... }:
 ''
-  # BACKGROUND
   background {
       monitor =
       #path = screenshot
@@ -18,7 +17,6 @@
       vibrancy_darkness = 0.2
   }
 
-  # GENERAL
   general {
       no_fade_in = true
       no_fade_out = true
@@ -27,7 +25,6 @@
       disable_loading_bar = true
   }
 
-  # INPUT FIELD
   input-field {
       monitor =
       size = 250, 60
