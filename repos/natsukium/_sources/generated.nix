@@ -3,10 +3,10 @@
 {
   copyq-darwin = {
     pname = "copyq-darwin";
-    version = "9.0.0";
+    version = "9.1.0";
     src = fetchurl {
-      url = "https://github.com/hluk/CopyQ/releases/download/v9.0.0/CopyQ-macos-12-m1.dmg.zip";
-      sha256 = "sha256-ABLYjG2OW6wpMI7uXudkM8MYEQBRbxbGcBm2iiuN/0w=";
+      url = "https://github.com/hluk/CopyQ/releases/download/v9.1.0/CopyQ-macos-12-m1.dmg.zip";
+      sha256 = "sha256-Vncfe+W+wEqOO4wBzrsBI/J/4N3bqmJKNfX0eT6JOvg=";
     };
   };
   emacs-plus = {
