@@ -15,7 +15,9 @@ in {
 
   config = mkMerge [
     (mkIf cfg.client {
-      environment.systemPackages = with pkgs; with pkgs.nur.repos.dukzcry; [ remmina yandex-disk ];
+      environment.systemPackages = with pkgs; [
+        remmina yandex-disk postman
+      ];
       programs.evolution.plugins = [ pkgs.evolution-ews ];
       services.xserver.displayManager.sessionCommands = ''
         yandex-disk start
