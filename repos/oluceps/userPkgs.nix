@@ -150,7 +150,6 @@ with pkgs;
   zellij
   # netease-cloud-music-gtk
   cmatrix
-  termius
   # kotatogram-desktop
   nmap
   lm_sensors

@@ -14,8 +14,9 @@
         http = {
           servers = {
             srv0 = {
-              routes = [
-              ];
+              routes =
+                [
+                ];
               tls_connection_policies = [
                 {
                   match = {

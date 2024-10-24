@@ -43,6 +43,7 @@ withSystem "x86_64-linux" (
       user = "elen";
     };
     modules = lib.sharedModules ++ [
+      ../home.nix
       ./hardware.nix
       ./network.nix
       ./rekey.nix

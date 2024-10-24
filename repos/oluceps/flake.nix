@@ -15,7 +15,7 @@
             agenix-rekey.flakeModule
           ])
           ++ [ ./hosts ];
-        debug = true;
+        debug = false;
         systems = [
           "x86_64-linux"
           "aarch64-linux"
@@ -42,7 +42,16 @@
                 nuenv.overlays.default
               ];
               config = {
-                allowUnfree = true;
+                allowUnfreePredicate =
+                  pkg:
+                  builtins.elem (lib.getName pkg) [
+                    "obsidian"
+                    "discord"
+                    "veracrypt"
+                    "mprime"
+                    "tetrio-desktop"
+                    "mongodb-compass"
+                  ];
               };
             };
 
@@ -66,13 +75,11 @@
             apps.default = {
               type = "app";
               program = pkgs.writeShellScriptBin "link-home" (
-                toString (
-                  lib.concatStringsSep "\n" (
-                    lib.foldlAttrs (
-                      acc: n: v:
-                      acc ++ lib.singleton "mkdir -p ${extraLibs.parent n}; ln -sf ${v} ${n}"
-                    ) [ ] homeCfgAttr
-                  )
+                lib.concatStringsSep "\n" (
+                  lib.foldlAttrs (
+                    acc: n: v:
+                    acc ++ lib.singleton "mkdir -p ${extraLibs.parent n}; ln -sf ${v} ${n}"
+                  ) [ ] homeCfgAttr
                 )
               );
             };
@@ -91,17 +98,7 @@
               // {
                 default = pkgs.symlinkJoin {
                   name = "user-pkgs";
-                  paths =
-                    import ./userPkgs.nix { inherit pkgs; }
-                    ++ (lib.singleton (
-                      map (
-                        path:
-                        let
-                          source = homeCfgAttr.${path};
-                        in
-                        pkgs.writeTextDir path source
-                      ) (builtins.attrNames homeCfgAttr)
-                    ));
+                  paths = import ./userPkgs.nix { inherit pkgs; };
                 };
               };
             formatter = pkgs.nixfmt-rfc-style;
@@ -141,7 +138,7 @@
 
           nixosModules =
             let
-              shadowedModules = [ "sundial" ];
+              shadowedModules = [ ];
               modules =
                 let
                   genModule =
