@@ -7,12 +7,6 @@ reIf {
     ensureDatabases = [ "photoprism" ];
     ensureUsers = [
       {
-        name = "riro";
-        ensurePermissions = {
-          "*.*" = "ALL PRIVILEGES";
-        };
-      }
-      {
         name = "photoprism";
         ensurePermissions = {
           "photoprism.*" = "ALL PRIVILEGES";

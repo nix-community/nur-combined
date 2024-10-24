@@ -23,7 +23,6 @@
   "age"
   "pub"
   "minio"
-  "prism"
   "aws-s3-cred"
   "attic"
 ])

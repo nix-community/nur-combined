@@ -40,6 +40,8 @@
     dnsproxy.enable = true;
     scrutiny.enable = true;
     postgresql.enable = true;
+    photoprism.enable = true;
+    mysql.enable = true;
   };
 
   services = {

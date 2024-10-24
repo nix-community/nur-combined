@@ -46,13 +46,6 @@
     '';
   };
 
-  # photoprism minio
-  networking.firewall.allowedTCPPorts = [
-    9000
-    9001
-    6622
-  ] ++ [ config.services.photoprism.port ];
-
   services.smartd.notifications.systembus-notify.enable = true;
   repack = {
     openssh.enable = true;
@@ -63,8 +56,8 @@
     # atticd.enable = true;
     atuin.enable = true;
     postgresql.enable = true;
-    photoprism.enable = true;
-    mysql.enable = true;
+    # photoprism.enable = true;
+    # mysql.enable = true;
     prometheus.enable = true;
     vaultwarden.enable = true;
     matrix-conduit.enable = true;

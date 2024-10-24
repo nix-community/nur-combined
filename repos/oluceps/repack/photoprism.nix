@@ -9,9 +9,9 @@ reIf {
     enable = true;
     originalsPath = "/var/lib/private/photoprism/originals";
     address = "[::]";
-    passwordFile = config.age.secrets.prism.path;
+    passwordFile = config.age.secrets.wg.path;
     settings = {
-      PHOTOPRISM_ADMIN_USER = "${user}";
+      PHOTOPRISM_ADMIN_USER = "prism";
       PHOTOPRISM_DEFAULT_LOCALE = "en";
       PHOTOPRISM_DATABASE_NAME = "photoprism";
       PHOTOPRISM_DATABASE_SERVER = "/run/mysqld/mysqld.sock";
