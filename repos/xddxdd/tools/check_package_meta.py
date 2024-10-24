@@ -165,14 +165,18 @@ def get_packages() -> List[str]:
     return list(json.loads(nix_output.stdout).keys())
 
 
-def get_package_info(package_path: str) -> dict:
+def get_package_info(package_path: str) -> Optional[dict]:
     nix_output = subprocess.run(
         ["nix", "derivation", "show", f".#{package_path}"],
-        check=True,
         text=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
+    if nix_output.returncode != 0:
+        if "refusing to evaluate" in nix_output.stderr:
+            return None
+        else:
+            raise RuntimeError(nix_output.stderr)
     return list(json.loads(nix_output.stdout).items())[0][1]
 
 
@@ -191,6 +195,10 @@ def check_package(package_path: str) -> bool:
     valid = True
 
     package_info = get_package_info(package_path)
+    if package_info is None:
+        # Skip check of broken package
+        return True
+
     package_meta = get_package_meta(package_path)
 
     # Do not check merged packages solely for CI purposes
