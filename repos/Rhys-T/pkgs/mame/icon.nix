@@ -1,12 +1,12 @@
-{ stdenvNoCC, papirus-icon-theme }: stdenvNoCC.mkDerivation {
-    pname = "mame-icon-from-${papirus-icon-theme.pname}";
-    inherit (papirus-icon-theme) version src;
-    dontUnpack = true;
-    installPhase = ''
-        runHook preInstall
-        mkdir -p "$out"/share/icons/Papirus/32x32/apps
-        cp "$src"/Papirus/32x32/apps/mame.svg "$out"/share/icons/Papirus/32x32/apps/mame.svg
-        runHook postInstall
+{ lib, fetchurl }: fetchurl rec {
+    pname = "mame-icon-from-papirus-icon-theme";
+    version = "20240501";
+    url = "https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/refs/tags/${version}/Papirus/32x32/apps/mame.svg";
+    downloadToTemp = true;
+    postFetch = ''
+        install -Dm444 "$downloadedFile" "$out"/share/icons/Papirus/32x32/apps/mame.svg
     '';
-    meta.license = papirus-icon-theme.meta.license;
+    recursiveHash = true;
+    hash = "sha256-iVfep3z/2wLv9GfWjj6iThHIRKXzRW53rIwyKQicggQ=";
+    meta.license = lib.licenses.gpl3Only;
 }
