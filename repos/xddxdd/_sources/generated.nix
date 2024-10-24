@@ -788,7 +788,7 @@
     pname = "magiskboot";
     version = "v28.0";
     src = fetchurl {
-      url = "https://github.com/topjohnwu/Magisk/releases/download/v28.0/app-release.apk";
+      url = "https://github.com/topjohnwu/Magisk/releases/download/v28.0/Magisk-v28.0.apk";
       sha256 = "sha256-Gx7rrCn4qxpB5fILvc7vszQek7w9VaD5lckCsP6Hf+I=";
     };
   };
