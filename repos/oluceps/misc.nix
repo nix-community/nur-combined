@@ -26,7 +26,6 @@
     Environment = [ "TMPDIR=/var/tmp/nix-daemon" ];
   };
 
-
   # srv.earlyoom.enable = true;
   environment.systemPackages = [
     pkgs.eza

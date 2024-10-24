@@ -15,12 +15,17 @@ withSystem "x86_64-linux" (
   let
     inherit (self) lib;
   in
-  lib.nixosSystem rec {
+  lib.nixosSystem {
     pkgs = import inputs.nixpkgs {
       inherit system;
       config = {
-        allowUnfree = true;
         allowUnsupportedSystem = true;
+        allowUnfreePredicate =
+          pkg:
+          builtins.elem (lib.getName pkg) [
+            "code"
+            "vscode"
+          ];
         permittedInsecurePackages = [
           "olm-3.2.16"
         ];
