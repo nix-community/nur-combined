@@ -6,7 +6,8 @@
     includeMusic, music,
     common
 }: stdenvNoCC.mkDerivation {
-    inherit (common) pname src version;
+    inherit (common) pname version;
+    dontUnpack = true;
     preferLocalBuild = true;
     nativeBuildInputs = [lndir makeBinaryWrapper];
     unwrapped = game-unwrapped;
