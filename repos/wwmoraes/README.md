@@ -31,26 +31,69 @@ packages locally. Check the `Taskfile.yaml` or use `task -l` for more commands.
 
 ## 🎈 Usage
 
-You can either use this repository standalone or through NUR.
+Import it either directly or through NUR. See instructions below. It takes two
+optional parameters:
 
-### Standalone
+- `system`, which defaults to `builtins.currentSystem`
+- `pkgs`, which defaults to `<nixpkgs>` and inherits `system`
+
+### Direct import
+
+You can use this form in shells, flakes and any other independent nix file.
 
 ```nix
 { pkgs, ... }:
 let
 	nurpkgs = import (builtins.fetchTarball "https://github.com/wwmoraes/nurpkgs/archive/master.tar.gz") { inherit pkgs; };
-in {
-	# use nurpkgs.<package-name> to reference a package from this repository
-}
+in { ... }
+```
+Use `nurpkgs.<package-name>` to reference a package from this repository.
+
+### Through NUR
+
+```nix
+let
+	pkgs = import <nixpkgs> {
+		config.packageOverrides = pkgs: {
+			nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+				inherit pkgs;
+			};
+		};
+	};
+in { ... }
+```
+Then use `nur.repos.wwmoraes.<package-name>` to install a package from this
+repository. Check <https://github.com/nix-community/NUR> for more details.
+
+### Binary cache
+
+The repository has a companion Cachix binary cache with `aarch64-darwin` and
+`x86_64-linux` builds. Use `cachix use wwmoraes` or configure it manually in
+your nix settings.
+
+#### NixOS
+
+Add to your `/etc/nixos/configuration.nix`:
+
+```conf
+nix.settings.substituters = [
+	...
+	"https://wwmoraes.cachix.org"
+];
+nix.settings.trusted-public-keys = [
+	...
+	"wwmoraes.cachix.org-1:N38Kgu19R66Jr62aX5rS466waVzT5p/Paq1g6uFFVyM="
+];
 ```
 
-### NUR
+#### Other OSes
 
-Check <https://github.com/nix-community/NUR> on how to add NUR as a package
-override. Then use the `nur.repos.wwmoraes.<package-name>` to install a package
-from this repository.
+Add to `/etc/nix/nix.conf`:
 
-Add notes about how to use the system.
+```conf
+extra-substituters = https://wwmoraes.cachix.org
+extra-trusted-public-keys = wwmoraes.cachix.org-1:N38Kgu19R66Jr62aX5rS466waVzT5p/Paq1g6uFFVyM=
+```
 
 ## 🔧 Built Using
 

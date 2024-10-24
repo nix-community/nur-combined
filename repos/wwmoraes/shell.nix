@@ -15,17 +15,18 @@ let
 	inherit (pkgs) mkShell;
 in mkShell {
 	packages = [
+		pkgs.cachix
+		pkgs.eclint
 		pkgs.editorconfig-checker
 		pkgs.git
+		pkgs.go-commitlint
 		pkgs.go-task
-		pkgs.just
+		pkgs.lefthook
 		pkgs.markdownlint-cli
+		pkgs.nil
 		pkgs.typos
+		pkgs.yamlfixer
 	] ++ pkgs.lib.optionals (builtins.getEnv "CI" != "") [ # CI-only
 	] ++ pkgs.lib.optionals (builtins.getEnv "CI" == "") [ # local-only
-		pkgs.eclint
-		pkgs.go-commitlint
-		pkgs.lefthook
-		pkgs.yamlfixer
 	];
 }
