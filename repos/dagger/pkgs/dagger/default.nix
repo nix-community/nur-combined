@@ -9,24 +9,24 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    x86_64-linux = "1vmik1lww7ily6zdy8y6flql5wg57dx8vnyglmfk4gfdg48bxq3s";
-    armv7l-linux = "1110i9in9swaa50i4yjrf88zapf57z85mj8gc5rbbrndgppw95ky";
-    aarch64-linux = "1l08mamvwkm8s85slicp1gcmbpdzz3fww8kxq1sgrw9c5sx5q37m";
-    x86_64-darwin = "0yxlb7i0fmhdjisn6z7zbg6f2n65i7zryjqifn7yjzm2lhcakklf";
-    aarch64-darwin = "1pg3h1ykacm3kwljfb4cwzvxg7brbf2ywls2swdb6b6nb812i0vz";
+    x86_64-linux = "0j25bwvizg09zb8334ca1ar5m2n0l5qagfbmhxciijz2lv0sl19i";
+    armv7l-linux = "0jpslkav8bvhjnwjyhnakynwiprg0cz015rbhyb8jby5cbs8py8s";
+    aarch64-linux = "0ni8hbqnzgl4ic870zcljjhlsfm2pcjzvsl7b99i2nawdjmm3zn1";
+    x86_64-darwin = "1hzxw4cmylmhlilh2yr6sp44wzsqz9w192ach442zyb4z7gd4mnr";
+    aarch64-darwin = "0vsiyw8vyh99adrs1fmv6x4dmvfkj4k818pfvmbwms7dz5k9xa0w";
   };
 
   urlMap = {
-    x86_64-linux = "https://dl.dagger.io/dagger/releases/0.13.5/dagger_v0.13.5_linux_amd64.tar.gz";
-    armv7l-linux = "https://dl.dagger.io/dagger/releases/0.13.5/dagger_v0.13.5_linux_armv7.tar.gz";
-    aarch64-linux = "https://dl.dagger.io/dagger/releases/0.13.5/dagger_v0.13.5_linux_arm64.tar.gz";
-    x86_64-darwin = "https://dl.dagger.io/dagger/releases/0.13.5/dagger_v0.13.5_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://dl.dagger.io/dagger/releases/0.13.5/dagger_v0.13.5_darwin_arm64.tar.gz";
+    x86_64-linux = "https://dl.dagger.io/dagger/releases/0.13.6/dagger_v0.13.6_linux_amd64.tar.gz";
+    armv7l-linux = "https://dl.dagger.io/dagger/releases/0.13.6/dagger_v0.13.6_linux_armv7.tar.gz";
+    aarch64-linux = "https://dl.dagger.io/dagger/releases/0.13.6/dagger_v0.13.6_linux_arm64.tar.gz";
+    x86_64-darwin = "https://dl.dagger.io/dagger/releases/0.13.6/dagger_v0.13.6_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://dl.dagger.io/dagger/releases/0.13.6/dagger_v0.13.6_darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "dagger";
-  version = "0.13.5";
+  version = "0.13.6";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
@@ -37,10 +37,8 @@ stdenvNoCC.mkDerivation {
   nativeBuildInputs = [ installShellFiles ];
 
   installPhase = ''
-    runHook preInstall
     mkdir -p $out/bin
     cp -vr ./dagger $out/bin/dagger
-    runHook postInstall
   '';
   postInstall = ''
     installShellCompletion --cmd dagger \
