@@ -1,27 +1,32 @@
-{ pkgs, lib, callPackage, ... }:
+{ pkgs, lib, ... }:
 let
+  callPackage = lib.callPackageWith (pkgs // final // {
+    inherit callPackage;
+  });
+
   mergeAttrsList = let
     mergeAttrsList' = lib.foldl lib.mergeAttrs { };
   in lib.mergeAttrsList or mergeAttrsList';
 
-  importSub = prefix: attrs: lib.flip lib.mapAttrs attrs (
+  importSub = prefix: attrs: lib.mapAttrs (
     name: {
       _file ? null,
-      _path ? if _file != null
-        then lib.path.append prefix "${name}/${_file}"
-        else lib.path.append prefix name,
+      _subPath ? if _file != null
+        then "${name}/${_file}"
+        else name,
+        _path ? lib.path.append prefix _subPath,
       _attr ? null,
       _common ? null,
       ...
     }@args: let
       args' =
-        builtins.removeAttrs args [ "_file" "_path" "_attr" "_common" ]
+        builtins.removeAttrs args [ "_file" "_subPath" "_path" "_attr" "_common" ]
         // lib.optionalAttrs (_common != null) {
           _common = callPackage ./common/${_common}.nix { };
         };
       package = callPackage _path args';
     in if _attr != null then package.${_attr} else package
-  );
+  ) attrs;
 
   applications = importSub ./applications {
     agree = { };
@@ -54,8 +59,9 @@ let
     piped-proxy = { };
   };
 
-in mergeAttrsList [
-  applications
-  development
-  servers
-]
+  final = mergeAttrsList [
+    applications
+    development
+    servers
+  ];
+in final
