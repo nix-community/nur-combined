@@ -182,13 +182,13 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "82c739631c544a9c01cd11653a153ae0650b7baf";
+    version = "6134af19c17071a297b76e19f9bdbc674897c659";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "82c739631c544a9c01cd11653a153ae0650b7baf";
+      rev = "6134af19c17071a297b76e19f9bdbc674897c659";
       fetchSubmodules = false;
-      sha256 = "sha256-4mi+62ttB21f+MJnywq6w87oGksk1ZtozN5MFiQrwY4=";
+      sha256 = "sha256-bqJ7tq/5a3japVj4xwwyU7cA/4nLTRrpgXeYYErAMD8=";
     };
     date = "2024-10-22";
   };
@@ -361,17 +361,17 @@
   };
   fastapi-dls = {
     pname = "fastapi-dls";
-    version = "6a54c05fbbe430ca6ee4260a1ab61099fab40a92";
+    version = "a7fe8b867e4fa7ae72dcb45dc5ac9b5ca8dea0be";
     src = fetchgit {
       url = "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git";
-      rev = "6a54c05fbbe430ca6ee4260a1ab61099fab40a92";
+      rev = "a7fe8b867e4fa7ae72dcb45dc5ac9b5ca8dea0be";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-dBRdWic01r0w3Zkf6lwmJc+vPz9fwJ79UyCyjZAwnR4=";
+      sha256 = "sha256-14OJXuxAq348VCww3oKMl5b2NtZWHiShEHo/Gey1WAE=";
     };
-    date = "2024-06-18";
+    date = "2024-10-24";
   };
   fcitx5-breeze = {
     pname = "fcitx5-breeze";
@@ -548,21 +548,21 @@
   };
   kata-containers = {
     pname = "kata-containers";
-    version = "3.9.0";
+    version = "3.10.0";
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      rev = "3.9.0";
+      rev = "3.10.0";
       fetchSubmodules = false;
-      sha256 = "sha256-aBcu59LybgZ9xkCDUzZXb60FeClQNG1ivfC6lWQdlb0=";
+      sha256 = "sha256-z4aDdK0+6iQbTwHnhpko6aDHnr6q2SAnhhDcLABkQkI=";
     };
   };
   kata-image = {
     pname = "kata-image";
-    version = "3.9.0";
+    version = "3.10.0";
     src = fetchurl {
-      url = "https://github.com/kata-containers/kata-containers/releases/download/3.9.0/kata-static-3.9.0-amd64.tar.xz";
-      sha256 = "sha256-w5z6GusrrS/8HryiLwwdo5SCFIuVBDDTvl5BlGuVFjo=";
+      url = "https://github.com/kata-containers/kata-containers/releases/download/3.10.0/kata-static-3.10.0-amd64.tar.xz";
+      sha256 = "sha256-o7GQJFS8LKWCNer9Vd+Vf+ZzYUJZ4hZcw/KMh4dwKdo=";
     };
   };
   kikoplay = {
@@ -648,15 +648,15 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "1d92135e808fb2f9f847e080ec8ff3124ee91ac7";
+    version = "71324732640cf4451cab425ac5d80ed9fd41a3af";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "1d92135e808fb2f9f847e080ec8ff3124ee91ac7";
+      rev = "71324732640cf4451cab425ac5d80ed9fd41a3af";
       fetchSubmodules = false;
-      sha256 = "sha256-8T3xXkn2FOuJNyA1+kkiEs7uQims2CvI5HgSItFIPoU=";
+      sha256 = "sha256-tf7QDLETN6AH1L8nFwx//0DpxuKrWGODJzEkbXo4jPo=";
     };
-    date = "2024-10-19";
+    date = "2024-10-23";
   };
   libqcef = {
     pname = "libqcef";
@@ -720,13 +720,13 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.11.4-xanmod1";
+    version = "6.11.5-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.11.4-xanmod1";
+      rev = "6.11.5-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-wBNC3V69CbWxdNckaHCRmm0GUe5EhH//SoDvDEq48ic=";
+      sha256 = "sha256-G4u0LQtIeJ0dNAmjNH0OKihmbkivYVbrbXDB9vPw2xI=";
     };
   };
   linux-xanmod-6_0 = {
@@ -753,35 +753,35 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.57-xanmod1";
+    version = "6.6.58-xanmod1";
     src = fetchFromGitHub {
       owner = "xanmod";
       repo = "linux";
-      rev = "6.6.57-xanmod1";
+      rev = "6.6.58-xanmod1";
       fetchSubmodules = false;
-      sha256 = "sha256-M12AgmaxfiBaKrZkONk7wNIJznbBhe0k1fNPIzA3ZI0=";
+      sha256 = "sha256-PjF3PIGCHWGIGHupu+vkdiyrL4h4KG2X5WmQUlz8Zww=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3952";
+    version = "b3974";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3952";
+      rev = "b3974";
       fetchSubmodules = false;
-      sha256 = "sha256-0a6gbKYb3Ditv3DfJf8sa/+83rynqd5uAZXz8GGkHRY=";
+      sha256 = "sha256-A0h8IfiksbEKeQXu6jKqgiiftmj/SYYUObjZDzwtSns=";
     };
   };
   lyrica = {
     pname = "lyrica";
-    version = "v0.11";
+    version = "v0.12";
     src = fetchFromGitHub {
       owner = "chiyuki0325";
       repo = "lyrica";
-      rev = "v0.11";
+      rev = "v0.12";
       fetchSubmodules = false;
-      sha256 = "sha256-nmMNfaXE5ooukH4QGoXfrIzIGe7BT0BTNLI7rJHD8ds=";
+      sha256 = "sha256-z7oAlWwL2qKzUGUYzxteGlb+lZkMCh2I4qR+coI5Kmk=";
     };
   };
   magiskboot = {
@@ -1015,7 +1015,7 @@
       repo = "oqs-provider";
       rev = "0.7.0";
       fetchSubmodules = false;
-      sha256 = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
+      sha256 = "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=";
     };
   };
   osdlyrics = {
@@ -1178,34 +1178,34 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "9.1.0+ds-8";
+    version = "9.1.1+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-8_amd64.deb";
-      sha256 = "sha256-JxaT2TsGI+ySD1Fbyrm6dUesXFnoPW7QZo7RMmcvGsg=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.1+ds-1_amd64.deb";
+      sha256 = "sha256-zJ7QKsG34Jz1FVEpADUZ3IiWtVZ+EtdZQSuPrm0cyqg=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "9.1.0+ds-8";
+    version = "9.1.1+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-8_arm64.deb";
-      sha256 = "sha256-a0aHpTdx8x1o1zRp8JTOhMWQDEvIPaHJ8G/BkMw8kBY=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.1+ds-1_arm64.deb";
+      sha256 = "sha256-fZPzl/P5wdfjINp8fF4+O+5chIFiY4rWzXG9jIote5g=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "9.1.0+ds-8";
+    version = "9.1.1+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-8_armhf.deb";
-      sha256 = "sha256-iAtMJ/eQKKvPYVFj6unDniN67tnfoZGk6+hELJE4S2Y=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.1+ds-1_armhf.deb";
+      sha256 = "sha256-v6RXJ4iGIT/3IuXrF4UUh4wf1tuBQPclUoxto8dWbAs=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "9.1.0+ds-8";
+    version = "9.1.1+ds-1";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.0+ds-8_i386.deb";
-      sha256 = "sha256-8//kl7JYtfw0qrmzxAdkduDxX9vryp8uFm7DQnabYP4=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.1+ds-1_i386.deb";
+      sha256 = "sha256-IRNfU/0xRwrEPoa/3QoAI+Ql69Ecd5OeG94n/k3XQ6s=";
     };
   };
   qhttpengine = {
@@ -1222,18 +1222,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "Linux/QQ_3.2.12_240927_amd64_01";
+    version = "Linux/QQ_3.2.13_241023_amd64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.12_240927_amd64_01.deb";
-      sha256 = "sha256-xBGSSxXDu+qUwj203i3iAkfI97iLtGOuGMGfEU6kCyQ=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.13_241023_amd64_01.deb";
+      sha256 = "sha256-H5ACKFVV4AQ3de9UV4i9ejL1WjuuPJhTLTVqK5EcssM=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "Linux/QQ_3.2.12_240927_arm64_01";
+    version = "Linux/QQ_3.2.13_241023_arm64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.12_240927_arm64_01.deb";
-      sha256 = "sha256-VfM+p2cTNkDZc7sTftfTuRSMKVWwE6TerW25pA1MIR0=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.13_241023_arm64_01.deb";
+      sha256 = "sha256-n2ezKgLfmugUZYvGzDvaLKy+Tf8ooUC6Oc6xCDp5rYA=";
     };
   };
   qqmusic = {
@@ -1269,13 +1269,13 @@
   };
   r8168 = {
     pname = "r8168";
-    version = "8.053.00";
+    version = "8.054.00";
     src = fetchFromGitHub {
       owner = "mtorromeo";
       repo = "r8168";
-      rev = "8.053.00";
+      rev = "8.054.00";
       fetchSubmodules = false;
-      sha256 = "sha256-0bHGs8jyWd+ZiixOoNkBqhS9RjDpRp3vveAgk1YuOWU=";
+      sha256 = "sha256-KyycAe+NBmyDDH/XkAM4PpGvXI5J1CuMW4VuHcOm0UQ=";
     };
   };
   rime-aurora-pinyin = {
