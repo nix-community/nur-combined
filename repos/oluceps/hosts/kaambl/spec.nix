@@ -21,10 +21,6 @@
     powerKey = "suspend"; # it sucks. laptop
     powerKeyLongPress = "poweroff";
   };
-  hardware.graphics.extraPackages = with pkgs; [
-    rocm-opencl-icd
-    rocm-opencl-runtime
-  ];
   environment.sessionVariables = {
     # WLR_RENDERER = "vulkan";
   };

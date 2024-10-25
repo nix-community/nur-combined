@@ -22,12 +22,6 @@
       #   })
       #   factorio-headless-experimental
       #   ;
-      inherit
-        (import inputs.nixpkgs-factorio {
-          inherit (prev) system;
-        })
-        ccid
-        ;
 
       inherit (inputs'.browser-previews.packages) google-chrome-beta;
 
