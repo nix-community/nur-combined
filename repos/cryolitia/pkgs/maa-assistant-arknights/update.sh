@@ -57,4 +57,4 @@ git --no-pager diff $directory
 
 git add $directory
 
-git commit -m "$commit_message"
+git commit -m "$commit_message" || true
