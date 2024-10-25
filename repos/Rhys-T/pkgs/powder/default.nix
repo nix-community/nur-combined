@@ -1,4 +1,4 @@
-{ stdenv, lib, SDL_compat, fetchurl }: stdenv.mkDerivation rec {
+{ stdenv, lib, SDL_compat, fetchurl, maintainers }: let maintainers' = maintainers; in stdenv.mkDerivation rec {
     pname = "powder";
     version = "118";
     src = fetchurl {
@@ -52,7 +52,7 @@
         install -Dm755 ../debian/powder.desktop "$out"/share/applications/powder.desktop
         install -Dm644 ../debian/powder.xpm "$out"/share/icons/hicolor/32x32/apps/powder.xpm
         install -Dm644 ../debian/powder.6 "$out"/share/man/man6/powder.6
-        install -Dm644 README.TXT CREDITS.TXT "$out"/share/docs/powder/CREDITS
+        install -Dm644 -t "$out"/share/docs/powder README.TXT CREDITS.TXT
         # TODO Are these right? See license notes below
         install -Dm644 LICENSE.TXT "$out"/share/licenses/powder/LICENSE
         install -Dm644 COPYING "$out"/share/licenses/powder/source/COPYING
@@ -120,6 +120,6 @@
             
             # There's also some Apache-2.0 code in there, but only in the Android port.
         ];
+        maintainers = [maintainers'.Rhys-T];
     };
-    maintainers = [maintainers.Rhys-T];
 }
