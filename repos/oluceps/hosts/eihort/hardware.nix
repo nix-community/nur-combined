@@ -121,17 +121,6 @@
                     ];
                     mountpoint = "/nix";
                   };
-                  "/var" = {
-                    mountOptions = [
-                      "compress-force=zstd:1"
-                      "noatime"
-                      "discard=async"
-                      "space_cache=v2"
-                      "nosuid"
-                      "nodev"
-                    ];
-                    mountpoint = "/var";
-                  };
                 };
               };
             };
@@ -166,13 +155,15 @@
       "space_cache=v2"
     ];
   };
-  fileSystems."/var/cache/jfs" = {
+  fileSystems."/var" = {
     device = "/dev/disk/by-id/nvme-eui.00000000000000008ce38e10014c244a";
     fsType = "btrfs";
     options = [
       "compress-force=zstd:3"
       "noatime"
-      "subvol=cache"
+      "subvol=eihort-var"
+      "nosuid"
+      "nodev"
     ];
   };
 
