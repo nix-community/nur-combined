@@ -90,6 +90,50 @@
                 ];
               };
             };
+            root = {
+              size = "100%";
+              content = {
+                type = "btrfs";
+                extraArgs = [
+                  "-f"
+                  "--csum xxhash64"
+                ];
+                subvolumes = {
+
+                  # "/persist" = {
+                  #   mountpoint = "/persist";
+                  #   mountOptions = [
+                  #     "compress-force=zstd:1"
+                  #     "noatime"
+                  #     "discard=async"
+                  #     "space_cache=v2"
+                  #   ];
+                  # };
+                  "/nix" = {
+                    mountOptions = [
+                      "compress-force=zstd:1"
+                      "noatime"
+                      "discard=async"
+                      "space_cache=v2"
+                      "nosuid"
+                      "nodev"
+                    ];
+                    mountpoint = "/nix";
+                  };
+                  # "/var" = {
+                  #   mountOptions = [
+                  #     "compress-force=zstd:1"
+                  #     "noatime"
+                  #     "discard=async"
+                  #     "space_cache=v2"
+                  #     "nosuid"
+                  #     "nodev"
+                  #   ];
+                  #   mountpoint = "/var";
+                  # };
+                };
+              };
+            };
           };
         };
       };
@@ -132,17 +176,17 @@
       "nodev"
     ];
   };
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-id/nvme-eui.00000000000000008ce38e10014c244a";
-    fsType = "btrfs";
-    options = [
-      "compress-force=zstd:3"
-      "noatime"
-      "subvol=nix"
-      "nosuid"
-      "nodev"
-    ];
-  };
+  # fileSystems."/nix" = {
+  #   device = "/dev/disk/by-id/nvme-eui.00000000000000008ce38e10014c244a";
+  #   fsType = "btrfs";
+  #   options = [
+  #     "compress-force=zstd:3"
+  #     "noatime"
+  #     "subvol=nix"
+  #     "nosuid"
+  #     "nodev"
+  #   ];
+  # };
   fileSystems."/persist" = {
     device = "/dev/disk/by-id/nvme-eui.00000000000000008ce38e10014c244a";
     fsType = "btrfs";
