@@ -159,15 +159,15 @@
     "lix": {
       "flake": false,
       "locked": {
-        "lastModified": 1723503926,
-        "narHash": "sha256-Rosl9iA9MybF5Bud4BTAQ9adbY81aGmPfV8dDBGl34s=",
-        "rev": "bcaeb6388b8916ac6d1736e3aa2b13313e6a6bd2",
+        "lastModified": 1729298361,
+        "narHash": "sha256-hiGtfzxFkDc9TSYsb96Whg0vnqBVV7CUxyscZNhed0U=",
+        "rev": "ad9d06f7838a25beec425ff406fe68721fef73be",
         "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/bcaeb6388b8916ac6d1736e3aa2b13313e6a6bd2.tar.gz?rev=bcaeb6388b8916ac6d1736e3aa2b13313e6a6bd2"
+        "url": "https://git.lix.systems/api/v1/repos/lix-project/lix/archive/ad9d06f7838a25beec425ff406fe68721fef73be.tar.gz?rev=ad9d06f7838a25beec425ff406fe68721fef73be"
       },
       "original": {
         "type": "tarball",
-        "url": "https://git.lix.systems/lix-project/lix/archive/2.91.0.tar.gz"
+        "url": "https://git.lix.systems/lix-project/lix/archive/2.91.1.tar.gz"
       }
     },
     "lix-module": {
@@ -180,15 +180,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1723510904,
-        "narHash": "sha256-zNW/rqNJwhq2lYmQf19wJerRuNimjhxHKmzrWWFJYts=",
-        "rev": "622a2253a071a1fb97a4d3c8103a91114acc1140",
+        "lastModified": 1729302939,
+        "narHash": "sha256-slp0zWHKvbCzhiBwwe6VX6jODEY+PKhHyiAoHgM5Bdc=",
+        "rev": "6478f624b2a00367e0e3d750a2c7a9f3afb72712",
         "type": "tarball",
-        "url": "https://git.lix.systems/api/v1/repos/lix-project/nixos-module/archive/622a2253a071a1fb97a4d3c8103a91114acc1140.tar.gz?rev=622a2253a071a1fb97a4d3c8103a91114acc1140"
+        "url": "https://git.lix.systems/api/v1/repos/lix-project/nixos-module/archive/6478f624b2a00367e0e3d750a2c7a9f3afb72712.tar.gz?rev=6478f624b2a00367e0e3d750a2c7a9f3afb72712"
       },
       "original": {
         "type": "tarball",
-        "url": "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz"
+        "url": "https://git.lix.systems/lix-project/nixos-module/archive/2.91.1.tar.gz"
       }
     },
     "nixos-hardware": {

@@ -74,7 +74,7 @@ in {
           proxy_connect_timeout 600;
           proxy_read_timeout 600;
           proxy_send_timeout 600;
-          client_max_body_size 500m;
+          client_max_body_size 1000m;
           access_log syslog:server=unix:/dev/log,tag=immich;
         '';
       };
