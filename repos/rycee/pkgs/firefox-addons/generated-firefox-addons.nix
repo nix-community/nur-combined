@@ -2375,10 +2375,10 @@
     };
     "downthemall" = buildFirefoxXpiAddon {
       pname = "downthemall";
-      version = "4.12.1";
+      version = "4.13.1";
       addonId = "{DDC359D1-844A-42a7-9AA1-88A850A938A8}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4228862/downthemall-4.12.1.xpi";
-      sha256 = "4e652c23da2560d02246afa3eeeee442b6de3dddb1ee3ce10aaa214e57e676fd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4370602/downthemall-4.13.1.xpi";
+      sha256 = "ae0dbb3446bf96fdce8f9da9f82d492d8f21aa903fb971c7d5e84ea5cb637164";
       meta = with lib;
       {
         homepage = "https://www.downthemall.org/";
@@ -9215,10 +9215,10 @@
     };
     "proton-vpn" = buildFirefoxXpiAddon {
       pname = "proton-vpn";
-      version = "1.2.2";
+      version = "1.2.3";
       addonId = "vpn@proton.ch";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4336346/proton_vpn_firefox_extension-1.2.2.xpi";
-      sha256 = "3fcdddf8db3904dfee167dfa2597a99d15a81708f99f15dcd7a894cafbd7bcd3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4370777/proton_vpn_firefox_extension-1.2.3.xpi";
+      sha256 = "85c54c468c0bb8efb56af9168151768bb60ab5682a35c9dff151d51de8bce817";
       meta = with lib;
       {
         homepage = "https://protonvpn.com/";
@@ -9624,10 +9624,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.10.14";
+      version = "24.10.24";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4370053/refined_github-24.10.14.xpi";
-      sha256 = "6995cee48fdbe39e847dcd717155b451432b94720d2909df0bd352a200925aaf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4375465/refined_github-24.10.24.xpi";
+      sha256 = "2dcaf71a3cd96d538642679ffb7e2e8142fd22f5191c697197fa02698da3e99d";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -10074,10 +10074,10 @@
     };
     "side-view" = buildFirefoxXpiAddon {
       pname = "side-view";
-      version = "0.4.6424resigned1";
+      version = "0.6.6956";
       addonId = "side-view@mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4276258/side_view-0.4.6424resigned1.xpi";
-      sha256 = "2e981086adcbe1ceb803854a3e71a607144777b818cf50eafb4a22a2fb0c7f22";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4371246/side_view-0.6.6956.xpi";
+      sha256 = "66ee4813570c1f98a661523f99426b1a36e9dcff9b395a7183e182cf1b4a4ef7";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/side-view/";
