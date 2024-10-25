@@ -52,7 +52,7 @@
     fail2ban.enable = true;
     dae.enable = true;
     scrutiny.enable = true;
-    ddns-go.enable = true;
+    # ddns-go.enable = true;
     # atticd.enable = true;
     atuin.enable = true;
     postgresql.enable = true;
