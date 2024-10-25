@@ -94,6 +94,8 @@ in {
     asciiportal = callPackage ./pkgs/asciiportal {};
     asciiportal-git = callPackage ./pkgs/asciiportal/git.nix {};
     
+    powder = callPackage ./pkgs/powder {};
+    
     icbm3d = pkgs.icbm3d.overrideAttrs (old: {
         postPatch = (old.postPatch or "") + ''
             substituteInPlace makefile --replace-fail 'CC=' '#CC='

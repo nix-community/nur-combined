@@ -19,5 +19,6 @@
         description = "Script to generate semi-random desktop backgrounds";
         homepage = "https://xyne.dev/scripts/graphics/konify/";
         license = lib.licenses.gpl2Plus;
+        maintainers = [maintainers.Rhys-T];
     };
 }
