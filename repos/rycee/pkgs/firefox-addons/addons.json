@@ -841,6 +841,13 @@
     "slug": "linkhints"
   },
   {
+    "slug": "linkwarden",
+    "license": {
+      "tag": "predefined",
+      "shortName": "agpl3Only"
+    }
+  },
+  {
     "slug": "localcdn-fork-of-decentraleyes",
     "pname": "localcdn"
   },

@@ -6378,6 +6378,28 @@
         platforms = platforms.all;
       };
     };
+    "linkwarden" = buildFirefoxXpiAddon {
+      pname = "linkwarden";
+      version = "1.2.6";
+      addonId = "jordanlinkwarden@gmail.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4252377/linkwarden-1.2.6.xpi";
+      sha256 = "89400a0b7e3064b50289fe0a782820c178df98a681f20733e629f1535072e20d";
+      meta = with lib;
+      {
+        homepage = "https://linkwarden.app/";
+        description = "The browser extension for Linkwarden.";
+        license = licenses.agpl3Only;
+        mozPermissions = [
+          "storage"
+          "activeTab"
+          "tabs"
+          "contextMenus"
+          "http://*/*"
+          "https://*/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
       version = "2.6.74";
