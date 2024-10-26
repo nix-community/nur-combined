@@ -45,6 +45,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/Okabe-Rintarou-0/SJTU-Canvas-Helper";
     license = licenses.unlicense;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ definfo ];
+    maintainers = with maintainers; [ ];
   };
 }

@@ -46,6 +46,6 @@ stdenv.mkDerivation {
     homepage = "https://fbb-git.gitlab.io/flexcpp/";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with lib.maintainers; [ definfo ];
+    maintainers = with lib.maintainers; [ ];
   };
 }

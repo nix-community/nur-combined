@@ -46,6 +46,6 @@ rustPlatform.buildRustPackage {
     description = "A language server for Rime input method engine";
     homepage = "https://github.com/wlh320/rime-ls";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ definfo ];
+    maintainers = with maintainers; [ ];
   };
 }
