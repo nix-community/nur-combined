@@ -34,7 +34,7 @@ lib.makeScope newScope (
     amethyst = callPackage ./darwin/amethyst { };
     cudatext-bin = callPackage ./darwin/cudatext/bin.nix { };
     darktable-bin = callPackage ./darwin/darktable/bin.nix { };
-    finch = callPackage ./darwin/finch { buildGoModule = pkgs.buildGo122Module; };
+    finch = callPackage ./darwin/finch { };
     macpass = callPackage ./darwin/macpass { };
     macsvg = callPackage ./darwin/macsvg { };
     marta = callPackage ./darwin/marta { };
@@ -205,7 +205,6 @@ lib.makeScope newScope (
     geoarrow-pyarrow = callPackage ./geospatial/geoarrow-pyarrow { };
     geojson-pydantic = callPackage ./geospatial/geojson-pydantic { };
     geowebcache = callPackage ./geospatial/geowebcache { };
-    go-pmtiles = callPackage ./geospatial/go-pmtiles { };
     go-staticmaps = callPackage ./geospatial/go-staticmaps { };
     hecate = callPackage ./geospatial/hecate { };
     kealib = callPackage ./geospatial/kealib { };
@@ -244,7 +243,7 @@ lib.makeScope newScope (
     starlette-cramjam = callPackage ./geospatial/starlette-cramjam { };
     supermercado = callPackage ./geospatial/supermercado { };
     supermorecado = callPackage ./geospatial/supermorecado { };
-    tdh = callPackage ./geospatial/tdh { };
+    #tdh = callPackage ./geospatial/tdh { };
     terracotta = callPackage ./geospatial/terracotta { };
     tile-stitch = callPackage ./geospatial/tile-stitch { };
     tilekiln = callPackage ./geospatial/tilekiln { };

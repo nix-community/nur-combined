@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "starlette-cramjam";
-  version = "0.3.3";
+  version = "0.4.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "starlette-cramjam";
     rev = version;
-    hash = "sha256-4LWn0qePRadyEsoLVSLOPRQ6tP6EG1YnVZzDsZH0+0I=";
+    hash = "sha256-NgEW86+HV1zy9B5tRMF6Jw25Icrl6+CU9eZYInwv5To=";
   };
 
   build-system = with python3Packages; [ flit ];
