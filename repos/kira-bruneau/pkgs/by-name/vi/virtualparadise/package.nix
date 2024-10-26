@@ -1,121 +1,34 @@
 {
   lib,
-  stdenv,
   fetchurl,
-
-  autoPatchelfHook,
-  wrapQtAppsHook,
-  zstd,
-
-  at-spi2-atk,
-  bullet,
-  curl,
-  glew,
-  libuv,
-  libvorbis,
-  mpg123,
-  openal,
-  opusfile,
-
-  cups,
-  libXcursor,
-  libXrandr,
-  libXScrnSaver,
-  libXtst,
-  mesa,
-  nss,
-  pango,
-
-  buildFHSEnv,
+  appimageTools,
 }:
 
 let
-  unwrapped = stdenv.mkDerivation (finalAttrs: {
-    pname = "virtualparadise";
-    version = "0.4.3";
+  pname = "virtualparadise";
+  version = "0.4.9";
 
-    src = fetchurl {
-      url = "https://static.virtualparadise.org/downloads/arch/virtualparadise-${finalAttrs.version}-1-x86_64.pkg.tar.zst";
-      sha256 = "sha256-mTLbR1I6nP1LXe6750oUSl1hcI+0Yhop19tU7f0LLF8=";
-    };
+  src = fetchurl {
+    url = "https://static.virtualparadise.org/downloads/Virtual_Paradise-${version}-1-x86_64.AppImage";
+    hash = "sha256-AdfyqjHcACbZi+V4dFgkdWISrrxtN8CfNzkVgd3QXgQ=";
+  };
 
-    nativeBuildInputs = [
-      autoPatchelfHook
-      wrapQtAppsHook
-      zstd
-    ];
-
-    buildInputs = [
-      at-spi2-atk
-      bullet
-      curl
-      glew
-      libuv
-      libvorbis
-      mpg123
-      openal
-      opusfile
-
-      # Additional libcef dependencies (unlisted in .PKGINFO)
-      cups
-      libXcursor
-      libXrandr
-      libXScrnSaver
-      libXtst
-      mesa
-      nss
-      pango
-    ];
-
-    installPhase = ''
-      runHook preInstall
-      cp -R . "$out"
-
-      rm "$out/bin/virtualparadise"
-      makeQtWrapper \
-        "$out/lib/virtualparadise/virtualparadise" \
-        "$out/bin/virtualparadise" \
-        --set QT_QPA_PLATFORM xcb
-
-      mkdir "$out/lib/virtualparadise/swiftshader"
-      mv "$out/lib/virtualparadise/libGLESv2.so" "$out/lib/virtualparadise/swiftshader/libGLESv2.so"
-      mv "$out/lib/virtualparadise/libEGL.so" "$out/lib/virtualparadise/swiftshader/libEGL.so"
-      runHook postInstall
-    '';
-
-    postFixup = ''
-      patchelf \
-        --add-needed libudev.so.1 \
-        "$out/lib/virtualparadise/libcef.so"
-    '';
-
-    meta = with lib; {
-      description = "Online virtual universe consisting of several 3D worlds";
-      homepage = "https://www.virtualparadise.org";
-      license = licenses.unfree;
-      maintainers = with maintainers; [ kira-bruneau ];
-      platforms = [ "x86_64-linux" ];
-      mainProgram = "virtualparadise";
-      broken = true; # requires bullet 2.89
-    };
-  });
+  appimageContents = appimageTools.extractType2 { inherit pname version src; };
 in
-buildFHSEnv {
-  name = unwrapped.pname;
-  inherit (unwrapped) meta;
-
-  extraBuildCommands = ''
-    chmod +w usr/lib usr/share
-    ln -s ${unwrapped}/lib/virtualparadise usr/lib
-    ln -s ${unwrapped}/share/pixmaps usr/share
-    ln -s ${unwrapped}/share/virtualparadise usr/share
-  '';
+appimageTools.wrapType2 {
+  inherit pname version src;
 
   extraInstallCommands = ''
-    mkdir -p "$out/share"
-    ln -s ${unwrapped}/share/applications "$out/share"
-    ln -s ${unwrapped}/share/pixmaps "$out/share"
+    install -m 444 -D ${appimageContents}/virtualparadise.desktop $out/share/applications/virtualparadise.desktop
+    install -m 444 -D ${appimageContents}/virtualparadise.png $out/share/icons/hicolor/128x128/apps/virtualparadise.png
   '';
 
-  runScript = "${unwrapped}/bin/virtualparadise";
+  meta = with lib; {
+    description = "Online virtual universe consisting of several 3D worlds";
+    homepage = "https://www.virtualparadise.org";
+    license = licenses.unfree;
+    maintainers = with maintainers; [ kira-bruneau ];
+    platforms = [ "x86_64-linux" ];
+    mainProgram = "virtualparadise";
+  };
 }

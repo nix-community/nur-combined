@@ -146,10 +146,6 @@ in
 
   undistract-me = callPackage ./shells/bash/undistract-me { };
 
-  virtualparadise = callPackage ./by-name/vi/virtualparadise/package.nix {
-    inherit (qt5) wrapQtAppsHook;
-  };
-
   vkbasalt = callPackage ./tools/graphics/vkbasalt rec {
     vkbasalt32 = pkgsi686Linux.callPackage ./tools/graphics/vkbasalt { inherit vkbasalt32; };
   };
