@@ -15,7 +15,7 @@
   pkgs ? import <nixpkgs> (if platform != null then {
     localSystem = platform;
     packageOverrides = pkgs: {
-      inherit (import <nixpkgs> {}) fetchurl; # Don't emulate curl and such
+      inherit (import <nixpkgs> {}) fetchurl fetchgit fetchzip; # Don't emulate curl and such
     };
   } else {})
 }:
