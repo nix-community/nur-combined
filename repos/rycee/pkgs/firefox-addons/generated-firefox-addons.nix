@@ -2,10 +2,10 @@
   {
     "10ten-ja-reader" = buildFirefoxXpiAddon {
       pname = "10ten-ja-reader";
-      version = "1.21.1";
+      version = "1.22.0";
       addonId = "{59812185-ea92-4cca-8ab7-cfcacee81281}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4355635/10ten_ja_reader-1.21.1.xpi";
-      sha256 = "81d85cfdc03cb0c921cac84547e7a7a539af11ff9a81dd901b3f3bfa67ba45f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4371439/10ten_ja_reader-1.22.0.xpi";
+      sha256 = "d6f3197b7e3383f2723b9376d93e03fe515e5c610f9c0723d9618b10d3cc4bf1";
       meta = with lib;
       {
         homepage = "https://github.com/birchill/10ten-ja-reader/";
@@ -907,10 +907,10 @@
     };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2024.10.0";
+      version = "2024.10.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4363548/bitwarden_password_manager-2024.10.0.xpi";
-      sha256 = "9ea9428444870a74ae1999d77eb12d97a45275c85e83d6afdcbc4597fa3eccfb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4371752/bitwarden_password_manager-2024.10.1.xpi";
+      sha256 = "7b7357ddce2756dc536b86b5c14139ec09731c1c114ac82807c60fba3ced12a5";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -1804,10 +1804,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.3.0";
+      version = "4.3.1";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4368084/control_panel_for_twitter-4.3.0.xpi";
-      sha256 = "1c88b887fc1948eb7826fcbf44f579232db29d66ac2a108ae9a2aee5cf1e6615";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4371486/control_panel_for_twitter-4.3.1.xpi";
+      sha256 = "b5622b0e9a0077875298dd7a43e0eb4623bbce26f6b2875e41981abb4fec85c9";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -8217,10 +8217,10 @@
     };
     "paperpile" = buildFirefoxXpiAddon {
       pname = "paperpile";
-      version = "1.0.69";
+      version = "1.0.70";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4372028/paperpile_addon-1.0.69.xpi";
-      sha256 = "ecd530cf97efcd76c7f920874924baac2530d95a371b08674913c60f16943d27";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4376023/paperpile_addon-1.0.70.xpi";
+      sha256 = "98c43339b9e0b5b80444203d7dfc7dc2642ec05cf7fca507ad9db4348858bd8a";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -10553,10 +10553,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "4.7";
+      version = "4.8";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4363931/steam_database-4.7.xpi";
-      sha256 = "482cf0c66da7e6638451f3ee98c11168f8c31395902227112c00fad3057dc3a5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4371564/steam_database-4.8.xpi";
+      sha256 = "71eab48fd805316b18659ec203b0e6486d73a926cc5c51a7b843fe5ea30667fb";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -10566,6 +10566,7 @@
           "storage"
           "https://steamdb.info/*"
           "https://store.steampowered.com/*"
+          "https://steamcommunity.com/*"
           "https://store.steampowered.com/app/*"
           "https://store.steampowered.com/news/app/*"
           "https://store.steampowered.com/account/licenses*"
@@ -10581,7 +10582,6 @@
           "https://steamcommunity.com/workshop/filedetails*"
           "https://steamcommunity.com/workshop/browse*"
           "https://steamcommunity.com/workshop/discussions*"
-          "https://steamcommunity.com/*"
           "https://steamcommunity.com/id/*"
           "https://steamcommunity.com/profiles/*"
           "https://steamcommunity.com/id/*/inventory*"
@@ -10599,10 +10599,10 @@
           "https://steamcommunity.com/id/*/gamecards/*"
           "https://steamcommunity.com/profiles/*/gamecards/*"
           "https://steamcommunity.com/market/multibuy*"
+          "https://steamcommunity.com/market/*"
           "https://steamcommunity.com/games/*"
           "https://steamcommunity.com/sharedfiles/*"
           "https://steamcommunity.com/workshop/*"
-          "https://steamcommunity.com/market/*"
         ];
         platforms = platforms.all;
       };
@@ -11885,10 +11885,10 @@
     };
     "untrap-for-youtube" = buildFirefoxXpiAddon {
       pname = "untrap-for-youtube";
-      version = "7.8";
+      version = "7.9";
       addonId = "{2662ff67-b302-4363-95f3-b050218bd72c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4365253/untrap_for_youtube-7.8.xpi";
-      sha256 = "61adb33c1c173173abe59070d293549e3b73e0a108bb3170c950355e4b063369";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4376104/untrap_for_youtube-7.9.xpi";
+      sha256 = "d01afbd8f2c9e69d16be97ebdb3246208dae1421096c0e2d18853359f4a4c6e9";
       meta = with lib;
       {
         homepage = "http://untrap.app";
@@ -13130,10 +13130,10 @@
     };
     "youtube-redux" = buildFirefoxXpiAddon {
       pname = "youtube-redux";
-      version = "3.5.1";
+      version = "3.5.2";
       addonId = "{2d4c0962-e9ff-4cad-8039-9a8b80d9b8b6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4372832/youtube_redux-3.5.1.xpi";
-      sha256 = "a82bf775e30968064f67cce1a8a5df69d89bd8389d7842633f403800a555667e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4376255/youtube_redux-3.5.2.xpi";
+      sha256 = "89824c82fc056a716aec224994a7ccfdfaea3e8682c9c662cf8c9b9660fa3c0b";
       meta = with lib;
       {
         description = "Replicate old YouTube look and features within the modern layout!";
