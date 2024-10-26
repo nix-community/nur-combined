@@ -7,7 +7,7 @@
 , ...
 }:
 let
-  rev = "misrc_extract-0.3";
+  rev = "misrc_extract-0.3.1";
 in
 stdenv.mkDerivation {
   name = "misrc_extract";
@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     inherit rev;
     owner = "Stefan-Olt";
     repo = "MISRC";
-    sha256 = "sha256-7uhuA492QNcG86eZ0hxTHgdcoUIiSM5AADNa+q5wnEQ=";
+    sha256 = "sha256-FCoPzwMUfEMkx0b+bj5kN0Nsz+XOmtImLzyuc4ZC39o=";
   };
 
   dontWrapQtApps = true;
