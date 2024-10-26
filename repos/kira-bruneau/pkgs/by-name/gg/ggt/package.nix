@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   pnpmDeps = pnpm.fetchDeps {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-RtSresp5pywp8GvATS8gDuZzHUlATnCpupMCsKyWk94=";
+    hash = "sha256-Em/x+FeiofPQQU06o4hWPDfx52uBAQmDNGBLCtHfVjg=";
   };
 
   npmBuildScript = "build";
