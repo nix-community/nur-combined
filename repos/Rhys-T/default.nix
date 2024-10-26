@@ -41,6 +41,10 @@ in {
     lix-game-libpng = if pkgs.hostPlatform.isDarwin then (self.lix-game-packages.overrideScope (self: super: {
         convertImagesToTrueColor = false;
     })).game else self.lix-game;
+    lix-game-issue-431 = if pkgs.hostPlatform.isDarwin then (self.lix-game-packages.overrideScope (self: super: {
+        convertImagesToTrueColor = false;
+        disableNativeImageLoader = false;
+    })).game else self.lix-game;
     lix-game-CIImage = if pkgs.hostPlatform.isDarwin then (self.lix-game-packages.overrideScope (self: super: {
         convertImagesToTrueColor = false;
         disableNativeImageLoader = "CIImage";

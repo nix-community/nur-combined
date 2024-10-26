@@ -61,7 +61,7 @@ On macOS, upstream is affected by a [bug](https://github.com/SimonN/LixD/issues/
 
 However, as far as I know there's no guarantee that NSImage will keep treating true-color images the same way in future macOS versions, meaning this workaround could break eventually - and it doesn't do anything for custom images installed in `${XDG_DATA_HOME:-$HOME/.local/share}/lix`.
 
-Therefore, I also have an alternative workaround implemented. If you set `convertImagesToTrueColor` to `false`, Lix will instead be linked against a custom build of Allegro 5 which has the macOS native image loader disabled, and instead uses the same `libpng`-based method as on Linux and Windows, avoiding the bug. To prevent this as well (for instance, to test out the bug's behavior on a given version of macOS), additionally set `disableNativeImageLoader` to `false` (or just use `lix-game-libpng`).
+Therefore, I also have an alternative workaround implemented. If you set `convertImagesToTrueColor` to `false` (or just use `lix-game-libpng`), Lix will instead be linked against a custom build of Allegro 5 which has the macOS native image loader disabled, and instead uses the same `libpng`-based method as on Linux and Windows, avoiding the bug. To prevent this as well (for instance, to test out the bug's behavior on a given version of macOS), additionally set `disableNativeImageLoader` to `false` (or use `lix-game-issue-431`).
 
 You can also set `disableNativeImageLoader` to `"CIImage"` (or use `lix-game-CIImage`) to test out @pedro-w's [CIImage-based loader](https://github.com/liballeg/allegro5/issues/1531#issuecomment-1950198051).
 
