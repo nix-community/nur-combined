@@ -3,7 +3,6 @@
 , fetchFromGitHub
 , pytest
 , pytest-asyncio
-, pytest-runner
 }:
 
 buildPythonPackage rec {
@@ -17,13 +16,16 @@ buildPythonPackage rec {
     sha256 = "sha256-Bn8PDAGNLeL3/g6mB9lGQm1jblHIOJl2w248McJ3oaE=";
   };
 
+  postPatch = ''
+    sed -i "s/setup_requirements = \['pytest-runner'\]/setup_requirements = []/" setup.py
+  '';
+
   propagatedBuildInputs = [
   ];
 
   checkInputs = [
     pytest
     pytest-asyncio
-    pytest-runner
   ];
 
   pythonImportsCheck = [ "async_property" ];

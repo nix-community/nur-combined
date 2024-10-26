@@ -7,11 +7,11 @@
 
 buildPythonPackage rec {
   pname = "neohubapi";
-  version = "1.0";
+  version = "2.2";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-lmz9jgdBN+VnZnE/ckNUK9YNINtVj90iCZbCQBL/XXc=";
+    sha256 = "sha256-2MputN0iJ7fEt9ZsAmplv5beURpBeZYB4JL/u7SDMTc=";
   };
 
   propagatedBuildInputs = [

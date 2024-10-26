@@ -2,18 +2,8 @@
 
 set -euo pipefail
 
-EMACS_OVERLAY="https://github.com/nix-community/emacs-overlay"
-
 home_assistant_version() {
     nix eval .#home-assistant.version | sed -e 's/"//g'
-}
-
-upgrade_emacs_overlay() {
-    rev=$(git ls-remote "$EMACS_OVERLAY" refs/heads/master | awk '{print $1}')
-    hash=$(nix-prefetch-url --unpack "$EMACS_OVERLAY/archive/$rev.tar.gz")
-    echo "Updating emacs-overlay.nix to $rev and $hash"
-    sed -i "s|^  rev = .*|  rev = \"$rev\";  # updated $(date -I)|"           ~/git/graham33/nur-packages/overlays/10-emacs.nix
-    sed -i "s|^  sha256 = .*|  sha256 = \"$hash\";|"    ~/git/graham33/nur-packages/overlays/10-emacs.nix
 }
 
 upgrade_homeassistant_stubs() {
@@ -115,12 +105,10 @@ upgrade_hass_smartbox() {
 }
 
 if [ "$#" -lt 1 ]; then
-    # Don't upgrade emacs-overlay by default, for stability
-    # upgrade_emacs_overlay
     upgrade_homeassistant_stubs
     upgrade_phacc
-    upgrade_hass_smartbox
-    upgrade_smartbox
+    # upgrade_hass_smartbox
+    # upgrade_smartbox
 else
     if [ "$#" -gt 1 ]; then
         # User supplied a ref
