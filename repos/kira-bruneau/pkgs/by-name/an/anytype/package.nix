@@ -19,19 +19,19 @@ let
   l10n-anytype-ts = fetchFromGitHub {
     owner = "anyproto";
     repo = "l10n-anytype-ts";
-    rev = "b2be402bb1939aec57b5f4f18c2abc0596df7e87";
-    hash = "sha256-w03E78jwYShJVyUvVnMaSOveunyGwWRbyYCYo/46PfI=";
+    rev = "72f8870797008cfcda100cb79b09f89d0e3c6a27";
+    hash = "sha256-Dx1daPhfdTExsowqqyrr4plRxOg1Gkksxy7k0xm/PBc=";
   };
 in
 buildNpmPackage rec {
   pname = "anytype";
-  version = "0.42.8";
+  version = "0.43.1";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-ts";
     rev = "refs/tags/v${version}";
-    hash = "sha256-ODOo8gk3zvq57p4W61AB+RLtXyM30xrlX1VojodlSz4=";
+    hash = "sha256-8MS/Oe6DaTUkIw16Byfqcr7gqw7fMU0MaP2VzLjMHKE=";
   };
 
   patches = [
@@ -39,13 +39,15 @@ buildNpmPackage rec {
     ./fix-path-for-asar-unpack.patch
   ];
 
-  npmDepsHash = "sha256-rI6CY3Mu13uTIHD8VxFOMhtcDTjkuKSSnjXOm4c9ppI=";
+  npmDepsHash = "sha256-HiR3nNFi3tGFvlaI7MUAVRFZpZ7UO7ueaUC28hX9ru0=";
 
-  # middleware: https://github.com/anyproto/anytype-ts/blob/v0.42.8/update-ci.sh
-  # langs: https://github.com/anyproto/anytype-ts/blob/v0.42.8/electron/hook/locale.js
+  # middleware: https://github.com/anyproto/anytype-ts/blob/v0.43.1/update-ci.sh
+  # langs: https://github.com/anyproto/anytype-ts/blob/v0.43.1/electron/hook/locale.js
   postUnpack = ''
-    if [ $(cat "$sourceRoot/middleware.version") != ${lib.escapeShellArg anytype-heart.version} ]; then
-      echo 'ERROR: middleware version mismatch'
+    expected_middleware_version="v$(cat "$sourceRoot/middleware.version")"
+    actual_middleware_version=${lib.escapeShellArg "v${lib.escapeShellArg anytype-heart.version}"}
+    if [ "$expected_middleware_version" != "$actual_middleware_version" ]; then
+      echo "error: expected anytype-heart $expected_middleware_version, but got $actual_middleware_version"
       exit 1
     fi
 

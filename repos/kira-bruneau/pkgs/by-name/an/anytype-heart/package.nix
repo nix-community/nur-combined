@@ -5,23 +5,24 @@
   protobuf,
   protoc-gen-grpc-web,
   protoc-gen-js,
+  tantivy-go,
   nix-update-script,
 }:
 
 buildGoModule rec {
   pname = "anytype-heart";
-  version = "0.35.7";
+  version = "0.36.4";
 
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-heart";
     rev = "refs/tags/v${version}";
-    hash = "sha256-uRcRu2+VIAChmsmgYvZewV6BrtTfANb3rsIwD5uwi+U=";
+    hash = "sha256-vekJ11/5kLyJrrRX7TLQkNszylNFAGRA9PiWnYfDL0w=";
   };
 
   proxyVendor = true;
 
-  vendorHash = "sha256-MdXuYyiSNKc5hjoXPhZymgAdHrEbCal0zqdizmkmCuw=";
+  vendorHash = "sha256-dVLiSX74AN48v5pcx1XyWOmAgvMxrBY8LQPRkY09b4w=";
 
   subPackages = [ "cmd/grpcserver" ];
 
@@ -31,14 +32,28 @@ buildGoModule rec {
     protoc-gen-js
   ];
 
-  # https://github.com/anyproto/anytype-heart/blob/v0.35.7/.github/workflows/build.yml#L361
+  buildInputs = [ tantivy-go ];
+
+  # https://github.com/anyproto/anytype-heart/blob/v0.36.4/.github/workflows/build.yml#L120
   tags = [
     "envproduction"
     "nographviz"
+    "noheic"
     "nomutexdeadlockdetector"
     "nosigar"
     "nowatchdog"
   ];
+
+  preBuild = ''
+    mkdir deps/libs
+    make write-tantivy-version
+    expected_tantivy_version=$(cat deps/libs/.verified)
+    actual_tantivy_version=${lib.escapeShellArg "v${tantivy-go.version}"}
+    if [ "$expected_tantivy_version" != "$actual_tantivy_version" ]; then
+      echo "error: expected tantivy-go $expected_tantivy_version, but got $actual_tantivy_version"
+      exit 1
+    fi
+  '';
 
   postBuild = ''
     make protos-js
