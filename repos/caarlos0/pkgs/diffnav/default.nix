@@ -6,16 +6,16 @@
 }:
 buildGoModule rec {
   pname = "diffnav";
-  version = "0.1.0";
+  version = "0.2.8";
 
   src = fetchFromGitHub {
     owner = "dlvhdr";
     repo = "diffnav";
     rev = "v${version}";
-    hash = "sha256-y+nODXTZpXdUTQYwqL01rPvD8bHhI48EH1TuEhPAeMU=";
+    hash = "sha256-xZAi/Ky1RjOxjhQKHvozaPTqDPcrGfhMemGWzi7WyW4=";
   };
 
-  vendorHash = "sha256-doRzntvXr7O7kmFT3mWXLmMjx6BqrnIqL3mYYtcbGxw=";
+  vendorHash = "sha256-2JjQF+fwl8+Xoq9T3jCvngRAOa3935zpi9qbF4w4hEI=";
 
   postPatch = ''
     sed 's/1.22.6/1.22.5/' -i go.mod
