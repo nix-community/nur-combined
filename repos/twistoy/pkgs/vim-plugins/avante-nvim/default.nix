@@ -57,6 +57,7 @@ in
       ext = stdenv.hostPlatform.extensions.sharedLibrary;
     in ''
       mkdir -p $out/build
+      ln -s ${avante-nvim-lib}/lib/libavante_repo_map${ext} $out/build/avante_repo_map${ext}
       ln -s ${avante-nvim-lib}/lib/libavante_templates${ext} $out/build/avante_templates${ext}
       ln -s ${avante-nvim-lib}/lib/libavante_tokenizers${ext} $out/build/avante_tokenizers${ext}
     '';
