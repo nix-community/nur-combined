@@ -10,15 +10,21 @@
   symlinkJoin,
   rimeDataPkgs ? [ rime-data ],
 }:
-rustPlatform.buildRustPackage rec {
+let
+  rimeDataDrv = symlinkJoin {
+    name = "rime_ls-rime-data";
+    paths = rimeDataPkgs;
+  };
+  librime' = librime.overrideAttrs (old: {
+    postInstall = ''
+      cp -r "${rimeDataDrv}/share/rime-data/." $out/share/rime-data
+    '';
+  });
+in
+rustPlatform.buildRustPackage {
   inherit (source) pname src version;
 
   cargoLock = source.cargoLock."Cargo.lock";
-
-  rimeDataDrv = symlinkJoin {
-    name = "rime-ls-rime-data";
-    paths = rimeDataPkgs;
-  };
 
   nativeBuildInputs = [
     pkg-config
@@ -26,21 +32,20 @@ rustPlatform.buildRustPackage rec {
     makeWrapper
   ];
 
-  buildInputs = [ librime ];
+  buildInputs = [ librime' ];
 
-  env.RIME_DATA_DIR = lib.optionalString stdenv.isLinux "${rimeDataDrv}/share/rime-data";
-  # doCheck = false;
+  # Set RIME_DATA_DIR to work around test_get_candidates during checkPhase
+  env.RIME_DATA_DIR = lib.optionalString stdenv.isLinux "${librime'}/share/rime-data";
 
   postInstall = ''
-    mkdir -p $out/share/rime-data
-    cp -r "${rimeDataDrv}/share/rime-data/." $out/share/rime-data/
     wrapProgram $out/bin/rime_ls \
-      --set RIME_DATA_DIR $out/share/rime-data
+      --set RIME_DATA_DIR ${librime'}/share/rime-data
   '';
 
-  meta = {
+  meta = with lib; {
     description = "A language server for Rime input method engine";
     homepage = "https://github.com/wlh320/rime-ls";
-    license = lib.licenses.bsd3;
+    license = licenses.bsd3;
+    maintainers = with maintainers; [ definfo ];
   };
 }

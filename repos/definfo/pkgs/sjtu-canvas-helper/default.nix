@@ -2,7 +2,6 @@
   source,
   lib,
   stdenv,
-  fetchurl,
   dpkg,
   wrapGAppsHook3,
   autoPatchelfHook,
@@ -12,8 +11,8 @@
   libayatana-appindicator,
 }:
 
-stdenv.mkDerivation rec {
-  inherit (source) pname src version ;
+stdenv.mkDerivation {
+  inherit (source) pname src version;
 
   nativeBuildInputs = [
     dpkg
@@ -46,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Okabe-Rintarou-0/SJTU-Canvas-Helper";
     license = licenses.unlicense;
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [ definfo ];
   };
 }

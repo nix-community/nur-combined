@@ -11,7 +11,22 @@
 }:
 
 let
-  source = (import ./_sources/generated.nix) { inherit (pkgs) fetchgit fetchurl fetchFromGitHub dockerTools; }; # nvfetcher
+  source = (import ./_sources/generated.nix) {
+    inherit (pkgs)
+      fetchgit
+      fetchurl
+      fetchFromGitHub
+      dockerTools
+      ;
+  }; # nvfetcher
+  callCoqPackage = pkgs.coqPackages_8_19.callPackage;
+  sets = callCoqPackage ./pkgs/coqPackages/sets { };
+  fixedpoints = (callCoqPackage ./pkgs/coqPackages/fixedpoints) {
+    inherit sets;
+  };
+  monadlib = (callCoqPackage ./pkgs/coqPackages/monadlib) {
+    inherit sets fixedpoints;
+  };
 in
 {
   # The `lib`, `modules`, and `overlays` names are special
@@ -19,9 +34,14 @@ in
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  lyricer = pkgs.callPackage ./pkgs/lyricer { source = source.lyricer;  };
-  audacious = pkgs.qt6Packages.callPackage ./pkgs/audacious { source = source.audacious; };
-  rime-ls = pkgs.callPackage ./pkgs/rime-ls { source = source.rime-ls; };
-  sjtu-canvas-helper = pkgs.callPackage ./pkgs/sjtu-canvas-helper { source = source.sjtu-canvas-helper; };
+  lyricer = pkgs.callPackage ./pkgs/lyricer { source = source.lyricer; };
+  rime-ls = (pkgs.callPackage ./pkgs/rime-ls { source = source.rime-ls; }).override { rimeDataPkgs = [ (pkgs.callPackage ./pkgs/rime-ice { }) ]; };
+  sjtu-canvas-helper = pkgs.callPackage ./pkgs/sjtu-canvas-helper {
+    source = source.sjtu-canvas-helper;
+  };
   flexcpp = pkgs.callPackage ./pkgs/flexc++ { source = source.flexcpp; };
+
+  coqPackages = {
+    inherit sets fixedpoints monadlib;
+  };
 }
