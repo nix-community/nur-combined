@@ -79,7 +79,6 @@
               "pkgs/tools/compression/mozlz4a/default.nix"
               "pkgs/tools/games/gamemode/default.nix"
               "pkgs/tools/games/ukmm/default.nix"
-              "pkgs/tools/graphics/goverlay/default.nix"
               "pkgs/tools/graphics/mangohud/default.nix"
               "pkgs/tools/graphics/vkbasalt/default.nix"
             ])

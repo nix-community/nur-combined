@@ -111,11 +111,6 @@ in
 
   git-review = python3Packages.callPackage ./applications/version-management/git-review { };
 
-  goverlay = callPackage ./tools/graphics/goverlay {
-    inherit (qt5) wrapQtAppsHook;
-    inherit (plasma5Packages) breeze-qt5;
-  };
-
   krane = callPackage ./applications/networking/cluster/krane { };
 
   linuxPackages = recurseIntoAttrs (
