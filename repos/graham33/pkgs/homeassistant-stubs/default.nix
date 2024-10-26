@@ -1,14 +1,15 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
-, poetry-core
+, hatch-vcs
+, hatchling
 , home-assistant
 }:
 
 buildPythonPackage rec {
   pname = "homeassistant-stubs";
   version = "2024.10.3";
-  format = "pyproject";
+  pyproject = true;
 
   src = fetchFromGitHub {
     owner = "KapJI";
@@ -18,7 +19,11 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs = [
-    poetry-core
+    hatch-vcs
+  ];
+
+  build-system = [
+    hatchling
   ];
 
   propagatedBuildInputs = [
@@ -26,15 +31,6 @@ buildPythonPackage rec {
   ];
 
   pythonImportsCheck = [ "homeassistant-stubs" ];
-
-  # no tests
-  doCheck = false;
-
-  preFixup = ''
-    # Fix invalid syntax (https://github.com/python/mypy/issues/12441)
-    find $out -name "*.pyi" -print0 | xargs -0 sed -i 's/, \*,/, *args,/g'
-    find $out -name "*.pyi" -print0 | xargs -0 sed -i 's/, \*\*)/, **kwargs)/g'
-  '';
 
   meta = with lib; {
     homepage = "https://github.com/KapJI/homeassistant-stubs";
