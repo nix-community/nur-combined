@@ -72,6 +72,7 @@
             monero-cli
             yubikey-personalization
             opensc
+            sbctl
           ];
 
           dev = [
@@ -214,7 +215,6 @@
           cmd = [
             metasploit
             # linuxKernel.packages.linux_latest_libre.cpupower
-            clean-home
             just
             typst
             cosmic-term

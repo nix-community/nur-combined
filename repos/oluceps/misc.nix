@@ -188,28 +188,35 @@
   environment.etc = {
     "NIXOS".text = "";
     "machine-id".text = "b08dfa6083e7567a1921a715000001fb\n";
-    "sbctl/sbctl.conf".text = ''
-      keydir: /var/lib/sbctl/keys
-      guid: /var/lib/sbctl/GUID
-      files_db: /var/lib/sbctl/files.json
-      bundles_db: /var/lib/sbctl/bundles.json
-      landlock: true
-      db_additions:
-      - microsoft
-      keys:
-        pk:
-          privkey: /var/lib/sbctl/keys/PK/PK.key
-          pubkey: /var/lib/sbctl/keys/PK/PK.pem
-          type: file
-        kek:
-          privkey: /var/lib/sbctl/keys/KEK/KEK.key
-          pubkey: /var/lib/sbctl/keys/KEK/KEK.pem
-          type: file
-        db:
-          privkey: /var/lib/sbctl/keys/db/db.key
-          pubkey: /var/lib/sbctl/keys/db/db.pem
-          type: file
-    '';
+    "sbctl/sbctl.conf".source =
+      let
+        sbctlVar = "/var/lib/sbctl";
+      in
+      (pkgs.formats.yaml { }).generate "sbctl.conf" {
+        bundles_db = "${sbctlVar}/bundles.json";
+        db_additions = [ "microsoft" ];
+        files_db = "${sbctlVar}/files.json";
+        guid = "${sbctlVar}/GUID";
+        keydir = "${sbctlVar}/keys";
+        keys = {
+          db = {
+            privkey = "${sbctlVar}/keys/db/db.key";
+            pubkey = "${sbctlVar}/keys/db/db.pem";
+            type = "file";
+          };
+          kek = {
+            privkey = "${sbctlVar}/keys/KEK/KEK.key";
+            pubkey = "${sbctlVar}/keys/KEK/KEK.pem";
+            type = "file";
+          };
+          pk = {
+            privkey = "${sbctlVar}/keys/PK/PK.key";
+            pubkey = "${sbctlVar}/keys/PK/PK.pem";
+            type = "file";
+          };
+        };
+        landlock = true;
+      };
   };
   programs = {
     bash = {

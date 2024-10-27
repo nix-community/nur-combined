@@ -65,7 +65,7 @@ with pkgs;
 
   # wpsoffice-cn
 
-  sbctl
+  # sbctl
   qbittorrent
 
   protonmail-bridge
@@ -114,7 +114,7 @@ with pkgs;
 
   # social
   # discord
-  materialgram
+  # materialgram
   element-desktop-wayland
   # thunderbird
   # fluffychat
@@ -161,7 +161,6 @@ with pkgs;
   # texlive.combined.scheme-full
   vlc
   bluedevil
-  julia-bin
   prismlauncher
 ]
 ++ (with pkgs; [ fluent-icon-theme ])

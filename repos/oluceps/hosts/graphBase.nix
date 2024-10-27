@@ -257,7 +257,6 @@
     packages =
       with pkgs;
       [
-
         (nerdfonts.override {
           fonts = [
             "FiraCode"
@@ -283,7 +282,6 @@
         glowsansJ
       ])
       ++ (with pkgs; [
-        san-francisco
         plangothic
         maoken-tangyuan
         lxgw-neo-xihei
@@ -307,8 +305,6 @@
         monospace = [
           "Monaspace Neon"
           "Maple Mono"
-          "SF Mono"
-          "Fantasque Sans Mono"
         ];
         sansSerif = [
           "Hanken Grotesk"
