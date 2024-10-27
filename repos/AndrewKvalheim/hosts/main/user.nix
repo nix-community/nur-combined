@@ -56,6 +56,7 @@
     obsidian
     picard
     prismlauncher
+    qgis
     rapid-photo-downloader
     signal-desktop
     soundconverter

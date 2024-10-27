@@ -10,6 +10,7 @@ in
 {
   home.packages = with pkgs; [
     delta
+    git-absorb
     git-filter-repo
     git-remote
     tig

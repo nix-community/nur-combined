@@ -53,6 +53,7 @@ in
     home.packages = with pkgs; [
       add-words
       binsider
+      cavif
       darktable
       gnome.dconf-editor
       dig
@@ -84,6 +85,7 @@ in
       just
       just-local
       killall
+      libwebp # cwebp
       lsof
       magic-wormhole
       miller

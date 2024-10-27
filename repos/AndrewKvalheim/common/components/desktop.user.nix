@@ -119,6 +119,7 @@ in
       window-gap = gap;
       winprops = (map toJSON [
         { wm_class = "*"; preferredWidth = "${toString half}px"; }
+        { wm_class = "Display"; scratch_layer = true; }
         { wm_class = "emote"; scratch_layer = true; }
         { wm_class = "qalculate-gtk"; preferredWidth = "480px"; }
         { wm_class = "Tor Browser"; scratch_layer = true; }

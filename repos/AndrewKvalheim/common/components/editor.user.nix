@@ -394,6 +394,7 @@ in
 
       # Environment
       "files.exclude" = {
+        "**/.~lock.*" = true;
         "**/.bundle" = true;
         "**/.cache" = true;
         "**/.direnv" = true;

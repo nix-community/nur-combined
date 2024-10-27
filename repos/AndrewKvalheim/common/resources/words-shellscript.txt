@@ -8,6 +8,7 @@ EPOCHSECONDS
 eza
 killall
 lastpipe
+magick
 mktemp
 newermt
 nullglob

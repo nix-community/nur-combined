@@ -247,6 +247,7 @@ dearmor
 debconf
 debouncer
 declutter
+decolonial
 decompilation
 decompile
 decompiled
@@ -696,6 +697,7 @@ nastygram
 nativist
 NBT
 ncdu
+ⁿᵈ
 negatable
 Negroni
 NetBlocks
@@ -883,6 +885,7 @@ Puyallup
 PyPI
 pythonic
 Qalculate
+QGIS
 QMK
 QOwnNotes
 quadtree
@@ -899,6 +902,7 @@ Rakefile
 RapidRide
 Raveena
 Ravenna
+ʳᵈ
 reactively
 rebalance
 rebar
@@ -959,6 +963,7 @@ rollouts
 roomless
 Roundcube
 routable
+RPC
 RPG
 RPiPlay
 rsgain
@@ -995,6 +1000,9 @@ scrobbling
 scrollback
 scroller
 scrutinee
+SDHC
+SDUC
+SDXC
 SeaGL
 SeaGL’s
 searchability
@@ -1066,6 +1074,7 @@ sRGB
 SRV
 SSD
 SSL
+ˢᵗ
 Stallman
 Starlink
 startable
@@ -1126,6 +1135,7 @@ terraform
 Terraform
 tessen
 tesseract
+ᵗʰ
 themeable
 ThinkPad
 threadsafe
@@ -1189,6 +1199,7 @@ unclickable
 unclipped
 unconference
 unconferences
+uncorrectable
 undecryptable
 undeliverable
 undergirded
@@ -1212,6 +1223,7 @@ unheld
 unhide
 unhold
 UniFi
+unignore
 unindented
 unlinked
 unmanageably

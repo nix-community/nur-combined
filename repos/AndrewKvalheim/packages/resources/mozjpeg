@@ -17,7 +17,7 @@ else
   from="$input"
 fi
 
-convert -flatten "$from" "ppm:-" \
+magick -flatten "$from" "ppm:-" \
   | cjpeg -optimize -quality 90 "$@" \
 > "$output"
 

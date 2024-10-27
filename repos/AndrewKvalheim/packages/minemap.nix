@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ imagemagick makeWrapper ];
   buildPhase = ''
-    convert $iconSrc/logo.png -crop '68x68+44+7' +repage \
+    magick $iconSrc/logo.png -crop '68x68+44+7' +repage \
       \( +clone -crop '4x38+0+22' -geometry '+64+26' -flop \) \
       -compose copy -composite -filter 'point' -resize '200%' ${pname}.png
   '';

@@ -4,7 +4,7 @@ set -Eeuo pipefail
 src="$1"
 jpg="$HOME/Downloads/cover.jpg"
 
-convert "$src" -resize '1200x>' "ppm:-" \
+magick "$src" -resize '1200x>' "ppm:-" \
   | cjpeg -optimize -quality '75' \
   > "$jpg"
 
@@ -18,7 +18,7 @@ if [[ -n "${KITTY_WINDOW_ID-}" ]]; then
   kitty +kitten icat "$jpg"
   echo "$description"
 else
-  convert \
+  magick \
     "$jpg" \
     -bordercolor 'black' -border '64x64' \
     -background 'black' -fill 'white' -pointsize '24' label:"$description" \
