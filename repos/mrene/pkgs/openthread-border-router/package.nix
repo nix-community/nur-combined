@@ -52,7 +52,6 @@ stdenv.mkDerivation {
     ./dont-install-systemd-units.patch
     ./dont-use-boost-static-libs.patch
     "${hass-addons}/openthread_border_router/0002-rest-support-deleting-the-dataset.patch"
-    #"${hass-addons}/openthread_border_router/0003-openthread-set-netif-route-metric-lower.patch"
   ];
 
   postPatch = ''
@@ -94,11 +93,10 @@ stdenv.mkDerivation {
   '';
 
   cmakeFlags = [
-    # These defaults are from "examples/platforms/raspbian/default"
-    (lib.cmakeBool "OTBR_REST" true)
+    # These defaults are from "examples/platforms/raspbian/default and script/_otbr
     (lib.cmakeBool "BUILD_TESTING" false)
+    (lib.cmakeBool "OTBR_REST" true)
 
-    # Needs npm to build the frontend code, that's another day's project
     (lib.cmakeBool "OTBR_WEB" true)
     (lib.cmakeBool "OTBR_NAT64" true)
     (lib.cmakeBool "OTBR_BACKBONE_ROUTER" true)
@@ -106,27 +104,11 @@ stdenv.mkDerivation {
     (lib.cmakeBool "OTBR_DBUS" false)
     (lib.cmakeBool "OTBR_TREL" true)
 
-
-    # From _otbr
+    (lib.cmakeFeature "OTBR_VERSION" version)
     (lib.cmakeBool "OTBR_DNSSD_DISCOVERY_PROXY" true)
     (lib.cmakeBool "OTBR_SRP_ADVERTISING_PROXY" true)
     (lib.cmakeBool "OTBR_DUA_ROUTING" true)
-    (lib.cmakeBool "OTBR_COVERAGE" true)
     (lib.cmakeBool "OTBR_DNS_UPSTREAM_QUERY" true)
-
-    # Turning on random flags until I can pair the damn lights
-    (lib.cmakeBool "OT_DUA" true)
-    (lib.cmakeBool "OT_MLR" true)
-    (lib.cmakeBool "OT_ECDSA" true)
-    (lib.cmakeBool "OT_SERVICE" true)
-    (lib.cmakeBool "OT_ANYCAST_LOCATOR" true)
-    (lib.cmakeBool "OT_COVERAGE" true)
-    (lib.cmakeBool "OT_DNS_CLIENT" true)
-    (lib.cmakeBool "OT_NETDATA_PUBLISHER" true)
-    (lib.cmakeBool "OT_SLAAC" true)
-    (lib.cmakeBool "OT_SRP_CLIENT" true)
-    (lib.cmakeBool "OT_FULL_LOGS" true)
-    (lib.cmakeBool "OT_UPTIME" true)
 
     (lib.cmakeBool "OT_CHANNEL_MANAGER" true)
     (lib.cmakeBool "OT_CHANNEL_MONITOR" true)
