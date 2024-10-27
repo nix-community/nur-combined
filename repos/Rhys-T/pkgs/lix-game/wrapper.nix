@@ -48,4 +48,7 @@
         ));
         inherit (game-unwrapped.meta) mainProgram;
     };
+    passthru = {
+        inherit (game-unwrapped) pkgs;
+    };
 }

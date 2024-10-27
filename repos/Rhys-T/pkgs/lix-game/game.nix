@@ -6,7 +6,7 @@
     disableNativeImageLoader,
     pkg-config,
     overrideSDK, fetchpatch,
-    common
+    common, lix-game-packages
 }: let
     inherit (stdenv) isDarwin;
     allegro5' = if disableNativeImageLoader == "CIImage" then (allegro5.override {
@@ -101,6 +101,9 @@
             # derelict-enet currently only knows how to find the enet library for Windows, macOS, and Linux.
             # It could probably be patched to work on *BSD if needed.
             platforms = with lib.platforms; linux ++ darwin;
+        };
+        passthru = {
+            pkgs = lix-game-packages;
         };
     };
 in lix-game

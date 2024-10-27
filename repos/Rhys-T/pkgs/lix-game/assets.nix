@@ -7,7 +7,7 @@
     hash = if convertImagesToTrueColor then common.assetsPNG32Hash else common.assetsHash;
     hashAlgo = builtins.head (lib.strings.splitString "-" hash);
 in stdenvNoCC.mkDerivation {
-    pname = "${common.pname}-assets";
+    pname = "${common.pname}-assets" + lib.optionalString convertImagesToTrueColor "-PNG32";
     inherit (common) version src;
     nativeBuildInputs = lib.optionals convertImagesToTrueColor ([imagemagick] ++ lib.optionals enableParallelBuilding [parallel]);
     inherit enableParallelBuilding;

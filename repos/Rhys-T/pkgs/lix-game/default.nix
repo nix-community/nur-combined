@@ -1,6 +1,8 @@
 { lib, newScope, maintainers, hostPlatform }: let
     inherit (hostPlatform) isDarwin;
 in lib.makeScope newScope (self: let inherit (self) callPackage; in {
+    lix-game-packages = self;
+    
     game = callPackage ./wrapper.nix {};
     game-unwrapped = callPackage ./game.nix {};
     assets = callPackage ./assets.nix {};
