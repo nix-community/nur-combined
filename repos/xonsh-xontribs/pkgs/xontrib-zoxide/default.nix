@@ -8,12 +8,12 @@
 }:
 buildPythonPackage {
   pname = "xontrib-zoxide";
-  version = "1.0.0";
-  src = fetchFromGitHub {
+  version = "1.1.0";
+  src = pkgs.fetchFromGitHub {
     owner = "dyuri";
     repo = "xontrib-zoxide";
-    rev = "8140376cb9f3a2ea019982f9837cc427a157ecd9";
-    sha256 = "sha256-9xAR2R7IwGttv84qVb+8TkW6OAK6OGLW3o/tDQnUwII=";
+    rev = "36d3d0bc5945f2cd7aefdff598c6f7eeccfb1770";
+    hash = "sha256-lYx5dfmVebSYls9rbvAeD8GdzYkwv/qy75xp1m+/mdA=";
   };
 
   pyproject = true;
@@ -28,7 +28,6 @@ buildPythonPackage {
 
   postPatch = ''
     sed -ie "/xonsh.*=/d" pyproject.toml
-    sed -ie "s@os.path.join(script_path,_cache_name)@os.path.join(os.environ.get('HOME'), '.cache', _cache_name)@" xontrib/zoxide/zoxide.py
   '';
 
   meta = with lib; {
