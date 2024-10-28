@@ -91,17 +91,6 @@ in
       ] ++ lib.optional (cfg.secretFile != null) cfg.secretFile;
     };
 
-    services.matrix-sliding-sync = {
-      enable = true;
-
-      settings = {
-        SYNCV3_SERVER = "https://${matrixDomain}";
-        SYNCV3_BINDADDR = "127.0.0.1:${toString cfg.slidingSync.port}";
-      };
-
-      environmentFile = cfg.slidingSync.secretFile;
-    };
-
     my.services.nginx.virtualHosts = {
       # Element Web app deployment
       chat = {
