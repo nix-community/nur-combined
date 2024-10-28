@@ -75,11 +75,8 @@ src.git = "https://github.com/CachyOS/kernel-patches"
 fetch.github = "CachyOS/kernel-patches"
 
 [calibre-cops]
-# Upstream mismatch of version in download filename
-# src.github = "mikespub-org/seblucas-cops"
-# fetch.url = "https://github.com/mikespub-org/seblucas-cops/releases/download/$ver/cops-$ver.zip"
-src.manual = "2.7.2"
-fetch.url = "https://github.com/mikespub-org/seblucas-cops/releases/download/2.7.2/cops-2.7.1.zip"
+src.github = "mikespub-org/seblucas-cops"
+fetch.url = "https://github.com/mikespub-org/seblucas-cops/releases/download/$ver/cops-$ver-php82.zip"
 
 [cef-binary]
 src.git = "https://github.com/martyr-deepin/cef-binary.git"

@@ -123,7 +123,6 @@ _: {
           ''
             set -euo pipefail
             export PATH=${path}:$PATH
-            echo "$PATH"
             nix flake update
             ${nvfetcher}
             for S in $(find pkgs/ -name update.sh); do

@@ -427,7 +427,7 @@
   "legacyPackages.x86_64-linux.calibre-cops": {
     "description": "Calibre OPDS (and HTML) PHP Server : web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks (epub, mobi, pdf, ...)",
     "pname": "calibre-cops",
-    "version": "2.7.2"
+    "version": "3.3.1"
   },
   "legacyPackages.x86_64-linux.chmlib-utils": {
     "description": "Library for dealing with Microsoft ITSS/CHM format files",
@@ -582,7 +582,7 @@
   "legacyPackages.x86_64-linux.hoyo-glyphs": {
     "description": "Constructed scripts by Hoyoverse 米哈游的架空文字",
     "pname": "hoyo-glyphs",
-    "version": "20240919"
+    "version": "20241027"
   },
   "legacyPackages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
@@ -657,7 +657,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "3982"
+    "version": "3983"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -3777,7 +3777,7 @@
   "packages.x86_64-linux.calibre-cops": {
     "description": "Calibre OPDS (and HTML) PHP Server : web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks (epub, mobi, pdf, ...)",
     "pname": "calibre-cops",
-    "version": "2.7.2"
+    "version": "3.3.1"
   },
   "packages.x86_64-linux.chmlib-utils": {
     "description": "Library for dealing with Microsoft ITSS/CHM format files",
@@ -3932,7 +3932,7 @@
   "packages.x86_64-linux.hoyo-glyphs": {
     "description": "Constructed scripts by Hoyoverse 米哈游的架空文字",
     "pname": "hoyo-glyphs",
-    "version": "20240919"
+    "version": "20241027"
   },
   "packages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",

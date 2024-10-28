@@ -28,7 +28,7 @@ stdenvNoCC.mkDerivation {
 
     mkdir $out
     cp -r * $out/
-    cp ${configFile} $out/config_local.php
+    cp ${configFile} $out/config/local.php
 
     runHook postInstall
   '';

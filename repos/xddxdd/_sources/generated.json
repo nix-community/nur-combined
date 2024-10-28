@@ -328,7 +328,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-10-25",
+        "date": "2024-10-28",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -340,12 +340,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "9a779336a483e13853d7e26874b39dca481ed660",
-            "sha256": "sha256-RTKfVSN3HR8y1n/8dMnF4m2Yy2hbeqshO3yoaV5LwqI=",
+            "rev": "d32a22e1fc191ef5fa2367b40b8eec7a97899c68",
+            "sha256": "sha256-r3zYnMFH9LMf9vuiPa3XKuuHEYE6mCv4fJMki0x6aZ4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9a779336a483e13853d7e26874b39dca481ed660"
+        "version": "d32a22e1fc191ef5fa2367b40b8eec7a97899c68"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -356,11 +356,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-gToGPwsq+hSGVcdUzTTS344TI0f7btYrnIYZmJkUcrA=",
+            "sha256": "sha256-OcEYFBwkK2o6eGzqaJut19vyh41R7/z5p8YjXkfGd0Y=",
             "type": "url",
-            "url": "https://github.com/mikespub-org/seblucas-cops/releases/download/2.7.2/cops-2.7.1.zip"
+            "url": "https://github.com/mikespub-org/seblucas-cops/releases/download/3.3.1/cops-3.3.1-php82.zip"
         },
-        "version": "2.7.2"
+        "version": "3.3.1"
     },
     "cef-binary": {
         "cargoLocks": null,
@@ -892,11 +892,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-62xaYCfk33+sMhNLohhYB7ptxKyloZcqXF0ogzP9CPM=",
+            "sha256": "sha256-8HTy5y+OypD2Dgb9YtfoAwCuC9yOXD3pm5yN617zA00=",
             "type": "url",
-            "url": "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/20240919/HoYo-Glyphs-20240919.zip"
+            "url": "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/20241027/HoYo-Glyphs-20241027.zip"
         },
-        "version": "20240919"
+        "version": "20241027"
     },
     "i915-sriov-dkms": {
         "cargoLocks": null,
@@ -1218,7 +1218,7 @@
     },
     "librime-lua": {
         "cargoLocks": null,
-        "date": "2024-08-19",
+        "date": "2024-10-27",
         "extract": null,
         "name": "librime-lua",
         "passthru": null,
@@ -1230,12 +1230,12 @@
             "name": null,
             "owner": "hchunhui",
             "repo": "librime-lua",
-            "rev": "fa6563cf7b40f3bfbf09e856420bff8de6820558",
-            "sha256": "sha256-jv5TZSp36UGbaRiXv9iUNLu3DE/yrWANQhY6TWLPD8c=",
+            "rev": "1bde771a044c5db505f3da65d25a806c0dcadc01",
+            "sha256": "sha256-UuwK0pXZsJ/dxXqU1DzrwmgJqnYnztrtPihVzJGQxMs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "fa6563cf7b40f3bfbf09e856420bff8de6820558"
+        "version": "1bde771a044c5db505f3da65d25a806c0dcadc01"
     },
     "librime-octagram": {
         "cargoLocks": null,
@@ -1377,12 +1377,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3982",
-            "sha256": "sha256-2/8jZSRdzWrgvyWgFhI3pl07zZKudyrb17Tj7C1hQkI=",
+            "rev": "b3983",
+            "sha256": "sha256-iZF13bYCPpoIiBRwstdPnrHqST8ECNVolocsKuq9fGQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3982"
+        "version": "b3983"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -1822,7 +1822,7 @@
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
             "rev": "0.7.0",
-            "sha256": "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=",
+            "sha256": "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=",
             "sparseCheckout": [],
             "type": "github"
         },

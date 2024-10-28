@@ -182,22 +182,22 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "9a779336a483e13853d7e26874b39dca481ed660";
+    version = "d32a22e1fc191ef5fa2367b40b8eec7a97899c68";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "9a779336a483e13853d7e26874b39dca481ed660";
+      rev = "d32a22e1fc191ef5fa2367b40b8eec7a97899c68";
       fetchSubmodules = false;
-      sha256 = "sha256-RTKfVSN3HR8y1n/8dMnF4m2Yy2hbeqshO3yoaV5LwqI=";
+      sha256 = "sha256-r3zYnMFH9LMf9vuiPa3XKuuHEYE6mCv4fJMki0x6aZ4=";
     };
-    date = "2024-10-25";
+    date = "2024-10-28";
   };
   calibre-cops = {
     pname = "calibre-cops";
-    version = "2.7.2";
+    version = "3.3.1";
     src = fetchurl {
-      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/2.7.2/cops-2.7.1.zip";
-      sha256 = "sha256-gToGPwsq+hSGVcdUzTTS344TI0f7btYrnIYZmJkUcrA=";
+      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/3.3.1/cops-3.3.1-php82.zip";
+      sha256 = "sha256-OcEYFBwkK2o6eGzqaJut19vyh41R7/z5p8YjXkfGd0Y=";
     };
   };
   cef-binary = {
@@ -501,10 +501,10 @@
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
-    version = "20240919";
+    version = "20241027";
     src = fetchurl {
-      url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/20240919/HoYo-Glyphs-20240919.zip";
-      sha256 = "sha256-62xaYCfk33+sMhNLohhYB7ptxKyloZcqXF0ogzP9CPM=";
+      url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/20241027/HoYo-Glyphs-20241027.zip";
+      sha256 = "sha256-8HTy5y+OypD2Dgb9YtfoAwCuC9yOXD3pm5yN617zA00=";
     };
   };
   i915-sriov-dkms = {
@@ -684,15 +684,15 @@
   };
   librime-lua = {
     pname = "librime-lua";
-    version = "fa6563cf7b40f3bfbf09e856420bff8de6820558";
+    version = "1bde771a044c5db505f3da65d25a806c0dcadc01";
     src = fetchFromGitHub {
       owner = "hchunhui";
       repo = "librime-lua";
-      rev = "fa6563cf7b40f3bfbf09e856420bff8de6820558";
+      rev = "1bde771a044c5db505f3da65d25a806c0dcadc01";
       fetchSubmodules = false;
-      sha256 = "sha256-jv5TZSp36UGbaRiXv9iUNLu3DE/yrWANQhY6TWLPD8c=";
+      sha256 = "sha256-UuwK0pXZsJ/dxXqU1DzrwmgJqnYnztrtPihVzJGQxMs=";
     };
-    date = "2024-08-19";
+    date = "2024-10-27";
   };
   librime-octagram = {
     pname = "librime-octagram";
@@ -764,13 +764,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3982";
+    version = "b3983";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3982";
+      rev = "b3983";
       fetchSubmodules = false;
-      sha256 = "sha256-2/8jZSRdzWrgvyWgFhI3pl07zZKudyrb17Tj7C1hQkI=";
+      sha256 = "sha256-iZF13bYCPpoIiBRwstdPnrHqST8ECNVolocsKuq9fGQ=";
     };
   };
   lyrica = {
@@ -1015,7 +1015,7 @@
       repo = "oqs-provider";
       rev = "0.7.0";
       fetchSubmodules = false;
-      sha256 = "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=";
+      sha256 = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
     };
   };
   osdlyrics = {

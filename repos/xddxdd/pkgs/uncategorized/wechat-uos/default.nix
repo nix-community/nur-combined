@@ -171,17 +171,19 @@ let
       mkdir -p "''${WECHAT_FILES_DIR}"
       mkdir -p "''${WECHAT_HOME_DIR}"
     '';
-    extraBwrapArgs = lib.optionals enableSandbox [
-      "--tmpfs /home"
-      "--tmpfs /root"
-      "--bind \${WECHAT_HOME_DIR} \${HOME}"
-      "--bind \${WECHAT_FILES_DIR} \${WECHAT_FILES_DIR}"
-      "--chdir $HOME"
-      "--setenv QT_QPA_PLATFORM xcb"
-      "--setenv QT_AUTO_SCREEN_SCALE_FACTOR 1"
-    ] ++ [
-      "--tmpfs ${glibcWithoutHardening}/etc"
-    ];
+    extraBwrapArgs =
+      lib.optionals enableSandbox [
+        "--tmpfs /home"
+        "--tmpfs /root"
+        "--bind \${WECHAT_HOME_DIR} \${HOME}"
+        "--bind \${WECHAT_FILES_DIR} \${WECHAT_FILES_DIR}"
+        "--chdir $HOME"
+        "--setenv QT_QPA_PLATFORM xcb"
+        "--setenv QT_AUTO_SCREEN_SCALE_FACTOR 1"
+      ]
+      ++ [
+        "--tmpfs ${glibcWithoutHardening}/etc"
+      ];
 
     unshareUser = true;
     unshareIpc = true;
