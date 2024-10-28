@@ -22,6 +22,10 @@ in
   options.my.system.nix = with lib; {
     enable = my.mkDisableOption "nix configuration";
 
+    gc = {
+      enable = my.mkDisableOption "nix GC configuration";
+    };
+
     cache = {
       selfHosted = my.mkDisableOption "self-hosted cache";
     };
@@ -61,6 +65,22 @@ in
         };
       };
     }
+
+    (lib.mkIf cfg.gc.enable {
+      nix.gc = {
+        automatic = true;
+
+        # Every week, with some wiggle room
+        dates = "weekly";
+        randomizedDelaySec = "10min";
+
+        # Use a persistent timer for e.g: laptops
+        persistent = true;
+
+        # Delete old profiles automatically after 15 days
+        options = "--delete-older-than 15d";
+      };
+    })
 
     (lib.mkIf cfg.cache.selfHosted {
       nix = {

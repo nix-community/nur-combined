@@ -48,9 +48,6 @@ in
     owner = "matrix-synapse";
     publicKeys = all;
   };
-  "matrix/sliding-sync-secret.age" = {
-    publicKeys = all;
-  };
 
   "mealie/mail.age" = {
     publicKeys = all;
