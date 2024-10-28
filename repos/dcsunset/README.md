@@ -45,3 +45,8 @@ add the following to your `flake.nix` config:
 }
 ```
 
+## Acknowledgement
+
+Some of the modules and packages are derived from nixpkgs for testing or applying minor fixes.
+Thanks to nixpkgs contributors!
+
