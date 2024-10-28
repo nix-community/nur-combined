@@ -26,10 +26,10 @@
 }:
 stdenv.mkDerivation {
   name = "reduce-algebra";
-  version = "r6860";
+  version = "r6658";
   src = fetchurl {
-    url = "https://sourceforge.net/projects/reduce-algebra/files/snapshot_2024-08-12/Reduce-svn6860-src.tar.gz";
-    sha1 = "q81l4MA2h+4ky4Rwt26Vl0QPf5c=";
+    url = "https://sourceforge.net/projects/reduce-algebra/files/snapshot_2023-12-18/Reduce-svn6658-src.tar.gz";
+    sha1 = "b5c7d4b5c09b546a1b0576368aa702b40eef8568";
   };
   patches = [./fox.patch];
 
