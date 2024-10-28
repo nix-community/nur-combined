@@ -1,0 +1,690 @@
+diff --git a/Parsynt.opam b/Parsynt.opam
+index 141ff2a..6a41669 100644
+--- a/Parsynt.opam
++++ b/Parsynt.opam
+@@ -12,6 +12,8 @@ bug-reports: "https://github.com/victornicolet/parsynt/issues"
+ depends: [
+   "dune" {>= "2.6"}
+   "base" {>= "v0.14.0"}
++  "camlp-streams" {>= "5.0.1"}
++  "core" {= "v0.15.1"}
+   "fileutils" {>= "0.6.3"}
+   "fmt" {>= "0.8.8"}
+   "fileutils" {>= "0.6.0"}
+diff --git a/bin/Parsynt.ml b/bin/Parsynt.ml
+index 76061dc..e9223af 100644
+--- a/bin/Parsynt.ml
++++ b/bin/Parsynt.ml
+@@ -37,7 +37,7 @@ let options =
+       Some
+         (fun () ->
+           help ();
+-          Caml.exit 0),
++          Stdlib.exit 0),
+       None );
+     ('d', "debug", None, Some (fun l -> Log.verb_debug := Int.of_string l));
+     ('P', "parse-only", set Config.parse_minic_only true, None);
+@@ -110,7 +110,7 @@ let to_dnc (sp_or_sfsp : (Lang.E.soln_info, float * (VarSet.t * term) list * ter
+       | None ->
+           Log.error (Utils.wrap "No solution found.");
+           if !Log.quiet then Log.print_res_unsat !Config.master_file elapsed;
+-          Caml.exit 0)
++          Stdlib.exit 0)
+ 
+ let main () =
+   let argv = Sys.get_argv () in
+@@ -127,7 +127,7 @@ let main () =
+     tstart := Unix.gettimeofday ();
+     let parsed_input, asserts = parse_input !Config.master_file in
+     Log.success (fun fmt () -> pf fmt "Parsed %s." !Config.master_file);
+-    if !Config.parse_minic_only then Caml.exit 0;
++    if !Config.parse_minic_only then Stdlib.exit 0;
+     let spass_funcs =
+       List.map ~f:(Recursion.SelfFoldSinglePass.to_single_pass asserts) parsed_input
+     in
+diff --git a/bin/dune b/bin/dune
+index 7fc1e0e..eb73b29 100644
+--- a/bin/dune
++++ b/bin/dune
+@@ -1,3 +1,4 @@
+ (executable
++ (public_name Parsynt)
+  (name Parsynt)
+  (libraries Lib fmt base parsexp compiler-libs sexplib getopt))
+diff --git a/dune-project b/dune-project
+index 5637585..309d0b3 100644
+--- a/dune-project
++++ b/dune-project
+@@ -26,6 +26,10 @@
+  (depends
+   (base
+    (>= v0.14.0))
++  (camlp-streams
++   (>= 5.0.1))
++  (core
++   (= v0.15.1))
+   (fileutils
+    (>= 0.6.3))
+   (fmt
+diff --git a/src/front/MinicFront.ml b/src/front/MinicFront.ml
+index cadc07d..89f9c35 100644
+--- a/src/front/MinicFront.ml
++++ b/src/front/MinicFront.ml
+@@ -43,7 +43,7 @@ let sanitize_loop_body (rdefs : (int * term) list IM.t) (t : term) : VarSet.t *
+   | ELet (_, bnd, { texpr = EEmpty; _ }) -> (fv, bnd)
+   | _ ->
+       Log.error (printer_msg "%a@." Lang.TermPp.rpp_term_r t');
+-      failhere Caml.__FILE__ "sanitize_loop_body"
++      failhere Stdlib.__FILE__ "sanitize_loop_body"
+         "Could not translate loop body to proper function."
+ 
+ module MFile = struct
+@@ -118,7 +118,7 @@ module LangFile = struct
+               match Map.find ffile.freaching s.sid with
+               | Some x -> x
+               | None ->
+-                  failhere Caml.__FILE__ "from_ffile"
++                  failhere Stdlib.__FILE__ "from_ffile"
+                     "Unexpected : no reaching definition for loop."
+             in
+             let loop_term = minif2lang s in
+@@ -135,7 +135,7 @@ module LangFile = struct
+                 | FIList (_, li) ->
+                     let fv = Lang.Analyze.free_variables li in
+                     { lfile with lf_asserts = lfile.lf_asserts @ [ (fv, term) ] }
+-                | _ -> failhere Caml.__FILE__ "from_ffile" "Assertion not supported." )
++                | _ -> failhere Stdlib.__FILE__ "from_ffile" "Assertion not supported." )
+             | FATerm t ->
+                 let fv = Lang.Analyze.free_variables t in
+                 { lfile with lf_asserts = lfile.lf_asserts @ [ (fv, t) ] } )
+diff --git a/src/front/Minif2Lang.ml b/src/front/Minif2Lang.ml
+index be3b0b4..2618898 100644
+--- a/src/front/Minif2Lang.ml
++++ b/src/front/Minif2Lang.ml
+@@ -106,10 +106,10 @@ let capture_iteration (body : mf_stmt) (iterator : mf_iterator) : variable * ter
+     | [] -> (
+         match maybe_a with
+         | Some a -> (v_idx, a, newbody)
+-        | _ -> Utils.failhere Caml.__FILE__ "capture_iteration" "Unsupported collection traversal."
++        | _ -> Utils.failhere Stdlib.__FILE__ "capture_iteration" "Unsupported collection traversal."
+         )
+     | [ (p, a) ] -> (p, a, newbody) (* //TODO more info about hte list indexed *)
+-    | _ -> Utils.failhere Caml.__FILE__ "capture_iteration" "Unsupported collection traversal."
++    | _ -> Utils.failhere Stdlib.__FILE__ "capture_iteration" "Unsupported collection traversal."
+   else if Set.for_all ~f:is_of_type_idx indexed_exprs && Set.length indexed_exprs = 1 then
+     match iterator with
+     | FIRange (Var x, lo, hi) -> (x, mk_app (mk_vt Lang.Term._RANGE_) [ lo; hi ], body')
+diff --git a/src/lang/AcTerm.ml b/src/lang/AcTerm.ml
+index 0ee8fb7..7f0616d 100644
+--- a/src/lang/AcTerm.ml
++++ b/src/lang/AcTerm.ml
+@@ -161,7 +161,7 @@ let rebuild_tree_AC (compare_cost : term -> term -> int) : term -> term =
+               | hd :: tl ->
+                   Some (List.fold_left ~f:(fun tree e -> mk_term (EBin (op, e, tree))) ~init:hd tl)
+               | [] ->
+-                  failhere Caml.__FILE__ "rebuild_tree_AC"
++                  failhere Stdlib.__FILE__ "rebuild_tree_AC"
+                     "Unexpected length for list in AC conversion." )
+           (* Associative case. *)
+           | Some op when Binop.is_a op -> (
+@@ -179,7 +179,7 @@ let rebuild_tree_AC (compare_cost : term -> term -> int) : term -> term =
+                *   *\)
+                *   best_associative_grouping_from_all compare_cost op hd tl) *)
+               | [] ->
+-                  failhere Caml.__FILE__ "rebuild_tree_AC"
++                  failhere Stdlib.__FILE__ "rebuild_tree_AC"
+                     "Unexpected length for list in AC conversion." )
+           | _ -> None )
+       | _ -> None
+@@ -601,7 +601,7 @@ let factorize (to_factorize : term list) (term : term) : term =
+         match mk_a_app op l with
+         | Some app -> app
+         | None ->
+-            failhere Caml.__FILE__ "reconstr_app" "Something went wrong went rebuilding ac app." )
++            failhere Stdlib.__FILE__ "reconstr_app" "Something went wrong went rebuilding ac app." )
+   in
+   let factorize_args opmax args =
+     let empty_bmap = Map.empty (module Binop) in
+@@ -632,7 +632,7 @@ let factorize (to_factorize : term list) (term : term) : term =
+         let _f _fcnt (_cnts, _) =
+           match List.map2 ~f:(fun (c1, x1) (c2, _) -> (c1 + c2, x1)) _fcnt _cnts with
+           | List.Or_unequal_lengths.Ok l -> l
+-          | _ -> failhere Caml.__FILE__ "factorize" "List unequal lengths."
++          | _ -> failhere Stdlib.__FILE__ "factorize" "List unequal lengths."
+         in
+         let max_factor_o =
+           ListTools.mmax (fun (c, _) -> c) (List.fold_left ~f:_f ~init:init_factor_counts cnts)
+diff --git a/src/lang/Analyze.ml b/src/lang/Analyze.ml
+index 52f5581..661d895 100644
+--- a/src/lang/Analyze.ml
++++ b/src/lang/Analyze.ml
+@@ -87,7 +87,7 @@ let used_structs (t : term) =
+         match Structs.get s with
+         | Some t -> Some (join (single t) (f t'))
+         | None ->
+-            Utils.failhere Caml.__FILE__ "pp_struct_defs"
++            Utils.failhere Stdlib.__FILE__ "pp_struct_defs"
+               "Unkown struct in program, cannot output sketch." )
+     | EStruct mems -> (
+         let lt = List.fold ~f:(fun acc (_, t') -> join acc (f t')) ~init mems in
+diff --git a/src/lang/SolutionDescriptors.ml b/src/lang/SolutionDescriptors.ml
+index 483c6df..ffb1f64 100644
+--- a/src/lang/SolutionDescriptors.ml
++++ b/src/lang/SolutionDescriptors.ml
+@@ -280,7 +280,7 @@ let add_join_to_pred_soln (pi : pred_soln) (ji : variable list * term) : join_so
+     let budget = pi.budget in
+     let bs = Fmt.str "_%i_%i_%i_" budget.k budget.m budget.c in
+     ( Utils.Naming.tmp_file ("join_sketch" ^ bs) Naming.ext_racket,
+-      Caml.Filename.temp_file ("join_output" ^ bs) "" )
++      Stdlib.Filename.temp_file ("join_output" ^ bs) "" )
+   in
+   {
+     synt_time = 0.0;
+@@ -333,7 +333,7 @@ let dump_id = ref 0
+ 
+ let dump_join_soln (ji : join_soln) : unit =
+   let out_filename =
+-    let fn = Caml.Filename.basename (Caml.Filename.remove_extension !Config.master_file) in
++    let fn = Stdlib.Filename.basename (Stdlib.Filename.remove_extension !Config.master_file) in
+     Fmt.str "%s_%i-%i-%i_%i_soln.txt" fn ji.budget.k ji.budget.m ji.budget.c !dump_id
+   in
+   Int.incr dump_id;
+@@ -790,7 +790,7 @@ let pp_eqn f (v, t) = pf f "@[%s@;=@;%a@]" v.vname rpp_term t
+ 
+ let dump_eqns (func : l_eqns) : unit =
+   let out_filename =
+-    let fn = Caml.Filename.basename (Caml.Filename.remove_extension !Config.master_file) in
++    let fn = Stdlib.Filename.basename (Stdlib.Filename.remove_extension !Config.master_file) in
+     Fmt.str "%s_0-2-2_%i_soln.txt" fn !dump_id
+   in
+   Int.incr dump_id;
+diff --git a/src/lang/Term.ml b/src/lang/Term.ml
+index ef7c34c..830e796 100644
+--- a/src/lang/Term.ml
++++ b/src/lang/Term.ml
+@@ -236,8 +236,8 @@ module Binop = struct
+     | Times -> Some (fun a b -> a * b)
+     | Plus -> Some ( + )
+     | Minus -> Some ( - )
+-    | Max -> Some Caml.max
+-    | Min -> Some Caml.min
++    | Max -> Some Stdlib.max
++    | Min -> Some Stdlib.min
+     | Div -> Some ( / )
+     | Mod -> Some ( % )
+     | _ -> None
+@@ -249,11 +249,11 @@ module Binop = struct
+      | Binop.Concat -> (fun a b -> a  @ b) *)
+   let comp_op op =
+     match op with
+-    | Eq -> Some Caml.( = )
+-    | Lt -> Some Caml.( < )
+-    | Gt -> Some Caml.( > )
+-    | Le -> Some Caml.( <= )
+-    | Ge -> Some Caml.( >= )
++    | Eq -> Some Stdlib.( = )
++    | Lt -> Some Stdlib.( < )
++    | Gt -> Some Stdlib.( > )
++    | Le -> Some Stdlib.( <= )
++    | Ge -> Some Stdlib.( >= )
+     | _ -> None
+ end
+ 
+@@ -324,7 +324,7 @@ let var_of (t : term) = match t.texpr with EVar (Var v) -> Some v | _ -> None
+ let is_var (t : term) = match t.texpr with EVar (Var _) -> true | _ -> false
+ 
+ let var_of_exn (t : term) =
+-  match t.texpr with EVar (Var v) -> v | _ -> failhere Caml.__FILE__ "var_of" "Variable expected."
++  match t.texpr with EVar (Var v) -> v | _ -> failhere Stdlib.__FILE__ "var_of" "Variable expected."
+ 
+ (* Special vars *)
+ let _INT_MIN = { vname = "INT_MIN"; vid = 40; vtype = TInt; vattrs = [ Builtin ] }
+diff --git a/src/lang/Unfold.ml b/src/lang/Unfold.ml
+index c44063c..be42808 100644
+--- a/src/lang/Unfold.ml
++++ b/src/lang/Unfold.ml
+@@ -77,21 +77,21 @@ let empty_app_term t f = { t with texpr = EApp (f, []) }
+ let app_term_cons ft t =
+   match t.texpr with
+   | EApp (f, args) -> { ft with texpr = EApp (f, args @ [ t ]) }
+-  | _ -> failhere Caml.__FILE__ "app_term_cons" "First argument has to be app term."
++  | _ -> failhere Stdlib.__FILE__ "app_term_cons" "First argument has to be app term."
+ 
+ let empty_list_term t = { t with texpr = EList [] }
+ 
+ let list_term_cons lt t =
+   match lt.texpr with
+   | EList tl -> { lt with texpr = EList (tl @ [ t ]) }
+-  | _ -> failhere Caml.__FILE__ "list_term_cons" "First argument has to be list term."
++  | _ -> failhere Stdlib.__FILE__ "list_term_cons" "First argument has to be list term."
+ 
+ let empty_tuple_term t = { t with texpr = ETuple [] }
+ 
+ let tuple_term_cons lt t =
+   match lt.texpr with
+   | ETuple tl -> { lt with texpr = ETuple (tl @ [ t ]) }
+-  | _ -> failhere Caml.__FILE__ "tuple_term_cons" "First argument has to be tuple term."
++  | _ -> failhere Stdlib.__FILE__ "tuple_term_cons" "First argument has to be tuple term."
+ 
+ let do_bin t b e1 e2 =
+   {
+diff --git a/src/recursion/Discover.ml b/src/recursion/Discover.ml
+index f6fe523..f57d628 100644
+--- a/src/recursion/Discover.ml
++++ b/src/recursion/Discover.ml
+@@ -227,7 +227,7 @@ let discover_predicate_and_sketches (budget : cbudget) (base : std_soln) :
+     let div_sk, div_out =
+       let bs = Fmt.str "_%i_%i_%i_" budget.k budget.m budget.c in
+       ( Utils.Naming.tmp_file ("div_sketch" ^ bs) Naming.ext_racket,
+-        Caml.Filename.temp_file ("div_output" ^ bs) "" )
++        Stdlib.Filename.temp_file ("div_output" ^ bs) "" )
+     in
+     {
+       synt_time = Unix.gettimeofday () -. tstart;
+diff --git a/src/recursion/EquationSystems.ml b/src/recursion/EquationSystems.ml
+index a0224c7..18ce44b 100644
+--- a/src/recursion/EquationSystems.ml
++++ b/src/recursion/EquationSystems.ml
+@@ -228,7 +228,7 @@ let solve_step (func_name : string) (l : l_eqns) (v : variable list) : (int * l_
+             Utils.Naming.tmp_file
+               (Fmt.str "join_%s_%s" func_name (List.hd_exn v).vname)
+               Naming.ext_racket;
+-          tmp_file_out = Caml.Filename.temp_file "join_output" "";
++          tmp_file_out = Stdlib.Filename.temp_file "join_output" "";
+           sketching_level = k;
+         })
+       ListTools.(0 -- Config.num_parallel_processes)
+@@ -333,7 +333,7 @@ let solve_direct (l : l_eqns) : l_eqns option =
+         {
+           eq_sinfo with
+           tmp_file_sk = Utils.Naming.tmp_file "join_sketch" Naming.ext_racket;
+-          tmp_file_out = Caml.Filename.temp_file "join_output" "";
++          tmp_file_out = Stdlib.Filename.temp_file "join_output" "";
+           sketching_level = k;
+         })
+       ListTools.(0 -- Config.num_parallel_processes)
+diff --git a/src/recursion/RecursionDiscovery.ml b/src/recursion/RecursionDiscovery.ml
+index 023cd8c..e54f1d6 100644
+--- a/src/recursion/RecursionDiscovery.ml
++++ b/src/recursion/RecursionDiscovery.ml
+@@ -479,7 +479,7 @@ let discover_conditional_recursion (for_v : variable) (solver : online_solver)
+       | Error (s, t, e) ->
+           Log.error (fun f () ->
+               Fmt.(pf f "type error in discover, %s : %a is not %a." s pp_term (mk_term e) pp_typ t));
+-          failhere Caml.__FILE__ "discover_conditional_rec" "Type error."
++          failhere Stdlib.__FILE__ "discover_conditional_rec" "Type error."
+     in
+     (* Fold over the unfoldings, discover subtree isomorphisms from one unfolding to the next. *)
+     let%bind annot_unfs, _ =
+@@ -524,7 +524,7 @@ let discover_conditional_recursion (for_v : variable) (solver : online_solver)
+           Log.warning (printer_msg "Unrecognized form %a@." Fmt.(box pp_recursion_scheme) x);
+           (placeholder, [])
+       | None -> (placeholder, []))
+-  | _ -> failhere Caml.__FILE__ "discover_conditional_rec" "Need more than 1 unfoldings."
++  | _ -> failhere Stdlib.__FILE__ "discover_conditional_rec" "Need more than 1 unfoldings."
+ 
+ let conditional_accumulator (v : variable) (x : variable) (_ : VarSet.t) (t : term) :
+     (local_context * variable * (variable * term) list * term option) list =
+diff --git a/src/recursion/SelfFoldSinglePass.ml b/src/recursion/SelfFoldSinglePass.ml
+index 5d56be3..14b52ec 100644
+--- a/src/recursion/SelfFoldSinglePass.ml
++++ b/src/recursion/SelfFoldSinglePass.ml
+@@ -123,7 +123,7 @@ let get_extension ?(lfield = None) list_t orig_t : typ * string =
+       (TStruct (name, mems), l)
+   | _ ->
+       Log.error (printer_msg "Cannot extend state for type %a" pp_typ orig_t);
+-      failhere Caml.__FILE__ "extend_state" "Failed to extend state."
++      failhere Stdlib.__FILE__ "extend_state" "Failed to extend state."
+ 
+ let add_list_field input_t orig_t ofb t : string option * term * typ =
+   let new_t, new_field_name = get_extension input_t orig_t in
+@@ -149,7 +149,7 @@ let outer_fold_bodies (t : term) =
+   in
+   match Set.to_list ofb with
+   | [ x ] -> x
+-  | _ -> Utils.failhere Caml.__FILE__ "outer_fold_bodies" "Too many outer folds."
++  | _ -> Utils.failhere Stdlib.__FILE__ "outer_fold_bodies" "Too many outer folds."
+ 
+ let inner_transform ~(tin : typ) ~(ti : typ) (pre : term) (post : acc_op) (otimes : otimes_op) =
+   let maybe_lname, tli =
+@@ -302,7 +302,7 @@ let extend_state (input_type : typ) (t : term) ~(outer_fold : term) =
+   | Ok typ -> (true, add_list_field input_type typ outer_fold t)
+   | Error s ->
+       TermPp.typecheck_err s;
+-      Utils.failhere Caml.__FILE__ "extend_state" "Too many outer folds."
++      Utils.failhere Stdlib.__FILE__ "extend_state" "Too many outer folds."
+ 
+ (* ============================================================================================= *)
+ (* ============================  SFSP SPECIFIC SKETCHING HANDLES =============================== *)
+@@ -371,7 +371,7 @@ let gen_sketches (base_si : soln_info) (complex : int) : soln_info list =
+       {
+         base_si with
+         tmp_file_sk = Utils.Naming.tmp_file "sfsp_sketch" Naming.ext_racket;
+-        tmp_file_out = Caml.Filename.temp_file "sfsp_output" ".txt";
++        tmp_file_out = Stdlib.Filename.temp_file "sfsp_output" ".txt";
+         otimes;
+         pre;
+         post;
+@@ -430,7 +430,7 @@ let func_multiple_pass (_ : variable list) (body : term) : bool =
+       true
+   | _ ->
+       Log.error (wrap "More than two nested folds not supported.");
+-      Utils.failhere Caml.__FILE__ "func_multiple_pass"
++      Utils.failhere Stdlib.__FILE__ "func_multiple_pass"
+         "Modular approach for nested folds not implemented."
+ 
+ let no_solution () =
+@@ -473,7 +473,7 @@ let single_pass_transform (asserts : (VarSet.t * term) list) (inputs : variable
+     {
+       synt_time = 0.0;
+       tmp_file_sk = Utils.Naming.tmp_file "sfsp_sketch" Naming.ext_racket;
+-      tmp_file_out = Caml.Filename.temp_file "sfsp_output" ".txt";
++      tmp_file_out = Stdlib.Filename.temp_file "sfsp_output" ".txt";
+       func_name;
+       func_input = input;
+       func_input_assert = ia;
+@@ -537,7 +537,7 @@ let to_single_pass (asserts : (VarSet.t * term) list) ((t, o) : term * VarSet.t)
+   in
+   if List.length lists < 1 then (
+     Utils.Log.error (Utils.wrap "Loops of function do not have a list as input.");
+-    Caml.exit 0 )
++    Stdlib.exit 0 )
+   else if func_multiple_pass lists body then
+     Either.First (single_pass_transform applicable_assertions lists body o)
+   else Either.Second (Unix.gettimeofday () -. start, applicable_assertions, body)
+diff --git a/src/recursion/SymbExe.ml b/src/recursion/SymbExe.ml
+index b66b58f..db2f94e 100644
+--- a/src/recursion/SymbExe.ml
++++ b/src/recursion/SymbExe.ml
+@@ -70,7 +70,7 @@ let branching_eval (solver : online_solver) (env : env) (t : term) =
+     | ETuple tl -> (
+         match List.nth tl index with
+         | Some t -> eval_term env t
+-        | None -> failhere Caml.__FILE__ "eval_mem" "Out of bounds.")
++        | None -> failhere Stdlib.__FILE__ "eval_mem" "Out of bounds.")
+     | EIte (c, t1, t2) ->
+         branch env c
+           (fun () -> eval_term env (mk_mem t1 index))
+@@ -81,7 +81,7 @@ let branching_eval (solver : online_solver) (env : env) (t : term) =
+     | EStruct mems -> (
+         match List.Assoc.find mems ~equal:String.equal mn with
+         | Some t -> eval_term env t
+-        | None -> failhere Caml.__FILE__ "eval_struct_mem" "Invalid member.")
++        | None -> failhere Stdlib.__FILE__ "eval_struct_mem" "Invalid member.")
+     | EIte (c, t1, t2) ->
+         branch env c
+           (fun () -> eval_term env (eval_struct_field env t1 sn mn))
+diff --git a/src/singleloop/Beta.ml b/src/singleloop/Beta.ml
+index 037c8f7..0bd72af 100644
+--- a/src/singleloop/Beta.ml
++++ b/src/singleloop/Beta.ml
+@@ -235,7 +235,7 @@ let rec shstr_of_type t =
+   | Function (argt, rett) -> "F" ^ shstr_of_type argt ^ "_" ^ shstr_of_type rett ^ "_"
+   | _ ->
+       Log.error_msg (Fmt.str "Type %a." pp_typ t);
+-      failhere Caml.__FILE__ "shstr_of_type" "No short string for this type"
++      failhere Stdlib.__FILE__ "shstr_of_type" "No short string for this type"
+ 
+ let rec is_subtype t tmax =
+   match (t, tmax) with
+diff --git a/src/solve/Rosette.ml b/src/solve/Rosette.ml
+index 11f5d08..4f404dd 100644
+--- a/src/solve/Rosette.ml
++++ b/src/solve/Rosette.ml
+@@ -288,14 +288,14 @@ let exec_solver (filenames : (string * string) list) : (string * Sexp.t list) op
+         Fmt.(str "@[Solution is unsat:@;@[%a@]@]" (list ~sep:sp Sexp.pp_hum) sol);
+       None )
+     else (
+-      List.iter ~f:(fun (_, proc) -> proc#kill Caml.Sys.sigkill) processes;
++      List.iter ~f:(fun (_, proc) -> proc#kill Stdlib.Sys.sigkill) processes;
+       Some (otf, sol) )
+   in
+   let cp =
+     List.map ~f:(fun (otf, proc) -> Lwt.map (fun x -> proc_status proc x otf) proc#status) processes
+   in
+   let resps = Lwt_main.run (Lwt.all cp) in
+-  List.iter ~f:(fun (_, outf) -> try Caml.Sys.remove outf with _ -> ()) filenames;
++  List.iter ~f:(fun (_, outf) -> try Stdlib.Sys.remove outf with _ -> ()) filenames;
+   resps
+ 
+ let check_exit_status = function
+@@ -336,7 +336,7 @@ let unix_parallel_exec_solver (filenames : (string * string) list) : (string * S
+     let f (_, pid) =
+       if pid_inactive pid then Log.debug ~level:2 (fun f () -> Fmt.(pf f "Exited %i." pid))
+       else Log.debug ~level:2 (fun f () -> Fmt.(pf f "Kill %i." pid));
+-      try Unix.kill pid Caml.Sys.sigint with
++      try Unix.kill pid Stdlib.Sys.sigint with
+       | Unix.Unix_error (Unix.ESRCH, _, _) -> ()
+       | _ as exn -> raise exn
+     in
+@@ -361,7 +361,7 @@ let unix_parallel_exec_solver (filenames : (string * string) list) : (string * S
+   in
+   Unix.sleepf 0.05;
+   let res = loop_over_processes processes in
+-  List.iter ~f:(fun (_, outf) -> try Caml.Sys.remove outf with _ -> ()) filenames;
++  List.iter ~f:(fun (_, outf) -> try Stdlib.Sys.remove outf with _ -> ()) filenames;
+   res
+ 
+ (**
+diff --git a/src/solve/STerm.ml b/src/solve/STerm.ml
+index 4baf3e4..e352e25 100644
+--- a/src/solve/STerm.ml
++++ b/src/solve/STerm.ml
+@@ -84,7 +84,7 @@ let simplify_branches_assuming ?(assume = mk_true) (s : online_solver) (vars : V
+         (printer_msg "This term cannot be translated to smt:@.---> %a.@."
+            Fmt.(box Lang.TermPp.pp_term)
+            assume);
+-      failhere Caml.__FILE__ "simplify_branches_assuming" "Failed to write assumption as SMT term."
++      failhere Stdlib.__FILE__ "simplify_branches_assuming" "Failed to write assumption as SMT term."
+ 
+ let simplify_conjunction (solver : online_solver) (conj : term list) =
+   let conj = List.map ~f:Lang.AcTerm.simplify_easy conj in
+@@ -130,7 +130,7 @@ let expr_of_mcnf solver (t : mcnf) =
+                 in
+                 mk_ite c0 et ef )
+         | [], e -> e )
+-    | [] -> failhere Caml.__FILE__ "expr_of_mcnf" "Unreachable case"
++    | [] -> failhere Stdlib.__FILE__ "expr_of_mcnf" "Unreachable case"
+   in
+   let e = match t with [] -> mk_empty_list | _ -> aux_f t in
+   if is_none solver then close_solver local_solver;
+@@ -143,9 +143,9 @@ let rec simplify_term ?(solver = None) ?(assume = []) ?(strategy = "default") (t
+   | "z3" -> ( match z3_simplify ~solver t with Some x -> x | None -> t )
+   | "conds" -> simplify_cond ~solver ~assume t
+   | "blast_max" -> rebuild_max (simplify_cond ~solver ~assume (blast_max t))
+-  | _ -> failhere Caml.__FILE__ "simplify_term" "Not a valid strategy."
++  | _ -> failhere Stdlib.__FILE__ "simplify_term" "Not a valid strategy."
+ 
+-and simplify_mcnf ?(solver = None) ~assume:(assumptions : term list) ~mcnf:(m : mcnf) : term =
++and simplify_mcnf ~solver ~assume:(assumptions : term list) ~mcnf:(m : mcnf) : term =
+   (* Remove unreachable branches *)
+   let reachable_mcnf _e =
+     let cnd_implied (cnd, _) =
+@@ -258,7 +258,7 @@ let normalize_unfoldings ~solver ~(costly : resource list) unfoldings : normaliz
+                    (List.mapi ~f:(fun j e -> (j, e)) els)
+                    (List.mapi ~f:(fun j e -> (j, e)) elc)) )
+           else
+-            failhere Caml.__FILE__ "normalize_unfoldings"
++            failhere Stdlib.__FILE__ "normalize_unfoldings"
+               "Type mismatch between concrete and symbolic."
+       | _ ->
+           ( Map.of_alist_exn (module Int) [ (0, fi (-1)) ],
+diff --git a/src/solve/Scripting.ml b/src/solve/Scripting.ml
+index 1bb23a0..f13dd9f 100644
+--- a/src/solve/Scripting.ml
++++ b/src/solve/Scripting.ml
+@@ -86,7 +86,7 @@ let rec expr_of_sexp (vars : VarSet.t) (se : Sexp.t) : (term, Sexp.t) Result.t =
+         | "true" -> Ok mk_true
+         | "false" -> Ok mk_false
+         | _ -> (
+-            match Caml.int_of_string_opt vname with
++            match Stdlib.int_of_string_opt vname with
+             | Some i -> Ok (mk_int i)
+             | _ -> (
+                 match VarSet.find_by_name vars vname with
+diff --git a/src/solve/SolverForms.ml b/src/solve/SolverForms.ml
+index 54b71d6..c175fe1 100644
+--- a/src/solve/SolverForms.ml
++++ b/src/solve/SolverForms.ml
+@@ -184,7 +184,7 @@ let solver_write (solver : online_solver) (c : command) : unit =
+ let solver_read (solver : online_solver) : solver_response =
+   let l =
+     try Sexp.input_sexp solver.outputc
+-    with Sys_error _ -> failhere Caml.__FILE__ "solver_read" "Couldn't read solver answer."
++    with Sys_error _ -> failhere Stdlib.__FILE__ "solver_read" "Couldn't read solver answer."
+   in
+   parse_response [ l ]
+ 
+@@ -222,7 +222,7 @@ let handle_sigchild (_ : int) : unit =
+         OC.close solver.inputc
+     | None -> ()
+ 
+-let () = Caml.Sys.set_signal Caml.Sys.sigchld (Caml.Sys.Signal_handle handle_sigchild)
++let () = Stdlib.Sys.set_signal Stdlib.Sys.sigchld (Stdlib.Sys.Signal_handle handle_sigchild)
+ 
+ let make_solver (path : string) : online_solver =
+   let open Unix in
+@@ -282,9 +282,9 @@ let solver_response_errors (response : solver_response) =
+     match sexp with
+     | Sexp.Atom _ -> []
+     | List (Atom "error" :: _) -> [ sexp ]
+-    | List ls -> Caml.List.flatten (List.map ~f:is_error_sexp ls)
++    | List ls -> Stdlib.List.flatten (List.map ~f:is_error_sexp ls)
+   in
+-  match response with SExps l -> Caml.List.flatten (List.map ~f:is_error_sexp l) | _ -> []
++  match response with SExps l -> Stdlib.List.flatten (List.map ~f:is_error_sexp l) | _ -> []
+ 
+ let pp_solver_response = SmtLib.pp_solver_response
+ 
+diff --git a/src/sygus/Synthlib.ml b/src/sygus/Synthlib.ml
+index a09bbb9..071aef7 100644
+--- a/src/sygus/Synthlib.ml
++++ b/src/sygus/Synthlib.ml
+@@ -31,7 +31,7 @@ let printsy = sypp_sygus Fmt.stdout
+ 
+ let print_file f =
+   let oc = Stdio.Out_channel.create f in
+-  sypp_sygus (Caml.Format.formatter_of_out_channel oc)
++  sypp_sygus (Stdlib.Format.formatter_of_out_channel oc)
+ 
+ let slg_int i = SyGLiteral (SyInt i)
+ 
+@@ -70,8 +70,8 @@ let rec sort_of_ciltyp (typ : Typ.typ) =
+   | TTop -> SyIdSort "top"
+   | TList t -> SyArraySort (SyIntSort, sort_of_ciltyp t)
+   | TStruct (_, fields) -> SyEnumSort (ListTools.lfst fields)
+-  | TFun (_, _) -> failhere Caml.__FILE__ "sort_of_ciltyp" "No type for functions."
+-  | _ -> failhere Caml.__FILE__ "sort_of_ciltyp" (Fmt.str "No type for %a" Typ.pp_typ typ)
++  | TFun (_, _) -> failhere Stdlib.__FILE__ "sort_of_ciltyp" "No type for functions."
++  | _ -> failhere Stdlib.__FILE__ "sort_of_ciltyp" (Fmt.str "No type for %a" Typ.pp_typ typ)
+ 
+ let sort_of_varinfo (vi : Term.Variable.t) = sort_of_ciltyp vi.vtype
+ 
+@@ -111,7 +111,7 @@ let gen_arity_defs (vname, vsort, fterm) args args_of_args (listname, listsort)
+                       match SM.find rec_vname args_of_args with
+                       | Some args -> args
+                       | None ->
+-                          failhere Caml.__FILE__ "gen_arity_defs"
++                          failhere Stdlib.__FILE__ "gen_arity_defs"
+                             (Fmt.str
+                                "Couldn't find the args for recursive call to %s in function f_%s."
+                                rec_vname vname)
+diff --git a/src/sygus/dune b/src/sygus/dune
+index 9323105..d6bb396 100644
+--- a/src/sygus/dune
++++ b/src/sygus/dune
+@@ -5,6 +5,6 @@
+ 
+ (library
+  (name sygus)
+- (libraries utils lang base stdio sexplib fmt)
++ (libraries utils camlp-streams lang base stdio sexplib fmt)
+  (preprocess
+   (pps ppx_sexp_conv ppx_let)))
+diff --git a/src/utils/Config.ml b/src/utils/Config.ml
+index da67fa1..de682b3 100644
+--- a/src/utils/Config.ml
++++ b/src/utils/Config.ml
+@@ -101,11 +101,11 @@ let num_parallel_processes = 4
+ let timeout_sfsp_synt = 100
+ 
+ (* Programs : TODO *)
+-let racket = FileUtil.which "racket"
++let racket = Project_dir.racket
+ 
+-let z3 = FileUtil.which "z3"
++let z3 = Project_dir.z3
+ 
+-let tmp_dir = Caml.Filename.get_temp_dir_name ()
++let tmp_dir = Stdlib.Filename.get_temp_dir_name ()
+ 
+ let project_dir = Project_dir.base
+ 
+@@ -164,9 +164,9 @@ let get_conf_string_exn key =
+ 
+ let get_conf_int key =
+   try Int.of_string (List.hd_exn (Hashtbl.find_exn main_conf_file key)) with
+-  | Caml.Not_found ->
++  | Stdlib.Not_found ->
+       eprintf "There is not setting for %s. There must be a missing setting in Config.csv !@." key;
+-      raise Caml.Not_found
++      raise Stdlib.Not_found
+   | Failure s when String.(s = "int_of_string") ->
+       eprintf "There is a setting for %s, but it is not an int.Found %s." key
+         (List.hd_exn (Hashtbl.find_exn main_conf_file key));
+diff --git a/src/utils/Log.ml b/src/utils/Log.ml
+index 9e2eabd..7fa8307 100644
+--- a/src/utils/Log.ml
++++ b/src/utils/Log.ml
+@@ -54,13 +54,13 @@ let info_msg msg = info (fun f () -> pf f "%s" msg)
+ let success_msg msg = success (fun f () -> pf f "%s" msg)
+ 
+ let print_res_timing file k m c fsynt psynt dsynt jsynt =
+-  let fn = Caml.Filename.basename file in
++  let fn = Stdlib.Filename.basename file in
+   pf stdout "%s,%i,%i,%i,%.3f,%.3f,%.3f,%.3f@." fn k m c fsynt psynt dsynt jsynt
+ 
+ let print_res_unsat file elapsed =
+-  let fn = Caml.Filename.basename file in
++  let fn = Stdlib.Filename.basename file in
+   pf stdout "%s,0,0,0,%.3f,unsat,unsat,unsat@." fn elapsed
+ 
+ let print_res_error file elapsed =
+-  let fn = Caml.Filename.basename file in
++  let fn = Stdlib.Filename.basename file in
+   pf stdout "%s,-1,-1,-1,%.3f,err,err,err@." fn elapsed
+diff --git a/src/utils/Naming.ml b/src/utils/Naming.ml
+index ae7527e..f730f8b 100644
+--- a/src/utils/Naming.ml
++++ b/src/utils/Naming.ml
+@@ -7,7 +7,7 @@ let tmp_file_index = ref 0
+ 
+ let tmp_file (base : string) (extension : string) : string =
+   let i = !tmp_file_index in
+-  let hd = Caml.Filename.remove_extension (Caml.Filename.basename !master_file) in
++  let hd = Stdlib.Filename.remove_extension (Stdlib.Filename.basename !master_file) in
+   tmp_file_index := i + 1;
+   tmp_dir ^ "/" ^ hd ^ "_" ^ base ^ Int.to_string i ^ extension
+ 
+@@ -69,7 +69,7 @@ let id_of_inner_loop name =
+     let elts = Str.split (Str.regexp sep_str) name in
+     Int.of_string (List.nth_exn elts (List.length elts - 1))
+   with e ->
+-    Fmt.(pf stderr "%s%s%s@." Caml.__FILE__ "id_of_inner_loop" "Failed to parse id of loop.");
++    Fmt.(pf stderr "%s%s%s@." Stdlib.__FILE__ "id_of_inner_loop" "Failed to parse id of loop.");
+     raise e
+ 
+ let join_name fname = "join" ^ fname
+diff --git a/src/utils/Utils.ml b/src/utils/Utils.ml
+index d202aeb..6f14179 100644
+--- a/src/utils/Utils.ml
++++ b/src/utils/Utils.ml
+@@ -30,7 +30,7 @@ module Naming = Naming
+ let failhere file f s =
+   failwith Fmt.(to_to_string (fun frmt () -> pf frmt "[%s][%s]: %s@." file f s) ())
+ 
+-let try_not_found f m = try f with Caml.Not_found -> Fmt.(pf stdout "%s" m)
++let try_not_found f m = try f with Stdlib.Not_found -> Fmt.(pf stdout "%s" m)
+ 
+ let identity x = x
+ 
