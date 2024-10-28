@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Artifact for TOPLAS24: Decomposition-Based Synthesis for Applying D&C-Like Algorithmic Paradigms";
     homepage = "https://github.com/jiry17/AutoLifter";
-    license = licenses.mit;
+    license = licenses.unfreeRedistributable;
     platforms = ["x86_64-linux"];
   };
 }
