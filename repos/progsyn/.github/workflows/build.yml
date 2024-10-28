@@ -21,6 +21,8 @@ jobs:
         nixPath:
           - nixpkgs=channel:nixos-24.05
     runs-on: ubuntu-latest
+    env:
+      NIXPKGS_ALLOW_UNFREE: '1'
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
