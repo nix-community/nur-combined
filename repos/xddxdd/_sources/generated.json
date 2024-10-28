@@ -340,12 +340,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "d32a22e1fc191ef5fa2367b40b8eec7a97899c68",
-            "sha256": "sha256-r3zYnMFH9LMf9vuiPa3XKuuHEYE6mCv4fJMki0x6aZ4=",
+            "rev": "cdfc809d8e6cab75c27dd79d268351f63b6fdb22",
+            "sha256": "sha256-tekmlnFFm9qraAyg2WeSF7V4NAabqXem7ocxYUqrgXc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d32a22e1fc191ef5fa2367b40b8eec7a97899c68"
+        "version": "cdfc809d8e6cab75c27dd79d268351f63b6fdb22"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1377,12 +1377,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b3983",
-            "sha256": "sha256-iZF13bYCPpoIiBRwstdPnrHqST8ECNVolocsKuq9fGQ=",
+            "rev": "b3985",
+            "sha256": "sha256-sHHA1weHorkoRMg0zLMfbl2F+WYgcRyiAftUZxy/O8w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b3983"
+        "version": "b3985"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -1822,7 +1822,7 @@
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
             "rev": "0.7.0",
-            "sha256": "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=",
+            "sha256": "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=",
             "sparseCheckout": [],
             "type": "github"
         },

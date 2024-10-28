@@ -182,13 +182,13 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "d32a22e1fc191ef5fa2367b40b8eec7a97899c68";
+    version = "cdfc809d8e6cab75c27dd79d268351f63b6fdb22";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "d32a22e1fc191ef5fa2367b40b8eec7a97899c68";
+      rev = "cdfc809d8e6cab75c27dd79d268351f63b6fdb22";
       fetchSubmodules = false;
-      sha256 = "sha256-r3zYnMFH9LMf9vuiPa3XKuuHEYE6mCv4fJMki0x6aZ4=";
+      sha256 = "sha256-tekmlnFFm9qraAyg2WeSF7V4NAabqXem7ocxYUqrgXc=";
     };
     date = "2024-10-28";
   };
@@ -764,13 +764,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3983";
+    version = "b3985";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3983";
+      rev = "b3985";
       fetchSubmodules = false;
-      sha256 = "sha256-iZF13bYCPpoIiBRwstdPnrHqST8ECNVolocsKuq9fGQ=";
+      sha256 = "sha256-sHHA1weHorkoRMg0zLMfbl2F+WYgcRyiAftUZxy/O8w=";
     };
   };
   lyrica = {
@@ -1015,7 +1015,7 @@
       repo = "oqs-provider";
       rev = "0.7.0";
       fetchSubmodules = false;
-      sha256 = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
+      sha256 = "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=";
     };
   };
   osdlyrics = {
