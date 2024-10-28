@@ -3,6 +3,8 @@ let
   sing-box-config = with pkgs; substituteAll {
     src = ./config.json;
     yacd = config.nur.repos.linyinfeng.yacd;
+    geoip = "${pkgs.sing-geoip}/share/sing-box/geoip.db";
+    geosite = "${pkgs.sing-geosite}/share/sing-box/geosite.db";
   };
 in
 {

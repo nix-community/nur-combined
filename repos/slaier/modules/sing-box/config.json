@@ -37,37 +37,33 @@
     }
   ],
   "route": {
+    "geoip": {
+      "path": "@geoip@"
+    },
+    "geosite": {
+      "path": "@geosite@"
+    },
     "rules": [
       {
-        "rule_set": [
-          "geosite-zhihu"
-        ],
         "domain_suffix": [
-          "pkgs.org",
-          "edu.cn"
+          "pkgs.org"
         ],
-        "ip_is_private": true,
+        "geosite": [
+          "cn",
+          "private"
+        ],
+        "geoip": [
+          "cn",
+          "private"
+        ],
         "outbound": "direct_out"
       },
       {
-        "rule_set": [
-          "geosite-spotify"
+        "geosite": [
+          "spotify",
+          "google"
         ],
         "outbound": "Chinese_out"
-      }
-    ],
-    "rule_set": [
-      {
-        "tag": "geosite-zhihu",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-zhihu.srs"
-      },
-      {
-        "tag": "geosite-spotify",
-        "type": "remote",
-        "format": "binary",
-        "url": "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-spotify.srs"
       }
     ],
     "final": "select_out"
