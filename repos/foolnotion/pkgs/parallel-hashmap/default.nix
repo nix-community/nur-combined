@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "parallel-hashmap";
-  version = "1.4.0";
+  version = "1.4.1";
 
   src = fetchFromGitHub {
     owner = "greg7mdp";
     repo = "parallel-hashmap";
     rev = "v${version}";
-    sha256 = "sha256-19rWcnMtWgqYlLylUjgI/p3aAM0Ois3CKoMuMmLQHmM=";
+    sha256 = "sha256-QDRy6YPoE34VpldN66V4mcF3PqK43RSlXThm+SzxRQ4=";
   };
 
   nativeBuildInputs = [ cmake ];
