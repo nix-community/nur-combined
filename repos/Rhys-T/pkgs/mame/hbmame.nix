@@ -1,4 +1,6 @@
-{ mame, lib, fetchFromGitHub, fetchpatch, makeDesktopItem, stdenv }: mame.overrideAttrs (old: rec {
+{ mame, lib, fetchFromGitHub, fetchpatch, icoutils, makeDesktopItem, stdenv }: (mame.override {
+    papirus-icon-theme = "DUMMY";
+}).overrideAttrs (old: rec {
     pname = "hbmame";
     version = "0.245.20";
     src = fetchFromGitHub {
@@ -7,12 +9,13 @@
         rev = "tag${builtins.replaceStrings [ "." ] [ "" ] (lib.removePrefix "0." version)}";
         sha256 = "sha256-Q4mvgjnlDML1xFORPpcTq/3VKOnCccCXA1cPn+L5jJ8=";
     };
+    nativeBuildInputs = (old.nativeBuildInputs or []) ++ [icoutils];
     desktopItems = [
         (makeDesktopItem {
             name = "HBMAME";
             desktopName = "HBMAME";
             exec = "hbmame";
-            icon = "mame"; # TODO find an HBMAME-specific icon?
+            icon = "hbmame";
             type = "Application";
             genericName = "Multi-purpose homebrew emulation framework";
             # comment = "Play vintage games using the MAME emulator";
@@ -31,13 +34,21 @@
         hash = "sha256-mOgS03wKLJEnQM91rjZvsFE5mkafdIZnmk3vp0YgNaU=";
     } else patch) old.patches;
     makeFlags = (old.makeFlags or []) ++ ["TARGET=hbmame"];
-    installPhase = builtins.replaceStrings [
+    installPhase = let
+        installPhaseParts = builtins.match "(.*)install -Dm644 [^ ]* [^ ]*/mame\\.svg(.*)" old.installPhase;
+        installPhase' = ''
+            ${builtins.elemAt installPhaseParts 0}
+            icotool --extract src/osd/winui/res/hbmame.ico
+            install -Dm644 hbmame_1_32x32x32.png "$out"/share/icons/hicolor/32x32/apps/hbmame.png
+            ${builtins.elemAt installPhaseParts 1}
+        '';
+    in builtins.replaceStrings [
         "install -Dm755 mame -t $out/bin"
         "{artwork,bgfx,plugins,language,ctrlr,keymaps,hash}"
     ] [
         "install -Dm755 hbmame -t $out/bin"
         "{artwork,bgfx,plugins,language,ctrlr,hash}" # no keymaps included with HBMAME
-    ] old.installPhase + ''
+    ] installPhase' + ''
         mv "$out"/share/man/man6/{,hb}mame.6
     '';
     env = (old.env or {}) // {
