@@ -685,7 +685,7 @@
       sha256 = "4f195cf36fe22253584e46b910ec8d30f1684abb30379f157d002ee9ca1bf92a";
       meta = with lib;
       {
-        homepage = "https://github.com/hyphmongo/batchcamp";
+        homepage = "https://deejay.tools";
         description = "Bulk downloader for your Bandcamp purchases";
         license = licenses.mit;
         mozPermissions = [
@@ -2830,10 +2830,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.31.1";
+      version = "1.3.32";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4365724/faststream-1.3.31.1.xpi";
-      sha256 = "d5f917009349d737e12431bdbfed9e4f0f1eefc7a97c3ff79a4dd87bb02adf0f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4376950/faststream-1.3.32.xpi";
+      sha256 = "776a6c2683f3186fb86bd3c21d2556917f4765ce7e5286bc0df268765761eaa9";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -4057,10 +4057,10 @@
     };
     "hover-zoom-plus" = buildFirefoxXpiAddon {
       pname = "hover-zoom-plus";
-      version = "1.0.220";
+      version = "1.0.221";
       addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4350159/hover_zoom_plus-1.0.220.xpi";
-      sha256 = "bf826c7f2f9c8c6dfdd0440bf2d9b7dd16b74d6a8c5897fbe1e93827c2b0ecc3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4376967/hover_zoom_plus-1.0.221.xpi";
+      sha256 = "abdda7cdf0f9143dad6405f1167d33ded52eeb5ea4a9555d213e09798f613eeb";
       meta = with lib;
       {
         homepage = "https://github.com/extesy/hoverzoom/";
@@ -4561,6 +4561,7 @@
           "*://*.newegg.com/*"
           "*://*.newegg.com.cn/*"
           "*://*.furaffinity.net/*"
+          "*://*.furrynetwork.com/*"
           "*://*.taobao.com/*"
           "*://*.tmall.com/*"
           "*://*.lazygirls.info/*"
@@ -5034,6 +5035,9 @@
           "*://*.raindrop.io/*"
           "*://*.stackoverflow.com/*"
           "*://*.uinotes.com/*"
+          "*://*.meiye.art/*"
+          "*://*.lummi.ai/*"
+          "*://*.search.brave.com/*"
         ];
         platforms = platforms.all;
       };
@@ -9185,10 +9189,10 @@
     };
     "pronoundb" = buildFirefoxXpiAddon {
       pname = "pronoundb";
-      version = "0.14.5";
+      version = "0.14.6";
       addonId = "firefox-addon@pronoundb.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4286934/pronoundb-0.14.5.xpi";
-      sha256 = "db1d30550fb5cb27502d09e971b2c1e234167f6e0ad9aeb15ec78efb59c0a8d3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4376744/pronoundb-0.14.6.xpi";
+      sha256 = "5fb1f32c2584e90a1fc8ae5c5471584fa0d4ec0e6af80c6a2d1be8fe64c4ad00";
       meta = with lib;
       {
         homepage = "https://pronoundb.org";
@@ -9445,7 +9449,7 @@
       sha256 = "c948a2e46d72d27d03323aa4b2a9ed88eeb00c83c84d4bf79063a854ed3baa00";
       meta = with lib;
       {
-        homepage = "http://add0n.com/allow-right-click.html";
+        homepage = "https://webextension.org/listing/allow-right-click.html";
         description = "Re-enable the possibility to use the context menu on sites that overrides it";
         license = licenses.mpl20;
         mozPermissions = [
