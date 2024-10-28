@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 {
 
   repack.caddy = {
@@ -29,27 +34,20 @@
                     };
                     upstreams = [ { dial = "10.0.4.2:443"; } ];
                   }
-                  {
-                    match = [
-                      {
-                        host = [ "matrix.nyaw.xyz" ];
-                        path = [ "/_matrix/*" ];
-                      }
-                    ];
-                    handle = [
-                      {
-                        handler = "reverse_proxy";
-                        upstreams = [ { dial = "10.0.4.2:6167"; } ];
-                      }
-                    ];
-                  }
                 ];
               }
             ];
           }
         ];
         match = [ { host = [ "s3.nyaw.xyz" ]; } ];
+        terminal = true;
       }
+
+      (import ../caddy-matrix.nix {
+        inherit pkgs;
+        matrix-upstream = "10.0.4.2:6167";
+      })
+
     ];
   };
 }

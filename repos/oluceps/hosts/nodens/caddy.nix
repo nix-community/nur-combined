@@ -26,6 +26,7 @@
                         }
                       ];
                       match = [ { host = [ "vault.nyaw.xyz" ]; } ];
+                      terminal = true;
                     }
                     # {
                     #   match = [ { host = [ "syncv3.nyaw.xyz" ]; } ];
@@ -36,7 +37,10 @@
                     #     }
                     #   ];
                     # }
-                    # (import ../caddy-matrix.nix { inherit pkgs; })
+                    (import ../caddy-matrix.nix {
+                      inherit pkgs;
+                      matrix-upstream = "10.0.1.2:6167";
+                    })
                     {
                       handle = [
                         {
@@ -68,6 +72,7 @@
                         }
                       ];
                       match = [ { host = [ "s3.nyaw.xyz" ]; } ];
+                      terminal = true;
                     }
 
                     {
@@ -93,6 +98,7 @@
                         }
                       ];
                       match = [ { host = [ "cache.nyaw.xyz" ]; } ];
+                      terminal = true;
                     }
 
                     {
@@ -121,6 +127,7 @@
                         }
                       ];
                       match = [ { host = [ "pb.nyaw.xyz" ]; } ];
+                      terminal = true;
                     }
 
                     {
@@ -160,6 +167,7 @@
                         }
                       ];
                       match = [ { host = [ "ntfy.nyaw.xyz" ]; } ];
+                      terminal = true;
                     }
                     {
                       handle = [
@@ -169,6 +177,7 @@
                         }
                       ];
                       match = [ { host = [ "seed.nyaw.xyz" ]; } ];
+                      terminal = true;
                     }
                     # {
                     #   handle = [
@@ -201,6 +210,7 @@
                 }
               ];
               match = [ { host = [ "api.atuin.nyaw.xyz" ]; } ];
+              terminal = true;
             }
 
             {
@@ -240,9 +250,9 @@
                             "m.homeserver" = {
                               base_url = "https://matrix.nyaw.xyz";
                             };
-                            "org.matrix.msc3575.proxy" = {
-                              url = "https://syncv3.nyaw.xyz";
-                            };
+                            # "org.matrix.msc3575.proxy" = {
+                            #   url = "https://syncv3.nyaw.xyz";
+                            # };
                           };
                           handler = "static_response";
                         }
@@ -261,6 +271,7 @@
                 }
               ];
               match = [ { host = [ "nyaw.xyz" ]; } ];
+              terminal = true;
             }
           ];
         };
