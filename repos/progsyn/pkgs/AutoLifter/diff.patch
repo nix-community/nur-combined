@@ -1,0 +1,43 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index c1e551f..fef80df 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 3.5.1)
++cmake_minimum_required(VERSION 3.25)
+ project(cpp)
+ 
+ set(CMAKE_CXX_STANDARD 17)
+@@ -7,18 +7,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+ 
+ include_directories(include)
+ 
+-#jsoncpp
+-INCLUDE(FindPkgConfig)
+-find_package(Jsoncpp)
+-include_directories(${Jsoncpp_INCLUDE_DIR})
+-
+-#gurobi
+-set(GUROBI_PATH ${CMAKE_SOURCE_DIR}/resource/gurobi912/linux64)
+-INCLUDE_DIRECTORIES(${GUROBI_PATH}/include/)
+-link_directories(${GUROBI_PATH}/lib)
+-set(GUROBI_FILE libgurobi_g++5.2.a libgurobi91.so)
+-
+-set(THIRDPARTY_LIBS glog gflags ${Jsoncpp_LIBRARY} ${Z3_FILE} ${GUROBI_FILE})
++set(THIRDPARTY_LIBS glog gflags jsoncpp gurobi110 gurobi_g++8.5 ${Jsoncpp_LIBRARY} ${Z3_FILE})
+ 
+ add_subdirectory(basic)
+ add_subdirectory(autolifter)
+diff --git a/basic/grammar.cpp b/basic/grammar.cpp
+index ae2523d..7d43eb3 100644
+--- a/basic/grammar.cpp
++++ b/basic/grammar.cpp
+@@ -12,7 +12,7 @@
+ 
+ namespace {
+     Json::Value loadFromFile(std::string file_name) {
+-        std::ifstream inp(file_name, std::ios::out);
++        std::ifstream inp(file_name);
+         std::stringstream buf;
+         Json::Reader reader;
+         Json::Value root;

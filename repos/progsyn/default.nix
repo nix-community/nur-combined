@@ -12,4 +12,7 @@ in {
 
   sketch = pkgs.callPackage ./pkgs/sketch {stdenv = darwinStdenv;};
   reduce-algebra = pkgs.callPackage ./pkgs/reduce-algebra {stdenv = darwinStdenv;};
+  AutoLifter = pkgs.callPackage ./pkgs/AutoLifter {};
+  parsynt = pkgs.callPackage ./pkgs/parsynt {};
+  Synduce = pkgs.callPackage ./pkgs/Synduce {};
 }
