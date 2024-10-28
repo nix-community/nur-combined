@@ -50,12 +50,13 @@ in {
         disableNativeImageLoader = "CIImage";
     })).game else self.lix-game;
     _ciOnly.lix-game = pkgs.lib.recurseIntoAttrs {
-        lix-game-assets = (self.lix-game-packages.overrideScope (self: super: {
+        assets = (self.lix-game-packages.overrideScope (self: super: {
             convertImagesToTrueColor = false;
         })).assets;
-        lix-game-assets-PNG32 = (self.lix-game-packages.overrideScope (self: super: {
+        assets-PNG32 = (self.lix-game-packages.overrideScope (self: super: {
             convertImagesToTrueColor = true;
         })).assets;
+        inherit (self.lix-game-packages) highResTitleScreen;
     };
     
     xscorch = callPackage ./pkgs/xscorch {};
@@ -127,6 +128,12 @@ in {
     
     _ciOnly.mac = pkgs.lib.optionalAttrs pkgs.hostPlatform.isDarwin (pkgs.lib.recurseIntoAttrs {
         wine64Full = pkgs.wine64Packages.full;
+    });
+    
+    _ciOnly.dev = pkgs.lib.optionalAttrs (pkgs.hostPlatform.system == "x86_64-darwin") (pkgs.lib.recurseIntoAttrs {
+        checkpoint = pkgs.lib.recurseIntoAttrs (pkgs.lib.mapAttrs (k: pkgs.checkpointBuildTools.prepareCheckpointBuild) {
+            inherit (self) hbmame;
+        });
     });
 }); in result // {
     lib = result.myLib;
