@@ -29,6 +29,20 @@
                     };
                     upstreams = [ { dial = "10.0.4.2:443"; } ];
                   }
+                  {
+                    match = [
+                      {
+                        host = [ "matrix.nyaw.xyz" ];
+                        path = [ "/_matrix/*" ];
+                      }
+                    ];
+                    handle = [
+                      {
+                        handler = "reverse_proxy";
+                        upstreams = [ { dial = "10.0.4.2:6167"; } ];
+                      }
+                    ];
+                  }
                 ];
               }
             ];

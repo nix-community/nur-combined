@@ -7,7 +7,6 @@
 }:
 {
 
-  repack.caddy-matrix-web.enable = true;
   repack.caddy = {
     enable = true;
     settings.apps = {
@@ -28,31 +27,16 @@
                       ];
                       match = [ { host = [ "vault.nyaw.xyz" ]; } ];
                     }
-
-                    {
-                      match = [
-                        {
-                          host = [ "matrix.nyaw.xyz" ];
-                          path = [ "/_matrix/*" ];
-                        }
-                      ];
-                      handle = [
-                        {
-                          handler = "reverse_proxy";
-                          upstreams = [ { dial = "10.0.1.2:6167"; } ];
-                        }
-                      ];
-                    }
-
-                    {
-                      match = [ { host = [ "syncv3.nyaw.xyz" ]; } ];
-                      handle = [
-                        {
-                          handler = "reverse_proxy";
-                          upstreams = [ { dial = "unix/${config.services.matrix-sliding-sync.settings.SYNCV3_BINDADDR}"; } ];
-                        }
-                      ];
-                    }
+                    # {
+                    #   match = [ { host = [ "syncv3.nyaw.xyz" ]; } ];
+                    #   handle = [
+                    #     {
+                    #       handler = "reverse_proxy";
+                    #       upstreams = [ { dial = "unix/${config.services.matrix-sliding-sync.settings.SYNCV3_BINDADDR}"; } ];
+                    #     }
+                    #   ];
+                    # }
+                    # (import ../caddy-matrix.nix { inherit pkgs; })
                     {
                       handle = [
                         {

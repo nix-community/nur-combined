@@ -40,7 +40,7 @@
     settings = {
       trusted-public-keys = [ "cache.nyaw.xyz:wXLX+Wtj9giC/+hybqOEJ4FSZIOgOyk8Q6HJxxcZqKY=" ];
       # enable when not in same network of hastur
-      substituters = [ "https://cache.nyaw.xyz" ];
+      # substituters = [ "https://cache.nyaw.xyz" ];
     };
   };
   programs.sway.enable = false;
