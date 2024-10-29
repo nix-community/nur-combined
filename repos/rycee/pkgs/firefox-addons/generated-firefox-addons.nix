@@ -2177,10 +2177,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "132.0.20241021.175835";
+      version = "133.0.20241028.142722";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4374032/deutsch_de_language_pack-132.0.20241021.175835.xpi";
-      sha256 = "110e1840ae712183a68d7fe5fd0e05ddb83dd70b63eda40bc80085141ab49233";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4377401/deutsch_de_language_pack-133.0.20241028.142722.xpi";
+      sha256 = "a1b7e5a032e43e29b47c32ef14c214b115276b5dcc19c84c234c55251cec72a2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3344,10 +3344,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "132.0.20241021.175835";
+      version = "133.0.20241028.142722";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4374053/francais_language_pack-132.0.20241021.175835.xpi";
-      sha256 = "f424a1eafadd57e8cc441a67332d249ee611003ae4ee2fee7c468bd58f0171cd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4377372/francais_language_pack-133.0.20241028.142722.xpi";
+      sha256 = "827d201c57450c7f8cb2df34b81d4f963aab2a678271923fdaf40d65d50b73b3";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3381,10 +3381,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "132.0.20241021.175835";
+      version = "133.0.20241028.142722";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4374047/gaidhlig_language_pack-132.0.20241021.175835.xpi";
-      sha256 = "e61d243bf13dff1525e1120fa5bc80ee2222e6a405dd2061fde0d5b3dafd92ba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4377360/gaidhlig_language_pack-133.0.20241028.142722.xpi";
+      sha256 = "5af5d0e5f5963d4b999f2464b36b4c6fc4b5a199123f34d050fcadb68f77ce0f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -3430,10 +3430,10 @@
     };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "10.4.3";
+      version = "10.4.10";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4343983/ghostery-10.4.3.xpi";
-      sha256 = "1d04e5f29ea5603a89dac5a9b27a8a2345b075eb04949098d98d2ce59b1de723";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4369873/ghostery-10.4.10.xpi";
+      sha256 = "fce7e3052f003891218ce631dbb884227d9a631c39c46004624a14f1731f0826";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -3448,6 +3448,7 @@
           "webNavigation"
           "webRequest"
           "webRequestBlocking"
+          "unlimitedStorage"
           "http://*/*"
           "https://*/*"
           "ws://*/*"
@@ -7768,10 +7769,10 @@
     };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.4.42";
+      version = "11.5.0";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4363712/noscript-11.4.42.xpi";
-      sha256 = "fd2d420afd93829bb6fe30ec6f8ba926d3d54d7583b8bbd822053b8cd13c0472";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4377088/noscript-11.5.0.xpi";
+      sha256 = "999244c7be75e58fe16cb2880711013ca079822da1dab65e7eb375c1faf5baad";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -9650,10 +9651,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.10.24";
+      version = "24.10.28";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4375465/refined_github-24.10.24.xpi";
-      sha256 = "2dcaf71a3cd96d538642679ffb7e2e8142fd22f5191c697197fa02698da3e99d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4377053/refined_github-24.10.28.xpi";
+      sha256 = "add339853e7d2c9296114993e7faa712725e2ce038605cd45df87f2d8e98a96e";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -9705,10 +9706,10 @@
     };
     "return-youtube-dislikes" = buildFirefoxXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "3.0.0.17";
+      version = "3.0.0.18";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4342747/return_youtube_dislikes-3.0.0.17.xpi";
-      sha256 = "c9115baa653c22390089fd6f028c88b9ca9c56f25112ff13e497caba984df841";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4371820/return_youtube_dislikes-3.0.0.18.xpi";
+      sha256 = "2d33977ce93276537543161f8e05c3612f71556840ae1eb98239284b8f8ba19e";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
@@ -9846,10 +9847,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "132.0.20241021.175835";
+      version = "133.0.20241028.142722";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4374073/scots_language_pack-132.0.20241021.175835.xpi";
-      sha256 = "7a415e4b3cd4102e506f0cd93bec8c5993662881cc443d98b193df1eb3a77fcc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4377430/scots_language_pack-133.0.20241028.142722.xpi";
+      sha256 = "86a49101a9e6301e351b4492670c1501304121afd41f3551e37c5a93cda94345";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10451,10 +10452,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.9.4";
+      version = "5.9.5";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4364207/sponsorblock-5.9.4.xpi";
-      sha256 = "1bff70a70685caaf444b57984a26c910a456bbbcc50d24d2d58a081ba114f7a3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4372080/sponsorblock-5.9.5.xpi";
+      sha256 = "038d23a8ad7620817f5f96d883c03771208b80500273a61e63017bbaed875741";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
