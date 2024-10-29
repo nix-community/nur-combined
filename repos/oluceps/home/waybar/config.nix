@@ -63,8 +63,9 @@ builtins.toJSON (
       cpu = {
         format = "{usage}";
         min-length = 3;
+        disable-scroll = true;
         interval = 1;
-      } // niriCtlArg;
+      };
       "custom/pipewire" = {
         exec = "${lib.getExe pkgs.pw-volume} status";
         format = "{percentage}";

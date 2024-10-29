@@ -18,7 +18,7 @@
   '';
   services.logind = {
     lidSwitch = "suspend";
-    powerKey = "suspend"; # it sucks. laptop
+    powerKey = "poweroff"; # it sucks. laptop
     powerKeyLongPress = "poweroff";
   };
   environment.sessionVariables = {
