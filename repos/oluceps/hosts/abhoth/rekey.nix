@@ -23,9 +23,6 @@ in
         group = "users";
         name = "hyst-us.yaml";
       };
-      syncv3 = {
-        rekeyFile = ../../sec/syncv3.age;
-      };
       wgab = {
         rekeyFile = ../../sec/wgab.age;
         owner = "systemd-network";

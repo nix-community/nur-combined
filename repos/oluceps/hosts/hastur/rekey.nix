@@ -42,10 +42,6 @@ in
         rekeyFile = ../../sec/harmonia.age;
         mode = "400";
       };
-      pleroma = {
-        rekeyFile = ../../sec/pleroma-secret.age;
-        mode = "400";
-      };
       meilisearch = {
         rekeyFile = ../../sec/meilisearch.age;
         mode = "444";

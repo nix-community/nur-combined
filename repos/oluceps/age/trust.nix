@@ -9,7 +9,6 @@
 }:
 (hard [
   "general.toml"
-  "dae.sub"
   "jc-do"
   "ss-az"
   "naive"

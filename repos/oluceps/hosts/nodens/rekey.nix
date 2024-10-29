@@ -58,9 +58,6 @@ in
         group = "root";
         name = "tg-env";
       };
-      syncv3 = {
-        rekeyFile = ../../sec/syncv3.age;
-      };
 
       wgn = {
         rekeyFile = ../../sec/wgn.age;
