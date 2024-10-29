@@ -5,6 +5,8 @@
   environment.systemPackages = with pkgs; [
 
     # terminals
+    dialog
+    gnome.zenity
     foot
 
     xclip

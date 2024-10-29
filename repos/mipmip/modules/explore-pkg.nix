@@ -7,6 +7,8 @@
     #unstable.zed-editor
     #etherape
     #cool-retro-term
+    rclone
+    rclone-browser
 
 
 
