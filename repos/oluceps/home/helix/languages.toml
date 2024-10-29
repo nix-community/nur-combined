@@ -7,7 +7,7 @@ roots = []
 scope = "source.typst"
 
 [[language]]
-language-servers = ["nixd"]
+language-servers = ["nixd", "nil"]
 name = "nix"
 
 [language.formatter]

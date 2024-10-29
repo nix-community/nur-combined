@@ -8,217 +8,19 @@
   ...
 }:
 {
+  system = {
 
-  # systemd.sysusers.enable = true;
-  system.switch.enableNg = true;
-  system.switch.enable = lib.mkForce false;
-  system.copySystemConfiguration = false;
+    # systemd.sysusers.enable = true;
+    switch.enableNg = true;
+    switch.enable = lib.mkForce false;
+    copySystemConfiguration = false;
 
-  system.disableInstallerTools = true;
-  programs.less.lessopen = null;
-  programs.command-not-found.enable = false;
-  boot.enableContainers = false;
-  environment.defaultPackages = [ ];
-  documentation.info.enable = false;
-
-  systemd.services.nix-daemon.serviceConfig = {
-    LimitNOFILE = lib.mkForce 500000000;
-    Environment = [ "TMPDIR=/var/tmp/nix-daemon" ];
-  };
-
-  # srv.earlyoom.enable = true;
-  environment.systemPackages = [
-    pkgs.eza
-  ];
-
-  boot.tmp.useTmpfs = true;
-  # powerManagement.powertop.enable = true;
-
-  nix = {
-    package = pkgs.nixVersions.stable;
-    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
-    channel.enable = false;
-    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
-
-    settings = {
-      system-features = [
-        "nixos-test"
-        "benchmark"
-        "big-parallel"
-        "kvm"
-      ] ++ [ "gccarch-znver3" ];
-      flake-registry = "";
-      nix-path = [ "nixpkgs=${pkgs.path}" ];
-      keep-outputs = true;
-      keep-derivations = true;
-      trusted-public-keys = [
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        # "cache.ngi0.nixos.org-1:KqH5CBLNSyX184S9BKZJo1LxrxJ9ltnY2uAs5c/f1MA="
-        "nur-pkgs.cachix.org-1:PAvPHVwmEBklQPwyNZfy4VQqQjzVIaFOkYYnmnKco78="
-        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-        "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
-        "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-        "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
-        "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
-        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
-        "colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg="
-        "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
-        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
-        "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
-        "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-        "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-        # "cache.nyaw.xyz:wXLX+Wtj9giC/+hybqOEJ4FSZIOgOyk8Q6HJxxcZqKY="
-      ];
-      extra-substituters = [ "https://cache.lix.systems" ];
-      substituters =
-        (map (n: "https://${n}.cachix.org") [
-          "nix-community"
-          "nur-pkgs"
-          "hyprland"
-          "helix"
-          "nixpkgs-wayland"
-          "anyrun"
-          "ezkea"
-          "devenv"
-          "colmena"
-          "cosmic"
-        ])
-        ++ [
-          "https://cache.nixos.org"
-          "https://cache.garnix.io"
-          "https://nyx.chaotic.cx"
-          # "https://cache.nyaw.xyz"
-          # "https://cache.ngi0.nixos.org"
-          # "https://mirror.sjtu.edu.cn/nix-channels/store"
-        ];
-      auto-optimise-store = true;
-      experimental-features = [
-        "nix-command"
-        "flakes"
-        "auto-allocate-uids"
-        "cgroups"
-        "recursive-nix"
-        "ca-derivations"
-        "pipe-operator"
-      ];
-      auto-allocate-uids = true;
-      use-cgroups = true;
-
-      trusted-users = [
-        "root"
-        "${user}"
-      ];
-      # Avoid disk full
-      max-free = lib.mkDefault (1000 * 1000 * 1000);
-      min-free = lib.mkDefault (128 * 1000 * 1000);
-      builders-use-substitutes = true;
-      allow-import-from-derivation = true;
-    };
-
-    daemonCPUSchedPolicy = lib.mkDefault "batch";
-    daemonIOSchedClass = lib.mkDefault "idle";
-    daemonIOSchedPriority = lib.mkDefault 7;
-
-    extraOptions = ''
-      !include ${config.age.secrets.gh-token.path}
-    '';
-  };
-
-  time.timeZone = "Asia/Singapore";
-
-  console = {
-    # font = "LatArCyrHeb-16";
-    keyMap = "us";
-  };
-  security = {
-    pki.certificateFiles = [ "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ];
-
-    sudo.extraConfig = ''
-      Defaults lecture="never"
-    '';
-    polkit.enable = true;
-  };
-
-  services = {
-
-    # bpftune.enable = true;
-    chrony.enable = true;
-
-    journald.extraConfig = ''
-      SystemMaxUse=1G
-    '';
-
-    dbus.implementation = "broker";
-  };
-
-  documentation = {
-    enable = false;
-    nixos.enable = false;
-    man.enable = false;
-  };
-
-  systemd.tmpfiles.rules = [
-    "C /var/cache/tuigreet/lastuser - - - - ${pkgs.writeText "lastuser" "${user}"}"
-    "d /var/tmp/nix-daemon 0755 root root -"
-    "d /var/lib/ssh 0755 root root -"
-    "L /home/${user}/.nix-profile - - - - /home/${user}/.local/state/nix/profiles/profile"
-    "L /home/${user}/.blerc - - - - ${pkgs.writeText "blerc" ''
-      bleopt term_true_colors=none
-      bleopt prompt_ruler=empty-line
-      ble-face -s command_builtin_dot       fg=yellow,bold
-      ble-face -s command_builtin           fg=yellow
-      ble-face -s filename_directory        underline,fg=magenta
-      ble-face -s filename_directory_sticky underline,fg=white,bg=magenta
-      ble-face -s command_function          fg=blue
-
-      function ble/prompt/backslash:my/starship-right {
-        local right
-        ble/util/assign right '${pkgs.starship}/bin/starship prompt --right'
-        ble/prompt/process-prompt-string "$right"
-      }
-      bleopt prompt_rps1="\n\n\q{my/starship-right}"
-      bleopt prompt_ps1_final="\033[1m=>\033[0m "
-      bleopt prompt_rps1_transient="same-dir"
-    ''}"
-  ];
-
-  i18n.defaultLocale = "en_GB.UTF-8";
-
-  environment.etc = {
-    "NIXOS".text = "";
-    "machine-id".text = "b08dfa6083e7567a1921a715000001fb\n";
-    "sbctl/sbctl.conf".source =
-      let
-        sbctlVar = "/var/lib/sbctl";
-      in
-      (pkgs.formats.yaml { }).generate "sbctl.conf" {
-        bundles_db = "${sbctlVar}/bundles.json";
-        db_additions = [ "microsoft" ];
-        files_db = "${sbctlVar}/files.json";
-        guid = "${sbctlVar}/GUID";
-        keydir = "${sbctlVar}/keys";
-        keys = {
-          db = {
-            privkey = "${sbctlVar}/keys/db/db.key";
-            pubkey = "${sbctlVar}/keys/db/db.pem";
-            type = "file";
-          };
-          kek = {
-            privkey = "${sbctlVar}/keys/KEK/KEK.key";
-            pubkey = "${sbctlVar}/keys/KEK/KEK.pem";
-            type = "file";
-          };
-          pk = {
-            privkey = "${sbctlVar}/keys/PK/PK.key";
-            pubkey = "${sbctlVar}/keys/PK/PK.pem";
-            type = "file";
-          };
-        };
-        landlock = true;
-      };
+    disableInstallerTools = true;
   };
   programs = {
+    less.lessopen = null;
+    command-not-found.enable = false;
+
     bash = {
       blesh.enable = true;
     };
@@ -402,5 +204,218 @@
         };
       };
     };
+
+  };
+  boot.enableContainers = false;
+  environment.defaultPackages = [ ];
+  documentation.info.enable = false;
+
+  systemd.services.nix-daemon.serviceConfig = {
+    LimitNOFILE = lib.mkForce 500000000;
+    Environment = [ "TMPDIR=/var/tmp/nix-daemon" ];
+  };
+
+  # srv.earlyoom.enable = true;
+  environment.systemPackages = [
+    pkgs.eza
+  ];
+
+  boot.tmp.useTmpfs = true;
+  # powerManagement.powertop.enable = true;
+
+  nix = {
+    package = pkgs.nixVersions.stable;
+    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+    channel.enable = false;
+    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+
+    settings = {
+      system-features = [
+        "nixos-test"
+        "benchmark"
+        "big-parallel"
+        "kvm"
+      ] ++ [ "gccarch-znver3" ];
+      flake-registry = "";
+      nix-path = [ "nixpkgs=${pkgs.path}" ];
+      keep-outputs = true;
+      keep-derivations = true;
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        # "cache.ngi0.nixos.org-1:KqH5CBLNSyX184S9BKZJo1LxrxJ9ltnY2uAs5c/f1MA="
+        "nur-pkgs.cachix.org-1:PAvPHVwmEBklQPwyNZfy4VQqQjzVIaFOkYYnmnKco78="
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
+        "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+        "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
+        "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
+        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+        "colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg="
+        "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
+        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+        "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+        "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+        "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+        # "cache.nyaw.xyz:wXLX+Wtj9giC/+hybqOEJ4FSZIOgOyk8Q6HJxxcZqKY="
+      ];
+      extra-substituters = [ "https://cache.lix.systems" ];
+      substituters =
+        (map (n: "https://${n}.cachix.org") [
+          "nix-community"
+          "nur-pkgs"
+          "hyprland"
+          "helix"
+          "nixpkgs-wayland"
+          "anyrun"
+          "ezkea"
+          "devenv"
+          "colmena"
+          "cosmic"
+        ])
+        ++ [
+          "https://cache.nixos.org"
+          "https://cache.garnix.io"
+          "https://nyx.chaotic.cx"
+          # "https://cache.nyaw.xyz"
+          # "https://cache.ngi0.nixos.org"
+          # "https://mirror.sjtu.edu.cn/nix-channels/store"
+        ];
+      auto-optimise-store = true;
+      experimental-features = [
+        "nix-command"
+        "flakes"
+        "auto-allocate-uids"
+        "cgroups"
+        "recursive-nix"
+        "ca-derivations"
+        "pipe-operator"
+      ];
+      auto-allocate-uids = true;
+      use-cgroups = true;
+
+      trusted-users = [
+        "root"
+        "${user}"
+      ];
+      # Avoid disk full
+      max-free = lib.mkDefault (1000 * 1000 * 1000);
+      min-free = lib.mkDefault (128 * 1000 * 1000);
+      builders-use-substitutes = true;
+      allow-import-from-derivation = true;
+    };
+
+    daemonCPUSchedPolicy = lib.mkDefault "batch";
+    daemonIOSchedClass = lib.mkDefault "idle";
+    daemonIOSchedPriority = lib.mkDefault 7;
+
+    extraOptions = ''
+      !include ${config.age.secrets.gh-token.path}
+    '';
+  };
+
+  time.timeZone = "Asia/Singapore";
+
+  console = {
+    # font = "LatArCyrHeb-16";
+    keyMap = "us";
+  };
+  security = {
+    pki = {
+      certificateFiles = [ "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ];
+      # caCertificateBlacklist = [
+      #   "CNNIC ROOT"
+      #   "CNNIC SSL"
+      #   "China Internet Network Information Center EV Certificates Root"
+      #   "WoSign"
+      #   "WoSign China"
+      #   "CA WoSign ECC Root"
+      #   "Certification Authority of WoSign G2"
+      # ];
+    };
+
+    sudo.extraConfig = ''
+      Defaults lecture="never"
+    '';
+    polkit.enable = true;
+  };
+
+  services = {
+
+    # bpftune.enable = true;
+    chrony.enable = true;
+
+    journald.extraConfig = ''
+      SystemMaxUse=1G
+    '';
+
+    dbus.implementation = "broker";
+  };
+
+  documentation = {
+    enable = false;
+    nixos.enable = false;
+    man.enable = false;
+  };
+
+  systemd.tmpfiles.rules = [
+    "C /var/cache/tuigreet/lastuser - - - - ${pkgs.writeText "lastuser" "${user}"}"
+    "d /var/tmp/nix-daemon 0755 root root -"
+    "d /var/lib/ssh 0755 root root -"
+    "L /home/${user}/.nix-profile - - - - /home/${user}/.local/state/nix/profiles/profile"
+    "L /home/${user}/.blerc - - - - ${pkgs.writeText "blerc" ''
+      bleopt term_true_colors=none
+      bleopt prompt_ruler=empty-line
+      ble-face -s command_builtin_dot       fg=yellow,bold
+      ble-face -s command_builtin           fg=yellow
+      ble-face -s filename_directory        underline,fg=magenta
+      ble-face -s filename_directory_sticky underline,fg=white,bg=magenta
+      ble-face -s command_function          fg=blue
+
+      function ble/prompt/backslash:my/starship-right {
+        local right
+        ble/util/assign right '${pkgs.starship}/bin/starship prompt --right'
+        ble/prompt/process-prompt-string "$right"
+      }
+      bleopt prompt_rps1="\n\n\q{my/starship-right}"
+      bleopt prompt_ps1_final="\033[1m=>\033[0m "
+      bleopt prompt_rps1_transient="same-dir"
+    ''}"
+  ];
+
+  i18n.defaultLocale = "en_GB.UTF-8";
+
+  environment.etc = {
+    "NIXOS".text = "";
+    "machine-id".text = "b08dfa6083e7567a1921a715000001fb\n";
+    "sbctl/sbctl.conf".source =
+      let
+        sbctlVar = "/var/lib/sbctl";
+      in
+      (pkgs.formats.yaml { }).generate "sbctl.conf" {
+        bundles_db = "${sbctlVar}/bundles.json";
+        db_additions = [ "microsoft" ];
+        files_db = "${sbctlVar}/files.json";
+        guid = "${sbctlVar}/GUID";
+        keydir = "${sbctlVar}/keys";
+        keys = {
+          db = {
+            privkey = "${sbctlVar}/keys/db/db.key";
+            pubkey = "${sbctlVar}/keys/db/db.pem";
+            type = "file";
+          };
+          kek = {
+            privkey = "${sbctlVar}/keys/KEK/KEK.key";
+            pubkey = "${sbctlVar}/keys/KEK/KEK.pem";
+            type = "file";
+          };
+          pk = {
+            privkey = "${sbctlVar}/keys/PK/PK.key";
+            pubkey = "${sbctlVar}/keys/PK/PK.pem";
+            type = "file";
+          };
+        };
+        landlock = true;
+      };
   };
 }
