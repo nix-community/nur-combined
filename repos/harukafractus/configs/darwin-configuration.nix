@@ -18,6 +18,8 @@
     whisky
     lunarfyi
     sol
+    python3Full
+    libreoffice-bin
     #standardnotes
   ];
 

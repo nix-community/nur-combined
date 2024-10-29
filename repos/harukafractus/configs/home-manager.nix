@@ -1,5 +1,4 @@
 { pkgs, config, lib, ... }: {
-  
   home = {
     username = "haruka";
     homeDirectory = "/Users/haruka";
@@ -43,6 +42,8 @@
     source-han-serif
     source-han-code-jp 
     meslo-lgs-nf
+    fortune-kind
+    cowsay
     eza
     bat
   ];
@@ -60,6 +61,7 @@
           source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
           source ~/.p10k.zsh
       fi
+      fortune-kind | cowsay -f koala
     '';
 
     shellAliases = {

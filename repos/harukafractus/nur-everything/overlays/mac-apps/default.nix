@@ -59,4 +59,10 @@ final: prev: {
     pname = "sol";
     sourceRoot = "Sol.app";
   };
+
+  telegram-desktop = final.extraApplications rec {
+    pname = "telegram-desktop";
+    sourceRoot = "Telegram.app";
+    nativeBuildInputs = [ prev.pkgs.undmg ];
+  };
 }

@@ -47,7 +47,8 @@ pkgs.writeShellApplication {
 		\"librewolf-arm64\": $(get_gitlab "librewolf-community%2Fbrowser%2Fbsys6" "arm64-package.dmg"),
 		\"floorp\": $(get_github "Floorp-Projects" "Floorp" "floorp-macOS-universal.dmg"),
 		\"lunarfyi\": $(get_github "alin23" "Lunar" ".dmg"),
-		\"sol\": $(get_github "ospfranco" "sol" ".zip")
+		\"sol\": $(get_github "ospfranco" "sol" ".zip"),
+		\"telegram-desktop\": $(get_github "telegramdesktop" "tdesktop" ".dmg")
 		
 	}" > src.json
 '';
