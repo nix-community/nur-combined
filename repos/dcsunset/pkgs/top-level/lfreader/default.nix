@@ -7,13 +7,13 @@
 
 let
   pname = "lfreader";
-  version = "2.8.0";
+  version = "2.8.1";
   name = "${pname}-${version}";
   src = fetchFromGitHub {
     owner = "DCsunset";
     repo = "LFReader";
     rev = "v${version}";
-    hash = "sha256-jBBs1HC9I+Lg/vkfm+Xp2xoiZtn/APX+8kAHBKVhnwA=";
+    hash = "sha256-SWx0fPIvUnWUWyYRijBWJtpfpv5HSgBoghBAVX7TQXo=";
   };
 
   frontendDrv = buildNpmPackage {
