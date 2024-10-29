@@ -19,11 +19,9 @@ crystal.buildCrystalPackage rec {
     hash = "sha256-TbBVj8H51+D6YhGIIVC2R2yw6mFGrf91IP/05A3iLEA=";
   };
 
-  # patches = [ ./patch/state.patch ];
-
   postPatch = ''
     rm shard.lock
-    ln -s ${./lock/ktistec.lock} shard.lock
+    ln -s ${./ktistec.lock} shard.lock
   '';
   format = "shards";
 
@@ -34,7 +32,7 @@ crystal.buildCrystalPackage rec {
     gmp
   ];
 
-  shardsFile = ./lock/shards.nix;
+  shardsFile = ./shards.nix;
   crystalBinaries.server.src = "src/ktistec/server.cr";
 
   postInstall = ''

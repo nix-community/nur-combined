@@ -48,7 +48,7 @@
       let
         inherit (config.boot.kernelPackages) callPackage;
       in
-      [ (callPackage "${inputs.self}/pkgs/tcp-brutal.nix" { }) ];
+      [ (callPackage "${inputs.self}/pkgs/kernel-module/tcp-brutal/package.nix" { }) ];
     kernelPackages = pkgs.linuxPackages_latest;
   };
 

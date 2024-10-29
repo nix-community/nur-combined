@@ -276,10 +276,10 @@
         intel-one-mono
         monaspace
       ]
-      ++ (with pkgs.glowsans; [
-        glowsansSC
-        glowsansTC
-        glowsansJ
+      ++ (with pkgs; [
+        glowsans-j
+        glowsans-tc
+        glowsans-sc
       ])
       ++ (with pkgs; [
         plangothic

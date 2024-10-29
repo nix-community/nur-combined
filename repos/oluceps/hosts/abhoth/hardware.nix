@@ -41,7 +41,7 @@
 
     kernelModules = [ "brutal" ];
     extraModulePackages = with config.boot.kernelPackages; [
-      (callPackage "${inputs.self}/pkgs/tcp-brutal.nix" { })
+      (callPackage "${inputs.self}/pkgs/kernel-module/tcp-brutal/package.nix" { })
     ];
   };
   fileSystems."/" = {

@@ -70,16 +70,10 @@
             };
 
             packages =
-              let
-                shadowedPkgs = [
-                  "glowsans" # multi pkgs
-                  "opulr-a-run" # ?
-                  "tcp-brutal" # kernelModule
-                  "pico-rng"
-                  "shufflecake"
-                ];
-              in
-              (extraLibs.genFilteredDirAttrsV2 ./pkgs shadowedPkgs (n: pkgs.${n}))
+              (lib.packagesFromDirectoryRecursive {
+                inherit (pkgs) callPackage;
+                directory = ./pkgs/by-name;
+              })
               // {
                 default = pkgs.symlinkJoin {
                   name = "user-pkgs";
@@ -107,16 +101,10 @@
           overlays = {
             default =
               final: prev:
-              let
-                shadowedPkgs = [
-                  "tcp-brutal"
-                  "shufflecake"
-                  "pico-rng"
-                ];
-              in
-              extraLibs.genFilteredDirAttrsV2 ./pkgs shadowedPkgs (
-                name: final.callPackage (./pkgs + "/${name}.nix") { }
-              );
+              prev.lib.packagesFromDirectoryRecursive {
+                inherit (prev) callPackage;
+                directory = ./pkgs/by-name;
+              };
 
             lib = final: prev: extraLibs;
           };

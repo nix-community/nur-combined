@@ -16,7 +16,7 @@ rustPlatform.buildRustPackage {
   };
 
   cargoLock = {
-    lockFile = ./lock/paperback.lock;
+    lockFile = ./Cargo.lock;
     outputHashes = {
       "unsigned-varint-0.7.1" = "sha256-vAInaseEmzXS3sPChBBIZ24O8mvceLECMlk8sLwA3Zo=";
     };

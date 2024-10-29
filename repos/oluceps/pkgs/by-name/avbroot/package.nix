@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoLock = {
-    lockFile = ./lock/avbroot.lock;
+    lockFile = ./Cargo.lock;
     outputHashes = {
       "bzip2-0.4.4" = "sha256-9YKPFvaGNdGPn2mLsfX8Dh90vR+X4l3YSrsz0u4d+uQ=";
       "zip-0.6.6" = "sha256-oZQOW7xlSsb7Tw8lby4LjmySpWty9glcZfzpPuQSSz0=";

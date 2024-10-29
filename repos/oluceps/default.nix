@@ -1,36 +1,7 @@
 {
   pkgs ? import <nixpkgs> { },
 }:
-let
-  # ugly redefine
-  genFilteredDirAttrsV2 =
-    dir: excludes:
-    with pkgs.lib;
-    genAttrs (
-      with builtins; filter (n: !elem n excludes) (map (removeSuffix ".nix") (attrNames (readDir dir)))
-    );
-
-  shadowedPkgs = [
-    "patch"
-    "result"
-
-    "tcp-brutal"
-    "shufflecake"
-
-    # use things from flake that  not pass strict eval
-    "arch-run"
-    "guix-run"
-    "lunar-run"
-    "opulr-a-run"
-    "runbkworm"
-    "runwin"
-    "ubt-rv-run"
-    "smartdns-rs"
-    "lock"
-    "violet"
-    "typst-ts-cli"
-    "python"
-    "pico-rng"
-  ];
-in
-(genFilteredDirAttrsV2 ./pkgs shadowedPkgs (name: pkgs.callPackage (./pkgs + "/${name}.nix") { }))
+(pkgs.lib.packagesFromDirectoryRecursive {
+  inherit (pkgs) callPackage;
+  directory = ./pkgs/by-name;
+})
