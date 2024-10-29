@@ -47,6 +47,7 @@
             };
           alist = import ./modules/alist.nix;
           gost = import ./modules/gost.nix;
+          exloli-next = import ./modules/exloli-next.nix;
         };
       };
 

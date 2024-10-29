@@ -2,14 +2,14 @@ name: 'Build and populate cache'
 on:
   workflow_dispatch:
   # pull_request:
-  # push:
-  #   branches:
-  #     - main
-  # schedule:
-  #   # rebuild everyday at 3:35
-  #   # TIP: Choose a random time here so not all repositories are build at once:
-  #   # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
-  #   - cron: '35 3 * * *'
+  push:
+    branches:
+        - main
+  schedule:
+    # rebuild everyday at 3:35
+    # TIP: Choose a random time here so not all repositories are build at once:
+    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
+    - cron: '35 3 * * *'
 jobs:
   build-packages:
     strategy:

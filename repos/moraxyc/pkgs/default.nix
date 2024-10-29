@@ -51,5 +51,6 @@ mkScope (
   in
   {
     alist = pkg ./alist { };
+    exloli-next = pkg ./exloli-next { };
   }
 )

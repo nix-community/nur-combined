@@ -12,7 +12,7 @@ in
 {
   options = {
     services.gost = {
-      enable = lib.mkEnableOption (lib.mdDoc "A simple security tunnel written in Golang");
+      enable = lib.mkEnableOption "A simple security tunnel written in Golang";
 
       package = lib.mkPackageOption pkgs "gost" { };
 
