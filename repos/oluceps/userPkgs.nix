@@ -10,11 +10,9 @@ with pkgs;
   xwayland-satellite
   # qq
   chromium
-  discord
   apotris
   celeste
   stellarium
-  obsidian
   celluloid
   thiefmd
   # wpsoffice
@@ -92,7 +90,6 @@ with pkgs;
   # Perf
   stress
   s-tui
-  mprime
 
   # reader
   calibre
@@ -141,7 +138,6 @@ with pkgs;
   grim
   slurp
 
-  mongodb-compass
   tor-browser-bundle-bin
 
   vial

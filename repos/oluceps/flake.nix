@@ -42,12 +42,8 @@
                 allowUnfreePredicate =
                   pkg:
                   builtins.elem (lib.getName pkg) [
-                    "obsidian"
-                    "discord"
                     "veracrypt"
-                    "mprime"
                     "tetrio-desktop"
-                    "mongodb-compass"
                   ];
               };
             };
