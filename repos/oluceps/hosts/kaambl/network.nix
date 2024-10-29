@@ -18,25 +18,7 @@
       "cn.ntp.org.cn"
     ];
     usePredictableInterfaceNames = false;
-    hosts = {
-      "127.0.0.1" = [
-        "kaambl.nyaw.xyz"
-        "dns.nyaw.xyz"
-      ];
-      "10.0.1.1" = [ "nodens.nyaw.xyz" ];
-      "10.0.2.1" = [ "azasos.nyaw.xyz" ];
-      "10.0.3.1" = [ "abhoth.nyaw.xyz" ];
-      "10.0.4.6" = [
-        "eihort.nyaw.xyz"
-        "nas.nyaw.xyz"
-      ];
-      "10.0.1.2" = [
-        "s3.nyaw.xyz"
-      ];
-      "10.0.4.2" = [
-        "hastur.nyaw.xyz"
-      ];
-    };
+    hosts = lib.data.hosts.${config.networking.hostName};
     nameservers = [
       "223.5.5.5#dns.alidns.com"
       #   # "120.53.53.53#dot.pub"

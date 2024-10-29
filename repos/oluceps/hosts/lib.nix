@@ -16,6 +16,7 @@ let
       skSshPubKey = "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIH+HwSzDbhJOIs8cMuUaCsvwqfla4GY6EuD1yGuNkX6QAAAADnNzaDoxNjg5NTQzMzc1";
     };
     xmrAddr = (./sum.toml |> builtins.readFile |> fromTOML).api.misc.donate.Monero;
+    hosts = import ./hosts.nix;
   };
 
   genModules = map (

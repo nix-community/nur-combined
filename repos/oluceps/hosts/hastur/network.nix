@@ -24,18 +24,7 @@
       "120.53.53.53#dot.pub"
     ];
     # useHostResolvConf = true;
-    hosts = {
-      "127.0.0.1" = [
-        "s3.nyaw.xyz"
-        "hastur.nyaw.xyz"
-      ];
-      "10.0.1.1" = [ "nodens.nyaw.xyz" ];
-      "10.0.2.3" = [ "kaambl.nyaw.xyz" ];
-      "10.0.2.1" = [ "azasos.nyaw.xyz" ];
-      "10.0.3.1" = [ "abhoth.nyaw.xyz" ];
-      "10.0.4.1" = [ "yidhra.nyaw.xyz" ];
-      "192.168.1.158" = [ "eihort.nyaw.xyz" ];
-    };
+    hosts = lib.data.hosts.${config.networking.hostName};
 
     hostName = "hastur"; # Define your hostname.
     domain = "nyaw.xyz";
