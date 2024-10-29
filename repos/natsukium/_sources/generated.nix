@@ -11,15 +11,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "cc3280dfdf7562dd69c97d0dfa872b1c3313a18a";
+    version = "d68642101a3577d990ed19a73b4ab8086da77625";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "cc3280dfdf7562dd69c97d0dfa872b1c3313a18a";
+      rev = "d68642101a3577d990ed19a73b4ab8086da77625";
       fetchSubmodules = false;
-      sha256 = "sha256-Twamd/Doh2btEix3TK/NfilT5eZ6jEJ9rBXbJeVb6Yw=";
+      sha256 = "sha256-Pi5F+jmUTTCrigzPpSUwGviQsRDbMoAUaz3REpV/Oy4=";
     };
-    date = "2024-09-17";
+    date = "2024-10-28";
   };
   nixpkgs-review = {
     pname = "nixpkgs-review";
@@ -75,10 +75,10 @@
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "6.9.3447.54";
+    version = "7.0.3495.6";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.6.9.3447.54.universal.dmg";
-      sha256 = "sha256-YVLPCYuZe9Cy7tU3XVRCprNU3+tZb930m1wNkFkyOHY=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.7.0.3495.6.universal.dmg";
+      sha256 = "sha256-uNO127SDvChZ0ILjIXAMTIWp4FRa1MtFEY5fxGwfB+s=";
     };
   };
 }
