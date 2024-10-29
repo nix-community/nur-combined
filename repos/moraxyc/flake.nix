@@ -25,6 +25,8 @@
       systems = [
         "x86_64-linux"
         "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
       ];
       flake = {
         overlay = self.overlays.default;
@@ -43,12 +45,8 @@
             {
               nixpkgs.overlays = [ self.overlays.default ];
             };
-          openssl-oqs-provider = import ./modules/openssl-oqs-provider.nix;
           alist = import ./modules/alist.nix;
           gost = import ./modules/gost.nix;
-        };
-        flakeModules = {
-          commands = import ./flake-modules/commands.nix;
         };
       };
 
