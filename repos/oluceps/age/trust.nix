@@ -9,6 +9,8 @@
 }:
 (hard [
   "general.toml"
+  "on-kaambl.toml"
+  "on-eihort.toml"
   "jc-do"
   "ss-az"
   "naive"

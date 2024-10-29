@@ -7,12 +7,6 @@ in
     identityPaths = [ hostPrivKey ];
     rekey.hostPubkey = data.keys.hasturHostPubKey;
     secrets = {
-      "on-kaambl.toml" = {
-        rekeyFile = ../../sec/on-kaambl.toml.age;
-      };
-      "on-eihort.toml" = {
-        rekeyFile = ../../sec/on-eihort.toml.age;
-      };
       id = {
         rekeyFile = ../../sec/id.age;
         mode = "400";

@@ -19,13 +19,18 @@ let
     mapAttrs'
     filterAttrs
     nameValuePair
+    unique
     ;
   inherit (utils.systemdUtils.unitOptions) unitOption;
-
 in
 {
   disabledModules = [ "services/backup/rustic-rs.nix" ];
   options.services.rustic = {
+    profiles = mkOption {
+      type = with types; listOf str;
+      default = [ ];
+      description = "profiles file path, for management";
+    };
     backups = mkOption {
       description = "list of rustic instance";
       type = types.attrsOf (
@@ -64,7 +69,7 @@ in
     environment.systemPackages = [ pkgs.rustic ];
     environment.etc = listToAttrs (
       map (n: nameValuePair ("rustic/" + (baseNameOf n)) { source = n; }) (
-        foldl' (acc: i: acc ++ i.profiles) [ ] (attrValues cfg.backups)
+        unique ((foldl' (acc: i: acc ++ i.profiles) [ ] (attrValues cfg.backups)) ++ cfg.profiles)
       )
     );
 
