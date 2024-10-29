@@ -91,6 +91,7 @@ in stdenv.mkDerivation rec {
         # No license explicitly specified. Credits seem to indicate some emulation code came from
         # MAME, which would have been under its old viral non-commercial license at the time.
         license = lib.licenses.unfree;
+        mainProgram = pname;
         maintainers = [maintainers.Rhys-T];
     };
     passthru = {

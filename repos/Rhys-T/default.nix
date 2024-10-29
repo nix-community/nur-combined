@@ -99,6 +99,9 @@ in {
     asciiportal = callPackage ./pkgs/asciiportal {};
     asciiportal-git = callPackage ./pkgs/asciiportal/git.nix {};
     
+    xorcurses = callPackage ./pkgs/xorcurses {};
+    xorcurses-git = callPackage ./pkgs/xorcurses/git.nix {};
+    
     powder = callPackage ./pkgs/powder {};
     
     icbm3d = pkgs.icbm3d.overrideAttrs (old: {

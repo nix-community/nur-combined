@@ -120,6 +120,7 @@
             
             # There's also some Apache-2.0 code in there, but only in the Android port.
         ];
+        mainProgram = "powder";
         maintainers = [maintainers'.Rhys-T];
     };
 }

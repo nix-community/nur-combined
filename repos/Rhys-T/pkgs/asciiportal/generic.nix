@@ -80,6 +80,7 @@ in stdenv.mkDerivation rec {
             # A couple of the level packs use this:
             cc-by-sa-20
         ];
+        mainProgram = "asciiportal";
         maintainers = [maintainers.Rhys-T];
     };
 }
