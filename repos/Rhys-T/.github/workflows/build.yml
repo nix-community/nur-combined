@@ -93,11 +93,14 @@ jobs:
     - name: Build nix packages
       # run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
       run: nix shell -f '.' nix-build-uncached-logging -c nix-build-uncached ci.nix ${{ matrix.qemuSystem && format('--argstr platform {0}', matrix.qemuSystem)}} -A cacheOutputs
-    - name: "DEBUG: Upload drl .drv"
+    - name: Upload debug info
       if: '!cancelled()'
       uses: actions/upload-artifact@v4
       with:
-        path: /nix/store/*drl-unwrapped*.drv
+        name: Rhys-T-nur-packages-debug
+        path: |
+          /nix/store/*drl-unwrapped*.drv
+          /nix/store/*drl-env-test*
         if-no-files-found: ignore
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!

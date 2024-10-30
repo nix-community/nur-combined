@@ -140,6 +140,21 @@ in {
             '';
             meta = {};
         });
+    }) // pkgs.lib.optionalAttrs (pkgs.hostPlatform.system == "x86_64-darwin") (pkgs.lib.recurseIntoAttrs {
+        env = self.drl-unwrapped.overrideAttrs (old: {
+            pname = "drl-env-test";
+            buildPhase = ''
+                runHook preBuild
+                :
+                runHook postBuild
+            '';
+            installPhase = ''
+                runHook preInstall
+                env > "$out"
+                runHook postInstall
+            '';
+            meta = {};
+        });
     });
     
     # Can't just pass `-L` to `nix-build-uncached`: it ends up being passed to both
