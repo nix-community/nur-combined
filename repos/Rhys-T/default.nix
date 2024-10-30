@@ -117,6 +117,14 @@ in {
         };
     });
     
+    drl-hq = callPackage ./pkgs/drl { drl-audio = self.drl-audio-hq; };
+    drl-lq = callPackage ./pkgs/drl { drl-audio = self.drl-audio-lq; };
+    drl = self.drl-hq;
+    drl-unwrapped = callPackage ./pkgs/drl/unwrapped.nix {};
+    drl-audio-hq = callPackage ./pkgs/drl/audio.nix { audioQuality = "hq"; };
+    drl-audio-lq = callPackage ./pkgs/drl/audio.nix { audioQuality = "lq"; };
+    drl-audio = self.drl-audio-hq;
+    
     # Can't just pass `-L` to `nix-build-uncached`: it ends up being passed to both
     # old `nix-build` (which doesn't understand it) and new `nix build` (which does).
     nix-build-uncached-logging = callPackage ({nix-build-uncached}: nix-build-uncached.overrideAttrs (old: {
