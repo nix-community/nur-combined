@@ -26,7 +26,7 @@ in stdenv.mkDerivation rec {
         export FPCVALKYRIE_ROOT="$PWD/fpcvalkyrie/"
     '';
     nativeBuildInputs = [lua5_1 fpc];
-    buildInputs = [lua5_1 SDL2 SDL2_image SDL2_mixer SDL2_ttf ncurses];
+    buildInputs = [lua5_1 SDL2 SDL2_image SDL2_mixer SDL2_ttf ncurses] ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.Libsystem];
     env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
     env.NIX_LDFLAGS = lib.optionalString stdenv.isDarwin (lib.concatMapStringsSep " " (f: "-F${f}/Library/Frameworks") (with darwin.apple_sdk.frameworks; [CoreFoundation Cocoa]));
     env.NIX_DEBUG = 7;
