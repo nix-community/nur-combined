@@ -101,6 +101,7 @@ jobs:
         path: |
           /nix/store/*drl-unwrapped*.drv
           /nix/store/*drl-env-test*
+          /nix/var/log/nix/drvs/*/*drl-unwrapped*
         if-no-files-found: ignore
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!

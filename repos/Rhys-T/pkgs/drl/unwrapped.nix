@@ -29,6 +29,7 @@ in stdenv.mkDerivation rec {
     buildInputs = [lua5_1 SDL2 SDL2_image SDL2_mixer SDL2_ttf ncurses];
     env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
     env.NIX_LDFLAGS = lib.optionalString stdenv.isDarwin (lib.concatMapStringsSep " " (f: "-F${f}/Library/Frameworks") (with darwin.apple_sdk.frameworks; [CoreFoundation Cocoa]));
+    env.NIX_DEBUG = 7;
     postPatch = ''
         sed -i '
             /fpc_params =/ a\
