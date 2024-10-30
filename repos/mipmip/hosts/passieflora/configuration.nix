@@ -42,7 +42,7 @@
  services.xserver.desktopManager.gnome.enable = true;
 
 
-  
+
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -76,6 +76,12 @@
     tmux
     git
     firefox
+    home-manager
+
+    gcc
+    pkg-config
+
+    gnumake
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

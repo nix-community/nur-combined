@@ -1,7 +1,26 @@
-{ lib, pkgs, unstable, ... }:
+{ config, lib, pkgs, unstable, ... }:
+
+{
+
+  options.dotfiles.awsstuff = {
+
+	enable = lib.mkEnableOption "enable aws conf stuff";
+   # enable = lib.mkOption {
+   #   type = lib.types.nullOr lib.types.bool;
+ # #    type = lib.types.bool;
+   #   default = true;
+   #   description = "Enable AWS conf stuff";
+   # };
+  };
+    #  imports = [
+    #    ../../../home-manager-modules/programs/awscli-cust.nix
+    #  ];
+
+   config = 
 
 let
 
+  cfg = config.dotfiles.awsstuff;
   technative_profiles = /home/pim/.aws/managed_service_accounts.json;
   other_profiles = /home/pim/.aws/other_accounts.json;
 
@@ -71,28 +90,29 @@ let
          else groups.default.color;
     };
 in
-{
-    #  imports = [
-    #    ../../../home-manager-modules/programs/awscli-cust.nix
-    #  ];
 
-  programs.awscli = {
-    package = unstable.awscli2;
-    enable = true;
-    settings = {
-
-      "technative" = {
-        aws_account_id = "technativebv";
-        account_id = "technativebv";
-        region = "eu-central-1";
-        output = "table";
-        group = "Technative";
-      };
-    }
-    // builtins.listToAttrs (builtins.map (account: {
-       name = "profile ${normalize_string account.customer_name}-${normalize_string (account_name account)}";
-       value = make_profile { account = account; group = account.customer_name; };
-    }) (builtins.filter (account: show_account account) aws_accounts));
+   lib.mkIf cfg.enable {
+      programs.awscli = {
+      package = unstable.awscli2;
+      enable = true;
+      settings = {
+  
+        "technative" = {
+          aws_account_id = "technativebv";
+          account_id = "technativebv";
+          region = "eu-central-1";
+          output = "table";
+          group = "Technative";
+        };
+      }
+      // builtins.listToAttrs (builtins.map (account: {
+         name = "profile ${normalize_string account.customer_name}-${normalize_string (account_name account)}";
+         value = make_profile { account = account; group = account.customer_name; };
+      }) (builtins.filter (account: show_account account) aws_accounts));
+  
+    };
 
   };
-}
+
+
+  }
