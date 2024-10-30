@@ -12,6 +12,7 @@
 
 {
   platform ? null,
+  includeDRL ? false,
   pkgs ? import <nixpkgs> (if platform != null then {
     localSystem = platform;
     packageOverrides = pkgs: {
@@ -52,7 +53,7 @@ let
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 
-  nurAttrs' = import ./default.nix { inherit pkgs; };
+  nurAttrs' = import ./default.nix { inherit pkgs includeDRL; };
   nurAttrs = nurAttrs' // lib.optionalAttrs (nurAttrs'?_ciOnly) {
     _ciOnly = lib.recurseIntoAttrs nurAttrs'._ciOnly;
   };
