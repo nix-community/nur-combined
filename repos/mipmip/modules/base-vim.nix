@@ -22,6 +22,7 @@
     unstable.nixd
     marksman
     terraform-ls
+    nodePackages.bash-language-server
     sumneko-lua-language-server
 
     tree-sitter
