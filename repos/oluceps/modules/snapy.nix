@@ -81,7 +81,7 @@ in
 
                     let snapshot_place = $formated_now | $'${s.source}/.snapshots/($in)'
 
-                    if ($snapshot_place | path exists) { print "oops, collision"; exit }
+                    if ($snapshot_place | path exists) { print -e "oops, collision"; exit }
 
                     let snapshot_dir = $snapshot_place | path dirname
 
