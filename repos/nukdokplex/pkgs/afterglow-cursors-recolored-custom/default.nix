@@ -1,11 +1,10 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  xorg,
-  librsvg,
-  findutils,
-  colorScheme ? {
+{ lib
+, stdenvNoCC
+, fetchFromGitHub
+, xorg
+, librsvg
+, findutils
+, colorScheme ? {
     main = "#8a80e0";
     stroke = "#1c1a2d";
     accent = "#c1bbfe";
@@ -13,8 +12,8 @@
     loadingBackground = "#534d86";
     loadingForeground = "#8a80e0";
     notAllowed = "#8a80e0";
-  },
-  ...
+  }
+, ...
 }:
 stdenvNoCC.mkDerivation {
   name = "afterglow-cursors-recolored-custom";
@@ -27,7 +26,7 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-GR+d+jrbeIGpqal5krx83PxuQto2PQTO3unQ+jaJf6s=";
   };
 
-  buildInputs = [xorg.xcursorgen librsvg findutils];
+  buildInputs = [ xorg.xcursorgen librsvg findutils ];
 
   patchPhase = ''
 

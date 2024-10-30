@@ -1,12 +1,12 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  rpmextract,
-  autoreconfHook,
-  file,
-  libjpeg,
-  cups,
+{ lib
+, stdenv
+, fetchurl
+, rpmextract
+, autoreconfHook
+, file
+, libjpeg
+, cups
+,
 }:
 stdenv.mkDerivation rec {
   name = "epson_201310w";
@@ -20,8 +20,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-596qMon5KmMHe7mh+ykdpWeazJOCGA6HmmtvdGheRmA=";
   };
 
-  nativeBuildInputs = [rpmextract autoreconfHook file];
-  buildInputs = [libjpeg cups];
+  nativeBuildInputs = [ rpmextract autoreconfHook file ];
+  buildInputs = [ libjpeg cups ];
 
   unpackPhase = ''
     rpmextract $src
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
           drivers = [ pkgs.epson_201310w ];
         };
     '';
-    license = with licenses; [lgpl21 epson];
-    platforms = ["x86_64-linux"];
+    license = with licenses; [ lgpl21 epson ];
+    platforms = [ "x86_64-linux" ];
   };
 }
