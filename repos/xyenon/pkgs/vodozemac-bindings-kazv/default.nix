@@ -1,20 +1,21 @@
 {
   fetchFromGitLab,
   rustPlatform,
+  perl,
   unstableGitUpdater,
   lib,
 }:
 
 rustPlatform.buildRustPackage {
   pname = "vodozemac-bindings-kazv";
-  version = "0-unstable-2024-09-15";
+  version = "0.1.0-unstable-2024-09-26";
 
   src = fetchFromGitLab {
     domain = "lily-is.land";
     owner = "kazv";
     repo = "vodozemac-bindings";
-    rev = "5f99034d7e6ac0098461e044468834608fd57c26";
-    hash = "sha256-84rZLpKeHEdCtpdu/WrL50xuOpCD9LIqAK1OZRZahgw=";
+    rev = "f3a92709c0be6bd886a32dd7b4e5d04054e75391";
+    hash = "sha256-bZgQ4gMVvZLOlDNe9XKcrZcUnr5osskiVXmy4FwFqaA=";
   };
 
   cargoLock = {
@@ -24,9 +25,18 @@ rustPlatform.buildRustPackage {
     };
   };
 
-  postInstall = ''
-    mkdir -p $out/include
-    cp $releaseDir/../cxxbridge/vodozemac/src/lib.rs.h $out/include/vodozemac.h
+  nativeBuildInputs = [ perl ];
+
+  buildPhase = ''
+    runHook preBuild
+    make -C cpp
+    runHook postBuild
+  '';
+
+  installPhase = ''
+    runHook preInstall
+    make -C cpp "PREFIX=$out" install
+    runHook postInstall
   '';
 
   passthru.updateScript = unstableGitUpdater { tagPrefix = "v"; };

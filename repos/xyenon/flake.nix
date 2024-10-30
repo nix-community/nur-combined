@@ -1,5 +1,11 @@
 {
   description = "My personal NUR repository";
+  nixConfig = {
+    extra-substituters = [ "https://nur-xyenon.cachix.org" ];
+    extra-trusted-public-keys = [
+      "nur-xyenon.cachix.org-1:fZ3SGJ3E1p34JSG5j4etfF9+vjJGMZxe1dDBNliKx5U="
+    ];
+  };
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   outputs =
     { self, nixpkgs }:
