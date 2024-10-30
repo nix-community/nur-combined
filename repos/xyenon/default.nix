@@ -21,7 +21,10 @@ rec {
   go-check = callPackage ./pkgs/go-check { };
   catp = callPackage ./pkgs/catp { };
   vodozemac-bindings-kazv-unstable = callPackage ./pkgs/vodozemac-bindings-kazv { };
-  libkazv = callPackage ./pkgs/libkazv { inherit vodozemac-bindings-kazv-unstable; };
+  libkazv = callPackage ./pkgs/libkazv {
+    inherit vodozemac-bindings-kazv-unstable;
+    libcpr = pkgs.libcpr_1_10_5 or libcpr;
+  };
   kazv = kdePackages.callPackage ./pkgs/kazv { inherit vodozemac-bindings-kazv-unstable libkazv; };
   nginxModules = callPackage ./pkgs/nginx/modules { };
   nginxStable =
