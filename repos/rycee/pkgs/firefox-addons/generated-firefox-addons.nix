@@ -2096,10 +2096,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2442.0";
+      version = "6.2444.1";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4369787/dashlane-6.2442.0.xpi";
-      sha256 = "d4a58189ae37e5adadd2dcb0c365491b95b8c0875457d6218c81312e437e2ad6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4377186/dashlane-6.2444.1.xpi";
+      sha256 = "71079288568ad654560bb55226befb20f9afd1434a5d7b4b1600c8332b4f42ee";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2352,10 +2352,10 @@
     };
     "download-with-jdownloader" = buildFirefoxXpiAddon {
       pname = "download-with-jdownloader";
-      version = "0.3.3";
+      version = "0.3.4";
       addonId = "{03e07985-30b0-4ae0-8b3e-0c7519b9bdf6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4328995/download_with_jdownloader-0.3.3.xpi";
-      sha256 = "bce14f25d60beca7740c636071fc0a731f26c477cdb1921a2660578f3e4512bc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4373252/download_with_jdownloader-0.3.4.xpi";
+      sha256 = "2cb65f088f01504d1cfcd3ba095846992738908b5cb48b6b67124f014759183f";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/download-with.html?from=jdownloader";
