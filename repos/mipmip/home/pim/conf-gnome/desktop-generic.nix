@@ -54,6 +54,7 @@
       dynamic-workspaces = false;
       overlay-key = "Super_R";
       workspaces-only-on-primary = true;
+      experimental-features = ["scale-monitor-framebuffer"];
     };
   };
 }
