@@ -582,6 +582,21 @@
         "type": "github"
       }
     },
+    "nixos-hardware": {
+      "locked": {
+        "lastModified": 1730161780,
+        "narHash": "sha256-z5ILcmwMtiCoHTXS1KsQWqigO7HJO8sbyK7f7wn9F/E=",
+        "owner": "nixos",
+        "repo": "nixos-hardware",
+        "rev": "07d15e8990d5d86a631641b4c429bc0a7400cfb8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1703013332,
@@ -980,6 +995,7 @@
         "myhotkeys": "myhotkeys",
         "nix-on-droid": "nix-on-droid",
         "nixified-ai": "nixified-ai",
+        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_9",
         "nixpkgs-2211": "nixpkgs-2211",
         "nixpkgs-2311": "nixpkgs-2311",

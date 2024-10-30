@@ -12,6 +12,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
 
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
 
     #nixpkgs-inkscape13.url = "github:leiserfg/nixpkgs?ref=staging";
 
@@ -60,6 +61,7 @@
     unstable,
     #    nixpkgs-inkscape13,
     agenix,
+    nixos-hardware,
 
     nixified-ai,
 
@@ -96,6 +98,9 @@
         config.allowUnfree = true;
       };
 
+      #for grannyos
+      nixpkgs-unstable = unstableForSystem "x86_64-linux";
+
       defaultSystem = "x86_64-linux";
       extraPkgs = {
         environment.systemPackages = [
@@ -112,6 +117,30 @@
 
     in
       rec {
+       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-classic;
+
+       homeConfigurations."pim@passieflora" = home-manager.lib.homeManagerConfiguration {
+        modules = [
+          (import ./home/pim/home-machine-passieflora.nix)
+        ];
+
+        pkgs = pkgsForSystem "x86_64-linux";
+        extraSpecialArgs = {
+          username = "pim";
+          homedir = "/home/pim";
+          withLinny = false;
+          isDesktop = false;
+          tmuxPrefix = "b";
+          unstable = unstableForSystem "x86_64-linux";
+          bmc = bmc;
+          race = race;
+          dirtygit = dirtygit;
+          inherit shellstuff;
+          jsonify-aws-dotfiles = jsonify-aws-dotfiles;
+
+        };
+      };
+
 
       homeConfigurations."pim@tn-nixhost" = home-manager.lib.homeManagerConfiguration {
         modules = [
@@ -331,6 +360,48 @@
         pkgs = import nixpkgs { system = "aarch64-linux"; };
         modules = [ ./hosts/nix-on-droid/configuration.nix ];
       };
+
+      nixosConfigurations.passieflora = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+  	./hosts/passieflora/configuration.nix
+   	./hosts/passieflora/nix/substituter.nix
+  	nixos-hardware.nixosModules.apple-t2
+
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+        }
+
+        ];
+      };
+
+      nixosConfigurations.passieflora-no = nixpkgs.lib.nixosSystem {
+
+        modules =
+          let
+            system = "x86_64-linux";
+            defaults = { pkgs, ... }: {
+              nixpkgs.overlays = [(import ./overlays)];
+              _module.args.unstable = importFromChannelForSystem system unstable;
+              _module.args.pkgs-2211 = importFromChannelForSystem system nixpkgs-2211;
+              _module.args.pkgs-2311 = importFromChannelForSystem system nixpkgs-2311;
+            };
+
+
+          in [
+            defaults
+            ./hosts/passieflora/configuration.nix
+
+            agenix.nixosModules.default
+            extraPkgs
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+            }
+          ];
+      };
+
 
 
     };
