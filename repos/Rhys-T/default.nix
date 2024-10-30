@@ -124,6 +124,23 @@ in {
     drl-audio-hq = callPackage ./pkgs/drl/audio.nix { audioQuality = "hq"; };
     drl-audio-lq = callPackage ./pkgs/drl/audio.nix { audioQuality = "lq"; };
     drl-audio = self.drl-audio-hq;
+    _ciOnly.drl-dev = pkgs.lib.optionalAttrs (pkgs.hostPlatform.system == "x86_64-linux") (pkgs.lib.recurseIntoAttrs {
+        makewad = self.drl-unwrapped.overrideAttrs (old: {
+            pname = "drl-makewad-test";
+            buildPhase = ''
+                runHook preBuild
+                mkdir tmp
+                lua makefile.lua
+                runHook postBuild
+            '';
+            installPhase = ''
+                runHook preInstall
+                install -D bin/makewad "$out"/bin/makewad
+                runHook postInstall
+            '';
+            meta = {};
+        });
+    });
     
     # Can't just pass `-L` to `nix-build-uncached`: it ends up being passed to both
     # old `nix-build` (which doesn't understand it) and new `nix build` (which does).
