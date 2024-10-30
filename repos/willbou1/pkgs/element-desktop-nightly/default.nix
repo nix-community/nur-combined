@@ -6,7 +6,7 @@ alsaLib, atk, cairo, cups, curl, dbus, expat, fontconfig, freetype, gdk-pixbuf, 
 # https://aur.archlinux.org/packages/element-desktop-nightly-bin
 ################################################################################
 let
-    version = "2024071601";
+    version = "2024102901";
 
     rpath = lib.makeLibraryPath [
         alsaLib
@@ -65,12 +65,12 @@ let
     src = if stdenv.hostPlatform.system == "x86_64-linux" then
         fetchurl {
             url = "https://packages.element.io/debian/pool/main/e/element-nightly/element-nightly_${version}_amd64.deb";
-           sha256 = "b567ef79dbed36cecb4ab4e9479864a382f9664c878ec4d1872e0089a6fd577a"; 
+           sha256 = "4861ae15b3a5ec3f23b786a4a590ea84123d4c9d0c012f49c0283257dbff0e37"; 
         }
     else if stdenv.hostPlatform.system == "aarch64-linux" then
         fetchurl {
             url = "https://packages.element.io/debian/pool/main/e/element-nightly/element-nightly_${version}_arm64.deb";
-           sha256 = "427d45d459688ceb56e5a07d00750e9be310635b9711e8880fbdfada5478f7cc"; 
+           sha256 = "497964466c4665d6d0d0f383b35d05f151258e2f1ef6cdfb6143b5e19f2c5257"; 
         }
     else
         throw "element-desktop-nightly is not supported on ${stdenv.hostPlatform.system}";
