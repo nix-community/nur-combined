@@ -130,7 +130,7 @@ in {
             buildPhase = ''
                 runHook preBuild
                 mkdir tmp
-                lua makefile.lua
+                lua makefile.lua bin/makewad
                 runHook postBuild
             '';
             installPhase = ''
