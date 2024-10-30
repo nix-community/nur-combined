@@ -117,7 +117,7 @@ in stdenv.mkDerivation rec {
             # Music (according to <https://simonvolpert.com/drla/>)
             cc-by-sa-40
         ];
-        badPlatforms = with lib.platforms; linux;
+        badPlatforms = with lib.platforms; linux ++ aarch64;
         maintainers = [maintainers.Rhys-T];
     };
 }
