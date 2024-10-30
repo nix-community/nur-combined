@@ -4,15 +4,17 @@
     inputs@{ flake-parts, self, ... }:
     let
       extraLibs = (import ./hosts/lib.nix inputs);
+      flakeModules = map (n: inputs.${n}.flakeModule);
+      defaultOverlays = map (n: inputs.${n}.overlays.default);
     in
     flake-parts.lib.mkFlake { inherit inputs; } (
       { ... }:
       {
         imports =
-          (with inputs; [
-            pre-commit-hooks.flakeModule
-            devshell.flakeModule
-            agenix-rekey.flakeModule
+          (flakeModules [
+            "pre-commit-hooks"
+            "devshell"
+            "agenix-rekey"
           ])
           ++ [ ./hosts ];
         debug = false;
@@ -32,11 +34,11 @@
 
             _module.args.pkgs = import inputs.nixpkgs {
               inherit system;
-              overlays = with inputs; [
-                agenix-rekey.overlays.default
-                fenix.overlays.default
-                self.overlays.default
-                nuenv.overlays.default
+              overlays = defaultOverlays [
+                "agenix-rekey"
+                "fenix"
+                "self"
+                "nuenv"
               ];
               config = {
                 allowUnfreePredicate =
