@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {}, includeDRL ? false }:
+{ pkgs ? import <nixpkgs> {} }:
 
 let result = pkgs.lib.makeScope pkgs.newScope (self: let
     inherit (self) callPackage;
@@ -117,16 +117,48 @@ in {
         };
     });
     
-    # drl-hq = callPackage ./pkgs/drl { drl-audio = self.drl-audio-hq; };
-    # drl-lq = callPackage ./pkgs/drl { drl-audio = self.drl-audio-lq; };
-    # drl = self.drl-hq;
-    # drl-unwrapped = callPackage ./pkgs/drl/unwrapped.nix {};
-    # drl-audio-hq = callPackage ./pkgs/drl/audio.nix { audioQuality = "hq"; };
-    # drl-audio-lq = callPackage ./pkgs/drl/audio.nix { audioQuality = "lq"; };
-    # drl-audio = self.drl-audio-hq;
-    _ciOnly.drl-dev = pkgs.lib.optionalAttrs (includeDRL && pkgs.hostPlatform.system == "x86_64-darwin") (pkgs.lib.recurseIntoAttrs rec {
-        drl-unwrapped = callPackage ./pkgs/drl/unwrapped.nix {};
-        env = /*self.*/drl-unwrapped.overrideAttrs (old: {
+    drl-hq = callPackage ./pkgs/drl { drl-audio = self.drl-audio-hq; };
+    drl-lq = callPackage ./pkgs/drl { drl-audio = self.drl-audio-lq; };
+    drl = self.drl-hq;
+    drl-unwrapped = callPackage ./pkgs/drl/unwrapped.nix {};
+    drl-audio-hq = callPackage ./pkgs/drl/audio.nix { audioQuality = "hq"; };
+    drl-audio-lq = callPackage ./pkgs/drl/audio.nix { audioQuality = "lq"; };
+    drl-audio = self.drl-audio-hq;
+    _ciOnly.drl-dev = pkgs.lib.optionalAttrs (pkgs.hostPlatform.system == "x86_64-linux") (pkgs.lib.recurseIntoAttrs {
+        # makewad = self.drl-unwrapped.overrideAttrs (old: {
+        #     pname = "drl-makewad-test";
+        #     buildPhase = ''
+        #         runHook preBuild
+        #         mkdir tmp
+        #         lua makefile.lua bin/makewad
+        #         runHook postBuild
+        #     '';
+        #     installPhase = ''
+        #         runHook preInstall
+        #         install -D bin/makewad "$out"/bin/makewad
+        #         runHook postInstall
+        #     '';
+        #     meta = {};
+        # });
+    }) // pkgs.lib.optionalAttrs (pkgs.hostPlatform.system == "x86_64-darwin") (pkgs.lib.recurseIntoAttrs {
+        aaa-fpc-test = callPackage ({stdenv, fpc, writeText}: stdenv.mkDerivation {
+            name = "aaa-fpc-test";
+            src = writeText "hello.pas" ''
+                program Hello;
+                {$LINKLIB m}
+                begin
+                    writeln ('Hello, world.');
+                end.
+            '';
+            dontUnpack = true;
+            nativeBuildInputs = [fpc];
+            env.NIX_DEBUG = 7;
+            buildPhase = "fpc -o./hello $src";
+            checkPhase = ''[[ "$(./hello)" == "Hello, world." ]]'';
+            doCheck = true;
+            installPhase = "install -Dm755 hello $out/bin/hello";
+        }) {};
+        env = self.drl-unwrapped.overrideAttrs (old: {
             pname = "drl-env-test";
             buildPhase = ''
                 runHook preBuild
