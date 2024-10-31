@@ -69,6 +69,7 @@ in
       gdu
       gifsicle
       gimp-with-plugins
+      gnome-decoder
       gopass
       gopass-env
       gopass-ydotool

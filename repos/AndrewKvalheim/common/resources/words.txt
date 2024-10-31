@@ -253,6 +253,8 @@ decompile
 decompiled
 decompiler
 deconflate
+deconflict
+deconflicts
 decryptable
 delayable
 delegators
@@ -589,6 +591,7 @@ linter
 LinuxFest
 lockdown
 lockdowns
+loopable
 lossily
 LosslessCut
 losslessly
@@ -1225,6 +1228,7 @@ unhold
 UniFi
 unignore
 unindented
+uninvite
 unlinked
 unmanageably
 unmanaged

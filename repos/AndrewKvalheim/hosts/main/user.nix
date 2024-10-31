@@ -33,6 +33,7 @@
     album-art
     attachments
     audacious
+    audacity
     awscli2
     calibre
     chromium

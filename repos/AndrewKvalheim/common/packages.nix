@@ -14,6 +14,7 @@ specify {
   ansible-vault-pass-client = any;
   apex = any;
   attachments = any;
+  audacity.gappsWrapperArgs = "--set-default GDK_BACKEND x11"; # NixOS/nixpkgs#238910
   binsider = any;
   buildJosmPlugin = any;
   cavif = any;
@@ -62,6 +63,7 @@ specify {
   picard.overlay = p: { preFixup = p.preFixup + "\nmakeWrapperArgs+=(--prefix PATH : ${stable.lib.makeBinPath [ resolved.rsgain ]})"; }; # NixOS/nixpkgs#255222
   pngquant-interactive = any;
   ruff.version = "≥0.4.5"; # ruff server
+  rust-analyzer.version = "≥2024-09-02"; # Compatability with Rust 1.82
   signal-desktop.gappsWrapperArgs = "--add-flags --use-tray-icon"; # Enable tray icon
   spf-check = any;
   spf-tree = any;
