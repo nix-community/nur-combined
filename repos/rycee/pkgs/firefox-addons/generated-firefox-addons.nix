@@ -2177,10 +2177,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "133.0.20241028.142722";
+      version = "133.0.20241030.91715";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4377401/deutsch_de_language_pack-133.0.20241028.142722.xpi";
-      sha256 = "a1b7e5a032e43e29b47c32ef14c214b115276b5dcc19c84c234c55251cec72a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4378850/deutsch_de_language_pack-133.0.20241030.91715.xpi";
+      sha256 = "dfeb4d2ce8cb876618e971a20618044642899e2c80e46d04bc1e7cfc7d7e4ab6";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2418,10 +2418,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.46.5";
+      version = "2.47.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4370175/dualsub-2.46.5.xpi";
-      sha256 = "e6ef99b8a850b72550c6249b244d58b81ebe8234d4d62952d38c9976136f0fd4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4378731/dualsub-2.47.0.xpi";
+      sha256 = "9a860e9b257b8dae193c2f97b7c559b982123627b84c0b39fb4bd923b371502d";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2442,24 +2442,22 @@
           "https://www.coursera.org/*"
           "https://www.iflix.com/*"
           "https://www.iq.com/*"
-          "https://www.primevideo.com/*"
           "https://www.udemy.com/*"
           "https://www.viki.com/*"
           "https://www.youku.tv/*"
           "https://www.zdf.de/*"
           "https://m.youtube.com/*"
           "https://wetv.vip/*"
-          "https://player.dualsub.xyz/*"
         ];
         platforms = platforms.all;
       };
     };
     "duckduckgo-privacy-essentials" = buildFirefoxXpiAddon {
       pname = "duckduckgo-privacy-essentials";
-      version = "2024.7.24";
+      version = "2024.10.16";
       addonId = "jid1-ZAdIEUB7XOzOJw@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4325805/duckduckgo_for_firefox-2024.7.24.xpi";
-      sha256 = "e1a71dff13da64d25341c18184da301b0f248434764563f90ad3de040da46b57";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4374439/duckduckgo_for_firefox-2024.10.16.xpi";
+      sha256 = "c37edce68c5324020b440eee298cfa8ac9851aa027571cdea1d48cea3b4f9c10";
       meta = with lib;
       {
         homepage = "https://duckduckgo.com/app";
@@ -3344,10 +3342,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "133.0.20241028.142722";
+      version = "133.0.20241030.91715";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4377372/francais_language_pack-133.0.20241028.142722.xpi";
-      sha256 = "827d201c57450c7f8cb2df34b81d4f963aab2a678271923fdaf40d65d50b73b3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4378795/francais_language_pack-133.0.20241030.91715.xpi";
+      sha256 = "6a0d0afe06bca3fb9342701bb4a1d4bf6f061231f013b093daa0e243b126d494";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3381,10 +3379,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "133.0.20241028.142722";
+      version = "133.0.20241030.91715";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4377360/gaidhlig_language_pack-133.0.20241028.142722.xpi";
-      sha256 = "5af5d0e5f5963d4b999f2464b36b4c6fc4b5a199123f34d050fcadb68f77ce0f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4378767/gaidhlig_language_pack-133.0.20241030.91715.xpi";
+      sha256 = "fbb8618a4512e91bce09d97a32380fefba98e064bff7a6f94765d3f3782761ca";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -5973,10 +5971,10 @@
     };
     "leechblock-ng" = buildFirefoxXpiAddon {
       pname = "leechblock-ng";
-      version = "1.6.5";
+      version = "1.6.6";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4311899/leechblock_ng-1.6.5.xpi";
-      sha256 = "feda43f0197d2fa5b372c27a2307789184ee7feccf8b9692396c51f97229033b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4374316/leechblock_ng-1.6.6.xpi";
+      sha256 = "7fba46d7a65e9785bc93f1d16fbe0e7a9b7e6970a18376995d4b6908dbbe1929";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -7440,10 +7438,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.6.1";
+      version = "1.6.2";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4370570/mtab-1.6.1.xpi";
-      sha256 = "92eff962f0573a631b9f42ddfe69788f653be6e6ccd1e6d3c31ea663ff29ff9f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4379205/mtab-1.6.2.xpi";
+      sha256 = "83a330b20f1fabc4f43b8eab1e7575853925390102702465e129179f36e0c321";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
@@ -9215,10 +9213,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.23.1";
+      version = "1.24.0";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4365686/proton_pass-1.23.1.xpi";
-      sha256 = "623b66113a59144cf1c54c89037c9b45905418b21b6584e168e8803acddf7059";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4374377/proton_pass-1.24.0.xpi";
+      sha256 = "82ce97b888fd3fbd5a0b56a1f08b8af82dd82aa1863e7ab4593c735dcd98704b";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -9230,6 +9228,7 @@
           "scripting"
           "storage"
           "unlimitedStorage"
+          "privacy"
           "webRequest"
           "webRequestBlocking"
           "https://*/*"
@@ -9847,10 +9846,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "133.0.20241028.142722";
+      version = "133.0.20241030.91715";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4377430/scots_language_pack-133.0.20241028.142722.xpi";
-      sha256 = "86a49101a9e6301e351b4492670c1501304121afd41f3551e37c5a93cda94345";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4378805/scots_language_pack-133.0.20241030.91715.xpi";
+      sha256 = "86abeb998ef1c0e67135cab9b54b24bbc34225cc38246a5ce38e4672ca1e8e93";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -11231,10 +11230,10 @@
     };
     "torrent-control" = buildFirefoxXpiAddon {
       pname = "torrent-control";
-      version = "0.2.40";
+      version = "0.2.41";
       addonId = "{e6e36c9a-8323-446c-b720-a176017e38ff}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4372842/torrent_control-0.2.40.xpi";
-      sha256 = "72a55833b5eeae813363ad7ad0acbd8133840c2a393a64a95ff85b4c66dd8dc2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4379056/torrent_control-0.2.41.xpi";
+      sha256 = "e59ad3c7724952cf5af4c73c542d683d48588ec66730581639d70c6e396bb993";
       meta = with lib;
       {
         homepage = "https://github.com/Mika-/torrent-control";
