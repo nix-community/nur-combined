@@ -799,7 +799,7 @@ Tool to generate flags for your CPU.
 - Update Script: ✔️
 </details>
 
-### `fastfetch` `2.27.1` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/blob/2.27.1/CHANGELOG.md "Changelog") [📦](./pkgs/by-name/fastfetch/package.nix#L234 "Source")
+### `fastfetch` `2.28.0` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/blob/2.28.0/CHANGELOG.md "Changelog") [📦](./pkgs/by-name/fastfetch/package.nix#L234 "Source")
 
 Like neofetch, but much faster because written in C.
 
@@ -821,7 +821,7 @@ Like neofetch, but much faster because written in C.
 - Update Script: ✔️
 </details>
 
-### `fastfetchMinimal` `2.27.1` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/blob/2.27.1/CHANGELOG.md "Changelog") [📦](./default.nix#L50 "Source")
+### `fastfetchMinimal` `2.28.0` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/blob/2.28.0/CHANGELOG.md "Changelog") [📦](./default.nix#L50 "Source")
 
 Like neofetch, but much faster because written in C (with all features disabled).
 
@@ -3039,7 +3039,7 @@ Camera application for Plasma Mobile.
 - Update Script: ✔️
 </details>
 
-### `pnut` `SLE2024-artifact-unstable-2024-10-20` [🌐](https://github.com/udem-dlteam/pnut "Homepage") [📦](./pkgs/by-name/pnut/package.nix#L44 "Source")
+### `pnut` `SLE2024-artifact-unstable-2024-10-24` [🌐](https://github.com/udem-dlteam/pnut "Homepage") [📦](./pkgs/by-name/pnut/package.nix#L44 "Source")
 
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 
@@ -3408,7 +3408,7 @@ Detect non-inclusive language in your source code.
 - Update Script: ✔️
 </details>
 
-### `yyjson_0_10` `0.10.0` [🌐](https://github.com/ibireme/yyjson "Homepage") [📰](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md "Changelog") [📦](https://github.com/NixOS/nixpkgs/blob/ccc0c21/pkgs/development/libraries/yyjson/default.nix#L23 "Source")
+### `yyjson_0_10` `0.10.0` [🌐](https://github.com/ibireme/yyjson "Homepage") [📰](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md "Changelog") [📦](https://github.com/NixOS/nixpkgs/blob/30c9efe/pkgs/development/libraries/yyjson/default.nix#L23 "Source")
 
 Fastest JSON library in C.
 
