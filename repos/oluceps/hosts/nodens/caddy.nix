@@ -250,9 +250,9 @@
                             "m.homeserver" = {
                               base_url = "https://matrix.nyaw.xyz";
                             };
-                            # "org.matrix.msc3575.proxy" = {
-                            #   url = "https://syncv3.nyaw.xyz";
-                            # };
+                            "org.matrix.msc3575.proxy" = {
+                              url = "https://matrix.nyaw.xyz";
+                            };
                           };
                           handler = "static_response";
                         }
