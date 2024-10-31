@@ -143,7 +143,7 @@
               bash-language-server
             ]
             [
-              rust-analyzer
+              # rust-analyzer
               # nil
               nixd
               nil
