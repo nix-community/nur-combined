@@ -74,6 +74,9 @@ with lib.kernel;
   LOG_BUF_SHIFT = freeform "12";
   LOG_CPU_MAX_BUF_SHIFT = freeform "12";
 
+  # Sched-ext
+  SCHED_CLASS_EXT = yes;
+
   # Various tunings
   ACPI_APEI = yes;
   ACPI_APEI_GHES = yes;
