@@ -117,13 +117,13 @@ in {
         };
     });
     
-    drl-hq = callPackage ./pkgs/drl { drl-audio = self.drl-audio-hq; };
-    drl-lq = callPackage ./pkgs/drl { drl-audio = self.drl-audio-lq; };
-    drl = self.drl-hq;
-    drl-unwrapped = callPackage ./pkgs/drl/unwrapped.nix {};
-    drl-audio-hq = callPackage ./pkgs/drl/audio.nix { audioQuality = "hq"; };
-    drl-audio-lq = callPackage ./pkgs/drl/audio.nix { audioQuality = "lq"; };
-    drl-audio = self.drl-audio-hq;
+    # drl-hq = callPackage ./pkgs/drl { drl-audio = self.drl-audio-hq; };
+    # drl-lq = callPackage ./pkgs/drl { drl-audio = self.drl-audio-lq; };
+    # drl = self.drl-hq;
+    # drl-unwrapped = callPackage ./pkgs/drl/unwrapped.nix {};
+    # drl-audio-hq = callPackage ./pkgs/drl/audio.nix { audioQuality = "hq"; };
+    # drl-audio-lq = callPackage ./pkgs/drl/audio.nix { audioQuality = "lq"; };
+    # drl-audio = self.drl-audio-hq;
     _ciOnly.drl-dev = pkgs.lib.optionalAttrs (pkgs.hostPlatform.system == "x86_64-linux") (pkgs.lib.recurseIntoAttrs {
         # makewad = self.drl-unwrapped.overrideAttrs (old: {
         #     pname = "drl-makewad-test";
@@ -158,20 +158,20 @@ in {
             doCheck = true;
             installPhase = "install -Dm755 hello $out/bin/hello";
         }) {};
-        env = self.drl-unwrapped.overrideAttrs (old: {
-            pname = "drl-env-test";
-            buildPhase = ''
-                runHook preBuild
-                :
-                runHook postBuild
-            '';
-            installPhase = ''
-                runHook preInstall
-                env > "$out"
-                runHook postInstall
-            '';
-            meta = {};
-        });
+        # env = self.drl-unwrapped.overrideAttrs (old: {
+        #     pname = "drl-env-test";
+        #     buildPhase = ''
+        #         runHook preBuild
+        #         :
+        #         runHook postBuild
+        #     '';
+        #     installPhase = ''
+        #         runHook preInstall
+        #         env > "$out"
+        #         runHook postInstall
+        #     '';
+        #     meta = {};
+        # });
     });
     
     # Can't just pass `-L` to `nix-build-uncached`: it ends up being passed to both
