@@ -16,6 +16,7 @@
     ${if useHighResTitleScreen then "highResTitleScreen" else null} = highResTitleScreen;
     installPhase =
         ''
+        runHook preInstall
         shopt -s extglob
         mkdir -p "$out"
         lndir "$unwrapped" "$out"
@@ -39,6 +40,8 @@
         shopt -u extglob
         '' + lib.optionalString stdenvNoCC.isDarwin ''
             ln -sf "$out"/bin/lix "$out"/Applications/Lix.app/Contents/MacOS/Lix
+        '' + ''
+            runHook postInstall
         '';
     meta = common.meta // {
         license = lib.unique (lib.concatMap (p: lib.toList (p.meta.license or [])) (

@@ -60,7 +60,11 @@
         # Patch #2 (Darwin only): Include the changes from <https://github.com/SiegeLord/DAllegro5/issues/56> to make the .app bundle work.
         postConfigure = common.patchEnetBindings + lib.optionalString isDarwin ''
         for dir in "$DUB_HOME"/packages/allegro/*/allegro/; do
-            patch -d "$dir" -p1 < ${./patches/DAllegro/fix-56-run-from-darwin-app-bundle.patch}
+            patch -d "$dir" -p1 < ${fetchpatch {
+                name = "0001-Use-a-different-mechanism-for-passing-the-user-main-.patch";
+                url = "https://github.com/SiegeLord/DAllegro5/commit/0beabc3b461edf2cb0229aec39495ff41c3befe3.patch";
+                hash = "sha256-3yeZz7fRAriJ1qP9IT4ICEZl7zuEhrqct3gya71ilSA=";
+            }}
         done
         '';
         
