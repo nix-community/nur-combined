@@ -141,40 +141,6 @@ in {
         #     meta = {};
         # });
     }) // pkgs.lib.optionalAttrs (pkgs.hostPlatform.system == "x86_64-darwin") (pkgs.lib.recurseIntoAttrs {
-        aaa-c-test = callPackage ({stdenv, writeText}: stdenv.mkDerivation {
-            name = "aaa-c-test";
-            src = writeText "hello.c" ''
-                #include <stdio.h>
-                int main(void) {
-                    printf("Hello, world.\n");
-                    return 0;
-                }
-            '';
-            unpackPhase = ''cp "$src" hello.c; touch Makefile'';
-            env.NIX_DEBUG = 7;
-            env.LDFLAGS = "-lm";
-            buildFlags = "hello";
-            checkPhase = ''[[ "$(./hello)" == "Hello, world." ]]'';
-            doCheck = true;
-            installPhase = "install -Dm755 hello $out/bin/hello";
-        }) {};
-        aaa-fpc-test = callPackage ({stdenv, fpc, writeText}: stdenv.mkDerivation {
-            name = "aaa-fpc-test";
-            src = writeText "hello.pas" ''
-                program Hello;
-                {$LINKLIB m}
-                begin
-                    writeln ('Hello, world.');
-                end.
-            '';
-            dontUnpack = true;
-            nativeBuildInputs = [fpc];
-            env.NIX_DEBUG = 7;
-            buildPhase = "fpc -o./hello $src";
-            checkPhase = ''[[ "$(./hello)" == "Hello, world." ]]'';
-            doCheck = true;
-            installPhase = "install -Dm755 hello $out/bin/hello";
-        }) {};
         # env = self.drl-unwrapped.overrideAttrs (old: {
         #     pname = "drl-env-test";
         #     buildPhase = ''

@@ -46,7 +46,7 @@
             lib.optional includeMusic music ++
             lib.optional useHighResTitleScreen highResTitleScreen
         ));
-        inherit (game-unwrapped.meta) mainProgram;
+        inherit (game-unwrapped.meta) mainProgram platforms;
     };
     passthru = {
         inherit (game-unwrapped) pkgs;
