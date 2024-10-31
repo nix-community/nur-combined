@@ -92,7 +92,7 @@ jobs:
           -I $PWD
     - name: Build nix packages
       # run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
-      run: nix shell -f '.' nix-build-uncached-logging -c nix-build-uncached ci.nix ${{ matrix.qemuSystem && format('--argstr platform {0}', matrix.qemuSystem)}} -A cacheOutputs
+      run: nix shell -f '.' nix-build-uncached-logging -c nix-build-uncached ci.nix --keep-going ${{ matrix.qemuSystem && format('--argstr platform {0}', matrix.qemuSystem)}} -A cacheOutputs
     - name: Upload debug info
       if: '!cancelled()'
       uses: actions/upload-artifact@v4
@@ -102,6 +102,7 @@ jobs:
           /nix/store/*drl-unwrapped*.drv
           /nix/store/*drl-env-test*
           /nix/var/log/nix/drvs/*/*drl-unwrapped*
+          /nix/var/log/nix/drvs/*/*aaa-*c-test*
         if-no-files-found: ignore
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
