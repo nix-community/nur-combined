@@ -1,19 +1,20 @@
-{ fetchFromGitHub
-, lib
-, rustPlatform
+{
+  fetchFromGitHub,
+  lib,
+  rustPlatform,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "hatsu";
-  version = "0.3.0-beta.6";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "importantimport";
     repo = "hatsu";
     rev = "refs/tags/v${version}";
-    hash = "sha256-aPzbld07mPqq2TrSedL0Sr6kvhoqC+yG/4vC4CL5JD8=";
+    hash = "sha256-K+8X/bNPdjxBSJdlFIXUUOXlTq7Cgol3fFToj5KzbeE=";
   };
 
-  cargoHash = "sha256-uhyX5GiAJC8U6vXVPGGPzEMHn8/omci9Hgla3jHIGxg=";
+  cargoHash = "sha256-+fNFy3WnQKtDjpNU3veoR2JrBNHj6/Wz2MQP38SR23I=";
 
   meta = {
     description = "Self-hosted and fully-automated ActivityPub bridge for static sites";
