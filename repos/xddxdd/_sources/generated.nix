@@ -182,15 +182,15 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "cdfc809d8e6cab75c27dd79d268351f63b6fdb22";
+    version = "8db4ee1606a38632570bcccc78c50979aa3233bb";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "cdfc809d8e6cab75c27dd79d268351f63b6fdb22";
+      rev = "8db4ee1606a38632570bcccc78c50979aa3233bb";
       fetchSubmodules = false;
-      sha256 = "sha256-tekmlnFFm9qraAyg2WeSF7V4NAabqXem7ocxYUqrgXc=";
+      sha256 = "sha256-AEn0sSCDShtKAxxh4ahCGmCJ/h7B8E8hOO2OR+ZYki0=";
     };
-    date = "2024-10-28";
+    date = "2024-10-29";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -548,21 +548,21 @@
   };
   kata-containers = {
     pname = "kata-containers";
-    version = "3.10.0";
+    version = "3.10.1";
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      rev = "3.10.0";
+      rev = "3.10.1";
       fetchSubmodules = false;
-      sha256 = "sha256-z4aDdK0+6iQbTwHnhpko6aDHnr6q2SAnhhDcLABkQkI=";
+      sha256 = "sha256-lk9BZeNc8StLxu0frRfh7h5Xk3w75SUeZP1ddES7a20=";
     };
   };
   kata-image = {
     pname = "kata-image";
-    version = "3.10.0";
+    version = "3.10.1";
     src = fetchurl {
-      url = "https://github.com/kata-containers/kata-containers/releases/download/3.10.0/kata-static-3.10.0-amd64.tar.xz";
-      sha256 = "sha256-o7GQJFS8LKWCNer9Vd+Vf+ZzYUJZ4hZcw/KMh4dwKdo=";
+      url = "https://github.com/kata-containers/kata-containers/releases/download/3.10.1/kata-static-3.10.1-amd64.tar.xz";
+      sha256 = "sha256-IThnhxcD5bP1xWpMUBVZ89m71f5gDIYFW74U/PCXpjI=";
     };
   };
   kikoplay = {
@@ -648,15 +648,15 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "71324732640cf4451cab425ac5d80ed9fd41a3af";
+    version = "3c8bde1b08ba068ebbde738165bf6f8d2ba385ce";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "71324732640cf4451cab425ac5d80ed9fd41a3af";
+      rev = "3c8bde1b08ba068ebbde738165bf6f8d2ba385ce";
       fetchSubmodules = false;
-      sha256 = "sha256-tf7QDLETN6AH1L8nFwx//0DpxuKrWGODJzEkbXo4jPo=";
+      sha256 = "sha256-I8HWFUIJmSZYAgdVyZL27kBvKUu9TbcHzIQbsv5XlLM=";
     };
-    date = "2024-10-23";
+    date = "2024-10-30";
   };
   libqcef = {
     pname = "libqcef";
@@ -764,13 +764,13 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3985";
+    version = "b3995";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3985";
+      rev = "b3995";
       fetchSubmodules = false;
-      sha256 = "sha256-sHHA1weHorkoRMg0zLMfbl2F+WYgcRyiAftUZxy/O8w=";
+      sha256 = "sha256-O93Q0vVyKlv94zXmeqG7UI7ORVn85Uy5xBnbOl7IfiM=";
     };
   };
   lyrica = {
@@ -904,15 +904,15 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "724b34d7f1eff083860e3ac613a2c1d66a238dfd";
+    version = "88a3870e5a571b327da65a2eeb8176b076a462df";
     src = fetchFromGitHub {
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "724b34d7f1eff083860e3ac613a2c1d66a238dfd";
+      rev = "88a3870e5a571b327da65a2eeb8176b076a462df";
       fetchSubmodules = false;
-      sha256 = "sha256-bnNHL7uOxrfQrqTtH/6S0u/KxG81tAAAFgaOfhN9m8M=";
+      sha256 = "sha256-e3O0rHPXaSu9oT8h3lMNJfmDaiHn9+RfCfMug5mMTrw=";
     };
-    date = "2024-01-20";
+    date = "2024-10-29";
   };
   nginx-njs = {
     pname = "nginx-njs";
@@ -1076,10 +1076,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v6.4.8";
+    version = "v7.0.0";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v6.4.8/PeerBanHelper.jar";
-      sha256 = "sha256-AUUQfRfMmkCcIFnnOcbOB7cQNl+rgLhGCCBXE0ijlJQ=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.0.0/PeerBanHelper.jar";
+      sha256 = "sha256-lBNor0FKa3iUStl/3tzOdpy14TKNYVmbtckWkYG2g9M=";
     };
   };
   phpmyadmin = {
@@ -1312,15 +1312,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "87a7de47e92c124b7eda18fcd8e7fa3b9c42fa4e";
+    version = "4d67eb74063fcadeedbb1eab45ea6ba4c468b8a4";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "87a7de47e92c124b7eda18fcd8e7fa3b9c42fa4e";
+      rev = "4d67eb74063fcadeedbb1eab45ea6ba4c468b8a4";
       fetchSubmodules = false;
-      sha256 = "sha256-fs6110pav1NnVFnDIqWciMnI8yKiJrGeBFOL7dAmYLs=";
+      sha256 = "sha256-G3pPMWgTPyL1CWX5FNjfjUfQjUQqjyVHRqhAGLTcgGc=";
     };
-    date = "2024-10-12";
+    date = "2024-10-30";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1691,13 +1691,13 @@
   };
   vpp = {
     pname = "vpp";
-    version = "v24.06";
+    version = "v24.10";
     src = fetchFromGitHub {
       owner = "FDio";
       repo = "vpp";
-      rev = "v24.06";
+      rev = "v24.10";
       fetchSubmodules = false;
-      sha256 = "sha256-AbdtH3ha/Bzj9tAkp4OhjRcUZilUEt+At0LukWN2LJU=";
+      sha256 = "sha256-GcmblIAu/BDbqZRycmnBsHkvzJe07qB2lSfDnO7ZYtg=";
     };
   };
   wechat-uos = {

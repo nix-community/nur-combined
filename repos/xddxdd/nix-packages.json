@@ -612,12 +612,12 @@
   "legacyPackages.x86_64-linux.kata-image": {
     "description": "Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-images/default.nix)",
     "pname": "kata-image",
-    "version": "3.10.0"
+    "version": "3.10.1"
   },
   "legacyPackages.x86_64-linux.kata-runtime": {
     "description": "Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix)",
     "pname": "kata-runtime",
-    "version": "3.10.0"
+    "version": "3.10.1"
   },
   "legacyPackages.x86_64-linux.kikoplay": {
     "description": "KikoPlay - NOT ONLY A Full-Featured Danmu Player 不仅仅是全功能弹幕播放器",
@@ -657,7 +657,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "3985"
+    "version": "3995"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -1297,7 +1297,7 @@
   "legacyPackages.x86_64-linux.libnftnl-fullcone": {
     "description": "Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem",
     "pname": "libnftnl",
-    "version": "1.2.7"
+    "version": "1.2.8"
   },
   "legacyPackages.x86_64-linux.liboqs": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
@@ -1307,7 +1307,7 @@
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs-unstable",
-    "version": "2024-10-23"
+    "version": "2024-10-30"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -1362,7 +1362,7 @@
   "legacyPackages.x86_64-linux.nftables-fullcone": {
     "description": "Project that aims to replace the existing {ip,ip6,arp,eb}tables framework",
     "pname": "nftables",
-    "version": "1.1.0"
+    "version": "1.1.1"
   },
   "legacyPackages.x86_64-linux.noise-suppression-for-voice": {
     "description": "Noise suppression plugin based on Xiph's RNNoise",
@@ -3377,7 +3377,7 @@
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "6.4.8"
+    "version": "7.0.0"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
@@ -3477,7 +3477,7 @@
   "legacyPackages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice-unstable",
-    "version": "2024-10-12"
+    "version": "2024-10-30"
   },
   "legacyPackages.x86_64-linux.rime-moegirl": {
     "description": "Releases for dict of zh.moegirl.org.cn",
@@ -3662,7 +3662,7 @@
   "legacyPackages.x86_64-linux.vpp": {
     "description": "Vector Packet Processing",
     "pname": "vpp",
-    "version": "24.06"
+    "version": "24.10"
   },
   "legacyPackages.x86_64-linux.wechat-uos": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
@@ -3962,12 +3962,12 @@
   "packages.x86_64-linux.kata-image": {
     "description": "Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-images/default.nix)",
     "pname": "kata-image",
-    "version": "3.10.0"
+    "version": "3.10.1"
   },
   "packages.x86_64-linux.kata-runtime": {
     "description": "Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix)",
     "pname": "kata-runtime",
-    "version": "3.10.0"
+    "version": "3.10.1"
   },
   "packages.x86_64-linux.kikoplay": {
     "description": "KikoPlay - NOT ONLY A Full-Featured Danmu Player 不仅仅是全功能弹幕播放器",
@@ -4007,7 +4007,7 @@
   "packages.x86_64-linux.libnftnl-fullcone": {
     "description": "Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem",
     "pname": "libnftnl",
-    "version": "1.2.7"
+    "version": "1.2.8"
   },
   "packages.x86_64-linux.liboqs": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
@@ -4017,7 +4017,7 @@
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs-unstable",
-    "version": "2024-10-23"
+    "version": "2024-10-30"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -4072,7 +4072,7 @@
   "packages.x86_64-linux.nftables-fullcone": {
     "description": "Project that aims to replace the existing {ip,ip6,arp,eb}tables framework",
     "pname": "nftables",
-    "version": "1.1.0"
+    "version": "1.1.1"
   },
   "packages.x86_64-linux.noise-suppression-for-voice": {
     "description": "Noise suppression plugin based on Xiph's RNNoise",
@@ -4162,7 +4162,7 @@
   "packages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
     "pname": "peerbanhelper",
-    "version": "6.4.8"
+    "version": "7.0.0"
   },
   "packages.x86_64-linux.phpmyadmin": {
     "description": "A web interface for MySQL and MariaDB",
@@ -4257,7 +4257,7 @@
   "packages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice-unstable",
-    "version": "2024-10-12"
+    "version": "2024-10-30"
   },
   "packages.x86_64-linux.rime-moegirl": {
     "description": "Releases for dict of zh.moegirl.org.cn",
@@ -4402,7 +4402,7 @@
   "packages.x86_64-linux.vpp": {
     "description": "Vector Packet Processing",
     "pname": "vpp",
-    "version": "24.06"
+    "version": "24.10"
   },
   "packages.x86_64-linux.wechat-uos": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
