@@ -9,16 +9,16 @@ final: prev:
 cmark = callPackage({ buildLuarocksPackage, fetchFromGitHub, fetchurl }:
 buildLuarocksPackage {
   pname = "cmark";
-  version = "0.30.2-1";
+  version = "0.31.1-1";
   knownRockspec = (fetchurl {
-    url    = "https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/master/cmark-0.30.2-1.rockspec";
-    sha256 = "077kvl9xa9yj0fxyyxxw43k9v9dgd5f11ax8hhxj3nx8vfs5rps8";
+    url    = "https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/master/cmark-0.31.1-1.rockspec";
+    sha256 = "00wdbvx3gmh7f08d2a5kvpa687rc922n5zgzxxqrip3xhll9hzwm";
   }).outPath;
   src = fetchFromGitHub {
     owner = "jgm";
     repo = "cmark-lua";
-    rev = "0.30.2";
-    hash = "sha256-6Bzq0FdyqXXiL6pLDRFbULFJpowF0P6CvAw8iqFXkkQ=";
+    rev = "0.31.1";
+    hash = "sha256-elI+BYPTlFezkoWLjJyPBsAt2Pq2DRe/+YPmtG27ABY=";
   };
 
 
@@ -286,7 +286,7 @@ buildLuarocksPackage {
   pname = "lunix";
   version = "20220331-1";
   knownRockspec = (fetchurl {
-    url    = "https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/master/lunix-20220331-1.rockspec";
+    url    = "mirror://luarocks/lunix-20220331-1.rockspec";
     sha256 = "17lc2kfmz3r1vr2cicgjcz8achvfps943390axl8fbgylp5jlfm8";
   }).outPath;
   src = fetchurl {
@@ -508,16 +508,16 @@ buildLuarocksPackage {
 yuescript = callPackage({ buildLuarocksPackage, cmake, fetchFromGitHub, fetchurl, luaOlder }:
 buildLuarocksPackage {
   pname = "yuescript";
-  version = "0.23.8-1";
+  version = "0.26.0-1";
   knownRockspec = (fetchurl {
-    url    = "mirror://luarocks/yuescript-0.23.8-1.rockspec";
-    sha256 = "0fqdkmd6150gsc1j7i6hvq23wzlvawxs7a9gc18raai4001421sf";
+    url    = "mirror://luarocks/yuescript-0.26.0-1.rockspec";
+    sha256 = "0i0i2khw2fbvmi8ircjv4cg29bbx6waxvv7bk4q7nb4ll2z15i0l";
   }).outPath;
   src = fetchFromGitHub {
     owner = "pigpigyyy";
     repo = "yuescript";
-    rev = "f8cd1220147d606b7e96f88c12fd0f163fb4e1c5";
-    hash = "sha256-mi9vwuWUL0F113tMZFaCPvsygWxYv1z3vHtyr4KUUrk=";
+    rev = "8a3d78c4d5bfe2ba39173e91146025278bf0deb2";
+    hash = "sha256-cRnvx39be5NFLs2haycoma8NGFzRPCiTsxbUmxBs5hQ=";
   };
 
   disabled = luaOlder "5.1";

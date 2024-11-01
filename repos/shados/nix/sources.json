@@ -289,10 +289,10 @@
         "homepage": "http://yuescript.org",
         "owner": "pigpigyyy",
         "repo": "Yuescript",
-        "rev": "v0.23.8",
-        "sha256": "1fajjj1aywkvpkvmrgsqdj0k5yryh9b68k3vsxsl2bwlwp16ybws",
+        "rev": "v0.26.0",
+        "sha256": "0b6yca9860m39vfdb7bk8sx1h8m3nhswbdjnv315q9qjnhn1zq8d",
         "type": "tarball",
-        "url": "https://github.com/pigpigyyy/Yuescript/archive/v0.23.8.tar.gz",
+        "url": "https://github.com/pigpigyyy/Yuescript/archive/v0.26.0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
