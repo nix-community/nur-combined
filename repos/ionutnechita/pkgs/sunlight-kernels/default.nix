@@ -13,7 +13,7 @@ let
 
   rev = "${version}-${rc}";
 
-  hash = "sha256-oEr1yJ2ruw5L/8ZE/uq9l0gPd5m/ivLOurPPzmIhYDc=";
+  hash = "";
 in
 buildLinux (args // rec {
     inherit version modDirVersion;
@@ -75,6 +75,7 @@ buildLinux (args // rec {
       UHID = yes;
 
       SECURITY_APPARMOR_RESTRICT_USERNS = lib.mkForce no;
+      SCHED_CLASS_EXT = lib.mkForce no;
     };
 
     ignoreConfigErrors = true;
