@@ -21,7 +21,7 @@
         paths = [fpc];
         nativeBuildInputs = [makeBinaryWrapper];
         postBuild = ''
-            wrapProgram "$out"/bin/fpc --add-flags '-FD${lib.getBin stdenv.cc}/bin'${lib.optionalString stdenv.isLinux " --add-flags '-va'"}
+            wrapProgram "$out"/bin/fpc --add-flags '-FD${lib.getBin stdenv.cc}/bin'
         '';
     };
 in stdenv.mkDerivation rec {
@@ -53,7 +53,9 @@ in stdenv.mkDerivation rec {
                 current = tonumber(revision, 16),
                 mod = mod,
             }
-        end)()"
+        end)()"${lib.optionalString stdenv.isLinux '' \
+            --replace-fail 'os.execute_in_dir( "makewad", "bin" )' 'os.execute("autoPatchelf bin/makewad"); os.execute_in_dir( "makewad", "bin" )'
+        ''}
         substituteInPlace "$FPCVALKYRIE_ROOT"/libs/vlualibrary.pas \
             --replace-fail 'lua5.1.${libExt}' '${lib.getLib lua5_1}/lib/liblua.5.1.${libExt}'
         substituteInPlace "$FPCVALKYRIE_ROOT"/libs/vsdl2library.pas \
@@ -91,8 +93,8 @@ in stdenv.mkDerivation rec {
     installPhase = ''
         runHook preInstall
         mkdir -p "$out"/share/drl
-        cp bin/drl "$out"/share/drl/drl
         for file in \
+            drl \
             backup \
             mortem \
             screenshot \
