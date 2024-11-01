@@ -16,7 +16,7 @@
   {
     "key-id": "665a14",
     "name": "Symantec RSP Test Root CA",
-    "crls": ["http://pki-crl.symauth.com/SymantecRSPTestRootCA/LatestCRL.crl"]
+    "crls": ["http://pki-crl.symauth.com/ca_a3dc2e3fea7708a11c889386d9d3a76f/LatestCRL.crl"]
   },
   {
     "key-id": "f54172",
@@ -48,8 +48,7 @@
   {
     "key-id": "7c0e54",
     "country": "CN",
-    "name": "MNO: China Unicom",
-    "crls": ["http://124.207.215.117:18099/download/n1.crl", "http://124.207.215.117:18099/download/n2.crl"]
+    "name": "MNO: China Unicom"
   },
   {
     "key-id": "3bd3f5",
@@ -59,8 +58,7 @@
   {
     "key-id": "cdf6d1",
     "country": "CN",
-    "name": "MNO: China Mobile",
-    "crls": ["http://221.176.65.55:8081/crldownload/nA.crl", "http://221.176.65.55:8081/crldownload/nB.crl"]
+    "name": "MNO: China Mobile"
   },
   {
     "key-id": "d3ef83",
@@ -96,8 +94,7 @@
   {
     "key-id": "066d48",
     "country": "FR",
-    "name": "MC4 CI TEST v2",
-    "crls": ["http://mc4.otlabs.fr/ca/ci/A.crl", "http://mc4.otlabs.fr/ca/ci/B.crl"]
+    "name": "MC4 CI TEST v2"
   },
   {
     "key-id": "16704b",
