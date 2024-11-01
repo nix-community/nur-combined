@@ -5167,10 +5167,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.10.2";
+      version = "1.10.6";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4368755/immersive_translate-1.10.2.xpi";
-      sha256 = "83287adbc9cdbbf9cf6365c7f11a8b10d2cb41fc7b009de4a2ef4eb4035e9a8a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4376396/immersive_translate-1.10.6.xpi";
+      sha256 = "087fb93f51730da8f1b2238e0e8d1e8dac841795339031c317f1bef03a691cc4";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -9573,10 +9573,10 @@
     };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "6.1.15";
+      version = "6.1.16";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4320830/reddit_moderator_toolbox-6.1.15.xpi";
-      sha256 = "f2ca6c38f3f0163afd027c7feea00ac3e2141a4a5a757af69dbabfa4636dd367";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4379540/reddit_moderator_toolbox-6.1.16.xpi";
+      sha256 = "33dbe0d2ab8f2135970067a50a90b429d436063154aef6dd0403eee086a8b2da";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
@@ -10125,10 +10125,10 @@
     };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "15.0.1";
+      version = "15.1.1";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4370769/sidebartabs-15.0.1.xpi";
-      sha256 = "e747f8646b6aa2cd1ede05478ac5065456bba1d7da393436c92bd13ec576df53";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4379569/sidebartabs-15.1.1.xpi";
+      sha256 = "d0d633ca9983cdba0abe5b4e09421d76aa65d7dc7abd96cdbd6531ad12a72d1c";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
