@@ -38,4 +38,5 @@ rec {
   modplay = callPackage ./pkgs/modplay.nix {};
   metube = callPackage ./pkgs/metube.nix {};
   catppuccin = callPackage ./pkgs/catppuccin.nix {};
+  lutris = callPackage ./pkgs/lutris.nix {};
 }
