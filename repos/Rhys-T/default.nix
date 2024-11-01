@@ -35,7 +35,7 @@ in {
     
     maintainers = import ./maintainers.nix;
     
-    lix-game-packages = callPackage ./pkgs/lix-game {};
+    lix-game-packages = callPackage ./pkgs/lix-game/packages.nix {};
     lix-game = self.lix-game-packages.game;
     lix-game-server = self.lix-game-packages.server;
     lix-game-libpng = if pkgs.hostPlatform.isDarwin then (self.lix-game-packages.overrideScope (self: super: {
@@ -117,13 +117,15 @@ in {
         };
     });
     
-    drl-hq = callPackage ./pkgs/drl { drl-audio = self.drl-audio-hq; };
-    drl-lq = callPackage ./pkgs/drl { drl-audio = self.drl-audio-lq; };
-    drl = self.drl-hq;
-    drl-unwrapped = callPackage ./pkgs/drl/unwrapped.nix {};
-    drl-audio-hq = callPackage ./pkgs/drl/audio.nix { audioQuality = "hq"; };
-    drl-audio-lq = callPackage ./pkgs/drl/audio.nix { audioQuality = "lq"; };
-    drl-audio = self.drl-audio-hq;
+    drl-packages = callPackage ./pkgs/drl/packages.nix {};
+    inherit (self.drl-packages) drl drl-hq drl-lq;
+    # drl-hq = callPackage ./pkgs/drl { drl-audio = self.drl-audio-hq; };
+    # drl-lq = callPackage ./pkgs/drl { drl-audio = self.drl-audio-lq; };
+    # drl = self.drl-hq;
+    # drl-unwrapped = callPackage ./pkgs/drl/unwrapped.nix {};
+    # drl-audio-hq = callPackage ./pkgs/drl/audio.nix { audioQuality = "hq"; };
+    # drl-audio-lq = callPackage ./pkgs/drl/audio.nix { audioQuality = "lq"; };
+    # drl-audio = self.drl-audio-hq;
     _ciOnly.drl-dev = pkgs.lib.optionalAttrs (pkgs.hostPlatform.system == "x86_64-linux") (pkgs.lib.recurseIntoAttrs {
         # makewad = self.drl-unwrapped.overrideAttrs (old: {
         #     pname = "drl-makewad-test";

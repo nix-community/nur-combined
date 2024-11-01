@@ -127,7 +127,6 @@ in stdenv.mkDerivation rec {
             cc-by-sa-40
         ];
         platforms = lib.intersectLists (lib.platforms.linux ++ lib.platforms.darwin) lib.platforms.x86_64;
-        badPlatforms = lib.platforms.linux;
         maintainers = [maintainers.Rhys-T];
     };
 }
