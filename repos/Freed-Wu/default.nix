@@ -30,6 +30,7 @@ let
     bash-prompt = callPackage ./pkgs/shells/bash/bash-prompt { };
     undollar = callPackage ./pkgs/tools/misc/undollar { };
     manpager = callPackage ./pkgs/tools/misc/manpager { };
+    jq-emojify = callPackage ./pkgs/tools/misc/jq-emojify { };
     tmux-rime = callPackage ./pkgs/tools/misc/tmux-rime { };
 
     lua-prompt-style = callPackage ./pkgs/development/lua-modules/prompt-style { };

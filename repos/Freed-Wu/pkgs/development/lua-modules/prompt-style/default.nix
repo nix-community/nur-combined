@@ -16,7 +16,9 @@ buildLuarocksPackage {
     sha256 = "sha256-ejVM+cWAAsxREFxA6e3ZICqkREEZXaZp8u5RSysLNck=";
   };
 
-  # FIXME: bin/* cannot work because nix will use binary file to replace shebang
+  postFixup = ''
+    install -D bin/* -t $out/bin
+  '';
 
   disabled = luaOlder "5.1";
   propagatedBuildInputs = [ ansicolors luaprompt luafilesystem ];

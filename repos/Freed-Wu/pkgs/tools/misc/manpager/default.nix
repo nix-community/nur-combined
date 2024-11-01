@@ -3,7 +3,7 @@
 , stdenvNoCC
 , cmake
 }:
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   inherit (mySources.manpager) pname version src;
 
   nativeBuildInputs = [ cmake ];
