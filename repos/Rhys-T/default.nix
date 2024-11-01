@@ -117,13 +117,13 @@ in {
         };
     });
     
-    # drl-hq = callPackage ./pkgs/drl { drl-audio = self.drl-audio-hq; };
-    # drl-lq = callPackage ./pkgs/drl { drl-audio = self.drl-audio-lq; };
-    # drl = self.drl-hq;
-    # drl-unwrapped = callPackage ./pkgs/drl/unwrapped.nix {};
-    # drl-audio-hq = callPackage ./pkgs/drl/audio.nix { audioQuality = "hq"; };
-    # drl-audio-lq = callPackage ./pkgs/drl/audio.nix { audioQuality = "lq"; };
-    # drl-audio = self.drl-audio-hq;
+    drl-hq = callPackage ./pkgs/drl { drl-audio = self.drl-audio-hq; };
+    drl-lq = callPackage ./pkgs/drl { drl-audio = self.drl-audio-lq; };
+    drl = self.drl-hq;
+    drl-unwrapped = callPackage ./pkgs/drl/unwrapped.nix {};
+    drl-audio-hq = callPackage ./pkgs/drl/audio.nix { audioQuality = "hq"; };
+    drl-audio-lq = callPackage ./pkgs/drl/audio.nix { audioQuality = "lq"; };
+    drl-audio = self.drl-audio-hq;
     _ciOnly.drl-dev = pkgs.lib.optionalAttrs (pkgs.hostPlatform.system == "x86_64-linux") (pkgs.lib.recurseIntoAttrs {
         # makewad = self.drl-unwrapped.overrideAttrs (old: {
         #     pname = "drl-makewad-test";

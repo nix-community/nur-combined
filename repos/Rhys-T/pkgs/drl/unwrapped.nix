@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, writeText, lua5_1, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, ncurses, darwin, fpc, maintainers }: let
+{ stdenv, lib, symlinkJoin, makeBinaryWrapper, fetchFromGitHub, writeText, lua5_1, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, ncurses, darwin, fpc, maintainers }: let
     libExt = if stdenv.isDarwin then "dylib" else "so";
     version = "0.9.9.8a";
     gitShortRev = "97f1c51";
@@ -16,6 +16,14 @@
         rev = "0_9_0a";
         hash = "sha256-R/FgbmT7pvw9Qn0a7uR/Hw4pEQ2mArZY6sqXShQWU1Q=";
     };
+    fpc-wrapper = symlinkJoin {
+        name = "${lib.getName fpc}-wrapper-${lib.getVersion fpc}";
+        paths = [fpc];
+        nativeBuildInputs = [makeBinaryWrapper];
+        postBuild = ''
+            wrapProgram "$out"/bin/fpc --add-flags '-FD${lib.getBin stdenv.cc}/bin'
+        '';
+    };
 in stdenv.mkDerivation rec {
     pname = "drl-unwrapped";
     inherit version gitShortRev;
@@ -25,7 +33,7 @@ in stdenv.mkDerivation rec {
         chmod -R u+rwX fpcvalkyrie
         export FPCVALKYRIE_ROOT="$PWD/fpcvalkyrie/"
     '';
-    nativeBuildInputs = [lua5_1 fpc];
+    nativeBuildInputs = [lua5_1 fpc-wrapper];
     buildInputs = [lua5_1 SDL2 SDL2_image SDL2_mixer SDL2_ttf ncurses] ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.Libsystem];
     env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
     env.NIX_LDFLAGS = lib.optionalString stdenv.isDarwin (lib.concatMapStringsSep " " (f: "-F${f}/Library/Frameworks") (with darwin.apple_sdk.frameworks; [CoreFoundation Cocoa]));
@@ -118,7 +126,8 @@ in stdenv.mkDerivation rec {
             # Music (according to <https://simonvolpert.com/drla/>)
             cc-by-sa-40
         ];
-        badPlatforms = with lib.platforms; linux ++ aarch64;
+        platforms = lib.intersectLists (lib.platforms.linux ++ lib.platforms.darwin) lib.platforms.x86_64;
+        badPlatforms = lib.platforms.linux;
         maintainers = [maintainers.Rhys-T];
     };
 }
