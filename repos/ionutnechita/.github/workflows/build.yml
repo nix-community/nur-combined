@@ -20,7 +20,7 @@ jobs:
           - ionutnechita
         nixPath:
           - nixpkgs=channel:nixos-unstable
-          - nixpkgs=channel:nixos-24.05
+          - nixpkgs=channel:nixos-unstable-small
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository

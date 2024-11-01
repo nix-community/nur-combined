@@ -13,7 +13,7 @@ let
 
   rev = "${version}-${rc}";
 
-  hash = "sha256-rnUR/H33uAIs5n3Ap+NeCjZ9Wdv/CCfXn+PNCKRLEe4=";
+  hash = "sha256-YXrO9rteO2vIpG5kTIkJEfI8R5w/pXC9+1PH9TdfOPc=";
 in
 buildLinux (args // rec {
     inherit version modDirVersion;
