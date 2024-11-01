@@ -21,7 +21,7 @@
         paths = [fpc];
         nativeBuildInputs = [makeBinaryWrapper];
         postBuild = ''
-            wrapProgram "$out"/bin/fpc --add-flags '-FD${lib.getBin stdenv.cc}/bin'
+            wrapProgram "$out"/bin/fpc --add-flags '-FD${lib.getBin stdenv.cc}/bin'${lib.optionalString stdenv.isLinux " --add-flags '-va'"}
         '';
     };
 in stdenv.mkDerivation rec {
@@ -37,7 +37,7 @@ in stdenv.mkDerivation rec {
     buildInputs = [lua5_1 SDL2 SDL2_image SDL2_mixer SDL2_ttf ncurses] ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.Libsystem];
     env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
     env.NIX_LDFLAGS = lib.optionalString stdenv.isDarwin (lib.concatMapStringsSep " " (f: "-F${f}/Library/Frameworks") (with darwin.apple_sdk.frameworks; [CoreFoundation Cocoa]));
-    env.NIX_DEBUG = 7;
+    # env.NIX_DEBUG = 7;
     postPatch = ''
         sed -i '
             /fpc_params =/ a\
