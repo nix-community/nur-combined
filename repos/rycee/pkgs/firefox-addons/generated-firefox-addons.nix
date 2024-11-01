@@ -5165,6 +5165,34 @@
         platforms = platforms.all;
       };
     };
+    "imagus" = buildFirefoxXpiAddon {
+      pname = "imagus";
+      version = "0.9.8.74";
+      addonId = "{00000f2a-7cde-4f20-83ed-434fcb420d71}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3547888/imagus-0.9.8.74.xpi";
+      sha256 = "2b754aa4fca1c99e86d7cdc6d8395e534efd84c394d5d62a1653f9ed519f384e";
+      meta = with lib;
+      {
+        homepage = "https://tiny.cc/Imagus";
+        description = "With a simple mouse-over you can enlarge images and display images/videos from links.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [
+          "*://*/*"
+          "downloads"
+          "history"
+          "storage"
+          "<all_urls>"
+          "https://*/search*"
+          "https://duckduckgo.com/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
       version = "1.10.6";
@@ -9500,6 +9528,21 @@
           "https://translate.google.com/"
           "https://piper.ttstool.com/"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "readeck" = buildFirefoxXpiAddon {
+      pname = "readeck";
+      version = "2.1.0";
+      addonId = "readeck@readeck.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4355449/readeck-2.1.0.xpi";
+      sha256 = "62485315eac11bb5e6767888dd5e213c7b6b99041886c1a957bdfaba16e3058d";
+      meta = with lib;
+      {
+        homepage = "https://readeck.org/en/";
+        description = "Readeck companion browser extension";
+        license = licenses.lgpl3;
+        mozPermissions = [ "activeTab" "scripting" "storage" ];
         platforms = platforms.all;
       };
     };
