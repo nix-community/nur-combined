@@ -29,8 +29,8 @@
     gpd-linuxcontrols = {
       url = "github:Cryolitia/GPD-LinuxControls";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
-        rust-overlay.follows = "rust-overlay";
+        #nixpkgs.follows = "nixpkgs";
+        #rust-overlay.follows = "rust-overlay";
       };
     };
 
