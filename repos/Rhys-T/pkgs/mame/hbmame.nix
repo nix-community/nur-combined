@@ -24,7 +24,11 @@
         })
     ];
     patches = lib.optionals (builtins.compareVersions version "0.245.20" <= 0) [
-        ./patches/hbmame/0001-monaco-fix-out-of-bounds-array-access.patch
+        (fetchpatch {
+            name = "0001-monaco-fix-out-of-bounds-array-access.patch";
+            url = "https://patch-diff.githubusercontent.com/raw/Robbbert/hbmame/pull/24.patch";
+            hash = "sha256-6iztS1i+ybqNS0SF37d8GruWbLeu5d7tEpU9x4MT39Y=";
+        })
     ] ++ map (patch: if lib.hasInfix "001-use-absolute-paths" (""+patch) then fetchpatch {
         url = "https://raw.githubusercontent.com/NixOS/nixpkgs/83d89a2fadf3ce1f67cfc5e49e62e474df04507b/pkgs/applications/emulators/mame/001-use-absolute-paths.diff";
         decode = '' sed '/OPTION_INIPATH/ {
