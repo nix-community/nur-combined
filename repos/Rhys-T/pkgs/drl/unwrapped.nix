@@ -93,26 +93,25 @@ in stdenv.mkDerivation rec {
     installPhase = ''
         runHook preInstall
         mkdir -p "$out"/share/drl
-        for file in \
-            drl \
-            backup \
-            mortem \
-            screenshot \
-            modules \
-            config.lua \
-            colors.lua \
-            sound.lua \
-            soundhq.lua \
-            music.lua \
-            musichq.lua \
-            manual.txt \
-            version.txt \
-            version_api.txt \
-            drl.wad \
-            core.wad \
-        ; do
-            cp -r bin/"$file" "$out"/share/drl/"$file"
-        done
+        files=(
+            drl
+            backup
+            mortem
+            screenshot
+            modules
+            config.lua
+            colors.lua
+            sound.lua
+            soundhq.lua
+            music.lua
+            musichq.lua
+            manual.txt
+            version.txt
+            version_api.txt
+            drl.wad
+            core.wad
+        )
+        cp -r "''${files[@]/#/bin\/}" "$out"/share/drl/
         runHook postInstall
     '';
     meta = {
