@@ -17,7 +17,7 @@ buildGoModule rec {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "A lightweight LDAP server for development, home use, or CI";
+    description = "Lightweight LDAP server for development, home use, or CI";
     homepage = "https://github.com/glauth/glauth";
     license = licenses.mit;
   };

@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "A Douban API server that provides an unofficial APIs for media information gathering";
+    description = "Douban API server that provides an unofficial APIs for media information gathering";
     homepage = "https://github.com/caryyu/douban-openapi-server";
     license = with licenses; [ mit ];
     broken = true;

@@ -10,7 +10,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "Font Awesome packaged for setuptools (easy_install) / pip.";
+    description = "Font Awesome packaged for setuptools (easy_install) / pip";
     homepage = "https://github.com/FortAwesome/Font-Awesome";
     license = with licenses; [ ofl ];
   };

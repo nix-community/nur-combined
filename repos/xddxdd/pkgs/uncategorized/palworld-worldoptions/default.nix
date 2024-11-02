@@ -28,7 +28,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "A tool for creating WorldOption.sav and applying the PalWorldSettings.ini for dedicated servers";
+    description = "Tool for creating WorldOption.sav and applying the PalWorldSettings.ini for dedicated servers";
     homepage = "https://github.com/legoduded/palworld-worldoptions";
     # Unspecified license
     license = licenses.unfree;

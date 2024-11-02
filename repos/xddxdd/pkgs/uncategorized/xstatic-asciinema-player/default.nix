@@ -10,7 +10,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "asciinema-player packaged for setuptools (easy_install) / pip.";
+    description = "Asciinema-player packaged for setuptools (easy_install) / pip";
     homepage = "https://github.com/asciinema/asciinema-player";
     license = with licenses; [ asl20 ];
   };

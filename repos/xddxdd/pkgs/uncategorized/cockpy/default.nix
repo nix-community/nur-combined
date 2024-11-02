@@ -58,7 +58,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "public and open source version of the cbt2 ps im working on";
+    description = "Public and open source version of the cbt2 ps im working on";
     homepage = "https://github.com/Hiro420/CockPY";
     license = with licenses; [ unfreeRedistributable ];
   };

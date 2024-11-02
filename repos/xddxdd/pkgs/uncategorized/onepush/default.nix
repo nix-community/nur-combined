@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "A Python library to send notifications to your iPhone, Discord, Telegram, WeChat, QQ and DingTalk.";
+    description = "Python library to send notifications to your iPhone, Discord, Telegram, WeChat, QQ and DingTalk";
     homepage = "https://gitlab.com/y1ndan/onepush";
     license = with licenses; [ gpl3Only ];
   };

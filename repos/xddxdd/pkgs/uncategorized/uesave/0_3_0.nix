@@ -12,7 +12,7 @@ rustPlatform.buildRustPackage {
   meta = with lib; {
     mainProgram = "uesave";
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "A library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld.";
+    description = "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld";
     homepage = "https://github.com/trumank/uesave-rs";
     license = licenses.mit;
   };

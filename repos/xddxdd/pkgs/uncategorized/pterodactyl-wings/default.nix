@@ -10,7 +10,7 @@ buildGoModule {
   meta = with lib; {
     mainProgram = "wings";
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "The server control plane for Pterodactyl Panel.";
+    description = "Server control plane for Pterodactyl Panel";
     homepage = "https://pterodactyl.io";
     license = licenses.mit;
   };

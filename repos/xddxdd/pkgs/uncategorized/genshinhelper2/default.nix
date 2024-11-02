@@ -23,7 +23,7 @@ buildPythonPackage rec {
   meta = with lib; {
     mainProgram = "genshinhelper";
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "A Python library for miHoYo bbs and HoYoLAB Community.";
+    description = "Python library for miHoYo bbs and HoYoLAB Community";
     homepage = "https://gitlab.com/y1ndan/genshinhelper2";
     license = with licenses; [ gpl3Only ];
   };

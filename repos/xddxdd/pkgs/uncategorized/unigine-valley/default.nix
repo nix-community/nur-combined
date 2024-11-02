@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "Extreme performance and stability test for PC hardware: video card, power supply, cooling system.";
+    description = "Extreme performance and stability test for PC hardware: video card, power supply, cooling system";
     homepage = "https://benchmark.unigine.com/valley";
     platforms = [
       "x86_64-linux"

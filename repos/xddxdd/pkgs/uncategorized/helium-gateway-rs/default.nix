@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage {
   meta = with lib; {
     mainProgram = "helium_gateway";
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "The Helium Gateway";
+    description = "Helium Gateway";
     homepage = "https://github.com/helium/gateway-rs";
     license = licenses.asl20;
   };

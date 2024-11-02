@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "Standalone lyrics fetcher/displayer (windowed and OSD mode).";
+    description = "Standalone lyrics fetcher/displayer (windowed and OSD mode)";
     homepage = "https://github.com/osdlyrics/osdlyrics";
     license = licenses.gpl3Only;
   };

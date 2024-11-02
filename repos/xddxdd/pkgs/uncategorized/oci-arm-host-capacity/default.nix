@@ -39,7 +39,7 @@ composer2nixOutput.overrideAttrs (old: rec {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "This script allows to bypass Oracle Cloud Infrastructure 'Out of host capacity' error immediately when additional OCI capacity will appear in your Home Region / Availability domain.";
+    description = "This script allows to bypass Oracle Cloud Infrastructure 'Out of host capacity' error immediately when additional OCI capacity will appear in your Home Region / Availability domain";
     homepage = "https://github.com/hitrov/oci-arm-host-capacity";
     license = with licenses; [ mit ];
   };

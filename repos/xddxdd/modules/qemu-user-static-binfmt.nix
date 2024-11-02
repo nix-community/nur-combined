@@ -224,7 +224,7 @@ in
     enable = lib.mkOption {
       type = lib.types.bool;
       default = true;
-      description = "Enable cross-architecture binfmt handling with qemu-user-static.";
+      description = "Enable cross-architecture binfmt handling with qemu-user-static";
     };
     package = lib.mkOption {
       type = lib.types.package;

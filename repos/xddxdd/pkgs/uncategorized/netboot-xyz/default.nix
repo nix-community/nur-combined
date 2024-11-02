@@ -18,7 +18,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE.";
+    description = "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE";
     homepage = "https://netboot.xyz/";
     license = licenses.asl20;
   };

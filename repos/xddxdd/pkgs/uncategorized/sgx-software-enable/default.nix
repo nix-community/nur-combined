@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "This application will enable Intel SGX on Linux systems where the BIOS supports Intel SGX, but does not provide an explicit option to enable it. These systems can only enable Intel SGX via the \"software enable\" procedure.";
+    description = "This application will enable Intel SGX on Linux systems where the BIOS supports Intel SGX, but does not provide an explicit option to enable it. These systems can only enable Intel SGX via the \"software enable\" procedure";
     homepage = "https://github.com/intel/sgx-software-enable";
     license = licenses.bsd3;
     platforms = [ "x86_64-linux" ];

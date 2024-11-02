@@ -10,7 +10,7 @@ buildGoModule rec {
   meta = with lib; {
     mainProgram = "konnectd";
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms.";
+    description = "Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms";
     homepage = "https://github.com/Kopano-dev/konnect";
     license = licenses.asl20;
   };

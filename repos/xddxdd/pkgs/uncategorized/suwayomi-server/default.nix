@@ -39,7 +39,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "A rewrite of Tachiyomi for the Desktop";
+    description = "Rewrite of Tachiyomi for the Desktop";
     homepage = "https://github.com/Suwayomi/Suwayomi-Server";
     license = licenses.mpl20;
   };

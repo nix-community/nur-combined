@@ -53,7 +53,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers.";
+    description = "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers";
     homepage = "https://github.com/mozilla/DeepSpeech";
     license = licenses.mpl20;
     platforms = [ "x86_64-linux" ];

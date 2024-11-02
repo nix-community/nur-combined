@@ -13,7 +13,7 @@ buildGoModule rec {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "An android OTA payload dumper written in Go";
+    description = "Android OTA payload dumper written in Go";
     homepage = "https://github.com/ssut/payload-dumper-go";
     license = licenses.asl20;
   };

@@ -55,7 +55,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "A server software reimplementation for a certain anime game.";
+    description = "Server software reimplementation for a certain anime game";
     homepage = "https://github.com/Grasscutters/Grasscutter";
     license = with licenses; [ agpl3Only ];
   };

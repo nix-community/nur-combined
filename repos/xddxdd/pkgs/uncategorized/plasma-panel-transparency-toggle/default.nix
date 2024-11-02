@@ -14,7 +14,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "A rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6";
+    description = "Rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6";
     homepage = "https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6";
     license = licenses.gpl2Only;
   };

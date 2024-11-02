@@ -23,7 +23,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "A web interface for MySQL and MariaDB";
+    description = "Web interface for MySQL and MariaDB";
     homepage = "https://www.phpmyadmin.net/";
     license = licenses.gpl2Only;
   };

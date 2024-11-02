@@ -35,7 +35,7 @@ python3Packages.buildPythonPackage rec {
   meta = with lib; {
     mainProgram = "bepasty-server";
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "universal pastebin server";
+    description = "Universal pastebin server";
     homepage = "https://bepasty-server.readthedocs.org/";
     license = with licenses; [ bsd2 ];
   };

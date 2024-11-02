@@ -25,7 +25,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "The premier web-based administration tool for PostgreSQL";
+    description = "Premier web-based administration tool for PostgreSQL";
     homepage = "https://github.com/phppgadmin/phppgadmin";
     license = licenses.gpl2Only;
   };

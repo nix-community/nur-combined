@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "A virtual black hole file system that behaves like /dev/null";
+    description = "Virtual black hole file system that behaves like /dev/null";
     homepage = "https://github.com/abbbi/nullfsvfs";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;

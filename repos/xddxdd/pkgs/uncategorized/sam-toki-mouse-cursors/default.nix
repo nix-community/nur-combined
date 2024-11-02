@@ -36,7 +36,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "Original mouse cursors (pointers) for Windows, with minimalistic design.";
+    description = "Original mouse cursors (pointers) for Windows, with minimalistic design";
     homepage = "https://github.com/SamToki/IconDesign---Sam-Toki-Mouse-Cursors";
     license = lib.licenses.cc-by-nc-sa-30;
   };

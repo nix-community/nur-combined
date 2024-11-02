@@ -26,7 +26,7 @@ buildPythonApplication rec {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "More than check-in for Genshin Impact.";
+    description = "More than check-in for Genshin Impact";
     homepage = "https://gitlab.com/y1ndan/genshin-checkin-helper";
     license = with licenses; [ gpl3Only ];
   };

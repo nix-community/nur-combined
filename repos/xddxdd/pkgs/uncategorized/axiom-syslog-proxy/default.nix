@@ -10,7 +10,7 @@ buildGoModule {
 
   meta = with lib; {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "A syslog push interface to Axiom.";
+    description = "Syslog push interface to Axiom";
     homepage = "https://github.com/axiomhq/axiom-syslog-proxy";
     license = licenses.mit;
   };

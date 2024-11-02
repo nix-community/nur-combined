@@ -88,6 +88,15 @@ def verify_package_meta(package_path: str, meta: dict) -> bool:
     elif description.startswith(" ") or description.endswith(" "):
         print(f"{package_path}: description has space at beginning or end")
         valid = False
+    elif re.match(r"^(a|an|the) ", description.lower(), re.IGNORECASE):
+        print(f"{package_path}: description has article at beginning")
+        valid = False
+    elif re.match(r"^[a-z]", description):
+        print(f"{package_path}: description starts with lower case letter")
+        valid = False
+    elif description.endswith("."):
+        print(f"{package_path}: description has period at end")
+        valid = False
 
     if not meta.get("homepage"):
         print(f"{package_path}: no homepage set")

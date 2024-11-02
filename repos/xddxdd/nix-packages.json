@@ -380,7 +380,7 @@
     "version": "22-codec-siren7-1.0.7"
   },
   "legacyPackages.x86_64-linux.axiom-syslog-proxy": {
-    "description": "A syslog push interface to Axiom.",
+    "description": "Syslog push interface to Axiom",
     "pname": "axiom-syslog-proxy",
     "version": "0.7.2"
   },
@@ -390,12 +390,12 @@
     "version": "4.17.7"
   },
   "legacyPackages.x86_64-linux.baidupcs-go": {
-    "description": "Baidu Netdisk commandline client, mimicking Linux shell file handling commands.",
+    "description": "Baidu Netdisk commandline client, mimicking Linux shell file handling commands",
     "pname": "baidupcs-go",
     "version": "3.9.5"
   },
   "legacyPackages.x86_64-linux.bepasty": {
-    "description": "universal pastebin server",
+    "description": "Universal pastebin server",
     "pname": "python3.12-bepasty",
     "version": "1.2.1"
   },
@@ -445,7 +445,7 @@
     "version": "0.1.3"
   },
   "legacyPackages.x86_64-linux.cockpy": {
-    "description": "public and open source version of the cbt2 ps im working on",
+    "description": "Public and open source version of the cbt2 ps im working on",
     "pname": "cockpy-unstable",
     "version": "2024-09-07"
   },
@@ -455,17 +455,17 @@
     "version": "2024-10-10"
   },
   "legacyPackages.x86_64-linux.decluttarr": {
-    "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed.",
+    "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
     "pname": "decluttarr",
     "version": "1.50.0"
   },
   "legacyPackages.x86_64-linux.deepspeech-gpu": {
-    "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers.",
+    "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers",
     "pname": "python3.9-deepspeech-gpu",
     "version": "0.9.3"
   },
   "legacyPackages.x86_64-linux.deepspeech-wrappers": {
-    "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers.",
+    "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers",
     "pname": "deepspeech",
     "version": "0.9.3"
   },
@@ -480,7 +480,7 @@
     "version": "1.0.0"
   },
   "legacyPackages.x86_64-linux.douban-openapi-server": {
-    "description": "A Douban API server that provides an unofficial APIs for media information gathering",
+    "description": "Douban API server that provides an unofficial APIs for media information gathering",
     "pname": "douban-openapi-server-unstable",
     "version": "2022-12-17"
   },
@@ -490,7 +490,7 @@
     "version": "2023-02-05"
   },
   "legacyPackages.x86_64-linux.drone-file-secret": {
-    "description": "A secret provider for Drone CI. It simply reads secrets from a given folder, suitable for private use Drone CI instances where running a Vault instance can be undesirable.",
+    "description": "Secret provider for Drone CI. It simply reads secrets from a given folder, suitable for private use Drone CI instances where running a Vault instance can be undesirable",
     "pname": "drone-file-secret-unstable",
     "version": "2023-06-25"
   },
@@ -525,22 +525,22 @@
     "version": "0.9.5"
   },
   "legacyPackages.x86_64-linux.ftp-proxy": {
-    "description": "ftp.proxy - FTP Proxy Server",
+    "description": "FTP Proxy Server",
     "pname": "ftp-proxy",
     "version": "1.2.3"
   },
   "legacyPackages.x86_64-linux.genshin-checkin-helper": {
-    "description": "More than check-in for Genshin Impact.",
+    "description": "More than check-in for Genshin Impact",
     "pname": "genshin-checkin-helper-unstable",
     "version": "2021-11-09"
   },
   "legacyPackages.x86_64-linux.genshinhelper2": {
-    "description": "A Python library for miHoYo bbs and HoYoLAB Community.",
+    "description": "Python library for miHoYo bbs and HoYoLAB Community",
     "pname": "python3.12-genshinhelper2-unstable",
     "version": "2023-05-22"
   },
   "legacyPackages.x86_64-linux.glauth": {
-    "description": "A lightweight LDAP server for development, home use, or CI",
+    "description": "Lightweight LDAP server for development, home use, or CI",
     "pname": "glauth",
     "version": "2.3.2"
   },
@@ -550,12 +550,12 @@
     "version": "7.3.6.9796"
   },
   "legacyPackages.x86_64-linux.gopherus": {
-    "description": "Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace.",
+    "description": "Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace",
     "pname": "gopherus",
     "version": "1.2.2"
   },
   "legacyPackages.x86_64-linux.grasscutter": {
-    "description": "A server software reimplementation for a certain anime game.",
+    "description": "Server software reimplementation for a certain anime game",
     "pname": "grasscutter",
     "version": "1.7.4"
   },
@@ -565,7 +565,7 @@
     "version": "1.6.2"
   },
   "legacyPackages.x86_64-linux.helium-gateway-rs": {
-    "description": "The Helium Gateway",
+    "description": "Helium Gateway",
     "pname": "helium-gateway-rs-unstable",
     "version": "2024-08-01"
   },
@@ -600,7 +600,7 @@
     "version": "2.16.9+36"
   },
   "legacyPackages.x86_64-linux.jproxy": {
-    "description": "A proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate",
+    "description": "Proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate",
     "pname": "jproxy",
     "version": "3.4.1"
   },
@@ -625,7 +625,7 @@
     "version": "1.0.3"
   },
   "legacyPackages.x86_64-linux.konnect": {
-    "description": "Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms.",
+    "description": "Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms",
     "pname": "konnect",
     "version": "0.34.0"
   },
@@ -1290,7 +1290,7 @@
     "version": "2021-10-02"
   },
   "legacyPackages.x86_64-linux.ldap-auth-proxy": {
-    "description": "A simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend.",
+    "description": "Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend",
     "pname": "ldap-auth-proxy-unstable",
     "version": "2020-07-29"
   },
@@ -1325,7 +1325,7 @@
     "version": "0.12"
   },
   "legacyPackages.x86_64-linux.magiskboot": {
-    "description": "A tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms.",
+    "description": "Tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms",
     "pname": "magiskboot",
     "version": "28.0"
   },
@@ -1340,7 +1340,7 @@
     "version": "0.8.0"
   },
   "legacyPackages.x86_64-linux.netboot-xyz": {
-    "description": "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE.",
+    "description": "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE",
     "pname": "netboot-xyz",
     "version": "2.0.82"
   },
@@ -1375,7 +1375,7 @@
     "version": "2016-01-28"
   },
   "legacyPackages.x86_64-linux.nullfsvfs": {
-    "description": "A virtual black hole file system that behaves like /dev/null",
+    "description": "Virtual black hole file system that behaves like /dev/null",
     "pname": "nullfsvfs",
     "version": "0.17"
   },
@@ -2030,12 +2030,12 @@
     "version": "2021-10-29"
   },
   "legacyPackages.x86_64-linux.oci-arm-host-capacity": {
-    "description": "This script allows to bypass Oracle Cloud Infrastructure 'Out of host capacity' error immediately when additional OCI capacity will appear in your Home Region / Availability domain.",
+    "description": "This script allows to bypass Oracle Cloud Infrastructure 'Out of host capacity' error immediately when additional OCI capacity will appear in your Home Region / Availability domain",
     "pname": "oci-arm-host-capacity-unstable",
     "version": "2024-08-13"
   },
   "legacyPackages.x86_64-linux.onepush": {
-    "description": "A Python library to send notifications to your iPhone, Discord, Telegram, WeChat, QQ and DingTalk.",
+    "description": "Python library to send notifications to your iPhone, Discord, Telegram, WeChat, QQ and DingTalk",
     "pname": "python3.12-onepush-unstable",
     "version": "2023-11-28"
   },
@@ -3350,7 +3350,7 @@
     "version": "3.4.0"
   },
   "legacyPackages.x86_64-linux.osdlyrics": {
-    "description": "Standalone lyrics fetcher/displayer (windowed and OSD mode).",
+    "description": "Standalone lyrics fetcher/displayer (windowed and OSD mode)",
     "pname": "osdlyrics",
     "version": "0.5.15"
   },
@@ -3365,12 +3365,12 @@
     "version": "1.3.1"
   },
   "legacyPackages.x86_64-linux.palworld-worldoptions": {
-    "description": "A tool for creating WorldOption.sav and applying the PalWorldSettings.ini for dedicated servers",
+    "description": "Tool for creating WorldOption.sav and applying the PalWorldSettings.ini for dedicated servers",
     "pname": "palworld-worldoptions",
     "version": "1.10.0"
   },
   "legacyPackages.x86_64-linux.payload-dumper-go": {
-    "description": "An android OTA payload dumper written in Go",
+    "description": "Android OTA payload dumper written in Go",
     "pname": "payload-dumper-go",
     "version": "1.2.2"
   },
@@ -3380,12 +3380,12 @@
     "version": "7.0.0"
   },
   "legacyPackages.x86_64-linux.phpmyadmin": {
-    "description": "A web interface for MySQL and MariaDB",
+    "description": "Web interface for MySQL and MariaDB",
     "pname": "phpmyadmin",
     "version": "5.2.1"
   },
   "legacyPackages.x86_64-linux.phppgadmin": {
-    "description": "The premier web-based administration tool for PostgreSQL",
+    "description": "Premier web-based administration tool for PostgreSQL",
     "pname": "phppgadmin",
     "version": "7.14.7-mod"
   },
@@ -3400,7 +3400,7 @@
     "version": ""
   },
   "legacyPackages.x86_64-linux.plasma-panel-transparency-toggle": {
-    "description": "A rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
+    "description": "Rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
     "pname": "plasma-panel-transparency-toggle-unstable",
     "version": "2024-04-17"
   },
@@ -3410,7 +3410,7 @@
     "version": "0.4.1"
   },
   "legacyPackages.x86_64-linux.pocl": {
-    "description": "A portable open source (MIT-licensed) implementation of the OpenCL standard",
+    "description": "Portable open source (MIT-licensed) implementation of the OpenCL standard",
     "pname": "pocl",
     "version": "6.0"
   },
@@ -3420,7 +3420,7 @@
     "version": "4.0.4"
   },
   "legacyPackages.x86_64-linux.pterodactyl-wings": {
-    "description": "The server control plane for Pterodactyl Panel.",
+    "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
     "version": "1.11.13"
   },
@@ -3430,7 +3430,7 @@
     "version": "1.3.0"
   },
   "legacyPackages.x86_64-linux.qemu-user-static": {
-    "description": "A generic and open source machine emulator and virtualizer",
+    "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
     "version": "9.1.1+ds-2"
   },
@@ -3490,7 +3490,7 @@
     "version": "20240426"
   },
   "legacyPackages.x86_64-linux.route-chain": {
-    "description": "A small app to generate a long path in traceroute.",
+    "description": "Small app to generate a long path in traceroute",
     "pname": "route-chain-unstable",
     "version": "2023-09-09"
   },
@@ -3505,12 +3505,12 @@
     "version": "1.14.4"
   },
   "legacyPackages.x86_64-linux.sam-toki-mouse-cursors": {
-    "description": "Original mouse cursors (pointers) for Windows, with minimalistic design.",
+    "description": "Original mouse cursors (pointers) for Windows, with minimalistic design",
     "pname": "sam-toki-mouse-cursors",
     "version": "7.00"
   },
   "legacyPackages.x86_64-linux.sgx-software-enable": {
-    "description": "This application will enable Intel SGX on Linux systems where the BIOS supports Intel SGX, but does not provide an explicit option to enable it. These systems can only enable Intel SGX via the \"software enable\" procedure.",
+    "description": "This application will enable Intel SGX on Linux systems where the BIOS supports Intel SGX, but does not provide an explicit option to enable it. These systems can only enable Intel SGX via the \"software enable\" procedure",
     "pname": "sgx-software-enable-unstable",
     "version": "2023-01-06"
   },
@@ -3535,12 +3535,12 @@
     "version": "2.1.0"
   },
   "legacyPackages.x86_64-linux.suwayomi-server": {
-    "description": "A rewrite of Tachiyomi for the Desktop",
+    "description": "Rewrite of Tachiyomi for the Desktop",
     "pname": "suwayomi-server",
     "version": "1.1.1-r1535"
   },
   "legacyPackages.x86_64-linux.svp": {
-    "description": "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player.",
+    "description": "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player",
     "pname": "svp",
     "version": "4.6.263"
   },
@@ -3555,47 +3555,47 @@
     "version": "2023-02-06"
   },
   "legacyPackages.x86_64-linux.th-fonts.hak": {
-    "description": "th-hak font",
+    "description": "TianHeng th-hak font",
     "pname": "th-hak",
     "version": "4.0.0"
   },
   "legacyPackages.x86_64-linux.th-fonts.joeng": {
-    "description": "th-joeng font",
+    "description": "TianHeng th-joeng font",
     "pname": "th-joeng",
     "version": "4.0.0"
   },
   "legacyPackages.x86_64-linux.th-fonts.khaai-p": {
-    "description": "th-khaai-p font",
+    "description": "TianHeng th-khaai-p font",
     "pname": "th-khaai-p",
     "version": "4.0.0"
   },
   "legacyPackages.x86_64-linux.th-fonts.khaai-t": {
-    "description": "th-khaai-t font",
+    "description": "TianHeng th-khaai-t font",
     "pname": "th-khaai-t",
     "version": "4.0.0"
   },
   "legacyPackages.x86_64-linux.th-fonts.ming": {
-    "description": "th-ming font",
+    "description": "TianHeng th-ming font",
     "pname": "th-ming",
     "version": "4.1.0"
   },
   "legacyPackages.x86_64-linux.th-fonts.sung-p": {
-    "description": "th-sung-p font",
+    "description": "TianHeng th-sung-p font",
     "pname": "th-sung-p",
     "version": "4.0.0"
   },
   "legacyPackages.x86_64-linux.th-fonts.sung-t": {
-    "description": "th-sung-t font",
+    "description": "TianHeng th-sung-t font",
     "pname": "th-sung-t",
     "version": "4.1.0"
   },
   "legacyPackages.x86_64-linux.th-fonts.sy": {
-    "description": "th-sy font",
+    "description": "TianHeng th-sy font",
     "pname": "th-sy",
     "version": "4.1.0"
   },
   "legacyPackages.x86_64-linux.th-fonts.tshyn": {
-    "description": "th-tshyn font",
+    "description": "TianHeng th-tshyn font",
     "pname": "th-tshyn",
     "version": "4.1.0"
   },
@@ -3605,12 +3605,12 @@
     "version": "0.2"
   },
   "legacyPackages.x86_64-linux.uesave": {
-    "description": "A library for reading and writing Unreal Engine save files (commonly referred to as GVAS).",
+    "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS)",
     "pname": "uesave",
     "version": "0.5.0"
   },
   "legacyPackages.x86_64-linux.uesave-0_3_0": {
-    "description": "A library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld.",
+    "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld",
     "pname": "uesave",
     "version": "0.3.0"
   },
@@ -3620,32 +3620,32 @@
     "version": "1.2.11"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
-    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system.",
+    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
     "pname": "unigine-heaven",
     "version": "4.0"
   },
   "legacyPackages.x86_64-linux.unigine-sanctuary": {
-    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system.",
+    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
     "pname": "unigine-sanctuary",
     "version": "2.3"
   },
   "legacyPackages.x86_64-linux.unigine-superposition": {
-    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system.",
+    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
     "pname": "unigine-superposition",
     "version": "1.1"
   },
   "legacyPackages.x86_64-linux.unigine-tropics": {
-    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system.",
+    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
     "pname": "unigine-tropics",
     "version": "1.3"
   },
   "legacyPackages.x86_64-linux.unigine-valley": {
-    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system.",
+    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
     "pname": "unigine-valley",
     "version": "1.0"
   },
   "legacyPackages.x86_64-linux.vbmeta-disable-verification": {
-    "description": "Patch Android vbmeta image and disable verification flags inside.",
+    "description": "Patch Android vbmeta image and disable verification flags inside",
     "pname": "vbmeta-disable-verification",
     "version": "1.0"
   },
@@ -3690,12 +3690,12 @@
     "version": "3.9.12.16"
   },
   "legacyPackages.x86_64-linux.xstatic-asciinema-player": {
-    "description": "asciinema-player packaged for setuptools (easy_install) / pip.",
+    "description": "Asciinema-player packaged for setuptools (easy_install) / pip",
     "pname": "python3.12-xstatic-asciinema-player",
     "version": "2.6.1.1"
   },
   "legacyPackages.x86_64-linux.xstatic-font-awesome": {
-    "description": "Font Awesome packaged for setuptools (easy_install) / pip.",
+    "description": "Font Awesome packaged for setuptools (easy_install) / pip",
     "pname": "python3.12-xstatic-font-awesome",
     "version": "4.7.0.0"
   },
@@ -3730,7 +3730,7 @@
     "version": ""
   },
   "packages.x86_64-linux.axiom-syslog-proxy": {
-    "description": "A syslog push interface to Axiom.",
+    "description": "Syslog push interface to Axiom",
     "pname": "axiom-syslog-proxy",
     "version": "0.7.2"
   },
@@ -3740,12 +3740,12 @@
     "version": "4.17.7"
   },
   "packages.x86_64-linux.baidupcs-go": {
-    "description": "Baidu Netdisk commandline client, mimicking Linux shell file handling commands.",
+    "description": "Baidu Netdisk commandline client, mimicking Linux shell file handling commands",
     "pname": "baidupcs-go",
     "version": "3.9.5"
   },
   "packages.x86_64-linux.bepasty": {
-    "description": "universal pastebin server",
+    "description": "Universal pastebin server",
     "pname": "python3.12-bepasty",
     "version": "1.2.1"
   },
@@ -3795,7 +3795,7 @@
     "version": "0.1.3"
   },
   "packages.x86_64-linux.cockpy": {
-    "description": "public and open source version of the cbt2 ps im working on",
+    "description": "Public and open source version of the cbt2 ps im working on",
     "pname": "cockpy-unstable",
     "version": "2024-09-07"
   },
@@ -3805,17 +3805,17 @@
     "version": "2024-10-10"
   },
   "packages.x86_64-linux.decluttarr": {
-    "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed.",
+    "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
     "pname": "decluttarr",
     "version": "1.50.0"
   },
   "packages.x86_64-linux.deepspeech-gpu": {
-    "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers.",
+    "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers",
     "pname": "python3.9-deepspeech-gpu",
     "version": "0.9.3"
   },
   "packages.x86_64-linux.deepspeech-wrappers": {
-    "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers.",
+    "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers",
     "pname": "deepspeech",
     "version": "0.9.3"
   },
@@ -3830,7 +3830,7 @@
     "version": "1.0.0"
   },
   "packages.x86_64-linux.douban-openapi-server": {
-    "description": "A Douban API server that provides an unofficial APIs for media information gathering",
+    "description": "Douban API server that provides an unofficial APIs for media information gathering",
     "pname": "douban-openapi-server-unstable",
     "version": "2022-12-17"
   },
@@ -3840,7 +3840,7 @@
     "version": "2023-02-05"
   },
   "packages.x86_64-linux.drone-file-secret": {
-    "description": "A secret provider for Drone CI. It simply reads secrets from a given folder, suitable for private use Drone CI instances where running a Vault instance can be undesirable.",
+    "description": "Secret provider for Drone CI. It simply reads secrets from a given folder, suitable for private use Drone CI instances where running a Vault instance can be undesirable",
     "pname": "drone-file-secret-unstable",
     "version": "2023-06-25"
   },
@@ -3875,22 +3875,22 @@
     "version": "0.9.5"
   },
   "packages.x86_64-linux.ftp-proxy": {
-    "description": "ftp.proxy - FTP Proxy Server",
+    "description": "FTP Proxy Server",
     "pname": "ftp-proxy",
     "version": "1.2.3"
   },
   "packages.x86_64-linux.genshin-checkin-helper": {
-    "description": "More than check-in for Genshin Impact.",
+    "description": "More than check-in for Genshin Impact",
     "pname": "genshin-checkin-helper-unstable",
     "version": "2021-11-09"
   },
   "packages.x86_64-linux.genshinhelper2": {
-    "description": "A Python library for miHoYo bbs and HoYoLAB Community.",
+    "description": "Python library for miHoYo bbs and HoYoLAB Community",
     "pname": "python3.12-genshinhelper2-unstable",
     "version": "2023-05-22"
   },
   "packages.x86_64-linux.glauth": {
-    "description": "A lightweight LDAP server for development, home use, or CI",
+    "description": "Lightweight LDAP server for development, home use, or CI",
     "pname": "glauth",
     "version": "2.3.2"
   },
@@ -3900,12 +3900,12 @@
     "version": "7.3.6.9796"
   },
   "packages.x86_64-linux.gopherus": {
-    "description": "Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace.",
+    "description": "Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace",
     "pname": "gopherus",
     "version": "1.2.2"
   },
   "packages.x86_64-linux.grasscutter": {
-    "description": "A server software reimplementation for a certain anime game.",
+    "description": "Server software reimplementation for a certain anime game",
     "pname": "grasscutter",
     "version": "1.7.4"
   },
@@ -3915,7 +3915,7 @@
     "version": "1.6.2"
   },
   "packages.x86_64-linux.helium-gateway-rs": {
-    "description": "The Helium Gateway",
+    "description": "Helium Gateway",
     "pname": "helium-gateway-rs-unstable",
     "version": "2024-08-01"
   },
@@ -3950,7 +3950,7 @@
     "version": "2.16.9+36"
   },
   "packages.x86_64-linux.jproxy": {
-    "description": "A proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate",
+    "description": "Proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate",
     "pname": "jproxy",
     "version": "3.4.1"
   },
@@ -3975,7 +3975,7 @@
     "version": "1.0.3"
   },
   "packages.x86_64-linux.konnect": {
-    "description": "Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms.",
+    "description": "Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms",
     "pname": "konnect",
     "version": "0.34.0"
   },
@@ -4000,7 +4000,7 @@
     "version": ""
   },
   "packages.x86_64-linux.ldap-auth-proxy": {
-    "description": "A simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend.",
+    "description": "Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend",
     "pname": "ldap-auth-proxy-unstable",
     "version": "2020-07-29"
   },
@@ -4035,7 +4035,7 @@
     "version": "0.12"
   },
   "packages.x86_64-linux.magiskboot": {
-    "description": "A tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms.",
+    "description": "Tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms",
     "pname": "magiskboot",
     "version": "28.0"
   },
@@ -4050,7 +4050,7 @@
     "version": "0.8.0"
   },
   "packages.x86_64-linux.netboot-xyz": {
-    "description": "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE.",
+    "description": "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE",
     "pname": "netboot-xyz",
     "version": "2.0.82"
   },
@@ -4085,7 +4085,7 @@
     "version": "2016-01-28"
   },
   "packages.x86_64-linux.nullfsvfs": {
-    "description": "A virtual black hole file system that behaves like /dev/null",
+    "description": "Virtual black hole file system that behaves like /dev/null",
     "pname": "nullfsvfs",
     "version": "0.17"
   },
@@ -4105,12 +4105,12 @@
     "version": "2021-10-29"
   },
   "packages.x86_64-linux.oci-arm-host-capacity": {
-    "description": "This script allows to bypass Oracle Cloud Infrastructure 'Out of host capacity' error immediately when additional OCI capacity will appear in your Home Region / Availability domain.",
+    "description": "This script allows to bypass Oracle Cloud Infrastructure 'Out of host capacity' error immediately when additional OCI capacity will appear in your Home Region / Availability domain",
     "pname": "oci-arm-host-capacity-unstable",
     "version": "2024-08-13"
   },
   "packages.x86_64-linux.onepush": {
-    "description": "A Python library to send notifications to your iPhone, Discord, Telegram, WeChat, QQ and DingTalk.",
+    "description": "Python library to send notifications to your iPhone, Discord, Telegram, WeChat, QQ and DingTalk",
     "pname": "python3.12-onepush-unstable",
     "version": "2023-11-28"
   },
@@ -4135,7 +4135,7 @@
     "version": "3.4.0"
   },
   "packages.x86_64-linux.osdlyrics": {
-    "description": "Standalone lyrics fetcher/displayer (windowed and OSD mode).",
+    "description": "Standalone lyrics fetcher/displayer (windowed and OSD mode)",
     "pname": "osdlyrics",
     "version": "0.5.15"
   },
@@ -4150,12 +4150,12 @@
     "version": "1.3.1"
   },
   "packages.x86_64-linux.palworld-worldoptions": {
-    "description": "A tool for creating WorldOption.sav and applying the PalWorldSettings.ini for dedicated servers",
+    "description": "Tool for creating WorldOption.sav and applying the PalWorldSettings.ini for dedicated servers",
     "pname": "palworld-worldoptions",
     "version": "1.10.0"
   },
   "packages.x86_64-linux.payload-dumper-go": {
-    "description": "An android OTA payload dumper written in Go",
+    "description": "Android OTA payload dumper written in Go",
     "pname": "payload-dumper-go",
     "version": "1.2.2"
   },
@@ -4165,12 +4165,12 @@
     "version": "7.0.0"
   },
   "packages.x86_64-linux.phpmyadmin": {
-    "description": "A web interface for MySQL and MariaDB",
+    "description": "Web interface for MySQL and MariaDB",
     "pname": "phpmyadmin",
     "version": "5.2.1"
   },
   "packages.x86_64-linux.phppgadmin": {
-    "description": "The premier web-based administration tool for PostgreSQL",
+    "description": "Premier web-based administration tool for PostgreSQL",
     "pname": "phppgadmin",
     "version": "7.14.7-mod"
   },
@@ -4180,7 +4180,7 @@
     "version": ""
   },
   "packages.x86_64-linux.plasma-panel-transparency-toggle": {
-    "description": "A rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
+    "description": "Rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
     "pname": "plasma-panel-transparency-toggle-unstable",
     "version": "2024-04-17"
   },
@@ -4190,7 +4190,7 @@
     "version": "0.4.1"
   },
   "packages.x86_64-linux.pocl": {
-    "description": "A portable open source (MIT-licensed) implementation of the OpenCL standard",
+    "description": "Portable open source (MIT-licensed) implementation of the OpenCL standard",
     "pname": "pocl",
     "version": "6.0"
   },
@@ -4200,7 +4200,7 @@
     "version": "4.0.4"
   },
   "packages.x86_64-linux.pterodactyl-wings": {
-    "description": "The server control plane for Pterodactyl Panel.",
+    "description": "Server control plane for Pterodactyl Panel",
     "pname": "pterodactyl-wings",
     "version": "1.11.13"
   },
@@ -4210,7 +4210,7 @@
     "version": "1.3.0"
   },
   "packages.x86_64-linux.qemu-user-static": {
-    "description": "A generic and open source machine emulator and virtualizer",
+    "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
     "version": "9.1.1+ds-2"
   },
@@ -4270,7 +4270,7 @@
     "version": "20240426"
   },
   "packages.x86_64-linux.route-chain": {
-    "description": "A small app to generate a long path in traceroute.",
+    "description": "Small app to generate a long path in traceroute",
     "pname": "route-chain-unstable",
     "version": "2023-09-09"
   },
@@ -4285,12 +4285,12 @@
     "version": "1.14.4"
   },
   "packages.x86_64-linux.sam-toki-mouse-cursors": {
-    "description": "Original mouse cursors (pointers) for Windows, with minimalistic design.",
+    "description": "Original mouse cursors (pointers) for Windows, with minimalistic design",
     "pname": "sam-toki-mouse-cursors",
     "version": "7.00"
   },
   "packages.x86_64-linux.sgx-software-enable": {
-    "description": "This application will enable Intel SGX on Linux systems where the BIOS supports Intel SGX, but does not provide an explicit option to enable it. These systems can only enable Intel SGX via the \"software enable\" procedure.",
+    "description": "This application will enable Intel SGX on Linux systems where the BIOS supports Intel SGX, but does not provide an explicit option to enable it. These systems can only enable Intel SGX via the \"software enable\" procedure",
     "pname": "sgx-software-enable-unstable",
     "version": "2023-01-06"
   },
@@ -4315,12 +4315,12 @@
     "version": "2.1.0"
   },
   "packages.x86_64-linux.suwayomi-server": {
-    "description": "A rewrite of Tachiyomi for the Desktop",
+    "description": "Rewrite of Tachiyomi for the Desktop",
     "pname": "suwayomi-server",
     "version": "1.1.1-r1535"
   },
   "packages.x86_64-linux.svp": {
-    "description": "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player.",
+    "description": "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player",
     "pname": "svp",
     "version": "4.6.263"
   },
@@ -4345,12 +4345,12 @@
     "version": "0.2"
   },
   "packages.x86_64-linux.uesave": {
-    "description": "A library for reading and writing Unreal Engine save files (commonly referred to as GVAS).",
+    "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS)",
     "pname": "uesave",
     "version": "0.5.0"
   },
   "packages.x86_64-linux.uesave-0_3_0": {
-    "description": "A library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld.",
+    "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld",
     "pname": "uesave",
     "version": "0.3.0"
   },
@@ -4360,32 +4360,32 @@
     "version": "1.2.11"
   },
   "packages.x86_64-linux.unigine-heaven": {
-    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system.",
+    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
     "pname": "unigine-heaven",
     "version": "4.0"
   },
   "packages.x86_64-linux.unigine-sanctuary": {
-    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system.",
+    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
     "pname": "unigine-sanctuary",
     "version": "2.3"
   },
   "packages.x86_64-linux.unigine-superposition": {
-    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system.",
+    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
     "pname": "unigine-superposition",
     "version": "1.1"
   },
   "packages.x86_64-linux.unigine-tropics": {
-    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system.",
+    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
     "pname": "unigine-tropics",
     "version": "1.3"
   },
   "packages.x86_64-linux.unigine-valley": {
-    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system.",
+    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
     "pname": "unigine-valley",
     "version": "1.0"
   },
   "packages.x86_64-linux.vbmeta-disable-verification": {
-    "description": "Patch Android vbmeta image and disable verification flags inside.",
+    "description": "Patch Android vbmeta image and disable verification flags inside",
     "pname": "vbmeta-disable-verification",
     "version": "1.0"
   },
@@ -4430,12 +4430,12 @@
     "version": "3.9.12.16"
   },
   "packages.x86_64-linux.xstatic-asciinema-player": {
-    "description": "asciinema-player packaged for setuptools (easy_install) / pip.",
+    "description": "Asciinema-player packaged for setuptools (easy_install) / pip",
     "pname": "python3.12-xstatic-asciinema-player",
     "version": "2.6.1.1"
   },
   "packages.x86_64-linux.xstatic-font-awesome": {
-    "description": "Font Awesome packaged for setuptools (easy_install) / pip.",
+    "description": "Font Awesome packaged for setuptools (easy_install) / pip",
     "pname": "python3.12-xstatic-font-awesome",
     "version": "4.7.0.0"
   }
