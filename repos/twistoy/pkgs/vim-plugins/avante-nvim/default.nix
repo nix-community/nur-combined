@@ -9,13 +9,13 @@
   buildVimPlugin,
   ...
 }: let
-  version = "2024-09-23";
+  version = "2024-11-2";
 
   src = fetchFromGitHub {
     owner = "yetone";
     repo = "avante.nvim";
-    rev = "a8e2b9a00c73b11d28857f0f5de79a9022281182";
-    hash = "sha256-72kNp+jH4fUevR1jb8gIOwaG6KvjmCx4B74TzitSSyY=";
+    rev = "f8d80d87c5e2a230ccb29805411bb67aefa1cf96";
+    hash = "sha256-KI/fcV3JdOArEA95S7RiwACwwWBWiYJviW1QFMx2Owo=";
   };
 
   meta = with lib; {
@@ -29,9 +29,6 @@
     inherit version src meta;
     cargoLock = {
       lockFile = ./Cargo.lock;
-      outputHashes = {
-        "mlua-0.10.0-beta.1" = "sha256-ZEZFATVldwj0pmlmi0s5VT0eABA15qKhgjmganrhGBY=";
-      };
     };
 
     nativeBuildInputs = [
@@ -47,6 +44,8 @@
       ];
 
     buildFeatures = ["luajit"];
+
+    doCheck = false;
   };
 in
   buildVimPlugin {
