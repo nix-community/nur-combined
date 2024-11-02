@@ -487,8 +487,9 @@ src.regex = "\"https://dldir1.qq.com/qqfile/qq/QQNT/([^\"]+_arm64[^\"]*).deb\""
 fetch.url = "https://dldir1.qq.com/qqfile/qq/QQNT/$ver.deb"
 
 [qqmusic]
-src.aur = "qqmusic-bin"
-fetch.url = "https://dldir1.qq.com/music/clntupate/linux/deb/qqmusic_$ver_amd64_.deb"
+src.webpage = "https://y.qq.com/download/download.html"
+src.regex = "\"https://dldir.y.qq.com/music/clntupate/linux/qqmusic_([^\"]+)_amd64.deb\""
+fetch.url = "https://dldir1.qq.com/music/clntupate/linux/qqmusic_$ver_amd64.deb"
 
 [qsc-key-encoder]
 src.git = "https://github.com/Quantum-Safe-Collaboration/qsc-key-encoder.git"

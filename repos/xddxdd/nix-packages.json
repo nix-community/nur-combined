@@ -3447,7 +3447,7 @@
   "legacyPackages.x86_64-linux.qqmusic": {
     "description": "Tencent QQ Music",
     "pname": "qqmusic",
-    "version": "1.1.5"
+    "version": "1.1.7"
   },
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -4227,7 +4227,7 @@
   "packages.x86_64-linux.qqmusic": {
     "description": "Tencent QQ Music",
     "pname": "qqmusic",
-    "version": "1.1.5"
+    "version": "1.1.7"
   },
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
