@@ -14,5 +14,4 @@ in
   inherit lib pkgs;
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-  nixpkgs-url-list = builtins.toJSON (lib.getMetaUrls (pkgs.lib.recurseIntoAttrs pkgs));
 } // (lib.callDir ./pkgs/by-name { })

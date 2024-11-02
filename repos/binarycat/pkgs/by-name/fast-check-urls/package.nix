@@ -3,19 +3,19 @@
 , rustPlatform
 , openssl
 }:
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "fast-check-urls";
-  version = "0.2.0";
+  version = "0.1.0-unstable-2024-03-20";
 
   src = fetchFromGitea {
     domain = "git.envs.net";
     owner = "binarycat";
     repo = "fast-check-urls";
-    rev = version;
-    hash = "sha256-kdyeWuyO1LlA/iwPG1ir/2+deOfjOzKqiHguoVr0y3s=";
+    rev = "560ff20";
+    hash = "sha256-aAommw8koj0FaHfanAmM4/E++Qs+8ZUw20dSfUm7+98="; #"sha256-QD+M5DD89ITX7UnAyt9Ayr/SQhdsBokW+AP8D33l+1w=";
   };
 
-  cargoHash = "sha256-uQ5fzFvOfiI1lyOuPEn1SiZhOQ20BTLkJJjw7Awjv8U=";
+  cargoHash = "sha256-mwvgR0Q8/Bw5qSPShFXz+7WL+cZ27kgnr3E19bGi2e8="; #"sha256-mwvgR0Q8/Bw5qSPShFXz+7WL+cZ27kgnr3E19bGi2e8=";
 
   buildInputs = [ openssl openssl.dev ];
 
