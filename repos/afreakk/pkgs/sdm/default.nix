@@ -1,27 +1,18 @@
 { pkgs }:
-pkgs.stdenv.mkDerivation rec {
+pkgs.stdenv.mkDerivation {
   name = "strongdm";
-  version = "35.72.0";
-  src = pkgs.stdenv.mkDerivation {
-    # src = ./sdmcli_1.5.13_linux_amd64.zip;
-    src = pkgs.fetchurl {
-      url = "https://downloads.strongdm.com/builds/sdm-cli/35.72.0/linux/amd64/0F824D8978809F9D5E25A52B62D681C0E3A99480/sdmcli_35.72.0_linux_amd64.zip";
-      sha256 = "sha256-kpKMlxPkQDo2DD1QEtnEPr8Cgz+tPIvJB6E6+8KSYNU=";
-    };
-    name = "strongdmpre";
-    buildInputs = [ pkgs.unzip ];
-    unpackPhase = ''
-      unzip $src
-    '';
-    installPhase = ''
-      install -D sdm $out/bin/sdm
-    '';
-    nativeBuildInputs = [ pkgs.autoPatchelfHook ];
+  version = "45.35.0";
+  src = pkgs.fetchurl {
+    url = "https://downloads.strongdm.com/builds/sdm-cli/45.35.0/linux-amd64/DCA42F9D6819457A20EB68F2D87245B2163BC7A6/sdmcli_45.35.0_linux_amd64.zip";
+    sha256 = "sha256-LBCeydYzQ3nh2MPoxKHj+OV036AxKJdjasuYVqLJkrA=";
   };
-  installPhase = ''
-    bin/sdm install || true
-    install -D bin/sdm $out/bin/sdm
-    install -D state.db $out/state.db
+  buildInputs = [ pkgs.unzip ];
+  unpackPhase = ''
+    unzip $src
   '';
+  installPhase = ''
+    mkdir -p $out/bin
+    mv ./sdm $out/bin
+  '';
+  nativeBuildInputs = [ pkgs.autoPatchelfHook ];
 }
-
