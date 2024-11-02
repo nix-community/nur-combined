@@ -27,8 +27,9 @@
       {
         default = pkgs.mkShell {
           packages = [
-            pkgs.nixpkgs-fmt 
-            pkgs.update-nix-fetchgit
+            pkgs.nixpkgs-fmt
+            pkgs.update
+            pkgs.jq
           ];
         };
       });
