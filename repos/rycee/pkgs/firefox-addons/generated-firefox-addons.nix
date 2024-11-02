@@ -751,10 +751,10 @@
     };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
-      version = "7.6.8";
+      version = "7.6.9";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4368481/betterttv-7.6.8.xpi";
-      sha256 = "ccc67fd7b1630263d78542f5f84072c7f3cf71e822e7544fdd3e472d58cc52af";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4376981/betterttv-7.6.9.xpi";
+      sha256 = "45ab4f5082ca32cbafa9199d5736eb629e4435a6d58f9ad755192395abab3ccf";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -994,14 +994,14 @@
     };
     "british-english-dictionary-2" = buildFirefoxXpiAddon {
       pname = "british-english-dictionary-2";
-      version = "3.3.5";
+      version = "3.3.6";
       addonId = "marcoagpinto@mail.telepac.pt";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4329597/british_english_dictionary_2-3.3.5.xpi";
-      sha256 = "94667a4ba38053153a96c3fc7482275d022e133d5d8acf869d76798c69c8327d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4379851/british_english_dictionary_2-3.3.6.xpi";
+      sha256 = "55ce2b7c97ad3165c9d63daea15375d86609046eb68966d80a13d25b35f64555";
       meta = with lib;
       {
         homepage = "https://proofingtoolgui.org";
-        description = "A fork of Mark Tyndall's add-on, based on David Bartlett's \nBritish Dictionary R1.19 for Firefox, Thunderbird and SeaMonkey.\n\nV3.3.5 has 140 000+ new words and also fixes.";
+        description = "A fork of Mark Tyndall's add-on, based on David Bartlett's \r\nBritish Dictionary R1.19 for Firefox, Thunderbird and SeaMonkey.\r\n\r\nV3.3.6 has 140 000+ new words and also fixes.";
         license = licenses.lgpl3;
         mozPermissions = [];
         platforms = platforms.all;
@@ -2128,10 +2128,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.8";
+      version = "1.9.1";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4356986/dearrow-1.8.xpi";
-      sha256 = "354ce84f1475c172183758f63d7379ffe80d28e9a680f2ca3acf7b52f4eff431";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4375301/dearrow-1.9.1.xpi";
+      sha256 = "478976f941605bd0fd1da32ffad82b8874a965eb02943d46814387d9b61c206f";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -2177,10 +2177,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "133.0.20241030.91715";
+      version = "132.0.20241101.155103";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4378850/deutsch_de_language_pack-133.0.20241030.91715.xpi";
-      sha256 = "dfeb4d2ce8cb876618e971a20618044642899e2c80e46d04bc1e7cfc7d7e4ab6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4380362/deutsch_de_language_pack-132.0.20241101.155103.xpi";
+      sha256 = "d00f39ab7ac899c706b28e60b938c3191a1e7dcfacabe9572cc4eeeb8ca08135";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3342,10 +3342,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "133.0.20241030.91715";
+      version = "132.0.20241101.155103";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4378795/francais_language_pack-133.0.20241030.91715.xpi";
-      sha256 = "6a0d0afe06bca3fb9342701bb4a1d4bf6f061231f013b093daa0e243b126d494";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4380338/francais_language_pack-132.0.20241101.155103.xpi";
+      sha256 = "fb211492fe73aec4cf721318933753662969d5dad20a006dacfcd678734e1b6c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3379,10 +3379,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "133.0.20241030.91715";
+      version = "132.0.20241101.155103";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4378767/gaidhlig_language_pack-133.0.20241030.91715.xpi";
-      sha256 = "fbb8618a4512e91bce09d97a32380fefba98e064bff7a6f94765d3f3782761ca";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4380305/gaidhlig_language_pack-132.0.20241101.155103.xpi";
+      sha256 = "a7bffab68dbb9e25da4b2cea24ba5c2d17b9082637afb4a700150f38269c0627";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -5224,10 +5224,10 @@
     };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.1096";
+      version = "4.1122";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4346846/youtube_addon-4.1096.xpi";
-      sha256 = "9623eec44ab770fb62754cf6282a90af14e6870f2f454a3c528216e842683860";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4375372/youtube_addon-4.1122.xpi";
+      sha256 = "d8666a49657254ed39c6f52c7500df2b575cd6c108034b01dd6afedf05d0c4a1";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -9889,10 +9889,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "133.0.20241030.91715";
+      version = "132.0.20241101.155103";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4378805/scots_language_pack-133.0.20241030.91715.xpi";
-      sha256 = "86abeb998ef1c0e67135cab9b54b24bbc34225cc38246a5ce38e4672ca1e8e93";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4380394/scots_language_pack-132.0.20241101.155103.xpi";
+      sha256 = "2a462efa695f164ae22fed05ce3e3c01e90e136d2c1fd9cbcd0178d905b29249";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -12400,10 +12400,10 @@
     };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.26.0";
+      version = "2.28.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4362578/violentmonkey-2.26.0.xpi";
-      sha256 = "47b61fd463602a38bf67591ab94c60d3f1a02ad4f81b9a8a3de97d5461b2e12e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4379821/violentmonkey-2.28.0.xpi";
+      sha256 = "30bc3db14194a5197e4721d419123f3a02b9c6f3e94646724aa991137121bcba";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
