@@ -1,4 +1,4 @@
-{ stdenv, lib, symlinkJoin, makeBinaryWrapper, fetchFromGitHub, writeText, lua5_1, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, ncurses, darwin, fpc, maintainers }: let
+{ stdenv, lib, symlinkJoin, makeBinaryWrapper, autoPatchelfHook, fetchFromGitHub, writeText, lua5_1, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, ncurses, darwin, fpc, maintainers }: let
     libExt = if stdenv.isDarwin then "dylib" else "so";
     version = "0.9.9.8a";
     gitShortRev = "97f1c51";
@@ -33,7 +33,8 @@ in stdenv.mkDerivation rec {
         chmod -R u+rwX fpcvalkyrie
         export FPCVALKYRIE_ROOT="$PWD/fpcvalkyrie/"
     '';
-    nativeBuildInputs = [lua5_1 fpc-wrapper];
+    nativeBuildInputs = [lua5_1 fpc-wrapper] ++ lib.optionals stdenv.isLinux [autoPatchelfHook];
+    ${if stdenv.isLinux then "dontAutoPatchelf" else null} = true;
     buildInputs = [lua5_1 SDL2 SDL2_image SDL2_mixer SDL2_ttf ncurses] ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.Libsystem];
     env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
     env.NIX_LDFLAGS = lib.optionalString stdenv.isDarwin (lib.concatMapStringsSep " " (f: "-F${f}/Library/Frameworks") (with darwin.apple_sdk.frameworks; [CoreFoundation Cocoa]));
@@ -54,7 +55,7 @@ in stdenv.mkDerivation rec {
                 mod = mod,
             }
         end)()"${lib.optionalString stdenv.isLinux '' \
-            --replace-fail 'os.execute_in_dir( "makewad", "bin" )' 'os.execute("autoPatchelf bin/makewad"); os.execute_in_dir( "makewad", "bin" )'
+            --replace-fail 'os.execute_in_dir( "makewad", "bin" )' 'os.execute(". ${stdenv}/setup; autoPatchelf bin/makewad"); os.execute_in_dir( "makewad", "bin" )'
         ''}
         substituteInPlace "$FPCVALKYRIE_ROOT"/libs/vlualibrary.pas \
             --replace-fail 'lua5.1.${libExt}' '${lib.getLib lua5_1}/lib/liblua.5.1.${libExt}'
