@@ -38,7 +38,7 @@ jobs:
         docker rmi $(docker image ls -aq) >/dev/null 2>&1
         df -h
     - name: Install nix
-      uses: cachix/install-nix-action@v29
+      uses: cachix/install-nix-action@v30
       with:
         nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
