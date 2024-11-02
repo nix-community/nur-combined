@@ -19,10 +19,10 @@
 
     doCheck = false;
 
-    meta = with lib; {
+    meta = {
       maintainers = with lib.maintainers; [ xddxdd ];
       homepage = "https://github.com/xddxdd/coredns";
       description = "CoreDNS with Lan Tian's modifications";
-      license = licenses.asl20;
+      license = lib.licenses.asl20;
     };
   })

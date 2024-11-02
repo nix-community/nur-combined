@@ -8,7 +8,6 @@
   mpv,
   qhttpengine,
   lua5_3_compat,
-  ...
 }:
 stdenv.mkDerivation rec {
   inherit (sources.kikoplay) pname version src;
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
       --set XDG_SESSION_TYPE x11
   '';
 
-  meta = with lib; {
+  meta = {
     mainProgram = "KikoPlay";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "KikoPlay - NOT ONLY A Full-Featured Danmu Player 不仅仅是全功能弹幕播放器";

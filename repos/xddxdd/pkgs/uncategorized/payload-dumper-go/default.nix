@@ -3,7 +3,6 @@
   sources,
   buildGoModule,
   xz,
-  ...
 }:
 buildGoModule rec {
   inherit (sources.payload-dumper-go) pname version src;
@@ -11,10 +10,10 @@ buildGoModule rec {
 
   buildInputs = [ xz ];
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Android OTA payload dumper written in Go";
     homepage = "https://github.com/ssut/payload-dumper-go";
-    license = licenses.asl20;
+    license = lib.licenses.asl20;
   };
 }

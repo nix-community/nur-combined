@@ -20,7 +20,6 @@
   srtp,
   xdp-tools,
   zlib,
-  ...
 }:
 let
   dpdk-vpp = dpdk.overrideAttrs (old: {
@@ -75,10 +74,10 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Vector Packet Processing";
     homepage = "https://wiki.fd.io/view/VPP/What_is_VPP%3F";
-    license = licenses.asl20;
+    license = lib.licenses.asl20;
   };
 }

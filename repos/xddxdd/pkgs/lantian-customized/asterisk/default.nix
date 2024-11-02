@@ -10,7 +10,6 @@
   codec2,
   libvorbis,
   vo-amrwbenc,
-  ...
 }:
 let
   asterisk-actual = asterisk_20;

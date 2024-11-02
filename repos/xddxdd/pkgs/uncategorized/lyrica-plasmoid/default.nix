@@ -3,7 +3,6 @@
   sources,
   stdenvNoCC,
   lyrica,
-  ...
 }:
 stdenvNoCC.mkDerivation {
   inherit (sources.lyrica) pname version src;
@@ -16,11 +15,11 @@ stdenvNoCC.mkDerivation {
       --replace-fail '$HOME/.local/share/plasma/plasmoids/ink.chyk.LyricaPlasmoid/contents/bin/lyrica' '${lyrica}/bin/lyrica'
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component)";
     homepage = "https://github.com/chiyuki0325/lyrica";
     # Upsteam did not specify license
-    license = licenses.unfreeRedistributable;
+    license = lib.licenses.unfreeRedistributable;
   };
 }

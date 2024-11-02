@@ -3,7 +3,6 @@
   lib,
   sources,
   kernel,
-  ...
 }:
 stdenv.mkDerivation rec {
   inherit (sources.acpi-ec) pname version src;

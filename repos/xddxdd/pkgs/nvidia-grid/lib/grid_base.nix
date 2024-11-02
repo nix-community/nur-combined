@@ -6,7 +6,6 @@
   persistencedSha256,
   persistencedVersion,
   patches ? [ ],
-  ...
 }:
 {
   lib,
@@ -21,7 +20,6 @@
   # Options
   useGLVND ? true,
   useProfiles ? true,
-  ...
 }:
 let
   nameSuffix = "-${kernel.version}";
@@ -105,11 +103,11 @@ let
       compressFirmware = false;
     };
 
-    meta = with lib; {
+    meta = {
       maintainers = with lib.maintainers; [ xddxdd ];
       homepage = "https://www.nvidia.com/object/unix.html";
       description = "NVIDIA vGPU guest driver (GRID driver, experimental package)";
-      license = licenses.unfreeRedistributable;
+      license = lib.licenses.unfreeRedistributable;
       platforms = [ "x86_64-linux" ];
     };
   };

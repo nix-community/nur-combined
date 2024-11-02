@@ -3,7 +3,6 @@
   lib,
   sources,
   cmake,
-  ...
 }:
 stdenv.mkDerivation rec {
   inherit (sources.libltnginx) pname version src;
@@ -20,10 +19,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Libltnginx";
     homepage = "https://github.com/xddxdd/libltnginx";
-    license = licenses.gpl3Only;
+    license = lib.licenses.gpl3Only;
   };
 }

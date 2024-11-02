@@ -2,7 +2,6 @@
   nftables,
   lib,
   libnftnl-fullcone,
-  ...
 }:
 (nftables.override { libnftnl = libnftnl-fullcone; }).overrideAttrs (old: {
   patches = (old.patches or [ ]) ++ [

@@ -2,7 +2,6 @@
   lib,
   sources,
   python3Packages,
-  ...
 }:
 with python3Packages;
 buildPythonPackage rec {
@@ -16,10 +15,10 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Log level parameter type for Click";
     homepage = "https://github.com/jwodder/click-loglevel";
-    license = with licenses; [ mit ];
+    license = with lib.licenses; [ mit ];
   };
 }

@@ -28,7 +28,6 @@
   taglib,
   udev,
   xorg,
-  ...
 }:
 # Modified from:
 # - https://github.com/NixOS-CN/flakes/blob/main/packages/netease-cloud-music/default.nix

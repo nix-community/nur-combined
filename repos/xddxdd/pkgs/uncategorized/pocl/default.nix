@@ -60,12 +60,12 @@ stdenv.mkDerivation {
     ocl-icd
   ];
 
-  meta = with lib; {
+  meta = {
     mainProgram = "poclcc";
     description = "Portable open source (MIT-licensed) implementation of the OpenCL standard";
     homepage = "http://portablecl.org";
-    license = licenses.mit;
-    maintainers = with maintainers; [
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [
       jansol
       xddxdd
     ];

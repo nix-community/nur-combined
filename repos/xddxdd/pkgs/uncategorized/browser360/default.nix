@@ -60,7 +60,6 @@
   udev,
   util-linux,
   xorg,
-  ...
 }:
 let
   libraries = [
@@ -237,7 +236,7 @@ stdenv.mkDerivation {
       "$out/share/applications/com.360.browser-stable.desktop"
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "360 Browser";
     homepage = "https://browser.360.net/gc/index.html";
@@ -245,7 +244,7 @@ stdenv.mkDerivation {
       "x86_64-linux"
       "aarch64-linux"
     ];
-    license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.unfree;
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
 }

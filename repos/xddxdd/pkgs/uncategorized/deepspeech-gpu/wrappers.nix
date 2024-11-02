@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
   makeWrapper,
-  ...
 }:
 let
   deepspeech = callPackage ./default.nix { };

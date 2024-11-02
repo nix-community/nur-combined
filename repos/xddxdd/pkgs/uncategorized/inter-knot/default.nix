@@ -16,7 +16,6 @@
   gtk3,
   harfbuzz,
   pango,
-  ...
 }:
 stdenv.mkDerivation {
   inherit (sources.inter-knot) pname version src;

@@ -2,7 +2,6 @@
   stdenvNoCC,
   lib,
   fetchurl,
-  ...
 }:
 let
   kaixinsong-a = fetchurl {
@@ -27,7 +26,7 @@ stdenvNoCC.mkDerivation rec {
       $out/share/fonts/truetype/
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "KaiXinSong";
     homepage = "http://www.guoxuedashi.net/zidian/bujian/KaiXinSong.php";

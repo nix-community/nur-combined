@@ -2,7 +2,6 @@
   stdenv,
   sources,
   lib,
-  ...
 }:
 stdenv.mkDerivation rec {
   inherit (sources.netns-exec) pname version src;
@@ -22,10 +21,10 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Run command in Linux network namespace as normal user";
     homepage = "https://github.com/pekman/netns-exec";
-    license = licenses.gpl2Only;
+    license = lib.licenses.gpl2Only;
   };
 }

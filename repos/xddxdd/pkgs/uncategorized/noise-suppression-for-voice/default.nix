@@ -25,7 +25,6 @@
   vtk,
   webkitgtk,
   xorg,
-  ...
 }:
 stdenv.mkDerivation rec {
   inherit (sources.noise-suppression-for-voice) pname version src;
@@ -62,10 +61,10 @@ stdenv.mkDerivation rec {
     xorg.libXtst
   ];
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Noise suppression plugin based on Xiph's RNNoise";
     homepage = "https://github.com/werman/noise-suppression-for-voice";
-    license = licenses.gpl3Only;
+    license = lib.licenses.gpl3Only;
   };
 }

@@ -6,7 +6,6 @@
   jre_headless,
   procps,
   makeWrapper,
-  ...
 }:
 let
   resources = sources.grasscutter-resources.src;
@@ -53,10 +52,10 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Server software reimplementation for a certain anime game";
     homepage = "https://github.com/Grasscutters/Grasscutter";
-    license = with licenses; [ agpl3Only ];
+    license = with lib.licenses; [ agpl3Only ];
   };
 }

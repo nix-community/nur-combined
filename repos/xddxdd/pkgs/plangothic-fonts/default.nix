@@ -20,11 +20,11 @@ let
         runHook postInstall
       '';
 
-      meta = with lib; {
+      meta = {
         maintainers = with lib.maintainers; [ xddxdd ];
         description = "Plangothic Project";
         homepage = "https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic";
-        license = licenses.ofl;
+        license = lib.licenses.ofl;
       };
     };
 in

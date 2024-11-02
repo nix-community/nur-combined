@@ -4,7 +4,6 @@
   lib,
   _meta,
   _packages,
-  ...
 }:
 let
   inherit (callPackage ../../../helpers/flatten-pkgs.nix { })

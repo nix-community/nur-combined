@@ -4,7 +4,6 @@
   python3Packages,
   click-loglevel,
   py-rcon,
-  ...
 }:
 with python3Packages;
 buildPythonApplication rec {
@@ -29,11 +28,11 @@ buildPythonApplication rec {
 
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     mainProgram = "palworld_exporter";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Prometheus exporter for Palword Server";
     homepage = "https://github.com/palworldlol/palworld-exporter";
-    license = with licenses; [ mit ];
+    license = with lib.licenses; [ mit ];
   };
 }

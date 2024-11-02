@@ -6,7 +6,6 @@
   persistencedSha256,
   persistencedVersion,
   patches ? [ ],
-  ...
 }:
 {
   lib,
@@ -18,7 +17,6 @@
   nukeReferences,
   which,
   libarchive,
-  ...
 }:
 let
   nameSuffix = "-${kernel.version}";
@@ -96,11 +94,11 @@ let
       compressFirmware = false;
     };
 
-    meta = with lib; {
+    meta = {
       maintainers = with lib.maintainers; [ xddxdd ];
       homepage = "https://www.nvidia.com/object/unix.html";
       description = "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)";
-      license = licenses.unfreeRedistributable;
+      license = lib.licenses.unfreeRedistributable;
       platforms = [ "x86_64-linux" ];
     };
   };

@@ -5,7 +5,6 @@
   makeWrapper,
   python3,
   flasgger,
-  ...
 }:
 let
   pythonEnv = python3.withPackages (
@@ -45,11 +44,11 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Douban API server that provides an unofficial APIs for media information gathering";
     homepage = "https://github.com/caryyu/douban-openapi-server";
-    license = with licenses; [ mit ];
+    license = with lib.licenses; [ mit ];
     broken = true;
   };
 }

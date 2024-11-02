@@ -10,7 +10,6 @@
   libappindicator,
   libdbusmenu,
   libglvnd,
-  ...
 }:
 ################################################################################
 # Mostly based on baidnetdisk-electron package from AUR:
@@ -107,11 +106,11 @@ stdenv.mkDerivation {
     })
   ];
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Baidu Netdisk";
     homepage = "https://pan.baidu.com/";
     platforms = [ "x86_64-linux" ];
-    license = licenses.unfreeRedistributable;
+    license = lib.licenses.unfreeRedistributable;
   };
 }

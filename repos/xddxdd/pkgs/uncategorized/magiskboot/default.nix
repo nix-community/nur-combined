@@ -39,10 +39,10 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms";
     homepage = "https://topjohnwu.github.io/Magisk/tools.html";
-    license = with licenses; [ gpl3Only ];
+    license = with lib.licenses; [ gpl3Only ];
   };
 }

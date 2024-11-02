@@ -2,7 +2,6 @@
   libnftnl,
   lib,
   autoreconfHook,
-  ...
 }:
 libnftnl.overrideAttrs (old: {
   nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ autoreconfHook ];

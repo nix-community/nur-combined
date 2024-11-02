@@ -19,7 +19,6 @@
   pciutils,
   systemd,
   xorg,
-  ...
 }:
 let
   libraries = [
@@ -85,7 +84,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "QQ for Linux";
     homepage = "https://im.qq.com/linuxqq/index.html";
@@ -93,6 +92,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "aarch64-linux"
     ];
-    license = licenses.unfreeRedistributable;
+    license = lib.licenses.unfreeRedistributable;
   };
 }

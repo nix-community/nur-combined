@@ -3,7 +3,6 @@
   fetchurl,
   # Dependencies
   libvlc,
-  ...
 }:
 # Source: https://aur.archlinux.org/packages/netease-cloud-music
 stdenv.mkDerivation {

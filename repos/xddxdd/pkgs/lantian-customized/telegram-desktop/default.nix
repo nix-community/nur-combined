@@ -2,7 +2,6 @@
   sources,
   lib,
   telegram-desktop,
-  ...
 }:
 telegram-desktop.overrideAttrs (old: {
   # Patches obtained from https://github.com/Layerex/telegram-desktop-patches

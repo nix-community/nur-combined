@@ -2,7 +2,6 @@
   stdenvNoCC,
   sources,
   lib,
-  ...
 }:
 stdenvNoCC.mkDerivation rec {
   inherit (sources.rime-zhwiki) pname version src;
@@ -16,10 +15,10 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Fcitx 5 Pinyin Dictionary from zh.wikipedia.org";
     homepage = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki";
-    license = licenses.unlicense;
+    license = lib.licenses.unlicense;
   };
 }

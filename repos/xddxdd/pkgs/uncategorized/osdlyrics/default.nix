@@ -13,7 +13,6 @@
   gtk2,
   libnotify,
   python3,
-  ...
 }:
 let
   osdlyricsPython = python3Packages.buildPythonPackage rec {
@@ -80,10 +79,10 @@ stdenv.mkDerivation rec {
     rm -rf $out/lib/python*
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Standalone lyrics fetcher/displayer (windowed and OSD mode)";
     homepage = "https://github.com/osdlyrics/osdlyrics";
-    license = licenses.gpl3Only;
+    license = lib.licenses.gpl3Only;
   };
 }

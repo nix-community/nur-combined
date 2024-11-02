@@ -4,7 +4,6 @@
   lib,
   cmake,
   qt5,
-  ...
 }:
 stdenv.mkDerivation rec {
   inherit (sources.qhttpengine) pname version src;
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ qt5.qtbase ];
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "HTTP server for Qt applications";
     homepage = "https://github.com/nitroshare/qhttpengine";

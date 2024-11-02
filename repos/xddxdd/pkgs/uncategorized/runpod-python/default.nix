@@ -40,11 +40,11 @@ python3Packages.buildPythonPackage {
 
   pythonImportsCheck = [ "runpod" ];
 
-  meta = with lib; {
+  meta = {
     description = "Python library for RunPod API and serverless worker SDK";
     homepage = "https://github.com/runpod/runpod-python";
-    license = licenses.mit;
-    maintainers = with maintainers; [ xddxdd ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ xddxdd ];
     mainProgram = "runpod";
   };
 }

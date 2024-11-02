@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
   p7zip,
-  ...
 }:
 let
   unpack =
@@ -62,11 +61,11 @@ in
       cp "''$(find . -name \*-vgpu-kvm.run)" $out
     '';
 
-    meta = with lib; {
+    meta = {
       maintainers = with lib.maintainers; [ xddxdd ];
       homepage = "https://www.nvidia.com/object/unix.html";
       description = "NVIDIA vGPU host driver (vGPU-KVM driver) installer";
-      license = licenses.unfreeRedistributable;
+      license = lib.licenses.unfreeRedistributable;
       platforms = [ "x86_64-linux" ];
     };
   };
@@ -77,11 +76,11 @@ in
       cp "''$(find . -name \*-grid.run)" $out
     '';
 
-    meta = with lib; {
+    meta = {
       maintainers = with lib.maintainers; [ xddxdd ];
       homepage = "https://www.nvidia.com/object/unix.html";
       description = "NVIDIA vGPU guest driver (GRID driver) installer";
-      license = licenses.unfreeRedistributable;
+      license = lib.licenses.unfreeRedistributable;
       platforms = [ "x86_64-linux" ];
     };
   };

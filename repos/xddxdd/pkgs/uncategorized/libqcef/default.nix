@@ -21,7 +21,6 @@
   pango,
   qt5,
   xorg,
-  ...
 }:
 let
   libraries = [

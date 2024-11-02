@@ -2,7 +2,6 @@
   lib,
   stdenvNoCC,
   sources,
-  ...
 }:
 let
   configFile = ./config.inc.php;
@@ -21,10 +20,10 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Web interface for MySQL and MariaDB";
     homepage = "https://www.phpmyadmin.net/";
-    license = licenses.gpl2Only;
+    license = lib.licenses.gpl2Only;
   };
 }

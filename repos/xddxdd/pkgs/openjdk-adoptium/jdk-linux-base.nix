@@ -112,9 +112,9 @@ let
 
     passthru.home = result;
 
-    meta = with lib; {
+    meta = {
       maintainers = with lib.maintainers; [ xddxdd ];
-      license = licenses.gpl2Classpath;
+      license = lib.licenses.gpl2Classpath;
       description = "OpenJDK binaries built by Eclipse Adoptium";
       homepage = "https://adoptium.net/";
       platforms = lib.mapAttrsToList (arch: _: arch + "-linux") sources; # some inherit jre.meta.platforms

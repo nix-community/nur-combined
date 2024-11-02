@@ -3,7 +3,6 @@
   sources,
   lib,
   fuse,
-  ...
 }:
 stdenv.mkDerivation rec {
   inherit (sources.nullfs) pname version src;
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "FUSE nullfs drivers";
     homepage = "https://github.com/xrgtn/nullfs";

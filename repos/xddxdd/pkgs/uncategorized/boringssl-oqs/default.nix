@@ -8,7 +8,6 @@
   perl,
   pkg-config,
   liboqs-unstable,
-  ...
 }:
 let
   # CMAKE_OSX_ARCHITECTURES is set to x86_64 by Nix, but it confuses boringssl on aarch64-linux.
@@ -80,12 +79,12 @@ buildGoModule {
     "dev"
   ];
 
-  meta = with lib; {
+  meta = {
     mainProgram = "bssl";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs";
     homepage = "https://openquantumsafe.org";
-    license = with licenses; [
+    license = with lib.licenses; [
       openssl
       isc
       mit

@@ -6,7 +6,6 @@
   curl,
   inetutils,
   which,
-  ...
 }:
 let
   additionalPath = lib.makeBinPath [
@@ -33,10 +32,10 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "DN42 Pingfinder";
     homepage = "https://git.dn42.dev/dn42/pingfinder/src/branch/master/clients";
-    license = licenses.unfreeRedistributable;
+    license = lib.licenses.unfreeRedistributable;
   };
 }

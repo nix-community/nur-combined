@@ -2,7 +2,6 @@
   sources,
   lib,
   transmission_4,
-  ...
 }:
 transmission_4.overrideAttrs (old: {
   postInstall =

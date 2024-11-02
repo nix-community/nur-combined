@@ -23,7 +23,6 @@
   zstd,
   # extra args to make nixpkgs happy
   modules ? [ ],
-  ...
 }:
 let
   patchUseOpensslMd5Sha1 = fetchurl {
@@ -179,10 +178,10 @@ stdenv.mkDerivation rec {
     inherit modules;
   };
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "OpenResty with Lan Tian modifications";
     homepage = "https://openresty.org";
-    license = licenses.bsd2;
+    license = lib.licenses.bsd2;
   };
 }

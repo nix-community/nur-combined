@@ -2,7 +2,6 @@
   lib,
   stdenvNoCC,
   sources,
-  ...
 }:
 let
   configFile = ./config.inc.php;
@@ -23,10 +22,10 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Premier web-based administration tool for PostgreSQL";
     homepage = "https://github.com/phppgadmin/phppgadmin";
-    license = licenses.gpl2Only;
+    license = lib.licenses.gpl2Only;
   };
 }

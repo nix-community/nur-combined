@@ -28,7 +28,7 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "TianHeng ${pname} font";
     homepage = "http://cheonhyeong.com/Simplified/download.html";

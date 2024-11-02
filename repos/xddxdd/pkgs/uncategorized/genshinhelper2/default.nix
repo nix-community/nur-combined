@@ -3,7 +3,6 @@
   sources,
   python3Packages,
   gettext,
-  ...
 }:
 with python3Packages;
 buildPythonPackage rec {
@@ -20,11 +19,11 @@ buildPythonPackage rec {
   ];
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     mainProgram = "genshinhelper";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Python library for miHoYo bbs and HoYoLAB Community";
     homepage = "https://gitlab.com/y1ndan/genshinhelper2";
-    license = with licenses; [ gpl3Only ];
+    license = with lib.licenses; [ gpl3Only ];
   };
 }

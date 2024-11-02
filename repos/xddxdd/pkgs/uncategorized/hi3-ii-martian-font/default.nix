@@ -2,7 +2,6 @@
   stdenvNoCC,
   lib,
   sources,
-  ...
 }:
 stdenvNoCC.mkDerivation rec {
   inherit (sources.hi3-ii-martian-font) pname version src;
@@ -16,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Font for Martian in Honkai Impact 3rd";
     homepage = "https://github.com/Wenti-D/HI3IIMartianFont";

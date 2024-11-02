@@ -2,7 +2,6 @@
   stdenvNoCC,
   sources,
   lib,
-  ...
 }:
 stdenvNoCC.mkDerivation rec {
   inherit (sources.rime-dict) pname version src;
@@ -15,7 +14,7 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "RIME 词库增强";
     homepage = "https://github.com/Iorest/rime-dict";

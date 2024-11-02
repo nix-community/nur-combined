@@ -4,7 +4,6 @@
   lib,
   python3,
   makeWrapper,
-  ...
 }:
 let
   py = python3.withPackages (
@@ -32,10 +31,10 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed";
     homepage = "https://github.com/ManiMatter/decluttarr";
-    license = with licenses; [ gpl3Only ];
+    license = with lib.licenses; [ gpl3Only ];
   };
 }

@@ -3,7 +3,6 @@
   linkFarm,
   runCommand,
   imagemagick,
-  ...
 }:
 let
   resizeIcon =
@@ -53,11 +52,11 @@ in
   )
 ))
 // {
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Custom icon \"Mikozilla Fireyae\" for Firefox";
     homepage = "https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/";
     # Upstream did not specify license
-    license = licenses.unfreeRedistributable;
+    license = lib.licenses.unfreeRedistributable;
   };
 }

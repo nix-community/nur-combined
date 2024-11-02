@@ -3,7 +3,6 @@
   lib,
   librime,
   luajit,
-  ...
 }:
 (librime.override {
   plugins = [

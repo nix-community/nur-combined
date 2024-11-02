@@ -31,11 +31,11 @@ version: hashes:
 let
   pname = "electron";
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Cross platform desktop application shell";
     homepage = "https://github.com/electron/electron";
-    license = licenses.mit;
+    license = lib.licenses.mit;
     mainProgram = "electron";
     platforms =
       [
@@ -44,10 +44,10 @@ let
         "armv7l-linux"
         "aarch64-linux"
       ]
-      ++ optionals (versionAtLeast version "11.0.0") [ "aarch64-darwin" ]
-      ++ optionals (versionOlder version "19.0.0") [ "i686-linux" ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    knownVulnerabilities = optional (versionOlder version "27.0.0") "Electron version ${version} is EOL";
+      ++ lib.optionals (lib.versionAtLeast version "11.0.0") [ "aarch64-darwin" ]
+      ++ lib.optionals (lib.versionOlder version "19.0.0") [ "i686-linux" ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    knownVulnerabilities = lib.optional (lib.versionOlder version "27.0.0") "Electron version ${version} is EOL";
   };
 
   fetcher =

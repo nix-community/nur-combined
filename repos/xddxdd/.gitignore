@@ -6,3 +6,6 @@ trace.txt*
 .direnv
 *.log
 .pre-commit-config.yaml
+update-git-commits.txt
+*.cmp
+*.fetchlog

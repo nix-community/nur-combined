@@ -23,12 +23,12 @@ rustPlatform.buildRustPackage {
     openssl
   ];
 
-  meta = with lib; {
+  meta = {
     mainProgram = "lyrica";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Linux desktop lyrics widget focused on simplicity and integration";
     homepage = "https://github.com/chiyuki0325/lyrica";
     # Upsteam did not specify license
-    license = licenses.unfreeRedistributable;
+    license = lib.licenses.unfreeRedistributable;
   };
 }

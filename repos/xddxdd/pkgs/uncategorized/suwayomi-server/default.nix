@@ -5,7 +5,6 @@
   unzip,
   jre_headless,
   makeWrapper,
-  ...
 }:
 stdenvNoCC.mkDerivation rec {
   inherit (sources.suwayomi-server) pname src;
@@ -37,10 +36,10 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Rewrite of Tachiyomi for the Desktop";
     homepage = "https://github.com/Suwayomi/Suwayomi-Server";
-    license = licenses.mpl20;
+    license = lib.licenses.mpl20;
   };
 }

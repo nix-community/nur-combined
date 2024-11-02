@@ -6,7 +6,6 @@
   cmake,
   ninja,
   enableNvidia530Patch ? false,
-  ...
 }:
 let
   zycoreOld = stdenv.mkDerivation rec {
@@ -107,14 +106,14 @@ stdenv.mkDerivation {
     "-DLIEF_LIBRARIES=${liefOld}/lib/libLIEF.a"
   ];
 
-  meta = with lib; {
+  meta = {
     mainProgram = "nvlax_encode";
     maintainers = with lib.maintainers; [ xddxdd ];
     description =
       "Future-proof NvENC & NvFBC patcher"
       + lib.optionalString enableNvidia530Patch " (for NVIDIA driver >= 530)";
     homepage = "https://github.com/illnyang/nvlax";
-    license = with licenses; [ gpl3Only ];
+    license = with lib.licenses; [ gpl3Only ];
     # broken = true;
   };
 }

@@ -3,7 +3,6 @@
   lib,
   sources,
   kernel,
-  ...
 }:
 stdenv.mkDerivation rec {
   pname = "i915-sriov";

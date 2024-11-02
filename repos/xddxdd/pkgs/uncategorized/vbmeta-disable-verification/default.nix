@@ -2,7 +2,6 @@
   stdenv,
   sources,
   lib,
-  ...
 }:
 stdenv.mkDerivation rec {
   inherit (sources.vbmeta-disable-verification) pname version src;
@@ -22,10 +21,10 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Patch Android vbmeta image and disable verification flags inside";
     homepage = "https://github.com/libxzr/vbmeta-disable-verification";
-    license = licenses.mit;
+    license = lib.licenses.mit;
   };
 }

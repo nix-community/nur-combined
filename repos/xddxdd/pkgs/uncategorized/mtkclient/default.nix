@@ -4,7 +4,6 @@
   python3,
   python3Packages,
   keystone,
-  ...
 }:
 python3Packages.buildPythonPackage rec {
   inherit (sources.mtkclient) pname version src;
@@ -40,11 +39,11 @@ python3Packages.buildPythonPackage rec {
     cp -r mtkclient $out/lib/python${python3.pythonVersion}/site-packages/
   '';
 
-  meta = with lib; {
+  meta = {
     mainProgram = "mtk";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "MTK reverse engineering and flash tool";
     homepage = "https://github.com/bkerler/mtkclient";
-    license = with licenses; [ gpl3Only ];
+    license = with lib.licenses; [ gpl3Only ];
   };
 }

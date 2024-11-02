@@ -3,7 +3,6 @@
   lib,
   fetchurl,
   unzip,
-  ...
 }:
 stdenv.mkDerivation rec {
   pname = "3gpp-evs";
@@ -35,10 +34,10 @@ stdenv.mkDerivation rec {
     cc -shared -o $out/lib/lib3gpp-evs.so ./build/*.o
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "3GPP EVS Reference Implementation";
     homepage = "https://webapp.etsi.org/key/key.asp?GSMSpecPart1=26&GSMSpecPart2=443";
-    license = licenses.unfree;
+    license = lib.licenses.unfree;
   };
 }

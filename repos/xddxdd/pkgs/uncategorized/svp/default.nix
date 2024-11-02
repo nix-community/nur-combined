@@ -24,7 +24,6 @@
   zenity,
   # MPV dependencies
   mpv-unwrapped,
-  ...
 }:
 ################################################################################
 # Based on svp package from AUR:
@@ -153,13 +152,13 @@ stdenv.mkDerivation {
     })
   ];
 
-  meta = with lib; {
+  meta = {
     mainProgram = "SVPManager";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player";
     homepage = "https://www.svp-team.com/wiki/SVP:Linux";
     platforms = [ "x86_64-linux" ];
-    license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    license = lib.licenses.unfree;
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
 }

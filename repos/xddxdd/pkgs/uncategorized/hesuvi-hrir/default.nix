@@ -3,7 +3,6 @@
   lib,
   fetchurl,
   p7zip,
-  ...
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "hesuvi-hrir";
@@ -24,10 +23,10 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Headphone Surround Virtualizations for Equalizer APO";
     homepage = "https://sourceforge.net/projects/hesuvi/";
-    license = licenses.free;
+    license = lib.licenses.free;
   };
 }

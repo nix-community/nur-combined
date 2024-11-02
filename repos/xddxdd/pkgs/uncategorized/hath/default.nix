@@ -4,7 +4,6 @@
   lib,
   jre_headless,
   makeWrapper,
-  ...
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "hath";
@@ -32,10 +31,10 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Hentai@Home";
     homepage = "https://e-hentai.org/";
-    license = licenses.gpl3Only;
+    license = lib.licenses.gpl3Only;
   };
 }

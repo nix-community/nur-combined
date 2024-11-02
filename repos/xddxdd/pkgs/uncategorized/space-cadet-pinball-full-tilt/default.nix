@@ -3,7 +3,6 @@
   lib,
   space-cadet-pinball,
   unzip,
-  ...
 }:
 let
   fullTilt = fetchurl {

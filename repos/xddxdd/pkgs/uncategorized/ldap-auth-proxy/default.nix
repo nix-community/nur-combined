@@ -2,7 +2,6 @@
   sources,
   lib,
   buildGoModule,
-  ...
 }:
 buildGoModule {
   inherit (sources.ldap-auth-proxy) pname version src;
@@ -13,10 +12,10 @@ buildGoModule {
     cp ${./go.sum} go.sum
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend";
     homepage = "https://github.com/pinepain/ldap-auth-proxy";
-    license = licenses.mit;
+    license = lib.licenses.mit;
   };
 }

@@ -4,7 +4,6 @@
   electron,
   lib,
   makeWrapper,
-  ...
 }:
 let
   res = "${sources.bilibili-src.src}/res";
@@ -36,10 +35,10 @@ stdenv.mkDerivation rec {
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform --ozone-platform=wayland}}"
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Bilibili desktop client";
     homepage = "https://app.bilibili.com/";
-    license = licenses.unfreeRedistributable;
+    license = lib.licenses.unfreeRedistributable;
   };
 }

@@ -4,7 +4,6 @@
   lib,
   python3,
   win2xcur,
-  ...
 }:
 let
   py = python3.withPackages (p: [
@@ -34,7 +33,7 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Original mouse cursors (pointers) for Windows, with minimalistic design";
     homepage = "https://github.com/SamToki/IconDesign---Sam-Toki-Mouse-Cursors";

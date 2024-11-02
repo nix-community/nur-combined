@@ -3,7 +3,6 @@
   mpv-unwrapped,
   ocl-icd,
   vapoursynth,
-  ...
 }:
 let
   libraries = [ ocl-icd ];

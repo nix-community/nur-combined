@@ -17,10 +17,10 @@ rustPlatform.buildRustPackage {
     install -Dm644 ${./Cargo.lock} Cargo.lock
   '';
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Unlock vGPU functionality for consumer grade GPUs";
     homepage = "https://github.com/mbilker/vgpu_unlock-rs";
-    license = licenses.mit;
+    license = lib.licenses.mit;
   };
 }

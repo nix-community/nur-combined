@@ -1,4 +1,5 @@
-_: {
+{ inputs, ... }:
+{
   perSystem =
     {
       pkgs,
@@ -59,6 +60,14 @@ _: {
           exit 1
         '';
 
+        nix-update = ''
+          nix-shell \
+            ${inputs.nixpkgs.outPath}/maintainers/scripts/update.nix \
+            --arg include-overlays "[(final: prev: import $(pwd)/pkgs null { pkgs = prev; })]" \
+            --argstr skip-prompt true \
+            --argstr path "$@"
+        '';
+
         nvfetcher = ''
           set -euo pipefail
           KEY_FLAG=""
@@ -66,6 +75,12 @@ _: {
           [ -f "secrets.toml" ] && KEY_FLAG="$KEY_FLAG -k secrets.toml"
           export PYTHONPATH=${pkgs.python3Packages.packaging}/lib/python${pkgs.python3.pythonVersion}/site-packages:''${PYTHONPATH:-}
           ${inputs'.nvfetcher.packages.default}/bin/nvfetcher $KEY_FLAG -c nvfetcher.toml -o _sources "$@"
+
+          # Postprocess _sources/generated.nix
+          sed -i "/ = false;/d" _sources/generated.nix
+          sed -i "/ = \[ \];/d" _sources/generated.nix
+          sed -i "s/sha256 = \"/hash = \"/g" _sources/generated.nix
+
           ${readme}
         '';
 

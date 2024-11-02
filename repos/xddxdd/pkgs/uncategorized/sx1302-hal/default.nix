@@ -2,7 +2,6 @@
   stdenv,
   sources,
   lib,
-  ...
 }:
 stdenv.mkDerivation rec {
   inherit (sources.sx1302-hal) pname version src;
@@ -24,11 +23,11 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     mainProgram = "lora_pkt_fwd";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "SX1302/SX1303 Hardware Abstraction Layer and Tools (packet forwarder...)";
     homepage = "https://github.com/NebraLtd/sx1302_hal";
-    license = licenses.unfreeRedistributable;
+    license = lib.licenses.unfreeRedistributable;
   };
 }

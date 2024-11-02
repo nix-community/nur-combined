@@ -3,7 +3,6 @@
   lib,
   fetchurl,
   kernel,
-  ...
 }:
 stdenv.mkDerivation rec {
   pname = "ast";

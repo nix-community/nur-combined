@@ -20,7 +20,6 @@ sha256:
   nvidia_x11,
   withGtk2 ? false,
   withGtk3 ? true,
-  ...
 }:
 let
   src = fetchFromGitHub {
@@ -140,11 +139,11 @@ stdenv.mkDerivation {
     inherit libXNVCtrl;
   };
 
-  meta = with lib; {
+  meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     homepage = "https://www.nvidia.com/object/unix.html";
     description = "Settings application for NVIDIA graphics cards";
-    license = licenses.unfreeRedistributable;
+    license = lib.licenses.unfreeRedistributable;
     inherit (nvidia_x11.meta) platforms;
   };
 }
