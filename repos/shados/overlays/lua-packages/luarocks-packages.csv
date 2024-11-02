@@ -2,9 +2,11 @@ name,rockspec,ref,server,version,luaversion,maintainers
 cmark,,,,,,arobyn
 copas,,,,,,arobyn
 etlua,,,,,,arobyn
+jsonschema,,,,,,arobyn
 inotify,,,,,,arobyn
 lcmark,,,,,,arobyn
 loadkit,,,,,,arobyn
+lrexlib-pcre,,,,,,arobyn
 lua-ev,,,,,,arobyn
 lua-filesize,,,,,,arobyn
 lua-testmore,,,,,,arobyn
@@ -15,6 +17,7 @@ mobdebug,,,,,,arobyn
 moonpick,,,,,,arobyn
 moonscript,,,,,,arobyn
 moor,,,,,,arobyn
+net-url,,,,,,arobyn
 optparse,,,,,,arobyn
 pegdebug,,,,,,arobyn
 spawn,,,,,,arobyn

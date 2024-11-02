@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
-nix run nixpkgs#luarocks-packages-updater -- --input-names ./luarocks-packages.csv --out ./generated-packages.nix --debug DEBUG --proc 8 --no-commit
+SOURCE_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
+nix run 'nixpkgs#luarocks-packages-updater' -- --input-names "$SOURCE_DIR/luarocks-packages.csv" --out "$SOURCE_DIR/generated-packages.nix" --debug DEBUG --proc 1 --no-commit
 # vim: set ft=sh :

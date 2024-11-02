@@ -11,7 +11,7 @@ buildLuarocksPackage {
   pname = "cmark";
   version = "0.31.1-1";
   knownRockspec = (fetchurl {
-    url    = "https://raw.githubusercontent.com/rocks-moonscript-org/moonrocks-mirror/master/cmark-0.31.1-1.rockspec";
+    url    = "mirror://luarocks/cmark-0.31.1-1.rockspec";
     sha256 = "00wdbvx3gmh7f08d2a5kvpa687rc922n5zgzxxqrip3xhll9hzwm";
   }).outPath;
   src = fetchFromGitHub {
@@ -105,6 +105,31 @@ buildLuarocksPackage {
   };
 }) {};
 
+jsonschema = callPackage({ buildLuarocksPackage, fetchFromGitHub, fetchurl, lrexlib-pcre, net-url }:
+buildLuarocksPackage {
+  pname = "jsonschema";
+  version = "0.9.9-0";
+  knownRockspec = (fetchurl {
+    url    = "mirror://luarocks/jsonschema-0.9.9-0.rockspec";
+    sha256 = "1mzlnplcxfv08md0z6hbvsj0bz9ag4q3vlkxxna5g70rxaaja8pc";
+  }).outPath;
+  src = fetchFromGitHub {
+    owner = "iresty";
+    repo = "jsonschema";
+    rev = "v0.9.9";
+    hash = "sha256-BRb65w5q4UL7pCId/gXpN/2ROfczIekFWQ8n2/oP2Qk=";
+  };
+
+  propagatedBuildInputs = [ lrexlib-pcre net-url ];
+
+  meta = {
+    homepage = "https://github.com/iresty/jsonschema";
+    description = "JSON Schema data validator";
+    maintainers = with lib.maintainers; [ arobyn ];
+    license.fullName = "Apache License 2.0";
+  };
+}) {};
+
 lcmark = callPackage({ buildLuarocksPackage, cmark, fetchFromGitHub, fetchurl, lpeg, luaOlder, optparse }:
 buildLuarocksPackage {
   pname = "lcmark";
@@ -154,6 +179,31 @@ buildLuarocksPackage {
     description = "Loadkit allows you to load arbitrary files within the Lua package path";
     maintainers = with lib.maintainers; [ arobyn ];
     license.fullName = "MIT";
+  };
+}) {};
+
+lrexlib-pcre = callPackage({ buildLuarocksPackage, fetchFromGitHub, fetchurl, luaOlder }:
+buildLuarocksPackage {
+  pname = "lrexlib-pcre";
+  version = "2.9.2-1";
+  knownRockspec = (fetchurl {
+    url    = "mirror://luarocks/lrexlib-pcre-2.9.2-1.rockspec";
+    sha256 = "1214ssm6apgprryqvijjjn82ikb27ylq94yijqf7qjyiy6pz7dc1";
+  }).outPath;
+  src = fetchFromGitHub {
+    owner = "rrthomas";
+    repo = "lrexlib";
+    rev = "rel-2-9-2";
+    hash = "sha256-DzNDve+xeKb+kAcW+o7GK/RsoDhaDAVAWAhgjISCyZc=";
+  };
+
+  disabled = luaOlder "5.1";
+
+  meta = {
+    homepage = "https://github.com/rrthomas/lrexlib";
+    description = "Regular expression library binding (PCRE flavour).";
+    maintainers = with lib.maintainers; [ arobyn ];
+    license.fullName = "MIT/X11";
   };
 }) {};
 
@@ -403,6 +453,31 @@ buildLuarocksPackage {
     description = "MoonScript REPL";
     maintainers = with lib.maintainers; [ arobyn ];
     license.fullName = "MIT";
+  };
+}) {};
+
+net-url = callPackage({ buildLuarocksPackage, fetchFromGitHub, fetchurl, luaOlder }:
+buildLuarocksPackage {
+  pname = "net-url";
+  version = "1.1-1";
+  knownRockspec = (fetchurl {
+    url    = "mirror://luarocks/net-url-1.1-1.rockspec";
+    sha256 = "0jwwmgr7ppdkxgzk0k0c530r9sac8463nxwl1yz25sbck10zr50i";
+  }).outPath;
+  src = fetchFromGitHub {
+    owner = "golgote";
+    repo = "neturl";
+    rev = "v1.1-1";
+    hash = "sha256-OWw5S82Qztal30FWoap2j7BIws3IpnZHQ/X2ETT/9UA=";
+  };
+
+  disabled = luaOlder "5.1";
+
+  meta = {
+    homepage = "https://github.com/golgote/neturl";
+    description = "URL and Query string parser, builder, normalizer for Lua.";
+    maintainers = with lib.maintainers; [ arobyn ];
+    license.fullName = "MIT/X11";
   };
 }) {};
 

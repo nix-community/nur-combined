@@ -40,6 +40,12 @@ selfPkgs: superPkgs: let
       ];
     });
 
+    jsonschema = super.luaLib.overrideLuarocks super.jsonschema (oa: {
+      postConfigure =  ''
+        sed -Ei ''${rockspecFilename} -e 's|lrexlib-pcre = 2.9.1-1|lrexlib-pcre = 2.9.2-1|'
+      '';
+    });
+
     lcmark = super.luaLib.overrideLuarocks super.lcmark (oa: let
       version' = "0.29.0";
       revision = "2";
@@ -59,6 +65,12 @@ selfPkgs: superPkgs: let
 
     ldoc = super.luaLib.overrideLuarocks super.ldoc (oa: {
       src = pins.ldoc.outPath;
+    });
+
+    lrexlib-pcre = super.luaLib.overrideLuarocks super.lrexlib-pcre (oa: {
+      externalDeps = with selfPkgs; [
+        { name = "PCRE"; dep = pcre; }
+      ];
     });
 
     lua-ev = super.luaLib.overrideLuarocks super.lua-ev (oa: {
