@@ -59,7 +59,9 @@ in
       ];
     };
   };
-  environment.etc."sing-box/other.json".source = secrets."sb-config.json".path;
+  systemd.services.sing-box.preStart = ''
+    cp ${secrets."sb-config.json".path} /run/sing-box/other.json
+  '';
   sops.secrets."sb-config.json".restartUnits = [ "sing-box.service" ];
   services.v2ray-rules-dat.reloadServices = [ "sing-box.service" ];
 

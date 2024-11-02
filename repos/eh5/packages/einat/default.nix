@@ -21,6 +21,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-DBc6QS+GLB68er4GDCMCRIYyI1HSRJeUztF8lkcL1Wc=";
 
+  patches = [
+    ./0001-fix-ebpf-always-pull-first-header-bytes.patch
+  ];
+
   nativeBuildInputs = [
     pkg-config
     rustfmt
