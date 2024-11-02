@@ -18,6 +18,9 @@
       legacyPackages = forAllSystems (system: (import ./default.nix {
         pkgs = import nixpkgs { inherit system; };
       }));
+      darwinModules = {
+        caddy = ./modules/darwin/caddy;
+      };
       packages = forAllSystems (system:
         let
           pkgs = import nixpkgs { inherit system; };
