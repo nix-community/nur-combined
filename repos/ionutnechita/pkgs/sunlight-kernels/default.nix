@@ -77,6 +77,7 @@ buildLinux (args // rec {
       UHID = yes;
 
       SECURITY_APPARMOR_RESTRICT_USERNS = lib.mkForce no;
+      LRU_GEN_ENABLED = lib.mkForce no;
     };
 
     ignoreConfigErrors = true;
