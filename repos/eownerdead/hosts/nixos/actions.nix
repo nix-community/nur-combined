@@ -28,7 +28,7 @@ in
       tokenFile = sops.codebergOrgRunnerToken.path;
       settings.container = {
         network = "host";
-        options = "-e SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt -v /nix/:/nix/ -v /nix/var/nix/daemon-socket:/nix/var/nix/daemon-socket";
+        options = "-e NIX_REMOTE=daemon -v /nix/:/nix/ -v /nix/var/nix/daemon-socket:/nix/var/nix/daemon-socket";
         valid_volumes = [ "/nix/" ];
       };
     };

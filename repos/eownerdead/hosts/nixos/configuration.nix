@@ -16,7 +16,7 @@ in
     ../common/global-pkgs.nix
     ../common/hardened.nix
 
-    ./nginx.nix
+    ./caddy.nix
     ./actions.nix
     ./libretranslate.nix
   ];
@@ -28,6 +28,8 @@ in
     nvidia = true;
     sound = true;
     zfs = true;
+    tor = true;
+    dnsOverTor = true;
   };
 
   boot = {
@@ -64,10 +66,6 @@ in
     hostId = "8556b001";
     useNetworkd = true;
     useDHCP = false;
-    nameservers = [
-      "9.9.9.9"
-      "149.112.112.112"
-    ];
     defaultGateway = {
       interface = "enp42s0";
       address = "192.168.1.1";
@@ -160,6 +158,7 @@ in
       "wheel"
       "wireshark"
       "adbusers"
+      "tor"
     ];
   };
 

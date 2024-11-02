@@ -10,6 +10,7 @@ with lib;
     ./nix.nix
     ./nvidia.nix
     ./sound.nix
+    ./tor.nix
     ./zfs.nix
     ./zram.nix
   ];

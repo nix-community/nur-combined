@@ -314,6 +314,13 @@
                                     eldoc-documentation-strategy))
   (add-to-list 'eglot-server-programs '(nix-ts-mode . ("nixd"))))
 
+(use-package eglot-signature-eldoc-talkative
+  :ensure t
+  :after eglot
+  :init
+  (advice-add #'eglot-signature-eldoc-function
+              :override #'eglot-signature-eldoc-talkative))
+
 (use-package yasnippet
   :ensure t
   :custom
@@ -545,6 +552,8 @@
   :config
   (add-to-list 'completion-at-point-functions
                (cape-company-to-capf #'company-coq-master-backend) t))
+(use-package jupyter
+  :ensure t)
 
 (provide 'init)
 

@@ -5,6 +5,8 @@ in
 {
   imports = [ ./email.nix ];
 
+  home.packages = with pkgs; [ stgit ];
+
   programs.git = {
     enable = true;
     package = pkgs.gitFull;

@@ -1,8 +1,6 @@
 name: update-flake-lock
 on:
   workflow_dispatch:
-  push:
-    - main
   schedule:
     - cron: '0 0 * * *' # Run every days.
 
@@ -12,7 +10,6 @@ jobs:
     steps:
       - name: Install dependencies
         run: |-
-          export NIX_REMOTE=daemon
           echo /root/.nix-profile/bin/ >> $GITHUB_PATH
           nix profile install nixpkgs#tea
       - name: Checkout
