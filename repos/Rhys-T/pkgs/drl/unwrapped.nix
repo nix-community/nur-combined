@@ -55,10 +55,10 @@ in stdenv.mkDerivation rec {
                 mod = mod,
             }
         end)()"${lib.optionalString stdenv.isLinux '' \
-            --replace-fail 'os.execute_in_dir( "makewad", "bin" )' 'os.execute(". ${stdenv}/setup; autoPatchelf bin/makewad"); os.execute_in_dir( "makewad", "bin" )'
+            --replace-fail 'os.execute_in_dir( "makewad", "bin" )' 'os.execute("${stdenv.shell} -c \". ${stdenv}/setup; autoPatchelf bin/makewad\""); os.execute_in_dir( "makewad", "bin" )'
         ''}
         substituteInPlace "$FPCVALKYRIE_ROOT"/libs/vlualibrary.pas \
-            --replace-fail 'lua5.1.${libExt}' '${lib.getLib lua5_1}/lib/liblua.5.1.${libExt}'
+            --replace-fail 'lua5.1.${libExt}' '${lib.getLib lua5_1}/lib/${if stdenv.isDarwin then "liblua.5.1.dylib" else "liblua.so.5.1"}'
         substituteInPlace "$FPCVALKYRIE_ROOT"/libs/vsdl2library.pas \
             --replace-fail '${if stdenv.isDarwin then "SDL2.framework/SDL2" else "libSDL2-2.0.so.0"}' '${lib.getLib SDL2}/lib/libSDL2.${libExt}' \
             --replace-fail '{$linklib SDLmain}' '{.$linklib SDL2main}' \
