@@ -147,13 +147,16 @@ def validate_package_content(package_path: str, package: dict) -> bool:
         if not file.startswith(result_path):
             continue
 
-        main_program = package.get("mainProgram") or package_name
-        if os.path.exists(f"{file}/bin") and not os.path.exists(
-            f"{file}/bin/{main_program}"
-        ):
-            print(f"{package_path}: main program {main_program} does not exist")
-            print(os.listdir(f"{file}/bin"))
-            valid = False
+        main_program = package.get("mainProgram")
+        if os.path.exists(f"{file}/bin"):
+            if not main_program:
+                print(f"{package_path}: main program not set")
+                print(os.listdir(f"{file}/bin"))
+                valid = False
+            elif not os.path.exists(f"{file}/bin/{main_program}"):
+                print(f"{package_path}: main program {main_program} does not exist")
+                print(os.listdir(f"{file}/bin"))
+                valid = False
 
     # Cleanup build results
     for file in os.listdir():
