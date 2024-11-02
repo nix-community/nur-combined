@@ -3,13 +3,13 @@
   fetchFromGitHub,
 }:
 cataclysm-dda-git.overrideAttrs (old: {
-  version = "unstable-2024-09-16";
+  version = "unstable-2024-11-01";
 
   src = fetchFromGitHub {
     owner = "CleverRaven";
     repo = "Cataclysm-DDA";
-    rev = "acc244b46acf70721a41577b795bbdfa3b22d3ed"; # tags/cdda-experimental-*
-    sha256 = "0x4glas4n9czmjjgmhy4798z88cwhz988916gljgz7lb55gy0qwg";
+    rev = "46ce09bc32c2898b55085a4ae0fadb57e8f0d354"; # tags/cdda-experimental-*
+    sha256 = "0badw939avvi2z8lx0qb9xsg5k3rr4gdl8fi914xild09n50qdx8";
   };
 
   patches = [
