@@ -124,6 +124,7 @@ buildpack
 buildpacks
 Bundix
 burstable
+bursty
 busway
 busways
 cacheability

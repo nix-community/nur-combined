@@ -85,7 +85,7 @@ let
             (composeOverrides
               (a:
                 (optionalAttrs (patch != null) { patches = a.patches or [ ] ++ (toList patch); }) //
-                (optionalAttrs (gappsWrapperArgs != null) { preFixup = a.preFixup + "\ngappsWrapperArgs+=(${gappsWrapperArgs})"; })
+                (optionalAttrs (gappsWrapperArgs != null) { preFixup = a.preFixup or "" + "\ngappsWrapperArgs+=(${gappsWrapperArgs})"; })
               )
               (if overlay == null then const { } else overlay)
             )

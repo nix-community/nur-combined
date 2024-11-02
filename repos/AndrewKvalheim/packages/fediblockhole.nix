@@ -5,11 +5,11 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "fediblockhole";
-  version = "0.4.5";
+  version = "0.4.6";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-hCsl1dHySB4Nlyx1qaJ+8k8/XXRKufsq4xHVISa8D58=";
+    hash = "sha256-zqwvAF0mskQKIcW7pQ/f1jjTe1RJjonaIyKaqvcH+1k=";
   };
 
   format = "pyproject";
