@@ -4,19 +4,22 @@
   lib,
   jre_headless,
   makeWrapper,
+  unzip,
 }:
 stdenvNoCC.mkDerivation rec {
   inherit (sources.peerbanhelper) pname version src;
 
-  dontUnpack = true;
-
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [
+    makeWrapper
+    unzip
+  ];
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/bin $out/opt
-    install -Dm644 $src $out/opt/peerbanhelper.jar
+    cp PeerBanHelper.jar $out/opt/peerbanhelper.jar
+    cp -r libraries $out/opt/libraries
 
     makeWrapper ${jre_headless}/bin/java $out/bin/peerbanhelper \
       --add-flags "-jar" \

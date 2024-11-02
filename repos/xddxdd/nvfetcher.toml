@@ -411,7 +411,8 @@ fetch.github = "ssut/payload-dumper-go"
 
 [peerbanhelper]
 src.github = "Ghost-chu/PeerBanHelper"
-fetch.url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/$ver/PeerBanHelper.jar"
+src.prefix = "v"
+fetch.url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v$ver/PeerBanHelper_$ver.zip"
 
 [phpmyadmin]
 src.github_tag = "phpmyadmin/phpmyadmin"

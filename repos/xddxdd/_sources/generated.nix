@@ -170,14 +170,14 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "8db4ee1606a38632570bcccc78c50979aa3233bb";
+    version = "d1fbde46fd09a05aa4ce90ed46fa012627efee6d";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "8db4ee1606a38632570bcccc78c50979aa3233bb";
-      hash = "sha256-AEn0sSCDShtKAxxh4ahCGmCJ/h7B8E8hOO2OR+ZYki0=";
+      rev = "d1fbde46fd09a05aa4ce90ed46fa012627efee6d";
+      hash = "sha256-EMb4Zi1lqva8lnN/jmNaF/GQ8zagnGFXr7qCXc9QUY8=";
     };
-    date = "2024-10-29";
+    date = "2024-11-01";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -273,10 +273,10 @@
   };
   dingtalk = {
     pname = "dingtalk";
-    version = "7.6.15.4101801";
+    version = "7.6.15.4102301";
     src = fetchurl {
-      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.6.15.4101801_amd64.deb";
-      hash = "sha256-+YMmgtM2MT6ShP37UjZh8rDwSb3nE5Qx5Fm/VSeufd0=";
+      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.6.15.4102301_amd64.deb";
+      hash = "sha256-DWRI6y5eXRuAHe90Pm6VK44+tuBxbNLqUmv9OiK8Fm0=";
     };
   };
   douban-openapi-server = {
@@ -594,14 +594,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "3c8bde1b08ba068ebbde738165bf6f8d2ba385ce";
+    version = "05257da106b908e22b54ad1a6b0c6563a2fec009";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "3c8bde1b08ba068ebbde738165bf6f8d2ba385ce";
-      hash = "sha256-I8HWFUIJmSZYAgdVyZL27kBvKUu9TbcHzIQbsv5XlLM=";
+      rev = "05257da106b908e22b54ad1a6b0c6563a2fec009";
+      hash = "sha256-TTXKXWq8a3yHvtB0EWp3cOZOsKtBdunrL+WrNFLYqb4=";
     };
-    date = "2024-10-30";
+    date = "2024-11-01";
   };
   libqcef = {
     pname = "libqcef";
@@ -627,14 +627,14 @@
   };
   librime-lua = {
     pname = "librime-lua";
-    version = "1bde771a044c5db505f3da65d25a806c0dcadc01";
+    version = "b210d0cfbd2a3cc6edd4709dd0a92c479bfca10b";
     src = fetchFromGitHub {
       owner = "hchunhui";
       repo = "librime-lua";
-      rev = "1bde771a044c5db505f3da65d25a806c0dcadc01";
-      hash = "sha256-UuwK0pXZsJ/dxXqU1DzrwmgJqnYnztrtPihVzJGQxMs=";
+      rev = "b210d0cfbd2a3cc6edd4709dd0a92c479bfca10b";
+      hash = "sha256-ETjLN40G4I0FEsQgNY8JM4AInqyb3yJwEJTGqdIHGWg=";
     };
-    date = "2024-10-27";
+    date = "2024-11-02";
   };
   librime-octagram = {
     pname = "librime-octagram";
@@ -700,12 +700,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b3995";
+    version = "b4016";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b3995";
-      hash = "sha256-O93Q0vVyKlv94zXmeqG7UI7ORVn85Uy5xBnbOl7IfiM=";
+      rev = "b4016";
+      hash = "sha256-K32sNlvz5FGJQJijd6FRRjBhJeJH9ZQCm7cvvzalCV0=";
     };
   };
   lyrica = {
@@ -988,10 +988,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "v7.0.0";
+    version = "7.0.2";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.0.0/PeerBanHelper.jar";
-      hash = "sha256-lBNor0FKa3iUStl/3tzOdpy14TKNYVmbtckWkYG2g9M=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.0.2/PeerBanHelper_7.0.2.zip";
+      hash = "sha256-NJCQV5eRw2V3vHiKhUwrF+N1YN35baynY2svzwn+qVo=";
     };
   };
   phpmyadmin = {
@@ -1211,14 +1211,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "4d67eb74063fcadeedbb1eab45ea6ba4c468b8a4";
+    version = "7e5fb5270bdb95beb47517cb879801b9c8e2b5d0";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "4d67eb74063fcadeedbb1eab45ea6ba4c468b8a4";
-      hash = "sha256-G3pPMWgTPyL1CWX5FNjfjUfQjUQqjyVHRqhAGLTcgGc=";
+      rev = "7e5fb5270bdb95beb47517cb879801b9c8e2b5d0";
+      hash = "sha256-uN6j4jIa9JytDIBw/8+aEfiTzODiKKI6Nk2MbI2c7+A=";
     };
-    date = "2024-10-30";
+    date = "2024-11-01";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
