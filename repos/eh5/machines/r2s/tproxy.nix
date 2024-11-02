@@ -48,7 +48,9 @@ in
           tag = "tun-in";
           type = "tun";
           interface_name = "tun0";
-          inet4_address = "198.18.0.1/15";
+          address = [
+            ""198.18.0.1/15""
+          ];
           mtu = 1500;
           auto_route = false;
           stack = "gvisor";
