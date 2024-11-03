@@ -18,6 +18,7 @@
 , libopus
 , libpulseaudio
 , libsndfile
+, libsysprof-capture
 , libtheora
 , libtiff
 , libuchardet
@@ -54,19 +55,19 @@ let
       "--without-gmp"
     ];
   });
-  rev = "a5d574984c68a7a2692fb9b212871f549af80874";
+  rev = "711f9a455396152f5052a3bc5fe12bf113f997a2";
   short-rev = builtins.substring 0 7 rev;
 in
 
 stdenv.mkDerivation {
   pname = "mkxp-z";
-  version = "2.4.2-unstable-2024-09-03";
+  version = "2.4.2-unstable-2024-10-27";
 
   src = fetchFromGitHub {
     inherit rev;
     owner = "mkxp-z";
     repo = "mkxp-z";
-    hash = "sha256-IwfPgtMI+imq9b6SOwj6bIyxmU40huxGWwL6pYQORgk=";
+    hash = "sha256-cj7b1LhK1uywj4e1oHh6pYgybkdE+zPwT+KrvthDck4=";
   };
 
   nativeBuildInputs = [
@@ -95,6 +96,7 @@ stdenv.mkDerivation {
     libopus
     libpulseaudio
     libsndfile
+    libsysprof-capture
     libtheora
     libtiff
     libuchardet
