@@ -14,7 +14,7 @@ let
     _final: _prev: {
       patches = [
         (pkgs.fetchpatch {
-          url = "https://raw.githubusercontent.com/neuromagus/disable_titlebar_in_sway/refs/heads/main/disable_titlebar_sway1-10.patch";
+          url = "https://codeberg.org/neuromagus/disable_titlebar_in_sway/raw/branch/main/disable_titlebar_sway1-10.patch";
           hash = "sha256-okX63A9bBPnfYFZTtcQPhyKHUCzaEqtDwT/FNFy0xOM=";
         })
       ];
