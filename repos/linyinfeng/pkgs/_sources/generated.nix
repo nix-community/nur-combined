@@ -256,17 +256,17 @@
   };
   rime-emoji = {
     pname = "rime-emoji";
-    version = "be7d308e42c4c4485229de37ec0afb7bafbfafc0";
+    version = "ca7df5f5498ccd99cc312413ceae7d13717456b8";
     src = fetchgit {
       url = "https://github.com/rime/rime-emoji.git";
-      rev = "be7d308e42c4c4485229de37ec0afb7bafbfafc0";
+      rev = "ca7df5f5498ccd99cc312413ceae7d13717456b8";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-+p71X6mMv7eK+qRQ0j4FaAgMKFR7rrBPHVLzpZGv5XE=";
+      sha256 = "sha256-3tNljbYQ8ElqXDNnrQRfyeVgPrvzwh+eKaC6F3BOnHs=";
     };
-    date = "2024-03-05";
+    date = "2024-11-02";
   };
   rime-essay = {
     pname = "rime-essay";
