@@ -11273,10 +11273,10 @@
     };
     "torrent-control" = buildFirefoxXpiAddon {
       pname = "torrent-control";
-      version = "0.2.41";
+      version = "0.2.42";
       addonId = "{e6e36c9a-8323-446c-b720-a176017e38ff}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4379056/torrent_control-0.2.41.xpi";
-      sha256 = "e59ad3c7724952cf5af4c73c542d683d48588ec66730581639d70c6e396bb993";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4380581/torrent_control-0.2.42.xpi";
+      sha256 = "97bd99c8c8fac3980c68c545d75d9c06867e89c9d6efdfbac5d424435abe06ee";
       meta = with lib;
       {
         homepage = "https://github.com/Mika-/torrent-control";
