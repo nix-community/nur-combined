@@ -119,45 +119,6 @@ in {
     
     drl-packages = callPackage ./pkgs/drl/packages.nix {};
     inherit (self.drl-packages) drl drl-hq drl-lq;
-    # drl-hq = callPackage ./pkgs/drl { drl-audio = self.drl-audio-hq; };
-    # drl-lq = callPackage ./pkgs/drl { drl-audio = self.drl-audio-lq; };
-    # drl = self.drl-hq;
-    # drl-unwrapped = callPackage ./pkgs/drl/unwrapped.nix {};
-    # drl-audio-hq = callPackage ./pkgs/drl/audio.nix { audioQuality = "hq"; };
-    # drl-audio-lq = callPackage ./pkgs/drl/audio.nix { audioQuality = "lq"; };
-    # drl-audio = self.drl-audio-hq;
-    _ciOnly.drl-dev = pkgs.lib.optionalAttrs (pkgs.hostPlatform.system == "x86_64-linux") (pkgs.lib.recurseIntoAttrs {
-        # makewad = self.drl-unwrapped.overrideAttrs (old: {
-        #     pname = "drl-makewad-test";
-        #     buildPhase = ''
-        #         runHook preBuild
-        #         mkdir tmp
-        #         lua makefile.lua bin/makewad
-        #         runHook postBuild
-        #     '';
-        #     installPhase = ''
-        #         runHook preInstall
-        #         install -D bin/makewad "$out"/bin/makewad
-        #         runHook postInstall
-        #     '';
-        #     meta = {};
-        # });
-    }) // pkgs.lib.optionalAttrs (pkgs.hostPlatform.system == "x86_64-darwin") (pkgs.lib.recurseIntoAttrs {
-        # env = self.drl-unwrapped.overrideAttrs (old: {
-        #     pname = "drl-env-test";
-        #     buildPhase = ''
-        #         runHook preBuild
-        #         :
-        #         runHook postBuild
-        #     '';
-        #     installPhase = ''
-        #         runHook preInstall
-        #         env > "$out"
-        #         runHook postInstall
-        #     '';
-        #     meta = {};
-        # });
-    });
     
     # Can't just pass `-L` to `nix-build-uncached`: it ends up being passed to both
     # old `nix-build` (which doesn't understand it) and new `nix build` (which does).
@@ -175,13 +136,13 @@ in {
         wine64Full = pkgs.wine64Packages.full;
     });
     
-    _ciOnly.dev = pkgs.lib.optionalAttrs (pkgs.hostPlatform.system == "x86_64-darwin") (pkgs.lib.recurseIntoAttrs {
-        checkpoint = pkgs.lib.recurseIntoAttrs (pkgs.lib.mapAttrs (k: pkgs.checkpointBuildTools.prepareCheckpointBuild) {
-            inherit (self)
-                # hbmame
-            ;
-        });
-    });
+    # _ciOnly.dev = pkgs.lib.optionalAttrs (pkgs.hostPlatform.system == "x86_64-darwin") (pkgs.lib.recurseIntoAttrs {
+    #     checkpoint = pkgs.lib.recurseIntoAttrs (pkgs.lib.mapAttrs (k: pkgs.checkpointBuildTools.prepareCheckpointBuild) {
+    #         inherit (self)
+    #             # hbmame
+    #         ;
+    #     });
+    # });
 }); in result // {
     lib = result.myLib;
     modules = result.myModules;
