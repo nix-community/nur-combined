@@ -660,20 +660,18 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.11.5-xanmod1";
-    src = fetchFromGitHub {
-      owner = "xanmod";
-      repo = "linux";
-      rev = "6.11.5-xanmod1";
-      hash = "sha256-G4u0LQtIeJ0dNAmjNH0OKihmbkivYVbrbXDB9vPw2xI=";
+    version = "6.11.6-xanmod1";
+    src = fetchgit {
+      url = "https://gitlab.com/xanmod/linux.git";
+      rev = "6.11.6-xanmod1";
+      hash = "sha256-t0kuKK2f8D1vxoX5dJnodTu3aBmzCc8F7tHwVAUHP1M=";
     };
   };
   linux-xanmod-6_0 = {
     pname = "linux-xanmod-6_0";
     version = "6.0.12-xanmod1";
-    src = fetchFromGitHub {
-      owner = "xanmod";
-      repo = "linux";
+    src = fetchgit {
+      url = "https://gitlab.com/xanmod/linux.git";
       rev = "6.0.12-xanmod1";
       hash = "sha256-k3fePBhb2zJfvPupdgenkdqG4sHNu2iv6T01EvOgbCg=";
     };
@@ -681,21 +679,19 @@
   linux-xanmod-6_1 = {
     pname = "linux-xanmod-6_1";
     version = "6.1.77-xanmod1";
-    src = fetchFromGitHub {
-      owner = "xanmod";
-      repo = "linux";
+    src = fetchgit {
+      url = "https://gitlab.com/xanmod/linux.git";
       rev = "6.1.77-xanmod1";
       hash = "sha256-O+XB+avpx9Kkt+7RW6pT5mXMtAVhXNHe+ohgIm1ql8w=";
     };
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.58-xanmod1";
-    src = fetchFromGitHub {
-      owner = "xanmod";
-      repo = "linux";
-      rev = "6.6.58-xanmod1";
-      hash = "sha256-PjF3PIGCHWGIGHupu+vkdiyrL4h4KG2X5WmQUlz8Zww=";
+    version = "6.6.59-xanmod1";
+    src = fetchgit {
+      url = "https://gitlab.com/xanmod/linux.git";
+      rev = "6.6.59-xanmod1";
+      hash = "sha256-VImhbdU+WAP0QRnYjHBNKYw5NlMDCBy8HJyP2NQBNHY=";
     };
   };
   llama-cpp = {

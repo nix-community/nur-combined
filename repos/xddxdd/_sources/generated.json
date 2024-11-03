@@ -1291,14 +1291,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "xanmod",
-            "repo": "linux",
-            "rev": "6.11.5-xanmod1",
-            "sha256": "sha256-G4u0LQtIeJ0dNAmjNH0OKihmbkivYVbrbXDB9vPw2xI=",
+            "rev": "6.11.6-xanmod1",
+            "sha256": "sha256-t0kuKK2f8D1vxoX5dJnodTu3aBmzCc8F7tHwVAUHP1M=",
             "sparseCheckout": [],
-            "type": "github"
+            "type": "git",
+            "url": "https://gitlab.com/xanmod/linux.git"
         },
-        "version": "6.11.5-xanmod1"
+        "version": "6.11.6-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1312,12 +1311,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "xanmod",
-            "repo": "linux",
             "rev": "6.0.12-xanmod1",
             "sha256": "sha256-k3fePBhb2zJfvPupdgenkdqG4sHNu2iv6T01EvOgbCg=",
             "sparseCheckout": [],
-            "type": "github"
+            "type": "git",
+            "url": "https://gitlab.com/xanmod/linux.git"
         },
         "version": "6.0.12-xanmod1"
     },
@@ -1333,12 +1331,11 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "xanmod",
-            "repo": "linux",
             "rev": "6.1.77-xanmod1",
             "sha256": "sha256-O+XB+avpx9Kkt+7RW6pT5mXMtAVhXNHe+ohgIm1ql8w=",
             "sparseCheckout": [],
-            "type": "github"
+            "type": "git",
+            "url": "https://gitlab.com/xanmod/linux.git"
         },
         "version": "6.1.77-xanmod1"
     },
@@ -1354,14 +1351,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "owner": "xanmod",
-            "repo": "linux",
-            "rev": "6.6.58-xanmod1",
-            "sha256": "sha256-PjF3PIGCHWGIGHupu+vkdiyrL4h4KG2X5WmQUlz8Zww=",
+            "rev": "6.6.59-xanmod1",
+            "sha256": "sha256-VImhbdU+WAP0QRnYjHBNKYw5NlMDCBy8HJyP2NQBNHY=",
             "sparseCheckout": [],
-            "type": "github"
+            "type": "git",
+            "url": "https://gitlab.com/xanmod/linux.git"
         },
-        "version": "6.6.58-xanmod1"
+        "version": "6.6.59-xanmod1"
     },
     "llama-cpp": {
         "cargoLocks": null,

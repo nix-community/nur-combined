@@ -275,23 +275,28 @@ src.git = "https://github.com/lotem/librime-proto.git"
 fetch.github = "lotem/librime-proto"
 
 [linux-xanmod]
-src.github_tag = "xanmod/linux"
-fetch.github = "xanmod/linux"
+src.webpage = "https://gitlab.com/api/v4/projects/51590166/repository/tags"
+src.regex = "\"name\":\"([^\"]+)\","
+src.include_regex = "^[0-9\\.]+-xanmod.*$"
+fetch.git = "https://gitlab.com/xanmod/linux.git"
 
 [linux-xanmod-6_6]
-src.github_tag = "xanmod/linux"
-src.include_regex = "^6\\.6\\.(.*)"
-fetch.github = "xanmod/linux"
+src.webpage = "https://gitlab.com/api/v4/projects/51590166/repository/tags?search=^6.6."
+src.regex = "\"name\":\"([^\"]+)\","
+src.include_regex = "^6\\.6\\.[0-9]+-xanmod.*$"
+fetch.git = "https://gitlab.com/xanmod/linux.git"
 
 [linux-xanmod-6_1]
-src.github_tag = "xanmod/linux"
-src.include_regex = "^6\\.1\\.(.*)"
-fetch.github = "xanmod/linux"
+src.webpage = "https://gitlab.com/api/v4/projects/51590166/repository/tags?search=^6.1."
+src.regex = "\"name\":\"([^\"]+)\","
+src.include_regex = "^6\\.1\\.[0-9]+-xanmod.*$"
+fetch.git = "https://gitlab.com/xanmod/linux.git"
 
 [linux-xanmod-6_0]
-src.github_tag = "xanmod/linux"
-src.include_regex = "^6\\.0\\.(.*)"
-fetch.github = "xanmod/linux"
+src.webpage = "https://gitlab.com/api/v4/projects/51590166/repository/tags?search=^6.0."
+src.regex = "\"name\":\"([^\"]+)\","
+src.include_regex = "^6\\.0\\.[0-9]+-xanmod.*$"
+fetch.git = "https://gitlab.com/xanmod/linux.git"
 
 [llama-cpp]
 src.github = "ggerganov/llama.cpp"
