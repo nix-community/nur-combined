@@ -13,11 +13,11 @@
             "name": null,
             "owner": "alist-org",
             "repo": "alist",
-            "rev": "v3.38.0",
-            "sha256": "sha256-1nqveTEYrN9kYAOMTbLPw0MFNNNbFOqej+d+aTLAZ1o=",
+            "rev": "v3.39.1",
+            "sha256": "sha256-x8H+1x3mpJHf/sSswpVCDceHL6+TO2jUdSh0MmiksHU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.38.0"
+        "version": "v3.39.1"
     }
 }

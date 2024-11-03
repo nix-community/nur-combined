@@ -3,13 +3,13 @@
 {
   alist = {
     pname = "alist";
-    version = "v3.38.0";
+    version = "v3.39.1";
     src = fetchFromGitHub {
       owner = "alist-org";
       repo = "alist";
-      rev = "v3.38.0";
+      rev = "v3.39.1";
       fetchSubmodules = false;
-      sha256 = "sha256-1nqveTEYrN9kYAOMTbLPw0MFNNNbFOqej+d+aTLAZ1o=";
+      sha256 = "sha256-x8H+1x3mpJHf/sSswpVCDceHL6+TO2jUdSh0MmiksHU=";
     };
   };
 }
