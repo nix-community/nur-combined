@@ -20,6 +20,7 @@
   wemeet-bin-bwrap = pkgs.callPackage ./pkgs/wemeet-bin-bwrap { };
   nvim-vscode-colorscheme = pkgs.callPackage ./pkgs/nvim-vscode-colorscheme { };
   suyu = pkgs.callPackage ./pkgs/suyu { };
+  suyu-room = pkgs.callPackage ./pkgs/suyu-room { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
   # ...

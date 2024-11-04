@@ -27,7 +27,9 @@
 , pciutils
 , udev
 , libxkbcommon
-
+, dpkg
+, openssl
+, jack2
 }:
 let
   libraries = [
@@ -56,12 +58,14 @@ let
     pciutils
     udev
     libxkbcommon
+    openssl
+    jack2
   ];
 
   _lib_uos = "libuosdevicea";
   _pkgname = "wechat-universal";
-  ver = "1.0.0.242";
   xdg-dir = "${xdg-user-dirs}/bin";
+  ver = "4.0.0.21";
   
   # From https://github.com/7Ji-PKGBUILDs/wechat-universal-bwrap
   # Adapted from https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=wechat-universal-bwrap
@@ -95,24 +99,29 @@ let
     version = "${ver}";
 
     src = fetchurl {
-      url = "https://mirrors.opencloudos.tech/opencloudos/9.2/extras/x86_64/os/Packages/wechat-beta_${version}_amd64.rpm";
-      hash = "sha256-/5fXEfPHHL6G75Ph0EpoGvXD6V4BiPS0EQZM7SgZ1xk=";
+      # url = "https://mirrors.opencloudos.tech/opencloudos/9.2/extras/x86_64/os/Packages/wechat-beta_${version}_amd64.rpm";
+      url = "https://pro-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_${version}_amd64.deb";
+      # hash = "sha256-/5fXEfPHHL6G75Ph0EpoGvXD6V4BiPS0EQZM7SgZ1xk=";
+      hash = "sha256-1tO8ARt2LuCwPz7rO25/9dTOIf9Rwqc9TdqiZTTojRk=";
     };
     
     nativeBuildInputs = [
-      rpmextract
+      # rpmextract
+      dpkg
       makeWrapper
       autoPatchelfHook
     ];
     buildInputs = libraries;
 
-    unpackCmd = "rpmextract $src";
+    # unpackCmd = "rpmextract $src";
+    unpackCmd = "dpkg -x $src .";
     sourceRoot = ".";
 
     installPhase = ''
       mkdir -p $out
-      mv opt/wechat-beta opt/${_pkgname}
+      # mv opt/wechat-beta opt/${_pkgname}
       cp -r opt $out
+      rm $out/opt/apps/com.tencent.wechat/files/libuosdevicea.so
     '';
   };
 
@@ -127,7 +136,7 @@ let
       export GTK_IM_MODULE=ibus
       export IBUS_USE_PORTAL=1
     fi
-    exec ${wechat-universal-src}/opt/${_pkgname}/wechat
+    exec ${wechat-universal-src}/opt/apps/com.tencent.wechat/files/wechat
   '';
 
   # Adapted from https://aur.archlinux.org/cgit/aur.git/tree/fake_dde-file-manager?h=wechat-universal-bwrap
@@ -244,15 +253,19 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/bin
     echo 'Installing icons...'
-    # for res in 16 32 48 64 128 256; do
-    #     install -Dm644 \
-    #         ${wechat-universal-src}/opt/apps/com.tencent.wechat/entries/icons/hicolor/''${res}x''${res}/apps/com.tencent.wechat.png \
-    #         $out/share/icons/hicolor/''${res}x''${res}/apps/${_pkgname}.png
-    # done
-    install -DTm644 ${wechat-universal-src}/opt/${_pkgname}/icons/wechat.png $out/usr/share/icons/hicolor/256x256/apps/${_pkgname}.png
+    for res in 16 32 48 64 128 256; do
+        install -Dm644 \
+            ${wechat-universal-src}/opt/apps/com.tencent.wechat/entries/icons/hicolor/''${res}x''${res}/apps/com.tencent.wechat.png \
+            $out/share/icons/hicolor/''${res}x''${res}/apps/${_pkgname}.png
+    done
+    # install -DTm644 ${wechat-universal-src}/opt/${_pkgname}/icons/wechat.png $out/usr/share/icons/hicolor/256x256/apps/${_pkgname}.png
     makeWrapper ${fhs}/bin/${_pkgname} $out/bin/${pname}
     runHook postInstall
   '';
+
+  # preFixup = ''
+  #   patchelf --replace-needed libtiff.so.5 libtiff.so $out/opt/kingsoft/wps-office/office6/{libpdfmain.so,libqpdfpaint.so,qt/plugins/imageformats/libqtiff.so,addons/pdfbatchcompression/libpdfbatchcompressionapp.so}
+  # '';
   
   desktopItems = [
     (makeDesktopItem {
