@@ -22,4 +22,5 @@ optparse,,,,,,arobyn
 pegdebug,,,,,,arobyn
 spawn,,,,,,arobyn
 yaml,,,https://luarocks.org/manifests/gaspard,,,arobyn
+yuecheck-vim,https://raw.githubusercontent.com/Shados/yuecheck-vim/master/yuecheck-vim-scm-1.rockspec,,,,,arobyn
 yuescript,,,,,,arobyn

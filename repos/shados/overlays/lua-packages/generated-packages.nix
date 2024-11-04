@@ -580,6 +580,30 @@ buildLuarocksPackage {
   };
 }) {};
 
+yuecheck-vim = callPackage({ buildLuarocksPackage, fetchFromGitHub, luaOlder, luacheck, lunix, yuescript }:
+buildLuarocksPackage {
+  pname = "yuecheck-vim";
+  version = "scm-1";
+
+  src = fetchFromGitHub {
+    owner = "Shados";
+    repo = "yuecheck-vim";
+    rev = "master";
+    hash = "sha256-oCVTQQPvs/Al+ieblbzsMrJ+fYmJm8rykVyXDhWWRf4=";
+  };
+
+  disabled = luaOlder "5.1";
+  nativeBuildInputs = [ yuescript ];
+  propagatedBuildInputs = [ luacheck lunix ];
+
+  meta = {
+    homepage = "https://github.com/Shados/yuecheck-vim";
+    description = "A wrapper around luacheck to allow it to handle Yuescript, integrated into vim via ALE";
+    maintainers = with lib.maintainers; [ arobyn ];
+    license.fullName = "MIT";
+  };
+}) {};
+
 yuescript = callPackage({ buildLuarocksPackage, cmake, fetchFromGitHub, fetchurl, luaOlder }:
 buildLuarocksPackage {
   pname = "yuescript";
