@@ -501,6 +501,20 @@ fetch.url = "https://dldir1.qq.com/music/clntupate/linux/qqmusic_$ver_amd64.deb"
 src.git = "https://github.com/Quantum-Safe-Collaboration/qsc-key-encoder.git"
 fetch.github = "Quantum-Safe-Collaboration/qsc-key-encoder"
 
+[qsp]
+src.github = "QSPFoundation/qspgui"
+fetch.github = "QSPFoundation/qspgui"
+
+[qsp-lib]
+src.git = "https://github.com/QSPFoundation/qsp.git"
+fetch.github = "QSPFoundation/qsp"
+
+[qsp-wx]
+src.webpage = "https://raw.githubusercontent.com/QSPFoundation/qspgui/refs/heads/master/CMakeLists-wxWidgets.txt.in"
+src.regex = "GIT_TAG\\s+([0-9a-f]{32})"
+git.fetchSubmodules = true
+fetch.github = "wxWidgets/wxWidgets"
+
 [r8125]
 src.github_tag = "awesometic/realtek-r8125-dkms"
 fetch.github = "awesometic/realtek-r8125-dkms"

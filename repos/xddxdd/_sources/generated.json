@@ -2268,6 +2268,69 @@
         },
         "version": "1b6289dac9f7caf89d26bad2f1cf3cd628507af2"
     },
+    "qsp": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "qsp",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "QSPFoundation",
+            "repo": "qspgui",
+            "rev": "v5.9.0-b11",
+            "sha256": "sha256-YESHOf8xy5oprHxIaQ1nzeRcj/O92OyGPIA14snknQM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v5.9.0-b11"
+    },
+    "qsp-lib": {
+        "cargoLocks": null,
+        "date": "2024-10-29",
+        "extract": null,
+        "name": "qsp-lib",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "QSPFoundation",
+            "repo": "qsp",
+            "rev": "f972e5895021a170f70648dbbd00ba823e13af46",
+            "sha256": "sha256-Z9DBTJ4tzk5Ep5E53Hp7f3YYmgocyi4TePKAoqxm+Rc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "f972e5895021a170f70648dbbd00ba823e13af46"
+    },
+    "qsp-wx": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "qsp-wx",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "wxWidgets",
+            "repo": "wxWidgets",
+            "rev": "a15ebd6b4235ac50f8037896037d1663",
+            "sha256": "sha256-LHCR1WURBgcGtLXQU1b1gtQ4/BdZZQ6ofTYSUDFN8bg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "a15ebd6b4235ac50f8037896037d1663"
+    },
     "r8125": {
         "cargoLocks": null,
         "date": null,

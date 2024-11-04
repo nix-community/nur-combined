@@ -1,0 +1,54 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 1f24b0b..689bd5f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -47,14 +47,7 @@ else()
+ 	message(FATAL_ERROR "Compiler is not supported")
+ endif()
+ 
+-# Download and unpack qsp at configure time
+-configure_file(CMakeLists-qsp.txt.in "${CMAKE_BINARY_DIR}/qsp-download/CMakeLists.txt")
+-execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
+-		WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/qsp-download"
+-)
+-execute_process(COMMAND "${CMAKE_COMMAND}" --build .
+-		WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/qsp-download"
+-)
++find_package(Qsp REQUIRED)
+ 
+ # For Windows: Prevent overriding the parent project's compiler/linker settings
+ set(qsp_force_shared_crt ON CACHE BOOL "" FORCE)
+@@ -62,9 +55,6 @@ set(qsp_force_shared_crt ON CACHE BOOL "" FORCE)
+ # Add qsp directly to our build
+ set(CMAKE_POLICY_DEFAULT_CMP0063 NEW)
+ set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
+-add_subdirectory("${CMAKE_BINARY_DIR}/qsp-src"
+-				 "${CMAKE_BINARY_DIR}/qsp-build"
+-)
+ 
+ if (USE_INSTALLED_WX)
+ 	find_package(wxWidgets REQUIRED base core adv aui html)
+@@ -177,10 +167,10 @@ else()
+ endif()
+ 
+ target_compile_definitions(qspgui PRIVATE _UNICODE)
+-target_include_directories(qspgui PRIVATE qsp/bindings qsp/bindings/default)
++target_include_directories(qspgui PRIVATE ${qsp_INCLUDE_DIRS})
+ target_compile_options(qspgui PRIVATE ${PROJECT_COMPILER_FLAGS})
+ target_link_options(qspgui PRIVATE ${PROJECT_LINKER_FLAGS})
+-target_link_libraries(qspgui PRIVATE qsp wxbase wxcore wxadv wxaui wxhtml)
++target_link_libraries(qspgui PRIVATE ${qsp_LIBRARIES} ${wxWidgets_LIBRARIES})
+ 
+ # Installation
+ 
+@@ -212,8 +202,8 @@ else()
+ 	message(FATAL_ERROR "Platform is not supported")
+ endif()
+ 
+-set_target_properties(qspgui qsp PROPERTIES INSTALL_RPATH "${INSTALL_RPATH}")
+-install(TARGETS qspgui qsp
++set_target_properties(qspgui PROPERTIES INSTALL_RPATH "${INSTALL_RPATH}")
++install(TARGETS qspgui
+ 		COMPONENT Main
+ 		RUNTIME DESTINATION ${BINDIR}
+ 		LIBRARY DESTINATION ${RLIBDIR}

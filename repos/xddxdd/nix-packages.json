@@ -3449,6 +3449,16 @@
     "pname": "qqmusic",
     "version": "1.1.7"
   },
+  "legacyPackages.x86_64-linux.qsp": {
+    "description": "QSP is an Interactive Fiction development platform (GUI application)",
+    "pname": "qsp",
+    "version": "5.9.0-b11"
+  },
+  "legacyPackages.x86_64-linux.qsp-lib": {
+    "description": "QSP is an Interactive Fiction development platform (Game Library)",
+    "pname": "qsp-lib-unstable",
+    "version": "2024-10-29"
+  },
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
     "pname": "r8125",
@@ -4228,6 +4238,16 @@
     "description": "Tencent QQ Music",
     "pname": "qqmusic",
     "version": "1.1.7"
+  },
+  "packages.x86_64-linux.qsp": {
+    "description": "QSP is an Interactive Fiction development platform (GUI application)",
+    "pname": "qsp",
+    "version": "5.9.0-b11"
+  },
+  "packages.x86_64-linux.qsp-lib": {
+    "description": "QSP is an Interactive Fiction development platform (Game Library)",
+    "pname": "qsp-lib-unstable",
+    "version": "2024-10-29"
   },
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",

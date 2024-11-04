@@ -1155,6 +1155,38 @@
     };
     date = "2023-03-30";
   };
+  qsp = {
+    pname = "qsp";
+    version = "v5.9.0-b11";
+    src = fetchFromGitHub {
+      owner = "QSPFoundation";
+      repo = "qspgui";
+      rev = "v5.9.0-b11";
+      hash = "sha256-YESHOf8xy5oprHxIaQ1nzeRcj/O92OyGPIA14snknQM=";
+    };
+  };
+  qsp-lib = {
+    pname = "qsp-lib";
+    version = "f972e5895021a170f70648dbbd00ba823e13af46";
+    src = fetchFromGitHub {
+      owner = "QSPFoundation";
+      repo = "qsp";
+      rev = "f972e5895021a170f70648dbbd00ba823e13af46";
+      hash = "sha256-Z9DBTJ4tzk5Ep5E53Hp7f3YYmgocyi4TePKAoqxm+Rc=";
+    };
+    date = "2024-10-29";
+  };
+  qsp-wx = {
+    pname = "qsp-wx";
+    version = "a15ebd6b4235ac50f8037896037d1663";
+    src = fetchFromGitHub {
+      owner = "wxWidgets";
+      repo = "wxWidgets";
+      rev = "a15ebd6b4235ac50f8037896037d1663";
+      fetchSubmodules = true;
+      hash = "sha256-LHCR1WURBgcGtLXQU1b1gtQ4/BdZZQ6ofTYSUDFN8bg=";
+    };
+  };
   r8125 = {
     pname = "r8125";
     version = "9.013.02-2";
