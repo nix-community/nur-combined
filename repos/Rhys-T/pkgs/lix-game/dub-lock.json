@@ -1,8 +1,8 @@
 {
   "dependencies": {
     "allegro": {
-      "version": "4.0.6+5.2.0",
-      "sha256": "1czaiyapxvrrn1lkw35jizi484f48b76hsvm9f4rdq2m05bxpwwx"
+      "version": "4.0.7+5.2.0",
+      "sha256": "075zgdj76xv916dy0507c4vi8vqv8cqlzl9hn6kj23mapin7v2sj"
     },
     "bolts": {
       "version": "1.3.1",

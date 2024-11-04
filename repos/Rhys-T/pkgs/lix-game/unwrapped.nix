@@ -55,18 +55,9 @@
             substituteInPlace src/basics/alleg5.d --replace-fail '"Allegro %d.%d.%d"' '"Allegro %d.%d.%d (with pedro-w CIImage loader)"'
         '';
         
-        # Ugly hack: I need to patch a few dub dependencies, and they're copied in by configurePhase, so I have to do it here.
-        # Patch #1: Make derelict-enet use the full path to enet, so we don't have to handle it in a wrapper.
-        # Patch #2 (Darwin only): Include the changes from <https://github.com/SiegeLord/DAllegro5/issues/56> to make the .app bundle work.
-        postConfigure = common.patchEnetBindings + lib.optionalString isDarwin ''
-        for dir in "$DUB_HOME"/packages/allegro/*/allegro/; do
-            patch -d "$dir" -p1 < ${fetchpatch {
-                name = "0001-Use-a-different-mechanism-for-passing-the-user-main-.patch";
-                url = "https://github.com/SiegeLord/DAllegro5/commit/0beabc3b461edf2cb0229aec39495ff41c3befe3.patch";
-                hash = "sha256-3yeZz7fRAriJ1qP9IT4ICEZl7zuEhrqct3gya71ilSA=";
-            }}
-        done
-        '';
+        # Ugly hack: I need to patch a dub dependency, and those are copied in by configurePhase, so I have to do it here.
+        # Make derelict-enet use the full path to enet, so we don't have to handle it in a wrapper.
+        postConfigure = common.patchEnetBindings;
         
         installPhase = ''
         runHook preInstall

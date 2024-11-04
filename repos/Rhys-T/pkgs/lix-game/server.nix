@@ -6,6 +6,8 @@
         dependencies = lib.filterAttrs (name: info: builtins.elem name ["derelict-enet" "derelict-util"]) fullLock.dependencies;
     };
     buildInputs = [enet];
+    # Ugly hack: I need to patch a dub dependency, and those are copied in by configurePhase, so I have to do it here.
+    # Make derelict-enet use the full path to enet, so we don't have to handle it in a wrapper.
     postConfigure = common.patchEnetBindings;
     sourceRoot = "source/src/server";
     postUnpack = ''chmod u+w "$sourceRoot"/../..''; # need to be able to create 'bin' directory there

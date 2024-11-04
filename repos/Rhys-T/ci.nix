@@ -12,6 +12,7 @@
 
 {
   platform ? null,
+  subsetName ? "all",
   pkgs ? import <nixpkgs> (if platform != null then {
     localSystem = platform;
     packageOverrides = pkgs: {
@@ -23,6 +24,12 @@
 with builtins;
 let
   inherit (pkgs) lib;
+  subsets = {
+    all = p: true;
+    base = p: !(lib.any ({name, value}: name != "all" && name != "base" && value p) (lib.attrsToList subsets));
+    hbmame = p: lib.hasInfix "hbmame" (p.name or "");
+  };
+  subset = subsets.${subsetName};
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: let
@@ -67,7 +74,8 @@ let
 in
 rec {
   buildPkgs = filter isBuildable nurPkgs;
-  cachePkgs = filter isCacheable buildPkgs;
+  cachePkgs' = filter isCacheable buildPkgs;
+  cachePkgs = filter subset buildPkgs;
 
   buildOutputs = concatMap outputsOf buildPkgs;
   cacheOutputs = concatMap outputsOf cachePkgs;

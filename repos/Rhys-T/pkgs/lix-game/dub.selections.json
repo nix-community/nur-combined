@@ -1,0 +1,14 @@
+{
+	"fileVersion": 1,
+	"versions": {
+		"allegro": "4.0.7+5.2.0",
+		"bolts": "1.3.1",
+		"derelict-enet": "4.2.0",
+		"derelict-util": "3.0.0-beta.2",
+		"enumap": "0.4.2",
+		"optional": "1.3.0",
+		"sdlang-d": "0.10.6",
+		"taggedalgebraic": "0.11.22",
+		"unit-threaded": "0.7.55"
+	}
+}

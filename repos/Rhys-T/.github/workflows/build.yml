@@ -39,13 +39,19 @@ jobs:
               "nixos-24.05",
             empty] as $nixpkgss |
             
+            [
+              "base",
+              "hbmame",
+            empty] as $subsets |
+            
             {include: [
               $runners[] as $runner |
               $nixpkgss[] as $nixpkgs |
               ($runner | split("/")) as [$displayRunner, $runner] |
               select(($runner | startswith("ubuntu")) or ($nixpkgs | startswith("nixpkgs"))) |
               ($runner | split("+qemu-")) as [$runner, $qemuSystem] |
-              {$displayRunner, $runner, $qemuSystem, $nixpkgs, $nurRepo, $cachixName}
+              (if $qemuSystem then $subsets[] else "all" end) as $subset |
+              {$displayRunner, $runner, $qemuSystem, $nixpkgs, $subset, $nurRepo, $cachixName}
             ]} |
             
             @json "matrix=\(.)"
@@ -55,7 +61,7 @@ jobs:
     needs: define-matrix
     strategy:
       matrix: ${{ fromJson(needs.define-matrix.outputs.matrix) }}
-    name: ${{ matrix.displayRunner }} - ${{ matrix.nixpkgs }}
+    name: ${{ matrix.displayRunner }} - ${{ matrix.nixpkgs }} - ${{ matrix.subset }}
     runs-on: ${{ matrix.runner }}
     steps:
     - name: Checkout repository
@@ -92,7 +98,7 @@ jobs:
           -I $PWD
     - name: Build nix packages
       # run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
-      run: nix shell -f '.' nix-build-uncached-logging -c nix-build-uncached ci.nix --keep-going ${{ matrix.qemuSystem && format('--argstr platform {0}', matrix.qemuSystem)}} -A cacheOutputs
+      run: nix shell -f '.' nix-build-uncached-logging -c nix-build-uncached ci.nix --keep-going ${{ matrix.qemuSystem && format('--argstr platform {0}', matrix.qemuSystem)}} --argstr subsetName ${{ matrix.subset }} -A cacheOutputs
     # - name: Upload debug info
     #   if: '!cancelled()'
     #   uses: actions/upload-artifact@v4
