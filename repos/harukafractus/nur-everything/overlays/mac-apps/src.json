@@ -25,9 +25,9 @@
 			"sha256": "bfbb2cd4e2bd092b1b43ddf6d767edb4db9ceb5eada1aac4022d007c396b1f00"
 		},
 		"floorp": {
-			"version": "v11.19.1",
-			"url": "https://github.com/Floorp-Projects/Floorp/releases/download/v11.19.1/floorp-macOS-universal.dmg",
-			"sha256": "aecdde85680dc85f3291f2f4364ebc5b965e5060409f5b480728babce0dd722b"
+			"version": "v11.20.0",
+			"url": "https://github.com/Floorp-Projects/Floorp/releases/download/v11.20.0/floorp-macOS-universal.dmg",
+			"sha256": "bb3e81ba2c1733e1c90d6d9bd30aadf8ce015fe12709bdcb3bee1a6e38b2075d"
 		},
 		"lunarfyi": {
 			"version": "v6.8.2",
@@ -38,6 +38,11 @@
 			"version": "2.1.114",
 			"url": "https://github.com/ospfranco/sol/releases/download/2.1.114/2.1.114.zip",
 			"sha256": "292ce48801480675ea70df07835339500846a8e08ee745c286d4d0f9c3f6e0df"
+		},
+		"telegram-desktop": {
+			"version": "v5.6.4",
+			"url": "https://github.com/telegramdesktop/tdesktop/releases/download/v5.6.4/tsetup.5.6.4.beta.dmg",
+			"sha256": "b99f66e13d8affe82fe5d3a9986dd604d5c2da50efb2cb6d67d0cf21ae437d66"
 		}
 		
 	}
