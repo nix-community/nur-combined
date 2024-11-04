@@ -45,7 +45,7 @@ stdenv.mkDerivation {
       # Fix global references and replace auto discovery mechanism with hardcoded values
       substituteInPlace $out/opt/brother/Printers/${model}/lpd/filter_${model} \
         --replace /opt "$out/opt" \
-        --replace "my \$BR_PRT_PATH =" "my \$BR_PRT_PATH = \"$out/opt/brother/Printers/${model}\"; #" \
+        --replace "my \$BR_PRT_PATH =" "my \$BR_PRT_PATH = \"$out/opt/brother/Printers/${model}/\"; #" \
         --replace "PRINTER =~" "PRINTER = \"${model}\"; #"
 
       # Make sure all executables have the necessary runtime dependencies available
