@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, emacsWithPackages }:
+{ lib, stdenv, fetchFromGitHub, emacs }:
 
 stdenv.mkDerivation rec {
   pname = "org-moderncv";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-wIeA71YX2fOZh6xErhmor3Rf8WzfXZm5uw8B5m08LOQ=";
   };
   buildInputs = [
-    (emacsWithPackages (epkgs: []))
+    (emacs.pkgs.withPackages (epkgs: []))
   ];
   buildPhase = ''
     emacs -L . --batch -f batch-byte-compile *.el 2> stderr.txt

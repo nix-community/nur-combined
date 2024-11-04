@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, emacsWithPackages }:
+{ lib, stdenv, fetchFromGitHub, emacs }:
 
 stdenv.mkDerivation rec {
   pname = "modaled";
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-UvGy5OfgBemTGeOvofWkUBthCD4FyBysdpCPpWheR5c=";
   };
   buildInputs = [
-    (emacsWithPackages (epkgs: []))
+    (emacs.pkgs.withPackages (epkgs: []))
   ];
   buildPhase = ''
     emacs -L . --batch -f batch-byte-compile *.el 2> stderr.txt

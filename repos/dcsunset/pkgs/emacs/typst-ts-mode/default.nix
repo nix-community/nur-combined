@@ -1,6 +1,6 @@
-{ lib, stdenv, fetchgit, emacsWithPackages }:
+{ lib, stdenv, fetchgit, emacs }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "modaled";
   version = "unstable-2024-09-12";
 
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    (emacsWithPackages (epkgs: []))
+    (emacs.pkgs.withPackages (epkgs: []))
   ];
   buildPhase = ''
     emacs -L . --batch -f batch-byte-compile *.el 2> stderr.txt

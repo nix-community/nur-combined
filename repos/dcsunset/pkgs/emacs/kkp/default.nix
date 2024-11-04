@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, emacsWithPackages }:
+{ lib, stdenv, fetchFromGitHub, emacs }:
 
 stdenv.mkDerivation {
   pname = "kkp";
@@ -11,7 +11,7 @@ stdenv.mkDerivation {
     hash = "sha256-+r21xJuQD9ExzN5XFQ+DUMOJ2qxnLQa+8lSrSUJduN4=";
   };
   buildInputs = [
-    (emacsWithPackages (epkgs: with epkgs; [ compat ]))
+    (emacs.pkgs.withPackages (epkgs: with epkgs; [ compat ]))
   ];
   buildPhase = ''
     emacs -L . --batch -f batch-byte-compile *.el

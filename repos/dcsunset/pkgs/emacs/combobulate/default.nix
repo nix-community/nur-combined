@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   };
   # byte compile not working now
   # buildInputs = [
-  #   (pkgs.emacsWithPackages (epkgs: []))
+  #   (emacs.pkgs.withPackages (epkgs: []))
   # ];
   buildPhase = ''
     # make byte-compile
