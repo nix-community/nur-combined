@@ -15,9 +15,10 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   zju-connect = pkgs.callPackage ./pkgs/zju-connect { };
-  wpsoffice-cn = pkgs.libsForQt5.callPackage ./pkgs/wpsoffice { };
+  wpsoffice = pkgs.libsForQt5.callPackage ./pkgs/wpsoffice { };
   wechat-universal-bwrap = pkgs.callPackage ./pkgs/wechat-universal-bwrap { };
   wemeet-bin-bwrap = pkgs.callPackage ./pkgs/wemeet-bin-bwrap { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
+  # ...
   # ...
 }
