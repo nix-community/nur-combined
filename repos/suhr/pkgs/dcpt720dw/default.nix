@@ -49,19 +49,24 @@ stdenv.mkDerivation {
         --replace "PRINTER =~" "PRINTER = \"${model}\"; #"
 
       # Make sure all executables have the necessary runtime dependencies available
-      find "$out" -executable -and -type f | while read file; do
-        wrapProgram "$file" --prefix PATH : "${lib.makeBinPath runtimeDeps}"
-      done
+      wrapProgram "$out/opt/brother/Printers/${model}/cupswrapper/brother_lpdwrapper_${model}" \
+        --prefix PATH : "${lib.makeBinPath runtimeDeps}"
+      wrapProgram "$out/opt/brother/Printers/${model}/cupswrapper/cupswrapper${model}" \
+        --prefix PATH : "${lib.makeBinPath runtimeDeps}"
+      wrapProgram "$out/opt/brother/Printers/${model}/inf/setupPrintcapij" \
+        --prefix PATH : "${lib.makeBinPath runtimeDeps}"
+      wrapProgram "$out/opt/brother/Printers/${model}/lpd/filter_${model}" \
+        --prefix PATH : "${lib.makeBinPath runtimeDeps}"
 
       # Symlink filter and ppd into a location where CUPS will discover it
       mkdir -p $out/lib/cups/filter $out/share/cups/model
 
       ln -s \
         $out/opt/brother/Printers/${model}/lpd/filter_${model} \
-        $out/lib/cups/filter/brother_lpdwrapper_${model}
+        $out/lib/cups/filter/filter_${model}
 
       ln -s \
-        $out/opt/brother/Printers/${model}/cupswrapper/brother_${model}_cups_en.ppd \
+        $out/opt/brother/Printers/${model}/cupswrapper/brother_${model}_printer_en.ppd \
         $out/share/cups/model/
 
       runHook postInstall
