@@ -1144,6 +1144,16 @@
       hash = "sha256-NPJHH7VwTzdNY87jFh28GaPjT7kRMweGI/XTOBAzM5E=";
     };
   };
+  qqsp = {
+    pname = "qqsp";
+    version = "v1.9";
+    src = fetchFromGitHub {
+      owner = "Sonnix1";
+      repo = "Qqsp";
+      rev = "v1.9";
+      hash = "sha256-eDgoa+/dcJ8Ti+YLHgKUKus0+zRrFEuJ19wUpbFpcBU=";
+    };
+  };
   qsc-key-encoder = {
     pname = "qsc-key-encoder";
     version = "1b6289dac9f7caf89d26bad2f1cf3cd628507af2";

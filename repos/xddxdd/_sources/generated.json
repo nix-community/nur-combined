@@ -2247,6 +2247,27 @@
         },
         "version": "1.1.7"
     },
+    "qqsp": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "qqsp",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Sonnix1",
+            "repo": "Qqsp",
+            "rev": "v1.9",
+            "sha256": "sha256-eDgoa+/dcJ8Ti+YLHgKUKus0+zRrFEuJ19wUpbFpcBU=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.9"
+    },
     "qsc-key-encoder": {
         "cargoLocks": null,
         "date": "2023-03-30",

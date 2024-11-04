@@ -24,7 +24,7 @@ stdenv.mkDerivation {
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "QSP is an Interactive Fiction development platform (Game Library)";
-    homepage = "https://github.com/QSPFoundation/qspgui";
+    homepage = "https://github.com/QSPFoundation/qsp";
     license = lib.licenses.gpl2Only;
   };
 }

@@ -497,6 +497,10 @@ src.webpage = "https://y.qq.com/download/download.html"
 src.regex = "\"https://dldir.y.qq.com/music/clntupate/linux/qqmusic_([^\"]+)_amd64.deb\""
 fetch.url = "https://dldir1.qq.com/music/clntupate/linux/qqmusic_$ver_amd64.deb"
 
+[qqsp]
+src.github_tag = "Sonnix1/Qqsp"
+fetch.github = "Sonnix1/Qqsp"
+
 [qsc-key-encoder]
 src.git = "https://github.com/Quantum-Safe-Collaboration/qsc-key-encoder.git"
 fetch.github = "Quantum-Safe-Collaboration/qsc-key-encoder"

@@ -3449,6 +3449,11 @@
     "pname": "qqmusic",
     "version": "1.1.7"
   },
+  "legacyPackages.x86_64-linux.qqsp": {
+    "description": "QT Quest Soft Player is a interactive fiction stories and games player (compatible fork of qsp.su)",
+    "pname": "qqsp",
+    "version": "1.9"
+  },
   "legacyPackages.x86_64-linux.qsp": {
     "description": "QSP is an Interactive Fiction development platform (GUI application)",
     "pname": "qsp",
@@ -4238,6 +4243,11 @@
     "description": "Tencent QQ Music",
     "pname": "qqmusic",
     "version": "1.1.7"
+  },
+  "packages.x86_64-linux.qqsp": {
+    "description": "QT Quest Soft Player is a interactive fiction stories and games player (compatible fork of qsp.su)",
+    "pname": "qqsp",
+    "version": "1.9"
   },
   "packages.x86_64-linux.qsp": {
     "description": "QSP is an Interactive Fiction development platform (GUI application)",

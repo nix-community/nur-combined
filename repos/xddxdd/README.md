@@ -85,7 +85,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (139 packages)</summary>
+<summary>Package set: (Uncategorized) (140 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -185,8 +185,9 @@ Or, use variables from this repository in case I change them:
 |  | `qhttpengine` | [qhttpengine](https://github.com/nitroshare/qhttpengine) | unstable-2018-03-22 | HTTP server for Qt applications |
 |  | `qq` | [qq](https://im.qq.com/linuxqq/index.html) | 3.2.13 | QQ for Linux |
 | `x86_64-linux` | `qqmusic` | [qqmusic](https://y.qq.com/) | 1.1.7 | Tencent QQ Music |
+|  | `qqsp` | [qqsp](https://github.com/Sonnix1/Qqsp) | 1.9 | QT Quest Soft Player is a interactive fiction stories and games player (compatible fork of qsp.su) |
 |  | `qsp` | [qsp](https://github.com/QSPFoundation/qspgui) | 5.9.0-b11 | QSP is an Interactive Fiction development platform (GUI application) |
-|  | `qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qspgui) | unstable-2024-10-29 | QSP is an Interactive Fiction development platform (Game Library) |
+|  | `qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | unstable-2024-10-29 | QSP is an Interactive Fiction development platform (Game Library) |
 |  | `r8125` | [r8125](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 9.013.02-2 | Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface |
 |  | `r8168` | [r8168](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 8.054.00 | Linux device driver for Realtek Ethernet controllers |
 |  | `rime-aurora-pinyin` | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | unstable-2022-08-28 | 【极光拼音】输入方案 |
