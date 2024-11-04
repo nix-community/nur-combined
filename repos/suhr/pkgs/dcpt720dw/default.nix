@@ -1,83 +1,79 @@
-{ pkgsi686Linux, lib, stdenv, fetchurl
-, dpkg, makeWrapper
-, ghostscript, gnused, perl, coreutils, gnugrep, which
+{ stdenv, lib, fetchurl
+, dpkg, makeWrapper, autoPatchelfHook
+, ghostscript, gnused, perl, coreutils, gnugrep, which, file
 }:
 
 let
   model = "dcpt720dw";
+  arches = ["x86_64" "i686"];
   version = "3.5.0";
   src = fetchurl {
     url = "https://download.brother.com/welcome/dlf105179/dcpt720dwpdrv-3.5.0-1.i386.deb";
     sha256 = "sha256-ToUFGnHxd6rnLdfhdDGzhvsgFJukEAVzlm79hmkSV3E=";
   };
-  reldir = "opt/brother/Printers/${model}/";
+  runtimeDeps = [
+    ghostscript
+    file
+    gnused
+    gnugrep
+    coreutils
+    which
+  ];
 in
-rec {
-  driver = pkgsi686Linux.stdenv.mkDerivation {
-    pname = "${model}-lpr";
-    inherit src version;
+stdenv.mkDerivation {
+  pname = "cups-brother-${model}";
+  inherit src version;
 
-    nativeBuildInputs = [ dpkg makeWrapper ];
-    unpackPhase = "dpkg-deb -x $src $out";
+  nativeBuildInputs = [ dpkg makeWrapper autoPatchelfHook ];
+  buildInputs = [ perl ];
+  unpackPhase = "dpkg-deb -x $src $out";
 
-    installPhase = ''
-      dir="$out/${reldir}"
-      substituteInPlace $dir/lpd/filter_${model} \
-        --replace /usr/bin/perl ${perl}/bin/perl \
-        --replace "BR_PRT_PATH =~" "BR_PRT_PATH = \"$dir\"; #" \
+  installPhase =
+    ''
+      runHook preInstall
+    ''
+    + lib.concatMapStrings (arch: ''
+      echo Deleting files for ${arch}
+      rm -r "$out/opt/brother/Printers/${model}/lpd/${arch}"
+      '') (builtins.filter (arch: arch != stdenv.hostPlatform.linuxArch) arches)
+    + ''
+      # bundled scripts don't understand the arch subdirectories for some reason
+      ln -s \
+        "$out/opt/brother/Printers/${model}/lpd/${stdenv.hostPlatform.linuxArch}/"* \
+        "$out/opt/brother/Printers/${model}/lpd/"
+
+      # Fix global references and replace auto discovery mechanism with hardcoded values
+      substituteInPlace $out/opt/brother/Printers/${model}/lpd/filter_${model} \
+        --replace /opt "$out/opt" \
+        --replace "my \$BR_PRT_PATH =" "my \$BR_PRT_PATH = \"$out/opt/brother/Printers/${model}\"; #" \
         --replace "PRINTER =~" "PRINTER = \"${model}\"; #"
-      wrapProgram $dir/lpd/filter_${model} \
-        --prefix PATH : ${lib.makeBinPath [
-          coreutils ghostscript gnugrep gnused which
-        ]}
 
-      patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
-        $dir/lpd/i686/br${model}filter
-      patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
-        $dir/lpd/x86_64/br${model}filter
+      # Make sure all executables have the necessary runtime dependencies available
+      find "$out" -executable -and -type f | while read file; do
+        wrapProgram "$file" --prefix PATH : "${lib.makeBinPath runtimeDeps}"
+      done
+
+      # Symlink filter and ppd into a location where CUPS will discover it
+      mkdir -p $out/lib/cups/filter $out/share/cups/model
+
+      ln -s \
+        $out/opt/brother/Printers/${model}/lpd/filter_${model} \
+        $out/lib/cups/filter/brother_lpdwrapper_${model}
+
+      ln -s \
+        $out/opt/brother/Printers/${model}/cupswrapper/brother_${model}_cups_en.ppd \
+        $out/share/cups/model/
+
+      runHook postInstall
     '';
 
-    meta = with lib; {
-      homepage = "http://www.brother.com/";
-      description = "Brother ${model} printer driver";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-      license = licenses.unfree;
-      platforms = platforms.linux;
-      downloadPage = "https://support.brother.com/g/b/downloadlist.aspx?c=ru&lang=ru&prod=dcpt720dw_all&os=127";
-      maintainers = with maintainers; [ suhr ];
-    };
-  };
-
-  cupswrapper = stdenv.mkDerivation {
-    pname = "${model}-cupswrapper";
-    inherit src version;
-
-    nativeBuildInputs = [ dpkg makeWrapper ];
-    unpackPhase = "dpkg-deb -x $src $out";
-
-    installPhase = ''
-      basedir=${driver}/${reldir}
-      dir=$out/${reldir}
-      substituteInPlace $dir/cupswrapper/brother_lpdwrapper_${model} \
-        --replace /usr/bin/perl ${perl}/bin/perl \
-        --replace "basedir =~" "basedir = \"$basedir\"; #" \
-        --replace "PRINTER =~" "PRINTER = \"${model}\"; #"
-      wrapProgram $dir/cupswrapper/brother_lpdwrapper_${model} \
-        --prefix PATH : ${lib.makeBinPath [ coreutils gnugrep gnused ]}
-      mkdir -p $out/lib/cups/filter
-      mkdir -p $out/share/cups/model
-      ln $dir/cupswrapper/brother_lpdwrapper_${model} $out/lib/cups/filter
-      ln $dir/cupswrapper/brother_${model}_printer_en.ppd $out/share/cups/model
-    '';
-
-    meta = with lib; {
-      homepage = "http://www.brother.com/";
-      description = "Brother ${model} printer CUPS wrapper driver";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-      license = licenses.unfree;
-      platforms = platforms.linux;
-      downloadPage = "https://support.brother.com/g/b/downloadlist.aspx?c=ru&lang=ru&prod=dcpt720dw_all&os=127";
-      maintainers = with maintainers; [ suhr ];
-    };
+  meta = with lib; {
+    homepage = "http://www.brother.com/";
+    description = "Brother ${model} printer driver";
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    license = licenses.unfree;
+    platforms = builtins.map (arch: "${arch}-linux") arches;
+    downloadPage = "https://support.brother.com/g/b/downloadlist.aspx?c=ru&lang=ru&prod=dcpt720dw_all&os=127";
+    maintainers = with maintainers; [ suhr ];
   };
 }
