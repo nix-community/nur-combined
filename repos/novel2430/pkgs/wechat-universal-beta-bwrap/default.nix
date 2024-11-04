@@ -1,13 +1,14 @@
-{ stdenv, stdenvNoCC, fetchurl, requireFile
-, buildFHSEnv
+{ stdenv, fetchurl
 , buildFHSUserEnvBubblewrap
 , writeShellScript
 , makeDesktopItem
 , writeShellScriptBin
+, rpmextract
 , makeWrapper
 , autoPatchelfHook
 , copyDesktopItems
 , lib
+
 , alsa-lib
 , at-spi2-atk
 , at-spi2-core
@@ -26,8 +27,7 @@
 , pciutils
 , udev
 , libxkbcommon
-, dpkg
-, jack2
+
 }:
 let
   libraries = [
@@ -56,23 +56,22 @@ let
     pciutils
     udev
     libxkbcommon
-    jack2
   ];
 
   _lib_uos = "libuosdevicea";
   _pkgname = "wechat-universal";
+  ver = "1.0.0.242";
   xdg-dir = "${xdg-user-dirs}/bin";
-  ver = "4.0.0.21";
   
   # From https://github.com/7Ji-PKGBUILDs/wechat-universal-bwrap
   # Adapted from https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=wechat-universal-bwrap
   wechat-universal-license = stdenv.mkDerivation {
     pname = "${_pkgname}-license";
-    version = "0.0.2";
+    version = "0.0.1";
     src = builtins.fetchGit {
       url = "https://github.com/7Ji-PKGBUILDs/wechat-universal-bwrap.git"; 
       ref = "master";
-      rev = "e0982191c6940f1bdcae87786cf8e5badfaf65c9";
+      rev = "5e8ad25218b82b9bbacb0bd43dce2feb85998889";
     };
 
     buildPhase = ''
@@ -82,15 +81,11 @@ let
     '';
     installPhase = ''
       mkdir -p $out
-      cp ${_lib_uos}.so $out
       echo "Fixing licenses..."
       install -dm755 $out/usr/lib/license 
-      install -Dm755 ${_lib_uos}.so $out/usr/lib/license/${_lib_uos}.so
       install -Dm755 ${_lib_uos}.so $out/lib/license/${_lib_uos}.so
-      install -Dm755 ${uosLicenseUnzipped}/etc/os-release $out/etc/os-release
-      install -Dm755 ${uosLicenseUnzipped}/etc/lsb-release $out/etc/lsb-release
-      cp -r ${uosLicenseUnzipped}/var $out/var
-      chmod 0755 -R $out/var
+      echo "DISTRIB_ID=uos" |
+          install -Dm755 /dev/stdin $out/etc/lsb-release
     '';
   };
 
@@ -100,47 +95,25 @@ let
     version = "${ver}";
 
     src = fetchurl {
-      url = "https://pro-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_${version}_amd64.deb";
-      hash = "sha256-1tO8ARt2LuCwPz7rO25/9dTOIf9Rwqc9TdqiZTTojRk=";
+      url = "https://mirrors.opencloudos.tech/opencloudos/9.2/extras/x86_64/os/Packages/wechat-beta_${version}_amd64.rpm";
+      hash = "sha256-/5fXEfPHHL6G75Ph0EpoGvXD6V4BiPS0EQZM7SgZ1xk=";
     };
     
     nativeBuildInputs = [
-      dpkg
+      rpmextract
       makeWrapper
       autoPatchelfHook
     ];
     buildInputs = libraries;
 
-    unpackCmd = "dpkg -x $src .";
+    unpackCmd = "rpmextract $src";
     sourceRoot = ".";
 
     installPhase = ''
       mkdir -p $out
-      mv opt/apps/com.tencent.wechat/files opt/${_pkgname}
-      rm opt/${_pkgname}/${_lib_uos}.so
+      mv opt/wechat-beta opt/${_pkgname}
       cp -r opt $out
     '';
-  };
-
-
-  uosLicenseUnzipped = stdenvNoCC.mkDerivation {
-    name = "uos-license-unzipped";
-    src = fetchurl {
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/license.tar.gz?h=wechat-uos-bwrap";
-      hash = "sha256-U3YAecGltY8vo9Xv/h7TUjlZCyiIQdgSIp705VstvWk=";
-    };
-
-    installPhase = ''
-      runHook preInstall
-
-      mkdir -p $out
-      cp -r * $out/
-
-      runHook postInstall
-    '';
-    outputHashAlgo = "sha256";
-    outputHashMode = "recursive";
-    outputHash = "sha256-pNftwtUZqBsKBSPQsEWlYLlb6h2Xd9j56ZRMi8I82ME=";
   };
 
   
@@ -204,11 +177,7 @@ let
 
     runScript = startScript;
 
-    extraBuildCommands = ''
-    '';
-
     extraPreBwrapCmds = ''
-      
       # Data folder setup
       # If user has declared a custom data dir, no need to query xdg for documents dir, but always resolve that to absolute path
       if [[ "''${WECHAT_DATA_DIR}" ]]; then
@@ -272,15 +241,11 @@ stdenv.mkDerivation rec {
   installPhase = ''
     mkdir -p $out/bin
     echo 'Installing icons...'
-    for res in 16 32 48 64 128 256; do
-        install -Dm644 \
-            ${wechat-universal-src}/opt/apps/com.tencent.wechat/entries/icons/hicolor/''${res}x''${res}/apps/com.tencent.wechat.png \
-            $out/share/icons/hicolor/''${res}x''${res}/apps/${_pkgname}.png
-    done
+    install -DTm644 ${wechat-universal-src}/opt/${_pkgname}/icons/wechat.png $out/usr/share/icons/hicolor/256x256/apps/${_pkgname}.png
     makeWrapper ${fhs}/bin/${_pkgname} $out/bin/${pname}
     runHook postInstall
   '';
-
+  
   desktopItems = [
     (makeDesktopItem {
       name = "${_pkgname}";
@@ -307,7 +272,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = ''
-      WeChat desktop with sandbox enabled 
+      WeChat (Beta) desktop with sandbox enabled 
       (Adapted from https://aur.archlinux.org/packages/wechat-universal-bwrap)
     '';
     homepage = "https://weixin.qq.com/";
