@@ -19,7 +19,7 @@
     nativeBuildInputs = [perl pkg-config util-linux];
     buildInputs = [
         # The Quartz version of gtk2 doesn't implement text rendering.
-        (if stdenv.isDarwin then gtk2-x11 else gtk2)
+        (if stdenv.hostPlatform.isDarwin then gtk2-x11 else gtk2)
     ];
     # Pull in Debian patches:
     # - overlapping-memcpy: Use memmove instead of memcpy for overlapping src/dst

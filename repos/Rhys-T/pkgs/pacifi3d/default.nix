@@ -27,11 +27,11 @@ in stdenv.mkDerivation rec {
         url = "http://pacifi3d.retrogames.com/pacifi3d/pacifi3d${baseVersion}-src.tgz";
         hash = "sha256-M9/XIHVXLFEV+SZAuwkSPKH+YZwdgQ1qFGBzWKjV0F8=";
     };
-    whichPlatform = if stdenv.isDarwin then "macosx" else "linux";
+    whichPlatform = if stdenv.hostPlatform.isDarwin then "macosx" else "linux";
     postPatch = ''
         sed -E -i.bak '
             s/\w+\s*=\s*gcc/#&/g
-            ${lib.optionalString stdenv.isDarwin ''
+            ${lib.optionalString stdenv.hostPlatform.isDarwin ''
                 s/-mtune=G4//g
                 s/-framework SDL/`sdl-config --libs`/g
                 s@/Developer/Tools/CpMac@cp@g
@@ -65,16 +65,18 @@ in stdenv.mkDerivation rec {
         # Skip the top-level Makefile so we don't have to build the `package` target:
         "-f" "makefiles/Makefile.${whichPlatform}"
     ];
-    buildFlags = ["common"] ++ lib.optional stdenv.isDarwin ".bundle";
+    buildFlags = ["common"] ++ lib.optional stdenv.hostPlatform.isDarwin ".bundle";
     installPhase = ''
+        runHook preInstall
         mkdir -p "$out"/bin
-        ${if stdenv.isDarwin then ''
+        ${if stdenv.hostPlatform.isDarwin then ''
             mkdir -p "$out"/Applications
             cp -r Pacifi3d.app "$out/Applications/Pacifi3d$suffix.app"
             ln -s "$out/Applications/Pacifi3d$suffix.app/Contents/MacOS/pacifi3d" "$out/bin/pacifi3d$suffix"
         '' else ''
             cp pacifi3d "$out/bin/pacifi3d$suffix"
         ''}
+        runHook postInstall
     '';
     meta = {
         description = "Pac-Man emulator in 3D" + lib.optionalString (romsFromXML != null) " (using ROMsets from ${romSourcePname})";

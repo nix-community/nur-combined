@@ -3,7 +3,7 @@
 in stdenvNoCC.mkDerivation {
     pname = "drl-${drl-audio.audioQuality}";
     inherit (drl-unwrapped) version;
-    nativeBuildInputs = [copyDesktopItems] ++ lib.optionals stdenvNoCC.isDarwin [desktopToDarwinBundle];
+    nativeBuildInputs = [copyDesktopItems] ++ lib.optionals stdenvNoCC.hostPlatform.isDarwin [desktopToDarwinBundle];
     dontUnpack = true;
     unwrapped = drl-unwrapped;
     audio = drl-audio;
@@ -39,7 +39,9 @@ in stdenvNoCC.mkDerivation {
         runHook postInstall
     '';
     installCheckPhase = ''
+        runHook preInstallCheck
         ${lib.getExe shellcheck} "$out"/bin/drl
+        runHook postInstallCheck
     '';
     doInstallCheck = true;
     meta = drl-unwrapped.meta // {

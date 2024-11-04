@@ -64,20 +64,26 @@ let
             fi
             '';
             configurePhase = ''
-            cc -o setup_t setup/tool.c
-            ./setup_t -t ${targetCode} ${minivmacOptions} ${lib.optionalString (hostPlatform.isDarwin && isAtLeast37) "-cl"} > setup.sh
-            bash setup.sh
+                runHook preConfigure
+                cc -o setup_t setup/tool.c
+                ./setup_t -t ${targetCode} ${minivmacOptions} ${lib.optionalString (hostPlatform.isDarwin && isAtLeast37) "-cl"} > setup.sh
+                bash setup.sh
+                runHook postConfigure
             '';
             # Mini vMac gets stuck in the background if I run it from a symlink in bin - use a wrapper instead
             nativeBuildInputs = lib.optionals hostPlatform.isDarwin [ makeBinaryWrapper ];
             buildInputs = lib.optionals hostPlatform.isLinux [ xorg.libX11 ] ++ lib.optionals hostPlatform.isDarwin [ Cocoa ];
-            installPhase = if stdenv.isLinux then ''
-            mkdir -p "$out/bin"
-            cp minivmac "$out/bin/$pname"
+            installPhase = ''
+                runHook preInstall
+            '' + (if hostPlatform.isDarwin then ''
+                mkdir -p "$out/Applications" "$out/bin"
+                cp -r "minivmac.app" "$out/Applications/$pname.app"
+                makeWrapper "$out/Applications/$pname.app/Contents/MacOS/minivmac" "$out/bin/$pname"
             '' else ''
-            mkdir -p "$out/Applications" "$out/bin"
-            cp -r "minivmac.app" "$out/Applications/$pname.app"
-            makeWrapper "$out/Applications/$pname.app/Contents/MacOS/minivmac" "$out/bin/$pname"
+                mkdir -p "$out/bin"
+                cp minivmac "$out/bin/$pname"
+            '') + ''
+                runHook postInstall
             '';
             meta = {
                 description = "Miniature early Macintosh emulator (Macintosh ${args.macModel or args.macType or "Plus"})";

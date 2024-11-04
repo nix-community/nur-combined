@@ -11,9 +11,11 @@
     wrapPath = lib.makeBinPath [ncurses]; # for `tput` command
     preferLocalBuild = true;
     installPhase = ''
-    mkdir -p "$out"/bin
-    install -m755 "$src" "$out"/bin/konify
-    wrapProgram "$out"/bin/konify --prefix PATH : "$wrapPath"
+        runHook preInstall
+        mkdir -p "$out"/bin
+        install -m755 "$src" "$out"/bin/konify
+        wrapProgram "$out"/bin/konify --prefix PATH : "$wrapPath"
+        runHook postInstall
     '';
     meta = {
         description = "Script to generate semi-random desktop backgrounds";

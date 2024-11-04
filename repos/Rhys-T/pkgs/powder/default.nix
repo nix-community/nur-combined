@@ -14,8 +14,9 @@
     postUnpack = ''
         unpackFile "$debian"
     '';
-    postPatch = lib.optionalString stdenv.isDarwin ''
+    postPatch = ''
         substituteInPlace ../debian/powder.desktop --replace-fail '/usr/games/powder' "$out/bin/powder"
+    '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
         substituteInPlace port/mac/Makefile --replace-fail 'SDLMain.o' '''
         substituteInPlace make/makerules.OSX \
             --replace-fail '-I/Library/Frameworks/SDL.framework/Headers' '$(shell sdl-config --cflags)' \
@@ -28,10 +29,10 @@
             make -C support/"$supportDir" clean
             make -C support/"$supportDir"
         done
-        make -C port/${if stdenv.isDarwin then "mac" else "linux"} clean
-        make -C port/${if stdenv.isDarwin then "mac" else "linux"} premake
-        make -C port/${if stdenv.isDarwin then "mac" else "linux"}
-    '' + lib.optionalString stdenv.isDarwin ''
+        make -C port/${if stdenv.hostPlatform.isDarwin then "mac" else "linux"} clean
+        make -C port/${if stdenv.hostPlatform.isDarwin then "mac" else "linux"} premake
+        make -C port/${if stdenv.hostPlatform.isDarwin then "mac" else "linux"}
+    '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
         # Build app bundle
         pushd port/mac
         sed -E '/Building a DMG/ Q' builddmg.sh | bash
@@ -41,7 +42,7 @@
     '';
     installPhase = ''
         runHook preInstall
-        ${if stdenv.isDarwin then ''
+        ${if stdenv.hostPlatform.isDarwin then ''
             mkdir -p "$out"/Applications
             cp -r port/mac/app/*.app "$out"/Applications/
             mkdir -p "$out"/bin

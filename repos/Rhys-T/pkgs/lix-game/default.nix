@@ -38,7 +38,7 @@
         )) + ''
         wrapProgram "$out"/bin/lix --suffix XDG_DATA_DIRS : "$out"/share/
         shopt -u extglob
-        '' + lib.optionalString stdenvNoCC.isDarwin ''
+        '' + lib.optionalString stdenvNoCC.hostPlatform.isDarwin ''
             ln -sf "$out"/bin/lix "$out"/Applications/Lix.app/Contents/MacOS/Lix
         '' + ''
             runHook postInstall

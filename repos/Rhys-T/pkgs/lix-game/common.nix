@@ -8,7 +8,7 @@
         hash = "sha256-cDR/7GFkFPRH8HK5k4q3PMon2tW+eyCUL9qgNBtI2rU=";
     };
     assetsHash = "sha256-KhdjR0qkNeOeJa4qIWGWOm4Ke8bVAMKk//W0hyOLPyo=";
-    assetsPNG32Hash = "sha256-DGp9HkEjbIpw5zJaeYZyZvoURKL9i2yNAbso/kwXBr0=";
+    assetsPNG32Hash = "sha256-LRHJjK2xr1JpclIkUyRDNOIBXgi+6N4EoTeUvl3U0/8=";
     meta = {
         description = "Lemmings-like game with puzzles, editor, multiplayer";
         longDescription = ''

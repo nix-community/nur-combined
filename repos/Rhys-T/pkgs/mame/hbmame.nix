@@ -52,14 +52,15 @@
     ] [
         "install -Dm755 hbmame -t $out/bin"
         "{artwork,bgfx,plugins,language,ctrlr,hash}" # no keymaps included with HBMAME
-    ] installPhase' + ''
+    ] installPhase';
+    postInstall = (old.postInstall or "") + ''
         mv "$out"/share/man/man6/{,hb}mame.6
     '';
     env = (old.env or {}) // {
         NIX_CFLAGS_COMPILE = (old.env.NIX_CFLAGS_COMPILE or "") + lib.optionalString stdenv.cc.isClang (
             " -Wno-error=unused-but-set-variable -Wno-error=unused-private-field" +
             # https://github.com/llvm/llvm-project/issues/62254
-            lib.optionalString (stdenv.isDarwin && lib.versionOlder stdenv.cc.version "18") " -fno-builtin-strrchr"
+            lib.optionalString (stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.cc.version "18") " -fno-builtin-strrchr"
         );
     };
     meta = (old.meta or {}) // {

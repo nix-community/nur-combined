@@ -40,16 +40,18 @@ let
         src = src';
         version_ = version;
         sourceRoot = ".";
-        configurePhase = "";
-        buildPhase = "";
+        dontConfigure = true;
+        dontBuild = true;
         preferLocalBuild = true;
         installPhase = ''
+            runHook preInstall
             tar --sort=name \
                 --mtime="@''${SOURCE_DATE_EPOCH}" \
                 --owner=0 --group=0 --numeric-owner \
                 --pax-option=exthdr.name=%d/PaxHeaders/%f,delete=atime,delete=ctime \
                 --exclude=contrib/rom \
                 -czf "$out" "pce-$version_"
+            runHook postInstall
         '';
         outputHash = src.hashWithoutROMs;
     });

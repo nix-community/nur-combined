@@ -8,7 +8,7 @@
     overrideSDK, fetchpatch,
     common, lix-game-packages
 }: let
-    inherit (stdenv) isDarwin;
+    inherit (stdenv.hostPlatform) isDarwin;
     allegro5' = if disableNativeImageLoader == "CIImage" then (allegro5.override {
         stdenv = overrideSDK stdenv {
             darwinMinVersion = "10.14";

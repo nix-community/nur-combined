@@ -1,5 +1,5 @@
 { stdenv, lib, symlinkJoin, makeBinaryWrapper, autoPatchelfHook, fetchFromGitHub, writeText, lua5_1, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, ncurses, darwin, fpc, maintainers }: let
-    libExt = if stdenv.isDarwin then "dylib" else "so";
+    libExt = if stdenv.hostPlatform.isDarwin then "dylib" else "so";
     version = "0.9.9.8a";
     gitShortRev = "97f1c51";
     rev = builtins.replaceStrings ["."] ["_"] version;
@@ -33,10 +33,10 @@ in stdenv.mkDerivation rec {
         chmod -R u+rwX fpcvalkyrie
         export FPCVALKYRIE_ROOT="$PWD/fpcvalkyrie/"
     '';
-    nativeBuildInputs = [lua5_1 fpc-wrapper] ++ lib.optionals stdenv.isLinux [autoPatchelfHook];
+    nativeBuildInputs = [lua5_1 fpc-wrapper] ++ lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
     buildInputs = [lua5_1 SDL2 SDL2_image SDL2_mixer SDL2_ttf ncurses];
     env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument";
-    env.NIX_LDFLAGS = lib.optionalString stdenv.isDarwin (lib.concatMapStringsSep " " (f: "-F${f}/Library/Frameworks") (with darwin.apple_sdk.frameworks; [CoreFoundation Cocoa]));
+    env.NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isDarwin (lib.concatMapStringsSep " " (f: "-F${f}/Library/Frameworks") (with darwin.apple_sdk.frameworks; [CoreFoundation Cocoa]));
     # env.NIX_DEBUG = 7;
     postPatch = ''
         sed -i '
@@ -53,23 +53,23 @@ in stdenv.mkDerivation rec {
                 current = tonumber(revision, 16),
                 mod = mod,
             }
-        end)()"${lib.optionalString stdenv.isLinux '' \
+        end)()"${lib.optionalString stdenv.hostPlatform.isLinux '' \
             --replace-fail 'os.execute_in_dir( "makewad", "bin" )' 'os.execute("${stdenv.shell} -c \". ${stdenv}/setup; autoPatchelf bin/makewad\""); os.execute_in_dir( "makewad", "bin" )'
         ''}
         substituteInPlace "$FPCVALKYRIE_ROOT"/libs/vlualibrary.pas \
-            --replace-fail 'lua5.1.${libExt}' '${lib.getLib lua5_1}/lib/${if stdenv.isDarwin then "liblua.5.1.dylib" else "liblua.so.5.1"}'
+            --replace-fail 'lua5.1.${libExt}' '${lib.getLib lua5_1}/lib/${if stdenv.hostPlatform.isDarwin then "liblua.5.1.dylib" else "liblua.so.5.1"}'
         substituteInPlace "$FPCVALKYRIE_ROOT"/libs/vsdl2library.pas \
-            --replace-fail '${if stdenv.isDarwin then "SDL2.framework/SDL2" else "libSDL2-2.0.so.0"}' '${lib.getLib SDL2}/lib/libSDL2.${libExt}' \
+            --replace-fail '${if stdenv.hostPlatform.isDarwin then "SDL2.framework/SDL2" else "libSDL2-2.0.so.0"}' '${lib.getLib SDL2}/lib/libSDL2.${libExt}' \
             --replace-fail '{$linklib SDLmain}' '{.$linklib SDL2main}' \
             --replace-fail '{$linkframework SDL}' '{$linklib SDL2}' \
             --replace-fail '{$PASCALMAINNAME SDL_main}' '{.$PASCALMAINNAME SDL_main}'
         substituteInPlace "$FPCVALKYRIE_ROOT"/libs/vsdl2imagelibrary.pas \
-            --replace-fail '${if stdenv.isDarwin then "SDL2_image.framework/SDL_image" else "libSDL2_image-2.0.so.0"}' '${lib.getLib SDL2_image}/lib/libSDL2_image.${libExt}'
+            --replace-fail '${if stdenv.hostPlatform.isDarwin then "SDL2_image.framework/SDL_image" else "libSDL2_image-2.0.so.0"}' '${lib.getLib SDL2_image}/lib/libSDL2_image.${libExt}'
         substituteInPlace "$FPCVALKYRIE_ROOT"/libs/vsdl2mixerlibrary.pas \
-            --replace-fail '${if stdenv.isDarwin then "SDL2_mixer.framework/SDL2_mixer" else "libSDL2_mixer-2.0.so.0"}' '${lib.getLib SDL2_mixer}/lib/libSDL2_mixer.${libExt}'
+            --replace-fail '${if stdenv.hostPlatform.isDarwin then "SDL2_mixer.framework/SDL2_mixer" else "libSDL2_mixer-2.0.so.0"}' '${lib.getLib SDL2_mixer}/lib/libSDL2_mixer.${libExt}'
         substituteInPlace "$FPCVALKYRIE_ROOT"/libs/vsdl2ttflibrary.pas \
-            --replace-fail '${if stdenv.isDarwin then "SDL2_ttf.framework/SDL2_ttf" else "libSDL2_ttf-2.0.so.0"}' '${lib.getLib SDL2_ttf}/lib/libSDL2_ttf.${libExt}'
-    '' + lib.optionalString stdenv.isDarwin ''
+            --replace-fail '${if stdenv.hostPlatform.isDarwin then "SDL2_ttf.framework/SDL2_ttf" else "libSDL2_ttf-2.0.so.0"}' '${lib.getLib SDL2_ttf}/lib/libSDL2_ttf.${libExt}'
+    '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
         sed -E -i '
             /glExtLoader/ {
                 /GetSymbolExt\s*:=/ s/glExtLoader/GetSymbol/
@@ -80,7 +80,7 @@ in stdenv.mkDerivation rec {
     configurePhase = ''
         runHook preConfigure
         cp ${writeText "config.lua" ''
-            OS = "${if stdenv.isDarwin then "MACOSX" else "LINUX"}"
+            OS = "${if stdenv.hostPlatform.isDarwin then "MACOSX" else "LINUX"}"
         ''} config.lua
         runHook postConfigure
     '';
