@@ -63,7 +63,7 @@ stdenv.mkDerivation {
 
       ln -s \
         $out/opt/brother/Printers/${model}/lpd/filter_${model} \
-        $out/lib/cups/filter/filter_${model}
+        $out/lib/cups/filter/brother_lpdwrapper_${model}
 
       ln -s \
         $out/opt/brother/Printers/${model}/cupswrapper/brother_${model}_printer_en.ppd \
