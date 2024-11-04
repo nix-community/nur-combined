@@ -64,11 +64,11 @@
     hysteria.instances = {
       nodens = {
         enable = true;
-        configFile = config.age.secrets.hyst-us-cli.path;
+        configFile = config.vaultix.secrets.hyst-us-cli.path;
       };
       yidhra = {
         enable = true;
-        configFile = config.age.secrets.hyst-hk-cli.path;
+        configFile = config.vaultix.secrets.hyst-hk-cli.path;
       };
     };
 
@@ -81,7 +81,7 @@
     minio = {
       enable = true;
       region = "ap-east-1";
-      rootCredentialsFile = config.age.secrets.minio.path;
+      rootCredentialsFile = config.vaultix.secrets.minio.path;
       dataDir = [ "/three/bucket" ];
     };
 
@@ -103,7 +103,7 @@
     shadowsocks.instances = [
       {
         name = "rha";
-        configFile = config.age.secrets.ss-az.path;
+        configFile = config.vaultix.secrets.ss-az.path;
         serve = {
           enable = true;
           port = 6059;

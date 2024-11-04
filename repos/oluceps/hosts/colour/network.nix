@@ -75,7 +75,7 @@
           MTUBytes = "1300";
         };
         wireguardConfig = {
-          PrivateKeyFile = config.age.secrets.wgc-warp.path;
+          PrivateKeyFile = config.vaultix.secrets.wgc-warp.path;
         };
         wireguardPeers = [
           {
@@ -95,7 +95,7 @@
       #     MTUBytes = "1300";
       #   };
       #   wireguardConfig = {
-      #     PrivateKeyFile = config.age.secrets.wga.path;
+      #     PrivateKeyFile = config.vaultix.secrets.wga.path;
       #     ListenPort = 51820;
       #   };
       #   wireguardPeers = [

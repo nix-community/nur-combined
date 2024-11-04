@@ -41,7 +41,7 @@ in
   sharedModules =
     [ inputs.self.nixosModules.repack ]
     ++ (genModules [
-      "agenix-rekey"
+      "vaultix"
       "ragenix"
       "lanzaboote"
       "catppuccin"
@@ -85,7 +85,7 @@ in
       )
     );
 
-  genCredPath = config: key: (key + ":" + config.age.secrets.${key}.path);
+  genCredPath = config: key: (key + ":" + config.vaultix.secrets.${key}.path);
 
   capitalize =
     str:
@@ -116,7 +116,7 @@ in
         n: v:
         v
         // {
-          rekeyFile = writeText "empty" ''
+          file = writeText "empty" ''
             -----BEGIN AGE ENCRYPTED FILE-----
             YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IHNzaC1lZDI1NTE5IEdPMitlQSB3Wjgx
             ZHlSYWdyajZDc0Foek5DZkd6a25vdUcxL1F6UktoMk90a0o2YkVRCmc1cW40UU1G

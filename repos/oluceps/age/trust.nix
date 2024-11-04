@@ -33,7 +33,7 @@
 ])
 // {
   dae = {
-    rekeyFile = ../sec/dae.age;
+    file = ../sec/dae.age;
     mode = "640";
     owner = "root";
     group = "users";
@@ -50,7 +50,7 @@
       (
         n:
         nameValuePair "hyst-${n}-cli" {
-          rekeyFile = ../sec/hyst-${n}-cli.age;
+          file = ../sec/hyst-${n}-cli.age;
           mode = "640";
           owner = "root";
           group = "users";

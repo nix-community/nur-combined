@@ -7,7 +7,7 @@
 reIf {
   services.garage = {
     enable = true;
-    environmentFile = config.age.secrets.garage.path;
+    environmentFile = config.vaultix.secrets.garage.path;
     package = pkgs.garage;
     settings = {
       replication_factor = 1;

@@ -45,7 +45,7 @@ reIf (
         }
       ) { } nameCondPair)
       (optionalAttrs config.repack.caddy.enable {
-        caddy.serviceConfig.EnvironmentFile = config.age.secrets.caddy.path;
+        caddy.serviceConfig.EnvironmentFile = config.vaultix.secrets.caddy.path;
       })
       (optionalAttrs (builtins.any (i: i.serve) (lib.attrValues config.services.hysteria.instances)) {
         hysteria-only.serviceConfig.LoadCredential =

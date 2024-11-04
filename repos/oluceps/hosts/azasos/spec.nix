@@ -67,15 +67,15 @@
   services.hysteria.instances = {
     nodens = {
       enable = true;
-      configFile = config.age.secrets.hyst-us-cli.path;
+      configFile = config.vaultix.secrets.hyst-us-cli.path;
     };
     abhoth = {
       enable = true;
-      configFile = config.age.secrets.hyst-la-cli.path;
+      configFile = config.vaultix.secrets.hyst-la-cli.path;
     };
     yidhra = {
       enable = true;
-      configFile = config.age.secrets.hyst-hk-cli.path;
+      configFile = config.vaultix.secrets.hyst-hk-cli.path;
     };
   };
 

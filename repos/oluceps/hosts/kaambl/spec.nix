@@ -51,7 +51,7 @@
     script = ''
       eval `${pkgs.openssh}/bin/ssh-agent -s`
       export SSH_ASKPASS_REQUIRE="prefer"
-      ${pkgs.openssh}/bin/ssh-add ${config.age.secrets.id.path}
+      ${pkgs.openssh}/bin/ssh-add ${config.vaultix.secrets.id.path}
     '';
     wantedBy = [ "default.target" ];
   };
@@ -115,30 +115,30 @@
     # shadowsocks.instances = [
     #   {
     #     name = "kaambl-local";
-    #     configFile = config.age.secrets.ss.path;
+    #     configFile = config.vaultix.secrets.ss.path;
     #   }
     # ];
 
     hysteria.instances = {
       nodens = {
-        configFile = config.age.secrets.hyst-us-cli.path;
+        configFile = config.vaultix.secrets.hyst-us-cli.path;
         enable = true;
       };
       abhoth = {
         enable = true;
-        configFile = config.age.secrets.hyst-la-cli.path;
+        configFile = config.vaultix.secrets.hyst-la-cli.path;
       };
       yidhra = {
         enable = true;
-        configFile = config.age.secrets.hyst-hk-cli.path;
+        configFile = config.vaultix.secrets.hyst-hk-cli.path;
       };
     };
 
     factorio = {
       enable = false;
       openFirewall = true;
-      serverSettingsFile = config.age.secrets.factorio-server.path;
-      serverAdminsFile = config.age.secrets.factorio-server.path;
+      serverSettingsFile = config.vaultix.secrets.factorio-server.path;
+      serverAdminsFile = config.vaultix.secrets.factorio-server.path;
       mods = [
         (
           (pkgs.stdenvNoCC.mkDerivation (finalAttrs: {

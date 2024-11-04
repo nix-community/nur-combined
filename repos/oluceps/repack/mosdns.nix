@@ -181,8 +181,8 @@ reIf {
             args = {
               entry = "main_sequence";
               listen = "127.0.0.1:853";
-              cert = config.age.secrets."nyaw.cert".path;
-              key = config.age.secrets."nyaw.key".path;
+              cert = config.vaultix.secrets."nyaw.cert".path;
+              key = config.vaultix.secrets."nyaw.key".path;
               idle_timeout = 30;
             };
           }

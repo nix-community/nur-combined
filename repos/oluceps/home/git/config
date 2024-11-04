@@ -51,4 +51,4 @@
 [user]
 	email = "secinia@outlook.com"
 	name = "oluceps"
-	signingKey = "/run/agenix/id"
+	signingKey = "/run/vaultix/id"

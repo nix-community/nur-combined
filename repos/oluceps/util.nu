@@ -80,7 +80,7 @@ export def d [
   }
 }
 
-const age_pub = "/run/agenix/age"
+const age_pub = "/run/vaultix/age"
 
 
 # decrypt

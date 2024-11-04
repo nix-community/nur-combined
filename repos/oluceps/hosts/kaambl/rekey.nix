@@ -3,30 +3,29 @@ let
   hostPrivKey = "/persist/keys/ssh_host_ed25519_key";
 in
 {
-  age = {
-    identityPaths = [ hostPrivKey ];
-    rekey.hostPubkey = data.keys.kaamblHostPubKey;
+  vaultix = {
+    settings.hostPubkey = data.keys.kaamblHostPubKey;
     secrets = {
       id = {
-        rekeyFile = ../../sec/id.age;
+        file = ../../sec/id.age;
         mode = "400";
         owner = user;
         group = "users";
       };
       id_sk = {
-        rekeyFile = ../../sec/id_sk.age;
+        file = ../../sec/id_sk.age;
         mode = "400";
         owner = user;
         group = "users";
       };
       rclone-conf = {
-        rekeyFile = ../../sec/rclone.age;
+        file = ../../sec/rclone.age;
       };
       garage = {
-        rekeyFile = ../../sec/garage.age;
+        file = ../../sec/garage.age;
       };
       wgk = {
-        rekeyFile = ../../sec/wgk.age;
+        file = ../../sec/wgk.age;
         owner = "systemd-network";
         group = "root";
         mode = "400";

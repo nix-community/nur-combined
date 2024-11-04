@@ -1,7 +1,7 @@
 { config, lib, ... }:
 {
   services.rustic = {
-    profiles = map (n: config.age.secrets.${n}.path) [
+    profiles = map (n: config.vaultix.secrets.${n}.path) [
       "general.toml"
       "on-kaambl.toml"
       "on-eihort.toml"

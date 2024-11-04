@@ -2,9 +2,13 @@
   pkgs,
   lib,
   user,
+  config,
   ...
 }:
 {
+  systemd.tmpfiles.rules = [
+    "L+ /home/${user}/.ssh/config - - - - ${config.vaultix.secrets.ssh-cfg.path}"
+  ];
   programs = {
 
     ssh = {
@@ -81,7 +85,7 @@
             nodejs_latest.pkgs.pnpm
             nodejs_latest
             qemu-utils
-            rustup
+            # rustup
             linuxPackages_latest.perf
             strace
             gitoxide

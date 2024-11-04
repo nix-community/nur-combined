@@ -17,6 +17,6 @@ reIf {
       rocketPort = 8003;
     };
     # backupDir = "/var/lib/bitwarden_rs/backup";
-    environmentFile = config.age.secrets.vault.path;
+    environmentFile = config.vaultix.secrets.vault.path;
   };
 }

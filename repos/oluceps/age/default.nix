@@ -10,16 +10,14 @@
   ...
 }:
 {
-
-  age = {
-
-    rekey = {
-      extraEncryptionPubkeys = [ data.keys.ageKey ];
+  systemd.services.vaultix-install-secrets.serviceConfig.Environment = [ "SPDLOG_RS_LEVEL=debug" ];
+  vaultix = {
+    settings = {
+      storageDirRelative = "./sec/rekeyed/${config.networking.hostName}";
+      extraRecipients = [ data.keys.ageKey ];
       masterIdentities = [
         (self + "/sec/age-yubikey-identity-7d5d5540.txt.pub")
       ];
-      storageMode = "local";
-      localStorageDir = self + "/sec/rekeyed/${config.networking.hostName}";
     };
 
     secrets = (
@@ -27,7 +25,7 @@
         gen =
           ns: owner: group: mode:
           self.lib.genAttrs ns (n: {
-            rekeyFile = ../sec/${n}.age;
+            file = ../sec/${n}.age;
             inherit owner group mode;
           });
         hard = i: gen i "root" "users" "400";

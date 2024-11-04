@@ -5,7 +5,7 @@
   services.rustic = {
     backups = {
       critic = {
-        profiles = map (n: config.age.secrets.${n}.path) [
+        profiles = map (n: config.vaultix.secrets.${n}.path) [
           "general.toml"
           "on-kaambl.toml"
         ];
@@ -13,7 +13,7 @@
       };
 
       # solid = {
-      #   profiles = map (n: config.age.secrets.${n}.path) [
+      #   profiles = map (n: config.vaultix.secrets.${n}.path) [
       #     "general.toml"
       #     "on-eihort.toml"
       #   ];

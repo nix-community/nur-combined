@@ -101,7 +101,7 @@
           MTUBytes = "1300";
         };
         wireguardConfig = {
-          PrivateKeyFile = config.age.secrets.wgn.path;
+          PrivateKeyFile = config.vaultix.secrets.wgn.path;
           ListenPort = 51820;
         };
         wireguardPeers = [

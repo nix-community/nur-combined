@@ -106,7 +106,7 @@
           MTUBytes = "1300";
         };
         wireguardConfig = {
-          PrivateKeyFile = config.age.secrets.wge.path;
+          PrivateKeyFile = config.vaultix.secrets.wge.path;
         };
         wireguardPeers = [
           {

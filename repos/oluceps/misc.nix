@@ -311,7 +311,7 @@
     daemonIOSchedPriority = lib.mkDefault 7;
 
     extraOptions = ''
-      !include ${config.age.secrets.gh-token.path}
+      !include ${config.vaultix.secrets.gh-token.path}
     '';
   };
 

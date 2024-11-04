@@ -22,7 +22,7 @@ in
   };
   config =
     let
-      configFile = config.age.secrets.naive.path;
+      configFile = config.vaultix.secrets.naive.path;
     in
     mkIf cfg.enable {
       systemd.services.naive = {

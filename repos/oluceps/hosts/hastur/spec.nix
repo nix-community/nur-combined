@@ -31,7 +31,7 @@
     options = "--delete-older-than 10d";
   };
   programs.fish.loginShellInit = ''
-    ${pkgs.openssh}/bin/ssh-add ${config.age.secrets.id.path}
+    ${pkgs.openssh}/bin/ssh-add ${config.vaultix.secrets.id.path}
   '';
   systemd = {
     enableEmergencyMode = false;
@@ -79,7 +79,7 @@
     fwupd.enable = true;
     harmonia = {
       enable = true;
-      signKeyPaths = [ config.age.secrets.harmonia.path ];
+      signKeyPaths = [ config.vaultix.secrets.harmonia.path ];
     };
     realm = {
       enable = false;
@@ -131,21 +131,21 @@
     hysteria.instances = {
       nodens = {
         enable = true;
-        configFile = config.age.secrets.hyst-us-cli.path;
+        configFile = config.vaultix.secrets.hyst-us-cli.path;
       };
       abhoth = {
         enable = true;
-        configFile = config.age.secrets.hyst-la-cli.path;
+        configFile = config.vaultix.secrets.hyst-la-cli.path;
       };
       yidhra = {
         enable = true;
-        configFile = config.age.secrets.hyst-hk-cli.path;
+        configFile = config.vaultix.secrets.hyst-hk-cli.path;
       };
     };
     shadowsocks.instances = [
       {
         name = "rha";
-        configFile = config.age.secrets.ss-az.path;
+        configFile = config.vaultix.secrets.ss-az.path;
         serve = {
           enable = true;
           port = 6059;
@@ -166,7 +166,7 @@
     minio = {
       enable = true;
       region = "ap-east-1";
-      rootCredentialsFile = config.age.secrets.minio.path;
+      rootCredentialsFile = config.vaultix.secrets.minio.path;
     };
   };
 }

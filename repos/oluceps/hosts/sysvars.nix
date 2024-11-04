@@ -11,7 +11,7 @@
     EDITOR = "hx";
     NIXOS_OZONE_WL = "1";
     # Steam needs this to find Proton-GE
-    AWS_SHARED_CREDENTIALS_FILE = config.age.secrets.aws-s3-cred.path;
+    AWS_SHARED_CREDENTIALS_FILE = config.vaultix.secrets.aws-s3-cred.path;
     GOPATH = "\${HOME}/.cache/go";
     QT_IM_MODULES = "fcitx;wayland";
     # NIX_CFLAGS_COMPILE = "--verbose";

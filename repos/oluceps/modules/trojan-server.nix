@@ -26,7 +26,7 @@ in
     };
     configFile = mkOption {
       type = types.str;
-      default = config.age.secrets.trojan-server.path;
+      default = config.vaultix.secrets.trojan-server.path;
     };
     openFirewall = mkOption {
       type = types.port;
@@ -47,8 +47,8 @@ in
         LoadCredential =
           [ ("config.json:" + cfg.configFile) ]
           ++ (optionals (!(config ? repack && config.repack.reuse-cert.enable)) [
-            "crt:${config.age.secrets."nyaw.cert".path}"
-            "key:${config.age.secrets."nyaw.key".path}"
+            "crt:${config.vaultix.secrets."nyaw.cert".path}"
+            "key:${config.vaultix.secrets."nyaw.key".path}"
           ]);
         StateDirectory = "trojan-server";
         CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];

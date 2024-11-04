@@ -9,7 +9,7 @@ reIf {
   services.dae = {
     enable = true;
     disableTxChecksumIpGeneric = false;
-    configFile = config.age.secrets.dae.path;
+    configFile = config.vaultix.secrets.dae.path;
     # package = pkgs.dae-unstable;
     assetsPath = toString (
       pkgs.symlinkJoin {

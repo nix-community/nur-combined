@@ -56,10 +56,10 @@
         serve = true;
         openFirewall = 4432;
         credentials = [
-          "key:${config.age.secrets."nyaw.key".path}"
-          "crt:${config.age.secrets."nyaw.cert".path}"
+          "key:${config.vaultix.secrets."nyaw.key".path}"
+          "crt:${config.vaultix.secrets."nyaw.cert".path}"
         ];
-        configFile = config.age.secrets.hyst-us.path;
+        configFile = config.vaultix.secrets.hyst-us.path;
       };
     };
 

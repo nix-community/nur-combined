@@ -74,16 +74,16 @@
       factorioPackage = pkgs.factorio-headless-experimental.override {
         versionsJson = ./factorio-version.json;
       };
-      botConfigPath = config.age.secrets.factorio-manager-bot.path;
+      botConfigPath = config.vaultix.secrets.factorio-manager-bot.path;
       initialGameStartArgs = [
-        "--server-settings=${config.age.secrets.factorio-server.path}"
-        "--server-adminlist=${config.age.secrets.factorio-admin.path}"
+        "--server-settings=${config.vaultix.secrets.factorio-server.path}"
+        "--server-adminlist=${config.vaultix.secrets.factorio-admin.path}"
       ];
     };
 
     coturn = {
       enable = true;
-      # static-auth-secret-file = config.age.secrets.wg.path;
+      # static-auth-secret-file = config.vaultix.secrets.wg.path;
       no-auth = true;
       realm = config.networking.fqdn;
     };
@@ -101,8 +101,8 @@
     # online-keeper.instances = [
     #   {
     #     name = "sec";
-    #     sessionFile = config.age.secrets.tg-session.path;
-    #     environmentFile = config.age.secrets.tg-env.path;
+    #     sessionFile = config.vaultix.secrets.tg-session.path;
+    #     environmentFile = config.vaultix.secrets.tg-env.path;
     #   }
     # ];
 
@@ -110,12 +110,12 @@
     #   only = {
     #     enable = true;
     #     # credentials = [
-    #     #   "key:${config.age.secrets."nyaw.key".path}"
-    #     #   "cert:${config.age.secrets."nyaw.cert".path}"
+    #     #   "key:${config.vaultix.secrets."nyaw.key".path}"
+    #     #   "cert:${config.vaultix.secrets."nyaw.cert".path}"
     #     # ];
     #     serve = true;
     #     openFirewall = 23180;
-    #     configFile = config.age.secrets.juic-san.path;
+    #     configFile = config.vaultix.secrets.juic-san.path;
     #   };
     # };
 
@@ -125,10 +125,10 @@
         serve = true;
         openFirewall = 4432;
         # credentials = [
-        #   "key:${config.age.secrets."nyaw.key".path}"
-        #   "cert:${config.age.secrets."nyaw.cert".path}"
+        #   "key:${config.vaultix.secrets."nyaw.key".path}"
+        #   "cert:${config.vaultix.secrets."nyaw.cert".path}"
         # ];
-        configFile = config.age.secrets.hyst-us.path;
+        configFile = config.vaultix.secrets.hyst-us.path;
       };
     };
   };

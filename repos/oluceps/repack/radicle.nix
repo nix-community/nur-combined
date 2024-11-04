@@ -13,7 +13,7 @@ reIf {
       listenAddress = "10.0.1.2";
     };
     node.openFirewall = true;
-    privateKeyFile = config.age.secrets.id.path;
+    privateKeyFile = config.vaultix.secrets.id.path;
     publicKey = lib.data.keys.sshPubKey;
     settings = {
       cli = {

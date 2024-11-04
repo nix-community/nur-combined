@@ -38,7 +38,7 @@ in
 reIf {
   systemd.services = {
     alertmanager.serviceConfig.LoadCredential = [
-      "notifychan:${config.age.secrets.notifychan.path}"
+      "notifychan:${config.vaultix.secrets.notifychan.path}"
     ];
     prometheus.serviceConfig.LoadCredential = (map (lib.genCredPath config)) [
       "prom"

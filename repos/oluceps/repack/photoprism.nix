@@ -9,7 +9,7 @@ reIf {
     enable = true;
     originalsPath = "/var/lib/private/photoprism/originals";
     address = "[::]";
-    passwordFile = config.age.secrets.wg.path;
+    passwordFile = config.vaultix.secrets.wg.path;
     settings = {
       PHOTOPRISM_ADMIN_USER = "prism";
       PHOTOPRISM_DEFAULT_LOCALE = "en";

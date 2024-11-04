@@ -21,7 +21,7 @@ reIf {
       MISSKEY_CONFIG_YML = "/run/credentials/misskey.service/config";
     };
     serviceConfig = {
-      LoadCredential = [ "config:${config.age.secrets.misskey.path}" ];
+      LoadCredential = [ "config:${config.vaultix.secrets.misskey.path}" ];
       ExecStart = "${pkgs.misskey}/bin/misskey migrateandstart";
       RuntimeDirectory = "misskey";
       RuntimeDirectoryMode = "700";

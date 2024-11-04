@@ -51,7 +51,7 @@ deploy *args:
 
 encrypt-new *args:
     #!/usr/bin/env nu
-    const age_pub = "/run/agenix/age"
+    const age_pub = "/run/vaultix/age"
     let output_dir = ['./sec/' '{{ home }}/Sec/'] |
                        reduce {|it, acc| $it + (char newline) + $acc } | fzf
     echo "input file name: "
@@ -63,7 +63,7 @@ encrypt-new *args:
 
 encrypt-exist *args:
     #!/usr/bin/env nu
-    let age_pub = "/run/agenix/age"
+    let age_pub = "/run/vaultix/age"
     let origin_file_to_enc = ['./sec' '{{ home }}/Sec']
                                   | each {|| ls $in } | flatten | $in.name |
                                   reduce {|it, acc| $it + (char newline) + $acc } |
@@ -73,7 +73,7 @@ encrypt-exist *args:
 
 edit-sec *args:
     #!/usr/bin/env nu
-    let age_pub = "/run/agenix/age"
+    let age_pub = "/run/vaultix/age"
     let encrypted_file_tob_edit = ['./sec' '{{ home }}/Sec']
                                   | each {|| ls $in } | flatten | $in.name |
                                   reduce {|it, acc| $it + (char newline) + $acc } |

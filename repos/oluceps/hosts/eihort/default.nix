@@ -23,7 +23,7 @@ withSystem "x86_64-linux" (
         ++ (self.lib.genOverlays [
           "self"
           "nuenv"
-          "agenix-rekey"
+
         ]);
     };
     specialArgs = {

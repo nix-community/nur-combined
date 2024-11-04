@@ -40,7 +40,7 @@ in
     };
     configFile = mkOption {
       type = types.str;
-      default = config.age.secrets.sing.path;
+      default = config.vaultix.secrets.sing.path;
     };
   };
   config = mkIf cfg.enable {

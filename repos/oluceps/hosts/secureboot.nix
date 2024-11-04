@@ -1,10 +1,11 @@
-_: {
+{ config, ... }:
+{
   boot = {
     bootspec.enable = true;
     lanzaboote = {
       enable = true;
-      publicKeyFile = "/run/agenix/db.pem";
-      privateKeyFile = "/run/agenix/db.key";
+      publicKeyFile = config.vaultix.secrets."db.pem".path;
+      privateKeyFile = config.vaultix.secrets."db.key".path;
     };
   };
 }

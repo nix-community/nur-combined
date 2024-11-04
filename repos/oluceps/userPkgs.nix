@@ -16,7 +16,7 @@ with pkgs;
   celluloid
   thiefmd
   # wpsoffice
-  fractal
+  # fractal
   mari0
   # anyrun
   # factorio

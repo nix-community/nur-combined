@@ -11,48 +11,47 @@ in
       type = "ed25519";
     }
   ];
-  age = {
-    identityPaths = [ hostPrivKey ];
-    rekey.hostPubkey = data.keys.nodensHostPubKey;
+  vaultix = {
+    settings.hostPubkey = data.keys.nodensHostPubKey;
 
     secrets = {
       factorio-server = {
-        rekeyFile = ../../sec/factorio-server.age;
+        file = ../../sec/factorio-server.age;
         mode = "640";
         owner = "factorio";
         group = "users";
         name = "factorio-server";
       };
       factorio-admin = {
-        rekeyFile = ../../sec/factorio-admin.age;
+        file = ../../sec/factorio-admin.age;
         mode = "640";
         owner = "factorio";
         group = "users";
         name = "factorio-admin";
       };
       hyst-us = {
-        rekeyFile = ../../sec/hyst-us.age;
+        file = ../../sec/hyst-us.age;
         mode = "640";
         owner = "root";
         group = "users";
         name = "hyst-us.yaml";
       };
       factorio-manager-bot = {
-        rekeyFile = ../../sec/factorio-manager-bot.age;
+        file = ../../sec/factorio-manager-bot.age;
         mode = "640";
         owner = "factorio";
         group = "users";
         name = "factorio-manager-bot";
       };
       tg-session = {
-        rekeyFile = ../../sec/tg-session.age;
+        file = ../../sec/tg-session.age;
         mode = "640";
         owner = "root";
         group = "root";
         name = "tg-session";
       };
       tg-env = {
-        rekeyFile = ../../sec/tg-env.age;
+        file = ../../sec/tg-env.age;
         mode = "640";
         owner = "root";
         group = "root";
@@ -60,7 +59,7 @@ in
       };
 
       wgn = {
-        rekeyFile = ../../sec/wgn.age;
+        file = ../../sec/wgn.age;
         owner = "systemd-network";
         group = "root";
         mode = "400";
