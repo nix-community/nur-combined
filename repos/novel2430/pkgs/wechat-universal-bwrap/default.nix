@@ -3,12 +3,10 @@
 , writeShellScript
 , makeDesktopItem
 , writeShellScriptBin
-, rpmextract
 , makeWrapper
 , autoPatchelfHook
 , copyDesktopItems
 , lib
-
 , alsa-lib
 , at-spi2-atk
 , at-spi2-core
@@ -28,7 +26,6 @@
 , udev
 , libxkbcommon
 , dpkg
-, openssl
 , jack2
 }:
 let
@@ -58,7 +55,6 @@ let
     pciutils
     udev
     libxkbcommon
-    openssl
     jack2
   ];
 
@@ -258,15 +254,10 @@ stdenv.mkDerivation rec {
             ${wechat-universal-src}/opt/apps/com.tencent.wechat/entries/icons/hicolor/''${res}x''${res}/apps/com.tencent.wechat.png \
             $out/share/icons/hicolor/''${res}x''${res}/apps/${_pkgname}.png
     done
-    # install -DTm644 ${wechat-universal-src}/opt/${_pkgname}/icons/wechat.png $out/usr/share/icons/hicolor/256x256/apps/${_pkgname}.png
     makeWrapper ${fhs}/bin/${_pkgname} $out/bin/${pname}
     runHook postInstall
   '';
 
-  # preFixup = ''
-  #   patchelf --replace-needed libtiff.so.5 libtiff.so $out/opt/kingsoft/wps-office/office6/{libpdfmain.so,libqpdfpaint.so,qt/plugins/imageformats/libqtiff.so,addons/pdfbatchcompression/libpdfbatchcompressionapp.so}
-  # '';
-  
   desktopItems = [
     (makeDesktopItem {
       name = "${_pkgname}";
