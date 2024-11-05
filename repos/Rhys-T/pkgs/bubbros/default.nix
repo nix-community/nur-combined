@@ -112,7 +112,7 @@ in stdenv.mkDerivation (finalAttrs: let self = finalAttrs.finalPackage; in {
         runHook postInstall
     '';
     meta = {
-        description = "multiplayer clone of the famous Bubble Bobble game";
+        description = "Multiplayer clone of the famous Bubble Bobble game";
         longDescription = ''
             The objective of this game is to obtain points by destroying enemies
             (capturing them into bubbles and smashing those) and collecting items.

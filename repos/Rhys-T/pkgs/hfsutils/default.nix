@@ -66,7 +66,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    description = "HFS utilities";
+    description = "Tools for reading and writing Macintosh HFS volumes";
+    longDescription = ''
+      HFS is the "Hierarchical File System," the native volume format used on modern Macintosh computers. `hfsutils` is the name of a comprehensive software package being developed to permit manipulation of HFS volumes from UNIX and other systems.
+    '';
     # maintainers = with maintainers; [ dtzWill ];
     maintainers = [maintainers.Rhys-T];
     license = lib.licenses.gpl2Plus;
