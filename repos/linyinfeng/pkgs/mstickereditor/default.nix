@@ -4,7 +4,7 @@
   lib,
   pkg-config,
   rlottie,
-  ffmpeg,
+  ffmpeg_6,
   clang,
 }:
 
@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage {
   ];
   buildInputs = [
     rlottie
-    ffmpeg
+    ffmpeg_6
   ];
 
   meta = with lib; {

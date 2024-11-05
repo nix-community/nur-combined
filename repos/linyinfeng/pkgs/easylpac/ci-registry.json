@@ -99,7 +99,8 @@
   {
     "key-id": "16704b",
     "country": "US",
-    "name": "Entrust eSIM CA"
+    "name": "Entrust eSIM CA",
+    "crls": ["http://crl.entrust.net/entesimca.crl"]
   },
   {
     "key-id": "77f0bd",
