@@ -28,6 +28,7 @@ let
     all = p: true;
     base = p: !(lib.any ({name, value}: name != "all" && name != "base" && value p) (lib.attrsToList subsets));
     hbmame = p: lib.hasInfix "hbmame" (p.name or "");
+    qemu-screamer = p: lib.hasInfix "qemu" (p.name or "") && lib.hasInfix "screamer" (p.name or "");
   };
   subset = subsets.${subsetName};
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
