@@ -102,7 +102,11 @@ gruvbox.setup({
         DiffText = { fg = colors.yellow, bg = colors.bg0 },
         -- Directories "pop" better in blue
         Directory = { link = "GruvboxBlueBold" },
-    }
+    },
+    italic = {
+        -- Comments should not be italic, for e.g: box drawing
+        comments = false,
+    },
 })
 EOF
 " Use my preferred colorscheme
