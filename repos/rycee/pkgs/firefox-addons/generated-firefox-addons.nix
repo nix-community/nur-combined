@@ -53,10 +53,10 @@
     };
     "a11ycss" = buildFirefoxXpiAddon {
       pname = "a11ycss";
-      version = "2.0.1";
+      version = "2.0.2";
       addonId = "a11y.css@ffoodd";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4156875/a11ycss-2.0.1.xpi";
-      sha256 = "49d52c589266604c232c29a915b3d06df231267b2dca7d7694284a25059b5c51";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4382162/a11ycss-2.0.2.xpi";
+      sha256 = "0be0f2a02785801246bf835ed45348f8ba6f8bf710a47dd3e5117557d425a8f0";
       meta = with lib;
       {
         homepage = "https://ffoodd.github.io/a11y.css/";
@@ -2177,10 +2177,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "132.0.20241103.194048";
+      version = "133.0.20241104.91514";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4381301/deutsch_de_language_pack-132.0.20241103.194048.xpi";
-      sha256 = "f40cc0d868502513cc3206200c10128e396e387a37d3364e41368e502e53c07a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4381739/deutsch_de_language_pack-133.0.20241104.91514.xpi";
+      sha256 = "a6cf3d49d2b0eacc3796aadcea0a6dfa5fa71cdb536b36c6f8442e8c2decac31";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3342,10 +3342,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "132.0.20241103.194048";
+      version = "133.0.20241104.91514";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4381360/francais_language_pack-132.0.20241103.194048.xpi";
-      sha256 = "227eaa6848dc6ba135858e2081d0e5d5ee8bb00c98ee26252b680c835fdd9a9f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4381746/francais_language_pack-133.0.20241104.91514.xpi";
+      sha256 = "80d39cdfcf1320f00fee26445deda0de5edc5009558305292f169776ef863fb9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3379,10 +3379,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "132.0.20241103.194048";
+      version = "133.0.20241104.91514";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4381349/gaidhlig_language_pack-132.0.20241103.194048.xpi";
-      sha256 = "9997b395a98734609c52f935b0bd07b39697054d2a7ceb7ec362c58f418b1164";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4381703/gaidhlig_language_pack-133.0.20241104.91514.xpi";
+      sha256 = "5da6e6ead9bb4f1c63b9974677a24b25c478315fc79d6843747bf11d110fb617";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -5810,10 +5810,10 @@
     };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.9.3";
+      version = "1.9.4";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4342010/keepassxc_browser-1.9.3.xpi";
-      sha256 = "a330fa4fc659f04f835802bb0c5df0b9025adced995112cad19d4849a5f1957d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4376326/keepassxc_browser-1.9.4.xpi";
+      sha256 = "bf1dab7e6471b61ba7b23e886795ab830eb6221dc1e7b499c3a15ad74f49c579";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -7405,10 +7405,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.16.7";
+      version = "2.16.11";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4366660/momentumdash-2.16.7.xpi";
-      sha256 = "cc6aad4e95aa5de82bddf8271ddbe99c52be91da07d150f3473cd2e565cbabe1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4376100/momentumdash-2.16.11.xpi";
+      sha256 = "49fbbf53b9dde20699db7f7f8a06de7a5d682df7e1b3c4f063c7bbaf69f50c1d";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -9533,16 +9533,16 @@
     };
     "readeck" = buildFirefoxXpiAddon {
       pname = "readeck";
-      version = "2.1.0";
+      version = "2.2.0";
       addonId = "readeck@readeck.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4355449/readeck-2.1.0.xpi";
-      sha256 = "62485315eac11bb5e6767888dd5e213c7b6b99041886c1a957bdfaba16e3058d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4382077/readeck-2.2.0.xpi";
+      sha256 = "3f05ba1f6d34a3ffe18f8e26c89c19d9136e03b9b2f92f1c92058f534c522bf8";
       meta = with lib;
       {
         homepage = "https://readeck.org/en/";
         description = "Readeck companion browser extension";
         license = licenses.lgpl3;
-        mozPermissions = [ "activeTab" "scripting" "storage" ];
+        mozPermissions = [ "activeTab" "contextMenus" "scripting" "storage" ];
         platforms = platforms.all;
       };
     };
@@ -9889,10 +9889,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "132.0.20241103.194048";
+      version = "133.0.20241104.91514";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4381316/scots_language_pack-132.0.20241103.194048.xpi";
-      sha256 = "a5e6e40fa41c84ca424e73b4b9de7937cd906b77eab841d49e4457c140142993";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4381679/scots_language_pack-133.0.20241104.91514.xpi";
+      sha256 = "778679d57cf76bce5793471efb4ab7ad349b60852caf3475f13dc67ad7cc8b1d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
