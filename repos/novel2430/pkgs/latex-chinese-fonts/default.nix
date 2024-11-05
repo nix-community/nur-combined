@@ -1,4 +1,4 @@
-{stdenv, fetchFromGitHub, ...}:
+{stdenv, fetchFromGitHub, lib}:
 stdenv.mkDerivation {
   pname = "latex-chinese-fonts";
   version = "0.0.1";
@@ -13,4 +13,11 @@ stdenv.mkDerivation {
     cp -r chinese $out/share/fonts/latex-chinese-fonts
     cp -r english $out/share/fonts/latex-chinese-fonts
   '';
+  meta = with lib; {
+    description = "Simplified Chinese fonts for the LaTeX typesetting.";
+    homepage = "https://github.com/Haixing-Hu/latex-chinese-fonts";
+    platforms = platforms.all;
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    license = with licenses; [ mit ];
+  };
 }
