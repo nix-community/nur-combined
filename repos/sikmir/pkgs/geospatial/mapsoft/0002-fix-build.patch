@@ -127,7 +127,7 @@ index 6d461fb..5bd5367 100644
        css_provider->load_from_path(css_glo)){
        auto screen = get_screen();
 diff --git i/modules/vmap2/vmap2gobj.cpp w/modules/vmap2/vmap2gobj.cpp
-index e11d3a7..bec01be 100644
+index d6123a7..5c6198a 100644
 --- i/modules/vmap2/vmap2gobj.cpp
 +++ w/modules/vmap2/vmap2gobj.cpp
 @@ -22,7 +22,7 @@ using namespace std;
@@ -168,10 +168,10 @@ index 6688736..ec77637 100644
    read_words_defs defs(o.get("define", Opt()));
    load(file, defs);
 diff --git i/vmap_data/scripts/vmaps.sh w/vmap_data/scripts/vmaps.sh
-index aa7537e..b0decd1 100644
+index 989677f..af8fbd1 100644
 --- i/vmap_data/scripts/vmaps.sh
 +++ w/vmap_data/scripts/vmaps.sh
-@@ -19,12 +19,12 @@ GRID=0;              # draw grid
+@@ -20,12 +20,12 @@ GRID=0;              # draw grid
  
  CMAP=conf/cmap.png;        # Colormap
  CMAP_SRC=                  # nomenclatere name used for colormap source
@@ -183,8 +183,8 @@ index aa7537e..b0decd1 100644
 +HTM_TEMPL=@out@/share/mapsoft2/map_templ.htm;    # template for htm page
  
  # index files (one set per BRD2_DIR/*.gpx)
--TYP=/usr/share/mapsoft2/slazav.typ
-+TYP=@out@/share/mapsoft2/slazav.typ
+-TYPSRC=/usr/share/mapsoft2/typ.txt  # typ file source for garmin IMG
++TYPSRC=@out@/share/mapsoft2/typ.txt  # typ file source for garmin IMG
  EXTRA_TRACKS=;    # extra tracks to be added to index image
  JPEG_SCALE=0.2;   # scale for jpeg preview images
  INDEX_SCALE=0.05; # scale for index image (in addition to jpeg_scale)
@@ -202,7 +202,7 @@ index fca52c1..e0bce0c 100755
  # read local configuration
  . ./vmaps.conf
 diff --git i/vmap_data/scripts/vmaps_in w/vmap_data/scripts/vmaps_in
-index 0670772..4e6869c 100755
+index 07f8ec0..a6679f9 100755
 --- i/vmap_data/scripts/vmaps_in
 +++ w/vmap_data/scripts/vmaps_in
 @@ -9,7 +9,7 @@
@@ -228,7 +228,7 @@ index d751d1c..2ab5945 100755
  # read local configuration
  . ./vmaps.conf
 diff --git i/vmap_data/scripts/vmaps_out w/vmap_data/scripts/vmaps_out
-index 8372b7f..288e5e2 100755
+index bd1d183..1a47f3a 100755
 --- i/vmap_data/scripts/vmaps_out
 +++ w/vmap_data/scripts/vmaps_out
 @@ -12,7 +12,7 @@

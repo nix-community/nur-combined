@@ -30,13 +30,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mapsoft2";
-  version = "2.7-alt1";
+  version = "2.8-alt1";
 
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "mapsoft2";
     rev = finalAttrs.version;
-    hash = "sha256-8kCcz7EnCxtvQzxBUooKp3ozqhBSNYLMXuXMTdG74nQ=";
+    hash = "sha256-bMF/20MXMnxTIROfHFLW3711GWqQTv72jbRpWtow4eA=";
     fetchSubmodules = true;
   };
 
