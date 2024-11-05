@@ -22,6 +22,7 @@
   nvim-vscode-colorscheme = pkgs.callPackage ./pkgs/nvim-vscode-colorscheme { };
   suyu = pkgs.callPackage ./pkgs/suyu { };
   suyu-room = pkgs.callPackage ./pkgs/suyu-room { };
+  latex-chinese-fonts = pkgs.callPackage ./pkgs/latex-chinese-fonts { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
   # ...
