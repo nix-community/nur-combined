@@ -54,9 +54,7 @@ in {
         percentageAction = 5;
         criticalPowerAction = "Hibernate";
       };
-      services.logind.extraConfig = ''
-        HandlePowerKey=hibernate
-      '';
+      services.logind.powerKey = "hibernate";
       programs.light.enable = true;
       users.users.${cfg.user}.extraGroups = [ "video" ];
       services.tlp.enable = true;
@@ -69,9 +67,7 @@ in {
       nix.settings.trusted-users = [ cfg.user ];
       hardware.bluetooth.enable = true;
       hardware.bluetooth.powerOnBoot = false;
-      services.logind.extraConfig = ''
-        HandlePowerKey=suspend
-      '';
+      services.logind.powerKey = "suspend";
       boot.extraModulePackages = [ config.boot.kernelPackages.ddcci-driver ];
       boot.kernelModules = [ "i2c-dev" "ddcci_backlight" ];
       programs.light.enable = true;
