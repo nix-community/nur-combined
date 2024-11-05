@@ -200,7 +200,8 @@ let
       pkgs: [
         fake-dde-file-manager
         wechat-universal-license
-      ];
+      ]
+      ++ libraries;
 
     runScript = startScript;
 

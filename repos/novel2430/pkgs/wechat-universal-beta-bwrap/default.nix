@@ -27,7 +27,7 @@
 , pciutils
 , udev
 , libxkbcommon
-
+, jack2
 }:
 let
   libraries = [
@@ -56,6 +56,7 @@ let
     pciutils
     udev
     libxkbcommon
+    jack2
   ];
 
   _lib_uos = "libuosdevicea";
@@ -173,7 +174,8 @@ let
       pkgs: [
         fake-dde-file-manager
         wechat-universal-license
-      ];
+      ]
+      ++ libraries;
 
     runScript = startScript;
 
