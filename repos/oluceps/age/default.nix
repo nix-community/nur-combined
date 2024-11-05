@@ -13,11 +13,9 @@
   systemd.services.vaultix-install-secrets.serviceConfig.Environment = [ "SPDLOG_RS_LEVEL=debug" ];
   vaultix = {
     settings = {
-      storageDirRelative = "./sec/rekeyed/${config.networking.hostName}";
+      storageLocation = "./sec/rekeyed/${config.networking.hostName}";
       extraRecipients = [ data.keys.ageKey ];
-      masterIdentities = [
-        (self + "/sec/age-yubikey-identity-7d5d5540.txt.pub")
-      ];
+      identity = self + "/sec/age-yubikey-identity-7d5d5540.txt.pub";
     };
 
     secrets = (

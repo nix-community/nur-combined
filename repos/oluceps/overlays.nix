@@ -5,7 +5,6 @@
   (
     final: prev:
     prev.lib.genAttrs [
-      "ragenix"
       "prismlauncher"
       "resign"
       "nix-direnv"

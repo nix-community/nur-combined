@@ -14,6 +14,7 @@ NixOS configurations. ~100% config Nixfied.
 with
 
 + [flake-parts](https://github.com/hercules-ci/flake-parts)
++ [vaultix](https://github.com/oluceps/vaultix)
 + [lanzaboote](https://github.com/nix-community/lanzaboote)
 + [preservation](https://github.com/WilliButz/preservation)
 + [disko](https://github.com/nix-community/disko)

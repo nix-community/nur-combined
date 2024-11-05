@@ -42,7 +42,6 @@ in
     [ inputs.self.nixosModules.repack ]
     ++ (genModules [
       "vaultix"
-      "ragenix"
       "lanzaboote"
       "catppuccin"
       "lix-module"

@@ -19,7 +19,7 @@
             ./hosts
             inputs.vaultix.flakeModules.default
           ];
-        debug = false;
+        debug = true;
         systems = [
           "x86_64-linux"
           "aarch64-linux"
@@ -142,7 +142,8 @@
       url = "github:nix-community/browser-previews";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    vaultix.url = "github:oluceps/vaultix";
+    vaultix.url = "github:oluceps/vaultix/dev";
+    # vaultix.url = "/home/elen/Src/vaultix";
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -191,7 +192,6 @@
       url = "github:Kirottu/anyrun";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    j-link.url = "github:liff/j-link-flake";
     aagl = {
       url = "github:ezKEa/aagl-gtk-on-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -201,8 +201,6 @@
     };
     # path:/home/riro/Src/flake.nix
     dae.url = "github:daeuniverse/flake.nix";
-    # dae.url = "/home/elen/Src/flake.nix";
-    # nixyDomains.url = "";
     nixyDomains.url = "github:oluceps/nixyDomains";
     nixyDomains.flake = false;
     nuenv.url = "github:DeterminateSystems/nuenv";
@@ -214,15 +212,6 @@
     };
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    ragenix = {
-      url = "github:yaxitech/ragenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.agenix.follows = "agenix";
-    };
-    agenix = {
-      url = "github:ryantm/agenix?rev=5c17dedc8123bb4cf0311d1d97b95be427083375";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     fenix = {
