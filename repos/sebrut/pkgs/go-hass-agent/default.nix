@@ -18,16 +18,16 @@
 }:
 buildGo123Module rec {
   pname = "go-hass-agent";
-  version = "10.3.0";
+  version = "10.4.0";
 
   src = pkgs.fetchFromGitHub {
     owner = "joshuar";
     repo = "go-hass-agent";
     rev = "v${version}";
-    hash = "sha256-IFM3LP2j3wrjGx1IJ9jzGUsOr0rTcd/7rNYP0AuGB40=";
+    hash = "sha256-Mr/BwcIKoH7IrvgjviBfhWzbxcOapYrQsY0bDrJsQV8=";
   };
 
-  vendorHash = "sha256-qEGvNjgBbJvmUQa3UPS4eoBbmo5HCuxWsxv1zyjpZx0=";
+  vendorHash = "sha256-ZgpnvgPDzsXcf3XkvceezhELZWqn+9u8JuOv0euskI0=";
 
   doCheck = false;
 
@@ -66,7 +66,7 @@ buildGo123Module rec {
     # Fixes “Error: error compiling magefiles” during build.
     export HOME=$(mktemp -d)
 
-    mage -d build/magefiles -w . build:fast
+    mage -d build/magefiles -w . build:full
 
     runHook postBuild
   '';

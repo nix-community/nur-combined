@@ -14,8 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  autotheme = pkgs.callPackage ./pkgs/autotheme { };
   flathunter = pkgs.callPackage ./pkgs/flathunter { };
   go-hass-agent = pkgs.callPackage ./pkgs/go-hass-agent { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
 }
