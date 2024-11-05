@@ -39,7 +39,7 @@
 , nixosTestRunner ? false
 , doCheck ? false
 # SCREAMER:
-, fetchFromGitHub, callPackage, maintainers
+, fetchFromGitHub, callPackage, maintainers, ripgrep
 # SCREAMER: renamed
 , qemu-screamer  # for passthru.tests
 }:
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     + lib.optionalString xenSupport "-xen"
     + lib.optionalString hostCpuOnly "-host-cpu-only"
     + lib.optionalString nixosTestRunner "-for-vm-tests";
-  # SCREAMER: renamed
+  # SCREAMER:
   version = "7.1.94-unstable-2022-12-09";
 
   # SCREAMER:
@@ -74,8 +74,9 @@ stdenv.mkDerivation rec {
     pkg-config flex bison meson ninja perl
 
     # Don't change this to python3 and python3.pkgs.*, breaks cross-compilation
-    # SCREAMER: added `distutils` since it's no longer builtin
-    python3Packages.python python3Packages.sphinx python3Packages.sphinx-rtd-theme python3Packages.distutils
+    python3Packages.python python3Packages.sphinx python3Packages.sphinx-rtd-theme
+    # SCREAMER: distutils is gone
+    python3Packages.looseversion
   ]
     ++ lib.optionals gtkSupport [ wrapGAppsHook ]
     ++ lib.optionals stdenv.isDarwin [ sigtool ];
@@ -153,6 +154,8 @@ stdenv.mkDerivation rec {
     # Otherwise tries to ensure /var/run exists.
     sed -i "/install_emptydir(get_option('localstatedir') \/ 'run')/d" \
         qga/meson.build
+    # SCREAMER: distutils is gone
+    substituteInPlace docs/conf.py --replace-fail 'from distutils.version import LooseVersion' 'from looseversion import LooseVersion'
   '';
 
   preConfigure = ''
