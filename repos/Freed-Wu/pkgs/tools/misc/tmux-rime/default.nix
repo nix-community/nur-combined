@@ -5,8 +5,6 @@
 , unzip
 , glib
 , librime
-  # https://github.com/xmake-io/xmake/discussions/5699
-, git
 , pkg-config
 }:
 stdenv.mkDerivation rec {
@@ -20,15 +18,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DCSeENxxXycCqQKv+8mPGy3sxF5CRHUPUaI9wRpEw8Q=";
   };
 
-  nativeBuildInputs = [ stdenv.cc unzip pkg-config xmake git ];
+  nativeBuildInputs = [ stdenv.cc unzip pkg-config xmake ];
   buildInputs = [ glib.dev librime ];
 
   postPatch = ''
     substituteInPlace xmake.lua --replace-quiet "glib" "glib-2.0"
   '';
 
+  # https://github.com/xmake-io/xmake/discussions/5699
   configurePhase = ''
-    export XMAKE_ROOT=y HOME=$(mktemp -d)
+    export XMAKE_ROOT=y
+    HOME=$PWD PATH=$HOME:$PATH
+    echo -e "#!$SHELL\necho I am git" > $HOME/git
+    chmod +x $HOME/git
     xmake g --network=private
     xmake f --verbose
   '';
