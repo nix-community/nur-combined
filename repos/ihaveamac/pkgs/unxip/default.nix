@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, swiftPackages, lzma, zlib }:
+{ stdenv, lib, fetchFromGitHub, swiftPackages, xz, zlib }:
 
 swiftPackages.swift.stdenv.mkDerivation rec {
   pname = "unxip";
@@ -11,7 +11,7 @@ swiftPackages.swift.stdenv.mkDerivation rec {
     hash = "sha256-GpiJ4F+VMrVSgNACMuCTixWd32eco3eaSKZotP4INT8=";
   };
 
-  buildInputs = [ swiftPackages.swift swiftPackages.Foundation lzma zlib ];
+  buildInputs = [ swiftPackages.swift swiftPackages.Foundation xz zlib ];
 
   buildPhase = ''
     # the Makefile as it is just calls swiftc
