@@ -1,31 +1,44 @@
 { lib
 , stdenv
+, xmake
 , fetchFromGitHub
 , unzip
 , glib
 , librime
+  # https://github.com/xmake-io/xmake/discussions/5699
+, git
 , pkg-config
 }:
 stdenv.mkDerivation rec {
   pname = "tmux-rime";
-  version = "0.0.1";
+  version = "0.0.3";
   src = fetchFromGitHub {
     owner = "Freed-Wu";
     repo = pname;
     rev = version;
     fetchSubmodules = false;
-    sha256 = "sha256-zZ6+sZhJW91/TiF6aR0n44jCj2iEkL+RzdEVTw6G9K8=";
+    sha256 = "sha256-DCSeENxxXycCqQKv+8mPGy3sxF5CRHUPUaI9wRpEw8Q=";
   };
 
-  nativeBuildInputs = [ glib.dev stdenv.cc unzip pkg-config ];
-  buildInputs = [ glib librime ];
+  nativeBuildInputs = [ stdenv.cc unzip pkg-config xmake git ];
+  buildInputs = [ glib.dev librime ];
+
+  postPatch = ''
+    substituteInPlace xmake.lua --replace "glib" "glib-2.0"
+  '';
+
+  configurePhase = ''
+    export HOME=$(mktemp -d)
+    xmake g --network=private
+    xmake f --verbose
+  '';
 
   buildPhase = ''
-    cc -otmux-rime *.c ''$(pkg-config --cflags --libs glib-2.0 rime)
+    xmake
   '';
 
   installPhase = ''
-    install -D tmux-rime -t $out/bin
+    xmake install -o$out
   '';
 
   meta = with lib; {
