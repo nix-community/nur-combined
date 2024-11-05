@@ -24,11 +24,11 @@ stdenv.mkDerivation rec {
   buildInputs = [ glib.dev librime ];
 
   postPatch = ''
-    substituteInPlace xmake.lua --replace "glib" "glib-2.0"
+    substituteInPlace xmake.lua --replace-quiet "glib" "glib-2.0"
   '';
 
   configurePhase = ''
-    export HOME=$(mktemp -d)
+    export XMAKE_ROOT=y HOME=$(mktemp -d)
     xmake g --network=private
     xmake f --verbose
   '';
