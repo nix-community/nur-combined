@@ -161,8 +161,8 @@ stdenv.mkDerivation rec {
   preConfigure = ''
     unset CPP # intereferes with dependency calculation
     # this script isn't marked as executable b/c it's indirectly used by meson. Needed to patch its shebang
-    # SCREAMER: comment out - this version uses shaderinclude.pl instead
-    # chmod +x ./scripts/shaderinclude.py
+    # SCREAMER: this version uses shaderinclude.pl instead
+    chmod +x ./scripts/shaderinclude.pl
     patchShebangs .
     # avoid conflicts with libc++ include for <version>
     mv VERSION QEMU_VERSION
