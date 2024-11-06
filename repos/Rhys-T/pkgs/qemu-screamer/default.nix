@@ -293,6 +293,8 @@ stdenv.mkDerivation rec {
     # SCREAMER: updated maintainers
     maintainers = with maintainers; [ Rhys-T ];
     platforms = platforms.unix;
+    # SCREAMER: temporarily disable on Intel Macs
+    badPlatforms = ["x86_64-darwin"];
     priority = 10; # Prefer virtiofsd from the virtiofsd package.
   };
 }
