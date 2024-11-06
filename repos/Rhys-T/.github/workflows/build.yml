@@ -100,14 +100,14 @@ jobs:
     - name: Build nix packages
       # run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
       run: nix shell -f '.' nix-build-uncached-logging -c nix-build-uncached ci.nix --keep-going ${{ matrix.qemuSystem && format('--argstr platform {0}', matrix.qemuSystem) }} --argstr subsetName ${{ matrix.subset }} -A cacheOutputs
-    - name: Upload debug info
-      if: '!cancelled()'
-      uses: actions/upload-artifact@v4
-      with:
-        name: Rhys-T-nur-packages-debug-${{ matrix.runner }}-${{ matrix.nixpkgs }}-${{ matrix.subset }}
-        path: |
-          /nix/store/*fcntlPathTest*.drv
-        if-no-files-found: ignore
+    # - name: Upload debug info
+    #   if: '!cancelled()'
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: Rhys-T-nur-packages-debug-${{ matrix.runner }}-${{ matrix.nixpkgs }}-${{ matrix.subset }}
+    #     path: |
+    #       /nix/store/*fcntlPathTest*.drv
+    #     if-no-files-found: ignore
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
