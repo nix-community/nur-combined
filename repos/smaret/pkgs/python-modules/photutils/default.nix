@@ -46,5 +46,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/astropy/photutils";
     license = licenses.bsd3;
     maintainers = with maintainers; [ smaret ];
+    broken = true;
   };
 }
