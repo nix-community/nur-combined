@@ -7,7 +7,7 @@ alias de := decrypt
 alias en := encrypt-new
 alias chk:= check
 alias ee := edit-sec
-alias r  := rekey
+alias r  := renc
 alias s  := search-history
 
 yubikey-ident := './sec/age-yubikey-identity-7d5d5540.txt.pub'
@@ -105,9 +105,6 @@ check:
     #!/usr/bin/env nu
     use {{loc}}/util.nu
     util chk
-
-rekey:
-    agenix rekey -a
 
 update:
     nix flake update --commit-lock-file

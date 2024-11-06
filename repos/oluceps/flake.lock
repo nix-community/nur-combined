@@ -452,15 +452,16 @@
         "pre-commit-hooks": "pre-commit-hooks_2"
       },
       "locked": {
-        "lastModified": 1728672246,
-        "narHash": "sha256-Dw8jZNYGIjQP3uDheRYaOiNhDfElWUOA2NzsK1cih8Y=",
+        "lastModified": 1730834904,
+        "narHash": "sha256-qr4KU1WMp3i1tH5oc4aGwufT0H24rTu8WGlgoW8VQ9M=",
         "owner": "daeuniverse",
         "repo": "flake.nix",
-        "rev": "fc5e64efff94ed9cb1f1b6a45e206d350d264da2",
+        "rev": "fa0fbca1f3aa36bbc60c544eddda0bb9121f91b6",
         "type": "github"
       },
       "original": {
         "owner": "daeuniverse",
+        "ref": "dev",
         "repo": "flake.nix",
         "type": "github"
       }
@@ -1231,16 +1232,17 @@
         "nixpkgs-lib": "nixpkgs-lib"
       },
       "locked": {
-        "lastModified": 1722555600,
-        "narHash": "sha256-XOQkdLafnb/p9ij77byFQjDf5m5QYl9b2REiVClC+x4=",
+        "lastModified": 1730504689,
+        "narHash": "sha256-hgmguH29K2fvs9szpq2r3pz2/8cJd2LPS+b4tfNFCwE=",
         "owner": "hercules-ci",
         "repo": "flake-parts",
-        "rev": "8471fe90ad337a8074e957b69ca4d0089218391d",
+        "rev": "506278e768c2a08bec68eb62932193e341f55c90",
         "type": "github"
       },
       "original": {
-        "id": "flake-parts",
-        "type": "indirect"
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
       }
     },
     "flake-parts_5": {
@@ -2643,14 +2645,14 @@
     },
     "nixpkgs-lib": {
       "locked": {
-        "lastModified": 1722555339,
-        "narHash": "sha256-uFf2QeW7eAHlYXuDktm9c25OxOyCoUOQmh5SZ9amE5Q=",
+        "lastModified": 1730645705,
+        "narHash": "sha256-lXvH/vOfb4aGYyvFmZK/HlsNsr/0CVWlwYvo2rxJk3s=",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/a5d394176e64ab29c852d03346c1fc9b0b7d33eb.tar.gz"
+        "url": "https://github.com/NixOS/nixpkgs/archive/cc2f28000298e1269cea6612cd06ec9979dd5d7f.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/a5d394176e64ab29c852d03346c1fc9b0b7d33eb.tar.gz"
+        "url": "https://github.com/NixOS/nixpkgs/archive/cc2f28000298e1269cea6612cd06ec9979dd5d7f.tar.gz"
       }
     },
     "nixpkgs-lib_2": {
@@ -4562,11 +4564,11 @@
         "rust-overlay": "rust-overlay_7"
       },
       "locked": {
-        "lastModified": 1730811726,
-        "narHash": "sha256-DGwJq3X89NuL2A7v2AYKIt5kxBwy+/5zFYVZfu+1nRI=",
+        "lastModified": 1730892835,
+        "narHash": "sha256-PC4RZpGcb7xOhEWF6/2FZ8DRHBlvFKTEkAerm/W/agA=",
         "owner": "oluceps",
         "repo": "vaultix",
-        "rev": "415c245d924db2d120aa0aabd1d2a6d0ca4ec930",
+        "rev": "cf591b6dfc7f3148218b4fa74f71207af5b77d8c",
         "type": "github"
       },
       "original": {
