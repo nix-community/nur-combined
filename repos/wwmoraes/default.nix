@@ -17,6 +17,8 @@
 		nix-darwin = {
 			modules = import ./nix-darwin/modules;
 		};
+
+		asyncapi = callPackage ./pkgs/asyncapi.nix { };
 		ejson = callPackage ./pkgs/ejson.nix { };
 		go-commitlint = callPackage ./pkgs/go-commitlint.nix { };
 		gopium = callPackage ./pkgs/gopium.nix { };
