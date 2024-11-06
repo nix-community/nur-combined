@@ -11,13 +11,13 @@
 
 stdenv.mkDerivation rec {
   pname = "decompiler-mc";
-  version = "0.9-unstable-2024-04-13";
+  version = "0.9-unstable-2024-11-02";
 
   src = fetchFromGitHub {
     owner = "hube12";
     repo = "DecompilerMC";
-    rev = "3a8aa87d01065fbd7fdc8422f19a0fa379740635";
-    hash = "sha256-IdKMUX0/cAlUHIpCSaU5pjffjNwgbFxXv07hJRmGpGk=";
+    rev = "747d6728b6df8e7db8c60a71ad8fcdc02955475c";
+    hash = "sha256-kCznR79QvozvPbfWsWnvWdZV3aEBGutnQErWF0tGRho=";
   };
 
   buildInputs = [ makeWrapper python3 ];
@@ -27,7 +27,9 @@ stdenv.mkDerivation rec {
     cp --recursive $src/lib $out/lib
 
     install -D main.py $out/bin/${pname}
-    substituteInPlace $out/bin/${pname} --replace-fail ./lib $out/lib
+    substituteInPlace $out/bin/${pname} \
+      --replace-fail 'PATH_TO_ROOT_DIR / "lib"' "Path(\"$out/lib\")" \
+      --replace-fail 'PATH_TO_ROOT_DIR = Path(os.path.dirname(sys.argv[0]))' 'PATH_TO_ROOT_DIR = Path.cwd()'
     wrapProgram $out/bin/${pname} --prefix PATH : ${lib.makeBinPath [ jre ]}
   '';
 

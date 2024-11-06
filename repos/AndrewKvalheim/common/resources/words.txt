@@ -1334,6 +1334,7 @@ WGS
 WhatsApp
 WHATWG
 whistleblower
+whiteboarding
 whitespace
 Whois
 Wikidata

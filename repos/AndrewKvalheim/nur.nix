@@ -32,10 +32,33 @@ rec {
   decompiler-mc = pkgs.callPackage ./packages/decompiler-mc.nix { };
   dmarc-report-notifier = pkgs.callPackage ./packages/dmarc-report-notifier.nix {
     python3Packages = (pkgs.python3.override {
-      packageOverrides = _: _: {
+      packageOverrides = _: pythonPackages: {
         # Pending NixOS/nixpkgs#337081
         msgraph-core = pkgs.lib.warnIfNot pkgs.python3Packages.parsedmarc.meta.broken "python3Packages.parsedmarc is no longer broken"
           (pkgs.lib.findFirst (p: p.pname == "msgraph-core") null pkgs.parsedmarc.requiredPythonModules);
+        # Pending NixOS/nixpkgs#352871
+        opensearch-py = pythonPackages.opensearch-py.overridePythonAttrs (opensearch-py: {
+          disabledTests = opensearch-py.disabledTests ++ [
+            "test_basicauth_in_request_session"
+            "test_callable_in_request_session"
+            "test_security_plugin"
+          ];
+        });
+        # Pending followup to NixOS/nixpkgs#345326
+        parsedmarc = pythonPackages.parsedmarc.overridePythonAttrs (parsedmarc: {
+          propagatedBuildInputs = parsedmarc.propagatedBuildInputs ++ [
+            (pythonPackages.buildPythonPackage rec {
+              pname = "pygelf";
+              version = "0.4.2";
+              pyproject = true;
+              src = pythonPackages.fetchPypi {
+                inherit pname version;
+                hash = "sha256-0LuPRf9kipoYdxP0oFwJ9oX8uK3XsEu3Rx8gBxvRGq0=";
+              };
+              build-system = [ pythonPackages.setuptools ];
+            })
+          ];
+        });
       };
     }).pkgs;
   };
