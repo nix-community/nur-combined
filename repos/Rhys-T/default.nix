@@ -123,7 +123,7 @@ in {
     # qemu-screamer-nixpkgs = callPackage ./pkgs/qemu-screamer/nixpkgs.nix {};
     qemu-screamer = let
         darwinSdkVersion = "11.0";
-        stdenv = if pkgs.hostPlatform.isDarwin && pkgs.lib.versionOlder stdenv.hostPlatform.darwinSdkVersion darwinSdkVersion then
+        stdenv = if pkgs.hostPlatform.isDarwin && pkgs.lib.versionOlder pkgs.stdenv.hostPlatform.darwinSdkVersion darwinSdkVersion then
             pkgs.overrideSDK pkgs.stdenv {
                 inherit darwinSdkVersion;
             }
