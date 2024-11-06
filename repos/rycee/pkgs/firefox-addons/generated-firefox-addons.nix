@@ -2074,10 +2074,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.94";
+      version = "4.9.96";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4359254/darkreader-4.9.94.xpi";
-      sha256 = "251c4e7d0a30c0cab006803600e59ab92dcc0c606429740d42677846d4c9ccd6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4378073/darkreader-4.9.96.xpi";
+      sha256 = "6e2f1a36d2398195b0cd7ee0fcb198ea4db6a57a1b3bf7b2cf5f17a8768f477e";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -7946,10 +7946,10 @@
     };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.34.0";
+      version = "6.35.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4358245/okta_browser_plugin-6.34.0.xpi";
-      sha256 = "6fa09e208f71be7f661ea50928ed91320cbee7a20ae9d26bbcc57b1a7a8a1216";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4377608/okta_browser_plugin-6.35.0.xpi";
+      sha256 = "987a8b029ed263fe0852ccc9c3f7a44a75449d48a41c0bac3bc9ec46f644ea03";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -9533,10 +9533,10 @@
     };
     "readeck" = buildFirefoxXpiAddon {
       pname = "readeck";
-      version = "2.2.0";
+      version = "2.2.1";
       addonId = "readeck@readeck.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4382077/readeck-2.2.0.xpi";
-      sha256 = "3f05ba1f6d34a3ffe18f8e26c89c19d9136e03b9b2f92f1c92058f534c522bf8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4382347/readeck-2.2.1.xpi";
+      sha256 = "09e001d744f63ff6a40c8ddc9d2846001ad0be8eabc5c29e016c88657ad18bc3";
       meta = with lib;
       {
         homepage = "https://readeck.org/en/";
@@ -9693,10 +9693,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.10.28";
+      version = "24.11.5";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4377053/refined_github-24.10.28.xpi";
-      sha256 = "add339853e7d2c9296114993e7faa712725e2ce038605cd45df87f2d8e98a96e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4382380/refined_github-24.11.5.xpi";
+      sha256 = "0458bbf32e6de4c9e69f1062533be6fa4820ce225380a1a996bd2097e2800fbf";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -11379,10 +11379,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.0.23";
+      version = "4.0.24";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4350896/tree_style_tab-4.0.23.xpi";
-      sha256 = "d8061eff00b56ccfdd6fd290b14ef2c8ef692a14eb8db1a27529f21e43df1f30";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4377780/tree_style_tab-4.0.24.xpi";
+      sha256 = "e1826e2054aede2f390cb98ff22915cc1e89778a6ebf94d68467200aeba8fefd";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
