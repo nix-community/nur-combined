@@ -442,6 +442,10 @@ fetch.github = "sanjay-kr-commit/panelTransparencyToggleForPlasma6"
 src.github = "luisbocanegra/plasma-smart-video-wallpaper-reborn"
 fetch.github = "luisbocanegra/plasma-smart-video-wallpaper-reborn"
 
+[plasma-yesplaymusic-lyric]
+src.git = "https://github.com/zsiothsu/org.kde.plasma.yesplaymusic-lyrics.git"
+fetch.github = "zsiothsu/org.kde.plasma.yesplaymusic-lyrics"
+
 [pocl]
 src.github = "pocl/pocl"
 fetch.github = "pocl/pocl"

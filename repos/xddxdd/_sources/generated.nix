@@ -1039,6 +1039,17 @@
       hash = "sha256-FdNA4ijvx+v0b4mN9yNH4tYsnFVhUS4nFj0b0LBSy7o=";
     };
   };
+  plasma-yesplaymusic-lyric = {
+    pname = "plasma-yesplaymusic-lyric";
+    version = "3d0f6c40ff3b5004d8f625dfb154767c819dc936";
+    src = fetchFromGitHub {
+      owner = "zsiothsu";
+      repo = "org.kde.plasma.yesplaymusic-lyrics";
+      rev = "3d0f6c40ff3b5004d8f625dfb154767c819dc936";
+      hash = "sha256-T853HgudSGYo5COCLSiWlk4GOrDJXLEdeAoRYXF4F7I=";
+    };
+    date = "2024-08-10";
+  };
   pocl = {
     pname = "pocl";
     version = "v6.0";

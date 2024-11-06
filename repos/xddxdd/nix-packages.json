@@ -3409,6 +3409,11 @@
     "pname": "plasma-smart-video-wallpaper-reborn",
     "version": "0.4.1"
   },
+  "legacyPackages.x86_64-linux.plasma-yesplaymusic-lyric": {
+    "description": "Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词",
+    "pname": "plasma-yesplaymusic-lyric-unstable",
+    "version": "2024-08-10"
+  },
   "legacyPackages.x86_64-linux.pocl": {
     "description": "Portable open source (MIT-licensed) implementation of the OpenCL standard",
     "pname": "pocl",
@@ -4203,6 +4208,11 @@
     "description": "Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen",
     "pname": "plasma-smart-video-wallpaper-reborn",
     "version": "0.4.1"
+  },
+  "packages.x86_64-linux.plasma-yesplaymusic-lyric": {
+    "description": "Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词",
+    "pname": "plasma-yesplaymusic-lyric-unstable",
+    "version": "2024-08-10"
   },
   "packages.x86_64-linux.pocl": {
     "description": "Portable open source (MIT-licensed) implementation of the OpenCL standard",
