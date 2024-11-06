@@ -47,10 +47,12 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
+  # TODO: Fix build
   meta = with lib; {
     description = "Code to compute the abundances of chemical species in the interstellar medium";
     homepage = "https://github.com/smaret/astrochem";
     license = licenses.gpl3;
     maintainers = with maintainers; [ smaret ];
+    broken = true;
   };
 }
