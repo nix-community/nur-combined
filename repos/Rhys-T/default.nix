@@ -121,7 +121,17 @@ in {
     inherit (self.drl-packages) drl drl-hq drl-lq;
     
     # qemu-screamer-nixpkgs = callPackage ./pkgs/qemu-screamer/nixpkgs.nix {};
-    qemu-screamer = callPackage ./pkgs/qemu-screamer {
+    qemu-screamer = let
+        darwinSdkVersion = "11.0";
+        stdenv = if pkgs.hostPlatform.isDarwin && pkgs.lib.versionOlder stdenv.hostPlatform.darwinSdkVersion darwinSdkVersion then
+            pkgs.overrideSDK pkgs.stdenv {
+                inherit darwinSdkVersion;
+            }
+        else
+            pkgs.stdenv
+        ;
+    in callPackage ./pkgs/qemu-screamer {
+        inherit stdenv;
         inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices Cocoa Hypervisor vmnet;
         inherit (pkgs.darwin.stubs) rez setfile;
         inherit (pkgs.darwin) sigtool;
