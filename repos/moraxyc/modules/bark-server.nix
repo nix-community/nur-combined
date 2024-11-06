@@ -94,7 +94,7 @@ in
         # TODO: add createMysqlLocally
         mysqlDsn = lib.mkOption {
           type = lib.types.nullOr lib.types.str;
-          default = "";
+          default = null;
           description = ''
             DSN to connect to mysql database
           '';
@@ -133,49 +133,15 @@ in
       serviceConfig = {
         Type = "simple";
         Restart = "always";
-        StateDirectory = "bark-server";
-        WorkingDirectory = cfg.dataDir;
-        ReadWritePaths = cfg.dataDir;
-        RootDirectory = cfg.dataDir;
+        StateDirectory = baseNameOf cfg.dataDir;
         LoadCredential =
           lib.optional (!isNull cfg.auth.passwordFile) "auth-password:${cfg.auth.passwordFile}"
           ++ lib.optional (!isNull cfg.database.mysqlDsn) "mysql-dsn:${cfg.database.mysqlDsn}"
           ++ lib.optional (!isNull cfg.TLS.certFile) "tls-certfile:${cfg.TLS.certFile}"
           ++ lib.optional (!isNull cfg.TLS.keyFile) "tls-keyfile:${cfg.TLS.keyFile}";
 
-        # Hardening
-        RestrictAddressFamilies = [
-          "AF_UNIX"
-          "AF_INET"
-          "AF_INET6"
-        ];
-        AmbientCapabilities = lib.optionalString (cfg.port < 1024) "cap_net_bind_service";
         DynamicUser = true;
-        MemoryDenyWriteExecute = true;
-        PrivateUsers = true;
-        LockPersonality = true;
-        CapabilityBoundingSet = "";
-        NoNewPrivileges = true;
-        RemoveIPC = true;
         PrivateTmp = true;
-        ProcSubset = "pid";
-        ProtectClock = true;
-        ProtectControlGroups = true;
-        ProtectHome = true;
-        ProtectHostname = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        ProtectProc = "invisible";
-        ProtectSystem = "full";
-        RestrictNamespaces = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-        SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service @resources"
-          "~@privileged"
-        ];
         UMask = "0077";
       };
       script = lib.concatStringsSep " " (
