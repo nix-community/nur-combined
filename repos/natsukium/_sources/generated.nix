@@ -23,15 +23,15 @@
   };
   nixpkgs-review = {
     pname = "nixpkgs-review";
-    version = "c012c3ebc4aa63dd47be1bf0063e8cf0949bc294";
+    version = "74e50226115bc90546d78b407fb5803f8fd6a35c";
     src = fetchFromGitHub {
       owner = "natsukium";
       repo = "nixpkgs-review";
-      rev = "c012c3ebc4aa63dd47be1bf0063e8cf0949bc294";
+      rev = "74e50226115bc90546d78b407fb5803f8fd6a35c";
       fetchSubmodules = false;
-      sha256 = "sha256-Bzut7cuOHPrgvNSa2USZEuln8glMjKwhXyEoi5lSKZ8=";
+      sha256 = "sha256-Wl7LIlODr4xZ8A3mI3jLg37FbQskhUgGrZnJULLqvxM=";
     };
-    date = "2024-09-23";
+    date = "2024-11-06";
   };
   qmk-toolbox = {
     pname = "qmk-toolbox";

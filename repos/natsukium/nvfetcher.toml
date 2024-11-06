@@ -10,7 +10,7 @@ fetch.github = "d12frosted/homebrew-emacs-plus"
 
 [nixpkgs-review]
 src.git = "https://github.com/natsukium/nixpkgs-review"
-src.branch = "r-rmcgibbo-1"
+src.branch = "develop"
 fetch.github = "natsukium/nixpkgs-review"
 
 [qmk-toolbox]
