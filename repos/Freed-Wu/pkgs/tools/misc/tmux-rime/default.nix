@@ -10,20 +10,30 @@
 stdenv.mkDerivation rec {
   pname = "tmux-rime";
   version = "0.0.3";
-  src = fetchFromGitHub {
-    owner = "Freed-Wu";
-    repo = pname;
-    rev = version;
-    fetchSubmodules = false;
-    sha256 = "sha256-DCSeENxxXycCqQKv+8mPGy3sxF5CRHUPUaI9wRpEw8Q=";
-  };
+  srcs = [
+    (
+      fetchFromGitHub {
+        owner = "Freed-Wu";
+        repo = pname;
+        rev = version;
+        name = pname;
+        sha256 = "sha256-DCSeENxxXycCqQKv+8mPGy3sxF5CRHUPUaI9wRpEw8Q=";
+      }
+    )
+    (
+      fetchFromGitHub {
+        owner = "xmake-io";
+        repo = "xmake-repo";
+        rev = "9e39ee6a9c9a4c43192b95b7efcc95ea1c79a28d";
+        name = "xmake-repo";
+        sha256 = "sha256-LNXxNJalnJ18T/1JY1b3OxWBT1QMEnJkur2WVYa44aM=";
+      }
+    )
+  ];
+  sourceRoot = ".";
 
   nativeBuildInputs = [ stdenv.cc unzip pkg-config xmake ];
   buildInputs = [ glib.dev librime ];
-
-  postPatch = ''
-    substituteInPlace xmake.lua --replace-quiet "glib" "glib-2.0"
-  '';
 
   # https://github.com/xmake-io/xmake/discussions/5699
   configurePhase = ''
@@ -31,6 +41,9 @@ stdenv.mkDerivation rec {
     HOME=$PWD PATH=$HOME:$PATH
     echo -e "#!$SHELL\necho I am git" > $HOME/git
     chmod +x $HOME/git
+    install -d .xmake/repositories
+    ln -sf ../../xmake-repo .xmake/repositories
+    cd ${pname}
     xmake g --network=private
     xmake f --verbose
   '';
