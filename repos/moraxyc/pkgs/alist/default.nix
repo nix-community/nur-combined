@@ -2,57 +2,77 @@
   lib,
   alist,
   buildGoModule,
+  fetchFromGitHub,
   fetchurl,
   fuse,
   go,
   stdenv,
   installShellFiles,
+  versionCheckHook,
   testers,
-  fetchFromGitHub,
 }:
 buildGoModule rec {
   pname = "alist";
-  version = "3.35.0";
+  version = "3.38.0";
+
   src = fetchFromGitHub {
-    owner = "alist-org";
+    owner = "AlistGo";
     repo = "alist";
     rev = "refs/tags/v${version}";
-    hash = "sha256-N9WgaPzc8cuDN7N0Ny3t6ARGla0lCluzF2Mut3Pg880=";
+    hash = "sha256-HF5T/TZXiyT186qZyzz+m0K9ajF1wk8YAZljcq5ccWM=";
+    # populate values that require us to use git. By doing this in postFetch we
+    # can delete .git afterwards and maintain better reproducibility of the src.
+    leaveDotGit = true;
+    postFetch = ''
+      cd "$out"
+      git rev-parse HEAD > $out/COMMIT
+      # '0000-00-00T00:00:00Z'
+      date -u -d "@$(git log -1 --pretty=%ct)" "+%Y-%m-%dT%H:%M:%SZ" > $out/SOURCE_DATE_EPOCH
+      find "$out" -name .git -print0 | xargs -0 rm -rf
+    '';
   };
-  CGO_ENABLED = 1;
-
-  vendorHash = "sha256-lZIM1Cy3JmcrnxC+HN9Ni7P70yVR1LtHVKe3nOhA4fg=";
-
   web = fetchurl {
-    url = "https://github.com/alist-org/alist-web/releases/download/${version}/dist.tar.gz";
-    hash = "sha256-lAYIwrn2TPWFrU0kFUXl8eWeX25U746iycOimZgxP8c=";
+    url = "https://github.com/AlistGo/alist-web/releases/download/${version}/dist.tar.gz";
+    hash = "sha256-jHbWhjvHfgtdocuuELbOwrMzL8tOQfBVdH9MxasEwGo=";
   };
+
+  vendorHash = "sha256-qSbvb2/y5rdS/OCutNEcRDUQBCAgNudux8XDnY9TRSo=";
 
   buildInputs = [ fuse ];
+
   tags = [ "jsoniter" ];
 
   ldflags = [
     "-s"
     "-w"
     "-X \"github.com/alist-org/alist/v3/internal/conf.GitAuthor=Xhofe <i@nn.ci>\""
-    # time should not be used as the input for nix, instead use "Nix" as a placeholder.
-    "-X github.com/alist-org/alist/v3/internal/conf.BuiltAt=Nix"
-    "-X github.com/alist-org/alist/v3/internal/conf.GoVersion=${go.version}"
-    "-X github.com/alist-org/alist/v3/internal/conf.GitCommit=${version}"
     "-X github.com/alist-org/alist/v3/internal/conf.Version=${version}"
     "-X github.com/alist-org/alist/v3/internal/conf.WebVersion=${version}"
   ];
 
   preConfigure = ''
-    # build sandbox do not provide network
-    rm pkg/aria2/rpc/client_test.go pkg/aria2/rpc/call_test.go
-
     # use matched web files
     rm -rf public/dist
-    cp ${web} dist.tar.gz
-    tar -xzf dist.tar.gz
+    tar -xzf ${web}
     mv -f dist public
   '';
+
+  preBuild = ''
+    ldflags+=" -X \"github.com/alist-org/alist/v3/internal/conf.GoVersion=$(go version | sed 's/go version //')\""
+    ldflags+=" -X \"github.com/alist-org/alist/v3/internal/conf.BuiltAt=$(cat SOURCE_DATE_EPOCH)\""
+    ldflags+=" -X github.com/alist-org/alist/v3/internal/conf.GitCommit=$(cat COMMIT)"
+  '';
+
+  checkFlags =
+    let
+      # Skip tests that require network access
+      skippedTests = [
+        "TestHTTPAll"
+        "TestWebsocketAll"
+        "TestWebsocketCaller"
+      ];
+    in
+    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -63,19 +83,24 @@ buildGoModule rec {
       --zsh <($out/bin/alist completion zsh)
   '';
 
-  passthru.tests = {
-    version = testers.testVersion {
-      package = alist;
-      command = "${lib.getExe alist} version";
-    };
-  };
+  doInstallCheck = true;
+
+  versionCheckProgramArg = "version";
+
+  nativeInstallCheckInputs = [
+    versionCheckHook
+  ];
 
   meta = {
-    description = "A file list/WebDAV program that supports multiple storages";
+    description = "File list/WebDAV program that supports multiple storages";
     homepage = "https://github.com/alist-org/alist";
     changelog = "https://github.com/alist-org/alist/releases/tag/v${version}";
-    license = lib.licenses.agpl3Plus;
+    license = lib.licenses.agpl3Only;
     maintainers = with lib.maintainers; [ moraxyc ];
+    sourceProvenance = with lib.sourceTypes; [
+      fromSource
+      binaryBytecode
+    ];
     mainProgram = "alist";
   };
 }
