@@ -2,7 +2,6 @@
   sources,
   stdenv,
   buildFHSUserEnvBubblewrap,
-  autoPatchelfHook,
   writeShellScript,
   lib,
   makeDesktopItem,
@@ -10,27 +9,46 @@
   makeWrapper,
   writeShellScriptBin,
   callPackage,
+  dpkg,
   # Options
   enableSandbox ? true, # There are previous reports of WeChat scanning user files without authorization
   # WeChat dependencies
   alsa-lib,
   at-spi2-atk,
   at-spi2-core,
+  atk,
+  atkmm,
+  bzip2,
   cairo,
+  cups,
+  dbus,
+  expat,
+  ffmpeg,
+  fontconfig,
+  freetype,
+  gdk-pixbuf,
+  glib,
   gtk3,
-  gtk4,
-  libglvnd,
-  libpulseaudio,
+  libdrm,
+  libexif,
+  libGL,
+  libjack2,
+  libnotify,
+  libuuid,
   libva,
+  libxkbcommon,
+  libxml2,
   mesa,
   nspr,
   nss,
   pango,
-  pciutils,
+  pulseaudio,
   qt6,
-  udev,
-  xorg,
+  systemd,
+  vulkan-loader,
   wayland,
+  xorg,
+  zlib,
 }:
 ################################################################################
 # Mostly based on wechat-uos-bwrap package from AUR:
@@ -51,27 +69,61 @@ let
     alsa-lib
     at-spi2-atk
     at-spi2-core
+    atk
+    atkmm
+    bzip2
     cairo
+    cups
+    dbus
+    expat
+    ffmpeg
+    fontconfig
+    freetype
+    gdk-pixbuf
+    glib
     gtk3
-    gtk4
-    libglvnd
-    libpulseaudio
+    libdrm
+    libexif
+    libGL
+    libjack2
+    libnotify
+    libuuid
     libva
+    libxkbcommon
+    libxml2
     mesa
     nspr
     nss
     pango
-    pciutils
+    pulseaudio
     qt6.qt5compat
-    udev
+    stdenv.cc.cc
+    stdenv.cc.libc
+    systemd
+    vulkan-loader
+    wayland
+    xorg.libICE
+    xorg.libSM
+    xorg.libX11
+    xorg.libxcb
+    xorg.libXcomposite
     xorg.libXcursor
     xorg.libXdamage
+    xorg.libXext
+    xorg.libXfixes
+    xorg.libXft
+    xorg.libXi
     xorg.libXrandr
+    xorg.libXrender
+    xorg.libXScrnSaver
+    xorg.libxshmfence
+    xorg.libXt
+    xorg.libXtst
     xorg.xcbutilimage
     xorg.xcbutilkeysyms
     xorg.xcbutilrenderutil
     xorg.xcbutilwm
-    wayland
+    zlib
   ];
 
   license = stdenv.mkDerivation {
@@ -89,23 +141,10 @@ let
     pname = "wechat-uos";
     inherit (sources.wechat-uos) version src;
 
-    nativeBuildInputs = [
-      autoPatchelfHook
-      qt6.wrapQtAppsHook
-    ];
-
-    autoPatchelfFlags = [ "--keep-libc" ];
-
-    buildInputs = libraries;
-
-    unpackPhase = ''
-      ar x $src
-    '';
+    nativeBuildInputs = [ dpkg ];
 
     installPhase = ''
-      mkdir -p $out
-      tar xf data.tar.xz -C $out
-
+      dpkg -x $src $out
       rm -f $out/opt/apps/com.tencent.wechat/files/libuosdevicea.so
       install -Dm755 ${libuosdevicea-stub}/lib/libuosdevicea.so $out/opt/apps/com.tencent.wechat/files/libuosdevicea.so
       install -Dm755 ${libuosdevicea-stub}/lib/libuosdevicea.so $out/lib/license/libuosdevicea.so
@@ -134,7 +173,7 @@ let
       export IBUS_USE_PORTAL=1
     fi
 
-    export LD_PRELOAD=${glibcWithoutHardening}/lib/libc.so.6:$LD_PRELOAD
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib
     exec ${resource}/opt/apps/com.tencent.wechat/files/wechat
   '';
 
@@ -176,6 +215,7 @@ let
         "--tmpfs /root"
         "--bind \${WECHAT_HOME_DIR} \${HOME}"
         "--bind \${WECHAT_FILES_DIR} \${WECHAT_FILES_DIR}"
+        "--ro-bind ${license}/var /var"
         "--chdir $HOME"
         "--setenv QT_QPA_PLATFORM xcb"
         "--setenv QT_AUTO_SCREEN_SCALE_FACTOR 1"
@@ -205,10 +245,7 @@ stdenv.mkDerivation {
 
   postInstall = ''
     mkdir -p $out/bin $out/share
-
-    makeWrapper ${fhs}/bin/wechat-uos $out/bin/wechat-uos \
-      --run "mkdir -p \$HOME/.local/share/wechat-uos"
-
+    ln -s ${fhs}/bin/wechat-uos $out/bin/wechat-uos
     ln -s ${resource}/opt/apps/com.tencent.wechat/entries/icons $out/share/icons
   '';
 

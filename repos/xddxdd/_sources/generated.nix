@@ -170,21 +170,21 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "d1fbde46fd09a05aa4ce90ed46fa012627efee6d";
+    version = "f7b6796cbaed1f7bd50c08715d77b12d8f306036";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "d1fbde46fd09a05aa4ce90ed46fa012627efee6d";
-      hash = "sha256-EMb4Zi1lqva8lnN/jmNaF/GQ8zagnGFXr7qCXc9QUY8=";
+      rev = "f7b6796cbaed1f7bd50c08715d77b12d8f306036";
+      hash = "sha256-on/A/tcb0f9Iuma/1BledjkzhmE8OSXSRWXf4uo+uoc=";
     };
-    date = "2024-11-01";
+    date = "2024-11-04";
   };
   calibre-cops = {
     pname = "calibre-cops";
-    version = "3.3.1";
+    version = "3.4.5";
     src = fetchurl {
-      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/3.3.1/cops-3.3.1-php82.zip";
-      hash = "sha256-OcEYFBwkK2o6eGzqaJut19vyh41R7/z5p8YjXkfGd0Y=";
+      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/3.4.5/cops-3.4.5-php82.zip";
+      hash = "sha256-xYPaHjRC04ogpUt7ZQaHpuzs5DBX+tDhbcbE6CoAsW8=";
     };
   };
   cef-binary = {
@@ -594,14 +594,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "05257da106b908e22b54ad1a6b0c6563a2fec009";
+    version = "8bf124f1fcc8e73dace94bf2eb8c59441a06b8a8";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "05257da106b908e22b54ad1a6b0c6563a2fec009";
-      hash = "sha256-TTXKXWq8a3yHvtB0EWp3cOZOsKtBdunrL+WrNFLYqb4=";
+      rev = "8bf124f1fcc8e73dace94bf2eb8c59441a06b8a8";
+      hash = "sha256-wPRb43BmlxDu1Pgr7QmzLr+vYeiu/oNaoj+F7maNKPM=";
     };
-    date = "2024-11-01";
+    date = "2024-11-05";
   };
   libqcef = {
     pname = "libqcef";
@@ -696,12 +696,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4016";
+    version = "b4034";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4016";
-      hash = "sha256-K32sNlvz5FGJQJijd6FRRjBhJeJH9ZQCm7cvvzalCV0=";
+      rev = "b4034";
+      hash = "sha256-n6Q36ha9trUkKWx+8FCHji0PFhskRdPXhZeIGGaXdJY=";
     };
   };
   lyrica = {
@@ -912,14 +912,14 @@
   };
   openresty = {
     pname = "openresty";
-    version = "8c37412c31621225e7aa7e825b5b50106c9c71c4";
+    version = "67aff27ddca1a5d9e31614025d2934b569b9ab3e";
     src = fetchFromGitHub {
       owner = "openresty";
       repo = "openresty";
-      rev = "8c37412c31621225e7aa7e825b5b50106c9c71c4";
-      hash = "sha256-bpUMAV126ADCA39Dg4M2piS+QkN8wynkBRJqKDO4El4=";
+      rev = "67aff27ddca1a5d9e31614025d2934b569b9ab3e";
+      hash = "sha256-3VQUWF3O3gPcPUkurSlQO1PPlRwvxPM1nOVHN/B8nW4=";
     };
-    date = "2024-10-10";
+    date = "2024-11-05";
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
@@ -1122,18 +1122,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "Linux/QQ_3.2.13_241023_amd64_01";
+    version = "Linux/QQ_3.2.13_241104_amd64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.13_241023_amd64_01.deb";
-      hash = "sha256-H5ACKFVV4AQ3de9UV4i9ejL1WjuuPJhTLTVqK5EcssM=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.13_241104_amd64_01.deb";
+      hash = "sha256-jvqsgPoGuk9rfXPwj3td0CnOgk0C76JXFLoL8WHsGiY=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "Linux/QQ_3.2.13_241023_arm64_01";
+    version = "Linux/QQ_3.2.13_241104_arm64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.13_241023_arm64_01.deb";
-      hash = "sha256-n2ezKgLfmugUZYvGzDvaLKy+Tf8ooUC6Oc6xCDp5rYA=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.13_241104_arm64_01.deb";
+      hash = "sha256-Eha3/wvcA8IcKhjbfKrMPQm/ZjIPGgLPYEafR1NYdmc=";
     };
   };
   qqmusic = {
@@ -1249,14 +1249,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "7e5fb5270bdb95beb47517cb879801b9c8e2b5d0";
+    version = "a022f0943fedf71eae154e1f06cad64079a3f536";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "7e5fb5270bdb95beb47517cb879801b9c8e2b5d0";
-      hash = "sha256-uN6j4jIa9JytDIBw/8+aEfiTzODiKKI6Nk2MbI2c7+A=";
+      rev = "a022f0943fedf71eae154e1f06cad64079a3f536";
+      hash = "sha256-nLuR4rfza0Tjjh28e51ZNzgVXUo9GpClMOrl5Do0+iw=";
     };
-    date = "2024-11-01";
+    date = "2024-11-04";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1619,10 +1619,10 @@
   };
   wechat-uos = {
     pname = "wechat-uos";
-    version = "1.0.0.241";
+    version = "4.0.0.21";
     src = fetchurl {
-      url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_1.0.0.241_amd64.deb";
-      hash = "sha256-J2ipc3byBzvVFe+B1k+nsgZo+mwRpBd6LtF/ybAzmKM=";
+      url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_4.0.0.21_amd64.deb";
+      hash = "sha256-1tO8ARt2LuCwPz7rO25/9dTOIf9Rwqc9TdqiZTTojRk=";
     };
   };
   wine-wechat-x64 = {

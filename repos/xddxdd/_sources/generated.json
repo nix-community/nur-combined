@@ -328,7 +328,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-11-01",
+        "date": "2024-11-04",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -340,12 +340,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "d1fbde46fd09a05aa4ce90ed46fa012627efee6d",
-            "sha256": "sha256-EMb4Zi1lqva8lnN/jmNaF/GQ8zagnGFXr7qCXc9QUY8=",
+            "rev": "f7b6796cbaed1f7bd50c08715d77b12d8f306036",
+            "sha256": "sha256-on/A/tcb0f9Iuma/1BledjkzhmE8OSXSRWXf4uo+uoc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d1fbde46fd09a05aa4ce90ed46fa012627efee6d"
+        "version": "f7b6796cbaed1f7bd50c08715d77b12d8f306036"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -356,11 +356,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-OcEYFBwkK2o6eGzqaJut19vyh41R7/z5p8YjXkfGd0Y=",
+            "sha256": "sha256-xYPaHjRC04ogpUt7ZQaHpuzs5DBX+tDhbcbE6CoAsW8=",
             "type": "url",
-            "url": "https://github.com/mikespub-org/seblucas-cops/releases/download/3.3.1/cops-3.3.1-php82.zip"
+            "url": "https://github.com/mikespub-org/seblucas-cops/releases/download/3.4.5/cops-3.4.5-php82.zip"
         },
-        "version": "3.3.1"
+        "version": "3.4.5"
     },
     "cef-binary": {
         "cargoLocks": null,
@@ -1155,7 +1155,7 @@
     },
     "liboqs-unstable": {
         "cargoLocks": null,
-        "date": "2024-11-01",
+        "date": "2024-11-05",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -1167,12 +1167,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "05257da106b908e22b54ad1a6b0c6563a2fec009",
-            "sha256": "sha256-TTXKXWq8a3yHvtB0EWp3cOZOsKtBdunrL+WrNFLYqb4=",
+            "rev": "8bf124f1fcc8e73dace94bf2eb8c59441a06b8a8",
+            "sha256": "sha256-wPRb43BmlxDu1Pgr7QmzLr+vYeiu/oNaoj+F7maNKPM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "05257da106b908e22b54ad1a6b0c6563a2fec009"
+        "version": "8bf124f1fcc8e73dace94bf2eb8c59441a06b8a8"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1373,12 +1373,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b4016",
-            "sha256": "sha256-K32sNlvz5FGJQJijd6FRRjBhJeJH9ZQCm7cvvzalCV0=",
+            "rev": "b4034",
+            "sha256": "sha256-n6Q36ha9trUkKWx+8FCHji0PFhskRdPXhZeIGGaXdJY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b4016"
+        "version": "b4034"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -1784,7 +1784,7 @@
     },
     "openresty": {
         "cargoLocks": null,
-        "date": "2024-10-10",
+        "date": "2024-11-05",
         "extract": null,
         "name": "openresty",
         "passthru": null,
@@ -1796,12 +1796,12 @@
             "name": null,
             "owner": "openresty",
             "repo": "openresty",
-            "rev": "8c37412c31621225e7aa7e825b5b50106c9c71c4",
-            "sha256": "sha256-bpUMAV126ADCA39Dg4M2piS+QkN8wynkBRJqKDO4El4=",
+            "rev": "67aff27ddca1a5d9e31614025d2934b569b9ab3e",
+            "sha256": "sha256-3VQUWF3O3gPcPUkurSlQO1PPlRwvxPM1nOVHN/B8nW4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8c37412c31621225e7aa7e825b5b50106c9c71c4"
+        "version": "67aff27ddca1a5d9e31614025d2934b569b9ab3e"
     },
     "openssl-oqs-provider": {
         "cargoLocks": null,
@@ -2211,11 +2211,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-H5ACKFVV4AQ3de9UV4i9ejL1WjuuPJhTLTVqK5EcssM=",
+            "sha256": "sha256-jvqsgPoGuk9rfXPwj3td0CnOgk0C76JXFLoL8WHsGiY=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.13_241023_amd64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.13_241104_amd64_01.deb"
         },
-        "version": "Linux/QQ_3.2.13_241023_amd64_01"
+        "version": "Linux/QQ_3.2.13_241104_amd64_01"
     },
     "qq-arm64": {
         "cargoLocks": null,
@@ -2226,11 +2226,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-n2ezKgLfmugUZYvGzDvaLKy+Tf8ooUC6Oc6xCDp5rYA=",
+            "sha256": "sha256-Eha3/wvcA8IcKhjbfKrMPQm/ZjIPGgLPYEafR1NYdmc=",
             "type": "url",
-            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.13_241023_arm64_01.deb"
+            "url": "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.13_241104_arm64_01.deb"
         },
-        "version": "Linux/QQ_3.2.13_241023_arm64_01"
+        "version": "Linux/QQ_3.2.13_241104_arm64_01"
     },
     "qqmusic": {
         "cargoLocks": null,
@@ -2453,7 +2453,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-11-01",
+        "date": "2024-11-04",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -2465,12 +2465,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "7e5fb5270bdb95beb47517cb879801b9c8e2b5d0",
-            "sha256": "sha256-uN6j4jIa9JytDIBw/8+aEfiTzODiKKI6Nk2MbI2c7+A=",
+            "rev": "a022f0943fedf71eae154e1f06cad64079a3f536",
+            "sha256": "sha256-nLuR4rfza0Tjjh28e51ZNzgVXUo9GpClMOrl5Do0+iw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7e5fb5270bdb95beb47517cb879801b9c8e2b5d0"
+        "version": "a022f0943fedf71eae154e1f06cad64079a3f536"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -3180,11 +3180,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-J2ipc3byBzvVFe+B1k+nsgZo+mwRpBd6LtF/ybAzmKM=",
+            "sha256": "sha256-1tO8ARt2LuCwPz7rO25/9dTOIf9Rwqc9TdqiZTTojRk=",
             "type": "url",
-            "url": "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_1.0.0.241_amd64.deb"
+            "url": "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_4.0.0.21_amd64.deb"
         },
-        "version": "1.0.0.241"
+        "version": "4.0.0.21"
     },
     "wine-wechat-x64": {
         "cargoLocks": null,
