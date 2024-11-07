@@ -2177,10 +2177,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "133.0.20241104.91514";
+      version = "133.0.20241106.91549";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4381739/deutsch_de_language_pack-133.0.20241104.91514.xpi";
-      sha256 = "a6cf3d49d2b0eacc3796aadcea0a6dfa5fa71cdb536b36c6f8442e8c2decac31";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4383019/deutsch_de_language_pack-133.0.20241106.91549.xpi";
+      sha256 = "2f32ff6073d6bd127f98137cb5fc196f0fa4495263523fcb10644cff76f4dcac";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2543,10 +2543,10 @@
     };
     "ecosia" = buildFirefoxXpiAddon {
       pname = "ecosia";
-      version = "4.1.4";
+      version = "5.0.0";
       addonId = "{d04b0b40-3dab-4f0b-97a6-04ec3eddbfb0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4365355/ecosia_the_green_search-4.1.4.xpi";
-      sha256 = "2fe9a08b60ee9ac8371065f451b6d6bddad68b9667b71809385550f2ccc49960";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4377833/ecosia_the_green_search-5.0.0.xpi";
+      sha256 = "49b0c96f4b50db7871ac01f82956e8f7b07ac751cd374c6d144589e50bc48df5";
       meta = with lib;
       {
         homepage = "http://www.ecosia.org";
@@ -3342,10 +3342,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "133.0.20241104.91514";
+      version = "133.0.20241106.91549";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4381746/francais_language_pack-133.0.20241104.91514.xpi";
-      sha256 = "80d39cdfcf1320f00fee26445deda0de5edc5009558305292f169776ef863fb9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4383079/francais_language_pack-133.0.20241106.91549.xpi";
+      sha256 = "7fe40eeb714301cd22eeacf5a1bc591d52ef584b7658830fca7cfe600f15efcc";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3379,10 +3379,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "133.0.20241104.91514";
+      version = "133.0.20241106.91549";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4381703/gaidhlig_language_pack-133.0.20241104.91514.xpi";
-      sha256 = "5da6e6ead9bb4f1c63b9974677a24b25c478315fc79d6843747bf11d110fb617";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4383081/gaidhlig_language_pack-133.0.20241106.91549.xpi";
+      sha256 = "3390ceb32b4753df0e09cc1237c6eb0470a163f22fc32284d3a06a610b80d85e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7795,10 +7795,10 @@
     };
     "noscript" = buildFirefoxXpiAddon {
       pname = "noscript";
-      version = "11.5.0";
+      version = "11.5.2";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4377088/noscript-11.5.0.xpi";
-      sha256 = "999244c7be75e58fe16cb2880711013ca079822da1dab65e7eb375c1faf5baad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4379558/noscript-11.5.2.xpi";
+      sha256 = "460aaa6484bf8422415dfe08260e8536866e3731ed5b8b7913cf4b7b1333493a";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -8300,10 +8300,10 @@
     };
     "passff" = buildFirefoxXpiAddon {
       pname = "passff";
-      version = "1.20.1";
+      version = "1.21";
       addonId = "passff@invicem.pro";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4339137/passff-1.20.1.xpi";
-      sha256 = "7418b41a6ee43d380d42147a3632c0cf7e68591a4341effc5dc2e40a72575122";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4383383/passff-1.21.xpi";
+      sha256 = "1119234918568333fb1c6119a023c4fbebb867fd3b05ec93af2c6df7001ae4b1";
       meta = with lib;
       {
         homepage = "https://codeberg.org/PassFF/passff";
@@ -8325,10 +8325,10 @@
     };
     "pay-by-privacy" = buildFirefoxXpiAddon {
       pname = "pay-by-privacy";
-      version = "2.4.1";
+      version = "2.4.3";
       addonId = "privacy@privacy.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4335806/pay_by_privacy-2.4.1.xpi";
-      sha256 = "8819ef46cbfb9d5a1afcc72ce3c3ea0cdec3a51e87331cd2b25195a36ff28c04";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4383433/pay_by_privacy-2.4.3.xpi";
+      sha256 = "265614cd7e63e98ff688b0d3f578b12204caf5c3ee88851e1492e5fb276ea0c7";
       meta = with lib;
       {
         homepage = "https://privacy.com";
@@ -9889,10 +9889,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "133.0.20241104.91514";
+      version = "133.0.20241106.91549";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4381679/scots_language_pack-133.0.20241104.91514.xpi";
-      sha256 = "778679d57cf76bce5793471efb4ab7ad349b60852caf3475f13dc67ad7cc8b1d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4383067/scots_language_pack-133.0.20241106.91549.xpi";
+      sha256 = "b013834d414de485ab5467895a53e693154f876f857834b110749536a222c0da";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10999,10 +10999,10 @@
     };
     "tampermonkey" = buildFirefoxXpiAddon {
       pname = "tampermonkey";
-      version = "5.3.1";
+      version = "5.3.2";
       addonId = "firefox@tampermonkey.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4367975/tampermonkey-5.3.1.xpi";
-      sha256 = "f7ef17e2badb899897a561b11bb7c38691af21dc8bf7491f6d61baab64fc93e1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4379021/tampermonkey-5.3.2.xpi";
+      sha256 = "503a233543cf76dff81c7a18b73340f2256987feaef512deb7e0eb68a206b4b3";
       meta = with lib;
       {
         homepage = "https://tampermonkey.net";
@@ -12932,10 +12932,10 @@
     };
     "widegithub" = buildFirefoxXpiAddon {
       pname = "widegithub";
-      version = "2.3.0";
+      version = "2.4.0";
       addonId = "{72742915-c83b-4485-9023-b55dc5a1e730}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4334556/widegithub-2.3.0.xpi";
-      sha256 = "685c4631cc1e514487cc66974986cf7c6f22cc8c07b43b140b48551505fa988b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4382924/widegithub-2.4.0.xpi";
+      sha256 = "7e5431d2096e8474932063a4ac2a4606b8492b8f6d9372f3b706385684547844";
       meta = with lib;
       {
         homepage = "https://github.com/fabiocchetti/wide-github/";
