@@ -15,13 +15,13 @@ builtins.mapAttrs
       // {
         inherit pname;
 
-        version = "0-unstable-2024-10-29";
+        version = "0-unstable-2024-11-06";
 
         src = fetchFromGitHub {
           owner = "Fausto-Korpsvart";
           repo = "Rose-Pine-GTK-Theme";
-          rev = "c6e831f40986739fd6835c35db4d55eb84ba1201";
-          hash = "sha256-4yu4nKt4Ikd+YHpIWAO1Uh2mpHMP2XcoJvVkFAWek2Y=";
+          rev = "037a1d22e27e99fccce2064a30e4a086b60fbe67";
+          hash = "sha256-nEp9qHVfGMzO6QqkYk1NJ5FT+h0m/bnkrJUzAskNUac=";
         };
 
         dontBuild = true;
