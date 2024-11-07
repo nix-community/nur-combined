@@ -3644,6 +3644,11 @@
     "pname": "uksmd",
     "version": "1.2.11"
   },
+  "legacyPackages.x86_64-linux.uni-api": {
+    "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
+    "pname": "uni-api-unstable",
+    "version": "2024-11-06"
+  },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
     "pname": "unigine-heaven",
@@ -3723,6 +3728,11 @@
     "description": "Font Awesome packaged for setuptools (easy_install) / pip",
     "pname": "python3.12-xstatic-font-awesome",
     "version": "4.7.0.0"
+  },
+  "legacyPackages.x86_64-linux.xue": {
+    "description": "Minimalist web front-end framework composed of HTMX and Python",
+    "pname": "python3.12-xue",
+    "version": "0.0.34"
   },
   "packages.x86_64-linux._meta": {
     "description": "",
@@ -4409,6 +4419,11 @@
     "pname": "uksmd",
     "version": "1.2.11"
   },
+  "packages.x86_64-linux.uni-api": {
+    "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
+    "pname": "uni-api-unstable",
+    "version": "2024-11-06"
+  },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
     "pname": "unigine-heaven",
@@ -4488,5 +4503,10 @@
     "description": "Font Awesome packaged for setuptools (easy_install) / pip",
     "pname": "python3.12-xstatic-font-awesome",
     "version": "4.7.0.0"
+  },
+  "packages.x86_64-linux.xue": {
+    "description": "Minimalist web front-end framework composed of HTMX and Python",
+    "pname": "python3.12-xue",
+    "version": "0.0.34"
   }
 }

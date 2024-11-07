@@ -683,6 +683,10 @@ fetch.github = "trumank/uesave-rs"
 src.github_tag = "CachyOS/uksmd"
 fetch.github = "CachyOS/uksmd"
 
+[uni-api]
+src.git = "https://github.com/yym68686/uni-api.git"
+fetch.github = "yym68686/uni-api"
+
 [unigine-heaven]
 src.webpage = "https://benchmark.unigine.com/heaven"
 src.regex = "\"https://assets.unigine.com/d/Unigine_Heaven-([0-9\\.]+).run\""
@@ -756,6 +760,10 @@ fetch.pypi = "XStatic-asciinema-player"
 # src.pypi = "XStatic-Font-Awesome"
 src.manual = "4.7.0.0"
 fetch.pypi = "XStatic-Font-Awesome"
+
+[xue]
+src.pypi = "xue"
+fetch.url = "https://pypi.org/packages/source/x/xue/xue-$ver.tar.gz"
 
 [zstd-nginx-module]
 src.git = "https://github.com/tokers/zstd-nginx-module.git"

@@ -1552,6 +1552,17 @@
       hash = "sha256-mcqiTqu/KIZ+W9yvZfyFekjRdiVavkHVKVRh0xUytg0=";
     };
   };
+  uni-api = {
+    pname = "uni-api";
+    version = "1b4cad3feb59a1c008d2f0a55c8e408502440d05";
+    src = fetchFromGitHub {
+      owner = "yym68686";
+      repo = "uni-api";
+      rev = "1b4cad3feb59a1c008d2f0a55c8e408502440d05";
+      hash = "sha256-J7vIuL9KnD1HtKwYZ3kAtfj0yYeKrvXk9LTvPOQa7zE=";
+    };
+    date = "2024-11-06";
+  };
   unigine-heaven = {
     pname = "unigine-heaven";
     version = "4.0";
@@ -1682,6 +1693,14 @@
     src = fetchurl {
       url = "https://pypi.org/packages/source/X/XStatic-Font-Awesome/XStatic-Font-Awesome-4.7.0.0.tar.gz";
       hash = "sha256-4B+0gMqqfHlj3LMyikcA5jG+9gcNsOi2hYFtIg5oX2w=";
+    };
+  };
+  xue = {
+    pname = "xue";
+    version = "0.0.34";
+    src = fetchurl {
+      url = "https://pypi.org/packages/source/x/xue/xue-0.0.34.tar.gz";
+      hash = "sha256-1fTAmCuZYVOrNihGQZfGK0pwV910KD19KK+MYkuyA3w=";
     };
   };
   zstd-nginx-module = {

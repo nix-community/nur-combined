@@ -3042,6 +3042,27 @@
         },
         "version": "v1.2.11"
     },
+    "uni-api": {
+        "cargoLocks": null,
+        "date": "2024-11-06",
+        "extract": null,
+        "name": "uni-api",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "yym68686",
+            "repo": "uni-api",
+            "rev": "1b4cad3feb59a1c008d2f0a55c8e408502440d05",
+            "sha256": "sha256-J7vIuL9KnD1HtKwYZ3kAtfj0yYeKrvXk9LTvPOQa7zE=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "1b4cad3feb59a1c008d2f0a55c8e408502440d05"
+    },
     "unigine-heaven": {
         "cargoLocks": null,
         "date": null,
@@ -3296,6 +3317,21 @@
             "url": "https://pypi.org/packages/source/X/XStatic-Font-Awesome/XStatic-Font-Awesome-4.7.0.0.tar.gz"
         },
         "version": "4.7.0.0"
+    },
+    "xue": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "xue",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-1fTAmCuZYVOrNihGQZfGK0pwV910KD19KK+MYkuyA3w=",
+            "type": "url",
+            "url": "https://pypi.org/packages/source/x/xue/xue-0.0.34.tar.gz"
+        },
+        "version": "0.0.34"
     },
     "zstd-nginx-module": {
         "cargoLocks": null,
