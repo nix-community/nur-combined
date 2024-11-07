@@ -41,6 +41,20 @@ jobs:
             extra-platforms = i686-linux aarch64-linux arm-linux
             log-lines = 25
 
+      - name: Set nix daemon tmpdir path
+        run: |
+          sudo mkdir -p /nix/tmpdir
+          sudo chown "$(whoami)" /nix/tmpdir
+
+          cat > override.conf <<EOF
+          [Service]
+          Environment="TMPDIR=/nix/tmpdir"
+          EOF
+          sudo mkdir /etc/systemd/system/nix-daemon.service.d/
+          sudo mv override.conf /etc/systemd/system/nix-daemon.service.d/override.conf
+          sudo systemctl daemon-reload
+          sudo systemctl restart nix-daemon
+
       - name: Cache Nvfetcher Database
         id: cache-nvfetcher
         uses: actions/cache@v4
@@ -55,7 +69,7 @@ jobs:
           github = "${{ secrets.GITHUB_TOKEN }}"
           EOF
 
-          nix run .#update
+          env TMPDIR=/nix/tmpdir nix run .#update
 
           rm -f secrets.toml
 
