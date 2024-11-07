@@ -8,7 +8,7 @@ with lib;
       Artem = {
         uid = 1000;
         isNormalUser = true;
-        extraGroups = [ "wheel" "libvirtd" ];
+        extraGroups = [ "wheel" ];
         shell = pkgs.zsh;
       };
       Nina = {
