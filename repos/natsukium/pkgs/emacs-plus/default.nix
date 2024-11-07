@@ -19,7 +19,6 @@ emacs.overrideAttrs (
       ++ map (p: "${source.src}/patches/emacs-${emacsMajorVersion}/${p}") (
         [
           "fix-window-role.patch"
-          "poll.patch"
           "round-undecorated-frame.patch"
           "system-appearance.patch"
         ]
