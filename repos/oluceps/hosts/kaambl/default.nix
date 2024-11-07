@@ -27,7 +27,7 @@ withSystem "x86_64-linux" (
           "self"
           "fenix"
           "nuenv"
-
+          "dae"
           "berberman"
         ]);
     };

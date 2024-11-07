@@ -224,7 +224,7 @@
         nrf-udev-rules
       ];
     };
-    gnome.gnome-keyring.enable = true;
+    # gnome.gnome-keyring.enable = true;
 
     flatpak.enable = true;
     pcscd.enable = true;

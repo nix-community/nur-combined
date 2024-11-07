@@ -69,6 +69,7 @@
         "--edns-addr=211.140.13.188"
         "-l"
         "127.0.0.1"
+        "--ipv6-disabled"
         "--quic-port=853"
         "--https-port=843"
         "--http3"
@@ -124,10 +125,10 @@
         configFile = config.vaultix.secrets.hyst-us-cli.path;
         enable = true;
       };
-      abhoth = {
-        enable = true;
-        configFile = config.vaultix.secrets.hyst-la-cli.path;
-      };
+      # abhoth = {
+      #   enable = true;
+      #   configFile = config.vaultix.secrets.hyst-la-cli.path;
+      # };
       yidhra = {
         enable = true;
         configFile = config.vaultix.secrets.hyst-hk-cli.path;
