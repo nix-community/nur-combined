@@ -30,7 +30,9 @@
         inherit (flake-parts-lib) importApply;
         flakeModules = {
           auto-apps-shell = ./flake-modules/auto-apps-shell.nix;
-          auto-colmena-hive = ./flake-modules/auto-colmena-hive.nix;
+          auto-colmena-hive = ./flake-modules/auto-colmena-hive-v0.nix;
+          auto-colmena-hive-v0 = ./flake-modules/auto-colmena-hive-v0.nix;
+          auto-colmena-hive-v0_20241006 = ./flake-modules/auto-colmena-hive-v0_20241006.nix;
           commands = ./flake-modules/commands.nix;
           lantian-pre-commit-hooks = importApply ./flake-modules/lantian-pre-commit-hooks.nix {
             inherit (inputs) pre-commit-hooks-nix;
