@@ -62,7 +62,7 @@ let
     tokei
     hyperfine
     rsgain
-    my.odin
+    # my.odin
     q
     ouch
     lf
@@ -72,7 +72,7 @@ let
     #steamguard-cli
     rclone
 
-    my.zen-browser
+    # my.zen-browser
 
     #zsh
     jq
@@ -103,6 +103,7 @@ let
     localsend
     # handbrake
     go-musicfox
+    netease-cloud-music-gtk
     # jellyfin-media-player
     # wireshark
     # gaphor

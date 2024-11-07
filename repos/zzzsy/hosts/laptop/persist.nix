@@ -1,4 +1,6 @@
 {
+  boot.initrd.systemd.suppressedUnits = [ "systemd-machine-id-commit.service" ];
+  systemd.suppressedSystemUnits = [ "systemd-machine-id-commit.service" ];
   preservation = {
     enable = true;
     preserveAt."/persist" = {

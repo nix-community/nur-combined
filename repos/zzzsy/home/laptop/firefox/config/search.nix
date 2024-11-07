@@ -2,8 +2,10 @@
   force = true;
   default = "Google UK";
   engines = {
-    #@TODO
     "Google".metaData.hidden = true;
+    "Amazon.com".metaData.hidden = true;
+    "Bing".metaData.hidden = true;
+    "eBay".metaData.hidden = true;
     "Wikipedia (en)".metaData.alias = "@w";
     "Google UK" = {
       urls = [

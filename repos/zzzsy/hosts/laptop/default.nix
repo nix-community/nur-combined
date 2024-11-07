@@ -19,6 +19,7 @@
 
   chaotic = {
     scx.enable = true;
+    scx.package = pkgs.scx.full;
     scx.scheduler = "scx_lavd";
   };
 

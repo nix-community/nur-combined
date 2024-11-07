@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   sops.secrets = {
     "wg" = { };
@@ -9,7 +9,8 @@
     networkmanager.enable = true;
   };
   services.dae = {
-    enable = false;
+    enable = true;
+    package = pkgs.dae;
     configFile = "/home/zzzsy/.config/dae/config.dae";
   };
   networking.wg-quick.interfaces = {

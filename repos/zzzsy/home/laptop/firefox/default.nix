@@ -7,10 +7,11 @@ let
 in
 
 {
-  programs.firefox = {
+  programs.librewolf = {
     enable = true;
-    # profiles.dev-edition-default = {
-    package = pkgs.wrapFirefox pkgs.firefox-beta-bin-unwrapped {
+    package = pkgs.wrapFirefox pkgs.librewolf-unwrapped {
+      wmClass = "LibreWolf";
+      libName = "librewolf";
       extraPolicies = {
         ExtensionSettings = import ./config/extensions.nix;
         DisablePocket = true;
@@ -33,6 +34,7 @@ in
           @import "${userChrome}";
         ''
         (builtins.readFile ./config/custom/sidebery_dyn.css)
+        (builtins.readFile ./config/custom/userChrome.css)
       ];
       userContent = lib.strings.concatStrings [
         ''

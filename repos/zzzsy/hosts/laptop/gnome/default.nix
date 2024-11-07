@@ -14,8 +14,8 @@
       core-utilities.enable = false;
       gnome-online-accounts.enable = false;
       gnome-browser-connector.enable = true;
-      tracker-miners.enable = false;
-      tracker.enable = false;
+      localsearch.enable = false;
+      tinysparql.enable = false;
     };
     environment.gnome.excludePackages = (
       with pkgs;

@@ -12,7 +12,7 @@
       "--group-directories-first"
       "--header"
     ];
-    icons = true;
+    icons = "auto";
     git = true;
   };
 

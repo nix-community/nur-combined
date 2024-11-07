@@ -43,16 +43,9 @@ let
               overlays = [
                 (final: prev: {
                   #ghostty = ghostty.packages.x86_64-linux.default;
+                  dae = daeuniverse.packages.${system}.dae-unstable;
                   my = self.packages."${system}";
                   chaotic = chaotic.packages.${system};
-                  stable = import inputs.nixpkgs-stable {
-                    inherit system;
-                    config.allowUnfree = true;
-                  };
-                  un = import inputs.nixpkgs-un {
-                    inherit system;
-                    config.allowUnfree = true;
-                  };
                 })
               ] ++ overlays;
             };
@@ -81,11 +74,10 @@ in
         chaotic.nixosModules.default
         # nixos-cosmic.nixosModules.default
         daeuniverse.nixosModules.dae
-        daeuniverse.nixosModules.daed
+        # daeuniverse.nixosModules.daed
         lanzaboote.nixosModules.lanzaboote
         nur.nixosModules.nur
         #stylix.nixosModules.stylix
-        daeuniverse.nixosModules.dae
         # nixos-hardware.nixosModules.common-cpu-amd-pstate
         # nixos-hardware.nixosModules.common-gpu-amd
         # nixos-hardware.nixosModules.common-pc-ssd
