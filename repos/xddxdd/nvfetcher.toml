@@ -45,13 +45,11 @@ src.pypi = "bepasty"
 fetch.pypi = "bepasty"
 
 [bilibili]
-src.github_tag = "msojocs/bilibili-linux"
-src.from_pattern = "v(.*)"
-src.to_pattern = "\\1"
-fetch.url = "https://github.com/msojocs/bilibili-linux/releases/download/v$ver/bilibili-asar-v$ver.tar.gz"
+src.github = "msojocs/bilibili-linux"
+fetch.url = "https://github.com/msojocs/bilibili-linux/releases/download/$ver/bilibili-asar-$ver.tar.gz"
 
 [bilibili-src]
-src.github_tag = "msojocs/bilibili-linux"
+src.github = "msojocs/bilibili-linux"
 fetch.github = "msojocs/bilibili-linux"
 
 [bird-lg-go]

@@ -115,7 +115,7 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "1.14.2-1";
+    version = "v1.14.2-1";
     src = fetchurl {
       url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.14.2-1/bilibili-asar-v1.14.2-1.tar.gz";
       hash = "sha256-S9Ib/hn9Wzl1bFRJcGPDNWONJpbh0zUGcfdHDN7dPfY=";

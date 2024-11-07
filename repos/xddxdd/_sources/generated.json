@@ -231,7 +231,7 @@
             "type": "url",
             "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.14.2-1/bilibili-asar-v1.14.2-1.tar.gz"
         },
-        "version": "1.14.2-1"
+        "version": "v1.14.2-1"
     },
     "bilibili-src": {
         "cargoLocks": null,
