@@ -899,6 +899,22 @@
     };
     date = "2024-08-13";
   };
+  one-api-amd64 = {
+    pname = "one-api-amd64";
+    version = "v0.6.8";
+    src = fetchurl {
+      url = "https://github.com/songquanpeng/one-api/releases/download/v0.6.8/one-api";
+      hash = "sha256-vW+VnIyLGgEmHhgeEvXecR/ZeSWQ9DD1s5bZke3JwC8=";
+    };
+  };
+  one-api-arm64 = {
+    pname = "one-api-arm64";
+    version = "v0.6.8";
+    src = fetchurl {
+      url = "https://github.com/songquanpeng/one-api/releases/download/v0.6.8/one-api-arm64";
+      hash = "sha256-iaFzBcAk7XOmkfqHz/v4nx7GmKQ+XxvmJgs46/eCx1M=";
+    };
+  };
   onepush = {
     pname = "onepush";
     version = "8b09e62330ad74ba3221bfc2b080d1732a1dcc55";
@@ -928,7 +944,7 @@
       owner = "open-quantum-safe";
       repo = "oqs-provider";
       rev = "0.7.0";
-      hash = "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=";
+      hash = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
     };
   };
   osdlyrics = {

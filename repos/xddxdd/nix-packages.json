@@ -2034,6 +2034,11 @@
     "pname": "oci-arm-host-capacity-unstable",
     "version": "2024-08-13"
   },
+  "legacyPackages.x86_64-linux.one-api": {
+    "description": "OpenAI key management & redistribution system, using a single API for all LLMs",
+    "pname": "one-api",
+    "version": "0.6.8"
+  },
   "legacyPackages.x86_64-linux.onepush": {
     "description": "Python library to send notifications to your iPhone, Discord, Telegram, WeChat, QQ and DingTalk",
     "pname": "python3.12-onepush-unstable",
@@ -4128,6 +4133,11 @@
     "description": "This script allows to bypass Oracle Cloud Infrastructure 'Out of host capacity' error immediately when additional OCI capacity will appear in your Home Region / Availability domain",
     "pname": "oci-arm-host-capacity-unstable",
     "version": "2024-08-13"
+  },
+  "packages.x86_64-linux.one-api": {
+    "description": "OpenAI key management & redistribution system, using a single API for all LLMs",
+    "pname": "one-api",
+    "version": "0.6.8"
   },
   "packages.x86_64-linux.onepush": {
     "description": "Python library to send notifications to your iPhone, Discord, Telegram, WeChat, QQ and DingTalk",

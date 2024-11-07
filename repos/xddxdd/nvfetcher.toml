@@ -384,6 +384,14 @@ fetch.github = "hitrov/oci-arm-host-capacity"
 src.git = "https://github.com/y1ndan/onepush.git"
 fetch.github = "y1ndan/onepush"
 
+[one-api-amd64]
+src.github = "songquanpeng/one-api"
+fetch.url = "https://github.com/songquanpeng/one-api/releases/download/$ver/one-api"
+
+[one-api-arm64]
+src.github = "songquanpeng/one-api"
+fetch.url = "https://github.com/songquanpeng/one-api/releases/download/$ver/one-api-arm64"
+
 [openresty]
 src.git = "https://github.com/openresty/openresty.git"
 fetch.github = "openresty/openresty"

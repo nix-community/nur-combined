@@ -1761,6 +1761,36 @@
         },
         "version": "ea70acaf92bedcf0900a9209bdd8c31106b0df83"
     },
+    "one-api-amd64": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "one-api-amd64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-vW+VnIyLGgEmHhgeEvXecR/ZeSWQ9DD1s5bZke3JwC8=",
+            "type": "url",
+            "url": "https://github.com/songquanpeng/one-api/releases/download/v0.6.8/one-api"
+        },
+        "version": "v0.6.8"
+    },
+    "one-api-arm64": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "one-api-arm64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-iaFzBcAk7XOmkfqHz/v4nx7GmKQ+XxvmJgs46/eCx1M=",
+            "type": "url",
+            "url": "https://github.com/songquanpeng/one-api/releases/download/v0.6.8/one-api-arm64"
+        },
+        "version": "v0.6.8"
+    },
     "onepush": {
         "cargoLocks": null,
         "date": "2023-11-28",
@@ -1818,7 +1848,7 @@
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
             "rev": "0.7.0",
-            "sha256": "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=",
+            "sha256": "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=",
             "sparseCheckout": [],
             "type": "github"
         },
