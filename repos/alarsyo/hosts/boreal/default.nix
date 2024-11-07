@@ -94,18 +94,16 @@
     isNvidia = true;
   };
 
-  my.wakeonwlan.interfaces.phy0.methods = [
-    "magic-packet"
-    "disconnect"
-    "gtk-rekey-failure"
-    "eap-identity-request"
-    "rfkill-release"
-  ];
-
   services.udev.packages = [pkgs.chrysalis];
 
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = false;
+  hardware = {
+    bluetooth = {
+      enable = true;
+      powerOnBoot = false;
+    };
+    nvidia = {
+      open = true;
+      modesetting.enable = true;
+    };
   };
 }
