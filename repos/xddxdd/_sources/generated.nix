@@ -170,14 +170,14 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "f7b6796cbaed1f7bd50c08715d77b12d8f306036";
+    version = "30098a173dfb2657df43d31bf7e5e3674f19a694";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "f7b6796cbaed1f7bd50c08715d77b12d8f306036";
-      hash = "sha256-on/A/tcb0f9Iuma/1BledjkzhmE8OSXSRWXf4uo+uoc=";
+      rev = "30098a173dfb2657df43d31bf7e5e3674f19a694";
+      hash = "sha256-23Zh2mYYSQ4geAssvEaaLQnHl28H1RpRL1aqub9SAwQ=";
     };
-    date = "2024-11-04";
+    date = "2024-11-06";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -696,12 +696,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4034";
+    version = "b4038";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4034";
-      hash = "sha256-n6Q36ha9trUkKWx+8FCHji0PFhskRdPXhZeIGGaXdJY=";
+      rev = "b4038";
+      hash = "sha256-M9nWwY+Ymy0tOm7NP7cG3NF08aVFIAJeatRYK22/IOw=";
     };
   };
   lyrica = {
@@ -928,7 +928,7 @@
       owner = "open-quantum-safe";
       repo = "oqs-provider";
       rev = "0.7.0";
-      hash = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
+      hash = "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=";
     };
   };
   osdlyrics = {
@@ -984,10 +984,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "7.0.2";
+    version = "7.1.1";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.0.2/PeerBanHelper_7.0.2.zip";
-      hash = "sha256-NJCQV5eRw2V3vHiKhUwrF+N1YN35baynY2svzwn+qVo=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.1.1/PeerBanHelper_7.1.1.zip";
+      hash = "sha256-4Xqa7pnXrtC7UQj1KwMzWXcV7HsjxL7CM6/+5o5qZOo=";
     };
   };
   phpmyadmin = {

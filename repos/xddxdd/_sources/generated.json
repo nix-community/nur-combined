@@ -328,7 +328,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-11-04",
+        "date": "2024-11-06",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -340,12 +340,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "f7b6796cbaed1f7bd50c08715d77b12d8f306036",
-            "sha256": "sha256-on/A/tcb0f9Iuma/1BledjkzhmE8OSXSRWXf4uo+uoc=",
+            "rev": "30098a173dfb2657df43d31bf7e5e3674f19a694",
+            "sha256": "sha256-23Zh2mYYSQ4geAssvEaaLQnHl28H1RpRL1aqub9SAwQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f7b6796cbaed1f7bd50c08715d77b12d8f306036"
+        "version": "30098a173dfb2657df43d31bf7e5e3674f19a694"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1373,12 +1373,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b4034",
-            "sha256": "sha256-n6Q36ha9trUkKWx+8FCHji0PFhskRdPXhZeIGGaXdJY=",
+            "rev": "b4038",
+            "sha256": "sha256-M9nWwY+Ymy0tOm7NP7cG3NF08aVFIAJeatRYK22/IOw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b4034"
+        "version": "b4038"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -1818,7 +1818,7 @@
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
             "rev": "0.7.0",
-            "sha256": "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=",
+            "sha256": "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=",
             "sparseCheckout": [],
             "type": "github"
         },
@@ -1938,11 +1938,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-NJCQV5eRw2V3vHiKhUwrF+N1YN35baynY2svzwn+qVo=",
+            "sha256": "sha256-4Xqa7pnXrtC7UQj1KwMzWXcV7HsjxL7CM6/+5o5qZOo=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.0.2/PeerBanHelper_7.0.2.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.1.1/PeerBanHelper_7.1.1.zip"
         },
-        "version": "7.0.2"
+        "version": "7.1.1"
     },
     "phpmyadmin": {
         "cargoLocks": null,
