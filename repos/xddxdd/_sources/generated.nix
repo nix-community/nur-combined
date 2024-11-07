@@ -696,12 +696,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4038";
+    version = "b4041";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4038";
-      hash = "sha256-M9nWwY+Ymy0tOm7NP7cG3NF08aVFIAJeatRYK22/IOw=";
+      rev = "b4041";
+      hash = "sha256-0dS82rUhxx4e3O2+M1OCFhrcEoHsC3GimUGpGIzxuMQ=";
     };
   };
   lyrica = {
@@ -944,7 +944,7 @@
       owner = "open-quantum-safe";
       repo = "oqs-provider";
       rev = "0.7.0";
-      hash = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
+      hash = "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=";
     };
   };
   osdlyrics = {
@@ -1000,10 +1000,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "7.1.1";
+    version = "7.1.2";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.1.1/PeerBanHelper_7.1.1.zip";
-      hash = "sha256-4Xqa7pnXrtC7UQj1KwMzWXcV7HsjxL7CM6/+5o5qZOo=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.1.2/PeerBanHelper_7.1.2.zip";
+      hash = "sha256-kS8A+w5MUmiGZT0TQVpOifYG/UdryZfBVFTDQrv8eVc=";
     };
   };
   phpmyadmin = {

@@ -1373,12 +1373,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b4038",
-            "sha256": "sha256-M9nWwY+Ymy0tOm7NP7cG3NF08aVFIAJeatRYK22/IOw=",
+            "rev": "b4041",
+            "sha256": "sha256-0dS82rUhxx4e3O2+M1OCFhrcEoHsC3GimUGpGIzxuMQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b4038"
+        "version": "b4041"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -1848,7 +1848,7 @@
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
             "rev": "0.7.0",
-            "sha256": "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=",
+            "sha256": "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=",
             "sparseCheckout": [],
             "type": "github"
         },
@@ -1968,11 +1968,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-4Xqa7pnXrtC7UQj1KwMzWXcV7HsjxL7CM6/+5o5qZOo=",
+            "sha256": "sha256-kS8A+w5MUmiGZT0TQVpOifYG/UdryZfBVFTDQrv8eVc=",
             "type": "url",
-            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.1.1/PeerBanHelper_7.1.1.zip"
+            "url": "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.1.2/PeerBanHelper_7.1.2.zip"
         },
-        "version": "7.1.1"
+        "version": "7.1.2"
     },
     "phpmyadmin": {
         "cargoLocks": null,
