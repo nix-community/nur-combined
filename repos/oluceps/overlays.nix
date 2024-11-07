@@ -68,43 +68,43 @@
 
       inherit (inputs'.browser-previews.packages) google-chrome-beta;
 
-      helix = inputs'.helix.packages.default.override {
-        includeGrammarIf =
-          grammar:
-          prev.lib.any (name: grammar.name == name) [
-            "toml"
-            "rust"
-            "nix"
-            "lua"
-            "make"
-            "protobuf"
-            "yaml"
-            "json"
-            "markdown"
-            "html"
-            "css"
-            "tsx"
-            "jsx"
-            "zig"
-            "c"
-            "cpp"
-            "go"
-            "python"
-            "bash"
-            "kotlin"
-            "fish"
-            "javascript"
-            "typescript"
-            "sway"
-            "diff"
-            "comment"
-            "vue"
-            "nu"
-            "typst"
-            "scheme"
-            "just"
-          ];
-      };
+      # helix = prev.helix.override {
+      #   includeGrammarIf =
+      #     grammar:
+      #     prev.lib.any (name: grammar.name == name) [
+      #       "toml"
+      #       "rust"
+      #       "nix"
+      #       "lua"
+      #       "make"
+      #       "protobuf"
+      #       "yaml"
+      #       "json"
+      #       "markdown"
+      #       "html"
+      #       "css"
+      #       "tsx"
+      #       "jsx"
+      #       "zig"
+      #       "c"
+      #       "cpp"
+      #       "go"
+      #       "python"
+      #       "bash"
+      #       "kotlin"
+      #       "fish"
+      #       "javascript"
+      #       "typescript"
+      #       "sway"
+      #       "diff"
+      #       "comment"
+      #       "vue"
+      #       "nu"
+      #       "typst"
+      #       "scheme"
+      #       "just"
+      #     ];
+      # };
 
       # sha256 = "0000000000000000000000000000000000000000000000000000";
 

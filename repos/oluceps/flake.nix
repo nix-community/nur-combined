@@ -25,7 +25,7 @@
             vaultix.flakeModules.default
             flake-parts.flakeModules.easyOverlay
           ];
-        debug = true;
+        # debug = true;
         systems = [
           "x86_64-linux"
           "aarch64-linux"
@@ -226,7 +226,5 @@
       url = "github:PrismLauncher/PrismLauncher";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    helix.url = "github:helix-editor/helix";
-    berberman.url = "github:berberman/flakes";
   };
 }

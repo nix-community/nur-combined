@@ -62,8 +62,6 @@ withSystem "x86_64-linux" (
       inputs.aagl.nixosModules.default
       inputs.disko.nixosModules.default
       inputs.tg-online-keeper.nixosModules.default
-      # inputs.attic.nixosModules.atticd
-      # inputs.factorio-manager.nixosModules.default
     ];
   }
 )
