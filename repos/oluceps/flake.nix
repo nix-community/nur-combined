@@ -1,7 +1,12 @@
 {
   description = "oluceps' flake";
   outputs =
-    inputs@{ flake-parts, self, ... }:
+    inputs@{
+      flake-parts,
+      vaultix,
+      self,
+      ...
+    }:
     let
       extraLibs = (import ./hosts/lib.nix inputs);
       flakeModules = map (n: inputs.${n}.flakeModule);
@@ -17,7 +22,8 @@
           ])
           ++ [
             ./hosts
-            inputs.vaultix.flakeModules.default
+            vaultix.flakeModules.default
+            flake-parts.flakeModules.easyOverlay
           ];
         debug = true;
         systems = [
@@ -29,6 +35,7 @@
           {
             pkgs,
             system,
+            config,
             lib,
             ...
           }:
@@ -50,6 +57,7 @@
                   ];
               };
             };
+            overlayAttrs = config.packages;
 
             pre-commit = {
               check.enable = true;
@@ -96,16 +104,7 @@
         flake = {
           lib = inputs.nixpkgs.lib.extend self.overlays.lib;
 
-          overlays = {
-            default =
-              final: prev:
-              prev.lib.packagesFromDirectoryRecursive {
-                inherit (prev) callPackage;
-                directory = ./pkgs/by-name;
-              };
-
-            lib = final: prev: extraLibs;
-          };
+          overlays.lib = final: prev: extraLibs;
 
           nixosModules =
             let

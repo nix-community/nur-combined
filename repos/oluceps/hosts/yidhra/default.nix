@@ -35,14 +35,7 @@ withSystem "x86_64-linux" (
             # contentAddressedByDefault = true;
             allowUnfree = true;
           };
-          overlays =
-            (import ../../overlays.nix { inherit inputs inputs'; })
-            ++ (lib.genOverlays [
-              "self"
-              "fenix"
-              "nuenv"
-
-            ]);
+          overlays = lib.hostOverlays { inherit inputs inputs'; };
         };
       }
 

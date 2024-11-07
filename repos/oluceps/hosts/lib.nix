@@ -36,6 +36,10 @@ in
 
   genOverlays = map (i: inputs.${i}.overlays.default);
 
+  hostOverlays =
+    { inputs', inputs }:
+    (import ../overlays.nix { inherit inputs' inputs; }) ++ [ inputs.self.overlays.default ];
+
   iage = type: import ../age { inherit type; };
 
   sharedModules =

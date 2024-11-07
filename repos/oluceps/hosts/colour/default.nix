@@ -21,15 +21,7 @@ withSystem "x86_64-linux" (
         allowUnfree = true;
         allowUnsupportedSystem = true;
       };
-      overlays =
-        (import "${self}/overlays.nix" { inherit inputs' inputs; })
-        ++ (self.lib.genOverlays [
-          "self"
-          "fenix"
-          "nuenv"
-
-          "berberman"
-        ]);
+      overlays = lib.hostOverlays { inherit inputs inputs'; };
     };
     specialArgs = {
       inherit
