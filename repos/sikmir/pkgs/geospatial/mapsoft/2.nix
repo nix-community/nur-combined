@@ -14,6 +14,7 @@
   imagemagick,
   jansson,
   curl,
+  libiconv,
   libjpeg,
   libpng,
   librsvg,
@@ -114,11 +115,12 @@ stdenv.mkDerivation (finalAttrs: {
     libzip
     proj
     shapelib
-  ];
+  ] ++ lib.optional stdenv.hostPlatform.isDarwin libiconv;
 
   env = {
     SKIP_IMG_DIFFS = 1;
     NIX_CFLAGS_COMPILE = "-std=c++17";
+    NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isDarwin "-liconv";
   };
 
   makeFlags = [ "prefix=$(out)" ];

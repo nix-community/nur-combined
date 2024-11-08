@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage {
 
   buildInputs =
     lib.optionals stdenv.isLinux [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
       curl
       libiconv
     ];
