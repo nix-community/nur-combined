@@ -29,13 +29,16 @@ let
 
       catppuccin.accent = "pink";
 
-      # Ping nixpkgs to the locked version
-      nix.registry.nixpkgs = {
-        from = {
-          id = "nixpkgs";
-          type = "indirect";
+      nix = {
+        # Ping nixpkgs to the locked version
+        registry.nixpkgs = {
+          from = {
+            id = "nixpkgs";
+            type = "indirect";
+          };
+          flake = inputs.nixpkgs;
         };
-        flake = inputs.nixpkgs;
+        nixPath = [ "nixpkgs=flake:nixpkgs" ];
       };
 
       # Do not install hyprland because it is installed with pacman

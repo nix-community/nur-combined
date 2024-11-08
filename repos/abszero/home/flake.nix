@@ -17,16 +17,11 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-    haumea = {
-      url = "github:nix-community/haumea";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     home-manager = {
-      url = "github:Weathercold/home-manager";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # catppuccin.url = "github:catppuccin/nix";
-    catppuccin.url = "github:Weathercold/nix/patch";
+    catppuccin.url = "github:catppuccin/nix";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -37,7 +32,6 @@
     {
       nixpkgs,
       flake-parts,
-      haumea,
       ...
     }@inputs:
     let
@@ -45,7 +39,6 @@
         _: _: {
           abszero = import ../lib {
             inherit (nixpkgs) lib;
-            inherit haumea;
           };
         }
       );

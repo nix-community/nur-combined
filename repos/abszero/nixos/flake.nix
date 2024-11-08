@@ -10,10 +10,6 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-    haumea = {
-      url = "github:nix-community/haumea";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -31,15 +27,13 @@
         flake-parts.follows = "flake-parts";
       };
     };
-    # catppuccin.url = "github:catppuccin/nix";
-    catppuccin.url = "github:Weathercold/nix/patch";
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs =
     {
       nixpkgs,
       flake-parts,
-      haumea,
       ...
     }@inputs:
     let
@@ -47,7 +41,6 @@
         _: _: {
           abszero = import ../lib {
             inherit (nixpkgs) lib;
-            inherit haumea;
           };
         }
       );

@@ -42,12 +42,10 @@
       };
     };
     home-manager = {
-      # Fork to add option to specify default specialisation
-      url = "github:Weathercold/home-manager";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # catppuccin.url = "path:/home/weathercold/src/catppuccin-nix";
-    catppuccin.url = "github:Weathercold/nix/patch";
+    catppuccin.url = "github:catppuccin/nix";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
