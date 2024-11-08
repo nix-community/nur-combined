@@ -115,20 +115,20 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "v1.14.2-1";
+    version = "v1.15.2-1";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.14.2-1/bilibili-asar-v1.14.2-1.tar.gz";
-      hash = "sha256-S9Ib/hn9Wzl1bFRJcGPDNWONJpbh0zUGcfdHDN7dPfY=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.15.2-1/bilibili-asar-v1.15.2-1.tar.gz";
+      hash = "sha256-ihm9Gd4DZXzwfS+XlpmgYmU0kvTGW8aCblRXuOQUC74=";
     };
   };
   bilibili-src = {
     pname = "bilibili-src";
-    version = "v1.14.2-1";
+    version = "v1.15.2-1";
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      rev = "v1.14.2-1";
-      hash = "sha256-wNEfzmVk1WJHSiRGmf6BS9GvfXJ1FAaY1EkHAXqvUxY=";
+      rev = "v1.15.2-1";
+      hash = "sha256-by7lO36wJqCxiD0yMgmo89tFhW4mDq0xrWNWZx+AAwo=";
     };
   };
   bird-lg-go = {
@@ -170,14 +170,14 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "30098a173dfb2657df43d31bf7e5e3674f19a694";
+    version = "1e208c2fa49d836c0af39469ce187f32ec87a12a";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "30098a173dfb2657df43d31bf7e5e3674f19a694";
-      hash = "sha256-23Zh2mYYSQ4geAssvEaaLQnHl28H1RpRL1aqub9SAwQ=";
+      rev = "1e208c2fa49d836c0af39469ce187f32ec87a12a";
+      hash = "sha256-EcY1NuEgQ3zWH3pxjl2q017DJZPJqC28J6MqnUzzyAE=";
     };
-    date = "2024-11-06";
+    date = "2024-11-08";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -696,12 +696,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4041";
+    version = "b4048";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4041";
-      hash = "sha256-0dS82rUhxx4e3O2+M1OCFhrcEoHsC3GimUGpGIzxuMQ=";
+      rev = "b4048";
+      hash = "sha256-mV+EI3PvgcAFxFZr+fBFgoPiXBLekobPQbkyU4fHfZU=";
     };
   };
   lyrica = {
@@ -944,7 +944,7 @@
       owner = "open-quantum-safe";
       repo = "oqs-provider";
       rev = "0.7.0";
-      hash = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
+      hash = "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=";
     };
   };
   osdlyrics = {
@@ -1106,34 +1106,34 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "9.1.1+ds-2";
+    version = "9.1.1+ds-3";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.1+ds-2_amd64.deb";
-      hash = "sha256-Gtwej57m7wnjP2rTftOJ7O/jDFqhv9tYP+SAgf6gFFc=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.1+ds-3_amd64.deb";
+      hash = "sha256-k0aCFbonkN+Fu+JNM+e5TL0uqJbv3V1VF/GCs9j1IoI=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "9.1.1+ds-2";
+    version = "9.1.1+ds-3";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.1+ds-2_arm64.deb";
-      hash = "sha256-enjyzwfQAXVSFVEP2h0Ecm+c92ZOwjOw9ihKmHbbGgk=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.1+ds-3_arm64.deb";
+      hash = "sha256-+GhYp/XEBJDFiUtQ4QajpqTam7XGR+GP9Gtt/l/ZcVM=";
     };
   };
   qemu-user-static-armhf = {
     pname = "qemu-user-static-armhf";
-    version = "9.1.1+ds-2";
+    version = "9.1.1+ds-3";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.1+ds-2_armhf.deb";
-      hash = "sha256-vcSxoKAcUlPcS3dvo4VgleE5BNBazGkV9sKBQS2Ir+w=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.1+ds-3_armhf.deb";
+      hash = "sha256-d9/m67Rksoq7CxDtM0mrJPUcWy7yEym3kY0cdX4GCgA=";
     };
   };
   qemu-user-static-i386 = {
     pname = "qemu-user-static-i386";
-    version = "9.1.1+ds-2";
+    version = "9.1.1+ds-3";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.1+ds-2_i386.deb";
-      hash = "sha256-DM7EmWLSkBqElEDxOQXqAVhNWKG3tfqAxqK3cQvBbUM=";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.1+ds-3_i386.deb";
+      hash = "sha256-hJtzj1lsMzEu5vA7FaFkiDITy+1XlHCH/ZfH1UyS0XQ=";
     };
   };
   qhttpengine = {
@@ -1276,14 +1276,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "a022f0943fedf71eae154e1f06cad64079a3f536";
+    version = "e7ff22a663a558f3727bcf8d52bbe17edff82389";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "a022f0943fedf71eae154e1f06cad64079a3f536";
-      hash = "sha256-nLuR4rfza0Tjjh28e51ZNzgVXUo9GpClMOrl5Do0+iw=";
+      rev = "e7ff22a663a558f3727bcf8d52bbe17edff82389";
+      hash = "sha256-pksSnApzcl1uuX+r2fuTjqIVOwR6cvXgXml8ov+okPU=";
     };
-    date = "2024-11-04";
+    date = "2024-11-08";
   };
   rime-moegirl = {
     pname = "rime-moegirl";

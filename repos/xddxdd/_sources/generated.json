@@ -227,11 +227,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-S9Ib/hn9Wzl1bFRJcGPDNWONJpbh0zUGcfdHDN7dPfY=",
+            "sha256": "sha256-ihm9Gd4DZXzwfS+XlpmgYmU0kvTGW8aCblRXuOQUC74=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.14.2-1/bilibili-asar-v1.14.2-1.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.15.2-1/bilibili-asar-v1.15.2-1.tar.gz"
         },
-        "version": "v1.14.2-1"
+        "version": "v1.15.2-1"
     },
     "bilibili-src": {
         "cargoLocks": null,
@@ -247,12 +247,12 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.14.2-1",
-            "sha256": "sha256-wNEfzmVk1WJHSiRGmf6BS9GvfXJ1FAaY1EkHAXqvUxY=",
+            "rev": "v1.15.2-1",
+            "sha256": "sha256-by7lO36wJqCxiD0yMgmo89tFhW4mDq0xrWNWZx+AAwo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.2-1"
+        "version": "v1.15.2-1"
     },
     "bird-lg-go": {
         "cargoLocks": null,
@@ -328,7 +328,7 @@
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
-        "date": "2024-11-06",
+        "date": "2024-11-08",
         "extract": null,
         "name": "cachyos-kernel-patches",
         "passthru": null,
@@ -340,12 +340,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "30098a173dfb2657df43d31bf7e5e3674f19a694",
-            "sha256": "sha256-23Zh2mYYSQ4geAssvEaaLQnHl28H1RpRL1aqub9SAwQ=",
+            "rev": "1e208c2fa49d836c0af39469ce187f32ec87a12a",
+            "sha256": "sha256-EcY1NuEgQ3zWH3pxjl2q017DJZPJqC28J6MqnUzzyAE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "30098a173dfb2657df43d31bf7e5e3674f19a694"
+        "version": "1e208c2fa49d836c0af39469ce187f32ec87a12a"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1373,12 +1373,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b4041",
-            "sha256": "sha256-0dS82rUhxx4e3O2+M1OCFhrcEoHsC3GimUGpGIzxuMQ=",
+            "rev": "b4048",
+            "sha256": "sha256-mV+EI3PvgcAFxFZr+fBFgoPiXBLekobPQbkyU4fHfZU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b4041"
+        "version": "b4048"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -1848,7 +1848,7 @@
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
             "rev": "0.7.0",
-            "sha256": "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=",
+            "sha256": "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=",
             "sparseCheckout": [],
             "type": "github"
         },
@@ -2181,11 +2181,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Gtwej57m7wnjP2rTftOJ7O/jDFqhv9tYP+SAgf6gFFc=",
+            "sha256": "sha256-k0aCFbonkN+Fu+JNM+e5TL0uqJbv3V1VF/GCs9j1IoI=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.1+ds-2_amd64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.1+ds-3_amd64.deb"
         },
-        "version": "9.1.1+ds-2"
+        "version": "9.1.1+ds-3"
     },
     "qemu-user-static-arm64": {
         "cargoLocks": null,
@@ -2196,11 +2196,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-enjyzwfQAXVSFVEP2h0Ecm+c92ZOwjOw9ihKmHbbGgk=",
+            "sha256": "sha256-+GhYp/XEBJDFiUtQ4QajpqTam7XGR+GP9Gtt/l/ZcVM=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.1+ds-2_arm64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.1+ds-3_arm64.deb"
         },
-        "version": "9.1.1+ds-2"
+        "version": "9.1.1+ds-3"
     },
     "qemu-user-static-armhf": {
         "cargoLocks": null,
@@ -2211,11 +2211,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-vcSxoKAcUlPcS3dvo4VgleE5BNBazGkV9sKBQS2Ir+w=",
+            "sha256": "sha256-d9/m67Rksoq7CxDtM0mrJPUcWy7yEym3kY0cdX4GCgA=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.1+ds-2_armhf.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.1+ds-3_armhf.deb"
         },
-        "version": "9.1.1+ds-2"
+        "version": "9.1.1+ds-3"
     },
     "qemu-user-static-i386": {
         "cargoLocks": null,
@@ -2226,11 +2226,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-DM7EmWLSkBqElEDxOQXqAVhNWKG3tfqAxqK3cQvBbUM=",
+            "sha256": "sha256-hJtzj1lsMzEu5vA7FaFkiDITy+1XlHCH/ZfH1UyS0XQ=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.1+ds-2_i386.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.1.1+ds-3_i386.deb"
         },
-        "version": "9.1.1+ds-2"
+        "version": "9.1.1+ds-3"
     },
     "qhttpengine": {
         "cargoLocks": null,
@@ -2504,7 +2504,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-11-04",
+        "date": "2024-11-08",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -2516,12 +2516,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "a022f0943fedf71eae154e1f06cad64079a3f536",
-            "sha256": "sha256-nLuR4rfza0Tjjh28e51ZNzgVXUo9GpClMOrl5Do0+iw=",
+            "rev": "e7ff22a663a558f3727bcf8d52bbe17edff82389",
+            "sha256": "sha256-pksSnApzcl1uuX+r2fuTjqIVOwR6cvXgXml8ov+okPU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a022f0943fedf71eae154e1f06cad64079a3f536"
+        "version": "e7ff22a663a558f3727bcf8d52bbe17edff82389"
     },
     "rime-moegirl": {
         "cargoLocks": null,
