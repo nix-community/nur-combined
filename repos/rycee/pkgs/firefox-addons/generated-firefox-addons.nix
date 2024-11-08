@@ -1612,10 +1612,10 @@
     };
     "codecov" = buildFirefoxXpiAddon {
       pname = "codecov";
-      version = "0.4.6";
+      version = "0.4.10";
       addonId = "{f3924b0d-e29f-4593-b605-084b3d71ed9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4336244/codecov-0.4.6.xpi";
-      sha256 = "2209bee4277834fa1b9dd6209a0ff70de975e25318e5d1c9f0c51fa7e0f03020";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4383980/codecov-0.4.10.xpi";
+      sha256 = "2950ca25691e005af7c78bbb942b6156c176a8e501d170e3f8337d0d32738bc9";
       meta = with lib;
       {
         homepage = "https://about.codecov.io";
@@ -2352,10 +2352,10 @@
     };
     "download-with-jdownloader" = buildFirefoxXpiAddon {
       pname = "download-with-jdownloader";
-      version = "0.3.4";
+      version = "0.3.5";
       addonId = "{03e07985-30b0-4ae0-8b3e-0c7519b9bdf6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4373252/download_with_jdownloader-0.3.4.xpi";
-      sha256 = "2cb65f088f01504d1cfcd3ba095846992738908b5cb48b6b67124f014759183f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4378755/download_with_jdownloader-0.3.5.xpi";
+      sha256 = "41b5a68c3e3c20f0d00a6493e4a5384c966e60b49e43ab5f70516d0213ec7ab0";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/download-with.html?from=jdownloader";
@@ -9533,10 +9533,10 @@
     };
     "readeck" = buildFirefoxXpiAddon {
       pname = "readeck";
-      version = "2.2.1";
+      version = "2.2.2";
       addonId = "readeck@readeck.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4382347/readeck-2.2.1.xpi";
-      sha256 = "09e001d744f63ff6a40c8ddc9d2846001ad0be8eabc5c29e016c88657ad18bc3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4383942/readeck-2.2.2.xpi";
+      sha256 = "72cb97a3efc54f2faefbc380c7595f9403057640df75dc5ca2965780418561b3";
       meta = with lib;
       {
         homepage = "https://readeck.org/en/";
@@ -10600,10 +10600,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "4.8";
+      version = "4.9";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4371564/steam_database-4.8.xpi";
-      sha256 = "71eab48fd805316b18659ec203b0e6486d73a926cc5c51a7b843fe5ea30667fb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4379170/steam_database-4.9.xpi";
+      sha256 = "8c3d26153c009595a80d20d41cef38650e9938ec7836eb4e8b59c0dd65e725f8";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
@@ -13177,10 +13177,10 @@
     };
     "youtube-redux" = buildFirefoxXpiAddon {
       pname = "youtube-redux";
-      version = "3.5.2";
+      version = "3.5.3";
       addonId = "{2d4c0962-e9ff-4cad-8039-9a8b80d9b8b6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4376255/youtube_redux-3.5.2.xpi";
-      sha256 = "89824c82fc056a716aec224994a7ccfdfaea3e8682c9c662cf8c9b9660fa3c0b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4383955/youtube_redux-3.5.3.xpi";
+      sha256 = "daba46571756d8f583245c0bf95534538df93394b9a7c77630a688266eba4b80";
       meta = with lib;
       {
         description = "Replicate old YouTube look and features within the modern layout!";
