@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation rec {
   pname = "scnlib";
-  version = "3.0.1";
+  version = "4.0.1";
 
   src = fetchFromGitHub {
     owner = "eliaskosunen";
     repo = "scnlib";
     rev = "v${version}";
-    sha256 = "sha256-m8HYolwsf19O6Ye7mLSsNyuXEQlC7DoKw9TYuJkPqjM=";
+    sha256 = "sha256-qEZAWhtvhKMkh7fk1yD17ErWGCpztEs0seV4AkBOy1I=";
   };
 
   nativeBuildInputs = [ cmake ];
