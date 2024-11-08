@@ -7,11 +7,9 @@
 , gtk3
 , nix-update-script
 , pkg-config
-, gnome
 , gdk-pixbuf
 , librsvg
 , hicolor-icon-theme
-, isUseRounded ? true
 }:
 
 
