@@ -223,7 +223,7 @@ stdenv.mkDerivation rec {
     for res in 16 32 48 64 128 256; do
         install -Dm644 \
             ${wechat-universal-src}/opt/apps/com.tencent.wechat/entries/icons/hicolor/''${res}x''${res}/apps/com.tencent.wechat.png \
-            $out/share/icons/hicolor/''${res}x''${res}/apps/${_pkgname}.png
+            $out/share/icons/hicolor/''${res}x''${res}/apps/wechat.png
     done
     makeWrapper ${fhs}/bin/${_pkgname} $out/bin/${pname}
     runHook postInstall
@@ -235,8 +235,7 @@ stdenv.mkDerivation rec {
       desktopName = "WeChat Universal";
       exec = "${pname} %U";
       terminal = false;
-      icon = "${_pkgname}";
-      startupWMClass = "wechat";
+      icon = "wechat";
       comment = "WeChat Universal Desktop Edition";
       categories = [ "Utility" "Network" "InstantMessaging" "Chat" ];
       keywords = [
