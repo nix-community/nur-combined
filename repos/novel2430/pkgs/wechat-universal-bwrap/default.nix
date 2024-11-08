@@ -1,9 +1,7 @@
-{ stdenv, stdenvNoCC, fetchurl, requireFile
-, buildFHSEnv
+{ stdenv, fetchurl
 , buildFHSUserEnvBubblewrap
 , writeShellScript
 , makeDesktopItem
-, writeShellScriptBin
 , makeWrapper
 , autoPatchelfHook
 , copyDesktopItems
@@ -28,6 +26,7 @@
 , libxkbcommon
 , dpkg
 , jack2
+, xhost
 }:
 let
   libraries = [
@@ -81,16 +80,11 @@ let
       make
     '';
     installPhase = ''
-      mkdir -p $out
-      cp ${_lib_uos}.so $out
       echo "Fixing licenses..."
       install -dm755 $out/usr/lib/license 
-      install -Dm755 ${_lib_uos}.so $out/usr/lib/license/${_lib_uos}.so
       install -Dm755 ${_lib_uos}.so $out/lib/license/${_lib_uos}.so
-      install -Dm755 ${uosLicenseUnzipped}/etc/os-release $out/etc/os-release
-      install -Dm755 ${uosLicenseUnzipped}/etc/lsb-release $out/etc/lsb-release
-      cp -r ${uosLicenseUnzipped}/var $out/var
-      chmod 0755 -R $out/var
+      echo "DISTRIB_ID=uos" |
+          install -Dm755 /dev/stdin $out/etc/lsb-release
     '';
   };
 
@@ -122,30 +116,9 @@ let
     '';
   };
 
-
-  uosLicenseUnzipped = stdenvNoCC.mkDerivation {
-    name = "uos-license-unzipped";
-    src = fetchurl {
-      url = "https://aur.archlinux.org/cgit/aur.git/plain/license.tar.gz?h=wechat-uos-bwrap";
-      hash = "sha256-U3YAecGltY8vo9Xv/h7TUjlZCyiIQdgSIp705VstvWk=";
-    };
-
-    installPhase = ''
-      runHook preInstall
-
-      mkdir -p $out
-      cp -r * $out/
-
-      runHook postInstall
-    '';
-    outputHashAlgo = "sha256";
-    outputHashMode = "recursive";
-    outputHash = "sha256-pNftwtUZqBsKBSPQsEWlYLlb6h2Xd9j56ZRMi8I82ME=";
-  };
-
-  
   startScript = writeShellScript "wechat-start" ''
     export QT_QPA_PLATFORM=xcb
+    export LD_LIBRARY_PATH=${lib.makeLibraryPath libraries}
     if [[ ''${XMODIFIERS} =~ fcitx ]]; then
       export QT_IM_MODULE=fcitx
       export GTK_IM_MODULE=fcitx
@@ -157,51 +130,13 @@ let
     exec ${wechat-universal-src}/opt/${_pkgname}/wechat
   '';
 
-  # Adapted from https://aur.archlinux.org/cgit/aur.git/tree/fake_dde-file-manager?h=wechat-universal-bwrap
-  fake-dde-file-manager = writeShellScriptBin "dde-file-manager" ''
-    _show_item=""
-    _item=""
-    for _arg in "''$@"; do
-      if [[ "''${_arg}" == --show-item ]]; then
-          _show_item='y'
-      else
-          [[ -z "''${_item}" ]] && _item="''${_arg}"
-      fi
-    done
-    if [[ "''${_show_item}" ]]; then
-      _path=$(readlink -f -- "''${_item}") # Resolve this to absolute path that's same across host / guest
-      echo "Fake deepin file manager: dbus-send to open ''${_path} in file manager" 
-      if [[ -d "''${_path}" ]]; then 
-          # WeChat pass both files and folders in the same way, if we use ShowItems for folders, 
-          # it would open that folder's parent folder, which is not right.
-          _object=ShowFolders
-          _target=folders
-      else
-          _object=ShowItems
-          _target=items
-      fi
-      exec dbus-send --print-reply --dest=org.freedesktop.FileManager1 \
-          /org/freedesktop/FileManager1 \
-          org.freedesktop.FileManager1."''${_object}" \
-          array:string:"file://''${_path}" \
-          string:fake-dde-file-manager-show-"''${_target}"
-      # We should not fall to here, but add a fallback anyway
-      echo "Fake deepin file manager: fallback: xdg-open to show ''${_path} in file manager"
-      exec xdg-open "''${_path}"
-    else
-      echo "Fake deepin file manager: xdg-open with args ''$@"
-      exec xdg-open "''$@"
-    fi
-  '';
   fhs = buildFHSUserEnvBubblewrap {
     name = "${_pkgname}";
 
     targetPkgs = 
       pkgs: [
-        fake-dde-file-manager
         wechat-universal-license
-      ]
-      ++ libraries;
+      ];
 
     runScript = startScript;
 
@@ -209,7 +144,18 @@ let
     '';
 
     extraPreBwrapCmds = ''
-      
+      function detectXauth() {
+        if [ ! ''${XAUTHORITY} ]; then
+          echo '[Warn] No ''${XAUTHORITY} detected! Do you have any X server running?'
+          export XAUTHORITYpath="/$(uuidgen)/$(uuidgen)"
+          ${xhost}/bin/xhost +
+        else
+          export XAUTHORITYpath="''${XAUTHORITY}"
+        fi
+        if [[ ! ''${DISPLAY} ]]; then
+          echo '[Warn] No ''${DISPLAY} detected! Do you have any X server running?'
+        fi
+      }
       # Data folder setup
       # If user has declared a custom data dir, no need to query xdg for documents dir, but always resolve that to absolute path
       if [[ "''${WECHAT_DATA_DIR}" ]]; then
@@ -226,6 +172,7 @@ let
       WECHAT_HOME_DIR="''${WECHAT_DATA_DIR}/home"
       mkdir -p "''${WECHAT_FILES_DIR}"
       mkdir -p "''${WECHAT_HOME_DIR}"
+      detectXauth
 
     '';
 
@@ -237,6 +184,8 @@ let
       "--chdir $HOME"
       "--setenv QT_QPA_PLATFORM xcb"
       # "--setenv QT_AUTO_SCREEN_SCALE_FACTOR 1"
+
+      "--ro-bind-try \${XAUTHORITYpath} \${XAUTHORITYpath}"
 
       "--ro-bind-try \${HOME}/.fontconfig{,}"
       "--ro-bind-try \${HOME}/.fonts{,}"
@@ -261,8 +210,6 @@ stdenv.mkDerivation rec {
   version = "${ver}";
 
   dontUnpack = true;
-  
-  buildInputs = libraries;
 
   nativeBuildInputs = [
     makeWrapper
