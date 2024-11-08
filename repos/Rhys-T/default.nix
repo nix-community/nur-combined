@@ -120,6 +120,8 @@ in {
     drl-packages = callPackage ./pkgs/drl/packages.nix {};
     inherit (self.drl-packages) drl drl-hq drl-lq;
     
+    man2html = callPackage ./pkgs/man2html {};
+    
     # qemu-screamer-nixpkgs = callPackage ./pkgs/qemu-screamer/nixpkgs.nix {};
     qemu-screamer = let
         darwinSdkVersion = "11.0";
