@@ -14,6 +14,7 @@ let
       cryptography
       fastapi
       greenlet
+      h2
       httpx
       pytest
       python-multipart
