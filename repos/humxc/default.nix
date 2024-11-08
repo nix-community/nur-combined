@@ -16,6 +16,7 @@
 
   misans = pkgs.callPackage ./pkgs/misans { };
   hmcl-bin = pkgs.callPackage ./pkgs/hmcl-bin { };
+  qq = pkgs.callPackage ./pkgs/qq { };
   fluent-cursors-theme = pkgs.callPackage ./pkgs/fluent-cursors-theme { };
   # caddy-with-plugins = pkgs.callPackage ./pkgs/caddy-with-plugins { };
 }
