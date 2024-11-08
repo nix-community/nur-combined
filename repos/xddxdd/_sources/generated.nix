@@ -944,7 +944,7 @@
       owner = "open-quantum-safe";
       repo = "oqs-provider";
       rev = "0.7.0";
-      hash = "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=";
+      hash = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
     };
   };
   osdlyrics = {
@@ -1554,14 +1554,14 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "1b4cad3feb59a1c008d2f0a55c8e408502440d05";
+    version = "97c356d931676378c2b6cb61dcbd11d3748403b8";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "1b4cad3feb59a1c008d2f0a55c8e408502440d05";
-      hash = "sha256-J7vIuL9KnD1HtKwYZ3kAtfj0yYeKrvXk9LTvPOQa7zE=";
+      rev = "97c356d931676378c2b6cb61dcbd11d3748403b8";
+      hash = "sha256-v14aDan2pBNfS3++Dam5LMPkWZxObyIZY2ICoSQG9Kc=";
     };
-    date = "2024-11-06";
+    date = "2024-11-08";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
