@@ -15,5 +15,8 @@ buildGoModule rec {
     description = "Android OTA payload dumper written in Go";
     homepage = "https://github.com/ssut/payload-dumper-go";
     license = lib.licenses.asl20;
+    knownVulnerabilities = [
+      "payload-dumper-go is available in nixpkgs by a different maintainer"
+    ];
   };
 }
