@@ -11,12 +11,12 @@ rustPlatform.buildRustPackage {
   src = fetchFromGitHub ({
     owner = "Supreeeme";
     repo = "xwayland-satellite";
-    rev = "b962a0f33b503aa39c9cf6919f488b664e5b79b4";
+    rev = "3e6f892d20d918479e67d1e6c90c4be824a9d4ab";
     fetchSubmodules = false;
-    sha256 = "sha256-OANPb73V/RQDqtpIcbzeJ93KuOHKFQv+1xXC44Ut7tY=";
+    sha256 = "sha256-W1UUok7DPi4IXCYtc273FbVH1ifuCIcl+oO6CDqt8Dk=";
   });
 
-  cargoHash = "sha256-8SnFLRPUjQzEjr6yIY3p7YSflFONhaS9ss70ykBoTKg=";
+  cargoHash = "sha256-Ankfl5nlS+u0vHrOfI7t110upftnoG61Mv/lQyRUTJk=";
 
   nativeBuildInputs = [
     rustPlatform.bindgenHook
