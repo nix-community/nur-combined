@@ -115,20 +115,20 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "v1.15.2-1";
+    version = "v1.15.2-2";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.15.2-1/bilibili-asar-v1.15.2-1.tar.gz";
-      hash = "sha256-ihm9Gd4DZXzwfS+XlpmgYmU0kvTGW8aCblRXuOQUC74=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.15.2-2/bilibili-asar-v1.15.2-2.tar.gz";
+      hash = "sha256-0xBegfw3ScfxyoQ8SjeLY3gzPL0SqPzkp77ZmC48heg=";
     };
   };
   bilibili-src = {
     pname = "bilibili-src";
-    version = "v1.15.2-1";
+    version = "v1.15.2-2";
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      rev = "v1.15.2-1";
-      hash = "sha256-by7lO36wJqCxiD0yMgmo89tFhW4mDq0xrWNWZx+AAwo=";
+      rev = "v1.15.2-2";
+      hash = "sha256-ldzh0Jf/5N88DGAENAFS38yaWnZlp8w/K3pb7ijo8bQ=";
     };
   };
   bird-lg-go = {
@@ -170,12 +170,12 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "1e208c2fa49d836c0af39469ce187f32ec87a12a";
+    version = "16708558112c0d7c3cfcc0783d8e43d65a522dd0";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "1e208c2fa49d836c0af39469ce187f32ec87a12a";
-      hash = "sha256-EcY1NuEgQ3zWH3pxjl2q017DJZPJqC28J6MqnUzzyAE=";
+      rev = "16708558112c0d7c3cfcc0783d8e43d65a522dd0";
+      hash = "sha256-kbMr0UopNZzc28nuvbRZdP2GekNkdbdjSdO/CP5TWqg=";
     };
     date = "2024-11-08";
   };
@@ -660,11 +660,11 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.11.6-xanmod1";
+    version = "6.11.7-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      rev = "6.11.6-xanmod1";
-      hash = "sha256-t0kuKK2f8D1vxoX5dJnodTu3aBmzCc8F7tHwVAUHP1M=";
+      rev = "6.11.7-xanmod1";
+      hash = "sha256-+gj6sR20v4+NHR4cqsVK5fVpqXs9zxcBh0kJUH5qpNE=";
     };
   };
   linux-xanmod-6_0 = {
@@ -687,21 +687,21 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.59-xanmod1";
+    version = "6.6.60-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      rev = "6.6.59-xanmod1";
-      hash = "sha256-VImhbdU+WAP0QRnYjHBNKYw5NlMDCBy8HJyP2NQBNHY=";
+      rev = "6.6.60-xanmod1";
+      hash = "sha256-hbuMuLoXVaFb/HnkVlJm8BSwStxsWmz5e4y65kXBJto=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4048";
+    version = "b4056";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4048";
-      hash = "sha256-mV+EI3PvgcAFxFZr+fBFgoPiXBLekobPQbkyU4fHfZU=";
+      rev = "b4056";
+      hash = "sha256-VJkkP4wmggi4xVDe2OyqxT/nuuRFS5Fk1RcFbKOoxTA=";
     };
   };
   lyrica = {
@@ -755,18 +755,18 @@
   };
   netboot-xyz-efi = {
     pname = "netboot-xyz-efi";
-    version = "2.0.82";
+    version = "2.0.83";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.82/netboot.xyz.efi";
-      hash = "sha256-cO8MCkroQ0s/j8wnwwIWfnxEvChLeOZw+gD4wrYBAog=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.83/netboot.xyz.efi";
+      hash = "sha256-VyMha+mtlDBuPAs6HPunpEQswANApB6fFgfOnfXE2H0=";
     };
   };
   netboot-xyz-lkrn = {
     pname = "netboot-xyz-lkrn";
-    version = "2.0.82";
+    version = "2.0.83";
     src = fetchurl {
-      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.82/netboot.xyz.lkrn";
-      hash = "sha256-TwIpHtsyNoHXtXA5B3YnQA0T18tu6RU4CCuG00IVC6c=";
+      url = "https://github.com/netbootxyz/netboot.xyz/releases/download/2.0.83/netboot.xyz.lkrn";
+      hash = "sha256-EXnQBlSHQXWA9FSIbxlCnObsm6lk+ZQnozf3ZLZpVtI=";
     };
   };
   netns-exec = {
@@ -1204,14 +1204,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "f972e5895021a170f70648dbbd00ba823e13af46";
+    version = "707f31703fdb091c7a27a740d173890654a88cab";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "f972e5895021a170f70648dbbd00ba823e13af46";
-      hash = "sha256-Z9DBTJ4tzk5Ep5E53Hp7f3YYmgocyi4TePKAoqxm+Rc=";
+      rev = "707f31703fdb091c7a27a740d173890654a88cab";
+      hash = "sha256-E2B/HNATjL41IsXfiNICSEPabKW4NPBQiK3tC54SpZE=";
     };
-    date = "2024-10-29";
+    date = "2024-11-08";
   };
   qsp-wx = {
     pname = "qsp-wx";
@@ -1544,22 +1544,22 @@
   };
   uksmd = {
     pname = "uksmd";
-    version = "v1.2.11";
+    version = "v1.2.12";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "uksmd";
-      rev = "v1.2.11";
-      hash = "sha256-mcqiTqu/KIZ+W9yvZfyFekjRdiVavkHVKVRh0xUytg0=";
+      rev = "v1.2.12";
+      hash = "sha256-7w9/3x5DCWPlM+6LrWszuCvHZSk/z0qdr2h8MPBPHvc=";
     };
   };
   uni-api = {
     pname = "uni-api";
-    version = "97c356d931676378c2b6cb61dcbd11d3748403b8";
+    version = "d6768b9cf219386d1c8b929421a9251d40f65b17";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "97c356d931676378c2b6cb61dcbd11d3748403b8";
-      hash = "sha256-v14aDan2pBNfS3++Dam5LMPkWZxObyIZY2ICoSQG9Kc=";
+      rev = "d6768b9cf219386d1c8b929421a9251d40f65b17";
+      hash = "sha256-ssXj3BVVeqFMvGDfuuJtA/Y+rNx9rSEfJYHzGKQkBrE=";
     };
     date = "2024-11-08";
   };
