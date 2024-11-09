@@ -2096,10 +2096,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2444.1";
+      version = "6.2445.2";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4377186/dashlane-6.2444.1.xpi";
-      sha256 = "71079288568ad654560bb55226befb20f9afd1434a5d7b4b1600c8332b4f42ee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4383226/dashlane-6.2445.2.xpi";
+      sha256 = "b4e9776925dba9e6860d1f8702fc769afa8877296a2996ea34401febdd18a3e4";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2177,10 +2177,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "133.0.20241106.91549";
+      version = "133.0.20241108.92124";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4383019/deutsch_de_language_pack-133.0.20241106.91549.xpi";
-      sha256 = "2f32ff6073d6bd127f98137cb5fc196f0fa4495263523fcb10644cff76f4dcac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4384281/deutsch_de_language_pack-133.0.20241108.92124.xpi";
+      sha256 = "52a5b417961e847484837a51cdd155266447bd359c165b94a8ff21124f6f585b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3059,10 +3059,10 @@
     };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.79";
+      version = "6.1.80";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4361489/flagfox-6.1.79.xpi";
-      sha256 = "06d5c7a8788b724da9a93d46a0b68879daf4644e86b5c6ed000ae567b0bebd56";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4379273/flagfox-6.1.80.xpi";
+      sha256 = "fe70b303985a07ac7cc6c18ad3f185b0be1a893417c7c008178e92c29fd63ba8";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -3342,10 +3342,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "133.0.20241106.91549";
+      version = "133.0.20241108.92124";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4383079/francais_language_pack-133.0.20241106.91549.xpi";
-      sha256 = "7fe40eeb714301cd22eeacf5a1bc591d52ef584b7658830fca7cfe600f15efcc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4384338/francais_language_pack-133.0.20241108.92124.xpi";
+      sha256 = "d859b7e3f8d8cb076a9cad21481c8d2f49807d53a63aa826bc4861660fd9edbe";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3379,10 +3379,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "133.0.20241106.91549";
+      version = "133.0.20241108.92124";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4383081/gaidhlig_language_pack-133.0.20241106.91549.xpi";
-      sha256 = "3390ceb32b4753df0e09cc1237c6eb0470a163f22fc32284d3a06a610b80d85e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4384275/gaidhlig_language_pack-133.0.20241108.92124.xpi";
+      sha256 = "84c18098123fecc5e4775ad23b216e001f9195d576630b58b0314d660854718c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -5284,10 +5284,10 @@
     };
     "indie-wiki-buddy" = buildFirefoxXpiAddon {
       pname = "indie-wiki-buddy";
-      version = "3.11.0";
+      version = "3.11.1";
       addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4367565/indie_wiki_buddy-3.11.0.xpi";
-      sha256 = "415889791d30e3426dba185dcf567ddfe30f69abc39a5e9e115fe8f06ea849d0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4379107/indie_wiki_buddy-3.11.1.xpi";
+      sha256 = "2b63271fa42e3d46a683605f719de816195471ccd8654771606d6eb811f7596d";
       meta = with lib;
       {
         homepage = "https://getindie.wiki/";
@@ -7466,10 +7466,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.6.2";
+      version = "1.6.3";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4379205/mtab-1.6.2.xpi";
-      sha256 = "83a330b20f1fabc4f43b8eab1e7575853925390102702465e129179f36e0c321";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4384802/mtab-1.6.3.xpi";
+      sha256 = "ac173cdc4c160e60f1db1dacde01fdc8402f6259471940cadf048742fd1a04e5";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
@@ -9889,10 +9889,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "133.0.20241106.91549";
+      version = "133.0.20241108.92124";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4383067/scots_language_pack-133.0.20241106.91549.xpi";
-      sha256 = "b013834d414de485ab5467895a53e693154f876f857834b110749536a222c0da";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4384349/scots_language_pack-133.0.20241108.92124.xpi";
+      sha256 = "f5098f66ba19fa9c0c3924954031e995acc5125327c2edd4c81c479b67856d49";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -12501,7 +12501,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/wallabag/wallabagger";
-        description = "This wallabag v2 extension has the ability to edit title and tags and set starred, archived, or delete states.\nYou can add a page from the icon or through the right click menu on a link or on a blank page spot.";
+        description = "This wallabag v2 extension has the ability to edit title and tags and set starred, archived, or delete states.\r\nYou can add a page from the icon or through the right click menu on a link or on a blank page spot.";
         license = licenses.mit;
         mozPermissions = [ "tabs" "storage" "contextMenus" "activeTab" ];
         platforms = platforms.all;
