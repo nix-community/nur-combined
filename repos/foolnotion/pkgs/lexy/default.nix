@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "lexy";
-  version = "2022.12.1";
+  version = "2024.09.12";
 
   src = fetchFromGitHub {
     owner = "foonathan";
     repo = "lexy";
-    rev = "v${version}";
-    sha256 = "sha256-tLLxJpXMPxlmjKTqClC+8AGpap/Nrd7TtaycMLNaLxQ=";
+    rev = "77ba5fa5a62f16b3ab5440c6d6ef42a7cdd176bb";
+    sha256 = "sha256-BQUQAss0NLSsNYcCIXzN3355BZb789qguwlaazZcC4U=";
   };
 
   nativeBuildInputs = [ cmake ];

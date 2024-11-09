@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A single-file header-only C++17-like byte type for C++98, C++11 and later";
-    homepage = "https://github.com/martinmoene/span-lite";
+    homepage = "https://github.com/martinmoene/byte-lite";
     license = licenses.boost;
     platforms = platforms.all;
     #maintainers = with maintainers; [ foolnotion ];
