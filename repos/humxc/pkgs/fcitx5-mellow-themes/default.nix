@@ -2,7 +2,6 @@
 , fetchFromGitHub
 , stdenvNoCC
 , themeName ? "youlan"
-, themeIsDark ? false
 }:
 let
   pname = "fcitx5-mellow-themes";
@@ -14,7 +13,6 @@ let
     rev = version;
     sha256 = sha256;
   };
-  getDir = name: isDark: "mellow-${name}${if isDark then "-dark" else ""}";
 in
 assert lib.elem themeName [ "youlan" "wechat" "vermilion" "sakura" "graphite" ];
 stdenvNoCC.mkDerivation
@@ -25,7 +23,8 @@ stdenvNoCC.mkDerivation
 
   installPhase = ''
     mkdir -p $out
-    cp ${getDir themeName themeIsDark}/* $out
+    cp -r $src/mellow-${themeName} $out/
+    cp -r $src/mellow-${themeName}-dark $out/
   '';
   meta = with lib; {
     homepage = "https://github.com/sanweiya/fcitx5-mellow-themes";
