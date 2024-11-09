@@ -133,10 +133,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-jbdjOknI1V/xAP6z6JTzApnXiceiLguBmB5o/iSohGs=",
+            "sha256": "sha256-funDpFY3yjj7Kw+jRuo11nUj8PK2BUfT4wgXj6sw7RY=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.0.3495.10.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.7.0.3495.11.universal.dmg"
         },
-        "version": "7.0.3495.10"
+        "version": "7.0.3495.11"
     }
 }
