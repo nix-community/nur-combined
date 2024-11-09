@@ -19,4 +19,5 @@
   qq = pkgs.callPackage ./pkgs/qq { };
   fluent-cursors-theme = pkgs.callPackage ./pkgs/fluent-cursors-theme { };
   orchis-gtk = pkgs.callPackage ./pkgs/orchis-gtk { };
+  fcitx5-mellow-themes = pkgs.callPackage ./pkgs/fcitx5-mellow-themes { };
 }
