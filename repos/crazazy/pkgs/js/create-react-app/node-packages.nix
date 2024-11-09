@@ -112,13 +112,13 @@ let
         sha512 = "ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==";
       };
     };
-    "cross-spawn-7.0.3" = {
+    "cross-spawn-7.0.5" = {
       name = "cross-spawn";
       packageName = "cross-spawn";
-      version = "7.0.3";
+      version = "7.0.5";
       src = fetchurl {
-        url = "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.3.tgz";
-        sha512 = "iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==";
+        url = "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.5.tgz";
+        sha512 = "ZVJrKKYunU38/76t0RMOulHOnUcbU9GbpWKAOZ0mhjr7CX6FVrH+4FrAapSOekrgFQ3f/8gwMEuIft0aKq6Hug==";
       };
     };
     "debug-2.6.9" = {
@@ -139,13 +139,13 @@ let
         sha512 = "+AWBwjGadtksxjOQSFDhPNQbed7icNXApT4+2BNpsXzcCBiInq2H9XW0O8sfHFaPmnQRs7cg/P0fAr2IWQSW0g==";
       };
     };
-    "envinfo-7.13.0" = {
+    "envinfo-7.14.0" = {
       name = "envinfo";
       packageName = "envinfo";
-      version = "7.13.0";
+      version = "7.14.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/envinfo/-/envinfo-7.13.0.tgz";
-        sha512 = "cvcaMr7KqXVh4nyzGTVqTum+gAiL265x5jUWQIDLq//zOGbW+gSW/C+OWLleY/rs9Qole6AZLMXPbtIFQbqu+Q==";
+        url = "https://registry.npmjs.org/envinfo/-/envinfo-7.14.0.tgz";
+        sha512 = "CO40UI41xDQzhLB1hWyqUKgFhs250pNcGbyGKe1l/e4FSaI/+YE4IMG76GDt0In67WLPACIITC+sOi08x4wIvg==";
       };
     };
     "fs-extra-10.1.0" = {
@@ -590,10 +590,10 @@ let
       sources."commander-4.1.1"
       sources."concat-map-0.0.1"
       sources."core-util-is-1.0.3"
-      sources."cross-spawn-7.0.3"
+      sources."cross-spawn-7.0.5"
       sources."debug-2.6.9"
       sources."duplexer2-0.0.2"
-      sources."envinfo-7.13.0"
+      sources."envinfo-7.14.0"
       sources."fs-extra-10.1.0"
       sources."fs.realpath-1.0.0"
       sources."fstream-1.0.12"

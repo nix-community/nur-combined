@@ -4,23 +4,23 @@
 
 let
   sources = {
-    "@types/estree-1.0.5" = {
+    "@types/estree-1.0.6" = {
       name = "_at_types_slash_estree";
       packageName = "@types/estree";
-      version = "1.0.5";
+      version = "1.0.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/estree/-/estree-1.0.5.tgz";
-        sha512 = "/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==";
+        url = "https://registry.npmjs.org/@types/estree/-/estree-1.0.6.tgz";
+        sha512 = "AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==";
       };
     };
   };
   args = {
     name = "rollup";
     packageName = "rollup";
-    version = "4.19.0";
-    src = fetchurl { url = "https://registry.npmjs.org/rollup/-/rollup-4.19.0.tgz"; sha1 = "83b08cc0b2bc38c26c194cb7f2cdabd84a2a8c02"; };
+    version = "4.25.0";
+    src = fetchurl { url = "https://registry.npmjs.org/rollup/-/rollup-4.25.0.tgz"; sha1 = "74dff4b5c2777dfc490f9711393925da50171787"; };
     dependencies = [
-      sources."@types/estree-1.0.5"
+      sources."@types/estree-1.0.6"
     ];
     buildInputs = globalBuildInputs;
     meta = {

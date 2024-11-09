@@ -4,13 +4,13 @@
 
 let
   sources = {
-    "adm-zip-0.5.14" = {
+    "adm-zip-0.5.16" = {
       name = "adm-zip";
       packageName = "adm-zip";
-      version = "0.5.14";
+      version = "0.5.16";
       src = fetchurl {
-        url = "https://registry.npmjs.org/adm-zip/-/adm-zip-0.5.14.tgz";
-        sha512 = "DnyqqifT4Jrcvb8USYjp6FHtBpEIz1mnXu6pTRHZ0RL69LbQYiO+0lDFg5+OKA7U29oWSs3a/i8fhn8ZcceIWg==";
+        url = "https://registry.npmjs.org/adm-zip/-/adm-zip-0.5.16.tgz";
+        sha512 = "TGw5yVi4saajsSEgz25grObGHEUaDrniwvA2qwSC060KfqGPdglhvPMA2lPIoxs3PQIItj2iag35fONcQqgUaQ==";
       };
     };
     "afinn-165-1.0.4" = {
@@ -67,13 +67,13 @@ let
         sha512 = "+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==";
       };
     };
-    "axios-1.7.2" = {
+    "axios-1.7.7" = {
       name = "axios";
       packageName = "axios";
-      version = "1.7.2";
+      version = "1.7.7";
       src = fetchurl {
-        url = "https://registry.npmjs.org/axios/-/axios-1.7.2.tgz";
-        sha512 = "2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==";
+        url = "https://registry.npmjs.org/axios/-/axios-1.7.7.tgz";
+        sha512 = "S4kL7XrjgBmvdGut0sN3yJxqYzrDOnivkBiN0OFs6hLiUam3UPvswUo0kqGyhqUZGEOytHyumEdXsAkgCOUf3Q==";
       };
     };
     "balanced-match-1.0.2" = {
@@ -256,22 +256,22 @@ let
         sha512 = "Zf5H2Kxt2xjTvbJvP2ZWLEICxA6j+hAmMzIlypy4xcBg1vKVnx89Wy0GbS+kf5cwCVFFzdCFh2XSCFNULS6csw==";
       };
     };
-    "follow-redirects-1.15.6" = {
+    "follow-redirects-1.15.9" = {
       name = "follow-redirects";
       packageName = "follow-redirects";
-      version = "1.15.6";
+      version = "1.15.9";
       src = fetchurl {
-        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.6.tgz";
-        sha512 = "wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==";
+        url = "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.15.9.tgz";
+        sha512 = "gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==";
       };
     };
-    "form-data-4.0.0" = {
+    "form-data-4.0.1" = {
       name = "form-data";
       packageName = "form-data";
-      version = "4.0.0";
+      version = "4.0.1";
       src = fetchurl {
-        url = "https://registry.npmjs.org/form-data/-/form-data-4.0.0.tgz";
-        sha512 = "ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==";
+        url = "https://registry.npmjs.org/form-data/-/form-data-4.0.1.tgz";
+        sha512 = "tzN8e4TX8+kkxGPK8D5u0FNmjPUjw3lwC9lSLxxoB/+GtsJG91CO8bSWy73APlgAZzZbXEYZJuxjkHH2w+Ezhw==";
       };
     };
     "fs-extra-9.1.0" = {
@@ -749,14 +749,14 @@ let
     version = "3.4.0";
     src = fetchurl { url = "https://registry.npmjs.org/tldr/-/tldr-3.4.0.tgz"; sha1 = "3a78183d70ac86c8e42beaa1c0bb6aabcc6fb3c5"; };
     dependencies = [
-      sources."adm-zip-0.5.14"
+      sources."adm-zip-0.5.16"
       sources."afinn-165-1.0.4"
       sources."ansi-regex-5.0.1"
       sources."ansi-styles-4.3.0"
       sources."apparatus-0.0.10"
       sources."asynckit-0.4.0"
       sources."at-least-node-1.0.0"
-      sources."axios-1.7.2"
+      sources."axios-1.7.7"
       sources."balanced-match-1.0.2"
       sources."base64-js-1.5.1"
       sources."bl-4.1.0"
@@ -777,8 +777,8 @@ let
       sources."delayed-stream-1.0.0"
       sources."es-define-property-1.0.0"
       sources."es-errors-1.3.0"
-      sources."follow-redirects-1.15.6"
-      sources."form-data-4.0.0"
+      sources."follow-redirects-1.15.9"
+      sources."form-data-4.0.1"
       sources."fs-extra-9.1.0"
       sources."fs.realpath-1.0.0"
       sources."function-bind-1.1.2"

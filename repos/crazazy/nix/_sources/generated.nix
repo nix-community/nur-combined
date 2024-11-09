@@ -3,18 +3,18 @@
 {
   cakeml = {
     pname = "cakeml";
-    version = "v2419";
+    version = "v2648";
     src = fetchzip {
-      url = "https://github.com/CakeML/cakeml/releases/download/v2419/cake-x64-64.tar.gz";
-      sha256 = "sha256-F8m70l6yxUz5Jxh/Kf9FwiOdO+UyymPE+sffVYwgdRY=";
+      url = "https://github.com/CakeML/cakeml/releases/download/v2648/cake-x64-64.tar.gz";
+      sha256 = "sha256-p5iWrYjT03Emuxf7l3eSKMLDnI8O0TzzDlkm3XtIymI=";
     };
   };
   enso = {
     pname = "enso";
-    version = "2024.3.1-rc3";
+    version = "2024.4.2";
     src = fetchurl {
-      url = "https://github.com/enso-org/enso/releases/download/2024.3.1-rc3/enso-linux-x86_64-2024.3.1-rc3.AppImage";
-      sha256 = "sha256-BTkdm9duSxeR8XlMBJaPF5nA1P/YQNJliY4PtuXh/5k=";
+      url = "https://github.com/enso-org/enso/releases/download/2024.4.2/enso-linux-x86_64-2024.4.2.AppImage";
+      sha256 = "sha256-pv74L5CYRF8KRYrggAbi0uzBiMAYkDl+10FTar229n4=";
     };
   };
   guile-config = {
@@ -35,45 +35,46 @@
   };
   seamonkey = {
     pname = "seamonkey";
-    version = "2.53.18.2";
+    version = "2.53.19";
     src = fetchzip {
-      url = "https://archive.seamonkey-project.org/releases/2.53.18.2/linux-x86_64/en-US/seamonkey-2.53.18.2.en-US.linux-x86_64.tar.bz2";
-      sha256 = "sha256-sgkEhgyWMisyrK/ZxlgbpMKZV9/AdbcyjbsjYZhY0k0=";
+      url = "https://archive.seamonkey-project.org/releases/2.53.19/linux-x86_64/en-US/seamonkey-2.53.19.en-US.linux-x86_64.tar.bz2";
+      sha256 = "sha256-MFykDCX/XirWfMGtbP84mJM9/W01ZwueMrdHJcvSAkc=";
     };
   };
   trufflesqueak = {
     pname = "trufflesqueak";
-    version = "23.1.0";
+    version = "24.0.2";
     src = fetchurl {
-      url = "https://github.com/hpi-swa/trufflesqueak/releases/download/23.1.0/trufflesqueak-23.1.0-linux-amd64.tar.gz";
-      sha256 = "sha256-wdFfNHgcRYKMOVbfjo2j8IRu5+izMNQK1tUXX1vFwtA=";
+      url = "https://github.com/hpi-swa/trufflesqueak/releases/download/24.0.2/trufflesqueak-24.0.2-linux-amd64.tar.gz";
+      sha256 = "sha256-J7kKnf8+3q9xrWaTEYVfRExLL0RmCKylzzDum24R2lg=";
     };
   };
   trufflesqueak-image = {
     pname = "trufflesqueak-image";
-    version = "23.1.0";
+    version = "24.0.2";
     src = fetchurl {
-      url = "https://github.com/hpi-swa/trufflesqueak/releases/download/23.1.0/TruffleSqueakImage-23.1.0.zip";
-      sha256 = "sha256-/9rbH9hEHSgaOUbSHpDCdmCX4m+myxVIgG6Nf5r85Zg=";
+      url = "https://github.com/hpi-swa/trufflesqueak/releases/download/24.0.2/TruffleSqueakImage-24.0.0.zip";
+      sha256 = "sha256-K2uomtQY5TfUPq/7r7ax4Srs0Q6hYVdy0U68no7O1qs=";
     };
   };
   wasmfxtime = {
     pname = "wasmfxtime";
-    version = "2c108d4adf1a6854f8ecb409439298a77129e7a4";
+    version = "42da0ece7daa669c1845d44c8361241c5cfa8b83";
     src = fetchFromGitHub {
       owner = "wasmfx";
       repo = "wasmfxtime";
-      rev = "2c108d4adf1a6854f8ecb409439298a77129e7a4";
+      rev = "42da0ece7daa669c1845d44c8361241c5cfa8b83";
       fetchSubmodules = true;
-      sha256 = "sha256-6dhafv601BC0ON3HHJ5I9M5Q7CXVJHMnlkY/jWm46uo=";
+      sha256 = "sha256-5eTFlExIY1/yXu6CV6B8W6DLeIAwjHJ++qWnqsVSatk=";
     };
     cargoLock."./Cargo.lock" = {
-      lockFile = ./wasmfxtime-2c108d4adf1a6854f8ecb409439298a77129e7a4/./Cargo.lock;
+      lockFile = ./wasmfxtime-42da0ece7daa669c1845d44c8361241c5cfa8b83/./Cargo.lock;
       outputHashes = {
-        "wit-bindgen-0.28.0" = "sha256-O97wGJaFoWPJDD+feiRPmiEC+dovhcwgLitIaVIdqV0=";
-        "wasm-encoder-0.214.0" = "sha256-xfUkdz4BWyl74de8MPPYExzKoFgPsiiPIcig7mEyPOM=";
+        "wasm-encoder-0.219.1" = "sha256-9FAq6wcTXXFdQ5kcpkj2KqTcd8C8zXmhRWW/ajCJUMI=";
+        "wasm-encoder-0.219.0" = "sha256-T+CypvioV0VufXOQo/bRLfYysdNovhyqBQj7f3zyY/g=";
+        "wit-bindgen-0.34.0" = "sha256-YFobCkElwW6sAgzufRHha1mixlZAng5pQVsud8kYknw=";
       };
     };
-    date = "2024-07-22";
+    date = "2024-11-07";
   };
 }

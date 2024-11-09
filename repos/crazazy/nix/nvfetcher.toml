@@ -9,7 +9,7 @@ fetch.url = "https://github.com/hpi-swa/trufflesqueak/releases/download/$ver/tru
 
 [trufflesqueak-image]
 src.github = "hpi-swa/trufflesqueak"
-fetch.url = "https://github.com/hpi-swa/trufflesqueak/releases/download/$ver/TruffleSqueakImage-$ver.zip"
+fetch.url = "https://github.com/hpi-swa/trufflesqueak/releases/download/$ver/TruffleSqueakImage-24.0.0.zip"
 
 [guile-config]
 src.manual = "0.5.0"
