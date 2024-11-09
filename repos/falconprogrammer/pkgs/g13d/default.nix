@@ -3,7 +3,7 @@
 , fetchFromGitHub
 , cmake
 , log4cpp
-, libusb
+, libusb1
 , libevdev
 , gtest
 }:
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     log4cpp
-    libusb
+    libusb1
     libevdev
     gtest
   ];
