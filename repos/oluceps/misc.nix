@@ -256,7 +256,7 @@
         "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
         "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
         "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
-        "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+        # "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
         "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
         # "cache.nyaw.xyz:wXLX+Wtj9giC/+hybqOEJ4FSZIOgOyk8Q6HJxxcZqKY="
       ];
@@ -277,7 +277,7 @@
         ++ [
           "https://cache.nixos.org"
           "https://cache.garnix.io"
-          "https://nyx.chaotic.cx"
+          # "https://nyx.chaotic.cx"
           # "https://cache.nyaw.xyz"
           # "https://cache.ngi0.nixos.org"
           # "https://mirror.sjtu.edu.cn/nix-channels/store"

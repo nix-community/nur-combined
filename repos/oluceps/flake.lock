@@ -4349,17 +4349,16 @@
         "rust-overlay": "rust-overlay_6"
       },
       "locked": {
-        "lastModified": 1731027574,
-        "narHash": "sha256-Uc+qFm1hdWI73/aOSqtn00ccZcaQgkzSHI21WiTSxds=",
-        "owner": "oluceps",
-        "repo": "vaultix",
-        "rev": "6199c2af9d301478e951eefb33d95cb071dd7421",
-        "type": "github"
+        "dirtyRev": "0daeb000d9a04c484d4d43f1eaa43c2f78ba8170-dirty",
+        "dirtyShortRev": "0daeb00-dirty",
+        "lastModified": 1731168772,
+        "narHash": "sha256-mZqdro6ncp8m2UbXeo99HNclwgYuarJUPSJmME1FRA0=",
+        "type": "git",
+        "url": "file:///home/elen/Src/vaultix"
       },
       "original": {
-        "owner": "oluceps",
-        "repo": "vaultix",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/elen/Src/vaultix"
       }
     },
     "xwayland-satellite-stable": {

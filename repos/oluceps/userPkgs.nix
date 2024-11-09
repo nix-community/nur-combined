@@ -9,7 +9,7 @@ with pkgs;
   mako
   xwayland-satellite
   # qq
-  chromium
+  # chromium
   apotris
   celeste
   stellarium
