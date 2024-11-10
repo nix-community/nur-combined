@@ -16,7 +16,7 @@ buildDotnetModule {
 
   meta = {
     mainProgram = "ImeWlConverterCmd";
-    description = "”深蓝词库转换“ 一款开源免费的输入法词库转换程序";
+    description = "FOSS program for converting IME dictionaries";
     homepage = "https://github.com/studyzy/imewlconverter";
     maintainers = with lib.maintainers; [ xddxdd ];
     license = lib.licenses.gpl3Only;

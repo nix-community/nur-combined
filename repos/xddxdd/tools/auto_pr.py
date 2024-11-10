@@ -7,7 +7,7 @@ import subprocess
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable
+from typing import Iterable, Optional
 
 NIXPKGS_PATH = os.environ.get("NIXPKGS_PATH") or "/home/lantian/Projects/nixpkgs-xddxdd"
 
@@ -118,6 +118,35 @@ def format_with_nixfmt(nix_file: str) -> str:
     return p.communicate(nix_file)[0]
 
 
+def nixpkgs_get_existing_version(package_name: str) -> Optional[str]:
+    subprocess.run(["git", "-C", NIXPKGS_PATH, "checkout", "master"], check=True)
+    subprocess.run(["git", "-C", NIXPKGS_PATH, "fetch", "upstream"], check=True)
+    subprocess.run(
+        ["git", "-C", NIXPKGS_PATH, "reset", "--hard", "upstream/master"], check=True
+    )
+
+    try:
+        return subprocess.run(
+            [
+                "nix-instantiate",
+                "--eval",
+                "-E",
+                'with import ./. {  }; pkgs."' + package_name + '".version',
+            ],
+            stdout=subprocess.PIPE,
+            check=True,
+            text=True,
+            cwd=NIXPKGS_PATH,
+            env={
+                **os.environ,
+                "NIXPKGS_ALLOW_UNFREE": "1",
+                "NIXPKGS_ALLOW_INSECURE": "1",
+            },
+        ).stdout.strip()
+    except subprocess.CalledProcessError:
+        return None
+
+
 def nixpkgs_create_package(package_name: str) -> Path:
     # Step 1: create new branch
     try:
@@ -128,7 +157,6 @@ def nixpkgs_create_package(package_name: str) -> Path:
         subprocess.run(
             ["git", "-C", NIXPKGS_PATH, "checkout", package_name], check=True
         )
-    subprocess.run(["git", "-C", NIXPKGS_PATH, "fetch", "upstream"], check=True)
     subprocess.run(
         ["git", "-C", NIXPKGS_PATH, "reset", "--hard", "upstream/master"], check=True
     )
@@ -179,6 +207,9 @@ if __name__ == "__main__":
     if not pkg_name:
         raise ValueError("Invalid path")
 
+    existing_pkg_version = nixpkgs_get_existing_version(pkg_name)
+    print(f"Existing version is {existing_pkg_version}")
+
     nixpkgs_pkg_path = nixpkgs_create_package(pkg_name)
     pkg_version = None
 
@@ -187,7 +218,10 @@ if __name__ == "__main__":
         if f.name == "default.nix":
             nixpkgs_target_path = nixpkgs_target_path.parent / "package.nix"
 
-        if not f.name.endswith(".nix"):
+        if f.name.startswith("update."):
+            # Do not copy update script specific to this repo
+            pass
+        elif not f.name.endswith(".nix"):
             shutil.copyfile(f, nixpkgs_target_path)
         else:
             with open(f) as fd:
@@ -204,10 +238,17 @@ if __name__ == "__main__":
             with open(nixpkgs_target_path, "w") as fd:
                 fd.write(nix_file)
 
-    if pkg_version:
-        nixpkgs_create_commit(f"{pkg_name}: init at {ast.literal_eval(pkg_version)}")
+    if existing_pkg_version:
+        version_from = f"{ast.literal_eval(existing_pkg_version)} ->"
     else:
-        nixpkgs_create_commit(f"{pkg_name}: init at [UNKNOWN VERSION]")
+        version_from = "init at"
+
+    if pkg_version:
+        version_to = ast.literal_eval(pkg_version)
+    else:
+        version_to = "[UNKNOWN VERSION]"
+
+    nixpkgs_create_commit(f"{pkg_name}: {version_from} {version_to}")
 
     nixpkgs_test_build(pkg_name)
     nixpkgs_push(pkg_name)

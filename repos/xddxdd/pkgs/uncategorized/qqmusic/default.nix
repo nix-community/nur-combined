@@ -100,15 +100,6 @@ stdenv.mkDerivation (finalAttrs: {
       --add-flags "--no-sandbox" \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}"
 
-    # Hex patch from https://aur.archlinux.org/packages/qqmusic-bin
-    # 1. Fix orphaned processes
-    # 2. Fix search
-    local _subst="
-        s|\xA4\x8B\x7A\xB9\x8D\xCF\x54\xAE|\xA4\x8B\x7A\xB9\x85\xEF\x54\xAE|
-        s|\xB3\x1D\xF5\xCB\x24\xBC|\xA3\x63\xBB\xC9\x3F\xBC|
-    "
-    sed "$_subst" -i "$out/opt/resources/app.asar"
-
     runHook postInstall
   '';
 

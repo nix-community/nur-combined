@@ -590,7 +590,7 @@
     "version": "2024-10-04"
   },
   "legacyPackages.x86_64-linux.imewlconverter": {
-    "description": "”深蓝词库转换“ 一款开源免费的输入法词库转换程序",
+    "description": "FOSS program for converting IME dictionaries",
     "pname": "imewlconverter",
     "version": "3.1.1"
   },
@@ -3970,7 +3970,7 @@
     "version": "2024-10-04"
   },
   "packages.x86_64-linux.imewlconverter": {
-    "description": "”深蓝词库转换“ 一款开源免费的输入法词库转换程序",
+    "description": "FOSS program for converting IME dictionaries",
     "pname": "imewlconverter",
     "version": "3.1.1"
   },
