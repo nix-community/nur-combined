@@ -1,25 +1,18 @@
-{ lib
-, stdenv
-, stdenvNoCC
+{ lib, stdenv
 
 , fetchFromGitHub
 
-, callPackage
 , makeDesktopItem
 , makeWrapper
 , wrapGAppsHook
 
-, cacert
 , electron
 , gitMinimal
 , jq
-, moreutils
-, nodePackages
-}: let
-  pnpm = callPackage ./pnpm.nix {
-    nodejs = nodePackages.nodejs;
-  };
-
+, nodejs
+, pnpm
+}:
+let
   fixupPackageJson = {
     pnpmPatch = builtins.toJSON {
       pnpm.supportedArchitectures = {
@@ -27,7 +20,7 @@
         cpu = [ "x64" "arm64" ];
       };
       engines = {
-        node = nodePackages.nodejs.version;
+        node = nodejs.version;
         pnpm = pnpm.version;
         electron = electron.version;
       };
@@ -35,99 +28,59 @@
 
     patch = ''
       mv package.json package.json.orig
-      jq --raw-output ". * $pnpmPatch" package.json.orig > package.json
+      ${jq}/bin/jq --raw-output ". * $pnpmPatch" package.json.orig > package.json
     '';
   };
-
-  mkPnpmDeps = {
-    pname,
-    hash,
-    ...
-  } @ args: stdenvNoCC.mkDerivation ({
-    pname = "${pname}-pnpm-deps";
-
-    nativeBuildInputs = [
-      cacert
-      jq
-      moreutils
-      pnpm
-    ];
-
-    dontBuild = true;
-    dontFixup = true;
-
-    inherit (fixupPackageJson) pnpmPatch;
-    postPatch = fixupPackageJson.patch;
-
-    installPhase = ''
-      export HOME=$(mktemp -d)
-
-      pnpm config set store-dir $out
-      pnpm install --frozen-lockfile --ignore-script
-
-      rm -rf $out/v3/tmp
-      for f in $(find $out -name "*.json"); do
-        sed -i -E -e 's/"checkedAt":[0-9]+,//g' $f
-        jq --sort-keys . $f | sponge $f
-      done
-    '';
-
-    outputHashMode = "recursive";
-    outputHash = hash;
-  } // builtins.removeAttrs args [ "pname" "hash" ]);
-in stdenv.mkDerivation (final: {
+in stdenv.mkDerivation (finalAttrs: {
   pname = "ferdium";
-  version = "6.7.7";
+  version = "7.0.0";
 
   src = fetchFromGitHub {
     owner = "ferdium";
     repo = "ferdium-app";
-    rev = "v${final.version}";
-    hash = "sha256-uASDeujHidDxP6fJNBrq+j+8z4j/M4nuUGhCXIDTcLw=";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-c2zXlsZOBduaOQ5eW61cpFQTcIHIroUrkpGiH/e9Ztc=";
   };
 
-  pnpmDeps = mkPnpmDeps {
-    inherit (final) pname version src;
-    hash = "sha256-LxLPBTEZac83DfMury/EFc9QrOPbqxkOHHFS8a2DxM0=";
+  inherit (fixupPackageJson) pnpmPatch;
+
+  pnpmDeps = pnpm.fetchDeps {
+    inherit (finalAttrs) pname version src;
+
+    inherit (fixupPackageJson) pnpmPatch;
+    postPatch = fixupPackageJson.patch;
+
+    hash = "sha256-dudncSOHjg35z1E9zQnv6F3BidnylEbkolVSbB7DoRo=";
   };
 
-  recipes = stdenv.mkDerivation (recipesFinal: {
-    pname = "${final.pname}-recipes";
-    inherit (final) version;
+  recipes = stdenv.mkDerivation (recipesFinalAttrs: {
+    pname = "${finalAttrs.pname}-recipes";
+    inherit (finalAttrs) version;
 
     src = fetchFromGitHub {
       owner = "ferdium";
       repo = "ferdium-recipes";
-      rev = "e419e881b386c2fdc3faec145d8b6499b80fdf02";
-      hash = "sha256-dRBVA5P2EqExTMzuXrKczNZGSr+YYKPi8ZJkg3O0oi4=";
+      rev = "f1b2809f88c8f9876cbc39bc32b9a32586508e8e";
+      hash = "sha256-RJY74Yl+YUQxGGVDJxHlNP293ksDtY7UnRj/a46axaI=";
     };
 
-    pnpmDeps = mkPnpmDeps {
-      inherit (recipesFinal) pname version src;
-      hash = "sha256-gQZr0nlfmRWSnzbOqNDtFDc1hf24cblA2fKEGlE6EuM=";
+    pnpmDeps = pnpm.fetchDeps {
+      inherit (recipesFinalAttrs) pname version src;
+
+      inherit (fixupPackageJson) pnpmPatch;
+      postPatch = fixupPackageJson.patch;
+
+      hash = "sha256-PvN+T/dhm1P/bOkwme7Xyixz/VZQSQRlfj9otEjtJHw=";
     };
 
     inherit (fixupPackageJson) pnpmPatch;
     postPatch = fixupPackageJson.patch;
 
     nativeBuildInputs = [
-      jq
-      pnpm
-      nodePackages.nodejs
+      nodejs
+      pnpm.configHook
       gitMinimal
     ];
-
-    preBuild = ''
-      export HOME=$(mktemp -d)
-      export STORE_PATH=$(mktemp -d)
-
-      cp -Tr "$pnpmDeps" "$STORE_PATH"
-      chmod -R +w "$STORE_PATH"
-
-      pnpm config set store-dir "$STORE_PATH"
-      pnpm install --offline --frozen-lockfile --ignore-script
-      patchShebangs node_modules/{*,.*}
-    '';
 
     postBuild = ''
       pnpm run package
@@ -145,17 +98,15 @@ in stdenv.mkDerivation (final: {
   });
 
   nativeBuildInputs = [
-    pnpm
-    nodePackages.nodejs
+    nodejs
+    pnpm.configHook
     makeWrapper
-    jq
     wrapGAppsHook
   ];
 
   dontPatchShebangs = true;
   dontPatchELF = true;
 
-  inherit (fixupPackageJson) pnpmPatch;
   postPatch = ''
     cat > src/electron/ipc-api/dnd.ts <<"EOF"
     import { ipcMain } from 'electron';
@@ -165,20 +116,8 @@ in stdenv.mkDerivation (final: {
       });
     };
     EOF
-  '' + fixupPackageJson.patch;
 
-  preBuild = ''
-    export HOME=$(mktemp -d)
-    export STORE_PATH=$(mktemp -d)
-
-    cp -Tr "$pnpmDeps" "$STORE_PATH"
-    chmod -R +w "$STORE_PATH"
-
-    pnpm config set store-dir "$STORE_PATH"
-    pnpm install --offline --frozen-lockfile --ignore-script
-    patchShebangs node_modules/{*,.*}
-
-    cp -Tr "$recipes" recipes
+    ${fixupPackageJson.patch}
   '';
 
   postBuild = ''
@@ -200,7 +139,7 @@ in stdenv.mkDerivation (final: {
       --set ELECTRON_IS_DEV 0 \
       --add-flags $out/share/ferdium
 
-    ln -s "${final.desktopItem}/share/applications" $out/share/applications
+    ln -s "${finalAttrs.desktopItem}/share/applications" $out/share/applications
 
     for _size in 16 24 32 48 64 96 128 256 512 1024; do
       install -Dm0644 "build-helpers/images/icons/''${_size}x''${_size}.png" \
@@ -217,19 +156,18 @@ in stdenv.mkDerivation (final: {
     desktopName = "Ferdium";
     startupWMClass = "Ferdium";
     terminal = false;
-    comment = final.meta.description;
+    comment = finalAttrs.meta.description;
     categories = [ "Network" "InstantMessaging" ];
   };
 
   passthru = {
-    inherit pnpm;
-    inherit (final) recipes;
+    inherit (finalAttrs) recipes;
   };
 
   meta = with lib; {
     description = "All your services in one place built by the community";
     homepage = "https://ferdium.org/";
-    changelog = "https://github.com/ferdium/ferdium-app/releases/tag/v${final.version}";
+    changelog = "https://github.com/ferdium/ferdium-app/releases/tag/v${finalAttrs.version}";
     license = licenses.asl20;
     platforms = electron.meta.platforms;
     mainProgram = "ferdium";
