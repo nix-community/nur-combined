@@ -170,14 +170,14 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "16708558112c0d7c3cfcc0783d8e43d65a522dd0";
+    version = "a67f3e9c12346eb45dc29b7fad1b2aa3b8b24efd";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "16708558112c0d7c3cfcc0783d8e43d65a522dd0";
-      hash = "sha256-kbMr0UopNZzc28nuvbRZdP2GekNkdbdjSdO/CP5TWqg=";
+      rev = "a67f3e9c12346eb45dc29b7fad1b2aa3b8b24efd";
+      hash = "sha256-067B9S9qRW0kSNRrLrc5tHm3WO2VmVHUdx9qbVFYxEE=";
     };
-    date = "2024-11-08";
+    date = "2024-11-09";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -695,12 +695,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4056";
+    version = "b4058";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4056";
-      hash = "sha256-VJkkP4wmggi4xVDe2OyqxT/nuuRFS5Fk1RcFbKOoxTA=";
+      rev = "b4058";
+      hash = "sha256-DJTEpFnnSuz49EBzJdvbklLJejT4++hJsxUN/ZpjcVU=";
     };
   };
   lyrica = {
@@ -943,7 +943,7 @@
       owner = "open-quantum-safe";
       repo = "oqs-provider";
       rev = "0.7.0";
-      hash = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
+      hash = "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=";
     };
   };
   osdlyrics = {
@@ -999,10 +999,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "7.1.2";
+    version = "7.1.3";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.1.2/PeerBanHelper_7.1.2.zip";
-      hash = "sha256-kS8A+w5MUmiGZT0TQVpOifYG/UdryZfBVFTDQrv8eVc=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.1.3/PeerBanHelper_7.1.3.zip";
+      hash = "sha256-89aQWJk5SVncYSVMA6Ug3st3cFDZffM8I7fA4rfhgVw=";
     };
   };
   phpmyadmin = {
@@ -1275,21 +1275,21 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "e7ff22a663a558f3727bcf8d52bbe17edff82389";
+    version = "9a2a217bf57f53212b114aa7c0a702e4d8b55519";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "e7ff22a663a558f3727bcf8d52bbe17edff82389";
-      hash = "sha256-pksSnApzcl1uuX+r2fuTjqIVOwR6cvXgXml8ov+okPU=";
+      rev = "9a2a217bf57f53212b114aa7c0a702e4d8b55519";
+      hash = "sha256-OyaOriiyIMRsZz59LyOS/LtG1J4DU02NHcaJ6PdaffU=";
     };
-    date = "2024-11-08";
+    date = "2024-11-10";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20241009";
+    version = "20241109";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20241009/moegirl.dict.yaml";
-      hash = "sha256-G96BILorMWL6QXt5DYnyKZiF+9VHrMVCqN4rqFJQ2/o=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20241109/moegirl.dict.yaml";
+      hash = "sha256-Bnpv7iqTPRNnSiZ6ZpzcQXLZkbFbZ0nQgw2d+IyTZOQ=";
     };
   };
   rime-zhwiki = {
@@ -1553,14 +1553,14 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "d6768b9cf219386d1c8b929421a9251d40f65b17";
+    version = "974f096fd299811da2588c5cdd0b1e05674c6a66";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "d6768b9cf219386d1c8b929421a9251d40f65b17";
-      hash = "sha256-ssXj3BVVeqFMvGDfuuJtA/Y+rNx9rSEfJYHzGKQkBrE=";
+      rev = "974f096fd299811da2588c5cdd0b1e05674c6a66";
+      hash = "sha256-fonOm+lc3Z4QKaWHDIqndpu/wSK8KCf5Ve5FV6cnVC8=";
     };
-    date = "2024-11-08";
+    date = "2024-11-09";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
