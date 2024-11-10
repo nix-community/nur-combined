@@ -2,7 +2,6 @@
   stdenv,
   lib,
   autoPatchelfHook,
-  fd,
   alsa-lib,
   freetype,
   libGL,
@@ -24,10 +23,7 @@ stdenv.mkDerivation {
     src
     meta
     ;
-  nativeBuildInputs = [
-    autoPatchelfHook
-    fd
-  ];
+  nativeBuildInputs = [ autoPatchelfHook ];
   buildInputs = [
     alsa-lib
     freetype
@@ -38,8 +34,7 @@ stdenv.mkDerivation {
     "runHook preInstall"
     (if withApp then "install -D -t $out/bin ${displayName}" else "")
     (if withVST then "install -D -t $out/lib/vst ${displayName}VST.so" else "")
-    "ls -alh"
-    (if withVST3 then "fd -tf . ${displayName}.vst3 -x install -D -t $out/lib/vst3/{} {}" else "")
+    (if withVST3 then "mkdir $out/lib/vst3 && cp -rt $out/lib/vst3 ${displayName}.vst3" else "")
     "runHook postInstall"
   ];
 }
