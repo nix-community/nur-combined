@@ -4056,10 +4056,10 @@
     };
     "hover-zoom-plus" = buildFirefoxXpiAddon {
       pname = "hover-zoom-plus";
-      version = "1.0.221";
+      version = "1.0.222";
       addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4376967/hover_zoom_plus-1.0.221.xpi";
-      sha256 = "abdda7cdf0f9143dad6405f1167d33ded52eeb5ea4a9555d213e09798f613eeb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4385089/hover_zoom_plus-1.0.222.xpi";
+      sha256 = "1455ab25b1a59369a8bb1521080598addbbee994325b31599ec76ee599c22e8f";
       meta = with lib;
       {
         homepage = "https://github.com/extesy/hoverzoom/";
@@ -4342,6 +4342,7 @@
           "*://*.x.com/*"
           "*://*.twitter.com/*"
           "*://*.tweetdeck.com/*"
+          "*://gifbin.com/*"
           "*://*.ravelry.com/*"
           "*://*.jeuxvideo.com/*"
           "*://*.beautify.it/*"
@@ -4676,6 +4677,7 @@
           "*://*.pixabay.com/*"
           "*://*.freeimages.com/*"
           "*://*.artstation.com/*"
+          "*://*.artfol.co/*"
           "*://*.artsper.com/*"
           "*://*.istockphoto.com/*"
           "*://*.everystockphoto.com/*"
@@ -4990,6 +4992,7 @@
           "*://*.letterboxd.com/*"
           "*://*.figma.com/files/*"
           "*://*.kleinanzeigen.de/*"
+          "*://*.tenor.com/*"
           "*://*.trakt.tv/*"
           "*://*.vsco.co/*"
           "*://*.woot.com/*"
@@ -9693,10 +9696,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.11.5";
+      version = "24.11.9";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4382380/refined_github-24.11.5.xpi";
-      sha256 = "0458bbf32e6de4c9e69f1062533be6fa4820ce225380a1a996bd2097e2800fbf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4384896/refined_github-24.11.9.xpi";
+      sha256 = "3d67845be0059f85d85dfe85141a901b61cc6bc4d6e076e22beb91fd2b0e92f8";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
