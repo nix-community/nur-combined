@@ -1,24 +1,28 @@
-{ stdenv
-, fetchurl
-, autoPatchelfHook
-, lib
-, ...
+{
+  stdenv,
+  fetchurl,
+  autoPatchelfHook,
+  lib,
+  ...
 }:
 stdenv.mkDerivation rec {
   pname = "naiveproxy";
-  version = "128.0.6613.40-1";
+  version = "130.0.6723.40-5";
   preferLocalBuild = true;
 
-  src = fetchurl {
-    aarch64-linux = {
-      url = "https://github.com/klzgrad/naiveproxy/releases/download/v${version}/naiveproxy-v${version}-linux-arm64.tar.xz";
-      hash = "sha256-xs2VH5DWR0Q0JphFNL/dthaWk6gnHY5Iw0TDEDyA3LY=";
-    };
-    x86_64-linux = {
-      url = "https://github.com/klzgrad/naiveproxy/releases/download/v${version}/naiveproxy-v${version}-linux-x64.tar.xz";
-      hash = "sha256-wvORRJ3fepQpjX35Ks3U/8jBJhSqsGLyUDauzClUmYU=";
-    };
-  }.${stdenv.system} or (throw "naiveproxy-bin: ${stdenv.system} is unsupported.");
+  src =
+    fetchurl
+      {
+        aarch64-linux = {
+          url = "https://github.com/klzgrad/naiveproxy/releases/download/v${version}/naiveproxy-v${version}-linux-arm64.tar.xz";
+          hash = "sha256-4ajrs0bThy4tIoVGBH0bsjKzlAfpIyz/Cg9sGIRxZNo=";
+        };
+        x86_64-linux = {
+          url = "https://github.com/klzgrad/naiveproxy/releases/download/v${version}/naiveproxy-v${version}-linux-x64.tar.xz";
+          hash = "sha256-cAQL0/fwhYrO7lbiKsLlpvCQRY63NFPPSUCPKeM+D4o=";
+        };
+      }
+      .${stdenv.system} or (throw "naiveproxy-bin: ${stdenv.system} is unsupported.");
 
   nativeBuildInputs = [ autoPatchelfHook ];
   buildInputs = [ stdenv.cc.cc.libgcc ];
@@ -31,7 +35,7 @@ stdenv.mkDerivation rec {
 
     mkdir -p $out/share/doc/naiveproxy
     install -Dm644 USAGE.txt $out/share/doc/naiveproxy/USAGE.txt
-    
+
     mkdir -p $out/share/licenses/naiveproxy
     install -Dm644 LICENSE $out/share/licenses/naiveproxy/LICENSE
 
@@ -41,7 +45,6 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Make a fortune quietly";
     homepage = "https://github.com/klzgrad/naiveproxy";
-    downloadPage = "https://github.com/klzgrad/naiveproxy/releases";
     changelog = "https://github.com/klzgrad/naiveproxy/releases/tag/v${version}";
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
     license = lib.licenses.bsd3;
