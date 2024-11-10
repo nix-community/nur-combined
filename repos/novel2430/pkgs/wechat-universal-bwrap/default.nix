@@ -27,9 +27,39 @@
 , dpkg
 , jack2
 , xhost
+, nspr
+, zlib
+, atkmm
+, libdrm
+, xcbutilwm
+, xcbutilimage
+, xcbutilkeysyms
+, xcbutilrenderutil
+, wayland
+, openssl
+, atk
+, qt6
+, dbus
+, cups
+, libxml2
+, freetype
+, fontconfig
+, vulkan-loader
+, gdk-pixbuf
+, libexif
+, ffmpeg
+, pulseaudio
+, systemd
+, libuuid
+, expat
+, bzip2
+, glib
+, libGL
+, libnotify
+, buildFHSEnv
 }:
 let
-  libraries = [
+  libraries = with xorg; [
     alsa-lib
     at-spi2-atk
     at-spi2-core
@@ -38,14 +68,14 @@ let
     pango
     xdg-desktop-portal
     xdg-user-dirs
-    xorg.libXcursor
-    xorg.libXdamage
-    xorg.libXrandr
-    xorg.xcbutilimage
-    xorg.xcbutilkeysyms
-    xorg.xcbutilrenderutil
-    xorg.xcbutilwm
-    xorg.libXcomposite
+    libXcursor
+    libXdamage
+    libXrandr
+    xcbutilimage
+    xcbutilkeysyms
+    xcbutilrenderutil
+    xcbutilwm
+    libXcomposite
     cairo
     gtk3
     gtk4
@@ -56,6 +86,47 @@ let
     udev
     libxkbcommon
     jack2
+    zlib
+    libX11
+    libXt
+    libXext
+    libSM
+    libICE
+    libxcb
+    libxshmfence
+    libXi
+    libXft
+    libXScrnSaver
+    libXcomposite
+    libXdamage
+    libXtst
+    libnotify
+    atk
+    atkmm
+    dbus
+    cups
+    gdk-pixbuf
+    libexif
+    ffmpeg
+    libva
+    freetype
+    fontconfig
+    libXrender
+    libuuid
+    expat
+    glib
+    nss
+    nspr
+    libGL
+    libxml2
+    libdrm
+    vulkan-loader
+    systemd
+    wayland
+    pulseaudio
+    qt6.qt5compat
+    openssl
+    bzip2
   ];
 
   _lib_uos = "libuosdevicea";
@@ -107,6 +178,8 @@ let
 
     unpackCmd = "dpkg -x $src .";
     sourceRoot = ".";
+
+    dontWrapQtApps = true;
 
     installPhase = ''
       mkdir -p $out
@@ -217,6 +290,8 @@ stdenv.mkDerivation rec {
     copyDesktopItems
   ];
 
+  dontWrapQtApps = true;
+  
   installPhase = ''
     mkdir -p $out/bin
     echo 'Installing icons...'
