@@ -130,7 +130,7 @@ src.github_tag = "drone/drone-vault"
 fetch.github = "drone/drone-vault"
 
 [etherguard]
-src.git = "https://github.com/KusakabeShi/EtherGuard-VPN.git"
+src.github = "KusakabeShi/EtherGuard-VPN"
 fetch.github = "KusakabeShi/EtherGuard-VPN"
 
 [fastapi-dls]

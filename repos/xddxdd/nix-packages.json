@@ -470,7 +470,7 @@
     "version": "0.9.3"
   },
   "legacyPackages.x86_64-linux.dingtalk": {
-    "description": "钉钉",
+    "description": "DingTalk is an enterprise communication and collaboration platform developed by Alibaba Group",
     "pname": "dingtalk",
     "version": "7.6.15.4102301"
   },
@@ -505,9 +505,9 @@
     "version": "11.5.0"
   },
   "legacyPackages.x86_64-linux.etherguard": {
-    "description": "Layer2 version of wireguard with Floyd Warshall implement in go",
-    "pname": "etherguard-unstable",
-    "version": "2024-01-12"
+    "description": "Layer 2 version of WireGuard with Floyd Warshall implementation in Go",
+    "pname": "etherguard",
+    "version": "0.3.5-f5"
   },
   "legacyPackages.x86_64-linux.fastapi-dls": {
     "description": "Minimal Delegated License Service (DLS)",
@@ -620,7 +620,7 @@
     "version": "3.10.1"
   },
   "legacyPackages.x86_64-linux.kikoplay": {
-    "description": "KikoPlay - NOT ONLY A Full-Featured Danmu Player 不仅仅是全功能弹幕播放器",
+    "description": "KikoPlay - NOT ONLY A Full-Featured Danmu Player",
     "pname": "kikoplay",
     "version": "1.0.3"
   },
@@ -3444,11 +3444,6 @@
     "pname": "qemu-user-static",
     "version": "9.1.1+ds-3"
   },
-  "legacyPackages.x86_64-linux.qhttpengine": {
-    "description": "HTTP server for Qt applications",
-    "pname": "qhttpengine-unstable",
-    "version": "2018-03-22"
-  },
   "legacyPackages.x86_64-linux.qq": {
     "description": "QQ for Linux",
     "pname": "qq",
@@ -3505,12 +3500,12 @@
     "version": "2024-11-08"
   },
   "legacyPackages.x86_64-linux.rime-moegirl": {
-    "description": "Releases for dict of zh.moegirl.org.cn",
+    "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
     "pname": "rime-moegirl",
     "version": "20241009"
   },
   "legacyPackages.x86_64-linux.rime-zhwiki": {
-    "description": "Fcitx 5 Pinyin Dictionary from zh.wikipedia.org",
+    "description": "RIME dictionary file for entries from zh.wikipedia.org",
     "pname": "rime-zhwiki",
     "version": "20240426"
   },
@@ -3855,7 +3850,7 @@
     "version": "0.9.3"
   },
   "packages.x86_64-linux.dingtalk": {
-    "description": "钉钉",
+    "description": "DingTalk is an enterprise communication and collaboration platform developed by Alibaba Group",
     "pname": "dingtalk",
     "version": "7.6.15.4102301"
   },
@@ -3890,9 +3885,9 @@
     "version": "11.5.0"
   },
   "packages.x86_64-linux.etherguard": {
-    "description": "Layer2 version of wireguard with Floyd Warshall implement in go",
-    "pname": "etherguard-unstable",
-    "version": "2024-01-12"
+    "description": "Layer 2 version of WireGuard with Floyd Warshall implementation in Go",
+    "pname": "etherguard",
+    "version": "0.3.5-f5"
   },
   "packages.x86_64-linux.fastapi-dls": {
     "description": "Minimal Delegated License Service (DLS)",
@@ -4005,7 +4000,7 @@
     "version": "3.10.1"
   },
   "packages.x86_64-linux.kikoplay": {
-    "description": "KikoPlay - NOT ONLY A Full-Featured Danmu Player 不仅仅是全功能弹幕播放器",
+    "description": "KikoPlay - NOT ONLY A Full-Featured Danmu Player",
     "pname": "kikoplay",
     "version": "1.0.3"
   },
@@ -4259,11 +4254,6 @@
     "pname": "qemu-user-static",
     "version": "9.1.1+ds-3"
   },
-  "packages.x86_64-linux.qhttpengine": {
-    "description": "HTTP server for Qt applications",
-    "pname": "qhttpengine-unstable",
-    "version": "2018-03-22"
-  },
   "packages.x86_64-linux.qq": {
     "description": "QQ for Linux",
     "pname": "qq",
@@ -4320,12 +4310,12 @@
     "version": "2024-11-08"
   },
   "packages.x86_64-linux.rime-moegirl": {
-    "description": "Releases for dict of zh.moegirl.org.cn",
+    "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
     "pname": "rime-moegirl",
     "version": "20241009"
   },
   "packages.x86_64-linux.rime-zhwiki": {
-    "description": "Fcitx 5 Pinyin Dictionary from zh.wikipedia.org",
+    "description": "RIME dictionary file for entries from zh.wikipedia.org",
     "pname": "rime-zhwiki",
     "version": "20240426"
   },

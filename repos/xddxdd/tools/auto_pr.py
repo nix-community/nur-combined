@@ -38,6 +38,9 @@ class NvfetcherDefinition:
         version = re.search(r"^\s+version\s+=\s+(.+);$", result, re.MULTILINE)[1]
         src = re.search(r"^\s+src\s+=\s+((.|\n)+?\n\s+\});$", result, re.MULTILINE)[1]
 
+        if version.startswith('"v'):
+            version = '"' + version[2:]
+
         date_match = re.search(r"^\s+date\s+=\s+\"(.+)\";$", result, re.MULTILINE)
         if date_match:
             if re.match(r"\"[0-9a-f]{40}\"", version):

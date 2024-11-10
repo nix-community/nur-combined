@@ -624,7 +624,7 @@
     },
     "etherguard": {
         "cargoLocks": null,
-        "date": "2024-01-12",
+        "date": null,
         "extract": null,
         "name": "etherguard",
         "passthru": null,
@@ -636,12 +636,12 @@
             "name": null,
             "owner": "KusakabeShi",
             "repo": "EtherGuard-VPN",
-            "rev": "f622f2a15b91fc54286f3d1f95d59adebab1a4f7",
+            "rev": "v0.3.5-f5",
             "sha256": "sha256-67ocXHf+AN3nyPt4636ZJHGRqWSjkpTiDvU5243urBw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f622f2a15b91fc54286f3d1f95d59adebab1a4f7"
+        "version": "v0.3.5-f5"
     },
     "fastapi-dls": {
         "cargoLocks": null,
@@ -1848,7 +1848,7 @@
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
             "rev": "0.7.0",
-            "sha256": "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=",
+            "sha256": "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=",
             "sparseCheckout": [],
             "type": "github"
         },

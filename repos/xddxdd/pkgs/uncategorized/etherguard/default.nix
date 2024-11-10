@@ -11,7 +11,7 @@ buildGoModule rec {
   meta = {
     mainProgram = "EtherGuard-VPN";
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "Layer2 version of wireguard with Floyd Warshall implement in go";
+    description = "Layer 2 version of WireGuard with Floyd Warshall implementation in Go";
     homepage = "https://github.com/KusakabeShi/EtherGuard-VPN";
     license = lib.licenses.mit;
   };

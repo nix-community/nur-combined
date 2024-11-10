@@ -5,6 +5,7 @@
 }:
 stdenvNoCC.mkDerivation rec {
   inherit (sources.rime-moegirl) pname version src;
+
   dontUnpack = true;
   installPhase = ''
     runHook preInstall
@@ -17,7 +18,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "Releases for dict of zh.moegirl.org.cn";
+    description = "RIME dictionary file for entries from zh.moegirl.org.cn";
     homepage = "https://github.com/outloudvi/mw2fcitx/releases";
     license = lib.licenses.unlicense;
   };

@@ -211,7 +211,9 @@ stdenv.mkDerivation rec {
     runHook postUnpack
   '';
 
-  postInstall = ''
+  installPhase = ''
+    runHook preInstall
+
     install -Dm644 version $out/version
 
     # Move libraries
@@ -231,7 +233,9 @@ stdenv.mkDerivation rec {
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}"
 
     # App Menu
-    install -Dm644 ${./dingtalk.png} $out/share/pixmaps/dingtalk.png
+    install -Dm644 $out/lib/Resources/image/common/about/logo.png $out/share/pixmaps/dingtalk.png
+
+    runHook postInstall
   '';
 
   desktopItems = [
@@ -253,9 +257,10 @@ stdenv.mkDerivation rec {
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "钉钉";
+    description = "DingTalk is an enterprise communication and collaboration platform developed by Alibaba Group";
     homepage = "https://www.dingtalk.com/";
     platforms = [ "x86_64-linux" ];
     license = lib.licenses.unfreeRedistributable;
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
   };
 }

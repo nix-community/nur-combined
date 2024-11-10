@@ -323,14 +323,13 @@
   };
   etherguard = {
     pname = "etherguard";
-    version = "f622f2a15b91fc54286f3d1f95d59adebab1a4f7";
+    version = "v0.3.5-f5";
     src = fetchFromGitHub {
       owner = "KusakabeShi";
       repo = "EtherGuard-VPN";
-      rev = "f622f2a15b91fc54286f3d1f95d59adebab1a4f7";
+      rev = "v0.3.5-f5";
       hash = "sha256-67ocXHf+AN3nyPt4636ZJHGRqWSjkpTiDvU5243urBw=";
     };
-    date = "2024-01-12";
   };
   fastapi-dls = {
     pname = "fastapi-dls";
@@ -944,7 +943,7 @@
       owner = "open-quantum-safe";
       repo = "oqs-provider";
       rev = "0.7.0";
-      hash = "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=";
+      hash = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
     };
   };
   osdlyrics = {
