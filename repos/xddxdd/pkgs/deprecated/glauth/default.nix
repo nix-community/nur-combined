@@ -20,5 +20,8 @@ buildGoModule rec {
     description = "Lightweight LDAP server for development, home use, or CI";
     homepage = "https://github.com/glauth/glauth";
     license = lib.licenses.mit;
+    knownVulnerabilities = [
+      "glauth is available in nixpkgs by a different maintainer"
+    ];
   };
 }
