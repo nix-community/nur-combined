@@ -97,6 +97,19 @@
         "url": "https://github.com/Shados/facade.nvim/archive/5b68a13810d6375b7a21d10f9e0b5dcc1e5526f6.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "factorio-sat": {
+        "branch": "main",
+        "builtin": false,
+        "description": "Enhancing the Factorio experience with SAT solvers",
+        "homepage": "",
+        "owner": "R-O-C-K-E-T",
+        "repo": "Factorio-SAT",
+        "rev": "4b3dd780aa2fccfd5f20ae4385395736596f22e4",
+        "sha256": "0nmxnnfd2pi5h5l24hkypzih5xq81gfxiqlpnnqx1j0h27jgjpq7",
+        "type": "tarball",
+        "url": "https://github.com/R-O-C-K-E-T/Factorio-SAT/archive/4b3dd780aa2fccfd5f20ae4385395736596f22e4.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "firefox-history-merger": {
         "branch": "master",
         "builtin": false,
@@ -199,6 +212,19 @@
         "sha256": "0bhph43pn50brcn2dcm2g7m9wl8q886cacbf4rfbivnvnmiz05mw",
         "type": "tarball",
         "url": "https://github.com/nix-community/naersk/archive/275010712ce41dff66634f9910bc1f085239b370.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "py-lua-parser": {
+        "branch": "master",
+        "builtin": false,
+        "description": "A Lua parser and AST builder written in Python.",
+        "homepage": "",
+        "owner": "boolangery",
+        "repo": "py-lua-parser",
+        "rev": "3.3.0",
+        "sha256": "1c6pqdvi7z8g6qh06g6f59pivz3a9961s1nwp7ww7j58lwz9i1za",
+        "type": "tarball",
+        "url": "https://github.com/boolangery/py-lua-parser/archive/3.3.0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "sfutils": {
