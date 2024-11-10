@@ -799,7 +799,7 @@ Tool to generate flags for your CPU.
 - Update Script: ✔️
 </details>
 
-### `fastfetch` `2.28.0` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/blob/2.28.0/CHANGELOG.md "Changelog") [📦](./pkgs/by-name/fastfetch/package.nix#L234 "Source")
+### `fastfetch` `2.29.0` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/blob/2.29.0/CHANGELOG.md "Changelog") [📦](./pkgs/by-name/fastfetch/package.nix#L234 "Source")
 
 Like neofetch, but much faster because written in C.
 
@@ -821,7 +821,7 @@ Like neofetch, but much faster because written in C.
 - Update Script: ✔️
 </details>
 
-### `fastfetchMinimal` `2.28.0` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/blob/2.28.0/CHANGELOG.md "Changelog") [📦](./default.nix#L50 "Source")
+### `fastfetchMinimal` `2.29.0` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/blob/2.29.0/CHANGELOG.md "Changelog") [📦](./default.nix#L50 "Source")
 
 Like neofetch, but much faster because written in C (with all features disabled).
 
@@ -843,7 +843,7 @@ Like neofetch, but much faster because written in C (with all features disabled)
 - Update Script: ✔️
 </details>
 
-### `firefox-gnome-theme` `131` [🌐](https://github.com/rafaelmardojai/firefox-gnome-theme "Homepage") [📦](./pkgs/by-name/firefox-gnome-theme/package.nix#L30 "Source")
+### `firefox-gnome-theme` `132` [🌐](https://github.com/rafaelmardojai/firefox-gnome-theme "Homepage") [📦](./pkgs/by-name/firefox-gnome-theme/package.nix#L30 "Source")
 
 A GNOME theme for Firefox.
 
@@ -3018,7 +3018,7 @@ Phonon Backend using MPV Player.
 - Update Script: ✔️
 </details>
 
-### `plasma-camera` `1.0-unstable-2024-09-20` [🌐](https://invent.kde.org/plasma-mobile/plasma-camera "Homepage") [📦](./pkgs/by-name/plasma-camera/package.nix#L52 "Source")
+### `plasma-camera` `1.0-unstable-2024-11-10` [🌐](https://invent.kde.org/plasma-mobile/plasma-camera "Homepage") [📦](./pkgs/by-name/plasma-camera/package.nix#L52 "Source")
 
 Camera application for Plasma Mobile.
 
@@ -3039,7 +3039,7 @@ Camera application for Plasma Mobile.
 - Update Script: ✔️
 </details>
 
-### `pnut` `SLE2024-artifact-unstable-2024-10-24` [🌐](https://github.com/udem-dlteam/pnut "Homepage") [📦](./pkgs/by-name/pnut/package.nix#L44 "Source")
+### `pnut` `SLE2024-artifact-unstable-2024-11-04` [🌐](https://github.com/udem-dlteam/pnut "Homepage") [📦](./pkgs/by-name/pnut/package.nix#L44 "Source")
 
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 
@@ -3168,7 +3168,7 @@ Fan sequel to Super Mario 63.
 - Update Script: ❌
 </details>
 
-### `supermodel` `0-unstable-2024-10-20` [🌐](https://github.com/trzy/Supermodel "Homepage") [📦](./pkgs/by-name/supermodel/package.nix#L63 "Source")
+### `supermodel` `0-unstable-2024-11-07` [🌐](https://github.com/trzy/Supermodel "Homepage") [📦](./pkgs/by-name/supermodel/package.nix#L63 "Source")
 
 Sega Model 3 arcade machine emulator.
 
@@ -3408,7 +3408,7 @@ Detect non-inclusive language in your source code.
 - Update Script: ✔️
 </details>
 
-### `yyjson_0_10` `0.10.0` [🌐](https://github.com/ibireme/yyjson "Homepage") [📰](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md "Changelog") [📦](https://github.com/NixOS/nixpkgs/blob/30c9efe/pkgs/development/libraries/yyjson/default.nix#L23 "Source")
+### `yyjson_0_10` `0.10.0` [🌐](https://github.com/ibireme/yyjson "Homepage") [📰](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md "Changelog") [📦](https://github.com/NixOS/nixpkgs/blob/85f7e66/pkgs/development/libraries/yyjson/default.nix#L23 "Source")
 
 Fastest JSON library in C.
 
