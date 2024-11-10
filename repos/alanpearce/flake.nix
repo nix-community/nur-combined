@@ -18,6 +18,9 @@
       legacyPackages = forAllSystems (system: (import ./default.nix {
         pkgs = import nixpkgs { inherit system; };
       }));
+      nixosModules = {
+        laminar = ./modules/nixos/laminar.nix;
+      };
       darwinModules = {
         caddy = ./modules/darwin/caddy;
       };
