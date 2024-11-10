@@ -1,59 +1,67 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, callPackage
-, fetchpatch
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  callPackage,
+  fetchpatch,
 
   # Required build tools
-, cmake
-, makeWrapper
-, pkg-config
+  cmake,
+  makeWrapper,
+  pkg-config,
 
   # Required dependencies
-, fftw
-, liblo
-, minixml
-, zlib
+  fftw,
+  liblo,
+  minixml,
+  zlib,
 
   # Optional dependencies
-, alsaSupport ? stdenv.hostPlatform.isLinux
-, alsa-lib
-, dssiSupport ? false
-, dssi
-, ladspaH
-, jackSupport ? true
-, libjack2
-, lashSupport ? false
-, lash
-, ossSupport ? true
-, portaudioSupport ? true
-, portaudio
-, sndioSupport ? stdenv.hostPlatform.isOpenBSD
-, sndio
+  alsaSupport ? stdenv.hostPlatform.isLinux,
+  alsa-lib,
+  dssiSupport ? false,
+  dssi,
+  ladspaH,
+  jackSupport ? true,
+  libjack2,
+  lashSupport ? false,
+  lash,
+  ossSupport ? true,
+  portaudioSupport ? true,
+  portaudio,
+  sndioSupport ? stdenv.hostPlatform.isOpenBSD,
+  sndio,
 
   # Optional GUI dependencies
-, guiModule ? "off"
-, cairo
-, fltk
-, libGL
-, libjpeg
-, libX11
-, libXpm
-, ntk
+  guiModule ? "off",
+  cairo,
+  fltk,
+  libGL,
+  libjpeg,
+  libX11,
+  libXpm,
+  ntk,
 
   # Test dependencies
-, cxxtest
-, ruby
+  cxxtest,
+  ruby,
 }:
 
-assert builtins.any (g: guiModule == g) [ "fltk" "ntk" "zest" "off" ];
+assert builtins.any (g: guiModule == g) [
+  "fltk"
+  "ntk"
+  "zest"
+  "off"
+];
 
 let
-  guiName = {
-    "fltk" = "FLTK";
-    "ntk" = "NTK";
-    "zest" = "Zyn-Fusion";
-  }.${guiModule};
+  guiName =
+    {
+      "fltk" = "FLTK";
+      "ntk" = "NTK";
+      "zest" = "Zyn-Fusion";
+    }
+    .${guiModule};
 
   mruby-zest = callPackage ./mruby-zest { };
 in
@@ -69,7 +77,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-0siAx141DZx39facXWmKbsi0rHBNpobApTdey07EcXg=";
   };
 
-  outputs = [ "out" "doc" ];
+  outputs = [
+    "out"
+    "doc"
+  ];
 
   patches = [
     # Lazily expand ZYN_DATADIR to fix builtin banks across updates
@@ -83,18 +94,42 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs rtosc/test/test-port-checker.rb src/Tests/check-ports.rb
   '';
 
-  nativeBuildInputs = [ cmake makeWrapper pkg-config ];
+  nativeBuildInputs = [
+    cmake
+    makeWrapper
+    pkg-config
+  ];
 
-  buildInputs = [ fftw liblo minixml zlib ]
+  buildInputs =
+    [
+      fftw
+      liblo
+      minixml
+      zlib
+    ]
     ++ lib.optionals alsaSupport [ alsa-lib ]
-    ++ lib.optionals dssiSupport [ dssi ladspaH ]
+    ++ lib.optionals dssiSupport [
+      dssi
+      ladspaH
+    ]
     ++ lib.optionals jackSupport [ libjack2 ]
     ++ lib.optionals lashSupport [ lash ]
     ++ lib.optionals portaudioSupport [ portaudio ]
     ++ lib.optionals sndioSupport [ sndio ]
-    ++ lib.optionals (guiModule == "fltk") [ fltk libjpeg libXpm ]
-    ++ lib.optionals (guiModule == "ntk") [ ntk cairo libXpm ]
-    ++ lib.optionals (guiModule == "zest") [ libGL libX11 ];
+    ++ lib.optionals (guiModule == "fltk") [
+      fltk
+      libjpeg
+      libXpm
+    ]
+    ++ lib.optionals (guiModule == "ntk") [
+      ntk
+      cairo
+      libXpm
+    ]
+    ++ lib.optionals (guiModule == "zest") [
+      libGL
+      libX11
+    ];
 
   cmakeFlags =
     [
@@ -113,18 +148,25 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   doCheck = true;
-  nativeCheckInputs = [ cxxtest ruby ];
+  nativeCheckInputs = [
+    cxxtest
+    ruby
+  ];
 
   # TODO: Update cmake hook to make it simpler to selectively disable cmake tests: #113829
   checkPhase =
     let
       disabledTests =
-        # PortChecker test fails when lashSupport is enabled because
-        # zynaddsubfx takes to long to start trying to connect to lash
-        lib.optionals lashSupport [ "PortChecker" ]
+        # PortChecker is non-deterministic. It's fixed in the master
+        # branch, but backporting would require an update to rtosc, so
+        # we'll just disable it until the next release.
+        [ "PortChecker" ]
 
         # Tests fail on aarch64
-        ++ lib.optionals stdenv.hostPlatform.isAarch64 [ "MessageTest" "UnisonTest" ];
+        ++ lib.optionals stdenv.hostPlatform.isAarch64 [
+          "MessageTest"
+          "UnisonTest"
+        ];
     in
     ''
       runHook preCheck
@@ -157,9 +199,10 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "High quality software synthesizer (${guiName} GUI)";
     homepage =
-      if guiModule == "zest"
-      then "https://zynaddsubfx.sourceforge.io/zyn-fusion.html"
-      else "https://zynaddsubfx.sourceforge.io";
+      if guiModule == "zest" then
+        "https://zynaddsubfx.sourceforge.io/zyn-fusion.html"
+      else
+        "https://zynaddsubfx.sourceforge.io";
 
     license = licenses.gpl2Plus;
     maintainers = with maintainers; [ kira-bruneau ];
