@@ -105,6 +105,7 @@ in
       poppler_utils # pdfinfo
       pup
       pwgen
+      pwvucontrol
       qalculate-gtk
       ripgrep
       rsync

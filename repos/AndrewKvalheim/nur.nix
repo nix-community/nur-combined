@@ -1,5 +1,6 @@
 { pkgs }:
 
+# Published as nur.repos.AndrewKvalheim (https://nur.nix-community.org/repos/andrewkvalheim/)
 rec {
   hmModules = {
     nixpkgs-issue-55674 = import ./packages/nixpkgs-issue-55674.nix;
