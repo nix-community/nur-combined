@@ -52,6 +52,7 @@
     librespeed-cli
     lsof
     meld
+    minicom
     nali
     neovim
     nix-tree
@@ -61,6 +62,7 @@
     p7zip
     pavucontrol
     pciutils
+    python3
     qrencode
     rust-petname
     sops

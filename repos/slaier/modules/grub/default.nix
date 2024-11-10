@@ -12,6 +12,7 @@
     efiSupport = true;
     useOSProber = true;
     splashImage = "${config.boot.loader.grub.theme}/background.png";
+    configurationLimit = 20;
   };
   boot.loader.efi.canTouchEfiVariables = true;
 }
