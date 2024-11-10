@@ -13,6 +13,8 @@
 , pnpm
 }:
 let
+  nixpkgsVersion = lib.versions.majorMinor lib.version;
+
   fixupPackageJson = {
     pnpmPatch = builtins.toJSON {
       pnpm.supportedArchitectures = {
@@ -50,7 +52,10 @@ in stdenv.mkDerivation (finalAttrs: {
     inherit (fixupPackageJson) pnpmPatch;
     postPatch = fixupPackageJson.patch;
 
-    hash = "sha256-dudncSOHjg35z1E9zQnv6F3BidnylEbkolVSbB7DoRo=";
+    hash = {
+      "24.05" = "sha256-dudncSOHjg35z1E9zQnv6F3BidnylEbkolVSbB7DoRo=";
+      "24.11" = "sha256-64W3j5TvbVVOyujXE0hmKWtUrHab/uQ1PF+M9UM1v64=";
+    }.${nixpkgsVersion};
   };
 
   recipes = stdenv.mkDerivation (recipesFinalAttrs: {
@@ -70,7 +75,10 @@ in stdenv.mkDerivation (finalAttrs: {
       inherit (fixupPackageJson) pnpmPatch;
       postPatch = fixupPackageJson.patch;
 
-      hash = "sha256-PvN+T/dhm1P/bOkwme7Xyixz/VZQSQRlfj9otEjtJHw=";
+      hash = {
+        "24.05" = "sha256-PvN+T/dhm1P/bOkwme7Xyixz/VZQSQRlfj9otEjtJHw=";
+        "24.11" = "sha256-pk5z5t75TuRQ7GWA/SvgTM5C0RvHDxJ7w/A6Js76vJ8=";
+      }.${nixpkgsVersion};
     };
 
     inherit (fixupPackageJson) pnpmPatch;

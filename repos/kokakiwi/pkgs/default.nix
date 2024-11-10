@@ -34,6 +34,7 @@ let
     enquirer = { };
     ferdium = {
       pnpm = pkgs.pnpm_9;
+      nodejs = pkgs.nodejs_20;
     };
     go-mod-upgrade = { };
     imhex = { };
