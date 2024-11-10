@@ -164,6 +164,9 @@
 
       hydraJobs = {
         cuda = ciJobs.cuda;
+      };
+
+      hydraJobsAarch64 = {
         aarch64 = ciJobs."aarch64-linux";
       };
     };

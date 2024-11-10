@@ -33,6 +33,8 @@ jobs:
         exclude:
           - arch: x86_64
             os: macos-latest
+          - arch: aarch64
+            os: ubuntu-latest
     runs-on: ${{ matrix.os }}
     permissions:
       contents: read
@@ -77,10 +79,6 @@ jobs:
     - name: Build x86_64 nix packages
       if: ${{ matrix.os == 'ubuntu-latest' && matrix.arch == 'x86_64' }}
       run: nix run nixpkgs#nix-build-uncached -- -build-flags '-L' ./nix/ci.nix
-
-    - name: Build aarch64 nix packages
-      if: ${{ matrix.os == 'ubuntu-latest' && matrix.arch == 'aarch64' }}
-      run: nix run nixpkgs#nix-build-uncached -- -build-flags '-L' ./nix/ci_aarch64_cross.nix
 
     - name: Build darwin nix packages
       if: ${{ matrix.os == 'macos-latest'}}
