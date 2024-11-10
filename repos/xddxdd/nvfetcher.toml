@@ -559,9 +559,9 @@ src.github = "outloudvi/mw2fcitx"
 fetch.url = "https://github.com/outloudvi/mw2fcitx/releases/download/$ver/moegirl.dict.yaml"
 
 [rime-zhwiki]
-src.webpage = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/expanded_assets/0.2.4"
+src.webpage = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/expanded_assets/0.2.5"
 src.regex = "zhwiki-([0-9]{8})\\.dict\\.yaml"
-fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-$ver.dict.yaml"
+fetch.url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.5/zhwiki-$ver.dict.yaml"
 
 [route-chain]
 src.git = "https://github.com/xddxdd/route-chain.git"

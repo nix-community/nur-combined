@@ -943,7 +943,7 @@
       owner = "open-quantum-safe";
       repo = "oqs-provider";
       rev = "0.7.0";
-      hash = "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=";
+      hash = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
     };
   };
   osdlyrics = {
@@ -1294,10 +1294,10 @@
   };
   rime-zhwiki = {
     pname = "rime-zhwiki";
-    version = "20240426";
+    version = "20240909";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.4/zhwiki-20240426.dict.yaml";
-      hash = "sha256-CcXyC/vnplJleDlhpgiYhwcA4hHjzqt5K1FMDjmamqc=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.5/zhwiki-20240909.dict.yaml";
+      hash = "sha256-ZQ8orW7jEbPtOEvYYxdnTJGTwdXVZBEWjUMYR93vOCE=";
     };
   };
   route-chain = {

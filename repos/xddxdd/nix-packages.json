@@ -3507,7 +3507,7 @@
   "legacyPackages.x86_64-linux.rime-zhwiki": {
     "description": "RIME dictionary file for entries from zh.wikipedia.org",
     "pname": "rime-zhwiki",
-    "version": "20240426"
+    "version": "20240909"
   },
   "legacyPackages.x86_64-linux.route-chain": {
     "description": "Small app to generate a long path in traceroute",
@@ -4317,7 +4317,7 @@
   "packages.x86_64-linux.rime-zhwiki": {
     "description": "RIME dictionary file for entries from zh.wikipedia.org",
     "pname": "rime-zhwiki",
-    "version": "20240426"
+    "version": "20240909"
   },
   "packages.x86_64-linux.route-chain": {
     "description": "Small app to generate a long path in traceroute",

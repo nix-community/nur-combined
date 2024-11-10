@@ -3,7 +3,7 @@
   sources,
   lib,
 }:
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   inherit (sources.rime-moegirl) pname version src;
 
   dontUnpack = true;
