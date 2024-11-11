@@ -7,7 +7,6 @@
 #     nix-build -A mypackage
 {pkgs ? import <nixpkgs> {}}: rec {
   cargo-vibe = pkgs.callPackage ./pkgs/cargo-vibe {};
-  explode = pkgs.callPackage ./pkgs/explode {};
   github-linguist = pkgs.callPackage ./pkgs/github-linguist {};
   openmoji = pkgs.callPackage ./pkgs/openmoji {};
   openmojiPackage = pkgs.callPackage ./pkgs/openmoji/single.nix {inherit openmoji;};
