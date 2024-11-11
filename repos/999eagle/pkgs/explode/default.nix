@@ -1,11 +1,12 @@
 {
   writeShellApplication,
   imagemagick,
+  oxipng,
   fetchFromGitHub,
   stdenv,
 }: let
   explode = stdenv.mkDerivation {
-    pname = "explode.gif";
+    pname = "explode";
     version = "0-unstable-2024-07-11";
     src = fetchFromGitHub {
       owner = "mothdotmonster";
@@ -14,14 +15,16 @@
       hash = "sha256-KwPfVNpFp49UC/XfhizfitXvEg7gaeow7YwXydx5D4Q=";
     };
 
-    nativeBuildInputs = [imagemagick];
+    nativeBuildInputs = [imagemagick oxipng];
 
     buildPhase = ''
-      magick res/*.gif explode.gif
-    '';
-    installPhase = ''
       mkdir -p $out
-      cp explode.gif $out/
+
+      for gif in res/*.gif; do
+        magick "$gif" "''${gif%%.*}.png"
+        oxipng -o max --strip all -a -i 0 "''${gif%%.*}.png"
+        cp "''${gif%%.*}.png" $out/
+      done
     '';
   };
 in
@@ -30,4 +33,5 @@ in
     text = builtins.readFile ./script.sh;
     runtimeEnv = {inherit explode;};
     runtimeInputs = [imagemagick];
+    derivationArgs.passthru = {inherit explode;};
   }
