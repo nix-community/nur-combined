@@ -81,18 +81,7 @@ edit-sec *args:
                                   reduce {|it, acc| $it + (char newline) + $acc } |
                                   fzf
     if (not ($encrypted_file_tob_edit | path exists)) { print -e "Not found"; exit }
-    let tmp_file = (mktemp -t)
-    rage -d $encrypted_file_tob_edit -i $age_pub -o $tmp_file
-    let pre_hash = b3sum --no-names $tmp_file
-    print $pre_hash
-    hx $tmp_file
-    let after_hash = b3sum --no-names $tmp_file
-    if ($pre_hash != $after_hash) {
-      rage -e $tmp_file -i $age_pub -i {{ yubikey-ident }} -o $encrypted_file_tob_edit
-    } else {
-      print $after_hash "file not change"
-    }
-    srm -C $tmp_file
+    nix run $'.#vaultix.(uname | $'($in.machine)-($in.kernel-name | str downcase)').edit' -- $encrypted_file_tob_edit
 
 decrypt *args:
     #!/usr/bin/env nu
