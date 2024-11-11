@@ -87,6 +87,15 @@ Load custom module files from user directory (like: notmuch-switch-identity, not
     (setq evil-collection-mode-list '(dashboard dired ibuffer))
     (evil-collection-init))
 #+end_src
+
+Treat underscore as part of words
+#+begin_src emacs-lisp
+;; https://emacs.stackexchange.com/questions/9583/how-to-treat-underscore-as-part-of-the-word
+(with-eval-after-load 'evil
+    (defalias #'forward-evil-word #'forward-evil-symbol)
+    ;; make evil-search-word look for symbol rather than word boundaries
+    (setq-default evil-symbol-word-search t))
+#+end_src
 * General Keybindings
 #+begin_src emacs-lisp
   (use-package general
@@ -488,21 +497,23 @@ Org-tempo is not a separate package but a module within org that can be enabled.
     :config
     (require 'shrface))
 
-  (use-package request :ensure t)
+  (use-package org-web-tools :ensure t)
 
-  (defun request-url-as-org (url)
-    (interactive "sRequest url: ")
-    (require 'shrface)
-    (require 'request)
-    (request url
-      :parser 'buffer-string
-      :headers '(("User-Agent" . "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.101 Safari/537.36"))
-      :sync nil
-      :success (cl-function
-                (lambda (&key data &allow-other-keys)
-                  (let ((shrface-request-url url))
-                    (shrface-html-export-as-org data))))))
-
+  ;; https://www.reddit.com/r/emacs/comments/l42x1p/shrface_263_now_can_be_used_as_archiving_web_pages/
+(defun request-url-as-org (url)
+  (interactive "sRequest url: ")
+  (require 'shrface)
+  (let ((name "request-url")
+        (buf "*request-url*")
+        (cmd (format "curl -L %s" url)))
+    (if (get-buffer buf)
+        (kill-buffer buf))
+    (set-process-sentinel
+     (start-process-shell-command name buf cmd)
+     (lambda (p e)
+       (when (= 0 (process-exit-status p))
+         (with-current-buffer buf
+           (shrface-html-export-as-org (buffer-string))))))))
 #+end_src
 
 * Server
@@ -1324,7 +1335,11 @@ https://protesilaos.com/emacs/denote
   :ensure t
   :config
   (setq
-   denote-directory (expand-file-name "~/Documents/denotes/")
+   denote-directory (expand-file-name "~/Documents/denotes")
+   denote-silo-extras-directories '(
+      "~/Documents/denotes"
+      "~/work/notes"
+   )
    denote-known-keywords '("project" "testing" "emacs" "denote")
    denote-file-type nil ;; default Org
    )
@@ -1333,10 +1348,10 @@ https://protesilaos.com/emacs/denote
     "n" '(:ignore t :wk "Denote")
     "n n" #'denote
     "n c" #'denote-open-or-create
+    "n s" #'denote-silo-extras-open-or-create
     "n N" #'denote-type
     "n d" #'denote-date
     "n z" #'denote-signature ; "zettelkasten" mnemonic
-    "n s" #'denote-subdirectory
     "n t" #'denote-template
     ;; If you intend to use Denote with a variety of file types, it is
     ;; easier to bind the link-related commands to the `global-map', as
