@@ -7,11 +7,11 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "maptourist";
-  version = "2024-01-26";
+  version = "2024-11-10";
 
   src = fetchurl {
     url = "https://maptourist.org/osm-garmin/archive/OSM-MapTourist-Russia-gmapsupp-RU_${version}.zip";
-    hash = "sha256-2NWJwXIaCYgKjdMzpB5DGCAeWoyWMqKtjRR+C/P1ZLA=";
+    hash = "sha256-Lrnqa3RCCo2A6/tLfb3gxqTjTFTY4DP6ZBv8wgBrUew=";
   };
 
   sourceRoot = ".";
