@@ -15,9 +15,9 @@
     "version": "1.0.4"
   },
   "legacyPackages.x86_64-linux.amule-dlp": {
-    "description": "Peer-to-peer client for the eD2K and Kademlia networks",
-    "pname": "amule-dlp-unstable",
-    "version": "2023-03-02"
+    "description": "Peer-to-peer client for the eD2K and Kademlia networks (with Dynamic Leech Protection)",
+    "pname": "amule-dlp",
+    "version": "2.3.2-unstable-2023-03-02"
   },
   "legacyPackages.x86_64-linux.ast": {
     "description": "Aspeed Graphics Driver",
@@ -26,8 +26,8 @@
   },
   "legacyPackages.x86_64-linux.asterisk-g72x": {
     "description": "G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled)",
-    "pname": "asterisk-g72x-unstable",
-    "version": "2024-10-12"
+    "pname": "asterisk-g72x",
+    "version": "0-unstable-2024-10-12"
   },
   "legacyPackages.x86_64-linux.asteriskDigiumCodecs.10.g729a": {
     "description": "Asterisk 10 g729a Codec by Digium",
@@ -391,8 +391,8 @@
   },
   "legacyPackages.x86_64-linux.baidupcs-go": {
     "description": "Baidu Netdisk commandline client, mimicking Linux shell file handling commands",
-    "pname": "baidupcs-go-unstable",
-    "version": "2024-06-23"
+    "pname": "baidupcs-go",
+    "version": "3.9.5-unstable-2024-06-23"
   },
   "legacyPackages.x86_64-linux.bepasty": {
     "description": "Universal pastebin server",
@@ -416,8 +416,8 @@
   },
   "legacyPackages.x86_64-linux.boringssl-oqs": {
     "description": "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs",
-    "pname": "boringssl-oqs-unstable",
-    "version": "2024-10-09"
+    "pname": "boringssl-oqs",
+    "version": "0-unstable-2024-10-09"
   },
   "legacyPackages.x86_64-linux.browser360": {
     "description": "360 Browser",
@@ -446,13 +446,13 @@
   },
   "legacyPackages.x86_64-linux.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
-    "pname": "cockpy-unstable",
-    "version": "2024-09-07"
+    "pname": "cockpy",
+    "version": "0-unstable-2024-09-07"
   },
   "legacyPackages.x86_64-linux.cryptodev-unstable": {
     "description": "Device that allows access to Linux kernel cryptographic drivers",
-    "pname": "cryptodev-linux-unstable",
-    "version": "2024-10-10"
+    "pname": "cryptodev-linux",
+    "version": "1.14-unstable-2024-10-10"
   },
   "legacyPackages.x86_64-linux.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
@@ -481,18 +481,18 @@
   },
   "legacyPackages.x86_64-linux.douban-openapi-server": {
     "description": "Douban API server that provides an unofficial APIs for media information gathering",
-    "pname": "douban-openapi-server-unstable",
-    "version": "2022-12-17"
+    "pname": "douban-openapi-server",
+    "version": "0-unstable-2022-12-17"
   },
   "legacyPackages.x86_64-linux.dpdk-kmod": {
     "description": "DPDK kernel modules or add-ons",
-    "pname": "dpdk-kmod-unstable",
-    "version": "2023-02-05"
+    "pname": "dpdk-kmod",
+    "version": "0-unstable-2023-02-05"
   },
   "legacyPackages.x86_64-linux.drone-file-secret": {
     "description": "Secret provider for Drone CI. It simply reads secrets from a given folder, suitable for private use Drone CI instances where running a Vault instance can be undesirable",
-    "pname": "drone-file-secret-unstable",
-    "version": "2023-06-25"
+    "pname": "drone-file-secret",
+    "version": "0-unstable-2023-06-25"
   },
   "legacyPackages.x86_64-linux.drone-vault": {
     "description": "Drone plugin for integrating with the Vault secrets manager",
@@ -511,8 +511,8 @@
   },
   "legacyPackages.x86_64-linux.fastapi-dls": {
     "description": "Minimal Delegated License Service (DLS)",
-    "pname": "fastapi-dls-unstable",
-    "version": "2024-10-24"
+    "pname": "fastapi-dls",
+    "version": "1.3.12-unstable-2024-10-24"
   },
   "legacyPackages.x86_64-linux.fcitx5-breeze": {
     "description": "Fcitx5 theme to match KDE's Breeze style",
@@ -528,16 +528,6 @@
     "description": "FTP Proxy Server",
     "pname": "ftp-proxy",
     "version": "1.2.3"
-  },
-  "legacyPackages.x86_64-linux.genshin-checkin-helper": {
-    "description": "More than check-in for Genshin Impact",
-    "pname": "genshin-checkin-helper-unstable",
-    "version": "2021-11-09"
-  },
-  "legacyPackages.x86_64-linux.genshinhelper2": {
-    "description": "Python library for miHoYo bbs and HoYoLAB Community",
-    "pname": "python3.12-genshinhelper2-unstable",
-    "version": "2023-05-22"
   },
   "legacyPackages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -566,8 +556,8 @@
   },
   "legacyPackages.x86_64-linux.helium-gateway-rs": {
     "description": "Helium Gateway",
-    "pname": "helium-gateway-rs-unstable",
-    "version": "2024-08-01"
+    "pname": "helium-gateway-rs",
+    "version": "1.3.0-unstable-2024-08-01"
   },
   "legacyPackages.x86_64-linux.hesuvi-hrir": {
     "description": "Headphone Surround Virtualizations for Equalizer APO",
@@ -576,8 +566,8 @@
   },
   "legacyPackages.x86_64-linux.hi3-ii-martian-font": {
     "description": "Font for Martian in Honkai Impact 3rd",
-    "pname": "hi3-ii-martian-font-unstable",
-    "version": "2023-10-12"
+    "pname": "hi3-ii-martian-font",
+    "version": "0-unstable-2023-10-12"
   },
   "legacyPackages.x86_64-linux.hoyo-glyphs": {
     "description": "Constructed scripts by Hoyoverse 米哈游的架空文字",
@@ -586,8 +576,8 @@
   },
   "legacyPackages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
-    "pname": "i915-sriov-unstable",
-    "version": "2024-10-04"
+    "pname": "i915-sriov",
+    "version": "0-unstable-2024-10-04"
   },
   "legacyPackages.x86_64-linux.imewlconverter": {
     "description": "FOSS program for converting IME dictionaries",
@@ -657,7 +647,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "4058"
+    "version": "4065"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -666,13 +656,13 @@
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nbfc-linux": {
     "description": "NoteBook FanControl ported to Linux (with Lan Tian's modifications)",
-    "pname": "nbfc-linux-lantian-unstable",
-    "version": "2022-06-13"
+    "pname": "nbfc-linux-lantian",
+    "version": "0-unstable-2022-06-13"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.nginx": {
     "description": "OpenResty with Lan Tian modifications",
-    "pname": "nginx-lantian-unstable",
-    "version": "2024-11-05"
+    "pname": "nginx-lantian",
+    "version": "1.27.1.1-unstable-2024-11-05"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.telegram-desktop": {
     "description": "Telegram Desktop messaging app (Without anti-features)",
@@ -1286,13 +1276,13 @@
   },
   "legacyPackages.x86_64-linux.lantianPersonal.libltnginx": {
     "description": "Libltnginx",
-    "pname": "libltnginx-unstable",
-    "version": "2021-10-02"
+    "pname": "libltnginx",
+    "version": "0-unstable-2021-10-02"
   },
   "legacyPackages.x86_64-linux.ldap-auth-proxy": {
     "description": "Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend",
-    "pname": "ldap-auth-proxy-unstable",
-    "version": "2020-07-29"
+    "pname": "ldap-auth-proxy",
+    "version": "0.2.0-unstable-2020-07-29"
   },
   "legacyPackages.x86_64-linux.libnftnl-fullcone": {
     "description": "Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem",
@@ -1306,13 +1296,13 @@
   },
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
-    "pname": "liboqs-unstable",
-    "version": "2024-11-05"
+    "pname": "liboqs",
+    "version": "0-unstable-2024-11-11"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
-    "pname": "libqcef-unstable",
-    "version": "2019-11-23"
+    "pname": "libqcef",
+    "version": "0-unstable-2019-11-23"
   },
   "legacyPackages.x86_64-linux.lyrica": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration",
@@ -1351,13 +1341,13 @@
   },
   "legacyPackages.x86_64-linux.netns-exec": {
     "description": "Run command in Linux network namespace as normal user",
-    "pname": "netns-exec-unstable",
-    "version": "2016-07-30"
+    "pname": "netns-exec",
+    "version": "0-unstable-2016-07-30"
   },
   "legacyPackages.x86_64-linux.nft-fullcone": {
     "description": "Nftables fullcone expression kernel module",
-    "pname": "nft-fullcone-unstable",
-    "version": "2023-05-17"
+    "pname": "nft-fullcone",
+    "version": "0-unstable-2023-05-17"
   },
   "legacyPackages.x86_64-linux.nftables-fullcone": {
     "description": "Project that aims to replace the existing {ip,ip6,arp,eb}tables framework",
@@ -1371,8 +1361,8 @@
   },
   "legacyPackages.x86_64-linux.nullfs": {
     "description": "FUSE nullfs drivers",
-    "pname": "nullfs-unstable",
-    "version": "2016-01-28"
+    "pname": "nullfs",
+    "version": "0-unstable-2016-01-28"
   },
   "legacyPackages.x86_64-linux.nullfsvfs": {
     "description": "Virtual black hole file system that behaves like /dev/null",
@@ -2031,18 +2021,13 @@
   },
   "legacyPackages.x86_64-linux.oci-arm-host-capacity": {
     "description": "This script allows to bypass Oracle Cloud Infrastructure 'Out of host capacity' error immediately when additional OCI capacity will appear in your Home Region / Availability domain",
-    "pname": "oci-arm-host-capacity-unstable",
-    "version": "2024-08-13"
+    "pname": "oci-arm-host-capacity",
+    "version": "0-unstable-2024-08-13"
   },
   "legacyPackages.x86_64-linux.one-api": {
     "description": "OpenAI key management & redistribution system, using a single API for all LLMs",
     "pname": "one-api",
     "version": "0.6.8"
-  },
-  "legacyPackages.x86_64-linux.onepush": {
-    "description": "Python library to send notifications to your iPhone, Discord, Telegram, WeChat, QQ and DingTalk",
-    "pname": "python3.12-onepush-unstable",
-    "version": "2023-11-28"
   },
   "legacyPackages.x86_64-linux.openj9-ibm-semeru.jdk-bin-11": {
     "description": "OpenJ9 binaries built by IBM Semeru",
@@ -3361,8 +3346,8 @@
   },
   "legacyPackages.x86_64-linux.ovpn-dco": {
     "description": "OpenVPN Data Channel Offload in the linux kernel",
-    "pname": "ovpn-dco-unstable",
-    "version": "2024-07-12"
+    "pname": "ovpn-dco",
+    "version": "0.2.20240712"
   },
   "legacyPackages.x86_64-linux.palworld-exporter": {
     "description": "Prometheus exporter for Palword Server",
@@ -3406,8 +3391,8 @@
   },
   "legacyPackages.x86_64-linux.plasma-panel-transparency-toggle": {
     "description": "Rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
-    "pname": "plasma-panel-transparency-toggle-unstable",
-    "version": "2024-04-17"
+    "pname": "plasma-panel-transparency-toggle",
+    "version": "0-unstable-2024-04-17"
   },
   "legacyPackages.x86_64-linux.plasma-smart-video-wallpaper-reborn": {
     "description": "Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen",
@@ -3416,8 +3401,8 @@
   },
   "legacyPackages.x86_64-linux.plasma-yesplaymusic-lyric": {
     "description": "Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词",
-    "pname": "plasma-yesplaymusic-lyric-unstable",
-    "version": "2024-08-10"
+    "pname": "plasma-yesplaymusic-lyric",
+    "version": "0.2.2-unstable-2024-08-10"
   },
   "legacyPackages.x86_64-linux.pocl": {
     "description": "Portable open source (MIT-licensed) implementation of the OpenCL standard",
@@ -3466,8 +3451,8 @@
   },
   "legacyPackages.x86_64-linux.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
-    "pname": "qsp-lib-unstable",
-    "version": "2024-11-08"
+    "pname": "qsp-lib",
+    "version": "0-unstable-2024-11-08"
   },
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -3481,8 +3466,8 @@
   },
   "legacyPackages.x86_64-linux.rime-aurora-pinyin": {
     "description": "【极光拼音】输入方案",
-    "pname": "rime-aurora-pinyin-unstable",
-    "version": "2022-08-28"
+    "pname": "rime-aurora-pinyin",
+    "version": "0-unstable-2022-08-28"
   },
   "legacyPackages.x86_64-linux.rime-custom-pinyin-dictionary": {
     "description": "自建拼音输入法词库，百万常用词汇量，适配 Fcitx5 (Linux / Android) 及 Gboard (Android + Magisk or KernelSU) 。",
@@ -3491,13 +3476,13 @@
   },
   "legacyPackages.x86_64-linux.rime-dict": {
     "description": "RIME 词库增强",
-    "pname": "rime-dict-unstable",
-    "version": "2020-12-26"
+    "pname": "rime-dict",
+    "version": "0-unstable-2020-12-26"
   },
   "legacyPackages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
-    "pname": "rime-ice-unstable",
-    "version": "2024-11-10"
+    "pname": "rime-ice",
+    "version": "0-unstable-2024-11-10"
   },
   "legacyPackages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -3511,8 +3496,8 @@
   },
   "legacyPackages.x86_64-linux.route-chain": {
     "description": "Small app to generate a long path in traceroute",
-    "pname": "route-chain-unstable",
-    "version": "2023-09-09"
+    "pname": "route-chain",
+    "version": "0-unstable-2023-09-09"
   },
   "legacyPackages.x86_64-linux.runpod-python": {
     "description": "Python library for RunPod API and serverless worker SDK",
@@ -3531,8 +3516,8 @@
   },
   "legacyPackages.x86_64-linux.sgx-software-enable": {
     "description": "This application will enable Intel SGX on Linux systems where the BIOS supports Intel SGX, but does not provide an explicit option to enable it. These systems can only enable Intel SGX via the \"software enable\" procedure",
-    "pname": "sgx-software-enable-unstable",
-    "version": "2023-01-06"
+    "pname": "sgx-software-enable",
+    "version": "1.0-unstable-2023-01-06"
   },
   "legacyPackages.x86_64-linux.smartrent_py": {
     "description": "Api for SmartRent locks, thermostats, moisture sensors and switches",
@@ -3546,8 +3531,8 @@
   },
   "legacyPackages.x86_64-linux.soggy": {
     "description": "Experimental server emulator for a game I forgot its name",
-    "pname": "soggy-unstable",
-    "version": "2022-12-14"
+    "pname": "soggy",
+    "version": "0-unstable-2022-12-14"
   },
   "legacyPackages.x86_64-linux.space-cadet-pinball-full-tilt": {
     "description": "Reverse engineering of 3D Pinball for Windows – Space Cadet, a game bundled with Windows (With Full Tilt Pinball data)",
@@ -3571,8 +3556,8 @@
   },
   "legacyPackages.x86_64-linux.sx1302-hal": {
     "description": "SX1302/SX1303 Hardware Abstraction Layer and Tools (packet forwarder...)",
-    "pname": "sx1302-hal-unstable",
-    "version": "2023-02-06"
+    "pname": "sx1302-hal",
+    "version": "2.1.0-unstable-2023-02-06"
   },
   "legacyPackages.x86_64-linux.th-fonts.hak": {
     "description": "TianHeng th-hak font",
@@ -3641,8 +3626,8 @@
   },
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
-    "pname": "uni-api-unstable",
-    "version": "2024-11-09"
+    "pname": "uni-api",
+    "version": "0-unstable-2024-11-09"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -3681,8 +3666,8 @@
   },
   "legacyPackages.x86_64-linux.vk-hdr-layer": {
     "description": "Vulkan layer utilizing a small color management / HDR protocol for experimentation",
-    "pname": "vk-hdr-layer-unstable",
-    "version": "2024-10-19"
+    "pname": "vk-hdr-layer",
+    "version": "0-unstable-2024-10-19"
   },
   "legacyPackages.x86_64-linux.vpp": {
     "description": "Vector Packet Processing",
@@ -3692,17 +3677,17 @@
   "legacyPackages.x86_64-linux.wechat-uos": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.0.21"
+    "version": "4.0.0.23"
   },
   "legacyPackages.x86_64-linux.wechat-uos-bin": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.0.21"
+    "version": "4.0.0.23"
   },
   "legacyPackages.x86_64-linux.wechat-uos-without-sandbox": {
     "description": "WeChat desktop without sandbox (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.0.21"
+    "version": "4.0.0.23"
   },
   "legacyPackages.x86_64-linux.wine-wechat": {
     "description": "Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)",
@@ -3740,9 +3725,9 @@
     "version": "1.0.4"
   },
   "packages.x86_64-linux.amule-dlp": {
-    "description": "Peer-to-peer client for the eD2K and Kademlia networks",
-    "pname": "amule-dlp-unstable",
-    "version": "2023-03-02"
+    "description": "Peer-to-peer client for the eD2K and Kademlia networks (with Dynamic Leech Protection)",
+    "pname": "amule-dlp",
+    "version": "2.3.2-unstable-2023-03-02"
   },
   "packages.x86_64-linux.ast": {
     "description": "Aspeed Graphics Driver",
@@ -3751,8 +3736,8 @@
   },
   "packages.x86_64-linux.asterisk-g72x": {
     "description": "G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled)",
-    "pname": "asterisk-g72x-unstable",
-    "version": "2024-10-12"
+    "pname": "asterisk-g72x",
+    "version": "0-unstable-2024-10-12"
   },
   "packages.x86_64-linux.asteriskDigiumCodecs": {
     "description": "",
@@ -3771,8 +3756,8 @@
   },
   "packages.x86_64-linux.baidupcs-go": {
     "description": "Baidu Netdisk commandline client, mimicking Linux shell file handling commands",
-    "pname": "baidupcs-go-unstable",
-    "version": "2024-06-23"
+    "pname": "baidupcs-go",
+    "version": "3.9.5-unstable-2024-06-23"
   },
   "packages.x86_64-linux.bepasty": {
     "description": "Universal pastebin server",
@@ -3796,8 +3781,8 @@
   },
   "packages.x86_64-linux.boringssl-oqs": {
     "description": "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs",
-    "pname": "boringssl-oqs-unstable",
-    "version": "2024-10-09"
+    "pname": "boringssl-oqs",
+    "version": "0-unstable-2024-10-09"
   },
   "packages.x86_64-linux.browser360": {
     "description": "360 Browser",
@@ -3826,13 +3811,13 @@
   },
   "packages.x86_64-linux.cockpy": {
     "description": "Public and open source version of the cbt2 ps im working on",
-    "pname": "cockpy-unstable",
-    "version": "2024-09-07"
+    "pname": "cockpy",
+    "version": "0-unstable-2024-09-07"
   },
   "packages.x86_64-linux.cryptodev-unstable": {
     "description": "Device that allows access to Linux kernel cryptographic drivers",
-    "pname": "cryptodev-linux-unstable",
-    "version": "2024-10-10"
+    "pname": "cryptodev-linux",
+    "version": "1.14-unstable-2024-10-10"
   },
   "packages.x86_64-linux.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
@@ -3861,18 +3846,18 @@
   },
   "packages.x86_64-linux.douban-openapi-server": {
     "description": "Douban API server that provides an unofficial APIs for media information gathering",
-    "pname": "douban-openapi-server-unstable",
-    "version": "2022-12-17"
+    "pname": "douban-openapi-server",
+    "version": "0-unstable-2022-12-17"
   },
   "packages.x86_64-linux.dpdk-kmod": {
     "description": "DPDK kernel modules or add-ons",
-    "pname": "dpdk-kmod-unstable",
-    "version": "2023-02-05"
+    "pname": "dpdk-kmod",
+    "version": "0-unstable-2023-02-05"
   },
   "packages.x86_64-linux.drone-file-secret": {
     "description": "Secret provider for Drone CI. It simply reads secrets from a given folder, suitable for private use Drone CI instances where running a Vault instance can be undesirable",
-    "pname": "drone-file-secret-unstable",
-    "version": "2023-06-25"
+    "pname": "drone-file-secret",
+    "version": "0-unstable-2023-06-25"
   },
   "packages.x86_64-linux.drone-vault": {
     "description": "Drone plugin for integrating with the Vault secrets manager",
@@ -3891,8 +3876,8 @@
   },
   "packages.x86_64-linux.fastapi-dls": {
     "description": "Minimal Delegated License Service (DLS)",
-    "pname": "fastapi-dls-unstable",
-    "version": "2024-10-24"
+    "pname": "fastapi-dls",
+    "version": "1.3.12-unstable-2024-10-24"
   },
   "packages.x86_64-linux.fcitx5-breeze": {
     "description": "Fcitx5 theme to match KDE's Breeze style",
@@ -3908,16 +3893,6 @@
     "description": "FTP Proxy Server",
     "pname": "ftp-proxy",
     "version": "1.2.3"
-  },
-  "packages.x86_64-linux.genshin-checkin-helper": {
-    "description": "More than check-in for Genshin Impact",
-    "pname": "genshin-checkin-helper-unstable",
-    "version": "2021-11-09"
-  },
-  "packages.x86_64-linux.genshinhelper2": {
-    "description": "Python library for miHoYo bbs and HoYoLAB Community",
-    "pname": "python3.12-genshinhelper2-unstable",
-    "version": "2023-05-22"
   },
   "packages.x86_64-linux.glauth": {
     "description": "Lightweight LDAP server for development, home use, or CI",
@@ -3946,8 +3921,8 @@
   },
   "packages.x86_64-linux.helium-gateway-rs": {
     "description": "Helium Gateway",
-    "pname": "helium-gateway-rs-unstable",
-    "version": "2024-08-01"
+    "pname": "helium-gateway-rs",
+    "version": "1.3.0-unstable-2024-08-01"
   },
   "packages.x86_64-linux.hesuvi-hrir": {
     "description": "Headphone Surround Virtualizations for Equalizer APO",
@@ -3956,8 +3931,8 @@
   },
   "packages.x86_64-linux.hi3-ii-martian-font": {
     "description": "Font for Martian in Honkai Impact 3rd",
-    "pname": "hi3-ii-martian-font-unstable",
-    "version": "2023-10-12"
+    "pname": "hi3-ii-martian-font",
+    "version": "0-unstable-2023-10-12"
   },
   "packages.x86_64-linux.hoyo-glyphs": {
     "description": "Constructed scripts by Hoyoverse 米哈游的架空文字",
@@ -3966,8 +3941,8 @@
   },
   "packages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
-    "pname": "i915-sriov-unstable",
-    "version": "2024-10-04"
+    "pname": "i915-sriov",
+    "version": "0-unstable-2024-10-04"
   },
   "packages.x86_64-linux.imewlconverter": {
     "description": "FOSS program for converting IME dictionaries",
@@ -4031,8 +4006,8 @@
   },
   "packages.x86_64-linux.ldap-auth-proxy": {
     "description": "Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend",
-    "pname": "ldap-auth-proxy-unstable",
-    "version": "2020-07-29"
+    "pname": "ldap-auth-proxy",
+    "version": "0.2.0-unstable-2020-07-29"
   },
   "packages.x86_64-linux.libnftnl-fullcone": {
     "description": "Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem",
@@ -4046,13 +4021,13 @@
   },
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
-    "pname": "liboqs-unstable",
-    "version": "2024-11-05"
+    "pname": "liboqs",
+    "version": "0-unstable-2024-11-11"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
-    "pname": "libqcef-unstable",
-    "version": "2019-11-23"
+    "pname": "libqcef",
+    "version": "0-unstable-2019-11-23"
   },
   "packages.x86_64-linux.lyrica": {
     "description": "Linux desktop lyrics widget focused on simplicity and integration",
@@ -4091,13 +4066,13 @@
   },
   "packages.x86_64-linux.netns-exec": {
     "description": "Run command in Linux network namespace as normal user",
-    "pname": "netns-exec-unstable",
-    "version": "2016-07-30"
+    "pname": "netns-exec",
+    "version": "0-unstable-2016-07-30"
   },
   "packages.x86_64-linux.nft-fullcone": {
     "description": "Nftables fullcone expression kernel module",
-    "pname": "nft-fullcone-unstable",
-    "version": "2023-05-17"
+    "pname": "nft-fullcone",
+    "version": "0-unstable-2023-05-17"
   },
   "packages.x86_64-linux.nftables-fullcone": {
     "description": "Project that aims to replace the existing {ip,ip6,arp,eb}tables framework",
@@ -4111,8 +4086,8 @@
   },
   "packages.x86_64-linux.nullfs": {
     "description": "FUSE nullfs drivers",
-    "pname": "nullfs-unstable",
-    "version": "2016-01-28"
+    "pname": "nullfs",
+    "version": "0-unstable-2016-01-28"
   },
   "packages.x86_64-linux.nullfsvfs": {
     "description": "Virtual black hole file system that behaves like /dev/null",
@@ -4136,18 +4111,13 @@
   },
   "packages.x86_64-linux.oci-arm-host-capacity": {
     "description": "This script allows to bypass Oracle Cloud Infrastructure 'Out of host capacity' error immediately when additional OCI capacity will appear in your Home Region / Availability domain",
-    "pname": "oci-arm-host-capacity-unstable",
-    "version": "2024-08-13"
+    "pname": "oci-arm-host-capacity",
+    "version": "0-unstable-2024-08-13"
   },
   "packages.x86_64-linux.one-api": {
     "description": "OpenAI key management & redistribution system, using a single API for all LLMs",
     "pname": "one-api",
     "version": "0.6.8"
-  },
-  "packages.x86_64-linux.onepush": {
-    "description": "Python library to send notifications to your iPhone, Discord, Telegram, WeChat, QQ and DingTalk",
-    "pname": "python3.12-onepush-unstable",
-    "version": "2023-11-28"
   },
   "packages.x86_64-linux.openj9-ibm-semeru": {
     "description": "",
@@ -4176,8 +4146,8 @@
   },
   "packages.x86_64-linux.ovpn-dco": {
     "description": "OpenVPN Data Channel Offload in the linux kernel",
-    "pname": "ovpn-dco-unstable",
-    "version": "2024-07-12"
+    "pname": "ovpn-dco",
+    "version": "0.2.20240712"
   },
   "packages.x86_64-linux.palworld-exporter": {
     "description": "Prometheus exporter for Palword Server",
@@ -4216,8 +4186,8 @@
   },
   "packages.x86_64-linux.plasma-panel-transparency-toggle": {
     "description": "Rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
-    "pname": "plasma-panel-transparency-toggle-unstable",
-    "version": "2024-04-17"
+    "pname": "plasma-panel-transparency-toggle",
+    "version": "0-unstable-2024-04-17"
   },
   "packages.x86_64-linux.plasma-smart-video-wallpaper-reborn": {
     "description": "Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen",
@@ -4226,8 +4196,8 @@
   },
   "packages.x86_64-linux.plasma-yesplaymusic-lyric": {
     "description": "Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词",
-    "pname": "plasma-yesplaymusic-lyric-unstable",
-    "version": "2024-08-10"
+    "pname": "plasma-yesplaymusic-lyric",
+    "version": "0.2.2-unstable-2024-08-10"
   },
   "packages.x86_64-linux.pocl": {
     "description": "Portable open source (MIT-licensed) implementation of the OpenCL standard",
@@ -4276,8 +4246,8 @@
   },
   "packages.x86_64-linux.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
-    "pname": "qsp-lib-unstable",
-    "version": "2024-11-08"
+    "pname": "qsp-lib",
+    "version": "0-unstable-2024-11-08"
   },
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -4291,8 +4261,8 @@
   },
   "packages.x86_64-linux.rime-aurora-pinyin": {
     "description": "【极光拼音】输入方案",
-    "pname": "rime-aurora-pinyin-unstable",
-    "version": "2022-08-28"
+    "pname": "rime-aurora-pinyin",
+    "version": "0-unstable-2022-08-28"
   },
   "packages.x86_64-linux.rime-custom-pinyin-dictionary": {
     "description": "自建拼音输入法词库，百万常用词汇量，适配 Fcitx5 (Linux / Android) 及 Gboard (Android + Magisk or KernelSU) 。",
@@ -4301,13 +4271,13 @@
   },
   "packages.x86_64-linux.rime-dict": {
     "description": "RIME 词库增强",
-    "pname": "rime-dict-unstable",
-    "version": "2020-12-26"
+    "pname": "rime-dict",
+    "version": "0-unstable-2020-12-26"
   },
   "packages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
-    "pname": "rime-ice-unstable",
-    "version": "2024-11-10"
+    "pname": "rime-ice",
+    "version": "0-unstable-2024-11-10"
   },
   "packages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -4321,8 +4291,8 @@
   },
   "packages.x86_64-linux.route-chain": {
     "description": "Small app to generate a long path in traceroute",
-    "pname": "route-chain-unstable",
-    "version": "2023-09-09"
+    "pname": "route-chain",
+    "version": "0-unstable-2023-09-09"
   },
   "packages.x86_64-linux.runpod-python": {
     "description": "Python library for RunPod API and serverless worker SDK",
@@ -4341,8 +4311,8 @@
   },
   "packages.x86_64-linux.sgx-software-enable": {
     "description": "This application will enable Intel SGX on Linux systems where the BIOS supports Intel SGX, but does not provide an explicit option to enable it. These systems can only enable Intel SGX via the \"software enable\" procedure",
-    "pname": "sgx-software-enable-unstable",
-    "version": "2023-01-06"
+    "pname": "sgx-software-enable",
+    "version": "1.0-unstable-2023-01-06"
   },
   "packages.x86_64-linux.smartrent_py": {
     "description": "Api for SmartRent locks, thermostats, moisture sensors and switches",
@@ -4356,8 +4326,8 @@
   },
   "packages.x86_64-linux.soggy": {
     "description": "Experimental server emulator for a game I forgot its name",
-    "pname": "soggy-unstable",
-    "version": "2022-12-14"
+    "pname": "soggy",
+    "version": "0-unstable-2022-12-14"
   },
   "packages.x86_64-linux.space-cadet-pinball-full-tilt": {
     "description": "Reverse engineering of 3D Pinball for Windows – Space Cadet, a game bundled with Windows (With Full Tilt Pinball data)",
@@ -4381,8 +4351,8 @@
   },
   "packages.x86_64-linux.sx1302-hal": {
     "description": "SX1302/SX1303 Hardware Abstraction Layer and Tools (packet forwarder...)",
-    "pname": "sx1302-hal-unstable",
-    "version": "2023-02-06"
+    "pname": "sx1302-hal",
+    "version": "2.1.0-unstable-2023-02-06"
   },
   "packages.x86_64-linux.th-fonts": {
     "description": "",
@@ -4411,8 +4381,8 @@
   },
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
-    "pname": "uni-api-unstable",
-    "version": "2024-11-09"
+    "pname": "uni-api",
+    "version": "0-unstable-2024-11-09"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4451,8 +4421,8 @@
   },
   "packages.x86_64-linux.vk-hdr-layer": {
     "description": "Vulkan layer utilizing a small color management / HDR protocol for experimentation",
-    "pname": "vk-hdr-layer-unstable",
-    "version": "2024-10-19"
+    "pname": "vk-hdr-layer",
+    "version": "0-unstable-2024-10-19"
   },
   "packages.x86_64-linux.vpp": {
     "description": "Vector Packet Processing",
@@ -4462,17 +4432,17 @@
   "packages.x86_64-linux.wechat-uos": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.0.21"
+    "version": "4.0.0.23"
   },
   "packages.x86_64-linux.wechat-uos-bin": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.0.21"
+    "version": "4.0.0.23"
   },
   "packages.x86_64-linux.wechat-uos-without-sandbox": {
     "description": "WeChat desktop without sandbox (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.0.21"
+    "version": "4.0.0.23"
   },
   "packages.x86_64-linux.wine-wechat": {
     "description": "Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)",

@@ -6,6 +6,12 @@ fetch.github = "musikid/acpi_ec"
 src.git = "https://github.com/persmule/amule-dlp.git"
 fetch.github = "persmule/amule-dlp"
 
+[amule-dlp-stable]
+src.github_tag = "persmule/amule-dlp"
+src.from_pattern = "^([0-9\\.]+)-.*$"
+src.to_pattern = "\\1"
+fetch.url = "https://google.com/generate_204"
+
 [asterisk-alaw16]
 src.git = "https://github.com/traud/asterisk-alaw16.git"
 fetch.github = "traud/asterisk-alaw16"
@@ -39,6 +45,10 @@ fetch.url = "http://wppkg.baidupcs.com/issue/netdisk/Linuxguanjia/$ver/baidunetd
 [baidupcs-go]
 src.git = "https://github.com/qjfoidnh/BaiduPCS-Go.git"
 fetch.github = "qjfoidnh/BaiduPCS-Go"
+
+[baidupcs-go-stable]
+src.github_tag = "qjfoidnh/BaiduPCS-Go"
+fetch.url = "https://google.com/generate_204"
 
 [bepasty]
 src.pypi = "bepasty"
@@ -105,6 +115,12 @@ fetch.github = "xddxdd/coredns"
 src.git = "https://github.com/cryptodev-linux/cryptodev-linux.git"
 fetch.github = "cryptodev-linux/cryptodev-linux"
 
+[cryptodev-linux-stable]
+src.github_tag = "cryptodev-linux/cryptodev-linux"
+src.include_regex = "^cryptodev-linux-([0-9\\.]+)"
+src.prefix = "cryptodev-linux-"
+fetch.url = "https://google.com/generate_204"
+
 [decluttarr]
 src.github_tag = "ManiMatter/decluttarr"
 fetch.github = "ManiMatter/decluttarr"
@@ -137,6 +153,11 @@ fetch.github = "KusakabeShi/EtherGuard-VPN"
 src.git = "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git"
 fetch.git = "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git"
 
+[fastapi-dls-stable]
+src.webpage = "https://gitea.publichub.eu/api/v1/repos/oscar.krause/fastapi-dls/tags"
+src.regex = "\"name\":\"([^\\\"]+)\""
+fetch.url = "https://google.com/generate_204"
+
 [fcitx5-breeze]
 src.webpage = "https://gitlab.com/api/v4/projects/53966606/releases/"
 src.regex = "\"https://gitlab.com/scratch-er/fcitx5-breeze/-/archive/v([0-9\\.]+)/fcitx5-breeze-"
@@ -150,14 +171,6 @@ fetch.github = "flasgger/flasgger"
 src.webpage = "http://www.ftpproxy.org/download/"
 src.regex = "\"ftpproxy-([0-9\\.]+).tgz\""
 fetch.url = "http://www.ftpproxy.org/download/ftpproxy-$ver.tgz"
-
-[genshin-checkin-helper]
-src.git = "https://gitlab.com/y1ndan/genshin-checkin-helper.git"
-fetch.git = "https://gitlab.com/y1ndan/genshin-checkin-helper.git"
-
-[genshinhelper2]
-src.git = "https://github.com/y1ndan/genshinhelper2.git"
-fetch.github = "y1ndan/genshinhelper2"
 
 [glauth]
 src.github = "glauth/glauth"
@@ -185,6 +198,10 @@ fetch.git = "https://gitlab.com/YuukiPS/GC-Resources.git"
 [helium-gateway-rs]
 src.git = "https://github.com/helium/gateway-rs.git"
 fetch.github = "helium/gateway-rs"
+
+[helium-gateway-rs-stable]
+src.github = "helium/gateway-rs"
+fetch.url = "https://google.com/generate_204"
 
 [hi3-ii-martian-font]
 src.git = "https://github.com/Wenti-D/HI3IIMartianFont.git"
@@ -239,6 +256,10 @@ fetch.github = "Kopano-dev/konnect"
 [ldap-auth-proxy]
 src.git = "https://github.com/pinepain/ldap-auth-proxy.git"
 fetch.github = "pinepain/ldap-auth-proxy"
+
+[ldap-auth-proxy-stable]
+src.github = "pinepain/ldap-auth-proxy"
+fetch.url = "https://google.com/generate_204"
 
 [libltnginx]
 src.git = "https://github.com/xddxdd/libltnginx.git"
@@ -380,10 +401,6 @@ fetch.github = "abbbi/nullfsvfs"
 src.git = "https://github.com/hitrov/oci-arm-host-capacity.git"
 fetch.github = "hitrov/oci-arm-host-capacity"
 
-[onepush]
-src.git = "https://github.com/y1ndan/onepush.git"
-fetch.github = "y1ndan/onepush"
-
 [one-api-amd64]
 src.github = "songquanpeng/one-api"
 fetch.url = "https://github.com/songquanpeng/one-api/releases/download/$ver/one-api"
@@ -396,6 +413,10 @@ fetch.url = "https://github.com/songquanpeng/one-api/releases/download/$ver/one-
 src.git = "https://github.com/openresty/openresty.git"
 fetch.github = "openresty/openresty"
 
+[openresty-stable]
+src.github_tag = "openresty/openresty"
+fetch.url = "https://google.com/generate_204"
+
 [openssl-oqs-provider]
 src.github = "open-quantum-safe/oqs-provider"
 fetch.github = "open-quantum-safe/oqs-provider"
@@ -405,7 +426,7 @@ src.github = "osdlyrics/osdlyrics"
 fetch.github = "osdlyrics/osdlyrics"
 
 [ovpn-dco]
-src.git = "https://github.com/OpenVPN/ovpn-dco.git"
+src.github_tag = "OpenVPN/ovpn-dco"
 fetch.github = "OpenVPN/ovpn-dco"
 
 [palworld-exporter]
@@ -451,6 +472,10 @@ fetch.github = "luisbocanegra/plasma-smart-video-wallpaper-reborn"
 [plasma-yesplaymusic-lyric]
 src.git = "https://github.com/zsiothsu/org.kde.plasma.yesplaymusic-lyrics.git"
 fetch.github = "zsiothsu/org.kde.plasma.yesplaymusic-lyrics"
+
+[plasma-yesplaymusic-lyric-stable]
+src.github = "zsiothsu/org.kde.plasma.yesplaymusic-lyrics"
+fetch.url = "https://google.com/generate_204"
 
 [pocl]
 src.github = "pocl/pocl"
@@ -583,6 +608,10 @@ fetch.github = "SamToki/Sam-Toki-Mouse-Cursors"
 src.git = "https://github.com/intel/sgx-software-enable.git"
 fetch.github = "intel/sgx-software-enable"
 
+[sgx-software-enable-stable]
+src.github_tag = "intel/sgx-software-enable"
+fetch.url = "https://google.com/generate_204"
+
 [smartrent_py]
 # src.pypi = "smartrent.py"
 src.manual = "0.4.0"
@@ -613,6 +642,13 @@ fetch.url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/$ver.
 [sx1302-hal]
 src.git = "https://github.com/NebraLtd/sx1302_hal.git"
 fetch.github = "NebraLtd/sx1302_hal"
+
+[sx1302-hal-stable]
+src.github_tag = "NebraLtd/sx1302_hal"
+src.include_regex = "^V([0-9\\.]+)$"
+src.from_pattern = "^V([0-9\\.]+)$"
+src.to_pattern = "\\1"
+fetch.url = "https://google.com/generate_204"
 
 [telegram-desktop-patches]
 src.git = "https://github.com/huakim/telegram-desktop-patches.git"

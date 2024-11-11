@@ -10,5 +10,7 @@ amule.overrideAttrs (old: {
   meta = old.meta // {
     mainProgram = "amule";
     maintainers = with lib.maintainers; [ xddxdd ];
+    homepage = "https://github.com/persmule/amule-dlp";
+    description = old.meta.description + " (with Dynamic Leech Protection)";
   };
 })

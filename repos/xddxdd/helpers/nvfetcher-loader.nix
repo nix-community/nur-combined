@@ -4,7 +4,7 @@ let
   sources = pkgs.callPackage sourcesFile { };
 in
 lib.mapAttrs (
-  _: v:
+  n: v:
   if !(lib.isAttrs v) then
     v
   else
@@ -18,8 +18,15 @@ lib.mapAttrs (
           && (builtins.match "[0-9a-f]{40}" v.version != null)
           && (builtins.hasAttr "date" v)
         then
+          let
+            lastStableVersion =
+              if builtins.hasAttr "${n}-stable" sources then
+                lib.removePrefix "v" sources."${n}-stable".version
+              else
+                "0";
+          in
           {
-            version = "unstable-${v.date}";
+            version = "${lastStableVersion}-unstable-${v.date}";
             rawVersion = v.version;
           }
         else

@@ -22,6 +22,14 @@
     };
     date = "2023-03-02";
   };
+  amule-dlp-stable = {
+    pname = "amule-dlp-stable";
+    version = "2.3.2";
+    src = fetchurl {
+      url = "https://google.com/generate_204";
+      hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    };
+  };
   asterisk-alaw16 = {
     pname = "asterisk-alaw16";
     version = "3f81697eec6388a3cdf74743a436ef4faea542d6";
@@ -105,6 +113,14 @@
       hash = "sha256-4mCJ5gVHjjvR6HNo47NTJvQEu7cdZZMfO8qQA7Kqzqo=";
     };
     date = "2024-06-23";
+  };
+  baidupcs-go-stable = {
+    pname = "baidupcs-go-stable";
+    version = "v3.9.5";
+    src = fetchurl {
+      url = "https://google.com/generate_204";
+      hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    };
   };
   bepasty = {
     pname = "bepasty";
@@ -262,6 +278,14 @@
     };
     date = "2024-10-10";
   };
+  cryptodev-linux-stable = {
+    pname = "cryptodev-linux-stable";
+    version = "1.14";
+    src = fetchurl {
+      url = "https://google.com/generate_204";
+      hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    };
+  };
   decluttarr = {
     pname = "decluttarr";
     version = "v1.50.0";
@@ -342,6 +366,14 @@
     };
     date = "2024-10-24";
   };
+  fastapi-dls-stable = {
+    pname = "fastapi-dls-stable";
+    version = "1.3.12";
+    src = fetchurl {
+      url = "https://google.com/generate_204";
+      hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    };
+  };
   fcitx5-breeze = {
     pname = "fcitx5-breeze";
     version = "3.1.0";
@@ -367,27 +399,6 @@
       url = "http://www.ftpproxy.org/download/ftpproxy-1.2.3.tgz";
       hash = "sha256-36r+iOaKEA9DMHBufEW+eoiRlEu1+VsYaWvK957l1uU=";
     };
-  };
-  genshin-checkin-helper = {
-    pname = "genshin-checkin-helper";
-    version = "b9e36543bfe5b042e015463e5d0398cd234cba90";
-    src = fetchgit {
-      url = "https://gitlab.com/y1ndan/genshin-checkin-helper.git";
-      rev = "b9e36543bfe5b042e015463e5d0398cd234cba90";
-      hash = "sha256-sweiJeZx+/uShHxT0gXiVxADeHSyeTtK1G6jgMcMpZE=";
-    };
-    date = "2021-11-09";
-  };
-  genshinhelper2 = {
-    pname = "genshinhelper2";
-    version = "1382b89d0ee1f5dfcbe1425398fb4cfc260ddcdd";
-    src = fetchFromGitHub {
-      owner = "y1ndan";
-      repo = "genshinhelper2";
-      rev = "1382b89d0ee1f5dfcbe1425398fb4cfc260ddcdd";
-      hash = "sha256-jkg3ndR9t/v5TFsda6e94Duce5BexbUFvW8ZevJO35A=";
-    };
-    date = "2023-05-22";
   };
   glauth = {
     pname = "glauth";
@@ -443,6 +454,14 @@
       hash = "sha256-kAeLnvh5N4W/BiBDmGPo097egliZsZJuD49dVsmlk8s=";
     };
     date = "2024-08-01";
+  };
+  helium-gateway-rs-stable = {
+    pname = "helium-gateway-rs-stable";
+    version = "v1.3.0";
+    src = fetchurl {
+      url = "https://google.com/generate_204";
+      hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    };
   };
   hi3-ii-martian-font = {
     pname = "hi3-ii-martian-font";
@@ -571,6 +590,14 @@
     };
     date = "2020-07-29";
   };
+  ldap-auth-proxy-stable = {
+    pname = "ldap-auth-proxy-stable";
+    version = "0.2.0";
+    src = fetchurl {
+      url = "https://google.com/generate_204";
+      hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    };
+  };
   libltnginx = {
     pname = "libltnginx";
     version = "96698a667740ac45ca4571a04a6cfe39caf926c0";
@@ -594,14 +621,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "8bf124f1fcc8e73dace94bf2eb8c59441a06b8a8";
+    version = "e26d36ead919fc5f74d7e90a95379fe1a04663c2";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "8bf124f1fcc8e73dace94bf2eb8c59441a06b8a8";
-      hash = "sha256-wPRb43BmlxDu1Pgr7QmzLr+vYeiu/oNaoj+F7maNKPM=";
+      rev = "e26d36ead919fc5f74d7e90a95379fe1a04663c2";
+      hash = "sha256-JnzVcn5eewRj7dNKWpzqWbbq5yYXv/xMZD9ujHXQtXw=";
     };
-    date = "2024-11-05";
+    date = "2024-11-11";
   };
   libqcef = {
     pname = "libqcef";
@@ -696,12 +723,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4058";
+    version = "b4065";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4058";
-      hash = "sha256-DJTEpFnnSuz49EBzJdvbklLJejT4++hJsxUN/ZpjcVU=";
+      rev = "b4065";
+      hash = "sha256-YvlOPSNLg6f0s8K5MgVAHefFXSuAG/II7HBVfqbCIR8=";
     };
   };
   lyrica = {
@@ -915,17 +942,6 @@
       hash = "sha256-iaFzBcAk7XOmkfqHz/v4nx7GmKQ+XxvmJgs46/eCx1M=";
     };
   };
-  onepush = {
-    pname = "onepush";
-    version = "8b09e62330ad74ba3221bfc2b080d1732a1dcc55";
-    src = fetchFromGitHub {
-      owner = "y1ndan";
-      repo = "onepush";
-      rev = "8b09e62330ad74ba3221bfc2b080d1732a1dcc55";
-      hash = "sha256-xBhHe2q5oxXUuo7G50TBUC1o07dZSjQ8M8YkPRJELkk=";
-    };
-    date = "2023-11-28";
-  };
   openresty = {
     pname = "openresty";
     version = "67aff27ddca1a5d9e31614025d2934b569b9ab3e";
@@ -936,6 +952,14 @@
       hash = "sha256-3VQUWF3O3gPcPUkurSlQO1PPlRwvxPM1nOVHN/B8nW4=";
     };
     date = "2024-11-05";
+  };
+  openresty-stable = {
+    pname = "openresty-stable";
+    version = "v1.27.1.1";
+    src = fetchurl {
+      url = "https://google.com/generate_204";
+      hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    };
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
@@ -959,14 +983,13 @@
   };
   ovpn-dco = {
     pname = "ovpn-dco";
-    version = "d22d04e4cea22ff0dd5ae375a92de20ddd6317d4";
+    version = "v0.2.20240712";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "ovpn-dco";
-      rev = "d22d04e4cea22ff0dd5ae375a92de20ddd6317d4";
+      rev = "v0.2.20240712";
       hash = "sha256-SjAp4rzi/DVm0QAFoRpFXwzuh04UJyQBRnfbyvjHgTo=";
     };
-    date = "2024-07-12";
   };
   palworld-exporter = {
     pname = "palworld-exporter";
@@ -1065,6 +1088,14 @@
       hash = "sha256-T853HgudSGYo5COCLSiWlk4GOrDJXLEdeAoRYXF4F7I=";
     };
     date = "2024-08-10";
+  };
+  plasma-yesplaymusic-lyric-stable = {
+    pname = "plasma-yesplaymusic-lyric-stable";
+    version = "v0.2.2";
+    src = fetchurl {
+      url = "https://google.com/generate_204";
+      hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    };
   };
   pocl = {
     pname = "pocl";
@@ -1353,6 +1384,14 @@
     };
     date = "2023-01-06";
   };
+  sgx-software-enable-stable = {
+    pname = "sgx-software-enable-stable";
+    version = "v1.0";
+    src = fetchurl {
+      url = "https://google.com/generate_204";
+      hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    };
+  };
   smartrent_py = {
     pname = "smartrent_py";
     version = "0.4.0";
@@ -1419,6 +1458,14 @@
       hash = "sha256-8u4gQ1ifNrXzoOiXAZ535ZMZi8w6VRCljOC0u9xbJOg=";
     };
     date = "2023-02-06";
+  };
+  sx1302-hal-stable = {
+    pname = "sx1302-hal-stable";
+    version = "2.1.0";
+    src = fetchurl {
+      url = "https://google.com/generate_204";
+      hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    };
   };
   telegram-desktop-patches = {
     pname = "telegram-desktop-patches";
@@ -1657,10 +1704,10 @@
   };
   wechat-uos = {
     pname = "wechat-uos";
-    version = "4.0.0.21";
+    version = "4.0.0.23";
     src = fetchurl {
-      url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_4.0.0.21_amd64.deb";
-      hash = "sha256-1tO8ARt2LuCwPz7rO25/9dTOIf9Rwqc9TdqiZTTojRk=";
+      url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_4.0.0.23_amd64.deb";
+      hash = "sha256-Q3gmo83vJddj9p4prhBHm16LK6CAtW3ltd5j4FqPcgM=";
     };
   };
   wine-wechat-x64 = {
