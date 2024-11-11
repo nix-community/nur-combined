@@ -37,7 +37,7 @@ src.to_pattern = "\\1"
 fetch.url = "http://wppkg.baidupcs.com/issue/netdisk/Linuxguanjia/$ver/baidunetdisk_$ver_amd64.deb"
 
 [baidupcs-go]
-src.github = "qjfoidnh/BaiduPCS-Go"
+src.git = "https://github.com/qjfoidnh/BaiduPCS-Go.git"
 fetch.github = "qjfoidnh/BaiduPCS-Go"
 
 [bepasty]

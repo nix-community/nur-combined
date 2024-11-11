@@ -391,8 +391,8 @@
   },
   "legacyPackages.x86_64-linux.baidupcs-go": {
     "description": "Baidu Netdisk commandline client, mimicking Linux shell file handling commands",
-    "pname": "baidupcs-go",
-    "version": "3.9.5"
+    "pname": "baidupcs-go-unstable",
+    "version": "2024-06-23"
   },
   "legacyPackages.x86_64-linux.bepasty": {
     "description": "Universal pastebin server",
@@ -3771,8 +3771,8 @@
   },
   "packages.x86_64-linux.baidupcs-go": {
     "description": "Baidu Netdisk commandline client, mimicking Linux shell file handling commands",
-    "pname": "baidupcs-go",
-    "version": "3.9.5"
+    "pname": "baidupcs-go-unstable",
+    "version": "2024-06-23"
   },
   "packages.x86_64-linux.bepasty": {
     "description": "Universal pastebin server",

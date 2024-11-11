@@ -97,13 +97,14 @@
   };
   baidupcs-go = {
     pname = "baidupcs-go";
-    version = "v3.9.5";
+    version = "5612fc337b9556ed330274987a2f876961639cff";
     src = fetchFromGitHub {
       owner = "qjfoidnh";
       repo = "BaiduPCS-Go";
-      rev = "v3.9.5";
-      hash = "sha256-zNodRQzflOOB3hAeq4KbjRFlHQwknVy+4ucipUcoufY=";
+      rev = "5612fc337b9556ed330274987a2f876961639cff";
+      hash = "sha256-4mCJ5gVHjjvR6HNo47NTJvQEu7cdZZMfO8qQA7Kqzqo=";
     };
+    date = "2024-06-23";
   };
   bepasty = {
     pname = "bepasty";
