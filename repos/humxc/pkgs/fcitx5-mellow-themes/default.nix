@@ -5,8 +5,8 @@
 }:
 let
   pname = "fcitx5-mellow-themes";
-  version = "1154bdb28d21b6f7a6b67311cc4f831fc75a651b";
-  sha256 = "sha256-dxKMOfS9slGcllCmTZ0HGJbKC+4E+WFFd5Y44XD2AKk=";
+  version = "9694953eb1bd6c9363cf9c76833347bfa5ffd886";
+  sha256 = "sha256-+wJOPUmUkR/uR9zdFyrV86D6nsYnC94zHXkEfjmAVjs=";
   src = fetchFromGitHub {
     owner = "sanweiya";
     repo = "fcitx5-mellow-themes";
