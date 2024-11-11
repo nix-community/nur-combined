@@ -3,7 +3,6 @@
 }:
 {
   config,
-  data,
   user,
   self,
   lib,
@@ -14,8 +13,6 @@
   vaultix = {
     settings = {
       storageLocation = "./sec/rekeyed/${config.networking.hostName}";
-      extraRecipients = [ data.keys.ageKey ];
-      identity = self + "/sec/age-yubikey-identity-7d5d5540.txt.pub";
     };
 
     secrets = (

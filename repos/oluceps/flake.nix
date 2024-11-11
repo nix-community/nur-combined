@@ -87,18 +87,22 @@
                 };
               };
             formatter = pkgs.nixfmt-rfc-style;
-            vaultix.nodes =
-              let
-                inherit (inputs.nixpkgs.lib) filterAttrs elem;
-              in
-              filterAttrs (
-                n: _:
-                !elem n [
-                  "resq"
-                  "livecd"
-                  "bootstrap"
-                ]
-              ) self.nixosConfigurations;
+            vaultix = {
+              nodes =
+                let
+                  inherit (inputs.nixpkgs.lib) filterAttrs elem;
+                in
+                filterAttrs (
+                  n: _:
+                  !elem n [
+                    "resq"
+                    "livecd"
+                    "bootstrap"
+                  ]
+                ) self.nixosConfigurations;
+              identity = self + "/sec/age-yubikey-identity-7d5d5540.txt.pub";
+              extraRecipients = [ extraLibs.data.keys.ageKey ];
+            };
           };
 
         flake = {
@@ -141,8 +145,8 @@
       url = "github:nix-community/browser-previews";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    vaultix.url = "github:oluceps/vaultix";
-    # vaultix.url = "/home/elen/Src/vaultix";
+    # vaultix.url = "github:oluceps/vaultix";
+    vaultix.url = "/home/elen/Src/vaultix";
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixpkgs";
