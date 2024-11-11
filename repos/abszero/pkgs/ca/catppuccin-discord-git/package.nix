@@ -28,8 +28,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "catppuccin";
     repo = "discord";
-    rev = "a5e483b52e730717d634d446226644ca2263a5e2";
-    hash = "sha256-mzqya2ZIN+VuEJUey4fRIkLM26wICFSWZLpSsGseOpY=";
+    rev = "d5e6287bdd4997fc5bf281ae7c35e1e0d301fbce";
+    hash = "sha256-7AMSsdz6Ngo99oK0Tm4sOZjwpIyZHBG7IlI/8rIim0U=";
   };
 
   nodeModules = mkYarnModules {
