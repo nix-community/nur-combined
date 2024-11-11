@@ -6,11 +6,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "deegree";
-  version = "3.5.7";
+  version = "3.5.8";
 
   src = fetchurl {
     url = "https://repo.deegree.org/content/repositories/public/org/deegree/deegree-webservices/${finalAttrs.version}/deegree-webservices-${finalAttrs.version}.war";
-    hash = "sha256-BX7eB42HhiA2iX1Si5MSrMKbWuBzq08YS0MGt5apWWM=";
+    hash = "sha256-b652Cz9gXgXqcFQHCuM+zr3IP4i1hflLhLYsz9c2n2s=";
   };
 
   buildCommand = ''

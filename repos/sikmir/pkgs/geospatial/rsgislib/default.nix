@@ -14,13 +14,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rsgislib";
-  version = "5.1.3";
+  version = "5.1.7";
 
   src = fetchFromGitHub {
     owner = "remotesensinginfo";
     repo = "rsgislib";
     rev = finalAttrs.version;
-    hash = "sha256-RE5i2ULlgHEWHJIqeWNdnxtREcHrmP4dS996onJrBFk=";
+    hash = "sha256-IaDSn+8cF7fo+l4/gTUJrF5iro3qHnXUd5iImekaqLg=";
   };
 
   nativeBuildInputs = [ cmake ];
