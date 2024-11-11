@@ -1,7 +1,7 @@
 {nvsrcs, stdenv}:
 stdenv.mkDerivation {
   name = "cakeml";
-  patches = [./fix_fd.patch];
+  # patches = [./fix_fd.patch];
   inherit (nvsrcs.cakeml) version src;
   installPhase = ''
 mkdir -p $out/{bin,share}
