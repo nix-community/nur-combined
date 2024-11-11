@@ -26,9 +26,11 @@ in
 
         decoration = {
           rounding = 8;
-          shadow_range = 8;
-          "col.shadow" = "$text";
           blur.enabled = false;
+          shadow = {
+            range = 8;
+            color = "$text";
+          };
         };
 
         misc = {

@@ -39,8 +39,8 @@ in
         workspace_swipe_forever = true;
       };
 
-      # Scale xwayland windows even if it makes them blurry
-      xwayland.use_nearest_neighbor = false;
+      # Do not scale xwayland windows
+      xwayland.force_zero_scaling = true;
 
       misc = {
         vrr = 1;
