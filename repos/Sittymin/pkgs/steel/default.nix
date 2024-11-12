@@ -1,10 +1,11 @@
 { lib
 , rustPlatform
 , fetchFromGitHub
+, fullInstall ? true
 }:
 
 rustPlatform.buildRustPackage {
-  pname = "steel-full";
+  pname = "steel";
   version = "unstable";
   src = fetchFromGitHub ({
     owner = "mattwparas";
@@ -13,7 +14,7 @@ rustPlatform.buildRustPackage {
     sha256 = "sha256-HA9ZRVJ7T4s0hdEoKVU3y3mctIhE4u2N0nKT/IGBENo=";
   });
 
-  cargoHash = "sha256-9DPjUsE2HmcnNDuLOr1Vns+gDNEfUOpOVoyPYdzzLGc=";
+  cargoHash = "sha256-fYon6jfijtO6yAXpjkTirsH/HbH+PoWx/pJcywCBjto=";
 
   nativeBuildInputs = [
     rustPlatform.bindgenHook
@@ -22,7 +23,9 @@ rustPlatform.buildRustPackage {
   buildPhase = ''
     export STEEL_HOME=$out/.steel
     export CARGO_HOME=$out/cargo
-    cargo xtask install --path .
+    ${lib.optionalString fullInstall ''
+        cargo xtask install --path .
+    ''}
   '';
 
   installPhase = ''
