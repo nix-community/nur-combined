@@ -1,0 +1,13 @@
+diff --git a/source/linux/platform.cpp b/source/linux/platform.cpp
+index b391aad..9f4adba 100644
+--- a/source/linux/platform.cpp
++++ b/source/linux/platform.cpp
+@@ -18,6 +18,8 @@
+ // You should have received a copy of the GNU General Public License
+ // along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ 
++#define GL_SILENCE_DEPRECATION
++
+ #include "platform.h"
+ 
+ #include "ftpServer.h"

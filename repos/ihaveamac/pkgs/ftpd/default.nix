@@ -25,6 +25,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-Ewv9uCGjIUW+lJszJAmOyzdgSfBNXR9U8t7k0ceM4IM=";
   };
 
+  # These were made in an attempt to make ftpd work on macOS. It compiles but then exits with "Failed to create window".
+  #patches = [ ./no-c99-designator.patch ./gl-silence-deprecation.patch ];
+
   cmakeFlags = [
     "-DFETCHCONTENT_SOURCE_DIR_GSL=${microsoft-gsl}"
     "-DFETCHCONTENT_SOURCE_DIR_IMGUI=${imgui}"
@@ -37,4 +40,12 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ glfw curl jansson ];
   nativeBuildInputs = [ cmake pkg-config ];
+
+  meta = with lib; {
+    description = "FTP Server for 3DS/Switch (and Linux)";
+    homepage = "https://github.com/mtheall/ftpd";
+    license = licenses.gpl3;
+    platforms = platforms.linux;
+    mainProgram = "ftpd";
+  };
 }
