@@ -36,7 +36,7 @@ build-all-host:
     open hosts/sum.toml | $in.host.name
     | par-each { || nix build $'.#nixosConfigurations.($in).config.system.build.toplevel' -L; }
 renc:
-    nix run $'.#vaultix.(uname | $'($in.machine)-($in.kernel-name | str downcase)').renc'
+    nix run $'.#vaultix.app.(uname | $'($in.machine)-($in.kernel-name | str downcase)').renc'
 
 build:
     #!/usr/bin/env nu

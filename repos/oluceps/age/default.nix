@@ -12,7 +12,7 @@
   systemd.services.vaultix-install-secrets.serviceConfig.Environment = [ "SPDLOG_RS_LEVEL=trace" ];
   vaultix = {
     settings = {
-      storageLocation = "./sec/rekeyed/${config.networking.hostName}";
+      # storageLocation = "./sec/rekeyed/${config.networking.hostName}";
     };
 
     secrets = (

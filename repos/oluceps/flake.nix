@@ -25,7 +25,7 @@
             vaultix.flakeModules.default
             flake-parts.flakeModules.easyOverlay
           ];
-        # debug = true;
+        debug = true;
         systems = [
           "x86_64-linux"
           "aarch64-linux"
@@ -87,25 +87,26 @@
                 };
               };
             formatter = pkgs.nixfmt-rfc-style;
-            vaultix = {
-              nodes =
-                let
-                  inherit (inputs.nixpkgs.lib) filterAttrs elem;
-                in
-                filterAttrs (
-                  n: _:
-                  !elem n [
-                    "resq"
-                    "livecd"
-                    "bootstrap"
-                  ]
-                ) self.nixosConfigurations;
-              identity = self + "/sec/age-yubikey-identity-7d5d5540.txt.pub";
-              extraRecipients = [ extraLibs.data.keys.ageKey ];
-            };
           };
 
         flake = {
+          vaultix = {
+            nodes =
+              let
+                inherit (inputs.nixpkgs.lib) filterAttrs elem;
+              in
+              filterAttrs (
+                n: _:
+                !elem n [
+                  "resq"
+                  "livecd"
+                  "bootstrap"
+                ]
+              ) self.nixosConfigurations;
+            identity = self + "/sec/age-yubikey-identity-7d5d5540.txt.pub";
+            extraRecipients = [ extraLibs.data.keys.ageKey ];
+            cache = "./sec/cache";
+          };
           lib = inputs.nixpkgs.lib.extend self.overlays.lib;
 
           overlays.lib = final: prev: extraLibs;
