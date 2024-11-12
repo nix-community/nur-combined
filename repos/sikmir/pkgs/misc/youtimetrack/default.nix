@@ -6,13 +6,13 @@
 
 buildGoModule rec {
   pname = "youtimetrack";
-  version = "0.1.0";
+  version = "0.1.1";
 
   src = fetchFromGitHub {
     owner = "bullshitsoftware";
     repo = "youtimetrack";
     rev = "v${version}";
-    hash = "sha256-IeiDdobOgwYwQytzgoAWQEyNtnJNXeMiiMFnZ3t7GYE=";
+    hash = "sha256-MZzXeCMlSLriDKg8yqeOzJBA5T47ImKjr+Mdu/wUjzU=";
   };
 
   vendorHash = "sha256-HRyjdTTwDmu/5NVpjqCwatYuWN15j3rTgrhv76uMS7I=";

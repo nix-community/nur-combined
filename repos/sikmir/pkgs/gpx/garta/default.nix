@@ -47,7 +47,7 @@ rustPlatform.buildRustPackage rec {
 
   postPatch = ''
     substituteInPlace ./configure.sh \
-      --replace-fail "target/release" "target/${rust.toRustTargetSpec stdenv.hostPlatform}/release"
+      --replace-fail "target/release" "target/${stdenv.hostPlatform.rust.rustcTargetSpec}/release"
 
     patchShebangs configure.sh
   '';
