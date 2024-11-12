@@ -22,9 +22,6 @@ python3Packages.buildPythonApplication {
     tkinter
   ];
 
-  nativeCheckInputs = with python3Packages; [ nose ];
-  checkPhase = "nosetests";
-
   meta = {
     description = "A Python library written for Morse Code";
     homepage = "https://github.com/morse-talk/morse-talk";
