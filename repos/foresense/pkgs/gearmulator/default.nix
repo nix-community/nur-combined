@@ -32,15 +32,15 @@
 }:
 stdenv.mkDerivation rec {
   pname = "gearmulator";
-  version = "1.3.21";
+  version = "1.3.21-master";
 
   src = fetchFromGitHub {
+    fetchSubmodules = true;
+    hash = "sha256-CMyqCtf/7HQtEHa5Q9eTRhon52A4Wp6jiU7ZYDV/sr0=";
     owner = "dsp56300";
     repo = "gearmulator";
-    # rev = "020ffa444819512515cf5a8cfacb9a06ad50bf7b";
-    rev = "${version}";
-    hash = "sha256-1AXtCAuvt+vubhdkgoFatClTEM1TT4h577ybwLcJnQI=";
-    fetchSubmodules = true;
+    rev = "6a23597123f922b6a4e5994069fc3175e89b5ee2";
+    # rev = "${version}";
   };
 
   nativeBuildInputs = [
@@ -81,8 +81,6 @@ stdenv.mkDerivation rec {
     xorg.libXrandr
     xorg.libXtst
   ];
-
-  patches = [ ./better_folders.patch ];
 
   cmakeFlags = [
     # "-Dgearmulator_BUILD_FX_PLUGIN=ON"  # DEFAULT: OFF

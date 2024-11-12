@@ -5,7 +5,6 @@
   fetchFromGitHub,
   binutils,
   clang,
-  # libprinthex,
   zlib,
 }:
 
