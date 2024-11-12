@@ -18,6 +18,8 @@
     ocamlPackages = pkgs.ocaml-ng.ocamlPackages_4_12;
   };
 
+  autosubst-ocaml = pkgs.coqPackages_8_19.callPackage ./pkgs/coqPackages/autosubst-ocaml {};
+
   ott-sweirich = pkgs.callPackage ./pkgs/ott-sweirich {
     ocamlPackages = pkgs.ocaml-ng.ocamlPackages_4_12;
   };
