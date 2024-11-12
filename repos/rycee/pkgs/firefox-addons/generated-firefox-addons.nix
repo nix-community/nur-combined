@@ -2177,10 +2177,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "132.0.20241110.231641";
+      version = "133.0.20241111.92015";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4385723/deutsch_de_language_pack-132.0.20241110.231641.xpi";
-      sha256 = "8be731eb415204999f64923da51ec2ea4f3419eb0e79a64e916bc67c0e4ef0f9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4386151/deutsch_de_language_pack-133.0.20241111.92015.xpi";
+      sha256 = "d1d83d497f28f6e80a5aff8cc513744da7781653c71667e6d624c54a0584a9d5";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3016,10 +3016,10 @@
     };
     "firemonkey" = buildFirefoxXpiAddon {
       pname = "firemonkey";
-      version = "2.72";
+      version = "2.73";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4140283/firemonkey-2.72.xpi";
-      sha256 = "2ec4526552639efb2488c3460e8202f50a1616ba68598768dd85a7ea3dbd4a5b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4386003/firemonkey-2.73.xpi";
+      sha256 = "82cbcc387af99cbf5dfb65834dfa0a9a0dd01b0329a1ebff672607cd1d70da3a";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/support/issues";
@@ -3342,10 +3342,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "132.0.20241110.231641";
+      version = "133.0.20241111.92015";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4385720/francais_language_pack-132.0.20241110.231641.xpi";
-      sha256 = "15c46b35d588d7750decd62abfe1fb886b0384f273c5bda50beed1413ab9abe6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4386062/francais_language_pack-133.0.20241111.92015.xpi";
+      sha256 = "3998ee7fc88848a64d6b901a5886d00bc7f1b18fe950cdc45ef22da865578f6e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3379,10 +3379,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "132.0.20241110.231641";
+      version = "133.0.20241111.92015";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4385711/gaidhlig_language_pack-132.0.20241110.231641.xpi";
-      sha256 = "052de22c89b0727cdaabbd11651d43d957bc5fa4d030cb993d442aea5fb320af";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4386146/gaidhlig_language_pack-133.0.20241111.92015.xpi";
+      sha256 = "4acce4478c1e124a25701d98d734526f3a51559f822595771515f6bb15c13abd";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -9244,10 +9244,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.24.0";
+      version = "1.24.1";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4374377/proton_pass-1.24.0.xpi";
-      sha256 = "82ce97b888fd3fbd5a0b56a1f08b8af82dd82aa1863e7ab4593c735dcd98704b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4379392/proton_pass-1.24.1.xpi";
+      sha256 = "1290a7d3b91204fae8f392c8dd4b3f62e4fa0182ae98de1d0042280af744be80";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -9259,7 +9259,6 @@
           "scripting"
           "storage"
           "unlimitedStorage"
-          "privacy"
           "webRequest"
           "webRequestBlocking"
           "https://*/*"
@@ -9892,10 +9891,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "132.0.20241110.231641";
+      version = "133.0.20241111.92015";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4385758/scots_language_pack-132.0.20241110.231641.xpi";
-      sha256 = "76976e6f43d50dcb5fe64179fadcb82832c51eb8e691fcce5bcf690e28a5d4b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4386165/scots_language_pack-133.0.20241111.92015.xpi";
+      sha256 = "6df821c5a4c6e4d206b74d8e1281d312c41727a28312001deb8243f1bdce80e3";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10429,10 +10428,10 @@
     };
     "snowflake" = buildFirefoxXpiAddon {
       pname = "snowflake";
-      version = "0.8.4";
+      version = "0.9.2";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4310769/torproject_snowflake-0.8.4.xpi";
-      sha256 = "a6b11d5250e6c30c9a0d4b1caaedc446a7fb31bb78088fa14554fdd1e3741cb3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4379590/torproject_snowflake-0.9.2.xpi";
+      sha256 = "4028bad3bef6610a985edda954d5c4f1487480a8f32f230d9edf88d97c8dd88e";
       meta = with lib;
       {
         homepage = "https://snowflake.torproject.org/";
