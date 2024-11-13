@@ -642,12 +642,12 @@
   "legacyPackages.x86_64-linux.lantianCustomized.librime-with-plugins": {
     "description": "Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto)",
     "pname": "librime",
-    "version": "1.11.2"
+    "version": "1.12.0"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "4067"
+    "version": "4068"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -3627,7 +3627,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2024-11-09"
+    "version": "0-unstable-2024-11-12"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -4382,7 +4382,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2024-11-09"
+    "version": "0-unstable-2024-11-12"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",

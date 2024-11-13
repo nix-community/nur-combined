@@ -1216,12 +1216,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "77aa1455e5b581c35d00cb5928cef9ac60e932e3",
-            "sha256": "sha256-dx84SG8S5zqbcOch6G/uf9I8Fv6usiS+3ZjI7m/vAxg=",
+            "rev": "2ee908df244245c466e8e57f7aad5b07d3da7bb6",
+            "sha256": "sha256-Z+kGr+tXL8bO6Yji0RbgyoAyVgw/Cw/g6dTZ/CxnmeU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "77aa1455e5b581c35d00cb5928cef9ac60e932e3"
+        "version": "2ee908df244245c466e8e57f7aad5b07d3da7bb6"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1422,12 +1422,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b4067",
-            "sha256": "sha256-Sx/pQY+Ni8KiPIdFIPxZZonrgFwA7rI3zuyRBtqs1OI=",
+            "rev": "b4068",
+            "sha256": "sha256-4246jTcOdFmWeNhcrHbROg2P5/mvsfyOFQG5oX5735I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b4067"
+        "version": "b4068"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -3132,7 +3132,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2024-11-09",
+        "date": "2024-11-12",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -3144,12 +3144,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "974f096fd299811da2588c5cdd0b1e05674c6a66",
-            "sha256": "sha256-fonOm+lc3Z4QKaWHDIqndpu/wSK8KCf5Ve5FV6cnVC8=",
+            "rev": "d0860ecde53ea8734988f97b38ce9fe455b1fb67",
+            "sha256": "sha256-3+lFWeAuDTnLjTelcy7N2b0z+XK3JEjD7swDfRH7MeE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "974f096fd299811da2588c5cdd0b1e05674c6a66"
+        "version": "d0860ecde53ea8734988f97b38ce9fe455b1fb67"
     },
     "unigine-heaven": {
         "cargoLocks": null,

@@ -621,12 +621,12 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "77aa1455e5b581c35d00cb5928cef9ac60e932e3";
+    version = "2ee908df244245c466e8e57f7aad5b07d3da7bb6";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "77aa1455e5b581c35d00cb5928cef9ac60e932e3";
-      hash = "sha256-dx84SG8S5zqbcOch6G/uf9I8Fv6usiS+3ZjI7m/vAxg=";
+      rev = "2ee908df244245c466e8e57f7aad5b07d3da7bb6";
+      hash = "sha256-Z+kGr+tXL8bO6Yji0RbgyoAyVgw/Cw/g6dTZ/CxnmeU=";
     };
     date = "2024-11-12";
   };
@@ -723,12 +723,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4067";
+    version = "b4068";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4067";
-      hash = "sha256-Sx/pQY+Ni8KiPIdFIPxZZonrgFwA7rI3zuyRBtqs1OI=";
+      rev = "b4068";
+      hash = "sha256-4246jTcOdFmWeNhcrHbROg2P5/mvsfyOFQG5oX5735I=";
     };
   };
   lyrica = {
@@ -1601,14 +1601,14 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "974f096fd299811da2588c5cdd0b1e05674c6a66";
+    version = "d0860ecde53ea8734988f97b38ce9fe455b1fb67";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "974f096fd299811da2588c5cdd0b1e05674c6a66";
-      hash = "sha256-fonOm+lc3Z4QKaWHDIqndpu/wSK8KCf5Ve5FV6cnVC8=";
+      rev = "d0860ecde53ea8734988f97b38ce9fe455b1fb67";
+      hash = "sha256-3+lFWeAuDTnLjTelcy7N2b0z+XK3JEjD7swDfRH7MeE=";
     };
-    date = "2024-11-09";
+    date = "2024-11-12";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
