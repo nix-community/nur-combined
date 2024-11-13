@@ -7,7 +7,6 @@
   vulkan-loader,
   stdenv,
   darwin,
-  wayland,
   lm_sensors,
   xorg,
 }:
@@ -109,5 +108,6 @@ rustPlatform.buildRustPackage rec {
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ mrene ];
     mainProgram = "fan-control";
+    platforms = lib.platforms.linux;
   };
 }

@@ -10,12 +10,13 @@
 , includeExtCaps ? true
 , ieee-802-15-4-sniffer ? null
 , ice9-bluetooth-sniffer ? null
+, pyspinel ? null
  }:
 
 let
   extCapDir = onlyBin (symlinkJoin {
     name = "wireshark-extcap-dir";
-    paths = lib.optionals includeExtCaps [ ieee-802-15-4-sniffer ice9-bluetooth-sniffer ] ++ extCapPackages;
+    paths = lib.optionals includeExtCaps [ ieee-802-15-4-sniffer ice9-bluetooth-sniffer pyspinel ] ++ extCapPackages;
     postBuild = ''
       # Link the builtin extcap programs because wireshark doesn't look in its own lib directory 
       # if the env var is set
