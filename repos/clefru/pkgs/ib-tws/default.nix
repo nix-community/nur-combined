@@ -2,12 +2,12 @@
 with pkgs;
 
 let ibDerivation = stdenv.mkDerivation rec {
-  version = "10.32.1k";
+  version = "10.32.1l";
   pname = "ib-tws-native";
 
   src = fetchurl {
     url = "https://download2.interactivebrokers.com/installers/tws/latest-standalone/tws-latest-standalone-linux-x64.sh";
-    sha256 = "1d517k1y6gryc6119c39a4yjkpwrf9a5zkxdnsy21rgm57s78f7f";
+    sha256 = "0frxfak1vl4dw8z4j783718jyck5a6fvzm8najklzh3jz52b99xb";
     executable = true;
   };
 
@@ -39,7 +39,7 @@ let ibDerivation = stdenv.mkDerivation rec {
     # -Dsun.java2d.opengl=False not applied. Why would I disable that?
     # -Dswing.aatext=true applied
     mkdir $out/bin
-    sed -e s#__OUT__#$out# -e s#__JAVAHOME__#${pkgs.oraclejre8.home}# -e s#__GTK__#${pkgs.gtk3}# -e s#__CCLIBS__#${pkgs.stdenv.cc.cc.lib}# ${./tws-wrap.sh} > $out/bin/ib-tws-native
+    sed -e s#__OUT__#$out# -e s#__JAVAHOME__#${pkgs.openjdk8.jre}/lib/openjdk# -e s#__GTK__#${pkgs.gtk3}# -e s#__CCLIBS__#${pkgs.stdenv.cc.cc.lib}# ${./tws-wrap.sh} > $out/bin/ib-tws-native
 
     chmod a+rx $out/bin/ib-tws-native
 
