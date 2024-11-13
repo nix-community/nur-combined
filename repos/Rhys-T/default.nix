@@ -20,7 +20,7 @@ in {
     _Read-Me-link = pkgs.runCommandLocal "___Read_Me___" rec {
         message = ''
         This is not a real package.
-        It's just here to add a Read Me link to <https://nur.nix-community.org/repos/rhys-t/>.
+        It's just here to add a Read Me link for this repo on the NUR site.
         See <${meta.homepage}> for the actual Read Me.
         Or for the local copy: ${toString ./README.md}
         '';
