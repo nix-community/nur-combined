@@ -120,7 +120,7 @@ in stdenv.mkDerivation rec {
             DRL (D**m, the Roguelike) is a fast and furious coffee-break Roguelike game, that is heavily inspired by the popular FPS game Doom by ID Software.
         '';
         homepage = "https://drl.chaosforge.org/";
-        licenses = with lib.licenses; [
+        license = with lib.licenses; [
             # Code
             gpl2Only
             # Artwork
