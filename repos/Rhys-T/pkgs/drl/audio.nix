@@ -1,4 +1,4 @@
-{ audioQuality, drl-unwrapped, fetchzip, lib }: let
+{ audioQuality, drl-unwrapped, drl-common, fetchzip, lib }: let
     pname = "drl-${audioQuality}-audio";
     inherit (drl-unwrapped) version;
     rev = builtins.replaceStrings ["."] ["_"] version;
@@ -14,6 +14,9 @@ in if audioQuality == "hq" then fetchtgz {
         shopt -u extglob
     '';
     hash = "sha256-j1YzEAW40w+yBRT3MJz5IGe3gNvd4ede32SVhNAGjUc=";
+    meta = drl-common.meta // {
+        description = "${drl-common.meta.description} (high-quality audio files)";
+    };
 } else fetchtgz {
     inherit pname version passthru;
     url = "https://github.com/chaosforgeorg/doomrl/releases/download/${rev}/drl-linux-${shortVersion}-lq.tar.gz";
@@ -23,4 +26,7 @@ in if audioQuality == "hq" then fetchtgz {
         shopt -u extglob
     '';
     hash = "sha256-GyOklqXecE6jhN2dZ6XIliLAZQob7gPgnkW484MQeiw=";
+    meta = drl-common.meta // {
+        description = "${drl-common.meta.description} (low-quality audio files)";
+    };
 }

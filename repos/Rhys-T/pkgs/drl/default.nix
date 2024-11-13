@@ -1,4 +1,4 @@
-{ stdenvNoCC, lib, drl-unwrapped, drl-audio, drl-icon, makeDesktopItem, copyDesktopItems, desktopToDarwinBundle, bash, coreutils, shellcheck }: let
+{ stdenvNoCC, lib, drl-unwrapped, drl-audio, drl-icon, drl-common, makeDesktopItem, copyDesktopItems, desktopToDarwinBundle, bash, coreutils, shellcheck }: let
     wrongAudioSuffix = if drl-audio.audioQuality == "hq" then "" else "hq";
 in stdenvNoCC.mkDerivation {
     pname = "drl-${drl-audio.audioQuality}";
@@ -44,7 +44,8 @@ in stdenvNoCC.mkDerivation {
         runHook postInstallCheck
     '';
     doInstallCheck = true;
-    meta = drl-unwrapped.meta // {
+    meta = drl-common.meta // {
+        description = "${drl-common.meta.description} (with ${if drl-audio.audioQuality == "hq" then "high" else "low"}-quality audio)";
         mainProgram = "drl";
     };
 }

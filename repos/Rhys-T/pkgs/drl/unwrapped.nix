@@ -1,4 +1,4 @@
-{ stdenv, lib, symlinkJoin, makeBinaryWrapper, autoPatchelfHook, fetchFromGitHub, writeText, lua5_1, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, ncurses, darwin, fpc, maintainers }: let
+{ stdenv, lib, symlinkJoin, makeBinaryWrapper, autoPatchelfHook, fetchFromGitHub, writeText, lua5_1, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, ncurses, darwin, fpc, drl-common }: let
     libExt = if stdenv.hostPlatform.isDarwin then "dylib" else "so";
     version = "0.9.9.8a";
     gitShortRev = "97f1c51";
@@ -114,20 +114,7 @@ in stdenv.mkDerivation rec {
         cp -r "''${files[@]/#/bin\/}" "$out"/share/drl/
         runHook postInstall
     '';
-    meta = {
-        description = "Roguelike game based on the FPS Doom";
-        longDescription = ''
-            DRL (D**m, the Roguelike) is a fast and furious coffee-break Roguelike game, that is heavily inspired by the popular FPS game Doom by ID Software.
-        '';
-        homepage = "https://drl.chaosforge.org/";
-        license = with lib.licenses; [
-            # Code
-            gpl2Only
-            # Artwork
-            # Music (according to <https://simonvolpert.com/drla/>)
-            cc-by-sa-40
-        ];
-        platforms = lib.intersectLists (lib.platforms.linux ++ lib.platforms.darwin) lib.platforms.x86_64;
-        maintainers = [maintainers.Rhys-T];
+    meta = drl-common.meta // {
+        description = "${drl-common.meta.description} (game engine and core data)";
     };
 }

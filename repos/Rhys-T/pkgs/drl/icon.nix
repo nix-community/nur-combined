@@ -1,4 +1,4 @@
-{ stdenvNoCC, drl-unwrapped, imagemagick }: stdenvNoCC.mkDerivation {
+{ stdenvNoCC, drl-unwrapped, drl-common, imagemagick }: stdenvNoCC.mkDerivation {
     pname = "drl-icon";
     inherit (drl-unwrapped) version src;
     nativeBuildInputs = [imagemagick];
@@ -12,4 +12,7 @@
         install -D drl-icon.png "$out"/share/icons/hicolor/512x512/apps/drl.png
         runHook postInstall
     '';
+    meta = drl-common.meta // {
+        description = "${drl-common.meta.description} (XDG icon image)";
+    };
 }

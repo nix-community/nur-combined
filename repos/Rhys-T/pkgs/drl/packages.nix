@@ -10,4 +10,5 @@ in lib.makeScope newScope (self: let inherit (self) callPackage; in {
     drl-audio-lq = callPackage ./audio.nix { audioQuality = "lq"; };
     drl-audio = self.drl-audio-hq;
     drl-icon = callPackage ./icon.nix {};
+    drl-common = callPackage ./common.nix {};
 })

@@ -1,4 +1,4 @@
-{ lib, newScope, maintainers, hostPlatform }: let
+{ lib, newScope, hostPlatform }: let
     inherit (hostPlatform) isDarwin;
 in lib.makeScope newScope (self: let inherit (self) callPackage; in {
     lix-game-packages = self;
@@ -9,7 +9,7 @@ in lib.makeScope newScope (self: let inherit (self) callPackage; in {
     music = callPackage ./music.nix {};
     server = callPackage ./server.nix {};
     
-    common = callPackage ./common.nix { inherit maintainers; };
+    common = callPackage ./common.nix {};
     highResTitleScreen = callPackage ./highResTitleScreen.nix {};
     
     convertImagesToTrueColor = isDarwin;
