@@ -1804,10 +1804,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.3.1";
+      version = "4.3.2";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4371486/control_panel_for_twitter-4.3.1.xpi";
-      sha256 = "b5622b0e9a0077875298dd7a43e0eb4623bbce26f6b2875e41981abb4fec85c9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4380984/control_panel_for_twitter-4.3.2.xpi";
+      sha256 = "377408572fd6da1972714eccdc729608c3bb1e5fe164b67525a33f52bb86d5f1";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -2128,10 +2128,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.9.1";
+      version = "1.9.3";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4375301/dearrow-1.9.1.xpi";
-      sha256 = "478976f941605bd0fd1da32ffad82b8874a965eb02943d46814387d9b61c206f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4381372/dearrow-1.9.3.xpi";
+      sha256 = "edbdb5269d7d84d935a0053b0413e51c738e57571fffe0b175a8d5d3f800fea4";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -6042,10 +6042,10 @@
     };
     "lexicon" = buildFirefoxXpiAddon {
       pname = "lexicon";
-      version = "1.6.6";
+      version = "1.6.7";
       addonId = "{b2f51f6b-a485-43dd-bebd-eb1ea3e9d9d2}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4327709/lexicon-1.6.6.xpi";
-      sha256 = "f887335819edff41c00779fd39c4bf941606d04a310a1f5b60f5921d1c78169f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4386933/lexicon-1.6.7.xpi";
+      sha256 = "0afb15ad3ad64ca87e394b18ce3f81e1d90235d7f6878d6b13e0d1ad4cea61d9";
       meta = with lib;
       {
         homepage = "https://github.com/akvedi/lexicon";
@@ -6436,10 +6436,10 @@
     };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.74";
+      version = "2.6.75";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4364493/localcdn_fork_of_decentraleyes-2.6.74.xpi";
-      sha256 = "869dac224a476fdc638d45d5c399fd475b5a9dfcbaad12f20d9f9cf19aeea870";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4380944/localcdn_fork_of_decentraleyes-2.6.75.xpi";
+      sha256 = "c6dd6c46b7f1c09114eb2405f8c68433551217fd0bcb83a014c81c43e2d33c66";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -8543,10 +8543,10 @@
     };
     "polkadot-js" = buildFirefoxXpiAddon {
       pname = "polkadot-js";
-      version = "0.53.1";
+      version = "0.56.1";
       addonId = "{7e3ce1f0-15fb-4fb1-99c6-25774749ec6d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4368115/polkadot_js_extension-0.53.1.xpi";
-      sha256 = "7fbe6b7aaef3d7ca4a9d5af892033f342f4bad059068e7d62b24c6dad932c722";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4381510/polkadot_js_extension-0.56.1.xpi";
+      sha256 = "986a14bbc999ae0e0735c7e9bae2a00c0acb975fc2c9de71ce4fb753931f9232";
       meta = with lib;
       {
         homepage = "https://github.com/polkadot-js/extension";
@@ -9695,10 +9695,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.11.9";
+      version = "24.11.12";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4384896/refined_github-24.11.9.xpi";
-      sha256 = "3d67845be0059f85d85dfe85141a901b61cc6bc4d6e076e22beb91fd2b0e92f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4386666/refined_github-24.11.12.xpi";
+      sha256 = "883ba8755883af1159027f555e568969fd9507b233a0545035a2a9d990e4cbff";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -10740,10 +10740,10 @@
     };
     "surfingkeys" = buildFirefoxXpiAddon {
       pname = "surfingkeys";
-      version = "1.16.1";
+      version = "1.17.4";
       addonId = "{a8332c60-5b6d-41ee-bfc8-e9bb331d34ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4221189/surfingkeys_ff-1.16.1.xpi";
-      sha256 = "c146480eeda13fc86e806a2c9e02ff7d70280a82639cdaf14103d65ad51d5646";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4386755/surfingkeys_ff-1.17.4.xpi";
+      sha256 = "e91e957fd996327d765e25c127234d98e87e8618aecd045f64751bc35f276679";
       meta = with lib;
       {
         homepage = "https://github.com/brookhong/Surfingkeys";
@@ -10751,7 +10751,6 @@
         license = licenses.mit;
         mozPermissions = [
           "nativeMessaging"
-          "<all_urls>"
           "tabs"
           "history"
           "bookmarks"
@@ -10763,6 +10762,7 @@
           "clipboardWrite"
           "cookies"
           "contextualIdentities"
+          "<all_urls>"
         ];
         platforms = platforms.all;
       };
