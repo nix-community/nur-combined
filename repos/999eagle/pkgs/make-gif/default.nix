@@ -1,9 +1,11 @@
 {
   writeShellApplication,
+  fetchurl,
+  fetchFromGitHub,
   imagemagick,
   oxipng,
-  fetchFromGitHub,
   stdenv,
+  bc,
 }: let
   explode = stdenv.mkDerivation {
     pname = "explode";
@@ -27,11 +29,15 @@
       done
     '';
   };
+  pat = fetchurl {
+    url = "https://benisland.neocities.org/petpet/img/sprite.png";
+    hash = "sha256-/t72s3IFI2KX6NpauGtu6dZ9ySSUyDHBQKatHMkg/fI=";
+  };
 in
   writeShellApplication {
-    name = "explode";
+    name = "make-gif";
     text = builtins.readFile ./script.sh;
-    runtimeEnv = {inherit explode;};
-    runtimeInputs = [imagemagick];
-    derivationArgs.passthru = {inherit explode;};
+    runtimeEnv = {inherit explode pat;};
+    runtimeInputs = [imagemagick bc];
+    derivationArgs.passthru = {inherit explode pat;};
   }
