@@ -18,7 +18,10 @@ python3Packages.buildPythonApplication rec {
   };
 
   pythonRelaxDeps = [
+    "bottle"
+    "certifi"
     "pillow"
+    "pyproj"
     "webob"
   ];
 

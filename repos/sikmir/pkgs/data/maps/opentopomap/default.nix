@@ -6,21 +6,25 @@
   unzip,
   mkgmap,
   mkgmap-splitter,
-  osm-extracts,
 }:
 let
+  version = "241113";
   bounds = fetchurl {
-    url = "https://www.thkukuk.de/osm/data/bounds-20240126.zip";
-    hash = "sha256-N3QHgWKmbTu6yz9ojKlfwZm46UGeTmtkI2yuB6C7n80=";
+    url = "https://www.thkukuk.de/osm/data/bounds-20241025.zip";
+    hash = "sha256-7VjO9EYVQ0IEmjR3SXxaTAT22zToHw9JPOVm0p5rF3M=";
   };
   sea = fetchurl {
-    url = "https://www.thkukuk.de/osm/data/sea-20240126001517.zip";
-    hash = "sha256-YGtlp3K03PDFi3dfWG9bnv3qEWQOmx96eOFm1FU4AJw=";
+    url = "https://www.thkukuk.de/osm/data/sea-20241114001517.zip";
+    hash = "sha256-nWxxPtaqrNLz2UiiQhpfo2lEbIjcsOl5IPuYWWCASXs=";
+  };
+  armenia = fetchurl {
+    url = "https://download.geofabrik.de/asia/armenia-${version}.osm.pbf";
+    hash = "sha256-/4jxZy0ceiqyOaCDC0eA/sO44A1M+STeBHdSXDkRCJg=";
   };
 in
 stdenv.mkDerivation (finalAttrs: {
-  pname = "opentopomap";
-  inherit (osm-extracts) version;
+  pname = "otm-armenia";
+  inherit version;
 
   src = fetchFromGitHub {
     owner = "der-stefan";
@@ -44,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   buildPhase = ''
-    (cd data && splitter --precomp-sea=../sea --output=o5m ${osm-extracts.src})
+    (cd data && splitter --precomp-sea=../sea --output=o5m ${armenia})
     (cd style/typ && mkgmap --family-id=35 opentopomap.txt)
 
     mkgmap \
@@ -58,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   installPhase = ''
-    install -Dm644 output/gmapsupp.img $out/otm-russia-nwfd.img
+    install -Dm644 output/gmapsupp.img $out/otm-armenia.img
   '';
 
   meta = {

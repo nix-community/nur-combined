@@ -9,16 +9,16 @@
 
 buildGoModule rec {
   pname = "shifu";
-  version = "0.52.0";
+  version = "0.57.0";
 
   src = fetchFromGitHub {
     owner = "Edgenesis";
     repo = "shifu";
     rev = "v${version}";
-    hash = "sha256-YAw4guowbleFWMtHYuAi03w0/SlHnbD0vqHjgmPbJro=";
+    hash = "sha256-RRK8N/CLNWf9Jkq1Y2wJ2BGgjJNNc2roI9ChREkF06I=";
   };
 
-  vendorHash = "sha256-WRzWtYnoCMbIXNGq402pjpFcXjbzx+UZeg2T76bsE64=";
+  vendorHash = "sha256-SCse0FybcWNLshY0stgbV/AC3Y17znFtAKKhtCaZeGM=";
 
   nativeBuildInputs = [ installShellFiles ];
 
