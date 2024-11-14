@@ -2177,10 +2177,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "133.0.20241111.92015";
+      version = "133.0.20241113.92108";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4386151/deutsch_de_language_pack-133.0.20241111.92015.xpi";
-      sha256 = "d1d83d497f28f6e80a5aff8cc513744da7781653c71667e6d624c54a0584a9d5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4387349/deutsch_de_language_pack-133.0.20241113.92108.xpi";
+      sha256 = "c007576d3ea1fd800e7f555a6c6908ae0964f43fe5a4c6c426612f8ca9f5dbf2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2207,6 +2207,27 @@
           "https://www.youtube.com/*"
           "https://www.youtube.com/?*"
           "https://www.youtube.com/watch*"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "dictionaries" = buildFirefoxXpiAddon {
+      pname = "dictionaries";
+      version = "5.2.5.1";
+      addonId = "revir.qing@gmail.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4381209/dictionaries-5.2.5.1.xpi";
+      sha256 = "0623307e2cbea2d725475ad959d8c4408a61c3ca4c10246aa55110a63a491d89";
+      meta = with lib;
+      {
+        homepage = "https://github.com/revir/dictionaries";
+        description = "Dictionariez: This extension help you reading articles, looking up words of any language in various dictionaries, and exporting words to Anki, facilitating your language learning process.";
+        license = licenses.gpl2;
+        mozPermissions = [
+          "activeTab"
+          "tabs"
+          "storage"
+          "contextMenus"
+          "<all_urls>"
         ];
         platforms = platforms.all;
       };
@@ -3342,10 +3363,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "133.0.20241111.92015";
+      version = "133.0.20241113.92108";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4386062/francais_language_pack-133.0.20241111.92015.xpi";
-      sha256 = "3998ee7fc88848a64d6b901a5886d00bc7f1b18fe950cdc45ef22da865578f6e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4387400/francais_language_pack-133.0.20241113.92108.xpi";
+      sha256 = "d13ad6d997ae133931c41e2f0945bcd57b767dc6ed45845258a9f048f67b19ef";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3379,10 +3400,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "133.0.20241111.92015";
+      version = "133.0.20241113.92108";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4386146/gaidhlig_language_pack-133.0.20241111.92015.xpi";
-      sha256 = "4acce4478c1e124a25701d98d734526f3a51559f822595771515f6bb15c13abd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4387372/gaidhlig_language_pack-133.0.20241113.92108.xpi";
+      sha256 = "9b21146014558b19e3502dc3b7bdb8389d2913e437cec42b7f07a91aadbf4773";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7469,10 +7490,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.6.3";
+      version = "1.6.4";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4384802/mtab-1.6.3.xpi";
-      sha256 = "ac173cdc4c160e60f1db1dacde01fdc8402f6259471940cadf048742fd1a04e5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4387745/mtab-1.6.4.xpi";
+      sha256 = "8852f893cef93b0bd2a4b0c268cf28f0539511580ec96447aef150684ca7fefc";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
@@ -9891,10 +9912,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "133.0.20241111.92015";
+      version = "133.0.20241113.92108";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4386165/scots_language_pack-133.0.20241111.92015.xpi";
-      sha256 = "6df821c5a4c6e4d206b74d8e1281d312c41727a28312001deb8243f1bdce80e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4387356/scots_language_pack-133.0.20241113.92108.xpi";
+      sha256 = "8e17c9a04959868dbf2500dc5f6f774e140d53632b6e68b21d226142645db65c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -11802,10 +11823,10 @@
     };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.60.0";
+      version = "1.61.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4359936/ublock_origin-1.60.0.xpi";
-      sha256 = "e2cda9b2a1b0a7f6e5ef0da9f87f28df52f8560587ba2e51a3003121cfb81600";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4382536/ublock_origin-1.61.0.xpi";
+      sha256 = "e6fd55b799a568c66c10892a8f22428e6773fe16d7466ce9dee2952f224b203d";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
