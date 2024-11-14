@@ -9,7 +9,6 @@ with pkgs; rec {
   nextssh = pkgs.callPackage ./pkgs/nextssh { };
   ttf-ms-win10 = pkgs.callPackage ./pkgs/ttf-ms-win10 { };
   ttf-wps-fonts = pkgs.callPackage ./pkgs/ttf-wps-fonts { };
-  wiliwili = pkgs.callPackage ./pkgs/wiliwili { };
   wldbg = pkgs.callPackage ./pkgs/wldbg { };
   wlhax = pkgs.callPackage ./pkgs/wlhax { };
   ukui-interface = pkgs.libsForQt5.callPackage ./pkgs/ukui-interface { };
