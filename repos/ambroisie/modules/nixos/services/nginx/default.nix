@@ -281,6 +281,7 @@ in
 
                 locations."/" = {
                   extraConfig =
+                    # FIXME: check that X-User is dropped otherwise
                     (args.extraConfig.locations."/".extraConfig or "") + ''
                       # Use SSO
                       auth_request /sso-auth;
@@ -415,6 +416,7 @@ in
           "${domain}" = {
             extraDomainNames = [ "*.${domain}" ];
             dnsProvider = "ovh";
+            dnsPropagationCheck = false; # OVH is slow
             inherit (cfg.acme) credentialsFile;
           };
         };
