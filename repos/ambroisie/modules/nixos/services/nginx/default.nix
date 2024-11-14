@@ -86,7 +86,7 @@ in
         type = types.str;
         example = "/var/lib/acme/creds.env";
         description = ''
-          Gandi API key file as an 'EnvironmentFile' (see `systemd.exec(5)`)
+          OVH API key file as an 'EnvironmentFile' (see `systemd.exec(5)`)
         '';
       };
     };
@@ -414,7 +414,7 @@ in
         {
           "${domain}" = {
             extraDomainNames = [ "*.${domain}" ];
-            dnsProvider = "gandiv5";
+            dnsProvider = "ovh";
             inherit (cfg.acme) credentialsFile;
           };
         };
