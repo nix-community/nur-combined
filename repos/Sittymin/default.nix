@@ -20,6 +20,7 @@
   reqable = pkgs.callPackage ./pkgs/reqable { };
   sysmon = pkgs.callPackage ./pkgs/sysmon { };
   steel = pkgs.callPackage ./pkgs/steel { };
+  guile-lsp-server = pkgs.callPackage ./pkgs/guile-lsp-server { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
