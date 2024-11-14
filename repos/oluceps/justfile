@@ -81,7 +81,7 @@ edit-sec *args:
                                   reduce {|it, acc| $it + (char newline) + $acc } |
                                   fzf
     if (not ($encrypted_file_tob_edit | path exists)) { print -e "Not found"; exit }
-    nix run $'.#vaultix.(uname | $'($in.machine)-($in.kernel-name | str downcase)').edit' -- $encrypted_file_tob_edit
+    nix run $'.#vaultix.app.(uname | $'($in.machine)-($in.kernel-name | str downcase)').edit' -- $encrypted_file_tob_edit
 
 decrypt *args:
     #!/usr/bin/env nu
