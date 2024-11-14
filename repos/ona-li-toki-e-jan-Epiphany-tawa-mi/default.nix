@@ -14,9 +14,10 @@
   #overlays = import ./overlays;              # nixpkgs overlays
 
   # My software.
-  netcatchat       = pkgs.callPackage ./pkgs/netcatchat       {};
-  cobol-dvd-thingy = pkgs.callPackage ./pkgs/cobol-dvd-thingy {};
-  bitmasher        = pkgs.callPackage ./pkgs/bitmasher        {};
-  cowsaypl         = pkgs.callPackage ./pkgs/cowsaypl         {};
   ahd              = pkgs.callPackage ./pkgs/ahd              {};
+  bitmasher        = pkgs.callPackage ./pkgs/bitmasher        {};
+  cobol-dvd-thingy = pkgs.callPackage ./pkgs/cobol-dvd-thingy {};
+  cowsaypl         = pkgs.callPackage ./pkgs/cowsaypl         {};
+  love-you-mom     = pkgs.callPackage ./pkgs/love-you-mom     {};
+  netcatchat       = pkgs.callPackage ./pkgs/netcatchat       {};
 }
