@@ -95,8 +95,6 @@ in
 // {
   inherit callPackage;
 
-  clonehero = callPackage ./games/clonehero { };
-
   cmake-language-server = python3Packages.callPackage ./development/tools/misc/cmake-language-server {
     inherit cmake cmake-format;
   };
@@ -127,10 +125,6 @@ in
     inherit (prev.python3Packages) mako;
   };
 
-  mozlz4a = callPackage ./tools/compression/mozlz4a { };
-
-  newsflash = callPackage ./applications/networking/feedreaders/newsflash { };
-
   protontricks = python3Packages.callPackage ./tools/package-management/protontricks {
     steam-run = steam-run-free;
     inherit winetricks yad;
@@ -141,10 +135,6 @@ in
   texlab = callPackage ./development/tools/misc/texlab {
     inherit (darwin.apple_sdk.frameworks) Security CoreServices;
   };
-
-  ukmm = callPackage ./tools/games/ukmm { };
-
-  undistract-me = callPackage ./shells/bash/undistract-me { };
 
   vkbasalt = callPackage ./tools/graphics/vkbasalt rec {
     vkbasalt32 = pkgsi686Linux.callPackage ./tools/graphics/vkbasalt { inherit vkbasalt32; };

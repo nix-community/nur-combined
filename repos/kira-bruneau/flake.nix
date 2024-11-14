@@ -59,28 +59,32 @@
             path:
             (builtins.all (ignore: !(lib.hasSuffix ignore path)) [
               "gemset.nix"
+
               "nixos/modules/hardware/video/intel-gpu-tools.nix"
               "nixos/modules/hardware/xpadneo.nix"
               "nixos/modules/programs/bash/undistract-me.nix"
               "nixos/modules/programs/gamemode.nix"
+
               "nixos/tests/xpadneo.nix"
+
               "pkgs/applications/audio/zynaddsubfx/default.nix"
               "pkgs/applications/audio/zynaddsubfx/mruby-zest/default.nix"
               "pkgs/applications/networking/cluster/krane/default.nix"
               "pkgs/applications/version-management/git-review/default.nix"
-              "pkgs/by-name/po/poke/package.nix"
               "pkgs/development/tools/misc/cmake-language-server/default.nix"
               "pkgs/development/tools/misc/texlab/default.nix"
-              "pkgs/games/clonehero/default.nix"
               "pkgs/os-specific/linux/xpadneo/default.nix"
-              "pkgs/shells/bash/undistract-me/default.nix"
               "pkgs/tools/audio/yabridge/default.nix"
               "pkgs/tools/audio/yabridgectl/default.nix"
-              "pkgs/tools/compression/mozlz4a/default.nix"
               "pkgs/tools/games/gamemode/default.nix"
-              "pkgs/tools/games/ukmm/default.nix"
               "pkgs/tools/graphics/mangohud/default.nix"
               "pkgs/tools/graphics/vkbasalt/default.nix"
+
+              "pkgs/by-name/cl/clonehero/package.nix"
+              "pkgs/by-name/mo/mozlz4a/package.nix"
+              "pkgs/by-name/po/poke/package.nix"
+              "pkgs/by-name/uk/ukmm/package.nix"
+              "pkgs/by-name/un/undistract-me/package.nix"
             ])
           ) (flake-linter-lib.walkFlake ./.)
         );
