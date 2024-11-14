@@ -119,7 +119,7 @@ Or, use variables from this repository in case I change them:
 |  | `drone-vault` | [drone-vault](https://docs.drone.io/configure/secrets/external/vault/) | 1.3.0 | Drone plugin for integrating with the Vault secrets manager |
 |  | `electron_11` | [electron](https://github.com/electron/electron) | 11.5.0 | Cross platform desktop application shell |
 |  | `etherguard` | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | 0.3.5-f5 | Layer 2 version of WireGuard with Floyd Warshall implementation in Go |
-|  | `fastapi-dls` | [fastapi-dls](https://gitea.publichub.eu/oscar.krause/fastapi-dls) | 1.3.12-unstable-2024-10-24 | Minimal Delegated License Service (DLS) |
+|  | `fastapi-dls` | [fastapi-dls](https://gitea.publichub.eu/oscar.krause/fastapi-dls) | 1.3.12-unstable-2024-11-13 | Minimal Delegated License Service (DLS) |
 |  | `fcitx5-breeze` | [fcitx5-breeze](https://github.com/scratch-er/fcitx5-breeze) | 3.1.0 | Fcitx5 theme to match KDE's Breeze style |
 |  | `flasgger` | [flasgger](http://flasgger.pythonanywhere.com/) | 0.9.5 | Easy OpenAPI specs and Swagger UI for your Flask API |
 |  | `ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
@@ -144,7 +144,7 @@ Or, use variables from this repository in case I change them:
 |  | `ldap-auth-proxy` | [ldap-auth-proxy](https://github.com/pinepain/ldap-auth-proxy) | 0.2.0-unstable-2020-07-29 | Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend |
 |  | `libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.2.8 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
 |  | `liboqs` | [liboqs](https://openquantumsafe.org) | 0.11.0 | C library for prototyping and experimenting with quantum-resistant cryptography |
-|  | `liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2024-11-12 | C library for prototyping and experimenting with quantum-resistant cryptography |
+|  | `liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2024-11-13 | C library for prototyping and experimenting with quantum-resistant cryptography |
 | `x86_64-linux` | `libqcef` | [libqcef](https://github.com/martyr-deepin/libqcef) | 0-unstable-2019-11-23 | Qt5 binding of CEF |
 |  | `lyrica` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.12 | Linux desktop lyrics widget focused on simplicity and integration |
 |  | `lyrica-plasmoid` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.12 | Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component) |
@@ -185,7 +185,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `qqmusic` | [qqmusic](https://y.qq.com/) | 1.1.7 | Tencent QQ Music |
 |  | `qqsp` | [qqsp](https://github.com/Sonnix1/Qqsp) | 1.9 | QT Quest Soft Player is a interactive fiction stories and games player (compatible fork of qsp.su) |
 |  | `qsp` | [qsp](https://github.com/QSPFoundation/qspgui) | 5.9.0-b11 | QSP is an Interactive Fiction development platform (GUI application) |
-|  | `qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2024-11-12 | QSP is an Interactive Fiction development platform (Game Library) |
+|  | `qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2024-11-14 | QSP is an Interactive Fiction development platform (Game Library) |
 |  | `r8125` | [r8125](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 9.013.02-2 | Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface |
 |  | `r8168` | [r8168](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 8.054.00 | Linux device driver for Realtek Ethernet controllers |
 |  | `rime-aurora-pinyin` | [rime-aurora-pinyin](https://github.com/hosxy/rime-aurora-pinyin) | 0-unstable-2022-08-28 | 【极光拼音】输入方案 |
@@ -211,7 +211,7 @@ Or, use variables from this repository in case I change them:
 |  | `uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.5.0 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS) |
 |  | `uesave-0_3_0` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld |
 |  | `uksmd` | [uksmd](https://github.com/CachyOS/uksmd) | 1.2.12 | Userspace KSM helper daemon |
-|  | `uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2024-11-12 | Unifies the management of LLM APIs. Call multiple backend services through a unified API interface |
+|  | `uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2024-11-13 | Unifies the management of LLM APIs. Call multiple backend services through a unified API interface |
 | `x86_64-linux` | `unigine-heaven` | [unigine-heaven](https://benchmark.unigine.com/heaven) | 4.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-sanctuary` | [unigine-sanctuary](https://benchmark.unigine.com/sanctuary) | 2.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
@@ -319,7 +319,7 @@ Or, use variables from this repository in case I change them:
 |  | `lantianCustomized.coredns` | [coredns](https://github.com/xddxdd/coredns) | 1.11.3 | CoreDNS with Lan Tian's modifications |
 |  | `lantianCustomized.firefox-icon-mikozilla-fireyae` | [firefox-icon-mikozilla-fireyae](https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/) |  | Custom icon "Mikozilla Fireyae" for Firefox |
 |  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.12.0 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
-|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggerganov/llama.cpp/) | 4068 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
+|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggerganov/llama.cpp/) | 4077 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
 |  | `lantianCustomized.materialgram` | [materialgram](https://kukuruzka165.github.io/materialgram/) | 5.7.0.1 | Telegram Desktop fork with material icons and some improvements (Without anti-features) |
 |  | `lantianCustomized.nbfc-linux` | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 0-unstable-2022-06-13 | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
 |  | `lantianCustomized.nginx` | [nginx-lantian](https://openresty.org) | 1.27.1.1-unstable-2024-11-05 | OpenResty with Lan Tian modifications |

@@ -187,14 +187,14 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "1ef4dcba0469db383503f6fe94cd248ec1ae536e";
+    version = "1303dbe808188aad697fb41c0eab0c86eee22cc5";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "1ef4dcba0469db383503f6fe94cd248ec1ae536e";
-      hash = "sha256-d7myDOwats1HDLppc8pgx8Z/dn4qMGPoMGD2UI/saIE=";
+      rev = "1303dbe808188aad697fb41c0eab0c86eee22cc5";
+      hash = "sha256-P8IkQqboED4x8d+p0fEo8zQsd+hC/9FmZnZLKNtdzaM=";
     };
-    date = "2024-11-11";
+    date = "2024-11-14";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -358,13 +358,13 @@
   };
   fastapi-dls = {
     pname = "fastapi-dls";
-    version = "a7fe8b867e4fa7ae72dcb45dc5ac9b5ca8dea0be";
+    version = "59a7c9f15affe96749d3f2760826315fabf31e3f";
     src = fetchgit {
       url = "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git";
-      rev = "a7fe8b867e4fa7ae72dcb45dc5ac9b5ca8dea0be";
-      hash = "sha256-14OJXuxAq348VCww3oKMl5b2NtZWHiShEHo/Gey1WAE=";
+      rev = "59a7c9f15affe96749d3f2760826315fabf31e3f";
+      hash = "sha256-+W6AMvgVOE678jPH+GanSfeuz1FxEK9yAlrqcwXH/KA=";
     };
-    date = "2024-10-24";
+    date = "2024-11-13";
   };
   fastapi-dls-stable = {
     pname = "fastapi-dls-stable";
@@ -621,14 +621,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "2ee908df244245c466e8e57f7aad5b07d3da7bb6";
+    version = "507d03009cecc30a4aed78279d08ab7f8de813f8";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "2ee908df244245c466e8e57f7aad5b07d3da7bb6";
-      hash = "sha256-Z+kGr+tXL8bO6Yji0RbgyoAyVgw/Cw/g6dTZ/CxnmeU=";
+      rev = "507d03009cecc30a4aed78279d08ab7f8de813f8";
+      hash = "sha256-+aFv6J9/7eHqsl4T5VDXInrMMW5urDCF4ChlcpAlSA8=";
     };
-    date = "2024-11-12";
+    date = "2024-11-13";
   };
   libqcef = {
     pname = "libqcef";
@@ -723,12 +723,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4068";
+    version = "b4077";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4068";
-      hash = "sha256-4246jTcOdFmWeNhcrHbROg2P5/mvsfyOFQG5oX5735I=";
+      rev = "b4077";
+      hash = "sha256-eHgVhpwZi7rNzzkV41clxaLBqtlNgo1CThaMEhligv4=";
     };
   };
   lyrica = {
@@ -1235,14 +1235,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "201fd4730eee8fa996155a02fcba8120a1324a34";
+    version = "e9a8c54b8252baad23fd49f9797497f417ec61ea";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "201fd4730eee8fa996155a02fcba8120a1324a34";
-      hash = "sha256-V/UI2NZBkeuGHC6f8TAGOqKwpAqmGil/G81m5SnME2s=";
+      rev = "e9a8c54b8252baad23fd49f9797497f417ec61ea";
+      hash = "sha256-c1axIG3wbkYyxkZyCiTcNtg9NkTruZ7OEu1h65jYN6A=";
     };
-    date = "2024-11-12";
+    date = "2024-11-14";
   };
   qsp-wx = {
     pname = "qsp-wx";
@@ -1601,14 +1601,14 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "d0860ecde53ea8734988f97b38ce9fe455b1fb67";
+    version = "58f793c6e8685a34ba033d85e21d4e391d2ef663";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "d0860ecde53ea8734988f97b38ce9fe455b1fb67";
-      hash = "sha256-3+lFWeAuDTnLjTelcy7N2b0z+XK3JEjD7swDfRH7MeE=";
+      rev = "58f793c6e8685a34ba033d85e21d4e391d2ef663";
+      hash = "sha256-ftfV1ybCh71sWuii0HWJIrEl5FcN9ke4Mj7Ewrtdml4=";
     };
-    date = "2024-11-12";
+    date = "2024-11-13";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

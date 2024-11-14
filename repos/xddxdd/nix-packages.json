@@ -512,7 +512,7 @@
   "legacyPackages.x86_64-linux.fastapi-dls": {
     "description": "Minimal Delegated License Service (DLS)",
     "pname": "fastapi-dls",
-    "version": "1.3.12-unstable-2024-10-24"
+    "version": "1.3.12-unstable-2024-11-13"
   },
   "legacyPackages.x86_64-linux.fcitx5-breeze": {
     "description": "Fcitx5 theme to match KDE's Breeze style",
@@ -647,7 +647,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "4068"
+    "version": "4077"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -1297,7 +1297,7 @@
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2024-11-12"
+    "version": "0-unstable-2024-11-13"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -3452,7 +3452,7 @@
   "legacyPackages.x86_64-linux.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2024-11-12"
+    "version": "0-unstable-2024-11-14"
   },
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -3627,7 +3627,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2024-11-12"
+    "version": "0-unstable-2024-11-13"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -3877,7 +3877,7 @@
   "packages.x86_64-linux.fastapi-dls": {
     "description": "Minimal Delegated License Service (DLS)",
     "pname": "fastapi-dls",
-    "version": "1.3.12-unstable-2024-10-24"
+    "version": "1.3.12-unstable-2024-11-13"
   },
   "packages.x86_64-linux.fcitx5-breeze": {
     "description": "Fcitx5 theme to match KDE's Breeze style",
@@ -4022,7 +4022,7 @@
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2024-11-12"
+    "version": "0-unstable-2024-11-13"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -4247,7 +4247,7 @@
   "packages.x86_64-linux.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2024-11-12"
+    "version": "0-unstable-2024-11-14"
   },
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -4382,7 +4382,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2024-11-12"
+    "version": "0-unstable-2024-11-13"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
