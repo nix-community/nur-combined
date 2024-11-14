@@ -71,16 +71,16 @@
   });
 in buildNpmPackage rec {
   pname = "cryptpad";
-  version = "2024.9.0";
+  version = "2024.9.1";
 
   src = fetchFromGitHub {
     owner = "cryptpad";
     repo = "cryptpad";
     rev = version;
-    hash = "sha256-OUtWaDVLRUbKS0apwY0aNq4MalGFv+fH9VA7LvWWYRs=";
+    hash = "sha256-0BmTVr9L5SbvtemoIIHp874s/alKz3GTqb+R8q23TSM=";
   };
 
-  npmDepsHash = "sha256-pK0b7q1kJja9l8ANwudbfo3jpldwuO56kuulS8X9A5s=";
+  npmDepsHash = "sha256-TT9vP+9D4xcUc8j7ai1WgSyMy3hpxjYIld8zAFcgqlg=";
 
   inherit nodejs;
 
