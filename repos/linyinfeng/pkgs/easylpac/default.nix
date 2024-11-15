@@ -7,13 +7,11 @@
   xorg,
   libglvnd,
   glfw,
-  makeWrapper,
+  wrapGAppsHook,
+  lpac,
   lib,
 }:
 
-let
-  workDir = callPackage ./work-dir.nix { };
-in
 buildGoModule rec {
   pname = "easylpac";
   version = "0.7.6.5";
@@ -33,7 +31,7 @@ buildGoModule rec {
 
   nativeBuildInputs = [
     pkg-config
-    makeWrapper
+    wrapGAppsHook
   ];
   buildInputs = [
     gtk3
@@ -42,12 +40,10 @@ buildGoModule rec {
   ] ++ glfw.buildInputs;
 
   postInstall = ''
-    wrapProgram "$out/bin/EasyLPAC" --chdir "${workDir}"
+    ln -s "${lpac}/bin/lpac" "$out/bin/lpac"
   '';
 
   passthru = {
-    inherit workDir;
-
     updateScriptEnabled = true;
     updateScript =
       let
