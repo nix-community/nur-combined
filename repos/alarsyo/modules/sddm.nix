@@ -17,21 +17,15 @@ in {
   config = mkIf cfg.enable {
     services.displayManager.sddm = {
       enable = true;
-      theme = "sugar-candy";
+      theme = "catppuccin-latte";
+      wayland.enable = true;
     };
 
-    environment.systemPackages = builtins.attrValues {
-      inherit
-        (pkgs.packages)
-        sddm-sugar-candy
-        ;
-
-      inherit
-        (pkgs.libsForQt5.qt5)
-        qtgraphicaleffects
-        qtquickcontrols2
-        qtsvg
-        ;
-    };
+    environment.systemPackages = [
+      (pkgs.catppuccin-sddm.override
+        {
+          flavor = "latte";
+        })
+    ];
   };
 }
