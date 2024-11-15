@@ -19,6 +19,7 @@ specify {
   buildJosmPlugin = any;
   cavif = any;
   ch57x-keyboard-tool = any;
+  chromium.commandLineArgs = "--enable-features=WaylandTextInputV3"; # Pending https://crbug.com/40272818
   co2monitor = any;
   darktable.version = "≥4.8";
   decompiler-mc = any;
@@ -63,7 +64,7 @@ specify {
   picard.overlay = p: { preFixup = p.preFixup + "\nmakeWrapperArgs+=(--prefix PATH : ${stable.lib.makeBinPath [ resolved.rsgain ]})"; }; # NixOS/nixpkgs#255222
   pngquant-interactive = any;
   ruff.version = "≥0.4.5"; # ruff server
-  rust-analyzer.version = "≥2024-09-02"; # Compatability with Rust 1.82
+  rust-analyzer.version = "≥2024-09-02"; # Compatibility with Rust 1.82
   signal-desktop.gappsWrapperArgs = "--add-flags --use-tray-icon"; # Enable tray icon
   spf-check = any;
   spf-tree = any;

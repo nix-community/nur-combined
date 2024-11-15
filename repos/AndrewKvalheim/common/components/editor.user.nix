@@ -25,6 +25,7 @@ in
     mutableExtensionsDir = false;
     enableExtensionUpdateCheck = false;
     extensions = with pkgs.vscode-extensions; [
+      bierner.markdown-checkbox
       bierner.markdown-mermaid
       bierner.markdown-preview-github-styles
       bpruitt-goddard.mermaid-markdown-syntax-highlighting
@@ -132,7 +133,6 @@ in
       "editor.wrappingStrategy" = "advanced";
       "explorer.confirmDelete" = false;
       "markdown.preview.linkify" = false;
-      "markdown-checkboxes.enable" = false;
       "search.useIgnoreFiles" = false;
       "security.workspace.trust.banner" = "never";
       "terminal.integrated.fontFamily" = "'Iosevka Custom Term'";

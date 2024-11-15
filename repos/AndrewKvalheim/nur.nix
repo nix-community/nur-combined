@@ -33,7 +33,7 @@ rec {
   decompiler-mc = pkgs.callPackage ./packages/decompiler-mc.nix { };
   dmarc-report-notifier = pkgs.callPackage ./packages/dmarc-report-notifier.nix {
     python3Packages = (pkgs.python3.override {
-      packageOverrides = _: pythonPackages: {
+      packageOverrides = resolved: pythonPackages: {
         # Pending NixOS/nixpkgs#337081
         msgraph-core = pkgs.lib.warnIfNot pkgs.python3Packages.parsedmarc.meta.broken "python3Packages.parsedmarc is no longer broken"
           (pkgs.lib.findFirst (p: p.pname == "msgraph-core") null pkgs.parsedmarc.requiredPythonModules);
@@ -47,19 +47,21 @@ rec {
         });
         # Pending followup to NixOS/nixpkgs#345326
         parsedmarc = pythonPackages.parsedmarc.overridePythonAttrs (parsedmarc: {
-          propagatedBuildInputs = parsedmarc.propagatedBuildInputs ++ [
-            (pythonPackages.buildPythonPackage rec {
-              pname = "pygelf";
-              version = "0.4.2";
-              pyproject = true;
-              src = pythonPackages.fetchPypi {
-                inherit pname version;
-                hash = "sha256-0LuPRf9kipoYdxP0oFwJ9oX8uK3XsEu3Rx8gBxvRGq0=";
-              };
-              build-system = [ pythonPackages.setuptools ];
-            })
-          ];
+          propagatedBuildInputs = parsedmarc.propagatedBuildInputs ++ [ resolved.pygelf ];
         });
+        # Pending packaging
+        pygelf = pkgs.lib.warnIf (pythonPackages ? pygelf) "python3Packages.pygelf is no longer missing"
+          pythonPackages.buildPythonPackage
+          rec {
+            pname = "pygelf";
+            version = "0.4.2";
+            pyproject = true;
+            src = pythonPackages.fetchPypi {
+              inherit pname version;
+              hash = "sha256-0LuPRf9kipoYdxP0oFwJ9oX8uK3XsEu3Rx8gBxvRGq0=";
+            };
+            build-system = [ pythonPackages.setuptools ];
+          };
       };
     }).pkgs;
   };
@@ -73,7 +75,6 @@ rec {
   little-a-map = pkgs.callPackage ./packages/little-a-map.nix { };
   mark-applier = pkgs.callPackage ./packages/mark-applier.nix { };
   minemap = pkgs.callPackage ./packages/minemap.nix { };
-  mmdbinspect = pkgs.callPackage ./packages/mmdbinspect.nix { };
   nbt-explorer = pkgs.callPackage ./packages/nbt-explorer.nix { };
   pngquant-interactive = pkgs.callPackage ./packages/pngquant-interactive.nix { };
   spf-check = pkgs.callPackage ./packages/spf-check.nix { };
