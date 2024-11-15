@@ -51,8 +51,11 @@ jobs:
               ($runner | split("/")) as [$displayRunner, $runner] |
               select(($runner | startswith("ubuntu")) or ($nixpkgs | startswith("nixpkgs"))) |
               ($runner | split("+qemu-")) as [$runner, $qemuSystem] |
+              (if $qemuSystem then {
+                "aarch64-linux": "arm64",
+              }[$qemuSystem] else null end) as $qemuSystemForAction |
               (if $qemuSystem then $subsets[] else "all" end) as $subset |
-              {$displayRunner, $runner, $qemuSystem, $nixpkgs, $subset, $nurRepo, $cachixName}
+              {$displayRunner, $runner, $qemuSystem, $qemuSystemForAction, $nixpkgs, $subset, $nurRepo, $cachixName}
             ]} |
             
             @json "matrix=\(.)"
@@ -73,7 +76,9 @@ jobs:
       uses: actions/checkout@v4
     - name: Install qemu-user-static
       if: ${{ matrix.qemuSystem != null }}
-      run: sudo apt update && sudo apt install qemu-user-static
+      uses: docker/setup-qemu-action@v3
+      with:
+        platforms: ${{ matrix.qemuSystemForAction }}
     - name: Install nix
       uses: cachix/install-nix-action@v30
       with:
