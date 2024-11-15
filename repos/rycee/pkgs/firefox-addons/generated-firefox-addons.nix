@@ -2659,10 +2659,10 @@
     };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.126.1";
+      version = "2.0.128";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4354445/enhancer_for_youtube-2.0.126.1.xpi";
-      sha256 = "281035bd4211a8fbdcafb85e98044e3c02550495f91e1d00680cde404c742fbf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4383271/enhancer_for_youtube-2.0.128.xpi";
+      sha256 = "5db8939e5c72fc21a54c882c9ee94a2b6b03b8f997ed6d687f53442b349bd81c";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -5219,10 +5219,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.10.6";
+      version = "1.11.1";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4376396/immersive_translate-1.10.6.xpi";
-      sha256 = "087fb93f51730da8f1b2238e0e8d1e8dac841795339031c317f1bef03a691cc4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4382893/immersive_translate-1.11.1.xpi";
+      sha256 = "f5a7aae1eb92efc6cfa9ebfc25c6867919b08641bfd8d1c60545f2412124d70f";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -7360,10 +7360,10 @@
     };
     "mergify" = buildFirefoxXpiAddon {
       pname = "mergify";
-      version = "1.0.10";
+      version = "1.0.11";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4362877/mergify-1.0.10.xpi";
-      sha256 = "54ad51efc78f2e1dc63875a61df2c6ada7b144e8ea5becfd497613d4d6a089e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4387930/mergify-1.0.11.xpi";
+      sha256 = "753b2226b015309fb56e51aff3f2dea219013d74eb625589d974046b762b70ea";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
