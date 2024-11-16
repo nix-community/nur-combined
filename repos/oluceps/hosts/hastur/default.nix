@@ -71,7 +71,7 @@ withSystem "x86_64-linux" (
         ../dev.nix
       ]
       ++ (with inputs; [
-        aagl.nixosModules.default
+        # aagl.nixosModules.default
         disko.nixosModules.default
         # niri.nixosModules.niri
         # nixos-cosmic.nixosModules.default
