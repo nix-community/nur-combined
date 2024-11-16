@@ -1,5 +1,5 @@
 {
-  clangStdenv,
+  stdenv,
   lld,
   fetchFromGitHub,
   lib,
@@ -7,9 +7,6 @@
   makeWrapper,
   ...
 }:
-let
-  stdenv = clangStdenv;
-in
 stdenv.mkDerivation rec {
   pname = "plutolang";
   version = "0.10.2";
