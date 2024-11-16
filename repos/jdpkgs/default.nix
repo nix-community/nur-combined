@@ -14,8 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  nx-utils = pkgs.callPackage ./pkgs/nx-utils { };
-  catalyst3 = pkgs.callPackage ./pkgs/catalyst3 { };
+  catalyst-browser = pkgs.callPackage ./pkgs/catalyst-browser { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
