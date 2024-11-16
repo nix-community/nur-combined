@@ -21,6 +21,7 @@ in
 rec {
   modules = import ./modules;
   usbguard-applet-qt = pkgs.callPackage ./pkgs/usbguard-applet-qt { };
+  knockd = pkgs.callPackage ./pkgs/knockd { };
   dashlane-cli = pkgs.callPackage ./pkgs/dashlane-cli { };
   devcontainer-cli-unofficial = pkgs.callPackage ./pkgs/devcontainer-cli-unofficial { };
   glib = pkgs.callPackage ./pkgs/glib { };
