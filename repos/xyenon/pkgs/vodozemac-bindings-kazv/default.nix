@@ -8,14 +8,14 @@
 
 rustPlatform.buildRustPackage {
   pname = "vodozemac-bindings-kazv";
-  version = "0.1.0-unstable-2024-09-26";
+  version = "0.1.0-unstable-2024-11-14";
 
   src = fetchFromGitLab {
     domain = "lily-is.land";
     owner = "kazv";
     repo = "vodozemac-bindings";
-    rev = "f3a92709c0be6bd886a32dd7b4e5d04054e75391";
-    hash = "sha256-bZgQ4gMVvZLOlDNe9XKcrZcUnr5osskiVXmy4FwFqaA=";
+    rev = "80bbd9b9db69a7bc735cacde17d66cf82639b62e";
+    hash = "sha256-l9PnLNfhbPxYEIF+7TJ3KuVAKR8iNoROH6zBT0if7fU=";
   };
 
   cargoLock = {
