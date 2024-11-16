@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     cp src/{lua,lualib,lauxlib}.h src/lua.hpp "$dev/include"
 
     for x in "$out/bin"/*; do
-      wrapProgram "$x" --prefix LD_LIBRARY_PATH : ${gcc-unwrapped.lib}
+      wrapProgram "$x" --prefix LD_LIBRARY_PATH : ${gcc-unwrapped.lib}/lib
     done
 
     runHook postInstall
