@@ -52,14 +52,13 @@ stdenv.mkDerivation rec {
     cp src/libpluto* "$dev/lib"
     cp src/{lua,lualib,lauxlib}.h src/lua.hpp "$dev/include"
 
-    runHook postInstall
-  '';
-
-  postFixup = ''
     for x in "$out/bin"/*; do
       wrapProgram "$x" --prefix LD_LIBRARY_PATH : ${stdenv.cc.cc.lib}
     done
+
+    runHook postInstall
   '';
+
 
   meta = with lib; {
     description = "A superset of Lua 5.4 with a focus on general-purpose programming";
