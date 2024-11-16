@@ -4,6 +4,7 @@
   fetchFromGitHub,
   lib,
   php,
+  makeWrapper,
   ...
 }:
 let
@@ -25,7 +26,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ php lld ];
+  nativeBuildInputs = [ makeWrapper php lld ];
 
   buildInputs = [ stdenv.cc.cc.lib ];
 
