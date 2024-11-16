@@ -342,6 +342,10 @@ in
         };
       };
 
+    system.activationScripts.createVarLibCaddy.text = ''
+      sudo mkdir -p /var/lib/caddy
+    '';
+
     users.users = optionalAttrs (cfg.user == "caddy") {
       caddy = {
         gid = config.ids.gids.caddy;
