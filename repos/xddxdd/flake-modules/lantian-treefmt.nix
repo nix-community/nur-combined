@@ -14,6 +14,7 @@
           global.excludes = [
             "**/_sources/**"
             "_sources/**"
+            "**/deps.nix"
           ];
         };
 
