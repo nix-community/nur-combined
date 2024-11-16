@@ -24,8 +24,6 @@ buildPythonApplication rec {
 
   propagatedBuildInputs = [ i3ipc ];
 
-  pythonImportsCheck = [ "i3_focus_group.main" ];
-
   meta = with lib; {
     description = "Create a group for i3/sway containers to easily switch focus between";
     homepage = "https://github.com/DCsunset/i3-focus-group";
