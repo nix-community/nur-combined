@@ -69,17 +69,17 @@
     metrics.enable = true;
     do-agent.enable = true;
     # copilot-gpt4.enable = true;
-    factorio-manager = {
-      enable = true;
-      factorioPackage = pkgs.factorio-headless-experimental.override {
-        versionsJson = ./factorio-version.json;
-      };
-      botConfigPath = config.vaultix.secrets.factorio-manager-bot.path;
-      initialGameStartArgs = [
-        "--server-settings=${config.vaultix.secrets.factorio-server.path}"
-        "--server-adminlist=${config.vaultix.secrets.factorio-admin.path}"
-      ];
-    };
+    # factorio-manager = {
+    #   enable = true;
+    #   factorioPackage = pkgs.factorio-headless-experimental.override {
+    #     versionsJson = ./factorio-version.json;
+    #   };
+    #   botConfigPath = config.vaultix.secrets.factorio-manager-bot.path;
+    #   initialGameStartArgs = [
+    #     "--server-settings=${config.vaultix.secrets.factorio-server.path}"
+    #     "--server-adminlist=${config.vaultix.secrets.factorio-admin.path}"
+    #   ];
+    # };
 
     coturn = {
       enable = true;
