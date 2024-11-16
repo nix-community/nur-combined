@@ -1,12 +1,16 @@
 {
-  stdenv,
+  clangStdenv,
   lld,
   fetchFromGitHub,
   lib,
   php,
   makeWrapper,
+  gcc-unwrapped,
   ...
 }:
+let
+  stdenv = clangStdenv;
+in
 stdenv.mkDerivation rec {
   pname = "plutolang";
   version = "0.10.2";
@@ -51,7 +55,7 @@ stdenv.mkDerivation rec {
     cp src/{lua,lualib,lauxlib}.h src/lua.hpp "$dev/include"
 
     for x in "$out/bin"/*; do
-      wrapProgram "$x" --prefix LD_LIBRARY_PATH : ${stdenv.cc.cc.lib}
+      wrapProgram "$x" --prefix LD_LIBRARY_PATH : ${gcc-unwrapped.lib}
     done
 
     runHook postInstall
