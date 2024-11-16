@@ -337,13 +337,13 @@ let
         sha512 = "E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==";
       };
     };
-    "caniuse-lite-1.0.30001679" = {
+    "caniuse-lite-1.0.30001680" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001679";
+      version = "1.0.30001680";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001679.tgz";
-        sha512 = "j2YqID/YwpLnKzCmBOS4tlZdWprXm3ZmQLBH9ZBXFOhoxLA46fwyBvx6toCBWBmnuwUY/qB3kEU6gFx8qgCroA==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001680.tgz";
+        sha512 = "rPQy70G6AGUMnbwS1z6Xg+RkHYPAi18ihs47GH0jcxIG7wArmPgY3XbS2sRdBbxJljp3thdT8BIqv9ccCypiPA==";
       };
     };
     "chrome-trace-event-1.0.4" = {
@@ -400,13 +400,13 @@ let
         sha512 = "ZVJrKKYunU38/76t0RMOulHOnUcbU9GbpWKAOZ0mhjr7CX6FVrH+4FrAapSOekrgFQ3f/8gwMEuIft0aKq6Hug==";
       };
     };
-    "electron-to-chromium-1.5.55" = {
+    "electron-to-chromium-1.5.62" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.55";
+      version = "1.5.62";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.55.tgz";
-        sha512 = "6maZ2ASDOTBtjt9FhqYPRnbvKU5tjG0IN9SztUOWYw2AzNDNpKJYLJmlK0/En4Hs/aiWnB+JZ+gW19PIGszgKg==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.62.tgz";
+        sha512 = "t8c+zLmJHa9dJy96yBZRXGQYoiCEnHYgFwn1asvSPZSUdVxnB62A4RASd7k41ytG3ErFBA0TpHlKg9D9SQBmLg==";
       };
     };
     "enhanced-resolve-5.17.1" = {
@@ -1110,13 +1110,13 @@ let
       sources."ajv-keywords-3.5.2"
       sources."browserslist-4.24.2"
       sources."buffer-from-1.1.2"
-      sources."caniuse-lite-1.0.30001679"
+      sources."caniuse-lite-1.0.30001680"
       sources."chrome-trace-event-1.0.4"
       sources."clone-deep-4.0.1"
       sources."colorette-2.0.20"
       sources."commander-10.0.1"
       sources."cross-spawn-7.0.5"
-      sources."electron-to-chromium-1.5.55"
+      sources."electron-to-chromium-1.5.62"
       sources."enhanced-resolve-5.17.1"
       sources."envinfo-7.14.0"
       sources."es-module-lexer-1.5.4"

@@ -481,13 +481,13 @@ let
         sha512 = "VVdYzXEn+cnbXpFgWs5hTT7OScegHVmLhJIR8Ufqk3iFD6A6j5iSX1KuBTfNEv4tdJWE2PzA6IVFtcLC7fN9wQ==";
       };
     };
-    "caniuse-lite-1.0.30001679" = {
+    "caniuse-lite-1.0.30001680" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001679";
+      version = "1.0.30001680";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001679.tgz";
-        sha512 = "j2YqID/YwpLnKzCmBOS4tlZdWprXm3ZmQLBH9ZBXFOhoxLA46fwyBvx6toCBWBmnuwUY/qB3kEU6gFx8qgCroA==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001680.tgz";
+        sha512 = "rPQy70G6AGUMnbwS1z6Xg+RkHYPAi18ihs47GH0jcxIG7wArmPgY3XbS2sRdBbxJljp3thdT8BIqv9ccCypiPA==";
       };
     };
     "chalk-5.3.0" = {
@@ -580,13 +580,13 @@ let
         sha512 = "eFuaLoy/Rxalv2kr+lqMlUnrDWV+3j4pljOIJgLIhI058IQfWJ7vXhyEIHu+HtC738klGALYxOKDO0bQP3tg8A==";
       };
     };
-    "electron-to-chromium-1.5.55" = {
+    "electron-to-chromium-1.5.62" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.55";
+      version = "1.5.62";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.55.tgz";
-        sha512 = "6maZ2ASDOTBtjt9FhqYPRnbvKU5tjG0IN9SztUOWYw2AzNDNpKJYLJmlK0/En4Hs/aiWnB+JZ+gW19PIGszgKg==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.62.tgz";
+        sha512 = "t8c+zLmJHa9dJy96yBZRXGQYoiCEnHYgFwn1asvSPZSUdVxnB62A4RASd7k41ytG3ErFBA0TpHlKg9D9SQBmLg==";
       };
     };
     "encoding-0.1.13" = {
@@ -1387,7 +1387,7 @@ let
           sources."yallist-4.0.0"
         ];
       })
-      sources."caniuse-lite-1.0.30001679"
+      sources."caniuse-lite-1.0.30001680"
       sources."chalk-5.3.0"
       sources."chownr-2.0.0"
       sources."clean-stack-2.2.0"
@@ -1398,7 +1398,7 @@ let
       sources."convert-source-map-2.0.0"
       sources."debug-4.3.7"
       sources."defaults-1.0.4"
-      sources."electron-to-chromium-1.5.55"
+      sources."electron-to-chromium-1.5.62"
       sources."encoding-0.1.13"
       sources."err-code-2.0.3"
       sources."es-module-lexer-1.5.4"
