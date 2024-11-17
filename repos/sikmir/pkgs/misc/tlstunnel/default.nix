@@ -33,5 +33,6 @@ ocamlPackages.buildDunePackage rec {
     homepage = "https://github.com/robur-coop/tlstunnel";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = true;
   };
 }

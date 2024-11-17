@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  zig,
+  zig_0_11,
   scdoc,
   installShellFiles,
 }:
@@ -19,14 +19,14 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
-    zig
+    zig_0_11
     scdoc
     installShellFiles
   ];
 
   buildPhase = ''
     export HOME=$TMPDIR
-    zig build -Drelease-small=true -Dcpu=baseline
+    zig build -Doptimize=ReleaseSmall -Dcpu=baseline
     scdoc < doc/gmi2html.scdoc > doc/gmi2html.1
   '';
 

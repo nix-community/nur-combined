@@ -28,5 +28,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/amarant/mbutiles";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = true; # error on crate `time` caused by an API change in Rust 1.80.0
   };
 }

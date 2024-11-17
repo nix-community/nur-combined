@@ -17,13 +17,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "plotjuggler";
-  version = "3.9.2";
+  version = "3.9.3";
 
   src = fetchFromGitHub {
     owner = "facontidavide";
     repo = "PlotJuggler";
     rev = finalAttrs.version;
-    hash = "sha256-Dl2vE4iGhcGLH5lf1eCdybhfTG1bgI0Skw+AHKdvolQ=";
+    hash = "sha256-tcEcFGLLEHsBDb3sBEPs/WmDf7NNnwL/hbme5XfMgJI=";
   };
 
   postPatch = ''
@@ -54,5 +54,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.mpl20;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
+    broken = true;
   };
 })

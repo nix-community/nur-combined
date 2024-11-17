@@ -9,19 +9,19 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "bbox";
-  version = "0.5.0";
+  version = "0.6.2";
 
   src = fetchFromGitHub {
     owner = "bbox-services";
     repo = "bbox";
     rev = "v${version}";
-    hash = "sha256-Vhzch4jnWtYQ2/x9tNGph8FDDxB1vRR9L9KVZf3Tha4=";
+    hash = "sha256-FmY9Hqwv9lWjdEMe4JZM/nw8BaeZ+4eK+nibOUwcE+8=";
   };
 
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "tile-grid-0.5.2" = "sha256-usU44667dCob0J+RGn2nGMfdUSlRuVGM4bTfm19hD9E=";
+      "pmtiles-0.12.0" = "sha256-wy22X51TcQOFxdXOInQxoL8DtFPqtV3pE0pQaEehtCA=";
     };
   };
 

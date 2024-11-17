@@ -5,7 +5,7 @@
   cmake,
   boost,
   eigen,
-  opencv2,
+  opencv,
   wrapQtAppsHook,
 }:
 
@@ -35,7 +35,7 @@ stdenv.mkDerivation {
   buildInputs = [
     boost
     eigen
-    opencv2
+    opencv
   ];
 
   env.NIX_CFLAGS_COMPILE = "-fpermissive";
@@ -52,5 +52,6 @@ stdenv.mkDerivation {
     platforms = lib.platforms.linux;
     mainProgram = "polyvector_thing";
     skip.ci = stdenv.isDarwin;
+    broken = true;
   };
 }

@@ -9,20 +9,20 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "rmqtt";
-  version = "0.5.0";
+  version = "0.10.0";
 
   src = fetchFromGitHub {
     owner = "rmqtt";
     repo = "rmqtt";
     rev = version;
-    hash = "sha256-W6EUzRcy8aurZiNf3C1xsPV9v13fc9+qp0G4XAFxJR4=";
+    hash = "sha256-EPHiwDct8abzzYUj5egKf93yIrzFxoYDcH6ki4bZfGw=";
   };
 
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "ntex-0.3.22" = "sha256-tJak2elnYrC7Y4LjNC4nk113ru5RZjtzSDDsLTqxKGo=";
-      "ntex-mqtt-0.6.23" = "sha256-d+G2lPV5vf01jlDWRd+NyUUqebLrZi/OcYP8VtiF6pg=";
+      "ntex-0.4.1" = "sha256-nt/nLO7oIpE7EvxY2WseiGZH3U6Gw1jaJabPW76RCwk=";
+      "ntex-mqtt-0.7.2" = "sha256-ijHb37ZpwcfaHnVcB6moqFpCFjU8Jhiv8pxfARgTXkY=";
     };
   };
 
@@ -42,5 +42,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/rmqtt/rmqtt";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = true; # failed to get `ahash` as a dependency
   };
 }

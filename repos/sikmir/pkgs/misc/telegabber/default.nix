@@ -40,5 +40,6 @@ buildGoModule rec {
     homepage = "https://dev.narayana.im/narayana/telegabber";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = true;
   };
 }

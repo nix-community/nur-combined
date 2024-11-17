@@ -2,20 +2,23 @@
   lib,
   buildGoModule,
   fetchFromSourcehut,
+  sqlite,
 }:
 
 buildGoModule rec {
   pname = "mobsql";
-  version = "0.8.2";
+  version = "0.8.3";
 
   src = fetchFromSourcehut {
     owner = "~mil";
     repo = "mobsql";
     rev = "v${version}";
-    hash = "sha256-vB8+X1QqnsLWjRHJi/86t60avlK82zIcF2cZNMPzBNg=";
+    hash = "sha256-p2y57z1Jt4aWNClDAcuCucpboCCCo0LmfiBmdgZfCVQ=";
   };
 
   vendorHash = "sha256-YqduGY9c4zRQscjqze3ZOAB8EYj+0/6V7NceRwLe3DY=";
+
+  buildInputs = [ sqlite ];
 
   postInstall = ''
     mv $out/bin/{cli,mobsql}

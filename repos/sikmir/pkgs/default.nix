@@ -450,13 +450,13 @@ lib.makeScope newScope (
     ### NAKARTE
 
     elevation_server = callPackage ./nakarte/elevation_server { };
-    map-tiler = callPackage ./nakarte/map-tiler { python3Packages = pkgs.python39Packages; };
-    maprec = callPackage ./nakarte/maprec { python3Packages = pkgs.python39Packages; };
+    map-tiler = callPackage ./nakarte/map-tiler { python3Packages = pkgs.python310Packages; };
+    maprec = callPackage ./nakarte/maprec { python3Packages = pkgs.python310Packages; };
     #nakarte = callPackage ./nakarte/nakarte { };
-    ozi_map = callPackage ./nakarte/ozi_map { python3Packages = pkgs.python39Packages; };
-    pyimagequant = callPackage ./nakarte/pyimagequant { python3Packages = pkgs.python39Packages; };
+    ozi_map = callPackage ./nakarte/ozi_map { python3Packages = pkgs.python310Packages; };
+    pyimagequant = callPackage ./nakarte/pyimagequant { python3Packages = pkgs.python310Packages; };
     thinplatespline = callPackage ./nakarte/thinplatespline {
-      python3Packages = pkgs.python39Packages;
+      python3Packages = pkgs.python310Packages;
     };
     tracks_storage_server = pkgs.python3Packages.callPackage ./nakarte/tracks_storage_server { };
 
