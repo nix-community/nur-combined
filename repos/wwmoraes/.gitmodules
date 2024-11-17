@@ -1,0 +1,3 @@
+[submodule "NUR"]
+	path = NUR
+	url = https://github.com/nix-community/NUR

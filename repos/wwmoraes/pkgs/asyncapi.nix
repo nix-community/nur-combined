@@ -11,7 +11,6 @@ buildNpmPackage rec {
 		hash = "sha256-gbA2/O5Q18uHyCZX99cPfpGMTYqffyR6sisEmeFLy6A=";
 	};
 
-	## TODO disable sandbox in MacOS to use this
 	# npmDeps = importNpmLock {
 	# 	npmRoot = src;
 	# };
