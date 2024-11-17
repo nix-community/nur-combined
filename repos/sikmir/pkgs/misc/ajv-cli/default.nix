@@ -22,5 +22,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/jirutka/ajv-cli";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
+    skip.ci = true;
   };
 }

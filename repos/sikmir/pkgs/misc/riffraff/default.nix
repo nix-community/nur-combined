@@ -22,20 +22,23 @@ buildGoModule {
 
   nativeBuildInputs = [ installShellFiles ];
 
-  postInstall =
-    let
-      riffraff =
-        if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
-          placeholder "out"
-        else
-          buildPackages.riffraff;
-    in
-    ''
-      installShellCompletion --cmd riffraff \
-        --bash <(${riffraff}/bin/riffraff completion bash) \
-        --fish <(${riffraff}/bin/riffraff completion fish) \
-        --zsh <(${riffraff}/bin/riffraff completion zsh)
-    '';
+#  postInstall =
+#    let
+#      riffraff =
+#        if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
+#          placeholder "out"
+#        else
+#          buildPackages.riffraff;
+#    in
+#    ''
+#      export JENKINS_URL="http://example.com/"
+#      export JENKINS_USER="username"
+#      export JENKINS_PW="password"
+#      installShellCompletion --cmd riffraff \
+#        --bash <(${riffraff}/bin/riffraff completion bash) \
+#        --fish <(${riffraff}/bin/riffraff completion fish) \
+#        --zsh <(${riffraff}/bin/riffraff completion zsh)
+#    '';
 
   meta = {
     description = "A commandline interface for Jenkins";

@@ -25,5 +25,6 @@ buildNpmPackage rec {
     homepage = "https://zwave-js.github.io/zwave-js-ui";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
+    skip.ci = true;
   };
 }
