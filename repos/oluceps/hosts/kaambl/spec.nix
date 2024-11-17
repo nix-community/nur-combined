@@ -5,11 +5,6 @@
   ...
 }:
 {
-  vaultix.templates.template-test = {
-    name = "template.txt";
-    content = "this is a template for testing vaultix template ${config.vaultix.placeholder.wg} nya";
-    # path = "/home/elen/template.txt";
-  };
   # Mobile device.
 
   system.stateVersion = "23.05"; # Did you read the comment?

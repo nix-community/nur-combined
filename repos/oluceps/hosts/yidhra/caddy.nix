@@ -61,12 +61,12 @@
                           handle = [
                             {
                               handler = "reverse_proxy";
-                              # transport = {
-                              #   protocol = "http";
-                              #   tls = {
-                              #     server_name = "cache.nyaw.xyz";
-                              #   };
-                              # };
+                              transport = {
+                                protocol = "http";
+                                tls = {
+                                  server_name = "cache.nyaw.xyz";
+                                };
+                              };
                               upstreams = [ { dial = "10.0.4.2:443"; } ];
                             }
                           ];
