@@ -37,7 +37,7 @@ in
     enable = true;
     settings.PermitRootLogin = "no";
     settings.PasswordAuthentication = false;
-    settings.UsePAM = lib.mkDefault false;  #< notably, disables systemd session tracking; incidentally disables pam_mount, etc.
+    # settings.UsePAM = lib.mkDefault false;  #< notably, disables systemd session tracking; incidentally disables pam_mount, etc.
   };
   sane.ports.ports."22" = {
     protocol = [ "tcp" ];

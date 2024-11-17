@@ -1,6 +1,6 @@
 # config options: <https://docs.gitea.io/en-us/administration/config-cheat-sheet/>
 # TODO: service shouldn't run as `git` user, but as `gitea`
-{ config, pkgs, lib, ... }:
+{ pkgs, lib, ... }:
 
 {
   sane.persist.sys.byStore.private = [
@@ -103,11 +103,10 @@
     # add maildrop to allow sendmail to work
     ReadWritePaths = lib.mkForce [
       "/var/lib/postfix/queue/maildrop"
-      "/var/lib/gitea"
     ];
   };
 
-  services.openssh.settings.UsePAM = true;  #< required for `git` user to authenticate
+  # services.openssh.settings.UsePAM = true;  #< required for `git` user to authenticate
 
   # hosted git (web view and for `git <cmd>` use
   # TODO: enable publog?

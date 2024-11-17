@@ -118,8 +118,13 @@
 
   sane.users.colin.default = true;
   services.getty.autologinUser = lib.mkDefault "colin";
-  security.pam.services.login.startSession = lib.mkForce false;  #< disable systemd integration
+  # security.pam.services.login.startSession = lib.mkForce false;  #< disable systemd integration
+
+  # disable the `systemd --user` instance for colin.
+  # systemd still starts a user.slice  when logging in via PAM (e.g. `ssh`, `login`),
+  # but there's no user service manager which can start .service files or field `systemd --run` requests.
+  systemd.services."user@${builtins.toString config.users.users.colin.uid}".enable = false;
 
   # systemd-user-sessions depends on remote-fs, causing login to take stupidly long
-  systemd.services."systemd-user-sessions".enable = false;
+  # systemd.services."systemd-user-sessions".enable = false;
 }
