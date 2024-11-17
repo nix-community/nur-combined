@@ -98,7 +98,7 @@
 
   programs = {
     dconf.enable = true;
-    anime-game-launcher.enable = false; # Adds launcher and /etc/hosts rules
+    # anime-game-launcher.enable = false; # Adds launcher and /etc/hosts rules
 
     # sway = {
     #   enable = true;
@@ -129,10 +129,9 @@
     };
     firefox = {
       enable = true;
-      package = (pkgs.wrapFirefox.override { libpulseaudio = pkgs.libpressureaudio; }) (
-        pkgs.firefox-unwrapped.override
-        { pipewireSupport = true; }
-      ) { };
+      package =
+        (pkgs.wrapFirefox.override { libpulseaudio = pkgs.libpressureaudio; }) (pkgs.firefox-unwrapped)
+          { };
     };
     gnupg = {
       agent = {

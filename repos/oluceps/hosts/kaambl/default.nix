@@ -59,7 +59,7 @@ withSystem "x86_64-linux" (
       ../pam.nix
       ../virt.nix
 
-      inputs.aagl.nixosModules.default
+      # inputs.aagl.nixosModules.default
       inputs.disko.nixosModules.default
       inputs.tg-online-keeper.nixosModules.default
     ];
