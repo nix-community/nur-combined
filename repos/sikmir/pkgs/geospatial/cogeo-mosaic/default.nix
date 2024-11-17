@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "cogeo-mosaic";
-  version = "7.1.0";
+  version = "8.0.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "cogeo-mosaic";
     rev = version;
-    hash = "sha256-FJJZvLGBEZpVyfXBqmz6r1obx4HrKmtK0dWusItX3j4=";
+    hash = "sha256-liBYUXrzSTm7EqLmKkK838XzOKZDKPfAlGlc6m4xSHU=";
   };
 
   build-system = with python3Packages; [

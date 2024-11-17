@@ -32,7 +32,10 @@ python3Packages.buildPythonApplication rec {
     werkzeug
   ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [
+    pytestCheckHook
+    matplotlib
+  ];
 
   disabledTests = [
     "test_create_tile_client"

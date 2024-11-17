@@ -27,6 +27,8 @@ python3Packages.buildPythonPackage rec {
     pydantic
   ];
 
+  pythonRelaxDeps = [ "morecantile" ];
+
   doCheck = false;
 
   nativeCheckInputs = with python3Packages; [
