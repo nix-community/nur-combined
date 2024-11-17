@@ -78,5 +78,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://gitlab.com/timosaarinen/garta";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
+    skip.ci = true;
   };
 }
