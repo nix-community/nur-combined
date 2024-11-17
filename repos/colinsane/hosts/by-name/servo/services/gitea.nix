@@ -101,7 +101,7 @@
     # we need more protos for sendmail to work. i thought it only needed +AF_LOCAL, but that didn't work.
     RestrictAddressFamilies = lib.mkForce "~";
     # add maildrop to allow sendmail to work
-    ReadWritePaths = lib.mkForce [
+    ReadWritePaths = [
       "/var/lib/postfix/queue/maildrop"
     ];
   };

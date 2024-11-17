@@ -11,7 +11,7 @@ in
     }
     (lib.mkIf cfg.enabled {
       services.getty.loginProgram = lib.getExe' cfg.package "login";
-      security.pam.services.login.startSession = lib.mkForce false;  #< disable systemd integration
+      # security.pam.services.login.startSession = lib.mkForce false;  #< disable systemd integration
     })
   ];
 }

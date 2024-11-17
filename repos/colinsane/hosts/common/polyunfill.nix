@@ -6,7 +6,7 @@ let
     # nixpkgs' pam hardcodes unix_chkpwd path to the /run/wrappers one,
     # but i don't want the wrapper, so undo that.
     # ideally i would patch this via an overlay, but pam is in the bootstrap so that forces a full rebuild.
-    postPatch = (if upstream.postPatch != null then upstream.postPatch else "") + ''
+    postPatch = (upstream.postPatch or "") + ''
       substituteInPlace modules/pam_unix/Makefile.am --replace-fail \
         "/run/wrappers/bin/unix_chkpwd" "$out/bin/unix_chkpwd"
     '';
@@ -59,7 +59,7 @@ in
       "userdel"
       "usermod"
       # from <repo:nixos/nixpkgs:nixos/modules/system/boot/systemd/user.nix>
-      "systemd-user"  #< N.B.: this causes the `systemd --user` service manager to not be started!
+      # "systemd-user"  #< N.B.: this causes the `systemd --user` service manager to fail 224/PAM!
     ]));
   };
 
@@ -151,7 +151,6 @@ in
 
     # nix.channel.enable: populates `/nix/var/nix/profiles/per-user/root/channels`, `/root/.nix-channels`, `$HOME/.nix-defexpr/channels`
     #   <repo:nixos/nixpkgs:nixos/modules/config/nix-channel.nix>
-    # TODO: may want to recreate NIX_PATH, nix.settings.nix-path
     nix.channel.enable = false;
 
     # environment.stub-ld: populate /lib/ld-linux.so with an object that unconditionally errors on launch,

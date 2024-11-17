@@ -5,10 +5,8 @@
 - when moby wlan is explicitly set down (via ip link set wlan0 down), /var/lib/hickory-dns/dhcp-configs doesn't get reset
   - `ip monitor` can detect those manual link state changes (NM-dispatcher it seems cannot)
   - or try dnsmasq?
-- mpv: continues to play past the end of some audio files
 - mpv: audiocast has mpv sending its output to the builtin speakers unless manually changed
 - syshud (volume overlay): when casting with `blast`, syshud doesn't react to volume changes
-- moby: after bringing the modem up, powering it down loses *complete* net connectivity (i.e. wlan is gone as well)
 - dissent: if i launch it without net connectivity, it gets stuck at the login, and never tries again
 - newflash on moby can't play videos
   - "open in browser" works though -- in mpv
@@ -36,6 +34,7 @@
 
 ### upstreaming
 - upstream `bonsaid` service -> nixpkgs
+  - out for review: <https://github.com/NixOS/nixpkgs/pull/347818>
 - upstream `buffybox`/`buffyboard` package/service -> nixpkgs
 - upstream `gps-share` package -> nixpkgs
 - upstream PinePhonePro device trees -> linux
@@ -65,6 +64,8 @@
   - likely requires updating envelope to a more recent version (for multi-accounting), and therefore updating libadwaita...
 
 ### security/resilience
+- disable `systemd --run`!
+  - it's letting me run anything *AS ROOT*
 - enable `snapper` btrfs snapshots (`services.snapper`)
 - /mnt/desko/home, etc, shouldn't include secrets (~/private)
   - 95% of its use is for remote media access and stuff which isn't in VCS (~/records)
@@ -110,7 +111,6 @@
   - display QR codes for WiFi endpoints: <https://linuxphoneapps.org/apps/noappid.wisperwind.wifi2qr/>
   - shopping list (not in nixpkgs): <https://linuxphoneapps.org/apps/ro.hume.cosmin.shoppinglist/>
   - offline Wikipedia (or, add to `wike`)
-  - offline docs viewer (gtk): <https://github.com/workbenchdev/Biblioteca>
   - some type of games manager/launcher
     - Gnome Highscore (retro games)?: <https://gitlab.gnome.org/World/highscore>
   - better maps for mobile (Osmin (QtQuick)? Pure Maps (Qt/Kirigami)?)
@@ -145,6 +145,7 @@
 - moby: tune keyboard layout
 - SwayNC/nwg-panel: add option to change audio output
 - Newsflash: sync OPML on start, same way i do with gpodder
+- better podcasting client?
 
 #### non-moby
 - RSS: integrate a paywall bypass
