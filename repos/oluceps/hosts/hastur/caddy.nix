@@ -86,14 +86,6 @@
                 {
                   handle = [
                     {
-                      handler = "encode";
-                      encodings = {
-                        zstd = {
-                          level = "better";
-                        };
-                      };
-                    }
-                    {
                       handler = "reverse_proxy";
                       upstreams = [ { dial = "localhost:9000"; } ];
                     }
