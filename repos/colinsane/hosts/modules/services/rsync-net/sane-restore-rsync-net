@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p nettools -p openssh -p rsync -p sane-scripts.vpn -p sanebox
+#!nix-shell -i bash -p bash -p nettools -p openssh -p rsync -p sane-scripts.vpn
 
 # rsync password auth doesn't work with rsync.net.
 # ssh keyfile auth *does* work, so i use that.

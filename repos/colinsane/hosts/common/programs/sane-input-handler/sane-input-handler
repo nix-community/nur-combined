@@ -58,6 +58,7 @@
 # increments to use for volume adjustment (in %)
 VOL_INCR=5
 KEYBOARD="${KEYBOARD:-wvkbd-mobintl}"
+CAMERA="${CAMERA:-org.postmarketos.Megapixels.desktop}"
 
 action="$1"
 
@@ -166,8 +167,14 @@ toggleKeyboard() {
     return
   fi
 
-  # `env` so that we get the right `kill` binary instead of bash's builtin
-  env kill -s RTMIN+0 "$keyboardPid"
+  for p in $keyboardPid; do
+    # `env` so that we get the right `kill` binary instead of bash's builtin
+    # `kill` only one keyboard process. in the case of e.g. sandboxing,
+    # the keyboard might consist of multiple processes and each one we signal would cause a toggle
+    if env kill -s RTMIN+0 "$p"; then
+      break
+    fi
+  done
 }
 
 ## DISPATCHERS
@@ -222,7 +229,7 @@ dispatchOn() {
       ;;
     "power_and_voldown")
       # power (hold) -> voldown: open camera
-      handleWith sane-open --auto-keyboard --application org.postmarketos.Megapixels.desktop
+      handleWith sane-open --auto-keyboard --application "$CAMERA"
       ;;
     "power_then_volup")
       # power (tap) -> volup: rotate CCW

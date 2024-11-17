@@ -58,7 +58,6 @@ in
       webrtc-audio-processing = null;
     };
 
-    sandbox.method = "bunpen";
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  # notifications

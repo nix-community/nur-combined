@@ -24,6 +24,7 @@ in
     suggestedPrograms = [
       "bash-language-server"
       # "clang-tools"  # for c/c++. fails to follow #includes; "Too many errors emitted"
+      "dasht"  # for vim-dasht; docset queries
       "lua-language-server"
       # "ltex-ls"  # LaTeX, html, markdown spellchecker (but it's over-eager, and resource-heavy)
       "marksman"  # markdown
@@ -40,11 +41,11 @@ in
       # "vala-language-server"  #< 2024-08-26: fails to recognize any imported types, complains they're all `null`
     ];
 
-    sandbox.method = "bunpen";
     sandbox.autodetectCliPaths = "existingOrParent";
     sandbox.whitelistWayland = true;  # for system clipboard integration
     # sandbox.whitelistPwd = true;
     sandbox.extraHomePaths = [
+      ".local/share/dasht/docsets"
       # directories where i'm liable to `:e ../...`
       # "archive"
       "dev"
@@ -55,6 +56,8 @@ in
       "tmp"
       # "use"
     ];
+    sandbox.tryKeepUsers = true;
+    sandbox.capabilities = [ "dac_override" ];
 
     packageUnwrapped = let
       configArgs = {
@@ -69,10 +72,7 @@ in
           ${plugin-configs}
         '';
       };
-      neovim-unwrapped' = with pkgs; (neovim-unwrapped.override {
-        # optional: `neovim` defaults to luajit when not manually wrapping
-        lua = luajit;
-      }).overrideAttrs (upstream: {
+      neovim-unwrapped' = with pkgs; neovim-unwrapped.overrideAttrs (upstream: {
         # fix cross compilation:
         # - neovim vendors lua `mpack` library,
         #   which it tries to build for the wrong platform
@@ -108,13 +108,19 @@ in
           # --replace-fail '  FILES ''${GENERATED_HELP_TAGS} ' '  FILES ' \
         '';
       });
-    in pkgs.wrapNeovimUnstable
+    in (pkgs.wrapNeovimUnstable
       neovim-unwrapped'
       # XXX(2024/05/13): manifestRc must be null for cross-compilation to work.
       #   wrapper invokes `neovim` with all plugins enabled at build time i guess to generate caches and stuff?
       #   alternative is to emulate `nvim-wrapper` during build.
       ((pkgs.neovimUtils.makeNeovimConfig configArgs) // { manifestRc = null; })
-    ;
+    ).overrideAttrs(base: {
+      # XXX(2024/10/13): the manifestRc and withRuby knobs from earlier are no longer effective,
+      # due to <https://github.com/NixOS/nixpkgs/pull/344541>
+      rubyEnv = null;
+      withRuby = false;
+      postBuild = lib.replaceStrings [ "if ! $out/bin/nvim-wrapper " ] [ "if false " ] base.postBuild;
+    });
 
     # private because there could be sensitive things in the swap
     persist.byStore.private = [ ".cache/vim-swap" ];

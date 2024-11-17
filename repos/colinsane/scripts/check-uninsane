@@ -11,18 +11,19 @@ DOOF_IPV4=205.201.63.12
 usage() {
   echo "usage: check-uninsane [flags ...]"
   echo "flags:"
-  echo "- --verbose: show commands before running them"
+  echo "- -v | --verbose: show commands before running them"
+  echo "             pass a second time to also show output of successful commands"
   exit 1
 }
 
-verbose=
+verbose=0
 parseArgs() {
   while [ "$#" -ne 0 ]; do
     local arg=$1
     shift
     case $arg in
-      (--verbose)
-        verbose=1
+      (-v|--verbose)
+        verbose=$(( $verbose + 1 ))
         ;;
       (*)
         usage
@@ -35,11 +36,14 @@ last_error=0
 check() {
   local label=$1
   shift
-  if [ -n "$verbose" ]; then
+  if [ "$verbose" -ge 1 ]; then
     printf "checking %s (%s) \n" "$label" "$*"
-    "$@"
   else
     printf "checking %s\n" "$label"
+  fi
+  if [ "$verbose" -ge 2 ]; then
+    "$@"
+  else
     "$@" > /dev/null
   fi
   local rc=$?
@@ -98,11 +102,6 @@ check "git.uninsane.org" git ls-remote https://git.uninsane.org/colin/nix-files.
 
 check "ftps://ftp.uninsane.org" curl --silent ftps://ftp.uninsane.org/.public_for_test/test
 check "[DOOF] ftps://ftp.uninsane.org" curl "--connect-to" "ftp.uninsane.org:80:$DOOF_IPV4:80" --silent ftps://ftp.uninsane.org/.public_for_test/test
-
-_zpoolStatus() {
-  runOnHost servo zpool status | grep "errors: No known data errors"
-}
-check "zfs" _zpoolStatus
 
 check "bitcoind is responsive" runOnHost servo bitcoin-cli echo ping
 _bitcoindSynchronized() {

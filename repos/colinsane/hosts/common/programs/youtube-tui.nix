@@ -62,7 +62,6 @@
         sync_channel_info: true
         sync_videos_cooldown_secs: 600
     '';
-    sandbox.method = "bunpen";
     sandbox.net = "all";
     sandbox.extraHomePaths = [
       # ".config/youtube-tui"  #< it populates its own config, other than just main.yml

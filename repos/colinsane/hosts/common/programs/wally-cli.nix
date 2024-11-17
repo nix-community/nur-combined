@@ -4,7 +4,6 @@
   sane.programs.wally-cli = {
     # sandboxing causes it to not discover devices post-launch.
     # so you have to start wally AFTER pressing the 'flash' button.
-    sandbox.method = "bwrap";
     sandbox.extraPaths = [
       "/dev/bus/usb"
       "/sys/bus/usb"

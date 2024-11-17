@@ -87,13 +87,13 @@
       css-name = "controls-window";
       hover-opens = false;
       icon-size = 16;
-      interval = 1;
+      interval = 60;  #< volume/brightness refresh. when dropdown is revealed, this is forced to 500ms.
       leave-closes = false;
       menu.icon = "system-shutdown-symbolic";
       menu.items = [
         {
           name = "Lock";
-          cmd = "s6-rc start ${locker}";
+          cmd = "systemctl start ${locker}";
         }
         # {
         #   name = "Logout";

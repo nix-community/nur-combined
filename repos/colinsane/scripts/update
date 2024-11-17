@@ -46,12 +46,12 @@ getPkgs() {
     attrPrefix=sane
   fi
 
-  # nix-env doesn't seem to build anything when evaluating queries,
-  # but since i use Import From Derivation along paths which i also want to query,
-  # then i need to ensure those derivations are available for import.
-  debug "creating requisite .drv store paths"
-  nix-instantiate -A nix "$NIX_FILES_TOP"
-  nix-instantiate -A nixpkgs "$NIX_FILES_TOP"
+  # # nix-env doesn't seem to build anything when evaluating queries,
+  # # but since i use Import From Derivation along paths which i also want to query,
+  # # then i need to ensure those derivations are available for import.
+  # debug "creating requisite .drv store paths"
+  # nix-instantiate -A nix "$NIX_FILES_TOP"
+  # nix-instantiate -A nixpkgs-bootstrap.master "$NIX_FILES_TOP"
   debug "querying packages to update as part of '$attrPrefix'"
   local attrs=$(nix eval --raw -f "$NIX_FILES_TOP" 'updateTargets."'"$attrPrefix"'"' --apply 'builtins.concatStringsSep " "')
   debug "got: $attrs"

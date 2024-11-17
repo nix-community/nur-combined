@@ -1,7 +1,6 @@
 { ... }:
 {
   sane.programs.conky = {
-    sandbox.method = "bunpen";
     sandbox.net = "clearnet";  #< for the scripts it calls (weather)
     sandbox.extraPaths = [
       "/sys/class/power_supply"

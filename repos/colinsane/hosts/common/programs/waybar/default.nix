@@ -82,7 +82,6 @@ in
       hyprlandSupport = false;  #< doesn't cross. hyprland clowns are forking deps even like `wayland-scanner`, too much maintenance.
     };
 
-    sandbox.method = "bwrap";
     sandbox.net = "all";  #< to show net connection status and BW
     sandbox.whitelistDbus = [
       "user"  #< for playerctl/media

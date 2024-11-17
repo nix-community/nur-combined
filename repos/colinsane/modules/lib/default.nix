@@ -3,7 +3,6 @@
 let
 sane-lib = rec {
   feeds = import ./feeds.nix { inherit lib; };
-  fs = import ./fs.nix { inherit lib sane-lib; };
   merge = import ./merge.nix { inherit lib sane-lib; };
   path = import ./path.nix { inherit lib; };
   types = import ./types.nix { inherit lib; };

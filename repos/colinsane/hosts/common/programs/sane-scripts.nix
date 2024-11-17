@@ -21,8 +21,6 @@ in
       "sane-scripts.find-dotfiles"
       "sane-scripts.ip-check"
       "sane-scripts.private-do"
-      "sane-scripts.private-init"
-      "sane-scripts.private-lock"
       "sane-scripts.private-unlock"
       "sane-scripts.rcp"
       "sane-scripts.reboot"
@@ -43,7 +41,7 @@ in
     ];
 
     "sane-scripts.bt-add".sandbox = {
-      method = "bwrap";
+      method = "bunpen";
       autodetectCliPaths = "existing";  #< for adding a .torrent from disk
       net = "clearnet";
       # TODO: migrate `transmission_passwd` to `secrets` api
@@ -51,7 +49,7 @@ in
     };
 
     "sane-scripts.bt-rm".sandbox = {
-      method = "bwrap";
+      method = "bunpen";
       net = "clearnet";
       # TODO: migrate `transmission_passwd` to `secrets` api
       extraPaths = [ "/run/secrets/transmission_passwd" ];
@@ -73,10 +71,9 @@ in
 
     # the idea of this script is to `cd` into a fresh clone...
     # but that's an ephemeral operation that would be lost when the sandbox closes.
-    "sane-scripts.clone".sandbox.enable = false;
+    "sane-scripts.clone".sandbox.method = null;  #< TODO: sandbox
 
     "sane-scripts.dev-cargo-loop".sandbox = {
-      method = "bwrap";
       net = "clearnet";
       whitelistPwd = true;
       extraPaths = [
@@ -89,7 +86,7 @@ in
     };
 
     "sane-scripts.find-dotfiles".sandbox = {
-      method = "bwrap";
+      method = "bunpen";
       extraHomePaths = [
         "/"
         ".persist/ephemeral"
@@ -108,7 +105,6 @@ in
       # because `mount` is a cap_sys_admin syscall, there's no great way to mount stuff dynamically like this.
       # instead, we put ourselves in a mount namespace, do the mount, and drop into a shell or run a command.
       # this actually has an OK side effect, that the mount isn't shared, and so we avoid contention/interleaving that would cause the ending `umount` to fail.
-      method = "bwrap";
       # cap_sys_admin is needed to mount stuff.
       # ordinarily /run/wrappers/bin/mount would do that via setuid, but sandboxes have no_new_privs by default.
       capabilities = [ "sys_admin" ];
@@ -117,42 +113,37 @@ in
       net = "all";
       extraPaths = [ "/" ];
     };
-    "sane-scripts.private-init".sandbox = {
-      method = "bwrap";
-      capabilities = [ "sys_admin" ];  # it needs to mount the new store
-      extraHomePaths = [
-        ".persist/private"
-      ];
+
+    "sane-scripts.private-unlock" = {
+      suggestedPrograms = [ "systemctl" ];
+      sandbox.extraPaths = [ "/run/gocryptfs" ];
+      sandbox.whitelistSystemctl = true;
+      fs.".profile".symlink.text = ''
+        sane-private-unlock
+      '';
     };
-    "sane-scripts.private-lock".sandbox.enable = false;
-    "sane-scripts.private-unlock".sandbox.enable = false;
 
     "sane-scripts.reclaim-boot-space".sandbox = {
       method = "bunpen";
       extraPaths = [ "/boot" ];
     };
 
-    # it's just a thin wrapper around rsync, which is already sandboxed
-    "sane-scripts.rcp".sandbox.enable = false;
+    "sane-scripts.rcp".sandbox.enable = false;  # it's just a thin wrapper around rsync, which is already sandboxed
     # but make sure rsync is always on PATH, so that we actually do get sandboxing :)
     "sane-scripts.rcp".suggestedPrograms = [ "rsync" ];
 
     "sane-scripts.reboot".sandbox = {
       method = "bunpen";
-      whitelistDbus = [
-        "system"
-      ];
-      extraPaths = [
-        "/run/systemd"
-      ];
+      whitelistSystemctl = true;
     };
 
     "sane-scripts.reclaim-disk-space".sandbox = {
       method = "bunpen";
       extraPaths = [ "/nix/var/nix" ];
+      capabilities = [ "sys_admin" ];  # for it to remount /nix/store
+      tryKeepUsers = true;
     };
 
-    "sane-scripts.secrets-dump".sandbox.method = "bunpen";
     "sane-scripts.secrets-dump".sandbox.extraHomePaths = [
       ".config/sops"
       "knowledge/secrets"
@@ -164,37 +155,25 @@ in
     ];
     # sane-secrets-update-keys is a thin wrapper around sops + some utilities.
     # really i should sandbox just the utilities
-    "sane-scripts.secrets-update-keys".sandbox.enable = false;
+    "sane-scripts.secrets-update-keys".sandbox.method = null;
     "sane-scripts.secrets-update-keys".suggestedPrograms = [
-      "findutils"
       "sops"
     ];
 
     "sane-scripts.shutdown".sandbox = {
       method = "bunpen";
-      whitelistDbus = [
-        "system"
-      ];
-      extraPaths = [
-        "/run/systemd"
-      ];
+      whitelistSystemctl = true;
     };
 
     "sane-scripts.stop-all-servo".sandbox = {
-      method = "bwrap";
-      whitelistDbus = [
-        "system"
-      ];
-      extraPaths = [
-        "/run/systemd"
-      ];
+      whitelistSystemctl = true;
     };
 
     # if `tee` isn't trustworthy we have bigger problems
     "sane-scripts.sudo-redirect".sandbox.enable = false;
 
     "sane-scripts.sync-music" = {};
-    "sane-scripts.sync-from-iphone" = {};
+    "sane-scripts.sync-from-iphone".sandbox.method = null;  #< TODO
 
     "sane-scripts.tag-media".suggestedPrograms = [
       "exiftool"  #< for (slightly) better sandboxing than default exiftool
@@ -226,8 +205,8 @@ in
       {}
       (builtins.attrNames config.sane.vpn);
     "sane-scripts.vpn".sandbox = {
-      enable = false;  #< bwrap can't handle `ip link`, and landlock can't handle bwrap/pasta for `sane-vpn do`
-      # method = "landlock";  #< bwrap can't handle `ip link` stuff even with cap_net_admin
+      enable = false;  #< `sane-vpn do ...` wraps arbitrary commands; can't sandbox
+      # method = "bunpen";
       # net = "all";
       # capabilities = [ "net_admin" ];
       # extraHomePaths = [ ".config/sane-vpn" ];
@@ -240,12 +219,15 @@ in
       "sane-scripts.ip-check"
     ];
 
-    "sane-scripts.which".sandbox.method = "bunpen";
+    "sane-scripts.which" = {};
 
     "sane-scripts.wipe".sandbox = {
       method = "bunpen";
-      whitelistDbus = [ "user" ];  #< for `secret-tool`
-      whitelistS6 = true;  #< for stopping services before wiping
+      whitelistDbus = [
+        "user"  #< for `secret-tool`
+      ];
+      whitelistSystemctl = true;
+      keepPidsAndProc = true;  #< so that it can `kill` the programs being wiped
       extraHomePaths = [
         # could be more specific, but at a maintenance cost.
         # TODO: needs updating, now that persisted data lives behind symlinks!

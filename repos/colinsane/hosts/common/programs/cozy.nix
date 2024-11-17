@@ -15,11 +15,11 @@
 
     buildCost = 1;
 
-    sandbox.method = "bwrap";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  # mpris
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
+      "Books/Audiobooks"
       "Books/local"
       "Books/servo"
     ];

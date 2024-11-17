@@ -32,6 +32,7 @@ waitForPassfile() {
   done
 }
 validatePassword() {
+  echo "validating password ..."
   if ! cat "$passfile" | gocryptfs-xray -dumpmasterkey "$conffile" > /dev/null; then
     echo "failed key validation"
     rm -f "$passfile"

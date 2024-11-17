@@ -12,7 +12,6 @@
         )
       '';
     });
-    sandbox.method = "bunpen";
     sandbox.net = "all";  # for tiles *and* for localhost comm to gpsd
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;

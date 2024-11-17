@@ -8,9 +8,10 @@
 
 {
   imports = [
-    ./by-name/${hostName}
     ./common
     ./modules
+  ] ++ lib.optionals (builtins.pathExists ./by-name/${hostName}) [
+    ./by-name/${hostName}
   ];
 
   networking.hostName = hostName;

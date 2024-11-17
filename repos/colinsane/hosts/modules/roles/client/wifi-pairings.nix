@@ -8,29 +8,27 @@ let
 in
 {
   config = lib.mkIf config.sane.roles.client {
-    sane.fs."/var/lib/iwd/.install-nm.stamp" = {
-      wantedBeforeBy = [ "iwd.service" ];
-      generated.acl.mode = "0600";
-      generated.command = [
-        "${install-nm}/bin/install-nm"
-        "/run/secrets/net/all.json"
-        "/var/lib/iwd"
-        "--stamp" ".install-nm.stamp"
-        "--flavor" "iwd"
-      ];
+    sops.secrets."net/all.json".owner = "networkmanager";
+
+    systemd.services.iwd-provision-secrets = {
+      before = [ "iwd.service" ];
+      wantedBy = [ "iwd.service" ];
+      serviceConfig.ExecStart = "${lib.getExe install-nm} /run/secrets/net/all.json /var/lib/iwd --flavor iwd";
     };
 
-    sane.fs."/var/lib/NetworkManager/system-connections".dir.acl.mode = "0700";
-    sane.fs."/var/lib/NetworkManager/system-connections/.install-nm.stamp" = {
-      wantedBeforeBy = [ "NetworkManager.service" ];
-      generated.acl.mode = "0600";
-      generated.command = [
-        "${install-nm}/bin/install-nm"
-        "/run/secrets/net/all.json"
-        "/var/lib/NetworkManager/system-connections"
-        "--stamp" ".install-nm.stamp"
-        "--flavor" "nm"
-      ];
+    sane.fs."/var/lib/NetworkManager/system-connections".dir.acl = {
+      user = "networkmanager";
+      group = "networkmanager";
+      mode = "0700";
+    };
+    systemd.services.NetworkManager-provision-secrets = {
+      after = [ "systemd-tmpfiles-setup.service" ];  #< for sane.fs; ensure system-connections exists as a directory first.
+      before = [ "NetworkManager.service" ];
+      wantedBy = [ "NetworkManager.service" ];
+      serviceConfig.ExecStart = "${lib.getExe install-nm} /run/secrets/net/all.json /var/lib/NetworkManager/system-connections --flavor nm";
+      serviceConfig.UMask = "0077";  #< NetworkManager considers any files not 0600 "insecure" and refuses to load them (sure bro, sure)
+      serviceConfig.User = "networkmanager";
+      serviceConfig.Group = "networkmanager";
     };
   };
 }

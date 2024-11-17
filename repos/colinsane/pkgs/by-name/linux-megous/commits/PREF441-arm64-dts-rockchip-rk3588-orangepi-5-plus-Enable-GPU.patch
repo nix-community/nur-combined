@@ -1,0 +1,32 @@
+From b441e24306dbd0eff991d4f6c6d7d4ef444de62b Mon Sep 17 00:00:00 2001
+From: Ondrej Jirman <megi@xff.cz>
+Date: Thu, 1 Aug 2024 17:50:05 +0200
+Subject: [PATCH 441/463] arm64: dts: rockchip: rk3588-orangepi-5-plus: Enable
+ GPU support
+
+GPU also needs a firmware files. Beware.
+
+Signed-off-by: Ondrej Jirman <megi@xff.cz>
+---
+ arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+index 86d2e6900b776..04a307f2497d2 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+@@ -292,6 +292,11 @@ &display_subsystem {
+ 	clock-names = "hdmi0_phy_pll";
+ };
+ 
++&gpu {
++	mali-supply = <&vdd_gpu_s0>;
++	status = "okay";
++};
++
+ &hdmi0 {
+ 	status = "okay";
+ };
+-- 
+2.46.0
+

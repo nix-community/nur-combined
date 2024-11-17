@@ -1,0 +1,53 @@
+From f79b630979a9405211352a5507aa4260216c782a Mon Sep 17 00:00:00 2001
+From: Ondrej Jirman <megi@xff.cz>
+Date: Sat, 17 Jun 2023 12:20:13 +0200
+Subject: [PATCH 362/463] drm: panel: hs8394: Instrument the panel driver's
+ callbacks
+
+---
+ drivers/gpu/drm/panel/panel-himax-hx8394.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/panel/panel-himax-hx8394.c b/drivers/gpu/drm/panel/panel-himax-hx8394.c
+index f4bd2cc4484c1..b0a54aeb46413 100644
+--- a/drivers/gpu/drm/panel/panel-himax-hx8394.c
++++ b/drivers/gpu/drm/panel/panel-himax-hx8394.c
+@@ -364,6 +364,8 @@ static int hx8394_enable(struct drm_panel *panel)
+ 	struct mipi_dsi_device *dsi = to_mipi_dsi_device(ctx->dev);
+ 	int ret;
+ 
++	dev_info(ctx->dev, "enable\n");
++
+ 	ret = ctx->desc->init_sequence(ctx);
+ 	if (ret) {
+ 		dev_err(ctx->dev, "Panel init sequence failed: %d\n", ret);
+@@ -401,6 +403,8 @@ static int hx8394_disable(struct drm_panel *panel)
+ 	struct mipi_dsi_device *dsi = to_mipi_dsi_device(ctx->dev);
+ 	int ret;
+ 
++	dev_info(ctx->dev, "disable\n");
++
+ 	ret = mipi_dsi_dcs_enter_sleep_mode(dsi);
+ 	if (ret) {
+ 		dev_err(ctx->dev, "Failed to enter sleep mode: %d\n", ret);
+@@ -416,6 +420,8 @@ static int hx8394_unprepare(struct drm_panel *panel)
+ {
+ 	struct hx8394 *ctx = panel_to_hx8394(panel);
+ 
++	dev_info(ctx->dev, "unprepare\n");
++
+ 	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+ 
+ 	regulator_disable(ctx->iovcc);
+@@ -429,6 +435,8 @@ static int hx8394_prepare(struct drm_panel *panel)
+ 	struct hx8394 *ctx = panel_to_hx8394(panel);
+ 	int ret;
+ 
++	dev_info(ctx->dev, "prepare\n");
++
+ 	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+ 
+ 	ret = regulator_enable(ctx->vcc);
+-- 
+2.46.0
+

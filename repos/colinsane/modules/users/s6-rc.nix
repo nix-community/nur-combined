@@ -325,7 +325,7 @@ in
       xdg_runtime_dir = "/run/user/${name}";
       scanDir = mkScanDir "${xdg_runtime_dir}/s6/live" compiled;
       liveDir = mkLiveDir compiled;
-    in {
+    in lib.mkIf (config.serviceManager == "s6") {
       fs.".config/s6/live".symlink.target = liveDir;
       fs.".config/s6/scandir".symlink.target = scanDir;
       fs.".config/s6/compiled".symlink.target = compiled;

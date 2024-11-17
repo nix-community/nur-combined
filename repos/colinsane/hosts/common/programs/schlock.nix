@@ -24,14 +24,13 @@ in
       };
     };
 
-    sandbox.method = "bwrap";
     sandbox.whitelistWayland = true;
 
     secrets.".config/schlock/schlock.pin" = ../../../secrets/common/schlock.pin.bin;
 
     services.schlock = {
       description = "schlock mobile-friendly screen locker";
-      command = ''schlock -p "$HOME/.config/schlock/schlock.pin"'';
+      command = ''schlock -p "''${HOME}/.config/schlock/schlock.pin"'';
       restartCondition = "on-failure";
     };
   };

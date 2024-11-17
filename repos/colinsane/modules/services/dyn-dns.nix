@@ -3,20 +3,18 @@
 with lib;
 let
   cfg = config.sane.services.dyn-dns;
-  getIp = pkgs.writeShellScript "dyn-dns-query-wan" ''
-    # preferred method and fallback
-    # OPNsense router broadcasts its UPnP endpoint every 30s
-    timeout 60 ${pkgs.sane-scripts.ip-check}/bin/sane-ip-check --json || \
-      ${pkgs.sane-scripts.ip-check}/bin/sane-ip-check --json --no-upnp
-  '';
+  # getIp = pkgs.writeShellScript "dyn-dns-query-wan" ''
+  #   # preferred method and fallback
+  #   # OPNsense router broadcasts its UPnP endpoint every 30s
+  #   timeout 60 ${lib.getExe pkgs.sane-scripts.ip-check} --json || \
+  #     ${lib.getExe pkgs.sane-scripts.ip-check} --json --no-upnp
+  # '';
+  getIp = "${lib.getExe pkgs.sane-scripts.ip-check} --json";
 in
 {
   options = {
     sane.services.dyn-dns = {
-      enable = mkOption {
-        default = false;
-        type = types.bool;
-      };
+      enable = mkEnableOption "keep track of the public WAN address of this machine, as viewed externally";
 
       ipPath = mkOption {
         default = "/var/lib/uninsane/wan.txt";
@@ -33,7 +31,7 @@ in
       };
 
       ipCmd = mkOption {
-        default = "${getIp}";
+        default = getIp;
         type = types.path;
         description = "command to run to query the current WAN IP";
       };
@@ -47,7 +45,12 @@ in
       restartOnChange = mkOption {
         type = types.listOf types.str;
         default = [];
-        description = "list of systemd unit files to restart when the IP changes";
+        description = "list of systemd units to restart when the IP changes";
+      };
+      requireForStart = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = "list of systemd units that should not be started until after we know an IP";
       };
     };
   };
@@ -59,62 +62,74 @@ in
       restartTriggers = [(builtins.toJSON cfg)];
 
       after = [ "network.target" ];
-      wantedBy = cfg.restartOnChange;
-      before = cfg.restartOnChange;
+
+      serviceConfig.Restart = "on-failure";
+      serviceConfig.RestartSec = "60s";
+      # XXX(2024-11-11): OPNsense *used* to broadcast its UPnP endpoint every 30s; now it's every 5-10m!
+      serviceConfig.TimeoutStartSec = "600s";
 
       script = let
-        jq = "${pkgs.jq}/bin/jq";
-        sed = "${pkgs.gnused}/bin/sed";
+        jq = lib.getExe pkgs.jq;
       in ''
+        set -e
         mkdir -p "$(dirname '${cfg.ipPath}')"
         mkdir -p "$(dirname '${cfg.upnpPath}')"
         newIpDetails=$(${cfg.ipCmd})
-        newIp=$(echo "$newIpDetails" | ${jq} ".wan" | ${sed} 's/^"//' | ${sed} 's/"$//')
-        newUpnp=$(echo "$newIpDetails" | ${jq} ".upnp" | ${sed} 's/^"//' | ${sed} 's/"$//')
-        oldIp=$(cat '${cfg.ipPath}' || true)
-        oldUpnp=$(cat '${cfg.upnpPath}' || true)
+        newIp=$(echo "$newIpDetails" | ${jq} -r ".wan")
+        newUpnp=$(echo "$newIpDetails" | ${jq} -r ".upnp")
+        oldIp=$(cat '${cfg.ipPath}' || echo)
+        oldUpnp=$(cat '${cfg.upnpPath}' || echo)
 
         # systemd path units are triggered on any file write action,
         # regardless of content change. so only update the file if our IP *actually* changed
-        if [ "$newIp" != "$oldIp" -a -n "$newIp" ]
-        then
+        if [[ -n "$newIp" && "$newIp" != "$oldIp" ]]; then
           echo "$newIp" > '${cfg.ipPath}'
           echo "WAN ip changed $oldIp -> $newIp"
         fi
 
-        if [ "$newUpnp" != "$oldUpnp" -a -n "$newUpnp" ]
-        then
+        if [[ -n "$newUpnp" && "$newUpnp" != "$oldUpnp" ]]; then
           echo "$newUpnp" > '${cfg.upnpPath}'
           echo "UPNP changed $oldUpnp -> $newUpnp"
         fi
 
-        exit $(test -f '${cfg.ipPath}' -a '${cfg.upnpPath}')
+        [[ -f '${cfg.ipPath}' && -f '${cfg.upnpPath}' ]]
       '';
     };
 
     systemd.timers.dyn-dns = {
-      # if anything wants dyn-dns.service, they surely want the timer too.
       wantedBy = [ "dyn-dns.service" ];
-      timerConfig = {
-        OnUnitActiveSec = cfg.interval;
-      };
+      timerConfig.OnUnitInactiveSec = cfg.interval;
     };
 
-    systemd.paths.dyn-dns-watcher = {
-      before = [ "dyn-dns.timer" ];
-      wantedBy = [ "dyn-dns.timer" ];
-      pathConfig = {
-        Unit = "dyn-dns-reactor.service";
-        PathChanged = [ cfg.ipPath ];
-      };
+    systemd.targets.dyn-dns-exists = {
+      # consumers depend directly on this target for permission to *start*
+      # once active, this target should never de-activate
+      description = "initial acquisition of dynamic DNS data";
+      wants = [ "dyn-dns.service" ];
+      after = [ "dyn-dns.service" ];
+      wantedBy = cfg.requireForStart;
+      before = cfg.requireForStart;  # prevent user service from starting until after we have dyn dns
     };
 
-    systemd.services.dyn-dns-reactor = {
-      description = "react to the system's WAN IP changing";
+    systemd.targets.dyn-dns-events = {
+      # consumers depend on this to be restarted whenever DNS changes (after acquisition)
+      description = "event system that notifies via restart whenever dynamic DNS mapping changes";
+      requiredBy = cfg.restartOnChange;  # this just propagates the restart events to the user service
+    };
+
+    systemd.paths.dyn-dns-changed = {
+      wantedBy = cfg.restartOnChange;
+      wants = [ "dyn-dns.service" ];
+      before = [
+        "dyn-dns.service"
+        "dyn-dns-events.target"
+      ];
+      pathConfig.PathChanged = [ cfg.ipPath ];
+    };
+    systemd.services.dyn-dns-changed = {
+      description = "dynamic DNS change notifier";
       serviceConfig.Type = "oneshot";
-      script = if cfg.restartOnChange != [] then ''
-        ${pkgs.systemd}/bin/systemctl restart ${toString cfg.restartOnChange}
-      '' else "${pkgs.coreutils}/bin/true";
+      serviceConfig.ExecStart = "${lib.getExe' pkgs.systemd "systemctl"} restart dyn-dns-events.target";
     };
   };
 }

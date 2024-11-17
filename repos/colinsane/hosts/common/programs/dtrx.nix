@@ -9,7 +9,6 @@
       # build without rpm support, since `rpm` package doesn't cross-compile.
       rpm = null;
     };
-    sandbox.method = "bunpen";
     sandbox.whitelistPwd = true;
     sandbox.autodetectCliPaths = "existing";  #< for the archive
   };

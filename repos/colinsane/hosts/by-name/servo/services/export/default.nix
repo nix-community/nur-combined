@@ -10,7 +10,7 @@
   fileSystems."/var/export/media" = {
     # everything in here could be considered publicly readable (based on the viewer's legal jurisdiction)
     device = "/var/media";
-    options = [ "rbind" ];
+    options = [ "rbind" "nofail" ];
   };
   # fileSystems."/var/export/playground" = {
   #   device = config.fileSystems."/mnt/persist/ext".device;
@@ -34,7 +34,6 @@
   ];
 
   sane.fs."/var/export/README.md" = {
-    wantedBy = [ "nfs.service" "sftpgo.service" ];
     file.text = ''
       - media/         read-only:  Videos, Music, Books, etc
       - playground/    read-write*: use it to share files with other users of this server, inaccessible from the www
@@ -43,7 +42,6 @@
   };
 
   sane.fs."/var/export/playground/README.md" = {
-    wantedBy = [ "nfs.service" "sftpgo.service" ];
     file.text = ''
       this directory is intentionally read+write by anyone with access.
       - share files
@@ -53,7 +51,6 @@
   };
 
   sane.fs."/var/export/.public_for_test/test" = {
-    wantedBy = [ "nfs.service" "sftpgo.service" ];
     file.text = ''
       automated tests read this file to probe connectivity
     '';

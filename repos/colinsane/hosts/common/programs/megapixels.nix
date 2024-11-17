@@ -26,36 +26,31 @@
     # further, it doesn't use either portals or xdg-open to launch the image viewer.
     # bwrap (loupe image viewer) doesn't like to run inside landlock
     #   "bwrap: failed to make / slave: Operation not permitted"
-    sandbox.method = "bwrap";  # supports landlock or bwrap
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
     sandbox.whitelistDbus = [ "user" ];  #< so that it can in theory open the image viewer using fdo portal... but it doesn't :|
     sandbox.extraHomePaths = [
-      ".config/dconf"  #< else it segfaults during post-process
       # ".config/megapixels"
       ".cache/mesa_shader_cache"  # loads way faster
       "Pictures/Photos"
       # also it addresses a lot via relative path.
     ];
     sandbox.extraPaths = [
-      # needs /dev/media*, /dev/video*; easier to give it all of /dev which isn't that bad since it's not running as root.
-      "/dev"
       # it passes the raw .dng files to a post-processor, via /tmp
       "/tmp"
       "/sys/class/leds"  #< for flash, presumably
-      # "/sys/dev/char"  #< not strictly necessary? but referenced in the source (for 1.7.0, not 1.8.0)
-      "/sys/devices"
-      "/sys/firmware"
-      # source code references /proc/device-tree/compatible, but it seems to be alright either way
-      "/proc"
     ];
-    sandbox.extraRuntimePaths = [
-      "dconf"  #< else it's very spammy, and slow
+    sandbox.whitelistAvDev = true;
+    gsettingsPersist = [
+      # pretty sure one of these is the new directory, one the old, not sure which
+      "me/gapixels/megapixels"  #< needs to set `postprocessor` else it will segfault during post-process
+      "org/postmarketos/megapixels"
     ];
-    # XXX(2024/04/21): without this it fails to convert .dng -> .jpg.
-    #   "bwrap: open /proc/34/ns/ns failed: No such file or directory"
-    sandbox.isolatePids = false;
+    # source code references /proc/device-tree/compatible, but it seems to be alright either way
+    # sandbox.keepPidsAndProc = true;
 
-    suggestedPrograms = [ "dconf" ];  #< not sure if necessary
+    # until `env.` supports priorities, leave it unset and let megapixels-next + consumers figure out the default camera app
+    # mime.priority = 200;  #< fallback
+    # env.CAMERA = lib.mkDefault "org.postmarketos.Megapixels.desktop";
   };
 }

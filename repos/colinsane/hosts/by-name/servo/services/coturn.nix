@@ -104,13 +104,6 @@ in
     SRV."_turns._tcp" =                       "5 50 5349 turn";
   };
 
-  sane.derived-secrets."/var/lib/coturn/shared_secret.bin" = {
-    encoding = "base64";
-    # TODO: make this not globally readable
-    acl.mode = "0644";
-  };
-  sane.fs."/var/lib/coturn/shared_secret.bin".wantedBeforeBy = [ "coturn.service" ];
-
   # provide access to certs
   users.users.turnserver.extraGroups = [ "nginx" ];
 
@@ -119,9 +112,14 @@ in
   services.coturn.cert = "/var/lib/acme/turn.uninsane.org/fullchain.pem";
   services.coturn.pkey = "/var/lib/acme/turn.uninsane.org/key.pem";
 
+  # N.B.: prosody needs to read this shared secret
+  sops.secrets."coturn_shared_secret".owner = "turnserver";
+  sops.secrets."coturn_shared_secret".group = "turnserver";
+  sops.secrets."coturn_shared_secret".mode = "0440";
+
   #v disable to allow unauthenticated access (or set `services.coturn.no-auth = true`)
   services.coturn.use-auth-secret = true;
-  services.coturn.static-auth-secret-file = "/var/lib/coturn/shared_secret.bin";
+  services.coturn.static-auth-secret-file = "/run/secrets/coturn_shared_secret";
   services.coturn.lt-cred-mech = true; #< XXX: use-auth-secret overrides lt-cred-mech
 
   services.coturn.min-port = turnPortLow;
@@ -131,11 +129,11 @@ in
     "verbose"
     # "Verbose"  #< even MORE verbosity than "verbose"  (it's TOO MUCH verbosity really)
     "no-multicast-peers"  # disables sending to IPv4 broadcast addresses (e.g. 224.0.0.0/3)
-    # "listening-ip=${config.sane.netns.ovpns.hostVethIpv4}" "external-ip=${config.sane.netns.ovpns.netnsPubIpv4}"  #< 2024/04/25: works, if running in root namespace
-    "listening-ip=${config.sane.netns.ovpns.netnsPubIpv4}" "external-ip=${config.sane.netns.ovpns.netnsPubIpv4}"
+    # "listening-ip=${config.sane.netns.ovpns.veth.initns.ipv4}" "external-ip=${config.sane.netns.ovpns.wg.address.ipv4}"  #< 2024/04/25: works, if running in root namespace
+    "listening-ip=${config.sane.netns.ovpns.wg.address.ipv4}" "external-ip=${config.sane.netns.ovpns.wg.address.ipv4}"
 
     # old attempts:
-    # "external-ip=${config.sane.netns.ovpns.netnsPubIpv4}/${config.sane.netns.ovpns.hostVethIpv4}"
+    # "external-ip=${config.sane.netns.ovpns.wg.address.ipv4}/${config.sane.netns.ovpns.veth.initns.ipv4}"
     # "listening-ip=10.78.79.51"  # can be specified multiple times; omit for *
     # "external-ip=97.113.128.229/10.78.79.51"
     # "external-ip=97.113.128.229"

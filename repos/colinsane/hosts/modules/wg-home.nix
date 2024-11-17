@@ -6,32 +6,10 @@
 
 let
   cfg = config.sane.services.wg-home;
-  mkPeer = { ips, pubkey, endpoint }: {
-    publicKey = pubkey;
-    allowedIPs = builtins.map (k: if builtins.match ".*/.*" k != null then k else "${k}/32") ips;
-  } // (lib.optionalAttrs (endpoint != null) {
-    inherit endpoint;
-    # send keepalives every 25 seconds to keep NAT routes live.
-    # only need to do this from client -> server though, i think.
-    persistentKeepalive = 25;
-    # allows wireguard to notice DNS/hostname changes, with this much effective TTL.
-    dynamicEndpointRefreshSeconds = 600;
-    # the refresh fails (because e.g. DNS fails to resolve), try it again this soon instead.
-    # defaults to the same as dynamicEndpointRefreshSeconds, but i think setting it that high stalls my nix switches!
-    dynamicEndpointRefreshRestartSeconds = 10;
-  });
-  # make separate peers to route each given host
-  mkClientPeers = hosts: builtins.map (p: mkPeer {
-    inherit (p) pubkey endpoint;
-    ips = [ p.ip ];
-  }) hosts;
 in
 {
   options = with lib; {
-    sane.services.wg-home.enable = mkOption {
-      type = types.bool;
-      default = false;
-    };
+    sane.services.wg-home.enable = mkEnableOption "wireguard VPN connecting my devices to eachother";
     sane.services.wg-home.visibleToWan = mkOption {
       type = types.bool;
       default = false;
@@ -59,13 +37,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # generate a (deterministic) wireguard private key
-    sane.derived-secrets."/run/wg-home.priv" = {
-      len = 32;
-      encoding = "base64";
-      acl.mode = "0640";
-      acl.group = "systemd-network";
-    };
+    sops.secrets."wg-home.priv".owner = "systemd-network";
 
     # wireguard VPN which allows everything on my domain to speak to each other even when
     # not behind a shared LAN.
@@ -80,36 +52,44 @@ in
       description = "colin-wireguard";
     };
 
-    networking.wireguard.interfaces.wg-home = lib.mkIf (!cfg.routeThroughServo) ({
-      listenPort = 51820;
-      privateKeyFile = "/run/wg-home.priv";
-      # TODO: make this `wants` and `after`, instead of manually starting it
-      preSetup =
-        let
-          gen-key = config.sane.fs."/run/wg-home.priv".unit;
-        in
-          "${pkgs.systemd}/bin/systemctl start '${gen-key}'";
+    # TODO: networking.wireguard is deprecated; remove
+    networking.wireguard = lib.mkIf (!cfg.routeThroughServo) {
+      enable = true;
+      interfaces.wg-home = {
+        listenPort = 51820;
+        privateKeyFile = "/run/secrets/wg-home.priv";
 
-      ips = [
-        "${cfg.ip}/24"
-      ];
+        ips = [
+          "${cfg.ip}/24"
+        ];
 
-      peers =
-        let
+        peers = let
           all-peers = lib.mapAttrsToList (_: hostcfg: hostcfg.wg-home) config.sane.hosts.by-name;
           peer-list = builtins.filter (p: p.ip != null && p.ip != cfg.ip && p.pubkey != null) all-peers;
+          # make separate peers to route each given host
         in
-          mkClientPeers peer-list
-      ;
-    } // (lib.optionalAttrs cfg.forwardToWan {
-      # documented here: <https://nixos.wiki/wiki/WireGuard#Server_setup_2>
-      postSetup = ''
-        ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING --source ${cfg.ip}/24 ! --destination ${cfg.ip}/24 -j MASQUERADE
-      '';
-      postShutdown = ''
-        ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING --source ${cfg.ip}/24 ! --destination ${cfg.ip}/24 -j MASQUERADE
-      '';
-    }));
+          builtins.map
+            ({ ip, pubkey, endpoint }: assert endpoint == null; {
+              publicKey = pubkey;
+              allowedIPs = [
+                (if builtins.match ".*/.*" ip != null then ip else "${ip}/32")
+              ];
+              # send keepalives every 25 seconds to keep NAT routes live.
+              # only need to do this from client -> server though, i think.
+              # persistentKeepalive = 25;
+            })
+            peer-list
+        ;
+      } // (lib.optionalAttrs cfg.forwardToWan {
+        # documented here: <https://nixos.wiki/wiki/WireGuard#Server_setup_2>
+        postSetup = ''
+          ${lib.getExe' pkgs.iptables "iptables"} -t nat -A POSTROUTING --source ${cfg.ip}/24 ! --destination ${cfg.ip}/24 -j MASQUERADE
+        '';
+        postShutdown = ''
+          ${lib.getExe' pkgs.iptables "iptables"} -t nat -D POSTROUTING --source ${cfg.ip}/24 ! --destination ${cfg.ip}/24 -j MASQUERADE
+        '';
+      });
+    };
 
     # plug into my VPN abstractions so that one may:
     # - `sane-vpn up wg-home` to route all traffic through servo
@@ -117,13 +97,14 @@ in
     sane.vpn.wg-home = lib.mkIf cfg.routeThroughServo {
       id = 51;
       endpoint = config.sane.hosts.by-name."servo".wg-home.endpoint;
+      keepalive = true;
       publicKey = config.sane.hosts.by-name."servo".wg-home.pubkey;
       addrV4 = cfg.ip;
       subnetV4 = "24";
       dns = [
         config.sane.hosts.by-name."servo".wg-home.ip
       ];
-      privateKeyFile = "/run/wg-home.priv";
+      privateKeyFile = "/run/secrets/wg-home.priv";
     };
   };
 }

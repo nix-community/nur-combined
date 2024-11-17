@@ -8,7 +8,6 @@
 { pkgs, ... }:
 {
   sane.programs.epiphany = {
-    sandbox.method = "bwrap";
     sandbox.wrapperType = "inplace";  # /share/epiphany/default-bookmarks.rdf refers back to /share; dbus files to /libexec
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
@@ -18,7 +17,6 @@
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
-      ".config/dconf"  # else will always prompt "make default browser?"
       ".config/epiphany"  #< else it gets angry at launch
       "tmp"
     ];
@@ -46,7 +44,6 @@
         );
       '' + (upstream.preFixup or "");
     });
-    suggestedPrograms = [ "dconf" ];  #< for persisting e.g. "Set as Default Browser" prompt question
     persist.byStore.private = [
       ".cache/epiphany"
       ".local/share/epiphany"
@@ -61,6 +58,15 @@
       "x-scheme-handler/https" = desktop;
       "x-scheme-handler/about" = desktop;
       "x-scheme-handler/unknown" = desktop;
+    };
+    gsettings."org/gnome/epiphany" = {
+      ask-for-default = false;
+    };
+    gsettings."org/gnome/epiphany/web" = {
+      enable-adblock = true;
+      # enable-itp = false;  # ??
+      enable-website-data-storage = true;
+      remember-passwords = false;
     };
   };
 }

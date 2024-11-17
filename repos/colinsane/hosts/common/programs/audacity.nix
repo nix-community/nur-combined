@@ -6,17 +6,22 @@
 { pkgs, ... }:
 {
   sane.programs.audacity = {
-    packageUnwrapped = pkgs.audacity.override {
+    packageUnwrapped = (pkgs.audacity.override {
       # wxGTK32 uses webkitgtk-4.0.
       # audacity doesn't actually need webkit though, so diable to reduce closure
       wxGTK32 = pkgs.wxGTK32.override {
         withWebKit = false;
       };
-    };
+    }).overrideAttrs (base: {
+      # upstream audacity.desktop specifies GDK_BACKEND=x11, with which it doesn't actually launch :|
+      postInstall = (base.postInstall or "") + ''
+        substituteInPlace $out/share/applications/audacity.desktop \
+          --replace-fail 'GDK_BACKEND=x11 ' ""
+      '';
+    });
 
     buildCost = 1;
 
-    sandbox.method = "bunpen";
     sandbox.whitelistAudio = true;
     sandbox.whitelistWayland = true;
     sandbox.autodetectCliPaths = "existingFile";

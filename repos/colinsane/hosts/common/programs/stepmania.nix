@@ -13,24 +13,22 @@
 #   - https://fitupyourstyle.com/
 #     allows search by difficulty
 # - dl packs from <https://stepmaniaonline.net>
-#
-# N.B.: you MUST launch this from ~/.stepmania-5.1.
-{ config, ... }:
-let
-  cfg = config.sane.programs.stepmania;
-in
+{ ... }:
 {
   sane.programs.stepmania = {
     buildCost = 1;
 
-    sandbox.method = "bwrap";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDri = true;
-    sandbox.whitelistX = true;
+    sandbox.whitelistX = true;  #< TODO: is this needed? try QT_QPA_PLATFORM=wayland or SDL_VIDEODRIVER=wayland
     sandbox.extraPaths = [
       # for the pad input (/dev/input/js*)
       "/dev/input"
       "/sys/class/input"
+    ];
+    # on launch, stepmania will copy templates for any missing files out of its data directory and into ~/.stepmania-5.1
+    sandbox.extraHomePaths = [
+      ".stepmania-5.1"
     ];
 
     persist.byStore.plaintext = [
@@ -38,23 +36,8 @@ in
       ".stepmania-5.1/Save"
     ];
 
-    # TODO: setup ~/.stepmania-5.1/Themes
+    # TODO: setup ~/.local/share/stepmania/Themes
     fs.".stepmania-5.1/Courses".symlink.target = "/mnt/servo/media/games/stepmania/Courses";
     fs.".stepmania-5.1/Songs".symlink.target = "/mnt/servo/media/games/stepmania/Songs";
-    fs.".stepmania-5.1/stepmania.nix".symlink.target = "../nixos/hosts/common/programs/stepmania.nix";
-
-    # stepmania expects the current working directory to be the same directory where all its data resides.
-    # so, we have to link these all in and then the user must launch it from ~/.stepmania-5.1.
-    # TODO: wrap stepmania with a `cd ~/.stepmania-5.1`, and move all these to `~/.local/share/stepmania`
-    fs.".stepmania-5.1/Announcers".symlink.target = "${cfg.package}/stepmania-5.1/Announcers";
-    fs.".stepmania-5.1/BackgroundEffects".symlink.target = "${cfg.package}/stepmania-5.1/BackgroundEffects";
-    fs.".stepmania-5.1/BackgroundTransitions".symlink.target = "${cfg.package}/stepmania-5.1/BackgroundTransitions";
-    fs.".stepmania-5.1/BGAnimations".symlink.target = "${cfg.package}/stepmania-5.1/BGAnimations";
-    fs.".stepmania-5.1/Characters".symlink.target = "${cfg.package}/stepmania-5.1/Characters";
-    fs.".stepmania-5.1/Data".symlink.target = "${cfg.package}/stepmania-5.1/Data";
-    fs.".stepmania-5.1/Docs".symlink.target = "${cfg.package}/stepmania-5.1/Docs";
-    fs.".stepmania-5.1/NoteSkins".symlink.target = "${cfg.package}/stepmania-5.1/NoteSkins";
-    fs.".stepmania-5.1/Scripts".symlink.target = "${cfg.package}/stepmania-5.1/Scripts";
-    fs.".stepmania-5.1/Themes".symlink.target = "${cfg.package}/stepmania-5.1/Themes";
   };
 }

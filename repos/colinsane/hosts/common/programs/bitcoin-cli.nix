@@ -2,7 +2,6 @@
 {
   sane.programs.bitcoin-cli = {
     packageUnwrapped = pkgs.linkBinIntoOwnPackage pkgs.bitcoind "bitcoin-cli";
-    sandbox.method = "bwrap";
     sandbox.autodetectCliPaths = "existing";  #< for `bitcoin-cli -datadir=/var/lib/...`
     sandbox.extraHomePaths = [
       ".bitcoin/bitcoin.conf"

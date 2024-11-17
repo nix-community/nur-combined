@@ -1,0 +1,38 @@
+From 85b368027b8a120c8b750590b429c500d29f43f3 Mon Sep 17 00:00:00 2001
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Date: Wed, 17 Jul 2024 03:34:36 +0300
+Subject: [PATCH 437/463] drm/rockchip: Explicitly include bits header
+
+Driver makes use of the BIT() macro, but relies on the bits header being
+implicitly included.
+
+Explicitly pull the header in to avoid potential build failures in some
+configurations.
+
+While at it, reorder include directives alphabetically.
+
+Fixes: 8c8546546f25 ("drm/rockchip: move output interface related definition to rockchip_drm_drv.h")
+Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+---
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_drv.h b/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
+index bbb9e0bf68048..8d566fcd80a23 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_drv.h
+@@ -12,9 +12,10 @@
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_gem.h>
+ 
++#include <linux/bits.h>
++#include <linux/component.h>
+ #include <linux/i2c.h>
+ #include <linux/module.h>
+-#include <linux/component.h>
+ 
+ #define ROCKCHIP_MAX_FB_BUFFER	3
+ #define ROCKCHIP_MAX_CONNECTOR	2
+-- 
+2.46.0
+

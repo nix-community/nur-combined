@@ -7,11 +7,11 @@ backing=$1
 # facing=$2
 
 # backing might exist from the last boot, so wipe it:
-rm -fr "$backing"
-mkdir -p "$backing"
+# mkdir -p "$backing"  #< sane.fs should ensure this already exists
+rm -fr "$backing"/*
 
 # the password shows up in /proc/.../env, briefly.
 # that's inconsequential: we just care that it's not *persisted*.
-pw=$(dd if=/dev/random bs=128 count=1 | base64 --wrap=0)
-echo "$pw" | gocryptfs -quiet -passfile /dev/fd/0 -init "$backing"
-echo "$pw" | exec gocryptfs -quiet -passfile /dev/fd/0 "$@"
+pw=$(dd if=/dev/random bs=128 count=1 2>/dev/null | base64 --wrap=0)
+echo "$pw" | gocryptfs -quiet -nosyslog -passfile /dev/fd/0 -init "$backing"
+echo "$pw" | exec gocryptfs -quiet -nosyslog -passfile /dev/fd/0 "$@"

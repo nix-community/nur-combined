@@ -86,7 +86,7 @@
       ENABLED = true;
       FROM = "notify.git@uninsane.org";
       PROTOCOL = "sendmail";
-      SENDMAIL_PATH = "${pkgs.postfix}/bin/sendmail";
+      SENDMAIL_PATH = lib.getExe' pkgs.postfix "sendmail";
       SENDMAIL_ARGS = "--";  # most "sendmail" programs take options, "--" will prevent an email address being interpreted as an option.
     };
     time = {

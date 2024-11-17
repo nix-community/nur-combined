@@ -5,7 +5,6 @@
   ];
 
   sane.roles.client = true;
-  sane.roles.dev-machine = true;
   sane.roles.pc = true;
   sane.services.wg-home.enable = true;
   sane.services.wg-home.ip = config.sane.hosts.by-name."lappy".wg-home.ip;
@@ -24,6 +23,10 @@
   sops.secrets.colin-passwd.neededForUsers = true;
 
   sane.services.rsync-net.enable = true;
+
+  # starting 2024/09, under default settings (apparently 256 quantum), audio would crackle under load.
+  # 1024 solves *most* crackles, but still noticable under heavier loads.
+  sane.programs.pipewire.config.min-quantum = 2048;
 
   # TODO: enable snapper (need to make `/nix` or `/nix/persist` a subvolume, somehow).
   # default config: https://man.archlinux.org/man/snapper-configs.5

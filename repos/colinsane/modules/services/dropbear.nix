@@ -5,16 +5,8 @@ in
 {
   options = {
     sane.services.dropbear = with lib; {
-      enable = mkOption {
-        default = false;
-        type = types.bool;
-      };
-
-      package = mkOption {
-        type = types.package;
-        default = pkgs.dropbear;
-        defaultText = literalExpression "pkgs.dropbear";
-      };
+      enable = mkEnableOption "dropbear SSH server";
+      package = mkPackageOption pkgs "dropbear" {};
 
       port = mkOption {
         type = types.port;
@@ -31,7 +23,7 @@ in
       serviceConfig.Type = "simple";
       # N.B.: dropbear ssh key format is incompatible with OpenSSH's.
       # also, needs to be manually generated on first run (`dropbearkey -t rsa -f /etc/ssh/host_keys/dropbear_rsa_host_key -s 4096`)
-      serviceConfig.ExecStart = "${cfg.package}/bin/dropbear -F -p ${builtins.toString cfg.port} -r /etc/ssh/host_keys/dropbear_rsa_host_key -r /etc/ssh/host_keys/dropbear_ed25519_host_key";
+      serviceConfig.ExecStart = "${lib.getExe' cfg.package "dropbear"} -F -p ${builtins.toString cfg.port} -r /etc/ssh/host_keys/dropbear_rsa_host_key -r /etc/ssh/host_keys/dropbear_ed25519_host_key";
     };
   };
 }

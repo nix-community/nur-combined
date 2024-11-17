@@ -1,0 +1,308 @@
+// vim: set shiftwidth=2 :
+use errors;
+use errors::ext;
+use fmt;
+use fs;
+use io;
+use log;
+use os;
+use os::exec;
+use restrict;
+use rt;
+use rt::ext;
+use strings;
+use unix;
+use unix::signal;
+
+export fn namespace_restrict(what: *restrict::resources) void = {
+  // record the uid and gid of the initial namespace, so that we can re-map them
+  // in the new ns.
+  let uid = unix::getuid();
+  let gid = unix::getgid();
+
+  // certain things we'll *always* unshare: doing that now simplifies the downstream
+  let unshare_early: rt::ext::clone_flags =
+    rt::ext::clone_flag::NEWCGROUP |
+    rt::ext::clone_flag::NEWIPC |
+    // rt::ext::clone_flag::NEWNET |
+    rt::ext::clone_flag::NEWNS |
+    rt::ext::clone_flag::NEWPID |
+    rt::ext::clone_flag::NEWUSER |
+    rt::ext::clone_flag::NEWUTS
+  ;
+
+  if (what.ipc) {
+    log::println("[namespace] keeping ipc namespace");
+    unshare_early &= ~rt::ext::clone_flag::NEWIPC;
+  };
+
+  if (what.pid) {
+    unshare_early &= ~rt::ext::clone_flag::NEWPID;
+  };
+
+  if (what.try_users) {
+    log::println("[namespace] keeping user namespace *if possible*");
+    let unshare_keep_users = unshare_early & ~rt::ext::clone_flag::NEWUSER;
+    if (try_unshare(unshare_keep_users)) {
+      unshare_early = 0;
+    } else {
+      log::println("[namespace] failed to unshare w/o user namespace. raising CAP_SYS_ADMIN and trying again");
+
+      let raise_caps = rt::ext::CAPS_NONE;
+      restrict::caps_add(&raise_caps, rt::ext::cap::SYS_ADMIN);
+      if (try_unshare_with(unshare_keep_users, raise_caps))
+        unshare_early = 0;
+    };
+  };
+
+  if (unshare_early != 0) {
+    // fallback for when `try_users == true` and we failed,
+    // or if `try_users` was false from the start.
+    log::printfln("[namespace] unshare {}", unshare_early: u64);
+    errors::ext::check("namespace: unshare early", rt::ext::unshare(unshare_early));
+  };
+
+  // before mounting anything, set up the uids and gids in this namespace.
+  // without this, everything shows up as 65534 a.k.a. 'nobody' a.k.a. 'overflow',
+  // and `mkdir` will return EOVERFLOW.
+  // all this does is make it so that namespace operations under uid 1000 are
+  // mapped to non-ns ops by the same user, and vice-versa
+  write_id_maps(uid, gid);
+
+  if (!what.pid) {
+    // fork twice, and become:
+    // - original process
+    //   - PID 1 in the namespace
+    //     - PID 2, which execs the user code
+    //
+    // the OP and PID1 stick around, mostly idle, merely forwarding posix
+    // signals they receive down this stack, and forwarding exit status up the stack.
+    //
+    // this forking accomplishes two things:
+    // 1. the first fork is the only way to enter the PID namespace.
+    // 2. the second fork allows *all* signals to be sent to the user code.
+    //    by default, PID1 in any namespace can only receive SIGTERM, SIGSTOP,
+    //    and signals for which it's explicitly installed handlers.
+    //    without the second fork, we would need messy and racy logic to
+    //    determine which signals received by the OP (e.g. SIGKILL, SIGUSR1)
+    //    should be handled by it v.s. relayed to the user code. the only way to
+    //    determine if a signal was/will be handled seems to be to parse /proc/$CHILD/status.
+    //    if signal forwarding is unimportant, this second fork can be safely removed.
+    errors::ext::check("[namespace/fork] forking new PID 1", fork_and_propagate());
+    errors::ext::check("[namespace/fork] forking second time, child will become user process", fork_and_propagate());
+  };
+
+  // isolate the mounts. we have to do this *after* forking into the new PID
+  // space -- otherwise we lack permissions to mount a *new* /proc.
+  // better isolation would be to setup the mount space *before* forking above,
+  // and then mounting just /proc here, but that's complicated particularly by
+  // the many circumstances in which we might want to mount *portions* of the
+  // outside /proc over the new /proc.
+  {
+    let pwd = strings::dup(os::getcwd());  // dup because API uses a static buffer
+    defer(free(pwd));
+    isolate_paths(what);
+    // try to change to the old working directory;
+    // this can fail if it's not within the sandbox.
+    errors::ext::swallow("namespace: restore $PWD", os::chdir(pwd));
+  };
+
+  // at this point we don't know how many processes there are;
+  // it could be just one, or it could be 3 (pid namespacing).
+  // either way, the code executing here is the child.
+  // freely drop the net namespace unless the user code specificaly needs *full* net access
+  match (what.net) {
+    case restrict::net_none =>
+      errors::ext::check("namespace: unshare net", rt::ext::unshare(rt::ext::clone_flag::NEWNET));
+    case let subset: restrict::net_subset =>
+      setup_pasta(subset);
+    case restrict::net_all =>
+      log::println("[namespace] keeping net namespace");
+  };
+};
+
+// try to `unshare(flags)`, return true on success
+fn try_unshare(flags: rt::ext::clone_flags) bool = {
+  return match (rt::ext::unshare(flags)) {
+    case void =>
+      log::println("[namespace] try_unshare successful");
+      yield true;
+    case let e: rt::errno =>
+      errors::ext::swallow("[namespace] try_unshare", e);
+      yield false;
+  };
+};
+
+// raise capabilities, unshare, and then restore effective capabilities to as before.
+// returns true if we unshared.
+fn try_unshare_with(flags: rt::ext::clone_flags, caps: rt::ext::caps) bool = {
+  let orig_caps = match (rt::ext::capget()) {
+    case let c: rt::ext::caps_eip => yield c;
+    case let err: rt::errno =>
+      errors::ext::swallow("[namespace] raise caps: capget failed", err);
+      return false;
+  };
+
+  let new_caps = orig_caps;
+  restrict::caps_add_caps(&new_caps.effective, caps);
+  errors::ext::swallow("[namespace] raise caps", rt::ext::capset(new_caps));
+
+  let unshared = try_unshare(flags);
+
+  // if we unshared a user ns, the caps in that ns have no relation to the
+  // original ns. but if we didn't unshare a user, or we failed the unshare,
+  // then restore caps
+  if (!unshared || (flags & rt::ext::clone_flag::NEWUSER) == 0) {
+    errors::ext::check("[namespace] restore caps", rt::ext::capset(orig_caps));
+  };
+
+  return unshared;
+};
+
+
+// everything inside this struct is borrowed
+type ns_ctx = struct {
+  what: *restrict::resources,
+  old_fs: *fs::fs,
+  new_fs: *fs::fs,
+};
+
+// fork and:
+// - in the child: continue execution as normal
+// - in the parent: wait for the child, then propagate its exit status
+fn fork_and_propagate() (void | os::exec::error) = {
+  match (os::exec::fork()?) {
+    case let child_pid: os::exec::process => return wait_and_propagate(child_pid);
+    case => log::println("[namespace/fork] continuing as child");
+  };
+};
+
+fn wait_and_propagate(child_pid: os::exec::process) (void | os::exec::error) = {
+  forward_signals(child_pid);
+  log::println("[namespace/fork] signals configured");
+  let status = wait_child(child_pid)?;
+  let rc = rt::wexitstatus(status.status);
+  // TODO: if the child exited due to a signal (e.g. SIGTERM), we (confusingly?) exit 0.
+  // seems correct behavior may be to send the same termination signal to ourselves.
+  log::printfln("[namespace/fork] child exited with {}; forwarding as {}", status.status, rc);
+  os::exit(rc);  // propagate exit code
+};
+
+// block until the provided child exits, and then return its exit status.
+// this function actually waits on *any* child, in a loop, but only returns the
+// exit code for the specific child of interest.
+// this way, we're able to act as a child reaper (as expected of PID 1).
+fn wait_child(child_pid: os::exec::process) (os::exec::status | os::exec::error) = {
+  for (true) {
+    match (os::exec::waitany()) {
+      case let e: os::exec::error => match (e) {
+        case errors::interrupted =>
+          // i guess before the days of `poll`, `wait` had to wait on either the
+          // child OR a signal sent to this pid; so we need to retry if the
+          // reason we woke isn't because the child died...
+          log::printfln("[namespace/fork] waitany() interrupted (signal?)... will retry");
+        case => return e;
+      };
+      case let proc_and_status: (os::exec::process, os::exec::status) => {
+        let (proc, status) = proc_and_status;
+        if (proc == child_pid) {
+          return status;
+        };
+        // else we've just reaped a zombie child which had forked away from the
+        // main program
+      };
+    };
+  };
+};
+
+const SIGNALS_TO_FORWARD = [
+  unix::signal::sig::HUP,
+  unix::signal::sig::INT,  // Ctrl+C
+  unix::signal::sig::QUIT,  // Ctrl+\
+  // unix::signal::sig::ILL,
+  // unix::signal::sig::TRAP
+  unix::signal::sig::ABRT,
+  // unix::signal::sig::BUS,
+  // unix::signal::sig::FPE,
+  // unix::signal::sig::KILL (can't be caught or ignored)
+  unix::signal::sig::USR1,
+  // unix::signal::sig::SEGV,
+  unix::signal::sig::USR2,
+  // unix::signal::sig::PIPE,
+  // unix::signal::sig::ALRM,
+  unix::signal::sig::TERM,
+  // unix::signal::sig::STKFLT,
+  // unix::signal::sig::CHLD
+  // unix::signal::sig::CONT,
+  // unix::signal::sig::STOP (can't be caught or ignored)
+  // unix::signal::sig::TSTP,  // Ctrl+Z
+  unix::signal::sig::TTIN,  // ??
+  unix::signal::sig::TTOU,  // ??
+  unix::signal::sig::URG,
+  unix::signal::sig::XCPU,
+  unix::signal::sig::XFSZ,
+  // unix::signal::sig::VTALRM,
+  // unix::signal::sig::PROF,
+  unix::signal::sig::WINCH,  // terminal resized
+  unix::signal::sig::IO,
+  unix::signal::sig::POLL,
+  unix::signal::sig::PWR,
+  // unix::signal::sig::SYS,  // illegal syscall argument
+];
+
+// there's no apparent way to pass state into a signal handler,
+// except via process globals
+let g_child: os::exec::process = 0;
+
+// configure signal handlers so that any signal we receive is forwarded to the child.
+// this is important for systems which use signals for communication,
+// e.g. `kill -SIGUSR2 $(pidof wvkbd)` will toggle an on-screen-keyboard, but only if delivered.
+fn forward_signals(child: os::exec::process) void = {
+  g_child = child;
+  for (let sig .. SIGNALS_TO_FORWARD) {
+    unix::signal::handle(sig, &forward_signal_handler);
+  };
+  // posix real-time extensions defines an additional set of general-purpose
+  // signals for users. things like `wvkbd` use these (SIGRTMIN)
+  for (let sig = 32; sig <= 64; sig +=1) {
+    unix::signal::handle(sig: unix::signal::sig, &forward_signal_handler);
+  };
+};
+
+fn forward_signal_handler(sig: unix::signal::sig, info: *unix::signal::siginfo, ucontext: *opaque) void = {
+  log::printfln("[namespace] forward signal {} to child {}", sig: int, g_child: int);
+  // TODO: maybe we shouldn't swallow all errors; if the child somehow died, and
+  // the signal is undeliverable, then abort?
+  errors::ext::swallow(
+    "[namespace] forward child signal {}",
+    os::exec::sig(g_child, sig),
+    sig: int,
+  );
+};
+
+// these id maps are writable *once*.
+// - uid_map, gid_map: tell the kernel how uid's from the parent namespace
+//                     should be presented to members of the current namespace,
+//                     AND vice-versa.
+//   - each line has the format:
+//     `ID-inside-ns   ID-outside-ns   number-of-ids-to-map`
+//   - multiple lines are allowed
+//   - it seems as those ID-outside-ns can only be an ID controlled by the user
+//     that created the namespace (else: EPERM), which would make sense if this is a bidirectional mapping
+fn write_id_maps(uid: unix::uid, gid: unix::gid) void = {
+  errors::ext::swallow("[namespace] write /proc/self/uid_map", write_id_map("/proc/self/uid_map", uid));
+  errors::ext::swallow("[namespace] write /proc/self/setgroups", write_setgroups());
+  errors::ext::swallow("[namespace] write /proc/self/gid_map", write_id_map("/proc/self/gid_map", gid));
+};
+
+fn write_id_map(which: str, id: uint) (void | rt::errno | io::error) = {
+  let id_fd = rt::open(which, rt::O_RDWR | rt::O_CLOEXEC, 0)?;
+  let id_buf: [4096]u8 = [0...];
+  let id_str = fmt::bsprintf(id_buf, "{0} {0} 1\n", id);
+  io::write(id_fd, strings::toutf8(id_str))?;
+};
+
+fn write_setgroups() (void | rt::errno | io::error) = {
+  let setgroups_fd = rt::open("/proc/self/setgroups", rt::O_RDWR | rt::O_CLOEXEC, 0)?;
+  io::write(setgroups_fd, &['d': u8, 'e', 'n', 'y', '\n', 0])?;
+};

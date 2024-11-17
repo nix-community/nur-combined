@@ -1,0 +1,99 @@
+From 91c398507ebd783f844d9f3bad24f736d6bc0b98 Mon Sep 17 00:00:00 2001
+From: Ondrej Jirman <megi@xff.cz>
+Date: Tue, 27 Aug 2024 19:12:22 +0200
+Subject: [PATCH 443/463] arm64: dts: rk3588-quartzpro64: Add HDMI0 connector
+ support
+
+This enabled HDMI output on HDMI0 connector.
+
+Signed-off-by: Ondrej Jirman <megi@xff.cz>
+---
+ .../boot/dts/rockchip/rk3588-quartzpro64.dts  | 53 +++++++++++++++++++
+ 1 file changed, 53 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-quartzpro64.dts b/arch/arm64/boot/dts/rockchip/rk3588-quartzpro64.dts
+index 172213d912678..7e0c7a14e6865 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-quartzpro64.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-quartzpro64.dts
+@@ -9,6 +9,7 @@
+ #include <dt-bindings/input/input.h>
+ #include <dt-bindings/leds/common.h>
+ #include <dt-bindings/pinctrl/rockchip.h>
++#include <dt-bindings/soc/rockchip,vop2.h>
+ #include <dt-bindings/usb/pd.h>
+ #include "rk3588.dtsi"
+ 
+@@ -84,6 +85,17 @@ speaker_amp: audio-amplifier-speaker {
+ 		sound-name-prefix = "Speaker Amp";
+ 	};
+ 
++	hdmi0-con {
++		compatible = "hdmi-connector";
++		type = "a";
++
++		port {
++			hdmi0_con_in: endpoint {
++				remote-endpoint = <&hdmi0_out_con>;
++			};
++		};
++	};
++
+ 	leds {
+ 		compatible = "gpio-leds";
+ 		pinctrl-names = "default";
+@@ -303,6 +315,31 @@ &gpu {
+ 	status = "okay";
+ };
+ 
++&display_subsystem {
++	clocks = <&hdptxphy_hdmi0>;
++	clock-names = "hdmi0_phy_pll";
++};
++
++&hdmi0 {
++	status = "okay";
++};
++
++&hdmi0_in {
++	hdmi0_in_vp0: endpoint {
++		remote-endpoint = <&vp0_out_hdmi0>;
++	};
++};
++
++&hdmi0_out {
++	hdmi0_out_con: endpoint {
++		remote-endpoint = <&hdmi0_con_in>;
++	};
++};
++
++&hdptxphy_hdmi0 {
++	status = "okay";
++};
++
+ &i2c2 {
+ 	status = "okay";
+ 
+@@ -1309,3 +1346,19 @@ usbdp_phy0_dp_altmode_mux: endpoint@1 {
+ &usbdp_phy1 {
+ 	status = "okay";
+ };
++
++
++&vop_mmu {
++	status = "okay";
++};
++
++&vop {
++	status = "okay";
++};
++
++&vp0 {
++	vp0_out_hdmi0: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
++		reg = <ROCKCHIP_VOP2_EP_HDMI0>;
++		remote-endpoint = <&hdmi0_in_vp0>;
++	};
++};
+\ No newline at end of file
+-- 
+2.46.0
+

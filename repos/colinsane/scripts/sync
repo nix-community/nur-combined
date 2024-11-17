@@ -1,10 +1,11 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p rsync -p sane-scripts.sync-music
+#!nix-shell -i bash -p bash -p rsync -p sane-scripts.sync-from-iphone -p sane-scripts.sync-music
 
 usage() {
-  echo "sync [flags ...] <host> [<host> ...] [passthrough flags ...]"
+  echo "sync [flags ...] [<host> [<host> ...]] [passthrough flags ...]"
   echo "where:"
   echo "  host: all|desko|lappy|moby"
+  echo "  - defaults to 'all' if omitted"
   exit 1
 }
 
@@ -47,6 +48,7 @@ syncHost() {
     (desko)
       ifExists /mnt/servo/media/Music/Various.Artists \
         sane-sync-music --compat /mnt/servo/media/Music "$deskoHome/Music" "${syncFlags[@]}"
+      sane-sync-from-iphone
       ;;
     (lappy)
       ifExists /mnt/servo/media/Music/Various.Artists \
@@ -55,9 +57,14 @@ syncHost() {
     (moby)
       # copy photos/screenshots from moby to desko:
       rsync -arv --exclude servo-macros "$mobyHome/Pictures/" "$deskoHome/Pictures/from/moby/"
+      ifExists /mnt/servo/media/Books/Audiobooks \
+        rsync -arv --delete /mnt/servo/media/Books/Audiobooks/ "$mobyHome/Books/Audiobooks/"
       # copy books from servo to moby; delete old/untracked ones, but keep KOreader state files (sdr)
       ifExists /mnt/servo/media/Books/Books \
-        rsync -arv --delete --exclude '*.sdr' /mnt/servo/media/Books/ "$mobyHome/Books/local/servo/"
+        rsync -arv --delete --exclude '*.sdr' /mnt/servo/media/Books/Books/ "$mobyHome/Books/Books/"
+      # TODO: recover servo Books/Visual collection, and then re-enable syncing
+      # ifExists /mnt/servo/media/Books/Visual \
+      #   rsync -arv --delete --exclude '*.sdr' /mnt/servo/media/Books/Books/ "$mobyHome/Books/Visual/"
       # copy music
       ifExists /mnt/servo/media/Music/Various.Artists \
         sane-sync-music --compat /mnt/servo/media/Music "$mobyHome/Music" "${syncFlags[@]}"
@@ -100,7 +107,12 @@ parseArgs() {
         ;;
     esac
   done
+
   passthruArgs+=("$@")
+
+  if [[ ${#hosts[@]} -eq 0 ]]; then
+    hosts+=(desko lappy moby)
+  fi
 }
 
 parseArgs "$@"

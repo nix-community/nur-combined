@@ -15,7 +15,6 @@ in
     };
     packageUnwrapped = pkgs.sane-scripts.deadlines;
 
-    sandbox.method = "bunpen";
     sandbox.extraHomePaths = [ "knowledge/planner/deadlines.tsv" ];
 
     fs.".profile".symlink.text = lib.mkIf cfg.config.showOnLogin ''

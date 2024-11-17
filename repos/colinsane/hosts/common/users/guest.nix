@@ -5,10 +5,7 @@ let
 in
 {
   options = with lib; {
-    sane.guest.enable = mkOption {
-      default = false;
-      type = types.bool;
-    };
+    sane.guest.enable = mkEnableOption "enable guest account, accessible by select authorized ssh keys";
   };
 
   config = lib.mkIf cfg.enable {

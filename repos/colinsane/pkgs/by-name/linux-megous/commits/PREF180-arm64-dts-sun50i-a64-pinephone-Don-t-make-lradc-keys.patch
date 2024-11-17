@@ -1,0 +1,29 @@
+From c72c45ebf95d361086a5d0fc7022e59ad86c2f5b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ond=C5=99ej=20Jirman?= <megi@xff.cz>
+Date: Mon, 26 Apr 2021 01:31:27 +0200
+Subject: [PATCH 180/463] arm64: dts: sun50i-a64-pinephone: Don't make lradc
+ keys a wakeup source
+
+This allow the crust to reach lower suspend state.
+
+Signed-off-by: Ondrej Jirman <megi@xff.cz>
+---
+ arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+index b64b3b65997a8..0a8352147280a 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+@@ -540,7 +540,7 @@ &i2s2 {
+ 
+ &lradc {
+ 	vref-supply = <&reg_aldo3>;
+-	wakeup-source;
++//	wakeup-source;
+ 	status = "okay";
+ 
+ 	button-200 {
+-- 
+2.46.0
+

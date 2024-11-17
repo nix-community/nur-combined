@@ -6,7 +6,6 @@ let
 in
 {
   sane.programs.waylock = {
-    sandbox.method = "bwrap";
     sandbox.extraPaths = [
       # N.B.: we need to be able to follow /etc/shadow to wherever it's symlinked.
       # waylock seems (?) to offload password checking to pam's `unix_chkpwd`,

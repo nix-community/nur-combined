@@ -9,6 +9,7 @@ in
     sane.programs."sane-scripts.bt-search".enableFor.user.colin = false;  # 2024/06/03: does not cross compile
     sane.programs.bash-language-server.enableFor = { system = false; user.colin = false; };  # bash neovim LSP: doesn't cross compile (2024-08-26)
     sane.programs.blueberry.enableFor.user.colin = false;  # bluetooth manager: doesn't cross compile
+    sane.programs.efibootmgr.enableFor = { system = false; user.colin = false; };  # efivar doesn't cross compile (2024-09-14)
     sane.programs.fcitx5.enableFor.user.colin = false;
     sane.programs.ltex-ls.enableFor = { system = false; user.colin = false; };  # LaTeX/html/markdown neovim LSP: doesn't cross compile (2024-08-26)
     sane.programs.lua-language-server.enableFor = { system = false; user.colin = false; };  # lua neovim LSP: doesn't cross compile (2024-08-26)

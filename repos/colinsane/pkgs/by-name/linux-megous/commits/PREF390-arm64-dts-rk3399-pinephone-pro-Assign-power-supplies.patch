@@ -1,0 +1,63 @@
+From 13291ec0ef70784f9f237a6d8bfeb16fb95fc208 Mon Sep 17 00:00:00 2001
+From: Ondrej Jirman <megi@xff.cz>
+Date: Thu, 7 Sep 2023 22:57:30 +0200
+Subject: [PATCH 390/463] arm64: dts: rk3399-pinephone-pro: Assign power
+ supplies to audio codec
+
+Signed-off-by: Ondrej Jirman <megi@xff.cz>
+---
+ .../boot/dts/rockchip/rk3399-pinephone-pro.dts  | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+index 9ae01af0e73bb..41024de7d4411 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+@@ -419,6 +419,10 @@ vcc_4g: vcc-4g {
+ 		vin-supply = <&vcc_sys>;
+ 	};
+ 
++	// XXX: modem codec supplies:
++	// - vcc1v8_codec
++	// - vcca3v0_codec
++
+ 	vcc1v8_codec: vcc1v8-codec-regulator {
+ 		compatible = "regulator-fixed";
+ 		enable-active-high;
+@@ -996,6 +1000,7 @@ wcam_out: endpoint {
+ 	wcam_lens: camera-lens@c {
+ 		compatible = "dongwoon,dw9714";
+ 		reg = <0x0c>;
++		/*XXX: also depends on vcca1v8_codec for I2C bus power */
+ 		vcc-supply = <&vcc1v8_dvp>;
+ 	};
+ 
+@@ -1031,14 +1036,6 @@ ucam_out: endpoint {
+ 		};
+ 	};
+ 
+-	// XXX: modem codec supplies:
+-	// - vcc1v8_codec
+-	// - vcca3v0_codec
+-
+-	// supplies: (always on currently)
+-	// - vcca3v0_codec
+-	// - vcca1v8_codec
+-	// - vcc5v0_sys - spk_vcc
+ 	rt5640: rt5640@1c {
+ 		compatible = "realtek,rt5640";
+ 		reg = <0x1c>;
+@@ -1046,6 +1043,10 @@ rt5640: rt5640@1c {
+ 		clock-names = "mclk";
+ 		assigned-clocks = <&cru SCLK_I2S0_8CH>;
+ 		assigned-clock-rates = <11289599>;
++		avdd-supply = <&vcca3v0_codec>;
++		cpvdd-supply = <&vcca3v0_codec>;
++		spkvdd-supply = <&vcc5v0_sys>;
++		dbvdd-supply = <&vcca1v8_codec>;
+ 		realtek,dmic1-data-pin = <1>;
+ 		realtek,in3-differential;
+ 		realtek,lout-differential;
+-- 
+2.46.0
+

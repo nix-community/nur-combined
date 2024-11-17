@@ -32,11 +32,10 @@ in
       '';
     });
 
-    sandbox.method = "bunpen";
     sandbox.extraRuntimePaths = [
       "dbus"
     ];
-    sandbox.isolatePids = false;   #< not actually sure *why* this is necessary, but it is
+    sandbox.keepPids = true;   #< not actually sure *why* this is necessary, but it is
 
     env.DBUS_SESSION_BUS_ADDRESS = "unix:path=$XDG_RUNTIME_DIR/dbus/bus";
 
@@ -44,7 +43,7 @@ in
     # then we can create our own. not sure if there's a dependency ordering issue here: lots
     # of things depend on dbus but i don't do anything special to guarantee this is initialized
     # before them.
-    services.dbus = {
+    services.dbus-user = {
       description = "dbus user session";
       partOf = lib.mkIf cfg.config.autostart [ "default" ];
       command = pkgs.writeShellScript "dbus-start" ''

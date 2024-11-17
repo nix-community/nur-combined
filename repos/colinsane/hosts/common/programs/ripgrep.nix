@@ -1,7 +1,6 @@
 { ... }:
 {
   sane.programs.ripgrep = {
-    sandbox.method = "bunpen";
     sandbox.autodetectCliPaths = "existing";
     sandbox.whitelistPwd = true;
     sandbox.extraHomePaths = [

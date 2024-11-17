@@ -3,6 +3,9 @@ let
   saneCfg = config.sane;
   cfg = config.sane.programs;
 
+  makeSandboxArgs = pkgs.callPackage ./make-sandbox-args.nix { };
+  makeSandboxed = pkgs.callPackage ./make-sandboxed.nix { };
+
   # create a map:
   # {
   #   "${pkgName}" = {
@@ -33,14 +36,11 @@ let
   defaultEnables = solveDefaultEnableFor cfg;
 
   # wrap a package so that its binaries (maybe) run in a sandbox
-  wrapPkg = pkgName: { fs, persist, sandbox, ... }: package: (
+  wrapPkg = pkgName: { fs, gsettingsPersist, persist, sandbox, ... }: package: (
     if !sandbox.enable || sandbox.method == null then
       package
     else
       let
-        makeSandboxArgs = pkgs.callPackage ./make-sandbox-args.nix { };
-        makeSandboxed = pkgs.callPackage ./make-sandboxed.nix { };
-
         vpn = if sandbox.net == "vpn" then
           lib.findSingle (v: v.isDefault) null null (builtins.attrValues config.sane.vpn)
         else if sandbox.net == "vpn.wg-home" then
@@ -49,7 +49,17 @@ let
           null
         ;
 
-        allowedHomePaths = builtins.attrNames fs ++ builtins.attrNames persist.byPath ++ sandbox.extraHomePaths;
+        allowedHomePaths = builtins.attrNames fs
+          ++ builtins.attrNames persist.byPath
+          ++ sandbox.extraHomePaths
+          ++ lib.optionals (gsettingsPersist != [] && config.sane.programs.gsettings.enabled) [
+            # the actual persistence happens in sane.programs.gsettings
+            ".config/glib-2.0/settings"
+          ];
+          # XXX: don't support dconf persisting until/unless i want to, since the dbus integration is icky
+          # ++ lib.optionals (gsettingsPersist != [] && config.sane.programs.dconf.enabled) [
+          #   ".config/dconf"
+          # ];
         allowedRunPaths = sandbox.extraRuntimePaths;
         allowedPaths = [
           "/nix/store"
@@ -76,6 +86,9 @@ let
             autodetectCliPaths
             capabilities
             extraConfig
+            keepIpc
+            keepPids
+            tryKeepUsers
             method
             whitelistPwd
           ;
@@ -95,17 +108,9 @@ let
           allowedPaths = lib.unique allowedPaths;
           allowedHomePaths = lib.unique allowedHomePaths;
           allowedRunPaths = lib.unique allowedRunPaths;
-          keepPids = !sandbox.isolatePids;
-          keepUsers = !sandbox.isolateUsers;
         };
       in
-        (makeSandboxed.override {
-          sanebox = if sandbox.method == "bunpen" then
-            pkgs.bunpen
-          else
-            pkgs.sanebox
-          ;
-        }) {
+        makeSandboxed {
           inherit pkgName package;
           inherit (sandbox)
             embedSandboxer
@@ -116,6 +121,10 @@ let
   );
   pkgSpec = with lib; types.submodule ({ config, name, ... }: {
     options = {
+      name = mkOption {
+        type = types.str;
+        default = name;
+      };
       packageUnwrapped = mkOption {
         type = types.nullOr types.package;
         description = ''
@@ -169,6 +178,34 @@ let
       enableSuggested = mkOption {
         type = types.bool;
         default = true;
+      };
+      # XXX: even if these `gsettings` and `mime` properties aren't used by this module,
+      # putting them here allows for the visibility by the consumers that do actually use them.
+      gsettings = mkOption {
+        type = types.attrs;
+        default = {};
+        description = ''
+          gsetting config values to provide this program (and the broader system).
+          this is the nix representation of what you'd want `dconf dump /` to show
+          (only, it's not plumbed to dconf but rather the layer above it -- gsettings).
+        '';
+        example = ''
+        {
+          "org/erikreider/swaync" = {
+            dnd-state = true;
+          };
+        }
+        '';
+      };
+      gsettingsPersist = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = ''
+          list of groups which this program is allowed to persist.
+        '';
+        example = [
+          "org/gnome/clocks"
+        ];
       };
       mime.priority = mkOption {
         type = types.int;
@@ -249,8 +286,8 @@ let
             depends = svcCfg.depends
               ++ lib.optionals (((config.persist.byStore or {}).private or []) != []) [
               "private-storage"
-            ] ++ lib.optionals (svcName != "dbus" && builtins.elem "user" config.sandbox.whitelistDbus && cfg.dbus.enabled) [
-              "dbus"
+            ] ++ lib.optionals (svcName != "dbus-user" && builtins.elem "user" config.sandbox.whitelistDbus && cfg.dbus.enabled) [
+              "dbus-user"
             ] ++ lib.optionals ((!builtins.elem "wayland" svcCfg.partOf) && config.sandbox.whitelistWayland) [
               "wayland"
             ] ++ lib.optionals ((!builtins.elem "x11" svcCfg.partOf) && config.sandbox.whitelistX) [
@@ -292,15 +329,16 @@ let
         '';
       };
       sandbox.method = mkOption {
-        type = types.nullOr (types.enum [ "bunpen" "bwrap" "capshonly" "pastaonly" "landlock" ]);
-        default = null;  #< TODO: default to something non-null
+        type = types.nullOr (types.enum [ "bunpen" ]);
+        default = "bunpen";
         description = ''
           how/whether to sandbox all binaries in the package.
         '';
       };
       sandbox.enable = mkOption {
         type = types.bool;
-        default = true;
+        default = saneCfg.sandbox.enable;
+        apply = value: saneCfg.sandbox.enable && value;
       };
       sandbox.embedSandboxer = mkOption {
         type = types.bool;
@@ -355,18 +393,41 @@ let
           e.g. sandbox.capabilities = [ "net_admin" "net_raw" ];
         '';
       };
-      sandbox.isolatePids = mkOption {
+      sandbox.keepIpc = mkOption {
         type = types.bool;
-        default = true;
+        default = false;
         description = ''
-          whether to place the process in a new PID namespace, if the sandboxer supports that.
+          if `false`, then the process is placed in a new IPC namespace, if the sandboxer supports that.
         '';
       };
-      sandbox.isolateUsers = mkOption {
+      sandbox.keepPids = mkOption {
         type = types.bool;
-        default = true;
+        default = false;
         description = ''
-          whether to place the process in a new user namespace, if the sandboxer supports that.
+          if `false`, then the process is placed in a new PID namespace, if the sandboxer supports that.
+        '';
+      };
+      sandbox.keepPidsAndProc = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          if `true`, then the process keeps its pid namespace (`keepPids`) AND retains access to all of /proc.
+          this is usually wanted above just `keepPids`: it's rare to want to keep your pidspace but not access /proc.
+        '';
+      };
+      sandbox.tryKeepUsers = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          for namespace-based sandboxing, a new user namespace is required in order to create
+          the other namespaces (i.e. mount namespace, net namespace, and so on).
+          if set to `false`, then the sandboxer will *attempt* to create these namespaces *without*
+          first creating a new user namespace. this requires CAP_SYS_ADMIN. if invoked without
+          such capabilities, the process will still be placed in a new user namespace.
+
+          setting this `false` is desirable in a few circumstances:
+          1. the sandboxed program wants some subset of super-user capabilities.
+          2. the sandboxed program wants to know the identity of other users (e.g. accurate `ls` info).
         '';
       };
       sandbox.whitelistAudio = mkOption {
@@ -374,6 +435,15 @@ let
         default = false;
         description = ''
           allow sandbox to freely interact with pulse/pipewire.
+        '';
+      };
+      sandbox.whitelistAvDev = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          allow sandbox to freely interact with raw audio/video devices under /dev,
+          e.g. /dev/video0, /dev/snd, /dev/v4l/...
+          pipewire-aware applications shouldn't need this.
         '';
       };
       sandbox.whitelistDbus = mkOption {
@@ -406,6 +476,13 @@ let
         default = false;
         description = ''
           allow the program to start/stop s6 services.
+        '';
+      };
+      sandbox.whitelistSystemctl = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          allow the program to start/stop systemd system services.
         '';
       };
       sandbox.whitelistWayland = mkOption {
@@ -454,8 +531,7 @@ let
         description = ''
           extra arguments to pass to the sandbox wrapper.
           example: [
-            "--sanebox-dns"
-            "1.1.1.1"
+            "--bunpen-keep-pid"
           ]
         '';
       };
@@ -484,19 +560,19 @@ let
       else
         wrapPkg name config config.packageUnwrapped
       ;
-      suggestedPrograms = lib.optionals (config.sandbox.method == "bwrap") [
-        "bubblewrap" "passt" "iproute2" "iptables"
-      ] ++ lib.optionals (config.sandbox.method == "landlock") [
-        "landlock-sandboxer" "capsh"
-      ] ++ lib.optionals (config.sandbox.method == "pastaonly") [
-        "passt" "iproute2" "iptables" "capsh"
-      ] ++ lib.optionals (config.sandbox.method == "capshonly") [
-        "capsh"
-      ];
+      suggestedPrograms = lib.mkIf saneCfg.sandbox.enable (
+        lib.optionals (config.sandbox.method == "bunpen") [
+          "bunpen"
+        ]
+      );
       # declare a fs dependency for each secret, but don't specify how to populate it yet.
       #   can't populate it here because it varies per-user.
       # this gets the symlink into the sandbox, but not the actual secret.
       fs = lib.mapAttrs (_homePath: _secretSrc: {}) config.secrets;
+
+      sandbox.keepPids = lib.mkIf config.sandbox.keepPidsAndProc true;
+
+      sandbox.whitelistDbus = lib.mkIf config.sandbox.whitelistSystemctl [ "system" ];
 
       sandbox.extraPaths =
         lib.optionals config.sandbox.whitelistDri [
@@ -507,6 +583,33 @@ let
           "/dev/dri" "/sys/dev/char" "/sys/devices" # (lappy: "/sys/devices/pci0000:00", moby needs something different)
         ]
         ++ lib.optionals config.sandbox.whitelistX [ "/tmp/.X11-unix" ]
+        ++ lib.optionals config.sandbox.keepPidsAndProc [ "/proc" ]
+        ++ lib.optionals config.sandbox.whitelistAvDev [
+          "/dev/media0"
+          "/dev/media1"
+          "/dev/snd"
+          "/dev/v4l"
+          "/dev/v4l-subdev0"
+          "/dev/v4l-subdev1"
+          "/dev/v4l-subdev2"
+          # /dev/videoN is used for webcam on lappy, and camera on moby
+          "/dev/video0"
+          "/dev/video1"
+          "/dev/video2"
+          "/dev/video3"
+
+          # specifically for pipewire + wireplumber (for cameras on moby, they seem to both need these identical paths)
+          "/run/udev"
+          "/sys/bus/media"  #< for moby camera
+          "/sys/class/sound"
+          "/sys/class/video4linux"  #< for lappy camera
+          "/sys/dev/char"  #< for moby camera
+          "/sys/devices"
+          "/sys/firmware"  #< for moby camera, to parse its devicetree
+          # "/dev"
+        ] ++ lib.optionals config.sandbox.whitelistSystemctl [
+          "/run/systemd/system"
+        ]
       ;
       sandbox.extraRuntimePaths =
         lib.optionals config.sandbox.whitelistAudio [ "pipewire" "pulse" ]  # this includes pipewire/pipewire-0-manager: is that ok?
@@ -536,11 +639,11 @@ let
   configs = lib.mapAttrsToList (name: p: {
     assertions = [
       {
-        assertion = !(p.sandbox.enable && p.sandbox.method == null) || !p.enabled || p.package == null || config.sane.strictSandboxing != "assert";
+        assertion = !(p.sandbox.enable && p.sandbox.method == null) || !p.enabled || p.package == null || config.sane.sandbox.strict != "assert";
         message = "program ${name} specified no `sandbox.method`; please configure a method, or set sandbox.enable = false.";
       }
       {
-        assertion = p.sandbox.net == "all" || p.sandbox.method != null || !p.enabled || p.package == null || config.sane.strictSandboxing != "assert";
+        assertion = p.sandbox.net == "all" || p.sandbox.method != null || !p.enabled || p.package == null || config.sane.sandbox.strict != "assert";
         message = ''program "${name}" requests net "${builtins.toString p.sandbox.net}", which requires sandboxing, but sandboxing wasn't configured'';
       }
     ] ++ builtins.map (sug: {
@@ -548,7 +651,7 @@ let
       message = ''program "${sug}" referenced by "${name}", but not defined'';
     }) p.suggestedPrograms;
 
-    warnings = lib.mkIf (config.sane.strictSandboxing == "warn" && p.sandbox.enable && p.sandbox.method == null && p.enabled && p.package != null) [
+    warnings = lib.mkIf (config.sane.sandbox.strict == "warn" && p.sandbox.enable && p.sandbox.method == null && p.enabled && p.package != null) [
       "program ${name} specified no `sandbox.method`; please configure a method, or set sandbox.enable = false."
     ];
 
@@ -578,7 +681,7 @@ let
 
         (lib.mapAttrs
           # TODO: user the user's *actual* home directory, don't guess.
-          (homePath: _src: sane-lib.fs.wantedSymlinkTo "/run/secrets/home/${user}/${homePath}")
+          (homePath: _src: { symlink.target = "/run/secrets/home/${user}/${homePath}"; })
           p.secrets
         )
         # alternative double indirection which may be slightly friendlier to sandboxing:
@@ -635,11 +738,18 @@ in
         set to 0 to get the fastest, but most restrictive build.
       '';
     };
-    sane.strictSandboxing = mkOption {
+    sane.sandbox.strict = mkOption {
       type = types.enum [ false "warn" "assert" ];
       default = "warn";
       description = ''
         whether to require that every `sane.program` explicitly specify its sandbox settings.
+      '';
+    };
+    sane.sandbox.enable = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        whether to sandbox any programs at all
       '';
     };
   };
@@ -659,8 +769,6 @@ in
     in lib.mkMerge [
       (take (sane-lib.mkTypedMerge take configs))
       {
-        sane.programs.bunpen.enableFor.system = true;
-        sane.programs.sanebox.enableFor.system = true;
         # expose the pkgs -- as available to the system -- as a build target.
         system.build.pkgs = pkgs;
       }

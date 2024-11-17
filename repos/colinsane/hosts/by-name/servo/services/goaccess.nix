@@ -1,4 +1,5 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
+lib.mkIf false  #< 2024/09/30: disabled because i haven't used it in several months
 {
   # based on <https://bytes.fyi/real-time-goaccess-reports-with-nginx/>
   # log-format setting can be derived with this tool if custom:
@@ -10,7 +11,7 @@
     description = "GoAccess server monitoring";
     serviceConfig = {
       ExecStart = ''
-        ${pkgs.goaccess}/bin/goaccess \
+        ${lib.getExe pkgs.goaccess} \
           -f /var/log/nginx/public.log \
           --log-format=VCOMBINED \
           --real-time-html \
@@ -22,7 +23,7 @@
           --port=7890 \
           -o /var/lib/goaccess/index.html
       '';
-      ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+      ExecReload = "${lib.getExe' pkgs.coreutils "kill"} -HUP $MAINPID";
       Type = "simple";
       Restart = "on-failure";
       RestartSec = "10s";

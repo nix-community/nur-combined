@@ -1,7 +1,6 @@
 { ... }:
 {
   sane.programs.wike = {
-    sandbox.method = "bwrap";
     sandbox.wrapperType = "inplace";  # share/wike/wike-sp refers back to the binaries and share
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
@@ -29,7 +28,7 @@
       ".local/share/webkitgtk"
     ];
     persist.byStore.private = [
-      ({ path=".local/share/historic.json"; type="file"; })  # history
+      { path=".local/share/historic.json"; type="file"; }  # history
       # .local/share/cookies (probably not necessary to persist?)
 
       # .local/share/booklists.json (empty; not sure if wike's)

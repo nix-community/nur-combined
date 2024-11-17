@@ -19,7 +19,7 @@ in
     packageUnwrapped = pkgs.avahi.overrideAttrs (upstream: {
       # avahi wants to do its own sandboxing opaque to systemd & maybe in conflict with my bwrap.
       # --no-drop-root disables that, so that i can e.g. run it as User=avahi, etc.
-      # do this here, because the service isn't so easily patched.
+      # do this here, because the nixos service isn't so easily patched.
       postInstall = (upstream.postInstall or "") + ''
         wrapProgram "$out/sbin/avahi-daemon" \
           --add-flags --no-drop-root
@@ -28,17 +28,14 @@ in
         pkgs.makeBinaryWrapper
       ];
     });
-    sandbox.method = "bwrap";
     sandbox.whitelistDbus = [ "system" ];
     sandbox.net = "all";  #< otherwise it will show 'null' in place of each interface name.
-    sandbox.extraPaths = [
-      "/"  #< TODO: decrease this, but be weary that the daemon might exit immediately
-    ];
+    # sandbox.extraPaths = [ ];  #< may be missing some paths; only tried service discovery, not service advertisement.
   };
 
   services.avahi = lib.mkIf cfg.enabled {
     enable = true;
-    package = cfg.package;
+    package = cfg.packageUnwrapped;  #< use systemd sandboxing... not my own
     publish.enable = true;
     publish.userServices = true;
     nssmdns4 = true;
@@ -62,13 +59,13 @@ in
   networking.firewall.extraCommands = lib.mkIf cfg.enabled (with pkgs; ''
     # after an outgoing mDNS query to the multicast address, open FW for incoming responses.
     # ipset -! means "don't fail if set already exists"
-    ${ipset}/bin/ipset create -! mdns hash:ip,port timeout 10
-    ${iptables}/bin/iptables -A OUTPUT -d 239.255.255.250/32 -p udp -m udp --dport 5353 -j SET --add-set mdns src,src --exist
-    ${iptables}/bin/iptables -A INPUT -p udp -m set --match-set mdns dst,dst -j ACCEPT
+    ${lib.getExe' ipset "ipset"} create -! mdns hash:ip,port timeout 10
+    ${lib.getExe' iptables "iptables"} -A OUTPUT -d 239.255.255.250/32 -p udp -m udp --dport 5353 -j SET --add-set mdns src,src --exist
+    ${lib.getExe' iptables "iptables"} -A INPUT -p udp -m set --match-set mdns dst,dst -j ACCEPT
     # IPv6 ruleset. ff02::/16 means *any* link-local multicast group (so this is probably more broad than it needs to be)
-    ${ipset}/bin/ipset create -! mdns6 hash:ip,port timeout 10 family inet6
-    ${iptables}/bin/ip6tables -A OUTPUT -d 239.255.255.250/32 -p udp -m udp --dport 5353 -j SET --add-set mdns6 src,src --exist
-    ${iptables}/bin/ip6tables -A INPUT -p udp -m set --match-set mdns6 dst,dst -j ACCEPT
+    ${lib.getExe' ipset "ipset"} create -! mdns6 hash:ip,port timeout 10 family inet6
+    ${lib.getExe' iptables "ip6tables"} -A OUTPUT -d ff02::/16 -p udp -m udp --dport 5353 -j SET --add-set mdns6 src,src --exist
+    ${lib.getExe' iptables "ip6tables"} -A INPUT -p udp -m set --match-set mdns6 dst,dst -j ACCEPT
   '');
 
   systemd.services.avahi-daemon = lib.mkIf cfg.enabled {
@@ -76,34 +73,7 @@ in
     serviceConfig.User = "avahi";
     serviceConfig.Group = "avahi";
     serviceConfig.AmbientCapabilities = "";
-    serviceConfig.CapabilityBoundingSet = "";
-    serviceConfig.LockPersonality = true;
-    serviceConfig.MemoryDenyWriteExecute = true;
-    serviceConfig.NoNewPrivileges = true;
-    serviceConfig.PrivateDevices = true;
-    serviceConfig.PrivateMounts = true;
-    serviceConfig.PrivateTmp = true;
-    serviceConfig.PrivateUsers = true;
-    serviceConfig.ProcSubset = "all";
-    serviceConfig.ProtectClock = true;
-    serviceConfig.ProtectControlGroups = true;
-    serviceConfig.ProtectHome = true;
-    serviceConfig.ProtectHostname = true;
-    serviceConfig.ProtectKernelLogs = true;
-    serviceConfig.ProtectKernelModules = true;
-    serviceConfig.ProtectKernelTunables = true;
-    serviceConfig.ProtectProc = "noaccess";
-    serviceConfig.ProtectSystem = "strict";
-    serviceConfig.RemoveIPC = true;  #< this *might* slow down the initial connection?
-    serviceConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
-    serviceConfig.RestrictRealtime = true;
-    serviceConfig.RestrictSUIDSGID = true;
-    serviceConfig.SystemCallArchitectures = "native";
-    serviceConfig.SystemCallFilter = [
-      "@system-service"
-      "@mount"
-      "~@resources"
-      # "~@privileged"
-    ];
+    serviceConfig.CapabilityBoundingSet = lib.mkForce "";
+    serviceConfig.PrivateUsers = lib.mkForce true;
   };
 }

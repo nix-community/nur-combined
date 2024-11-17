@@ -67,12 +67,56 @@ let
   # try to load gobject-introspection files for the wrong platform (e.g. `blueprint` compiler).
   typelibPath = pkgs: lib.concatStringsSep ":" (builtins.map (p: "${lib.getLib p}/lib/girepository-1.0") pkgs);
 
+  # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
+  # wrap it so that it accesses the build-time GIR, whatever those are for some derivation
+  # wrapBlueprint = typelibs: final.buildPackages.blueprint-compiler.overrideAttrs (upstream: {
+  #   nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+  #     final.buildPackages.makeShellWrapper
+  #   ];
+  #   postInstall = (upstream.postInstall or "") + ''
+  #     wrapProgram $out/bin/blueprint-compiler --set GI_TYPELIB_PATH ${typelibPath typelibs}
+  #   '';
+  # });
+  wrapBlueprint = typelibs: final.buildPackages.writeShellScriptBin "blueprint-compiler" ''
+    export GI_TYPELIB_PATH=${typelibPath typelibs}
+    exec ${lib.getExe final.buildPackages.blueprint-compiler} "$@"
+  '';
+
   # `cargo` which adds the correct env vars and `--target` flag when invoked from meson build scripts
   crossCargo = let
     inherit (final.pkgsBuildHost) cargo;
     inherit (final.rust.envVars) setEnv rustHostPlatformSpec;
   in (final.pkgsBuildBuild.writeShellScriptBin "cargo" ''
-    exec ${setEnv} "${lib.getExe cargo}" "$@" --target "${rustHostPlatformSpec}"
+    targetDir=target
+    isFlavored=
+
+    cargoArgs=("$@")
+    nextIsTargetDir=
+    for arg in "''${cargoArgs[@]}"; do
+      if [[ -n "$nextIsTargetDir" ]]; then
+        nextIsTargetDir=
+        targetDir="$arg"
+      elif [[ "$arg" = "--target-dir" ]]; then
+        nextIsTargetDir=1
+      elif [[ "$arg" = "build" ]]; then
+        isFlavored=1
+      fi
+    done
+
+    extraFlags=()
+
+    # not all subcommands support flavored arguments like `--target`
+    if [ -n "$isFlavored" ]; then
+      # pass the target triple to cargo so it will cross compile
+      # and fix so it places outputs in the same directory as non-cross, see: <https://doc.rust-lang.org/cargo/guide/build-cache.html>
+      extraFlags+=(
+        --target "${rustHostPlatformSpec}"
+        -Z unstable-options
+        --out-dir "$targetDir"/release
+      )
+    fi
+
+    exec ${setEnv} "${lib.getExe cargo}" "$@" "''${extraFlags[@]}"
   '').overrideAttrs {
     inherit (cargo) meta;
   };
@@ -114,10 +158,6 @@ in with final; {
   #       ];
   #     });
   #   };
-
-  # 2024/09/01: upstreaming is unblocked; PR: https://github.com/NixOS/nixpkgs/pull/338790
-  # ayatana-ido = addNativeInputs [ glib ] prev.ayatana-ido;
-  # libayatana-indicator = addNativeInputs [ glib ] prev.libayatana-indicator;
 
   # bamf: required via pantheon.switchboard -> wingpanel -> gala
   # bamf = prev.bamf.overrideAttrs (upstream: {
@@ -187,34 +227,27 @@ in with final; {
   });
 
   # 2024/08/12: upstreaming is unblocked
-  delfin = prev.delfin.overrideAttrs (upstream: {
+  delfin = (prev.delfin.override {
+    cargo = crossCargo;
+  }).overrideAttrs (upstream: {
     nativeBuildInputs = upstream.nativeBuildInputs ++ [
       # fixes: loaders/meson.build:72:7: ERROR: Program 'msgfmt' not found or not executable
       buildPackages.gettext
     ];
-    postPatch = ''
-      substituteInPlace delfin/meson.build \
-        --replace-fail "cargo, 'build'," "'${lib.getExe crossCargo}', 'build'," \
-        --replace-fail "'delfin' / rust_target" "'delfin' / '${rust.envVars.rustHostPlatformSpec}' / rust_target"
-    '';
   });
 
   # 2024/08/12: upstreaming is unblocked
-  dialect = prev.dialect.overrideAttrs (upstream: {
-    # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
-    postPatch = (upstream.postPatch or "") + ''
-      substituteInPlace data/resources/meson.build --replace-fail \
-        "find_program('blueprint-compiler')" \
-        "'env', 'GI_TYPELIB_PATH=${typelibPath [
-          buildPackages.gdk-pixbuf
-          buildPackages.glib
-          buildPackages.graphene
-          buildPackages.gtk4
-          buildPackages.harfbuzz
-          buildPackages.libadwaita
-          buildPackages.pango
-        ]}', find_program('blueprint-compiler')"
-    '';
+  dialect = (prev.dialect.override {
+    blueprint-compiler = wrapBlueprint [
+      buildPackages.gdk-pixbuf
+      buildPackages.glib
+      buildPackages.graphene
+      buildPackages.gtk4
+      buildPackages.harfbuzz
+      buildPackages.libadwaita
+      buildPackages.pango
+    ];
+  }).overrideAttrs (upstream: {
     # error: "<dialect> is not allowed to refer to the following paths: <build python>"
     # dialect's meson build script sets host binaries to use build PYTHON
     # disallowedReferences = [];
@@ -239,6 +272,10 @@ in with final; {
   #   # future: we can specify 'action-if-cross-compiling' to actually invoke the test programs:
   #   # <https://www.gnu.org/software/autoconf/manual/autoconf-2.63/html_node/Runtime.html>
   # };
+
+  envelope = prev.envelope.override {
+    cargo = crossCargo;  #< fixes openssl not being able to find its library
+  };
 
   evolution-data-server = prev.evolution-data-server.overrideAttrs (upstream: {
     # 2024/09/01: upstreaming is blocked by libgweather (out for PR)
@@ -312,9 +349,9 @@ in with final; {
   #      cxxForBuild = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}c++";
   #      ccForHost = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";
   #      cxxForHost = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++";
-  #      rustBuildPlatform = rust.toRustTarget stdenv.buildPlatform;
-  #      rustTargetPlatform = rust.toRustTarget stdenv.hostPlatform;
-  #      rustTargetPlatformSpec = rust.toRustTargetSpec stdenv.hostPlatform;
+  #      rustBuildPlatform = stdenv.buildPlatform.rust.rustcTarget;
+  #      rustTargetPlatform = stdenv.hostPlatform.rust.rustcTarget;
+  #      rustTargetPlatformSpec = stdenv.hostPlatform.rust.rustcTargetSpec;
   #    in {
   #      # taken from <pkgs/build-support/rust/hooks/default.nix>
   #      # fixes "cargo:warning=aarch64-unknown-linux-gnu-gcc: error: unrecognized command-line option ‘-m64’"
@@ -326,31 +363,22 @@ in with final; {
   #    };
   # });
 
-  flare-signal-nixified = prev.flare-signal-nixified.overrideAttrs (upstream: {
-    # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
-    postPatch = (upstream.postPatch or "") + ''
-      substituteInPlace data/resources/meson.build --replace-fail \
-        "find_program('blueprint-compiler', version: '>= 0.12.0')" \
-        "'env', 'GI_TYPELIB_PATH=${typelibPath [
-          buildPackages.gdk-pixbuf
-          buildPackages.glib
-          buildPackages.graphene
-          buildPackages.gtk4
-          buildPackages.harfbuzz
-          buildPackages.libadwaita
-          buildPackages.pango
-        ]}', find_program('blueprint-compiler')"
-    '';
-  });
+  flare-signal-nixified = prev.flare-signal-nixified.override {
+    blueprint-compiler = wrapBlueprint [
+      buildPackages.gdk-pixbuf
+      buildPackages.glib
+      buildPackages.graphene
+      buildPackages.gtk4
+      buildPackages.harfbuzz
+      buildPackages.libadwaita
+      buildPackages.pango
+    ];
+  };
 
   # 2024/08/12: upstreaming is blocked by xdg-desktop-portal
-  fractal = prev.fractal.overrideAttrs (upstream: {
-    postPatch = (upstream.postPatch or "") + ''
-      substituteInPlace src/meson.build \
-        --replace-fail "cargo, 'build'," "'${lib.getExe crossCargo}', 'build'," \
-        --replace-fail "'src' / rust_target" "'src' / '${rust.envVars.rustHostPlatformSpec}' / rust_target"
-    '';
-  });
+  fractal = prev.fractal.override {
+    cargo = crossCargo;
+  };
 
   # solves (meson) "Run-time dependency libgcab-1.0 found: NO (tried pkgconfig and cmake)", and others.
   # 2024/08/12: upstreaming is unblocked
@@ -375,16 +403,13 @@ in with final; {
   });
 
   # 2024/09/01: upstreaming is unblocked
-  glycin-loaders = prev.glycin-loaders.overrideAttrs (upstream: {
+  glycin-loaders = (prev.glycin-loaders.override {
+    cargo = crossCargo;
+  }).overrideAttrs (upstream: {
     nativeBuildInputs = upstream.nativeBuildInputs ++ [
       # fixes: loaders/meson.build:72:7: ERROR: Program 'msgfmt' not found or not executable
       buildPackages.gettext
     ];
-    postPatch = ''
-      substituteInPlace loaders/meson.build \
-        --replace-fail "cargo_bin, 'build'," "'${lib.getExe crossCargo}', 'build'," \
-        --replace-fail "'loaders' / rust_target" "'loaders' / '${rust.envVars.rustHostPlatformSpec}' / rust_target"
-    '';
   });
 
 
@@ -398,22 +423,17 @@ in with final; {
   # });
 
   # 2024/09/01: upstreaming is blocked on qtx11extras (via zbar)
-  gnome-frog = prev.gnome-frog.overrideAttrs (upstream: {
-    # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
-    postPatch = (upstream.postPatch or "") + ''
-      substituteInPlace data/meson.build --replace-fail \
-        "find_program('blueprint-compiler')" \
-        "'env', 'GI_TYPELIB_PATH=${typelibPath [
-          buildPackages.gdk-pixbuf
-          buildPackages.glib
-          buildPackages.graphene
-          buildPackages.gtk4
-          buildPackages.harfbuzz
-          buildPackages.libadwaita
-          buildPackages.pango
-        ]}', find_program('blueprint-compiler')"
-    '';
-  });
+  gnome-frog = prev.gnome-frog.override {
+    blueprint-compiler = wrapBlueprint [
+      buildPackages.gdk-pixbuf
+      buildPackages.glib
+      buildPackages.graphene
+      buildPackages.gtk4
+      buildPackages.harfbuzz
+      buildPackages.libadwaita
+      buildPackages.pango
+    ];
+  };
 
   gnome-maps = prev.gnome-maps.overrideAttrs (upstream: {
     # 2024/08/12: upstreaming is blocked by libgweather (direct dependency)
@@ -428,6 +448,20 @@ in with final; {
   # 2024/09/01: upstreaming is blocked on gvfs -> samba
   gnome-online-accounts = mvToBuildInputs [ dbus ] prev.gnome-online-accounts;
 
+  # gnome-settings-daemon = prev.gnome-settings-daemon.overrideAttrs (orig: {
+  #   # 2024/08/11: upstreaming is blocked on libgweather
+  #   #   gsd is required by xdg-desktop-portal-gtk
+  #   # pkg-config solves: "plugins/power/meson.build:22:0: ERROR: Dependency lookup for glib-2.0 with method 'pkgconfig' failed: Pkg-config binary for machine build machine not found."
+  #   # stdenv.cc fixes: "plugins/power/meson.build:60:0: ERROR: No build machine compiler for 'plugins/power/gsd-power-enums-update.c'"
+  #   # but then it fails with a link-time error.
+  #   # depsBuildBuild = orig.depsBuildBuild or [] ++ [ glib pkg-config buildPackages.stdenv.cc ];
+  #   # hack to just not build the power plugin (panel?), to avoid cross compilation errors
+  #   postPatch = orig.postPatch + ''
+  #     substituteInPlace plugins/meson.build \
+  #       --replace-fail "disabled_plugins = []" "disabled_plugins = ['power']"
+  #   '';
+  # });
+
   # 2024/08/12: upstreaming is blocked on gnome-user-share (apache-httpd)
   # gnome-terminal = prev.gnome-terminal.overrideAttrs (orig: {
   #   # fixes "meson.build:343:0: ERROR: Dependency "libpcre2-8" not found, tried pkgconfig"
@@ -438,73 +472,60 @@ in with final; {
   # fixes: meson.build:111:6: ERROR: Program 'glib-compile-schemas' not found or not executable
   # gnome-user-share = addNativeInputs [ glib ] prev.gnome-user-share;
 
-  gnome = prev.gnome.overrideScope (self: super: {
-    # 2024/05/31: upstreaming is blocked by a LOT: qtbase, qtsvg, webp-pixbuf-loader, libgweather, gnome-color-manager, appstream, apache-httpd, ibus
-    # fixes "subprojects/gvc/meson.build:30:0: ERROR: Program 'glib-mkenums mkenums' not found or not executable"
-    # gnome-control-center = mvToNativeInputs [ glib ] super.gnome-control-center;
-    # 2024/08/12: upstreaming is blocked on ibus, libgweather
-    # gnome-shell = super.gnome-shell.overrideAttrs (orig: {
-    #   # fixes "meson.build:128:0: ERROR: Program 'gjs' not found or not executable"
-    #   # does not fix "_giscanner.cpython-310-x86_64-linux-gnu.so: cannot open shared object file: No such file or directory"  (python import failure)
-    #   nativeBuildInputs = orig.nativeBuildInputs ++ [ gjs gobject-introspection ];
-    #   # try to reduce gobject-introspection/shew dependencies
-    #   mesonFlags = [
-    #     "-Dextensions_app=false"
-    #     "-Dextensions_tool=false"
-    #     "-Dman=false"
-    #   ];
-    #   # fixes "gvc| Build-time dependency gobject-introspection-1.0 found: NO"
-    #   # inspired by gupnp_1_6
-    #   # outputs = [ "out" "dev" ]
-    #   #   ++ lib.optionals (prev.stdenv.buildPlatform == prev.stdenv.hostPlatform) [ "devdoc" ];
-    #   # mesonFlags = [
-    #   #   "-Dgtk_doc=${lib.boolToString (prev.stdenv.buildPlatform == prev.stdenv.hostPlatform)}"
-    #   # ];
-    # });
-    # gnome-shell = super.gnome-shell.overrideAttrs (upstream: {
-    #   nativeBuildInputs = upstream.nativeBuildInputs ++ [
-    #     gjs  # fixes "meson.build:128:0: ERROR: Program 'gjs' not found or not executable"
-    #   ];
-    # });
-    gnome-settings-daemon = super.gnome-settings-daemon.overrideAttrs (orig: {
-      # 2024/08/11: upstreaming is blocked on libgweather
-      #   gsd is required by xdg-desktop-portal-gtk
-      # pkg-config solves: "plugins/power/meson.build:22:0: ERROR: Dependency lookup for glib-2.0 with method 'pkgconfig' failed: Pkg-config binary for machine build machine not found."
-      # stdenv.cc fixes: "plugins/power/meson.build:60:0: ERROR: No build machine compiler for 'plugins/power/gsd-power-enums-update.c'"
-      # but then it fails with a link-time error.
-      # depsBuildBuild = orig.depsBuildBuild or [] ++ [ glib pkg-config buildPackages.stdenv.cc ];
-      # hack to just not build the power plugin (panel?), to avoid cross compilation errors
-      postPatch = orig.postPatch + ''
-        substituteInPlace plugins/meson.build \
-          --replace-fail "disabled_plugins = []" "disabled_plugins = ['power']"
-      '';
-    });
-    # gnome-settings-daemon43 = super.gnome-settings-daemon43.overrideAttrs (orig: {
-    #   postPatch = orig.postPatch + ''
-    #     substituteInPlace plugins/meson.build \
-    #       --replace-fail "disabled_plugins = []" "disabled_plugins = ['power']"
-    #   '';
-    # });
+  # gnome = prev.gnome.overrideScope (self: super: {
+  #   # 2024/05/31: upstreaming is blocked by a LOT: qtbase, qtsvg, webp-pixbuf-loader, libgweather, gnome-color-manager, appstream, apache-httpd, ibus
+  #   # fixes "subprojects/gvc/meson.build:30:0: ERROR: Program 'glib-mkenums mkenums' not found or not executable"
+  #   # gnome-control-center = mvToNativeInputs [ glib ] super.gnome-control-center;
+  #   # 2024/08/12: upstreaming is blocked on ibus, libgweather
+  #   # gnome-shell = super.gnome-shell.overrideAttrs (orig: {
+  #   #   # fixes "meson.build:128:0: ERROR: Program 'gjs' not found or not executable"
+  #   #   # does not fix "_giscanner.cpython-310-x86_64-linux-gnu.so: cannot open shared object file: No such file or directory"  (python import failure)
+  #   #   nativeBuildInputs = orig.nativeBuildInputs ++ [ gjs gobject-introspection ];
+  #   #   # try to reduce gobject-introspection/shew dependencies
+  #   #   mesonFlags = [
+  #   #     "-Dextensions_app=false"
+  #   #     "-Dextensions_tool=false"
+  #   #     "-Dman=false"
+  #   #   ];
+  #   #   # fixes "gvc| Build-time dependency gobject-introspection-1.0 found: NO"
+  #   #   # inspired by gupnp_1_6
+  #   #   # outputs = [ "out" "dev" ]
+  #   #   #   ++ lib.optionals (prev.stdenv.buildPlatform == prev.stdenv.hostPlatform) [ "devdoc" ];
+  #   #   # mesonFlags = [
+  #   #   #   "-Dgtk_doc=${lib.boolToString (prev.stdenv.buildPlatform == prev.stdenv.hostPlatform)}"
+  #   #   # ];
+  #   # });
+  #   # gnome-shell = super.gnome-shell.overrideAttrs (upstream: {
+  #   #   nativeBuildInputs = upstream.nativeBuildInputs ++ [
+  #   #     gjs  # fixes "meson.build:128:0: ERROR: Program 'gjs' not found or not executable"
+  #   #   ];
+  #   # });
+  #   # gnome-settings-daemon43 = super.gnome-settings-daemon43.overrideAttrs (orig: {
+  #   #   postPatch = orig.postPatch + ''
+  #   #     substituteInPlace plugins/meson.build \
+  #   #       --replace-fail "disabled_plugins = []" "disabled_plugins = ['power']"
+  #   #   '';
+  #   # });
 
-    # 2024/08/12: upstreaming is blocked on gnome-shell (ibus, libgweather)
-    # fixes: "gdbus-codegen not found or executable"
-    # gnome-session = mvToNativeInputs [ glib ] super.gnome-session;
+  #   # 2024/08/12: upstreaming is blocked on gnome-shell (ibus, libgweather)
+  #   # fixes: "gdbus-codegen not found or executable"
+  #   # gnome-session = mvToNativeInputs [ glib ] super.gnome-session;
 
-    # mutter = super.mutter.overrideAttrs (orig: {
-    #   # 2024/08/12: upstreaming is blocked on libgweather (via gnome-settings-daemon)
-    #   # N.B.: not all of this suitable to upstreaming, as-is.
-    #   # mesa and xorgserver are removed here because they *themselves* don't build for `buildPackages` (temporarily: 2023/10/26)
-    #   nativeBuildInputs = lib.subtractLists [ mesa xorg.xorgserver ] orig.nativeBuildInputs;
-    #   buildInputs = orig.buildInputs ++ [
-    #     mesa  # fixes "meson.build:237:2: ERROR: Dependency "gbm" not found, tried pkgconfig"
-    #     libGL  # fixes "meson.build:184:11: ERROR: Dependency "gl" not found, tried pkgconfig and system"
-    #   ];
-    #   # Run-time dependency gi-docgen found: NO (tried pkgconfig and cmake)
-    #   mesonFlags = lib.remove "-Ddocs=true" orig.mesonFlags;
-    #   outputs = lib.remove "devdoc" orig.outputs;
-    #   postInstall = lib.replaceStrings [ "${glib.dev}" ] [ "${buildPackages.glib.dev}" ] orig.postInstall;
-    # });
-  });
+  #   # mutter = super.mutter.overrideAttrs (orig: {
+  #   #   # 2024/08/12: upstreaming is blocked on libgweather (via gnome-settings-daemon)
+  #   #   # N.B.: not all of this suitable to upstreaming, as-is.
+  #   #   # mesa and xorgserver are removed here because they *themselves* don't build for `buildPackages` (temporarily: 2023/10/26)
+  #   #   nativeBuildInputs = lib.subtractLists [ mesa xorg.xorgserver ] orig.nativeBuildInputs;
+  #   #   buildInputs = orig.buildInputs ++ [
+  #   #     mesa  # fixes "meson.build:237:2: ERROR: Dependency "gbm" not found, tried pkgconfig"
+  #   #     libGL  # fixes "meson.build:184:11: ERROR: Dependency "gl" not found, tried pkgconfig and system"
+  #   #   ];
+  #   #   # Run-time dependency gi-docgen found: NO (tried pkgconfig and cmake)
+  #   #   mesonFlags = lib.remove "-Ddocs=true" orig.mesonFlags;
+  #   #   outputs = lib.remove "devdoc" orig.outputs;
+  #   #   postInstall = lib.replaceStrings [ "${glib.dev}" ] [ "${buildPackages.glib.dev}" ] orig.postInstall;
+  #   # });
+  # });
 
   # gnome2 = prev.gnome2.overrideScope (self: super: {
   #   # 2024/05/31: upstreaming is blocked on gconf (ORBit2)
@@ -514,6 +535,9 @@ in with final; {
   #   #   mvToNativeInputs [ self.GConf ] super.gnome_vfs
   #   # );
   # });
+
+  # 2024/11/09: upstreaming is blocked on gssdp
+  gtk4-layer-shell = mvToBuildInputs [ wayland-protocols ] prev.gtk4-layer-shell;
 
   # out for PR: <https://github.com/NixOS/nixpkgs/pull/263182>
   # hspell = prev.hspell.overrideAttrs (upstream: {
@@ -575,22 +599,17 @@ in with final; {
   # });
 
   # 2024/08/12: upstreaming is unblocked
-  komikku = prev.komikku.overrideAttrs (upstream: {
-    # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
-    postPatch = (upstream.postPatch or "") + ''
-      substituteInPlace data/meson.build --replace-fail \
-        "find_program('blueprint-compiler')" \
-        "'env', 'GI_TYPELIB_PATH=${typelibPath [
-          buildPackages.gdk-pixbuf
-          buildPackages.glib
-          buildPackages.graphene
-          buildPackages.gtk4
-          buildPackages.harfbuzz
-          buildPackages.libadwaita
-          buildPackages.pango
-        ]}', find_program('blueprint-compiler')"
-    '';
-  });
+  komikku = prev.komikku.override {
+    blueprint-compiler = wrapBlueprint [
+      buildPackages.gdk-pixbuf
+      buildPackages.glib
+      buildPackages.graphene
+      buildPackages.gtk4
+      buildPackages.harfbuzz
+      buildPackages.libadwaita
+      buildPackages.pango
+    ];
+  };
 
   # 2024/08/12: upstreaming is unblocked -- but is this necessary?
   # koreader = prev.koreader.overrideAttrs (upstream: {
@@ -599,16 +618,7 @@ in with final; {
   #   ];
   # });
 
-  lemoa = (prev.lemoa.override { cargo = crossCargo; }).overrideAttrs (upstream:
-    let
-      rustTargetPlatform = rust.toRustTarget stdenv.hostPlatform;
-    in {
-      preBuild = ''
-        mkdir -p target/release
-        ln -s ../${rustTargetPlatform}/release/lemoa target/release/lemoa
-      '';
-    }
-  );
+  lemoa = prev.lemoa.override { cargo = crossCargo; };
 
   # libgweather = prev.libgweather.overrideAttrs (upstream: {
   #   nativeBuildInputs = (lib.remove gobject-introspection upstream.nativeBuildInputs) ++ [
@@ -641,12 +651,12 @@ in with final; {
   #   '';
   # });
 
-  # 2024/08/12: upstreaming is unblocked
-  libpeas2 = prev.libpeas2.overrideAttrs (upstream: {
-    mesonFlags = upstream.mesonFlags ++ [
-      "-Dlua51=false"  #< fails to find lua (probably it incorrectly checks the build machine)
-    ];
-  });
+  # 2024/09/28: upstreaming is unblocked, implemented on branch `pr-libpeas2-cross`
+  # libpeas2 = prev.libpeas2.overrideAttrs (upstream: {
+  #   mesonFlags = upstream.mesonFlags ++ [
+  #     "-Dlua51=false"  #< fails to find lua (probably it incorrectly checks the build machine)
+  #   ];
+  # });
 
   # libsForQt5 = prev.libsForQt5.overrideScope (self: super: {
   #   phonon = super.phonon.overrideAttrs (orig: {
@@ -662,13 +672,9 @@ in with final; {
   # });
 
   # 2024/08/12: upstreaming blocked on libgweather
-  loupe = prev.loupe.overrideAttrs (upstream: {
-    postPatch = (upstream.postPatch or "") + ''
-      substituteInPlace src/meson.build \
-        --replace-fail "cargo, 'build'," "'${lib.getExe crossCargo}', 'build'," \
-        --replace-fail "'src' / rust_target" "'src' / '${rust.envVars.rustHostPlatformSpec}' / rust_target"
-    '';
-  });
+  loupe = prev.loupe.override {
+    cargo = crossCargo;
+  };
 
   # 2024/08/12: upstreaming is unblocked
   mepo = (prev.mepo.override {
@@ -764,28 +770,21 @@ in with final; {
 
   # 2024/08/12: upstreaming is unblocked
   newsflash = (prev.newsflash.override {
-    blueprint-compiler = buildPackages.writeShellScriptBin "blueprint-compiler" ''
-      export GI_TYPELIB_PATH=${typelibPath [
-        buildPackages.clapper
-        buildPackages.glib
-        buildPackages.gtk4
-        buildPackages.gst_all_1.gstreamer
-        buildPackages.gst_all_1.gst-plugins-base
-        buildPackages.gdk-pixbuf
-        buildPackages.pango
-        buildPackages.graphene
-        buildPackages.harfbuzz
-        buildPackages.libadwaita
-      ]}
-      exec ${lib.getExe buildPackages.blueprint-compiler} "$@"
-    '';
+    blueprint-compiler = wrapBlueprint [
+      buildPackages.clapper
+      buildPackages.glib
+      buildPackages.gtk4
+      buildPackages.gst_all_1.gstreamer
+      buildPackages.gst_all_1.gst-plugins-base
+      buildPackages.gdk-pixbuf
+      buildPackages.pango
+      buildPackages.graphene
+      buildPackages.harfbuzz
+      buildPackages.libadwaita
+    ];
     cargo = crossCargo;  #< fixes openssl not being able to find its library
   }).overrideAttrs (upstream: {
     postPatch = (upstream.postPatch or "") + ''
-      substituteInPlace src/meson.build --replace-fail \
-        "'src' / rust_target" \
-        "'src' / '${rust.toRustTarget stdenv.hostPlatform}' / rust_target"
-
       rm build.rs
 
       export OUT_DIR=$(pwd)
@@ -800,14 +799,12 @@ in with final; {
     '';
 
     env = let
-      inherit buildPackages stdenv rust;
       ccForBuild = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc";
       cxxForBuild = "${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}c++";
       ccForHost = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc";
       cxxForHost = "${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++";
-      rustBuildPlatform = rust.toRustTarget stdenv.buildPlatform;
-      rustTargetPlatform = rust.toRustTarget stdenv.hostPlatform;
-      rustTargetPlatformSpec = rust.toRustTargetSpec stdenv.hostPlatform;
+      rustBuildPlatform = stdenv.buildPlatform.rust.rustcTarget;
+      rustTargetPlatform = stdenv.hostPlatform.rust.rustcTarget;
     in (upstream.env or {}) // {
       # taken from <pkgs/build-support/rust/hooks/default.nix>
       # fixes "cargo:warning=aarch64-unknown-linux-gnu-gcc: error: unrecognized command-line option ‘-m64’"
@@ -892,29 +889,14 @@ in with final; {
   #   # buildInputs = lib.remove gnupg upstream.buildInputs;
   # });
 
-  pantheon = prev.pantheon.overrideScope (self: super: {
-    # 2024/09/01: upstreaming is blocked on libayatana-indicator (out for review https://github.com/NixOS/nixpkgs/pull/338790)
-    switchboard-plug-network = super.switchboard-plug-network.overrideAttrs (upstream: {
-      nativeBuildInputs = upstream.nativeBuildInputs ++ [
-        buildPackages.gettext  # <for msgfmt
-      ];
-    });
-    # 2024/09/01: upstreaming is unblocked; out for review: <https://github.com/NixOS/nixpkgs/pull/338799>
-    # switchboard-plug-sound = super.switchboard-plug-sound.overrideAttrs (upstream: {
-    #   # depsBuildBuild = (upstream.depsBuildBuild or []) ++ [
-    #   #   pkg-config  #< so that it can find the right gettext/msgfmt
-    #   # ];
-    #   # everything requires an extra `buildPackages` than if i patched this inside nixpkgs itself: not sure why!
-    #   nativeBuildInputs = upstream.nativeBuildInputs ++ [
-    #     buildPackages.gettext  #< for msgfmt
-    #     # gettext  #< for msgfmt
-    #     buildPackages.glib
-    #   ];
-    #   env.PKG_CONFIG_GIO_2_0_GLIB_COMPILE_RESOURCES = "${lib.getDev buildPackages.buildPackages.glib}/bin/glib-compile-resources";
-
-    #   strictDeps = true;
-    # });
-  });
+  # pantheon = prev.pantheon.overrideScope (self: super: {
+  #   # 2024/09/17: upstreaming is unblocked, out for PR: <https://github.com/NixOS/nixpkgs/pull/342648>
+  #   switchboard-plug-network = super.switchboard-plug-network.overrideAttrs (upstream: {
+  #     nativeBuildInputs = upstream.nativeBuildInputs ++ [
+  #       buildPackages.gettext  #< for msgfmt
+  #     ];
+  #   });
+  # });
 
   # fixes (meson) "Program 'glib-mkenums mkenums' not found or not executable"
   # 2024/08/12: upstreaming is unblocked
@@ -946,18 +928,9 @@ in with final; {
   # } prev.phosh-mobile-settings;
 
   # 2024/09/01: upstreaming is unblocked
-  pwvucontrol = (prev.pwvucontrol.override {
+  pwvucontrol = prev.pwvucontrol.override {
     cargo = crossCargo;
-  }).overrideAttrs (upstream:
-  let
-    rustTargetPlatform = rust.toRustTarget stdenv.hostPlatform;
-  in {
-    postPatch = (upstream.postPatch or "") + ''
-      substituteInPlace src/meson.build --replace-fail \
-        "'src' / rust_target" \
-        "'src' / '${rustTargetPlatform}' / rust_target"
-    '';
-  });
+  };
 
   # qt6 = prev.qt6.overrideScope (self: super: {
   #   # qtbase = super.qtbase.overrideAttrs (upstream: {
@@ -1061,36 +1034,24 @@ in with final; {
   # });
 
   # 2024/08/12: upstreaming is unblocked
-  snapshot = prev.snapshot.overrideAttrs (upstream: {
+  snapshot = prev.snapshot.override {
     # fixes "error: linker `cc` not found"
-    postPatch = (upstream.postPatch or "") + ''
-      substituteInPlace src/meson.build \
-        --replace-fail "cargo, 'build'," "'${lib.getExe crossCargo}', 'build'," \
-        --replace-fail "'src' / rust_target" "'src' / '${rust.envVars.rustHostPlatformSpec}' / rust_target"
-    '';
-  });
+    cargo = crossCargo;
+  };
 
   # 2024/08/12: upstreaming is unblocked
-  spot = (prev.spot.override { cargo = crossCargo; }).overrideAttrs (upstream: {
-    # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
-    postPatch = (upstream.postPatch or "") + ''
-      substituteInPlace src/meson.build \
-        --replace-fail \
-          "find_program('blueprint-compiler')" \
-          "'env', 'GI_TYPELIB_PATH=${typelibPath [
-            buildPackages.gdk-pixbuf
-            buildPackages.glib
-            buildPackages.graphene
-            buildPackages.gtk4
-            buildPackages.harfbuzz
-            buildPackages.libadwaita
-            buildPackages.pango
-          ]}', find_program('blueprint-compiler')" \
-        --replace-fail \
-          "meson.project_build_root() / cargo_output" \
-          "meson.project_build_root() / 'src' / '${rust.envVars.rustHostPlatformSpec}' / rust_target / meson.project_name()"
-    '';
-  });
+  spot = prev.spot.override {
+    blueprint-compiler = wrapBlueprint [
+      buildPackages.gdk-pixbuf
+      buildPackages.glib
+      buildPackages.graphene
+      buildPackages.gtk4
+      buildPackages.harfbuzz
+      buildPackages.libadwaita
+      buildPackages.pango
+    ];
+    cargo = crossCargo;
+  };
 
   # 2024/08/12: upstreaming is unblocked
   # squeekboard = prev.squeekboard.overrideAttrs (upstream: {
@@ -1103,7 +1064,7 @@ in with final; {
   #       # ERROR: 'rust' compiler binary not defined in cross or native file
   #       crossFile = writeText "cross-file.conf" ''
   #         [binaries]
-  #         rust = [ 'rustc', '--target', '${rust.toRustTargetSpec stdenv.hostPlatform}' ]
+  #         rust = [ 'rustc', '--target', '${stdenv.hostPlatform.rust.rustcTargetSpec}' ]
   #       '';
   #     in
   #       # upstream.mesonFlags or [] ++
@@ -1137,20 +1098,23 @@ in with final; {
   # });
 
   # 2024/08/12: upstreaming is unblocked
-  tangram = prev.tangram.overrideAttrs (upstream: {
-    # blueprint-compiler runs on the build machine, but tries to load gobject-introspection types meant for the host.
-    # additionally, gsjpack has a shebang for the host gjs. patchShebangs --build doesn't fix that: just manually specify the build gjs
+  tangram = (prev.tangram.override {
+    blueprint-compiler = wrapBlueprint [
+      buildPackages.gdk-pixbuf
+      buildPackages.glib
+      buildPackages.graphene
+      buildPackages.gtk4
+      buildPackages.harfbuzz
+      buildPackages.libadwaita
+      buildPackages.pango
+    ];
+  }).overrideAttrs (upstream: {
+    # gsjpack has a shebang for the host gjs. patchShebangs --build doesn't fix that: just manually specify the build gjs
     postPatch = (upstream.postPatch or "") + ''
       substituteInPlace src/meson.build \
         --replace-fail "find_program('gjs').full_path()" "'${gjs}/bin/gjs'" \
         --replace-fail "gjspack," "'env', 'GI_TYPELIB_PATH=${typelibPath [
-          buildPackages.gdk-pixbuf
           buildPackages.glib
-          buildPackages.graphene
-          buildPackages.gtk4
-          buildPackages.harfbuzz
-          buildPackages.libadwaita
-          buildPackages.pango
         ]}', '${buildPackages.gjs}/bin/gjs', '-m', gjspack,"
     '';
   });
@@ -1172,6 +1136,19 @@ in with final; {
   #     '';
   #   });
   # };
+
+  video-trimmer = prev.video-trimmer.override {
+    blueprint-compiler = wrapBlueprint [
+      buildPackages.gdk-pixbuf
+      buildPackages.glib
+      buildPackages.graphene
+      buildPackages.gtk4
+      buildPackages.harfbuzz
+      buildPackages.libadwaita
+      buildPackages.pango
+    ];
+    cargo = crossCargo;
+  };
 
   # 2024/08/12: upstreaming is blocked on arrow-cpp, python-pyarrow, python-contourpy, python-matplotlib, python-hypy, etc
   # visidata = prev.visidata.override {
@@ -1196,35 +1173,28 @@ in with final; {
   # - i think the build script tries to run the generated binary?
   # vpnc = mvToNativeInputs [ perl ] prev.vpnc;
 
-  # 2024/09/01: upstreaming is unblocked
-  xdg-desktop-portal = prev.xdg-desktop-portal.overrideAttrs (upstream: {
-    nativeBuildInputs = upstream.nativeBuildInputs ++ [
-      # fixes "meson.build:117:8: ERROR: Program 'bwrap' not found or not executable"
-      bubblewrap
-    ]; # ++ upstream.nativeCheckInputs;
-    mesonFlags = (upstream.mesonFlags or []) ++ [
-      # fixes "tests/meson.build:268:9: ERROR: Program 'pytest-3 pytest' not found or not executable"
-      # nixpkgs should add this whenever doCheck == false, i think
-      "-Dpytest=disabled"
-    ];
-  });
+  # 2024/09/17: upstreaming is unblocked, out for review: <https://github.com/NixOS/nixpkgs/pull/342669>
+  # xdg-desktop-portal = prev.xdg-desktop-portal.overrideAttrs (upstream: {
+  #   nativeBuildInputs = upstream.nativeBuildInputs ++ [
+  #     # fixes "meson.build:117:8: ERROR: Program 'bwrap' not found or not executable"
+  #     bubblewrap
+  #   ]; # ++ upstream.nativeCheckInputs;
+  #   mesonFlags = (upstream.mesonFlags or []) ++ [
+  #     # fixes "tests/meson.build:268:9: ERROR: Program 'pytest-3 pytest' not found or not executable"
+  #     # nixpkgs should add this whenever doCheck == false, i think
+  #     "-Dpytest=disabled"
+  #   ];
+  # });
 
-  # fixes: "data/meson.build:33:5: ERROR: Program 'msgfmt' not found or not executable"
-  # fixes: "src/meson.build:25:0: ERROR: Program 'gdbus-codegen' not found or not executable"
-  # 2024/08/12: upstreaming is blocked on xdg-desktop-portal
-  # xdg-desktop-portal-gnome = (
-  #   addNativeInputs [ wayland-scanner ] (
-  #     mvToNativeInputs [ gettext glib ] prev.xdg-desktop-portal-gnome
-  #   )
-  # );
-  xdg-desktop-portal-gnome = prev.xdg-desktop-portal-gnome.override {
-    # xdp-gnome uses libjxl as a gdk pixbuf loader,
-    # but nixpkgs' libjxl disables the pixbuf loader when cross compiling,
-    # so xdp-gnome fails, expecting a pixbuf loader where there is none.
-    # solution: disable the libjxl pixbuf loader (by replacing it with a working pixbuf, already used by xdp-gnome).
-    # this means no jpeg thumbnailing.
-    libjxl = webp-pixbuf-loader;
-  };
+  # 2024/09/28: xdg-desktop-portal-gnome builds fine if libjxl is patched to build
+  # xdg-desktop-portal-gnome = prev.xdg-desktop-portal-gnome.override {
+  #   # xdp-gnome uses libjxl as a gdk pixbuf loader,
+  #   # but nixpkgs' libjxl disables the pixbuf loader when cross compiling,
+  #   # so xdp-gnome fails, expecting a pixbuf loader where there is none.
+  #   # solution: disable the libjxl pixbuf loader (by replacing it with a working pixbuf, already used by xdp-gnome).
+  #   # this means no jpeg thumbnailing.
+  #   libjxl = webp-pixbuf-loader;
+  # };
 
   # 2024/08/12: upstreaming is blocked on hyprland
   # waybar = (prev.waybar.override {

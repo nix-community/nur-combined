@@ -17,7 +17,6 @@
     ];
     fs.".config/compass.conf".symlink.target = "compass/compass.conf";
 
-    sandbox.method = "bwrap";
     sandbox.extraPaths = [
       "/sys/bus/iio/devices"
       "/sys/devices"

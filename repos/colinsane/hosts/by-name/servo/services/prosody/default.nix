@@ -49,7 +49,7 @@
 # - disable or fix bosh (jabber over http):
 #   - "certmanager: No certificate/key found for client_https port 0"
 
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   # enables very verbose logging
@@ -104,6 +104,7 @@ in
   users.users.prosody.extraGroups = [
     "nginx"  # provide access to certs
     "ntfy-sh"  # access to secret ntfy topic
+    "turnserver"  # to access the coturn shared secret
   ];
 
   security.acme.certs."uninsane.org".extraDomainNames = [
@@ -149,14 +150,8 @@ in
   # pointing it to /var/lib/acme doesn't quite work because it expects the private key
   # to be named `privkey.pem` instead of acme's `key.pem`
   # <https://prosody.im/doc/certificates#automatic_location>
-  sane.fs."/etc/prosody/certs/uninsane.org/fullchain.pem" = {
-    symlink.target = "/var/lib/acme/uninsane.org/fullchain.pem";
-    wantedBeforeBy = [ "prosody.service" ];
-  };
-  sane.fs."/etc/prosody/certs/uninsane.org/privkey.pem" = {
-    symlink.target = "/var/lib/acme/uninsane.org/key.pem";
-    wantedBeforeBy = [ "prosody.service" ];
-  };
+  environment.etc."prosody/certs/uninsane.org/fullchain.pem".source = "/var/lib/acme/uninsane.org/fullchain.pem";
+  environment.etc."prosody/certs/uninsane.org/privkey.pem".source = "/var/lib/acme/uninsane.org/key.pem";
 
   services.prosody = {
     enable = true;
@@ -242,6 +237,7 @@ in
       # legacy coturn integration
       # see: <https://modules.prosody.im/mod_turncredentials.html>
       # "turncredentials"
+    ] ++ lib.optionals config.services.ntfy-sh.enable [
       "sane_ntfy"
     ] ++ lib.optionals enableDebug [
       "stanza_debug"  #< logs EVERY stanza as debug: <https://prosody.im/doc/modules/mod_stanza_debug>
@@ -273,18 +269,18 @@ in
       s2s_direct_tls_ports = { 5270 }
 
       turn_external_host = "turn.uninsane.org"
-      turn_external_secret = readAll("/var/lib/coturn/shared_secret.bin")
+      turn_external_secret = readAll("/run/secrets/coturn_shared_secret")
       -- turn_external_user = "prosody"
 
       -- legacy mod_turncredentials integration
       -- turncredentials_host = "turn.uninsane.org"
-      -- turncredentials_secret = readAll("/var/lib/coturn/shared_secret.bin")
-
-      ntfy_binary = "${pkgs.ntfy-sh}/bin/ntfy"
-      ntfy_topic = readAll("/run/secrets/ntfy-sh-topic")
+      -- turncredentials_secret = readAll("/run/secrets/coturn_shared_secret")
 
       -- s2s_require_encryption = true
       -- c2s_require_encryption = true
+    '' + lib.optionalString config.services.ntfy-sh.enable ''
+      ntfy_binary = "${lib.getExe' pkgs.ntfy-sh "ntfy"}"
+      ntfy_topic = readAll("/run/secrets/ntfy-sh-topic")
     '';
   };
 }

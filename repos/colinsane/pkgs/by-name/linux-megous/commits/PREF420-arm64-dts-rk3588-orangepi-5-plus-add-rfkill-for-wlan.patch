@@ -1,0 +1,32 @@
+From 1a613d7c670aa7122aa26e78dc546aede3610f8f Mon Sep 17 00:00:00 2001
+From: Tom Briden <tom@decompile.me.uk>
+Date: Tue, 8 Aug 2023 10:16:04 +0100
+Subject: [PATCH 420/463] arm64: dts: rk3588-orangepi-5-plus: add rfkill for
+ wlan
+
+This ensures any pcie wlan card in the m.2 2230 slot is hard unblocked.
+---
+ arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+index 38ec2a1183fda..20e6e87f829d7 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+@@ -222,6 +222,13 @@ vcc5v0_usb20: vcc5v0-usb20-regulator {
+ 		regulator-max-microvolt = <5000000>;
+ 		vin-supply = <&vcc5v0_sys>;
+ 	};
++
++	rfkill_wlan: rfkill {
++		compatible = "rfkill-gpio";
++		label = "rfkill-pcie-wlan";
++		radio-type = "wlan";
++		shutdown-gpios = <&gpio0 RK_PC4 GPIO_ACTIVE_HIGH>;
++	};
+ };
+ 
+ &combphy0_ps {
+-- 
+2.46.0
+

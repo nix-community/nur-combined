@@ -142,13 +142,14 @@ in
   };
   config = lib.mkIf cfg.enable {
     systemd.services.clightning = {
-      path  = [ config.sane.programs.bitcoin-cli.package ];
+      # path = [ config.sane.programs.bitcoin-cli.package ];  #< use sandboxed bitcoin-cli, but frail
+      path = [ pkgs.bitcoind ];  #< use non-sandboxed bitcoin-cli (from pkgs.bitcoind); rely on this service's own sandboxing.
       # note the wantedBy bitcoind: this should make it so that a bitcoind restart causes clightning to also restart (instead of to only stop)
       wantedBy = [ "bitcoind-${cfg.bitcoindName}.service" "multi-user.target" ];
       requires = [ "bitcoind-${cfg.bitcoindName}.service" ];
       after = [ "bitcoind-${cfg.bitcoindName}.service" ];
 
-      serviceConfig.ExecStart = "${cfg.package}/bin/lightningd --lightning-dir=${cfg.dataDir}";
+      serviceConfig.ExecStart = "${lib.getExe' cfg.package "lightningd"} --lightning-dir=${cfg.dataDir}";
       serviceConfig.User = cfg.user;
       serviceConfig.Restart = "always";
       serviceConfig.RestartSec = "30s";
@@ -174,7 +175,7 @@ in
       serviceConfig.RestrictSUIDSGID = true;
       serviceConfig.SystemCallArchitectures = "native";
 
-      #VVV relaxed because it uses bwrap sandboxing (sanebox)
+      #VVV relaxed because my sandbox wrapper uses namespaces
       serviceConfig.RestrictNamespaces = false;
       serviceConfig.ProcSubset = "all";
       serviceConfig.ProtectHostname = false;
@@ -222,9 +223,6 @@ in
     };
 
     # ~/.lightning is needed only when interactively calling `lightning-cli` as the `clightning` user.
-    sane.fs."${cfg.dataDir}/.lightning" = {
-      symlink.target = cfg.dataDir;
-      wantedBeforeBy = [ "clightning.service" ];
-    };
+    sane.fs."${cfg.dataDir}/.lightning".symlink.target = cfg.dataDir;
   };
 }

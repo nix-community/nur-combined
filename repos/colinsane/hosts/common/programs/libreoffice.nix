@@ -6,7 +6,6 @@
     # packageUnwrapped = pkgs.libreoffice-bin;
     # packageUnwrapped = pkgs.libreoffice-still;
     packageUnwrapped = pkgs.libreoffice-fresh;
-    sandbox.method = "bwrap";
     sandbox.whitelistWayland = true;
     sandbox.autodetectCliPaths = "existingFile";
     sandbox.extraHomePaths = [

@@ -7,7 +7,24 @@ let
   serviceType = with lib; types.submodule ({ config, ... }: {
     options = {
       description = mkOption {
-        type = types.str;
+        # XXX: has to be defaulted so consumers can set specific attributes of a service which was defined from a different nix module.
+        # but swallow the default, because we want to still enforce that it's set *somewhere*.
+        # type = types.str // {
+        #   merge = loc: defs: types.str.merge
+        #     loc
+        #     (builtins.filter (v: v != "") defs)
+        #   ;
+        # };
+        type = lib.mkOptionType {
+          merge = loc: defs: types.str.merge
+            loc
+            (if builtins.length defs == 1 then defs
+              else builtins.filter (def: def.value != "") defs
+            )
+          ;
+          name = "defaultable str";
+        };
+        default = "";
       };
       documentation = mkOption {
         type = types.listOf types.str;
@@ -99,7 +116,7 @@ let
     config = {
       readiness.waitCommand = lib.mkMerge [
         (lib.mkIf (config.readiness.waitDbus != null)
-          ''${pkgs.systemdMinimal}/bin/busctl --user status "${config.readiness.waitDbus}" > /dev/null''
+          ''${lib.getExe' pkgs.systemdMinimal "busctl"} --user status "${config.readiness.waitDbus}" > /dev/null''
         )
         (lib.mkIf (config.readiness.waitExists != [])
           # e.g.: test -e /foo -a -e /bar
@@ -115,10 +132,7 @@ let
       type = types.attrsOf (types.coercedTo types.attrs (a: [ a ]) (types.listOf types.attrs));
       default = {};
       description = ''
-        entries to pass onto `sane.fs` after prepending the user's home-dir to the path
-        and marking them as wanted.
-        e.g. `sane.users.colin.fs."/.config/aerc" = X`
-        => `sane.fs."/home/colin/.config/aerc" = { wantedBy = [ "multi-user.target"]; } // X;
+        entries to pass onto `sane.fs` after prepending the user's home-dir to the path.
 
         conventions are similar as to toplevel `sane.fs`. so `sane.users.foo.fs."/"` represents the home directory,
         whereas every other entry is expected to *not* have a trailing slash.
@@ -151,6 +165,13 @@ let
       default = {};
       description = ''
         services to define for this user.
+      '';
+    };
+    serviceManager = mkOption {
+      type = types.nullOr (types.enum [ "s6" "systemd" ]);
+      default = "systemd";
+      description = ''
+        which service manager to plumb `services` into.
       '';
     };
   };
@@ -210,10 +231,19 @@ let
         # some of my program-specific environment variables depend on some of these being set,
         # hence do that early:
         # TODO: consider moving XDG_RUNTIME_DIR to $HOME/.run
-        fs.".config/environment.d/10-sane-baseline.conf".symlink.text = ''
-          HOME=/home/${name}
-          XDG_RUNTIME_DIR=/run/user/${name}
-        '';
+        environment.HOME = config.home;
+        environment.XDG_RUNTIME_DIR = "/run/user/${name}";
+        # XDG_DATA_DIRS gets set by shell init somewhere, but needs to be explicitly set here so it's available to services too.
+        environment.XDG_DATA_DIRS = "/etc/profiles/per-user/${name}/share:/run/current-system/sw/share";
+        # fs.".config/environment.d/10-sane-baseline.conf".symlink.text = ''
+        #   HOME=${config.home}
+        #   XDG_RUNTIME_DIR=/run/user/${name}
+        # '';
+
+        # allow env vars to refer to eachother (just re-evaluate them a couple times to compute a fix point, right? :P)
+        fs.".config/environment.d/21-sane-nixos-users-fix1.conf".symlink.target = "20-sane-nixos-users.conf";
+        fs.".config/environment.d/22-sane-nixos-users-fix2.conf".symlink.target = "20-sane-nixos-users.conf";
+
         fs.".config/environment.d/20-sane-nixos-users.conf".symlink.text =
           let
             env = lib.mapAttrsToList
@@ -316,7 +346,7 @@ let
         };
         services."private-storage" = {
           description = "service (bundle) which is active once the persist.private datastore has been opened";
-          dependencyOf = [ "graphical-session" ];  #< prevent any graphical environment from competing with the login/unlocker service over the framebuffer
+          partOf = [ "default" ];
         };
         services."sound" = {
           description = "service (bundle) which represents functional sound input/output when active";
@@ -337,22 +367,19 @@ let
         name = path-lib.concat [ defn.home path ];
         inherit value;
       });
-      makeWanted = lib.mapAttrs (_path: values: lib.mkMerge (values ++ [{
-        # default if not otherwise provided
-        wantedBeforeBy = lib.mkDefault [ "multi-user.target" ];
-      }]));
+      mergeAttrValues = lib.mapAttrs (_path: values: lib.mkMerge values);
     in
     {
-      sane.fs = makeWanted ({
-        "/run/user/${name}" = [{
+      sane.fs = {
+        "/run/user/${name}" = {
           dir.acl = {
             user = lib.mkDefault name;
             group = lib.mkDefault config.users.users."${name}".group;
             # homeMode defaults to 700; notice: no leading 0
             mode = "0" + config.users.users."${name}".homeMode;
           };
-        }];
-      } // prefixWithHome defn.fs);
+        };
+      } // (mergeAttrValues (prefixWithHome defn.fs));
       sane.defaultUser = lib.mkIf defn.default name;
 
       # `byPath` is the actual output here, computed from the other keys.
@@ -362,6 +389,7 @@ in
 {
   imports = [
     ./s6-rc.nix
+    ./systemd.nix
   ];
 
   options = with lib; {

@@ -61,7 +61,9 @@ let
         type = types.bool;
         default = false;
         description = ''
-          act as a recursive resolver
+          act as a recursive resolver.
+
+          WARNING: the recursive resolver feature is beta, there are *many* domains that it simply fails to resolve.
         '';
       };
       extraConfig = mkOption {
@@ -96,7 +98,7 @@ let
   });
 
   mkSystemdService = flavor: { includes, listenAddrsIpv4, listenAddrsIpv6, port, substitutions, extraConfig, ... }: let
-    sed = "${pkgs.gnused}/bin/sed";
+    sed = lib.getExe pkgs.gnused;
     baseConfig = (
       lib.filterAttrsRecursive (_: v: v != null) config.services.hickory-dns.settings
     ) // {
@@ -114,14 +116,11 @@ let
       extraConfig
     ));
     configPath = "/var/lib/hickory-dns/${flavor}-config.toml";
-    sedArgs = builtins.map (key: ''-e "s/${key}/${substitutions."${key}"}/g"'') (
-      # HACK: %ANATIVE% often expands to one of the other subtitutions (e.g. %AWAN%)
-      # so we must expand it *first*.
-      lib.sortOn
-        (k: if k == "%ANATIVE%" then 0 else 1)
-        (builtins.attrNames substitutions)
-    );
-    subs = lib.concatStringsSep " " sedArgs;
+    # HACK: %ANATIVE% often expands to one of the other subtitutions (e.g. %AWAN%)
+    subKeys = lib.sortOn
+      (k: if k == "%ANATIVE%" then 0 else 1)
+      (builtins.attrNames substitutions)
+    ;
   in {
     description = "hickory-dns Domain Name Server (serving ${flavor})";
     unitConfig.Documentation = "https://hickory-dns.org/";
@@ -129,18 +128,40 @@ let
     before = [ "network-online.target" ];  # most things assume they'll have DNS services alongside routability
     wantedBy = [ "network.target" ];
 
-    preStart = lib.concatStringsSep "\n" (
-      [''
-        mkdir -p "/var/lib/hickory-dns/${flavor}"
-        ${sed} ${subs} -e "" "${configTemplate}" \
-          | cat - \
-            ${lib.concatStringsSep " " includes} \
-            > "${configPath}" || true
-      ''] ++ lib.mapAttrsToList (zone: { rendered, ... }: ''
-        ${sed} ${subs} -e "" ${pkgs.writeText "${zone}.zone.in" rendered} \
-          > "/var/lib/hickory-dns/${flavor}/${zone}.zone"
-      '') dns.zones
-    );
+    preStart = ''
+      # set -x
+      applySub() {
+        local input_="$1"
+        local from_="$2"
+        local to_="$3"
+        if [[ -n "$to_" ]]; then
+          echo "$input_" | sed s/"$from_"/"$to_"/g
+        else
+          # the replacement is empty, i.e. there is no value to assign this record
+          echo "$input_" | sed /"$from_"/d
+        fi
+      }
+      applySubs() {
+        local input_="$1"
+        ${lib.concatMapStringsSep "\n" (key: ''
+          local subst="${substitutions."${key}"}"
+          input_=$(applySub "$input_" "${key}" "$subst")
+        '') subKeys}
+        echo "$input_"
+      }
+
+      mkdir -p "/var/lib/hickory-dns/${flavor}"
+
+      # substitute over the `config.toml`:
+      config=$(cat "${configTemplate}")
+      applySubs "$config" | cat - ${lib.concatStringsSep " " includes} > "${configPath}"
+
+      # substitute over the zones:
+      ${lib.concatMapStringsSep "\n" ({ name, value }: ''
+        zoneConfig=$(cat ${pkgs.writeText "${name}.zone.in" value.rendered})
+        applySubs "$zoneConfig" > "/var/lib/hickory-dns/${flavor}/${name}.zone"
+      '') (lib.attrsToList dns.zones)}
+    '';
 
     serviceConfig = config.systemd.services.hickory-dns.serviceConfig // {
       ExecStart = lib.escapeShellArgs ([
@@ -166,13 +187,21 @@ in
 {
   options = with lib; {
     sane.services.hickory-dns = {
-      enable = mkOption {
-        default = false;
-        type = types.bool;
-      };
+      enable = mkEnableOption "hickory DNS server";
       asSystemResolver = mkOption {
         default = false;
         type = types.bool;
+        description = ''
+          host a recursive DNS resolver on localhost for use by local programs.
+          plugs into /etc/resolv.conf so that any glibc application knows to use the resolver.
+          N.B.: hickory-dns fails to resolve several domain names as of 2024-10-04, including:
+          - abs.twimg.com
+          - social.kernel.org
+          - pe.usps.com
+          - social.seattle.wa.us
+          - support.mozilla.org
+          - shows.acast.com
+        '';
       };
       instances = mkOption {
         default = {};
@@ -194,59 +223,60 @@ in
     # - see: <https://github.com/hickory-dns/hickory-dns/issues/2082>
     # services.hickory-dns.debug = true;
 
-    services.hickory-dns.package = pkgs.hickory-dns.override {
-      rustPlatform.buildRustPackage = args: pkgs.rustPlatform.buildRustPackage (args // {
-        buildFeatures = [
-          # to find available features: `rg 'feature ='`
-          "dnssec"  #< else the recursor doesn't compile
-          # "dnssec-openssl"  #< else dnssec doesn't compile
-          "dnssec-ring"  #< else dnssec doesn't compile
-          "recursor"
-          # "backtrace"
-          # "dns-over-h3"
-          # "dns-over-https"
-          # "dns-over-https-rustls"
-          # "dns-over-native-tls"
-          # "dns-over-quic"
-          # "dns-over-rustls"
-          # "dns-over-tls"
-          # "dnssec-openssl"
-          # "mdns"
-          # "native-certs"
-          # "serde"
-          # "system-config"
-          # "tokio-runtime"
-          # "webpki-roots"
-        ];
+    # XXX(2024/11/09): uncomment if you want to use hickory-dns as a recursive resolver again
+    # services.hickory-dns.package = pkgs.hickory-dns.override {
+    #   rustPlatform.buildRustPackage = args: pkgs.rustPlatform.buildRustPackage (args // {
+    #     buildFeatures = [
+    #       # to find available features: `rg 'feature ='`
+    #       "dnssec"  #< else the recursor doesn't compile
+    #       # "dnssec-openssl"  #< else dnssec doesn't compile
+    #       "dnssec-ring"  #< else dnssec doesn't compile
+    #       "recursor"
+    #       # "backtrace"
+    #       # "dns-over-h3"
+    #       # "dns-over-https"
+    #       # "dns-over-https-rustls"
+    #       # "dns-over-native-tls"
+    #       # "dns-over-quic"
+    #       # "dns-over-rustls"
+    #       # "dns-over-tls"
+    #       # "dnssec-openssl"
+    #       # "mdns"
+    #       # "native-certs"
+    #       # "serde"
+    #       # "system-config"
+    #       # "tokio-runtime"
+    #       # "webpki-roots"
+    #     ];
 
-        # XXX(2024-08-18): upstream hickory-dns has a recursive resolver *almost* as capable as my own.
-        # it fails against a few sites mine works on:
-        # - `en.wikipedia.org.`  (doesn't follow the CNAME)
-        # it fails against sites mine fails on:
-        # - `social.kernel.org.`
-        # - `support.mozilla.org.`
-        # version = "0.25.0-alpha.2";
-        # src = pkgs.fetchFromGitHub {
-        #   owner = "hickory-dns";
-        #   repo = "hickory-dns";
-        #   rev = "v0.25.0-alpha.2";
-        #   hash = "sha256-bEVApMM6/I3nF1lyRhd+7YtZuSAwiozRkMorRLhLOBY=";
-        # };
-        # cargoHash = "sha256-KFPwVFixLaL9cdXTAIVJUqmtW1V5GTmvFaK5N5SZKyU=";
+    #     # XXX(2024-11-07): upstream hickory-dns has a recursive resolver *almost* as capable as my own.
+    #     # it fails against a few sites mine works on:
+    #     # - `en.wikipedia.org.`  (doesn't follow the CNAME)
+    #     # it fails against sites mine fails on:
+    #     # - `social.kernel.org.`
+    #     # - `support.mozilla.org.`
+    #     # version = "0.25.0-alpha.2";
+    #     # src = pkgs.fetchFromGitHub {
+    #     #   owner = "hickory-dns";
+    #     #   repo = "hickory-dns";
+    #     #   rev = "v0.25.0-alpha.2";
+    #     #   hash = "sha256-bEVApMM6/I3nF1lyRhd+7YtZuSAwiozRkMorRLhLOBY=";
+    #     # };
+    #     # cargoHash = "sha256-KFPwVFixLaL9cdXTAIVJUqmtW1V5GTmvFaK5N5SZKyU=";
 
-        # fix enough bugs inside the recursive resolver that it's compatible with my infra.
-        # TODO: upstream these patches!
-        version = "0.24.1-unstable-2024-08-19";
-        src = pkgs.fetchFromGitea {
-          domain = "git.uninsane.org";
-          owner = "colin";
-          repo = "hickory-dns";
-          rev = "4fd7a8305e333117278e216fa9f81984f1e256b6";  # Recursor: handle NS responses with a different type and no SOA  (fix: api.mangadex.org., m.wikipedia.org.)
-          hash = "sha256-pNCuark/jvyRABR9Hdd60vndppaE3suvTP3UfCfsimI=";
-        };
-        cargoHash = "sha256-6yV/qa1CVndHDs/7AK5wVTYIV8NmNqkHL3JPZUN31eM=";
-      });
-    };
+    #     # fix enough bugs inside the recursive resolver that it's compatible with my infra.
+    #     # TODO: upstream these patches!
+    #     version = "0.24.1-unstable-2024-08-19";
+    #     src = pkgs.fetchFromGitea {
+    #       domain = "git.uninsane.org";
+    #       owner = "colin";
+    #       repo = "hickory-dns";
+    #       rev = "4fd7a8305e333117278e216fa9f81984f1e256b6";  # Recursor: handle NS responses with a different type and no SOA  (fix: api.mangadex.org., m.wikipedia.org.)
+    #       hash = "sha256-pNCuark/jvyRABR9Hdd60vndppaE3suvTP3UfCfsimI=";
+    #     };
+    #     cargoHash = "sha256-6yV/qa1CVndHDs/7AK5wVTYIV8NmNqkHL3JPZUN31eM=";
+    #   });
+    # };
     services.hickory-dns.settings.directory = "/var/lib/hickory-dns";
 
     users.groups.hickory-dns = {};
@@ -281,7 +311,7 @@ in
 
     # run a hook whenever networking details change, so the DNS zone can be updated to reflect this
     environment.etc."NetworkManager/dispatcher.d/60-hickory-dns-nmhook" = lib.mkIf cfg.asSystemResolver {
-      source = "${hickory-dns-nmhook}/bin/hickory-dns-nmhook";
+      source = lib.getExe hickory-dns-nmhook;
     };
 
     # allow NetworkManager (via hickory-dns-nmhook) to restart hickory-dns when necessary

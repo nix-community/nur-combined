@@ -17,6 +17,7 @@
     ./bonsai.nix
     ./brave.nix
     ./brightnessctl.nix
+    ./btrfs-progs.nix
     ./bubblewrap.nix
     ./bunpen.nix
     ./callaudiod.nix
@@ -32,22 +33,28 @@
     ./cups.nix
     ./curl.nix
     ./curlftpfs.nix
+    ./dasht.nix
     ./dbus.nix
     ./dconf.nix
     ./deadd-notification-center
     ./dialect.nix
     ./dino.nix
+    ./discord.nix
     ./dissent.nix
+    ./docsets.nix
     ./dtrx.nix
     ./eg25-control.nix
+    ./eg25-manager.nix
     ./element-desktop.nix
     ./engrampa.nix
+    ./envelope.nix
     ./epiphany.nix
     ./errno.nix
     ./evince.nix
     ./exiftool.nix
     ./fcitx5.nix
     ./feedbackd.nix
+    ./fftest.nix
     ./firefox
     ./firefox-xdg-open.nix
     ./flare-signal.nix
@@ -76,7 +83,9 @@
     ./gpsd.nix
     ./gps-share.nix
     ./grimshot.nix
+    ./gsettings.nix
     ./gst-device-monitor.nix
+    ./gst-launch.nix
     ./gthumb.nix
     ./gvfs.nix
     ./handbrake.nix
@@ -95,16 +104,19 @@
     ./less.nix
     ./lftp.nix
     ./lgtrombetta-compass.nix
+    ./libcamera.nix
     ./libreoffice.nix
     ./lemoa.nix
     ./loupe.nix
     ./mako.nix
     ./megapixels.nix
+    ./megapixels-next.nix
     ./mepo.nix
     ./mimeo
     ./mimetype.nix
     ./mmcli.nix
     ./mopidy.nix
+    ./mumble.nix
     ./mpv
     ./msmtp.nix
     ./nautilus.nix
@@ -127,6 +139,7 @@
     ./pactl.nix
     ./papers.nix
     ./pidof.nix
+    ./pine64-alsa-ucm.nix
     ./pipewire
     ./pkill.nix
     ./planify.nix
@@ -149,14 +162,15 @@
     ./sane-secrets-unlock.nix
     ./sane-sysload.nix
     ./sane-theme.nix
-    ./sanebox.nix
     ./satellite.nix
     ./schlock.nix
     ./seatd.nix
     ./sfeed.nix
     ./shadow.nix
     ./signal-desktop.nix
+    ./sm64coopdx.nix
     ./sm64ex-coop.nix
+    ./smartmontools.nix
     ./soundconverter.nix
     ./splatmoji.nix
     ./spot.nix
@@ -177,7 +191,9 @@
     ./tor-browser.nix
     ./tuba.nix
     ./unl0kr
+    ./v4l-utils.nix
     ./via.nix
+    ./video-trimmer.nix
     ./visidata.nix
     ./vlc.nix
     ./wally-cli.nix
@@ -196,7 +212,9 @@
     ./xdg-desktop-portal-wlr.nix
     ./xdg-terminal-exec.nix
     ./xdg-utils.nix
+    ./xxd.nix
     ./youtube-tui.nix
+    ./yt-dlp.nix
     ./zathura.nix
     ./zeal.nix
     ./zecwallet-lite.nix

@@ -1,6 +1,6 @@
 # config docs:
 # - <https://github.com/matrix-org/matrix-appservice-irc/blob/develop/config.sample.yaml>
-{ config, lib, ... }:
+{ lib, ... }:
 
 let
   ircServer = { name, additionalAddresses ? [], ssl ? true, sasl ? true, port ? if ssl then 6697 else 6667 }: let
@@ -128,6 +128,7 @@ in
 
     ircService = {
       logging.level = "warn";  # "error", "warn", "info", "debug"
+      mediaProxy.publicUrl = "https://irc.matrix.uninsane.org/media";
       servers = {
         "irc.esper.net" = ircServer {
           name = "esper";
@@ -155,6 +156,14 @@ in
           # - #sxmo-offtopic
         };
         "irc.rizon.net" = ircServer { name = "Rizon"; };
+        # "irc.sdf.org" = ircServer {
+        #   # XXX(2024-11-06): seems it can't connect. "matrix-appservice-irc: WARN:Provisioner Provisioner only handles text 'yes'/'y' (from BASHy2-EU on irc.sdf.org)"
+        #   # use instead? <https://lemmy.sdf.org/c/sdfpubnix>
+        #   name = "sdf";
+        #   # sasl = false;
+        #   # notable channels (see: <https://sdf.org/?tutorials/irc-channels>)
+        #   # - #sdf
+        # };
         "wigle.net" = ircServer {
           name = "WiGLE";
           ssl = false;
@@ -167,5 +176,17 @@ in
     # XXX 2023/06/20: nixos specifies this + @aio and @memlock as forbidden
     # the service actively uses at least one of these, and both of them are fairly innocuous
     SystemCallFilter = lib.mkForce "~@clock @cpu-emulation @debug @keyring @module @mount @obsolete @raw-io @setuid @swap";
+  };
+
+  services.nginx.virtualHosts."irc.matrix.uninsane.org" = {
+    forceSSL = true;
+    enableACME = true;
+    locations."/media" = {
+      proxyPass = "http://127.0.0.1:11111";
+    };
+  };
+
+  sane.dns.zones."uninsane.org".inet = {
+    CNAME."irc.matrix" = "native";
   };
 }

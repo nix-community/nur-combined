@@ -24,7 +24,6 @@ let
 in
 {
   sane.programs.blast-ugjka = {
-    sandbox.method = "bwrap";
     sandbox.whitelistAudio = true;
     sandbox.net = "clearnet";
   };
@@ -36,12 +35,11 @@ in
       pkgs = [ "blast-ugjka" ];
       srcRoot = ./.;
     };
-    sandbox.method = "bwrap";
     sandbox.whitelistAudio = true;
     sandbox.net = "clearnet";
     #v  else it fails to reap its children (or, maybe, it fails to hook its parent's death signal?)
     #v  might be possible to remove this, but kinda hard to see a clean way.
-    sandbox.isolatePids = false;
+    sandbox.keepPidsAndProc = true;
     suggestedPrograms = [ "blast-ugjka" "sane-die-with-parent" ];
   };
 

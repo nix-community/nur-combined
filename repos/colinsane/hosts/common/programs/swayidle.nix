@@ -2,10 +2,7 @@
 let
   cfg = config.sane.programs.swayidle;
   idleAction = with lib; types.submodule ({ config, name, ... }: {
-    options.enable = mkOption {
-      type = types.bool;
-      default = true;
-    };
+    options.enable = mkEnableOption "invoke ${name} when sway is idle for so long";
     options.command = mkOption {
       type = types.str;
       default = name;
@@ -38,7 +35,7 @@ let
         lib.escapeShellArgs [ "sane-open" "--application" "${config.desktop}" ])
       )
       (lib.mkIf (config.service != null) (
-        lib.escapeShellArgs [ "s6-rc" "start" "${config.service}" ])
+        lib.escapeShellArgs [ "systemctl" "start" "${config.service}" ])
       )
     ];
   });
@@ -47,7 +44,7 @@ let
     # XXX(2024/06/09): `type:touch` method is documented, but now silently fails
     # swaymsg -- input type:touch events disabled
 
-    local inputs=$(swaymsg -t get_inputs --raw | jq '. | map(select(.type == "touch")) | map(.identifier) | join(" ")' --raw-output)
+    inputs=$(swaymsg -t get_inputs --raw | jq '. | map(select(.type == "touch")) | map(.identifier) | join(" ")' --raw-output)
     for id in "''${inputs[@]}"; do
       swaymsg -- input "$id" events disabled
     done
@@ -69,7 +66,7 @@ in
       # XXX: this turns the screen/touch off, and then there's no way to turn it back ON
       # unless you've configured that elsewhere (e.g. sane-input-handler)
       enable = lib.mkDefault false;
-      command = "${screenOff}/bin/screen-off";
+      command = lib.getExe screenOff;
       delay = lib.mkDefault 1500;  # 1500s = 25min
     };
     config.actions.lock = {
@@ -85,9 +82,10 @@ in
       # "sway"  #< required, but circular dep
     ];
 
-    sandbox.method = "bunpen";
-    sandbox.whitelistDbus = [ "user" ];  #< might need system too, for inhibitors
-    sandbox.whitelistS6 = true;
+    sandbox.whitelistDbus = [
+      "user"  #< ??
+    ];
+    sandbox.whitelistSystemctl = true;
     sandbox.whitelistWayland = true;
     sandbox.extraRuntimePaths = [ "sway" ];
 

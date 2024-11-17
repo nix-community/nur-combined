@@ -39,7 +39,7 @@ in
     #
     # N.B.: for this to behave well with multiple MPRIS clients,
     # `playerctld` must be enabled. see: <https://github.com/altdesktop/playerctl/issues/161>
-    exec = "${waybar-media}/bin/waybar-media";
+    exec = lib.getExe waybar-media;
     return-type = "json";
     interval = 2;
     format = "{icon}{}";

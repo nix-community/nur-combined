@@ -2,7 +2,6 @@
 { pkgs, ... }:
 {
   sane.programs.open-in-mpv = {
-    sandbox.method = "bwrap";
     sandbox.whitelistDbus = [ "user" ];  # for xdg-open/portals
 
     # taken from <https://github.com/Baldomo/open-in-mpv>

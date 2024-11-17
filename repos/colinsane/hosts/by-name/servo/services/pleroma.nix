@@ -10,7 +10,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  logLevel = "warn";
+  logLevel = "warning";
   # logLevel = "debug";
 in
 {
@@ -46,7 +46,7 @@ in
     config :pleroma, Pleroma.Emails.Mailer,
       enabled: true,
       adapter: Swoosh.Adapters.Sendmail,
-      cmd_path: "${pkgs.postfix}/bin/sendmail"
+      cmd_path: "${lib.getExe' pkgs.postfix "sendmail"}"
 
     config :pleroma, Pleroma.User,
       restricted_nicknames: [ "admin", "uninsane", "root" ]
@@ -87,6 +87,12 @@ in
 
     # strip metadata from uploaded images
     config :pleroma, Pleroma.Upload, filters: [Pleroma.Upload.Filter.Exiftool.StripLocation]
+
+    # fix log spam: <https://git.pleroma.social/pleroma/pleroma/-/issues/1659>
+    # specifically, remove LAN addresses from `reserved`
+    config :pleroma, Pleroma.Web.Plugs.RemoteIp,
+      enabled: true,
+      reserved: ["127.0.0.0/8", "::1/128", "fc00::/7", "172.16.0.0/12"]
 
     # TODO: GET /api/pleroma/captcha is broken
     # there was a nixpkgs PR to fix this around 2022/10 though.
@@ -136,9 +142,10 @@ in
     # something inside pleroma invokes `sh` w/o specifying it by path, so this is needed to allow pleroma to start
     pkgs.bash
     # used by Pleroma to strip geo tags from uploads
-    config.sane.programs.exiftool.package
+    pkgs.exiftool
+    # config.sane.programs.exiftool.package  #< XXX(2024-10-20): breaks image uploading
     # i saw some errors when pleroma was shutting down about it not being able to find `awk`. probably not critical
-    config.sane.programs.gawk.package
+    # config.sane.programs.gawk.package
     # needed for email operations like password reset
     pkgs.postfix
   ];
@@ -153,7 +160,7 @@ in
     # possible that i've set something too strict and won't notice right away
     # make sure to test:
     # - image/media uploading
-    serviceConfig.CapabilityBoundingSet = "~CAP_SYS_ADMIN";  #< TODO: reduce this. try: CAP_SYS_NICE CAP_DAC_READ_SEARCH CAP_SYS_CHROOT CAP_SETGID CAP_SETUID
+    serviceConfig.CapabilityBoundingSet = lib.mkForce [ "" "" ];  # nixos default is `~CAP_SYS_ADMIN`
     serviceConfig.LockPersonality = true;
     serviceConfig.NoNewPrivileges = true;
     serviceConfig.MemoryDenyWriteExecute = true;
@@ -199,34 +206,7 @@ in
       recommendedProxySettings = true;
       # documented: https://git.pleroma.social/pleroma/pleroma/-/blob/develop/installation/pleroma.nginx
       extraConfig = ''
-        # XXX colin: this block is in the nixos examples: i don't understand all of it
-        add_header 'Access-Control-Allow-Origin' '*' always;
-        add_header 'Access-Control-Allow-Methods' 'POST, PUT, DELETE, GET, PATCH, OPTIONS' always;
-        add_header 'Access-Control-Allow-Headers' 'Authorization, Content-Type, Idempotency-Key' always;
-        add_header 'Access-Control-Expose-Headers' 'Link, X-RateLimit-Reset, X-RateLimit-Limit, X-RateLimit-Remaining, X-Request-Id' always;
-        if ($request_method = OPTIONS) {
-            return 204;
-        }
-
-        add_header X-XSS-Protection "1; mode=block";
-        add_header X-Permitted-Cross-Domain-Policies none;
-        add_header X-Frame-Options DENY;
-        add_header X-Content-Type-Options nosniff;
-        add_header Referrer-Policy same-origin;
-        add_header X-Download-Options noopen;
-
-        # proxy_http_version 1.1;
-        # proxy_set_header Upgrade $http_upgrade;
-        # proxy_set_header Connection "upgrade";
-        # # proxy_set_header Host $http_host;
-        # proxy_set_header Host $host;
-        # proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
-        # colin: added this due to Pleroma complaining in its logs
-        # proxy_set_header X-Real-IP $remote_addr;
-        # proxy_set_header X-Forwarded-Proto $scheme;
-
-        # NB: this defines the maximum upload size
+        # client_max_body_size defines the maximum upload size
         client_max_body_size 16m;
       '';
     };

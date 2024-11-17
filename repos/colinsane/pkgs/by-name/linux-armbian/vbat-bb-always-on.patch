@@ -1,0 +1,33 @@
+From 2ee09f1d8da9d5fcf7b2579525c87151ee0896a2 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Fri, 20 Sep 2024 06:56:00 +0000
+Subject: [PATCH] dts: pinephone: maintain vbat-bb always on
+
+this was excerpted from the postmarketOS kernel patch which drops megi's
+modem_power node in order to manually control the modem. only, i don't
+need the other features of that patch -- like modem ring detection --
+i need *only* a way to bring power to the modem itself.
+
+an alternative to this may be to use the "reg-userspace-consumer"
+dts compatible type, which allows the regulator to be controlled from
+userspace.
+
+---
+ .../dts/allwinner/sun50i-a64-pinephone.dtsi   | 1 +++++++++
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+index fe7f2113a727..68392dee4407 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+@@ -382,6 +382,7 @@ reg_usb_5v: usb-5v {
+ 	reg_vbat_bb: vbat-bb {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vbat-bb";
++		regulator-always-on;
+ 		regulator-min-microvolt = <3500000>;
+ 		regulator-max-microvolt = <3500000>;
+ 		gpio = <&r_pio 0 7 GPIO_ACTIVE_HIGH>; /* PL7 */
+-- 
+2.45.0
+

@@ -14,7 +14,7 @@ let
     silence = port - portLow;
     flags = lib.optional cfg.verbose "--verbose";
     cli = [
-      "${cfg.package}/bin/ntfy-waiter"
+      (lib.getExe cfg.package)
       "--port"
       "${builtins.toString port}"
       "--silence"
@@ -31,7 +31,7 @@ let
         ExecStart = lib.concatStringsSep " " cli;
       };
       after = [ "network.target" ];
-      wantedBy = [ "default.target" ];
+      wantedBy = [ "ntfy-sh.service" ];
     };
   };
 in
@@ -39,7 +39,7 @@ in
   options = with lib; {
     sane.ntfy-waiter.enable = mkOption {
       type = types.bool;
-      default = true;
+      default = config.services.ntfy-sh.enable;
     };
     sane.ntfy-waiter.verbose = mkOption {
       type = types.bool;

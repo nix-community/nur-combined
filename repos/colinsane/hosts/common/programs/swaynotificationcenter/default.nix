@@ -10,7 +10,7 @@
 # configuration:
 # - defaults: /run/current-system/etc/profiles/per-user/colin/etc/xdg/swaync/
 # - `man 5 swaync`
-# - view document tree: `GTK_DEBUG=interactive swaync`  (`s6 stop swaync` first)
+# - view document tree: `GTK_DEBUG=interactive swaync`  (`systemctl stop swaync` first)
 # - examples:
 #   - thread: <https://github.com/ErikReider/SwayNotificationCenter/discussions/183>
 #   - buttons-grid and menubar: <https://gist.github.com/JannisPetschenka/fb00eec3efea9c7fff8c38a01ce5d507>
@@ -32,14 +32,15 @@ in
       pname = "swaync-service-dispatcher";
       srcRoot = ./.;
       pkgs = [
-        "s6"
-        "s6-rc"
+        "systemdMinimal"
       ];
     };
-    sandbox.method = "bunpen";
-    sandbox.whitelistS6 = true;
-    sandbox.isolatePids = false;  #< XXX: not sure why, but swaync segfaults under load without this!
-    sandbox.extraPaths = [ "/proc" ];
+    sandbox.whitelistSystemctl = true;
+    sandbox.keepPidsAndProc = true;  #< XXX: not sure why, but swaync segfaults under load without this!
+
+    suggestedPrograms = [
+      "systemctl"
+    ];
   };
 
   sane.programs.swaync-fbcli = {
@@ -53,10 +54,8 @@ in
         "util-linux"
       ];
     };
-    sandbox.method = "bunpen";
     sandbox.whitelistDbus = [ "user" ];
-    sandbox.isolatePids = false;  # `swaync-fbcli stop` needs to be able to find the corresponding `swaync-fbcli start` process
-    sandbox.extraPaths = [ "/proc" ];
+    sandbox.keepPidsAndProc = true;  # `swaync-fbcli stop` needs to be able to find the corresponding `swaync-fbcli start` process
   };
 
   sane.programs.swaynotificationcenter = {
@@ -105,13 +104,12 @@ in
       "swaync-service-dispatcher"  #< used when toggling buttons
     ];
 
-    sandbox.method = "bunpen";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [
       "user"  # mpris; portal
       "system"  # backlight
     ];
-    sandbox.whitelistS6 = true;
+    sandbox.whitelistSystemctl = true;
     sandbox.whitelistWayland = true;
     sandbox.extraPaths = [
       "/sys/class/backlight"

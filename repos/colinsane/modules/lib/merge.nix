@@ -62,14 +62,13 @@ rec {
       # now items is a list where every element is undecorated at the toplevel.
       # e.g. each item is an ordinary attrset or primitive.
       # we still need to discharge the *rest* of the path though, for every item.
-      name = lib.head path;
-      downstream = lib.tail path;
-      dischargeDownstream = it: if path != [] && it ? name then
-        builtins.map (v: it // { "${name}" = v; }) (dischargeToPath downstream it."${name}")
-      else
-        [ it ];
     in
-      lib.concatMap dischargeDownstream items;
+      lib.concatMap (dischargeDownstream path) items;
+
+  dischargeDownstream = path: it: if path != [] && it ? name then
+    builtins.map (v: it // { "${lib.head path}" = v; }) (dischargeToPath (lib.tail path) it."${lib.head path}")
+  else
+    [ it ];
 
   # discharge many items but only over one path.
   # Type: dischargeItemsToPaths :: [Attrs] -> String -> [Attrs]
@@ -92,9 +91,10 @@ rec {
       # since the act of discharging should have forced all the relevant data out to the leaves,
       # we just set each expected terminal to null (initializing the parents when necessary)
       # and that gives a standard value for any fully-consumed items that we can do equality comparisons with.
-      wipePath = acc: path: lib.recursiveUpdate acc (lib.setAttrByPath path null);
-      remainder = builtins.foldl' wipePath i paths;
-      expected-remainder = builtins.foldl' wipePath {} paths;
+      remainder = builtins.foldl' _wipePath i paths;
+      expected-remainder = builtins.foldl' _wipePath {} paths;
     in
       assert remainder == expected-remainder; true;
+
+  _wipePath = acc: path: lib.recursiveUpdate acc (lib.setAttrByPath path null);
 }

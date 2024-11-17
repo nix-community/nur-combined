@@ -14,8 +14,11 @@ usage() {
   echo "- --dry-run: show what would be done without actually doing it"
   echo "- --pre: alias for --action copy --variant all all"
   echo "- --reboot: reboot the target machine after deploying (if deployed with no errors)"
+  echo "- --reboot-force: reboot the target machine after deploying (even on error)"
   echo "- --variant light|min|''|all  (default: '')"
-  echo "- --wireguard: deploy over wireguard"
+  echo "- --wireguard always|never|opportunistic: deploy over wireguard"
+  echo "- --ip <address>: deploy to the specific IP address"
+  echo "- --deriv /nix/store/...: prebuilt store path to deploy instead of (re-)building the default target"
   echo ""
   echo "common idioms:"
   echo "- deploy all: deploy all hosts, sequentially"
@@ -31,13 +34,17 @@ info() {
 
 action=switch
 hosts=()
+ip=
 defaultHost="$SELF"
 variants=()
 defaultVariant=
-nixArgs=()
+# by default, don't ship builds to servo. i'd guess this can be overriden by passing --builders servo
+nixArgs=(--builders "")
 doReboot=
+doRebootForce=
 dryRun=
-wireguard=
+wireguard=opportunistic
+storePath=
 addHost() {
   if [ "$1" = all ]; then
     # order matters:
@@ -64,11 +71,19 @@ parseArgs() {
       (--copy|--switch|--test)
         action=${arg/--/}
         ;;
+      (--deriv)
+        storePath="$1"
+        shift
+        ;;
       (--dry-run)
         dryRun=1
         ;;
       (--help)
         usage
+        ;;
+      (--ip)
+        ip="$1"
+        shift
         ;;
       (--pre)
         action=copy
@@ -78,12 +93,17 @@ parseArgs() {
       (--reboot)
         doReboot=1
         ;;
+      (--reboot-force)
+        doReboot=1
+        doRebootForce=1
+        ;;
       (--variant)
         addVariant "$1"
         shift
         ;;
       (--wireguard)
-        wireguard=1
+        wireguard="$1"
+        shift
         ;;
       (all|crappy|desko|lappy|moby|servo)
         addHost "$arg"
@@ -115,10 +135,26 @@ destructive() {
 
 # return "$1" or "$1-hn", based on if wireguard was requested or not
 resolveHost() {
-  if [ -n "$wireguard" ]; then
-    echo "$1-hn"
+  if [ -n "$ip" ]; then
+    echo "$ip"
   else
-    echo "$1"
+    case "$wireguard-$1" in
+      (opportunistic-moby)
+        echo "$1-hn"
+        ;;
+      (opportunistic-*)
+        echo "$1"
+        ;;
+      (never-*)
+        echo "$1"
+        ;;
+      (always-*)
+        echo "$1-hn"
+        ;;
+      (*)
+        echo "$1-hn"
+        ;;
+    esac
   fi
 }
 
@@ -141,10 +177,19 @@ deployOneHost() {
   local host="$1"
   local variant="$2"
 
-  info "building $host$variant ..."
-  destructive nix-build -A "hosts.$host$variant.toplevel" --out-link "./build/result-$host$variant" "${nixArgs[@]}" || return 1
-  storePath="$(readlink ./build/result-$host$variant)"
-  info "build $host$variant -> $storePath"
+  local myStorePath="$storePath"
+  if [ -z "$myStorePath" ]; then
+    # `nix-build -A foo` evals and then realizes foo, but it never unloads the memory used to eval foo.
+    # my exprs are heavyweight, we need that memory for building, so do the evals separately from the realizations:
+    info "evaluating $host$variant..."
+    local drvPath=$(nix eval --raw -f . "hosts.$host$variant.toplevel.drvPath")
+    info "building $host$variant ($drvPath)"
+    myStorePath=$(destructive nix-store --realize "$drvPath" "${nixArgs[@]}")
+    if [ -z "$myStorePath" ]; then
+      return 1
+    fi
+    info "built $host$variant -> $myStorePath"
+  fi
 
   # mimic `nixos-rebuild --target-host`, in effect:
   # - nix-copy-closure ...
@@ -160,24 +205,26 @@ deployOneHost() {
   if [ -n "$host" ] && [ "$host" != "$SELF" ]; then
     if [ -e /run/secrets/nix_signing_key ]; then
       info "signing store paths ..."
-      destructive sudo nix store sign -r -k /run/secrets/nix_signing_key "$storePath"
+      destructive sudo nix store sign -r -k /run/secrets/nix_signing_key "$myStorePath"
     else
       info "not signing store paths: /run/secrets/nix_signing_key does not exist"
     fi
     # add more `-v` for more verbosity (up to 5).
     # builders-use-substitutes false: optimizes so that the remote machine doesn't try to get paths from its substituters.
     #   we already have all paths here, and the remote substitution is slow to check and SERIOUSLY flaky on moby in particular.
-    ECHO_CMD=1 destructive nix copy -vv --option builders-use-substitutes false --to "ssh-ng://$netHost" "$storePath" || return 1
+    ECHO_CMD=1 destructive nix copy -vv --option builders-use-substitutes false --to "ssh-ng://$netHost" "$myStorePath" || return 1
   fi
 
   if [ -n "$action" ] && [ "$action" != "copy" ]; then
     info "activating profile... "
-    destructive runOnTarget "$netHost" sudo nix-env -p /nix/var/nix/profiles/system --set "$storePath" || return 1
-    destructive runOnTarget "$netHost" sudo "$storePath/bin/switch-to-configuration" "$action" || return 1
-    if [ -n "$doReboot" ]; then
+    destructive runOnTarget "$netHost" sudo nix-env -p /nix/var/nix/profiles/system --set "$myStorePath" || return 1
+    destructive runOnTarget "$netHost" sudo "$myStorePath/bin/switch-to-configuration" "$action"
+    local rc=$?
+    if [[ -n "$doReboot" && ("$rc" -eq 0 || -n "$doRebootForce") ]]; then
       info "rebooting $host"
-      destructive runOnTarget "$netHost" sane-reboot "$host"
+      destructive runOnTarget "$netHost" sane-reboot "$host" || return 1
     fi
+    return $rc
   fi
 }
 

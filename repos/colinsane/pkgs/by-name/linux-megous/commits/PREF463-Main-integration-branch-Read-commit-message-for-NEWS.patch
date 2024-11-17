@@ -1,0 +1,938 @@
+From f476342ae52ec577e08d5964aefd8cf7455a6765 Mon Sep 17 00:00:00 2001
+From: Ondrej Jirman <megi@xff.cz>
+Date: Sun, 15 Sep 2024 23:43:57 +0200
+Subject: [PATCH 463/463] ** Main integration branch! Read commit message for
+ NEWS **
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This integration branch is composed of following branches:
+
+# Out of tree wifi drivers
+bes2600
+8723cs
+
+# CW1200 based support for BES2600 (WIP)
+cw1200
+
+# BES2600 userspace development driver
+besdbg
+
+# AP6275P support for quartzpro64
+ap6275p
+
+# RTW88 port of 8723cs
+rtw88
+
+# Cameras / Media
+ov5640
+sun6i-csi
+
+# Input / sensors
+goodix
+stk3310
+
+# EBAZ4205 board
+ebaz4205
+
+# TBS A711 Tablet
+a711
+a711-vibrator
+a711-chgled
+a711-cams
+a83t-suspend
+
+# Orange Pi PC/PC2/3, TBS A711 OPP optimization
+aw-opp
+
+# Orange Pi 3 Ethernet
+opi3-eth
+
+# Pocketbook Touch Lux 3 - touch, display, gpadc
+pb
+
+# Pinephone
+pp
+
+# sun8i-codec jackdet, ac100 codec, eg25g codec, clk fix
+audio
+
+# HDMI audio for AW orange pi boards
+hdmi-audio
+
+# Boot time optimizations: uart fifo size, xor speed test, async probe on TBS drivers
+speed
+
+# Suspend to RAM on AW platform (SCPI patches)
+aw-suspend
+
+# Modem power manager
+modem
+
+# Pinebook Pro Type-C port support
+pbp
+
+# RockPro 64
+rp64
+
+# Random small fixes for upstream bugs
+fixes
+
+# Bluetooth (rtl8723cs fix)
+bt
+
+# Plane configuration fixes for sun4i-drm
+# TCON/MIPI clock improvelemts for external display support on PP
+# Some debug patches
+drm
+
+# Pinephone ANX7688 driver and related improvements for full type-c port support
+anx
+
+# Mostly Pinephone related AXP8xx PMIC driver changes
+# battery thermal regulation, interrupts, current limit setting, voltage limits,
+# charge disable, etc.
+axp
+
+# Remove spurious error messages from kernel log
+err
+
+# Third party Pinetab 1 patches
+pinetab
+
+# Pinephone Pro
+fusb302
+imx258
+rk818
+rt5640
+rk3399-typec
+typec-extcon
+tcpm
+arasan
+ppp-panel
+ppp
+
+# Pinephone keyboard patches + power manager
+ppkb
+
+# PineTab 2
+rk817
+pt2
+
+# Orange Pi 5+ / QuartzPro64
+husb311
+rk3588
+
+# Luckfox Pico Mini / RV1103 support
+luckfox
+
+# Personal patches / defconfigs
+private
+
+# Defconfigs + README
+defcon
+
+NEWS
+====
+
+See also:
+
+- https://xnux.eu/log/
+- https://xnux.eu/devices/pine64-pinephone.html
+- https://xff.cz/kernels/
+
+KNOWN ISSUES:
+
+- Pinephone:
+  - You may experience p-boot display pipeline handover failures with the
+    new HDMI HPD fix since (2021-10-26) if you have drivers compiled in such
+    a way that parts of the sunxi DRM stack have to re-probe on boot.
+    One way to workaround this is to compile everything needed for anx7688
+    and display pipeline as built-in drivers.
+  - Bluetooth is never powered off. Only way to power it off is to unload
+    the bluetooth driver module. (rfkill or bluetoothctl power off do not
+    work)
+
+2024-08-27:
+- Add Alt-DP and peripheral mode support for Type-C port on Rock Pro 64
+- Add QuartzPro64 HDMI0 output support
+2024-08-01:
+- Orange Pi 5 Plus:
+  - HDMI0 output support
+  - GPU enabled
+- remove old protected-clocks approach for protecting clocks on A64, use
+  this https://github.com/crust-firmware/linux/commit/4cb168cd10b94b31b336b0e2ff04958c6bf31c03
+- added support for RV1106 / Luckfox Pico Pro Max
+2024-07-15:
+- rebased and ported everything to v6.10
+- added support for RV1103 / Luckfox Pico Mini
+- included upstreamed CPU OPP patches for RK3588 (early pull of what'll be in v6.11)
+2024-05-10:
+- rebased and ported everything to v6.9
+- fix alt-dp mode on Pinephone Pro and Pinenook Pro, it was not being entered
+  due to https://lore.kernel.org/lkml/20231204020303.2287338-3-dmitry.baryshkov@linaro.org/
+  change
+- STK3310 resume fix from Aren
+- some besdbg changes useful for BES2600 FW development
+- Pinephone camera orientation patches from Arnav Singh (for GC2145 and PinePhone)
+- Add a minimal ebaz4205 defconfig and some testing DTS changes
+- (SPI-NOR kernel lockup issues when flashing SPI Flash on Pinephone Pro seem to be
+  gone in my limited testing)
+2024-03-10:
+- rebased on v6.8
+- Replace Icenowy Pinephone DRM patches with the patch from Frank Oltmanns
+  https://lore.kernel.org/lkml/20240310-tcon_keep_stable_rate-v1-1-0296b0a85c02@oltmanns.dev/
+2024-03-02:
+- properly support orientation detection on QuartzPro64/Orange Pi 5 Plus
+2024-02-28:
+- add AP6275P WiFi support for QuartzPro64 (based on patched upstream driver)
+2024-02-27:
+- add lima error recovery patches from Erico Nunes - https://patchwork.freedesktop.org/series/128856/#rev2
+2024-02-18:
+- remove default USB_QUIRK_RESET patch for Quectel modem (fixes branch)
+- add some Pinetab patches (accelerometer, bluetooth, soundcard rename)
+- add reset resume patch for quectel serial (fixes branch)
+2024-02-18:
+- reworked branch organization to be more logical
+- cleaned up jack detection for sun8i-codec
+- cleaned up whitespace in anx7688 driver
+- a few patches got updated/rewritten in a more modern way
+2024-02-11:
+- fix upstream bug introduced in v6.7.4 that broke probe of ISP devices on
+  Pinephone Pro (all camera use broken by that)
+- cleanup af8133j driver and DT in preparation for upstreaming
+- fix occasional VCM probe time errors (dw9714) on Pinephone Pro
+2024-02-10:
+- rebased on 6.8-rc3
+- fixed issue with source power mode of Pinephone Pro Type-C port (no
+  devices that needed to be powered from the phone worked)
+2024-01-12:
+- rebased on 6.8-rc1
+2024-01-08:
+- rebased on 6.7 final
+2023-12-03:
+- rebased on 6.7-rc4
+2023-11-18:
+- rebased on 6.7-rc3
+- ported various drivers and patches to Linux 6.7
+2023-11-03:
+- rebased on top of Linux v6.6
+- fixed power off button behavior on PineTab2
+- cleaned up support for USB 3.0 for OrangePi 5 Plus and QuartzPro64 in preparation
+  for upstreaming (partial Type-C support included - orientation multiplexing of
+  USB 3.0 SS signals not working correctly)
+- Improvements to PineTab2 USB port/charging support
+2023-10-14:
+- pulled in 6.6-rc5+
+- upstreamed orange pi 5 plus and pine64 quartzpro64 RK3588 boards
+- various small fixes for Pinephone (OG and Pro) to fix compatibility with Linux 6.6
+  - power down I2C regulator for anx7688 during sleep, to allow powerdown of
+    touchscreen controller (also supplied from it), and to fix anx7688 probe
+  - add regulator support to the audio codec (to fix probe errors, due to codec
+    probing before regulators it depends on are enabled)
+2023-09-14:
+- pulled in 6.5.3
+2023-09-07:
+- pulled in 6.5.2
+- fix USB peripheral mode with networking on Pinephone Pro (and other dual role devices using DWC3)
+- add support for Quartz Pro 64
+2023-07-31:
+- pulled in 6.4.7
+- re-enable pcie on Pinebook Pro
+2023-07-19:
+- pulled in 6.4.4
+- added Pinetab 2 DT
+2023-07-01:
+- rebased on v6.4
+- pulled in 6.4.1
+2023-06-14:
+- rebased on v6.4-rc6
+- workaround poweroff ITS timeouts on Orange Pi 5 Plus
+- enable card detection on SD card slot of Orange Pi 5 Plus
+2023-06-11:
+- rebased on v6.4-rc5
+- added support for RK3588 / Orange Pi 5 Plus (almost complete, only USB 3.0 ports don't work)
+- fixed regression in Pinephone power consumption during sleep (touchscreen
+  was not disabled properly, consuming a lot of power)
+- added DRAM reclocking support to Pinephone Pro (needs Rockchip TPL/TF-A)
+2023-04-30:
+- rebased on v6.4-rc1
+- resovled conflicts
+2023-04-26:
+- rebased on v6.3
+2023-03-30:
+- pinephone pro: fix display backlight PWM frequency from 1 to 20kHz
+- pinephone: add support for RSSI monitoring API expected by upstream
+  WPA supplicant (should help with automatic roaming when the signal
+  is low - see bgscan wpa_supplicant config option)
+2023-03-13:
+- pinephone pro: fix camera and magnetometer rotations
+2023-03-13:
+- rebased on v6.3-rc2
+- Fix H3/A83T thermal zones
+- Fix axp20x-battery driver to not return EINVAL when no battery info is
+  present in DT (this otherwise breaks uevent support)
+2023-03-06:
+- rebased on v6.3-rc1
+2023-02-20:
+- rebased on v6.2
+- add several fixes for USB-PD and Alt-DP on Pinephone Pro. If you have had
+  trouble with Alt-DP or USB3 in the past when using a type-c dock or similar
+  device, try writing 1 to /sys/module/typec_extcon/parameterss/reset_on_mux
+  and re-plug the device and report back to x@xnux.eu if it helped
+2023-02-16:
+- rebased on v6.2-rc8+
+- reverted f2fs to Linux 6.1 version
+  - see: https://lore.kernel.org/linux-f2fs-devel/20230214225704.pqqisa62pfzj6wz2@core/T/#t
+    (f2fs is completely broken on 32bit systems in v6.2)
+2023-02-03:
+- rebased on v6.2-rc6+
+2023-01-22:
+- reworked multi-camera support for Pinephone on top of upstream changes
+  (media device graph changed quite a bit upstream, you may need to update the
+  userspace camera apps for them to continue working)
+- fixed Alt-DP mode on Pinebook Pro
+- rebased on v6.2-rc5+
+2022-12-30:
+- rebased on v6.1
+- pulled in v6.1.1
+2022-12-11:
+- ppp: don't reset 'display state of charge' (dsoc) to 0 on vbat low interrupt
+2022-12-10:
+- rebased on v6.1-rc7+
+- don't enable ppkb-manager by default, to enable it manually use:
+    echo echo 0 > /sys/devices/platform/keyboard-power/disabled
+- ppp: make stk3311 gpio input if bootloader does leave it as output
+  (fixes probe issues on phones with broken bootloaders)
+2022-12-04:
+- rebased on v6.1-rc7+
+- don't reinitialize bluetooth on Pinephone during resume
+2022-11-28:
+- rebased on v6.1-rc7
+- pinephone: fix power key behavior during suspend (avoid stuck key during
+  resume)
+- pinephone pro: finished fix for LCD to make it refresh at precisely 60 Hz
+- pinephone keyboard: wait for 100ms after enabling power supply and before
+  probing
+2022-11-01:
+- rebased on v6.1-rc3
+- add pinephone keyboard power manager driver
+  - this driver manages charging cycle of both batteries and provides
+    LED triggers, uevents and combined state in debugfs/kbpwr/state usable
+    for summary capacity/discharge rate reporting
+  - the driver optimizes for the highest power efficiency (power is used
+    more directly without needless recharging of phone's battery from the
+    keyboard battery)
+  - the driver also performs calibration of kb battery internal resistance
+    to improve reliability of capacity reporting of keyboard battery
+  - the driver optionally provides emergency shutdown when both batteries
+    are almost discharged
+- make various PMIC drivers report battery capacity in uWh to userspace
+  to make calculations for total capacity of multi-battery setup with
+  different sized batteries more meaningful
+- move to mainlined pinephone-keyboard driver
+- ported sun6i-csi patches over to the 6.1 (base driver was changed quite
+  a lot in rc2, so multicamera support needed to be rewritten from scratch)
+- fixed pinephone keyboard current reporting (with large currents, the
+  keyboard would sometimes report incorrect negative values due to integer
+  overflow)
+- renamed ppp selfie camera sensor subdevice name to be mainline compatible
+- ppkb: allowed to disable special handling of FN layer via module parameter
+  (to make it possible to use Fn key as another modifier key in xkb)
+- hopefully final fix for quartz64-a pcie register/address ranges map
+- added buffer support for af8133j magnetometer driver
+- removed useless error messages
+- sun4i-drm (pinephone) DRM driver fixes
+  - rewritten patches that fix layer positioning and fixed additional bugs
+    in the driver (reconfiguring planes while crtc was turned off led to
+    corruption/stale framebuffer being scanned to the display)
+- pinephone: fix power key getting stuck after resume, when pressed and
+  released quickly enough (reported by Aren)
+2022-10-17:
+- rebased on v6.1-rc1
+- drivers ported to 6.1
+2022-10-03:
+- rebased on v6.0
+- updated rtw88/89 patches from wireless-next
+- fixed quartz64-a pcie register/address ranges map
+  - mainline is broken with rtw88 wifi cards when used in parallel
+    with nvme storage device
+2022-09-15:
+- rebased on v6.0-rc5+
+2022-09-09:
+- rebased on v6.0-rc4+
+- rebased on mainlined DT for PPP, re-shuffled patches
+2022-08-29:
+- fix the same audio issue on Pinebook Pro, too
+2022-08-25:
+- fix longstanding issue with 44.1kHz sample rate playback not working correctly
+  after playing 48kHz audio on RK3399 (Pinephone Pro)
+2022-08-24:
+- rebased on v6.0-rc2
+2022-08-18:
+- rebased on v6.0-rc1+
+2022-08-01:
+- rebased on v5.19 final
+- fix Pinebook Pro audio codec output soft ramp control
+- only update input current limit during boot, after USB power supply
+  detection finishes (ignore 0A current_max USB power supply change notifications)
+  - this is part of a fix for "bootloop on low battery" (other part is
+    https://xff.cz/git/levinboot/commit/?id=d7c80398211d18a29e44a3c7b95b0a5edcb5733c)
+2022-07-29:
+- rebased on 5.19-rc8+
+2022-07-22:
+- rebased on 5.19-rc7+
+2022-07-19:
+- rebased on 5.19-rc7+
+2022-07-16:
+- rebased on 5.19-rc6+
+- tested on all boards
+2022-07-07:
+- rebased on 5.19-rc5+
+2022-06-27:
+- Add support for applying Type-C plug orientation correctly to Rockchip Type-C
+  PHY from the DWC3 USB driver. This completes the Type-C port support for
+  Pinephone Pro.
+- Enable processing the highest resolution of the IMX258 sensor via RKISP10.
+- rebase on v5.19-rc4
+2022-05-26:
+- fix smaller sized IMX258 output formats and PLL/MIPI settings
+2022-05-25:
+- fix kconfig and build issue for Pinephone user facing camera
+- update defconfigs for all devices
+- improve imx258 camera support:
+  - hook up flash and focus lens support
+  - add mode that maxes out what isp1 supports
+  - improve image quality using register values suggested by Sony
+  - cleanup the driver and add support for 24MHz clock
+  - don't flip the image
+2022-05-22:
+- rebase on v5.18
+- added support for front and back camera for Pinephone Pro
+- resolved clock frequency incompatibility between the sensor drivers
+2022-05-21:
+- rebase on v5.18-rc8
+- stupid ass schematic for pinephone pro is completely confusing, which is one
+  reason why world facing camera didn't work up to now. See for yourself:
+  This https://megous.com/dl/tmp/39cbd011289c6818.png apparently means that
+  IMX258 is connected to MIPI1_TX1/RX1 lol https://megous.com/dl/tmp/5f25b00ef0166252.png
+  MIPI_RX0 is isp0 MIPI1_RX1 is isp1. Just by reading the camera sheet in the
+  schematic, I happily assumed that naming signals MIPI_RX0, they actually really
+  are MIPI_RX0, but alas. Anyway, I moved IMX258 sensor node in device tree
+  to isp1, so that increases chances that users who have working connection
+  to the sensor over I2C will have a working camera now. :) Please test and
+  report back.
+- some cleanup and patch re-ordering in ppp branches
+- drop A64 idle states from DT (these should be auto-added by TF-A when supported;
+  you need to build TF-A properly, though! check p-boot/fw for example)
+- intergate latest patches from wireless-next for rtw88/89
+2022-05-10:
+- rebase on v5.18-rc6
+- fix musb suspend issues: https://gitlab.com/postmarketOS/pmaports/-/issues/1478
+- fix null pointer dereference in TCPM debug code
+2022-04-10:
+- rebase on v5.18-rc2
+2022-04-09:
+- rebase on linus/master
+- replaced pinephone keyboard/charger drivers with their latest versions
+- unified rk818-charger/battery power supplies into one
+- small changes in preparation for pinephone keyboard power manager
+- added many rtw88/89 changes from wireless-next
+2022-03-23:
+- Really fix Pinephone Pro support for docks with Alt-DP :)
+  - Enable some more debugging output
+2022-03-22:
+- Fix Pinephone Pro support for docks with Alt-DP on Type-C receptacles (as
+  opposed to captive cables) See: https://xnux.eu/log/#063
+2022-03-20:
+- rebase on 5.17
+2022-03-16:
+- rebase on 5.17-rc8+
+2022-03-11:
+- make touchscreen work again on pocketbook touch lux
+- rebase on 5.17-rc7+
+2022-03-07:
+- rebase on 5.17-rc7
+2022-02-22:
+- add missing keyboard capacity reporting commits
+2022-02-17:
+- fix flash led support on PPP, enable the driver in defconfig
+2022-02-16:
+- add support for capacity reporting of pinephone keyboard battery
+- integrate some patches from Mobian (Pinephone Pro):
+  - sound card improvements (rename, HP plugin detection)
+  - Flash LED support
+- Add patches from Martijn Braam, that add support for SPI NOR
+  flash, and forward port them to 5.17
+- Integrated multi-consumer patches for Type-C mux/switch (v2)
+- rebase on 5.17-rc4+
+2022-02-10:
+- implemented runtime power management for af8133j driver
+2022-02-09:
+- import af8133j patches from Icenowy
+- add support for the new magnetometer in PP 1.2 beta and in Pinephone Pro
+- fix for STK3311 interrupts (needs bootloader patch to turn GPIO4_D3 into input,
+  because it's left as output by BROM)
+- integrated Benjamin Schaaf's camera patches
+2022-02-04:
+- synced up with recent fixes for orange-pi-5.16
+- rebase on 5.17-rc2+
+2022-01-23:
+- rebase on 5.17-rc1 and forward port everything
+- so far this is tested on pinephone and pinephone pro
+2022-01-22:
+- added kernel drivers for kb151 and IP5209
+  - if you want to run ppkb-i2c-inputd, just add kb151.disable_input to kernel
+    boot arguments
+  - ip5209 status is now visible in sysfs
+  - default keymap removed from DT
+- improve reporting of ppp battery charging status in the BSP battery driver
+2022-01-20:
+- pull in v5.16.2
+- rtw88/89: backport changes from 5.17, add patches from linux-wireless mailing
+  list that implement AP support in rtw89
+2022-01-16:
+- add support for POGO header on Pinephone Pro
+- add "mmc: core: Wait for command setting 'Power Off Notification' bit to complete"
+  patch that should fix SD card suspend failures on Pinephone
+- pull in v5.16.1
+2022-01-10:
+- rebase on v5.16
+2022-01-09:
+- more properly disable ucam on ppp (unbreaks display initialization)
+- use v4 of "mfd: rk808: add reboot support to rk808.c"
+2022-01-04:
+- rebase on v5.16-rc8
+- fix quartz64-a ethernet (phy delays issue)
+- disabled ucam on pinephone pro (it's not ov5640 as previously thought)
+- fixed swapped reset gpios on pinephone pro cameras in DT
+- fixed blued LED gpio reference
+2021-11-30:
+- rebase on v5.16-rc3
+2021-11-24:
+- basic audio support for Pinephone Pro (everything should work, except bluetooth)
+2021-11-23:
+- rebase on v5.16-rc2
+- a bit more Pinephone Pro Type-C support tunning
+- added support for powering up the modem via modem-power driver
+2021-11-16:
+- rebase on v5.16-rc1
+- implemented support for all Type-C features of Pinephone Pro and Pinebook Pro
+  (there are still some known issues https://xnux.eu/log/#054, and pinebook pro
+  has a HW design issue, so be careful)
+- fix some fusb302 bugs
+- rk3399/pbp/ppp: improve display clock rate precision
+- fix DRM panics and refcount issues with drm scheduler on panfrost/lima
+- add chasis device tree properties to pinephone dts
+2021-10-31:
+- rebase on top of v5.15
+- add tsadc reset patch for Quartz64 (fixes thermal zone temperature reporting)
+2021-10-28:
+- drop firmware suffix from bluetooth firmware on pinephone
+- drop bluetooth h5 reset support patch
+- disable debug logging in gc2145 driver
+- revert hci_h5 runtime PM support that was added to 5.15-rc1 (it is broken,
+  and causes constant re-probing of bluetooth device, see:
+  https://lore.kernel.org/lkml/20211027222326.e55g26ezaxpk7kkm@core/T/#u)
+2021-10-26:
+- workadound broken HDMI HPD on Pinephone
+  - this should make Alt-DP mode work on pinephones where it failed previously
+    (reaching only DP state 0x03)
+  - HPD is now signalled to HDMI PHY via a software route instead of in hardware
+    (hardware is confirmed broken by the product design team, exactly as I discovered
+    previously: https://xnux.eu/log/#045)
+2021-10-25:
+- pinephone pro:
+  - improve battery current reporting from rk818 driver (DT had incorrect values)
+2021-10-22:
+- pinephone pro:
+  - add DT definitions for both cameras
+  - add support for reset/powerdown/supplies to IMX258 driver
+  - SD card power supply fix
+  - fix hang during boot on rk3399 (caused by debug nodes)
+- fix display initialization/wrong clock setting on Pinebook Pro/Pinephone Pro
+  - https://x-lore.kernel.org/linux-clk/20211016105022.303413-1-martin.blumenstingl@googlemail.com/
+2021-10-20:
+- fixed probe error handling in anx7688 (fix suggested by rsglobal)
+- added axn7688 dependency on its I2C bus supply (avoids probe failure when
+  anx7688 is probed before other devices using the bus and suspend/resume
+  device ordering issues)
+- updated to the latest rockchip/for-next branch
+2021-10-18:
+- fix various Pinephone Pro issues that prevented suspending to ram and broke
+  PMIC and cause PMIC, touchscreen and fusb interrupt storms
+- power down touchscreen in suspend to ram (Pinephone Pro, saves 200mW in suspend
+  when touching the screen)
+- add runtime suspend for eMMC (saves 200mW at runtime)
+- fix rockchip DSI controller driver to not break the display on suspend/resume
+- improve panel driver for pinephone pro
+2021-10-17:
+- rebase on v5.15-rc6
+- add support for Pinephone Pro
+2021-10-11:
+- rebase on v5.15-rc5
+2021-09-21:
+- add various dts variants for quartz64-a
+2021-09-20:
+- use rockchip/for-next which was rebased on top of 5.15-rc1 recently
+2021-09-16:
+- basic quartz64 support (5.15-rc1 upstream + rockchip/for-next branch + some fixes
+  from me for me for poweroff + some patches from pgwipeout split to q64-5.15 and
+  q64dts-5.15 branches)
+- rebase on v5.15-rc1+
+2021-09-13:
+- rebase on v5.15-rc1
+- port 8723cs driver to 5.15
+- fix some compile warnings
+2021-08-30:
+- rebase on v5.14
+2021-08-19:
+- rebase on v5.14-rc6+
+2021-08-09:
+- rebase on v5.14-rc5
+2021-07-31:
+- rebase on v5.14-rc4
+2021-07-28:
+- rebase on v5.14-rc3+
+2021-07-20:
+- update defconfigs
+2021-07-19:
+- rebase on v5.14-rc2
+2021-07-12:
+- rebase on v5.14-rc1
+- port cam drivers to 5.14
+2021-07-01:
+- rebase on v5.14-pre-rc1
+2021-06-29:
+- rebase on v5.13
+2021-06-20:
+- rebase on linus/master (5.13-rc6+)
+2021-06-16:
+- rebase on linus/master (5.13-rc6+)
+2021-06-05:
+- rebase on linus/master (5.13-rc5)
+- add support for runtime calibration of minimum duty cycle of PWM backlight
+  (until now it was hardcoded in device tree)
+  - minimum brightness calibration instructions (default for lth_brightness is 10%,
+    meaning is 'PWM duty cycle at the lowest brightness setting'):
+
+  echo 1 > /sys/class/backlight/backlight/brightness
+  echo 1 > /sys/class/backlight/backlight/device/lth_brightness
+  echo 2 > /sys/class/backlight/backlight/device/lth_brightness
+  echo 3 > /sys/class/backlight/backlight/device/lth_brightness
+
+  ... increase values until you like the minimum brightness
+
+  ... then make sure to restore this value after each boot by writing it to
+  /sys/class/backlight/backlight/device/lth_brightness
+
+2021-06-05:
+- rebase on linus/master (5.13-rc4+)
+2021-05-31:
+- rebase on linus/master (5.13-rc4)
+- fix bluetooth initialization failure on TBS A711 and elsewhere by using
+  CONFIG_SERIAL_8250_16550A_VARIANTS
+  See: https://lkml.org/lkml/2021/5/30/107
+2021-05-22:
+- rebase on linus/master (5.13-rc2+)
+- fix headset button handling and jack/mic plug in/plug out detection
+  - should be much more reliable now
+2021-05-21:
+- rebase on linus/master (5.13-rc2+)
+2021-05-20:
+- rebase on linus/master (5.13-rc2+)
+- fixed up booting with fw_devlink=on (see fixes-5.13)
+- applied Samuel's time travel avoidance fix https://patchwork.kernel.org/project/linux-arm-kernel/patch/20210515021439.55316-1-samuel@sholland.org/
+  - this should fix occasional stalls and system hangs
+- revert fine tuned OCV based capacity reporting, PMIC is not reporting OCV correctly
+  so kernel has garbage input for the OCV -> capacity conversion and thus produces
+  garbage output too (this stops large jumps in capacity when plugging in a charger
+  and in general makes capacity reporting saner)
+- fixed "NOHZ tick-stop error: Non-RCU local softirq work is pending, handler #08!!!"
+- wifi driver no longer prevents dynticks from working
+- improved (well..., added) suspend/resume code to anx7688 driver :)
+  - fixes some issues caused by this driver ignoring the suspend/resume cycle
+2021-05-09:
+- rebase on linus/master (pre 5.13-rc1)
+- replace old HDMI audio patches with the new HDMI sound card support from Jernej
+- cleanup compilation warnings
+2021-05-07:
+- rebase on linus/master (pre 5.13-rc1)
+2021-05-01:
+- fixed suspend failure of light/proximity sensor
+- raise the default minimum frequency for mbus devfreq governor
+  (you can still lower it in sysfs for higher runtime power savings at the cost
+  of some performance, see /sys/class/devfreq and tune it there for your distro)
+2021-04-26:
+- rebase on 5.12 final
+- fixed behavior with dumb charger (DCP) being forced to 500mA on boot from anx7688
+  driver
+- disable lradc wakeup by default (lowers the power consumption in suspend)
+2021-04-25:
+- rebase on linus/master
+- I've created a patch that disables touchscreen controller during system sleep
+  reducing power consumption by about 40mW in sleep (and by 130mW when touching
+  the screen in sleep)
+  - before: https://megous.com/dl/tmp/0533207eed42258c.png
+  - after: https://megous.com/dl/tmp/5d504d680415e2e3.png
+  - those power spikes are touch controller checking if there's a finger touching
+    the screen, and those dense spikes are when the finger is actually touching
+    the screen
+- Added Samuel's DRAM downclocking patches
+2021-04-19:
+- rebase on 5.12-rc8
+2021-04-12:
+- rebase on 5.12-rc7
+2021-04-09:
+- rebase on linus/master
+2021-04-05:
+- rebase on 5.12-rc6
+2021-04-01:
+- added patches from Samuel that implement cpuidle power savings on PinePhone
+  (You also need to run the latest master of TF-A and crust firmware.)
+- rebased on top of linus/master
+2021-03-22:
+- rebase on 5.12-rc4
+2021-03-15:
+- rebase on 5.12-rc3
+- enable interrupt on battery capacity low (wakeup the phone and notify power
+  supply change, for userspace to gracefully handle this condition)
+2021-03-11:
+- linus/master update
+2021-03-09:
+- linus/master update
+2021-03-04:
+- linus/master update (fixes FS corruption when using swapfiles)
+2021-03-01:
+- rebase on 5.12-rc1
+2021-02-23:
+- rebased on top of linus/master (5.12 cycle)
+- cleaned up compile errors
+2021-02-20:
+- fix an7688 compilation on 32-bit ARM
+2021-02-19:
+- added support for wake over wireless LAN (WoWLAN) - howto is in the
+2021-02-18:
+- added USB_QUIRK_RESET for EG25G modem (https://gitlab.com/mobian1/devices/eg25-manager/-/merge_requests/5)
+2021-02-15:
+- rebased on v5.11 final
+- fixed anx7688 fw flashing timeout
+- added Samuel's patches:
+  - allow to use RTC wakeup when powered off
+  - NVMEM driver for RTC data registers
+- pulled in some fixes from linux-next into fixes-5.11
+- disable MMC runtime PM again (causes issues on H5/H6 https://megous.com/dl/tmp/1eec9b1c7f03ad93.png)
+- used nvmem reboot driver (suggested by Samuel in RFC patch) for rebooting to FEL,
+  eMMC bootloader, various p-boot boot configs on either eMMC or SD card's bootfs filesystems,
+  boot menu, etc. via reboot() syscall with extra arg (see LINUX_REBOOT_CMD_RESTART2)
+  (p-boot is also updated to support this mechanism, as of 2021-02-15)
+2021-02-08:
+- rebased on 5.11-rc7
+2021-02-04:
+- rebased on linus/master
+2021-01-30:
+- rebased on linus/master
+2021-01-27:
+- tested on all my boards
+- make HDMI audio sound card initializa again on H3/H5
+- fix rebase regression in stmmac driver that broke ethernet on PC 2
+2021-01-25:
+- rebased on top of v5.11-rc5
+- fix 8723cs bluetooth DT to load pinephone BT config file correctly (add -pinephone postfix)
+- fix a bunch of ASoC debugfs/bt-soc errors
+- remove some noisy logging
+- move mmc# aliases to SoC DT files to cover more boards
+- added gc2145 BGGR bayer mode patch (makes this kernel work with megapixels)
+- update Samuel's patches for irq-wakeup to v5
+2021-01-12:
+- rebased on top of v5.11-rc3+
+- update Samuel's patches (stmmac, i2c-pm, irq-wakeup)
+2021-01-02:
+- rebased on top of v5.11-rc1+
+2020-12-14:
+- rebased on top of v5.10
+- added patch to chnage Vbus hold voltage to 4.5V on Pinephone (this makes PD charging more stable)
+2020-12-11:
+- rebased on top of linus/master
+2020-12-07:
+- rebased on top of 5.10-rc7
+2020-12-05:
+- modem power driver: add more powerup modes and change interface for dumb and fastboot powerup
+  - you can now write 2, 3 or 4 to .../powered sysfs file to select differnt powerup mode from
+    the normal one (1)
+  - this is useful for selecting alternate userspace configurations early in boot to allow
+    tracing the userspace processes from early on for reverse engineering, and in the near
+    future, it will be used to switch between original and fully-FOSS userspace code
+    running on the modem's APPS CPU on powerup
+    - see https://xnux.eu/log/#028
+2020-12-02:
+- fix WiFi blocking suspend
+- improve modem power driver interaction with kernel's autosleep
+- shorten resume times from 1.2s to 400ms (wifi driver optimization)
+2020-11-30:
+- I improved the anx7688 driver to actually respect PD capabilities of the source,
+  and don't overload it. This should make it more likely to work with the USB-C
+  docks when docks are powered.
+- Pine64 dock can provide either 500mA when powered from regular USB-A charger
+  (regardless of what kind of charger it is, it can't use more current from it)
+- With my 3A PD charger, Pine64 dock will advertise 2600mA and Pinephone will
+  now respect this limit.
+- rebase on linus/master (5.10-rc6 atm)
+- increase I2C clock for sensors and touchscreen/anx7688 from 100kHz to 400kHz
+- added patch from https://patchwork.kernel.org/project/dri-devel/cover/20200222024210.18697-1-yuq825@gmail.com/#23237865
+  for easier GPU debugging (suggested by bshah)
+2020-11-28:
+- rebased on linus/master
+- replaced my 60FPS fix with a more mainlineable and better working solution from Roman Beranek
+- disable 8723cs CONCURRENT_MODE, enable wifi 802.11z TDLS
+2020-11-25:
+- enable wifi power saving mode (saves 350mW in idle, and doesn't seem to break the wifi so far)
+2020-11-25:
+- added a new 2020-10 wifi driver and cleaned up to work with PinePhone
+- see wifi-5.10 branch
+- rebased on linus/master
+2020-11-23:
+- rebased, added modem power blocking mode (p-boot privacy support)
+2020-11-17:
+- drop ov5640 AF patch
+2020-11-17:
+- rebase on linux/master
+- fix camera probe
+2020-11-15:
+- rebase on linux/master
+- add "retain LED state in sleep" patch
+2020-11-13:
+- fix boot failure on pocketbook (see https://www.mail-archive.com/linux-crypto@vger.kernel.org/msg46288.html)
+2020-11-13:
+- rebase on top of 5.10-rc3+
+- update defconfigs
+2020-11-10:
+- rebase on top of 5.10-rc3
+2020-11-01:
+- added some musb suspend/resume fixes
+- fixed regulator probe on a711
+- fix mmc device numbering
+- rebase on top of 5.10-rc2
+2020-10-31:
+- rebased on top of 5.10-rc1+
+- added ov5640 autofocus support from Martijn Braam (you'll need /lib/firmware/ov5640_af.bin)
+- added fix for DSI panel 36.6 FPS issue (myself)
+- import upstreamed variant of audio patches from Samuel
+2020-10-25:
+- rebased on top of 5.10-rc1
+2020-10-19:
+- fix orange pi 3 ethernet
+2020-10-12:
+- fix issue with dsi clock described here: https://xnux.eu/log/#021
+- rebase on v5.9 final
+- integrate pinetab panel patches from (untested)
+  https://gitlab.com/pine64-org/linux/-/commits/pine64-kernel-5.7.y-pinetabpanel/
+2020-09-29:
+- add a few more codec API fixes from Samuel
+2020-09-28:
+- rebase on top of 5.9-rc7
+- integrated the newest audio patches from Samuel
+2020-09-23:
+- port battery thermal regulation fix from p-boot (completely untested, see https://xnux.eu/log/#018)
+2020-09-18:
+- cedrus panic fix
+- rebase on linus/master
+2020-09-17:
+- further modem driver improvements (fix urc setting on old modem firmwares)
+2020-09-13:
+- rebase on top of 5.9-rc5
+2020-09-12:
+- rebase on top of 5.9-rc4+
+2020-09-10:
+- rebase on top of 5.9-rc4+
+- further fixes for the modem driver poweron, support for fast poweroff feature
+  present on new modem firmware
+- added flash DT changes
+- add mounting matrix and a kernel command line option to override it (ignore_mount_matrix)
+- https://xff.cz/kernels also contains special kernel builds for my multi-dist image
+  (see https://xnux.eu/log/)
+- enabled opportunistic sleep
+- enabled btrfs support
+2020-09-01:
+- rebase on top of 5.9-rc3
+2020-08-19:
+- rebase and port to 5.9-rc1
+- fix various issues with 5.9-rc1
+- fix sleeps in atomic context in anx7688 driver
+- dropped panfrost dvfs patches for now (conflicts, stability issues)
+- fix modem UART issues on powerup (sometimes not receiving RDY, etc.)
+  - root cause was host UART locking up due to noise on RX, and the
+    fix is to only open UART port when the modem is powered
+2020-08-11:
+- fix sun50i-codec-analog probe failure when built-in
+2020-08-09:
+- pull in codec changes from Samuel
+- don't wait for RDY but poll with empty AT command for the modem's status
+2020-08-06:
+- added Samuel's patch for making recording from the codec work again
+2020-08-05:
+- modem driver fixes for BH
+2020-08-03:
+- fixed AC100 driver to make it work without mod clock
+2020-08-02:
+- integrated latest Samuel's audio patches + rebased my AC100 support on top
+- finished the modem-power driver into a hopefully useable state
+2020-07-25:
+- rebased on top of 5.8-rc7+
+- fixed modem driver issue with not shutting down the modem on poweroff/reset
+  on PinePhone (introduced during modem driver rewrite around 5.8-rc5)
+- worked around AXP reseting input current limit to 500mA regardless of
+  BC detection being disabled (happened on boot with USB-C cable connected
+  to USB-C PD charger) (and reverted again)
+- improved modem driver
+  - initialize the modem configuration for proper sleep
+  - setup QDAI automatically from DTS
+  - show modem firmware version in dmesg
+  - added rfkill interface
+  - handle URC caching during suspend
+2020-07-16:
+- added HP jack detection patches from A-wai
+2020-07-14:
+- added support for Pinebook Pro
+- fix issue in my bl_pwm PinePhone patch that broke Pinebook Pro's backlight
+2020-07-13:
+- rebased on top of 5.8-rc5
+- improved HW led trigger API
+- more modem-power work (change to serdev, recv messages from the modem)
+- support HDMI audio on PinePhone
+- bump PD power requirement to 15W on PinePhone
+2020-07-08:
+- refactoring of the modem driver, moved to modem-5.8 branch (not finished
+  yet, see TODO in the driver)
+- update pinephone 1.0-1.2 dts to reflect the differences in modem setup
+- enable orange pi 3 hdmi audio
+2020-07-06:
+- rebased on top of 5.8-rc4
+2020-07-05:
+- Added fixes for PinePhone panel initialization after resume from sleep
+2020-07-04:
+- Integrated Clément's HDMI audio series (20200704113902.336911-1-peron.clem@gmail.com)
+- Integrated Clément's panfrost DVFS series (20200704102535.189647-1-peron.clem@gmail.com)
+
+My kernel's main integration branch is 'orange-pi-$VER' (this one).
+No other branch is supposed to work alone. My defconfigs are tested
+and work on the boards I support. Read the README.md for more info.
+
+Only my branches based on the current mainline kernel branch are
+maintained (those are usually the -rc# kernels!). You can find the
+current mainline version here https://www.kernel.org/ (mainline: ...)
+
+My prebuilt kernels can be found at https://xff.cz/kernels/ You can
+use them to test that your board works, or just run them without
+bothering with building everything yourself. I run them on all my
+boards.
+
+My website is https://xnux.eu and may contain useful advice.
+
+Good luck!
+
+     ~megi
+-- 
+2.46.0
+

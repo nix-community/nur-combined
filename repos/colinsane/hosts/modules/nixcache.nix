@@ -16,17 +16,12 @@
 
 { lib, config, ... }:
 
-with lib;
 let
   cfg = config.sane.nixcache;
-  hostName = config.networking.hostName;
 in
 {
-  options = {
-    sane.nixcache.enable = mkOption {
-      default = false;
-      type = types.bool;
-    };
+  options = with lib; {
+    sane.nixcache.enable = mkEnableOption "fetch binaries from and build packages on one of my other machines";
     sane.nixcache.enable-trusted-keys = mkOption {
       default = config.sane.nixcache.enable;
       type = types.bool;
@@ -55,13 +50,13 @@ in
     # to explicitly build from a specific cache (in case others are down):
     # - `nixos-rebuild ... --option substituters https://cache.nixos.org`
     # - `nix build ... --substituters ""`
-    nix.settings.substituters = mkIf cfg.enable (lib.flatten [
+    nix.settings.substituters = lib.mkIf cfg.enable (lib.flatten [
       (lib.optional cfg.substituters.nixos  "https://cache.nixos.org/")
       (lib.optional cfg.substituters.cachix "https://nix-community.cachix.org")
     ]);
     # always trust our keys (so one can explicitly use a substituter even if it's not the default).
     # note that these are also used to sign paths before deploying over SSH; not just nix-serve.
-    nix.settings.trusted-public-keys = mkIf cfg.enable-trusted-keys [
+    nix.settings.trusted-public-keys = lib.mkIf cfg.enable-trusted-keys [
       "nixcache.uninsane.org:r3WILM6+QrkmsLgqVQcEdibFD7Q/4gyzD9dGT33GP70="
       "desko:Q7mjjqoBMgNQ5P0e63sLur65A+D4f3Sv4QiycDIKxiI="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="

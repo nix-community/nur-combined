@@ -14,7 +14,6 @@ in
       # disable uneeded samba features to avoid an expensive samba build
       samba = null;
     };
-    sandbox.method = "bwrap";
     sandbox.net = "clearnet";
     sandbox.autodetectCliPaths = "existing";
     sandbox.whitelistAudio = true;

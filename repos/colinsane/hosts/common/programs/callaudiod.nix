@@ -13,7 +13,6 @@
   sane.programs.callaudiod = {
     packageUnwrapped = pkgs.rmDbusServices pkgs.callaudiod;
 
-    sandbox.method = "bwrap";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];
 

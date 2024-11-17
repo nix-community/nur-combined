@@ -1,7 +1,7 @@
 # borrows from:
 # - default config: <https://github.com/cspeterson/splatmoji/blob/master/splatmoji.config>
 # - wayland: <https://github.com/cspeterson/splatmoji/issues/32#issuecomment-830862566>
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   sane.programs.splatmoji = {
@@ -17,7 +17,6 @@
         })
       ];
     });
-    sandbox.method = "bwrap";
     sandbox.whitelistWayland = true;  # it calls into a dmenu helper
     sandbox.extraHomePaths = [
       ".cache/rofi"
@@ -34,9 +33,9 @@
       # XXX: hardcode the package paths here. all these packages are sandboxed identically
       # to `splatmoji` itself, so there's zero benefit to acquiring them via the environment;
       # doing so would in fact be costlier.
-      paste_command=${pkgs.wtype}/bin/wtype -M Ctrl -k v
-      xdotool_command=${pkgs.wtype}/bin/wtype
-      xsel_command=${pkgs.findutils}/bin/xargs ${pkgs.wl-clipboard}/bin/wl-copy
+      paste_command=${lib.getExe pkgs.wtype} -M Ctrl -k v
+      xdotool_command=${lib.getExe pkgs.wtype}
+      xsel_command=${lib.getExe' pkgs.findutils "xargs"} ${lib.getExe' pkgs.wl-clipboard "wl-copy"}
     '';
     # alternative tweaks:
     # rofi_command=${pkgs.wofi}/bin/wofi --dmenu --insensitive --cache-file /dev/null

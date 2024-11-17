@@ -3,28 +3,26 @@
 # - <repo:LemmyNet/lemmy:docker/nginx.conf>
 # - <repo:LemmyNet/lemmy-ansible:templates/nginx.conf>
 
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 let
-  inherit (builtins) toString;
-  inherit (lib) mkForce;
   uiPort = 1234;  # default ui port is 1234
   backendPort = 8536; # default backend port is 8536
   #^ i guess the "backend" port is used for federation?
   pict-rs = pkgs.pict-rs;
-  # pict-rs = pkgs.pict-rs.overrideAttrs (upstream: {
-  #   # as of v0.4.2, all non-GIF video is forcibly transcoded.
-  #   # that breaks lemmy, because of the request latency.
-  #   # and it eats up hella CPU.
-  #   # pict-rs is iffy around video altogether: mp4 seems the best supported.
-  #   # XXX: this patch no longer applies after 0.5.10 -> 0.5.11 update.
-  #   #      git log is hard to parse, but *suggests* that video is natively supported
-  #   #      better than in the 0.4.2 days, e.g. 5fd59fc5b42d31559120dc28bfef4e5002fb509e
-  #   #      "Change commandline flag to allow disabling video, since it is enabled by default"
-  #   postPatch = (upstream.postPatch or "") + ''
-  #     substituteInPlace src/validate.rs \
-  #       --replace-fail 'if transcode_options.needs_reencode() {' 'if false {'
-  #   '';
-  # });
+  # pict-rs configuration is applied in this order:
+  # - via toml
+  # - via env vars (overrides everything above)
+  # - via CLI flags (overrides everything above)
+  # some of the CLI flags have defaults, making it the only actual way to configure certain things even when docs claim otherwise.
+  # CLI args: <https://git.asonix.dog/asonix/pict-rs#user-content-running>
+  # TOML args: <https://git.asonix.dog/asonix/pict-rs/src/branch/main/pict-rs.toml>
+  toml = pkgs.formats.toml { };
+  tomlConfig = toml.generate "pict-rs.toml" pictrsConfig;
+  pictrsConfig = {
+    media.process_timeout = 120;
+    media.video.allow_audio = true;
+    media.video.max_frame_count = 30 * 60 * 60;
+  };
 in {
   services.lemmy = {
     enable = true;
@@ -52,8 +50,8 @@ in {
     # - postgresql://[user[:password]@][netloc][:port][/dbname][?param1=value1&...]
     # LEMMY_DATABASE_URL = "postgres://lemmy@/run/postgresql";  # connection to server on socket "/run/postgresql/.s.PGSQL.5432" failed: FATAL:  database "run/postgresql" does not exist
     # LEMMY_DATABASE_URL = "postgres://lemmy?host=/run/postgresql";  # no PostgreSQL user name specified in startup packet
-    # LEMMY_DATABASE_URL = mkForce "postgres://lemmy@?host=/run/postgresql";  # WORKS
-    LEMMY_DATABASE_URL = mkForce "postgres://lemmy@/lemmy?host=/run/postgresql";
+    # LEMMY_DATABASE_URL = lib.mkForce "postgres://lemmy@?host=/run/postgresql";  # WORKS
+    LEMMY_DATABASE_URL = lib.mkForce "postgres://lemmy@/lemmy?host=/run/postgresql";
   };
   users.groups.lemmy = {};
   users.users.lemmy = {
@@ -72,7 +70,7 @@ in {
     # fix to use a normal user so we can configure perms correctly
     # XXX(2024-07-28): this hasn't been rigorously tested:
     # possible that i've set something too strict and won't notice right away
-    serviceConfig.DynamicUser = mkForce false;
+    serviceConfig.DynamicUser = lib.mkForce false;
     serviceConfig.User = "lemmy";
     serviceConfig.Group = "lemmy";
 
@@ -138,18 +136,12 @@ in {
   #v DO NOT REMOVE: defaults to 0.3, instead of latest, so always need to explicitly set this.
   services.pict-rs.package = pict-rs;
 
-  # pict-rs configuration is applied in this order:
-  # - via toml
-  # - via env vars (overrides everything above)
-  # - via CLI flags (overrides everything above)
-  # some of the CLI flags have defaults, making it the only actual way to configure certain things even when docs claim otherwise.
-  # CLI args: <https://git.asonix.dog/asonix/pict-rs#user-content-running>
   systemd.services.pict-rs = {
     serviceConfig.ExecStart = lib.mkForce (lib.concatStringsSep " " [
-      "${lib.getBin pict-rs}/bin/pict-rs run"
-      "--media-video-max-frame-count" (builtins.toString (30*60*60))
-      "--media-process-timeout 120"
-      "--media-video-allow-audio"  # allow audio
+      (lib.getExe pict-rs)
+      "--config-file"
+      tomlConfig
+      "run"
     ]);
 
     # hardening (systemd-analyze security pict-rs)

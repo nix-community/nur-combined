@@ -26,6 +26,9 @@ in
       [font]
       size = ${builtins.toString cfg.config.fontSize}
 
+      [cursor.style]
+      blinking = "Always"
+
       [[keyboard.bindings]]
       mods = "Control"
       key = "N"

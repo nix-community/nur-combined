@@ -8,7 +8,9 @@ let
   wanted-feeds = feeds.filterByFormat [ "podcast" "video" ] all-feeds;
 in {
   sane.programs.gpodder = {
-    packageUnwrapped = pkgs.gpodder-adaptive-configured.overrideAttrs (base: {
+    packageUnwrapped = (pkgs.gpodder-configured.override {
+      gpodder = pkgs.gpodder-adaptive;
+    }).overrideAttrs (base: {
       # environment variables:
       # - GPODDER_HOME (defaults to "~/gPodder")
       # - GPODDER_DOWNLOAD_DIR (defaults to "$GPODDER_HOME/Downloads")
@@ -22,7 +24,6 @@ in {
       ];
     });
 
-    sandbox.method = "bunpen";
     sandbox.whitelistDbus = [ "user" ];  # it won't launch without it, dunno exactly why.
     sandbox.whitelistWayland = true;
     sandbox.net = "clearnet";

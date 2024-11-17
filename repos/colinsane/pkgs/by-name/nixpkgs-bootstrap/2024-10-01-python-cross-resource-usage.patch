@@ -1,0 +1,23 @@
+commit bd996f1383845e255fb7efddd044996fcf45d578 (HEAD -> 2024-09-30-python-cross-fix)
+Author: Colin <colin@uninsane.org>
+Date:   2024-10-01 09:44:35 +0000
+
+    NOT FOR MERGE: reduce resource usage for cross-compiled python
+
+    this breaks `python.override { ... }`
+
+    for context, see: <https://github.com/NixOS/nixpkgs/issues/338231>
+
+diff --git a/pkgs/development/interpreters/python/cpython/default.nix b/pkgs/development/interpreters/python/cpython/default.nix
+index bb3dba534b79..4e0e2ced6e6b 100644
+--- a/pkgs/development/interpreters/python/cpython/default.nix
++++ b/pkgs/development/interpreters/python/cpython/default.nix
+@@ -132,7 +132,7 @@ let
+     # When we override the interpreter we also need to override the spliced versions of the interpreter
+     # bluez is excluded manually to break an infinite recursion.
+     inputs' = lib.filterAttrs (n: v: n != "bluez" && n != "passthruFun" && ! lib.isDerivation v) inputs;
+-    override = attr: let python = attr.override (inputs' // { self = python; }); in python;
++    override = attr: attr;
+   in passthruFun rec {
+     inherit self sourceVersion packageOverrides;
+     implementation = "cpython";

@@ -18,10 +18,9 @@ in
         rm "$out/bin/git-jump"
       '';
     });
-    sandbox.method = "bunpen";
     sandbox.net = "clearnet";
     sandbox.whitelistPwd = true;
-    sandbox.autodetectCliPaths = true;  # necessary for git-upload-pack
+    sandbox.autodetectCliPaths = "parent";  # autodetection is necessary for git-upload-pack; "parent" so that `git mv` works
     sandbox.extraHomePaths = [
       # even with `whitelistPwd`, git has to crawl *up* the path -- which isn't necessarily in the sandbox -- to locate parent .git files
       "dev"
@@ -46,6 +45,7 @@ in
       alias.dif     = "diff";  # common typo
       alias.difsum  = "diff --compact-summary";  #< show only the list of files which changed, not contents
       alias.rb      = "rebase";
+      alias.reset-head = "reset --hard HEAD";
       alias.st      = "status";
       alias.stat    = "status";
 
@@ -54,7 +54,7 @@ in
       # - <https://difftastic.wilfred.me.uk/git.html>
       diff.tool = "difftastic";
       difftool.prompt = false;
-      "difftool \"difftastic\"".cmd = ''${pkgs.difftastic}/bin/difft "$LOCAL" "$REMOTE"'';
+      "difftool \"difftastic\"".cmd = ''${lib.getExe pkgs.difftastic} "$LOCAL" "$REMOTE"'';
       # now run `git difftool` to use difftastic git
 
       # render dates as YYYY-MM-DD HH:MM:SS +TZ

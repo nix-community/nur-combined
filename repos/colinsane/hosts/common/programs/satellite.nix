@@ -50,7 +50,6 @@
 { ... }:
 {
   sane.programs.satellite = {
-    sandbox.method = "bwrap";
     sandbox.whitelistDbus = [
       "system"  #< reads NMEA data via ModemManager
     ];

@@ -124,7 +124,7 @@
     # peerswap:
     # - config example: <https://github.com/fort-nix/nix-bitcoin/pull/462/files#diff-b357d832705b8ce8df1f41934d613f79adb77c4cd5cd9e9eb12a163fca3e16c6>
     # XXX: peerswap crashes clightning on launch. stacktrace is useless.
-    # plugin={pkgs.peerswap}/bin/peerswap
+    # plugin={lib.getExe' pkgs.peerswap "peerswap"}
     # peerswap-db-path=/var/lib/clightning/peerswap/swaps
     # peerswap-policy-path=...
   '';

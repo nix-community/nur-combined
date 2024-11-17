@@ -1,9 +1,14 @@
-{ ... }:
+{ pkgs, ... }:
 {
   sane.programs.kdenlive = {
     buildCost = 1;
 
-    sandbox.method = "bunpen";
+    packageUnwrapped = pkgs.kdenlive.overrideAttrs (base: {
+      qtWrapperArgs = base.qtWrapperArgs ++ [
+        "--set QP_QPA_PLATFORM wayland"
+      ];
+    });
+
     sandbox.extraHomePaths = [
       "Music"
       "Pictures/from"  # e.g. Videos taken from my phone
@@ -16,6 +21,6 @@
     sandbox.whitelistDbus = [ "user" ];  # notifications
     sandbox.whitelistDri = true;
     sandbox.whitelistWayland = true;
-    sandbox.whitelistX = true;
+    # sandbox.whitelistX = true;  #< or run with `QT_QPA_PLATFORM=wayland`, without X(wayland)
   };
 }

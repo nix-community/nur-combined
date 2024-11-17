@@ -94,12 +94,14 @@ in
       "rofi-run-command"
     ];
 
-    sandbox.method = "bunpen";
     sandbox.whitelistDbus = [ "user" ];  #< to launch apps via the portal
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       ".local/share/applications"  #< to locate .desktop files
       "Apps"  #< provide a means to transition from the filebrowser to the app launcher
+      "Books/Audiobooks"
+      "Books/Books"
+      "Books/Visual"
       "Books/local"
       "Books/servo"
       "Music"
@@ -118,9 +120,8 @@ in
     sandbox.extraPaths = [
       "/mnt/servo/media"
       "/mnt/servo/playground"
-      "/proc"  #< if we wish to launch nested bwrap while we have isolatePids=false, a full /proc is necessary
     ];
-    sandbox.isolatePids = false; # for sane-open to toggle keyboard
+    sandbox.keepPidsAndProc = true; # for sane-open to toggle keyboard
 
     fs.".config/rofi/config.rasi".symlink.target = ./config.rasi;
     fs."Apps".symlink.target = ".local/share/applications/rofi-applications.desktop";
@@ -140,7 +141,12 @@ in
       srcRoot = ./.;
       pkgs = [ "sane-open" ];
     };
-    sandbox.enable = false;  #< trivial script, and all our deps are sandboxed
+    # sandboxing options cribbed from sane-open
+    sandbox.autodetectCliPaths = "existing";  # for when opening a file
+    sandbox.whitelistDbus = [ "user" ];
+    sandbox.keepPidsAndProc = true;
+    sandbox.extraHomePaths = [ ".local/share/applications" ];
+    sandbox.extraRuntimePaths = [ "sway" ];
 
     suggestedPrograms = [
       "sane-open"
@@ -168,7 +174,6 @@ in
         })
       ];
     };
-    sandbox.method = "bunpen";
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       ".cache/rofi"

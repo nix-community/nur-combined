@@ -1,8 +1,4 @@
-{ config, lib, ... }:
-
-let
-  inherit (lib) mkIf mkOption types;
-in
+{ lib, ... }:
 {
   imports = [
     ./bluetooth-pairings.nix
@@ -10,7 +6,7 @@ in
   ];
 
   # option is consumed by the other imports in this dir
-  options.sane.roles.client = mkOption {
+  options.sane.roles.client = with lib; mkOption {
     type = types.bool;
     default = false;
   };

@@ -18,10 +18,47 @@ let
 in {
   sane.programs.zsh.fs = lib.mkIf enabled {
     ".config/zsh/.zshrc".symlink.text = ''
-      eval "$(${pkgs.starship}/bin/starship init zsh)"
+      eval "$(${lib.getExe pkgs.starship} init zsh)"
     '';
-    ".config/starship.toml".symlink.target = toml.generate "starship.toml" {
+    ".config/starship.toml".symlink.target = let
+      x1b = builtins.fromJSON '' "\u001b" '';  # i.e `^[`
+      set = opt: "${x1b}\\[?${opt}h";
+      clear = opt: "${x1b}\\[?${opt}l";
+    in toml.generate "starship.toml" {
       format = builtins.concatStringsSep "" [
+        # reset terminal mode (in case the previous command screwed with it)
+        # 'l' = turn option of, 'h' = turn option on.
+        #
+        # options are enumerated in Alacritty's VTE library's `PrivateMode` type:
+        # - <https://github.com/alacritty/vte/blob/ebc4a4d7259678a8626f5c269ea9348dfc3e79b2/src/ansi.rs#L845>
+        # see also the reset code path (does a bit too much, like clearing the screen):
+        # - <https://github.com/alacritty/alacritty/blob/6067787763e663bd308e5b724a5efafc2c54a3d1/alacritty_terminal/src/term/mod.rs#L1802>
+        # and the crucial TermMode::default: <https://github.com/alacritty/alacritty/blob/master/alacritty_terminal/src/term/mod.rs#L113>
+        #
+        # query the state of any mode bit `<n>` with `printf '\033[?<n>$p'`
+        # e.g. `printf '\033[?7$p'` returns `^[[?7;1$y` with the `1` indicating it's **set**,
+        #      `printf '\033[?1000$p'` returns `^[[?1000;2$y` with the `2` indicating it's **unset**.
+        #
+        # TODO: unset Line mode and Insert mode?
+        (clear "1")      # Cursor Keys
+        # (clear "3")    # Column Mode (i.e. clear screen/history)
+        (clear "6")      # Origin
+        (set "7")        # Line Wrap
+        (clear "12")     # Blinking Cursor
+        (set "25")       # Show Cursor
+        (clear "1000")   # Report Mouse Clicks
+        (clear "1002")   # Report Cell Mouse Motion
+        (clear "1003")   # Report All Mouse Motion
+        (clear "1004")   # Report Focus In/Out
+        (clear "1005")   # UTF8 Mouse
+        (clear "1006")   # Sgr Mouse
+        (set "1007")     # Alternate Scroll
+        (set "1042")     # Urgency Hints
+        # (clear "1049") # Swap Screen And Set Restore Cursor
+        (clear "2004")   # Bracketed Paste
+        (clear "2026")   # Sync Update
+
+        # prompt
         "[](${colors._01_purple})"
         "$os"
         "$username"

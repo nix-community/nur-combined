@@ -1,10 +1,8 @@
 { ... }:
 {
   sane.programs.htop = {
-    sandbox.method = "bunpen";
-    sandbox.isolatePids = false;
+    sandbox.keepPidsAndProc = true;
     sandbox.extraPaths = [
-      "/proc"
       "/sys/devices"
     ];
     fs.".config/htop/htoprc".symlink.target = ./htoprc;

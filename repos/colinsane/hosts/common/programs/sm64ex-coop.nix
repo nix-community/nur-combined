@@ -4,7 +4,6 @@ let
 in
 {
   sane.programs.sm64ex-coop = {
-    sandbox.method = "bunpen";
     sandbox.net = "all";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDri = true;

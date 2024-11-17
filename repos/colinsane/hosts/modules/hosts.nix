@@ -1,11 +1,8 @@
-{ config, lib, ... }:
+{ lib, ... }:
 
 let
-  inherit (lib) attrValues filterAttrs mkMerge mkOption types;
-  cfg = config.sane.hosts;
-
-  host = types.submodule ({ config, name, ... }: {
-    options = {
+  host = lib.types.submodule ({ config, name, ... }: {
+    options = with lib; {
       names = mkOption {
         type = types.listOf types.str;
         description = ''
@@ -69,7 +66,7 @@ let
 in
 {
   options = {
-    sane.hosts.by-name = mkOption {
+    sane.hosts.by-name = with lib; mkOption {
       type = types.attrsOf host;
       default = {};
       description = ''

@@ -16,7 +16,7 @@
 #   - $ZDOTDIR/.zlogout
 #   - /etc/zlogout
 
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 let
   cfg = config.sane.programs.zsh;
@@ -116,8 +116,11 @@ in
       "exi5" = "exit";
       "exiy" = "exit";
       # ls helpers (eza is a nicer `ls`
-      "l" = "eza --oneline";  # show one entry per line
-      "ll" = "eza --long --time-style=long-iso";
+      "l"   = "eza --time-style=long-iso --oneline";  # show one entry per line
+      "ll"  = "eza --time-style=long-iso --long";  # like ls -l
+      "lla" = "eza --time-style=long-iso --long --all";  # like ls -al
+      "la"  = "eza --time-style=long-iso --oneline --all";  #like ls -a
+      "lal" = "eza --time-style=long-iso --long --all";  # like ls -al
       # overcome poor defaults
       "lsof" = "lsof -P";  #< lsof: use port *numbers*, not names
       "quit" = "exit";

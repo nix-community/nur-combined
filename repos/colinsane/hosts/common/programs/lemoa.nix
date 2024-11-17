@@ -2,7 +2,6 @@
 {
   sane.programs.lemoa = {
     buildCost = 1;
-    sandbox.method = "bwrap";
     sandbox.net = "clearnet";
     sandbox.whitelistDbus = [ "user" ];  # for clicking links
     sandbox.whitelistDri = true;

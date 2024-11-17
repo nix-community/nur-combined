@@ -14,7 +14,7 @@
       # "sway"
       "wl-clipboard"
     ];
-    sandbox.method = "bwrap";
+    sandbox.keepPids = true;  #< needed by wl-clipboard
     sandbox.whitelistWayland = true;
     sandbox.whitelistDbus = [ "user" ];
     sandbox.autodetectCliPaths = "existingFileOrParent";

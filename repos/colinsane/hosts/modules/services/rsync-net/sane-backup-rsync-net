@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p nettools -p openssh -p rsync -p sane-scripts.vpn -p sanebox
+#!nix-shell -i bash -p bash -p nettools -p openssh -p rsync -p sane-scripts.vpn
 
 # rsync password auth doesn't work with rsync.net.
 # ssh keyfile auth *does* work, so i use that.
@@ -28,9 +28,7 @@ for dir in "$@"; do
   # N.B.: manual flags instead of `-a -> -rlptgoD` because device files have a max path length which is too restricted
   # TODO: add `sane-vpn do unmetered --`, after fixing pasta/sane-vpn to preserve capabilities + not create a new user namespace unconditionally.
   # until then, don't run over cellular!
-  if SANEBOX_PREPEND="--sanebox-method landlock --sanebox-cap dac_read_search --sanebox-path $RN_ID" \
-    rsync --exclude="$RN_ID" -e "ssh -i $RN_ID" --mkpath -rlptgov --delete "$dir" "$remote_dir"; \
-  then
+  if rsync --exclude="$RN_ID" -e "ssh -i $RN_ID" --mkpath -rlptgov --delete "$dir" "$remote_dir"; then
     echo "$now" > "$dir"/zzz-rsync-net/last-completed
     rc=0$rc
   else

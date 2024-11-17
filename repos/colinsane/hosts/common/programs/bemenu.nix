@@ -87,7 +87,6 @@ let
 in
 {
   sane.programs.bemenu = {
-    sandbox.method = "bwrap";  # landlock works, but requires *all* of $XDG_RUNTIME_DIR to be granted.
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       ".cache/fontconfig"  #< else it complains, and is *way* slower

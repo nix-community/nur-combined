@@ -457,13 +457,12 @@ lib.mkIf false
         mod_version = {};
       };
     });
-    sed = "${pkgs.gnused}/bin/sed";
   in ''
     ip=$(cat '${config.sane.services.dyn-dns.ipPath}')
     # config is 444 (not 644), so we want to write out-of-place and then atomically move
     # TODO: factor this out into `sane-woop` helper?
     rm -f /var/lib/ejabberd/ejabberd.yaml.new
-    ${sed} "s/%ANATIVE%/$ip/g" ${config-in} > /var/lib/ejabberd/ejabberd.yaml.new
+    ${lib.getExe pkgs.gnused} "s/%ANATIVE%/$ip/g" ${config-in} > /var/lib/ejabberd/ejabberd.yaml.new
     mv /var/lib/ejabberd/ejabberd.yaml{.new,}
   '';
 

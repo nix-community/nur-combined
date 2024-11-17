@@ -81,6 +81,11 @@
   sane.ids.wireshark.gid = 2006;
   sane.ids.nixremote.uid = 2007;
   sane.ids.nixremote.gid = 2007;
+  sane.ids.unbound.uid = 2008;
+  sane.ids.unbound.gid = 2008;
+  sane.ids.resolvconf.gid = 2009;
+  sane.ids.smartd.uid = 2010;
+  sane.ids.smartd.gid = 2010;
 
   # found on graphical hosts
   sane.ids.nm-iodine.uid = 2101;  # desko/moby/lappy

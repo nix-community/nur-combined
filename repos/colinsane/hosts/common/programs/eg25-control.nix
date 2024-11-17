@@ -6,9 +6,13 @@ in
   sane.programs.eg25-control = {
     suggestedPrograms = [ "mmcli" ];
 
-    sandbox.method = "bwrap";
     sandbox.extraPaths = [
-      "/sys/class/modem-power"
+      "/dev/gpiochip0"  # Pinephone Pro
+      "/dev/gpiochip1"  # Pinephone
+      "/dev/gpiochip3"  # Pinephone Pro
+      # "/sys/class/modem-power"
+      "/sys/bus/gpio"
+      "/sys/dev/char"
       "/sys/devices"
       # "/var/lib/eg25-control"
     ];
@@ -49,7 +53,7 @@ in
       # - eg25-control-gps: moves new/<agps> into cache/
       #   - but it moved the result (possibly incomplete) of eg25-control-freshen-agps, incorrectly
       # in practice, i don't expect much issue from this.
-      ExecStart = "${cfg.package}/bin/eg25-control --ensure-agps-cache --verbose";
+      ExecStart = "${lib.getExe cfg.package} --ensure-agps-cache --verbose";
       Restart = "no";
 
       User = "colin";
@@ -60,11 +64,9 @@ in
     # wantedBy = [ "network-online.target" ]; # auto-start immediately after boot
   };
 
-  services.udev.extraRules = let
-    chmod = "${pkgs.coreutils}/bin/chmod";
-    chown = "${pkgs.coreutils}/bin/chown";
-  in lib.optionalString cfg.enabled ''
-    # make Modem controllable by user
-    DRIVER=="modem-power", RUN+="${chmod} g+w /sys%p/powered", RUN+="${chown} :networkmanager /sys%p/powered"
+  services.udev.extraRules = lib.optionalString cfg.enabled ''
+    # make modem controllable by user
+    # DRIVER=="modem-power", RUN+="chmod g+w /sys%p/powered", RUN+="chown :networkmanager /sys%p/powered"
+    SUBSYSTEM=="gpio", MODE="660" GROUP="input"
   '';
 }

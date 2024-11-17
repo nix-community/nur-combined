@@ -46,7 +46,7 @@ in
   #   🇲 𝐌  ₘ  m̄  m⃞  m̋⃞  M⃞  󰫺 󰬔
   # - discord
   #     󰙯 󰊴 󰺷 🎮
-  gps = serviceButton "gps" "";
+  gps = serviceButton "gps.target" "";
   cell-modem = serviceButton "eg25-control-powered" "󰺐";
 
   gnome-calls = serviceButton "gnome-calls" "";

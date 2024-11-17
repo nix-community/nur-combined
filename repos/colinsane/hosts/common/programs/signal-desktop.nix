@@ -22,7 +22,6 @@ in
     };
 
     packageUnwrapped = pkgs.signal-desktop-from-src;
-    sandbox.method = "bunpen";
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [

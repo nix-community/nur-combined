@@ -3,13 +3,12 @@
   boot.initrd.supportedFilesystems = [ "ext4" "btrfs" "ext2" "ext3" "vfat" ];
   # useful emergency utils
   boot.initrd.extraUtilsCommands = ''
-    copy_bin_and_libs ${pkgs.btrfs-progs}/bin/btrfstune
-    copy_bin_and_libs ${pkgs.util-linux}/bin/{cfdisk,lsblk,lscpu}
-    copy_bin_and_libs ${pkgs.gptfdisk}/bin/{cgdisk,gdisk}
-    copy_bin_and_libs ${pkgs.smartmontools}/bin/smartctl
-    copy_bin_and_libs ${pkgs.e2fsprogs}/bin/resize2fs
-  '' + lib.optionalString pkgs.stdenv.hostPlatform.isx86_64 ''
-    copy_bin_and_libs ${pkgs.nvme-cli}/bin/nvme  # doesn't cross compile
+    copy_bin_and_libs ${lib.getExe' pkgs.btrfs-progs "btrfstune"}
+    copy_bin_and_libs ${lib.getExe' pkgs.util-linux "{cfdisk,lsblk,lscpu}"}
+    copy_bin_and_libs ${lib.getExe' pkgs.gptfdisk "{cgdisk,gdisk}"}
+    copy_bin_and_libs ${lib.getExe' pkgs.smartmontools "smartctl"}
+    copy_bin_and_libs ${lib.getExe' pkgs.e2fsprogs "resize2fs"}
+    copy_bin_and_libs ${lib.getExe pkgs.nvme-cli}
   '';
   boot.kernelParams = [
     "boot.shell_on_fail"
@@ -28,11 +27,7 @@
   # - as of 2024/08/xx, my boot fails on 6.6, but works on 6.9 and (probably; recently) 6.8.
   # simpler to keep near the latest kernel on all devices,
   # and also makes certain that any weird system-level bugs i see aren't likely to be stale kernel bugs.
-  # servo needs zfs though, which doesn't support every kernel.
-  #
-  # further, `zfs.latestCompatibleLinuxPackage` ocassionally _downgrades_. e.g. when 6.8 EOL'd, it went back to 6.6.
-  # therefore, we have to use `zfs_unstable` (!!)
-  boot.kernelPackages = lib.mkDefault pkgs.zfs_unstable.latestCompatibleLinuxPackages;
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
   # hack in the `boot.shell_on_fail` arg since that doesn't always seem to work.
   boot.initrd.preFailCommands = "allowShell=1";

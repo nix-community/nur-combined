@@ -22,7 +22,7 @@ let
   _bitcoindWithExternalIp = pkgs.writeShellScriptBin "bitcoind" ''
     set -xeu
     externalip="$(cat /var/lib/tor/onion/bitcoind/hostname)"
-    exec ${bitcoind}/bin/bitcoind "-externalip=$externalip" "$@"
+    exec ${lib.getExe' bitcoind "bitcoind"} "-externalip=$externalip" "$@"
   '';
   # the package i provide to services.bitcoind ends up on system PATH, and used by other tools like clightning.
   # therefore, even though services.bitcoind only needs `bitcoind` binary, provide all the other bitcoin-related binaries (notably `bitcoin-cli`) as well:

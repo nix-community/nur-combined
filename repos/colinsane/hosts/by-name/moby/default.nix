@@ -12,7 +12,7 @@
     ./fs.nix
   ];
 
-  sane.hal.pine64.enable = true;
+  sane.hal.pine64-pinephone-pro.enable = true;
   sane.roles.client = true;
   sane.roles.handheld = true;
   sane.services.wg-home.enable = true;
@@ -35,6 +35,8 @@
   sane.programs.eg25-control.enableFor.user.colin = true;
   # sane.programs.rtl8723cs-wowlan.enableFor.user.colin = true;
 
+  sane.programs.eg25-manager.enableFor.user.colin = true;
+
   # sane.programs.ntfy-sh.config.autostart = true;
   sane.programs.dino.config.autostart = true;
   sane.programs.signal-desktop.config.autostart = false;
@@ -56,9 +58,8 @@
     max-quantum = 8192;
   };
 
-  sane.programs.mpv.config.default_profile = "fast";
+  sane.programs.mpv.config.defaultProfile = "fast";
 
-  # /boot space is at a premium. default was 20.
-  # even 10 can be too much
-  boot.loader.generic-extlinux-compatible.configurationLimit = 8;
+  # /boot space is at a premium, especially with uncompressed kernels. default was 20.
+  boot.loader.generic-extlinux-compatible.configurationLimit = 10;
 }

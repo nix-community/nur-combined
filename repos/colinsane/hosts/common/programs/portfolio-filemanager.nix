@@ -2,7 +2,6 @@
 {
   sane.programs.portfolio-filemanager = {
     # this is all taken pretty directly from nautilus config
-    sandbox.method = "bwrap";
     sandbox.whitelistDbus = [ "user" ];  # for portals launching apps
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
@@ -10,8 +9,17 @@
       "/"
       ".persist/ephemeral"
       ".persist/plaintext"
+      "Pictures/Photos"
+      "Pictures/Screenshots"
+      "Pictures/albums"
+      "Pictures/cat"
+      "Pictures/from"
+      "Videos/local"
+      "archive"
       "knowledge"
       "nixos"
+      "records"
+      "tmp"
     ];
     sandbox.extraPaths = [
       "/boot"

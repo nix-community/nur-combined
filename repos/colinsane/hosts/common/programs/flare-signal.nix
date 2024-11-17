@@ -74,12 +74,10 @@
       # also persists a secret in ~/.local/share/keyrings. reset with:
       # - `secret-tool search --all --unlock 'xdg:schema' 'de.schmidhuberj.Flare'`
       # - `secret-tool clear 'xdg:schema' 'de.schmidhuberj.Flare'`
-      # and it persists some dconf settings (e.g. device name). reset with:
-      # - `dconf reset -f /de/schmidhuberj/Flare/`.
     ];
+    gsettingsPersist = [ "/de/schmidhuberj/Flare/" ];
     #VVV flare complains if its data directory is a symlink, so put it in a subdirectory behind my persistence symlink.
     env.FLARE_DATA_PATH = "$HOME/.local/share/flare/data";
-    # sandbox.method = "bwrap";
     # sandbox.net = "clearnet";
     # sandbox.whitelistWayland = true;
     # sandbox.whitelistDbus = [

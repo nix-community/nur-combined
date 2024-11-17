@@ -35,12 +35,14 @@ let
     ;
     in assert terminal -> events == []; events;
 
-  # trigger ${button}_hold_N every `holdTime` ms until ${button} is released
-  recurseHold = button: { count ? 1, maxHolds ? 3, holdTime ? 1000 }@opts: {
+  # trigger ${button}_hold_N repeatedly for as long as ${button} is held.
+  # ${holdTimes[N]}: how long to wait after the N'th event before firing the event again.
+  #   if the holdTimes list has fewer items than `maxHolds`, then the list is extended by duplicating its last item.
+  recurseHold = button: { count ? 1, maxHolds ? 8, holdTimes ? [ 500 2500 ] }@opts: {
     trigger = "${button}_hold_${builtins.toString count}";
-    ms = holdTime;
+    ms = builtins.elemAt holdTimes (count - 1);
   } // lib.optionalAttrs (count < maxHolds) {
-    timeout = recurseHold button (opts // { count = count+1; });
+    timeout = recurseHold button (opts // { count = count+1; holdTimes = holdTimes ++ [(lib.last holdTimes)]; });
     # end the hold -> back to root state
     # take care to omit this on the last hold though, so that there's always a strictly delay-driven path back to root
     "${button}_released".terminal = true;
@@ -59,6 +61,8 @@ in
               "1:1:AT_Translated_Set_2_keyboard"  #< Thinkpad volume buttons (plus all its other buttons)
               "0:0:axp20x-pek"  #< Pinephone power button
               "1:1:1c21800.lradc"  #< Pinephone volume buttons
+              "1:1:gpio-keys"  #< Pinephone Pro power button
+              "1:1:adc-keys"  #< Pinephone Pro volume buttons
             ];
             description = ''
               list of devices which we should listen for special inputs from.
@@ -93,11 +97,10 @@ in
       "xdg-terminal-exec"
       "wvkbd"
     ];
-    sandbox.method = "bwrap";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  #< to launch applications
     sandbox.extraRuntimePaths = [ "sway" ];
-    sandbox.isolatePids = false;  #< for toggling the keyboard
+    sandbox.keepPidsAndProc = true;  #< for toggling the keyboard
   };
 
   # sane.programs.actkbd = {
@@ -116,7 +119,7 @@ in
   #     after = [ "graphical-session.target" ];
   #     wantedBy = [ "graphical-session.target" ];
 
-  #     serviceConfig.ExecStart = "${config.sane.programs.actkbd.package}/bin/actkbd -c /home/colin/.config/actkbd/actkbd.conf";
+  #     serviceConfig.ExecStart = "${lib.getExe config.sane.programs.actkbd.package} -c /home/colin/.config/actkbd/actkbd.conf";
   #   };
   # };
 
@@ -129,11 +132,11 @@ in
 
     # map: power (tap), power (tap) x2
     power_pressed.power_released.trigger = "power_tap_1";
-    power_pressed.power_released.timeout.ms = 600;  # max time within which a second power press will be recognized
+    power_pressed.power_released.timeout.ms = 750;  # max time within which a second power press will be recognized
     power_pressed.power_released.power_pressed.power_released.trigger = "power_tap_2";
     # map power (hold), power tap -> hold:
     power_pressed.timeout.trigger = "power_hold";
-    power_pressed.timeout.ms = 600;
+    power_pressed.timeout.ms = 500;
     power_pressed.power_released.power_pressed.timeout.trigger = "power_tap_1_hold";
     power_pressed.power_released.power_pressed.timeout.ms = 750;  # this is a long timeout because it's tied to the "kill window" action.
 

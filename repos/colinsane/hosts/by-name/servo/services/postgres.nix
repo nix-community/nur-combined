@@ -29,9 +29,11 @@ in
   # - as `sudo su postgres`:
   #   - `cd /var/lib/postgreql`
   #   - `psql -f state.sql`
+  #     (for a compressed dump: `gunzip --stdout state.sql.gz | psql`)
   # - restart dependent services (maybe test one at a time)
 
-  services.postgresql.package = pkgs.postgresql_15;
+  services.postgresql.package = pkgs.postgresql_16;
+
 
 
   # XXX colin: for a proper deploy, we'd want to include something for Pleroma here too.
@@ -48,22 +50,23 @@ in
   # - for recommended values see: <https://pgtune.leopard.in.ua/>
   # - for official docs (sparse), see: <https://www.postgresql.org/docs/11/config-setting.html#CONFIG-SETTING-CONFIGURATION-FILE>
   services.postgresql.settings = {
-    # DB Version: 15
+    # DB Version: 16
     # OS Type: linux
     # DB Type: web
-    # Total Memory (RAM): 32 GB
+    # vvv artificially constrained because the server's resources are shared across maaany services
+    # Total Memory (RAM): 12 GB
     # CPUs num: 12
     # Data Storage: ssd
     max_connections = 200;
-    shared_buffers = "8GB";
-    effective_cache_size = "24GB";
-    maintenance_work_mem = "2GB";
+    shared_buffers = "3GB";
+    effective_cache_size = "9GB";
+    maintenance_work_mem = "768MB";
     checkpoint_completion_target = 0.9;
     wal_buffers = "16MB";
     default_statistics_target = 100;
     random_page_cost = 1.1;
     effective_io_concurrency = 200;
-    work_mem = "10485kB";
+    work_mem = "3932kB";
     min_wal_size = "1GB";
     max_wal_size = "4GB";
     max_worker_processes = 12;

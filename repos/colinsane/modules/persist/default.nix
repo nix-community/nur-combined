@@ -46,21 +46,6 @@ let
           preferred way to link items from the store into the fs
         '';
       };
-      defaultOrdering.wantedBeforeBy = mkOption {
-        type = types.listOf types.str;
-        default = [ "local-fs.target" ];
-        description = ''
-          list of units or targets which would prefer that everything in this store
-          be initialized before they run, but failing to do so should not error the items in this list.
-        '';
-      };
-      defaultOrdering.wantedBy = mkOption {
-        type = types.listOf types.str;
-        default = [ ];
-        description = ''
-          list of units or targets which, upon activation, should activate all units in this store.
-        '';
-      };
     };
   };
 
@@ -133,6 +118,19 @@ let
     }
   ];
 
+  # set the `store` attribute on one dir attrset
+  annotateWithStore = store: dir: {
+    "${dir.path}".store = store;
+  };
+  # convert an `entryInStore` to an `entryAtPath` (less the `store` item)
+  dirToAttrs = dir: {
+    "${dir.path}" = builtins.removeAttrs dir ["path"];
+  };
+  # AttrSet -> (store -> path -> AttrSet) -> [AttrSet]
+  applyToAllStores = byStore: f: lib.concatMap
+    (store: map (f store) byStore."${store}")
+    (builtins.attrNames byStore);
+
   # this submodule converts store-based access to path-based access so that the user can specify e.g.:
   #   <top>.byStore.private = [ ".cache/vim" ];
   #   <top>.byStore.private = [ { path=".cache/vim"; mode = "0700"; } ];
@@ -155,39 +153,19 @@ let
         '';
       };
     };
-    config = let
-      # set the `store` attribute on one dir attrset
-      annotateWithStore = store: dir: {
-        "${dir.path}".store = store;
-      };
-      # convert an `entryInStore` to an `entryAtPath` (less the `store` item)
-      dirToAttrs = dir: {
-        "${dir.path}" = builtins.removeAttrs dir ["path"];
-      };
-      # store-names = attrNames cfg.stores;
-      # :: (store -> entry -> AttrSet) -> [AttrSet]
-      # applyToAllStores = f: lib.concatMap
-      #   (store: map (f store) config.byStore."${store}")
-      #   store-names;
-      applyToAllStores = f: lib.concatMap
-        (store: map (f store) config.byStore."${store}")
-        (builtins.attrNames config.byStore);
-    in {
+    config = {
       byPath = lib.mkMerge (concatLists [
         # convert the list-style per-store entries into attrsOf entries
-        (applyToAllStores (_store: dirToAttrs))
+        (applyToAllStores config.byStore (_store: dirToAttrs))
         # add the `store` attr to everything we ingested
-        (applyToAllStores annotateWithStore)
+        (applyToAllStores config.byStore annotateWithStore)
       ]);
     };
   });
 in
 {
   options = {
-    sane.persist.enable = mkOption {
-      default = false;
-      type = types.bool;
-    };
+    sane.persist.enable = mkEnableOption "selectively persist data to disk";
     sane.persist.sys = mkOption {
       description = "directories (or files) to persist to disk, relative to the fs root /";
       default = {};
@@ -217,9 +195,7 @@ in
       in lib.mkMerge [
         {
           # create destination dir, with correct perms
-          sane.fs."${fspath}" = {
-            inherit (store.defaultOrdering) wantedBy wantedBeforeBy;
-          } // (lib.optionalAttrs (method == "bind") {
+          sane.fs."${fspath}" = (lib.optionalAttrs (method == "bind") {
             # inherit perms & make sure we don't mount until after the mount point is setup correctly.
             dir.acl = opt.acl;
             mount.bind = fsPathToBackingPath fspath;
@@ -231,8 +207,7 @@ in
         (lib.optionalAttrs (opt.type == "dir") {
           # create the backing path as a dir
           sane.fs."${fsPathToBackingPath fspath}" = {
-            wantedBeforeBy = [ config.sane.fs."${fspath}".unit ];
-            dir.acl = config.sane.fs."${fspath}".generated.acl;
+            dir.acl = config.sane.fs."${fspath}".acl;
           };
         })
         (lib.optionalAttrs (opt.type == "file") {
@@ -240,8 +215,7 @@ in
           # the old way was to create the parent directory and leave the file empty, expecting the program to create it.
           # that doesn't work well with sandboxing, where the fs handles we want to give the program have to exist before launch.
           sane.fs."${fsPathToBackingPath fspath}" = {
-            wantedBeforeBy = [ config.sane.fs."${fspath}".unit ];
-            file.acl = config.sane.fs."${fspath}".generated.acl;
+            file.acl = config.sane.fs."${fspath}".acl;
             file.text = lib.mkDefault "";
           };
         })
@@ -251,7 +225,7 @@ in
           sane.fs = lib.mkMerge (builtins.map
             (fsSubpath: {
               "${fsPathToBackingPath fsSubpath}" = {
-                dir.acl = config.sane.fs."${fsSubpath}".generated.acl;
+                dir.acl = config.sane.fs."${fsSubpath}".acl;
               };
             })
             (lib.init (path.walk store.prefix fspath))

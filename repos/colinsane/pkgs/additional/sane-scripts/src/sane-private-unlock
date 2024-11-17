@@ -1,7 +1,0 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p util-linux.mount
-
-# TODO: the mountpoint isn't created as part of startup: why?
-sudo mkdir -p /mnt/persist/private
-sudo chown colin:users /mmt/persist/private
-mount /mnt/persist/private

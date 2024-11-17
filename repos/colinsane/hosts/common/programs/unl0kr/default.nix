@@ -19,9 +19,11 @@ in
       };
     };
 
+    # pkgs.unl0kr works fine, but the newer version packaged as part of buffybox is way more performant
+    packageUnwrapped = pkgs.buffybox;
+
     # N.B.: this sandboxing applies to `unl0kr` itself -- the on-screen-keyboard;
     #       NOT to the wrapper which invokes `login`.
-    sandbox.method = "bunpen";
     sandbox.whitelistDri = true;
     sandbox.extraPaths = [
       "/dev/fb0"
@@ -52,10 +54,13 @@ in
               # this is racy, but when we race it's obvious from the UI that your password is being echo'd
               ${lib.getExe' pkgs.kbd "chvt"} "$XDG_VTNR"
             fi
-            unl0kr > /run/gocryptfs/private.key.incoming &&
+            # don't start unl0kr if there's no framebuffer yet, else it'll just not render anything, indefinitely.
+            test -e /dev/fb0 && \
+              unl0kr > /run/gocryptfs/private.key.incoming &&
               cp /run/gocryptfs/private.key.incoming /run/gocryptfs/private.key
             echo "unl0kr exited"
           fi
+          sleep 1
         done
         while true; do
           sleep infinity

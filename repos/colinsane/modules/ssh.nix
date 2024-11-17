@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -83,11 +83,34 @@ in
       { type = "ed25519"; path = "/etc/ssh/host_keys/ssh_host_ed25519_key"; }
     ];
 
-    services.openssh.knownHosts =
-    let
+    services.openssh.knownHosts = let
       host-keys = filter (k: k.user == "root") (attrValues config.sane.ssh.pubkeys);
-    in lib.mkMerge (builtins.map (key: {
-      "${key.host}".publicKey = key.typedPubkey;
-    }) host-keys);
+    in
+      lib.mkMerge (builtins.map
+        (key: {
+          "${key.host}".publicKey = key.typedPubkey;
+        })
+        host-keys
+      );
+
+    systemd.services.sshd = {
+      after = lib.mkForce [
+        # start ASAP, even earlier than `local-fs.target` because that one has a tendendency to fail when i tweak servo's config.
+        # TODO: would enabling socket activation actually be more resilient than this?
+        #   (this approach being limited that it's unclear if it'll bind to interfaces that are slow to be up'd,
+        #   although i think as long as sshd listens on the wildcard address, it'll handle new interfaces fine)
+        "local-fs-pre.target"
+      ];
+      serviceConfig.ExecStartPre = [
+        # sshd needs /var/empty (the privsep dir that nixos specifies for it (?);
+        # that would ordinarily be created by `systemd-tmpfiles-setup.service`, but that depends on local-fs.target,
+        # so create the dir ourselves early, without taking a dep on local-fs.target.
+        "-${lib.getExe' pkgs.systemd "systemd-tmpfiles"} --prefix=/var/empty --boot --create --graceful"
+      ];
+      unitConfig.DefaultDependencies = false;  #< don't depend on `basic.target`
+      unitConfig.StartLimitIntervalSec = 0;  #< restart *forever*
+      serviceConfig.Restart = "always";
+      serviceConfig.RestartSec = "2s";
+    };
   };
 }

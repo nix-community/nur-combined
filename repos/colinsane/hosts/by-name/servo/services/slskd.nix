@@ -34,7 +34,7 @@
     forceSSL = true;
     enableACME = true;
     locations."/" = {
-      proxyPass = "http://${config.sane.netns.ovpns.netnsVethIpv4}:5030";
+      proxyPass = "http://${config.sane.netns.ovpns.veth.netns.ipv4}:5030";
       proxyWebsockets = true;
     };
   };
@@ -73,7 +73,10 @@
   systemd.services.slskd = {
     # run this behind the OVPN static VPN
     serviceConfig.NetworkNamespacePath = "/run/netns/ovpns";
-    serviceConfig.ExecStartPre = [ "${lib.getExe pkgs.sane-scripts.ip-check} --no-upnp --expect ${config.sane.netns.ovpns.netnsPubIpv4}" ];  # abort if public IP is not as expected
+    serviceConfig.ExecStartPre = [
+      # abort if public IP is not as expected
+      "${lib.getExe pkgs.sane-scripts.ip-check} --no-upnp --expect ${config.sane.netns.ovpns.wg.address.ipv4}"
+    ];
 
     serviceConfig.Restart = lib.mkForce "always";  # exits "success" when it fails to connect to soulseek server
     serviceConfig.RestartSec = "60s";

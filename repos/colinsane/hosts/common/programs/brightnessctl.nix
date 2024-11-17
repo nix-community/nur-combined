@@ -4,7 +4,6 @@ let
 in
 {
   sane.programs.brightnessctl = {
-    sandbox.method = "bunpen";
     sandbox.extraPaths = [
       "/sys/class/backlight"
       "/sys/class/leds"
@@ -14,8 +13,8 @@ in
   };
 
   services.udev.extraRules = let
-    chmod = "${pkgs.coreutils}/bin/chmod";
-    chown = "${pkgs.coreutils}/bin/chown";
+    chmod = lib.getExe' pkgs.coreutils "chmod";
+    chown = lib.getExe' pkgs.coreutils "chown";
   in lib.mkIf cfg.enabled ''
     # make backlight controllable by members of `video`
     SUBSYSTEM=="backlight", RUN+="${chown} :video $sys$devpath/brightness", RUN+="${chmod} g+w $sys$devpath/brightness"

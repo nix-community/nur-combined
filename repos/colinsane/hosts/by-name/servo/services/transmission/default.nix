@@ -58,8 +58,8 @@ in
     # DOCUMENTATION/options list: <https://github.com/transmission/transmission/blob/main/docs/Editing-Configuration-Files.md#options>
 
     # message-level = 3;  #< enable for debug logging. 0-3, default is 2.
-    # ovpns.netnsVethIpv4 => allow rpc only from the root servo ns. it'll tunnel things to the net, if need be.
-    rpc-bind-address = config.sane.netns.ovpns.netnsVethIpv4;
+    # ovpns.veth.netns.ipv4 => allow rpc only from the root servo ns. it'll tunnel things to the net, if need be.
+    rpc-bind-address = config.sane.netns.ovpns.veth.netns.ipv4;
     #rpc-host-whitelist = "bt.uninsane.org";
     #rpc-whitelist = "*.*.*.*";
     rpc-authentication-required = true;
@@ -70,7 +70,7 @@ in
     rpc-whitelist-enabled = false;
 
     # force behind ovpns in case the NetworkNamespace fails somehow
-    bind-address-ipv4 = config.sane.netns.ovpns.netnsPubIpv4;
+    bind-address-ipv4 = config.sane.netns.ovpns.wg.address.ipv4;
     port-forwarding-enabled = false;
 
     # hopefully, make the downloads world-readable
@@ -104,16 +104,17 @@ in
     # - TR_TORRENT_NAME - Name of torrent (not filename)
     # - TR_TORRENT_TRACKERS - A comma-delimited list of the torrent's trackers' announce URLs
     script-torrent-done-enabled = true;
-    script-torrent-done-filename = "${torrent-done}/bin/torrent-done";
+    script-torrent-done-filename = lib.getExe torrent-done;
   };
 
+  # run this behind the OVPN static VPN
+  sane.netns.ovpns.services = [ "transmission" ];
   systemd.services.transmission = {
-    after = [ "wireguard-wg-ovpns.service" ];
-    partOf = [ "wireguard-wg-ovpns.service" ];
     environment.TR_DEBUG = "1";
-    # run this behind the OVPN static VPN
-    serviceConfig.NetworkNamespacePath = "/run/netns/ovpns";
-    serviceConfig.ExecStartPre = [ "${lib.getExe pkgs.sane-scripts.ip-check} --no-upnp --expect ${config.sane.netns.ovpns.netnsPubIpv4}" ];  # abort if public IP is not as expected
+    serviceConfig.ExecStartPre = [
+      # abort if public IP is not as expected
+      "${lib.getExe pkgs.sane-scripts.ip-check} --no-upnp --expect ${config.sane.netns.ovpns.wg.address.ipv4}"
+    ];
 
     serviceConfig.Restart = "on-failure";
     serviceConfig.RestartSec = "30s";
@@ -138,7 +139,7 @@ in
   systemd.services.backup-torrents = {
     description = "archive torrents to storage not owned by transmission";
     script = ''
-      ${pkgs.rsync}/bin/rsync -arv /var/lib/transmission/.config/transmission-daemon/torrents/ /var/backup/torrents/
+      ${lib.getExe pkgs.rsync} -arv /var/lib/transmission/.config/transmission-daemon/torrents/ /var/backup/torrents/
     '';
   };
   systemd.timers.backup-torrents = {
@@ -157,7 +158,7 @@ in
     # inherit kTLS;
     locations."/" = {
       # proxyPass = "http://ovpns.uninsane.org:9091";
-      proxyPass = "http://${config.sane.netns.ovpns.netnsVethIpv4}:9091";
+      proxyPass = "http://${config.sane.netns.ovpns.veth.netns.ipv4}:9091";
     };
   };
 

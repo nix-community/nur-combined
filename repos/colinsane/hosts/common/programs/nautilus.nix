@@ -14,7 +14,6 @@
     #   "gvfs"  # browse ftp://, etc  (TODO: fix!)
     # ];
 
-    sandbox.method = "bunpen";
     sandbox.whitelistDbus = [ "user" ];  # for portals launching apps
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [

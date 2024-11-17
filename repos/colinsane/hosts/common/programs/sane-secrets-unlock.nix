@@ -2,7 +2,6 @@
 {
   sane.programs."sane-secrets-unlock" = {
     packageUnwrapped = pkgs.sane-scripts.secrets-unlock;
-    sandbox.method = "bunpen";
     sandbox.extraHomePaths = [
       ".ssh/id_ed25519"
       ".ssh/id_ed25519.pub"

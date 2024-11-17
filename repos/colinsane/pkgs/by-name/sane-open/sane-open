@@ -1,0 +1,269 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p bash -p glib -p jq -p procps -p sway -p util-linux -p xdg-utils
+
+set -e
+
+usage() {
+  echo "usage: sane-open [options] <org.my.desktop | /path/to/file | URI>"
+  echo "given some resource, ask the xdg-desktop-portal service to open it"
+  echo "this could be either the name of an application, or a URI identifying a file"
+  echo
+  echo "options:"
+  echo "--auto-keyboard: toggle the virtual keyboard state to whatever's preferred by the app"
+  echo "--application <thing.desktop>: open the desktop file (by name, not path)"
+  echo "--debug: enable logging"
+  echo "--file </path/to/file>: open the file using the default mime handler"
+  echo "--uri <uri>: open the URI using the default mime handler"
+  echo "  e.g. --uri https://uninsane.org"
+  exit $1
+}
+
+log() {
+  if [ -n "$SANE_OPEN_DEBUG" ]; then
+    printf 'sane-open: %s\n' "$1" >&2
+  fi
+}
+
+configureKeyboardFor_application() {
+  log "configureKeyboardFor_application: $1"
+  case "$1" in
+    (Alacritty.desktop)
+      setKeyboard show
+      ;;
+    (app.drey.Dialect.desktop)
+      setKeyboard showIfRoom
+      ;;
+    (com.github.hugolabe.Wike.desktop)
+      setKeyboard showIfRoom
+      ;;
+    # (io.github.lainsce.Notejot.desktop)
+    #   setKeyboard showIfRoom
+    #   ;;
+    (networkmanager_dmenu.desktop)
+      setKeyboard showIfRoom
+      ;;
+    (org.gnome.Epiphany.desktop)
+      setKeyboard showIfRoom
+      ;;
+    (rofi.desktop)
+      setKeyboard showIfRoom
+      ;;
+    (rofi-applications.desktop)
+      setKeyboard showIfRoom
+      ;;
+    (rofi-filebrowser.desktop)
+      setKeyboard showIfRoom
+      ;;
+    (rofi-snippets.desktop)
+      setKeyboard showIfRoom
+      ;;
+    (sane-screenshot.desktop)
+      # leave unchanged
+      ;;
+    (xdg-terminal-exec.desktop)
+      setKeyboard show
+      ;;
+    (youtube-tui.desktop)
+      setKeyboard show
+      ;;
+    (*)
+      setKeyboard hide
+      ;;
+  esac
+}
+
+configureKeyboardFor_file() {
+  log "configureKeyboardFor_file: $1"
+  local mime=$(xdg-mime query filetype "$1")
+  local application=$(xdg-mime query default "$mime")
+  configureKeyboardFor_application "$application"
+}
+
+configureKeyboardFor_uri() {
+  log "configureKeyboardFor_uri: $1"
+}
+
+open_application() {
+  log "open_application: '$1'"
+  gdbus call --session --timeout 10 \
+    --dest org.freedesktop.portal.Desktop \
+    --object-path /org/freedesktop/portal/desktop \
+    --method org.freedesktop.portal.DynamicLauncher.Launch \
+    "$1" {}
+}
+open_desktopFile() {
+  log "open_desktopFile: '$1'"
+  local target=$(tryAsDesktopFile "$1")
+  if [ -n "$target" ]; then
+    open_application "$target"
+  else
+    log "open_desktopFile: '$path' does not deref to anything in ~/.local/share/applications: falling back to heuristics"
+    # assume that the deref'd name matches the application name.
+    # there's nothing *guaranteeing* this, but i have yet to see it fail.
+    local target=$(basename "$path")
+    open_application "$target"
+  fi
+}
+open_file() {
+  # open the file, and then pass the fd to dbus
+  log "open_file: '$1'"
+  exec 3< "$1"
+  gdbus call --session --timeout 10 \
+    --dest org.freedesktop.portal.Desktop \
+    --object-path /org/freedesktop/portal/desktop \
+    --method org.freedesktop.portal.OpenURI.OpenFile \
+    "" 3 "{'ask': <false>}"
+}
+open_uri() {
+  log "open_uri: '$1'"
+  gdbus call --session --timeout 10 \
+    --dest org.freedesktop.portal.Desktop \
+    --object-path /org/freedesktop/portal/desktop \
+    --method org.freedesktop.portal.OpenURI.OpenURI \
+    "" "$1" "{'ask': <false>}"
+}
+
+# evaluate truthy and print desktop name as `FOO.desktop` if the provided file is a .desktop file suitable for open_application.
+tryAsDesktopFile() {
+  # open_application (i.e. the DynamicLauncher portal) only understands applications by their
+  # .desktop filename (relative to ~/.local/share/applications) -- not by their full path.
+  # therefore, see if this .desktop file is equivalent to anything in ~/.local/share/applications.
+  local path="$1"
+  if [[ "${path:0:1}" != "/" ]]; then
+    path="$PWD/$path"
+  fi
+  if [[ "$path" == $HOME/.local/share/applications/*.desktop ]]; then
+    echo $(basename "$path")
+    return
+  fi
+  # the given path doesn't exist in ~/.local/share/applications: check if it's a symlink which
+  # derefs to an application
+  local target=$(readlink "$path")
+  if [ -n "$target" ]; then
+    log "tryAsDesktopFile: deref'd $1 -> $target"
+    if [[ "${target:0:1}" != "/" ]]; then
+      target=$(dirname "$path")/$target
+    fi
+    tryAsDesktopFile "$target"
+  else
+    log "tryAsDesktopFile: '$path' does not deref to anything in ~/.local/share/applications"
+  fi
+}
+
+
+isLandscape() {
+  # success if all outputs are landscape
+  swaymsg -t get_outputs --raw \
+    | jq --exit-status '. | all(.rect.width > .rect.height)' \
+    > /dev/null
+}
+
+_keyboardPid=
+setKeyboard() {
+  if [ -z "$KEYBOARD" ]; then
+    log "KEYBOARD is not set: not setting keyboard $1"
+    return
+  fi
+  if [ -z "$_keyboardPid" ]; then
+    _keyboardPid=$(pidof "$KEYBOARD")
+    if [ -z "$_keyboardPid" ]; then
+      log "KEYBOARD ($KEYBOARD) instance is not found"
+      return
+    fi
+  fi
+  _setKeyboard "$1"
+}
+_setKeyboard() {
+  case "$1" in
+    "show")
+      log "show keyboard $_keyboardPid"
+      for p in $_keyboardPid; do
+        # `env` so that we get the util-linux `kill` binary instead of bash's builtin
+        # break in case of multiple keyboard processes (might not be necessary?)
+        if env kill -s USR2 "$p"; then
+          break
+        fi
+      done
+      ;;
+    "showIfRoom")
+      isLandscape && _setKeyboard "hide" || _setKeyboard "show"
+      ;;
+    "hide")
+      log "hide keyboard $_keyboardPid"
+      for p in $_keyboardPid; do
+        if env kill -s USR1 "$p"; then
+          break
+        fi
+      done
+      ;;
+  esac
+}
+
+
+## ARGUMENT PARSING
+
+autoKeyboard=
+resource=
+resourceType=
+while [ $# -gt 0 ]; do
+  arg="$1"
+  shift
+  case "$arg" in
+    ("--application")
+      resourceType="application"
+      ;;
+    ("--auto-keyboard")
+      autoKeyboard=1
+      ;;
+    ("--debug")
+      SANE_OPEN_DEBUG=1
+      ;;
+    ("--desktop-file")
+      resourceType="desktopFile"
+      ;;
+    ("--help")
+      usage 0
+      ;;
+    ("--file")
+      resourceType="file"
+      ;;
+    ("--uri")
+      resourceType="uri"
+      ;;
+    (*)
+      if [ $# -ne 0 ]; then
+        usage 1
+      fi
+      resource="$arg"
+      ;;
+  esac
+done
+
+if [ -z "$resourceType" ]; then
+  asApplication=$(tryAsDesktopFile "$resource")
+  if [ -n "$asApplication" ]; then
+    log "detected resourceType=application"
+    resourceType=application
+    resource=$asApplication
+  elif [ -e "$resource" ]; then
+    log "detected resourceType=file"
+    resourceType=file
+  elif [[ "$resource" == *.desktop ]]; then
+    # XXX(2024/07/02): this is probably dead code
+    log "detected resourceType=application (warning: '$resource' is not visible on disk)"
+    resourceType=application
+  else
+    log "unknown resource; treating as URI: $resource"
+    resourceType=uri
+  fi
+fi
+
+
+## TOPLEVEL LOGIC
+
+if [ -n "$autoKeyboard" ]; then
+  # do in parallel to avoid delaying app launch
+  configureKeyboardFor_"$resourceType" "$resource" &
+fi
+
+open_"$resourceType" "$resource"

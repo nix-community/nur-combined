@@ -10,15 +10,16 @@ in
   ];
   services.jackett.enable = true;
 
-  systemd.services.jackett.after = [ "wireguard-wg-ovpns.service" ];
-  systemd.services.jackett.partOf = [ "wireguard-wg-ovpns.service" ];
+  # run this behind the OVPN static VPN
+  sane.netns.ovpns.services = [ "jackett" ];
   systemd.services.jackett = {
-    # run this behind the OVPN static VPN
-    serviceConfig.NetworkNamespacePath = "/run/netns/ovpns";
-    serviceConfig.ExecStartPre = [ "${lib.getExe pkgs.sane-scripts.ip-check} --no-upnp --expect ${config.sane.netns.ovpns.netnsPubIpv4}" ];  # abort if public IP is not as expected
+    serviceConfig.ExecStartPre = [
+      # abort if public IP is not as expected
+      "${lib.getExe pkgs.sane-scripts.ip-check} --no-upnp --expect ${config.sane.netns.ovpns.wg.address.ipv4}"
+    ];
     # patch in `--ListenPublic` so that it's reachable from the netns veth.
     # this also makes it reachable from the VPN pub address. oh well.
-    serviceConfig.ExecStart = lib.mkForce "${cfg.package}/bin/Jackett --ListenPublic --NoUpdates --DataFolder '${cfg.dataDir}'";
+    serviceConfig.ExecStart = lib.mkForce "${lib.getExe' cfg.package "Jackett"} --ListenPublic --NoUpdates --DataFolder '${cfg.dataDir}'";
     serviceConfig.RestartSec = "30s";
 
     # hardening (systemd-analyze security jackett)
@@ -55,7 +56,7 @@ in
     enableACME = true;
     # inherit kTLS;
     locations."/" = {
-      proxyPass = "http://${config.sane.netns.ovpns.netnsVethIpv4}:9117";
+      proxyPass = "http://${config.sane.netns.ovpns.veth.netns.ipv4}:9117";
       recommendedProxySettings = true;
     };
     locations."= /robots.txt".extraConfig = ''

@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   sane.programs.wine = {
+    sandbox.method = null;
     # `pkgs.wine == pkgs.winePackages.full`
     # not sure the practical difference between `full` and `base`, but `full` drags in thngs like samba which i _probably_ don't need.
     # could build with `supportFlags.netapiSupport = false` to use `full` but without samba.

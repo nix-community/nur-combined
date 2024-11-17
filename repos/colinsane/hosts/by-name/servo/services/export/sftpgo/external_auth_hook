@@ -69,10 +69,11 @@ TRUSTED_CREDS = [
   # /etc/shadow style creds.
   # mkpasswd -m sha-512
   # $<method>$<salt>$<hash>
-  "$6$Zq3c2u4ghUH4S6EP$pOuRt13sEKfX31OqPbbd1LuhS21C9MICMc94iRdTAgdAcJ9h95gQH/6Jf6Ie4Obb0oxQtojRJ1Pd/9QHOlFMW."  #< m. rocket boy
+  "$6$Zq3c2u4ghUH4S6EP$pOuRt13sEKfX31OqPbbd1LuhS21C9MICMc94iRdTAgdAcJ9h95gQH/6Jf6Ie4Obb0oxQtojRJ1Pd/9QHOlFMW.",  #< m. rocket boy
+  "$6$B0NLGNdCL51PNse1$46G.aA1ATWIv5v.jUsKf4F3NS7emV2jB2gkZ3MytZtMvw2pjniHmRl0fywRjKW9TuXTeK9T50v.H0f2BaQ4PT1",  #< v. telephony
 ]
 TRUSTED_VIEWING_OR_PLAYGROUND_CREDS = [
-  "$6$iikDajz5b.YH1.on$tfSzzBEtX8IeDiJJXCasOTxRTd7cFDKXU6dhlWYVhK6xDeJhV2fh6bmm1WIHItjIth9Eh9zNgUB8xibMIWCm/."
+  # "$6$iikDajz5b.YH1.on$tfSzzBEtX8IeDiJJXCasOTxRTd7cFDKXU6dhlWYVhK6xDeJhV2fh6bmm1WIHItjIth9Eh9zNgUB8xibMIWCm/."  # fedi (2024-08-27); music appreciation
 ];
 
 def mkAuthOk(username: str, permissions: dict[str, list[str]]) -> dict:
@@ -133,6 +134,7 @@ def getAuthResponse(ip: str, username: str, password: str) -> dict:
       "/": PERM_RW,
       "/playground": PERM_RW,
       "/.public_for_test": PERM_RO,
+      "/media/Music": PERM_RO,  #< i am too picky about Music organization
     })
   if isTrustedCred(password, TRUSTED_VIEWING_OR_PLAYGROUND_CREDS) and username != "colin":
     return mkAuthOk(username, permissions = {

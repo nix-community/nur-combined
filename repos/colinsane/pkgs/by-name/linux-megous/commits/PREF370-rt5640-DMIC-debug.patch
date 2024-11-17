@@ -1,0 +1,28 @@
+From ba602cee5126861bf816f12faa80199f806111e6 Mon Sep 17 00:00:00 2001
+From: Ondrej Jirman <megi@xff.cz>
+Date: Wed, 21 Feb 2024 00:51:06 +0100
+Subject: [PATCH 370/463] rt5640: DMIC debug
+
+Signed-off-by: Ondrej Jirman <megi@xff.cz>
+---
+ sound/soc/codecs/rt5640.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/sound/soc/codecs/rt5640.c b/sound/soc/codecs/rt5640.c
+index 16f3425a3e35c..060114a884bb5 100644
+--- a/sound/soc/codecs/rt5640.c
++++ b/sound/soc/codecs/rt5640.c
+@@ -465,6 +465,10 @@ static int set_dmic_clk(struct snd_soc_dapm_widget *w,
+ 	rate = rt5640->sysclk / rl6231_get_pre_div(rt5640->regmap,
+ 		RT5640_ADDA_CLK1, RT5640_I2S_PD1_SFT);
+ 	idx = rl6231_calc_dmic_clk(rate);
++
++        dev_err(component->dev, "set_dmic_clk rate=%d sysclk=%d pd=%d idx=%d\n", rate, rt5640->sysclk, rl6231_get_pre_div(rt5640->regmap,
++		RT5640_ADDA_CLK1, RT5640_I2S_PD1_SFT), rl6231_calc_dmic_clk(rate));
++
+ 	if (idx < 0)
+ 		dev_err(component->dev, "Failed to set DMIC clock\n");
+ 	else
+-- 
+2.46.0
+

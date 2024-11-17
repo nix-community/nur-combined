@@ -5,27 +5,31 @@
 { config, lib, pkgs, ... }:
 
 let
+  # [ ProgramConfig ]
+  enabledPrograms = builtins.filter
+    (p: p.enabled && p.gsettings != {})
+    (builtins.attrValues config.sane.programs);
+
+  sitePackages = lib.map (p: pkgs.writeTextFile {
+    name = "${p.name}-dconf";
+    destination = "/etc/dconf/db/site.d/10_${p.name}";
+    text = lib.generators.toDconfINI p.gsettings;
+  }) enabledPrograms;
+
+  profilePackage = pkgs.writeTextFile {
+    name = "dconf-user-profile";
+    destination = "/etc/dconf/profile/user";
+    text = ''
+      user-db:user
+      system-db:site
+    '';
+  };
+
   cfg = config.sane.programs.dconf;
 in
 {
   sane.programs.dconf = {
-    configOption = with lib; mkOption {
-      type = types.submodule {
-        options = {
-          site = mkOption {
-            type = types.listOf types.package;
-            default = [];
-            description = ''
-              extra packages to link into /etc/dconf
-            '';
-          };
-        };
-      };
-      default = {};
-    };
-
     packageUnwrapped = pkgs.rmDbusServicesInPlace pkgs.dconf;
-    sandbox.method = "bunpen";
     sandbox.whitelistDbus = [ "user" ];
     persist.byStore.private = [
       ".config/dconf"
@@ -40,24 +44,12 @@ in
     # supposedly necessary for packages which haven't been wrapped (i.e. wrapGtkApp?),
     # but in practice seems unnecessary.
     # env.GIO_EXTRA_MODULES = "${pkgs.dconf.lib}/lib/gio/modules";
-
-    config.site = [
-      (pkgs.writeTextFile {
-        name = "dconf-user-profile";
-        destination = "/etc/dconf/profile/user";
-        text = ''
-          user-db:user
-          system-db:site
-        '';
-      })
-    ];
   };
 
-  # TODO: get dconf to read these from ~/.config/dconf ?
   environment.etc.dconf = lib.mkIf cfg.enabled {
     source = pkgs.symlinkJoin {
       name = "dconf-system-config";
-      paths = map (x: "${x}/etc/dconf") cfg.config.site;
+      paths = map (x: "${x}/etc/dconf") ([profilePackage] ++ sitePackages);
       nativeBuildInputs = [ (lib.getBin pkgs.dconf) ];
       postBuild = ''
         if test -d $out/db; then

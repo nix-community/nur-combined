@@ -32,7 +32,6 @@
 
     buildCost = 1;
 
-    sandbox.method = "bunpen";
     sandbox.whitelistWayland = true;
 
     persist.byStore.plaintext = [

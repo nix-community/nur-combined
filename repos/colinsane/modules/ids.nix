@@ -64,7 +64,7 @@ in
         lib.mapAttrsToList
           (name: user: {
             assertion = user.uid != null;
-            message = "non-deterministic uid detected for: ${name}";
+            message = "non-deterministic uid detected for: ${name}\n  please add a mapping in hosts/common/ids.nix";
           })
           config.users.users
       )
@@ -72,7 +72,7 @@ in
         lib.mapAttrsToList
           (name: group: {
             assertion = group.gid != null;
-            message = "non-deterministic gid detected for: ${name}";
+            message = "non-deterministic gid detected for: ${name}\n  please add a mapping in hosts/common/ids.nix";
           })
           config.users.groups
       )

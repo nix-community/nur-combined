@@ -162,16 +162,13 @@ in
   services.postfix.enableSubmissions = true;
   services.postfix.submissionsOptions = submissionOptions;
 
-  systemd.services.postfix.after = [ "wireguard-wg-ovpns.service" ];
-  systemd.services.postfix.partOf = [ "wireguard-wg-ovpns.service" ];
   systemd.services.postfix.unitConfig.RequiresMountsFor = [
     "/var/spool/mail"  # spooky errors when postfix is run w/o this: `warning: connect #1 to subsystem private/proxymap: Connection refused`
     "/var/lib/opendkim"
   ];
-  systemd.services.postfix.serviceConfig = {
-    # run this behind the OVPN static VPN
-    NetworkNamespacePath = "/run/netns/ovpns";
-  };
+
+  # run these behind the OVPN static VPN
+  sane.netns.ovpns.services = [ "opendkim" "postfix" ];
 
 
   #### OPENDKIM
@@ -190,11 +187,7 @@ in
   # keeping this the same as the hostname seems simplest
   services.opendkim.selector = "mx";
 
-  systemd.services.opendkim.after = [ "wireguard-wg-ovpns.service" ];
-  systemd.services.opendkim.partOf = [ "wireguard-wg-ovpns.service" ];
   systemd.services.opendkim.serviceConfig = {
-    # run this behind the OVPN static VPN
-    NetworkNamespacePath = "/run/netns/ovpns";
     # /run/opendkim/opendkim.sock needs to be rw by postfix
     UMask = lib.mkForce "0011";
   };

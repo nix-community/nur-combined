@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./derived-secrets
     ./hal
     ./hosts.nix
     ./nixcache.nix

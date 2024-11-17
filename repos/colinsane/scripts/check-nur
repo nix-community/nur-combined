@@ -1,13 +1,15 @@
 #!/bin/sh
 NIX_FILES_TOP=/home/colin/nixos
+nixpkgs=$(nix-store --realize $(nix-instantiate -A nixpkgs-bootstrap.master.src))
+
 cd $NIX_FILES_TOP/integrations/nur
-# TODO: should include `-I nixpkgs=</path/to/an/unpatched/nixpkgs>`
+
 NIX_PATH= NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nix-env -f . -qa \* --meta --xml \
   --allowed-uris https://static.rust-lang.org \
   --option restrict-eval true \
   --option allow-import-from-derivation true \
   --drv-path --show-trace \
+  -I nixpkgs=$nixpkgs \
   -I ../../ \
   "$@" \
   | tee  # tee to prevent interactive mode
-

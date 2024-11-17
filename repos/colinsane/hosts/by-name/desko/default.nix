@@ -22,8 +22,8 @@
 
   sane.roles.build-machine.enable = true;
   sane.roles.client = true;
-  sane.roles.dev-machine = true;
   sane.roles.pc = true;
+  sane.services.ollama.enable = true;
   sane.services.wg-home.enable = true;
   sane.services.wg-home.ip = config.sane.hosts.by-name."desko".wg-home.ip;
   sane.ovpn.addrV4 = "172.26.55.21";
@@ -36,7 +36,6 @@
   sane.programs.sane-private-unlock-remote.config.hosts = [ "servo" ];
 
   sane.programs.sway.enableFor.user.colin = true;
-  sane.programs.iphoneUtils.enableFor.user.colin = true;
   sane.programs.steam.enableFor.user.colin = true;
 
   sane.programs.nwg-panel.config = {
@@ -44,12 +43,14 @@
     brightness = false;
   };
 
-  sane.programs.mpv.config.default_profile = "high-quality";
+  sane.programs.mpv.config.defaultProfile = "high-quality";
 
   sane.image.extraBootFiles = [ pkgs.bootpart-uefi-x86_64 ];
 
   # needed to use libimobiledevice/ifuse, for iphone sync
   services.usbmuxd.enable = true;
+
+  hardware.amdgpu.opencl.enable = true;  # desktop (AMD's opencl implementation AKA "ROCM"); probably required for ollama
 
   # TODO: enable snapper (need to make `/nix` or `/nix/persist` a subvolume, somehow).
   # default config: https://man.archlinux.org/man/snapper-configs.5

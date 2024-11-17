@@ -1,60 +1,9 @@
-# zfs docs:
-# - <https://nixos.wiki/wiki/ZFS>
-# - <repo:nixos/nixpkgs:nixos/modules/tasks/filesystems/zfs.nix>
-#
-# zfs check health: `zpool status`
-#
-# zfs pool creation (requires `boot.supportedFilesystems = [ "zfs" ];`
-# - 1. identify disk IDs: `ls -l /dev/disk/by-id`
-# - 2. pool these disks: `zpool create -f -m legacy pool raidz ata-ST4000VN008-2DR166_WDH0VB45 ata-ST4000VN008-2DR166_WDH17616 ata-ST4000VN008-2DR166_WDH0VC8Q ata-ST4000VN008-2DR166_WDH17680`
-#   - legacy documented: <https://superuser.com/questions/790036/what-is-a-zfs-legacy-mount-point>
-# - 3. enable acl support: `zfs set acltype=posixacl pool`
-#
-# import pools: `zpool import pool`
-# show zfs datasets: `zfs list` (will be empty if haven't imported)
-# show zfs properties (e.g. compression): `zfs get all pool`
-# set zfs properties: `zfs set compression=on pool`
 { lib, pkgs, ... }:
 
 {
   # hostId: not used for anything except zfs guardrail?
   #   [hex(ord(x)) for x in 'serv']
-  networking.hostId = "73657276";
-  boot.supportedFilesystems = [ "zfs" ];
-  # boot.zfs.enabled = true;
-  boot.zfs.forceImportRoot = false;
-  # scrub all zfs pools weekly:
-  services.zfs.autoScrub.enable = true;
-  boot.extraModprobeConfig = ''
-    ### zfs_arc_max tunable:
-    # ZFS likes to use half the ram for its own cache and let the kernel push everything else to swap.
-    # so, reduce its cache size
-    # see: <https://askubuntu.com/a/1290387>
-    # see: <https://serverfault.com/a/1119083>
-    # see: <https://openzfs.github.io/openzfs-docs/Performance%20and%20Tuning/Module%20Parameters.html#zfs-arc-max>
-    # for all tunables, see: `man 4 zfs`
-    # to update these parameters without rebooting:
-    # - `echo '4294967296' | sane-sudo-redirect /sys/module/zfs/parameters/zfs_arc_max`
-    ### zfs_bclone_enabled tunable
-    # this allows `cp --reflink=always FOO BAR` to work. i.e. shallow copies.
-    # it's unstable as of 2.2.3. led to *actual* corruption in 2.2.1, but hopefully better by now.
-    # - <https://github.com/openzfs/zfs/issues/405>
-    # note that `du -h` won't *always* show the reduced size for reflink'd files (?).
-    # `zpool get all | grep clone` seems to be the way to *actually* see how much data is being deduped
-    options zfs zfs_arc_max=4294967296 zfs_bclone_enabled=1
-  '';
-  # to be able to mount the pool like this, make sure to tell zfs to NOT manage it itself.
-  # otherwise local-fs.target will FAIL and you will be dropped into a rescue shell.
-  # - `zfs set mountpoint=legacy pool`
-  # if done correctly, the pool can be mounted before this `fileSystems` entry is created:
-  # - `sudo mount -t zfs pool /mnt/persist/pool`
-  fileSystems."/mnt/pool" = {
-    device = "pool";
-    fsType = "zfs";
-    options = [ "acl" ];  #< not sure if this `acl` flag is actually necessary. it mounts without it.
-  };
-  # services.zfs.zed = ... # TODO: zfs can send me emails when disks fail
-  sane.programs.sysadminUtils.suggestedPrograms = [ "zfs-tools" ];
+  # networking.hostId = "73657276";
 
   sane.persist.stores."ext" = {
     origin = "/mnt/pool/persist";
@@ -80,19 +29,32 @@
     fsType = "vfat";
   };
 
-  # slow, external storage (for archiving, etc)
-  fileSystems."/mnt/usb-hdd" = {
-    device = "/dev/disk/by-uuid/aa272cff-0fcc-498e-a4cb-0d95fb60631b";
+  fileSystems."/mnt/pool" = {
+    # all btrfs devices of the same RAID volume use the same UUID.
+    device = "UUID=40fc6e1d-ba41-44de-bbf3-1aa02c3441df";
     fsType = "btrfs";
     options = [
-      "compress=zstd"
+      # "compress=zstd"  #< not much point in compressing... mostly videos and music; media.
       "defaults"
+      # `device=...` only needed if `btrfs scan` hasn't yet been run
+      # see: <https://askubuntu.com/a/484374>
+      # i don't know what guarantees NixOS/systemd make about that, so specifying all devices for now
+      "device=/dev/disk/by-partuuid/14a7d00a-be53-2b4e-96f9-7e2c964674ec"
+      "device=/dev/disk/by-partuuid/d9ad5ebc-0fc4-4d89-9fd0-619ce5210f1b"  #< added 2024-11-13
+      "device=/dev/disk/by-partuuid/6b86cc10-c3cc-ec4d-b20d-b6688f0959a6"
+      # "device=/dev/disk/by-partuuid/7fd85cac-b6f3-8248-af4e-68e703d11020"  #< removed 2024-11-13
+      "device=/dev/disk/by-partuuid/ef0e5c7b-fccf-f444-bac4-534424326159"
+      "nofail"
+      # "x-systemd.before=local-fs.target"
+      "x-systemd.device-bound=false"  #< don't unmount when `device` disappears (i thought this was necessary, for drive replacement, but it might not be)
+      "x-systemd.device-timeout=60s"
+      "x-systemd.mount-timeout=60s"
     ];
   };
-  sane.fs."/mnt/usb-hdd".mount = {};
 
+  # TODO: move this elsewhere and automate the ACLs!
   # FIRST TIME SETUP FOR MEDIA DIRECTORY:
-  # - set the group stick bit: `sudo find /var/media -type d -exec chmod g+s {} +`
+  # - set the group sticky bit: `sudo find /var/media -type d -exec chmod g+s {} +`
   #   - this ensures new files/dirs inherit the group of their parent dir (instead of the user who creates them)
   # - ensure everything under /var/media is mounted with `-o acl`, to support acls
   # - ensure all files are rwx by group: `setfacl --recursive --modify d:g::rwx /var/media`
@@ -115,7 +77,6 @@
   sane.fs."/var/media/Books/Books".dir = {};
   sane.fs."/var/media/Books/Visual".dir = {};
   sane.fs."/var/media/collections".dir = {};
-  # sane.fs."/var/media/datasets".dir = {};
   sane.fs."/var/media/freeleech".dir = {};
   sane.fs."/var/media/Music".dir = {};
   sane.fs."/var/media/Pictures".dir = {};
@@ -123,13 +84,6 @@
   sane.fs."/var/media/Videos/Film".dir = {};
   sane.fs."/var/media/Videos/Shows".dir = {};
   sane.fs."/var/media/Videos/Talks".dir = {};
-
-  # this is file.text instead of symlink.text so that it may be read over a remote mount (where consumers might not have any /nix/store/.../README.md path)
-  sane.fs."/var/lib/uninsane/datasets/README.md".file.text = ''
-    this directory may seem redundant with ../media/datasets. it isn't.
-    this directory exists on SSD, allowing for speedy access to specific datasets when necessary.
-    the contents should be a subset of what's in ../media/datasets.
-  '';
 
   systemd.services.dedupe-media = {
     description = "transparently de-duplicate /var/media entries by using block-level hardlinks";
@@ -144,28 +98,5 @@
       OnUnitActiveSec = "720min";
     };
   };
-
-  # btrfs doesn't easily support swapfiles
-  # swapDevices = [
-  #   { device = "/nix/persist/swapfile"; size = 4096; }
-  # ];
-
-  # this can be a partition. create with:
-  #   fdisk <dev>
-  #     n
-  #     <default partno>
-  #     <start>
-  #     <end>
-  #     t
-  #     <partno>
-  #     19  # set part type to Linux swap
-  #     w   # write changes
-  #   mkswap -L swap <part>
-  # swapDevices = [
-  #   {
-  #     label = "swap";
-  #     # TODO: randomEncryption.enable = true;
-  #   }
-  # ];
 }
 

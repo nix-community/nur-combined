@@ -22,7 +22,7 @@ let
     enabledPrograms;
 
   fmtAssoc = regex: desktop: ''
-    ${mimeo-open-desktop}/bin/mimeo-open-desktop ${desktop} %U
+    ${lib.getExe mimeo-open-desktop} ${desktop} %U
       ${regex}
   '';
   assocs = builtins.map
@@ -31,10 +31,10 @@ let
   assocs' = lib.flatten assocs;
 
   fmtFallbackAssoc = mimeType: desktop: if mimeType == "x-scheme-handler/http" then ''
-    ${mimeo-open-desktop}/bin/mimeo-open-desktop ${desktop} %U
+    ${lib.getExe mimeo-open-desktop} ${desktop} %U
       ^http://.*
   '' else if mimeType == "x-scheme-handler/https" then ''
-    ${mimeo-open-desktop}/bin/mimeo-open-desktop ${desktop} %U
+    ${lib.getExe mimeo-open-desktop} ${desktop} %U
       ^https://.*
   '' else "";
   fmtFallbackAssoc' = mimeType: desktop:

@@ -1,7 +1,6 @@
 { ... }:
 {
   sane.programs.playerctl = {
-    sandbox.method = "bunpen";
     sandbox.wrapperType = "inplace";  #< /lib/pkgconfig/playerctl.pc refers to $out by full path
     sandbox.whitelistDbus = [ "user" ];  # notifications
 

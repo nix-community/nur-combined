@@ -10,7 +10,7 @@ in
     enableFor.system = lib.mkIf (builtins.any (en: en) (builtins.attrValues cfg.enableFor.user)) true;
   };
   services.udev.packages = lib.mkIf cfg.enabled [ cfg.package pkgs.qmk-udev-rules ];
-  services.udev.extraRules = ''
+  services.udev.extraRules = lib.mkIf cfg.enabled ''
     # ZSA Ergodox Glow
     SUBSYSTEMS=="usb", ATTRS{idVendor}=="3297", ATTRS{idProduct}=="4976", TAG+="uaccess"
   '';

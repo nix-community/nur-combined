@@ -7,7 +7,6 @@ in
     # rmDbusServices: because we care about ordering with the rest of the desktop, and don't want something else to auto-start this.
     packageUnwrapped = pkgs.rmDbusServicesInPlace pkgs.xdg-desktop-portal-wlr;
 
-    sandbox.method = "bwrap";  # TODO:sandbox: untested
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  # speak to main xdg-desktop-portal
     sandbox.whitelistDri = true;

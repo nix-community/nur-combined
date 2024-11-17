@@ -15,7 +15,6 @@ let
   ) wantedFeeds;
 in {
   sane.programs.sfeed = {
-    sandbox.method = "bwrap";
     sandbox.net = "clearnet";
 
     fs.".sfeed/sfeedrc".symlink.text = ''

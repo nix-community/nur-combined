@@ -1,0 +1,27 @@
+From 1e191475a48ffe1f626d76246d4fd52d77108ec7 Mon Sep 17 00:00:00 2001
+From: Ondrej Jirman <megi@xff.cz>
+Date: Fri, 1 Mar 2024 19:42:56 +0100
+Subject: [PATCH 423/463] arm64: dts: rk3588-quartzpro64: Add dwc3 reset quirk
+
+This is needed to apply type-c muxing/orientation properly to the phy.
+
+Signed-off-by: Ondrej Jirman <megi@xff.cz>
+---
+ arch/arm64/boot/dts/rockchip/rk3588-quartzpro64.dts | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-quartzpro64.dts b/arch/arm64/boot/dts/rockchip/rk3588-quartzpro64.dts
+index 167e000c40236..172213d912678 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-quartzpro64.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-quartzpro64.dts
+@@ -1257,6 +1257,7 @@ &usb_host0_ohci {
+ 
+ &usb_host0_xhci {
+ 	usb-role-switch;
++	snps,usb3-phy-reset-quirk;
+ 	status = "okay";
+ 
+ 	port {
+-- 
+2.46.0
+

@@ -2,21 +2,22 @@
   lib,
   stdenv,
   buildPackages,
+  bunpen,
   file,
   gnugrep,
   gnused,
   linkFarm,
-  makeWrapper,
+  makeBinaryWrapper,
+  makeShellWrapper,
   runCommandLocal,
-  sanebox,
   writeShellScriptBin,
   xorg,
 }:
 let
-  fakeSaneSandboxed = writeShellScriptBin sanebox.meta.mainProgram ''
-    # behave like the real sanebox with SANEBOX_DISABLE=1,
-    # but in a manner which avoids taking a dependency on the real sanebox.
-    # the primary use for this is to allow a package's `check` phase to work even when sanebox isn't available.
+  fakeSaneSandboxed = writeShellScriptBin bunpen.meta.mainProgram ''
+    # behave like the real bunpen with BUNPEN_DISABLE=1,
+    # but in a manner which avoids taking a dependency on the real bunpen.
+    # the primary use for this is to allow a package's `check` phase to work even when bunpen isn't available (which allows for faster iteration).
     _origArgs=($@)
 
     # throw away all arguments until we find the path to the binary which is being sandboxed
@@ -24,12 +25,12 @@ let
       shift
     done
     if [ "$#" -eq 0 ]; then
-      >&2 echo "${sanebox.meta.mainProgram} (mock): failed to parse args: ''${_origArgs[*]}"
+      >&2 echo "${bunpen.meta.mainProgram} (mock): failed to parse args: ''${_origArgs[*]}"
       exit 1
     fi
 
-    if [ -z "$SANEBOX_DISABLE" ]; then
-      >&2 echo "${sanebox.meta.mainProgram} (mock): not called with SANEBOX_DISABLE=1; unsure how to sandbox: ''${_origArgs[*]}"
+    if [ -z "$BUNPEN_DISABLE" ]; then
+      >&2 echo "${bunpen.meta.mainProgram} (mock): not called with BUNPEN_DISABLE=1; unsure how to sandbox: ''${_origArgs[*]}"
       exit 1
     fi
     # assume that every argument after the binary name is an argument for the binary and not for the sandboxer.
@@ -44,14 +45,14 @@ let
 
   # take an existing package, which may have a `bin/` folder as well as `share/` etc,
   # and patch the `bin/` items in-place
-  sandboxBinariesInPlace = sanebox': extraSandboxArgs: pkgName: pkg: pkg.overrideAttrs (unwrapped: {
+  sandboxBinariesInPlace = bunpen': extraSandboxArgs: pkgName: pkg: pkg.overrideAttrs (unwrapped: {
     # disable the sandbox and inject a minimal fake sandboxer which understands that flag,
     # in order to support packages which invoke sandboxed apps in their check phase.
     # note that it's not just for packages which invoke their *own* binaries in check phase,
     # but also packages which invoke OTHER PACKAGES' sandboxed binaries.
     # hence, put the fake sandbox in nativeBuildInputs instead of nativeCheckInputs.
     env = (unwrapped.env or {}) // {
-      SANEBOX_DISABLE = 1;
+      BUNPEN_DISABLE = 1;
     };
     outputs = unwrapped.outputs or [ "out" ];
     nativeBuildInputs = [
@@ -59,26 +60,27 @@ let
       # so that the unwrapped's take precendence and we limit interference (e.g. makeWrapper impl)
       fakeSaneSandboxed
       gnugrep
-      makeWrapper
+      makeBinaryWrapper
+      makeShellWrapper
     ] ++ (unwrapped.nativeBuildInputs or []);
     disallowedReferences = (unwrapped.disallowedReferences or []) ++ [
-      # the fake sandbox gates itself behind SANEBOX_DISABLE, so if it did end up deployed
+      # the fake sandbox gates itself behind BUNPEN_DISABLE, so if it did end up deployed
       # then it wouldn't permit anything not already permitted. but it would still be annoying.
       fakeSaneSandboxed
     ];
 
     postFixup = (unwrapped.postFixup or "") + ''
       assertExecutable() {
-        :  # my programs refer to sanebox by name, not path, which triggers an over-eager assertion in nixpkgs (so, mask that)
+        :  # my programs refer to bunpen by name, not path, which triggers an over-eager assertion in nixpkgs (so, mask that)
       }
-      # makeDocumentedCWrapper() {
-      #   # this is identical to nixpkgs' implementation, only replace execv with execvp, the latter which looks for the executable on PATH.
-      #   local src=$(makeCWrapper "$@")
-      #   src="''${src/return execv(/return execvp(}"
-      #   local docs=$(docstring "$@")
-      #   printf '%s\n\n' "$src"
-      #   printf '%s\n' "$docs"
-      # }
+      makeDocumentedCWrapper() {
+        # this is identical to nixpkgs' implementation, only replace execv with execvp, the latter which looks for the executable on PATH.
+        local src=$(makeCWrapper "$@")
+        src="''${src/return execv(/return execvp(}"
+        local docs=$(docstring "$@")
+        printf '%s\n\n' "$src"
+        printf '%s\n' "$docs"
+      }
 
       sandboxWrap() {
         local _dir="$1"
@@ -99,19 +101,11 @@ let
           mv "$_dir/$_name" "$_dir/.sandboxed/"
         fi
 
-        # N.B.: double `escapeShellArg`: once for the shell wrapper, and again for runtime because the shell wrapper doesn't escape.
-        # spotcheck this by seeing if animatch (requires a path "Holy Pangolin") works
-        makeShellWrapper ${sanebox'} "$_dir/$_name" --suffix PATH : /run/current-system/sw/libexec/${sanebox.pname} \
+        makeBinaryWrapper ${bunpen'} "$_dir/$_name" \
+          --suffix PATH : /run/current-system/sw/libexec/${bunpen.pname} \
           --inherit-argv0 \
-          ${lib.escapeShellArgs (lib.flatten (builtins.map (f: [ "--add-flags" (lib.escapeShellArg f) ]) extraSandboxArgs))} \
+          ${lib.escapeShellArgs (lib.flatten (builtins.map (f: [ "--add-flags" f ]) extraSandboxArgs))} \
           --add-flags "$_dir/.sandboxed/$_name"
-
-        if [ -n "${sanebox.interpreter or ""}" ]; then
-          # `exec`ing a script with an interpreter will smash $0. instead, source it to preserve $0:
-          # - <https://github.com/NixOS/nixpkgs/issues/150841#issuecomment-995589961>
-          substituteInPlace "$_dir/$_name" \
-            --replace-fail 'exec -a "$0" ' 'source '
-        fi
       }
 
       derefWhileInSameOutput() {
@@ -348,8 +342,22 @@ let
             done
           done
 
+          for d in $outdir/lib/udev/rules.d/*.rules; do
+            trySubstitute "$d" '"'"%s/$binLoc"
+            trySubstitute "$d" '"'"%s/share"
+          done
+
+          for d in $outdir/lib/mozilla/native-messaging-hosts/*.json; do
+            trySubstitute "$d" '"'"%s/$binLoc"
+          done
+
           for d in $outdir/share/polkit-1/actions/*.policy; do
-              trySubstitute "$d" '<annotate key="org.freedesktop.policykit.exec.path">'"%s/$binLoc/"
+            trySubstitute "$d" '<annotate key="org.freedesktop.policykit.exec.path">'"%s/$binLoc/"
+          done
+
+          for d in $outdir/share/thumbnailers/*.thumbnailer; do
+            trySubstitute "$d" "Exec=%s/$binLoc/"
+            trySubstitute "$d" "TryExec=%s/$binLoc/"
           done
         done
       done
@@ -381,7 +389,12 @@ let
   # patch them to use the sandboxed binaries,
   # and add some passthru metadata to enforce no lingering references to the unsandboxed binaries.
   sandboxNonBinaries = pkgName: unsandboxed: sandboxedBin: let
-    sandboxedWithoutFixedRefs = symlinkDirs "non-bin" [ "etc" "share" ] pkgName unsandboxed;
+    sandboxedWithoutFixedRefs = symlinkDirs "non-bin" [
+      "lib/udev/rules.d"
+      "lib/mozilla/native-messaging-hosts"
+      "etc"
+      "share"
+    ] pkgName unsandboxed;
   in fixHardcodedRefs unsandboxed sandboxedBin sandboxedWithoutFixedRefs;
 
   # take the nearly-final sandboxed package, with binaries and all else, and
@@ -395,7 +408,7 @@ let
     };
     passthru = (prevAttrs.passthru or {}) // extraPassthru // {
       checkSandboxed = runCommandLocal "${pkgName}-check-sandboxed" {
-        nativeBuildInputs = [ file gnugrep sanebox ];
+        nativeBuildInputs = [ bunpen file gnugrep ];
         buildInputs = builtins.map (out: finalAttrs.finalPackage."${out}") (finalAttrs.outputs or [ "out" ]);
       } ''
         set -e
@@ -406,14 +419,15 @@ let
           local dir="$1"
           local binname="$2"
           echo "checking if $dir/$binname is sandboxed"
+          echo "  sandboxer is ${bunpen.name}"
+          echo "  PATH=$PATH"
           # XXX: call by full path because some binaries (e.g. util-linux) would otherwise
           # be shadowed by things the nix builder implicitly puts on PATH.
           # additionally, call via qemu and manually specify the interpreter *if the file has one*.
           # if the file doesn't have an interpreter, assume it's directly invokable by qemu (hence, the intentional lack of quotes around `interpreter`)
           set -x
           local realbin="$(realpath $dir/$binname)"
-          local interpreter=$(file "$realbin" | grep --only-matching "a /nix/.* script" | cut -d" " -f2 || echo "")
-          echo 'echo "printing for test"' | ${stdenv.hostPlatform.emulator buildPackages} $interpreter "$dir/$binname" --sanebox-net-dev all --sanebox-dns default --sanebox-net-gateway default --sanebox-replace-cli /bin/sh --bunpen-drop-shell \
+          echo 'echo "printing for test"' | ${stdenv.hostPlatform.emulator buildPackages} "$dir/$binname" --bunpen-drop-shell \
             | grep "printing for test"
           _numExec=$(( $_numExec + 1 ))
         }
@@ -457,15 +471,15 @@ let
     };
   });
 
-  make-sandboxed = { pkgName, package, wrapperType, embedSandboxer ? false, extraSandboxerArgs ? [], passthru ? {} }@args:
+  make-sandboxed = { pkgName, package, wrapperType, embedSandboxer ? false, extraSandboxerArgs ? [], passthru ? {} }:
   let
     unsandboxed = package;
-    sanebox' = if embedSandboxer then
+    bunpen' = if embedSandboxer then
       # optionally hard-code the sandboxer. this forces rebuilds, but allows deep iteration w/o deploys.
-      lib.getExe sanebox
+      lib.getExe bunpen
     else
       #v prefer to load by bin name to reduce rebuilds
-      sanebox.meta.mainProgram
+      bunpen.meta.mainProgram
     ;
 
     # two ways i could wrap a package in a sandbox:
@@ -476,14 +490,14 @@ let
     # regardless of which one is chosen here, all other options are exposed via `passthru`.
     sandboxedBy = {
       inplace = sandboxBinariesInPlace
-        sanebox'
+        bunpen'
         extraSandboxerArgs
         pkgName
         (makeHookable unsandboxed);
 
       wrappedDerivation = let
         sandboxedBin = sandboxBinariesInPlace
-          sanebox'
+          bunpen'
           extraSandboxerArgs
           pkgName
           (symlinkBinaries pkgName unsandboxed);

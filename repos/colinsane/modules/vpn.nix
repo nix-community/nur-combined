@@ -22,7 +22,7 @@
 # 3. to apply a VPN to internet traffic selectively, just proxy an applications traffic into the VPN device
 #   3a. use a network namespace and a userspace TCP stack (e.g. pasta/slirp4netns).
 #   3b. attach the VPN device to a bridge device, then connect that to a network namespace by using a veth pair.
-#   3c. juse use `sanebox`, which abstracts the above options.
+#   3c. juse use `bunpen`, which abstracts the above options.
 
 { config, lib, sane-lib, ... }:
 let
@@ -68,6 +68,14 @@ let
         description = ''
           host:port which hosts the other end of the VPN.
           e.g. "vpn.example.com:55280"
+        '';
+      };
+      keepalive = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          whether to send periodic packets to keep the NAT alive.
+          this should only be needed if you want to receive unprompted inbound packets.
         '';
       };
       publicKey = mkOption {
@@ -118,7 +126,7 @@ let
       priorityFwMark = config.id + 300;
     };
   });
-  mkVpnConfig = name: { addrV4, dns, endpoint, fwmark, id, privateKeyFile, publicKey, subnetV4, ... }: {
+  mkVpnConfig = name: { addrV4, dns, endpoint, fwmark, id, keepalive, privateKeyFile, publicKey, subnetV4, ... }: {
     assertions = [
       {
         assertion = (lib.count (c: c.id == id) (builtins.attrValues cfg)) == 1;
@@ -136,14 +144,18 @@ let
         PrivateKeyFile = privateKeyFile;
         FirewallMark = fwmark;
       };
-      wireguardPeers = [{
-        AllowedIPs = [
-          "0.0.0.0/0"
-          "::/0"
-        ];
-        Endpoint = endpoint;
-        PublicKey = publicKey;
-      }];
+      wireguardPeers = [
+        ({
+          AllowedIPs = [
+            "0.0.0.0/0"
+            "::/0"
+          ];
+          Endpoint = endpoint;
+          PublicKey = publicKey;
+        } // lib.optionalAttrs keepalive {
+          PersistentKeepalive = 25;
+        })
+      ];
     };
 
     systemd.network.networks."50-${name}" = {
@@ -176,49 +188,53 @@ let
     # but i couldn't get that to work for netns with SNAT, so set rpfilter to "loose".
     networking.firewall.checkReversePath = "loose";
 
-    systemd.services."${name}-refresh" = {
-      # periodically re-apply peers, to ensure DNS mappings stay fresh
-      # borrowed from <repo:nixos/nixpkgs:nixos/modules/services/networking/wireguard.nix>
-      wantedBy = [ "network.target" ];
-      path = [ config.sane.programs.wireguard-tools.package ];
-      serviceConfig.Restart = "always";
-      serviceConfig.RestartSec = "60"; #< retry delay when we fail (because e.g. there's no network)
-      serviceConfig.Type = "simple";
-      unitConfig.StartLimitIntervalSec = 0;
-      script = ''
-        while wg set ${name} peer ${publicKey} endpoint ${endpoint}; do
-          echo "${name} set to:" "$(wg show ${name} endpoints)"
-          # in the normal case that DNS resolves, and whatnot, sleep before the next attempt
-          sleep 180
-        done
-      '';
-      # systemd hardening (systemd-analyze security wg-home-refresh.service)
-      serviceConfig.AmbientCapabilities = "CAP_NET_ADMIN";
-      serviceConfig.CapabilityBoundingSet = "CAP_NET_ADMIN";
-      serviceConfig.LockPersonality = true;
-      serviceConfig.MemoryDenyWriteExecute = true;
-      serviceConfig.NoNewPrivileges = true;
-      serviceConfig.ProtectClock = true;
-      serviceConfig.ProtectHostname = true;
-      serviceConfig.RemoveIPC = true;
-      serviceConfig.RestrictAddressFamilies = "AF_INET AF_INET6 AF_NETLINK";
-      #VVV this includes anything it reads from, e.g. /bin/sh; /nix/store/...
-      # see `systemd-analyze filesystems` for a full list
-      serviceConfig.RestrictFileSystems = "@common-block @basic-api";
-      serviceConfig.RestrictRealtime = true;
-      serviceConfig.RestrictSUIDSGID = true;
-      serviceConfig.SystemCallArchitectures = "native";
-      serviceConfig.SystemCallFilter = [
-        "@system-service"
-        "@sandbox"
-        "~@chown"
-        "~@cpu-emulation"
-        "~@keyring"
-      ];
-      serviceConfig.DevicePolicy = "closed";  # only allow /dev/{null,zero,full,random,urandom}
-      # serviceConfig.DeviceAllow = "/dev/...";
-      serviceConfig.RestrictNamespaces = true;
-    };
+    # XXX: all my wireguard DNS endpoints are static at the moment, so refresh logic isn't needed.
+    # re-enable this should that ever change.
+    # N.B.: systemd will still bring up the device and even the peer if it fails to resolve the endpoint.
+    # but it seems that it'll try to re-resolve the endpoint again later (unclear how to configure this better).
+    # systemd.services."${name}-refresh" = {
+    #   # periodically re-apply peers, to ensure DNS mappings stay fresh
+    #   # borrowed from <repo:nixos/nixpkgs:nixos/modules/services/networking/wireguard.nix>
+    #   wantedBy = [ "network.target" ];
+    #   path = [ config.sane.programs.wireguard-tools.package ];
+    #   serviceConfig.Restart = "always";
+    #   serviceConfig.RestartSec = "60"; #< retry delay when we fail (because e.g. there's no network)
+    #   serviceConfig.Type = "simple";
+    #   unitConfig.StartLimitIntervalSec = 0;
+    #   script = ''
+    #     while wg set ${name} peer ${publicKey} endpoint ${endpoint}; do
+    #       echo "${name} set to:" "$(wg show ${name} endpoints)"
+    #       # in the normal case that DNS resolves, and whatnot, sleep before the next attempt
+    #       sleep 180
+    #     done
+    #   '';
+    #   # systemd hardening (systemd-analyze security wg-home-refresh.service)
+    #   serviceConfig.AmbientCapabilities = "CAP_NET_ADMIN";
+    #   serviceConfig.CapabilityBoundingSet = "CAP_NET_ADMIN";
+    #   serviceConfig.LockPersonality = true;
+    #   serviceConfig.MemoryDenyWriteExecute = true;
+    #   serviceConfig.NoNewPrivileges = true;
+    #   serviceConfig.ProtectClock = true;
+    #   serviceConfig.ProtectHostname = true;
+    #   serviceConfig.RemoveIPC = true;
+    #   serviceConfig.RestrictAddressFamilies = "AF_INET AF_INET6 AF_NETLINK";
+    #   #VVV this includes anything it reads from, e.g. /bin/sh; /nix/store/...
+    #   # see `systemd-analyze filesystems` for a full list
+    #   serviceConfig.RestrictFileSystems = "@common-block @basic-api";
+    #   serviceConfig.RestrictRealtime = true;
+    #   serviceConfig.RestrictSUIDSGID = true;
+    #   serviceConfig.SystemCallArchitectures = "native";
+    #   serviceConfig.SystemCallFilter = [
+    #     "@system-service"
+    #     "@sandbox"
+    #     "~@chown"
+    #     "~@cpu-emulation"
+    #     "~@keyring"
+    #   ];
+    #   serviceConfig.DevicePolicy = "closed";  # only allow /dev/{null,zero,full,random,urandom}
+    #   # serviceConfig.DeviceAllow = "/dev/...";
+    #   serviceConfig.RestrictNamespaces = true;
+    # };
 
     # networking.firewall.extraCommands = with pkgs; ''
     #   # wireguard packet marking. without this, rpfilter drops responses from a wireguard VPN

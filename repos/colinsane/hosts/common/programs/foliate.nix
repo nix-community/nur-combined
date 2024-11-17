@@ -2,12 +2,12 @@
 { ... }:
 {
   sane.programs.foliate = {
-    sandbox.method = "bwrap";
     sandbox.net = "clearnet";  #< for dictionary, wikipedia, online book libraries
     sandbox.whitelistDbus = [ "user" ];  #< when clicking on links
     sandbox.whitelistDri = true;  # reduces startup time and subjective page flip time
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
+      "Books/Books"
       "Books/local"
       "Books/servo"
       "tmp"  #< for downloaded files

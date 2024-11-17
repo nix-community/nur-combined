@@ -7,7 +7,6 @@
     };
     buildCost = 1;
 
-    sandbox.method = "bwrap";
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       "archive"

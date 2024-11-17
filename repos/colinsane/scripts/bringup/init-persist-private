@@ -1,0 +1,18 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p bash -p gocryptfs
+
+# configure persistent, encrypted storage that is auto-mounted on login.
+# this is a one-time setup and user should log out/back in after running it.
+
+set -ex
+
+p=/nix/persist/private
+
+if ! test -d "$p" || ! test -w "$p"; then
+  echo "you must first create the backing dir, with appropriate permissions:"
+  echo "- sudo mkdir $p"
+  echo "- sudo chown colin:users $p"
+  echo "then re-run this script"
+fi
+
+gocryptfs -init $p

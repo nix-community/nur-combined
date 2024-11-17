@@ -11,7 +11,6 @@
     });
     buildCost = 1;
 
-    sandbox.method = "bunpen";
     sandbox.net = "clearnet";  # net play
     sandbox.whitelistAudio = true;
     sandbox.whitelistWayland = true;

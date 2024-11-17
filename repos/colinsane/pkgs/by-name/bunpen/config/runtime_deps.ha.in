@@ -1,0 +1,6 @@
+// the sandboxer sometimes shells out to these binary helpers;
+// build script is expected to patch in the right paths at build time.
+
+export const IP: str = "@IP@";
+export const IPTABLES: str = "@IPTABLES@";
+export const PASTA: str = "@PASTA@";

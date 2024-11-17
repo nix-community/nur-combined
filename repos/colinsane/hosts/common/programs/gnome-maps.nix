@@ -20,11 +20,6 @@
 {
   sane.programs.gnome-maps = {
     packageUnwrapped = pkgs.rmDbusServicesInPlace (pkgs.gnome-maps.overrideAttrs (base: {
-      # default .desktop file is trying to do some dbus launch (?) which fails even *if* i install `gapplication` (glib.bin)
-      postPatch = (base.postPatch or "") + ''
-        substituteInPlace data/org.gnome.Maps.desktop.in.in \
-          --replace-fail 'Exec=gapplication launch @app-id@ %U' 'Exec=gnome-maps %U'
-      '';
       # TODO: set up portal-based location services, but until that works, explicitly disable portals here.
       preFixup = (base.preFixup or "") + ''
         gappsWrapperArgs+=(
@@ -37,7 +32,6 @@
     ];
 
     sandbox.wrapperType = "inplace";  #< /share directory contains Gir info which references libgnome-maps.so by path
-    sandbox.method = "bunpen";
     sandbox.whitelistDri = true;  # for perf
     sandbox.whitelistDbus = [
       "system"  # system is required for non-portal location services

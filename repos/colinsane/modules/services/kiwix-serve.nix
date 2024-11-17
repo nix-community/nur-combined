@@ -7,18 +7,8 @@ in
 {
   options = {
     sane.services.kiwix-serve = {
-      enable = mkOption {
-        default = false;
-        type = types.bool;
-      };
-      package = mkOption {
-        type = types.package;
-        default = pkgs.kiwix-tools;
-        defaultText = literalExpression "pkgs.kiwix-tools";
-        description = lib.mdDoc ''
-          The package that provides `bin/kiwix-serve`.
-        '';
-      };
+      enable = mkEnableOption "serve .zim files (like Wikipedia archives) with kiwix";
+      package = mkPackageOption pkgs "kiwix-tools" {};
       port = mkOption {
         type = types.port;
         default = 80;
@@ -44,7 +34,7 @@ in
       args = maybeListenAddress ++ ["-p" cfg.port] ++ cfg.zimPaths;
     in {
       description = "Deliver ZIM file(s) articles via HTTP";
-      serviceConfig.ExecStart = "${cfg.package}/bin/kiwix-serve ${lib.escapeShellArgs args}";
+      serviceConfig.ExecStart = "${lib.getExe' cfg.package "kiwix-serve"} ${lib.escapeShellArgs args}";
       serviceConfig.Type = "simple";
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
@@ -68,7 +58,7 @@ in
       serviceConfig.ProtectProc = "invisible";
       serviceConfig.ProtectSystem = "strict";
       serviceConfig.RemoveIPC = true;
-      serviceConfig.ReadPaths = cfg.zimPaths;
+      serviceConfig.ReadOnlyPaths = cfg.zimPaths;
       serviceConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
       serviceConfig.RestrictNamespaces = true;
       serviceConfig.RestrictSUIDSGID = true;

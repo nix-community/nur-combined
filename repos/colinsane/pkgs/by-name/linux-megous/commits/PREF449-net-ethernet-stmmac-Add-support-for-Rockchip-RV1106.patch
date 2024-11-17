@@ -1,0 +1,267 @@
+From b994342acd14eeb5f1fde32e127ef4d4a7e18ef9 Mon Sep 17 00:00:00 2001
+From: Ondrej Jirman <megi@xff.cz>
+Date: Thu, 18 Jul 2024 17:43:03 +0200
+Subject: [PATCH 449/463] net: ethernet: stmmac: Add support for Rockchip
+ RV1106
+
+This chip has internal PHY RK630 and it needs to be powered up before
+use.
+
+Signed-off-by: Ondrej Jirman <megi@xff.cz>
+---
+ .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 160 +++++++++++++++++-
+ 1 file changed, 151 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+index 7ae04d8d291c8..f82d94223833a 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+@@ -20,6 +20,7 @@
+ #include <linux/mfd/syscon.h>
+ #include <linux/regmap.h>
+ #include <linux/pm_runtime.h>
++#include <linux/nvmem-consumer.h>
+ 
+ #include "stmmac_platform.h"
+ 
+@@ -32,7 +33,7 @@ struct rk_gmac_ops {
+ 	void (*set_rmii_speed)(struct rk_priv_data *bsp_priv, int speed);
+ 	void (*set_clock_selection)(struct rk_priv_data *bsp_priv, bool input,
+ 				    bool enable);
+-	void (*integrated_phy_powerup)(struct rk_priv_data *bsp_priv);
++	int (*integrated_phy_powerup)(struct rk_priv_data *bsp_priv, bool on);
+ 	bool regs_valid;
+ 	u32 regs[];
+ };
+@@ -66,6 +67,7 @@ struct rk_priv_data {
+ 	bool clk_enabled;
+ 	bool clock_input;
+ 	bool integrated_phy;
++	unsigned char bgs;
+ 
+ 	struct clk_bulk_data *clks;
+ 	int num_clks;
+@@ -79,6 +81,7 @@ struct rk_priv_data {
+ 
+ 	struct regmap *grf;
+ 	struct regmap *php_grf;
++	struct plat_stmmacenet_data *plat;
+ };
+ 
+ #define HIWORD_UPDATE(val, mask, shift) \
+@@ -374,10 +377,13 @@ static void rk3228_set_rmii_speed(struct rk_priv_data *bsp_priv, int speed)
+ 		dev_err(dev, "unknown speed value for RMII! speed=%d", speed);
+ }
+ 
+-static void rk3228_integrated_phy_powerup(struct rk_priv_data *priv)
++static int rk3228_integrated_phy_powerup(struct rk_priv_data *priv, bool on)
+ {
+-	regmap_write(priv->grf, RK3228_GRF_CON_MUX,
+-		     RK3228_GRF_CON_MUX_GMAC_INTEGRATED_PHY);
++	if (on)
++		regmap_write(priv->grf, RK3228_GRF_CON_MUX,
++			     RK3228_GRF_CON_MUX_GMAC_INTEGRATED_PHY);
++
++	return 0;
+ }
+ 
+ static const struct rk_gmac_ops rk3228_ops = {
+@@ -666,10 +672,13 @@ static void rk3328_set_rmii_speed(struct rk_priv_data *bsp_priv, int speed)
+ 		dev_err(dev, "unknown speed value for RMII! speed=%d", speed);
+ }
+ 
+-static void rk3328_integrated_phy_powerup(struct rk_priv_data *priv)
++static int rk3328_integrated_phy_powerup(struct rk_priv_data *priv, bool on)
+ {
+-	regmap_write(priv->grf, RK3328_GRF_MACPHY_CON1,
+-		     RK3328_MACPHY_RMII_MODE);
++	if (on)
++		regmap_write(priv->grf, RK3328_GRF_MACPHY_CON1,
++			     RK3328_MACPHY_RMII_MODE);
++
++	return 0;
+ }
+ 
+ static const struct rk_gmac_ops rk3328_ops = {
+@@ -1263,6 +1272,120 @@ static const struct rk_gmac_ops rk3588_ops = {
+ 	},
+ };
+ 
++#define RV1106_VOGRF_GMAC_CLK_CON               0X60004
++
++#define RV1106_VOGRF_MACPHY_RMII_MODE           GRF_BIT(0)
++#define RV1106_VOGRF_GMAC_CLK_RMII_DIV2         GRF_BIT(2)
++#define RV1106_VOGRF_GMAC_CLK_RMII_DIV20        GRF_CLR_BIT(2)
++
++#define RV1106_VOGRF_MACPHY_CON0                0X60028
++#define RV1106_VOGRF_MACPHY_CON1                0X6002C
++
++static void rv1106_set_to_rmii(struct rk_priv_data *bsp_priv)
++{
++        struct device *dev = &bsp_priv->pdev->dev;
++
++        if (IS_ERR(bsp_priv->grf)) {
++                dev_err(dev, "%s: Missing rockchip,grf property\n", __func__);
++                return;
++        }
++
++        regmap_write(bsp_priv->grf, RV1106_VOGRF_GMAC_CLK_CON,
++                     RV1106_VOGRF_MACPHY_RMII_MODE |
++                     RV1106_VOGRF_GMAC_CLK_RMII_DIV2);
++}
++
++static void rv1106_set_rmii_speed(struct rk_priv_data *bsp_priv, int speed)
++{
++        struct device *dev = &bsp_priv->pdev->dev;
++        unsigned int val = 0;
++
++        if (IS_ERR(bsp_priv->grf)) {
++                dev_err(dev, "%s: Missing rockchip,grf property\n", __func__);
++                return;
++        }
++
++        if (speed == 10) {
++                val = RV1106_VOGRF_GMAC_CLK_RMII_DIV20;
++        } else if (speed == 100) {
++                val = RV1106_VOGRF_GMAC_CLK_RMII_DIV2;
++        } else {
++                dev_err(dev, "unknown speed value for RMII! speed=%d", speed);
++                return;
++        }
++
++        regmap_write(bsp_priv->grf, RV1106_VOGRF_GMAC_CLK_CON, val);
++}
++
++/* Integrated FEPHY */
++#define RK_FEPHY_SHUTDOWN               GRF_BIT(1)
++#define RK_FEPHY_POWERUP                GRF_CLR_BIT(1)
++#define RK_FEPHY_INTERNAL_RMII_SEL      GRF_BIT(6)
++#define RK_FEPHY_24M_CLK_SEL            (GRF_BIT(8) | GRF_BIT(9))
++#define RK_FEPHY_PHY_ID                 GRF_BIT(11)
++
++#define RK_FEPHY_BGS                    HIWORD_UPDATE(0x0, 0xf, 0)
++
++#define RK_FEPHY_BGS_MAX                7
++
++static int rv1106_integrated_phy_powerup(struct rk_priv_data *priv, bool on)
++{
++        struct device *dev = &priv->pdev->dev;
++
++        if (IS_ERR(priv->grf) || !priv->phy_reset) {
++                dev_err(dev, "%s: Missing rockchip,grf or phy_reset property\n",
++                        __func__);
++                return -1;
++        }
++
++        if (!priv->plat->phy_node || !priv->integrated_phy) {
++                dev_err(dev, "%s: Wrong phy setup for RV1106\n", __func__);
++                return -1;
++        }
++
++        if (on) {
++	        const unsigned int bgs_increment = 2;
++                unsigned int bgs = priv->bgs;
++
++                dev_err(dev, "%s: poweron phy\n", __func__);
++
++                reset_control_assert(priv->phy_reset);
++                udelay(20);
++                regmap_write(priv->grf, RV1106_VOGRF_MACPHY_CON0,
++                             RK_FEPHY_POWERUP |
++                             RK_FEPHY_INTERNAL_RMII_SEL |
++                             RK_FEPHY_24M_CLK_SEL |
++                             RK_FEPHY_PHY_ID);
++
++                if (bgs > (RK_FEPHY_BGS_MAX - bgs_increment) &&
++                    bgs <= RK_FEPHY_BGS_MAX) {
++                        bgs = HIWORD_UPDATE(RK_FEPHY_BGS_MAX, 0xf, 0);
++                } else {
++                        bgs += bgs_increment;
++                        bgs &= 0xf;
++                        bgs = HIWORD_UPDATE(bgs, 0xf, 0);
++                }
++
++                regmap_write(priv->grf, RV1106_VOGRF_MACPHY_CON1, bgs);
++                usleep_range(10 * 1000, 12 * 1000);
++                reset_control_deassert(priv->phy_reset);
++                usleep_range(50 * 1000, 60 * 1000);
++        } else {
++                dev_err(dev, "%s: powerdown phy\n", __func__);
++
++                regmap_write(priv->grf, RV1106_VOGRF_MACPHY_CON0,
++                             RK_FEPHY_SHUTDOWN);
++        }
++
++	return 1;
++}
++
++static const struct rk_gmac_ops rv1106_ops = {
++        .set_to_rmii = rv1106_set_to_rmii,
++        .set_rmii_speed = rv1106_set_rmii_speed,
++        .integrated_phy_powerup = rv1106_integrated_phy_powerup,
++};
++
+ #define RV1108_GRF_GMAC_CON0		0X0900
+ 
+ /* RV1108_GRF_GMAC_CON0 */
+@@ -1455,8 +1578,13 @@ static const struct rk_gmac_ops rv1126_ops = {
+ 
+ static void rk_gmac_integrated_phy_powerup(struct rk_priv_data *priv)
+ {
+-	if (priv->ops->integrated_phy_powerup)
+-		priv->ops->integrated_phy_powerup(priv);
++	int ret;
++
++	if (priv->ops->integrated_phy_powerup) {
++		ret = priv->ops->integrated_phy_powerup(priv, true);
++		if (ret)
++			return;
++	}
+ 
+ 	regmap_write(priv->grf, RK_GRF_MACPHY_CON0, RK_MACPHY_CFG_CLK_50M);
+ 	regmap_write(priv->grf, RK_GRF_MACPHY_CON0, RK_GMAC2PHY_RMII_MODE);
+@@ -1480,6 +1608,14 @@ static void rk_gmac_integrated_phy_powerup(struct rk_priv_data *priv)
+ 
+ static void rk_gmac_integrated_phy_powerdown(struct rk_priv_data *priv)
+ {
++	int ret;
++
++	if (priv->ops->integrated_phy_powerup) {
++		ret = priv->ops->integrated_phy_powerup(priv, false);
++		if (ret)
++			return;
++	}
++
+ 	regmap_write(priv->grf, RK_GRF_MACPHY_CON0, RK_MACPHY_DISABLE);
+ 	if (priv->phy_reset)
+ 		reset_control_assert(priv->phy_reset);
+@@ -1673,6 +1809,10 @@ static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
+ 		bsp_priv->rx_delay = value;
+ 	}
+ 
++	ret = nvmem_cell_read_u8(dev, "bgs", &bsp_priv->bgs);
++	if (ret && ret != -ENOENT)
++		return ERR_PTR(dev_err_probe(dev, ret, "failed to read bgs cell\n"));
++
+ 	bsp_priv->grf = syscon_regmap_lookup_by_phandle(dev->of_node,
+ 							"rockchip,grf");
+ 	bsp_priv->php_grf = syscon_regmap_lookup_by_phandle(dev->of_node,
+@@ -1693,6 +1833,7 @@ static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
+ 		 bsp_priv->integrated_phy ? "yes" : "no");
+ 
+ 	bsp_priv->pdev = pdev;
++	bsp_priv->plat = plat;
+ 
+ 	return bsp_priv;
+ }
+@@ -1909,6 +2050,7 @@ static const struct of_device_id rk_gmac_dwmac_match[] = {
+ 	{ .compatible = "rockchip,rk3399-gmac", .data = &rk3399_ops },
+ 	{ .compatible = "rockchip,rk3568-gmac", .data = &rk3568_ops },
+ 	{ .compatible = "rockchip,rk3588-gmac", .data = &rk3588_ops },
++	{ .compatible = "rockchip,rv1106-gmac", .data = &rv1106_ops },
+ 	{ .compatible = "rockchip,rv1108-gmac", .data = &rv1108_ops },
+ 	{ .compatible = "rockchip,rv1126-gmac", .data = &rv1126_ops },
+ 	{ }
+-- 
+2.46.0
+

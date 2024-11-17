@@ -18,7 +18,7 @@ let
       # (consider: nested sway sessions, where sway actually has a reason to read these)
       exec env -u DISPLAY -u WAYLAND_DISPLAY \
         "DESIRED_WAYLAND_DISPLAY=$WAYLAND_DISPLAY" \
-        ${configuredSway}/bin/sway \
+        ${lib.getExe configuredSway} \
         2>&1
     '';
   in
@@ -145,10 +145,10 @@ in
     packageUnwrapped = swayPackage;
     suggestedPrograms = [
       "guiApps"
-      "blueberry"  # GUI bluetooth manager
+      # "blueberry"  # GUI bluetooth manager
       "brightnessctl"
       "conky"  # for a nice background
-      # "fcitx5"  # input method; emoji  # TODO(2024/05/10): this broke 2-ish weeks ago, glitches input into any textbox, possibly only when xwayland is enabled?
+      "fcitx5"  # input method; emoji. this has been known to break and glitch input into any textbox -- disable here if that happens
       "fontconfig"
       # "gnome.gnome-bluetooth"  # XXX(2023/05/14): broken
       # "gnome.gnome-control-center"  # XXX(2023/06/28): depends on webkitgtk4_1
@@ -158,7 +158,6 @@ in
       "playerctl"  # for waybar & particularly to have playerctld running
       "rofi"  # menu/launcher
       "rofi-snippets"
-      "s6-rc"  # used by sway config
       "sane-screenshot"
       "sane-open"
       "sane-theme"
@@ -169,7 +168,8 @@ in
       "swaynotificationcenter"  # notification daemon
       "switchboard"  # network/bluetooth/sound control panel
       "syshud"  # volume notifier
-      "unl0kr"  # greeter
+      "systemctl"  # used by sway config
+      # "unl0kr"  # greeter
       # "waybar"
       "wdisplays"  # like xrandr
       "wireplumber"  # used by sway config
@@ -198,12 +198,11 @@ in
       cfg.config.locker
     ];
 
-    sandbox.method = "bunpen";
     sandbox.net = "all";  # TODO: shouldn't be needed! but without this, mouse/kb hotplug doesn't work.
     sandbox.whitelistAudio = true;  # it runs playerctl directly
     sandbox.whitelistDbus = [ "system" "user" ];  # to e.g. launch apps
     sandbox.whitelistDri = true;
-    sandbox.whitelistS6 = true;  #< for Super+L to start the screen locker service
+    sandbox.whitelistSystemctl = true;  #< for Super+L to start the screen locker service
     sandbox.whitelistX = true;  # sway invokes xwayland itself
     sandbox.whitelistWayland = true;
     sandbox.extraRuntimePaths = [
@@ -256,7 +255,7 @@ in
     # N.B.: gtk apps support absolute paths for this; webkit apps (e.g. geary) support only relative paths (relative to $XDG_RUNTIME_DIR)
     env.WAYLAND_DISPLAY = "wl/wayland-1";
 
-    services.private-storage.dependencyOf = [ "sway" ];  #< HACK: prevent unl0kr and sway from fighting over the tty
+    # services.private-storage.dependencyOf = [ "sway" ];  #< HACK: prevent unl0kr and sway from fighting over the tty
     services.sway = {
       description = "sway: tiling wayland desktop environment";
       partOf = [
@@ -264,6 +263,7 @@ in
       ] ++ lib.optionals enableXWayland [
         "x11"
       ];
+      depends = [ "private-storage" ];    #< HACK: prevent unl0kr and sway from fighting over the tty. TODO: introduce some earlier `graphical-session-ready` target?
       # partOf = lib.mkMerge [
       #   "wayland"
       #   (lib.mkIf enableXWayland "x11")
@@ -280,10 +280,6 @@ in
     # launch all graphical apps by default
     services."graphical-session".partOf = [ "default" ];
   };
-
-  # TODO: this can go elsewhere
-  hardware.bluetooth.enable = lib.mkIf cfg.enabled true;
-  services.blueman.enable = lib.mkIf cfg.enabled true;
 
   # gsd provides Rfkill, which is required for the bluetooth pane in gnome-control-center to work
   # services.gnome.gnome-settings-daemon.enable = true;

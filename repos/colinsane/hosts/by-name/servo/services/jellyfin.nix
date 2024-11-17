@@ -69,7 +69,6 @@
         }
       }
     '';
-    wantedBeforeBy = [ "jellyfin.service" ];
   };
 
   # Jellyfin multimedia server
@@ -124,4 +123,7 @@
   sane.dns.zones."uninsane.org".inet.CNAME."jelly" = "native";
 
   services.jellyfin.enable = true;
+  systemd.services.jellyfin.unitConfig.RequiresMountsFor = [
+    "/var/media"
+  ];
 }

@@ -24,7 +24,7 @@
 #   - nixpkgs has a few themes: `fcitx5-{material-color,nord,rose-pine}`
 #   - NUR has a few themes
 #   - <https://github.com/catppuccin/fcitx5>
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 {
   sane.programs.fcitx5 = {
     packageUnwrapped = pkgs.fcitx5-with-addons.override {
@@ -34,7 +34,6 @@
       ];
     };
 
-    sandbox.method = "bwrap";
     sandbox.whitelistDbus = [ "user" ];
     sandbox.whitelistWayland = true;  # for `fcitx5-configtool, if nothing else`
     sandbox.extraHomePaths = [

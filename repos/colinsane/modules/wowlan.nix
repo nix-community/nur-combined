@@ -117,10 +117,7 @@ let
 in
 {
   options = with lib; {
-    sane.wowlan.enable = mkOption {
-      default = false;
-      type = types.bool;
-    };
+    sane.wowlan.enable = mkEnableOption "Wake on Wireless LAN packets";
     sane.wowlan.patterns = mkOption {
       default = [];
       type = types.listOf patternOpts;

@@ -7,7 +7,6 @@
       path = "${config.sane.programs.geoclue2.packageUnwrapped}/libexec/geoclue-2.0/demos/agent";
     }];
 
-    sandbox.method = "bwrap";
     sandbox.whitelistDbus = [
       "system"
     ];

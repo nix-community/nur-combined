@@ -12,7 +12,9 @@
 # - delete a notification destination by setting `kind` to `null` (otherwise, request is identical to above)
 #
 { config, lib, pkgs, ... }:
-
+let
+  ntfy = config.services.ntfy-sh.enable;
+in
 {
   imports = [
     ./discord-puppet.nix
@@ -68,21 +70,21 @@
     config.sops.secrets."matrix_synapse_secrets.yaml".path
   ];
 
-  systemd.services.matrix-synapse.postStart = ''
-    ACCESS_TOKEN=$(${pkgs.coreutils}/bin/cat ${config.sops.secrets.matrix_access_token.path})
-    TOPIC=$(${pkgs.coreutils}/bin/cat ${config.sops.secrets.ntfy-sh-topic.path})
+  systemd.services.matrix-synapse.postStart = lib.optionalString ntfy ''
+    ACCESS_TOKEN=$(${lib.getExe' pkgs.coreutils "cat"} ${config.sops.secrets.matrix_access_token.path})
+    TOPIC=$(${lib.getExe' pkgs.coreutils "cat"} ${config.sops.secrets.ntfy-sh-topic.path})
 
     echo "ensuring ntfy push gateway"
-    ${pkgs.curl}/bin/curl \
+    ${lib.getExe pkgs.curl} \
       --header "Authorization: Bearer $ACCESS_TOKEN" \
       --data "{ \"app_display_name\": \"ntfy-adapter\", \"app_id\": \"ntfy.uninsane.org\", \"data\": { \"url\": \"https://ntfy.uninsane.org/_matrix/push/v1/notify\", \"format\": \"event_id_only\" }, \"device_display_name\": \"ntfy-adapter\", \"kind\": \"http\", \"lang\": \"en-US\", \"profile_tag\": \"\", \"pushkey\": \"$TOPIC\" }" \
       localhost:8008/_matrix/client/v3/pushers/set
 
     echo "registered push gateways:"
-    ${pkgs.curl}/bin/curl \
+    ${lib.getExe pkgs.curl} \
       --header "Authorization: Bearer $ACCESS_TOKEN" \
       localhost:8008/_matrix/client/v3/pushers \
-      | ${pkgs.jq}/bin/jq .
+      | ${lib.getExe pkgs.jq} .
   '';
 
 
@@ -159,5 +161,5 @@
     owner = config.users.users.matrix-synapse.name;
   };
   # provide access to ntfy-sh-topic secret
-  users.users.matrix-synapse.extraGroups = [ "ntfy-sh" ];
+  users.users.matrix-synapse.extraGroups = lib.optionals ntfy [ "ntfy-sh" ];
 }

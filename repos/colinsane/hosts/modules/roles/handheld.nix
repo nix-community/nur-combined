@@ -13,6 +13,9 @@
       "consoleMediaUtils"  # overbroad, but handy on very rare occasion
       "handheldGuiApps"
     ];
+    sane.programs.geoclue2.suggestedPrograms = [
+      "gps-share"
+    ];
     sane.programs.sway.suggestedPrograms = [
       "sane-input-handler"
     ];

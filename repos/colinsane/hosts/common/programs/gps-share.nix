@@ -26,7 +26,6 @@ in
       # and systemd, for udevadm
     ];
 
-    sandbox.method = "bwrap";
     sandbox.net = "all";
     sandbox.autodetectCliPaths = "existing";  #< N.B.: `test -f /dev/ttyUSB1` fails, we can't use `existingFile`
     sandbox.whitelistDbus = [ "system" ];  #< to register with Avahi

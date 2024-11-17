@@ -12,6 +12,5 @@
       buildInputs = [];  #< errno has no runtime perl deps, and they don't cross compile, so disable them.
     });
 
-    sandbox.method = "bunpen";
   };
 }

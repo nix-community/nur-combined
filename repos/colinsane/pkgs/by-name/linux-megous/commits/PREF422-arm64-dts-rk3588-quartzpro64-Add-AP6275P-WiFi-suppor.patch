@@ -1,0 +1,43 @@
+From 5b50182ec96fe9f6359187b64220c015457da7eb Mon Sep 17 00:00:00 2001
+From: Ondrej Jirman <megi@xff.cz>
+Date: Wed, 28 Feb 2024 21:12:05 +0100
+Subject: [PATCH 422/463] arm64: dts: rk3588-quartzpro64: Add AP6275P WiFi
+ support
+
+Link PCIe WiFi chip to the required 32kHz clock.
+
+Signed-off-by: Ondrej Jirman <megi@xff.cz>
+---
+ .../boot/dts/rockchip/rk3588-quartzpro64.dts     | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-quartzpro64.dts b/arch/arm64/boot/dts/rockchip/rk3588-quartzpro64.dts
+index cabb96062e6d0..167e000c40236 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-quartzpro64.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-quartzpro64.dts
+@@ -459,6 +459,22 @@ &pcie2x1l0 {
+ 	reset-gpios = <&gpio4 RK_PA5 GPIO_ACTIVE_HIGH>;
+ 	vpcie3v3-supply = <&vcc3v3_wf>;
+ 	status = "okay";
++
++	pcie@0,0 {
++		reg = <0x200000 0 0 0 0>;
++		#address-cells = <3>;
++		#size-cells = <2>;
++		ranges;
++		device_type = "pci";
++		bus-range = <0x21 0x2f>;
++
++		wifi: wifi@0,0 {
++			compatible = "pci14e4,449d";
++			reg = <0x210000 0 0 0 0>;
++			clocks = <&hym8563>;
++			clock-names = "32k";
++		};
++	};
+ };
+ 
+ /* GMAC1 */
+-- 
+2.46.0
+

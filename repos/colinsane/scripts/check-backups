@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p nettools -p openssh -p rsync -p sane-scripts.vpn -p sanebox
+#!nix-shell -i bash -p bash -p nettools -p openssh -p rsync -p sane-scripts.vpn
 
 # secret should include RN_USER
 source /run/secrets/rsync-net-env
@@ -11,7 +11,9 @@ fail() {
   rc=1
 }
 
+set -x
 ssh -i "$RN_ID" "$RN_USER@$RN_USER.rsync.net" ls -al
+set +x
 
 for host in desko lappy moby servo; do
   dir=nix/persist/private

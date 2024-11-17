@@ -1,7 +1,6 @@
 { ... }:
 {
   sane.programs.sane-sysload = {
-    sandbox.method = "bunpen";
     sandbox.extraPaths = [
       "/sys/class/power_supply"
       "/sys/devices"

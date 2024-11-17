@@ -15,7 +15,6 @@ let
   wanted-feeds = feeds.filterByFormat [ "text" "image" "podcast" "video" ] all-feeds;
 in {
   sane.programs.newsflash = {
-    sandbox.method = "bunpen";
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;  #< for embedded videos
     sandbox.whitelistDbus = [ "user" ];

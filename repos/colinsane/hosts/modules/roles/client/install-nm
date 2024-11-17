@@ -107,12 +107,13 @@ def main() -> None:
     parser.add_argument("manifest", help="path to the manifest.json")
     parser.add_argument("destination", help="directory in which to install files")
     parser.add_argument("--flavor", help="'nm' or 'iwd' based on which program will read the results", default="iwd")
-    parser.add_argument("--stamp", default=".install-nm.stamp", help="relative path of empty file to touch after completion")
+    parser.add_argument("--stamp", default="", help="relative path of empty file to touch after completion")
 
     args = parser.parse_args()
     manifest = parse_manifest(args.manifest)
     install_all(manifest, args.destination, flavor=args.flavor)
-    stamp(args.destination, args.stamp)
+    if args.stamp:
+        stamp(args.destination, args.stamp)
 
 if __name__ == "__main__":
     main()

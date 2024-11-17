@@ -1,7 +1,6 @@
 { ... }:
 {
   sane.programs.syshud = {
-    sandbox.method = "bunpen";
     sandbox.whitelistAudio = true;
     sandbox.whitelistWayland = true;
     sandbox.extraPaths = [
@@ -17,13 +16,13 @@
       # width/height/icon_size are in pixels
       width=256
       height=39
-      icon_size=32
-      percentage=false
+      icon-size=32
+      show-percentage=false
       # margin=0 will position below the sway bar, but on top of the window title
       margins=22 22 22 22
       # timeout: notifier will be dismissed after N seconds (integer only)
       timeout=1
-      transition=0
+      transition-time=0
       backlight=
       monitors=audio_in,audio_out
     '';

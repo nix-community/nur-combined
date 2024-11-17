@@ -2,6 +2,9 @@
 # - `gst-device-monitor-1.0 Audio/Sink`  #< show all audio sinks
 # - `gst-device-monitor-1.0 Audio/Source`  #< show all audio sources (microphones)
 # - `gst-device-monitor-1.0 Video/Source`  #< show all video sources (cameras)
+# the output will include things like
+#   `gst-launch-1.0 pipewiresrc target-object=90 ! ...`
+# in which case, view it like (for a camera): `gst-launch-1.0 pipewiresrc target-object=90 ! glimagesink`
 { pkgs, ... }:
 {
   sane.programs.gst-device-monitor = {
@@ -20,7 +23,6 @@
       ];
     });
 
-    sandbox.method = "bunpen";
     sandbox.whitelistAudio = true;
     sandbox.extraPaths = [
       "/dev"  # tried, but failed to narrow this down (moby)

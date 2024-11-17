@@ -29,6 +29,7 @@ let
   # at the IP layer, to enable e.g. wake-on-lan.
   altPort = 2587;
 in
+lib.mkIf false  #< 2024/09/30: disabled because i haven't used it in several months
 {
   sane.persist.sys.byStore.private = [
     # not 100% necessary to persist this, but ntfy does keep a 12hr (by default) cache
@@ -58,7 +59,7 @@ in
     # note that this will fail upon first run, i.e. before ntfy has created its db.
     # just restart the service.
     topic=$(cat ${config.sops.secrets.ntfy-sh-topic.path})
-    ${pkgs.ntfy-sh}/bin/ntfy access everyone "$topic" read-write
+    ${lib.getExe' pkgs.ntfy-sh "ntfy"} access everyone "$topic" read-write
   '';
 
 

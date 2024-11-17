@@ -54,7 +54,7 @@
     services.mako = {
       description = "mako desktop notification daemon";
       partOf = [ "graphical-session" ];
-      command = "${config.sane.programs.mako.package}/bin/mako";
+      command = lib.getExe config.sane.programs.mako.package;
     };
   };
 }

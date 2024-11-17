@@ -86,9 +86,9 @@ in
   sane.services.hickory-dns.enable = true;
   sane.services.hickory-dns.instances = let
     mkSubstitutions = flavor: {
-      "%ADOOF%" = config.sane.netns.doof.netnsPubIpv4;
+      "%ADOOF%" = config.sane.netns.doof.wg.address.ipv4;
       "%ANATIVE%" = nativeAddrs."servo.${flavor}";
-      "%AOVPNS%" = config.sane.netns.ovpns.netnsPubIpv4;
+      "%AOVPNS%" = config.sane.netns.ovpns.wg.address.ipv4;
       "%AWAN%" = "$(cat '${dyn-dns.ipPath}')";
       "%CNAMENATIVE%" = "servo.${flavor}";
     };
@@ -97,37 +97,37 @@ in
     doof = {
       substitutions = mkSubstitutions "doof";
       listenAddrsIpv4 = [
-        config.sane.netns.doof.hostVethIpv4
-        config.sane.netns.doof.netnsPubIpv4
+        config.sane.netns.doof.veth.initns.ipv4
+        config.sane.netns.doof.wg.address.ipv4
         nativeAddrs."servo.lan"
-        # config.sane.netns.ovpns.hostVethIpv4
+        # config.sane.netns.ovpns.veth.initns.ipv4
       ];
     };
-    hn = {
-      substitutions = mkSubstitutions "hn";
-      listenAddrsIpv4 = [ nativeAddrs."servo.hn" ];
-      enableRecursiveResolver = true;  #< allow wireguard clients to use this as their DNS resolver
-      # extraConfig = {
-      #   zones = [
-      #     {
-      #       # forward the root zone to the local DNS resolver
-      #       # to allow wireguard clients to use this as their DNS resolver
-      #       zone = ".";
-      #       zone_type = "Forward";
-      #       stores = {
-      #         type = "forward";
-      #         name_servers = [
-      #           {
-      #             socket_addr = "127.0.0.53:53";
-      #             protocol = "udp";
-      #             trust_nx_responses = true;
-      #           }
-      #         ];
-      #       };
-      #     }
-      #   ];
-      # };
-    };
+    # hn = {
+    #   substitutions = mkSubstitutions "hn";
+    #   listenAddrsIpv4 = [ nativeAddrs."servo.hn" ];
+    #   enableRecursiveResolver = true;  #< allow wireguard clients to use this as their DNS resolver
+    #   # extraConfig = {
+    #   #   zones = [
+    #   #     {
+    #   #       # forward the root zone to the local DNS resolver
+    #   #       # to allow wireguard clients to use this as their DNS resolver
+    #   #       zone = ".";
+    #   #       zone_type = "Forward";
+    #   #       stores = {
+    #   #         type = "forward";
+    #   #         name_servers = [
+    #   #           {
+    #   #             socket_addr = "127.0.0.53:53";
+    #   #             protocol = "udp";
+    #   #             trust_nx_responses = true;
+    #   #           }
+    #   #         ];
+    #   #       };
+    #   #     }
+    #   #   ];
+    #   # };
+    # };
     # lan = {
     #   substitutions = mkSubstitutions "lan";
     #   listenAddrsIpv4 = [ nativeAddrs."servo.lan" ];
@@ -140,6 +140,11 @@ in
     #   ];
     # };
   };
+
+  systemd.services.hickory-dns-doof.after = [
+    # service will fail to bind the veth, otherwise
+    "netns-doof-veth.service"
+  ];
 
   sane.services.dyn-dns.restartOnChange = lib.map (c: "${c.service}.service") (builtins.attrValues config.sane.services.hickory-dns.instances);
 }

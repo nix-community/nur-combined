@@ -5,19 +5,17 @@
 {
   sane.programs.soundconverter = {
     buildCost = 1;
-    sandbox.method = "bunpen";
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       "Music"
       "tmp"
       "use"
-      ".config/dconf"
     ];
-    sandbox.whitelistDbus = [ "user" ];  # for dconf
     sandbox.extraPaths = [
       "/mnt/servo/media/Music"
       "/mnt/servo/media/games"
     ];
     sandbox.autodetectCliPaths = "existingOrParent";
+    gsettingsPersist = [ "org/soundconverter" ];
   };
 }

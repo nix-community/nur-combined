@@ -1,27 +1,5 @@
 { config, pkgs, ... }:
-let
-  # networkmanager = pkgs.networkmanager;
-  networkmanager = pkgs.networkmanager.overrideAttrs (upstream: {
-    # src = pkgs.fetchFromGitea {
-    #   domain = "git.uninsane.org";
-    #   owner = "colin";
-    #   repo = "NetworkManager";
-    #   # patched to fix polkit permissions (with `nmcli`) when NetworkManager runs as user networkmanager
-    #   rev = "dev-sane-1.48.0";
-    #   hash = "sha256-vGmOKtwVItxjYioZJlb1og3K6u9s4rcmDnjAPLBC3ao=";
-    # };
-    patches = (upstream.patches or []) ++ [
-      (pkgs.fetchpatch {
-        name = "polkit: add owner annotations to all actions";
-        url = "https://git.uninsane.org/colin/NetworkManager/commit/a01293861fa24201ffaeb84c07f1c71136c49759.patch";
-        hash = "sha256-th1/M2slo7rjkVBwETZII53Lmhyw8OMS0aT9QYI5Uvk=";
-      })
-    ];
-  });
-  # split the package into `daemon` and `nmcli` outputs, because the networkmanager *service*
-  # doesn't need `nmcli`/`nmtui` tooling
-  networkmanager-split = pkgs.networkmanager-split.override { inherit networkmanager; };
-in {
+{
   networking.networkmanager.enable = true;
   systemd.network.wait-online.enable = false;  # systemd-networkd-wait-online.service reliably fails on lappy. docs don't match behavior. shit software.
   # plugins mostly add support for establishing different VPN connections.
@@ -39,7 +17,7 @@ in {
   # networking.networkmanager.plugins = lib.mkForce [];
   networking.networkmanager.enableDefaultPlugins = false;
 
-  networking.networkmanager.package = networkmanager-split.daemon.overrideAttrs (upstream: {
+  networking.networkmanager.package = pkgs.networkmanager-split.daemon.overrideAttrs (upstream: {
     # postPatch = (upstream.postPatch or "") + ''
     #   substituteInPlace src/{core/org.freedesktop.NetworkManager,nm-dispatcher/nm-dispatcher}.conf --replace-fail \
     #     'user="root"' 'user="networkmanager"'
@@ -68,15 +46,23 @@ in {
     serviceConfig.User = "networkmanager";
     serviceConfig.Group = "networkmanager";
     serviceConfig.AmbientCapabilities = [
+      "CAP_KILL"  #< required, else `nmcli d disconnect blah` says "Unable to determine UID of the request"
       "CAP_NET_ADMIN"
       "CAP_NET_RAW"
       "CAP_NET_BIND_SERVICE"
+
+      # "CAP_DAC_OVERRIDE"
+      # "CAP_SYS_MODULE"
+      # "CAP_AUDIT_WRITE"  #< allow writing to the audit log (optional)
+      # "CAP_KILL"
     ];
     serviceConfig.CapabilityBoundingSet = [
-      # "CAP_DAC_OVERRIDE"
+      "CAP_KILL"  #< required, else `nmcli d disconnect blah` says "Unable to determine UID of the request"
       "CAP_NET_ADMIN"
       "CAP_NET_RAW"  #< required, else `libndp: ndp_sock_open: Failed to create ICMP6 socket.`
       "CAP_NET_BIND_SERVICE"  #< this *does* seem to be necessary, though i don't understand why. DHCP?
+
+      # "CAP_DAC_OVERRIDE"
       # "CAP_SYS_MODULE"
       # "CAP_AUDIT_WRITE"  #< allow writing to the audit log (optional)
       # "CAP_KILL"
@@ -142,7 +128,7 @@ in {
     #VVV so that /var/lib/hickory-dns will exist (the hook needs to write here).
     # but this creates a cycle: hickory-dns-localhost > network.target > NetworkManager-dispatcher > hickory-dns-localhost.
     # (seemingly) impossible to remove the network.target dep on NetworkManager-dispatcher.
-    # beffore would be to have the dispatcher not write hickory-dns files
+    # before would be to have the dispatcher not write hickory-dns files
     # but rather just its own, and create a .path unit which restarts hickory-dns appropriately.
     # after = [ "hickory-dns-localhost.service" ];
     # serviceConfig.ExecStart = [
@@ -236,7 +222,9 @@ in {
     # note that NM's resolv.conf isn't (necessarily) /etc/resolv.conf -- that is managed by nixos (via symlinking)
     main.dns = if config.services.resolved.enable then
       "systemd-resolved"
-    else if config.sane.services.hickory-dns.enable && config.sane.services.hickory-dns.asSystemResolver then
+    else if
+      (config.sane.services.hickory-dns.enable && config.sane.services.hickory-dns.asSystemResolver)
+      || (config.services.unbound.enable && config.services.unbound.resolveLocalQueries) then
       "none"
     else
       "internal"

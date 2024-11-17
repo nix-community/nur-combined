@@ -7,7 +7,6 @@
 # see: https://gitlab.com/librewolf-community/settings/-/blob/master/distribution/policies.json
 
 { config, lib, pkgs, ...}:
-with lib;
 let
   cfg = config.sane.programs.firefox.config;
   mobile-prefs = lib.optionals false pkgs.librewolf-pmos-mobile.extraPrefsFiles;
@@ -31,73 +30,29 @@ let
   # defaultSettings = firefoxSettings;
   defaultSettings = librewolfSettings;
 
+  nativeMessagingHostNames = lib.flatten (
+    lib.mapAttrsToList
+      (_: addonOpts: lib.optionals addonOpts.enable addonOpts.nativeMessagingHosts)
+      cfg.addons
+  );
+  nativeMessagingPrograms = lib.map (n: config.sane.programs."${n}") nativeMessagingHostNames;
+  nativeMessagingHosts = lib.map (p: p.package) nativeMessagingPrograms;
+
+  addonSuggestedProgramNames = lib.flatten (
+    lib.mapAttrsToList
+      (_: addonOpts: lib.optionals addonOpts.enable addonOpts.suggestedPrograms)
+      cfg.addons
+  );
+  addonSuggestedPrograms = lib.map (n: config.sane.programs."${n}") addonSuggestedProgramNames;
+  addonHomePaths = lib.concatMap (p: p.sandbox.extraHomePaths) (addonSuggestedPrograms ++ nativeMessagingPrograms);
+
   packageUnwrapped = (pkgs.wrapFirefox cfg.browser.browser {
     # inherit the default librewolf.cfg
     # it can be further customized via ~/.librewolf/librewolf.overrides.cfg
     inherit (cfg.browser) extraPrefsFiles libName;
+    inherit nativeMessagingHosts;
 
-    nativeMessagingHosts = lib.optionals cfg.addons.browserpass-extension.enable [
-      pkgs.browserpass
-    ] ++ lib.optionals cfg.addons.fxCast.enable [
-      pkgs.fx-cast-bridge
-    ];
-
-    nixExtensions = concatMap (ext: optional ext.enable ext.package) (attrValues cfg.addons);
-
-    # extraPolicies: only really required if using firefox; else, easier to configure this via overrides.cfg.
-    # extraPolicies = {
-    #   FirefoxHome = {
-    #     Search = true;
-    #     Pocket = false;
-    #     Snippets = false;
-    #     TopSites = false;
-    #     Highlights = false;
-    #   };
-    #   NoDefaultBookmarks = true;
-    #   OfferToSaveLogins = false;
-    #   OfferToSaveLoginsDefault = false;
-    #   PasswordManagerEnabled = false;
-    #   SearchEngines = {
-    #     Default = "DuckDuckGo";
-    #   };
-    #   UserMessaging = {
-    #     ExtensionRecommendations = false;
-    #     FeatureRecommendations = false;
-    #     SkipOnboarding = true;
-    #     UrlbarInterventions = false;
-    #     WhatsNew = false;
-    #   };
-
-    #   # these were taken from Librewolf
-    #   AppUpdateURL = "https://localhost";
-    #   DisableAppUpdate = true;
-    #   OverrideFirstRunPage = "";
-    #   OverridePostUpdatePage = "";
-    #   DisableSystemAddonUpdate = true;
-    #   DisableFirefoxStudies = true;
-    #   DisableTelemetry = true;
-    #   DisableFeedbackCommands = true;
-    #   DisablePocket = true;
-    #   DisableSetDesktopBackground = false;
-
-    #   # remove many default search providers
-    #   # XXX this seems to prevent the `nixExtensions` from taking effect
-    #   # Extensions.Uninstall = [
-    #   #   "google@search.mozilla.org"
-    #   #   "bing@search.mozilla.org"
-    #   #   "amazondotcom@search.mozilla.org"
-    #   #   "ebay@search.mozilla.org"
-    #   #   "twitter@search.mozilla.org"
-    #   # ];
-    #   # XXX doesn't seem to have any effect...
-    #   # docs: https://github.com/mozilla/policy-templates#homepage
-    #   # Homepage = {
-    #   #   HomepageURL = "https://uninsane.org/";
-    #   #   StartPage = "homepage";
-    #   # };
-    #   # NewTabPage = true;
-    # };
-    # extraPrefs = ...
+    nixExtensions = lib.concatMap (ext: lib.optional ext.enable ext.package) (builtins.attrValues cfg.addons);
   }).overrideAttrs (base: {
     nativeBuildInputs = (base.nativeBuildInputs or []) ++ [
       pkgs.copyDesktopItems
@@ -136,7 +91,7 @@ let
 
       echo "unzipping omni.ja"
       # N.B. `zip` exits non-zero even on successful extraction, if the file didn't 100% obey spec
-      ${pkgs.buildPackages.unzip}/bin/unzip $out/lib/${cfg.browser.libName}/browser/omni.ja -d omni || true
+      ${lib.getExe pkgs.buildPackages.unzip} $out/lib/${cfg.browser.libName}/browser/omni.ja -d omni || true
 
       echo "removing old omni.ja"
       rm $out/lib/${cfg.browser.libName}/browser/omni.ja
@@ -150,7 +105,7 @@ let
       ${lib.getExe pkgs.buildPackages.gnused} -i s'/command="cmd_close" modifiers="accel"/command="cmd_close" modifiers="accel,shift"/' omni/chrome/browser/content/browser/browser.xhtml
 
       echo "re-zipping omni.ja"
-      pushd omni; ${pkgs.buildPackages.zip}/bin/zip $out/lib/${cfg.browser.libName}/browser/omni.ja -r ./*; popd
+      pushd omni; ${lib.getExe pkgs.buildPackages.zip} $out/lib/${cfg.browser.libName}/browser/omni.ja -r ./*; popd
 
       echo "omni.ja AFTER:"
       ls -l $out/lib/${cfg.browser.libName}/browser/omni.ja
@@ -164,10 +119,12 @@ in
 {
   imports = [
     ./addons.nix
+    ./browserpass.nix
+    ./passff-host.nix
   ];
 
   sane.programs.firefox = {
-    configOption = mkOption {
+    configOption = with lib; mkOption {
       default = {};
       type = types.submodule {
         options = {
@@ -187,16 +144,20 @@ in
           };
           addons = mkOption {
             default = {};
-            type = types.attrsOf (types.submodule {
+            type = types.attrsOf (types.submodule ({ name, ...}: {
               options = {
-                package = mkOption {
-                  type = types.package;
+                enable = mkEnableOption "enable the ${name} Firefox addon";
+                package = mkPackageOption pkgs.firefox-extensions name {};
+                nativeMessagingHosts = mkOption {
+                  type = types.listOf types.str;
+                  default = [];
                 };
-                enable = mkOption {
-                  type = types.bool;
+                suggestedPrograms = mkOption {
+                  type = types.listOf types.str;
+                  default = [];
                 };
               };
-            });
+            }));
           };
         };
       };
@@ -204,9 +165,11 @@ in
 
     inherit packageUnwrapped;
 
-    sandbox.method = "bunpen";
+    suggestedPrograms = nativeMessagingHostNames ++ addonSuggestedProgramNames;
+
     sandbox.net = "all";
     sandbox.whitelistAudio = true;
+    sandbox.whitelistAvDev = true;  #< it doesn't seem to use pipewire, but direct /dev/videoN (as of 2024/09/12)
     sandbox.whitelistDbus = [ "user" ];  # mpris
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
@@ -220,7 +183,7 @@ in
       "Pictures/Photos"
       "Pictures/Screenshots"
       "Pictures/servo-macros"
-    ];
+    ] ++ addonHomePaths;
 
     mime.associations = let
       inherit (cfg.browser) desktop;
@@ -250,6 +213,11 @@ in
       // treat it as unrevoked.
       // see: <https://librewolf.net/docs/faq/#im-getting-sec_error_ocsp_server_error-what-can-i-do>
       defaultPref("security.OCSP.require", false);
+      // kinda weird to send ALL my domain connections to a 3rd party server, just disable OCSP
+      defaultPref("security.OCSP.enabled", 0);
+
+      // DISABLE DNS OVER HTTPS; use the system resolver.
+      defaultPref("network.trr.mode", 5);
 
       // scrollbar configuration, see: <https://artemis.sh/2023/10/12/scrollbars.html>
       // style=4 gives rectangular scrollbars
@@ -261,6 +229,10 @@ in
       // disable inertial/kinetic/momentum scrolling because it just gets in the way on touchpads
       // source: <https://kparal.wordpress.com/2019/10/31/disabling-kinetic-scrolling-in-firefox/>
       defaultPref("apz.gtk.kinetic_scroll.enabled", false);
+
+      // uidensity=2 gives more padding around UI elements.
+      // source: <https://codeberg.org/user0/Mobile-Friendly-Firefox>
+      defaultPref("browser.uidensity", 2);
 
       // open external URIs/files via xdg-desktop-portal.
       defaultPref("widget.use-xdg-desktop-portal.mime-handler", 1);
@@ -282,10 +254,12 @@ in
       // - to add a search shortcut: right-click any search box => "Add a keyword for this search".
       // - to update the static bookmarks, export via Hamburger => bookmarks => manage bookmarks => Import and Backup => Export Bookmarks To HTML
       defaultPref("browser.places.importBookmarksHTML", true);
-      defaultPref("browser.bookmarks.file", "${./bookmarks.html}");
+      defaultPref("browser.bookmarks.file", "~/.mozilla/firefox/bookmarks.html");
 
       defaultPref("browser.startup.homepage", "https://uninsane.org/places");
     '';
+
+    fs.".mozilla/firefox/bookmarks.html".symlink.target = ./bookmarks.html;
 
     # instruct Firefox to put the profile in a predictable directory (so we can do things like persist just it).
     # XXX: the directory *must* exist, even if empty; Firefox will not create the directory itself.

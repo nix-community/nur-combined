@@ -13,10 +13,7 @@ in
 {
   options.sane.services.eg25-manager = with lib; {
     enable = mkEnableOption "Quectel EG25 modem manager service";
-    package = mkOption {
-      type = types.package;
-      default = pkgs.eg25-manager;
-    };
+    package = mkPackageOption pkgs "eg25-manager" {};
   };
   config = lib.mkIf cfg.enable {
     # eg25-manager package ships udev rules *and* a systemd service.
@@ -27,10 +24,10 @@ in
     systemd.services.eg25-manager = {
       serviceConfig = {
         Type = "simple";
-        ExecStart = "${cfg.package}/bin/eg25-manager --config ${eg25-config-toml}";
+        ExecStart = "${lib.getExe cfg.package} --config ${eg25-config-toml}";
         ExecStartPre = pkgs.writeShellScript "unload-modem-power" ''
           # see issue: <https://gitlab.com/mobian1/eg25-manager/-/issues/38>
-          ${pkgs.kmod}/bin/modprobe -r modem_power && echo "WARNING: kernel configured with CONFIG_MODEM_POWER=y, may be incompatible with eg25-manager" || true
+          ${lib.getExe' pkgs.kmod "modprobe"} -r modem_power && echo "WARNING: kernel configured with CONFIG_MODEM_POWER=y, may be incompatible with eg25-manager" || true
         '';
 
         Restart = "on-failure";
@@ -61,7 +58,7 @@ in
     #   wantedBy = [ "eg25-manager.service" ];
     #   before = [ "eg25-manager.service" ];
     #   script = ''
-    #     ${pkgs.kmod}/bin/modprobe -r modem_power && echo "WARNING: kernel configured with CONFIG_MODEM_POWER=y, may be incompatible with eg25-manager" || true
+    #     ${lib.getExe' pkgs.kmod "modprobe"} -r modem_power && echo "WARNING: kernel configured with CONFIG_MODEM_POWER=y, may be incompatible with eg25-manager" || true
     #   '';
     # };
   };

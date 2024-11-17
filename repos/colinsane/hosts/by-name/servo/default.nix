@@ -3,7 +3,7 @@
 {
   imports = [
     ./fs.nix
-    ./net.nix
+    ./net
     ./services
   ];
 
@@ -21,14 +21,6 @@
     "sane-scripts.stop-all-servo"
   ];
   sane.services.dyn-dns.enable = true;
-  sane.services.hickory-dns.asSystemResolver = false;  # TODO: enable once it's all working well
-  sane.services.wg-home.enable = true;
-  sane.services.wg-home.visibleToWan = true;
-  sane.services.wg-home.forwardToWan = true;
-  sane.services.wg-home.routeThroughServo = false;
-  sane.services.wg-home.ip = config.sane.hosts.by-name."servo".wg-home.ip;
-  sane.ovpn.addrV4 = "172.23.174.114";
-  # sane.ovpn.addrV6 = "fd00:0000:1337:cafe:1111:1111:8df3:14b0";
   sane.nixcache.remote-builders.desko = false;
   sane.nixcache.remote-builders.servo = false;
   sane.services.rsync-net.enable = true;

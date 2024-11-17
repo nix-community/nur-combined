@@ -1,9 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p s6 -p s6-rc
-
-# for default $PATH to take precedence over nix-shell PATH if invoked interactively,
-# otherwise we invoke a s6-rc which does not know where to find files.
-export PATH="/etc/profiles/per-user/$(whoami)/bin:/run/current-system/sw/bin:$PATH"
+#!nix-shell -i bash -p bash -p systemdMinimal
 
 usage() {
   echo "swaync-service-dispatcher <action> <service>"
@@ -27,22 +23,15 @@ log() {
 }
 
 checkActive() {
-  # simulate a dry-run start. if no actions would be performed, then the service is up.
-  # alternative is s6-svstat, but that doesn't support oneshots
-  local s6Output=$(s6-rc -n 0 -b start "$service")
-  if [ -z "$s6Output" ]; then
-    echo true
-  else
-    echo false
-  fi
+  systemctl is-active "$service" > /dev/null && echo true || echo false
 }
 startService() {
   log "startService: $service"
-  s6-rc -b start "$service"
+  systemctl start "$service"
 }
 stopService() {
   log "stopService: $service"
-  s6-rc -b stop "$service"
+  systemctl stop "$service"
 }
 
 case "$action" in
@@ -59,7 +48,7 @@ case "$action" in
         ;;
     esac
     ;;
-  # these aren't needed by swaync; just handy because i can never remember how to use s6
+  # these aren't needed by swaync; just handy for testing/debugging
   (up)
     startService
     ;;

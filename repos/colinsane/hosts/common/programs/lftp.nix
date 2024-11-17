@@ -9,7 +9,6 @@
 { ... }:
 {
   sane.programs.lftp = {
-    sandbox.method = "bunpen";
     sandbox.net = "all";
     sandbox.extraPaths = [
       "Music"

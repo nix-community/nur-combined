@@ -83,6 +83,28 @@ in
     # unversioned files
     locations."@fallback" = {
       root = "/var/www/sites/uninsane.org";
+      extraConfig = ''
+        # instruct Google to not index these pages.
+        # see: <https://developers.google.com/search/docs/crawling-indexing/robots-meta-tag#xrobotstag>
+        add_header X-Robots-Tag 'none, noindex, nofollow';
+
+        # best-effort attempt to block archive.org from archiving these pages.
+        # reply with 403: Forbidden
+        # User Agent is *probably* "archive.org_bot"; maybe used to be "ia_archiver"
+        # source: <https://archive.org/details/archive.org_bot>
+        # additional UAs: <https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker>
+        #
+        # validate with: `curl -H 'User-Agent: "bot;archive.org_bot;like: something else"' -v https://uninsane.org/dne`
+        if ($http_user_agent ~* "(?:\b)archive.org_bot(?:\b)") {
+          return 403;
+        }
+        if ($http_user_agent ~* "(?:\b)archive.org(?:\b)") {
+          return 403;
+        }
+        if ($http_user_agent ~* "(?:\b)ia_archiver(?:\b)") {
+          return 403;
+        }
+      '';
     };
 
     # uninsane.org/share/foo => /var/www/sites/uninsane.org/share/foo.
@@ -235,7 +257,7 @@ in
   # to accept it.
   system.activationScripts.generate-x509-self-signed.text = ''
     mkdir -p /var/www/certs/wildcard
-    test -f /var/www/certs/wildcard/key.pem || ${pkgs.openssl}/bin/openssl \
+    test -f /var/www/certs/wildcard/key.pem || ${lib.getExe pkgs.openssl} \
       req -x509 -newkey rsa:4096 \
       -keyout /var/www/certs/wildcard/key.pem \
       -out /var/www/certs/wildcard/cert.pem \

@@ -9,7 +9,6 @@
         }
       '';
     });
-    sandbox.method = "bunpen";
     sandbox.net = "clearnet";  # tor over VPN wouldn't make sense
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  #< so `tor-browser http://...` can open using an existing instance

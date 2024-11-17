@@ -1,9 +1,0 @@
-{
-  "description": "Matrix Live, now as an audio podcast",
-  "is_podcast": true,
-  "site_name": "",
-  "site_url": "https://feed.podbean.com",
-  "title": "Matrix Live",
-  "url": "https://feed.podbean.com/matrixlive/feed.xml",
-  "velocity": 0.121
-}

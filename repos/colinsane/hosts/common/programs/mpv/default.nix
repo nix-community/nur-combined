@@ -42,12 +42,12 @@
 let
   cfg = config.sane.programs.mpv;
   uosc = pkgs.mpvScripts.uosc.overrideAttrs (upstream: {
-    version = "5.2.0-unstable-2024-03-13";
+    version = "5.2.0-unstable-2024-05-07";
     src = lib.warnIf (lib.versionOlder "5.2.0" upstream.version) "uosc outdated; remove patch?" pkgs.fetchFromGitHub {
       owner = "tomasklaen";
       repo = "uosc";
-      rev = "6fa34c31d0a5290dee83282205768d15111df7d8";
-      hash = "sha256-qxyNZHmH33bKRp4heFSC+RtvSApIfbVFt4otfS351nE=";
+      rev = "2940352fade2c4f7bf68b1ef8381bef83058f9f7";
+      hash = "sha256-tQq6ycxHXhTYSRBIz73o5VlKRBCoJ5yu59AdZik5Oos=";
     };
     # src = pkgs.fetchFromGitea {
     #   domain = "git.uninsane.org";
@@ -126,15 +126,15 @@ let
           '"cycle fullscreen",'
     '';
   });
-  visualizer = pkgs.mpvScripts.visualizer.overrideAttrs (upstream: {
-    postPatch = (upstream.postPatch or "") + ''
-      # don't have the script register its own keybinding: i'll do it manually via input.conf.
-      # substituteInPlace visualizer.lua --replace-fail \
-      #   'mp.add_key_binding' '-- mp.add_key_binding'
-      substituteInPlace visualizer.lua --replace-fail \
-        'cycle_key = "c"' 'cycle_key = "v"'
-    '';
-  });
+  # visualizer = pkgs.mpvScripts.visualizer.overrideAttrs (upstream: {
+  #   postPatch = (upstream.postPatch or "") + ''
+  #     # don't have the script register its own keybinding: i'll do it manually via input.conf.
+  #     # substituteInPlace visualizer.lua --replace-fail \
+  #     #   'mp.add_key_binding' '-- mp.add_key_binding'
+  #     substituteInPlace visualizer.lua --replace-fail \
+  #       'cycle_key = "c"' 'cycle_key = "v"'
+  #   '';
+  # });
 in
 {
   sane.programs.mpv = {
@@ -142,7 +142,7 @@ in
       default = {};
       type = types.submodule {
         options = {
-          default_profile = mkOption {
+          defaultProfile = mkOption {
             type = types.enum [ "high-quality" "mid-range" "fast" ];
             default = "mid-range";
             description = ''
@@ -161,11 +161,14 @@ in
         # i think using `luajit` here instead of `lua` is optional, just i get better perf with it :)
         lua = pkgs.luajit.override { enable52Compat = true; self = lua; };
       };
-      scripts = [
-        pkgs.mpvScripts.mpris
-        pkgs.mpvScripts.mpv-playlistmanager
-        pkgs.mpvScripts.mpv-webm
-        pkgs.mpvScripts.sponsorblock
+      scripts = with pkgs.mpv-unwrapped; [
+        scripts.mpris
+        scripts.mpv-image-viewer.image-positioning
+        scripts.mpv-playlistmanager
+        scripts.mpv-webm
+        scripts.sane_cast
+        scripts.sane_sysvol
+        scripts.sponsorblock
         uosc
         # visualizer  #< XXX(2024-07-23): `visualizer` breaks auto-play-next-track (only when visualizations are disabled)
         # pkgs.mpv-uosc-latest
@@ -173,13 +176,12 @@ in
     };
 
     suggestedPrograms = [
-      "blast-to-default"
       "sane-cast"
       "sane-die-with-parent"
       "xdg-terminal-exec"
+      "yt-dlp"
     ];
 
-    sandbox.method = "bunpen";
     sandbox.autodetectCliPaths = "parent";  #< especially for subtitle downloader; also nice for viewing albums
     sandbox.net = "all";
     sandbox.whitelistAudio = true;
@@ -188,9 +190,12 @@ in
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       ".config/mpv"  #< else mpris plugin crashes on launch
+      ".config/yt-dlp"
       ".local/share/applications"  #< for xdg-terminal-exec (sane-cast)
       # it's common for album (or audiobook, podcast) images/lyrics/metadata to live adjacent to the primary file.
       # CLI detection is too poor to pick those up, so expose the common media dirs to the sandbox to make that *mostly* work.
+      "Books/Audiobooks"
+      "Books/Visual"
       "Books/local"
       "Books/servo"
       "Music"
@@ -206,13 +211,11 @@ in
     persist.byStore.private = [
       "Videos/mpv"
     ];
-    fs.".config/mpv/scripts/sane_cast/main.lua".symlink.target = ./sane_cast/main.lua;
-    fs.".config/mpv/scripts/sane_sysvol/main.lua".symlink.target = ./sane_sysvol/main.lua;
-    fs.".config/mpv/scripts/sane_sysvol/non_blocking_popen.lua".symlink.target = ./sane_sysvol/non_blocking_popen.lua;
+
     fs.".config/mpv/input.conf".symlink.target = ./input.conf;
     fs.".config/mpv/mpv.conf".symlink.target = pkgs.substituteAll {
       src = ./mpv.conf;
-      inherit (cfg.config) default_profile;
+      inherit (cfg.config) defaultProfile;
     };
     fs.".config/mpv/script-opts/console.conf".symlink.target = ./console.conf;
     fs.".config/mpv/script-opts/osc.conf".symlink.target = ./osc.conf;
@@ -234,15 +237,24 @@ in
     mime.associations."video/x-flv" = "mpv.desktop";
     mime.associations."video/x-matroska" = "mpv.desktop";
     #v be the opener for YouTube videos
-    mime.urlAssociations."^https?://(m\.)?(www\.)?youtu.be/.+$" = "mpv.desktop";
-    mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/embed/.+$" = "mpv.desktop";
-    mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/playlist\?.*list=.+$" = "mpv.desktop";
-    mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/shorts/.+$" = "mpv.desktop";
-    mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/v/.+$" = "mpv.desktop";
-    mime.urlAssociations."^https?://(m\.)?(www\.)?youtube.com/watch\?.*v=.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\.)?(www\.)?(music\.)?youtu.be/.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\.)?(www\.)?(music\.)?youtube.com/embed/.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\.)?(www\.)?(music\.)?youtube.com/playlist\?.*list=.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\.)?(www\.)?(music\.)?youtube.com/shorts/.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\.)?(www\.)?(music\.)?youtube.com/v/.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\.)?(www\.)?(music\.)?youtube.com/watch\?.*v=.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\.)?(www\.)?facebook.com/reel/.+$" = "mpv.desktop";
+    #v be the opener for Tiktok
+    mime.urlAssociations."^https?://(www\.)?tiktok.com/@.*/video/.+$" = "mpv.desktop";
     #v be the opener for A/V, generally. useful for e.g. feed readers like News Flash which open content through the portal
+    #  also allows right-click -> xdg-open to open embedded videos
     mime.urlAssociations."^https?://.*\.(mp3|mp4|ogg|ogv|opus|webm)(\\?.*)?$" = "mpv.desktop";
     #v Loupe image viewer can't open URIs, so use mpv instead
     mime.urlAssociations."^https?://i\.imgur.com/.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://.*\.(gif|heif|jpeg|jpg|png|svg|webp)(\\?.*)?$" = "mpv.desktop";
+  };
+
+  sane.programs.yt-dlp.config = lib.mkIf cfg.enabled {
+    defaultProfile = lib.mkDefault cfg.config.defaultProfile;
   };
 }

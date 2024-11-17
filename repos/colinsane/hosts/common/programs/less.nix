@@ -1,7 +1,6 @@
 { ... }:
 {
   sane.programs.less = {
-    sandbox.method = "bunpen";
     sandbox.autodetectCliPaths = "existingFile";
     env.PAGER = "less";
     # LESS flags:

@@ -1,7 +1,6 @@
 { ... }:
 {
   sane.programs.spotify = {
-    sandbox.method = "bwrap";
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  # mpris

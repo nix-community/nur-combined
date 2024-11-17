@@ -19,10 +19,14 @@
   '';
 
   nativeBuildInputs = [
+    # python3.pkgs.hatch-fancy-pypi-readme
+    # python3.pkgs.hatch-vcs
+    # python3.pkgs.hatchling
+
     # python3.pkgs.poetry-core
+
     # python3.pkgs.pypaBuildHook
     # python3.pkgs.pypaInstallHook
-    # python3.pkgs.pythonImportsCheckHook
     python3.pkgs.wrapPython
   ];
 
@@ -32,11 +36,14 @@
 
   nativeCheckInputs = [
     # python3.pkgs.pytestCheckHook
+    # python3.pkgs.pythonImportsCheckHook  #< or put in `nativeInstallCheckInputs` and set `doInstallCheck = true;`
   ];
 
   pythonImportsCheck = [
     # "mymodule"
   ];
+
+  doCheck = true;
 
   meta = with lib; {
     # homepage = "https://example.com";

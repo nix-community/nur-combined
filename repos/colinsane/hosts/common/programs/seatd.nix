@@ -13,14 +13,12 @@ lib.mkMerge [
           "-Ddefaultpath=${seatdSock}"
         ];
       });
-      sandbox.method = "bwrap";
       sandbox.capabilities = [
-        # "chown"
         "dac_override"  #< TODO: is there no way to get rid of this? (use the `tty` group?)
         # "sys_admin"
         "sys_tty_config"
       ];
-      sandbox.isolateUsers = false;
+      sandbox.tryKeepUsers = true;
       sandbox.extraPaths = [
         "/dev"  #< TODO: this can be removed if i have seatd restart on client error such that seatd can discover devices as they appear
         # "/dev/dri"
@@ -42,7 +40,7 @@ lib.mkMerge [
   (lib.mkIf cfg.enabled {
     users.groups.seat = {};
 
-    sane.fs."${seatdDir}".dir.acl = {
+    systemd.tmpfiles.settings."20-sane-seatd"."${seatdDir}".d = {
       user = "root";
       group = "seat";
       mode = "0770";
@@ -52,13 +50,11 @@ lib.mkMerge [
       description = "Seat management daemon";
       documentation = [ "man:seatd(1)" ];
 
-      after = [ config.sane.fs."${seatdDir}".unit ];
-      wants = [ config.sane.fs."${seatdDir}".unit ];
       wantedBy = [ "multi-user.target" ];
       restartIfChanged = false;
 
       serviceConfig.Type = "simple";
-      serviceConfig.ExecStart = "${cfg.package}/bin/seatd -g seat";
+      serviceConfig.ExecStart = "${lib.getExe cfg.package} -g seat";
       serviceConfig.Group = "seat";
       # serviceConfig.AmbientCapabilities = [
       #   "CAP_DAC_OVERRIDE"
@@ -67,12 +63,9 @@ lib.mkMerge [
       #   "CAP_SYS_TTY_CONFIG"
       # ];
       serviceConfig.CapabilityBoundingSet = [
-        # TODO: these can probably be reduced if i switch to landlock for sandboxing,
-        # or run as a user other than root
-        # "CAP_CHOWN"
         "CAP_DAC_OVERRIDE"  #< needed, to access /dev/tty
-        "CAP_NET_ADMIN"  #< needed by bwrap, for some reason??
-        "CAP_SYS_ADMIN"  #< needed by bwrap
+        # "CAP_NET_ADMIN"  #< only needed by bwrap
+        "CAP_SYS_ADMIN"  #< needed by bwrap/bunpen
         "CAP_SYS_TTY_CONFIG"
       ];
     };

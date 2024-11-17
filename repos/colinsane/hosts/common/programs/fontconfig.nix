@@ -40,7 +40,7 @@ let
   cache = (pkgs.makeFontsCache { fontDirectories = config.fonts.packages; }).overrideAttrs (upstream: {
     buildCommand = lib.replaceStrings
       [ "fc-cache" ]
-      [ "${pkgs.stdenv.hostPlatform.emulator pkgs.buildPackages} ${pkgs.fontconfig.bin}/bin/fc-cache" ]
+      [ "${pkgs.stdenv.hostPlatform.emulator pkgs.buildPackages} ${lib.getExe' pkgs.fontconfig.bin "fc-cache"}" ]
       upstream.buildCommand
     ;
   });
@@ -55,7 +55,6 @@ let
 in
 {
   sane.programs.fontconfig = {
-    sandbox.method = "bunpen";
     sandbox.autodetectCliPaths = "existingOrParent";  #< this might be overkill; or, how many programs reference fontconfig internally?
 
     # persist.byStore.plaintext = [

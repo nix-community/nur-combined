@@ -8,7 +8,6 @@
       '';
     });
 
-    sandbox.method = "bwrap";
     sandbox.whitelistWayland = true;
 
     env.KEYBOARD = "wvkbd-mobintl";

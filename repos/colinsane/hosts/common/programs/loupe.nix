@@ -1,18 +1,8 @@
 { pkgs, ... }:
 {
   sane.programs.loupe = {
-    # loupe is marked "dbus activatable", which does not seem to actually work (at least when launching from Firefox or Nautilus)
     packageUnwrapped = pkgs.rmDbusServicesInPlace pkgs.loupe;
-    # .overrideAttrs (upstream: {
-    #   preFixup = (upstream.preFixup or "") + ''
-    #     # 2024/02/21: render bug which affects only moby:
-    #     #             large images render blank in several gtk applications.
-    #     #             may resolve itself as gtk or mesa are updated.
-    #     gappsWrapperArgs+=(--set GSK_RENDERER cairo)
-    #   '';
-    # }));
 
-    sandbox.method = "bunpen";
     sandbox.whitelistDri = true;  #< faster rendering
     sandbox.whitelistWayland = true;
     sandbox.autodetectCliPaths = "parent";
@@ -40,6 +30,10 @@
       "image/svg+xml" = "org.gnome.Loupe.desktop";
       "image/webp" = "org.gnome.Loupe.desktop";
     };
+
+    # XXX(2024-10-06): even with sandbox.net = "all", loupe fails to open https:// or even http:// media
+    # mime.urlAssociations."^https?://.*\.(gif|heif|jpeg|jpg|png|svg|webp)(\\?.*)?$" = "org.gnome.Loupe.desktop";
+    # mime.urlAssociations."^https?://i\.imgur.com/.+$" = "org.gnome.Loupe.desktop";
   };
 }
 

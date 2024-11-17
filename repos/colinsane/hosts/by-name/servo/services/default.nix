@@ -17,11 +17,11 @@
     ./komga.nix
     ./lemmy.nix
     ./matrix
+    ./mumble.nix
     ./navidrome.nix
     ./nginx.nix
     ./nixos-prebuild.nix
     ./ntfy
-    ./ollama.nix
     ./pict-rs.nix
     ./pleroma.nix
     ./postgres.nix

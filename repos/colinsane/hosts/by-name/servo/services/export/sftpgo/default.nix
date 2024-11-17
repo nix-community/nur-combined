@@ -102,14 +102,14 @@ in
           }
           {
             # binding this means any doof client can connect (TLS only)
-            address = config.sane.netns.doof.hostVethIpv4;
+            address = config.sane.netns.doof.veth.initns.ipv4;
             port = 990;
             debug = true;
             tls_mode = 2;  # 2 = "implicit FTPS": client negotiates TLS before any FTP command.
           }
           {
             # binding this means any LAN client can connect via `ftp.uninsane.org` (TLS only)
-            address = config.sane.netns.doof.netnsPubIpv4;
+            address = config.sane.netns.doof.wg.address.ipv4;
             port = 990;
             debug = true;
             tls_mode = 2;  # 2 = "implicit FTPS": client negotiates TLS before any FTP command.
@@ -141,7 +141,7 @@ in
       };
       data_provider = {
         driver = "memory";
-        external_auth_hook = "${external_auth_hook}/bin/external_auth_hook";
+        external_auth_hook = lib.getExe external_auth_hook;
         # track_quota:
         # - 0: disable quota tracking
         # - 1: quota is updated on every upload/delete, even if user has no quota restriction
@@ -158,14 +158,15 @@ in
   ];
 
   systemd.services.sftpgo = {
-    after = [ "network-online.target" ];
+    after = [ "network-online.target" ];  #< so that it reliably binds to all interfaces/netns's?
     wants = [ "network-online.target" ];
-    serviceConfig = {
-      ReadWritePaths = [ "/var/export" ];
-
-      Restart = "always";
-      RestartSec = "20s";
-      UMask = lib.mkForce "0002";
-    };
+    unitConfig.RequiresMountsFor = [
+      "/var/export/media"
+      "/var/export/playground"
+    ];
+    serviceConfig.ReadWritePaths = [ "/var/export" ];
+    serviceConfig.Restart = "always";
+    serviceConfig.RestartSec = "20s";
+    serviceConfig.UMask = lib.mkForce "0002";
   };
 }

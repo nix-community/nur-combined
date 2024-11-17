@@ -1,8 +1,8 @@
+# TODO: gnome-keyring has portal integration? ($out/share/xdg-desktop-portal)
 { lib, pkgs, ... }:
 {
   sane.programs.gnome-keyring = {
     packageUnwrapped = pkgs.rmDbusServices pkgs.gnome-keyring;
-    sandbox.method = "bwrap";
     sandbox.whitelistDbus = [ "user" ];
     sandbox.extraRuntimePaths = [
       "keyring"  #< only needs keyring/control, but has to *create* that.
@@ -15,11 +15,7 @@
     ];
 
     persist.byStore.private = [
-      # N.B.: BE CAREFUL WITH THIS.
-      # gnome-keyring-daemon likes to turn symlinks into dirs. i.e. if it detects that `~/.local/share/keyrings` is a symlink
-      # it WILL try to `unlink` it and recreate it as an empty directory.
-      # the only reason i can get away with a symlink here is because gkd is sandboxed... with ~/.local/share/keyrings as an explicit mountpoint instead of as a symlink.
-      # remove the sandbox, and this breaks.
+      # N.B.: gnome-keyring-daemon used to remove symlinks and replace them with empty directories, but as of 2024-09-05 that seems no longer the case.
       ".local/share/keyrings"
     ];
 
@@ -51,10 +47,13 @@
       partOf = [ "graphical-session" ];
       command = let
         gkr-start = pkgs.writeShellScriptBin "gnome-keyring-daemon-start" ''
+          set -eu
+          # XXX(2024-09-05): this service races with the creation of the keyrings directory, so wait for it to appear
+          test -e ~/.local/share/keyrings
           mkdir -m 0700 -p $XDG_RUNTIME_DIR/keyring
           exec gnome-keyring-daemon --start --foreground --components=secrets
         '';
-      in "${gkr-start}/bin/gnome-keyring-daemon-start";
+      in lib.getExe gkr-start;
     };
   };
 }

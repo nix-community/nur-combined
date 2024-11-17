@@ -12,6 +12,8 @@ with pkgs.vimPlugins;
       local wk = require("which-key")
       -- in "n"ormal mode, Ctrl+k will show all keybindings
       vim.api.nvim_set_keymap("n", "<C-k>", "", { callback=wk.show, desc = "show keybinds" })
+      -- or \<Ctrl-k>, because `\` *already* shows keybinds (but only those under \)
+      vim.api.nvim_set_keymap("n", "<Leader><C-k>", "", { callback=wk.show, desc = "show keybinds" })
     '';
   }
   {
@@ -163,7 +165,7 @@ with pkgs.vimPlugins;
       -- Typescript language server
       -- repo: <https://github.com/typescript-language-server/typescript-language-server>
       -- requires tsconfig.json or jsconfig.json in the toplevel of the project directory
-      lspconfig.tsserver.setup {
+      lspconfig.ts_ls.setup {
         capabilities = capabilities,
       }
 
@@ -186,7 +188,8 @@ with pkgs.vimPlugins;
     # docs: https://github.com/nvim-treesitter/nvim-treesitter
     # config taken from: https://github.com/i077/system/blob/master/modules/home/neovim/default.nix
     # this is required for tree-sitter to even highlight
-    plugin = nvim-treesitter.withPlugins (_: nvim-treesitter.allGrammars ++ [
+    # XXX(2024/06/03): `unison` removed because it doesn't cross compile (to armv7l-hf-multiplatform)
+    plugin = nvim-treesitter.withPlugins (_: (lib.filter (p: p.pname != "unison-grammar") nvim-treesitter.allGrammars) ++ [
       # XXX: this is apparently not enough to enable syntax highlighting!
       # nvim-treesitter ships its own queries which may be distinct from e.g. helix.
       # the queries aren't included when i ship the grammar in this manner
@@ -226,7 +229,7 @@ with pkgs.vimPlugins;
   }
   {
     # show commit which last modified text under the cursor.
-    # trigger with `:GitMessenger` or `<leader>gm` (i.e. `\gm`)
+    # trigger with `:GitMessenger` or `<Leader>gm` (i.e. `\gm`)
     plugin = git-messenger-vim;
   }
   {
@@ -236,6 +239,20 @@ with pkgs.vimPlugins;
     config = ''
       " present prettier fractions
       let g:tex_conceal_frac=1
+    '';
+  }
+  {
+    # source: <https://github.com/sunaku/vim-dasht>
+    # search Dash/Zeal docsets with `:Dasht<Space><query>`
+    plugin = vim-dasht;
+    type = "viml";
+    config = ''
+      " query the word under the cursor: `\K` (in related docsets)
+      nnoremap <silent> <Leader>K :call Dasht(dasht#cursor_search_terms())<Return>
+      " input a string to query (in related docsets)
+      nnoremap <Leader>k :Dasht<Space>
+      " query *ALL* docsets with `\\k`
+      nnoremap <Leader><Leader>k :Dasht!<Space>
     '';
   }
   {

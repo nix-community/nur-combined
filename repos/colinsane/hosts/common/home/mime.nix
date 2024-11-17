@@ -58,14 +58,14 @@ let
       mkdir -p $out/share/applications
       for i in $(cat $pathsPath); do
         if [ -e "$i/share/applications" ]; then
-          ${pkgs.buildPackages.xorg.lndir}/bin/lndir -silent $i/share/applications $out/share/applications
+          ${lib.getExe pkgs.buildPackages.xorg.lndir} -silent $i/share/applications $out/share/applications
         fi
       done
       runHook postBuild
     '';
     postBuild = ''
       # rebuild `mimeinfo.cache`, used by file openers to show the list of *all* apps, not just the user's defaults.
-      ${pkgs.buildPackages.desktop-file-utils}/bin/update-desktop-database $out/share/applications
+      ${lib.getExe' pkgs.buildPackages.desktop-file-utils "update-desktop-database"} $out/share/applications
     '';
   });
 

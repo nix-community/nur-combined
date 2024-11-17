@@ -96,7 +96,6 @@ in
       ];
     }));
 
-    sandbox.method = "bwrap";
     sandbox.net = "vpn.wg-home";  #< XXX(2024/07/05): my cell carrier seems to block RTP, so tunnel it.
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  # necessary for secrets, at the minimum
@@ -111,7 +110,7 @@ in
     # this is only the username/endpoint: the actual password appears to be stored in gnome-keyring
     secrets.".config/calls/sip-account.cfg" = ../../../secrets/common/gnome_calls_sip-account.cfg.bin;
     suggestedPrograms = [
-      "callaudiod"  # runtime dependency (optional, but probably needed for mic muting?)
+      "callaudiod"  # runtime dependency (optional; without this the mute and speaker buttons do not work (ordinarily they function by changing the GLOBAL audio config))
       "feedbackd"  # needs `phone-incoming-call`, in particular
       "gnome-keyring"  # to remember the password
     ];

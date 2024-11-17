@@ -17,23 +17,26 @@ the only hard dependency for my exported pkgs/modules should be [nixpkgs][nixpkg
 building [hosts/](./hosts/) will require [sops][sops].
 
 you might specifically be interested in these files (elaborated further in #key-points-of-interest):
-- ~~[`sxmo-utils`](./pkgs/additional/sxmo-utils/default.nix)~~
-  - these files will remain until my config settles down, but i no longer use or maintain SXMO.
+- [my packages](./pkgs/by-name)
 - [my implementation of impermanence](./modules/persist/default.nix)
 - my way of deploying dotfiles/configuring programs per-user:
   - [modules/fs/](./modules/fs/default.nix)
   - [modules/programs/](./modules/programs/default.nix)
   - [modules/users/](./modules/users/default.nix)
 
+if you find anything here genuinely useful, message me so that i can work to upstream it!
+
 [nixpkgs]: https://github.com/NixOS/nixpkgs
 [sops]: https://github.com/Mic92/sops-nix
 [uninsane-org]: https://uninsane.org
+
 
 ## Using This Repo In Your Own Config
 
 follow the instructions [here][NUR] to access my packages through the Nix User Repositories.
 
 [NUR]: https://nur.nix-community.org/
+
 
 ## Layout
 - `doc/`
@@ -52,7 +55,7 @@ follow the instructions [here][NUR] to access my packages through the Nix User R
 - `pkgs/`
   - derivations for things not yet packaged in nixpkgs.
   - derivations for things from nixpkgs which i need to `override` for some reason.
-  - inline code for wholly custom packages (e.g. `pkgs/additional/sane-scripts/` for CLI tools
+  - inline code for wholly custom packages (e.g. `pkgs/by-name/sane-scripts/` for CLI tools
     that are highly specific to my setup).
 - `scripts/`
   - scripts which aren't reachable on a deployed system, but may aid manual deployments.
@@ -79,43 +82,39 @@ i.e. you might find value in using these in your own config:
     - populated with some statically-defined data
     - populated according to some script
     - created as a dependency of some service (e.g. `nginx`)
-  - values defined here are applied neither at evaluation time _nor_ at activation time.
-    - rather, they become systemd services.
-    - systemd manages dependencies
-    - e.g. link `/var/www -> /mnt/my-drive/www` only _after_ `/mnt/my-drive/www` appears)
   - this is akin to using [Home Manager's][home-manager] file API -- the part which lets you
     statically define `~/.config` files -- just with a different philosophy.
+    namely, it avoids any custom activation scripts by leveraging `systemd-tmpfiles`.
 - `modules/persist/`
-  - my alternative to the Impermanence module.
-  - this builds atop `modules/fs/` to achieve things stock impermanence can't:
-    - persist things to encrypted storage which is unlocked at login time (pam_mount).
+  - my implementation of impermanence, built atop the above `fs` module, with a few notable features:
+    - no custom activation scripts or services (uses `systemd-tmpfiles` and `.mount` units)
     - "persist" cache directories -- to free up RAM -- but auto-wipe them on mount
       and encrypt them to ephemeral keys so they're unreadable post shutdown/unmount.
+    - persist to encrypted storage which is unlocked at login time.
 - `modules/programs/`
   - like nixpkgs' `programs` options, but allows both system-wide or per-user deployment.
   - allows `fs` and `persist` config values to be gated behind program deployment:
     - e.g. `/home/<user>/.mozilla/firefox` is persisted only for users who
       `sane.programs.firefox.enableFor.user."<user>" = true;`
   - allows aggressive sandboxing any program:
-    - `sane.programs.firefox.sandbox.method = "bwrap";  # sandbox with bubblewrap`
+    - `sane.programs.firefox.sandbox.enable = true;  # wraps the program so that it isolates itself into a new namespace when invoked`
     - `sane.programs.firefox.sandbox.whitelistWayland = true;  # allow it to render a wayland window`
     - `sane.programs.firefox.sandbox.extraHomePaths = [ "Downloads" ];  # allow it read/write access to ~/Downloads`
     - integrated with `fs` and `persist` modules so that programs' config files and persisted data stores are linked into the sandbox w/o any extra involvement.
 - `modules/users/`
   - convenience layer atop the above modules so that you can just write
     `fs.".config/git"` instead of `fs."/home/colin/.config/git"`
-  - per-user services managed by [s6-rc](https://www.skarnet.org/software/s6-rc/)
-
-some things in here could easily find broader use. if you would find benefit in
-them being factored out of my config, message me and we could work to make that happen.
+  - simplified `systemd.services` API
 
 [home-manager]: https://github.com/nix-community/home-manager
+
 
 ## Mirrors
 
 this repo exists in a few known locations:
 - primary: <https://git.uninsane.org/colin/nix-files>
 - mirror: <https://github.com/nix-community/nur-combined/tree/master/repos/colinsane>
+
 
 ## Contact
 

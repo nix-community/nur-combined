@@ -10,9 +10,7 @@
       '' + (upstream.preFixup or "");
     });
 
-    sandbox.method = "bwrap";  # TODO:sandbox untested
     sandbox.net = "clearnet";
-    sandbox.whitelistDbus = [ "user" ];  # needs to connect to dconf via dbus
     sandbox.whitelistDri = true;  #< required
     sandbox.whitelistWayland = true;
 

@@ -1,0 +1,143 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i python3 -p python3
+
+import argparse
+import json
+import logging
+import sqlite3
+
+from dataclasses import dataclass
+from enum import Enum
+from pathlib import Path
+
+logger = logging.getLogger(__name__)
+
+class ItemType(Enum):
+    # these loosely correspond to docset types: <https://kapeli.com/docsets#supportedentrytypes>
+    SECTION = 1
+    CONSTANT = 2
+    FUNCTION = 3
+
+@dataclass(unsafe_hash=True, order=True)
+class Item:
+    attrpath: str
+    type: ItemType
+
+    def parent(self) -> "Item | None":
+        pp = parent_attrpath(self.attrpath)
+        if pp:
+            return Item(attrpath=pp, type=ItemType.SECTION)
+
+@dataclass
+class Items:
+    items: dict[str, Item]
+
+    def add(self, it: Item) -> bool:
+        """ returns True iff the item was not previously known """
+        if it.attrpath in self.items and self.items[it.attrpath].type.value <= it.type.value:
+            return False  # we already have the item, and the new item is no more specific
+
+        self.items[it.attrpath] = it
+        return True
+
+    def sections(self) -> list[Item]:
+        return sorted(i for i in self.items.values() if i.type == ItemType.SECTION)
+
+    def leaves(self) -> list[Item]:
+        return sorted(i for i in self.items.values() if i.type != ItemType.SECTION)
+
+    def all(self) -> list[Item]:
+        return self.sections() + self.leaves()
+
+def read_items(locations_json: Path) -> Items:
+    # TODO: this seems to yield some items which don't have documentation? like `lib.gvariant.type`
+    items = Items({})
+    with open(locations_json, "r") as f:
+        for attrpath, val in json.load(f).items():
+            if isinstance(val, dict) and "type" in val:
+                # `nix __dump-language` output is structured and only constants can have a type
+                type = ItemType.CONSTANT
+            else:
+                # lacking additional information, assume it's a function
+                type = ItemType.FUNCTION
+
+            item = Item(attrpath=attrpath, type=type)
+            items.add(item)
+
+    while any(items.add(i.parent()) for i in items.all() if i.parent()):
+        pass
+
+    return items
+
+def parent_attrpath(p: str) -> str:
+    """ `lib.foo.bar` -> `lib.foo` """
+    components = p.split(".")
+    return ".".join(components[:-1])
+
+def chomp_attrpath(p: str) -> str:
+    """ `lib.foo.bar` -> `foo.bar` """
+    components = p.split(".")
+    return ".".join(components[1:])
+
+def init_db(db) -> None:
+    db.execute("CREATE TABLE searchIndex(id INTEGER PRIMARY KEY, name TEXT, type TEXT, path TEXT);")
+    db.execute("CREATE UNIQUE INDEX anchor ON searchIndex (name, type, path);")
+
+def insert_row(db, attrpath: str, kind: str, path: str) -> None:
+    logger.debug(f"register ({attrpath}, {kind}, {path})")
+    db.execute("INSERT INTO searchIndex(name, type, path) values (?, ?, ?);", (attrpath, kind, path))
+
+def insert_item(db, item: Item) -> None:
+    # TODO: stop hardcoding the .html filename; maybe even the anchor prefix
+    if item.attrpath.startswith("lib."):
+        if item.type == ItemType.SECTION:
+            library = chomp_attrpath(item.attrpath)
+            path = f"manual.html#sec-functions-library-{library}"
+        elif item.type == ItemType.CONSTANT:
+            assert False, f"ItemType.CONSTANT should not exist in nixpkgs.lib; item: {item}"
+        elif item.type == ItemType.FUNCTION:
+            path=f"manual.html#function-library-{item.attrpath}"
+        else:
+            assert False, f"unexpected item type for item {item}"
+    elif item.attrpath == "lib":
+        path = "manual.html#sec-functions-library"
+    else:
+        path = f"language/builtins.html#builtins-{item.attrpath}"
+
+    if item.type == ItemType.SECTION:
+        kind = "Property"  # TODO: should it be `namespace`?
+    elif item.type == ItemType.CONSTANT:
+        kind = "Constant"
+    elif item.type == ItemType.FUNCTION:
+        kind = "Function"
+
+    insert_row(db, item.attrpath, kind=kind, path=path)
+
+def main() -> None:
+    logging.basicConfig()
+    parser = argparse.ArgumentParser(description = "Generate Dash/Zeal docset index for use with an existing HTML manual")
+    parser.add_argument("locations", type=Path, help="path to locations.json, a dict mapping attrpath to code location for all attrpaths that should be linked into the docs")
+    parser.add_argument("--output", type=Path)
+    parser.add_argument("--verbose", action="store_true")
+
+    args = parser.parse_args()
+
+    if args.verbose:
+        logging.getLogger().setLevel(logging.DEBUG)
+
+    items = read_items(args.locations)
+
+    conn = sqlite3.connect(args.output)
+    logger.debug("database opened")
+    db = conn.cursor()
+    init_db(db)
+
+    for item in items.all():
+        insert_item(db, item)
+
+    conn.commit()
+    conn.close()
+    logger.debug("database closed")
+
+if __name__ == "__main__":
+    main()

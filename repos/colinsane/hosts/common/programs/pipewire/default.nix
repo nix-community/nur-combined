@@ -54,8 +54,6 @@ in
       "wireplumber"
     ];
 
-    # sandbox.method = "landlock";  #< works, including without rtkit
-    sandbox.method = "bunpen";  #< also works, but can't claim the full scheduling priority it wants
     sandbox.whitelistAudio = true;
     # sandbox.whitelistDbus = [
     #   # dbus is used for rtkit integration
@@ -68,19 +66,12 @@ in
     #   "system"
     # ];
     sandbox.wrapperType = "inplace";  #< its config files refer to its binaries by full path
-    sandbox.isolatePids = false;  #< TODO: why?
+    sandbox.keepPidsAndProc = true;  #< TODO: why?
+    sandbox.whitelistAvDev = true;
     sandbox.capabilities = [
       # if rtkit isn't present, and sandboxing is via landlock, these capabilities allow pipewire to claim higher scheduling priority
       "ipc_lock"
       "sys_nice"
-    ];
-    sandbox.extraPaths = [
-      "/dev/snd"
-      # desko/lappy don't need these, but moby complains if not present
-      "/dev/video0"
-      "/dev/video1"
-      "/dev/video2"
-      "/proc"  #< because of isolatePids=false
     ];
     sandbox.extraHomePaths = [
       # pulseaudio cookie
@@ -109,6 +100,7 @@ in
         default.clock.max-quantum = ${builtins.toString cfg.config.max-quantum}
       }
     '';
+    fs.".config/pipewire/pipewire.conf.d/20-virtual.conf".symlink.target = ./20-virtual.conf;
     fs.".config/pipewire/pipewire.conf.d/20-spatializer-7.1.conf".symlink.target = ./20-spatializer-7.1.conf;
 
     # reduce realtime scheduling priority to prevent GPU instability,
@@ -163,29 +155,29 @@ in
       # env PIPEWIRE_LOG_SYSTEMD=false"
       # env PIPEWIRE_DEBUG="*:3,mod.raop*:5,pw.rtsp-client*:5"
       command = pkgs.writeShellScript "pipewire-start" ''
-        mkdir -p $PIPEWIRE_RUNTIME_DIR
+        mkdir -p ''${PIPEWIRE_RUNTIME_DIR}
         # nice -n -21 comes from pipewire defaults (niceness: -11)
         PIPEWIRE_DEBUG=3 exec nice -n -21 pipewire
       '';
       readiness.waitExists = [
-        "$PIPEWIRE_RUNTIME_DIR/pipewire-0"
-        "$PIPEWIRE_RUNTIME_DIR/pipewire-0-manager"
+        ''''${PIPEWIRE_RUNTIME_DIR}/pipewire-0''
+        ''''${PIPEWIRE_RUNTIME_DIR}/pipewire-0-manager''
       ];
-      cleanupCommand = ''rm -f "$PIPEWIRE_RUNTIME_DIR/{pipewire-0,pipewire-0.lock,pipewire-0-manager,pipewire-0-manager.lock}"'';
+      cleanupCommand = ''rm -f "''${PIPEWIRE_RUNTIME_DIR}/{pipewire-0,pipewire-0.lock,pipewire-0-manager,pipewire-0-manager.lock}"'';
     };
     services.pipewire-pulse = {
       description = "pipewire-pulse: Pipewire compatibility layer for PulseAudio clients";
       depends = [ "pipewire" ];
       partOf = [ "sound" ];
       command = pkgs.writeShellScript "pipewire-pulse-start" ''
-        mkdir -p $XDG_RUNTIME_DIR/pulse
+        mkdir -p ''${XDG_RUNTIME_DIR}/pulse
         exec nice -n -21 pipewire-pulse
       '';
       readiness.waitExists = [
-        "$XDG_RUNTIME_DIR/pulse/native"
-        "$XDG_RUNTIME_DIR/pulse/pid"
+        ''''${XDG_RUNTIME_DIR}/pulse/native''
+        ''''${XDG_RUNTIME_DIR}/pulse/pid''
       ];
-      cleanupCommand = ''rm -f "$XDG_RUNTIME_DIR/pulse/{native,pid}"'';
+      cleanupCommand = ''rm -f "''${XDG_RUNTIME_DIR}/pulse/{native,pid}"'';
     };
 
     # bring up sound by default

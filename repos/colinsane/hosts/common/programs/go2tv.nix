@@ -42,13 +42,12 @@
 # - mkv container + H.265 video + E-AC-3/48k stereo audio:
 #   - LGTV: no transcoding needed
 #
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   cfg = config.sane.programs.go2tv;
 in
 {
   sane.programs.go2tv = {
-    sandbox.method = "bwrap";
     sandbox.net = "clearnet";
     sandbox.autodetectCliPaths = "existingFile";
     # for GUI invocation, allow the common media directories

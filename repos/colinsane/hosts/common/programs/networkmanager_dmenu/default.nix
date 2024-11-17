@@ -2,8 +2,7 @@
 { ... }:
 {
   sane.programs.networkmanager_dmenu = {
-    sandbox.method = "bwrap";
-    sandbox.isolatePids = false;  #< so it can know that NetworkManager really is running... (?)
+    # sandbox.keepPidsAndProc = true;  #< else it can't connect to NetworkManager (?)
     sandbox.whitelistDbus = [
       "system"
     ];

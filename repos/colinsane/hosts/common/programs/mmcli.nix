@@ -1,7 +1,7 @@
 # GPS:
 # - enable: `mmcli --modem any --location-enable-gps-unmanaged`
 #   - or `mmcli -m any --location-enable-gps-nmea`
-#   - or use `s6-rc start eg25-control-gps`
+#   - or use `systemctl start eg25-control-gps`
 # - verify GPS is enabled: `mmcli --modem any --location-status`
 # - query GPS coordinates: `mmcli -m any --location-get`
 # - monitor constellation info: `mmcli -m any --location-monitor`
@@ -23,7 +23,7 @@
       };
     });
 
-    sandbox.method = "bwrap";
+    sandbox.tryKeepUsers = true;
     sandbox.whitelistDbus = [
       "system"
     ];

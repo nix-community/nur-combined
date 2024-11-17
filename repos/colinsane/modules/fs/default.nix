@@ -1,38 +1,28 @@
-{ config, lib, pkgs, utils, sane-lib, ... }:
+{ config, lib, pkgs, sane-lib, ... }:
 with lib;
 let
   path-lib = sane-lib.path;
   sane-types = sane-lib.types;
   cfg = config.sane.fs;
 
-  ensure-dir = pkgs.static-nix-shell.mkBash {
-    pname = "ensure-dir";
-    srcRoot = ./.;
+  aclOptions = {
+    options = {
+      acl = mkOption {
+        type = sane-types.aclOverride;
+        default = {};
+      };
+    };
   };
-  ensure-file = pkgs.static-nix-shell.mkBash {
-    pname = "ensure-file";
-    srcRoot = ./.;
-  };
-  ensure-symlink = pkgs.static-nix-shell.mkBash {
-    pname = "ensure-symlink";
-    srcRoot = ./.;
-  };
-  ensure-perms = pkgs.static-nix-shell.mkBash {
-    pname = "ensure-perms";
-    srcRoot = ./.;
-  };
-
-  mountNameFor = path: "${utils.escapeSystemdPath path}.mount";
-  serviceNameFor = path: "ensure-${utils.escapeSystemdPath path}";
 
   # sane.fs."<path>" top-level options
   fsEntry = types.submodule ({ name, config, ...}: let
     parent = path-lib.parent name;
     has-parent = path-lib.hasParent name;
     parent-cfg = if has-parent then cfg."${parent}" else {};
-    parent-acl = if has-parent then parent-cfg.generated.acl else {};
+    parent-acl = if has-parent then parent-cfg.acl else {};
   in {
     options = {
+      inherit (aclOptions.options) acl;
       dir = mkOption {
         type = types.nullOr dirEntry;
         default = null;
@@ -45,32 +35,9 @@ let
         type = types.nullOr (symlinkEntryFor name);
         default = null;
       };
-      generated = mkOption {
-        type = generatedEntry;
-        default = {};
-      };
       mount = mkOption {
         type = types.nullOr (mountEntryFor name);
         default = null;
-      };
-      wantedBy = mkOption {
-        type = types.listOf types.str;
-        default = [];
-        description = ''
-          list of units or targets which, when activated, should trigger this fs entry to be created.
-        '';
-      };
-      wantedBeforeBy = mkOption {
-        type = types.listOf types.str;
-        default = [];
-        description = ''
-          list of units or targets which, when activated, should first start and wait for this fs entry to be created.
-          if this unit fails, it will not block the targets in this list.
-        '';
-      };
-      unit = mkOption {
-        type = types.str;
-        description = "name of the systemd unit which ensures this entry";
       };
     };
     config = let
@@ -80,12 +47,9 @@ let
         mode = lib.mkDefault (parent-acl.mode or "0755");
       };
     in {
-      # we put this here instead of as a `default` to ensure that users who specify additional
-      # dependencies still get a dep on the parent (unless they assign with `mkForce`).
-      generated.depends = if has-parent then [ parent-cfg.unit ] else [];
-
-      # populate generated items from `dir` or `symlink` shorthands
-      generated.acl = lib.mkMerge [
+      # populate acl from `dir.acl` or `symlinks.acl` shorthands
+      # TODO: is this better achieved via `apply`?
+      acl = lib.mkMerge [
         default-acl
         (lib.mkIf (config.dir != null)
           (sane-lib.filterNonNull config.dir.acl))
@@ -95,49 +59,19 @@ let
           (sane-lib.filterNonNull config.symlink.acl))
       ];
 
-      # actually generate the item
-      generated.command = lib.mkMerge [
-        (lib.mkIf (config.dir != null) (lib.escapeShellArgs [ "${ensure-dir}/bin/ensure-dir" name ]))
-        (lib.mkIf (config.file != null) (lib.escapeShellArgs [ "${ensure-file}/bin/ensure-file" name config.file.copyFrom ]))
-        (lib.mkIf (config.symlink != null) (lib.escapeShellArgs [ "${ensure-symlink}/bin/ensure-symlink" name config.symlink.target ]))
-      ];
-
-      # make the unit file which generates the underlying thing available so that `mount` can use it.
-      generated.unit = (serviceNameFor name) + ".service";
-
       # if we were asked to mount, make sure we create the dir that we mount over
       dir = lib.mkIf (config.mount != null) {};
-
-      # if defaulted, this module is responsible for finalizing the entry.
-      # the user could override this if, say, they finalize some aspect of the entry
-      # with a custom service.
-      unit = lib.mkDefault (
-        if config.mount != null then
-          config.mount.unit
-        else
-          config.generated.unit
-      );
     };
   });
 
-  # options which can be set in dir/symlink generated items,
-  # with intention that they just propagate down
-  propagatedGenerateMod = {
-    options = {
-      acl = mkOption {
-        type = sane-types.aclOverride;
-        default = {};
-      };
-    };
-  };
 
   # sane.fs."<path>".dir sub-options
   # takes no special options
-  dirEntry = types.submodule propagatedGenerateMod;
+  dirEntry = types.submodule aclOptions;
 
   fileEntryFor = path: types.submodule ({ config, ... }: {
     options = {
-      inherit (propagatedGenerateMod.options) acl;
+      inherit (aclOptions.options) acl;
       text = mkOption {
         type = types.nullOr types.lines;
         default = null;
@@ -157,7 +91,7 @@ let
 
   symlinkEntryFor = path: types.submodule ({ config, ... }: {
     options = {
-      inherit (propagatedGenerateMod.options) acl;
+      inherit (aclOptions.options) acl;
       target = mkOption {
         # N.B.: `"${p}"` instead of `toString p` is critical in that it only evaluates if `p` is a path to an actual fs entry
         type = types.coercedTo types.path (p: "${p}")
@@ -169,166 +103,90 @@ let
         default = null;
         description = "create a file in the /nix/store with the provided text and use that as the target";
       };
-      targetName = mkOption {
-        type = types.str;
-        default = path-lib.leaf path;
-        description = "name of file to create if generated from text";
-      };
     };
-    config = {
+    config = let
+      name = path-lib.leaf path;
+    in {
       target = lib.mkIf (config.text != null) (
         (pkgs.writeTextFile {
-          name = path-lib.leaf path;
+          inherit name;
           text = config.text;
-          destination = "/${config.targetName}";
-        }) + "/${config.targetName}"
+          destination = "/${name}";
+        }) + "/${name}"
       );
     };
   });
-
-  generatedEntry = types.submodule {
-    options = {
-      acl = mkOption {
-        type = sane-types.acl;
-      };
-      depends = mkOption {
-        type = types.listOf types.str;
-        description = ''
-          list of systemd units needed to be run before this item can be generated.
-        '';
-        default = [];
-      };
-      command = mkOption {
-        type = types.coercedTo (types.listOf types.str) lib.escapeShellArgs types.str;
-        default = "";
-        description = ''
-          command to `exec` which will generate the output.
-          this can be a list -- in which case it's treated as some `argv` to exec,
-          or a string, in which case it's passed onto the CLI unescaped.
-        '';
-      };
-      unit = mkOption {
-        type = types.str;
-        description = "name of the systemd unit which ensures this directory";
-      };
-    };
-  };
 
   # sane.fs."<path>".mount sub-options
   mountEntryFor = path: types.submodule {
     options = {
       bind = mkOption {
-        type = types.nullOr types.str;
+        type = types.str;
         description = "fs path to bind-mount from";
         default = null;
       };
-      depends = mkOption {
-        type = types.listOf types.str;
-        description = ''
-          list of systemd units needed to be run before this entry can be mounted
-        '';
-        default = [];
-      };
-      unit = mkOption {
-        type = types.str;
-        description = "name of the systemd unit which mounts this path";
-        default = mountNameFor path;
-      };
-      mountConfig = mkOption {
-        type = types.attrs;
-        description = ''
-          attrset to add to the [Mount] section of the systemd unit file.
-        '';
-        default = {};
-      };
-      unitConfig = mkOption {
-        type = types.attrs;
-        description = ''
-          attrset to add to the [Unit] section of the systemd unit file.
-        '';
-        default = {};
-      };
-    };
-  };
-
-  mkGeneratedConfig = path: opt: let
-    gen-opt = opt.generated;
-    wrappedCommand = [
-      "${ensure-perms}/bin/ensure-perms"
-      path
-      gen-opt.acl.user
-      gen-opt.acl.group
-      gen-opt.acl.mode
-    ];
-  in {
-    systemd.services."${serviceNameFor path}" = {
-      description = "prepare ${path}";
-
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;  # makes `systemctl start ensure-blah` a noop if already completed, instead of a restart
-        ExecStart = (escapeShellArgs wrappedCommand) + " " + gen-opt.command;
-      };
-
-      after = gen-opt.depends;
-      requires = gen-opt.depends;
-      # prevent systemd making this unit implicitly dependent on sysinit.target.
-      # see: <https://www.freedesktop.org/software/systemd/man/systemd.special.html>
-      unitConfig.DefaultDependencies = "no";
-
-      before = opt.wantedBeforeBy;
-      wantedBy = opt.wantedBy ++ opt.wantedBeforeBy;
     };
   };
 
   # given a mountEntry definition, evaluate its toplevel `config` output.
-  mkMountConfig = path: opt: let
-    fsEntry = config.fileSystems."${path}";
-    underlying = cfg."${fsEntry.device}";
-    isBind = opt.mount.bind != null;
-    ifBind = lib.mkIf isBind;
-    # before mounting:
-    # - create the target directory
-    # - prepare the source directory -- assuming it's not an external device
-    # - satisfy any user-specified prerequisites ("depends")
-    requires = [ opt.generated.unit ]
-      ++ (if lib.hasPrefix "/dev/disk/" fsEntry.device || lib.hasPrefix "fuse" (fsEntry.fsType or "unknown") then [] else [ underlying.unit ])
-      ++ opt.mount.depends;
-  in {
+  mkMountConfig = path: opt: {
+    # create the mount point, with desired acl
+    systemd.tmpfiles.settings."00-10-sane-fs"."${path}".d = opt.acl;
     fileSystems."${path}" = {
-      device = ifBind opt.mount.bind;
-      options = (lib.optionals isBind [ "bind" ])
-        ++ [
-          # disable defaults: don't require this to be mount as part of local-fs.target
-          # we'll handle that stuff precisely.
-          "noauto"
-          "nofail"
-          # x-systemd options documented here:
-          # - <https://www.freedesktop.org/software/systemd/man/systemd.mount.html>
-        ]
-        ++ (builtins.map (unit: "x-systemd.after=${unit}") requires)
-        ++ (builtins.map (unit: "x-systemd.requires=${unit}") requires)
-        ++ (builtins.map (unit: "x-systemd.before=${unit}") opt.wantedBeforeBy)
-        ++ (builtins.map (unit: "x-systemd.wanted-by=${unit}") (opt.wantedBy ++ opt.wantedBeforeBy));
-      noCheck = ifBind true;
+      device = opt.mount.bind;
+      options = [
+        "bind"
+        # noauto: removes implicit `WantedBy=local-fs.target`
+        # nofail: removes implicit `Before=local-fs.target` and turns `RequiredBy=local-fs.target` into `WantedBy=local-fs.target`.
+        # note that some services will try to write under the mountpoint without declaring `RequiresMountsFor=` on us.
+        # systemd-tmpfiles.service is one such example.
+        # so, we *prefer* to be ordered before `local-fs.target` (since everything pulls that in),
+        # but we generally don't want to *fail* `local-fs.target`, since that breaks everything, even `ssh`
+        # on the other hand, /mnt/persist/private can take an indeterminate amount of time to be mounted,
+        # and if they block local-fs, that might block things like networking as well...
+        # so don't even required `before=local-fs.target`
+        # "noauto"
+        "nofail"
+        # x-systemd options documented here:
+        # - <https://www.freedesktop.org/software/systemd/man/systemd.mount.html>
+        # "x-systemd.before=local-fs.target"
+      ];
+      noCheck = true;
     };
-    systemd.mounts = [{
-      where = path;
-      what = if fsEntry.device != null then fsEntry.device else "";
-      type = fsEntry.fsType;
-      options = lib.concatStringsSep "," fsEntry.options;
-      after = requires;
-      requires = requires;
-      before = opt.wantedBeforeBy;
-      wantedBy = opt.wantedBeforeBy;
-      inherit (opt.mount) mountConfig unitConfig;
-    }];
+    # specify `systemd.mounts` because otherwise systemd doesn't seem to pick up my `x-systemd` fs options?
+    # systemd.mounts = let
+    #   fsEntry = config.fileSystems."${path}";
+    # in [{
+    #   where = path;
+    #   what = if fsEntry.device != null then fsEntry.device else "";
+    #   type = fsEntry.fsType;
+    #   options = lib.concatStringsSep "," fsEntry.options;
+    #   # before = [ "local-fs.target" ];
+    # }];
+  };
+
+  mkDirConfig = path: opt: {
+    systemd.tmpfiles.settings."00-10-sane-fs"."${path}".d = opt.acl;
+  };
+  mkFileConfig = path: opt: {
+    # "C+" = copy and (hopefully?) overwrite whatever's already there
+    systemd.tmpfiles.settings."00-10-sane-fs"."${path}"."C+" = opt.acl // {
+      argument = opt.file.copyFrom;
+    };
+  };
+  mkSymlinkConfig = path: opt: {
+    # "L+" = symlink and overwrite whatever's already there
+    systemd.tmpfiles.settings."00-10-sane-fs"."${path}"."L+" = opt.acl // {
+      argument = opt.symlink.target;
+    };
   };
 
 
   mkFsConfig = path: opt: lib.mkMerge (
-    [ (mkGeneratedConfig path opt) ] ++
-      lib.optional (opt.mount != null) (mkMountConfig path opt)
+    lib.optional (opt.mount != null) (mkMountConfig path opt)
+    ++ lib.optional (opt.dir != null) (mkDirConfig path opt)
+    ++ lib.optional (opt.file != null) (mkFileConfig path opt)
+    ++ lib.optional (opt.symlink != null) (mkSymlinkConfig path opt)
   );
 
   # return all ancestors of this path.
@@ -384,8 +242,8 @@ in {
       configs = lib.mapAttrsToList mkFsConfig cfg;
       take = f: {
         systemd.mounts = f.systemd.mounts;
-        systemd.services = f.systemd.services;
         fileSystems = f.fileSystems;
+        systemd.tmpfiles.settings."00-10-sane-fs" = f.systemd.tmpfiles.settings."00-10-sane-fs";
       };
     in take (sane-lib.mkTypedMerge take configs);
 }

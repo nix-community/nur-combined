@@ -1,8 +1,9 @@
-{ config, ... }:
+{ config, lib, ... }:
 let
   svc-cfg = config.services.komga;
   inherit (svc-cfg) user group port stateDir;
 in
+lib.mkIf false  #< 2024/09/30: disabled because i haven't used this for several months
 {
   sane.persist.sys.byStore.plaintext = [
     { inherit user group; mode = "0700"; path = stateDir; method = "bind"; }

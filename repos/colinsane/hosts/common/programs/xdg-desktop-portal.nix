@@ -68,7 +68,7 @@ in
       # arguable if that's a packaging bug, or limitation...
       command = lib.concatStringsSep " " [
         "env"
-        "XDG_DESKTOP_PORTAL_DIR=$HOME/.config/xdg-desktop-portal"
+        ''XDG_DESKTOP_PORTAL_DIR=''${HOME}/.config/xdg-desktop-portal''
         "G_MESSAGES_DEBUG=xdg-desktop-portal=all"
         "${cfg.package}/libexec/xdg-desktop-portal"
       ];
@@ -84,7 +84,7 @@ in
 
       command = lib.concatStringsSep " " [
         "env"
-        "XDG_DESKTOP_PORTAL_DIR=$HOME/.config/xdg-desktop-portal"
+        ''XDG_DESKTOP_PORTAL_DIR=''${HOME}/.config/xdg-desktop-portal''
         "${cfg.package}/libexec/xdg-permission-store"
       ];
       readiness.waitDbus = "org.freedesktop.impl.portal.PermissionStore";

@@ -1,0 +1,43 @@
+// for LED_FUNCTION_FLASH, etc
+#include <dt-bindings/leds/common.h>
+// for RK_PC6, other pins
+#include <dt-bindings/pinctrl/rockchip.h>
+// for GPIO_ACTIVE_HIGH
+#include <dt-bindings/gpio/gpio.h>
+
+/dts-v1/;
+/plugin/;
+
+/ {
+        /* ensure this overlay applies only to the correct board */
+        compatible = "pine64,pinephone-pro";
+};
+
+// taken from pine64-org/rk3399-pinephone-pro.dts, did not validate against schematic.
+// subset of 41742e56f5: "arm64: dts: pinephone-pro: Add camera support"
+&{/} {
+        sgm3140: led-controller {
+                compatible = "sgmicro,sgm3140";
+                vin-supply = <&vcc3v3_sys>;
+                pinctrl-names = "default";
+                pinctrl-0 = <&flash_pins>;
+                enable-gpios = <&gpio4 RK_PC6 GPIO_ACTIVE_HIGH>;
+                flash-gpios = <&gpio1 RK_PA3 GPIO_ACTIVE_HIGH>;
+
+                sgm3140_flash: led {
+                        function = LED_FUNCTION_FLASH;
+                        color = <LED_COLOR_ID_WHITE>;
+                        flash-max-timeout-us = <250000>;
+                };
+        };
+};
+
+&pinctrl {
+        leds {
+                flash_pins: flash-pins {
+                        rockchip,pins =
+                                <1 RK_PA3 RK_FUNC_GPIO &pcfg_pull_none>,
+                                <4 RK_PC6 RK_FUNC_GPIO &pcfg_pull_none>;
+                };
+        };
+};

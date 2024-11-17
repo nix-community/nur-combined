@@ -14,20 +14,17 @@ srcdir="$1"
 destdir="$2"
 stamp="$3"
 
-if [ "x$destdir" = "x" ]
-then
+if [ -z "$destdir" ]; then
   devmac=$(cat /sys/kernel/debug/bluetooth/hci0/identity | cut -f 1 -d' ' | tr "a-z" "A-Z")
   # default to the first MAC address on the host
   destdir="/var/lib/bluetooth/$devmac"
   test -d "$destdir" || mkdir "$destdir" || test -d "$destdir"
 fi
 
-for f in $(ls "$srcdir")
-do
+for f in $(ls "$srcdir"); do
   mac=$(sed -rn 's/# MAC=(.*)/\1/p' "$srcdir/$f")
   condir="$destdir/$mac"
-  if ! test -f "$condir/info"
-  then
+  if ! test -f "$condir/info"; then
     # don't *overwrite* pairings. instead, only copy the device data if the host doesn't yet know about it.
     # unfortunately, it seems that for most BT devices i can't share link keys across hosts.
     # perhaps i could using `bdaddr` to force a shared host MAC across all hosts, but that doesn't work for all manufacturers.
@@ -38,7 +35,6 @@ do
   fi
 done
 
-if [ "x$stamp" != "x" ]
-then
+if [ -n "$stamp" ]; then
   touch "$stamp"
 fi

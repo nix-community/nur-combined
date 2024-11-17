@@ -47,7 +47,6 @@ in
     package = lib.mkForce null;
 
     # experimental sandboxing (2024/07/05)
-    # sandbox.method = "bwrap";
     # sandbox.whitelistDbus = [
     #   "system"
     # ];

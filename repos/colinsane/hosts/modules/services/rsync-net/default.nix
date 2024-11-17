@@ -8,17 +8,13 @@ let
       "openssh"
       "rsync"
       "sane-scripts.vpn"
-      "sanebox"
     ];
     srcRoot = ./.;
   };
 in
 {
   options = with lib; {
-    sane.services.rsync-net.enable = mkOption {
-      default = false;
-      type = types.bool;
-    };
+    sane.services.rsync-net.enable = mkEnableOption "periodically backup data to rsync.net";
     sane.services.rsync-net.dirs = mkOption {
       type = types.listOf types.str;
       description = ''

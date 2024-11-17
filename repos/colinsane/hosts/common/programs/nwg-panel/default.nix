@@ -11,6 +11,21 @@ let
     type = lib.types.bool;
     inherit default description;
   };
+  playerctl = pkgs.playerctl.overrideAttrs (upstream: {
+    patches = (upstream.patches or []) ++ [
+      (pkgs.fetchpatch {
+        # playerctl, when used as a library, doesn't expect its user to `unref` it inside a glib signal.
+        # nwg-panel does this though, and then segfaults.
+        # playerctl project looks dead as of 2024/06/19, no hope for upstreaming this.
+        # - <https://github.com/altdesktop/playerctl/>
+        # TODO: consider removing this if nwg-panel code is changed to not trigger this.
+        # - <https://github.com/nwg-piotr/nwg-panel/issues/233>
+        name = "dbus_name_owner_changed_callback: acquire a ref on the manager before using it";
+        url = "https://git.uninsane.org/colin/playerctl/commit/bbcbbe4e03da93523b431ffee5b64e10b17b4f9f.patch";
+        hash = "sha256-l/w+ozga8blAB2wtEd1SPBE6wpHNXWk7NrOL7x10oUI=";
+      })
+    ];
+  });
 in
 {
   sane.programs.torch-toggle = {
@@ -23,7 +38,7 @@ in
     suggestedPrograms = [
       "brightnessctl"
     ];
-    sandbox.enable = false;  # trivial, and all deps are sandboxed
+    sandbox = config.sane.programs.brightnessctl.sandbox;
   };
 
   sane.programs.nwg-panel = {
@@ -54,7 +69,7 @@ in
             type = types.str;
             default = config.sane.programs.swayidle.config.actions.lock.service;
             description = ''
-              s6 service to start which can lock the screen
+              service to start which can lock the screen
             '';
           };
           torch = mkOption {
@@ -92,16 +107,9 @@ in
     };
 
     packageUnwrapped = (pkgs.nwg-panel.override {
+      inherit playerctl;
       # XXX(2024/06/13): hyprland does not cross compile
       hyprland = null;
-      # XXX(2024/06/13): wlr-randr does not cross compile
-      wlr-randr = null;  #< only used if not on sway/hyprland; or if using dwl
-      python3Packages = pkgs.python3Packages // {
-        dasbus = pkgs.python3Packages.dasbus.overridePythonAttrs (_: {
-          # XXX(2024/07/07): python3.12 update broke tests
-          doCheck = false;
-        });
-      };
     }).overrideAttrs (base: {
       # patches = (base.patches or []) ++ lib.optionals (!cfg.config.mediaPrevNext) [
       #   ./playerctl-no-prev-next.diff
@@ -165,7 +173,7 @@ in
           "brightness"
         ] ++ [
           "volume"
-          "per-app-volume"
+          # "per-app-volume"
         ] ++ lib.optionals cfg.config.battery [
           "battery"
         ]
@@ -187,25 +195,21 @@ in
       playerctlChars = if cfg.config.mediaTitle then 60 else 0;
     });
 
-    sandbox.method = "bunpen";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDri = true;
-    sandbox.whitelistS6 = true;
+    sandbox.whitelistSystemctl = true;
     sandbox.whitelistWayland = true;
     sandbox.whitelistDbus = [
       "user"  # playerctl, swaync, ...
-      "system"  # for "shutdown" option to speak to systemd
     ];
     sandbox.extraPaths = [
-      "/proc"  #< probably needed for recursive bwrap sandboxing?
-      "/run/systemd"  #< for "shutdown" option
       "/sys/class/backlight"
       "/sys/class/leds"  #< for torch/flashlight on moby
       "/sys/class/power_supply"  #< for the battery indicator
       "/sys/devices"
     ];
     sandbox.extraRuntimePaths = [ "sway" ];
-    sandbox.isolatePids = false;  #< nwg-panel restarts itself on display dis/connect, by killing all other instances.
+    sandbox.keepPidsAndProc = true;  #< nwg-panel restarts itself on display dis/connect, by killing all other instances.
 
     services.nwg-panel = {
       description = "nwg-panel status/topbar for wayland";

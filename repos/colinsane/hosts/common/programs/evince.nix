@@ -3,7 +3,6 @@
   sane.programs.evince = {
     buildCost = 1;
 
-    sandbox.method = "bwrap";
     sandbox.autodetectCliPaths = "existingFile";
     sandbox.whitelistWayland = true;
 

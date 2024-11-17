@@ -1,0 +1,9 @@
+{
+  "description": "An interview podcast for software developers using the Rust programming language to build a better planet. Software's impact on our society is increasing every day. Let's pull things apart so we can learn how to put things back together.Interview guests are typically the maintainers of open source projects, startup founders, leaders within the technology industry, and the occasional critic.Each episode aims to teach something new and provoke thoughts that'll last until the next episode and beyond.Interviews follow a rough format.We start with something that our guest thinks is interesting. This will typically involve talking tech and/or recent events. This section means that you'll find something to geek out about within the first 5-10mins of every episode.Then we learn more about our guest(s) by discussing their recent background and how they came to be interested in the thing they're interested in. At this point, we've really started to gain an understanding of their personal system at play and the forces that are upon it.We'll try to expand on some of those forces. While every interview is unique, some of the themes include the pressures of software engineering within a team, security, open source maintainership, the growth of the Rust language, and  trends within the software industry",
+  "is_podcast": true,
+  "site_name": "timClicks (Tim McNamara)",
+  "site_url": "https://timclicks.dev",
+  "title": "Compose",
+  "url": "https://timclicks.dev/feed/podcast/compose/",
+  "velocity": 0.074
+}

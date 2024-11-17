@@ -3,7 +3,7 @@
   imports = [
     ./boot.nix
     ./feeds.nix
-    ./fs.nix
+    ./fs
     ./home
     ./hosts.nix
     ./ids.nix
@@ -31,6 +31,15 @@
   sane.programs.sysadminUtils.enableFor.system = lib.mkDefault true;
   sane.programs.consoleUtils.enableFor.user.colin = lib.mkDefault true;
 
+  sane.services.buffyboard.enable = true;
+  sane.services.buffyboard.settings.theme.default = "pmos-light";
+  # sane.services.buffyboard.settings.quirks.fbdev_force_refresh = true;
+  sane.services.buffyboard.extraFlags = [ "--verbose" ];
+
+  # irqbalance monitors interrupt count (as a daemon) and assigns high-frequency interrupts to different CPUs.
+  # that reduces contention between simultaneously-fired interrupts.
+  services.irqbalance.enable = true;
+
   # time.timeZone = "America/Los_Angeles";
   time.timeZone = "Etc/UTC";  # DST is too confusing for me => use a stable timezone
 
@@ -41,7 +50,7 @@
       # source: <https://github.com/luishfonseca/dotfiles/blob/32c10e775d9ec7cc55e44592a060c1c9aadf113e/modules/upgrade-diff.nix>
       # modified to not error on boot (when /run/current-system doesn't exist)
       if [ -d /run/current-system ]; then
-        ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff /run/current-system "$systemConfig"
+        ${lib.getExe pkgs.nvd} --nix-bin-dir=${pkgs.nix}/bin diff /run/current-system "$systemConfig"
       fi
     '';
   };

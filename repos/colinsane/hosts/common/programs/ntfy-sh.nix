@@ -20,7 +20,6 @@ in
       };
     };
 
-    sandbox.method = "bwrap";
     sandbox.net = "clearnet";
 
     secrets.".config/ntfy-sh/topic" = ../../../secrets/common/ntfy-sh-topic.bin;
@@ -33,7 +32,7 @@ in
           topic=$(cat ~/.config/ntfy-sh/topic)
           exec ntfy sub "https://ntfy.uninsane.org:2587/$topic"
         '';
-      in "${sub}/bin/ntfy-sub";
+      in lib.getExe sub;
     };
   };
 }
