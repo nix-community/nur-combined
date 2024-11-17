@@ -476,10 +476,10 @@
   };
   hoyo-glyphs = {
     pname = "hoyo-glyphs";
-    version = "20241027";
+    version = "20241116";
     src = fetchurl {
-      url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/20241027/HoYo-Glyphs-20241027.zip";
-      hash = "sha256-8HTy5y+OypD2Dgb9YtfoAwCuC9yOXD3pm5yN617zA00=";
+      url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/20241116/HoYo-Glyphs-20241116.zip";
+      hash = "sha256-kjH9G1Zm+/YFs7IguWaauwCc3ynNRcD3jqvCk2vAHPE=";
     };
   };
   i915-sriov-dkms = {
@@ -723,12 +723,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4098";
+    version = "b4114";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4098";
-      hash = "sha256-i/6o8N9srni6M0v5qWDrKr8YNs220Ol4OFG0+mFvSRo=";
+      rev = "b4114";
+      hash = "sha256-nHIbqUjCCb9HpM7W9QxtR3JXZ4L/HppEuVjA4zY0uYs=";
     };
   };
   lyrica = {
@@ -1257,12 +1257,12 @@
   };
   r8125 = {
     pname = "r8125";
-    version = "9.013.02-2";
+    version = "9.014.01-1";
     src = fetchFromGitHub {
       owner = "awesometic";
       repo = "realtek-r8125-dkms";
-      rev = "9.013.02-2";
-      hash = "sha256-AeDJZRF03Jo/51A+o57toVpcVljsVPgLLk3rQnuqexQ=";
+      rev = "9.014.01-1";
+      hash = "sha256-f+O6LbLcCmRxLgcsYSqO14Y8IS3gUxHaBzZdY4VZS5k=";
     };
   };
   r8168 = {
@@ -1307,14 +1307,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "080f7b0c7cf4c04dc88a259d820949c98a7f59b8";
+    version = "728dcc5051a62b5b481cd52126eaecf3408d8f72";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "080f7b0c7cf4c04dc88a259d820949c98a7f59b8";
-      hash = "sha256-QpI0fr5fOhkA+ublWIPibPB27OYpO45MhADcyWshtBU=";
+      rev = "728dcc5051a62b5b481cd52126eaecf3408d8f72";
+      hash = "sha256-riM18c1fcEP5N/0jAcrpqrqF9ldNA8JMnd3gSV20Odk=";
     };
-    date = "2024-11-16";
+    date = "2024-11-17";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1601,14 +1601,14 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "ae1a71ea1f3db08d3ffc015b65f2eb9fda295ccd";
+    version = "cd5ba5bf6523c8712a2b4d3b947a4c32d340f8d9";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "ae1a71ea1f3db08d3ffc015b65f2eb9fda295ccd";
-      hash = "sha256-uLIzqZCVPe31rgNUyXSyBViBibV00Uw9CXadi5u9ywE=";
+      rev = "cd5ba5bf6523c8712a2b4d3b947a4c32d340f8d9";
+      hash = "sha256-epu+Ib8cwMUwNjXLWl7FnXZi3jEe3sAHXQP4ly38xpo=";
     };
-    date = "2024-11-14";
+    date = "2024-11-17";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

@@ -572,7 +572,7 @@
   "legacyPackages.x86_64-linux.hoyo-glyphs": {
     "description": "Constructed scripts by Hoyoverse 米哈游的架空文字",
     "pname": "hoyo-glyphs",
-    "version": "20241027"
+    "version": "20241116"
   },
   "legacyPackages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
@@ -647,7 +647,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "4098"
+    "version": "4114"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -3457,7 +3457,7 @@
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
     "pname": "r8125",
-    "version": "9.013.02-2"
+    "version": "9.014.01-1"
   },
   "legacyPackages.x86_64-linux.r8168": {
     "description": "Linux device driver for Realtek Ethernet controllers",
@@ -3482,7 +3482,7 @@
   "legacyPackages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2024-11-16"
+    "version": "0-unstable-2024-11-17"
   },
   "legacyPackages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -3627,7 +3627,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2024-11-14"
+    "version": "0-unstable-2024-11-17"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -3937,7 +3937,7 @@
   "packages.x86_64-linux.hoyo-glyphs": {
     "description": "Constructed scripts by Hoyoverse 米哈游的架空文字",
     "pname": "hoyo-glyphs",
-    "version": "20241027"
+    "version": "20241116"
   },
   "packages.x86_64-linux.i915-sriov": {
     "description": "DKMS module of Linux i915 driver with SR-IOV support",
@@ -4252,7 +4252,7 @@
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
     "pname": "r8125",
-    "version": "9.013.02-2"
+    "version": "9.014.01-1"
   },
   "packages.x86_64-linux.r8168": {
     "description": "Linux device driver for Realtek Ethernet controllers",
@@ -4277,7 +4277,7 @@
   "packages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2024-11-16"
+    "version": "0-unstable-2024-11-17"
   },
   "packages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -4382,7 +4382,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2024-11-14"
+    "version": "0-unstable-2024-11-17"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
