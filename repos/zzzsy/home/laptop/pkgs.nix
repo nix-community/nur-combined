@@ -111,7 +111,7 @@ let
     # minder
     tsukimi
     materialgram
-    wechat-uos
+    nur.repos.xddxdd.wechat-uos
 
     #ghostty
 

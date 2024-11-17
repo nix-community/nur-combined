@@ -33,7 +33,10 @@ in
       ];
     };
     "org/gnome/mutter" = {
-      experimental-features = [ "scale-monitor-framebuffer" ];
+      experimental-features = [
+        "scale-monitor-framebuffer"
+        "xwayland-native-scaling"
+      ];
     };
     "org/gnome/desktop/peripherals/touchpad" = {
       tap-and-drag-lock = true;
