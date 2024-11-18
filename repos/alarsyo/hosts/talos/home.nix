@@ -1,8 +1,14 @@
 {
   config,
+  lib,
   pkgs,
   ...
-}: {
+}: let
+  inherit
+    (lib)
+    mkOptionDefault
+    ;
+in {
   home-manager.users.alarsyo = {
     home.stateVersion = "23.11";
 
@@ -32,6 +38,92 @@
         (pkgs.packages)
         spot
         ;
+    };
+
+    wayland.windowManager.sway = {
+      enable = true;
+      swaynag.enable = true;
+      wrapperFeatures.gtk = true;
+      config = {
+        modifier = "Mod4";
+        input = {
+          "type:keyboard" = {
+            xkb_layout = "fr";
+            xkb_variant = "us";
+          };
+          "type:touchpad" = {
+            dwt = "enabled";
+            tap = "enabled";
+            middle_emulation = "enabled";
+            natural_scroll = "enabled";
+          };
+        };
+        output = {
+          "eDP-1" = {
+            scale = "1.5";
+          };
+        };
+        fonts = {
+          names = ["Iosevka Fixed" "FontAwesome6Free"];
+          size = 9.0;
+        };
+        bars = [
+          {
+            mode = "dock";
+            hiddenState = "hide";
+            position = "top";
+            workspaceButtons = true;
+            workspaceNumbers = true;
+            statusCommand = "${pkgs.i3status}/bin/i3status";
+            fonts = {
+              names = ["Iosevka Fixed" "FontAwesome6Free"];
+              size = 9.0;
+            };
+            trayOutput = "primary";
+            colors = {
+              background = "#000000";
+              statusline = "#ffffff";
+              separator = "#666666";
+              focusedWorkspace = {
+                border = "#4c7899";
+                background = "#285577";
+                text = "#ffffff";
+              };
+              activeWorkspace = {
+                border = "#333333";
+                background = "#5f676a";
+                text = "#ffffff";
+              };
+              inactiveWorkspace = {
+                border = "#333333";
+                background = "#222222";
+                text = "#888888";
+              };
+              urgentWorkspace = {
+                border = "#2f343a";
+                background = "#900000";
+                text = "#ffffff";
+              };
+              bindingMode = {
+                border = "#2f343a";
+                background = "#900000";
+                text = "#ffffff";
+              };
+            };
+          }
+        ];
+
+        keybindings = mkOptionDefault {
+          "Mod4+i" = "exec emacsclient --create-frame";
+        };
+      };
+    };
+    programs = {
+      fuzzel.enable = true;
+      swaylock.enable = true;
+      waybar = {
+        enable = true;
+      };
     };
   };
 }

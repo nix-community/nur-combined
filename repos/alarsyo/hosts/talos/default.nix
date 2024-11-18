@@ -152,22 +152,20 @@
     LC_TELEPHONE = "fr_FR.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
   # Enable the KDE Plasma Desktop Environment.
   services.desktopManager.plasma6.enable = true;
   services.power-profiles-daemon.enable = true;
 
   environment.systemPackages = [
     pkgs.unstable.zed-editor
+    pkgs.foot
   ];
 
   #programs.hyprland.enable = true;
-  #programs.sway = {
-  #  enable = true;
-  #  wrapperFeatures.gtk = true;
-  #};
+  programs.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
+  };
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
