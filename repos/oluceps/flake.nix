@@ -105,7 +105,7 @@
               ) self.nixosConfigurations;
             identity = self + "/sec/age-yubikey-identity-7d5d5540.txt.pub";
             extraRecipients = [ extraLibs.data.keys.ageKey ];
-            cache = "./sec/cache";
+            cache = "./sec/.cache";
           };
           lib = inputs.nixpkgs.lib.extend self.overlays.lib;
 
