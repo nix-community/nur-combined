@@ -15,7 +15,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: DeterminateSystems/nix-installer-action@v15
+      - uses: DeterminateSystems/nix-installer-action@v16
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
