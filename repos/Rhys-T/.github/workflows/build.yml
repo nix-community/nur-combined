@@ -29,9 +29,8 @@ jobs:
             [
               "Linux x86-64/ubuntu-latest",
               "Linux ARM64/ubuntu-latest+qemu-aarch64-linux",
-              # FIXME reenable
-              # "macOS x86-64/macos-13",
-              # "macOS ARM64/macos-latest",
+              "macOS x86-64/macos-13",
+              "macOS ARM64/macos-latest",
             empty] as $runners |
             
             [

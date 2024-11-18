@@ -55,7 +55,10 @@ let
                         s/$/ WriteCStrToDestFile("@CC@"); return; /
                     }
                     ${lib.optionalString hostPlatform.isDarwin ''
-                        /-mmacosx-version-min/s@^@//@
+                        /LOCALPROC Write\w+LinkOSGlucompileCommonOptions/ {
+                            n
+                            s/$/ return; /
+                        }
                     ''}
                 ' "$file"; substituteInPlace "$file" --replace-quiet '@CC@' "$CC"
             done 2>/dev/null

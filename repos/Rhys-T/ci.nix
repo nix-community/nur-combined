@@ -26,7 +26,8 @@ let
   inherit (pkgs) lib;
   subsets = {
     all = p: true;
-    base = p: !(lib.any ({name, value}: name != "all" && name != "base" && value p) (lib.attrsToList subsets));
+    base = p: !(lib.any (subset: subset p) (attrValues (removeAttrs subsets ["all" "base"])));
+    
     hbmame = p: lib.hasInfix "hbmame" (p.name or "");
     qemu-screamer = p: lib.hasInfix "qemu" (p.name or "") && lib.hasInfix "screamer" (p.name or "");
   };

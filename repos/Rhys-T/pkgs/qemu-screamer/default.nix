@@ -289,7 +289,8 @@ stdenv.mkDerivation rec {
       only build the `ppc-softmmu` target for qemu.
     '';
     license = licenses.gpl2Plus;
-    mainProgram = "qemu-kvm";
+    # SCREAMER: change mainProgram to PowerPC emulator
+    mainProgram = "qemu-system-ppc";
     # SCREAMER: updated maintainers
     maintainers = with maintainers; [ Rhys-T ];
     platforms = platforms.unix;
