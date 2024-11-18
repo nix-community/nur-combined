@@ -187,14 +187,14 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "a5a32bc4b0f5224b9582a02db9f2db70831249d3";
+    version = "c4cebd5f555b53a0d42514fa80145f9aa48e3020";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "a5a32bc4b0f5224b9582a02db9f2db70831249d3";
-      hash = "sha256-iZSDyXbXWL/qGFf9imvr2PGdnCnnnvrC9C2H66TlNaE=";
+      rev = "c4cebd5f555b53a0d42514fa80145f9aa48e3020";
+      hash = "sha256-ddZoXOGeBXGpfnvMC0gY+FZZxvs+eXAiXruUsVbZnFM=";
     };
-    date = "2024-11-16";
+    date = "2024-11-18";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -665,14 +665,14 @@
   };
   librime-octagram = {
     pname = "librime-octagram";
-    version = "bd12863f45fbbd5c7db06d5ec8be8987b10253bf";
+    version = "dfcc15115788c828d9dd7b4bff68067d3ce2ffb8";
     src = fetchFromGitHub {
       owner = "lotem";
       repo = "librime-octagram";
-      rev = "bd12863f45fbbd5c7db06d5ec8be8987b10253bf";
-      hash = "sha256-77g72tee4ahNcu3hfW1Okqr9z8Y6WrPgUhw316O72Ng=";
+      rev = "dfcc15115788c828d9dd7b4bff68067d3ce2ffb8";
+      hash = "sha256-dgUsH10V87mEcX/k3N118qbKo3fKDFcS8inhS6p5bJc=";
     };
-    date = "2024-02-05";
+    date = "2024-11-18";
   };
   librime-proto = {
     pname = "librime-proto";
@@ -687,11 +687,11 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.11.8-xanmod1";
+    version = "6.11.9-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      rev = "6.11.8-xanmod1";
-      hash = "sha256-ytn4b230zVGEbdQwQwSDOVMdLbDJWVd6v/BnR76dEt4=";
+      rev = "6.11.9-xanmod1";
+      hash = "sha256-lR7GXFy3eYq75+LwVlXScPYWbdVW6wAV+He0YZ+5AF4=";
     };
   };
   linux-xanmod-6_0 = {
@@ -714,21 +714,21 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.61-xanmod1";
+    version = "6.6.62-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      rev = "6.6.61-xanmod1";
-      hash = "sha256-zpZk3lrUZSsedc5CatR1PhwMxqqxgYFbT14pm1ur5HY=";
+      rev = "6.6.62-xanmod1";
+      hash = "sha256-KbD5YaaZLDDsp5wuEkenUe+/KrFjOgUomXtLKHtQzvs=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4114";
+    version = "b4120";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4114";
-      hash = "sha256-nHIbqUjCCb9HpM7W9QxtR3JXZ4L/HppEuVjA4zY0uYs=";
+      rev = "b4120";
+      hash = "sha256-PpwUrknsbHZ1jueDjfw0LqfkpctbSA3clfPJmf6arBA=";
     };
   };
   lyrica = {
@@ -1601,12 +1601,12 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "cd5ba5bf6523c8712a2b4d3b947a4c32d340f8d9";
+    version = "88cac46b648d4f1abe093409bc404be6c9913c62";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "cd5ba5bf6523c8712a2b4d3b947a4c32d340f8d9";
-      hash = "sha256-epu+Ib8cwMUwNjXLWl7FnXZi3jEe3sAHXQP4ly38xpo=";
+      rev = "88cac46b648d4f1abe093409bc404be6c9913c62";
+      hash = "sha256-kwgNVkjanxpeZylBBGy0zJcKudGMzqehEKxBwPX2trM=";
     };
     date = "2024-11-17";
   };
