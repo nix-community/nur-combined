@@ -65,6 +65,7 @@ jobs:
     needs: define-matrix
     strategy:
       matrix: ${{ fromJson(needs.define-matrix.outputs.matrix) }}
+      fail-fast: false
     name: ${{ matrix.displayRunner }} - ${{ matrix.nixpkgs }} - ${{ matrix.subset }}
     runs-on: ${{ matrix.runner }}
     outputs:
