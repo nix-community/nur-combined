@@ -53,12 +53,15 @@ in {
         enable = true;
         cups-pdf.enable = true;
       };
+
+      udev.packages = [pkgs.chrysalis];
     };
 
     environment.systemPackages = builtins.attrValues {
       inherit
         (pkgs)
         arandr
+        chrysalis
         discord
         feh
         ffmpeg

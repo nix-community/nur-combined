@@ -86,15 +86,12 @@
   services = {
     openssh = {
       enable = true;
-      forwardX11 = true;
     };
   };
   my.gui = {
     enable = true;
     isNvidia = true;
   };
-
-  services.udev.packages = [pkgs.chrysalis];
 
   hardware = {
     bluetooth = {
