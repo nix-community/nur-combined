@@ -35,6 +35,7 @@ in
 
     sysadminUtils = declPackageSet [
       "ausyscall"
+      "bandwhich"  # network/bandwidth monitor
       "bridge-utils"  # for brctl; debug linux "bridge" inet devices
       "btrfs-progs"
       "cacert.unbundled"  # some services require unbundled /etc/ssl/certs
@@ -426,6 +427,20 @@ in
     alsa-utils.sandbox.autodetectCliPaths = "existingFile";  # for `aplay ./file.wav`
 
     backblaze-b2 = {};
+
+    bandwhich.sandbox.capabilities = [
+      # it recommends these caps
+      # - new_raw is absolutely required
+      # - dac_read_search + sys_ptrace are required to associate traffic with process names
+      # - net_admin is... seemingly not actually required for anything?
+      "dac_read_search"
+      # "net_admin"
+      "net_raw"
+      "sys_ptrace"
+    ];
+    bandwhich.sandbox.keepPids = true;  #< so it can determine process names
+    bandwhich.sandbox.tryKeepUsers = true;
+    bandwhich.sandbox.net = "all";
 
     bash-language-server.sandbox.whitelistPwd = true;
 
