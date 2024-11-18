@@ -12,36 +12,48 @@ in
   ];
 
   security.polkit.extraConfig = ''
-    /* allow ordinary users to:
-     * - reboot
-     * - shutdown
-     * source: <https://nixos.wiki/wiki/Polkit>
-     */
+    // allow ordinary users to:
+    // - reboot
+    // - shutdown
+    // source: <https://nixos.wiki/wiki/Polkit>
     polkit.addRule(function(action, subject) {
-      if (
-        subject.isInGroup("users")
-          && (
-            action.id == "org.freedesktop.login1.reboot" ||
-            action.id == "org.freedesktop.login1.reboot-multiple-sessions" ||
-            action.id == "org.freedesktop.login1.power-off" ||
-            action.id == "org.freedesktop.login1.power-off-multiple-sessions"
-          )
-        )
-      {
+      if (subject.isInGroup("users")) {
+        switch (action.id) {
+          case "org.freedesktop.login1.reboot":
+          case "org.freedesktop.login1.reboot-multiple-sessions":
+          case "org.freedesktop.login1.power-off":
+          case "org.freedesktop.login1.power-off-multiple-sessions":
+            return polkit.Result.YES;
+          default:
+        }
+      }
+    })
+
+    // allow members of wheel to:
+    // - systemctl daemon-reload
+    polkit.addRule(function(action, subject) {
+      if (subject.isInGroup("wheel") && action.id == "org.freedesktop.systemd1.reload-daemon") {
         return polkit.Result.YES;
       }
     })
 
-    /* allow members of wheel to:
-     * - systemctl daemon-reload
-     * - systemctl stop|start|restart SERVICE
-     */
+    // allow members of wheel to:
+    // - systemctl restart|start|stop SERVICE
     polkit.addRule(function(action, subject) {
-      if (subject.isInGroup("wheel") && (
-        action.id == "org.freedesktop.systemd1.reload-daemon" ||
-        action.id == "org.freedesktop.systemd1.manage-units"
-      )) {
-        return polkit.Result.YES;
+      if (subject.isInGroup("wheel") && action.id == "org.freedesktop.systemd1.manage-units") {
+        switch (action.lookup("verb")) {
+          // case "cancel":
+          // case "reenable":
+          case "restart":
+          // case "reload":
+          // case "reload-or-restart":
+          case "start":
+          case "stop":
+          // case "try-reload-or-restart":
+          // case "try-restart":
+            return polkit.Result.YES;
+          default:
+        }
       }
     })
   '';

@@ -8,15 +8,17 @@
     ./freshrss.nix
     ./export
     ./hickory-dns.nix
+    ./gerbera.nix
     ./gitea.nix
     ./goaccess.nix
     ./ipfs.nix
     ./jackett
-    ./jellyfin.nix
+    ./jellyfin
     ./kiwix-serve.nix
     ./komga.nix
     ./lemmy.nix
     ./matrix
+    ./minidlna.nix
     ./mumble.nix
     ./navidrome.nix
     ./nginx.nix

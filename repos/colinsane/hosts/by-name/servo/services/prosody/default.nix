@@ -283,4 +283,20 @@ in
       ntfy_topic = readAll("/run/secrets/ntfy-sh-topic")
     '';
   };
+
+  systemd.services.prosody = {
+    # hardening (systemd-analyze security prosody)
+    serviceConfig.LockPersonality = true;
+    serviceConfig.NoNewPrivileges = true;
+    serviceConfig.PrivateUsers = true;
+    serviceConfig.ProcSubset = "pid";
+    serviceConfig.ProtectClock = true;
+    serviceConfig.ProtectKernelLogs = true;
+    serviceConfig.ProtectProc = "invisible";
+    serviceConfig.ProtectSystem = "strict";
+    serviceConfig.RemoveIPC = true;
+    serviceConfig.RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
+    serviceConfig.SystemCallArchitectures = "native";
+    serviceConfig.SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
+  };
 }

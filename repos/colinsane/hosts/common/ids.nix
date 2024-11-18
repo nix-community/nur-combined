@@ -6,6 +6,7 @@
 {
   # partially supported in nixpkgs  <repo:nixos/nixpkgs:nixos/modules/misc/ids.nix>
   sane.ids.networkmanager.uid = 57;  #< nixpkgs unofficially reserves this, to match networkmanager's gid
+  sane.ids.mediatomb.uid = 187;  # <repo:nixos/nixpkgs:nixos/modules/misc/ids.nix>
 
   # legacy servo users, some are inconvenient to migrate
   sane.ids.dhcpcd.gid = 991;

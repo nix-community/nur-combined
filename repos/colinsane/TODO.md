@@ -64,8 +64,6 @@
   - likely requires updating envelope to a more recent version (for multi-accounting), and therefore updating libadwaita...
 
 ### security/resilience
-- disable `systemd --run`!
-  - it's letting me run anything *AS ROOT*
 - enable `snapper` btrfs snapshots (`services.snapper`)
 - /mnt/desko/home, etc, shouldn't include secrets (~/private)
   - 95% of its use is for remote media access and stuff which isn't in VCS (~/records)
