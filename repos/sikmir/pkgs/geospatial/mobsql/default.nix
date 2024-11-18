@@ -30,5 +30,6 @@ buildGoModule rec {
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "mobsql";
+    skip.ci = true;
   };
 }

@@ -36,5 +36,6 @@ buildGoModule rec {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "mobroute";
+    skip.ci = true;
   };
 }
