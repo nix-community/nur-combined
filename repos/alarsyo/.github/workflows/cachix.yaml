@@ -81,6 +81,9 @@ jobs:
         - thanatos
 
     steps:
+    - name: Delete huge unnecessary tools folder
+      run: rm -rf /opt/hostedtoolcache
+
     - uses: actions/checkout@v4
 
     - uses: cachix/install-nix-action@v27
