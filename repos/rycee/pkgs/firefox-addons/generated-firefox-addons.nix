@@ -3112,10 +3112,10 @@
     };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "5.3.3";
+      version = "5.3.4";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4385486/floccus-5.3.3.xpi";
-      sha256 = "bdeff4ba21d0b92cde9b4f39dc686d3897fa53376db1e08e3d9dbb5b2fd55a2d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4389599/floccus-5.3.4.xpi";
+      sha256 = "8a7c9e3626e0ab0a017a887b379d0af20e0653ecc05a5fbada17d0244629ba47";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -3653,10 +3653,10 @@
     };
     "gopass-bridge" = buildFirefoxXpiAddon {
       pname = "gopass-bridge";
-      version = "2.0.0";
+      version = "2.1.0";
       addonId = "{eec37db0-22ad-4bf1-9068-5ae08df8c7e9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4368853/gopass_bridge-2.0.0.xpi";
-      sha256 = "597cdc25544730ec0aa028eee27ca5d636899927588fe2b9ca4ae906e6979a91";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4389774/gopass_bridge-2.1.0.xpi";
+      sha256 = "ae2fe0296eea9ef73695bb57c52d9ba930c18d89d58d65c8014104cb8b0e74a1";
       meta = with lib;
       {
         homepage = "https://github.com/gopasspw/gopassbridge";
@@ -3679,10 +3679,10 @@
     };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.912.0";
+      version = "8.852.2307";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4262513/grammarly_1-8.912.0.xpi";
-      sha256 = "6e380ddffaacda256e153cb928c0c9206c6730398d549e0a91d6fdccc9dd95a0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3000642/grammarly_1-8.852.2307.xpi";
+      sha256 = "188cf73d6ba724cbaddafcf13a1a82d01194e0500d634617b3339b6df5b1cf8f";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -3694,103 +3694,12 @@
           free = false;
         };
         mozPermissions = [
-          "http://*/*"
-          "https://*/*"
+          "<all_urls>"
           "tabs"
           "notifications"
           "cookies"
+          "clipboardWrite"
           "storage"
-          "<all_urls>"
-          "*://*.atlassian.net/*"
-          "*://mail.google.com/*"
-          "*://*.mail.google.com/*"
-          "*://quora.com/*"
-          "*://*.quora.com/*"
-          "*://*.slack.com/*"
-          "*://*.blackboard.com/*"
-          "*://*.blogger.com/*"
-          "*://publish.buffer.com/*"
-          "*://*.publish.buffer.com/*"
-          "*://facebook.com/*"
-          "*://*.facebook.com/*"
-          "*://calendar.google.com/*"
-          "*://*.calendar.google.com/*"
-          "*://keep.google.com/*"
-          "*://*.keep.google.com/*"
-          "*://intercom.io/*"
-          "*://*.intercom.io/*"
-          "*://linkedin.com/*"
-          "*://*.linkedin.com/*"
-          "*://medium.com/*"
-          "*://*.medium.com/*"
-          "*://messenger.com/*"
-          "*://*.messenger.com/*"
-          "*://teams.microsoft.com/*"
-          "*://*.teams.microsoft.com/*"
-          "*://translate.google.com/*"
-          "*://*.translate.google.com/*"
-          "*://reddit.com/*"
-          "*://*.reddit.com/*"
-          "*://youtube.com/*"
-          "*://*.youtube.com/*"
-          "*://twitter.com/*"
-          "*://*.twitter.com/*"
-          "*://*.lightning.force.com/*"
-          "*://trello.com/*"
-          "*://*.trello.com/*"
-          "*://upwork.com/*"
-          "*://*.upwork.com/*"
-          "*://web.whatsapp.com/*"
-          "*://*.web.whatsapp.com/*"
-          "*://wix.com/*"
-          "*://*.wix.com/*"
-          "*://wordpress.com/*"
-          "*://*.wordpress.com/*"
-          "*://*.zendesk.com/*"
-          "*://wattpad.com/*"
-          "*://*.wattpad.com/*"
-          "*://onlinechatdashboard.com/*"
-          "*://*.onlinechatdashboard.com/*"
-          "*://wordcounter.net/*"
-          "*://*.wordcounter.net/*"
-          "*://fiverr.com/*"
-          "*://*.fiverr.com/*"
-          "*://educationperfect.com/*"
-          "*://*.educationperfect.com/*"
-          "*://apclassroom.collegeboard.org/*"
-          "*://*.apclassroom.collegeboard.org/*"
-          "*://studio.youtube.com/*"
-          "*://*.studio.youtube.com/*"
-          "*://chat.google.com/*"
-          "*://*.chat.google.com/*"
-          "*://twitch.tv/*"
-          "*://*.twitch.tv/*"
-          "*://papago.naver.com/*"
-          "*://*.papago.naver.com/*"
-          "*://readworks.org/*"
-          "*://*.readworks.org/*"
-          "*://app.nearpod.com/*"
-          "*://*.app.nearpod.com/*"
-          "*://mail.aol.com/*"
-          "*://*.mail.aol.com/*"
-          "*://github.com/*"
-          "*://*.github.com/*"
-          "*://coursera.org/*"
-          "*://*.coursera.org/*"
-          "*://commonlit.org/*"
-          "*://*.commonlit.org/*"
-          "*://classroom.google.com/*"
-          "*://*.classroom.google.com/*"
-          "*://app.seesaw.me/*"
-          "*://*.app.seesaw.me/*"
-          "*://forms.office.com/*"
-          "*://*.forms.office.com/*"
-          "*://outlook.live.com/*"
-          "*://*.outlook.live.com/*"
-          "*://outlook.office.com/*"
-          "*://*.outlook.office.com/*"
-          "*://docs.google.com/document/*"
-          "https://*.overleaf.com/*"
         ];
         platforms = platforms.all;
       };
@@ -7804,10 +7713,10 @@
     };
     "nos2x-fox" = buildFirefoxXpiAddon {
       pname = "nos2x-fox";
-      version = "1.14.0";
+      version = "1.15.0";
       addonId = "{fdacee2c-bab4-490d-bc4b-ecdd03d5d68a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4311953/nos2x_fox-1.14.0.xpi";
-      sha256 = "9b6f69425d6801f1726195ca18fdfeff28126b067f1ba7d109f2927411f87ba9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4389838/nos2x_fox-1.15.0.xpi";
+      sha256 = "1f9163fe127a597028f61585aa5d2a864d88e54dafea312927e01bc0dbde38f6";
       meta = with lib;
       {
         homepage = "https://github.com/diegogurpegui/nos2x-firefox";
@@ -11296,10 +11205,10 @@
     };
     "torrent-control" = buildFirefoxXpiAddon {
       pname = "torrent-control";
-      version = "0.2.42";
+      version = "0.2.43";
       addonId = "{e6e36c9a-8323-446c-b720-a176017e38ff}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4380581/torrent_control-0.2.42.xpi";
-      sha256 = "97bd99c8c8fac3980c68c545d75d9c06867e89c9d6efdfbac5d424435abe06ee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4389714/torrent_control-0.2.43.xpi";
+      sha256 = "dc6055966ee40ca1b3ac8d4856b9952e13fbe696fe0040fdc3d7022e6455e549";
       meta = with lib;
       {
         homepage = "https://github.com/Mika-/torrent-control";
