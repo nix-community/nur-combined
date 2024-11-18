@@ -42,15 +42,6 @@ in
     boot.loader.systemd-boot.memtest86.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
     boot.plymouth.enable = true;
-    boot.initrd.preDeviceCommands = with palette.ansiFormat; ''
-      info $'\n'${escapeShellArg (frame magenta ''
-        ${magenta "If found, please contact:"}
-
-          ${cyan "Name:"} ${identity.name.long}
-         ${cyan "Email:"} ${identity.email}
-         ${cyan "Phone:"} ${identity.phone}
-      '')}$'\n'
-    '';
 
     # Swap
     zramSwap.enable = true;
@@ -64,6 +55,15 @@ in
         fallbackToPassword = true;
         gpgCard.encryptedPass = ./local/resources/luks-passphrase.gpg;
         gpgCard.publicKey = identity.openpgp.asc;
+        preOpenCommands = with palette.ansiFormat; ''
+          echo $'\n'${escapeShellArg (frame magenta ''
+            ${magenta "If found, please contact:"}
+
+              ${cyan "Name:"} ${identity.name.long}
+             ${cyan "Email:"} ${identity.email}
+             ${cyan "Phone:"} ${identity.phone}
+          '')}
+        '';
       };
     };
     fileSystems."/".options = [ "compress=zstd:2" "discard=async" "noatime" ];

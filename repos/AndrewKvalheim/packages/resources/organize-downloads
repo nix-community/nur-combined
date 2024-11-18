@@ -23,7 +23,11 @@ unstage() { local path="$1"
   mv --no-clobber --verbose "$path" "${path/⏳️ /}"
 }
 
-for path in ~/Downloads/Screen{s,\ S}hot\ *.png; do
+for path in \
+  ~/.local/share/PrismLauncher/instances/*/.minecraft/screenshots/*.png \
+  ~/Downloads/Screen{s,\ S}hot\ *.png \
+  ~/VirtualBox\ VMs/*/VirtualBox_*.png
+do
   await_writes "$path"
   stage "$path"
 done

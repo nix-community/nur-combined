@@ -94,6 +94,7 @@ in
       mozjpeg-simple
       mtr
       multitail
+      nix-preview
       nix-top
       nix-tree
       nixpkgs-review

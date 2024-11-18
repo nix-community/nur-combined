@@ -7,7 +7,7 @@ let
   open-vsx = { _name = "open-vsx"; vscode-extensions = community-vscode-extensions.open-vsx; };
   vscode-marketplace = { _name = "vscode-marketplace"; vscode-extensions = community-vscode-extensions.vscode-marketplace; };
 in
-specify {
+(specify {
   add-words = any;
   affine-font = any;
   album-art = any;
@@ -55,11 +55,13 @@ specify {
   just-local = any;
   kitty.version = "≥0.35.1"; # kovidgoyal/kitty#7413
   little-a-map = any;
+  losslesscut-bin.args = [ "--disable-networking" ];
   mark-applier = any;
   minemap = any;
   mmdbinspect = any;
   mozjpeg-simple = any;
   nbt-explorer = any;
+  nix-preview = any;
   off = any;
   picard.overlay = p: { preFixup = p.preFixup + "\nmakeWrapperArgs+=(--prefix PATH : ${stable.lib.makeBinPath [ resolved.rsgain ]})"; }; # NixOS/nixpkgs#255222
   pngquant-interactive = any;
@@ -111,4 +113,7 @@ specify {
   };
   zsh-abbr.condition = z: !z.meta.unfree;
   zsh-click = any;
+}) // {
+  # Pending NixOS/nixpkgs#356829
+  fetchsvn = a: (stable.fetchsvn a).overrideAttrs (f: { nativeBuildInputs = f.nativeBuildInputs ++ [ resolved.cacert ]; });
 }

@@ -26,6 +26,7 @@ in
       allowCommands = false;
     };
   };
+  systemd.services.kmonad-default.restartIfChanged = false;
 
   programs.ydotool.enable = true;
 

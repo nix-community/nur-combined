@@ -1,6 +1,8 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let
+  inherit (lib) mkIf versionOlder;
+
   identity = import ../../common/resources/identity.nix;
 in
 {
@@ -17,6 +19,10 @@ in
     local = ./local;
     resources = ./resources;
   };
+
+  # Kernel
+  boot.kernelPackages = mkIf (versionOlder pkgs.linux.version "6.12")
+    pkgs.linuxPackages_6_12 or pkgs.linuxPackages_latest;
 
   # Hardware
   services.fstrim.enable = true;

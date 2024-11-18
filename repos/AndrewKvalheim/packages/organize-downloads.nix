@@ -14,7 +14,11 @@ in
   config = {
     systemd.user.paths.organize-downloads = {
       Unit.Description = "Watch downloads";
-      Path.PathExistsGlob = "%h/Downloads/Screen{s,\\ S}hot\\ *.png";
+      Path.PathExistsGlob = [
+        "%h/.local/share/PrismLauncher/instances/*/.minecraft/screenshots/*.png"
+        "%h/Downloads/Screen{s,\\ S}hot\\ *.png"
+        "%h/VirtualBox\\ VMs/*/VirtualBox_*.png" # Related: https://www.virtualbox.org/ticket/22135
+      ];
       Install.WantedBy = [ "default.target" ];
     };
 

@@ -50,6 +50,7 @@
     josm-hidpi
     kdenlive
     libreoffice
+    losslesscut-bin
     mark-applier
     mcaselector
     minemap

@@ -7,7 +7,7 @@ let
 
   # Utilities
   composeOverrides = f1: f2: a0: let o1 = f1 a0; o2 = f2 (a0 // o1); in o1 // o2;
-  isEmpty = attrs: length (attrNames attrs) == 0;
+  isEmpty = v: length (if isAttrs v then attrNames v else v) == 0;
   isLocal = r: isPath r || r._name or null == "NUR packages";
   isStable = r: isAttrs r && ! r ? "_name";
   mkRepo = name: path: (import path { inherit (stable) config; overlays = [ ]; }) // { _name = name; };
@@ -47,7 +47,8 @@ let
     , patch ? null
 
       # Wrapper
-    , env ? null
+    , args ? [ ]
+    , env ? { }
 
       # Package input override
     , ...
@@ -56,10 +57,10 @@ let
       # Implicit arguments
       override = removeAttrs spec (attrNames (functionArgs (resolve scope pname)));
 
-      # Specification
+      # Mode
       doOverlay = gappsWrapperArgs != null || overlay != null || patch != null;
       doOverride = ! isEmpty override;
-      doWrapper = env != null;
+      doWrapper = ! isEmpty wrapperArgs;
 
       # Package selection
       path = scope ++ [ pname ];
@@ -97,6 +98,9 @@ let
         else package_with_overlay;
 
       # Wrapper
+      wrapperArgs =
+        (map (a: "--add-flags ${escapeShellArg a}") args)
+        ++ (mapAttrsToList (k: v: "--set ${escapeShellArg k} ${escapeShellArg v}") env);
       package_with_overlay_with_override_with_wrapper =
         if doWrapper then
           symlinkJoin
@@ -106,8 +110,7 @@ let
               buildInputs = [ makeWrapper ];
               postBuild = ''
                 for program in $out/bin/*; do
-                  wrapProgram "$program" \
-                    ${concatStringsSep " " (mapAttrsToList (k: v: "--set ${escapeShellArg k} ${escapeShellArg v}") env)}
+                  wrapProgram "$program" ${concatStringsSep " " wrapperArgs}
                 done
               '';
             }

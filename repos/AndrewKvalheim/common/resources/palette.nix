@@ -85,7 +85,7 @@ rec {
   hex = mapAttrs (_: c: c.hex) colors;
 
   report = concatLines (mapAttrsToList
-    (name: { ansi, css, hex, rgb, ... }:
+    (name: { ansi, css, hex, ... }:
       "${sgr ansi.off ansi.on "██ ${name}"} ${ansiFormat.black "${css} ≈ ${hex}"}")
     colors
   );

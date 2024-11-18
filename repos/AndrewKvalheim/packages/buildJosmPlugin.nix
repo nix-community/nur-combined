@@ -23,14 +23,14 @@ warnIf (versionOlder josmVersion josm.version) "JOSM plugin build environment ${
   stdenv.mkDerivation
   (args // {
     srcJosmLegacy = fetchsvn {
-      url = "https://josm.openstreetmap.de/osmsvn/applications/editors/josm";
+      url = "https://josm.openstreetmap.de/osmsvn/applications/editors/josm/";
       rev = josmLegacyRev;
       ignoreExternals = true;
       hash = "sha256-Ko7SG6/6nHPq/x9AE0KL1/Ftr9Kz1DdwHBDAlQ+32RY=";
     };
 
     srcJosmCore = fetchsvn {
-      url = "https://josm.openstreetmap.de/svn/trunk";
+      url = "https://josm.openstreetmap.de/svn/trunk/";
       rev = josmVersion;
       ignoreExternals = true;
       hash = "sha256-Kv8522Bv4Cj4/JhcsGJmOcwBnV8D/oUGoymJ2ARDqZg=";
