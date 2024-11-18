@@ -6,9 +6,6 @@
 ![CI state](https://github.com/oluceps/nixos-config/actions/workflows/lint.yaml/badge.svg)
 ![CI state](https://github.com/oluceps/nixos-config/actions/workflows/sensitive.yaml/badge.svg)  
 
-> [!IMPORTANT]
-> Public login credentials placing in `hosts/lib.nix`.
-
 NixOS configurations. ~100% config Nixfied.
 
 with

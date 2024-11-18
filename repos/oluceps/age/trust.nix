@@ -30,17 +30,8 @@
 // (rootRo [
   "db.key"
   "db.pem"
+  "dae"
 ])
-// {
-  dae = {
-    file = ../sec/dae.age;
-    mode = "640";
-    owner = "root";
-    group = "users";
-    name = "d.dae";
-  };
-
-}
 // (
   let
     inherit (lib) listToAttrs nameValuePair;
