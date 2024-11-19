@@ -90,7 +90,6 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          sandbox = true
           ${{ matrix.qemuSystem && format('extra-platforms = {0}', matrix.qemuSystem)}}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
@@ -121,6 +120,7 @@ jobs:
         name: Rhys-T-nur-packages-build-logs-${{ matrix.runner }}${{ matrix.qemuSystem && format('+qemu-{0}', matrix.qemuSystem) }}-${{ matrix.nixpkgs }}-${{ matrix.subset }}
         path: |
           /nix/var/log
+          !/nix/var/log/nix/drvs/*/*user-environment*
         if-no-files-found: ignore
   trigger-update:
     name: Trigger NUR update
