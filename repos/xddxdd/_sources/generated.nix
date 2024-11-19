@@ -187,12 +187,12 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "c4cebd5f555b53a0d42514fa80145f9aa48e3020";
+    version = "9b6b1179249de412549aba2449d9a6e39bb04262";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "c4cebd5f555b53a0d42514fa80145f9aa48e3020";
-      hash = "sha256-ddZoXOGeBXGpfnvMC0gY+FZZxvs+eXAiXruUsVbZnFM=";
+      rev = "9b6b1179249de412549aba2449d9a6e39bb04262";
+      hash = "sha256-QZL3OYo/MZKw62GY39yVheGbtNxuDW86jk9063ua94Y=";
     };
     date = "2024-11-18";
   };
@@ -687,11 +687,11 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.11.9-xanmod1";
+    version = "6.12.0-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      rev = "6.11.9-xanmod1";
-      hash = "sha256-lR7GXFy3eYq75+LwVlXScPYWbdVW6wAV+He0YZ+5AF4=";
+      rev = "6.12.0-xanmod1";
+      hash = "sha256-QrKiBqvDB65lu6+L7g6rTjkZtN0Ynpsw2fpRoDJnk3I=";
     };
   };
   linux-xanmod-6_0 = {
@@ -723,12 +723,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4120";
+    version = "b4130";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4120";
-      hash = "sha256-PpwUrknsbHZ1jueDjfw0LqfkpctbSA3clfPJmf6arBA=";
+      rev = "b4130";
+      hash = "sha256-bd4YrDchue2SBcWSfiB8RT+JGcAIIo36GO1oNhP0v5A=";
     };
   };
   lyrica = {
@@ -1180,18 +1180,18 @@
   };
   qq-amd64 = {
     pname = "qq-amd64";
-    version = "Linux/QQ_3.2.13_241112_amd64_01";
+    version = "Linux/QQ_3.2.13_241118_amd64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.13_241112_amd64_01.deb";
-      hash = "sha256-ycGNihLYcemA37PGpGT5hCaiq5nD4KumqSMF7TKk4iI=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.13_241118_amd64_01.deb";
+      hash = "sha256-idtDl6TpUR2v1Zdbrc3D0poSCK+IUo9HR77pHR6SaMA=";
     };
   };
   qq-arm64 = {
     pname = "qq-arm64";
-    version = "Linux/QQ_3.2.13_241112_arm64_01";
+    version = "Linux/QQ_3.2.13_241118_arm64_01";
     src = fetchurl {
-      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.13_241112_arm64_01.deb";
-      hash = "sha256-eAWneMK6aJUVudQemganaRiDnEGtDcJB9z0OIehlD48=";
+      url = "https://dldir1.qq.com/qqfile/qq/QQNT/Linux/QQ_3.2.13_241118_arm64_01.deb";
+      hash = "sha256-q+yYS/3/HrU6SlSZYiuSRUmgcIHwEpySkk7X0tdxtbo=";
     };
   };
   qqmusic = {
@@ -1235,14 +1235,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "e9a8c54b8252baad23fd49f9797497f417ec61ea";
+    version = "da89ebd303d80fe4990063c5b58796039f07b01e";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "e9a8c54b8252baad23fd49f9797497f417ec61ea";
-      hash = "sha256-c1axIG3wbkYyxkZyCiTcNtg9NkTruZ7OEu1h65jYN6A=";
+      rev = "da89ebd303d80fe4990063c5b58796039f07b01e";
+      hash = "sha256-g1mfD/JN3fOCLKeBVfS7etD35y1xUcbjG0k/9vGPXWU=";
     };
-    date = "2024-11-14";
+    date = "2024-11-18";
   };
   qsp-wx = {
     pname = "qsp-wx";
@@ -1307,14 +1307,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "728dcc5051a62b5b481cd52126eaecf3408d8f72";
+    version = "08ff0b095f631e1d7ca068eb2d36b0d10782686a";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "728dcc5051a62b5b481cd52126eaecf3408d8f72";
-      hash = "sha256-riM18c1fcEP5N/0jAcrpqrqF9ldNA8JMnd3gSV20Odk=";
+      rev = "08ff0b095f631e1d7ca068eb2d36b0d10782686a";
+      hash = "sha256-pmO6l82lI0aOdWW61jdA4nIgwSC6GH0ckBE/Z4LVkh4=";
     };
-    date = "2024-11-17";
+    date = "2024-11-19";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1601,14 +1601,14 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "88cac46b648d4f1abe093409bc404be6c9913c62";
+    version = "890c36ee287ed3ffa0a993bcc94832792f7d9513";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "88cac46b648d4f1abe093409bc404be6c9913c62";
-      hash = "sha256-kwgNVkjanxpeZylBBGy0zJcKudGMzqehEKxBwPX2trM=";
+      rev = "890c36ee287ed3ffa0a993bcc94832792f7d9513";
+      hash = "sha256-PoyflkscEzVWy1uSFPLfWYeVZXSdLUuZjRVNMpxTJSs=";
     };
-    date = "2024-11-17";
+    date = "2024-11-18";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
