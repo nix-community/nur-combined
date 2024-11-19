@@ -114,14 +114,14 @@ jobs:
     - name: Build nix packages
       id: build
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -build-flags -L -build-flags --keep-going ${{ matrix.qemuSystem && format('--argstr platform {0}', matrix.qemuSystem) }} --argstr subsetName ${{ matrix.subset }} -A cacheOutputs
-    # - name: Upload debug info
-    #   if: '!cancelled()'
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: Rhys-T-nur-packages-debug-${{ matrix.runner }}-${{ matrix.nixpkgs }}-${{ matrix.subset }}
-    #     path: |
-    #       /nix/store/*fcntlPathTest*.drv
-    #     if-no-files-found: ignore
+    - name: Upload build logs
+      if: '!cancelled()'
+      uses: actions/upload-artifact@v4
+      with:
+        name: Rhys-T-nur-packages-build-logs-${{ matrix.runner }}${{ matrix.qemuSystem && format('+qemu-{0}', matrix.qemuSystem) }}-${{ matrix.nixpkgs }}-${{ matrix.subset }}
+        path: |
+          /nix/var/log
+        if-no-files-found: ignore
   trigger-update:
     name: Trigger NUR update
     runs-on: ubuntu-latest
