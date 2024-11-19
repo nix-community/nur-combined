@@ -95,6 +95,9 @@ in
     nextcloud = {
       enable = true;
       passwordFile = secrets."nextcloud/password".path;
+      collabora = {
+        enable = true;
+      };
     };
     nix-cache = {
       enable = true;

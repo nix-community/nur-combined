@@ -4,6 +4,10 @@ let
   cfg = config.my.services.nextcloud;
 in
 {
+  imports = [
+    ./collabora.nix
+  ];
+
   options.my.services.nextcloud = with lib; {
     enable = mkEnableOption "Nextcloud";
     maxSize = mkOption {
