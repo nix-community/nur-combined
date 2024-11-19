@@ -1,4 +1,10 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
   networking.nftables = {
     enable = true;
     checkRuleset = false;
@@ -13,15 +19,25 @@
   services.einat = {
     enable = true;
     config.defaults = rec {
-      tcp_ranges = [ "10000-32767" "61000-65535" ];
+      tcp_ranges = [
+        "10000-32767"
+        "61000-65535"
+      ];
       udp_ranges = tcp_ranges;
     };
-    config.interfaces = [{
-      if_name = "extern0";
-      nat44 = true;
-      bpf_fib_lookup_external = true;
-      ipv4_hairpin_route.internal_if_names = [ "lo" "intern0" ];
-    }];
+    config.interfaces = [
+      {
+        if_name = "extern0";
+        nat44 = true;
+        snat_internals = [
+          "192.168.1.0/24"
+        ];
+        ipv4_hairpin_route.internal_if_names = [
+          "lo"
+          "intern0"
+        ];
+      }
+    ];
   };
 
   networking.resolvconf.useLocalResolver = true;

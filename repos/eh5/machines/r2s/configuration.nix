@@ -76,6 +76,7 @@
     ethtool
     f2fs-tools
     file
+    gdb
     htop
     iperf
     libgpiod

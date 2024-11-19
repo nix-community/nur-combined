@@ -1,45 +1,48 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, rustfmt
-, llvmPackages
-, elfutils
-, zlib
-, enableIpv6 ? false
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  rustfmt,
+  llvmPackages,
+  libbpf,
+  elfutils,
+  zlib,
+  enableIpv6 ? false,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "einat";
-  version = "0.1.2";
+  version = "0.1.3";
 
   src = fetchFromGitHub {
     owner = "EHfive";
     repo = "einat-ebpf";
     rev = "v${version}";
-    hash = "sha256-vVamFD/zbMZMor89a5V5v0HsgPZKsmdYimmA5Ti6E9U=";
+    hash = "sha256-g0/MMln0amiar2noBbTdncioPrytWGeeuX6J41f3AwI=";
   };
 
-  cargoHash = "sha256-DBc6QS+GLB68er4GDCMCRIYyI1HSRJeUztF8lkcL1Wc=";
-
-  patches = [
-    ./0001-fix-ebpf-always-pull-first-header-bytes.patch
-  ];
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+    outputHashes = {
+      "self_cell-1.0.4" = "sha256-LDbQqDax5gp/zPfEMYknRiOORccpkY0S6mdai1/DpNk=";
+    };
+  };
 
   nativeBuildInputs = [
     pkg-config
     rustfmt
     llvmPackages.clang-unwrapped
+    llvmPackages.bintools-unwrapped
     rustPlatform.bindgenHook
-    elfutils
-    zlib
   ];
 
   buildInputs = [
+    libbpf
     elfutils
     zlib
   ];
 
-  buildFeatures = lib.optionals enableIpv6 [ "ipv6" ];
+  buildFeatures = [ "libbpf" ] ++ lib.optionals enableIpv6 [ "ipv6" ];
 
   meta = with lib; {
     description = "An eBPF-based Endpoint-Independent(Full Cone) NAT";

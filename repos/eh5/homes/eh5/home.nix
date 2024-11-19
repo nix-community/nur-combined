@@ -44,6 +44,7 @@
     nix-prefetch
     nix-update
     nixd
+    nixfmt-rfc-style
     nixpkgs-fmt
     ssh-to-age
   ];
