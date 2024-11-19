@@ -38,3 +38,6 @@ blacklistadd localhost
 blacklistadd netflix.com
 blacklistadd primevideo.com
 blacklistadd youtube.com
+
+" prevent teams from crashing
+seturl teams.microsoft.com superignore true
