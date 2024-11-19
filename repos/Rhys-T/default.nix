@@ -139,18 +139,6 @@ in {
         inherit (pkgs.darwin) sigtool;
     };
     
-    # Can't just pass `-L` to `nix-build-uncached`: it ends up being passed to both
-    # old `nix-build` (which doesn't understand it) and new `nix build` (which does).
-    nix-build-uncached-logging = callPackage ({nix-build-uncached}: nix-build-uncached.overrideAttrs (old: {
-        pname = old.pname + "-logging";
-        postPatch = (old.postPatch or "") + ''
-            substituteInPlace build.go --replace-fail '[]string{"build"}' '[]string{"build", "-L"}'
-        '';
-        meta = old.meta // {
-            description = "${old.meta.description} (variant that logs build output)";
-        };
-    })) {};
-    
     _ciOnly.mac = pkgs.lib.optionalAttrs pkgs.hostPlatform.isDarwin (pkgs.lib.recurseIntoAttrs {
         wine64Full = pkgs.wine64Packages.full;
     });

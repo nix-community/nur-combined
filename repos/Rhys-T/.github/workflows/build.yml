@@ -41,6 +41,7 @@ jobs:
             
             [
               "base",
+              "mame",
               "hbmame",
               "qemu-screamer",
             empty] as $subsets |
@@ -54,7 +55,9 @@ jobs:
               (if $qemuSystem then {
                 "aarch64-linux": "arm64",
               }[$qemuSystem] else null end) as $qemuSystemForAction |
-              (if $qemuSystem then $subsets[] else "all" end) as $subset |
+              # (if $qemuSystem then $subsets[] else "all" end) as $subset |
+              $subsets[] as $subset |
+              select(($runner | startswith("macos")) or ($subset != "mame")) |
               {$displayRunner, $runner, $qemuSystem, $qemuSystemForAction, $nixpkgs, $subset, $nurRepo, $cachixName}
             ]} |
             
@@ -87,6 +90,7 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+          sandbox = true
           ${{ matrix.qemuSystem && format('extra-platforms = {0}', matrix.qemuSystem)}}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
@@ -109,8 +113,7 @@ jobs:
           -I $PWD
     - name: Build nix packages
       id: build
-      # run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
-      run: nix shell -f '.' nix-build-uncached-logging -c nix-build-uncached ci.nix --keep-going ${{ matrix.qemuSystem && format('--argstr platform {0}', matrix.qemuSystem) }} --argstr subsetName ${{ matrix.subset }} -A cacheOutputs
+      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -build-flags -L -build-flags --keep-going ${{ matrix.qemuSystem && format('--argstr platform {0}', matrix.qemuSystem) }} --argstr subsetName ${{ matrix.subset }} -A cacheOutputs
     # - name: Upload debug info
     #   if: '!cancelled()'
     #   uses: actions/upload-artifact@v4
