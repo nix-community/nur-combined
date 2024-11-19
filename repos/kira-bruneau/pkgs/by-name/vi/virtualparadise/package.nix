@@ -30,5 +30,6 @@ appimageTools.wrapType2 {
     maintainers = with maintainers; [ kira-bruneau ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "virtualparadise";
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
 }
