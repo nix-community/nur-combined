@@ -27,16 +27,12 @@ in
     my.services.nginx.virtualHosts = {
       jellyfin = {
         port = 8096;
+        websocketsLocations = [ "/socket" ];
         extraConfig = {
           locations."/" = {
             extraConfig = ''
               proxy_buffering off;
             '';
-          };
-          # Too bad for the repetition...
-          locations."/socket" = {
-            proxyPass = "http://127.0.0.1:8096/";
-            proxyWebsockets = true;
           };
         };
       };

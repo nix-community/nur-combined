@@ -152,11 +152,7 @@ in
         sso = {
           enable = true;
         };
-
-        # Enable websockets on root
-        extraConfig = {
-          locations."/".proxyWebsockets = true;
-        };
+        websocketsLocations = [ "/" ];
       };
     };
 

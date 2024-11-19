@@ -40,18 +40,10 @@ in
     my.services.nginx.virtualHosts = {
       collabora = {
         inherit (cfg) port;
-
-        extraConfig = {
-          # Too bad for the repetition...
-          locations."~ ^/cool/(.*)/ws$" = {
-            proxyPass = "http://127.0.0.1:${builtins.toString cfg.port}";
-            proxyWebsockets = true;
-          };
-          locations."^~ /cool/adminws" = {
-            proxyPass = "http://127.0.0.1:${builtins.toString cfg.port}";
-            proxyWebsockets = true;
-          };
-        };
+        websocketsLocations = [
+          "~ ^/cool/(.*)/ws$"
+          "^~ /cool/adminws"
+        ];
       };
     };
   };

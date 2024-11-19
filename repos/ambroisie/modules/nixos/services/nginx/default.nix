@@ -17,6 +17,16 @@ let
         '';
       };
 
+      websocketsLocations = mkOption {
+        type = with types; listOf str;
+        default = [ ];
+        example = [ "/socket" ];
+        description = ''
+          Which locations on this virtual host should be configured for
+          websockets.
+        '';
+      };
+
       port = mkOption {
         type = with types; nullOr port;
         default = null;
@@ -60,10 +70,13 @@ let
       extraConfig = mkOption {
         type = types.attrs; # FIXME: forward type of virtualHosts
         example = {
-          locations."/socket" = {
-            proxyPass = "http://127.0.0.1:8096/";
-            proxyWebsockets = true;
-          };
+          extraConfig = ''
+            add_header X-Clacks-Overhead "GNU Terry Pratchett";
+          '';
+
+          locations."/".extraConfig = ''
+            client_max_body_size 1G;
+          '';
         };
         default = { };
         description = ''
@@ -108,12 +121,7 @@ in
         };
         jellyfin = {
           port = 8096;
-          extraConfig = {
-            locations."/socket" = {
-              proxyPass = "http://127.0.0.1:8096/";
-              proxyWebsockets = true;
-            };
-          };
+          websocketsLocations = [ "/socket" ];
         };
       };
       description = ''
@@ -195,6 +203,19 @@ in
           } configured.
         '';
       }))
+      ++ (lib.flip lib.mapAttrsToList cfg.virtualHosts (_: { subdomain, ... } @ args:
+      let
+        proxyPass = [ "port" "socket" ];
+        proxyPassUsed = lib.any (v: args.${v} != null) proxyPass;
+      in
+      {
+        assertion = args.websocketsLocations != [ ] -> proxyPassUsed;
+        message = ''
+          Subdomain '${subdomain}' can only use 'websocketsLocations' with one of ${
+            lib.concatStringsSep ", " (builtins.map (v: "'${v}'") proxyPass)
+          }.
+        '';
+      }))
       ++ (
       let
         ports = lib.my.mapFilter
@@ -241,6 +262,14 @@ in
       virtualHosts =
         let
           domain = config.networking.domain;
+          mkProxyPass = { websocketsLocations, ... }: proxyPass:
+            let
+              websockets = lib.genAttrs websocketsLocations (_: {
+                inherit proxyPass;
+                proxyWebsockets = true;
+              });
+            in
+            { "/" = { inherit proxyPass; }; } // websockets;
           mkVHost = ({ subdomain, ... } @ args: lib.nameValuePair
             "${subdomain}.${domain}"
             (lib.my.recursiveMerge [
@@ -251,8 +280,7 @@ in
               }
               # Proxy to port
               (lib.optionalAttrs (args.port != null) {
-                locations."/".proxyPass =
-                  "http://127.0.0.1:${toString args.port}";
+                locations = mkProxyPass args "http://127.0.0.1:${toString args.port}";
               })
               # Serve filesystem content
               (lib.optionalAttrs (args.root != null) {
@@ -260,8 +288,7 @@ in
               })
               # Serve to UNIX socket
               (lib.optionalAttrs (args.socket != null) {
-                locations."/".proxyPass =
-                  "http://unix:${args.socket}";
+                locations = mkProxyPass args "http://unix:${args.socket}";
               })
               # Redirect to a different domain
               (lib.optionalAttrs (args.redirect != null) {

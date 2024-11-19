@@ -30,9 +30,7 @@ in
       audiobookshelf = {
         inherit (cfg) port;
         # Proxy websockets for RPC
-        extraConfig = {
-          locations."/".proxyWebsockets = true;
-        };
+        websocketsLocations = [ "/" ];
       };
     };
 

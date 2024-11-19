@@ -65,9 +65,7 @@ in
       aria-rpc = {
         port = cfg.rpcPort;
         # Proxy websockets for RPC
-        extraConfig = {
-          locations."/".proxyWebsockets = true;
-        };
+        websocketsLocations = [ "/" ];
       };
     };
 
