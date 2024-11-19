@@ -60,8 +60,8 @@ let
       nix = nix_2_3;
     };
 
-    nix-readline-2_22 = { nix-readline, nix_2_22 ? nixVersions.nix_2_22 or nix, nixVersions ? {}, nix }: nix-readline.override {
-      nix = nix_2_22;
+    nix-readline-2_19 = { nix-readline, nix_2_19 ? nixVersions.nix_2_19 or nix, nixVersions ? {}, nix }: nix-readline.override {
+      nix = nix_2_19;
     };
 
     rink-readline = { lib, rink, rustPlatform, fetchpatch }: rustPlatform.buildRustPackage {
