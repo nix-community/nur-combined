@@ -2096,10 +2096,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2445.2";
+      version = "6.2447.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4383226/dashlane-6.2445.2.xpi";
-      sha256 = "b4e9776925dba9e6860d1f8702fc769afa8877296a2996ea34401febdd18a3e4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4390034/dashlane-6.2447.0.xpi";
+      sha256 = "253126a5b14148efca5392d4dc631cc7e8eb02708f9463e70a0e7407af3dc43b";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2177,10 +2177,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "133.0.20241115.91843";
+      version = "133.0.20241118.181856";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4388658/deutsch_de_language_pack-133.0.20241115.91843.xpi";
-      sha256 = "bc94e4691201ee801616ce5ba7ab188bb857aa89794523dd6166538784cd4b32";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4390631/deutsch_de_language_pack-133.0.20241118.181856.xpi";
+      sha256 = "5d337054fecb2979bbf59f0d6f6a93bdc8445bc1045fe611fb114d1034e8fc76";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2604,10 +2604,10 @@
     };
     "elasticvue" = buildFirefoxXpiAddon {
       pname = "elasticvue";
-      version = "1.0.12";
+      version = "1.1.0";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4355479/elasticvue-1.0.12.xpi";
-      sha256 = "a03f5dc5420e7390d7a55188e8c217deb2b06811d7d65aeef92e70453b0226b7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4390480/elasticvue-1.1.0.xpi";
+      sha256 = "d9a65ca78bfebe68dda8e5a487d03b383394a5ea9e5934d004a88726363f908e";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
@@ -2772,10 +2772,10 @@
     };
     "fakespot-fake-reviews-amazon" = buildFirefoxXpiAddon {
       pname = "fakespot-fake-reviews-amazon";
-      version = "1.4.0";
+      version = "1.5.1";
       addonId = "{44df5123-f715-9146-bfaa-c6e8d4461d44}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4356055/fakespot_fake_reviews_amazon-1.4.0.xpi";
-      sha256 = "46e9d47b3989c3f1ae76c458fd59746e850a486ab727ba74ae8928df7bd88dc7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4387015/fakespot_fake_reviews_amazon-1.5.1.xpi";
+      sha256 = "f205abd702b55a0e1522b708700d3b7f84f53367e40827d2ed2216b0ddb272e3";
       meta = with lib;
       {
         homepage = "https://fakespot.com";
@@ -2849,10 +2849,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.33";
+      version = "1.3.34";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4381405/faststream-1.3.33.xpi";
-      sha256 = "d2ec6daddaeb000b768a88d8f9fbaf60d90b496f2d11c59e3e2c7cd4efe8064f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4390118/faststream-1.3.34.xpi";
+      sha256 = "ea1ca86d971c74514193b3f4930304fa1d361781effa261645accf65f2fab956";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -3363,10 +3363,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "133.0.20241115.91843";
+      version = "133.0.20241118.181856";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4388615/francais_language_pack-133.0.20241115.91843.xpi";
-      sha256 = "31c555005d71b1ef7c902950f270e93f881f2d0c84f666d1e603c495fefeb6fa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4390594/francais_language_pack-133.0.20241118.181856.xpi";
+      sha256 = "b64a0f04bcf0f1067933a73f23fc6a52f6b40d55a882d7e8a5697667b6d6fc9f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3400,10 +3400,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "133.0.20241115.91843";
+      version = "133.0.20241118.181856";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4388693/gaidhlig_language_pack-133.0.20241115.91843.xpi";
-      sha256 = "1c755759929330ff4d209eb4a2ba5e63dffca64625fb49c5b21d459b0202f0ad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4390575/gaidhlig_language_pack-133.0.20241118.181856.xpi";
+      sha256 = "9c46b0c30c3ef1fe81e759f49f9f94846132ee7fdbc70f4b4e4eee8923226867";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7713,10 +7713,10 @@
     };
     "nos2x-fox" = buildFirefoxXpiAddon {
       pname = "nos2x-fox";
-      version = "1.15.0";
+      version = "1.16.0";
       addonId = "{fdacee2c-bab4-490d-bc4b-ecdd03d5d68a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4389838/nos2x_fox-1.15.0.xpi";
-      sha256 = "1f9163fe127a597028f61585aa5d2a864d88e54dafea312927e01bc0dbde38f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4390663/nos2x_fox-1.16.0.xpi";
+      sha256 = "8cba82a0c8ad90905dcfbc7ada468cc082bf57306740361f591df4d1c4c46fdd";
       meta = with lib;
       {
         homepage = "https://github.com/diegogurpegui/nos2x-firefox";
@@ -8007,10 +8007,10 @@
     };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "8.10.48.25";
+      version = "8.10.52.25";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4370505/1password_x_password_manager-8.10.48.25.xpi";
-      sha256 = "85dac283f4d6ddb06f07f27a6793480e0006e7ddb925808674a2cd7b284ccf49";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4386887/1password_x_password_manager-8.10.52.25.xpi";
+      sha256 = "e5732561a7f614fbda7ba3712ed7a3ac22d4944205e4ab49c3649e8887a9baa4";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -8210,10 +8210,10 @@
     };
     "passbolt" = buildFirefoxXpiAddon {
       pname = "passbolt";
-      version = "4.9.4";
+      version = "4.10.0";
       addonId = "passbolt@passbolt.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4363360/passbolt-4.9.4.xpi";
-      sha256 = "c0d1a08695b6fd8dcd036d619205c029a6755bce70fe46ebcd05f7a7969dc4f2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4386826/passbolt-4.10.0.xpi";
+      sha256 = "00cfb7392a70d53db0f7e5a788eeee2a3519bba44fa3fa924ee3ca889bc095bc";
       meta = with lib;
       {
         homepage = "https://www.passbolt.com";
@@ -9821,10 +9821,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "133.0.20241115.91843";
+      version = "133.0.20241118.181856";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4388709/scots_language_pack-133.0.20241115.91843.xpi";
-      sha256 = "c7ec79acff2f9a56f5268958d8fa7c49a2dc633841c8fb954f2159960b6da08b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4390615/scots_language_pack-133.0.20241118.181856.xpi";
+      sha256 = "faf0799284664ca84a6d5a270abc16c5786dcf625512678a66d3e79d48710a8d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10426,10 +10426,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.9.5";
+      version = "5.9.6";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4372080/sponsorblock-5.9.5.xpi";
-      sha256 = "038d23a8ad7620817f5f96d883c03771208b80500273a61e63017bbaed875741";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4385525/sponsorblock-5.9.6.xpi";
+      sha256 = "1112b79a0a10a9d19ec470585af245b25a2caf1302751553886d2975c07e5655";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -11311,10 +11311,10 @@
     };
     "tree-style-tab" = buildFirefoxXpiAddon {
       pname = "tree-style-tab";
-      version = "4.0.24";
+      version = "4.0.25";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4377780/tree_style_tab-4.0.24.xpi";
-      sha256 = "e1826e2054aede2f390cb98ff22915cc1e89778a6ebf94d68467200aeba8fefd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4386321/tree_style_tab-4.0.25.xpi";
+      sha256 = "c228594161f3a436b74778ac6bfef0288c00639eb1f2a1e5d6cddacfa8af2ea6";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
