@@ -12,13 +12,13 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "einat";
-  version = "0.1.3";
+  version = "0.1.4";
 
   src = fetchFromGitHub {
     owner = "EHfive";
     repo = "einat-ebpf";
     rev = "v${version}";
-    hash = "sha256-g0/MMln0amiar2noBbTdncioPrytWGeeuX6J41f3AwI=";
+    hash = "sha256-fm5PgA7JfNZ6FRURUpCqgHVl8yYBRKw5Xf3x19RIRWE=";
   };
 
   cargoLock = {

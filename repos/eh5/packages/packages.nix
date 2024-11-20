@@ -15,9 +15,11 @@ let
     libnftnl-fullcone = callPackage ./libnftnl-fullcone { };
     mosdns = callPackage ./mosdns { buildGoModule = pkgs.buildGo123Module; };
     # end of service
-    # netease-cloud-music = callPackage ./netease-cloud-music { };
-    nft-fullcone = callPackage ./nft-fullcone { };
-    nftables-fullcone = callPackage ./nftables-fullcone { };
+    #netease-cloud-music = callPackage ./netease-cloud-music { };
+
+    # out-of-tree module outdated, and failed to compile against kernel 6.12 structs
+    #nft-fullcone = callPackage ./nft-fullcone { };
+    #nftables-fullcone = callPackage ./nftables-fullcone { };
     nix-gfx-mesa = callPackage ./nix-gfx-mesa { };
     qcef = callPackage ./qcef { };
     rtl8152-led-ctrl = callPackage ./rtl8152-led-ctrl { };
