@@ -243,6 +243,7 @@ lib.makeScope newScope (
     starlette-cramjam = callPackage ./geospatial/starlette-cramjam { };
     supermercado = callPackage ./geospatial/supermercado { };
     supermorecado = callPackage ./geospatial/supermorecado { };
+    taudem = callPackage ./geospatial/taudem { };
     #tdh = callPackage ./geospatial/tdh { };
     terracotta = callPackage ./geospatial/terracotta { };
     tile-stitch = callPackage ./geospatial/tile-stitch { };
