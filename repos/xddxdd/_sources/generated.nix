@@ -521,20 +521,20 @@
   };
   kata-containers = {
     pname = "kata-containers";
-    version = "3.10.1";
+    version = "3.11.0";
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      rev = "3.10.1";
-      hash = "sha256-lk9BZeNc8StLxu0frRfh7h5Xk3w75SUeZP1ddES7a20=";
+      rev = "3.11.0";
+      hash = "sha256-fIjHtTBWeU6Kp83YGuaL3h0wq4lqUyNKrkFIsCzII6c=";
     };
   };
   kata-image = {
     pname = "kata-image";
-    version = "3.10.1";
+    version = "3.11.0";
     src = fetchurl {
-      url = "https://github.com/kata-containers/kata-containers/releases/download/3.10.1/kata-static-3.10.1-amd64.tar.xz";
-      hash = "sha256-IThnhxcD5bP1xWpMUBVZ89m71f5gDIYFW74U/PCXpjI=";
+      url = "https://github.com/kata-containers/kata-containers/releases/download/3.11.0/kata-static-3.11.0-amd64.tar.xz";
+      hash = "sha256-7yDWEOAWiIfwBhWOKSkT+PGRytnmmVpB8UGm9Nkmv4E=";
     };
   };
   kikoplay = {
@@ -723,12 +723,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4130";
+    version = "b4142";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4130";
-      hash = "sha256-bd4YrDchue2SBcWSfiB8RT+JGcAIIo36GO1oNhP0v5A=";
+      rev = "b4142";
+      hash = "sha256-BgAqf/WTcsL/CGehju4mxM0zLwUmHt6Y3u9GKSjhVtQ=";
     };
   };
   lyrica = {
@@ -1235,14 +1235,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "da89ebd303d80fe4990063c5b58796039f07b01e";
+    version = "a1904cf1a5a352e0eebeaeec7d0c6769cc6b0994";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "da89ebd303d80fe4990063c5b58796039f07b01e";
-      hash = "sha256-g1mfD/JN3fOCLKeBVfS7etD35y1xUcbjG0k/9vGPXWU=";
+      rev = "a1904cf1a5a352e0eebeaeec7d0c6769cc6b0994";
+      hash = "sha256-7SXcx6r1tZI8Hkb7QyNiUO8ccXDE+9OSl6COMnMOKMQ=";
     };
-    date = "2024-11-18";
+    date = "2024-11-19";
   };
   qsp-wx = {
     pname = "qsp-wx";
@@ -1601,14 +1601,14 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "890c36ee287ed3ffa0a993bcc94832792f7d9513";
+    version = "570d6caf90716ede1882297afe2aca095f98406e";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "890c36ee287ed3ffa0a993bcc94832792f7d9513";
-      hash = "sha256-PoyflkscEzVWy1uSFPLfWYeVZXSdLUuZjRVNMpxTJSs=";
+      rev = "570d6caf90716ede1882297afe2aca095f98406e";
+      hash = "sha256-qvuxvbW1j8gRDjMY7CPIi7Q/mY5x3d76JGY4CZPjD9E=";
     };
-    date = "2024-11-18";
+    date = "2024-11-19";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
