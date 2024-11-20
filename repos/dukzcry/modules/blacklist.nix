@@ -45,6 +45,24 @@ in {
     (mkIf cfg.enable {
       services.nginx.enable = true;
       services.nginx.proxyResolveWhileRunning = true;
+      services.nginx.resolver = {
+        addresses = cfg.resolver.addresses;
+        ipv6 = cfg.resolver.ipv6;
+      };
+      services.nginx.virtualHosts = {
+        vpn = {
+          default = true;
+          listen = [
+            { addr = cfg.address; port = 80; }
+          ] ++ optional (cfg.address6 != "") { addr = "[${cfg.address6}]"; port = 80; };
+          locations."/" = {
+            proxyPass = "http://$http_host:80";
+            extraConfig = ''
+              proxy_bind ${cfg.address};
+            '';
+          };
+        };
+      };
       services.nginx.streamConfig = ''
         server {
           resolver ${toString cfg.resolver.addresses} ${optionalString (!cfg.resolver.ipv6) "ipv6=off"};
