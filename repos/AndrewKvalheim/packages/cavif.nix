@@ -9,14 +9,14 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "cavif";
-  version = "1.5.4";
+  version = "1.5.6";
 
   src = fetchCrate {
     inherit pname version;
-    sha256 = "sha256-2+pp5dCd64iJkoQ8NEARhlaih82BSnWBdQvBgjRFRmE=";
+    sha256 = "sha256-vUmf9kTG3Gm4SH0gRf0NUK7Rr0Xq0BHNW2//5y4jMXY=";
   };
 
-  cargoHash = "sha256-fQG5BzHgueTLBAplLR/1X2/r88GpCoko0gFRf37Y2hI=";
+  cargoHash = "sha256-Q7fiKr8a8QlvEPUMYDkTqMeQU2+BPequnjXBhgu+3Mc=";
 
   nativeBuildInputs = [ nasm ];
 
