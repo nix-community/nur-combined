@@ -1,40 +1,46 @@
 {
   sources,
-  rustc,
-  rustPlatform,
   lib,
-  pkg-config,
-  autoconf,
-  automake,
-  libtool,
-  python3,
+  stdenv,
+  meson,
+  ninja,
+  rustPlatform,
+  rustc,
+  cargo,
   glib,
-  gtk3,
-  gtk-layer-shell,
+  sassc,
+  pkg-config,
+
+  libevdev,
+  gtk4,
+  gtk4-layer-shell,
   pulseaudio,
-  udev,
   libinput,
 }:
-
-rustPlatform.buildRustPackage {
+stdenv.mkDerivation {
   inherit (sources.swayosd) pname version src;
-  cargoLock = sources.swayosd.cargoLock."Cargo.lock";
+
+  patches = [ ./systemd-service-install-dir.patch ];
 
   nativeBuildInputs = [
-    pkg-config
-    autoconf
-    automake
-    libtool
-    python3
+    meson
+    rustPlatform.cargoSetupHook
+    rustc
+    cargo
     glib
+    sassc
+    pkg-config
+    ninja
   ];
   buildInputs = [
-    gtk3
-    gtk-layer-shell
+    libevdev
+    gtk4
+    gtk4-layer-shell
     pulseaudio
-    udev
     libinput
   ];
+
+  cargoDeps = rustPlatform.importCargoLock sources.swayosd.cargoLock."Cargo.lock";
 
   meta = with lib; {
     homepage = "https://github.com/ErikReider/SwayOSD";
