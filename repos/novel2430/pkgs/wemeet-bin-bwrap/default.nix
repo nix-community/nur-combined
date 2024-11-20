@@ -12,12 +12,54 @@
 , wayland
 , nss
 , curl
+
+, systemdLibs
+, dbus
+, nspr
+, freetype
+, expat
+, fontconfig
+, harfbuzz
+, glib
+
+, gcc
+, pkg-config
 }:
 let
+  pkg-name = "wemeet-bin";
+  # pkg-ver = "3.19.0.401";
+  pkg-ver = "3.19.2.400";
+  wrap = stdenv.mkDerivation rec {
+    name = "wrap-c";
+    version = "1.0";
+    src = ./.;
+
+
+    # unpackCmd = "";
+
+    dontWrapQtApps = true;
+
+    nativeBuildInputs = [
+      gcc
+      pkg-config
+    ];
+    buildInputs = libraries;
+
+    buildPhase = ''
+      read -ra openssl_args < <(pkg-config --libs openssl)
+      read -ra libpulse_args < <(pkg-config --cflags --libs libpulse)
+      # Comment out `-D WRAP_FORCE_SINK_HARDWARE` to disable the patch that forces wemeet detects sink as hardware sink
+      gcc $CFLAGS -Wall -Wextra -fPIC -shared "''${openssl_args[@]}" "''${libpulse_args[@]}" -o libwemeetwrap.so wrap.c -D WRAP_FORCE_SINK_HARDWARE
+    '';
+    installPhase = ''
+      mkdir -p $out;
+      install -Dm755 ./libwemeetwrap.so $out/libwemeetwrap.so
+    '';
+  };
   libraries = [
     alsa-lib
     libgcc
-    glibc
+    stdenv.cc.libc
     libglvnd
     libpulseaudio
     xorg.libX11
@@ -39,16 +81,26 @@ let
     wayland
     nss
     curl
+
+    systemdLibs
+    dbus
+    nspr
+    xorg.libXtst
+    freetype
+    expat
+    fontconfig
+    harfbuzz
+    glib
   ];
-  pkg-name = "wemeet-bin";
-  pkg-ver = "3.19.0.401";
   wemeet-src = stdenv.mkDerivation rec {
     name = "${pkg-name}";
     version = "${pkg-ver}";
 
     src = fetchurl {
-      url = "https://updatecdn.meeting.qq.com/cos/bb4001c715553579a8b3e496233331d4/TencentMeeting_0300000000_${version}_x86_64_default.publish.deb";
-      hash = "sha256-VN/rNn2zA21l6BSzLpQ5Bl9XB2hrMFIa0o0cy2vdLx8=";
+      # url = "https://updatecdn.meeting.qq.com/cos/bb4001c715553579a8b3e496233331d4/TencentMeeting_0300000000_${version}_x86_64_default.publish.deb";
+      # hash = "sha256-VN/rNn2zA21l6BSzLpQ5Bl9XB2hrMFIa0o0cy2vdLx8=";
+      url = "https://updatecdn.meeting.qq.com/cos/fb7464ffb18b94a06868265bed984007/TencentMeeting_0300000000_${version}_x86_64_default.publish.deb";
+      hash = "sha256-PSGc4urZnoBxtk1cwwz/oeXMwnI02Mv1pN2e9eEf5kE=";
     };
 
     nativeBuildInputs = [
@@ -69,8 +121,8 @@ let
     '';
   };
   startScript = writeShellScript "wemeet-start" ''
-    export LD_LIBRARY_PATH=/lib:/opt/wemeet/lib
-    echo $LD_LIBRARY_PATH
+    export LD_LIBRARY_PATH=/opt/wemeet/lib:${lib.makeLibraryPath libraries}
+    export LD_PRELOAD=''${LD_PRELOAD:-}:${wrap}/libwemeetwrap.so
     export XDG_SESSION_TYPE=x11
     export EGL_PLATFORM=x11
     export QT_QPA_PLATFORM=xcb
