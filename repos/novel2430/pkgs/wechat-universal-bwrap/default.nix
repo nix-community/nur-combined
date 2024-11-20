@@ -1,47 +1,32 @@
-{ stdenv, fetchurl
-, buildFHSUserEnvBubblewrap
-, writeShellScript
-, makeDesktopItem
-, makeWrapper
-, autoPatchelfHook
-, copyDesktopItems
+{ stdenvNoCC
+, stdenv
 , lib
-, alsa-lib
-, at-spi2-atk
-, at-spi2-core
-, mesa
-, nss
-, pango
-, xdg-desktop-portal
-, xdg-user-dirs
-, xorg
-, cairo
-, gtk3
-, gtk4
-, libglvnd
-, libpulseaudio
-, libva
-, pciutils
-, udev
-, libxkbcommon
+, fetchurl
 , dpkg
-, jack2
-, xhost
+, nss
 , nspr
+, xorg
+, pango
 , zlib
 , atkmm
 , libdrm
+, libxkbcommon
 , xcbutilwm
 , xcbutilimage
 , xcbutilkeysyms
 , xcbutilrenderutil
+, mesa
+, alsa-lib
 , wayland
-, openssl
 , atk
 , qt6
+, at-spi2-atk
+, at-spi2-core
 , dbus
 , cups
+, gtk3
 , libxml2
+, cairo
 , freetype
 , fontconfig
 , vulkan-loader
@@ -54,57 +39,57 @@
 , expat
 , bzip2
 , glib
+, libva
 , libGL
 , libnotify
-, buildFHSEnv
+, writeShellScript
+, buildFHSUserEnvBubblewrap 
+, xhost
+, xdg-user-dirs
+
+, makeWrapper
+, copyDesktopItems
+, makeDesktopItem
 }:
 let
   libraries = with xorg; [
-    alsa-lib
-    at-spi2-atk
-    at-spi2-core
-    mesa
-    nss
+    # Make sure our glibc without hardening gets picked up first
+    (lib.hiPrio glibcWithoutHardening)
+    stdenv.cc.cc
+    stdenv.cc.libc
     pango
-    xdg-desktop-portal
-    xdg-user-dirs
-    libXcursor
-    libXdamage
-    libXrandr
+    zlib
+    xcbutilwm
     xcbutilimage
     xcbutilkeysyms
     xcbutilrenderutil
-    xcbutilwm
-    libXcomposite
-    cairo
-    gtk3
-    gtk4
-    libglvnd
-    libpulseaudio
-    libva
-    pciutils
-    udev
-    libxkbcommon
-    jack2
-    zlib
     libX11
     libXt
     libXext
     libSM
     libICE
     libxcb
+    libxkbcommon
     libxshmfence
     libXi
     libXft
+    libXcursor
+    libXfixes
     libXScrnSaver
     libXcomposite
     libXdamage
     libXtst
+    libXrandr
     libnotify
     atk
     atkmm
+    cairo
+    at-spi2-atk
+    at-spi2-core
+    alsa-lib
     dbus
     cups
+    gtk3
     gdk-pixbuf
     libexif
     ffmpeg
@@ -119,20 +104,26 @@ let
     nspr
     libGL
     libxml2
+    pango
     libdrm
+    mesa
     vulkan-loader
     systemd
     wayland
     pulseaudio
     qt6.qt5compat
-    openssl
     bzip2
   ];
 
   _lib_uos = "libuosdevicea";
   _pkgname = "wechat-universal";
   xdg-dir = "${xdg-user-dirs}/bin";
-  ver = "4.0.0.21";
+  ver = "4.0.0.23";
+  
+  # zerocallusedregs hardening breaks WeChat
+  glibcWithoutHardening = stdenv.cc.libc.overrideAttrs (old: {
+    hardeningDisable = (old.hardeningDisable or [ ]) ++ [ "zerocallusedregs" ];
+  });
   
   # From https://github.com/7Ji-PKGBUILDs/wechat-universal-bwrap
   # Adapted from https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=wechat-universal-bwrap
@@ -159,20 +150,20 @@ let
     '';
   };
 
-  wechat-universal-src = stdenv.mkDerivation rec {
+  wechat-universal-src = stdenvNoCC.mkDerivation rec {
 
     pname = "${_pkgname}-source";
     version = "${ver}";
 
     src = fetchurl {
       url = "https://pro-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_${version}_amd64.deb";
-      hash = "sha256-1tO8ARt2LuCwPz7rO25/9dTOIf9Rwqc9TdqiZTTojRk=";
+      hash = "sha256-Q3gmo83vJddj9p4prhBHm16LK6CAtW3ltd5j4FqPcgM=";
     };
     
     nativeBuildInputs = [
       dpkg
-      makeWrapper
-      autoPatchelfHook
+      # makeWrapper
+      # autoPatchelfHook
     ];
     buildInputs = libraries;
 
@@ -209,6 +200,7 @@ let
     targetPkgs = 
       pkgs: [
         wechat-universal-license
+        libraries
       ];
 
     runScript = startScript;
@@ -286,7 +278,6 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     makeWrapper
-    autoPatchelfHook
     copyDesktopItems
   ];
 
