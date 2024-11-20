@@ -8,7 +8,7 @@ This repo contains packages for vhs-decoding on NixOS.
 ## Packages in this repo
 - [vhs-decode](https://github.com/oyvindln/vhs-decode) - Software Decoder for raw rf captures of laserdisc, vhs and other analog video formats. (with [module](modules/vhs-decode/README.md))
 - [cxadc](https://github.com/happycube/cxadc-linux3) - cxadc is an alternative Linux driver for the Conexant CX2388x series of video decoder/encoder chips used on many PCI TV tuner and capture cards. (with [module](modules/cxadc/README.md))
-- [tbc-video-export](https://github.com/JuniorIsAJitterbug/tbc-video-export) - Cross-platform tool for exporting S-Video and CVBS-type TBC files to standard video files. 
+- [tbc-video-export](https://github.com/JuniorIsAJitterbug/tbc-video-export) - Tool for exporting S-Video and CVBS-type TBCs to video files.
 - [vhs-decode-auto-audio-align](https://gitlab.com/wolfre/vhs-decode-auto-audio-align) - A project to automatically align synchronous (RF) HiFi and linear audio captures to a video RF capture for VHS-Decode.
 - [cxadc-vhs-server](https://github.com/namazso/cxadc_vhs_server) - A terrible HTTP server made for capturing VHS with two cxadc cards and cxadc-clock-generator-audio-adc or cxadc-clockgen-mod.
 - [domesdayduplicator](https://github.com/harrypm/DomesdayDuplicator) - The Domesday Duplicator is a USB3 based DAQ capable of 40 million samples per second (20mhz of bandwith) aquisition of analogue RF data.
