@@ -11,6 +11,8 @@
     rclone-browser
     matterbridge
 
+    #distrobox
+    gnome.gnome-boxes
 
 
   ];

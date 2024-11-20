@@ -10,6 +10,8 @@
     keepassxc
     bitwarden
 
+    lynis
+
   ];
 }
 

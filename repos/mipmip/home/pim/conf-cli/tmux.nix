@@ -45,6 +45,7 @@
       bind Tab last-window        # move to last active window
 
       bind s choose-tree -sZ -O name
+      bind S popup -E smg
 
       # START WITH MOUSE MODE ENABLED
       set -g mouse on

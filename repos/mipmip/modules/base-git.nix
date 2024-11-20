@@ -7,6 +7,8 @@
     git-lfs
     gitFull
 
+    bfg-repo-cleaner
+
   ];
 }
 

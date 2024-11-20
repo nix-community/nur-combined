@@ -31,6 +31,24 @@ in
   #  ];
   #
 
+
+  nix = {
+    extraOptions = ''experimental-features = nix-command flakes'';
+    package = pkgs.nixFlakes;
+
+    settings.trusted-substituters = [
+      "http://attic.tools.technative.cloud:8080/smartmc"
+    ];
+    settings.extra-substituters = [
+      "http://attic.tools.technative.cloud:8080/smartmc"
+    ];
+    settings.extra-trusted-public-keys = [
+      "smartmc:uix5eOnUkmqH6VzKToVNFyEr7PNUmXKt1QDQqVdv2XA="
+    ];
+
+  };
+
+
   dconf.settings = {
     "org/gnome/desktop/input-sources" = {
       per-window = false;
