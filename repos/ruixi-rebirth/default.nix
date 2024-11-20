@@ -14,13 +14,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  youtube-tui = pkgs.callPackage ./pkgs/youtube-tui { };
-  # ytermusic = pkgs.callPackage ./pkgs/ytermusic { };
   bilibili_live_tui = pkgs.callPackage ./pkgs/bilibili_live_tui { };
-  aichat = pkgs.callPackage ./pkgs/aichat { };
-  swww = pkgs.callPackage ./pkgs/swww { };
-  chatgpt-cli = pkgs.callPackage ./pkgs/chatgpt-cli { };
-  go-musicfox = pkgs.callPackage ./pkgs/go-musicfox { };
   catppuccin-cursors = pkgs.callPackage ./pkgs/catppuccin-cursors { };
   catppuccin-latte-gtk = pkgs.callPackage ./pkgs/catppuccin-latte-gtk { };
   catppuccin-frappe-gtk = pkgs.callPackage ./pkgs/catppuccin-frappe-gtk { };
