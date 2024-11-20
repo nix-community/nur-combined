@@ -23,12 +23,12 @@ stdenv.mkDerivation rec {
   mainProgram = "Pianoteq 8";
   startupWMClass = "Pianoteq";
   pname = "pianoteq";
-  version = "8.3.1";
+  version = "8.4.0";
 
   src = requireFile {
     name = "pianoteq_linux_v${versionForFile version}.7z";
     url = "https://www.modartt.com/pianoteq";
-    sha256 = "1cgwv3a32jsr2isxqd1jcnz0ljx37pxw9fcwbh94bsww7jfihw49";
+    sha256 = "0xs9xmy3npmrwkmcr7vniqgl8akaybfb1zmkrwbfpkwf4gyq2cb4";
   };
 
   unpackPhase = ''
