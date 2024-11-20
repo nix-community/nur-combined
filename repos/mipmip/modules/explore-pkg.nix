@@ -9,6 +9,7 @@
     #cool-retro-term
     rclone
     rclone-browser
+    matterbridge
 
 
 

@@ -266,6 +266,7 @@
 
           in [
             defaults
+            nixos-hardware.nixosModules.framework-12th-gen-intel
             ./hosts/lego1/configuration.nix
 
             agenix.nixosModules.default
@@ -364,9 +365,9 @@
       nixosConfigurations.passieflora = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-  	./hosts/passieflora/configuration.nix
-   	./hosts/passieflora/nix/substituter.nix
-  	nixos-hardware.nixosModules.apple-t2
+        ./hosts/passieflora/configuration.nix
+        ./hosts/passieflora/nix/substituter.nix
+        nixos-hardware.nixosModules.apple-t2
 
         home-manager.nixosModules.home-manager
         {

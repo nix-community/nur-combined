@@ -19,6 +19,7 @@
     '';
   };
   #services.xserver.xkbOptions = "caps:none,terminate:ctrl_alt_bks,altwin:swap_alt_win";
+  services.tailscale.enable = true;
 
   networking.hosts = {
     "127.0.0.1" = [
@@ -45,6 +46,8 @@
 
   boot.plymouth.enable = true;
   boot.plymouth.theme = "breeze";
+
+  services.fwupd.enable = true;
 
   # Setup keyfile
   boot.initrd.secrets = {
