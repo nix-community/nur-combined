@@ -13,6 +13,8 @@ let
 in {
   "gandi/api-key.age".publicKeys = [alarsyo hades];
 
+  "gitlab-runner/thanatos-runner-env.age".publicKeys = [alarsyo thanatos];
+
   "lohr/shared-secret.age".publicKeys = [alarsyo hades];
 
   "matrix-synapse/secret-config.age".publicKeys = [alarsyo hades];
