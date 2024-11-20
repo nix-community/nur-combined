@@ -1612,10 +1612,10 @@
     };
     "codecov" = buildFirefoxXpiAddon {
       pname = "codecov";
-      version = "0.4.10";
+      version = "0.4.11";
       addonId = "{f3924b0d-e29f-4593-b605-084b3d71ed9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4383980/codecov-0.4.10.xpi";
-      sha256 = "2950ca25691e005af7c78bbb942b6156c176a8e501d170e3f8337d0d32738bc9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4391162/codecov-0.4.11.xpi";
+      sha256 = "b73015cee08329cd31f9d8de584c60e3795597115e7b575bea2d356272b5a539";
       meta = with lib;
       {
         homepage = "https://about.codecov.io";
@@ -2659,10 +2659,10 @@
     };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.128";
+      version = "2.0.126.1";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4383271/enhancer_for_youtube-2.0.128.xpi";
-      sha256 = "5db8939e5c72fc21a54c882c9ee94a2b6b03b8f997ed6d687f53442b349bd81c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4354445/enhancer_for_youtube-2.0.126.1.xpi";
+      sha256 = "281035bd4211a8fbdcafb85e98044e3c02550495f91e1d00680cde404c742fbf";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -3679,10 +3679,10 @@
     };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.852.2307";
+      version = "8.912.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3000642/grammarly_1-8.852.2307.xpi";
-      sha256 = "188cf73d6ba724cbaddafcf13a1a82d01194e0500d634617b3339b6df5b1cf8f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4262513/grammarly_1-8.912.0.xpi";
+      sha256 = "6e380ddffaacda256e153cb928c0c9206c6730398d549e0a91d6fdccc9dd95a0";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -3694,12 +3694,103 @@
           free = false;
         };
         mozPermissions = [
-          "<all_urls>"
+          "http://*/*"
+          "https://*/*"
           "tabs"
           "notifications"
           "cookies"
-          "clipboardWrite"
           "storage"
+          "<all_urls>"
+          "*://*.atlassian.net/*"
+          "*://mail.google.com/*"
+          "*://*.mail.google.com/*"
+          "*://quora.com/*"
+          "*://*.quora.com/*"
+          "*://*.slack.com/*"
+          "*://*.blackboard.com/*"
+          "*://*.blogger.com/*"
+          "*://publish.buffer.com/*"
+          "*://*.publish.buffer.com/*"
+          "*://facebook.com/*"
+          "*://*.facebook.com/*"
+          "*://calendar.google.com/*"
+          "*://*.calendar.google.com/*"
+          "*://keep.google.com/*"
+          "*://*.keep.google.com/*"
+          "*://intercom.io/*"
+          "*://*.intercom.io/*"
+          "*://linkedin.com/*"
+          "*://*.linkedin.com/*"
+          "*://medium.com/*"
+          "*://*.medium.com/*"
+          "*://messenger.com/*"
+          "*://*.messenger.com/*"
+          "*://teams.microsoft.com/*"
+          "*://*.teams.microsoft.com/*"
+          "*://translate.google.com/*"
+          "*://*.translate.google.com/*"
+          "*://reddit.com/*"
+          "*://*.reddit.com/*"
+          "*://youtube.com/*"
+          "*://*.youtube.com/*"
+          "*://twitter.com/*"
+          "*://*.twitter.com/*"
+          "*://*.lightning.force.com/*"
+          "*://trello.com/*"
+          "*://*.trello.com/*"
+          "*://upwork.com/*"
+          "*://*.upwork.com/*"
+          "*://web.whatsapp.com/*"
+          "*://*.web.whatsapp.com/*"
+          "*://wix.com/*"
+          "*://*.wix.com/*"
+          "*://wordpress.com/*"
+          "*://*.wordpress.com/*"
+          "*://*.zendesk.com/*"
+          "*://wattpad.com/*"
+          "*://*.wattpad.com/*"
+          "*://onlinechatdashboard.com/*"
+          "*://*.onlinechatdashboard.com/*"
+          "*://wordcounter.net/*"
+          "*://*.wordcounter.net/*"
+          "*://fiverr.com/*"
+          "*://*.fiverr.com/*"
+          "*://educationperfect.com/*"
+          "*://*.educationperfect.com/*"
+          "*://apclassroom.collegeboard.org/*"
+          "*://*.apclassroom.collegeboard.org/*"
+          "*://studio.youtube.com/*"
+          "*://*.studio.youtube.com/*"
+          "*://chat.google.com/*"
+          "*://*.chat.google.com/*"
+          "*://twitch.tv/*"
+          "*://*.twitch.tv/*"
+          "*://papago.naver.com/*"
+          "*://*.papago.naver.com/*"
+          "*://readworks.org/*"
+          "*://*.readworks.org/*"
+          "*://app.nearpod.com/*"
+          "*://*.app.nearpod.com/*"
+          "*://mail.aol.com/*"
+          "*://*.mail.aol.com/*"
+          "*://github.com/*"
+          "*://*.github.com/*"
+          "*://coursera.org/*"
+          "*://*.coursera.org/*"
+          "*://commonlit.org/*"
+          "*://*.commonlit.org/*"
+          "*://classroom.google.com/*"
+          "*://*.classroom.google.com/*"
+          "*://app.seesaw.me/*"
+          "*://*.app.seesaw.me/*"
+          "*://forms.office.com/*"
+          "*://*.forms.office.com/*"
+          "*://outlook.live.com/*"
+          "*://*.outlook.live.com/*"
+          "*://outlook.office.com/*"
+          "*://*.outlook.office.com/*"
+          "*://docs.google.com/document/*"
+          "https://*.overleaf.com/*"
         ];
         platforms = platforms.all;
       };
@@ -9174,10 +9265,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.24.1";
+      version = "1.24.4";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4379392/proton_pass-1.24.1.xpi";
-      sha256 = "1290a7d3b91204fae8f392c8dd4b3f62e4fa0182ae98de1d0042280af744be80";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4387139/proton_pass-1.24.4.xpi";
+      sha256 = "852bca200818db59ee5418e576911a29c3f21245b828d272cddcad88c4f1bd0c";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -9388,10 +9479,10 @@
     };
     "raindropio" = buildFirefoxXpiAddon {
       pname = "raindropio";
-      version = "6.6.24";
+      version = "6.6.62";
       addonId = "jid0-adyhmvsP91nUO8pRv0Mn2VKeB84@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4269679/raindropio-6.6.24.xpi";
-      sha256 = "4c86f5e78e06e7b5978c1f20ce1be659a871556188ef4669b9a2aa826bab660f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4387956/raindropio-6.6.62.xpi";
+      sha256 = "6503b1aa46ce45e5e2a0fa1da568f2279f87aa55e07ee406814fe1aa33b0905a";
       meta = with lib;
       {
         homepage = "https://raindrop.io";
@@ -10243,10 +10334,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.72";
+      version = "1.22.73";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4370054/single_file-1.22.72.xpi";
-      sha256 = "98012de2fa7a5edc790aaecbc3a1d9534eebaf637be0d0c6110ab167aaedd21c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4387552/single_file-1.22.73.xpi";
+      sha256 = "a3e0e5bfe8c35c91c6360fe0a144563fe28eb1760135833a131a27d525d49a44";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
@@ -11864,10 +11955,10 @@
     };
     "untrap-for-youtube" = buildFirefoxXpiAddon {
       pname = "untrap-for-youtube";
-      version = "7.9";
+      version = "8.0";
       addonId = "{2662ff67-b302-4363-95f3-b050218bd72c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4376104/untrap_for_youtube-7.9.xpi";
-      sha256 = "d01afbd8f2c9e69d16be97ebdb3246208dae1421096c0e2d18853359f4a4c6e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4390944/untrap_for_youtube-8.0.xpi";
+      sha256 = "ff8fc1d974a012e51ebf7b90adf4dfc433974ec779a39bd933db77e23c79997b";
       meta = with lib;
       {
         homepage = "http://untrap.app";
