@@ -53,6 +53,20 @@ in
       };
     };
 
-    # FIXME: fail2ban
+    services.fail2ban.jails = {
+      pyload = ''
+        enabled = true
+        filter = pyload
+        port = http,https
+      '';
+    };
+
+    environment.etc = {
+      "fail2ban/filter.d/pyload.conf".text = ''
+        [Definition]
+        failregex = ^.*Login failed for user '<F-USER>.*</F-USER>' \[CLIENT: <HOST>\]$
+        journalmatch = _SYSTEMD_UNIT=pyload.service
+      '';
+    };
   };
 }
