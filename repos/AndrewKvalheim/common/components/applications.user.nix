@@ -32,7 +32,7 @@ in
         "org.gnome.Evince.desktop" = [ "application/pdf" ];
         "org.gnome.FileRoller.desktop" = [ "application/zip" ];
         "org.gnome.Loupe.desktop" = [ "image/avif" "image/bmp" "image/gif" "image/heif" "image/jpeg" "image/png" "image/svg+xml" "image/tiff" "image/webp" ];
-        "org.gnome.Totem.desktop" = [ "video/mp4" "video/webm" "video/x-matroska" ];
+        "org.gnome.Totem.desktop" = [ "video/mp4" "video/mp2t" "video/webm" "video/x-matroska" ];
         "writer.desktop" = [ "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ];
       };
     };
