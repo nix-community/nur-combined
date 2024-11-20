@@ -14,6 +14,7 @@ in {
   "gandi/api-key.age".publicKeys = [alarsyo hades];
 
   "gitlab-runner/thanatos-runner-env.age".publicKeys = [alarsyo thanatos];
+  "gitlab-runner/thanatos-nix-runner-env.age".publicKeys = [alarsyo thanatos];
 
   "lohr/shared-secret.age".publicKeys = [alarsyo hades];
 
