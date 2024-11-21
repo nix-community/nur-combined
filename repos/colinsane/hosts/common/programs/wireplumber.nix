@@ -13,6 +13,7 @@
     sandbox.whitelistAudio = true;
     sandbox.whitelistAvDev = true;
     # sandbox.keepPids = true;  #< needed if i want rtkit to grant this higher scheduling priority
+    # sandbox.net = "all";  #< needed if you want to plug audio devices at runtime (udev; AF_NETLINK)
 
     suggestedPrograms = [ "alsa-ucm-conf" ];
 
