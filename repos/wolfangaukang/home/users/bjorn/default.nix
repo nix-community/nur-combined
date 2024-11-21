@@ -15,7 +15,6 @@
 
     packages = with pkgs; [
       bc
-      devenv
       htop
       p7zip
       peaclock

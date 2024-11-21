@@ -9,7 +9,8 @@ let
   inherit (inputs) self;
   localLib = import "${self}/lib" { inherit inputs lib; };
   inherit (localLib) obtainIPV4Address;
-  ips = builtins.listToAttrs (map (host: { name = host; value = obtainIPV4Address "${host}" "activos"; }) [ "grimsnes" "surtsey" "irazu" "arenal" "barva" ]); # Zerotier IPs
+  hostList = [ "grimsnes" "surtsey" "irazu" "arenal" "barva" ];
+  zerotierIps = builtins.listToAttrs (map (host: { name = host; value = obtainIPV4Address "${host}" "activos"; }) hostList);
 
 in
 {
@@ -18,17 +19,11 @@ in
       enable = true;
       powerOnBoot = false;
     };
+    pulseaudio.enable = lib.mkForce false;
     graphics.enable = true;
   };
   networking = {
-    # TODO: Use a map here
-    hosts = {
-      "${ips.grimsnes}" = [ "grimsnes" ];
-      "${ips.surtsey}" = [ "surtsey" ];
-      "${ips.irazu}" = [ "irazu" ];
-      "${ips.arenal}" = [ "arenal" ];
-      "${ips.barva}" = [ "barva" ];
-    };
+    hosts = builtins.listToAttrs (map (host: { name = "${zerotierIps.${host}}"; value = [ "${host}" ]; }) hostList );
     firewall = {
       enable = false;
       allowedTCPPorts = [
@@ -58,6 +53,16 @@ in
   };
 
   services = {
+    pipewire = {
+      audio.enable = true;
+      enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      jack.enable = true;
+      pulse.enable = true;
+    };
     openssh = {
       enable = true;
       openFirewall = true;

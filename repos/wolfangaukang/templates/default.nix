@@ -12,24 +12,18 @@ in
     description = "Template for Bash projects (uses resholve)";
     path = ./bash;
   };
-  cloudformation = mkTemplate {
-    path = ./cloudformation;
+  default = mkTemplate {
+    path = ./default;
   };
   go = mkTemplate {
     path = ./go;
-  };
-  markdown = mkTemplate {
-    description = "Sets a Markdown environment with dprint";
-    path = ./markdown;
-  };
-  perl = mkTemplate {
-    path = ./perl;
   };
   python = mkTemplate {
     description = "Template for Python projects that uses Poetry";
     path = ./python;
   };
   rust = mkTemplate {
+    description = "Template for Rust projects (uses devenv)";
     path = ./rust;
   };
 }

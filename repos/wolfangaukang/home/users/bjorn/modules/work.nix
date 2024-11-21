@@ -40,6 +40,7 @@ in
         # CLI
         awscli2
         aws-mfa
+        sarchi
         ssm-session-manager-plugin
       ];
       programs = {
@@ -117,6 +118,10 @@ in
               jenkins = {
                 inherit user identityFile;
                 proxyCommand = generateSSMConnectionString { target = "i-0d10de49d69d7ed57"; profile = user; };
+              };
+              services = {
+                inherit user identityFile;
+                proxyCommand = generateSSMConnectionString { target = "i-0a90f07d42b4d3f86"; profile = user; };
               };
               "simplerisk_i-* simplerisk_mi-*" = {
                 inherit identityFile;

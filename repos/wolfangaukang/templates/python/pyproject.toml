@@ -1,23 +1,20 @@
 [tool.poetry]
-name = "project"
-version = "0.0.1"
-description = "Template for Python projects that uses Poetry"
-authors = ["P. R. d. O. <d.ol.rod@tutanota.com>"]
-exclude = [
-  "**/devenv.*"
-]
+name = "test"
+version = "0.1.0"
+description = ""
+authors = ["P. <d.ol.rod@tutanota.com>"]
+readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.12"
 
-[tool.poetry.dev-dependencies]
-black = "^23.10"
-mypy = "^1.6"
-pytest = "^7.4"
+[tool.poetry.scripts]
+sherlock = 'test.__main__:main'
 
-#[tool.poetry.scripts]
-#project = "project:main"
+[tool.poetry.group.lint.dependencies]
+black = "^24.4.2"
+mypy = "^1.11.0"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

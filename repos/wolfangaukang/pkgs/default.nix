@@ -24,11 +24,11 @@ in
   device-flasher = callPackage ./device-flasher { };
   iptvnator = callPackage ./iptvnator { };
   mastopurge = callPackage ./mastopurge { };
+  mkat = callPackage ./mkat { };
   mouseless = callPackage ./mouseless { };
   nexe = callPackage ./nexe { };
   npm-groovy-lint = callPackage ./npm-groovy-lint { };
   omnibus = callPackage ./omnibus { };
-  typescript-language-server = callPackage ./typescript-language-server { };
   ufbt = callPythonPackage ./ufbt { };
   upwork-wayland = callPythonPackage ./upwork-wayland { };
   xmouseless = callPackage ./xmouseless { };

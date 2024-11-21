@@ -1,9 +1,0 @@
-# yaml-language-server: $schema=https://devenv.sh/devenv.schema.json
-inputs:
-  nixpkgs:
-    url: github:nixos/nixpkgs
-  # TODO: See if this is needed
-  poetry2nix:
-    url: github:nix-community/poetry2nix
-    overlays:
-    - default

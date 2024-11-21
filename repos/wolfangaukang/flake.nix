@@ -5,7 +5,7 @@
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixos-stable.url = "github:nixos/nixpkgs/release-23.05";
+    nixos-stable.url = "github:nixos/nixpkgs/release-24.11";
 
     # Nix utilities
     home-manager = {
@@ -25,19 +25,28 @@
     nur.url = "github:nix-community/NUR";
     sops = {
       url = "github:Mic92/sops-nix";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nixpkgs-stable.follows = "nixos-stable";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     lix = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.90.0.tar.gz";
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.91.0.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Personal projects
     sab = {
       url = "git+https://codeberg.org/wolfangaukang/stream-alert-bot";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    apep = {
+      url = "git+https://codeberg.org/wolfangaukang/apep";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    gorin = {
+      url = "git+https://codeberg.org/wolfangaukang/gorin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    sarchi = {
+      url = "git+ssh://git@github.com/simplerisk/sarchi?ref=main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     dotfiles = {
@@ -48,9 +57,10 @@
       url = "git+https://codeberg.org/wolfangaukang/multifirefox";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
   };
 
-  outputs = { self, nixos, nixpkgs, multifirefox, nur, sab, ... }@inputs:
+  outputs = { self, nixos, nixpkgs, apep, gorin, sarchi, multifirefox, nur, sab, ... }@inputs:
     let
       inherit (nixpkgs.lib) genAttrs systems;
       local = {
@@ -59,9 +69,12 @@
       };
 
       overlays = [
+        apep.overlays.default
+        gorin.overlays.default
         multifirefox.overlays.default
         nur.overlay
         sab.overlays.default
+        sarchi.overlays.default
       ] ++ (local.overlays);
 
       forEachSystem = genAttrs systems.flakeExposed;

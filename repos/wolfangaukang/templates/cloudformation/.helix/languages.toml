@@ -1,7 +1,0 @@
-[[language]]
-name = "yaml"
-
-[language-server.yaml-language-server.config.yaml]
-format = { enable = true }
-schemas = { "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json" = "**/*.y{a,}ml" }
-customTags = [ "!FindInMap", "!FindInMap sequence", "!GetAtt", "!GetAtt sequence", "!Join", "!Join sequence", "!Ref", "!Ref sequence", "!Select", "!Select sequence", "!Split", "!Split sequence", "!Sub", "!Sub sequence" ]

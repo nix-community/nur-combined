@@ -1,5 +1,3 @@
-/.direnv/
-target/
 # Devenv
 .devenv*
 devenv.local.nix
@@ -9,3 +7,6 @@ devenv.local.nix
 
 # pre-commit
 .pre-commit-config.yaml
+
+# Added by cargo
+/target

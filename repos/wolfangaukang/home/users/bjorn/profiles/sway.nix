@@ -29,6 +29,7 @@ in
     config = {
       modifier = mainMod;
       terminal = commands.terminal;
+      defaultWorkspace = "workspace number 1";
       menu = commands.menu;
       bars = [{
         command = lib.getExe waybar;

@@ -4,10 +4,16 @@ let
   userEmail = "d.ol.rod@tutanota.com";
   userName = "P.";
   mkdir-devenv = pkgs.writeScriptBin "mkdir-devenv" (builtins.readFile "${inputs.dotfiles}/bin/devenv/mkdir-devenv");
+  inherit (pkgs) apep gorin gnumake;
 
 in
 {
-  home.packages = [ mkdir-devenv ];
+  home.packages = [
+    apep
+    gorin
+    gnumake
+    mkdir-devenv
+  ];
   programs = {
     git = {
       # FIXME: Make me private

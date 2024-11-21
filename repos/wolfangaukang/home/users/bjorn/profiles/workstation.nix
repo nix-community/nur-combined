@@ -18,23 +18,28 @@ in
 
   programs.ssh = {
     enable = true;
-    matchBlocks =
-      let
+    matchBlocks = {
+      surtsey = {
         user = "marx";
-
-      in
-      {
-        surtsey = {
-          inherit user;
-          hostname = obtainIPV4Address "surtsey" "brume";
-          identityFile = [ "${config.home.homeDirectory}/.ssh/Keys/devices/surtsey" ];
-        };
-        grimsnes = {
-          inherit user;
-          hostname = obtainIPV4Address "grimsnes" "brume";
-          identityFile = [ "${config.home.homeDirectory}/.ssh/Keys/devices/servers" ];
-        };
+        hostname = obtainIPV4Address "surtsey" "brume";
+        identityFile = [ "${config.home.homeDirectory}/.ssh/Keys/devices/surtsey" ];
       };
+      grimsnes = {
+        user = "marx";
+        hostname = obtainIPV4Address "grimsnes" "brume";
+        identityFile = [ "${config.home.homeDirectory}/.ssh/Keys/devices/servers" ];
+      };
+      arenal = {
+        user = "bjorn";
+        hostname = obtainIPV4Address "arenal" "activos";
+        identityFile = [ "${config.home.homeDirectory}/.ssh/Keys/id" ];
+      };
+      irazu = {
+        user = "bjorn";
+        hostname = obtainIPV4Address "irazu" "activos";
+        identityFile = [ "${config.home.homeDirectory}/.ssh/Keys/id" ];
+      };
+    };
   };
 
   home.packages = with pkgs; [

@@ -8,7 +8,7 @@ buildGoModule {
 
   src = lib.cleanSource ./.;
 
-  vendorHash = "";
+  vendorHash = null;
 
   meta = with lib; {
     description = "My program";

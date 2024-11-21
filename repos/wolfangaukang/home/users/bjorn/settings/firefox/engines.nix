@@ -1,8 +1,11 @@
 {
-  default = "MetaGer";
+  default = "DuckDuckGo";
   enginesSet = {
     # TODO: Separate this into categories
     # Search engines
+    "Bing".metaData.hidden = true;
+    "Google".metaData.hidden = true;
+    "DuckDuckGo".metaData.alias = "@ddg";
     "Searx (searx.work)" =
       let
         url = "https://searx.work";
@@ -19,24 +22,21 @@
         }];
         definedAliases = [ "@searx" ];
       };
-    "MetaGer" =
+    "Google - Web View" =
       let
-        url = "https://metager.org";
+        url = "https://google.com";
       in
       {
         iconURL = "${url}/favicon.ico";
         urls = [{
-          template = "${url}/meta/meta.ger3";
+          template = "${url}/search";
           params = [
-            { name = "eingabe"; value = "{searchTerms}"; }
-            { name = "focus"; value = "web"; }
+            { name = "udm"; value = "14"; }
+            { name = "q"; value = "{searchTerms}"; }
           ];
         }];
-        definedAliases = [ "@metager" ];
+        definedAliases = [ "@g" ];
       };
-    "Bing".metaData.hidden = true;
-    "Google".metaData.alias = "@g";
-    "DuckDuckGo".metaData.alias = "@ddg";
     # Nix/NixOS
     "nixpkgs - Packages" = {
       iconURL = "https://nixos.org/favicon.png";

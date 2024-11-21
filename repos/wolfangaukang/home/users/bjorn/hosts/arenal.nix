@@ -41,29 +41,40 @@ in
     };
   };
 
-  services.kanshi.settings = [
-    {
-      profile = {
-        name = "docked";
-        outputs = [
-          (generateKanshiOutput hostInfo)
-        ];
-      };
-    }
-    {
-      profile = {
-        name = "connected";
-        outputs =
-          let
-            irazuInfo = getHostDefaults "irazu";
-          in [
+  services = {
+    kanshi.settings = [
+      {
+        profile = {
+          name = "docked";
+          outputs = [
             (generateKanshiOutput hostInfo)
-            # Pick Irazu's monitor
-            ((generateKanshiOutput irazuInfo) // { position = "0,-1080"; })
           ];
+        };
+      }
+      {
+        profile = {
+          name = "connected";
+          outputs =
+            let
+              irazuInfo = getHostDefaults "irazu";
+            in [
+              (generateKanshiOutput hostInfo)
+              # Pick Irazu's monitor
+              ((generateKanshiOutput irazuInfo) // { position = "0,-1080"; })
+            ];
+        };
+      }
+    ];
+    wlsunset = {
+      enable = config.wayland.windowManager.sway.enable || config.wayland.windowManager.hyprland.enable;
+      latitude = "12.13282";
+      longitude = "-86.2504";
+      temperature = {
+        day = 6500;
+        night = 2500;
       };
-    }
-  ];
+    };
+  };
 
   wayland.windowManager = {
     sway = {

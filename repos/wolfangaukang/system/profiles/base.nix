@@ -49,6 +49,8 @@ in
     };
   };
 
+  system.tools.nixos-option.enable = false; # FIXME: https://git.lix.systems/lix-project/lix/issues/580
+
   users = {
     mutableUsers = false;
     groups.nixers.name = "nixers";

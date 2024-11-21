@@ -15,14 +15,17 @@ let
 
 in
 {
-  home.packages = [
-    # Modding
-    nwg-look
-    # https://sourcegraph.com/github.com/Misterio77/nix-config@9ad4c4f6792e10c4cb5076353250344398bdbfa7/-/blob/home/misterio/features/desktop/common/default.nix
-    # GTK Theme
-    nordic
-    pulsemixer
-  ];
+  home = {
+    packages = [
+      # Modding
+      nwg-look
+      # https://sourcegraph.com/github.com/Misterio77/nix-config@9ad4c4f6792e10c4cb5076353250344398bdbfa7/-/blob/home/misterio/features/desktop/common/default.nix
+      # GTK Theme
+      nordic
+      pulsemixer
+    ];
+    sessionVariables.QT_QPA_PLATFORM = "wayland";
+  };
   gtk = {
     enable = true;
     font.name = "Fira Sans 8";
@@ -49,13 +52,14 @@ in
     };
     waybar = {
       enable = isWaylandWMEnabled;
+      style = builtins.readFile "${inputs.dotfiles}/config/waybar/css/ragana.css";
       settings.mainBar = {
         output =
           let mainDisplay = (getHostDefaults hostname).display.id; in [ mainDisplay ];
         layer = "top";
-        position = "top";
+        position = "bottom";
         height = 32;
-        modules-left = [ "wlr/taskbar" ];
+        modules-left = [ "sway/workspaces" ];
         modules-center = [ "clock" ];
         # https://sourcegraph.com/github.com/nix-community/home-manager@b787726a8413e11b074cde42704b4af32d95545c/-/blob/tests/modules/programs/waybar/settings-complex.nix?L9:14-9:20
         modules-right = [ "idle_inhibitor" "tray" "wireplumber" "network" "bluetooth" ];
@@ -108,7 +112,7 @@ in
       ];
       timeouts = [
         { timeout = 300; command = "${commands.lock}"; }
-        { timeout = 600; command = "systemctl suspend"; }
+        { timeout = 600; command = "${pkgs.systemd}/bin/systemctl suspend"; }
       ];
     };
   };

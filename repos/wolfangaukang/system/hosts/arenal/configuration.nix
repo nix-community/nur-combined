@@ -45,14 +45,6 @@ in
     predicates.unfreePackages = [
       "burpsuite"
     ];
-    sound = {
-      enable = true;
-      enableOSSEmulation = true;
-      pipewire = {
-        enable = true;
-        enableAlsa32BitSupport = true;
-      };
-    };
     virtualization.podman.enable = true;
   };
   sops.secrets."machine_id" = {

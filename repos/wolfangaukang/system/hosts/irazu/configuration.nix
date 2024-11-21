@@ -41,14 +41,6 @@ in
       enableFlakes = true;
       enableUseSandbox = true;
     };
-    sound = {
-      enable = true;
-      enableOSSEmulation = true;
-      pipewire = {
-        enable = true;
-        enableAlsa32BitSupport = true;
-      };
-    };
     virtualization = {
       podman.enable = true;
       qemu = {
