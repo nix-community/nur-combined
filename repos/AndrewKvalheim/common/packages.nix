@@ -27,6 +27,7 @@ in
   dmarc-report-notifier = any;
   email-hash = any;
   emote.overlay = e: { postInstall = e.postInstall or "" + "\nsubstituteInPlace $out/share/applications/emote.desktop --replace-fail 'Exec=emote' \"Exec=$out/bin/emote\""; }; # Allow desktop entry as entrypoint
+  espressif-serial = any;
   fastnbt-tools = any;
   fediblockhole = any;
   fedifetcher.version = "≥7.1.12"; # nanos/FediFetcher#161

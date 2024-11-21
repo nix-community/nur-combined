@@ -332,6 +332,7 @@ entrypoints
 EPUB
 ErgoDox
 ESM
+Espressif
 etckeeper
 Etherpad
 ethnicities
@@ -1013,6 +1014,7 @@ scriptable
 scrobble
 scrobbler
 scrobbling
+scrollable
 scrollback
 scroller
 scrutinee
@@ -1270,6 +1272,7 @@ unrendered
 unrepairable
 unscope
 unscoped
+unscrollable
 unsettable
 unsetting
 unstage

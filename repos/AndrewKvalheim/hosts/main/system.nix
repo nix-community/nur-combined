@@ -91,4 +91,7 @@ in
   # Wireshark
   programs.wireshark.enable = true;
   users.users.${identity.username}.extraGroups = [ "usbmux" "wireshark" ];
+
+  # Devices
+  services.udev.packages = with pkgs; [ espressif-serial ];
 }
