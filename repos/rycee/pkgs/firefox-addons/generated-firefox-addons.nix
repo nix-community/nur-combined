@@ -1225,10 +1225,10 @@
     };
     "castkodi" = buildFirefoxXpiAddon {
       pname = "castkodi";
-      version = "7.12.0";
+      version = "7.12.1";
       addonId = "castkodi@regseb.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4373190/castkodi-7.12.0.xpi";
-      sha256 = "24b0fd96ee2d68e8f597d117c3500243ff3d65c745ecc15c4263227f86be6330";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4391617/castkodi-7.12.1.xpi";
+      sha256 = "9e4b3a310f6d9a5925d2ed821caf07794bfb662e29f82f995c9b2f372bc59857";
       meta = with lib;
       {
         homepage = "https://github.com/regseb/castkodi";
@@ -6133,10 +6133,10 @@
     };
     "lingq-importer2" = buildFirefoxXpiAddon {
       pname = "lingq-importer2";
-      version = "2.2.17";
+      version = "2.2.18";
       addonId = "{e84c7711-c738-409a-879d-3f20cb087563}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4356830/lingq_importer2-2.2.17.xpi";
-      sha256 = "ba2f64e3d4a03050d2129822274ac2b540e8c2775ac76dd8c71422d87a23b5d8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4391643/lingq_importer2-2.2.18.xpi";
+      sha256 = "6f367f9c00c8e06bd061d9499129eb554dee832eeb9c6001ebf78b76d4df0317";
       meta = with lib;
       {
         homepage = "https://www.lingq.com/";
