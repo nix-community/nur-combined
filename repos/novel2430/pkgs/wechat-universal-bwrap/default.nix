@@ -299,9 +299,11 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     echo 'Installing icons...'
     for res in 16 32 48 64 128 256; do
+      for name in {${_pkgname},wechat,weixin,com.tencent.WeChat,com.tencent.wechat}; do
         install -Dm644 \
             ${wechat-universal-src}/opt/apps/com.tencent.wechat/entries/icons/hicolor/''${res}x''${res}/apps/com.tencent.wechat.png \
-            $out/share/icons/hicolor/''${res}x''${res}/apps/${_pkgname}.png
+            $out/share/icons/hicolor/''${res}x''${res}/apps/''${name}.png
+      done
     done
     makeWrapper ${fhs}/bin/${_pkgname} $out/bin/${pname}
     runHook postInstall
