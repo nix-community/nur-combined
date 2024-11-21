@@ -147,12 +147,6 @@ let
       install -Dm755 ${_lib_uos}.so $out/lib/license/${_lib_uos}.so
       echo "DISTRIB_ID=uos" |
           install -Dm755 /dev/stdin $out/etc/lsb-release
-      # echo 'Installing icons...'
-      # for res in 16 32 48 64 128 256; do
-      #     install -Dm644 \
-      #         ${wechat-universal-src}/opt/apps/com.tencent.wechat/entries/icons/hicolor/''${res}x''${res}/apps/com.tencent.wechat.png \
-      #         $out/share/icons/hicolor/''${res}x''${res}/apps/wechat.png
-      # done
     '';
   };
 
@@ -168,8 +162,6 @@ let
     
     nativeBuildInputs = [
       dpkg
-      # makeWrapper
-      # autoPatchelfHook
     ];
     buildInputs = libraries;
 
@@ -182,12 +174,6 @@ let
       mkdir -p $out
       mv opt/apps/com.tencent.wechat/files opt/${_pkgname}
       rm opt/${_pkgname}/${_lib_uos}.so
-      # echo 'Installing icons...'
-      # for res in 16 32 48 64 128 256; do
-      #     install -Dm644 \
-      #         opt/apps/com.tencent.wechat/entries/icons/hicolor/''${res}x''${res}/apps/com.tencent.wechat.png \
-      #         $out/share/icons/hicolor/''${res}x''${res}/apps/wechat.png
-      # done
       cp -r opt $out
     '';
   };
@@ -212,6 +198,7 @@ let
     targetPkgs = 
       pkgs: [
         wechat-universal-license
+        wechat-universal-src
         libraries
       ];
 
