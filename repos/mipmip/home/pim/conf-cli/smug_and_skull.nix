@@ -39,9 +39,24 @@ let
 in
   {
 
-  programs.smug = {
+  programs = {
+  smug = {
     enable = true;
-    projects.blog = {
+    projects = {
+
+      blogdemo2 = {
+        root = "~/Developer/blog2";
+        windows = [
+          {
+            name = "blogdemo2";
+            layout = "main-vertical";
+          }
+
+        ];
+
+      };
+
+      blogdemo = {
       root = "~/Developer/blog";
       before_start = [
         "docker-compose -f my-microservices/docker-compose.yml up -d"  # my-microservices/docker-compose.yml is a relative to `root`-al
@@ -95,6 +110,8 @@ in
       ];
 
     };
+    };
   };
+};
 
 }

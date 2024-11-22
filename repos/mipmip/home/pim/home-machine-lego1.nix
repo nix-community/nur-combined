@@ -11,6 +11,7 @@ in
       ./_hm-modules
       ./_roles/home-base-all.nix
       ./_roles/home-base-nixos-desktop.nix
+      ./conf-cli/smug_and_skull.nix
     ];
 
     services.secondbrain.enable = true;
@@ -23,6 +24,7 @@ in
       jsonify-aws-dotfiles.packages."${system}".jsonify-aws-dotfiles
     ];
 
+    dotfiles.awsstuff.enable = true;
     dconf.settings = {
       "org/gnome/desktop/input-sources" = {
         #mru-sources = [ (mkTuple [ "xkb" "us" ]) ];

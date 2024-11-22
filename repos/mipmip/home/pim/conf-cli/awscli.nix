@@ -3,20 +3,10 @@
 {
 
   options.dotfiles.awsstuff = {
-
-	enable = lib.mkEnableOption "enable aws conf stuff";
-   # enable = lib.mkOption {
-   #   type = lib.types.nullOr lib.types.bool;
- # #    type = lib.types.bool;
-   #   default = true;
-   #   description = "Enable AWS conf stuff";
-   # };
+	  enable = lib.mkEnableOption "enable aws conf stuff";
   };
-    #  imports = [
-    #    ../../../home-manager-modules/programs/awscli-cust.nix
-    #  ];
 
-   config = 
+  config =
 
 let
 
@@ -30,12 +20,21 @@ let
 
   # TODO SET THESE VALS in agenix
   groups = {
+    default.color = "cccccc";
+
     mustad_hoofcare.color = "e5a50a";
     technative.color = "9141ac";
     ddgc.color = "1c71d8";
     improvement_it.color = "1c71d8";
-    dreamlines.ignore = true;
-    default.color = "cccccc";
+
+    dreamlines.hide= true;
+    taskhero.hide = true;
+    innofaith.hide = true;
+    xential.hide = true;
+
+    de_digitale_gesprekscyclus.hide_smug = true;
+    pastbook.hide_smug = true;
+    splitser.hide_smug = true;
   };
 
   alternative_regions = {
@@ -56,13 +55,27 @@ let
     else
       account.account_name;
 
-  show_account = account :
+  show_account = account : hide_key :
     let
       groupnorm = normalize_string account.customer_name;
     in
 
-    if builtins.hasAttr groupnorm groups && builtins.hasAttr "ignore" groups.${groupnorm} && groups.${groupnorm}.ignore == true then false
+    if builtins.hasAttr groupnorm groups
+      && builtins.hasAttr hide_key groups.${groupnorm}
+      && groups.${groupnorm}.${hide_key} == true
+    then false
     else true;
+
+  make_smug_project = customerName :
+    {
+        root = "~/tcCustomers/${customerName}";
+        windows = [
+          {
+            name = "shell";
+            layout = "main-vertical";
+          }
+        ];
+    };
 
   make_profile = {account, group } :
     let
@@ -92,11 +105,22 @@ let
 in
 
    lib.mkIf cfg.enable {
+
+     programs.smug = {
+        enable = true;
+        projects = {
+        }
+        // builtins.listToAttrs (builtins.map (account: rec {
+           name = "aws-${normalize_string account.customer_name}";
+           value = make_smug_project name;
+        }) (builtins.filter (account: (show_account account "hide" && show_account account "hide_smug")) aws_accounts));
+      };
+
       programs.awscli = {
       package = unstable.awscli2;
       enable = true;
       settings = {
-  
+
         "technative" = {
           aws_account_id = "technativebv";
           account_id = "technativebv";
@@ -108,11 +132,11 @@ in
       // builtins.listToAttrs (builtins.map (account: {
          name = "profile ${normalize_string account.customer_name}-${normalize_string (account_name account)}";
          value = make_profile { account = account; group = account.customer_name; };
-      }) (builtins.filter (account: show_account account) aws_accounts));
-  
+      }) (builtins.filter ((account: show_account account "hide" && show_account account "hide_aws")) aws_accounts));
+
     };
 
   };
 
 
-  }
+}

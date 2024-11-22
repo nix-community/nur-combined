@@ -12,6 +12,7 @@ in
     ./conf-cli/smug_and_skull.nix
   ];
 
+  dotfiles.awsstuff.enable = true;
   services.secondbrain.enable = true;
 
   #  programs.myhotkeys."Gnome Extra".cyclewindow.key = "<ALT>grave";

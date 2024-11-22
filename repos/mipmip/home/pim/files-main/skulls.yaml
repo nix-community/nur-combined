@@ -5,16 +5,6 @@ home:
     - source: mipmip/secondbrain
     - source: mipmip/nixos
 
-#awesomewm:
-#  base_dir: ~/cAwesomeWm
-#  repos:
-#    - source: mipmip/awesomewm-screenshots
-
-#dreammachine:
-#  base_dir: ~/cDreamMachine
-#  repos:
-#    - source: mipmip/teledream
-#    - source: techNative-B-V/slackdreams
 
 forks:
   base_dir: ~/cForks
@@ -96,7 +86,7 @@ privops:
 #    - source: snel-city-infra
 #    - source: status_snel_city
 
-wearetechnative:
+technative-weare:
   base_dir: ~/tcWearetechnative
   repos:
     - source: wearetechnative/terraform-aws-network
@@ -178,5 +168,16 @@ cTextUtils:
 #terraform-awsaccount-255418484322-main
 #toolbox-research
 #waardenburg-toolbox
+
+#awesomewm:
+#  base_dir: ~/cAwesomeWm
+#  repos:
+#    - source: mipmip/awesomewm-screenshots
+
+#dreammachine:
+#  base_dir: ~/cDreamMachine
+#  repos:
+#    - source: mipmip/teledream
+#    - source: techNative-B-V/slackdreams
 
 
