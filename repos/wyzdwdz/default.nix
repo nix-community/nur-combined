@@ -14,5 +14,5 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  spl-token = pkgs.callPackage ./pkgs/spl-token { };
+  spl-token-cli = pkgs.callPackage ./pkgs/spl-token-cli { };
 }
