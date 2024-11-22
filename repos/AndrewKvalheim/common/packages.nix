@@ -58,6 +58,26 @@ in
   little-a-map = any;
   losslesscut-bin.args = [ "--disable-networking" ];
   mark-applier = any;
+  meshtastic-matrix-relay.python3Packages = (stable.lib.throwIf (stable.lib.versionAtLeast stable.python3Packages.meshtastic.version "2.5.4") "python3Packages.meshtastic no longer requires an override" unstable).python3Packages.override {
+    overrides = resolvedPythonPackages: pythonPackages: {
+      py-staticmaps = stable.lib.throwIf (pythonPackages ? py-staticmaps) "python3Packages.py-staticmaps no longer requires packaging" (pythonPackages.buildPythonPackage rec {
+        pname = "py-staticmaps";
+        version = "0.4.0";
+        pyproject = true;
+        src = pythonPackages.fetchPypi { inherit pname version; hash = "sha256-Wrpa1Z8wpj+GDnbtmUB6bvsk6q1ciZeqhhc2OYnxc4k="; };
+        build-system = with pythonPackages; [ setuptools ];
+        dependencies = with resolvedPythonPackages; [ appdirs geographiclib pillow python-slugify requests s2sphere svgwrite ];
+      });
+      s2sphere = stable.lib.throwIf (pythonPackages ? s2sphere) "python3Packages.s2sphere no longer requires packaging" (pythonPackages.buildPythonPackage rec {
+        pname = "s2sphere";
+        version = "0.2.5";
+        pyproject = true;
+        src = pythonPackages.fetchPypi { inherit pname version; hash = "sha256-wkeMH/fGAaWacVGle2BUNYl1FFePpr24cwchwYKtu68="; };
+        build-system = with pythonPackages; [ setuptools ];
+        dependencies = with resolvedPythonPackages; [ future ];
+      });
+    };
+  };
   minemap = any;
   mmdbinspect = any;
   mozjpeg-simple = any;
