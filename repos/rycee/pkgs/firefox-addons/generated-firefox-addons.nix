@@ -907,10 +907,10 @@
     };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2024.10.1";
+      version = "2024.11.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4371752/bitwarden_password_manager-2024.10.1.xpi";
-      sha256 = "7b7357ddce2756dc536b86b5c14139ec09731c1c114ac82807c60fba3ced12a5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4387077/bitwarden_password_manager-2024.11.0.xpi";
+      sha256 = "5fc6ca8befe1798bf8bc0196a866d78c9e837ae4d425b0eb156883ad65577370";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -2177,10 +2177,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "133.0.20241118.181856";
+      version = "133.0.20241121.140525";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4390631/deutsch_de_language_pack-133.0.20241118.181856.xpi";
-      sha256 = "5d337054fecb2979bbf59f0d6f6a93bdc8445bc1045fe611fb114d1034e8fc76";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4392420/deutsch_de_language_pack-133.0.20241121.140525.xpi";
+      sha256 = "ab1e1df669b5c8c8a827e4ca6e91d530a6a419fa4881562d172a1abdb910a2a1";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2564,10 +2564,10 @@
     };
     "ecosia" = buildFirefoxXpiAddon {
       pname = "ecosia";
-      version = "5.0.0";
+      version = "5.0.2";
       addonId = "{d04b0b40-3dab-4f0b-97a6-04ec3eddbfb0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4377833/ecosia_the_green_search-5.0.0.xpi";
-      sha256 = "49b0c96f4b50db7871ac01f82956e8f7b07ac751cd374c6d144589e50bc48df5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4388495/ecosia_the_green_search-5.0.2.xpi";
+      sha256 = "c17a22555d45c862760cdfbab7155efbd8eb7575d878470a1b769e9e66de64ad";
       meta = with lib;
       {
         homepage = "http://www.ecosia.org";
@@ -3363,10 +3363,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "133.0.20241118.181856";
+      version = "133.0.20241121.140525";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4390594/francais_language_pack-133.0.20241118.181856.xpi";
-      sha256 = "b64a0f04bcf0f1067933a73f23fc6a52f6b40d55a882d7e8a5697667b6d6fc9f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4392387/francais_language_pack-133.0.20241121.140525.xpi";
+      sha256 = "1956eaf5a7157a68b704fd740b0c4d36da00000dde3f4cf0432b9ad7ec5a1e1e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3400,10 +3400,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "133.0.20241118.181856";
+      version = "133.0.20241121.140525";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4390575/gaidhlig_language_pack-133.0.20241118.181856.xpi";
-      sha256 = "9c46b0c30c3ef1fe81e759f49f9f94846132ee7fdbc70f4b4e4eee8923226867";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4392431/gaidhlig_language_pack-133.0.20241121.140525.xpi";
+      sha256 = "4cb528a6668ef01313e27c5283ec5bf0111082c0974d274d0bfac7366055deca";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -5219,10 +5219,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.11.1";
+      version = "1.11.4";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4382893/immersive_translate-1.11.1.xpi";
-      sha256 = "f5a7aae1eb92efc6cfa9ebfc25c6867919b08641bfd8d1c60545f2412124d70f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4389110/immersive_translate-1.11.4.xpi";
+      sha256 = "641899287127d0bd55a06dfa9cd5228ecc3e9174d44adea68772fe67b882d232";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -9716,10 +9716,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.11.12";
+      version = "24.11.21";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4386666/refined_github-24.11.12.xpi";
-      sha256 = "883ba8755883af1159027f555e568969fd9507b233a0545035a2a9d990e4cbff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4391954/refined_github-24.11.21.xpi";
+      sha256 = "641fbd216f236295a109c36ba0bcc282dc17219ea64c6e49baeeb3f02b68d644";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -9912,10 +9912,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "133.0.20241118.181856";
+      version = "133.0.20241121.140525";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4390615/scots_language_pack-133.0.20241118.181856.xpi";
-      sha256 = "faf0799284664ca84a6d5a270abc16c5786dcf625512678a66d3e79d48710a8d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4392424/scots_language_pack-133.0.20241121.140525.xpi";
+      sha256 = "431e525ffa65f5f2e91a05146191cf05809b6a90e27d751f9323e41f5872245f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
