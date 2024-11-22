@@ -9,7 +9,7 @@
   ...
 }:
 {
-  systemd.services.vaultix-activate.serviceConfig.Environment = [ "SPDLOG_RS_LEVEL=trace" ];
+  systemd.services.vaultix-activate.serviceConfig.Environment = [ "RUST_LOG=trace" ];
   vaultix = {
     settings = {
       # storageLocation = "./sec/rekeyed/${config.networking.hostName}";
