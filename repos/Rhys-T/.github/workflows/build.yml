@@ -112,7 +112,7 @@ jobs:
           -I $PWD
     - name: Build nix packages
       id: build
-      run: ${{ startsWith(matrix.runner, 'macos') && 'trap ''mv /Applications/{hidden-,}Xcode.app'' EXIT; mv /Applications/{,hidden-}Xcode.app; ' }}nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -build-flags -L -build-flags --keep-going ${{ matrix.qemuSystem && format('--argstr platform {0}', matrix.qemuSystem) }} --argstr subsetName ${{ matrix.subset }} -A cacheOutputs
+      run: ${{ startsWith(matrix.runner, 'macos') && 'trap ''mv /Applications/{hidden-,}Xcode.app'' EXIT; mv /Applications/{,hidden-}Xcode.app; ' || '' }}nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -build-flags -L -build-flags --keep-going ${{ matrix.qemuSystem && format('--argstr platform {0}', matrix.qemuSystem) }} --argstr subsetName ${{ matrix.subset }} -A cacheOutputs
     - name: Upload build logs
       if: '!cancelled()'
       uses: actions/upload-artifact@v4
