@@ -40,10 +40,15 @@ in
   # })
 
   (fetchpatch' {
-    # merged into *staging* 2024/11/06
-    name = "gssdp: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/353433";
-    hash = "sha256-KcntclyvkV8leyZEKkASdF1I2YKGv9Xlr8seL0TDtnQ=";
+    name = "gnome-maps: fix cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/357238";
+    hash = "sha256-o2mwpO2b4vTnoqQYAIHpxK/VOwGXR65p25x3HyDte8k=";
+  })
+
+  (fetchpatch' {
+    name = "gtk4-layer-shell: fix cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/357230";
+    hash = "sha256-v4OUuzpB8kXIU25r20SKtASEUwz/tgxCQQ6WQL1I/N8=";
   })
 
   (fetchpatch' {
@@ -117,13 +122,6 @@ in
     # hash = "sha256-cn6ihwO3MyzdpVoJoQNKAHyo8GuGvFP6vr//7r9pzjE=";
   })
 
-  (fetchpatch' {
-    name = "passt: support cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/334097";
-    saneCommit = "3ef36d3aa139f94e8716b0721856c5808937c9f2";
-    hash = "sha256-w50SLYDgMqNAfq4bgjrd6ugxHbb0VjvHdzhuJl0lzs4=";
-  })
-
   # (fetchpatch' {
   #   # branch: 2024-08-11-wip-ffado-cross / pr-ffado-cross-2
   #   name = "ffado: support cross compilation";
@@ -139,13 +137,6 @@ in
     hash = "sha256-VErGtaZjsUNNXtVESFHAmQlTLabJfZBEftL/nYcpyyE=";
     saneCommit = "bd87a38b86f889a6902a356ab415eeead881766b";
   })
-
-  # (fetchpatch' {
-  #   # 2024/06/08: still outstanding
-  #   name = "hspell: remove build perl from runtime closure";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/263182";
-  #   hash = "sha256-Wau+PB+EUQDvWX8Kycw1sNrM3GkPVjKSS4niIDI0sjM=";
-  # })
 
   # (fetchpatch' {
   #   # TODO: send for review once hspell fix is merged <https://github.com/NixOS/nixpkgs/pull/263182>

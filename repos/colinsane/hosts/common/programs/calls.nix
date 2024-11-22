@@ -42,6 +42,8 @@ in
     };
 
     packageUnwrapped = pkgs.rmDbusServicesInPlace ((pkgs.calls.override {
+      # 46.3 -> 47.xx upgraded gtk3 -> gtk4; nixpkgs package is outdated, so substitute gtk3 deps with gtk4 deps
+      evolution-data-server = pkgs.evolution-data-server-gtk4;
       gtk3 = pkgs.gtk4;
       libpeas = pkgs.libpeas2;
       wrapGAppsHook3 = pkgs.wrapGAppsHook4;

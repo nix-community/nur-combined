@@ -3,9 +3,12 @@
 {
   sane.programs.libreoffice = {
     # variants: "still" (stable?), "fresh" (beta?)
-    # packageUnwrapped = pkgs.libreoffice-bin;
-    # packageUnwrapped = pkgs.libreoffice-still;
-    packageUnwrapped = pkgs.libreoffice-fresh;
+    # packageUnwrapped = pkgs.libreoffice-collabora;
+    # packageUnwrapped = pkgs.libreoffice-qt6;
+    # packageUnwrapped = pkgs.libreoffice-qt6-fresh;  # KDE-tuned beta
+    # packageUnwrapped = pkgs.libreoffice-still;  # default
+    # packageUnwrapped = pkgs.libreoffice-fresh;  # beta; frequently unavailable in cache
+
     sandbox.whitelistWayland = true;
     sandbox.autodetectCliPaths = "existingFile";
     sandbox.extraHomePaths = [

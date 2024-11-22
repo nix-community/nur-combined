@@ -156,6 +156,11 @@ in
     };
     packageUnwrapped = pkgs.mpv-unwrapped.wrapper {
       mpv = pkgs.mpv-unwrapped.override rec {
+        # ffmpeg = pkgs.ffmpeg.override {
+        #   # to enable spatial audio, i.e. downmixing 7.1 -> 2.0.
+        #   # but nowadays i route surround staright out of mpv and do the downmixing in pipewire instead.
+        #   withMysofa = true;
+        # };
         # N.B.: populating `self` to `luajit` is necessary for the resulting `lua.withPackages` function to preserve my override.
         # i use enable52Compat in order to get `table.unpack`.
         # i think using `luajit` here instead of `lua` is optional, just i get better perf with it :)

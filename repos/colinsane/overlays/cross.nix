@@ -215,7 +215,7 @@ in with final; {
   #   shell = runtimeShell;
   # };
 
-  # 2024/08/12: upstreaming is blocked on libgweather, via evolution-data-server
+  # 2024/11/19: upstreaming is blocked on samba (via gvfs/gnome-online-accounts/evolution-data-server)
   # fixes: "Exec format error: './calls-scan'"
   calls = prev.calls.overrideAttrs (upstream: {
     # TODO: try building with mesonEmulatorHook when i upstream this
@@ -226,7 +226,7 @@ in with final; {
     mesonFlags = lib.remove "-Dgtk_doc=true" upstream.mesonFlags;
   });
 
-  # 2024/08/12: upstreaming is unblocked
+  # 2024/11/19: upstreaming is unblocked
   delfin = (prev.delfin.override {
     cargo = crossCargo;
   }).overrideAttrs (upstream: {
@@ -236,7 +236,7 @@ in with final; {
     ];
   });
 
-  # 2024/08/12: upstreaming is unblocked
+  # 2024/11/19: upstreaming is unblocked
   dialect = (prev.dialect.override {
     blueprint-compiler = wrapBlueprint [
       buildPackages.gdk-pixbuf
@@ -277,8 +277,8 @@ in with final; {
     cargo = crossCargo;  #< fixes openssl not being able to find its library
   };
 
+  # 2024/11/19: upstreaming is blocked on samba (via gnome-online-accounts)
   evolution-data-server = prev.evolution-data-server.overrideAttrs (upstream: {
-    # 2024/09/01: upstreaming is blocked by libgweather (out for PR)
     cmakeFlags = upstream.cmakeFlags ++ [
       "-DCMAKE_CROSSCOMPILING_EMULATOR=${stdenv.hostPlatform.emulator buildPackages}"
       "-DENABLE_TESTS=no"
@@ -375,7 +375,7 @@ in with final; {
     ];
   };
 
-  # 2024/08/12: upstreaming is blocked by xdg-desktop-portal
+  # 2024/11/19: upstreaming is blocked by glycin-loaders
   fractal = prev.fractal.override {
     cargo = crossCargo;
   };
@@ -393,7 +393,7 @@ in with final; {
   #   outputs = lib.remove "devdoc" upstream.outputs;
   # });
 
-  # 2024/08/12: upstreaming is blocked by libgweather (out for review) via evolution-data-server
+  # 2024/11/19: upstreaming is blocked by samba (via gvfs)
   geary = prev.geary.overrideAttrs (upstream: {
     buildInputs = upstream.buildInputs ++ [
       # glib
@@ -402,7 +402,7 @@ in with final; {
     ];
   });
 
-  # 2024/09/01: upstreaming is unblocked
+  # 2024/11/19: upstreaming is unblocked
   glycin-loaders = (prev.glycin-loaders.override {
     cargo = crossCargo;
   }).overrideAttrs (upstream: {
@@ -422,7 +422,7 @@ in with final; {
   #   });
   # });
 
-  # 2024/09/01: upstreaming is blocked on qtx11extras (via zbar)
+  # 2024/11/19: upstreaming is blocked on qtx11extras (via zbar)
   gnome-frog = prev.gnome-frog.override {
     blueprint-compiler = wrapBlueprint [
       buildPackages.gdk-pixbuf
@@ -435,17 +435,18 @@ in with final; {
     ];
   };
 
-  gnome-maps = prev.gnome-maps.overrideAttrs (upstream: {
-    # 2024/08/12: upstreaming is blocked by libgweather (direct dependency)
-    postPatch = (upstream.postPatch or "") + ''
-      # fixes: "ERROR: Program 'gjs' not found or not executable"
-      substituteInPlace meson.build \
-        --replace-fail "find_program('gjs')" "find_program('${gjs}/bin/gjs')"
-    '';
-  });
+  # 2024/11/19: upstreaming is unblocked
+  # out for PR: <https://github.com/NixOS/nixpkgs/pull/357238>
+  # gnome-maps = prev.gnome-maps.overrideAttrs (upstream: {
+  #   postPatch = (upstream.postPatch or "") + ''
+  #     # fixes: "ERROR: Program 'gjs' not found or not executable"
+  #     substituteInPlace meson.build \
+  #       --replace-fail "find_program('gjs')" "find_program('${gjs}/bin/gjs')"
+  #   '';
+  # });
 
   # 2024/05/08: fix: "meson.build:85:11: ERROR: Dependency "dbus-1" not found, tried pkgconfig".
-  # 2024/09/01: upstreaming is blocked on gvfs -> samba
+  # 2024/11/19: upstreaming is blocked on gvfs -> samba
   gnome-online-accounts = mvToBuildInputs [ dbus ] prev.gnome-online-accounts;
 
   # gnome-settings-daemon = prev.gnome-settings-daemon.overrideAttrs (orig: {
@@ -536,8 +537,9 @@ in with final; {
   #   # );
   # });
 
-  # 2024/11/09: upstreaming is blocked on gssdp
-  gtk4-layer-shell = mvToBuildInputs [ wayland-protocols ] prev.gtk4-layer-shell;
+  # 2024/11/19: upstreaming is unblocked
+  # out for PR: <https://github.com/NixOS/nixpkgs/pull/357230>
+  # gtk4-layer-shell = mvToBuildInputs [ wayland-protocols ] prev.gtk4-layer-shell;
 
   # out for PR: <https://github.com/NixOS/nixpkgs/pull/263182>
   # hspell = prev.hspell.overrideAttrs (upstream: {
@@ -598,7 +600,7 @@ in with final; {
   #   nativeBuildInputs = lib.remove [ qt6.wrapQtAppsHook ] upstream.nativeBuildInputs;
   # });
 
-  # 2024/08/12: upstreaming is unblocked
+  # 2024/11/19: upstreaming is unblocked
   komikku = prev.komikku.override {
     blueprint-compiler = wrapBlueprint [
       buildPackages.gdk-pixbuf
@@ -671,12 +673,12 @@ in with final; {
   #   callPackage = self.newScope { inherit (self) qtCompatVersion qtModule srcs; inherit stdenv; };
   # });
 
-  # 2024/08/12: upstreaming blocked on libgweather
+  # 2024/11/19: upstreaming blocked on glycin-loaders
   loupe = prev.loupe.override {
     cargo = crossCargo;
   };
 
-  # 2024/08/12: upstreaming is unblocked
+  # 2024/11/19: upstreaming is unblocked
   mepo = (prev.mepo.override {
     # nixpkgs mepo correctly puts `zig_0_12.hook` in nativeBuildInputs,
     # but for some reason that tries to use the host zig instead of the build zig.
@@ -768,7 +770,7 @@ in with final; {
   # 2023/07/31: upstreaming is blocked on vpnc cross compilation
   # networkmanager-vpnc = mvToNativeInputs [ glib ] prev.networkmanager-vpnc;
 
-  # 2024/08/12: upstreaming is unblocked
+  # 2024/11/19: upstreaming is unblocked
   newsflash = (prev.newsflash.override {
     blueprint-compiler = wrapBlueprint [
       buildPackages.clapper
@@ -927,7 +929,7 @@ in with final; {
   #   ];
   # } prev.phosh-mobile-settings;
 
-  # 2024/09/01: upstreaming is unblocked
+  # 2024/11/19: upstreaming is unblocked
   pwvucontrol = prev.pwvucontrol.override {
     cargo = crossCargo;
   };
@@ -1033,13 +1035,13 @@ in with final; {
   #   };
   # });
 
-  # 2024/08/12: upstreaming is unblocked
+  # 2024/11/19: upstreaming is blocked on glycin-loaders
   snapshot = prev.snapshot.override {
     # fixes "error: linker `cc` not found"
     cargo = crossCargo;
   };
 
-  # 2024/08/12: upstreaming is unblocked
+  # 2024/11/19: upstreaming is unblocked
   spot = prev.spot.override {
     blueprint-compiler = wrapBlueprint [
       buildPackages.gdk-pixbuf
@@ -1097,7 +1099,7 @@ in with final; {
   #   ];
   # });
 
-  # 2024/08/12: upstreaming is unblocked
+  # 2024/11/19: upstreaming is unblocked
   tangram = (prev.tangram.override {
     blueprint-compiler = wrapBlueprint [
       buildPackages.gdk-pixbuf
@@ -1137,6 +1139,7 @@ in with final; {
   #   });
   # };
 
+  # 2024/11/19: upstreaming is unblocked
   video-trimmer = prev.video-trimmer.override {
     blueprint-compiler = wrapBlueprint [
       buildPackages.gdk-pixbuf
@@ -1245,6 +1248,6 @@ in with final; {
   #     upstream.postBuild;
   # });
 
-  # 2024/05/31: upstreaming is blocked on unar (gnustep), unless i also make that optional
+  # 2024/11/19: upstreaming is blocked on unar (gnustep), unless i also make that optional
   xarchiver = mvToNativeInputs [ libxslt ] prev.xarchiver;
 }
