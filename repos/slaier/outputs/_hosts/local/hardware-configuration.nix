@@ -40,8 +40,7 @@ _:
   environment.persistence."/persist" = {
     directories = [
       "/etc/ssh"
-      "/var/lib"
-      "/var/log"
+      "/var"
     ];
     files = [
       "/etc/machine-id"

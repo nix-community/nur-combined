@@ -41,12 +41,14 @@
     bottom
     curl
     doggo
+    gdu
     git
     gocryptfs
     hydra-check
     hyperfine
     ianny
     iotop
+    just
     keepassxc
     killall
     librespeed-cli

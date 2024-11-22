@@ -1,6 +1,6 @@
 { lib, stdenvNoCC, fetchFromGitHub }:
 let
-  version = "1.7.132";
+  version = "1.7.133";
 in
 stdenvNoCC.mkDerivation {
   pname = "wavefox";
@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation {
     owner = "QNetITQ";
     repo = "WaveFox";
     rev = "v${version}";
-    sha256 = "sha256-g11Hnfu8CXUeL03poYAA/Bx3z+Oon3I529ePVmkgw6I=";
+    sha256 = "sha256-fsI7BvbCsCWP+CtRU5tYlYNzHjornyhxnkZtOdmZFKE=";
   });
 
   installPhase = ''
