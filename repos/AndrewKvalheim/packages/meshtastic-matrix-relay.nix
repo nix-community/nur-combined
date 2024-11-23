@@ -31,11 +31,15 @@ python3Packages.buildPythonApplication rec {
     (toFile "debug.patch" ''
       --- a/meshtastic_utils.py
       +++ b/meshtastic_utils.py
-      @@ -238,2 +238,4 @@ def on_meshtastic_message(packet, interface):
-       
-      +    logger.debug(f"Received packet: {packet}")
+      @@ -244,2 +244,4 @@
+           if text:
+      +        logger.debug(f"Received text packet: {packet}")
       +
-           sender = packet.get("fromId", packet.get("from"))
+               # Determine the channel
+      @@ -342,2 +344,3 @@
+                       if found_matching_plugin:
+      +                    logger.debug(f"Received non-text packet: {packet}")
+                           logger.debug(
     '')
 
     (toFile "log-timestamp.patch" ''
