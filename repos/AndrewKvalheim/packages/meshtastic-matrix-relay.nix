@@ -44,6 +44,26 @@ python3Packages.buildPythonApplication rec {
                packet = self.strip_raw(packet)
     '')
 
+    (toFile "destination.patch" ''
+      --- a/matrix_utils.py
+      +++ b/matrix_utils.py
+      @@ -191,2 +193,8 @@
+           text = event.body.strip()
+      +    destined_pattern = re.compile(r"^@(\^all|![0-9A-Fa-f]+)\s*:?\s*(.+)$")
+      +    destined = destined_pattern.match(text)
+      +    if not destined:
+      +        return
+      +    destinationId = destined[1]
+      +    text = destined[2]
+       
+      @@ -226 +234 @@
+      -        logger.debug(f"Processing matrix message from [{full_display_name}]: {text}")
+      +        logger.debug(f"Processing matrix message from [{full_display_name}] to [{destinationId}]: {text}")
+      @@ -285 +299 @@
+      -                    text=full_message, channelIndex=meshtastic_channel
+      +                    text=full_message, destinationId=destinationId, channelIndex=meshtastic_channel,
+    '')
+
     (toFile "log-format.patch" ''
       --- a/log_utils.py
       +++ b/log_utils.py
@@ -55,7 +75,7 @@ python3Packages.buildPythonApplication rec {
     (toFile "message-format.patch" ''
       --- a/matrix_utils.py
       +++ b/matrix_utils.py
-      @@ -227 +229,6 @@
+      @@ -233 +235,6 @@
       -        full_message = f"{prefix}{text}"
       +        full_message = (
       +            text
