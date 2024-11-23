@@ -584,6 +584,26 @@
         },
         "version": "7.6.15.4102301"
     },
+    "dn42-pingfinder": {
+        "cargoLocks": null,
+        "date": "2022-11-06",
+        "extract": null,
+        "name": "dn42-pingfinder",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "8fd1af682dd6fab6bee6a72f44b8157661b7b65b",
+            "sha256": "sha256-eDTiY1OSR1+5DUaieaepxMVFe1qBVSyKhSMWtXavKUI=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://git.lantian.pub/backup/dn42-pingfinder.git"
+        },
+        "version": "8fd1af682dd6fab6bee6a72f44b8157661b7b65b"
+    },
     "douban-openapi-server": {
         "cargoLocks": null,
         "date": "2022-12-17",
@@ -1891,7 +1911,7 @@
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
             "rev": "0.7.0",
-            "sha256": "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=",
+            "sha256": "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=",
             "sparseCheckout": [],
             "type": "github"
         },

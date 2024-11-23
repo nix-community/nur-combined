@@ -19,12 +19,19 @@
         };
 
         programs = {
+          actionlint.enable = true;
           black.enable = true;
           deadnix.enable = true;
+          dos2unix.enable = true;
+          formatjson5.enable = true;
           isort.enable = true;
+          mypy.enable = true;
           nixfmt.enable = true;
+          shfmt.enable = true;
           statix.enable = true;
         };
+
+        settings.formatter.dos2unix.excludes = [ "*.reg" ];
       };
 
       formatter = pkgs.writeShellScriptBin "treefmt-auto" ''

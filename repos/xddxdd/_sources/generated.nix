@@ -304,6 +304,16 @@
       hash = "sha256-DWRI6y5eXRuAHe90Pm6VK44+tuBxbNLqUmv9OiK8Fm0=";
     };
   };
+  dn42-pingfinder = {
+    pname = "dn42-pingfinder";
+    version = "8fd1af682dd6fab6bee6a72f44b8157661b7b65b";
+    src = fetchgit {
+      url = "https://git.lantian.pub/backup/dn42-pingfinder.git";
+      rev = "8fd1af682dd6fab6bee6a72f44b8157661b7b65b";
+      hash = "sha256-eDTiY1OSR1+5DUaieaepxMVFe1qBVSyKhSMWtXavKUI=";
+    };
+    date = "2022-11-06";
+  };
   douban-openapi-server = {
     pname = "douban-openapi-server";
     version = "c7e2a0f59ba5cfb2d10a31013547686a4afab99d";
@@ -968,7 +978,7 @@
       owner = "open-quantum-safe";
       repo = "oqs-provider";
       rev = "0.7.0";
-      hash = "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=";
+      hash = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
     };
   };
   osdlyrics = {

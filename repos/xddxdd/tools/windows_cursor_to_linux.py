@@ -229,7 +229,7 @@ class WindowsInfParser:
         for reg in add_reg:
             entries = self.list[reg]
             for entry in entries:
-                args = shlex.split((entry.replace(",", " ")))
+                args = shlex.split(entry.replace(",", " "))
                 print(args)
                 if (
                     args[0].upper() in ["HKCU", "HKEY_CURRENT_USER"]

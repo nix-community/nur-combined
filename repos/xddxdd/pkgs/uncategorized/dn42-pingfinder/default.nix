@@ -1,4 +1,5 @@
 {
+  sources,
   stdenv,
   lib,
   makeWrapper,
@@ -15,17 +16,14 @@ let
   ];
 in
 stdenv.mkDerivation rec {
-  pname = "dn42-pingfinder";
-  version = "1.0.0";
-  src = ./dn42-pingfinder.sh;
+  inherit (sources.dn42-pingfinder) pname version src;
 
   nativeBuildInputs = [ makeWrapper ];
 
-  dontUnpack = true;
   installPhase = ''
     runHook preInstall
 
-    install -Dm755 $src $out/bin/dn42-pingfinder
+    install -Dm755 clients/generic-linux-debian-redhat-busybox.sh $out/bin/dn42-pingfinder
     wrapProgram $out/bin/dn42-pingfinder \
       --suffix PATH : "${additionalPath}"
 

@@ -129,6 +129,10 @@ fetch.github = "ManiMatter/decluttarr"
 src.aur = "dingtalk-bin"
 fetch.url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_$ver_amd64.deb"
 
+[dn42-pingfinder]
+src.git = "https://git.lantian.pub/backup/dn42-pingfinder.git"
+fetch.git = "https://git.lantian.pub/backup/dn42-pingfinder.git"
+
 [douban-openapi-server]
 src.git = "https://github.com/caryyu/douban-openapi-server.git"
 fetch.github = "caryyu/douban-openapi-server"
