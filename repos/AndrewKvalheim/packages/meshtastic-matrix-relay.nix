@@ -28,21 +28,7 @@ python3Packages.buildPythonApplication rec {
       +config_path = os.getenv("CONFIG_PATH")
     '')
 
-    (toFile "debug.patch" ''
-      --- a/meshtastic_utils.py
-      +++ b/meshtastic_utils.py
-      @@ -244,2 +244,4 @@
-           if text:
-      +        logger.debug(f"Received text packet: {packet}")
-      +
-               # Determine the channel
-      @@ -342,2 +344,3 @@
-                       if found_matching_plugin:
-      +                    logger.debug(f"Received non-text packet: {packet}")
-                           logger.debug(
-    '')
-
-    (toFile "log-timestamp.patch" ''
+    (toFile "log-no-timestamp.patch" ''
       --- a/log_utils.py
       +++ b/log_utils.py
       @@ -16 +16 @@
@@ -57,6 +43,26 @@ python3Packages.buildPythonApplication rec {
       -        formatted_message = f"[{longname}/{meshnet_name}]: {text}"
       +        display_name = shortname if longname == sender else f"{longname} ({shortname})"
       +        formatted_message = f"[{display_name}]: {text}"
+    '')
+
+    (toFile "message-packet.patch" ''
+      --- a/matrix_utils.py
+      +++ b/matrix_utils.py
+      @@ -128,3 +128,3 @@
+       # Send message to the Matrix room
+      -async def matrix_relay(room_id, message, longname, shortname, meshnet_name, portnum):
+      +async def matrix_relay(room_id, message, longname, shortname, meshnet_name, portnum, packet):
+           matrix_client = await connect_matrix()
+      @@ -138,2 +138,3 @@
+                   "meshtastic_portnum": portnum,
+      +            "meshtastic_packet": packet
+               }
+      --- a/meshtastic_utils.py
+      +++ b/meshtastic_utils.py
+      @@ -322,2 +323,3 @@
+                               decoded.get("portnum"),
+      +                        packet
+                           ),
     '')
 
     (toFile "pep-518.patch" ''
