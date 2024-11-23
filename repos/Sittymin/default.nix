@@ -14,7 +14,6 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  xwayland-satellite = pkgs.callPackage ./pkgs/xwayland-satellite { };
   olympus = pkgs.callPackage ./pkgs/olympus { };
   apostrophe-2-6-3 = pkgs.callPackage ./pkgs/apostrophe { };
   reqable = pkgs.callPackage ./pkgs/reqable { };

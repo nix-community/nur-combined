@@ -11,14 +11,14 @@
 
 stdenv.mkDerivation rec {
   pname = "guile-lsp-server";
-  version = "0.4.7";
+  version = "unstable";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "rgherdt";
     repo = "scheme-lsp-server";
-    rev = "${version}";
-    hash = "sha256-XNzon1l6CnCd4RasNrHHxWEBNhyaHXgdNLsvjvRLbfk=";
+    rev = "1d1ed9900f695d9ec0ab2432aa770f2554d2cfee";
+    hash = "sha256-XB9j3WxG+1Z8aPzG6LCVr8foWWKxdOyF1pkVJmIuQdU=";
   };
 
   srfi = fetchFromGitea {
