@@ -103,13 +103,13 @@ let
         sha512 = "5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==";
       };
     };
-    "@types/node-22.9.0" = {
+    "@types/node-22.9.2" = {
       name = "_at_types_slash_node";
       packageName = "@types/node";
-      version = "22.9.0";
+      version = "22.9.2";
       src = fetchurl {
-        url = "https://registry.npmjs.org/@types/node/-/node-22.9.0.tgz";
-        sha512 = "vuyHg81vvWA1Z1ELfvLko2c8f34gyA0zaic0+Rllc5lbCnbSyuvb2Oxpm6TAUAC/2xZN3QGqxBNggD1nNR2AfQ==";
+        url = "https://registry.npmjs.org/@types/node/-/node-22.9.2.tgz";
+        sha512 = "wwuxAVEbsRvDD9x7buvAl7DyQ7Oj+va/d/Veug7higYzp9MF0CINbfWTBgDFMpcVwcdUiYuNmX2KfnvY3N70mw==";
       };
     };
     "@webassemblyjs/ast-1.14.1" = {
@@ -337,13 +337,13 @@ let
         sha512 = "E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==";
       };
     };
-    "caniuse-lite-1.0.30001680" = {
+    "caniuse-lite-1.0.30001683" = {
       name = "caniuse-lite";
       packageName = "caniuse-lite";
-      version = "1.0.30001680";
+      version = "1.0.30001683";
       src = fetchurl {
-        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001680.tgz";
-        sha512 = "rPQy70G6AGUMnbwS1z6Xg+RkHYPAi18ihs47GH0jcxIG7wArmPgY3XbS2sRdBbxJljp3thdT8BIqv9ccCypiPA==";
+        url = "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001683.tgz";
+        sha512 = "iqmNnThZ0n70mNwvxpEC2nBJ037ZHZUoBI5Gorh1Mw6IlEAZujEoU1tXA628iZfzm7R9FvFzxbfdgml82a3k8Q==";
       };
     };
     "chrome-trace-event-1.0.4" = {
@@ -391,22 +391,22 @@ let
         sha512 = "GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==";
       };
     };
-    "cross-spawn-7.0.5" = {
+    "cross-spawn-7.0.6" = {
       name = "cross-spawn";
       packageName = "cross-spawn";
-      version = "7.0.5";
+      version = "7.0.6";
       src = fetchurl {
-        url = "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.5.tgz";
-        sha512 = "ZVJrKKYunU38/76t0RMOulHOnUcbU9GbpWKAOZ0mhjr7CX6FVrH+4FrAapSOekrgFQ3f/8gwMEuIft0aKq6Hug==";
+        url = "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.6.tgz";
+        sha512 = "uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==";
       };
     };
-    "electron-to-chromium-1.5.62" = {
+    "electron-to-chromium-1.5.64" = {
       name = "electron-to-chromium";
       packageName = "electron-to-chromium";
-      version = "1.5.62";
+      version = "1.5.64";
       src = fetchurl {
-        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.62.tgz";
-        sha512 = "t8c+zLmJHa9dJy96yBZRXGQYoiCEnHYgFwn1asvSPZSUdVxnB62A4RASd7k41ytG3ErFBA0TpHlKg9D9SQBmLg==";
+        url = "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.64.tgz";
+        sha512 = "IXEuxU+5ClW2IGEYFC2T7szbyVgehupCWQe5GNh+H065CD6U6IFN0s4KeAMFGNmQolRU4IV7zGBWSYMmZ8uuqQ==";
       };
     };
     "enhanced-resolve-5.17.1" = {
@@ -1084,7 +1084,7 @@ let
       sources."@types/eslint-scope-3.7.7"
       sources."@types/estree-1.0.6"
       sources."@types/json-schema-7.0.15"
-      sources."@types/node-22.9.0"
+      sources."@types/node-22.9.2"
       sources."@webassemblyjs/ast-1.14.1"
       sources."@webassemblyjs/floating-point-hex-parser-1.13.2"
       sources."@webassemblyjs/helper-api-error-1.13.2"
@@ -1110,13 +1110,13 @@ let
       sources."ajv-keywords-3.5.2"
       sources."browserslist-4.24.2"
       sources."buffer-from-1.1.2"
-      sources."caniuse-lite-1.0.30001680"
+      sources."caniuse-lite-1.0.30001683"
       sources."chrome-trace-event-1.0.4"
       sources."clone-deep-4.0.1"
       sources."colorette-2.0.20"
       sources."commander-10.0.1"
-      sources."cross-spawn-7.0.5"
-      sources."electron-to-chromium-1.5.62"
+      sources."cross-spawn-7.0.6"
+      sources."electron-to-chromium-1.5.64"
       sources."enhanced-resolve-5.17.1"
       sources."envinfo-7.14.0"
       sources."es-module-lexer-1.5.4"

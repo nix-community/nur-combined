@@ -59,21 +59,21 @@
   };
   wasmfxtime = {
     pname = "wasmfxtime";
-    version = "64a53d6bda54c8df773959977b0946da7a6861b6";
+    version = "e9de4ec7ebefefa212a6c6f588c009d8dd15c03a";
     src = fetchFromGitHub {
       owner = "wasmfx";
       repo = "wasmfxtime";
-      rev = "64a53d6bda54c8df773959977b0946da7a6861b6";
+      rev = "e9de4ec7ebefefa212a6c6f588c009d8dd15c03a";
       fetchSubmodules = true;
-      sha256 = "sha256-HRid5AXpKeY4iAO6nb2lZVB1w0hGmvcedUqX3QCZ/Rg=";
+      sha256 = "sha256-G5p0cRJ+mcE6/Vwy//iCO3Q5twWkH8vZmc1g9EN8Dzw=";
     };
     cargoLock."./Cargo.lock" = {
-      lockFile = ./wasmfxtime-64a53d6bda54c8df773959977b0946da7a6861b6/./Cargo.lock;
+      lockFile = ./wasmfxtime-e9de4ec7ebefefa212a6c6f588c009d8dd15c03a/./Cargo.lock;
       outputHashes = {
         "wit-bindgen-0.35.0" = "sha256-7KwiI04ijpfeLFnOMUvCF9ZAY3ZbvlWSuFV0P1lBwLQ=";
         "wasm-encoder-0.220.0" = "sha256-gXwdY75tTx57khF52LfNTIbacP53uxr/+YSc2zFiGSk=";
       };
     };
-    date = "2024-11-15";
+    date = "2024-11-20";
   };
 }
