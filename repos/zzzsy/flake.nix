@@ -3,9 +3,9 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs-2405.url = "github:NixOS/nixpkgs/nixos-24.05";
 
-    #home-manager.url = "github:nix-community/home-manager";
-    home-manager.url = "github:zzzsyyy/home-manager";
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     sops-nix.url = "github:Mic92/sops-nix";
@@ -23,8 +23,8 @@
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
     nix-matlab = {
-      inputs.nixpkgs.follows = "nixpkgs";
-      url = "gitlab:doronbehar/nix-matlab";
+      inputs.nixpkgs.follows = "nixpkgs-2405";
+      url = "github:ykttt/nix-matlab";
     };
 
     nur.url = "github:nix-community/NUR";

@@ -540,15 +540,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1730986151,
-        "narHash": "sha256-0DziXF8sxKYdNBX/dUhsmue1MK32RlDYpDwwhIKvLYE=",
-        "owner": "zzzsyyy",
+        "lastModified": 1731968878,
+        "narHash": "sha256-+hTCwETOE9N8voTAaF+IzdUZz28Ws3LDpH90FWADrEE=",
+        "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "2977d7da6cf6a400d8aee1486c31023071a91837",
+        "rev": "a42fa14b53ceab66274a21da480c9f8e06204173",
         "type": "github"
       },
       "original": {
-        "owner": "zzzsyyy",
+        "owner": "nix-community",
         "repo": "home-manager",
         "type": "github"
       }
@@ -709,21 +709,21 @@
       "inputs": {
         "flake-compat": "flake-compat_5",
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgs1"
         ]
       },
       "locked": {
-        "lastModified": 1731596513,
-        "narHash": "sha256-tjRanODnS4FgzsNhLZ4ZCXbtnGnz6KebvBp4nkRAug4=",
-        "owner": "doronbehar",
+        "lastModified": 1732112377,
+        "narHash": "sha256-SdpjBvLQnrOPHpokWnANQ1PDIh50hkx0d3hQDkhsvno=",
+        "owner": "ykttt",
         "repo": "nix-matlab",
-        "rev": "165dc48fad8fa3fd5c468750fdd943fbdc95a231",
-        "type": "gitlab"
+        "rev": "92feca373636f25257177d89e8c2de3d545d47cc",
+        "type": "github"
       },
       "original": {
-        "owner": "doronbehar",
+        "owner": "ykttt",
         "repo": "nix-matlab",
-        "type": "gitlab"
+        "type": "github"
       }
     },
     "nixpkgs": {
@@ -826,6 +826,22 @@
       "original": {
         "owner": "NixOS",
         "ref": "release-24.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs1": {
+      "locked": {
+        "lastModified": 1731797254,
+        "narHash": "sha256-df3dJApLPhd11AlueuoN0Q4fHo/hagP75LlM5K1sz9g=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "e8c38b73aeb218e27163376a2d617e61a2ad9b59",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-24.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -1078,6 +1094,7 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-matlab": "nix-matlab",
         "nixpkgs": "nixpkgs_6",
+        "nixpkgs1": "nixpkgs1",
         "nur": "nur",
         "nvfetcher": "nvfetcher",
         "pre-commit-hooks": "pre-commit-hooks_2",

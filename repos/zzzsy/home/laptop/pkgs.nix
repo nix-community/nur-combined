@@ -115,7 +115,10 @@ let
 
     #ghostty
 
-    # matlab
+    matlab
+    matlab-shell
+    deluge-gtk
+
     # vmware-workstation
     adw-gtk3
     (ventoy.override {

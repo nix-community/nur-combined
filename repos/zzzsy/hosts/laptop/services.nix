@@ -10,6 +10,7 @@
     #displayManager.cosmic-greeter.enable = true;
     dbus.implementation = "broker"; # lock dbus impl to dbus-broker
     udev.extraRules = ''
+      KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0666", TAG+="uaccess", TAG+="udev-acl"
       SUBSYSTEM=="usb", ATTR{idVendor}=="04e8", MODE="0666", GROUP="adbusers"
     '';
     fstrim.enable = true;
