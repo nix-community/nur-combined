@@ -53,6 +53,16 @@ python3Packages.buildPythonApplication rec {
     '')
 
     (toFile "message-format.patch" ''
+      --- a/matrix_utils.py
+      +++ b/matrix_utils.py
+      @@ -227 +229,6 @@
+      -        full_message = f"{prefix}{text}"
+      +        full_message = (
+      +            text
+      +            if relay_config["meshtastic"]["broadcast_directly"]
+      +            and event.sender == relay_config["meshtastic"]["broadcast_directly"]
+      +            else f"{prefix}{text}"
+      +        )
       --- a/meshtastic_utils.py
       +++ b/meshtastic_utils.py
       @@ -328 +328,2 @@
@@ -77,7 +87,7 @@ python3Packages.buildPythonApplication rec {
                }
       --- a/meshtastic_utils.py
       +++ b/meshtastic_utils.py
-      @@ -363,2 +364,3 @@
+      @@ -364,2 +365,3 @@
                                decoded.get("portnum"),
       +                        packet
                            ),
