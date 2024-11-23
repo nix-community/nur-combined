@@ -31,6 +31,7 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/solana-labs/solana-program-library";
     license = licenses.asl20;
     platforms = platforms.linux;
+    mainProgram = "spl-token";
     broken = false;
   };
 }
