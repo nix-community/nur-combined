@@ -32,12 +32,12 @@ python3Packages.buildPythonApplication rec {
     (toFile "debug-filter.patch" ''
       --- a/plugins/debug_plugin.py
       +++ b/plugins/debug_plugin.py
-      @@ -10,2 +10,9 @@ class Plugin(BasePlugin):
+      @@ -10,2 +10,9 @@
            ):
       +        if (
       +            "decoded" in packet
       +            and "portnum" in packet["decoded"]
-      +            and packet["decoded"]["portnum"] == "TELEMETRY_APP"
+      +            and packet["decoded"]["portnum"] in ["POSITION_APP", "TELEMETRY_APP"]
       +        ):
       +            return False
       +
