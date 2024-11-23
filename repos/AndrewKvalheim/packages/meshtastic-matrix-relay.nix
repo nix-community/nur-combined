@@ -28,6 +28,24 @@ python3Packages.buildPythonApplication rec {
       +config_path = os.getenv("CONFIG_PATH")
     '')
 
+    (toFile "debug.patch" ''
+      --- a/meshtastic_utils.py
+      +++ b/meshtastic_utils.py
+      @@ -238,2 +238,4 @@ def on_meshtastic_message(packet, interface):
+       
+      +    logger.debug(f"Received packet: {packet}")
+      +
+           sender = packet.get("fromId", packet.get("from"))
+    '')
+
+    (toFile "log-timestamp.patch" ''
+      --- a/log_utils.py
+      +++ b/log_utils.py
+      @@ -16 +16 @@
+      -            fmt="%(asctime)s %(levelname)s:%(name)s:%(message)s",
+      +            fmt="%(levelname)s:%(name)s:%(message)s",
+    '')
+
     (toFile "pep-518.patch" ''
       --- /dev/null
       +++ b/pyproject.toml

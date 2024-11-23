@@ -6,6 +6,9 @@ let
 
   palette = import ../resources/palette.nix { inherit lib pkgs; };
 
+  biome = {
+    "editor.defaultFormatter" = "biomejs.biome";
+  };
   monospace = {
     "editor.fontFamily" = "'Iosevka Custom Mono'";
     "editor.wrappingStrategy" = "simple";
@@ -28,6 +31,7 @@ in
       bierner.markdown-checkbox
       bierner.markdown-mermaid
       bierner.markdown-preview-github-styles
+      biomejs.biome
       bpruitt-goddard.mermaid-markdown-syntax-highlighting
       charliermarsh.ruff
       compilouit.xkb
@@ -94,6 +98,7 @@ in
 
     userSettings = with palette.hex; {
       # Dependencies
+      "biome.lsp.bin" = "${pkgs.biome}/bin/biome";
       "flow.pathToFlow" = "${pkgs.flow}/bin/flow";
       "hadolint.hadolintPath" = "${pkgs.hadolint}/bin/hadolint";
       "nix.serverPath" = "${pkgs.nil}/bin/nil";
@@ -284,19 +289,19 @@ in
       "python.formatting.provider" = "black";
       "rubyLsp.rubyVersionManager" = "custom";
       "rust-analyzer.checkOnSave.command" = "clippy";
-      "[css]" = prettier;
+      "[css]" = biome;
       "[diff]" = monospace;
       "[git-commit]" = monospace // { "editor.rulers" = [ 50 72 ]; "rewrap.wrappingColumn" = 72; };
       "[html]" = prettier // { "editor.formatOnSave" = false; /* Workaround for kristoff-it/superhtml#33 */ };
-      "[javascript]" = prettier;
-      "[json]" = prettier;
-      "[jsonc]" = prettier;
+      "[javascript]" = biome;
+      "[json]" = biome;
+      "[jsonc]" = biome;
       "[markdown]" = monospace // { "editor.tabSize" = 4; };
       "[plaintext]" = monospace;
       "[postcss]" = prettier;
       "[ruby]" = monospace;
-      "[typescript]" = prettier;
-      "[typescriptreact]" = prettier;
+      "[typescript]" = biome;
+      "[typescriptreact]" = biome;
       "[yaml]" = monospace;
 
       # Highlights

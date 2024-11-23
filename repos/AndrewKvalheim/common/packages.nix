@@ -16,6 +16,7 @@ in
   attachments = any;
   audacity.gappsWrapperArgs = "--set-default GDK_BACKEND x11"; # NixOS/nixpkgs#238910
   binsider = any;
+  biome.version = "≥1.9";
   buildJosmPlugin = any;
   cavif = any;
   ch57x-keyboard-tool = any;
@@ -95,6 +96,7 @@ in
   unln = any;
   vscode-extensions = namespaced {
     bierner.markdown-preview-github-styles = any;
+    biomejs.biome = any;
     bpruitt-goddard.mermaid-markdown-syntax-highlighting.search = open-vsx;
     charliermarsh.ruff.version = "≥2024.22.0";
     compilouit.xkb.search = open-vsx;
