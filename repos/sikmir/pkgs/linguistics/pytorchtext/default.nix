@@ -51,7 +51,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/pytorch/text";
     license = lib.licenses.bsd3;
     maintainers = [ lib.maintainers.sikmir ];
-    #broken = stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/issues/94241
-    broken = true; # sentry-sdk
+    broken = stdenv.isDarwin;
   };
 }

@@ -11,6 +11,6 @@ sed -i "s/version = \".*\"/version = \"$version\"/" default.nix
 
 cat tatoeba.json | jq -r '.[]|.url,.hash' | paste - - | while read -r url hash; do
     newHash=$(nix-prefetch-url --type sha256 $url)
-    sriHash="$(nix hash to-sri --type sha256 $newHash)"
+    sriHash="$(nix hash convert --hash-algo sha256 --to sri $newHash)"
     sed -i "s#$hash#$sriHash#" tatoeba.json
 done
