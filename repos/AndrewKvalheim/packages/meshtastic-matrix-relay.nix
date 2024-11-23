@@ -50,6 +50,15 @@ python3Packages.buildPythonApplication rec {
       +            fmt="%(levelname)s:%(name)s:%(message)s",
     '')
 
+    (toFile "message-format.patch" ''
+      --- a/meshtastic_utils.py
+      +++ b/meshtastic_utils.py
+      @@ -289 +289,2 @@
+      -        formatted_message = f"[{longname}/{meshnet_name}]: {text}"
+      +        display_name = shortname if longname == sender else f"{longname} ({shortname})"
+      +        formatted_message = f"[{display_name}]: {text}"
+    '')
+
     (toFile "pep-518.patch" ''
       --- /dev/null
       +++ b/pyproject.toml
