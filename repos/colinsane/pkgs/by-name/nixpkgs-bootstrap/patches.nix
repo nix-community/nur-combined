@@ -52,6 +52,12 @@ in
   })
 
   (fetchpatch' {
+    name = "samba: resurrect cross compilation patch";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/357988";
+    hash = "sha256-aacdmbVGifmoWXun4ljSQ4IZZ2oxeeWRzHY56b9CoyQ=";
+  })
+
+  (fetchpatch' {
     name = "nixos/bonsaid: init";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/347818";
     # saneCommit = "bc3d311bdc11a26b8b0a95806c0ea7b80554548d";

@@ -1,5 +1,6 @@
 # where to find good stuff?
 # - universal search/directory: <https://podcastindex.org>
+#   - the full database is downloadable
 # - list of lists: <https://en.wikipedia.org/wiki/Category:Lists_of_podcasts>
 # - podcasts w/ a community: <https://lemmyverse.net/communities?query=podcast>
 # - podcast recs:
@@ -69,6 +70,7 @@ let
     (fromDb "darknetdiaries.com" // tech)
     (fromDb "podcast.ergaster.org/@flintandsilicon" // tech)  # Thib's podcast: public interest tech, gnome, etc: <https://fed.uninsane.org/users/$ALLO9MZ5g5CsQTCBH6>
     (fromDb "feeds.99percentinvisible.org/99percentinvisible" // pol)  # 99% Invisible -- also available here: <https://feeds.simplecast.com/BqbsxVfO>
+    (fromDb "feeds.buzzsprout.com/2412334.rss")  # Matt Stoller's _Organized Money_ <https://www.organizedmoney.fm/>
     (fromDb "feeds.eff.org/howtofixtheinternet" // pol)
     (fromDb "feeds.feedburner.com/80000HoursPodcast" // rat)
     (fromDb "feeds.feedburner.com/dancarlin/history" // rat)

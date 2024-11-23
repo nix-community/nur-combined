@@ -32,10 +32,10 @@
   #   #   PW uses ffmpeg-headless; not affected by `ffmpeg.override`. it directly calls into `libmysofa`
   #   withMysofa = true;
   # };
-  ffmpeg-full = super.ffmpeg-full.override {
-    # saves 20 minutes of build time and cross issues, for unused feature
-    withSamba = false;
-  };
+  # ffmpeg-full = super.ffmpeg-full.override {
+  #   # saves 20 minutes of build time and cross issues, for unused feature
+  #   withSamba = false;
+  # };
 
   # gnome-control-center = super.gnome-control-center.override {
   #   # i build goa without the "backend", to avoid webkit_4_1.
@@ -56,10 +56,10 @@
   #   # };
   # };
 
-  gvfs = super.gvfs.override {
-    # saves 20 minutes of build time and cross issues, for unused feature
-    samba = null;
-  };
+  # gvfs = super.gvfs.override {
+  #   # saves 20 minutes of build time and cross issues, for unused feature
+  #   samba = null;
+  # };
 
   # phog = super.phog.override {
   #   # disable squeekboard because it takes 20 minutes to compile when emulated
