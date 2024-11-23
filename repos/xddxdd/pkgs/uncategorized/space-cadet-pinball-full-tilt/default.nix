@@ -17,7 +17,7 @@ space-cadet-pinball.overrideAttrs (old: {
     (old.postInstall or "")
     + ''
       unzip ${fullTilt}
-      cp -r CADET/CADET.DAT CADET/SOUND $out/lib/SpaceCadetPinball/
+      cp -r CADET/CADET.DAT CADET/SOUND $out/share/SpaceCadetPinball/
     '';
 
   meta = old.meta // {
