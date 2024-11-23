@@ -771,10 +771,10 @@
     };
     "beyond-20" = buildFirefoxXpiAddon {
       pname = "beyond-20";
-      version = "2.9.8";
+      version = "2.10.0";
       addonId = "beyond20@kakaroto.homelinux.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4368887/beyond_20-2.9.8.xpi";
-      sha256 = "43a7fd8908d29a53381ead6db093b138c0695db415cf62cd574c3a614798e424";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4389930/beyond_20-2.10.0.xpi";
+      sha256 = "26a24d51cbb320e90fedf07c1a4d006c5ecfc694252e30e8e5365573f5843ff2";
       meta = with lib;
       {
         homepage = "https://beyond20.here-for-more.info";
@@ -788,8 +788,6 @@
           "*://app.roll20.net/editor/"
           "*://*.dndbeyond.com/*"
           "*://*.forge-vtt.com/game"
-          "*://discord.com/*"
-          "*://1199271093882589195.discordsays.com/*"
           "*://*.dndbeyond.com/*characters/*"
           "*://*.dndbeyond.com/characters"
           "*://*.dndbeyond.com/monsters/*"
@@ -804,6 +802,8 @@
           "*://*.dndbeyond.com/sources/*"
           "*://*.dndbeyond.com/classes/*"
           "*://*.dndbeyond.com/races/*"
+          "*://*.dndbeyond.com/species/*"
+          "*://*.dndbeyond.com/backgrounds/*"
           "*://app.roll20.net/editor/*"
         ];
         platforms = platforms.all;
@@ -2439,10 +2439,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.47.1";
+      version = "2.48.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4380976/dualsub-2.47.1.xpi";
-      sha256 = "1f2a8630f9d10808cf904926371131832aaf5d68cbf68bb3b67b03f8f063da91";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4393103/dualsub-2.48.0.xpi";
+      sha256 = "8022f0cd5ebf510897a63d574a07e03c5d60c93ee5a06e3d64b5987df5019a1c";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -5756,10 +5756,10 @@
     };
     "kagi-search" = buildFirefoxXpiAddon {
       pname = "kagi-search";
-      version = "0.7.2";
+      version = "0.7.3.1";
       addonId = "search@kagi.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4360390/kagi_search_for_firefox-0.7.2.xpi";
-      sha256 = "ea55fbfdc8afd574f954317c9ad0a63cd9a65387d2a1ef01ec230677d2098ed4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4389383/kagi_search_for_firefox-0.7.3.1.xpi";
+      sha256 = "0e2d167bc4797d8cc88b93c7fbf20a8709cbfd6a2f6277bfaed25c52083e32a6";
       meta = with lib;
       {
         homepage = "https://kagi.com";
