@@ -13,6 +13,7 @@ in
 {
   options = {
     virtualisation.kata-containers = {
+      enable = lib.mkEnableOption "Enable Kata Containers";
       imagePackage = lib.mkOption {
         type = lib.types.package;
         default = pkgs.kata-image;
@@ -32,7 +33,7 @@ in
       };
     };
   };
-  config = {
+  config = lib.mkIf cfg.enable {
     environment.etc."/etc/kata-containers/configuration.toml".source = configFile;
 
     systemd.tmpfiles.rules = [

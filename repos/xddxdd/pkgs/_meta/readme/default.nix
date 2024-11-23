@@ -17,6 +17,8 @@ let
     n: v: v != null && (builtins.tryEval v).success && !(isHiddenName n) && !(lib.isDerivation v)
   ) _packages;
 
+  deprecatedPackages = builtins.attrNames (builtins.readDir ../../deprecated);
+
   allPlatforms = [
     "x86_64-linux"
     "aarch64-linux"
@@ -24,32 +26,40 @@ let
 
   packageList =
     prefix: ps:
-    builtins.map
-      (
+    let
+      packageToMeta = n: v: rec {
+        path = n;
+        pname = v.pname or v.name or n;
+        version = v.version or "";
+        description = v.meta.description or "";
+        broken = v.meta.broken or false;
+        platforms = v.meta.platforms or [ ];
+        url = v.meta.homepage or null;
+        deprecated = builtins.elem n deprecatedPackages;
+
+        supportAllPlatforms = builtins.foldl' (a: b: a && b) true (
+          builtins.map (p: isTargetPlatform' p v) allPlatforms
+        );
+        platformTags = lib.flatten (
+          builtins.map (p: if isTargetPlatform' p v then [ p ] else [ ]) allPlatforms
+        );
+        tags =
+          (lib.optional broken "Broken")
+          ++ (lib.optional deprecated "Deprecated")
+          ++ (lib.optionals (!supportAllPlatforms) platformTags);
+      };
+      metaToString =
         v:
         "| ${lib.concatMapStringsSep " " (v: "`${v}`") v.tags} | `${v.path}` | ${
           if v.url != null then "[${v.pname}](${v.url})" else v.pname
-        } | ${v.version} | ${v.description} |"
-      )
-      (
-        lib.mapAttrsToList (n: v: rec {
-          path = n;
-          pname = v.pname or v.name or n;
-          version = v.version or "";
-          description = v.meta.description or "";
-          broken = v.meta.broken or false;
-          platforms = v.meta.platforms or [ ];
-          url = v.meta.homepage or null;
+        } | ${v.version} | ${v.description} |";
+      isBadPackage = p: builtins.elem "Deprecated" p.tags || builtins.elem "Broken" p.tags;
 
-          supportAllPlatforms = builtins.foldl' (a: b: a && b) true (
-            builtins.map (p: isTargetPlatform' p v) allPlatforms
-          );
-          platformTags = lib.flatten (
-            builtins.map (p: if isTargetPlatform' p v then [ p ] else [ ]) allPlatforms
-          );
-          tags = (lib.optional broken "Broken") ++ (lib.optionals (!supportAllPlatforms) platformTags);
-        }) (flattenPkgs' prefix "." ps)
-      );
+      packageList = lib.mapAttrsToList packageToMeta (flattenPkgs' prefix "." ps);
+      goodPackageList = builtins.filter (p: !isBadPackage p) packageList;
+      badPackageList = builtins.filter isBadPackage packageList;
+    in
+    builtins.map metaToString (goodPackageList ++ badPackageList);
 
   packageSetOutput =
     name: path: v:

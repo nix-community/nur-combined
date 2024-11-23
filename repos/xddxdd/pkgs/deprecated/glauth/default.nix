@@ -21,7 +21,7 @@ buildGoModule rec {
     homepage = "https://github.com/glauth/glauth";
     license = lib.licenses.mit;
     knownVulnerabilities = [
-      "glauth is available in nixpkgs by a different maintainer"
+      "${pname} is available in nixpkgs by a different maintainer"
     ];
   };
 }

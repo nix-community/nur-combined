@@ -16,7 +16,7 @@ buildGoModule rec {
     homepage = "https://github.com/ssut/payload-dumper-go";
     license = lib.licenses.asl20;
     knownVulnerabilities = [
-      "payload-dumper-go is available in nixpkgs by a different maintainer"
+      "${pname} is available in nixpkgs by a different maintainer"
     ];
   };
 }

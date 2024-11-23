@@ -470,7 +470,7 @@
     "version": "0.9.3"
   },
   "legacyPackages.x86_64-linux.dingtalk": {
-    "description": "DingTalk is an enterprise communication and collaboration platform developed by Alibaba Group",
+    "description": "Enterprise communication and collaboration platform developed by Alibaba Group",
     "pname": "dingtalk",
     "version": "7.6.15.4102301"
   },
@@ -610,7 +610,7 @@
     "version": "3.11.0"
   },
   "legacyPackages.x86_64-linux.kikoplay": {
-    "description": "KikoPlay - NOT ONLY A Full-Featured Danmu Player",
+    "description": "More than a Full-Featured Danmu Player",
     "pname": "kikoplay",
     "version": "1.0.3"
   },
@@ -3885,7 +3885,7 @@
     "version": "0.9.3"
   },
   "packages.x86_64-linux.dingtalk": {
-    "description": "DingTalk is an enterprise communication and collaboration platform developed by Alibaba Group",
+    "description": "Enterprise communication and collaboration platform developed by Alibaba Group",
     "pname": "dingtalk",
     "version": "7.6.15.4102301"
   },
@@ -4025,7 +4025,7 @@
     "version": "3.11.0"
   },
   "packages.x86_64-linux.kikoplay": {
-    "description": "KikoPlay - NOT ONLY A Full-Featured Danmu Player",
+    "description": "More than a Full-Featured Danmu Player",
     "pname": "kikoplay",
     "version": "1.0.3"
   },

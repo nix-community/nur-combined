@@ -21,7 +21,7 @@ let
     vendorHash = "sha256-jT0/4wjpj5kBULXIC+bupHOnp0n9sk4WJAC7hu6Cq1A=";
   };
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "kata-runtime";
   inherit (sources.kata-containers) version src;
 
@@ -60,5 +60,8 @@ stdenv.mkDerivation {
     description = "Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix)";
     homepage = "https://github.com/kata-containers/kata-containers";
     license = lib.licenses.asl20;
+    knownVulnerabilities = [
+      "${pname} is available in nixpkgs by a different maintainer"
+    ];
   };
 }
