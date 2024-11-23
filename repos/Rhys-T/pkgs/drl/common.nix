@@ -12,7 +12,7 @@
             # Music (according to <https://simonvolpert.com/drla/>)
             cc-by-sa-40
         ];
-        platforms = lib.intersectLists (lib.platforms.linux ++ lib.platforms.darwin) lib.platforms.x86_64;
+        platforms = lib.platforms.linux ++ lib.platforms.darwin;
         maintainers = [maintainers.Rhys-T];
     };
 }

@@ -76,6 +76,14 @@ in stdenv.mkDerivation rec {
                 /GetSymbolExt\s*:=/! d
             }
         ' "$FPCVALKYRIE_ROOT"/libs/vgl3library.pas
+    '' + lib.optionalString (!stdenv.hostPlatform.isx86_64) ''
+        sed -E -i '
+            s@Set8087CW@// &@g
+            /LoadFMOD/,/^end;/ {
+                /^begin/ a\
+                raise ELibraryError.Create('\'''FMOD support disabled - see <https://github.com/chaosforgeorg/doomrl/issues/46#issuecomment-2453210202>'\''');
+            }
+        ' "$FPCVALKYRIE_ROOT"/libs/vfmod2library.pas
     '';
     configurePhase = ''
         runHook preConfigure
