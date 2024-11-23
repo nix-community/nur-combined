@@ -487,7 +487,7 @@
   "legacyPackages.x86_64-linux.dpdk-kmod": {
     "description": "DPDK kernel modules or add-ons",
     "pname": "dpdk-kmod",
-    "version": "0-unstable-2023-02-05"
+    "version": "0-unstable-2024-11-20"
   },
   "legacyPackages.x86_64-linux.drone-file-secret": {
     "description": "Secret provider for Drone CI. It simply reads secrets from a given folder, suitable for private use Drone CI instances where running a Vault instance can be undesirable",
@@ -512,7 +512,7 @@
   "legacyPackages.x86_64-linux.fastapi-dls": {
     "description": "Minimal Delegated License Service (DLS)",
     "pname": "fastapi-dls",
-    "version": "1.3.12-unstable-2024-11-13"
+    "version": "1.3.12-unstable-2024-11-22"
   },
   "legacyPackages.x86_64-linux.fcitx5-breeze": {
     "description": "Fcitx5 theme to match KDE's Breeze style",
@@ -647,7 +647,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "4142"
+    "version": "4153"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -667,7 +667,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.telegram-desktop": {
     "description": "Telegram Desktop messaging app (Without anti-features)",
     "pname": "telegram-desktop",
-    "version": "5.7.1"
+    "version": "5.8.2"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.transmission-with-webui": {
     "description": "Fast, easy and free BitTorrent client",
@@ -677,222 +677,222 @@
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.generic-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.generic-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.generic-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-generic-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-generic-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-generic-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v1": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v1-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v1-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v1-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v2": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v2-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v2-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v2-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v3": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v3-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v3-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v3-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v4": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v4-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v4-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v4-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v1": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v1-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v1-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v1-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v2": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v2-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v2-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v2-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v3": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v3-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v3-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v3-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v4": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v4-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v4-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-x86_64-v4-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_0-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
@@ -1097,182 +1097,182 @@
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-generic-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-generic-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-generic-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v1": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v1-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v1-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v1-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v2": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v2-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v2-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v2-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v3": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v3-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v3-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v3-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v4": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v4-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v4-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.v6_6-x86_64-v4-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.6.62-xanmod1"
+    "version": "6.6.63-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v1": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v1-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v1-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v1-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v2": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v2-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v2-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v2-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v3": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v3-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v3-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v3-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v4": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v4-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v4-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v4-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.0-xanmod1"
+    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianPersonal.libltnginx": {
     "description": "Libltnginx",
@@ -1297,7 +1297,7 @@
   "legacyPackages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2024-11-13"
+    "version": "0-unstable-2024-11-21"
   },
   "legacyPackages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -1372,642 +1372,642 @@
   "legacyPackages.x86_64-linux.nvidia-grid.grid.11_8": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "450.191.01-6.6.62"
+    "version": "450.191.01-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.12_4": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "460.106.00-6.6.62"
+    "version": "460.106.00-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.13_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.63.01-6.6.62"
+    "version": "470.63.01-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.13_12": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.256.02-6.6.62"
+    "version": "470.256.02-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.13_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.129.06-6.6.62"
+    "version": "470.129.06-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.13_4": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.141.03-6.6.62"
+    "version": "470.141.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.13_5": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.161.03-6.6.62"
+    "version": "470.161.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.13_6": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.161.03-6.6.62"
+    "version": "470.161.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.13_7": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.182.03-6.6.62"
+    "version": "470.182.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.13_9": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.223.02-6.6.62"
+    "version": "470.223.02-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.14_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.47.03-6.6.62"
+    "version": "510.47.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.14_1": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.73.08-6.6.62"
+    "version": "510.73.08-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.14_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.85.02-6.6.62"
+    "version": "510.85.02-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.14_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.108.03-6.6.62"
+    "version": "510.108.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.14_4": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.108.03-6.6.62"
+    "version": "510.108.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.15_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.60.13-6.6.62"
+    "version": "525.60.13-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.15_1": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.85.05-6.6.62"
+    "version": "525.85.05-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.15_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.105.17-6.6.62"
+    "version": "525.105.17-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.15_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.125.06-6.6.62"
+    "version": "525.125.06-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.54.03-6.6.62"
+    "version": "535.54.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_1": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.104.05-6.6.62"
+    "version": "535.104.05-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.129.03-6.6.62"
+    "version": "535.129.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.154.05-6.6.62"
+    "version": "535.154.05-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_4": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.161.07-6.6.62"
+    "version": "535.161.07-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_5": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.161.08-6.6.62"
+    "version": "535.161.08-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_6": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.183.01-6.6.62"
+    "version": "535.183.01-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.16_7": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.183.06-6.6.62"
+    "version": "535.183.06-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.17_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.54.14-6.6.62"
+    "version": "550.54.14-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.17_1": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.54.15-6.6.62"
+    "version": "550.54.15-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.17_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.90.07-6.6.62"
+    "version": "550.90.07-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.17_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.90.07-6.6.62"
+    "version": "550.90.07-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.grid.9_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "430.63-6.6.62"
+    "version": "430.63-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.11_8": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "450.191.01-6.6.62"
+    "version": "450.191.01-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.12_4": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "460.106.00-6.6.62"
+    "version": "460.106.00-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.13_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.63.01-6.6.62"
+    "version": "470.63.01-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.13_12": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.256.02-6.6.62"
+    "version": "470.256.02-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.13_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.129.06-6.6.62"
+    "version": "470.129.06-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.13_4": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.141.03-6.6.62"
+    "version": "470.141.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.13_5": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.161.03-6.6.62"
+    "version": "470.161.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.13_6": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.161.03-6.6.62"
+    "version": "470.161.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.13_7": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.182.03-6.6.62"
+    "version": "470.182.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.13_9": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.223.02-6.6.62"
+    "version": "470.223.02-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.14_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.47.03-6.6.62"
+    "version": "510.47.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.14_1": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.73.08-6.6.62"
+    "version": "510.73.08-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.14_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.85.02-6.6.62"
+    "version": "510.85.02-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.14_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.108.03-6.6.62"
+    "version": "510.108.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.14_4": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.108.03-6.6.62"
+    "version": "510.108.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.15_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.60.13-6.6.62"
+    "version": "525.60.13-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.15_1": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.85.05-6.6.62"
+    "version": "525.85.05-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.15_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.105.17-6.6.62"
+    "version": "525.105.17-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.15_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.125.06-6.6.62"
+    "version": "525.125.06-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.54.03-6.6.62"
+    "version": "535.54.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_1": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.104.05-6.6.62"
+    "version": "535.104.05-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.129.03-6.6.62"
+    "version": "535.129.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.154.05-6.6.62"
+    "version": "535.154.05-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_4": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.161.07-6.6.62"
+    "version": "535.161.07-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_5": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.161.08-6.6.62"
+    "version": "535.161.08-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_6": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.183.01-6.6.62"
+    "version": "535.183.01-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.16_7": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.183.06-6.6.62"
+    "version": "535.183.06-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.17_0": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.54.14-6.6.62"
+    "version": "550.54.14-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.17_1": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.54.15-6.6.62"
+    "version": "550.54.15-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.17_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.90.07-6.6.62"
+    "version": "550.90.07-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.17_3": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.90.07-6.6.62"
+    "version": "550.90.07-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.guest.9_2": {
     "description": "NVIDIA vGPU guest driver (GRID driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "430.63-6.6.62"
+    "version": "430.63-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.11_8": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "450.191-6.6.62"
+    "version": "450.191-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.12_4": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "460.107-6.6.62"
+    "version": "460.107-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.13_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.63-6.6.62"
+    "version": "470.63-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.13_12": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.256.02-6.6.62"
+    "version": "470.256.02-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.13_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.129.04-6.6.62"
+    "version": "470.129.04-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.13_4": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.141.05-6.6.62"
+    "version": "470.141.05-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.13_5": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.161.02-6.6.62"
+    "version": "470.161.02-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.13_6": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.161.02-6.6.62"
+    "version": "470.161.02-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.13_7": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.182.02-6.6.62"
+    "version": "470.182.02-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.13_9": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.223.02-6.6.62"
+    "version": "470.223.02-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.14_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.47.03-6.6.62"
+    "version": "510.47.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.14_1": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.73.06-6.6.62"
+    "version": "510.73.06-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.14_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.85.03-6.6.62"
+    "version": "510.85.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.14_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.108.03-6.6.62"
+    "version": "510.108.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.14_4": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.108.03-6.6.62"
+    "version": "510.108.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.15_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.60.12-6.6.62"
+    "version": "525.60.12-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.15_1": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.85.07-6.6.62"
+    "version": "525.85.07-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.15_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.105.14-6.6.62"
+    "version": "525.105.14-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.15_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.125.03-6.6.62"
+    "version": "525.125.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.54.06-6.6.62"
+    "version": "535.54.06-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_1": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.104.06-6.6.62"
+    "version": "535.104.06-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.129.03-6.6.62"
+    "version": "535.129.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.154.02-6.6.62"
+    "version": "535.154.02-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_4": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.161.05-6.6.62"
+    "version": "535.161.05-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_5": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.161.05-6.6.62"
+    "version": "535.161.05-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_6": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.183.04-6.6.62"
+    "version": "535.183.04-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.16_7": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.183.04-6.6.62"
+    "version": "535.183.04-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.17_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.54.10-6.6.62"
+    "version": "550.54.10-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.17_1": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.54.16-6.6.62"
+    "version": "550.54.16-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.17_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.90.05-6.6.62"
+    "version": "550.90.05-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.17_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.90.05-6.6.62"
+    "version": "550.90.05-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.host.9_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "430.67-6.6.62"
+    "version": "430.67-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.11_8": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "450.191-6.6.62"
+    "version": "450.191-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.12_4": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "460.107-6.6.62"
+    "version": "460.107-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.13_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.63-6.6.62"
+    "version": "470.63-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.13_12": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.256.02-6.6.62"
+    "version": "470.256.02-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.13_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.129.04-6.6.62"
+    "version": "470.129.04-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.13_4": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.141.05-6.6.62"
+    "version": "470.141.05-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.13_5": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.161.02-6.6.62"
+    "version": "470.161.02-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.13_6": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.161.02-6.6.62"
+    "version": "470.161.02-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.13_7": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.182.02-6.6.62"
+    "version": "470.182.02-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.13_9": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "470.223.02-6.6.62"
+    "version": "470.223.02-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.14_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.47.03-6.6.62"
+    "version": "510.47.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.14_1": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.73.06-6.6.62"
+    "version": "510.73.06-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.14_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.85.03-6.6.62"
+    "version": "510.85.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.14_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.108.03-6.6.62"
+    "version": "510.108.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.14_4": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "510.108.03-6.6.62"
+    "version": "510.108.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.15_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.60.12-6.6.62"
+    "version": "525.60.12-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.15_1": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.85.07-6.6.62"
+    "version": "525.85.07-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.15_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.105.14-6.6.62"
+    "version": "525.105.14-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.15_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "525.125.03-6.6.62"
+    "version": "525.125.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.54.06-6.6.62"
+    "version": "535.54.06-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_1": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.104.06-6.6.62"
+    "version": "535.104.06-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.129.03-6.6.62"
+    "version": "535.129.03-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.154.02-6.6.62"
+    "version": "535.154.02-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_4": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.161.05-6.6.62"
+    "version": "535.161.05-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_5": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.161.05-6.6.62"
+    "version": "535.161.05-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_6": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.183.04-6.6.62"
+    "version": "535.183.04-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.16_7": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "535.183.04-6.6.62"
+    "version": "535.183.04-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.17_0": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.54.10-6.6.62"
+    "version": "550.54.10-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.17_1": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.54.16-6.6.62"
+    "version": "550.54.16-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.17_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.90.05-6.6.62"
+    "version": "550.90.05-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.17_3": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "550.90.05-6.6.62"
+    "version": "550.90.05-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvidia-grid.vgpu.9_2": {
     "description": "NVIDIA vGPU host driver (vGPU-KVM driver, experimental package)",
     "pname": "nvidia-x11",
-    "version": "430.67-6.6.62"
+    "version": "430.67-6.6.63"
   },
   "legacyPackages.x86_64-linux.nvlax": {
     "description": "Future-proof NvENC & NvFBC patcher",
@@ -3412,7 +3412,7 @@
   "legacyPackages.x86_64-linux.payload-dumper-go": {
     "description": "Android OTA payload dumper written in Go",
     "pname": "payload-dumper-go",
-    "version": "1.2.2"
+    "version": "1.3.0"
   },
   "legacyPackages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
@@ -3502,7 +3502,7 @@
   "legacyPackages.x86_64-linux.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2024-11-19"
+    "version": "0-unstable-2024-11-23"
   },
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -3532,7 +3532,7 @@
   "legacyPackages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2024-11-19"
+    "version": "0-unstable-2024-11-22"
   },
   "legacyPackages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -3552,7 +3552,7 @@
   "legacyPackages.x86_64-linux.runpod-python": {
     "description": "Python library for RunPod API and serverless worker SDK",
     "pname": "python3.12-runpod-python",
-    "version": "1.7.4"
+    "version": "1.7.5"
   },
   "legacyPackages.x86_64-linux.runpodctl": {
     "description": "RunPod CLI for pod management",
@@ -3677,7 +3677,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2024-11-19"
+    "version": "0-unstable-2024-11-21"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -3902,7 +3902,7 @@
   "packages.x86_64-linux.dpdk-kmod": {
     "description": "DPDK kernel modules or add-ons",
     "pname": "dpdk-kmod",
-    "version": "0-unstable-2023-02-05"
+    "version": "0-unstable-2024-11-20"
   },
   "packages.x86_64-linux.drone-file-secret": {
     "description": "Secret provider for Drone CI. It simply reads secrets from a given folder, suitable for private use Drone CI instances where running a Vault instance can be undesirable",
@@ -3927,7 +3927,7 @@
   "packages.x86_64-linux.fastapi-dls": {
     "description": "Minimal Delegated License Service (DLS)",
     "pname": "fastapi-dls",
-    "version": "1.3.12-unstable-2024-11-13"
+    "version": "1.3.12-unstable-2024-11-22"
   },
   "packages.x86_64-linux.fcitx5-breeze": {
     "description": "Fcitx5 theme to match KDE's Breeze style",
@@ -4072,7 +4072,7 @@
   "packages.x86_64-linux.liboqs-unstable": {
     "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
     "pname": "liboqs",
-    "version": "0-unstable-2024-11-13"
+    "version": "0-unstable-2024-11-21"
   },
   "packages.x86_64-linux.libqcef": {
     "description": "Qt5 binding of CEF",
@@ -4212,7 +4212,7 @@
   "packages.x86_64-linux.payload-dumper-go": {
     "description": "Android OTA payload dumper written in Go",
     "pname": "payload-dumper-go",
-    "version": "1.2.2"
+    "version": "1.3.0"
   },
   "packages.x86_64-linux.peerbanhelper": {
     "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
@@ -4297,7 +4297,7 @@
   "packages.x86_64-linux.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2024-11-19"
+    "version": "0-unstable-2024-11-23"
   },
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -4327,7 +4327,7 @@
   "packages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2024-11-19"
+    "version": "0-unstable-2024-11-22"
   },
   "packages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -4347,7 +4347,7 @@
   "packages.x86_64-linux.runpod-python": {
     "description": "Python library for RunPod API and serverless worker SDK",
     "pname": "python3.12-runpod-python",
-    "version": "1.7.4"
+    "version": "1.7.5"
   },
   "packages.x86_64-linux.runpodctl": {
     "description": "RunPod CLI for pod management",
@@ -4432,7 +4432,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2024-11-19"
+    "version": "0-unstable-2024-11-21"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
