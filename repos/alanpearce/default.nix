@@ -14,7 +14,6 @@
   modules = import ./modules/nixos; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  prettier-plugin-go-template = pkgs.callPackage ./pkgs/prettier-plugin-go-template { };
   htmlformat = pkgs.callPackage ./pkgs/htmlformat { };
   emacs-unlimited-select = pkgs.callPackage ./pkgs/emacs-unlimited-select { };
   porto = pkgs.callPackage ./pkgs/porto { };
