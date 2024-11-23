@@ -48,14 +48,16 @@ python3Packages.buildPythonApplication rec {
     (toFile "message-packet.patch" ''
       --- a/matrix_utils.py
       +++ b/matrix_utils.py
-      @@ -128,3 +128,3 @@
-       # Send message to the Matrix room
+      @@ -2,2 +2,3 @@
+       import io
+      +import json
+       import re
+      @@ -129 +130 @@
       -async def matrix_relay(room_id, message, longname, shortname, meshnet_name, portnum):
       +async def matrix_relay(room_id, message, longname, shortname, meshnet_name, portnum, packet):
-           matrix_client = await connect_matrix()
-      @@ -138,2 +138,3 @@
+      @@ -138,2 +139,3 @@ async def matrix_relay(room_id, message, longname, shortname, meshnet_name, port
                    "meshtastic_portnum": portnum,
-      +            "meshtastic_packet": packet
+      +            "meshtastic_packet": json.dumps(packet)
                }
       --- a/meshtastic_utils.py
       +++ b/meshtastic_utils.py
