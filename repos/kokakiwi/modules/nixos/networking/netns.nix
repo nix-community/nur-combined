@@ -135,13 +135,13 @@ in {
 
       before = [ "network.target" ];
 
-      path = [ pkgs.iproute ] ++ extraPath;
+      path = [ pkgs.iproute2 ] ++ extraPath;
 
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
 
-        ExecStartPre = "-${pkgs.iproute}/bin/ip netns delete ${name}";
+        ExecStartPre = "-ip netns delete ${name}";
         ExecStart = pkgs.writeShellScript "netns-${name}-up" ''
           set -eo
 

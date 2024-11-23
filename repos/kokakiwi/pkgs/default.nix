@@ -42,6 +42,7 @@ let
     paru = { };
     ots-cli = {
       _common = "ots";
+      buildGoModule = pkgs.buildGo123Module;
     };
     sccache = { };
     streampager = { };
@@ -58,6 +59,7 @@ let
     };
     ots = {
       _common = "ots";
+      buildGoModule = pkgs.buildGo123Module;
     };
     piped-proxy = { };
   };
