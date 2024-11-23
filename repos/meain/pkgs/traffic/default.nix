@@ -1,6 +1,6 @@
-{ lib, python39Packages, fetchFromGitHub }:
+{ lib, python3Packages, fetchFromGitHub }:
 
-python39Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "traffic";
   version = "0.5.3";
   format = "pyproject";
@@ -12,7 +12,7 @@ python39Packages.buildPythonPackage rec {
     sha256 = "sha256-gHy1lD16U3ngsoHQeBmzvDOAYzD7a/t9s4shcJXSskI=";
   };
 
-  propagatedBuildInputs = with python39Packages;[ setuptools psutil ];
+  propagatedBuildInputs = with python3Packages;[ setuptools psutil ];
 
   meta = with lib; {
     description = "View network up/down speeds and usage";
