@@ -76,10 +76,7 @@
           export PYTHONPATH=${pkgs.python3Packages.packaging}/lib/python${pkgs.python3.pythonVersion}/site-packages:''${PYTHONPATH:-}
           ${inputs'.nvfetcher.packages.default}/bin/nvfetcher $KEY_FLAG -c nvfetcher.toml -o _sources "$@"
 
-          # Postprocess _sources/generated.nix
-          sed -i "/ = false;/d" _sources/generated.nix
-          sed -i "/ = \[ \];/d" _sources/generated.nix
-          sed -i "s/sha256 = \"/hash = \"/g" _sources/generated.nix
+          python3 tools/postprocess_nvfetcher.py
 
           ${readme}
         '';

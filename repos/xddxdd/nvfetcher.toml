@@ -545,6 +545,10 @@ src.git = "https://github.com/Quantum-Safe-Collaboration/qsc-key-encoder.git"
 fetch.github = "Quantum-Safe-Collaboration/qsc-key-encoder"
 
 [qsp]
+src.git = "https://github.com/QSPFoundation/qspgui.git"
+fetch.github = "QSPFoundation/qspgui"
+
+[qsp-stable]
 src.github = "QSPFoundation/qspgui"
 fetch.github = "QSPFoundation/qspgui"
 
@@ -554,7 +558,7 @@ fetch.github = "QSPFoundation/qsp"
 
 [qsp-wx]
 src.webpage = "https://raw.githubusercontent.com/QSPFoundation/qspgui/refs/heads/master/CMakeLists-wxWidgets.txt.in"
-src.regex = "GIT_TAG\\s+([0-9a-f]{32})"
+src.regex = "GIT_TAG\\s+([0-9a-f]{40})"
 git.fetchSubmodules = true
 fetch.github = "wxWidgets/wxWidgets"
 
