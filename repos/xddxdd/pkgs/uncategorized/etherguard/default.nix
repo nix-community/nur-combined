@@ -14,5 +14,6 @@ buildGoModule rec {
     description = "Layer 2 version of WireGuard with Floyd Warshall implementation in Go";
     homepage = "https://github.com/KusakabeShi/EtherGuard-VPN";
     license = lib.licenses.mit;
+    platforms = lib.platforms.linux;
   };
 }

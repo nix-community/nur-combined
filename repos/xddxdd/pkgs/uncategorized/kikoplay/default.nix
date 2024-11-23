@@ -31,14 +31,16 @@ stdenv.mkDerivation rec {
   patches = [ ./change-install-path.patch ];
 
   postPatch = ''
-    sed -i "s|OUTPATH|$out|g" KikoPlay.pro
-    sed -i "s|liblua53.a|${lua5_3_compat}/lib/liblua.so.5.3|g" KikoPlay.pro
+    substituteInPlace KikoPlay.pro \
+      --replace-fail "OUTPATH" "$out" \
+      --replace-fail "liblua53.a" "${lua5_3_compat}/lib/liblua.so.5.3"
 
-    sed -i "s|/usr/share/pixmaps/kikoplay.png|$out/share/pixmaps/kikoplay.png|g" kikoplay.desktop
-    sed -i "s|/usr/share/kikoplay/|$out/share/kikoplay/|g" \
-      Extension/App/appmanager.cpp \
-      Extension/Script/scriptmanager.cpp \
-      LANServer/router.cpp
+    substituteInPlace kikoplay.desktop \
+      --replace-fail "/usr/share/pixmaps/kikoplay.png" "$out/share/pixmaps/kikoplay.png"
+
+    for F in Extension/App/appmanager.cpp Extension/Script/scriptmanager.cpp LANServer/router.cpp; do
+      substituteInPlace "$F" --replace-fail "/usr/share/kikoplay/" "$out/share/kikoplay/"
+    done
   '';
 
   qmakeFlags = [ "KikoPlay.pro" ];
@@ -62,7 +64,7 @@ stdenv.mkDerivation rec {
   meta = {
     mainProgram = "KikoPlay";
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "KikoPlay - NOT ONLY A Full-Featured Danmu Player";
+    description = "More than a Full-Featured Danmu Player";
     homepage = "https://kikoplay.fun";
     license = lib.licenses.gpl3Only;
   };

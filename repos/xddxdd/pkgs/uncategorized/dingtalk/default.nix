@@ -163,50 +163,13 @@ stdenv.mkDerivation rec {
     mv opt/apps/com.alibabainc.dingtalk/files/*-Release.* release
 
     # Cleanup
-    rm -f release/{*.a,*.la,*.prl}
-    rm -f release/dingtalk_crash_report
-    rm -f release/dingtalk_updater
-    rm -f release/libapr*
-    rm -f release/libcrypto.so.*
-    rm -f release/libcurl.so.*
-    rm -f release/libdouble-conversion.so.*
-    rm -f release/libEGL*
-    rm -f release/libfontconfig*
-    rm -f release/libfreetype*
-    rm -f release/libfribidi*
-    rm -f release/libgbm.*
-    rm -f release/libgdk*
-    rm -f release/libGLES*
-    rm -f release/libgtk*
-    rm -f release/libgtk-x11-2.0.so.*
-    rm -f release/libharfbuzz*
-    rm -f release/libicu*
-    rm -f release/libidn2*
-    rm -f release/libjpeg*
-    rm -f release/libm.so.*
-    rm -f release/libnghttp2*
-    rm -f release/libpango-1.0.*
-    rm -f release/libpangocairo-1.0.*
-    rm -f release/libpangoft2-1.0.*
-    rm -f release/libpcre2*
-    rm -f release/libpng*
-    rm -f release/libpsl*
-    rm -f release/libQt5*
-    rm -f release/libssh2*
-    rm -f release/libssl.*
-    rm -f release/libstdc++.so.6
-    rm -f release/libstdc++*
-    rm -f release/libunistring*
-    rm -f release/libvk*
-    rm -f release/libvulkan*
-    rm -f release/libxcb*
-    rm -f release/libz*
-    rm -rf release/engines-1_1
-    rm -rf release/imageformats
-    rm -rf release/platform*
+    rm -f release/{*.a,*.la,*.prl,dingtalk_crash_report,dingtalk_updater,libapr*,libcrypto.so.*,libcurl.so.*}
+    rm -f release/{libdouble-conversion.so.*,libEGL*,libfontconfig*,libfreetype*,libfribidi*,libgbm.*,libgdk*,libGLES*}
+    rm -f release/{libgtk*,libgtk-x11-2.0.so.*,libharfbuzz*,libicu*,libidn2*,libjpeg*,libm.so.*,libnghttp2*}
+    rm -f release/{libpango-1.0.*,libpangocairo-1.0.*,libpangoft2-1.0.*,libpcre2*,libpng*,libpsl*,libQt5*,libssh2*}
+    rm -f release/{libssl.*,libstdc++.so.6,libstdc++*,libunistring*,libvk*,libvulkan*,libxcb*,libz*}
+    rm -rf release/{engines-1_1,imageformats,platform*,swiftshader,xcbglintegrations}
     rm -rf release/Resources/{i18n/tool/*.exe,qss/mac}
-    rm -rf release/swiftshader
-    rm -rf release/xcbglintegrations
 
     runHook postUnpack
   '';
@@ -257,7 +220,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];
-    description = "DingTalk is an enterprise communication and collaboration platform developed by Alibaba Group";
+    description = "Enterprise communication and collaboration platform developed by Alibaba Group";
     homepage = "https://www.dingtalk.com/";
     platforms = [ "x86_64-linux" ];
     license = lib.licenses.unfreeRedistributable;

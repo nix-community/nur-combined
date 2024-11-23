@@ -22,6 +22,13 @@ class NvfetcherDefinition:
     def src_func(self) -> str:
         return re.search(r"^(\S+)", self.src)[1]
 
+    def src_with_version_replacement(self, final_attrs: bool = False):
+        version_eval = ast.literal_eval(self.version)
+        if final_attrs:
+            return self.src.replace(version_eval, "${finalAttrs.version}")
+        else:
+            return self.src.replace(version_eval, "${version}")
+
     @staticmethod
     def load(package: str) -> "NvfetcherDefinition":
         with open("_sources/generated.nix") as f:
@@ -66,6 +73,8 @@ def substitute_nvfetcher_references(
     nix_file: str, ref_name: str, ref_value: NvfetcherDefinition
 ) -> str:
     result = nix_file
+    use_final_attrs = "finalAttrs:" in result
+    print(f"use_final_attrs: {use_final_attrs}")
 
     # Step 1: replace "inherit (sources.xxx) pname version src;"
     def replace_inherit(match: re.Match[str]) -> str:
@@ -77,7 +86,9 @@ def substitute_nvfetcher_references(
         if "version" in fields:
             result += f"version = {ref_value.version};\n"
         if "src" in fields:
-            result += f"src = {ref_value.src};\n"
+            result += (
+                f"src = {ref_value.src_with_version_replacement(use_final_attrs)};\n"
+            )
 
         return result
 
@@ -91,7 +102,7 @@ def substitute_nvfetcher_references(
         elif match[2] == "version":
             result = ref_value.version
         elif match[2] == "src":
-            result = f"({ref_value.src})"
+            result = f"({ref_value.src_with_version_replacement(use_final_attrs)})"
         else:
             result = match[2]
 
