@@ -1,22 +1,23 @@
 { fetchFromGitHub
-, gitUpdater
 , lib
 , python3Packages
+, unstableGitUpdater
 }:
 
 let
   inherit (builtins) toFile;
+  inherit (lib) replaceStrings;
 in
 python3Packages.buildPythonApplication rec {
   pname = "meshtastic-matrix-relay";
-  version = "0.8.7";
+  version = "0.8.7-unstable-2024-11-23";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "geoffwhittington";
     repo = "meshtastic-matrix-relay";
-    rev = version;
-    hash = "sha256-zNk8dxX5Lnfa1/z9XUGHQ1QvQq+vyeU7NZ2w3E0wAsg=";
+    rev = "29b2946485174651f43f77978c7bc4dfbe6c91e7";
+    hash = "sha256-3+lGa97Nxy/YhKT0lvlApfVvMauNiUfWC2LKjMeARnc=";
   };
 
   patches = [
@@ -28,7 +29,22 @@ python3Packages.buildPythonApplication rec {
       +config_path = os.getenv("CONFIG_PATH")
     '')
 
-    (toFile "log-no-timestamp.patch" ''
+    (toFile "debug-filter.patch" ''
+      --- a/plugins/debug_plugin.py
+      +++ b/plugins/debug_plugin.py
+      @@ -10,2 +10,9 @@ class Plugin(BasePlugin):
+           ):
+      +        if (
+      +            "decoded" in packet
+      +            and "portnum" in packet["decoded"]
+      +            and packet["decoded"]["portnum"] == "TELEMETRY_APP"
+      +        ):
+      +            return False
+      +
+               packet = self.strip_raw(packet)
+    '')
+
+    (toFile "log-format.patch" ''
       --- a/log_utils.py
       +++ b/log_utils.py
       @@ -16 +16 @@
@@ -39,7 +55,7 @@ python3Packages.buildPythonApplication rec {
     (toFile "message-format.patch" ''
       --- a/meshtastic_utils.py
       +++ b/meshtastic_utils.py
-      @@ -289 +289,2 @@
+      @@ -328 +328,2 @@
       -        formatted_message = f"[{longname}/{meshnet_name}]: {text}"
       +        display_name = shortname if longname == sender else f"{longname} ({shortname})"
       +        formatted_message = f"[{display_name}]: {text}"
@@ -55,13 +71,13 @@ python3Packages.buildPythonApplication rec {
       @@ -129 +130 @@
       -async def matrix_relay(room_id, message, longname, shortname, meshnet_name, portnum):
       +async def matrix_relay(room_id, message, longname, shortname, meshnet_name, portnum, packet):
-      @@ -138,2 +139,3 @@ async def matrix_relay(room_id, message, longname, shortname, meshnet_name, port
+      @@ -138,2 +139,3 @@
                    "meshtastic_portnum": portnum,
       +            "meshtastic_packet": json.dumps(packet)
                }
       --- a/meshtastic_utils.py
       +++ b/meshtastic_utils.py
-      @@ -322,2 +323,3 @@
+      @@ -363,2 +364,3 @@
                                decoded.get("portnum"),
       +                        packet
                            ),
@@ -73,7 +89,7 @@ python3Packages.buildPythonApplication rec {
       @@ -0,0 +1,22 @@
       +[project]
       +name = "${pname}"
-      +version = "${version}"
+      +version = "${replaceStrings ["-unstable"] ["+unstable"] version}"
       +
       +[project.scripts]
       +${meta.mainProgram} = "main:main_sync"
@@ -119,7 +135,7 @@ python3Packages.buildPythonApplication rec {
     schedule
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = {
     description = "Relay between a Matrix room and a Meshtastic radio";
