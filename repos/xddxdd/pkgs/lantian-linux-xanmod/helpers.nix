@@ -121,13 +121,15 @@ rec {
                   *-bbr2.patch) continue;;
                   *-bbr3.patch) continue;;
                   *-futex-winesync.patch) continue;;
+                  *-amd-cache-optimizer.patch) continue;;
 
                   # Patches that conflict with Xanmod
                   *-cachy.patch) continue;;
                   *-clr.patch) continue;;
                   *-fixes.patch) continue;;
                   *-mm-*.patch) continue;;
-                  ${lib.optionalString (lib.versionAtLeast "6.11" major) "*-ntsync.patch) continue;;"}
+                  *-t2.patch) continue;;
+                  ${lib.optionalString (lib.versionAtLeast major "6.11") "*-ntsync.patch) continue;;"}
                 esac
 
                 cat "$F" >> $out

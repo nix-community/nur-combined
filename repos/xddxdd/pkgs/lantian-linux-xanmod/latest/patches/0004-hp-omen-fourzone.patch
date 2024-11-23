@@ -1,5 +1,5 @@
 diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
-index 876e0a97cee1..d30211e1c44c 100644
+index 8c05e0dd2a21..d202791a50e6 100644
 --- a/drivers/platform/x86/hp/hp-wmi.c
 +++ b/drivers/platform/x86/hp/hp-wmi.c
 @@ -9,6 +9,9 @@
@@ -85,30 +85,7 @@ index 876e0a97cee1..d30211e1c44c 100644
  /* map output size to the corresponding WMI method id */
  static inline int encode_outsize_for_pvsz(int outsize)
  {
-@@ -844,6 +878,14 @@ static void hp_wmi_notify(u32 value, void *context)
- 	int key_code;
- 
- 	status = wmi_get_event_data(value, &response);
-+	if (status == AE_NOT_FOUND)
-+	{
-+		// We've been woken up without any event data
-+		// Some models do this when the Omen hotkey is pressed
-+		event_id = HPWMI_OMEN_KEY;
-+		goto next;
-+	}
-+
- 	if (status != AE_OK) {
- 		pr_info("bad event status 0x%x\n", status);
- 		return;
-@@ -877,6 +919,7 @@ static void hp_wmi_notify(u32 value, void *context)
- 	}
- 	kfree(obj);
- 
-+next:
- 	switch (event_id) {
- 	case HPWMI_DOCK_EVENT:
- 		if (test_bit(SW_DOCK, hp_wmi_input_dev->swbit))
-@@ -1652,6 +1695,302 @@ static int thermal_profile_setup(void)
+@@ -1638,6 +1672,302 @@ static int thermal_profile_setup(void)
  
  static int hp_wmi_hwmon_init(void);
  
@@ -411,7 +388,7 @@ index 876e0a97cee1..d30211e1c44c 100644
  static int __init hp_wmi_bios_setup(struct platform_device *device)
  {
  	int err;
-@@ -1677,6 +2016,10 @@ static int __init hp_wmi_bios_setup(struct platform_device *device)
+@@ -1663,6 +1993,10 @@ static int __init hp_wmi_bios_setup(struct platform_device *device)
  	if (err < 0)
  		return err;
  
@@ -422,7 +399,7 @@ index 876e0a97cee1..d30211e1c44c 100644
  	thermal_profile_setup();
  
  	return 0;
-@@ -1706,6 +2049,8 @@ static void __exit hp_wmi_bios_remove(struct platform_device *device)
+@@ -1692,6 +2026,8 @@ static void __exit hp_wmi_bios_remove(struct platform_device *device)
  
  	if (platform_profile_support)
  		platform_profile_remove();
