@@ -37,7 +37,7 @@ python3Packages.buildPythonApplication rec {
       +        if (
       +            "decoded" in packet
       +            and "portnum" in packet["decoded"]
-      +            and packet["decoded"]["portnum"] in ["POSITION_APP", "TELEMETRY_APP"]
+      +            and packet["decoded"]["portnum"] in ["NODEINFO_APP", "POSITION_APP", "TELEMETRY_APP"]
       +        ):
       +            return False
       +
