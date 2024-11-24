@@ -519,6 +519,11 @@
     "pname": "fcitx5-breeze",
     "version": "3.1.0"
   },
+  "legacyPackages.x86_64-linux.flaresolverr-21hsmw": {
+    "description": "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver",
+    "pname": "flaresolverr",
+    "version": "21hsmw-0-unstable-2024-11-01"
+  },
   "legacyPackages.x86_64-linux.flasgger": {
     "description": "Easy OpenAPI specs and Swagger UI for your Flask API",
     "pname": "python3.12-flasgger",
@@ -3933,6 +3938,11 @@
     "description": "Fcitx5 theme to match KDE's Breeze style",
     "pname": "fcitx5-breeze",
     "version": "3.1.0"
+  },
+  "packages.x86_64-linux.flaresolverr-21hsmw": {
+    "description": "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver",
+    "pname": "flaresolverr",
+    "version": "21hsmw-0-unstable-2024-11-01"
   },
   "packages.x86_64-linux.flasgger": {
     "description": "Easy OpenAPI specs and Swagger UI for your Flask API",

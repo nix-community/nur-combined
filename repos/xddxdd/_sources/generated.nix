@@ -403,6 +403,17 @@
       hash = "sha256-rRVRUY69M5Nz8MwarePlqy2JIOX8MP0nz6Ia2pwmkTA=";
     };
   };
+  flaresolverr-21hsmw = {
+    pname = "flaresolverr-21hsmw";
+    version = "e7880c8a5de7914a6c7039b66a8b0ff143adee29";
+    src = fetchFromGitHub {
+      owner = "21hsmw";
+      repo = "FlareSolverr";
+      rev = "e7880c8a5de7914a6c7039b66a8b0ff143adee29";
+      hash = "sha256-VVr9tDOE15gqYmi9AHwUkbY7LmBGrQeeenXfp21PEKY=";
+    };
+    date = "2024-11-01";
+  };
   flasgger = {
     pname = "flasgger";
     version = "0.9.5";

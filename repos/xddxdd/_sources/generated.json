@@ -773,6 +773,27 @@
         },
         "version": "3.1.0"
     },
+    "flaresolverr-21hsmw": {
+        "cargoLocks": null,
+        "date": "2024-11-01",
+        "extract": null,
+        "name": "flaresolverr-21hsmw",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "21hsmw",
+            "repo": "FlareSolverr",
+            "rev": "e7880c8a5de7914a6c7039b66a8b0ff143adee29",
+            "sha256": "sha256-VVr9tDOE15gqYmi9AHwUkbY7LmBGrQeeenXfp21PEKY=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "e7880c8a5de7914a6c7039b66a8b0ff143adee29"
+    },
     "flasgger": {
         "cargoLocks": null,
         "date": null,

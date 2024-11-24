@@ -176,6 +176,10 @@ fetch.url = "https://gitlab.com/scratch-er/fcitx5-breeze/-/archive/v$ver/fcitx5-
 src.github = "flasgger/flasgger"
 fetch.github = "flasgger/flasgger"
 
+[flaresolverr-21hsmw]
+src.git = "https://github.com/21hsmw/FlareSolverr.git"
+fetch.github = "21hsmw/FlareSolverr"
+
 [ftp-proxy]
 src.webpage = "http://www.ftpproxy.org/download/"
 src.regex = "\"ftpproxy-([0-9\\.]+).tgz\""
