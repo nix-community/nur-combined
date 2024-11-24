@@ -477,7 +477,7 @@
   "legacyPackages.x86_64-linux.dn42-pingfinder": {
     "description": "DN42 Pingfinder",
     "pname": "dn42-pingfinder",
-    "version": "0-unstable-2022-11-06"
+    "version": "1.2.1-unstable-2022-11-06"
   },
   "legacyPackages.x86_64-linux.douban-openapi-server": {
     "description": "Douban API server that provides an unofficial APIs for media information gathering",
@@ -3892,7 +3892,7 @@
   "packages.x86_64-linux.dn42-pingfinder": {
     "description": "DN42 Pingfinder",
     "pname": "dn42-pingfinder",
-    "version": "0-unstable-2022-11-06"
+    "version": "1.2.1-unstable-2022-11-06"
   },
   "packages.x86_64-linux.douban-openapi-server": {
     "description": "Douban API server that provides an unofficial APIs for media information gathering",

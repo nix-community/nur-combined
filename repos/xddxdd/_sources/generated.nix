@@ -315,6 +315,14 @@
     };
     date = "2022-11-06";
   };
+  dn42-pingfinder-stable = {
+    pname = "dn42-pingfinder-stable";
+    version = "1.2.1";
+    src = fetchurl {
+      url = "https://example.com";
+      hash = "sha256-6o+sfGX7WJsNU1YPUlH3T56bJDR43Laz6nm142RJyNk=";
+    };
+  };
   douban-openapi-server = {
     pname = "douban-openapi-server";
     version = "c7e2a0f59ba5cfb2d10a31013547686a4afab99d";

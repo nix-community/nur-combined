@@ -133,6 +133,11 @@ fetch.url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/
 src.git = "https://git.lantian.pub/backup/dn42-pingfinder.git"
 fetch.git = "https://git.lantian.pub/backup/dn42-pingfinder.git"
 
+[dn42-pingfinder-stable]
+src.webpage = "https://git.lantian.pub/backup/dn42-pingfinder/raw/branch/master/index.php"
+src.regex = "\\$script_version = '([0-9\\.]+)';"
+fetch.url = "https://example.com"
+
 [douban-openapi-server]
 src.git = "https://github.com/caryyu/douban-openapi-server.git"
 fetch.github = "caryyu/douban-openapi-server"

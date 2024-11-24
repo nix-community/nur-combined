@@ -604,6 +604,21 @@
         },
         "version": "8fd1af682dd6fab6bee6a72f44b8157661b7b65b"
     },
+    "dn42-pingfinder-stable": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "dn42-pingfinder-stable",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-6o+sfGX7WJsNU1YPUlH3T56bJDR43Laz6nm142RJyNk=",
+            "type": "url",
+            "url": "https://example.com"
+        },
+        "version": "1.2.1"
+    },
     "douban-openapi-server": {
         "cargoLocks": null,
         "date": "2022-12-17",
