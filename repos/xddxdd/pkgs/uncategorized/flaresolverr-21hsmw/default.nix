@@ -58,6 +58,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
+    mainProgram = "flaresolverr";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver";
     homepage = "https://github.com/21hsmw/FlareSolverr";

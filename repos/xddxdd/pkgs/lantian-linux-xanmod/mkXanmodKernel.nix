@@ -6,17 +6,18 @@
   runCommandNoCC,
   ...
 }:
+args:
 let
   helpers = callPackage ../../helpers/kernel { inherit mode; };
   inherit (helpers) contentAddressedFlag mkKernel;
 
-  combinedPatchFromCachyOS =
-    version:
-    let
-      splitted = lib.splitString "-" version;
-      ver0 = builtins.elemAt splitted 0;
-      major = lib.versions.pad 2 ver0;
+  splitted = lib.splitString "-" args.version;
+  ver0 = builtins.elemAt splitted 0;
+  ver1 = builtins.elemAt splitted 1;
+  major = lib.versions.pad 2 ver0;
 
+  combinedPatchFromCachyOS =
+    let
       cachyDir = sources.cachyos-kernel-patches.src + "/${major}";
     in
     rec {
@@ -50,14 +51,13 @@ let
         ''
       );
     };
-in
-args:
-let
+
   kernelPackage = mkKernel (
     lib.recursiveUpdate args {
       pname = "linux-xanmod-${args.pname}";
+      modDirSuffix = "-lantian-${ver1}";
       extraPatches = [
-        (combinedPatchFromCachyOS args.version)
+        combinedPatchFromCachyOS
       ] ++ (args.extraPatches or [ ]);
       extraArgs = lib.recursiveUpdate {
         extraMeta = {

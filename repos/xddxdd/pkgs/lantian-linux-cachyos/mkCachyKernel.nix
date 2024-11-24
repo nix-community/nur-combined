@@ -22,7 +22,14 @@ let
     lib.recursiveUpdate args rec {
       pname = "linux-cachyos-${args.pname}";
 
-      structuredExtraConfig = cachyosConfig // customConfig;
+      structuredExtraConfig =
+        cachyosConfig
+        // customConfig
+        // {
+          LOCALVERSION = lib.kernel.freeform "-lantian-cachy";
+        };
+
+      modDirSuffix = "-lantian-cachy";
 
       extraPatches = [
         {

@@ -665,14 +665,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "cce1bfde4e52c524b087b9687020d283fbde0f24";
+    version = "fbaf871a4a67763c602be8ef89b1523125f3f33a";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "cce1bfde4e52c524b087b9687020d283fbde0f24";
-      hash = "sha256-8OLXB6oyVvGU5qSUIeOaRL0GLwdmEBht1crQ9sM8iHw=";
+      rev = "fbaf871a4a67763c602be8ef89b1523125f3f33a";
+      hash = "sha256-xN3TEwFi77LluAzoUZGJqAEPMzzTtg5LowSYeCyLNi8=";
     };
-    date = "2024-11-21";
+    date = "2024-11-24";
   };
   libqcef = {
     pname = "libqcef";
@@ -771,12 +771,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4153";
+    version = "b4154";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4153";
-      hash = "sha256-OKm7uE3v+D++UJjvGuie1V/V9XMHxLXjBgilkXOhTqo=";
+      rev = "b4154";
+      hash = "sha256-JE957shuSHV25cEChgxlTMjUOnTJKtcu1ysC6wk2sAE=";
     };
   };
   lyrica = {
@@ -1016,7 +1016,7 @@
       owner = "open-quantum-safe";
       repo = "oqs-provider";
       rev = "0.7.0";
-      hash = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
+      hash = "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=";
     };
   };
   osdlyrics = {
@@ -1273,25 +1273,25 @@
   };
   qsp = {
     pname = "qsp";
-    version = "1190eb63ea0a07f6c4a4f0ca7e2e092c2bbcee87";
+    version = "79f8b644518c8d4f36abcbdc5a69497e8ca81d0c";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qspgui";
-      rev = "1190eb63ea0a07f6c4a4f0ca7e2e092c2bbcee87";
-      hash = "sha256-QWdPdbGfjsr/cCK2TnZYEW/pSeVWUCF2cWkm2fk38Ws=";
+      rev = "79f8b644518c8d4f36abcbdc5a69497e8ca81d0c";
+      hash = "sha256-sfWUzZExcH08pJYjkFhkH4SsXFWp8pMUqFHzvlfU5Yg=";
     };
-    date = "2024-11-20";
+    date = "2024-11-24";
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "20c38a5bb913f060fac1b36bfa0690c9ad93a7ee";
+    version = "81a1fc7bbab973fe14a0425d867867f9c9c365f5";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "20c38a5bb913f060fac1b36bfa0690c9ad93a7ee";
-      hash = "sha256-ckQCFDtJH22xzC5Xf+Sm/Hi3sZbWjZwahjAEn+3ZOtk=";
+      rev = "81a1fc7bbab973fe14a0425d867867f9c9c365f5";
+      hash = "sha256-38wdmQtVG5rhjzX1SNP2a29FgvhSL81Uu9COj0q7uP8=";
     };
-    date = "2024-11-23";
+    date = "2024-11-24";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -1305,13 +1305,13 @@
   };
   qsp-wx = {
     pname = "qsp-wx";
-    version = "832312bbb422a478e7d532d367c8fe365a585744";
+    version = "5edd516add0051d6f51ec87b8001999b6c4035a6";
     src = fetchFromGitHub {
       owner = "wxWidgets";
       repo = "wxWidgets";
-      rev = "832312bbb422a478e7d532d367c8fe365a585744";
+      rev = "5edd516add0051d6f51ec87b8001999b6c4035a6";
       fetchSubmodules = true;
-      hash = "sha256-f+3yy7yyTgYsJVHWmg2xmhFbgvSYtLUZQG7KTy5V+ZU=";
+      hash = "sha256-23sndTk7pox0QJetWIBs/tbcS5uE+4qQMzZzMhTu/xg=";
     };
   };
   r8125 = {
@@ -1366,14 +1366,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "0baffcce5e44132c52eee7dbda1d8a196583d5b6";
+    version = "c68d2780dc022058a0fdd0357be66eaaa8216f72";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "0baffcce5e44132c52eee7dbda1d8a196583d5b6";
-      hash = "sha256-otwkS8wctRu8H5B1c78R4CniQZv3GmnIDlh0GvF7DwE=";
+      rev = "c68d2780dc022058a0fdd0357be66eaaa8216f72";
+      hash = "sha256-R6WtyA0LhonNi+LECculCsXqIW2UyXJNQ5D8jnYvpa0=";
     };
-    date = "2024-11-22";
+    date = "2024-11-23";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1660,14 +1660,14 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "ea7c5c155f33dfd149a83ef16a9b9997ce5eee43";
+    version = "4c36719bef11a7dfb29f08ab074f3283a96a0af1";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "ea7c5c155f33dfd149a83ef16a9b9997ce5eee43";
-      hash = "sha256-rpOf1ARKtnPDftP9aoFpBp7l/2rPwsaNyKLK9vpiOjE=";
+      rev = "4c36719bef11a7dfb29f08ab074f3283a96a0af1";
+      hash = "sha256-BTAuoJoVLRkXDdxAQXUxoWirjnYM34u7d+yHxOFv0/I=";
     };
-    date = "2024-11-21";
+    date = "2024-11-24";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

@@ -9,6 +9,7 @@ from typing import List, Optional
 
 SKIP_CHECK = [
     "kernel",
+    "lantianLinuxCachyOS",
     "lantianLinuxXanmod",
 ]
 
@@ -16,6 +17,7 @@ SKIP_BUILD = [
     "deepspeech-gpu",
     "deepspeech-wrappers",
     "kernel",
+    "lantianLinuxCachyOS",
     "lantianLinuxXanmod",
 ]
 
