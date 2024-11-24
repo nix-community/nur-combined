@@ -10,14 +10,14 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "meshtastic-matrix-relay";
-  version = "0.8.7-unstable-2024-11-23";
+  version = "0.8.8-unstable-2024-11-23";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "geoffwhittington";
     repo = "meshtastic-matrix-relay";
-    rev = "29b2946485174651f43f77978c7bc4dfbe6c91e7";
-    hash = "sha256-3+lGa97Nxy/YhKT0lvlApfVvMauNiUfWC2LKjMeARnc=";
+    rev = "5f20d2411952c8cdb6859df022e5e20adb4f94e7";
+    hash = "sha256-qUbXCJoW+HOKT9edeh7lfMFQn6IudS4CP7qx/cl6Uko=";
   };
 
   patches = [
@@ -34,7 +34,7 @@ python3Packages.buildPythonApplication rec {
       +++ b/plugins/debug_plugin.py
       @@ -10,2 +10,9 @@
            ):
-      +        if (
+      +        if ("decoded" not in packet and packet["toId"] == "^all") or (
       +            "decoded" in packet
       +            and "portnum" in packet["decoded"]
       +            and packet["decoded"]["portnum"] in ["NODEINFO_APP", "POSITION_APP", "TELEMETRY_APP"]
@@ -42,6 +42,7 @@ python3Packages.buildPythonApplication rec {
       +            return False
       +
                packet = self.strip_raw(packet)
+      
     '')
 
     (toFile "destination.patch" ''
@@ -94,14 +95,22 @@ python3Packages.buildPythonApplication rec {
     (toFile "message-packet.patch" ''
       --- a/matrix_utils.py
       +++ b/matrix_utils.py
-      @@ -2,2 +2,3 @@
+      @@ -1,3 +1,5 @@
+       import asyncio
+      +import base64
        import io
       +import json
        import re
-      @@ -129 +130 @@
+      @@ -129 +131,7 @@
       -async def matrix_relay(room_id, message, longname, shortname, meshnet_name, portnum):
       +async def matrix_relay(room_id, message, longname, shortname, meshnet_name, portnum, packet):
-      @@ -138,2 +139,3 @@
+      +    if "decoded" in packet and "payload" in packet["decoded"]:
+      +        if isinstance(packet["decoded"]["payload"], bytes):
+      +            packet["decoded"]["payload"] = base64.b64encode(
+      +                packet["decoded"]["payload"]
+      +            ).decode("utf-8")
+      +
+      @@ -138,2 +146,3 @@
                    "meshtastic_portnum": portnum,
       +            "meshtastic_packet": json.dumps(packet)
                }
