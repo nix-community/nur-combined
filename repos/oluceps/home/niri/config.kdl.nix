@@ -266,6 +266,16 @@ in
       XF86MonBrightnessUp { spawn "brightnessctl" "set" "3%+"; }
       XF86MonBrightnessdown { spawn "brightnessctl" "set" "3%-"; }
       Mod+Ctrl+P { spawn "sh" "-c" "${deps.cliphist} list | ${deps.fuzzel} -d -I -l 7 -x 8 -y 7 -P 9 -b ede3e7d9 -r 3 -t 8b614db3 -C ede3e7d9 -f 'Maple Mono SC NF:style=Regular:size=15' -P 10 -B 7 -w 50 | ${deps.cliphist} decode | ${wl-copy}"; }
+      Mod+Shift+R { spawn "sh" "-c" "exec ${pkgs.writeShellScriptBin "screen-recorder-toggle" ''
+        pid=`${pkgs.procps}/bin/pgrep ${lib.getExe pkgs.wl-screenrec}`
+        status=$?
+        if [ $status != 0 ]
+        then
+          ${pkgs.wl-screenrec}/bin/wl-screenrec -g "$(${pkgs.slurp}/bin/slurp)" -f $HOME/Videos/record/$(date +'recording_%Y-%m-%d-%H%M%S.mp4');
+        else
+          ${pkgs.procps}/bin/pkill --signal SIGINT ${lib.getExe pkgs.wl-screenrec}
+        fi;
+      ''}";}
 
       Mod+Q { close-window; }
 

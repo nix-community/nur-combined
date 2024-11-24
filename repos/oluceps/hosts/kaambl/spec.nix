@@ -78,7 +78,7 @@
       ];
     };
     earlyoom.enable = true;
-    arti.enable = true;
+    arti.enable = false;
   };
 
   services = {
