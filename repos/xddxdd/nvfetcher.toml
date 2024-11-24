@@ -78,6 +78,10 @@ fetch.url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_$ver-1_
 src.aur = "browser360-bin"
 fetch.url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_$ver-1_arm64.deb"
 
+[cachyos-kernel]
+src.git = "https://github.com/CachyOS/linux-cachyos.git"
+fetch.github = "CachyOS/linux-cachyos"
+
 [cachyos-kernel-patches]
 src.git = "https://github.com/CachyOS/kernel-patches"
 fetch.github = "CachyOS/kernel-patches"

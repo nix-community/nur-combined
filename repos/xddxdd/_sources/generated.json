@@ -356,6 +356,27 @@
         },
         "version": "13.3.1016.4"
     },
+    "cachyos-kernel": {
+        "cargoLocks": null,
+        "date": "2024-11-22",
+        "extract": null,
+        "name": "cachyos-kernel",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "CachyOS",
+            "repo": "linux-cachyos",
+            "rev": "08704123924b85d938e4d46f05273bf36a83fbf7",
+            "sha256": "sha256-7G0niuSsXTikMccwCPMN+Jwg9dr6xvOUTm4zX1GP9sI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "08704123924b85d938e4d46f05273bf36a83fbf7"
+    },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
         "date": "2024-11-22",

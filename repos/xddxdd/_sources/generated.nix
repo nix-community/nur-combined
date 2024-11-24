@@ -185,6 +185,17 @@
       hash = "sha256-K7G7JteDavc6hX+II9dLUgwTC3P015KCdsGvGx3geWg=";
     };
   };
+  cachyos-kernel = {
+    pname = "cachyos-kernel";
+    version = "08704123924b85d938e4d46f05273bf36a83fbf7";
+    src = fetchFromGitHub {
+      owner = "CachyOS";
+      repo = "linux-cachyos";
+      rev = "08704123924b85d938e4d46f05273bf36a83fbf7";
+      hash = "sha256-7G0niuSsXTikMccwCPMN+Jwg9dr6xvOUTm4zX1GP9sI=";
+    };
+    date = "2024-11-22";
+  };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
     version = "3857e05b91790e4fd466c8fd927adf87552365b0";

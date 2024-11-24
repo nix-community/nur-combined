@@ -6,8 +6,7 @@
   ...
 }:
 let
-  helpers = callPackage ./helpers.nix { inherit mode; };
-  inherit (helpers) mkKernel;
+  mkXanmodKernel = callPackage ./mkXanmodKernel.nix { inherit mode sources; };
 
   x86_64-march = [
     "v1"
@@ -19,7 +18,6 @@ let
   batch =
     {
       prefix,
-      definitionDir,
       version,
       src,
       ...
@@ -29,35 +27,27 @@ let
     in
     lib.flatten (
       [
-        (mkKernel {
-          name = "${prefix'}generic";
-          inherit version src sources;
-          configFile = definitionDir + "/config.nix";
-          patchDir = definitionDir + "/patches";
+        (mkXanmodKernel {
+          pname = "${prefix'}generic";
+          inherit version src;
           lto = false;
         })
-        (mkKernel {
-          name = "${prefix'}generic-lto";
-          inherit version src sources;
-          configFile = definitionDir + "/config.nix";
-          patchDir = definitionDir + "/patches";
+        (mkXanmodKernel {
+          pname = "${prefix'}generic-lto";
+          inherit version src;
           lto = true;
         })
       ]
       ++ (builtins.map (march: [
-        (mkKernel {
-          name = "${prefix'}x86_64-${march}";
-          inherit version src sources;
-          configFile = definitionDir + "/config.nix";
-          patchDir = definitionDir + "/patches";
+        (mkXanmodKernel {
+          pname = "${prefix'}x86_64-${march}";
+          inherit version src;
           lto = false;
           x86_64-march = march;
         })
-        (mkKernel {
-          name = "${prefix'}x86_64-${march}-lto";
-          inherit version src sources;
-          configFile = definitionDir + "/config.nix";
-          patchDir = definitionDir + "/patches";
+        (mkXanmodKernel {
+          pname = "${prefix'}x86_64-${march}-lto";
+          inherit version src;
           lto = true;
           x86_64-march = march;
         })
@@ -67,32 +57,26 @@ let
   batches =
     (batch {
       prefix = "";
-      definitionDir = ./latest;
       inherit (sources.linux-xanmod) version src;
     })
     ++ (batch {
       prefix = "latest";
-      definitionDir = ./latest;
       inherit (sources.linux-xanmod) version src;
     })
     ++ (batch {
       prefix = "lts";
-      definitionDir = ./v6_6;
       inherit (sources.linux-xanmod-6_6) version src;
     })
     ++ (batch {
       prefix = "v6_6";
-      definitionDir = ./v6_6;
       inherit (sources.linux-xanmod-6_6) version src;
     })
     ++ (batch {
       prefix = "v6_1";
-      definitionDir = ./v6_1;
       inherit (sources.linux-xanmod-6_1) version src;
     })
     ++ (batch {
       prefix = "v6_0";
-      definitionDir = ./v6_0;
       inherit (sources.linux-xanmod-6_0) version src;
     });
 

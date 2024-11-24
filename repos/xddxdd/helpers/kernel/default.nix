@@ -4,11 +4,15 @@
   stdenv,
   lib,
   buildLinux,
+  callPackage,
+  runCommandNoCC,
   ...
 }@args:
 rec {
   # https://github.com/NixOS/nixpkgs/pull/129806
   # https://github.com/lovesegfault/nix-config/blob/master/nix/overlays/linux-lto.nix
+
+  inherit (callPackage ./patches { }) getPatches;
 
   noBintools = {
     bootBintools = null;
@@ -85,109 +89,108 @@ rec {
         outputHashMode = "recursive";
       };
 
+  # From nixpkgs pkgs/os-specific/linux/kernel/manual-config.nix
+  readStructuredConfig =
+    configfile:
+    let
+      cfg =
+        import
+          (runCommandNoCC "config.nix" { } ''
+            echo "{" > "$out"
+            while IFS='=' read key val; do
+              [ "x''${key#CONFIG_}" != "x$key" ] || continue
+              no_firstquote="''${val#\"}";
+              echo '  "'"''${key#CONFIG_}"'" = "'"''${no_firstquote%\"}"'";' >> "$out"
+            done < "${configfile}"
+            echo "}" >> $out
+          '').outPath;
+    in
+    lib.mapAttrs (
+      _k: v:
+      if v == "y" then
+        lib.mkForce lib.kernel.yes
+      else if v == "n" then
+        lib.mkForce lib.kernel.no
+      else if v == "m" then
+        lib.mkForce lib.kernel.module
+      else
+        let
+          actualValue = if lib.hasPrefix "\"" v then builtins.fromJSON v else v;
+        in
+        if actualValue == "" then
+          lib.mkForce lib.kernel.unset
+        else
+          lib.mkForce (lib.kernel.freeform actualValue)
+    ) cfg;
+
   # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/kernel/linux-xanmod.nix
   mkKernel =
     {
-      name,
+      pname,
       version,
       src,
-      configFile,
-      patchDir,
-      sources,
       lto ? false,
       x86_64-march ? "v1",
+      extraPatches ? [ ],
+      extraArgs ? { },
+      structuredExtraConfig ? null,
       ...
     }:
     let
-      patchesInPatchDir = builtins.map (n: {
-        inherit n;
-        patch = patchDir + "/${n}";
-      }) (builtins.attrNames (builtins.readDir patchDir));
-
-      combinedPatchFromCachyOS =
-        let
-          splitted = lib.splitString "-" version;
-          ver0 = builtins.elemAt splitted 0;
-          major = lib.versions.pad 2 ver0;
-          cachyDir = sources.cachyos-kernel-patches.src + "/${major}";
-        in
-        rec {
-          name = "cachyos-patches-combined.patch";
-          patch = pkgs.runCommandNoCC name contentAddressedFlag (
-            ''
-              for F in ${cachyDir}/*.patch; do
-                case "$F" in
-                  # Patches already included in Xanmod
-                  *-bbr2.patch) continue;;
-                  *-bbr3.patch) continue;;
-                  *-futex-winesync.patch) continue;;
-                  *-amd-cache-optimizer.patch) continue;;
-
-                  # Patches that conflict with Xanmod
-                  *-cachy.patch) continue;;
-                  *-clr.patch) continue;;
-                  *-fixes.patch) continue;;
-                  *-mm-*.patch) continue;;
-                  *-t2.patch) continue;;
-                  ${lib.optionalString (lib.versionAtLeast major "6.11") "*-ntsync.patch) continue;;"}
-                esac
-
-                cat "$F" >> $out
-              done
-            ''
-            + lib.optionalString (major == "6.11") ''
-              if [ -f "${cachyDir}/sched/0001-sched-ext.patch" ]; then
-                cat "${cachyDir}/sched/0001-sched-ext.patch" >> $out
-              fi
-            ''
-          );
-        };
+      splitted = lib.splitString "-" version;
+      ver0 = builtins.elemAt splitted 0;
+      ver1 = if builtins.length splitted > 1 then builtins.elemAt splitted 1 else null;
+      major = lib.versions.pad 2 ver0;
 
       patches = [
         pkgs.kernelPatches.bridge_stp_helper
         pkgs.kernelPatches.request_key_helper
-        combinedPatchFromCachyOS
-      ] ++ patchesInPatchDir;
+      ] ++ (getPatches version) ++ extraPatches;
 
-      patchedSrc = pkgs.runCommandNoCC "linux-src" contentAddressedFlag (
-        ''
-          mkdir -p $out
-          cp -r ${src}/* $out/
-          chmod -R 755 $out
-
-          cd $out
-        ''
-        + (lib.concatMapStringsSep "\n" (p: ''
-          patch -p1 < ${p.patch}
-        '') patches)
+      patchedSrc = stdenv.mkDerivation (
+        {
+          name = "linux-src";
+          inherit src;
+          patches = builtins.map (p: p.patch) patches;
+          dontConfigure = true;
+          dontBuild = true;
+          dontFixup = true;
+          installPhase = ''
+            mkdir -p $out
+            cp -r * $out/
+          '';
+        }
+        // contentAddressedFlag
       );
 
-      kernelPackage = buildLinux {
+      _structuredConfig =
+        if structuredExtraConfig == null then
+          let
+            actualConfigFile = ./custom-config + "/${major}.nix";
+          in
+          import actualConfigFile args
+        else
+          structuredExtraConfig;
+
+    in
+    buildLinux (
+      {
         inherit lib;
         stdenv = if lto then stdenvLLVM else stdenv;
 
         extraMakeFlags = if lto then ltoMakeflags else [ ];
 
-        inherit version;
+        inherit pname version;
         src = patchedSrc;
 
-        modDirVersion =
-          let
-            splitted = lib.splitString "-" version;
-            ver0 = builtins.elemAt splitted 0;
-            ver1 = builtins.elemAt splitted 1;
-          in
-          "${ver0}-lantian-${ver1}";
+        modDirVersion = if ver1 == null then "${ver0}-lantian" else "${ver0}-lantian-${ver1}";
 
         structuredExtraConfig =
-          let
-            cfg = import configFile args;
-          in
           if !lto then
-            cfg
+            _structuredConfig
           else
             (
-              (builtins.removeAttrs cfg [
+              (builtins.removeAttrs _structuredConfig [
                 "GCC_PLUGINS"
                 "FORTIFY_SOURCE"
               ])
@@ -197,15 +200,7 @@ rec {
               })
               // (if stdenv.isx86_64 then marchFlags."${x86_64-march}" else { })
             );
-
-        extraMeta = {
-          description =
-            "Linux Xanmod Kernel with Lan Tian Modifications" + lib.optionalString lto " and Clang+ThinLTO";
-        };
-      };
-    in
-    [
-      (lib.nameValuePair name kernelPackage)
-      (lib.nameValuePair "${name}-configfile" kernelPackage.configfile)
-    ];
+      }
+      // extraArgs
+    );
 }
