@@ -9,24 +9,24 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "0kv951dic1l7sbajz4ivmkd8zyg9mnpyrsj4df3l2lb5xv889iv6";
-    x86_64-linux = "1sxy3xn5iw9ybx8j951ckxgkl44bxzwvmjpxy4ywjwi6r736zm81";
-    aarch64-linux = "1hmb0bvj3l50di69klf1rlbf9v0lc5vjynwa5ym4q8xc7a5gp56v";
-    x86_64-darwin = "0pjzgwblfyvj03g9j3rpqqy5byq7gvq0mf3cghqwp1ha92h1qfa4";
-    aarch64-darwin = "1p4il9p5mrnvdsg6wdqzlzxzhq4x7gyfizhlni0v3qv09pqza7g0";
+    i686-linux = "1iy880l5k1x3kwz8may30njxbnjd3jwzfapxmz8zry74nzgmm8yb";
+    x86_64-linux = "0h9lc52gr28y67la428bzk1cgr50nvkicvjlk1v0zhdpbkfqd1my";
+    aarch64-linux = "199j4ak7ykzg7dschfbyd7lhfi8yfndnnbk6in1bhdlq2pbb3gn0";
+    x86_64-darwin = "1pdm6mq85fcbnd474piyl91m7q5396wq3jpc7hbbmn65i604nlyp";
+    aarch64-darwin = "1azdk9qshb3y805lp7bj8fnd7zkaw4vdgh5n6wwh9r3g0ji8qi8n";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/devmegablaster/jatt/releases/download/v0.6/jatt_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/devmegablaster/jatt/releases/download/v0.6/jatt_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://github.com/devmegablaster/jatt/releases/download/v0.6/jatt_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/devmegablaster/jatt/releases/download/v0.6/jatt_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/devmegablaster/jatt/releases/download/v0.6/jatt_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/devmegablaster/jatt/releases/download/v0.7/jatt_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/devmegablaster/jatt/releases/download/v0.7/jatt_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://github.com/devmegablaster/jatt/releases/download/v0.7/jatt_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/devmegablaster/jatt/releases/download/v0.7/jatt_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/devmegablaster/jatt/releases/download/v0.7/jatt_Darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "jatt";
-  version = "0.6";
+  version = "0.7";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
