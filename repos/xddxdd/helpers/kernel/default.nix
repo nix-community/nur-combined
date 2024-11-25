@@ -18,8 +18,8 @@ rec {
     bootBintools = null;
     bootBintoolsNoLibc = null;
   };
-  hostLLVM = pkgs.pkgsBuildHost.llvmPackages_latest.override noBintools;
-  buildLLVM = pkgs.pkgsBuildBuild.llvmPackages_latest.override noBintools;
+  hostLLVM = pkgs.pkgsBuildHost.llvmPackages.override noBintools;
+  buildLLVM = pkgs.pkgsBuildBuild.llvmPackages.override noBintools;
 
   ltoMakeflags = [
     "LLVM=1"
