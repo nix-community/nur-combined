@@ -32,11 +32,12 @@ python3Packages.buildPythonApplication rec {
     (toFile "debug-filter.patch" ''
       --- a/plugins/debug_plugin.py
       +++ b/plugins/debug_plugin.py
-      @@ -10,2 +10,8 @@
+      @@ -10,2 +10,9 @@
            ):
-      +        if "decoded" not in packet or (
-      +            packet["toId"] == "^all"
-      +            and not packet["decoded"]["portnum"] == "TEXT_MESSAGE_APP"
+      +        if (
+      +            "decoded" not in packet
+      +            or (packet["toId"] == "^all" and not packet["decoded"]["portnum"] == "TEXT_MESSAGE_APP")
+      +            or (packet["toId"][0] == "!" and self.config["node_id"] and packet["toId"] != self.config["node_id"])
       +        ):
       +            return False
       +
