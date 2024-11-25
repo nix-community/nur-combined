@@ -652,7 +652,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "4154"
+    "version": "4157"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -735,86 +735,6 @@
     "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-generic-lto-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v1": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications",
-    "pname": "linux-xanmod-latest-x86_64-v1",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v1-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v1-lto": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
-    "pname": "linux-xanmod-latest-x86_64-v1-lto",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v1-lto-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v2": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications",
-    "pname": "linux-xanmod-latest-x86_64-v2",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v2-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v2-lto": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
-    "pname": "linux-xanmod-latest-x86_64-v2-lto",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v2-lto-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v3": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications",
-    "pname": "linux-xanmod-latest-x86_64-v3",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v3-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v3-lto": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
-    "pname": "linux-xanmod-latest-x86_64-v3-lto",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v3-lto-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v4": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications",
-    "pname": "linux-xanmod-latest-x86_64-v4",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v4-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v4-lto": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
-    "pname": "linux-xanmod-latest-x86_64-v4-lto",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-x86_64-v4-lto-configfile": {
     "description": "",
     "pname": "linux-config",
     "version": "6.12.1-xanmod1"
@@ -1218,86 +1138,6 @@
     "description": "",
     "pname": "linux-config",
     "version": "6.6.63-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v1": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications",
-    "pname": "linux-xanmod-x86_64-v1",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v1-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v1-lto": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
-    "pname": "linux-xanmod-x86_64-v1-lto",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v1-lto-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v2": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications",
-    "pname": "linux-xanmod-x86_64-v2",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v2-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v2-lto": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
-    "pname": "linux-xanmod-x86_64-v2-lto",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v2-lto-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v3": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications",
-    "pname": "linux-xanmod-x86_64-v3",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v3-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v3-lto": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
-    "pname": "linux-xanmod-x86_64-v3-lto",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v3-lto-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v4": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications",
-    "pname": "linux-xanmod-x86_64-v4",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v4-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v4-lto": {
-    "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
-    "pname": "linux-xanmod-x86_64-v4-lto",
-    "version": "6.12.1-xanmod1"
-  },
-  "legacyPackages.x86_64-linux.lantianLinuxXanmod.x86_64-v4-lto-configfile": {
-    "description": "",
-    "pname": "linux-config",
-    "version": "6.12.1-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianPersonal.libltnginx": {
     "description": "Libltnginx",
@@ -3527,7 +3367,7 @@
   "legacyPackages.x86_64-linux.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2024-11-24"
+    "version": "0-unstable-2024-11-25"
   },
   "legacyPackages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
@@ -4337,7 +4177,7 @@
   "packages.x86_64-linux.qsp-lib": {
     "description": "QSP is an Interactive Fiction development platform (Game Library)",
     "pname": "qsp-lib",
-    "version": "0-unstable-2024-11-24"
+    "version": "0-unstable-2024-11-25"
   },
   "packages.x86_64-linux.r8125": {
     "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",

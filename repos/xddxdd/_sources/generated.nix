@@ -771,12 +771,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4154";
+    version = "b4157";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4154";
-      hash = "sha256-JE957shuSHV25cEChgxlTMjUOnTJKtcu1ysC6wk2sAE=";
+      rev = "b4157";
+      hash = "sha256-X0IUhjDmRgtTGW97uzruOAKrpQQrzPAaVTIFoH2JPQo=";
     };
   };
   lyrica = {
@@ -1284,14 +1284,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "81a1fc7bbab973fe14a0425d867867f9c9c365f5";
+    version = "b493a121388952a62cb3b53eefbcf743ad9d99ec";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "81a1fc7bbab973fe14a0425d867867f9c9c365f5";
-      hash = "sha256-38wdmQtVG5rhjzX1SNP2a29FgvhSL81Uu9COj0q7uP8=";
+      rev = "b493a121388952a62cb3b53eefbcf743ad9d99ec";
+      hash = "sha256-tCoyhmK486DM327++G2fh9uiXdI8XDlKKxmYB/HXXmM=";
     };
-    date = "2024-11-24";
+    date = "2024-11-25";
   };
   qsp-stable = {
     pname = "qsp-stable";
