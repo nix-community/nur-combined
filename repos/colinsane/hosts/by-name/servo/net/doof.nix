@@ -10,6 +10,7 @@
     veth.initns.ipv4 = "10.0.2.5";
     veth.netns.ipv4 = "10.0.2.6";
     routeTable = 12;
+    wg.port = 51821;
     wg.privateKeyFile = config.sops.secrets.wg_doof_privkey.path;
     wg.address.ipv4 = "205.201.63.12";
     wg.peer.publicKey = "nuESyYEJ3YU0hTZZgAd7iHBz1ytWBVM5PjEL1VEoTkU=";

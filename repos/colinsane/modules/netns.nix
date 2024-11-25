@@ -30,6 +30,9 @@ let
           each netns gets its own routing table so that i can route a packet out by placing it in the table.
         '';
       };
+      wg.port = mkOption {
+        type = types.port;
+      };
       wg.privateKeyFile = mkOption {
         type = types.path;
       };
@@ -175,6 +178,11 @@ let
       serviceConfig.RestartSteps = 9; # roughly: 10s, 30s, 50s, ... 180s, then keep the 180s retry
       script = ''
         ${ip} link add wg-${name} type wireguard
+
+        # listen on a public port. the other end of the tunnel doesn't send keepalives
+        # so i *hope* setting to a fixed port, which is opened in `sane.ports.ports`, make the tunnel more robust
+        ${wg'} set wg-${name} listen-port ${builtins.toString wg.port}
+
         # resolve the endpoint *now*, from a namespace which can do DNS lookups, before moving it into its destination netns
         # at this point, our wg device can neither send nor receive traffic, because we haven't given it a private key.
         # hence, it's 100% safe to configure peers even inside the root ns at this point.
@@ -184,7 +192,7 @@ let
         # (i.e. from within the namespace) is 0.
         ${wg'} set wg-${name} peer ${wg.peer.publicKey} endpoint ${wg.peer.endpoint} \
           persistent-keepalive 25 \
-          allowed-ips 0.0.0.0/0
+          allowed-ips 0.0.0.0/0,::/0
 
         ${ip} link set wg-${name} netns ${name}
 
@@ -196,15 +204,26 @@ let
         ${in-ns} ${ip} route replace 0.0.0.0/0 dev wg-${name} table main
       '';
       serviceConfig.ExecStopPost = [
-        # gracefully bring the tunnel down (`-` to silence errors)
-        "-${in-ns} ${wg'} set wg-${name} peer ${wg.peer.publicKey} remove"
+        # gracefully bring the tunnel down (`-` to silence errors).
+        # do the reverse actions as in `ExecStart`, one-for-one, for the benefit of debuggability
         "-${in-ns} ${ip} route delete 0.0.0.0/0 dev wg-${name} table main"
         "-${in-ns} ${ip} link set down dev wg-${name}"
+        "-${in-ns} ${ip} address del ${wg.address.ipv4} dev wg-${name}"
+        "-${in-ns} ${wg'} set wg-${name} private-key /dev/null"
+        "-${in-ns} ${wg'} set wg-${name} peer ${wg.peer.publicKey} remove"
         # delete the tunnel (first, in the root ns in case we raced)
         "-${ip} link del wg-${name}"
         # delete the tunnel (the one that should actually exist)
         "${in-ns} ${ip} link del wg-${name}"
       ];
+    };
+
+    sane.ports.ports."${builtins.toString wg.port}" = {
+      protocol = [ "udp" ];
+      visibleTo.lan = true;
+      visibleTo.wan = true;
+      # visibleTo.doof = true;
+      description = "colin-wireguard-${name}";
     };
 
     # for some reason network-pre doesn't actually get run before network.target by default??
@@ -260,6 +279,7 @@ in
       networking.localCommands = f.networking.localCommands;
       networking.iproute2.rttablesExtraConfig = f.networking.iproute2.rttablesExtraConfig;
       networking.iproute2.enable = f.networking.iproute2.enable;
+      sane.ports.ports = f.sane.ports.ports;
       systemd.services = f.systemd.services;
       systemd.targets = f.systemd.targets;
     };

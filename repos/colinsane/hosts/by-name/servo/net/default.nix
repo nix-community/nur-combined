@@ -1,5 +1,14 @@
-{ config, lib, pkgs, ... }:
-
+# debugging:
+# - enable logs (shows handshake attempts)
+#   - `echo module wireguard +p | sane-sudo-redirect /sys/kernel/debug/dynamic_debug/control`
+#   - `sudo dmesg --follow`
+#     patterns: "Sending keepalive packet to peer NN (N.N.N.N:NNNNN)"
+#     patterns: "Sending handshake initiation to peer NN (N.N.N.N:NNNNN)"
+# - when wg-doof and wg-ovpns stop routing traffic, restart with:
+#   - `systemctl restart netns-doof-wg`
+# - handshaking:
+#   - `wg show` should *always* show "latest handshake: N", with N < 2 minutes ago.
+{ lib, ... }:
 let
   portOpts = with lib; types.submodule {
     options = {
