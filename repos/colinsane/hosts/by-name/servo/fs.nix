@@ -39,10 +39,11 @@
       # `device=...` only needed if `btrfs scan` hasn't yet been run
       # see: <https://askubuntu.com/a/484374>
       # i don't know what guarantees NixOS/systemd make about that, so specifying all devices for now
-      "device=/dev/disk/by-partuuid/14a7d00a-be53-2b4e-96f9-7e2c964674ec"
-      "device=/dev/disk/by-partuuid/d9ad5ebc-0fc4-4d89-9fd0-619ce5210f1b"  #< added 2024-11-13
+      # "device=/dev/disk/by-partuuid/14a7d00a-be53-2b4e-96f9-7e2c964674ec"  #< removed 2024-11-24 (for capacity upgrade)
+      "device=/dev/disk/by-partuuid/409a147e-2282-49eb-87a7-c968032ede88"  #< added 2024-11-24
       "device=/dev/disk/by-partuuid/6b86cc10-c3cc-ec4d-b20d-b6688f0959a6"
-      # "device=/dev/disk/by-partuuid/7fd85cac-b6f3-8248-af4e-68e703d11020"  #< removed 2024-11-13
+      # "device=/dev/disk/by-partuuid/7fd85cac-b6f3-8248-af4e-68e703d11020"  #< removed 2024-11-13 (early drive failure)
+      "device=/dev/disk/by-partuuid/d9ad5ebc-0fc4-4d89-9fd0-619ce5210f1b"  #< added 2024-11-13
       "device=/dev/disk/by-partuuid/ef0e5c7b-fccf-f444-bac4-534424326159"
       "nofail"
       # "x-systemd.before=local-fs.target"
