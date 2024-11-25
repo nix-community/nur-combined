@@ -38,20 +38,22 @@ let
           lto = true;
         })
       ]
-      ++ (builtins.map (march: [
-        (mkXanmodKernel {
-          pname = "${prefix'}x86_64-${march}";
-          inherit version src;
-          lto = false;
-          x86_64-march = march;
-        })
-        (mkXanmodKernel {
-          pname = "${prefix'}x86_64-${march}-lto";
-          inherit version src;
-          lto = true;
-          x86_64-march = march;
-        })
-      ]) x86_64-march)
+      ++ lib.optionals (lib.versionOlder version "6.12") (
+        builtins.map (march: [
+          (mkXanmodKernel {
+            pname = "${prefix'}x86_64-${march}";
+            inherit version src;
+            lto = false;
+            x86_64-march = march;
+          })
+          (mkXanmodKernel {
+            pname = "${prefix'}x86_64-${march}-lto";
+            inherit version src;
+            lto = true;
+            x86_64-march = march;
+          })
+        ]) x86_64-march
+      )
     );
 
   batches =
