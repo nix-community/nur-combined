@@ -9,7 +9,7 @@
 }:
 stdenv.mkDerivation rec {
   pname = "tmux-rime";
-  version = "0.0.3";
+  version = "0.0.4";
   srcs = [
     (
       fetchFromGitHub {
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
         repo = pname;
         rev = version;
         name = pname;
-        sha256 = "sha256-DCSeENxxXycCqQKv+8mPGy3sxF5CRHUPUaI9wRpEw8Q=";
+        sha256 = "sha256-hFwq1Qna6DKNGk0U9MpUZT6qcTmJR4FdlS7+4+4wTIY=";
       }
     )
     (
