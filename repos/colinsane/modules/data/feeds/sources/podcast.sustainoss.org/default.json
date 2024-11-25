@@ -1,0 +1,9 @@
+{
+  "description": "A Podcast by SustainOSS",
+  "is_podcast": true,
+  "site_name": "",
+  "site_url": "",
+  "title": "Sustain",
+  "url": "https://feeds.fireside.fm/sustain/rss",
+  "velocity": 0.133
+}

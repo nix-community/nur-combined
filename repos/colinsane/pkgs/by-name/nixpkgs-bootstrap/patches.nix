@@ -54,7 +54,26 @@ in
   (fetchpatch' {
     name = "samba: resurrect cross compilation patch";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/357988";
-    hash = "sha256-aacdmbVGifmoWXun4ljSQ4IZZ2oxeeWRzHY56b9CoyQ=";
+    hash = "sha256-bVpojIRpJr6PDvsPMsqWGjCV8SWzwJ2hudzSPJcdN4k=";
+  })
+
+
+  # (fetchpatch' {
+  #   name = "nixos/buffyboard: init";
+  #   saneCommit = "65c6c54cfb356bca198d9bc960fdec97eb5f8bde";
+  #   hash = "sha256-49iwS29OPzU4hPo0Ftbul9CIRAv5hlTgFKrCfnnKKNM=";
+  # })
+
+  # (fetchpatch' {
+  #   name = "buffybox: init at 3.2.0-unstable-2024-11-10";
+  #   saneCommit = "7efed1d188f10aa9125b52e00ea8e5c59577ffca";
+  #   hash = "sha256-pBzW6X84QsmgXqozGRlra0ACF77rDjnw+1UjbeTBmhU=";
+  # })
+
+  (fetchpatch' {
+    name = "nixos/buffyboard: init";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/358941";
+    hash = "sha256-cXgR2pQHRiCphqwUQqdjEV4W8813mjUfH+3sjkjdoT0=";
   })
 
   (fetchpatch' {

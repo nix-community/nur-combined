@@ -31,10 +31,10 @@
   sane.programs.sysadminUtils.enableFor.system = lib.mkDefault true;
   sane.programs.consoleUtils.enableFor.user.colin = lib.mkDefault true;
 
-  sane.services.buffyboard.enable = true;
-  sane.services.buffyboard.settings.theme.default = "pmos-light";
-  # sane.services.buffyboard.settings.quirks.fbdev_force_refresh = true;
-  sane.services.buffyboard.extraFlags = [ "--verbose" ];
+  services.buffyboard.enable = true;
+  services.buffyboard.settings.theme.default = "pmos-light";
+  # services.buffyboard.settings.quirks.fbdev_force_refresh = true;
+  services.buffyboard.extraFlags = [ "--verbose" ];
 
   # irqbalance monitors interrupt count (as a daemon) and assigns high-frequency interrupts to different CPUs.
   # that reduces contention between simultaneously-fired interrupts.

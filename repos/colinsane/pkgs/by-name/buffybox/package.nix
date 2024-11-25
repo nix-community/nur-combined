@@ -1,7 +1,6 @@
 {
   fetchFromGitLab,
   fetchFromGitea,
-  fetchpatch,
   inih,
   lib,
   libdrm,
@@ -17,7 +16,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "buffybox";
-  version = "3.2.0-unstable-2024-10-05";
+  version = "3.2.0-unstable-2024-11-10";
 
   # src = fetchFromGitea {
   #   domain = "git.uninsane.org";
@@ -29,21 +28,13 @@ stdenv.mkDerivation (finalAttrs: {
   # };
 
   src = fetchFromGitLab {
-    domain = "gitlab.com";
+    domain = "gitlab.postmarketos.org";
     owner = "postmarketOS";
     repo = "buffybox";
     fetchSubmodules = true; # to use its vendored lvgl
-    rev = "c683350b9fb944e38cb484f04f98e4e3f85b41a5";
-    hash = "sha256-z7siroBDauvs8TxfO/h+5HUU5G5aOWwNUxDaZm80I5A=";
+    rev = "07e324c17564cb9aab573259a8e0824a6806a751";
+    hash = "sha256-JY9WqtRjDsQf1UVFnM6oTwyAuhlJvrhcSNJdEZ0zIus=";
   };
-
-  patches = [
-    (fetchpatch {
-      url = "https://gitlab.postmarketos.org/postmarketOS/buffybox/-/merge_requests/34.patch";
-      name = "add buffyboard systemd service";
-      hash = "sha256-FUPDdj9BkC4Mj17X5fZAmIhLHwt8k626OnY07NM14tc=";
-    })
-  ];
 
   depsBuildBuild = [
     pkg-config
@@ -64,6 +55,9 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   strictDeps = true;
+
+  env.PKG_CONFIG_SYSTEMD_SYSTEMD_SYSTEM_UNIT_DIR = "${placeholder "out"}/lib/systemd/system";
+  # env.PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${placeholder "out"}/lib/systemd/system";
 
   passthru.updateScript = unstableGitUpdater { };
 

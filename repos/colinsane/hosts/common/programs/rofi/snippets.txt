@@ -1,11 +1,7 @@
-https://search.nixos.org/options?channel=unstable&query=
-https://search.nixos.org/packages?channel=unstable&query=
-https://nixos.wiki/index.php?go=Go&search=
+https://github.com/jtojnar/nixpkgs-hammering/blob/main/explanations/attribute-ordering.md
 https://nixos.org/manual/nix/stable/language/builtins.html
-https://github.com/nixos/nixpkgs/pulls?q=
 https://nur.nix-community.org/
 https://repology.org/projects/?maintainer=colin@uninsane.org&inrepo=nix_unstable&outdated=1
-https://w.uninsane.org/viewer#search?books.name=wikipedia_en_all_maxi_2022-05&pattern=
 https://jackett.uninsane.org/UI/Dashboard#search=
 https://lemmy.uninsane.org
 https://fed.uninsane.org

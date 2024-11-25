@@ -193,6 +193,7 @@ in
       "haredoc"
       "nix-index"
       "nixfmt-rfc-style"  # run `nixpkgs path/to/package.nix` before submitting stuff upstream
+      "nixpkgs-hammering"
       "nixpkgs-review"
       "qmk-udev-rules"
       "sane-scripts.dev"
@@ -901,13 +902,18 @@ in
 
     nixfmt-rfc-style.sandbox.autodetectCliPaths = "existingDirOrParent";  #< it formats via rename
 
+    nixpkgs-hammering.sandbox.whitelistPwd = true;
+    nixpkgs-hammering.sandbox.extraPaths = [
+      "/nix/var"  # to prevent complaints about it not finding build logs
+    ];
+
     nixpkgs-review.sandbox.net = "clearnet";
     nixpkgs-review.sandbox.whitelistPwd = true;
     nixpkgs-review.sandbox.extraHomePaths = [
       ".config/git"  #< it needs to know commiter name/email, even if not posting
     ];
     nixpkgs-review.sandbox.extraPaths = [
-      "/nix"
+      "/nix/var"
     ];
     nixpkgs-review.persist.byStore.ephemeral = [
       ".cache/nixpkgs-review"  #< help it not exhaust / tmpfs

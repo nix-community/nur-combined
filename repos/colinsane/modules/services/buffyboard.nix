@@ -81,49 +81,6 @@ in
       # we need only a single buffyboard instance and it can input to any tty
       wantedBy = [ "getty.target" ];
       before = [ "getty.target" ];
-
-      # TODO(2024-10-25): remove once !34 is merged <https://gitlab.postmarketos.org/postmarketOS/buffybox/-/merge_requests/34>
-      # serviceConfig.Type = "simple";
-      # serviceConfig.ExecStart = "${lib.getExe' cfg.package "buffyboard"} ${lib.escapeShellArgs cfg.extraFlags}";
-      # serviceConfig.Restart = "on-failure";
-      # serviceConfig.RestartSec = "2s";
-
-      # # hardening
-      # # serviceConfig.AmbientCapabilities = "";  #< extraneous, with CapabilityBoundingSet
-      # serviceConfig.CapabilityBoundingSet = "";
-      # serviceConfig.MemoryDenyWriteExecute = true;
-      # serviceConfig.NoNewPrivileges = true;
-      # serviceConfig.LockPersonality = true;
-      # serviceConfig.RestrictSUIDSGID = true;
-      # serviceConfig.PrivateMounts = true;
-      # serviceConfig.PrivateTmp = true;
-      # serviceConfig.PrivateUsers = true;
-      # serviceConfig.ProtectClock = true;
-      # serviceConfig.ProtectControlGroups = true;
-      # serviceConfig.ProtectHome = true;
-      # serviceConfig.ProtectKernelModules = true;
-      # serviceConfig.ProtectHostname = true;
-      # serviceConfig.ProtectKernelLogs = true;
-      # serviceConfig.ProtectKernelTunables = true;
-      # serviceConfig.RemoveIPC = true;
-      # serviceConfig.ProtectSystem = "strict";
-      # serviceConfig.RestrictAddressFamilies = "AF_NETLINK";  #< AF_NETLINK required to access udev
-      # serviceConfig.SystemCallArchitectures = "native";
-      # serviceConfig.SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
-      # serviceConfig.DevicePolicy = "closed";
-      # serviceConfig.DeviceAllow = [
-      #   "/dev/uinput rw"
-      #   "char-fb rw"
-      #   "char-input rw"
-      #   "char-tty rw"
-      # ];
-      # # PrivateDevices=true  #< breaks everything
-      # # PrivateNetwork=true  #< breaks udev
-      # #
-      # # root user is unaffected by Proc*
-      # # ProcSubset=pid
-      # # ProtectProc=noaccess
-      # # DynamicUser=true
     };
 
     environment.etc."buffyboard.conf".source = ini.generate "buffyboard.conf" cfg.settings;
