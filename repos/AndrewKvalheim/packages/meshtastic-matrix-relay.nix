@@ -32,17 +32,15 @@ python3Packages.buildPythonApplication rec {
     (toFile "debug-filter.patch" ''
       --- a/plugins/debug_plugin.py
       +++ b/plugins/debug_plugin.py
-      @@ -10,2 +10,9 @@
+      @@ -10,2 +10,8 @@
            ):
-      +        if ("decoded" not in packet and packet["toId"] == "^all") or (
-      +            "decoded" in packet
-      +            and "portnum" in packet["decoded"]
-      +            and packet["decoded"]["portnum"] in ["NODEINFO_APP", "POSITION_APP", "TELEMETRY_APP"]
+      +        if "decoded" not in packet or (
+      +            packet["toId"] == "^all"
+      +            and not packet["decoded"]["portnum"] == "TEXT_MESSAGE_APP"
       +        ):
       +            return False
       +
                packet = self.strip_raw(packet)
-      
     '')
 
     (toFile "destination.patch" ''
@@ -73,6 +71,23 @@ python3Packages.buildPythonApplication rec {
       +            fmt="%(levelname)s:%(name)s:%(message)s",
     '')
 
+    (toFile "mention.patch" ''
+      --- a/meshtastic_utils.py
+      +++ b/meshtastic_utils.py
+      @@ -250,2 +250,3 @@
+           sender = packet.get("fromId", packet.get("from"))
+      +    recipient = packet["toId"]
+       
+      @@ -351 +353,6 @@
+      -        logger.info(f"Relaying Meshtastic message from {longname} to Matrix")
+      +        operator_id = relay_config["matrix"]["operator_id"]
+      +        my_node_id = interface.getMyNodeInfo()["user"]["id"]
+      +        if operator_id and recipient == my_node_id:
+      +            formatted_message = f"{operator_id} {formatted_message}"
+      +
+      +        logger.info(f"Relaying Meshtastic message from {sender} to {recipient} via Matrix")
+    '')
+
     (toFile "message-format.patch" ''
       --- a/matrix_utils.py
       +++ b/matrix_utils.py
@@ -80,13 +95,13 @@ python3Packages.buildPythonApplication rec {
       -        full_message = f"{prefix}{text}"
       +        full_message = (
       +            text
-      +            if relay_config["meshtastic"]["broadcast_directly"]
-      +            and event.sender == relay_config["meshtastic"]["broadcast_directly"]
+      +            if relay_config["matrix"]["operator_id"]
+      +            and event.sender == relay_config["matrix"]["operator_id"]
       +            else f"{prefix}{text}"
       +        )
       --- a/meshtastic_utils.py
       +++ b/meshtastic_utils.py
-      @@ -328 +328,2 @@
+      @@ -329 +329,2 @@
       -        formatted_message = f"[{longname}/{meshnet_name}]: {text}"
       +        display_name = shortname if longname == sender else f"{longname} ({shortname})"
       +        formatted_message = f"[{display_name}]: {text}"
@@ -116,7 +131,7 @@ python3Packages.buildPythonApplication rec {
                }
       --- a/meshtastic_utils.py
       +++ b/meshtastic_utils.py
-      @@ -364,2 +365,3 @@
+      @@ -370,2 +371,3 @@
                                decoded.get("portnum"),
       +                        packet
                            ),
