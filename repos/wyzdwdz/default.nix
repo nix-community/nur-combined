@@ -15,4 +15,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   spl-token-cli = pkgs.callPackage ./pkgs/spl-token-cli { };
+  assfonts-gui = pkgs.callPackage ./pkgs/assfonts-gui { };
 }
