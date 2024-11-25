@@ -117,6 +117,16 @@ in {
         };
     });
     
+    xgalagapp = pkgs.xgalagapp.overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+            substituteInPlace Makefile --replace-fail 'CXX =' '#CXX ='
+        '';
+        meta = old.meta // {
+            description = "${old.meta.description or "xgalagapp"} (fixed for macOS/Darwin)";
+            platforms = old.meta.platforms ++ pkgs.lib.platforms.darwin;
+        };
+    });
+    
     drl-packages = callPackage ./pkgs/drl/packages.nix {};
     inherit (self.drl-packages) drl drl-hq drl-lq;
     
