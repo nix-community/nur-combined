@@ -103,6 +103,7 @@
 };
 
 // rk3399-pinephone-pro-sound sets this 'okay', but do that here also to avoid implicit dependencies.
+// TODO: how can the modem require i2c1 if i'm not hanging any devices off of it here??
 &i2c1 {
         status = "okay";
         // N.B.: these values are duplicated in rk3399-pinephone-pro-sound.dtso

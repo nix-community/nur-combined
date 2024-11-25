@@ -81,6 +81,10 @@ in
         dtsFile = ./rk3399-pinephone-pro-battery.dtso;
       }
       {
+        name = "rk3399-pinephone-pro-camera";
+        dtsFile = ./rk3399-pinephone-pro-camera.dtso;
+      }
+      {
         name = "rk3399-pinephone-pro-flash-led";
         dtsFile = ./rk3399-pinephone-pro-flash-led.dtso;
       }
