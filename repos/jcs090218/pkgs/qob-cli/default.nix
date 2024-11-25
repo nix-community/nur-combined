@@ -13,13 +13,14 @@ stdenv.mkDerivation rec {
     owner = "cl-qob";
     repo = "cli";
     rev = version;
-    hash = "sha256-FgmeAsqbnlw7yOMslAJnZWuG3nDDjcXlS2pI3X9x1PA=";
+    hash = "sha256-q9W4/s9J+v4OjTA7eL8FW3eWJT4ajdKPefX+i1Jj0rM=";
   };
 
   buildInputs = [ sbcl ];
 
-  buildPhase = ''
+  installPhase = ''
     make build
+    install -m755 -D bin/sbcl/qob $out/bin/qob
   '';
 
   dontStrip = true;
