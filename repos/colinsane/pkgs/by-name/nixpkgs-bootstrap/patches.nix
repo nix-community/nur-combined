@@ -60,20 +60,20 @@ in
 
   # (fetchpatch' {
   #   name = "nixos/buffyboard: init";
-  #   saneCommit = "65c6c54cfb356bca198d9bc960fdec97eb5f8bde";
-  #   hash = "sha256-49iwS29OPzU4hPo0Ftbul9CIRAv5hlTgFKrCfnnKKNM=";
+  #   saneCommit = "900bd0d8e6203f51c25456e493a3b61cca59ac8b";
+  #   hash = "sha256-WKg41BWDyUo+xowYNy4bT1aN6xUSypBD77Nief7GV64=";
   # })
 
   # (fetchpatch' {
   #   name = "buffybox: init at 3.2.0-unstable-2024-11-10";
-  #   saneCommit = "7efed1d188f10aa9125b52e00ea8e5c59577ffca";
+  #   saneCommit = "b5442735ff0f715f1d4ab1ca60905a721f23d98b";
   #   hash = "sha256-pBzW6X84QsmgXqozGRlra0ACF77rDjnw+1UjbeTBmhU=";
   # })
 
   (fetchpatch' {
     name = "nixos/buffyboard: init";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/358941";
-    hash = "sha256-cXgR2pQHRiCphqwUQqdjEV4W8813mjUfH+3sjkjdoT0=";
+    hash = "sha256-IosH45Zp77AJKEI2RmsZw501yFbzC9wcc1q9COzvLF8=";
   })
 
   (fetchpatch' {

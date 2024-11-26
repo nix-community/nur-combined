@@ -63,7 +63,6 @@
 # - compiling x64 -> arm64 is supported, but arm64 -> arm64 is *not*
 # - the referenced file is a 13 MB ELF: /nix/store/7hb6840x2f10zpm3d5ccj3kr3vaf93n5-signal-desktop-6.36.0/lib/Signal/resources/app.asar.unpacked/node_modules/@signalapp/ringrtc/build/linux/libringrtc-x64.node
 # - not in crates.io
-# - TODO: simplest test would be to just copy this out of nixpkgs' signal-desktop
 #
 #### webrtc:
 # - nothing much in nixpkgs cites "signalapp", so i probably have to do this manually
@@ -74,69 +73,85 @@
 #
 # HOW TO UPDATE
 # - `./scripts/update sane.signal-desktop-from-src`
-# - check signal-desktop's package.json for new ringrtc/nodejs  <repo:signalapp/Signal-Desktop:package.json>
+# if using nixpkgs' prebuilds, that's all! else:
+# - check signal-desktop's package.json for new ringrtc  <repo:signalapp/Signal-Desktop:package.json>
 # - if sqlcipher fails then update sqlcipherTarball url/hash (rare)
-# errors which can be safely ignored:
+# build errors which can be safely ignored:
 # - "Error: Could not detect abi for version 30.1.1 and runtime electron.  Updating "node-abi" might help solve this issue if it is a new release of electron"
 #   - <https://github.com/signalapp/Signal-Desktop/pull/6889>
 
 
-{ lib
-, alsa-lib
-, asar
-, at-spi2-atk
-, at-spi2-core
-, atk
-, autoPatchelfHook
-, bash
-, buildNpmPackage
-, buildPackages
-, cups
-, electron-bin
-, fetchurl
-, fetchFromGitHub
-, flac
-, gdk-pixbuf
-, git
-, gitUpdater
-, gnused
-, gtk3
-, icu
-, libpulseaudio
-, libwebp
-, libxslt
-, makeShellWrapper
-, mesa
-, nspr
-, nss
-, pango
-, python3
-# , sqlite
-# , sqlcipher
-, stdenv
-, wrapGAppsHook
-, xdg-utils
+{
+  alsa-lib,
+  asar,
+  at-spi2-atk,
+  at-spi2-core,
+  atk,
+  autoPatchelfHook,
+  bash,
+  buildNpmPackage,
+  buildPackages,
+  cups,
+  electron-bin,
+  fetchFromGitHub,
+  fetchurl,
+  flac,
+  gdk-pixbuf,
+  git,
+  gitUpdater,
+  gnused,
+  gtk3,
+  icu,
+  lib,
+  libpulseaudio,
+  libwebp,
+  libxslt,
+  makeShellWrapper,
+  mesa,
+  nix-update-script,
+  nspr,
+  nss,
+  pango,
+  python3,
+  rsync,
+  signal-desktop,
+#  sqlite,
+#  sqlcipher,
+  stdenv,
+  wrapGAppsHook,
+  xdg-utils,
 }:
 let
-  version = "7.26.0";
+  ringrtcPrebuild = "${signal-desktop}/lib/Signal/resources/app.asar.unpacked/node_modules/@signalapp/ringrtc";
 
-  ringrtcPrebuild = fetchurl {
-    # version is found in signal-desktop's package.json as "@signalapp/ringrtc"
-    url = "https://build-artifacts.signal.org/libraries/ringrtc-desktop-build-v2.48.0.tar.gz";
-    hash = "sha256-WfD6831Y65KrNG6nGyutffVBajyw1ODQ6OwJ3dE+nKg=";
-  };
-  sqlcipherTarball = fetchurl {
-    # this is a dependency of better-sqlite3.
-    # version/url is found in <repo:signalapp/better-sqlite3:deps/download.js>
-    # - checkout the better-sqlite3 tag which matches signal-dekstop's package.json "@signalapp/better-sqlite3" key.
-    url = let
-      HASH = "7c30de8bcb5d21127803f5ab19a097e1b508d05744aca3ac6166352506b5f451";
-      SQLCIPHER_VERSION = "4.6.1";
-      OPENSSL_VERSION = "3.0.7";
-      TOKENIZER_VERSION = "0.2.1";
-    in "https://build-artifacts.signal.org/desktop/sqlcipher-${SQLCIPHER_VERSION}--${OPENSSL_VERSION}--${TOKENIZER_VERSION}-${HASH}.tar.gz";
-    hash = "sha256-fDDei8tdIRJ4A/WrGaCX4bUI0FdErKOsYWY1JQa19FE=";
-  };
+  betterSqlitePrebuild = "${signal-desktop}/lib/Signal/resources/app.asar.unpacked/node_modules/@signalapp/better-sqlite3";
+
+  # ringrtcPrebuild = stdenv.mkDerivation {
+  #   name = "ringrtc-bin";
+  #   src = fetchurl {
+  #     # version is found in signal-desktop's package.json as "@signalapp/ringrtc"
+  #     url = "https://build-artifacts.signal.org/libraries/ringrtc-desktop-build-v2.48.7.tar.gz";
+  #     hash = "sha256-mwCLOIN6frEwVsOCnkAjZAC8YfKK3FZarbZVRTU6SAc=";
+  #   };
+  #   sourceRoot = ".";
+  #   installPhase = ''
+  #     mkdir -p $out
+  #     cp -R build $out/build
+  #   '';
+  # };
+
+  # sqlcipherTarball = fetchurl {
+  #   # this is a dependency of better-sqlite3.
+  #   # version/url is found in <repo:signalapp/better-sqlite3:deps/download.js>
+  #   # - checkout the better-sqlite3 tag which matches signal-dekstop's package.json "@signalapp/better-sqlite3" key.
+  #   url = let
+  #     BETTER_SQLITE3_VERSION = "9.0.8";  #< from Signal-Desktop/package.json
+  #     HASH = "b0dbebe5b2d81879984bfa2318ba364fb4d436669ddc1668d2406eaaaee40b7e";
+  #     SQLCIPHER_VERSION = "4.6.1-signal-patch2";
+  #     EXTENSION_VERSION = "0.2.0";
+  #   in "https://build-artifacts.signal.org/desktop/sqlcipher-v2-${SQLCIPHER_VERSION}--${EXTENSION_VERSION}-${HASH}.tar.gz";
+  #   hash = "sha256-sNvr5bLYGHmYS/ojGLo2T7TUNmad3BZo0kBuqq7kC34=";
+  # };
 
   # signal-fts5-extension = callPackage ./fts5-extension { };
   # bettersqlitePatch = substituteAll {
@@ -150,14 +165,6 @@ let
   #   signal_fts5_extension = signal-fts5-extension;
   # };
 
-  src = fetchFromGitHub {
-    owner = "signalapp";
-    repo = "Signal-Desktop";
-    leaveDotGit = true;  # signal calculates the release date via `git`
-    rev = "v${version}";
-    hash = "sha256-Dfq8JbECTUNy93cel/5mJ5RAc0+pisqi6RqWFhm3eYY=";
-  };
-
   # note that `package.json` locks the electron version, but we seem to not be strictly beholden to that.
   # prefer to use the same electron version as everywhere else, and a `-bin` version to avoid 4hr rebuilds.
   # the non-bin varieties *seem* to ship the wrong `electron.headers` property.
@@ -170,9 +177,17 @@ let
 in
 buildNpmPackage rec {
   pname = "signal-desktop-from-src";
-  inherit src version;
+  version = "7.35.0";
 
-  npmDepsHash = "sha256-efiJu3mv2fYQFqAHFU83lmlq4jqdAsaiACE9LlyffKY=";
+  src = fetchFromGitHub {
+    owner = "signalapp";
+    repo = "Signal-Desktop";
+    leaveDotGit = true;  # signal calculates the release date via `git`
+    rev = "v${version}";
+    hash = "sha256-5KMlSCCIea3beDnqsUT6ohbQYkIFHFUDfx7hkVOihR4=";
+  };
+
+  npmDepsHash = "sha256-OZQlRnnlq4zlmDjqZsPLj3PpzqTrCAGLXGFisMPetBU=";
 
   patches = [
     # ./debug.patch
@@ -214,6 +229,7 @@ buildNpmPackage rec {
     gnused
     makeShellWrapper
     python3
+    rsync
     wrapGAppsHook
   ];
 
@@ -277,14 +293,23 @@ buildNpmPackage rec {
     # patchShebangs --build --update node_modules/{bufferutil/node_modules/node-gyp-build/,node-gyp-build,utf-8-validate/node_modules/node-gyp-build}
     # patch these out to remove a runtime reference back to the build bash
     # (better, perhaps, would be for these build scripts to not be included in the asar...)
-    sed -i 's:#!.*/bin/bash:#!/bin/sh:g' node_modules/@swc/helpers/scripts/gen.sh
-    sed -i 's:#!.*/bin/bash:#!/bin/sh:g' node_modules/@swc/helpers/scripts/generator.sh
     substituteInPlace node_modules/dashdash/etc/dashdash.bash_completion.in --replace-fail '#!/bin/bash' '#!/bin/sh'
 
     # provide necessities which were skipped as part of --ignore-scripts
-    tar -xzf ${ringrtcPrebuild} --directory node_modules/@signalapp/ringrtc/
+    rsync -arv ${ringrtcPrebuild}/ node_modules/@signalapp/ringrtc/
 
-    cp ${sqlcipherTarball} node_modules/@signalapp/better-sqlite3/deps/sqlcipher.tar.gz
+    # option 1: replace the entire better-sqlite3 library with the prebuilt version from nixpkgs' signal-desktop
+    rsync -arv ${betterSqlitePrebuild}/ node_modules/@signalapp/better-sqlite3/
+    # patch so signal doesn't try to *rebuild* better-sqlite3
+    substituteInPlace node_modules/@signalapp/better-sqlite3/package.json \
+      --replace-fail '"download": "node ./deps/download.js"'  '"download": "true"' \
+      --replace-fail '"build-release": "node-gyp rebuild --release"'  '"build-release": "true"' \
+      --replace-fail '"install": "npm run download && npm run build-release"'  '"install": "true"'
+
+    # option 2: replace only the sqlcipher plugin with Signal's prebuilt version,
+    # and build the rest of better-sqlite3 from source
+    # cp $${sqlcipherTarball} node_modules/@signalapp/better-sqlite3/deps/sqlcipher.tar.gz
+
     # pushd node_modules/@signalapp/better-sqlite3
     #   # node-gyp isn't consistently linked into better-sqlite's `node_modules` (maybe due to version mismatch with signal-desktop's node-gyp?)
     #   PATH="$PATH:$(pwd)/../../.bin" npm --offline run build-release
@@ -352,10 +377,13 @@ buildNpmPackage rec {
   '';
 
   preFixup = ''
-    # fixup the app.asar to use host nodejs
+    # fixup the app.asar to:
+    # - use host nodejs
+    # - use host libpulse.so
     asar extract $out/lib/Signal/resources/app.asar unpacked
     rm $out/lib/Signal/resources/app.asar
     patchShebangs --host --update unpacked
+    patchelf --add-needed ${libpulseaudio}/lib/libpulse.so unpacked/node_modules/@signalapp/ringrtc/build/linux/libringrtc-*.node
     asar pack unpacked $out/lib/Signal/resources/app.asar
 
     # XXX: add --ozone-platform-hint=auto to make it so that NIXOS_OZONE_WL isn't *needed*.
@@ -372,12 +400,17 @@ buildNpmPackage rec {
   '';
 
   passthru = {
+    inherit ringrtcPrebuild betterSqlitePrebuild;
+    # inherit ringrtcPrebuild sqlcipherTarball;
     # inherit bettersqlitePatch signal-fts5-extension;
-    updateScript = gitUpdater {
-      rev-prefix = "v";
-      ignoredVersions = "beta";
+    # updateScript = gitUpdater {
+    #   rev-prefix = "v";
+    #   ignoredVersions = "beta";
+    # };
+    updateScript = nix-update-script {
+      # ignore beta versions
+      extraArgs = [ "--version-regex" "v([0-9.]+)" ];
     };
-    updateWithSuper = false;  #< TODO: enable auto-update, but i need a real updateScript for that instead of one which only updates top-level deps
   };
 
   meta = {

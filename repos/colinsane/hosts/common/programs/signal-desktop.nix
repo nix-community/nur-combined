@@ -1,8 +1,6 @@
-# TODO(bug): signal-desktop is known to hang on exit.
-# particularly, it may fail to start (because e.g. there's no wayland session yet),
-# and it will try to exit -- after which the service would restart -- but it hangs w/ no GUI instead.
-# characterized by these log messages:
-#
+# XXX(2024-11-26): nixpkgs' signal-desktop has bugs on wayland:
+# - it won't open a UI (though it *does* on Xwayland)
+# - it may hang on exit (?), characterized by these log messages:
 #     Dec 03 13:46:23 moby signal-desktop[4097]: [4097:1203/134623.906367:ERROR:ozone_platform_x11.cc(240)] Missing X server or $DISPLAY
 #     Dec 03 13:46:23 moby signal-desktop[4097]: [4097:1203/134623.909667:ERROR:env.cc(255)] The platform failed to initialize.  Exiting.
 { config, lib, pkgs, ... }:
@@ -21,7 +19,22 @@ in
       };
     };
 
+    # optionally, build this *mostly* from source (deps remain vendored), to allow e.g. for patching.
     packageUnwrapped = pkgs.signal-desktop-from-src;
+
+    # or use the binary version:
+    # packageUnwrapped = pkgs.signal-desktop.overrideAttrs (upstream: {
+    #   # fix to use wayland instead of Xwayland:
+    #   # - replace `NIXOS_OZONE_WL` non-empty check with `WAYLAND_DISPLAY`
+    #   # - use `wayland` instead of `auto` because --ozone-platform-hint=auto still prefers X over wayland when both are available
+    #   # alternatively, set env var: `ELECTRON_OZONE_PLATFORM_HINT=wayland` and ignore all of this
+    #   preFixup = lib.replaceStrings
+    #     [ "NIXOS_OZONE_WL" "--ozone-platform-hint=auto" ]
+    #     [ "WAYLAND_DISPLAY" "--ozone-platform-hint=wayland" ]
+    #     upstream.preFixup
+    #   ;
+    # });
+
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [
