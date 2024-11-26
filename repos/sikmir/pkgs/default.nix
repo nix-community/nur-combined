@@ -350,6 +350,7 @@ lib.makeScope newScope (
     dns-filter = callPackage ./misc/dns-filter { };
     docker-reg-tool = callPackage ./misc/docker-reg-tool { };
     docx2csv = callPackage ./misc/docx2csv { };
+    exercisediary = callPackage ./misc/exercisediary { };
     ffs = callPackage ./misc/ffs { };
     finalcut = callPackage ./misc/finalcut { };
     freeopcua = callPackage ./misc/freeopcua { };
@@ -473,6 +474,7 @@ lib.makeScope newScope (
     memphis = callPackage ./osm/memphis { };
     osm-3s = callPackage ./osm/osm-3s { };
     osm-area-tools = callPackage ./osm/osm-area-tools { };
+    osm-gis-export = callPackage ./osm/osm-gis-export { };
     osm-tags-transform = callPackage ./osm/osm-tags-transform { };
     osm2geojson = callPackage ./osm/osm2geojson { };
     osmcoastline = callPackage ./osm/osmcoastline { };
