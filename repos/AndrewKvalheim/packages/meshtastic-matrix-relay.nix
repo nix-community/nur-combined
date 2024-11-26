@@ -32,7 +32,11 @@ python3Packages.buildPythonApplication rec {
     (toFile "debug.patch" ''
       --- a/meshtastic_utils.py
       +++ b/meshtastic_utils.py
-      @@ -252,2 +252,3 @@
+      @@ -249,5 +249,6 @@
+       
+      -    sender = packet.get("fromId", packet.get("from"))
+      +    sender = packet.get("fromId", packet["from"])
+       
            if sender is None:
       +        logger.debug(f"sender is None: {packet}")
                # Sender ID is None. Using 'Unknown' as sender.")
