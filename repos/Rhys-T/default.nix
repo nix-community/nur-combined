@@ -104,6 +104,8 @@ in {
     
     powder = callPackage ./pkgs/powder {};
     
+    xinvaders3d = callPackage ./pkgs/xinvaders3d {};
+    
     icbm3d = pkgs.icbm3d.overrideAttrs (old: {
         postPatch = (old.postPatch or "") + ''
             substituteInPlace makefile --replace-fail 'CC=' '#CC='
