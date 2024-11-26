@@ -2177,10 +2177,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "133.0.20241121.140525";
+      version = "134.0.20241125.200000";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4392420/deutsch_de_language_pack-133.0.20241121.140525.xpi";
-      sha256 = "ab1e1df669b5c8c8a827e4ca6e91d530a6a419fa4881562d172a1abdb910a2a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4394455/deutsch_de_language_pack-134.0.20241125.200000.xpi";
+      sha256 = "296db7cc59c26608c2fd406e4a26db9e73d9ec1958a38e70ffd1cfe9efc3fa03";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2439,10 +2439,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.48.0";
+      version = "2.49.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4393103/dualsub-2.48.0.xpi";
-      sha256 = "8022f0cd5ebf510897a63d574a07e03c5d60c93ee5a06e3d64b5987df5019a1c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4394588/dualsub-2.49.0.xpi";
+      sha256 = "1fe485eb1c73eabd5f9ab21c3af96be6af6420fe7255cd939bf3bf76cf7fbf8d";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2456,8 +2456,6 @@
         mozPermissions = [
           "storage"
           "https://www.youtube.com/*"
-          "https://www.netflix.com/*"
-          "https://www.disneyplus.com/*"
           "https://www.ardmediathek.de/*"
           "https://www.bilibili.com/*"
           "https://www.coursera.org/*"
@@ -3363,10 +3361,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "133.0.20241121.140525";
+      version = "134.0.20241125.200000";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4392387/francais_language_pack-133.0.20241121.140525.xpi";
-      sha256 = "1956eaf5a7157a68b704fd740b0c4d36da00000dde3f4cf0432b9ad7ec5a1e1e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4394366/francais_language_pack-134.0.20241125.200000.xpi";
+      sha256 = "ca009df83e2b90cdc401515d5a3f06ed054e6f809067bcac27cad513ff5702d4";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3400,10 +3398,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "133.0.20241121.140525";
+      version = "134.0.20241125.200000";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4392431/gaidhlig_language_pack-133.0.20241121.140525.xpi";
-      sha256 = "4cb528a6668ef01313e27c5283ec5bf0111082c0974d274d0bfac7366055deca";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4394361/gaidhlig_language_pack-134.0.20241125.200000.xpi";
+      sha256 = "81f11c8b96f78c96f6f096e9bd19d8081147f14eb32ec88154908b73b20e5ce6";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7429,10 +7427,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.16.11";
+      version = "2.16.12";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4376100/momentumdash-2.16.11.xpi";
-      sha256 = "49fbbf53b9dde20699db7f7f8a06de7a5d682df7e1b3c4f063c7bbaf69f50c1d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4390758/momentumdash-2.16.12.xpi";
+      sha256 = "7b07b8f7515c3d900ec50e879b08509023ea78bf30515f5e291b8b4f467621fa";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -8349,10 +8347,10 @@
     };
     "pay-by-privacy" = buildFirefoxXpiAddon {
       pname = "pay-by-privacy";
-      version = "2.4.3";
+      version = "2.4.5";
       addonId = "privacy@privacy.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4383433/pay_by_privacy-2.4.3.xpi";
-      sha256 = "265614cd7e63e98ff688b0d3f578b12204caf5c3ee88851e1492e5fb276ea0c7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4394133/pay_by_privacy-2.4.5.xpi";
+      sha256 = "235e0f83945bb4efdff532de33fc02ed6b37afa6ff82a91cc0f5d7f4a73cde34";
       meta = with lib;
       {
         homepage = "https://privacy.com";
@@ -9912,10 +9910,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "133.0.20241121.140525";
+      version = "134.0.20241125.200000";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4392424/scots_language_pack-133.0.20241121.140525.xpi";
-      sha256 = "431e525ffa65f5f2e91a05146191cf05809b6a90e27d751f9323e41f5872245f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4394351/scots_language_pack-134.0.20241125.200000.xpi";
+      sha256 = "1334ee4cb5553c8f082308fba5b5ecba1feaf638f623a191721d456dd48f4f29";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10761,10 +10759,10 @@
     };
     "surfingkeys" = buildFirefoxXpiAddon {
       pname = "surfingkeys";
-      version = "1.17.4";
+      version = "1.17.5";
       addonId = "{a8332c60-5b6d-41ee-bfc8-e9bb331d34ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4386755/surfingkeys_ff-1.17.4.xpi";
-      sha256 = "e91e957fd996327d765e25c127234d98e87e8618aecd045f64751bc35f276679";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4394007/surfingkeys_ff-1.17.5.xpi";
+      sha256 = "ca29f9edc16167f6234ebd22eb159e1e4640634142e34bdd27019b590b270a49";
       meta = with lib;
       {
         homepage = "https://github.com/brookhong/Surfingkeys";
@@ -10775,6 +10773,7 @@
           "tabs"
           "history"
           "bookmarks"
+          "scripting"
           "storage"
           "sessions"
           "downloads"
@@ -11823,10 +11822,10 @@
     };
     "ublock-origin" = buildFirefoxXpiAddon {
       pname = "ublock-origin";
-      version = "1.61.0";
+      version = "1.61.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4382536/ublock_origin-1.61.0.xpi";
-      sha256 = "e6fd55b799a568c66c10892a8f22428e6773fe16d7466ce9dee2952f224b203d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4391011/ublock_origin-1.61.2.xpi";
+      sha256 = "ee3a724a46ff32c17d1723077fecc6ede7fdab742154020b51fb6253ddcbba14";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
