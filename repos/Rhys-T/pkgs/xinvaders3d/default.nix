@@ -15,6 +15,7 @@
         '';
         homepage = "https://github.com/JoesCat/xinvaders3d";
         license = lib.licenses.gpl2Plus;
+        mainProgram = "xinvaders3d";
         maintainers = [maintainers.Rhys-T];
     };
 }
