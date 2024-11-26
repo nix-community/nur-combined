@@ -32,16 +32,20 @@ python3Packages.buildPythonApplication rec {
     (toFile "debug-filter.patch" ''
       --- a/plugins/debug_plugin.py
       +++ b/plugins/debug_plugin.py
-      @@ -10,2 +10,9 @@
+      @@ -10,2 +10,14 @@
            ):
       +        if (
       +            "decoded" not in packet
       +            or (packet["toId"] == "^all" and not packet["decoded"]["portnum"] == "TEXT_MESSAGE_APP")
-      +            or (packet["toId"][0] == "!" and self.config["node_id"] and packet["toId"] != self.config["node_id"])
       +        ):
       +            return False
+      +        if packet["toId"] and packet["toId"][0] == "!":
+      +            from meshtastic_utils import connect_meshtastic
+      +            meshtastic_client = connect_meshtastic()
+      +            my_node_id = meshtastic_client.getMyNodeInfo()["user"]["id"]
+      +            if packet["toId"] != my_node_id:
+      +                return False
       +
-               packet = self.strip_raw(packet)
     '')
 
     (toFile "destination.patch" ''
