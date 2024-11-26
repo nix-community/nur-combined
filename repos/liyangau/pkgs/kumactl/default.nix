@@ -7,16 +7,16 @@
 
 buildGoModule rec {
   pname = "kumactl";
-  version = "2.8.4";
+  version = "2.9.1";
 
   src = fetchFromGitHub {
     owner = "kumahq";
     repo = "kuma";
     rev = version;
-    hash = "sha256-1W8DgooyHjy0H0Pzs3QBMnUMvcKpYZ1vZuoJQq9vuic=";
+    hash = "sha256-aU1YYYnE7hkVL7f5zd/FXgAW95PpLCIGF4+Ulh3Dq4Q=";
   };
 
-  vendorHash = "sha256-do6zAN+4WuOEJQJwKQF3x28jtwWFMR2u8ESlbmqWIR4=";
+  vendorHash = "sha256-R4wqWKXWGaYD+AaeO1D9Sv5tAsHarCV+UT/wO1Nrc4s=";
 
   nativeBuildInputs = [ installShellFiles ];
   CGO_ENABLED = 0;
@@ -25,11 +25,11 @@ buildGoModule rec {
   ];
   proxyVendor = true;
   subPackages = "app/kumactl";
-  
+
   preBuild = ''
     export HOME=$TMPDIR
   '';
-  
+
   postInstall = ''
     installShellCompletion --cmd kumactl \
       --bash <($out/bin/kumactl completion bash) \

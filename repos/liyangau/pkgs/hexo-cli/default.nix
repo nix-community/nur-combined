@@ -1,4 +1,8 @@
-{ buildNpmPackage, lib, fetchFromGitHub, }:
+{
+  buildNpmPackage,
+  lib,
+  fetchFromGitHub,
+}:
 buildNpmPackage rec {
   pname = "hexo-cli";
   version = "4.3.1";

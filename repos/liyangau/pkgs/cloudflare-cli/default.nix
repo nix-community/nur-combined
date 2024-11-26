@@ -1,7 +1,7 @@
-{ buildNpmPackage
-, lib
-, fetchFromGitHub
-,
+{
+  buildNpmPackage,
+  lib,
+  fetchFromGitHub,
 }:
 buildNpmPackage rec {
   pname = "cloudflare-cli";

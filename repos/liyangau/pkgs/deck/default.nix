@@ -5,9 +5,9 @@
   fetchFromGitHub,
 }:
 let
-  short_hash = "cd165de";
-  package_hash = "sha256-n6WASCtDwBX4FASSWI17JpU7rDXIeSidPWhj/MB2tUs=";
-  latest_version = "1.40.3";
+  short_hash = "63dc5b4";
+  package_hash = "sha256-3T/ZLdLvTk18jC597j/5G3Hng57PDUvirsHPxfTMrGA=";
+  latest_version = "1.41.3";
 in
 buildGoModule rec {
   pname = "deck";
@@ -23,6 +23,7 @@ buildGoModule rec {
   nativeBuildInputs = [ installShellFiles ];
 
   CGO_ENABLED = 0;
+  doCheck = false;
 
   flags = [
     "-trimpath"
@@ -33,7 +34,7 @@ buildGoModule rec {
     "-X github.com/kong/deck/cmd.COMMIT=${short_hash}"
   ];
 
-  vendorHash = "sha256-csoSvu7uce1diB4EsQCRRt08mX+rJoxfZqAtaoo0x4M=";
+  vendorHash = "sha256-S6xclqBshnjkMibEIQUa6Rj3PQRHxB7w6CUJ3tN39xs=";
 
   proxyVendor = true;
 

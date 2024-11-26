@@ -1,4 +1,8 @@
-{ buildNpmPackage, lib, fetchFromGitHub }:
+{
+  buildNpmPackage,
+  lib,
+  fetchFromGitHub,
+}:
 
 buildNpmPackage rec {
   pname = "case-cli";

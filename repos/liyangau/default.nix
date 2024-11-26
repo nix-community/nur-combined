@@ -6,7 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -23,6 +25,9 @@
   cloudflare-cli = pkgs.callPackage ./pkgs/cloudflare-cli { };
   insomnia = pkgs.callPackage ./pkgs/insomnia { };
   # kuma-dp = pkgs.callPackage ./pkgs/kuma-dp { };
+  # kuma-cp = pkgs.callPackage ./pkgs/kuma-cp { };
+  # kumactl = pkgs.callPackage ./pkgs/kumactl { };
+  # coredns = pkgs.callPackage ./pkgs/coredns { };
   # yaml2nix = pkgs.callPackage ./pkgs/yaml2nix { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
