@@ -52,13 +52,14 @@ python3Packages.buildPythonApplication rec {
       +            or (packet["toId"] == "^all" and not packet["decoded"]["portnum"] == "TEXT_MESSAGE_APP")
       +        ):
       +            return False
-      +        if packet["toId"] and packet["toId"][0] == "!":
+      +        if packet["to"]:
       +            from meshtastic_utils import connect_meshtastic
       +            meshtastic_client = connect_meshtastic()
-      +            my_node_id = meshtastic_client.getMyNodeInfo()["user"]["id"]
-      +            if packet["toId"] != my_node_id:
+      +            my_node_id = meshtastic_client.getMyNodeInfo()["num"]
+      +            if packet["to"] != my_node_id:
       +                return False
       +
+               packet = self.strip_raw(packet)
     '')
 
     (toFile "destination.patch" ''
