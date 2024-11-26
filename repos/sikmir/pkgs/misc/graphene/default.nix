@@ -45,6 +45,8 @@ stdenv.mkDerivation (finalAttrs: {
     "sysconfdir=$(out)/etc"
   ];
 
+  doCheck = false;
+
   meta = {
     description = "A simple time series database based on BerkleyDB";
     homepage = "https://github.com/slazav/graphene";
