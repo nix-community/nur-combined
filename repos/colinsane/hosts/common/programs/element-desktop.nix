@@ -7,10 +7,11 @@
 { lib, pkgs, ... }:
 {
   sane.programs.element-desktop = {
-    packageUnwrapped = (pkgs.element-desktop.override {
-      # use pre-built electron because otherwise it takes 4 hrs to build from source.
-      electron = pkgs.electron-bin;
-    }).overrideAttrs (upstream: {
+    # packageUnwrapped = (pkgs.element-desktop.override {
+    #   # use pre-built electron because otherwise it takes 4 hrs to build from source.
+    #   electron = pkgs.electron-bin;
+    # }).overrideAttrs (upstream: {
+    packageUnwrapped = pkgs.element-desktop.overrideAttrs (upstream: {
       # fix to use wayland instead of Xwayland:
       # - replace `NIXOS_OZONE_WL` non-empty check with `WAYLAND_DISPLAY`
       # - use `wayland` instead of `auto` because --ozone-platform-hint=auto still prefers X over wayland when both are available
