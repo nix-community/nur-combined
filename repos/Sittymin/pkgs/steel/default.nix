@@ -1,18 +1,19 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, fullInstall ? true
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  fullInstall ? true,
 }:
 
 rustPlatform.buildRustPackage {
   pname = "steel";
   version = "unstable";
-  src = fetchFromGitHub ({
+  src = fetchFromGitHub {
     owner = "mattwparas";
     repo = "steel";
     rev = "d1a20050ba30158d3f1272f4d57aefeea8ca7644";
-    sha256 = "sha256-HA9ZRVJ7T4s0hdEoKVU3y3mctIhE4u2N0nKT/IGBENo=";
-  });
+    hash = "sha256-HA9ZRVJ7T4s0hdEoKVU3y3mctIhE4u2N0nKT/IGBENo=";
+  };
 
   cargoHash = "sha256-fYon6jfijtO6yAXpjkTirsH/HbH+PoWx/pJcywCBjto=";
 
@@ -24,7 +25,7 @@ rustPlatform.buildRustPackage {
     export STEEL_HOME=$out/.steel
     export CARGO_HOME=$out/cargo
     ${lib.optionalString fullInstall ''
-        cargo xtask install --path .
+      cargo xtask install --path .
     ''}
   '';
 
@@ -36,7 +37,10 @@ rustPlatform.buildRustPackage {
   meta = with lib; {
     description = "An embedded scheme interpreter in Rust";
     homepage = "https://github.com/mattwparas/steel";
-    license = with licenses; [ asl20 mit ];
+    license = with licenses; [
+      asl20
+      mit
+    ];
     platforms = platforms.linux;
   };
 }
