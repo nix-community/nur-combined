@@ -29,6 +29,15 @@ python3Packages.buildPythonApplication rec {
       +config_path = os.getenv("CONFIG_PATH")
     '')
 
+    (toFile "debug.patch" ''
+      --- a/meshtastic_utils.py
+      +++ b/meshtastic_utils.py
+      @@ -252,2 +252,3 @@
+           if sender is None:
+      +        logger.debug(f"sender is None: {packet}")
+               # Sender ID is None. Using 'Unknown' as sender.")
+    '')
+
     (toFile "debug-filter.patch" ''
       --- a/plugins/debug_plugin.py
       +++ b/plugins/debug_plugin.py
