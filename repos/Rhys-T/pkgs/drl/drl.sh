@@ -8,7 +8,7 @@ shopt -s extglob
 for file in @out@/share/drl/!(drl); do
 	baseFile="${file##*/}"
 	destFile="$destDir/$baseFile"
-	if [[ -L "$destFile" && "$(readlink "$destFile")" == "$NIX_STORE"* ]]; then
+	if [[ -L "$destFile" && "$(readlink "$destFile")" == "@storePath@"* ]]; then
 		rm "$destFile"
 	fi
 	if [[ ! -e "$destFile" ]]; then
@@ -19,7 +19,7 @@ for file in @out@/share/drl/!(drl); do
 			for subFile in "$file"/*; do
 				baseSubFile="${subFile##*/}"
 				destSubFile="$destFile/$baseSubFile"
-				if [[ -L "$destSubFile" && "$(readlink "$destSubFile")" == "$NIX_STORE"* ]]; then
+				if [[ -L "$destSubFile" && "$(readlink "$destSubFile")" == "@storePath@"* ]]; then
 					rm "$destSubFile"
 				fi
 				if [[ ! -e "$destSubFile" ]]; then
