@@ -3,10 +3,12 @@
   stdenv,
   fetchFromGitHub,
   cmake,
+  makeBinaryWrapper,
   ninja,
   pkg-config,
   python3,
   yyjson_0_10,
+  hwdata,
   testers,
   nix-update-script,
 
@@ -15,38 +17,47 @@
     || stdenv.hostPlatform.isDarwin
     || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isOpenBSD
+    || stdenv.hostPlatform.isNetBSD
     || stdenv.hostPlatform.isWindows
     || stdenv.hostPlatform.isAndroid
     || stdenv.hostPlatform.isSunOS,
   vulkan-loader,
   enableWayland ?
-    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD || stdenv.hostPlatform.isOpenBSD,
+    stdenv.hostPlatform.isLinux
+    || stdenv.hostPlatform.isFreeBSD
+    || stdenv.hostPlatform.isOpenBSD
+    || stdenv.hostPlatform.isNetBSD,
   wayland,
   enableXcbRandr ?
     stdenv.hostPlatform.isLinux
     || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isOpenBSD
+    || stdenv.hostPlatform.isNetBSD
     || stdenv.hostPlatform.isSunOS,
   enableXcb ?
     stdenv.hostPlatform.isLinux
     || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isOpenBSD
+    || stdenv.hostPlatform.isNetBSD
     || stdenv.hostPlatform.isSunOS,
   enableXrandr ?
     stdenv.hostPlatform.isLinux
     || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isOpenBSD
+    || stdenv.hostPlatform.isNetBSD
     || stdenv.hostPlatform.isSunOS,
   enableX11 ?
     stdenv.hostPlatform.isLinux
     || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isOpenBSD
+    || stdenv.hostPlatform.isNetBSD
     || stdenv.hostPlatform.isSunOS,
   xorg,
   enableDrm ?
     stdenv.hostPlatform.isLinux
     || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isOpenBSD
+    || stdenv.hostPlatform.isNetBSD
     || stdenv.hostPlatform.isSunOS,
   libdrm,
   enableDrmAmdgpu ? stdenv.hostPlatform.isLinux,
@@ -54,30 +65,35 @@
     stdenv.hostPlatform.isLinux
     || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isOpenBSD
+    || stdenv.hostPlatform.isNetBSD
     || stdenv.hostPlatform.isSunOS,
   glib,
   enableDconf ?
     stdenv.hostPlatform.isLinux
     || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isOpenBSD
+    || stdenv.hostPlatform.isNetBSD
     || stdenv.hostPlatform.isSunOS,
   dconf,
   enableDbus ?
     stdenv.hostPlatform.isLinux
     || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isOpenBSD
+    || stdenv.hostPlatform.isNetBSD
     || stdenv.hostPlatform.isSunOS,
   dbus,
   enableXfconf ?
     stdenv.hostPlatform.isLinux
     || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isOpenBSD
+    || stdenv.hostPlatform.isNetBSD
     || stdenv.hostPlatform.isSunOS,
   xfce,
   enableSqlite3 ?
     stdenv.hostPlatform.isLinux
     || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isOpenBSD
+    || stdenv.hostPlatform.isNetBSD
     || stdenv.hostPlatform.isDarwin
     || stdenv.hostPlatform.isSunOS,
   sqlite,
@@ -88,6 +104,7 @@
     || stdenv.hostPlatform.isDarwin
     || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isOpenBSD
+    || stdenv.hostPlatform.isNetBSD
     || stdenv.hostPlatform.isWindows
     || stdenv.hostPlatform.isSunOS,
   imagemagick,
@@ -99,6 +116,7 @@
     stdenv.hostPlatform.isLinux
     || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isOpenBSD
+    || stdenv.hostPlatform.isNetBSD
     || stdenv.hostPlatform.isWindows
     || stdenv.hostPlatform.isSunOS,
   libGL,
@@ -106,18 +124,21 @@
     stdenv.hostPlatform.isLinux
     || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isOpenBSD
+    || stdenv.hostPlatform.isNetBSD
     || stdenv.hostPlatform.isSunOS,
   libglvnd,
   enableOsmesa ?
     stdenv.hostPlatform.isLinux
     || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isOpenBSD
+    || stdenv.hostPlatform.isNetBSD
     || stdenv.hostPlatform.isSunOS,
   mesa,
   enableOpencl ?
     stdenv.hostPlatform.isLinux
     || stdenv.hostPlatform.isFreeBSD
     || stdenv.hostPlatform.isOpenBSD
+    || stdenv.hostPlatform.isNetBSD
     || stdenv.hostPlatform.isWindows
     || stdenv.hostPlatform.isAndroid
     || stdenv.hostPlatform.isSunOS,
@@ -126,7 +147,10 @@
   enableFreetype ? stdenv.hostPlatform.isAndroid,
   freetype,
   enablePulse ?
-    stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isOpenBSD || stdenv.hostPlatform.isSunOS,
+    stdenv.hostPlatform.isLinux
+    || stdenv.hostPlatform.isOpenBSD
+    || stdenv.hostPlatform.isNetBSD
+    || stdenv.hostPlatform.isSunOS,
   pulseaudio,
   enableDdcutil ? stdenv.hostPlatform.isLinux,
   ddcutil,
@@ -137,21 +161,29 @@
   enableLibzfs ?
     stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isFreeBSD || stdenv.hostPlatform.isSunOS,
   zfs,
+  enablePciaccess ?
+    stdenv.hostPlatform.isNetBSD || stdenv.hostPlatform.isOpenBSD || stdenv.hostPlatform.isSunOS,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastfetch";
-  version = "2.29.0";
+  version = "2.30.1";
 
   src = fetchFromGitHub {
     owner = "fastfetch-cli";
     repo = "fastfetch";
-    rev = finalAttrs.version;
-    hash = "sha256-qXzE2v2BS1CgPVPIj+mct9zoJ4hpNCsTZ12keQThRZI=";
+    rev = "refs/tags/${finalAttrs.version}";
+    hash = "sha256-Gt5rsUDi7E2msdHzSbvc8dM2yxwws4Q5GYpHJNg9mGA=";
   };
+
+  outputs = [
+    "out"
+    "man"
+  ];
 
   nativeBuildInputs = [
     cmake
+    makeBinaryWrapper
     ninja
     pkg-config
     python3
@@ -186,42 +218,47 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional enableDdcutil ddcutil
     ++ lib.optional enableDirectxHeaders directx-headers
     ++ lib.optional enableElf libelf
-    ++ lib.optional enableLibzfs zfs;
+    ++ lib.optional enableLibzfs zfs
+    ++ lib.optional enablePciaccess xorg.libpciaccess;
 
-  cmakeFlags = [
-    (lib.cmakeOptionType "filepath" "CMAKE_INSTALL_SYSCONFDIR" "${placeholder "out"}/etc")
-    (lib.cmakeBool "ENABLE_SYSTEM_YYJSON" true)
-    (lib.cmakeBool "ENABLE_VULKAN" enableVulkan)
-    (lib.cmakeBool "ENABLE_WAYLAND" enableWayland)
-    (lib.cmakeBool "ENABLE_XCB" enableXcb)
-    (lib.cmakeBool "ENABLE_XCB_RANDR" enableXcbRandr)
-    (lib.cmakeBool "ENABLE_XRANDR" enableXrandr)
-    (lib.cmakeBool "ENABLE_X11" enableX11)
-    (lib.cmakeBool "ENABLE_DRM" enableDrm)
-    (lib.cmakeBool "ENABLE_DRM_AMDGPU" enableDrmAmdgpu)
-    (lib.cmakeBool "ENABLE_GIO" enableGio)
-    (lib.cmakeBool "ENABLE_DCONF" enableDconf)
-    (lib.cmakeBool "ENABLE_DBUS" enableDbus)
-    (lib.cmakeBool "ENABLE_XFCONF" enableXfconf)
-    (lib.cmakeBool "ENABLE_SQLITE3" enableSqlite3)
-    (lib.cmakeBool "ENABLE_RPM" enableRpm)
-    (lib.cmakeBool "ENABLE_IMAGEMAGICK7" enableImagemagick)
-    (lib.cmakeBool "ENABLE_IMAGEMAGICK6" false)
-    (lib.cmakeBool "ENABLE_CHAFA" enableChafa)
-    (lib.cmakeBool "ENABLE_ZLIB" enableZlib)
-    (lib.cmakeBool "ENABLE_EGL" enableEgl)
-    (lib.cmakeBool "ENABLE_GLX" enableGlx)
-    (lib.cmakeBool "ENABLE_OSMESA" enableOsmesa)
-    (lib.cmakeBool "ENABLE_OPENCL" enableOpencl)
-    (lib.cmakeBool "ENABLE_FREETYPE" enableFreetype)
-    (lib.cmakeBool "ENABLE_PULSE" enablePulse)
-    (lib.cmakeBool "ENABLE_DDCUTIL" enableDdcutil)
-    (lib.cmakeBool "ENABLE_DIRECTX_HEADERS" enableDirectxHeaders)
-    (lib.cmakeBool "ENABLE_ELF" enableElf)
-    (lib.cmakeBool "ENABLE_LIBZFS" enableLibzfs)
-    # Requires networking
-    (lib.cmakeBool "ENABLE_EMBEDDED_PCIIDS" false)
-  ];
+  cmakeFlags =
+    [
+      (lib.cmakeOptionType "filepath" "CMAKE_INSTALL_SYSCONFDIR" "${placeholder "out"}/etc")
+      (lib.cmakeBool "ENABLE_SYSTEM_YYJSON" true)
+      (lib.cmakeBool "ENABLE_VULKAN" enableVulkan)
+      (lib.cmakeBool "ENABLE_WAYLAND" enableWayland)
+      (lib.cmakeBool "ENABLE_XCB" enableXcb)
+      (lib.cmakeBool "ENABLE_XCB_RANDR" enableXcbRandr)
+      (lib.cmakeBool "ENABLE_XRANDR" enableXrandr)
+      (lib.cmakeBool "ENABLE_X11" enableX11)
+      (lib.cmakeBool "ENABLE_DRM" enableDrm)
+      (lib.cmakeBool "ENABLE_DRM_AMDGPU" enableDrmAmdgpu)
+      (lib.cmakeBool "ENABLE_GIO" enableGio)
+      (lib.cmakeBool "ENABLE_DCONF" enableDconf)
+      (lib.cmakeBool "ENABLE_DBUS" enableDbus)
+      (lib.cmakeBool "ENABLE_XFCONF" enableXfconf)
+      (lib.cmakeBool "ENABLE_SQLITE3" enableSqlite3)
+      (lib.cmakeBool "ENABLE_RPM" enableRpm)
+      (lib.cmakeBool "ENABLE_IMAGEMAGICK7" enableImagemagick)
+      (lib.cmakeBool "ENABLE_IMAGEMAGICK6" false)
+      (lib.cmakeBool "ENABLE_CHAFA" enableChafa)
+      (lib.cmakeBool "ENABLE_ZLIB" enableZlib)
+      (lib.cmakeBool "ENABLE_EGL" enableEgl)
+      (lib.cmakeBool "ENABLE_GLX" enableGlx)
+      (lib.cmakeBool "ENABLE_OSMESA" enableOsmesa)
+      (lib.cmakeBool "ENABLE_OPENCL" enableOpencl)
+      (lib.cmakeBool "ENABLE_FREETYPE" enableFreetype)
+      (lib.cmakeBool "ENABLE_PULSE" enablePulse)
+      (lib.cmakeBool "ENABLE_DDCUTIL" enableDdcutil)
+      (lib.cmakeBool "ENABLE_DIRECTX_HEADERS" enableDirectxHeaders)
+      (lib.cmakeBool "ENABLE_ELF" enableElf)
+      (lib.cmakeBool "ENABLE_LIBZFS" enableLibzfs)
+      (lib.cmakeBool "ENABLE_PCIACCESS" enablePciaccess)
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
+      (lib.cmakeOptionType "filepath" "CUSTOM_PCI_IDS_PATH" "${hwdata}/share/hwdata/pci.ids")
+      (lib.cmakeOptionType "filepath" "CUSTOM_AMDGPU_IDS_PATH" "${libdrm}/share/libdrm/amdgpu.ids")
+    ];
 
   passthru = {
     tests.version = testers.testVersion { package = finalAttrs.finalPackage; };

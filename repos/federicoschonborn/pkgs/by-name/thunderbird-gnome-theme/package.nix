@@ -7,13 +7,13 @@
 
 stdenvNoCC.mkDerivation {
   pname = "thunderbird-gnome-theme";
-  version = "115-unstable-2024-07-25";
+  version = "115-unstable-2024-11-26";
 
   src = fetchFromGitHub {
     owner = "rafaelmardojai";
     repo = "thunderbird-gnome-theme";
-    rev = "628fcccb7788e3e0ad34f67114f563c87ac8c1dc";
-    hash = "sha256-BHW9jlx92CsHY84FT0ce5Vxl0KFheLhNn2vndcIf7no=";
+    rev = "1994e7ec0649053e2a0811973245758d41e33f5f";
+    hash = "sha256-i0Uo5EN45rlGuR85hvPet43zW/thOQTwHypVg9shTHU=";
   };
 
   installPhase = ''

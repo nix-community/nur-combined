@@ -13,13 +13,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mii-emu";
-  version = "1.96";
+  version = "1.97";
 
   src = fetchFromGitHub {
     owner = "buserror";
     repo = "mii_emu";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-8DFupcNH7a5+QJVSDOmojghedA3MPYCHhAsjsuwVdA4=";
+    hash = "sha256-ugXPEENU2QKjF/R7MWes4rZuTVeyTfvSXhy/SnfPqJo=";
   };
 
   nativeBuildInputs = [ pkg-config ];

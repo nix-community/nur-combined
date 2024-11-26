@@ -33,9 +33,8 @@ lib.makeScope pkgs.newScope (
         pkgs.yyjson.overrideAttrs (
           finalAttrs: prevAttrs: {
             version = "0.10.0";
-            src = pkgs.fetchFromGitHub {
-              inherit (prevAttrs.src) owner repo;
-              rev = finalAttrs.version;
+            src = prevAttrs.src.override {
+              rev = "refs/tags/${finalAttrs.version}";
               hash = "sha256-mp9Oz08qTyhj3P6F1d81SX96vamUY/JWpD2DTYR+v04=";
             };
           }
@@ -79,6 +78,7 @@ lib.makeScope pkgs.newScope (
           enableDirectxHeaders = false;
           enableElf = false;
           enableLibzfs = false;
+          enablePciaccess = false;
         };
 
     gtatoolFull =
