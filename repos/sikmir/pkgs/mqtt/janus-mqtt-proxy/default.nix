@@ -1,10 +1,10 @@
 {
   lib,
   fetchFromGitHub,
-  buildGoPackage,
+  buildGoModule,
 }:
 
-buildGoPackage {
+buildGoModule {
   pname = "janus-mqtt-proxy";
   version = "0-unstable-2022-02-19";
 
@@ -15,12 +15,14 @@ buildGoPackage {
     hash = "sha256-RjhIV5GDHqtGz54Zfaph5JleBaAIDwIWGiknl1KNW+8=";
   };
 
-  subPackages = [ "cmd/proxy" ];
-  goPackagePath = "github.com/phoenix-mstu/janus-mqtt-proxy";
+  patches = [ ./go.mod.patch ];
 
-  goDeps = ./deps.nix;
+  vendorHash = "sha256-dfllNAieT3scfsojOJoBSDpKJVkh9YwwRD9KvLwT2Jo=";
+
+  subPackages = [ "cmd/proxy" ];
 
   postInstall = ''
+    mv $out/bin/{proxy,janus-mqtt-proxy}
     install -Dm644 $src/sample_configs/*.yaml -t $out/share/janus-mqtt-proxy/sample_configs
   '';
 

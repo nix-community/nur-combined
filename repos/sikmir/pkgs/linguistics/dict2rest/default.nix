@@ -1,10 +1,10 @@
 {
   lib,
   fetchFromGitHub,
-  buildGoPackage,
+  buildGoModule,
 }:
 
-buildGoPackage {
+buildGoModule {
   pname = "dict2rest";
   version = "0-unstable-2016-12-05";
 
@@ -15,7 +15,15 @@ buildGoPackage {
     hash = "sha256-v5vBsdGQZYHSPEiBgSezKqaev1sTXnP27Tn47z1ebjQ=";
   };
 
-  goPackagePath = "github.com/felix/go-dict2rest";
+  patches = [ ./go.mod.patch ];
+
+  postPatch = ''
+    rm -rf vendor
+  '';
+
+  vendorHash = "sha256-vwqD9XsxutwMalJiPZa//aYw88wK0ih6zGcOSxoOjec=";
+
+  doCheck = false;
 
   meta = {
     description = "A simple proxy service providing an HTTP interface to a Dict protocol (RFC 2229) server";

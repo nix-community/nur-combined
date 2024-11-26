@@ -1,10 +1,10 @@
 {
   lib,
-  buildGo122Package,
+  buildGo122Module,
   fetchFromGitHub,
 }:
 
-buildGo122Package {
+buildGo122Module {
   pname = "nanodns";
   version = "0-unstable-2021-10-29";
 
@@ -15,9 +15,9 @@ buildGo122Package {
     hash = "sha256-Paz59YJkwK0v9/e7NrqpQjx0r/iHMpSCLd2heHw8KlA=";
   };
 
-  goPackagePath = "github.com/Sina-Ghaderi/nanodns";
+  patches = [ ./go.mod.patch ];
 
-  goDeps = ./deps.nix;
+  vendorHash = "sha256-+azMCvpNBE6p+U9wHdl8j5pKV42v05PIkeOURB+5qVc=";
 
   meta = {
     description = "Simple dns forwarder/cache blocker server";
