@@ -35,7 +35,7 @@ python3Packages.buildPythonApplication rec {
       @@ -249,5 +249,6 @@
        
       -    sender = packet.get("fromId", packet.get("from"))
-      +    sender = packet.get("fromId", packet["from"])
+      +    sender = packet.get("fromId") or packet.get("from")
        
            if sender is None:
       +        logger.debug(f"sender is None: {packet}")
