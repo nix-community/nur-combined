@@ -1,10 +1,6 @@
 # a `docset` is an HTML-based archive containing a library or language reference and search index
 # - originated from Apple/Xcode: <https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/Documentation_Sets/010-Overview_of_Documentation_Sets/docset_overview.html#//apple_ref/doc/uid/TP40005266-CH13-SW6>
 # - still in use via Dash/Zeal: <https://kapeli.com/dash>
-# TODO:
-# - package Nix/NixOS docs as a docset
-#   - see: <https://github.com/nixosbrasil/nix-docgen>
-#   - see: <https://gist.github.com/antifuchs/8d946b121fb5dbbf4da01dc05f7d749f>
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.docsets;
@@ -60,6 +56,7 @@ in {
   ];
   sane.programs.docsets.config.pkgs = with pkgs; [
     # packages which ship docsets natively:
+    docsets.lua-std
     # docsets.gtk
     docsets.nix-builtins
     docsets.nixpkgs-lib

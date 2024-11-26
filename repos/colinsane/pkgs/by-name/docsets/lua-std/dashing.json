@@ -1,0 +1,34 @@
+{
+  "name": "Lua",
+  "package": "lua",
+  "index": "index.html",
+  "selectors": {
+    "h3 a[name^=\"pdf-\"] code": [
+      {
+        "type": "method",
+        "requiretext": ":.*\\(",
+        "regexp": " \\(.*\\)",
+        "replacement": ""
+      },
+      {
+        "type": "function",
+        "requiretext": "\\(",
+        "regexp": "([a-zA-Z0-9_]+:[a-zA-Z0-9_]+)? \\(.*\\)",
+        "replacement": ""
+      },
+      {
+        "type": "variable",
+        "regexp": ".* \\(.*\\)",
+        "replacement": ""
+      }
+    ],
+    "p a[name^=\"pdf-\"] code": {
+      "type": "module",
+      "requiretext": "^(coroutine|package|string|table|math|bit32|io|os|debug)$"
+    }
+  },
+  "ignore": [],
+  "icon32x32": "",
+  "allowJS": false,
+  "ExternalURL": "https://www.lua.org/docs.html"
+}
