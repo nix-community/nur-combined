@@ -129,25 +129,20 @@ python3Packages.buildPythonApplication rec {
     (toFile "message-packet.patch" ''
       --- a/matrix_utils.py
       +++ b/matrix_utils.py
-      @@ -1,3 +1,5 @@
-       import asyncio
-      +import base64
-       import io
-      +import json
-       import re
-      @@ -129 +131,7 @@
+      @@ -9,2 +9,3 @@
+       import meshtastic.protobuf.portnums_pb2
+      +from meshtastic.util import message_to_json
+       from nio import (
+      @@ -129 +130 @@
       -async def matrix_relay(room_id, message, longname, shortname, meshnet_name, portnum):
       +async def matrix_relay(room_id, message, longname, shortname, meshnet_name, portnum, packet):
-      +    if "decoded" in packet and "payload" in packet["decoded"]:
-      +        if isinstance(packet["decoded"]["payload"], bytes):
-      +            packet["decoded"]["payload"] = base64.b64encode(
-      +                packet["decoded"]["payload"]
-      +            ).decode("utf-8")
-      +
-      @@ -138,2 +146,3 @@
+      @@ -138,2 +139,3 @@
                    "meshtastic_portnum": portnum,
-      +            "meshtastic_packet": json.dumps(packet)
+      +            "meshtastic_packet": message_to_json(packet)
                }
+      @@ -153 +155 @@
+      -        logger.error(f"Error sending radio message to matrix room {room_id}: {e}")
+      +        logger.error(f"Error sending radio message to matrix room {room_id}: {e} (packet: {packet})")
       --- a/meshtastic_utils.py
       +++ b/meshtastic_utils.py
       @@ -370,2 +371,3 @@
