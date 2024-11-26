@@ -18,13 +18,19 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ fast-float ];
+  buildInputs = [
+    (fast-float.overrideAttrs(old: { version = "6.1.6"; }))
+  ];
 
   cmakeFlags = [
     "-DSCN_TESTS=OFF"
-    "-DSCN_BENCHMARKS=OFF"
     "-DSCN_EXAMPLES=OFF"
+    "-DSCN_BENCHMARKS=OFF"
+    "-DSCN_BENCHMARKS_BUILDTIME=OFF"
+    "-DSCN_BENCHMARKS_BINARYSIZE=OFF"
+    "-DSCN_USE_EXTERNAL_BENCHMARK=ON"
     "-DSCN_USE_EXTERNAL_FAST_FLOAT=ON"
+    "-DSCN_INSTALL=ON"
     "-DBUILD_SHARED_LIBS=${if enableShared then "ON" else "OFF"}"
   ];
 
