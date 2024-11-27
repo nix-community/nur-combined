@@ -129,18 +129,41 @@ python3Packages.buildPythonApplication rec {
     (toFile "message-packet.patch" ''
       --- a/matrix_utils.py
       +++ b/matrix_utils.py
-      @@ -9,2 +9,3 @@
-       import meshtastic.protobuf.portnums_pb2
-      +from meshtastic.util import message_to_json
-       from nio import (
-      @@ -129 +130 @@
+      @@ -1,3 +1,5 @@
+       import asyncio
+      +import base64
+       import io
+      +import json
+       import re
+      @@ -129 +131,22 @@
       -async def matrix_relay(room_id, message, longname, shortname, meshnet_name, portnum):
       +async def matrix_relay(room_id, message, longname, shortname, meshnet_name, portnum, packet):
-      @@ -138,2 +139,3 @@
+      +    # Make packet serializable
+      +    def strip_raw(data):
+      +        if type(data) is not dict:
+      +            return data
+      +        if "raw" in data:
+      +            del data["raw"]
+      +        for k, v in data.items():
+      +            data[k] = strip_raw(v)
+      +        return data
+      +    if not isinstance(packet, dict):
+      +        try:
+      +            packet = json.loads(packet)
+      +        except (json.JSONDecodeError, TypeError):
+      +            packet = {"decoded": {"text": packet}}
+      +    packet = strip_raw(packet)
+      +    if "decoded" in packet and "payload" in packet["decoded"]:
+      +        if isinstance(packet["decoded"]["payload"], bytes):
+      +            packet["decoded"]["payload"] = base64.b64encode(
+      +                packet["decoded"]["payload"]
+      +            ).decode("utf-8")
+      +
+      @@ -138,2 +161,3 @@
                    "meshtastic_portnum": portnum,
-      +            "meshtastic_packet": message_to_json(packet)
+      +            "meshtastic_packet": packet,
                }
-      @@ -153 +155 @@
+      @@ -153 +177 @@
       -        logger.error(f"Error sending radio message to matrix room {room_id}: {e}")
       +        logger.error(f"Error sending radio message to matrix room {room_id}: {e} (packet: {packet})")
       --- a/meshtastic_utils.py
