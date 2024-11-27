@@ -811,10 +811,10 @@
     };
     "bibbot" = buildFirefoxXpiAddon {
       pname = "bibbot";
-      version = "0.38.1";
+      version = "0.39.1";
       addonId = "voebbot@stefanwehrmeyer.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4347294/bibbot-0.38.1.xpi";
-      sha256 = "a1c21c27aee9eded411957ca8bd44f998eb476686f154f2bf6ef29293212b91f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4394877/bibbot-0.39.1.xpi";
+      sha256 = "8a8d7fabf3b81d85486fef9ca32b1ba64b3dd19212d3b361ae591ae47117cdee";
       meta = with lib;
       {
         homepage = "https://github.com/stefanw/bibbot";
@@ -824,7 +824,8 @@
           "activeTab"
           "tabs"
           "storage"
-          "https://*.genios.de/*"
+          "scripting"
+          "alarms"
           "https://www.spiegel.de/*"
           "https://www.zeit.de/*"
           "https://www.wiwo.de/*"
@@ -2936,10 +2937,10 @@
     };
     "ff2mpv" = buildFirefoxXpiAddon {
       pname = "ff2mpv";
-      version = "5.1.1";
+      version = "6.0.0";
       addonId = "ff2mpv@yossarian.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4237837/ff2mpv-5.1.1.xpi";
-      sha256 = "0e3fa6850f600adba8ed477f91dd1ec4988e338c8746624e9113b861303fdf41";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4394631/ff2mpv-6.0.0.xpi";
+      sha256 = "f5edb75698ebd73d7a6d4034a37636022019adde712379b7a43e741b2a179b9d";
       meta = with lib;
       {
         homepage = "https://github.com/woodruffw/ff2mpv";
@@ -2950,6 +2951,7 @@
           "contextMenus"
           "activeTab"
           "storage"
+          "scripting"
         ];
         platforms = platforms.all;
       };
@@ -4060,10 +4062,10 @@
     };
     "hoppscotch" = buildFirefoxXpiAddon {
       pname = "hoppscotch";
-      version = "0.36";
+      version = "0.37";
       addonId = "postwoman-firefox@postwoman.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4283657/hoppscotch-0.36.xpi";
-      sha256 = "d3b1d4da6bd978c7230cc3b0ca8b9239e2534f08549fa356735001c5807f99ce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4395029/hoppscotch-0.37.xpi";
+      sha256 = "41895cd06f65d47e3c61e71d5e9ba1312590f7c51aaa165fe63ec925fd6cc030";
       meta = with lib;
       {
         homepage = "https://github.com/hoppscotch/hoppscotch-extension";
