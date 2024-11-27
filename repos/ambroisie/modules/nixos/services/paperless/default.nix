@@ -84,43 +84,30 @@ in
 
       # Admin password
       passwordFile = cfg.passwordFile;
+
+      # Secret key
+      environmentFile = cfg.secretKeyFile;
     };
 
     systemd.services = {
       paperless-scheduler = {
         requires = [ "postgresql.service" ];
         after = [ "postgresql.service" ];
-
-        serviceConfig = {
-          EnvironmentFile = cfg.secretKeyFile;
-        };
       };
 
       paperless-consumer = {
         requires = [ "postgresql.service" ];
         after = [ "postgresql.service" ];
-
-        serviceConfig = {
-          EnvironmentFile = cfg.secretKeyFile;
-        };
       };
 
       paperless-web = {
         requires = [ "postgresql.service" ];
         after = [ "postgresql.service" ];
-
-        serviceConfig = {
-          EnvironmentFile = cfg.secretKeyFile;
-        };
       };
 
       paperless-task-queue = {
         requires = [ "postgresql.service" ];
         after = [ "postgresql.service" ];
-
-        serviceConfig = {
-          EnvironmentFile = cfg.secretKeyFile;
-        };
       };
     };
 
