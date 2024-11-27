@@ -7,7 +7,7 @@
   muparser,
   readline,
   testers,
-# nix-update-script,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "marlam";
     repo = "mucalc";
-    rev = "mucalc-${finalAttrs.version}";
+    rev = "refs/tags/mucalc-${finalAttrs.version}";
     hash = "sha256-qXqe9U7y3YrzSeJKgW53vkdNpPcAmxysxzT7SIlSzMo=";
   };
 
@@ -34,12 +34,12 @@ stdenv.mkDerivation (finalAttrs: {
   passthru = {
     tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
 
-    # updateScript = nix-update-script {
-    #   extraArgs = [
-    #     "--version-regex"
-    #     "mucalc-(.*)"
-    #   ];
-    # };
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--version-regex"
+        "mucalc-(.*)"
+      ];
+    };
   };
 
   meta = {

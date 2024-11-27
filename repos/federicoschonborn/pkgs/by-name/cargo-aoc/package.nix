@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage {
   src = fetchFromGitHub {
     owner = "gobanos";
     repo = "cargo-aoc";
-    rev = version;
+    rev = "refs/tags/${version}";
     hash = "sha256-k9Lm91+Bk6EC8+KfEXhSs4ki385prZ6Vbs6W+18aZSI=";
   };
 

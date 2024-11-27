@@ -18,7 +18,7 @@ buildGoModule {
   src = fetchFromGitHub {
     owner = "get-woke";
     repo = "woke";
-    rev = "v${version}";
+    rev = "refs/tags/${version}";
     hash = "sha256-X9fhExHhOLjPfpwrYPMqTJkgQL2ruHCGEocEoU7m6fM=";
   };
 

@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "alemart";
     repo = "opensurge";
-    rev = "v${finalAttrs.version}";
+    rev = "refs/tags/${finalAttrs.version}";
     hash = "sha256-HvpKZ62mYy7XkZOnIn7QRA2rFVREFnKO1NO83aCR76k=";
   };
 
@@ -54,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "opensurge";
     description = "A fun 2D retro platformer inspired by Sonic games and a game creation system";
     homepage = "https://github.com/alemart/opensurge";
-    changelog = "https://github.com/alemart/opensurge/blob/${finalAttrs.src.rev}/CHANGES.md";
+    changelog = "https://github.com/alemart/opensurge/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];

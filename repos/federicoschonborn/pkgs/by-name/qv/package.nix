@@ -6,8 +6,8 @@
   ninja,
   qt6,
   libtgd,
-# testers,
-# nix-update-script,
+  # testers,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "marlam";
     repo = "qv-mirror";
-    rev = "qv-${finalAttrs.version}";
+    rev = "refs/tags/qv-${finalAttrs.version}";
     hash = "sha256-EZT2DU6jqERj+Uf0T4Xx3dnbDD4nEgidmV0L5wyWTaY=";
   };
 
@@ -37,12 +37,12 @@ stdenv.mkDerivation (finalAttrs: {
     # Immediately exits on this test, otherwise works fine, maybe something Qt related?
     # tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
 
-    # updateScript = nix-update-script {
-    #   extraArgs = [
-    #     "--version-regex"
-    #     "qv-(.*)"
-    #   ];
-    # };
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--version-regex"
+        "qv-(.*)"
+      ];
+    };
   };
 
   meta = {

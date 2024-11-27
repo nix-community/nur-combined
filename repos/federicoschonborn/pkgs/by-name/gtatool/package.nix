@@ -7,7 +7,7 @@
   texinfo,
   libgta,
   testers,
-  # nix-update-script,
+  nix-update-script,
 
   withCsv ? true,
   withDatraw ? true,
@@ -58,8 +58,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "marlam";
     repo = "gta";
-    rev = "gtatool-${finalAttrs.version}";
-    hash = "sha256-6MPQ32RkDBIZg96GWX+IpBpH6ROzXkrccHaMSiy/Bv0=";
+    rev = "refs/tags/gtatool-${finalAttrs.version}";
+    hash = "sha256-cW3yUZ5UK9oCBdLXHmWNd7i7Pu7yiJBSeIivXH/9dvk=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/gtatool";
@@ -104,12 +104,12 @@ stdenv.mkDerivation (finalAttrs: {
   passthru = {
     tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
 
-    # updateScript = nix-update-script {
-    #   extraArgs = [
-    #     "--version-regex"
-    #     "gtatool-(.*)"
-    #   ];
-    # };
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--version-regex"
+        "gtatool-(.*)"
+      ];
+    };
   };
 
   meta = {

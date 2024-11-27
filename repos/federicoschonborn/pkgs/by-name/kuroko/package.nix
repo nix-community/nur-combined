@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "kuroko-lang";
     repo = "kuroko";
-    rev = "v${finalAttrs.version}";
+    rev = "refs/tags/${finalAttrs.version}";
     hash = "sha256-+hzgRX0T0LhAcHHBdOp8Tlo2hO2gxt6wkHjulDHdZ1Q=";
   };
 

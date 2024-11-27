@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "alemart";
     repo = "surgescript";
-    rev = "v${finalAttrs.version}";
+    rev = "refs/tags/${finalAttrs.version}";
     hash = "sha256-m6H9cyoUY8Mgr0FDqPb98PRJTgF7DgSa+jC+EM0TDEw=";
   };
 
@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "surgescript";
     description = "A scripting language for games";
     homepage = "https://github.com/alemart/surgescript";
-    changelog = "https://github.com/alemart/surgescript/blob/${finalAttrs.src.rev}/CHANGES.md";
+    changelog = "https://github.com/alemart/surgescript/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];

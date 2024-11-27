@@ -17,7 +17,7 @@ buildGoModule {
   src = fetchFromGitHub {
     owner = "glojurelang";
     repo = "glojure";
-    rev = "v${version}";
+    rev = "refs/tags/${version}";
     hash = "sha256-WzyslO3YaGPJnINDSjk3AcjC/raVh5c5K2a6EBZC4Rk=";
   };
 

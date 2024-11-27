@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "Juniper";
     repo = "libxo";
-    rev = finalAttrs.version;
+    rev = "refs/tags/${finalAttrs.version}";
     hash = "sha256-ElSxegY2ejw7IuIMznfVpl29Wyvpx9k1BdXregzYsoQ=";
   };
 

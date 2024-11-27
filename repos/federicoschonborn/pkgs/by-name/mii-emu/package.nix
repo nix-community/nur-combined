@@ -18,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "buserror";
     repo = "mii_emu";
-    rev = "v${finalAttrs.version}";
+    rev = "refs/tags/${finalAttrs.version}";
     hash = "sha256-ugXPEENU2QKjF/R7MWes4rZuTVeyTfvSXhy/SnfPqJo=";
   };
 
@@ -40,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "mii_emu_gl";
     description = "MII Apple //e Emulator for Linux";
     homepage = "https://github.com/buserror/mii_emu";
-    changelog = "https://github.com/buserror/mii_emu/blob/${finalAttrs.src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/buserror/mii_emu/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];

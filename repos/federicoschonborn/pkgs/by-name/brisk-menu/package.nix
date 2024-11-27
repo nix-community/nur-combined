@@ -22,7 +22,7 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "getsolus";
     repo = "brisk-menu";
-    rev = "v${version}";
+    rev = "refs/tags/v${version}";
     hash = "sha256-e7ETdVv0/9UFyfLFQiZalxCEiVaOWYq+0Cv3BTvYecU=";
     fetchSubmodules = true;
   };

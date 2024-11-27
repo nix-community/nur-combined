@@ -18,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "grassdne";
     repo = "minesector";
-    rev = finalAttrs.version;
+    rev = "refs/tags/${finalAttrs.version}";
     hash = "sha256-VMTXZ4CIk9RpE4R9shHPl0R/T7mJUKY2b8Zi0DPW0/Q=";
   };
 

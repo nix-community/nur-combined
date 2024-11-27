@@ -22,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "dcantrell";
     repo = "bsdutils";
-    rev = "v${finalAttrs.version}";
+    rev = "refs/tags/${finalAttrs.version}";
     hash = "sha256-sYxx79wQu1HFYKHYgRHqAA2sATXZ7WTxIZB6KBVnatU=";
   };
 

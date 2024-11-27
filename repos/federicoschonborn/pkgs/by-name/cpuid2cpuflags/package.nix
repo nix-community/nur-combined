@@ -14,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "projg2";
     repo = "cpuid2cpuflags";
-    rev = "v${finalAttrs.version}";
+    rev = "refs/tags/${finalAttrs.version}";
     hash = "sha256-52pK6C7rmkfuWOsI6X0xksdfWLPCN3yOjSx0tG3IjFo=";
   };
 

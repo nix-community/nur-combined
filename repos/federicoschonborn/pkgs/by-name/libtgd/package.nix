@@ -7,7 +7,7 @@
   ninja,
   pandoc,
   testers,
-  # nix-update-script,
+  nix-update-script,
 
   withTool ? true,
   withDocs ? false,
@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "marlam";
     repo = "tgd";
-    rev = "tgd-${finalAttrs.version}";
+    rev = "refs/tags/tgd-${finalAttrs.version}";
     hash = "sha256-FRejQ4uijpKdrFYEc9PkPrDo8pLKXMmJCXFTZ9Hx6Ug=";
   };
 
@@ -89,12 +89,12 @@ stdenv.mkDerivation (finalAttrs: {
   passthru = {
     tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
 
-    # updateScript = nix-update-script {
-    #   extraArgs = [
-    #     "--version-regex"
-    #     "tgd-(.*)"
-    #   ];
-    # };
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--version-regex"
+        "tgd-(.*)"
+      ];
+    };
   };
 
   meta = {

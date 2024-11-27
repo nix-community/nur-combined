@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "regular-dev";
     repo = "biplanes-revival";
-    rev = "v${finalAttrs.version}";
+    rev = "refs/tags/${finalAttrs.version}";
     hash = "sha256-8SWK4c2N5ZY1+l4onikVZwFrhNgM84sNr1dXXHpQhcg=";
     fetchSubmodules = true;
   };

@@ -270,7 +270,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "fastfetch";
     description = "Like neofetch, but much faster because written in C";
     homepage = "https://github.com/fastfetch-cli/fastfetch";
-    changelog = "https://github.com/fastfetch-cli/fastfetch/blob/${finalAttrs.src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/fastfetch-cli/fastfetch/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];

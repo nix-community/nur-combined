@@ -799,7 +799,7 @@ Tool to generate flags for your CPU.
 - Update Script: ✔️
 </details>
 
-### `fastfetch` `2.30.1` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/blob/refs/tags/2.30.1/CHANGELOG.md "Changelog") [📦](./pkgs/by-name/fastfetch/package.nix#L271 "Source")
+### `fastfetch` `2.30.1` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.30.1 "Changelog") [📦](./pkgs/by-name/fastfetch/package.nix#L271 "Source")
 
 Like neofetch, but much faster because written in C.
 
@@ -821,7 +821,7 @@ Like neofetch, but much faster because written in C.
 - Update Script: ✔️
 </details>
 
-### `fastfetchMinimal` `2.30.1` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/blob/refs/tags/2.30.1/CHANGELOG.md "Changelog") [📦](./default.nix#L49 "Source")
+### `fastfetchMinimal` `2.30.1` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.30.1 "Changelog") [📦](./default.nix#L49 "Source")
 
 Like neofetch, but much faster because written in C (with all features disabled).
 
@@ -904,7 +904,7 @@ A set of commands that manipulate GTAs on various levels.
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
 - Tests: `version`
-- Update Script: ❌
+- Update Script: ✔️
 </details>
 
 ### `gtatoolFull` `2.4.0` [🌐](https://marlam.de/gta/ "Homepage") [📦](./default.nix#L89 "Source")
@@ -926,10 +926,10 @@ A set of commands that manipulate GTAs on various levels (with all features enab
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
 - Tests: `version`
-- Update Script: ❌
+- Update Script: ✔️
 </details>
 
-### `inko` `0.16.0` [🌐](https://github.com/inko-lang/inko "Homepage") [📰](https://github.com/inko-lang/inko/blob/v0.16.0/CHANGELOG.md "Changelog") [📦](./pkgs/by-name/inko/package.nix#L55 "Source")
+### `inko` `0.17.1` [🌐](https://github.com/inko-lang/inko "Homepage") [📰](https://github.com/inko-lang/inko/releases/tag/v0.17.1 "Changelog") [📦](./pkgs/by-name/inko/package.nix#L55 "Source")
 
 A language for building concurrent software with confidence.
 
@@ -948,7 +948,7 @@ A language for building concurrent software with confidence.
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
 - Tests: `version`
-- Update Script: ❌
+- Update Script: ✔️
 </details>
 
 ### `kiview` `1.1` [🌐](https://invent.kde.org/danagost/Kiview "Homepage") [📦](./pkgs/by-name/kiview/package.nix#L44 "Source")
@@ -2819,7 +2819,7 @@ A library that reads and writes GTA files, with interfaces in C and C++.
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
 - Tests: `pkg-config`
-- Update Script: ❌
+- Update Script: ✔️
 - `pkg-config` Modules: `gta.pc`
 </details>
 
@@ -2842,7 +2842,7 @@ A library to make working with multidimensional arrays in C++ easy.
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
 - Tests: `version`
-- Update Script: ❌
+- Update Script: ✔️
 </details>
 
 ### `libtgdFull` `4.3` [🌐](https://marlam.de/tgd/ "Homepage") [📦](./default.nix#L124 "Source")
@@ -2864,7 +2864,7 @@ A library to make working with multidimensional arrays in C++ easy (with all fea
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
 - Tests: `version`
-- Update Script: ❌
+- Update Script: ✔️
 </details>
 
 ### `libxo` `1.7.5` [🌐](https://github.com/Juniper/libxo "Homepage") [📦](./pkgs/by-name/libxo/package.nix#L34 "Source")
@@ -2911,7 +2911,7 @@ wlroots-based Wayland compositor designed for the Budgie Desktop.
 - Update Script: ✔️
 </details>
 
-### `mii-emu` `1.97` [🌐](https://github.com/buserror/mii_emu "Homepage") [📰](https://github.com/buserror/mii_emu/blob/v1.97/CHANGELOG.md "Changelog") [📦](./pkgs/by-name/mii-emu/package.nix#L41 "Source")
+### `mii-emu` `1.97` [🌐](https://github.com/buserror/mii_emu "Homepage") [📰](https://github.com/buserror/mii_emu/releases/tag/v1.97 "Changelog") [📦](./pkgs/by-name/mii-emu/package.nix#L41 "Source")
 
 MII Apple //e Emulator for Linux.
 
@@ -2972,10 +2972,10 @@ A convenient calculator for the command line.
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
 - Tests: `version`
-- Update Script: ❌
+- Update Script: ✔️
 </details>
 
-### `opensurge` `0.6.1.2` [🌐](https://github.com/alemart/opensurge "Homepage") [📰](https://github.com/alemart/opensurge/blob/v0.6.1.2/CHANGES.md "Changelog") [📦](./pkgs/by-name/opensurge/package.nix#L55 "Source")
+### `opensurge` `0.6.1.2` [🌐](https://github.com/alemart/opensurge "Homepage") [📰](https://github.com/alemart/opensurge/releases/tag/v0.6.1.2 "Changelog") [📦](./pkgs/by-name/opensurge/package.nix#L55 "Source")
 
 A fun 2D retro platformer inspired by Sonic games and a game creation system.
 
@@ -3099,7 +3099,7 @@ A a viewer for 2D data such as images, sensor data, simulations, renderings and 
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Update Script: ❌
+- Update Script: ✔️
 </details>
 
 ### `raze` `1.10.2` [🌐](https://github.com/ZDoom/Raze "Homepage") [📦](./pkgs/by-name/raze/package.nix#L46 "Source")
@@ -3189,7 +3189,7 @@ Sega Model 3 arcade machine emulator.
 - Update Script: ✔️
 </details>
 
-### `surgescript` `0.6.1` [🌐](https://github.com/alemart/surgescript "Homepage") [📰](https://github.com/alemart/surgescript/blob/v0.6.1/CHANGES.md "Changelog") [📦](./pkgs/by-name/surgescript/package.nix#L38 "Source")
+### `surgescript` `0.6.1` [🌐](https://github.com/alemart/surgescript "Homepage") [📰](https://github.com/alemart/surgescript/releases/tag/v0.6.1 "Changelog") [📦](./pkgs/by-name/surgescript/package.nix#L38 "Source")
 
 A scripting language for games.
 

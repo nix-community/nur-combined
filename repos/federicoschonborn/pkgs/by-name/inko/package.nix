@@ -10,17 +10,17 @@
   llvmPackages_17,
   testers,
   inko,
-# nix-update-script,
+  nix-update-script,
 }:
 
 let
-  version = "0.16.0";
+  version = "0.17.1";
 
   src = fetchFromGitHub {
     owner = "inko-lang";
     repo = "inko";
-    rev = "v${version}";
-    hash = "sha256-qsil2r0jVrh5WG7MOdQdAJMCY2gtEMYVAocvZBR53oM=";
+    rev = "refs/tags/v${version}";
+    hash = "sha256-EKSjdoGZub23WmFDryY737j0d1rK+zlNupf+biD1o5o=";
   };
 in
 
@@ -47,14 +47,14 @@ rustPlatform.buildRustPackage {
   passthru = {
     tests.version = testers.testVersion { package = inko; };
 
-    # updateScript = nix-update-script { };
+    updateScript = nix-update-script { };
   };
 
   meta = {
     mainProgram = "inko";
     description = "A language for building concurrent software with confidence";
     homepage = "https://github.com/inko-lang/inko";
-    changelog = "https://github.com/inko-lang/inko/blob/${src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/inko-lang/inko/releases/tag/v${version}";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ federicoschonborn ];

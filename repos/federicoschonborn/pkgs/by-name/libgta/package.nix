@@ -7,7 +7,7 @@
   xz,
   zlib,
   testers,
-# nix-update-script,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "marlam";
     repo = "gta";
-    rev = "libgta-${finalAttrs.version}";
+    rev = "refs/tags/libgta-${finalAttrs.version}";
     hash = "sha256-6MPQ32RkDBIZg96GWX+IpBpH6ROzXkrccHaMSiy/Bv0=";
   };
 
@@ -34,12 +34,12 @@ stdenv.mkDerivation (finalAttrs: {
   passthru = {
     tests.pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
 
-    # updateScript = nix-update-script {
-    #   extraArgs = [
-    #     "--version-regex"
-    #     "libgta-(.*)"
-    #  ];
-    # };
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--version-regex"
+        "libgta-(.*)"
+      ];
+    };
   };
 
   meta = {

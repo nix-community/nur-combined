@@ -18,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "OpenProgger";
     repo = "phonon-mpv";
-    rev = "v${finalAttrs.version}";
+    rev = "refs/tags/${finalAttrs.version}";
     hash = "sha256-IBCCQPI1Vrgj1hXlB3wxAIXjyLoKuNVc18P/X3axioE=";
   };
 

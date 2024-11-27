@@ -13,7 +13,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     domain = "codeberg.org";
     owner = "fotoente";
     repo = "neohaj";
-    rev = "v${finalAttrs.version}";
+    rev = "refs/tags/${finalAttrs.version}";
     hash = "sha256-cES9bZKbor9htR6Ya5baQgtDsVikv2YW2SNiJ+iNLYo=";
   };
 
