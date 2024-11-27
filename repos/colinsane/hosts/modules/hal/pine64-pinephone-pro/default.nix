@@ -400,5 +400,10 @@ in
       # "xt_tcpudp"
       # "zram"
     ];
+
+    boot.kernelParams = [
+      # XXX(2024-11-26): SPECULATIVE fix for camera bringup; TODO: check if this is actually required?
+      "cma=512M"
+    ];
   };
 }

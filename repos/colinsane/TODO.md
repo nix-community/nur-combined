@@ -130,6 +130,7 @@
 
 #### moby
 - moby: enable PinePhonePro camera in device tree
+  - confirm: is `cma=512M` actually required?
 - moby: port battery support to something upstreamable
 - moby: install transito/mobroute public transit app: <https://sr.ht/~mil/mobroute/> <https://git.sr.ht/~mil/transito>
   - see: <https://github.com/NixOS/nixpkgs/pull/335613>

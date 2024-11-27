@@ -7,28 +7,6 @@
 # - `fc-conflist` -> show all config files loaded
 { config, lib, pkgs, ... }:
 let
-  # nerdfonts takes popular open fonts and patches them to support a wider range of glyphs, notably emoji.
-  # any nerdfonts font includes icons such as these:
-  # - 󱊥 (battery charging)
-  # - 󰃝 (brightness)
-  # -  (gps / crosshairs)
-  # - 󰎈 (music note)
-  # - 󰍦 (message bubble)
-  # - 󰏲 (phone)
-  # -  (weather/sun-behind-clouds)
-  # i use these icons mostly in conky, swaync.
-  #
-  # nerdfonts is very heavy. each font is 20-900 MiB (2 MiB per "variation")
-  # lots of redundant data inside there, but no deduplication except whatever nix or the fs does implicitly.
-  wantedNerdfonts = [
-    # good terminal/coding font. grab via nerdfonts for more emoji/unicode support
-    "Hack"  # 26 MiB
-    "Noto"  # 861 MiB
-  ];
-  nerdfontPkgs = builtins.map
-    (f: pkgs.nerdfonts.override { fonts = [ f ]; })
-    wantedNerdfonts;
-
   # see: <repo:nixos/nixpkgs:nixos/modules/config/fonts/fontconfig.nix>
   # and: <repo:nixos/nixpkgs:pkgs/development/libraries/fontconfig/make-fonts-cache.nix>
   # nixpkgs creates a fontconfig cache, but only when *not* cross compiling.
@@ -100,6 +78,24 @@ in
       liberation_ttf # 4 MiB; Liberation {Mono,Sans,Serif}; also available as a NerdFonts
       noto-fonts-color-emoji  # 10 Mib; Noto Color Emoji
       unifont       # 16 MiB; Unifont; provides LOTS of unicode coverage
-    ] ++ nerdfontPkgs;
+
+      # nerdfonts takes popular open fonts and patches them to support a wider range of glyphs, notably emoji.
+      # any nerdfonts font includes icons such as these:
+      # - 󱊥 (battery charging)
+      # - 󰃝 (brightness)
+      # -  (gps / crosshairs)
+      # - 󰎈 (music note)
+      # - 󰍦 (message bubble)
+      # - 󰏲 (phone)
+      # -  (weather/sun-behind-clouds)
+      # i use these icons mostly in conky, swaync.
+      #
+      # nerdfonts is very heavy. each font is 20-900 MiB (2 MiB per "variation")
+      # lots of redundant data inside there, but no deduplication except whatever nix or the fs does implicitly.
+      #
+      # good terminal/coding font: grab via nerdfonts for more emoji/unicode support
+      nerd-fonts.hack  # 26 MiB
+      nerd-fonts.noto  # 861 MiB
+    ];
   };
 }
