@@ -1,8 +1,9 @@
-{ mySources
-, python3
-, lib
-, lsp-tree-sitter
-, tree-sitter-make
+{
+  mySources,
+  python3,
+  lib,
+  lsp-tree-sitter,
+  tree-sitter-make,
 }:
 
 with python3.pkgs;

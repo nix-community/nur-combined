@@ -1,13 +1,18 @@
-{ luaPackages, fetchurl, fetchFromGitHub }:
+{
+  luaPackages,
+  fetchurl,
+  fetchFromGitHub,
+}:
 
 with luaPackages;
 buildLuarocksPackage {
   pname = "prompt-style";
   version = "0.0.1-0";
-  knownRockspec = (fetchurl {
-    url = "mirror://luarocks/prompt-style-0.0.1-0.rockspec";
-    sha256 = "sha256-LUeGkyLlfjEPOrvQl8z1Y0GROiglheGIsUi6/I7y4a0=";
-  }).outPath;
+  knownRockspec =
+    (fetchurl {
+      url = "mirror://luarocks/prompt-style-0.0.1-0.rockspec";
+      sha256 = "sha256-LUeGkyLlfjEPOrvQl8z1Y0GROiglheGIsUi6/I7y4a0=";
+    }).outPath;
   src = fetchFromGitHub {
     owner = "wakatime";
     repo = "prompt-style.lua";
@@ -21,7 +26,11 @@ buildLuarocksPackage {
   '';
 
   disabled = luaOlder "5.1";
-  propagatedBuildInputs = [ ansicolors luaprompt luafilesystem ];
+  propagatedBuildInputs = [
+    ansicolors
+    luaprompt
+    luafilesystem
+  ];
   meta = {
     homepage = "https://github.com/wakatime/prompt-style.lua";
     description = "Lua plugin for powerlevel10k style prompt and WakaTime time tracking";

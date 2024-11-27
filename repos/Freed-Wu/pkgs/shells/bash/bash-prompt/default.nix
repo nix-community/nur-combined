@@ -1,8 +1,9 @@
-{ lib
-, stdenvNoCC
-, zsh-powerlevel10k
-, fetchFromGitHub
-, wakatime
+{
+  lib,
+  stdenvNoCC,
+  zsh-powerlevel10k,
+  fetchFromGitHub,
+  wakatime,
 }:
 stdenvNoCC.mkDerivation rec {
   name = "bash-prompt";
@@ -16,7 +17,10 @@ stdenvNoCC.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-  buildInputs = [ zsh-powerlevel10k wakatime ];
+  buildInputs = [
+    zsh-powerlevel10k
+    wakatime
+  ];
 
   installPhase = ''
     install -Dm644 prompt.sh -t $out/share/bash-prompt

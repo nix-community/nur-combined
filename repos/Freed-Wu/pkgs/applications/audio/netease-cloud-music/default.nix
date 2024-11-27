@@ -1,39 +1,40 @@
-{ lib
-, stdenv
-, fetchurl
-, dpkg
-, autoPatchelfHook
-, makeWrapper
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  autoPatchelfHook,
+  makeWrapper,
   # , qt5
-, xorg
-, libdrm
-, alsa-lib
-, taglib
-, vlc
-, krb5
-, gtk2
-, gtk3
-, tcp_wrappers
-, e2fsprogs
-, gnutls
-, avahi
-, sqlite
-, libogg
-, libvorbis
-, libsndfile
-, libasyncns
-, dbus-glib
-, cups
-, nspr
-, gnome2
-, nss
-, icu60
-, libinput
-, mtdev
-, libpulseaudio
-  # , libjpeg_original
-  # , double-conversion
-  # , eudev
+  xorg,
+  libdrm,
+  alsa-lib,
+  taglib,
+  vlc,
+  krb5,
+  gtk2,
+  gtk3,
+  tcp_wrappers,
+  e2fsprogs,
+  gnutls,
+  avahi,
+  sqlite,
+  libogg,
+  libvorbis,
+  libsndfile,
+  libasyncns,
+  dbus-glib,
+  cups,
+  nspr,
+  gnome2,
+  nss,
+  icu60,
+  libinput,
+  mtdev,
+  libpulseaudio,
+# , libjpeg_original
+# , double-conversion
+# , eudev
 }:
 stdenv.mkDerivation rec {
   pname = "netease-cloud-music";
@@ -143,7 +144,10 @@ stdenv.mkDerivation rec {
     description = "Client for Netease Cloud Music service";
     homepage = "https://music.163.com";
     platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ mlatus Freed-Wu ];
+    maintainers = with maintainers; [
+      mlatus
+      Freed-Wu
+    ];
     license = licenses.unfree;
   };
 }

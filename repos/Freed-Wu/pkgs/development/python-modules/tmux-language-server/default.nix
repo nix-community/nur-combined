@@ -1,8 +1,9 @@
-{ mySources
-, python3
-, lib
-, lsp-tree-sitter
-, tree-sitter-tmux
+{
+  mySources,
+  python3,
+  lib,
+  lsp-tree-sitter,
+  tree-sitter-tmux,
 }:
 
 with python3.pkgs;

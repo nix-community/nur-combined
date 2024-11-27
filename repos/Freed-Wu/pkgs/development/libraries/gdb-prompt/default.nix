@@ -1,4 +1,9 @@
-{ lib, fetchFromGitHub, stdenvNoCC, gdb }:
+{
+  lib,
+  fetchFromGitHub,
+  stdenvNoCC,
+  gdb,
+}:
 
 stdenvNoCC.mkDerivation rec {
   name = "gdb-prompt";

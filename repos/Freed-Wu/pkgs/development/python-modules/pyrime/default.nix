@@ -1,9 +1,10 @@
-{ mySources
-, python3
-, librime
-, pkg-config
-, stdenv
-, lib
+{
+  mySources,
+  python3,
+  librime,
+  pkg-config,
+  stdenv,
+  lib,
 }:
 
 with python3.pkgs;

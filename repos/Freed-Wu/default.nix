@@ -6,12 +6,17 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 let
   allPkgs = pkgs // myPkgs;
-  callPackage = path: overrides:
-    let f = import path;
-    in f ((builtins.intersectAttrs (builtins.functionArgs f) allPkgs) // overrides);
+  callPackage =
+    path: overrides:
+    let
+      f = import path;
+    in
+    f ((builtins.intersectAttrs (builtins.functionArgs f) allPkgs) // overrides);
   myPkgs = rec {
     # The `lib`, `modules`, and `overlay` names are special
     lib = pkgs.lib // import ./lib { inherit pkgs; }; # functions
@@ -23,6 +28,9 @@ let
     # https://github.com/NixOS/nixpkgs/pull/243429
     netease-cloud-music = callPackage ./pkgs/applications/audio/netease-cloud-music { };
 
+    gopass-symlinks = callPackage ./pkgs/shells/symlinks/gopass-symlinks { };
+    proxychains-symlinks = callPackage ./pkgs/shells/symlinks/proxychains-symlinks { };
+
     rime-kaomoji = callPackage ./pkgs/data/misc/rime-kaomoji { };
     gdb-prompt = callPackage ./pkgs/development/libraries/gdb-prompt { };
     tcl-prompt = callPackage ./pkgs/development/libraries/tcl-prompt { };
@@ -33,7 +41,9 @@ let
     tmux-rime = callPackage ./pkgs/tools/misc/tmux-rime { };
 
     lua-prompt-style = callPackage ./pkgs/development/lua-modules/prompt-style { };
-    luajit-prompt-style = callPackage ./pkgs/development/lua-modules/prompt-style { luaPackages = pkgs.luajitPackages; };
+    luajit-prompt-style = callPackage ./pkgs/development/lua-modules/prompt-style {
+      luaPackages = pkgs.luajitPackages;
+    };
     translate-shell = callPackage ./pkgs/development/python-modules/translate-shell { };
     mulimgviewer = callPackage ./pkgs/development/python-modules/mulimgviewer { };
     stardict-ecdict = callPackage ./pkgs/data/misc/stardict-ecdict { };
@@ -53,13 +63,21 @@ let
     zathura-language-server = callPackage ./pkgs/development/python-modules/zathura-language-server { };
     tree-sitter-make = callPackage ./pkgs/development/python-modules/tree-sitter-make { };
     tree-sitter-bash = callPackage ./pkgs/development/python-modules/tree-sitter-bash { };
-    tree-sitter-requirements = callPackage ./pkgs/development/python-modules/tree-sitter-requirements { };
-    requirements-language-server = callPackage ./pkgs/development/python-modules/requirements-language-server { };
+    tree-sitter-requirements =
+      callPackage ./pkgs/development/python-modules/tree-sitter-requirements
+        { };
+    requirements-language-server =
+      callPackage ./pkgs/development/python-modules/requirements-language-server
+        { };
     termux-language-server = callPackage ./pkgs/development/python-modules/termux-language-server { };
-    autotools-language-server = callPackage ./pkgs/development/python-modules/autotools-language-server { };
+    autotools-language-server =
+      callPackage ./pkgs/development/python-modules/autotools-language-server
+        { };
 
     expect-language-server = callPackage ./pkgs/development/python-modules/expect-language-server { };
-    sublime-syntax-language-server = callPackage ./pkgs/development/python-modules/sublime-syntax-language-server { };
+    sublime-syntax-language-server =
+      callPackage ./pkgs/development/python-modules/sublime-syntax-language-server
+        { };
     xilinx-language-server = callPackage ./pkgs/development/python-modules/xilinx-language-server { };
   };
 in

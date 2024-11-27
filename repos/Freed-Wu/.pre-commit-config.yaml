@@ -54,7 +54,7 @@ repos:
     hooks:
       - id: yamllint
   - repo: https://github.com/executablebooks/mdformat
-    rev: 0.7.18
+    rev: 0.7.19
     hooks:
       - id: mdformat
         additional_dependencies:
@@ -68,7 +68,7 @@ repos:
           - mdformat-config
           - mdformat-web
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.14.0
+    rev: v0.15.0
     hooks:
       - id: markdownlint-cli2
         additional_dependencies:
@@ -77,10 +77,10 @@ repos:
     rev: v3.10.0-1
     hooks:
       - id: shfmt
-  - repo: https://github.com/nix-community/nixpkgs-fmt
-    rev: v1.3.0
+  - repo: https://github.com/NixOS/nixfmt
+    rev: cb92834560306868e4020dd643f09482587c6e7a
     hooks:
-      - id: nixpkgs-fmt
+      - id: nixfmt
 
 ci:
   skip:

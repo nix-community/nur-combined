@@ -1,8 +1,9 @@
-{ mySources
-, python3
-, lib
-, lsp-tree-sitter
-, tree-sitter-zathurarc
+{
+  mySources,
+  python3,
+  lib,
+  lsp-tree-sitter,
+  tree-sitter-zathurarc,
 }:
 
 with python3.pkgs;

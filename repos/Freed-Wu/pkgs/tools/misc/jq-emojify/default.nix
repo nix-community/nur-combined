@@ -1,30 +1,27 @@
-{ fetchFromGitHub
-, lib
-, stdenvNoCC
-, jq
+{
+  fetchFromGitHub,
+  lib,
+  stdenvNoCC,
+  jq,
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "jq-emojify";
   version = "0.0.1";
   srcs = [
-    (
-      fetchFromGitHub {
-        owner = "Freed-Wu";
-        repo = pname;
-        name = pname;
-        rev = version;
-        sha256 = "sha256-n1knGf8TloatQc0k8/ZKre7vXu6g1L2XVaTSQZreOrc=";
-      }
-    )
-    (
-      fetchFromGitHub {
-        owner = "github";
-        repo = "gemoji";
-        name = "gemoji";
-        rev = "v4.1.0";
-        sha256 = "sha256-vs/ltvNzctK6mlKy+fxeVANfiQqueLBr3OvblyRNGvo=";
-      }
-    )
+    (fetchFromGitHub {
+      owner = "Freed-Wu";
+      repo = pname;
+      name = pname;
+      rev = version;
+      sha256 = "sha256-n1knGf8TloatQc0k8/ZKre7vXu6g1L2XVaTSQZreOrc=";
+    })
+    (fetchFromGitHub {
+      owner = "github";
+      repo = "gemoji";
+      name = "gemoji";
+      rev = "v4.1.0";
+      sha256 = "sha256-vs/ltvNzctK6mlKy+fxeVANfiQqueLBr3OvblyRNGvo=";
+    })
   ];
   sourceRoot = ".";
 

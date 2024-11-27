@@ -1,6 +1,7 @@
-{ mySources
-, python3
-, lib
+{
+  mySources,
+  python3,
+  lib,
 }:
 
 with python3.pkgs;

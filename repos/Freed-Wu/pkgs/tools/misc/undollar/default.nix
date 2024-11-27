@@ -1,7 +1,8 @@
-{ mySources
-, lib
-, stdenvNoCC
-, cmake
+{
+  mySources,
+  lib,
+  stdenvNoCC,
+  cmake,
 }:
 stdenvNoCC.mkDerivation rec {
   inherit (mySources.undollar) pname version src;

@@ -1,6 +1,7 @@
-{ mySources
-, stdenvNoCC
-, lib
+{
+  mySources,
+  stdenvNoCC,
+  lib,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: rec {

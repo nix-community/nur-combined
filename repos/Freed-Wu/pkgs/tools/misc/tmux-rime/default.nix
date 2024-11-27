@@ -1,39 +1,44 @@
-{ lib
-, stdenv
-, xmake
-, fetchFromGitHub
-, unzip
-, glib
-, librime
-, pkg-config
+{
+  lib,
+  stdenv,
+  xmake,
+  fetchFromGitHub,
+  unzip,
+  glib,
+  librime,
+  pkg-config,
 }:
 stdenv.mkDerivation rec {
   pname = "tmux-rime";
   version = "0.0.4";
   srcs = [
-    (
-      fetchFromGitHub {
-        owner = "Freed-Wu";
-        repo = pname;
-        rev = version;
-        name = pname;
-        sha256 = "sha256-hFwq1Qna6DKNGk0U9MpUZT6qcTmJR4FdlS7+4+4wTIY=";
-      }
-    )
-    (
-      fetchFromGitHub {
-        owner = "xmake-io";
-        repo = "xmake-repo";
-        rev = "9e39ee6a9c9a4c43192b95b7efcc95ea1c79a28d";
-        name = "xmake-repo";
-        sha256 = "sha256-LNXxNJalnJ18T/1JY1b3OxWBT1QMEnJkur2WVYa44aM=";
-      }
-    )
+    (fetchFromGitHub {
+      owner = "Freed-Wu";
+      repo = pname;
+      rev = version;
+      name = pname;
+      sha256 = "sha256-hFwq1Qna6DKNGk0U9MpUZT6qcTmJR4FdlS7+4+4wTIY=";
+    })
+    (fetchFromGitHub {
+      owner = "xmake-io";
+      repo = "xmake-repo";
+      rev = "9e39ee6a9c9a4c43192b95b7efcc95ea1c79a28d";
+      name = "xmake-repo";
+      sha256 = "sha256-LNXxNJalnJ18T/1JY1b3OxWBT1QMEnJkur2WVYa44aM=";
+    })
   ];
   sourceRoot = ".";
 
-  nativeBuildInputs = [ stdenv.cc unzip pkg-config xmake ];
-  buildInputs = [ glib.dev librime ];
+  nativeBuildInputs = [
+    stdenv.cc
+    unzip
+    pkg-config
+    xmake
+  ];
+  buildInputs = [
+    glib.dev
+    librime
+  ];
 
   # https://github.com/xmake-io/xmake/discussions/5699
   configurePhase = ''

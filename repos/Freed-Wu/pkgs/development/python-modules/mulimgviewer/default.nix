@@ -1,6 +1,7 @@
-{ mySources
-, python3
-, wrapGAppsHook
+{
+  mySources,
+  python3,
+  wrapGAppsHook,
 }:
 
 with python3.pkgs;
