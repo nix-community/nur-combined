@@ -53,4 +53,5 @@ layout_uv() {
     PATH_add "$VIRTUAL_ENV/bin"
     watch_file pyproject.toml
     watch_file uv.lock
+    watch_file .python-version
 }
