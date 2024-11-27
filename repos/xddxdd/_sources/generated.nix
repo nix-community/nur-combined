@@ -198,12 +198,12 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "2ad7e746cca919bf36a0b67aa68d665ee571fc34";
+    version = "7b74b06f1b2b781f14a23306b9fb46e59db5fa8a";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "2ad7e746cca919bf36a0b67aa68d665ee571fc34";
-      hash = "sha256-oSg63aaiLYZmvSFh207HLWARRhq4gLPiHXy3LTbyrIk=";
+      rev = "7b74b06f1b2b781f14a23306b9fb46e59db5fa8a";
+      hash = "sha256-eP/+bhujA1HvAj/HwDY7LmNDjoUpivzf8+DKrK+92R0=";
     };
     date = "2024-11-26";
   };
@@ -665,12 +665,12 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "25206cdcb89f170e4fc696d37c684b0927bb4d7a";
+    version = "3224d553efb88aeaeba4cf91792a11d68509741b";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "25206cdcb89f170e4fc696d37c684b0927bb4d7a";
-      hash = "sha256-AjkA0jZA67moQLVxH/sayOUPPvPPZZQtqFgjQTX1qfI=";
+      rev = "3224d553efb88aeaeba4cf91792a11d68509741b";
+      hash = "sha256-9D0C2bANyuybhv9U5ImwVPx7pa3ECGESlg4ce+mcC5Q=";
     };
     date = "2024-11-26";
   };
@@ -771,12 +771,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4174";
+    version = "b4195";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4174";
-      hash = "sha256-sZxUPkGSTpcGgaRoB6X0xqodZMcqayCtOSceZxc0FjU=";
+      rev = "b4195";
+      hash = "sha256-sgO7JoG1cgM7nBVtN58RExQvVUyrVNoEXU+DvUeGIas=";
     };
   };
   lyrica = {
@@ -1071,10 +1071,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "7.1.4";
+    version = "7.1.5";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.1.4/PeerBanHelper_7.1.4.zip";
-      hash = "sha256-kXrj6p9vV7tuHj37QTDouVdyksLBAhzOrJJ9WAx3XzU=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.1.5/PeerBanHelper_7.1.5.zip";
+      hash = "sha256-r+d4BfrkrX502crwiKWhhf2+gj4e43M6oC+dmxT8/AE=";
     };
   };
   phpmyadmin = {
@@ -1284,22 +1284,22 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "ff565b0e74c9de9e96b0772ef4c52a9f118fed40";
+    version = "07154da91022aa70c8d6d37aec633c16cdccdf9f";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "ff565b0e74c9de9e96b0772ef4c52a9f118fed40";
-      hash = "sha256-hO0X92XLpOAay5oI4V0LgrsI8fPwIwJsttuM7zRuCWc=";
+      rev = "07154da91022aa70c8d6d37aec633c16cdccdf9f";
+      hash = "sha256-1GmkamPOmYekItVq4rS4Jdft3FJ74SbVq1uGjNx8nks=";
     };
-    date = "2024-11-25";
+    date = "2024-11-27";
   };
   qsp-stable = {
     pname = "qsp-stable";
-    version = "v5.9.1-b1";
+    version = "v5.9.1-b2";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qspgui";
-      rev = "v5.9.1-b1";
+      rev = "v5.9.1-b2";
       hash = "sha256-sfWUzZExcH08pJYjkFhkH4SsXFWp8pMUqFHzvlfU5Yg=";
     };
   };
@@ -1366,14 +1366,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "b4fbfa441f8535d3fcbff8e50a67ca00cfc92798";
+    version = "a79d76ecf31639343a9b0a8b7b8c84b3b85f740b";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "b4fbfa441f8535d3fcbff8e50a67ca00cfc92798";
-      hash = "sha256-/el1yRHq3eneN25v+tWjE0KJH1hVClzWgtEIdD43RIE=";
+      rev = "a79d76ecf31639343a9b0a8b7b8c84b3b85f740b";
+      hash = "sha256-5ldxZRjQTTPVfQSYZJUZ4g4Y2953u8aEqKTAnmrfzS4=";
     };
-    date = "2024-11-25";
+    date = "2024-11-27";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1660,12 +1660,12 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "6114a0426bb16a0ffb6da66e8bccde0c6ba244ce";
+    version = "644ed2c9e2812d4259f5b9125f8676404f48489c";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "6114a0426bb16a0ffb6da66e8bccde0c6ba244ce";
-      hash = "sha256-MrTgm+7RoJilKV+bN8ai6BL+HIXYbsq9Qd1YpmlWUx4=";
+      rev = "644ed2c9e2812d4259f5b9125f8676404f48489c";
+      hash = "sha256-cvPkPScBLTsxRyQcrsqoQPQI8jFi66xZV0PJT8U64xE=";
     };
     date = "2024-11-26";
   };
