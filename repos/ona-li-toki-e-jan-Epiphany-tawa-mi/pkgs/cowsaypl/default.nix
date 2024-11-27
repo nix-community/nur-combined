@@ -6,13 +6,13 @@
 
 stdenv.mkDerivation rec {
   pname   = "cowsaypl";
-  version = "1.2.2";
+  version = "1.2.3";
 
   src = fetchFromGitHub {
     owner = "ona-li-toki-e-jan-Epiphany-tawa-mi";
     repo  = "cowsAyPL";
     rev   = "RELEASE-V${version}";
-    hash  = "sha256-EBl/LG+WlX8ygxY7j7xJNpf656cVcKtaDLiY3wStvYY=";
+    hash  = "sha256-KUSFKXIUFh9Qu0lyqfHJI26DDkPeRw5gkXYC56UClYo=";
   };
 
   buildInputs = [ gnuapl ];
@@ -25,11 +25,8 @@ stdenv.mkDerivation rec {
     cp workspaces/* $out/lib
 
     # Rewrite library loads to use paths from the Nix store.
-    sed -i -e "s|⊣ ⍎\")COPY_ONCE fio.apl\"|⊣ ⍎\")COPY_ONCE $out/lib/fio.apl\"|"      \
-        -e "s|⊣ ⍎\")COPY_ONCE logging.apl\"|⊣ ⍎\")COPY_ONCE $out/lib/logging.apl\"|" \
-           $out/bin/${pname}
     sed -i -e "s|⊣ ⍎\")COPY_ONCE fio.apl\"|⊣ ⍎\")COPY_ONCE $out/lib/fio.apl\"|" \
-        $out/lib/logging.apl
+           $out/bin/${pname}
 
     runHook postInstall
   '';
@@ -37,7 +34,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Cowsay in GnuAPL";
     homepage    = "https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/cowsAyPL";
-    licenses    = with licenses; [ mit zlib ];
+    license     = licenses.gpl3Plus;
     mainProgram = pname;
   };
 }
