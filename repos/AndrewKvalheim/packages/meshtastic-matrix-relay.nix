@@ -34,7 +34,7 @@ python3Packages.buildPythonApplication rec {
       +++ b/main.py
       @@ -31,2 +31,4 @@
        
-      +logging.getLogger("meshtastic").setLevel(logging.DEBUG)
+      +logging.getLogger("meshtastic_interface").setLevel(logging.DEBUG)
       +
        # Set the logging level for 'nio' to ERROR to suppress warnings
       --- a/meshtastic_utils.py
