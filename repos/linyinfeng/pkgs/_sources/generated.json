@@ -434,7 +434,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-11-26",
+        "date": "2024-11-27",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -444,13 +444,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a37e5d08a1a1da94d5b86cbf2d8a1342895ee625",
-            "sha256": "sha256-uJijNurOdu7OzeGgIPOpXx1H+5bem1dqYGRkId/NdPA=",
+            "rev": "a79d76ecf31639343a9b0a8b7b8c84b3b85f740b",
+            "sha256": "sha256-5ldxZRjQTTPVfQSYZJUZ4g4Y2953u8aEqKTAnmrfzS4=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "a37e5d08a1a1da94d5b86cbf2d8a1342895ee625"
+        "version": "a79d76ecf31639343a9b0a8b7b8c84b3b85f740b"
     },
     "rime-loengfan": {
         "cargoLocks": null,
@@ -474,7 +474,7 @@
     },
     "rime-luna-pinyin": {
         "cargoLocks": null,
-        "date": "2024-08-24",
+        "date": "2024-11-27",
         "extract": null,
         "name": "rime-luna-pinyin",
         "passthru": null,
@@ -484,13 +484,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "ce5c828d99b0777c7a6bc6b1699e34f8c25623ef",
-            "sha256": "sha256-VXi/fx/bN9KauFayq4rnHN+a2Dpfvc6uv7XrO5hIUnI=",
+            "rev": "0418e912d023c2325598b53b8cdfbefb049d6130",
+            "sha256": "sha256-pVHTy0AhUMojdnI5ASJOit3eYvpa9bFdXJGtJIyY4fw=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-luna-pinyin.git"
         },
-        "version": "ce5c828d99b0777c7a6bc6b1699e34f8c25623ef"
+        "version": "0418e912d023c2325598b53b8cdfbefb049d6130"
     },
     "rime-pinyin-simp": {
         "cargoLocks": null,
