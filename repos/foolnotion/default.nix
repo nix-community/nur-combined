@@ -34,6 +34,8 @@
 
   cmaketools = pkgs.python3Packages.callPackage ./pkgs/cmaketools { };
 
+  copacabana = pkgs.callPackage ./pkgs/copacabana { };
+
   cpp-flux = pkgs.callPackage ./pkgs/cpp-flux { };
 
   cpp-lazy = pkgs.callPackage ./pkgs/cpp-lazy { };
@@ -61,6 +63,8 @@
   koivisto = pkgs.callPackage ./pkgs/koivisto { };
 
   ktl = pkgs.callPackage ./pkgs/ktl { cmake-utils = cmake-utils; };
+
+  kumi = pkgs.callPackage ./pkgs/kumi { inherit copacabana; };
 
   lexy = pkgs.callPackage ./pkgs/lexy { };
 
@@ -98,7 +102,17 @@
 
   q5go = pkgs.libsForQt5.callPackage ./pkgs/q5go { };
 
-  scnlib = pkgs.callPackage ./pkgs/scnlib { };
+  fast-float-6_1_6 = pkgs.fast-float.overrideAttrs(old: rec {
+    version = "6.1.6";
+    src = pkgs.fetchFromGitHub {
+      owner = "fastfloat";
+      repo = "fast_float";
+      rev = "v${version}";
+      hash = "sha256-MEJMPQZZZhOFiKlPAKIi0zVzaJBvjAlbSyg3wLOQ1fg=";
+    };
+  });
+
+  scnlib = pkgs.callPackage ./pkgs/scnlib { fast-float = fast-float-6_1_6; };
 
   seq = pkgs.callPackage ./pkgs/seq { };
 

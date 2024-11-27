@@ -18,9 +18,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    (fast-float.overrideAttrs(old: { version = "6.1.6"; }))
-  ];
+  buildInputs = [ fast-float ];
 
   cmakeFlags = [
     "-DSCN_TESTS=OFF"
