@@ -1,5 +1,5 @@
 # Common packages
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   cfg = config.my.system.packages;
 in
@@ -13,10 +13,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      wget
-    ];
-
     programs = {
       vim = {
         enable = true;
