@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
   buildInputs = [ sbcl ];
 
   installPhase = ''
-    make build-nix
+    make install-ql
+    make build
     install -m755 -D bin/sbcl/qob $out/bin/qob
   '';
 
