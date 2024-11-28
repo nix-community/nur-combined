@@ -47,6 +47,7 @@ let
     sccache = { };
     streampager = { };
     tumelune = { };
+    vanta-agent = { };
   };
 
   development = importSub ./development {

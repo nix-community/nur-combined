@@ -8,6 +8,7 @@ let
     services = {
       pueue = ./services/pueue.nix;
       qbittorrent = ./services/qbittorrent.nix;
+      vanta-agent = ./services/vanta-agent.nix;
     };
   };
 
