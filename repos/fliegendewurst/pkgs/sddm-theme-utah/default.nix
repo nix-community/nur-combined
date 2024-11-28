@@ -7,7 +7,7 @@ stdenv.mkDerivation {
   dontUnpack = true;
   installPhase = ''
     mkdir -p $out/share/sddm/themes/
-    cp -aR ${kdePackages.plasma-workspace}/share/sddm/themes/breeze $out/share/sddm/themes/sddm-theme-custom
+    cp -aR ${kdePackages.plasma-desktop}/share/sddm/themes/breeze $out/share/sddm/themes/sddm-theme-custom
     chmod +w $out/share/sddm/themes/sddm-theme-custom $out/share/sddm/themes/sddm-theme-custom/theme.conf
     cp -aR $src $out/share/sddm/themes/sddm-theme-custom/background.png
     sed -i 's/background=.*/background=background.png/g' $out/share/sddm/themes/sddm-theme-custom/theme.conf
