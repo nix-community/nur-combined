@@ -14,6 +14,9 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  abella-master = pkgs.callPackage ./pkgs/abella-master {
+    ocamlPackages = pkgs.ocaml-ng.ocamlPackages_4_12;
+  };
   abella-modded = pkgs.callPackage ./pkgs/abella-modded {
     ocamlPackages = pkgs.ocaml-ng.ocamlPackages_4_12;
   };
