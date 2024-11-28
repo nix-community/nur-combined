@@ -1,0 +1,29 @@
+diff --git a/Makefile b/Makefile
+index 0701405..7d8a244 100644
+--- a/Makefile
++++ b/Makefile
+@@ -7,18 +7,18 @@ EXTN := $(if $(strip $(BYTECODE)),bc,exe)
+ BINS := $(patsubst %,%.$(EXTN),src/abella src/abella_doc src/abella_dep)
+ 
+ .PHONY: all
+-all: support/.stamp
++all: # support/.stamp
+ 	$(DUNE) build $(BINS)
+ 
+ .PHONY: all-release
+ all-release: # support/.stamp
+ 	$(DUNE) build --release $(BINS)
+ 
+-support/.stamp: $(wildcard support/ts/*.ts support/css/*.css)
+-	( cd support && \
+-	  npm install --no-save && \
+-	  npm run build && \
+-	  touch .stamp )
++# support/.stamp: $(wildcard support/ts/*.ts support/css/*.css)
++# 	( cd support && \
++# 	  npm install --no-save && \
++#	  npm run build && \
++#	  touch .stamp )
+ 
+ AIN := abella.install
+ 

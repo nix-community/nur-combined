@@ -1,8 +1,8 @@
-{ lib, stdenv, fetchFromGitHub, rsync, ocamlPackages, nodejs }:
+{ lib, stdenv, fetchFromGitHub, rsync, ocamlPackages }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "abella-master";
-  version = "0-unstable-2024-11-27";
+  version = "2.0.8";
 
   src = fetchFromGitHub {
     owner = "abella-prover";
@@ -13,8 +13,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ nodejs rsync ] ++ (with ocamlPackages; [ ocaml dune_3 menhir findlib ]);
-  buildInputs = with ocamlPackages; [ cmdliner yojson ];
+  nativeBuildInputs = [ rsync ] ++ (with ocamlPackages; [ ocaml dune_3 menhir findlib ]);
+  buildInputs = with ocamlPackages; [ cmdliner yojson re base64 ocurl ];
+
+  patches = [ ./no-npm.patch ];
 
   installPhase = ''
     mkdir -p $out/bin
