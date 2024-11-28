@@ -6,6 +6,7 @@
   electron_11,
   makeDesktopItem,
   copyDesktopItems,
+  dpkg,
   # BaiduNetdisk dependencies
   libappindicator,
   libdbusmenu,
@@ -28,9 +29,10 @@ let
 
     dontFixup = true;
 
+    nativeBuildInputs = [ dpkg ];
+
     unpackPhase = ''
-      ar x $src
-      tar xf data.tar.xz
+      dpkg -x $src .
     '';
 
     installPhase = ''

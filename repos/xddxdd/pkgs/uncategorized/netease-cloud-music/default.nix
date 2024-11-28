@@ -5,6 +5,7 @@
   lib,
   fetchurl,
   callPackage,
+  dpkg,
   # Dependencies
   alsa-lib,
   at-spi2-atk,
@@ -85,8 +86,7 @@ stdenv.mkDerivation rec {
   unpackPhase = ''
     runHook preUnpack
 
-    ar x $src
-    tar xf data.tar.xz
+    dpkg -x $src .
 
     runHook postUnpack
   '';
@@ -95,6 +95,7 @@ stdenv.mkDerivation rec {
     qt5.wrapQtAppsHook
     makeWrapper
     autoPatchelfHook
+    dpkg
   ];
   buildInputs = libraries;
 

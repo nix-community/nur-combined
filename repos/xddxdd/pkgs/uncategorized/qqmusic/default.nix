@@ -6,6 +6,7 @@
   lib,
   makeDesktopItem,
   copyDesktopItems,
+  dpkg,
   # QQ Music dependencies
   alsa-lib,
   at-spi2-atk,
@@ -39,6 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     autoPatchelfHook
     makeWrapper
     copyDesktopItems
+    dpkg
   ];
 
   buildInputs = [
@@ -78,8 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
   unpackPhase = ''
     runHook preUnpack
 
-    ar x $src
-    tar xf data.tar.xz
+    dpkg -x $src .
 
     runHook postUnpack
   '';

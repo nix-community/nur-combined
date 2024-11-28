@@ -6,6 +6,7 @@
   lib,
   makeDesktopItem,
   copyDesktopItems,
+  dpkg,
   # DingTalk dependencies
   alsa-lib,
   apr,
@@ -147,6 +148,7 @@ stdenv.mkDerivation rec {
     makeWrapper
     qt5.wrapQtAppsHook
     copyDesktopItems
+    dpkg
   ];
   buildInputs = libraries;
 
@@ -156,8 +158,7 @@ stdenv.mkDerivation rec {
   unpackPhase = ''
     runHook preUnpack
 
-    ar x $src
-    tar xf data.tar.xz
+    dpkg -x $src .
 
     mv opt/apps/com.alibabainc.dingtalk/files/version version
     mv opt/apps/com.alibabainc.dingtalk/files/*-Release.* release

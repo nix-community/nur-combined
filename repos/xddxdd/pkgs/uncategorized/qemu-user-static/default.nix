@@ -2,6 +2,7 @@
   sources,
   stdenv,
   lib,
+  dpkg,
 }:
 let
   mkPackage =
@@ -10,11 +11,12 @@ let
       pname = "qemu-user-static";
       inherit (source) version src;
 
+      nativeBuildInputs = [ dpkg ];
+
       unpackPhase = ''
         runHook preUnpack
 
-        ar x $src
-        tar xf data.tar.xz
+        dpkg -x $src .
 
         runHook postUnpack
       '';

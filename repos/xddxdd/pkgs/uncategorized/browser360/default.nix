@@ -6,6 +6,7 @@
   buildFHSEnv,
   runCommand,
   coreutils,
+  dpkg,
   # Dependencies
   alsa-lib,
   apr,
@@ -155,9 +156,10 @@ let
 
     dontFixup = true;
 
+    nativeBuildInputs = [ dpkg ];
+
     unpackPhase = ''
-      ar x $src
-      tar xf data.tar.xz
+      dpkg -x $src .
     '';
 
     postInstall = ''
