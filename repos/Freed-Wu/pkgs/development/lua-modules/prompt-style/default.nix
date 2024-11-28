@@ -39,7 +39,7 @@ buildLuarocksPackage rec {
           install -D bin/{texluap,neomuttp} -t $out/bin
         ''
       # sed -i -e's=/usr/bin/env -S neomutt=${neomutt}/bin/neomutt=g' $out/bin/neomuttp
-      # sed -i -e's=/usr/bin/env -S texlua=${texlive}/bin/texlua=g' $out/bin/texluap
+      # sed -i -e's=/usr/bin/env -S luatex=${texlive}/bin/luatex=g' $out/bin/texluap
       else if lua_version == "4" then
         ''
           install -D bin/pandocp -t $out/bin
@@ -52,7 +52,7 @@ buildLuarocksPackage rec {
           install -D bin/{texluajitp,nvimp} -t $out/bin
         ''
       # sed -i -e's=/usr/bin/env -S nvim=${neovim}/bin/nvim=g' $out/bin/nvimp
-      # sed -i -e's=/usr/bin/env -S texluajit=${texlive}/bin/texluajit=g' $out/bin/texluajitp
+      # sed -i -e's=/usr/bin/env -S luajittex=${texlive}/bin/luajittex=g' $out/bin/texluajitp
     );
 
   disabled = luaOlder "5.1";
