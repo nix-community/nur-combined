@@ -30,11 +30,10 @@ in
     };
     # A tidy home is a tidy mind
     dataFile = {
-      "bash/.keep".text = "";
-      "gdb/.keep".text = "";
-      "tig/.keep".text = "";
+      "tig/.keep".text = ""; # `tig` uses `XDG_DATA_HOME` specifically...
     };
     stateFile = {
+      "bash/.keep".text = "";
       "python/.keep".text = "";
     };
   };
