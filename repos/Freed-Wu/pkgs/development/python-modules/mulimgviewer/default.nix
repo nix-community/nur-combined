@@ -15,12 +15,13 @@ buildPythonPackage rec {
     wrapGAppsHook
     piexif
     pillow
-    wxPython_4_2
+    wxpython
     requests
   ];
   nativeBuildInputs = [
     setuptools-scm
   ];
+  # help2man has bug to generate man
   patchPhase = ''
     sed -i 's/, "setuptools-generate"//' pyproject.toml
     sed -i 's/wx.MenuItem( \(self.m_menu[0-9]\+\),/\1.Append( /g' src/mulimgviewer/gui/*.py
@@ -35,8 +36,6 @@ buildPythonPackage rec {
   ];
 
   meta = with lib; {
-    # error: wxpython-4.2.1 not supported for interpreter python3.12
-    broken = true;
     homepage = "https://mulimgviewer.readthedocs.io";
     description = "MulimgViewer is a multi-image viewer that can open multiple images in one interface, which is convenient for image comparison and image stitching";
     license = licenses.gpl3;
