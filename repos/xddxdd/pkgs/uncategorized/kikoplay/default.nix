@@ -17,16 +17,19 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     libsForQt5.qmake
-    qt5.wrapQtAppsHook
     makeWrapper
+    qt5.qtwebsockets
+    qt5.wrapQtAppsHook
   ];
 
   buildInputs = [
-    qt5.qtbase
-    qt5.qtwebsockets
     mpv
     qhttpengine
+    qt5.qtbase
+    qt5.qtwebsockets
   ];
+
+  strictDeps = true;
 
   patches = [ ./change-install-path.patch ];
 
