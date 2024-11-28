@@ -7,7 +7,7 @@
 
 stdenv.mkDerivation rec {
   pname = "qob-cli";
-  version = "0.1.0";
+  version = "0.1.1";
 
   src = fetchFromGitHub {
     owner = "cl-qob";
@@ -19,6 +19,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ sbcl ];
 
   installPhase = ''
+    echo "Test"
     make build-nix
     install -m755 -D bin/sbcl/qob $out/bin/qob
   '';
