@@ -60,7 +60,7 @@ let
       nix = nix_2_3;
     };
 
-    nix-readline-2_19 = { nix-readline, nix_2_19 ? nixVersions.nix_2_19 or nix, nixVersions ? {}, nix }: nix-readline.override {
+    nix-readline-2_19 = { nix-readline, nix_2_19 ? nixVersions.nix_2_19 or nixVersions.nix_2_18 or nix, nixVersions ? {}, nix }: nix-readline.override {
       nix = nix_2_19;
     };
 
