@@ -284,15 +284,15 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "bba433a9c1f3005803fbdf53de0e064b469e699a";
+    version = "66575014ac063a8067a773ccc50952491bd432e9";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "bba433a9c1f3005803fbdf53de0e064b469e699a";
+      rev = "66575014ac063a8067a773ccc50952491bd432e9";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-sEx8reaoUf/430YxuiMC7HV/s45ymt5xXUmOwv8eNRA=";
+      sha256 = "sha256-UnIz10ofLIPZo2moG1tzJaoPK5hKEjLO11nyhjzL2Qo=";
     };
     date = "2024-11-29";
   };
@@ -435,23 +435,23 @@
   };
   swayosd = {
     pname = "swayosd";
-    version = "3ccc06a15aad1857270e5b0979d2975643a8f96f";
+    version = "47ef7826bce2c758a156a4a7186b970ff2396ea4";
     src = fetchgit {
       url = "https://github.com/ErikReider/SwayOSD.git";
-      rev = "3ccc06a15aad1857270e5b0979d2975643a8f96f";
+      rev = "47ef7826bce2c758a156a4a7186b970ff2396ea4";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-3wJaFM/MyuyFV21iD4+CQH17NG5ZvPFVoxwglNRhe4I=";
+      sha256 = "sha256-Y9goF3b3XN7p7im05kNjj4VXLm5PxZ40W45N71aeEJ4=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./swayosd-3ccc06a15aad1857270e5b0979d2975643a8f96f/Cargo.lock;
+      lockFile = ./swayosd-47ef7826bce2c758a156a4a7186b970ff2396ea4/Cargo.lock;
       outputHashes = {
 
       };
     };
-    date = "2024-11-26";
+    date = "2024-11-29";
   };
   synapse-s3-storage-provider = {
     pname = "synapse-s3-storage-provider";
