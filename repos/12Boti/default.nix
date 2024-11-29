@@ -25,4 +25,5 @@
   openvscode-server = pkgs.callPackage ./pkgs/openvscode-server { };
   pcalc = pkgs.callPackage ./pkgs/pcalc { };
   shadps4 = pkgs.callPackage ./pkgs/shadps4 { };
+  task-maker-rust = pkgs.callPackage ./pkgs/task-maker-rust { };
 }

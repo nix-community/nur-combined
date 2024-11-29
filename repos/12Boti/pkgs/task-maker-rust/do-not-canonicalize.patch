@@ -1,0 +1,12 @@
+diff --git a/task-maker-exec/src/sandbox.rs b/task-maker-exec/src/sandbox.rs
+index a5cfc0bb..cea3a40d 100644
+--- a/task-maker-exec/src/sandbox.rs
++++ b/task-maker-exec/src/sandbox.rs
+@@ -421,7 +421,6 @@ impl Sandbox {
+             ExecutionCommand::System(cmd) => {
+                 if let Ok(cmd) = which::which(cmd) {
+                     // Always mount the directory with the executable.
+-                    let cmd = std::fs::canonicalize(cmd).context("Failed to canonicalize path")?;
+                     let path = cmd.parent().expect("invalid binary path");
+                     if !mounted_dirs.contains(path) {
+                         config.mount(path, path, false);

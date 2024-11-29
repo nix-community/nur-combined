@@ -1,0 +1,13 @@
+diff --git a/task-maker-exec/src/sandbox.rs b/task-maker-exec/src/sandbox.rs
+index a5cfc0bb..8b287bd8 100644
+--- a/task-maker-exec/src/sandbox.rs
++++ b/task-maker-exec/src/sandbox.rs
+@@ -36,6 +36,8 @@ pub const READABLE_DIRS: &[&str] = &[
+     "/var/lib/dpkg/alternatives/",
+     // required by texlive on Ubuntu
+     "/var/lib/texmf/",
++    // required by NixOS
++    "/nix/store",
+ ];
+ 
+ /// Result of the execution of the sandbox.
