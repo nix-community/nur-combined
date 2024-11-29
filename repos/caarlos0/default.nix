@@ -6,7 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -32,4 +34,7 @@
   diffnav = pkgs.callPackage ./pkgs/diffnav { };
 
   mkdocs-include-markdown-plugin = pkgs.callPackage ./pkgs/mkdocs-include-markdown-plugin { };
+  mkdocs-git-revision-date-localized-plugin =
+    pkgs.callPackage ./pkgs/mkdocs-git-revision-date-localized-plugin
+      { };
 }
