@@ -2,8 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  curl,
-  sbcl,
+  pkgs,
 }:
 
 stdenv.mkDerivation rec {
@@ -17,9 +16,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-JVgYkerb3PvxYfIdNFB94wL+EOF7eCgNlLELi1e55wI=";
   };
 
-  buildInputs = [ sbcl curl ];
-  
-  buildFlags = [ "build-nix" ];
+  sbcl' = pkgs.sbcl.withPackages (ps: with ps; [
+    copy-directory
+    clingon
+    deploy
+  ]);
+
+  nativeBuildInputs = [ sbcl' ];
+
+  buildFlags = [ "build" ];
 
   installPhase = ''
     install -m755 -D bin/sbcl/qob $out/bin/qob
