@@ -1,7 +1,7 @@
-{ lib, python39Packages }:
+{ lib, python313Packages }:
 
 let
-  inherit (python39Packages) buildPythonPackage fetchPypi;
+  inherit (python313Packages) buildPythonPackage fetchPypi;
 in
 
 buildPythonPackage rec {
@@ -13,7 +13,7 @@ buildPythonPackage rec {
     hash = "sha256-B8srOXQBUxK6dZ6GhDA5fYvxUBxHVcrSO/z+UWyF+qI=";
   };
 
-  propagatedBuildInputs = with python39Packages; [
+  propagatedBuildInputs = with python313Packages; [
     numpy
     wand
   ];
