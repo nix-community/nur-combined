@@ -198,14 +198,14 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "7b74b06f1b2b781f14a23306b9fb46e59db5fa8a";
+    version = "ca5815d435bb71d01da8db94f7ca0cad7cb40b70";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "7b74b06f1b2b781f14a23306b9fb46e59db5fa8a";
-      hash = "sha256-eP/+bhujA1HvAj/HwDY7LmNDjoUpivzf8+DKrK+92R0=";
+      rev = "ca5815d435bb71d01da8db94f7ca0cad7cb40b70";
+      hash = "sha256-F6XOASxunnNrGAo3LZsKgvFCo8xaJ72wCplCQCSZ2o8=";
     };
-    date = "2024-11-26";
+    date = "2024-11-28";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -731,12 +731,12 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.12.1-xanmod1";
+    version = "6.12.1-xanmod2";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      rev = "6.12.1-xanmod1";
+      rev = "6.12.1-xanmod2";
       fetchSubmodules = false;
-      hash = "sha256-vL3+VhecP+uByH8GHtYV0JTGI8gBN1o99Cm5Bkb2NjY=";
+      hash = "sha256-dJqLXtiMa2Oyl3ioIT7NgZOSb4iFxYZSRTsWvnIpGWQ=";
     };
   };
   linux-xanmod-6_0 = {
@@ -771,12 +771,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4204";
+    version = "b4218";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4204";
-      hash = "sha256-HXBPS27T2I3dWpJnrynIrhJH6eC5vzoaKmbSB5i1GBw=";
+      rev = "b4218";
+      hash = "sha256-WOxISoqHkPVjuFY27e3ECSp/5XCR4zhE0t/YvBr3lZM=";
     };
   };
   lyrica = {
@@ -1366,14 +1366,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "5033459f3e7b561f122580bb49e539965c03e88c";
+    version = "66575014ac063a8067a773ccc50952491bd432e9";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "5033459f3e7b561f122580bb49e539965c03e88c";
-      hash = "sha256-CiUFDPl0+k3LcSPvUki2ifjasMQGY7BiBwPYz8oo/J8=";
+      rev = "66575014ac063a8067a773ccc50952491bd432e9";
+      hash = "sha256-UnIz10ofLIPZo2moG1tzJaoPK5hKEjLO11nyhjzL2Qo=";
     };
-    date = "2024-11-28";
+    date = "2024-11-29";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1660,14 +1660,14 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "c3f97d2159e1f9f50b27af6ebe4c6d34ed1f0bc8";
+    version = "0d9915a93c5576f0c773ded3893f919a775ed5d2";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "c3f97d2159e1f9f50b27af6ebe4c6d34ed1f0bc8";
-      hash = "sha256-+nbtyaJBQ6URLGl6hJqY3HtFNL8/SYP5jyk3N7anbsc=";
+      rev = "0d9915a93c5576f0c773ded3893f919a775ed5d2";
+      hash = "sha256-4rLxwl8bRbPN8XYf8bt8dvBpYlrvSeS3hMsosYDK5k8=";
     };
-    date = "2024-11-28";
+    date = "2024-11-29";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
