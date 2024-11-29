@@ -135,20 +135,13 @@ in {
             pkgs.hostPlatform.isDarwin && 
             !(lib.hasInfix "-syslibroot $SDKROOT" (fpc.preConfigure or ""))
         ;
-        nixpkgs-fpc-fix = pkgs.fetchFromGitHub {
-            name = "nixpkgs-fpc-fix";
-            owner = "NixOS";
-            repo = "nixpkgs";
-            rev = "ce40ce79f14469fd17dfe41c9b51490495d3f99e";
-            sparseCheckout = [
-                "pkgs/development/compilers/fpc"
-            ];
-            nonConeMode = true;
-            hash = "sha256-fumRYQgvlsLLT48JPNbmP5VZD3D4C6XTfSKxiCDKIno=";
-        };
     in lib.addMetaAttrs ({
         description = "${fpc.meta.description or "fpc"} (fixed for macOS/Darwin)";
-    }) (if needsFix then pkgs.callPackage "${nixpkgs-fpc-fix}/pkgs/development/compilers/fpc/" {} else fpc);
+    }) (if needsFix then fpc.overrideAttrs (old: {
+        preConfigure = ''
+            NIX_LDFLAGS="-syslibroot $SDKROOT -L${lib.getLib pkgs.libiconv}/lib"
+        '' + (old.preConfigure or "");
+    }) else fpc);
     
     drl-packages = callPackage ./pkgs/drl/packages.nix {};
     inherit (self.drl-packages) drl drl-hq drl-lq;
