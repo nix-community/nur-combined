@@ -1070,6 +1070,7 @@
             "url": "https://github.com/tehplague/NUR"
         },
         "thaumy": {
+            "submodules": true,
             "url": "https://github.com/Thaumy/nur-pkgs"
         },
         "tilpner": {
