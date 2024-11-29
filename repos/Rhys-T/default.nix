@@ -129,14 +129,12 @@ in {
         };
     });
     
-    fpc = pkgs.fpc.overrideAttrs (old: {
-        postPatch = (old.postPatch or "") + pkgs.lib.optionalString pkgs.hostPlatform.isDarwin ''
-            NIX_LDFLAGS+=" -F$DEVELOPER_DIR/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"
-            NIX_LDFLAGS+=" -L$DEVELOPER_DIR/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib"
-            if [ -d "$DEVELOPER_DIR/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/swift" ]; then
-                NIX_LDFLAGS+=" -L$DEVELOPER_DIR/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/swift"
-            fi
-        '';
+    fpc = let
+        needsFix = pkgs.hostPlatform.isDarwin && !(pkgs.lib.hasInfix "-syslibroot $SDKROOT" (pkgs.fpc.preConfigure or ""));
+    in pkgs.fpc.overrideAttrs (old: {
+        preConfigure = pkgs.lib.optionalString needsFix ''
+            NIX_LDFLAGS="-syslibroot $SDKROOT -L${pkgs.lib.getLib pkgs.libiconv}/lib"
+        '' + (old.preConfigure or "");
         meta = old.meta // {
             description = "${old.meta.description or "fpc"} (fixed for macOS/Darwin)";
         };

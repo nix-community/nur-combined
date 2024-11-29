@@ -38,6 +38,7 @@ jobs:
               "nixos-unstable",
               "nixos-24.05",
               "nixos-24.11",
+              "ce40ce79f14469fd17dfe41c9b51490495d3f99e",
             empty] as $nixpkgss |
             
             [
@@ -50,8 +51,9 @@ jobs:
             {include: [
               $runners[] as $runner |
               $nixpkgss[] as $nixpkgs |
+              (if $nixpkgs | test("^[0-9a-f]{40}$") then $nixpkgs else "refs/heads/\($nixpkgs)" end) as $nixpkgsPath |
               ($runner | split("/")) as [$displayRunner, $runner] |
-              select(($runner | startswith("ubuntu")) or ($nixpkgs | startswith("nixpkgs"))) |
+              select(($runner | startswith("ubuntu")) or ($nixpkgs | startswith("nixos") | not)) |
               ($runner | split("+qemu-")) as [$runner, $qemuSystem] |
               (if $qemuSystem then {
                 "aarch64-linux": "arm64",
@@ -64,7 +66,7 @@ jobs:
                 gsub("^nixos-"; "NO-") |
                 gsub("-unstable$"; "-U") |
               .) as $displayNixpkgs |
-              {$displayRunner, $runner, $qemuSystem, $qemuSystemForAction, $displayNixpkgs, $nixpkgs, $subset, $nurRepo, $cachixName}
+              {$displayRunner, $runner, $qemuSystem, $qemuSystemForAction, $displayNixpkgs, $nixpkgs, $nixpkgsPath, $subset, $nurRepo, $cachixName}
             ]} |
             
             @json "matrix=\(.)"
@@ -92,7 +94,7 @@ jobs:
     - name: Install nix
       uses: cachix/install-nix-action@v30
       with:
-        nix_path: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/${{ matrix.nixpkgs }}.tar.gz"
+        nix_path: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/${{ matrix.nixpkgsPath }}.tar.gz"
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
