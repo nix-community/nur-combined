@@ -129,6 +129,19 @@ in {
         };
     });
     
+    fpc = pkgs.fpc.overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + pkgs.lib.optionalString pkgs.hostPlatform.isDarwin ''
+            NIX_LDFLAGS+=" -F$DEVELOPER_DIR/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"
+            NIX_LDFLAGS+=" -L$DEVELOPER_DIR/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib"
+            if [ -d "$DEVELOPER_DIR/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/swift" ]; then
+                NIX_LDFLAGS+=" -L$DEVELOPER_DIR/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/swift"
+            fi
+        '';
+        meta = old.meta // {
+            description = "${old.meta.description or "fpc"} (fixed for macOS/Darwin)";
+        };
+    });
+    
     drl-packages = callPackage ./pkgs/drl/packages.nix {};
     inherit (self.drl-packages) drl drl-hq drl-lq;
     

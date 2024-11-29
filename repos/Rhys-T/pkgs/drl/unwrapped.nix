@@ -70,6 +70,11 @@ in stdenv.mkDerivation rec {
         substituteInPlace "$FPCVALKYRIE_ROOT"/libs/vsdl2ttflibrary.pas \
             --replace-fail '${if stdenv.hostPlatform.isDarwin then "SDL2_ttf.framework/SDL2_ttf" else "libSDL2_ttf-2.0.so.0"}' '${lib.getLib SDL2_ttf}/lib/libSDL2_ttf.${libExt}'
     '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+        NIX_LDFLAGS+=" -F$DEVELOPER_DIR/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"
+        NIX_LDFLAGS+=" -L$DEVELOPER_DIR/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib"
+        if [ -d "$DEVELOPER_DIR/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/swift" ]; then
+            NIX_LDFLAGS+=" -L$DEVELOPER_DIR/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/swift"
+        fi
         sed -E -i '
             /glExtLoader/ {
                 /GetSymbolExt\s*:=/ s/glExtLoader/GetSymbol/
