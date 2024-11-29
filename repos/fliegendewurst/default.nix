@@ -21,6 +21,7 @@ rec {
     kernel = pkgs.linuxPackages.kernel;
   };
   openscad-snapshot = pkgs.callPackage ./pkgs/openscad-snapshot { };
+  pr-dashboard = pkgs.callPackage ./pkgs/pr-dashboard { };
   # TODO: fix dependency specification
   #raspi-oled = pkgs.callPackage ./pkgs/raspi-oled { };
   #raspi-oled-cross = pkgs.pkgsCross.muslpi.callPackage ./pkgs/raspi-oled { };
