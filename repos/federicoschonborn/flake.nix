@@ -139,9 +139,13 @@
                       let
                         versionPart = lib.optionalString (attrs ? version) " `${attrs.version}`";
 
-                        homepagePart = lib.optionalString (meta ? homepage) " [🌐](${meta.homepage} \"Homepage\")";
+                        homepagePart =
+                          lib.optionalString (meta ? homepage)
+                            " [🌐](${builtins.replaceStrings [ " " ] [ "%20" ] meta.homepage} \"Homepage\")";
 
-                        changelogPart = lib.optionalString (meta ? changelog) " [📰](${meta.changelog} \"Changelog\")";
+                        changelogPart =
+                          lib.optionalString (meta ? changelog)
+                            " [📰](${builtins.replaceStrings [ " " ] [ "%20" ] meta.changelog} \"Changelog\")";
 
                         sourcePart =
                           let

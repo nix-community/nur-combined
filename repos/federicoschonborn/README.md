@@ -1067,7 +1067,7 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Update Script: ❌
 </details>
 
-### `lapcePlugins.azartiny.wild-pastel` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/Azartiny/wild pastel "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+### `lapcePlugins.azartiny.wild-pastel` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/Azartiny/wild%20pastel "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
@@ -1425,7 +1425,7 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Update Script: ❌
 </details>
 
-### `lapcePlugins.gosainamit.mukong-theme` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/GosainAmit/mukong theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+### `lapcePlugins.gosainamit.mukong-theme` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/GosainAmit/mukong%20theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
@@ -2254,7 +2254,7 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Update Script: ❌
 </details>
 
-### `lapcePlugins.willjsaint.cascade-dark` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/willjsaint/cascade dark "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+### `lapcePlugins.willjsaint.cascade-dark` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/willjsaint/cascade%20dark "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
