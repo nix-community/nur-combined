@@ -1,0 +1,53 @@
+name: "Build and populate cache"
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  schedule:
+    # rebuild everyday at 7:30
+    # TIP: Choose a random time here so not all repositories are build at once:
+    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
+    - cron:  '30 7 * * *'
+  workflow_dispatch:
+jobs:
+  tests:
+    strategy:
+      matrix:
+        runner:
+          - ubuntu-latest
+          # - [self-hosted, linux, ARM64]
+          # - [self-hosted, macOS, ARM64]
+          # - [self-hosted, macOS, x64]
+        nixPath:
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-24.05.tar.gz
+    runs-on: ${{ matrix.runner }}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Install nix
+      uses: cachix/install-nix-action@v30
+      with:
+        nix_path: "${{ matrix.nixPath }}"
+        extra_nix_config: access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Show nixpkgs version
+      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Setup cachix
+      uses: cachix/cachix-action@v15
+      with:
+        name: toyvo
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+    - name: Check evaluation
+      run: |
+        nix-env -f . -qa \* --meta --xml \
+          --allowed-uris https://static.rust-lang.org \
+          --option allow-import-from-derivation true \
+          --drv-path --show-trace \
+          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+          -I $PWD
+    - name: Build nix packages
+      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+    - name: Trigger NUR update
+      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=https://github.com/ToyVo/nur-packages"
