@@ -26,6 +26,7 @@ in
       fd
       file
       ripgrep
+      tree
     ] ++ cfg.additionalPackages);
 
     nixpkgs.config = {
