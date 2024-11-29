@@ -1,338 +1,6 @@
 { lib, mkLapcePlugin }:
 
 {
-  "Azartiny" = lib.recurseIntoAttrs {
-    "wild-pastel" = mkLapcePlugin {
-      author = "Azartiny";
-      name = "wild pastel";
-      version = "0.1.1";
-      hash = "sha256-yD2HirhGxl3DUzbED+w+4V3v6Y92ZifmyYVW/dC13AA=";
-      wasm = false;
-    };
-  };
-
-  "BillyDM" = lib.recurseIntoAttrs {
-    "darcula" = mkLapcePlugin {
-      author = "BillyDM";
-      name = "darcula";
-      version = "0.3.0";
-      hash = "sha256-yJBmYBZYXpSMd25KpmovTay1p/teegwHxgqQ5FgWN0U=";
-      wasm = false;
-    };
-  };
-
-  "Catppuccin-Holdings" = lib.recurseIntoAttrs {
-    "catppuccin" = mkLapcePlugin {
-      author = "Catppuccin-Holdings";
-      name = "catppuccin";
-      version = "0.1.18";
-      hash = "sha256-CMZez58yYmgC07MX4jw7s3fccCMK2WP51oII/7GmOBw=";
-      wasm = false;
-    };
-  };
-
-  "Codextor" = lib.recurseIntoAttrs {
-    "material-theme" = mkLapcePlugin {
-      author = "Codextor";
-      name = "material-theme";
-      version = "1.2.0";
-      hash = "sha256-qHE80Ickzm6qZcuMVb91BIvsRT7sivz34uByILdf1iY=";
-      wasm = false;
-    };
-  };
-
-  "ConnorSMorrison" = lib.recurseIntoAttrs {
-    "spaceduck" = mkLapcePlugin {
-      author = "ConnorSMorrison";
-      name = "spaceduck";
-      version = "0.0.1";
-      hash = "sha256-HjtzZSC161c9EH7sCogzphXMuH1VGTt1rODp0UC9Dh4=";
-      wasm = false;
-    };
-  };
-
-  "CroxxN" = lib.recurseIntoAttrs {
-    "lapce-html" = mkLapcePlugin {
-      author = "CroxxN";
-      name = "lapce-html";
-      version = "0.0.1";
-      hash = "sha256-/uazWNQ7mDWPsCAffChz2xyYiJXmKksGkBNiqXKroHg=";
-      wasm = true;
-    };
-  };
-
-  "DissolveDZ" = lib.recurseIntoAttrs {
-    "neonight" = mkLapcePlugin {
-      author = "DissolveDZ";
-      name = "neonight";
-      version = "0.1.0";
-      hash = "sha256-QKnf0zXbbLG8yTkGNJXoYemY521Fjr/hMTYSVYQywP0=";
-      wasm = false;
-    };
-  };
-
-  "GosainAmit" = lib.recurseIntoAttrs {
-    "mukong-theme" = mkLapcePlugin {
-      author = "GosainAmit";
-      name = "mukong theme";
-      version = "0.1.1";
-      hash = "sha256-wcwJOHD+MzbFuTyk5Vkk1EMO0UsR+lecDXKlpVYT9gg=";
-      wasm = false;
-    };
-  };
-
-  "HTGAzureX1212" = lib.recurseIntoAttrs {
-    "rs4lapce" = mkLapcePlugin {
-      author = "HTGAzureX1212";
-      name = "rs4lapce";
-      version = "0.2.0";
-      hash = "sha256-DzvI540fYBoiibdhZWlhbbxJJnN2z9NQSVLR06druCA=";
-      wasm = true;
-    };
-  };
-
-  "Hyduez" = lib.recurseIntoAttrs {
-    "dou-lapcord" = mkLapcePlugin {
-      author = "Hyduez";
-      name = "dou-lapcord";
-      version = "2.1.3";
-      hash = "sha256-Rze956JhxnuArJIUjDplzT/k8ThxK/ESSpGBQqcPiC4=";
-      wasm = true;
-    };
-    "dou.lapcord" = mkLapcePlugin {
-      author = "Hyduez";
-      name = "dou.lapcord";
-      version = "2.0.1";
-      hash = "sha256-jjtY9mKq5homhFZkw2XND5GGAxkH23HJZ4vaYHpHDvk=";
-      wasm = true;
-    };
-  };
-
-  "Incognitux" = lib.recurseIntoAttrs {
-    "everblush" = mkLapcePlugin {
-      author = "Incognitux";
-      name = "everblush";
-      version = "0.1.0";
-      hash = "sha256-b2BCnJT6MAzZhpmcjtHaqLxjU8aw25FfyRy7w/o7NWI=";
-      wasm = false;
-    };
-  };
-
-  "ItzSwirlz" = lib.recurseIntoAttrs {
-    "aura-theme" = mkLapcePlugin {
-      author = "ItzSwirlz";
-      name = "aura-theme";
-      version = "0.1.0";
-      hash = "sha256-n44Ap5s0tmM0Ouf0VUm8IMLOboayLSFnpps9jmUjoFU=";
-      wasm = false;
-    };
-    "nord-theme" = mkLapcePlugin {
-      author = "ItzSwirlz";
-      name = "nord-theme";
-      version = "0.1.1";
-      hash = "sha256-9iCJQlhfhiPAyxp+duPRYbhKl5hmJP4V+xEgZ9BBBZA=";
-      wasm = false;
-    };
-  };
-
-  "Jalkhov" = lib.recurseIntoAttrs {
-    "marge" = mkLapcePlugin {
-      author = "Jalkhov";
-      name = "marge";
-      version = "0.1.0";
-      hash = "sha256-5BlX4GeqDUdnPVqBjTIRCKaHw/LY9mefLghFKzoIIxs=";
-      wasm = false;
-    };
-  };
-
-  "JarWarren" = lib.recurseIntoAttrs {
-    "xcodedark-theme" = mkLapcePlugin {
-      author = "JarWarren";
-      name = "xcodedark-theme";
-      version = "0.1.1";
-      hash = "sha256-4U/QhsTzQAJCqabdezbl36ivrd0+l4rxUPH2b0C/AJ0=";
-      wasm = false;
-    };
-    "xcodelight-theme" = mkLapcePlugin {
-      author = "JarWarren";
-      name = "xcodelight-theme";
-      version = "0.1.2";
-      hash = "sha256-AiLxEJNLlrKiKcjyiGYSAlmktZUsYiPY1R2HnL56Ruk=";
-      wasm = false;
-    };
-  };
-
-  "KennanHunter" = lib.recurseIntoAttrs {
-    "monokai" = mkLapcePlugin {
-      author = "KennanHunter";
-      name = "monokai";
-      version = "0.1.0";
-      hash = "sha256-2wQ7sFBxWXgFhxWN6xkSRpNag4iJCNtIhbIqm97LIAI=";
-      wasm = false;
-    };
-  };
-
-  "Lucas3oo" = lib.recurseIntoAttrs {
-    "eclipse-theme" = mkLapcePlugin {
-      author = "Lucas3oo";
-      name = "eclipse-theme";
-      version = "0.0.3";
-      hash = "sha256-/CIXzGoudKs2fEumzBLlSppCx4edy42p0dQqm7I3ltc=";
-      wasm = false;
-    };
-  };
-
-  "MathiasPius" = lib.recurseIntoAttrs {
-    "lapce-crates" = mkLapcePlugin {
-      author = "MathiasPius";
-      name = "lapce-crates";
-      version = "0.1.0";
-      hash = "sha256-tyUn0a1FoRlMRYFPfSy7FzP2FFZ52s197kAma2rpgXA=";
-      wasm = true;
-    };
-  };
-
-  "Mikastiv" = lib.recurseIntoAttrs {
-    "ocean-space-refined" = mkLapcePlugin {
-      author = "Mikastiv";
-      name = "ocean-space-refined";
-      version = "0.1.2";
-      hash = "sha256-+n9Q+e9qzGOqH4hgyh5m09flCpcujhw/6osKdaAqWu8=";
-      wasm = false;
-    };
-  };
-
-  "MinusGix" = lib.recurseIntoAttrs {
-    "aleph" = mkLapcePlugin {
-      author = "MinusGix";
-      name = "aleph";
-      version = "0.3.2";
-      hash = "sha256-ByXVdX0MVZJFN74uWecFgh/BZL6F90OeWdH75RAC17A=";
-      wasm = false;
-    };
-    "dark-forest" = mkLapcePlugin {
-      author = "MinusGix";
-      name = "dark-forest";
-      version = "0.1.1";
-      hash = "sha256-hYcz54F8ryq5m9drLAvYDPOhbZpOFL0CkZuQeebU26w=";
-      wasm = false;
-    };
-    "lapce-copilot" = mkLapcePlugin {
-      author = "MinusGix";
-      name = "lapce-copilot";
-      version = "1.0.1";
-      hash = "sha256-+p0BGte0R9cZPNUIkDpItC3s8YZA50bq53Ydjth6n0U=";
-      wasm = true;
-    };
-  };
-
-  "MrFoxPro" = lib.recurseIntoAttrs {
-    "lapce-nix" = mkLapcePlugin {
-      author = "MrFoxPro";
-      name = "lapce-nix";
-      version = "0.0.1";
-      hash = "sha256-n+j8p6sB/Bxdp0iY6Gty9Zkpv9Rg34HjKsT1gUuGDzQ=";
-      wasm = true;
-    };
-  };
-
-  "NachiketNamjoshi" = lib.recurseIntoAttrs {
-    "gruvbox" = mkLapcePlugin {
-      author = "NachiketNamjoshi";
-      name = "gruvbox";
-      version = "0.2.0";
-      hash = "sha256-k7/MylUTXhQtVKHweTAl1ddkUotStr7rdsmmwYKEZOA=";
-      wasm = false;
-    };
-  };
-
-  "Notiee" = lib.recurseIntoAttrs {
-    "forest-night-theme" = mkLapcePlugin {
-      author = "Notiee";
-      name = "forest-night-theme";
-      version = "0.1.1";
-      hash = "sha256-G0/L20thvMn9fXBMp7VW5Ci0SJKDb2YNan2rtA4FBAw=";
-      wasm = false;
-    };
-  };
-
-  "SimY4" = lib.recurseIntoAttrs {
-    "alabaster-theme" = mkLapcePlugin {
-      author = "SimY4";
-      name = "alabaster-theme";
-      version = "0.1.0";
-      hash = "sha256-J6OKBYixnNf/BBUlZvk14RZFDUgjA6SQ/GoJ5FJO4bs=";
-      wasm = false;
-    };
-  };
-
-  "Stanislav-Lapata" = lib.recurseIntoAttrs {
-    "lapce-angular" = mkLapcePlugin {
-      author = "Stanislav-Lapata";
-      name = "lapce-angular";
-      version = "0.1.0";
-      hash = "sha256-0LgJZr/2FxxK9Ys3QXojhAYU3hnaZOzW0RgZvA3Pago=";
-      wasm = true;
-    };
-    "lapce-solargraph" = mkLapcePlugin {
-      author = "Stanislav-Lapata";
-      name = "lapce-solargraph";
-      version = "0.1.2";
-      hash = "sha256-ogi8ZaMp0CYNUYFd91ykGsn/rEoTXSBgsZJni932p9I=";
-      wasm = true;
-    };
-  };
-
-  "Stepland" = lib.recurseIntoAttrs {
-    "monokai-vscode" = mkLapcePlugin {
-      author = "Stepland";
-      name = "monokai-vscode";
-      version = "1.0.0";
-      hash = "sha256-NoalGt6R+gwPHTHEg35ppbM4u3aeyq9aaU6Mm2jwc78=";
-      wasm = false;
-    };
-  };
-
-  "ThePoultryMan" = lib.recurseIntoAttrs {
-    "lapce-github-themes" = mkLapcePlugin {
-      author = "ThePoultryMan";
-      name = "lapce-github-themes";
-      version = "0.1.0";
-      hash = "sha256-8Bmxr7sKDiAVqqghJitoKtTRJJpWHT4RNRSeP1j9U6s=";
-      wasm = false;
-    };
-  };
-
-  "VarLad" = lib.recurseIntoAttrs {
-    "lapce-julia-ls" = mkLapcePlugin {
-      author = "VarLad";
-      name = "lapce-julia-ls";
-      version = "0.0.5";
-      hash = "sha256-FGjDsNj4Z4q3GIwJysBgkE2ws/XQZYK2L7yMIuTkaUU=";
-      wasm = true;
-    };
-  };
-
-  "WalterOfNone" = lib.recurseIntoAttrs {
-    "ayu" = mkLapcePlugin {
-      author = "WalterOfNone";
-      name = "ayu";
-      version = "0.1.2";
-      hash = "sha256-8m9joh8VTkd4fzNevFmZROsQ5Cl7si84oVQ01nTCjdo=";
-      wasm = false;
-    };
-  };
-
-  "X64D" = lib.recurseIntoAttrs {
-    "lapce-tinymist" = mkLapcePlugin {
-      author = "X64D";
-      name = "lapce-tinymist";
-      version = "0.0.1";
-      hash = "sha256-iSudWviA2XX0yhbdq8UVyeWXLh9TCIAdRQwjGWrfD54=";
-      wasm = true;
-    };
-  };
-
   "abreumatheus" = lib.recurseIntoAttrs {
     "lapce-pyright" = mkLapcePlugin {
       author = "abreumatheus";
@@ -349,7 +17,6 @@
       wasm = true;
     };
   };
-
   "ahmrz" = lib.recurseIntoAttrs {
     "aswad" = mkLapcePlugin {
       author = "ahmrz";
@@ -359,7 +26,6 @@
       wasm = false;
     };
   };
-
   "akhildevelops" = lib.recurseIntoAttrs {
     "lapce-python-nouse" = mkLapcePlugin {
       author = "akhildevelops";
@@ -369,7 +35,6 @@
       wasm = true;
     };
   };
-
   "ayhon" = lib.recurseIntoAttrs {
     "adwaita" = mkLapcePlugin {
       author = "ayhon";
@@ -379,7 +44,24 @@
       wasm = false;
     };
   };
-
+  "azartiny" = lib.recurseIntoAttrs {
+    "wild-pastel" = mkLapcePlugin {
+      author = "Azartiny";
+      name = "wild pastel";
+      version = "0.1.1";
+      hash = "sha256-yD2HirhGxl3DUzbED+w+4V3v6Y92ZifmyYVW/dC13AA=";
+      wasm = false;
+    };
+  };
+  "billydm" = lib.recurseIntoAttrs {
+    "darcula" = mkLapcePlugin {
+      author = "BillyDM";
+      name = "darcula";
+      version = "0.3.0";
+      hash = "sha256-yJBmYBZYXpSMd25KpmovTay1p/teegwHxgqQ5FgWN0U=";
+      wasm = false;
+    };
+  };
   "brocococonut" = lib.recurseIntoAttrs {
     "lapce-svelte" = mkLapcePlugin {
       author = "brocococonut";
@@ -389,7 +71,6 @@
       wasm = true;
     };
   };
-
   "c-sleuth" = lib.recurseIntoAttrs {
     "bright-pastel-icons" = mkLapcePlugin {
       author = "c-sleuth";
@@ -406,7 +87,42 @@
       wasm = false;
     };
   };
-
+  "catppuccin-holdings" = lib.recurseIntoAttrs {
+    "catppuccin" = mkLapcePlugin {
+      author = "Catppuccin-Holdings";
+      name = "catppuccin";
+      version = "0.1.18";
+      hash = "sha256-CMZez58yYmgC07MX4jw7s3fccCMK2WP51oII/7GmOBw=";
+      wasm = false;
+    };
+  };
+  "codextor" = lib.recurseIntoAttrs {
+    "material-theme" = mkLapcePlugin {
+      author = "Codextor";
+      name = "material-theme";
+      version = "1.2.0";
+      hash = "sha256-qHE80Ickzm6qZcuMVb91BIvsRT7sivz34uByILdf1iY=";
+      wasm = false;
+    };
+  };
+  "connorsmorrison" = lib.recurseIntoAttrs {
+    "spaceduck" = mkLapcePlugin {
+      author = "ConnorSMorrison";
+      name = "spaceduck";
+      version = "0.0.1";
+      hash = "sha256-HjtzZSC161c9EH7sCogzphXMuH1VGTt1rODp0UC9Dh4=";
+      wasm = false;
+    };
+  };
+  "croxxn" = lib.recurseIntoAttrs {
+    "lapce-html" = mkLapcePlugin {
+      author = "CroxxN";
+      name = "lapce-html";
+      version = "0.0.1";
+      hash = "sha256-/uazWNQ7mDWPsCAffChz2xyYiJXmKksGkBNiqXKroHg=";
+      wasm = true;
+    };
+  };
   "d4rkr41n" = lib.recurseIntoAttrs {
     "dracula" = mkLapcePlugin {
       author = "d4rkr41n";
@@ -416,7 +132,6 @@
       wasm = false;
     };
   };
-
   "dajoha" = lib.recurseIntoAttrs {
     "lapce-php-intelephense" = mkLapcePlugin {
       author = "dajoha";
@@ -426,7 +141,15 @@
       wasm = true;
     };
   };
-
+  "dissolvedz" = lib.recurseIntoAttrs {
+    "neonight" = mkLapcePlugin {
+      author = "DissolveDZ";
+      name = "neonight";
+      version = "0.1.0";
+      hash = "sha256-QKnf0zXbbLG8yTkGNJXoYemY521Fjr/hMTYSVYQywP0=";
+      wasm = false;
+    };
+  };
   "dyu" = lib.recurseIntoAttrs {
     "nordyu-theme" = mkLapcePlugin {
       author = "dyu";
@@ -436,7 +159,6 @@
       wasm = false;
     };
   };
-
   "dzhou121" = lib.recurseIntoAttrs {
     "lapce-lldb" = mkLapcePlugin {
       author = "dzhou121";
@@ -453,7 +175,6 @@
       wasm = true;
     };
   };
-
   "elo1lson" = lib.recurseIntoAttrs {
     "90s-anime" = mkLapcePlugin {
       author = "elo1lson";
@@ -470,7 +191,6 @@
       wasm = true;
     };
   };
-
   "foxlldev" = lib.recurseIntoAttrs {
     "solarized" = mkLapcePlugin {
       author = "foxlldev";
@@ -480,7 +200,6 @@
       wasm = false;
     };
   };
-
   "ghishadow" = lib.recurseIntoAttrs {
     "catppuccin" = mkLapcePlugin {
       author = "ghishadow";
@@ -532,7 +251,15 @@
       wasm = false;
     };
   };
-
+  "gosainamit" = lib.recurseIntoAttrs {
+    "mukong-theme" = mkLapcePlugin {
+      author = "GosainAmit";
+      name = "mukong theme";
+      version = "0.1.1";
+      hash = "sha256-wcwJOHD+MzbFuTyk5Vkk1EMO0UsR+lecDXKlpVYT9gg=";
+      wasm = false;
+    };
+  };
   "hangj" = lib.recurseIntoAttrs {
     "lapce-plugin-all-in-one" = mkLapcePlugin {
       author = "hangj";
@@ -542,7 +269,6 @@
       wasm = true;
     };
   };
-
   "heartbeast42" = lib.recurseIntoAttrs {
     "neon-night" = mkLapcePlugin {
       author = "heartbeast42";
@@ -552,7 +278,40 @@
       wasm = false;
     };
   };
-
+  "htgazurex1212" = lib.recurseIntoAttrs {
+    "rs4lapce" = mkLapcePlugin {
+      author = "HTGAzureX1212";
+      name = "rs4lapce";
+      version = "0.2.0";
+      hash = "sha256-DzvI540fYBoiibdhZWlhbbxJJnN2z9NQSVLR06druCA=";
+      wasm = true;
+    };
+  };
+  "hyduez" = lib.recurseIntoAttrs {
+    "dou-lapcord" = mkLapcePlugin {
+      author = "Hyduez";
+      name = "dou-lapcord";
+      version = "2.1.3";
+      hash = "sha256-Rze956JhxnuArJIUjDplzT/k8ThxK/ESSpGBQqcPiC4=";
+      wasm = true;
+    };
+    "dou.lapcord" = mkLapcePlugin {
+      author = "Hyduez";
+      name = "dou.lapcord";
+      version = "2.0.1";
+      hash = "sha256-jjtY9mKq5homhFZkw2XND5GGAxkH23HJZ4vaYHpHDvk=";
+      wasm = true;
+    };
+  };
+  "incognitux" = lib.recurseIntoAttrs {
+    "everblush" = mkLapcePlugin {
+      author = "Incognitux";
+      name = "everblush";
+      version = "0.1.0";
+      hash = "sha256-b2BCnJT6MAzZhpmcjtHaqLxjU8aw25FfyRy7w/o7NWI=";
+      wasm = false;
+    };
+  };
   "instance-id" = lib.recurseIntoAttrs {
     "lapce-powershell" = mkLapcePlugin {
       author = "instance-id";
@@ -562,7 +321,47 @@
       wasm = true;
     };
   };
-
+  "itzswirlz" = lib.recurseIntoAttrs {
+    "aura-theme" = mkLapcePlugin {
+      author = "ItzSwirlz";
+      name = "aura-theme";
+      version = "0.1.0";
+      hash = "sha256-n44Ap5s0tmM0Ouf0VUm8IMLOboayLSFnpps9jmUjoFU=";
+      wasm = false;
+    };
+    "nord-theme" = mkLapcePlugin {
+      author = "ItzSwirlz";
+      name = "nord-theme";
+      version = "0.1.1";
+      hash = "sha256-9iCJQlhfhiPAyxp+duPRYbhKl5hmJP4V+xEgZ9BBBZA=";
+      wasm = false;
+    };
+  };
+  "jalkhov" = lib.recurseIntoAttrs {
+    "marge" = mkLapcePlugin {
+      author = "Jalkhov";
+      name = "marge";
+      version = "0.1.0";
+      hash = "sha256-5BlX4GeqDUdnPVqBjTIRCKaHw/LY9mefLghFKzoIIxs=";
+      wasm = false;
+    };
+  };
+  "jarwarren" = lib.recurseIntoAttrs {
+    "xcodedark-theme" = mkLapcePlugin {
+      author = "JarWarren";
+      name = "xcodedark-theme";
+      version = "0.1.1";
+      hash = "sha256-4U/QhsTzQAJCqabdezbl36ivrd0+l4rxUPH2b0C/AJ0=";
+      wasm = false;
+    };
+    "xcodelight-theme" = mkLapcePlugin {
+      author = "JarWarren";
+      name = "xcodelight-theme";
+      version = "0.1.2";
+      hash = "sha256-AiLxEJNLlrKiKcjyiGYSAlmktZUsYiPY1R2HnL56Ruk=";
+      wasm = false;
+    };
+  };
   "jimsynz" = lib.recurseIntoAttrs {
     "lapce-elixir" = mkLapcePlugin {
       author = "jimsynz";
@@ -572,7 +371,6 @@
       wasm = true;
     };
   };
-
   "jm-observer" = lib.recurseIntoAttrs {
     "lldb-win" = mkLapcePlugin {
       author = "jm-observer";
@@ -582,7 +380,6 @@
       wasm = true;
     };
   };
-
   "joyme123" = lib.recurseIntoAttrs {
     "thrift-ls" = mkLapcePlugin {
       author = "joyme123";
@@ -592,7 +389,6 @@
       wasm = true;
     };
   };
-
   "jsanchezba" = lib.recurseIntoAttrs {
     "github-theme" = mkLapcePlugin {
       author = "jsanchezba";
@@ -602,7 +398,15 @@
       wasm = false;
     };
   };
-
+  "kennanhunter" = lib.recurseIntoAttrs {
+    "monokai" = mkLapcePlugin {
+      author = "KennanHunter";
+      name = "monokai";
+      version = "0.1.0";
+      hash = "sha256-2wQ7sFBxWXgFhxWN6xkSRpNag4iJCNtIhbIqm97LIAI=";
+      wasm = false;
+    };
+  };
   "lotosbin" = lib.recurseIntoAttrs {
     "guose" = mkLapcePlugin {
       author = "lotosbin";
@@ -612,7 +416,74 @@
       wasm = false;
     };
   };
-
+  "lucas3oo" = lib.recurseIntoAttrs {
+    "eclipse-theme" = mkLapcePlugin {
+      author = "Lucas3oo";
+      name = "eclipse-theme";
+      version = "0.0.3";
+      hash = "sha256-/CIXzGoudKs2fEumzBLlSppCx4edy42p0dQqm7I3ltc=";
+      wasm = false;
+    };
+  };
+  "mathiaspius" = lib.recurseIntoAttrs {
+    "lapce-crates" = mkLapcePlugin {
+      author = "MathiasPius";
+      name = "lapce-crates";
+      version = "0.1.0";
+      hash = "sha256-tyUn0a1FoRlMRYFPfSy7FzP2FFZ52s197kAma2rpgXA=";
+      wasm = true;
+    };
+  };
+  "mikastiv" = lib.recurseIntoAttrs {
+    "ocean-space-refined" = mkLapcePlugin {
+      author = "Mikastiv";
+      name = "ocean-space-refined";
+      version = "0.1.2";
+      hash = "sha256-+n9Q+e9qzGOqH4hgyh5m09flCpcujhw/6osKdaAqWu8=";
+      wasm = false;
+    };
+  };
+  "minusgix" = lib.recurseIntoAttrs {
+    "aleph" = mkLapcePlugin {
+      author = "MinusGix";
+      name = "aleph";
+      version = "0.3.2";
+      hash = "sha256-ByXVdX0MVZJFN74uWecFgh/BZL6F90OeWdH75RAC17A=";
+      wasm = false;
+    };
+    "dark-forest" = mkLapcePlugin {
+      author = "MinusGix";
+      name = "dark-forest";
+      version = "0.1.1";
+      hash = "sha256-hYcz54F8ryq5m9drLAvYDPOhbZpOFL0CkZuQeebU26w=";
+      wasm = false;
+    };
+    "lapce-copilot" = mkLapcePlugin {
+      author = "MinusGix";
+      name = "lapce-copilot";
+      version = "1.0.1";
+      hash = "sha256-+p0BGte0R9cZPNUIkDpItC3s8YZA50bq53Ydjth6n0U=";
+      wasm = true;
+    };
+  };
+  "mrfoxpro" = lib.recurseIntoAttrs {
+    "lapce-nix" = mkLapcePlugin {
+      author = "MrFoxPro";
+      name = "lapce-nix";
+      version = "0.0.1";
+      hash = "sha256-n+j8p6sB/Bxdp0iY6Gty9Zkpv9Rg34HjKsT1gUuGDzQ=";
+      wasm = true;
+    };
+  };
+  "nachiketnamjoshi" = lib.recurseIntoAttrs {
+    "gruvbox" = mkLapcePlugin {
+      author = "NachiketNamjoshi";
+      name = "gruvbox";
+      version = "0.2.0";
+      hash = "sha256-k7/MylUTXhQtVKHweTAl1ddkUotStr7rdsmmwYKEZOA=";
+      wasm = false;
+    };
+  };
   "nekodival" = lib.recurseIntoAttrs {
     "lapce-racket" = mkLapcePlugin {
       author = "nekodival";
@@ -622,7 +493,15 @@
       wasm = true;
     };
   };
-
+  "notiee" = lib.recurseIntoAttrs {
+    "forest-night-theme" = mkLapcePlugin {
+      author = "Notiee";
+      name = "forest-night-theme";
+      version = "0.1.1";
+      hash = "sha256-G0/L20thvMn9fXBMp7VW5Ci0SJKDb2YNan2rtA4FBAw=";
+      wasm = false;
+    };
+  };
   "nullndr" = lib.recurseIntoAttrs {
     "lapce-material-icon-theme" = mkLapcePlugin {
       author = "nullndr";
@@ -632,7 +511,6 @@
       wasm = false;
     };
   };
-
   "nvarner" = lib.recurseIntoAttrs {
     "typst-lsp" = mkLapcePlugin {
       author = "nvarner";
@@ -642,7 +520,6 @@
       wasm = true;
     };
   };
-
   "oknozor" = lib.recurseIntoAttrs {
     "lapce-java" = mkLapcePlugin {
       author = "oknozor";
@@ -652,7 +529,6 @@
       wasm = true;
     };
   };
-
   "p-yukusai" = lib.recurseIntoAttrs {
     "black-iris" = mkLapcePlugin {
       author = "p-yukusai";
@@ -662,7 +538,6 @@
       wasm = false;
     };
   };
-
   "panekj" = lib.recurseIntoAttrs {
     "lapce-cpp-clangd" = mkLapcePlugin {
       author = "panekj";
@@ -728,7 +603,6 @@
       wasm = false;
     };
   };
-
   "robinv8" = lib.recurseIntoAttrs {
     "lapce-astro" = mkLapcePlugin {
       author = "robinv8";
@@ -738,8 +612,7 @@
       wasm = true;
     };
   };
-
-  "sharpSteff" = lib.recurseIntoAttrs {
+  "sharpsteff" = lib.recurseIntoAttrs {
     "csharp" = mkLapcePlugin {
       author = "sharpSteff";
       name = "csharp";
@@ -748,7 +621,15 @@
       wasm = true;
     };
   };
-
+  "simy4" = lib.recurseIntoAttrs {
+    "alabaster-theme" = mkLapcePlugin {
+      author = "SimY4";
+      name = "alabaster-theme";
+      version = "0.1.0";
+      hash = "sha256-J6OKBYixnNf/BBUlZvk14RZFDUgjA6SQ/GoJ5FJO4bs=";
+      wasm = false;
+    };
+  };
   "sleepy-kitten" = lib.recurseIntoAttrs {
     "discord" = mkLapcePlugin {
       author = "sleepy-kitten";
@@ -758,7 +639,6 @@
       wasm = false;
     };
   };
-
   "sschober" = lib.recurseIntoAttrs {
     "lapce-plugin-rewrap" = mkLapcePlugin {
       author = "sschober";
@@ -768,7 +648,31 @@
       wasm = true;
     };
   };
-
+  "stanislav-lapata" = lib.recurseIntoAttrs {
+    "lapce-angular" = mkLapcePlugin {
+      author = "Stanislav-Lapata";
+      name = "lapce-angular";
+      version = "0.1.0";
+      hash = "sha256-0LgJZr/2FxxK9Ys3QXojhAYU3hnaZOzW0RgZvA3Pago=";
+      wasm = true;
+    };
+    "lapce-solargraph" = mkLapcePlugin {
+      author = "Stanislav-Lapata";
+      name = "lapce-solargraph";
+      version = "0.1.2";
+      hash = "sha256-ogi8ZaMp0CYNUYFd91ykGsn/rEoTXSBgsZJni932p9I=";
+      wasm = true;
+    };
+  };
+  "stepland" = lib.recurseIntoAttrs {
+    "monokai-vscode" = mkLapcePlugin {
+      author = "Stepland";
+      name = "monokai-vscode";
+      version = "1.0.0";
+      hash = "sha256-NoalGt6R+gwPHTHEg35ppbM4u3aeyq9aaU6Mm2jwc78=";
+      wasm = false;
+    };
+  };
   "superlou" = lib.recurseIntoAttrs {
     "lapce-python" = mkLapcePlugin {
       author = "superlou";
@@ -778,7 +682,15 @@
       wasm = true;
     };
   };
-
+  "thepoultryman" = lib.recurseIntoAttrs {
+    "lapce-github-themes" = mkLapcePlugin {
+      author = "ThePoultryMan";
+      name = "lapce-github-themes";
+      version = "0.1.0";
+      hash = "sha256-8Bmxr7sKDiAVqqghJitoKtTRJJpWHT4RNRSeP1j9U6s=";
+      wasm = false;
+    };
+  };
   "timon-schelling" = lib.recurseIntoAttrs {
     "nushell-lsp" = mkLapcePlugin {
       author = "timon-schelling";
@@ -788,7 +700,6 @@
       wasm = true;
     };
   };
-
   "tingfeng-key" = lib.recurseIntoAttrs {
     "lapce-prisma" = mkLapcePlugin {
       author = "tingfeng-key";
@@ -798,7 +709,15 @@
       wasm = true;
     };
   };
-
+  "varlad" = lib.recurseIntoAttrs {
+    "lapce-julia-ls" = mkLapcePlugin {
+      author = "VarLad";
+      name = "lapce-julia-ls";
+      version = "0.0.5";
+      hash = "sha256-FGjDsNj4Z4q3GIwJysBgkE2ws/XQZYK2L7yMIuTkaUU=";
+      wasm = true;
+    };
+  };
   "vikaskaliramna" = lib.recurseIntoAttrs {
     "lapce-deno" = mkLapcePlugin {
       author = "vikaskaliramna";
@@ -808,7 +727,15 @@
       wasm = true;
     };
   };
-
+  "walterofnone" = lib.recurseIntoAttrs {
+    "ayu" = mkLapcePlugin {
+      author = "WalterOfNone";
+      name = "ayu";
+      version = "0.1.2";
+      hash = "sha256-8m9joh8VTkd4fzNevFmZROsQ5Cl7si84oVQ01nTCjdo=";
+      wasm = false;
+    };
+  };
   "willjsaint" = lib.recurseIntoAttrs {
     "cascade-dark" = mkLapcePlugin {
       author = "willjsaint";
@@ -818,7 +745,6 @@
       wasm = false;
     };
   };
-
   "wpkelso" = lib.recurseIntoAttrs {
     "milk-tea" = mkLapcePlugin {
       author = "wpkelso";
@@ -828,7 +754,15 @@
       wasm = false;
     };
   };
-
+  "x64d" = lib.recurseIntoAttrs {
+    "lapce-tinymist" = mkLapcePlugin {
+      author = "X64D";
+      name = "lapce-tinymist";
+      version = "0.0.1";
+      hash = "sha256-iSudWviA2XX0yhbdq8UVyeWXLh9TCIAdRQwjGWrfD54=";
+      wasm = true;
+    };
+  };
   "xiaoxin-sky" = lib.recurseIntoAttrs {
     "lapce-rome" = mkLapcePlugin {
       author = "xiaoxin-sky";
@@ -845,7 +779,6 @@
       wasm = true;
     };
   };
-
   "zarathir" = lib.recurseIntoAttrs {
     "lapce-dart" = mkLapcePlugin {
       author = "zarathir";
@@ -862,5 +795,4 @@
       wasm = true;
     };
   };
-
 }

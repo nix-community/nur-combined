@@ -994,507 +994,6 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Update Script: ✔️
 </details>
 
-### `lapcePlugins.Azartiny.wild-pastel` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/Azartiny/wild pastel "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-Azartiny-wild-pastel`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.BillyDM.darcula` `0.3.0` [🌐](https://plugins.lapce.dev/plugins/BillyDM/darcula "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-BillyDM-darcula`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.Catppuccin-Holdings.catppuccin` `0.1.18` [🌐](https://plugins.lapce.dev/plugins/Catppuccin-Holdings/catppuccin "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-Catppuccin-Holdings-catppuccin`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.Codextor.material-theme` `1.2.0` [🌐](https://plugins.lapce.dev/plugins/Codextor/material-theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-Codextor-material-theme`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.ConnorSMorrison.spaceduck` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/ConnorSMorrison/spaceduck "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-ConnorSMorrison-spaceduck`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.CroxxN.lapce-html` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/CroxxN/lapce-html "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-CroxxN-lapce-html`
-- Outputs: **`out`**
-- Update Script: ❌
-- Source Provenance: `binaryBytecode`
-</details>
-
-### `lapcePlugins.DissolveDZ.neonight` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/DissolveDZ/neonight "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-DissolveDZ-neonight`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.GosainAmit.mukong-theme` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/GosainAmit/mukong theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-GosainAmit-mukong-theme`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.HTGAzureX1212.rs4lapce` `0.2.0` [🌐](https://plugins.lapce.dev/plugins/HTGAzureX1212/rs4lapce "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-HTGAzureX1212-rs4lapce`
-- Outputs: **`out`**
-- Update Script: ❌
-- Source Provenance: `binaryBytecode`
-</details>
-
-### `lapcePlugins.Hyduez.dou-lapcord` `2.1.3` [🌐](https://plugins.lapce.dev/plugins/Hyduez/dou-lapcord "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-Hyduez-dou-lapcord`
-- Outputs: **`out`**
-- Update Script: ❌
-- Source Provenance: `binaryBytecode`
-</details>
-
-### `lapcePlugins.Hyduez.dou.lapcord` `2.0.1` [🌐](https://plugins.lapce.dev/plugins/Hyduez/dou.lapcord "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-Hyduez-dou.lapcord`
-- Outputs: **`out`**
-- Update Script: ❌
-- Source Provenance: `binaryBytecode`
-</details>
-
-### `lapcePlugins.Incognitux.everblush` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/Incognitux/everblush "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-Incognitux-everblush`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.ItzSwirlz.aura-theme` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/ItzSwirlz/aura-theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-ItzSwirlz-aura-theme`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.ItzSwirlz.nord-theme` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/ItzSwirlz/nord-theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-ItzSwirlz-nord-theme`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.Jalkhov.marge` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/Jalkhov/marge "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-Jalkhov-marge`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.JarWarren.xcodedark-theme` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/JarWarren/xcodedark-theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-JarWarren-xcodedark-theme`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.JarWarren.xcodelight-theme` `0.1.2` [🌐](https://plugins.lapce.dev/plugins/JarWarren/xcodelight-theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-JarWarren-xcodelight-theme`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.KennanHunter.monokai` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/KennanHunter/monokai "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-KennanHunter-monokai`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.Lucas3oo.eclipse-theme` `0.0.3` [🌐](https://plugins.lapce.dev/plugins/Lucas3oo/eclipse-theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-Lucas3oo-eclipse-theme`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.MathiasPius.lapce-crates` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/MathiasPius/lapce-crates "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-MathiasPius-lapce-crates`
-- Outputs: **`out`**
-- Update Script: ❌
-- Source Provenance: `binaryBytecode`
-</details>
-
-### `lapcePlugins.Mikastiv.ocean-space-refined` `0.1.2` [🌐](https://plugins.lapce.dev/plugins/Mikastiv/ocean-space-refined "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-Mikastiv-ocean-space-refined`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.MinusGix.aleph` `0.3.2` [🌐](https://plugins.lapce.dev/plugins/MinusGix/aleph "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-MinusGix-aleph`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.MinusGix.dark-forest` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/MinusGix/dark-forest "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-MinusGix-dark-forest`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.MinusGix.lapce-copilot` `1.0.1` [🌐](https://plugins.lapce.dev/plugins/MinusGix/lapce-copilot "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-MinusGix-lapce-copilot`
-- Outputs: **`out`**
-- Update Script: ❌
-- Source Provenance: `binaryBytecode`
-</details>
-
-### `lapcePlugins.MrFoxPro.lapce-nix` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/MrFoxPro/lapce-nix "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-MrFoxPro-lapce-nix`
-- Outputs: **`out`**
-- Update Script: ❌
-- Source Provenance: `binaryBytecode`
-</details>
-
-### `lapcePlugins.NachiketNamjoshi.gruvbox` `0.2.0` [🌐](https://plugins.lapce.dev/plugins/NachiketNamjoshi/gruvbox "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-NachiketNamjoshi-gruvbox`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.Notiee.forest-night-theme` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/Notiee/forest-night-theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-Notiee-forest-night-theme`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.SimY4.alabaster-theme` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/SimY4/alabaster-theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-SimY4-alabaster-theme`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.Stanislav-Lapata.lapce-angular` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/Stanislav-Lapata/lapce-angular "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-Stanislav-Lapata-lapce-angular`
-- Outputs: **`out`**
-- Update Script: ❌
-- Source Provenance: `binaryBytecode`
-</details>
-
-### `lapcePlugins.Stanislav-Lapata.lapce-solargraph` `0.1.2` [🌐](https://plugins.lapce.dev/plugins/Stanislav-Lapata/lapce-solargraph "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-Stanislav-Lapata-lapce-solargraph`
-- Outputs: **`out`**
-- Update Script: ❌
-- Source Provenance: `binaryBytecode`
-</details>
-
-### `lapcePlugins.Stepland.monokai-vscode` `1.0.0` [🌐](https://plugins.lapce.dev/plugins/Stepland/monokai-vscode "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-Stepland-monokai-vscode`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.ThePoultryMan.lapce-github-themes` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/ThePoultryMan/lapce-github-themes "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-ThePoultryMan-lapce-github-themes`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.VarLad.lapce-julia-ls` `0.0.5` [🌐](https://plugins.lapce.dev/plugins/VarLad/lapce-julia-ls "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-VarLad-lapce-julia-ls`
-- Outputs: **`out`**
-- Update Script: ❌
-- Source Provenance: `binaryBytecode`
-</details>
-
-### `lapcePlugins.WalterOfNone.ayu` `0.1.2` [🌐](https://plugins.lapce.dev/plugins/WalterOfNone/ayu "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-WalterOfNone-ayu`
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `lapcePlugins.X64D.lapce-tinymist` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/X64D/lapce-tinymist "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `lapce-plugin-X64D-lapce-tinymist`
-- Outputs: **`out`**
-- Update Script: ❌
-- Source Provenance: `binaryBytecode`
-</details>
-
 ### `lapcePlugins.abreumatheus.lapce-pyright` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/abreumatheus/lapce-pyright "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -1568,6 +1067,34 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Update Script: ❌
 </details>
 
+### `lapcePlugins.azartiny.wild-pastel` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/Azartiny/wild pastel "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Azartiny-wild-pastel`
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapcePlugins.billydm.darcula` `0.3.0` [🌐](https://plugins.lapce.dev/plugins/BillyDM/darcula "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-BillyDM-darcula`
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
 ### `lapcePlugins.brocococonut.lapce-svelte` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/brocococonut/lapce-svelte "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -1611,6 +1138,63 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Update Script: ❌
 </details>
 
+### `lapcePlugins.catppuccin-holdings.catppuccin` `0.1.18` [🌐](https://plugins.lapce.dev/plugins/Catppuccin-Holdings/catppuccin "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Catppuccin-Holdings-catppuccin`
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapcePlugins.codextor.material-theme` `1.2.0` [🌐](https://plugins.lapce.dev/plugins/Codextor/material-theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Codextor-material-theme`
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapcePlugins.connorsmorrison.spaceduck` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/ConnorSMorrison/spaceduck "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-ConnorSMorrison-spaceduck`
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapcePlugins.croxxn.lapce-html` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/CroxxN/lapce-html "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-CroxxN-lapce-html`
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
 ### `lapcePlugins.d4rkr41n.dracula` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/d4rkr41n/dracula "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -1638,6 +1222,20 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Outputs: **`out`**
 - Update Script: ❌
 - Source Provenance: `binaryBytecode`
+</details>
+
+### `lapcePlugins.dissolvedz.neonight` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/DissolveDZ/neonight "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-DissolveDZ-neonight`
+- Outputs: **`out`**
+- Update Script: ❌
 </details>
 
 ### `lapcePlugins.dyu.nordyu-theme` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/dyu/nordyu-theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
@@ -1827,6 +1425,20 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Update Script: ❌
 </details>
 
+### `lapcePlugins.gosainamit.mukong-theme` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/GosainAmit/mukong theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-GosainAmit-mukong-theme`
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
 ### `lapcePlugins.hangj.lapce-plugin-all-in-one` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/hangj/lapce-plugin-all-in-one "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -1856,6 +1468,65 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Update Script: ❌
 </details>
 
+### `lapcePlugins.htgazurex1212.rs4lapce` `0.2.0` [🌐](https://plugins.lapce.dev/plugins/HTGAzureX1212/rs4lapce "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-HTGAzureX1212-rs4lapce`
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapcePlugins.hyduez.dou-lapcord` `2.1.3` [🌐](https://plugins.lapce.dev/plugins/Hyduez/dou-lapcord "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Hyduez-dou-lapcord`
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapcePlugins.hyduez.dou.lapcord` `2.0.1` [🌐](https://plugins.lapce.dev/plugins/Hyduez/dou.lapcord "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Hyduez-dou.lapcord`
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapcePlugins.incognitux.everblush` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/Incognitux/everblush "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Incognitux-everblush`
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
 ### `lapcePlugins.instance-id.lapce-powershell` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/instance-id/lapce-powershell "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -1869,6 +1540,76 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Outputs: **`out`**
 - Update Script: ❌
 - Source Provenance: `binaryBytecode`
+</details>
+
+### `lapcePlugins.itzswirlz.aura-theme` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/ItzSwirlz/aura-theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-ItzSwirlz-aura-theme`
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapcePlugins.itzswirlz.nord-theme` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/ItzSwirlz/nord-theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-ItzSwirlz-nord-theme`
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapcePlugins.jalkhov.marge` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/Jalkhov/marge "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Jalkhov-marge`
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapcePlugins.jarwarren.xcodedark-theme` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/JarWarren/xcodedark-theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-JarWarren-xcodedark-theme`
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapcePlugins.jarwarren.xcodelight-theme` `0.1.2` [🌐](https://plugins.lapce.dev/plugins/JarWarren/xcodelight-theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-JarWarren-xcodelight-theme`
+- Outputs: **`out`**
+- Update Script: ❌
 </details>
 
 ### `lapcePlugins.jimsynz.lapce-elixir` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/jimsynz/lapce-elixir "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
@@ -1930,6 +1671,20 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Update Script: ❌
 </details>
 
+### `lapcePlugins.kennanhunter.monokai` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/KennanHunter/monokai "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-KennanHunter-monokai`
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
 ### `lapcePlugins.lotosbin.guose` `0.0.2` [🌐](https://plugins.lapce.dev/plugins/lotosbin/guose "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -1940,6 +1695,121 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
   </summary>
 
 - Name: `lapce-plugin-lotosbin-guose`
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapcePlugins.lucas3oo.eclipse-theme` `0.0.3` [🌐](https://plugins.lapce.dev/plugins/Lucas3oo/eclipse-theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Lucas3oo-eclipse-theme`
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapcePlugins.mathiaspius.lapce-crates` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/MathiasPius/lapce-crates "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-MathiasPius-lapce-crates`
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapcePlugins.mikastiv.ocean-space-refined` `0.1.2` [🌐](https://plugins.lapce.dev/plugins/Mikastiv/ocean-space-refined "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Mikastiv-ocean-space-refined`
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapcePlugins.minusgix.aleph` `0.3.2` [🌐](https://plugins.lapce.dev/plugins/MinusGix/aleph "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-MinusGix-aleph`
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapcePlugins.minusgix.dark-forest` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/MinusGix/dark-forest "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-MinusGix-dark-forest`
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapcePlugins.minusgix.lapce-copilot` `1.0.1` [🌐](https://plugins.lapce.dev/plugins/MinusGix/lapce-copilot "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-MinusGix-lapce-copilot`
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapcePlugins.mrfoxpro.lapce-nix` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/MrFoxPro/lapce-nix "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-MrFoxPro-lapce-nix`
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapcePlugins.nachiketnamjoshi.gruvbox` `0.2.0` [🌐](https://plugins.lapce.dev/plugins/NachiketNamjoshi/gruvbox "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-NachiketNamjoshi-gruvbox`
 - Outputs: **`out`**
 - Update Script: ❌
 </details>
@@ -1957,6 +1827,20 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Outputs: **`out`**
 - Update Script: ❌
 - Source Provenance: `binaryBytecode`
+</details>
+
+### `lapcePlugins.notiee.forest-night-theme` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/Notiee/forest-night-theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Notiee-forest-night-theme`
+- Outputs: **`out`**
+- Update Script: ❌
 </details>
 
 ### `lapcePlugins.nullndr.lapce-material-icon-theme` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/nullndr/lapce-material-icon-theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
@@ -2165,7 +2049,7 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Source Provenance: `binaryBytecode`
 </details>
 
-### `lapcePlugins.sharpSteff.csharp` `2.0.0` [🌐](https://plugins.lapce.dev/plugins/sharpSteff/csharp "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+### `lapcePlugins.sharpsteff.csharp` `2.0.0` [🌐](https://plugins.lapce.dev/plugins/sharpSteff/csharp "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
@@ -2178,6 +2062,20 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Outputs: **`out`**
 - Update Script: ❌
 - Source Provenance: `binaryBytecode`
+</details>
+
+### `lapcePlugins.simy4.alabaster-theme` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/SimY4/alabaster-theme "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-SimY4-alabaster-theme`
+- Outputs: **`out`**
+- Update Script: ❌
 </details>
 
 ### `lapcePlugins.sleepy-kitten.discord` `0.2.1` [🌐](https://plugins.lapce.dev/plugins/sleepy-kitten/discord "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
@@ -2209,6 +2107,50 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Source Provenance: `binaryBytecode`
 </details>
 
+### `lapcePlugins.stanislav-lapata.lapce-angular` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/Stanislav-Lapata/lapce-angular "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Stanislav-Lapata-lapce-angular`
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapcePlugins.stanislav-lapata.lapce-solargraph` `0.1.2` [🌐](https://plugins.lapce.dev/plugins/Stanislav-Lapata/lapce-solargraph "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Stanislav-Lapata-lapce-solargraph`
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
+### `lapcePlugins.stepland.monokai-vscode` `1.0.0` [🌐](https://plugins.lapce.dev/plugins/Stepland/monokai-vscode "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Stepland-monokai-vscode`
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
 ### `lapcePlugins.superlou.lapce-python` `0.3.4` [🌐](https://plugins.lapce.dev/plugins/superlou/lapce-python "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -2222,6 +2164,20 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Outputs: **`out`**
 - Update Script: ❌
 - Source Provenance: `binaryBytecode`
+</details>
+
+### `lapcePlugins.thepoultryman.lapce-github-themes` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/ThePoultryMan/lapce-github-themes "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-ThePoultryMan-lapce-github-themes`
+- Outputs: **`out`**
+- Update Script: ❌
 </details>
 
 ### `lapcePlugins.timon-schelling.nushell-lsp` `0.1.0-rc2` [🌐](https://plugins.lapce.dev/plugins/timon-schelling/nushell-lsp "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
@@ -2254,6 +2210,21 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Source Provenance: `binaryBytecode`
 </details>
 
+### `lapcePlugins.varlad.lapce-julia-ls` `0.0.5` [🌐](https://plugins.lapce.dev/plugins/VarLad/lapce-julia-ls "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-VarLad-lapce-julia-ls`
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
+</details>
+
 ### `lapcePlugins.vikaskaliramna.lapce-deno` `0.0.0` [🌐](https://plugins.lapce.dev/plugins/vikaskaliramna/lapce-deno "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
 
 <!-- markdownlint-disable-next-line no-inline-html -->
@@ -2267,6 +2238,20 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Outputs: **`out`**
 - Update Script: ❌
 - Source Provenance: `binaryBytecode`
+</details>
+
+### `lapcePlugins.walterofnone.ayu` `0.1.2` [🌐](https://plugins.lapce.dev/plugins/WalterOfNone/ayu "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-WalterOfNone-ayu`
+- Outputs: **`out`**
+- Update Script: ❌
 </details>
 
 ### `lapcePlugins.willjsaint.cascade-dark` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/willjsaint/cascade dark "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
@@ -2295,6 +2280,21 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Name: `lapce-plugin-wpkelso-milk-tea`
 - Outputs: **`out`**
 - Update Script: ❌
+</details>
+
+### `lapcePlugins.x64d.lapce-tinymist` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/X64D/lapce-tinymist "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-X64D-lapce-tinymist`
+- Outputs: **`out`**
+- Update Script: ❌
+- Source Provenance: `binaryBytecode`
 </details>
 
 ### `lapcePlugins.xiaoxin-sky.lapce-rome` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/xiaoxin-sky/lapce-rome "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
