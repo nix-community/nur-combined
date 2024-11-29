@@ -1282,7 +1282,7 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Source Provenance: `binaryBytecode`
 </details>
 
-### `lapcePlugins.elo1lson.90s-anime` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/elo1lson/90s-anime "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+### `lapcePlugins.elo1lson._90s-anime` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/elo1lson/90s-anime "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>
@@ -1498,7 +1498,7 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
 - Source Provenance: `binaryBytecode`
 </details>
 
-### `lapcePlugins.hyduez.dou.lapcord` `2.0.1` [🌐](https://plugins.lapce.dev/plugins/Hyduez/dou.lapcord "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
+### `lapcePlugins.hyduez.dou_lapcord` `2.0.1` [🌐](https://plugins.lapce.dev/plugins/Hyduez/dou.lapcord "Homepage") [📦](./pkgs/lapce-plugins/mkLapcePlugin.nix#L23 "Source")
 
 <!-- markdownlint-disable-next-line no-inline-html -->
 <details>

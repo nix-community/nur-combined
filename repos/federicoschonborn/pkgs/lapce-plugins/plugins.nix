@@ -1,15 +1,15 @@
 { lib, mkLapcePlugin }:
 
 {
-  "abreumatheus" = lib.recurseIntoAttrs {
-    "lapce-pyright" = mkLapcePlugin {
+  abreumatheus = lib.recurseIntoAttrs {
+    lapce-pyright = mkLapcePlugin {
       author = "abreumatheus";
       name = "lapce-pyright";
       version = "0.1.1";
       hash = "sha256-C1YOg6WcRcN7+br9eCiUzSQVAj/JloH9+fY9IME1bpg=";
       wasm = true;
     };
-    "lapce-ruff-lsp" = mkLapcePlugin {
+    lapce-ruff-lsp = mkLapcePlugin {
       author = "abreumatheus";
       name = "lapce-ruff-lsp";
       version = "0.1.1";
@@ -17,8 +17,8 @@
       wasm = true;
     };
   };
-  "ahmrz" = lib.recurseIntoAttrs {
-    "aswad" = mkLapcePlugin {
+  ahmrz = lib.recurseIntoAttrs {
+    aswad = mkLapcePlugin {
       author = "ahmrz";
       name = "aswad";
       version = "0.3.0";
@@ -26,8 +26,8 @@
       wasm = false;
     };
   };
-  "akhildevelops" = lib.recurseIntoAttrs {
-    "lapce-python-nouse" = mkLapcePlugin {
+  akhildevelops = lib.recurseIntoAttrs {
+    lapce-python-nouse = mkLapcePlugin {
       author = "akhildevelops";
       name = "lapce-python-nouse";
       version = "0.4.0";
@@ -35,8 +35,8 @@
       wasm = true;
     };
   };
-  "ayhon" = lib.recurseIntoAttrs {
-    "adwaita" = mkLapcePlugin {
+  ayhon = lib.recurseIntoAttrs {
+    adwaita = mkLapcePlugin {
       author = "ayhon";
       name = "adwaita";
       version = "0.1.0";
@@ -44,8 +44,8 @@
       wasm = false;
     };
   };
-  "azartiny" = lib.recurseIntoAttrs {
-    "wild-pastel" = mkLapcePlugin {
+  azartiny = lib.recurseIntoAttrs {
+    wild-pastel = mkLapcePlugin {
       author = "Azartiny";
       name = "wild pastel";
       version = "0.1.1";
@@ -53,8 +53,8 @@
       wasm = false;
     };
   };
-  "billydm" = lib.recurseIntoAttrs {
-    "darcula" = mkLapcePlugin {
+  billydm = lib.recurseIntoAttrs {
+    darcula = mkLapcePlugin {
       author = "BillyDM";
       name = "darcula";
       version = "0.3.0";
@@ -62,8 +62,8 @@
       wasm = false;
     };
   };
-  "brocococonut" = lib.recurseIntoAttrs {
-    "lapce-svelte" = mkLapcePlugin {
+  brocococonut = lib.recurseIntoAttrs {
+    lapce-svelte = mkLapcePlugin {
       author = "brocococonut";
       name = "lapce-svelte";
       version = "0.1.0";
@@ -71,15 +71,15 @@
       wasm = true;
     };
   };
-  "c-sleuth" = lib.recurseIntoAttrs {
-    "bright-pastel-icons" = mkLapcePlugin {
+  c-sleuth = lib.recurseIntoAttrs {
+    bright-pastel-icons = mkLapcePlugin {
       author = "c-sleuth";
       name = "bright-pastel-icons";
       version = "0.0.0";
       hash = "sha256-+v3cUgKrghxSjCNLgwuWRn/HSIhUu7ERhE8yIEyvz8A=";
       wasm = false;
     };
-    "pastel-collection-lapce" = mkLapcePlugin {
+    pastel-collection-lapce = mkLapcePlugin {
       author = "c-sleuth";
       name = "pastel-collection-lapce";
       version = "0.1.0";
@@ -87,8 +87,8 @@
       wasm = false;
     };
   };
-  "catppuccin-holdings" = lib.recurseIntoAttrs {
-    "catppuccin" = mkLapcePlugin {
+  catppuccin-holdings = lib.recurseIntoAttrs {
+    catppuccin = mkLapcePlugin {
       author = "Catppuccin-Holdings";
       name = "catppuccin";
       version = "0.1.18";
@@ -96,8 +96,8 @@
       wasm = false;
     };
   };
-  "codextor" = lib.recurseIntoAttrs {
-    "material-theme" = mkLapcePlugin {
+  codextor = lib.recurseIntoAttrs {
+    material-theme = mkLapcePlugin {
       author = "Codextor";
       name = "material-theme";
       version = "1.2.0";
@@ -105,8 +105,8 @@
       wasm = false;
     };
   };
-  "connorsmorrison" = lib.recurseIntoAttrs {
-    "spaceduck" = mkLapcePlugin {
+  connorsmorrison = lib.recurseIntoAttrs {
+    spaceduck = mkLapcePlugin {
       author = "ConnorSMorrison";
       name = "spaceduck";
       version = "0.0.1";
@@ -114,8 +114,8 @@
       wasm = false;
     };
   };
-  "croxxn" = lib.recurseIntoAttrs {
-    "lapce-html" = mkLapcePlugin {
+  croxxn = lib.recurseIntoAttrs {
+    lapce-html = mkLapcePlugin {
       author = "CroxxN";
       name = "lapce-html";
       version = "0.0.1";
@@ -123,8 +123,8 @@
       wasm = true;
     };
   };
-  "d4rkr41n" = lib.recurseIntoAttrs {
-    "dracula" = mkLapcePlugin {
+  d4rkr41n = lib.recurseIntoAttrs {
+    dracula = mkLapcePlugin {
       author = "d4rkr41n";
       name = "dracula";
       version = "0.1.0";
@@ -132,8 +132,8 @@
       wasm = false;
     };
   };
-  "dajoha" = lib.recurseIntoAttrs {
-    "lapce-php-intelephense" = mkLapcePlugin {
+  dajoha = lib.recurseIntoAttrs {
+    lapce-php-intelephense = mkLapcePlugin {
       author = "dajoha";
       name = "lapce-php-intelephense";
       version = "0.1.0";
@@ -141,8 +141,8 @@
       wasm = true;
     };
   };
-  "dissolvedz" = lib.recurseIntoAttrs {
-    "neonight" = mkLapcePlugin {
+  dissolvedz = lib.recurseIntoAttrs {
+    neonight = mkLapcePlugin {
       author = "DissolveDZ";
       name = "neonight";
       version = "0.1.0";
@@ -150,8 +150,8 @@
       wasm = false;
     };
   };
-  "dyu" = lib.recurseIntoAttrs {
-    "nordyu-theme" = mkLapcePlugin {
+  dyu = lib.recurseIntoAttrs {
+    nordyu-theme = mkLapcePlugin {
       author = "dyu";
       name = "nordyu-theme";
       version = "0.1.0";
@@ -159,15 +159,15 @@
       wasm = false;
     };
   };
-  "dzhou121" = lib.recurseIntoAttrs {
-    "lapce-lldb" = mkLapcePlugin {
+  dzhou121 = lib.recurseIntoAttrs {
+    lapce-lldb = mkLapcePlugin {
       author = "dzhou121";
       name = "lapce-lldb";
       version = "0.1.1";
       hash = "sha256-pO1jjG6oOr1N7X/fmivJ3YnAjB/nSSbccMtuS92/y90=";
       wasm = true;
     };
-    "lapce-rust" = mkLapcePlugin {
+    lapce-rust = mkLapcePlugin {
       author = "dzhou121";
       name = "lapce-rust";
       version = "0.3.2162";
@@ -175,15 +175,15 @@
       wasm = true;
     };
   };
-  "elo1lson" = lib.recurseIntoAttrs {
-    "90s-anime" = mkLapcePlugin {
+  elo1lson = lib.recurseIntoAttrs {
+    _90s-anime = mkLapcePlugin {
       author = "elo1lson";
       name = "90s-anime";
       version = "0.1.0";
       hash = "sha256-XDpidaJY3yAQEJ0IjjW9OZFKLWPt5Hn71A7SX3r+110=";
       wasm = false;
     };
-    "lapce-css" = mkLapcePlugin {
+    lapce-css = mkLapcePlugin {
       author = "elo1lson";
       name = "lapce-css";
       version = "0.0.2";
@@ -191,8 +191,8 @@
       wasm = true;
     };
   };
-  "foxlldev" = lib.recurseIntoAttrs {
-    "solarized" = mkLapcePlugin {
+  foxlldev = lib.recurseIntoAttrs {
+    solarized = mkLapcePlugin {
       author = "foxlldev";
       name = "solarized";
       version = "0.1.1";
@@ -200,50 +200,50 @@
       wasm = false;
     };
   };
-  "ghishadow" = lib.recurseIntoAttrs {
-    "catppuccin" = mkLapcePlugin {
+  ghishadow = lib.recurseIntoAttrs {
+    catppuccin = mkLapcePlugin {
       author = "ghishadow";
       name = "catppuccin";
       version = "0.1.18";
       hash = "sha256-0J/35D2Vf/TAwpl/hEq0TThikzJWF0yYQd/XrIj+xDo=";
       wasm = false;
     };
-    "kanagawa" = mkLapcePlugin {
+    kanagawa = mkLapcePlugin {
       author = "ghishadow";
       name = "kanagawa";
       version = "0.0.6";
       hash = "sha256-LdNSPVF7tG4EbN50yU4yKENO6wPWkg9Y7qv7pcZoKSQ=";
       wasm = false;
     };
-    "lapce-swift" = mkLapcePlugin {
+    lapce-swift = mkLapcePlugin {
       author = "ghishadow";
       name = "lapce-swift";
       version = "0.1.4";
       hash = "sha256-UjHzSX3dMA13AlA73BKtbGnUKVy3h7zN2Um0cv/3fN0=";
       wasm = true;
     };
-    "lapce-zig" = mkLapcePlugin {
+    lapce-zig = mkLapcePlugin {
       author = "ghishadow";
       name = "lapce-zig";
       version = "0.1.1";
       hash = "sha256-VIqEOoeti283CbdNP+IreRW19lNey5QVWWUWNhclAhU=";
       wasm = true;
     };
-    "lightpink" = mkLapcePlugin {
+    lightpink = mkLapcePlugin {
       author = "ghishadow";
       name = "lightpink";
       version = "0.2.8";
       hash = "sha256-oVZ+CRexvBlN1s1sDlAV2qoKFY4ZSmNbPhhqhNWz+M8=";
       wasm = false;
     };
-    "rose-pine" = mkLapcePlugin {
+    rose-pine = mkLapcePlugin {
       author = "ghishadow";
       name = "rose-pine";
       version = "0.2.6";
       hash = "sha256-V3F+JD5qXA1isT11yHtWZ6vIQx0h7VJaVGrIXL6CGnM=";
       wasm = false;
     };
-    "tokyo-night" = mkLapcePlugin {
+    tokyo-night = mkLapcePlugin {
       author = "ghishadow";
       name = "tokyo-night";
       version = "0.2.0";
@@ -251,8 +251,8 @@
       wasm = false;
     };
   };
-  "gosainamit" = lib.recurseIntoAttrs {
-    "mukong-theme" = mkLapcePlugin {
+  gosainamit = lib.recurseIntoAttrs {
+    mukong-theme = mkLapcePlugin {
       author = "GosainAmit";
       name = "mukong theme";
       version = "0.1.1";
@@ -260,8 +260,8 @@
       wasm = false;
     };
   };
-  "hangj" = lib.recurseIntoAttrs {
-    "lapce-plugin-all-in-one" = mkLapcePlugin {
+  hangj = lib.recurseIntoAttrs {
+    lapce-plugin-all-in-one = mkLapcePlugin {
       author = "hangj";
       name = "lapce-plugin-all-in-one";
       version = "0.1.0";
@@ -269,8 +269,8 @@
       wasm = true;
     };
   };
-  "heartbeast42" = lib.recurseIntoAttrs {
-    "neon-night" = mkLapcePlugin {
+  heartbeast42 = lib.recurseIntoAttrs {
+    neon-night = mkLapcePlugin {
       author = "heartbeast42";
       name = "neon-night";
       version = "0.1.0";
@@ -278,8 +278,8 @@
       wasm = false;
     };
   };
-  "htgazurex1212" = lib.recurseIntoAttrs {
-    "rs4lapce" = mkLapcePlugin {
+  htgazurex1212 = lib.recurseIntoAttrs {
+    rs4lapce = mkLapcePlugin {
       author = "HTGAzureX1212";
       name = "rs4lapce";
       version = "0.2.0";
@@ -287,15 +287,15 @@
       wasm = true;
     };
   };
-  "hyduez" = lib.recurseIntoAttrs {
-    "dou-lapcord" = mkLapcePlugin {
+  hyduez = lib.recurseIntoAttrs {
+    dou-lapcord = mkLapcePlugin {
       author = "Hyduez";
       name = "dou-lapcord";
       version = "2.1.3";
       hash = "sha256-Rze956JhxnuArJIUjDplzT/k8ThxK/ESSpGBQqcPiC4=";
       wasm = true;
     };
-    "dou.lapcord" = mkLapcePlugin {
+    dou_lapcord = mkLapcePlugin {
       author = "Hyduez";
       name = "dou.lapcord";
       version = "2.0.1";
@@ -303,8 +303,8 @@
       wasm = true;
     };
   };
-  "incognitux" = lib.recurseIntoAttrs {
-    "everblush" = mkLapcePlugin {
+  incognitux = lib.recurseIntoAttrs {
+    everblush = mkLapcePlugin {
       author = "Incognitux";
       name = "everblush";
       version = "0.1.0";
@@ -312,8 +312,8 @@
       wasm = false;
     };
   };
-  "instance-id" = lib.recurseIntoAttrs {
-    "lapce-powershell" = mkLapcePlugin {
+  instance-id = lib.recurseIntoAttrs {
+    lapce-powershell = mkLapcePlugin {
       author = "instance-id";
       name = "lapce-powershell";
       version = "0.0.1";
@@ -321,15 +321,15 @@
       wasm = true;
     };
   };
-  "itzswirlz" = lib.recurseIntoAttrs {
-    "aura-theme" = mkLapcePlugin {
+  itzswirlz = lib.recurseIntoAttrs {
+    aura-theme = mkLapcePlugin {
       author = "ItzSwirlz";
       name = "aura-theme";
       version = "0.1.0";
       hash = "sha256-n44Ap5s0tmM0Ouf0VUm8IMLOboayLSFnpps9jmUjoFU=";
       wasm = false;
     };
-    "nord-theme" = mkLapcePlugin {
+    nord-theme = mkLapcePlugin {
       author = "ItzSwirlz";
       name = "nord-theme";
       version = "0.1.1";
@@ -337,8 +337,8 @@
       wasm = false;
     };
   };
-  "jalkhov" = lib.recurseIntoAttrs {
-    "marge" = mkLapcePlugin {
+  jalkhov = lib.recurseIntoAttrs {
+    marge = mkLapcePlugin {
       author = "Jalkhov";
       name = "marge";
       version = "0.1.0";
@@ -346,15 +346,15 @@
       wasm = false;
     };
   };
-  "jarwarren" = lib.recurseIntoAttrs {
-    "xcodedark-theme" = mkLapcePlugin {
+  jarwarren = lib.recurseIntoAttrs {
+    xcodedark-theme = mkLapcePlugin {
       author = "JarWarren";
       name = "xcodedark-theme";
       version = "0.1.1";
       hash = "sha256-4U/QhsTzQAJCqabdezbl36ivrd0+l4rxUPH2b0C/AJ0=";
       wasm = false;
     };
-    "xcodelight-theme" = mkLapcePlugin {
+    xcodelight-theme = mkLapcePlugin {
       author = "JarWarren";
       name = "xcodelight-theme";
       version = "0.1.2";
@@ -362,8 +362,8 @@
       wasm = false;
     };
   };
-  "jimsynz" = lib.recurseIntoAttrs {
-    "lapce-elixir" = mkLapcePlugin {
+  jimsynz = lib.recurseIntoAttrs {
+    lapce-elixir = mkLapcePlugin {
       author = "jimsynz";
       name = "lapce-elixir";
       version = "0.1.0";
@@ -371,8 +371,8 @@
       wasm = true;
     };
   };
-  "jm-observer" = lib.recurseIntoAttrs {
-    "lldb-win" = mkLapcePlugin {
+  jm-observer = lib.recurseIntoAttrs {
+    lldb-win = mkLapcePlugin {
       author = "jm-observer";
       name = "lldb-win";
       version = "0.0.1";
@@ -380,8 +380,8 @@
       wasm = true;
     };
   };
-  "joyme123" = lib.recurseIntoAttrs {
-    "thrift-ls" = mkLapcePlugin {
+  joyme123 = lib.recurseIntoAttrs {
+    thrift-ls = mkLapcePlugin {
       author = "joyme123";
       name = "thrift-ls";
       version = "0.0.3";
@@ -389,8 +389,8 @@
       wasm = true;
     };
   };
-  "jsanchezba" = lib.recurseIntoAttrs {
-    "github-theme" = mkLapcePlugin {
+  jsanchezba = lib.recurseIntoAttrs {
+    github-theme = mkLapcePlugin {
       author = "jsanchezba";
       name = "github-theme";
       version = "0.1.1";
@@ -398,8 +398,8 @@
       wasm = false;
     };
   };
-  "kennanhunter" = lib.recurseIntoAttrs {
-    "monokai" = mkLapcePlugin {
+  kennanhunter = lib.recurseIntoAttrs {
+    monokai = mkLapcePlugin {
       author = "KennanHunter";
       name = "monokai";
       version = "0.1.0";
@@ -407,8 +407,8 @@
       wasm = false;
     };
   };
-  "lotosbin" = lib.recurseIntoAttrs {
-    "guose" = mkLapcePlugin {
+  lotosbin = lib.recurseIntoAttrs {
+    guose = mkLapcePlugin {
       author = "lotosbin";
       name = "guose";
       version = "0.0.2";
@@ -416,8 +416,8 @@
       wasm = false;
     };
   };
-  "lucas3oo" = lib.recurseIntoAttrs {
-    "eclipse-theme" = mkLapcePlugin {
+  lucas3oo = lib.recurseIntoAttrs {
+    eclipse-theme = mkLapcePlugin {
       author = "Lucas3oo";
       name = "eclipse-theme";
       version = "0.0.3";
@@ -425,8 +425,8 @@
       wasm = false;
     };
   };
-  "mathiaspius" = lib.recurseIntoAttrs {
-    "lapce-crates" = mkLapcePlugin {
+  mathiaspius = lib.recurseIntoAttrs {
+    lapce-crates = mkLapcePlugin {
       author = "MathiasPius";
       name = "lapce-crates";
       version = "0.1.0";
@@ -434,8 +434,8 @@
       wasm = true;
     };
   };
-  "mikastiv" = lib.recurseIntoAttrs {
-    "ocean-space-refined" = mkLapcePlugin {
+  mikastiv = lib.recurseIntoAttrs {
+    ocean-space-refined = mkLapcePlugin {
       author = "Mikastiv";
       name = "ocean-space-refined";
       version = "0.1.2";
@@ -443,22 +443,22 @@
       wasm = false;
     };
   };
-  "minusgix" = lib.recurseIntoAttrs {
-    "aleph" = mkLapcePlugin {
+  minusgix = lib.recurseIntoAttrs {
+    aleph = mkLapcePlugin {
       author = "MinusGix";
       name = "aleph";
       version = "0.3.2";
       hash = "sha256-ByXVdX0MVZJFN74uWecFgh/BZL6F90OeWdH75RAC17A=";
       wasm = false;
     };
-    "dark-forest" = mkLapcePlugin {
+    dark-forest = mkLapcePlugin {
       author = "MinusGix";
       name = "dark-forest";
       version = "0.1.1";
       hash = "sha256-hYcz54F8ryq5m9drLAvYDPOhbZpOFL0CkZuQeebU26w=";
       wasm = false;
     };
-    "lapce-copilot" = mkLapcePlugin {
+    lapce-copilot = mkLapcePlugin {
       author = "MinusGix";
       name = "lapce-copilot";
       version = "1.0.1";
@@ -466,8 +466,8 @@
       wasm = true;
     };
   };
-  "mrfoxpro" = lib.recurseIntoAttrs {
-    "lapce-nix" = mkLapcePlugin {
+  mrfoxpro = lib.recurseIntoAttrs {
+    lapce-nix = mkLapcePlugin {
       author = "MrFoxPro";
       name = "lapce-nix";
       version = "0.0.1";
@@ -475,8 +475,8 @@
       wasm = true;
     };
   };
-  "nachiketnamjoshi" = lib.recurseIntoAttrs {
-    "gruvbox" = mkLapcePlugin {
+  nachiketnamjoshi = lib.recurseIntoAttrs {
+    gruvbox = mkLapcePlugin {
       author = "NachiketNamjoshi";
       name = "gruvbox";
       version = "0.2.0";
@@ -484,8 +484,8 @@
       wasm = false;
     };
   };
-  "nekodival" = lib.recurseIntoAttrs {
-    "lapce-racket" = mkLapcePlugin {
+  nekodival = lib.recurseIntoAttrs {
+    lapce-racket = mkLapcePlugin {
       author = "nekodival";
       name = "lapce-racket";
       version = "0.0.1";
@@ -493,8 +493,8 @@
       wasm = true;
     };
   };
-  "notiee" = lib.recurseIntoAttrs {
-    "forest-night-theme" = mkLapcePlugin {
+  notiee = lib.recurseIntoAttrs {
+    forest-night-theme = mkLapcePlugin {
       author = "Notiee";
       name = "forest-night-theme";
       version = "0.1.1";
@@ -502,8 +502,8 @@
       wasm = false;
     };
   };
-  "nullndr" = lib.recurseIntoAttrs {
-    "lapce-material-icon-theme" = mkLapcePlugin {
+  nullndr = lib.recurseIntoAttrs {
+    lapce-material-icon-theme = mkLapcePlugin {
       author = "nullndr";
       name = "lapce-material-icon-theme";
       version = "0.0.1";
@@ -511,8 +511,8 @@
       wasm = false;
     };
   };
-  "nvarner" = lib.recurseIntoAttrs {
-    "typst-lsp" = mkLapcePlugin {
+  nvarner = lib.recurseIntoAttrs {
+    typst-lsp = mkLapcePlugin {
       author = "nvarner";
       name = "typst-lsp";
       version = "0.13.0";
@@ -520,8 +520,8 @@
       wasm = true;
     };
   };
-  "oknozor" = lib.recurseIntoAttrs {
-    "lapce-java" = mkLapcePlugin {
+  oknozor = lib.recurseIntoAttrs {
+    lapce-java = mkLapcePlugin {
       author = "oknozor";
       name = "lapce-java";
       version = "0.3.0";
@@ -529,8 +529,8 @@
       wasm = true;
     };
   };
-  "p-yukusai" = lib.recurseIntoAttrs {
-    "black-iris" = mkLapcePlugin {
+  p-yukusai = lib.recurseIntoAttrs {
+    black-iris = mkLapcePlugin {
       author = "p-yukusai";
       name = "black-iris";
       version = "0.1.11";
@@ -538,64 +538,64 @@
       wasm = false;
     };
   };
-  "panekj" = lib.recurseIntoAttrs {
-    "lapce-cpp-clangd" = mkLapcePlugin {
+  panekj = lib.recurseIntoAttrs {
+    lapce-cpp-clangd = mkLapcePlugin {
       author = "panekj";
       name = "lapce-cpp-clangd";
       version = "2024.2.0";
       hash = "sha256-RHmJdyw7xj0AuDelcbKlmst05IVTMHSadR68porPGQU=";
       wasm = true;
     };
-    "lapce-deno" = mkLapcePlugin {
+    lapce-deno = mkLapcePlugin {
       author = "panekj";
       name = "lapce-deno";
       version = "0.0.1+deno.2.0.2";
       hash = "sha256-iZBRn4X0sq6I+CygrzA0S/ZuWObAfwpTzIiaXPVUlfA=";
       wasm = true;
     };
-    "lapce-go" = mkLapcePlugin {
+    lapce-go = mkLapcePlugin {
       author = "panekj";
       name = "lapce-go";
       version = "2023.1.0";
       hash = "sha256-HZJW28ve7xLoNOBxKNfFnPWs/Prk+/znvUh8jI6YwMI=";
       wasm = true;
     };
-    "lapce-material-icon-theme" = mkLapcePlugin {
+    lapce-material-icon-theme = mkLapcePlugin {
       author = "panekj";
       name = "lapce-material-icon-theme";
       version = "0.0.1-beta1";
       hash = "sha256-rdnghlwYJy+oE7Fp76LuO+6bIUcYYJzxiJA8kLFKLbE=";
       wasm = false;
     };
-    "lapce-terraform-ls" = mkLapcePlugin {
+    lapce-terraform-ls = mkLapcePlugin {
       author = "panekj";
       name = "lapce-terraform-ls";
       version = "0.0.2+terraform-ls.0.32.7";
       hash = "sha256-hKjT+as+XuXKmSwKsu2p4UdYhc71KojzhZMX/JNoQjw=";
       wasm = true;
     };
-    "lapce-toml" = mkLapcePlugin {
+    lapce-toml = mkLapcePlugin {
       author = "panekj";
       name = "lapce-toml";
       version = "0.0.0";
       hash = "sha256-hSXo5d7DuresKfN8lDlC8SCJ/+NeWZcAH8Xbp3kUwNc=";
       wasm = true;
     };
-    "lapce-typescript" = mkLapcePlugin {
+    lapce-typescript = mkLapcePlugin {
       author = "panekj";
       name = "lapce-typescript";
       version = "2022.11.0";
       hash = "sha256-DChRrXfWSL1lynP7yhP4J+OMsr5A/tyWCv9FS/Ks0ew=";
       wasm = true;
     };
-    "lapce-yaml" = mkLapcePlugin {
+    lapce-yaml = mkLapcePlugin {
       author = "panekj";
       name = "lapce-yaml";
       version = "0.0.1";
       hash = "sha256-UV21phSBkZMKV4guArxedRgIB5nJlgcukbhmHDc/baU=";
       wasm = true;
     };
-    "vscode-themes" = mkLapcePlugin {
+    vscode-themes = mkLapcePlugin {
       author = "panekj";
       name = "vscode-themes";
       version = "2022.11.0";
@@ -603,8 +603,8 @@
       wasm = false;
     };
   };
-  "robinv8" = lib.recurseIntoAttrs {
-    "lapce-astro" = mkLapcePlugin {
+  robinv8 = lib.recurseIntoAttrs {
+    lapce-astro = mkLapcePlugin {
       author = "robinv8";
       name = "lapce-astro";
       version = "0.0.1";
@@ -612,8 +612,8 @@
       wasm = true;
     };
   };
-  "sharpsteff" = lib.recurseIntoAttrs {
-    "csharp" = mkLapcePlugin {
+  sharpsteff = lib.recurseIntoAttrs {
+    csharp = mkLapcePlugin {
       author = "sharpSteff";
       name = "csharp";
       version = "2.0.0";
@@ -621,8 +621,8 @@
       wasm = true;
     };
   };
-  "simy4" = lib.recurseIntoAttrs {
-    "alabaster-theme" = mkLapcePlugin {
+  simy4 = lib.recurseIntoAttrs {
+    alabaster-theme = mkLapcePlugin {
       author = "SimY4";
       name = "alabaster-theme";
       version = "0.1.0";
@@ -630,8 +630,8 @@
       wasm = false;
     };
   };
-  "sleepy-kitten" = lib.recurseIntoAttrs {
-    "discord" = mkLapcePlugin {
+  sleepy-kitten = lib.recurseIntoAttrs {
+    discord = mkLapcePlugin {
       author = "sleepy-kitten";
       name = "discord";
       version = "0.2.1";
@@ -639,8 +639,8 @@
       wasm = false;
     };
   };
-  "sschober" = lib.recurseIntoAttrs {
-    "lapce-plugin-rewrap" = mkLapcePlugin {
+  sschober = lib.recurseIntoAttrs {
+    lapce-plugin-rewrap = mkLapcePlugin {
       author = "sschober";
       name = "lapce-plugin-rewrap";
       version = "0.0.1";
@@ -648,15 +648,15 @@
       wasm = true;
     };
   };
-  "stanislav-lapata" = lib.recurseIntoAttrs {
-    "lapce-angular" = mkLapcePlugin {
+  stanislav-lapata = lib.recurseIntoAttrs {
+    lapce-angular = mkLapcePlugin {
       author = "Stanislav-Lapata";
       name = "lapce-angular";
       version = "0.1.0";
       hash = "sha256-0LgJZr/2FxxK9Ys3QXojhAYU3hnaZOzW0RgZvA3Pago=";
       wasm = true;
     };
-    "lapce-solargraph" = mkLapcePlugin {
+    lapce-solargraph = mkLapcePlugin {
       author = "Stanislav-Lapata";
       name = "lapce-solargraph";
       version = "0.1.2";
@@ -664,8 +664,8 @@
       wasm = true;
     };
   };
-  "stepland" = lib.recurseIntoAttrs {
-    "monokai-vscode" = mkLapcePlugin {
+  stepland = lib.recurseIntoAttrs {
+    monokai-vscode = mkLapcePlugin {
       author = "Stepland";
       name = "monokai-vscode";
       version = "1.0.0";
@@ -673,8 +673,8 @@
       wasm = false;
     };
   };
-  "superlou" = lib.recurseIntoAttrs {
-    "lapce-python" = mkLapcePlugin {
+  superlou = lib.recurseIntoAttrs {
+    lapce-python = mkLapcePlugin {
       author = "superlou";
       name = "lapce-python";
       version = "0.3.4";
@@ -682,8 +682,8 @@
       wasm = true;
     };
   };
-  "thepoultryman" = lib.recurseIntoAttrs {
-    "lapce-github-themes" = mkLapcePlugin {
+  thepoultryman = lib.recurseIntoAttrs {
+    lapce-github-themes = mkLapcePlugin {
       author = "ThePoultryMan";
       name = "lapce-github-themes";
       version = "0.1.0";
@@ -691,8 +691,8 @@
       wasm = false;
     };
   };
-  "timon-schelling" = lib.recurseIntoAttrs {
-    "nushell-lsp" = mkLapcePlugin {
+  timon-schelling = lib.recurseIntoAttrs {
+    nushell-lsp = mkLapcePlugin {
       author = "timon-schelling";
       name = "nushell-lsp";
       version = "0.1.0-rc2";
@@ -700,8 +700,8 @@
       wasm = true;
     };
   };
-  "tingfeng-key" = lib.recurseIntoAttrs {
-    "lapce-prisma" = mkLapcePlugin {
+  tingfeng-key = lib.recurseIntoAttrs {
+    lapce-prisma = mkLapcePlugin {
       author = "tingfeng-key";
       name = "lapce-prisma";
       version = "0.1.0";
@@ -709,8 +709,8 @@
       wasm = true;
     };
   };
-  "varlad" = lib.recurseIntoAttrs {
-    "lapce-julia-ls" = mkLapcePlugin {
+  varlad = lib.recurseIntoAttrs {
+    lapce-julia-ls = mkLapcePlugin {
       author = "VarLad";
       name = "lapce-julia-ls";
       version = "0.0.5";
@@ -718,8 +718,8 @@
       wasm = true;
     };
   };
-  "vikaskaliramna" = lib.recurseIntoAttrs {
-    "lapce-deno" = mkLapcePlugin {
+  vikaskaliramna = lib.recurseIntoAttrs {
+    lapce-deno = mkLapcePlugin {
       author = "vikaskaliramna";
       name = "lapce-deno";
       version = "0.0.0";
@@ -727,8 +727,8 @@
       wasm = true;
     };
   };
-  "walterofnone" = lib.recurseIntoAttrs {
-    "ayu" = mkLapcePlugin {
+  walterofnone = lib.recurseIntoAttrs {
+    ayu = mkLapcePlugin {
       author = "WalterOfNone";
       name = "ayu";
       version = "0.1.2";
@@ -736,8 +736,8 @@
       wasm = false;
     };
   };
-  "willjsaint" = lib.recurseIntoAttrs {
-    "cascade-dark" = mkLapcePlugin {
+  willjsaint = lib.recurseIntoAttrs {
+    cascade-dark = mkLapcePlugin {
       author = "willjsaint";
       name = "cascade dark";
       version = "0.0.1";
@@ -745,8 +745,8 @@
       wasm = false;
     };
   };
-  "wpkelso" = lib.recurseIntoAttrs {
-    "milk-tea" = mkLapcePlugin {
+  wpkelso = lib.recurseIntoAttrs {
+    milk-tea = mkLapcePlugin {
       author = "wpkelso";
       name = "milk-tea";
       version = "0.0.2";
@@ -754,8 +754,8 @@
       wasm = false;
     };
   };
-  "x64d" = lib.recurseIntoAttrs {
-    "lapce-tinymist" = mkLapcePlugin {
+  x64d = lib.recurseIntoAttrs {
+    lapce-tinymist = mkLapcePlugin {
       author = "X64D";
       name = "lapce-tinymist";
       version = "0.0.1";
@@ -763,15 +763,15 @@
       wasm = true;
     };
   };
-  "xiaoxin-sky" = lib.recurseIntoAttrs {
-    "lapce-rome" = mkLapcePlugin {
+  xiaoxin-sky = lib.recurseIntoAttrs {
+    lapce-rome = mkLapcePlugin {
       author = "xiaoxin-sky";
       name = "lapce-rome";
       version = "0.0.1";
       hash = "sha256-fChbExavT24DVvtqQMmXdrlvqTUoaUb5WtQly82PSiY=";
       wasm = true;
     };
-    "lapce-vue" = mkLapcePlugin {
+    lapce-vue = mkLapcePlugin {
       author = "xiaoxin-sky";
       name = "lapce-vue";
       version = "0.0.2";
@@ -779,15 +779,15 @@
       wasm = true;
     };
   };
-  "zarathir" = lib.recurseIntoAttrs {
-    "lapce-dart" = mkLapcePlugin {
+  zarathir = lib.recurseIntoAttrs {
+    lapce-dart = mkLapcePlugin {
       author = "zarathir";
       name = "lapce-dart";
       version = "0.3.0";
       hash = "sha256-XFWBOURWxso4d8sq9Bruh7i5bT5qrSJXr9Qz9AX8GOs=";
       wasm = true;
     };
-    "lapce-markdown" = mkLapcePlugin {
+    lapce-markdown = mkLapcePlugin {
       author = "zarathir";
       name = "lapce-markdown";
       version = "0.3.2";

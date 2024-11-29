@@ -16,13 +16,13 @@ def main [
 	"{ lib, mkLapcePlugin }:\n\n{" | save --force $output
 	$upstream_plugins | group-by author | items { |$author, $plugins|
 		let clean_author = $author | str replace " " "-"
-		let attr_author = $clean_author | str downcase
+		let attr_author = $clean_author | str downcase | str replace --regex '^(\d)' "_$1" | str replace "." "_"
 
 		mut collected = [];
 		for plugin in $plugins {
 			try {
 				let clean_name = $plugin.name | str replace " " "-"
-				let attr_name = $clean_name | str downcase
+				let attr_name = $clean_name | str downcase | str replace --regex '^(\d)' "_$1" | str replace "." "_"
 
 				let url = http get --raw $"https://plugins.lapce.dev/api/v1/plugins/($author)/($plugin.name)/($plugin.version)/download"
 				print --stderr $url
@@ -36,13 +36,13 @@ def main [
 				let sri_hash = ^nix-hash --type sha256 --to-sri $sha256_hash
 				print --stderr $sri_hash
 
-				$collected = $collected | append $'"($attr_name)" = mkLapcePlugin { author = "($author)"; name = "($plugin.name)"; version = "($plugin.version)"; hash = "($sri_hash)"; wasm = ($plugin.wasm); };'
+				$collected = $collected | append $'($attr_name) = mkLapcePlugin { author = "($author)"; name = "($plugin.name)"; version = "($plugin.version)"; hash = "($sri_hash)"; wasm = ($plugin.wasm); };'
 			} catch { |err|
 				print --stderr $err.msg
 				return
 			}
 		}
-		$'"($attr_author)" = lib.recurseIntoAttrs {' | save --append $output
+		$"($attr_author) = lib.recurseIntoAttrs {" | save --append $output
 		$collected | save --append $output
 		"};\n" | save --append $output
 	}
