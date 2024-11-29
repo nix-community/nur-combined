@@ -3678,10 +3678,10 @@
     };
     "grammarly" = buildFirefoxXpiAddon {
       pname = "grammarly";
-      version = "8.912.0";
+      version = "8.926.0";
       addonId = "87677a2c52b84ad3a151a4a72f5bd3c4@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4262513/grammarly_1-8.912.0.xpi";
-      sha256 = "6e380ddffaacda256e153cb928c0c9206c6730398d549e0a91d6fdccc9dd95a0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4391260/grammarly_1-8.926.0.xpi";
+      sha256 = "11bd0c3d265060b5d21d959156be45fa7d091dd0d1dda6818e74ffb314fbbd56";
       meta = with lib;
       {
         homepage = "http://grammarly.com";
@@ -3734,6 +3734,8 @@
           "*://*.youtube.com/*"
           "*://twitter.com/*"
           "*://*.twitter.com/*"
+          "*://x.com/*"
+          "*://*.x.com/*"
           "*://*.lightning.force.com/*"
           "*://trello.com/*"
           "*://*.trello.com/*"
@@ -7489,10 +7491,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.6.6";
+      version = "1.6.7";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4389417/mtab-1.6.6.xpi";
-      sha256 = "deabe84e403724e9bc1e94e70aa274a4a164b3b4d45f9431481c94561098cfdf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4396463/mtab-1.6.7.xpi";
+      sha256 = "ffdadfdd2b0d0fcd6eae6063597a838990dd216d67f7375e3278ab1144a3a214";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
@@ -10333,10 +10335,10 @@
     };
     "single-file" = buildFirefoxXpiAddon {
       pname = "single-file";
-      version = "1.22.73";
+      version = "1.22.75";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4387552/single_file-1.22.73.xpi";
-      sha256 = "a3e0e5bfe8c35c91c6360fe0a144563fe28eb1760135833a131a27d525d49a44";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4395637/single_file-1.22.75.xpi";
+      sha256 = "c4b42fd2df2beae9a2eb723dd6312ecb2a1e6360bc12e4aa2c04af9e1625b1f9";
       meta = with lib;
       {
         homepage = "https://github.com/gildas-lormeau/SingleFile";
