@@ -6,12 +6,14 @@
 
 {
   author,
+  cleanAuthor ? builtins.replaceStrings [ " " ] [ "-" ] author,
   name,
+  cleanName ? builtins.replaceStrings [ " " ] [ "-" ] name,
   version,
   hash,
 }:
 
-runCommand "lapce-plugin-${author}-${name}-${version}.volt"
+runCommand "lapce-plugin-${cleanAuthor}-${cleanName}-${version}.volt"
   {
     nativeBuildInputs = [
       cacert

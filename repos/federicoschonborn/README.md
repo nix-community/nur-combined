@@ -843,7 +843,7 @@ Like neofetch, but much faster because written in C (with all features disabled)
 - Update Script: ✔️
 </details>
 
-### `firefox-gnome-theme` `132` [🌐](https://github.com/rafaelmardojai/firefox-gnome-theme "Homepage") [📦](./pkgs/by-name/firefox-gnome-theme/package.nix#L30 "Source")
+### `firefox-gnome-theme` `133` [🌐](https://github.com/rafaelmardojai/firefox-gnome-theme "Homepage") [📰](https://github.com/rafaelmardojai/firefox-gnome-theme/releases/tag/v133 "Changelog") [📦](./pkgs/by-name/firefox-gnome-theme/package.nix#L30 "Source")
 
 A GNOME theme for Firefox.
 
@@ -1166,6 +1166,26 @@ Bright Pastel icon theme for Lapce.
   </summary>
 
 - Name: `lapce-plugin-c-sleuth-bright-pastel-icons`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapcePlugins.cascade-dark` `0.0.1` [🌐](https://plugins.lapce.dev/plugins/willjsaint/cascade dark "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Pleasing dark theme originally based on Electron's Dark theme..
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-willjsaint-cascade-dark`
 - Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
@@ -2084,7 +2104,7 @@ Ruff LSP support for the Lapce editor..
 - Source Provenance: `binaryBytecode`
 </details>
 
-### `lapcePlugins.lapce-rust` `0.3.1932` [🌐](https://plugins.lapce.dev/plugins/dzhou121/lapce-rust "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+### `lapcePlugins.lapce-rust` `0.3.2162` [🌐](https://plugins.lapce.dev/plugins/dzhou121/lapce-rust "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
 
 Rust for Lapce: powered by Rust Analyzer.
 
@@ -2456,6 +2476,26 @@ Port of the Monokai theme from VSCode.
 - Update Script: ❌
 </details>
 
+### `lapcePlugins.mukong-theme` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/GosainAmit/mukong theme "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+Mukong theme for Lapce editor.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-GosainAmit-mukong-theme`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
 ### `lapcePlugins.neon-night` `0.1.0` [🌐](https://plugins.lapce.dev/plugins/heartbeast42/neon-night "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
 
 Dark Neon theme inspired by the cyberpunk aesthetic and genera, hints of vapor-wave and notes of the 80's.
@@ -2752,6 +2792,26 @@ Default dark/light theme used in VS Code.
   </summary>
 
 - Name: `lapce-plugin-panekj-vscode-themes`
+- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
+- Maintainers:
+  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
+  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
+- Outputs: **`out`**
+- Update Script: ❌
+</details>
+
+### `lapcePlugins.wild-pastel` `0.1.1` [🌐](https://plugins.lapce.dev/plugins/Azartiny/wild pastel "Homepage") [📦](./pkgs/lapce-plugins/plugins.nix#L10 "Source")
+
+A Wild pastel theme for Lapce.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details>
+  <!-- markdownlint-disable-next-line no-inline-html -->
+  <summary>
+    Details
+  </summary>
+
+- Name: `lapce-plugin-Azartiny-wild-pastel`
 - Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
@@ -3408,7 +3468,7 @@ Detect non-inclusive language in your source code.
 - Update Script: ✔️
 </details>
 
-### `yyjson_0_10` `0.10.0` [🌐](https://github.com/ibireme/yyjson "Homepage") [📰](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md "Changelog") [📦](https://github.com/NixOS/nixpkgs/blob/8edf06b/pkgs/by-name/yy/yyjson/package.nix#L23 "Source")
+### `yyjson_0_10` `0.10.0` [🌐](https://github.com/ibireme/yyjson "Homepage") [📰](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md "Changelog") [📦](https://github.com/NixOS/nixpkgs/blob/af51545/pkgs/by-name/yy/yyjson/package.nix#L23 "Source")
 
 Fastest JSON library in C.
 

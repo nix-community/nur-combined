@@ -7,7 +7,9 @@
 
 {
   author,
+  cleanAuthor ? builtins.replaceStrings [ " " ] [ "-" ] author,
   name,
+  cleanName ? builtins.replaceStrings [ " " ] [ "-" ] name,
   version,
   hash,
   wasm ? true,
@@ -17,7 +19,7 @@
 
 stdenvNoCC.mkDerivation (
   {
-    pname = "lapce-plugin-${author}-${name}";
+    pname = "lapce-plugin-${cleanAuthor}-${cleanName}";
     inherit version;
 
     src = fetchLapcePlugin {
@@ -59,7 +61,9 @@ stdenvNoCC.mkDerivation (
   }
   // builtins.removeAttrs args [
     "author"
+    "cleanAuthor"
     "name"
+    "cleanName"
     "version"
     "hash"
     "wasm"

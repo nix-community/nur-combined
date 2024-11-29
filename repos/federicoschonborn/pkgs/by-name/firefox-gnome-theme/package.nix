@@ -7,13 +7,13 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "firefox-gnome-theme";
-  version = "132";
+  version = "133";
 
   src = fetchFromGitHub {
     owner = "rafaelmardojai";
     repo = "firefox-gnome-theme";
-    rev = "refs/tags/${finalAttrs.version}";
-    hash = "sha256-lf9MQs8+NUvQd8b5t+7c4kLqUQixGO9WwWcLa1XYuiQ=";
+    rev = "refs/tags/v${finalAttrs.version}";
+    hash = "sha256-k7v5PE6OcqMkC/u7aokwcxKDmTKM+ejiZGCsH9MK0s0=";
   };
 
   installPhase = ''
@@ -29,6 +29,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = {
     description = "A GNOME theme for Firefox";
     homepage = "https://github.com/rafaelmardojai/firefox-gnome-theme";
+    changelog = "https://github.com/rafaelmardojai/firefox-gnome-theme/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.unlicense;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [ federicoschonborn ];

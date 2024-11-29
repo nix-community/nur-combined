@@ -2,7 +2,7 @@
 
 builtins.listToAttrs (
   builtins.map (plugin: {
-    inherit (plugin) name;
+    name = builtins.replaceStrings [ " " ] [ "-" ] plugin.name;
     value = mkLapcePlugin (
       builtins.removeAttrs plugin [ "description" ]
       // {

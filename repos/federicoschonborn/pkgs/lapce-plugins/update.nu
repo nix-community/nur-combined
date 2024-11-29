@@ -1,31 +1,37 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i nu -p nushell
 
-const COLUMNS = [author name version description wasm]
+def main [] {
+	let plugin_count = http get $"https://plugins.lapce.dev/api/v1/plugins/?limit=0" | get total
+	print --stderr $plugin_count
 
-mut plugins = []
+	let upstream_plugins = http get $"https://plugins.lapce.dev/api/v1/plugins/?limit=($plugin_count)" | get plugins | select ...[author name version description wasm]
+	print --stderr $upstream_plugins
 
-let total = http get $"https://plugins.lapce.dev/api/v1/plugins/?limit=0" | get total
-print --stderr $total
+	mut plugins = []
+	for plugin in $upstream_plugins {
+		try {
+			let url = http get --raw $"https://plugins.lapce.dev/api/v1/plugins/($plugin.author)/($plugin.name)/($plugin.version)/download"
+			print --stderr $url
 
-let remote_plugins = http get $"https://plugins.lapce.dev/api/v1/plugins/?limit=($total)" | get plugins | select ...$COLUMNS
-print --stderr $remote_plugins
+			let clean_author = $plugin.author | str replace " " "-"
+			let clean_name = $plugin.name | str replace " " "-"
+			let store_file_name = $"lapce-plugin-($clean_author)-($clean_name)-($plugin.version).volt"
+			print --stderr $store_file_name
 
-for plugin in $remote_plugins {
-	try {
-		let url = http get --raw $"https://plugins.lapce.dev/api/v1/plugins/($plugin.author)/($plugin.name)/($plugin.version)/download"
-		print --stderr $url
-		let sha256 = ^nix-prefetch-url $url --name $"lapce-plugin-($plugin.author)-($plugin.name)-($plugin.version).volt"
-		print --stderr $sha256
-		let hash = ^nix-hash --type sha256 --to-sri $sha256
-		print --stderr $hash
+			let sha256_hash = ^nix-prefetch-url $url --name $store_file_name
+			print --stderr $sha256_hash
 
-		let hashed_plugin = $plugin | insert hash $hash
-		$plugins = $plugins | append $hashed_plugin
-	} catch {
-		continue
+			let sri_hash = ^nix-hash --type sha256 --to-sri $sha256_hash
+			print --stderr $sri_hash
+
+			let hashed_plugin = $plugin | insert hash $sri_hash
+			$plugins = $plugins | append $hashed_plugin
+		} catch { |err|
+			print --stderr $err.msg
+			continue
+		}
 	}
-}
 
-print --stderr $plugins
-$plugins | to json
+	$plugins | to json
+}
