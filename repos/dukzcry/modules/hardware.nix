@@ -43,6 +43,10 @@ in {
         ACTION=="add", SUBSYSTEM=="block", KERNEL=="sd[a-z]", ENV{ID_SERIAL_SHORT}=="WD-WXS2E902C67R", RUN+="${pkgs.hdparm}/bin/hdparm -B 254 /dev/%k"
         ACTION=="add", SUBSYSTEM=="block", KERNEL=="sd[a-z]", ENV{ID_SERIAL_SHORT}=="WWD1JS70", RUN+="${pkgs.hdparm}/bin/hdparm -S 242 /dev/%k"
       '';
+      boot.kernelParams = [
+        "console=tty1"
+        "console=ttyS0,115200"
+      ];
     } // builder))
     (mkIf (cfg.enable && laptop) ({
       hardware.bluetooth.enable = true;
