@@ -58,7 +58,7 @@ in {
       programs.light.enable = true;
       users.users.${cfg.user}.extraGroups = [ "video" ];
       services.tlp.enable = true;
-      hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
+      hardware.graphics.extraPackages = [ pkgs.vaapiIntel ];
       # https://github.com/NixOS/nixpkgs/issues/270809
       systemd.services.ModemManager.wantedBy = [ "multi-user.target" "network.target" ];
     } // builder))
