@@ -907,10 +907,10 @@
     };
     "bitwarden" = buildFirefoxXpiAddon {
       pname = "bitwarden";
-      version = "2024.11.0";
+      version = "2024.11.2";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4387077/bitwarden_password_manager-2024.11.0.xpi";
-      sha256 = "5fc6ca8befe1798bf8bc0196a866d78c9e837ae4d425b0eb156883ad65577370";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4392295/bitwarden_password_manager-2024.11.2.xpi";
+      sha256 = "38faecbfca76086a54e62b6e2036eae45e9d9f9f3aee4c7a72b652593f51b8e7";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -2177,10 +2177,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "134.0.20241127.93757";
+      version = "134.0.20241129.91919";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4395381/deutsch_de_language_pack-134.0.20241127.93757.xpi";
-      sha256 = "feafdadef961aa4c4f01ccf429a392da94100b91d011a5ebb4d6ad44f9734dba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4396791/deutsch_de_language_pack-134.0.20241129.91919.xpi";
+      sha256 = "82e8fcdd5b217ea2c20f193c3bc433a002028d391b82378bd6ef935b8c5348f6";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3362,10 +3362,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "134.0.20241127.93757";
+      version = "134.0.20241129.91919";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4395383/francais_language_pack-134.0.20241127.93757.xpi";
-      sha256 = "66b6413b7915c055ec86ed29061cc03bdfe3061ddbf39b39743d6d091534467c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4396783/francais_language_pack-134.0.20241129.91919.xpi";
+      sha256 = "807711e93fa73c3989dd0c9e762885005921907a3c478ec73e3b59bc4eb38508";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3399,10 +3399,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "134.0.20241127.93757";
+      version = "134.0.20241129.91919";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4395469/gaidhlig_language_pack-134.0.20241127.93757.xpi";
-      sha256 = "e0faedd248a7dd590019f5d705b6450b49e67713564d272ad328a3aa61f29863";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4396755/gaidhlig_language_pack-134.0.20241129.91919.xpi";
+      sha256 = "da46d3ea7b63d9e02139d16c6b935c3a69c3f665dc45489dc9a282beb2448a59";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -9913,10 +9913,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "134.0.20241127.93757";
+      version = "134.0.20241129.91919";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4395448/scots_language_pack-134.0.20241127.93757.xpi";
-      sha256 = "a3dd1a65dea516bd7cc7629b2eb6855c7afcff9fc26a3429f75e7a174ea22756";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4396766/scots_language_pack-134.0.20241129.91919.xpi";
+      sha256 = "171be97463766ec9d3a6fe5a3a0da0695f73e77a6474c7d09c5a794055888764";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10192,10 +10192,10 @@
     };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "15.1.1";
+      version = "15.1.2";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4379569/sidebartabs-15.1.1.xpi";
-      sha256 = "d0d633ca9983cdba0abe5b4e09421d76aa65d7dc7abd96cdbd6531ad12a72d1c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4396950/sidebartabs-15.1.2.xpi";
+      sha256 = "5fe11969c7062bcb43c589a53a6eee5da3811d5fc2ac1363bb265fe1ac76e32f";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
@@ -12534,10 +12534,10 @@
     };
     "wappalyzer" = buildFirefoxXpiAddon {
       pname = "wappalyzer";
-      version = "6.10.75";
+      version = "6.10.76";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4370565/wappalyzer-6.10.75.xpi";
-      sha256 = "94d4623fd98d3920970140385edef82ce603fcfc22d225c949c73f7e81723036";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4392578/wappalyzer-6.10.76.xpi";
+      sha256 = "0faa48491754548aedfa7eea512c31f9230a8b0dbdea5f990a849d48e7dc9977";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -13202,10 +13202,10 @@
     };
     "youtube-redux" = buildFirefoxXpiAddon {
       pname = "youtube-redux";
-      version = "3.5.3";
+      version = "3.5.4";
       addonId = "{2d4c0962-e9ff-4cad-8039-9a8b80d9b8b6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4383955/youtube_redux-3.5.3.xpi";
-      sha256 = "daba46571756d8f583245c0bf95534538df93394b9a7c77630a688266eba4b80";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4397041/youtube_redux-3.5.4.xpi";
+      sha256 = "191150cd5235688b0e3347fcacce615cdbb6b5a580da53fd8835974a31c99f7b";
       meta = with lib;
       {
         description = "Replicate old YouTube look and features within the modern layout!";
