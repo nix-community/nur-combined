@@ -86,7 +86,7 @@ in stdenv.mkDerivation rec {
             s@Set8087CW@// &@g
             /LoadFMOD/,/^end;/ {
                 /^begin/ a\
-                raise ELibraryError.Create('\'''FMOD support disabled - see <https://github.com/chaosforgeorg/doomrl/issues/46#issuecomment-2453210202>'\''');
+                raise ELibraryError.Create('\'''FMOD support is currently disabled on non-x86_64 platforms - see <https://github.com/chaosforgeorg/doomrl/issues/46#issuecomment-2453210202>'\''');
             }
         ' "$FPCVALKYRIE_ROOT"/libs/vfmod2library.pas
     '';
