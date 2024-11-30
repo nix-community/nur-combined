@@ -45,6 +45,7 @@ AppIndicator
 ArcGIS
 architecting
 Ardour
+AREDN
 ARIN
 ARPA
 ASN
@@ -108,6 +109,7 @@ blocklisting
 blocklists
 blocky
 blogosphere
+Bluesky
 BlurHash
 Bonnevier
 bootable
@@ -164,6 +166,8 @@ Chebyshev
 checkboxes
 checksummed
 Chelan
+Chicagoland
+Chilliwack
 chipset
 chipsets
 chromaticities
@@ -847,6 +851,7 @@ PipeWire
 Piwik
 pixelated
 Pixelfed
+PKI
 playfield
 Pleroma
 pluggable
@@ -890,6 +895,7 @@ productize
 protobuf
 ProtonVPN
 proxied
+proximally
 proximately
 proxying
 PRs
