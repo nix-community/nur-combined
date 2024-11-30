@@ -114,7 +114,7 @@ in
         '')
       ];
       environment.pathsToLink = [ "/share/glib-2.0" ];
-      services.xserver.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
+      programs.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
     })
     (mkIf (cfg.enable && cfg.platform == "kvantum") {
       environment.etc."xdg/Kvantum/kvantum.kvconfig".text = ''

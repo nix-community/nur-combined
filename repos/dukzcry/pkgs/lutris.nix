@@ -7,7 +7,7 @@
 let
 
   qt5Deps = pkgs: with pkgs.qt5; [ qtbase qtmultimedia ];
-  gnomeDeps = pkgs: with pkgs; [ gnome.zenity gtksourceview gnome-desktop gnome.libgnome-keyring webkitgtk ];
+  gnomeDeps = pkgs: with pkgs; [ zenity gtksourceview gnome-desktop libgnome-keyring webkitgtk_4_0 ];
   xorgDeps = pkgs: with pkgs.xorg; [
     libX11 libXrender libXrandr libxcb libXmu libpthreadstubs libXext libXdmcp
     libXxf86vm libXinerama libSM libXv libXaw libXi libXcursor libXcomposite
@@ -66,7 +66,7 @@ in buildFHSEnv {
     fontconfig SDL2_ttf
 
     # Mednafen
-    freeglut mesa_glu
+    libglut mesa_glu
 
     # MESS
     expat
@@ -136,13 +136,13 @@ in buildFHSEnv {
     ++ gstreamerDeps pkgs
     ++ extraLibraries pkgs;
 
-  extraBwrapArgs = [ "--symlink /.host-etc/dconf /etc/dconf" ];
-
   extraInstallCommands = ''
     mkdir -p $out/share
     ln -sf ${lutris-unwrapped}/share/applications $out/share
     ln -sf ${lutris-unwrapped}/share/icons $out/share
   '';
+
+  extraBwrapArgs = [ "--symlink /.host-etc/dconf /etc/dconf" ];
 
   # allows for some gui applications to share IPC
   # this fixes certain issues where they don't render correctly

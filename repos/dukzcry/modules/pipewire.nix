@@ -11,7 +11,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    sound.enable = mkForce false;
     nixpkgs.config.pulseaudio = true;
     programs.dconf.enable = mkDefault true;
     environment = {

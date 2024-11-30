@@ -1,5 +1,5 @@
 let
-  validThemes = [ "i3" "mako" "foot" "swaylock" ];
+  validThemes = [ "i3" "mako" "swaylock" ];
 in
 { fetchFromGitHub
 , lib
@@ -29,14 +29,6 @@ let
       repo = "mako";
       rev = "9dd088aa5f4529a3dd4d9760415e340664cb86df";
       hash = "sha256-nUzWkQVsIH4rrCFSP87mXAka6P+Td2ifNbTuP7NM/SQ=";
-    };
-    # todo: remove
-    foot = fetchFromGitHub {
-      name = "foot";
-      owner = "catppuccin";
-      repo = "foot";
-      rev = "17e2bdc8a8d854e8d390919579f87ab7d5f86e38";
-      hash = "sha256-L5/HvBe4jGTHNSCxFL+xRh8CKYO3NLJ0ksVJIQxjsZA=";
     };
     swaylock = fetchFromGitHub {
       name = "swaylock";
@@ -77,10 +69,6 @@ stdenvNoCC.mkDerivation {
   '' + lib.optionalString (lib.elem "mako" themeList) ''
     mkdir -p $out/mako
     cp "${sources.mako}/src/${variant}" "$out/mako/"
-
-  '' + lib.optionalString (lib.elem "foot" themeList) ''
-    mkdir -p $out/foot
-    cp "${sources.foot}/themes/catppuccin-${variant}.ini" "$out/foot/"
 
   '' + lib.optionalString (lib.elem "swaylock" themeList) ''
     mkdir -p $out/swaylock

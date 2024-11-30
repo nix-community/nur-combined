@@ -24,7 +24,7 @@ in {
     environment.etc."mako.conf".text = mkBefore (builtins.readFile "${catppuccin}/mako/${cfg.variant}");
 
     environment.etc."xdg/foot/foot.ini".text = ''
-      include=${catppuccin}/foot/catppuccin-${cfg.variant}.ini
+      include=${pkgs.foot.themes}/share/foot/themes/catppuccin-${cfg.variant}
     '';
 
     environment.etc."swaylock.conf".text = builtins.readFile "${catppuccin}/swaylock/${cfg.variant}.conf";
@@ -32,13 +32,13 @@ in {
     theme = {
       enable = true;
       platform = "kvantum";
-      theme = "Catppuccin-${capitalizedVariant}-Standard-${capitalizedAccent}-Light";
-      kvantumTheme = "Catppuccin-${capitalizedVariant}-${capitalizedAccent}";
+      theme = "catppuccin-${cfg.variant}-${cfg.accent}-standard";
+      kvantumTheme = "catppuccin-${cfg.variant}-${cfg.accent}";
       iconTheme = "Papirus";
-      cursorTheme = "Catppuccin-${capitalizedVariant}-${capitalizedAccent}-Cursors";
+      cursorTheme = "catppuccin-${cfg.variant}-${cfg.accent}-cursors";
       extraPackages = with pkgs; [
         (catppuccin-gtk.override { accents = [ cfg.accent ]; variant = cfg.variant; })
-        (catppuccin-kvantum.override { accent = capitalizedAccent; variant = capitalizedVariant; })
+        (catppuccin-kvantum.override { accent = cfg.accent; variant = cfg.variant; })
         (catppuccin-papirus-folders.override { accent = cfg.accent; flavor = cfg.variant; })
         catppuccin-cursors."${cfg.variant}${capitalizedAccent}"
       ];
