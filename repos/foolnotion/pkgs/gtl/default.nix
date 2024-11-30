@@ -20,6 +20,11 @@ stdenv.mkDerivation rec {
     "-DGTL_BUILD_BENCHMARKS=OFF"
   ];
 
+  postInstall = ''
+    mkdir -p $out/lib/cmake/gtl
+    install -m 644 gtlTargets.cmake $out/lib/cmake/gtl/
+  '';
+
   meta = with lib; {
     description = "Greg's template library of useful classes";
     homepage = "https://github.com/greg7mdp/gtl";
