@@ -589,12 +589,12 @@ buildLuarocksPackage {
     owner = "Shados";
     repo = "yuecheck-vim";
     rev = "master";
-    hash = "sha256-oCVTQQPvs/Al+ieblbzsMrJ+fYmJm8rykVyXDhWWRf4=";
+    hash = "sha256-gZWYoMHHhxNuRK8HKII3v99An+cHHzIINRjE+/U3inc=";
   };
 
   disabled = luaOlder "5.1";
   nativeBuildInputs = [ yuescript ];
-  propagatedBuildInputs = [ luacheck lunix ];
+  propagatedBuildInputs = [ luacheck lunix yuescript ];
 
   meta = {
     homepage = "https://github.com/Shados/yuecheck-vim";
