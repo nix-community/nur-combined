@@ -3,10 +3,10 @@
 {
   cakeml = {
     pname = "cakeml";
-    version = "v2648";
+    version = "v2702";
     src = fetchzip {
-      url = "https://github.com/CakeML/cakeml/releases/download/v2648/cake-x64-64.tar.gz";
-      sha256 = "sha256-p5iWrYjT03Emuxf7l3eSKMLDnI8O0TzzDlkm3XtIymI=";
+      url = "https://github.com/CakeML/cakeml/releases/download/v2702/cake-x64-64.tar.gz";
+      sha256 = "sha256-twuTR2dpH11txd5IUQK9ilkSkqNJhBihvSbWxWOkVHU=";
     };
   };
   enso = {
@@ -59,21 +59,21 @@
   };
   wasmfxtime = {
     pname = "wasmfxtime";
-    version = "e9de4ec7ebefefa212a6c6f588c009d8dd15c03a";
+    version = "3f79f4725e460b33986e2729e04319b991c56b5f";
     src = fetchFromGitHub {
       owner = "wasmfx";
       repo = "wasmfxtime";
-      rev = "e9de4ec7ebefefa212a6c6f588c009d8dd15c03a";
+      rev = "3f79f4725e460b33986e2729e04319b991c56b5f";
       fetchSubmodules = true;
-      sha256 = "sha256-G5p0cRJ+mcE6/Vwy//iCO3Q5twWkH8vZmc1g9EN8Dzw=";
+      sha256 = "sha256-1iOgiaHTePI3g2pSJQtk+NOksf8c+/+1es1Wyq8HyNg=";
     };
     cargoLock."./Cargo.lock" = {
-      lockFile = ./wasmfxtime-e9de4ec7ebefefa212a6c6f588c009d8dd15c03a/./Cargo.lock;
+      lockFile = ./wasmfxtime-3f79f4725e460b33986e2729e04319b991c56b5f/./Cargo.lock;
       outputHashes = {
         "wit-bindgen-0.35.0" = "sha256-7KwiI04ijpfeLFnOMUvCF9ZAY3ZbvlWSuFV0P1lBwLQ=";
         "wasm-encoder-0.220.0" = "sha256-gXwdY75tTx57khF52LfNTIbacP53uxr/+YSc2zFiGSk=";
       };
     };
-    date = "2024-11-20";
+    date = "2024-11-29";
   };
 }

@@ -646,6 +646,7 @@ dependencies = [
  "arbitrary",
  "env_logger 0.11.5",
  "wasmtime",
+ "wasmtime-wast-util",
 ]
 
 [[package]]
@@ -2469,10 +2470,12 @@ dependencies = [
 name = "pulley-interpreter"
 version = "28.0.0"
 dependencies = [
+ "anyhow",
  "arbitrary",
  "cranelift-bitset",
  "env_logger 0.11.5",
  "log",
+ "object",
  "sptr",
 ]
 
@@ -4072,6 +4075,7 @@ dependencies = [
  "tracing",
  "walkdir",
  "wasi-common",
+ "wasm-encoder",
  "wasmparser",
  "wasmtime",
  "wasmtime-cache",
@@ -4155,6 +4159,7 @@ dependencies = [
  "itertools 0.12.1",
  "log",
  "object",
+ "pulley-interpreter",
  "smallvec",
  "target-lexicon",
  "thiserror",
@@ -4325,6 +4330,7 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.60",
+ "wasmtime-wast-util",
 ]
 
 [[package]]
