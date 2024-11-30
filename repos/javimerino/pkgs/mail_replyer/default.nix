@@ -4,7 +4,7 @@
 }:
 
 python3Packages.buildPythonApplication {
-  name = "mail_replyer";
+  pname = "mail_replyer";
   version = "0.1.0-20240813-67b189e9dc0d";
   pyproject = true;
   src = fetchFromGitHub {
