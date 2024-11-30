@@ -187,25 +187,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "71a2bf46d9423ebebc804f1347420bcd510cfbf0";
+    version = "486b56f4d9743429a3d6304325390586c5fa2f89";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "71a2bf46d9423ebebc804f1347420bcd510cfbf0";
-      hash = "sha256-F4SW/c7iUYIqQFLnotfKwCIMJ9Yf3jZws5AdwwM4ko0=";
+      rev = "486b56f4d9743429a3d6304325390586c5fa2f89";
+      hash = "sha256-nFsYrK+n+pr9Id/HCbP59ESx4Dj08rD+WkfEdzkNBA4=";
     };
-    date = "2024-11-27";
+    date = "2024-11-29";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "ca5815d435bb71d01da8db94f7ca0cad7cb40b70";
+    version = "7ed2c2912029bc74b8276b7922164d7b538caea9";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "ca5815d435bb71d01da8db94f7ca0cad7cb40b70";
-      hash = "sha256-F6XOASxunnNrGAo3LZsKgvFCo8xaJ72wCplCQCSZ2o8=";
+      rev = "7ed2c2912029bc74b8276b7922164d7b538caea9";
+      hash = "sha256-KQHE8POv7DY2eYu5NBQydk5ogBviSYTewzzHiHTRKGw=";
     };
-    date = "2024-11-28";
+    date = "2024-11-30";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -665,14 +665,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "3224d553efb88aeaeba4cf91792a11d68509741b";
+    version = "d0d0413dc9fff538296ab86bac492cb4bf54dedb";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "3224d553efb88aeaeba4cf91792a11d68509741b";
-      hash = "sha256-9D0C2bANyuybhv9U5ImwVPx7pa3ECGESlg4ce+mcC5Q=";
+      rev = "d0d0413dc9fff538296ab86bac492cb4bf54dedb";
+      hash = "sha256-QCg0fUvxPgHDdjrMUHuv+aQR9roZPhH3IM/dVcYU4hM=";
     };
-    date = "2024-11-26";
+    date = "2024-11-29";
   };
   libqcef = {
     pname = "libqcef";
@@ -771,12 +771,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4218";
+    version = "b4227";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4218";
-      hash = "sha256-WOxISoqHkPVjuFY27e3ECSp/5XCR4zhE0t/YvBr3lZM=";
+      rev = "b4227";
+      hash = "sha256-IK8nMYshsp8zjK/ovoVpc3jmOpCenfdS77hVqVNNTMo=";
     };
   };
   lyrica = {
@@ -1366,14 +1366,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "66575014ac063a8067a773ccc50952491bd432e9";
+    version = "ed191350b20a0074d177c9431fcb985ba193ef2b";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "66575014ac063a8067a773ccc50952491bd432e9";
-      hash = "sha256-UnIz10ofLIPZo2moG1tzJaoPK5hKEjLO11nyhjzL2Qo=";
+      rev = "ed191350b20a0074d177c9431fcb985ba193ef2b";
+      hash = "sha256-+6Xci9S/5YY7ykYpv9SxtmNWWjOzqYatlGPTIY/FEqY=";
     };
-    date = "2024-11-29";
+    date = "2024-11-30";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1742,14 +1742,14 @@
   };
   vkroots = {
     pname = "vkroots";
-    version = "5106d8a0df95de66cc58dc1ea37e69c99afc9540";
+    version = "a1ce1dad9a0beff57eaf925116a0e49b5e5e0be3";
     src = fetchFromGitHub {
       owner = "misyltoad";
       repo = "vkroots";
-      rev = "5106d8a0df95de66cc58dc1ea37e69c99afc9540";
-      hash = "sha256-SgHFIWjifZ5L10/1RL7lXoX6evS5LsFvFKWMhHEHN0M=";
+      rev = "a1ce1dad9a0beff57eaf925116a0e49b5e5e0be3";
+      hash = "sha256-ZrWPPZV8YpKmycni2/6gKNin5mk7tRFZysklmWsrIPw=";
     };
-    date = "2024-04-30";
+    date = "2024-11-30";
   };
   vpp = {
     pname = "vpp";
