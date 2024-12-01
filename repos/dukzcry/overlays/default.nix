@@ -29,6 +29,21 @@ rec {
       nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ qsuper.kwindowsystem ];
     });
   });
+  # https://github.com/NixOS/nixpkgs/pull/299298#issuecomment-2508714160
+  emulationstation-de = super.emulationstation-de.overrideAttrs (oldAttrs: rec {
+    version = "3.0.2";
+    src = super.fetchzip {
+      url = "https://gitlab.com/es-de/emulationstation-de/-/archive/v${version}/emulationstation-de-v${version}.tar.gz";
+      hash = "sha256:RGlXFybbXYx66Hpjp2N3ovK4T5VyS4w0DWRGNvbwugs=";
+    };
+    installPhase = ''
+      # Binary
+      install -D ../es-de $out/bin/es-de
+      # Resources
+      mkdir -p $out/share/es-de/
+      cp -r ../resources/ $out/share/es-de/resources/
+    '';
+  });
 } // optionalAttrs (config.hardware.regdomain.enable or false) {
   inherit (pkgs.nur.repos.dukzcry) wireless-regdb;
   crda = super.crda.overrideAttrs (oldAttrs: rec {
