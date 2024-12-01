@@ -39,7 +39,6 @@ in
 {
   options.theme = {
     enable = mkEnableOption "uniform look for Qt and GTK applications";
-    noCsd = mkEnableOption "client side decorations removal";
     theme = mkOption {
       type = types.str;
       default = "Adwaita";
@@ -90,10 +89,6 @@ in
       environment.etc."xdg/gtk-4.0/gtk.css".text = ''
         @import url("file:///run/current-system/sw/share/themes/${cfg.theme}/gtk-4.0/gtk.css");
       '';
-    })
-    (mkIf (cfg.enable && cfg.noCsd) {
-      environment.variables.GTK_CSD = "0";
-      environment.variables.LD_PRELOAD = "${pkgs.nur.repos.dukzcry.gtk3-nocsd}/lib/libgtk3-nocsd.so.0";
     })
     (mkIf (cfg.enable && cfg.platform == "gtk2") {
       environment.variables = {
