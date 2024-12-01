@@ -24,6 +24,7 @@
   latex-chinese-fonts = pkgs.callPackage ./pkgs/latex-chinese-fonts { };
   zzz = pkgs.callPackage ./pkgs/zzz { };
   wpsoffice-365 = pkgs.libsForQt5.callPackage ./pkgs/wpsoffice-365 { };
+  FuzzyMarks = pkgs.callPackage ./pkgs/FuzzyMarks { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
   # ...
