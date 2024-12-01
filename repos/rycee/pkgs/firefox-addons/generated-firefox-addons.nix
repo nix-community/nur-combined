@@ -2439,10 +2439,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.49.0";
+      version = "2.50.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4394588/dualsub-2.49.0.xpi";
-      sha256 = "1fe485eb1c73eabd5f9ab21c3af96be6af6420fe7255cd939bf3bf76cf7fbf8d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4397558/dualsub-2.50.0.xpi";
+      sha256 = "d9a3a229c418b419e8f3842a5de12e3822240e890d69c3bff8e09ed8d4dc1729";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -3111,10 +3111,10 @@
     };
     "floccus" = buildFirefoxXpiAddon {
       pname = "floccus";
-      version = "5.3.4";
+      version = "5.4.0";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4389599/floccus-5.3.4.xpi";
-      sha256 = "8a7c9e3626e0ab0a017a887b379d0af20e0653ecc05a5fbada17d0244629ba47";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4397347/floccus-5.4.0.xpi";
+      sha256 = "b0ce34be12a6e7906e10199f3a85481cb116ad39d4cb98b9b9a81c1a0a5ce35b";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -13202,10 +13202,10 @@
     };
     "youtube-redux" = buildFirefoxXpiAddon {
       pname = "youtube-redux";
-      version = "3.5.4";
+      version = "3.5.5";
       addonId = "{2d4c0962-e9ff-4cad-8039-9a8b80d9b8b6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4397041/youtube_redux-3.5.4.xpi";
-      sha256 = "191150cd5235688b0e3347fcacce615cdbb6b5a580da53fd8835974a31c99f7b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4397346/youtube_redux-3.5.5.xpi";
+      sha256 = "51f84380e497c0952fbfd4d1d862e5d323f99e94ca21f21111bcf359b08dce77";
       meta = with lib;
       {
         description = "Replicate old YouTube look and features within the modern layout!";
