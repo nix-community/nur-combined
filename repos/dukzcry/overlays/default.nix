@@ -36,6 +36,7 @@ rec {
       url = "https://gitlab.com/es-de/emulationstation-de/-/archive/v${version}/emulationstation-de-v${version}.tar.gz";
       hash = "sha256:RGlXFybbXYx66Hpjp2N3ovK4T5VyS4w0DWRGNvbwugs=";
     };
+    patches = [ ./002-add-nixpkgs-retroarch-cores-linux.patch ];
     installPhase = ''
       # Binary
       install -D ../es-de $out/bin/es-de
