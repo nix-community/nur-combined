@@ -41,7 +41,6 @@ in {
       inherit
         (pkgs)
         # FIXME: is this useful?
-        
         font-awesome
         ;
     };

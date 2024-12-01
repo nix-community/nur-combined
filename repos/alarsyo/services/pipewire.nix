@@ -22,8 +22,6 @@ in {
   # HACK: services.pipewire.alsa doesn't exist on 20.09, avoid evaluating this
   # config (my 20.09 machine is a server anyway)
   config = optionalAttrs (options ? services.pipewire.alsa) (mkIf cfg.enable {
-    # from NixOS wiki, causes conflicts with pipewire
-    sound.enable = false;
     # recommended for pipewire as well
     security.rtkit.enable = true;
     services.pipewire = {

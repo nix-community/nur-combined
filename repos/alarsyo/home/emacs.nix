@@ -24,9 +24,8 @@ in {
       inherit
         (pkgs)
         sqlite # needed by org-roam
-        
+
         # fonts used by my config
-        
         emacs-all-the-icons-fonts
         iosevka-bin
         ;

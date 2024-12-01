@@ -21,7 +21,6 @@
     inherit
       (pkgs)
       # shell usage
-      
       bat
       fd
       file
@@ -31,7 +30,6 @@
       pciutils
       usbutils
       # development
-      
       git
       git-crypt
       git-lfs
@@ -40,7 +38,6 @@
       python3
       vim
       # terminal utilities
-      
       htop
       unzip
       zip
