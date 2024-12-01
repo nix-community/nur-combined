@@ -1,0 +1,90 @@
+name: Sync channels
+on:
+  schedule:
+    # The nightly channel is usually updated at 01:00:00 UTC.
+    - cron: '0 2 * * *' # *-*-* 02:00:00 UTC
+
+    # The stable channel is usually updated before 17:00:00 UTC on Thursday.
+    # It seems there are some stable users eagerly want to use the latest stable and
+    # cannot afford a lengthy 24hrs delay. So poll once every hour here. ¯\_(ツ)_/¯
+    # See: https://github.com/oxalica/rust-overlay/pull/166
+    - cron: '0 14-20 * * THU' # Thu *-*-* 14..19:00:00 UTC
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync-channels:
+    name: Sync channels and prefetch toolchains
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+        ref: master
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v25
+      with:
+        nix_path: nixpkgs=channel:nixpkgs-unstable
+
+    # Workaround for https://github.com/oxalica/rust-overlay/issues/54
+    - name: Don't let ~/.cargo/bin mess things up
+      run: rm -rf ~/.cargo/bin
+
+    - name: Sync stable channel
+      timeout-minutes: 5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: ./scripts/fetch.py stable
+
+    - name: Sync beta channel
+      if: github.event.schedule != '0 14-20 * * THU'
+      timeout-minutes: 5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: ./scripts/fetch.py beta
+
+    - name: Sync nightly channel
+      if: github.event.schedule != '0 14-20 * * THU'
+      timeout-minutes: 5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: ./scripts/fetch.py nightly
+
+    - name: Check and commit changes
+      id: commit
+      continue-on-error: true
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add manifests
+        git commit -m "manifest: update"
+
+    - name: Validate nix files changed
+      if: steps.commit.outcome == 'success'
+      run: |
+        files=( $(git diff --name-only HEAD HEAD^ '*.nix') )
+        echo "${#files[*]} nix files changed: ${files[*]}"
+        if [[ "${#files[*]}" -ne 0 ]]; then
+          nix-instantiate --parse "${files[@]}" >/dev/null
+        fi
+
+    - name: Test stable Rust
+      if: steps.commit.outcome == 'success'
+      run: |
+        cd examples/hello-world
+        set -o pipefail
+        nix-shell --pure --command "make run" | tee out
+        [[ "$(< out)" == *"Hello, world!"* ]]
+
+    - name: Push changes
+      if: steps.commit.outcome == 'success'
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: master

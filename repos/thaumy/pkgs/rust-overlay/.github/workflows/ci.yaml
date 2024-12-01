@@ -1,0 +1,198 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches:
+    - master
+    - dev
+
+  workflow_run:
+    workflows:
+      - Sync channels
+    types:
+      - completed
+
+permissions:
+  contents: read
+
+jobs:
+  flake-check:
+    name: Flake check
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v25
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+
+    - name: Check flake
+      run: nix flake check -v --show-trace --no-update-lock-file
+
+  check-sync-script:
+    name: Check sync script is deterministic
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v25
+      with:
+        nix_path: nixpkgs=channel:nixpkgs-unstable
+
+    - name: Clean the latest version of each channel
+      run: |
+        for channel in stable beta nightly; do
+          version=$(sed -nE 's/.*latest = "(.*?)".*/\1/p' "./manifests/$channel/default.nix")
+          echo "Remove $channel $version"
+          rm "./manifests/$channel/default.nix"
+          if [[ "$channel" == "stable" ]]; then
+            rm "./manifests/$channel/$version.nix"
+          else
+            rm "./manifests/$channel/${version%%-*}/$version.nix"
+          fi
+        done
+
+    - name: Re-fetch latest stable
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: ./scripts/fetch.py stable
+
+    - name: Re-fetch latest beta
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: ./scripts/fetch.py beta
+
+    - name: Re-fetch latest nightly
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: ./scripts/fetch.py nightly
+
+    - name: Verify file changes
+      run: |
+        short_status=$(git status --short)
+        echo "$short_status"
+        shopt -s extglob
+        while read -r change; do
+          case "$change" in
+            # Okay if there is no change.
+            "" ) ;;
+            "?? "manifests/@(stable|nightly|beta)/* ) ;;
+            "M "manifests/@(renames.nix|targets.nix) ) ;;
+            "M "manifests/@(stable|nightly|beta)/default.nix ) ;;
+            * )
+              echo "Unexpected change: $change"
+              exit 1
+          esac
+        done <<<"$short_status"
+
+  test-rust:
+    name: Test Rust
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        rust-channel: [stable, beta, nightly]
+        profile: [minimal, default]
+        nixpkgs-channel: [nixpkgs-unstable, nixos-23.05]
+        include:
+          # The legacy package, used by compatible functions.
+          - os: ubuntu-latest
+            rust-channel: stable
+            profile: rust
+            nixpkgs-channel: nixpkgs-unstable
+
+    runs-on: ${{ matrix.os }}
+    env:
+      NIX_SHELL_CMD: nix-shell --pure --argstr channel ${{ matrix.rust-channel }} --argstr profile ${{ matrix.profile }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v25
+      with:
+        nix_path: nixpkgs=channel:${{ matrix.nixpkgs-channel }}
+        install_url: ${{ matrix.nix_install_url }}
+
+    # Workaround for https://github.com/oxalica/rust-overlay/issues/54
+    - name: Don't let ~/.cargo/bin mess things up
+      run: rm -rf ~/.cargo/bin
+
+    - name: Prepare nix-shell
+      run: |
+        cd examples/hello-world
+        $NIX_SHELL_CMD --command true
+
+    - name: Test cargo build
+      run: |
+        cd examples/hello-world
+        set -o pipefail
+        $NIX_SHELL_CMD --command "make run" | tee out
+        [[ "$(< out)" == *"Hello, world!"* ]]
+
+    - name: Test cargo fmt
+      if: matrix.profile == 'default' || matrix.profile == 'rust'
+      run: |
+        cd examples/hello-world
+        $NIX_SHELL_CMD --command "cargo fmt -- --check"
+
+    - name: Test cargo clippy
+      if: matrix.profile == 'default' || matrix.profile == 'rust'
+      run: |
+        cd examples/hello-world
+        set -o pipefail
+        $NIX_SHELL_CMD --command "cargo clippy -- --cap-lints=warn" 2>&1 | tee out
+        [[ "$(< out)" == *"warning: this loop never actually loops"* ]]
+
+  test-cross-examples:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        example: [cross-aarch64, cross-wasi, cross-mingw]
+        kind: [shell]
+        include:
+          - example: cross-aarch64
+            kind: flake
+    name: Test cross compilation examples (${{ matrix.kind }})
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v25
+      with:
+        nix_path: nixpkgs=channel:nixpkgs-unstable
+
+    # Workaround for https://github.com/oxalica/rust-overlay/issues/54
+    - name: Don't let ~/.cargo/bin mess things up
+      run: rm -rf ~/.cargo/bin
+
+    - name: Prepare dev env
+      run: |
+        cd examples/${{ matrix.example }}
+        if [[ ${{ matrix.kind }} == 'shell' ]]; then
+          nix-shell --pure --command true
+        else
+          nix develop --ignore-environment --override-input rust-overlay ../..
+        fi
+
+    - name: Build and run example
+      run: |
+        cd examples/${{ matrix.example }}
+        set -o pipefail
+        if [[ ${{ matrix.kind }} == 'shell' ]]; then
+          # No --pure since it requires CA cert access for crates downloading.
+          nix-shell --pure --command "make run" | tee out
+        else
+          nix develop --ignore-environment --override-input rust-overlay ../.. --command make run | tee out
+        fi
+        [[ "$(< out)" == *"Hello, world!"* ]]
