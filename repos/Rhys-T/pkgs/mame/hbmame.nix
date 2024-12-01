@@ -2,12 +2,12 @@
     papirus-icon-theme = "DUMMY";
 }).overrideAttrs (old: rec {
     pname = "hbmame";
-    version = "0.245.20";
+    version = "0.245.21";
     src = fetchFromGitHub {
         owner = "Robbbert";
         repo = "hbmame";
         rev = "tag${builtins.replaceStrings [ "." ] [ "" ] (lib.removePrefix "0." version)}";
-        sha256 = "sha256-Q4mvgjnlDML1xFORPpcTq/3VKOnCccCXA1cPn+L5jJ8=";
+        sha256 = "sha256-q0m0h5nOuDdVm+VPzJXTU0XZjNKwNE7ugHzvHxZsBo0=";
     };
     nativeBuildInputs = (old.nativeBuildInputs or []) ++ [icoutils];
     desktopItems = [
@@ -23,13 +23,7 @@
             keywords = [ "Game" "Emulator" "Arcade" ];
         })
     ];
-    patches = lib.optionals (builtins.compareVersions version "0.245.20" <= 0) [
-        (fetchpatch {
-            name = "0001-monaco-fix-out-of-bounds-array-access.patch";
-            url = "https://patch-diff.githubusercontent.com/raw/Robbbert/hbmame/pull/24.patch";
-            hash = "sha256-6iztS1i+ybqNS0SF37d8GruWbLeu5d7tEpU9x4MT39Y=";
-        })
-    ] ++ map (patch: if lib.hasInfix "001-use-absolute-paths" (""+patch) then fetchpatch {
+    patches = map (patch: if lib.hasInfix "001-use-absolute-paths" (""+patch) then fetchpatch {
         url = "https://raw.githubusercontent.com/NixOS/nixpkgs/83d89a2fadf3ce1f67cfc5e49e62e474df04507b/pkgs/applications/emulators/mame/001-use-absolute-paths.diff";
         decode = '' sed '/OPTION_INIPATH/ {
             s@".;ini;ini/presets",@"ini",  @g
@@ -66,7 +60,7 @@
     meta = (old.meta or {}) // {
         description = "Emulator of homebrew and hacked games for arcade hardware";
         longDescription = ''
-            HBMAME (HomeBrew MAME) is a derivative of MAME 0.245, and contains various hacks and homebrews.
+            HBMAME (HomeBrew MAME) is a derivative of MAME ${builtins.concatStringsSep "." (lib.lists.take 2 (builtins.splitVersion version))}, and contains various hacks and homebrews.
             
             What's in it?
             
