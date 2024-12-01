@@ -3,7 +3,7 @@
   lib,
   fetchFromGitHub,
   python3Packages,
-  autoAddDriverRunpath ? cudaPackages.autoAddOpenGLRunpathHook, # remove after 24.05
+  autoAddDriverRunpath,
 
   config,
   cudaSupport ? config.cudaSupport,

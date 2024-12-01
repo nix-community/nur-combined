@@ -13,12 +13,13 @@ let
   finalOverlay = nurOverlay pkgsWithNur pkgs;
 
   nurOverlay = final: prev: {
-    a2ln = pkgs.python3Packages.callPackage ./a2ln { };
+    a2ln = final.python3Packages.callPackage ./a2ln { };
     arkenfox-userjs = final.callPackage ./arkenfox-userjs { };
     authentik = final.callPackage ./authentik/package.nix { };
     authentik-outposts = final.recurseIntoAttrs (final.callPackages ./authentik/outposts.nix { });
     bibata-cursors-tokyonight = final.callPackage ./bibata-cursors-tokyonight { };
     ceserver = final.callPackage ./ceserver { };
+    gamma-launcher = final.python3Packages.callPackage ./gamma-launcher { };
     gruvbox-plus-icons = final.callPackage ./gruvbox-plus-icons { };
     hoyolab-claim-bot = final.callPackage ./hoyolab-claim-bot { };
     json-liquid-rs = final.callPackage ./json-liquid-rs { };
