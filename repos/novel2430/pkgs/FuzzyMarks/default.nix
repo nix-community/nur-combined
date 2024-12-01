@@ -1,12 +1,12 @@
 {stdenv, fetchFromGitHub, lib}:
 stdenv.mkDerivation {
   pname = "FuzzyMarks";
-  version = "0.0.1";
+  version = "0.0.2";
   src = fetchFromGitHub {
     owner = "novel2430";
     repo = "FuzzyMarks";
-    rev = "667970f3e3cf3a3ea857a0d7d2ea714476c5c68f";
-    sha256 = "sha256-xOqHJIPBEyJHQuyrtouOQbzFqSPMsdaSJIm+obLpDRQ=";
+    rev = "ec4946b65f09162075f5fd1d6a0fb63f7329b665";
+    sha256 = "sha256-kh7n8PwZxqpmC/MNkg/QyL8mcbOHBRioYk1ZuaBO0L0=";
   };
   installPhase = ''
     mkdir -p $out/bin
