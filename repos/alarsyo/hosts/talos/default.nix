@@ -16,7 +16,7 @@
     ./secrets.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_6_11;
+  boot.kernelPackages = pkgs.linuxPackages_6_12;
   # Set Wi-Fi regulatory domain. Currently always set to '00' (world), and could
   # lead to bad Wi-Fi performance
   boot.kernelParams = ["cfg80211.ieee80211_regdom=FR"];
