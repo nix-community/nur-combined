@@ -62,7 +62,7 @@ in {
 
       hostName = "cloud.${domain}";
       https = true;
-      package = pkgs.nextcloud29;
+      package = pkgs.nextcloud30;
 
       maxUploadSize = "1G";
 
