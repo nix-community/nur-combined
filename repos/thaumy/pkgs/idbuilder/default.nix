@@ -5,7 +5,6 @@
 , fetchFromGitHub
 , yarn2nix-moretea
 }:
-
 let
   appBinName = "idbuilder";
   appVersion = "6.0.4";
@@ -58,18 +57,7 @@ let
     packageJSON = "${src_idbuilder}/package.json";
   };
 
-  # rust-overlay = import (fetchFromGitHub {
-  #   owner = "oxalica";
-  #   repo = "rust-overlay";
-  #   rev = "9ea38d547100edcf0da19aaebbdffa2810585495";
-  #   sha256 = "kwKCfmliHIxKuIjnM95TRcQxM/4AAEIZ+4A9nDJ6cJs=";
-  # });
-
-  rust-overlay = import ../rust-overlay;
-
-  extended-pkgs = pkgs.extend (rust-overlay);
-
-  runTimeDeps = with extended-pkgs; [
+  runTimeDeps = with pkgs; [
     gtk3
     glib
     dbus
@@ -80,13 +68,15 @@ let
     gdk-pixbuf
   ];
 
-  buildTimeDeps = with extended-pkgs; runTimeDeps ++ [
+  toolchain = (pkgs.extend (import ../rust-overlay)).rust-bin.nightly."2023-06-24".minimal;
+
+  buildTimeDeps = with pkgs; runTimeDeps ++ [
     pkg-config
     appimagekit
 
     jq
     yarn
-    rust-bin.nightly."2023-05-24".minimal
+    toolchain
   ];
 in
 rustPlatform.buildRustPackage {
