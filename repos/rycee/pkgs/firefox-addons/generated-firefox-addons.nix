@@ -2847,10 +2847,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.34";
+      version = "1.3.35";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4390118/faststream-1.3.34.xpi";
-      sha256 = "ea1ca86d971c74514193b3f4930304fa1d361781effa261645accf65f2fab956";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4397889/faststream-1.3.35.xpi";
+      sha256 = "5f13a87c7ca13e6c78f5b1b0513992d605a91f3eb86855c06487786bf5999b43";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -4078,10 +4078,10 @@
     };
     "hover-zoom-plus" = buildFirefoxXpiAddon {
       pname = "hover-zoom-plus";
-      version = "1.0.222";
+      version = "1.0.223";
       addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4385089/hover_zoom_plus-1.0.222.xpi";
-      sha256 = "1455ab25b1a59369a8bb1521080598addbbee994325b31599ec76ee599c22e8f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4397845/hover_zoom_plus-1.0.223.xpi";
+      sha256 = "8c4846cade693efea0c44adca0e7833ccb63ee237f32ebc784b9fddc3a6536a4";
       meta = with lib;
       {
         homepage = "https://github.com/extesy/hoverzoom/";
@@ -5003,6 +5003,7 @@
           "*://*.hlipp.de/*"
           "*://*.canmore.org.uk/*"
           "*://*.head-fi.org/*"
+          "*://*.etejo.com/*"
           "*://*.wildcritters.ws/*"
           "*://*.auscelebs.net/*"
           "*://*.douyin.com/*"
