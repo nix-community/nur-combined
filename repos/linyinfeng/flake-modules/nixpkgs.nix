@@ -14,10 +14,13 @@ in
     # The `nixpkgs` options has been moved into perSystem,
     # so that it can be customized in a per-system matter.
     [
-      (mkRenamedOptionModule [ "nixpkgs" ] [
-        "perSystem"
-        "nixpkgs"
-      ])
+      (mkRenamedOptionModule
+        [ "nixpkgs" ]
+        [
+          "perSystem"
+          "nixpkgs"
+        ]
+      )
     ];
   options.perSystem = mkPerSystemOption (
     { config, system, ... }:
