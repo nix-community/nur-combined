@@ -39,7 +39,6 @@ let
     go-mod-upgrade = { };
     imhex = { };
     lddtree = { };
-    paru = { };
     ots-cli = {
       _common = "ots";
       buildGoModule = pkgs.buildGo123Module;
