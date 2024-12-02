@@ -22,14 +22,19 @@ stdenv.mkDerivation rec {
     deploy
   ]);
 
-  nativeBuildInputs = [ sbcl' ];
+  buildInputs = [ sbcl' ];
 
-  buildFlags = [ "build" ];
-
-  installPhase = ''
-    install -m755 -D bin/sbcl/qob $out/bin/qob
+  buildPhase = ''
+    sbcl --script "./scripts/_prepare.lisp"
   '';
 
+  # buildFlags = [ "build" ];
+  #
+  # installPhase = ''
+  #   install -m755 -D bin/sbcl/qob $out/bin/qob
+  # '';
+
+  # prevent corrupting core in exe
   dontStrip = true;
 
   meta = {
