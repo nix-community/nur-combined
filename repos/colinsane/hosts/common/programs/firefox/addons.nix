@@ -69,7 +69,7 @@ in
     };
 
     # uBlock configuration:
-    fs.".mozilla/firefox/managed-storage/uBlock0@raymondhill.net.json".symlink.target = cfg.addons.ublock-origin.package.makeConfig {
+    fs.".mozilla/managed-storage/uBlock0@raymondhill.net.json".symlink.target = cfg.addons.ublock-origin.package.makeConfig {
       # more filter lists are available here:
       # - <https://easylist.to>
       #   - <https://github.com/easylist/easylist.git>
@@ -96,5 +96,16 @@ in
         # (getUasset "ublock-annoyances-cookies")
       ];
     };
+
+    fs.".mozilla/managed-storage/default-zoom@uninsane.org.json".symlink.text = ''
+      {
+        "name": "default-zoom@uninsane.org",
+        "description": "ignored",
+        "type": "storage",
+        "data": {
+          "zoom": 1.70
+        }
+      }
+    '';
   };
 }

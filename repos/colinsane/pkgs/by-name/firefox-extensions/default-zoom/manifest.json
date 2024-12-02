@@ -1,17 +1,24 @@
 {
   "manifest_version": 2,
+
+  "name": "Default Zoom",
+  "short_name": "Default Zoom",
+  "description": "statically configure a default zoom value for new tabs",
+  "author": "colin@uninsane.org",
+  "version": "0.1.0",
+
   "browser_specific_settings": {
     "gecko": {
-      "id": "@default-zoom"
+      "id": "default-zoom@uninsane.org"
     }
   },
-  "name": "Default zoom",
-  "description": "statically configure a default zoom value for new tabs",
-  "version": "0.1.0",
+
   "background": {
     "scripts": [
       "background.js"
     ]
   },
-  "permissions": []
+  "permissions": [
+    "storage"
+  ]
 }

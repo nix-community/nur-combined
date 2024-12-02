@@ -18,6 +18,7 @@ in
     sane.programs.bash-language-server.enableFor = { system = false; user.colin = false; };  # bash neovim LSP: doesn't cross compile (2024-08-26)
     sane.programs.blueberry.enableFor.user.colin = false;  # bluetooth manager: doesn't cross compile
     sane.programs.fcitx5.enableFor.user.colin = false;
+    sane.programs.firefox.config.addons.browserpass-extension.enable = false;  #< does not cross compile
     sane.programs.ltex-ls.enableFor = { system = false; user.colin = false; };  # LaTeX/html/markdown neovim LSP: doesn't cross compile (2024-08-26)
     sane.programs.lua-language-server.enableFor = { system = false; user.colin = false; };  # lua neovim LSP: doesn't cross compile (2024-08-26)
     sane.programs.marksman.enableFor = { system = false; user.colin = false; };  # markdown neovim LSP: doesn't cross compile (2024-08-26)

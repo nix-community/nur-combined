@@ -23,5 +23,5 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.extid = "@default-zoom";
+  passthru.extid = "default-zoom@uninsane.org";
 }

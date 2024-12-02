@@ -220,6 +220,7 @@ let
     (fromDb "xorvoid.com" // tech)
     (fromDb "www.thebignewsletter.com" // pol)
     (mkSubstack "astralcodexten" // rat // daily)  # Scott Alexander
+    (mkSubstack "chlamchowder" // tech)  # details CPU advancements
     (mkSubstack "eliqian" // rat // weekly)
     (mkSubstack "oversharing" // pol // daily)
     (mkSubstack "samkriss" // humor // infrequent)

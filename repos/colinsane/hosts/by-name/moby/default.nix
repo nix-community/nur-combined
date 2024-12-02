@@ -34,8 +34,7 @@
   # enabled for easier debugging
   sane.programs.eg25-control.enableFor.user.colin = true;
   # sane.programs.rtl8723cs-wowlan.enableFor.user.colin = true;
-
-  sane.programs.eg25-manager.enableFor.user.colin = true;
+  # sane.programs.eg25-manager.enableFor.user.colin = true;
 
   # sane.programs.ntfy-sh.config.autostart = true;
   sane.programs.dino.config.autostart = true;
