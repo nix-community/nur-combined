@@ -119,6 +119,7 @@ let
       browserpass-extension = callPackage ./browserpass-extension { };
       bypass-paywalls-clean = callPackage ./bypass-paywalls-clean { };
       ctrl-shift-c-should-copy = callPackage ./ctrl-shift-c-should-copy { };
+      default-zoom = callPackage ./default-zoom { };
       firefox-xdg-open = callPackage ./firefox-xdg-open { };
       i-still-dont-care-about-cookies = callPackage ./i-still-dont-care-about-cookies { };
       # open-in-mpv = callPackage ./open-in-mpv { };
@@ -150,8 +151,8 @@ let
         extid = "sponsorBlocker@ajay.app";
         pname = "sponsorblock";
         url = "https://github.com/ajayyy/SponsorBlock/releases/download/${version}/FirefoxSignedInstaller.xpi";
-        version = "5.9.6";
-        hash = "sha256-J28tcJt1mZfFgrmjMdtSvc0uP1//ksP1AKYkF6s6CRs=";
+        version = "5.10.1";
+        hash = "sha256-VMTR9pwW1/HoYiRZ64zD0z9suJpY7mQMes85TmIDpKA=";
       };
       ublacklist = fetchVersionedAddon rec {
         extid = "@ublacklist";
@@ -166,8 +167,8 @@ let
         # N.B.: a handful of versions are released unsigned
         # url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.signed.xpi";
         url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
-        version = "1.61.3b0";
-        hash = "sha256-SLYQ7ft7+h855CS07jfC7X4PGh+zcMasyox0rt7FTeI=";
+        version = "1.61.3b2";
+        hash = "sha256-rASK+QaBRzDaStS9ug8C64M8JoaUpYPxnHITOvQSBlM=";
       };
     };
 })  ).overrideScope (self: super:

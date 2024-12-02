@@ -9,7 +9,9 @@
   "description": "Open URIs with the system handler.",
   "version": "0.1.0",
   "background": {
-    "page": "background.html"
+    "scripts": [
+      "background.js"
+    ]
   },
   "permissions": [
     "tabs",

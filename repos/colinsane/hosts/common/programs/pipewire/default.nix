@@ -45,8 +45,21 @@ in
       };
     };
 
-    # disabling systemd causes pipewire to be built with direct udev support instead
-    packageUnwrapped = pkgs.pipewire.override { enableSystemd = false; };
+    packageUnwrapped = pkgs.pipewire.override {
+      # disabling systemd causes pipewire to be built with direct udev support instead.
+      # i added this probably because i don't use system'd logind?
+      enableSystemd = false;
+      # XXX(2024-11-29): patch to fix camera support on moby.
+      # see: <https://github.com/NixOS/nixpkgs/pull/353336>
+      # this is identical to the above patch, but less costly than cherry-picking it into nixpkgs-bootstrap,
+      # as that would force mass rebuilds.
+      # **remove once 353336 is merged**.
+      libcamera = pkgs.libcamera.overrideAttrs (upstream: {
+        postFixup = (upstream.postFixup or "") + ''
+          ../src/ipa/ipa-sign-install.sh src/ipa-priv-key.pem $out/lib/libcamera/ipa_*.so
+        '';
+      });
+    };
 
     suggestedPrograms = [
       # "rtkit"
@@ -55,16 +68,16 @@ in
     ];
 
     sandbox.whitelistAudio = true;
-    # sandbox.whitelistDbus = [
-    #   # dbus is used for rtkit integration
-    #   # rtkit runs on the system bus.
-    #   # xdg-desktop-portal then exposes this to the user bus.
-    #   # therefore, user bus should be all that's needed, but...
-    #   # xdg-desktop-portal-wlr depends on pipewire, hence pipewire has to start before xdg-desktop-portal.
-    #   # then, pipewire has to talk specifically to rtkit (system) and not go through xdp.
-    #   # "user"
-    #   "system"
-    # ];
+    sandbox.whitelistDbus = [
+      # dbus is used for rtkit integration
+      # rtkit runs on the system bus.
+      # xdg-desktop-portal then exposes this to the user bus.
+      # therefore, user bus should be all that's needed, but...
+      # xdg-desktop-portal-wlr depends on pipewire, hence pipewire has to start before xdg-desktop-portal.
+      # then, pipewire has to talk specifically to rtkit (system) and not go through xdp.
+      # "system"  #< not required UNLESS i want rtkit integration
+      "user"  #< required for camera sharing, especially through xdg-desktop-portal, e.g. `snapshot` application
+    ];
     sandbox.wrapperType = "inplace";  #< its config files refer to its binaries by full path
     sandbox.keepPidsAndProc = true;  #< TODO: why?
     sandbox.whitelistAvDev = true;

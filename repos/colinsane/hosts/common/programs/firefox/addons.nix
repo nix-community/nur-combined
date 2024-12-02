@@ -27,6 +27,9 @@ in
       #   package = pkgs.firefox-extensions.ctrl-shift-c-should-copy;
       #   enable = lib.mkDefault false;  # prefer patching firefox source code, so it works in more places
       # };
+      default-zoom = {
+        enable = lib.mkDefault true;
+      };
       # ether-metamask = {
       #   enable = lib.mkDefault false;  # until i can disable the first-run notification
       # };
@@ -52,7 +55,7 @@ in
         enable = lib.mkDefault false;
       };
       sidebery = {
-        enable = lib.mkDefault true;
+        enable = lib.mkDefault false; # firefox 133+ has native vertical tabs (about:config `sidebar.*`)
       };
       sponsorblock = {
         enable = lib.mkDefault true;

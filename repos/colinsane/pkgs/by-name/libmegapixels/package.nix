@@ -6,16 +6,17 @@
   meson,
   ninja,
   pkg-config,
+  unstableGitUpdater,
 }:
 stdenv.mkDerivation {
   pname = "libmegapixels";
-  version = "0.1.0-unstable-2024-09-05";
+  version = "0.1.0-unstable-2024-11-29";
 
   src = fetchFromGitLab {
     owner = "megapixels-org";
     repo = "libmegapixels";
-    rev = "35d82bdb59bc6193496fdbe6c7a50832ebe8363a";
-    hash = "sha256-m36Ur/iddH5XayAhrpUc7HGraBpw0jt7juZ8yanGW+o=";
+    rev = "d63b750f54390d8bc7f7badccf7a6543f9001546";
+    hash = "sha256-ysoaTmEv+VvcHmdmafJhHionC9ToKn043tWplFm1FDk=";
   };
 
   # patches = [
@@ -42,6 +43,8 @@ stdenv.mkDerivation {
   buildInputs = [
     libconfig
   ];
+
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = with lib; {
     description = "The device abstraction for the Megapixels application";

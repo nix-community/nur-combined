@@ -204,11 +204,23 @@ in
 
     # N.B.: `overrides.cfg` might be librewolf-specific -- not supported by mainline firefox.
     # firefox does support per-profile `user.js` files which have similar functionality.
+    # actually, i think this can be expressed in a firefox-compatible manner:
+    # - <https://support.mozilla.org/en-US/kb/customizing-firefox-using-autoconfig>
     fs.".mozilla/firefox/firefox.overrides.cfg".symlink.text = ''
+      // DEFAULT OPTION VALUES: <https://searchfox.org/mozilla-central/source/modules/libpref/init/all.js>
+      // common tweaks: <https://librewolf.net/docs/settings/>
+      // runtime-modified prefs are stored in ~/.librewolf/default/prefs.js
+      //
       // use `pref(...)` to force a preference
       // use `defaultPref(...)` to allow runtime reconfiguration
+      // use `lockPref(...)` to prevent the preferences from being changed at runtime (incl preventing firefox from updating them itself)
       // discover preference names via the `about:config` page
-      //
+      // N.B.: supported option values appear to be:
+      // - string
+      // - bool
+      // - number
+      // anything else (e.g. arrays, objects) MUST be represented as strings (use backticks for multiline/raw strings)
+
       // if we can't query the revocation status of a SSL cert because the issuer is offline,
       // treat it as unrevoked.
       // see: <https://librewolf.net/docs/faq/#im-getting-sec_error_ocsp_server_error-what-can-i-do>
@@ -218,6 +230,9 @@ in
 
       // DISABLE DNS OVER HTTPS; use the system resolver.
       defaultPref("network.trr.mode", 5);
+
+      // enable webGL
+      defaultPref("webgl.disabled", false);
 
       // scrollbar configuration, see: <https://artemis.sh/2023/10/12/scrollbars.html>
       // style=4 gives rectangular scrollbars
@@ -233,14 +248,37 @@ in
       // uidensity=2 gives more padding around UI elements.
       // source: <https://codeberg.org/user0/Mobile-Friendly-Firefox>
       defaultPref("browser.uidensity", 2);
+      // layout.css.devPixelsPerPx: acts as a global scale (even for the chrome)
+      // defaultPref("layout.css.devPixelsPerPx", 1.5);
 
       // open external URIs/files via xdg-desktop-portal.
       defaultPref("widget.use-xdg-desktop-portal.mime-handler", 1);
       defaultPref("widget.use-xdg-desktop-portal.open-uri", 1);
 
       defaultPref("browser.toolbars.bookmarks.visibility", "never");
-      // configure which extensions are visible by default (TODO: requires a lot of trial and error)
-      // defaultPref("browser.uiCustomization.state", ...);
+
+      // enable vertical tab view, like Sidebery (but loses the top-window horizontal tabs)
+      // defaultPref("browser.toolbarbuttons.introduced.sidebar-button", true);
+      defaultPref("sidebar.animation.enabled", false);
+      defaultPref("sidebar.backupState", `{"width":"","command":"","expanded":true,"hidden":false}`);
+      defaultPref("sidebar.main.tools", "history");
+      defaultPref("sidebar.revamp", true);
+      defaultPref("sidebar.verticalTabs", true);
+      // vvv default is for tabs button to toggle tab icons v.s. tab icons + description.
+      //    "hide-sidebar"  => toggle between tab icons + description and NO visibility at all.
+      defaultPref("sidebar.visibility", "hide-sidebar");
+
+      // configure topbar:
+      // placing an item in "seen" marks it as handled; items omitted from "seen" are placed in their default location.
+      // XXX(2024-12-01): the first "sidebar-button" placement is eaten. you MUST specify it at least twice for FF to respect it.
+      defaultPref("browser.uiCustomization.state", `{
+        "placements":{
+          "nav-bar":["firefox-view-button","sidebar-button","sidebar-button","back-button","forward-button","urlbar-container","unified-extensions-button"]
+        },
+        "seen":["ublock0_raymondhill_net-browser-action","sponsorblocker_ajay_app-browser-action"],
+        "currentVersion":20
+      }`);
+      // defaultPref("browser.uiCustomization.horizontalTabstrip", `["firefox-view-button","tabbrowser-tabs"]`);
 
       // auto-open specific URI schemes without prompting:
       defaultPref("network.protocol-handler.external.xdg-open", true); // for firefox-xdg-open extension
@@ -253,10 +291,15 @@ in
       // - type `w thing` into the URL bar to search "thing" on Wikipedia.
       // - to add a search shortcut: right-click any search box => "Add a keyword for this search".
       // - to update the static bookmarks, export via Hamburger => bookmarks => manage bookmarks => Import and Backup => Export Bookmarks To HTML
+      defaultPref("browser.bookmarks.addedImportButton", true);
       defaultPref("browser.places.importBookmarksHTML", true);
       defaultPref("browser.bookmarks.file", "~/.mozilla/firefox/bookmarks.html");
 
       defaultPref("browser.startup.homepage", "https://uninsane.org/places");
+
+
+      // browser.engagement.sidebar-button.has-used
+      // browser.migration.version = 150
     '';
 
     fs.".mozilla/firefox/bookmarks.html".symlink.target = ./bookmarks.html;

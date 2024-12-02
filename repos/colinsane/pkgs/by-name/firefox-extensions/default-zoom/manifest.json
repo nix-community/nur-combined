@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "@default-zoom"
+    }
+  },
+  "name": "Default zoom",
+  "description": "statically configure a default zoom value for new tabs",
+  "version": "0.1.0",
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "permissions": []
+}

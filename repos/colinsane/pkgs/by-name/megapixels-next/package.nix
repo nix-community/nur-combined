@@ -11,19 +11,20 @@
   meson,
   ninja,
   pkg-config,
+  unstableGitUpdater,
   wrapGAppsHook4,
   xorg,
   zbar,
 }:
 stdenv.mkDerivation {
   pname = "megapixels-next";
-  version = "unstable-2024-09-03";
+  version = "1.6.1-unstable-2024-11-04";
 
   src = fetchFromGitLab {
     owner = "megapixels-org";
     repo = "Megapixels";
-    rev = "d0e4e318c175ce6dd9c70983f4ce81fc3b7b3a91";
-    hash = "sha256-qmYTQq7Zg3m7dE/8SxdDNI/kU5nwa3jPDDG7NDK1eS4=";
+    rev = "95ae684d9fea3cf79842896c53d8ef373222dd8f";
+    hash = "sha256-kuY1w4u149FVk401HHKL2CBiw9Qm4G02PXEa8W0kXQI=";
   };
 
   nativeBuildInputs = [
@@ -49,6 +50,8 @@ stdenv.mkDerivation {
   '';
 
   strictDeps = true;
+
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = with lib; {
     description = "The Linux-phone camera application";

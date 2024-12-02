@@ -449,19 +449,19 @@ in with final; {
   # 2024/11/19: upstreaming is blocked on gvfs -> samba
   gnome-online-accounts = mvToBuildInputs [ dbus ] prev.gnome-online-accounts;
 
-  # gnome-settings-daemon = prev.gnome-settings-daemon.overrideAttrs (orig: {
-  #   # 2024/08/11: upstreaming is blocked on libgweather
-  #   #   gsd is required by xdg-desktop-portal-gtk
-  #   # pkg-config solves: "plugins/power/meson.build:22:0: ERROR: Dependency lookup for glib-2.0 with method 'pkgconfig' failed: Pkg-config binary for machine build machine not found."
-  #   # stdenv.cc fixes: "plugins/power/meson.build:60:0: ERROR: No build machine compiler for 'plugins/power/gsd-power-enums-update.c'"
-  #   # but then it fails with a link-time error.
-  #   # depsBuildBuild = orig.depsBuildBuild or [] ++ [ glib pkg-config buildPackages.stdenv.cc ];
-  #   # hack to just not build the power plugin (panel?), to avoid cross compilation errors
-  #   postPatch = orig.postPatch + ''
-  #     substituteInPlace plugins/meson.build \
-  #       --replace-fail "disabled_plugins = []" "disabled_plugins = ['power']"
-  #   '';
-  # });
+  gnome-settings-daemon = prev.gnome-settings-daemon.overrideAttrs (orig: {
+    # 2024/08/11: upstreaming is blocked on libgweather
+    #   gsd is required by xdg-desktop-portal-gtk
+    # pkg-config solves: "plugins/power/meson.build:22:0: ERROR: Dependency lookup for glib-2.0 with method 'pkgconfig' failed: Pkg-config binary for machine build machine not found."
+    # stdenv.cc fixes: "plugins/power/meson.build:60:0: ERROR: No build machine compiler for 'plugins/power/gsd-power-enums-update.c'"
+    # but then it fails with a link-time error.
+    # depsBuildBuild = orig.depsBuildBuild or [] ++ [ glib pkg-config buildPackages.stdenv.cc ];
+    # hack to just not build the power plugin (panel?), to avoid cross compilation errors
+    postPatch = orig.postPatch + ''
+      substituteInPlace plugins/meson.build \
+        --replace-fail "disabled_plugins = []" "disabled_plugins = ['power']"
+    '';
+  });
 
   # 2024/08/12: upstreaming is blocked on gnome-user-share (apache-httpd)
   # gnome-terminal = prev.gnome-terminal.overrideAttrs (orig: {

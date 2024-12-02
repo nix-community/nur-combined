@@ -14,6 +14,7 @@ in
     #
     # i do the old and/or lazy way, just grant broad R+W access
     # dma_heap is the old resource; udmabuf is the new one.
+    # dev show up at `/dev/udmabuf`
     KERNEL=="udmabuf", GROUP="video", MODE="0660"
     SUBSYSTEM=="dma_heap", GROUP="video", MODE="0660"
   '';

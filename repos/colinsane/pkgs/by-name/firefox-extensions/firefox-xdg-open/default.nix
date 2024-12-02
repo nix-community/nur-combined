@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation {
   buildPhase = ''
     runHook preBuild
     zip -j firefox.zip \
-      background.html background.js manifest.json
+      background.js manifest.json
     runHook postBuild
   '';
 

@@ -7,16 +7,17 @@
   ninja,
   pkg-config,
   scdoc,
+  unstableGitUpdater,
 }:
 stdenv.mkDerivation {
   pname = "libdng";
-  version = "unstable-2024-08-28";
+  version = "0.1.1-unstable-2024-11-05";
 
   src = fetchFromGitLab {
     owner = "megapixels-org";
     repo = "libdng";
-    rev = "bd4372559f1b470e2916fa3c04469a18e466b02e";
-    hash = "sha256-6+qB11Vzsejxxuu174ZIGB+A+O9UW5H8DVmWWDdSoEo=";
+    rev = "129c43011944a5e8e47f44186aaa082c4ca2cba9";
+    hash = "sha256-0MybdsC5WLN+rjC4Yuc3Dol9z1s5S2C845YY7GJpfRs=";
   };
 
   depsBuildBuild = [
@@ -33,6 +34,8 @@ stdenv.mkDerivation {
   buildInputs = [
     libtiff
   ];
+
+  passthru.updateScript = unstableGitUpdater { };
 
   meta = with lib; {
     description = "Interface library between libtiff and the world to make sure the output is valid DNG";

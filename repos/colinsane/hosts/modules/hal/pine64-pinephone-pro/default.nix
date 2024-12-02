@@ -73,6 +73,18 @@ in
           BACKLIGHT_CLASS_DEVICE = yes;
         };
       }
+
+      {
+        name = "enable-libcamera-requirements";
+        patch = null;
+        extraStructuredConfig = with lib.kernel; {
+          # 2024-11-28: speculatively enable these options which postmarketOS enabled, hoping they'll fixup libcamera/Snapshot app
+          # - <https://gitlab.com/postmarketOS/pmaports/-/merge_requests/5084/diffs>
+          # - <https://gitlab.com/postmarketOS/pmaports/-/issues/2787>
+          DMABUF_HEAPS = yes;
+          DMABUF_HEAPS_CMA = yes;
+        };
+      }
     ];
 
     hardware.deviceTree.overlays = [
@@ -177,6 +189,8 @@ in
 
     boot.extraModulePackages = [
       config.boot.kernelPackages.rk818-charger  #< rk818 battery/charger isn't mainline as of 2024-10-01
+      config.boot.kernelPackages.imx258  #< mainline imx258 camera driver has some power-on issues on PPP  (imx258 1-001a: Error reading reg 0x0016: -6)
+      # config.boot.kernelPackages.rt5640  #< optionally use megi's rt5640 sound driver, but mainline driver seems to mostly play nice with imx258 these days
     ];
 
     # default nixos behavior is to error if a kernel module is provided by more than one package.

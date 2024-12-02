@@ -9,6 +9,7 @@
 { ... }:
 {
   sane.programs.envelope = {
+    buildCost = 2;  #< webkitgtk-6_0
     sandbox.method = null;  #< TODO
     # config has to be edited by hand, by reading the structure of the Rust data types
     secrets.".config/envelope/config.json" = ../../../secrets/common/envelope_config.json.bin;

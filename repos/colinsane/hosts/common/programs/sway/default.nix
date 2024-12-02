@@ -175,6 +175,23 @@ in
       "wireplumber"  # used by sway config
       "wl-clipboard"
       "xdg-desktop-portal"
+      # xdg-desktop-portal-gnome provides portals for:
+      # - org.freedesktop.impl.portal.Access
+      # - org.freedesktop.impl.portal.Account
+      # - org.freedesktop.impl.portal.AppChooser
+      # - org.freedesktop.impl.portal.Background
+      # - org.freedesktop.impl.portal.Clipboard
+      # - org.freedesktop.impl.portal.DynamicLauncher
+      # - org.freedesktop.impl.portal.FileChooser
+      # - org.freedesktop.impl.portal.InputCapture
+      # - org.freedesktop.impl.portal.Lockdown
+      # - org.freedesktop.impl.portal.Notification
+      # - org.freedesktop.impl.portal.Print
+      # - org.freedesktop.impl.portal.RemoteDesktop
+      # - org.freedesktop.impl.portal.ScreenCast
+      # - org.freedesktop.impl.portal.Screenshot
+      # - org.freedesktop.impl.portal.Settings
+      # - org.freedesktop.impl.portal.Wallpaper
       "xdg-desktop-portal-gnome"
       # xdg-desktop-portal-gtk provides portals for:
       # - org.freedesktop.impl.portal.Access
@@ -185,12 +202,12 @@ in
       # - org.freedesktop.impl.portal.Inhibit
       # - org.freedesktop.impl.portal.Notification
       # - org.freedesktop.impl.portal.Print
-      # and conditionally (i.e. unless buildPortalsInGnome = false) for:
+      # and conditionally (by default. i.e. unless buildPortalsInGnome = false) for:
       # - org.freedesktop.impl.portal.AppChooser (@appchooser_iface@)
       # - org.freedesktop.impl.portal.Lockdown (@lockdown_iface@)
       # - org.freedesktop.impl.portal.Settings (@settings_iface@)
       # - org.freedesktop.impl.portal.Wallpaper (@wallpaper_iface@)
-      # "xdg-desktop-portal-gtk"
+      "xdg-desktop-portal-gtk"
       # xdg-desktop-portal-wlr provides portals for screenshots/screen sharing
       "xdg-desktop-portal-wlr"
       "xdg-terminal-exec"  # used by sway config
@@ -227,8 +244,12 @@ in
 
     fs.".config/xdg-desktop-portal/sway-portals.conf".symlink.text = ''
       # portals.conf docs: <https://flatpak.github.io/xdg-desktop-portal/docs/portals.conf.html>
+      # XXX(2024-11-28): `gnome` provides a more mobile-friendly file chooser than `gtk`,
+      #   only `gtk` provides Snapshot camera app with a permission's popup that allows me to grant it camera access.
+      #   TODO: switch back to `wlr;gnome;gtk` ordering (or even `wlr;gnome`), but remove from `gnome` whatever boken portal is involved with that camera access.
       [preferred]
-      default=wlr;gnome;gtk
+      default=wlr;gtk
+      # default=wlr;gnome;gtk
     '';
 
     fs.".config/sway/config".symlink.target = pkgs.substituteAll {

@@ -124,6 +124,7 @@ let
     # DMABUF_HEAPS_SYSTEM = yes;
 
     # borrowed from postmarketOS, "to enable libcamera development"
+    # - <https://gitlab.com/postmarketOS/pmaports/-/merge_requests/5084/diffs>
     DMABUF_HEAPS = yes;
     DMABUF_HEAPS_CMA = yes;
     # borrowed from postmarketOS, speculatively, as i debug megapixels camera

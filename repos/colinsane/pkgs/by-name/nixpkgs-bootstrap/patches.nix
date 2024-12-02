@@ -39,6 +39,14 @@ in
   #   hash = "sha256-4nzTHWmAiY9HMTu07rj0RdhlK7SWshXpkoqlKHg25do=";
   # })
 
+  # merged into staging-next 2024-11-28; cherry picking causes mass rebuild.
+  # remove targeted patch in pipewire.nix once mainline
+  # (fetchpatch' {
+  #   name = "libcamera: re-sign IPA modules after fixup";
+  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/353336";
+  #   hash = "sha256-RzpQQ5452QSydPGHYRSo5r2OT08rLCz0X+g121SnlR4=";
+  # })
+
   (fetchpatch' {
     name = "gnome-maps: fix cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/357238";
@@ -55,6 +63,12 @@ in
     name = "samba: resurrect cross compilation patch";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/357988";
     hash = "sha256-bVpojIRpJr6PDvsPMsqWGjCV8SWzwJ2hudzSPJcdN4k=";
+  })
+
+  (fetchpatch' {
+    name = "poppler: format, add dependency for glib-mkenums to fix cross building";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/357344";
+    hash = "sha256-3Yv6Yy1K2dNrrduM2XTEDjSmkysguTbqb8T7mDK2ubI=";
   })
 
 

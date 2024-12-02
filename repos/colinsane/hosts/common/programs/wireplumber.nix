@@ -6,10 +6,10 @@
       pipewire = config.sane.programs.pipewire.packageUnwrapped;
     };
 
-    # sandbox.whitelistDbus = [
-    #   "system"  #< so it can request better scheduling from rtkit
-    #   # "user"  #< apparently not needed?
-    # ];
+    sandbox.whitelistDbus = [
+      # "system"  #< so it can request better scheduling from rtkit
+      "user"  #< required for camera sharing, especially through xdg-desktop-portal, e.g. `snapshot` application
+    ];
     sandbox.whitelistAudio = true;
     sandbox.whitelistAvDev = true;
     # sandbox.keepPids = true;  #< needed if i want rtkit to grant this higher scheduling priority

@@ -355,9 +355,9 @@ in
       "komikku"
       # "koreader"
       "lgtrombetta-compass"
-      "millipixels"  # camera app (libcamera)
-      "megapixels"  # camera app
-      "megapixels-next"  # camera app
+      # "millipixels"  # camera app (libcamera, but does not support PPP as of 2024-11-29)
+      "megapixels"  # camera app (does not support PPP as of 2024-11-29)
+      "megapixels-next"  # camera app (which supports PPP, as of 2024-11-29)
       "notejot"  # note taking, e.g. shopping list
       "planify"  # todo-tracker/planner
       "portfolio-filemanager"
@@ -643,7 +643,7 @@ in
     gnome-calculator.buildCost = 1;
     gnome-calculator.sandbox.whitelistWayland = true;
 
-    gnome-calendar.buildCost = 1;
+    gnome-calendar.buildCost = 2;  # depends on webkitgtk_6_0 via evolution-data-server
     # gnome-calendar surely has data to persist, but i use it strictly to do date math, not track events.
     gnome-calendar.sandbox.whitelistWayland = true;
     gnome-calendar.sandbox.whitelistDbus = [ "user" ];
@@ -1087,7 +1087,7 @@ in
 
     speedtest-cli.sandbox.net = "all";
 
-    sqlite = {};
+    sqlite.sandbox.method = null;  #< TODO: sandbox
 
     # N.B. if you call sshfs-fuse from the CLI -- without `mount.fuse` -- disable sandboxing
     sshfs-fuse.sandbox.net = "all";
