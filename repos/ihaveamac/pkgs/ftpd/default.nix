@@ -16,13 +16,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "ftpd";
-  version = "3.2.0";
+  version = "3.2.1";
 
   src = fetchFromGitHub {
     owner = "mtheall";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-Ewv9uCGjIUW+lJszJAmOyzdgSfBNXR9U8t7k0ceM4IM=";
+    hash = "sha256-Vh3jhQr/y+gmgXED/3goxvNluhcJG4JcryVpjh/kuo8=";
   };
 
   # These were made in an attempt to make ftpd work on macOS. It compiles but then exits with "Failed to create window".

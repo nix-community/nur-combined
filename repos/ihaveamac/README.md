@@ -29,7 +29,8 @@ Attributes listed on [the NUR](https://nur.nix-community.org/repos/ihaveamac/)
 * sd-format-linux-0.2.0
 * unxip-3.0
 * corgi3ds-2020-07-15
-* ftpd-3.2.0
+* ftpd-3.2.1
+* darctool-1.2.0
 
 ## Home Manager modules
 
