@@ -40,7 +40,7 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://gitlab.inria.fr/nixos-compose/nixos-compose";
     platforms = platforms.all;
     license = licenses.lgpl3;
-    broken = false;
+    broken = true;
 
     longDescription = "NixOS Compose";
   };

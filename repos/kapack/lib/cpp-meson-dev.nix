@@ -1,7 +1,7 @@
 # generate a base derivation to help creating development packages for c++ meson+ninja+pkg-config projects.
 # the base derivation is not buildable as it lacks src, it is meant to be overridden.
 { stdenv, lib
-, meson, ninja, pkgconfig
+, meson, ninja, pkg-config
 , debug ? false
 , werror ? false
 , doCoverage ? false
@@ -12,7 +12,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     meson
     ninja
-    pkgconfig
+    pkg-config
   ];
 
   CXXFLAGS = if debug then "-O0" else "";

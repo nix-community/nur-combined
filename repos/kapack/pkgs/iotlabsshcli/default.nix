@@ -17,4 +17,5 @@ python3Packages.buildPythonPackage rec {
     parallel-ssh
     iotlabcli
   ];
+  meta.broken = true;
 }

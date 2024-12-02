@@ -1,4 +1,4 @@
-{ lib, rustPlatform, fetchFromGitHub, pkgconfig, zeromq, cmake }:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, zeromq, cmake }:
 
 rustPlatform.buildRustPackage rec {
   pname = "colmet-rs";
@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage rec {
   src = /home/auguste/dev/colmet-rs;
   
   buildInputs = [ zeromq cmake ];
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkg-config ];
   
   cargoSha256 = "1yr0wbq6qdphmzj3jbili3isgwc0xkd06gkx0xvpinhkp6k5y7n3";
 

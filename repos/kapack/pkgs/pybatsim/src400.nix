@@ -5,5 +5,8 @@ applyPatches { src = fetchFromGitLab {
   owner = "batsim";
   repo = "pybatsim";
   rev = "v4.0.0a0";
-  sha256 = "064z0i2m8cnf8fmv80lj52hz720n5v1hpmkm79rns7saajp8k9f2";
-}; patches = [ ./400a0-0001-bs-loosen-pyzmq-version-constraint.patch ]; }
+  sha256 = "sha256-wqWJrlRKH21zOnXWC8MuFojzoSiSArSrQ84yVEUEnxg=";
+}; patches = [
+  ./400a0-0001-bs-loosen-pyzmq-version-constraint.patch
+  ./400a0-0002-bs-loosen-pandas-version-constraint.patch
+]; }

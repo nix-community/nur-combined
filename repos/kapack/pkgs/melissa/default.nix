@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     description = "Melissa is a file avoiding, adaptive, fault tolerant and elastic framework, to run large scale sensitivity analysis on supercomputers";
     license = licenses.bsd3;
     platforms = ghc.meta.platforms;
-    broken = false;
+    broken = true;
   };
 }

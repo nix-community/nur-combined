@@ -1,5 +1,5 @@
 { stdenv, lib, fetchFromGitLab
-, meson, ninja, pkgconfig
+, meson, ninja, pkg-config
 , simgrid, intervalset, boost, rapidjson, redox, zeromq, docopt_cpp, pugixml
 , debug ? false
 }:
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     meson
     ninja
-    pkgconfig
+    pkg-config
   ];
   # runtimeDeps is used to generate multi-layered docker contained
   runtimeDeps = [

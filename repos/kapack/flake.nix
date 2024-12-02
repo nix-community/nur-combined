@@ -2,7 +2,7 @@
   description = " My personal NUR repository";
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
-    nixpkgs.url = "github:nixos/nixpkgs?ref=23.05";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=branch-off-24.11";
   };
   outputs = { self, nixpkgs, flake-utils }:
     let
@@ -11,6 +11,7 @@
         "i686-linux"
         "x86_64-darwin"
         "aarch64-linux"
+        "aarch64-darwin"
         "armv6l-linux"
         "armv7l-linux"
       ];

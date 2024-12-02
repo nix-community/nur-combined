@@ -12,5 +12,6 @@ python3Packages.buildPythonPackage rec {
     ssh2-python
     ssh-python
   ];
+  meta.broken = true;
 }
 

@@ -39,6 +39,7 @@ python3Packages.buildPythonPackage rec {
     python-grid5000
   ];
   doCheck = false;
+  meta.broken = true;
   # checkInputs = [
   #   python3Packages.pytest
   #   python3Packages.ansible

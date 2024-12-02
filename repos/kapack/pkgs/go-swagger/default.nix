@@ -27,5 +27,6 @@ buildGoPackage rec {
     license = licenses.asl20;
     maintainers = with maintainers; [];
     platforms = platforms.unix;
+    broken = true;
   };
 }

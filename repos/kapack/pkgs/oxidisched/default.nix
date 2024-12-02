@@ -1,4 +1,4 @@
-{ lib, rustPlatform, fetchgit, pkgconfig, zeromq }:
+{ lib, rustPlatform, fetchgit, pkg-config, zeromq }:
 
 rustPlatform.buildRustPackage rec {
   pname = "oxidisched";
@@ -11,7 +11,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   buildInputs = [ zeromq ];
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkg-config ];
 
   cargoSha256 = "sha256:1pyrglkqs47gnk0vmggi482jvzbsrvsb2c6dky42jvhsm4km5nki";
 

@@ -1,0 +1,13 @@
+diff --git a/pybatsim-functional/pyproject.toml b/pybatsim-functional/pyproject.toml
+index bf78113..e1e424b 100644
+--- a/pybatsim-functional/pyproject.toml
++++ b/pybatsim-functional/pyproject.toml
+@@ -35,7 +35,7 @@ packages = [
+ [tool.poetry.dependencies]
+ python = "^3.7.1"
+ pybatsim = "^4.0.0a0"
+-pandas = "^1.2.3"
++pandas = ">=1.2.3"
+ 
+ [tool.poetry.dev-dependencies]
+ 

@@ -49,5 +49,6 @@ let
     license = licenses.lgpl3;
     longDescription = ''
     '';
+    broken = true;
   };
 }

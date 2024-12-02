@@ -8,10 +8,10 @@ buildGoModule rec {
     owner = "axw";
     repo = pname;
     rev = "v${version}";
-    sha256 = "14dsbabp1h31zzx7xlzg604spk3k3a0wpyq9xsrpqr8hz425h9xv";
+    hash = "sha256-uydYBPkQZXyz7gn7y4Eac8yrCTDv0376/2HAcJdaupE=";
   };
 
-  vendorSha256 = "1hkfj18sshn8z0w1njgrwzchagxz1fmpq26a1wsf47xd64ydzwi1";
+  vendorHash = "sha256-IfLfPDGtH+I0D8oIfKsLvz8F2ef5SRs4+MhCrVGQbsI=";
 
   meta = with lib; {
     description = "Coverage testing tool for The Go Programming Language.";

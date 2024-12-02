@@ -1,5 +1,5 @@
 { stdenv, lib, fetchgit
-, ninja, meson, pkgconfig
+, ninja, meson, pkg-config
 , simgrid, boost, docopt_cpp, protobuf
 , debug ? false
 }:
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "0dwgq2dryckmhn5sl6kr9pdffbh78dw4v585m6wdd8571qa4y8r9";
   };
 
-  nativeBuildInputs = [ meson pkgconfig ninja ];
+  nativeBuildInputs = [ meson pkg-config ninja ];
   buildInputs = [ simgrid docopt_cpp boost ];
   propagatedBuildInputs = [ protobuf ];
 

@@ -16,5 +16,6 @@ python3Packages.buildPythonPackage rec {
   SYSTEM_LIBSSH2 = "1";
 
   buildInputs = [ libssh2 openssl zlib ];
+  meta.broken = true;
 }
 

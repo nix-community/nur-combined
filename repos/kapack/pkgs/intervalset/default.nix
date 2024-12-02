@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchgit, meson, ninja, pkgconfig, boost, gtest
+{ stdenv, lib, fetchgit, meson, ninja, pkg-config, boost, gtest
 , debug ? false
 , withoutBoostPropagation ? false
 }:
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "1ayj6jjznbd0kwacz6dki6yk4rxdssapmz4gd8qh1yq1z1qbjqgs";
   };
 
-  nativeBuildInputs = [ meson ninja pkgconfig ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
   buildInputs = [ gtest ]
     ++ lib.optionals withoutBoostPropagation [ boost ];
   propagatedBuildInputs = lib.optionals (!withoutBoostPropagation) [ boost ];

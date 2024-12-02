@@ -1,5 +1,5 @@
 { stdenv, lib
-, meson, ninja, pkgconfig
+, meson, ninja, pkg-config
 , boost, gmp, rapidjson, intervalset, loguru, redox, cppzmq, zeromq
 , debug ? false
 }:
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   BOOST_INCLUDEDIR = "${lib.getDev boost}/include";
   BOOST_LIBRARYDIR = "${lib.getLib boost}/lib";
 
-  nativeBuildInputs = [ meson ninja pkgconfig ];
+  nativeBuildInputs = [ meson ninja pkg-config ];
   buildInputs = [ boost gmp rapidjson intervalset loguru redox cppzmq zeromq ];
 
   ninjaFlags = [ "-v" ];

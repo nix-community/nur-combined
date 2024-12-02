@@ -13,4 +13,5 @@ python3Packages.buildPythonPackage rec {
   propagatedBuildInputs = [
     python3Packages.requests
   ];
+  meta.broken = true;
 }
