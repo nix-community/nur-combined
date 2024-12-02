@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ sbcl' ];
 
   buildPhase = ''
-    sbcl --script "./scripts/_prepare.lisp"
+    sbcl --eval "(progn (require :asdf) (asdf:load-system :clingon))"
   '';
 
   # buildFlags = [ "build" ];
