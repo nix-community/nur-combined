@@ -11,8 +11,7 @@ buildGoModule rec {
     sha256 = "sha256-bOs4pZuhyy6Lm7PtXSei9RUJWbCzM5mwG2vQgueDtLA=";
   };
 
-  vendorHash = "sha256-Zdg+IXjGluV5sOORcq9M0FKxfstBu64VdKb9jkrS0Rw=";
-  proxyVendor = true;
+  vendorHash = "sha256-30tnt3fYXDDm+YQgY65dUcytDokrUdCChOU5LMgnGYE=";
 
   postInstall = ''
     mkdir -p $out

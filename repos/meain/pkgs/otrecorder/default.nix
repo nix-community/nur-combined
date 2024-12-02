@@ -3,13 +3,13 @@
 pkgs.stdenv.mkDerivation rec {
   pname = "otrecorder";
   name = pname;
-  version = "0.9.1";
+  version = "0.9.9";
 
   src = fetchFromGitHub {
     owner = "owntracks";
     repo = "recorder";
     rev = version;
-    sha256 = "sha256-/y74jfofvWTcHSX+9wtrCRclaS5Aw03TCz11mrZiqiM=";
+    sha256 = "sha256-6oCWzTiQgpp75xojd2ZFsrg+Kd5/gex1BPQVOWHfMuk=";
   };
 
   nativeBuildInputs = with pkgs; [ mosquitto curl lmdb libconfig libuuid ];

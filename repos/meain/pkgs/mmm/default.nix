@@ -11,8 +11,7 @@ buildGoModule rec {
     sha256 = "sha256-XYNOyMdlZTt2qeQfAwGdWtvauzvQ8nAHGHRsoYX8jeQ=";
   };
 
-  vendorHash = "sha256-q5sDsRmfWbIeLp9aFVTCtxJfAvSspuCxVgUYqxTTwiU=";
-  proxyVendor = true;
+  vendorHash = "sha256-2jZ4XRIVaXVFS/F17nGm5RvuBqJNCvYOejoG8w6Hbvg=";
 
   meta = with lib; {
     description = "Matrix media manager";

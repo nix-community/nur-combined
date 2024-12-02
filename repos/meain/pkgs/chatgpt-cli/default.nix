@@ -2,13 +2,13 @@
 
 buildGoModule rec {
   pname = "chatgpt-cli";
-  version = "1.6.4";
+  version = "1.7.5";
 
   src = fetchFromGitHub {
     owner = "kardolus";
     repo = "chatgpt-cli";
     rev = "v${version}";
-    hash = "sha256-h0C7Vd3Cju/9JrMXEbjNooyub1mA4qa7d+03GD4qzvQ=";
+    hash = "sha256-vyGBfTUBJm+dEHhnEUpDsCWwvrzZcfQdK4uaEUZ2Fmg=";
   };
 
   vendorHash = null;

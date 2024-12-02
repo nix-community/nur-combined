@@ -5,14 +5,14 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "logseq-doctor";
-  version = "0.1.1";
+  version = "0.3.0";
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "andreoliwa";
     repo = "logseq-doctor";
     rev = "v${version}";
-    hash = "sha256-/fejxDUAUuk4gSy7Q56k0Zk0H5NT46vCO37N8Rnb6/s=";
+    hash = "sha256-yjKgm0MS8fJA+IYjvAhZgg7vD4/umLL+gpFcQuUSDVU=";
   };
 
   nativeBuildInputs = [

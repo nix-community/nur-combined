@@ -11,8 +11,7 @@ buildGoModule rec {
     sha256 = "sha256-qQEu01YXLoGzhqBQmUu/W7jo/aJMZMgpxuUHI9svd58=";
   };
 
-  vendorHash = "sha256-2PeaIokw6wG2JflU4+JlCtv1owkrojRATr0rG/4pAHc=";
-  proxyVendor = true;
+  vendorHash = "sha256-Ev0PaHFy6oNyZ6w4/4FiOEFV3hx/wIuwVmqoauiG/xI=";
 
   meta = with lib; {
     description = " Quick little bot to run shell commands on servers via matrix";

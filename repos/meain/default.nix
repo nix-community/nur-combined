@@ -35,27 +35,27 @@ in
   chainlink = pkgs.callPackage ./pkgs/chainlink { };
 
   ## external
-  fluent-theme = pkgs.callPackage ./pkgs/fluent-theme { };
+  # fluent-theme = pkgs.callPackage ./pkgs/fluent-theme { };
   kmonad = pkgs.callPackage ./pkgs/kmonad { };
-  warpd = pkgs.callPackage ./pkgs/warpd { };
-  otrecorder = pkgs.callPackage ./pkgs/otrecorder { }; # owntracks-recorder
+  # warpd = pkgs.callPackage ./pkgs/warpd { };
+  # otrecorder = pkgs.callPackage ./pkgs/otrecorder { }; # owntracks-recorder
   # owntracks-frontend = pkgs.callPackage ./pkgs/owntracks-frontend { };
-  dmenu = pkgs.callPackage ./pkgs/dmenu { };
+  # dmenu = pkgs.callPackage ./pkgs/dmenu { };
   # notmuch-git = pkgs.callPackage ./pkgs/notmuch-git {};
-  gnomeExtensions.steal-my-focus = pkgs.callPackage ./pkgs/steal-my-focus { };
-  prosemd-lsp = pkgs.callPackage ./pkgs/prosemd-lsp { };
+  # gnomeExtensions.steal-my-focus = pkgs.callPackage ./pkgs/steal-my-focus { };
+  # prosemd-lsp = pkgs.callPackage ./pkgs/prosemd-lsp { };
   # gcalendar = pkgs.python3.pkgs.callPackage ./pkgs/gcalendar { };
-  spaceman-diff = pkgs.callPackage ./pkgs/spaceman-diff { };
+  # spaceman-diff = pkgs.callPackage ./pkgs/spaceman-diff { };
   # dbui = pkgs.callPackage ./pkgs/dbui { };
-  dotool = pkgs.callPackage ./pkgs/dotool { };
-  pulseaudio-virtualmic = pkgs.callPackage ./pkgs/pulseaudio-virtualmic { };
+  # dotool = pkgs.callPackage ./pkgs/dotool { };
+  # pulseaudio-virtualmic = pkgs.callPackage ./pkgs/pulseaudio-virtualmic { };
   chatgpt-cli = pkgs.callPackage ./pkgs/chatgpt-cli { };
   logseq-doctor = pkgs.callPackage ./pkgs/logseq-doctor { };
-  fabric = pkgs.callPackage ./pkgs/fabric { };
+  # fabric = pkgs.callPackage ./pkgs/fabric { };
   # aider = pkgs.callPackage ./pkgs/aider { };
 
-  # RUn nvfetcher in the haskellPackages directory to update sources
-  haskellPackages = callPackages ./pkgs/haskellPackages;
+  # Run nvfetcher in the haskellPackages directory to update sources
+  # haskellPackages = callPackages ./pkgs/haskellPackages;
 
   ## programming
   # buf = pkgs.callPackage ./pkgs/buf {};
@@ -65,10 +65,10 @@ in
   protodot = pkgs.callPackage ./pkgs/protodot { };
 
   ## fonts
-  victor-mono-nf = pkgs.callPackage ./pkgs/victor-mono-nf { }; # nerd-font version of victor mono
+  # victor-mono-nf = pkgs.callPackage ./pkgs/victor-mono-nf { }; # nerd-font version of victor mono
 
   # Conditionally include firefox-darwin on Darwin
-  firefox-darwin = if pkgs.stdenv.isDarwin then pkgs.callPackage ./pkgs/firefox-darwin { } else null;
+  # firefox-darwin = if pkgs.stdenv.isDarwin then pkgs.callPackage ./pkgs/firefox-darwin { } else null;
 
   # firefox extensions
   # https://gitlab.com/rycee/nur-expressions/-/blob/master/pkgs/mozilla-addons-to-nix/default.nix?ref_type=heads
