@@ -199,13 +199,9 @@ let
       pkgs: [
         wechat-universal-license
         wechat-universal-src
-        libraries
       ];
 
     runScript = startScript;
-
-    extraBuildCommands = ''
-    '';
 
     extraPreBwrapCmds = ''
       function detectXauth() {
