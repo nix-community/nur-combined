@@ -10,7 +10,7 @@ output="${input%.*}.jpg"
 if [[ "$mime" == 'image/heic'* ]]; then
   png="$(mktemp --suffix=.png)"; trap 'rm -f "$png"' EXIT
 
-  heif-convert "$input" "$png"
+  heif-dec "$input" "$png"
 
   from="png:$png"
 else

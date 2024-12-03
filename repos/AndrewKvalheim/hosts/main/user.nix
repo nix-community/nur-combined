@@ -53,6 +53,7 @@
     losslesscut-bin
     mark-applier
     mcaselector
+    python3Packages.meshtastic
     minemap
     nbt-explorer
     obsidian
@@ -64,7 +65,7 @@
     soundconverter
     thunderbird
     tor-browser-bundle-bin
-    transmission-gtk
+    transmission_4-gtk
     video-trimmer
     watson
     whatsapp-for-linux

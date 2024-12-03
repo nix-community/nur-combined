@@ -45,11 +45,11 @@ rec {
             "test_security_plugin"
           ];
         });
-        # Pending followup to NixOS/nixpkgs#345326
+        # Pending NixOS/nixpkgs#357642 (followup to NixOS/nixpkgs#345326)
         parsedmarc = pythonPackages.parsedmarc.overridePythonAttrs (parsedmarc: {
           propagatedBuildInputs = parsedmarc.propagatedBuildInputs ++ [ resolved.pygelf ];
         });
-        # Pending packaging
+        # Pending NixOS/nixpkgs#357642 (followup to NixOS/nixpkgs#345326)
         pygelf = pkgs.lib.warnIf (pythonPackages ? pygelf) "python3Packages.pygelf is no longer missing"
           pythonPackages.buildPythonPackage
           rec {

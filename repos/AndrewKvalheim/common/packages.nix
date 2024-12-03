@@ -7,43 +7,38 @@ let
   open-vsx = { _name = "open-vsx"; vscode-extensions = community-vscode-extensions.open-vsx; };
   vscode-marketplace = { _name = "vscode-marketplace"; vscode-extensions = community-vscode-extensions.vscode-marketplace; };
 in
-(specify {
+specify {
   add-words = any;
   affine-font = any;
   album-art = any;
   ansible-vault-pass-client = any;
   apex = any;
   attachments = any;
-  audacity.gappsWrapperArgs = "--set-default GDK_BACKEND x11"; # NixOS/nixpkgs#238910
-  binsider = any;
-  biome.version = "≥1.9";
+  audacity.env.GDK_BACKEND = "x11"; # NixOS/nixpkgs#238910
   buildJosmPlugin = any;
   cavif = any;
   ch57x-keyboard-tool = any;
   chromium.commandLineArgs = "--enable-features=WaylandTextInputV3"; # Pending https://crbug.com/40272818
   co2monitor = any;
-  darktable.version = "≥4.8";
   decompiler-mc = any;
   dmarc-report-converter = any;
   dmarc-report-notifier = any;
   email-hash = any;
-  emote.overlay = e: { postInstall = e.postInstall or "" + "\nsubstituteInPlace $out/share/applications/emote.desktop --replace-fail 'Exec=emote' \"Exec=$out/bin/emote\""; }; # Allow desktop entry as entrypoint
+  emote.overlay = e: { postInstall = e.postInstall or "" + "\nsubstituteInPlace $out/share/applications/com.tomjwatson.Emote.desktop --replace-fail 'Exec=emote' \"Exec=$out/bin/emote\""; }; # Allow desktop entry as entrypoint
   espressif-serial = any;
   fastnbt-tools = any;
   fediblockhole = any;
-  fedifetcher.version = "≥7.1.12"; # nanos/FediFetcher#161
   firefox.overlay = w: { buildCommand = w.buildCommand + "\nwrapProgram $executablePath --unset LC_TIME"; }; # Workaround for bugzilla#1269895
   git-diff-image = any;
   git-diff-minecraft = any;
   git-remote = any;
-  gnome.gnome-shell.patch = ../packages/resources/gnome-shell_screenshot-location.patch; # Pending GNOME/gnome-shell#5370
-  gnomeExtensions.paperwm.version = "≥121" /* 46.13.4 */;
-  gopass-await.deps = { inherit (stable.gnome) zenity; };
+  gnome-shell.patch = ../packages/resources/gnome-shell_screenshot-location.patch; # Pending GNOME/gnome-shell#5370
+  gopass-await = any;
   gopass-env = any;
   gopass-ydotool = any;
   gpx-reduce = any;
   graalvm-ce.overlay = g: stable.lib.throwIf (stable.lib.hasInfix "font" g.preFixup) "graalvm-ce no longer requires an overlay" { preFixup = g.preFixup + "\nfind \"$out\" -name libfontmanager.so -exec patchelf --add-needed libfontconfig.so {} \\;"; }; # Workaround for https://github.com/NixOS/nixpkgs/pull/215583#issuecomment-1615369844
-  graalvmCEPackages.graaljs.overlay = g: stable.lib.throwIf (stable.lib.hasInfix "jvm" g.src.url) "graaljs no longer requires an overlay" { src = stable.fetchurl { url = builtins.replaceStrings [ "community" ] [ "community-jvm" ] g.src.url; hash = "sha256-fZCcRSuQm26qwZuS6ryIp4b9Br7xMmiu1ZUnJBOemT4="; }; buildInputs = g.buildInputs ++ stable.graalvm-ce.buildInputs; }; # https://discourse.nixos.org/t/36314
+  graalvmCEPackages.graaljs.overlay = g: stable.lib.throwIf (stable.lib.hasInfix "jvm" g.src.url) "graaljs no longer requires an overlay" { src = stable.fetchurl { url = builtins.replaceStrings [ "community" ] [ "community-jvm" ] g.src.url; hash = "sha256-XQpE7HfUVc0ak7KY+6ONu9cbFjlocKGbUPNlWKdTnM0="; }; buildInputs = g.buildInputs ++ stable.graalvm-ce.buildInputs; }; # https://discourse.nixos.org/t/36314
   gtk4-icon-browser = any;
   htop.patch = ../packages/resources/htop_colors.patch; # htop-dev/htop#1416
   httpie.env.NIX_SSL_CERT_FILE = "/etc/ssl/certs/ca-certificates.crt"; # NixOS/nixpkgs#94666
@@ -55,11 +50,10 @@ in
   josm-hidpi = any;
   josm-imagery-used = any;
   just-local = any;
-  kitty.version = "≥0.35.1"; # kovidgoyal/kitty#7413
   little-a-map = any;
   losslesscut-bin.args = [ "--disable-networking" ];
   mark-applier = any;
-  meshtastic-matrix-relay.python3Packages = (stable.lib.throwIf (stable.lib.versionAtLeast stable.python3Packages.meshtastic.version "2.5.4") "python3Packages.meshtastic no longer requires an override" unstable).python3Packages.override {
+  meshtastic-matrix-relay.python3Packages = stable.python3Packages.override {
     overrides = resolvedPythonPackages: pythonPackages: {
       py-staticmaps = stable.lib.throwIf (pythonPackages ? py-staticmaps) "python3Packages.py-staticmaps no longer requires packaging" (pythonPackages.buildPythonPackage rec {
         pname = "py-staticmaps";
@@ -87,18 +81,14 @@ in
   off = any;
   picard.overlay = p: { preFixup = p.preFixup + "\nmakeWrapperArgs+=(--prefix PATH : ${stable.lib.makeBinPath [ resolved.rsgain ]})"; }; # NixOS/nixpkgs#255222
   pngquant-interactive = any;
-  ruff.version = "≥0.4.5"; # ruff server
-  rust-analyzer.version = "≥2024-09-02"; # Compatibility with Rust 1.82
   signal-desktop.gappsWrapperArgs = "--add-flags --use-tray-icon"; # Enable tray icon
   spf-check = any;
   spf-tree = any;
   tile-stitch = any;
   unln = any;
+  vagrant.withLibvirt = false; # Workaround for NixOS/nixpkgs#348938
   vscode-extensions = namespaced {
-    bierner.markdown-preview-github-styles = any;
-    biomejs.biome = any;
     bpruitt-goddard.mermaid-markdown-syntax-highlighting.search = open-vsx;
-    charliermarsh.ruff.version = "≥2024.22.0";
     compilouit.xkb.search = open-vsx;
     csstools.postcss.search = open-vsx;
     earshinov.permute-lines.search = open-vsx;
@@ -126,7 +116,6 @@ in
     condition = w: w.dontWrapGApps or false; # NixOS/nixpkgs#316717
     patch = [ ../packages/resources/whipper_flac-level.patch ../packages/resources/whipper_speed.patch ../packages/resources/whipper_detect-tty.patch ];
   };
-  yaru-theme.patch = ../packages/resources/yaru-theme_font.patch; # Set GNOME Shell font
   ydotool.patch = ../packages/resources/ydotool-halmakish.patch; # Pending ReimuNotMoe/ydotool#177
   yubikey-touch-detector.overlay = y: {
     postPatch = y.postPatch or "" + ''substituteInPlace notifier/libnotify.go --replace-fail \
@@ -136,7 +125,4 @@ in
   };
   zsh-abbr.condition = z: !z.meta.unfree;
   zsh-click = any;
-}) // {
-  # Pending NixOS/nixpkgs#356829
-  fetchsvn = a: (stable.fetchsvn a).overrideAttrs (f: { nativeBuildInputs = f.nativeBuildInputs ++ [ resolved.cacert ]; });
 }

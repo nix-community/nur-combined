@@ -8,4 +8,5 @@ foldl
 foldr
 pkgs
 pname
+pyproject
 stdenv

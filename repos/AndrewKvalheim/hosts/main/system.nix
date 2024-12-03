@@ -21,8 +21,7 @@ in
   };
 
   # Kernel
-  boot.kernelPackages = mkIf (versionOlder pkgs.linux.version "6.12")
-    pkgs.linuxPackages_6_12 or pkgs.linuxPackages_latest;
+  boot.kernelPackages = mkIf (versionOlder pkgs.linux.version "6.12") pkgs.linuxPackages_6_12;
 
   # Hardware
   services.fstrim.enable = true;

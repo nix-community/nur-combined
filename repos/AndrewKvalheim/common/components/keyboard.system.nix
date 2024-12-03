@@ -6,10 +6,6 @@ let
   identity = import ../resources/identity.nix;
 in
 {
-  imports = [
-    ../../packages/kmonad.nix
-  ];
-
   console.useXkbConfig = true;
   services.xserver.xkb.layout = "halmakish";
   services.xserver.xkb.extraLayouts.halmakish = {
@@ -22,8 +18,11 @@ in
     enable = true;
     keyboards.default = {
       config = readFile (config.host.resources + "/halmakish.kbd");
-      fallthrough = true;
-      allowCommands = false;
+      defcfg = {
+        enable = true;
+        allowCommands = false;
+        fallthrough = true;
+      };
     };
   };
   systemd.services.kmonad-default.restartIfChanged = false;

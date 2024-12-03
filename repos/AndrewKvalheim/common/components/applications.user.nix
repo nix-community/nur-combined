@@ -43,10 +43,7 @@ in
     programs.ssh = {
       enable = true;
       includes = [ "config.d/*" ];
-      extraOptionOverrides = {
-        GSSAPIAuthentication = "no";
-        PreferredAuthentications = "publickey";
-      };
+      extraOptionOverrides.PreferredAuthentications = "publickey";
     };
 
     # Packages
@@ -55,7 +52,7 @@ in
       binsider
       cavif
       darktable
-      gnome.dconf-editor
+      dconf-editor
       dig
       displaycal
       duperemove
@@ -137,7 +134,7 @@ in
       "JPEG: Strip geolocation".xargs = "nice ${exiftool}/bin/exiftool -overwrite_original -gps:all= -xmp:geotag=";
       "PNG: Optimize".xargs = ''
         nice ${efficient-compression-tool}/bin/ect -8 -keep -quiet --mt-file \
-        2> >(${gnome.zenity}/bin/zenity --width 600 --progress --pulsate --auto-close --auto-kill)
+        2> >(${zenity}/bin/zenity --width 600 --progress --pulsate --auto-close --auto-kill)
       '';
       "PNG: Quantize".each = ''
         ${pngquant-interactive}/bin/pngquant-interactive --suffix '.qnt' "$path"

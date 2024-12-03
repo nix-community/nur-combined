@@ -38,6 +38,8 @@ antijoins
 antimeme
 antimemetic
 antimemetics
+antipattern
+antipatterns
 APNIC
 AppFolio
 AppImage
@@ -273,6 +275,7 @@ deliverability
 Delridge
 denormalize
 Dependabot
+deprovisioned
 dereference
 dereferencing
 deseeded
@@ -314,6 +317,7 @@ downvoted
 drey
 DRM
 DSL
+DSLR
 DSN
 durations
 Duwamish
@@ -395,6 +399,7 @@ gamified
 Gandi
 Gantt
 gaslit
+GDK
 Geary
 GECOS
 gedit
@@ -501,6 +506,7 @@ imperfectionist
 inclusivity
 IndieWeb
 IndieWebCamp
+inflator
 inflector
 influencers
 infographic
@@ -907,6 +913,7 @@ PulseAudio
 puppeting
 Puyallup
 PyPI
+pyproject.toml
 pythonic
 Qalculate
 QGIS
@@ -973,6 +980,8 @@ resholve
 Restreamer
 restrictor
 retryable
+rewatch
+rewatched
 RGB
 RGBA
 ringback
@@ -1048,6 +1057,7 @@ serializer
 serializers
 serifless
 SES
+Setuptools
 SGR
 sheeple
 ShellCheck
@@ -1077,6 +1087,7 @@ Snohomish
 Snoqualmie
 Snowden
 snowshoed
+SNR
 SourceForge
 Soylent
 Spacemacs

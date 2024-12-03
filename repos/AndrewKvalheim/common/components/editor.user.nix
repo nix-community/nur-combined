@@ -18,7 +18,10 @@ let
   };
 in
 {
-  allowedUnfree = [ "vscode-extension-ms-vsliveshare-vsliveshare" ];
+  allowedUnfree = [
+    "vscode-extension-mhutchie-git-graph"
+    "vscode-extension-ms-vsliveshare-vsliveshare"
+  ];
 
   programs.vscode = {
     enable = true;
@@ -206,22 +209,23 @@ in
         "terminal.ansibrightwhite" = white;
         "tab.inactiveBackground" = black;
         "editorGroupHeader.tabsBackground" = black;
-        "editorGutter.addedBackground" = purple;
-        "editorGutter.deletedBackground" = purple;
-        "editorGutter.modifiedBackground" = purple;
-        "editorOverviewRuler.addedForeground" = purple;
-        "editorOverviewRuler.deletedForeground" = purple;
-        "editorOverviewRuler.modifiedForeground" = purple;
-        "gitDecoration.modifiedResourceForeground" = purple;
-        "gitDecoration.untrackedResourceForeground" = purple-dark;
+        "editorGutter.addedBackground" = blue;
+        "editorGutter.deletedBackground" = blue;
+        "editorGutter.modifiedBackground" = blue;
+        "editorOverviewRuler.addedForeground" = blue;
+        "editorOverviewRuler.deletedForeground" = blue;
+        "editorOverviewRuler.modifiedForeground" = blue;
+        "gitDecoration.modifiedResourceForeground" = blue;
+        "gitDecoration.untrackedResourceForeground" = blue-dark;
+        "editorInfo.foreground" = purple;
         "editorMarkerNavigationWarning.background" = orange;
         "editorOverviewRuler.warningForeground" = orange;
         "editorWarning.foreground" = orange;
         "list.warningForeground" = orange;
-        "diffEditor.removedLineBackground" = "${vermilion-dark}44";
-        "diffEditor.removedTextBackground" = vermilion-dark;
-        "diffEditor.insertedTextBackground" = teal-dark;
-        "diffEditor.insertedLineBackground" = "${teal-dark}22";
+        "diffEditor.removedLineBackground" = "${vermilion}11";
+        "diffEditor.removedTextBackground" = "${vermilion}33";
+        "diffEditor.insertedTextBackground" = "${teal}33";
+        "diffEditor.insertedLineBackground" = "${teal}11";
         "commandCenter.background" = "#1b1b1b";
         "commandCenter.border" = "#00000000";
         "commandCenter.inactiveBorder" = "#00000000";
@@ -231,7 +235,7 @@ in
         "titleBar.border" = "#00000000";
         "editor.findMatchHighlightBackground" = "#00000000";
         "editor.findMatchHighlightBorder" = "#aaaaaa";
-        "editor.selectionHighlightBackground" = "#464646";
+        "editor.selectionHighlightBackground" = "#464646cc";
         "editorError.foreground" = red;
         "editorMarkerNavigationError.background" = red-dark;
         "editorOverviewRuler.errorForeground" = red;
@@ -271,6 +275,7 @@ in
           { scope = "variable.language.self, variable.language.super"; settings = { foreground = purple; fontStyle = "italic"; }; }
         ];
       };
+      "cSpell.useCustomDecorations" = false;
 
       # Language-specific
       "emmet.includeLanguages" = { postcss = "css"; };

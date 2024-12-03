@@ -20,19 +20,15 @@ in
 {
   # Packages
   home.packages = with pkgs; [
-    gnome.gnome-tweaks
-    yaru-theme
+    gnome-tweaks
   ] ++ extensions;
 
   # Backend
   dconf.settings."org/gnome/mutter".experimental-features = [ "scale-monitor-framebuffer" ]; # Workaround for paperwm/PaperWM#938
 
   # Theme
+  dconf.settings."org/gnome/desktop/interface".accent-color = "orange"; # TODO: Match to palette.orange?
   dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
-  dconf.settings."org/gnome/desktop/interface".cursor-theme = "Yaru";
-  dconf.settings."org/gnome/desktop/interface".gtk-theme = "Yaru-dark";
-  dconf.settings."org/gnome/desktop/interface".icon-theme = "Yaru-dark";
-  dconf.settings."org/gnome/shell/extensions/user-theme".name = "Yaru-dark";
   dconf.settings."org/gnome/desktop/background".picture-uri = host.background;
   dconf.settings."org/gnome/desktop/background".picture-uri-dark = host.background;
   dconf.settings."org/gnome/desktop/screensaver".picture-uri = host.background;

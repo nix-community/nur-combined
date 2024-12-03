@@ -85,10 +85,12 @@ in
     # Authentication
     security.pam.u2f = {
       enable = true;
-      appId = "pam://${host.name}";
-      authFile = "/etc/u2f-mappings";
       control = "sufficient";
-      cue = true;
+      settings = {
+        appid = "pam://${host.name}";
+        authfile = "/etc/u2f-mappings";
+        cue = true;
+      };
     };
 
     # Authorization

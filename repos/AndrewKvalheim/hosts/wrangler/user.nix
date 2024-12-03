@@ -46,7 +46,7 @@ in
     teams-for-linux
     thunderbird
     tor-browser-bundle-bin
-    transmission-gtk
+    transmission_4-gtk
     zoom-us
   ];
   programs.zsh.initExtra = ''

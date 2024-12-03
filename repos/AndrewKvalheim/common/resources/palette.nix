@@ -48,6 +48,7 @@ let
     yellow-dim = dim yellow // { c = 0.105; };
 
     # Dark
+    blue-dark = dark blue;
     purple-dark = dark purple;
     red-dark = dark red;
     teal-dark = dark teal;
