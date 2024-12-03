@@ -3,7 +3,6 @@
 appimageTools.wrapType2 rec {
   version = "0.7.3";
   pname = "assfonts-gui";
-  name = "${pname}-${version}";
 
   arch =
     if stdenv.system == "x86_64-linux" then "x86_64"
@@ -29,7 +28,7 @@ appimageTools.wrapType2 rec {
   src = "${tarSrc}/assfonts-gui.AppImage";
 
   appimageContents = appimageTools.extractType2 {
-    inherit name src;
+    inherit version pname src;
   };
 
   extraInstallCommands = ''
