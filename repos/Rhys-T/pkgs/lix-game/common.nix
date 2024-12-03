@@ -1,14 +1,14 @@
 { fetchFromGitHub, fetchzip, lib, enet, hostPlatform, maintainers }: rec {
     pname = "lix-game";
-    version = "0.10.26";
+    version = "0.10.27";
     src = fetchFromGitHub {
         owner = "SimonN";
         repo = "LixD";
         rev = "v${version}";
-        hash = "sha256-cDR/7GFkFPRH8HK5k4q3PMon2tW+eyCUL9qgNBtI2rU=";
+        hash = "sha256-h8CXgpw++4m+FyXKavJOA2oRvMQb1ckUV3nyY+GSR3U=";
     };
-    assetsHash = "sha256-KhdjR0qkNeOeJa4qIWGWOm4Ke8bVAMKk//W0hyOLPyo=";
-    assetsPNG32Hash = "sha256-LRHJjK2xr1JpclIkUyRDNOIBXgi+6N4EoTeUvl3U0/8=";
+    assetsHash = "sha256-t2vSn0C+KX8et+znfJZO9KUzobBx0LqRzMXajSzAPwA=";
+    assetsPNG32Hash = "sha256-KoSE4EF3FC6v9X7hZc/DU8jvgGa0DU3SpFCWAu/elyk=";
     meta = {
         description = "Lemmings-like game with puzzles, editor, multiplayer";
         longDescription = ''
