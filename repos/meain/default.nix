@@ -49,8 +49,8 @@ in
   # dbui = pkgs.callPackage ./pkgs/dbui { };
   # dotool = pkgs.callPackage ./pkgs/dotool { };
   # pulseaudio-virtualmic = pkgs.callPackage ./pkgs/pulseaudio-virtualmic { };
-  chatgpt-cli = pkgs.callPackage ./pkgs/chatgpt-cli { };
-  logseq-doctor = pkgs.callPackage ./pkgs/logseq-doctor { };
+  # chatgpt-cli = pkgs.callPackage ./pkgs/chatgpt-cli { };
+  # logseq-doctor = pkgs.callPackage ./pkgs/logseq-doctor { };
   # fabric = pkgs.callPackage ./pkgs/fabric { };
   # aider = pkgs.callPackage ./pkgs/aider { };
 
