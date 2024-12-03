@@ -26,6 +26,7 @@
   wpsoffice-365 = pkgs.libsForQt5.callPackage ./pkgs/wpsoffice-365 { };
   FuzzyMarks = pkgs.callPackage ./pkgs/FuzzyMarks { };
   labwc-with-ws4waybar = pkgs.callPackage ./pkgs/labwc-with-ws4waybar { };
+  waybar-Consolatis-fork = pkgs.callPackage ./pkgs/waybar-Consolatis-fork { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
   # ...
