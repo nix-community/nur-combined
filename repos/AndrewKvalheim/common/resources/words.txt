@@ -966,6 +966,7 @@ reimagining
 reimplement
 reimplementing
 reinstalls
+reinterpretable
 ReiserFS
 remapper
 renamer
