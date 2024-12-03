@@ -2177,10 +2177,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "134.0.20241129.91919";
+      version = "134.0.20241202.91515";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4396791/deutsch_de_language_pack-134.0.20241129.91919.xpi";
-      sha256 = "82e8fcdd5b217ea2c20f193c3bc433a002028d391b82378bd6ef935b8c5348f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4398247/deutsch_de_language_pack-134.0.20241202.91515.xpi";
+      sha256 = "6058f5e9e2a1de16f31001521ace6ed2f27074b136360bc7c97a49099bedd669";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2439,10 +2439,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.50.0";
+      version = "2.51.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4397558/dualsub-2.50.0.xpi";
-      sha256 = "d9a3a229c418b419e8f3842a5de12e3822240e890d69c3bff8e09ed8d4dc1729";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4398779/dualsub-2.51.0.xpi";
+      sha256 = "a102f7b72eac9a86b4320e38c5b1d6da943a128ad313a58aad723e017c59be8a";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -2657,10 +2657,10 @@
     };
     "enhancer-for-youtube" = buildFirefoxXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.126.1";
+      version = "2.0.130.1";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4354445/enhancer_for_youtube-2.0.126.1.xpi";
-      sha256 = "281035bd4211a8fbdcafb85e98044e3c02550495f91e1d00680cde404c742fbf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4393561/enhancer_for_youtube-2.0.130.1.xpi";
+      sha256 = "6d84dcba9b197840f485d66d3fd435279d6e1bcd2155d28389999e87ea01312c";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -3362,10 +3362,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "134.0.20241129.91919";
+      version = "134.0.20241202.91515";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4396783/francais_language_pack-134.0.20241129.91919.xpi";
-      sha256 = "807711e93fa73c3989dd0c9e762885005921907a3c478ec73e3b59bc4eb38508";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4398243/francais_language_pack-134.0.20241202.91515.xpi";
+      sha256 = "7a28b1bdbf6b56b5048b47def7935a34a870cfcf6e80a7e7c37da9341e7d621c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3399,10 +3399,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "134.0.20241129.91919";
+      version = "134.0.20241202.91515";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4396755/gaidhlig_language_pack-134.0.20241129.91919.xpi";
-      sha256 = "da46d3ea7b63d9e02139d16c6b935c3a69c3f665dc45489dc9a282beb2448a59";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4398277/gaidhlig_language_pack-134.0.20241202.91515.xpi";
+      sha256 = "d0be48f9deea597df980b562d1e2ebb10e7e4988ab26a50e1e969578786fa04f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -3448,10 +3448,10 @@
     };
     "ghostery" = buildFirefoxXpiAddon {
       pname = "ghostery";
-      version = "10.4.10";
+      version = "10.4.16";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4369873/ghostery-10.4.10.xpi";
-      sha256 = "fce7e3052f003891218ce631dbb884227d9a631c39c46004624a14f1731f0826";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4392896/ghostery-10.4.16.xpi";
+      sha256 = "d999f4f1e23b902e1d4578e584faa3118be7cd78592606979623d397e2f8222a";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -9718,10 +9718,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.11.21";
+      version = "24.12.2";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4391954/refined_github-24.11.21.xpi";
-      sha256 = "641fbd216f236295a109c36ba0bcc282dc17219ea64c6e49baeeb3f02b68d644";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4398027/refined_github-24.12.2.xpi";
+      sha256 = "b11a3756e6a04fcad2f91a58c668f1ab0a072240c019613f0fb19e03b0725478";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -9914,10 +9914,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "134.0.20241129.91919";
+      version = "134.0.20241202.91515";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4396766/scots_language_pack-134.0.20241129.91919.xpi";
-      sha256 = "171be97463766ec9d3a6fe5a3a0da0695f73e77a6474c7d09c5a794055888764";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4398267/scots_language_pack-134.0.20241202.91515.xpi";
+      sha256 = "311d09e520db8b9d7eb4ce29123c99f0717ccd70f9ff433c1feae26b0c1edf44";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10625,10 +10625,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "4.9";
+      version = "4.10";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4379170/steam_database-4.9.xpi";
-      sha256 = "8c3d26153c009595a80d20d41cef38650e9938ec7836eb4e8b59c0dd65e725f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4393736/steam_database-4.10.xpi";
+      sha256 = "1d77ec61f9905261e9f00885428e5791f457f08480b551d10279010496f24328";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
