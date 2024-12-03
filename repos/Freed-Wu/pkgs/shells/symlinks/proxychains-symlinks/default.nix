@@ -8,7 +8,7 @@ stdenvNoCC.mkDerivation {
   name = "proxychains-symlinks";
   src = (
     fetchurl {
-      url = "https://raw.githubusercontent.com/haad/proxychains/refs/commit/02409fba797da68fa6a06c2c9290e8e43366fd8a/completions/zsh/_proxychains4";
+      url = "https://raw.githubusercontent.com/haad/proxychains/02409fba797da68fa6a06c2c9290e8e43366fd8a/completions/zsh/_proxychains4";
       sha256 = "sha256-pvqN40tZiGzITgSJm6FpwlOuMx2oHn7OOU4uhyEF7Bo=";
     }
   );

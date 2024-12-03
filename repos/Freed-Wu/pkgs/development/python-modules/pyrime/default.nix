@@ -5,11 +5,12 @@
   pkg-config,
   stdenv,
   lib,
+  autopxd,
 }:
 
 with python3.pkgs;
 
-buildPythonPackage rec {
+buildPythonPackage {
   inherit (mySources.pyrime) pname version src;
   format = "pyproject";
   disabled = pythonOlder "3.6";
@@ -19,6 +20,8 @@ buildPythonPackage rec {
     ptpython
   ];
   nativeBuildInputs = [
+    autopxd
+    cython
     meson-python
     pkg-config
     stdenv.cc

@@ -6,6 +6,10 @@ fetch.github = "B00merang-Artwork/Windows-10"
 src.github = "B00merang-Project/Windows-10"
 fetch.github = "B00merang-Project/Windows-10"
 
+[autopxd]
+src.pypi = "autopxd2"
+fetch.pypi = "autopxd2"
+
 [undollar]
 src.github = "Freed-Wu/undollar"
 fetch.github = "Freed-Wu/undollar"

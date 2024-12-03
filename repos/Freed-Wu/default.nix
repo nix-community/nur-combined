@@ -52,6 +52,7 @@ let
     stardict-langdao-ce-gb = callPackage ./pkgs/data/misc/stardict-langdao-ce-gb { };
     stardict-langdao-ec-gb = callPackage ./pkgs/data/misc/stardict-langdao-ec-gb { };
     windows10-themes = callPackage ./pkgs/data/misc/windows10-themes { };
+    autopxd = callPackage ./pkgs/development/python-modules/autopxd { };
 
     pyrime = callPackage ./pkgs/development/python-modules/pyrime { };
     lsp-tree-sitter = callPackage ./pkgs/development/python-modules/lsp-tree-sitter { };
