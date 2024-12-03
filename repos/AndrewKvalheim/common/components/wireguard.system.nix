@@ -28,11 +28,9 @@ in
         wireguardConfig.PrivateKeyFile = "/var/lib/wireguard/wg0.key";
         wireguardPeers = mapAttrsToList
           (_: peer: {
-            wireguardPeerConfig = {
-              AllowedIPs = [ "${peer.ip}/32" ];
-              Endpoint = peer.endpoint;
-              PublicKey = peer.key;
-            };
+            AllowedIPs = [ "${peer.ip}/32" ];
+            Endpoint = peer.endpoint;
+            PublicKey = peer.key;
           })
           host.wireguard.peers;
       };
