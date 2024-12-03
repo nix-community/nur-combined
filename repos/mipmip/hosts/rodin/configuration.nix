@@ -26,6 +26,16 @@
 
   services.flatpak.enable = true;
   services.tailscale.enable = true;
+  services.guacamole-server.enable = true;
+  services.guacamole-client = {
+    enable = true;
+    enableWebserver = true;
+    settings = {
+      guacd-port = 4822;
+      guacd-hostname = "localhost";
+    };
+  };
+
 
   services.xserver.videoDrivers = [ "nvidia" ];
 

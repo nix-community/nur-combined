@@ -4,6 +4,7 @@ mkShell {
   buildInputs = [
     nodejs
     yarn
+    cypress
   ];
   shellHook = ''
   '';

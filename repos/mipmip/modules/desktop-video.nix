@@ -13,8 +13,8 @@
         wlrobs
         advanced-scene-switcher
         input-overlay
-
-        #obs-backgroundremoval
+        obs-backgroundremoval
+        obs-composite-blur
         #obs-pipewire-audio-capture
       ];
     })
