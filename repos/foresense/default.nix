@@ -20,8 +20,5 @@ in
   loomer-sequent = callPackage ./pkgs/loomer/sequent.nix { };
   loomer-shift2 = callPackage ./pkgs/loomer/shift2.nix { };
   loomer-string = callPackage ./pkgs/loomer/string.nix { };
-  pianoteq = callPackage ./pkgs/pianoteq { };
-  redux = callPackage ./pkgs/redux { };
-  renoise = callPackage ./pkgs/renoise { };
   serialosc = callPackage ./pkgs/serialosc { };
 }

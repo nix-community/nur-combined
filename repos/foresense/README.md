@@ -34,19 +34,7 @@ Audio plugins from Loomer (they work as demo until registered).
 - Shift
 - String
 
-### Modartt pianoteq
-
-Personal package for Modartt Pianoteq. It depends on adding the archive to the nix store before installing.
-
-### Renoise
-
-Personal package for Renoise. It depends on adding the archive to the nix store before installing. The hash is specific to my copy of Renoise.
-
-### Redux
-
-Personal package for Redux, It depends on adding the archive to the nix store before installing. The hash is specific to my copy of Redeux.
-
----
+-----
 
 ![Build and populate cache](https://github.com/foresense/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
 [![Cachix Cache](https://img.shields.io/badge/cachix-foresense-blue.svg)](https://foresense.cachix.org)
