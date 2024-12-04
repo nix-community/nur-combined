@@ -7,13 +7,13 @@ let
     owner = "alexta69";
     repo = "metube";
     rev = "4a87e9fa68569e467224c8ef9cc49df8dfede831";
-    hash = "sha256-jlXe8ySyUdYKwQlvb/hANIIk15D1Ds/gPMpYwgTeU19=";
+    hash = "sha256-thKEe9nMTWgecYoKrXzHpNO+Fmhrtj9ru5aNd2EhK38=";
   };
   metube_ui = buildNpmPackage rec {
     pname = "metube-ui";
     inherit version src;
     sourceRoot = "source/ui";
-    npmDepsHash = "sha256-j0YaW8A5t+Vc/UJW729FkCpPamPmOQwvbXzKyFl7Qrg=";
+    npmDepsHash = "sha256-LJer26oDi30+wDmN8GFwQCw88Nu1CfWi4X8LJaAyeGo=";
   };
 in stdenv.mkDerivation rec {
   pname = "metube";

@@ -142,6 +142,7 @@ in buildFHSEnv {
     ln -sf ${lutris-unwrapped}/share/icons $out/share
   '';
 
+  # https://github.com/NixOS/nixpkgs/pull/358977
   extraBwrapArgs = [ "--symlink /.host-etc/dconf /etc/dconf" ];
 
   # allows for some gui applications to share IPC
