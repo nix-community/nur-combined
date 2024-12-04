@@ -5,7 +5,7 @@ on:
   push:
     paths:
       - 'flake.lock'
-      - 'pkgs'
+      - 'pkgs/**'
       
   schedule:
     # rebuild everyday at 2:51
