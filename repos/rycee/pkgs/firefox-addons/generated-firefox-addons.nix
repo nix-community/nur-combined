@@ -2096,10 +2096,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2447.0";
+      version = "6.2449.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4390034/dashlane-6.2447.0.xpi";
-      sha256 = "253126a5b14148efca5392d4dc631cc7e8eb02708f9463e70a0e7407af3dc43b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4398065/dashlane-6.2449.0.xpi";
+      sha256 = "b59804f8e3da04d952a0ca2ca61293edeb1b2a9c1e9e72f0c471e898c0f878bc";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -5221,10 +5221,10 @@
     };
     "immersive-translate" = buildFirefoxXpiAddon {
       pname = "immersive-translate";
-      version = "1.11.4";
+      version = "1.11.7";
       addonId = "{5efceaa7-f3a2-4e59-a54b-85319448e305}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4389110/immersive_translate-1.11.4.xpi";
-      sha256 = "641899287127d0bd55a06dfa9cd5228ecc3e9174d44adea68772fe67b882d232";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4394599/immersive_translate-1.11.7.xpi";
+      sha256 = "53cf77c2ec7ced59167ee55a8f7f0acbd45da50d93e110423b4f698135ffbb38";
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
@@ -9267,10 +9267,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.24.4";
+      version = "1.25.0";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4387139/proton_pass-1.24.4.xpi";
-      sha256 = "852bca200818db59ee5418e576911a29c3f21245b828d272cddcad88c4f1bd0c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4393918/proton_pass-1.25.0.xpi";
+      sha256 = "f032a0a522b647277680649e4546392b4b891a54b2e699f9887ad398d58a6033";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -10519,10 +10519,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.9.6";
+      version = "5.10.1";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4385525/sponsorblock-5.9.6.xpi";
-      sha256 = "1112b79a0a10a9d19ec470585af245b25a2caf1302751553886d2975c07e5655";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4395988/sponsorblock-5.10.1.xpi";
+      sha256 = "68532967a5a510193ddbcf3397e4182388a129cc54a07aade0e9e6762c58f516";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -13082,10 +13082,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.10.7.1";
+      version = "24.11.23.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4369918/yomitan-24.10.7.1.xpi";
-      sha256 = "0c4a52da2bb1bc324e6c50953093d331b032216a6fc98d1dce94d69ec53ef0fc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4393111/yomitan-24.11.23.0.xpi";
+      sha256 = "76e24b9e54223e0aaac92f60ccee2e1042a908c6f2625c76eba65f1647796263";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
