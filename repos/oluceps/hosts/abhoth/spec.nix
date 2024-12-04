@@ -4,13 +4,14 @@
   ...
 }:
 {
-
-  system.stateVersion = "25.05";
+  system = {
+    stateVersion = "25.05";
+    etc.overlay.enable = true;
+    etc.overlay.mutable = false;
+  };
 
   users.mutableUsers = false;
   services.userborn.enable = true;
-  system.etc.overlay.enable = true;
-  system.etc.overlay.mutable = false;
 
   nix.gc = {
     automatic = true;

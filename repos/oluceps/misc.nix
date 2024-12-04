@@ -209,18 +209,54 @@
 
   };
   boot.enableContainers = false;
-  environment.defaultPackages = [ ];
+  environment = {
+    defaultPackages = [ ];
+
+    # srv.earlyoom.enable = true;
+    systemPackages = [
+      pkgs.eza
+    ];
+
+    etc = {
+      "NIXOS".text = "";
+      "machine-id".text = "b08dfa6083e7567a1921a715000001fb\n";
+      "sbctl/sbctl.conf".source =
+        let
+          sbctlVar = "/var/lib/sbctl";
+        in
+        (pkgs.formats.yaml { }).generate "sbctl.conf" {
+          bundles_db = "${sbctlVar}/bundles.json";
+          db_additions = [ "microsoft" ];
+          files_db = "${sbctlVar}/files.json";
+          guid = "${sbctlVar}/GUID";
+          keydir = "${sbctlVar}/keys";
+          keys = {
+            db = {
+              privkey = "${sbctlVar}/keys/db/db.key";
+              pubkey = "${sbctlVar}/keys/db/db.pem";
+              type = "file";
+            };
+            kek = {
+              privkey = "${sbctlVar}/keys/KEK/KEK.key";
+              pubkey = "${sbctlVar}/keys/KEK/KEK.pem";
+              type = "file";
+            };
+            pk = {
+              privkey = "${sbctlVar}/keys/PK/PK.key";
+              pubkey = "${sbctlVar}/keys/PK/PK.pem";
+              type = "file";
+            };
+          };
+          landlock = true;
+        };
+    };
+  };
   documentation.info.enable = false;
 
   systemd.services.nix-daemon.serviceConfig = {
     LimitNOFILE = lib.mkForce 500000000;
     Environment = [ "TMPDIR=/var/tmp/nix-daemon" ];
   };
-
-  # srv.earlyoom.enable = true;
-  environment.systemPackages = [
-    pkgs.eza
-  ];
 
   boot.tmp.useTmpfs = true;
   # powerManagement.powertop.enable = true;
@@ -386,38 +422,4 @@
   ];
 
   i18n.defaultLocale = "en_GB.UTF-8";
-
-  environment.etc = {
-    "NIXOS".text = "";
-    "machine-id".text = "b08dfa6083e7567a1921a715000001fb\n";
-    "sbctl/sbctl.conf".source =
-      let
-        sbctlVar = "/var/lib/sbctl";
-      in
-      (pkgs.formats.yaml { }).generate "sbctl.conf" {
-        bundles_db = "${sbctlVar}/bundles.json";
-        db_additions = [ "microsoft" ];
-        files_db = "${sbctlVar}/files.json";
-        guid = "${sbctlVar}/GUID";
-        keydir = "${sbctlVar}/keys";
-        keys = {
-          db = {
-            privkey = "${sbctlVar}/keys/db/db.key";
-            pubkey = "${sbctlVar}/keys/db/db.pem";
-            type = "file";
-          };
-          kek = {
-            privkey = "${sbctlVar}/keys/KEK/KEK.key";
-            pubkey = "${sbctlVar}/keys/KEK/KEK.pem";
-            type = "file";
-          };
-          pk = {
-            privkey = "${sbctlVar}/keys/PK/PK.key";
-            pubkey = "${sbctlVar}/keys/PK/PK.pem";
-            type = "file";
-          };
-        };
-        landlock = true;
-      };
-  };
 }

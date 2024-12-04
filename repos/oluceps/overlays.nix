@@ -28,8 +28,7 @@
       #   })
       #   factorio-headless-experimental
       #   ;
-      sbctl = (
-        prev.callPackage "${prev.path}/pkgs/by-name/sb/sbctl/package.nix" {
+      sbctl = prev.callPackage "${prev.path}/pkgs/by-name/sb/sbctl/package.nix" {
           buildGoModule =
             args:
             prev.buildGoModule (
@@ -41,7 +40,7 @@
                       myVersion = "0.16";
                       inherit (prev.lib) versionOlder;
                     in
-                    (if (versionOlder myVersion prev.pkgs.sbctl.version) then throw "Newer in nixpkgs" else myVersion);
+                    if (versionOlder myVersion prev.pkgs.sbctl.version) then throw "Newer in nixpkgs" else myVersion;
                 in
                 {
                   inherit version;
@@ -63,8 +62,7 @@
                 }
               )
             );
-        }
-      );
+        };
 
       inherit (inputs'.browser-previews.packages) google-chrome-beta;
 
@@ -108,7 +106,7 @@
 
       # sha256 = "0000000000000000000000000000000000000000000000000000";
 
-      scx = inputs'.nyx.packages.scx;
+      inherit (inputs'.nyx.packages) scx;
 
       picom = prev.picom.overrideAttrs (old: {
         src = prev.fetchFromGitHub {

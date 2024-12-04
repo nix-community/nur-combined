@@ -7,18 +7,18 @@
 }:
 
 let
-  glowsans = (import ../tool/glow-sans.nix);
+  glowsans = import ../tool/glow-sans.nix;
 in
 
 # inherit
 # (
 # {
-(callPackage (glowsans {
+callPackage (glowsans {
   pname = "glowsans-J";
   version = "0.93";
   lang = "J";
   sha256 = "sha256-tKhPbSd9PA7G6DOsD+JbQFRe3twZ31+0ZDcx7vD3MKI=";
-}) { })
+}) { }
 #   glowsansSC = callPackage (glowsans {
 #     pname = "glowsans-SC";
 #     version = "0.93";

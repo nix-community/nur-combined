@@ -76,26 +76,28 @@
         "wg0"
       ];
     };
+    links = {
 
-    links."30-rndis" = {
-      matchConfig.Driver = "rndis_host";
-      linkConfig = {
-        NamePolicy = "keep";
-        Name = "rndis";
-        MACAddressPolicy = "persistent";
+      "30-rndis" = {
+        matchConfig.Driver = "rndis_host";
+        linkConfig = {
+          NamePolicy = "keep";
+          Name = "rndis";
+          MACAddressPolicy = "persistent";
+        };
       };
-    };
-    links."20-ncm" = {
-      matchConfig.Driver = "cdc_ncm";
-      linkConfig = {
-        NamePolicy = "keep";
-        Name = "ncm";
-        MACAddressPolicy = "persistent";
+      "20-ncm" = {
+        matchConfig.Driver = "cdc_ncm";
+        linkConfig = {
+          NamePolicy = "keep";
+          Name = "ncm";
+          MACAddressPolicy = "persistent";
+        };
       };
-    };
-    links."40-wlan" = {
-      matchConfig.Driver = "ath11k_pci";
-      linkConfig.Name = "wlan0";
+      "40-wlan" = {
+        matchConfig.Driver = "ath11k_pci";
+        linkConfig.Name = "wlan0";
+      };
     };
 
     netdevs = {

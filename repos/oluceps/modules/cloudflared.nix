@@ -45,7 +45,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.services.cloudflared-tunnel = ({
+    systemd.services.cloudflared-tunnel = {
       after = [
         "network.target"
         "network-online.target"
@@ -62,11 +62,11 @@ in
         ExecStart = "${cfg.package}/bin/cloudflared --no-autoupdate tunnel run --token $TOKEN";
         Restart = "on-failure";
       };
-    });
+    };
 
     users.users = mkIf (cfg.user == "cloudflared") {
       cloudflared = {
-        group = cfg.group;
+        inherit (cfg) group;
         isSystemUser = true;
       };
     };

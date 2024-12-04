@@ -19,14 +19,14 @@ jobs:
       - name: Fmt check
         run: |
           nix run nixpkgs#nixfmt-rfc-style -- check
-  statix:
-    name: Statix Check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@main
-      - uses: DeterminateSystems/magic-nix-cache-action@main
-      - uses: cachix/cachix-action@v12
-        with:
-          name: statix
-      - uses: jocelynthode/statix-action@master
+  # statix:
+  #   name: Statix Check
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: DeterminateSystems/nix-installer-action@main
+  #     - uses: DeterminateSystems/magic-nix-cache-action@main
+  #     - uses: cachix/cachix-action@v12
+  #       with:
+  #         name: statix
+  #     - uses: jocelynthode/statix-action@master

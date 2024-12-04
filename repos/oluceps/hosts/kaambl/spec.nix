@@ -9,80 +9,14 @@
 
   system.stateVersion = "23.05"; # Did you read the comment?
   users.mutableUsers = false;
-  services.userborn.enable = true;
-  # system.etc.overlay.enable = true;
-  # system.etc.overlay.mutable = false;
-  # system.forbiddenDependenciesRegexes = [ "perl" ];
-  environment.etc."resolv.conf".text = ''
-    nameserver 127.0.0.1
-  '';
-  services.logind = {
-    lidSwitch = "suspend";
-    powerKey = "poweroff"; # it sucks. laptop
-    powerKeyLongPress = "poweroff";
-  };
-  environment.sessionVariables = {
-    # WLR_RENDERER = "vulkan";
-  };
-  zramSwap = {
-    enable = false;
-    swapDevices = 1;
-    memoryPercent = 80;
-    algorithm = "zstd";
-  };
-
-  nix = {
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 10d";
-    };
-    settings = {
-      trusted-public-keys = [ "cache.nyaw.xyz:wXLX+Wtj9giC/+hybqOEJ4FSZIOgOyk8Q6HJxxcZqKY=" ];
-      # enable when not in same network of hastur
-      # substituters = [ "https://cache.nyaw.xyz" ];
-    };
-  };
-  programs.sway.enable = false;
-  programs.gtklock.enable = true;
-
-  systemd.oomd.enable = lib.mkForce false;
-  systemd.user.services.add-ssh-keys = {
-    script = ''
-      eval `${pkgs.openssh}/bin/ssh-agent -s`
-      export SSH_ASKPASS_REQUIRE="prefer"
-      ${pkgs.openssh}/bin/ssh-add ${config.vaultix.secrets.id.path}
-    '';
-    wantedBy = [ "default.target" ];
-  };
-
-  repack = {
-    openssh.enable = true;
-    fail2ban.enable = true;
-    phantomsocks.enable = true;
-    garage.enable = true;
-    dae.enable = true;
-    dnsproxy = {
-      enable = true;
-      # loadCert = true;
-      extraFlags = [
-        "--edns-addr=211.140.13.188"
-        "-l"
-        "127.0.0.1"
-        # "--ipv6-disabled"
-        # "--quic-port=853"
-        # "--https-port=843"
-        "--http3"
-        # "--tls-crt=/run/credentials/dnsproxy.service/nyaw.cert"
-        # "--tls-key=/run/credentials/dnsproxy.service/nyaw.key"
-      ];
-    };
-    earlyoom.enable = true;
-    arti.enable = false;
-    calibre.enable = true;
-  };
-
   services = {
+    userborn.enable = true;
+    logind = {
+      lidSwitch = "suspend";
+      powerKey = "poweroff"; # it sucks. laptop
+      powerKeyLongPress = "poweroff";
+    };
+
     metrics.enable = true;
 
     sing-box.enable = true;
@@ -181,9 +115,50 @@
       #   };
       # };
     };
+
+  };
+  # system.etc.overlay.enable = true;
+  # system.etc.overlay.mutable = false;
+  # system.forbiddenDependenciesRegexes = [ "perl" ];
+  environment.etc."resolv.conf".text = ''
+    nameserver 127.0.0.1
+  '';
+  environment.sessionVariables = {
+    # WLR_RENDERER = "vulkan";
+  };
+  zramSwap = {
+    enable = false;
+    swapDevices = 1;
+    memoryPercent = 80;
+    algorithm = "zstd";
   };
 
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 10d";
+    };
+    settings = {
+      trusted-public-keys = [ "cache.nyaw.xyz:wXLX+Wtj9giC/+hybqOEJ4FSZIOgOyk8Q6HJxxcZqKY=" ];
+      # enable when not in same network of hastur
+      # substituters = [ "https://cache.nyaw.xyz" ];
+    };
+  };
+  programs.sway.enable = false;
+  programs.gtklock.enable = true;
   systemd = {
+
+    oomd.enable = lib.mkForce false;
+    user.services.add-ssh-keys = {
+      script = ''
+        eval `${pkgs.openssh}/bin/ssh-agent -s`
+        export SSH_ASKPASS_REQUIRE="prefer"
+        ${pkgs.openssh}/bin/ssh-add ${config.vaultix.secrets.id.path}
+      '';
+      wantedBy = [ "default.target" ];
+    };
+
     enableEmergencyMode = true;
     watchdog = {
       runtimeTime = "20s";
@@ -192,33 +167,60 @@
     sleep.extraConfig = ''
       AllowHibernation=no
     '';
+
+    tmpfiles.rules = [
+      # "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+      "L+ /run/gdm/.config/monitors.xml - - - - ${pkgs.writeText "gdm-monitors.xml" ''
+        <monitors version="2">
+            <configuration>
+                <logicalmonitor>
+                    <x>0</x>
+                    <y>0</y>
+                    <scale>2</scale>
+                    <primary>yes</primary>
+                    <monitor>
+                        <monitorspec>
+                            <connector>eDP-1</connector>
+                            <vendor>BOE</vendor>
+                            <product>0x0893</product>
+                            <serial>0x00000000</serial>
+                        </monitorspec>
+                        <mode>
+                            <width>2160</width>
+                            <height>1440</height>
+                            <rate>60.001</rate>
+                        </mode>
+                    </monitor>
+                </logicalmonitor>
+            </configuration>
+        </monitors>
+      ''}"
+    ];
   };
-  systemd.tmpfiles.rules = [
-    # "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
-    "L+ /run/gdm/.config/monitors.xml - - - - ${pkgs.writeText "gdm-monitors.xml" ''
-      <monitors version="2">
-          <configuration>
-              <logicalmonitor>
-                  <x>0</x>
-                  <y>0</y>
-                  <scale>2</scale>
-                  <primary>yes</primary>
-                  <monitor>
-                      <monitorspec>
-                          <connector>eDP-1</connector>
-                          <vendor>BOE</vendor>
-                          <product>0x0893</product>
-                          <serial>0x00000000</serial>
-                      </monitorspec>
-                      <mode>
-                          <width>2160</width>
-                          <height>1440</height>
-                          <rate>60.001</rate>
-                      </mode>
-                  </monitor>
-              </logicalmonitor>
-          </configuration>
-      </monitors>
-    ''}"
-  ];
+
+  repack = {
+    openssh.enable = true;
+    fail2ban.enable = true;
+    phantomsocks.enable = true;
+    garage.enable = true;
+    dae.enable = true;
+    dnsproxy = {
+      enable = true;
+      # loadCert = true;
+      extraFlags = [
+        "--edns-addr=211.140.13.188"
+        "-l"
+        "127.0.0.1"
+        # "--ipv6-disabled"
+        # "--quic-port=853"
+        # "--https-port=843"
+        "--http3"
+        # "--tls-crt=/run/credentials/dnsproxy.service/nyaw.cert"
+        # "--tls-key=/run/credentials/dnsproxy.service/nyaw.key"
+      ];
+    };
+    earlyoom.enable = true;
+    arti.enable = false;
+    calibre.enable = true;
+  };
 }

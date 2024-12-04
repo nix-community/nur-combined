@@ -5,11 +5,9 @@
   ...
 }@args:
 let
-  repackNames = (
-    map (lib.removeSuffix ".nix") (
+  repackNames = map (lib.removeSuffix ".nix") (
       lib.attrNames (lib.filterAttrs (n: v: n != "default.nix") (builtins.readDir ./.))
-    )
-  );
+    );
   genReIf = name: lib.mkIf config.repack.${name}.enable;
 in
 {

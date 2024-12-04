@@ -5,7 +5,7 @@
   ...
 }:
 let
-  homeCfgAttr = (import ../home { inherit pkgs lib user; });
+  homeCfgAttr = import ../home { inherit pkgs lib user; };
 in
 {
   systemd.tmpfiles.rules = lib.foldlAttrs (

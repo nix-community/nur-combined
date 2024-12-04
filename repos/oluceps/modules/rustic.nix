@@ -93,7 +93,7 @@ in
           ExecStart =
             let
               profileArgs = lib.concatStringsSep " " (
-                map (i: "-P ${removeSuffix ".toml" (baseNameOf i)}") (opts.profiles)
+                map (i: "-P ${removeSuffix ".toml" (baseNameOf i)}") opts.profiles
               );
               baseCmd = (lib.getExe' opts.package "rustic") + " " + profileArgs;
             in
@@ -109,7 +109,7 @@ in
       name: backup:
       nameValuePair "rustic-backups-${name}" {
         wantedBy = [ "timers.target" ];
-        timerConfig = backup.timerConfig;
+        inherit (backup) timerConfig;
       }
     ) (filterAttrs (_: backup: backup.timerConfig != null) cfg.backups);
   };

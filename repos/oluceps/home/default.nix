@@ -30,11 +30,10 @@ let
         recursiveUpdate acc (
           setAttrByPath [ "${configPlace}${pathStr}/${(removeSuffix ".nix" f)}" ] (
             if lib.hasSuffix ".nix" f then
-              (writeText (removeSuffix ".nix" f) (import (toPath f) args))
+              (writeText (removeSuffix ".nix" f) (import (/. + f) args))
             else
-              (toPath f)
+              /. + f
           )
-
         )
       ) { } (attrNames files);
     in

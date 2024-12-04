@@ -15,8 +15,7 @@
       # storageLocation = "./sec/rekeyed/${config.networking.hostName}";
     };
 
-    secrets = (
-      let
+    secrets = let
         gen =
           ns: owner: group: mode:
           self.lib.genAttrs ns (n: {
@@ -52,7 +51,6 @@
       ])
       // (sdnetRo [ "wg" ])
       // (rrr [ "ntfy-token" ])
-      // (if type != "default" then (import ./${type}.nix gener) else { })
-    );
+      // (if type != "default" then (import ./${type}.nix gener) else { });
   };
 }

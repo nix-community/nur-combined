@@ -6,14 +6,16 @@
   ...
 }:
 {
-  # server.
+  system = {
+    # server.
 
-  system.stateVersion = "24.11";
+    stateVersion = "24.11";
+    etc.overlay.enable = true;
+    etc.overlay.mutable = false;
+  };
 
   users.mutableUsers = false;
   services.userborn.enable = true;
-  system.etc.overlay.enable = true;
-  system.etc.overlay.mutable = false;
 
   nix.gc = {
     automatic = true;

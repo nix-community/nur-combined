@@ -9,10 +9,10 @@
 stdenvNoCC.mkDerivation {
   pname = "oppo-sans";
   version = "0.1";
-  src = fetchurl ({
+  src = fetchurl {
     url = "https://static01.coloros.com/www/public/img/topic7/font-opposans.zip";
     sha256 = "sha256-dMGIAyANXCRbwkYJxNlSxOeilFpCrQ3QkRDbkAqVZxA=";
-  });
+  };
 
   setSourceRoot = "sourceRoot=`pwd`";
   nativeBuildInputs = [ unzip ];

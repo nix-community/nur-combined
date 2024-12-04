@@ -200,7 +200,7 @@ in
       decToBin =
         n:
         let
-          bin = decToBin' (n);
+          bin = decToBin' n;
           paddedBin =
             if builtins.stringLength bin < 8 then
               builtins.substring 0 (8 - builtins.stringLength bin) "00000000" + bin

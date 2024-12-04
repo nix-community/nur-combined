@@ -12,7 +12,7 @@ reIf (
     nameCondPair = [
       {
         name = "trojan-server";
-        cond = (config.services.trojan-server.enable);
+        cond = config.services.trojan-server.enable;
       }
       # {
       #   name = "hysteria-only";

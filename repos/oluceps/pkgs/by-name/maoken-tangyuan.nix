@@ -9,10 +9,10 @@
 stdenvNoCC.mkDerivation rec {
   pname = "maoken-tangyuan";
   version = "0.12beta";
-  src = fetchurl ({
+  src = fetchurl {
     url = "https://github.com/NightFurySL2001/TangYuan-font/releases/download/v0.12beta/MaoKenTangYuan-beta0.12-20210702.zip";
     sha256 = "sha256-ZOrvf/+6KXSHSah6e2KHwGqe/ACpYw4mg32zkqBE9V8=";
-  });
+  };
 
   setSourceRoot = "sourceRoot=`pwd`";
   nativeBuildInputs = [ unzip ];

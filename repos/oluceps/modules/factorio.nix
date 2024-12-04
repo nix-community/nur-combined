@@ -28,14 +28,14 @@ let
   '';
   serverSettings = {
     name = cfg.game-name;
-    description = cfg.description;
+    inherit (cfg) description;
     visibility = {
-      public = cfg.public;
-      lan = cfg.lan;
+      inherit (cfg) public;
+      inherit (cfg) lan;
     };
-    username = cfg.username;
-    password = cfg.password;
-    token = cfg.token;
+    inherit (cfg) username;
+    inherit (cfg) password;
+    inherit (cfg) token;
     game_password = cfg.game-password;
     require_user_verification = cfg.requireUserVerification;
     max_upload_in_kilobytes_per_second = 0;
@@ -69,7 +69,7 @@ in
 
   options = {
     services.factorio = {
-      enable = mkEnableOption (name);
+      enable = mkEnableOption name;
       serverSettingsFile = mkOption {
         type = types.str;
         default = "";

@@ -152,12 +152,10 @@ reIf {
         path_prefix = "/alert";
         static_configs = [
           {
-            targets = (
-              let
+            targets = let
                 cfg = config.services.prometheus;
               in
-              [ "${cfg.alertmanager.listenAddress}:${builtins.toString cfg.alertmanager.port}" ]
-            );
+              [ "${cfg.alertmanager.listenAddress}:${builtins.toString cfg.alertmanager.port}" ];
           }
         ];
       }

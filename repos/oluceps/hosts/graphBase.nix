@@ -130,7 +130,7 @@
     firefox = {
       enable = true;
       package =
-        (pkgs.wrapFirefox.override { libpulseaudio = pkgs.libpressureaudio; }) (pkgs.firefox-unwrapped)
+        (pkgs.wrapFirefox.override { libpulseaudio = pkgs.libpressureaudio; }) pkgs.firefox-unwrapped
           { };
     };
     gnupg = {

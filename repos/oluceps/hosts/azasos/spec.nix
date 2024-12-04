@@ -1,19 +1,18 @@
 {
-  pkgs,
   config,
   lib,
-  inputs,
   ...
 }:
 {
-  # server inside the cage.
+  system = {
+    # server inside the cage.
 
-  system.stateVersion = "24.05";
+    stateVersion = "24.05";
+    etc.overlay.enable = true;
+    etc.overlay.mutable = false;
+  };
 
   users.mutableUsers = false;
-  services.userborn.enable = true;
-  system.etc.overlay.enable = true;
-  system.etc.overlay.mutable = false;
   environment.etc."resolv.conf".text = ''
     nameserver 127.0.0.1
   '';
@@ -38,8 +37,9 @@
       extraFlags = [ "--ipv6-disabled" ];
     };
   };
-
   services = {
+    userborn.enable = true;
+
     sing-box.enable = true;
     metrics.enable = true;
 
@@ -63,19 +63,20 @@
         ];
       };
     };
-  };
-  services.hysteria.instances = {
-    nodens = {
-      enable = true;
-      configFile = config.vaultix.secrets.hyst-us-cli.path;
-    };
-    abhoth = {
-      enable = true;
-      configFile = config.vaultix.secrets.hyst-osa-cli.path;
-    };
-    yidhra = {
-      enable = true;
-      configFile = config.vaultix.secrets.hyst-hk-cli.path;
+
+    hysteria.instances = {
+      nodens = {
+        enable = true;
+        configFile = config.vaultix.secrets.hyst-us-cli.path;
+      };
+      abhoth = {
+        enable = true;
+        configFile = config.vaultix.secrets.hyst-osa-cli.path;
+      };
+      yidhra = {
+        enable = true;
+        configFile = config.vaultix.secrets.hyst-hk-cli.path;
+      };
     };
   };
 

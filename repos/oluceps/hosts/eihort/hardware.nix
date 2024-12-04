@@ -151,50 +151,52 @@
       };
     };
   };
+  fileSystems = {
 
-  fileSystems."/persist".neededForBoot = true;
+    "/persist".neededForBoot = true;
 
-  fileSystems."/three" = {
-    device = "/dev/disk/by-uuid/134975b6-4ccc-4201-b479-105eb2382945";
-    fsType = "btrfs";
-    options = [
-      "subvolid=5"
-      "compress-force=zstd:5"
-      "noatime"
-      "discard=async"
-      "space_cache=v2"
-    ];
-  };
-  fileSystems."/var" = {
-    device = "/dev/disk/by-id/nvme-eui.00000000000000008ce38e10014c244a";
-    fsType = "btrfs";
-    options = [
-      "compress-force=zstd:3"
-      "noatime"
-      "subvol=var"
-      "nosuid"
-      "nodev"
-    ];
-  };
-  # fileSystems."/nix" = {
-  #   device = "/dev/disk/by-id/nvme-eui.00000000000000008ce38e10014c244a";
-  #   fsType = "btrfs";
-  #   options = [
-  #     "compress-force=zstd:3"
-  #     "noatime"
-  #     "subvol=nix"
-  #     "nosuid"
-  #     "nodev"
-  #   ];
-  # };
-  fileSystems."/persist" = {
-    device = "/dev/disk/by-id/nvme-eui.00000000000000008ce38e10014c244a";
-    fsType = "btrfs";
-    options = [
-      "compress-force=zstd:3"
-      "noatime"
-      "subvol=persist"
-    ];
+    "/three" = {
+      device = "/dev/disk/by-uuid/134975b6-4ccc-4201-b479-105eb2382945";
+      fsType = "btrfs";
+      options = [
+        "subvolid=5"
+        "compress-force=zstd:5"
+        "noatime"
+        "discard=async"
+        "space_cache=v2"
+      ];
+    };
+    "/var" = {
+      device = "/dev/disk/by-id/nvme-eui.00000000000000008ce38e10014c244a";
+      fsType = "btrfs";
+      options = [
+        "compress-force=zstd:3"
+        "noatime"
+        "subvol=var"
+        "nosuid"
+        "nodev"
+      ];
+    };
+    # fileSystems."/nix" = {
+    #   device = "/dev/disk/by-id/nvme-eui.00000000000000008ce38e10014c244a";
+    #   fsType = "btrfs";
+    #   options = [
+    #     "compress-force=zstd:3"
+    #     "noatime"
+    #     "subvol=nix"
+    #     "nosuid"
+    #     "nodev"
+    #   ];
+    # };
+    "/persist" = {
+      device = "/dev/disk/by-id/nvme-eui.00000000000000008ce38e10014c244a";
+      fsType = "btrfs";
+      options = [
+        "compress-force=zstd:3"
+        "noatime"
+        "subvol=persist"
+      ];
+    };
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

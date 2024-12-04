@@ -5,74 +5,20 @@
   ...
 }:
 {
-  # This headless machine uses to perform heavy task.
-  # Running database and web services.
+  system = {
+    # This headless machine uses to perform heavy task.
+    # Running database and web services.
 
-  system.stateVersion = "22.11"; # Did you read the comment?
+    stateVersion = "22.11";
+    etc.overlay.enable = true;
+    etc.overlay.mutable = false;
+  }; # Did you read the comment?
   users.mutableUsers = false;
-  services.userborn.enable = true;
-  system.etc.overlay.enable = true;
-  system.etc.overlay.mutable = false;
-  # system.forbiddenDependenciesRegexes = [ "perl" ];
-  environment.etc."resolv.conf".text = ''
-    nameserver 127.0.0.1
-  '';
-
-  zramSwap = {
-    enable = false;
-    swapDevices = 1;
-    memoryPercent = 80;
-    algorithm = "zstd";
-  };
-
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 10d";
-  };
-  programs.fish.loginShellInit = ''
-    ${pkgs.openssh}/bin/ssh-add ${config.vaultix.secrets.id.path}
-  '';
-  systemd = {
-    enableEmergencyMode = false;
-    watchdog = {
-      runtimeTime = "20s";
-      rebootTime = "30s";
-    };
-
-    sleep.extraConfig = ''
-      AllowSuspend=no
-      AllowHibernation=no
-    '';
-  };
-
-  services.smartd.notifications.systembus-notify.enable = true;
-  repack = {
-    openssh.enable = true;
-    fail2ban.enable = true;
-    dae.enable = true;
-    scrutiny.enable = true;
-    # ddns-go.enable = true;
-    # atticd.enable = true;
-    atuin.enable = true;
-    postgresql.enable = true;
-    # photoprism.enable = true;
-    # mysql.enable = true;
-    prometheus.enable = true;
-    vaultwarden.enable = true;
-    matrix-conduit.enable = true;
-    mautrix-telegram.enable = true;
-    # coredns.enable = true;
-    misskey.enable = true;
-    dnsproxy.enable = true;
-    srs.enable = true;
-    grafana.enable = true;
-    meilisearch.enable = true;
-    radicle.enable = true;
-    # xmrig.enable = true;
-    reuse-cert.enable = true;
-  };
   services = {
+    userborn.enable = true;
+
+    smartd.notifications.systembus-notify.enable = true;
+
     # ktistec.enable = true;
     # radicle.enable = true;
     metrics.enable = true;
@@ -168,5 +114,63 @@
       region = "ap-east-1";
       rootCredentialsFile = config.vaultix.secrets.minio.path;
     };
+
+  };
+  # system.forbiddenDependenciesRegexes = [ "perl" ];
+  environment.etc."resolv.conf".text = ''
+    nameserver 127.0.0.1
+  '';
+
+  zramSwap = {
+    enable = false;
+    swapDevices = 1;
+    memoryPercent = 80;
+    algorithm = "zstd";
+  };
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 10d";
+  };
+  programs.fish.loginShellInit = ''
+    ${pkgs.openssh}/bin/ssh-add ${config.vaultix.secrets.id.path}
+  '';
+  systemd = {
+    enableEmergencyMode = false;
+    watchdog = {
+      runtimeTime = "20s";
+      rebootTime = "30s";
+    };
+
+    sleep.extraConfig = ''
+      AllowSuspend=no
+      AllowHibernation=no
+    '';
+  };
+  repack = {
+    openssh.enable = true;
+    fail2ban.enable = true;
+    dae.enable = true;
+    scrutiny.enable = true;
+    # ddns-go.enable = true;
+    # atticd.enable = true;
+    atuin.enable = true;
+    postgresql.enable = true;
+    # photoprism.enable = true;
+    # mysql.enable = true;
+    prometheus.enable = true;
+    vaultwarden.enable = true;
+    matrix-conduit.enable = true;
+    mautrix-telegram.enable = true;
+    # coredns.enable = true;
+    misskey.enable = true;
+    dnsproxy.enable = true;
+    srs.enable = true;
+    grafana.enable = true;
+    meilisearch.enable = true;
+    radicle.enable = true;
+    # xmrig.enable = true;
+    reuse-cert.enable = true;
   };
 }

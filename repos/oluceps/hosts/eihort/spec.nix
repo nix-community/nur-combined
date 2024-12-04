@@ -7,8 +7,13 @@
 }:
 
 {
+  system = {
 
-  system.etc.overlay.enable = true;
+    etc.overlay.enable = true;
+    etc.overlay.mutable = false;
+
+    stateVersion = "24.05";
+  };
   services.userborn.enable = true;
   virtualisation.podman = {
     enable = true;
@@ -18,7 +23,6 @@
 
   environment.systemPackages = [ pkgs.gdu ];
   users.mutableUsers = false;
-  system.etc.overlay.mutable = false;
   environment.etc."resolv.conf".text = ''
     nameserver 127.0.0.1
   '';
@@ -133,7 +137,5 @@
     };
   };
 
-  systemd.tmpfiles.rules = [ ];
-
-  system.stateVersion = "24.05"; # Did you read the comment?
+  systemd.tmpfiles.rules = [ ]; # Did you read the comment?
 }

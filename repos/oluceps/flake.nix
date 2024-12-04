@@ -8,7 +8,7 @@
       ...
     }:
     let
-      extraLibs = (import ./hosts/lib.nix inputs);
+      extraLibs = import ./hosts/lib.nix inputs;
       flakeModules = map (n: inputs.${n}.flakeModule);
       defaultOverlays = map (n: inputs.${n}.overlays.default);
     in

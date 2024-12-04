@@ -4,7 +4,7 @@
   makeRustPlatform,
 }:
 let
-  toolchain = fenix.minimal.toolchain;
+  inherit (fenix.minimal) toolchain;
 in
 
 (makeRustPlatform {

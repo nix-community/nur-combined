@@ -9,8 +9,16 @@
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
   time.timeZone = "Asia/Hong_Kong";
-  networking.nameservers = [ "8.8.8.8" ];
-  networking.usePredictableInterfaceNames = false;
+  networking = {
+    nameservers = [ "8.8.8.8" ];
+    usePredictableInterfaceNames = false;
+
+    firewall.enable = false;
+
+    useNetworkd = true;
+
+    hostName = "bootstrap";
+  };
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   users.mutableUsers = false;
@@ -38,12 +46,6 @@
       PermitRootLogin = lib.mkForce "prohibit-password";
     };
   };
-
-  networking.firewall.enable = false;
-
-  networking.useNetworkd = true;
-
-  networking.hostName = "bootstrap";
 
   system.stateVersion = "24.05";
 }

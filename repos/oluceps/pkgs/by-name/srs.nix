@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   dontUseCmakeConfigure = true;
   enableParallelBuilding = true;
 
-  configureFlags = [ ] ++ lib.optionals stdenv.isLinux [ "--generic-linux=on" ];
+  configureFlags = lib.optionals stdenv.isLinux [ "--generic-linux=on" ];
 
   prePatch = ''
     substituteInPlace 3rdparty/openssl-1.1-fit/config \

@@ -47,7 +47,7 @@ in
       };
     };
 
-    services.redis.servers.mosproxy.enable = (cfg.redisPort != null);
+    services.redis.servers.mosproxy.enable = cfg.redisPort != null;
 
     environment.systemPackages = [ cfg.package ];
   };

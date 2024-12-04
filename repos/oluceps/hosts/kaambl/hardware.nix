@@ -12,22 +12,41 @@
 }:
 
 {
+  hardware = {
 
-  hardware.pulseaudio.enable = lib.mkForce false;
-  hardware.graphics = {
-    ## amdvlk: an open-source Vulkan driver from AMD
-    extraPackages = [ pkgs.amdvlk ];
-    extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
+    pulseaudio.enable = lib.mkForce false;
+    graphics = {
+      ## amdvlk: an open-source Vulkan driver from AMD
+      extraPackages = [ pkgs.amdvlk ];
+      extraPackages32 = [ pkgs.driversi686Linux.amdvlk ];
+    };
+    cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    bluetooth = {
+      enable = true; # enables support for Bluetooth
+      powerOnBoot = true; # powers up the default Bluetooth controller on boot
+      settings = {
+        General = {
+          Enable = "Source,Sink,Media,Socket";
+        };
+      };
+    };
   };
 
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
-  services.btrfs.autoScrub = {
-    enable = true;
-    interval = "weekly";
-    fileSystems = [ "/persist" ];
-  };
+  services = {
+    btrfs.autoScrub = {
+      enable = true;
+      interval = "weekly";
+      fileSystems = [ "/persist" ];
+    };
 
-  services.xserver.videoDrivers = [ "amdgpu" ];
+    xserver.videoDrivers = [ "amdgpu" ];
+
+    scx = {
+      enable = true;
+      scheduler = "scx_bpfland";
+    };
+  };
   disko.devices = {
     disk = {
       nvme = {
@@ -140,11 +159,6 @@
   };
 
   fileSystems."/persist".neededForBoot = true;
-
-  services.scx = {
-    enable = true;
-    scheduler = "scx_bpfland";
-  };
   boot = {
     loader.efi = {
       canTouchEfiVariables = true;
@@ -204,14 +218,6 @@
     system = "x86_64-linux";
     # gcc.arch = "znver3";
     # gcc.tune = "znver3";
-  };
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-  hardware.bluetooth.settings = {
-    General = {
-      Enable = "Source,Sink,Media,Socket";
-    };
   };
 
   # high-resolution display

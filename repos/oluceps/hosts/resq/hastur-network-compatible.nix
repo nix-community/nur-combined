@@ -48,23 +48,23 @@
       anyInterface = true;
       ignoredInterfaces = [ "wlan0" ];
     };
+    links = {
 
-    links."10-eth0" = {
-      matchConfig.MACAddress = "3c:7c:3f:22:49:80";
-      linkConfig.Name = "eth0";
-    };
+      "10-eth0".matchConfig.MACAddress = "3c:7c:3f:22:49:80";
+      "10-eth0".linkConfig.Name = "eth0";
 
-    links."30-rndis" = {
-      matchConfig.Driver = "rndis_host";
-      linkConfig = {
-        NamePolicy = "keep";
-        Name = "rndis";
-        MACAddressPolicy = "persistent";
+      "30-rndis" = {
+        matchConfig.Driver = "rndis_host";
+        linkConfig = {
+          NamePolicy = "keep";
+          Name = "rndis";
+          MACAddressPolicy = "persistent";
+        };
       };
-    };
-    links."40-wlan0" = {
-      matchConfig.MACAddress = "70:66:55:e7:1c:b1";
-      linkConfig.Name = "wlan0";
+      "40-wlan0" = {
+        matchConfig.MACAddress = "70:66:55:e7:1c:b1";
+        linkConfig.Name = "wlan0";
+      };
     };
 
     netdevs = {

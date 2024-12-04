@@ -180,7 +180,7 @@
             "144.126.208.183/20"
           ]
           ++ (map (n: "2604:a880:4:1d0::5b:600${n}/64") (
-            (map inputs.ascii2char.asciiToChar ((lib.range 97 102))) ++ (map toString (lib.range 0 9))
+            (map inputs.ascii2char.asciiToChar (lib.range 97 102)) ++ (map toString (lib.range 0 9))
           ));
 
         routes = [
