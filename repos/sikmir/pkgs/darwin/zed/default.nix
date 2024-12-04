@@ -7,11 +7,11 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zed";
-  version = "0.163.2-pre";
+  version = "0.164.2-pre";
 
   src = fetchurl {
-    url = "https://zed.dev/api/releases/stable/${finalAttrs.version}/Zed.dmg";
-    hash = "sha256-fZd2H8XFW/rIEik9tcrnPrtaGvmM4rB06GA/nSYLDx0=";
+    url = "https://zed.dev/api/releases/stable/${finalAttrs.version}/Zed-x86_64.dmg";
+    hash = "sha256-QDkga6gHF24SRNMpty65rnyrVe89289NCVu2PVGuLVo=";
   };
 
   sourceRoot = ".";
@@ -24,7 +24,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook preInstall
     mkdir -p $out/{Applications,bin}
     cp -r *.app $out/Applications
-    ln -s $out/Applications/Zed.app/Contents/MacOS/cli $out/bin/zed
+    ln -s "$out/Applications/Zed Preview.app/Contents/MacOS/cli" $out/bin/zed
     runHook postInstall
   '';
 
