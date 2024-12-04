@@ -1,4 +1,4 @@
-name: "Build and populate cache"
+name: "Notify NUR"
 on:
   pull_request:
   workflow_dispatch:

@@ -17,6 +17,7 @@ let
   cfg = config.services.scx;
 in
 {
+  disabledModules = [ "services/scheduling/scx.nix" ];
   options.services.scx = {
     enable = mkEnableOption "scx service";
     package = mkPackageOption pkgs "scx" { };

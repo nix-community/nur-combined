@@ -13,10 +13,11 @@
     # systemd.sysusers.enable = true;
     switch.enableNg = true;
     switch.enable = lib.mkForce false;
-    apply.enable = true;
+    # apply.enable = true;
     copySystemConfiguration = false;
 
     disableInstallerTools = true;
+    tools.nixos-rebuild.enable = false;
   };
   programs = {
     less.lessopen = null;

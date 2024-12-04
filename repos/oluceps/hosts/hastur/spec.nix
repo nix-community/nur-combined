@@ -129,29 +129,29 @@
     sing-box.enable = true;
 
     hysteria.instances = {
-      nodens = {
-        enable = true;
-        configFile = config.vaultix.secrets.hyst-us-cli.path;
-      };
+      # nodens = {
+      #   enable = true;
+      #   configFile = config.vaultix.secrets.hyst-us-cli.path;
+      # };
       abhoth = {
         enable = true;
-        configFile = config.vaultix.secrets.hyst-la-cli.path;
+        configFile = config.vaultix.secrets.hyst-osa-cli.path;
       };
       yidhra = {
         enable = true;
         configFile = config.vaultix.secrets.hyst-hk-cli.path;
       };
     };
-    shadowsocks.instances = [
-      {
-        name = "rha";
-        configFile = config.vaultix.secrets.ss-az.path;
-        serve = {
-          enable = true;
-          port = 6059;
-        };
-      }
-    ];
+    # shadowsocks.instances = [
+    #   {
+    #     name = "rha";
+    #     configFile = config.vaultix.secrets.ss-az.path;
+    #     serve = {
+    #       enable = true;
+    #       port = 6059;
+    #     };
+    #   }
+    # ];
 
     gvfs.enable = false;
 

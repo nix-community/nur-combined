@@ -47,7 +47,7 @@ withSystem "x86_64-linux" (
       ./rekey.nix
       ./spec.nix
       (lib.iage "cloud")
-      ../../packages.nix
+      # ../../packages.nix
       ../../misc.nix
       ../../users.nix
     ];

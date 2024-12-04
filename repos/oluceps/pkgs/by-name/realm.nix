@@ -1,18 +1,28 @@
-{ fetchFromGitHub, rustPlatform }:
+{
+  fetchFromGitHub,
+  fenix,
+  makeRustPlatform,
+}:
+let
+  toolchain = fenix.minimal.toolchain;
+in
 
-rustPlatform.buildRustPackage rec {
-  pname = "realm";
-  version = "2.5.4";
+(makeRustPlatform {
+  cargo = toolchain;
+  rustc = toolchain;
+}).buildRustPackage
+  rec {
+    pname = "realm";
+    version = "2.7.0";
 
-  src = fetchFromGitHub {
-    rev = "v${version}";
-    owner = "zhboner";
-    repo = pname;
-    hash = "sha256-RBsCxlVvMNRqhs9FhvGiWIUutfjT2NvIBhyaKYBN3lo=";
-  };
+    src = fetchFromGitHub {
+      owner = "zhboner";
+      repo = "realm";
+      rev = "v${version}";
+      hash = "sha256-vkLGfSDRYqvoqyVM/CWGJjpvXXPisEZxUSjLZGjNzno=";
+    };
 
-  cargoHash = "sha256-chGSrkPgPDI/8i+ZbHgh+DzjnY159ucwottIUW8NqFY=";
+    cargoHash = "sha256-SrTymeGERDO42/S3m5ErwtB15KslPzdmcn3KlrVNVIc=";
 
-  RUSTC_BOOTSTRAP = 1;
-  meta.mainProgram = "realm";
-}
+    meta.mainProgram = "realm";
+  }

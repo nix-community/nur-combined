@@ -59,7 +59,7 @@ with pkgs;
   tutanota-desktop
 
   # davinci-resolve
-  cava
+  # cava
 
   # wpsoffice-cn
 

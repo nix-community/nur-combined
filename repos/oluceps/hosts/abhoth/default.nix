@@ -40,10 +40,11 @@ withSystem "x86_64-linux" (
       ./rekey.nix
       ./spec.nix
       (lib.iage "cloud")
-      ./caddy.nix
+      # ./caddy.nix
       # ../../packages.nix
       ../../misc.nix
       ../../users.nix
+      inputs.disko.nixosModules.default
     ];
 
   }

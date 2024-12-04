@@ -9,7 +9,7 @@ let
   inherit (self.lib) genAttrs;
   hosts = (./sum.toml |> readFile |> fromTOML |> (i: i.host) |> (map (i: i.name))) ++ [
     "bootstrap"
-    # "livecd"
+    "livecd"
   ];
 in
 {

@@ -1,61 +1,111 @@
 {
   config,
   inputs,
-  pkgs,
   modulesPath,
   ...
 }:
 {
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
   boot = {
-    loader.grub = {
-      device = "/dev/vda";
-      configurationLimit = 3;
-    };
-    initrd = {
-      availableKernelModules = [
-        "ata_piix"
-        "uhci_hcd"
-        "xen_blkfront"
-        "vmw_pvscsi"
-      ];
-      kernelModules = [ "nvme" ];
+    kernelModules = [ "brutal" ];
+    extraModulePackages = with config.boot.kernelPackages; [
+      (callPackage "${inputs.self}/pkgs/kernel-module/tcp-brutal/package.nix" { })
+    ];
 
-      systemd.enable = true;
+    kernelParams = [
+      "audit=0"
+      "net.ifnames=0"
+      "console=ttyS0"
+      "earlyprintk=ttyS0"
+      "rootdelay=300"
+      "19200n8"
+    ];
+    initrd = {
       compressor = "zstd";
       compressorArgs = [
         "-19"
         "-T0"
       ];
-
+      systemd.enable = true;
     };
-    kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [
-      "audit=0"
-      "net.ifnames=0"
 
-      "console=ttyS0"
-      "earlyprintk=ttyS0"
-      "rootdelay=300"
-    ];
+  };
 
-    kernelModules = [ "brutal" ];
-    extraModulePackages = with config.boot.kernelPackages; [
-      (callPackage "${inputs.self}/pkgs/kernel-module/tcp-brutal/package.nix" { })
-    ];
-  };
-  fileSystems."/" = {
-    device = "/dev/vda2";
-    fsType = "btrfs";
-    options = [
-      "compress-force=zstd:4"
-      "noatime"
-    ];
-    neededForBoot = true;
-  };
-  # Auto enabled boot.loader.grub.copyKernels
-  fileSystems."/boot" = {
-    device = "/dev/vda3";
-    fsType = "vfat";
+  fileSystems."/persist".neededForBoot = true;
+  disko = {
+    devices = {
+      disk = {
+        main = {
+          device = "/dev/vda";
+          type = "disk";
+          content = {
+            type = "gpt";
+            partitions = {
+              boot = {
+                type = "EF02";
+                label = "BOOT";
+                start = "0";
+                end = "+1M";
+                priority = 0;
+              };
+              solid = {
+                label = "SOLID";
+                end = "-0";
+                content = {
+                  type = "btrfs";
+                  extraArgs = [
+                    "-f"
+                    "--csum xxhash64"
+                  ];
+                  subvolumes = {
+                    "boot" = {
+                      mountpoint = "/boot";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
+                    "nix" = {
+                      mountpoint = "/nix";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                        "nodev"
+                        "nosuid"
+                      ];
+                    };
+                    "var" = {
+                      mountpoint = "/var";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                        "nodev"
+                        "nosuid"
+                      ];
+                    };
+                    "persist" = {
+                      mountpoint = "/persist";
+                      mountOptions = [
+                        "compress=zstd"
+                        "noatime"
+                      ];
+                    };
+                  };
+                };
+              };
+            };
+          };
+        };
+      };
+      nodev."/" = {
+        fsType = "tmpfs";
+        mountOptions = [
+          "relatime"
+          "mode=755"
+          "nosuid"
+          "nodev"
+        ];
+      };
+    };
   };
 }

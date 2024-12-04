@@ -6,9 +6,9 @@ addr = "riro@10.0.4.2"
 name = "kaambl" # laptop
 addr = "elen@10.0.1.3"
 
-# [[host]]
-# name = "abhoth" # vmiss
-# addr = "elen@38.47.119.151"
+[[host]]
+name = "abhoth" # vmiss
+addr = "elen@38.47.119.151"
 
 [[host]]
 name = "azasos" # tencent cloud censored

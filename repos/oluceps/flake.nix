@@ -18,7 +18,7 @@
         imports =
           (flakeModules [
             "pre-commit-hooks"
-            "devshell"
+            "flake-root"
           ])
           ++ [
             ./hosts
@@ -66,8 +66,10 @@
               };
             };
 
-            devshells.default.devshell = {
-              packages = with pkgs; [
+            # flake-root.projectRootFile = ".top";
+            devShells.default = pkgs.mkShell {
+              inputsFrom = [ config.flake-root.devShell ];
+              buildInputs = with pkgs; [
                 just
                 rage
                 b3sum
@@ -147,10 +149,9 @@
     };
     browser-previews = {
       url = "github:nix-community/browser-previews";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
-    # vaultix.url = "github:oluceps/vaultix/dev";
-    vaultix.url = "/home/elen/Src/vaultix";
+    vaultix.url = "github:oluceps/vaultix";
+    # vaultix.url = "/home/elen/Src/vaultix";
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -171,7 +172,6 @@
       url = "git+https://seed.radicle.xyz/z3gqcJUoA1n9HaHKufZs5FCSGazv5.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    devshell.url = "github:numtide/devshell";
     tg-online-keeper.url = "github:oluceps/TelegramOnlineKeeper";
     # tg-online-keeper.url = "/home/elen/Src/tg-online-keeper";
     disko = {
@@ -207,7 +207,7 @@
       url = "github:tadfisher/android-nixpkgs";
     };
     # path:/home/riro/Src/flake.nix
-    dae.url = "github:daeuniverse/flake.nix/overlay";
+    dae.url = "github:daeuniverse/flake.nix/ci-sync-refactor";
     # dae.url = "/home/elen/Src/flake.nix";
     nixyDomains.url = "github:oluceps/nixyDomains";
     nixyDomains.flake = false;
@@ -234,5 +234,6 @@
       url = "github:PrismLauncher/PrismLauncher";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flake-root.url = "github:srid/flake-root";
   };
 }

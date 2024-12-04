@@ -75,18 +75,16 @@
       enable = true;
       anyInterface = true;
       ignoredInterfaces = [
-        # "wg0"
-        # "wg1"
+        "wg0"
       ];
     };
 
     links."10-eth0" = {
-      matchConfig.MACAddress = "d8:d5:d8:00:2a:b1";
+      matchConfig.MACAddress = "f2:3c:95:50:77:31";
       linkConfig.Name = "eth0";
     };
 
     netdevs = {
-
       wg0 = {
         netdevConfig = {
           Kind = "wireguard";
@@ -157,10 +155,7 @@
       };
       "20-eth0" = {
         matchConfig.Name = "eth0";
-        address = [ "38.47.119.151/24" ];
-        routes = [
-          { Gateway = "38.47.119.254"; }
-        ];
+        DHCP = "yes";
       };
     };
   };

@@ -7,6 +7,7 @@
       "console=ttyS0"
       "earlyprintk=ttyS0"
       "rootdelay=300"
+      "19200n8"
       # "ia32_emulation=0"
     ];
     initrd = {

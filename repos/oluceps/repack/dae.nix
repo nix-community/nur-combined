@@ -6,9 +6,17 @@
   ...
 }:
 reIf {
-  vaultix.templates.dae-sep = {
-    name = "merged.dae";
-    content = ''
+  systemd.tmpfiles.rules = [
+    "L+ /etc/dae/secret.dae - - - - ${config.vaultix.secrets.dae.path}"
+  ];
+
+  services.dae = {
+    enable = true;
+    disableTxChecksumIpGeneric = false;
+    config = ''
+      include {
+          secret.dae
+      }
       global {
           tproxy_port: 12345
           log_level: info
@@ -27,7 +35,6 @@ reIf {
           utls_imitate: chrome_auto
           lan_interface: podman0,podman1
       }
-      ${config.vaultix.placeholder.dae}
       routing {
           pname(systemd-networkd, systemd-resolved, smartdns,
                 dnsproxy, coredns, mosdns, naive, hysteria, tuic-client, sing-box, juicity, mosproxy) -> must_direct
@@ -39,9 +46,26 @@ reIf {
           dip(1.1.1.1, 8.8.8.8, 1.0.0.1, 8.8.4.4) -> all
           dip(224.0.0.0/3, 'ff00::/8', 10.0.0.0/8) -> direct
 
-          #ipversion(6) && !dip(geoip:CN) -> v6
+          ipversion(6) && !dip(geoip:CN) -> v6
 
           domain(geosite:google-gemini,openai,geosite:category-ai-chat-!cn,cloudflare) -> v6
+          domain(suffix: copilot.microsoft.com,
+              suffix: gateway-copilot.bingviz.microsoftapp.net,
+              suffix: mobile.events.data.microsoft.com,
+              suffix: graph.microsoft.com,
+              suffix: analytics.adjust.com,
+              suffix: analytics.adjust.net.in,
+              suffix: api.revenuecat.com,
+              suffix: t-msedge.net,
+              suffix: cloudapp.azure.com,
+              suffix: browser-intake-datadoghq.com,
+              suffix: in.appcenter.ms,
+              suffix: guzzoni.apple.com,
+              suffix: smoot.apple.com,
+              suffix: apple-relay.cloudflare.com,
+              suffix: apple-relay.fastly-edge.com,
+              suffix: cp4.cloudflare.com,
+              suffix: apple-relay.apple.com) -> v6
 
           domain(geosite:cn) -> direct
           dip(geoip:private,geoip:cn) -> direct
@@ -55,11 +79,6 @@ reIf {
           fallback: all
       }
     '';
-  };
-  services.dae = {
-    enable = true;
-    disableTxChecksumIpGeneric = false;
-    configFile = config.vaultix.templates.dae-sep.path;
     package = pkgs.dae-unstable;
     assetsPath = toString (
       pkgs.symlinkJoin {
