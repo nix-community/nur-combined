@@ -96,5 +96,15 @@ in
     # Sonarr for shows
     (mkFullConfig "sonarr")
     (mkFail2Ban "sonarr")
+
+    # HACK: until https://github.com/NixOS/nixpkgs/issues/360592 is resolved
+    (lib.mkIf cfg.sonarr.enable {
+      nixpkgs.config.permittedInsecurePackages = [
+        "aspnetcore-runtime-6.0.36"
+        "aspnetcore-runtime-wrapped-6.0.36"
+        "dotnet-sdk-6.0.428"
+        "dotnet-sdk-wrapped-6.0.428"
+      ];
+    })
   ]);
 }
