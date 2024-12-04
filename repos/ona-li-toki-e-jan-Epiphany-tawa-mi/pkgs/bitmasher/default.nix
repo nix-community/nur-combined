@@ -5,26 +5,21 @@
 , lib
 }:
 
-
-let source = "bitmasher.py";
-in stdenv.mkDerivation  rec {
+stdenv.mkDerivation rec {
   pname   = "bitmasher";
-  version = "6.327438247";
+  version = "7.4274214874";
 
   src = fetchFromGitHub {
     owner = "ona-li-toki-e-jan-Epiphany-tawa-mi";
     repo  = "BitMasher";
     rev   = "RELEASE-V${version}";
-    hash  = "sha256-4LJOcgEfzh8rbWlbKav8NzrxlE2KW+rTj+z3o7y78qo=";
+    hash  = "sha256-Ki5t1TBwbZdqEKXPWWSwkPEgy6EoIbTYUv8JH64haZ4=";
   };
-
-  nativeBuildInputs = [ mypy ];
-  buildInputs = [ python3 ];
 
   buildPhase = ''
     runHook preBuild
 
-    mypy "${source}"
+    EXTRA_CFLAGS="-O3" ./build.sh
 
     runHook postBuild
   '';
@@ -33,7 +28,7 @@ in stdenv.mkDerivation  rec {
     runHook preInstall
 
     mkdir -p "$out/bin"
-    cp "${source}" "$out/bin/${pname}"
+    cp "${pname}" "$out/bin/${pname}"
 
     runHook postInstall
   '';
@@ -44,6 +39,6 @@ in stdenv.mkDerivation  rec {
     homepage =
       "https://github.com/ona-li-toki-e-jan-Epiphany-tawa-mi/BitMasher";
     license     = licenses.gpl3Plus;
-    mainProgram = "bitmasher";
+    mainProgram = pname;
   };
 }
