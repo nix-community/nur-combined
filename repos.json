@@ -816,6 +816,9 @@
         "nim65s": {
             "url": "https://github.com/nim65s/nur-packages"
         },
+        "nishimara": {
+            "url": "https://github.com/Nishimara/nurpkgs"
+        },
         "nix-data": {
             "url": "https://github.com/Jake-Gillberg/nix-data"
         },
