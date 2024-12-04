@@ -2,18 +2,16 @@
 
 stdenv.mkDerivation rec {
   pname = "swagger-ui-dist";
-  version = "5.17.14";
+  version = "5.18.2";
 
   src = fetchurl {
     url = "https://registry.npmjs.org/swagger-ui-dist/-/swagger-ui-dist-${version}.tgz";
-    hash = "sha256-xXut9FmqbmXMA2s4YtBQKmP5oiVGQH/8sOZPhfgWuyg=";
+    hash = "sha256-jIcDG/1IO44Ng1+vDQnYJGRkKsQdZ0/8pE78Ir0KnCQ=";
   };
 
   installPhase = ''
-    mkdir -p $out/share
-    cd $out/share
-    tar -xvf $src
-    mv package ${pname}
+    mkdir -p $out
+    tar -xvf $src --strip-components 1 -C $out
   '';
 
   meta = with lib; {
