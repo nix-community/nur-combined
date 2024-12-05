@@ -11,13 +11,13 @@
 
 rustPlatform.buildRustPackage {
   pname = "cec-sync";
-  version = "0-unstable-2024-12-04";
+  version = "0-unstable-2024-12-05";
 
   src = fetchFromGitLab {
     owner = "kira-bruneau";
     repo = "cec-sync";
-    rev = "d60d5d77e70cb879568a75cbb838fc196e8a9742";
-    hash = "sha256-Cv8toPfOyVs+olP1akBwyehMx03CPmrGnpRANiPVKtE=";
+    rev = "79739e6ba484ba8723931466c50827a321039dd8";
+    hash = "sha256-MyYjSCrKtmiKhzqEuegzS+dHRCHXOEpcM72LNHILmyo=";
   };
 
   cargoLock = {
