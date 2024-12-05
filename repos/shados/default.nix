@@ -63,6 +63,11 @@ let repo = rec {
     inherit pins;
   };
 
+  staticx = pkgs.python3Packages.callPackage ./pkgs/staticx {
+    inherit pins;
+    inherit (pkgs.writers) writeBash;
+  };
+
   switch-dbibackend = pkgs.callPackage ./pkgs/switch-dbibackend {
     inherit pins;
   };

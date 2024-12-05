@@ -234,6 +234,19 @@
         "url": "https://www.xilinx.com/content/dam/xilinx/publications/solarflare/drivers-software/linux/misc/SF-105095-LS-66_Solarflare_Linux_VMware_ESX_Utilities_Source.zip",
         "url_template": "https://www.xilinx.com/content/dam/xilinx/publications/solarflare/drivers-software/linux/misc/SF-105095-LS-66_Solarflare_Linux_VMware_ESX_Utilities_Source.zip"
     },
+    "staticx": {
+        "branch": "main",
+        "builtin": false,
+        "description": "Create static executable from dynamic executable",
+        "homepage": "https://staticx.readthedocs.io/",
+        "owner": "JonathonReinhart",
+        "repo": "staticx",
+        "rev": "v0.14.1",
+        "sha256": "0i5a8rq159rr82ckfcn6pl3l2nnvgbz0pp0p8s8lcg9zj4xzx6k0",
+        "type": "tarball",
+        "url": "https://github.com/JonathonReinhart/staticx/archive/v0.14.1.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "steamguard-cli": {
         "branch": "master",
         "builtin": false,
