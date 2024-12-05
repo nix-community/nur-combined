@@ -14,14 +14,12 @@
 # Modeled after https://josm.openstreetmap.de/wiki/DevelopersGuide/DevelopingPlugins
 let
   inherit (builtins) toFile;
-
-  josmLegacyRev = "36353"; # TODO: Derive from pkgs.josm
 in
 stdenv.mkDerivation
   (args // {
     srcJosmLegacy = fetchsvn {
       url = "https://josm.openstreetmap.de/osmsvn/applications/editors/josm/";
-      rev = josmLegacyRev;
+      rev = "36353"; # TODO: Derive from pkgs.josm
       ignoreExternals = true;
       hash = "sha256-aqPreB4PDxWX+JXmucygkdKLNZJzfTQq3tqz6HtnNsQ=";
     };
