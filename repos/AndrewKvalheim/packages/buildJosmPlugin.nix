@@ -17,23 +17,23 @@ let
 in
 stdenv.mkDerivation
   (args // {
-    srcJosmLegacy = fetchsvn {
+    srcJosmPlugins = fetchsvn {
       url = "https://josm.openstreetmap.de/osmsvn/applications/editors/josm/";
       rev = "36353"; # TODO: Derive from pkgs.josm
       ignoreExternals = true;
       hash = "sha256-aqPreB4PDxWX+JXmucygkdKLNZJzfTQq3tqz6HtnNsQ=";
     };
 
-    srcJosmCore = fetchsvn {
-      url = "https://josm.openstreetmap.de/svn/trunk/";
+    srcJosmTools = fetchsvn {
+      url = "https://josm.openstreetmap.de/svn/trunk/tools/";
       rev = josm.version;
       ignoreExternals = true;
-      hash = "sha256-uRt1pnsQPc8pLF1Be8jgWOOqatgVGyOdnx3AWUMqu8w=";
+      hash = "sha256-d1wHGlEmyNW+8Zmhu4Gvynhy56kAWPz/jBK5mIymP8g=";
     };
 
     unpackPhase = ''
-      cp --no-preserve=mode --recursive --reflink=auto $srcJosmLegacy josm
-      cp --no-preserve=mode --recursive --reflink=auto $srcJosmCore josm/core
+      cp --no-preserve=mode --recursive --reflink=auto $srcJosmPlugins josm
+      mkdir josm/core && cp --no-preserve=mode --recursive --reflink=auto $srcJosmTools josm/core/tools
       mkdir josm/core/dist && ln --symbolic ${josm}/share/josm/josm.jar josm/core/dist/josm-custom.jar
       ln --symbolic josm/core/tools josm/plugins/00_core_tools
       cp --no-preserve=mode --recursive --reflink=auto $src josm/plugins/${pluginName}

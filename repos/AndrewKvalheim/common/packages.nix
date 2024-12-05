@@ -7,7 +7,7 @@ let
   open-vsx = { _name = "open-vsx"; vscode-extensions = community-vscode-extensions.open-vsx; };
   vscode-marketplace = { _name = "vscode-marketplace"; vscode-extensions = community-vscode-extensions.vscode-marketplace; };
 in
-specify {
+(specify {
   add-words = any;
   affine-font = any;
   album-art = any;
@@ -125,4 +125,6 @@ specify {
   };
   zsh-abbr.condition = z: !z.meta.unfree;
   zsh-click = any;
+}) // {
+  fetchsvn = a: (stable.fetchsvn a).overrideAttrs (f: stable.lib.throwIf (builtins.any (p: p.pname == "nss-cacert") f.nativeBuildInputs) "fetchsvn no longer requires an override" { nativeBuildInputs = f.nativeBuildInputs ++ [ resolved.cacert ]; }); # Pending NixOS/nixpkgs#356829
 }
