@@ -15,7 +15,10 @@ in callPackage ./generic.nix (thruArgs // rec {
     };
     patches = [(fetchpatch {
         name = "0001-68000-Add-a-missing-extern-declaration.patch";
-        url = "http://git.hampa.ch/pce.git/patch/f9ebfc33107a10436506861601b162df98ca743e";
+        urls = [
+            "file://${./patches/0001-68000-Add-a-missing-extern-declaration.patch}"
+            "http://git.hampa.ch/pce.git/patch/f9ebfc33107a10436506861601b162df98ca743e"
+        ];
         # Fix the changes to the copyright header comment,
         # because otherwise the patch doesn't apply correctly.
         decode = "sed 's/(C) 2005-2018/(C) 2005-2009/'";

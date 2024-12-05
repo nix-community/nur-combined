@@ -1,0 +1,31 @@
+From f9ebfc33107a10436506861601b162df98ca743e Mon Sep 17 00:00:00 2001
+From: Hampa Hug <hampa@hampa.ch>
+Date: Fri, 15 May 2020 14:31:50 +0200
+Subject: [PATCH] 68000: Add a missing extern declaration
+
+---
+ src/cpu/e68000/internal.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/cpu/e68000/internal.h b/src/cpu/e68000/internal.h
+index f998320d..5f453c2d 100644
+--- a/src/cpu/e68000/internal.h
++++ b/src/cpu/e68000/internal.h
+@@ -5,7 +5,7 @@
+ /*****************************************************************************
+  * File name:   src/cpu/e68000/internal.h                                    *
+  * Created:     2005-07-17 by Hampa Hug <hampa@hampa.ch>                     *
+- * Copyright:   (C) 2005-2018 Hampa Hug <hampa@hampa.ch>                     *
++ * Copyright:   (C) 2005-2020 Hampa Hug <hampa@hampa.ch>                     *
+  *****************************************************************************/
+ 
+ /*****************************************************************************
+@@ -247,7 +247,7 @@ void e68_cc_set_subx_32 (e68000_t *c, uint32_t d, uint32_t s1, uint32_t s2);
+ 
+ typedef int (*e68_get_ea_ptr_f) (e68000_t *c, unsigned ea, unsigned mask, unsigned size);
+ 
+-e68_get_ea_ptr_f e68_ea_tab[64];
++extern e68_get_ea_ptr_f e68_ea_tab[64];
+ 
+ static inline
+ int e68_ea_get_ptr (e68000_t *c, unsigned ea, unsigned mask, unsigned size)
