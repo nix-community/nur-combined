@@ -157,12 +157,12 @@
             "name": null,
             "owner": "intel",
             "repo": "mainline-tracking",
-            "rev": "mainline-tracking-v6.11-linux-241023T060556Z",
-            "sha256": "sha256-Vx0gR0cyB0x/nGFaXlTq1ukqEbUI0mpLNCl5EwK1/jY=",
+            "rev": "mainline-tracking-v6.11.10-linux-241202T040109Z",
+            "sha256": "sha256-TlqDEFCu4IPmAm0NYHD5fyQy38Ce6BZbGEDu1FpJXd8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "mainline-tracking-v6.11-linux-241023T060556Z"
+        "version": "mainline-tracking-v6.11.10-linux-241202T040109Z"
     },
     "lpac": {
         "cargoLocks": null,
