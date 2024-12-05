@@ -3,10 +3,10 @@
     version, gitRev ? null, src, patches ? [],
     supportsSDL2, includesUnfreeROMs,
     withX11 ? false, withSDL ? if supportsSDL2 then 2 else 1,
-    withReadline ? true,
+    withReadline ? true, readline ? null,
     enableUnfreeROMs ? false,
     libX11 ? null, SDL ? null, SDL2 ? null,
-    readline ? null,
+    buildExtensionROMs ? false, nasm ? null, pkgs ? null,
     appNames ? [],
     maintainers
 }:
@@ -21,6 +21,7 @@ assert withSDL1 -> SDL != null;
 assert withX11 -> libX11 != null;
 assert withReadline -> readline != null;
 assert enableUnfreeROMs -> includesUnfreeROMs;
+assert buildExtensionROMs -> nasm != null && pkgs != null;
 let
     src' = if !includesUnfreeROMs then src else requireFile rec {
         inherit (src) name url;
@@ -55,6 +56,14 @@ let
         '';
         outputHash = src.hashWithoutROMs;
     });
+    pkgsm68kElf = import pkgs.path {
+        inherit (pkgs) overlays;
+        localSystem = pkgs.system;
+        crossSystem = lib.systems.elaborate {
+            config = "m68k-elf";
+        };
+    };
+    macplus-cc = pkgsm68kElf.stdenv.cc;
 in
 stdenv.mkDerivation {
     pname = "pce" + lib.optionalString enableUnfreeROMs "-with-unfree-roms";
@@ -78,6 +87,14 @@ stdenv.mkDerivation {
             (lib.withFeature withSDL1 "sdl")
         )
         (lib.enableFeature withReadline "readline")
+        (lib.enableFeature buildExtensionROMs "ibmpc-rom")
+        (lib.enableFeature buildExtensionROMs "macplus-rom")
+    ];
+    nativeBuildInputs = lib.optionals buildExtensionROMs [nasm macplus-cc];
+    makeFlags = lib.optionals buildExtensionROMs [
+        "MACX_CC=${macplus-cc.targetPrefix}cc"
+        "MACX_LD=${macplus-cc.targetPrefix}ld"
+        "MACX_OC=${macplus-cc.targetPrefix}objcopy"
     ];
     buildInputs =   lib.optional withX11 libX11
                 ++  lib.optional withSDL1 SDL
@@ -93,12 +110,13 @@ stdenv.mkDerivation {
         maintainers = [maintainers.Rhys-T];
         sourceProvenance = with lib.sourceTypes; [
             fromSource
+        ] ++ lib.optionals (!buildExtensionROMs) [
             # A couple of the emulators include 'ROM extensions' that are prebuilt.
             # They're machine code for real CPUs that existed, but in the context of
             # running them in an emulator - and because they actually _need_ to run
             # in the emulator - 'bytecode' seems like the closest available option.
-            # PCE includes the source code for these, and _can_ rebuild them - I just
-            # haven't gotten that part working under Nix yet.
+            # PCE includes the source code for these, and _can_ rebuild them. Set
+            # `buildExtensionROMs = true` to enable this.
             binaryBytecode
         ];
     };

@@ -109,3 +109,11 @@ The current release version (0.2.2) of the upstream PCE package includes unfree 
 However, that release is several years out of date at this point. You're probably better off using `pce-snapshot`, which uses a much more recent development snapshot that has already removed the ROMs.
 
 Normally, one of the `path` entries in a PCE config file will point to e.g. `/usr/share/pce/macplus` so that the 'ROM extensions' that make certain features work can be found. To avoid having to update this line in your config file every time PCE's store path changes (or point it at your `~/.nix-profile`, which only occurred to me as I was typing this 🤦), I've included a patch so that you can say e.g. `path = "$PCE_DIR_DATA/pce/macplus"` and have it do the right thing. (This only works for `path`, not any other settings.)
+
+By default, this derivation uses the prebuilt extension ROMs that are included with the source. To rebuild the extension ROMs from source instead, do:
+```nix
+pce.override {
+    buildExtensionROMs = true;
+}
+```
+Note that this will probably have to build an `m68k-elf` cross toolchain, which may take a while.
