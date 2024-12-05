@@ -16,8 +16,8 @@ rustPlatform.buildRustPackage {
   src = fetchFromGitLab {
     owner = "kira-bruneau";
     repo = "cec-sync";
-    rev = "79739e6ba484ba8723931466c50827a321039dd8";
-    hash = "sha256-MyYjSCrKtmiKhzqEuegzS+dHRCHXOEpcM72LNHILmyo=";
+    rev = "708f5ba301b7d9d2705928979c76b96bba1e5658";
+    hash = "sha256-ZUODCTZZXFQmHhzmY3KYPbLskQHuCgdhKSYwCiJ749U=";
   };
 
   cargoLock = {
