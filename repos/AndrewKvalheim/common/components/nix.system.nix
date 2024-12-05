@@ -32,6 +32,9 @@ in
     nix.settings.builders-use-substitutes = true;
     nix.buildMachines = [{ hostName = "nix-store.home.arpa"; sshUser = "nix-ssh"; system = "x86_64-linux"; }];
 
+    # Validation
+    # TODO: systemd.enableStrictShellChecks = true;
+
     # Diff after rebuild (pending NixOS/nixpkgs#208902)
     system.activationScripts.diff = ''
       PATH="${makeBinPath [ pkgs.nix ]}" \

@@ -702,6 +702,7 @@ mSBC
 MSC
 MSR
 MTA
+MTU
 multinomial
 multinomials
 multiplicate
