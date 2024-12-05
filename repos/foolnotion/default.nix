@@ -44,6 +44,8 @@
 
   cppitertools = pkgs.callPackage ./pkgs/cppitertools { };
 
+  dynamic-bitset = pkgs.callPackage ./pkgs/dynamic-bitset { };
+
   eli5 = pkgs.python3Packages.callPackage ./pkgs/eli5 { };
 
   eovim = pkgs.callPackage ./pkgs/eovim { };
