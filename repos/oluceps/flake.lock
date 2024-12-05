@@ -4015,11 +4015,11 @@
         "rust-overlay": "rust-overlay_6"
       },
       "locked": {
-        "lastModified": 1733205213,
-        "narHash": "sha256-ugwk8/IVtt6IamUjOwiX/tn2gs6naauFqdCSJ35+VLI=",
+        "lastModified": 1733360567,
+        "narHash": "sha256-CTc8+mD+G5FQYSn2ELUv+HbIAu1ukxL2D15XmX0mNsU=",
         "owner": "oluceps",
         "repo": "vaultix",
-        "rev": "97b7a925d786d7ad3ea208a7b569f468c88406b8",
+        "rev": "7f0573695e19c1057d56a19abd31b513d5453232",
         "type": "github"
       },
       "original": {
