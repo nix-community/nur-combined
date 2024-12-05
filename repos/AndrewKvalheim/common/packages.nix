@@ -74,7 +74,6 @@ in
     };
   };
   minemap = any;
-  mmdbinspect = any;
   mozjpeg-simple = any;
   nbt-explorer = any;
   nix-preview = any;
