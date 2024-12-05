@@ -4,13 +4,13 @@
 }:
 stdenv.mkDerivation rec {
   pname = "ttf-wps-fonts";
-  version = "unstable-2017-08-16";
+  version = "0-unstable-2024-10-29";
 
   src = fetchFromGitHub {
     owner = "BannedPatriot";
     repo = pname;
-    rev = "b3e935355afcfb5240bac5a99707ffecc35772a2";
-    sha256 = "sha256-oRVREnE3qsk4gl1W0yFC11bHr+cmuOJe9Ah+0Csplq8=";
+    rev = "8c980c24289cb08e03f72915970ce1bd6767e45a";
+    sha256 = "sha256-x+grMnpEGLkrGVud0XXE8Wh6KT5DoqE6OHR+TS6TagI=";
   };
 
   installPhase = ''
