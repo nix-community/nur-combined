@@ -1,6 +1,6 @@
 {
   description = "Personal NUR repository by mloeper";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs?rev=c7b821ba2e1e635ba5a76d299af62821cbcb09f3";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs?rev=1042fd8b148a9105f3c0aca3a6177fd1d9360ba5";
 
   outputs = { self, nixpkgs, ... }:
     let

@@ -40,12 +40,9 @@ rec {
   firefox-addons = pkgs.recurseIntoAttrs (pkgs.callPackage ./pkgs/firefox-addons { });
   mongosh = pkgs.callPackage ./pkgs/mongosh { };
   atlas-cli = pkgs.callPackage ./pkgs/atlas-cli { };
-  nosql-workbench = pkgs.callPackage ./pkgs/nosql-workbench { };
   s3-browser-cli = pkgs.callPackage ./pkgs/s3-browser-cli/pkgs { };
   openvpn3 = pkgs.callPackage ./pkgs/openvpn3 { };
-  openvpn3-indicator = pkgs.callPackage ./pkgs/openvpn3-indicator {
-    openvpn3 = openvpn3; # we use our custom openvpn3 package which is a bump v20 -> v21
-  };
+  openvpn3-indicator = pkgs.callPackage ./pkgs/openvpn3-indicator { };
   nodejs_20_11_1 = pkgs.callPackage ./pkgs/nodejs { };
   cli-microsoft365 = pkgs.callPackage ./pkgs/cli-microsoft365 { };
   m365 = cli-microsoft365; # alias for cli-microsoft365

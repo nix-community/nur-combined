@@ -1,4 +1,4 @@
-{ python312Packages
+{ python311Packages
 , fetchFromGitHub
 , openvpn3
 , lib
@@ -7,7 +7,7 @@
 , gobject-introspection
 , wrapGAppsHook
 }:
-python312Packages.buildPythonPackage {
+python311Packages.buildPythonPackage {
   name = "openvpn3-indicator";
   src = fetchFromGitHub {
     owner = "OpenVPN";
@@ -15,7 +15,7 @@ python312Packages.buildPythonPackage {
     rev = "177f15a2cd87d047e37e7d3a51338bfbdd817e56";
     hash = "sha256-22SZHrsihcDDoo2yfvDumiAh0ddWE2aX8eoegOOMA+g=";
   };
-  dependencies = with python312Packages; [
+  dependencies = with python311Packages; [
     setuptools
     secretstorage
     dbus-python
@@ -23,7 +23,7 @@ python312Packages.buildPythonPackage {
     setproctitle
     openvpn3
   ];
-  propagatedBuildInputs = with python312Packages; [
+  propagatedBuildInputs = with python311Packages; [
     setuptools
     secretstorage
     dbus-python
