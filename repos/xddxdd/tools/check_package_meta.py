@@ -225,8 +225,8 @@ def check_package(package_path: str) -> bool:
     if not verify_package_meta(package_path, package_meta):
         valid = False
 
-    # if not validate_package_content(package_path, package_meta):
-    #     valid = False
+    if not validate_package_content(package_path, package_meta):
+        valid = False
 
     return valid
 
