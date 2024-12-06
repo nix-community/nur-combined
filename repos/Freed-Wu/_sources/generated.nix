@@ -94,10 +94,10 @@
   };
   tmux-language-server = {
     pname = "tmux-language-server";
-    version = "0.0.10";
+    version = "0.0.11";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/tmux_language_server/tmux_language_server-0.0.10.tar.gz";
-      sha256 = "sha256-SwQbyHJcPFyD9kLD9f7VQDJcMIOQXKEy3qdOt00L50g=";
+      url = "https://pypi.org/packages/source/t/tmux_language_server/tmux_language_server-0.0.11.tar.gz";
+      sha256 = "sha256-K6e7mqGrhz/qXtw3rzZ0jMooMp003pXMavsfT94lgps=";
     };
   };
   translate-shell = {
