@@ -2153,24 +2153,23 @@
     };
     "decentraleyes" = buildFirefoxXpiAddon {
       pname = "decentraleyes";
-      version = "2.0.19";
+      version = "3.0.0";
       addonId = "jid1-BoFifL9Vbdl2zQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4255788/decentraleyes-2.0.19.xpi";
-      sha256 = "105d65bf8189d527251647d0452715c5725af6065fba67cd08187190aae4a98f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4392113/decentraleyes-3.0.0.xpi";
+      sha256 = "6f2efed90696ac7f8ca7efb8ab308feb3bdf182350b3acfdf4050c09cc02f113";
       meta = with lib;
       {
         homepage = "https://decentraleyes.org";
         description = "Protects you against tracking through \"free\", centralized, content delivery. It prevents a lot of requests from reaching networks like Google Hosted Libraries, and serves local files to keep sites from breaking. Complements regular content blockers.";
         license = licenses.mpl20;
         mozPermissions = [
-          "*://*/*"
           "privacy"
-          "storage"
-          "unlimitedStorage"
-          "tabs"
           "webNavigation"
-          "webRequest"
           "webRequestBlocking"
+          "webRequest"
+          "unlimitedStorage"
+          "storage"
+          "tabs"
         ];
         platforms = platforms.all;
       };
@@ -2439,10 +2438,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.51.0";
+      version = "2.51.1";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4398779/dualsub-2.51.0.xpi";
-      sha256 = "a102f7b72eac9a86b4320e38c5b1d6da943a128ad313a58aad723e017c59be8a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4400282/dualsub-2.51.1.xpi";
+      sha256 = "2ba7167231586017caf3e63ae585b043d3caa7d5ce911528fed0262ab875d7ff";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -5836,10 +5835,10 @@
     };
     "keepassxc-browser" = buildFirefoxXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.9.4";
+      version = "1.9.5";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4376326/keepassxc_browser-1.9.4.xpi";
-      sha256 = "bf1dab7e6471b61ba7b23e886795ab830eb6221dc1e7b499c3a15ad74f49c579";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4395146/keepassxc_browser-1.9.5.xpi";
+      sha256 = "248f90ba6bffc82ef43b97c9e501b0889f70519703f27434e2d920b47f6ead45";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -5957,10 +5956,10 @@
     };
     "languagetool" = buildFirefoxXpiAddon {
       pname = "languagetool";
-      version = "8.11.8";
+      version = "8.13.2";
       addonId = "languagetool-webextension@languagetool.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4341696/languagetool-8.11.8.xpi";
-      sha256 = "2f1489f7180303be730ff2b16d6a432d07017c6cffd3fbfc39f37dc809a25fc8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4396724/languagetool-8.13.2.xpi";
+      sha256 = "e8a93ca046df390aaafeb7ba86254505ed3c593371c1f9e5af6892018d12de66";
       meta = with lib;
       {
         homepage = "https://languagetool.org";
@@ -5980,6 +5979,7 @@
           "https://*/*"
           "file:///*"
           "*://docs.google.com/document/*"
+          "*://docs.google.com/presentation/*"
           "*://languagetool.org/*"
         ];
         platforms = platforms.all;
@@ -7431,10 +7431,10 @@
     };
     "momentumdash" = buildFirefoxXpiAddon {
       pname = "momentumdash";
-      version = "2.16.12";
+      version = "2.16.16";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4390758/momentumdash-2.16.12.xpi";
-      sha256 = "7b07b8f7515c3d900ec50e879b08509023ea78bf30515f5e291b8b4f467621fa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4399408/momentumdash-2.16.16.xpi";
+      sha256 = "afacd5bf8600c28a9d373e3eafeda47f638c76cb743641c56e8203023db2c5bc";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -8251,10 +8251,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "2024.10.3";
+      version = "2024.12.1";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4362401/pakkujs-2024.10.3.xpi";
-      sha256 = "bc6fd10882b0e82027f842ae5246c8113c0b3c03e23e55d8812d97f2011d83c7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4400257/pakkujs-2024.12.1.xpi";
+      sha256 = "08ade9dcb46ad062af47642b2e23f103dd7b02242c3ba32f3d41dd194a498910";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
@@ -9321,10 +9321,10 @@
     };
     "protondb-for-steam" = buildFirefoxXpiAddon {
       pname = "protondb-for-steam";
-      version = "2.1.0";
+      version = "2.2.0";
       addonId = "{30280527-c46c-4e03-bb16-2e3ed94fa57c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4195217/protondb_for_steam-2.1.0.xpi";
-      sha256 = "3ed7824503a3184450326b09a71d086c2bdfce04d6384ca3b02f0cf800db5852";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4396448/protondb_for_steam-2.2.0.xpi";
+      sha256 = "831d8bd66eaa9a35b9ffe2c72a5aa8b1174d3fcd72cb6c0eb53d332de179d133";
       meta = with lib;
       {
         homepage = "https://github.com/tryton-vanmeer/ProtonDB-for-Steam#protondb-for-steam";
@@ -9537,10 +9537,10 @@
     };
     "read-aloud" = buildFirefoxXpiAddon {
       pname = "read-aloud";
-      version = "1.73.0";
+      version = "1.76.0";
       addonId = "{ddc62400-f22d-4dd3-8b4a-05837de53c2e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4350883/read_aloud-1.73.0.xpi";
-      sha256 = "034e18ede7f8dc6314797b50c85b3e0ebc19467e621f1ced68d80dbc7bc5e210";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4396569/read_aloud-1.76.0.xpi";
+      sha256 = "dc87b4a07de9c352c2554737c93cd4429ccf7dcf67d6c5eb44fec758fea88434";
       meta = with lib;
       {
         description = "Read out loud the current web-page article with one click. Supports 40+ languages.";
@@ -12498,10 +12498,10 @@
     };
     "wakatimes" = buildFirefoxXpiAddon {
       pname = "wakatimes";
-      version = "4.0.9";
+      version = "4.0.12";
       addonId = "addons@wakatime.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4369526/wakatimes-4.0.9.xpi";
-      sha256 = "e0e7eb918ac91cdad624e5cc63b3bc11da2458a8422d514cc7015eeff0b1a93d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4400334/wakatimes-4.0.12.xpi";
+      sha256 = "252b697dd46c5ef95a9f96e40465fb1cb64bf2a4f2737ab1317ba39b8ee2d959";
       meta = with lib;
       {
         homepage = "https://wakatime.com";
