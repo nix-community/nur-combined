@@ -3,8 +3,7 @@
   sources,
   python3Packages,
 }:
-with python3Packages;
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   inherit (sources.xstatic-font-awesome) pname version src;
 
   meta = {

@@ -95,8 +95,8 @@ src.git = "https://github.com/martyr-deepin/cef-binary.git"
 fetch.github = "martyr-deepin/cef-binary"
 
 [click-loglevel]
-src.pypi = "click-loglevel"
-fetch.pypi = "click-loglevel"
+src.github = "jwodder/click-loglevel"
+fetch.github = "jwodder/click-loglevel"
 
 [cloudpan189-go]
 src.github = "tickstep/cloudpan189-go"
@@ -634,9 +634,8 @@ src.github_tag = "intel/sgx-software-enable"
 fetch.url = "https://google.com/generate_204"
 
 [smartrent_py]
-# src.pypi = "smartrent.py"
-src.manual = "0.4.0"
-fetch.pypi = "smartrent.py"
+src.github = "zacherythomas/smartrent-py"
+fetch.github = "zacherythomas/smartrent-py"
 
 [smfc]
 src.github = "petersulyok/smfc"
@@ -721,8 +720,8 @@ src.regex = "File/TH-Sy-([0-9.]+).7z"
 fetch.url = "http://cheonhyeong.com/File/TH-Sy-$ver.7z"
 
 [tqdm-loggable]
-src.pypi = "tqdm-loggable"
-fetch.url = "https://pypi.org/packages/source/t/tqdm-loggable/tqdm_loggable-$ver.tar.gz"
+src.git = "https://github.com/tradingstrategy-ai/tqdm-loggable.git"
+fetch.github = "tradingstrategy-ai/tqdm-loggable"
 
 [transmission-web-control]
 src.git = "https://github.com/ronggang/transmission-web-control.git"

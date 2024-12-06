@@ -3,12 +3,19 @@
   sources,
   python3Packages,
 }:
-with python3Packages;
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   inherit (sources.smartrent_py) pname version src;
+  pyproject = true;
 
-  propagatedBuildInputs = [
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail '"poetry>=' '"poetry-core>='
+  '';
+
+  propagatedBuildInputs = with python3Packages; [
     aiohttp
+    poetry-core
+    setuptools
     websockets
   ];
 

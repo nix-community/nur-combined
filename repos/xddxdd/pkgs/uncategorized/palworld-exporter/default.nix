@@ -5,8 +5,7 @@
   click-loglevel,
   py-rcon,
 }:
-with python3Packages;
-buildPythonApplication rec {
+python3Packages.buildPythonApplication rec {
   inherit (sources.palworld-exporter) pname version src;
   pyproject = true;
 
@@ -17,7 +16,7 @@ buildPythonApplication rec {
     sed -i "s/prometheus-client>=0.19,<0.20/prometheus-client/g" pyproject.toml
   '';
 
-  propagatedBuildInputs = [
+  propagatedBuildInputs = with python3Packages; [
     setuptools
     click
     click-loglevel

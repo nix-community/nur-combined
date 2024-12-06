@@ -437,7 +437,7 @@
   "legacyPackages.x86_64-linux.click-loglevel": {
     "description": "Log level parameter type for Click",
     "pname": "python3.12-click-loglevel",
-    "version": "0.5.0"
+    "version": "0.5.1"
   },
   "legacyPackages.x86_64-linux.cloudpan189-go": {
     "description": "CLI for China Telecom 189 Cloud Drive service, implemented in Go",
@@ -652,7 +652,7 @@
   "legacyPackages.x86_64-linux.lantianCustomized.llama-cpp": {
     "description": "Inference of Meta's LLaMA model (and others) in pure C/C++",
     "pname": "llama-cpp",
-    "version": "4231"
+    "version": "4273"
   },
   "legacyPackages.x86_64-linux.lantianCustomized.materialgram": {
     "description": "Telegram Desktop fork with material icons and some improvements (Without anti-features)",
@@ -702,42 +702,42 @@
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux-xanmod-generic",
-    "version": "6.12.1-xanmod2"
+    "version": "6.12.2-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.generic-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.1-xanmod2"
+    "version": "6.12.2-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.generic-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux-xanmod-generic-lto",
-    "version": "6.12.1-xanmod2"
+    "version": "6.12.2-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.generic-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.1-xanmod2"
+    "version": "6.12.2-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
     "pname": "linux-xanmod-latest-generic",
-    "version": "6.12.1-xanmod2"
+    "version": "6.12.2-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-generic-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.1-xanmod2"
+    "version": "6.12.2-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-generic-lto": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux-xanmod-latest-generic-lto",
-    "version": "6.12.1-xanmod2"
+    "version": "6.12.2-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.latest-generic-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.1-xanmod2"
+    "version": "6.12.2-xanmod1"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.lts-generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
@@ -3252,7 +3252,7 @@
   "legacyPackages.x86_64-linux.openvswitch-dpdk": {
     "description": "Multilayer virtual switch",
     "pname": "openvswitch-dpdk",
-    "version": "3.4.0"
+    "version": "3.4.1"
   },
   "legacyPackages.x86_64-linux.osdlyrics": {
     "description": "Standalone lyrics fetcher/displayer (windowed and OSD mode)",
@@ -3342,7 +3342,7 @@
   "legacyPackages.x86_64-linux.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "9.1.1+ds-5"
+    "version": "9.1.2+ds-1"
   },
   "legacyPackages.x86_64-linux.qq": {
     "description": "QQ for Linux",
@@ -3407,7 +3407,7 @@
   "legacyPackages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2024-11-30"
+    "version": "0-unstable-2024-12-06"
   },
   "legacyPackages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -3447,7 +3447,7 @@
   "legacyPackages.x86_64-linux.smartrent_py": {
     "description": "Api for SmartRent locks, thermostats, moisture sensors and switches",
     "pname": "python3.12-smartrent_py",
-    "version": "0.4.0"
+    "version": "0.4.5"
   },
   "legacyPackages.x86_64-linux.smfc": {
     "description": "Super Micro Fan Control",
@@ -3532,7 +3532,7 @@
   "legacyPackages.x86_64-linux.tqdm-loggable": {
     "description": "TQDM progress bar helpers for logging and other headless application",
     "pname": "python3.12-tqdm-loggable",
-    "version": "0.2"
+    "version": "0-unstable-2024-10-10"
   },
   "legacyPackages.x86_64-linux.uesave": {
     "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS)",
@@ -3552,7 +3552,7 @@
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2024-12-01"
+    "version": "0-unstable-2024-12-03"
   },
   "legacyPackages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
@@ -3727,7 +3727,7 @@
   "packages.x86_64-linux.click-loglevel": {
     "description": "Log level parameter type for Click",
     "pname": "python3.12-click-loglevel",
-    "version": "0.5.0"
+    "version": "0.5.1"
   },
   "packages.x86_64-linux.cloudpan189-go": {
     "description": "CLI for China Telecom 189 Cloud Drive service, implemented in Go",
@@ -4077,7 +4077,7 @@
   "packages.x86_64-linux.openvswitch-dpdk": {
     "description": "Multilayer virtual switch",
     "pname": "openvswitch-dpdk",
-    "version": "3.4.0"
+    "version": "3.4.1"
   },
   "packages.x86_64-linux.osdlyrics": {
     "description": "Standalone lyrics fetcher/displayer (windowed and OSD mode)",
@@ -4162,7 +4162,7 @@
   "packages.x86_64-linux.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
     "pname": "qemu-user-static",
-    "version": "9.1.1+ds-5"
+    "version": "9.1.2+ds-1"
   },
   "packages.x86_64-linux.qq": {
     "description": "QQ for Linux",
@@ -4227,7 +4227,7 @@
   "packages.x86_64-linux.rime-ice": {
     "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
     "pname": "rime-ice",
-    "version": "0-unstable-2024-11-30"
+    "version": "0-unstable-2024-12-06"
   },
   "packages.x86_64-linux.rime-moegirl": {
     "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
@@ -4267,7 +4267,7 @@
   "packages.x86_64-linux.smartrent_py": {
     "description": "Api for SmartRent locks, thermostats, moisture sensors and switches",
     "pname": "python3.12-smartrent_py",
-    "version": "0.4.0"
+    "version": "0.4.5"
   },
   "packages.x86_64-linux.smfc": {
     "description": "Super Micro Fan Control",
@@ -4312,7 +4312,7 @@
   "packages.x86_64-linux.tqdm-loggable": {
     "description": "TQDM progress bar helpers for logging and other headless application",
     "pname": "python3.12-tqdm-loggable",
-    "version": "0.2"
+    "version": "0-unstable-2024-10-10"
   },
   "packages.x86_64-linux.uesave": {
     "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS)",
@@ -4332,7 +4332,7 @@
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
     "pname": "uni-api",
-    "version": "0-unstable-2024-12-01"
+    "version": "0-unstable-2024-12-03"
   },
   "packages.x86_64-linux.unigine-heaven": {
     "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",

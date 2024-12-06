@@ -4,13 +4,13 @@
   python3,
   python3Packages,
   makeWrapper,
+  stdenv,
 }:
-with python3Packages;
 let
-  pyenet = buildPythonPackage {
+  pyenet = python3Packages.buildPythonPackage {
     inherit (sources.cockpy-pyenet) pname version src;
 
-    propagatedBuildInputs = [ cython ];
+    propagatedBuildInputs = with python3Packages; [ cython ];
 
     doCheck = false;
   };

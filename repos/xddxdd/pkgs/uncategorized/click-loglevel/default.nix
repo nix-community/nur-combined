@@ -3,13 +3,13 @@
   sources,
   python3Packages,
 }:
-with python3Packages;
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   inherit (sources.click-loglevel) pname version src;
   pyproject = true;
 
-  propagatedBuildInputs = [
+  propagatedBuildInputs = with python3Packages; [
     click
+    hatchling
     setuptools
   ];
 

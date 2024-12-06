@@ -7,7 +7,6 @@
   autoPatchelfHook,
   stdenv,
 }:
-with python39Packages;
 let
   pythonVersion = "39";
   version = "0.9.3";
@@ -19,7 +18,7 @@ let
     ])
     + ":/run/opengl-driver/lib";
 in
-buildPythonPackage rec {
+python39Packages.buildPythonPackage rec {
   pname = "deepspeech-gpu";
   inherit version;
   wheelName = "deepspeech_gpu-${version}-cp${pythonVersion}-cp${pythonVersion}-manylinux1_x86_64.whl";
@@ -33,11 +32,11 @@ buildPythonPackage rec {
   format = "other";
 
   buildInputs = [ stdenv.cc.cc ];
-  nativeBuildInputs = [
+  nativeBuildInputs = with python39Packages; [
     pip
     autoPatchelfHook
   ];
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = with python39Packages; [ numpy ];
 
   installPhase = ''
     runHook preInstall
