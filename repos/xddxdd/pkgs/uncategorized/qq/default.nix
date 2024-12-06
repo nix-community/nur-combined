@@ -5,7 +5,6 @@
   wrapGAppsHook,
   makeWrapper,
   lib,
-  dpkg,
   # Dependencies
   alsa-lib,
   gtk3,
@@ -55,15 +54,22 @@ stdenv.mkDerivation rec {
     autoPatchelfHook
     wrapGAppsHook
     makeWrapper
-    dpkg
   ];
   buildInputs = libraries;
+
+  unpackPhase = ''
+    runHook preUnpack
+
+    ar x $src
+
+    runHook postUnpack
+  '';
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/bin
-    dpkg -x $src $out
+    tar xf data.tar.xz -C $out
     mv $out/usr/* $out/
     mv $out/opt/QQ/* $out/opt/
     rm -rf $out/opt/QQ $out/usr

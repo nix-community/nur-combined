@@ -4,11 +4,24 @@
   stdenv,
   p7zip,
   rpmextract,
+  makeWrapper,
+  bubblewrap,
   pkgsi686Linux,
 }:
 let
   pname = "red-star-os-rgjanggi";
   version = "3.0";
+  meta = {
+    maintainers = with lib.maintainers; [ xddxdd ];
+    description = "Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed. Use at your own risk";
+    homepage = "https://archive.org/details/RedStarOS";
+    license = lib.licenses.unfree;
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
+  };
+
   src = stdenv.mkDerivation {
     inherit pname version;
     src = fetchurl {
@@ -41,12 +54,7 @@ let
       runHook postInstall
     '';
 
-    meta = {
-      maintainers = with lib.maintainers; [ xddxdd ];
-      description = "Wallpapers from DPRK Red Star OS 3.0";
-      homepage = "https://archive.org/details/RedStarOS";
-      license = lib.licenses.unfree;
-    };
+    inherit meta;
   };
 
   wxGTK2 = pkgsi686Linux.callPackage ./wxgtk2.nix { unicode = false; };
@@ -54,22 +62,40 @@ let
   additionalPath = lib.makeBinPath [
     pkgsi686Linux.alsa-utils
   ];
-in
-pkgsi686Linux.stdenv.mkDerivation {
-  inherit pname version src;
 
-  nativeBuildInputs = with pkgsi686Linux; [
-    autoPatchelfHook
+  package = pkgsi686Linux.stdenv.mkDerivation {
+    inherit pname version src;
+
+    nativeBuildInputs = with pkgsi686Linux; [
+      autoPatchelfHook
+    ];
+
+    buildInputs = [ wxGTK2 ];
+
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p $out/bin $out/opt $out/lib
+      cp -r $src/Applications $out/opt/Applications
+
+      runHook postInstall
+    '';
+
+    inherit meta;
+  };
+in
+stdenv.mkDerivation rec {
+  inherit pname version;
+  dontUnpack = true;
+
+  nativeBuildInputs = [
     makeWrapper
   ];
-
-  buildInputs = [ wxGTK2 ];
 
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin $out/opt $out/lib
-    cp -r $src/Applications $out/opt/Applications
+    mkdir -p $out/bin
 
     cat <<EOF >$out/bin/rgjanggi
     #!/usr/bin/env bash
@@ -93,7 +119,7 @@ pkgsi686Linux.stdenv.mkDerivation {
       x11_args+=(--ro-bind-try "\$XAUTHORITY" "\$XAUTHORITY")
     fi
 
-    exec ${pkgsi686Linux.bubblewrap}/bin/bwrap \
+    exec ${bubblewrap}/bin/bwrap \
       --unshare-all \
       --tmpfs / \
       --dev-bind /dev /dev \
@@ -101,13 +127,13 @@ pkgsi686Linux.stdenv.mkDerivation {
       --die-with-parent \
       --ro-bind /etc /etc \
       --ro-bind /nix /nix \
-      --ro-bind $out/opt/Applications /Applications \
+      --ro-bind ${package}/opt/Applications /Applications \
       --bind /run /run \
       --tmpfs /tmp \
       --tmpfs /home/\$USER \
       "\''${x11_args[@]}" \
       --chdir / \
-      $out/opt/Applications/rgjanggi.app/Contents/RedStar/rgjanggi
+      ${package}/opt/Applications/rgjanggi.app/Contents/RedStar/rgjanggi
     EOF
     chmod +x $out/bin/rgjanggi
 
@@ -117,16 +143,5 @@ pkgsi686Linux.stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru = { inherit wxGTK2; };
-
-  meta = {
-    maintainers = with lib.maintainers; [ xddxdd ];
-    description = "Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed. Use at your own risk";
-    homepage = "https://archive.org/details/RedStarOS";
-    license = lib.licenses.unfree;
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-    ];
-  };
+  inherit meta;
 }
