@@ -33,7 +33,7 @@ let
       fi
       args+=("$a")
     done
-    exec "${cura5}/bin/${name}" "''${args[@]}"
+    exec "${cura5}/bin/${pname}" "''${args[@]}"
   '';
 in
 stdenv.mkDerivation rec {
