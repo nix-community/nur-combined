@@ -45,6 +45,7 @@ rec {
   openvpn3-indicator = pkgs.callPackage ./pkgs/openvpn3-indicator { };
   nodejs_20_11_1 = pkgs.callPackage ./pkgs/nodejs { };
   cli-microsoft365 = pkgs.callPackage ./pkgs/cli-microsoft365 { };
+
   m365 = cli-microsoft365; # alias for cli-microsoft365
   postman-cli = pkgs.callPackage ./pkgs/postman-cli {
     inherit mloeper;
