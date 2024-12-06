@@ -108,8 +108,8 @@ Or, use variables from this repository in case I change them:
 |  | `cloudpan189-go` | [cloudpan189-go](https://github.com/tickstep/cloudpan189-go) | 0.1.3 | CLI for China Telecom 189 Cloud Drive service, implemented in Go |
 |  | `cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps im working on |
 |  | `cryptodev-unstable` | [cryptodev-linux](http://cryptodev-linux.org/) | 1.14-unstable-2024-10-10 | Device that allows access to Linux kernel cryptographic drivers |
-|  | `decluttarr` | [decluttarr](https://github.com/ManiMatter/decluttarr) | 1.50.0 | Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed |
-| `x86_64-linux` | `dingtalk` | [dingtalk](https://www.dingtalk.com/) | 7.6.15.4102301 | Enterprise communication and collaboration platform developed by Alibaba Group |
+|  | `decluttarr` | [decluttarr](https://github.com/ManiMatter/decluttarr) | 1.50.1 | Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed |
+| `x86_64-linux` | `dingtalk` | [dingtalk](https://www.dingtalk.com/) | 7.6.25.4112601 | Enterprise communication and collaboration platform developed by Alibaba Group |
 |  | `dn42-pingfinder` | [dn42-pingfinder](https://git.dn42.dev/dn42/pingfinder/src/branch/master/clients) | 1.2.1-unstable-2022-11-06 | DN42 Pingfinder |
 |  | `dpdk-kmod` | [dpdk-kmod](https://git.dpdk.org/dpdk-kmods/) | 0-unstable-2024-11-20 | DPDK kernel modules or add-ons |
 |  | `drone-file-secret` | [drone-file-secret](https://github.com/xddxdd/drone-file-secret) | 0-unstable-2023-06-25 | Secret provider for Drone CI. It simply reads secrets from a given folder, suitable for private use Drone CI instances where running a Vault instance can be undesirable |
@@ -191,7 +191,7 @@ Or, use variables from this repository in case I change them:
 |  | `rime-moegirl` | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20241109 | RIME dictionary file for entries from zh.moegirl.org.cn |
 |  | `rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20240909 | RIME dictionary file for entries from zh.wikipedia.org |
 |  | `route-chain` | [route-chain](https://github.com/xddxdd/route-chain) | 0-unstable-2023-09-09 | Small app to generate a long path in traceroute |
-|  | `runpod-python` | [runpod-python](https://github.com/runpod/runpod-python) | 1.7.5 | Python library for RunPod API and serverless worker SDK |
+|  | `runpod-python` | [runpod-python](https://github.com/runpod/runpod-python) | 1.7.6 | Python library for RunPod API and serverless worker SDK |
 |  | `runpodctl` | [runpodctl](https://www.runpod.io) | 1.14.4 | RunPod CLI for pod management |
 |  | `sam-toki-mouse-cursors` | [sam-toki-mouse-cursors](https://github.com/SamToki/IconDesign---Sam-Toki-Mouse-Cursors) | 7.00 | Original mouse cursors (pointers) for Windows, with minimalistic design |
 | `x86_64-linux` | `sgx-software-enable` | [sgx-software-enable](https://github.com/intel/sgx-software-enable) | 1.0-unstable-2023-01-06 | This application will enable Intel SGX on Linux systems where the BIOS supports Intel SGX, but does not provide an explicit option to enable it. These systems can only enable Intel SGX via the "software enable" procedure |
@@ -217,9 +217,9 @@ Or, use variables from this repository in case I change them:
 |  | `vgpu-unlock-rs` | [vgpu-unlock-rs](https://github.com/mbilker/vgpu_unlock-rs) | 2.5.0 | Unlock vGPU functionality for consumer grade GPUs |
 |  | `vk-hdr-layer` | [vk-hdr-layer](https://github.com/Zamundaaa/VK_hdr_layer) | 0-unstable-2024-11-25 | Vulkan layer utilizing a small color management / HDR protocol for experimentation |
 |  | `vpp` | [vpp](https://wiki.fd.io/view/VPP/What_is_VPP%3F) | 24.10 | Vector Packet Processing |
-| `x86_64-linux` | `wechat-uos` | [wechat-uos](https://weixin.qq.com/) | 4.0.0.23 | WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
-| `x86_64-linux` | `wechat-uos-bin` | [wechat-uos](https://weixin.qq.com/) | 4.0.0.23 | WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
-| `x86_64-linux` | `wechat-uos-without-sandbox` | [wechat-uos](https://weixin.qq.com/) | 4.0.0.23 | WeChat desktop without sandbox (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
+| `x86_64-linux` | `wechat-uos` | [wechat-uos](https://weixin.qq.com/) | 4.0.0.30 | WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
+| `x86_64-linux` | `wechat-uos-bin` | [wechat-uos](https://weixin.qq.com/) | 4.0.0.30 | WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
+| `x86_64-linux` | `wechat-uos-without-sandbox` | [wechat-uos](https://weixin.qq.com/) | 4.0.0.30 | WeChat desktop without sandbox (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
 | `x86_64-linux` | `wine-wechat` | [wine-wechat](https://weixin.qq.com/) | 3.9.12.17 | Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
 | `x86_64-linux` | `wine-wechat-x86` | [wine-wechat-x86](https://weixin.qq.com/) | 3.9.12.16 | Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
 |  | `xstatic-asciinema-player` | [xstatic-asciinema-player](https://github.com/asciinema/asciinema-player) | 2.6.1.1 | Asciinema-player packaged for setuptools (easy_install) / pip |
@@ -335,10 +335,10 @@ Or, use variables from this repository in case I change them:
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-|  | `lantianLinuxCachyOS.latest` | [linux-cachyos-latest](https://www.kernel.org/) | 6.12.1 | Linux CachyOS Kernel with Lan Tian Modifications |
-|  | `lantianLinuxCachyOS.latest-configfile` | linux-config | 6.12.1 |  |
-|  | `lantianLinuxCachyOS.latest-lto` | [linux-cachyos-latest-lto](https://www.kernel.org/) | 6.12.1 | Linux CachyOS Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxCachyOS.latest-lto-configfile` | linux-config | 6.12.1 |  |
+|  | `lantianLinuxCachyOS.latest` | [linux-cachyos-latest](https://www.kernel.org/) | 6.12.3 | Linux CachyOS Kernel with Lan Tian Modifications |
+|  | `lantianLinuxCachyOS.latest-configfile` | linux-config | 6.12.3 |  |
+|  | `lantianLinuxCachyOS.latest-lto` | [linux-cachyos-latest-lto](https://www.kernel.org/) | 6.12.3 | Linux CachyOS Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxCachyOS.latest-lto-configfile` | linux-config | 6.12.3 |  |
 </details>
 
 <details>

@@ -457,7 +457,7 @@
   "legacyPackages.x86_64-linux.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
     "pname": "decluttarr",
-    "version": "1.50.0"
+    "version": "1.50.1"
   },
   "legacyPackages.x86_64-linux.deepspeech-gpu": {
     "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers",
@@ -472,7 +472,7 @@
   "legacyPackages.x86_64-linux.dingtalk": {
     "description": "Enterprise communication and collaboration platform developed by Alibaba Group",
     "pname": "dingtalk",
-    "version": "7.6.15.4102301"
+    "version": "7.6.25.4112601"
   },
   "legacyPackages.x86_64-linux.dn42-pingfinder": {
     "description": "DN42 Pingfinder",
@@ -682,22 +682,22 @@
   "legacyPackages.x86_64-linux.lantianLinuxCachyOS.latest": {
     "description": "Linux CachyOS Kernel with Lan Tian Modifications",
     "pname": "linux-cachyos-latest",
-    "version": "6.12.1"
+    "version": "6.12.3"
   },
   "legacyPackages.x86_64-linux.lantianLinuxCachyOS.latest-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.1"
+    "version": "6.12.3"
   },
   "legacyPackages.x86_64-linux.lantianLinuxCachyOS.latest-lto": {
     "description": "Linux CachyOS Kernel with Lan Tian Modifications and Clang+ThinLTO",
     "pname": "linux-cachyos-latest-lto",
-    "version": "6.12.1"
+    "version": "6.12.3"
   },
   "legacyPackages.x86_64-linux.lantianLinuxCachyOS.latest-lto-configfile": {
     "description": "",
     "pname": "linux-config",
-    "version": "6.12.1"
+    "version": "6.12.3"
   },
   "legacyPackages.x86_64-linux.lantianLinuxXanmod.generic": {
     "description": "Linux Xanmod Kernel with Lan Tian Modifications",
@@ -3427,7 +3427,7 @@
   "legacyPackages.x86_64-linux.runpod-python": {
     "description": "Python library for RunPod API and serverless worker SDK",
     "pname": "python3.12-runpod-python",
-    "version": "1.7.5"
+    "version": "1.7.6"
   },
   "legacyPackages.x86_64-linux.runpodctl": {
     "description": "RunPod CLI for pod management",
@@ -3602,17 +3602,17 @@
   "legacyPackages.x86_64-linux.wechat-uos": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.0.23"
+    "version": "4.0.0.30"
   },
   "legacyPackages.x86_64-linux.wechat-uos-bin": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.0.23"
+    "version": "4.0.0.30"
   },
   "legacyPackages.x86_64-linux.wechat-uos-without-sandbox": {
     "description": "WeChat desktop without sandbox (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.0.23"
+    "version": "4.0.0.30"
   },
   "legacyPackages.x86_64-linux.wine-wechat": {
     "description": "Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)",
@@ -3747,7 +3747,7 @@
   "packages.x86_64-linux.decluttarr": {
     "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
     "pname": "decluttarr",
-    "version": "1.50.0"
+    "version": "1.50.1"
   },
   "packages.x86_64-linux.deepspeech-gpu": {
     "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers",
@@ -3762,7 +3762,7 @@
   "packages.x86_64-linux.dingtalk": {
     "description": "Enterprise communication and collaboration platform developed by Alibaba Group",
     "pname": "dingtalk",
-    "version": "7.6.15.4102301"
+    "version": "7.6.25.4112601"
   },
   "packages.x86_64-linux.dn42-pingfinder": {
     "description": "DN42 Pingfinder",
@@ -4247,7 +4247,7 @@
   "packages.x86_64-linux.runpod-python": {
     "description": "Python library for RunPod API and serverless worker SDK",
     "pname": "python3.12-runpod-python",
-    "version": "1.7.5"
+    "version": "1.7.6"
   },
   "packages.x86_64-linux.runpodctl": {
     "description": "RunPod CLI for pod management",
@@ -4382,17 +4382,17 @@
   "packages.x86_64-linux.wechat-uos": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.0.23"
+    "version": "4.0.0.30"
   },
   "packages.x86_64-linux.wechat-uos-bin": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.0.23"
+    "version": "4.0.0.30"
   },
   "packages.x86_64-linux.wechat-uos-without-sandbox": {
     "description": "WeChat desktop without sandbox (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.0.23"
+    "version": "4.0.0.30"
   },
   "packages.x86_64-linux.wine-wechat": {
     "description": "Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)",

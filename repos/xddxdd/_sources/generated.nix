@@ -187,25 +187,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "abc3225c0a9bbce5cdfa367e06edc10aa6b6006a";
+    version = "bc598bde08f90129fc2568b5bb6bb431d329eeda";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "abc3225c0a9bbce5cdfa367e06edc10aa6b6006a";
-      hash = "sha256-fwNW7CAT/arQXKY2OAO1DiFELWX1rtkr40s7sf1gf4g=";
+      rev = "bc598bde08f90129fc2568b5bb6bb431d329eeda";
+      hash = "sha256-M5yZMMw8Qq2flFLSFqduU8FCNyRiivKcUxYr/aY9g2w=";
     };
-    date = "2024-12-05";
+    date = "2024-12-06";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "ca2d0351c9ca158b7bb596ea13aae58b7c204589";
+    version = "2aefa57a7bebca0195984029387bdccb74e9c666";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "ca2d0351c9ca158b7bb596ea13aae58b7c204589";
-      hash = "sha256-V7oIds+bwGv3406tCwGG2RtFQp6NW6XwGqcAoSP1BJY=";
+      rev = "2aefa57a7bebca0195984029387bdccb74e9c666";
+      hash = "sha256-S+zivr1X0rfwDvuCI75Hofqm1Z+dkqwVwxtVfQbHJxk=";
     };
-    date = "2024-12-05";
+    date = "2024-12-06";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -301,20 +301,20 @@
   };
   decluttarr = {
     pname = "decluttarr";
-    version = "v1.50.0";
+    version = "v1.50.1";
     src = fetchFromGitHub {
       owner = "ManiMatter";
       repo = "decluttarr";
-      rev = "v1.50.0";
-      hash = "sha256-BgrC6QN3mQL/ut6vOJ/DN8Z2m8rUoSkz70138NLsdtk=";
+      rev = "v1.50.1";
+      hash = "sha256-/H5lZRTb9/bjRA4E1uOzoWPbSiCxbnMCfdGEWnNHPbw=";
     };
   };
   dingtalk = {
     pname = "dingtalk";
-    version = "7.6.15.4102301";
+    version = "7.6.25.4112601";
     src = fetchurl {
-      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.6.15.4102301_amd64.deb";
-      hash = "sha256-DWRI6y5eXRuAHe90Pm6VK44+tuBxbNLqUmv9OiK8Fm0=";
+      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_7.6.25.4112601_amd64.deb";
+      hash = "sha256-HyEg7AtJHx3BSxMxYtVUDlYGSf1Qn/ZKey7w26LXjMw=";
     };
   };
   dn42-pingfinder = {
@@ -1406,12 +1406,12 @@
   };
   runpod-python = {
     pname = "runpod-python";
-    version = "1.7.5";
+    version = "1.7.6";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpod-python";
-      rev = "1.7.5";
-      hash = "sha256-fLoVouI4ifbyzlOZPLxsug+PUPruOLmfCtM1ATnXFh0=";
+      rev = "1.7.6";
+      hash = "sha256-2niBHykq6lnitS4lX8Inm9f873+gEUB+EVJOz+6ZwZc=";
     };
   };
   runpodctl = {
@@ -1770,10 +1770,10 @@
   };
   wechat-uos = {
     pname = "wechat-uos";
-    version = "4.0.0.23";
+    version = "4.0.0.30";
     src = fetchurl {
-      url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_4.0.0.23_amd64.deb";
-      hash = "sha256-Q3gmo83vJddj9p4prhBHm16LK6CAtW3ltd5j4FqPcgM=";
+      url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_4.0.0.30_amd64.deb";
+      hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
   wine-wechat-x64 = {
