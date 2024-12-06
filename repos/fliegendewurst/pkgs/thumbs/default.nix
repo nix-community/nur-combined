@@ -13,7 +13,7 @@ rustPlatform.buildRustPackage rec {
 
   patches = [ ./fix.patch ];
 
-  cargoSha256 = "sha256-iPOEUd6+qPR1vI7khkHXgwR8UFRrCH5irHlL1VZVPyY=";
+  cargoHash = "sha256-iPOEUd6+qPR1vI7khkHXgwR8UFRrCH5irHlL1VZVPyY=";
 
   meta = with lib; {
     homepage = "https://github.com/FliegendeWurst/tmux-thumbs";
