@@ -70,5 +70,7 @@ stdenv.mkDerivation rec {
     description = "More than a Full-Featured Danmu Player";
     homepage = "https://kikoplay.fun";
     license = lib.licenses.gpl3Only;
+    # See https://github.com/NixOS/nixpkgs/pull/354929
+    broken = stdenv.isDarwin;
   };
 }
