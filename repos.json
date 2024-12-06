@@ -1128,6 +1128,9 @@
             "file": "pkgs/default.nix",
             "url": "https://gitlab.com/vdemeester/home"
         },
+        "vizqq": {
+            "url": "https://github.com/ViZiD/nur-vizqq"
+        },
         "vojtechstep": {
             "url": "https://github.com/VojtechStep/vspkgs"
         },
