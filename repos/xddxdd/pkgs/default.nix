@@ -26,7 +26,7 @@ let
     ;
 
   flatGroups = {
-    deprecated = ifNotCI ./deprecated;
+    deprecated = ./deprecated;
     kernel-modules = ./kernel-modules;
     uncategorized = ./uncategorized;
   };
