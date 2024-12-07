@@ -370,12 +370,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "bc598bde08f90129fc2568b5bb6bb431d329eeda",
-            "sha256": "sha256-M5yZMMw8Qq2flFLSFqduU8FCNyRiivKcUxYr/aY9g2w=",
+            "rev": "84a6510bee6bbbf18e1b6109722f7b622477eaa3",
+            "sha256": "sha256-s4AuSk2x/MeR76D94I04kls445SWbh/ujUTU8mVmcCU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "bc598bde08f90129fc2568b5bb6bb431d329eeda"
+        "version": "84a6510bee6bbbf18e1b6109722f7b622477eaa3"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
@@ -391,12 +391,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "2aefa57a7bebca0195984029387bdccb74e9c666",
-            "sha256": "sha256-S+zivr1X0rfwDvuCI75Hofqm1Z+dkqwVwxtVfQbHJxk=",
+            "rev": "d0c6a41a9c38b7a189d9d487ffb8a4ccc744e53d",
+            "sha256": "sha256-Zzh6IZV8hJCCpnu86FfXt/dYaiOB/JSltWD5T7vzoY0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2aefa57a7bebca0195984029387bdccb74e9c666"
+        "version": "d0c6a41a9c38b7a189d9d487ffb8a4ccc744e53d"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -1423,13 +1423,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6.12.2-xanmod1",
-            "sha256": "sha256-krxbeQTvWEScyLYklXKcpBzqxA+iqcDBgMEejP8eMTU=",
+            "rev": "6.12.3-xanmod1",
+            "sha256": "sha256-u+7pCEqN75pQul/MPrus4Skk6W/VgsvjhRLJcNcVpOs=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/xanmod/linux.git"
         },
-        "version": "6.12.2-xanmod1"
+        "version": "6.12.3-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1505,12 +1505,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b4273",
-            "sha256": "sha256-VRWejVCRma40QWvpKgnE0xPCTHFljPa9Myq0On+koHg=",
+            "rev": "b4279",
+            "sha256": "sha256-kLnLFVGP15ByNHjrJ0ffiF6S4FixFLd7UfCn0r50iVg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b4273"
+        "version": "b4279"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -1542,11 +1542,32 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Gx7rrCn4qxpB5fILvc7vszQek7w9VaD5lckCsP6Hf+I=",
+            "sha256": "sha256-i/0zRrPaWBT4Lv9vGxtf7dCtWF85olcJsj61SqxFaR0=",
             "type": "url",
-            "url": "https://github.com/topjohnwu/Magisk/releases/download/v28.0/Magisk-v28.0.apk"
+            "url": "https://github.com/topjohnwu/Magisk/releases/download/v28.1/Magisk-v28.1.apk"
         },
-        "version": "v28.0"
+        "version": "v28.1"
+    },
+    "mautrix-gmessages": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "mautrix-gmessages",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "mautrix",
+            "repo": "gmessages",
+            "rev": "v0.5.2",
+            "sha256": "sha256-3sx2XxzH/cj2zJIkV9QKKVadxSWwf4YZbdg3p4repqs=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.5.2"
     },
     "mtkclient": {
         "cargoLocks": null,
@@ -2666,7 +2687,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-12-06",
+        "date": "2024-12-07",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -2678,12 +2699,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "d189ef2a68c6e01fad7b264cd0323597c544afe5",
-            "sha256": "sha256-GMQjEgeXMsqyGLG1Xj9NrT6t3I882g2E5lZbQh+vk18=",
+            "rev": "7ebe0877e8db73815799d6c88f127146a3d09a3c",
+            "sha256": "sha256-cYivXexjNXfHt0JNDd0DsiACBRJi0N1hizZLuL4PIKw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d189ef2a68c6e01fad7b264cd0323597c544afe5"
+        "version": "7ebe0877e8db73815799d6c88f127146a3d09a3c"
     },
     "rime-moegirl": {
         "cargoLocks": null,
@@ -3248,7 +3269,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2024-12-03",
+        "date": "2024-12-07",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -3260,12 +3281,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "89ab406206b196756269f69b9c1a6c3902b32541",
-            "sha256": "sha256-vHB01QkhMMODYjNSjCpFZroTQKxoDZkZ7c7B5rjZVuk=",
+            "rev": "a4f312669584ef6c233af69381600232b4aca469",
+            "sha256": "sha256-jT+uaOsLArCxs5zzBf9uVUNb2fxZo3GW/PRLat9jD6s=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "89ab406206b196756269f69b9c1a6c3902b32541"
+        "version": "a4f312669584ef6c233af69381600232b4aca469"
     },
     "unigine-heaven": {
         "cargoLocks": null,

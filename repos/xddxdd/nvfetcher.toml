@@ -346,6 +346,10 @@ fetch.github = "chiyuki0325/lyrica"
 src.github = "topjohnwu/Magisk"
 fetch.url = "https://github.com/topjohnwu/Magisk/releases/download/$ver/Magisk-$ver.apk"
 
+[mautrix-gmessages]
+src.github = "mautrix/gmessages"
+fetch.github = "mautrix/gmessages"
+
 [mtkclient]
 src.github = "bkerler/mtkclient"
 fetch.github = "bkerler/mtkclient"
