@@ -53,9 +53,13 @@ in
         lib.mkForce (
           import packages."${n}-patched" {
             inherit system;
-            config = {
-              inherit (v) allowUnfree permittedInsecurePackages allowInsecurePredicate;
-            };
+            config =
+              {
+                inherit (v) allowUnfree permittedInsecurePackages;
+              }
+              // lib.optionalAttrs (v.allowInsecurePredicate != null) {
+                inherit (v) allowInsecurePredicate;
+              };
             inherit (v) overlays;
           }
         )
