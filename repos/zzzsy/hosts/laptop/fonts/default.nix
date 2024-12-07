@@ -7,7 +7,7 @@
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-emoji
-      (nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; })
+      nerd-fonts.symbols-only
       maple-mono
       wqy_zenhei
       my.lxgw-wenkai-screen

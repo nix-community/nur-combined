@@ -13,7 +13,6 @@ let
     daeuniverse
     #ghostty
     lanzaboote
-    nix-matlab
     neovim-nightly-overlay
     nur
     #stylix
@@ -32,31 +31,34 @@ let
       ${hostName} = nixpkgs.lib.nixosSystem {
         inherit system;
 
-        modules = [
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              sharedModules = attrValues self.hmModules;
-            };
-            nixpkgs = {
-              overlays = [
-                (final: prev: {
-                  #ghostty = ghostty.packages.x86_64-linux.default;
-                  dae = daeuniverse.packages.${system}.dae-unstable;
-                  my = self.packages."${system}";
-                  chaotic = chaotic.packages.${system};
-                })
-              ] ++ overlays;
-            };
-            networking.hostName = hostName;
-          }
+        modules =
+          [
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                sharedModules = attrValues self.hmModules;
+              };
+              nixpkgs = {
+                overlays = [
+                  (final: prev: {
+                    #ghostty = ghostty.packages.x86_64-linux.default;
+                    dae = daeuniverse.packages.${system}.dae-unstable;
+                    my = self.packages."${system}";
+                    chaotic = chaotic.packages.${system};
+                  })
+                ] ++ overlays;
+              };
+              networking.hostName = hostName;
+            }
 
-          home-manager.nixosModules.home-manager
-          ../hosts/common
-          ../hosts/${hostName}
-          (import ../home username)
-        ] ++ (attrValues self.nixosModules) ++ modules;
+            home-manager.nixosModules.home-manager
+            ../hosts/common
+            ../hosts/${hostName}
+            (import ../home username)
+          ]
+          ++ (attrValues self.nixosModules)
+          ++ modules;
         specialArgs = {
           inherit inputs;
         };
@@ -76,7 +78,7 @@ in
         daeuniverse.nixosModules.dae
         # daeuniverse.nixosModules.daed
         lanzaboote.nixosModules.lanzaboote
-        nur.nixosModules.nur
+        nur.modules.nixos.default
         # stylix.nixosModules.stylix
         # nixos-hardware.nixosModules.common-cpu-amd-pstate
         # nixos-hardware.nixosModules.common-gpu-amd
@@ -84,8 +86,7 @@ in
       ];
       overlays = [
         self.overlays.mutter
-        nix-matlab.overlay
-        nur.overlay
+        nur.overlays.default
         zig.overlays.default
         neovim-nightly-overlay.overlays.default
       ];

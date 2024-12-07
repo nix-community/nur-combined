@@ -17,11 +17,13 @@
 
   # stylix.enable = true;
 
-  chaotic = {
+  services = {
     scx.enable = true;
-    scx.package = pkgs.scx.full;
+    scx.package = pkgs.scx_git.full;
     scx.scheduler = "scx_lavd";
   };
+
+  workarounds.thinkbook14p-fix.enable = true;
 
   boot = {
     plymouth.enable = true;
@@ -34,9 +36,8 @@
     kernelPackages = pkgs.chaotic.linuxPackages_cachyos;
     #@TODO
     kernelParams = [
-      # Lenovo shit do not support on 4xxx
-      # "amd_pstate=active"
-      "ideapad_laptop.allow_v4_dytc=1"
+      "amd_pstate=active"
+      # "amd_iommu=off"
       "pti=on"
       "log_level=3"
       "nowatchdog"

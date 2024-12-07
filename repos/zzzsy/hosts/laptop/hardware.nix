@@ -32,7 +32,7 @@ in
     "usb_storage"
     "sd_mod"
   ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [ "amdgpu" ];
   boot.initrd.systemd.enable = true; # for perservation
   boot.kernelModules = [
     "kvm-amd"

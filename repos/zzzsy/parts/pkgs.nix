@@ -38,8 +38,8 @@
           "modules"
         ]
         // {
-          mutter = pkgs.gnome.mutter;
-          gnome-shell = pkgs.gnome.gnome-shell;
+          mutter = pkgs.mutter;
+          gnome-shell = pkgs.gnome-shell;
         };
     };
 }

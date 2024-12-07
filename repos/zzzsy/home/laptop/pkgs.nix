@@ -102,7 +102,6 @@ let
     google-chrome
     localsend
     # handbrake
-    go-musicfox
     netease-cloud-music-gtk
     # jellyfin-media-player
     # wireshark
@@ -111,12 +110,10 @@ let
     # minder
     tsukimi
     materialgram
-    nur.repos.xddxdd.wechat-uos
+    # nur.repos.xddxdd.wechat-uos
 
     #ghostty
 
-    matlab
-    matlab-shell
     deluge-gtk
 
     # vmware-workstation

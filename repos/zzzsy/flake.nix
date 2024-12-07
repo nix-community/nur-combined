@@ -22,10 +22,10 @@
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
-    nix-matlab = {
-      inputs.nixpkgs.follows = "nixpkgs-2405";
-      url = "github:ykttt/nix-matlab";
-    };
+    #nix-matlab = {
+    #  inputs.nixpkgs.follows = "nixpkgs-2405";
+    #  url = "github:ykttt/nix-matlab";
+    #};
 
     nur.url = "github:nix-community/NUR";
     #stylix.url = "github:danth/stylix";

@@ -2,6 +2,10 @@
   display: none !important;
 }
 
+#sidebar-box {
+  z-index: 100 !important;
+}
+
 :root {
   --autohide-sidebar-extended: 230px;
   --autohide-sidebar-collapsed: 33px;
