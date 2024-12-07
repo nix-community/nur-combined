@@ -14,10 +14,11 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  zju-connect = pkgs.callPackage ./pkgs/zju-connect { };
+  zju-connect = pkgs.callPackage ./pkgs/zju-connect {};
   wpsoffice = pkgs.libsForQt5.callPackage ./pkgs/wpsoffice { };
   wechat-universal-bwrap = pkgs.callPackage ./pkgs/wechat-universal-bwrap { };
-  wemeet-bin-bwrap = pkgs.callPackage ./pkgs/wemeet-bin-bwrap { };
+  wemeet-bin-bwrap = pkgs.libsForQt5.callPackage ./pkgs/wemeet-bin-bwrap { };
+  wemeet-bin-bwrap-wayland-screenshare = pkgs.libsForQt5.callPackage ./pkgs/wemeet-bin-bwrap { useWaylandScreenshare = true; };
   nvim-vscode-colorscheme = pkgs.callPackage ./pkgs/nvim-vscode-colorscheme { };
   suyu = pkgs.callPackage ./pkgs/suyu { };
   suyu-room = pkgs.callPackage ./pkgs/suyu-room { };
