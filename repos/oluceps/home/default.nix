@@ -17,7 +17,7 @@ let
   listRecursive' =
     acc: pathStr:
     let
-      toPath = s: path + "/${s}";
+      toThePath = s: path + "/${s}";
       path = ./. + pathStr;
       contents = readDir path;
       dirs = filterAttrs (k: v: v == "directory") contents;
@@ -30,10 +30,11 @@ let
         recursiveUpdate acc (
           setAttrByPath [ "${configPlace}${pathStr}/${(removeSuffix ".nix" f)}" ] (
             if lib.hasSuffix ".nix" f then
-              (writeText (removeSuffix ".nix" f) (import (/. + f) args))
+              (writeText (removeSuffix ".nix" f) (import (toThePath f) args))
             else
-              /. + f
+              (toThePath f)
           )
+
         )
       ) { } (attrNames files);
     in
