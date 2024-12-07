@@ -2176,10 +2176,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "134.0.20241204.91850";
+      version = "134.0.20241206.102218";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4399644/deutsch_de_language_pack-134.0.20241204.91850.xpi";
-      sha256 = "06b94822b4b211cffa11262588fe846981e5025b060555be2f6fce0cfe02bcbe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4400902/deutsch_de_language_pack-134.0.20241206.102218.xpi";
+      sha256 = "08da51902775add89dae2d0f79222638c1139a4fd4c01ea8668312f8030faa0b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3078,10 +3078,10 @@
     };
     "flagfox" = buildFirefoxXpiAddon {
       pname = "flagfox";
-      version = "6.1.80";
+      version = "6.1.81";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4379273/flagfox-6.1.80.xpi";
-      sha256 = "fe70b303985a07ac7cc6c18ad3f185b0be1a893417c7c008178e92c29fd63ba8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4397131/flagfox-6.1.81.xpi";
+      sha256 = "be30e9a70af6c0353718d9a08b94d12c4b81d9bd0fd5cd73b47d5b7f0fe7026c";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -3361,10 +3361,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "134.0.20241204.91850";
+      version = "134.0.20241206.102218";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4399586/francais_language_pack-134.0.20241204.91850.xpi";
-      sha256 = "570e80cd797dcb5f166637f5f8b3fed2ebf0521f626e9c33a502061cca66c61e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4400940/francais_language_pack-134.0.20241206.102218.xpi";
+      sha256 = "adc7b443527d05b19c07d99cea227bca1224f4f5af97af96611614460935620b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3398,10 +3398,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "134.0.20241204.91850";
+      version = "134.0.20241206.102218";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4399641/gaidhlig_language_pack-134.0.20241204.91850.xpi";
-      sha256 = "a72e7ec4fa8ecdc14f9b541c3c94903401d0ad4f17d39bb76f2dedebda3d2be7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4400905/gaidhlig_language_pack-134.0.20241206.102218.xpi";
+      sha256 = "aef0084b1de005315ccfa4d5b56494b38402b345a6e6bb27a062251788fcc998";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7492,10 +7492,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.6.8";
+      version = "1.7.0";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4400077/mtab-1.6.8.xpi";
-      sha256 = "da9e47e78d4f2d62b63eb3e685a938d5ec4b2f24d0082e2772bee14b87095c63";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4401374/mtab-1.7.0.xpi";
+      sha256 = "f85fd417c8fa33470fdecb611883533a2161158f75f40f0cce69ad03d291dad7";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
@@ -8100,10 +8100,10 @@
     };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "8.10.52.25";
+      version = "8.10.55.2";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4386887/1password_x_password_manager-8.10.52.25.xpi";
-      sha256 = "e5732561a7f614fbda7ba3712ed7a3ac22d4944205e4ab49c3649e8887a9baa4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4400079/1password_x_password_manager-8.10.55.2.xpi";
+      sha256 = "1744883b634e962161d1bfc23527d8b5ee01b02d35207f2d14d51d397c1d0ffa";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -9914,10 +9914,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "134.0.20241204.91850";
+      version = "134.0.20241206.102218";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4399662/scots_language_pack-134.0.20241204.91850.xpi";
-      sha256 = "7b79bf11da534c9126cfc30d3adddc9f979ff701dce45a34b290726874b81ac0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4400968/scots_language_pack-134.0.20241206.102218.xpi";
+      sha256 = "586b060b7c6b1c422ada6ccf3a2b938814be722a6fe2632d095ff809347042a2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
