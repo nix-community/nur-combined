@@ -3607,17 +3607,17 @@
   "legacyPackages.x86_64-linux.wechat-uos": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.0.30"
+    "version": "4.0.0.21"
   },
   "legacyPackages.x86_64-linux.wechat-uos-bin": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.0.30"
+    "version": "4.0.0.21"
   },
   "legacyPackages.x86_64-linux.wechat-uos-without-sandbox": {
     "description": "WeChat desktop without sandbox (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.0.30"
+    "version": "4.0.0.21"
   },
   "legacyPackages.x86_64-linux.wine-wechat": {
     "description": "Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)",
@@ -4392,17 +4392,17 @@
   "packages.x86_64-linux.wechat-uos": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.0.30"
+    "version": "4.0.0.21"
   },
   "packages.x86_64-linux.wechat-uos-bin": {
     "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.0.30"
+    "version": "4.0.0.21"
   },
   "packages.x86_64-linux.wechat-uos-without-sandbox": {
     "description": "WeChat desktop without sandbox (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
     "pname": "wechat-uos",
-    "version": "4.0.0.30"
+    "version": "4.0.0.21"
   },
   "packages.x86_64-linux.wine-wechat": {
     "description": "Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)",

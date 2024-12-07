@@ -794,10 +794,7 @@ src.include_regex = "^v[0-9.]+$"
 fetch.github = "FDio/vpp"
 
 [wechat-uos]
-src.webpage = "https://aur.archlinux.org/rpc/?v=5&type=info&arg[]=wechat"
-src.regex = "\"Version\":\"([^\"]+)\""
-src.from_pattern = "(.+)-(.+)"
-src.to_pattern = "\\1"
+src.manual = "4.0.0.21"
 fetch.url = "https://home-store-packages.uniontech.com/appstore/pool/appstore/c/com.tencent.wechat/com.tencent.wechat_$ver_amd64.deb"
 
 [wine-wechat-x86]
