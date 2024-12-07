@@ -54,6 +54,7 @@ rec {
         callPackage
         ifNotCI
         ifNotNUR
+        lib
         loadPackages
         mergePkgs
         mode

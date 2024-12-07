@@ -1,6 +1,7 @@
 {
   writeTextFile,
   callPackage,
+  pkgs,
   lib,
   _meta,
   _packages,
@@ -17,7 +18,18 @@ let
     n: v: v != null && (builtins.tryEval v).success && !(isHiddenName n) && !(lib.isDerivation v)
   ) _packages;
 
-  deprecatedPackages = builtins.attrNames (builtins.readDir ../../deprecated);
+  deprecatedPackages =
+    let
+      inherit
+        (import ../../../helpers/group.nix {
+          inherit pkgs lib;
+          mode = null;
+        })
+        createCallGroupDeps
+        ;
+      callGroupDeps = createCallGroupDeps _packages callPackage;
+    in
+    builtins.attrNames (import ../../deprecated callGroupDeps);
 
   allPlatforms = [
     "x86_64-linux"

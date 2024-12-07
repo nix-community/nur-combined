@@ -284,5 +284,8 @@ stdenv.mkDerivation {
     homepage = "https://weixin.qq.com/";
     platforms = [ "x86_64-linux" ];
     license = lib.licenses.unfreeRedistributable;
+    knownVulnerabilities = [
+      "wechat-uos is available in nixpkgs. If you still want sandbox functionality, use wechat-uos-sandboxed package."
+    ];
   };
 }
