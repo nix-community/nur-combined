@@ -9,17 +9,17 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "little-a-map";
-  version = "0.13.2";
+  version = "0.13.3";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "AndrewKvalheim";
     repo = "little-a-map";
     rev = "refs/tags/v${version}";
-    hash = "sha256-mzj7Qdz7ky0GS+uN7K7MySKOQlZSu0G+fS6fjaGr0Ek=";
+    hash = "sha256-mfYcEpHxGnCLxFpTC6rKY63yKAFZPDJVXecP+5mStJA=";
   };
 
-  cargoHash = "sha256-BBnWlBdd/apb2bJtkK+qK+eGS6CyU8Ht90SzyWZ/Ak0=";
+  cargoHash = "sha256-5CAhcw3GtEXgV6P8aPcJREvE/sddVi8N4fscbRmIFM0=";
 
   nativeBuildInputs = [ cmake ];
 
