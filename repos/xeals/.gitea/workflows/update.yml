@@ -15,7 +15,7 @@ jobs:
       - uses: cachix/install-nix-action@v23
         with:
           extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            access-tokens = github.com=${{ secrets.INPUT_GITHUB_ACCESS_TOKEN }}
       - name: "flake: update inputs"
         uses: DeterminateSystems/update-flake-lock@v20
         with:
