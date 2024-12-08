@@ -33,9 +33,8 @@ in
 
     # AMD GPU
     (lib.mkIf (cfg.gpuFlavor == "amd") {
-      boot.initrd.kernelModules = lib.mkIf cfg.amd.enableKernelModule [ "amdgpu" ];
-
       hardware.amdgpu = {
+        initrd.enable = cfg.amd.enableKernelModule;
         # Vulkan
         amdvlk = lib.mkIf cfg.amd.amdvlk {
           enable = true;
