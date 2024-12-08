@@ -235,5 +235,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-root.url = "github:srid/flake-root";
+    flake-parts.url = "github:hercules-ci/flake-parts";
   };
 }
