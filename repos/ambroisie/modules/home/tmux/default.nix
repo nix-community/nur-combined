@@ -87,7 +87,7 @@ in
 
       # Accept sloppy Ctrl key when switching windows, on top of default mapping
       bind-key -N "Select the previous window" C-p previous-window
-      bind-key -N "Select the next window" C-n next -window
+      bind-key -N "Select the next window" C-n next-window
 
       # Better vim mode
       bind-key -T copy-mode-vi 'v' send -X begin-selection
