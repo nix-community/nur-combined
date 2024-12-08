@@ -9,7 +9,7 @@
 
 {
   imports = [
-    (inputs.nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix")
+    (inputs.nixpkgs.outPath + "/nixos/modules/installer/cd-dvd/installation-cd-minimal-new-kernel-no-zfs.nix")
   ];
   networking = {
     wireless.iwd.enable = true;
@@ -99,10 +99,10 @@
   };
 
   services = {
-    sing-box = {
-      enable = true;
-      configFile = lib.readToStore "/run/agenix/sing";
-    };
+    # sing-box = {
+    #   enable = true;
+    #   configFile = lib.readToStore "/run/vaultix/sing";
+    # };
     pcscd.enable = true;
     openssh.enable = true;
   };

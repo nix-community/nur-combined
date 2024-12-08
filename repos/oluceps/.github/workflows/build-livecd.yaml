@@ -1,0 +1,25 @@
+name: Livecd
+on:
+  workflow_dispatch:
+
+jobs:
+  format:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+      - name: Install Nix
+        uses: cachix/install-nix-action@v30
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+      - name: Build Livecd
+        run: |
+          nix build --override-input nixpkgs github:NixOS/nixpkgs/nixos-unstable .#nixosConfigurations.livecd.config.system.build.isoImage
+      - name: Compress Build Craft
+        run: |
+          tar cvf "./$(date -I).tar" ./result/*
+      - uses: actions/upload-artifact@v4
+        with:
+          path: ./*.tar
+          overwrite: true
+          retention-days: 7days

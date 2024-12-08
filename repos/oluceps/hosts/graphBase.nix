@@ -86,25 +86,9 @@
     };
   };
 
-  systemd.user.targets.sway-session = {
-    unitConfig = {
-      Description = "sway compositor session";
-      Documentation = [ "man:systemd.special(7)" ];
-      BindsTo = [ "graphical-session.target" ];
-      Wants = [ "graphical-session-pre.target" ];
-      After = [ "graphical-session-pre.target" ];
-    };
-  };
 
   programs = {
     dconf.enable = true;
-    # anime-game-launcher.enable = false; # Adds launcher and /etc/hosts rules
-
-    # sway = {
-    #   enable = true;
-    #   xwayland.enable = true;
-    #   wrapperFeatures.gtk = true;
-    # };
     wireshark = {
       enable = true;
       package = pkgs.wireshark;
