@@ -31,7 +31,7 @@ in rustPlatform.buildRustPackage rec {
 
   LD_LIBRARY_PATH = lib.makeLibraryPath buildInputs;
 
-  cargoSha256 = "0OI/AQe0mtpxcp6Ok6iepCIdJpdSgFKz8nO3uFEVRDY=";
+  cargoHash = "sha256-0OI/AQe0mtpxcp6Ok6iepCIdJpdSgFKz8nO3uFEVRDY=";
 
   meta = with lib; {
     description = "AMD GPU management tools";

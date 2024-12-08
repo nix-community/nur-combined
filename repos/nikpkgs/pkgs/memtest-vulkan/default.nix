@@ -30,7 +30,7 @@ in rustPlatform.buildRustPackage rec {
   #  lib.makeLibraryPath [ vulkan-loader ];
   #];
 
-  cargoSha256 = "sha256-8x8bS0LcvoxoSBWbGdkKzhxDi/9VNab26eidv8YK9dg=";
+  cargoHash = "sha256-8x8bS0LcvoxoSBWbGdkKzhxDi/9VNab26eidv8YK9dg=";
 
   meta = with lib; {
     description = "Vulkan compute tool for testing video memory stability ";
