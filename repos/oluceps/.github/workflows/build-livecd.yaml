@@ -10,11 +10,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@main
       - name: Install Nix
-        uses: cachix/install-nix-action@v30
+        uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - name: Build Livecd
         run: |
-          nix build --override-input nixpkgs github:NixOS/nixpkgs/nixos-unstable .#nixosConfigurations.livecd.config.system.build.isoImage
+          ls -lha
+          nix build '.?rev=$(cat .git/refs/heads/trival)#nixosConfigurations.livecd.config.system.build.isoImage' --show-trace -L
       - name: Compress Build Craft
         run: |
           tar cvf "./$(date -I).tar" ./result/*
