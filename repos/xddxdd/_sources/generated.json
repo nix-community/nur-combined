@@ -20,6 +20,21 @@
         },
         "version": "v1.0.4"
     },
+    "adspower": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "adspower",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-QGhntFcsvgaRkKpUsW4t+nUDKUmcr+n3hs4tmA/eskI=",
+            "type": "url",
+            "url": "https://version.adspower.net/software/linux-x64-global/AdsPower-Global-6.10.20-x64.deb"
+        },
+        "version": "6.10.20"
+    },
     "amule-dlp": {
         "cargoLocks": null,
         "date": "2023-03-02",
@@ -1995,7 +2010,7 @@
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
             "rev": "0.7.0",
-            "sha256": "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=",
+            "sha256": "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=",
             "sparseCheckout": [],
             "type": "github"
         },

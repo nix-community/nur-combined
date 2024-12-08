@@ -2,6 +2,11 @@
 src.github = "musikid/acpi_ec"
 fetch.github = "musikid/acpi_ec"
 
+[adspower]
+src.webpage = "https://www.adspower.com/download"
+src.regex = "\"https://version.adspower.net/software/linux-x64-global/AdsPower-Global-([^\"]+)-x64.deb\""
+fetch.url = "https://version.adspower.net/software/linux-x64-global/AdsPower-Global-$ver-x64.deb"
+
 [amule-dlp]
 src.git = "https://github.com/persmule/amule-dlp.git"
 fetch.github = "persmule/amule-dlp"

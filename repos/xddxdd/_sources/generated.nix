@@ -11,6 +11,14 @@
       hash = "sha256-gDcEzZKtHMULtTtJSDTRH1W9otSB6IC0E6EBF9j6F7Q=";
     };
   };
+  adspower = {
+    pname = "adspower";
+    version = "6.10.20";
+    src = fetchurl {
+      url = "https://version.adspower.net/software/linux-x64-global/AdsPower-Global-6.10.20-x64.deb";
+      hash = "sha256-QGhntFcsvgaRkKpUsW4t+nUDKUmcr+n3hs4tmA/eskI=";
+    };
+  };
   amule-dlp = {
     pname = "amule-dlp";
     version = "7b3a07ab554d95267cca0c4a819b26d8474d6b3b";
@@ -1028,7 +1036,7 @@
       owner = "open-quantum-safe";
       repo = "oqs-provider";
       rev = "0.7.0";
-      hash = "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=";
+      hash = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
     };
   };
   osdlyrics = {

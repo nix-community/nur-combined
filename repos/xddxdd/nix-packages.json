@@ -14,6 +14,11 @@
     "pname": "acpi-ec",
     "version": "1.0.4"
   },
+  "legacyPackages.x86_64-linux.adspower": {
+    "description": "Antidetect Browser for Multi-Accounts",
+    "pname": "adspower",
+    "version": "6.10.20"
+  },
   "legacyPackages.x86_64-linux.amule-dlp": {
     "description": "Peer-to-peer client for the eD2K and Kademlia networks (with Dynamic Leech Protection)",
     "pname": "amule-dlp",
@@ -3658,6 +3663,11 @@
     "description": "Kernel module to access directly to the ACPI EC",
     "pname": "acpi-ec",
     "version": "1.0.4"
+  },
+  "packages.x86_64-linux.adspower": {
+    "description": "Antidetect Browser for Multi-Accounts",
+    "pname": "adspower",
+    "version": "6.10.20"
   },
   "packages.x86_64-linux.amule-dlp": {
     "description": "Peer-to-peer client for the eD2K and Kademlia networks (with Dynamic Leech Protection)",
