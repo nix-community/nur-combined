@@ -11,7 +11,6 @@ let
   inherit (config.services.displayManager) sessionData;
 
   inherit (lib)
-    mkDefault
     mkEnableOption
     mkOption
     mkPackageOption
@@ -32,14 +31,6 @@ in
             defaultText = lib.literalExpression "2";
             description = ''
               The tty which contains lemurs. This has to be mirrored in the lemurs.service
-            '';
-          };
-          cache_path = lib.mkOption {
-            type = lib.types.str;
-            default = "/var/cache/lemurs";
-            defaultText = lib.literalExpression "/var/cache/lemurs";
-            description = ''
-              cache
             '';
           };
           wayland = {
@@ -68,41 +59,20 @@ in
     };
   };
 
-  config =
-    let
-      tty = "tty${toString (cfg.settings.tty)}";
-    in
-    lib.mkIf cfg.enable {
-      systemd.tmpfiles.rules = [
-        "d '${cfg.settings.cache_path}' - - - - -"
-      ];
+  config = lib.mkIf cfg.enable {
+    services.displayManager.enable = true;
+    security.pam.services.lemurs = {
+      allowNullPassword = true;
+      # See https://github.com/coastalwhite/lemurs/issues/166
+      setLoginUid = false;
+      enableGnomeKeyring = lib.mkDefault config.services.gnome.gnome-keyring.enable;
+    };
 
-      security.pam.services = {
-        lemurs.text = ''
-          auth include login
-          account include login
-          session include login
-          password include login
-        '';
-
-        # See https://github.com/coastalwhite/lemurs/issues/166
-        login = {
-          setLoginUid = false;
-          enableGnomeKeyring = config.services.gnome.gnome-keyring.enable;
-        };
-      };
-
-      environment.sessionVariables = {
-        XDG_SEAT = "seat0";
-        XDG_VTNR = toString tty;
-      };
-
-      services.displayManager = {
-        enable = mkDefault true;
-      };
-
-      environment.etc."lemurs/config.toml".source = (settingsFormat.generate "lemurs.toml" cfg.settings);
-      systemd = {
+    systemd =
+      let
+        tty = "tty${toString cfg.settings.tty}";
+      in
+      {
         defaultUnit = "graphical.target";
         services = {
           "autovt@${tty}".enable = false;
@@ -130,6 +100,7 @@ in
               ExecStart =
                 let
                   args = lib.cli.toGNUCommandLineShell { } {
+                    config = settingsFormat.generate "lemurs.toml" cfg.settings;
                     wlsessions = cfg.settings.wayland.wayland_sessions_path;
                   };
                 in
@@ -147,6 +118,5 @@ in
           };
         };
       };
-
-    };
+  };
 }
