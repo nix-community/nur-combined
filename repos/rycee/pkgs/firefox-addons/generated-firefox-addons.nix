@@ -581,6 +581,31 @@
         platforms = platforms.all;
       };
     };
+    "auto-referer" = buildFirefoxXpiAddon {
+      pname = "auto-referer";
+      version = "0.8.51";
+      addonId = "{f6a3df9c-c297-46a1-bb84-d9cb00b314f0}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4329812/auto_referer-0.8.51.xpi";
+      sha256 = "5933be3c7bd1b114f0051a31455368ec17e90f8ff14bb5c8c7ee67258a3da7f5";
+      meta = with lib;
+      {
+        homepage = "https://garywill.github.io";
+        description = "Control HTTP referer to protect privacy and not break web. And this is the addon (maybe the only one?) that deals with the 'document.referrer' bug";
+        license = licenses.gpl2;
+        mozPermissions = [
+          "webRequest"
+          "webRequestBlocking"
+          "*://*/*"
+          "ws://*/*"
+          "wss://*/*"
+          "<all_urls>"
+          "contextMenus"
+          "tabs"
+          "storage"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "auto-sort-bookmarks" = buildFirefoxXpiAddon {
       pname = "auto-sort-bookmarks";
       version = "3.4.5";
@@ -888,6 +913,20 @@
           "https://www.aachener-zeitung.de/*"
           "https://www.nn.de/*"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "binnen-i-be-gone" = buildFirefoxXpiAddon {
+      pname = "binnen-i-be-gone";
+      version = "3.1.1";
+      addonId = "{b65d7d9a-4ec0-4974-b07f-83e30f6e973f}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3862807/binnen_i_be_gone-3.1.1.xpi";
+      sha256 = "15a369100cfc5d34d9bc4eaae6f9cc76d817bbebd9554b3b47e84719d93d4564";
+      meta = with lib;
+      {
+        description = "This add-on likely is only useful for users who speak German or visit German language websites  - it will remove so called \"Binnen-Is\" on webpages.";
+        license = licenses.gpl3;
+        mozPermissions = [ "storage" "http://*/*" "https://*/*" ];
         platforms = platforms.all;
       };
     };
@@ -3563,10 +3602,10 @@
     };
     "gitpod" = buildFirefoxXpiAddon {
       pname = "gitpod";
-      version = "2.3.3";
+      version = "2.3.4";
       addonId = "{dbcc42f9-c979-4f53-8a95-a102fbff3bbe}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4372342/gitpod-2.3.3.xpi";
-      sha256 = "b119f6a4fbb9b008532ec7de407b80d7c26bf0e658c95db1ea67dcc135474e49";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4401737/gitpod-2.3.4.xpi";
+      sha256 = "673fe8efe557b58487063f9787f5ad663e8793fef165d53327a5b5368d8791d1";
       meta = with lib;
       {
         homepage = "http://www.gitpod.io";
@@ -5860,6 +5899,46 @@
           "http://*/*"
           "https://api.github.com/"
           "<all_urls>"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "keeper-password-manager" = buildFirefoxXpiAddon {
+      pname = "keeper-password-manager";
+      version = "16.11.2";
+      addonId = "KeeperFFStoreExtension@KeeperSecurityInc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4386995/keeper_password_manager-16.11.2.xpi";
+      sha256 = "587de2e3c7af73c6be93e849d6371581be928c2ff93b4c4480d5e6d41ac3895e";
+      meta = with lib;
+      {
+        homepage = "http://keepersecurity.com/";
+        description = "Protect and autofill passwords with the world's most trusted and #1 downloaded secure password manager and digital vault.";
+        license = {
+          shortName = "keeper-password-manager";
+          fullName = "End-User License Agreement for Keeper® Password Manager & Digital Vault";
+          url = "https://addons.mozilla.org/en-US/firefox/addon/keeper-password-manager/eula/";
+          free = false;
+        };
+        mozPermissions = [
+          "contextMenus"
+          "tabs"
+          "alarms"
+          "idle"
+          "storage"
+          "browsingData"
+          "webNavigation"
+          "scripting"
+          "http://*/*"
+          "https://*/*"
+          "webRequest"
+          "webRequestBlocking"
+          "<all_urls>"
+          "https://keepersecurity.com/vault/*"
+          "https://keepersecurity.eu/vault/*"
+          "https://keepersecurity.com.au/vault/*"
+          "https://keepersecurity.ca/vault/*"
+          "https://keepersecurity.jp/vault/*"
+          "https://govcloud.keepersecurity.us/vault/*"
         ];
         platforms = platforms.all;
       };
@@ -9451,6 +9530,27 @@
         description = "Adds a button to the address bar to get the current url as a qr code";
         license = licenses.gpl3;
         mozPermissions = [ "activeTab" ];
+        platforms = platforms.all;
+      };
+    };
+    "quality-of-rwth" = buildFirefoxXpiAddon {
+      pname = "quality-of-rwth";
+      version = "1.11.0";
+      addonId = "quality-of-rwth@RcCookie";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4370748/quality_of_rwth-1.11.0.xpi";
+      sha256 = "ee38f9d6ad6a8854310e6d60528480962395b08b535dc5846631f860fea7abf3";
+      meta = with lib;
+      {
+        description = "Makes RWTH websites more enjoyable";
+        license = licenses.mit;
+        mozPermissions = [
+          "*://*.rwth-aachen.de/*"
+          "*://*.rwth.video/*"
+          "storage"
+          "downloads"
+          "webRequest"
+          "webRequestBlocking"
+        ];
         platforms = platforms.all;
       };
     };
@@ -13077,6 +13177,21 @@
           "tabs"
           "unlimitedStorage"
         ];
+        platforms = platforms.all;
+      };
+    };
+    "xdebug-helper-for-firefox" = buildFirefoxXpiAddon {
+      pname = "xdebug-helper-for-firefox";
+      version = "1.0.10";
+      addonId = "{806cbba4-1bd3-4916-9ddc-e719e9ca0cbf}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4141260/xdebug_helper_for_firefox-1.0.10.xpi";
+      sha256 = "03190a79c37d7517003349e8aa651a576c28ab4855a5bb004e25785f9b5dea26";
+      meta = with lib;
+      {
+        homepage = "https://github.com/BrianGilbert/xdebug-helper-for-firefox";
+        description = "This extension is very useful for PHP developers that are using PHP tools with Xdebug support like PHPStorm, Eclipse with PDT, Netbeans and MacGDBp or any other Xdebug compatible profiling tool like KCacheGrind, WinCacheGrind or Webgrind.";
+        license = licenses.mit;
+        mozPermissions = [ "tabs" "*://*/*" ];
         platforms = platforms.all;
       };
     };

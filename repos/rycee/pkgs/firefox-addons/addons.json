@@ -68,6 +68,9 @@
     "slug": "augmented-steam"
   },
   {
+    "slug": "auto-referer"
+  },
+  {
     "slug": "auto-sort-bookmarks"
   },
   {
@@ -109,6 +112,9 @@
   },
   {
     "slug": "bibbot"
+  },
+  {
+    "slug": "binnen-i-be-gone"
   },
   {
     "slug": "bionic-reader"
@@ -778,6 +784,16 @@
     "slug": "keepassxc-browser"
   },
   {
+    "slug": "keeper-password-manager",
+    "license": {
+      "tag": "custom",
+      "shortName": "keeper-password-manager",
+      "fullName": "End-User License Agreement for Keeper® Password Manager & Digital Vault",
+      "url": "https://addons.mozilla.org/en-US/firefox/addon/keeper-password-manager/eula/",
+      "free": false
+    }
+  },
+  {
     "slug": "keybase-for-firefox",
     "pname": "keybase"
   },
@@ -1229,6 +1245,9 @@
   },
   {
     "slug": "qr-code-address-bar"
+  },
+  {
+    "slug": "quality-of-rwth"
   },
   {
     "slug": "rabattcorner"
@@ -1767,6 +1786,9 @@
   {
     "slug": "xbs",
     "pname": "xbrowsersync"
+  },
+  {
+    "slug": "xdebug-helper-for-firefox"
   },
   {
     "slug": "yomitan"
