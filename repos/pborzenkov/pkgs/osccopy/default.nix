@@ -1,5 +1,8 @@
-{ lib, fetchFromGitHub, rustPlatform }:
-
+{
+  lib,
+  fetchFromGitHub,
+  rustPlatform,
+}:
 rustPlatform.buildRustPackage rec {
   pname = "osccopy";
   version = "0.1.0";
@@ -11,12 +14,12 @@ rustPlatform.buildRustPackage rec {
     sha256 = "1ad4yiqaq57njdxhzylsbck4fpr882l68i9mwv8ih1m02qh0045w";
   };
 
-  cargoSha256 = "1wyy6898gq2nrks2bvml043vb069l4inyysd4b8ajnb1ya238xjn";
+  cargoHash = "sha256-VnY0hPJhWanQIk17byOhyYC1BwG07iX0zFbghxIy3vM=";
 
   meta = with lib; {
     description = "Copy text from remote machine into local clipboard";
     homepage = "https://github.com/pborzenkov/osccopy";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ pborzenkov ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [pborzenkov];
   };
 }

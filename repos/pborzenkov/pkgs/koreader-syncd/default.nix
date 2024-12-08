@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-5gViz57LB2qsTrW6BqoeqtVRmztshofg8PzQtZ1hnk0=";
   };
 
-  cargoSha256 = "sha256-4FZr4CEkb88ZpwDN5O8o6xWEdr8bj6KnFIYlVqhTzXc=";
+  cargoHash = "sha256-4FZr4CEkb88ZpwDN5O8o6xWEdr8bj6KnFIYlVqhTzXc=";
 
   meta = with lib; {
     description = "KOReader progress sync server";
