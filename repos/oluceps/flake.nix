@@ -156,6 +156,10 @@
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lemurs = {
+      url = "github:coastalwhite/lemurs";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
     ascii2char = {
       url = "github:oluceps/nix-ascii2char";
     };

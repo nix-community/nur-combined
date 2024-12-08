@@ -16,10 +16,10 @@ reIf {
         userDb = "/var/lib/calibre-server/users.sqlite";
       };
     };
-    calibre-web = {
-      enable = true;
-      group = "calibre";
-      options.calibreLibrary = "/var/lib/calibre-server";
-    };
+    # calibre-web = {
+    #   enable = true;
+    #   group = "calibre";
+    #   options.calibreLibrary = "/var/lib/calibre-server";
+    # };
   };
 }
