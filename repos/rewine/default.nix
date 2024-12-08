@@ -17,6 +17,17 @@ with pkgs; rec {
   #mogan = pkgs.libsForQt5.callPackage ./pkgs/mogan {  };
   nowide = pkgs.callPackage ./pkgs/nowide {  };
   kylin-virtual-keyboard = libsForQt5.callPackage ./pkgs/kylin-virtual-keyboard { };
-  #kylin-wayland-compositor = pkgs.callPackage ./pkgs/kylin-wayland-compositor { };
+  /*kylin-wlroots = pkgs.wlroots_0_17.overrideAttrs (
+    old: {
+      src = pkgs.fetchgit {
+        url = "https://gitee.com/openKylin/wlroots.git";
+        rev = "c98b79d2c66989e5439a0ba2acab9aae6bde6bb1";
+        hash = "sha256-06IX52vcPASo41qU2QMHYyTJWI4HMjbzEi1Y51oEZ80=";
+      };
+    }
+  );
+  kylin-wayland-compositor = pkgs.callPackage ./pkgs/kylin-wayland-compositor {
+    inherit kylin-wlroots;
+  };*/
   xcursor-viewer = pkgs.callPackage ./pkgs/xcursor-viewer { };
 }
