@@ -45,8 +45,6 @@
                 "clonehero"
                 "virtualparadise"
               ];
-
-            permittedInsecurePackages = [ "electron-24.8.6" ];
           };
 
           inherit system;
