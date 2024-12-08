@@ -7492,10 +7492,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.7.0";
+      version = "1.7.1";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4401374/mtab-1.7.0.xpi";
-      sha256 = "f85fd417c8fa33470fdecb611883533a2161158f75f40f0cce69ad03d291dad7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4401617/mtab-1.7.1.xpi";
+      sha256 = "67d9b5d286c63e7cb30675f4b92272a5c81f84c2ae73ea6f4fc941747ae1ceef";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
@@ -10193,10 +10193,10 @@
     };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "15.1.2";
+      version = "15.1.3";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4396950/sidebartabs-15.1.2.xpi";
-      sha256 = "5fe11969c7062bcb43c589a53a6eee5da3811d5fc2ac1363bb265fe1ac76e32f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4401404/sidebartabs-15.1.3.xpi";
+      sha256 = "b4215b3b95f2d8ed54855919645fe92d28ce2b1dc6ec0ea8d6f7b539dcabbdce";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
@@ -13089,7 +13089,7 @@
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
-        description = "Japanese dictionary with Anki integration";
+        description = "Powerful and versatile pop-up dictionary for language learning used by 60,000+ language learners.";
         license = licenses.gpl3;
         mozPermissions = [
           "storage"
