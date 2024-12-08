@@ -90,6 +90,8 @@
 
   mppp = pkgs.callPackage ./pkgs/mppp { };
 
+  nanobench = pkgs.callPackage ./pkgs/nanobench { };
+
   parallel-hashmap = pkgs.callPackage ./pkgs/parallel-hashmap { };
 
   pareto = pkgs.python3Packages.callPackage ./pkgs/pareto { };
