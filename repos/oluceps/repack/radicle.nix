@@ -2,11 +2,13 @@
   lib,
   reIf,
   config,
+  inputs',
   ...
 }:
 reIf {
   services.radicle = {
     enable = true;
+    package = inputs'.radicle.packages.default;
     httpd = {
       enable = true;
       listenPort = 8084;
@@ -61,10 +63,13 @@ reIf {
       ];
       publicExplorer = "https://app.radicle.xyz/nodes/$host/$rid$path";
       web = {
+        avatarUrl = "https://raw.githubusercontent.com/milieuim/mdbook-theme-milieuim/refs/heads/main/favicon.svg";
+        bannerUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/15_Qian_Xuan_Eight_Flowers_National_Palace_Museum_Beijing.JPG/2560px-15_Qian_Xuan_Eight_Flowers_National_Palace_Museum_Beijing.JPG";
+        description = "radicle seed hosted on nyaw.xyz";
         pinned = {
           repositories = [
-            "z23fw6Ewk1bJvxg2K83a4qNngtwNN"
-            "z4DLk3sKs4Fy589WwVBcrXF6B8KES"
+            "rad:z23fw6Ewk1bJvxg2K83a4qNngtwNN"
+            "rad:z4DLk3sKs4Fy589WwVBcrXF6B8KES"
           ];
         };
       };

@@ -5,5 +5,5 @@
   ...
 }:
 reIf {
-  services.trojan-server.enable = true;
+  services.sing-server.enable = true;
 }

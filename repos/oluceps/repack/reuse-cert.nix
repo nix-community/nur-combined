@@ -11,8 +11,8 @@ reIf (
     inherit (lib) optionalAttrs;
     nameCondPair = [
       {
-        name = "trojan-server";
-        cond = config.services.trojan-server.enable;
+        name = "sing-server";
+        cond = config.services.sing-server.enable;
       }
       # {
       #   name = "hysteria-only";

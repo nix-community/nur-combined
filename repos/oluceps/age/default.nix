@@ -41,7 +41,7 @@
       (hard [
         "ss"
         "sing"
-        "trojan-server"
+        "sing-server"
         "caddy"
       ])
       // (userRo [

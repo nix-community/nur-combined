@@ -12,10 +12,10 @@ let
     optionals
     ;
 
-  cfg = config.services.trojan-server;
+  cfg = config.services.sing-server;
 in
 {
-  options.services.trojan-server = {
+  options.services.sing-server = {
     enable = mkOption {
       type = types.bool;
       default = false;
@@ -26,7 +26,7 @@ in
     };
     configFile = mkOption {
       type = types.str;
-      default = config.vaultix.secrets.trojan-server.path;
+      default = config.vaultix.secrets.sing-server.path;
     };
     openFirewall = mkOption {
       type = types.port;
@@ -36,11 +36,11 @@ in
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ cfg.openFirewall ];
     networking.firewall.allowedUDPPorts = [ cfg.openFirewall ];
-    systemd.services.trojan-server = {
+    systemd.services.sing-server = {
       wantedBy = [ "multi-user.target" ];
       after = [ "network-online.target" ];
       wants = [ "network-online.target" ];
-      description = "trojan-server Daemon";
+      description = "sing-server Daemon";
       serviceConfig = {
         DynamicUser = true;
         ExecStart = "${lib.getExe' cfg.package "sing-box"} run -c $\{CREDENTIALS_DIRECTORY}/config.json -D $STATE_DIRECTORY";
@@ -50,7 +50,7 @@ in
             "crt:${config.vaultix.secrets."nyaw.cert".path}"
             "key:${config.vaultix.secrets."nyaw.key".path}"
           ]);
-        StateDirectory = "trojan-server";
+        StateDirectory = "sing-server";
         CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
         AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
         Restart = "on-failure";

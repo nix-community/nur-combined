@@ -30,7 +30,7 @@
     openssh.enable = true;
     fail2ban.enable = true;
     rustypaste.enable = true;
-    trojan-server.enable = true;
+    sing-server.enable = true;
     dnsproxy = {
       enable = true;
     };
