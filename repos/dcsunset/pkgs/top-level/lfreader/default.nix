@@ -3,17 +3,19 @@
 , symlinkJoin
 , buildNpmPackage
 , python3
+, pkg-config
+, vips
 }:
 
 let
   pname = "lfreader";
-  version = "2.8.4";
+  version = "2.9.0";
   name = "${pname}-${version}";
   src = fetchFromGitHub {
     owner = "DCsunset";
     repo = "LFReader";
     rev = "v${version}";
-    hash = "sha256-oPN13SNby9AxP1TTY5S7RV5O2CMVIH9LJRU3LXFRHNg=";
+    hash = "sha256-zKs7C7s+nQ/pX46cL9FXo1MYmS14gEi/nGvni1wc0wA=";
   };
 
   frontendDrv = buildNpmPackage {
@@ -21,7 +23,17 @@ let
     name = "${name}-frontend";
     sourceRoot = "${src.name}/frontend";
 
-    npmDepsHash = "sha256-SVK+haWF8/JcRjV+F6E7GxN984QLT3oU6ETEaM7nVoc=";
+    npmDepsHash = "sha256-TQGwEQXSRZBwyJ51LrJlAKubrZhpgNdNGl/DGSajKVU=";
+
+    # Required for sharp dependency (used by pwa-assets-generator)
+    nativeBuildInputs = [
+      pkg-config
+      vips
+    ];
+
+    buildInputs = [
+      vips
+    ];
 
     installPhase = ''
       runHook preInstall
