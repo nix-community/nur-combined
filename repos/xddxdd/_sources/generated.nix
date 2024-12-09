@@ -217,10 +217,10 @@
   };
   calibre-cops = {
     pname = "calibre-cops";
-    version = "3.4.5";
+    version = "3.4.6";
     src = fetchurl {
-      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/3.4.5/cops-3.4.5-php82.zip";
-      hash = "sha256-xYPaHjRC04ogpUt7ZQaHpuzs5DBX+tDhbcbE6CoAsW8=";
+      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/3.4.6/cops-3.4.6-php82.zip";
+      hash = "sha256-zhw4nZm1EJo7mGVKpmEj/hPRItvZVSBsqQDMIgwnWIo=";
     };
   };
   cef-binary = {
@@ -781,12 +781,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4287";
+    version = "b4293";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4287";
-      hash = "sha256-IN2/DuIXMTwRQI7eHaJ6z40lu1palREmNe6ZAhhNw4M=";
+      rev = "b4293";
+      hash = "sha256-+jO/xhAjCTqPsyGDfHqgK4vIr3jJLDbRF1cy6ndRQj4=";
     };
   };
   lyrica = {
@@ -1036,7 +1036,7 @@
       owner = "open-quantum-safe";
       repo = "oqs-provider";
       rev = "0.7.0";
-      hash = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
+      hash = "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=";
     };
   };
   osdlyrics = {
@@ -1685,14 +1685,14 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "a4f312669584ef6c233af69381600232b4aca469";
+    version = "deea261b0b85de99cbab80b95818ef3fec9a1cda";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "a4f312669584ef6c233af69381600232b4aca469";
-      hash = "sha256-jT+uaOsLArCxs5zzBf9uVUNb2fxZo3GW/PRLat9jD6s=";
+      rev = "deea261b0b85de99cbab80b95818ef3fec9a1cda";
+      hash = "sha256-JeTUbBkDYH66AiSAzIjXjagCNRES35QkWASORC31TxA=";
     };
-    date = "2024-12-07";
+    date = "2024-12-09";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

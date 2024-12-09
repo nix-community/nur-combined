@@ -422,11 +422,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-xYPaHjRC04ogpUt7ZQaHpuzs5DBX+tDhbcbE6CoAsW8=",
+            "sha256": "sha256-zhw4nZm1EJo7mGVKpmEj/hPRItvZVSBsqQDMIgwnWIo=",
             "type": "url",
-            "url": "https://github.com/mikespub-org/seblucas-cops/releases/download/3.4.5/cops-3.4.5-php82.zip"
+            "url": "https://github.com/mikespub-org/seblucas-cops/releases/download/3.4.6/cops-3.4.6-php82.zip"
         },
-        "version": "3.4.5"
+        "version": "3.4.6"
     },
     "cef-binary": {
         "cargoLocks": null,
@@ -1520,12 +1520,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b4287",
-            "sha256": "sha256-IN2/DuIXMTwRQI7eHaJ6z40lu1palREmNe6ZAhhNw4M=",
+            "rev": "b4293",
+            "sha256": "sha256-+jO/xhAjCTqPsyGDfHqgK4vIr3jJLDbRF1cy6ndRQj4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b4287"
+        "version": "b4293"
     },
     "lyrica": {
         "cargoLocks": null,
@@ -2010,7 +2010,7 @@
             "owner": "open-quantum-safe",
             "repo": "oqs-provider",
             "rev": "0.7.0",
-            "sha256": "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=",
+            "sha256": "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=",
             "sparseCheckout": [],
             "type": "github"
         },
@@ -3284,7 +3284,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2024-12-07",
+        "date": "2024-12-09",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -3296,12 +3296,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "a4f312669584ef6c233af69381600232b4aca469",
-            "sha256": "sha256-jT+uaOsLArCxs5zzBf9uVUNb2fxZo3GW/PRLat9jD6s=",
+            "rev": "deea261b0b85de99cbab80b95818ef3fec9a1cda",
+            "sha256": "sha256-JeTUbBkDYH66AiSAzIjXjagCNRES35QkWASORC31TxA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a4f312669584ef6c233af69381600232b4aca469"
+        "version": "deea261b0b85de99cbab80b95818ef3fec9a1cda"
     },
     "unigine-heaven": {
         "cargoLocks": null,
