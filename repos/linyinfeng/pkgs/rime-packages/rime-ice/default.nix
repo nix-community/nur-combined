@@ -96,7 +96,6 @@ stdenv.mkDerivation {
     cp -r lua      "$out/share/rime-data/lua"
 
     install -Dm644 *.{schema,dict}.yaml -t "$out/share/rime-data/"
-    install -Dm644 *.lua                -t "$out/share/rime-data/"
     install -Dm644 custom_phrase.txt    -t "$out/share/rime-data/"
     install -Dm644 symbols_v.yaml       -t "$out/share/rime-data/"
     install -Dm644 symbols_caps_v.yaml  -t "$out/share/rime-data/"
