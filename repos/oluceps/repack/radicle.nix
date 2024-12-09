@@ -60,11 +60,14 @@ reIf {
         "z6Mkmqogy2qEM2ummccUthFEaaHvyYmYBYh3dbe9W4ebScxo@ash.radicle.garden:8776"
       ];
       publicExplorer = "https://app.radicle.xyz/nodes/$host/$rid$path";
-      # web = {
-      # pinned = {
-      # repositories = [ "z2BAxuSMWoD3JujdWKCS3FoYEXE6V" ];
-      # };
-      # };
+      web = {
+        pinned = {
+          repositories = [
+            "z23fw6Ewk1bJvxg2K83a4qNngtwNN"
+            "z4DLk3sKs4Fy589WwVBcrXF6B8KES"
+          ];
+        };
+      };
     };
   };
 }

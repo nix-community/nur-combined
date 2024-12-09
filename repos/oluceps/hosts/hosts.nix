@@ -26,7 +26,7 @@ in
       "s3.nyaw.xyz"
       "hastur.nyaw.xyz"
     ];
-    "10.0.2.3" = [ "kaambl.nyaw.xyz" ];
+    "10.0.4.3" = [ "kaambl.nyaw.xyz" ];
     "192.168.1.158" = [ "eihort.nyaw.xyz" ];
   } // common;
   eihort = {
