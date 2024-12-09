@@ -7,13 +7,13 @@
 
 stdenvNoCC.mkDerivation {
   pname = "exifaudio";
-  version = "0-unstable-2024-10-22";
+  version = "0-unstable-2024-12-03";
 
   src = fetchFromGitHub {
     owner = "Sonico98";
     repo = "exifaudio.yazi";
-    rev = "855ff055c11fb8f268b4c006a8bd59dd9bcf17a7";
-    hash = "sha256-8f1iG9RTLrso4S9mHYcm3dLKWXd/WyRzZn6KNckmiCc=";
+    rev = "d7946141c87a23dcc6fb3b2730a287faf3154593";
+    hash = "sha256-nXBxPG6PVi5vstvVMn8dtnelfCa329CTIOCdXruOxT4=";
   };
 
   dontBuild = true;
