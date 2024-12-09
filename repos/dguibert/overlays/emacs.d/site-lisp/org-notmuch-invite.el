@@ -23,7 +23,7 @@
           (erase-buffer)
           (dolist (r results)
             (insert r)
-            (insert "\n"))))
+            ;(insert "\n"))))
       results)))
 
 (defun org-send-invitation (organizer attendees)
@@ -114,7 +114,7 @@
       (message-goto-subject)
       (insert headline)
       (goto-char (point-max))
-      (insert "\n")
+      ;(insert "\n")
       (mml-insert-part "text/calendar; method=REQUEST")
       (insert
        (org-icalendar-fold-string
