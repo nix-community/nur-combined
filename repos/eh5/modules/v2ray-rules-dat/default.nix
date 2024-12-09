@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib;
 let
   cfg = config.services.v2ray-rules-dat;
@@ -48,11 +53,11 @@ in
     systemd.services.v2ray-rules-dat = {
       wants = [ "network-online.target" ];
       after = [ "network-online.target" ];
-      script = ''
-        mkdir -p ${cfg.dataDir}
-      '' + (
-        concatStringsSep "\n" (mapAttrsToList downloadDatCmd cfg.updateUrls)
-      );
+      script =
+        ''
+          mkdir -p ${cfg.dataDir}
+        ''
+        + (concatStringsSep "\n" (mapAttrsToList downloadDatCmd cfg.updateUrls));
       serviceConfig = {
         Type = "oneshot";
         ExecStartPost = mkIf (cfg.reloadServices != [ ]) [

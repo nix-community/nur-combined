@@ -8,8 +8,10 @@ let
     v2ray-rules-dat = import ./v2ray-rules-dat;
     vlmcsd = import ./vlmcsd;
   };
-  default = { ... }: {
-    imports = builtins.attrValues modules;
-  };
+  default =
+    { ... }:
+    {
+      imports = builtins.attrValues modules;
+    };
 in
 modules // { inherit default; }

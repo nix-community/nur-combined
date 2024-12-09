@@ -1,9 +1,10 @@
-{ lib
-, stdenv
-, fetchurl
-, autoreconfHook
-, pkg-config
-, libmnl
+{
+  lib,
+  stdenv,
+  fetchurl,
+  autoreconfHook,
+  pkg-config,
+  libmnl,
 }:
 stdenv.mkDerivation rec {
   version = "1.2.6";
@@ -21,7 +22,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook pkg-config ];
+  nativeBuildInputs = [
+    autoreconfHook
+    pkg-config
+  ];
   buildInputs = [ libmnl ];
 
   enableParallelBuilding = true;
@@ -31,6 +35,9 @@ stdenv.mkDerivation rec {
     homepage = "https://netfilter.org/projects/libnftnl/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ fpletz ajs124 ];
+    maintainers = with maintainers; [
+      fpletz
+      ajs124
+    ];
   };
 }

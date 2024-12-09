@@ -1,4 +1,4 @@
-{ buildUBoot, armTrustedFirmwareRK3328 } @ args:
+{ buildUBoot, armTrustedFirmwareRK3328 }@args:
 let
   armTrustedFirmwareRK3328 = args.armTrustedFirmwareRK3328.overrideAttrs (_: {
     NIX_LDFLAGS = "--no-warn-execstack --no-warn-rwx-segments";
@@ -13,5 +13,9 @@ buildUBoot {
   extraMeta.platforms = [ "aarch64-linux" ];
   BL31 = "${armTrustedFirmwareRK3328}/bl31.elf";
   enableParallelBuilding = true;
-  filesToInstall = [ "u-boot.itb" "idbloader.img" "u-boot-rockchip.bin" ];
+  filesToInstall = [
+    "u-boot.itb"
+    "idbloader.img"
+    "u-boot-rockchip.bin"
+  ];
 }

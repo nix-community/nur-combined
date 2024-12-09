@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   boot.kernelModules = [ "tcp_bbr" ];
   boot.kernel.sysctl = {

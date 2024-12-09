@@ -1,10 +1,17 @@
-{ pkgs, inputs ? null, filterByPlatform ? false }:
+{
+  pkgs,
+  inputs ? null,
+  filterByPlatform ? false,
+}:
 let
   inherit (pkgs) lib system;
   utils = import ../utils;
-  callPackage = pkgs.newScope (self // {
-    sources = callPackage ./_sources/generated.nix { };
-  });
+  callPackage = pkgs.newScope (
+    self
+    // {
+      sources = callPackage ./_sources/generated.nix { };
+    }
+  );
   self = self_base // (lib.optionalAttrs (inputs != null) self_extra);
 
   self_base = {
@@ -30,15 +37,19 @@ let
 
   self_extra = sops-nix_pkgs;
 
-  sops-nix_pkgs = lib.optionalAttrs
-    (lib.hasAttrByPath [ system "sops-install-secrets" ] inputs.sops-nix.packages)
-    {
-      sops-install-secrets-nonblock = callPackage ./sops-install-secrets-nonblock {
-        inherit (inputs.sops-nix.packages.${system}) sops-install-secrets;
+  sops-nix_pkgs =
+    lib.optionalAttrs
+      (lib.hasAttrByPath [
+        system
+        "sops-install-secrets"
+      ] inputs.sops-nix.packages)
+      {
+        sops-install-secrets-nonblock = callPackage ./sops-install-secrets-nonblock {
+          inherit (inputs.sops-nix.packages.${system}) sops-install-secrets;
+        };
       };
-    }
-  ;
 in
-if filterByPlatform
-then pkgs.lib.filterAttrs (n: v: utils.checkPlatform pkgs.system v) self
-else self
+if filterByPlatform then
+  pkgs.lib.filterAttrs (n: v: utils.checkPlatform pkgs.system v) self
+else
+  self

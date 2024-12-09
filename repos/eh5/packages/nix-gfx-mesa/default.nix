@@ -1,18 +1,18 @@
 # Credit: https://github.com/guibou/nixGL
-{ lib
-, libglvnd
-, mesa
-, pcre
-, pkgsi686Linux
-, runCommand
-, runtimeShell
-, shellcheck
-, writeShellScriptBin
-, enable32bits ? false
+{
+  lib,
+  libglvnd,
+  mesa,
+  pcre,
+  pkgsi686Linux,
+  runCommand,
+  runtimeShell,
+  shellcheck,
+  writeShellScriptBin,
+  enable32bits ? false,
 }:
 let
-  mesaDrivers = [ mesa.drivers ]
-    ++ lib.optional enable32bits pkgsi686Linux.mesa.drivers;
+  mesaDrivers = [ mesa.drivers ] ++ lib.optional enable32bits pkgsi686Linux.mesa.drivers;
   glxindirect = runCommand "mesa_glxindirect" { } ''
     mkdir -p $out/lib
     ln -s ${mesa.drivers}/lib/libGLX_mesa.so.0 $out/lib/libGLX_indirect.so.0
@@ -21,9 +21,15 @@ let
   driPath = lib.makeSearchPath "lib/dri" mesaDrivers;
   vdpauPath = lib.makeSearchPath "lib/vdpau" mesaDrivers;
   eglVendorPath = lib.makeSearchPath "share/glvnd/egl_vendor.d/50_mesa.json" mesaDrivers;
-  ldPath = lib.makeLibraryPath (mesaDrivers ++ [ glxindirect libglvnd ]);
-  # XXX: add vulkan support?
+  ldPath = lib.makeLibraryPath (
+    mesaDrivers
+    ++ [
+      glxindirect
+      libglvnd
+    ]
+  );
 in
+# XXX: add vulkan support?
 writeShellScriptBin "nix-gfx-mesa" ''
   export LIBGL_DRIVERS_PATH="${driPath}"
   export LIBVA_DRIVERS_PATH="${driPath}"

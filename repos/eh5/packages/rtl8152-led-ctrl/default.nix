@@ -1,8 +1,9 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, libusb1
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  libusb1,
 }:
 rustPlatform.buildRustPackage rec {
   pname = "rtl8152-led-ctrl";

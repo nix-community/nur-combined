@@ -1,8 +1,10 @@
 # taken from https://github.com/pborzenkov/nur-packages
-{ lib
-, stdenv
-, fetchFromGitHub
-}: stdenv.mkDerivation rec {
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+}:
+stdenv.mkDerivation rec {
   pname = "vlmcsd";
   version = "1113";
 

@@ -1,8 +1,9 @@
-{ lib
-, pkgs
-, stdenv
-, kernel ? pkgs.linux_latest
-, fetchFromGitHub
+{
+  lib,
+  pkgs,
+  stdenv,
+  kernel ? pkgs.linux_latest,
+  fetchFromGitHub,
 }:
 stdenv.mkDerivation rec {
   name = "nft-fullcone";

@@ -1,4 +1,10 @@
-{ lib, runCommandCC, writeShellScriptBin, sops-install-secrets, debug ? false }:
+{
+  lib,
+  runCommandCC,
+  writeShellScriptBin,
+  sops-install-secrets,
+  debug ? false,
+}:
 let
   pname = lib.getName sops-install-secrets;
   ptrace-wrapper = runCommandCC "ptrace-wrapper" { } ''
@@ -7,8 +13,9 @@ let
 in
 (writeShellScriptBin pname ''
   ${ptrace-wrapper} ${sops-install-secrets}/bin/${pname} "$@"
-'').overrideAttrs (_: {
-  inherit pname;
-  name = "${pname}-nonblock";
-  passthru.unwrapped = sops-install-secrets;
-})
+'').overrideAttrs
+  (_: {
+    inherit pname;
+    name = "${pname}-nonblock";
+    passthru.unwrapped = sops-install-secrets;
+  })

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.mail;
   postfixCfg = config.services.postfix;
@@ -33,8 +38,7 @@ let
 
     #/^Message-ID:\s+<(.*?)@.*?>/ REPLACE Message-ID: <$1@${cfg.fqdn}>
   '';
-  policyd-spf = pkgs.writeText "policyd-spf.conf" ''
-  '';
+  policyd-spf = pkgs.writeText "policyd-spf.conf" '''';
 in
 {
   services.postfix = {
@@ -69,7 +73,11 @@ in
       "ldap:${secrets.valiasLdap.path}"
     ];
     virtual_mailbox_base = cfg.maildirRoot;
-    virtual_mailbox_domains = [ "eh5.me" "sokka.cn" "chika.xin" ];
+    virtual_mailbox_domains = [
+      "eh5.me"
+      "sokka.cn"
+      "chika.xin"
+    ];
     virtual_mailbox_maps = [
       "inline:{ { @chika.xin = @chika.xin } }"
       "ldap:${secrets.vaccountLdap.path}"
@@ -96,8 +104,14 @@ in
       "check_policy_service unix:private/policy-spf"
     ];
 
-    smtp_tls_chain_files = [ cfg.keyFile cfg.certFile ];
-    smtpd_tls_chain_files = [ cfg.keyFile cfg.certFile ];
+    smtp_tls_chain_files = [
+      cfg.keyFile
+      cfg.certFile
+    ];
+    smtpd_tls_chain_files = [
+      cfg.keyFile
+      cfg.certFile
+    ];
     smtp_tls_security_level = "may";
     smtpd_tls_security_level = "may";
     smtp_tls_ciphers = "high";
@@ -120,7 +134,11 @@ in
       privileged = true;
       chroot = false;
       command = "spawn";
-      args = [ "user=nobody" "argv=${pkgs.pypolicyd-spf}/bin/policyd-spf" "${policyd-spf}" ];
+      args = [
+        "user=nobody"
+        "argv=${pkgs.pypolicyd-spf}/bin/policyd-spf"
+        "${policyd-spf}"
+      ];
     };
     "submission-header-cleanup" = {
       type = "unix";
@@ -128,14 +146,20 @@ in
       chroot = false;
       maxproc = 0;
       command = "cleanup";
-      args = [ "-o" "header_checks=pcre:${submissionHeaderCleanupRules}" ];
+      args = [
+        "-o"
+        "header_checks=pcre:${submissionHeaderCleanupRules}"
+      ];
     };
     "10025" = {
       type = "inet";
       private = false;
       chroot = false;
       command = "smtpd";
-      args = [ "-o" "smtpd_upstream_proxy_protocol=haproxy" ];
+      args = [
+        "-o"
+        "smtpd_upstream_proxy_protocol=haproxy"
+      ];
     };
     "10587" = {
       type = "inet";
@@ -160,7 +184,15 @@ in
   };
 
   systemd.services.postfix = {
-    requires = [ "openldap.service" "dovecot2.service" "rspamd.service" ];
-    after = [ "openldap.service" "dovecot2.service" "rspamd.service" ];
+    requires = [
+      "openldap.service"
+      "dovecot2.service"
+      "rspamd.service"
+    ];
+    after = [
+      "openldap.service"
+      "dovecot2.service"
+      "rspamd.service"
+    ];
   };
 }

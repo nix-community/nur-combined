@@ -1,65 +1,69 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, cmake
-, pkg-config
-, autoPatchelfHook
-, libsForQt5
-, alsa-lib
-, atk
-, dbus
-, cairo
-, cups
-, expat
-, fontconfig
-, gnome2
-, gdk-pixbuf
-, glib
-, gtk2
-, libpulseaudio
-, libxkbcommon
-, nspr
-, nss
-, pango
-, xorg
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  cmake,
+  pkg-config,
+  autoPatchelfHook,
+  libsForQt5,
+  alsa-lib,
+  atk,
+  dbus,
+  cairo,
+  cups,
+  expat,
+  fontconfig,
+  gnome2,
+  gdk-pixbuf,
+  glib,
+  gtk2,
+  libpulseaudio,
+  libxkbcommon,
+  nspr,
+  nss,
+  pango,
+  xorg,
 }:
 let
   inherit (libsForQt5) qt5;
   pname = "qcef";
   version = "1.1.8";
-  buildInputs = with xorg; with qt5; [
-    alsa-lib
-    atk
-    cairo
-    cups
-    expat
-    fontconfig
-    gnome2.GConf
-    gdk-pixbuf
-    glib
-    gtk2
-    nspr
-    nss
-    pango
-    libpulseaudio
-    libX11
-    libxcb
-    libXcomposite
-    libXcursor
-    libXdamage
-    libXext
-    libXfixes
-    libXi
-    libxkbcommon
-    libXrandr
-    libXrender
-    libXtst
-    libXScrnSaver
-    qtbase
-    qtx11extras
-    qtwebchannel
-    dbus
-  ];
+  buildInputs =
+    with xorg;
+    with qt5;
+    [
+      alsa-lib
+      atk
+      cairo
+      cups
+      expat
+      fontconfig
+      gnome2.GConf
+      gdk-pixbuf
+      glib
+      gtk2
+      nspr
+      nss
+      pango
+      libpulseaudio
+      libX11
+      libxcb
+      libXcomposite
+      libXcursor
+      libXdamage
+      libXext
+      libXfixes
+      libXi
+      libxkbcommon
+      libXrandr
+      libXrender
+      libXtst
+      libXScrnSaver
+      qtbase
+      qtx11extras
+      qtwebchannel
+      dbus
+    ];
   rpath = lib.makeLibraryPath buildInputs;
 in
 stdenv.mkDerivation {

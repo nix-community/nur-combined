@@ -5,6 +5,7 @@
   pkg-config,
   rustfmt,
   llvmPackages,
+  bpftools,
   libbpf,
   elfutils,
   zlib,
@@ -12,27 +13,22 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "einat";
-  version = "0.1.4";
+  version = "0.1.5";
 
   src = fetchFromGitHub {
     owner = "EHfive";
     repo = "einat-ebpf";
     rev = "v${version}";
-    hash = "sha256-fm5PgA7JfNZ6FRURUpCqgHVl8yYBRKw5Xf3x19RIRWE=";
+    hash = "sha256-YKc5ZIhZ19H4wEpTbYpSNE/PuIpQCaDnxgCNqulEuYM=";
   };
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-    outputHashes = {
-      "self_cell-1.0.4" = "sha256-LDbQqDax5gp/zPfEMYknRiOORccpkY0S6mdai1/DpNk=";
-    };
-  };
+  cargoHash = "sha256-IE3hiMQOY+k9tPrqlzmJJHX+4WvBBtvqwO0kSKTctNI=";
 
   nativeBuildInputs = [
     pkg-config
     rustfmt
     llvmPackages.clang-unwrapped
-    llvmPackages.bintools-unwrapped
+    bpftools
     rustPlatform.bindgenHook
   ];
 

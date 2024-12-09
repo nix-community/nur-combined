@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.mail;
   secrets = config.sops.secrets;
@@ -98,7 +103,12 @@ in
   '';
   systemd.services.sogo =
     let
-      services = [ "openldap.service" "dovecot2.service" "postgresql.service" "memcached.service" ];
+      services = [
+        "openldap.service"
+        "dovecot2.service"
+        "postgresql.service"
+        "memcached.service"
+      ];
     in
     {
       wants = lib.mkForce services;
@@ -113,7 +123,10 @@ in
   services.memcached = {
     enable = true;
     enableUnixSocket = true;
-    extraOptions = [ "-a" "0770" ];
+    extraOptions = [
+      "-a"
+      "0770"
+    ];
   };
   users.users.sogo.extraGroups = [ "memcached" ];
 

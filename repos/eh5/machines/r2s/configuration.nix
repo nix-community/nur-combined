@@ -1,10 +1,17 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   sops = {
     defaultSopsFormat = "yaml";
     defaultSopsFile = ./secrets/secrets.sops.yaml;
     secrets = {
-      "sb-config.json" = { mode = "0400"; };
+      "sb-config.json" = {
+        mode = "0400";
+      };
       "mosdns.yaml" = { };
       "tproxy.nft" = { };
       "v2ray.v5.json" = { };
@@ -20,7 +27,10 @@
         "https://eh5.cachix.org"
       ];
       trusted-public-keys = [ "eh5.cachix.org-1:pNWZ2OMjQ8RYKTbMsiU/AjztyyC8SwvxKOf6teMScKQ=" ];
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       auto-optimise-store = true;
     };
   };
@@ -68,31 +78,34 @@
     ];
   };
 
-  environment.systemPackages = with pkgs; [
-    bind
-    bpftools
-    busybox
-    conntrack-tools
-    ethtool
-    f2fs-tools
-    file
-    gdb
-    htop
-    iperf
-    libgpiod
-    lm_sensors
-    lsof
-    mtr
-    python3
-    rtl8152-led-ctrl
-    screen
-    sops
-    stuntman
-    tcpdump
-    traceroute
-    usbutils
-    sing-box
-  ] ++ (with config.boot.kernelPackages; [
-    cpupower
-  ]);
+  environment.systemPackages =
+    with pkgs;
+    [
+      bind
+      bpftools
+      busybox
+      conntrack-tools
+      ethtool
+      f2fs-tools
+      file
+      gdb
+      htop
+      iperf
+      libgpiod
+      lm_sensors
+      lsof
+      mtr
+      python3
+      rtl8152-led-ctrl
+      screen
+      sops
+      stuntman
+      tcpdump
+      traceroute
+      usbutils
+      sing-box
+    ]
+    ++ (with config.boot.kernelPackages; [
+      cpupower
+    ]);
 }

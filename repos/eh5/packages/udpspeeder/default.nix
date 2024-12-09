@@ -1,7 +1,8 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, glibc
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  glibc,
 }:
 let
   rev = "17694ecaa9681b04498709ba7526c8a8f022b512";

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   kernel_ccache = pkgs.linuxPackages_latest.kernel.override {
     stdenv = pkgs.ccacheStdenv;
@@ -87,7 +92,6 @@ in
         };
     }
   ];
-
 
   nixpkgs.overlays = [
     (self: super: {

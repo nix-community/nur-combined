@@ -1,4 +1,10 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
   hardware.deviceTree.name = "rockchip/rk3328-nanopi-r2s.dtb";
   # hardware.deviceTree.filter = "*rk3328-nanopi-r2s.dtb";
   # hardware.deviceTree.overlays = [{
@@ -14,13 +20,9 @@
   );
 
   hardware.firmware = [
-    (pkgs.runCommand
-      "linux-firmware-r8152"
-      { }
-      ''
-        install -TDm644 ${./files/rtl8153b-2.fw} $out/lib/firmware/rtl_nic/rtl8153b-2.fw
-      ''
-    )
+    (pkgs.runCommand "linux-firmware-r8152" { } ''
+      install -TDm644 ${./files/rtl8153b-2.fw} $out/lib/firmware/rtl_nic/rtl8153b-2.fw
+    '')
   ];
 
   fileSystems = {
@@ -31,7 +33,13 @@
     "/" = {
       device = "/dev/disk/by-label/NIXOS_SD";
       fsType = "f2fs";
-      options = [ "compress_algorithm=zstd:6" "compress_chksum" "atgc" "gc_merge" "lazytime" ];
+      options = [
+        "compress_algorithm=zstd:6"
+        "compress_chksum"
+        "atgc"
+        "gc_merge"
+        "lazytime"
+      ];
     };
   };
 
@@ -50,12 +58,18 @@
       "earlycon=uart8250,mmio32,0xff130000"
       "mitigations=off"
     ];
-    blacklistedKernelModules = [ "hantro_vpu" "drm" "lima" "rockchip_vdec" ];
+    blacklistedKernelModules = [
+      "hantro_vpu"
+      "drm"
+      "lima"
+      "rockchip_vdec"
+    ];
     tmp.useTmpfs = true;
   };
 
   boot.initrd = {
     includeDefaultModules = false;
+    kernelModules = [ "mmc_block" ];
     extraUtilsCommands = ''
       copy_bin_and_libs ${pkgs.haveged}/bin/haveged
     '';
@@ -65,6 +79,8 @@
     # provide entropy with haveged in stage 1 for faster crng init
     preLVMCommands = lib.mkBefore ''
       haveged --once
+      # I don't need LVM
+      alias lvm=true
     '';
   };
 
@@ -77,14 +93,16 @@
   powerManagement.cpuFreqGovernor = "schedutil";
 
   services.udev.extraRules =
-    ''ACTION=="add" SUBSYSTEM=="usb", ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="8153", '' +
-    ''RUN+="${pkgs.rtl8152-led-ctrl}/bin/rtl8152-led-ctrl set --device %s{busnum}:%s{devnum}"'';
+    ''ACTION=="add" SUBSYSTEM=="usb", ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="8153", ''
+    + ''RUN+="${pkgs.rtl8152-led-ctrl}/bin/rtl8152-led-ctrl set --device %s{busnum}:%s{devnum}"'';
 
   services.lvm.enable = false;
 
   systemd.services."wait-system-running" = {
     description = "Wait system running";
-    serviceConfig = { Type = "simple"; };
+    serviceConfig = {
+      Type = "simple";
+    };
     script = ''
       systemctl is-system-running --wait
     '';
@@ -92,7 +110,9 @@
 
   systemd.services."setup-net-leds" = {
     description = "Setup network LEDs";
-    serviceConfig = { Type = "simple"; };
+    serviceConfig = {
+      Type = "simple";
+    };
     wantedBy = [ "multi-user.target" ];
     wants = [ "network-online.target" ];
     after = [ "network-online.target" ];

@@ -1,12 +1,17 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   inherit (pkgs) openldap;
   openldapCfg = config.services.openldap;
   secrets = config.sops.secrets;
   acmeCert = config.security.acme.certs."eh5.me";
-  loadLdiff = dbDir: dn: ldiffile: pkgs.writeShellScript
-    "openldap-load"
-    ''
+  loadLdiff =
+    dbDir: dn: ldiffile:
+    pkgs.writeShellScript "openldap-load" ''
       rm -rf ${dbDir}
       mkdir -p ${dbDir}
       ${openldap}/bin/slapadd -F /etc/openldap/slapd.d -b '${dn}' \
@@ -16,7 +21,10 @@ in
 {
   services.openldap = {
     enable = true;
-    urlList = [ "ldap://localhost/" "ldaps:///" ];
+    urlList = [
+      "ldap://localhost/"
+      "ldaps:///"
+    ];
   };
   services.openldap.settings = {
     attrs = {
@@ -47,7 +55,10 @@ in
       };
       "olcDatabase={1}mdb" = {
         attrs = {
-          objectClass = [ "olcDatabaseConfig" "olcMdbConfig" ];
+          objectClass = [
+            "olcDatabaseConfig"
+            "olcMdbConfig"
+          ];
           olcDatabase = "{1}mdb";
           olcSuffix = "dc=eh5,dc=me";
           olcReadonly = "on"; # entries are preloaded from local file

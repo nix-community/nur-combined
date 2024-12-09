@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   nftBin = "${pkgs.nftables}/bin/nft";
   startScript = pkgs.writeScript "setup-tproxy-start" ''
@@ -33,10 +38,12 @@ in
     settings = {
       log.level = "warn";
       dns = {
-        servers = [{
-          address = "udp://127.0.0.1:5333";
-          detour = "direct";
-        }];
+        servers = [
+          {
+            address = "udp://127.0.0.1:5333";
+            detour = "direct";
+          }
+        ];
         strategy = "ipv4_only";
       };
       route = {

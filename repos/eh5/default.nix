@@ -1,4 +1,6 @@
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 let
   myPkgs = import ./packages;
 in
@@ -6,4 +8,5 @@ in
   modules = import ./modules;
   overlays = myPkgs.overlays;
   overlay = myPkgs.overlays.default;
-} // (myPkgs.legacyPackages pkgs)
+}
+// (myPkgs.legacyPackages pkgs)

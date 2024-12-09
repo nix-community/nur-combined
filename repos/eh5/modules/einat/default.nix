@@ -1,12 +1,15 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
 let
   cfg = config.services.einat;
   configFormat = pkgs.formats.toml { };
   configFile =
-    if cfg.configFile != null
-    then cfg.configFile
-    else configFormat.generate "config.toml" cfg.config;
+    if cfg.configFile != null then cfg.configFile else configFormat.generate "config.toml" cfg.config;
 in
 {
   options.services.einat = {
@@ -25,10 +28,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = [{
-      assertion = (cfg.configFile != null) -> (cfg.config == { });
-      message = "Either but not both `configFile` and `config` should be specified for einat.";
-    }];
+    assertions = [
+      {
+        assertion = (cfg.configFile != null) -> (cfg.config == { });
+        message = "Either but not both `configFile` and `config` should be specified for einat.";
+      }
+    ];
 
     systemd.services.einat = {
       description = "einat Daemon";

@@ -1,7 +1,12 @@
 # Mail services (dovecot, postfix, rspamd) configs are mostly derivated from
 # https://gitlab.com/simple-nixos-mailserver/nixos-mailserver
 #
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 with lib;
 let
   cfg = config.mail;

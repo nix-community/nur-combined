@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   boot.kernelModules = [
     "tcp_bbr"
@@ -194,20 +199,26 @@
       Address = "198.18.0.1/15";
       ConfigureWithoutCarrier = true;
     };
-    routes = [{
-      Destination = "0.0.0.0/0";
-      Metric = 1;
-      Table = 200;
-    }];
-    routingPolicyRules = [{
-      FirewallMark = 10;
-      Table = 200;
-    }];
+    routes = [
+      {
+        Destination = "0.0.0.0/0";
+        Metric = 1;
+        Table = 200;
+      }
+    ];
+    routingPolicyRules = [
+      {
+        FirewallMark = 10;
+        Table = 200;
+      }
+    ];
   };
 
   systemd.services."tweak-network-settings" = {
     description = "Tweak network settings";
-    serviceConfig = { Type = "simple"; };
+    serviceConfig = {
+      Type = "simple";
+    };
     wantedBy = [ "multi-user.target" ];
     wants = [ "network-online.target" ];
     after = [ "network-online.target" ];

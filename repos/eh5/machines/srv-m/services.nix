@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   secrets = config.sops.secrets;
   certName = "eh5.me";
@@ -60,7 +65,10 @@ in
   };
   services.caddy.virtualHosts = {
     "mail.eh5.me" = {
-      serverAliases = [ "mx.eh5.me" "mx2.eh5.me" ];
+      serverAliases = [
+        "mx.eh5.me"
+        "mx2.eh5.me"
+      ];
       useACMEHost = certName;
       extraConfig = ''
         redir /rspamd /rspamd/

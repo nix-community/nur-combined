@@ -22,62 +22,70 @@
     };
   };
   outputs =
-    { self
-    , nixpkgs
-    , flake-utils
-    , home-manager
-    , sops-nix
-    , deploy-rs
-    , ...
-    } @ inputs:
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+      home-manager,
+      sops-nix,
+      deploy-rs,
+      ...
+    }@inputs:
     let
       inherit (nixpkgs) lib;
       inherit (flake-utils.lib) eachDefaultSystem mkApp;
       systems = flake-utils.lib.system;
       myPkgs = import ./packages;
     in
-    eachDefaultSystem
-      (
-        system:
-        let
-          pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
+    eachDefaultSystem (
+      system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+        appPkgs =
+          (
+            if system == systems.x86_64-linux then
+              {
+                home-manager = home-manager.defaultPackage.${system};
+              }
+            else
+              { }
+          )
+          // {
+            deploy = deploy-rs.defaultPackage.${system};
           };
-          appPkgs =
-            (if system == systems.x86_64-linux then {
-              home-manager = home-manager.defaultPackage.${system};
-            } else { }) // {
-              deploy = deploy-rs.defaultPackage.${system};
-            };
-          platformPackages = myPkgs.packages { inherit pkgs inputs; filterByPlatform = true; };
-          shellPackages =
-            if system == systems.x86_64-linux
-            then platformPackages
-            else if system == systems.aarch64-linux
-            then
-              lib.getAttrs
-                [
-                  "einat"
-                  "kcptun"
-                  "mosdns"
-                  "rtl8152-led-ctrl"
-                  "ubootNanopiR2s"
-                  "vlmcsd"
-                ]
-                platformPackages
-            else { };
-        in
-        rec {
-          packages = platformPackages;
-          checks = platformPackages;
-          apps = builtins.mapAttrs (name: drv: mkApp { inherit name drv; }) appPkgs;
-          devShells.default = pkgs.mkShell {
-            buildInputs = builtins.filter (f: f != null)
-              ((builtins.attrValues shellPackages) ++ (builtins.attrValues appPkgs));
-          };
-        }
-      )
+        platformPackages = myPkgs.packages {
+          inherit pkgs inputs;
+          filterByPlatform = true;
+        };
+        shellPackages =
+          if system == systems.x86_64-linux then
+            platformPackages
+          else if system == systems.aarch64-linux then
+            lib.getAttrs [
+              "einat"
+              "kcptun"
+              "mosdns"
+              "rtl8152-led-ctrl"
+              "ubootNanopiR2s"
+              "vlmcsd"
+            ] platformPackages
+          else
+            { };
+      in
+      rec {
+        packages = platformPackages;
+        checks = platformPackages;
+        apps = builtins.mapAttrs (name: drv: mkApp { inherit name drv; }) appPkgs;
+        devShells.default = pkgs.mkShell {
+          buildInputs = builtins.filter (f: f != null) (
+            (builtins.attrValues shellPackages) ++ (builtins.attrValues appPkgs)
+          );
+        };
+      }
+    )
     // {
       overlays = myPkgs.overlays;
 
@@ -86,7 +94,12 @@
       homeConfigurations.eh5 = import ./homes/eh5 {
         system = systems.x86_64-linux;
         username = "eh5";
-        inherit self nixpkgs home-manager inputs;
+        inherit
+          self
+          nixpkgs
+          home-manager
+          inputs
+          ;
       };
 
       nixosConfigurations = {

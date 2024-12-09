@@ -1,29 +1,32 @@
-{ lib
-, stdenv
-, runCommandCC
-, pkg-config
-, fetchurl
-, autoPatchelfHook
-, dpkg
-, libsForQt5
-, libudev0-shim
-, qcef
-, taglib
-, vlc
-, xorg
+{
+  lib,
+  stdenv,
+  runCommandCC,
+  pkg-config,
+  fetchurl,
+  autoPatchelfHook,
+  dpkg,
+  libsForQt5,
+  libudev0-shim,
+  qcef,
+  taglib,
+  vlc,
+  xorg,
 }:
 let
   inherit (libsForQt5) qt5 wrapQtAppsHook;
-  preloadPatch = runCommandCC "n-c-m-patch"
-    {
-      nativeBuildInputs = [ pkg-config ];
-      buildInputs = [ vlc ];
-    } ''
-    mkdir -p $out
-    $CC -O2 -fPIC -shared \
-     $(pkg-config --cflags-only-I libvlc vlc-plugin) \
-     -o $out/n-c-m-patch.so ${./preload_patch.c}
-  '';
+  preloadPatch =
+    runCommandCC "n-c-m-patch"
+      {
+        nativeBuildInputs = [ pkg-config ];
+        buildInputs = [ vlc ];
+      }
+      ''
+        mkdir -p $out
+        $CC -O2 -fPIC -shared \
+         $(pkg-config --cflags-only-I libvlc vlc-plugin) \
+         -o $out/n-c-m-patch.so ${./preload_patch.c}
+      '';
 in
 stdenv.mkDerivation {
   pname = "netease-cloud-music";

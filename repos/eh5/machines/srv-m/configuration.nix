@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   secrets = config.sops.secrets;
   dovecotUser = config.services.dovecot2.user;
@@ -12,7 +17,10 @@ in
     defaultSopsFile = ./secrets/secrets.sops.yaml;
     secrets = {
       acmeEnv = { };
-      postScript = { mode = "0500"; owner = "acme"; };
+      postScript = {
+        mode = "0500";
+        owner = "acme";
+      };
       trustedNetworks = { };
       bindDnPw = { };
       passdbLdap.owner = dovecotUser;
@@ -44,7 +52,10 @@ in
         "https://eh5.cachix.org"
       ];
       trusted-public-keys = [ "eh5.cachix.org-1:pNWZ2OMjQ8RYKTbMsiU/AjztyyC8SwvxKOf6teMScKQ=" ];
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
       auto-optimise-store = true;
     };
   };
@@ -95,18 +106,21 @@ in
     ];
   };
 
-  environment.systemPackages = with pkgs; [
-    bind
-    caddy
-    file
-    htop
-    iperf
-    libarchive
-    lm_sensors
-    lsof
-    nftables
-    screen
-  ] ++ (with config.boot.kernelPackages; [
-    cpupower
-  ]);
+  environment.systemPackages =
+    with pkgs;
+    [
+      bind
+      caddy
+      file
+      htop
+      iperf
+      libarchive
+      lm_sensors
+      lsof
+      nftables
+      screen
+    ]
+    ++ (with config.boot.kernelPackages; [
+      cpupower
+    ]);
 }

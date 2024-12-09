@@ -1,19 +1,28 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, autoconf
-, automake
-, libtool
-, pkg-config
-, dovecot
-, icu
-, xapian
+{
+  stdenv,
+  lib,
+  fetchFromGitHub,
+  autoconf,
+  automake,
+  libtool,
+  pkg-config,
+  dovecot,
+  icu,
+  xapian,
 }:
 stdenv.mkDerivation rec {
   pname = "dovecot-fts-flatcurve";
   version = "1.0.5";
-  nativeBuildInputs = [ autoconf automake libtool ];
-  buildInputs = [ dovecot icu xapian ];
+  nativeBuildInputs = [
+    autoconf
+    automake
+    libtool
+  ];
+  buildInputs = [
+    dovecot
+    icu
+    xapian
+  ];
   src = fetchFromGitHub {
     owner = "slusarz";
     repo = pname;

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.mail;
   secrets = config.sops.secrets;
@@ -54,7 +59,11 @@ in
       rcpt = {
         directory = "default";
         relay = [
-          { "if" = "authenticated-as"; ne = ""; "then" = true; }
+          {
+            "if" = "authenticated-as";
+            ne = "";
+            "then" = true;
+          }
           { "else" = false; }
         ];
       };
@@ -63,7 +72,11 @@ in
     queue = {
       outbound = {
         next-hop = [
-          { "if" = "rcpt-domain"; in-list = "default/domains"; "then" = "local"; }
+          {
+            "if" = "rcpt-domain";
+            in-list = "default/domains";
+            "then" = "local";
+          }
           { "else" = "relay"; }
         ];
         tls = {
@@ -110,7 +123,10 @@ in
       };
       attributes = {
         name = "mail";
-        description = [ "givenName" "sn" ];
+        description = [
+          "givenName"
+          "sn"
+        ];
         secret = "userPassword";
         groups = "mailGroupMember";
         email = "mail";

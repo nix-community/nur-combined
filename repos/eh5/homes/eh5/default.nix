@@ -1,10 +1,11 @@
-{ self
-, nixpkgs
-, home-manager
-, inputs
-, system
-, username
-, homeDirectory ? "/home/${username}"
+{
+  self,
+  nixpkgs,
+  home-manager,
+  inputs,
+  system,
+  username,
+  homeDirectory ? "/home/${username}",
 }:
 home-manager.lib.homeManagerConfiguration {
   modules = [

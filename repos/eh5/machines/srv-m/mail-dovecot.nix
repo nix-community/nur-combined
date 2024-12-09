@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.mail;
   dovecot2Cfg = config.services.dovecot2;
@@ -8,7 +13,12 @@ let
   pipeBin = pkgs.stdenv.mkDerivation {
     name = "pipe_bin";
     src = ./files/pipe_bin;
-    buildInputs = with pkgs; [ makeWrapper coreutils bash rspamd ];
+    buildInputs = with pkgs; [
+      makeWrapper
+      coreutils
+      bash
+      rspamd
+    ];
     buildCommand = ''
       mkdir -p $out/pipe/bin
       cp $src/* $out/pipe/bin/
@@ -33,7 +43,10 @@ in
     mailLocation = "maildir:~/Maildir";
     sslServerCert = cfg.certFile;
     sslServerKey = cfg.keyFile;
-    modules = with pkgs; [ dovecot_pigeonhole dovecot-fts-flatcurve ];
+    modules = with pkgs; [
+      dovecot_pigeonhole
+      dovecot-fts-flatcurve
+    ];
     mailPlugins.globally.enable = [
       "acl"
       "zlib"
@@ -44,7 +57,11 @@ in
       "fts"
       "fts_flatcurve"
     ];
-    mailPlugins.perProtocol.imap.enable = [ "imap_acl" "imap_zlib" "imap_sieve" ];
+    mailPlugins.perProtocol.imap.enable = [
+      "imap_acl"
+      "imap_zlib"
+      "imap_sieve"
+    ];
     mailPlugins.perProtocol.lmtp.enable = [ "sieve" ];
     mailboxes = {
       Trash = {
