@@ -19,6 +19,9 @@
     flashplayer-standalone = self.callPackage ../pkgs/flashplayer-standalone.nix { };
   };
 
+  # Packages added in my nur repo, as an overlay
+  nur-pkgs = self: super: super.lib.filterAttrs (n: v: !builtins.elem n [ "lib" "modules" "overlays" ]) (import ../default.nix { pkgs = super; });
+
   # Pinned old flashplayer versions
   oldflash = self: super: let
     # Helpers {{{

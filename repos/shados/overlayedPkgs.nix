@@ -4,6 +4,7 @@ let
   inherit (pkgs) lib;
   nurOverlays = (import ./default.nix { }).overlays;
   overlayList = with nurOverlays; [
+    nur-pkgs
     lua-overrides
     python-overrides
     lua-packages

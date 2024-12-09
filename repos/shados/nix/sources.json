@@ -123,6 +123,22 @@
         "url": "https://github.com/crazy-max/firefox-history-merger/archive/21f999151cc1f6d9d02afeb481c0bf0619fec0ca.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "gcc-lua": {
+        "branch": "master",
+        "builtin": false,
+        "repo": "https://git.colberg.org/peter/gcc-lua.git",
+        "rev": "4d1f3ef8ea3e27d90bc23a47a7d0e946a812b150",
+        "type": "git",
+        "version": "unstable-2023-07-17"
+    },
+    "gcc-lua-cdecl": {
+        "branch": "master",
+        "builtin": false,
+        "repo": "https://git.colberg.org/peter/gcc-lua-cdecl.git",
+        "rev": "d69e45ba08ce530a641e6588af9a7d686be09abf",
+        "type": "git",
+        "version": "unstable-2023-08-30"
+    },
     "json-yaml": {
         "branch": "master",
         "builtin": false,
