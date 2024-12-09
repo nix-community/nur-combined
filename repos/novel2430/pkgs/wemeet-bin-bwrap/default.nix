@@ -1,4 +1,4 @@
-{ stdenv, lib, autoPatchelfHook, fetchurl , buildFHSUserEnvBubblewrap, writeShellScript, makeWrapper, copyDesktopItems, makeDesktopItem, wrapQtAppsHook, fetchFromGitHub
+{ stdenv, stdenvNoCC, lib, autoPatchelfHook, fetchurl , buildFHSUserEnvBubblewrap, writeShellScript, makeWrapper, copyDesktopItems, makeDesktopItem, wrapQtAppsHook, fetchFromGitHub
 , useWaylandScreenshare ? false
 , dpkg
 , alsa-lib
@@ -9,17 +9,10 @@
 , libsForQt5
 , zlib
 , wayland
-, nss
 , curl
 
 , systemdLibs
-, dbus
-, nspr
-, freetype
-, expat
 , fontconfig
-, harfbuzz
-, glib
 , xkeyboard_config
 
 , gcc
@@ -79,8 +72,8 @@ let
     src = fetchFromGitHub {
       owner = "xuwd1";
       repo = "wemeet-wayland-screenshare";
-      rev = "6deba6e18f74984ebf0d4eba0c3fe07a7bdd7ea6";
-      sha256 = "sha256-xl485d+DwiDGTlJYzg0Eb+pJ+KaetF9+rPW9aZAeXOw=";
+      rev = "d2f0f3b3ac0dce2c890d68c38e8f253ea7ab23ca";
+      sha256 = "sha256-/YWZu0DNJs9DigjBCUjbVHqFwK4qva+kRqkzwg3fOKs=";
     };
     nativeBuildInputs = [
       gcc
@@ -114,8 +107,9 @@ let
     '';
   };
   libraries = [
-    alsa-lib
+    stdenv.cc.cc
     stdenv.cc.libc
+    alsa-lib
     libglvnd
     libpulseaudio
     xorg.libX11
@@ -125,6 +119,7 @@ let
     xorg.libXfixes
     xorg.libXinerama
     xorg.libXrandr
+    libyuv
     openssl
     libsForQt5.qt5.qtbase
     libsForQt5.qt5.qtdeclarative
@@ -135,24 +130,12 @@ let
     libsForQt5.qt5.qtwayland
     zlib
     wayland
-    nss
     curl
     xkeyboard_config
-
     systemdLibs
-    dbus
-    nspr
-    xorg.libXtst
-    freetype
-    expat
     fontconfig
-    harfbuzz
-    glib
-
-    libyuv
     libjpeg8
     libxkbcommon
-
     opencv
   ];
   ld-preload-path = 
@@ -160,15 +143,13 @@ let
       "${wemeet-wayland-screenshare}/libhook.so:${wrap}/libwemeetwrap.so"
     else
       "${wrap}/libwemeetwrap.so";
-  wemeet-src = stdenv.mkDerivation rec {
+  wemeet-src = stdenvNoCC.mkDerivation rec {
     name = "${pkg-name}";
     version = "${pkg-ver}";
 
     src = fetchurl {
       url = "https://updatecdn.meeting.qq.com/cos/bb4001c715553579a8b3e496233331d4/TencentMeeting_0300000000_${version}_x86_64_default.publish.deb";
       hash = "sha256-VN/rNn2zA21l6BSzLpQ5Bl9XB2hrMFIa0o0cy2vdLx8=";
-      # url = "https://updatecdn.meeting.qq.com/cos/fb7464ffb18b94a06868265bed984007/TencentMeeting_0300000000_${version}_x86_64_default.publish.deb";
-      # hash = "sha256-PSGc4urZnoBxtk1cwwz/oeXMwnI02Mv1pN2e9eEf5kE=";
     };
 
     nativeBuildInputs = [
@@ -202,12 +183,7 @@ let
       # wrap
       install -Dm755 "${wrap}/libwemeetwrap.so" -t "$out/lib/wemeet"
       # Icon
-      echo 'Installing icons...'
-      for res in 16 32 64 128 256; do
-          install -Dm644 \
-              opt/wemeet/icons/hicolor/''${res}x''${res}/mimetypes/wemeetapp.png \
-              $out/share/icons/hicolor/''${res}x''${res}/apps/${pkg-name}.png
-      done
+      cp -r opt/wemeet/icons $out/opt/wemeet/icons
     '';
   };
   startScript = writeShellScript "wemeet-start" ''
@@ -224,11 +200,13 @@ let
     targetPkgs = 
       pkgs: [
         wemeet-src
-      ] 
-      ++ 
-      libraries;
+      ];
     runScript = startScript;
     extraBwrapArgs = [
+      "--new-session"
+      "--ro-bind /dev/null /proc/cpuinfo"
+      "--tmpfs /sys/devices/virtual"
+      "--tmpfs /var"
       "--tmpfs \$HOME/.config "
       "--bind \$HOME/.local/share/wemeetapp{,}"
       "--ro-bind-try \${HOME}/.fontconfig{,}"
@@ -238,6 +216,13 @@ let
       "--ro-bind-try \${HOME}/.icons{,}"
       "--ro-bind-try \${HOME}/.local/share/.icons{,}"
     ];
+    unshareUser = true;
+    unshareIpc = true;
+    unsharePid = true;
+    unshareNet = false;
+    unshareUts = true;
+    unshareCgroup = true;
+    privateTmp = true;
   };
 in
 stdenv.mkDerivation rec {
@@ -270,6 +255,12 @@ stdenv.mkDerivation rec {
     })
   ];
   installPhase = ''
+    echo 'Installing icons...'
+    for res in 16 32 64 128 256; do
+        install -Dm644 \
+            ${wemeet-src}/opt/wemeet/icons/hicolor/''${res}x''${res}/mimetypes/wemeetapp.png \
+            $out/share/icons/hicolor/''${res}x''${res}/apps/${pkg-name}.png
+    done
     makeWrapper ${fhs}/bin/${pkg-name} $out/bin/${pname} \
       --run "mkdir -p \$HOME/.local/share/wemeetapp"
     runHook postInstall
