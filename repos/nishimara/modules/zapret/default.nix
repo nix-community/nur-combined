@@ -21,6 +21,8 @@ let
 in
 {
   options.services.zapret = {
+    _class = "nixos";
+
     enable = lib.mkEnableOption "the Zapret DPI bypass service.";
     package = lib.mkPackageOption pkgs "zapret" { };
     params = lib.mkOption {
@@ -212,9 +214,4 @@ in
       })
     ]
   );
-
-  meta.maintainers = with lib.maintainers; [
-    voronind
-    nishimara
-  ];
 }
