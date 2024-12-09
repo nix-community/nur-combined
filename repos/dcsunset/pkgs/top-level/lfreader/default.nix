@@ -23,7 +23,7 @@ let
     name = "${name}-frontend";
     sourceRoot = "${src.name}/frontend";
 
-    npmDepsHash = "sha256-TQGwEQXSRZBwyJ51LrJlAKubrZhpgNdNGl/DGSajKVU=";
+    npmDepsHash = "sha256-z9A+jvztau+vqub8AJxmxIcFoxl3W6EPUnDZqU6E0WU=";
 
     # Required for sharp dependency (used by pwa-assets-generator)
     nativeBuildInputs = [
