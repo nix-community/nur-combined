@@ -6,9 +6,7 @@
   ...
 }:
 reIf {
-  systemd.tmpfiles.rules = [
-    "L+ /etc/dae/secret.dae - - - - ${config.vaultix.secrets.dae.path}"
-  ];
+  environment.etc."dae/secret.dae".source = config.vaultix.secrets.dae.path;
 
   services.dae = {
     enable = true;
