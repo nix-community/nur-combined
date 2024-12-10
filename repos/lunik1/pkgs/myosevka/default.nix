@@ -135,17 +135,17 @@ let
       buildNpmPackage = args: superBuildNpmPackage
         (args // rec {
           pname = "myosevka-${set}";
-          version = "32.0.1";
+          version = "32.2.1";
           src = fetchFromGitHub {
             owner = "be5invis";
             repo = "iosevka";
             rev = "v${version}";
-            hash = "sha256-5+rHHm2wwBw/Ii8hwVaJNV63kAjQ3TkicFzy/X1/zoU=";
+            hash = "sha256-z0S38X2A0rfGFNTr/Ym0VHfOhzdz/q42QL3tVf+m5FQ=";
           };
 
           buildPlan = builtins.toJSON { buildPlans.${pname} = privateBuildPlan; };
 
-          npmDepsHash = "sha256-nDFqIS5E7yAMoL3Ag92yL4NBl0CMXAOK9d6fQAiTZpk=";
+          npmDepsHash = "sha256-dFVhoBf4v0K1mqbiysZNk4yCt4Ars0Pgnr63xIsavDo=";
 
           meta = with lib; {
             inherit (src.meta) homepage;
