@@ -19,6 +19,7 @@
         openssh.authorizedKeys.keys = with data.keys; [
           sshPubKey
           skSshPubKey
+          skSshPubKey2
         ];
       };
 
@@ -43,6 +44,7 @@
         openssh.authorizedKeys.keys = with data.keys; [
           sshPubKey
           skSshPubKey
+          skSshPubKey2
         ];
       };
       root.shell = pkgs.fish;
