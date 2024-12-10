@@ -119,7 +119,7 @@
   };
   # system.etc.overlay.enable = true;
   # system.etc.overlay.mutable = false;
-  # system.forbiddenDependenciesRegexes = [ "perl" ];
+  system.forbiddenDependenciesRegexes = [ "perl" ];
   environment.etc."resolv.conf".text = ''
     nameserver 127.0.0.1
   '';
