@@ -25,7 +25,7 @@ let
 
   sha256 =
     {
-      x86_64-linux = "0m09l9bsskjkcbq248q2j51i9f11byv3l6ym9s7fdlx9d9fgk1gb";
+      x86_64-linux = "1mhg6i7qn25al503fd6ymfl5q33ssbflsaq5qjl6ll5sm7vark4r";
       x86_64-darwin = "09rnsxnpq70b47r37ivi1yfljvhaaqr1qw9bhriw6ggq44yc05am";
       aarch64-linux = "1jg7bnrad2rgpyqni9459yzqxi52f36x1hsdplhqf2n9hi0kqczj";
       aarch64-darwin = "1nfg4rcwig9p77wp4izw9n2wbl5pydwkfhh6ga69qfd2m27q73b0";
@@ -37,7 +37,7 @@ let
 in
 
 callPackage "${path}/pkgs/applications/editors/vscode/generic.nix" rec {
-  version = "1.96.0.24344-insider";
+  version = "1.96.0.24345-insider";
   pname = "vscodium-insiders";
   updateScript = ./update.sh;
 
