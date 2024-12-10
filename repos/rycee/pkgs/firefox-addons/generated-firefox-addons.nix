@@ -1843,10 +1843,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.3.2";
+      version = "4.4.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4380984/control_panel_for_twitter-4.3.2.xpi";
-      sha256 = "377408572fd6da1972714eccdc729608c3bb1e5fe164b67525a33f52bb86d5f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4398156/control_panel_for_twitter-4.4.0.xpi";
+      sha256 = "f732671753905f9b9ff9f15545e9ec511d3da8ffe49d6740e0f7bf1ccbecf153";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -2215,10 +2215,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "134.0.20241206.102218";
+      version = "133.0.20241209.150345";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4400902/deutsch_de_language_pack-134.0.20241206.102218.xpi";
-      sha256 = "08da51902775add89dae2d0f79222638c1139a4fd4c01ea8668312f8030faa0b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4402697/deutsch_de_language_pack-133.0.20241209.150345.xpi";
+      sha256 = "ba9df2feb41fdcd8aff430c5bed45564c84d001355fab74d62a13d756e6dfde4";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -2885,10 +2885,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.35";
+      version = "1.3.36";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4397889/faststream-1.3.35.xpi";
-      sha256 = "5f13a87c7ca13e6c78f5b1b0513992d605a91f3eb86855c06487786bf5999b43";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4402792/faststream-1.3.36.xpi";
+      sha256 = "7058bc520fdd1f8fa3395c56e09e381503223e112d6e285d3252bb25672725d9";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -3400,10 +3400,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "134.0.20241206.102218";
+      version = "133.0.20241209.150345";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4400940/francais_language_pack-134.0.20241206.102218.xpi";
-      sha256 = "adc7b443527d05b19c07d99cea227bca1224f4f5af97af96611614460935620b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4402638/francais_language_pack-133.0.20241209.150345.xpi";
+      sha256 = "ea84d65b447936778a893e418f386abaa1be7b2c0cfa3f58bb592b01aa2ef924";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3437,10 +3437,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "134.0.20241206.102218";
+      version = "133.0.20241209.150345";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4400905/gaidhlig_language_pack-134.0.20241206.102218.xpi";
-      sha256 = "aef0084b1de005315ccfa4d5b56494b38402b345a6e6bb27a062251788fcc998";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4402595/gaidhlig_language_pack-133.0.20241209.150345.xpi";
+      sha256 = "cf80a1a60994add4e1054dced55c57355254f86cea0c148cd2afa8cbd8007237";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -9818,10 +9818,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.12.9";
+      version = "24.12.10";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4402028/refined_github-24.12.9.xpi";
-      sha256 = "fb51805a0e5c141d142155d40d136470e82a6dfaf73a62e535c0d147ebc82ff4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4402789/refined_github-24.12.10.xpi";
+      sha256 = "0b71a6d92a0b6bb8cf0eb40800b35f910bba616bacf990317ae7300b33a98c01";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -10014,10 +10014,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "134.0.20241206.102218";
+      version = "133.0.20241209.150345";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4400968/scots_language_pack-134.0.20241206.102218.xpi";
-      sha256 = "586b060b7c6b1c422ada6ccf3a2b938814be722a6fe2632d095ff809347042a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4402650/scots_language_pack-133.0.20241209.150345.xpi";
+      sha256 = "7c2e346aa1685e6b540c86c1bbbe9898ad57759ac98ba9d04eaec9adb66dbe4e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10293,10 +10293,10 @@
     };
     "sidebartabs" = buildFirefoxXpiAddon {
       pname = "sidebartabs";
-      version = "15.1.3";
+      version = "15.1.4";
       addonId = "sidebarTabs@asamuzak.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4401404/sidebartabs-15.1.3.xpi";
-      sha256 = "b4215b3b95f2d8ed54855919645fe92d28ce2b1dc6ec0ea8d6f7b539dcabbdce";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4402437/sidebartabs-15.1.4.xpi";
+      sha256 = "824f23b1655d2c1750a37492e27831fb05f763598adfc5875564d81fd830ba68";
       meta = with lib;
       {
         homepage = "https://github.com/asamuzaK/sidebarTabs";
@@ -11619,10 +11619,10 @@
     };
     "tst-indent-line" = buildFirefoxXpiAddon {
       pname = "tst-indent-line";
-      version = "1.3.2";
+      version = "1.3.3";
       addonId = "tst-indent-line@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4255629/tst_indent_line-1.3.2.xpi";
-      sha256 = "51dbbef66cf7f8df57170c31be926fec1ec08a3a7150b37d86a11b715e3c5fd0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4402044/tst_indent_line-1.3.3.xpi";
+      sha256 = "8fb1c318460061d3729e12c230d2ed4419bcca24f5a4b25286c17689d9ba7396";
       meta = with lib;
       {
         description = "Provides indent line for Tree Style Tab sidebar.";
@@ -12526,10 +12526,10 @@
     };
     "violentmonkey" = buildFirefoxXpiAddon {
       pname = "violentmonkey";
-      version = "2.28.0";
+      version = "2.29.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4379821/violentmonkey-2.28.0.xpi";
-      sha256 = "30bc3db14194a5197e4721d419123f3a02b9c6f3e94646724aa991137121bcba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4398029/violentmonkey-2.29.0.xpi";
+      sha256 = "2edf39a824476b8a77a57c7c3abdaf3f685a679486e47450fab837b4bd71d469";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
