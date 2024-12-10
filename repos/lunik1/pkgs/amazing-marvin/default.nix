@@ -1,22 +1,25 @@
-{ lib, appimageTools, fetchurl }:
+{ lib
+, appimageTools
+, fetchurl
+,
+}:
 
 let
   pname = "amazing-marvin";
   version = "1.65.0";
-  name = "${pname}-${version}";
 
   src = fetchurl {
     url = "https://amazingmarvin.s3.amazonaws.com/Marvin-${version}.AppImage";
     sha256 = "sha256-ZkMo9SJL5x0ncGmcscoHgF+A6K9MWshAHdUdAGQkz9k=";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit name src; };
+  appimageContents = appimageTools.extractType2 { inherit pname src version; };
 in
 appimageTools.wrapType2 {
-  inherit name src;
+  inherit pname src version;
 
-  extraPkgs = pkgs:
-    with pkgs; [
+  extraPkgs =
+    pkgs: with pkgs; [
       xorg.libXScrnSaver
       xorg.libXtst
       libappindicator-gtk2
@@ -24,7 +27,6 @@ appimageTools.wrapType2 {
     ];
 
   extraInstallCommands = ''
-    mv $out/bin/${name} $out/bin/${pname}
     install -m 444 -D ${appimageContents}/marvin.desktop $out/share/applications/marvin.desktop
     install -m 444 -D ${appimageContents}/usr/share/icons/hicolor/512x512/apps/marvin.png \
       $out/share/icons/hicolor/512x512/apps/marvin.png
