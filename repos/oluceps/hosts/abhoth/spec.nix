@@ -30,6 +30,7 @@
     dnsproxy = {
       enable = true;
     };
+    sing-server.enable = true;
   };
   services = {
     dnsproxy.settings = lib.mkForce {
