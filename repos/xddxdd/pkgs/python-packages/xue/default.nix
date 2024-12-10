@@ -1,15 +1,15 @@
 {
   sources,
   lib,
-  python3Packages,
+  buildPythonPackage,
+  # Dependencies
+  httpx,
 }:
 
-python3Packages.buildPythonPackage {
+buildPythonPackage {
   inherit (sources.xue) pname version src;
 
-  propagatedBuildInputs = [
-    python3Packages.httpx
-  ];
+  propagatedBuildInputs = [ httpx ];
 
   pythonImportsCheck = [ "xue" ];
 

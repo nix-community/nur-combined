@@ -74,10 +74,23 @@
             {
               default =
                 final: prev:
-                import ./pkgs null {
-                  pkgs = prev;
-                  pkgs-24_05 = pkgsForSystem-24_05 final.system;
-                  inherit inputs;
+                let
+                  _packages = import ./pkgs null {
+                    pkgs = prev;
+                    pkgs-24_05 = pkgsForSystem-24_05 final.system;
+                    inherit inputs;
+                  };
+                in
+                _packages
+                // rec {
+                  # Integrate to nixpkgs python3Packages
+                  python = prev.python.override {
+                    packageOverrides = _final: _prev: _packages.python3Packages.__unwrapped;
+                  };
+                  python3 = prev.python3.override {
+                    packageOverrides = _final: _prev: _packages.python3Packages.__unwrapped;
+                  };
+                  python3Packages = python3.pkgs;
                 };
               inSubTree = final: prev: {
                 nur-xddxdd = import ./pkgs null {

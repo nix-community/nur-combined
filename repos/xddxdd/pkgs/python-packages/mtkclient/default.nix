@@ -2,15 +2,30 @@
   lib,
   sources,
   python3,
-  python3Packages,
+  buildPythonPackage,
   keystone,
+  # Dependencies
+  capstone,
+  colorama,
+  flake8,
+  fusepy,
+  keystone-engine,
+  mock,
+  pycryptodome,
+  pycryptodomex,
+  pyserial,
+  pyside6,
+  pyusb,
+  setuptools,
+  shiboken6,
+  unicorn,
 }:
-python3Packages.buildPythonPackage rec {
+buildPythonPackage rec {
   inherit (sources.mtkclient) pname version src;
   pyproject = true;
 
   buildInputs = [ keystone ];
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = [
     capstone
     colorama
     flake8
@@ -38,6 +53,8 @@ python3Packages.buildPythonPackage rec {
     cp -r *.py $out/lib/python${python3.pythonVersion}/site-packages/
     cp -r mtkclient $out/lib/python${python3.pythonVersion}/site-packages/
   '';
+
+  pythonImportsCheck = [ "mtkclient" ];
 
   meta = {
     mainProgram = "mtk";

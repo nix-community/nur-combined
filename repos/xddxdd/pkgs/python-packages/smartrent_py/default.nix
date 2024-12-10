@@ -1,9 +1,14 @@
 {
   lib,
   sources,
-  python3Packages,
+  buildPythonPackage,
+  # Dependencies
+  aiohttp,
+  poetry-core,
+  setuptools,
+  websockets,
 }:
-python3Packages.buildPythonPackage rec {
+buildPythonPackage rec {
   inherit (sources.smartrent_py) pname version src;
   pyproject = true;
 
@@ -12,14 +17,14 @@ python3Packages.buildPythonPackage rec {
       --replace-fail '"poetry>=' '"poetry-core>='
   '';
 
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = [
     aiohttp
     poetry-core
     setuptools
     websockets
   ];
 
-  doCheck = false;
+  pythonImportsCheck = [ "smartrent" ];
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

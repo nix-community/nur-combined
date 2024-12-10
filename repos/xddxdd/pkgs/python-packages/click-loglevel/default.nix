@@ -1,19 +1,23 @@
 {
   lib,
   sources,
-  python3Packages,
+  buildPythonPackage,
+  # Dependencies
+  click,
+  hatchling,
+  setuptools,
 }:
-python3Packages.buildPythonPackage rec {
+buildPythonPackage rec {
   inherit (sources.click-loglevel) pname version src;
   pyproject = true;
 
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = [
     click
     hatchling
     setuptools
   ];
 
-  doCheck = false;
+  pythonImportsCheck = [ "click_loglevel" ];
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

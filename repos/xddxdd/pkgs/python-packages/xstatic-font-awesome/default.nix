@@ -1,10 +1,12 @@
 {
   lib,
   sources,
-  python3Packages,
+  buildPythonPackage,
 }:
-python3Packages.buildPythonPackage rec {
+buildPythonPackage rec {
   inherit (sources.xstatic-font-awesome) pname version src;
+
+  pythonImportsCheck = [ "xstatic.pkg.font_awesome" ];
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

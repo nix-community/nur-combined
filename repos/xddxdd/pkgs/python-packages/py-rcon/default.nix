@@ -1,12 +1,16 @@
 {
   lib,
   sources,
-  python3Packages,
+  buildPythonPackage,
+  # Dependencies
+  tkinter,
 }:
-python3Packages.buildPythonPackage rec {
+buildPythonPackage rec {
   inherit (sources.py-rcon) pname version src;
 
-  propagatedBuildInputs = with python3Packages; [ tkinter ];
+  propagatedBuildInputs = [ tkinter ];
+
+  pythonImportsCheck = [ "rcon" ];
 
   meta = {
     mainProgram = "rcon-shell";

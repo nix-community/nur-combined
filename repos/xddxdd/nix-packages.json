@@ -479,6 +479,41 @@
     "pname": "deepspeech",
     "version": "0.9.3"
   },
+  "legacyPackages.x86_64-linux.deprecated.glauth": {
+    "description": "(DEPRECATED: glauth is available in nixpkgs by a different maintainer) Lightweight LDAP server for development, home use, or CI",
+    "pname": "glauth",
+    "version": "2.3.2"
+  },
+  "legacyPackages.x86_64-linux.deprecated.kata-image": {
+    "description": "(DEPRECATED: kata-image is available in nixpkgs by a different maintainer) Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-images/default.nix)",
+    "pname": "kata-image",
+    "version": "3.11.0"
+  },
+  "legacyPackages.x86_64-linux.deprecated.kata-runtime": {
+    "description": "(DEPRECATED: kata-runtime is available in nixpkgs by a different maintainer) Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix)",
+    "pname": "kata-runtime",
+    "version": "3.11.0"
+  },
+  "legacyPackages.x86_64-linux.deprecated.payload-dumper-go": {
+    "description": "(DEPRECATED: payload-dumper-go is available in nixpkgs by a different maintainer) Android OTA payload dumper written in Go",
+    "pname": "payload-dumper-go",
+    "version": "1.3.0"
+  },
+  "legacyPackages.x86_64-linux.deprecated.wechat-uos": {
+    "description": "(DEPRECATED: wechat-uos is available in nixpkgs. If you still want sandbox functionality, use wechat-uos-sandboxed package.) WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
+    "pname": "wechat-uos",
+    "version": "4.0.0.21"
+  },
+  "legacyPackages.x86_64-linux.deprecated.wechat-uos-bin": {
+    "description": "(DEPRECATED: wechat-uos is available in nixpkgs. If you still want sandbox functionality, use wechat-uos-sandboxed package.) WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
+    "pname": "wechat-uos",
+    "version": "4.0.0.21"
+  },
+  "legacyPackages.x86_64-linux.deprecated.wechat-uos-without-sandbox": {
+    "description": "(DEPRECATED: wechat-uos is available in nixpkgs. If you still want sandbox functionality, use wechat-uos-sandboxed package.) WeChat desktop without sandbox (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
+    "pname": "wechat-uos",
+    "version": "4.0.0.21"
+  },
   "legacyPackages.x86_64-linux.dingtalk": {
     "description": "Enterprise communication and collaboration platform developed by Alibaba Group",
     "pname": "dingtalk",
@@ -538,11 +573,6 @@
     "description": "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver",
     "pname": "flaresolverr",
     "version": "21hsmw-0-unstable-2024-11-01"
-  },
-  "legacyPackages.x86_64-linux.flasgger": {
-    "description": "Easy OpenAPI specs and Swagger UI for your Flask API",
-    "pname": "python3.12-flasgger",
-    "version": "0.9.5"
   },
   "legacyPackages.x86_64-linux.ftp-proxy": {
     "description": "FTP Proxy Server",
@@ -628,6 +658,56 @@
     "description": "(DEPRECATED: kata-runtime is available in nixpkgs by a different maintainer) Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix)",
     "pname": "kata-runtime",
     "version": "3.11.0"
+  },
+  "legacyPackages.x86_64-linux.kernel-modules.acpi-ec": {
+    "description": "Kernel module to access directly to the ACPI EC",
+    "pname": "acpi-ec",
+    "version": "1.0.4"
+  },
+  "legacyPackages.x86_64-linux.kernel-modules.ast": {
+    "description": "Aspeed Graphics Driver",
+    "pname": "ast",
+    "version": "1.14.3_3"
+  },
+  "legacyPackages.x86_64-linux.kernel-modules.cryptodev-unstable": {
+    "description": "Device that allows access to Linux kernel cryptographic drivers",
+    "pname": "cryptodev-linux",
+    "version": "1.14-unstable-2024-10-10"
+  },
+  "legacyPackages.x86_64-linux.kernel-modules.dpdk-kmod": {
+    "description": "DPDK kernel modules or add-ons",
+    "pname": "dpdk-kmod",
+    "version": "0-unstable-2024-11-20"
+  },
+  "legacyPackages.x86_64-linux.kernel-modules.i915-sriov": {
+    "description": "DKMS module of Linux i915 driver with SR-IOV support",
+    "pname": "i915-sriov",
+    "version": "0-unstable-2024-10-04"
+  },
+  "legacyPackages.x86_64-linux.kernel-modules.nft-fullcone": {
+    "description": "Nftables fullcone expression kernel module",
+    "pname": "nft-fullcone",
+    "version": "0-unstable-2023-05-17"
+  },
+  "legacyPackages.x86_64-linux.kernel-modules.nullfsvfs": {
+    "description": "Virtual black hole file system that behaves like /dev/null",
+    "pname": "nullfsvfs",
+    "version": "0.17"
+  },
+  "legacyPackages.x86_64-linux.kernel-modules.ovpn-dco": {
+    "description": "OpenVPN Data Channel Offload in the linux kernel",
+    "pname": "ovpn-dco",
+    "version": "0.2.20240712"
+  },
+  "legacyPackages.x86_64-linux.kernel-modules.r8125": {
+    "description": "Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface",
+    "pname": "r8125",
+    "version": "9.014.01-1"
+  },
+  "legacyPackages.x86_64-linux.kernel-modules.r8168": {
+    "description": "Linux device driver for Realtek Ethernet controllers",
+    "pname": "r8168",
+    "version": "8.054.00"
   },
   "legacyPackages.x86_64-linux.kikoplay": {
     "description": "More than a Full-Featured Danmu Player",
@@ -3324,7 +3404,7 @@
     "pname": "phppgadmin",
     "version": "7.14.7-mod"
   },
-  "legacyPackages.x86_64-linux.piper-tts-python": {
+  "legacyPackages.x86_64-linux.piper-tts": {
     "description": "Python component for piper-tts",
     "pname": "python3.12-piper",
     "version": "2023.11.14-2"
@@ -3373,6 +3453,81 @@
     "description": "Python implementation of RCON",
     "pname": "python3.12-py-rcon",
     "version": "1.3.0"
+  },
+  "legacyPackages.x86_64-linux.python3Packages.bepasty": {
+    "description": "Universal pastebin server",
+    "pname": "python3.12-bepasty",
+    "version": "1.2.1"
+  },
+  "legacyPackages.x86_64-linux.python3Packages.click-loglevel": {
+    "description": "Log level parameter type for Click",
+    "pname": "python3.12-click-loglevel",
+    "version": "0.5.1"
+  },
+  "legacyPackages.x86_64-linux.python3Packages.coqui-tts": {
+    "description": "Deep learning toolkit for Text-to-Speech, battle-tested in research and production",
+    "pname": "python3.12-coqui-tts",
+    "version": "0.22.0"
+  },
+  "legacyPackages.x86_64-linux.python3Packages.deepspeech-gpu": {
+    "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers",
+    "pname": "python3.9-deepspeech-gpu",
+    "version": "0.9.3"
+  },
+  "legacyPackages.x86_64-linux.python3Packages.deepspeech-wrappers": {
+    "description": "Speech-to-text engine which can run in real time on devices ranging from a Raspberry Pi 4 to high power GPU servers",
+    "pname": "deepspeech",
+    "version": "0.9.3"
+  },
+  "legacyPackages.x86_64-linux.python3Packages.edge-tts": {
+    "description": "Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key",
+    "pname": "python3.12-edge-tts",
+    "version": "7.0.0"
+  },
+  "legacyPackages.x86_64-linux.python3Packages.mtkclient": {
+    "description": "MTK reverse engineering and flash tool",
+    "pname": "python3.12-mtkclient",
+    "version": "2.0.1.freeze"
+  },
+  "legacyPackages.x86_64-linux.python3Packages.piper-tts": {
+    "description": "Python component for piper-tts",
+    "pname": "python3.12-piper",
+    "version": "2023.11.14-2"
+  },
+  "legacyPackages.x86_64-linux.python3Packages.py-rcon": {
+    "description": "Python implementation of RCON",
+    "pname": "python3.12-py-rcon",
+    "version": "1.3.0"
+  },
+  "legacyPackages.x86_64-linux.python3Packages.runpod-python": {
+    "description": "Python library for RunPod API and serverless worker SDK",
+    "pname": "python3.12-runpod-python",
+    "version": "1.7.6"
+  },
+  "legacyPackages.x86_64-linux.python3Packages.smartrent_py": {
+    "description": "Api for SmartRent locks, thermostats, moisture sensors and switches",
+    "pname": "python3.12-smartrent_py",
+    "version": "0.4.5"
+  },
+  "legacyPackages.x86_64-linux.python3Packages.tqdm-loggable": {
+    "description": "TQDM progress bar helpers for logging and other headless application",
+    "pname": "python3.12-tqdm-loggable",
+    "version": "0-unstable-2024-10-10"
+  },
+  "legacyPackages.x86_64-linux.python3Packages.xstatic-asciinema-player": {
+    "description": "Asciinema-player packaged for setuptools (easy_install) / pip",
+    "pname": "python3.12-xstatic-asciinema-player",
+    "version": "2.6.1.1"
+  },
+  "legacyPackages.x86_64-linux.python3Packages.xstatic-font-awesome": {
+    "description": "Font Awesome packaged for setuptools (easy_install) / pip",
+    "pname": "python3.12-xstatic-font-awesome",
+    "version": "4.7.0.0"
+  },
+  "legacyPackages.x86_64-linux.python3Packages.xue": {
+    "description": "Minimalist web front-end framework composed of HTMX and Python",
+    "pname": "python3.12-xue",
+    "version": "0.0.34"
   },
   "legacyPackages.x86_64-linux.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
@@ -3583,6 +3738,596 @@
     "description": "Userspace KSM helper daemon",
     "pname": "uksmd",
     "version": "1.2.12"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.adspower": {
+    "description": "Antidetect Browser for Multi-Accounts",
+    "pname": "adspower",
+    "version": "6.10.20"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.amule-dlp": {
+    "description": "Peer-to-peer client for the eD2K and Kademlia networks (with Dynamic Leech Protection)",
+    "pname": "amule-dlp",
+    "version": "2.3.2-unstable-2023-03-02"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.asterisk-g72x": {
+    "description": "G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled)",
+    "pname": "asterisk-g72x",
+    "version": "0-unstable-2024-10-12"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.axiom-syslog-proxy": {
+    "description": "Syslog push interface to Axiom",
+    "pname": "axiom-syslog-proxy",
+    "version": "0.7.2"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.baidunetdisk": {
+    "description": "Baidu Netdisk",
+    "pname": "baidunetdisk",
+    "version": "4.17.7"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.baidupcs-go": {
+    "description": "Baidu Netdisk commandline client, mimicking Linux shell file handling commands",
+    "pname": "baidupcs-go",
+    "version": "3.9.5-unstable-2024-06-23"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.bilibili": {
+    "description": "Bilibili desktop client",
+    "pname": "bilibili",
+    "version": "1.15.2-2"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.bird-lg-go": {
+    "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
+    "pname": "bird-lg-go",
+    "version": "1.3.8"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.bird-lgproxy-go": {
+    "description": "BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint",
+    "pname": "bird-lgproxy-go",
+    "version": "1.3.8"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.boringssl-oqs": {
+    "description": "Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs",
+    "pname": "boringssl-oqs",
+    "version": "0-unstable-2024-10-09"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.browser360": {
+    "description": "360 Browser",
+    "pname": "browser360",
+    "version": "13.3.1016.4"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.calibre-cops": {
+    "description": "Calibre OPDS (and HTML) PHP Server : web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks (epub, mobi, pdf, ...)",
+    "pname": "calibre-cops",
+    "version": "3.4.6"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.chmlib-utils": {
+    "description": "Library for dealing with Microsoft ITSS/CHM format files",
+    "pname": "chmlib",
+    "version": "0.40a"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.cloudpan189-go": {
+    "description": "CLI for China Telecom 189 Cloud Drive service, implemented in Go",
+    "pname": "cloudpan189-go",
+    "version": "0.1.3"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.cockpy": {
+    "description": "Public and open source version of the cbt2 ps im working on",
+    "pname": "cockpy",
+    "version": "0-unstable-2024-09-07"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.decluttarr": {
+    "description": "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed",
+    "pname": "decluttarr",
+    "version": "1.50.1"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.dingtalk": {
+    "description": "Enterprise communication and collaboration platform developed by Alibaba Group",
+    "pname": "dingtalk",
+    "version": "7.6.25.4112601"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.dn42-pingfinder": {
+    "description": "DN42 Pingfinder",
+    "pname": "dn42-pingfinder",
+    "version": "1.2.1-unstable-2022-11-06"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.douban-openapi-server": {
+    "description": "Douban API server that provides an unofficial APIs for media information gathering",
+    "pname": "douban-openapi-server",
+    "version": "0-unstable-2022-12-17"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.drone-file-secret": {
+    "description": "Secret provider for Drone CI. It simply reads secrets from a given folder, suitable for private use Drone CI instances where running a Vault instance can be undesirable",
+    "pname": "drone-file-secret",
+    "version": "0-unstable-2023-06-25"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.drone-vault": {
+    "description": "Drone plugin for integrating with the Vault secrets manager",
+    "pname": "drone-vault",
+    "version": "1.3.0"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.electron_11": {
+    "description": "Cross platform desktop application shell",
+    "pname": "electron",
+    "version": "11.5.0"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.etherguard": {
+    "description": "Layer 2 version of WireGuard with Floyd Warshall implementation in Go",
+    "pname": "etherguard",
+    "version": "0.3.5-f5"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.fastapi-dls": {
+    "description": "Minimal Delegated License Service (DLS)",
+    "pname": "fastapi-dls",
+    "version": "1.3.12-unstable-2024-11-22"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.fcitx5-breeze": {
+    "description": "Fcitx5 theme to match KDE's Breeze style",
+    "pname": "fcitx5-breeze",
+    "version": "3.1.0"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.flaresolverr-21hsmw": {
+    "description": "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver",
+    "pname": "flaresolverr",
+    "version": "21hsmw-0-unstable-2024-11-01"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.ftp-proxy": {
+    "description": "FTP Proxy Server",
+    "pname": "ftp-proxy",
+    "version": "1.2.3"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.google-earth-pro": {
+    "description": "World sphere viewer",
+    "pname": "google-earth-pro",
+    "version": "7.3.6.9796"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.gopherus": {
+    "description": "Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace",
+    "pname": "gopherus",
+    "version": "1.2.2"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.grasscutter": {
+    "description": "Server software reimplementation for a certain anime game",
+    "pname": "grasscutter",
+    "version": "1.7.4"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.hath": {
+    "description": "Hentai@Home",
+    "pname": "hath",
+    "version": "1.6.2"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.helium-gateway-rs": {
+    "description": "Helium Gateway",
+    "pname": "helium-gateway-rs",
+    "version": "1.3.0-unstable-2024-08-01"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.hesuvi-hrir": {
+    "description": "Headphone Surround Virtualizations for Equalizer APO",
+    "pname": "hesuvi-hrir",
+    "version": "2.0.0.1"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.hi3-ii-martian-font": {
+    "description": "Font for Martian in Honkai Impact 3rd",
+    "pname": "hi3-ii-martian-font",
+    "version": "0-unstable-2023-10-12"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.hoyo-glyphs": {
+    "description": "Constructed scripts by Hoyoverse 米哈游的架空文字",
+    "pname": "hoyo-glyphs",
+    "version": "20241116"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.imewlconverter": {
+    "description": "FOSS program for converting IME dictionaries",
+    "pname": "imewlconverter",
+    "version": "3.1.1"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.inter-knot": {
+    "description": "绳网是一个游戏、技术交流平台",
+    "pname": "inter-knot",
+    "version": "2.16.9+36"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.jproxy": {
+    "description": "Proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate",
+    "pname": "jproxy",
+    "version": "3.4.1"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.kaixinsong-fonts": {
+    "description": "KaiXinSong",
+    "pname": "kaixinsong-fonts",
+    "version": "3.0"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.kikoplay": {
+    "description": "More than a Full-Featured Danmu Player",
+    "pname": "kikoplay",
+    "version": "1.0.3"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.konnect": {
+    "description": "Kopano Konnect implements an OpenID provider (OP) with integrated web login and consent forms",
+    "pname": "konnect",
+    "version": "0.34.0"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.ldap-auth-proxy": {
+    "description": "Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend",
+    "pname": "ldap-auth-proxy",
+    "version": "0.2.0-unstable-2020-07-29"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.libnftnl-fullcone": {
+    "description": "Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem",
+    "pname": "libnftnl",
+    "version": "1.2.8"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.liboqs": {
+    "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
+    "pname": "liboqs",
+    "version": "0.11.0"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.liboqs-unstable": {
+    "description": "C library for prototyping and experimenting with quantum-resistant cryptography",
+    "pname": "liboqs",
+    "version": "0-unstable-2024-11-29"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.libqcef": {
+    "description": "Qt5 binding of CEF",
+    "pname": "libqcef",
+    "version": "0-unstable-2019-11-23"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.lyrica": {
+    "description": "Linux desktop lyrics widget focused on simplicity and integration",
+    "pname": "lyrica",
+    "version": "0.12"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.lyrica-plasmoid": {
+    "description": "Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component)",
+    "pname": "lyrica",
+    "version": "0.12"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.magiskboot": {
+    "description": "Tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms",
+    "pname": "magiskboot",
+    "version": "28.1"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.mautrix-gmessages": {
+    "description": "Matrix-Google Messages puppeting bridge",
+    "pname": "mautrix-gmessages",
+    "version": "0.5.2"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.ncmdump-rs": {
+    "description": "NetEase Cloud Music copyright protection file dump by rust",
+    "pname": "ncmdump-rs",
+    "version": "0.8.0"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.netboot-xyz": {
+    "description": "Your favorite operating systems in one place. A network-based bootable operating system installer based on iPXE",
+    "pname": "netboot-xyz",
+    "version": "2.0.83"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.netease-cloud-music": {
+    "description": "NetEase Cloud Music Linux Client (package script adapted from NixOS-CN and Freed-Wu)",
+    "pname": "netease-cloud-music",
+    "version": "1.2.1"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.netns-exec": {
+    "description": "Run command in Linux network namespace as normal user",
+    "pname": "netns-exec",
+    "version": "0-unstable-2016-07-30"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.nftables-fullcone": {
+    "description": "Project that aims to replace the existing {ip,ip6,arp,eb}tables framework",
+    "pname": "nftables",
+    "version": "1.1.1"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.noise-suppression-for-voice": {
+    "description": "Noise suppression plugin based on Xiph's RNNoise",
+    "pname": "noise-suppression-for-voice",
+    "version": "1.10"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.nullfs": {
+    "description": "FUSE nullfs drivers",
+    "pname": "nullfs",
+    "version": "0-unstable-2016-01-28"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.nvlax": {
+    "description": "Future-proof NvENC & NvFBC patcher",
+    "pname": "nvlax-unstable",
+    "version": "2021-10-29"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.nvlax-530": {
+    "description": "Future-proof NvENC & NvFBC patcher (for NVIDIA driver >= 530)",
+    "pname": "nvlax-unstable",
+    "version": "2021-10-29"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.oci-arm-host-capacity": {
+    "description": "This script allows to bypass Oracle Cloud Infrastructure 'Out of host capacity' error immediately when additional OCI capacity will appear in your Home Region / Availability domain",
+    "pname": "oci-arm-host-capacity",
+    "version": "0-unstable-2024-08-13"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.one-api": {
+    "description": "OpenAI key management & redistribution system, using a single API for all LLMs",
+    "pname": "one-api",
+    "version": "0.6.8"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.openai-edge-tts": {
+    "description": "Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally",
+    "pname": "openai-edge-tts",
+    "version": "0-unstable-2024-12-03"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.openedai-speech": {
+    "description": "OpenAI API compatible text to speech server using Coqui AI's xtts_v2 and/or piper tts as the backend",
+    "pname": "openedai-speech",
+    "version": "0.18.2"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.openssl-oqs-provider": {
+    "description": "OpenSSL 3 provider containing post-quantum algorithms",
+    "pname": "openssl-oqs-provider",
+    "version": "0.7.0"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.openvswitch-dpdk": {
+    "description": "Multilayer virtual switch",
+    "pname": "openvswitch-dpdk",
+    "version": "3.4.1"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.osdlyrics": {
+    "description": "Standalone lyrics fetcher/displayer (windowed and OSD mode)",
+    "pname": "osdlyrics",
+    "version": "0.5.15"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.palworld-exporter": {
+    "description": "Prometheus exporter for Palword Server",
+    "pname": "palworld-exporter",
+    "version": "1.3.1"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.palworld-worldoptions": {
+    "description": "Tool for creating WorldOption.sav and applying the PalWorldSettings.ini for dedicated servers",
+    "pname": "palworld-worldoptions",
+    "version": "1.10.0"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.peerbanhelper": {
+    "description": "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission",
+    "pname": "peerbanhelper",
+    "version": "7.1.5"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.phpmyadmin": {
+    "description": "Web interface for MySQL and MariaDB",
+    "pname": "phpmyadmin",
+    "version": "5.2.1"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.phppgadmin": {
+    "description": "Premier web-based administration tool for PostgreSQL",
+    "pname": "phppgadmin",
+    "version": "7.14.7-mod"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.plasma-panel-transparency-toggle": {
+    "description": "Rewrite of [Panel Transparency Button](https://github.com/psifidotos/paneltransparencybutton) for plasma 6",
+    "pname": "plasma-panel-transparency-toggle",
+    "version": "0-unstable-2024-04-17"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.plasma-smart-video-wallpaper-reborn": {
+    "description": "Plasma 6 wallpaper plugin to play videos on your Desktop/Lock Screen",
+    "pname": "plasma-smart-video-wallpaper-reborn",
+    "version": "0.4.1"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.plasma-yesplaymusic-lyric": {
+    "description": "Display YesPlayMusic lyrics on the plasma panel | 在KDE plasma面板中显示YesPlayMusic的歌词",
+    "pname": "plasma-yesplaymusic-lyric",
+    "version": "0.2.2-unstable-2024-08-10"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.pocl": {
+    "description": "Portable open source (MIT-licensed) implementation of the OpenCL standard",
+    "pname": "pocl",
+    "version": "6.0"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.procps4": {
+    "description": "Utilities that give information about processes using the /proc filesystem",
+    "pname": "procps4",
+    "version": "4.0.4"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.pterodactyl-wings": {
+    "description": "Server control plane for Pterodactyl Panel",
+    "pname": "pterodactyl-wings",
+    "version": "1.11.13"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.qemu-user-static": {
+    "description": "Generic and open source machine emulator and virtualizer",
+    "pname": "qemu-user-static",
+    "version": "9.1.2+ds-1"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.qq": {
+    "description": "QQ for Linux",
+    "pname": "qq",
+    "version": "3.2.13"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.qqmusic": {
+    "description": "Tencent QQ Music",
+    "pname": "qqmusic",
+    "version": "1.1.7"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.qqsp": {
+    "description": "QT Quest Soft Player is a interactive fiction stories and games player (compatible fork of qsp.su)",
+    "pname": "qqsp",
+    "version": "1.9"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.qsp": {
+    "description": "QSP is an Interactive Fiction development platform (GUI application)",
+    "pname": "qsp",
+    "version": "5.9.1-b2-unstable-2024-11-24"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.qsp-lib": {
+    "description": "QSP is an Interactive Fiction development platform (Game Library)",
+    "pname": "qsp-lib",
+    "version": "0-unstable-2024-11-27"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.red-star-os-rgjanggi": {
+    "description": "Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed. Use at your own risk",
+    "pname": "red-star-os-rgjanggi",
+    "version": "3.0"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.red-star-os-wallpapers": {
+    "description": "Wallpapers from DPRK Red Star OS 3.0",
+    "pname": "red-star-os-wallpapers",
+    "version": "3.0"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.rime-aurora-pinyin": {
+    "description": "【极光拼音】输入方案",
+    "pname": "rime-aurora-pinyin",
+    "version": "0-unstable-2022-08-28"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.rime-custom-pinyin-dictionary": {
+    "description": "自建拼音输入法词库，百万常用词汇量，适配 Fcitx5 (Linux / Android) 及 Gboard (Android + Magisk or KernelSU) 。",
+    "pname": "rime-custom-pinyin-dictionary",
+    "version": "20240824"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.rime-dict": {
+    "description": "RIME 词库增强",
+    "pname": "rime-dict",
+    "version": "0-unstable-2020-12-26"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.rime-ice": {
+    "description": "Rime 配置：雾凇拼音 | 长期维护的简体词库",
+    "pname": "rime-ice",
+    "version": "0-unstable-2024-12-07"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.rime-moegirl": {
+    "description": "RIME dictionary file for entries from zh.moegirl.org.cn",
+    "pname": "rime-moegirl",
+    "version": "20241109"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.rime-zhwiki": {
+    "description": "RIME dictionary file for entries from zh.wikipedia.org",
+    "pname": "rime-zhwiki",
+    "version": "20240909"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.route-chain": {
+    "description": "Small app to generate a long path in traceroute",
+    "pname": "route-chain",
+    "version": "0-unstable-2023-09-09"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.runpodctl": {
+    "description": "RunPod CLI for pod management",
+    "pname": "runpodctl",
+    "version": "1.14.4"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.sam-toki-mouse-cursors": {
+    "description": "Original mouse cursors (pointers) for Windows, with minimalistic design",
+    "pname": "sam-toki-mouse-cursors",
+    "version": "7.00"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.sgx-software-enable": {
+    "description": "This application will enable Intel SGX on Linux systems where the BIOS supports Intel SGX, but does not provide an explicit option to enable it. These systems can only enable Intel SGX via the \"software enable\" procedure",
+    "pname": "sgx-software-enable",
+    "version": "1.0-unstable-2023-01-06"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.smfc": {
+    "description": "Super Micro Fan Control",
+    "pname": "smfc",
+    "version": "3.5.1"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.soggy": {
+    "description": "Experimental server emulator for a game I forgot its name",
+    "pname": "soggy",
+    "version": "0-unstable-2022-12-14"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.space-cadet-pinball-full-tilt": {
+    "description": "Reverse engineering of 3D Pinball for Windows – Space Cadet, a game bundled with Windows (With Full Tilt Pinball data)",
+    "pname": "SpaceCadetPinball",
+    "version": "2.1.0"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.suwayomi-server": {
+    "description": "Rewrite of Tachiyomi for the Desktop",
+    "pname": "suwayomi-server",
+    "version": "1.1.1-r1535"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.svp": {
+    "description": "SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player",
+    "pname": "svp",
+    "version": "4.6.263"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.svp-mpv": {
+    "description": "General-purpose media player, fork of MPlayer and mplayer2",
+    "pname": "mpv-with-scripts",
+    "version": "0.39.0"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.sx1302-hal": {
+    "description": "SX1302/SX1303 Hardware Abstraction Layer and Tools (packet forwarder...)",
+    "pname": "sx1302-hal",
+    "version": "2.1.0-unstable-2023-02-06"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.uesave": {
+    "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS)",
+    "pname": "uesave",
+    "version": "0.5.0"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.uesave-0_3_0": {
+    "description": "Library for reading and writing Unreal Engine save files (commonly referred to as GVAS). Older version that works with Palworld",
+    "pname": "uesave",
+    "version": "0.3.0"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.uksmd": {
+    "description": "Userspace KSM helper daemon",
+    "pname": "uksmd",
+    "version": "1.2.12"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.uni-api": {
+    "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
+    "pname": "uni-api",
+    "version": "0-unstable-2024-12-09"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.unigine-heaven": {
+    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
+    "pname": "unigine-heaven",
+    "version": "4.0"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.unigine-sanctuary": {
+    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
+    "pname": "unigine-sanctuary",
+    "version": "2.3"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.unigine-superposition": {
+    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
+    "pname": "unigine-superposition",
+    "version": "1.1"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.unigine-tropics": {
+    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
+    "pname": "unigine-tropics",
+    "version": "1.3"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.unigine-valley": {
+    "description": "Extreme performance and stability test for PC hardware: video card, power supply, cooling system",
+    "pname": "unigine-valley",
+    "version": "1.0"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.vbmeta-disable-verification": {
+    "description": "Patch Android vbmeta image and disable verification flags inside",
+    "pname": "vbmeta-disable-verification",
+    "version": "1.0"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.vgpu-unlock-rs": {
+    "description": "Unlock vGPU functionality for consumer grade GPUs",
+    "pname": "vgpu-unlock-rs",
+    "version": "2.5.0"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.vk-hdr-layer": {
+    "description": "Vulkan layer utilizing a small color management / HDR protocol for experimentation",
+    "pname": "vk-hdr-layer",
+    "version": "0-unstable-2024-11-25"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.vpp": {
+    "description": "Vector Packet Processing",
+    "pname": "vpp",
+    "version": "24.10"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.wechat-uos-sandboxed": {
+    "description": "WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap)",
+    "pname": "wechat-uos",
+    "version": "4.0.0.23"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.wine-wechat": {
+    "description": "Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)",
+    "pname": "wine-wechat",
+    "version": "3.9.12.17"
+  },
+  "legacyPackages.x86_64-linux.uncategorized.wine-wechat-x86": {
+    "description": "Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat)",
+    "pname": "wine-wechat-x86",
+    "version": "3.9.12.16"
   },
   "legacyPackages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",
@@ -3809,6 +4554,11 @@
     "pname": "deepspeech",
     "version": "0.9.3"
   },
+  "packages.x86_64-linux.deprecated": {
+    "description": "",
+    "pname": "merged-packages",
+    "version": ""
+  },
   "packages.x86_64-linux.dingtalk": {
     "description": "Enterprise communication and collaboration platform developed by Alibaba Group",
     "pname": "dingtalk",
@@ -3868,11 +4618,6 @@
     "description": "Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver",
     "pname": "flaresolverr",
     "version": "21hsmw-0-unstable-2024-11-01"
-  },
-  "packages.x86_64-linux.flasgger": {
-    "description": "Easy OpenAPI specs and Swagger UI for your Flask API",
-    "pname": "python3.12-flasgger",
-    "version": "0.9.5"
   },
   "packages.x86_64-linux.ftp-proxy": {
     "description": "FTP Proxy Server",
@@ -3958,6 +4703,11 @@
     "description": "(DEPRECATED: kata-runtime is available in nixpkgs by a different maintainer) Kata Containers is an open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs. (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix)",
     "pname": "kata-runtime",
     "version": "3.11.0"
+  },
+  "packages.x86_64-linux.kernel-modules": {
+    "description": "",
+    "pname": "merged-packages",
+    "version": ""
   },
   "packages.x86_64-linux.kikoplay": {
     "description": "More than a Full-Featured Danmu Player",
@@ -4189,7 +4939,7 @@
     "pname": "phppgadmin",
     "version": "7.14.7-mod"
   },
-  "packages.x86_64-linux.piper-tts-python": {
+  "packages.x86_64-linux.piper-tts": {
     "description": "Python component for piper-tts",
     "pname": "python3.12-piper",
     "version": "2023.11.14-2"
@@ -4233,6 +4983,11 @@
     "description": "Python implementation of RCON",
     "pname": "python3.12-py-rcon",
     "version": "1.3.0"
+  },
+  "packages.x86_64-linux.python3Packages": {
+    "description": "",
+    "pname": "merged-packages",
+    "version": ""
   },
   "packages.x86_64-linux.qemu-user-static": {
     "description": "Generic and open source machine emulator and virtualizer",
@@ -4403,6 +5158,11 @@
     "description": "Userspace KSM helper daemon",
     "pname": "uksmd",
     "version": "1.2.12"
+  },
+  "packages.x86_64-linux.uncategorized": {
+    "description": "",
+    "pname": "merged-packages",
+    "version": ""
   },
   "packages.x86_64-linux.uni-api": {
     "description": "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface",

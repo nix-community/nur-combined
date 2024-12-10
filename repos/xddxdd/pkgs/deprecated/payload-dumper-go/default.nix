@@ -6,7 +6,7 @@
 }:
 buildGoModule rec {
   inherit (sources.payload-dumper-go) pname version src;
-  vendorHash = "sha256-CqIZFMDN/kK9bT7b/32yQ9NJAQnkI8gZUMKa6MJCaec=";
+  vendorHash = "sha256-XeD47PsFjDT9777SNE8f2LbKZ1cnL5HNPr3Eg7UIpJ0=";
 
   buildInputs = [ xz ];
 

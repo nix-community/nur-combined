@@ -1,10 +1,12 @@
 {
   lib,
   sources,
-  python3Packages,
+  buildPythonPackage,
 }:
-python3Packages.buildPythonPackage rec {
+buildPythonPackage rec {
   inherit (sources.xstatic-asciinema-player) pname version src;
+
+  pythonImportsCheck = [ "xstatic.pkg.asciinema_player" ];
 
   meta = {
     maintainers = with lib.maintainers; [ xddxdd ];

@@ -3,9 +3,9 @@
   lib,
   sources,
   python3,
+  python3Packages,
   makeWrapper,
   ffmpeg,
-  piper-tts-python,
 }:
 let
   pythonEnv = python3.withPackages (
@@ -15,13 +15,13 @@ let
       loguru
       numpy
       pyyaml
-      piper-tts-python
+      piper-tts
     ]
   );
 
   additionalPath = lib.makeBinPath [
     ffmpeg
-    piper-tts-python
+    python3Packages.piper-tts
   ];
 in
 stdenv.mkDerivation rec {

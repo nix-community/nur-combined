@@ -113,10 +113,6 @@
           nix search . ^ --json | ${pkgs.jq}/bin/jq > nix-packages.json
         '';
 
-        search-lib = ''
-          ${inputs'.nix-index-database.packages.default}/bin/nix-locate -w "$@" | grep -v "("
-        '';
-
         trace = ''
           rm -rf trace.txt*
           strace -ff --trace=%file -o trace.txt "$@"

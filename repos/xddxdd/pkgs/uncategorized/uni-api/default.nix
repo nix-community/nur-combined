@@ -4,7 +4,6 @@
   stdenv,
   python3,
   makeWrapper,
-  xue,
   curl,
 }:
 let

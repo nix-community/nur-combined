@@ -3,16 +3,15 @@
   lib,
   sources,
   python3,
-  edge-tts,
   makeWrapper,
 }:
 let
   pythonEnv = python3.withPackages (
     ps: with ps; [
+      edge-tts
       flask
       gevent
       python-dotenv
-      edge-tts
     ]
   );
 in

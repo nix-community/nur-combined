@@ -24,40 +24,37 @@ rec {
     lib.callPackageWith (
       pkgs
       // _packages
-      // {
+      // rec {
         inherit
           _packages
           sources
           ;
         kernel = pkgs.linux;
+        # Integrate to nixpkgs python3Packages
+        python = pkgs.python.override { packageOverrides = _final: _prev: _packages.python3Packages; };
+        python3 = pkgs.python3.override { packageOverrides = _final: _prev: _packages.python3Packages; };
+        python3Packages = python3.pkgs;
       }
     );
 
   createCallGroupDeps =
     _packages: callPackage:
     let
-      loadPackages =
-        path: mapping:
-        lib.genAttrs
-          (builtins.filter (v: !(lib.hasSuffix ".nix" v)) (builtins.attrNames (builtins.readDir path)))
-          (
-            n:
-            let
-              pkg = callPackage (path + "/${n}") { };
-            in
-            (mapping."${n}" or (v: v)) pkg
-          );
+      loadPackages = createLoadPackages callPackage;
     in
     {
       inherit
         _packages
         callPackage
+        createCallPackage
+        createLoadPackages
         ifNotCI
         ifNotNUR
         lib
         loadPackages
         mergePkgs
         mode
+        pkgs
         sources
         ;
     };

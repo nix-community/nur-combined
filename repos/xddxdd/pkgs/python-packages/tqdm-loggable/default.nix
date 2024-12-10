@@ -1,16 +1,18 @@
 {
   sources,
   lib,
-  python3Packages,
+  buildPythonPackage,
+  # Dependencies
+  poetry-core,
+  tqdm,
 }:
-
-python3Packages.buildPythonPackage {
+buildPythonPackage {
   inherit (sources.tqdm-loggable) pname version src;
   pyproject = true;
 
   propagatedBuildInputs = [
-    python3Packages.poetry-core
-    python3Packages.tqdm
+    poetry-core
+    tqdm
   ];
 
   pythonImportsCheck = [ "tqdm_loggable" ];
