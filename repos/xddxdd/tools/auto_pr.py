@@ -163,8 +163,7 @@ def nixpkgs_get_existing_version(package_name: str) -> Optional[str]:
         return None
 
 
-def nixpkgs_create_package(package_name: str) -> Path:
-    # Step 1: create new branch
+def nixpkgs_create_branch(package_name: str):
     try:
         subprocess.run(
             ["git", "-C", NIXPKGS_PATH, "checkout", "-b", package_name], check=True
@@ -177,7 +176,8 @@ def nixpkgs_create_package(package_name: str) -> Path:
         ["git", "-C", NIXPKGS_PATH, "reset", "--hard", "upstream/master"], check=True
     )
 
-    # Step 2: create package dir
+
+def nixpkgs_create_package(package_name: str) -> Path:
     pkg_path = (
         Path(NIXPKGS_PATH) / "pkgs" / "by-name" / package_name[0:2] / package_name
     )
@@ -226,12 +226,23 @@ if __name__ == "__main__":
     existing_pkg_version = nixpkgs_get_existing_version(pkg_name)
     print(f"Existing version is {existing_pkg_version}")
 
-    nixpkgs_pkg_path = nixpkgs_create_package(pkg_name)
+    nixpkgs_create_branch(pkg_name)
+
+    if len(sys.argv) >= 3:
+        custom_target_path = True
+        nixpkgs_pkg_path = Path(sys.argv[2])
+        os.makedirs(nixpkgs_pkg_path, exist_ok=True)
+    else:
+        custom_target_path = False
+        nixpkgs_pkg_path = nixpkgs_create_package(pkg_name)
+
     pkg_version = None
 
     for f in nur_pkg_path.iterdir():
         nixpkgs_target_path = nixpkgs_pkg_path / f.relative_to(nur_pkg_path)
-        if f.name == "default.nix":
+
+        # Do not override file name if custom target path, which indicates by-name is not used
+        if not custom_target_path and f.name == "default.nix":
             nixpkgs_target_path = nixpkgs_target_path.parent / "package.nix"
 
         if f.name.startswith("update."):
@@ -264,7 +275,7 @@ if __name__ == "__main__":
     else:
         version_to = "[UNKNOWN VERSION]"
 
-    nixpkgs_create_commit(f"{pkg_name}: {version_from} {version_to}")
-
-    nixpkgs_test_build(pkg_name)
-    nixpkgs_push(pkg_name)
+    if not custom_target_path:
+        nixpkgs_create_commit(f"{pkg_name}: {version_from} {version_to}")
+        nixpkgs_test_build(pkg_name)
+        nixpkgs_push(pkg_name)
