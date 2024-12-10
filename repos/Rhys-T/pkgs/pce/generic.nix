@@ -56,12 +56,9 @@ let
         '';
         outputHash = src.hashWithoutROMs;
     });
-    pkgsm68kElf = import pkgs.path {
-        inherit (pkgs) overlays;
-        localSystem = pkgs.system;
-        crossSystem = lib.systems.elaborate {
-            config = "m68k-elf";
-        };
+    pkgsm68kElf = import (pkgs.path+"/pkgs/top-level") {
+        localSystem.system = pkgs.system;
+        crossSystem.system = "m68k-elf";
     };
     macplus-cc = pkgsm68kElf.stdenv.cc;
 in
