@@ -142,10 +142,13 @@ rec {
       ver0 = builtins.elemAt splitted 0;
       major = lib.versions.pad 2 ver0;
 
-      patches = [
-        pkgs.kernelPatches.bridge_stp_helper
-        pkgs.kernelPatches.request_key_helper
-      ] ++ (getPatches version) ++ extraPatches;
+      patches =
+        [
+          pkgs.kernelPatches.bridge_stp_helper
+          pkgs.kernelPatches.request_key_helper
+        ]
+        ++ (getPatches version)
+        ++ extraPatches;
 
       patchedSrc = stdenv.mkDerivation (
         {
@@ -186,10 +189,10 @@ rec {
         modDirVersion = "${ver0}${modDirSuffix}";
 
         structuredExtraConfig =
-          if !lto then
-            _structuredConfig
-          else
-            (
+          (
+            if !lto then
+              _structuredConfig
+            else
               (builtins.removeAttrs _structuredConfig [
                 "GCC_PLUGINS"
                 "FORTIFY_SOURCE"
@@ -198,8 +201,8 @@ rec {
                 LTO_NONE = no;
                 LTO_CLANG_THIN = yes;
               })
-              // (if stdenv.isx86_64 then marchFlags."${x86_64-march}" else { })
-            );
+          )
+          // (if stdenv.isx86_64 then marchFlags."${x86_64-march}" else { });
       }
       // extraArgs
     );

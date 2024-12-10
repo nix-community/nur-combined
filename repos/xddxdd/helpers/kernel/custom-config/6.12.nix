@@ -27,6 +27,10 @@ with lib.kernel;
   FONTS = yes;
   FONT_8x16 = yes;
 
+  # Fix build error
+  CRASH_DUMP = lib.mkForce (option yes);
+  PROC_VMCORE = lib.mkForce (option yes);
+
   # Ftrace (for ECC RAM monitoring)
   FTRACE = yes;
   FTRACE_SYSCALLS = yes;
