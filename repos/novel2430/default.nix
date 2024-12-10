@@ -28,6 +28,7 @@
   FuzzyMarks = pkgs.callPackage ./pkgs/FuzzyMarks { };
   labwc-with-ws4waybar = pkgs.callPackage ./pkgs/labwc-with-ws4waybar { };
   waybar-Consolatis-fork = pkgs.callPackage ./pkgs/waybar-Consolatis-fork { };
+  shotcut = pkgs.callPackage ./pkgs/shotcut { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
   # ...
