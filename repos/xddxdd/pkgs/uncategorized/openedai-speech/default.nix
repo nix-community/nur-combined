@@ -4,6 +4,7 @@
   sources,
   python3,
   makeWrapper,
+  ffmpeg,
   piper-tts-python,
 }:
 let
@@ -18,7 +19,10 @@ let
     ]
   );
 
-  additionalPath = lib.makeBinPath [ piper-tts-python ];
+  additionalPath = lib.makeBinPath [
+    ffmpeg
+    piper-tts-python
+  ];
 in
 stdenv.mkDerivation rec {
   inherit (sources.openedai-speech) pname version src;
