@@ -6,8 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
-
+{
+  pkgs ? import <nixpkgs> { },
+}:
 {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -22,6 +23,7 @@
   melt = pkgs.callPackage ./pkgs/melt { };
   mods = pkgs.callPackage ./pkgs/mods { };
   pop = pkgs.callPackage ./pkgs/pop { };
+  sequin = pkgs.callPackage ./pkgs/sequin { };
   skate = pkgs.callPackage ./pkgs/skate { };
   soft-serve = pkgs.callPackage ./pkgs/soft-serve { };
   vhs = pkgs.callPackage ./pkgs/vhs { };
