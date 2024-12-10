@@ -116,6 +116,10 @@ src.git = "https://github.com/lilmayofuksu/pyenet.git"
 fetch.github = "lilmayofuksu/pyenet"
 git.fetchSubmodules = true
 
+[coqui-tts]
+src.github = "coqui-ai/TTS"
+fetch.github = "coqui-ai/TTS"
+
 [coredns-lantian]
 src.git = "https://github.com/xddxdd/coredns.git"
 fetch.github = "xddxdd/coredns"
@@ -442,6 +446,10 @@ fetch.url = "https://github.com/songquanpeng/one-api/releases/download/$ver/one-
 [openai-edge-tts]
 src.git = "https://github.com/travisvn/openai-edge-tts.git"
 fetch.github = "travisvn/openai-edge-tts"
+
+[openedai-speech]
+src.github = "matatonic/openedai-speech"
+fetch.github = "matatonic/openedai-speech"
 
 [openresty]
 src.git = "https://github.com/openresty/openresty.git"

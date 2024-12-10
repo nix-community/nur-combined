@@ -533,6 +533,27 @@
         },
         "version": "1726b1d8e22ee1fa53c7560169d8814c7847a447"
     },
+    "coqui-tts": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "coqui-tts",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "coqui-ai",
+            "repo": "TTS",
+            "rev": "v0.22.0",
+            "sha256": "sha256-RQVlPHYZ5X/6xbxwGNcgntcyAsBS8T2ketdk+OCIS3Q=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.22.0"
+    },
     "coredns-lantian": {
         "cargoLocks": null,
         "date": "2023-09-02",
@@ -2000,6 +2021,27 @@
             "type": "github"
         },
         "version": "10f613cf333b07253813c0c35d6cd8ebbab7cb87"
+    },
+    "openedai-speech": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "openedai-speech",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "matatonic",
+            "repo": "openedai-speech",
+            "rev": "0.18.2",
+            "sha256": "sha256-AC9fClFDUj8TV5W7sTZy+AjvNZgU6Vuvq9nP8Iy+WLY=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0.18.2"
     },
     "openresty": {
         "cargoLocks": null,

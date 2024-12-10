@@ -277,6 +277,16 @@
     };
     date = "2022-11-20";
   };
+  coqui-tts = {
+    pname = "coqui-tts";
+    version = "v0.22.0";
+    src = fetchFromGitHub {
+      owner = "coqui-ai";
+      repo = "TTS";
+      rev = "v0.22.0";
+      hash = "sha256-RQVlPHYZ5X/6xbxwGNcgntcyAsBS8T2ketdk+OCIS3Q=";
+    };
+  };
   coredns-lantian = {
     pname = "coredns-lantian";
     version = "a411a29f831648afa98aa79b164e790add2d6f14";
@@ -1030,6 +1040,16 @@
       hash = "sha256-RUfZjNR+3cmxDZCf+hcNOnXhWgKcT1XeTaQfISSZexA=";
     };
     date = "2024-12-03";
+  };
+  openedai-speech = {
+    pname = "openedai-speech";
+    version = "0.18.2";
+    src = fetchFromGitHub {
+      owner = "matatonic";
+      repo = "openedai-speech";
+      rev = "0.18.2";
+      hash = "sha256-AC9fClFDUj8TV5W7sTZy+AjvNZgU6Vuvq9nP8Iy+WLY=";
+    };
   };
   openresty = {
     pname = "openresty";
