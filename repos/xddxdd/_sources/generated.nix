@@ -387,6 +387,16 @@
       hash = "sha256-g4D+pnOo41UqPDFF3lvh/yNFVzP8rqglG+4xPx+aEzM=";
     };
   };
+  edge-tts = {
+    pname = "edge-tts";
+    version = "7.0.0";
+    src = fetchFromGitHub {
+      owner = "rany2";
+      repo = "edge-tts";
+      rev = "7.0.0";
+      hash = "sha256-TwBSEePVFYTvdueunTrFtZd96tp2P/he7+1cmIk2dy8=";
+    };
+  };
   etherguard = {
     pname = "etherguard";
     version = "v0.3.5-f5";
@@ -1010,6 +1020,17 @@
       hash = "sha256-iaFzBcAk7XOmkfqHz/v4nx7GmKQ+XxvmJgs46/eCx1M=";
     };
   };
+  openai-edge-tts = {
+    pname = "openai-edge-tts";
+    version = "10f613cf333b07253813c0c35d6cd8ebbab7cb87";
+    src = fetchFromGitHub {
+      owner = "travisvn";
+      repo = "openai-edge-tts";
+      rev = "10f613cf333b07253813c0c35d6cd8ebbab7cb87";
+      hash = "sha256-RUfZjNR+3cmxDZCf+hcNOnXhWgKcT1XeTaQfISSZexA=";
+    };
+    date = "2024-12-03";
+  };
   openresty = {
     pname = "openresty";
     version = "67aff27ddca1a5d9e31614025d2934b569b9ab3e";
@@ -1036,7 +1057,7 @@
       owner = "open-quantum-safe";
       repo = "oqs-provider";
       rev = "0.7.0";
-      hash = "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=";
+      hash = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
     };
   };
   osdlyrics = {

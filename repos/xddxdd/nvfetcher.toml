@@ -163,6 +163,10 @@ fetch.github = "xddxdd/drone-file-secret"
 src.github_tag = "drone/drone-vault"
 fetch.github = "drone/drone-vault"
 
+[edge-tts]
+src.github = "rany2/edge-tts"
+fetch.github = "rany2/edge-tts"
+
 [etherguard]
 src.github = "KusakabeShi/EtherGuard-VPN"
 fetch.github = "KusakabeShi/EtherGuard-VPN"
@@ -434,6 +438,10 @@ fetch.url = "https://github.com/songquanpeng/one-api/releases/download/$ver/one-
 [one-api-arm64]
 src.github = "songquanpeng/one-api"
 fetch.url = "https://github.com/songquanpeng/one-api/releases/download/$ver/one-api-arm64"
+
+[openai-edge-tts]
+src.git = "https://github.com/travisvn/openai-edge-tts.git"
+fetch.github = "travisvn/openai-edge-tts"
 
 [openresty]
 src.git = "https://github.com/openresty/openresty.git"
