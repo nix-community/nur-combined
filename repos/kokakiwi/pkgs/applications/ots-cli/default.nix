@@ -9,7 +9,7 @@ buildGoModule rec {
 
   modRoot = "cmd/ots-cli";
 
-  vendorHash = "sha256-TXtOGt94AsszuVNu3BVXa4gM0lldo6Vkh4CJebrKpsI=";
+  vendorHash = "sha256-p6WAovm3t4oV2LjOlbIuwBEL8JUIUO5/htimqIonMJo=";
 
   ldflags = [
     "-X main.version=${version}"

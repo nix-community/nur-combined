@@ -30,7 +30,7 @@ buildGoModule rec {
     '';
   };
 
-  vendorHash = "sha256-mfliOLOtfuUV1RxHTDrd6vO2VBgxWW9Ws9chp3S7QVk=";
+  vendorHash = "sha256-i+TRXshj6/vy1s96rc0P8+KRcKzVl5lb0RA2JD2R59o=";
 
   ldflags = [
     "-X main.version=${version}"
