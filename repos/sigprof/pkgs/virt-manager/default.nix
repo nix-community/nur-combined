@@ -40,9 +40,11 @@ in
     #
     # Using `postFixup` to avoid wrapping the symlink.
     #
-    postFixup = ''
-      ln -s ${virt-manager-2}/bin/virt-manager $out/bin/virt-manager-2
-    '';
+    postFixup =
+      (oldAttrs.postFixup or "")
+      + ''
+        ln -s ${virt-manager-2}/bin/virt-manager $out/bin/virt-manager-2
+      '';
 
     meta = lib.mergeAttrs oldAttrs.meta {
       description = ''
