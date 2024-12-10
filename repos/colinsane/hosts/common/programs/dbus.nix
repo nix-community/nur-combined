@@ -49,7 +49,11 @@ in
       command = pkgs.writeShellScript "dbus-start" ''
         # have to create the dbus directory before launching so that it's available in the sandbox
         mkdir -p "$XDG_RUNTIME_DIR/dbus"
-        dbus-daemon --session --nofork --address="$DBUS_SESSION_BUS_ADDRESS"
+        # XXX(2024-12-08): clear XDG_DATA_DIRS as a hack to disable dbus activation (which isn't possible when sandboxing).
+        # if it can't find the .service files, then it can't activate them!
+        # an alternative is to remove `/share/dbus-1/services` from `environment.pathsToLink`, while keeping the other /share/dbus-1
+        # items necessary for the system dbus session to operate.
+        XDG_DATA_DIRS= dbus-daemon --session --nofork --address="$DBUS_SESSION_BUS_ADDRESS"
       '';
       readiness.waitExists = [ "$XDG_RUNTIME_DIR/dbus/bus" ];
     };

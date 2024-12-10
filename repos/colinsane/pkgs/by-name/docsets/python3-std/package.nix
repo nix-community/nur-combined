@@ -1,9 +1,10 @@
 {
   doc2dash,
   python3,
-  runCommandLocal,
+  runCommand,
 }:
-runCommandLocal "docsets-python3-std" {
+runCommand "docsets-python3-std" {
+  preferLocalBuild = true;
   nativeBuildInputs = [ doc2dash ];
 } ''
   # doc2dash inherits file permissions from the sources,

@@ -2,7 +2,7 @@
   docsets,
   jq,
   nix,
-  runCommandLocal,
+  runCommand,
   stdenv,
 }:
 let
@@ -10,7 +10,8 @@ let
   # this is a json dictionary with each entry like:
   #   "abort": { "args": [ "s" ], "doc": "Abort Nix expression evaluation and print the error message *s*." }
 
-  builtins-locations = runCommandLocal "nix-locations.json" {
+  builtins-locations = runCommand "nix-locations.json" {
+    preferLocalBuild = true;
     nativeBuildInputs = [ jq nix ];
   } ''
     mkdir $out

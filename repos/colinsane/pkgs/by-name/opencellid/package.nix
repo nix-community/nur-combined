@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     # this is a live url. updated... weekly? the server seems to silently ignore unrecognized query parameters,
     # so i append a version tag such that bumping it forces nix to re-fetch the data.
     # the API key should allow for at least 2 downloads per day (maybe more?)
-    # TODO: add an update script for this.
+    # TODO: repackage this such that hashes can be stable (mirror the data in a versioned repo, and point to that here?)
     url = "https://opencellid.org/ocid/downloads?token=${apiKey}&type=full&file=cell_towers.csv.gz&_stamp=${version}";
     hash = "sha256-Hm6bSHFe/6kRmWGIZlJx9pEg9UWF+eLO3EP9Sm9wk5Y=";
   };

@@ -17,7 +17,7 @@ in
   environment.etc."man_db.conf".text = let
     # imported logic from <repo:nixos/nixpkgs:nixos/modules/misc/man-db.nix>,
     # but it actually works
-    manualCache = pkgs.runCommandLocal "man-cache" {
+    manualCache = pkgs.runCommand "man-cache" {
       nativeBuildInputs = [ cfg.packageUnwrapped ];
     } ''
       echo "MANDB_MAP ${config.documentation.man.man-db.manualPages}/share/man $out" > man.conf

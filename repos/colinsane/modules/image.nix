@@ -187,7 +187,8 @@ in
     };
   in
   {
-    system.build.img = pkgs.runCommandLocal "nixos-with-bootloader" {
+    system.build.img = pkgs.runCommand "nixos-with-bootloader" {
+      preferLocalBuild = true;
       passthru = {
         inherit bootFsImg nixFsImg;
         withoutBootloader = img;  #< XXX: this derivation places the image at $out/nixos.img

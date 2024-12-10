@@ -56,7 +56,7 @@ let
         noDisplay = true;
       })
       (pkgs.makeDesktopItem {
-        name = "cancel";
+        name = "rofi-cancel";
         exec = "true";
         desktopName = "Cancel";
         mimeTypes = [ "application/x-desktop" ];
@@ -98,7 +98,6 @@ in
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       ".local/share/applications"  #< to locate .desktop files
-      "Apps"  #< provide a means to transition from the filebrowser to the app launcher
       "Books/Audiobooks"
       "Books/Books"
       "Books/Visual"
@@ -124,9 +123,9 @@ in
     sandbox.keepPidsAndProc = true; # for sane-open to toggle keyboard
 
     fs.".config/rofi/config.rasi".symlink.target = ./config.rasi;
-    fs."Apps".symlink.target = ".local/share/applications/rofi-applications.desktop";
+    fs."Apps".symlink.target = ".local/share/applications/rofi-applications.desktop";  #< provide a means to transition from the filebrowser to the app launcher
+    fs."Cancel".symlink.target = ".local/share/applications/rofi-cancel.desktop";  #< provide an escape from the file browser
     fs."WiFi".symlink.target = ".local/share/applications/networkmanager_dmenu.desktop";
-    fs."close".symlink.target = ".local/share/applications/close.desktop";  #< provide an escape from the file browser
     persist.byStore.ephemeral = [
       # this gets us a few things:
       # - file browser remembers its last directory

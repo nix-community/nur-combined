@@ -15,7 +15,8 @@
   sane.programs.ols = {
     packageUnwrapped = pkgs.geoclue-ols;
 
-    fs.".config/ols/cell.db".symlink.target = pkgs.runCommandLocal "cell.db" {
+    fs.".config/ols/cell.db".symlink.target = pkgs.runCommand "cell.db" {
+      preferLocalBuild = true;
       nativeBuildInputs = [ pkgs.geoclue-ols ];
     } ''
       cellid-ols-import -o "$out" "${pkgs.opencellid}"

@@ -111,7 +111,7 @@ in
       # ".cache/folks"      # contact avatars?
       # ".config/calls"
       ".local/share/calls"  # call "records"
-      # .local/share/folks  # contacts?
+      # .local/share/folks  # contacts  (e.g. `.local/share/folks/relationships.ini` with gsetting org/freedesktop/folks/primary-store='key-file'
     ];
     # this is only the username/endpoint: the actual password appears to be stored in gnome-keyring
     secrets.".config/calls/sip-account.cfg" = ../../../secrets/common/gnome_calls_sip-account.cfg.bin;

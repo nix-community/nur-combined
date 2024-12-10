@@ -53,12 +53,17 @@ let
       (p: builtins.toString p.package)
       (enabledProgramsWithPackage ++ [ { package=mimeappsListPkg; } ]);
   }).overrideAttrs (orig: {
-    # like normal symlinkJoin, but don't error if the path doesn't exist
+    # like normal symlinkJoin, but don't error if the path doesn't exist.
+    # additionally, remove `DBusActivatable=true` from any .desktop files encountered;
+    # my dbus session is sandboxed such that it can't activate services even if i thought that was a good idea.
     buildCommand = ''
       mkdir -p $out/share/applications
       for i in $(cat $pathsPath); do
         if [ -e "$i/share/applications" ]; then
-          ${lib.getExe pkgs.buildPackages.xorg.lndir} -silent $i/share/applications $out/share/applications
+          local files=($(cd "$i/share/applications"; ls .))
+          for f in "''${files[@]}"; do
+            sed '/DBusActivatable=true/d' $i/share/applications/$f > $out/share/applications/$f
+          done
         fi
       done
       runHook postBuild

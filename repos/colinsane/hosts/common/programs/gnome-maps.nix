@@ -16,6 +16,7 @@
 #   with it not using the portal, it can't open links via the web browser.
 #   additionally, that prevents OpenStreetMap sign-in.
 #   even temporarily enabling the portal for OSM doesn't work *after* the portal has been disabled -- because then gnome-maps can't access its passwords (?)
+#   possibly this can be fixed by specifing OSM auth statically via gsettings
 { pkgs, ... }:
 {
   sane.programs.gnome-maps = {
@@ -41,8 +42,10 @@
     sandbox.net = "clearnet";
 
     persist.byStore.plaintext = [ ".cache/shumate" ];
-    persist.byStore.private = [
-      { path = ".local/share/maps-places.json"; type = "file"; }
-    ];
+    # ~/.local/share/gnome-maps/places.json (previously: ../maps-places.json); to persist starred locations, recent locations+routes
+    # TODO: building in "developer mode" causes gnome-maps to pretty-print the .json instead of minifying it
+    persist.byStore.private = [ ".local/share/gnome-maps" ];
+
+    mime.associations."x-scheme-handler/maps" = "org.gnome.Maps.desktop";  # e.g. `maps:q=1600%20Pennsylvania%20Ave`
   };
 }

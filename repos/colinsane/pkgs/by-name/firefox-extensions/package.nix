@@ -6,7 +6,7 @@
   lib,
   newScope,
   nix-update-script,
-  runCommandLocal,
+  runCommand,
   stdenv,
   strip-nondeterminism,
   unzip,
@@ -167,8 +167,8 @@ let
         # N.B.: a handful of versions are released unsigned
         # url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.signed.xpi";
         url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
-        version = "1.61.3b5";
-        hash = "sha256-nkoq9+6wie2UUeg77wSmM64cDGiKVpckKDoIsZJtw8w=";
+        version = "1.61.3b6";
+        hash = "sha256-x8HueqhKLG3K3cih0By56zK9iHvzfmkfYQbXuTuh/W4=";
       };
     };
 })  ).overrideScope (self: super:
@@ -225,7 +225,10 @@ let
               };
             };
           };
-        in runCommandLocal "ublock-origin-config" { nativeBuildInputs = [ jq ]; } ''
+        in runCommand "ublock-origin-config" {
+          preferLocalBuild = true;
+          nativeBuildInputs = [ jq ];
+        } ''
           cat ${baseConfig} | jq 'setpath(["data", "adminSettings", "userFilters"]; $filterText)' --rawfile filterText ${mergedFilters}/share/filters/ublock-origin-filters-merged.txt > $out
         '';
       };

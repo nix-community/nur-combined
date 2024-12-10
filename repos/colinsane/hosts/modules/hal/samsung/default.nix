@@ -186,7 +186,8 @@ in
       '';
     };
 
-    system.build.platformPartition = pkgs.runCommandLocal "kernel-partition" {
+    system.build.platformPartition = pkgs.runCommand "kernel-partition" {
+      preferLocalBuild = true;
       nativeBuildInputs = with pkgs; [
         vboot_reference
         dtc

@@ -9,7 +9,7 @@
   linkFarm,
   makeBinaryWrapper,
   makeShellWrapper,
-  runCommandLocal,
+  runCommand,
   writeShellScriptBin,
   xorg,
 }:
@@ -149,7 +149,7 @@ let
       crawlAndWrap() {
         local output="$1"
         local _dir="$2"
-        echo "crawlAndWrap $_dir"
+        nixDebugLog "crawlAndWrap $_dir"
         local items=($(ls -a "$_dir/"))
         for item in "''${items[@]}"; do
           if [ "$item" != . ] && [ "$item" != .. ]; then
@@ -197,13 +197,12 @@ let
   symlinkDirs = suffix: symlinkRoots: pkgName: package: let
     # remove altogether some problem outputs which i don't have a use for in the deployed system
     outputs = lib.remove "dev" (package.outputs or [ "out" ]);
-  in (runCommandLocal "${pkgName}-${suffix}" {
+  in (runCommand "${pkgName}-${suffix}" {
     env.symlinkRoots = lib.concatStringsSep " " symlinkRoots;
     nativeBuildInputs = [ gnused ];
     inherit outputs;
     propagatedBuildOutputs = [ ];  #< disable propagation, since we disabled the `dev` output via which things are ordinarily propagated
   } ''
-    set -e
     symlinkPath() {
       local inbase="$1"
       local outbase="$2"
@@ -214,7 +213,7 @@ let
         local target=$(readlink "$inbase/$path")
         if [[ "$target" =~ ^$inbase/ ]]; then
           # absolute link back into the same package
-          echo "handling $path: descending into absolute symlink to same package: $target"
+          nixDebugLog "handling $path: descending into absolute symlink to same package: $target"
           target=$(echo "$target" | sed 's:${package}/::')
           ln -s "$outbase/$target" "$outbase/$path"
           # create/link the backing path
@@ -224,11 +223,11 @@ let
           symlinkPath "$inbase" "$outbase" "$target"
         elif [[ "$target" =~ ^/nix/store/ ]]; then
           # absolute link to another package
-          echo "handling $path: symlinking absolute store path: $target"
+          nixDebugLog "handling $path: symlinking absolute store path: $target"
           ln -s "$target" "$outbase/$path"
         else
           # relative link
-          echo "handling $path: descending into relative symlink: $target"
+          nixDebugLog "handling $path: descending into relative symlink: $target"
           ln -s "$target" "$outbase/$path"
           local parent=$(dirname "$path")
           local derefParent=$(dirname "$outbase/$parent/$target")
@@ -236,7 +235,7 @@ let
           symlinkPath "$inbase" "$outbase" "$parent/$target"
         fi
       elif [ -d "$inbase/$path" ]; then
-        echo "handling $path: descending into directory"
+        nixDebugLog "handling $path: descending into directory"
         mkdir -p "$outbase/$path"
         items=($(ls -a "$inbase/$path"))
         for item in "''${items[@]}"; do
@@ -245,7 +244,7 @@ let
           fi
         done
       elif [ -e "$inbase/$path" ]; then
-        echo "handling $path: symlinking ordinary file"
+        nixDebugLog "handling $path: symlinking ordinary file"
         ln -s "$inbase/$path" "$outbase/$path"
       fi
     }
@@ -343,8 +342,14 @@ let
           done
 
           for d in $outdir/lib/udev/rules.d/*.rules; do
+            # sandboxed path used as the first argument in a udev rule:
             trySubstitute "$d" '"'"%s/$binLoc"
+            trySubstitute "$d" '"'"%s/etc"
             trySubstitute "$d" '"'"%s/share"
+            # sandboxed path used as the n'th argument in a udev rule (e.g. RUN+="do-something /nix/store/.../etc/config")
+            trySubstitute "$d" ' '"%s/$binLoc"
+            trySubstitute "$d" ' '"%s/etc"
+            trySubstitute "$d" ' '"%s/share"
           done
 
           for d in $outdir/lib/mozilla/native-messaging-hosts/*.json; do
@@ -367,7 +372,7 @@ let
       # do this by dereferencing all sandboxedNonBin symlinks, and making `unsandboxed` a disallowedReference.
       sandboxedNonBin = fixHardcodedRefs unsandboxed sandboxedBin unsandboxedNonBin;
       outputs = sandboxedNonBin.outputs or [ "out" ];
-      checkSandboxed = runCommandLocal "${sandboxedNonBin.name}-check-sandboxed"
+      checkSandboxed = runCommand "${sandboxedNonBin.name}-check-sandboxed"
         {
           inherit outputs;
           disallowedReferences = [ unsandboxed ];
@@ -407,20 +412,20 @@ let
       priority = ((prevAttrs.meta or {}).priority or 0) - 1;
     };
     passthru = (prevAttrs.passthru or {}) // extraPassthru // {
-      checkSandboxed = runCommandLocal "${pkgName}-check-sandboxed" {
+      checkSandboxed = runCommand "${pkgName}-check-sandboxed" {
+        preferLocalBuild = true;
         nativeBuildInputs = [ bunpen file gnugrep ];
         buildInputs = builtins.map (out: finalAttrs.finalPackage."${out}") (finalAttrs.outputs or [ "out" ]);
       } ''
-        set -e
         # invoke each binary in a way only the sandbox wrapper will recognize,
         # ensuring that every binary has in fact been wrapped.
         _numExec=0
         _checkExecutable() {
           local dir="$1"
           local binname="$2"
-          echo "checking if $dir/$binname is sandboxed"
-          echo "  sandboxer is ${bunpen.name}"
-          echo "  PATH=$PATH"
+          nixInfoLog "checking if $dir/$binname is sandboxed"
+          nixDebugLog "  sandboxer is ${bunpen.name}"
+          nixDebugLog "  PATH=$PATH"
           # XXX: call by full path because some binaries (e.g. util-linux) would otherwise
           # be shadowed by things the nix builder implicitly puts on PATH.
           # additionally, call via qemu and manually specify the interpreter *if the file has one*.
@@ -447,7 +452,7 @@ let
         }
 
         for outDir in $buildInputs; do
-          echo "starting crawl from package output: $outDir"
+          nixInfoLog "starting crawl from package output: $outDir"
           # *everything* in the bin dir should be a wrapped executable
           if [ -e "$outDir/bin" ]; then
             echo "checking toplevel dir at $outDir/bin"
@@ -506,8 +511,9 @@ let
           (sandboxedBin.outputs or [ "out" ])
           ++ (sandboxedNonBin.outputs or [ "out" ])
         );
-      in runCommandLocal "${pkgName}-sandboxed-all" {
+      in runCommand "${pkgName}-sandboxed-all" {
         inherit outputs;
+        preferLocalBuild = true;
         nativeBuildInputs = [ xorg.lndir ];
         passthru = { inherit sandboxedBin sandboxedNonBin unsandboxed; };
         # specifically, for priority

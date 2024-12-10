@@ -1,10 +1,11 @@
-{ lib
-, deepLinkIntoOwnPackage
-, linkIntoOwnPackage
-, rmDbusServicesInPlace
-, runCommandLocalOverridable
-, stdenv
-, symlinkJoin
+{
+  lib,
+  deepLinkIntoOwnPackage,
+  linkIntoOwnPackage,
+  rmDbusServicesInPlace,
+  runCommandLocalOverridable,
+  stdenv,
+  symlinkJoin,
 }:
 {
   # like `runCommandLocal`, but can be `.overrideAttrs` and supports standard phases/hooks like `postBuild`, etc.
