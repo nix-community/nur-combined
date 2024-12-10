@@ -83,6 +83,22 @@ configureKeyboardFor_uri() {
   log "configureKeyboardFor_uri: $1"
 }
 
+configureKeyboard() {
+  local resourceType="$1"
+  shift
+  case $resourceType in
+    (application)
+      configureKeyboardFor_application "$@"
+      ;;
+    (file)
+      configureKeyboardFor_file "$@"
+      ;;
+    (uri)
+      configureKeyboardFor_uri "$@"
+      ;;
+  esac
+}
+
 open_application() {
   log "open_application: '$1'"
   gdbus call --session --timeout 10 \
@@ -121,6 +137,22 @@ open_uri() {
     --object-path /org/freedesktop/portal/desktop \
     --method org.freedesktop.portal.OpenURI.OpenURI \
     "" "$1" "{'ask': <false>}"
+}
+
+open() {
+  local resourceType="$1"
+  shift
+  case $resourceType in
+    (application)
+      open_application "$@"
+      ;;
+    (file)
+      open_file "$@"
+      ;;
+    (uri)
+      open_uri "$@"
+      ;;
+  esac
 }
 
 # evaluate truthy and print desktop name as `FOO.desktop` if the provided file is a .desktop file suitable for open_application.
@@ -263,7 +295,7 @@ fi
 
 if [ -n "$autoKeyboard" ]; then
   # do in parallel to avoid delaying app launch
-  configureKeyboardFor_"$resourceType" "$resource" &
+  (configureKeyboard "$resourceType" "$resource") &
 fi
 
-open_"$resourceType" "$resource"
+open "$resourceType" "$resource"

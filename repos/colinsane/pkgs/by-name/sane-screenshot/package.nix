@@ -10,7 +10,7 @@ static-nix-shell.mkBash {
     (makeDesktopItem {
       name = "sane-screenshot";
       exec = "sane-screenshot";
-      desktopName = "interactive screenshotter";
+      desktopName = "Interactive Screenshotter";
     })
   ];
 }

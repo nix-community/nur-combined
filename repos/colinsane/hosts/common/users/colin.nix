@@ -27,6 +27,7 @@
       "seat"  # for sway, if using seatd
       "systemd-journal"  # allows to view other user's journals (esp system users)
       "transmission"  # servo
+      "unbound"  # for `unbound-control` to work
       "video"  # mobile; for LEDs & maybe for camera?
       "wheel"
       "wireshark"

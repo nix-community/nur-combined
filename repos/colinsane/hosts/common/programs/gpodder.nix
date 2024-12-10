@@ -25,6 +25,7 @@ in {
     });
 
     sandbox.whitelistDbus = [ "user" ];  # it won't launch without it, dunno exactly why.
+    sandbox.whitelistDri = true;  #< hopefully slightly more bearable speed
     sandbox.whitelistWayland = true;
     sandbox.net = "clearnet";
 

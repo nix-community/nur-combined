@@ -13,7 +13,6 @@
     ./avahi.nix
     ./bemenu.nix
     ./bitcoin-cli.nix
-    ./blast-ugjka
     ./bonsai.nix
     ./brave.nix
     ./brightnessctl.nix
@@ -108,6 +107,7 @@
     ./libreoffice.nix
     ./lemoa.nix
     ./loupe.nix
+    ./man-db.nix
     ./mako.nix
     ./megapixels.nix
     ./megapixels-next.nix
@@ -145,7 +145,6 @@
     ./planify.nix
     ./portfolio-filemanager.nix
     ./playerctl.nix
-    ./ps.nix
     ./qmk-udev-rules.nix
     ./rhythmbox.nix
     ./ripgrep.nix
@@ -163,6 +162,7 @@
     ./sane-sysload.nix
     ./sane-theme.nix
     ./satellite.nix
+    ./sblast
     ./schlock.nix
     ./seatd.nix
     ./sfeed.nix
@@ -209,6 +209,7 @@
     ./xdg-desktop-portal.nix
     ./xdg-desktop-portal-gnome
     ./xdg-desktop-portal-gtk.nix
+    ./xdg-desktop-portal-nautilus.nix
     ./xdg-desktop-portal-wlr.nix
     ./xdg-terminal-exec.nix
     ./xdg-utils.nix

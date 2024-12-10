@@ -15,7 +15,14 @@
   wrapGAppsHook4,
   xorg,
   zbar,
+# optional runtime dependencies, used for post-processing .dng -> .jpg
+  exiftool,
+  graphicsmagick,
+  libraw,
 }:
+let
+  runtimePath = lib.makeBinPath [ libraw graphicsmagick exiftool ];
+in
 stdenv.mkDerivation {
   pname = "megapixels-next";
   version = "1.6.1-unstable-2024-11-04";
@@ -47,6 +54,12 @@ stdenv.mkDerivation {
 
   postInstall = ''
     glib-compile-schemas $out/share/glib-2.0/schemas
+  '';
+
+  preFixup = ''
+    gappsWrapperArgs+=(
+      --suffix PATH : ${lib.escapeShellArg runtimePath}
+    )
   '';
 
   strictDeps = true;

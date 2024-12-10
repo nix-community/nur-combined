@@ -103,7 +103,7 @@ in
         "description": "ignored",
         "type": "storage",
         "data": {
-          "zoom": 1.70
+          "formFactor": "${cfg.formFactor}"
         }
       }
     '';

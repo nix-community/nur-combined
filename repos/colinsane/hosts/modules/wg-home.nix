@@ -52,44 +52,42 @@ in
       description = "colin-wireguard";
     };
 
-    # TODO: networking.wireguard is deprecated; remove
-    networking.wireguard = lib.mkIf (!cfg.routeThroughServo) {
-      enable = true;
-      interfaces.wg-home = {
-        listenPort = 51820;
-        privateKeyFile = "/run/secrets/wg-home.priv";
-
-        ips = [
-          "${cfg.ip}/24"
-        ];
-
-        peers = let
-          all-peers = lib.mapAttrsToList (_: hostcfg: hostcfg.wg-home) config.sane.hosts.by-name;
-          peer-list = builtins.filter (p: p.ip != null && p.ip != cfg.ip && p.pubkey != null) all-peers;
-          # make separate peers to route each given host
-        in
-          builtins.map
-            ({ ip, pubkey, endpoint }: assert endpoint == null; {
-              publicKey = pubkey;
-              allowedIPs = [
-                (if builtins.match ".*/.*" ip != null then ip else "${ip}/32")
-              ];
-              # send keepalives every 25 seconds to keep NAT routes live.
-              # only need to do this from client -> server though, i think.
-              # persistentKeepalive = 25;
-            })
-            peer-list
-        ;
-      } // (lib.optionalAttrs cfg.forwardToWan {
-        # documented here: <https://nixos.wiki/wiki/WireGuard#Server_setup_2>
-        postSetup = ''
-          ${lib.getExe' pkgs.iptables "iptables"} -t nat -A POSTROUTING --source ${cfg.ip}/24 ! --destination ${cfg.ip}/24 -j MASQUERADE
-        '';
-        postShutdown = ''
-          ${lib.getExe' pkgs.iptables "iptables"} -t nat -D POSTROUTING --source ${cfg.ip}/24 ! --destination ${cfg.ip}/24 -j MASQUERADE
-        '';
-      });
+    systemd.network.networks."40-wg-home" = lib.mkIf (!cfg.routeThroughServo) {
+      matchConfig.Name = "wg-home";
+      networkConfig.Address = "${cfg.ip}/24";
+      # IPMasquerade: "packets forwarded from the network interface will be appear as coming from the local host".
+      # implies IPv4Forwarding=true.
+      # effect is that any packets arriving to this interface will be forwarded to another interface if that interface can route the destination address;
+      # when forwarding, masquerade means to NAT the source address such that the rewritten packets appear to originate directly from the rewritten interface.
+      # i.e. wg-home clients use us as a gateway; we forward their packets to *any* other interface on the machine
+      networkConfig.IPMasquerade = "both";
     };
+    systemd.network.netdevs."90-wg-home" = lib.mkIf (!cfg.routeThroughServo) {
+      netdevConfig.Kind = "wireguard";
+      netdevConfig.Name = "wg-home";
+      wireguardConfig.PrivateKeyFile = "/run/secrets/wg-home.priv";
+      wireguardConfig.ListenPort = 51820;
+      wireguardPeers = let
+        all-peers = lib.mapAttrsToList (_: hostcfg: hostcfg.wg-home) config.sane.hosts.by-name;
+        peer-list = builtins.filter (p: p.ip != null && p.ip != cfg.ip && p.pubkey != null) all-peers;
+        # make separate peers to route each given host
+      in
+        builtins.map
+          ({ ip, pubkey, endpoint }: assert endpoint == null; {
+            PublicKey = pubkey;
+            AllowedIPs = [
+              # TODO: what client here is making use of its own subnet??
+              # this `if` can probably be removed
+              (if builtins.match ".*/.*" ip != null then ip else "${ip}/32")
+            ];
+            # send keepalives every 25 seconds to keep NAT routes live.
+            # only need to do this from client -> server though, i think.
+            # PersistentKeepalive = 25;
+          })
+          peer-list
+      ;
+    };
+
 
     # plug into my VPN abstractions so that one may:
     # - `sane-vpn up wg-home` to route all traffic through servo

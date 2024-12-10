@@ -2,10 +2,11 @@
 
 {
   imports = [
-    ./dns.nix
+    ./dns
     ./hostnames.nix
     ./modemmanager.nix
     ./networkmanager.nix
+    ./ntp.nix
     ./upnp.nix
     ./vpn.nix
   ];

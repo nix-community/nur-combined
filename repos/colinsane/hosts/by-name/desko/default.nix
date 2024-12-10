@@ -32,6 +32,8 @@
 
   sane.nixcache.remote-builders.desko = false;
 
+  sane.programs.firefox.config.formFactor = "desktop";
+
   sane.programs.sane-private-unlock-remote.enableFor.user.colin = true;
   sane.programs.sane-private-unlock-remote.config.hosts = [ "servo" ];
 

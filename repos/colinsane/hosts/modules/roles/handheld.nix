@@ -33,9 +33,6 @@
       addons.sidebery.enable = false;
     };
     sane.programs.firefox.mime.priority = 300;  # prefer other browsers when possible
-    # HACK/TODO: make `programs.P.env.VAR` behave according to `mime.priority`
-    sane.programs.firefox.env = lib.mkForce {};
-    sane.programs.epiphany.env.BROWSER = "epiphany";
 
     sane.programs.sway.config = {
       font = "pango:monospace 10";

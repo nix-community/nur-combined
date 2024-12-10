@@ -10,7 +10,7 @@
     veth.netns.ipv4 = "10.0.1.6";
     routeTable = 11;
     dns.ipv4 = "46.227.67.134";  #< DNS requests inside the namespace are forwarded here
-    wg.port = 51822;
+    # wg.port = 51822;
     wg.privateKeyFile = config.sops.secrets.wg_ovpns_privkey.path;
     wg.address.ipv4 = "185.157.162.178";
     wg.peer.publicKey = "SkkEZDCBde22KTs/Hc7FWvDBfdOCQA4YtBEuC3n5KGs=";

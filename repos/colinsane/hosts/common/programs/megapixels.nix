@@ -5,7 +5,7 @@
 # debug with:
 # - LIBMEGAPIXELS_DEBUG=2 megapixels
 #   2 = log level debug. no higher values signify anything
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   sane.programs.megapixels = {
     packageUnwrapped = pkgs.megapixels.overrideAttrs (upstream: {
@@ -42,15 +42,12 @@
     ];
     sandbox.whitelistAvDev = true;
     gsettingsPersist = [
-      # pretty sure one of these is the new directory, one the old, not sure which
-      "me/gapixels/megapixels"  #< needs to set `postprocessor` else it will segfault during post-process
-      "org/postmarketos/megapixels"
+      "org/postmarketos/megapixels"  #< needs to set `postprocessor` else it will segfault during post-process
     ];
     # source code references /proc/device-tree/compatible, but it seems to be alright either way
     # sandbox.keepPidsAndProc = true;
 
-    # until `env.` supports priorities, leave it unset and let megapixels-next + consumers figure out the default camera app
-    # mime.priority = 200;  #< fallback
-    # env.CAMERA = lib.mkDefault "org.postmarketos.Megapixels.desktop";
+    mime.priority = 200;  #< fallback; prefer `megapixels-next` if it's installed
+    env.CAMERA = lib.mkDefault "org.postmarketos.Megapixels.desktop";
   };
 }

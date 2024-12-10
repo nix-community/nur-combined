@@ -48,24 +48,38 @@ in
   # })
 
   (fetchpatch' {
-    name = "gnome-maps: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/357238";
-    hash = "sha256-o2mwpO2b4vTnoqQYAIHpxK/VOwGXR65p25x3HyDte8k=";
+    name = "nixos/hickory-dns: make settings.zone freeform; expose configFile option";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/363001";
+    hash = "sha256-C/Pbbd9EEuPIwgDkE/OWZeCcGercJFU8PTh3+zElbFY=";
+  })
+
+  # (fetchpatch' {
+  #   name = "nixos/hickory-dns: give services.hickory-dns.settings.zone a freeformType";
+  #   saneCommit = "d953584c1ec886b6119eb16c59e385214b5d6e0e";
+  #   hash = "sha256-vPjK5nFcxvHpTRm0oouycEUzPBIH/muQGy8gDd5Y4Bg=";
+  # })
+
+  # (fetchpatch' {
+  #   name = "nixos/hickory-dns: expose `configFile` as a toplevel option";
+  #   saneCommit = "7cb0a6c87607810394eef050986408b0e5bd3e13";
+  #   hash = "sha256-Gki/GZOyFcWQRfChouIEZMmg2GDdAtsUSyAbSbTqANc=";
+  # })
+
+  (fetchpatch' {
+    name = "calls: 46.3 -> 47.0";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/363157";
+    # saneCommit = "17349a94e6e7d196ae6301603d791f69f14a8a4c";
+    hash = "sha256-ULm/x2st7UN0TwczXk3EertgTRkhfJbptNOIfatjLsQ=";
   })
 
   (fetchpatch' {
-    name = "gtk4-layer-shell: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/357230";
-    hash = "sha256-v4OUuzpB8kXIU25r20SKtASEUwz/tgxCQQ6WQL1I/N8=";
+    name = "apacheHttpdPackages.mod_dnssd: fix cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/362066";
+    hash = "sha256-a7gLTrMgb2hExLcI0vHKr7N3FDWAlwkEPmbPCrj/D5w=";
   })
 
   (fetchpatch' {
-    name = "samba: resurrect cross compilation patch";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/357988";
-    hash = "sha256-bVpojIRpJr6PDvsPMsqWGjCV8SWzwJ2hudzSPJcdN4k=";
-  })
-
-  (fetchpatch' {
+    # merged into staging 2024/11/28
     name = "poppler: format, add dependency for glib-mkenums to fix cross building";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/357344";
     hash = "sha256-3Yv6Yy1K2dNrrduM2XTEDjSmkysguTbqb8T7mDK2ubI=";
@@ -85,23 +99,10 @@ in
   # })
 
   (fetchpatch' {
-    name = "nixos/buffyboard: init";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/358941";
-    hash = "sha256-IosH45Zp77AJKEI2RmsZw501yFbzC9wcc1q9COzvLF8=";
-  })
-
-  (fetchpatch' {
     name = "nixos/bonsaid: init";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/347818";
     # saneCommit = "bc3d311bdc11a26b8b0a95806c0ea7b80554548d";
     hash = "sha256-xCZIz7vmA/Fq0/G3tyapkdU2qIVtfueArN1qvbZ0y3w=";
-  })
-
-  (fetchpatch' {
-    name = "nixos/pam: replace apparmor warnings with assertions";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/332119";
-    # saneCommit = "17e5fa9dc3c6d9f1fbfa2b23f6e1ae5c7e17bebd";
-    hash = "sha256-8aQ/kI5Gd78KqR1DmiXZpJMyeL2JLVW4ZAWkk8PbvEA=";
   })
 
   (fetchpatch' {
@@ -123,12 +124,6 @@ in
     prUrl = "https://github.com/NixOS/nixpkgs/pull/345305";
     saneGhCommit = "7062afb2ff428fa0ee8b5635ae06d5adb6fbb396";
     hash = "sha256-rvJLYnmZIr1WYzcZG6gGj/5bNPBRA3Vw/RslhGFjnR4=";
-  })
-
-  (fetchpatch' {
-    name = "Add package sm64coopdx";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/344305";
-    hash = "sha256-46KFQ7p0QMZVOJRr207LNPHyA0RGVOgWgNn01BklNfg=";
   })
 
   # (fetchpatch' {
@@ -168,14 +163,6 @@ in
   #   saneCommit = "cd316aaa667b6758d6866b356f4040343ffb6f80";
   #   hash = "sha256-r0jKr65dRkVU/LPfgZqNJArs2XWEudsgyYXs5bJpgj4=";
   # })
-
-  (fetchpatch' {
-    # see: <https://github.com/NixOS/nixpkgs/pull/284562#issuecomment-2079104081>
-    name = "nixos/lemmy: fix nginx backend to proxy needed headers";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/306984";
-    hash = "sha256-VErGtaZjsUNNXtVESFHAmQlTLabJfZBEftL/nYcpyyE=";
-    saneCommit = "bd87a38b86f889a6902a356ab415eeead881766b";
-  })
 
   # (fetchpatch' {
   #   # TODO: send for review once hspell fix is merged <https://github.com/NixOS/nixpkgs/pull/263182>

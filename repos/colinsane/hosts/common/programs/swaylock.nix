@@ -25,7 +25,7 @@ in
     #     (pkgs.makeDesktopItem {
     #       name = "swaylock";
     #       exec = "swaylock --indicator-idle-visible --indicator-radius 100 --indicator-thickness 30";
-    #       desktopName = "Sway session locker";
+    #       desktopName = "Lock Session";
     #     })
     #   ];
     # });

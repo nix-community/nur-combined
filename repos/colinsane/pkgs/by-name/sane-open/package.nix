@@ -1,11 +1,19 @@
-{ static-nix-shell
-, copyDesktopItems
-, makeDesktopItem
+{
+  copyDesktopItems,
+  makeDesktopItem,
+  static-nix-shell,
 }:
 static-nix-shell.mkBash {
   pname = "sane-open";
   srcRoot = ./.;
-  pkgs = [ "glib" "jq" "procps" "sway" "util-linux" "xdg-utils" ];
+  pkgs = [
+    "glib"
+    "jq"
+    "procps"
+    "sway"
+    "util-linux"
+    "xdg-utils"
+  ];
   nativeBuildInputs = [
     copyDesktopItems
   ];
@@ -18,4 +26,23 @@ static-nix-shell.mkBash {
       noDisplay = true;
     })
   ];
+
+  passthru.clipboard = static-nix-shell.mkBash {
+    pname = "sane-open-clipboard";
+    srcRoot = ./.;
+    pkgs = [
+      "sane-open"
+      "wl-clipboard"
+    ];
+    nativeBuildInputs = [
+      copyDesktopItems
+    ];
+    desktopItems = [
+      (makeDesktopItem {
+        name = "sane-open-clipboard";
+        exec = "sane-open-clipboard";
+        desktopName = "Open Clipboard";
+      })
+    ];
+  };
 }

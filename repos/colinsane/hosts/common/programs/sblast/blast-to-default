@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p blast-ugjka -p python3
+#!nix-shell -i python3 -p python3 -p sblast
 # vim: set filetype=python :
 
 import logging
@@ -45,7 +45,7 @@ class BlastDriver:
     def __init__(self, blast_flags: list[str] = []):
         self.ranked_ips = get_ranked_ip_addrs()
         self.blast = subprocess.Popen(
-            ["blast", "-source", "blast.monitor"] + blast_flags,
+            ["sblast", "-source", "blast.monitor"] + blast_flags,
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
@@ -138,7 +138,7 @@ def try_blast(*args, **kwargs) -> BlastDriver | None:
     if status == Status.RedoWithFlags:
         dev = blast.receiver_names[0]
         blast_flags = DEVICE_MAP[dev]
-        logger.info("re-exec blast for %s with flags: %r", dev, blast_flags)
+        logger.info("re-exec sblast for %s with flags: %r", dev, blast_flags)
         blast.blast.terminate()
         return try_blast(blast_flags=blast_flags)
     elif status == Status.Error:

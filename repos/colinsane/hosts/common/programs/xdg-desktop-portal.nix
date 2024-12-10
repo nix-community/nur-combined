@@ -55,7 +55,15 @@ in
     # portal can use the same .desktop files from the rest of my config.
     fs.".local/share/xdg-desktop-portal/applications".symlink.target = "../applications";
 
-    env.GIO_USE_PORTALS = "1";  # instruct gio/gtk apps to use portal services; mostly not needed, except for legacy gtk3 apps like `geary`
+    # instruct gio/gtk apps to use portal services; mostly not needed, except for legacy gtk3 apps like `geary`
+    env.GIO_USE_PORTALS = "1";
+    # replicate the portal loading logic from <repo:nixos/nixpkgs:nixos/modules/config/xdg/portal.nix>
+    # until xdg-desktop-portal upstream searches for portals in standard directories.
+    # - see: <https://github.com/flatpak/xdg-desktop-portal/issues/603>
+    # NIX_XDG_DESKTOP_PORTAL_DIR is defined in the nixpkgs package for xdg-desktop-portal.
+    # alternative is to use XDG_DESKTOP_PORTAL_DIR,
+    # but then x-d-p mistakenly expects both `portals.conf` and `*.portal` to live in the same directory.
+    # env.NIX_XDG_DESKTOP_PORTAL_DIR = "/run/current-system/sw/share/xdg-desktop-portal/portals";
 
     services.xdg-desktop-portal = {
       description = "xdg-desktop-portal freedesktop.org portal (URI opener, file chooser, etc)";
@@ -65,13 +73,15 @@ in
       # - <https://github.com/flatpak/xdg-desktop-portal/issues/603>
       # i can actually almost omit it today; problem is that if you don't set it it'll look for `sway-portals.conf` in ~/.config/xdg-desktop-portal
       # but then will check its *own* output dir for {gtk,wlr}.portal.
-      # arguable if that's a packaging bug, or limitation...
+      # nixpkgs' `x-d-p` patches to add NIX_XDG_DESKTOP_PORTAL_DIR, which behaves as XDG_DESKTOP_PORTAL_DIR *should* have behaved
       command = lib.concatStringsSep " " [
         "env"
-        ''XDG_DESKTOP_PORTAL_DIR=''${HOME}/.config/xdg-desktop-portal''
+        # ''XDG_DESKTOP_PORTAL_DIR=''${HOME}/.config/xdg-desktop-portal''
+        ''NIX_XDG_DESKTOP_PORTAL_DIR=/etc/profiles/per-user/''${USER}/share/xdg-desktop-portal/portals''
         "G_MESSAGES_DEBUG=xdg-desktop-portal=all"
         "${cfg.package}/libexec/xdg-desktop-portal"
       ];
+      reapChildren = false;  # let spawned processes survive restarts or crashes
       readiness.waitDbus = "org.freedesktop.portal.Desktop";
     };
 
@@ -84,7 +94,8 @@ in
 
       command = lib.concatStringsSep " " [
         "env"
-        ''XDG_DESKTOP_PORTAL_DIR=''${HOME}/.config/xdg-desktop-portal''
+        # ''XDG_DESKTOP_PORTAL_DIR=''${HOME}/.config/xdg-desktop-portal/portal''
+        ''NIX_XDG_DESKTOP_PORTAL_DIR=/etc/profiles/per-user/''${USER}/share/xdg-desktop-portal/portals''
         "${cfg.package}/libexec/xdg-permission-store"
       ];
       readiness.waitDbus = "org.freedesktop.impl.portal.PermissionStore";
@@ -94,9 +105,8 @@ in
     # - shares files from its namespace with programs inside a namespace, via a fuse mount at $XDG_RUNTIME_DIR/doc
   };
 
-  # after #603 is resolved, i can probably stop linking `{gtk,wlr}.portal` into ~
-  # and link them system-wide instead.
-  # environment.pathsToLink = lib.mkIf cfg.enabled [
-  #   "/share/xdg-desktop-portal/portals"
-  # ];
+  environment.pathsToLink = lib.mkIf cfg.enabled [
+    # "/share/xdg-desktop-portal/portals"
+    "/share/xdg-desktop-portal"
+  ];
 }

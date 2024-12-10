@@ -68,5 +68,6 @@
       enable-website-data-storage = true;
       remember-passwords = false;
     };
+    env.BROWSER = "epiphany";
   };
 }

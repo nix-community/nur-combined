@@ -112,6 +112,16 @@ let
           note that service restarts are not instantaneous, but have some delay (e.g. 1s).
         '';
       };
+
+      reapChildren = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          when the service is stopped, enforce that it leaves behind no children?
+
+          if set false, then lingering children are reparented directly to the service manager.
+        '';
+      };
     };
     config = {
       readiness.waitCommand = lib.mkMerge [
@@ -232,6 +242,7 @@ let
         # hence do that early:
         # TODO: consider moving XDG_RUNTIME_DIR to $HOME/.run
         environment.HOME = config.home;
+        environment.USER = name;  #< something sets this by default; importing it into Nix here lets me use it in my service manager though.
         environment.XDG_RUNTIME_DIR = "/run/user/${name}";
         # XDG_DATA_DIRS gets set by shell init somewhere, but needs to be explicitly set here so it's available to services too.
         environment.XDG_DATA_DIRS = "/etc/profiles/per-user/${name}/share:/run/current-system/sw/share";

@@ -1,0 +1,50 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p bash -p gnugrep -p wl-clipboard -p zenity
+
+set -eu
+
+die() {
+  local fmt="$1"
+  shift
+  # env printf to use coreutils' printf, where `%q` works as you'd expect
+  env printf "fatal: $fmt\n" "$@" >&2
+  exit 1
+}
+
+# returns color as `rgb(NNN,MMM,QQQ)`
+# or "" if canceled
+selectColor() {
+  # init the color picker at whatever's currently on the clipboard (`wl-paste`).
+  # zenity understands '#rrggbb', 'red', etc.
+  # if given an invalid color name, it just defaults to `#ffffff`
+  zenity --color-selection --ok-label=Copy --title='Color Picker' --color="$(wl-paste)" || true
+}
+
+# convert `rgb(NNN,MMM,QQQ)` -> `#RRGGBB`
+cssToHex() {
+  local rgb=$1
+  if [ -z "$rgb" ]; then
+    return
+  fi
+
+  local components=($(echo "$rgb" | grep -E -o -m1 '[0-9]+'))
+  [ ${#components[@]} -eq 3 ] || die "invalid rgb: %q" "$rgb"
+
+  local r=${components[0]}
+  local g=${components[1]}
+  local b=${components[2]}
+  printf "#%.2x%.2x%.2x\n" "$r" "$g" "$b"
+}
+
+main() {
+  local css=$(selectColor)
+  if [ -z "$css" ]; then
+    echo "(canceled)"
+    return
+  fi
+
+  local hex=$(cssToHex "$css")
+  echo -n "$hex" | wl-copy
+}
+
+main

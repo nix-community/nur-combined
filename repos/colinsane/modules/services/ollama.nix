@@ -19,6 +19,7 @@ let
   modelSources = pkgs.symlinkJoin {
     name = "ollama-models";
     paths = with pkgs.ollamaPackages; [
+      athene-v2-72b-q2_K  # untested
       # aya-8b  # it avoids generating code, only text
       # codegeex4-9b  # it's okaaay, seems to not give wrong code, just incomplete code.
       # codegemma-7b  # it generates invalid nix code
@@ -35,6 +36,7 @@ let
       # llama3_1-70b  # generates like 1 word/sec, decent output (comparable to qwen2_5-32b)
       llama3_2-3b
       magicoder-7b  # it generates valid, if sparse, code
+      marco-o1-7b  # untested
       # mistral-7b  # it generates invalid code
       # mistral-nemo-12b  # it generates invalid code
       mistral-small-22b  # quality comparable to qwen2_5
@@ -46,6 +48,7 @@ let
       # qwen2_5-32b-instruct-q2_K  # lower-res version of default 32b (so, slightly faster, but generates invalid code where the full res generates valid code)
       qwen2_5-32b  # generates 3~5 words/sec, but notably more accurate than coder-7b
       # qwen2_5-coder-7b  # fast, and concise, but generates invalid code
+      qwq-32b  # untested
       # solar-pro-22b  # generates invalid code
       # starcoder2-15b-instruct  # it gets stuck
       # wizardlm2-7b  # generates invalid code

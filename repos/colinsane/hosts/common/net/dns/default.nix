@@ -20,67 +20,13 @@
 # - each namespace may use a different /etc/resolv.conf to specify different DNS servers
 # - nscd breaks namespacing: the host nscd is unaware of the guest's /etc/resolv.conf, and so directs the guest's DNS requests to the host's servers.
 #   - this is fixed by either removing `/var/run/nscd/socket` from the namespace, or disabling nscd altogether.
-{ config, lib, pkgs, ... }:
-lib.mkMerge [
+{ config, pkgs, ... }:
 {
-  sane.services.hickory-dns.enable = lib.mkDefault config.sane.services.hickory-dns.asSystemResolver;
-  # sane.services.hickory-dns.asSystemResolver = lib.mkDefault true;
-}
-(lib.mkIf (!config.sane.services.hickory-dns.asSystemResolver) {
-  services.resolved.enable = lib.mkForce false;
-
-  # resolve DNS recursively with Unbound.
-  services.unbound.enable = lib.mkDefault true;
-  services.unbound.settings.server.interface = [ "127.0.0.1" ];
-  services.unbound.settings.server.access-control = [ "127.0.0.0/8 allow" ];
-  services.unbound.resolveLocalQueries = false;  #< disable, so that i can manage networking.nameservers manually
-  networking.nameservers = [
-    # be compatible with systemd-resolved
-    # "127.0.0.53"
-    # or don't be compatible with systemd-resolved, but with libc and pasta instead
-    #   see <pkgs/by-name/sane-scripts/src/sane-vpn>
-    "127.0.0.1"
-    # enable IPv6, or don't, because having just a single name server makes monkey-patching it easier
-    # "::1"
+  imports = [
+    ./hickory-dns.nix
+    ./unbound.nix
   ];
-  networking.resolvconf.extraConfig = ''
-    # DNS serviced by `unbound` recursive resolver
-    name_servers='127.0.0.1'
-  '';
 
-  # effectively disable DNSSEC, to avoid a circular dependency between DNS resolution and NTP.
-  # without this, if the RTC fails, then both time and DNS are unrecoverable.
-  # if you enable this, make sure to persist the stateful data.
-  # alternatively, use services.unbound.settings.trust-anchor = ... (or trusted-keys-file)
-  services.unbound.enableRootTrustAnchor = false;
-  services.unbound.settings.server.cache-max-negative-ttl = 60;
-  # services.unbound.settings.server.use-caps-for-id = true;  #< TODO: randomizes casing to avoid spoofing
-  services.unbound.settings.server.prefetch = true;  # prefetch RRs which are about to expire from the cache, to keep them primed
-})
-# (lib.mkIf (!config.sane.services.hickory-dns.asSystemResolver && config.sane.services.hickory-dns.enable) {
-#   # use systemd's stub resolver.
-#   # /etc/resolv.conf isn't sophisticated enough to use different servers per net namespace (or link).
-#   # instead, running the stub resolver on a known address in the root ns lets us rewrite packets
-#   # in servo's ovnps namespace to use the provider's DNS resolvers.
-#   # a weakness is we can only query 1 NS at a time (unless we were to clone the packets?)
-#   # TODO: improve hickory-dns recursive resolver and then remove this
-#   services.resolved.enable = true;  #< to disable, set ` = lib.mkForce false`, as other systemd features default to enabling `resolved`.
-#   # without DNSSEC:
-#   # - dig matrix.org => works
-#   # - curl https://matrix.org => works
-#   # with default DNSSEC:
-#   # - dig matrix.org => works
-#   # - curl https://matrix.org => fails
-#   # i don't know why. this might somehow be interfering with the DNS run on this device (hickory-dns)
-#   services.resolved.dnssec = "false";
-#   networking.nameservers = [
-#     # use systemd-resolved resolver
-#     # full resolver (which understands /etc/hosts) lives on 127.0.0.53
-#     # stub resolver (just forwards upstream) lives on 127.0.0.54
-#     "127.0.0.53"
-#   ];
-# })
-{
   # nscd -- the Name Service Caching Daemon -- caches DNS query responses
   # in a way that's unaware of my VPN routing, so routes are frequently poor against
   # services which advertise different IPs based on geolocation.
@@ -103,6 +49,7 @@ lib.mkMerge [
   services.nscd.enable = false;
   # system.nssModules = lib.mkForce [];
   sane.silencedAssertions = [''.*Loading NSS modules from system.nssModules.*requires services.nscd.enable being set to true.*''];
+
   # add NSS modules into their own subdirectory.
   # then i can add just the NSS modules library path to the global LD_LIBRARY_PATH, rather than ALL of /run/current-system/sw/lib.
   # TODO: i'm doing this so as to achieve mdns DNS resolution (avahi). it would be better to just have hickory-dns delegate .local to avahi
@@ -121,4 +68,3 @@ lib.mkMerge [
   environment.variables.LD_LIBRARY_PATH = [ "/run/current-system/sw/lib/nss" ];
   systemd.globalEnvironment.LD_LIBRARY_PATH = "/run/current-system/sw/lib/nss";  #< specifically for `geoclue.service`
 }
-]

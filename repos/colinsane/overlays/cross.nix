@@ -145,19 +145,27 @@ in with final; {
   #   '';
   # });
 
+  # 2024/12/05: out for PR: <https://github.com/NixOS/nixpkgs/pull/362066>
+  # fix apxs shebang; needed by mod_dnssd
+  # apacheHttpd_2_4 = prev.apacheHttpd_2_4.overrideAttrs (upstream: {
+  #   nativeBuildInputs = upstream.nativeBuildInputs ++ [
+  #     buildPackages.perl  #< should be `perl`, but the overlay approach loses splicing (?)
+  #   ];
+  # });
+
   # apacheHttpdPackagesFor = apacheHttpd: self:
   #   let
   #     prevHttpdPkgs = prev.apacheHttpdPackagesFor apacheHttpd self;
-  #   in prevHttpdPkgs // {
-  #     # fixes "configure: error: *** Sorry, could not find apxs ***"
-  #     # N.B.: the below apxs doesn't have a valid shebang (#!/replace/with/...).
-  #     #   we can't replace it at the origin?
-  #     mod_dnssd = prevHttpdPkgs.mod_dnssd.overrideAttrs (upstream: {
-  #       configureFlags = upstream.configureFlags ++ [
-  #         "--with-apxs=${self.apacheHttpd.dev}/bin"
-  #       ];
-  #     });
-  #   };
+  #   in
+  #     prevHttpdPkgs // {
+  #       # fixes "configure: error: *** Sorry, could not find apxs ***"
+  #       # SEE NIXPKGS BRANCH: pr-mod_dnssd-cross
+  #       mod_dnssd = prevHttpdPkgs.mod_dnssd.overrideAttrs (upstream: {
+  #         configureFlags = upstream.configureFlags ++ [
+  #           "--with-apxs=${lib.getDev apacheHttpd}/bin"
+  #         ];
+  #       });
+  #     };
 
   # bamf: required via pantheon.switchboard -> wingpanel -> gala
   # bamf = prev.bamf.overrideAttrs (upstream: {
@@ -470,8 +478,22 @@ in with final; {
   # });
 
   # 2024/08/12: upstreaming is blocked on apache-httpd (via mod_dnssd)
-  # fixes: meson.build:111:6: ERROR: Program 'glib-compile-schemas' not found or not executable
   # gnome-user-share = addNativeInputs [ glib ] prev.gnome-user-share;
+  gnome-user-share = prev.gnome-user-share.overrideAttrs (upstream: {
+    postPatch = (upstream.postPatch or "") + ''
+      substituteInPlace meson.build --replace-fail \
+        "run_command([httpd, '-v']" \
+        "run_command(['${stdenv.hostPlatform.emulator buildPackages}', httpd, '-v']"
+    '';
+    # nativeBuildInputs = upstream.nativeBuildInputs ++ lib.optionals (!prev.stdenv.buildPlatform.canExecute prev.stdenv.hostPlatform) [
+    #   buildPackages.mesonEmulatorHook
+    # ];
+
+    nativeBuildInputs = upstream.nativeBuildInputs ++ [
+      # fixes: meson.build:111:6: ERROR: Program 'glib-compile-schemas' not found or not executable
+      buildPackages.glib
+    ];
+  });
 
   # gnome = prev.gnome.overrideScope (self: super: {
   #   # 2024/05/31: upstreaming is blocked by a LOT: qtbase, qtsvg, webp-pixbuf-loader, libgweather, gnome-color-manager, appstream, apache-httpd, ibus
@@ -714,15 +736,12 @@ in with final; {
     zigBuildFlags = [ "-Dtarget=aarch64-linux-gnu" ];
   });
 
-  # nautilus = (
-  #   # 2024/08/12: upstreaming is blocked on apache-httpd (via gnome-user-share)
-  #   addInputs {
-  #     # fixes: "meson.build:123:0: ERROR: Dependency "libxml-2.0" not found, tried pkgconfig"
-  #     buildInputs = [ libxml2 ];
-  #     # fixes: "meson.build:226:6: ERROR: Program 'gtk-update-icon-cache' not found or not executable"
-  #     nativeBuildInputs = [ gtk4 ];
-  #   }
-  # );
+  # 2024/08/12: upstreaming is blocked on apache-httpd (via gnome-user-share)
+  nautilus = prev.nautilus.overrideAttrs (upstream: {
+    mesonFlags = upstream.mesonFlags ++ [
+      "-Dtests=none"  # v.s. `headless` for native compilation
+    ];
+  });
 
   # fixes: "ar: command not found"
   # `ar` is provided by bintools

@@ -46,19 +46,19 @@ let
         name = "rofi-filebrowser";
         # alternatively: `rofi -modes filebrowser -show`, however this would require theme tweaking to look good
         exec = "rofi -combi-modes filebrowser -show";
-        desktopName = "rofi filebrowser";
+        desktopName = "Files (rofi)";
       })
       (pkgs.makeDesktopItem {
         name = "rofi-applications";
         exec = "rofi -combi-modes drun -show";
-        desktopName = "rofi applications";
+        desktopName = "Applications (rofi)";
         mimeTypes = [ "application/x-desktop" ];
         noDisplay = true;
       })
       (pkgs.makeDesktopItem {
-        name = "close";
+        name = "cancel";
         exec = "true";
-        desktopName = "Close Menu";
+        desktopName = "Cancel";
         mimeTypes = [ "application/x-desktop" ];
       })
     ];
@@ -170,7 +170,8 @@ in
         (pkgs.makeDesktopItem {
           name = "rofi-snippets";
           exec = "rofi-snippets";
-          desktopName = "rofi macro to insert common texts";
+          # rofi macro to insert common texts
+          desktopName = "Snippets";
         })
       ];
     };

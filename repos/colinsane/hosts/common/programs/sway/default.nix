@@ -160,6 +160,7 @@ in
       "rofi-snippets"
       "sane-screenshot"
       "sane-open"
+      "sane-open.clipboard"
       "sane-theme"
       "seatd"
       # "splatmoji"  # used by sway config
@@ -192,7 +193,7 @@ in
       # - org.freedesktop.impl.portal.Screenshot
       # - org.freedesktop.impl.portal.Settings
       # - org.freedesktop.impl.portal.Wallpaper
-      "xdg-desktop-portal-gnome"
+      # "xdg-desktop-portal-gnome"
       # xdg-desktop-portal-gtk provides portals for:
       # - org.freedesktop.impl.portal.Access
       # - org.freedesktop.impl.portal.Account
@@ -208,7 +209,12 @@ in
       # - org.freedesktop.impl.portal.Settings (@settings_iface@)
       # - org.freedesktop.impl.portal.Wallpaper (@wallpaper_iface@)
       "xdg-desktop-portal-gtk"
-      # xdg-desktop-portal-wlr provides portals for screenshots/screen sharing
+      # xdg-desktop-portal-wlr provides portals for:
+      # - org.freedesktop.impl.portal.ScreenCast
+      # - org.freedesktop.impl.portal.Screenshot
+      # xdg-desktop-portal-nautilus provides portals for:
+      # - org.freedesktop.impl.portal.FileChooser
+      "xdg-desktop-portal-nautilus"
       "xdg-desktop-portal-wlr"
       "xdg-terminal-exec"  # used by sway config
     ] ++ [
@@ -244,12 +250,23 @@ in
 
     fs.".config/xdg-desktop-portal/sway-portals.conf".symlink.text = ''
       # portals.conf docs: <https://flatpak.github.io/xdg-desktop-portal/docs/portals.conf.html>
-      # XXX(2024-11-28): `gnome` provides a more mobile-friendly file chooser than `gtk`,
-      #   only `gtk` provides Snapshot camera app with a permission's popup that allows me to grant it camera access.
-      #   TODO: switch back to `wlr;gnome;gtk` ordering (or even `wlr;gnome`), but remove from `gnome` whatever boken portal is involved with that camera access.
+      #
+      # $interface=<impl list>
+      # impl_list=(gtk|gnome|wlr|...|*|none)
+      #   where `none` means "don't provide an impl for this interface"
+      #   where `*` means use the first impl found, in lexicographic order
+      #
+      # special interface name `default` is used as a catchall for any interface not listed explicitly
       [preferred]
-      default=wlr;gtk
-      # default=wlr;gnome;gtk
+      default=wlr;gtk;gnome
+
+      # Access portal: "An application wants to [...] Deny Access  /  Grant Access"
+      # XXX(2024-12-04): gnome Access portal simply doesn't render on non-Gnome DEs
+      org.freedesktop.impl.portal.Access=gtk
+      # XXX(2024-12-04): the gnome file-chooser (libadwaita) is much more mobile-friendly than the gtk ones
+      #   it turns out xdg-desktop-portal-gnome is just a shim around nautilus, so we can just call that directly
+      org.freedesktop.impl.portal.FileChooser=nautilus
+
     '';
 
     fs.".config/sway/config".symlink.target = pkgs.substituteAll {

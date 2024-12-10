@@ -42,16 +42,18 @@ in
     };
 
     packageUnwrapped = pkgs.rmDbusServicesInPlace ((pkgs.calls.override {
-      # 46.3 -> 47.xx upgraded gtk3 -> gtk4; nixpkgs package is outdated, so substitute gtk3 deps with gtk4 deps
-      evolution-data-server = pkgs.evolution-data-server-gtk4.override {
+      evolution-data-server-gtk4 = pkgs.evolution-data-server-gtk4.override {
         # drop webkitgtk_6_0 dependency.
         # it's normally cached, but if modifying low-level deps (e.g. pipewire) it's nice to not have to rebuild it,
         # especially since `calls` is part of `moby-min`.
         withGtk4 = false;
       };
-      gtk3 = pkgs.gtk4;
-      libpeas = pkgs.libpeas2;
-      wrapGAppsHook3 = pkgs.wrapGAppsHook4;
+      folks = pkgs.folks.override {
+        evolution-data-server-gtk4 = pkgs.evolution-data-server-gtk4.override {
+          # drop webkitgtk_6_0 dependency.
+          withGtk4 = false;
+        };
+      };
       sofia_sip = pkgs.sofia_sip.overrideAttrs (upstream: {
         # use linphone's sofia_sip.
         # Freeswitch sofia_sip has a bug where a failed DNS query will never return to the caller.
@@ -66,24 +68,29 @@ in
         };
       });
     }).overrideAttrs (upstream: {
-      # XXX(2024-08-08): v46.3 has a bug where if it has no network connection on launch, it forever stays disconnected & never retries
-      version = "47_beta.0-unstable-2024-08-08";
-      src = lib.warnIf (lib.versionOlder "47.0" upstream.version) "gnome-calls outdated; remove src override? (keep UI patches though!)" pkgs.fetchFromGitLab {
-        domain = "gitlab.gnome.org";
-        owner = "GNOME";
-        repo = "calls";
-        fetchSubmodules = true;
-        # rev = "main";
-        rev = "ff213579a52222e7c95e585843d97b5b817b2a8b";
-        hash = "sha256-0QYC8FJpfg/X2lIjBDooba2idUfpJNQhcpv8Z5I/B4k=";
-      };
+      # src = lib.warnIf (lib.versionOlder "47.0" upstream.version) "gnome-calls outdated; remove src override? (keep UI patches though!)" pkgs.fetchFromGitLab {
+      #   domain = "gitlab.gnome.org";
+      #   owner = "GNOME";
+      #   repo = "calls";
+      #   fetchSubmodules = true;
+      #   # rev = "main";
+      #   # rev = "ff213579a52222e7c95e585843d97b5b817b2a8b";
+      #   # hash = "sha256-0QYC8FJpfg/X2lIjBDooba2idUfpJNQhcpv8Z5I/B4k=";
+      #   rev = "75c4072c4e2ba8619c8067703fb65fe622af8b42";
+      #   hash = "sha256-99B1GS2IXt3per8XnbBRCTChlcwT3zWnhwgG1ift0QQ=";
+      # };
 
       patches = (upstream.patches or []) ++ [
         (pkgs.fetchpatch {
           # usability improvement... ties the UI visibility to the connection state, so if the UI is gone, then i can't receive calls (and will hopefully notice that more easily!)
-          url = "https://git.uninsane.org/colin/gnome-calls/commit/a19166d85927e59662fae189a780eed18bf876ce.patch";
+          # TODO: see about a more maintainable solution:
+          # 1. create gobject-introspection bindings, then a python wrapper which binds the MainWindow and CallWindow notify::visible signals?
+          # 2. move this functionality into a gnome calls `plugin`?
+          # 3. upstream this; use the Nautilus approach of controlling behavior here with an env var?
+          # also TODO: write a nix test for this functionality so that it doesn't break during an upgrade!
+          url = "https://git.uninsane.org/colin/gnome-calls/commit/88dbe108a8cf82f9c0766c310218902a8a2a7cd5.patch";
           name = "exit on close (i.e. never daemonize)";
-          hash = "sha256-NoVQV2TlkCcsBt0uwSyK82hBKySUW4pADrJVfLFvWgU=";
+          hash = "sha256-QggVM28X9A2f9SbHMMM38M4zKhjYZrTvsZoitxyczdo=";
         })
         (pkgs.fetchpatch {
           # solves the issue where flakey DNS (especially at boot) could take down call connectivity indefinitely.
@@ -92,14 +99,6 @@ in
           name = "sip: attempt reconnection anytime network is routable, not just when routability changes";
           hash = "sha256-agPM3XKXiP5Rxrl26DNA+pnhEPTBEBQBxZe3CoptgII=";
         })
-      ];
-
-      nativeBuildInputs = upstream.nativeBuildInputs ++ [
-        pkgs.dbus  #< for dbus-run-session (should be test only, but it's not)
-      ];
-
-      buildInputs = upstream.buildInputs ++ [
-        pkgs.libadwaita
       ];
     }));
 

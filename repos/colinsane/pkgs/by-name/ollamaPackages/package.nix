@@ -14,6 +14,7 @@
 lib.recurseIntoAttrs (lib.makeScope newScope (self: with self; {
   mkOllamaModel = callPackage ./mkOllamaModel.nix { };
 
+  athene-v2-72b-q2_K = callPackage ./athene-v2-72b-q2_K.nix { };
   aya-8b = callPackage ./aya-8b.nix { };
   codegeex4-9b = callPackage ./codegeex4-9b.nix { };
   codegemma-7b = callPackage ./codegemma-7b.nix { };
@@ -30,6 +31,7 @@ lib.recurseIntoAttrs (lib.makeScope newScope (self: with self; {
   llama3_1-70b = callPackage ./llama3_1-70b.nix { };
   llama3_2-3b = callPackage ./llama3_2-3b.nix { };
   magicoder-7b = callPackage ./magicoder-7b.nix { };
+  marco-o1-7b = callPackage ./marco-o1-7b.nix { };
   mistral-7b = callPackage ./mistral-7b.nix { };
   mistral-nemo-12b = callPackage ./mistral-nemo-12b.nix { };
   mistral-small-22b = callPackage ./mistral-small-22b.nix { };
@@ -41,6 +43,7 @@ lib.recurseIntoAttrs (lib.makeScope newScope (self: with self; {
   qwen2_5-32b = callPackage ./qwen2_5-32b.nix { };
   qwen2_5-32b-instruct-q2_K = callPackage ./qwen2_5-32b-instruct-q2_K.nix { };
   qwen2_5-coder-7b = callPackage ./qwen2_5-coder-7b.nix { };
+  qwq-32b = callPackage ./qwq-32b.nix { };
   solar-pro-22b = callPackage ./solar-pro-22b.nix { };
   starcoder2-15b-instruct = callPackage ./starcoder2-15b-instruct.nix { };
   wizardlm2-7b = callPackage ./wizardlm2-7b.nix { };

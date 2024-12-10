@@ -22,7 +22,7 @@
 # 3. to apply a VPN to internet traffic selectively, just proxy an applications traffic into the VPN device
 #   3a. use a network namespace and a userspace TCP stack (e.g. pasta/slirp4netns).
 #   3b. attach the VPN device to a bridge device, then connect that to a network namespace by using a veth pair.
-#   3c. juse use `bunpen`, which abstracts the above options.
+#   3c. just use `bunpen`, which abstracts the above options.
 
 { config, lib, sane-lib, ... }:
 let
@@ -141,8 +141,8 @@ let
         Name = name;
       };
       wireguardConfig = {
-        PrivateKeyFile = privateKeyFile;
         FirewallMark = fwmark;
+        PrivateKeyFile = privateKeyFile;
       };
       wireguardPeers = [
         ({

@@ -17,12 +17,6 @@ in
       "/sys/devices"
     ];
 
-    fs.".config/xdg-desktop-portal/portals/wlr.portal".symlink.target =
-      "${cfg.package}/share/xdg-desktop-portal/portals/wlr.portal";
-    # XXX: overcome bug when manually setting `$XDG_DESKTOP_PORTAL_DIR`
-    #      which causes *.portal files to be looked for in the toplevel instead of under `portals/`
-    fs.".config/xdg-desktop-portal/wlr.portal".symlink.target = "portals/wlr.portal";
-
     services.xdg-desktop-portal-wlr = {
       description = "xdg-desktop-portal-wlr backend (provides screenshot functionality for xdg-desktop-portal)";
       depends = [ "pipewire" ];  # refuses to start without it

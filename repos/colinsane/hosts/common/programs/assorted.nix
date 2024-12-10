@@ -77,6 +77,7 @@ in
       "libcap_ng"  # for `netcap`, `pscap`, `captest`
       "libgpiod"  # `gpiodetect`, `gpioinfo`, `gpiomon`, ...
       "lsof"
+      "man-db"  # critical for `man -k` or `apropos` to work
       "man-pages"
       "man-pages-posix"
       # "miniupnpc"
@@ -97,7 +98,6 @@ in
       "picocom"  # serial TTY
       "powertop"
       "procs"  # a better `ps`
-      "ps"
       "pstree"
       "ripgrep"
       "rsync"
@@ -109,6 +109,8 @@ in
       "subversion"
       "tcpdump"
       "tree"
+      "unixtools.ps"
+      "unixtools.sysctl"
       "unixtools.xxd"
       "usbutils"  # lsusb
       "util-linux"  # lsblk, lscpu, etc
@@ -204,8 +206,8 @@ in
     ];
 
     consoleMediaUtils = declPackageSet [
-      # "blast-ugjka"  # cast audio to UPNP/DLNA devices (via pulseaudio sink)
       # "catt"  # cast videos to chromecast
+      # "sblast"  # cast audio to UPNP/DLNA devices (via pulseaudio sink)
       "ffmpeg"
       "go2tv"  # cast videos to UPNP/DLNA device (i.e. tv).
       "imagemagick"
@@ -328,6 +330,7 @@ in
       "powersupply"  # battery viewer
       "pwvucontrol"  # pipewire version of pavu
       # "picard"  # music tagging
+      "sane-color-picker"
       # "seahorse"  # keyring/secret manager
       "signal-desktop"
       "snapshot"  # camera app
@@ -954,6 +957,7 @@ in
     patchelf.sandbox.method = null;  #< TODO: sandbox
 
     pavucontrol.sandbox.whitelistAudio = true;
+    pavucontrol.sandbox.whitelistDri = true;  #< to be a little more responsive
     pavucontrol.sandbox.whitelistWayland = true;
 
     pciutils.sandbox.extraPaths = [
@@ -1030,8 +1034,17 @@ in
 
     sane-cast.sandbox.net = "clearnet";
     sane-cast.sandbox.autodetectCliPaths = "existingFile";
-    sane-cast.sandbox.whitelistAudio = true;  #< for blast audio casting
-    sane-cast.suggestedPrograms = [ "blast-ugjka" "go2tv" ];
+    sane-cast.sandbox.whitelistAudio = true;  #< for sblast audio casting
+    sane-cast.suggestedPrograms = [ "go2tv" "sblast" ];
+
+    sane-color-picker.sandbox.whitelistDbus = [ "user" ];  #< required for eyedropper to work
+    sane-color-picker.sandbox.whitelistWayland = true;
+    sane-color-picker.sandbox.keepPidsAndProc = true;  #< required by wl-clipboard
+    sane-color-picker.suggestedPrograms = [
+      "gnugrep"
+      "wl-clipboard"
+      # "zenity"
+    ];
 
     sane-die-with-parent.sandbox.enable = false;  #< it's a launcher; can't sandbox
 
@@ -1158,6 +1171,9 @@ in
     ];
 
     util-linux.sandbox.method = null;  #< TODO: possible to sandbox if i specify a different profile for each of its ~50 binaries
+
+    "unixtools.ps".sandbox.keepPidsAndProc = true;
+    "unixtools.sysctl" = {};  #< XXX: probably not sandboxed correctly for sysctl writes; only for reads
 
     unzip.sandbox.autodetectCliPaths = "existingOrParent";
     unzip.sandbox.whitelistPwd = true;

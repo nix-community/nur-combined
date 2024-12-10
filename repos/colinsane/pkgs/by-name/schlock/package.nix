@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
       name = "schlock";
       # exec = "schlock -p $HOME/.config/schlock/schlock.pin";
       exec = ''/bin/sh -c "schlock -p \\$HOME/.config/schlock/schlock.pin"'';
-      desktopName = "mobile screen locker";
+      desktopName = "Lock Screen";
     })
   ];
 

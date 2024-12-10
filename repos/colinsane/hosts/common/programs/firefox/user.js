@@ -83,7 +83,7 @@ defaultPref("sidebar.visibility", "hide-sidebar");
 defaultPref("browser.uiCustomization.state", `{
   "placements":{
     "unified-extensions-area": ["browserpass_maximbaz_com-browser-action","ublock0_raymondhill_net-browser-action","sponsorblocker_ajay_app-browser-action","magnolia_12_34-browser-action"],
-    "nav-bar":["firefox-view-button","sidebar-button","sidebar-button","back-button","forward-button","urlbar-container","unified-extensions-button"]
+    "nav-bar":["firefox-view-button","sidebar-button","sidebar-button","stop-reload-button","back-button","forward-button","urlbar-container","unified-extensions-button","downloads-button"]
   },
   "currentVersion":20
 }`);
@@ -91,6 +91,16 @@ defaultPref("browser.uiCustomization.state", `{
 // 0 to hide the window close button
 // 2 to show the window close button (default)
 defaultPref("browser.tabs.inTitlebar", 0);
+
+defaultPref("reader.font_size", 9);  // not the normal meaning of font size: these are discrete options with no gaps, like 1,2,3,...
+defaultPref("reader.font_type", "serif");
+defaultPref("reader.color_scheme", "custom");
+defaultPref("reader.custom_colors.background", "#fff1e5");  //< mimic ft.com colors
+defaultPref("reader.custom_colors.foreground", "#241f31");
+
+// TODO: don't hardcode `colin`
+defaultPref("browser.download.lastDir", "/home/colin/tmp");
+// defaultPref("browser.download.autohideButton", false);  //< optional, to always show DL button
 
 // auto-open specific URI schemes without prompting:
 defaultPref("network.protocol-handler.external.xdg-open", true); // for firefox-xdg-open extension

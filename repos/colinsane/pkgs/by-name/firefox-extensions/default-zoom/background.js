@@ -12,7 +12,12 @@ console.info("[default-zoom]", "background.js: initializing");
 // - desko: youtube.com is most comfortable 1.6 - 1.8
 // - desko: wikipedia.org is most comfortable 1.7 - 1.9
 // - lappy: amazon.com is most comfortable 1.0 - 1.2
-let defaultZoom = 1;
+let formFactors = {
+  "desktop": 1.70,
+  "laptop": 1.20,
+  "other": 1.00
+};
+let defaultZoom = 1.00;
 
 // retrieving settings:
 // - <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage>
@@ -21,9 +26,16 @@ let defaultZoom = 1;
 //   - e.g. <https://github.com/mdn/webextensions-examples/blob/main/stored-credentials/storage.js>
 function applyConfig(storedConfig) {
   console.info("[default-zoom]", "applyConfig");
-  if (storedConfig && storedConfig.zoom) {
+  if (!storedConfig) {
+    return;
+  }
+  if (storedConfig.zoom) {
     console.info("[default-zoom]", "applyConfig -> zoom", storedConfig.zoom);
     defaultZoom = storedConfig.zoom;
+  }
+  if (storedConfig.formFactor && formFactors[storedConfig.formFactor]) {
+    console.info("[default-zoom]", "applyConfig -> formFactor", storedConfig.formFactor);
+    defaultZoom = formFactors[storedConfig.formFactor];
   }
 }
 
@@ -39,7 +51,7 @@ function setZoom(tabId, changeInfo) {
     const gettingZoom = browser.tabs.getZoom(tabId);
     gettingZoom.then((currentZoom) => {
       console.info("[default-zoom]", "setZoom -> tabs.getZoom complete");
-      if (defaultZoom !== 1 && currentZoom === 1) {
+      if (defaultZoom !== 1.00 && currentZoom === 1) {
         console.info("[default-zoom]", "setZoom -> tabs.setZoom", defaultZoom);
         browser.tabs.setZoom(tabId, defaultZoom);
       }
@@ -47,7 +59,7 @@ function setZoom(tabId, changeInfo) {
   }
 }
 
-browser.storage.managed.get("zoom").then(applyConfig, onConfigError);
+browser.storage.managed.get().then(applyConfig, onConfigError);
 
 browser.tabs.onUpdated.addListener(setZoom);
 browser.tabs.onCreated.addListener((tab) => {

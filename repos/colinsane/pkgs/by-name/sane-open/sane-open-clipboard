@@ -1,0 +1,6 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p bash -p sane-open -p wl-clipboard
+
+set -e
+# TODO: restrict to `--file` or `--uri`? little reason to dispatch anything ending in `.desktop` here.
+exec sane-open "$@" "$(wl-paste)"

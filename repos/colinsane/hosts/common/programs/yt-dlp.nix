@@ -30,6 +30,13 @@ in
       # don't set the file's mtime to the https video's upload/edit date
       --no-mtime
 
+      # restrict to ascii characters only (seems to include replacing ' ' with '_')
+      --restrict-filenames
+      # man yt-dlp  ## OUTPUT TEMPLATE
+      -o %(uploader)s-%(title)s
+      # for curlftpfs compatibility; see: <https://github.com/kahing/goofys/issues/296>
+      --postprocessor-args -movflags\ frag_keyframe+empty_moov
+
       # to avoid frame drops or desync on low-power devices (lappy, moby, ...)
       # prefer sources at/under some max resolution, framerate, or codec version.
       # see `man yt-dlp` sections "Sorting Formats" and "Format Selection examples"

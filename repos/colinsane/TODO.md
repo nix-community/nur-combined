@@ -2,9 +2,6 @@
 - `rmDbusServices` may break sandboxing
   - e.g. if the package ships a systemd unit which references $out, then make-sandboxed won't properly update that unit.
   - `rmDbusServicesInPlace` is not affected
-- when moby wlan is explicitly set down (via ip link set wlan0 down), /var/lib/hickory-dns/dhcp-configs doesn't get reset
-  - `ip monitor` can detect those manual link state changes (NM-dispatcher it seems cannot)
-  - or try dnsmasq?
 - mpv: audiocast has mpv sending its output to the builtin speakers unless manually changed
 - syshud (volume overlay): when casting with `blast`, syshud doesn't react to volume changes
 - dissent: if i launch it without net connectivity, it gets stuck at the login, and never tries again
@@ -36,6 +33,7 @@
 - upstream `bonsaid` service -> nixpkgs
   - out for review: <https://github.com/NixOS/nixpkgs/pull/347818>
 - upstream `buffybox`/`buffyboard` package/service -> nixpkgs
+  - out for review: <https://github.com/NixOS/nixpkgs/pull/358941>
 - upstream `gps-share` package -> nixpkgs
 - upstream PinePhonePro device trees -> linux
 
@@ -129,8 +127,6 @@
 - sane-sync-music: remove empty dirs
 
 #### moby
-- moby: enable PinePhonePro camera in device tree
-  - confirm: is `cma=512M` actually required?
 - moby: port battery support to something upstreamable
 - moby: install transito/mobroute public transit app: <https://sr.ht/~mil/mobroute/> <https://git.sr.ht/~mil/transito>
   - see: <https://github.com/NixOS/nixpkgs/pull/335613>

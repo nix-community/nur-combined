@@ -20,10 +20,10 @@
 #   - `-mime audio/ac3 -format ac3`: FAILS
 { config, lib, pkgs, ... }:
 let
-  cfg = config.sane.programs.blast-ugjka;
+  cfg = config.sane.programs.sblast;
 in
 {
-  sane.programs.blast-ugjka = {
+  sane.programs.sblast = {
     sandbox.whitelistAudio = true;
     sandbox.net = "clearnet";
   };
@@ -32,7 +32,7 @@ in
     # helper to deal with blast's interactive CLI
     packageUnwrapped = pkgs.static-nix-shell.mkPython3 {
       pname = "blast-to-default";
-      pkgs = [ "blast-ugjka" ];
+      pkgs = [ "sblast" ];
       srcRoot = ./.;
     };
     sandbox.whitelistAudio = true;
@@ -40,7 +40,7 @@ in
     #v  else it fails to reap its children (or, maybe, it fails to hook its parent's death signal?)
     #v  might be possible to remove this, but kinda hard to see a clean way.
     sandbox.keepPidsAndProc = true;
-    suggestedPrograms = [ "blast-ugjka" "sane-die-with-parent" ];
+    suggestedPrograms = [ "sane-die-with-parent" "sblast" ];
   };
 
   networking.firewall.allowedTCPPorts = lib.mkIf cfg.enabled [ 9000 ];

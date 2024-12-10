@@ -8,6 +8,7 @@ help() {
   echo "  dino:    remove auth and data for Dino XMPP messenger"
   echo "  flare:   remove auth and data for flare-signal messenger"
   echo "  fractal: remove auth and data for fractal matrix messenger"
+  echo "  rofi:    remove rofi .desktop entry cache and force it to recompute entries"
   exit 1
 }
 
@@ -67,19 +68,26 @@ wipe_fractal() {
   echo "If this does not work, try deleting ~/.local/share/fractal/* in its entirety."
 }
 
+wipe_rofi() {
+  rm -f ~/.cache/rofi/rofi-drun-desktop.cache
+}
+
 
 case "$1" in
-  browser)
+  (browser)
     wipe_browser
     ;;
-  dino)
+  (dino)
     wipe_dino
     ;;
-  flare)
+  (flare)
     wipe_flare
     ;;
-  fractal)
+  (fractal)
     wipe_fractal
+    ;;
+  (rofi)
+    wipe_rofi
     ;;
   *)
     help

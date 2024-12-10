@@ -707,7 +707,7 @@ let
     environment = lib.optionalAttrs (p.enabled && p.enableFor.system) {
       systemPackages = lib.mkIf (p.package != null) [ p.package ];
       # sessionVariables are set by PAM, as opposed to environment.variables which goes in /etc/profile
-      sessionVariables = p.env;
+      sessionVariables = lib.mapAttrs (k: v: lib.mkOverride p.mime.priority v) p.env;
     };
 
     # conditionally add to user(s) PATH
@@ -718,7 +718,7 @@ let
     # conditionally persist relevant user dirs and create files
     sane.users = lib.mapAttrs (user: en: lib.mkIf (en && p.enabled) {
       inherit (p) persist services;
-      environment = p.env;
+      environment = lib.mapAttrs (k: v: lib.mkOverride p.mime.priority v) p.env;
       fs = lib.mkMerge [
         p.fs
         # link every secret into the fs:

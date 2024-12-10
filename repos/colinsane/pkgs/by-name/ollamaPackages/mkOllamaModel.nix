@@ -85,7 +85,53 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  env.blobDir = "share/ollama/models/blobs";
-  env.manifestDir = "share/ollama/models/manifests/registry.ollama.ai/library/${modelName}";
-  env.variant = variant;
+  checkPhase = ''
+    runHook preCheck
+
+    # diagnostics for when packaging models: use the manifestBlob, systemBlob output here in your nix expression
+    echo "manifest:"
+    cat manifest
+
+    mismatchedBlobs=()
+    checkBlob() {
+      local blobType="$1"
+      local expectedBlobHash="$2"
+      local blobHash=$(cat manifest | jq ".layers.[] | select(.mediaType == \"application/vnd.ollama.image.$blobType\") | .digest[7:]")
+      if [ -n "$blobHash" ]; then
+        printf "  %sBlob = %s;\n" "$blobType" "$blobHash"
+      fi
+
+      if [ "''${blobHash//\"/}" != "$expectedBlobHash" ]; then
+        mismatchedBlobs+=("$blobType")
+      fi
+    }
+
+    echo "blobs:"
+    checkBlob model "$modelBlob"
+    checkBlob params "$paramsBlob"
+    checkBlob system "$systemBlob"
+    checkBlob ensureDoesntFailForNonExistentBlob
+
+    if [ -n "$mismatchedBlobs" ]; then
+      echo "mismatched blobs:"
+      for b in "''${mismatchedBlobs[@]}"; do
+        echo "- $b"
+      done
+      false
+    fi
+
+    runHook postCheck
+  '';
+
+  doCheck = true;
+
+  env = {
+    blobDir = "share/ollama/models/blobs";
+    manifestDir = "share/ollama/models/manifests/registry.ollama.ai/library/${modelName}";
+    inherit variant modelBlob paramsBlob systemBlob;
+  };
+
+  meta = {
+    homepage = "https://ollama.com/library/${modelName}";
+  };
 }

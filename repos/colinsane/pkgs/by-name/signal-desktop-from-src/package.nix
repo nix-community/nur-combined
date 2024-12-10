@@ -184,7 +184,7 @@ buildNpmPackage rec {
     repo = "Signal-Desktop";
     leaveDotGit = true;  # signal calculates the release date via `git`
     rev = "v${version}";
-    hash = "sha256-swPBAr9OxlcugpT4MQeOi0isWJpDMkkvxvG44Z5Hg28=";
+    hash = "sha256-n5TCFPGvLWUxLMndiBcRJWVGEK8fH4ZVYGxIdKhxVv8=";
   };
 
   npmDepsHash = "sha256-OZQlRnnlq4zlmDjqZsPLj3PpzqTrCAGLXGFisMPetBU=";

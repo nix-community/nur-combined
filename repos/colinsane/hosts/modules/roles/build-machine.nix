@@ -48,7 +48,8 @@ in
       # it's nice to not be limited in that way, so increase this a bit.
       nix.nrBuildUsers = 64;
 
-      nix.settings.system-features = [ "big-parallel" ];
+      # big-parallel allows building e.g. webkitgtk. kvm, nixos-test allows building `nixosTests` (in `nixpkgs` repo).
+      nix.settings.system-features = [ "big-parallel" "kvm" "nixos-test" ];
 
       # XXX(2024-xx): ccache _works_, but the cache hit rate is so low that it's often a net negative!
       # ElvishJerricco linked his ccache config in #nix-offtopic 2024-11-09, claiming he got it to

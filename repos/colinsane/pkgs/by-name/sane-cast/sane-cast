@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p blast-ugjka -p go2tv -p python3
+#!nix-shell -i python3 -p go2tv -p python3 -p sblast
 # vim: set filetype=python :
 """
 cast media (local video or audio files) to a device on the same network
@@ -129,7 +129,7 @@ class Go2TvDriver:
 class BlastDriver:
     def cast_to(self, dev: Device) -> None:
         blast_args = [
-            "blast",
+            "sblast",
             # "blast.monitor" source will create a new output, or we can do that in pipewire config for better predictability.
             "-source", "effect_input.virtual.monitor",
             "-device", dev.model,
@@ -138,7 +138,7 @@ class BlastDriver:
         if dev.compat != Compat.RenameToMp4:
             blast_args += [ "-usewav" ];
 
-        os.execvp("blast", blast_args)
+        os.execvp("sblast", blast_args)
 
 def get_ranked_ip_addrs():
     """
@@ -205,7 +205,7 @@ def main():
     parser.add_argument("--verbose", action="store_true", help="more logging")
     parser.add_argument("--always-ask", action="store_true", help="always ask which device to cast to, regardless how many are available")
     parser.add_argument("--device", help="filter devices based on if this string is contained in their name (case-insensitive)")
-    parser.add_argument("media", nargs="?", help="file or URL to send to the DLNA device. empty to case just an audio stream")
+    parser.add_argument("media", nargs="?", help="file or URL to send to the DLNA device. empty to cast just an audio stream")
 
     args = parser.parse_args()
 

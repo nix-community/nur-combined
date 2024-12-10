@@ -104,7 +104,7 @@ let
       })
       (pkgs.makeDesktopItem {
         name = "${cfg.browser.libName}-stub-dns";
-        desktopName = "${cfg.browser.libName} (stub DNS)";
+        desktopName = "${cfg.browser.libName} (Stub DNS)";
         genericName = "Web Browser";
         # N.B.: --new-instance ensures we don't reuse an existing differently-namespaced instance.
         # OTOH, it may error about "only one instance can run at a time": close the other instance if you see that.
@@ -217,6 +217,17 @@ in
                 };
               };
             }));
+          };
+          formFactor = mkOption {
+            default = "other";
+            type = types.enum [
+              "desktop"
+              "laptop"
+              "other"
+            ];
+            description = ''
+              tune the browser experience for a specific form factor
+            '';
           };
         };
       };

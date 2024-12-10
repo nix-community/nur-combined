@@ -33,12 +33,19 @@ let
     cleanupCommand,
     startCommand,
     readiness,  # readiness.waitCommand, readiness.waitDbus, readiness.waitExists
+    reapChildren,
     restartCondition,
     ...
   }: lib.mkMerge [
     {
       # serviceConfig.BoundBy = toUnitNames partOf;
       # serviceConfig.Restart = restartCondition;  #< not allowed for `oneshot` types
+
+      serviceConfig.KillMode = if reapChildren then
+        "control-group"  # (default)
+      else
+        "process"  # kill only the main process; let it leave behind children if it likes
+      ;
 
       serviceConfig.User = userName;
       serviceConfig.Group = "users";
@@ -86,6 +93,15 @@ let
           echo "ready: notifying systemd"
           ${lib.getExe' pkgs.systemd "systemd-notify"} --ready
         }
+        cleanup() {
+          # kill all direct children
+          # this is distinct from killing the whole process group,
+          # which i explicitly *don't* do, to allow spawned processes to outlive the service
+          #   (if reapChildren = false; else systemd implicitly reaps all the children)
+          ${lib.getExe' pkgs.procps "pkill"} -P $$
+        }
+
+        trap cleanup EXIT
 
         readinessPollLoop &
         ${command}

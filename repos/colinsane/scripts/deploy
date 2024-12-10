@@ -158,6 +158,23 @@ resolveHost() {
   fi
 }
 
+# return the number of seconds to allot to `nix copy` when copying the given variant.
+# this is done to avoid stalled copies from blocking the entire process, while hopefully not breaking the copies that are actually important
+timeoutFor() {
+  case $1 in
+    (-min|-light|-next)
+      echo 3600
+      ;;
+    (-min-next|-light-next)
+      echo 1800
+      ;;
+    (*)
+      # this catches the normal variant
+      echo 14400
+      ;;
+  esac
+}
+
 runOnTarget() {
   local host="$1"
   shift
@@ -176,6 +193,8 @@ runOnTarget() {
 deployOneHost() {
   local host="$1"
   local variant="$2"
+
+  local timeout=$(timeoutFor "$variant")
 
   local myStorePath="$storePath"
   if [ -z "$myStorePath" ]; then
@@ -212,7 +231,7 @@ deployOneHost() {
     # add more `-v` for more verbosity (up to 5).
     # builders-use-substitutes false: optimizes so that the remote machine doesn't try to get paths from its substituters.
     #   we already have all paths here, and the remote substitution is slow to check and SERIOUSLY flaky on moby in particular.
-    ECHO_CMD=1 destructive nix copy -vv --option builders-use-substitutes false --to "ssh-ng://$netHost" "$myStorePath" || return 1
+    ECHO_CMD=1 destructive timeout "$timeout" nix copy -vv --option builders-use-substitutes false --to "ssh-ng://$netHost" "$myStorePath" || return 1
   fi
 
   if [ -n "$action" ] && [ "$action" != "copy" ]; then

@@ -73,8 +73,9 @@ let
     };
 
     config = {
-      extraConfig = lib.mkIf config.enableRecursiveResolver {
-        zones = [
+      extraConfig = {
+        directory = "/var/lib/hickory-dns/${name}";
+        zones = lib.optionals config.enableRecursiveResolver [
           {
             zone = ".";
             zone_type = "Hint";
@@ -104,6 +105,7 @@ let
     ) // {
       listen_addrs_ipv4 = listenAddrsIpv4;
       listen_addrs_ipv6 = listenAddrsIpv6;
+      listen_port = port;
     };
     configTemplate = toml.generate "hickory-dns-${flavor}.toml" (baseConfig //
       (lib.mapAttrs (k: v:
@@ -130,22 +132,14 @@ let
 
     preStart = ''
       # set -x
-      applySub() {
-        local input_="$1"
-        local from_="$2"
-        local to_="$3"
-        if [[ -n "$to_" ]]; then
-          echo "$input_" | sed s/"$from_"/"$to_"/g
-        else
-          # the replacement is empty, i.e. there is no value to assign this record
-          echo "$input_" | sed /"$from_"/d
-        fi
-      }
       applySubs() {
         local input_="$1"
         ${lib.concatMapStringsSep "\n" (key: ''
-          local subst="${substitutions."${key}"}"
-          input_=$(applySub "$input_" "${key}" "$subst")
+          # explicitly don't escape the `substitutions` value:
+          # servo uses this for dyn-dns, where %AWAN% is shell expression
+          local subst=${substitutions."${key}"}
+          local from_=${lib.escapeShellArg key}
+          input_="''${input_//$from_/$subst}"
         '') subKeys}
         echo "$input_"
       }
@@ -164,20 +158,13 @@ let
     '';
 
     serviceConfig = config.systemd.services.hickory-dns.serviceConfig // {
-      ExecStart = lib.escapeShellArgs ([
-        "${lib.getExe config.services.hickory-dns.package}"
-        "--port"     (builtins.toString port)
-        "--zonedir"  "/var/lib/hickory-dns/${flavor}"
-        "--config"   "${configPath}"
-      ] ++ lib.optionals config.services.hickory-dns.debug [
-        "--debug"
-      ] ++ lib.optionals config.services.hickory-dns.quiet [
-        "--quiet"
-      ]);
+      # replace the nixpkgs service's config file with my own flavored config:
+      ExecStart = lib.replaceStrings
+        [ "${config.services.hickory-dns.configFile}" ]
+        [ configPath ]
+        config.systemd.services.hickory-dns.serviceConfig.ExecStart;
       # servo/dyn-dns needs /var/lib/uninsane/wan.txt.
-      # this might not exist on other systems,
-      # so just bind the deepest path which is guaranteed to exist.
-      ReadOnlyPaths = [ "/var/lib" ];  #< TODO: scope this down!
+      ReadOnlyPaths = lib.optionals config.sane.services.dyn-dns.enable [ "/var/lib/uninsane" ];
     } // lib.optionalAttrs cfg.asSystemResolver {
       # allow the group to write hickory-dns state (needed by NetworkManager hook)
       StateDirectoryMode = "775";

@@ -31,7 +31,12 @@ let
         '';
       };
       wg.port = mkOption {
-        type = types.port;
+        type = types.nullOr types.port;
+        default = null;
+        description = ''
+          fixed port to listen to,
+          or null to listen on a random unused port.
+        '';
       };
       wg.privateKeyFile = mkOption {
         type = types.path;
@@ -179,9 +184,11 @@ let
       script = ''
         ${ip} link add wg-${name} type wireguard
 
-        # listen on a public port. the other end of the tunnel doesn't send keepalives
-        # so i *hope* setting to a fixed port, which is opened in `sane.ports.ports`, make the tunnel more robust
-        ${wg'} set wg-${name} listen-port ${builtins.toString wg.port}
+        ${lib.optionalString (wg.port != null) ''
+          # listen on a public port. the other end of the tunnel doesn't send keepalives
+          # so i *hope* setting to a fixed port, which is opened in `sane.ports.ports`, makes the tunnel more robust
+          ${wg'} set wg-${name} listen-port ${builtins.toString wg.port}
+        ''}
 
         # resolve the endpoint *now*, from a namespace which can do DNS lookups, before moving it into its destination netns
         # at this point, our wg device can neither send nor receive traffic, because we haven't given it a private key.
@@ -218,13 +225,20 @@ let
       ];
     };
 
-    sane.ports.ports."${builtins.toString wg.port}" = {
-      protocol = [ "udp" ];
-      visibleTo.lan = true;
-      visibleTo.wan = true;
-      # visibleTo.doof = true;
-      description = "colin-wireguard-${name}";
+    sane.ports.ports = lib.optionalAttrs (wg.port != null) {
+      "${builtins.toString wg.port}" = {
+        protocol = [ "udp" ];
+        visibleTo.lan = true;
+        visibleTo.wan = true;
+        # visibleTo.doof = true;
+        description = "colin-wireguard-${name}";
+      };
     };
+
+    # SPECULATIVE: i think my wireguard tunnels are breaking when the WAN changes.
+    # this might fix it, but maybe i need more extensive monitoring of the handshake field in
+    # `sudo ip netns exec doof wg show`
+    sane.services.dyn-dns.restartOnChange = [ "netns-${name}-wg.service" ];
 
     # for some reason network-pre doesn't actually get run before network.target by default??
     systemd.targets.network-pre.wantedBy = [ "network.target" ];
@@ -280,6 +294,7 @@ in
       networking.iproute2.rttablesExtraConfig = f.networking.iproute2.rttablesExtraConfig;
       networking.iproute2.enable = f.networking.iproute2.enable;
       sane.ports.ports = f.sane.ports.ports;
+      sane.services.dyn-dns = f.sane.services.dyn-dns;
       systemd.services = f.systemd.services;
       systemd.targets = f.systemd.targets;
     };

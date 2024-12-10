@@ -41,12 +41,6 @@ in
       "use"
     ];
 
-    fs.".config/xdg-desktop-portal/portals/gnome.portal".symlink.target =
-      "${cfg.packageUnwrapped}/share/xdg-desktop-portal/portals/gnome.portal";
-    # XXX: overcome bug when manually setting `$XDG_DESKTOP_PORTAL_DIR`
-    #      which causes *.portal files to be looked for in the toplevel instead of under `portals/`
-    fs.".config/xdg-desktop-portal/gnome.portal".symlink.target = "portals/gnome.portal";
-
     services.xdg-desktop-portal-gnome = {
       description = "xdg-desktop-portal-gnome backend (provides file chooser and other functionality for xdg-desktop-portal)";
       dependencyOf = [ "xdg-desktop-portal" ];
