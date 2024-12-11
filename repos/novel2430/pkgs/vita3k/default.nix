@@ -68,7 +68,6 @@ stdenv.mkDerivation {
 
   dontUseCmakeConfigure = true;
   buildPhase = ''
-    pwd
     cmake --preset linux-ninja-clang
     cmake --build build/linux-ninja-clang --preset linux-ninja-clang-relwithdebinfo
   '';
@@ -81,6 +80,7 @@ stdenv.mkDerivation {
       icon = "Vita3k";
       comment = "Vita3k (PSV emulator)";
       categories = [ "Game" "Emulator" ];
+      keywords = ["Sony" "PlayStation" "PSV" "handheld"];
     })
   ];
 

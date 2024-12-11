@@ -94,16 +94,17 @@ stdenv.mkDerivation rec {
     # Install assets
     mv assets $out/share/ppsspp/assets
     # Install Binary
-    install -Dm555 PPSSPPQt $out/share/ppsspp
+    install -Dm555 PPSSPPQt $out/share/ppsspp/PPSSPP
     # Install Icons
     for res in 16 24 32 48 64 96 128 256 512; do
         install -Dm644 \
             ../icons/hicolor/''${res}x''${res}/apps/ppsspp.png \
-            $out/share/icons/hicolor/''${res}x''${res}/apps/ppsspp.png
+            $out/share/icons/hicolor/''${res}x''${res}/apps/PPSSPP.png
     done
     # Wrapping QT
-    wrapQtApp $out/share/ppsspp/PPSSPPQt
-    makeWrapper $out/share/ppsspp/PPSSPPQt $out/bin/ppsspp \
+    wrapQtApp $out/share/ppsspp/PPSSPP
+    # MakeWrapper
+    makeWrapper $out/share/ppsspp/PPSSPP $out/bin/ppsspp \
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ vulkan-loader ]}
     runHook postInstall
   '';
