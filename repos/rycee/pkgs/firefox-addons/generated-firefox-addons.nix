@@ -53,10 +53,10 @@
     };
     "a11ycss" = buildFirefoxXpiAddon {
       pname = "a11ycss";
-      version = "2.0.2";
+      version = "2.1.0";
       addonId = "a11y.css@ffoodd";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4382162/a11ycss-2.0.2.xpi";
-      sha256 = "0be0f2a02785801246bf835ed45348f8ba6f8bf710a47dd3e5117557d425a8f0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4403161/a11ycss-2.1.0.xpi";
+      sha256 = "f531360f0466a387a753d92a36695e43b34707433aa676c6454c4621f95a47c2";
       meta = with lib;
       {
         homepage = "https://ffoodd.github.io/a11y.css/";
@@ -2640,10 +2640,10 @@
     };
     "elasticvue" = buildFirefoxXpiAddon {
       pname = "elasticvue";
-      version = "1.1.0";
+      version = "1.1.1";
       addonId = "{2879bc11-6e9e-4d73-82c9-1ed8b78df296}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4390480/elasticvue-1.1.0.xpi";
-      sha256 = "d9a65ca78bfebe68dda8e5a487d03b383394a5ea9e5934d004a88726363f908e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4403076/elasticvue-1.1.1.xpi";
+      sha256 = "6e48da19771278482ab2c3668168557967befae7cb4f132c1996fa37809cbf1e";
       meta = with lib;
       {
         homepage = "https://elasticvue.com/";
@@ -6214,10 +6214,10 @@
     };
     "lingq-importer2" = buildFirefoxXpiAddon {
       pname = "lingq-importer2";
-      version = "2.2.18";
+      version = "2.2.19";
       addonId = "{e84c7711-c738-409a-879d-3f20cb087563}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4391643/lingq_importer2-2.2.18.xpi";
-      sha256 = "6f367f9c00c8e06bd061d9499129eb554dee832eeb9c6001ebf78b76d4df0317";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4403221/lingq_importer2-2.2.19.xpi";
+      sha256 = "03cd44b120d4584bf74db23ba967f6025a5c6e3f09084f9387fef86f14d448a8";
       meta = with lib;
       {
         homepage = "https://www.lingq.com/";
@@ -10725,10 +10725,10 @@
     };
     "steam-database" = buildFirefoxXpiAddon {
       pname = "steam-database";
-      version = "4.10";
+      version = "4.11";
       addonId = "firefox-extension@steamdb.info";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4393736/steam_database-4.10.xpi";
-      sha256 = "1d77ec61f9905261e9f00885428e5791f457f08480b551d10279010496f24328";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4399194/steam_database-4.11.xpi";
+      sha256 = "e92a5452c1df8016b67c49b13c93768a71b596e1baab6fafca773a55d8eb6e6a";
       meta = with lib;
       {
         homepage = "https://steamdb.info/";
