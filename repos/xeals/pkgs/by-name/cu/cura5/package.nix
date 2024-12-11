@@ -33,7 +33,7 @@ let
       fi
       args+=("$a")
     done
-    exec "${cura5}/bin/cura5" "''${args[@]}"
+    QT_QPA_PLATFORM=xcb exec "${cura5}/bin/cura5" "''${args[@]}"
   '';
 in
 stdenv.mkDerivation rec {
