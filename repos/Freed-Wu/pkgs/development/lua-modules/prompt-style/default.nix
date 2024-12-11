@@ -23,7 +23,7 @@ buildLuarocksPackage rec {
     repo = "prompt-style.lua";
     rev = version;
     fetchSubmodules = false;
-    sha256 = "sha256-s8OL5AGguQNhnpuOXx21UWfGlhTn2GgkoxNyTR32Bek=";
+    sha256 = "sha256-E2xCYa+WBqv6jVq925dTsWlYBJQM3WbLKzjU1NdO2S0=";
   };
 
   postFixup =
