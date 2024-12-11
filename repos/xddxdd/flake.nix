@@ -85,15 +85,20 @@
                     pkgs-24_05 = pkgsForSystem-24_05 final.system;
                     inherit inputs;
                   };
+                  _legacyPackages = import ./pkgs "legacy" {
+                    pkgs = prev;
+                    pkgs-24_05 = pkgsForSystem-24_05 final.system;
+                    inherit inputs;
+                  };
                 in
                 _packages
                 // rec {
                   # Integrate to nixpkgs python3Packages
                   python = prev.python.override {
-                    packageOverrides = _final: _prev: _packages.python3Packages;
+                    packageOverrides = _final: _prev: _legacyPackages.python3Packages;
                   };
                   python3 = prev.python3.override {
-                    packageOverrides = _final: _prev: _packages.python3Packages;
+                    packageOverrides = _final: _prev: _legacyPackages.python3Packages;
                   };
                   python3Packages = python3.pkgs;
                 };

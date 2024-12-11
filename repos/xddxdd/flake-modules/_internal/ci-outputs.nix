@@ -32,7 +32,7 @@ let
   legacyPackagesWithCudaOptionModule = flake-parts-lib.mkTransposedPerSystemModule {
     name = "legacyPackagesWithCuda";
     option = lib.mkOption {
-      type = lib.types.lazyAttrsOf lib.types.package;
+      type = lib.types.lazyAttrsOf lib.types.anything;
       default = [ ];
     };
     file = ./ci-outputs.nix;
