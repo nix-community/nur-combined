@@ -23,7 +23,8 @@
           (erase-buffer)
           (dolist (r results)
             (insert r)
-            ;(insert "\n"))))
+            ;(insert "\n")
+	    )))
       results)))
 
 (defun org-send-invitation (organizer attendees)
