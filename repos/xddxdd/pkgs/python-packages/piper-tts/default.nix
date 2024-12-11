@@ -1,19 +1,22 @@
 {
   piper-tts-native,
   lib,
-  python3Packages,
+  buildPythonPackage,
+  # Dependencies
+  piper-phonemize,
+  onnxruntime,
 }:
-python3Packages.buildPythonPackage rec {
+buildPythonPackage rec {
   inherit (piper-tts-native) pname version src;
   sourceRoot = "source/src/python_run";
 
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = [
     piper-phonemize
     onnxruntime
   ];
 
   # onnxruntime may fail to start in sandbox, disable check if onnxruntime does too
-  pythonImportsCheck = lib.optionals python3Packages.onnxruntime.doCheck [ "piper" ];
+  pythonImportsCheck = lib.optionals onnxruntime.doCheck [ "piper" ];
 
   meta = {
     mainProgram = "piper";

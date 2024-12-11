@@ -444,6 +444,16 @@
       hash = "sha256-rRVRUY69M5Nz8MwarePlqy2JIOX8MP0nz6Ia2pwmkTA=";
     };
   };
+  fish-speech = {
+    pname = "fish-speech";
+    version = "v1.4.3";
+    src = fetchFromGitHub {
+      owner = "fishaudio";
+      repo = "fish-speech";
+      rev = "v1.4.3";
+      hash = "sha256-5uzox/yVASKyAEmpy92BgscMzMWUm+cLw4rnxWFUqkY=";
+    };
+  };
   flaresolverr-21hsmw = {
     pname = "flaresolverr-21hsmw";
     version = "e7880c8a5de7914a6c7039b66a8b0ff143adee29";
@@ -472,6 +482,17 @@
       url = "http://www.ftpproxy.org/download/ftpproxy-1.2.3.tgz";
       hash = "sha256-36r+iOaKEA9DMHBufEW+eoiRlEu1+VsYaWvK957l1uU=";
     };
+  };
+  funasr = {
+    pname = "funasr";
+    version = "92586a4a90644073f309a024705370e84470620f";
+    src = fetchFromGitHub {
+      owner = "modelscope";
+      repo = "FunASR";
+      rev = "92586a4a90644073f309a024705370e84470620f";
+      hash = "sha256-BRlpJpB0TSneQjlLZ0NIbXSog4tTFO288uO73ImxknU=";
+    };
+    date = "2024-12-10";
   };
   glauth = {
     pname = "glauth";
@@ -593,6 +614,16 @@
       hash = "sha256-DPYHHIc6bH8X3tUcEd4xE0W/Q5BBBofdEtM9x3T+0vk=";
     };
   };
+  kaldiio = {
+    pname = "kaldiio";
+    version = "v2.18.0";
+    src = fetchFromGitHub {
+      owner = "nttcslab-sp";
+      repo = "kaldiio";
+      rev = "v2.18.0";
+      hash = "sha256-B7jkz7GK3emgVrAFTKV5+CS1BWKnxk608rHWRLCBX8o=";
+    };
+  };
   kata-containers = {
     pname = "kata-containers";
     version = "3.11.0";
@@ -651,6 +682,16 @@
       repo = "konnect";
       rev = "v0.34.0";
       hash = "sha256-y7SD+czD/jK/m0LbFq7qGjwJgBIXfTNrdsA3pzgD2xE=";
+    };
+  };
+  kui = {
+    pname = "kui";
+    version = "v1.8.1";
+    src = fetchFromGitHub {
+      owner = "abersheeran";
+      repo = "kui";
+      rev = "v1.8.1";
+      hash = "sha256-NgjOBIBfXTnsCq8eaD+EgaHkI7i+1NR1Te0e8au6NpU=";
     };
   };
   ldap-auth-proxy = {
@@ -809,6 +850,17 @@
       hash = "sha256-+jO/xhAjCTqPsyGDfHqgK4vIr3jJLDbRF1cy6ndRQj4=";
     };
   };
+  loralib = {
+    pname = "loralib";
+    version = "4c0333854cb905966f8cc4e9a74068c1e507c7b7";
+    src = fetchFromGitHub {
+      owner = "microsoft";
+      repo = "LoRA";
+      rev = "4c0333854cb905966f8cc4e9a74068c1e507c7b7";
+      hash = "sha256-zx2IXcQcLCuVytMhGDhYEZGAV7AuQ6QWlOPlueUZjzM=";
+    };
+    date = "2024-01-09";
+  };
   lyrica = {
     pname = "lyrica";
     version = "v0.12";
@@ -835,6 +887,16 @@
       repo = "gmessages";
       rev = "v0.5.2";
       hash = "sha256-3sx2XxzH/cj2zJIkV9QKKVadxSWwf4YZbdg3p4repqs=";
+    };
+  };
+  modelscope = {
+    pname = "modelscope";
+    version = "v1.21.0";
+    src = fetchFromGitHub {
+      owner = "modelscope";
+      repo = "modelscope";
+      rev = "v1.21.0";
+      hash = "sha256-2Ydi6ijsdfBZJBMHqn7/hs1vvaiKvcuoWHtuHbkc1Ok=";
     };
   };
   mtkclient = {
@@ -1041,6 +1103,17 @@
     };
     date = "2024-12-03";
   };
+  opencc-python-reimplemented = {
+    pname = "opencc-python-reimplemented";
+    version = "b85452e384a3650109809fe5fefacb2ae4fe89d2";
+    src = fetchFromGitHub {
+      owner = "yichen0831";
+      repo = "opencc-python";
+      rev = "b85452e384a3650109809fe5fefacb2ae4fe89d2";
+      hash = "sha256-47BW23SmZcSfjrEhUd7hIUAt451Ci2n8MEMaL0ngb04=";
+    };
+    date = "2023-02-11";
+  };
   openedai-speech = {
     pname = "openedai-speech";
     version = "0.18.2";
@@ -1078,6 +1151,16 @@
       repo = "oqs-provider";
       rev = "0.7.0";
       hash = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
+    };
+  };
+  ormsgpack = {
+    pname = "ormsgpack";
+    version = "1.7.0";
+    src = fetchFromGitHub {
+      owner = "aviramha";
+      repo = "ormsgpack";
+      rev = "1.7.0";
+      hash = "sha256-YVkG5XyJ3eBgAwvLwJaCcL+584NhGVFMZ4/XbQ9UZWc=";
     };
   };
   osdlyrics = {
@@ -1242,6 +1325,16 @@
       repo = "py-rcon";
       rev = "v1.3.0";
       hash = "sha256-IsbGSUXaayO8gfslfo2oIforjy5TW6xVdCDOXT2VmjQ=";
+    };
+  };
+  pytorch-wpe = {
+    pname = "pytorch-wpe";
+    version = "v0.0.1";
+    src = fetchFromGitHub {
+      owner = "nttcslab-sp";
+      repo = "dnn_wpe";
+      rev = "v0.0.1";
+      hash = "sha256-DcT0NnnbcSYYyVpH7JqAnpjOANS2INBYQLV9Qx3BwZw=";
     };
   };
   qemu-user-static-amd64 = {
@@ -1452,6 +1545,16 @@
       hash = "sha256-ZQ8orW7jEbPtOEvYYxdnTJGTwdXVZBEWjUMYR93vOCE=";
     };
   };
+  rootutils = {
+    pname = "rootutils";
+    version = "v1.0.7";
+    src = fetchFromGitHub {
+      owner = "ashleve";
+      repo = "rootutils";
+      rev = "v1.0.7";
+      hash = "sha256-MY6kYB3IhMvyLCVVC2kdpMvbwKY4XyTfq9cXxbqbnPI=";
+    };
+  };
   route-chain = {
     pname = "route-chain";
     version = "8922b56c70f92f29a9bbd72a4e8a13fd8b8c4197";
@@ -1510,6 +1613,16 @@
     src = fetchurl {
       url = "https://google.com/generate_204";
       hash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    };
+  };
+  silero-vad = {
+    pname = "silero-vad";
+    version = "v5.1.2";
+    src = fetchFromGitHub {
+      owner = "snakers4";
+      repo = "silero-vad";
+      rev = "v5.1.2";
+      hash = "sha256-XdETFa2nZyze3KtnGyPJXbRNHy0aFRBsKDzcWxaUYlo=";
     };
   };
   smartrent_py = {
@@ -1672,6 +1785,14 @@
       hash = "sha256-QqDKNGOnrtFK1p5JdoVLQr+PoZr9TvsVICvMxqSxdyA=";
     };
   };
+  torch-complex = {
+    pname = "torch-complex";
+    version = "0.4.4";
+    src = fetchurl {
+      url = "https://pypi.org/packages/source/t/torch_complex/torch_complex-0.4.4.tar.gz";
+      hash = "sha256-QVP9aySgutaJ5vGTv70A84KDsYkNgIvvaE3cbR9j/T8=";
+    };
+  };
   tqdm-loggable = {
     pname = "tqdm-loggable";
     version = "0cea2d244416abad69b463365465bc7620e88c39";
@@ -1783,6 +1904,16 @@
       repo = "vbmeta-disable-verification";
       rev = "v1.0";
       hash = "sha256-ml6RZkl2DT08sfJj9L1SGR6zNgRQ15ph0PPIPgxx7+M=";
+    };
+  };
+  vector-quantize-pytorch = {
+    pname = "vector-quantize-pytorch";
+    version = "1.20.11";
+    src = fetchFromGitHub {
+      owner = "lucidrains";
+      repo = "vector-quantize-pytorch";
+      rev = "1.20.11";
+      hash = "sha256-2Vi7q5N/xWsfu5KXk9rqbe0F40ufVjQyXkdPw/zPE4k=";
     };
   };
   vgpu-unlock-rs = {

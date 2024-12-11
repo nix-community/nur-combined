@@ -102,6 +102,9 @@
               inSubTree-pinnedNixpkgs = final: _prev: {
                 nur-xddxdd = self.legacyPackages.${final.system};
               };
+              inSubTree-pinnedNixpkgsWithCuda = final: _prev: {
+                nur-xddxdd = self.legacyPackagesWithCuda.${final.system};
+              };
             }
             // (builtins.listToAttrs (
               builtins.map (s: {
@@ -125,20 +128,42 @@
           };
         };
 
-        nixpkgs-options.pkgs = {
-          sourceInput = inputs.nixpkgs;
-          allowInsecurePredicate = _: true;
+        nixpkgs-options = {
+          pkgs = {
+            sourceInput = inputs.nixpkgs;
+            allowInsecurePredicate = _: true;
+          };
+          pkgsWithCuda = {
+            sourceInput = inputs.nixpkgs;
+            allowInsecurePredicate = _: true;
+            settings.enableCuda = true;
+          };
         };
 
         perSystem =
-          { pkgs, system, ... }:
+          {
+            pkgs,
+            pkgsWithCuda,
+            system,
+            ...
+          }:
           {
             packages = import ./pkgs null {
               inherit inputs pkgs;
               pkgs-24_05 = pkgsForSystem-24_05 system;
             };
+            packagesWithCuda = import ./pkgs null {
+              inherit inputs;
+              pkgs = pkgsWithCuda;
+              pkgs-24_05 = pkgsForSystem-24_05 system;
+            };
             legacyPackages = import ./pkgs "legacy" {
               inherit inputs pkgs;
+              pkgs-24_05 = pkgsForSystem-24_05 system;
+            };
+            legacyPackagesWithCuda = import ./pkgs "legacy" {
+              inherit inputs;
+              pkgs = pkgsWithCuda;
               pkgs-24_05 = pkgsForSystem-24_05 system;
             };
           };

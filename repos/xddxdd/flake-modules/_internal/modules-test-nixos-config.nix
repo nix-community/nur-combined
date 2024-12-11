@@ -5,12 +5,10 @@
   inputs,
   ...
 }:
-{
-  imports = [ ./ci-outputs.nix ];
-
-  flake = {
-    nixosConfigurations = lib.genAttrs config.systems (
-      system:
+let
+  mkNixOSConf =
+    name: system: packagesAttr:
+    lib.nameValuePair name (
       inputs.nixpkgs.lib.nixosSystem {
         inherit system;
         modules = (builtins.attrValues self.nixosModules) ++ [
@@ -27,10 +25,23 @@
             # Add all CI packages
             environment.etc = lib.mapAttrs' (
               _n: v: lib.nameValuePair "ci-packages/${v.name}" { source = v; }
-            ) self.ciPackages.${system};
+            ) packagesAttr.${system};
           }
         ];
       }
+    );
+in
+{
+  imports = [ ./ci-outputs.nix ];
+
+  flake = {
+    nixosConfigurations = builtins.listToAttrs (
+      lib.flatten (
+        builtins.map (system: [
+          (mkNixOSConf "${system}" system self.ciPackages)
+          (mkNixOSConf "${system}-cuda" system self.ciPackagesWithCuda)
+        ]) config.systems
+      )
     );
   };
 }

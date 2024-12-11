@@ -36,6 +36,11 @@ let
         description = "Predicate to check if insecure package is allowed";
         default = null;
       };
+      settings = lib.mkOption {
+        type = lib.types.attrs;
+        description = "Extra attributes to pass to nixpkgs.config";
+        default = { };
+      };
     };
   };
 in
@@ -57,9 +62,10 @@ in
               {
                 inherit (v) allowUnfree permittedInsecurePackages;
               }
-              // lib.optionalAttrs (v.allowInsecurePredicate != null) {
+              // (lib.optionalAttrs (v.allowInsecurePredicate != null) {
                 inherit (v) allowInsecurePredicate;
-              };
+              })
+              // v.settings;
             inherit (v) overlays;
           }
         )

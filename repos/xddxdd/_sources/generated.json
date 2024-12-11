@@ -857,6 +857,27 @@
         },
         "version": "3.1.0"
     },
+    "fish-speech": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "fish-speech",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "fishaudio",
+            "repo": "fish-speech",
+            "rev": "v1.4.3",
+            "sha256": "sha256-5uzox/yVASKyAEmpy92BgscMzMWUm+cLw4rnxWFUqkY=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.4.3"
+    },
     "flaresolverr-21hsmw": {
         "cargoLocks": null,
         "date": "2024-11-01",
@@ -913,6 +934,27 @@
             "url": "http://www.ftpproxy.org/download/ftpproxy-1.2.3.tgz"
         },
         "version": "1.2.3"
+    },
+    "funasr": {
+        "cargoLocks": null,
+        "date": "2024-12-10",
+        "extract": null,
+        "name": "funasr",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "modelscope",
+            "repo": "FunASR",
+            "rev": "92586a4a90644073f309a024705370e84470620f",
+            "sha256": "sha256-BRlpJpB0TSneQjlLZ0NIbXSog4tTFO288uO73ImxknU=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "92586a4a90644073f309a024705370e84470620f"
     },
     "glauth": {
         "cargoLocks": null,
@@ -1144,6 +1186,27 @@
         },
         "version": "v3.4.1"
     },
+    "kaldiio": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "kaldiio",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "nttcslab-sp",
+            "repo": "kaldiio",
+            "rev": "v2.18.0",
+            "sha256": "sha256-B7jkz7GK3emgVrAFTKV5+CS1BWKnxk608rHWRLCBX8o=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.18.0"
+    },
     "kata-containers": {
         "cargoLocks": null,
         "date": null,
@@ -1263,6 +1326,27 @@
             "type": "github"
         },
         "version": "v0.34.0"
+    },
+    "kui": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "kui",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "abersheeran",
+            "repo": "kui",
+            "rev": "v1.8.1",
+            "sha256": "sha256-NgjOBIBfXTnsCq8eaD+EgaHkI7i+1NR1Te0e8au6NpU=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.8.1"
     },
     "ldap-auth-proxy": {
         "cargoLocks": null,
@@ -1569,6 +1653,27 @@
         },
         "version": "b4293"
     },
+    "loralib": {
+        "cargoLocks": null,
+        "date": "2024-01-09",
+        "extract": null,
+        "name": "loralib",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "microsoft",
+            "repo": "LoRA",
+            "rev": "4c0333854cb905966f8cc4e9a74068c1e507c7b7",
+            "sha256": "sha256-zx2IXcQcLCuVytMhGDhYEZGAV7AuQ6QWlOPlueUZjzM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "4c0333854cb905966f8cc4e9a74068c1e507c7b7"
+    },
     "lyrica": {
         "cargoLocks": null,
         "date": null,
@@ -1625,6 +1730,27 @@
             "type": "github"
         },
         "version": "v0.5.2"
+    },
+    "modelscope": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "modelscope",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "modelscope",
+            "repo": "modelscope",
+            "rev": "v1.21.0",
+            "sha256": "sha256-2Ydi6ijsdfBZJBMHqn7/hs1vvaiKvcuoWHtuHbkc1Ok=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.21.0"
     },
     "mtkclient": {
         "cargoLocks": null,
@@ -2022,6 +2148,27 @@
         },
         "version": "10f613cf333b07253813c0c35d6cd8ebbab7cb87"
     },
+    "opencc-python-reimplemented": {
+        "cargoLocks": null,
+        "date": "2023-02-11",
+        "extract": null,
+        "name": "opencc-python-reimplemented",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "yichen0831",
+            "repo": "opencc-python",
+            "rev": "b85452e384a3650109809fe5fefacb2ae4fe89d2",
+            "sha256": "sha256-47BW23SmZcSfjrEhUd7hIUAt451Ci2n8MEMaL0ngb04=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "b85452e384a3650109809fe5fefacb2ae4fe89d2"
+    },
     "openedai-speech": {
         "cargoLocks": null,
         "date": null,
@@ -2099,6 +2246,27 @@
             "type": "github"
         },
         "version": "0.7.0"
+    },
+    "ormsgpack": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "ormsgpack",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "aviramha",
+            "repo": "ormsgpack",
+            "rev": "1.7.0",
+            "sha256": "sha256-YVkG5XyJ3eBgAwvLwJaCcL+584NhGVFMZ4/XbQ9UZWc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "1.7.0"
     },
     "osdlyrics": {
         "cargoLocks": null,
@@ -2432,6 +2600,27 @@
             "type": "github"
         },
         "version": "v1.3.0"
+    },
+    "pytorch-wpe": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "pytorch-wpe",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "nttcslab-sp",
+            "repo": "dnn_wpe",
+            "rev": "v0.0.1",
+            "sha256": "sha256-DcT0NnnbcSYYyVpH7JqAnpjOANS2INBYQLV9Qx3BwZw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.0.1"
     },
     "qemu-user-static-amd64": {
         "cargoLocks": null,
@@ -2835,6 +3024,27 @@
         },
         "version": "20240909"
     },
+    "rootutils": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "rootutils",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ashleve",
+            "repo": "rootutils",
+            "rev": "v1.0.7",
+            "sha256": "sha256-MY6kYB3IhMvyLCVVC2kdpMvbwKY4XyTfq9cXxbqbnPI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.0.7"
+    },
     "route-chain": {
         "cargoLocks": null,
         "date": "2023-09-09",
@@ -2954,6 +3164,27 @@
             "url": "https://google.com/generate_204"
         },
         "version": "v1.0"
+    },
+    "silero-vad": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "silero-vad",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "snakers4",
+            "repo": "silero-vad",
+            "rev": "v5.1.2",
+            "sha256": "sha256-XdETFa2nZyze3KtnGyPJXbRNHy0aFRBsKDzcWxaUYlo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v5.1.2"
     },
     "smartrent_py": {
         "cargoLocks": null,
@@ -3261,6 +3492,21 @@
         },
         "version": "4.1.0"
     },
+    "torch-complex": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "torch-complex",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-QVP9aySgutaJ5vGTv70A84KDsYkNgIvvaE3cbR9j/T8=",
+            "type": "url",
+            "url": "https://pypi.org/packages/source/t/torch_complex/torch_complex-0.4.4.tar.gz"
+        },
+        "version": "0.4.4"
+    },
     "tqdm-loggable": {
         "cargoLocks": null,
         "date": "2024-10-10",
@@ -3482,6 +3728,27 @@
             "type": "github"
         },
         "version": "v1.0"
+    },
+    "vector-quantize-pytorch": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "vector-quantize-pytorch",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "lucidrains",
+            "repo": "vector-quantize-pytorch",
+            "rev": "1.20.11",
+            "sha256": "sha256-2Vi7q5N/xWsfu5KXk9rqbe0F40ufVjQyXkdPw/zPE4k=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "1.20.11"
     },
     "vgpu-unlock-rs": {
         "cargoLocks": null,
