@@ -100,9 +100,6 @@ stdenv.mkDerivation rec {
         install -Dm644 \
             ../icons/hicolor/''${res}x''${res}/apps/ppsspp.png \
             $out/share/icons/hicolor/''${res}x''${res}/apps/ppsspp.png
-        install -Dm644 \
-            ../icons/hicolor/''${res}x''${res}/apps/ppsspp.png \
-            $out/share/icons/hicolor/''${res}x''${res}/apps/PPSSPPQt.png
     done
     # Wrapping QT
     wrapQtApp $out/share/ppsspp/PPSSPPQt
@@ -129,8 +126,7 @@ stdenv.mkDerivation rec {
       not run those.
     '';
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.AndersonTorres ];
     mainProgram = "ppsspp";
-    platforms = lib.platforms.linux;
+    platforms = [ "x86_64-linux" ];
   };
 }
