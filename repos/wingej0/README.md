@@ -1,37 +1,87 @@
-# nur-packages-template
-
-**A template for [NUR](https://github.com/nix-community/NUR) repositories**
-
-## Setup
-
-1. Click on [Use this template](https://github.com/nix-community/nur-packages-template/generate) to start a repo based on this template. (Do _not_ fork it.)
-2. Add your packages to the [pkgs](./pkgs) directory and to
-   [default.nix](./default.nix)
-   * Remember to mark the broken packages as `broken = true;` in the `meta`
-     attribute, or travis (and consequently caching) will fail!
-   * Library functions, modules and overlays go in the respective directories
-3. Choose your CI: Depending on your preference you can use github actions (recommended) or [Travis ci](https://travis-ci.com).
-   - Github actions: Change your NUR repo name and optionally add a cachix name in [.github/workflows/build.yml](./.github/workflows/build.yml) and change the cron timer
-     to a random value as described in the file
-   - Travis ci: Change your NUR repo name and optionally your cachix repo name in 
-   [.travis.yml](./.travis.yml). Than enable travis in your repo. You can add a cron job in the repository settings on travis to keep your cachix cache fresh
-5. Change your travis and cachix names on the README template section and delete
-   the rest
-6. [Add yourself to NUR](https://github.com/nix-community/NUR#how-to-add-your-own-repository)
-
-## README template
-
-# nur-packages
+# wingej0's NUR Repository
 
 **My personal [NUR](https://github.com/nix-community/NUR) repository**
 
-<!-- Remove this if you don't use github actions -->
-![Build and populate cache](https://github.com/<YOUR-GITHUB-USER>/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
+## NordVPN
 
-<!--
-Uncomment this if you use travis:
+_Much of the work in this repository was done by [LuisChDev](https://github.com/LuisChDev/nur-packages) and a huge assist with declaring dependencies from my friend and fellow Qtile enthusiast, [Gurjaka](https://github.com/Gurjaka)_
 
-[![Build Status](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages.svg?branch=master)](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages)
--->
-[![Cachix Cache](https://img.shields.io/badge/cachix-<YOUR_CACHIX_CACHE_NAME>-blue.svg)](https://<YOUR_CACHIX_CACHE_NAME>.cachix.org)
+To install NordVPN, you will need to import the NUR repository into your flake's inputs.
 
+```nix
+{
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    # Nix User Repository
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  ];
+}
+```
+
+Then create a module for the NordVPN specific code.  I call mine nordvpn.nix, but it could also be in your configuration.nix.  The module uses an overlay to install the package and module.
+
+```nix
+{ config, pkgs, inputs, ... }:
+{
+  imports = [
+    inputs.nur.modules.nixos.default
+    inputs.nur.legacyPackages.x86_64-linux.repos.wingej0.modules.nordvpn
+  ];
+
+  # Install NordVPN
+  nixpkgs.overlays = [
+    (final: prev: {
+      nordvpn = pkgs.nur.repos.wingej0.nordvpn;
+    })
+  ];
+
+  # Enable the service
+  services.nordvpn.enable = true;
+}
+```
+
+Finally, add the following to your network configuration to open the correct ports in the firewall.
+
+```nix
+{
+  networking.wireguard.enable = true;
+
+  # Open ports in the firewall.
+  networking.firewall.checkReversePath = false;
+  networking.firewall.allowedTCPPorts = [ 443 ];
+  networking.firewall.allowedUDPPorts = [ 1194 ];
+}
+```
+
+## Authenticating with the Daemon
+
+Follow the instructions from the [Arch Wiki](https://wiki.archlinux.org/title/NordVPN) to login:
+
+```bash
+nordvpn login
+```
+
+Logs you in to your NordVPN Account.
+
+>**Note:** Since April 2022, NordVPN uses web-based login, which does not return to terminal afterwards. To work around, copy the link after log in (right click on "continue" from your browser after login), which should start with "nordvpn://", and type the following in terminal (replace nordvpnlink with actual link, and keep the double quote):
+>
+>```bash
+>nordvpn login --callback "nordvpnlink"
+>
+>```
+>See comments from [nordvpn-bin AUR](https://aur.archlinux.org/packages/nordvpn-bin)
+>
+>Alternatively login via an access token generated from your account dashboard as below [NordVPN Dashboard](https://my.nordaccount.com/dashboard/nordvpn/)
+>```bash
+>nordvpn login --token "tokencode"
+>```
+
+```bash
+nordvpn logout
+```
+
+Logs you out from your NordVPN Account.
