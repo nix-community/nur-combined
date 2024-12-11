@@ -30,6 +30,7 @@
   waybar-Consolatis-fork = pkgs.callPackage ./pkgs/waybar-Consolatis-fork { };
   shotcut = pkgs.callPackage ./pkgs/shotcut { };
   ppsspp = pkgs.callPackage ./pkgs/ppsspp { };
+  vita3k = pkgs.callPackage ./pkgs/vita3k { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
   # ...
