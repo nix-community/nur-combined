@@ -16,14 +16,14 @@ buildLuarocksPackage rec {
   knownRockspec =
     (fetchurl {
       url = "mirror://luarocks/prompt-style-${version}-1.rockspec";
-      sha256 = "sha256-+pDwKRV6+kN5m00Vc6b9Ijir+P2SpYCR/NEjQr3e8kY=";
+      sha256 = "sha256-QObeNZlIz50XUJWvuswRHQ0m66brAfLwFf8kNJW+bK4=";
     }).outPath;
   src = fetchFromGitHub {
     owner = "wakatime";
     repo = "prompt-style.lua";
     rev = version;
     fetchSubmodules = false;
-    sha256 = "sha256-+RbqSh1fKG/vwyG/Q+7/X5fguElTrR75C8WxbdugbvU=";
+    sha256 = "sha256-s8OL5AGguQNhnpuOXx21UWfGlhTn2GgkoxNyTR32Bek=";
   };
 
   postFixup =
