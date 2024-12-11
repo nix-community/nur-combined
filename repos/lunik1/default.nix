@@ -13,6 +13,7 @@ with pkgs;
   ls-colors = callPackage ./pkgs/ls-colors { };
   ssim-downscaler = callPackage ./pkgs/mpv-shaders/ssim-downscaler { };
   ssim-super-res = callPackage ./pkgs/mpv-shaders/ssim-super-res { };
+  trash-d = callPackage ./pkgs/trash-d { };
   xcompose = callPackage ./pkgs/xcompose { };
   myosevka = lib.recurseIntoAttrs (callPackage ./pkgs/myosevka/default.nix { });
 }
