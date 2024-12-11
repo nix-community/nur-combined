@@ -13,6 +13,9 @@ jobs:
         system:
           - x86_64-linux
           # - aarch64-linux
+        ci-command:
+          - ci
+          - ci-cuda
     runs-on: ubuntu-latest
     env:
       GIT_SSL_NO_VERIFY: 'true'
@@ -81,7 +84,7 @@ jobs:
       - name: Build nix packages
         run: |
           echo "::group::Preparing"
-          env TMPDIR=/nix/tmpdir nix run .#ci -- ${{ matrix.system }}
+          env TMPDIR=/nix/tmpdir nix run .#${{ matrix.ci-command }} -- ${{ matrix.system }}
 
       - name: Commit back to repository
         uses: stefanzweifel/git-auto-commit-action@v5
