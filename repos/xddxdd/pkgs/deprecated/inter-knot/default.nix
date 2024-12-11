@@ -81,5 +81,8 @@ stdenv.mkDerivation {
     homepage = "https://inot.top";
     license = lib.licenses.mit;
     platforms = [ "x86_64-linux" ];
+    knownVulnerabilities = [
+      "Service has ceased operation"
+    ];
   };
 }
