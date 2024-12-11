@@ -169,6 +169,10 @@ in {
         wine64Full = pkgs.wine64Packages.full;
     });
     
+    fetchurlRhys-T = pkgs.lib.mirrorFunctionArgs pkgs.fetchurl (args: (pkgs.fetchurl args).overrideAttrs (old: {
+        mirrorsFile = old.mirrorsFile.overrideAttrs (old: self.myLib.mirrors);
+    }));
+    
     # _ciOnly.dev = pkgs.lib.optionalAttrs (pkgs.hostPlatform.system == "x86_64-darwin") (pkgs.lib.recurseIntoAttrs {
     #     checkpoint = pkgs.lib.recurseIntoAttrs (pkgs.lib.mapAttrs (k: pkgs.checkpointBuildTools.prepareCheckpointBuild) {
     #         inherit (self)
