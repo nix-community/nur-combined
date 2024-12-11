@@ -16,7 +16,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "buffybox";
-  version = "3.2.0-unstable-2024-11-10";
+  version = "3.2.0-unstable-2024-12-09";
 
   # src = fetchFromGitea {
   #   domain = "git.uninsane.org";
@@ -32,8 +32,8 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "postmarketOS";
     repo = "buffybox";
     fetchSubmodules = true; # to use its vendored lvgl
-    rev = "07e324c17564cb9aab573259a8e0824a6806a751";
-    hash = "sha256-JY9WqtRjDsQf1UVFnM6oTwyAuhlJvrhcSNJdEZ0zIus=";
+    rev = "32f4837e836fbb0b820d68c74c3278c925369b04";
+    hash = "sha256-d9fa/Zqbm/+WMRmO0hBW83PCTDgaVOAxyRuSTItr9Xs=";
   };
 
   depsBuildBuild = [

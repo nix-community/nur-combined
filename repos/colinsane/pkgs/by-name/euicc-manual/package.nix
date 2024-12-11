@@ -13,13 +13,13 @@ let
   self = stdenv.mkDerivation
 {
   pname = "euicc-manual";
-  version = "0-unstable-2024-12-09";
+  version = "0-unstable-2024-12-10";
 
   # XXX: their gitea downloads are broken, so use fetchgit
   src = fetchgit {
     url = "https://gitea.osmocom.org/sim-card/euicc-manual";
-    rev = "ab97957e2004ffb64a50d6175e61121b9d4138ce";
-    hash = "sha256-u2L/+kbaV5F9ef84Za+KF/hgJYlJ5R07i2eVb9FDUyI=";
+    rev = "c281cc0c774cc11b5cc279a8b344ae16b57a865a";
+    hash = "sha256-r7y8DPEwL+0tKnbPv9O1ErVI79/kszQnaEP+/45wkCg=";
   };
 
   nativeBuildInputs = [
