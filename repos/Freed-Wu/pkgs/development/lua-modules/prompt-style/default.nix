@@ -12,18 +12,18 @@
 with luaPackages;
 buildLuarocksPackage rec {
   pname = "prompt-style";
-  version = "0.0.2";
+  version = "0.0.3";
   knownRockspec =
     (fetchurl {
       url = "mirror://luarocks/prompt-style-${version}-1.rockspec";
-      sha256 = "sha256-wImmMAYu2rXLVcx9bdu7qDqiANC3a277pAdz1Vewhzw=";
+      sha256 = "sha256-+pDwKRV6+kN5m00Vc6b9Ijir+P2SpYCR/NEjQr3e8kY=";
     }).outPath;
   src = fetchFromGitHub {
     owner = "wakatime";
     repo = "prompt-style.lua";
     rev = version;
     fetchSubmodules = false;
-    sha256 = "sha256-u02tg1t8762xGKhl4rB9O+RiNxU3zGfq+5mi66s06N0=";
+    sha256 = "sha256-+RbqSh1fKG/vwyG/Q+7/X5fguElTrR75C8WxbdugbvU=";
   };
 
   postFixup =
