@@ -10,6 +10,7 @@ with pkgs; rec {
   ttf-wps-fonts = pkgs.callPackage ./pkgs/ttf-wps-fonts { };
   wldbg = pkgs.callPackage ./pkgs/wldbg { };
   wlhax = pkgs.callPackage ./pkgs/wlhax { };
+  #wayland-debug = pkgs.callPackage ./pkgs/wayland-debug { };
   ukui-interface = pkgs.libsForQt5.callPackage ./pkgs/ukui-interface { };
   libkysdk-base = pkgs.libsForQt5.callPackage ./pkgs/libkysdk-base { };
   #libkysdk-applications = pkgs.libsForQt5.callPackage ./pkgs/libkysdk-applications { inherit libkysdk-base; };
