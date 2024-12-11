@@ -47,6 +47,7 @@ let
     streampager = { };
     tumelune = { };
     vanta-agent = { };
+    wit-deps = { };
   };
 
   development = importSub ./development {
