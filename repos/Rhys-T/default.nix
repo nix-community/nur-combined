@@ -172,6 +172,7 @@ in {
     fetchurlRhys-T = pkgs.lib.mirrorFunctionArgs pkgs.fetchurl (args: (pkgs.fetchurl args).overrideAttrs (old: {
         mirrorsFile = old.mirrorsFile.overrideAttrs (old: self.myLib.mirrors);
     }));
+    fetchzipRhys-T = pkgs.fetchzip.override { fetchurl = self.fetchurlRhys-T; };
     
     # _ciOnly.dev = pkgs.lib.optionalAttrs (pkgs.hostPlatform.system == "x86_64-darwin") (pkgs.lib.recurseIntoAttrs {
     #     checkpoint = pkgs.lib.recurseIntoAttrs (pkgs.lib.mapAttrs (k: pkgs.checkpointBuildTools.prepareCheckpointBuild) {
