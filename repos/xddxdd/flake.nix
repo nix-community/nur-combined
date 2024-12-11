@@ -25,7 +25,12 @@
   outputs =
     { self, flake-parts, ... }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } (
-      { flake-parts-lib, config, ... }:
+      {
+        flake-parts-lib,
+        lib,
+        config,
+        ...
+      }:
       let
         inherit (flake-parts-lib) importApply;
         flakeModules = {
@@ -85,10 +90,10 @@
                 // rec {
                   # Integrate to nixpkgs python3Packages
                   python = prev.python.override {
-                    packageOverrides = _final: _prev: _packages.python3Packages.__unwrapped;
+                    packageOverrides = _final: _prev: _packages.python3Packages;
                   };
                   python3 = prev.python3.override {
-                    packageOverrides = _final: _prev: _packages.python3Packages.__unwrapped;
+                    packageOverrides = _final: _prev: _packages.python3Packages;
                   };
                   python3Packages = python3.pkgs;
                 };
@@ -107,10 +112,18 @@
               };
             }
             // (builtins.listToAttrs (
-              builtins.map (s: {
-                name = "pinnedNixpkgs-${s}";
-                value = _final: _prev: self.legacyPackages.${s};
-              }) systems
+              lib.flatten (
+                builtins.map (s: [
+                  {
+                    name = "pinnedNixpkgs-${s}";
+                    value = _final: _prev: self.legacyPackages.${s};
+                  }
+                  {
+                    name = "pinnedNixpkgsWithCuda-${s}";
+                    value = _final: _prev: self.legacyPackagesWithCuda.${s};
+                  }
+                ]) systems
+              )
             ));
 
           inherit flakeModules;

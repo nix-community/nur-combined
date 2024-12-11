@@ -61,5 +61,4 @@ else
   )
   // {
     recurseForDerivations = true;
-    __unwrapped = packages;
   }
