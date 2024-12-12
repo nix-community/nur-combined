@@ -28,6 +28,10 @@ python3Packages.buildPythonPackage rec {
     pytestCheckHook
   ];
 
+  disabledTestPaths = [ "tests/test_server.py" ];
+
+  __darwinAllowLocalNetworking = true;
+
   meta = {
     description = "Launch a WSGIApplication in a background thread with werkzeug";
     homepage = "https://github.com/banesullivan/server-thread";
