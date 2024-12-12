@@ -14,9 +14,8 @@
         http = {
           servers = {
             srv0 = {
-              routes =
-                [
-                ];
+              routes = [
+              ];
               tls_connection_policies = [
                 {
                   match = {
@@ -25,6 +24,7 @@
                   certificate_selection = {
                     any_tag = [ "cert0" ];
                   };
+                  protocol_min = "tls1.3";
                 }
               ];
             };

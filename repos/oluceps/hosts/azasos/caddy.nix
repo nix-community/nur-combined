@@ -25,6 +25,7 @@
                   certificate_selection = {
                     any_tag = [ "cert0" ];
                   };
+                  protocol_min = "tls1.3";
                 }
               ];
             };
