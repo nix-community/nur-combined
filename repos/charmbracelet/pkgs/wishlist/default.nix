@@ -9,37 +9,37 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "1hfakkmbgmbab1ba2pxvmrpvkqks21y1mwwa0m8b5vynkywwwpm6";
-    x86_64-linux = "1p3v04rrpjapykx8zjs77ajyl3x0xgm99rk6pk00q6m0xqvzdacx";
-    armv6l-linux = "1lkk50v28al80s60vdh044bp3i6glj2x8iyiwpdb17mrd6ibiim9";
-    armv7l-linux = "06yn3v8jjgvrynws6l6a84m0xly8w0cfs17h07rq5y1r98i469bx";
-    aarch64-linux = "0f72m380zmzdlp24pqdwvgr5c1mz4yzi4cj6nmc9rixxmy4knd3a";
-    x86_64-darwin = "0ql5amw67l3rq4h1jglkcp71lsvvzxzkl26br61qiaw7lmpffizi";
-    aarch64-darwin = "1yyc63kd43nvg6fwqkac41q9mv7qgdwws187hdsxnjsyz498z700";
+    i686-linux = "1ykz1rf2q3qr6lg3iafwa6rvycdlnardlcx4m6wr7m15w4jalb4z";
+    x86_64-linux = "0phqbfb8iyz4vl5mi9zivdxz83wbg56x3bafd33p7s6q3x100mdr";
+    armv6l-linux = "0fana4sr298sg22yascql2c6zlkmd11yr1xxig8kr729sgvsm0is";
+    armv7l-linux = "023p3vcsdd70damyxpvylzv41ya8inckd68p4c6sjq8ra4idpf4l";
+    aarch64-linux = "1sbip688g0a1lz5hpw4y72za3h4m9nj762g7gwwady1vvmyy1q4n";
+    x86_64-darwin = "0m9aymlmygjm3pqq46vla1giyb0m2zfb0v6svisdi2267pqdvkx3";
+    aarch64-darwin = "0gld4xfkffqvly8m2z1k9h0rw09izypylkkb64sndwkv848d6gba";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/charmbracelet/wishlist/releases/download/v0.15.0/wishlist_0.15.0_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/charmbracelet/wishlist/releases/download/v0.15.0/wishlist_0.15.0_Linux_x86_64.tar.gz";
-    armv6l-linux = "https://github.com/charmbracelet/wishlist/releases/download/v0.15.0/wishlist_0.15.0_Linux_armv6.tar.gz";
-    armv7l-linux = "https://github.com/charmbracelet/wishlist/releases/download/v0.15.0/wishlist_0.15.0_Linux_armv7.tar.gz";
-    aarch64-linux = "https://github.com/charmbracelet/wishlist/releases/download/v0.15.0/wishlist_0.15.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/charmbracelet/wishlist/releases/download/v0.15.0/wishlist_0.15.0_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/charmbracelet/wishlist/releases/download/v0.15.0/wishlist_0.15.0_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/charmbracelet/wishlist/releases/download/v0.15.1/wishlist_0.15.1_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/charmbracelet/wishlist/releases/download/v0.15.1/wishlist_0.15.1_Linux_x86_64.tar.gz";
+    armv6l-linux = "https://github.com/charmbracelet/wishlist/releases/download/v0.15.1/wishlist_0.15.1_Linux_armv6.tar.gz";
+    armv7l-linux = "https://github.com/charmbracelet/wishlist/releases/download/v0.15.1/wishlist_0.15.1_Linux_armv7.tar.gz";
+    aarch64-linux = "https://github.com/charmbracelet/wishlist/releases/download/v0.15.1/wishlist_0.15.1_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/charmbracelet/wishlist/releases/download/v0.15.1/wishlist_0.15.1_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/charmbracelet/wishlist/releases/download/v0.15.1/wishlist_0.15.1_Darwin_arm64.tar.gz";
   };
   sourceRootMap = {
-    i686-linux = "wishlist_0.15.0_Linux_i386";
-    x86_64-linux = "wishlist_0.15.0_Linux_x86_64";
-    armv6l-linux = "wishlist_0.15.0_Linux_armv6";
-    armv7l-linux = "wishlist_0.15.0_Linux_armv7";
-    aarch64-linux = "wishlist_0.15.0_Linux_arm64";
-    x86_64-darwin = "wishlist_0.15.0_Darwin_x86_64";
-    aarch64-darwin = "wishlist_0.15.0_Darwin_arm64";
+    i686-linux = "wishlist_0.15.1_Linux_i386";
+    x86_64-linux = "wishlist_0.15.1_Linux_x86_64";
+    armv6l-linux = "wishlist_0.15.1_Linux_armv6";
+    armv7l-linux = "wishlist_0.15.1_Linux_armv7";
+    aarch64-linux = "wishlist_0.15.1_Linux_arm64";
+    x86_64-darwin = "wishlist_0.15.1_Darwin_x86_64";
+    aarch64-darwin = "wishlist_0.15.1_Darwin_arm64";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "wishlist";
-  version = "0.15.0";
+  version = "0.15.1";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
