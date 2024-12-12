@@ -48,5 +48,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://developmentseed.org/cogeo-mosaic/";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
+    inherit (python3Packages.rio-tiler.meta) broken;
   };
 }

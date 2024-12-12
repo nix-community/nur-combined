@@ -24,6 +24,7 @@ let
     homepage = "https://developmentseed.org/titiler/";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
+    inherit (python3Packages.rio-tiler.meta) broken;
   };
 
   titiler-core = python3Packages.buildPythonPackage {

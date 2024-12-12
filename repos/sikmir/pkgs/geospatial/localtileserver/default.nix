@@ -56,5 +56,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://localtileserver.banesullivan.com/";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
+    inherit (python3Packages.rio-tiler.meta) broken;
   };
 }
