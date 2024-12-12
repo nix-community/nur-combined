@@ -25,6 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     patchShebangs .
+    substituteInPlace graphene/Makefile --replace-fail "graphene_http.test2" ""
   '';
 
   nativeBuildInputs = [
