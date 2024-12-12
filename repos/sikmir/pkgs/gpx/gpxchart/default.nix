@@ -11,7 +11,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "tkrajina";
     repo = "gpxchart";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-3HDj4k5mSUrJOxN2DrsHjMtX8PylxHExJeMc5CuaPP8=";
   };
 

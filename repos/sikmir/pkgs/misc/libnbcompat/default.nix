@@ -12,7 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "archiecobbs";
     repo = "libnbcompat";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-DyBLEp5dNYSQgTzdQkGfLdCtX618EbnVy5FmL75BMdU=";
   };
 

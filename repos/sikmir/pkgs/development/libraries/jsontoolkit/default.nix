@@ -12,7 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "sourcemeta";
     repo = "jsontoolkit";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-2UzALl9+DzbLU3U2eHbOGzGDRLlcbe8omEjvzpLe8CM=";
   };
 

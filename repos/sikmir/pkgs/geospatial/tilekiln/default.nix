@@ -14,7 +14,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "pnorman";
     repo = "tilekiln";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-mKuANJjKIo2LIlT/w9dbGDa+jqofK5Tg36pV2t3DIvw=";
   };
 

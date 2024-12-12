@@ -11,7 +11,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "sloria";
     repo = "tinynetrc";
-    rev = version;
+    tag = version;
     hash = "sha256-iy0sa1oqJeZxSfXISI7Ypbml8+SGHhRZkznTdbI5yAo=";
   };
 

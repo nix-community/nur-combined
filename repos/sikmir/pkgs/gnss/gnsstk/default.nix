@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "SGL-UT";
     repo = "gnsstk";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-7dD9GDW/1j2f0Tzetr6Fmbnkl1WDnX82eiaZpO8ngd8=";
   };
 

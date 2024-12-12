@@ -11,7 +11,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "mochi-mqtt";
     repo = "server";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-oQDxagj4+am6DNfdZB1iHwlfFW0Q/b4Sq8YiP5sVqWM=";
   };
 

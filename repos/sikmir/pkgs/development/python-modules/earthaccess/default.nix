@@ -15,7 +15,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "nsidc";
     repo = "earthaccess";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-N4pRODkCPUNW3EPTLgtSscHJv4B/YN37VNOhzCC33+M=";
   };
 

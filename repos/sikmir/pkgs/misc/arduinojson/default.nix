@@ -12,7 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "bblanchon";
     repo = "ArduinoJson";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-oRqQMc4FpX7bxVDfZhO6ZvwrWEAlY2T4tejIRfklTrs=";
   };
 

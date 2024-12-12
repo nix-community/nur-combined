@@ -12,7 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "SimonCahill";
     repo = "isotp-c";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-bfZXPQQjNIH2wa16RB4/8u9roocEIJhFKQaYMfY7Y4c=";
   };
 

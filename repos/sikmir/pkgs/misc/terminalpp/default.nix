@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "KazDragon";
     repo = "terminalpp";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-aD80uiZKyYRD2C7Oi+ESode6YZ0/KQUSor3u6nb5OD8=";
   };
 

@@ -13,7 +13,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "jorgelbg";
     repo = "pinentry-touchid";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-XMcJjVVAp5drLMVTShITl0v6uVazrG1/23dVerrsoj4=";
   };
 

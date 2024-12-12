@@ -14,7 +14,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "lmikolajczak";
     repo = "wms-tiles-downloader";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-b1QaquI0s8D9MeXbUNVZpGy3u9eCjakP5BQsyoMne1A=";
   };
 

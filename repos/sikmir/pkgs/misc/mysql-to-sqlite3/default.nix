@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "techouse";
     repo = "mysql-to-sqlite3";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-nS+BWVemB1XYe37+Cl8q8ZhXBcZDBw5ApOapns7hXKg=";
   };
 

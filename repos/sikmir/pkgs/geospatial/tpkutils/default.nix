@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "consbio";
     repo = "tpkutils";
-    rev = version;
+    tag = version;
     hash = "sha256-iKM+tEEOtSkwDdkBN+n35q3D2IBi7a/bnY/fSlGDowU=";
   };
 

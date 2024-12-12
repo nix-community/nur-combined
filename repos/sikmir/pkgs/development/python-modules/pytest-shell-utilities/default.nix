@@ -14,7 +14,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "saltstack";
     repo = "pytest-shell-utilities";
-    rev = version;
+    tag = version;
     hash = "sha256-AzIspaE6eHaG7YcRtuXtYsjwqF2rvO2YRxdiFlWsHuw=";
   };
 

@@ -14,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "benman64";
     repo = "subprocess";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Tgmihv7SJfYpOYHvtuE8rgFzUHyl4bJh9W5CSqotVMg=";
   };
 

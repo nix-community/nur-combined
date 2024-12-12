@@ -25,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "DavidHamburg";
     repo = "mqtt-to-influxdb";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-rTMI9gqjtrmtT9SoYcHHq19Jch1dH7/tmyqz5F4f9Ao=";
     fetchSubmodules = true;
   };

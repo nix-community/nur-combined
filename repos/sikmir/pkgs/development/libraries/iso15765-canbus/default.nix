@@ -11,7 +11,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "devcoons";
     repo = "iso15765-canbus";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-KdVw8JhJsqa+n3ELnTojHV/37Wfb1A2a7fSbBsTkJgI=";
   };
 

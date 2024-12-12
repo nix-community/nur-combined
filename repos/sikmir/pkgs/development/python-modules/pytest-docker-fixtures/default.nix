@@ -11,7 +11,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "guillotinaweb";
     repo = "pytest-docker-fixtures";
-    rev = version;
+    tag = version;
     hash = "sha256-9MR2gz69/oGNjuZNGTSe58j8ykOl6AWWII+XzLkri60=";
   };
 

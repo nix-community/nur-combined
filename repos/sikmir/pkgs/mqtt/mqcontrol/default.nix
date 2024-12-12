@@ -11,7 +11,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "albertnis";
     repo = "mqcontrol";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-rsmWrKOEJjd74ElsaR7Rk7FsY0wwSgG/AzYB5LcmWNQ=";
   };
 

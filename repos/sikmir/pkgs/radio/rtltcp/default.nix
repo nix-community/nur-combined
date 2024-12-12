@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "niclashoyer";
     repo = "rtltcp";
-    rev = version;
+    tag = version;
     hash = "sha256-mGBU4O4RMTZPoxfg1zr2WeiZsfnIba6VHYX3FYTY+OY=";
   };
 

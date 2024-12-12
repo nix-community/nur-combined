@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "nasa";
     repo = "python_cmr";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-yQAWmX4PsaDx/x3AdQkVIOXAH72VvJ4Ow4QaoZq4/gc=";
   };
 

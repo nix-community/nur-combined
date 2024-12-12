@@ -18,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "dernasherbrezon";
     repo = "sdr-modem";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-h0hbX3T3Criyq5jcXJLNXSwmwzWPzY80aKlRJr60rJw=";
   };
 

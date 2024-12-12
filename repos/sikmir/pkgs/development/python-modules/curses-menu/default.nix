@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pmbarrett314";
     repo = "curses-menu";
-    rev = version;
+    tag = version;
     hash = "sha256-l5KPBPODfeQdZIW3kjoj4ImhokFKjxyiB7r57Ryqj0g=";
   };
 

@@ -22,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "jvde-github";
     repo = "AIS-catcher";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-7kN3EVyjlktnU7mhQa3emD8zqf9OSlzoh4xW8LLpvL8=";
   };
 

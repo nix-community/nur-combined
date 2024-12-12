@@ -12,7 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "tomojitakasu";
     repo = "rtklib";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-d9hpvmIdSZ3BervVZVvfRTc+q7wUWoWLF81TAsMGe68=";
   };
 

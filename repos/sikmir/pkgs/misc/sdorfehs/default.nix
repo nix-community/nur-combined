@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "jcs";
     repo = "sdorfehs";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-efid6lRa8CTD+xObbop68hti5WRJReyKW57AmN7DS90=";
   };
 

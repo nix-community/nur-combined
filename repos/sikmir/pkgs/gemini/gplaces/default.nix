@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "dimkr";
     repo = "gplaces";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-u/JO2PNEZhmE068toBLHUJoWOkX4xoOKeIQN1hiCxlg=";
     fetchSubmodules = true;
   };

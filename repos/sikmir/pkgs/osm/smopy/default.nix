@@ -11,7 +11,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "rossant";
     repo = "smopy";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-QytanQQPIlQTog2tTMAwdFXWbXnU4NaA7Zqh4DXFubY=";
   };
 

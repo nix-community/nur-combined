@@ -11,7 +11,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "bullshitsoftware";
     repo = "youtimetrack";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-MZzXeCMlSLriDKg8yqeOzJBA5T47ImKjr+Mdu/wUjzU=";
   };
 

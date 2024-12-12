@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "mapbox";
     repo = "tilesets-cli";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-ZAPoHtrUA+D1mjWGJ/YvErYmWiXMS+tsPG+CokB9Iy8=";
   };
 

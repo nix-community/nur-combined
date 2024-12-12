@@ -7,7 +7,7 @@ rtklib.overrideAttrs (super: rec {
   src = fetchFromGitHub {
     owner = "rtklibexplorer";
     repo = "RTKLIB";
-    rev = version;
+    tag = version;
     hash = "sha256-ctfHNdzsxY6oCrmPME0yx5WNyWfAK6bPsnvz3C1uEjY=";
   };
 

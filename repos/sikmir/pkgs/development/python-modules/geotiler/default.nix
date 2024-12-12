@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "wrobell";
     repo = "geotiler";
-    rev = "geotiler-${version}";
+    tag = "geotiler-${version}";
     hash = "sha256-xqAsjuUMODZvkSMyGXpP1/FTyqNKPfa8l4Zr2CUHaDY=";
   };
 

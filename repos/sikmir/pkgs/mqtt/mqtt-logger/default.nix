@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "Blake-Haydon";
     repo = "mqtt-logger";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-AG8L2CD+YN6gWswDtsUtUMOA3xC2ro1f1YKYgc4jwXE=";
   };
 

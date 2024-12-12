@@ -14,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "ArthurSonzogni";
     repo = "git-tui";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-RogDZeDgC7HanPd0I+BuU9CShUzaIqvH1R7/I1tAtG4=";
   };
 

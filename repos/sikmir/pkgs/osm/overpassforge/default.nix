@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "Krafpy";
     repo = "Overpass-Forge";
-    rev = version;
+    tag = version;
     hash = "sha256-HtP1aSIf6iOyZDhDF/kDps1hMgKHKOAlPjYwOQSeXjE=";
   };
 

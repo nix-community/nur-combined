@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
     domain = "codeberg.org";
     owner = "jeang3nie";
     repo = "eva";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-beCILpBqW8kHcLkW3q6LRRduDTMDwsqnXUEkZbX9hL4=";
   };
 

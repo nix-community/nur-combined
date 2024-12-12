@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "bytebeamio";
     repo = "rumqtt";
-    rev = "rumqttd-${version}";
+    tag = "rumqttd-${version}";
     hash = "sha256-3rDnJ1VsyGBDhjOq0Rd55WI1EbIo+17tcFZCoeJB3Kc=";
   };
 

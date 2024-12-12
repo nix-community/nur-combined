@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "PyGPSClient";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-hbTpumOx1k3osVJjACkHtIph2EYUqLdpTnQl/ogv50o=";
   };
 

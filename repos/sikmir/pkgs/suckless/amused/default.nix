@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "omar-polo";
     repo = "amused";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-iVBJENiepBnqExMXQezd3Ja4RUNarLOAcA0JQUIfg5o=";
   };
 

@@ -11,7 +11,7 @@ buildGoModule rec {
 
   src = fetchgit {
     url = "git://git.nytpu.com/comitium";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-rtsC9SAddRdmu82BRrZOEOq53ZYSOUGGZJDdTYs4WKY=";
   };
 

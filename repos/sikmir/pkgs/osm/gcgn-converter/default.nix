@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "Miroff";
     repo = "gcgn-converter";
-    rev = version;
+    tag = version;
     hash = "sha256-1ipBRQNMGb0wBAHxlJWoQEcaegR3wrlAw9YXUF4fkH8=";
   };
 

@@ -11,7 +11,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "gofrp";
     repo = "tiny-frpc";
-    rev = "v${version}";
+    tag = "v${version}";
     sha256 = "sha256-vrIkSacqjt3lG5LaOXV1m3NI+j0KLFOTV/P5OacwrcU=";
   };
 

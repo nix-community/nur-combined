@@ -11,7 +11,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "aceberg";
     repo = "ExerciseDiary";
-    rev = version;
+    tag = version;
     hash = "sha256-ekGluDuBF4Zb/XTxLRdztVg447x13uo24nNTBuVSfj8=";
   };
 

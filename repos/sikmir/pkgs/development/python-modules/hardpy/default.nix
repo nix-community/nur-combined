@@ -14,7 +14,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "everypinio";
     repo = "hardpy";
-    rev = version;
+    tag = version;
     hash = "sha256-CVn5Edon1auXNFFNRGnt2i1j9TJo+uX194a22tIQpVE=";
   };
 

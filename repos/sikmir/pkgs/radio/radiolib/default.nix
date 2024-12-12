@@ -12,7 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "jgromes";
     repo = "RadioLib";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-m+8Lf/V2ltBoLJX6QNHysFap/EuMlozD9Y0d1eMKH6Y=";
   };
 

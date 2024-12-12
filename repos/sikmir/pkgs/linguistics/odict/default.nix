@@ -13,7 +13,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "TheOpenDictionary";
     repo = "odict";
-    rev = version;
+    tag = version;
     hash = "sha256-2520kNT3aTylE0ZVGuX92z1NehdCKKvGKd8OgdJ1q3M=";
   };
 

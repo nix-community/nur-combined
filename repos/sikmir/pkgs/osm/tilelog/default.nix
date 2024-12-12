@@ -11,7 +11,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "openstreetmap";
     repo = "tilelog";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-tSBawN8u3mw6sSVFUMT+qfjbhwPF+x3sYXpO18YUjpw=";
   };
 

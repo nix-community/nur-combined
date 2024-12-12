@@ -11,7 +11,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "ljean";
     repo = "modbus-tk";
-    rev = version;
+    tag = version;
     hash = "sha256-zikfVMFdlOJvuKVQGEsK03i58X6BGFsGWGrGOJZGC0g=";
   };
 

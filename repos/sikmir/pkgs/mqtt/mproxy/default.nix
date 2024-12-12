@@ -11,7 +11,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "mainflux";
     repo = "mproxy";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-gjFAuYDOFslhfDN+uWY3RZroUDrMERvBGi+gTtl4eLo=";
   };
 

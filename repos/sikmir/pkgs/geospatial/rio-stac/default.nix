@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "rio-stac";
-    rev = version;
+    tag = version;
     hash = "sha256-8VEN0f1CTI25fgbJZadJ7TLQcDNgwjxB1FMdyFhSgH4=";
   };
 

@@ -12,7 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "neural75";
     repo = "gqrx-scanner";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-/MQksngCPr71p+D6qnbK2i/BsrSslGbWqti60rGPjGs=";
   };
 

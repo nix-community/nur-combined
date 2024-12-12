@@ -11,7 +11,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "La0";
     repo = "garmin-uploader";
-    rev = version;
+    tag = version;
     hash = "sha256-OHY4f+0jfxKXiwRJRdSarlb2H+lEt2EVoAAsD4aEc9o=";
   };
 

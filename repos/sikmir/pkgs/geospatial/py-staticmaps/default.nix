@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "flopp";
     repo = "py-staticmaps";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-vW457HbdDDhfz8hsvEN3/HJmIHKdrRDVNuhSpZXoZ78=";
   };
 

@@ -13,7 +13,7 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "rsadsb";
     repo = "dump1090_rs";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-YMi+DaLORiy36rl02sKoCanI1hQSh4eRKJdrruxvMWg=";
   };
 

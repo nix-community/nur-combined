@@ -16,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "zhaojh329";
     repo = "libumqtt";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-rNKcGU0LcTnSaVJjkI3onSpgJUY1apHaoFyx8GmyO8Y=";
     fetchSubmodules = true;
   };

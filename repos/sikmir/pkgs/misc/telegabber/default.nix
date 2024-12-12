@@ -17,7 +17,7 @@ buildGoModule rec {
     domain = "dev.narayana.im";
     owner = "narayana";
     repo = "telegabber";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-UkVuEgrRHDtC5Rkci87ecmvK4JyACFBplzecoIXM8vk=";
   };
 

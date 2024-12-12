@@ -11,7 +11,7 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "cualbondi";
     repo = "osmptparser";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-+u1UP+hFI8fi+NAzQ4pIObo+ZCBBaEoIkUNvHPO7jSQ=";
   };
 

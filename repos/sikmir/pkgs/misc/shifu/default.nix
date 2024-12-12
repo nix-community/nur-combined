@@ -14,7 +14,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "Edgenesis";
     repo = "shifu";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-RRK8N/CLNWf9Jkq1Y2wJ2BGgjJNNc2roI9ChREkF06I=";
   };
 

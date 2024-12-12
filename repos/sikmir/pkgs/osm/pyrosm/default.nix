@@ -14,7 +14,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "HTenkanen";
     repo = "pyrosm";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-eX6lOkprU/RkSz2+dGlRtdQQsI+m9GZyN/VfcIix79k=";
   };
 

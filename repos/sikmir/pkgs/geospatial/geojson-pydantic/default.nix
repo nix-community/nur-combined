@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "geojson-pydantic";
-    rev = version;
+    tag = version;
     hash = "sha256-QPVoIJLG/ICbaZZ0ZpySm2SGRtYXII7ldJDC3sWinRw=";
   };
 

@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "legionus";
     repo = "libshell";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-jolr55qNG3224IWRE9PueeRbO5RIhFmFiPe0g0wO9c4=";
   };
 

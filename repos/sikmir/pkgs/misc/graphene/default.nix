@@ -18,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "slazav";
     repo = "graphene";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-N7Pdf/8+Yi+OBRvJMkz2EyRQOsnBYs5BQeO20JP8tWA=";
     fetchSubmodules = true;
   };

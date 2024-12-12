@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "semlanik";
     repo = "microjson";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-6kGshpy0CDg/8z3unZvGs0Uh1gglZ7yrIGc9/X+M0i8=";
   };
 

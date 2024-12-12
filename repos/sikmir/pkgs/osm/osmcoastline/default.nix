@@ -21,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "osmcode";
     repo = "osmcoastline";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-HSUBUSKO0gfUTECjzFpaAu9ye5Qho3rRqhYpc9du+ig=";
   };
 

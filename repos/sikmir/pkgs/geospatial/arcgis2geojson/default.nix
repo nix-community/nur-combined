@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "chris48s";
     repo = "arcgis2geojson";
-    rev = version;
+    tag = version;
     hash = "sha256-w3teY/CLNGF3h+8R6KoYCvjat8q6ellet1awEPOXpac=";
   };
 

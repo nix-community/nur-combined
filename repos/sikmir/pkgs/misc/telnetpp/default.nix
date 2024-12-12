@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "KazDragon";
     repo = "telnetpp";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-BfRu0dv2d7qwz2jTdaQczOQQBO3qmO1E754hWqxT66g=";
   };
 

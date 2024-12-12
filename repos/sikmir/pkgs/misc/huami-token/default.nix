@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
     domain = "codeberg.org";
     owner = "argrento";
     repo = "huami-token";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-nQiz1vrZz0sOoZFQaN9ZtzfDY3zn3Gk0jMdqORDDW3w=";
   };
 

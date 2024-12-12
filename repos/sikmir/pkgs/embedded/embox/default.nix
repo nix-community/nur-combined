@@ -34,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "embox";
     repo = "embox";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-tDA21+B1BF6mQt234IycPdRfYmLGkw/r+SA4AanWk4Q=";
   };
 

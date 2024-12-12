@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "earthlab";
     repo = "earthpy";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-MCyeFXtjOqnVarSUk7Z/+Y5oNhYLlxznjWHQOCgUOIc=";
   };
 

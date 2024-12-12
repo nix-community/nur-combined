@@ -11,7 +11,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "elgohr";
     repo = "mqtt-to-influxdb";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-wO/TS+J68UvnadeMqm3xzZ/qv7gitW3Hi84v32UlZKI=";
   };
 

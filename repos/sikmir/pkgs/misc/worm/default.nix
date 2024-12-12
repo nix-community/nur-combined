@@ -15,7 +15,7 @@ nimPackages.buildNimPackage rec {
   src = fetchFromGitHub {
     owner = "codic12";
     repo = "worm";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-fm969whcYILMphR8Vr8oarx2iEJiIhzifU2wNYaU/Kg=";
   };
 

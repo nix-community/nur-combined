@@ -11,7 +11,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "Contextualist";
     repo = "acp";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-qoS3lHr98S5uqmwZ3rZwPDZEQRTDIrxChfOlppbJHI4=";
   };
 

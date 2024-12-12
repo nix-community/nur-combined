@@ -11,7 +11,7 @@ buildNpmPackage rec {
   src = fetchFromGitHub {
     owner = "jirutka";
     repo = "ajv-cli";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-qk/UQskIybDqU9DSqK5RhPk4ho0Pu1qDcUKra72IMUc=";
   };
 

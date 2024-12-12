@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "developmentseed";
     repo = "starlette-cramjam";
-    rev = version;
+    tag = version;
     hash = "sha256-NgEW86+HV1zy9B5tRMF6Jw25Icrl6+CU9eZYInwv5To=";
   };
 

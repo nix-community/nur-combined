@@ -11,7 +11,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "vladbalmos";
     repo = "mitzasql";
-    rev = version;
+    tag = version;
     hash = "sha256-C/KecK8PJDn/MyUxtxFLjVnkra6pW9QoLY34FWkwQ+8=";
   };
 

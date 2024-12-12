@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "TLeconte";
     repo = "acarsdec";
-    rev = "acarsdec-${finalAttrs.version}";
+    tag = "acarsdec-${finalAttrs.version}";
     hash = "sha256-MBy9Xq5ufusqSKGe40JxgnFeo4wnabThbDpGEE6u1so=";
   };
 

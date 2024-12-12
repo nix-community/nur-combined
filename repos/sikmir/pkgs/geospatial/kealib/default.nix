@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "ubarsc";
     repo = "kealib";
-    rev = "kealib-${finalAttrs.version}";
+    tag = "kealib-${finalAttrs.version}";
     hash = "sha256-s6sL8T1jRBmVCrFm00uCw9x6s43u9+GU3ihyMi7XSaQ=";
   };
 

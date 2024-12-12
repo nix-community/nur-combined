@@ -10,7 +10,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchgit {
     url = "git://git.codemadness.org/saait";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-W86JAYUsyvOWt/YTqXfqMA/CwQq7uVIV1F6+AeRB/8s=";
   };
 

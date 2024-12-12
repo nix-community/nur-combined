@@ -11,7 +11,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "rainu";
     repo = "mqtt-shell";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-nyNNdlNC5AWJ9jTnBggUf4OVME3OPXWd1MAj2pWwQL4=";
   };
 

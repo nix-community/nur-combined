@@ -12,7 +12,7 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "rsadsb";
     repo = "adsb_deku";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-+WUG/CQ/j3muYow2FMFNUgWWhOCPZc0k+okoF1p1L5Y=";
   };
 

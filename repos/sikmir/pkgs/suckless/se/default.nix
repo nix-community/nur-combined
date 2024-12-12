@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "screen-editor";
     repo = "se";
-    rev = "se-${finalAttrs.version}";
+    tag = "se-${finalAttrs.version}";
     hash = "sha256-2LyYZXaL/Q3G/StCUiY6MUXG55g2YQvkpoF/lcsifD8=";
   };
 

@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "ossimlabs";
     repo = "ossim";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-zmyzHEhf/JPBBP7yJyxyKHkJH5psRSl3h8ZcOJ7dr7o=";
   };
 

@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "adoyle-h";
     repo = "bash-completor";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Ph+cQaXbykn703cdgkqlXcYMO4vvH6e0hCeecWS/6yA=";
   };
 

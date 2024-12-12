@@ -11,7 +11,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "polyvertex";
     repo = "fitdecode";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-pW1PgJGqFL2reOYYfpGnQ4WoYFKGMNY8iQJzyHYOly8=";
   };
 

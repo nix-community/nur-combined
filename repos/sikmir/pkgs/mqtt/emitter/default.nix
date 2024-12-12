@@ -11,7 +11,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "emitter-io";
     repo = "emitter";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-eWBgRG0mLdiJj1TMSAxYPs+8CqLNaFUOW6/ghDn/zKE=";
   };
 

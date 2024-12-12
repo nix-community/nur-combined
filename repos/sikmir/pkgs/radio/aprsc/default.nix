@@ -16,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "hessu";
     repo = "aprsc";
-    rev = "release/${finalAttrs.version}";
+    tag = "release/${finalAttrs.version}";
     hash = "sha256-cScXe6QbC+hqd86uvhglARzBuihSWYvAC7RxVljZwFk=";
   };
 

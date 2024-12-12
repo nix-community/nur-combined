@@ -12,7 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "bsd-ac";
     repo = "imsg-compat";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-t1nEdsqRtcXWBkkspUb/lQ0PXd2ziaTutnqgwSaxAR4=";
   };
 

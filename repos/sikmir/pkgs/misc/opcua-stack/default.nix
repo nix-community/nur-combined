@@ -14,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "ASNeG";
     repo = "OpcUaStack";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-czpuuT9DeZaYo2Q8Y/vW1kAsIiFhRDSKwVBUcFgb9iQ=";
   };
 

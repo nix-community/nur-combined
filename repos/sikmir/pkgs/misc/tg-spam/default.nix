@@ -11,7 +11,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "umputun";
     repo = "tg-spam";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-qx53EdHGp1JvOV4dvkQ7/pK8L+y2uurWgNdm0DEhOuE=";
   };
 

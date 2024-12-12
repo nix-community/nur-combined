@@ -11,7 +11,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "mdbartos";
     repo = "pysheds";
-    rev = version;
+    tag = version;
     hash = "sha256-cIx/TPPLYsHEgvHtyZY5psRwqtvKQkJ/SnafT2btLBI=";
   };
 

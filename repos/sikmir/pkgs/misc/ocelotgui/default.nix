@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "ocelot-inc";
     repo = "ocelotgui";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-CmLF8HrwdmWatFljSGLpy5YImlBGhjooB1K+axIDWhU=";
   };
 

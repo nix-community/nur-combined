@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "citrusvanilla";
     repo = "tinyflux";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-WgNkYFWZvZJ8MYMqfnqXH8YgjzRemMxAkyN9On+5PQI=";
   };
 

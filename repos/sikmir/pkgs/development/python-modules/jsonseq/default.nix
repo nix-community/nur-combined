@@ -11,7 +11,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "sgillies";
     repo = "jsonseq";
-    rev = version;
+    tag = version;
     hash = "sha256-aZu4+MRFrAizskxqMnks9pRXbe/vw4sYt92tRpjfUSg=";
   };
 

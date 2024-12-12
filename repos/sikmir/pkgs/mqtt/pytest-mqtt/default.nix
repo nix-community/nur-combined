@@ -14,7 +14,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "mqtt-tools";
     repo = "pytest-mqtt";
-    rev = version;
+    tag = version;
     hash = "sha256-DohQw10WCDlb9kJdMd9ql4mcELx4IhVSmoovLI6GI9k=";
   };
 

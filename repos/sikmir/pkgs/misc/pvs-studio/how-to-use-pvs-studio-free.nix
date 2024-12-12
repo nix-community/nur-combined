@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "viva64";
     repo = "how-to-use-pvs-studio-free";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-aFqk0WsMylRQqvlb+M5IfDHVwMBuKNQpCiiGPrj+jEw=";
   };
 

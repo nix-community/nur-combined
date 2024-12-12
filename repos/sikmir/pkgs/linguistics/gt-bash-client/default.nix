@@ -11,7 +11,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "OPHoperHPO";
     repo = "GT-bash-client";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-dVtwuZsF9ExH6qadUO2MJiWmQ/elTKaVZAp+o3b6XUg=";
   };
 

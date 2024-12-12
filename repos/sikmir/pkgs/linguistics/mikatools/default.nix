@@ -11,7 +11,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "mikahama";
     repo = "mikatools";
-    rev = version;
+    tag = version;
     hash = "sha256-2YpRTSZWJVXMoTLDBFS+tFkmA8pOBsqWF7Z85gtIfY0=";
   };
 

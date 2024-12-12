@@ -12,7 +12,7 @@ buildNpmPackage rec {
   src = fetchFromGitHub {
     owner = "zwave-js";
     repo = "zwave-js-ui";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-WEACdu5TLo8mxhRGVH6CSFTfngUATJqKW4i1r4Wp8P0=";
   };
 

@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "charlie-foxtrot";
     repo = "RTLSDR-Airband";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Rgsxim7FESVt1ZnVJFvVfMqJMgzVCfP1yBDBBO4zEsE=";
   };
 

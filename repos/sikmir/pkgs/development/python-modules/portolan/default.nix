@@ -11,7 +11,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "fitnr";
     repo = "portolan";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-zKloFO7uCLkqgayxC11JRfMpNxIR+UkT/Xabb9AH8To=";
   };
 

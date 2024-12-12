@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "rmqtt";
     repo = "rmqtt";
-    rev = version;
+    tag = version;
     hash = "sha256-EPHiwDct8abzzYUj5egKf93yIrzFxoYDcH6ki4bZfGw=";
   };
 

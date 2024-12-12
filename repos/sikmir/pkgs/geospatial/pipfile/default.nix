@@ -11,7 +11,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pypa";
     repo = "pipfile";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-GsDhxnvBvjJGQWk25cS9+HqLQ9YVSxujeX2iGivYl6Q=";
   };
 

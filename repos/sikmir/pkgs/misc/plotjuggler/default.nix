@@ -22,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "facontidavide";
     repo = "PlotJuggler";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-tcEcFGLLEHsBDb3sBEPs/WmDf7NNnwL/hbme5XfMgJI=";
   };
 

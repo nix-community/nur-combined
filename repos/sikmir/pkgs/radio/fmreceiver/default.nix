@@ -21,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "JvanKatwijk";
     repo = "sdr-j-fm";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-U0m9PIB+X+TBoz5FfXMvR/tZjkNIy7B613I7eLT5UIs=";
   };
 

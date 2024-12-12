@@ -14,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "shtanton";
     repo = "gmi2html";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-J71QThRwV8lpGJndqVT+tsekO+CVU8piSpjAn9jwfDI=";
   };
 

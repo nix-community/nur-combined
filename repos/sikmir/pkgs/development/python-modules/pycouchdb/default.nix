@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "histrio";
     repo = "py-couchdb";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-jcDES8PC02F5eel2KThYZFXKzUm70UqktG521lt+Dj0=";
   };
 

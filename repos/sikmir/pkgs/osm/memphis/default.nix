@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "jiuka";
     repo = "memphis";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-mBRu2EHEuoHz3scoVaYqAMBZXbG7XkKwdHe9O0gaDBk=";
   };
 

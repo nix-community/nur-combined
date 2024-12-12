@@ -13,7 +13,7 @@ let
   json_src = fetchFromGitHub {
     owner = "ArthurSonzogni";
     repo = "nlohmann_json_cmake_fetchcontent";
-    rev = "v3.9.1";
+    tag = "v3.9.1";
     hash = "sha256-5A18zFqbgDc99pqQUPcpwHi89WXb8YVR9VEwO18jH2I=";
   };
   antlr_src = fetchFromGitHub {

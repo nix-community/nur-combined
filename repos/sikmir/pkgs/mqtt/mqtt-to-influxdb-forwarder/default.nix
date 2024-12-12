@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "mhaas";
     repo = "mqtt-to-influxdb-forwarder";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-2n5YF5aLaUzHmxgPhnRXXyhoXV0nJ21aa7g+NBTYvBk=";
   };
 

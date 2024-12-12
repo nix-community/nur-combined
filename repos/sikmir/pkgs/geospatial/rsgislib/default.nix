@@ -19,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "remotesensinginfo";
     repo = "rsgislib";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-IaDSn+8cF7fo+l4/gTUJrF5iro3qHnXUd5iImekaqLg=";
   };
 

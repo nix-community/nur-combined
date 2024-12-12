@@ -12,7 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "cesanta";
     repo = "mongoose";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-9XHUE8SVOG/X7SIB52C8EImPx4XZ7B/5Ojwmb0PkiuI=";
   };
 

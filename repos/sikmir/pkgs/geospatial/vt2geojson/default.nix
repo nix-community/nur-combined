@@ -13,7 +13,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "wangyoucao577";
     repo = "vt2geojson";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-2wBMWrraWFDLHc/s/RMW4a4moftwTFeBj7FfaCJgdU0=";
   };
 

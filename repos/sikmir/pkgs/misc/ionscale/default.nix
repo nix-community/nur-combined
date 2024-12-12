@@ -11,7 +11,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "jsiebens";
     repo = "ionscale";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-OXCxdXkBpbb6qQUGp70OOhi6Ydaw+EXlVTw8QsCjAGQ=";
   };
 

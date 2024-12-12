@@ -18,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "dernasherbrezon";
     repo = "sdr-server";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-knZHFErORSwqQV3G1ynRwtnylYfeE7qX4m4SZN57Tf8=";
   };
 

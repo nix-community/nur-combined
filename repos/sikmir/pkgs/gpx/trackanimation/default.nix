@@ -13,7 +13,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "JoanMartin";
     repo = "trackanimation";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-fLubRKq+3wQh16xSdqJmNMy4zw83RiSQj8C6jNV4fV8=";
   };
 

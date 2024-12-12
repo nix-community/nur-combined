@@ -12,7 +12,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "grepplabs";
     repo = "mqtt-proxy";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-odSVoBBjg4TGP5Jw+7p9+kTBR2JP1ZJUKR3lBcOjK4g=";
   };
 

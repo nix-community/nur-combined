@@ -15,7 +15,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "pytorch";
     repo = "text";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-UCH/12jVeUY+h3Qop/RPtjIeXdddA1upsWIiwAs8+bc=";
     fetchSubmodules = true;
   };

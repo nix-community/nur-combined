@@ -18,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     domain = "git.skyjake.fi";
     owner = "skyjake";
     repo = "bwh";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-POKjvUGFS3urc1aqOvfCAApUnRxoZhU725eYRAS4Z2w=";
   };
 

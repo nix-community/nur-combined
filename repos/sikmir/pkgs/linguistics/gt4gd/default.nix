@@ -12,7 +12,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "xinebf";
     repo = "google-translate-for-goldendict";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-zJq5dhmrd0k7bsw75xFECKmwZU4qjw+wwSzsYjg8zao=";
   };
 

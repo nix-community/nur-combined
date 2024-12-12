@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "geoarrow";
     repo = "geoarrow-python";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-Ni+GKTRhRDRHip1us3OZPuUhHQCNU7Nap865T/+CU8Y=";
   };
 

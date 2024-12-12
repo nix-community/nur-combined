@@ -14,7 +14,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "tkrajina";
     repo = "srtm.py";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-/AGvFE74sJTnn70VklQp0MG+7dsooavAdSTyV2oJM+I=";
   };
 

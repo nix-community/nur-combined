@@ -6,7 +6,7 @@ nng.overrideAttrs (super: rec {
   src = fetchFromGitHub {
     owner = "emqx";
     repo = "NanoSDK";
-    rev = version;
+    tag = version;
     hash = "sha256-wg9LgHMu5iywesFoQwqU5xp0cxFgtnZNhfCc4J7uMMI=";
     fetchSubmodules = true;
   };

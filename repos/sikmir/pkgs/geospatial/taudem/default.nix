@@ -14,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "dtarb";
     repo = "TauDEM";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-lomjPyNzm9K4jCs7fYwDYrG48qbeRedakWFwJj7pDEI=";
   };
 

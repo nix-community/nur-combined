@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "archiecobbs";
     repo = "nmtree";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-0NlrWnSi0Eyz9WlTX1OpU3dHpgZMOF0rtf9cY5mLDkc=";
   };
 

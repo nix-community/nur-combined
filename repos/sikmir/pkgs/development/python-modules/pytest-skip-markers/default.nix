@@ -13,7 +13,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "saltstack";
     repo = "pytest-skip-markers";
-    rev = version;
+    tag = version;
     hash = "sha256-jrNPF68sKpEmwU12ZbKK/24DqA1RrjIXYPyoKE/3FLM=";
   };
 

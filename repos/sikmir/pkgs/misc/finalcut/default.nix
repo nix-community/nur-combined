@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "gansm";
     repo = "finalcut";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-fRAzfvuqruveb229fV0XYh764cA26NlDVXxX+3Fobg4=";
   };
 

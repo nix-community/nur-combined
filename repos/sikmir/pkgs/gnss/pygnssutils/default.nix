@@ -14,7 +14,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pygnssutils";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-Z+CgfnEwBIFZHGQgk6wlb8HoyrNkTMJOu1P+p3WPCDY=";
   };
 

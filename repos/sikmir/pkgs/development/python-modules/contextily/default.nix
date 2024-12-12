@@ -14,7 +14,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "geopandas";
     repo = "contextily";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-Pkw21EOjRiIhdZvCY6JJ2T2yjShF9Io4NAQZIIjeKpU=";
   };
 

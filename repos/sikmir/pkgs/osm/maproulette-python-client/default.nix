@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "osmlab";
     repo = "maproulette-python-client";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-EmYa2B1FO4PNE1pdoPXeKo8uoY7Tc1cRwkqxiD41WrQ=";
   };
 

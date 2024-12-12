@@ -12,7 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchgit {
     url = "git://git.codemadness.org/hurl";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-/aalBz4HbR8GZYt+gI4o1tfN5PfpSLG1gADcbo0Mp94=";
   };
 

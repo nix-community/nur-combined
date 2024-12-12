@@ -11,7 +11,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "sv99";
     repo = "lsdreader";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-8DYPFUmhgA4mxaliPjbPkywyJUwrl3J034scmFGE9no=";
   };
 

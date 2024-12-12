@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchgit {
     url = "git://git.codemadness.org/lel";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-p0lgzSgNyXUAMo/LXhbQZW8LRUGg+Iz+KEQiNYeaL7E=";
   };
 

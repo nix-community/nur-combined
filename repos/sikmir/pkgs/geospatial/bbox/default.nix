@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "bbox-services";
     repo = "bbox";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-FmY9Hqwv9lWjdEMe4JZM/nw8BaeZ+4eK+nibOUwcE+8=";
   };
 

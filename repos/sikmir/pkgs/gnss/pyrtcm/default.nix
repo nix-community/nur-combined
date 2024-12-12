@@ -12,7 +12,7 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pyrtcm";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-qnWN19SoskqqN0uZVs+MgOME41FsX4f9rdOWd/g8TRg=";
   };
 

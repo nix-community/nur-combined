@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "LiamBindle";
     repo = "MQTT-C";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-TmqEekdAyxueY0A1a96eyADBpLe+AWd6xMQP3tF6968=";
   };
 

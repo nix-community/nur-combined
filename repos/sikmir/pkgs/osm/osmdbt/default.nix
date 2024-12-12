@@ -21,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "openstreetmap";
     repo = "osmdbt";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-hXwWOOfvBrJqjMXsG/59J83PHwZqIKm+2B00QYoJD80=";
   };
 

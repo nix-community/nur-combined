@@ -10,7 +10,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchgit {
     url = "git://git.suckless.org/scroll";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-dr1s1K13BigfGSFvfBuOOy+yhuAcN1fb/4AEZPj9C48=";
   };
 
