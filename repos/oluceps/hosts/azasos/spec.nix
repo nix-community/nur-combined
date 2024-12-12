@@ -64,11 +64,19 @@
       };
     };
 
-    hysteria.instances = {
-      nodens = {
+    shadow-tls.instances = {
+      relay = {
         enable = true;
-        configFile = config.vaultix.secrets.hyst-us-cli.path;
+        configFile = config.vaultix.secrets.shadow-tls-relay.path;
+        openFirewall = 32193;
+        serve = true;
       };
+    };
+    hysteria.instances = {
+      # nodens = {
+      #   enable = true;
+      #   configFile = config.vaultix.secrets.hyst-us-cli.path;
+      # };
       abhoth = {
         enable = true;
         configFile = config.vaultix.secrets.hyst-osa-cli.path;

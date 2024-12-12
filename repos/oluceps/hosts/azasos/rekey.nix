@@ -32,6 +32,9 @@ in
           group = "users";
           name = "hyst-us-cli.yaml";
         };
+        shadow-tls-relay = {
+          file = self + "/sec/shadow-tls-relay.age";
+        };
         hyst-osa-cli = {
           file = self + "/sec/hyst-osa-cli.age";
           mode = "640";

@@ -52,7 +52,6 @@
         5173
         8448
         32193 # ss
-        32192 # socks inbound
         8083 # streaming
       ];
     };
