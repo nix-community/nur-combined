@@ -19,7 +19,7 @@
         gen =
           ns: owner: group: mode:
           self.lib.genAttrs ns (n: {
-            file = ../sec/${n}.age;
+            file = "./sec/${n}.age";
             inherit owner group mode;
           });
         hard = i: gen i "root" "users" "400";
