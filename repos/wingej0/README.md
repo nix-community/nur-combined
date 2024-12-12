@@ -44,6 +44,16 @@ Then create a module for the NordVPN specific code.  I call mine nordvpn.nix, bu
 }
 ```
 
+Add nordvpn to the extraGroups option for your user.
+
+```nix
+users.users.${username} = {
+  isNormalUser = true;
+  description = "${username}";
+  extraGroups = [ "nordvpn" ];
+};
+```
+
 Finally, add the following to your network configuration to open the correct ports in the firewall.
 
 ```nix
