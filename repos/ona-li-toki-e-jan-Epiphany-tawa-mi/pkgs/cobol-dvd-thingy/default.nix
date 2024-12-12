@@ -7,18 +7,26 @@
 
 stdenv.mkDerivation rec {
   pname   = "cobol-dvd-thingy";
-  version = "0.1.1";
+  version = "0.2.1";
 
   src = fetchFromGitHub {
     owner = "ona-li-toki-e-jan-Epiphany-tawa-mi";
     repo  = "COBOL-DVD-Thingy";
     rev   = "RELEASE-V${version}";
-    hash  = "sha256-+9prxsW89quwgh0miQqDpyOK+tPQXx3PrTWTL/ldLlo=";
+    hash  = "sha256-7KKCzULgtNagyPwnllmlT+us5ofbaY308yZoAId80zk=";
   };
 
   # We have to use gnu-cobol.bin because gnu-cobol doesn't properly output it's
   # binary, I think.
   nativeBuildInputs = [ gnu-cobol.bin gmp ];
+
+  buildPhase = ''
+    runHook preBuild
+
+    EXTRA_COBFLAGS='-O3' ./build.sh
+
+    runHook postBuild
+  '';
 
   installPhase = ''
     runHook preInstall
