@@ -113,14 +113,14 @@
   };
   baidupcs-go = {
     pname = "baidupcs-go";
-    version = "07f4635f895fda60575f7c3d4038bba498c6a75b";
+    version = "07b19a066ff80d4d899e429d1f1f77c0131f5e85";
     src = fetchFromGitHub {
       owner = "qjfoidnh";
       repo = "BaiduPCS-Go";
-      rev = "07f4635f895fda60575f7c3d4038bba498c6a75b";
-      hash = "sha256-dYhWgOstf/0pKNI550U4vBmNPyYgIuP/tK+AYzYTYSU=";
+      rev = "07b19a066ff80d4d899e429d1f1f77c0131f5e85";
+      hash = "sha256-iXkfjVAHfIfgfNAeLSLMx4I2Fx8MSv6rcVyXQqZJ+os=";
     };
-    date = "2024-12-11";
+    date = "2024-12-12";
   };
   baidupcs-go-stable = {
     pname = "baidupcs-go-stable";
@@ -485,14 +485,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "0f3d2d1266fec1b1666be1a4e0a2d234eb152567";
+    version = "2139ef696bbf844ab0c1636778f68291d3613fcb";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "0f3d2d1266fec1b1666be1a4e0a2d234eb152567";
-      hash = "sha256-URKjQgBJ1gFy3OSr2eiVzwkQbaJKfVMPMxvmattup84=";
+      rev = "2139ef696bbf844ab0c1636778f68291d3613fcb";
+      hash = "sha256-yvHK+yrDuz20ZUOgdclea/ODKeislV/iTjmkXzEn/Xc=";
     };
-    date = "2024-12-11";
+    date = "2024-12-12";
   };
   glauth = {
     pname = "glauth";
@@ -832,22 +832,22 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.64-xanmod1";
+    version = "6.6.65-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      rev = "6.6.64-xanmod1";
+      rev = "6.6.65-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-eO2t8v4z/kDy5BwIYmE13/jB5APwytl9XbyoBp0ODFI=";
+      hash = "sha256-tS0CFY7hriPH4ozJEQnGXRPp5ZMdFMhx5xv1neBm+SQ=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4302";
+    version = "b4304";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4302";
-      hash = "sha256-uai8VRS4ZzD6TvWoC5g1u2sKqITEipwOnxaXa+y/laU=";
+      rev = "b4304";
+      hash = "sha256-EsNlGx7vEXGxv76NK+ePU4ksLW73QzYwckWSBB3pkio=";
     };
   };
   loralib = {
@@ -1438,14 +1438,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "f6ede7f8756e49604de056fcbdfe99fa4abd4812";
+    version = "71ac38587399b5c72714cc5a55728e84208a798a";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "f6ede7f8756e49604de056fcbdfe99fa4abd4812";
-      hash = "sha256-MoNam2IFnLpk02tKp+lkl4l+mBiaWNPhFc3/n4zUHcw=";
+      rev = "71ac38587399b5c72714cc5a55728e84208a798a";
+      hash = "sha256-J+DR1D3UMAF3F6qW5ppA4BuezK3wrXH3qtI39SqrTCo=";
     };
-    date = "2024-11-27";
+    date = "2024-12-12";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -1531,10 +1531,10 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20241109";
+    version = "20241211";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20241109/moegirl.dict.yaml";
-      hash = "sha256-Bnpv7iqTPRNnSiZ6ZpzcQXLZkbFbZ0nQgw2d+IyTZOQ=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20241211/moegirl.dict.yaml";
+      hash = "sha256-mAa2seIqBzEgIwMokfU3lyA/GwwDVBvjXax3i2l+qm8=";
     };
   };
   rime-zhwiki = {
@@ -1588,12 +1588,12 @@
   };
   sam-toki-mouse-cursors = {
     pname = "sam-toki-mouse-cursors";
-    version = "v7.00";
+    version = "v7.01";
     src = fetchFromGitHub {
       owner = "SamToki";
       repo = "Sam-Toki-Mouse-Cursors";
-      rev = "v7.00";
-      hash = "sha256-sio1LFa1g2opNFMlupr7PQLBhhhYMjNSn7Kvjh9W8FI=";
+      rev = "v7.01";
+      hash = "sha256-6mAuGGNBaKbSZVd7Z0KmLjserv1Sq1ApENcUkUz4C8Y=";
     };
   };
   sgx-software-enable = {
@@ -1847,14 +1847,14 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "e96e3bfcd8a18552e0df5bd21cbf628ffb52849c";
+    version = "608830f222f86b3781ceb547e9eafa826d45553a";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "e96e3bfcd8a18552e0df5bd21cbf628ffb52849c";
-      hash = "sha256-+Tr3TdZ2uOHQ2qwq6zR3TM+t4lRQrMhpA8s+8WzmKHE=";
+      rev = "608830f222f86b3781ceb547e9eafa826d45553a";
+      hash = "sha256-3pUmvZ/yQcX6++9xtV40eGo1PJlinEyB8IGyywS3rPc=";
     };
-    date = "2024-12-11";
+    date = "2024-12-12";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
