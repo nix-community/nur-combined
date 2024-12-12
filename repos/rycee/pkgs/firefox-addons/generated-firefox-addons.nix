@@ -759,21 +759,6 @@
         platforms = platforms.all;
       };
     };
-    "belgium-eid" = buildFirefoxXpiAddon {
-      pname = "belgium-eid";
-      version = "1.0.32";
-      addonId = "belgiumeid@eid.belgium.be";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3736679/belgium_eid-1.0.32.xpi";
-      sha256 = "b76cdb139f08b8778094cf7594d5f8adb8962f3b79b10ab7e746f53d175263bc";
-      meta = with lib;
-      {
-        homepage = "https://eid.belgium.be/";
-        description = "Use the Belgian electronic identity card (eID) in Firefox";
-        license = licenses.lgpl3;
-        mozPermissions = [ "pkcs11" "notifications" "https://*.belgium.be/*" ];
-        platforms = platforms.all;
-      };
-    };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
       version = "7.6.9";
@@ -2215,10 +2200,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "133.0.20241209.150345";
+      version = "134.0.20241211.100452";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4402697/deutsch_de_language_pack-133.0.20241209.150345.xpi";
-      sha256 = "ba9df2feb41fdcd8aff430c5bed45564c84d001355fab74d62a13d756e6dfde4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4403558/deutsch_de_language_pack-134.0.20241211.100452.xpi";
+      sha256 = "b9e05050051f59d1e73e2db709e9aac1f731a00265a98c6bc083db3404ddb734";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3400,10 +3385,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "133.0.20241209.150345";
+      version = "134.0.20241211.100452";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4402638/francais_language_pack-133.0.20241209.150345.xpi";
-      sha256 = "ea84d65b447936778a893e418f386abaa1be7b2c0cfa3f58bb592b01aa2ef924";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4403505/francais_language_pack-134.0.20241211.100452.xpi";
+      sha256 = "c832beacfd8dd853a285e91b0c54ea71646993c1357541f89e709bb0cea6639a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3437,10 +3422,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "133.0.20241209.150345";
+      version = "134.0.20241211.100452";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4402595/gaidhlig_language_pack-133.0.20241209.150345.xpi";
-      sha256 = "cf80a1a60994add4e1054dced55c57355254f86cea0c148cd2afa8cbd8007237";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4403482/gaidhlig_language_pack-134.0.20241211.100452.xpi";
+      sha256 = "2a006b8de437538b9750dcb3482a18e539379018e704697d0cc5699235e57f9e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -10014,10 +9999,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "133.0.20241209.150345";
+      version = "134.0.20241211.100452";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4402650/scots_language_pack-133.0.20241209.150345.xpi";
-      sha256 = "7c2e346aa1685e6b540c86c1bbbe9898ad57759ac98ba9d04eaec9adb66dbe4e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4403545/scots_language_pack-134.0.20241211.100452.xpi";
+      sha256 = "6bcbc07c30694a2a81d1b681e4b1130802479e40ea35a9073a07ee139a60a84f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
