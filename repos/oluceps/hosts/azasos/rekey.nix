@@ -19,31 +19,31 @@ in
     secrets =
       {
         wga = {
-          file = "./sec/wga.age";
+          file = self + "/sec/wga.age";
           owner = "systemd-network";
           group = "root";
           mode = "400";
         };
 
         hyst-us-cli = {
-          file = "./sec/hyst-us-cli.age";
+          file = self + "/sec/hyst-us-cli.age";
           mode = "640";
           owner = "root";
           group = "users";
           name = "hyst-us-cli.yaml";
         };
         shadow-tls-relay = {
-          file = "./sec/shadow-tls-relay.age";
+          file = self + "/sec/shadow-tls-relay.age";
         };
         hyst-osa-cli = {
-          file = "./sec/hyst-osa-cli.age";
+          file = self + "/sec/hyst-osa-cli.age";
           mode = "640";
           owner = "root";
           group = "users";
           name = "hyst-osa-cli.yaml";
         };
         hyst-hk-cli = {
-          file = "./sec/hyst-hk-cli.age";
+          file = self + "/sec/hyst-hk-cli.age";
           mode = "640";
           owner = "root";
           group = "users";
@@ -59,7 +59,7 @@ in
             (
               n:
               nameValuePair "hyst-${n}-cli" {
-                file = "./sec/hyst-${n}-cli.age";
+                file = self + "/sec/hyst-${n}-cli.age";
                 mode = "640";
                 owner = "root";
                 group = "users";
