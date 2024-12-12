@@ -39,8 +39,9 @@
   # Enable fingerprint support
   services.fprintd.enable = true;
 
+  services.pipewire.audio.enable = true;
   hardware.opengl.extraPackages = with pkgs; [
-    mesa_drivers
+# mesa_drivers
     vaapiIntel
     vaapiVdpau
     libvdpau-va-gl

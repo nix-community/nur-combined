@@ -6,11 +6,11 @@
     enable = true;
 
     # COLORS
-    settings.import = [ pkgs.alacritty-theme.monokai_charcoal ];
+#settings.import = [ pkgs.alacritty-theme.monokai_charcoal ];
     #settings.import = [ pkgs.alacritty-theme.hyper ];
 
     settings = {
-      live_config_reload = true;
+#live_config_reload = true;
       window.padding = {
         x = 10;
         y = 10;

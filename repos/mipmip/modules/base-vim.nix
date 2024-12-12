@@ -36,7 +36,7 @@
     sox
 
     # Language Server Dependencies
-    nodePackages.pyright
+#nodePackages.pyright
     nodePackages.tailwindcss
 
     # Formatters

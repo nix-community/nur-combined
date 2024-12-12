@@ -3,13 +3,12 @@
   inputs = {
 
     ## MAIN NIXPKGS
-    nixpkgs-2211.url = "github:NixOS/nixpkgs/nixos-22.11";       # GNOME 43.2
-    #nixpkgs-2305.url = "github:NixOS/nixpkgs/nixos-23.05";  # GNOME 44.2?
-    nixpkgs-2311.url = "github:NixOS/nixpkgs/nixos-23.11";  # GNOME 45.2
-    #nixpkgs-2405.url = "github:NixOS/nixpkgs/nixos-24.05";  # GNOME 46
+    nixpkgs-2211.url = "github:NixOS/nixpkgs/nixos-22.11"; # GNOME 43.2
+    #nixpkgs-2305.url = "github:NixOS/nixpkgs/nixos-23.05";# GNOME 44.2?
+    nixpkgs-2311.url = "github:NixOS/nixpkgs/nixos-23.11"; # GNOME 45.2
+    nixpkgs-2405.url = "github:NixOS/nixpkgs/nixos-24.05"; # GNOME 46
 
-
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11"; # GNOMe 47
 
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware";
@@ -17,7 +16,7 @@
     #nixpkgs-inkscape13.url = "github:leiserfg/nixpkgs?ref=staging";
 
     ## HOME MANAGER
-    home-manager.url = "github:nix-community/home-manager/release-24.05";
+    home-manager.url = "github:nix-community/home-manager/release-24.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     ## OTHER
@@ -57,6 +56,7 @@
     nixpkgs,
     nixpkgs-2211,
     nixpkgs-2311,
+    nixpkgs-2405,
     alacritty-theme,
     unstable,
     #    nixpkgs-inkscape13,

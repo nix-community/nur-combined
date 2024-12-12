@@ -29,8 +29,8 @@
 
 
   # Enable sound.
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
+#sound.enable = true;
+#hardware.pulseaudio.enable = true;
 
   programs = {
     gpaste.enable = true;
