@@ -9,32 +9,40 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "1q3xr0g0xnf5y0q4zq3gw34i5fvbi30xd7h1k1dnj09fknbmpyjp";
-    x86_64-linux = "1n7xqmb5f5a69mp8zgawwnrfbnidiqr6lr87r9yhfkwp2j7mqc4r";
-    armv7l-linux = "1by4wqh6i1kkb4dl7zn4cv7yldgprkqiixfp8i7wwyps41g123gc";
-    aarch64-linux = "1yrr7va0gjph4g0ki06s9yd9r04x8scahnqsrz1wpp56y4van372";
-    x86_64-darwin = "07rfz1hfj3wna2ijjazk3wnhjgdr63xdzalbwgq72d9gfdyi6gpn";
-    aarch64-darwin = "07dpyhn9w4cyr3ny3szrbriv9jzlcnci6q4p0wh4qallqbxfpnyi";
+    i686-linux = "17ispz81zm6jab1fg1hipn30fairbwc4rwmi6295i1xyjdskikvk";
+    x86_64-linux = "1cz49igkfmxngy0j8qcrjqgf481nciah1i8wb52s39kvwfp9w4k0";
+    armv7l-linux = "0zhkxavizx5xyp808n205fy8jla982l6np8x6v2i9p0x9z05c4ma";
+    aarch64-linux = "09rqggaqpqs2acc9xg5h2z000ixs9czsj2firpzfxsm1c6s9nfzp";
+    x86_64-darwin = "1b2zwhfn39p2gj1qg5l5gcs2qvl5rbqh2i1l0dzka3lsxgih1g8d";
+    aarch64-darwin = "040c02vz0zh3j9cykbxxhkpvard26scppf9ccdzs2d1ijfaqscmj";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/charmbracelet/confettysh/releases/download/v1.1.1/confettysh_1.1.1_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/charmbracelet/confettysh/releases/download/v1.1.1/confettysh_1.1.1_Linux_x86_64.tar.gz";
-    armv7l-linux = "https://github.com/charmbracelet/confettysh/releases/download/v1.1.1/confettysh_1.1.1_Linux_arm.tar.gz";
-    aarch64-linux = "https://github.com/charmbracelet/confettysh/releases/download/v1.1.1/confettysh_1.1.1_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/charmbracelet/confettysh/releases/download/v1.1.1/confettysh_1.1.1_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/charmbracelet/confettysh/releases/download/v1.1.1/confettysh_1.1.1_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/charmbracelet/confettysh/releases/download/v1.1.2/confettysh_1.1.2_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/charmbracelet/confettysh/releases/download/v1.1.2/confettysh_1.1.2_Linux_x86_64.tar.gz";
+    armv7l-linux = "https://github.com/charmbracelet/confettysh/releases/download/v1.1.2/confettysh_1.1.2_Linux_arm.tar.gz";
+    aarch64-linux = "https://github.com/charmbracelet/confettysh/releases/download/v1.1.2/confettysh_1.1.2_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/charmbracelet/confettysh/releases/download/v1.1.2/confettysh_1.1.2_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/charmbracelet/confettysh/releases/download/v1.1.2/confettysh_1.1.2_Darwin_arm64.tar.gz";
+  };
+  sourceRootMap = {
+    i686-linux = "confettysh_1.1.2_Linux_i386";
+    x86_64-linux = "confettysh_1.1.2_Linux_x86_64";
+    armv7l-linux = "confettysh_1.1.2_Linux_arm";
+    aarch64-linux = "confettysh_1.1.2_Linux_arm64";
+    x86_64-darwin = "confettysh_1.1.2_Darwin_x86_64";
+    aarch64-darwin = "confettysh_1.1.2_Darwin_arm64";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "confettysh";
-  version = "1.1.1";
+  version = "1.1.2";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
   };
 
-  sourceRoot = ".";
+  sourceRoot = sourceRootMap.${system};
 
   nativeBuildInputs = [ installShellFiles ];
 
