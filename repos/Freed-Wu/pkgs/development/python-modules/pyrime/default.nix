@@ -18,6 +18,7 @@ buildPythonPackage {
     librime
     colorama
     ptpython
+    platformdirs
   ];
   nativeBuildInputs = [
     autopxd
