@@ -206,14 +206,14 @@
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "af40666868cb026503f29f6b1de8a9209b13cffd";
+    version = "9cfac1cd3501b4c9f1931f7b13bc828e2772b6be";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "af40666868cb026503f29f6b1de8a9209b13cffd";
-      hash = "sha256-oKPEA8Ez2JbAXCJGuq+0P5HTc6kQwXl0k7EM4Urlm0g=";
+      rev = "9cfac1cd3501b4c9f1931f7b13bc828e2772b6be";
+      hash = "sha256-zP6XXbIqNfGz0g13BeOyn5bXtKUR0IUEAdvNClqm7gc=";
     };
-    date = "2024-12-10";
+    date = "2024-12-13";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -485,14 +485,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "2139ef696bbf844ab0c1636778f68291d3613fcb";
+    version = "7263fb08e9170e90e67cb9b48884cc6a35cb3b62";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "2139ef696bbf844ab0c1636778f68291d3613fcb";
-      hash = "sha256-yvHK+yrDuz20ZUOgdclea/ODKeislV/iTjmkXzEn/Xc=";
+      rev = "7263fb08e9170e90e67cb9b48884cc6a35cb3b62";
+      hash = "sha256-iSOlvjs5/cZXPmaHzY7miL1PwFLgb/kJczLKjSkPxBQ=";
     };
-    date = "2024-12-12";
+    date = "2024-12-13";
   };
   glauth = {
     pname = "glauth";
@@ -842,12 +842,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4304";
+    version = "b4320";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4304";
-      hash = "sha256-EsNlGx7vEXGxv76NK+ePU4ksLW73QzYwckWSBB3pkio=";
+      tag = "b4320";
+      hash = "sha256-IXV4dwKjGl7Fk8kDlEfhj4UDWgih+dCAqdPzH/a3Qdo=";
     };
   };
   loralib = {
@@ -1150,7 +1150,7 @@
       owner = "open-quantum-safe";
       repo = "oqs-provider";
       tag = "0.7.0";
-      hash = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
+      hash = "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=";
     };
   };
   ormsgpack = {
@@ -1215,10 +1215,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "7.2.1";
+    version = "7.2.2";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.2.1/PeerBanHelper_7.2.1.zip";
-      hash = "sha256-Xs4rJKeuoK7KzExkKO6Il6Omz+c/2JMl6i2jicqFThE=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v7.2.2/PeerBanHelper_7.2.2.zip";
+      hash = "sha256-NCbo+g9khwqKq0gWw3s/RQDMYUm1y1GtYZUgQ46JdL8=";
     };
   };
   phpmyadmin = {
@@ -1520,14 +1520,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "a0aa1adc556e0cf70195140cc26085687b575f99";
+    version = "522ef78bf7ed567d3a1bd4f51d0991685e6a0f52";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "a0aa1adc556e0cf70195140cc26085687b575f99";
-      hash = "sha256-cEQsdPozclEWip4WTVxleFU5x9KMNXq3Y59vLIkT5Zs=";
+      rev = "522ef78bf7ed567d3a1bd4f51d0991685e6a0f52";
+      hash = "sha256-D6VcJWDnfhCHd3B/QR/Pot+6oNs6a77g8hWKU38nZgw=";
     };
-    date = "2024-12-07";
+    date = "2024-12-13";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -1588,12 +1588,12 @@
   };
   sam-toki-mouse-cursors = {
     pname = "sam-toki-mouse-cursors";
-    version = "v7.01";
+    version = "v7.02";
     src = fetchFromGitHub {
       owner = "SamToki";
       repo = "Sam-Toki-Mouse-Cursors";
-      tag = "v7.01";
-      hash = "sha256-6mAuGGNBaKbSZVd7Z0KmLjserv1Sq1ApENcUkUz4C8Y=";
+      tag = "v7.02";
+      hash = "sha256-KaGaqTy52kGCpIervNu3jV1qZwYFA+I+FjtEfnN1Wk4=";
     };
   };
   sgx-software-enable = {
@@ -1637,12 +1637,12 @@
   };
   smfc = {
     pname = "smfc";
-    version = "v3.5.1";
+    version = "v3.6.0";
     src = fetchFromGitHub {
       owner = "petersulyok";
       repo = "smfc";
-      tag = "v3.5.1";
-      hash = "sha256-zfQDvh5j40UNwJanGS5acRyNB+3j5jcKC/vsPHRijtc=";
+      tag = "v3.6.0";
+      hash = "sha256-e8RIFTSMwFdyNwacU6Be48FqjGMOmGRVRFigogTawls=";
     };
   };
   soggy = {
@@ -1847,12 +1847,12 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "608830f222f86b3781ceb547e9eafa826d45553a";
+    version = "540f3c2ddcaf04a83902a99666fea07765713cad";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "608830f222f86b3781ceb547e9eafa826d45553a";
-      hash = "sha256-3pUmvZ/yQcX6++9xtV40eGo1PJlinEyB8IGyywS3rPc=";
+      rev = "540f3c2ddcaf04a83902a99666fea07765713cad";
+      hash = "sha256-+a369CDcK269nZkTsICUefJ8UP0i2rOogCmTg3in5DM=";
     };
     date = "2024-12-12";
   };
