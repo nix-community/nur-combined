@@ -5,15 +5,19 @@
   substituteAll,
   setuptools,
   cs3apis,
-  grpcio,
-  grpcio-tools,
+  cs3client,
+  cygrpc,
   flask,
-  pyjwt,
-  requests,
+  grpcio-tools,
+  grpcio,
   more-itertools,
   prometheus-flask-exporter,
+  pyjwt,
+  pyopenssl,
+  requests,
   waitress,
   werkzeug,
+  zipp,
   nix-update-script,
 }:
 buildPythonApplication rec {
@@ -45,20 +49,29 @@ buildPythonApplication rec {
         "/etc/wopi" "$out/etc/wopi"
     '';
 
-  buildInputs = [ setuptools ];
+  build-system = [ setuptools ];
 
-  propagatedBuildInputs = [
+  dependencies = [
     cs3apis
+    cs3client
+    cygrpc
+    flask
     grpcio
     grpcio-tools
-    flask
-    pyjwt
-    requests
     more-itertools
     prometheus-flask-exporter
+    pyjwt
+    pyopenssl
+    requests
     waitress
     werkzeug
+    zipp
   ];
+
+  # FIXME: tests
+  # nativeCheckInputs = [
+  #   pytestCheckHook
+  # ];
 
   preInstall = ''
     mkdir -p $out/etc/wopi

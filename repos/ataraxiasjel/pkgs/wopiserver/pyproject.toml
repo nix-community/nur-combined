@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools >= 65.5.1"]
+requires = ["setuptools >= 70.0.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,16 +8,20 @@ version = "@version@"
 license = {file = "LICENSE"}
 requires-python = ">= 3.6"
 dependencies = [
-  "grpcio>=1.47.0",
-  "grpcio-tools>=1.47.0",
+  "cs3apis>=0.1.dev101",
+  "cs3client>=1.1",
+  "cygrpc",
   "flask",
-  "PyJWT",
-  "requests",
+  "grpcio-tools>=1.47.0",
+  "grpcio>=1.47.0",
   "more_itertools",
   "prometheus-flask-exporter",
-  "cs3apis>=0.1.dev101",
+  "PyJWT",
+  "pyOpenSSL",
+  "requests",
   "waitress",
-  "werkzeug",
+  "werkzeug>=3.0.1",
+  "zipp>=3.19.1",
 ]
 
 [project.scripts]
