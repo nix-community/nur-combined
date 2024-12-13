@@ -1,9 +1,8 @@
 {
   lib,
   stdenv,
-  python3,
   fetchFromGitHub,
-  cmake
+  cmake,
 }:
 stdenv.mkDerivation rec {
   pname = "daqp";

@@ -10,3 +10,5 @@
 - *[activitywatch-bin](https://github.com/ActivityWatch/activitywatch)*
 - *[hledger-utils](https://pypi.org/project/hledger-utils/)*
 - *[math-preview](https://gitlab.com/matsievskiysv/math-preview)*
+- *[linkding-cli](https://github.com/bachya/linkding-cli)*
+- *[aiolinkding](https://github.com/bachya/aiolinkding)*
