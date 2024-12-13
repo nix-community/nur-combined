@@ -759,6 +759,21 @@
         platforms = platforms.all;
       };
     };
+    "belgium-eid" = buildFirefoxXpiAddon {
+      pname = "belgium-eid";
+      version = "1.0.32";
+      addonId = "belgiumeid@eid.belgium.be";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3736679/belgium_eid-1.0.32.xpi";
+      sha256 = "b76cdb139f08b8778094cf7594d5f8adb8962f3b79b10ab7e746f53d175263bc";
+      meta = with lib;
+      {
+        homepage = "https://eid.belgium.be/";
+        description = "Use the Belgian electronic identity card (eID) in Firefox";
+        license = licenses.lgpl3;
+        mozPermissions = [ "pkcs11" "notifications" "https://*.belgium.be/*" ];
+        platforms = platforms.all;
+      };
+    };
     "betterttv" = buildFirefoxXpiAddon {
       pname = "betterttv";
       version = "7.6.9";
@@ -2870,10 +2885,10 @@
     };
     "faststream" = buildFirefoxXpiAddon {
       pname = "faststream";
-      version = "1.3.36";
+      version = "1.3.37";
       addonId = "faststream@andrews";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4402792/faststream-1.3.36.xpi";
-      sha256 = "7058bc520fdd1f8fa3395c56e09e381503223e112d6e285d3252bb25672725d9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4404528/faststream-1.3.37.xpi";
+      sha256 = "4f298180cf264e754841508dff8dc5215fa77efb8a807e1bcd2b92256650ee7e";
       meta = with lib;
       {
         homepage = "https://faststream.online/";
@@ -7556,10 +7571,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.7.1";
+      version = "1.7.3";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4401617/mtab-1.7.1.xpi";
-      sha256 = "67d9b5d286c63e7cb30675f4b92272a5c81f84c2ae73ea6f4fc941747ae1ceef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4404486/mtab-1.7.3.xpi";
+      sha256 = "9d720adaf4d18b1be08609bbd002e52f7394b117badbed267cb0846b2a419b44";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
@@ -9385,10 +9400,10 @@
     };
     "protondb-for-steam" = buildFirefoxXpiAddon {
       pname = "protondb-for-steam";
-      version = "2.2.0";
+      version = "2.2.1";
       addonId = "{30280527-c46c-4e03-bb16-2e3ed94fa57c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4396448/protondb_for_steam-2.2.0.xpi";
-      sha256 = "831d8bd66eaa9a35b9ffe2c72a5aa8b1174d3fcd72cb6c0eb53d332de179d133";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4401222/protondb_for_steam-2.2.1.xpi";
+      sha256 = "34ac60567e0100ff0c81e812a7fa47ba57600a48bc2ba501963ac4b4838a845f";
       meta = with lib;
       {
         homepage = "https://github.com/tryton-vanmeer/ProtonDB-for-Steam#protondb-for-steam";
