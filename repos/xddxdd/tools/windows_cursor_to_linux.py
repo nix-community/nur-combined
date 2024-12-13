@@ -138,7 +138,6 @@ class WindowsInfParser:
     def __init__(self, inf_path: str):
         self.inf_path = inf_path
         self.dict, self.list = self._load(inf_path)
-        self._substitute_all_variables()
         print(self.dict)
 
     def _load(self, path: str) -> Tuple[
@@ -178,19 +177,6 @@ class WindowsInfParser:
 
         return result_dict, result_list
 
-    def _substitute_all_variables(self):
-        self.dict = CaseInsensitiveDict(
-            {
-                k: CaseInsensitiveDict(
-                    {kk: self.eval_string(vv) for kk, vv in v.items()}
-                )
-                for k, v in self.dict.items()
-            }
-        )
-        self.list = CaseInsensitiveDict(
-            {k: [self.eval_string(s) for s in v] for k, v in self.list.items()}
-        )
-
     def eval_string(self, s: str) -> str:
         def _normalize_string(s: str) -> str:
             s = s.replace("\\", "/")
@@ -210,6 +196,7 @@ class WindowsInfParser:
     def get_cursor_path(self, cursor_path: str) -> str:
         # TODO: implement path parsing instead of assuming
         # cursors are in same directory as inf file
+        cursor_path = self.eval_string(cursor_path)
         return os.path.join(
             os.path.dirname(self.inf_path), os.path.basename(cursor_path)
         )
@@ -229,31 +216,43 @@ class WindowsInfParser:
         for reg in add_reg:
             entries = self.list[reg]
             for entry in entries:
-                args = shlex.split(entry.replace(",", " "))
-                print(args)
-                if (
-                    args[0].upper() in ["HKCU", "HKEY_CURRENT_USER"]
-                    and args[1].upper() == "Control Panel/Cursors/Schemes".upper()
-                ):
-                    cursors = shlex.split(args[3])
-                    return {
-                        "__name__": self.normalize_name(args[2]),
-                        WindowsCursors.DEFAULT: self.get_cursor_path(cursors[0]),
-                        WindowsCursors.HELP: self.get_cursor_path(cursors[1]),
-                        WindowsCursors.PROGRESS: self.get_cursor_path(cursors[2]),
-                        WindowsCursors.WAIT: self.get_cursor_path(cursors[3]),
-                        WindowsCursors.CROSSHAIR: self.get_cursor_path(cursors[4]),
-                        WindowsCursors.TEXT: self.get_cursor_path(cursors[5]),
-                        WindowsCursors.PENCIL: self.get_cursor_path(cursors[6]),
-                        WindowsCursors.NOT_ALLOWED: self.get_cursor_path(cursors[7]),
-                        WindowsCursors.SIZE_VER: self.get_cursor_path(cursors[8]),
-                        WindowsCursors.SIZE_HOR: self.get_cursor_path(cursors[9]),
-                        WindowsCursors.SIZE_NW_SE: self.get_cursor_path(cursors[10]),
-                        WindowsCursors.SIZE_NE_SW: self.get_cursor_path(cursors[11]),
-                        WindowsCursors.MOVE: self.get_cursor_path(cursors[12]),
-                        WindowsCursors.RIGHT_PTR: self.get_cursor_path(cursors[13]),
-                        WindowsCursors.POINTER: self.get_cursor_path(cursors[14]),
-                    }
+                try:
+                    args = shlex.split(entry.replace(",", " "))
+                    print(f"Parse result: {args}")
+                    if args[0].upper() in ["HKCU", "HKEY_CURRENT_USER"] and re.match(
+                        r"Control Panel.?Cursors.?Schemes", args[1], flags=re.IGNORECASE
+                    ):
+                        if '"' in args[3]:
+                            cursors = shlex.split(args[3])
+                        else:
+                            cursors = args[3].split(" ")
+                        print(cursors)
+                        return {
+                            "__name__": self.normalize_name(self.eval_string(args[2])),
+                            WindowsCursors.DEFAULT: self.get_cursor_path(cursors[0]),
+                            WindowsCursors.HELP: self.get_cursor_path(cursors[1]),
+                            WindowsCursors.PROGRESS: self.get_cursor_path(cursors[2]),
+                            WindowsCursors.WAIT: self.get_cursor_path(cursors[3]),
+                            WindowsCursors.CROSSHAIR: self.get_cursor_path(cursors[4]),
+                            WindowsCursors.TEXT: self.get_cursor_path(cursors[5]),
+                            WindowsCursors.PENCIL: self.get_cursor_path(cursors[6]),
+                            WindowsCursors.NOT_ALLOWED: self.get_cursor_path(
+                                cursors[7]
+                            ),
+                            WindowsCursors.SIZE_VER: self.get_cursor_path(cursors[8]),
+                            WindowsCursors.SIZE_HOR: self.get_cursor_path(cursors[9]),
+                            WindowsCursors.SIZE_NW_SE: self.get_cursor_path(
+                                cursors[10]
+                            ),
+                            WindowsCursors.SIZE_NE_SW: self.get_cursor_path(
+                                cursors[11]
+                            ),
+                            WindowsCursors.MOVE: self.get_cursor_path(cursors[12]),
+                            WindowsCursors.RIGHT_PTR: self.get_cursor_path(cursors[13]),
+                            WindowsCursors.POINTER: self.get_cursor_path(cursors[14]),
+                        }
+                except ValueError:
+                    print(f"Cannot parse {entry}, skipping")
 
         return None
 
