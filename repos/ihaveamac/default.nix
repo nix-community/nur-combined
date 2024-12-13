@@ -50,6 +50,10 @@ rec {
     version = "1.42.3";
     hash = "sha256-4FVjA/HYRnnNk5sykMyrP4nLxp02B/8dRJymxZU7ILw=";
   };
+  mediawiki_1_43 = pkgs.callPackage ./pkgs/mediawiki {
+    version = "1.43.0-rc.0";
+    hash = "sha256-nO+3Fs9DoSdRwoguRpun9BEF1daFAVvYSqxI1HiUtd4=";
+  };
 
   kwin-move-window = pkgs.callPackage ./pkgs/kwin-move-window { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
