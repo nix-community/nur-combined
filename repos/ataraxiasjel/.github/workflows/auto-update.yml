@@ -27,7 +27,7 @@ jobs:
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Install essential packages
-      run: nix profile install nixpkgs#nix-eval-jobs nixpkgs#jq
+      run: nix profile install nixpkgs#nix-eval-jobs nixpkgs#jq nixpkgs#nix-update
     - name: Update packages
       env:
         XDG_RUNTIME_DIR: ${{ github.workspace }}
@@ -40,7 +40,7 @@ jobs:
         NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
       timeout-minutes: 30
       continue-on-error: true
-      run: nix eval --json --impure --expr '(import ./ci.nix {}).updatablePkgsNames' | jq '.[]' | xargs -L1 ./update.py --commit --package
+      run: nix eval --json --impure --expr '(import ./ci.nix {}).updatablePkgsNames' | jq '.[]' | xargs -L1 nix-update --use-update-script --commit --flake
     - name: Check evaluation
       env:
         NIXPKGS_ALLOW_UNFREE: 1
