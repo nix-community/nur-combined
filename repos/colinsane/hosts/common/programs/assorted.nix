@@ -301,6 +301,7 @@ in
       "gnome-calculator"
       "gnome-calendar"
       "gnome-clocks"
+      "gnome-contacts"
       # "gnome-podcasts"
       # "gnome.gnome-system-monitor"
       # "gnome.gnome-terminal"  # works on phosh
@@ -650,6 +651,9 @@ in
     # gnome-calendar surely has data to persist, but i use it strictly to do date math, not track events.
     gnome-calendar.sandbox.whitelistWayland = true;
     gnome-calendar.sandbox.whitelistDbus = [ "user" ];
+    gnome-calendar.suggestedPrograms = [
+      "evolution-data-server"  #< to access/persist calendar events
+    ];
 
     # gnome-disks
     # XXX(2024-09-02): fails to show any disks even when run as `BUNPEN_DISABLE=1 sudo -E gnome-disks`.

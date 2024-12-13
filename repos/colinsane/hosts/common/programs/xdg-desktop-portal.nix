@@ -100,13 +100,50 @@ in
       ];
       readiness.waitDbus = "org.freedesktop.impl.portal.PermissionStore";
     };
-    # also available: ${cfg.package}/libexec/xdg-document-portal
-    # - <https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.Documents.html>
-    # - shares files from its namespace with programs inside a namespace, via a fuse mount at $XDG_RUNTIME_DIR/doc
+
+    # N.B.: xdg-document-portal requires systemd integration (or flatpak integration) to be effective:
+    # 1. x-d-p sends request to FileChooser
+    #    -> FileChooser needs access to any path the user *might* want to select
+    # 2. x-d-p discovers the `app_id` of the requester.
+    # 3. x-d-p directs Documents to serve the path returned from FileChooser
+    #    -> Documents needs access to any path that FileChooser might return.
+    # 4. x-d-p returns to the app whatever Documents gave it (/run/user/$USER/doc/by-app/$appid/...).
+    #
+    # - no. 3-4 only happen if x-d-p can discover the app's id.
+    # - x-d-p discovers the app-id by:
+    #   - asking systemd (user session): "what's the name of the .service or .scope associated with this $PID".
+    #     (special .service/.scope naming documented here: <https://systemd.io/DESKTOP_ENVIRONMENTS/>)
+    #   - or `XDG_DESKTOP_PORTAL_TEST_APP_ID` takes precedence if provided (in which case the portal uses the same app_id for _all_ apps).
+    #   - or special flatpak/snap integration.
+    #
+    # integrating this thoughtfully would take a great deal of planning on my part.
+    #
+    # services.xdg-document-portal = {
+    #   # shares files from its namespace with programs inside a namespace, via a fuse mount at $XDG_RUNTIME_DIR/doc.
+    #   description = "xdg-document-portal: selectively share documents with sandboxed apps";
+    #   documentation = [ "https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.Documents.html" ];
+    #   dependencyOf = [ "xdg-desktop-portal" ];
+    #   command = lib.concatStringsSep " " [
+    #     # TODO: are these env's necessary?
+    #     "env"
+    #     # ''XDG_DESKTOP_PORTAL_DIR=''${HOME}/.config/xdg-desktop-portal/portal''
+    #     ''NIX_XDG_DESKTOP_PORTAL_DIR=/etc/profiles/per-user/''${USER}/share/xdg-desktop-portal/portals''
+    #     "${cfg.package}/libexec/xdg-document-portal"
+    #   ];
+    #   readiness.waitDbus = "org.freedesktop.portal.Documents";
+    # };
   };
 
   environment.pathsToLink = lib.mkIf cfg.enabled [
     # "/share/xdg-desktop-portal/portals"
     "/share/xdg-desktop-portal"
   ];
+
+  # systemd.services.xdg-document-portal = lib.mkIf cfg.enabled {
+  #   # xdg-document-portal need permissions to create a mount under /run/user/.../doc.
+  #   # this isn't easily avoidable: it's coded to always create the mount, after acquiring its dbus name;
+  #   # i'd need to use fuse3 `pass_fuse_fd` flag and somehow plumb that all the way though xdg-document-portal (i.e. significant patching)
+  #   serviceConfig.AmbientCapabilities = "CAP_SYS_ADMIN";
+  #   serviceConfig.CapabilityBoundingSet = "CAP_SYS_ADMIN";
+  # };
 }

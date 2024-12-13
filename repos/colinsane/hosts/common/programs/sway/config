@@ -157,7 +157,8 @@ mode "resize" {
 
 ### application-specific settings
 #### to obtain app-id's run `swaymsg -t get_tree`
-for_window [title="megapixels"] inhibit_idle open
+for_window [app_id="me.gapixels.Megapixels"] inhibit_idle open
+for_window [app_id="org.gnome.Maps"] inhibit_idle visible
 
 # workspace assignments
 workspace TV output $out_tv $out_projector
@@ -166,9 +167,8 @@ for_window [workspace="TV"] fullscreen enable
 # mostly, messengers belong on WS 1
 assign [app_id="abaddon"] workspace number 1
 assign [app_id="geary"] workspace number 1
-assign [app_id="gnome-calls"] workspace number 1  # gnome-calls <= 46.3
-assign [app_id="org.gnome.Calls"] workspace number 1  # gnome-calls >= 47.0-beta
 assign [app_id="im.dino.Dino"] workspace number 1
+assign [app_id="org.gnome.Calls"] workspace number 1  # gnome-calls >= 47.0-beta
 assign [app_id="org.gnome.Fractal"] workspace number 1
 assign [app_id="signal"] workspace number 1
 assign [app_id="so.libdb.dissent"]  workspace number 1

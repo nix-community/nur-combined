@@ -50,6 +50,7 @@
     ./epiphany.nix
     ./errno.nix
     ./evince.nix
+    ./evolution-data-server.nix
     ./exiftool.nix
     ./fcitx5.nix
     ./feedbackd.nix
@@ -72,6 +73,7 @@
     ./geoclue2.nix
     ./git.nix
     ./gnome-clocks.nix
+    ./gnome-contacts.nix
     ./gnome-feeds.nix
     ./gnome-keyring
     ./gnome-maps.nix

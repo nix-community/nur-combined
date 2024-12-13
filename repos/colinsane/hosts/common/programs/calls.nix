@@ -14,17 +14,16 @@
 # - `calls -vvv` for verbosity
 # - `SOFIA_DEBUG=9 NEA_DEBUG=9 NUA_DEBUG=9 NTA_DEBUG=9 SU_DEBUG=8 gnome-calls` to debug SIP related stuff
 #
-# LIMITATIONS, COMPATIBILITY (as of 2024-08-20):
-# - when switching from wifi -> wwan (4g), may experience about a minute of audio loss.
+# LIMITATIONS, COMPATIBILITY
+# - 2024-08-20: when switching from wifi -> wwan (4g), may experience about a minute of audio loss.
 #   the call stays alive, but no sound in either direction.
 #   this appears to be ~40s of general net loss to servo-hn (NetworkManager being slow to switch the default device? wireguard being slow to refresh?),
 #   unknown how much time is lost in the upper layers (e.g. dns being refreshed)
-# - wwan -> wifi switching is (near) flawless. prefer to keep modem powered until end of call, because of audio routing, but OK to power it off.
-# - audio is not always routed to a good device when the modem is powered.
+# - 2024-08-20: wwan -> wifi switching is (near) flawless. prefer to keep modem powered until end of call, because of audio routing, but OK to power it off.
+# - 2024-08-20: audio is not always routed to a good device when the modem is powered.
 #   solve by opening `pavucontrol`, go to "configuration" tab, change "Built-in audio" to anything and then back to "Make a phone call (Earpiece, Mic)".
 #   i expect my eg25-control-powered script messes with the audio routing.
-# - `gnome-calls` takes about 2 minutes after launch until it shows the UI.
-#   seems to be sandbox related.
+# - 2024-12-12: contacts are visible when evolution-data-server is enabled, however attempting to call triggers "Can't submit call with no origin"
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.calls;

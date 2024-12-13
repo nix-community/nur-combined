@@ -266,7 +266,12 @@ in
       # XXX(2024-12-04): the gnome file-chooser (libadwaita) is much more mobile-friendly than the gtk ones
       #   it turns out xdg-desktop-portal-gnome is just a shim around nautilus, so we can just call that directly
       org.freedesktop.impl.portal.FileChooser=nautilus
-
+      # XXX(2024-12-11): sway doesn't support the x-d-p Inhibit portal, preferring to use wayland's own idle-inhibit feature.
+      # x-d-p-gtk's Inhibit portal trie org.gnome.SessionManager or org.freedesktop.ScreenSaver, also not supported.
+      # explicitly disable the Inhibit portal so that applications can fallback to non-portal inhibition.
+      # - see: <https://gitlab.archlinux.org/archlinux/packaging/packages/sway/-/issues/2>
+      # - see: <https://github.com/swaywm/swayidle/issues/46>
+      org.freedesktop.impl.portal.Inhibit=none
     '';
 
     fs.".config/sway/config".symlink.target = pkgs.substituteAll {

@@ -2,8 +2,13 @@
 {
   sane.programs.xdg-desktop-portal-nautilus = {
     packageUnwrapped = pkgs.rmDbusServices (pkgs.nautilus.overrideAttrs (upstream: {
-      preConfigure = (upstream.preConfigure or "") + ''
+      postPatch = (upstream.postPatch or "") + ''
         cp data/icons/hicolor/scalable/apps/org.gnome.Nautilus.svg data/icons/hicolor/scalable/apps/org.gnome.NautilusPortal.svg
+        # XXX: org.gnome.NautilusPreviewer is an optional integration provided by `sushi` (installed separately).
+        # press spacebar when a media file is selected to preview it (in a very speedy viewer).
+        # however when using Nautilus as a x-d-p FileChooser, the previewer opens below the file chooser and isn't so helpful.
+        substituteInPlace src/nautilus-previewer.c \
+          --replace-fail org.gnome.NautilusPreviewerDevel org.gnome.NautilusPreviewerPortal
       '';
 
       postInstall = (upstream.postInstall or "") + ''
