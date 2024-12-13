@@ -1,11 +1,11 @@
 { fetchFromGitHub }:
 rec {
-  version = "1.15.0";
+  version = "1.15.1";
 
   src = fetchFromGitHub {
     owner = "Luzifer";
     repo = "ots";
     rev = "v${version}";
-    hash = "sha256-V2uNhzyo0gINOZRscLI0ha/DkUk7AVw8FMkYaKSrpp0=";
+    hash = "sha256-MIqVNiogzDFw1RB0MY0A0YBns2Llxze1OueXUIjnkpw=";
   };
 }
