@@ -18,7 +18,7 @@
 }:
 buildPythonApplication rec {
   pname = "gamma-launcher";
-  version = "2.1";
+  version = "2.2";
   pyproject = true;
 
   disabled = pythonOlder "3.10";
@@ -27,7 +27,7 @@ buildPythonApplication rec {
     owner = "Mord3rca";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-5oOVHxaQYCEmwUmPDxrNeHsSJIJ/u7wks5Wnnef1DKY=";
+    hash = "sha256-G72nd2BSOF+b3eOZo/qXRDTI4JFQQq4jw9B/OmdDrjk=";
   };
 
   build-system = [ setuptools ];
