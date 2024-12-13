@@ -57,6 +57,11 @@ with open("_sources/generated.nix") as f:
 current_fetch_func = ""
 for line in lines:
     line = line.replace('sha256 = "', 'hash = "')
+    if 'rev = "' in line:
+        if re.search(r"rev = \"[0-9a-f]{40}\"", line):
+            pass
+        else:
+            line = line.replace('rev = "', 'tag = "')
     if should_keep_line(line):
         result += line + "\n"
 

@@ -19,13 +19,11 @@ buildGoModule rec {
   buildInputs = lib.optional (!withGoolm) olm;
   tags = lib.optional withGoolm "goolm";
 
-  doCheck = false;
-
-  meta = with lib; {
+  meta = {
     homepage = "https://github.com/mautrix/gmessages";
     description = "Matrix-Google Messages puppeting bridge";
-    license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ xddxdd ];
+    license = lib.licenses.agpl3Plus;
+    maintainers = with lib.maintainers; [ xddxdd ];
     mainProgram = "mautrix-gmessages";
   };
 }

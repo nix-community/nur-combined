@@ -7,7 +7,7 @@
     src = fetchFromGitHub {
       owner = "musikid";
       repo = "acpi_ec";
-      rev = "v1.0.4";
+      tag = "v1.0.4";
       hash = "sha256-gDcEzZKtHMULtTtJSDTRH1W9otSB6IC0E6EBF9j6F7Q=";
     };
   };
@@ -99,7 +99,7 @@
     src = fetchFromGitHub {
       owner = "axiomhq";
       repo = "axiom-syslog-proxy";
-      rev = "v0.7.2";
+      tag = "v0.7.2";
       hash = "sha256-+qaAIIQLlXXoH8uTWF2WxBpYdZVFMH1dMWCSAxkUay8=";
     };
   };
@@ -152,7 +152,7 @@
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      rev = "v1.15.2-2";
+      tag = "v1.15.2-2";
       hash = "sha256-ldzh0Jf/5N88DGAENAFS38yaWnZlp8w/K3pb7ijo8bQ=";
     };
   };
@@ -162,7 +162,7 @@
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "bird-lg-go";
-      rev = "v1.3.8";
+      tag = "v1.3.8";
       hash = "sha256-j81cfHqXNsTM93ofxXz+smkjN8OdJXxtm9z5LdzC+r8=";
     };
   };
@@ -240,7 +240,7 @@
     src = fetchFromGitHub {
       owner = "jwodder";
       repo = "click-loglevel";
-      rev = "v0.5.1";
+      tag = "v0.5.1";
       hash = "sha256-hSfedaZjzH71IAJnxekbMJjmeRG95q4d/dYk6LPNupw=";
     };
   };
@@ -250,7 +250,7 @@
     src = fetchFromGitHub {
       owner = "tickstep";
       repo = "cloudpan189-go";
-      rev = "v0.1.3";
+      tag = "v0.1.3";
       hash = "sha256-CJCTfzcLw5e41RZXhgbJhZVOP4FDDYM74Oo9my/liZk=";
     };
   };
@@ -283,7 +283,7 @@
     src = fetchFromGitHub {
       owner = "coqui-ai";
       repo = "TTS";
-      rev = "v0.22.0";
+      tag = "v0.22.0";
       hash = "sha256-RQVlPHYZ5X/6xbxwGNcgntcyAsBS8T2ketdk+OCIS3Q=";
     };
   };
@@ -323,7 +323,7 @@
     src = fetchFromGitHub {
       owner = "ManiMatter";
       repo = "decluttarr";
-      rev = "v1.50.1";
+      tag = "v1.50.1";
       hash = "sha256-/H5lZRTb9/bjRA4E1uOzoWPbSiCxbnMCfdGEWnNHPbw=";
     };
   };
@@ -393,7 +393,7 @@
     src = fetchFromGitHub {
       owner = "drone";
       repo = "drone-vault";
-      rev = "v1.3.0";
+      tag = "v1.3.0";
       hash = "sha256-g4D+pnOo41UqPDFF3lvh/yNFVzP8rqglG+4xPx+aEzM=";
     };
   };
@@ -403,7 +403,7 @@
     src = fetchFromGitHub {
       owner = "rany2";
       repo = "edge-tts";
-      rev = "7.0.0";
+      tag = "7.0.0";
       hash = "sha256-TwBSEePVFYTvdueunTrFtZd96tp2P/he7+1cmIk2dy8=";
     };
   };
@@ -413,7 +413,7 @@
     src = fetchFromGitHub {
       owner = "KusakabeShi";
       repo = "EtherGuard-VPN";
-      rev = "v0.3.5-f5";
+      tag = "v0.3.5-f5";
       hash = "sha256-67ocXHf+AN3nyPt4636ZJHGRqWSjkpTiDvU5243urBw=";
     };
   };
@@ -450,7 +450,7 @@
     src = fetchFromGitHub {
       owner = "fishaudio";
       repo = "fish-speech";
-      rev = "v1.4.3";
+      tag = "v1.4.3";
       hash = "sha256-5uzox/yVASKyAEmpy92BgscMzMWUm+cLw4rnxWFUqkY=";
     };
   };
@@ -471,7 +471,7 @@
     src = fetchFromGitHub {
       owner = "flasgger";
       repo = "flasgger";
-      rev = "0.9.5";
+      tag = "0.9.5";
       hash = "sha256-cYFMKZxpi69gVWqyZUltCL0ZwcfIABNsJKqAhN2TTSg=";
     };
   };
@@ -500,7 +500,7 @@
     src = fetchFromGitHub {
       owner = "glauth";
       repo = "glauth";
-      rev = "v2.3.2";
+      tag = "v2.3.2";
       hash = "sha256-FOhtL8nIm5kuKRxFtkrDyUU2z1K22ZdHaes3GY0KmfQ=";
     };
   };
@@ -594,7 +594,7 @@
     src = fetchFromGitHub {
       owner = "studyzy";
       repo = "imewlconverter";
-      rev = "v3.1.1";
+      tag = "v3.1.1";
       hash = "sha256-lrYqQWh+PZreJ6oJg+OCipiqUyfG/2moP/n+jR+Kcj8=";
     };
   };
@@ -620,7 +620,7 @@
     src = fetchFromGitHub {
       owner = "nttcslab-sp";
       repo = "kaldiio";
-      rev = "v2.18.0";
+      tag = "v2.18.0";
       hash = "sha256-B7jkz7GK3emgVrAFTKV5+CS1BWKnxk608rHWRLCBX8o=";
     };
   };
@@ -630,7 +630,7 @@
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      rev = "3.11.0";
+      tag = "3.11.0";
       hash = "sha256-fIjHtTBWeU6Kp83YGuaL3h0wq4lqUyNKrkFIsCzII6c=";
     };
   };
@@ -648,7 +648,7 @@
     src = fetchFromGitHub {
       owner = "KikoPlayProject";
       repo = "KikoPlay";
-      rev = "1.0.3";
+      tag = "1.0.3";
       hash = "sha256-y+sT0aHDvKFNaJIxnGxDXZXUiCzuXVF7FPc8t//RMW4=";
     };
   };
@@ -680,7 +680,7 @@
     src = fetchFromGitHub {
       owner = "Kopano-dev";
       repo = "konnect";
-      rev = "v0.34.0";
+      tag = "v0.34.0";
       hash = "sha256-y7SD+czD/jK/m0LbFq7qGjwJgBIXfTNrdsA3pzgD2xE=";
     };
   };
@@ -690,7 +690,7 @@
     src = fetchFromGitHub {
       owner = "abersheeran";
       repo = "kui";
-      rev = "v1.8.1";
+      tag = "v1.8.1";
       hash = "sha256-NgjOBIBfXTnsCq8eaD+EgaHkI7i+1NR1Te0e8au6NpU=";
     };
   };
@@ -730,7 +730,7 @@
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "0.12.0";
+      tag = "0.12.0";
       hash = "sha256-ngjN1JdmnvMn+UXJeCiBwF1Uf7kTOjHVBL99xzoZVFY=";
     };
   };
@@ -805,7 +805,7 @@
     version = "6.12.4-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      rev = "6.12.4-xanmod1";
+      tag = "6.12.4-xanmod1";
       fetchSubmodules = false;
       hash = "sha256-qxcIcXrHzRXYnTvj+hKgwm5GBTZH/KIQdrnSUon/qoU=";
     };
@@ -815,7 +815,7 @@
     version = "6.0.12-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      rev = "6.0.12-xanmod1";
+      tag = "6.0.12-xanmod1";
       fetchSubmodules = false;
       hash = "sha256-k3fePBhb2zJfvPupdgenkdqG4sHNu2iv6T01EvOgbCg=";
     };
@@ -825,7 +825,7 @@
     version = "6.1.77-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      rev = "6.1.77-xanmod1";
+      tag = "6.1.77-xanmod1";
       fetchSubmodules = false;
       hash = "sha256-O+XB+avpx9Kkt+7RW6pT5mXMtAVhXNHe+ohgIm1ql8w=";
     };
@@ -835,7 +835,7 @@
     version = "6.6.65-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      rev = "6.6.65-xanmod1";
+      tag = "6.6.65-xanmod1";
       fetchSubmodules = false;
       hash = "sha256-tS0CFY7hriPH4ozJEQnGXRPp5ZMdFMhx5xv1neBm+SQ=";
     };
@@ -846,7 +846,7 @@
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      rev = "b4304";
+      tag = "b4304";
       hash = "sha256-EsNlGx7vEXGxv76NK+ePU4ksLW73QzYwckWSBB3pkio=";
     };
   };
@@ -867,7 +867,7 @@
     src = fetchFromGitHub {
       owner = "chiyuki0325";
       repo = "lyrica";
-      rev = "v0.12";
+      tag = "v0.12";
       hash = "sha256-z7oAlWwL2qKzUGUYzxteGlb+lZkMCh2I4qR+coI5Kmk=";
     };
   };
@@ -885,7 +885,7 @@
     src = fetchFromGitHub {
       owner = "mautrix";
       repo = "gmessages";
-      rev = "v0.5.2";
+      tag = "v0.5.2";
       hash = "sha256-3sx2XxzH/cj2zJIkV9QKKVadxSWwf4YZbdg3p4repqs=";
     };
   };
@@ -895,7 +895,7 @@
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope";
-      rev = "v1.21.0";
+      tag = "v1.21.0";
       hash = "sha256-2Ydi6ijsdfBZJBMHqn7/hs1vvaiKvcuoWHtuHbkc1Ok=";
     };
   };
@@ -905,7 +905,7 @@
     src = fetchFromGitHub {
       owner = "bkerler";
       repo = "mtkclient";
-      rev = "2.0.1.freeze";
+      tag = "2.0.1.freeze";
       hash = "sha256-y2VCfjds1fN2G9MHYZveT3NQqYF7RO26gBykHY1O6o8=";
     };
   };
@@ -926,7 +926,7 @@
     src = fetchFromGitHub {
       owner = "iqiziqi";
       repo = "ncmdump.rs";
-      rev = "0.8.0";
+      tag = "0.8.0";
       hash = "sha256-do11HeySNtNCOt9mhlqPwdyjm+86ujfI7n0blSqYtvM=";
     };
   };
@@ -1019,7 +1019,7 @@
     src = fetchFromGitHub {
       owner = "nginx";
       repo = "njs";
-      rev = "0.8.8";
+      tag = "0.8.8";
       hash = "sha256-8XinejAE1HtkbTEOAS7Xgvtz7wRE3+/JwTyhPoN68Tc=";
     };
   };
@@ -1040,7 +1040,7 @@
     src = fetchFromGitHub {
       owner = "werman";
       repo = "noise-suppression-for-voice";
-      rev = "v1.10";
+      tag = "v1.10";
       hash = "sha256-sfwHd5Fl2DIoGuPDjELrPp5KpApZJKzQikCJmCzhtY8=";
     };
   };
@@ -1061,7 +1061,7 @@
     src = fetchFromGitHub {
       owner = "abbbi";
       repo = "nullfsvfs";
-      rev = "v0.17";
+      tag = "v0.17";
       hash = "sha256-Hkplhem4Gb1xsYQtRSWub0m15Fiil3qJAO183ygP+WI=";
     };
   };
@@ -1120,7 +1120,7 @@
     src = fetchFromGitHub {
       owner = "matatonic";
       repo = "openedai-speech";
-      rev = "0.18.2";
+      tag = "0.18.2";
       hash = "sha256-AC9fClFDUj8TV5W7sTZy+AjvNZgU6Vuvq9nP8Iy+WLY=";
     };
   };
@@ -1149,8 +1149,8 @@
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "0.7.0";
-      hash = "sha256-KKZMb6ebaXxLSr5aV0m0VIHj2ofaRYQ0JF5JMAfiEj4=";
+      tag = "0.7.0";
+      hash = "sha256-2+TpYpZwC8vx6tGgS2waD/BQDfnbq0PJIwvX5wDDBEg=";
     };
   };
   ormsgpack = {
@@ -1159,7 +1159,7 @@
     src = fetchFromGitHub {
       owner = "aviramha";
       repo = "ormsgpack";
-      rev = "1.7.0";
+      tag = "1.7.0";
       hash = "sha256-YVkG5XyJ3eBgAwvLwJaCcL+584NhGVFMZ4/XbQ9UZWc=";
     };
   };
@@ -1169,7 +1169,7 @@
     src = fetchFromGitHub {
       owner = "osdlyrics";
       repo = "osdlyrics";
-      rev = "0.5.15";
+      tag = "0.5.15";
       hash = "sha256-4jEF1LdMwaLNF6zvzAuGW8Iu4dzhrFLutX69LwSjTAI=";
     };
   };
@@ -1179,7 +1179,7 @@
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "ovpn-dco";
-      rev = "v0.2.20240712";
+      tag = "v0.2.20240712";
       hash = "sha256-SjAp4rzi/DVm0QAFoRpFXwzuh04UJyQBRnfbyvjHgTo=";
     };
   };
@@ -1189,7 +1189,7 @@
     src = fetchFromGitHub {
       owner = "palworldlol";
       repo = "palworld-exporter";
-      rev = "v1.3.1";
+      tag = "v1.3.1";
       hash = "sha256-1hYOiU3fYQBOKEqE6HvqmLF4+kS+PjAph0LoYpmglrg=";
     };
   };
@@ -1199,7 +1199,7 @@
     src = fetchFromGitHub {
       owner = "legoduded";
       repo = "palworld-worldoptions";
-      rev = "v1.10.0";
+      tag = "v1.10.0";
       hash = "sha256-qU7CH1vZZPB7Du5E2baG+0BUFVgcEW4ID3dEIqnBD1s=";
     };
   };
@@ -1209,7 +1209,7 @@
     src = fetchFromGitHub {
       owner = "ssut";
       repo = "payload-dumper-go";
-      rev = "1.3.0";
+      tag = "1.3.0";
       hash = "sha256-TFnBWylOoyleuBx3yYfHl1kWO6jVBiqsi8AMYLMuuk0=";
     };
   };
@@ -1235,7 +1235,7 @@
     src = fetchFromGitHub {
       owner = "ReimuHakurei";
       repo = "phppgadmin";
-      rev = "v7.14.7-mod";
+      tag = "v7.14.7-mod";
       hash = "sha256-cp3O520KFO3FEpcBqDfv4B48pz0hEGeFgVAAdyICTHg=";
     };
   };
@@ -1245,7 +1245,7 @@
     src = fetchFromGitHub {
       owner = "Fitzgerald-Porthmouth-Koenigsegg";
       repo = "Plangothic";
-      rev = "V1.9.5766";
+      tag = "V1.9.5766";
       hash = "sha256-wdDhKINEHNrayliUwOXNg0jIg4/W3TH9VjETblJGqvE=";
     };
   };
@@ -1266,7 +1266,7 @@
     src = fetchFromGitHub {
       owner = "luisbocanegra";
       repo = "plasma-smart-video-wallpaper-reborn";
-      rev = "v1.0.0";
+      tag = "v1.0.0";
       hash = "sha256-yuD7BFLCSSKk3Ny3QTO/u2emLfAZI00GUaCml5T+y9I=";
     };
   };
@@ -1295,7 +1295,7 @@
     src = fetchFromGitHub {
       owner = "pocl";
       repo = "pocl";
-      rev = "v6.0";
+      tag = "v6.0";
       hash = "sha256-NHR9yrI6Odb/s/OBnEVifdcLEXvwqzAMZWpGViv2cJg=";
     };
   };
@@ -1313,7 +1313,7 @@
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "v1.11.13";
+      tag = "v1.11.13";
       hash = "sha256-UpYUHWM2J8nH+srdKSpFQEaPx2Rj2+YdphV8jJXcoBU=";
     };
   };
@@ -1323,7 +1323,7 @@
     src = fetchFromGitHub {
       owner = "ttk1";
       repo = "py-rcon";
-      rev = "v1.3.0";
+      tag = "v1.3.0";
       hash = "sha256-IsbGSUXaayO8gfslfo2oIforjy5TW6xVdCDOXT2VmjQ=";
     };
   };
@@ -1333,7 +1333,7 @@
     src = fetchFromGitHub {
       owner = "nttcslab-sp";
       repo = "dnn_wpe";
-      rev = "v0.0.1";
+      tag = "v0.0.1";
       hash = "sha256-DcT0NnnbcSYYyVpH7JqAnpjOANS2INBYQLV9Qx3BwZw=";
     };
   };
@@ -1410,7 +1410,7 @@
     src = fetchFromGitHub {
       owner = "Sonnix1";
       repo = "Qqsp";
-      rev = "v1.9";
+      tag = "v1.9";
       hash = "sha256-eDgoa+/dcJ8Ti+YLHgKUKus0+zRrFEuJ19wUpbFpcBU=";
     };
   };
@@ -1453,7 +1453,7 @@
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qspgui";
-      rev = "v5.9.1-b2";
+      tag = "v5.9.1-b2";
       hash = "sha256-sfWUzZExcH08pJYjkFhkH4SsXFWp8pMUqFHzvlfU5Yg=";
     };
   };
@@ -1474,7 +1474,7 @@
     src = fetchFromGitHub {
       owner = "awesometic";
       repo = "realtek-r8125-dkms";
-      rev = "9.014.01-1";
+      tag = "9.014.01-1";
       hash = "sha256-f+O6LbLcCmRxLgcsYSqO14Y8IS3gUxHaBzZdY4VZS5k=";
     };
   };
@@ -1484,7 +1484,7 @@
     src = fetchFromGitHub {
       owner = "mtorromeo";
       repo = "r8168";
-      rev = "8.054.00";
+      tag = "8.054.00";
       hash = "sha256-KyycAe+NBmyDDH/XkAM4PpGvXI5J1CuMW4VuHcOm0UQ=";
     };
   };
@@ -1551,7 +1551,7 @@
     src = fetchFromGitHub {
       owner = "ashleve";
       repo = "rootutils";
-      rev = "v1.0.7";
+      tag = "v1.0.7";
       hash = "sha256-MY6kYB3IhMvyLCVVC2kdpMvbwKY4XyTfq9cXxbqbnPI=";
     };
   };
@@ -1572,7 +1572,7 @@
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpod-python";
-      rev = "1.7.7";
+      tag = "1.7.7";
       hash = "sha256-2NRhbY9kvTn7F3OnM5KekcHPN2mTjCDgB0Pa3WmFm5Y=";
     };
   };
@@ -1582,7 +1582,7 @@
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpodctl";
-      rev = "v1.14.4";
+      tag = "v1.14.4";
       hash = "sha256-QU2gujECzT5mPkZi6siMO7IZRXNZHS0TchYxnG4Snj8=";
     };
   };
@@ -1592,7 +1592,7 @@
     src = fetchFromGitHub {
       owner = "SamToki";
       repo = "Sam-Toki-Mouse-Cursors";
-      rev = "v7.01";
+      tag = "v7.01";
       hash = "sha256-6mAuGGNBaKbSZVd7Z0KmLjserv1Sq1ApENcUkUz4C8Y=";
     };
   };
@@ -1621,7 +1621,7 @@
     src = fetchFromGitHub {
       owner = "snakers4";
       repo = "silero-vad";
-      rev = "v5.1.2";
+      tag = "v5.1.2";
       hash = "sha256-XdETFa2nZyze3KtnGyPJXbRNHy0aFRBsKDzcWxaUYlo=";
     };
   };
@@ -1631,7 +1631,7 @@
     src = fetchFromGitHub {
       owner = "zacherythomas";
       repo = "smartrent-py";
-      rev = "v0.4.5";
+      tag = "v0.4.5";
       hash = "sha256-9FkbIrnVRnu7Lt76YgjqqmmvDv8RRuevHbzsX9PTQXE=";
     };
   };
@@ -1641,7 +1641,7 @@
     src = fetchFromGitHub {
       owner = "petersulyok";
       repo = "smfc";
-      rev = "v3.5.1";
+      tag = "v3.5.1";
       hash = "sha256-zfQDvh5j40UNwJanGS5acRyNB+3j5jcKC/vsPHRijtc=";
     };
   };
@@ -1821,7 +1821,7 @@
     src = fetchFromGitHub {
       owner = "trumank";
       repo = "uesave-rs";
-      rev = "v0.5.0";
+      tag = "v0.5.0";
       hash = "sha256-9gOOSLejVfR1KJMhcNuKDkuTOvPC6sNG8xQOZlt8NxI=";
     };
   };
@@ -1831,7 +1831,7 @@
     src = fetchFromGitHub {
       owner = "trumank";
       repo = "uesave-rs";
-      rev = "v0.3.0";
+      tag = "v0.3.0";
       hash = "sha256-YRn14rF94zSTnFAIRuvw84GDRBaqmns9nvaHCTjhWQg=";
     };
   };
@@ -1841,7 +1841,7 @@
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "uksmd";
-      rev = "v1.2.12";
+      tag = "v1.2.12";
       hash = "sha256-7w9/3x5DCWPlM+6LrWszuCvHZSk/z0qdr2h8MPBPHvc=";
     };
   };
@@ -1902,7 +1902,7 @@
     src = fetchFromGitHub {
       owner = "libxzr";
       repo = "vbmeta-disable-verification";
-      rev = "v1.0";
+      tag = "v1.0";
       hash = "sha256-ml6RZkl2DT08sfJj9L1SGR6zNgRQ15ph0PPIPgxx7+M=";
     };
   };
@@ -1912,7 +1912,7 @@
     src = fetchFromGitHub {
       owner = "lucidrains";
       repo = "vector-quantize-pytorch";
-      rev = "1.20.11";
+      tag = "1.20.11";
       hash = "sha256-2Vi7q5N/xWsfu5KXk9rqbe0F40ufVjQyXkdPw/zPE4k=";
     };
   };
@@ -1922,7 +1922,7 @@
     src = fetchFromGitHub {
       owner = "mbilker";
       repo = "vgpu_unlock-rs";
-      rev = "v2.5.0";
+      tag = "v2.5.0";
       hash = "sha256-5/cFc8JWgwxYm0JQX6aBGhIn2cNvGB4kh/w96P+lTgw=";
     };
   };
@@ -1954,7 +1954,7 @@
     src = fetchFromGitHub {
       owner = "FDio";
       repo = "vpp";
-      rev = "v24.10";
+      tag = "v24.10";
       hash = "sha256-GcmblIAu/BDbqZRycmnBsHkvzJe07qB2lSfDnO7ZYtg=";
     };
   };
