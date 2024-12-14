@@ -137,7 +137,7 @@ in {
 
         environment = {
           SCCACHE_NO_DAEMON = "1";
-          SCCACHE_LOG = "trace";
+          SCCACHE_LOG = "info";
         };
 
         serviceConfig = {

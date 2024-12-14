@@ -1,7 +1,9 @@
 { lib, ... }:
 let
   modules = {
-    programs = { };
+    programs = {
+      sccache = ./programs/sccache.nix;
+    };
     services = {
       activate-linux = ./services/activate-linux.nix;
     };
