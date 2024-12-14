@@ -278,6 +278,7 @@ let
           see `sane.users.<user>.services` for options;
         '';
         # TODO: this `apply` should by moved to where we pass the `services` down to `sane.users`
+        # XXX: we could, for every `suggestedPrograms`, make the services depend on all that other program's services
         apply = lib.mapAttrs (svcName: svcCfg:
           svcCfg // lib.optionalAttrs (builtins.tryEval svcCfg.description).success {
             # ensure service dependencies based on what a service's program whitelists.
@@ -294,6 +295,8 @@ let
               "x11"
             ] ++ lib.optionals ((!builtins.elem "sound" svcCfg.partOf) && config.sandbox.whitelistAudio) [
               "sound"
+            ] ++ lib.optionals (builtins.elem "gnome-keyring" config.suggestedPrograms) [
+              "gnome-keyring"
             ];
           }
         );
@@ -724,7 +727,7 @@ let
         # link every secret into the fs:
 
         (lib.mapAttrs
-          # TODO: user the user's *actual* home directory, don't guess.
+          # TODO: use the user's *actual* home directory, don't guess.
           (homePath: _src: { symlink.target = "/run/secrets/home/${user}/${homePath}"; })
           p.secrets
         )
@@ -732,7 +735,7 @@ let
         #   ~/.config/FOO.secret => ~/.config/secrets/.config/FOO.secret => /run/secrets/home/${user}/.config/FOO.secret
         # whereas /run/secrets/* is unreadable *except* for the leafs, ~/.config/secrets is readable and traversable by $USER.
         # (lib.mapAttrs
-        #   # TODO: user the user's *actual* home directory, don't guess.
+        #   # TODO: use the user's *actual* home directory, don't guess.
         #   (homePath: _src: sane-lib.fs.wantedSymlinkTo "/home/${user}/.config/secrets/${homePath}")
         #   p.secrets
         # )

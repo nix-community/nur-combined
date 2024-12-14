@@ -54,6 +54,7 @@
           exec gnome-keyring-daemon --start --foreground --components=secrets
         '';
       in lib.getExe gkr-start;
+      readiness.waitDbus = "org.gnome.keyring";
     };
   };
 }

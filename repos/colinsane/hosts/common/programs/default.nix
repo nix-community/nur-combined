@@ -148,6 +148,7 @@
     ./portfolio-filemanager.nix
     ./playerctl.nix
     ./qmk-udev-rules.nix
+    ./radicale.nix
     ./rhythmbox.nix
     ./ripgrep.nix
     ./rofi

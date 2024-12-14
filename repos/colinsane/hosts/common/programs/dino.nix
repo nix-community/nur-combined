@@ -58,6 +58,10 @@ in
       webrtc-audio-processing = null;
     };
 
+    suggestedPrograms = [
+      "gnome-keyring"
+    ];
+
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  # notifications

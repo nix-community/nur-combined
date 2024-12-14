@@ -31,6 +31,11 @@ in
           --replace-fail '"login"' '"Default_keyring"'
       '';
     });
+
+    suggestedPrograms = [
+      "gnome-keyring"
+    ];
+
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  # notifications

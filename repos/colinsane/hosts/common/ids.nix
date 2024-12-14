@@ -87,6 +87,8 @@
   sane.ids.resolvconf.gid = 2009;
   sane.ids.smartd.uid = 2010;
   sane.ids.smartd.gid = 2010;
+  sane.ids.radicale.uid = 2011;
+  sane.ids.radicale.gid = 2011;
 
   # found on graphical hosts
   sane.ids.nm-iodine.uid = 2101;  # desko/moby/lappy
