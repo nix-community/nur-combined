@@ -83,15 +83,17 @@ in {
       description = "qBittorrent Daemon";
 
       path = [ cfg.package ];
-      serviceConfig = {
-        ExecStartPre = pkgs.writeShellScript "qbittorrent-start-pre" ''
-          if [ ! -f ${configPath} ]; then
-            mkdir -p $(dirname ${configPath})
-            cp -T ${initConfigFile} ${configPath}
 
-            chown -R ${cfg.user}:${cfg.group} $(dirname ${configPath})
-          fi
-        '';
+      preStart = ''
+        if [ ! -f ${configPath} ]; then
+          mkdir -p $(dirname ${configPath})
+          cp -T ${initConfigFile} ${configPath}
+
+          chown -R ${cfg.user}:${cfg.group} $(dirname ${configPath})
+        fi
+      '';
+
+      serviceConfig = {
         ExecStart = "${cfg.package}/bin/qbittorrent-nox --profile=${cfg.dataDir}";
 
         Restart = "on-success";
