@@ -45,15 +45,17 @@
           filterAttrs (_: v: isDerivation v && isBuildable platform v && isCacheable v) attrs;
     in
       lib.attrsets.genAttrs systems (name: (filterNurAttrs name packages."${name}"))
-      // (filterNurAttrs "aarch64-linux" (
-        import ./default.nix {
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            crossSystem.config = "aarch64-unknown-linux-gnu";
-            config.allowUnfree = true;
-            overlays = [];
-          };
-        }
-      ));
+      // {
+        aarch64-linux = filterNurAttrs "aarch64-linux" (
+          import ./default.nix {
+            pkgs = import nixpkgs {
+              system = "x86_64-linux";
+              crossSystem.config = "aarch64-unknown-linux-gnu";
+              config.allowUnfree = true;
+              overlays = [];
+            };
+          }
+        );
+      };
   };
 }
