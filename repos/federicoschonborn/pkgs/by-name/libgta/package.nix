@@ -6,7 +6,7 @@
   bzip2,
   xz,
   zlib,
-  testers,
+  validatePkgConfig,
   nix-update-script,
 }:
 
@@ -31,15 +31,15 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
-  passthru = {
-    tests.pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
+  nativeInstallCheckInputs = [ validatePkgConfig ];
 
-    updateScript = nix-update-script {
-      extraArgs = [
-        "--version-regex"
-        "libgta-(.*)"
-      ];
-    };
+  doInstallCheck = true;
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version-regex"
+      "libgta-(.*)"
+    ];
   };
 
   meta = {

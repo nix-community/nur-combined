@@ -4,7 +4,7 @@
   fetchFromGitHub,
   autoreconfHook,
   libtool,
-  testers,
+  validatePkgConfig,
   nix-update-script,
 }:
 
@@ -23,11 +23,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   makeFlags = [ "LIBTOOL=${libtool}/bin/libtool" ];
 
-  passthru = {
-    tests.pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
+  nativeInstallCheckInputs = [ validatePkgConfig ];
 
-    updateScript = nix-update-script { };
-  };
+  doInstallCheck = true;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     mainProgram = "xo";
