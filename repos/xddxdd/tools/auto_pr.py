@@ -25,9 +25,12 @@ class NvfetcherDefinition:
     def src_with_version_replacement(self, final_attrs: bool = False):
         version_eval = ast.literal_eval(self.version)
         if final_attrs:
-            return self.src.replace(version_eval, "${finalAttrs.version}")
+            src = self.src.replace(version_eval, "${finalAttrs.version}")
+            src = src.replace('"${finalAttrs.version}"', "finalAttrs.version")
         else:
-            return self.src.replace(version_eval, "${version}")
+            src = self.src.replace(version_eval, "${version}")
+            src = src.replace('"${version}"', "version")
+        return src
 
     @staticmethod
     def load(package: str) -> "NvfetcherDefinition":
