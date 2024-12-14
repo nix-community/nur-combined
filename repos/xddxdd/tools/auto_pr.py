@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import argparse
 import ast
 import os
 import re
@@ -8,8 +9,6 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Optional
-
-NIXPKGS_PATH = os.environ.get("NIXPKGS_PATH") or "/home/lantian/Projects/nixpkgs-xddxdd"
 
 
 @dataclass
@@ -137,11 +136,11 @@ def format_with_nixfmt(nix_file: str) -> str:
     return p.communicate(nix_file)[0]
 
 
-def nixpkgs_get_existing_version(package_name: str) -> Optional[str]:
-    subprocess.run(["git", "-C", NIXPKGS_PATH, "checkout", "master"], check=True)
-    subprocess.run(["git", "-C", NIXPKGS_PATH, "fetch", "upstream"], check=True)
+def nixpkgs_get_existing_version(nixpkgs_path: str, package_name: str) -> Optional[str]:
+    subprocess.run(["git", "-C", nixpkgs_path, "checkout", "master"], check=True)
+    subprocess.run(["git", "-C", nixpkgs_path, "fetch", "upstream"], check=True)
     subprocess.run(
-        ["git", "-C", NIXPKGS_PATH, "reset", "--hard", "upstream/master"], check=True
+        ["git", "-C", nixpkgs_path, "reset", "--hard", "upstream/master"], check=True
     )
 
     try:
@@ -155,7 +154,7 @@ def nixpkgs_get_existing_version(package_name: str) -> Optional[str]:
             stdout=subprocess.PIPE,
             check=True,
             text=True,
-            cwd=NIXPKGS_PATH,
+            cwd=nixpkgs_path,
             env={
                 **os.environ,
                 "NIXPKGS_ALLOW_UNFREE": "1",
@@ -166,42 +165,42 @@ def nixpkgs_get_existing_version(package_name: str) -> Optional[str]:
         return None
 
 
-def nixpkgs_create_branch(package_name: str):
+def nixpkgs_create_branch(nixpkgs_path: str, package_name: str):
     try:
         subprocess.run(
-            ["git", "-C", NIXPKGS_PATH, "checkout", "-b", package_name], check=True
+            ["git", "-C", nixpkgs_path, "checkout", "-b", package_name], check=True
         )
     except subprocess.CalledProcessError:
         subprocess.run(
-            ["git", "-C", NIXPKGS_PATH, "checkout", package_name], check=True
+            ["git", "-C", nixpkgs_path, "checkout", package_name], check=True
         )
     subprocess.run(
-        ["git", "-C", NIXPKGS_PATH, "reset", "--hard", "upstream/master"], check=True
+        ["git", "-C", nixpkgs_path, "reset", "--hard", "upstream/master"], check=True
     )
 
 
-def nixpkgs_create_package(package_name: str) -> Path:
+def nixpkgs_create_package(nixpkgs_path: str, package_name: str) -> Path:
     pkg_path = (
-        Path(NIXPKGS_PATH) / "pkgs" / "by-name" / package_name[0:2] / package_name
+        Path(nixpkgs_path) / "pkgs" / "by-name" / package_name[0:2] / package_name
     )
     os.makedirs(pkg_path, exist_ok=True)
 
     return pkg_path
 
 
-def nixpkgs_create_commit(commit_message: str):
-    subprocess.run(["git", "-C", NIXPKGS_PATH, "add", NIXPKGS_PATH], check=True)
-    subprocess.run(["git", "-C", NIXPKGS_PATH, "status"], check=True)
+def nixpkgs_create_commit(nixpkgs_path: str, commit_message: str):
+    subprocess.run(["git", "-C", nixpkgs_path, "add", nixpkgs_path], check=True)
+    subprocess.run(["git", "-C", nixpkgs_path, "status"], check=True)
     subprocess.run(
-        ["git", "-C", NIXPKGS_PATH, "commit", "-m", commit_message], check=True
+        ["git", "-C", nixpkgs_path, "commit", "-m", commit_message], check=True
     )
 
 
-def nixpkgs_test_build(package_name: str):
+def nixpkgs_test_build(nixpkgs_path: str, package_name: str):
     subprocess.run(
         ["nix-build", "-A", package_name],
         check=True,
-        cwd=NIXPKGS_PATH,
+        cwd=nixpkgs_path,
         env={
             **os.environ,
             "NIXPKGS_ALLOW_UNFREE": "1",
@@ -210,15 +209,38 @@ def nixpkgs_test_build(package_name: str):
     )
 
 
-def nixpkgs_push(package_name: str):
+def nixpkgs_push(nixpkgs_path: str, package_name: str):
     subprocess.run(
-        ["git", "-C", NIXPKGS_PATH, "push", "-u", "origin", package_name, "--force"],
+        ["git", "-C", nixpkgs_path, "push", "-u", "origin", package_name, "--force"],
         check=True,
     )
 
 
 if __name__ == "__main__":
-    nur_pkg_path = Path(sys.argv[1])
+    parser = argparse.ArgumentParser(
+        prog="auto_pr.py",
+        description="Script to automatically create PRs for NUR packages",
+    )
+    parser.add_argument("package_path", help="Path to the package in NUR")
+    parser.add_argument(
+        "--dest",
+        help="Custom target folder (full path) in nixpkgs, if unset, will use pkgs/by-name",
+    )
+    parser.add_argument(
+        "--nixpkgs-path",
+        help="Path to nixpkgs clone",
+        metavar="PATH",
+        default="/home/lantian/Projects/nixpkgs-xddxdd",
+    )
+    parser.add_argument(
+        "--no-git",
+        "-g",
+        help="Do not perform Git operations automatically. Default to on if dest_path is set",
+        action="store_true",
+    )
+    args = parser.parse_args()
+
+    nur_pkg_path = Path(args.package_path)
     if not nur_pkg_path.is_dir():
         raise ValueError("NUR package path should be a directory")
 
@@ -226,18 +248,19 @@ if __name__ == "__main__":
     if not pkg_name:
         raise ValueError("Invalid path")
 
-    existing_pkg_version = nixpkgs_get_existing_version(pkg_name)
+    existing_pkg_version = nixpkgs_get_existing_version(args.nixpkgs_path, pkg_name)
     print(f"Existing version is {existing_pkg_version}")
 
-    nixpkgs_create_branch(pkg_name)
+    if not args.no_git:
+        nixpkgs_create_branch(args.nixpkgs_path, pkg_name)
 
-    if len(sys.argv) >= 3:
+    if args.dest_path:
         custom_target_path = True
-        nixpkgs_pkg_path = Path(sys.argv[2])
+        nixpkgs_pkg_path = Path(args.dest_path)
         os.makedirs(nixpkgs_pkg_path, exist_ok=True)
     else:
         custom_target_path = False
-        nixpkgs_pkg_path = nixpkgs_create_package(pkg_name)
+        nixpkgs_pkg_path = nixpkgs_create_package(args.nixpkgs_path, pkg_name)
 
     pkg_version = None
 
@@ -278,7 +301,9 @@ if __name__ == "__main__":
     else:
         version_to = "[UNKNOWN VERSION]"
 
-    if not custom_target_path:
-        nixpkgs_create_commit(f"{pkg_name}: {version_from} {version_to}")
-        nixpkgs_test_build(pkg_name)
-        nixpkgs_push(pkg_name)
+    if not args.no_git and not custom_target_path:
+        nixpkgs_create_commit(
+            args.nixpkgs_path, f"{pkg_name}: {version_from} {version_to}"
+        )
+        nixpkgs_test_build(args.nixpkgs_path, pkg_name)
+        nixpkgs_push(args.nixpkgs_path, pkg_name)

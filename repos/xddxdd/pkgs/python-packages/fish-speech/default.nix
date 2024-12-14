@@ -31,6 +31,7 @@
   silero-vad,
   tensorboard,
   tiktoken,
+  torch,
   transformers,
   uvicorn,
   vector-quantize-pytorch,
@@ -87,6 +88,7 @@ buildPythonPackage rec {
     silero-vad
     tensorboard
     tiktoken
+    torch
     transformers
     uvicorn
     vector-quantize-pytorch
@@ -112,5 +114,7 @@ buildPythonPackage rec {
     description = "SOTA Open Source TTS";
     homepage = "https://speech.fish.audio/";
     license = with lib.licenses; [ cc-by-nc-sa-40 ];
+    # Fish-speech requires CUDA
+    broken = !torch.cudaSupport;
   };
 }
