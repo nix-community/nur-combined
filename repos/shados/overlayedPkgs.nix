@@ -1,17 +1,14 @@
-{ pkgs ? import <nixpkgs> { } }:
-with builtins;
+{ nixpkgs ? import <nixpkgs> { } }:
 let
-  inherit (pkgs) lib;
+  lib = import (nixpkgs.path + "/lib") { };
   nurOverlays = (import ./default.nix { }).overlays;
-  overlayList = with nurOverlays; [
+  overlays = with nurOverlays; [
     nur-pkgs
     lua-overrides
-    python-overrides
     lua-packages
     python-packages
     fixes
     oldflash
     dochelpers
   ];
-  fixList = lib.foldl' (lib.flip lib.extends) (self: pkgs) overlayList;
-in lib.fix fixList
+in import nixpkgs.path { inherit overlays; }
