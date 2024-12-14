@@ -1,7 +1,7 @@
 { lib, stdenv, fetchFromGitHub, buildLinux, ... } @ args:
 
 let
-  modDirVersion = "6.12.3-lowlatency-sunlight1";
+  modDirVersion = "6.12.4-lowlatency-sunlight1";
 
   parts = lib.splitString "-" modDirVersion;
 
@@ -14,7 +14,7 @@ let
 
   rev = "${version}-${flavour}-${suffix}";
 
-  hash = "sha256-c1+mOWS11Tddfy2KIomyDCy9j3or6SDJvhlS3w5+7FQ=";
+  hash = "sha256-GyfoG4X5r0BfVR2kEqEt+4olvsF7MTmZw3hiyOOeEm8=";
 in
 buildLinux (args // rec {
     inherit version modDirVersion;
@@ -26,7 +26,7 @@ buildLinux (args // rec {
     };
 
     extraMakeFlags = [
-	"KBUILD_BUILD_VERSION_TIMESTAMP=SUNLIGHT"
+	"KBUILD_BUILD_VERSION_TIMESTAMP=SUNLIGHT:${builtins.toString builtins.currentTime}"
     ];
 
     structuredExtraConfig = with lib.kernel; {
