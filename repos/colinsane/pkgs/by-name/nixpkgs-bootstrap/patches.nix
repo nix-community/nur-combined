@@ -31,14 +31,6 @@ in
 [
   ./2024-10-01-python-cross-resource-usage.patch
 
-  # these patches should work, but mass rebuild w/o an urgent need for it from me
-  # (fetchpatch' {
-  #   name = "alsa-ucm-conf: 1.2.11 -> 1.2.12";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/347585";
-  #   saneCommit = "c26fe95744d672a4a2acc881e09c607fd3e3189c";
-  #   hash = "sha256-4nzTHWmAiY9HMTu07rj0RdhlK7SWshXpkoqlKHg25do=";
-  # })
-
   # merged into staging-next 2024-11-28; cherry picking causes mass rebuild.
   # remove targeted patch in pipewire.nix once mainline
   # (fetchpatch' {
@@ -48,55 +40,11 @@ in
   # })
 
   (fetchpatch' {
-    name = "nixos/hickory-dns: make settings.zone freeform; expose configFile option";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/363001";
-    hash = "sha256-C/Pbbd9EEuPIwgDkE/OWZeCcGercJFU8PTh3+zElbFY=";
-  })
-
-  # (fetchpatch' {
-  #   name = "nixos/hickory-dns: give services.hickory-dns.settings.zone a freeformType";
-  #   saneCommit = "d953584c1ec886b6119eb16c59e385214b5d6e0e";
-  #   hash = "sha256-vPjK5nFcxvHpTRm0oouycEUzPBIH/muQGy8gDd5Y4Bg=";
-  # })
-
-  # (fetchpatch' {
-  #   name = "nixos/hickory-dns: expose `configFile` as a toplevel option";
-  #   saneCommit = "7cb0a6c87607810394eef050986408b0e5bd3e13";
-  #   hash = "sha256-Gki/GZOyFcWQRfChouIEZMmg2GDdAtsUSyAbSbTqANc=";
-  # })
-
-  (fetchpatch' {
-    name = "calls: 46.3 -> 47.0";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/363157";
-    # saneCommit = "17349a94e6e7d196ae6301603d791f69f14a8a4c";
-    hash = "sha256-ULm/x2st7UN0TwczXk3EertgTRkhfJbptNOIfatjLsQ=";
-  })
-
-  (fetchpatch' {
-    name = "apacheHttpdPackages.mod_dnssd: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/362066";
-    hash = "sha256-a7gLTrMgb2hExLcI0vHKr7N3FDWAlwkEPmbPCrj/D5w=";
-  })
-
-  (fetchpatch' {
     # merged into staging 2024/11/28
     name = "poppler: format, add dependency for glib-mkenums to fix cross building";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/357344";
-    hash = "sha256-3Yv6Yy1K2dNrrduM2XTEDjSmkysguTbqb8T7mDK2ubI=";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/357344/commits/c972c7432f8d18c9f1e5f6b52d2724c99e6d05a9";
+    hash = "sha256-Dur6EFuc3uqMuJyXBKKIaj2Y0jA227y8U6lK06cQ718=";
   })
-
-
-  # (fetchpatch' {
-  #   name = "nixos/buffyboard: init";
-  #   saneCommit = "900bd0d8e6203f51c25456e493a3b61cca59ac8b";
-  #   hash = "sha256-WKg41BWDyUo+xowYNy4bT1aN6xUSypBD77Nief7GV64=";
-  # })
-
-  # (fetchpatch' {
-  #   name = "buffybox: init at 3.2.0-unstable-2024-11-10";
-  #   saneCommit = "b5442735ff0f715f1d4ab1ca60905a721f23d98b";
-  #   hash = "sha256-pBzW6X84QsmgXqozGRlra0ACF77rDjnw+1UjbeTBmhU=";
-  # })
 
   (fetchpatch' {
     name = "nixos/bonsaid: init";
@@ -112,20 +60,6 @@ in
     hash = "sha256-43zxnbUJuGXThadHoQRi6cevD7SFSZejWj324V6eBpw=";
   })
 
-  (fetchpatch' {
-    name = "procs: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/346310";
-    saneCommit = "b552249a1884b239337d21d4f75d4d81a2251ace";
-    hash = "sha256-xkT86fa0KNBE00gtIa0qqXVV6cU7SJ9X/dxPPrik+Ps=";
-  })
-
-  (fetchpatch' {
-    name = "libpeas2: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/345305";
-    saneGhCommit = "7062afb2ff428fa0ee8b5635ae06d5adb6fbb396";
-    hash = "sha256-rvJLYnmZIr1WYzcZG6gGj/5bNPBRA3Vw/RslhGFjnR4=";
-  })
-
   # (fetchpatch' {
   #   # this causes a rebuild of systemd and everything above it:
   #   # PR against staging is live: <https://github.com/NixOS/nixpkgs/pull/332399>
@@ -136,6 +70,7 @@ in
   # })
 
   (fetchpatch' {
+    # merged into staging 2024-12-13
     name = "python312Packages.contourpy: fix cross compilation";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/328218";
     saneCommit = "74a003b0af9820f6f7c6c62b3d2bec6df3a8d7b8";
@@ -155,14 +90,6 @@ in
     # saneCommit = "23bfba9b76757ffc00fc2be810009dcf92e2eaf2";
     # hash = "sha256-cn6ihwO3MyzdpVoJoQNKAHyo8GuGvFP6vr//7r9pzjE=";
   })
-
-  # (fetchpatch' {
-  #   # branch: 2024-08-11-wip-ffado-cross / pr-ffado-cross-2
-  #   name = "ffado: support cross compilation";
-  #   prUrl = "https://github.com/NixOS/nixpkgs/pull/334096";
-  #   saneCommit = "cd316aaa667b6758d6866b356f4040343ffb6f80";
-  #   hash = "sha256-r0jKr65dRkVU/LPfgZqNJArs2XWEudsgyYXs5bJpgj4=";
-  # })
 
   # (fetchpatch' {
   #   # TODO: send for review once hspell fix is merged <https://github.com/NixOS/nixpkgs/pull/263182>

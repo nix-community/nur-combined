@@ -192,9 +192,26 @@ in
         method = (sane-lib.withDefault store.defaultMethod) opt.method;
         fsPathToStoreRelPath = fspath: path.from store.prefix fspath;
         fsPathToBackingPath = fspath: path.concat [ store.origin (fsPathToStoreRelPath fspath) ];
+        getPersistedAncestor = fspath: let
+          parent = path.parent fspath;
+        in
+          if parent != path.norm fspath then
+            cfg.sys.byPath."${parent}" or (getPersistedAncestor parent)
+          else
+            # root path; no ancestor of `fspath` is persisted
+            null
+        ;
+        persistedAncestor = getPersistedAncestor fspath;
+        persistedAncestorStore = if persistedAncestor == null then
+          null
+        else
+          persistedAncestor.store
+        ;
       in lib.mkMerge [
-        {
+        (lib.optionalAttrs (persistedAncestorStore == null || persistedAncestorStore != store) {
           # create destination dir, with correct perms
+          # but skip this if an ancestor is persisted to the same store,
+          # else this would be a self-symlink/bind
           sane.fs."${fspath}" = (lib.optionalAttrs (method == "bind") {
             # inherit perms & make sure we don't mount until after the mount point is setup correctly.
             dir.acl = opt.acl;
@@ -203,7 +220,7 @@ in
             symlink.acl = opt.acl;
             symlink.target = fsPathToBackingPath fspath;
           });
-        }
+        })
         (lib.optionalAttrs (opt.type == "dir") {
           # create the backing path as a dir
           sane.fs."${fsPathToBackingPath fspath}" = {

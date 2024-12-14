@@ -95,7 +95,6 @@ let
     (fromDb "linuxdevtime.com" // tech)
     (fromDb "mapspodcast.libsyn.com" // uncat)  # Multidisciplinary Association for Psychedelic Studies
     (fromDb "microarch.club" // tech)
-    (fromDb "mintcast.org" // tech)
     (fromDb "omegataupodcast.net" // tech)  # 3/4 German; 1/4 eps are English
     (fromDb "omny.fm/shows/cool-people-who-did-cool-stuff" // pol)  # Maggie Killjoy -- referenced by Cory Doctorow
     (fromDb "omny.fm/shows/money-stuff-the-podcast")  # Matt Levine
@@ -128,6 +127,7 @@ let
     # (fromDb "feeds.simplecast.com/54nAGcIl" // pol)  # The Daily
     # (fromDb "feeds.simplecast.com/82FI35Px" // pol)  # Ezra Klein Show
     # (fromDb "feeds.simplecast.com/l2i9YnTd" // tech // pol)  # Hard Fork (NYtimes tech)
+    # (fromDb "mintcast.org" // tech)
     # (fromDb "podcast.posttv.com/itunes/post-reports.xml" // pol)
     # (fromDb "podcast.thelinuxexp.com" // tech)  # low-brow linux/foss PR announcements
     # (fromDb "rss.acast.com/deconstructed")  # The Intercept - Deconstructed

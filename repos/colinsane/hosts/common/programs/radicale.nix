@@ -53,7 +53,7 @@ in
     ];
   };
 
-  sane.fs = lib.optionals cfg.enabled {
+  sane.fs = lib.optionalAttrs cfg.enabled {
     "/var/lib/radicale/collections/collection-root/colin/pkm".symlink.target = "/mnt/persist/private/home/colin/knowledge/social/contacts/db";
   };
 }
