@@ -42,6 +42,8 @@
     #   - where /path/to/txt contains a list of names which represent read-only caches
     #   - allows to change the cache providers w/o having to update variables
     #
+    # see also: <https://gitlab.freedesktop.org/mesa/shader-db>
+    # - database of common shaders (gtk4, chromium, etc) & instructions to compile for any arch
     # see also: <https://github.com/ValveSoftware/Fossilize>
     #   which may help in generating readonly cache files
     #

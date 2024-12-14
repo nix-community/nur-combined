@@ -49,7 +49,7 @@
   - adding ~/.cache/mesa_shader_cache_db to the sandbox massively improves launch time,
     probably reduces memory use,
     but has unknown data leak implications.
-  - either (1) pre-populate the shader cache somehow
+  - either (1) pre-populate the shader cache somehow, e.g. <https://gitlab.freedesktop.org/mesa/shader-db>
     or (2) use a seperate shader cache per-app
     or (3) disable the mesa cache and see if that actually helps (MESA_SHADER_CACHE_DISABLE=true)
 - sane-deadlines: show day of the week for upcoming items
