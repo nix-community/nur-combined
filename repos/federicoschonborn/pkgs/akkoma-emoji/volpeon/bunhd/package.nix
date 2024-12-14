@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation {
 
   src = fetchzip {
     url = "https://volpeon.ink/emojis/bunhd/bunhd.zip";
-    hash = "sha256-p0e1RxVXzflor+yTalGYbvh9ZGNC4gP+imfNcbyprqQ=";
+    hash = "sha256-b/yOI/dqulrs9rBFtMRCKOYuguM+xRif/02rIfcyNO8=";
     stripRoot = false;
   };
 

@@ -5,8 +5,7 @@
   pkg-config,
   openssl,
   postgresql,
-  testers,
-  volts,
+  versionCheckHook,
 }:
 
 rustPlatform.buildRustPackage {
@@ -29,7 +28,9 @@ rustPlatform.buildRustPackage {
     postgresql
   ];
 
-  passthru.tests.version = testers.testVersion { package = volts; };
+  nativeInstallCheckInputs = [ versionCheckHook ];
+
+  doInstallCheck = true;
 
   meta = {
     mainProgram = "volts";

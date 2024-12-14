@@ -2,8 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-  testers,
-  woke,
+  versionCheckHook,
   nix-update-script,
 }:
 
@@ -18,7 +17,7 @@ buildGoModule {
   src = fetchFromGitHub {
     owner = "get-woke";
     repo = "woke";
-    rev = "refs/tags/${version}";
+    rev = "refs/tags/v${version}";
     hash = "sha256-X9fhExHhOLjPfpwrYPMqTJkgQL2ruHCGEocEoU7m6fM=";
   };
 
@@ -43,16 +42,17 @@ buildGoModule {
     in
     [ ("-skip=" + builtins.concatStringsSep "|" skipTests) ];
 
-  passthru = {
-    tests.version = testers.testVersion { package = woke; };
+  nativeInstallCheckInputs = [ versionCheckHook ];
 
-    updateScript = nix-update-script { };
-  };
+  doInstallCheck = true;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     mainProgram = "woke";
     description = "Detect non-inclusive language in your source code";
     homepage = "https://github.com/get-woke/woke";
+    changelog = "https://github.com/get-woke/woke/releases/tag/v${version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];

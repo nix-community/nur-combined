@@ -22,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "dcantrell";
     repo = "bsdutils";
-    rev = "refs/tags/${finalAttrs.version}";
+    rev = "refs/tags/v${finalAttrs.version}";
     hash = "sha256-sYxx79wQu1HFYKHYgRHqAA2sATXZ7WTxIZB6KBVnatU=";
   };
 
@@ -49,6 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Alternative to GNU coreutils using software from FreeBSD";
     homepage = "https://github.com/dcantrell/bsdutils";
+    changelog = "https://github.com/dcantrell/bsdutils/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];

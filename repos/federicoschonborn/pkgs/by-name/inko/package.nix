@@ -8,8 +8,7 @@
   ncurses,
   zlib,
   llvmPackages_17,
-  testers,
-  inko,
+  versionCheckHook,
   nix-update-script,
 }:
 
@@ -39,16 +38,16 @@ rustPlatform.buildRustPackage {
     zlib
   ];
 
+  nativeInstallCheckInputs = [ versionCheckHook ];
+
   env.LLVM_SYS_170_PREFIX = llvmPackages_17.llvm.dev;
 
   # Some of the tests require git to be installed.
   doCheck = false;
 
-  passthru = {
-    tests.version = testers.testVersion { package = inko; };
+  doInstallCheck = true;
 
-    updateScript = nix-update-script { };
-  };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     mainProgram = "inko";

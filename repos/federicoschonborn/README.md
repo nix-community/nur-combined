@@ -437,27 +437,6 @@ blobfox emoji pack.
 - Update Script: ❌
 </details>
 
-### `akkoma-emoji.volpeon.blobfox_flip` `1.6` [🌐](https://volpeon.ink/emojis/blobfox/ "Homepage") [📦](./pkgs/akkoma-emoji/volpeon/blobfox_flip/package.nix#L26 "Source")
-
-blobfox_flip emoji pack.
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `volpeon-blobfox_flip`
-- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
-- Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `aarch64-windows`, `x86_64-windows`, `i686-windows`
-- Maintainers:
-  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
-  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
 ### `akkoma-emoji.volpeon.bunhd` `1.2.1` [🌐](https://volpeon.ink/emojis/bunhd/ "Homepage") [📦](./pkgs/akkoma-emoji/volpeon/bunhd/package.nix#L26 "Source")
 
 bunhd emoji pack.
@@ -470,27 +449,6 @@ bunhd emoji pack.
   </summary>
 
 - Name: `volpeon-bunhd`
-- Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
-- Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `aarch64-windows`, `x86_64-windows`, `i686-windows`
-- Maintainers:
-  - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
-  - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
-- Outputs: **`out`**
-- Update Script: ❌
-</details>
-
-### `akkoma-emoji.volpeon.bunhd_flip` `1.2.1` [🌐](https://volpeon.ink/emojis/bunhd/ "Homepage") [📦](./pkgs/akkoma-emoji/volpeon/bunhd_flip/package.nix#L26 "Source")
-
-bunhd_flip emoji pack.
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `volpeon-bunhd_flip`
 - Licenses: [`Apache-2.0`](https://spdx.org/licenses/Apache-2.0.html "Apache License 2.0")
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `aarch64-windows`, `x86_64-windows`, `i686-windows`
 - Maintainers:
@@ -692,7 +650,7 @@ vlpn emoji pack.
 - Update Script: ❌
 </details>
 
-### `biplanes-revival` `1.1` [🌐](https://github.com/regular-dev/biplanes-revival "Homepage") [📦](./pkgs/by-name/biplanes-revival/package.nix#L43 "Source")
+### `biplanes-revival` `1.1` [🌐](https://github.com/regular-dev/biplanes-revival "Homepage") [📰](https://github.com/regular-dev/biplanes-revival/releases/tag/v1.1 "Changelog") [📦](./pkgs/by-name/biplanes-revival/package.nix#L43 "Source")
 
 An old cellphone arcade recreated for PC.
 
@@ -734,7 +692,7 @@ An efficient menu for the MATE Desktop.
 - Update Script: ✔️
 </details>
 
-### `bsdutils` `13.2` [🌐](https://github.com/dcantrell/bsdutils "Homepage") [📦](./pkgs/by-name/bsdutils/package.nix#L50 "Source")
+### `bsdutils` `13.2` [🌐](https://github.com/dcantrell/bsdutils "Homepage") [📰](https://github.com/dcantrell/bsdutils/releases/tag/v13.2 "Changelog") [📦](./pkgs/by-name/bsdutils/package.nix#L50 "Source")
 
 Alternative to GNU coreutils using software from FreeBSD.
 
@@ -755,7 +713,7 @@ Alternative to GNU coreutils using software from FreeBSD.
 - Update Script: ✔️
 </details>
 
-### `cargo-aoc` `0.3.7` [🌐](https://github.com/gobanos/cargo-aoc "Homepage") [📦](./pkgs/by-name/cargo-aoc/package.nix#L45 "Source")
+### `cargo-aoc` `0.3.7` [🌐](https://github.com/gobanos/cargo-aoc "Homepage") [📦](./pkgs/by-name/cargo-aoc/package.nix#L41 "Source")
 
 Cargo Advent of Code Helper.
 
@@ -773,11 +731,10 @@ Cargo Advent of Code Helper.
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Tests: `version`
 - Update Script: ✔️
 </details>
 
-### `cpuid2cpuflags` `14` [🌐](https://github.com/projg2/cpuid2cpuflags "Homepage") [📦](./pkgs/by-name/cpuid2cpuflags/package.nix#L31 "Source")
+### `cpuid2cpuflags` `14` [🌐](https://github.com/projg2/cpuid2cpuflags "Homepage") [📰](https://github.com/projg2/cpuid2cpuflags/releases/tag/v14 "Changelog") [📦](./pkgs/by-name/cpuid2cpuflags/package.nix#L31 "Source")
 
 Tool to generate flags for your CPU.
 
@@ -795,11 +752,10 @@ Tool to generate flags for your CPU.
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Tests: `version`
 - Update Script: ✔️
 </details>
 
-### `fastfetch` `2.30.1` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.30.1 "Changelog") [📦](./pkgs/by-name/fastfetch/package.nix#L271 "Source")
+### `fastfetch` `2.31.0` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.31.0 "Changelog") [📦](./pkgs/by-name/fastfetch/package.nix#L256 "Source")
 
 Like neofetch, but much faster because written in C.
 
@@ -817,11 +773,10 @@ Like neofetch, but much faster because written in C.
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**, `man`
-- Tests: `version`
 - Update Script: ✔️
 </details>
 
-### `fastfetchMinimal` `2.30.1` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.30.1 "Changelog") [📦](./default.nix#L49 "Source")
+### `fastfetchMinimal` `2.31.0` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.31.0 "Changelog") [📦](./default.nix#L33 "Source")
 
 Like neofetch, but much faster because written in C (with all features disabled).
 
@@ -832,18 +787,17 @@ Like neofetch, but much faster because written in C (with all features disabled)
     Details
   </summary>
 
-- Name: `fastfetch-minimal`
+- Name: `fastfetch`
 - Licenses: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**, `man`
-- Tests: `version`
 - Update Script: ✔️
 </details>
 
-### `firefox-gnome-theme` `133` [🌐](https://github.com/rafaelmardojai/firefox-gnome-theme "Homepage") [📰](https://github.com/rafaelmardojai/firefox-gnome-theme/releases/tag/v133 "Changelog") [📦](./pkgs/by-name/firefox-gnome-theme/package.nix#L30 "Source")
+### `firefox-gnome-theme` `133.1` [🌐](https://github.com/rafaelmardojai/firefox-gnome-theme "Homepage") [📰](https://github.com/rafaelmardojai/firefox-gnome-theme/releases/tag/v133.1 "Changelog") [📦](./pkgs/by-name/firefox-gnome-theme/package.nix#L30 "Source")
 
 A GNOME theme for Firefox.
 
@@ -864,7 +818,7 @@ A GNOME theme for Firefox.
 - Update Script: ✔️
 </details>
 
-### `glojure` `0.2.6` [🌐](https://github.com/glojurelang/glojure "Homepage") [📦](./pkgs/by-name/glojure/package.nix#L46 "Source")
+### `glojure` `0.2.6` [🌐](https://github.com/glojurelang/glojure "Homepage") [📰](https://github.com/glojurelang/glojure/releases/tag/v0.2.6 "Changelog") [📦](./pkgs/by-name/glojure/package.nix#L46 "Source")
 
 Clojure interpreter hosted on Go, with extensible interop support.
 
@@ -885,7 +839,7 @@ Clojure interpreter hosted on Go, with extensible interop support.
 - Update Script: ✔️
 </details>
 
-### `gtatool` `2.4.0` [🌐](https://marlam.de/gta/ "Homepage") [📦](./pkgs/by-name/gtatool/package.nix#L117 "Source")
+### `gtatool` `2.4.0` [🌐](https://marlam.de/gta/ "Homepage") [📦](./pkgs/by-name/gtatool/package.nix#L118 "Source")
 
 A set of commands that manipulate GTAs on various levels.
 
@@ -903,11 +857,10 @@ A set of commands that manipulate GTAs on various levels.
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Tests: `version`
 - Update Script: ✔️
 </details>
 
-### `gtatoolFull` `2.4.0` [🌐](https://marlam.de/gta/ "Homepage") [📦](./default.nix#L89 "Source")
+### `gtatoolFull` `2.4.0` [🌐](https://marlam.de/gta/ "Homepage") [📦](./default.nix#L70 "Source")
 
 A set of commands that manipulate GTAs on various levels (with all features enabled).
 
@@ -918,18 +871,17 @@ A set of commands that manipulate GTAs on various levels (with all features enab
     Details
   </summary>
 
-- Name: `gtatool-full`
+- Name: `gtatool`
 - Licenses: [`GPL-3.0-or-later`](https://spdx.org/licenses/GPL-3.0-or-later.html "GNU General Public License v3.0 or later")
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Tests: `version`
 - Update Script: ✔️
 </details>
 
-### `inko` `0.17.1` [🌐](https://github.com/inko-lang/inko "Homepage") [📰](https://github.com/inko-lang/inko/releases/tag/v0.17.1 "Changelog") [📦](./pkgs/by-name/inko/package.nix#L55 "Source")
+### `inko` `0.17.1` [🌐](https://github.com/inko-lang/inko "Homepage") [📰](https://github.com/inko-lang/inko/releases/tag/v0.17.1 "Changelog") [📦](./pkgs/by-name/inko/package.nix#L54 "Source")
 
 A language for building concurrent software with confidence.
 
@@ -947,7 +899,6 @@ A language for building concurrent software with confidence.
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Tests: `version`
 - Update Script: ✔️
 </details>
 
@@ -972,7 +923,7 @@ Quick file preview for Dolphin.
 - Update Script: ✔️
 </details>
 
-### `kuroko` `1.4.0` [🌐](https://github.com/kuroko-lang/kuroko "Homepage") [📦](./pkgs/by-name/kuroko/package.nix#L30 "Source")
+### `kuroko` `1.4.0` [🌐](https://github.com/kuroko-lang/kuroko "Homepage") [📰](https://github.com/kuroko-lang/kuroko/releases/tag/v1.4.0 "Changelog") [📦](./pkgs/by-name/kuroko/package.nix#L30 "Source")
 
 Dialect of Python with explicit variable declaration and block scoping, with a lightweight and easy-to-embed bytecode compiler and interpreter.
 
@@ -990,7 +941,6 @@ Dialect of Python with explicit variable declaration and block scoping, with a l
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Tests: `version`
 - Update Script: ✔️
 </details>
 
@@ -2380,7 +2330,7 @@ A library that reads and writes GTA files, with interfaces in C and C++.
 - `pkg-config` Modules: `gta.pc`
 </details>
 
-### `libtgd` `4.3` [🌐](https://marlam.de/tgd/ "Homepage") [📦](./pkgs/by-name/libtgd/package.nix#L102 "Source")
+### `libtgd` `4.3` [🌐](https://marlam.de/tgd/ "Homepage") [📦](./pkgs/by-name/libtgd/package.nix#L106 "Source")
 
 A library to make working with multidimensional arrays in C++ easy.
 
@@ -2398,11 +2348,10 @@ A library to make working with multidimensional arrays in C++ easy.
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Tests: `version`
 - Update Script: ✔️
 </details>
 
-### `libtgdFull` `4.3` [🌐](https://marlam.de/tgd/ "Homepage") [📦](./default.nix#L124 "Source")
+### `libtgdFull` `4.3` [🌐](https://marlam.de/tgd/ "Homepage") [📦](./default.nix#L104 "Source")
 
 A library to make working with multidimensional arrays in C++ easy (with all features enabled).
 
@@ -2413,14 +2362,13 @@ A library to make working with multidimensional arrays in C++ easy (with all fea
     Details
   </summary>
 
-- Name: `libtgd-full`
+- Name: `libtgd`
 - Licenses: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Tests: `version`
 - Update Script: ✔️
 </details>
 
@@ -2447,7 +2395,7 @@ Library for emitting text, XML, JSON, or HTML output.
 - `pkg-config` Modules: `libxo.pc`
 </details>
 
-### `magpie-wayland` `0.9.4-unstable-2024-08-17` [🌐](https://github.com/BuddiesOfBudgie/magpie "Homepage") [📦](./pkgs/by-name/magpie-wayland/package.nix#L65 "Source")
+### `magpie-wayland` `0.9.4-unstable-2024-12-14` [🌐](https://github.com/BuddiesOfBudgie/magpie "Homepage") [📦](./pkgs/by-name/magpie-wayland/package.nix#L66 "Source")
 
 wlroots-based Wayland compositor designed for the Budgie Desktop.
 
@@ -2528,7 +2476,6 @@ A convenient calculator for the command line.
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Tests: `version`
 - Update Script: ✔️
 </details>
 
@@ -2550,11 +2497,10 @@ A fun 2D retro platformer inspired by Sonic games and a game creation system.
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Tests: `version`
 - Update Script: ✔️
 </details>
 
-### `phonon-mpv` `0.1.0` [🌐](https://github.com/OpenProgger/phonon-mpv "Homepage") [📦](./pkgs/by-name/phonon-mpv/package.nix#L51 "Source")
+### `phonon-mpv` `0.1.0` [🌐](https://github.com/OpenProgger/phonon-mpv "Homepage") [📰](https://github.com/OpenProgger/phonon-mpv/releases/tag/v0.1.0 "Changelog") [📦](./pkgs/by-name/phonon-mpv/package.nix#L51 "Source")
 
 Phonon Backend using MPV Player.
 
@@ -2575,7 +2521,7 @@ Phonon Backend using MPV Player.
 - Update Script: ✔️
 </details>
 
-### `plasma-camera` `1.0-unstable-2024-11-11` [🌐](https://invent.kde.org/plasma-mobile/plasma-camera "Homepage") [📦](./pkgs/by-name/plasma-camera/package.nix#L52 "Source")
+### `plasma-camera` `1.0-unstable-2024-12-14` [🌐](https://invent.kde.org/plasma-mobile/plasma-camera "Homepage") [📦](./pkgs/by-name/plasma-camera/package.nix#L52 "Source")
 
 Camera application for Plasma Mobile.
 
@@ -2680,7 +2626,7 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
 - Update Script: ✔️
 </details>
 
-### `razeFull` `1.10.2` [🌐](https://github.com/ZDoom/Raze "Homepage") [📦](./default.nix#L157 "Source")
+### `razeFull` `1.10.2` [🌐](https://github.com/ZDoom/Raze "Homepage") [📦](./default.nix#L136 "Source")
 
 Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood, Shadow Warrior, Redneck Rampage and Powerslave/Exhumed (with all features enabled).
 
@@ -2691,7 +2637,7 @@ Build engine port backed by GZDoom tech. Currently supports Duke Nukem 3D, Blood
     Details
   </summary>
 
-- Name: `raze-full`
+- Name: `raze`
 - Licenses: [`GPL-2.0`](https://spdx.org/licenses/GPL-2.0.html "GNU General Public License v2.0")
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`
 - Maintainers:
@@ -2746,7 +2692,7 @@ Sega Model 3 arcade machine emulator.
 - Update Script: ✔️
 </details>
 
-### `surgescript` `0.6.1` [🌐](https://github.com/alemart/surgescript "Homepage") [📰](https://github.com/alemart/surgescript/releases/tag/v0.6.1 "Changelog") [📦](./pkgs/by-name/surgescript/package.nix#L38 "Source")
+### `surgescript` `0.6.1` [🌐](https://github.com/alemart/surgescript "Homepage") [📰](https://github.com/alemart/surgescript/releases/tag/v0.6.1 "Changelog") [📦](./pkgs/by-name/surgescript/package.nix#L39 "Source")
 
 A scripting language for games.
 
@@ -2764,7 +2710,6 @@ A scripting language for games.
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Tests: `pkg-config`, `version`
 - Update Script: ✔️
 - `pkg-config` Modules: `surgescript.pc`, `surgescript-static.pc`
 </details>
@@ -2787,11 +2732,10 @@ A coordinated group of libraries for representing, processing, and visualizing s
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Tests: `version`
 - Update Script: ❌
 </details>
 
-### `teemExperimental` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L186 "Source")
+### `teemExperimental` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L163 "Source")
 
 A coordinated group of libraries for representing, processing, and visualizing scientific raster data (with experimental libraries and applications enabled).
 
@@ -2802,18 +2746,17 @@ A coordinated group of libraries for representing, processing, and visualizing s
     Details
   </summary>
 
-- Name: `teem-experimental`
+- Name: `teem`
 - Licenses: [`LGPL-2.1-or-later`](https://spdx.org/licenses/LGPL-2.1-or-later.html "GNU Lesser General Public License v2.1 or later")
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Tests: `version`
 - Update Script: ❌
 </details>
 
-### `teemExperimentalFull` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L200 "Source")
+### `teemExperimentalFull` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L176 "Source")
 
 A coordinated group of libraries for representing, processing, and visualizing scientific raster data (with experimental libraries and applications, and all features enabled).
 
@@ -2824,18 +2767,17 @@ A coordinated group of libraries for representing, processing, and visualizing s
     Details
   </summary>
 
-- Name: `teem-experimental-full`
+- Name: `teem`
 - Licenses: [`LGPL-2.1-or-later`](https://spdx.org/licenses/LGPL-2.1-or-later.html "GNU Lesser General Public License v2.1 or later")
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Tests: `version`
 - Update Script: ❌
 </details>
 
-### `teemFull` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L168 "Source")
+### `teemFull` `1.11.0` [🌐](https://teem.sourceforge.net/ "Homepage") [📦](./default.nix#L146 "Source")
 
 A coordinated group of libraries for representing, processing, and visualizing scientific raster data (with all features enabled).
 
@@ -2846,14 +2788,13 @@ A coordinated group of libraries for representing, processing, and visualizing s
     Details
   </summary>
 
-- Name: `teem-full`
+- Name: `teem`
 - Licenses: [`LGPL-2.1-or-later`](https://spdx.org/licenses/LGPL-2.1-or-later.html "GNU Lesser General Public License v2.1 or later")
 - Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-freebsd`, `x86_64-solaris`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`
 - Maintainers:
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Tests: `version`
 - Update Script: ❌
 </details>
 
@@ -2878,7 +2819,7 @@ A GNOME theme for Thunderbird.
 - Update Script: ✔️
 </details>
 
-### `volts` `0.2.1` [🌐](https://github.com/lapce/lapce-volts "Homepage") [📦](./pkgs/by-name/volts/package.nix#L36 "Source")
+### `volts` `0.2.1` [🌐](https://github.com/lapce/lapce-volts "Homepage") [📦](./pkgs/by-name/volts/package.nix#L37 "Source")
 
 CLI tool for publishing and managing Lapce plugins.
 
@@ -2896,7 +2837,6 @@ CLI tool for publishing and managing Lapce plugins.
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Tests: `version`
 - Update Script: ❌
 </details>
 
@@ -2921,7 +2861,7 @@ Display an animated neko cat on the bottom of an output.
 - Update Script: ❌
 </details>
 
-### `wisp` `1.0.12` [🌐](https://www.draketo.de/software/wisp "Homepage") [📦](./pkgs/by-name/wisp/package.nix#L46 "Source")
+### `wisp` `1.0.12` [🌐](https://www.draketo.de/software/wisp "Homepage") [📦](./pkgs/by-name/wisp/package.nix#L45 "Source")
 
 Wisp turns indentation based syntax into Lisp.
 
@@ -2939,11 +2879,10 @@ Wisp turns indentation based syntax into Lisp.
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Tests: `version`
 - Update Script: ❌
 </details>
 
-### `woke` `0.19.0` [🌐](https://github.com/get-woke/woke "Homepage") [📦](./pkgs/by-name/woke/package.nix#L54 "Source")
+### `woke` `0.19.0` [🌐](https://github.com/get-woke/woke "Homepage") [📰](https://github.com/get-woke/woke/releases/tag/v0.19.0 "Changelog") [📦](./pkgs/by-name/woke/package.nix#L53 "Source")
 
 Detect non-inclusive language in your source code.
 
@@ -2961,27 +2900,5 @@ Detect non-inclusive language in your source code.
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Tests: `version`
 - Update Script: ✔️
-</details>
-
-### `yyjson_0_10` `0.10.0` [🌐](https://github.com/ibireme/yyjson "Homepage") [📰](https://github.com/ibireme/yyjson/blob/0.10.0/CHANGELOG.md "Changelog") [📦](https://github.com/NixOS/nixpkgs/blob/2c27ab2/pkgs/by-name/yy/yyjson/package.nix#L23 "Source")
-
-Fastest JSON library in C.
-
-<!-- markdownlint-disable-next-line no-inline-html -->
-<details>
-  <!-- markdownlint-disable-next-line no-inline-html -->
-  <summary>
-    Details
-  </summary>
-
-- Name: `yyjson`
-- Licenses: [`MIT`](https://spdx.org/licenses/MIT.html "MIT License")
-- Platforms: `i686-cygwin`, `x86_64-cygwin`, `x86_64-darwin`, `i686-darwin`, `aarch64-darwin`, `armv7a-darwin`, `i686-freebsd`, `x86_64-freebsd`, `aarch64-freebsd`, `aarch64-genode`, `i686-genode`, `x86_64-genode`, `x86_64-solaris`, `javascript-ghcjs`, `aarch64-linux`, `armv5tel-linux`, `armv6l-linux`, `armv7a-linux`, `armv7l-linux`, `i686-linux`, `loongarch64-linux`, `m68k-linux`, `microblaze-linux`, `microblazeel-linux`, `mips-linux`, `mips64-linux`, `mips64el-linux`, `mipsel-linux`, `powerpc64-linux`, `powerpc64le-linux`, `riscv32-linux`, `riscv64-linux`, `s390-linux`, `s390x-linux`, `x86_64-linux`, `mmix-mmixware`, `aarch64-netbsd`, `armv6l-netbsd`, `armv7a-netbsd`, `armv7l-netbsd`, `i686-netbsd`, `m68k-netbsd`, `mipsel-netbsd`, `powerpc-netbsd`, `riscv32-netbsd`, `riscv64-netbsd`, `x86_64-netbsd`, `aarch64_be-none`, `aarch64-none`, `arm-none`, `armv6l-none`, `avr-none`, `i686-none`, `microblaze-none`, `microblazeel-none`, `mips-none`, `mips64-none`, `msp430-none`, `or1k-none`, `m68k-none`, `powerpc-none`, `powerpcle-none`, `riscv32-none`, `riscv64-none`, `rx-none`, `s390-none`, `s390x-none`, `vc4-none`, `x86_64-none`, `i686-openbsd`, `x86_64-openbsd`, `x86_64-redox`, `wasm64-wasi`, `wasm32-wasi`, `aarch64-windows`, `x86_64-windows`, `i686-windows`
-- Maintainers:
-  - [Yohann Boniface](https://github.com/Sigmanificient) [✉️](mailto:sigmanificient@gmail.com)
-  - [✉️ Mail to all maintainers](mailto:sigmanificient@gmail.com)
-- Outputs: **`out`**
-- Update Script: ❌
 </details>

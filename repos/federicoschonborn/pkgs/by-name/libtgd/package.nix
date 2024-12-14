@@ -6,7 +6,7 @@
   doxygen,
   ninja,
   pandoc,
-  testers,
+  versionCheckHook,
   nix-update-script,
 
   withTool ? true,
@@ -57,10 +57,13 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-FRejQ4uijpKdrFYEc9PkPrDo8pLKXMmJCXFTZ9Hx6Ug=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ] ++ lib.optional withTool pandoc ++ lib.optional withDocs doxygen;
+  nativeBuildInputs =
+    [
+      cmake
+      ninja
+    ]
+    ++ lib.optional withTool pandoc
+    ++ lib.optional withDocs doxygen;
 
   buildInputs =
     lib.optional withCfitsio cfitsio
@@ -80,21 +83,22 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional withPoppler poppler
     ++ lib.optional withTiff libtiff;
 
+  nativeInstallCheckInputs = [ versionCheckHook ];
+
   cmakeFlags = [
     (lib.cmakeBool "TGD_BUILD_TOOL" withTool)
     (lib.cmakeBool "TGD_BUILD_DOCUMENTATION" withDocs)
     (lib.cmakeBool "TGD_STATIC" withStatic)
   ];
 
-  passthru = {
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+  doInstallCheck = true;
+  versionCheckProgram = "${placeholder "out"}/bin/tgd";
 
-    updateScript = nix-update-script {
-      extraArgs = [
-        "--version-regex"
-        "tgd-(.*)"
-      ];
-    };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version-regex"
+      "tgd-(.*)"
+    ];
   };
 
   meta = {

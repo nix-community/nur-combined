@@ -25,26 +25,10 @@ lib.makeScope pkgs.newScope (
     akkoma-emoji = lib.recurseIntoAttrs (self.callPackage ./pkgs/akkoma-emoji { });
     lapcePlugins = lib.recurseIntoAttrs (self.callPackage ./pkgs/lapce-plugins { });
 
-    # Overrides
-    yyjson_0_10 =
-      if lib.versionAtLeast pkgs.yyjson.version "0.10.0" then
-        pkgs.yyjson
-      else
-        pkgs.yyjson.overrideAttrs (
-          finalAttrs: prevAttrs: {
-            version = "0.10.0";
-            src = prevAttrs.src.override {
-              rev = "refs/tags/${finalAttrs.version}";
-              hash = "sha256-mp9Oz08qTyhj3P6F1d81SX96vamUY/JWpD2DTYR+v04=";
-            };
-          }
-        );
-
     # Variants
     fastfetchMinimal =
       (self.fastfetch.overrideAttrs (
         _: prevAttrs: {
-          pname = "${prevAttrs.pname}-minimal";
           meta = (prevAttrs.meta or { }) // {
             description = "${prevAttrs.meta.description} (with all features disabled)";
           };
@@ -53,10 +37,8 @@ lib.makeScope pkgs.newScope (
         {
           enableVulkan = false;
           enableWayland = false;
-          enableXcb = false;
           enableXcbRandr = false;
           enableXrandr = false;
-          enableX11 = false;
           enableDrm = false;
           enableDrmAmdgpu = false;
           enableGio = false;
@@ -84,7 +66,6 @@ lib.makeScope pkgs.newScope (
     gtatoolFull =
       (self.gtatool.overrideAttrs (
         _: prevAttrs: {
-          pname = "${prevAttrs.pname}-full";
           meta = (prevAttrs.meta or { }) // {
             description = "${prevAttrs.meta.description} (with all features enabled)";
           };
@@ -119,7 +100,6 @@ lib.makeScope pkgs.newScope (
     libtgdFull =
       (self.libtgd.overrideAttrs (
         _: prevAttrs: {
-          pname = "${prevAttrs.pname}-full";
           meta = (prevAttrs.meta or { }) // {
             description = "${prevAttrs.meta.description} (with all features enabled)";
           };
@@ -152,7 +132,6 @@ lib.makeScope pkgs.newScope (
     razeFull =
       (self.raze.overrideAttrs (
         _: prevAttrs: {
-          pname = "${prevAttrs.pname}-full";
           meta = (prevAttrs.meta or { }) // {
             description = "${prevAttrs.meta.description} (with all features enabled)";
           };
@@ -163,7 +142,6 @@ lib.makeScope pkgs.newScope (
     teemFull =
       (self.teem.overrideAttrs (
         _: prevAttrs: {
-          pname = "${prevAttrs.pname}-full";
           meta = (prevAttrs.meta or { }) // {
             description = "${prevAttrs.meta.description} (with all features enabled)";
           };
@@ -181,7 +159,6 @@ lib.makeScope pkgs.newScope (
     teemExperimental =
       (self.teem.overrideAttrs (
         _: prevAttrs: {
-          pname = "${prevAttrs.pname}-experimental";
           meta = (prevAttrs.meta or { }) // {
             description = "${prevAttrs.meta.description} (with experimental libraries and applications enabled)";
           };
@@ -195,7 +172,6 @@ lib.makeScope pkgs.newScope (
     teemExperimentalFull =
       (self.teem.overrideAttrs (
         _: prevAttrs: {
-          pname = "${prevAttrs.pname}-experimental-full";
           meta = (prevAttrs.meta or { }) // {
             description = "${prevAttrs.meta.description} (with experimental libraries and applications, and all features enabled)";
           };

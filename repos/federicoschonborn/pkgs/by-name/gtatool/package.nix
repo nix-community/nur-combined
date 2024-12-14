@@ -6,7 +6,7 @@
   pkg-config,
   texinfo,
   libgta,
-  testers,
+  versionCheckHook,
   nix-update-script,
 
   withCsv ? true,
@@ -101,15 +101,16 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.withFeature withRaw "raw")
   ];
 
-  passthru = {
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+  nativeInstallCheckInputs = [ versionCheckHook ];
 
-    updateScript = nix-update-script {
-      extraArgs = [
-        "--version-regex"
-        "gtatool-(.*)"
-      ];
-    };
+  doInstallCheck = true;
+  versionCheckProgram = "${placeholder "out"}/bin/gta";
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version-regex"
+      "gtatool-(.*)"
+    ];
   };
 
   meta = {

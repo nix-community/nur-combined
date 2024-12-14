@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     domain = "invent.kde.org";
     owner = "danagost";
     repo = "Kiview";
-    rev = "refs/tags/${finalAttrs.version}";
+    rev = "refs/tags/v${finalAttrs.version}";
     hash = "sha256-MlXrCKEMSOoTq6Lkc//ZE9r2b2Img8lYBRjvlImqIAI=";
   };
 

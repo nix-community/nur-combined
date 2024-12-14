@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "regular-dev";
     repo = "biplanes-revival";
-    rev = "refs/tags/${finalAttrs.version}";
+    rev = "refs/tags/v${finalAttrs.version}";
     hash = "sha256-8SWK4c2N5ZY1+l4onikVZwFrhNgM84sNr1dXXHpQhcg=";
     fetchSubmodules = true;
   };
@@ -42,6 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "BiplanesRevival";
     description = "An old cellphone arcade recreated for PC";
     homepage = "https://github.com/regular-dev/biplanes-revival";
+    changelog = "https://github.com/regular-dev/biplanes-revival/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];

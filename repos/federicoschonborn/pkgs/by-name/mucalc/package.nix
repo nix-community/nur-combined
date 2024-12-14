@@ -6,7 +6,7 @@
   ninja,
   muparser,
   readline,
-  testers,
+  versionCheckHook,
   nix-update-script,
 }:
 
@@ -31,15 +31,15 @@ stdenv.mkDerivation (finalAttrs: {
     readline
   ];
 
-  passthru = {
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+  nativeInstallCheckInputs = [ versionCheckHook ];
 
-    updateScript = nix-update-script {
-      extraArgs = [
-        "--version-regex"
-        "mucalc-(.*)"
-      ];
-    };
+  doInstallCheck = true;
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version-regex"
+      "mucalc-(.*)"
+    ];
   };
 
   meta = {

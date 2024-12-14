@@ -18,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "OpenProgger";
     repo = "phonon-mpv";
-    rev = "refs/tags/${finalAttrs.version}";
+    rev = "refs/tags/v${finalAttrs.version}";
     hash = "sha256-IBCCQPI1Vrgj1hXlB3wxAIXjyLoKuNVc18P/X3axioE=";
   };
 
@@ -50,6 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Phonon Backend using MPV Player";
     homepage = "https://github.com/OpenProgger/phonon-mpv";
+    changelog = "https://github.com/OpenProgger/phonon-mpv/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.lgpl21Only;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];

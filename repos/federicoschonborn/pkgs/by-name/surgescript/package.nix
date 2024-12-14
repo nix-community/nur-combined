@@ -4,7 +4,8 @@
   fetchFromGitHub,
   cmake,
   ninja,
-  testers,
+  validatePkgConfig,
+  versionCheckHook,
   nix-update-script,
 }:
 
@@ -15,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "alemart";
     repo = "surgescript";
-    rev = "refs/tags/${finalAttrs.version}";
+    rev = "refs/tags/v${finalAttrs.version}";
     hash = "sha256-m6H9cyoUY8Mgr0FDqPb98PRJTgF7DgSa+jC+EM0TDEw=";
   };
 
@@ -24,14 +25,14 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
   ];
 
-  passthru = {
-    tests = {
-      version = testers.testVersion { package = finalAttrs.finalPackage; };
-      pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
-    };
+  nativeInstallCheckInputs = [
+    validatePkgConfig
+    versionCheckHook
+  ];
 
-    updateScript = nix-update-script { };
-  };
+  doInstallCheck = true;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     mainProgram = "surgescript";

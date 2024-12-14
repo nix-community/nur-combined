@@ -4,7 +4,7 @@
   fetchzip,
   cmake,
   ninja,
-  testers,
+  versionCheckHook,
 
   withStatic ? false,
   withBzip2 ? false,
@@ -51,10 +51,10 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "Teem_PTHREAD" withPthread)
   ];
 
-  passthru.tests.version = testers.testVersion {
-    package = finalAttrs.finalPackage;
-    command = "ilk --version";
-  };
+  nativeInstallCheckInputs = [ versionCheckHook ];
+
+  doInstallCheck = true;
+  versionCheckProgram = "${placeholder "out"}/bin/ilk";
 
   meta = {
     description = "A coordinated group of libraries for representing, processing, and visualizing scientific raster data";

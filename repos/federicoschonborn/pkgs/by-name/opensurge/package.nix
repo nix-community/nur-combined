@@ -9,7 +9,7 @@
   surgescript,
   physfs,
   xorg,
-  testers,
+  versionCheckHook,
   nix-update-script,
 }:
 
@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "alemart";
     repo = "opensurge";
-    rev = "refs/tags/${finalAttrs.version}";
+    rev = "refs/tags/v${finalAttrs.version}";
     hash = "sha256-HvpKZ62mYy7XkZOnIn7QRA2rFVREFnKO1NO83aCR76k=";
   };
 
@@ -44,11 +44,11 @@ stdenv.mkDerivation (finalAttrs: {
     "-DDESKTOP_ENTRY_PATH=${placeholder "out"}/share/applications"
   ];
 
-  passthru = {
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+  nativeInstallCheckInputs = [ versionCheckHook ];
 
-    updateScript = nix-update-script { };
-  };
+  doInstallCheck = true;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     mainProgram = "opensurge";

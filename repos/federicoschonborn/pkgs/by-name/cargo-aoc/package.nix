@@ -4,8 +4,7 @@
   fetchFromGitHub,
   openssl,
   pkg-config,
-  testers,
-  cargo-aoc,
+  versionCheckHook,
   nix-update-script,
 }:
 
@@ -30,15 +29,12 @@ rustPlatform.buildRustPackage {
 
   buildInputs = [ openssl ];
 
-  passthru = {
-    tests.version = testers.testVersion {
-      package = cargo-aoc;
-      # https://github.com/gobanos/cargo-aoc/blob/ab4e29f0ade2dffa1fc861234c45ff8a23cd1f7c/cargo-aoc/src/main.rs#L17
-      version = "0.3.0";
-    };
+  nativeInstallCheckInputs = [ versionCheckHook ];
 
-    updateScript = nix-update-script { };
-  };
+  doInstallCheck = true;
+  dontVersionCheck = true;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     mainProgram = "cargo-aoc";

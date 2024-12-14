@@ -14,19 +14,19 @@
   wayland-protocols,
   wlroots,
   xorg,
-  # testers,
+  versionCheckHook,
   nix-update-script,
 }:
 
 stdenv.mkDerivation (_: {
   pname = "magpie-wayland";
-  version = "0.9.4-unstable-2024-08-17";
+  version = "0.9.4-unstable-2024-12-14";
 
   src = fetchFromGitHub {
     owner = "BuddiesOfBudgie";
     repo = "magpie";
-    rev = "221970d1eef9140566da55481c8163725681289e";
-    hash = "sha256-KjbjT60k2KrjY+X5oCRwucAvQM3H9wnn5i2v7LMd3dM=";
+    rev = "ed028034f5fb7de56c5b2b618425f0a2ff2994c1";
+    hash = "sha256-upPjTJCU8g38XzlbrHvDy7JEIrhMNIdAuF+R5NU02lk=";
   };
 
   nativeBuildInputs = [
@@ -48,16 +48,17 @@ stdenv.mkDerivation (_: {
     xorg.xcbutilwm
   ];
 
-  passthru = {
-    # Buddy thinks it's 1.0...
-    # tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+  nativeInstallCheckInputs = [ versionCheckHook ];
 
-    updateScript = nix-update-script {
-      extraArgs = [
-        "--version"
-        "branch=v1"
-      ];
-    };
+  doInstallCheck = true;
+  versionCheckProgram = "${placeholder "out"}/bin/magpie-wm";
+  dontVersionCheck = true;
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch=v1"
+    ];
   };
 
   meta = {
@@ -67,6 +68,5 @@ stdenv.mkDerivation (_: {
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];
-    broken = lib.versionOlder wlroots.version "0.18";
   };
 })

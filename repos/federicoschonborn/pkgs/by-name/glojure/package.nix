@@ -17,7 +17,7 @@ buildGoModule {
   src = fetchFromGitHub {
     owner = "glojurelang";
     repo = "glojure";
-    rev = "refs/tags/${version}";
+    rev = "refs/tags/v${version}";
     hash = "sha256-WzyslO3YaGPJnINDSjk3AcjC/raVh5c5K2a6EBZC4Rk=";
   };
 
@@ -45,6 +45,7 @@ buildGoModule {
     mainProgram = "glj";
     description = "Clojure interpreter hosted on Go, with extensible interop support";
     homepage = "https://github.com/glojurelang/glojure";
+    changelog = "https://github.com/glojurelang/glojure/releases/tag/v${version}";
     license = lib.licenses.epl10;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [ federicoschonborn ];

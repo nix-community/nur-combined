@@ -7,8 +7,10 @@
 {
   author,
   cleanAuthor ? builtins.replaceStrings [ " " ] [ "-" ] author,
+  urlAuthor ? builtins.replaceStrings [ " " ] [ "%20" ] author,
   name,
   cleanName ? builtins.replaceStrings [ " " ] [ "-" ] name,
+  urlName ? builtins.replaceStrings [ " " ] [ "%20" ] name,
   version,
   hash,
 }:
@@ -25,6 +27,9 @@ runCommand "lapce-plugin-${cleanAuthor}-${cleanName}-${version}.volt"
     outputHash = hash;
   }
   ''
+    set -euo pipefail
+
     # The /download endpoint returns a Cloudflare URL 🥴
-    curl "$(curl https://plugins.lapce.dev/api/v1/plugins/${author}/${name}/${version}/download)" -o "$out"
+    downloadURL="$(curl https://plugins.lapce.dev/api/v1/plugins/${urlAuthor}/${urlName}/${version}/download)"
+    curl "$downloadURL" -o $out
   ''

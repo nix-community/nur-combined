@@ -5,7 +5,7 @@
   pkg-config,
   makeWrapper,
   guile,
-  testers,
+  versionCheckHook,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -24,6 +24,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ guile ];
 
+  nativeInstallCheckInputs = [ versionCheckHook ];
+
   postPatch = ''
     patchShebangs bootstrap-reader.sh
   '';
@@ -35,11 +37,8 @@ stdenv.mkDerivation (finalAttrs: {
       --prefix GUILE_LOAD_COMPILED_PATH : "$out/${guile.siteCcacheDir}:$GUILE_LOAD_COMPILED_PATH"
   '';
 
-  passthru.tests.version = testers.testVersion {
-    package = finalAttrs.finalPackage;
-    # Wisp runs as the Guile REPL
-    inherit (guile) version;
-  };
+  doInstallCheck = true;
+  dontVersionCheck = true;
 
   meta = {
     mainProgram = "wisp";
