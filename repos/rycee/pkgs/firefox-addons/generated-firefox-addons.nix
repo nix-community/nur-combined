@@ -977,10 +977,10 @@
     };
     "blocktube" = buildFirefoxXpiAddon {
       pname = "blocktube";
-      version = "0.4.4";
+      version = "0.4.5";
       addonId = "{58204f8b-01c2-4bbc-98f8-9a90458fd9ef}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4365801/blocktube-0.4.4.xpi";
-      sha256 = "683d7f0e2c34fea779b32afa04731cba879c457ae6baed68187f372af214fb0e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4401602/blocktube-0.4.5.xpi";
+      sha256 = "79cf81b8dbdeb6a01e6839c80cf0898707cd2ae26146e2ac9a5203f14f2f61c4";
       meta = with lib;
       {
         homepage = "https://github.com/amitbl/blocktube";
@@ -1366,10 +1366,10 @@
     };
     "clearcache" = buildFirefoxXpiAddon {
       pname = "clearcache";
-      version = "4.0";
+      version = "4.1";
       addonId = "clearcache@michel.de.almeida";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4240060/clearcache-4.0.xpi";
-      sha256 = "48ac3bae170fb6b411b3706f9a3aa5ad24309f8a9fd772c6310e5a9c066bdcb0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4402452/clearcache-4.1.xpi";
+      sha256 = "17fd1b303c4dcfe672db295693d9d5028f005ac297b311310aa3804630eda3b2";
       meta = with lib;
       {
         homepage = "https://github.com/TenSoja/clear-cache";
@@ -1843,10 +1843,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.4.0";
+      version = "4.4.3";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4398156/control_panel_for_twitter-4.4.0.xpi";
-      sha256 = "f732671753905f9b9ff9f15545e9ec511d3da8ffe49d6740e0f7bf1ccbecf153";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4402464/control_panel_for_twitter-4.4.3.xpi";
+      sha256 = "56e0b4494ce102d3b267ee1260c5b3965aa230086f9972c066e46503c183d969";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -2113,10 +2113,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.96";
+      version = "4.9.97";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4378073/darkreader-4.9.96.xpi";
-      sha256 = "6e2f1a36d2398195b0cd7ee0fcb198ea4db6a57a1b3bf7b2cf5f17a8768f477e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4403051/darkreader-4.9.97.xpi";
+      sha256 = "32ba95331d99f07db48bd2dfd9c715010ec450b84494dec07e2954cdcf7fa447";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -2135,10 +2135,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2449.0";
+      version = "6.2450.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4398065/dashlane-6.2449.0.xpi";
-      sha256 = "b59804f8e3da04d952a0ca2ca61293edeb1b2a9c1e9e72f0c471e898c0f878bc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4402180/dashlane-6.2450.0.xpi";
+      sha256 = "70ebed09fbcd23732f48f10523c31eb1ecd0e5f7d339cfd499dd209eb8f00c74";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2167,10 +2167,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.9.3";
+      version = "1.9.5";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4381372/dearrow-1.9.3.xpi";
-      sha256 = "edbdb5269d7d84d935a0053b0413e51c738e57571fffe0b175a8d5d3f800fea4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4403831/dearrow-1.9.5.xpi";
+      sha256 = "1934690778aae38b9d6fdbc5635c9afd1276589f5756c0b1627185ee1788c862";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -2215,10 +2215,10 @@
     };
     "deutsch-de-language-pack" = buildFirefoxXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "134.0.20241211.100452";
+      version = "134.0.20241213.91550";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4403558/deutsch_de_language_pack-134.0.20241211.100452.xpi";
-      sha256 = "b9e05050051f59d1e73e2db709e9aac1f731a00265a98c6bc083db3404ddb734";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4404816/deutsch_de_language_pack-134.0.20241213.91550.xpi";
+      sha256 = "2f064bddf5b71fcfcad44dc8c43f01f5a18400c75b8b240eafda4cd2a3f8ecf7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3400,10 +3400,10 @@
     };
     "french-language-pack" = buildFirefoxXpiAddon {
       pname = "french-language-pack";
-      version = "134.0.20241211.100452";
+      version = "134.0.20241213.91550";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4403505/francais_language_pack-134.0.20241211.100452.xpi";
-      sha256 = "c832beacfd8dd853a285e91b0c54ea71646993c1357541f89e709bb0cea6639a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4404831/francais_language_pack-134.0.20241213.91550.xpi";
+      sha256 = "19997f871501d20595099560bf373c7d9a27ddbb3ac8346e47dec74a7a2cc8bc";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -3437,10 +3437,10 @@
     };
     "gaidhlig-language-pack" = buildFirefoxXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "134.0.20241211.100452";
+      version = "134.0.20241213.91550";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4403482/gaidhlig_language_pack-134.0.20241211.100452.xpi";
-      sha256 = "2a006b8de437538b9750dcb3482a18e539379018e704697d0cc5699235e57f9e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4404837/gaidhlig_language_pack-134.0.20241213.91550.xpi";
+      sha256 = "bd6fdeb78ec422e57df5f4c10f65cb69fe093b3955251b0bd885740551efe637";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -6066,10 +6066,10 @@
     };
     "lastpass-password-manager" = buildFirefoxXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.134.0";
+      version = "4.137.2";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4357922/lastpass_password_manager-4.134.0.xpi";
-      sha256 = "5d7d322d48de67c37cd767789891f5da4a2c021ee47e33fc429b3fdb1ca2f8ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4401343/lastpass_password_manager-4.137.2.xpi";
+      sha256 = "9dd1aec88569fa16cbe2725159894bd114132be6a36cf3f68b26d9e1a27db61c";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -6538,10 +6538,10 @@
     };
     "localcdn" = buildFirefoxXpiAddon {
       pname = "localcdn";
-      version = "2.6.75";
+      version = "2.6.76";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4380944/localcdn_fork_of_decentraleyes-2.6.75.xpi";
-      sha256 = "c6dd6c46b7f1c09114eb2405f8c68433551217fd0bcb83a014c81c43e2d33c66";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4401439/localcdn_fork_of_decentraleyes-2.6.76.xpi";
+      sha256 = "00ce9251e78d82b2cea0db408a50058a26e7eb687d8dfdf2fae77c67c61d49cb";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -7441,10 +7441,10 @@
     };
     "mergify" = buildFirefoxXpiAddon {
       pname = "mergify";
-      version = "1.0.11";
+      version = "1.0.13";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4387930/mergify-1.0.11.xpi";
-      sha256 = "753b2226b015309fb56e51aff3f2dea219013d74eb625589d974046b762b70ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4404689/mergify-1.0.13.xpi";
+      sha256 = "837b6a74c9a103bb2d55befb7c027dfa49279716896c5f5af54323e173a92956";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -8382,10 +8382,10 @@
     };
     "passbolt" = buildFirefoxXpiAddon {
       pname = "passbolt";
-      version = "4.10.0";
+      version = "4.10.2";
       addonId = "passbolt@passbolt.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4386826/passbolt-4.10.0.xpi";
-      sha256 = "00cfb7392a70d53db0f7e5a788eeee2a3519bba44fa3fa924ee3ca889bc095bc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4402193/passbolt-4.10.2.xpi";
+      sha256 = "714d4077e9301b8862ad7df4e503813b2804fb491f6d82c1f156ef0c7012c849";
       meta = with lib;
       {
         homepage = "https://www.passbolt.com";
@@ -9346,10 +9346,10 @@
     };
     "proton-pass" = buildFirefoxXpiAddon {
       pname = "proton-pass";
-      version = "1.25.0";
+      version = "1.26.0";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4393918/proton_pass-1.25.0.xpi";
-      sha256 = "f032a0a522b647277680649e4546392b4b891a54b2e699f9887ad398d58a6033";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4401514/proton_pass-1.26.0.xpi";
+      sha256 = "d7d2a996b1a907ea582a3685b62efbe92f5995a496abc84dcacf02554fc063e2";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -9858,10 +9858,10 @@
     };
     "remove-youtube-s-suggestions" = buildFirefoxXpiAddon {
       pname = "remove-youtube-s-suggestions";
-      version = "4.3.60";
+      version = "4.3.61";
       addonId = "{21f1ba12-47e1-4a9b-ad4e-3a0260bbeb26}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4299785/remove_youtube_s_suggestions-4.3.60.xpi";
-      sha256 = "08b95b5875a3ee32c1cd3dc9895b969085cf5e18f7a04246c697dd5f2fff4f47";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4405243/remove_youtube_s_suggestions-4.3.61.xpi";
+      sha256 = "d0b63cd2ba37a58c2a28ed2aed1fd455d6c0f150faf292b8348d22153e1879fe";
       meta = with lib;
       {
         homepage = "https://lawrencehook.com/rys/";
@@ -10014,10 +10014,10 @@
     };
     "scots-language-pack" = buildFirefoxXpiAddon {
       pname = "scots-language-pack";
-      version = "134.0.20241211.100452";
+      version = "134.0.20241213.91550";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4403545/scots_language_pack-134.0.20241211.100452.xpi";
-      sha256 = "6bcbc07c30694a2a81d1b681e4b1130802479e40ea35a9073a07ee139a60a84f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4404859/scots_language_pack-134.0.20241213.91550.xpi";
+      sha256 = "f367cd09eafc64efb269110dbedb1987f6a38e22cddbbfe8ff1814e5688d0631";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -10619,10 +10619,10 @@
     };
     "sponsorblock" = buildFirefoxXpiAddon {
       pname = "sponsorblock";
-      version = "5.10.1";
+      version = "5.10.3";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4395988/sponsorblock-5.10.1.xpi";
-      sha256 = "68532967a5a510193ddbcf3397e4182388a129cc54a07aade0e9e6762c58f516";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4404647/sponsorblock-5.10.3.xpi";
+      sha256 = "8d670559ae17adc808ed061188822e5112728ba70eda0a3133dcc4abc3857bdc";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -13197,10 +13197,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.11.23.0";
+      version = "24.12.10.2";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4393111/yomitan-24.11.23.0.xpi";
-      sha256 = "76e24b9e54223e0aaac92f60ccee2e1042a908c6f2625c76eba65f1647796263";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4403181/yomitan-24.12.10.2.xpi";
+      sha256 = "d80c282d6bf50be0e849e134bfec4072e5b0096b8480da2dd9d0ee944f9a14ad";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
