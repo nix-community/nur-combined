@@ -15,13 +15,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "zapret";
-  version = "69.6";
+  version = "69.7";
 
   src = fetchFromGitHub {
     owner = "bol-van";
     repo = "zapret";
     rev = "refs/tags/v${finalAttrs.version}";
-    hash = "sha256-V93BlcPoNchpNZY0KzHR6tT6f4jAfdaB6Y+5Woxz9kY=";
+    hash = "sha256-wkhG0KWUFSYC3VKRtyBsPysXNLnQFH6MC9uvBAo8mok=";
   };
 
   buildInputs = [ libcap zlib libnetfilter_queue libnfnetlink ];
