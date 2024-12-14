@@ -9,16 +9,17 @@
   fetchNpmDeps,
 }:
 let
-  version = "7.0.0-beta-2";
+  version = "7.0.0-beta-3";
 
   origin-src = fetchFromGitHub {
     owner = "KonghaYao";
     repo = "cn-font-split";
     rev = version;
-    hash = "sha256-dxHAJkWJbYBEcG9oE29hZZ5OPJc3ndHjmwpRKk0CF8c=";
+    hash = "sha256-IGXd816MZTmg23G/us05nOnzz1XctfT/g/N0lvStdhE=";
   };
 
-  package-lock = ./package-lock.json;
+  npm-lock = ./package-lock.json;
+  cargo-lock = ./Cargo.lock;
 
   packages-json = stdenvNoCC.mkDerivation rec {
     name = "cn-font-split-npm-package-json";
@@ -28,8 +29,8 @@ let
       runHook preInstall
 
       mkdir -p $out
-      cp -rv ${src}/packages/subsets-rs/crates/lang_unicodes/package.json $out/
-      cp -rv ${package-lock} $out/package-lock.json
+      cp -rv ${src}/crates/lang_unicodes/package.json $out/
+      cp -rv ${npm-lock} $out/package-lock.json
 
       runHook postInstall
     '';
@@ -65,14 +66,9 @@ let
       runHook preInstall
 
       mkdir -p $out
-      cp -r ${src}/packages/subsets-rs/* $out/
-
-      # For cargo test
-      cp -r ${src}/packages/demo $out/
-      shopt -s globstar
-      substituteInPlace $out/src/**/*.rs --replace '../demo' './demo'
-
+      cp -r ${src}/* $out/
       cp -r ${npmDeps}/node_modules $out/
+      cp ${cargo-lock} $out/Cargo.lock
 
       runHook postInstall
     '';
@@ -88,7 +84,7 @@ rustPlatform.buildRustPackage {
     protobuf
   ];
 
-  cargoHash = "sha256-ICvQIRQvNS2umJpmNUzCohr59mCuLoaujxy21CIYdt4=";
+  cargoHash = "sha256-hr5oEuRdrUecRTWPJ7KhPVBHwXBlUFjviBWtBTJ2jQU=";
 
   meta = {
     description = "A revolutionary font subetter that supports CJK and any characters!";
