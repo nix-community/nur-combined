@@ -2,7 +2,7 @@
 static-nix-shell.mkBash {
   pname = "sane-screenshot";
   srcRoot = ./.;
-  pkgs = [ "libnotify" "swappy" "sway-contrib.grimshot" "util-linux" "wl-clipboard" ];
+  pkgs = [ "grim" "jq" "libnotify" "slurp" "swappy" "sway" "util-linux" "wl-clipboard" ];
   nativeBuildInputs = [
     copyDesktopItems
   ];

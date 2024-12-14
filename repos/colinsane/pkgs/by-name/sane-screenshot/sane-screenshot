@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p libnotify -p swappy -p sway-contrib.grimshot -p util-linux -p wl-clipboard
+#!nix-shell -i bash -p bash -p grim -p jq -p libnotify -p slurp -p swappy -p sway -p util-linux -p wl-clipboard
 
 # loosely inspired by reddit user u/dragobich
 # - <https://www.reddit.com/r/hyprland/comments/12tal0f/comment/jh8j4sy/>
@@ -8,6 +8,39 @@
 TIMEOUT=6
 OUTDIR="$HOME/Pictures/Screenshots"
 DATEFMT='%Y-%m-%d-%Hh%Mm%S'
+
+log() {
+  if [ -n "$SCREENSHOT_DEBUG" ]; then
+    echo "$@" >&2
+  fi
+}
+
+takeInitialShot() {
+  local dest="$1"
+
+  # grimshot savecopy anything "$dest"
+  # XXX(2024-12-13): slurp has a bug on moby such that it errors "selection cancelled"
+  # when the user clicks just a single point on the screen -- rather than selecting the whole window.
+  # hence, i'm inlining the parts of grimshot -- which call into slurp -- and reworking those, to workaround.
+  local all_objs=$(swaymsg -t get_tree)
+  log "got objects"
+  local visible_objs=$(echo "$all_objs" | jq -r '.. | select(.pid? and .visible?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')
+  log "visible objects: $visible_objs"
+  local selected_geom=$(echo "$visible_objs" | slurp -o)
+  log "selected: $selected_geom"
+  if [ -n "$selected_geom" ]; then
+    grim -g "$selected_geom" "$dest"
+  else
+    log "capturing whole screen"
+    grim "$dest"
+  fi
+
+  if [ -f "$dest" ]; then
+    # conditional to avoid clearing the clipboard on error
+    log "copying image/png to clipboard"
+    wl-copy --type image/png < "$dest"
+  fi
+}
 
 notify() {
   local fullPath="$1"
@@ -29,6 +62,10 @@ handleAction() {
   local fullPath="$2"
   case "$action" in
     Edit)
+      # if the user's editing the image, then the image-data we just copied to the clipboard will be stale.
+      # copy the image path instead, so that we give them an object that will reflect the edited image.
+      # if they want image-data on the clipboard, they can use the button inside swappy.
+      wl-copy "$fullPath"
       # the save button in swappy seems to be broken (?),
       # but with --output-file it'll save on exit.
       swappy --file "$fullPath" --output-file "$fullPath"
@@ -57,7 +94,7 @@ delayedCancel() {
 name="$(date "+$DATEFMT").png"
 dest="$OUTDIR/$name"
 
-grimshot savecopy anything "$dest"
+takeInitialShot "$dest"
 
 notify "$dest" &
 printf "screenshot copied and saved to %q\n" "$dest"

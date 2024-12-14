@@ -41,7 +41,7 @@ static-nix-shell.mkBash {
       (makeDesktopItem {
         name = "sane-open-clipboard";
         exec = "sane-open-clipboard";
-        desktopName = "Open Clipboard";
+        desktopName = "Open Clipboard Paste";
       })
     ];
   };

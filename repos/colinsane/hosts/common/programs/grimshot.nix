@@ -15,8 +15,11 @@
       "wl-clipboard"
     ];
     sandbox.keepPids = true;  #< needed by wl-clipboard
-    sandbox.whitelistWayland = true;
     sandbox.whitelistDbus = [ "user" ];
+    sandbox.whitelistWayland = true;
+    sandbox.extraRuntimePaths = [
+      "sway"
+    ];
     sandbox.autodetectCliPaths = "existingFileOrParent";
   };
 }
