@@ -11,12 +11,12 @@
     "Books/Visual"
     "Books/local"
     "Music"
-
-    # this is persisted simply to save on RAM. mesa_shader_cache is < 10 MB per boot.
-    # TODO: integrate with sane.programs.sandbox?
-    ".cache/mesa_shader_cache"
-    ".cache/mesa_shader_cache_db"
   ];
+
+  sane.user.persist.byStore.ephemeral = [
+    # this is persisted simply to save on RAM. mesa_shader_cache is < 10 MB per boot.
+  ];
+
   sane.user.persist.byStore.private = [
     "archive"
     "Pictures/albums"
@@ -29,6 +29,26 @@
 
     "knowledge"
     "Videos/local"
+
+    # TODO: pre-compile mesa shaders, and then run in read-only mode?
+    # mesa shader cache can be configured with e.g.:
+    # - MESA_SHADER_CACHE_DISABLE=true
+    # - MESA_SHADER_CACHE_DIR=/path/to/cache_db
+    # - MESA_DISK_CACHE_SINGLE_FILE=1  (in which case default cache file is ~/.cache/mesa_shader_cache_sf)
+    # - MESA_DISK_CACHE_MULTI_FILE=1  (in which case default cache dir is ~/.cache/mesa_shader_cache)
+    # - MESA_DISK_CACHE_READ_ONLY_FOZ_DBS=foo,bar
+    #   - to use read-only mesa caches, one from foo.db the other bar.db
+    # - MESA_DISK_CACHE_READ_ONLY_FOZ_DBS_DYNAMIC_LIST=/path/to/txt
+    #   - where /path/to/txt contains a list of names which represent read-only caches
+    #   - allows to change the cache providers w/o having to update variables
+    #
+    # see also: <https://github.com/ValveSoftware/Fossilize>
+    #   which may help in generating readonly cache files
+    #
+    # for now, mesa shader cache is persisted because some programs *greatly* benefit from it.
+    # esp gnome-contacts has a first-launch bug where it shows a misleading warning if shaders take too long to compile,
+    # so we persist to private instead of ephemeral.
+    ".cache/mesa_shader_cache_db"
   ];
 
   # convenience
