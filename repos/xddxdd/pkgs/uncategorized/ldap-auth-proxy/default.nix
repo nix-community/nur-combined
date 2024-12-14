@@ -17,5 +17,6 @@ buildGoModule {
     description = "Simple drop-in HTTP proxy for transparent LDAP authentication which is also a HTTP auth backend";
     homepage = "https://github.com/pinepain/ldap-auth-proxy";
     license = lib.licenses.mit;
+    mainProgram = "ldap-auth-proxy";
   };
 }

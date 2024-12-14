@@ -110,6 +110,7 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "fish_speech" ];
 
   meta = {
+    mainProgram = "fish-speech-api";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "SOTA Open Source TTS";
     homepage = "https://speech.fish.audio/";

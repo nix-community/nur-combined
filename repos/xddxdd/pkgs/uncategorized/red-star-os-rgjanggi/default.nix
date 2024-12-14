@@ -20,6 +20,7 @@ let
       "x86_64-linux"
       "i686-linux"
     ];
+    mainProgram = "rgjanggi";
   };
 
   src = stdenv.mkDerivation {

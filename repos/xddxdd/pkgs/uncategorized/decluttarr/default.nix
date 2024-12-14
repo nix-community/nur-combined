@@ -36,5 +36,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed";
     homepage = "https://github.com/ManiMatter/decluttarr";
     license = with lib.licenses; [ gpl3Only ];
+    mainProgram = "decluttarr";
   };
 }

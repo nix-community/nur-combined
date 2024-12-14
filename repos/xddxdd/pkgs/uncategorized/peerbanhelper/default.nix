@@ -33,5 +33,6 @@ stdenvNoCC.mkDerivation rec {
     description = "自动封禁不受欢迎、吸血和异常的 BT 客户端，并支持自定义规则。PeerId黑名单/UserAgent黑名单/IP CIDR/假进度检测/超量下载检测/主动探测 支持 qBittorrent/Transmission";
     homepage = "https://github.com/Ghost-chu/PeerBanHelper";
     license = lib.licenses.gpl3Only;
+    mainProgram = "peerbanhelper";
   };
 }

@@ -183,5 +183,6 @@ stdenv.mkDerivation rec {
     description = "OpenResty with Lan Tian modifications";
     homepage = "https://openresty.org";
     license = lib.licenses.bsd2;
+    mainProgram = "nginx";
   };
 }

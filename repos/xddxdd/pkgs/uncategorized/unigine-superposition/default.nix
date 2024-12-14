@@ -134,5 +134,6 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
     license = lib.licenses.unfree;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    mainProgram = "unigine-superposition";
   };
 }

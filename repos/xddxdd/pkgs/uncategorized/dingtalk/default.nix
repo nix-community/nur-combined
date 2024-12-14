@@ -226,5 +226,6 @@ stdenv.mkDerivation rec {
     platforms = [ "x86_64-linux" ];
     license = lib.licenses.unfreeRedistributable;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    mainProgram = "dingtalk";
   };
 }

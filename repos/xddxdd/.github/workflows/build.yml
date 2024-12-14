@@ -140,7 +140,7 @@ jobs:
             extra-platforms = i686-linux aarch64-linux arm-linux
       - name: Build nix packages
         run: |
-          python3 tools/check_package_meta.py
+          tools/check_package_meta.py
 
   update-nur:
     runs-on: ubuntu-latest

@@ -23,5 +23,6 @@ stdenv.mkDerivation rec {
     description = "FUSE nullfs drivers";
     homepage = "https://github.com/xrgtn/nullfs";
     license = with lib.licenses; [ gpl1Only ];
+    mainProgram = "nullfs";
   };
 }

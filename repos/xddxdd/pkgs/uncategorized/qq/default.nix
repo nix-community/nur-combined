@@ -93,5 +93,6 @@ stdenv.mkDerivation rec {
       "aarch64-linux"
     ];
     license = lib.licenses.unfreeRedistributable;
+    mainProgram = "qq";
   };
 }

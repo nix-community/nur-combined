@@ -36,5 +36,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Hentai@Home";
     homepage = "https://e-hentai.org/";
     license = lib.licenses.gpl3Only;
+    mainProgram = "hath";
   };
 }

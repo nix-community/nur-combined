@@ -58,5 +58,6 @@ stdenv.mkDerivation {
     description = "Unifies the management of LLM APIs. Call multiple backend services through a unified API interface";
     homepage = "https://github.com/yym68686/uni-api";
     license = lib.licenses.unfree;
+    mainProgram = "uni-api";
   };
 }

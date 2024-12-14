@@ -19,5 +19,6 @@ stdenv.mkDerivation rec {
     description = "Small app to generate a long path in traceroute";
     homepage = "https://github.com/xddxdd/route-chain";
     license = lib.licenses.unlicense;
+    mainProgram = "route-chain";
   };
 }

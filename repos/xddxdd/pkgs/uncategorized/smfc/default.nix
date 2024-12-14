@@ -37,5 +37,6 @@ stdenv.mkDerivation rec {
     description = "Super Micro Fan Control";
     homepage = "https://github.com/petersulyok/smfc";
     license = with lib.licenses; [ gpl3Only ];
+    mainProgram = "smfc";
   };
 }

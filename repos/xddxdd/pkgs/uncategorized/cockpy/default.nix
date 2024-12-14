@@ -60,5 +60,6 @@ stdenv.mkDerivation {
     description = "Public and open source version of the cbt2 ps im working on";
     homepage = "https://github.com/Hiro420/CockPY";
     license = with lib.licenses; [ unfreeRedistributable ];
+    mainProgram = "cockpy";
   };
 }

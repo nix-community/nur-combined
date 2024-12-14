@@ -84,5 +84,6 @@ stdenv.mkDerivation rec {
     description = "Standalone lyrics fetcher/displayer (windowed and OSD mode)";
     homepage = "https://github.com/osdlyrics/osdlyrics";
     license = lib.licenses.gpl3Only;
+    mainProgram = "osdlyrics";
   };
 }

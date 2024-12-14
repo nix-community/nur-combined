@@ -138,5 +138,6 @@ stdenv.mkDerivation rec {
     ];
     license = lib.licenses.unfree;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    mainProgram = "adspower";
   };
 }

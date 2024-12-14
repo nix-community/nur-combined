@@ -1,15 +1,17 @@
 {
-  buildGo122Module,
+  buildGoModule,
   lib,
   sources,
   versionCheckHook,
 }:
-buildGo122Module rec {
+buildGoModule rec {
   inherit (sources.baidupcs-go) pname version src;
   vendorHash = "sha256-msTlXtidxLTe3xjxTOWCqx/epFT0XPdwGPantDJUGpc=";
   doCheck = false;
 
   ldflags = [
+    "-s"
+    "-w"
     "-X main.Version=${version}"
   ];
 

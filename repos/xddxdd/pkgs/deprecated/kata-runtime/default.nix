@@ -63,5 +63,6 @@ stdenv.mkDerivation rec {
     knownVulnerabilities = [
       "${pname} is available in nixpkgs by a different maintainer"
     ];
+    mainProgram = "kata-runtime";
   };
 }

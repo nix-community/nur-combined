@@ -21,5 +21,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/intel/sgx-software-enable";
     license = lib.licenses.bsd3;
     platforms = [ "x86_64-linux" ];
+    mainProgram = "sgx-software-enable";
   };
 }

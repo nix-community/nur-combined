@@ -127,5 +127,6 @@ stdenv.mkDerivation rec {
     homepage = "https://music.163.com";
     platforms = [ "x86_64-linux" ];
     license = lib.licenses.unfree;
+    mainProgram = "netease-cloud-music";
   };
 }

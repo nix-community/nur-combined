@@ -32,5 +32,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/legoduded/palworld-worldoptions";
     # Unspecified license
     license = lib.licenses.unfree;
+    mainProgram = "palworld-worldoptions";
   };
 }

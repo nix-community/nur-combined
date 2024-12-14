@@ -246,5 +246,6 @@ stdenv.mkDerivation {
     ];
     license = lib.licenses.unfree;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    mainProgram = "browser360";
   };
 }

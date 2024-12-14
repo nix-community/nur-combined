@@ -12,5 +12,6 @@ buildGoModule {
     description = "Syslog push interface to Axiom";
     homepage = "https://github.com/axiomhq/axiom-syslog-proxy";
     license = lib.licenses.mit;
+    mainProgram = "axiom-syslog-proxy";
   };
 }

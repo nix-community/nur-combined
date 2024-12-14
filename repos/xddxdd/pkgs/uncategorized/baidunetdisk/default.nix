@@ -114,5 +114,6 @@ stdenv.mkDerivation {
     homepage = "https://pan.baidu.com/";
     platforms = [ "x86_64-linux" ];
     license = lib.licenses.unfreeRedistributable;
+    mainProgram = "baidunetdisk";
   };
 }

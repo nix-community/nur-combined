@@ -13,5 +13,6 @@ stdenv.mkDerivation {
     description = "NoteBook FanControl ported to Linux (with Lan Tian's modifications)";
     homepage = "https://github.com/xddxdd/nbfc-linux";
     license = lib.licenses.gpl3Only;
+    mainProgram = "nbfc";
   };
 }

@@ -41,5 +41,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Rewrite of Tachiyomi for the Desktop";
     homepage = "https://github.com/Suwayomi/Suwayomi-Server";
     license = lib.licenses.mpl20;
+    mainProgram = "suwayomi-server";
   };
 }

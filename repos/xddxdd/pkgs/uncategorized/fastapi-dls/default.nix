@@ -70,5 +70,6 @@ stdenv.mkDerivation {
     description = "Minimal Delegated License Service (DLS)";
     homepage = "https://gitea.publichub.eu/oscar.krause/fastapi-dls";
     license = lib.licenses.unfree;
+    mainProgram = "fastapi-dls";
   };
 }

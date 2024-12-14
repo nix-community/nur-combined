@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import argparse
 import json
 import multiprocessing as mp
 import os
@@ -11,6 +12,7 @@ SKIP_CHECK = [
     "kernel",
     "lantianLinuxCachyOS",
     "lantianLinuxXanmod",
+    "nvidia-grid",
 ]
 
 SKIP_BUILD = [
@@ -22,14 +24,8 @@ SKIP_BUILD = [
 ]
 
 
-def build_package(package_path: str, output: str = "result") -> dict:
-    subprocess.run(
-        ["nix", "build", f".#{package_path}", "-o", output],
-        check=True,
-        text=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-    )
+def build_package(package_path: str, output: str = "result"):
+    subprocess.run(["nix", "build", f".#{package_path}", "-o", output], check=True)
 
 
 def verify_package_info(package_path: str, package_info: dict) -> bool:
@@ -205,7 +201,11 @@ def get_package_meta(package_path: str) -> dict:
     return json.loads(nix_output.stdout)
 
 
-def check_package(package_path: str) -> bool:
+def check_package(args) -> bool:
+    package_path: str
+    build: bool
+    package_path, build = args
+
     valid = True
 
     package_info = get_package_info(package_path)
@@ -225,14 +225,27 @@ def check_package(package_path: str) -> bool:
     if not verify_package_meta(package_path, package_meta):
         valid = False
 
-    # if not validate_package_content(package_path, package_meta):
-    #     valid = False
+    if build:
+        if not validate_package_content(package_path, package_meta):
+            valid = False
 
     return valid
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        prog="check_package_meta.py",
+        description="Script to check metadata of my NUR packages",
+    )
+    parser.add_argument(
+        "--build",
+        "-b",
+        help="Enable checks that rely on building the package",
+        action="store_true",
+    )
+    args = parser.parse_args()
+
     pool = mp.Pool()
-    results = pool.map(check_package, get_packages())
+    results = pool.map(check_package, [(p, args.build) for p in get_packages()])
     all_valid = all(results)
     exit(0 if all_valid else 1)

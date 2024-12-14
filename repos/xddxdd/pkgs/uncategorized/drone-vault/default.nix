@@ -12,5 +12,6 @@ buildGoModule rec {
     description = "Drone plugin for integrating with the Vault secrets manager";
     homepage = "https://docs.drone.io/configure/secrets/external/vault/";
     license = lib.licenses.unfreeRedistributable;
+    mainProgram = "drone-vault";
   };
 }

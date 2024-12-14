@@ -24,5 +24,6 @@
       homepage = "https://github.com/xddxdd/coredns";
       description = "CoreDNS with Lan Tian's modifications";
       license = lib.licenses.asl20;
+      mainProgram = "coredns";
     };
   })

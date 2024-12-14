@@ -30,5 +30,6 @@ stdenv.mkDerivation rec {
     description = "Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace";
     homepage = "http://gopherus.sourceforge.net/";
     license = with lib.licenses; [ bsd2 ];
+    mainProgram = "gopherus";
   };
 }

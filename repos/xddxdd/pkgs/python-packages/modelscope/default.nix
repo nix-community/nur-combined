@@ -51,5 +51,6 @@ buildPythonPackage rec {
     description = "Bring the notion of Model-as-a-Service to life";
     homepage = "https://www.modelscope.cn/";
     license = with lib.licenses; [ asl20 ];
+    mainProgram = "modelscope";
   };
 }

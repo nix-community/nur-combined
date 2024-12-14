@@ -146,5 +146,6 @@ stdenv.mkDerivation {
     homepage = "https://weixin.qq.com/";
     platforms = [ "x86_64-linux" ];
     license = lib.licenses.unfreeRedistributable;
+    mainProgram = "wine-wechat";
   };
 }

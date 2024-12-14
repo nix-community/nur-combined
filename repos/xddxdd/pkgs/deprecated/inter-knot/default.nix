@@ -84,5 +84,6 @@ stdenv.mkDerivation {
     knownVulnerabilities = [
       "Service has ceased operation"
     ];
+    mainProgram = "inter-knot";
   };
 }

@@ -68,5 +68,6 @@ buildPythonPackage rec {
     description = "Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models";
     homepage = "https://www.funasr.com/";
     license = with lib.licenses; [ mit ];
+    mainProgram = "funasr";
   };
 }

@@ -35,5 +35,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate";
     homepage = "https://github.com/LuckyPuppy514/jproxy";
     license = lib.licenses.mit;
+    mainProgram = "jproxy";
   };
 }

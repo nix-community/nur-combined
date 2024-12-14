@@ -235,7 +235,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--no-git",
         "-g",
-        help="Do not perform Git operations automatically. Default to on if dest_path is set",
+        help="Do not perform Git operations automatically. Default to on if dest is set",
         action="store_true",
     )
     args = parser.parse_args()
@@ -248,15 +248,17 @@ if __name__ == "__main__":
     if not pkg_name:
         raise ValueError("Invalid path")
 
-    existing_pkg_version = nixpkgs_get_existing_version(args.nixpkgs_path, pkg_name)
-    print(f"Existing version is {existing_pkg_version}")
-
     if not args.no_git:
-        nixpkgs_create_branch(args.nixpkgs_path, pkg_name)
+        existing_pkg_version = nixpkgs_get_existing_version(args.nixpkgs_path, pkg_name)
+        print(f"Existing version is {existing_pkg_version}")
 
-    if args.dest_path:
+        nixpkgs_create_branch(args.nixpkgs_path, pkg_name)
+    else:
+        existing_pkg_version = None
+
+    if args.dest:
         custom_target_path = True
-        nixpkgs_pkg_path = Path(args.dest_path)
+        nixpkgs_pkg_path = Path(args.dest)
         os.makedirs(nixpkgs_pkg_path, exist_ok=True)
     else:
         custom_target_path = False

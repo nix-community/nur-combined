@@ -79,5 +79,6 @@ stdenv.mkDerivation rec {
     description = "Vector Packet Processing";
     homepage = "https://wiki.fd.io/view/VPP/What_is_VPP%3F";
     license = lib.licenses.asl20;
+    mainProgram = "vppctl";
   };
 }

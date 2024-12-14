@@ -23,5 +23,6 @@ buildGoModule rec {
     knownVulnerabilities = [
       "${pname} is available in nixpkgs by a different maintainer"
     ];
+    mainProgram = "glauth";
   };
 }

@@ -37,5 +37,6 @@ stdenv.mkDerivation rec {
     description = "Userspace KSM helper daemon";
     homepage = "https://github.com/CachyOS/uksmd";
     license = lib.licenses.gpl3Only;
+    mainProgram = "uksmd";
   };
 }

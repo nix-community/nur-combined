@@ -40,5 +40,6 @@ stdenv.mkDerivation rec {
     description = "Bilibili desktop client";
     homepage = "https://app.bilibili.com/";
     license = lib.licenses.unfreeRedistributable;
+    mainProgram = "bilibili";
   };
 }
