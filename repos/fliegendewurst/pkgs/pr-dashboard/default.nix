@@ -9,16 +9,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "pr-dashboard";
-  version = "0.1.0";
+  version = "0-unstable";
 
   src = fetchFromGitHub {
     owner = "FliegendeWurst";
     repo = "pr-dashboard";
-    rev = "a8837e647889b8a02a2c240cac1b8a78770db2b3";
-    hash = "sha256-E4ZttR4W5ST65g/Lt9dSCNzE1+ZfHt5GV5SrTXNzgZY=";
+    rev = "84d09dfc5a0f088c865f15e7f1c6658e1fef14ea";
+    hash = "sha256-7Oud5MkLovAhZE/5xKAGGL1qWxcxS2s0sNk6ijzZsQg=";
   };
 
-  cargoHash = "sha256-3zePZHKqWf+8THI4OIb9qkE+9BVM+6fzM85KwZY5X8w=";
+  cargoHash = "sha256-WEDfqAXkUU/7Vn2ig2HmbHydrfDycEhP1nBFBc7n3XU=";
 
   nativeBuildInputs = [
     rustPlatform.bindgenHook
