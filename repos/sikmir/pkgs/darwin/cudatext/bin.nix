@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchurl,
+  fetchzip,
   _7zz,
   makeWrapper,
   cudatext,
@@ -9,17 +9,19 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cudatext-bin";
-  version = "1.216.6.0";
+  version = "1.219.1.0";
 
   src =
     {
-      "aarch64-darwin" = fetchurl {
-        url = "mirror://sourceforge/cudatext/cudatext-macos-cocoa-aarch64-${finalAttrs.version}.dmg";
-        hash = "sha256-9IyvKHqR1G4JukQjoCBQMxp0y6M2v+aloX5ZcU2b7HY=";
+      "aarch64-darwin" = fetchzip {
+        url = "mirror://sourceforge/cudatext/cudatext-macos-cocoa-aarch64-${finalAttrs.version}.dmg.zip";
+        hash = "sha256-z2kVRTI7O8l+bhGwHTGH7pL4BUkldaGnMJbaMj7RGiU=";
+        stripRoot = false;
       };
-      "x86_64-darwin" = fetchurl {
-        url = "mirror://sourceforge/cudatext/cudatext-macos-cocoa-amd64-${finalAttrs.version}.dmg";
-        hash = "sha256-QVjhJOGRyLkxDRxPKZ2d/TbXN0tDNcY7EZIx8/OnjPA=";
+      "x86_64-darwin" = fetchzip {
+        url = "mirror://sourceforge/cudatext/cudatext-macos-cocoa-amd64-${finalAttrs.version}.dmg.zip";
+        hash = "sha256-P5b845iNTyfwmaG3uUgvjCyyd0RqqBAvFPGWyfwZDls=";
+        stripRoot = false;
       };
     }
     .${stdenv.hostPlatform.system};
