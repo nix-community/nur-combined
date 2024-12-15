@@ -4116,10 +4116,10 @@
     };
     "hover-zoom-plus" = buildFirefoxXpiAddon {
       pname = "hover-zoom-plus";
-      version = "1.0.223";
+      version = "1.0.224";
       addonId = "{92e6fe1c-6e1d-44e1-8bc6-d309e59406af}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4397845/hover_zoom_plus-1.0.223.xpi";
-      sha256 = "8c4846cade693efea0c44adca0e7833ccb63ee237f32ebc784b9fddc3a6536a4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4405456/hover_zoom_plus-1.0.224.xpi";
+      sha256 = "228e4b1ca89c452be8bed56988b5ea899ccb30ab30fdf9f3b2678885d2e62782";
       meta = with lib;
       {
         homepage = "https://github.com/extesy/hoverzoom/";
@@ -4363,6 +4363,7 @@
           "*://*.amazon.ca/*"
           "*://*.amazon.cn/*"
           "*://*.amazon.de/*"
+          "*://*.amazon.eg/*"
           "*://*.amazon.es/*"
           "*://*.amazon.fr/*"
           "*://*.amazon.co.jp/*"
@@ -5101,6 +5102,7 @@
           "*://*.meiye.art/*"
           "*://*.lummi.ai/*"
           "*://*.search.brave.com/*"
+          "*://*.civitai.com/*"
         ];
         platforms = platforms.all;
       };
@@ -9741,10 +9743,10 @@
     };
     "reddit-moderator-toolbox" = buildFirefoxXpiAddon {
       pname = "reddit-moderator-toolbox";
-      version = "6.1.16";
+      version = "6.1.17";
       addonId = "yes@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4379540/reddit_moderator_toolbox-6.1.16.xpi";
-      sha256 = "33dbe0d2ab8f2135970067a50a90b429d436063154aef6dd0403eee086a8b2da";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4405464/reddit_moderator_toolbox-6.1.17.xpi";
+      sha256 = "a0a08eaeabfa6b1f73d1b898e7bf749f671d54a4ced3f318db1e7a001c3eec3d";
       meta = with lib;
       {
         homepage = "https://www.reddit.com/r/toolbox";
