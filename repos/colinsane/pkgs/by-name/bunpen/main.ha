@@ -13,14 +13,14 @@ use os;
 use os::exec;
 use types::c;
 
-fn do_exec(path: str, args: []str) (os::exec::error | void) = {
+fn do_exec(path: str, args: []str, env: []str) (os::exec::error | void) = {
   {
     let joined = strings::join(" ", args...);
     defer free(joined);
     log::printfln("exec {} with argv: {}", path, joined);
   };
 
-  errors::ext::check("exec", rt::ext::execvpe(path, args, os::getenvs()));
+  errors::ext::check("exec", rt::ext::execvpe(path, args, env));
 
   // XXX: os::exec::exec offers no way to preserve argv0, but it does
   // work if you don't care about that:
@@ -71,5 +71,5 @@ export fn main() void = {
       yield prepare_env(req);
   };
 
-  errors::ext::check("exec <user command>", do_exec(exec_params.bin, exec_params.args));
+  errors::ext::check("exec <user command>", do_exec(exec_params.bin, exec_params.args, exec_params.env));
 };

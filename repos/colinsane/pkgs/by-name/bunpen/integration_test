@@ -114,6 +114,33 @@ test_15_reap_children() {
   ps x | grep -E 'Zs +[0-9]+:[0-9]+ \[true\] <defunct>' && return 1 || return 0
 }
 
+test_16_keep_env() {
+  ORIG_ENV=orig bunpen --bunpen-path / bash -c '[[ "$ORIG_ENV" = orig && -z "$NOT_ENV" ]]'
+}
+
+test_17_new_env() {
+  bunpen --bunpen-path / --bunpen-env NEW_ENV=new bash -c '[[ "$NEW_ENV" = new && -z "$NOT_ENV" ]]'
+}
+
+test_18_updated_env() {
+  UPD_ENV=orig bunpen --bunpen-path / --bunpen-env UPD_ENV=new bash -c '[[ "$UPD_ENV" = new && -z "$NOT_ENV" ]]'
+}
+
+test_19_substitute_env_home() {
+  # HOME defaults to /homeless-shelter
+  # XDG_RUNTIME_DIR defaults to (unset)
+  bunpen --bunpen-path / --bunpen-env 'H_ENV=/head$HOME/tail' --bunpen-env 'R_ENV=$XDG_RUNTIME_DIR/tail' bash -c \
+    '[[ "$H_ENV" = /head/homeless-shelter/tail && "$R_ENV" = /tail ]]'
+}
+test_20_substitute_env_all() {
+  XDG_RUNTIME_DIR=/r/t bunpen --bunpen-path / --bunpen-env 'H_ENV=/head$HOME/tail' --bunpen-env 'R_ENV=$XDG_RUNTIME_DIR/tail' bash -c \
+    '[[ "$H_ENV" = /head/homeless-shelter/tail && "$R_ENV" = /r/t/tail ]]'
+}
+test_21_substitute_env_escapes() {
+  bunpen --bunpen-path / --bunpen-env 'H_ENV=/head$$HOME/tail' --bunpen-env 'H_ENV2=$$$HOME/tail' bash -c \
+    'echo "$H_ENV2" && [[ "$H_ENV" = '"'"'/head$HOME/tail'"'"' && "$H_ENV2" = '"'"'$/homeless-shelter/tail'"'"' ]]'
+}
+
 
 tested=
 rc=0

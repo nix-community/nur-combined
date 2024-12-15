@@ -27,6 +27,8 @@ export type exec_params = struct {
   // `args[0]` is, by convention, the name of the executable,
   // relevant for multi-call binaries like `busybox`.
   args: []str,
+  // *complete* environment with which to execute the binary
+  env: []str,
   // path to the binary to be exec'd inside the sandbox.
   // if the user requested `--bunpen-drop-shell`, this will be their shell (e.g. /bin/sh), assuming `BUNPEN_DISABLE=1` wasn't specified.
   bin: str,
@@ -56,6 +58,30 @@ fn cli_opts_get_exec_params(opts: cli_opts) exec_params = {
       saw_bin_path = true;
     };
   };
+
+  //---- ingest `env` ----//
+
+  let home = getenv_default("HOME");
+  let xdg_runtime_dir = getenv_default("XDG_RUNTIME_DIR");
+
+  for (let old .. os::getenvs()) {
+    let (old_key, _old_value) = strings::cut(old, "=");
+    let keep_old = true;
+    for (let new .. opts.env) {
+      let (new_key, _new_value) = strings::cut(new, "=");
+      if (old_key == new_key) {
+        keep_old = false;
+      };
+    };
+    if (keep_old) {
+      append(params.env, old);
+    };
+  };
+  for (let new .. opts.env) {
+    let substituted = strings::multireplace(new, ("$$", "$"), ("$HOME", home), ("$XDG_RUNTIME_DIR", xdg_runtime_dir));
+    append(params.env, substituted);
+  };
+
 
   return params;
 };
@@ -211,7 +237,7 @@ fn try_as_path(
 
 // ensure that the specified path exists.
 // if it exists but not as a directory, succeed only if `dir_ok = true`.
-fn check_exists(pathbuf: *path::buffer, noexist_ok: bool, file_ok: bool, dir_ok: bool) (void | fs::error | path::error)  = {
+fn check_exists(pathbuf: *path::buffer, noexist_ok: bool, file_ok: bool, dir_ok: bool) (void | fs::error | path::error) = {
   if (noexist_ok)
     return void;
   if (!file_ok && !dir_ok)
@@ -227,4 +253,13 @@ fn check_exists(pathbuf: *path::buffer, noexist_ok: bool, file_ok: bool, dir_ok:
 
   log::printfln("[config/path/try] not adding path (exists, but as wrong type): {}", path::string(pathbuf));
   return fs::wrongtype;
+};
+
+// return the value of the environment variable keyed by `key`, or "" if it
+// doesn't exist
+fn getenv_default(key: str) str = {
+  return match (os::getenv(key)) {
+    case void => yield "";
+    case let value: str => yield value;
+  };
 };

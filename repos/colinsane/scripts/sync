@@ -37,26 +37,43 @@ homeMountFor() {
   fi
 }
 
-syncHost() {
+sync_pkm() {
+  local host=$1
+  local me=$(hostname)
+  ssh "$host" "set -eux; remote=$me; "'cd ~/knowledge; old=$(git rev-parse --abbrev-ref HEAD); [ "$old" = master ]; st=$(git stash create); git reset --hard HEAD; git branch -D sync || true; git checkout -b sync; git fetch $remote master && git rebase $remote/master && (if [ -n "$st" ]; then git stash apply "$st"; fi) && git branch --move --force master || (git --reset-hard HEAD; git checkout "$old"; (if [ -n "$st" ]; then git stash apply "$st"; fi); false)'
+}
+
+sync_music() {
   local host=$1
   shift
-  local syncFlags=("$@")
   local deskoHome=$(homeMountFor desko)
   local lappyHome=$(homeMountFor lappy)
   local mobyHome=$(homeMountFor moby)
-  case "$host" in
+  case $host in
     (desko)
       ifExists /mnt/servo/media/Music/Various.Artists \
-        sane-sync-music --compat /mnt/servo/media/Music "$deskoHome/Music" "${syncFlags[@]}"
-      sane-sync-from-iphone
+        sane-sync-music --compat /mnt/servo/media/Music "$deskoHome/Music" "$@"
       ;;
     (lappy)
       ifExists /mnt/servo/media/Music/Various.Artists \
         sane-sync-music --compress --compat /mnt/servo/media/Music "$lappyHome/Music" "${syncFlags[@]}"
       ;;
     (moby)
-      # copy photos/screenshots from moby to desko:
-      rsync -arv --exclude servo-macros "$mobyHome/Pictures/" "$deskoHome/Pictures/from/moby/"
+      ifExists /mnt/servo/media/Music/Various.Artists \
+        sane-sync-music --compat /mnt/servo/media/Music "$mobyHome/Music" "${syncFlags[@]}"
+      ;;
+    (*)
+      ;;
+  esac
+}
+
+sync_books() {
+  local host="$1"
+  local deskoHome=$(homeMountFor desko)
+  local lappyHome=$(homeMountFor lappy)
+  local mobyHome=$(homeMountFor moby)
+  case $host in
+    (moby)
       ifExists /mnt/servo/media/Books/Audiobooks \
         rsync -arv --delete /mnt/servo/media/Books/Audiobooks/ "$mobyHome/Books/Audiobooks/"
       # copy books from servo to moby; delete old/untracked ones, but keep KOreader state files (sdr)
@@ -65,17 +82,32 @@ syncHost() {
       # TODO: recover servo Books/Visual collection, and then re-enable syncing
       # ifExists /mnt/servo/media/Books/Visual \
       #   rsync -arv --delete --exclude '*.sdr' /mnt/servo/media/Books/Books/ "$mobyHome/Books/Visual/"
-      # copy music
-      ifExists /mnt/servo/media/Music/Various.Artists \
-        sane-sync-music --compat /mnt/servo/media/Music "$mobyHome/Music" "${syncFlags[@]}"
       ;;
     (*)
-      usage
+      ;;
+  esac
+}
+
+sync_photos() {
+  local host=$1
+  local deskoHome=$(homeMountFor desko)
+  local lappyHome=$(homeMountFor lappy)
+  local mobyHome=$(homeMountFor moby)
+  case $host in
+    (desko)
+      sane-sync-from-iphone
+      ;;
+    (moby)
+      # copy photos/screenshots from moby to desko:
+      rsync -arv --exclude servo-macros "$mobyHome/Pictures/" "$deskoHome/Pictures/from/moby/"
+      ;;
+    (*)
       ;;
   esac
 }
 
 hosts=()
+targets=()
 passthruArgs=()
 parseArgs() {
   while [[ $# -ge 1 ]]; do
@@ -87,6 +119,10 @@ parseArgs() {
         ;;
       (all)
         hosts+=(desko lappy moby)
+        shift
+        ;;
+      (pkm|music|books|photos)
+        targets+=("$arg")
         shift
         ;;
       (--verbose)
@@ -113,10 +149,17 @@ parseArgs() {
   if [[ ${#hosts[@]} -eq 0 ]]; then
     hosts+=(desko lappy moby)
   fi
+
+  if [[ ${#targets[@]} -eq 0 ]]; then
+    targets+=(pkm music photos books)
+  fi
 }
 
 parseArgs "$@"
 debug "hosts:" "${hosts[@]}"
-for host in "${hosts[@]}"; do
-  syncHost "$host" "${passthruArgs[@]}"
+debug "targets:" "${targets[@]}"
+for target in "${targets[@]}"; do
+  for host in "${hosts[@]}"; do
+    sync_"$target" "$host" "${passthruArgs[@]}"
+  done
 done

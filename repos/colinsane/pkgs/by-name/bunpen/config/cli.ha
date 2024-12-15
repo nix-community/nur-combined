@@ -13,6 +13,8 @@ export type cli_opts = struct {
   debug: uint,
   disable: str,
   drop_shell: bool,
+  // [ "KEY=VALUE" ]
+  env: []str,
   // `--bunpen-help`
   help: bool,
   home_paths: []str,
@@ -44,6 +46,12 @@ export fn usage() void = {
   fmt::println("      omit `n` for light debugging, or specify n=0/1/2/3/4 where higher = more verbose")!;
   fmt::println("  --bunpen-drop-shell")!;
   fmt::println("      instead of running the program, drop into an interactive shell")!;
+  fmt::println("  --bunpen-env FOO=VALUE")!;
+  fmt::println("      set the environment variable FOO to VALUE within the launched program")!;
+  fmt::println("      certain shell-style substitutions are performed on the raw string ('FOO=VALUE'), including:")!;
+  fmt::println("        $HOME")!;
+  fmt::println("        $XDG_RUNTIME_DIR")!;
+  fmt::println("        $$ to escape a literal $")!;
   fmt::println("  --bunpen-autodetect <existing|existingFile|existingFileOrParent|existingDirOrParent|existingOrParent|parent>")!;
   fmt::println("      add files which appear later as CLI arguments into the sandbox")!;
   fmt::println("  --bunpen-cap <all|sys_admin|net_raw|net_admin|...>")!;
@@ -155,6 +163,7 @@ fn parse_args_into(parsed: *cli_opts, args: []str) (void | errors::invalid) = {
       case "--bunpen-debug=4"         =>  parsed.debug = 4;
       case "--bunpen-dns"             =>  idx += 1; parsed.dns = expect_arg("--bunpen-dns", next)?;
       case "--bunpen-drop-shell"      =>  parsed.drop_shell = true;
+      case "--bunpen-env"             =>  idx += 1; append(parsed.env, expect_arg("--bunpen-env", next)?);
       case "--bunpen-help"            =>  parsed.help = true;
       case "--bunpen-home-path"       =>  idx += 1; append(parsed.home_paths, expect_arg("--bunpen-home-path", next)?);
       case "--bunpen-keep-ipc"        =>  parsed.keep_ipc = true;
