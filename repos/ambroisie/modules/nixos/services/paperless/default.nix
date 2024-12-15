@@ -61,11 +61,6 @@ in
           PAPERLESS_ENABLE_HTTP_REMOTE_USER = true;
           PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME = "HTTP_X_USER";
 
-          # Use PostgreSQL
-          PAPERLESS_DBHOST = "/run/postgresql";
-          PAPERLESS_DBUSER = "paperless";
-          PAPERLESS_DBNAME = "paperless";
-
           # Security settings
           PAPERLESS_ALLOWED_HOSTS = paperlessDomain;
           PAPERLESS_CORS_ALLOWED_HOSTS = "https://${paperlessDomain}";
@@ -87,40 +82,11 @@ in
 
       # Secret key
       environmentFile = cfg.secretKeyFile;
-    };
 
-    systemd.services = {
-      paperless-scheduler = {
-        requires = [ "postgresql.service" ];
-        after = [ "postgresql.service" ];
+      # Automatic PostgreSQL provisioning
+      database = {
+        createLocally = true;
       };
-
-      paperless-consumer = {
-        requires = [ "postgresql.service" ];
-        after = [ "postgresql.service" ];
-      };
-
-      paperless-web = {
-        requires = [ "postgresql.service" ];
-        after = [ "postgresql.service" ];
-      };
-
-      paperless-task-queue = {
-        requires = [ "postgresql.service" ];
-        after = [ "postgresql.service" ];
-      };
-    };
-
-    # Set-up database
-    services.postgresql = {
-      enable = true;
-      ensureDatabases = [ "paperless" ];
-      ensureUsers = [
-        {
-          name = "paperless";
-          ensureDBOwnership = true;
-        }
-      ];
     };
 
     # Set-up media group

@@ -14,7 +14,7 @@ in
     # Let other services enable postgres when they need it
     (lib.mkIf cfg.enable {
       services.postgresql = {
-        package = pkgs.postgresql_13;
+        package = pkgs.postgresql_17;
       };
     })
 
@@ -23,15 +23,15 @@ in
       environment.systemPackages =
         let
           pgCfg = config.services.postgresql;
-          newPackage' = pkgs.postgresql_13;
+          newPackage' = pkgs.postgresql_17;
 
           oldPackage = if pgCfg.enableJIT then pgCfg.package.withJIT else pgCfg.package;
           oldData = pgCfg.dataDir;
-          oldBin = "${if pgCfg.extraPlugins == [] then oldPackage else oldPackage.withPackages pgCfg.extraPlugins}/bin";
+          oldBin = "${if pgCfg.extensions == [] then oldPackage else oldPackage.withPackages pgCfg.extensions}/bin";
 
           newPackage = if pgCfg.enableJIT then newPackage'.withJIT else newPackage';
           newData = "/var/lib/postgresql/${newPackage.psqlSchema}";
-          newBin = "${if pgCfg.extraPlugins == [] then newPackage else newPackage.withPackages pgCfg.extraPlugins}/bin";
+          newBin = "${if pgCfg.extensions == [] then newPackage else newPackage.withPackages pgCfg.extensions}/bin";
         in
         [
           (pkgs.writeScriptBin "upgrade-pg-cluster" ''

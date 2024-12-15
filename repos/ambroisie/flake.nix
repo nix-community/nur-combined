@@ -55,6 +55,10 @@
       owner = "nix-community";
       repo = "NUR";
       ref = "master";
+      inputs = {
+        flake-parts.follows = "flake-parts";
+        nixpkgs.follows = "nixpkgs";
+      };
     };
 
     pre-commit-hooks = {

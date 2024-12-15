@@ -25,7 +25,7 @@ let
       inherit system;
 
       overlays = (lib.attrValues self.overlays) ++ [
-        inputs.nur.overlay
+        inputs.nur.overlays.default
       ];
     };
 
