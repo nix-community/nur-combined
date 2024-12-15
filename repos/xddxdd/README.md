@@ -122,7 +122,7 @@ Or, use variables from this repository in case I change them:
 |  | `fcitx5-breeze` | [fcitx5-breeze](https://github.com/scratch-er/fcitx5-breeze) | 3.1.0 | Fcitx5 theme to match KDE's Breeze style |
 |  | `flaresolverr-21hsmw` | [flaresolverr-21hsmw](https://github.com/21hsmw/FlareSolverr) | 0-unstable-2024-11-01 | Proxy server to bypass Cloudflare protection, with 21hsmw modifications to support nodriver |
 |  | `ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
-|  | `funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2024-12-13 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
+|  | `funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2024-12-15 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
 | `x86_64-linux` | `google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.6.9796 | World sphere viewer |
 |  | `gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Gopherus is a free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
 |  | `grasscutter` | [grasscutter](https://github.com/Grasscutters/Grasscutter) | 1.7.4 | Server software reimplementation for a certain anime game |
@@ -186,7 +186,7 @@ Or, use variables from this repository in case I change them:
 |  | `pterodactyl-wings` | [pterodactyl-wings](https://pterodactyl.io) | 1.11.13 | Server control plane for Pterodactyl Panel |
 |  | `py-rcon` | [py-rcon](https://github.com/ttk1/py-rcon) | 1.3.0 | Python implementation of RCON |
 |  | `pytorch-wpe` | [pytorch-wpe](https://github.com/nttcslab-sp/dnn_wpe) | 0.0.1 | WPE implementation using PyTorch |
-|  | `qemu-user-static` | [qemu-user-static](http://www.qemu.org/) | 9.2.0+ds-1 | Generic and open source machine emulator and virtualizer |
+|  | `qemu-user-static` | [qemu-user-static](http://www.qemu.org/) | 9.2.0+ds-2 | Generic and open source machine emulator and virtualizer |
 |  | `qq` | [qq](https://im.qq.com/linuxqq/index.html) | 3.2.15 | QQ for Linux |
 | `x86_64-linux` | `qqmusic` | [qqmusic](https://y.qq.com/) | 1.1.7 | Tencent QQ Music |
 |  | `qqsp` | [qqsp](https://github.com/Sonnix1/Qqsp) | 1.9 | QT Quest Soft Player is a interactive fiction stories and games player (compatible fork of qsp.su) |
@@ -374,7 +374,7 @@ Or, use variables from this repository in case I change them:
 |  | `lantianCustomized.coredns` | [coredns](https://github.com/xddxdd/coredns) | 1.11.3 | CoreDNS with Lan Tian's modifications |
 |  | `lantianCustomized.firefox-icon-mikozilla-fireyae` | [firefox-icon-mikozilla-fireyae](https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/) |  | Custom icon "Mikozilla Fireyae" for Firefox |
 |  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.12.0 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
-|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggerganov/llama.cpp/) | 4326 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
+|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggerganov/llama.cpp/) | 4329 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
 |  | `lantianCustomized.materialgram` | [materialgram](https://kukuruzka165.github.io/materialgram/) | 5.7.0.1 | Telegram Desktop fork with material icons and some improvements (Without anti-features) |
 |  | `lantianCustomized.nbfc-linux` | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 0-unstable-2022-06-13 | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
 |  | `lantianCustomized.nginx` | [nginx-lantian](https://openresty.org) | 1.27.1.1-unstable-2024-11-05 | OpenResty with Lan Tian modifications |
@@ -406,34 +406,34 @@ Or, use variables from this repository in case I change them:
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-|  | `lantianLinuxXanmod.generic` | [linux-xanmod-generic](https://www.kernel.org/) | 6.12.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.generic-configfile` | linux-config | 6.12.4-xanmod1 |  |
-|  | `lantianLinuxXanmod.generic-lto` | [linux-xanmod-generic-lto](https://www.kernel.org/) | 6.12.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.generic-lto-configfile` | linux-config | 6.12.4-xanmod1 |  |
-|  | `lantianLinuxXanmod.latest-generic` | [linux-xanmod-latest-generic](https://www.kernel.org/) | 6.12.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.latest-generic-configfile` | linux-config | 6.12.4-xanmod1 |  |
-|  | `lantianLinuxXanmod.latest-generic-lto` | [linux-xanmod-latest-generic-lto](https://www.kernel.org/) | 6.12.4-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.latest-generic-lto-configfile` | linux-config | 6.12.4-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-generic` | [linux-xanmod-lts-generic](https://www.kernel.org/) | 6.6.65-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.lts-generic-configfile` | linux-config | 6.6.65-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-generic-lto` | [linux-xanmod-lts-generic-lto](https://www.kernel.org/) | 6.6.65-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.lts-generic-lto-configfile` | linux-config | 6.6.65-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-x86_64-v1` | [linux-xanmod-lts-x86_64-v1](https://www.kernel.org/) | 6.6.65-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.lts-x86_64-v1-configfile` | linux-config | 6.6.65-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-x86_64-v1-lto` | [linux-xanmod-lts-x86_64-v1-lto](https://www.kernel.org/) | 6.6.65-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.lts-x86_64-v1-lto-configfile` | linux-config | 6.6.65-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-x86_64-v2` | [linux-xanmod-lts-x86_64-v2](https://www.kernel.org/) | 6.6.65-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.lts-x86_64-v2-configfile` | linux-config | 6.6.65-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-x86_64-v2-lto` | [linux-xanmod-lts-x86_64-v2-lto](https://www.kernel.org/) | 6.6.65-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.lts-x86_64-v2-lto-configfile` | linux-config | 6.6.65-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-x86_64-v3` | [linux-xanmod-lts-x86_64-v3](https://www.kernel.org/) | 6.6.65-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.lts-x86_64-v3-configfile` | linux-config | 6.6.65-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-x86_64-v3-lto` | [linux-xanmod-lts-x86_64-v3-lto](https://www.kernel.org/) | 6.6.65-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.lts-x86_64-v3-lto-configfile` | linux-config | 6.6.65-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-x86_64-v4` | [linux-xanmod-lts-x86_64-v4](https://www.kernel.org/) | 6.6.65-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.lts-x86_64-v4-configfile` | linux-config | 6.6.65-xanmod1 |  |
-|  | `lantianLinuxXanmod.lts-x86_64-v4-lto` | [linux-xanmod-lts-x86_64-v4-lto](https://www.kernel.org/) | 6.6.65-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.lts-x86_64-v4-lto-configfile` | linux-config | 6.6.65-xanmod1 |  |
+|  | `lantianLinuxXanmod.generic` | [linux-xanmod-generic](https://www.kernel.org/) | 6.12.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.generic-configfile` | linux-config | 6.12.5-xanmod1 |  |
+|  | `lantianLinuxXanmod.generic-lto` | [linux-xanmod-generic-lto](https://www.kernel.org/) | 6.12.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.generic-lto-configfile` | linux-config | 6.12.5-xanmod1 |  |
+|  | `lantianLinuxXanmod.latest-generic` | [linux-xanmod-latest-generic](https://www.kernel.org/) | 6.12.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.latest-generic-configfile` | linux-config | 6.12.5-xanmod1 |  |
+|  | `lantianLinuxXanmod.latest-generic-lto` | [linux-xanmod-latest-generic-lto](https://www.kernel.org/) | 6.12.5-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.latest-generic-lto-configfile` | linux-config | 6.12.5-xanmod1 |  |
+|  | `lantianLinuxXanmod.lts-generic` | [linux-xanmod-lts-generic](https://www.kernel.org/) | 6.6.66-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.lts-generic-configfile` | linux-config | 6.6.66-xanmod1 |  |
+|  | `lantianLinuxXanmod.lts-generic-lto` | [linux-xanmod-lts-generic-lto](https://www.kernel.org/) | 6.6.66-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.lts-generic-lto-configfile` | linux-config | 6.6.66-xanmod1 |  |
+|  | `lantianLinuxXanmod.lts-x86_64-v1` | [linux-xanmod-lts-x86_64-v1](https://www.kernel.org/) | 6.6.66-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.lts-x86_64-v1-configfile` | linux-config | 6.6.66-xanmod1 |  |
+|  | `lantianLinuxXanmod.lts-x86_64-v1-lto` | [linux-xanmod-lts-x86_64-v1-lto](https://www.kernel.org/) | 6.6.66-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.lts-x86_64-v1-lto-configfile` | linux-config | 6.6.66-xanmod1 |  |
+|  | `lantianLinuxXanmod.lts-x86_64-v2` | [linux-xanmod-lts-x86_64-v2](https://www.kernel.org/) | 6.6.66-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.lts-x86_64-v2-configfile` | linux-config | 6.6.66-xanmod1 |  |
+|  | `lantianLinuxXanmod.lts-x86_64-v2-lto` | [linux-xanmod-lts-x86_64-v2-lto](https://www.kernel.org/) | 6.6.66-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.lts-x86_64-v2-lto-configfile` | linux-config | 6.6.66-xanmod1 |  |
+|  | `lantianLinuxXanmod.lts-x86_64-v3` | [linux-xanmod-lts-x86_64-v3](https://www.kernel.org/) | 6.6.66-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.lts-x86_64-v3-configfile` | linux-config | 6.6.66-xanmod1 |  |
+|  | `lantianLinuxXanmod.lts-x86_64-v3-lto` | [linux-xanmod-lts-x86_64-v3-lto](https://www.kernel.org/) | 6.6.66-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.lts-x86_64-v3-lto-configfile` | linux-config | 6.6.66-xanmod1 |  |
+|  | `lantianLinuxXanmod.lts-x86_64-v4` | [linux-xanmod-lts-x86_64-v4](https://www.kernel.org/) | 6.6.66-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.lts-x86_64-v4-configfile` | linux-config | 6.6.66-xanmod1 |  |
+|  | `lantianLinuxXanmod.lts-x86_64-v4-lto` | [linux-xanmod-lts-x86_64-v4-lto](https://www.kernel.org/) | 6.6.66-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.lts-x86_64-v4-lto-configfile` | linux-config | 6.6.66-xanmod1 |  |
 |  | `lantianLinuxXanmod.v6_0-generic` | [linux-xanmod-v6_0-generic](https://www.kernel.org/) | 6.0.12-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
 |  | `lantianLinuxXanmod.v6_0-generic-configfile` | linux-config | 6.0.12-xanmod1 |  |
 |  | `lantianLinuxXanmod.v6_0-generic-lto` | [linux-xanmod-v6_0-generic-lto](https://www.kernel.org/) | 6.0.12-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
@@ -474,26 +474,26 @@ Or, use variables from this repository in case I change them:
 |  | `lantianLinuxXanmod.v6_1-x86_64-v4-configfile` | linux-config | 6.1.77-xanmod1 |  |
 |  | `lantianLinuxXanmod.v6_1-x86_64-v4-lto` | [linux-xanmod-v6_1-x86_64-v4-lto](https://www.kernel.org/) | 6.1.77-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
 |  | `lantianLinuxXanmod.v6_1-x86_64-v4-lto-configfile` | linux-config | 6.1.77-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_6-generic` | [linux-xanmod-v6_6-generic](https://www.kernel.org/) | 6.6.65-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.v6_6-generic-configfile` | linux-config | 6.6.65-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_6-generic-lto` | [linux-xanmod-v6_6-generic-lto](https://www.kernel.org/) | 6.6.65-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.v6_6-generic-lto-configfile` | linux-config | 6.6.65-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v1` | [linux-xanmod-v6_6-x86_64-v1](https://www.kernel.org/) | 6.6.65-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v1-configfile` | linux-config | 6.6.65-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v1-lto` | [linux-xanmod-v6_6-x86_64-v1-lto](https://www.kernel.org/) | 6.6.65-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v1-lto-configfile` | linux-config | 6.6.65-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v2` | [linux-xanmod-v6_6-x86_64-v2](https://www.kernel.org/) | 6.6.65-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v2-configfile` | linux-config | 6.6.65-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v2-lto` | [linux-xanmod-v6_6-x86_64-v2-lto](https://www.kernel.org/) | 6.6.65-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v2-lto-configfile` | linux-config | 6.6.65-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v3` | [linux-xanmod-v6_6-x86_64-v3](https://www.kernel.org/) | 6.6.65-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v3-configfile` | linux-config | 6.6.65-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v3-lto` | [linux-xanmod-v6_6-x86_64-v3-lto](https://www.kernel.org/) | 6.6.65-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v3-lto-configfile` | linux-config | 6.6.65-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v4` | [linux-xanmod-v6_6-x86_64-v4](https://www.kernel.org/) | 6.6.65-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v4-configfile` | linux-config | 6.6.65-xanmod1 |  |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v4-lto` | [linux-xanmod-v6_6-x86_64-v4-lto](https://www.kernel.org/) | 6.6.65-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
-|  | `lantianLinuxXanmod.v6_6-x86_64-v4-lto-configfile` | linux-config | 6.6.65-xanmod1 |  |
+|  | `lantianLinuxXanmod.v6_6-generic` | [linux-xanmod-v6_6-generic](https://www.kernel.org/) | 6.6.66-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_6-generic-configfile` | linux-config | 6.6.66-xanmod1 |  |
+|  | `lantianLinuxXanmod.v6_6-generic-lto` | [linux-xanmod-v6_6-generic-lto](https://www.kernel.org/) | 6.6.66-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_6-generic-lto-configfile` | linux-config | 6.6.66-xanmod1 |  |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v1` | [linux-xanmod-v6_6-x86_64-v1](https://www.kernel.org/) | 6.6.66-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v1-configfile` | linux-config | 6.6.66-xanmod1 |  |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v1-lto` | [linux-xanmod-v6_6-x86_64-v1-lto](https://www.kernel.org/) | 6.6.66-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v1-lto-configfile` | linux-config | 6.6.66-xanmod1 |  |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v2` | [linux-xanmod-v6_6-x86_64-v2](https://www.kernel.org/) | 6.6.66-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v2-configfile` | linux-config | 6.6.66-xanmod1 |  |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v2-lto` | [linux-xanmod-v6_6-x86_64-v2-lto](https://www.kernel.org/) | 6.6.66-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v2-lto-configfile` | linux-config | 6.6.66-xanmod1 |  |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v3` | [linux-xanmod-v6_6-x86_64-v3](https://www.kernel.org/) | 6.6.66-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v3-configfile` | linux-config | 6.6.66-xanmod1 |  |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v3-lto` | [linux-xanmod-v6_6-x86_64-v3-lto](https://www.kernel.org/) | 6.6.66-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v3-lto-configfile` | linux-config | 6.6.66-xanmod1 |  |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v4` | [linux-xanmod-v6_6-x86_64-v4](https://www.kernel.org/) | 6.6.66-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v4-configfile` | linux-config | 6.6.66-xanmod1 |  |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v4-lto` | [linux-xanmod-v6_6-x86_64-v4-lto](https://www.kernel.org/) | 6.6.66-xanmod1 | Linux Xanmod Kernel with Lan Tian Modifications and Clang+ThinLTO |
+|  | `lantianLinuxXanmod.v6_6-x86_64-v4-lto-configfile` | linux-config | 6.6.66-xanmod1 |  |
 </details>
 
 <details>
@@ -948,7 +948,7 @@ Or, use variables from this repository in case I change them:
 |  | `python3Packages.bepasty` | [bepasty](https://bepasty-server.readthedocs.org/) | 1.2.1 | Universal pastebin server |
 |  | `python3Packages.click-loglevel` | [click-loglevel](https://github.com/jwodder/click-loglevel) | 0.5.1 | Log level parameter type for Click |
 |  | `python3Packages.edge-tts` | [edge-tts](https://pypi.org/project/edge-tts/) | 7.0.0 | Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key |
-|  | `python3Packages.funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2024-12-13 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
+|  | `python3Packages.funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2024-12-15 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
 |  | `python3Packages.kaldiio` | [kaldiio](https://github.com/nttcslab-sp/kaldiio) | 2.18.0 | Pure python module for reading and writing kaldi ark files |
 |  | `python3Packages.kui` | [kui](https://kui.aber.sh/) | 1.8.1 | Easy-to-use web framework |
 |  | `python3Packages.loralib` | [loralib](https://arxiv.org/abs/2106.09685) | 0-unstable-2024-01-09 | Implementation of "LoRA: Low-Rank Adaptation of Large Language Models" |
@@ -1071,7 +1071,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `uncategorized.pocl` | [pocl](http://portablecl.org) | 6.0 | Portable open source (MIT-licensed) implementation of the OpenCL standard |
 |  | `uncategorized.procps4` | [procps4](https://gitlab.com/procps-ng/procps) | 4.0.4 | Utilities that give information about processes using the /proc filesystem |
 |  | `uncategorized.pterodactyl-wings` | [pterodactyl-wings](https://pterodactyl.io) | 1.11.13 | Server control plane for Pterodactyl Panel |
-|  | `uncategorized.qemu-user-static` | [qemu-user-static](http://www.qemu.org/) | 9.2.0+ds-1 | Generic and open source machine emulator and virtualizer |
+|  | `uncategorized.qemu-user-static` | [qemu-user-static](http://www.qemu.org/) | 9.2.0+ds-2 | Generic and open source machine emulator and virtualizer |
 |  | `uncategorized.qq` | [qq](https://im.qq.com/linuxqq/index.html) | 3.2.15 | QQ for Linux |
 | `x86_64-linux` | `uncategorized.qqmusic` | [qqmusic](https://y.qq.com/) | 1.1.7 | Tencent QQ Music |
 |  | `uncategorized.qqsp` | [qqsp](https://github.com/Sonnix1/Qqsp) | 1.9 | QT Quest Soft Player is a interactive fiction stories and games player (compatible fork of qsp.su) |

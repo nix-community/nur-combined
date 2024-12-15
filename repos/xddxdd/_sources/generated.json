@@ -373,7 +373,7 @@
     },
     "cachyos-kernel": {
         "cargoLocks": null,
-        "date": "2024-12-13",
+        "date": "2024-12-14",
         "extract": null,
         "name": "cachyos-kernel",
         "passthru": null,
@@ -385,12 +385,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "linux-cachyos",
-            "rev": "f227df9ec376e781a62b2ddd7e416390a8b641e3",
-            "sha256": "sha256-9zfFzBvPBzduyG91/yYyltbzyhzoYzCE+s6LGdIEqvw=",
+            "rev": "52da77e208a511120ac3d8ab81d73320f21c5bff",
+            "sha256": "sha256-UZzzTTDmYwU1/e42O/BfuDxA0dAj5QPybPqd5PVDzqA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f227df9ec376e781a62b2ddd7e416390a8b641e3"
+        "version": "52da77e208a511120ac3d8ab81d73320f21c5bff"
     },
     "cachyos-kernel-patches": {
         "cargoLocks": null,
@@ -406,12 +406,12 @@
             "name": null,
             "owner": "CachyOS",
             "repo": "kernel-patches",
-            "rev": "73cc4a9b7ddaaf7cc4206cfb9168c061730c9be9",
-            "sha256": "sha256-xFogbu64C3gxFjdzpndM777ikamyfkVdUryx1FTHASI=",
+            "rev": "2443882c10ec5cea071964adc0ddfdf46d3a0fbe",
+            "sha256": "sha256-DptKNGROM3zkYQWBe20FWrWhliwZu6NyKr0UGbiKxuQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "73cc4a9b7ddaaf7cc4206cfb9168c061730c9be9"
+        "version": "2443882c10ec5cea071964adc0ddfdf46d3a0fbe"
     },
     "calibre-cops": {
         "cargoLocks": null,
@@ -937,7 +937,7 @@
     },
     "funasr": {
         "cargoLocks": null,
-        "date": "2024-12-13",
+        "date": "2024-12-15",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -949,12 +949,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "7263fb08e9170e90e67cb9b48884cc6a35cb3b62",
-            "sha256": "sha256-iSOlvjs5/cZXPmaHzY7miL1PwFLgb/kJczLKjSkPxBQ=",
+            "rev": "5e7a8d1ccae80e54f2e2ecfffdf8e4294800b5c3",
+            "sha256": "sha256-q4TbJUfzrmXDNtcAx4Z5S7M1KSEnqJ17j8IsOZpcL8c=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7263fb08e9170e90e67cb9b48884cc6a35cb3b62"
+        "version": "5e7a8d1ccae80e54f2e2ecfffdf8e4294800b5c3"
     },
     "glauth": {
         "cargoLocks": null,
@@ -1564,13 +1564,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6.12.4-xanmod1",
-            "sha256": "sha256-qxcIcXrHzRXYnTvj+hKgwm5GBTZH/KIQdrnSUon/qoU=",
+            "rev": "6.12.5-xanmod1",
+            "sha256": "sha256-zawR9RMN/ATCiEbqlLOII0uvlHM6lZFlJ8fGjITYLPA=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/xanmod/linux.git"
         },
-        "version": "6.12.4-xanmod1"
+        "version": "6.12.5-xanmod1"
     },
     "linux-xanmod-6_0": {
         "cargoLocks": null,
@@ -1624,13 +1624,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "6.6.65-xanmod1",
-            "sha256": "sha256-tS0CFY7hriPH4ozJEQnGXRPp5ZMdFMhx5xv1neBm+SQ=",
+            "rev": "6.6.66-xanmod1",
+            "sha256": "sha256-ZZrU1yzji7jAC76Eh/uoRQBcnb6cMWTqYlt9RQB8L3M=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/xanmod/linux.git"
         },
-        "version": "6.6.65-xanmod1"
+        "version": "6.6.66-xanmod1"
     },
     "llama-cpp": {
         "cargoLocks": null,
@@ -1646,12 +1646,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b4326",
-            "sha256": "sha256-HcTLhpSzGGjoOql8J/SIODGyfsj/tfVtEDqlPqbNKsE=",
+            "rev": "b4329",
+            "sha256": "sha256-72sSNOtKmowvScJ4EAPvsfJCI74mtpvkH8DtnWrA4+o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b4326"
+        "version": "b4329"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2631,11 +2631,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-1Ju/jXpyGLHYJp7jq59ex+HcAhUpQeF60arSWhpIhIE=",
+            "sha256": "sha256-/BbDw1m12dG43014G6r6G25dstpImerlooaR1Sh5BMI=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.2.0+ds-1_amd64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.2.0+ds-2_amd64.deb"
         },
-        "version": "9.2.0+ds-1"
+        "version": "9.2.0+ds-2"
     },
     "qemu-user-static-arm64": {
         "cargoLocks": null,
@@ -2646,11 +2646,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-LBrkCFXfwMpHsaReQGyxpz3UsPsJMeE9Q17qE7Gll+o=",
+            "sha256": "sha256-L4Td4mtrssM6R5BjrrwTYjg6z65aIIp3eeSbgF6mo0w=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.2.0+ds-1_arm64.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.2.0+ds-2_arm64.deb"
         },
-        "version": "9.2.0+ds-1"
+        "version": "9.2.0+ds-2"
     },
     "qemu-user-static-armhf": {
         "cargoLocks": null,
@@ -2661,11 +2661,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-cMYGDPaXPhi2KqR1nTFKxMqyCciHVKLHHtuCrWjh6NM=",
+            "sha256": "sha256-3NIvf47BIEYyLXbRbgJ9Ig5Qhfd5L9mD5XWgCxy5bEk=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.2.0+ds-1_armhf.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.2.0+ds-2_armhf.deb"
         },
-        "version": "9.2.0+ds-1"
+        "version": "9.2.0+ds-2"
     },
     "qemu-user-static-i386": {
         "cargoLocks": null,
@@ -2676,11 +2676,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-i839LkJtVB8KhNFbG0aKaatlYYyby6maV3FsQAMTbd0=",
+            "sha256": "sha256-bqR4K6et9TRXYYZnqCUm5+aIRvSkO4I7e01yjLRysFc=",
             "type": "url",
-            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.2.0+ds-1_i386.deb"
+            "url": "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_9.2.0+ds-2_i386.deb"
         },
-        "version": "9.2.0+ds-1"
+        "version": "9.2.0+ds-2"
     },
     "qhttpengine": {
         "cargoLocks": null,
@@ -2825,12 +2825,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qsp",
-            "rev": "a79338af7907a31b779631f08d40dd6b3abf5259",
-            "sha256": "sha256-rMgwtApa7KhRdaygNmjoOqOZ83wkPPfFOOdF+SnIII4=",
+            "rev": "712aaea519206afb9c74b8172fdad706506968ad",
+            "sha256": "sha256-IK5cja+O1+hZ+8FEZXSy16a8zIqW2QbOGKx6//oLUeY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a79338af7907a31b779631f08d40dd6b3abf5259"
+        "version": "712aaea519206afb9c74b8172fdad706506968ad"
     },
     "qsp-stable": {
         "cargoLocks": null,
