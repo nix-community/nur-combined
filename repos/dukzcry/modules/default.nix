@@ -31,5 +31,4 @@ rec {
   zsh = ./zsh.nix;
   branding = ./branding.nix;
   users = ./users.nix;
-  koboldcpp = ./koboldcpp.nix;
 }
