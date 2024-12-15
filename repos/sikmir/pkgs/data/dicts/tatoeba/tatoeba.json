@@ -5,35 +5,35 @@
   },
   "deu_sentences_detailed": {
     "url": "https://downloads.tatoeba.org/exports/per_language/deu/deu_sentences_detailed.tsv.bz2",
-    "hash": "sha256-TbRzDH53aGAFeN2rDlZygBMj/jEnIBczrJ9sX2/K/rA="
+    "hash": "sha256-XoKpWKmZuJPbhmG2tISHzUdjpAI1I1CkC4F89j2gXW0="
   },
   "eng_sentences_detailed": {
     "url": "https://downloads.tatoeba.org/exports/per_language/eng/eng_sentences_detailed.tsv.bz2",
-    "hash": "sha256-9Z2sXmhln7n6c9OJX+2YhGC1G/+ttlIOuNWyU2MxYvM="
+    "hash": "sha256-OdNO5LpPIaVaPBGszvD60fULDJJpsgfFKBAnQV4USfc="
   },
   "epo_sentences_detailed": {
     "url": "https://downloads.tatoeba.org/exports/per_language/epo/epo_sentences_detailed.tsv.bz2",
-    "hash": "sha256-m98IHWDiszWtZtUfkyo5+y79uEiiy6SG7eXxJ9j0fw8="
+    "hash": "sha256-bA0p9LojZLZF6zLCyRl7nDfeEZMQVmvniZ8O0PPcM80="
   },
   "fin_sentences_detailed": {
     "url": "https://downloads.tatoeba.org/exports/per_language/fin/fin_sentences_detailed.tsv.bz2",
-    "hash": "sha256-JP2Os3Yem0GrV8IlJU1gy6HKJo7T+XqIV43vCMTP414="
+    "hash": "sha256-D3T043XL0ebBmTnaCOKvPSpEu75mAtHuvvVyPd24oLk="
   },
   "hye_sentences_detailed": {
     "url": "https://downloads.tatoeba.org/exports/per_language/hye/hye_sentences_detailed.tsv.bz2",
-    "hash": "sha256-m1AdXGNfhOHsogazs/oL/xpXlPHE2pN9Wko3R0RMiNE="
+    "hash": "sha256-5QTpmkio/8LJ/Kudn2SxIkVTxzcr5D1yhUTV8eXbutU="
   },
   "rus_sentences_detailed": {
     "url": "https://downloads.tatoeba.org/exports/per_language/rus/rus_sentences_detailed.tsv.bz2",
-    "hash": "sha256-sSMo62s/REEDdDDfFTU57os4daKFVwm7VO2wBad/2Xo="
+    "hash": "sha256-REElK1cE99aVL7HGEJSYomuA1JLAAtC9oAqEpmw5DZk="
   },
   "swe_sentences_detailed": {
     "url": "https://downloads.tatoeba.org/exports/per_language/swe/swe_sentences_detailed.tsv.bz2",
-    "hash": "sha256-4gpP/MsZMuVUupFSlRH4AQ8wdEPPy5QKbTcMOE9xuXg="
+    "hash": "sha256-a74KoMi9Y68vnNU2WmS/NXKXPmwPYlaD71pdA/3M4O8="
   },
   "ukr_sentences_detailed": {
     "url": "https://downloads.tatoeba.org/exports/per_language/ukr/ukr_sentences_detailed.tsv.bz2",
-    "hash": "sha256-7SV2AIpXGOF3GQR71y09wdNr22yJONNPyMw1BR1rSJE="
+    "hash": "sha256-XR1z9aJxuHkDQfy5rGT2Xh9GXwMnOodQokpAY9pbvts="
   },
   "bel-eng_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/bel/bel-eng_links.tsv.bz2",
@@ -45,15 +45,15 @@
   },
   "deu-eng_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/deu/deu-eng_links.tsv.bz2",
-    "hash": "sha256-l6FMwUSDP5W9h55zrGESOyyIfOFAN2E0s40uQNwQsbU="
+    "hash": "sha256-lP5VuZwOlbWtuDgeuvVUQ+qkT1Tyu5rW2ByPGe7+Q1M="
   },
   "deu-rus_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/deu/deu-rus_links.tsv.bz2",
-    "hash": "sha256-TYLg3C19ahpFj/u9Mh/H1KhqOmxJKu0qlsJa8TUm97M="
+    "hash": "sha256-NirIDAcoouSDy6LwdNK1p+j4yysmuL4oYh6XQvUTzec="
   },
   "eng-epo_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/eng/eng-epo_links.tsv.bz2",
-    "hash": "sha256-1u2CP8jn8aBLMVzWaPV/oUGZ1VklPkO5J9HDyZ4xRz0="
+    "hash": "sha256-+WHwrtWdTgXqYy/61P73W2NaEMcUo2/PswF5maL6Yg0="
   },
   "eng-bel_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/eng/eng-bel_links.tsv.bz2",
@@ -61,39 +61,39 @@
   },
   "eng-deu_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/eng/eng-deu_links.tsv.bz2",
-    "hash": "sha256-91fouI350zfo+XBCx/N+H2c1ebK1MNwCfDlMb5EQzlk="
+    "hash": "sha256-6F+zSHxfITYOS51ZgHV7pPcYf0KPxTEoiSywX2eCRGE="
   },
   "eng-fin_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/eng/eng-fin_links.tsv.bz2",
-    "hash": "sha256-rnEBb4KkXBzNrCKDwGAPeWX05NxT6mKfbP/HE4HNdlk="
+    "hash": "sha256-9KQny2zu8/Uh6LekJseV0Ut/IUaMgu8yyYPsC99AoPU="
   },
   "eng-hye_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/eng/eng-hye_links.tsv.bz2",
-    "hash": "sha256-F/DbV2gbNeH5Na9IvDT7AyaCWdG6IOdUYF/gEgXZaDc="
+    "hash": "sha256-EM65Ejt8h95+BiRgUBJ541C9dJ6uMpQuCoKCASasCvM="
   },
   "eng-rus_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/eng/eng-rus_links.tsv.bz2",
-    "hash": "sha256-x8qSP9ouKSkfs8CxiVsP5srU3n8vntlsNWbxmopn8Fc="
+    "hash": "sha256-9oqUzW95LbMMPfB9SeUVUssJZsOMSYCNarAFgnrNjt0="
   },
   "eng-swe_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/eng/eng-swe_links.tsv.bz2",
-    "hash": "sha256-6XNrnROkpIs4SHcrx8jmPbIbg942uTNhCpxQXeXJnho="
+    "hash": "sha256-5cOFEZDvHqpTVN97HxtWxVEF9SEK0JLUoFpsJmyFat8="
   },
   "eng-ukr_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/eng/eng-ukr_links.tsv.bz2",
-    "hash": "sha256-eXF/H1xC/e4ns/0kdJ3d+Kth0LtrZDL6t+J/rteOfoU="
+    "hash": "sha256-+dKGVoV8rjnf/v/NxMAG3Xvc33utuJxIO2GsUYCy58Y="
   },
   "epo-eng_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/epo/epo-eng_links.tsv.bz2",
-    "hash": "sha256-hg45sXwh8tcqQK4nMY9ewOfEHKRVfWlF85N85euYdSk="
+    "hash": "sha256-/bu3YWzfMmY0Oka3K/IsPTaE4vxmMb10ZM6XUSkNyj8="
   },
   "epo-rus_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/epo/epo-rus_links.tsv.bz2",
-    "hash": "sha256-Q297qIDc6zexLjLeQXno39E1a1UVKLQOHpX8B3DysR8="
+    "hash": "sha256-TpWYdsW+kWnOxQQ+hIeMNtaJxKkQLR+/djU64Ct+LoM="
   },
   "fin-eng_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/fin/fin-eng_links.tsv.bz2",
-    "hash": "sha256-JXDkXG628Cw+TaNNQRI7dskNRB+a28C1395wlH7zXSU="
+    "hash": "sha256-UzxrvkfGrhPH8ju5/jfix3oyZ0FYianHSW6cb4rV3Q4="
   },
   "fin-rus_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/fin/fin-rus_links.tsv.bz2",
@@ -101,11 +101,11 @@
   },
   "hye-eng_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/hye/hye-eng_links.tsv.bz2",
-    "hash": "sha256-CRUWouL3zbkvhHgc2sF/UU+yauJcO8mXzOQAXgmWxso="
+    "hash": "sha256-olnT2BkZDUxKbyVhD26tV0qFzmcNGs0TzSiu6Sr+Ni4="
   },
   "hye-rus_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/hye/hye-rus_links.tsv.bz2",
-    "hash": "sha256-2V/dASaumyPAkqaSUS2njkYdQt3KqRPXUiRmihuaaNA="
+    "hash": "sha256-rSFy6972ToF68SH88Qvw3B5CXvr5dbuIqcFPMdhlRfk="
   },
   "rus-bel_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/rus/rus-bel_links.tsv.bz2",
@@ -113,15 +113,15 @@
   },
   "rus-deu_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/rus/rus-deu_links.tsv.bz2",
-    "hash": "sha256-+47YpslYAQjLIF/XBQJFmWjilUrOwg9mHm7UHR2I9vs="
+    "hash": "sha256-RvAVaRBwwJMvBuLMNnP/drUA/6vetslWp0AlFFvQMn4="
   },
   "rus-eng_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/rus/rus-eng_links.tsv.bz2",
-    "hash": "sha256-1ccqcn8AHsQDTYpxpLRRHtYXv6AvBCHTDCaYdLbkMyQ="
+    "hash": "sha256-ZHawLF2zw2PdBfgranSfV05LXK/kzlX29yZnltzdV18="
   },
   "rus-epo_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/rus/rus-epo_links.tsv.bz2",
-    "hash": "sha256-JZk16qw7MA+EsjwIzMnv+VtpEj9BBwTaQXCt3z2VYlA="
+    "hash": "sha256-FUIupnxAtOQWjvTWzxKM781Xr/fdsm+lxNBe+sbUztU="
   },
   "rus-fin_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/rus/rus-fin_links.tsv.bz2",
@@ -129,7 +129,7 @@
   },
   "rus-hye_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/rus/rus-hye_links.tsv.bz2",
-    "hash": "sha256-bQXEGaYyPKT40QOqZ+y4PN/iqA4/zd0Y7UhHAim0COM="
+    "hash": "sha256-dz7y+euIToqkhpYzm69dT+ZmOF+RqPNnwP4G/wyvbvA="
   },
   "rus-swe_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/rus/rus-swe_links.tsv.bz2",
@@ -137,11 +137,11 @@
   },
   "rus-ukr_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/rus/rus-ukr_links.tsv.bz2",
-    "hash": "sha256-/gMurF/SSzGn2IkaqhdTxvfSzq3bh0wd4A5hBCWsD08="
+    "hash": "sha256-JAY5NgUqyz/Sdd1JYxsA/BMcwY7dLBlQ36xTq1P7qz8="
   },
   "swe-eng_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/swe/swe-eng_links.tsv.bz2",
-    "hash": "sha256-OgiOzvDFqjMDxvYKKoYozEYTSObiN0f25SrOxJR4hT0="
+    "hash": "sha256-v/Lfk84hck63SwtiVxryRKa/yCMf6WvSQnv0CwxdV9c="
   },
   "swe-rus_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/swe/swe-rus_links.tsv.bz2",
@@ -149,10 +149,10 @@
   },
   "ukr-eng_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/ukr/ukr-eng_links.tsv.bz2",
-    "hash": "sha256-7oQhRueYPZFIjmiTRtq9G5+yH5JNFl80rHRW1KGHmAA="
+    "hash": "sha256-AhNcFpdrN25cj9AAk4fSUkSNEpOeuLbbgN9bX9XwLvE="
   },
   "ukr-rus_links": {
     "url": "https://downloads.tatoeba.org/exports/per_language/ukr/ukr-rus_links.tsv.bz2",
-    "hash": "sha256-uutpuMqgBjSNb8RVyZDpQH0fI2/XMd7S8TJbB/E7EKE="
+    "hash": "sha256-CyZAc8Dr/VRb2SkXg99TSr74QYPym3WdjylvM8oT8ps="
   }
 }
