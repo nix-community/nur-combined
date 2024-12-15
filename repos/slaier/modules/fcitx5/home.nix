@@ -1,4 +1,4 @@
-{ config, nixosConfig, ... }:
+{ pkgs, config, ... }:
 let
   makeDict = name: dicts:
     let
@@ -41,7 +41,7 @@ in
     force = true;
   };
   xdg.dataFile = {
-    "fcitx5/themes".source = "${nixosConfig.nur.repos.xddxdd.fcitx5-breeze}/share/fcitx5/themes";
+    "fcitx5/themes".source = "${pkgs.nur.repos.xddxdd.fcitx5-breeze}/share/fcitx5/themes";
     "fcitx5/rime/default.custom.yaml".text = builtins.toJSON {
       patch = {
         schema_list = [ ({ schema = "aurora_pinyin"; }) ];

@@ -1,4 +1,4 @@
-{ pkgs, lib, nixosConfig, ... }:
+{ pkgs, lib, ... }:
 let
   getName = x: x.meta.mainProgram or (lib.getName x);
 in
@@ -14,7 +14,7 @@ in
     pkg-config
     podman
     podman-compose
-    nixosConfig.nur.repos.bandithedoge.mesonlsp-bin
+    pkgs.nur.repos.bandithedoge.mesonlsp-bin
   ];
   programs.vscode = {
     enable = true;

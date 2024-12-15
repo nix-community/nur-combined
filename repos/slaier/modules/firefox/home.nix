@@ -1,4 +1,4 @@
-{ pkgs, lib, nixosConfig, ... }:
+{ pkgs, lib, ... }:
 with lib;
 let
   profilesPath =
@@ -28,7 +28,7 @@ in
       };
     };
     profiles.default = {
-      extensions = with nixosConfig.nur.repos.rycee.firefox-addons; [
+      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
         adnauseam
         aria2-integration
         buster-captcha-solver
@@ -43,7 +43,7 @@ in
         rsshub-radar
         ublacklist
         violentmonkey
-      ] ++ (with nixosConfig.nur.repos.bandithedoge.firefoxAddons; [
+      ] ++ (with pkgs.nur.repos.bandithedoge.firefoxAddons; [
         imagus
       ]);
       bookmarks = [
@@ -163,7 +163,7 @@ in
           src = lib.sourceFilesBySuffices ./. [ ".js" ];
         in
         ''
-          ${fileContents "${nixosConfig.nur.repos.ataraxiasjel.arkenfox-userjs}/share/user.js/user.js"}
+          ${fileContents "${pkgs.nur.repos.ataraxiasjel.arkenfox-userjs}/share/user.js/user.js"}
           ${fileContents "${src}/overlay.js"}
         '';
       search = {

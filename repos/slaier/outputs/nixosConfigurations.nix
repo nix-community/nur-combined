@@ -7,7 +7,7 @@ nixosSystem {
     disko.nixosModules.disko
     home-manager.nixosModules.home-manager
     impermanence.nixosModules.impermanence
-    nur.nixosModules.nur
+    nur.modules.nixos.default
     sops-nix.nixosModules.sops
     host.default
     host.hardware-configuration
