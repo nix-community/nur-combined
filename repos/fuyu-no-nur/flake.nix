@@ -1,6 +1,6 @@
 {
   description = "NUR repository used for the fuyu environment";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
   outputs = {
     self,
     nixpkgs,
