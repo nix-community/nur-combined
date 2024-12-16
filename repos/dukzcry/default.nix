@@ -39,4 +39,6 @@ rec {
   metube = callPackage ./pkgs/metube.nix {};
   catppuccin = callPackage ./pkgs/catppuccin.nix {};
   lutris = callPackage ./pkgs/lutris.nix {};
+  stable-diffusion-cpp = callPackage ./pkgs/stable-diffusion-cpp.nix {};
+  sd-cpp-webui = callPackage ./pkgs/sd-cpp-webui.nix { inherit stable-diffusion-cpp; };
 }
