@@ -151,8 +151,8 @@ let
         extid = "sponsorBlocker@ajay.app";
         pname = "sponsorblock";
         url = "https://github.com/ajayyy/SponsorBlock/releases/download/${version}/FirefoxSignedInstaller.xpi";
-        version = "5.10.2";
-        hash = "sha256-1/V1Qxa7dYfsJr+vpxPvtaZvwAP1f7zuRGRoAVW8FtA=";
+        version = "5.10.3";
+        hash = "sha256-suf9KVqhiXMvSNkGAjg8kfY82RCDeGq4XiHE8cr8Fw4=";
       };
       ublacklist = fetchVersionedAddon rec {
         extid = "@ublacklist";
@@ -167,8 +167,8 @@ let
         # N.B.: a handful of versions are released unsigned
         # url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.signed.xpi";
         url = "https://github.com/gorhill/uBlock/releases/download/${version}/uBlock0_${version}.firefox.signed.xpi";
-        version = "1.61.3b6";
-        hash = "sha256-x8HueqhKLG3K3cih0By56zK9iHvzfmkfYQbXuTuh/W4=";
+        version = "1.61.3b9";
+        hash = "sha256-lVlN8Wbrw+oa+/0VPLV4ZetL9IuscsCQwlGR5LViDP4=";
       };
     };
 })  ).overrideScope (self: super:
