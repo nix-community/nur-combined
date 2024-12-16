@@ -24,7 +24,6 @@ install:
 
 test:
 	hare test
-	# N.B.: integration_test relies on bashisms, not just `sh`.
-	PATH=$(PWD):$(PATH) bash ./integration_test
+	PATH=$(PWD):$(PATH) ./integration_test
 
 .PHONY: all install test

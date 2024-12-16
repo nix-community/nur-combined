@@ -1,10 +1,15 @@
 #!/usr/bin/env bash
 # vim: set shiftwidth=2 :
+# XXX: `bash` shebang because this relies on bashisms, not just `sh`!
 
+set -o pipefail
 set -eu
+
+SELF=$(realpath $0)
 
 # we can't rely on /usr/bin/env existing in the nix build environment
 env=$(which env)
+test=$(which test)
 
 die() {
   echo "$1"
@@ -18,7 +23,7 @@ captureExitStatus() {
 }
 
 test_01_invoke_01_trivial() {
-  bunpen --bunpen-path / "$env" true
+  bunpen --bunpen-debug=4 --bunpen-path / "$env" true
 }
 
 test_01_invoke_02_by_path() {
@@ -27,6 +32,10 @@ test_01_invoke_02_by_path() {
 
 test_01_invoke_03_errors_on_invalid_file() {
   bunpen --bunpen-path / this_file_does_not_exist && return 1 || true
+}
+
+test_01_invoke_04_errors_if_not_in_sandbox() {
+  bunpen true && return 1 || true
 }
 
 test_02_env_arg_01_disable() {
@@ -68,6 +77,99 @@ test_04_logs_02_enabled() {
   test -n "$stdout"
 }
 
+test_05_path_01_minimal() {
+  bunpen --bunpen-path "$env" --bunpen-path /nix/store "$env"
+}
+
+test_05_path_02_no_extra_in_sandbox() {
+  touch test_file0
+  bunpen --bunpen-path "$test" --bunpen-path /nix/store "$test" ! -f test_file0
+}
+
+test_05_path_03_added_to_sandbox() {
+  touch test_file0
+  bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path test_file0 "$test" -f test_file0
+}
+
+test_06_path_04_handles_non_existent() {
+  bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path test_file0 "$test" ! -f test_file0
+}
+
+test_06_path_05_absolute() {
+  touch test_file0
+  local p=$(realpath test_file0)
+  bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path "$p" "$test" -f "$p"
+}
+
+test_06_path_06_home() {
+  mkdir test_dir0
+  touch test_dir0/test_file0
+  export HOME=$PWD/test_dir0
+  bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path '$HOME/test_file0' "$test" -f "$HOME/test_file0"
+}
+
+test_06_path_07_xdg_runtime_dir() {
+  mkdir test_dir0
+  touch test_dir0/test_file0
+  mkdir test_dir1
+  touch test_dir1/test_file1
+  export HOME=$PWD/test_dir0
+  export XDG_RUNTIME_DIR=$PWD/test_dir1
+  bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path '$XDG_RUNTIME_DIR/test_file1' "$test" -f "$XDG_RUNTIME_DIR/test_file1"
+}
+
+test_06_path_08_symlink_1_layer() {
+  touch test_file0
+  ln -s test_file0 test_symlink0
+  touch test_file1
+  bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path test_symlink0 "$test" -f test_file0 -a -f test_symlink0 -a ! -f test_file1
+}
+
+test_06_path_08_symlink_2_layers() {
+  touch test_file0
+  ln -s test_file0 test_symlink0
+  ln -s test_symlink0 test_symlink1
+  touch test_file1
+  bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path test_symlink1 "$test" -f test_file0 -a -f test_symlink1 -a -f test_symlink0 -a ! -f test_file1
+}
+
+test_06_keep_net() {
+  # new namespaces get a loopback device, however bunpen doesn't auto-up the loopback.
+  # most containers (e.g. nix build environment) do up the lo.
+  # it wouldn't necessarily be _bad_ if bunpen changed behavior here,
+  # but in the meantime this is the easiest way to see that --bunpen-keep-net *does something*
+  # (better would be to try communicating between test runner and bunpen program, e.g. netcat?)
+  test -n "$(bunpen --bunpen-path / --bunpen-keep-net ip link show lo up)"
+  test -z "$(bunpen --bunpen-path / ip link show lo up)"
+}
+
+test_07_env_01_keep() {
+  ORIG_ENV=orig bunpen --bunpen-path / bash -c '[[ "$ORIG_ENV" = orig && -z "$NOT_ENV" ]]'
+}
+
+test_07_env_02_new() {
+  bunpen --bunpen-path / --bunpen-env NEW_ENV=new bash -c '[[ "$NEW_ENV" = new && -z "$NOT_ENV" ]]'
+}
+
+test_07_env_03_update() {
+  UPD_ENV=orig bunpen --bunpen-path / --bunpen-env UPD_ENV=new bash -c '[[ "$UPD_ENV" = new && -z "$NOT_ENV" ]]'
+}
+
+test_07_env_04_substitute_home() {
+  # HOME defaults to /homeless-shelter
+  # XDG_RUNTIME_DIR defaults to (unset)
+  bunpen --bunpen-path / --bunpen-env 'H_ENV=/head$HOME/tail' --bunpen-env 'R_ENV=$XDG_RUNTIME_DIR/tail' bash -c \
+    '[[ "$H_ENV" = /head/homeless-shelter/tail && "$R_ENV" = /tail ]]'
+}
+test_07_env_05_subtitute_home_and_runtime() {
+  XDG_RUNTIME_DIR=/r/t bunpen --bunpen-path / --bunpen-env 'H_ENV=/head$HOME/tail' --bunpen-env 'R_ENV=$XDG_RUNTIME_DIR/tail' bash -c \
+    '[[ "$H_ENV" = /head/homeless-shelter/tail && "$R_ENV" = /r/t/tail ]]'
+}
+test_07_env_06_subsitute_escape() {
+  bunpen --bunpen-path / --bunpen-env 'H_ENV=/head$$HOME/tail' --bunpen-env 'H_ENV2=$$$HOME/tail' bash -c \
+    'echo "$H_ENV2" && [[ "$H_ENV" = '"'"'/head$HOME/tail'"'"' && "$H_ENV2" = '"'"'$/homeless-shelter/tail'"'"' ]]'
+}
+
 # runs a command in the sandbox and sends the sandbox helper SIGHUP.
 # if the command runs to completion (because e.g. SIGHUP was blocked), it prints "completed"
 # if the command aborts (because it received SIGHUP), it doesn't print anything.
@@ -86,24 +188,14 @@ signal_test_helper() {
   echo "$line"
 }
 
-test_05_signals_01_receives() {
+test_08_signals_01_receives() {
   test -z "$(signal_test_helper)"
 }
-test_05_signals_02_forwards() {
+test_08_signals_02_forwards() {
   test "$(signal_test_helper nohup)" = "completed"
 }
 
-test_06_keep_net() {
-  # new namespaces get a loopback device, however bunpen doesn't auto-up the loopback.
-  # most containers (e.g. nix build environment) do up the lo.
-  # it wouldn't necessarily be _bad_ if bunpen changed behavior here,
-  # but in the meantime this is the easiest way to see that --bunpen-keep-net *does something*
-  # (better would be to try communicating between test runner and bunpen program, e.g. netcat?)
-  test -n "$(bunpen --bunpen-path / --bunpen-keep-net ip link show lo up)"
-  test -z "$(bunpen --bunpen-path / ip link show lo up)"
-}
-
-test_07_reap_children() {
+test_09_reap_children() {
   # in a PID namespace, PID 1 needs to reap children.
   # that is, any processes which `fork` away from the main program being sandboxed,
   # and then exit, become zombies: PID 1 needs to `wait` on them to properly dispose of the processes.
@@ -114,47 +206,108 @@ test_07_reap_children() {
   ps x | grep -E 'Zs +[0-9]+:[0-9]+ \[true\] <defunct>' && return 1 || return 0
 }
 
-test_08_env_01_keep() {
-  ORIG_ENV=orig bunpen --bunpen-path / bash -c '[[ "$ORIG_ENV" = orig && -z "$NOT_ENV" ]]'
+test_10_tmpfs_root_is_introspectable() {
+  echo from_parent > test_file0
+  bunpen --bunpen-path /nix/store --bunpen-path $PWD bash -c "test -f $PWD/test_file0 && echo 'from_sandbox' > /test_file1 && sleep 2" &
+  local sbox_pid=$!
+  sleep 0.5
+
+  # /proc/$pid/root is the rootfs as seen from inside the sandbox.
+  # within the sandbox, `/unbacked` holds the actual rootfs, without anyting mounted over it;
+  # i.e., the portion of the fstree which is backed only by the tmpfs-root
+  test ! -e /proc/$sbox_pid/root/unbacked/$PWD/test_file0
+  test /proc/$sbox_pid/root/$PWD/test_file0
+  local test_file1=$(cat /proc/$sbox_pid/root/unbacked/test_file1)
+
+  # diagnostics, should the test fail:
+  echo -n "/proc/$sbox_pid: " && ls /proc/$sbox_pid
+  echo -n "/proc/$sbox_pid/root: " && ls /proc/$sbox_pid/root
+  echo -n "/proc/$sbox_pid/root/unbacked: " && ls /proc/$sbox_pid/root/unbacked
+  echo -n "/proc/$sbox_pid/root/unbacked/test_file1: " && echo "$test_file1"
+  echo -n "/proc/$sbox_pid/root/unbacked/$PWD: " && ls -l /proc/$sbox_pid/root/unbacked/$PWD
+
+  test "$test_file1" = from_sandbox
 }
 
-test_08_env_02_new() {
-  bunpen --bunpen-path / --bunpen-env NEW_ENV=new bash -c '[[ "$NEW_ENV" = new && -z "$NOT_ENV" ]]'
-}
-
-test_08_env_03_update() {
-  UPD_ENV=orig bunpen --bunpen-path / --bunpen-env UPD_ENV=new bash -c '[[ "$UPD_ENV" = new && -z "$NOT_ENV" ]]'
-}
-
-test_08_env_04_substitute_home() {
-  # HOME defaults to /homeless-shelter
-  # XDG_RUNTIME_DIR defaults to (unset)
-  bunpen --bunpen-path / --bunpen-env 'H_ENV=/head$HOME/tail' --bunpen-env 'R_ENV=$XDG_RUNTIME_DIR/tail' bash -c \
-    '[[ "$H_ENV" = /head/homeless-shelter/tail && "$R_ENV" = /tail ]]'
-}
-test_08_env_05_subtitute_home_and_runtime() {
-  XDG_RUNTIME_DIR=/r/t bunpen --bunpen-path / --bunpen-env 'H_ENV=/head$HOME/tail' --bunpen-env 'R_ENV=$XDG_RUNTIME_DIR/tail' bash -c \
-    '[[ "$H_ENV" = /head/homeless-shelter/tail && "$R_ENV" = /r/t/tail ]]'
-}
-test_08_env_06_subsitute_escape() {
-  bunpen --bunpen-path / --bunpen-env 'H_ENV=/head$$HOME/tail' --bunpen-env 'H_ENV2=$$$HOME/tail' bash -c \
-    'echo "$H_ENV2" && [[ "$H_ENV" = '"'"'/head$HOME/tail'"'"' && "$H_ENV2" = '"'"'$/homeless-shelter/tail'"'"' ]]'
-}
-
-
-tested=
-rc=0
-for f in $(declare -F); do
-  if [[ "$f" =~ ^test_* ]]; then
+runTests() {
+  local testsToRun=("$@")
+  rc=0
+  succeeded=()
+  failed=()
+  basedir=$PWD
+  for f in "${testsToRun[@]}"; do
+    mkdir "$basedir/$f"
     echo -n "$f: ..."
-    if "$f"; then
+    cd "$basedir/$f"
+    if $SELF "$f" > "$basedir/$f/stdall" 2>&1; then
       echo " SUCCESS"
+      succeeded+=("$f")
     else
       rc=1
       echo " FAIL"
+      cat "$basedir/$f/stdall"
+      failed+=("$f")
     fi
-    tested="$tested"1
+  done
+
+  if [[ "${#failed[@]}" != 0 ]]; then
+    echo
+    echo "FAILED TESTS:"
+  fi
+
+  for t in "${failed[@]}"; do
+    echo "- $t"
+  done
+
+  echo "${#succeeded[@]} tests succeeded"
+  test -n "${#succeeded[@]}" || return 1
+  return "$rc"
+}
+
+
+self_test_succeed() {
+  true
+}
+self_test_fail() {
+  false
+}
+self_test_pipe_fail() {
+  true | false | true
+}
+self_test_step_fail() {
+  true
+  false
+  true
+}
+
+selfTest() {
+  # bash is dumb; make sure that if a test would fail, the toplevel test runner would also fail
+  if "$SELF" self_test_succeed \
+    && ! "$SELF" self_test_fail \
+    && ! "$SELF" self_test_pipe_fail \
+    && ! "$SELF" self_test_step_fail \
+    && ! "$SELF" self_test_succeed self_test_fail self_test_succeed \
+  ; then
+    echo "self-test: success"
+  else
+    echo "self-test: FAIL"
+    exit 1
+  fi
+}
+
+allTests=()
+for f in $(declare -F); do
+  if [[ "$f" =~ ^test_* ]]; then
+    allTests+=("$f")
   fi
 done
 
-test -n "$tested" && exit "$rc"
+if [ $# = 1 ]; then
+  # run the test inline
+  "$@"
+elif [ $# = 0 ]; then
+  selfTest
+  runTests "${allTests[@]}"
+else
+  runTests "$@"
+fi

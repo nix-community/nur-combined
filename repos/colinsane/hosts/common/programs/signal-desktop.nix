@@ -55,6 +55,10 @@ in
       "tmp"
     ];
 
+    # persist.byStore.ephemeral = [
+    #   ".cache/fontconfig"  # 1.3 MB  #< TODO: place the fontconfig cache in ~/.cache/Signal/fontconfig
+    # ];
+
     # creds, media
     persist.byStore.private = [
       ".config/Signal"

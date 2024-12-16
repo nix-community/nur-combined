@@ -246,7 +246,8 @@ in
       # bind ALL of ~/.config/sway into the sandbox instead of just the individual configs.
       # this way `swaymsg -- reload` can work even if the fd for ~/.config/sway/config changes.
       ".config/sway"
-    ];
+      # it (may) launch xwayland, in which case xwayland needs access to its stuff too
+    ] ++ config.sane.programs.xwayland.sandbox.extraHomePaths;
 
     fs.".config/xdg-desktop-portal/sway-portals.conf".symlink.text = ''
       # portals.conf docs: <https://flatpak.github.io/xdg-desktop-portal/docs/portals.conf.html>

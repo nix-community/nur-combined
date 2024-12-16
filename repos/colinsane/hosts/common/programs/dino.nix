@@ -80,6 +80,9 @@ in
       "tmp"
     ];
 
+    # persist.byStore.ephemeral = [
+    #   ".cache/gstreamer-1.0"  # 1.3 MB  #< TODO: place the gst cache in ~/.cache/dino/gstreamer-1.0
+    # ];
     persist.byStore.private = [ ".local/share/dino" ];
 
     services.dino = {

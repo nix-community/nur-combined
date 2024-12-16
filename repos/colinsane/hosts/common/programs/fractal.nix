@@ -55,6 +55,9 @@ in
       };
     };
 
+    persist.byStore.ephemeral = [
+      ".cache/fractal" # ~3MB matrix-sdk-event-cache.sqlite3
+    ];
     persist.byStore.private = [
       ".local/share/fractal"
     ];

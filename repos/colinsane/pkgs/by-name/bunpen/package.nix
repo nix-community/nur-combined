@@ -34,6 +34,10 @@
 
   doCheck = true;
 
+  postPatch = ''
+    patchShebangs --build integration_test
+  '';
+
   meta = {
     description = "userspace sandbox helper";
     longDescription = ''

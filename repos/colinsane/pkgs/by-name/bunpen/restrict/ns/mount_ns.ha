@@ -18,7 +18,7 @@ use strings;
 //   and then only bind-mount the top-most path in the case of overlap.
 fn isolate_paths(what: *restrict::resources) void = {
   // allow new mounts to propagate from the parent namespace into the child
-  // namespace, but not vice versa:
+  // namespace, but not vice versa (this is a requirement to use pivot_root)
   errors::ext::check("[namespace] reconfigure / as MS_SLAVE", rt::ext::mount("/", "/", "", rt::ext::mount_flag::SLAVE | rt::ext::mount_flag::REC, null));
 
   // in order to mount ANY directory from the old root into the new root,
@@ -40,6 +40,23 @@ fn isolate_paths(what: *restrict::resources) void = {
   errors::ext::check("[namespace] mount -t tmpfs tmpfs new", rt::ext::mount("tmpfs", "new", "tmpfs", 0, null));
   // errors::ext::check("[namespace] mount -t tmpfs tmpfs new", rt::ext::mount("tmpfs", "new", "tmpfs", rt::ext::mount_flag::NODEV | rt::ext::mount_flag::NOSUID, null));
   // errors::ext::check("[namespace] mount -o rbind new new", rt::ext::mount("new", "new", "", rt::ext::mount_flag::BIND | rt::ext::mount_flag::REC, null));
+
+  // bind the new `/` tmpfs also to `/unbacked`; this is entirely optional, to
+  // aid with troubleshooting:
+  // `/unbacked` is a shallow bind of `/`, so provides a view into which files
+  // are backed only by RAM.
+  // admins can debug unexpected RAM use by querying (from outside the sandbox):
+  // - `for p in /proc/*; do if [ "$p" != /proc/self -a "$p" != /proc/thread-self -a -d "$p/root/unbacked" ]; then du -h "$p/root/unbacked"; fi; done | sort -h`
+  errors::ext::check("[namespace] mkdir new/unbacked", rt::mkdir("new/unbacked", 0o755));
+  errors::ext::check("[namespace] mount new new/unbacked",
+    rt::ext::mount(
+      "new",
+      "new/unbacked",
+      "",
+      rt::ext::mount_flag::BIND,
+      null,
+    )
+  );
 
   // try to mount a new /proc.
   // - this is "safe" because we're not doing anything
