@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage rec {
     description = "Symlink your Steam screenshots to a sensible place";
     homepage = "https://github.com/ticky/lnshot";
     license = licenses.mit;
-    platforms = platforms.linux;
+    platforms = platforms.all;
     mainProgram = "lnshot";
   };
 }

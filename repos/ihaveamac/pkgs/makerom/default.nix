@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   sourceRoot = "source/makerom";
 
   preBuild = ''
-    make -j deps CC=${stdenv.cc.targetPrefix}cc CXX=${stdenv.cc.targetPrefix}c++
+    make -j$NIX_BUILD_CORES deps CC=${stdenv.cc.targetPrefix}cc CXX=${stdenv.cc.targetPrefix}c++
   '';
   makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" "CXX=${stdenv.cc.targetPrefix}c++" ];
   enableParallelBuilding = true;
@@ -28,6 +28,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     license = licenses.mit;
     description = "make 3ds roms";
+    homepage = "https://github.com/3DSGuy/Project_CTR";
     platforms = platforms.all;
+    mainProgram = "ctrtool";
   };
 }

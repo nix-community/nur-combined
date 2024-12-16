@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   sourceRoot = "source/ctrtool";
 
   preBuild = ''
-    make -j deps CC=${stdenv.cc.targetPrefix}cc CXX=${stdenv.cc.targetPrefix}c++
+    make -j$NIX_BUILD_CORES deps CC=${stdenv.cc.targetPrefix}cc CXX=${stdenv.cc.targetPrefix}c++
   '';
   makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" "CXX=${stdenv.cc.targetPrefix}c++" ];
   enableParallelBuilding = true;
@@ -27,8 +27,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     license = licenses.mit;
     description = "A tool to extract data from a 3ds rom";
+    homepage = "https://github.com/3DSGuy/Project_CTR";
     platforms = platforms.all;
-    maintainers = [ maintainers.marius851000 ];
+    mainProgram = "ctrtool";
   };
 
 }
