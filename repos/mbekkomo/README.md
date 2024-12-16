@@ -14,3 +14,5 @@ Uncomment this if you use travis:
 
 Software that are packaged:
  - `plutolang`: [Pluto](https://pluto-lang.org)
+ - `jotdown`: [jotdown](https://github.com/hellux/jotdown)
+ - `godjot`: [godjot](https://github.com/sivukhin/godjot)

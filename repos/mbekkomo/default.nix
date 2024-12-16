@@ -16,6 +16,7 @@
 
   plutolang = pkgs.callPackage ./pkgs/plutolang { };
   jotdown = pkgs.callPackage ./pkgs/jotdown { };
+  godjot = pkgs.callPackage ./pkgs/godjot { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
