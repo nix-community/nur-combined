@@ -2251,10 +2251,10 @@
     };
     "dictionaries" = buildFirefoxXpiAddon {
       pname = "dictionaries";
-      version = "5.2.5.1";
+      version = "5.3.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4381209/dictionaries-5.2.5.1.xpi";
-      sha256 = "0623307e2cbea2d725475ad959d8c4408a61c3ca4c10246aa55110a63a491d89";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4405673/dictionaries-5.3.0.xpi";
+      sha256 = "117f2a30831cb5b6573c681c33951cc6d8da7a535fefb497f2c54d92875dea37";
       meta = with lib;
       {
         homepage = "https://github.com/revir/dictionaries";
@@ -7573,10 +7573,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.7.3";
+      version = "1.7.4";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4404486/mtab-1.7.3.xpi";
-      sha256 = "9d720adaf4d18b1be08609bbd002e52f7394b117badbed267cb0846b2a419b44";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4405728/mtab-1.7.4.xpi";
+      sha256 = "be8591a711f587bd600b691e981833193ccf4db94d92a194a852523184d77f44";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
@@ -9660,10 +9660,10 @@
     };
     "readeck" = buildFirefoxXpiAddon {
       pname = "readeck";
-      version = "2.2.2";
+      version = "2.2.3";
       addonId = "readeck@readeck.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4383942/readeck-2.2.2.xpi";
-      sha256 = "72cb97a3efc54f2faefbc380c7595f9403057640df75dc5ca2965780418561b3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4405650/readeck-2.2.3.xpi";
+      sha256 = "5b9bfc420ef3cb6ae11a0aa796573f6fb2b7957d71c868ccc084241de065464e";
       meta = with lib;
       {
         homepage = "https://readeck.org/en/";
@@ -10505,10 +10505,10 @@
     };
     "smartproxy" = buildFirefoxXpiAddon {
       pname = "smartproxy";
-      version = "1.6.1";
+      version = "1.6.2";
       addonId = "smartproxy@salarcode.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4361752/smartproxy-1.6.1.xpi";
-      sha256 = "1549d4c4d67c5d23dad7ebeae7b28350bffd8452c61eabe9dee81537428d490b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4405616/smartproxy-1.6.2.xpi";
+      sha256 = "3ec7a78afb8db68366918e1bdf0e243c38d819498674dd4bc08a437974e3b679";
       meta = with lib;
       {
         homepage = "https://github.com/salarcode/SmartProxy";
@@ -11539,10 +11539,10 @@
     };
     "tridactyl" = buildFirefoxXpiAddon {
       pname = "tridactyl";
-      version = "1.24.1";
+      version = "1.24.2";
       addonId = "tridactyl.vim@cmcaine.co.uk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4261352/tridactyl_vim-1.24.1.xpi";
-      sha256 = "ab63fe1554471c280f234409393172fc58e1bb2ca527f4329d983b028073e19c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4405615/tridactyl_vim-1.24.2.xpi";
+      sha256 = "807925f26aab56ab19a28e663ade73743a033e3b77aa09edd3f77bf92e5fb36e";
       meta = with lib;
       {
         homepage = "https://tridactyl.xyz";
