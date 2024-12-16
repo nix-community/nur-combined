@@ -102,7 +102,7 @@ in
   }
 
   environment {
-      DISPLAY ":0"
+      // DISPLAY ":0"
   }
 
   window-rule {

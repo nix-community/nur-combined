@@ -413,17 +413,16 @@
         "nixpkgs": "nixpkgs_9"
       },
       "locked": {
-        "lastModified": 1732735666,
-        "narHash": "sha256-nx0PK+IAFcgG8XGwQEEoGHi0RGHmnc1fSx9gowBpwok=",
-        "owner": "daeuniverse",
-        "repo": "flake.nix",
-        "rev": "620d59733b46f0eabc77558d853855b031f0d0ba",
-        "type": "github"
+        "dirtyRev": "4fd5da9950c22813f800ec975f093fce5251e137-dirty",
+        "dirtyShortRev": "4fd5da9-dirty",
+        "lastModified": 1732645782,
+        "narHash": "sha256-dx2YlzTFRuYZ7M7ckoQE25Kfv+x/9X/BFuBgTsdk2I8=",
+        "type": "git",
+        "url": "file:///home/elen/Src/flake.nix"
       },
       "original": {
-        "owner": "daeuniverse",
-        "repo": "flake.nix",
-        "type": "github"
+        "type": "git",
+        "url": "file:///home/elen/Src/flake.nix"
       }
     },
     "devenv": {

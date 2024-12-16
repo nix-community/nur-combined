@@ -9,7 +9,7 @@ let
       lib.warn "Package ${n} from NUR oluceps/nixos-config does NOT support nix without flake" (
         stdenvNoCC.mkDerivation {
           pname = n;
-          version = "0.0.0";
+          version = "0.0.301-redirect";
           installPhase = "mkdir -p $out";
         }
       )

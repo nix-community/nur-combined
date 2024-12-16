@@ -74,6 +74,7 @@ with pkgs;
   ccid
 
   yubikey-manager
+  canokey-manager
 
   xdeltaUnstable
 
@@ -84,7 +85,6 @@ with pkgs;
   # feeluown-qqmusic
 
   chntpw
-  gkraken
   libnotify
 
   # Perf

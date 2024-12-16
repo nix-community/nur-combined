@@ -2,6 +2,7 @@
   pkgs,
   config,
   inputs,
+  inputs',
   reIf,
   ...
 }:
@@ -77,7 +78,7 @@ reIf {
           fallback: all
       }
     '';
-    package = pkgs.dae-unstable;
+    package = inputs'.dae.packages.dae-unstable;
     assetsPath = toString (
       pkgs.symlinkJoin {
         name = "dae-assets-nixy";
