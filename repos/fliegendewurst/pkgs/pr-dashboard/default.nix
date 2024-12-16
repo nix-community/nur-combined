@@ -14,11 +14,11 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "FliegendeWurst";
     repo = "pr-dashboard";
-    rev = "84d09dfc5a0f088c865f15e7f1c6658e1fef14ea";
-    hash = "sha256-7Oud5MkLovAhZE/5xKAGGL1qWxcxS2s0sNk6ijzZsQg=";
+    rev = "4483fb8ed8202447a021e1ef550135b8d9a91b72";
+    hash = "sha256-4w9J+OHJebqS02rZCVdhxZB9a5uYDEUv9MhhkwjWgn8=";
   };
 
-  cargoHash = "sha256-WEDfqAXkUU/7Vn2ig2HmbHydrfDycEhP1nBFBc7n3XU=";
+  cargoHash = "sha256-IKy/iKkom3PylIjJdLLgROzL0GMmSRLL31t+svCf1io=";
 
   nativeBuildInputs = [
     rustPlatform.bindgenHook
