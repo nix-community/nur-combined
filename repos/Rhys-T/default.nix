@@ -35,6 +35,24 @@ in {
     
     maintainers = import ./maintainers.nix;
     
+    allegro5 = let
+        needsMacPatch =
+            pkgs.hostPlatform.isDarwin &&
+            (builtins.compareVersions pkgs.hostPlatform.darwinMinVersion "11.0") < 0 &&
+            (builtins.compareVersions pkgs.allegro5.version "5.2.10.0") >= 0
+        ;
+    in pkgs.allegro5.overrideAttrs (old: {
+        patches = (old.patches or []) ++ pkgs.lib.optionals needsMacPatch [
+            (pkgs.fetchpatch {
+                url = "https://github.com/Rhys-T/allegro5/commit/7c928e34042fd7b83d55649f240a38e937ed169b.patch";
+                hash = "sha256-mLxEH3m/mFpu7tXkk8snRyLu4fQcJlcq81c/+Zi3pmM=";
+            })
+        ];
+        meta = old.meta // {
+            description = (old.meta.description or "allegro5") + " (fixed for macOS/Darwin x86_64 < 11.0)";
+        };
+    });
+    
     lix-game-packages = callPackage ./pkgs/lix-game/packages.nix {};
     lix-game = self.lix-game-packages.game;
     lix-game-server = self.lix-game-packages.server;
@@ -173,6 +191,9 @@ in {
         mirrorsFile = old.mirrorsFile.overrideAttrs (old: self.myLib.mirrors);
     }));
     fetchzipRhys-T = pkgs.fetchzip.override { fetchurl = self.fetchurlRhys-T; };
+    
+    phosg = callPackage ./pkgs/resource_dasm/phosg.nix {};
+    resource_dasm = callPackage ./pkgs/resource_dasm {};
     
     # _ciOnly.dev = pkgs.lib.optionalAttrs (pkgs.hostPlatform.system == "x86_64-darwin") (pkgs.lib.recurseIntoAttrs {
     #     checkpoint = pkgs.lib.recurseIntoAttrs (pkgs.lib.mapAttrs (k: pkgs.checkpointBuildTools.prepareCheckpointBuild) {
