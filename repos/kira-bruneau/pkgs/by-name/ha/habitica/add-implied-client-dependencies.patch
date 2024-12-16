@@ -1,0 +1,40 @@
+diff --git a/website/client/package-lock.json b/website/client/package-lock.json
+index 1f24ea9cbd..89085def41 100644
+--- a/website/client/package-lock.json
++++ b/website/client/package-lock.json
+@@ -34,6 +34,7 @@
+         "lodash": "^4.17.21",
+         "moment": "^2.29.4",
+         "moment-locales-webpack-plugin": "^1.2.0",
++        "moment-recur": "^1.0.7",
+         "nconf": "^0.12.1",
+         "sass": "^1.63.4",
+         "sass-loader": "^14.1.1",
+@@ -9606,6 +9607,15 @@
+         "webpack": "^1 || ^2 || ^3 || ^4 || ^5"
+       }
+     },
++    "node_modules/moment-recur": {
++      "version": "1.0.7",
++      "resolved": "https://registry.npmjs.org/moment-recur/-/moment-recur-1.0.7.tgz",
++      "integrity": "sha512-jpBQn6H62gCnEYjtYdLfK/VdPZHEXo1t8RrVItHVVS67SRvByyJBNBa3WQSGTe+8H0smcYO/79FYTA9LGMVdQw==",
++      "license": "Unlicense",
++      "dependencies": {
++        "moment": "<3.0.0"
++      }
++    },
+     "node_modules/mrmime": {
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/mrmime/-/mrmime-2.0.0.tgz",
+diff --git a/website/client/package.json b/website/client/package.json
+index e9b1fe2689..7a5ecaaa3f 100644
+--- a/website/client/package.json
++++ b/website/client/package.json
+@@ -35,6 +35,7 @@
+     "jquery": "^3.7.1",
+     "lodash": "^4.17.21",
+     "moment": "^2.29.4",
++    "moment-recur": "^1.0.7",
+     "moment-locales-webpack-plugin": "^1.2.0",
+     "nconf": "^0.12.1",
+     "sass": "^1.63.4",

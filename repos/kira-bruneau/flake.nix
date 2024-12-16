@@ -43,6 +43,8 @@
                 "anytype-heart"
                 "anytype-nmh"
                 "clonehero"
+                "habitica"
+                "habitica-client"
                 "virtualparadise"
               ];
           };
