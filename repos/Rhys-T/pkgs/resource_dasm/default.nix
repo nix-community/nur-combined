@@ -53,7 +53,7 @@ in stdenv.mkDerivation (finalAttrs: rec {
                 * **hypercard_dasm**: Disassembles HyperCard stacks and draws card images.
                 * **decode_data**: Decodes some custom compression formats (see README).
                 * **render_sprite**: Renders sprites from a variety of custom formats (see README).
-                * **icon_unarchiver**: Exports icons from an Icon Archiver archive to .icns (see README).
+                * **icon_dearchiver**: Exports icons from an Icon Archiver archive to .icns (see README).
             * Game map generators
                 * **blobbo_render**: Generates maps from Blobbo levels.
                 * **bugs_bannis_render**: Generates maps from Bugs Bannis levels.
@@ -76,12 +76,13 @@ in stdenv.mkDerivation (finalAttrs: rec {
         lines = lib.splitString "\n" finalAttrs.finalPackage.meta.longDescription;
         matchInfo = map (builtins.match "    \\* \\*\\*([^*]+)\\*\\*.*") lines;
         actualMatches = builtins.filter (x: x != null) matchInfo;
-        flakeApps = builtins.listToAttrs (map (x: rec {
-            name = (builtins.elemAt x 0);
+        appNames = lib.lists.remove "libresource_file" (map (x: builtins.elemAt x 0) actualMatches) ++ ["vrfs_dump"];
+        flakeApps = builtins.listToAttrs (map (name: {
+            inherit name;
             value = {
                 type = "app";
                 program = lib.getExe' resource_dasm name;
             };
-        }) actualMatches);
+        }) appNames);
     in flakeApps;
 })
