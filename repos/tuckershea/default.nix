@@ -15,4 +15,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   mailrise = pkgs.callPackage ./pkgs/mailrise {};
+  salt-lint = pkgs.callPackage ./pkgs/salt-lint {};
 }
