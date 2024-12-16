@@ -65,7 +65,21 @@
             ))
           ];
           crypt = [
-            openssl
+            (openssl.override {
+              conf = pkgs.writeText "openssl.conf" ''
+                openssl_conf = openssl_init
+                [openssl_init]
+                engines = engine_section
+                ssl_conf = ssl_module
+                [engine_section]
+                pkcs11 = pkcs11_section
+                [pkcs11_section]
+                engine_id = pkcs11
+                dynamic_path = ${pkgs.libp11}/lib/engines/libpkcs11.so
+                MODULE_PATH = ${pkgs.opensc}/lib/opensc-pkcs11.so
+                init = 0
+              '';
+            })
             minisign
             ent
             rage

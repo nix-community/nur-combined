@@ -15,8 +15,8 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "canokeys";
     repo = "yubikey-manager";
-    rev = "0836d0a97a6f18ce2a9dbe822d641eb7bfc3dadd";
-    hash = "sha256-BBPRxx5VLqXIVQ9g0xJSpVmDaHRRHzs1zXgtClllMFc=";
+    rev = "98f143f942ea366db7334a2956e7bc2acc1ca646";
+    hash = "sha256-aZh3WF6ZqRZdcYFJIKjwXYvtKMf+e8+5rzbOHyCw8LM=";
   };
 
   postPatch = ''
