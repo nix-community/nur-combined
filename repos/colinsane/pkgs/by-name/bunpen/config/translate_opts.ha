@@ -34,7 +34,13 @@ export type exec_params = struct {
   bin: str,
 };
 
-fn cli_opts_get_exec_params(opts: cli_opts) exec_params = {
+type env = struct {
+  home: str,
+  pwd: str,
+  xdg_runtime_dir: str,
+};
+
+fn cli_opts_get_exec_params(opts: cli_opts, env: env) exec_params = {
   let params = exec_params { ... };
 
   //---- ingest `cmd` ----//
@@ -61,9 +67,6 @@ fn cli_opts_get_exec_params(opts: cli_opts) exec_params = {
 
   //---- ingest `env` ----//
 
-  let home = getenv_default("HOME");
-  let xdg_runtime_dir = getenv_default("XDG_RUNTIME_DIR");
-
   for (let old .. os::getenvs()) {
     let (old_key, _old_value) = strings::cut(old, "=");
     let keep_old = true;
@@ -78,27 +81,27 @@ fn cli_opts_get_exec_params(opts: cli_opts) exec_params = {
     };
   };
   for (let new .. opts.env) {
-    let substituted = strings::multireplace(new, ("$$", "$"), ("$HOME", home), ("$XDG_RUNTIME_DIR", xdg_runtime_dir));
+    let substituted = env_subst(env, new);
     append(params.env, substituted);
   };
-
 
   return params;
 };
 
 export fn ingest_cli_opts(opts: cli_opts) (cli_request | exec_params | help) = {
-  let req = cli_request {
-    resources = restrict::resources { net = restrict::net_none, ... },
-    ...
-  };
-
   //---- ingest `help` ----//
   if (opts.help) {
     return help;
   };
 
+  let env = env_new();
+  let req = cli_request {
+    resources = restrict::resources { net = restrict::net_none, ... },
+    ...
+  };
+
   //---- ingest opts.cmd ----//
-  req.exec_params = cli_opts_get_exec_params(opts);
+  req.exec_params = cli_opts_get_exec_params(opts, env);
 
   //---- ingest `disable` ----//
   if (opts.disable != "") {
@@ -119,8 +122,6 @@ export fn ingest_cli_opts(opts: cli_opts) (cli_request | exec_params | help) = {
   //---- ingest `caps` ----//
   req.resources.caps = restrict::cap_array_to_caps(opts.keep_caps);
 
-  //---- ingest `home_paths` ----//
-  ingest_paths(&req.resources.paths, opts.home_paths, os::getenv("HOME"));
   //---- ingest `keep_all_caps` ----//
   if (opts.keep_all_caps)
     req.resources.caps = rt::ext::CAPS_ALL;
@@ -146,10 +147,7 @@ export fn ingest_cli_opts(opts: cli_opts) (cli_request | exec_params | help) = {
   req.resources.pid = opts.keep_pid;
 
   //---- ingest `paths` ----//
-  ingest_paths(&req.resources.paths, opts.paths, os::getcwd(), true);
-
-  //---- ingest `run_paths` ----//
-  ingest_paths(&req.resources.paths, opts.run_paths, os::getenv("XDG_RUNTIME_DIR"));
+  ingest_paths(&req.resources.paths, opts.paths, env);
 
   //---- ingest `try_keep_users` ----//
   req.resources.try_users = opts.try_keep_users;
@@ -159,7 +157,7 @@ export fn ingest_cli_opts(opts: cli_opts) (cli_request | exec_params | help) = {
     case let method: autodetect =>
       // N.B.: skip first arg, since that's the name of the executable and
       // surely not an argument
-      ingest_paths(&req.resources.paths, req.exec_params.args[1..], os::getcwd(), true, method);
+      ingest_paths(&req.resources.paths, req.exec_params.args[1..], env, method);
     case void => void;
   };
 
@@ -175,26 +173,32 @@ export fn ingest_cli_opts(opts: cli_opts) (cli_request | exec_params | help) = {
   return req;
 };
 
-// convert each item in `from` to a path, relative to `base`, and append to `into`.
-// if `allow_abs`, then paths with start with `/` are treated as absolute,
-// instead of as relative to `base`.
-fn ingest_paths(into: *[]path::buffer, from: []str, base: (str | void), allow_abs: bool = false, method: (void | autodetect) = void) void = {
+// convert each item in `from` to a path, and append to `into`.
+// non-absolute paths are interpreted as relative to `env.pwd`.
+// a limited set of environment variables are expanded for each path; see `env_subst`.
+// optional `autodetect` flag, to query each path on-disk and filter or map it
+//   based on the desired environment.
+//   in this mode, environment variables are *not* expanded.
+fn ingest_paths(into: *[]path::buffer, from: []str, env: env, method: (void | autodetect) = void) void = {
   // enforce file mode requirements as per autodetect (if specified)
-  let (allow_nonexistent, allow_file, allow_dir, allow_parent) = match (method) {
-    case void => yield (true, true, true, false);
+  let (do_env_subst, allow_nonexistent, allow_file, allow_dir, allow_parent) = match (method) {
+    case void => yield (true, true, true, true, false);
     case let detect: autodetect => yield switch (detect) {
-      case autodetect::EXISTING => yield (false, true, true, false);
-      case autodetect::EXISTING_FILE => yield (false, true, false, false);
-      case autodetect::EXISTING_FILE_OR_PARENT => yield (false, true, false, true);
-      case autodetect::EXISTING_DIR_OR_PARENT => yield (false, false, true, true);
-      case autodetect::EXISTING_OR_PARENT => yield (false, true, true, true);
-      case autodetect::PARENT => yield (false, false, false, true);
+      case autodetect::EXISTING => yield (false, false, true, true, false);
+      case autodetect::EXISTING_FILE => yield (false, false, true, false, false);
+      case autodetect::EXISTING_FILE_OR_PARENT => yield (false, false, true, false, true);
+      case autodetect::EXISTING_DIR_OR_PARENT => yield (false, false, false, true, true);
+      case autodetect::EXISTING_OR_PARENT => yield (false, false, true, true, true);
+      case autodetect::PARENT => yield (false, false, false, false, true);
     };
   };
 
   for (let path_str .. from) {
+    if (do_env_subst) {
+      path_str = env_subst(env, path_str);
+    };
     errors::ext::swallow("[config/path] omitting path {}",
-      try_as_path(into, path_str, base, allow_abs, allow_nonexistent, allow_file, allow_dir, allow_parent),
+      try_as_path(into, path_str, env.pwd, allow_nonexistent, allow_file, allow_dir, allow_parent),
       path_str
     );
   };
@@ -206,13 +210,12 @@ fn try_as_path(
   into: *[]path::buffer,
   path_arg: str,
   base: (str | void),
-  allow_abs: bool,
   allow_nonexistent: bool,
   allow_file: bool,
   allow_dir: bool,
   allow_parent: bool,
 ) (void | fs::error | path::error) = {
-  let path_buf = if (allow_abs && path::abs(path_arg)) {
+  let path_buf = if (path::abs(path_arg)) {
     yield path::init(path_arg)?;
   } else match (base) {
     case let b: str => yield path::init(b, path_arg)?;
@@ -255,6 +258,14 @@ fn check_exists(pathbuf: *path::buffer, noexist_ok: bool, file_ok: bool, dir_ok:
   return fs::wrongtype;
 };
 
+fn env_new() env = {
+  return env {
+    home = getenv_default("HOME"),
+    pwd = os::getcwd(),
+    xdg_runtime_dir = getenv_default("XDG_RUNTIME_DIR"),
+  };
+};
+
 // return the value of the environment variable keyed by `key`, or "" if it
 // doesn't exist
 fn getenv_default(key: str) str = {
@@ -262,4 +273,8 @@ fn getenv_default(key: str) str = {
     case void => yield "";
     case let value: str => yield value;
   };
+};
+
+fn env_subst(env: env, before: str) str = {
+  return strings::multireplace(before, ("$$", "$"), ("$HOME", env.home), ("$XDG_RUNTIME_DIR", env.xdg_runtime_dir));
 };

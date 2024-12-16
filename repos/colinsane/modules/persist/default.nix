@@ -67,6 +67,8 @@ let
         '';
       };
       type = mkOption {
+        # TODO: it should be safe to remove support for file persistence.
+        # that use case can be accomplished by statically defining symlinks into a persisted dir.
         type = types.enum [ "dir" "file" ];
         default = "dir";
         description = ''
@@ -208,19 +210,29 @@ in
           persistedAncestor.store
         ;
       in lib.mkMerge [
-        (lib.optionalAttrs (persistedAncestorStore == null || persistedAncestorStore != store) {
+        {
           # create destination dir, with correct perms
           # but skip this if an ancestor is persisted to the same store,
           # else this would be a self-symlink/bind
-          sane.fs."${fspath}" = (lib.optionalAttrs (method == "bind") {
-            # inherit perms & make sure we don't mount until after the mount point is setup correctly.
-            dir.acl = opt.acl;
-            mount.bind = fsPathToBackingPath fspath;
-          }) // (lib.optionalAttrs (method == "symlink") {
-            symlink.acl = opt.acl;
-            symlink.target = fsPathToBackingPath fspath;
-          });
-        })
+          sane.fs."${fspath}" = if (persistedAncestorStore == null || persistedAncestorStore != store) then
+            (lib.optionalAttrs (method == "bind") {
+              # inherit perms & make sure we don't mount until after the mount point is setup correctly.
+              dir.acl = opt.acl;
+              mount.bind = fsPathToBackingPath fspath;
+            }) // (lib.optionalAttrs (method == "symlink") {
+              symlink.acl = opt.acl;
+              symlink.target = fsPathToBackingPath fspath;
+            })
+          else
+            # the persistence itself is redundant, but we must still create the `sane.fs` value to conform with expectations of downstream users
+            (lib.optionalAttrs (opt.type == "dir") {
+              dir.acl = opt.acl;
+            }) // (lib.optionalAttrs (opt.type == "file") {
+              file.acl = opt.acl;
+              file.text = lib.mkDefault "";
+            })
+          ;
+        }
         (lib.optionalAttrs (opt.type == "dir") {
           # create the backing path as a dir
           sane.fs."${fsPathToBackingPath fspath}" = {

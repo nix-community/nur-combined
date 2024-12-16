@@ -9,6 +9,7 @@
       # "/sys/devices/system"
     ];
     sandbox.whitelistWayland = true;
+    sandbox.mesaCacheDir = null;  # doesn't use mesa even though it uses wayland
 
     suggestedPrograms = [
       "sane-sysload"

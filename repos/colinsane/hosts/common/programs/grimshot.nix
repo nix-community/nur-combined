@@ -17,6 +17,7 @@
     sandbox.keepPids = true;  #< needed by wl-clipboard
     sandbox.whitelistDbus = [ "user" ];
     sandbox.whitelistWayland = true;
+    sandbox.mesaCacheDir = null;  # not a GUI even though it uses wayland
     sandbox.extraRuntimePaths = [
       "sway"
     ];

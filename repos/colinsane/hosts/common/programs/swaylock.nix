@@ -38,6 +38,7 @@ in
       "/etc/shadow"
     ];
     sandbox.whitelistWayland = true;
+    sandbox.mesaCacheDir = null;  # doesn't use mesa even though it uses wayland
 
     services.swaylock = {
       description = "swaylock screen locker";

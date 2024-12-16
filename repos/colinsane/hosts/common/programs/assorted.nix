@@ -740,6 +740,7 @@ in
     # N.B.: if the user doesn't specify an output path, `grim` will output to ~/Pictures (which isn't included in this sandbox)
     grim.sandbox.autodetectCliPaths = "existingOrParent";
     grim.sandbox.whitelistWayland = true;
+    grim.sandbox.mesaCacheDir = null;  # not a GUI even though it uses wayland
 
     hase.buildCost = 1;
     hase.sandbox.net = "clearnet";
@@ -1080,6 +1081,7 @@ in
     slic3r.sandbox.autodetectCliPaths = "existingFileOrParent";  # slic3r <my-file>.stl -o <out>.gcode
 
     slurp.sandbox.whitelistWayland = true;
+    slurp.sandbox.mesaCacheDir = null;  # not a GUI even though it uses wayland
 
     # snapshot camera, based on libcamera
     # TODO: enable dma heaps for more efficient buffer sharing: <https://gitlab.com/postmarketOS/pmaports/-/issues/2789>
@@ -1200,6 +1202,7 @@ in
     # `vulkaninfo`, `vkcube`
     vulkan-tools.sandbox.whitelistDri = true;
     vulkan-tools.sandbox.whitelistWayland = true;
+    vulkan-tools.sandbox.mesaCacheDir = null;  # doesn't use mesa even though it uses wayland
     vulkan-tools.sandbox.whitelistX = true;
     vulkan-tools.sandbox.extraPaths = [
       "/sys/dev/char"
@@ -1240,9 +1243,11 @@ in
 
     wl-clipboard.sandbox.whitelistWayland = true;
     wl-clipboard.sandbox.keepPids = true;  #< this is needed, but not sure why?
+    wl-clipboard.sandbox.mesaCacheDir = null;  # not a GUI even though it uses wayland
 
     wtype = {};
     wtype.sandbox.whitelistWayland = true;
+    wtype.sandbox.mesaCacheDir = null;  # not a GUI even though it uses wayland
 
     xwayland.sandbox.wrapperType = "inplace";  #< consumers use it as a library (e.g. wlroots)
     xwayland.sandbox.whitelistWayland = true;  #< just assuming this is needed

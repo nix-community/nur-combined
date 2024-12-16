@@ -26,6 +26,7 @@
     # so doesn't need all sandboxing.
     # that might hint that the packages should be split/restructured...
     sandbox.whitelistWayland = true;  #< to access clipboard
+    sandbox.mesaCacheDir = null;  # not a GUI even though it uses wayland
     sandbox.whitelistDbus = [ "user" ];
   };
 }

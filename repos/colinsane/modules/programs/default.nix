@@ -86,6 +86,7 @@ let
             autodetectCliPaths
             capabilities
             extraConfig
+            extraEnv
             keepIpc
             keepPids
             tryKeepUsers
@@ -528,6 +529,35 @@ let
           or `[ "/" ]` to bind all of XDG_RUNTIME_DIR.
         '';
       };
+
+      sandbox.extraEnv = mkOption {
+        type = types.attrsOf types.str;
+        default = {};
+        description = ''
+          extra environment variables which should be set when running the program in a sandboxed fashion.
+          certain expressions are expanded when evaluating the environment, such as:
+          - `$HOME`
+          - `$XDG_RUNTIME_DIR`
+          escape expansion with `$$`
+        '';
+      };
+      sandbox.mesaCacheDir = mkOption {
+        type = types.nullOr types.str;
+        default = if config.sandbox.whitelistWayland then
+          # XXX: mesa will create its *own* directory under here (or file, based on how it's been configured).
+          # to locate empty mesa shader cache dirs (and identify apps that aren't using it):
+          # - `fd mesa ~/.cache | xargs -n 1 sh -c 'test -d $1/mesa_shader_cache_db || echo $1' -- | sort`
+          ".cache/${config.name}/mesa"
+        else
+          null
+        ;
+        description = ''
+          place the mesa cache in a custom directory.
+          generally, most GUI applications should have their mesa cache directory
+          persisted to disk to (1) reduce ram consumption and (2) massively improve loading speed.
+        '';
+      };
+
       sandbox.extraConfig = mkOption {
         type = types.listOf types.str;
         default = [];
@@ -576,6 +606,10 @@ let
       sandbox.keepPids = lib.mkIf config.sandbox.keepPidsAndProc true;
 
       sandbox.whitelistDbus = lib.mkIf config.sandbox.whitelistSystemctl [ "system" ];
+
+      sandbox.extraEnv = lib.optionalAttrs (config.sandbox.mesaCacheDir != null) {
+        MESA_SHADER_CACHE_DIR = "$HOME/${config.sandbox.mesaCacheDir}";
+      };
 
       sandbox.extraPaths =
         lib.optionals config.sandbox.whitelistDri [
@@ -678,6 +712,9 @@ let
         # some packages, e.g. swaynotificationcenter, store the config under the binary name instead of the package name
         ++ lib.optionals (mainProgram != null) (whitelistDir ".config/${mainProgram}")
         ++ lib.optionals (mainProgram != null) (whitelistDir ".local/share/${mainProgram}")
+        ++ lib.optionals (config.sandbox.mesaCacheDir != null) [
+          config.sandbox.mesaCacheDir
+        ]
       ;
     };
   });
@@ -720,7 +757,7 @@ let
 
     # conditionally persist relevant user dirs and create files
     sane.users = lib.mapAttrs (user: en: lib.mkIf (en && p.enabled) {
-      inherit (p) persist services;
+      inherit (p) services;
       environment = lib.mapAttrs (k: v: lib.mkOverride p.mime.priority v) p.env;
       fs = lib.mkMerge [
         p.fs
@@ -746,6 +783,14 @@ let
         #   })
         #   p.secrets
         # )
+      ];
+      persist = lib.mkMerge [
+        p.persist
+        (lib.optionalAttrs (p.sandbox.mesaCacheDir != null) {
+          # persist the mesa cache to private storage by default;
+          # but allow the user to override that.
+          byPath."${p.sandbox.mesaCacheDir}".store = lib.mkDefault "private";
+        })
       ];
     }) p.enableFor.user;
 

@@ -29,10 +29,6 @@
       did-initial-setup = true;
     };
 
-    sandbox.extraHomePaths = [
-      ".cache/mesa_shader_cache_db"  #< else it takes too long to load and shows a misleading error message
-    ];
-
     sandbox.whitelistDbus = [ "user" ];  #< for OpenURI, evolution-data-server
     sandbox.whitelistDri = true;  #< speculative, but i'd like it to be responsive on mobile
     sandbox.whitelistWayland = true;

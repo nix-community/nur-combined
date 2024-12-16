@@ -205,6 +205,10 @@ dispatchOff() {
       # power once => unlock
       handleWith allOn
       ;;
+    "power_tap_1_hold")
+      # power tap->hold: escape hatch for when bonsaid locks up
+      handleWith systemctl restart bonsaid
+      ;;
     volup_hold*)
       handleWith playerctl position 30+
       ;;

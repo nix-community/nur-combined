@@ -46,7 +46,6 @@ in
     sandbox.whitelistDbus = [ "user" ];  #< so that it can open the image viewer using fdo portal...
     sandbox.extraHomePaths = [
       # ".config/megapixels"
-      ".cache/mesa_shader_cache_db"  # loads way faster
       "Pictures/Photos"
       # also it addresses a lot via relative path.
     ];

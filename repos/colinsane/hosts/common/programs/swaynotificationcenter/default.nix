@@ -76,6 +76,8 @@ in
       default = {};
     };
 
+    name = "swaync";  # let sandboxer know it places config/cache in $DIR/swaync
+
     # prevent dbus from automatically activating swaync so i can manage it as a service instead
     packageUnwrapped = pkgs.rmDbusServices (pkgs.swaynotificationcenter.overrideAttrs (upstream: {
       version = "0.10.1-unstable-2024-04-16";
@@ -111,6 +113,7 @@ in
     ];
     sandbox.whitelistSystemctl = true;
     sandbox.whitelistWayland = true;
+    sandbox.mesaCacheDir = null;  # doesn't use mesa even though it uses wayland
     sandbox.extraPaths = [
       "/sys/class/backlight"
       "/sys/devices"

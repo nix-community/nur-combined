@@ -17,45 +17,53 @@ captureExitStatus() {
   ("$@" >&2; echo $?)
 }
 
-test_01_trivial() {
+test_01_invoke_01_trivial() {
   bunpen --bunpen-path / "$env" true
 }
 
-test_02_invoke_by_path() {
+test_01_invoke_02_by_path() {
   bunpen --bunpen-path / true
 }
 
-test_03_errors_on_invalid_file() {
+test_01_invoke_03_errors_on_invalid_file() {
   bunpen --bunpen-path / this_file_does_not_exist && return 1 || true
 }
 
-test_04_disable_by_env_var() {
+test_02_env_arg_01_disable() {
   BUNPEN_DISABLE=1 bunpen true
 }
 
-test_05_propagates_rc_when_disabled() {
+test_02_env_arg_02_append() {
+  BUNPEN_APPEND="--bunpen-path /" bunpen ls /
+}
+
+test_02_env_arg_03_append_tolerates_whitespace() {
+  BUNPEN_APPEND="  --bunpen-debug=4  --bunpen-keep-pid --bunpen-path   / " bunpen ls /
+}
+
+test_03_propagates_01_rc_when_disabled() {
   test $(captureExitStatus env BUNPEN_DISABLE=1 bunpen sh -c "exit 55") = 55
 }
 
-test_06_propagates_rc() {
+test_03_propagates_02_rc() {
   test $(captureExitStatus bunpen --bunpen-path / sh -c "exit 55") = 55
 }
 
-test_07_forwards_stdout_when_disabled() {
+test_03_propagates_03_stdout_when_disabled() {
   test $(BUNPEN_DISABLE=1 bunpen --bunpen-path / sh -c "echo hello") = hello
 }
 
-test_08_forwards_stdout() {
+test_03_propagates_04_stdout() {
   local stdout=$(bunpen --bunpen-path / echo "hello")
   test "$stdout" = "hello"
 }
 
-test_09_no_logging_by_default() {
+test_04_logs_01_disabled_by_default() {
   local stdout=$(bunpen --bunpen-path / true 2>&1)
   test -z "$stdout"
 }
 
-test_10_logs_something() {
+test_04_logs_02_enabled() {
   local stdout=$(bunpen --bunpen-debug=4 --bunpen-path / true 2>&1)
   test -n "$stdout"
 }
@@ -78,22 +86,14 @@ signal_test_helper() {
   echo "$line"
 }
 
-test_11_receives_signals() {
+test_05_signals_01_receives() {
   test -z "$(signal_test_helper)"
 }
-test_12_forwards_signals() {
+test_05_signals_02_forwards() {
   test "$(signal_test_helper nohup)" = "completed"
 }
 
-test_13_bunpen_append_env_var() {
-  BUNPEN_APPEND="--bunpen-path /" bunpen ls /
-}
-
-test_13_bunpen_append_env_var_extra_formatting() {
-  BUNPEN_APPEND="  --bunpen-debug=4  --bunpen-keep-pid --bunpen-path   / " bunpen ls /
-}
-
-test_14_keep_net() {
+test_06_keep_net() {
   # new namespaces get a loopback device, however bunpen doesn't auto-up the loopback.
   # most containers (e.g. nix build environment) do up the lo.
   # it wouldn't necessarily be _bad_ if bunpen changed behavior here,
@@ -103,7 +103,7 @@ test_14_keep_net() {
   test -z "$(bunpen --bunpen-path / ip link show lo up)"
 }
 
-test_15_reap_children() {
+test_07_reap_children() {
   # in a PID namespace, PID 1 needs to reap children.
   # that is, any processes which `fork` away from the main program being sandboxed,
   # and then exit, become zombies: PID 1 needs to `wait` on them to properly dispose of the processes.
@@ -114,29 +114,29 @@ test_15_reap_children() {
   ps x | grep -E 'Zs +[0-9]+:[0-9]+ \[true\] <defunct>' && return 1 || return 0
 }
 
-test_16_keep_env() {
+test_08_env_01_keep() {
   ORIG_ENV=orig bunpen --bunpen-path / bash -c '[[ "$ORIG_ENV" = orig && -z "$NOT_ENV" ]]'
 }
 
-test_17_new_env() {
+test_08_env_02_new() {
   bunpen --bunpen-path / --bunpen-env NEW_ENV=new bash -c '[[ "$NEW_ENV" = new && -z "$NOT_ENV" ]]'
 }
 
-test_18_updated_env() {
+test_08_env_03_update() {
   UPD_ENV=orig bunpen --bunpen-path / --bunpen-env UPD_ENV=new bash -c '[[ "$UPD_ENV" = new && -z "$NOT_ENV" ]]'
 }
 
-test_19_substitute_env_home() {
+test_08_env_04_substitute_home() {
   # HOME defaults to /homeless-shelter
   # XDG_RUNTIME_DIR defaults to (unset)
   bunpen --bunpen-path / --bunpen-env 'H_ENV=/head$HOME/tail' --bunpen-env 'R_ENV=$XDG_RUNTIME_DIR/tail' bash -c \
     '[[ "$H_ENV" = /head/homeless-shelter/tail && "$R_ENV" = /tail ]]'
 }
-test_20_substitute_env_all() {
+test_08_env_05_subtitute_home_and_runtime() {
   XDG_RUNTIME_DIR=/r/t bunpen --bunpen-path / --bunpen-env 'H_ENV=/head$HOME/tail' --bunpen-env 'R_ENV=$XDG_RUNTIME_DIR/tail' bash -c \
     '[[ "$H_ENV" = /head/homeless-shelter/tail && "$R_ENV" = /r/t/tail ]]'
 }
-test_21_substitute_env_escapes() {
+test_08_env_06_subsitute_escape() {
   bunpen --bunpen-path / --bunpen-env 'H_ENV=/head$$HOME/tail' --bunpen-env 'H_ENV2=$$$HOME/tail' bash -c \
     'echo "$H_ENV2" && [[ "$H_ENV" = '"'"'/head$HOME/tail'"'"' && "$H_ENV2" = '"'"'$/homeless-shelter/tail'"'"' ]]'
 }

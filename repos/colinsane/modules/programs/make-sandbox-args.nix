@@ -4,6 +4,7 @@ let
     autodetectCliPaths = style: [ "--bunpen-autodetect" style ];
     capability = cap: [ "--bunpen-cap" cap ];
     dns = addr: [ "--bunpen-dns" addr ];
+    env = key: value: [ "--bunpen-env" "${key}=${value}" ];
     keepIpc = [ "--bunpen-keep-ipc" ];
     keepPids = [ "--bunpen-keep-pid" ];
     method = m: assert m == "bunpen";
@@ -31,8 +32,8 @@ let
       [ "--bunpen-path" "/dev/net/tun" "--bunpen-net-dev" n ];
     netGateway = netGateway: [ "--bunpen-net-gateway" netGateway ];
     path.unqualified = p: [ "--bunpen-path" p ];
-    path.home = p: [ "--bunpen-home-path" p ];
-    path.run = p: [ "--bunpen-run-path" p ];
+    path.home = p: [ "--bunpen-path" "$HOME/${p}" ];
+    path.run = p: [ "--bunpen-path" "$XDG_RUNTIME_DIR/${p}" ];
     tryKeepUsers = [ "--bunpen-try-keep-users" ];
     whitelistPwd = [ "--bunpen-path" "." ];
   };
@@ -45,6 +46,7 @@ in
   autodetectCliPaths ? false,
   capabilities ? [],
   dns ? null,
+  extraEnv ? {},
   keepIpc ? false,
   keepPids ? false,
   tryKeepUsers ? false,
@@ -63,6 +65,8 @@ let
 
   capabilityFlags = lib.flatten (builtins.map gen.capability capabilities);
 
+  envArgs = lib.flatten (lib.mapAttrsToList gen.env extraEnv);
+
   netItems = lib.optionals (netDev != null) (gen.netDev netDev)
     ++ lib.optionals (netGateway != null) (gen.netGateway netGateway)
     ++ lib.optionals (dns != null) (lib.flatten (builtins.map gen.dns dns))
@@ -74,6 +78,7 @@ in
   ++ allowPaths "unqualified" allowedPaths
   ++ allowPaths "home" allowedHomePaths
   ++ allowPaths "run" allowedRunPaths
+  ++ envArgs
   ++ capabilityFlags
   ++ lib.optionals (autodetectCliPaths != null) (gen.autodetectCliPaths autodetectCliPaths)
   ++ lib.optionals keepIpc gen.keepIpc

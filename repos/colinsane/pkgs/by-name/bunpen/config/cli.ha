@@ -17,14 +17,12 @@ export type cli_opts = struct {
   env: []str,
   // `--bunpen-help`
   help: bool,
-  home_paths: []str,
   keep_all_caps: bool,
   keep_caps: []rt::ext::cap,
   keep_ipc: bool,
   keep_net: bool,
   keep_pid: bool,
   paths: []str,
-  run_paths: []str,
   try_keep_users: bool,
 
   net_dev: str,
@@ -48,12 +46,10 @@ export fn usage() void = {
   fmt::println("      instead of running the program, drop into an interactive shell")!;
   fmt::println("  --bunpen-env FOO=VALUE")!;
   fmt::println("      set the environment variable FOO to VALUE within the launched program")!;
-  fmt::println("      certain shell-style substitutions are performed on the raw string ('FOO=VALUE'), including:")!;
-  fmt::println("        $HOME")!;
-  fmt::println("        $XDG_RUNTIME_DIR")!;
-  fmt::println("        $$ to escape a literal $")!;
+  fmt::println("      a limited set of env vars are expanded within each expression: see PARAMETERIZATION")!;
   fmt::println("  --bunpen-autodetect <existing|existingFile|existingFileOrParent|existingDirOrParent|existingOrParent|parent>")!;
   fmt::println("      add files which appear later as CLI arguments into the sandbox")!;
+  fmt::println("      shell expansion (PARAMETERIZATION) is NOT performed on these paths")!;
   fmt::println("  --bunpen-cap <all|sys_admin|net_raw|net_admin|...>")!;
   fmt::println("      allow the sandboxed program to use the provided linux capability (both inside and outside the sandbox)")!;
   fmt::println("      special cap 'all' to preserve all capabilities possible")!;
@@ -68,16 +64,14 @@ export fn usage() void = {
   fmt::println("  --bunpen-path <path>")!;
   fmt::println("      allow access to the host <path> within the sandbox")!;
   fmt::println("      path is interpreted relative to the working directory if not absolute")!;
-  fmt::println("  --bunpen-home-path <path>")!;
-  fmt::println("      allow access to the host <path>, relative to HOME")!;
-  fmt::println("  --bunpen-run-path <path>")!;
-  fmt::println("      allow access to the host <path>, relative to XDG_RUNTIME_DIR")!;
+  fmt::println("      a limited set of env vars are expanded within each path: see PARAMETERIZATION")!;
   fmt::println("")!;
   fmt::println("net proxy settings (typical invocation specifies either ALL or NONE of these):")!;
   fmt::println("  --bunpen-net-dev <iface>")!;
   fmt::println("  --bunpen-net-gateway <ip-address>")!;
   fmt::println("  --bunpen-dns <server>")!;
   fmt::println("")!;
+  fmt::println("ENVIRONMENT")!;
   fmt::println("the following environment variables are also considered and propagated to children:")!;
   fmt::println("  BUNPEN_DEBUG=n")!;
   fmt::println("      equivalent to `--bunpen-debug=n`")!;
@@ -91,6 +85,13 @@ export fn usage() void = {
   fmt::println("      consider BUNPEN_DISABLE='host$' to be more targeted")!;
   fmt::println("  BUNPEN_APPEND=--bunpen-flag1 --bunpen-flag2 ...")!;
   fmt::println("      act as though the provided arg string appeared at the end of the CLI")!;
+  fmt::println("")!;
+  fmt::println("PARAMETERIZATION")!;
+  fmt::println("where noted, the following variables are expanded in the style of shell expansion:")!;
+  fmt::println("  $HOME")!;
+  fmt::println("  $XDG_RUNTIME_DIR")!;
+  fmt::println("  $$ to escape a literal $")!;
+
   // fmt::println("  --bunpen-add-pwd")!;
   // fmt::println("      shorthand for `--bunpen-path $PWD`")!;
   // fmt::println("")!;
@@ -165,14 +166,12 @@ fn parse_args_into(parsed: *cli_opts, args: []str) (void | errors::invalid) = {
       case "--bunpen-drop-shell"      =>  parsed.drop_shell = true;
       case "--bunpen-env"             =>  idx += 1; append(parsed.env, expect_arg("--bunpen-env", next)?);
       case "--bunpen-help"            =>  parsed.help = true;
-      case "--bunpen-home-path"       =>  idx += 1; append(parsed.home_paths, expect_arg("--bunpen-home-path", next)?);
       case "--bunpen-keep-ipc"        =>  parsed.keep_ipc = true;
       case "--bunpen-keep-net"        =>  parsed.keep_net = true;
       case "--bunpen-keep-pid"        =>  parsed.keep_pid = true;
       case "--bunpen-net-dev"         =>  idx += 1; parsed.net_dev = expect_arg("--bunpen-net-dev", next)?;
       case "--bunpen-net-gateway"     =>  idx += 1; parsed.net_gateway = expect_arg("--bunpen-net-gateway", next)?;
       case "--bunpen-path"            =>  idx += 1; append(parsed.paths, expect_arg("--bunpen-path", next)?);
-      case "--bunpen-run-path"        =>  idx += 1; append(parsed.run_paths, expect_arg("--bunpen-run-path", next)?);
       case "--bunpen-try-keep-users"  =>  parsed.try_keep_users = true;
       case                            =>  append(parsed.cmd, arg);
     };

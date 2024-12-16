@@ -3,6 +3,7 @@
   sane.programs.sane-screenshot = {
     sandbox.whitelistDbus = [ "user" ];  #< to send notifications
     sandbox.whitelistWayland = true;
+    sandbox.mesaCacheDir = null;  # doesn't use mesa even though it uses wayland
     sandbox.extraHomePaths = [
       "Pictures/Screenshots"
     ];
