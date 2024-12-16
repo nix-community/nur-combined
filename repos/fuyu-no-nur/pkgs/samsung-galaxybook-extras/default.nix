@@ -1,6 +1,6 @@
 {pkgs ? import <nixpkgs> {}}: let
-  inherit (pkgs) stdenv lib fetchFromGitHub linuxPackages;
-  inherit (linuxPackages) kernel;
+  inherit (pkgs) stdenv lib fetchFromGitHub linuxPackages_zen;
+  inherit (linuxPackages_zen) kernel;
 in
   stdenv.mkDerivation rec {
     pname = "samsung-galaxybook-extras";
@@ -18,11 +18,20 @@ in
     hardeningDisable = ["pic" "format"];
     nativeBuildInputs = kernel.moduleBuildDependencies;
 
+    kernelVersion = kernel.modDirVersion;
+
     makeFlags = [
       "KERNELRELEASE=${kernel.modDirVersion}"
-      "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-      "INSTALL_MOD_PATH=$(out)"
+      "KERNEL_SRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+      "INSTALL_MOD_PATH=$(out)/lib/modules/${kernel.modDirVersion}/kernel"
     ];
+
+    installPhase = ''
+        mkdir -p $out/lib/modules/$kernelVersion
+            for x in $(find . -name '*.ko'); do
+        cp $x $out/lib/modules/$kernelVersion/
+      done
+    '';
 
     enableParallelBuilding = true;
 
