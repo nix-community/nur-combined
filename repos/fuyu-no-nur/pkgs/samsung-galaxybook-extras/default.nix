@@ -12,7 +12,7 @@ in
       owner = "joshuagrisham";
       repo = "samsung-galaxybook-extras";
       rev = "refs/heads/main";
-      sha256 = "1kb6ip8bn8y1imxn1pilifrm357dq5qz41ckpkpfc2fp4p8a3k9c";
+      sha256 = "sha256-F/0JjT7dZn4UkxAqCRp7fnhR22n/fxNUoCokuAARNQc=";
     };
 
     hardeningDisable = ["pic" "format"];
