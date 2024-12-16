@@ -1,4 +1,6 @@
-{stdenv, lib, zlib, cmake, memorymappingHook, phosg, netpbm, fetchFromGitHub, useNetpbm?false, ripgrep, makeBinaryWrapper, maintainers}: stdenv.mkDerivation (finalAttrs: rec {
+{stdenv, lib, zlib, cmake, memorymappingHook, phosg, netpbm, fetchFromGitHub, useNetpbm?false, ripgrep, makeBinaryWrapper, maintainers}: let
+    needsMemorymapping = stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13";
+in stdenv.mkDerivation (finalAttrs: rec {
     pname = "resource_dasm";
     version = "0-unstable-2024-12-11";
     src = fetchFromGitHub {
@@ -8,7 +10,7 @@
         hash = "sha256-XDPr9yf77u4KBNRFJraHFaTjc/BgCi6G9eQuEEgF6d4=";
     };
     nativeBuildInputs = [cmake] ++ lib.optionals useNetpbm [makeBinaryWrapper];
-    buildInputs = [phosg zlib] ++ lib.optionals stdenv.hostPlatform.isDarwin [memorymappingHook];
+    buildInputs = [phosg zlib] ++ lib.optionals needsMemorymapping [memorymappingHook];
     # The CMakeLists.txt file provided doesn't install all the executables. Patch it to include the rest:
     postPatch = ''
         allExes=($(sed -En '
@@ -65,6 +67,9 @@
         '';
         homepage = "https://github.com/fuzziqersoftware/resource_dasm";
         license = lib.licenses.mit;
+        broken = let
+            memorymapping = builtins.elemAt memorymappingHook.propagatedBuildInputs 0;
+        in needsMemorymapping && memorymapping.meta.broken;
         maintainers = [maintainers.Rhys-T];
     };
     passthru._Rhys-T.flakeApps = rdName: resource_dasm: let

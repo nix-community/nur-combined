@@ -1,4 +1,6 @@
-{stdenv, lib, zlib, cmake, memorymappingHook, fetchFromGitHub, maintainers}: stdenv.mkDerivation rec {
+{stdenv, lib, zlib, cmake, memorymappingHook, fetchFromGitHub, maintainers}: let
+    needsMemorymapping = stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13";
+in stdenv.mkDerivation rec {
     pname = "phosg";
     version = "0-unstable-2024-12-18";
     src = fetchFromGitHub {
@@ -11,7 +13,7 @@
         sed -Ei '/set\(CMAKE_OSX_ARCHITECTURES/ s@^@#@' CMakeLists.txt
     '';
     nativeBuildInputs = [cmake];
-    buildInputs = [zlib] ++ lib.optionals stdenv.hostPlatform.isDarwin [memorymappingHook];
+    buildInputs = [zlib] ++ lib.optionals needsMemorymapping [memorymappingHook];
     meta = {
         description = "C++ helpers for some common tasks";
         longDescription = ''
@@ -35,6 +37,9 @@
         '';
         homepage = "https://github.com/fuzziqersoftware/phosg";
         license = lib.licenses.mit;
+        broken = let
+            memorymapping = builtins.elemAt memorymappingHook.propagatedBuildInputs 0;
+        in needsMemorymapping && memorymapping.meta.broken;
         maintainers = [maintainers.Rhys-T];
     };
 }
