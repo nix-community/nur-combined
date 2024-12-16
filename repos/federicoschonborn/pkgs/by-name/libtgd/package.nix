@@ -83,13 +83,13 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional withPoppler poppler
     ++ lib.optional withTiff libtiff;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
-
   cmakeFlags = [
     (lib.cmakeBool "TGD_BUILD_TOOL" withTool)
     (lib.cmakeBool "TGD_BUILD_DOCUMENTATION" withDocs)
     (lib.cmakeBool "TGD_STATIC" withStatic)
   ];
+
+  nativeInstallCheckInputs = [ versionCheckHook ];
 
   doInstallCheck = true;
   versionCheckProgram = "${placeholder "out"}/bin/tgd";

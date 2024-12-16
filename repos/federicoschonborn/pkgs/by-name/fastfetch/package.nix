@@ -208,8 +208,6 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional enableLibzfs zfs
     ++ lib.optional enablePciaccess xorg.libpciaccess;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
-
   cmakeFlags =
     [
       (lib.cmakeOptionType "filepath" "CMAKE_INSTALL_SYSCONFDIR" "${placeholder "out"}/etc")
@@ -246,6 +244,8 @@ stdenv.mkDerivation (finalAttrs: {
       (lib.cmakeOptionType "filepath" "CUSTOM_PCI_IDS_PATH" "${hwdata}/share/hwdata/pci.ids")
       (lib.cmakeOptionType "filepath" "CUSTOM_AMDGPU_IDS_PATH" "${libdrm}/share/libdrm/amdgpu.ids")
     ];
+
+  nativeInstallCheckInputs = [ versionCheckHook ];
 
   doInstallCheck = true;
 

@@ -7,6 +7,7 @@
   qt6,
   libtgd,
   # testers,
+  versionCheckHook,
   nix-update-script,
 }:
 
@@ -33,16 +34,17 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.qtwayland
   ];
 
-  passthru = {
-    # Immediately exits on this test, otherwise works fine, maybe something Qt related?
-    # tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+  nativeInstallCheckInputs = [ versionCheckHook ];
 
-    updateScript = nix-update-script {
-      extraArgs = [
-        "--version-regex"
-        "qv-(.*)"
-      ];
-    };
+  doInstallCheck = true;
+  # Immediately exits with no output, otherwise works fine, maybe something Qt related?
+  dontVersionCheck = true;
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version-regex"
+      "qv-(.*)"
+    ];
   };
 
   meta = {

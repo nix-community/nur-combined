@@ -38,12 +38,12 @@ rustPlatform.buildRustPackage {
     zlib
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
-
   env.LLVM_SYS_170_PREFIX = llvmPackages_17.llvm.dev;
 
   # Some of the tests require git to be installed.
   doCheck = false;
+
+  nativeInstallCheckInputs = [ versionCheckHook ];
 
   doInstallCheck = true;
 

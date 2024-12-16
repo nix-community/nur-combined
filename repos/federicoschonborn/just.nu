@@ -24,11 +24,11 @@ def "main build-all" [] {
 }
 
 def "main build-all-unstable" [] {
-    nix-unstable build --no-link --impure --expr 'import ./ci.nix { pkgs = import (builtins.getFlake "nixpkgs") { }; }' cacheOutputs
+    nix-unstable build --impure --expr 'import ./ci.nix { pkgs = import (builtins.getFlake "nixpkgs") { }; }' cacheOutputs
 }
 
 def "main build-all-stable" [] {
-    nix-stable build --no-link --impure --expr 'import ./ci.nix { pkgs = import (builtins.getFlake "nixpkgs") { }; }' cacheOutputs
+    nix-stable build --impure --expr 'import ./ci.nix { pkgs = import (builtins.getFlake "nixpkgs") { }; }' cacheOutputs
 }
 
 def "main build" [...packages: string] {

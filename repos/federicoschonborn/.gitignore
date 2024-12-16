@@ -7,6 +7,9 @@ update-git-commits.txt
 *.log
 *.fetchlog
 
+# ?
+BiplanesRevival.*
+
 # Direnv
 .direnv
 

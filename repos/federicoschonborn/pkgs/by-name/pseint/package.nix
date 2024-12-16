@@ -8,6 +8,7 @@
   libglvnd,
   wxGTK32,
   xorg,
+  versionCheckHook,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -49,6 +50,12 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  nativeInstallCheckInputs = [ versionCheckHook ];
+
+  doInstallCheck = true;
+  # Uses the wrong version for some godforsaken reason.
+  dontVersionCheck = true;
 
   meta = {
     description = "A tool for learning programming basis with a simple Spanish pseudocode";

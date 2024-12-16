@@ -17,9 +17,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-+hzgRX0T0LhAcHHBdOp8Tlo2hO2gxt6wkHjulDHdZ1Q=";
   };
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
-
   makeFlags = [ "prefix=${placeholder "out"}" ];
+
+  nativeInstallCheckInputs = [ versionCheckHook ];
 
   doInstallCheck = true;
 

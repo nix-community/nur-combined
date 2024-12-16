@@ -2325,7 +2325,6 @@ A library that reads and writes GTA files, with interfaces in C and C++.
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Tests: `pkg-config`
 - Update Script: ✔️
 - `pkg-config` Modules: `gta.pc`
 </details>
@@ -2390,7 +2389,6 @@ Library for emitting text, XML, JSON, or HTML output.
   - [Federico Damián Schonborn](https://github.com/FedericoSchonborn) [✉️](mailto:federicoschonborn@disroot.org)
   - [✉️ Mail to all maintainers](mailto:federicoschonborn@disroot.org)
 - Outputs: **`out`**
-- Tests: `pkg-config`
 - Update Script: ✔️
 - `pkg-config` Modules: `libxo.pc`
 </details>
@@ -2521,7 +2519,7 @@ Phonon Backend using MPV Player.
 - Update Script: ✔️
 </details>
 
-### `plasma-camera` `1.0-unstable-2024-12-14` [🌐](https://invent.kde.org/plasma-mobile/plasma-camera "Homepage") [📦](./pkgs/by-name/plasma-camera/package.nix#L52 "Source")
+### `plasma-camera` `1.0-unstable-2024-12-16` [🌐](https://invent.kde.org/plasma-mobile/plasma-camera "Homepage") [📦](./pkgs/by-name/plasma-camera/package.nix#L52 "Source")
 
 Camera application for Plasma Mobile.
 
@@ -2542,7 +2540,7 @@ Camera application for Plasma Mobile.
 - Update Script: ✔️
 </details>
 
-### `pnut` `SLE2024-artifact-unstable-2024-11-04` [🌐](https://github.com/udem-dlteam/pnut "Homepage") [📦](./pkgs/by-name/pnut/package.nix#L44 "Source")
+### `pnut` `SLE2024-artifact-unstable-2024-12-16` [🌐](https://github.com/udem-dlteam/pnut "Homepage") [📦](./pkgs/by-name/pnut/package.nix#L44 "Source")
 
 A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 
@@ -2563,7 +2561,7 @@ A Self-Compiling C Transpiler Targeting Human-Readable POSIX Shell.
 - Update Script: ✔️
 </details>
 
-### `pseint` `20240122` [🌐](https://pseint.sourceforge.net/ "Homepage") [📦](./pkgs/by-name/pseint/package.nix#L54 "Source")
+### `pseint` `20240122` [🌐](https://pseint.sourceforge.net/ "Homepage") [📦](./pkgs/by-name/pseint/package.nix#L61 "Source")
 
 A tool for learning programming basis with a simple Spanish pseudocode.
 
@@ -2584,7 +2582,7 @@ A tool for learning programming basis with a simple Spanish pseudocode.
 - Update Script: ❌
 </details>
 
-### `qv` `5.2` [🌐](https://marlam.de/qv/ "Homepage") [📦](./pkgs/by-name/qv/package.nix#L50 "Source")
+### `qv` `5.2` [🌐](https://marlam.de/qv/ "Homepage") [📦](./pkgs/by-name/qv/package.nix#L52 "Source")
 
 A a viewer for 2D data such as images, sensor data, simulations, renderings and videos.
 

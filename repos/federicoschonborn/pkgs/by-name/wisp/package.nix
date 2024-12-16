@@ -24,8 +24,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ guile ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
-
   postPatch = ''
     patchShebangs bootstrap-reader.sh
   '';
@@ -36,6 +34,8 @@ stdenv.mkDerivation (finalAttrs: {
       --prefix GUILE_LOAD_PATH : "$out/${guile.siteDir}:$GUILE_LOAD_PATH" \
       --prefix GUILE_LOAD_COMPILED_PATH : "$out/${guile.siteCcacheDir}:$GUILE_LOAD_COMPILED_PATH"
   '';
+
+  nativeInstallCheckInputs = [ versionCheckHook ];
 
   doInstallCheck = true;
   dontVersionCheck = true;
