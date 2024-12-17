@@ -557,6 +557,14 @@ let
           persisted to disk to (1) reduce ram consumption and (2) massively improve loading speed.
         '';
       };
+      sandbox.tmpDir = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = ''
+          configure TMPDIR to some home-relative path when running the program.
+          useful if the program uses so much tmp space that you'd prefer to back it by disk instead of force it to stay in RAM.
+        '';
+      };
 
       sandbox.extraConfig = mkOption {
         type = types.listOf types.str;
@@ -607,8 +615,9 @@ let
 
       sandbox.whitelistDbus = lib.mkIf config.sandbox.whitelistSystemctl [ "system" ];
 
-      sandbox.extraEnv = lib.optionalAttrs (config.sandbox.mesaCacheDir != null) {
-        MESA_SHADER_CACHE_DIR = "$HOME/${config.sandbox.mesaCacheDir}";
+      sandbox.extraEnv = {
+        MESA_SHADER_CACHE_DIR = lib.mkIf (config.sandbox.mesaCacheDir != null) "$HOME/${config.sandbox.mesaCacheDir}";
+        TMPDIR = lib.mkIf (config.sandbox.tmpDir != null) "$HOME/${config.sandbox.tmpDir}";
       };
 
       sandbox.extraPaths =
@@ -714,6 +723,8 @@ let
         ++ lib.optionals (mainProgram != null) (whitelistDir ".local/share/${mainProgram}")
         ++ lib.optionals (config.sandbox.mesaCacheDir != null) [
           config.sandbox.mesaCacheDir
+        ] ++ lib.optionals (config.sandbox.tmpDir != null) [
+          config.sandbox.tmpDir
         ]
       ;
     };
@@ -790,6 +801,9 @@ let
           # persist the mesa cache to private storage by default;
           # but allow the user to override that.
           byPath."${p.sandbox.mesaCacheDir}".store = lib.mkDefault "private";
+        })
+        (lib.optionalAttrs (p.sandbox.tmpDir != null) {
+          byPath."${p.sandbox.tmpDir}".store = lib.mkDefault "ephemeral";
         })
       ];
     }) p.enableFor.user;

@@ -26,6 +26,16 @@ in
     # stock fractal once used to take 2+hr to link: switch back to fractal-nixified should that happen again
     # packageUnwrapped = pkgs.fractal-nixified.optimized;
 
+    configOption = with lib; mkOption {
+      default = {};
+      type = types.submodule {
+        options.autostart = mkOption {
+          type = types.bool;
+          default = true;
+        };
+      };
+    };
+
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [ "user" ];  # notifications
@@ -44,16 +54,7 @@ in
       "Videos/servo"
       "tmp"
     ];
-
-    configOption = with lib; mkOption {
-      default = {};
-      type = types.submodule {
-        options.autostart = mkOption {
-          type = types.bool;
-          default = true;
-        };
-      };
-    };
+    sandbox.tmpDir = ".cache/fractal/tmp";  # 10MB+ avatar caches (grows seemingly unbounded during runtime)
 
     persist.byStore.ephemeral = [
       ".cache/fractal" # ~3MB matrix-sdk-event-cache.sqlite3

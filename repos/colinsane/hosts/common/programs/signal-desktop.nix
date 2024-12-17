@@ -35,6 +35,8 @@ in
     #   ;
     # });
 
+    name = "Signal";  #< it places its files in ~/.config/Signal, etc
+
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus = [
@@ -54,6 +56,7 @@ in
       "Videos/servo"
       "tmp"
     ];
+    sandbox.tmpDir = ".cache/Signal/tmp";  # 60MB+ sqlite database(s)
 
     # persist.byStore.ephemeral = [
     #   ".cache/fontconfig"  # 1.3 MB  #< TODO: place the fontconfig cache in ~/.cache/Signal/fontconfig
