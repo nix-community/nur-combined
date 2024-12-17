@@ -255,6 +255,8 @@ in
       "Pictures/servo-macros"
     ] ++ addonHomePaths;
 
+    sandbox.tmpDir = "${cfg.browser.cacheDir}/tmp";
+
     mime.associations = let
       desktop = "${cfg.browser.browser.meta.mainProgram}.desktop";
     in {
