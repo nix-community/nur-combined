@@ -1,0 +1,26 @@
+diff --git a/root.go b/root.go
+index b71f28e..e7acdfa 100644
+--- a/root.go
++++ b/root.go
+@@ -29,8 +29,8 @@ var (
+ 	noSummary      bool
+ 	noRemediations bool
+ 
+-	linuxCisVersion   string
+-	cfgDir            string
++	linuxCisVersion   string    = "2.0.0"
++	cfgDir            string    = "./cfg"
+ 	cfgFile           string
+ 	checkList         string
+ 	jsonFmt           bool
+@@ -71,8 +71,8 @@ func init() {
+ 	RootCmd.PersistentFlags().BoolVar(&noResults, "noresults", false, "Disable printing of results section")
+ 	RootCmd.PersistentFlags().BoolVar(&noSummary, "nosummary", false, "Disable printing of summary section")
+ 	RootCmd.PersistentFlags().BoolVar(&noRemediations, "noremediations", false, "Disable printing of remediations section")
+-	RootCmd.Flags().StringVarP(&linuxCisVersion, "version", "", "2.0.0", "Specify linux cis version, automatically detected if unset")
+-	RootCmd.Flags().StringVarP(&cfgDir, "config-dir", "D", "cfg", "directory to get benchmark definitions")
++	RootCmd.Flags().StringVarP(&linuxCisVersion, "version", "", linuxCisVersion, "Specify linux cis version, automatically detected if unset")
++	RootCmd.Flags().StringVarP(&cfgDir, "config-dir", "D", cfgDir, "directory to get benchmark definitions")
+ 	RootCmd.PersistentFlags().BoolVar(&jsonFmt, "json", false, "Prints the results as JSON")
+ 	RootCmd.PersistentFlags().BoolVar(&includeTestOutput, "include-test-output", false, "Prints the test's output")
+ 	RootCmd.PersistentFlags().StringVar(&outputFile, "outputfile", "", "Writes the JSON results to output file")
