@@ -282,6 +282,9 @@
         "cryolitia": {
             "url": "https://github.com/Cryolitia/nur-packages"
         },
+        "cvtx": {
+            "url": "https://github.com/Cvtx/nur-packages"
+        },
         "cwyc": {
             "submodules": true,
             "url": "https://github.com/cwyc/nur-packages"
