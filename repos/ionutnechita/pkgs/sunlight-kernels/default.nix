@@ -26,7 +26,7 @@ buildLinux (args // rec {
     };
 
     extraMakeFlags = [
-	"KBUILD_BUILD_VERSION_TIMESTAMP=SUNLIGHT:${builtins.toString builtins.currentTime}"
+	"KBUILD_BUILD_VERSION_TIMESTAMP=SUNLIGHT"
     ];
 
     structuredExtraConfig = with lib.kernel; {
