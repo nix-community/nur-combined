@@ -113,7 +113,7 @@ buildNpmPackage rec {
   };
 
   meta = {
-    description = "A habit tracker app which treats your goals like a Role Playing Game";
+    description = "Habit tracker app which treats your goals like a Role Playing Game";
     homepage = "https://github.com/HabitRPG/habitica";
     license = with lib.licenses; [
       gpl3Only # Code
