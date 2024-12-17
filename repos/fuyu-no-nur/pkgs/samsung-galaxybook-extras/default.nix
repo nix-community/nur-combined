@@ -1,6 +1,6 @@
 {pkgs ? import <nixpkgs> {}}: let
-  inherit (pkgs) stdenv lib fetchFromGitHub linuxPackages_zen;
-  inherit (linuxPackages_zen) kernel;
+  inherit (pkgs) stdenv lib fetchFromGitHub linuxPackages;
+  inherit (linuxPackages) kernel;
 in
   stdenv.mkDerivation rec {
     pname = "samsung-galaxybook-extras";
