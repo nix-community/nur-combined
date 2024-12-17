@@ -58,5 +58,6 @@ buildGoModule rec {
     mainProgram = "EasyLPAC";
     license = licenses.mit;
     maintainers = with maintainers; [ yinfeng ];
+    broken = !(versionAtLeast (versions.majorMinor trivial.version) "24.11");
   };
 }
