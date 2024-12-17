@@ -1,0 +1,3 @@
+{
+  hostsblock = ./hostsblock;
+}
