@@ -413,10 +413,10 @@
         "nixpkgs": "nixpkgs_9"
       },
       "locked": {
-        "dirtyRev": "4fd5da9950c22813f800ec975f093fce5251e137-dirty",
-        "dirtyShortRev": "4fd5da9-dirty",
-        "lastModified": 1732645782,
-        "narHash": "sha256-dx2YlzTFRuYZ7M7ckoQE25Kfv+x/9X/BFuBgTsdk2I8=",
+        "dirtyRev": "51bab40b15ba14605d152d40fabcbdd0ecb4d053-dirty",
+        "dirtyShortRev": "51bab40-dirty",
+        "lastModified": 1734366363,
+        "narHash": "sha256-xSEf1rxZyeNmbrr0kkNYQP6ADw8RdeEecXcnhjxogig=",
         "type": "git",
         "url": "file:///home/elen/Src/flake.nix"
       },

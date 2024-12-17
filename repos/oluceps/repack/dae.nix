@@ -9,6 +9,7 @@
 reIf {
   environment.etc."dae/secret.dae".source = config.vaultix.secrets.dae.path;
 
+  # services.daed.enable = true;
   services.dae = {
     enable = true;
     disableTxChecksumIpGeneric = false;
@@ -78,7 +79,7 @@ reIf {
           fallback: all
       }
     '';
-    package = inputs'.dae.packages.dae-unstable;
+    # package = inputs'.dae.packages.dae-unstable;
     assetsPath = toString (
       pkgs.symlinkJoin {
         name = "dae-assets-nixy";
