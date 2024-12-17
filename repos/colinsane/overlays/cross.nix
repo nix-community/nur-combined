@@ -285,7 +285,7 @@ in with final; {
     cargo = crossCargo;  #< fixes openssl not being able to find its library
   };
 
-  # 2024/11/19: upstreaming is blocked on samba (via gnome-online-accounts)
+  # 2024/12/16: upstreaming is blocked on gnome-online-accounts
   evolution-data-server = prev.evolution-data-server.overrideAttrs (upstream: {
     cmakeFlags = upstream.cmakeFlags ++ [
       "-DCMAKE_CROSSCOMPILING_EMULATOR=${stdenv.hostPlatform.emulator buildPackages}"
@@ -401,7 +401,7 @@ in with final; {
   #   outputs = lib.remove "devdoc" upstream.outputs;
   # });
 
-  # 2024/11/19: upstreaming is blocked by samba (via gvfs)
+  # 2024/12/16: upstreaming is blocked by evolution-data-server (itself blocked on gnome-online-accounts)
   geary = prev.geary.overrideAttrs (upstream: {
     buildInputs = upstream.buildInputs ++ [
       # glib
@@ -454,12 +454,12 @@ in with final; {
   # });
 
   # 2024/05/08: fix: "meson.build:85:11: ERROR: Dependency "dbus-1" not found, tried pkgconfig".
-  # 2024/11/19: upstreaming is blocked on gvfs -> samba
-  gnome-online-accounts = mvToBuildInputs [ dbus ] prev.gnome-online-accounts;
+  # 2024/12/16: out for PR: <https://github.com/NixOS/nixpkgs/pull/365814>
+  # gnome-online-accounts = mvToBuildInputs [ dbus ] prev.gnome-online-accounts;
 
   gnome-settings-daemon = prev.gnome-settings-daemon.overrideAttrs (orig: {
-    # 2024/08/11: upstreaming is blocked on libgweather
-    #   gsd is required by xdg-desktop-portal-gtk
+    # 2024/12/16: upstreaming is blocked on poppler-glib (should be fixed in staging?)
+    # gsd is required by xdg-desktop-portal-gtk
     # pkg-config solves: "plugins/power/meson.build:22:0: ERROR: Dependency lookup for glib-2.0 with method 'pkgconfig' failed: Pkg-config binary for machine build machine not found."
     # stdenv.cc fixes: "plugins/power/meson.build:60:0: ERROR: No build machine compiler for 'plugins/power/gsd-power-enums-update.c'"
     # but then it fails with a link-time error.
@@ -477,23 +477,23 @@ in with final; {
   #   buildInputs = orig.buildInputs ++ [ pcre2 ];
   # });
 
-  # 2024/08/12: upstreaming is blocked on apache-httpd (via mod_dnssd)
+  # 2024/12/16: out for PR: <https://github.com/NixOS/nixpkgs/pull/365810>
   # gnome-user-share = addNativeInputs [ glib ] prev.gnome-user-share;
-  gnome-user-share = prev.gnome-user-share.overrideAttrs (upstream: {
-    postPatch = (upstream.postPatch or "") + ''
-      substituteInPlace meson.build --replace-fail \
-        "run_command([httpd, '-v']" \
-        "run_command(['${stdenv.hostPlatform.emulator buildPackages}', httpd, '-v']"
-    '';
-    # nativeBuildInputs = upstream.nativeBuildInputs ++ lib.optionals (!prev.stdenv.buildPlatform.canExecute prev.stdenv.hostPlatform) [
-    #   buildPackages.mesonEmulatorHook
-    # ];
+  # gnome-user-share = prev.gnome-user-share.overrideAttrs (upstream: {
+  #   postPatch = (upstream.postPatch or "") + ''
+  #     substituteInPlace meson.build --replace-fail \
+  #       "run_command([httpd, '-v']" \
+  #       "run_command(['${stdenv.hostPlatform.emulator buildPackages}', httpd, '-v']"
+  #   '';
+  #   # nativeBuildInputs = upstream.nativeBuildInputs ++ lib.optionals (!prev.stdenv.buildPlatform.canExecute prev.stdenv.hostPlatform) [
+  #   #   buildPackages.mesonEmulatorHook
+  #   # ];
 
-    nativeBuildInputs = upstream.nativeBuildInputs ++ [
-      # fixes: meson.build:111:6: ERROR: Program 'glib-compile-schemas' not found or not executable
-      buildPackages.glib
-    ];
-  });
+  #   nativeBuildInputs = upstream.nativeBuildInputs ++ [
+  #     # fixes: meson.build:111:6: ERROR: Program 'glib-compile-schemas' not found or not executable
+  #     buildPackages.glib
+  #   ];
+  # });
 
   # gnome = prev.gnome.overrideScope (self: super: {
   #   # 2024/05/31: upstreaming is blocked by a LOT: qtbase, qtsvg, webp-pixbuf-loader, libgweather, gnome-color-manager, appstream, apache-httpd, ibus
@@ -736,7 +736,7 @@ in with final; {
     zigBuildFlags = [ "-Dtarget=aarch64-linux-gnu" ];
   });
 
-  # 2024/08/12: upstreaming is blocked on apache-httpd (via gnome-user-share)
+  # 2024/12/16: upstreaming is blocked on poppler-glib, gnome-user-share
   nautilus = prev.nautilus.overrideAttrs (upstream: {
     mesonFlags = upstream.mesonFlags ++ [
       "-Dtests=none"  # v.s. `headless` for native compilation

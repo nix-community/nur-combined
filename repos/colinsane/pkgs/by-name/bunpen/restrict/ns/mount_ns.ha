@@ -30,6 +30,7 @@ fn isolate_paths(what: *restrict::resources) void = {
   // 2. create a new rootfs at `new` and bind stuff into it.
   // 3. then pivot a 2nd time, into `new` (and drop `old` altogether)
 
+  // errors::ext::check("[namespace] mount /tmp /tmp", rt::ext::mount("/tmp", "/tmp", "", rt::ext::mount_flag::BIND));
   errors::ext::check("[namespace] mount -t tmpfs tmpfs /tmp", rt::ext::mount("tmpfs", "/tmp", "tmpfs", rt::ext::mount_flag::NODEV | rt::ext::mount_flag::NOSUID, null));
 
   pivot_into("/tmp", "old");
@@ -77,7 +78,9 @@ fn isolate_paths(what: *restrict::resources) void = {
 
   // provide a new `/tmp` too.
   errors::ext::swallow("[namespace] mkdir new/tmp", rt::mkdir("new/tmp", 0o777));
-  errors::ext::swallow("[namespace] mount -t tmpfs tmpfs new/tmp", rt::ext::mount("tmpfs", "new/tmp", "tmpfs", 0, null));
+  // it doesn't actually *need* to be its own fs, since `/` is already a tmpfs.
+  // actually, keeping /tmp on the rootfs makes ram-usage debugging easier.
+  // errors::ext::swallow("[namespace] mount -t tmpfs tmpfs new/tmp", rt::ext::mount("tmpfs", "new/tmp", "tmpfs", 0, null));
 
   // some apps (e.g. signal-desktop) require /dev/shm.
   // /dev/shm is an ordinary tmpfs.
