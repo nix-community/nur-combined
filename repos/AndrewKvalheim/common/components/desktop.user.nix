@@ -74,12 +74,12 @@ in
   dconf.settings."org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
     name = "Activate screensaver";
     command = "dbus-send --session --dest=org.gnome.ScreenSaver --type=method_call '/org/gnome/ScreenSaver' 'org.gnome.ScreenSaver.SetActive' 'boolean:true'";
-    binding = "Favorites";
+    binding = "HangupPhone";
   };
   dconf.settings."org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
     name = "Emote";
     command = "${pkgs.emote}/bin/emote";
-    binding = "XF86Messenger";
+    binding = "Favorites";
   };
   dconf.settings."org/gnome/shell/extensions/paperwm" =
     let
@@ -182,7 +182,7 @@ in
     toggle-quick-settings = [ ];
   };
   xdg.configFile."run-or-raise/shortcuts.conf".text = ''
-    XF86Go,qalculate-gtk,qalculate-gtk,
+    XF86NotificationCenter,qalculate-gtk,qalculate-gtk,
     <Super>c,codium,VSCodium,
     <Super>f,firefox,firefox,
     <Super>n,obsidian,obsidian,

@@ -110,8 +110,6 @@ in
     shellAliases =
       (genAttrs [
         "git"
-        "http"
-        "https"
         "yt-dlp"
       ] (c: "noglob ${c}")) // {
         all-history = "fc -l -Di 0";
@@ -123,7 +121,8 @@ in
         e = "eza --all --group-directories-first --long --header --time-style long-iso";
         ffmpeg = "ffmpeg -hide_banner";
         ffprobe = "ffprobe -hide_banner";
-        inspect-certificate = "${pkgs.nmap}/bin/nmap -p 443 --script ssl-cert";
+        http = "noglob xh";
+        https = "noglob xhs";
         j = "just-local";
         lsblk = "lsblk --output 'name,type,uuid,label,size,fstype,mountpoints' --paths";
         mv = "mv --no-clobber --verbose";

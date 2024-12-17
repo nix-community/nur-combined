@@ -85,6 +85,7 @@ Bandera
 bartending
 BCC
 BDFL
+Bellingcat
 bento
 bikeshedding
 BIMI
@@ -347,6 +348,7 @@ ethnicities
 everyperson
 excludability
 excludable
+exhaustingly
 EXIF
 exiftool
 explorable
@@ -494,6 +496,7 @@ iCloud
 iconize
 iconized
 idempotence
+iFixit
 iframe
 iframes
 ignorable
@@ -698,6 +701,7 @@ Mountlake
 mountpoint
 mountpoints
 MozJPEG
+MQTT
 mSBC
 MSC
 MSR
@@ -899,6 +903,7 @@ Prezto
 probiotic
 probiotics
 productize
+ProPublica
 protobuf
 ProtonVPN
 proxied

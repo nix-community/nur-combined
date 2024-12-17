@@ -32,7 +32,7 @@ in
         "org.gnome.Evince.desktop" = [ "application/pdf" ];
         "org.gnome.FileRoller.desktop" = [ "application/zip" ];
         "org.gnome.Loupe.desktop" = [ "image/avif" "image/bmp" "image/gif" "image/heif" "image/jpeg" "image/png" "image/svg+xml" "image/tiff" "image/webp" ];
-        "org.gnome.Totem.desktop" = [ "video/mp4" "video/mp2t" "video/webm" "video/x-matroska" ];
+        "org.gnome.Totem.desktop" = [ "video/mp4" "video/mp2t" "video/vnd.avi" "video/webm" "video/x-matroska" ];
         "writer.desktop" = [ "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ];
       };
     };
@@ -74,7 +74,6 @@ in
       guetzli
       guvcview
       htop
-      httpie
       identity
       imagemagickBig
       img2pdf
@@ -109,6 +108,7 @@ in
       rsync
       s-tui
       sqlitebrowser
+      step-cli
       nodePackages.svgo
       trash-cli
       uniscribe
@@ -123,6 +123,7 @@ in
       whois
       wireguard-tools
       wl-clipboard
+      xh
       xkcdpass
       xorg.xev
       yq
@@ -149,7 +150,7 @@ in
       PYTHON_KEYRING_BACKEND = "keyring.backends.fail.Keyring"; # Workaround for python-poetry/poetry#8761
       VAGRANT_APT_CACHE = "http://10.0.2.3:3142";
     };
-    xdg.configFile."autostart/emote.desktop".source = "${pkgs.emote}/share/applications/emote.desktop";
+    xdg.configFile."autostart/com.tomjwatson.Emote.desktop".source = "${pkgs.emote}/share/applications/com.tomjwatson.Emote.desktop";
     xdg.configFile."cargo-release/release.toml".source = toTOML "release.toml" {
       push = false;
       publish = false;

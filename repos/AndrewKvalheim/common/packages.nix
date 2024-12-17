@@ -75,6 +75,7 @@ in
   };
   minemap = any;
   mozjpeg-simple = any;
+  mqtt-protobuf-to-json = any;
   nbt-explorer = any;
   nix-preview = any;
   off = any;
@@ -85,7 +86,6 @@ in
   spf-tree = any;
   tile-stitch = any;
   unln = any;
-  vagrant.withLibvirt = false; # Workaround for NixOS/nixpkgs#348938
   vscode-extensions = namespaced {
     bpruitt-goddard.mermaid-markdown-syntax-highlighting.search = open-vsx;
     compilouit.xkb.search = open-vsx;

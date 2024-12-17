@@ -75,6 +75,7 @@ rec {
   little-a-map = pkgs.callPackage ./packages/little-a-map.nix { };
   mark-applier = pkgs.callPackage ./packages/mark-applier.nix { };
   minemap = pkgs.callPackage ./packages/minemap.nix { };
+  mqtt-protobuf-to-json = pkgs.callPackage ./packages/mqtt-protobuf-to-json.nix { };
   nbt-explorer = pkgs.callPackage ./packages/nbt-explorer.nix { };
   pngquant-interactive = pkgs.callPackage ./packages/pngquant-interactive.nix { };
   spf-check = pkgs.callPackage ./packages/spf-check.nix { };
