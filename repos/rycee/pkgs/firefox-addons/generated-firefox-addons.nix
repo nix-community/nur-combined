@@ -1366,10 +1366,10 @@
     };
     "clearcache" = buildFirefoxXpiAddon {
       pname = "clearcache";
-      version = "4.1";
+      version = "4.0";
       addonId = "clearcache@michel.de.almeida";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4402452/clearcache-4.1.xpi";
-      sha256 = "17fd1b303c4dcfe672db295693d9d5028f005ac297b311310aa3804630eda3b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4240060/clearcache-4.0.xpi";
+      sha256 = "48ac3bae170fb6b411b3706f9a3aa5ad24309f8a9fd772c6310e5a9c066bdcb0";
       meta = with lib;
       {
         homepage = "https://github.com/TenSoja/clear-cache";
@@ -4017,22 +4017,16 @@
     };
     "history-cleaner" = buildFirefoxXpiAddon {
       pname = "history-cleaner";
-      version = "1.6.1";
+      version = "1.7.0";
       addonId = "{a138007c-5ff6-4d10-83d9-0afaf0efbe5e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4294373/history_cleaner-1.6.1.xpi";
-      sha256 = "81289812592d1b0d0a903b9bc567b2257c56558f3e29cb8a361613014a488f6b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4403189/history_cleaner-1.7.0.xpi";
+      sha256 = "9ea2580067ebb99273e5a5b1a68e3e647b8e057d7246a58c6512599c07fcf14d";
       meta = with lib;
       {
         homepage = "https://github.com/Rayquaza01/HistoryCleaner";
         description = "Deletes browsing history older than a specified number of days.";
         license = licenses.mit;
-        mozPermissions = [
-          "history"
-          "storage"
-          "idle"
-          "notifications"
-          "alarms"
-        ];
+        mozPermissions = [ "history" "storage" "idle" "alarms" ];
         platforms = platforms.all;
       };
     };
@@ -7460,10 +7454,10 @@
     };
     "metamask" = buildFirefoxXpiAddon {
       pname = "metamask";
-      version = "12.0.6";
+      version = "12.6.2";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4342782/ether_metamask-12.0.6.xpi";
-      sha256 = "a66e20bbe5ded1b9408420e4c2ffc82369cc3bfd27350afe25f2c0ef6b26ff3b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4392249/ether_metamask-12.6.2.xpi";
+      sha256 = "ca7b385559d7469ccca0454323f92f63d3aef5d68c504a46f818eb59bd735c74";
       meta = with lib;
       {
         description = "Ethereum Browser Extension";
@@ -7471,20 +7465,15 @@
           "storage"
           "unlimitedStorage"
           "clipboardWrite"
-          "http://localhost:8545/"
-          "https://*.infura.io/"
-          "https://*.codefi.network/"
-          "https://*.cx.metamask.io/"
-          "https://chainid.network/chains.json"
-          "https://lattice.gridplus.io/*"
+          "http://*/*"
+          "https://*/*"
           "activeTab"
           "webRequest"
+          "webRequestBlocking"
           "*://*.eth/"
           "notifications"
           "file://*/*"
-          "http://*/*"
-          "https://*/*"
-          "*://connect.trezor.io/*/popup.html"
+          "*://connect.trezor.io/*/popup.html*"
         ];
         platforms = platforms.all;
       };
@@ -8053,10 +8042,10 @@
     };
     "okta-browser-plugin" = buildFirefoxXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.35.0";
+      version = "6.36.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4377608/okta_browser_plugin-6.35.0.xpi";
-      sha256 = "987a8b029ed263fe0852ccc9c3f7a44a75449d48a41c0bac3bc9ec46f644ea03";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4402780/okta_browser_plugin-6.36.0.xpi";
+      sha256 = "8b0e1ed799b14c6cd18094c47acf449eecb675746fda89405d7a62bf9b485b53";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -8432,10 +8421,10 @@
     };
     "pay-by-privacy" = buildFirefoxXpiAddon {
       pname = "pay-by-privacy";
-      version = "2.4.5";
+      version = "2.4.6";
       addonId = "privacy@privacy.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4394133/pay_by_privacy-2.4.5.xpi";
-      sha256 = "235e0f83945bb4efdff532de33fc02ed6b37afa6ff82a91cc0f5d7f4a73cde34";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4406191/pay_by_privacy-2.4.6.xpi";
+      sha256 = "fe802bd0f6b0ee70f14f5c222026aed1e26db6b092085eb092127082f8f3d08d";
       meta = with lib;
       {
         homepage = "https://privacy.com";
@@ -12060,10 +12049,10 @@
     };
     "untrap-for-youtube" = buildFirefoxXpiAddon {
       pname = "untrap-for-youtube";
-      version = "8.0";
+      version = "8.3.1";
       addonId = "{2662ff67-b302-4363-95f3-b050218bd72c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4390944/untrap_for_youtube-8.0.xpi";
-      sha256 = "ff8fc1d974a012e51ebf7b90adf4dfc433974ec779a39bd933db77e23c79997b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4403100/untrap_for_youtube-8.3.1.xpi";
+      sha256 = "9dab0042653747fb81cecf23c20e8b6f42d4d11a98181ac9c316e76e80c65575";
       meta = with lib;
       {
         homepage = "http://untrap.app";
