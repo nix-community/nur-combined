@@ -195,25 +195,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "52da77e208a511120ac3d8ab81d73320f21c5bff";
+    version = "e327341c07a5eee70edd3b1226d3ef118f2df12e";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "52da77e208a511120ac3d8ab81d73320f21c5bff";
-      hash = "sha256-UZzzTTDmYwU1/e42O/BfuDxA0dAj5QPybPqd5PVDzqA=";
+      rev = "e327341c07a5eee70edd3b1226d3ef118f2df12e";
+      hash = "sha256-bHioCOcHlj8mO01R8ttbR+isKJuxX+yQRyPCsgDvyD0=";
     };
-    date = "2024-12-14";
+    date = "2024-12-17";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "198743d348baba0cdf2c83801266f523c7a60848";
+    version = "fb6cb08f225117d7dee1a317f358f76ff212e85f";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "198743d348baba0cdf2c83801266f523c7a60848";
-      hash = "sha256-UlgIFAdRGmPey6m7Lp9Kf3pjcVPcldTC+OOeHXHLMA0=";
+      rev = "fb6cb08f225117d7dee1a317f358f76ff212e85f";
+      hash = "sha256-NM36iQ7UsxTROg/44EkQ6ejQfIPP+lSplrMOeb/7LCQ=";
     };
-    date = "2024-12-16";
+    date = "2024-12-17";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -319,12 +319,12 @@
   };
   decluttarr = {
     pname = "decluttarr";
-    version = "v1.50.1";
+    version = "v1.50.2";
     src = fetchFromGitHub {
       owner = "ManiMatter";
       repo = "decluttarr";
-      tag = "v1.50.1";
-      hash = "sha256-/H5lZRTb9/bjRA4E1uOzoWPbSiCxbnMCfdGEWnNHPbw=";
+      tag = "v1.50.2";
+      hash = "sha256-62NdvCn2/AmSZiVklFwt40hRBOG4VuV+ubFAo3tCsmE=";
     };
   };
   dingtalk = {
@@ -419,14 +419,14 @@
   };
   fastapi-dls = {
     pname = "fastapi-dls";
-    version = "53c88a79ac9ff169b86fdf7330b8620a1b5b177d";
+    version = "c57d76c74c1c5038f026da9e0957464e2fdbeda7";
     src = fetchgit {
       url = "https://git.collinwebdesigns.de/oscar.krause/fastapi-dls.git";
-      rev = "53c88a79ac9ff169b86fdf7330b8620a1b5b177d";
+      rev = "c57d76c74c1c5038f026da9e0957464e2fdbeda7";
       fetchSubmodules = false;
-      hash = "sha256-ODzUT8RWm4D13WIY5Iib1BwPxWUuxiD7C3rB39EOzi0=";
+      hash = "sha256-fbMyxagvXkmdmfi0kUBp5u/9Zr991iOjZhWk1ifSo0w=";
     };
-    date = "2024-11-22";
+    date = "2024-12-16";
   };
   fastapi-dls-stable = {
     pname = "fastapi-dls-stable";
@@ -485,14 +485,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "5e7a8d1ccae80e54f2e2ecfffdf8e4294800b5c3";
+    version = "f921a7181855a356237667200330001597b2473a";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "5e7a8d1ccae80e54f2e2ecfffdf8e4294800b5c3";
-      hash = "sha256-q4TbJUfzrmXDNtcAx4Z5S7M1KSEnqJ17j8IsOZpcL8c=";
+      rev = "f921a7181855a356237667200330001597b2473a";
+      hash = "sha256-TVztyceeNpq2iH6G3E9OWD+BSb7ptGKWth5YMaf6Y1Q=";
     };
-    date = "2024-12-15";
+    date = "2024-12-17";
   };
   glauth = {
     pname = "glauth";
@@ -842,24 +842,24 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4333";
+    version = "b4338";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4333";
-      hash = "sha256-hVa+KMvBUI8ol0rfLqY88166U0ZRs2r9FP8H/BCVNFc=";
+      tag = "b4338";
+      hash = "sha256-VJdw3AhraxrospXlMBNZlMlPV32heYlYJvA/yn1P5K0=";
     };
   };
   loralib = {
     pname = "loralib";
-    version = "4c0333854cb905966f8cc4e9a74068c1e507c7b7";
+    version = "c4593f060e6a368d7bb5af5273b8e42810cdef90";
     src = fetchFromGitHub {
       owner = "microsoft";
       repo = "LoRA";
-      rev = "4c0333854cb905966f8cc4e9a74068c1e507c7b7";
-      hash = "sha256-zx2IXcQcLCuVytMhGDhYEZGAV7AuQ6QWlOPlueUZjzM=";
+      rev = "c4593f060e6a368d7bb5af5273b8e42810cdef90";
+      hash = "sha256-f0ZZYZyCtlpXwF9F+iVR4fjDQQMzXOnQGcF6xWzRshA=";
     };
-    date = "2024-01-09";
+    date = "2024-12-16";
   };
   lyrica = {
     pname = "lyrica";
@@ -881,12 +881,12 @@
   };
   mautrix-gmessages = {
     pname = "mautrix-gmessages";
-    version = "v0.5.2";
+    version = "v0.6.0";
     src = fetchFromGitHub {
       owner = "mautrix";
       repo = "gmessages";
-      tag = "v0.5.2";
-      hash = "sha256-3sx2XxzH/cj2zJIkV9QKKVadxSWwf4YZbdg3p4repqs=";
+      tag = "v0.6.0";
+      hash = "sha256-FNjFGO/4j3kLo79oU5fsYA2/yhc9cAsAGIAQ5OJ2VPE=";
     };
   };
   modelscope = {
@@ -1175,12 +1175,12 @@
   };
   ovpn-dco = {
     pname = "ovpn-dco";
-    version = "v0.2.20240712";
+    version = "v0.2.20241216";
     src = fetchFromGitHub {
       owner = "OpenVPN";
       repo = "ovpn-dco";
-      tag = "v0.2.20240712";
-      hash = "sha256-SjAp4rzi/DVm0QAFoRpFXwzuh04UJyQBRnfbyvjHgTo=";
+      tag = "v0.2.20241216";
+      hash = "sha256-Ifgo9dDNgjMxO6LQBSLuz2kWhP8cOkbdbWTHDuMVLzI=";
     };
   };
   palworld-exporter = {
@@ -1847,12 +1847,12 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "f8a81c0c630dc6ad1e5e6edb4eedd39544af4ba1";
+    version = "d6eb53be395bef4919d89e242ac5a3fb0a1ff71e";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "f8a81c0c630dc6ad1e5e6edb4eedd39544af4ba1";
-      hash = "sha256-FVCNjpHGeZYnCMXgh7iBZ/YXk+b/1Dl0qeLWBqYH7cU=";
+      rev = "d6eb53be395bef4919d89e242ac5a3fb0a1ff71e";
+      hash = "sha256-2yh6dZEjFYPiKgkbw9F2MvtJjmA+EosEJT2GPmcAiko=";
     };
     date = "2024-12-16";
   };
