@@ -4,6 +4,7 @@
     ./hardware/xpadneo.nix
     ./programs/bash/undistract-me.nix
     ./programs/gamemode.nix
+    ./services/bluetooth-autoconnect.nix
     ./services/habitica.nix
   ];
 
@@ -12,6 +13,7 @@
     "hardware/xpadneo.nix"
     "programs/bash/undistract-me.nix"
     "programs/gamemode.nix"
+    "services/bluetooth-autoconnect.nix"
     "services/habitica.nix"
   ];
 
