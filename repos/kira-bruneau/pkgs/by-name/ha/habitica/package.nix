@@ -41,7 +41,7 @@ buildNpmPackage rec {
   src = fetchFromGitHub {
     owner = "HabitRPG";
     repo = "habitica";
-    rev = "v${version}";
+    tag = "v${version}";
     hash = "sha256-Ij+3D2Klt/eAOCdJ16+0olqXYCYHC4oALUAwTa/+43w=";
   };
 
