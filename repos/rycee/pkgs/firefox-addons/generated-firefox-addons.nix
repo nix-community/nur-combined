@@ -1063,10 +1063,10 @@
     };
     "browserpass" = buildFirefoxXpiAddon {
       pname = "browserpass";
-      version = "3.8.0";
+      version = "3.9.0";
       addonId = "browserpass@maximbaz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4187654/browserpass_ce-3.8.0.xpi";
-      sha256 = "5291d94443be41a80919605b0939c16cc62f9100a8b27df713b735856140a9a7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4406417/browserpass_ce-3.9.0.xpi";
+      sha256 = "514c1a606d7bc82045d21bcbc6e5b1e5007446ab32aa01f0f17fbe0bde03ef0c";
       meta = with lib;
       {
         homepage = "https://github.com/browserpass/browserpass-extension";
@@ -1284,10 +1284,10 @@
     };
     "catppuccin-gh-file-explorer" = buildFirefoxXpiAddon {
       pname = "catppuccin-gh-file-explorer";
-      version = "0.12.0";
+      version = "0.12.1";
       addonId = "{bbb880ce-43c9-47ae-b746-c3e0096c5b76}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4369870/catppuccin_gh_file_explorer-0.12.0.xpi";
-      sha256 = "f788efd703da24b135e0e1d00478f6c921807591005d281e3eeb6aaab5d338a5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4406641/catppuccin_gh_file_explorer-0.12.1.xpi";
+      sha256 = "0962447ef6d86877af014b1b4b9c46f7cdc1adc31a50630dd1b0d7ce3e9fdaf3";
       meta = with lib;
       {
         homepage = "https://github.com/catppuccin/github-file-explorer-icons";
@@ -1651,10 +1651,10 @@
     };
     "codecov" = buildFirefoxXpiAddon {
       pname = "codecov";
-      version = "0.4.11";
+      version = "0.5.1";
       addonId = "{f3924b0d-e29f-4593-b605-084b3d71ed9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4391162/codecov-0.4.11.xpi";
-      sha256 = "b73015cee08329cd31f9d8de584c60e3795597115e7b575bea2d356272b5a539";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4406476/codecov-0.5.1.xpi";
+      sha256 = "1e3c832b6d2aa152187790394d7bebb606ecdd51392318d49c9e6e7d89883fdf";
       meta = with lib;
       {
         homepage = "https://about.codecov.io";
@@ -2113,10 +2113,10 @@
     };
     "darkreader" = buildFirefoxXpiAddon {
       pname = "darkreader";
-      version = "4.9.97";
+      version = "4.9.99";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4403051/darkreader-4.9.97.xpi";
-      sha256 = "32ba95331d99f07db48bd2dfd9c715010ec450b84494dec07e2954cdcf7fa447";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4405074/darkreader-4.9.99.xpi";
+      sha256 = "02c67ce2b3cd96719b5e369b9207ef11ed6c3a79eccb454d1e6ec3e005004e72";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -7562,10 +7562,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.7.4";
+      version = "1.7.5";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4405728/mtab-1.7.4.xpi";
-      sha256 = "be8591a711f587bd600b691e981833193ccf4db94d92a194a852523184d77f44";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4406706/mtab-1.7.5.xpi";
+      sha256 = "f5dfe4c7f428778940c5ab996e4d4787dcfdb9a05e99fe3905ff617992b493cf";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
@@ -9849,10 +9849,10 @@
     };
     "remove-youtube-s-suggestions" = buildFirefoxXpiAddon {
       pname = "remove-youtube-s-suggestions";
-      version = "4.3.61";
+      version = "4.3.62";
       addonId = "{21f1ba12-47e1-4a9b-ad4e-3a0260bbeb26}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4405243/remove_youtube_s_suggestions-4.3.61.xpi";
-      sha256 = "d0b63cd2ba37a58c2a28ed2aed1fd455d6c0f150faf292b8348d22153e1879fe";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4406717/remove_youtube_s_suggestions-4.3.62.xpi";
+      sha256 = "e978bbb663c089a86947780290a1e9ac107a8233dd0943aa8668b15108d4b1a0";
       meta = with lib;
       {
         homepage = "https://lawrencehook.com/rys/";
