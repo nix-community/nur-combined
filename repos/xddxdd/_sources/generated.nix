@@ -140,20 +140,20 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "v1.15.2-2";
+    version = "v1.16.1-1";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.15.2-2/bilibili-asar-v1.15.2-2.tar.gz";
-      hash = "sha256-0xBegfw3ScfxyoQ8SjeLY3gzPL0SqPzkp77ZmC48heg=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.16.1-1/bilibili-asar-v1.16.1-1.tar.gz";
+      hash = "sha256-urZg0P/jM5gj/Z+AjdR0SbF4PESWD4+VfIZ6xNAIpT4=";
     };
   };
   bilibili-src = {
     pname = "bilibili-src";
-    version = "v1.15.2-2";
+    version = "v1.16.1-1";
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      tag = "v1.15.2-2";
-      hash = "sha256-ldzh0Jf/5N88DGAENAFS38yaWnZlp8w/K3pb7ijo8bQ=";
+      tag = "v1.16.1-1";
+      hash = "sha256-DvHzDJcDtXlGmC5n8G72rMXKXIk6+F0uZP0izB35Hdc=";
     };
   };
   bird-lg-go = {
@@ -736,14 +736,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "51708b699ed35f20d7180b1ecb81c5e6fb71aee9";
+    version = "416778ecc2cd246d02c5684486a7a2489a9d8fbf";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "51708b699ed35f20d7180b1ecb81c5e6fb71aee9";
-      hash = "sha256-fuVntaPNrtAVsc6D58AVvxELJdVXJbaNFeYHahtXuv8=";
+      rev = "416778ecc2cd246d02c5684486a7a2489a9d8fbf";
+      hash = "sha256-ac3glAOBE1Cpz+Fx+13koiNbOzn6OAjh7If37pIbroo=";
     };
-    date = "2024-12-13";
+    date = "2024-12-17";
   };
   libqcef = {
     pname = "libqcef";
@@ -842,12 +842,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4338";
+    version = "b4351";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4338";
-      hash = "sha256-VJdw3AhraxrospXlMBNZlMlPV32heYlYJvA/yn1P5K0=";
+      tag = "b4351";
+      hash = "sha256-L2DMPXv4ZwwtHu/1HNZss7EzyRgPI4nJkYjCb+kdgy4=";
     };
   };
   loralib = {
@@ -1539,10 +1539,10 @@
   };
   rime-zhwiki = {
     pname = "rime-zhwiki";
-    version = "20240909";
+    version = "20241218";
     src = fetchurl {
-      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.5/zhwiki-20240909.dict.yaml";
-      hash = "sha256-ZQ8orW7jEbPtOEvYYxdnTJGTwdXVZBEWjUMYR93vOCE=";
+      url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.5/zhwiki-20241218.dict.yaml";
+      hash = "sha256-nA/Imd+WVZTF0vF59D9W8JRuOQRHRpni2UTGHUByiQI=";
     };
   };
   rootutils = {
@@ -1847,14 +1847,14 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "d6eb53be395bef4919d89e242ac5a3fb0a1ff71e";
+    version = "375348814f21bec9bed81e5e46067af336f2b738";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "d6eb53be395bef4919d89e242ac5a3fb0a1ff71e";
-      hash = "sha256-2yh6dZEjFYPiKgkbw9F2MvtJjmA+EosEJT2GPmcAiko=";
+      rev = "375348814f21bec9bed81e5e46067af336f2b738";
+      hash = "sha256-/Ywj6nqXSqkhHm9PvbFWJEx4bWj2Bx0DmeHk28cwJos=";
     };
-    date = "2024-12-16";
+    date = "2024-12-18";
   };
   unigine-heaven = {
     pname = "unigine-heaven";

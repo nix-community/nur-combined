@@ -272,11 +272,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-0xBegfw3ScfxyoQ8SjeLY3gzPL0SqPzkp77ZmC48heg=",
+            "sha256": "sha256-urZg0P/jM5gj/Z+AjdR0SbF4PESWD4+VfIZ6xNAIpT4=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.15.2-2/bilibili-asar-v1.15.2-2.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.16.1-1/bilibili-asar-v1.16.1-1.tar.gz"
         },
-        "version": "v1.15.2-2"
+        "version": "v1.16.1-1"
     },
     "bilibili-src": {
         "cargoLocks": null,
@@ -292,12 +292,12 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.15.2-2",
-            "sha256": "sha256-ldzh0Jf/5N88DGAENAFS38yaWnZlp8w/K3pb7ijo8bQ=",
+            "rev": "v1.16.1-1",
+            "sha256": "sha256-DvHzDJcDtXlGmC5n8G72rMXKXIk6+F0uZP0izB35Hdc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.15.2-2"
+        "version": "v1.16.1-1"
     },
     "bird-lg-go": {
         "cargoLocks": null,
@@ -1428,7 +1428,7 @@
     },
     "liboqs-unstable": {
         "cargoLocks": null,
-        "date": "2024-12-13",
+        "date": "2024-12-17",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -1440,12 +1440,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "51708b699ed35f20d7180b1ecb81c5e6fb71aee9",
-            "sha256": "sha256-fuVntaPNrtAVsc6D58AVvxELJdVXJbaNFeYHahtXuv8=",
+            "rev": "416778ecc2cd246d02c5684486a7a2489a9d8fbf",
+            "sha256": "sha256-ac3glAOBE1Cpz+Fx+13koiNbOzn6OAjh7If37pIbroo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "51708b699ed35f20d7180b1ecb81c5e6fb71aee9"
+        "version": "416778ecc2cd246d02c5684486a7a2489a9d8fbf"
     },
     "libqcef": {
         "cargoLocks": null,
@@ -1646,12 +1646,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b4338",
-            "sha256": "sha256-VJdw3AhraxrospXlMBNZlMlPV32heYlYJvA/yn1P5K0=",
+            "rev": "b4351",
+            "sha256": "sha256-L2DMPXv4ZwwtHu/1HNZss7EzyRgPI4nJkYjCb+kdgy4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b4338"
+        "version": "b4351"
     },
     "loralib": {
         "cargoLocks": null,
@@ -3018,11 +3018,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ZQ8orW7jEbPtOEvYYxdnTJGTwdXVZBEWjUMYR93vOCE=",
+            "sha256": "sha256-nA/Imd+WVZTF0vF59D9W8JRuOQRHRpni2UTGHUByiQI=",
             "type": "url",
-            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.5/zhwiki-20240909.dict.yaml"
+            "url": "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.5/zhwiki-20241218.dict.yaml"
         },
-        "version": "20240909"
+        "version": "20241218"
     },
     "rootutils": {
         "cargoLocks": null,
@@ -3614,7 +3614,7 @@
     },
     "uni-api": {
         "cargoLocks": null,
-        "date": "2024-12-16",
+        "date": "2024-12-18",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -3626,12 +3626,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "d6eb53be395bef4919d89e242ac5a3fb0a1ff71e",
-            "sha256": "sha256-2yh6dZEjFYPiKgkbw9F2MvtJjmA+EosEJT2GPmcAiko=",
+            "rev": "375348814f21bec9bed81e5e46067af336f2b738",
+            "sha256": "sha256-/Ywj6nqXSqkhHm9PvbFWJEx4bWj2Bx0DmeHk28cwJos=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d6eb53be395bef4919d89e242ac5a3fb0a1ff71e"
+        "version": "375348814f21bec9bed81e5e46067af336f2b738"
     },
     "unigine-heaven": {
         "cargoLocks": null,
