@@ -17,8 +17,6 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-F518ErI6ByKozMshiQSN2RVZTEI7+YWGK+cBc32+TDM=";
   };
 
-  pyproject = true;
-
   patches = [
     (toFile "pep-518.patch" ''
       --- /dev/null
@@ -75,6 +73,7 @@ python3Packages.buildPythonApplication rec {
     '')
   ];
 
+  pyproject = true;
   build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
