@@ -128,11 +128,11 @@
     algorithm = "zstd";
   };
 
-  nix.gc = {
-    # automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 10d";
-  };
+  # nix.gc = {
+  # automatic = true;
+  #   dates = "weekly";
+  #   options = "--delete-older-than 10d";
+  # };
   programs.fish.loginShellInit = ''
     ${pkgs.openssh}/bin/ssh-add ${config.vaultix.secrets.id.path}
   '';
