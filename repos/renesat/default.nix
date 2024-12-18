@@ -26,12 +26,15 @@
   packages = rec {
     daqp = pkgs.callPackage ./pkgs/daqp {};
     imap-backup = pkgs.callPackage ./pkgs/imap-backup {};
+    vl-convert = pkgs.callPackage ./pkgs/vl-convert {};
 
     aiolinkding = pkgs.python3Packages.callPackage ./pkgs/aiolinkding {};
     arro3-core = pkgs.python3Packages.callPackage ./pkgs/arro3-core {};
     linkding-cli = pkgs.python3Packages.callPackage ./pkgs/linkding-cli {inherit aiolinkding;};
     vegafusion = pkgs.python3Packages.callPackage ./pkgs/vegafusion {inherit arro3-core;};
-    vl-convert-python = pkgs.python3Packages.callPackage ./pkgs/vl-convert-python {};
+    vl-convert-python = pkgs.python3Packages.callPackage ./pkgs/vl-convert-python {
+      inherit vl-convert;
+    };
   };
   supportedSystem = _: pkg: builtins.elem system pkg.meta.platforms;
 in

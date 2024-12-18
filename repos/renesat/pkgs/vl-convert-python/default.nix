@@ -1,8 +1,7 @@
 {
-  fetchFromGitHub,
+  vl-convert,
   rustPlatform,
   buildPythonPackage,
-  callPackage,
   protobuf,
   pytestCheckHook,
   scikit-image,
@@ -12,12 +11,7 @@ buildPythonPackage rec {
   version = "1.7.0";
   format = "pyproject";
 
-  src = fetchFromGitHub {
-    owner = "vega";
-    repo = "vl-convert";
-    rev = "v${version}";
-    hash = "sha256-dmfY05i5nCiM2felvBcSuVyY8G70HhpJP3KrRGQ7wq8=";
-  };
+  inherit (vl-convert) src;
 
   buildAndTestSubdir = "vl-convert-python";
 
@@ -46,5 +40,5 @@ buildPythonPackage rec {
     "vl-convert-python/tests/test_specs.py"
   ];
 
-  RUSTY_V8_ARCHIVE = callPackage ./librusty_v8.nix {};
+  inherit (vl-convert) RUSTY_V8_ARCHIVE;
 }
