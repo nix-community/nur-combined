@@ -75,6 +75,7 @@ in
   };
   minemap = any;
   mozjpeg-simple = any;
+  mqtt-connect = any;
   mqtt-protobuf-to-json = any;
   nbt-explorer = any;
   nix-preview = any;

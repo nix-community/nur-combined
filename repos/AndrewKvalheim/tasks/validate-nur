@@ -12,7 +12,7 @@ for channel in 'unstable' 'nixpkgs'; do
     --option restrict-eval 'true'
     -I './'
     -I "$channel=$(realpath "$(nix-instantiate --find-file "$channel")")"
-    --arg 'pkgs' "import <$channel> { overlays = [ ]; }"
+    --arg 'pkgs' "import <$channel> { config.allowUnfree = true; overlays = [ ]; }"
   )
 
   nix-env "${nix_args[@]}" --file 'nur.nix' --query '*' --available --meta --json \
