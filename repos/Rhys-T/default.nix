@@ -38,8 +38,8 @@ in {
     allegro5 = let
         needsMacPatch =
             pkgs.hostPlatform.isDarwin &&
-            (builtins.compareVersions pkgs.hostPlatform.darwinMinVersion "11.0") < 0 &&
-            (builtins.compareVersions pkgs.allegro5.version "5.2.10.0") >= 0
+            pkgs.lib.versionOlder pkgs.hostPlatform.darwinMinVersion "11.0" &&
+            pkgs.lib.versionAtLeast pkgs.allegro5.version "5.2.10.0"
         ;
     in pkgs.allegro5.overrideAttrs (old: {
         patches = (old.patches or []) ++ pkgs.lib.optionals needsMacPatch [

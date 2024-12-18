@@ -11,7 +11,7 @@ let
     }@args:
         let
             options = callPackage ./options.nix { };
-            isAtLeast37 = (builtins.compareVersions "37a" version) <= 0;
+            isAtLeast37 = lib.versionAtLeast version "37a";
             inherit (stdenv) hostPlatform;
             inherit (hostPlatform) isDarwin isLinux;
             targetCodes = {

@@ -1,5 +1,5 @@
 { stdenv, lib, symlinkJoin, makeBinaryWrapper, autoPatchelfHook, fetchFromGitHub, writeText, lua5_1, SDL2, SDL2_image, SDL2_mixer, SDL2_ttf, ncurses, darwin, fpc, drl-common }: let
-    libExt = if stdenv.hostPlatform.isDarwin then "dylib" else "so";
+    libExt = stdenv.hostPlatform.extensions.sharedLibrary;
     version = "0.9.9.8a";
     gitShortRev = "97f1c51";
     rev = builtins.replaceStrings ["."] ["_"] version;
@@ -57,18 +57,18 @@ in stdenv.mkDerivation rec {
             --replace-fail 'os.execute_in_dir( "makewad", "bin" )' 'os.execute("${stdenv.shell} -c \". ${stdenv}/setup; autoPatchelf bin/makewad\""); os.execute_in_dir( "makewad", "bin" )'
         ''}
         substituteInPlace "$FPCVALKYRIE_ROOT"/libs/vlualibrary.pas \
-            --replace-fail 'lua5.1.${libExt}' '${lib.getLib lua5_1}/lib/${if stdenv.hostPlatform.isDarwin then "liblua.5.1.dylib" else "liblua.so.5.1"}'
+            --replace-fail 'lua5.1${libExt}' '${lib.getLib lua5_1}/lib/${if stdenv.hostPlatform.isDarwin then "liblua.5.1.dylib" else "liblua.so.5.1"}'
         substituteInPlace "$FPCVALKYRIE_ROOT"/libs/vsdl2library.pas \
-            --replace-fail '${if stdenv.hostPlatform.isDarwin then "SDL2.framework/SDL2" else "libSDL2-2.0.so.0"}' '${lib.getLib SDL2}/lib/libSDL2.${libExt}' \
+            --replace-fail '${if stdenv.hostPlatform.isDarwin then "SDL2.framework/SDL2" else "libSDL2-2.0.so.0"}' '${lib.getLib SDL2}/lib/libSDL2${libExt}' \
             --replace-fail '{$linklib SDLmain}' '{.$linklib SDL2main}' \
             --replace-fail '{$linkframework SDL}' '{$linklib SDL2}' \
             --replace-fail '{$PASCALMAINNAME SDL_main}' '{.$PASCALMAINNAME SDL_main}'
         substituteInPlace "$FPCVALKYRIE_ROOT"/libs/vsdl2imagelibrary.pas \
-            --replace-fail '${if stdenv.hostPlatform.isDarwin then "SDL2_image.framework/SDL_image" else "libSDL2_image-2.0.so.0"}' '${lib.getLib SDL2_image}/lib/libSDL2_image.${libExt}'
+            --replace-fail '${if stdenv.hostPlatform.isDarwin then "SDL2_image.framework/SDL_image" else "libSDL2_image-2.0.so.0"}' '${lib.getLib SDL2_image}/lib/libSDL2_image${libExt}'
         substituteInPlace "$FPCVALKYRIE_ROOT"/libs/vsdl2mixerlibrary.pas \
-            --replace-fail '${if stdenv.hostPlatform.isDarwin then "SDL2_mixer.framework/SDL2_mixer" else "libSDL2_mixer-2.0.so.0"}' '${lib.getLib SDL2_mixer}/lib/libSDL2_mixer.${libExt}'
+            --replace-fail '${if stdenv.hostPlatform.isDarwin then "SDL2_mixer.framework/SDL2_mixer" else "libSDL2_mixer-2.0.so.0"}' '${lib.getLib SDL2_mixer}/lib/libSDL2_mixer${libExt}'
         substituteInPlace "$FPCVALKYRIE_ROOT"/libs/vsdl2ttflibrary.pas \
-            --replace-fail '${if stdenv.hostPlatform.isDarwin then "SDL2_ttf.framework/SDL2_ttf" else "libSDL2_ttf-2.0.so.0"}' '${lib.getLib SDL2_ttf}/lib/libSDL2_ttf.${libExt}'
+            --replace-fail '${if stdenv.hostPlatform.isDarwin then "SDL2_ttf.framework/SDL2_ttf" else "libSDL2_ttf-2.0.so.0"}' '${lib.getLib SDL2_ttf}/lib/libSDL2_ttf${libExt}'
     '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
         NIX_LDFLAGS+=" -F$DEVELOPER_DIR/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks"
         NIX_LDFLAGS+=" -L$DEVELOPER_DIR/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib"

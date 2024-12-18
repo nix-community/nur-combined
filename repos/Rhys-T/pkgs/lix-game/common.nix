@@ -23,10 +23,10 @@
         maintainers = [maintainers.Rhys-T];
     };
     patchEnetBindings = let
-        libExtension = if hostPlatform.isDarwin then "dylib" else "so";
+        libExtension = hostPlatform.extensions.sharedLibrary;
     in ''
         for file in "$DUB_HOME"/packages/derelict-enet/*/derelict-enet/source/derelict/enet/enet.d; do
-            substituteInPlace "$file" --replace-fail '"libenet.${libExtension}"' '"${lib.getLib enet}/lib/libenet.${libExtension}"'
+            substituteInPlace "$file" --replace-fail '"libenet${libExtension}"' '"${lib.getLib enet}/lib/libenet${libExtension}"'
         done
     '';
 }
