@@ -14,8 +14,8 @@
 
     msmtp
 
-    unstable.whatsapp-for-linux
-    unstable.signal-desktop
+#    unstable.whatsapp-for-linux
+#    unstable.signal-desktop
     tdesktop
     v4l-utils
 
@@ -23,13 +23,13 @@
     #rustdesk
     # teams
 
-    unstable.srain #IRC
-    unstable.tuba # Mastodon
+#    unstable.srain #IRC
+#    unstable.tuba # Mastodon
 
-    discord
+#    discord
 
 
 
-    unstable.himalaya
+#    unstable.himalaya
   ];
 }

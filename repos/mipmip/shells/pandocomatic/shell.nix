@@ -1,7 +1,10 @@
-with (import <nixpkgs> {});
+{ pkgs ? import <nixpkgs> { } }:
+with pkgs;
+
 mkShell {
   buildInputs = [
     ruby_2_7
+    pandoc
   ];
   shellHook = ''
     mkdir -p .nix-gems

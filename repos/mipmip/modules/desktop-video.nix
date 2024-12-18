@@ -2,7 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
-    openshot-qt
+#    openshot-qt
     x264
     ffmpeg
     vlc

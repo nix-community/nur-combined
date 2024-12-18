@@ -7,7 +7,9 @@
     pandoc
 
     quarto
+    librsvg
     jupyter
+
     python311Packages.numpy
   ];
 }

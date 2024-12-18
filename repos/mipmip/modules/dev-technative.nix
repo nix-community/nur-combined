@@ -6,12 +6,12 @@
   environment.systemPackages = with pkgs; [
 
     # DIAGRAM
-    drawio
+#    drawio
     graphviz
 
     # OFFICE365
-    onedrivegui
-    onedrive
+#    onedrivegui
+#    onedrive
 
     # SHELL
     gum
@@ -27,13 +27,13 @@
     pinentry-gtk2
     pass
 
-    unstable.nickel
-    dhall
+#    unstable.nickel
+#    dhall
 
     attic-client
 
     vscode
-    unstable.dbgate
+#    unstable.dbgate
 
     # AWS
     cw # cloudwatch in the terminal

@@ -4,3 +4,4 @@ pkgs/result
 shells/pandocomatic/pandotemp.html
 *.qcow2
 result
+.nix-gems-pandocomatic

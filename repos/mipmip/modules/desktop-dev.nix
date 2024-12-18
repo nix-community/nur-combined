@@ -6,11 +6,11 @@
 
     # terminals
     dialog
-    gnome.zenity
-    foot
+#    gnome.zenity
+#    foot
 
     xclip
-    xorg.xkill
+#    xorg.xkill
 
     appimage-run
 
@@ -22,11 +22,11 @@
     unstable.hugo # needed for linny
 
     #TRANSLATION TOOLS
-    poedit
-    intltool
+#    poedit
+#    intltool
 
 
-    super-productivity
+#    super-productivity
   ];
 
 

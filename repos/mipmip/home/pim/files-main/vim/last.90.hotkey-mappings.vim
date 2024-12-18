@@ -45,7 +45,7 @@ function! Saveas()
 endfunction
 
 function! PandocMakePDF()
- exe ":AsyncRun fred process_functions -d % | sed 's/\\\[\\\[.*\\\]\\\]//g' > /tmp/pandotemp.md && cd ~/nixos/shells/pandocomatic && nix-shell --run 'bundle exec pandocomatic -b -i /tmp/pandotemp.md'"
+ exe ":AsyncRun fred process_functions -d % | sed 's/\\\[\\\[.*\\\]\\\]//g' > /tmp/pandotemp.md && cd ~/nixos/shells/pandocomatic && nix develop --command bash -c " .'"'."'bundle exec pandocomatic -b -i /tmp/pandotemp.md'".'"'
 endfunction
 
 function! OpenPandocPDF()

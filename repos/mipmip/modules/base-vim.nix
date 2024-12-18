@@ -13,7 +13,6 @@
     git-sync
     gitFull
 
-    #unstable.neovim
 
     #language servers
     sqls
@@ -25,7 +24,10 @@
     nodePackages.bash-language-server
     sumneko-lua-language-server
 
-    tree-sitter
+
+    unstable.neovim
+    unstable.nil
+    unstable.tree-sitter
 
     rust-analyzer
     cargo
