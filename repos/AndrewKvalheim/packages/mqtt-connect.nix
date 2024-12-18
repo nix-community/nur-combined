@@ -65,10 +65,9 @@ python3Packages.buildPythonApplication rec {
     (toFile "log-level.patch" ''
       --- a/mqtt-connect.py
       +++ b/mqtt-connect.py
-      @@ -19,0 +20 @@
-      +import os
-      @@ -43 +44 @@
+      @@ -43 +43,2 @@
       -debug: bool = False
+      +import os
       +debug: bool = os.getenv("DEBUG", "0") == "1"
     '')
   ];
