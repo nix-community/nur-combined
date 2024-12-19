@@ -28,6 +28,16 @@ let
         '';
       };
 
+      custom = mkOption {
+        type = with types;
+          let primitive = oneOf [ bool int float str ];
+          in types.attrsOf primitive;
+        default = { };
+        description = ''
+          The <option>:custom</option> setting.
+        '';
+      };
+
       defer = mkOption {
         type = types.either types.bool types.ints.positive;
         default = false;
@@ -205,6 +215,20 @@ let
 
         mkAfter = vs: optional (vs != [ ]) ":after (${toString vs})";
         mkCommand = vs: optional (vs != [ ]) ":commands (${toString vs})";
+        mkCustomHelper = mapAttrsToList (n: v:
+          let
+            mkValue = v:
+              if isBool v then
+                (if v then "t" else "nil")
+              else if isInt v || isFloat v then
+                toString v
+              else if isString v then
+                v
+              else
+                throw "Unsupported custom value: ${toString v}";
+          in "(${n} ${mkValue v})");
+        mkCustom = cs:
+          optionals (cs != { }) ([ ":custom" ] ++ mkCustomHelper cs);
         mkDefines = vs: optional (vs != [ ]) ":defines (${toString vs})";
         mkDiminish = vs: optional (vs != [ ]) ":diminish (${toString vs})";
         mkMode = map (v: ":mode ${v}");
@@ -229,7 +253,7 @@ let
         ++ mkDefer config.defer ++ mkDefines config.defines
         ++ mkFunctions config.functions ++ mkDemand config.demand
         ++ mkDiminish config.diminish ++ mkHook config.hook
-        ++ mkMode config.mode
+        ++ mkMode config.mode ++ mkCustom config.custom
         ++ optionals (config.init != "") [ ":init" config.init ]
         ++ optionals (config.config != "") [ ":config" config.config ]
         ++ optional (config.extraConfig != "") config.extraConfig) + ")";

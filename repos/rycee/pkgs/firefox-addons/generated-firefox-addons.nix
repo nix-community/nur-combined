@@ -354,6 +354,27 @@
         platforms = platforms.all;
       };
     };
+    "archivebox-exporter" = buildFirefoxXpiAddon {
+      pname = "archivebox-exporter";
+      version = "1.3.1";
+      addonId = "archivebox@tjhorner.dev";
+      url = "https://addons.mozilla.org/firefox/downloads/file/3865261/archivebox_exporter-1.3.1.xpi";
+      sha256 = "b50223ee208308c40ed6d96c24c7ea2085f956fe45bbe0b1aed9a837a6af73b2";
+      meta = with lib;
+      {
+        homepage = "https://github.com/ArchiveBox/archivebox-browser-extension";
+        description = "Automatically or manually send pages to your ArchiveBox for archival.";
+        license = licenses.mit;
+        mozPermissions = [
+          "history"
+          "contextMenus"
+          "storage"
+          "alarms"
+          "*://*/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "aria2-integration" = buildFirefoxXpiAddon {
       pname = "aria2-integration";
       version = "0.4.5";
@@ -2468,10 +2489,10 @@
     };
     "dracula-dark-colorscheme" = buildFirefoxXpiAddon {
       pname = "dracula-dark-colorscheme";
-      version = "1.10.0";
+      version = "1.10.1";
       addonId = "{b743f56d-1cc1-4048-8ba6-f9c2ab7aa54d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4224518/dracula_dark_colorscheme-1.10.0.xpi";
-      sha256 = "cf083076fc8d7fb5c44664648c4c029096896ef38104ee0d3fbe9a6d828943e1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4407811/dracula_dark_colorscheme-1.10.1.xpi";
+      sha256 = "950cf24ec1db4ff7796f6e8d432ad77fdb50b8b99044e7c5327177e0c4ded020";
       meta = with lib;
       {
         homepage = "https://draculatheme.com/firefox";
@@ -5290,10 +5311,10 @@
     };
     "improved-tube" = buildFirefoxXpiAddon {
       pname = "improved-tube";
-      version = "4.1122";
+      version = "4.1185";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4375372/youtube_addon-4.1122.xpi";
-      sha256 = "d8666a49657254ed39c6f52c7500df2b575cd6c108034b01dd6afedf05d0c4a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4404743/youtube_addon-4.1185.xpi";
+      sha256 = "ac9744660da34f96e83ed10720861bbc050ee6ed8ccfeefe3cdfe83b4fbd3bb0";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -10071,10 +10092,10 @@
     };
     "search-by-image" = buildFirefoxXpiAddon {
       pname = "search-by-image";
-      version = "7.1.0";
+      version = "8.0.2";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4309046/search_by_image-7.1.0.xpi";
-      sha256 = "5255f873a71331bb466e32712adc650a1fb6343b4011faddb8646f3ab2abefae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4404109/search_by_image-8.0.2.xpi";
+      sha256 = "62cbc95f3977a1ef9259cb53fc063b6202918a09475ae21158cfeffb7bade710";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -11419,10 +11440,10 @@
     };
     "tournesol" = buildFirefoxXpiAddon {
       pname = "tournesol";
-      version = "3.6.1";
+      version = "3.7.0";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4329572/tournesol_extension-3.6.1.xpi";
-      sha256 = "6362fd2de2ea38cc52f04c8a8294bc57a38d78b1fa70fdc7ba657b9b907cec96";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4407768/tournesol_extension-3.7.0.xpi";
+      sha256 = "1324ffd3782da83f7aa196c520d4d8b2e9b77278fc0526699f8f91c10a29c782";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
