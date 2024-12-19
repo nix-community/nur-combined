@@ -25,7 +25,7 @@ in
       '';
     });
 
-    fs.".config/bonsai/bonsai_tree.json".symlink.target = config.services.bonsaid.settingsFile;
+    fs.".config/bonsai/bonsai_tree.json".symlink.target = config.services.bonsaid.configFile;
 
     sandbox.extraRuntimePaths = [
       "bonsai"

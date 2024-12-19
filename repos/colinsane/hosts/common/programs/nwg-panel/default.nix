@@ -108,8 +108,6 @@ in
 
     packageUnwrapped = (pkgs.nwg-panel.override {
       inherit playerctl;
-      # XXX(2024/06/13): hyprland does not cross compile
-      hyprland = null;
     }).overrideAttrs (base: {
       # patches = (base.patches or []) ++ lib.optionals (!cfg.config.mediaPrevNext) [
       #   ./playerctl-no-prev-next.diff

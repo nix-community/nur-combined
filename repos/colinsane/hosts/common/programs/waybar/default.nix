@@ -79,7 +79,6 @@ in
       # not *required*, however this does cut down on some cross-compilation issues
       # and also avoids building entirely unused dependencies
       sway = config.sane.programs.sway.package;
-      hyprlandSupport = false;  #< doesn't cross. hyprland clowns are forking deps even like `wayland-scanner`, too much maintenance.
     };
 
     sandbox.net = "all";  #< to show net connection status and BW

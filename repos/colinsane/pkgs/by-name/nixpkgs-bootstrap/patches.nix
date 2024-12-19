@@ -47,22 +47,22 @@ in
   })
 
   (fetchpatch' {
-    name = "gnome-user-share: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/365810";
-    hash = "sha256-AJtQjJsG3Oav8Fae/4aZZr/zmD6qmL9Et+FtvOeaOjc=";
+    name = "geary: fix cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/366636";
+    hash = "sha256-lOGkarUaWBFl3wL3S0mtS6tvVaSFC7noRwboOLYlhkA=";
   })
 
   (fetchpatch' {
-    name = "gnome-online-accounts: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/365814";
-    hash = "sha256-CvE+mQoyeXc2BPt9pKQr6l3ACfQndPNLTrkpj4NTsdo=";
+    name = "calls: fix cross compilation";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/366638";
+    hash = "sha256-/DkyiGGTfi9Zr96L8QjAHXOjrOMH3Gc3KlT/5GbHvlU=";
   })
 
   (fetchpatch' {
     name = "nixos/bonsaid: init";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/347818";
     # saneCommit = "bc3d311bdc11a26b8b0a95806c0ea7b80554548d";
-    hash = "sha256-xCZIz7vmA/Fq0/G3tyapkdU2qIVtfueArN1qvbZ0y3w=";
+    hash = "sha256-yI/fQurBmItgpkiYDxgGMvEeKh8fRG40RLp44WgiJ4k=";
   })
 
   (fetchpatch' {

@@ -101,7 +101,7 @@ in
         }
       ];
     };
-    settingsFile = mkOption {
+    configFile = mkOption {
       type = types.path;
       default = let
         filterNulls = v: if lib.isAttrs v then
@@ -128,7 +128,7 @@ in
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         ExecStart = lib.escapeShellArgs (
-          [ (lib.getExe' cfg.package "bonsaid") "-t" cfg.settingsFile ] ++ cfg.extraFlags
+          [ (lib.getExe' cfg.package "bonsaid") "-t" cfg.configFile ] ++ cfg.extraFlags
         );
         Type = "simple";
         Restart = "on-failure";
