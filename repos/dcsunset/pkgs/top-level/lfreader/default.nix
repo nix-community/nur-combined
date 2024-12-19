@@ -9,13 +9,13 @@
 
 let
   pname = "lfreader";
-  version = "2.9.1";
+  version = "2.10.0";
   name = "${pname}-${version}";
   src = fetchFromGitHub {
     owner = "DCsunset";
     repo = "LFReader";
     rev = "v${version}";
-    hash = "sha256-gL/Go0Q7e6OAlVDJR3FwldZuptjzc9iTwtVQKvBhMlQ=";
+    hash = "sha256-68PTu8Smlasr+inYXbOjCoYbv2d7RhjvV+sCp+Exdvo=";
   };
 
   frontendDrv = buildNpmPackage {
@@ -23,7 +23,7 @@ let
     name = "${name}-frontend";
     sourceRoot = "${src.name}/frontend";
 
-    npmDepsHash = "sha256-z9A+jvztau+vqub8AJxmxIcFoxl3W6EPUnDZqU6E0WU=";
+    npmDepsHash = "sha256-5Fvz4DWdi1raB2spObeY4yD2tan5fo4FuV7SBfoy3BE=";
 
     # Required for sharp dependency (used by pwa-assets-generator)
     nativeBuildInputs = [
