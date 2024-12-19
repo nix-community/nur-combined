@@ -8,6 +8,12 @@ nixclean(){
   nix-collect-garbage -d
   sudo rm -Rf /root/.cache/nix/eval-cache-v2
 }
+make_command "nixcleanyesterday" "Run nix garbage collector delete yesterday and older"
+nixcleanyesterday(){
+  sudo nix-collect-garbage --delete-older-than 1d
+  nix-collect-garbage -d
+  sudo rm -Rf /root/.cache/nix/eval-cache-v2
+}
 
 make_command "nixoptimise" "Run nix store optimise"
 nixoptimise(){
