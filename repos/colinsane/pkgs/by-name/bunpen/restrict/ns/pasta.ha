@@ -30,7 +30,7 @@ fn setup_pasta(net: restrict::net_subset) void = {
 
   let (pipe_parent_rd, pipe_child_wr) = unix::pipe()!;
   log::printfln("[namespace/pasta]: forking: parent will launch pasta while child will exec user code");
-  match (os::exec::fork()) {
+  match (fork_and_die_with_parent()) {
     case let child_pid: os::exec::process =>
       io::close(pipe_child_wr)!;
 
@@ -58,14 +58,14 @@ fn setup_pasta(net: restrict::net_subset) void = {
       // though pasta hasn't created the device.
       io::close(pipe_child_wr)!;
 
-    case let e: os::exec::error =>
+    case let e: (os::exec::error | rt::errno) =>
       errors::ext::check("setup_pasta: fork", e);
   };
 };
 
 // spawn pasta as a separate process, and have it attach to the netns of the given pid.
 fn attach_pasta(net: restrict::net_subset, child: os::exec::process) (void | os::exec::error | rt::errno) = {
-  return match (os::exec::fork()?) {
+  return match (fork_and_die_with_parent()?) {
     case let pasta_pid: os::exec::process => yield void;
     case void =>
       // pasta needs permissions to create a device in the netns (it apparently
@@ -123,7 +123,7 @@ fn config_routing_in_ns(net: restrict::net_subset) (void | os::exec::error | rt:
   // forward dns to the desired endpoint
   let dnsdest = fmt::asprintf("{}:53", net.dns);
   defer free(dnsdest);
-  let rc = rt::ext::shellvpe_or_default(
+  let rc = shellvpe_or_default(
     config::IPTABLES,
     "iptables",
     [
@@ -147,7 +147,7 @@ fn config_routing_in_ns(net: restrict::net_subset) (void | os::exec::error | rt:
   // therefore, set it up *now*, and delete the addrs, and then since it's
   // already up they won't re-appear when we exec pasta.
 
-  let rc = rt::ext::shellvpe_or_default(
+  let rc = shellvpe_or_default(
     config::IP,
     "ip",
     [
@@ -159,7 +159,7 @@ fn config_routing_in_ns(net: restrict::net_subset) (void | os::exec::error | rt:
   )?;
   log::printfln("[namespace/pasta] 'ip link set lo up' exited {}", rc.status);
 
-  let rc = rt::ext::shellvpe_or_default(
+  let rc = shellvpe_or_default(
     config::IP,
     "ip",
     [

@@ -47,51 +47,6 @@ export fn execvpe_or_default(default: str, name: str, argv: []str, envp: []str =
   };
 };
 
-// run the provided command in a new process, and wait for its return.
-// under the hood:
-// 1. fork
-// 2. in child: execvpe
-// 3. in parent: wait for child
-export fn shellvpe(name: str, argv: []str, envp: []str = []) (os::exec::status | os::exec::error) = {
-  return match (os::exec::fork()) {
-    case void =>
-      errors::ext::check("shellvpe", execvpe(name, argv, envp));
-      assert(false, "unreachable");
-      return os::exec::status { ... };
-    case let child_pid: os::exec::process =>
-      yield wait_child(child_pid);
-  };
-};
-
-// same as `shellvpe(name, argv, envp)` but fallback to `name=default` if `name`
-// isn't found on PATH
-export fn shellvpe_or_default(default: str, name: str, argv: []str, envp: []str = []) (os::exec::status | os::exec::error) = {
-  return match (os::exec::fork()) {
-    case void =>
-      errors::ext::check("shellvpe", execvpe_or_default(default, name, argv, envp));
-      assert(false, "unreachable");
-      return os::exec::status { ... };
-    case let child_pid: os::exec::process =>
-      yield wait_child(child_pid);
-  };
-};
-
-fn wait_child(child_pid: os::exec::process) (os::exec::status | os::exec::error) = {
-  for (true) {
-    match (os::exec::wait(&child_pid)) {
-      case let e: os::exec::error => match (e) {
-        case errors::interrupted =>
-          // i guess before the days of `poll`, `wait` had to wait on either the
-          // child OR a signal sent to this pid; so we need to retry if the
-          // reason we woke isn't because the child died...
-          void;
-        case => return e;
-      };
-      case let status: os::exec::status => return status;
-    };
-  };
-};
-
 // allocate and return a NULL-terminated array of pointers to c strings.
 // caller is responsible for free'ing the resulting array AND its strings.
 fn to_cstr_array(strs: []str) []nullable *const c::char = {

@@ -1,18 +1,15 @@
 // vim: set shiftwidth=2 :
-use errors;
 use errors::ext;
 use fmt;
 use fs;
 use io;
 use log;
 use os;
-use os::exec;
 use restrict;
 use rt;
 use rt::ext;
 use strings;
 use unix;
-use unix::signal;
 
 export fn namespace_restrict(what: *restrict::resources) void = {
   // record the uid and gid of the initial namespace, so that we can re-map them
@@ -165,119 +162,6 @@ type ns_ctx = struct {
   what: *restrict::resources,
   old_fs: *fs::fs,
   new_fs: *fs::fs,
-};
-
-// fork and:
-// - in the child: continue execution as normal
-// - in the parent: wait for the child, then propagate its exit status
-fn fork_and_propagate() (void | os::exec::error) = {
-  match (os::exec::fork()?) {
-    case let child_pid: os::exec::process => return wait_and_propagate(child_pid);
-    case => log::println("[namespace/fork] continuing as child");
-  };
-};
-
-fn wait_and_propagate(child_pid: os::exec::process) (void | os::exec::error) = {
-  forward_signals(child_pid);
-  log::println("[namespace/fork] signals configured");
-  let status = wait_child(child_pid)?;
-  let rc = rt::wexitstatus(status.status);
-  // TODO: if the child exited due to a signal (e.g. SIGTERM), we (confusingly?) exit 0.
-  // seems correct behavior may be to send the same termination signal to ourselves.
-  log::printfln("[namespace/fork] child exited with {}; forwarding as {}", status.status, rc);
-  os::exit(rc);  // propagate exit code
-};
-
-// block until the provided child exits, and then return its exit status.
-// this function actually waits on *any* child, in a loop, but only returns the
-// exit code for the specific child of interest.
-// this way, we're able to act as a child reaper (as expected of PID 1).
-fn wait_child(child_pid: os::exec::process) (os::exec::status | os::exec::error) = {
-  for (true) {
-    match (os::exec::waitany()) {
-      case let e: os::exec::error => match (e) {
-        case errors::interrupted =>
-          // i guess before the days of `poll`, `wait` had to wait on either the
-          // child OR a signal sent to this pid; so we need to retry if the
-          // reason we woke isn't because the child died...
-          log::printfln("[namespace/fork] waitany() interrupted (signal?)... will retry");
-        case => return e;
-      };
-      case let proc_and_status: (os::exec::process, os::exec::status) => {
-        let (proc, status) = proc_and_status;
-        if (proc == child_pid) {
-          return status;
-        };
-        // else we've just reaped a zombie child which had forked away from the
-        // main program
-      };
-    };
-  };
-};
-
-const SIGNALS_TO_FORWARD = [
-  unix::signal::sig::HUP,
-  unix::signal::sig::INT,  // Ctrl+C
-  unix::signal::sig::QUIT,  // Ctrl+\
-  // unix::signal::sig::ILL,
-  // unix::signal::sig::TRAP
-  unix::signal::sig::ABRT,
-  // unix::signal::sig::BUS,
-  // unix::signal::sig::FPE,
-  // unix::signal::sig::KILL (can't be caught or ignored)
-  unix::signal::sig::USR1,
-  // unix::signal::sig::SEGV,
-  unix::signal::sig::USR2,
-  // unix::signal::sig::PIPE,
-  // unix::signal::sig::ALRM,
-  unix::signal::sig::TERM,
-  // unix::signal::sig::STKFLT,
-  // unix::signal::sig::CHLD
-  // unix::signal::sig::CONT,
-  // unix::signal::sig::STOP (can't be caught or ignored)
-  // unix::signal::sig::TSTP,  // Ctrl+Z
-  unix::signal::sig::TTIN,  // ??
-  unix::signal::sig::TTOU,  // ??
-  unix::signal::sig::URG,
-  unix::signal::sig::XCPU,
-  unix::signal::sig::XFSZ,
-  // unix::signal::sig::VTALRM,
-  // unix::signal::sig::PROF,
-  unix::signal::sig::WINCH,  // terminal resized
-  unix::signal::sig::IO,
-  unix::signal::sig::POLL,
-  unix::signal::sig::PWR,
-  // unix::signal::sig::SYS,  // illegal syscall argument
-];
-
-// there's no apparent way to pass state into a signal handler,
-// except via process globals
-let g_child: os::exec::process = 0;
-
-// configure signal handlers so that any signal we receive is forwarded to the child.
-// this is important for systems which use signals for communication,
-// e.g. `kill -SIGUSR2 $(pidof wvkbd)` will toggle an on-screen-keyboard, but only if delivered.
-fn forward_signals(child: os::exec::process) void = {
-  g_child = child;
-  for (let sig .. SIGNALS_TO_FORWARD) {
-    unix::signal::handle(sig, &forward_signal_handler);
-  };
-  // posix real-time extensions defines an additional set of general-purpose
-  // signals for users. things like `wvkbd` use these (SIGRTMIN)
-  for (let sig = 32; sig <= 64; sig +=1) {
-    unix::signal::handle(sig: unix::signal::sig, &forward_signal_handler);
-  };
-};
-
-fn forward_signal_handler(sig: unix::signal::sig, info: *unix::signal::siginfo, ucontext: *opaque) void = {
-  log::printfln("[namespace] forward signal {} to child {}", sig: int, g_child: int);
-  // TODO: maybe we shouldn't swallow all errors; if the child somehow died, and
-  // the signal is undeliverable, then abort?
-  errors::ext::swallow(
-    "[namespace] forward child signal {}",
-    os::exec::sig(g_child, sig),
-    sig: int,
-  );
 };
 
 // these id maps are writable *once*.
