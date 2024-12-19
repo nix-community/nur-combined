@@ -23,7 +23,7 @@
 , python3
 , phoc
 , bash
-, gnome
+, gnome-shell
 , squeekboard ? null
 , wayland-scanner
 , wrapGAppsHook
@@ -31,13 +31,13 @@
 
 stdenv.mkDerivation rec {
   pname = "phog";
-  version = "0.1.6";
+  version = "0.1.7";
 
   src = fetchFromGitLab {
     owner = "mobian1";
     repo = "phog";
     rev = version;
-    hash = "sha256-PlVhTFH53nk+h1WPli1r+xUwU5/xObSTzdAfrdZOezs=";
+    hash = "sha256-7kw/X7gtSrq6XUqtPPO8ahkIqxPUrU4JSJhLMG8iIS8=";
   };
 
   patches = [
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix PATH : ${lib.makeBinPath [ bash squeekboard ]}
-      --prefix XDG_DATA_DIRS : "${gnome.gnome-shell}/share/gsettings-schemas/${gnome.gnome-shell.name}"
+      --prefix XDG_DATA_DIRS : "${gnome-shell}/share/gsettings-schemas/${gnome-shell.name}"
     )
   '';
 

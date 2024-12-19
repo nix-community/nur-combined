@@ -30,6 +30,14 @@ let
       <cachedir>${cache}</cachedir>
     </fontconfig>
   '';
+  noUserCacheConf = pkgs.runCommandNoCC "etc-fonts-fonts.conf-no-user" {} ''
+    cp ${pkgs.fontconfig.out}/etc/fonts/fonts.conf .
+    substituteInPlace fonts.conf \
+      --replace-fail '<cachedir prefix="xdg">fontconfig</cachedir>' "" \
+      --replace-fail '<cachedir>/var/cache/fontconfig</cachedir>' ""
+    mkdir -p $out/etc/fonts
+    cp fonts.conf $out/etc/fonts/fonts.conf
+  '';
 in
 {
   sane.programs.fontconfig = {
@@ -63,8 +71,18 @@ in
         "DejaVu Sans"
       ];
     };
-    # nixpkgs builds a cache file, but only for non-cross. i want it always, so add my own cache -- but ONLY for cross.
-    fontconfig.confPackages = lib.mkIf (pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform) [ cacheConf ];
+
+    fontconfig.confPackages = lib.mkBefore ([
+      # XXX(2024-12-18): electron apps (signal-desktop, discord) duplicate the entire font cache (1-2MB) to ~/.cache/fontconfig
+      # just to update a tiny section (4KB).
+      # patch instead to not have a user font cache. they will work, but complain "Fontconfig error: No writable cache directories".
+      # proper fix: see if electron apps need some specific font i'm missing, or are just being dumb?
+      noUserCacheConf
+    ] ++ lib.optionals (pkgs.stdenv.hostPlatform != pkgs.stdenv.buildPlatform) [
+      # nixpkgs builds a cache file, but only for non-cross. i want it always, so add my own cache -- but ONLY for cross.
+      cacheConf
+    ]);
+
     #vvv enables dejavu_fonts, freefont_ttf, gyre-fonts, liberation_ttf, unifont, noto-fonts-emoji
     enableDefaultPackages = false;
     packages = with pkgs; [
