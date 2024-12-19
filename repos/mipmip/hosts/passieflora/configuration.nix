@@ -13,13 +13,8 @@
   boot.plymouth.enable = true;
   boot.plymouth.theme = "breeze";
 
-
-
-
   networking.useDHCP = lib.mkDefault true;
   networking.hostName = "passieflora"; # Define your hostname.
-
-
 
   time.timeZone = "Europe/Amsterdam";
 
@@ -30,7 +25,9 @@
   users.users.pim = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
+    shell = pkgs.zsh;
   };
+  programs.zsh.enable = true;
 
   environment.systemPackages = with pkgs; [
     vim

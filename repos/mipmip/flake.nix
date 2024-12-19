@@ -13,6 +13,7 @@
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-hardware-t2.url = "github:nixos/nixos-hardware/863e3ca9988f34c370bd660a5efc3e20eb7ad38b";
 
     #nixpkgs-inkscape13.url = "github:leiserfg/nixpkgs?ref=staging";
 
@@ -62,7 +63,9 @@
     unstable,
     #    nixpkgs-inkscape13,
     agenix,
+
     nixos-hardware,
+    nixos-hardware-t2,
 
     nixified-ai,
 
@@ -368,7 +371,7 @@
         modules = [
         ./hosts/passieflora/configuration.nix
         ./hosts/passieflora/nix/substituter.nix
-        nixos-hardware.nixosModules.apple-t2
+        nixos-hardware-t2.nixosModules.apple-t2
 
         home-manager.nixosModules.home-manager
         {

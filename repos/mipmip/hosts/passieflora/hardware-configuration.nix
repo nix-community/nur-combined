@@ -11,6 +11,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  #boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_11;
 
   hardware.firmware = [
     (pkgs.stdenvNoCC.mkDerivation (final: {
