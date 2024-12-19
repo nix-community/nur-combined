@@ -15,7 +15,7 @@ usage() {
         exec 1>&2
     fi
 
-    cat << EOF
+    cat <<EOF
 Usage: $0 [options] [string]
 Send an arbitrary string to the terminal clipboard using the OSC 52 escape
 sequence as specified in xterm:

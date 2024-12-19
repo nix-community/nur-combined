@@ -81,23 +81,23 @@ parse_args() {
         shift
 
         case "$opt" in
-            -h|--help)
+            -h | --help)
                 usage
                 exit
                 ;;
-            -f|--flake-output)
+            -f | --flake-output)
                 FLAKE_OUTPUTS+=("$1")
                 shift
                 ;;
-            -o|--output)
+            -o | --output)
                 OUTPUT_FILE="$1"
                 shift
                 ;;
-            -n|--new-rev)
+            -n | --new-rev)
                 NEW_REV="$(git rev-parse "$1")"
                 shift
                 ;;
-            -p|--previous-rev)
+            -p | --previous-rev)
                 PREVIOUS_REV="$(git rev-parse "$1")"
                 shift
                 ;;
@@ -157,7 +157,7 @@ list_dev_shells() {
 }
 
 diff_output() {
-    local PREV NEW;
+    local PREV NEW
     PREV="$(mktemp --dry-run)"
     NEW="$(mktemp --dry-run)"
 
@@ -169,7 +169,7 @@ diff_output() {
         printf 'Closure diff for `%s`:\n```\n' "$1"
         nix store diff-closures "$PREV" "$NEW" | sanitize_output
         printf '```\n\n'
-    } >> "$OUTPUT_FILE"
+    } >>"$OUTPUT_FILE"
 }
 
 parse_args "$@"

@@ -62,7 +62,7 @@ do_toggle() {
 }
 
 case "$1" in
-    up|down)
+    up | down)
         do_change_volume "$@"
         ;;
     toggle)

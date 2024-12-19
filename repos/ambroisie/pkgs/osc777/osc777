@@ -13,7 +13,7 @@ usage() {
         exec 1>&2
     fi
 
-    cat << EOF
+    cat <<EOF
 Usage: $0 [options] <title> <message>
 Send a notification (title and message) to the host system using the OSC 777
 escape sequence:
