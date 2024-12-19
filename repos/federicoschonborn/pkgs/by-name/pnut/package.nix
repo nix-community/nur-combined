@@ -12,8 +12,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "udem-dlteam";
     repo = "pnut";
-    rev = "add07b15dba3d2cae9ca7bf72df4c0a181d7e61f";
-    hash = "sha256-GrcDgS14BceEXqgXwcFieWiOy9xgKBn2N8PgXYrWpgc=";
+    rev = "7068fb56dade690a90f46c5d2971e904b836975d";
+    hash = "sha256-pbWSqWm6m2Ur97BXx155/RrLeqQQVwjXlhdWok7BER0=";
   };
 
   makeFlags = [

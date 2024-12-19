@@ -755,7 +755,7 @@ Tool to generate flags for your CPU.
 - Update Script: ✔️
 </details>
 
-### `fastfetch` `2.31.0` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.31.0 "Changelog") [📦](./pkgs/by-name/fastfetch/package.nix#L256 "Source")
+### `fastfetch` `2.32.1` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.32.1 "Changelog") [📦](./pkgs/by-name/fastfetch/package.nix#L256 "Source")
 
 Like neofetch, but much faster because written in C.
 
@@ -776,7 +776,7 @@ Like neofetch, but much faster because written in C.
 - Update Script: ✔️
 </details>
 
-### `fastfetchMinimal` `2.31.0` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.31.0 "Changelog") [📦](./default.nix#L33 "Source")
+### `fastfetchMinimal` `2.32.1` [🌐](https://github.com/fastfetch-cli/fastfetch "Homepage") [📰](https://github.com/fastfetch-cli/fastfetch/releases/tag/2.32.1 "Changelog") [📦](./default.nix#L33 "Source")
 
 Like neofetch, but much faster because written in C (with all features disabled).
 
@@ -2393,7 +2393,7 @@ Library for emitting text, XML, JSON, or HTML output.
 - `pkg-config` Modules: `libxo.pc`
 </details>
 
-### `magpie-wayland` `0.9.4-unstable-2024-12-14` [🌐](https://github.com/BuddiesOfBudgie/magpie "Homepage") [📦](./pkgs/by-name/magpie-wayland/package.nix#L66 "Source")
+### `magpie-wayland` `0.9.4-unstable-2024-12-18` [🌐](https://github.com/BuddiesOfBudgie/magpie "Homepage") [📦](./pkgs/by-name/magpie-wayland/package.nix#L66 "Source")
 
 wlroots-based Wayland compositor designed for the Budgie Desktop.
 
@@ -2519,7 +2519,7 @@ Phonon Backend using MPV Player.
 - Update Script: ✔️
 </details>
 
-### `plasma-camera` `1.0-unstable-2024-12-16` [🌐](https://invent.kde.org/plasma-mobile/plasma-camera "Homepage") [📦](./pkgs/by-name/plasma-camera/package.nix#L52 "Source")
+### `plasma-camera` `1.0-unstable-2024-12-17` [🌐](https://invent.kde.org/plasma-mobile/plasma-camera "Homepage") [📦](./pkgs/by-name/plasma-camera/package.nix#L52 "Source")
 
 Camera application for Plasma Mobile.
 

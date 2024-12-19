@@ -20,13 +20,13 @@
 
 stdenv.mkDerivation (_: {
   pname = "magpie-wayland";
-  version = "0.9.4-unstable-2024-12-14";
+  version = "0.9.4-unstable-2024-12-18";
 
   src = fetchFromGitHub {
     owner = "BuddiesOfBudgie";
     repo = "magpie";
-    rev = "ed028034f5fb7de56c5b2b618425f0a2ff2994c1";
-    hash = "sha256-upPjTJCU8g38XzlbrHvDy7JEIrhMNIdAuF+R5NU02lk=";
+    rev = "9eb256ed94a8e816c7f7edbd5b440660e8fe4ce4";
+    hash = "sha256-G3nlcTKjdgzMW6u9Zw1nTrr7thGBjhrNKrcuIXR/yHs=";
   };
 
   nativeBuildInputs = [
