@@ -18,7 +18,9 @@
 
   cloudflare-ddns = pkgs.callPackage ./pkgs/cloudflare-ddns { };
   nh_plus = pkgs.callPackage ./pkgs/nh_plus { };
-  oracle-cloud-agent = pkgs.callPackage ./pkgs/oracle-cloud-agent { };
+  # oracle-cloud-agent = pkgs.callPackage ./pkgs/oracle-cloud-agent { };
+  kanata = pkgs.callPackage ./pkgs/kanata { };
+  rename_music = pkgs.callPackage ./pkgs/rename_music {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
