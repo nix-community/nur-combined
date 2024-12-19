@@ -10,12 +10,18 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
 
-
-  networking.hostName = "passieflora"; # Define your hostname.
-  time.timeZone = "Europe/Amsterdam";
-
   boot.plymouth.enable = true;
   boot.plymouth.theme = "breeze";
+
+
+
+
+  networking.useDHCP = lib.mkDefault true;
+  networking.hostName = "passieflora"; # Define your hostname.
+
+
+
+  time.timeZone = "Europe/Amsterdam";
 
   services.xserver.enable = true;
   services.xserver.displayManager.gdm.enable = true;
@@ -39,7 +45,6 @@
 
     gnumake
   ];
-  hardware.apple-t2.enableAppleSetOsLoader = true;
   services.openssh.enable = true;
 
   system.stateVersion = "24.11";
