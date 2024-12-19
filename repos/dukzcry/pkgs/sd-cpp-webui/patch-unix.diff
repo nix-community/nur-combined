@@ -1,0 +1,22 @@
+diff --git a/modules/gallery.py b/modules/gallery.py
+index f516f92..366599e 100644
+--- a/modules/gallery.py
++++ b/modules/gallery.py
+@@ -145,7 +145,7 @@ class GalleryManager:
+                     yield file_path
+ 
+         # Sort files only when necessary and only the files we need
+-        file_paths = sorted(image_file_gen(img_dir), key=os.path.getctime)
++        file_paths = sorted(image_file_gen(img_dir), key=os.path.getatime)
+ 
+         # Handle index out of range errors
+         try:
+@@ -215,7 +215,7 @@ class GalleryManager:
+                           for file in files
+                           if os.path.isfile(os.path.join(img_dir, file)) and
+                           file.lower().endswith(('.png', '.jpg'))]
+-            file_paths.sort(key=os.path.getctime)
++            file_paths.sort(key=os.path.getatime)
+             if total_imgs == 0:
+                 self.sel_img = None
+             if self.img_index == total_imgs:
