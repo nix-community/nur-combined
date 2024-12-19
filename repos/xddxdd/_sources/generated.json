@@ -937,7 +937,7 @@
     },
     "funasr": {
         "cargoLocks": null,
-        "date": "2024-12-17",
+        "date": "2024-12-19",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -949,12 +949,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "f921a7181855a356237667200330001597b2473a",
-            "sha256": "sha256-TVztyceeNpq2iH6G3E9OWD+BSb7ptGKWth5YMaf6Y1Q=",
+            "rev": "1368a9bca48473d793f0c1d52df0a4739c747d16",
+            "sha256": "sha256-11bb7+S6mj8bxi3FIgLcEG2B1KDevzFkTOywCusCHBg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f921a7181855a356237667200330001597b2473a"
+        "version": "1368a9bca48473d793f0c1d52df0a4739c747d16"
     },
     "glauth": {
         "cargoLocks": null,
@@ -986,11 +986,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Wv2jPGN7LC5T32WdX3W1BfGYrcXTNWTI1Wv+PmD0gNM=",
+            "sha256": "sha256-MmbNwffE+QgfAvYPjyRAV/OCUboS8rRBVN46RB7yvoE=",
             "type": "url",
-            "url": "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.6.9796-r0_amd64.deb"
+            "url": "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.6.10155-r0_amd64.deb"
         },
-        "version": "7.3.6.9796"
+        "version": "7.3.6.10155"
     },
     "gopherus": {
         "cargoLocks": null,
@@ -1221,12 +1221,12 @@
             "name": null,
             "owner": "kata-containers",
             "repo": "kata-containers",
-            "rev": "3.11.0",
-            "sha256": "sha256-fIjHtTBWeU6Kp83YGuaL3h0wq4lqUyNKrkFIsCzII6c=",
+            "rev": "3.12.0",
+            "sha256": "sha256-0pJx8ASUeJjLubu/QV72avntkaU3b5PC5V1H54SrPIs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3.11.0"
+        "version": "3.12.0"
     },
     "kata-image": {
         "cargoLocks": null,
@@ -1237,11 +1237,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-7yDWEOAWiIfwBhWOKSkT+PGRytnmmVpB8UGm9Nkmv4E=",
+            "sha256": "sha256-dfSiLaNV+KtjlHAMfMFFx6uB2VKG+EaJACDy6rQgyX0=",
             "type": "url",
-            "url": "https://github.com/kata-containers/kata-containers/releases/download/3.11.0/kata-static-3.11.0-amd64.tar.xz"
+            "url": "https://github.com/kata-containers/kata-containers/releases/download/3.12.0/kata-static-3.12.0-amd64.tar.xz"
         },
-        "version": "3.11.0"
+        "version": "3.12.0"
     },
     "kikoplay": {
         "cargoLocks": null,
@@ -1646,12 +1646,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b4351",
-            "sha256": "sha256-L2DMPXv4ZwwtHu/1HNZss7EzyRgPI4nJkYjCb+kdgy4=",
+            "rev": "b4360",
+            "sha256": "sha256-XS967vw8wzJ+KwLEbt0km7v57C6S8GJ/FhpFaYJC09Q=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b4351"
+        "version": "b4360"
     },
     "loralib": {
         "cargoLocks": null,
@@ -2813,7 +2813,7 @@
     },
     "qsp-lib": {
         "cargoLocks": null,
-        "date": "2024-12-14",
+        "date": "2024-12-19",
         "extract": null,
         "name": "qsp-lib",
         "passthru": null,
@@ -2825,12 +2825,12 @@
             "name": null,
             "owner": "QSPFoundation",
             "repo": "qsp",
-            "rev": "712aaea519206afb9c74b8172fdad706506968ad",
-            "sha256": "sha256-IK5cja+O1+hZ+8FEZXSy16a8zIqW2QbOGKx6//oLUeY=",
+            "rev": "98bcc98e68cb1fb88dd0382b35b790e3a772d311",
+            "sha256": "sha256-xfpfliR+liYHhvduQtpXMVXTaYM7Hr+vcAToGQ60RZQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "712aaea519206afb9c74b8172fdad706506968ad"
+        "version": "98bcc98e68cb1fb88dd0382b35b790e3a772d311"
     },
     "qsp-stable": {
         "cargoLocks": null,
@@ -2975,7 +2975,7 @@
     },
     "rime-ice": {
         "cargoLocks": null,
-        "date": "2024-12-13",
+        "date": "2024-12-19",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -2987,12 +2987,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "522ef78bf7ed567d3a1bd4f51d0991685e6a0f52",
-            "sha256": "sha256-D6VcJWDnfhCHd3B/QR/Pot+6oNs6a77g8hWKU38nZgw=",
+            "rev": "6628e95a4e2322b70dbd4c3faa12f2de38fb5b60",
+            "sha256": "sha256-gQgag/eEcfRjOPhSJCUa84cg6bnQ1iVlduD+EldBBFA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "522ef78bf7ed567d3a1bd4f51d0991685e6a0f52"
+        "version": "6628e95a4e2322b70dbd4c3faa12f2de38fb5b60"
     },
     "rime-moegirl": {
         "cargoLocks": null,

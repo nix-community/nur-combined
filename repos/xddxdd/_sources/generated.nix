@@ -485,14 +485,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "f921a7181855a356237667200330001597b2473a";
+    version = "1368a9bca48473d793f0c1d52df0a4739c747d16";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "f921a7181855a356237667200330001597b2473a";
-      hash = "sha256-TVztyceeNpq2iH6G3E9OWD+BSb7ptGKWth5YMaf6Y1Q=";
+      rev = "1368a9bca48473d793f0c1d52df0a4739c747d16";
+      hash = "sha256-11bb7+S6mj8bxi3FIgLcEG2B1KDevzFkTOywCusCHBg=";
     };
-    date = "2024-12-17";
+    date = "2024-12-19";
   };
   glauth = {
     pname = "glauth";
@@ -506,10 +506,10 @@
   };
   google-earth-pro = {
     pname = "google-earth-pro";
-    version = "7.3.6.9796";
+    version = "7.3.6.10155";
     src = fetchurl {
-      url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.6.9796-r0_amd64.deb";
-      hash = "sha256-Wv2jPGN7LC5T32WdX3W1BfGYrcXTNWTI1Wv+PmD0gNM=";
+      url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_7.3.6.10155-r0_amd64.deb";
+      hash = "sha256-MmbNwffE+QgfAvYPjyRAV/OCUboS8rRBVN46RB7yvoE=";
     };
   };
   gopherus = {
@@ -626,20 +626,20 @@
   };
   kata-containers = {
     pname = "kata-containers";
-    version = "3.11.0";
+    version = "3.12.0";
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      tag = "3.11.0";
-      hash = "sha256-fIjHtTBWeU6Kp83YGuaL3h0wq4lqUyNKrkFIsCzII6c=";
+      tag = "3.12.0";
+      hash = "sha256-0pJx8ASUeJjLubu/QV72avntkaU3b5PC5V1H54SrPIs=";
     };
   };
   kata-image = {
     pname = "kata-image";
-    version = "3.11.0";
+    version = "3.12.0";
     src = fetchurl {
-      url = "https://github.com/kata-containers/kata-containers/releases/download/3.11.0/kata-static-3.11.0-amd64.tar.xz";
-      hash = "sha256-7yDWEOAWiIfwBhWOKSkT+PGRytnmmVpB8UGm9Nkmv4E=";
+      url = "https://github.com/kata-containers/kata-containers/releases/download/3.12.0/kata-static-3.12.0-amd64.tar.xz";
+      hash = "sha256-dfSiLaNV+KtjlHAMfMFFx6uB2VKG+EaJACDy6rQgyX0=";
     };
   };
   kikoplay = {
@@ -842,12 +842,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4351";
+    version = "b4360";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4351";
-      hash = "sha256-L2DMPXv4ZwwtHu/1HNZss7EzyRgPI4nJkYjCb+kdgy4=";
+      tag = "b4360";
+      hash = "sha256-XS967vw8wzJ+KwLEbt0km7v57C6S8GJ/FhpFaYJC09Q=";
     };
   };
   loralib = {
@@ -1438,14 +1438,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "712aaea519206afb9c74b8172fdad706506968ad";
+    version = "98bcc98e68cb1fb88dd0382b35b790e3a772d311";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "712aaea519206afb9c74b8172fdad706506968ad";
-      hash = "sha256-IK5cja+O1+hZ+8FEZXSy16a8zIqW2QbOGKx6//oLUeY=";
+      rev = "98bcc98e68cb1fb88dd0382b35b790e3a772d311";
+      hash = "sha256-xfpfliR+liYHhvduQtpXMVXTaYM7Hr+vcAToGQ60RZQ=";
     };
-    date = "2024-12-14";
+    date = "2024-12-19";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -1520,14 +1520,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "522ef78bf7ed567d3a1bd4f51d0991685e6a0f52";
+    version = "6628e95a4e2322b70dbd4c3faa12f2de38fb5b60";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "522ef78bf7ed567d3a1bd4f51d0991685e6a0f52";
-      hash = "sha256-D6VcJWDnfhCHd3B/QR/Pot+6oNs6a77g8hWKU38nZgw=";
+      rev = "6628e95a4e2322b70dbd4c3faa12f2de38fb5b60";
+      hash = "sha256-gQgag/eEcfRjOPhSJCUa84cg6bnQ1iVlduD+EldBBFA=";
     };
-    date = "2024-12-13";
+    date = "2024-12-19";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
