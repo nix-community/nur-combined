@@ -74,6 +74,16 @@ if utils.is_executable("bash-language-server") then
         filetypes = { "bash", "sh", "zsh" },
         capabilities = capabilities,
         on_attach = lsp.on_attach,
+        settings = {
+            bashIde = {
+                shfmt = {
+                    -- Simplify the code
+                    simplifyCode = true,
+                    -- Indent switch cases
+                    caseIndent = true,
+                },
+            },
+        },
     })
 end
 

@@ -46,29 +46,3 @@ null_ls.register({
         condition = utils.is_executable_condition("isort"),
     }),
 })
-
--- Shell (non-POSIX)
-null_ls.register({
-    null_ls.builtins.formatting.shfmt.with({
-        -- Indent with 4 spaces, simplify the code, indent switch cases,
-        -- add space after redirection, use bash dialect
-        extra_args = { "-i", "4", "-s", "-ci", "-sr", "-ln", "bash" },
-        -- Restrict to bash and zsh
-        filetypes = { "bash", "zsh" },
-        -- Only used if available
-        condition = utils.is_executable_condition("shfmt"),
-    }),
-})
-
--- Shell (POSIX)
-null_ls.register({
-    null_ls.builtins.formatting.shfmt.with({
-        -- Indent with 4 spaces, simplify the code, indent switch cases,
-        -- add space after redirection, use POSIX
-        extra_args = { "-i", "4", "-s", "-ci", "-sr", "-ln", "posix" },
-        -- Restrict to POSIX sh
-        filetypes = { "sh" },
-        -- Only used if available
-        condition = utils.is_executable_condition("shfmt"),
-    }),
-})
