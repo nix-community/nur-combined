@@ -9,13 +9,13 @@
   fetchNpmDeps,
 }:
 let
-  version = "7.0.0-beta-3";
+  version = "7.0.0-beta-4";
 
   origin-src = fetchFromGitHub {
     owner = "KonghaYao";
     repo = "cn-font-split";
     rev = version;
-    hash = "sha256-IGXd816MZTmg23G/us05nOnzz1XctfT/g/N0lvStdhE=";
+    hash = "sha256-Nvw+JnhRnL0GCjEBu3VLtvmamsUJbX5iZaklKMFiwCI=";
   };
 
   npm-lock = ./package-lock.json;
@@ -84,7 +84,7 @@ rustPlatform.buildRustPackage {
     protobuf
   ];
 
-  cargoHash = "sha256-hr5oEuRdrUecRTWPJ7KhPVBHwXBlUFjviBWtBTJ2jQU=";
+  cargoHash = "sha256-1YEtUWdNOUSV0FjJlH6XGpoKDpkl3loJzK8aFQZn8sE=";
 
   meta = {
     description = "A revolutionary font subetter that supports CJK and any characters!";
