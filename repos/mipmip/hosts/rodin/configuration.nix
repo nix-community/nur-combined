@@ -12,7 +12,7 @@
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   nix = {
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.stable;
     settings.trusted-substituters = [
       "http://attic.np-tools.technative.cloud:8080/jeroen"
     ];

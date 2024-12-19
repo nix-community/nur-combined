@@ -11,6 +11,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11"; # GNOMe 47
 
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     #nixpkgs-inkscape13.url = "github:leiserfg/nixpkgs?ref=staging";
