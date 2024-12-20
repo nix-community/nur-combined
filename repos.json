@@ -123,6 +123,9 @@
         "amesgen": {
             "url": "https://github.com/amesgen/nur-packages"
         },
+        "andreasrid": {
+            "url": "https://github.com/andreasrid/nur-packages"
+        },
         "angr": {
             "url": "https://github.com/angr/nixpkgs"
         },
