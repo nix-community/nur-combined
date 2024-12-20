@@ -1,4 +1,7 @@
-//! largely copied from OpenInMPV browser extension
+//! see also: the OpenInMPV browser extension
+//! dev docs:
+//! - chrome.contextMenus API: <https://developer.chrome.com/docs/extensions/reference/api/contextMenus>
+//! - OnClickData: <https://developer.chrome.com/docs/extensions/reference/api/contextMenus#type-OnClickData>
 
 function xdgOpen(tabId, url) {
   const code = `
@@ -10,13 +13,11 @@ function xdgOpen(tabId, url) {
   chrome.tabs.executeScript(tabId, { code })
 }
 
-[["page", "pageUrl"], ["link", "linkUrl"], ["video", "srcUrl"], ["audio", "srcUrl"]].forEach(([item, linkType]) => {
-  chrome.contextMenus.create({
-    title: "xdg-open",
-    id: `open${item}inmpv`,
-    contexts: [item],
-    onclick: (info, tab) => {
-      xdgOpen(tab.id, info[linkType]);
-    },
-  });
+chrome.contextMenus.create({
+  title: "xdg-open",
+  id: "xdg-open",
+  contexts: ["audio", "link", "page", "video"],
+  onclick: (info /*: OnClickData*/, tab /*: Tab*/) => {
+    xdgOpen(tab.id, info.srcUrl || info.linkUrl || info.pageUrl);
+  },
 });

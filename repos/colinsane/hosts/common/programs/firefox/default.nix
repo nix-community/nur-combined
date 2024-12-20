@@ -1,36 +1,9 @@
 # common settings to toggle (at runtime, in about:config):
 #   > security.ssl.require_safe_negotiation
 
-# librewolf is a forked firefox which patches firefox to allow more things
-# (like default search engines) to be configurable at runtime.
-# many of the settings below won't have effect without those patches.
-# see: https://gitlab.com/librewolf-community/settings/-/blob/master/distribution/policies.json
-
 { config, lib, pkgs, ...}:
 let
   cfg = config.sane.programs.firefox.config;
-  arkenfox-prefs = "${pkgs.arkenfox-userjs}/user.cfg";
-  librewolf-prefs = pkgs.librewolf-unwrapped.extraPrefsFiles;
-  mobile-prefs = lib.optionals false pkgs.librewolf-pmos-mobile.extraPrefsFiles;
-  # allow easy switching between firefox and librewolf with `defaultSettings`, below
-  librewolfSettings = {
-    browser = pkgs.librewolf-unwrapped;
-    extraPrefsFiles = [ librewolf-prefs ];
-    libName = "librewolf";
-    dotDir = ".librewolf";
-    cacheDir = ".cache/librewolf";
-  };
-  firefoxSettings = {
-    # browser = pkgs.firefox-esr-unwrapped;
-    browser = pkgs.firefox-unwrapped;
-    # arkenfox does privacy-enhancing and anti-fingerprinting
-    extraPrefsFiles = [ arkenfox-prefs ];
-    libName = "firefox";
-    dotDir = ".mozilla/firefox";
-    cacheDir = ".cache/mozilla";
-  };
-  defaultSettings = firefoxSettings;
-  # defaultSettings = librewolfSettings;
 
   nativeMessagingHostNames = lib.flatten (
     lib.mapAttrsToList
@@ -49,7 +22,7 @@ let
   addonHomePaths = lib.concatMap (p: p.sandbox.extraHomePaths) (addonSuggestedPrograms ++ nativeMessagingPrograms);
 
   packageUnwrapped = let
-    unwrapped = cfg.browser.browser // {
+    unwrapped = pkgs.firefox-unwrapped // {
       # i configure these post wrapping (below), but the wrapper errors if it thinks the browser was built
       # with a different config
       allowAddonSideload = true;
@@ -58,12 +31,13 @@ let
   in (pkgs.wrapFirefox unwrapped {
     # inherit the default librewolf.cfg
     # it can be further customized via ~/.librewolf/librewolf.overrides.cfg
-    inherit (cfg.browser) libName;
+    libName = "firefox";
     inherit nativeMessagingHosts;
 
     nixExtensions = lib.concatMap (ext: lib.optional ext.enable ext.package) (builtins.attrValues cfg.addons);
 
-    extraPrefsFiles = cfg.browser.extraPrefsFiles ++ mobile-prefs ++ [
+    extraPrefsFiles = [
+      "${pkgs.arkenfox-userjs}/user.cfg"
       (pkgs.writeText "mozilla.cfg" ''
         // load additional preferences from user directory; inspired by librewolf
         let home_dir;
@@ -71,7 +45,7 @@ let
           defaultPref('autoadmin.global_config_url', `file://''${home_dir}/.mozilla/firefox/user.js`);
         }
       '')
-    ];
+    ]; # ++ pkgs.librewolf-pmos-mobile.extraPrefsFiles
 
     extraPolicies = {
       # XXX(2024-12-02): using `nixExtensions` causes `about:debugging` to be blocked.
@@ -92,24 +66,24 @@ let
     ];
     desktopItems = (base.desktopItems or []) ++ [
       (pkgs.makeDesktopItem {
-        name = "${cfg.browser.libName}-in-vpn";
-        desktopName = "${cfg.browser.libName} (VPN)";
+        name = "firefox-in-vpn";
+        desktopName = "Firefox (VPN)";
         genericName = "Web Browser";
         # N.B.: --new-instance ensures we don't reuse an existing differenty-namespaced instance.
         # OTOH, it may error about "only one instance can run at a time": close the other instance if you see that.
-        exec = "${lib.getExe pkgs.sane-scripts.vpn} do default -- ${cfg.browser.libName} --new-instance";
-        icon = cfg.browser.libName;
+        exec = "${lib.getExe pkgs.sane-scripts.vpn} do default -- firefox --new-instance";
+        icon = "firefox";
         categories = [ "Network" "WebBrowser" ];
         type = "Application";
       })
       (pkgs.makeDesktopItem {
-        name = "${cfg.browser.libName}-stub-dns";
-        desktopName = "${cfg.browser.libName} (Stub DNS)";
+        name = "firefox-stub-dns";
+        desktopName = "Firefox (Stub DNS)";
         genericName = "Web Browser";
         # N.B.: --new-instance ensures we don't reuse an existing differently-namespaced instance.
         # OTOH, it may error about "only one instance can run at a time": close the other instance if you see that.
-        exec = "${lib.getExe pkgs.sane-scripts.vpn} do none -- ${cfg.browser.libName} --new-instance";
-        icon = cfg.browser.libName;
+        exec = "${lib.getExe pkgs.sane-scripts.vpn} do none -- firefox --new-instance";
+        icon = "firefox";
         categories = [ "Network" "WebBrowser" ];
         type = "Application";
       })
@@ -123,14 +97,14 @@ let
 
         mkdir $name
         echo "$ja: BEFORE:"
-        ls -l $(readlink $out/lib/${cfg.browser.libName}/$ja)
+        ls -l $(readlink $out/lib/firefox/$ja)
 
         echo "unzipping $ja"
         # N.B. `zip` exits non-zero even on successful extraction, if the file didn't 100% obey spec
-        unzip $out/lib/${cfg.browser.libName}/$ja -d $name || true
+        unzip $out/lib/firefox/$ja -d $name || true
 
         echo "removing old $ja"
-        rm $out/lib/${cfg.browser.libName}/$ja
+        rm $out/lib/firefox/$ja
 
         (
           pushd $name
@@ -138,12 +112,12 @@ let
           patch_''${name}_hook
 
           echo "re-zipping $ja"
-          zip $out/lib/${cfg.browser.libName}/$ja -r ./*
+          zip $out/lib/firefox/$ja -r ./*
           popd
         )
 
         echo "$ja: AFTER:"
-        ls -l $out/lib/${cfg.browser.libName}/$ja
+        ls -l $out/lib/firefox/$ja
       }
 
       patch_browser_omni_hook() {
@@ -255,10 +229,10 @@ in
       "Pictures/servo-macros"
     ] ++ addonHomePaths;
 
-    sandbox.tmpDir = "${cfg.browser.cacheDir}/tmp";
+    sandbox.tmpDir = ".cache/mozilla/tmp";
 
     mime.associations = let
-      desktop = "${cfg.browser.browser.meta.mainProgram}.desktop";
+      desktop = "firefox.desktop";
     in {
       "text/html" = desktop;
       "x-scheme-handler/http" = desktop;
@@ -267,7 +241,7 @@ in
       "x-scheme-handler/unknown" = desktop;
     };
 
-    env.BROWSER = cfg.browser.libName;  # used by misc tools like xdg-email, as fallback
+    env.BROWSER = "firefox";  # used by misc tools like xdg-email, as fallback
 
     fs = {
       ".mozilla/firefox/bookmarks.html".symlink.target = ./bookmarks.html;
@@ -286,24 +260,17 @@ in
       '';
 
       ".mozilla/firefox/user.js".symlink.target = ./user.js;
-
-    } // lib.optionalAttrs (cfg.browser.dotDir != ".mozilla/firefox") {
-      # redirect librewolf configs to the firefox configs; this way addons don't have to care about the firefox/librewolf distinction.
-      # XXX: this `../` logic assumes `dotDir` is a direct child of ~, and not a path with multiple components!
-      fs."${cfg.browser.dotDir}/profiles.ini".symlink.target = "../.mozilla/firefox/profiles.ini";
-      # N.B.: `~/.mozilla/managed-storage`, not `~/.mozilla/firefox/managed-storage`
-      fs."${cfg.browser.dotDir}/managed-storage".symlink.target = "../.mozilla/managed-storage";
     };
 
     # flush the cache to disk to avoid it taking up too much tmp.
-    persist.byPath."${cfg.browser.cacheDir}".store =
+    persist.byPath.".cache/mozilla".store =
       if (cfg.persistData != null) then
         cfg.persistData
       else
         "ephemeral"
     ;
 
-    persist.byPath."${cfg.browser.dotDir}/default".store =
+    persist.byPath.".mozilla/firefox/default".store =
       if (cfg.persistData != null) then
         cfg.persistData
       else
