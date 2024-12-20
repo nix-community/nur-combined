@@ -25,7 +25,7 @@ let
             # Add all CI packages
             environment.etc = lib.mapAttrs' (
               _n: v: lib.nameValuePair "ci-packages/${v.name}" { source = v; }
-            ) packagesAttr.${system};
+            ) packagesAttr;
           }
         ];
       }
@@ -37,10 +37,8 @@ in
   flake = {
     nixosConfigurations = builtins.listToAttrs (
       lib.flatten (
-        builtins.map (system: [
-          (mkNixOSConf "${system}" system self.ciPackages)
-          (mkNixOSConf "${system}-cuda" system self.ciPackagesWithCuda)
-        ]) config.systems
+        (builtins.map (system: mkNixOSConf "${system}" system self.ciPackages."${system}") config.systems)
+        ++ [ (mkNixOSConf "x86_64-linux-cuda" "x86_64-linux" self.ciPackagesWithCuda.x86_64-linux) ]
       )
     );
   };

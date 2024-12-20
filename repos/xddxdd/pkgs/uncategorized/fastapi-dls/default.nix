@@ -30,8 +30,6 @@ stdenv.mkDerivation {
     openssl
   ];
 
-  patches = [ ./fix-jose-interface-change.patch ];
-
   doCheck = true;
   checkPhase = ''
     runHook preCheck
