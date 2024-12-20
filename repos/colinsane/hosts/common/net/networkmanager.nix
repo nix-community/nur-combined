@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 {
   networking.networkmanager.enable = true;
   systemd.network.wait-online.enable = false;  # systemd-networkd-wait-online.service reliably fails on lappy. docs don't match behavior. shit software.
@@ -14,8 +14,7 @@
   #
   # i don't use these, and notably they drag in huge dependency sets and don't cross compile well.
   # e.g. openconnect drags in webkitgtk (for SSO)!
-  # networking.networkmanager.plugins = lib.mkForce [];
-  networking.networkmanager.enableDefaultPlugins = false;
+  networking.networkmanager.plugins = lib.mkForce [];
 
   networking.networkmanager.package = pkgs.networkmanager-split.daemon.overrideAttrs (upstream: {
     # postPatch = (upstream.postPatch or "") + ''

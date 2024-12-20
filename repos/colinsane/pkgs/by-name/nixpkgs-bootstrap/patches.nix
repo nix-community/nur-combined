@@ -98,7 +98,7 @@ in
   (fetchpatch' {
     name = "nixos/networkmanager: split ModemManager bits into own module";
     prUrl = "https://github.com/NixOS/nixpkgs/pull/316824";
-    hash = "sha256-1wm23pSXN+gez/LnaIRrEXsy8hWAAy70RuJ+umVnJCI=";
+    hash = "sha256-OB8KeLRYfPhEdB1pLZaZpmRwXCVej5OWI/Gj4yj8lqM=";
     # saneCommit = "23bfba9b76757ffc00fc2be810009dcf92e2eaf2";
     # hash = "sha256-cn6ihwO3MyzdpVoJoQNKAHyo8GuGvFP6vr//7r9pzjE=";
   })
