@@ -1,104 +1,43 @@
 diff --git a/modules/gallery.py b/modules/gallery.py
-index f516f92..3b2ecd1 100644
+index f516f92..31c2911 100644
 --- a/modules/gallery.py
 +++ b/modules/gallery.py
-@@ -22,6 +22,7 @@ class GalleryManager:
-         self.sel_img = int
-         self.img_path = str
-         self.exif = str
-+        self.img_paths = list
- 
-     def _get_img_dir(self):
-         """Determines the directory based on the control value"""
-@@ -38,7 +39,9 @@ class GalleryManager:
+@@ -38,7 +38,9 @@ class GalleryManager:
          img_dir = self._get_img_dir()
          # Use a generator to find image files, avoiding the creation of a full list
          def image_files_gen(directory):
 -            for file in os.listdir(directory):
 +            filelist = list(map(lambda file: os.path.join(directory, file), os.listdir(directory)))
-+            filelist.sort(key=os.path.getctime,reverse=True)
++            filelist.sort(key=os.path.getctime, reverse=True)
 +            for file in filelist:
                  if file.endswith(('.jpg', '.png')):
                      yield file
  
-@@ -50,12 +53,11 @@ class GalleryManager:
+@@ -50,8 +52,7 @@ class GalleryManager:
          imgs = []
          for i, file_name in enumerate(image_files_gen(img_dir)):
              if start_index <= i < end_index:
 -                image_path = os.path.join(img_dir, file_name)
 -                image = Image.open(image_path)
--                imgs.append(image)
-+                imgs.append(file_name)
++                image = Image.open(file_name)
+                 imgs.append(image)
              elif i >= end_index:
                  break
-         self.page_num = fpage_num
-+        self.img_paths = imgs
-         if subctrl == 0:
-             return imgs, self.page_num, gr.Gallery(selected_index=None)
-         return imgs
-@@ -131,25 +133,10 @@ class GalleryManager:
+@@ -145,7 +146,7 @@ class GalleryManager:
+                     yield file_path
  
-     def img_info(self, sel_img: gr.SelectData):
-         """Reads generation data from an image"""
--        if hasattr(sel_img, 'index'):
--            self.img_index = (self.page_num * 16) - 16 + sel_img.index
--            self.sel_img = sel_img.index
--        else:
--            self.img_index = (self.page_num * 16) - 16 + self.sel_img
--        img_dir = self._get_img_dir()
--         # Use a generator to find and sort image files on demand
--        def image_file_gen(directory):
--            for file in os.listdir(directory):
--                file_path = os.path.join(directory, file)
--                if os.path.isfile(file_path) and file.lower().endswith(('.png', '.jpg')):
--                    yield file_path
--
--        # Sort files only when necessary and only the files we need
+         # Sort files only when necessary and only the files we need
 -        file_paths = sorted(image_file_gen(img_dir), key=os.path.getctime)
++        file_paths = sorted(image_file_gen(img_dir), key=os.path.getctime, reverse=True)
  
          # Handle index out of range errors
          try:
--            self.img_path = file_paths[self.img_index]
-+            self.img_path = self.img_paths[sel_img.index]
-         except IndexError:
-             return "Image index is out of range."
-         if self.img_path.endswith(('.jpg', '.jpeg')):
-@@ -206,36 +193,8 @@ class GalleryManager:
-         try:
-             os.remove(self.img_path)
-             print(f"Deleted {self.img_path}")
--            self.img_index -= 1
--            img_dir = self._get_img_dir()
--            files = os.listdir(img_dir)
--            total_imgs = len([file for file in files
--                             if file.endswith(('.png', '.jpg'))])
--            file_paths = [os.path.join(img_dir, file)
--                          for file in files
--                          if os.path.isfile(os.path.join(img_dir, file)) and
--                          file.lower().endswith(('.png', '.jpg'))]
+@@ -215,7 +216,7 @@ class GalleryManager:
+                           for file in files
+                           if os.path.isfile(os.path.join(img_dir, file)) and
+                           file.lower().endswith(('.png', '.jpg'))]
 -            file_paths.sort(key=os.path.getctime)
--            if total_imgs == 0:
--                self.sel_img = None
--            if self.img_index == total_imgs:
--                if self.sel_img == 0 or self.sel_img % 16 == 0:
--                    self.sel_img = 16
--                    self.page_num -= 1
--
--                else:
--                    self.sel_img -= 1
--
--            try:
--                self.img_path = file_paths[self.img_index]
--            except IndexError:
--                return "Image index is out of range."
--
--            imgs, _, _ = self.reload_gallery(None, self.page_num)
--            img_info = self.img_info(self.sel_img)
--            pprompt_out, nprompt_out, exif = img_info[:3]
--            return [imgs, self.page_num, gr.update(self.sel_img),
--                    pprompt_out, nprompt_out, exif]
-+            imgs, page_num, gallery = self.reload_gallery(None, self.page_num, subctrl=0)
-+            return [imgs, page_num, gallery, "", "", ""]
-         except FileNotFoundError as e:
-             print(f"Error deleting image: {e}")
-             return "An error occurred while deleting."
++            file_paths.sort(key=os.path.getctime, reverse=True)
+             if total_imgs == 0:
+                 self.sel_img = None
+             if self.img_index == total_imgs:
