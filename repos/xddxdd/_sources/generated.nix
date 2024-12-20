@@ -168,14 +168,14 @@
   };
   boringssl-oqs = {
     pname = "boringssl-oqs";
-    version = "0599bb559d3be76a98f0940d494411b6a8e0b18e";
+    version = "fc7bd7373e46f862f2e2e36d5b1fe0f09ee8cbf4";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "boringssl";
-      rev = "0599bb559d3be76a98f0940d494411b6a8e0b18e";
-      hash = "sha256-vPKFxoIvT/94iWuR5aQ+TwbiWAuotLnS9IMkNFMYcE8=";
+      rev = "fc7bd7373e46f862f2e2e36d5b1fe0f09ee8cbf4";
+      hash = "sha256-3Y91tGLhJ/2IIAchHKjG5ufTdtLIxVbJ4607nIN+IjM=";
     };
-    date = "2024-10-09";
+    date = "2024-12-19";
   };
   browser360-amd64 = {
     pname = "browser360-amd64";
@@ -195,25 +195,25 @@
   };
   cachyos-kernel = {
     pname = "cachyos-kernel";
-    version = "e327341c07a5eee70edd3b1226d3ef118f2df12e";
+    version = "9f0e80e3a68b359d8f9da95b2eb326da9cc9bead";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "linux-cachyos";
-      rev = "e327341c07a5eee70edd3b1226d3ef118f2df12e";
-      hash = "sha256-bHioCOcHlj8mO01R8ttbR+isKJuxX+yQRyPCsgDvyD0=";
+      rev = "9f0e80e3a68b359d8f9da95b2eb326da9cc9bead";
+      hash = "sha256-F4SQeF1O3ufqDO9KtwdHRNlW3huw6tTGvXO3R6GIaG8=";
     };
-    date = "2024-12-17";
+    date = "2024-12-19";
   };
   cachyos-kernel-patches = {
     pname = "cachyos-kernel-patches";
-    version = "fb6cb08f225117d7dee1a317f358f76ff212e85f";
+    version = "991805bf8102c3ef4c59a269732609718088bed5";
     src = fetchFromGitHub {
       owner = "CachyOS";
       repo = "kernel-patches";
-      rev = "fb6cb08f225117d7dee1a317f358f76ff212e85f";
-      hash = "sha256-NM36iQ7UsxTROg/44EkQ6ejQfIPP+lSplrMOeb/7LCQ=";
+      rev = "991805bf8102c3ef4c59a269732609718088bed5";
+      hash = "sha256-0ddm666irhIxJLcJSke/HVI6Rtk2i84v/KfDZHN9Nl8=";
     };
-    date = "2024-12-17";
+    date = "2024-12-19";
   };
   calibre-cops = {
     pname = "calibre-cops";
@@ -485,14 +485,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "1368a9bca48473d793f0c1d52df0a4739c747d16";
+    version = "a62cd7a3fdae0e48da16558daf89a4498512fdb9";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "1368a9bca48473d793f0c1d52df0a4739c747d16";
-      hash = "sha256-11bb7+S6mj8bxi3FIgLcEG2B1KDevzFkTOywCusCHBg=";
+      rev = "a62cd7a3fdae0e48da16558daf89a4498512fdb9";
+      hash = "sha256-vYPiKl/rrjtr6T2f1nHrjV86wabaciSZGLwKWRv29EM=";
     };
-    date = "2024-12-19";
+    date = "2024-12-20";
   };
   glauth = {
     pname = "glauth";
@@ -802,12 +802,12 @@
   };
   linux-xanmod = {
     pname = "linux-xanmod";
-    version = "6.12.5-xanmod1";
+    version = "6.12.6-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.12.5-xanmod1";
+      tag = "6.12.6-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-zawR9RMN/ATCiEbqlLOII0uvlHM6lZFlJ8fGjITYLPA=";
+      hash = "sha256-Pao4tS3SjllOkRrH+k/+9JqLIEOrNqJTFlHZ4cp2OF8=";
     };
   };
   linux-xanmod-6_0 = {
@@ -832,22 +832,22 @@
   };
   linux-xanmod-6_6 = {
     pname = "linux-xanmod-6_6";
-    version = "6.6.66-xanmod1";
+    version = "6.6.67-xanmod1";
     src = fetchgit {
       url = "https://gitlab.com/xanmod/linux.git";
-      tag = "6.6.66-xanmod1";
+      tag = "6.6.67-xanmod1";
       fetchSubmodules = false;
-      hash = "sha256-ZZrU1yzji7jAC76Eh/uoRQBcnb6cMWTqYlt9RQB8L3M=";
+      hash = "sha256-ePZAs+TWroyDSKx+ubZeNRr/lA8zuqp3m0Cs5yE18JE=";
     };
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4360";
+    version = "b4367";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4360";
-      hash = "sha256-XS967vw8wzJ+KwLEbt0km7v57C6S8GJ/FhpFaYJC09Q=";
+      tag = "b4367";
+      hash = "sha256-i4mAmxYzYpdVgJ4ogAG7zRtD8IoqJk1h8f86r8y2MDw=";
     };
   };
   loralib = {
@@ -1427,23 +1427,23 @@
   };
   qsp = {
     pname = "qsp";
-    version = "79f8b644518c8d4f36abcbdc5a69497e8ca81d0c";
+    version = "90ae2619148d91edf6c3109ac35db82fcf62c516";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qspgui";
-      rev = "79f8b644518c8d4f36abcbdc5a69497e8ca81d0c";
-      hash = "sha256-sfWUzZExcH08pJYjkFhkH4SsXFWp8pMUqFHzvlfU5Yg=";
+      rev = "90ae2619148d91edf6c3109ac35db82fcf62c516";
+      hash = "sha256-QZxgww9UCQHQ9HS1pwUZLjvkwNkBdHwbTAqjK7ZaqjM=";
     };
-    date = "2024-11-24";
+    date = "2024-12-19";
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "98bcc98e68cb1fb88dd0382b35b790e3a772d311";
+    version = "540bf1d493314ba7da5dc06df78d16da002d10f5";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "98bcc98e68cb1fb88dd0382b35b790e3a772d311";
-      hash = "sha256-xfpfliR+liYHhvduQtpXMVXTaYM7Hr+vcAToGQ60RZQ=";
+      rev = "540bf1d493314ba7da5dc06df78d16da002d10f5";
+      hash = "sha256-gkKJbvAmjVCGk1NLqY8F0SUkbyL0xTcpNPX0uLHumZI=";
     };
     date = "2024-12-19";
   };
@@ -1520,12 +1520,12 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "6628e95a4e2322b70dbd4c3faa12f2de38fb5b60";
+    version = "3eedb0c6c41e2f6affd1fb1057b44ab420f7c1d2";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "6628e95a4e2322b70dbd4c3faa12f2de38fb5b60";
-      hash = "sha256-gQgag/eEcfRjOPhSJCUa84cg6bnQ1iVlduD+EldBBFA=";
+      rev = "3eedb0c6c41e2f6affd1fb1057b44ab420f7c1d2";
+      hash = "sha256-vbiytygCiGWY/GHCHqf7Wl+GGE+boMMGS/jh3qVcr0U=";
     };
     date = "2024-12-19";
   };
@@ -1847,14 +1847,14 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "375348814f21bec9bed81e5e46067af336f2b738";
+    version = "0c42621160971dc27444bd07352effb06d15fe48";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "375348814f21bec9bed81e5e46067af336f2b738";
-      hash = "sha256-/Ywj6nqXSqkhHm9PvbFWJEx4bWj2Bx0DmeHk28cwJos=";
+      rev = "0c42621160971dc27444bd07352effb06d15fe48";
+      hash = "sha256-OONTHyikydN0Kpaa73T5uynwhnQUAhOwvRV4g/3XFc0=";
     };
-    date = "2024-12-18";
+    date = "2024-12-20";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
