@@ -1,7 +1,6 @@
 { ... }:
 {
   imports = [
-    # ./bonsaid.nix  #< UPSTREAMING IN PROGRESS: <https://github.com/NixOS/nixpkgs/pull/347818>
     ./dropbear.nix
     ./clightning.nix
     ./dyn-dns.nix

@@ -47,25 +47,6 @@ in
   })
 
   (fetchpatch' {
-    name = "geary: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/366636";
-    hash = "sha256-lOGkarUaWBFl3wL3S0mtS6tvVaSFC7noRwboOLYlhkA=";
-  })
-
-  (fetchpatch' {
-    name = "calls: fix cross compilation";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/366638";
-    hash = "sha256-/DkyiGGTfi9Zr96L8QjAHXOjrOMH3Gc3KlT/5GbHvlU=";
-  })
-
-  (fetchpatch' {
-    name = "nixos/bonsaid: init";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/347818";
-    # saneCommit = "bc3d311bdc11a26b8b0a95806c0ea7b80554548d";
-    hash = "sha256-yI/fQurBmItgpkiYDxgGMvEeKh8fRG40RLp44WgiJ4k=";
-  })
-
-  (fetchpatch' {
     # TODO: send to upstream nixpkgs once tested (branch: lappy: pr-stepmania-wrapper)
     name = "stepmania: wrap the program so it knows where to find its data files";
     saneCommit = "e2022b4caab6dcf031841fcf48752ebeb6837978";
@@ -94,14 +75,6 @@ in
   #   prUrl = "https://github.com/NixOS/nixpkgs/pull/319126";
   #   hash = "sha256-frSOcOQs6n+++w95DWz92H8SVwrs8ZJyJ1KHwOQ6ql8=";
   # })
-
-  (fetchpatch' {
-    name = "nixos/networkmanager: split ModemManager bits into own module";
-    prUrl = "https://github.com/NixOS/nixpkgs/pull/316824";
-    hash = "sha256-OB8KeLRYfPhEdB1pLZaZpmRwXCVej5OWI/Gj4yj8lqM=";
-    # saneCommit = "23bfba9b76757ffc00fc2be810009dcf92e2eaf2";
-    # hash = "sha256-cn6ihwO3MyzdpVoJoQNKAHyo8GuGvFP6vr//7r9pzjE=";
-  })
 
   # (fetchpatch' {
   #   # TODO: send for review once hspell fix is merged <https://github.com/NixOS/nixpkgs/pull/263182>

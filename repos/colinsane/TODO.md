@@ -30,10 +30,8 @@
   - can gocryptfs support nested filesystems, each with different perms (for desko, moby, etc)?
 
 ### upstreaming
-- upstream `bonsaid` service -> nixpkgs
-  - out for review: <https://github.com/NixOS/nixpkgs/pull/347818>
-- upstream `buffybox`/`buffyboard` package/service -> nixpkgs
-  - out for review: <https://github.com/NixOS/nixpkgs/pull/358941>
+- upstream blueprint-compiler cross fixes -> nixpkgs
+- upstream cargo cross fixes -> nixpkgs
 - upstream `gps-share` package -> nixpkgs
 - upstream PinePhonePro device trees -> linux
 

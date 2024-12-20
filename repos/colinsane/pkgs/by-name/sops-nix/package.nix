@@ -6,8 +6,8 @@ let
   src = fetchFromGitHub {
     owner = "Mic92";
     repo = "sops-nix";
-    rev = "2d73fc6ac4eba4b9a83d3cb8275096fbb7ab4004";
-    hash = "sha256-GZ4YtqkfyTjJFVCub5yAFWsHknG1nS/zfk7MuHht4Fs=";
+    rev = "ed091321f4dd88afc28b5b4456e0a15bd8374b4d";
+    hash = "sha256-6OvJbqQ6qPpNw3CA+W8Myo5aaLhIJY/nNFDk3zMXLfM=";
   };
   flake = import "${src}/flake.nix";
   evaluated = flake.outputs {
@@ -20,7 +20,7 @@ in src.overrideAttrs (base: {
   # attributes required by update scripts
   pname = "sops-nix";
   # nix-update-script insists on this weird `assets-` version format
-  version = "assets-unstable-2024-12-12";
+  version = "assets-unstable-2024-12-18";
   src = src;
 
   passthru = base.passthru

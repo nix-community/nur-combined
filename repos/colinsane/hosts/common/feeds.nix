@@ -68,7 +68,7 @@ let
     (fromDb "congressionaldish.libsyn.com" // pol)  # Jennifer Briney
     (fromDb "craphound.com" // pol)  # Cory Doctorow -- both podcast & text entries
     (fromDb "darknetdiaries.com" // tech)
-    (fromDb "podcast.ergaster.org/@flintandsilicon" // tech)  # Thib's podcast: public interest tech, gnome, etc: <https://fed.uninsane.org/users/$ALLO9MZ5g5CsQTCBH6>
+    (fromDb "dwarkeshpatel.com" // tech)
     (fromDb "feeds.99percentinvisible.org/99percentinvisible" // pol)  # 99% Invisible -- also available here: <https://feeds.simplecast.com/BqbsxVfO>
     (fromDb "feeds.buzzsprout.com/2412334.rss")  # Matt Stoller's _Organized Money_ <https://www.organizedmoney.fm/>
     (fromDb "feeds.eff.org/howtofixtheinternet" // pol)
@@ -102,6 +102,7 @@ let
     (fromDb "omny.fm/shows/the-dollop-with-dave-anthony-and-gareth-reynolds")  # The Dollop history/comedy
     (fromDb "omny.fm/shows/weird-little-guys")  # Cool Zone Media
     (fromDb "originstories.libsyn.com" // uncat)
+    (fromDb "podcast.ergaster.org/@flintandsilicon" // tech)  # Thib's podcast: public interest tech, gnome, etc: <https://fed.uninsane.org/users/$ALLO9MZ5g5CsQTCBH6>
     (fromDb "podcast.sustainoss.org" // tech)
     (fromDb "politicalorphanage.libsyn.com" // pol)
     (fromDb "reverseengineering.libsyn.com/rss" // tech)  # UnNamed Reverse Engineering Podcast

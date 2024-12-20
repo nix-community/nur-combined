@@ -177,18 +177,6 @@ in with final; {
   #   shell = runtimeShell;
   # };
 
-  # 2024/12/19: upstreaming is unblocked
-  #             out for PR: <https://github.com/NixOS/nixpkgs/pull/366638>
-  # fixes: "Exec format error: './calls-scan'"
-  # calls = prev.calls.overrideAttrs (upstream: {
-  #   # TODO: try building with mesonEmulatorHook when i upstream this
-  #   # nativeBuildInputs = upstream.nativeBuildInputs ++ lib.optionals (!prev.stdenv.buildPlatform.canExecute prev.stdenv.hostPlatform) [
-  #   #   mesonEmulatorHook
-  #   # ];
-  #   outputs = lib.remove "devdoc" upstream.outputs;
-  #   mesonFlags = lib.remove "-Dgtk_doc=true" upstream.mesonFlags;
-  # });
-
   # 2024/11/19: upstreaming is unblocked
   delfin = (prev.delfin.override {
     cargo = crossCargo;
@@ -321,16 +309,6 @@ in with final; {
   #   # which causes host binaries to be linked against the build libc & fail
   #   mesonFlags = (lib.remove "-Ddocs=enabled" upstream.mesonFlags) ++ [ "-Ddocs=disabled" ];
   #   outputs = lib.remove "devdoc" upstream.outputs;
-  # });
-
-  # 2024/12/19: upstreaming is unblocked
-  #             out for PR: <https://github.com/NixOS/nixpkgs/pull/366636>
-  # geary = prev.geary.overrideAttrs (upstream: {
-  #   buildInputs = upstream.buildInputs ++ [
-  #     # glib
-  #     appstream-glib
-  #     libxml2
-  #   ];
   # });
 
   # 2024/12/18: upstreaming is unblocked

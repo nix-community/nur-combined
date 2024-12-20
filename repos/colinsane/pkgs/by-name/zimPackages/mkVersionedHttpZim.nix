@@ -2,7 +2,7 @@
 # see list of wikipedia mirrors, which mostly include the .zim files:
 # - <https://dumps.wikimedia.org/backup-index.html>
 {
-  directoryListingUpdater2,
+  directoryListingUpdater,
   fetchurl,
   stdenv,
 }:
@@ -40,10 +40,10 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = directoryListingUpdater2 {
+  passthru.updateScript = directoryListingUpdater {
     url = "https://download.kiwix.org/zim/${prefix}";
   };
-  # required so that directoryListingUpdater2 can know in which file the `version` variable can be updated in.
+  # required so that directoryListingUpdater can know in which file the `version` variable can be updated in.
   passthru.meta.position = let
     position = builtins.unsafeGetAttrPos "version" args;
   in
