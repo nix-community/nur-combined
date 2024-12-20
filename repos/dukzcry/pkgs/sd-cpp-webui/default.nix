@@ -18,6 +18,8 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = with python3Packages; [ wrapPython ];
 
+  patches = [ ./fix-broken-sorting.patch ];
+
   installPhase = ''
     mkdir -p $out/${python3Packages.python.sitePackages}
     cp -r modules $out/${python3Packages.python.sitePackages}
