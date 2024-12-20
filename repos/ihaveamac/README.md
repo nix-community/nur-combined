@@ -14,6 +14,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | --- | --- | --- |
 | [3dslink-0.6.3](https://github.com/devkitPro/3dslink) | \_3dslink | Send 3DSX files to the Homebrew Launcher on 3DS |
 | [3dstool-1.2.6](https://github.com/dnasdw/3dstool) | \_3dstool | An all-in-one tool for extracting/creating 3ds roms. |
+| [bannertool-2024-11-30](https://github.com/ihaveamac/3ds-bannertool) | bannertool | A tool for creating 3DS banners. (Mix of Windows unicode fix and CMake build system) |
 | [cleaninty-0.1.3](https://github.com/luigoalma/cleaninty) | cleaninty | Perform some Nintendo console client to server operations |
 | [corgi3ds-2020-07-15](https://github.com/PSI-Rockin/Corgi3DS) | corgi3ds | An LLE dog-themed 3DS emulator |
 | [ctrtool-1.2.0](https://github.com/3DSGuy/Project_CTR) | ctrtool | A tool to extract data from a 3ds rom |
@@ -24,10 +25,10 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [lnshot-0.1.3](https://github.com/ticky/lnshot) | lnshot | Symlink your Steam screenshots to a sensible place |
 | [makebax-2019-01-22](https://gitlab.com/Wolfvak/BAX) | makebax | BAX Animation creator |
 | [makerom-0.18.4](https://github.com/3DSGuy/Project_CTR) | makerom | make 3ds roms |
-| [mediawiki-1.39.10](https://www.mediawiki.org/) | mediawiki\_1\_39 | The collaborative editing software that runs Wikipedia |
+| [mediawiki-1.39.11](https://www.mediawiki.org/) | mediawiki\_1\_39 | The collaborative editing software that runs Wikipedia |
 | [mediawiki-1.40.4](https://www.mediawiki.org/) | mediawiki\_1\_40 | The collaborative editing software that runs Wikipedia |
-| [mediawiki-1.41.4](https://www.mediawiki.org/) | mediawiki\_1\_41 | The collaborative editing software that runs Wikipedia |
-| [mediawiki-1.42.3](https://www.mediawiki.org/) | mediawiki\_1\_42 | The collaborative editing software that runs Wikipedia |
+| [mediawiki-1.41.5](https://www.mediawiki.org/) | mediawiki\_1\_41 | The collaborative editing software that runs Wikipedia |
+| [mediawiki-1.42.4](https://www.mediawiki.org/) | mediawiki\_1\_42 | The collaborative editing software that runs Wikipedia |
 | [mediawiki-1.43.0-rc.0](https://www.mediawiki.org/) | mediawiki\_1\_43 | The collaborative editing software that runs Wikipedia |
 | [rvthtool-dev-2024-05-17](https://github.com/GerbilSoft/rvthtool) | rvthtool | Open-source tool for managing RVT-H Reader consoles |
 | [save3ds-dev-2023-03-28](https://github.com/wwylele/save3ds) | save3ds | Extract/Import/FUSE for 3DS save/extdata/database. |

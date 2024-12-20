@@ -32,10 +32,11 @@ rec {
   corgi3ds = pkgs.libsForQt5.callPackage ./pkgs/corgi3ds { };
   ftpd = pkgs.callPackage ./pkgs/ftpd { };
   darctool = pkgs.callPackage ./pkgs/darctool { };
+  bannertool = pkgs.callPackage ./pkgs/bannertool { };
 
   mediawiki_1_39 = pkgs.callPackage ./pkgs/mediawiki {
-    version = "1.39.10";
-    hash = "sha256-mL8OakLrzEsWXDhToXNo5lVhmqz9qMYSH/6tWUDuHhM=";
+    version = "1.39.11";
+    hash = "sha256-pEYH2AmLFTWcqZzgLrWBR9SOWHR0ruC0PNBROVV3nIo=";
   };
   mediawiki_1_40 = pkgs.callPackage ./pkgs/mediawiki {
     version = "1.40.4";
@@ -43,12 +44,12 @@ rec {
     knownVulnerabilities = [ "MediaWiki 1.40 has been end-of-life since 2024-06-28." ];
   };
   mediawiki_1_41 = pkgs.callPackage ./pkgs/mediawiki {
-    version = "1.41.4";
-    hash = "sha256-hL6qJdTt0bWB4HgejqvLxWCjIjkNKromMPzE28rIuaI=";
+    version = "1.41.5";
+    hash = "sha256-Sq2inYfvrlP7OpQjs2lQZz4t0dU7R4EzzPNGpR83HjU=";
   };
   mediawiki_1_42 = pkgs.callPackage ./pkgs/mediawiki {
-    version = "1.42.3";
-    hash = "sha256-4FVjA/HYRnnNk5sykMyrP4nLxp02B/8dRJymxZU7ILw=";
+    version = "1.42.4";
+    hash = "sha256-jiCXmH1Nu6fASFP2LNo338M4GeACjKSALSXzRM/o5yc=";
   };
   mediawiki_1_43 = pkgs.callPackage ./pkgs/mediawiki {
     version = "1.43.0-rc.0";
