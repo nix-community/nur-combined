@@ -1,27 +1,18 @@
 {
-  description = "My personal NUR repository";
+  description = "Moraxyc's NUR repository";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
-
-    nvfetcher = {
-      url = "github:berberman/nvfetcher";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
   outputs =
     {
       self,
-      nixpkgs,
       flake-parts,
+      nixpkgs,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [
-        ./flakes/ci-outputs.nix
-        ./flakes/commands.nix
-        ./flakes/nixpkgs.nix
-      ];
+      imports = [ ./flake-modules/commands.nix ];
       systems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -29,38 +20,28 @@
         "aarch64-darwin"
       ];
       flake = {
-        overlay = self.overlays.default;
-        overlays = {
-          default =
-            final: prev:
-            import ./pkgs null {
-              pkgs = prev;
-              inherit inputs;
-            };
-        };
 
         nixosModules = {
-          setupOverlay =
-            { config, ... }:
-            {
-              nixpkgs.overlays = [ self.overlays.default ];
-            };
           alist = import ./modules/alist.nix;
           gost = import ./modules/gost.nix;
           exloli-next = import ./modules/exloli-next.nix;
           bark-server = import ./modules/bark-server.nix;
         };
-      };
 
+        lib = import ./lib;
+      };
       perSystem =
         {
-          config,
           system,
           pkgs,
+          inputs',
           ...
         }:
         {
-          packages = import ./pkgs null { inherit inputs pkgs; };
+          packages = import ./pkgs/default.nix {
+            pkgs = import nixpkgs { inherit system; };
+            inherit inputs' system self;
+          };
           formatter = pkgs.nixfmt-rfc-style;
         };
     };
