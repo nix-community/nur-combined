@@ -43,7 +43,7 @@
 , libGL
 , libnotify
 , writeShellScript
-, buildFHSUserEnvBubblewrap 
+, buildFHSEnvBubblewrap
 , xhost
 , xdg-user-dirs
 
@@ -192,7 +192,7 @@ let
     exec ${wechat-universal-src}/opt/${_pkgname}/wechat
   '';
 
-  fhs = buildFHSUserEnvBubblewrap {
+  fhs = buildFHSEnvBubblewrap {
     name = "${_pkgname}";
 
     targetPkgs = 
