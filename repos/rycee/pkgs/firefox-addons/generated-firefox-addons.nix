@@ -66,6 +66,21 @@
         platforms = platforms.all;
       };
     };
+    "about-sync" = buildFirefoxXpiAddon {
+      pname = "about-sync";
+      version = "0.25.20240801.134157";
+      addonId = "aboutsync@mhammond.github.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4329803/about_sync-0.25.20240801.134157.xpi";
+      sha256 = "30955de88a10d8d0b91734f7ceb69dc6a939b9dea6563e64f65114d1280dfc73";
+      meta = with lib;
+      {
+        homepage = "https://github.com/mhammond/aboutsync";
+        description = "Show information about Firefox Sync.\nThis addon shows information about your Sync account, including showing all server data for your account. It is designed primarily for Sync developers or advanced users.";
+        license = licenses.mpl20;
+        mozPermissions = [ "mozillaAddons" ];
+        platforms = platforms.all;
+      };
+    };
     "absolute-enable-right-click" = buildFirefoxXpiAddon {
       pname = "absolute-enable-right-click";
       version = "1.3.9resigned1";
@@ -8348,10 +8363,10 @@
     };
     "pakkujs" = buildFirefoxXpiAddon {
       pname = "pakkujs";
-      version = "2024.12.1";
+      version = "2024.12.2";
       addonId = "{646d57f4-d65c-4f0d-8e80-5800b92cfdaa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4400257/pakkujs-2024.12.1.xpi";
-      sha256 = "08ade9dcb46ad062af47642b2e23f103dd7b02242c3ba32f3d41dd194a498910";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4408449/pakkujs-2024.12.2.xpi";
+      sha256 = "a15c4e16f5605b4defe38011bc13a8ddeacc657ef06ab671ebf7efcfec79244a";
       meta = with lib;
       {
         homepage = "http://s.xmcp.ltd/pakkujs/?src=amo_homepage";
