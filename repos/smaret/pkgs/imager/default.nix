@@ -7,12 +7,12 @@ let
 in
 
 stdenv.mkDerivation rec {
-  version = "4.2-08";
+  version = "4.4-01";
   pname = "imager";
 
   src = fetchurl {
-    url = "https://nuage.oasu.u-bordeaux.fr/index.php/s/PoxdxMTTYXqNwKF/download?path=%2F&files=imager-oct24.tar.gz";
-    sha256 = "sha256-leICO1RT+AURV7/2CJ6IPC6e4KynfrW6yO1In80LVWI=";
+    url = "https://dave.oasu.u-bordeaux.fr:5000/5964614a-44f2-47fd-ba18-5f155543044e/imager-last.tgz";
+    sha256 = "sha256-cIgsj/OYzi8UZc9Gk/0bN3vHD8Kh+y1+EAPzM4J7t+4=";
   };
 
   nativeBuildInputs = [ pkg-config groff perl getopt gfortran which ];
