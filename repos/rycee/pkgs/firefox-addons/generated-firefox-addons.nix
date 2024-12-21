@@ -1393,10 +1393,10 @@
     };
     "clearcache" = buildFirefoxXpiAddon {
       pname = "clearcache";
-      version = "4.0";
+      version = "4.2";
       addonId = "clearcache@michel.de.almeida";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4240060/clearcache-4.0.xpi";
-      sha256 = "48ac3bae170fb6b411b3706f9a3aa5ad24309f8a9fd772c6310e5a9c066bdcb0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4406192/clearcache-4.2.xpi";
+      sha256 = "e4639caf1b0c2a65d5f97df2b711ed11b853f8fc9278feeda94b7b1c601b4052";
       meta = with lib;
       {
         homepage = "https://github.com/TenSoja/clear-cache";
@@ -1870,10 +1870,10 @@
     };
     "control-panel-for-twitter" = buildFirefoxXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.4.3";
+      version = "4.4.5";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4402464/control_panel_for_twitter-4.4.3.xpi";
-      sha256 = "56e0b4494ce102d3b267ee1260c5b3965aa230086f9972c066e46503c183d969";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4405585/control_panel_for_twitter-4.4.5.xpi";
+      sha256 = "c9f92d41d8d87d749309f972ea5b5f3104c64a4195571dc33ba36b56d48ced98";
       meta = with lib;
       {
         homepage = "https://github.com/insin/control-panel-for-twitter";
@@ -2162,10 +2162,10 @@
     };
     "dashlane" = buildFirefoxXpiAddon {
       pname = "dashlane";
-      version = "6.2450.0";
+      version = "6.2451.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4402180/dashlane-6.2450.0.xpi";
-      sha256 = "70ebed09fbcd23732f48f10523c31eb1ecd0e5f7d339cfd499dd209eb8f00c74";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4405905/dashlane-6.2451.0.xpi";
+      sha256 = "1f4325ce2949a91fb7b6699b298af5fccbe8f4269109f50fccfca68ddd9cf752";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -2194,10 +2194,10 @@
     };
     "dearrow" = buildFirefoxXpiAddon {
       pname = "dearrow";
-      version = "1.9.5";
+      version = "1.10";
       addonId = "deArrow@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4403831/dearrow-1.9.5.xpi";
-      sha256 = "1934690778aae38b9d6fdbc5635c9afd1276589f5756c0b1627185ee1788c862";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4405200/dearrow-1.10.xpi";
+      sha256 = "f2d587f42bf75eabac1657693547de1b99136eafa66aff928c67f5ae362bbd74";
       meta = with lib;
       {
         homepage = "https://dearrow.ajay.app";
@@ -2504,10 +2504,10 @@
     };
     "dualsub" = buildFirefoxXpiAddon {
       pname = "dualsub";
-      version = "2.51.1";
+      version = "2.51.2";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4400282/dualsub-2.51.1.xpi";
-      sha256 = "2ba7167231586017caf3e63ae585b043d3caa7d5ce911528fed0262ab875d7ff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4408166/dualsub-2.51.2.xpi";
+      sha256 = "318a4ffb188d8fd94be9bf89c17801758ec7762888a2823caf94574de936c134";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -5371,10 +5371,10 @@
     };
     "indie-wiki-buddy" = buildFirefoxXpiAddon {
       pname = "indie-wiki-buddy";
-      version = "3.11.1";
+      version = "3.12.0";
       addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4379107/indie_wiki_buddy-3.11.1.xpi";
-      sha256 = "2b63271fa42e3d46a683605f719de816195471ccd8654771606d6eb811f7596d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4405306/indie_wiki_buddy-3.12.0.xpi";
+      sha256 = "dabb4b32fba2150277a564b774b01054b09fd2c9dbfe93f76bb357c5f38cca24";
       meta = with lib;
       {
         homepage = "https://getindie.wiki/";
@@ -7464,10 +7464,10 @@
     };
     "mergify" = buildFirefoxXpiAddon {
       pname = "mergify";
-      version = "1.0.13";
+      version = "1.0.14";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4404689/mergify-1.0.13.xpi";
-      sha256 = "837b6a74c9a103bb2d55befb7c027dfa49279716896c5f5af54323e173a92956";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4408103/mergify-1.0.14.xpi";
+      sha256 = "6c55460daf44dc89f0eea7d509b8ec0167229a97e936afd2e006ed09a8a63dba";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -8197,10 +8197,10 @@
     };
     "onepassword-password-manager" = buildFirefoxXpiAddon {
       pname = "onepassword-password-manager";
-      version = "8.10.55.2";
+      version = "8.10.56.28";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4400079/1password_x_password_manager-8.10.55.2.xpi";
-      sha256 = "1744883b634e962161d1bfc23527d8b5ee01b02d35207f2d14d51d397c1d0ffa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4404461/1password_x_password_manager-8.10.56.28.xpi";
+      sha256 = "dd23e347a7b51b8a6ef2ebb463764ab08dec0900dfe7454b588ca123a7449d71";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -9836,10 +9836,10 @@
     };
     "refined-github" = buildFirefoxXpiAddon {
       pname = "refined-github";
-      version = "24.12.10";
+      version = "24.12.20";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4402789/refined_github-24.12.10.xpi";
-      sha256 = "0b71a6d92a0b6bb8cf0eb40800b35f910bba616bacf990317ae7300b33a98c01";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4407997/refined_github-24.12.20.xpi";
+      sha256 = "1c2b1ce845ad2e118ffb9adb341d02e792f995f1bbd2f04a61e5ed15bf18d23a";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -11143,10 +11143,10 @@
     };
     "tampermonkey" = buildFirefoxXpiAddon {
       pname = "tampermonkey";
-      version = "5.3.2";
+      version = "5.3.3";
       addonId = "firefox@tampermonkey.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4379021/tampermonkey-5.3.2.xpi";
-      sha256 = "503a233543cf76dff81c7a18b73340f2256987feaef512deb7e0eb68a206b4b3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4405733/tampermonkey-5.3.3.xpi";
+      sha256 = "1eb5ddffb3b93c0258ef0458658436563772d21bf5dffa334bb8a49cca8f0fff";
       meta = with lib;
       {
         homepage = "https://tampermonkey.net";
@@ -12734,10 +12734,10 @@
     };
     "web-archives" = buildFirefoxXpiAddon {
       pname = "web-archives";
-      version = "7.0.0";
+      version = "7.0.1";
       addonId = "{d07ccf11-c0cd-4938-a265-2a4d6ad01189}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4361316/view_page_archive-7.0.0.xpi";
-      sha256 = "89e4bf47885b185a63599b1c26c579ccb9a04ebc63a66a66d5a293dbfe356431";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4404814/view_page_archive-7.0.1.xpi";
+      sha256 = "d8c3cf83ecf0cba260df639e4afa8e4c3a6251c483255a7d4e1e0c882154e64a";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/web-archives#readme";
@@ -13215,10 +13215,10 @@
     };
     "yomitan" = buildFirefoxXpiAddon {
       pname = "yomitan";
-      version = "24.12.10.2";
+      version = "24.12.12.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4403181/yomitan-24.12.10.2.xpi";
-      sha256 = "d80c282d6bf50be0e849e134bfec4072e5b0096b8480da2dd9d0ee944f9a14ad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4405178/yomitan-24.12.12.0.xpi";
+      sha256 = "a5e33ac934f6e7c696bcb98362eaaae942c12ae8bbd64d1604eec6ada68695d4";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
