@@ -2,13 +2,13 @@
 
 stdenv.mkDerivation rec {
   pname = "rvthtool";
-  version = "dev-2024-05-17";
+  version = "dev-2024-12-15";
 
   src = fetchFromGitHub {
     owner = "GerbilSoft";
     repo = pname;
-    rev = "2029a71346198fc1fc946d5853c11f44e6d5b922";
-    hash = "sha256-1/crr2dpZjexWAQ/yWd4pZG56cKcbbOwF51LOARKiF8=";
+    rev = "4f9761837a2de721488f5a7f10ce9dc8f4e5795e";
+    hash = "sha256-cVUjlNGKFbi4jw5GtpfHJNH+56329U3NGDgh32ZyQ9E=";
   };
 
   buildInputs = [ nettle ];

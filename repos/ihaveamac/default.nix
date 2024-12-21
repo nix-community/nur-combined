@@ -52,8 +52,8 @@ rec {
     hash = "sha256-jiCXmH1Nu6fASFP2LNo338M4GeACjKSALSXzRM/o5yc=";
   };
   mediawiki_1_43 = pkgs.callPackage ./pkgs/mediawiki {
-    version = "1.43.0-rc.0";
-    hash = "sha256-nO+3Fs9DoSdRwoguRpun9BEF1daFAVvYSqxI1HiUtd4=";
+    version = "1.43.0";
+    hash = "sha256-VuCn/i/3jlC5yHs9WJ8tjfW8qwAY5FSypKI5yFhr2O4=";
   };
 
   kwin-move-window = pkgs.callPackage ./pkgs/kwin-move-window { };

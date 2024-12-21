@@ -2,13 +2,13 @@
 
 buildDotnetModule rec {
   pname = "discordwikibot";
-  version = "2024-11-11";
+  version = "2024-12-20";
 
   src = fetchFromGitHub {
     owner = "stjohann";
     repo = "DiscordWikiBot";
-    rev = "ffc5299cd3b6e81c140e444359827bd6cd9b914d";
-    hash = "sha256-bcFin0ovZ7QwDJV/JHpYTSZLLP/i5D5aJSLTsisefwI=";
+    rev = "eab36a8f51114bcca7ff2f12ca6b8cfa6246fdfc";
+    hash = "sha256-itSXViIisCksCfKNHaRih9+A9NbgaXKzg64g+5h1VNA=";
   };
 
   projectFile = "DiscordWikiBot/DiscordWikiBot.csproj";
