@@ -9,16 +9,16 @@ let
     type: hash:
     fetchurl {
       inherit hash;
-      url = "https://autopatchcn.yuanshen.com/client_app/download/pc_zip/20240816183703_2noMz7rJZAdUZy6J/ScatteredFiles/YuanShen_Data/StreamingAssets/MiHoYoSDKRes/HttpServerResources/font/${type}.ttf";
+      url = "https://autopatchcn.yuanshen.com/client_app/download/pc_zip/20241108173401_1jYptYJqdIP6KinO/ScatteredFiles/YuanShen_Data/StreamingAssets/MiHoYoSDKRes/HttpServerResources/font/${type}.ttf";
     };
 in
 stdenvNoCC.mkDerivation {
   pname = "hanyi-wenhei-genshin";
-  version = "5.0.0";
+  version = "5.2.0";
 
   srcs = [
-    (fetchFont "ja-jp" "sha256-eLjN6wvxW2Kt/P166/0Y1sS8QXw+KpXH1fsMNKbC4yg=")
-    (fetchFont "zh-cn" "sha256-etDs1jOjKYGjoL+gge3jAFkur/Ug5zEc5o0X9Rn6RqQ=")
+    (fetchFont "ja-jp" "sha256-MCRYnv4qMO6XXSMswuXTCtmu2ctIwSlF8z36bqvXZEk=")
+    (fetchFont "zh-cn" "sha256-KJLPDGhdyP9T2rqQLNwrI9k04wYDe5T6DqwmXx5EDzs=")
   ];
 
   sourceRoot = ".";
