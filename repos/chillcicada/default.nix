@@ -5,7 +5,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  # nix-build -A `package-name` | cachix push `user`
   degit-rs = pkgs.callPackage ./pkgs/degit-rs { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+  tunet-rust = pkgs.callPackage ./pkgs/tunet-rust { };
 }
