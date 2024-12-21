@@ -75,10 +75,10 @@
   };
   icalingua-plus-plus = {
     pname = "icalingua-plus-plus";
-    version = "v2.12.24";
+    version = "v2.12.25";
     src = fetchurl {
-      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.12.24/app-x86_64.asar";
-      sha256 = "sha256-oZoWMXz0wfLQnHM+MvtMbbVrXBN8bGOyDkPFUfmS1PU=";
+      url = "https://github.com/icalingua-plus-plus/icalingua-plus-plus/releases/download/v2.12.25/app-x86_64.asar";
+      sha256 = "sha256-1Iz/65YhKlguRlEh+tQ8AdkpCoI5Iu7o6/9MMMIsT88=";
     };
   };
   linux-intel-lts = {
