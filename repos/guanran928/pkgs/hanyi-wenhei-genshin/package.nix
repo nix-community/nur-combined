@@ -36,6 +36,8 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.updateScript = ./update.py;
+
   meta = {
     description = "Han Yi Wen Hei (汉仪文黑) font, modified by miHoYo";
     homepage = "https://www.hanyi.com.cn/productdetail?id=987";
