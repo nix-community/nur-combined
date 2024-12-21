@@ -93,3 +93,7 @@ fetch.pypi = "mulimgviewer"
 [pyrime]
 src.pypi = "pyrime"
 fetch.pypi = "pyrime"
+
+[bash-prompt]
+src.github_tag = "Freed-Wu/bash-prompt"
+fetch.github = "Freed-Wu/bash-prompt"

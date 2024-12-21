@@ -17,6 +17,17 @@
       sha256 = "sha256-2akB42TCpcrQQAHSKP5yRJUjRm0lN8DR70Uw/B4m/9M=";
     };
   };
+  bash-prompt = {
+    pname = "bash-prompt";
+    version = "0.0.1";
+    src = fetchFromGitHub {
+      owner = "Freed-Wu";
+      repo = "bash-prompt";
+      rev = "0.0.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-64KFbS63jyPhl4z0tsS+7vg6b2XrL2uIzhzWtOepu5k=";
+    };
+  };
   expect-language-server = {
     pname = "expect-language-server";
     version = "0.0.1";
