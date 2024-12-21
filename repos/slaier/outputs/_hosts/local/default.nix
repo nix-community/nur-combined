@@ -81,4 +81,5 @@
     kodi-wayland
     ungoogled-chromium
   ]);
+  nixpkgs.config.chromium.commandLineArgs = "--enable-wayland-ime --wayland-text-input-version=3";
 }

@@ -74,23 +74,35 @@ _:
     enableGraphical = true;
   };
 
-  hardware.opengl = {
+  environment.variables = {
+    ROC_ENABLE_PRE_VEGA = "1";
+  };
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
     extraPackages = with pkgs; [
       amdvlk
-      rocm-opencl-icd
-      rocm-opencl-runtime
+      rocmPackages.clr.icd
     ];
     extraPackages32 = with pkgs; [
       driversi686Linux.amdvlk
     ];
   };
 
-  systemd.tmpfiles.rules = [
-    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
-  ];
+  systemd.tmpfiles.rules =
+    let
+      rocmEnv = pkgs.symlinkJoin {
+        name = "rocm-combined";
+        paths = with pkgs.rocmPackages; [
+          rocblas
+          hipblas
+          clr
+        ];
+      };
+    in
+    [
+      "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
+    ];
 
   hardware.fancontrol =
     let

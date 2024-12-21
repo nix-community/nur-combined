@@ -14,7 +14,7 @@ jobs:
           fetch-depth: 0
       - uses: ./.github/actions/setup_nix
         with:
-          channel: nixos-24.05
+          channel: nixos-24.11
           cachix_token: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - uses: ./.github/actions/check_system
         id: old
