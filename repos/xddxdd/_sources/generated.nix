@@ -168,14 +168,14 @@
   };
   boringssl-oqs = {
     pname = "boringssl-oqs";
-    version = "fc7bd7373e46f862f2e2e36d5b1fe0f09ee8cbf4";
+    version = "69bd7824890a843d5e9725498a1cd72a8bb81506";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "boringssl";
-      rev = "fc7bd7373e46f862f2e2e36d5b1fe0f09ee8cbf4";
-      hash = "sha256-3Y91tGLhJ/2IIAchHKjG5ufTdtLIxVbJ4607nIN+IjM=";
+      rev = "69bd7824890a843d5e9725498a1cd72a8bb81506";
+      hash = "sha256-2zOKFAbm3WfpHhJc7EC7M3q8k5sEoeL6rY3V0dooXN8=";
     };
-    date = "2024-12-19";
+    date = "2024-12-20";
   };
   browser360-amd64 = {
     pname = "browser360-amd64";
@@ -485,14 +485,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "a62cd7a3fdae0e48da16558daf89a4498512fdb9";
+    version = "fcb2102a602b39777fce9a7c197dbb6442eeba55";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "a62cd7a3fdae0e48da16558daf89a4498512fdb9";
-      hash = "sha256-vYPiKl/rrjtr6T2f1nHrjV86wabaciSZGLwKWRv29EM=";
+      rev = "fcb2102a602b39777fce9a7c197dbb6442eeba55";
+      hash = "sha256-jwhIzcG7wKN4X7b1CFVxTreWU/P4SE/08JDgXysjPaA=";
     };
-    date = "2024-12-20";
+    date = "2024-12-21";
   };
   glauth = {
     pname = "glauth";
@@ -769,14 +769,14 @@
   };
   librime-lua = {
     pname = "librime-lua";
-    version = "b210d0cfbd2a3cc6edd4709dd0a92c479bfca10b";
+    version = "e3912a4b3ac2c202d89face3fef3d41eb1d7fcd6";
     src = fetchFromGitHub {
       owner = "hchunhui";
       repo = "librime-lua";
-      rev = "b210d0cfbd2a3cc6edd4709dd0a92c479bfca10b";
-      hash = "sha256-ETjLN40G4I0FEsQgNY8JM4AInqyb3yJwEJTGqdIHGWg=";
+      rev = "e3912a4b3ac2c202d89face3fef3d41eb1d7fcd6";
+      hash = "sha256-zx0F41szn5qlc2MNjt1vizLIsIFQ67fp5cb8U8UUgtY=";
     };
-    date = "2024-11-02";
+    date = "2024-12-21";
   };
   librime-octagram = {
     pname = "librime-octagram";
@@ -842,12 +842,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b4367";
+    version = "b4372";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b4367";
-      hash = "sha256-i4mAmxYzYpdVgJ4ogAG7zRtD8IoqJk1h8f86r8y2MDw=";
+      tag = "b4372";
+      hash = "sha256-QErDK2qFhRQ+hoOmndmvKRPiVIqP32lkxuvy9pBr9wg=";
     };
   };
   loralib = {
@@ -1438,14 +1438,14 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "540bf1d493314ba7da5dc06df78d16da002d10f5";
+    version = "ac5af7af7ad1d112ab54a4c4c77c8532e60b6326";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "540bf1d493314ba7da5dc06df78d16da002d10f5";
-      hash = "sha256-gkKJbvAmjVCGk1NLqY8F0SUkbyL0xTcpNPX0uLHumZI=";
+      rev = "ac5af7af7ad1d112ab54a4c4c77c8532e60b6326";
+      hash = "sha256-FY8BFiCqpwe1D54RlPw0I5HCtLJaqEJOrqHyUbvwJz0=";
     };
-    date = "2024-12-19";
+    date = "2024-12-21";
   };
   qsp-stable = {
     pname = "qsp-stable";
@@ -1847,12 +1847,12 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "0c42621160971dc27444bd07352effb06d15fe48";
+    version = "a7549cf53d2d638f751f6f4fd8e837252cfda2e0";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "0c42621160971dc27444bd07352effb06d15fe48";
-      hash = "sha256-OONTHyikydN0Kpaa73T5uynwhnQUAhOwvRV4g/3XFc0=";
+      rev = "a7549cf53d2d638f751f6f4fd8e837252cfda2e0";
+      hash = "sha256-2S7OViFu8e8WYkrzvjw5Db+wZxLTOrt6QU85IR09tFA=";
     };
     date = "2024-12-20";
   };

@@ -5,6 +5,11 @@
 { fetchNuGet }:
 [
   (fetchNuGet {
+    pname = "CSharpier";
+    version = "0.27.3";
+    hash = "sha256-9g5WA+ii6ovKVGwpTaNIhs/Oti9YLwd//UhbNbBkn8E=";
+  })
+  (fetchNuGet {
     pname = "SharpZipLib";
     version = "1.4.2";
     hash = "sha256-/giVqikworG2XKqfN9uLyjUSXr35zBuZ2FX2r8X/WUY=";
