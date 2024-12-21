@@ -40,6 +40,12 @@
 , texliveSmall
 }:
 let
+  gedit-nord-theme = fetchFromGitHub {
+    owner = "nordtheme";
+    repo = "gedit";
+    rev = "8d58a7fdd31176d32d4c152b3642b27403ca02eb";
+    sha256 = "sha256-IXRnGLAWouCSn+Y17juT7FvIpWuchaXR/Z1rL6KsfgE=";
+  };
   gedit-markdown-preview = fetchFromGitHub {
     owner = "maoschanz";
     repo = "gedit-plugin-markdown_preview";
@@ -161,6 +167,11 @@ let
       substituteInPlace meson.build \
         --replace "if generate_vapi" "if false"
     '';
+
+    postInstall = ''
+      # Install Nord Theme
+      cp ${gedit-nord-theme}/src/xml/nord.xml $out/share/gtksourceview-4/styles/nord.xml
+    '';
   });
   libs = [
     glib
@@ -265,7 +276,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/World/gedit/gedit";
-    description = "Former GNOME text editor (With Markdown Preview Plugin)";
+    description = "Former GNOME text editor (With Markdown Preview Plugin, Nord Theme)";
     license = licenses.gpl2Plus;
     platforms = [ "x86_64-linux" ];
     mainProgram = "gedit";

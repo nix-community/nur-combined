@@ -74,6 +74,8 @@ let
       repo = "wemeet-wayland-screenshare";
       rev = "d2f0f3b3ac0dce2c890d68c38e8f253ea7ab23ca";
       sha256 = "sha256-/YWZu0DNJs9DigjBCUjbVHqFwK4qva+kRqkzwg3fOKs=";
+      # rev = "a1c8cc5a015a275256eef672f7df70a1e78e4c78";
+      # sha256 = "sha256-09GRim8TgmdOF+sKLotVkvKFNYhLVevNxM+ZEBitpso=";
     };
     nativeBuildInputs = [
       gcc
