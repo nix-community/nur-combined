@@ -132,13 +132,10 @@
   };
   tree-sitter-make = {
     pname = "tree-sitter-make";
-    version = "1.0.1";
-    src = fetchFromGitHub {
-      owner = "Freed-Wu";
-      repo = "tree-sitter-make";
-      rev = "1.0.1";
-      fetchSubmodules = false;
-      sha256 = "sha256-AWHA+M6A++pLegCwmRLlHK5roIz7Y0iYkpfg5pJ+Bcs=";
+    version = "1.1.1";
+    src = fetchurl {
+      url = "https://pypi.org/packages/source/t/tree_sitter_make/tree_sitter_make-1.1.1.tar.gz";
+      sha256 = "sha256-7zlGc6uDlW3/s5hlJvTAWQgv8thMh/naGKswAw9WG0w=";
     };
   };
   tree-sitter-muttrc = {
