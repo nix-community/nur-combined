@@ -23,7 +23,7 @@ in {
 
     environment.etc."mako.conf".text = mkBefore (builtins.readFile "${catppuccin}/mako/${cfg.variant}");
 
-    environment.etc."xdg/foot/foot.ini".text = ''
+    environment.etc."xdg/foot/foot.ini".text = mkBefore ''
       include=${pkgs.foot.themes}/share/foot/themes/catppuccin-${cfg.variant}
     '';
 
