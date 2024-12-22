@@ -620,6 +620,9 @@
         "k3a": {
             "url": "https://github.com/k3a/nurpkgs"
         },
+        "kakkun61": {
+            "url": "https://github.com/kakkun61/nur-packages"
+        },
         "kalbasit": {
             "url": "https://github.com/kalbasit/nur-packages"
         },
@@ -690,6 +693,9 @@
             "submodules": true,
             "url": "https://github.com/m15a/nur-packages"
         },
+        "make-42": {
+            "url": "https://github.com/make-42/NUR"
+        },
         "makefu": {
             "file": "nur.nix",
             "url": "https://github.com/makefu/nur-packages"
@@ -742,10 +748,6 @@
         },
         "minion3665": {
             "url": "https://github.com/minion3665/nurpkgs"
-        },
-        "mipmip": {
-            "file": "pkgs/default.nix",
-            "url": "https://github.com/mipmip/nixos"
         },
         "misterio": {
             "type": "sourcehut",
