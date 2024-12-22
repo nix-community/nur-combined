@@ -16,6 +16,7 @@
 
   gtkwave4 = pkgs.callPackage ./pkgs/gtkwave4 {};
   xfel = pkgs.callPackage ./pkgs/xfel {};
+  lceda-pro = pkgs.callPackage ./pkgs/lceda-pro {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
