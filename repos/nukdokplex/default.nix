@@ -14,6 +14,7 @@
   epson_201310w = pkgs.callPackage ./pkgs/epson_201310w { };
   afterglow-cursors-recolored-custom = pkgs.callPackage ./pkgs/afterglow-cursors-recolored-custom { };
   SonixFlasherC = pkgs.callPackage ./pkgs/SonixFlasherC { };
+  gruvbox-wallpapers = import ./pkgs/gruvbox-wallpapers pkgs;
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
