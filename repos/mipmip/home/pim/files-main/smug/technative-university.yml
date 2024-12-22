@@ -1,5 +1,0 @@
-session: technative-university
-root: ~/tcUniversity
-
-windows:
-- name: zsh

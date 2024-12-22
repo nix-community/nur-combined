@@ -1,6 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =4
-let g:netrw_dirhist_4='/home/pim/.vim/view'
-let g:netrw_dirhist_3='/home/pim/cVim/carl/wikiConfig/views'
-let g:netrw_dirhist_2='/home/pim/.vim'
-let g:netrw_dirhist_1='/home/pim'

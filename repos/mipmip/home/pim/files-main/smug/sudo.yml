@@ -1,7 +1,0 @@
-session: sudo
-
-windows:
-  - name: sudo
-    layout: main-horizontal
-    commands:
-      - sudo su -

@@ -1,1 +1,0 @@
-set foldmethod=syntax

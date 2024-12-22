@@ -1,6 +1,0 @@
-; gimp GtkAccelMap rc-file         -*- scheme -*-
-;
-(gtk_accel_path "<Actions>/plug-in/file-print-gtk" "<Primary>p")
-;(gtk_accel_path "<Actions>/file/file-overwrite" "<Primary>s")
-;(gtk_accel_path "<Actions>/file/file-save-as" "")
-;(gtk_accel_path "<Actions>/file/file-save" "<Primary><Shift>s")

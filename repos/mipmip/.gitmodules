@@ -1,3 +1,0 @@
-[submodule "private"]
-	path = private
-	url = git@github.com:mipmip/nixos-private.git

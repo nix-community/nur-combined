@@ -1,4 +1,0 @@
-session: gnome
-root: ~/cGnome
-windows:
-- name: zsh

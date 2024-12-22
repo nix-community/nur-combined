@@ -1,5 +1,0 @@
-session: technative-aws
-root: ~/tcTechNative
-
-windows:
-- name: zsh

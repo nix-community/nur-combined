@@ -1,4 +1,0 @@
-session: lobby
-root: ~/
-windows:
-- name: zsh

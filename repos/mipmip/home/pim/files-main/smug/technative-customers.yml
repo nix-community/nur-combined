@@ -1,6 +1,0 @@
-session: technative-customers
-
-root: ~/tcCustomers
-
-windows:
-- name: zsh
