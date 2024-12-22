@@ -14,6 +14,7 @@
   hayai = pkgs.callPackage ./pkgs/hayai {};
   xyosc = pkgs.callPackage ./pkgs/xyosc {};
   nezumi-p = pkgs.callPackage ./pkgs/nezumi-p {};
+  kuiper = pkgs.callPackage ./pkgs/kuiper {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
