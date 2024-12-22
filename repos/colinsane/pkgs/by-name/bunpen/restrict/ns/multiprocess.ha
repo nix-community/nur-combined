@@ -62,7 +62,7 @@ fn wait_and_propagate(child_pid: os::exec::process) (void | os::exec::error) = {
   let rc = rt::wexitstatus(status.status);
   // TODO: if the child exited due to a signal (e.g. SIGTERM), we (confusingly?) exit 0.
   // seems correct behavior may be to send the same termination signal to ourselves.
-  log::printfln("[namespace/fork] child exited with {}; forwarding as {}", status.status, rc);
+  log::printfln("[namespace/fork] child {} exited with {}; forwarding as {}", child_pid: int, status.status, rc);
   os::exit(rc);  // propagate exit code
 };
 

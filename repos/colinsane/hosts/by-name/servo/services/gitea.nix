@@ -11,14 +11,22 @@
 
   services.gitea.enable = true;
   services.gitea.user = "git";  # default is 'gitea'
-  services.gitea.database.type = "postgres";
-  services.gitea.database.user = "git";
   services.gitea.appName = "Perfectly Sane Git";
   # services.gitea.disableRegistration = true;
 
-  services.gitea.database.createDatabase = false;  #< silence warning which wants db user and name to be equal
-  # TODO: remove this after merge: <https://github.com/NixOS/nixpkgs/pull/268849>
+  services.gitea.database.createDatabase = false;  # can only createDatabase if user ("git") == dbname ("gitea")
+  services.gitea.database.type = "postgres";
+  services.gitea.database.user = "git";
+  # createDatabase=false means manually specify the connection; see: <https://github.com/NixOS/nixpkgs/pull/268849>
+  services.gitea.database.name = "gitea";
   services.gitea.database.socket = "/run/postgresql";  #< would have been set if createDatabase = true
+
+  services.postgresql.enable = true;
+  services.postgresql.ensureDatabases = [ "gitea" ];
+  services.postgresql.ensureUsers = [{
+    name = "git";
+    # ensureDBOwnership = true;  # not possible if db name ("gitea") != db username ("git"); one-time manual setup required to grant user ownership of the relevant db
+  }];
 
   # gitea doesn't create the git user
   users.users.git = {
@@ -96,6 +104,7 @@
     };
   };
 
+  systemd.services.gitea.requires = [ "postgresql.service" ];
   systemd.services.gitea.serviceConfig = {
     # nix default is AF_UNIX AF_INET AF_INET6.
     # we need more protos for sendmail to work. i thought it only needed +AF_LOCAL, but that didn't work.

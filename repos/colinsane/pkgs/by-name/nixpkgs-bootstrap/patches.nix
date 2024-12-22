@@ -47,6 +47,14 @@ in
   })
 
   (fetchpatch' {
+    # patch should be safe to remove; keeping it here to track the upstreaming status
+    name = "nixos/gitea: don't configure the database if `createDatabase == false`";
+    prUrl = "https://github.com/NixOS/nixpkgs/pull/268849";
+    # saneCommit = "92662a9920cf8b70ad8a061591dc37146123bde3";
+    hash = "sha256-3mvNFvOgUtzWwPEHGBSv9UEANxVfD1/fXbiV/mlq0l8=";
+  })
+
+  (fetchpatch' {
     # TODO: send to upstream nixpkgs once tested (branch: lappy: pr-stepmania-wrapper)
     name = "stepmania: wrap the program so it knows where to find its data files";
     saneCommit = "e2022b4caab6dcf031841fcf48752ebeb6837978";

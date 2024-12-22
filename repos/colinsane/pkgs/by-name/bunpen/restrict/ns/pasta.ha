@@ -111,19 +111,24 @@ fn attach_pasta(net: restrict::net_subset, child: os::exec::process) (void | os:
       io::close(pipe_child_wr)!;
       let notify_fd_path = "/dev/fd/0";
 
-      // pasta needs permissions to create a device in the netns (it apparently
-      // won't raise those caps itself). TODO: reduce these resources!
-      let res = restrict::resources {
-        caps = rt::ext::CAPS_ALL, net = restrict::net_all, ...
-      };
-      restrict::capability_restrict(&res);
+      {
+        // bind the net ns of the child to some path we can safely share with
+        // pasta, without giving it access to *all* of the /proc fs.
+        let netns_path = fmt::asprintf("/proc/{}/ns/net", child: int);
+        defer free(netns_path);
 
-      let netns_path = fmt::asprintf("/proc/{}/ns/net", child: int);
-      defer free(netns_path);
+        errors::ext::swallow("[namespace/pasta] mkdir /bunpen-private", rt::mkdir("/bunpen-private", 0o700));
+        errors::ext::swallow("[namespace/pasta] touch /bunpen-private/netns", os::mkfile("/bunpen-private/netns", 0o600));
+        errors::ext::check(
+          "[namespace/pasta] mount /proc/$child/ns/net /bunpen-private/netns",
+          rt::ext::mount(netns_path, "/bunpen-private/netns", "", rt::ext::mount_flag::BIND, null),
+        );
+      };
 
       let pasta_args = [
         "pasta",
         "--quiet",  //< don't print MAC/DHCP/DNS values  (TODO: enable these for BUNPEN_DEBUG>=1)
+        // "--debug",  //< log all traffic
         "--ipv4-only",
         // pasta `up`s `lo` regardless of this flag; `--config-net` just tells
         // it to assign an IP and routes to the new device it creates
@@ -139,9 +144,29 @@ fn attach_pasta(net: restrict::net_subset, child: os::exec::process) (void | os:
         "--gateway", net.gateway,
         "--netns-only",
         // pidstr,
-        "--netns", netns_path,
+        // "--netns", netns_path,
+        "--netns", "/bunpen-private/netns",
         "--pid", notify_fd_path,
+        // pasta daemonizes by default, *specifically* so it can unshare its PID namespace.
+        // i'm managing that here though, so we can have it not fork.
+        "--foreground",
       ];
+
+      // TODO: stronger isolation (mount namespace), and hoist the `unshare`
+      // into `setup_pasta` so we don't have to fork this extra time.
+      // note: the `propagate` part of `fork_and_propagate` here is likely not
+      // necessary. worst case, we could `fork` and then just exit in the parent
+      // (though that has implications for reaping)
+      errors::ext::check("[namespace/pasta] unshare PID", rt::ext::unshare(rt::ext::clone_flag::NEWPID));
+      errors::ext::check("[namespace/pasta] forking new PID 1", fork_and_propagate());
+
+      // pasta needs permissions to create a device in the netns (it apparently
+      // won't raise those caps itself). TODO: reduce these resources!
+      let res = restrict::resources {
+        caps = rt::ext::CAPS_ALL, net = restrict::net_all, ...
+      };
+      restrict::capability_restrict(&res);
+
       log::printfln("[namespace/pasta]: invoking pasta: {}", strings::join(" ", pasta_args...));
       yield rt::ext::execvpe_or_default(
         config::PASTA,
