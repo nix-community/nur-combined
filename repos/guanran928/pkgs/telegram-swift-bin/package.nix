@@ -14,7 +14,10 @@ stdenv.mkDerivation {
     hash = "sha256-hy7hnLP4fwhS46E9+tXgFRi9wO/GWlAFLi56S15Pcug=";
   };
 
-  nativeBuildInputs = [makeWrapper undmg];
+  nativeBuildInputs = [
+    makeWrapper
+    undmg
+  ];
 
   sourceRoot = ".";
 

@@ -3,12 +3,9 @@
 import aiofiles
 import aiohttp
 import asyncio
-import json
 import pathlib
 import re
 import sys
-import urllib.parse
-import urllib.request
 
 PACKAGE_FILE_PATH = pathlib.Path.joinpath(
     pathlib.Path(__file__).parent.resolve(), "package.nix"
@@ -25,19 +22,22 @@ URL_PATTERN = (
     r"https://autopatchcn.yuanshen.com/client_app/download/pc_zip/.*/ScatteredFiles"
 )
 
+
 async def fetch_game_package_data() -> dict:
     """Fetches the latest game package data from the API asynchronously.
 
     Returns:
         dict: Parsed JSON response containing game package details.
     """
-    full_url = API_URL + "?" + urllib.parse.urlencode(API_PARAMS)
     async with aiohttp.ClientSession() as session:
-        async with session.get(full_url, timeout=10) as response:
-            response_text = await response.text()
-            return json.loads(response_text)
+        async with session.get(API_URL, params=API_PARAMS, timeout=10) as response:
+            response.raise_for_status()
+            return await response.json()
 
-async def update_file_content(file_path: str, search_pattern: str, replacement_text: str) -> None:
+
+async def update_file_content(
+    file_path: str, search_pattern: str, replacement_text: str
+) -> None:
     """Updates a file by replacing lines matching a pattern with the provided text asynchronously.
 
     Args:
@@ -58,15 +58,17 @@ async def update_file_content(file_path: str, search_pattern: str, replacement_t
                 line = re.sub(search_pattern, replacement_text, line)
             await file.write(line)
 
+
 async def main() -> None:
-    """Updates the package file with the latest version and decompressed URL asynchronously.
-    """
+    """Updates the package file with the latest version and decompressed URL asynchronously."""
     if not pathlib.Path(PACKAGE_FILE_PATH).exists():
         print(f"Error: The file {PACKAGE_FILE_PATH} does not exist.")
         sys.exit(1)
 
     print("Fetching the latest game package data...")
-    latest_package_data = (await fetch_game_package_data())["data"]["game_packages"][0]["main"]["major"]
+    latest_package_data = (await fetch_game_package_data())["data"]["game_packages"][0][
+        "main"
+    ]["major"]
     print("Successfully fetched the latest game package data!")
 
     # Update version
@@ -85,6 +87,6 @@ async def main() -> None:
         replacement_text=latest_decompressed_url,
     )
 
+
 if __name__ == "__main__":
     asyncio.run(main())
-
