@@ -2504,10 +2504,10 @@
     };
     "dracula-dark-colorscheme" = buildFirefoxXpiAddon {
       pname = "dracula-dark-colorscheme";
-      version = "1.10.1";
+      version = "1.11";
       addonId = "{b743f56d-1cc1-4048-8ba6-f9c2ab7aa54d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4407811/dracula_dark_colorscheme-1.10.1.xpi";
-      sha256 = "950cf24ec1db4ff7796f6e8d432ad77fdb50b8b99044e7c5327177e0c4ded020";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4408557/dracula_dark_colorscheme-1.11.xpi";
+      sha256 = "111b1c2bc773fb0af562c2c859343e59d8a90d1a446119697f880d1771253e59";
       meta = with lib;
       {
         homepage = "https://draculatheme.com/firefox";
@@ -5233,16 +5233,22 @@
     };
     "iina-open-in-mpv" = buildFirefoxXpiAddon {
       pname = "iina-open-in-mpv";
-      version = "2.0.1";
+      version = "2.1.0";
       addonId = "{d66c8515-1e0d-408f-82ee-2682f2362726}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3901594/iina_open_in_mpv-2.0.1.xpi";
-      sha256 = "8d13f486f13249c1a74362b91055fe820b6ee81d21f58ddf2716189c8f1c31b7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4408635/iina_open_in_mpv-2.1.0.xpi";
+      sha256 = "2dbff779f85cd67159c9804c43eaf359e5cc8369b07ebc2ed340707400881a1b";
       meta = with lib;
       {
         homepage = "https://github.com/Baldomo/open-in-mpv";
         description = "Open videos and audio files in mpv.";
         license = licenses.gpl3;
-        mozPermissions = [ "tabs" "activeTab" "contextMenus" "storage" ];
+        mozPermissions = [
+          "tabs"
+          "activeTab"
+          "contextMenus"
+          "storage"
+          "scripting"
+        ];
         platforms = platforms.all;
       };
     };
@@ -7604,10 +7610,10 @@
     };
     "mtab" = buildFirefoxXpiAddon {
       pname = "mtab";
-      version = "1.7.5";
+      version = "1.7.6";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4406706/mtab-1.7.5.xpi";
-      sha256 = "f5dfe4c7f428778940c5ab996e4d4787dcfdb9a05e99fe3905ff617992b493cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4408773/mtab-1.7.6.xpi";
+      sha256 = "34b3f450a81b5c313a35fd4a773a640bb8b0bd57769fae2b9a4cffe3081a7ece";
       meta = with lib;
       {
         homepage = "https://github.com/maxhu08/mtab";
