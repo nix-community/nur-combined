@@ -22,10 +22,14 @@ def scandir(path):
                     try:
                         tag = tinytag.TinyTag.get(entry.path)
                         new_file_name = f"{str(tag.track).zfill(2)} - {tag.artist} - {tag.album} - {tag.title}{file_ext}"
-                        os.rename(entry.path,os.path.join(path,new_file_name))
-                        print(f"rename {new_file_name} success!")
+                        if entry.name != new_file_name:
+                            os.rename(entry.path,os.path.join(path,new_file_name))
+                            print(f"rename {new_file_name} success!")
                     except tinytag.tinytag.TinyTagException:
                         print("Please add metadata to the file before using this script.")
+                        pass
+                    except:
+                        print(f"Error processing file {entry.name}")
                         pass
             elif entry.is_dir():
                 scandir(entry.path)
