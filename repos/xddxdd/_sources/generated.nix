@@ -530,14 +530,14 @@
   };
   grasscutter-resources = {
     pname = "grasscutter-resources";
-    version = "316c31f7b0b2fc2565d99548de44ba7b024177c1";
+    version = "6e83bd13ba95d07e017ebaf4037dbd76ac76fda7";
     src = fetchgit {
       url = "https://gitlab.com/YuukiPS/GC-Resources.git";
-      rev = "316c31f7b0b2fc2565d99548de44ba7b024177c1";
+      rev = "6e83bd13ba95d07e017ebaf4037dbd76ac76fda7";
       fetchSubmodules = false;
-      hash = "sha256-Zae3MymhyrkCmIJXWQuIXmQSBUT1aKmwyHEYMnmUyVU=";
+      hash = "sha256-T2SApSv+UTezRoY9hwFVDr/Zaz5WVGK2QWSpRNeFI0w=";
     };
-    date = "2024-08-29";
+    date = "2024-12-22";
   };
   helium-gateway-rs = {
     pname = "helium-gateway-rs";
@@ -736,14 +736,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "416778ecc2cd246d02c5684486a7a2489a9d8fbf";
+    version = "af78b878691f29e4af0dd82f14e7af5405a97e68";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "416778ecc2cd246d02c5684486a7a2489a9d8fbf";
-      hash = "sha256-ac3glAOBE1Cpz+Fx+13koiNbOzn6OAjh7If37pIbroo=";
+      rev = "af78b878691f29e4af0dd82f14e7af5405a97e68";
+      hash = "sha256-fGwNCIKpuA5H8kjGgEM8WP+r8ZwnOQ5qmmqIA4vgmQ4=";
     };
-    date = "2024-12-17";
+    date = "2024-12-22";
   };
   libqcef = {
     pname = "libqcef";
@@ -1438,12 +1438,12 @@
   };
   qsp-lib = {
     pname = "qsp-lib";
-    version = "ac5af7af7ad1d112ab54a4c4c77c8532e60b6326";
+    version = "dcf78172576dc1fac536e69b194e21892004449f";
     src = fetchFromGitHub {
       owner = "QSPFoundation";
       repo = "qsp";
-      rev = "ac5af7af7ad1d112ab54a4c4c77c8532e60b6326";
-      hash = "sha256-FY8BFiCqpwe1D54RlPw0I5HCtLJaqEJOrqHyUbvwJz0=";
+      rev = "dcf78172576dc1fac536e69b194e21892004449f";
+      hash = "sha256-jZjNbYXQXAX9XMUZebud60Niee0sU0jv6SmCQ47rWzs=";
     };
     date = "2024-12-21";
   };
@@ -1520,14 +1520,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "3eedb0c6c41e2f6affd1fb1057b44ab420f7c1d2";
+    version = "7e1faeac9ad8f37c64de0c73ab7340dfb80bf818";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "3eedb0c6c41e2f6affd1fb1057b44ab420f7c1d2";
-      hash = "sha256-vbiytygCiGWY/GHCHqf7Wl+GGE+boMMGS/jh3qVcr0U=";
+      rev = "7e1faeac9ad8f37c64de0c73ab7340dfb80bf818";
+      hash = "sha256-hYolk8XFZbswM732hlz2WnGGrT41QtDURnzb+pHl1KA=";
     };
-    date = "2024-12-19";
+    date = "2024-12-21";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
