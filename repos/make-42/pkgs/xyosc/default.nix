@@ -35,8 +35,8 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "make-42";
     repo = "xyosc";
-    rev = "e0997774040ee505fc55b6627d4136d8cc597d08";
-    hash = "sha256-4/1Kj5dlI2+0Nw+SPmc+vl2bRG3sURP9vLuWPEMR8Hc=";
+    rev = "b623e69976258a7433b220ff98e4c7fd6cb7e907";
+    hash = "sha256-ktDlJuPALkxr5F2+SiuVyiwnxJF89FBrimnygjRSIcM=";
   };
 
   vendorHash = null;
