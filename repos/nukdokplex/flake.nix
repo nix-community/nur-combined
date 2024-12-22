@@ -28,8 +28,9 @@
           inherit (self.checks.${system}.pre-commit-check) shellHook;
           buildInputs = self.checks.${system}.pre-commit-check.enabledPackages;
         };
-        legacyPackages = import ./default.nix { inherit pkgs; };
-        packages = self.inputs.nixpkgs.lib.filterAttrs (_: v: self.inputs.nixpkgs.lib.isDerivation v) self.legacyPackages.${system};
+        packages = flake-utils.lib.flattenTree
+          (import ./default.nix { inherit pkgs; });
+
       }
     );
 }
