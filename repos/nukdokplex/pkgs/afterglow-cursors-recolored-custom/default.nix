@@ -103,5 +103,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/TeddyBearKilla/Afterglow-Cursors-Recolored";
     platforms = platforms.all;
     license = licenses.gpl3Plus;
+    broken = true;
   };
 }
