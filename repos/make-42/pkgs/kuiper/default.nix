@@ -32,8 +32,8 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "make-42";
     repo = "kuiper";
-    rev = "604b74879a5f811b13607d5db020563f62fef51f";
-    hash = "sha256-RQqQQk0V0TZ3WfZAqcJiFiLRSl9IMSvJ3IXzN3adQ+A=";
+    rev = "83e00a8ffe3fe6ffdb8b8b5cf0c164ff3a057a56";
+    hash = "sha256-u2RXaGTys7CwoNl/AkxvGbfbRok/ZvLDslN6hVNrR2I=";
   };
 
   vendorHash = null;
