@@ -1,8 +1,8 @@
 diff --git a/admin/python-config-ldflags.py b/admin/python-config-ldflags.py
-index 0854698..bdad895 100644
+index 0854698..f397a7c 100644
 --- a/admin/python-config-ldflags.py
 +++ b/admin/python-config-ldflags.py
-@@ -1,38 +1,69 @@
+@@ -1,38 +1,70 @@
 -#!/usr/bin/env python
 +# This scripts retrieves the proper options to be used to link against
 +# the libpython, in a machine-independant way. It invokes the official
@@ -10,7 +10,7 @@ index 0854698..bdad895 100644
  
 -# DUPLICATE of "python-config --ldflags", fixed for the library location
 +import sys
-+newerpython = (sys.version_info[0] == 3 and sys.version_info[1] > 4)
++newerpython = (sys.version_info[0] == 3 and sys.version_info[1] > 7)
  
 -# This utility is known to work with:
 -#  python2.6 (system install)   under SL6.4
@@ -54,12 +54,13 @@ index 0854698..bdad895 100644
  else:
 -  libs.append('-lpython' + pyver)
 +  # DUPLICATE of "python-config --ldflags", fixed for the library location
-+  # This proved to work gracefully up to Python 3.4 (exact limit unclear)
++  # This proved to work gracefully up to Python 3.5 (exact limit unclear)
 +
 +  # This utility is known to work with:
 +  #  python2.6 (system install)   under SL6.4
 +  #  python2.7 (custom install)   under SL6.4
 +  #  python3.4 (custom install)   under SL6.4
++  #  python3.7 (custom install)   under Debian12
 +  #  python2.7 (system install)   under Fedora20
 +  #  python2.7 (Apple install)    under MacOSX
 +  #  python2.7 (MacPorts install) under MacOSX
