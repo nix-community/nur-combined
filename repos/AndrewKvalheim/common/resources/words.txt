@@ -1406,6 +1406,7 @@ XCompose
 XDG
 X-Forwarded-Proto
 XFS
+xh
 XKB
 XMPP
 XPS

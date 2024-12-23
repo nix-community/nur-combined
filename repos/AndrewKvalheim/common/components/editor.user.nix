@@ -1,10 +1,12 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   inherit (builtins) listToAttrs;
-  inherit (lib) makeBinPath nameValuePair range;
+  inherit (lib) escapeShellArg hm makeBinPath nameValuePair range;
 
   palette = import ../resources/palette.nix { inherit lib pkgs; };
+
+  userDir = "${config.xdg.configHome}/VSCodium/User";
 
   biome = {
     "editor.defaultFormatter" = "biomejs.biome";
@@ -448,4 +450,11 @@ in
   programs.zsh.shellAliases.code = "codium";
 
   programs.git.extraConfig."mergetool \"code\"".cmd = "${pkgs.vscodium}/bin/codium --wait --merge $REMOTE $LOCAL $BASE $MERGED";
+
+  home.activation.biome = hm.dag.entryAfter [ "writeBoundary" ] ''
+    find ${escapeShellArg userDir}'/globalStorage/biomejs.biome/tmp-bin' \
+      -mindepth '1' \
+      -printf 'Purge %p\n' \
+      -delete
+  '';
 }

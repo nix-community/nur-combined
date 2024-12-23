@@ -10,13 +10,13 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "mqtt-protobuf-to-json";
-  version = "0-unstable-2024-12-06";
+  version = "0-unstable-2024-12-20";
 
   src = fetchFromGitHub {
     owner = "pdxlocations";
     repo = "mqtt-protobuf-to-json";
-    rev = "6c2742bf30949d5f874d0902f4bb8dd5446ae4f6";
-    hash = "sha256-ROkArfyKb5bAa5zPFxESIeqoRV9C+KdiD7z3JyVt91I=";
+    rev = "d284b2757a230c4f427d3f13f2772070a66f8ee7";
+    hash = "sha256-dEERdO7NLoA+S60o1WrFzGtSyjC2lqeY+5hWHQIvMco=";
   };
 
   pyproject = true;
