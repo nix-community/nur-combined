@@ -1,11 +1,5 @@
 { stdenv, system, fetchzip, lib }:
 
-let
-  targets = {
-    x86_64-linux = "x64-linux";
-    x86_64-darwin = "x64-macos";
-  };
-in
 stdenv.mkDerivation rec {
   pname = "wd";
   version = "1.1.0";
@@ -20,8 +14,10 @@ stdenv.mkDerivation rec {
     homepage = https://github.com/kakkun61/wd;
     changelog = "https://github.com/kakkun61/wd/releases/tag/${version}";
     license = licenses.gpl3;
-    maintainers = [ maintainers.kakkun61 ];
-    platforms = platforms.all;
+    maintainers = [
+      { name = "Kazuki Okamoto (岡本和樹)"; }
+    ];
+    platforms = platforms.linux ++ platforms.darwin;
     broken = true;
   };
 }
