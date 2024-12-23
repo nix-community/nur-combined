@@ -7,17 +7,39 @@
 
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-    mac-app-util.url = "github:hraban/mac-app-util";
   };
 
-  outputs = { self, nixpkgs, home-manager, mac-app-util, ... }@attrs: {
-    darwinConfigurations."ka-macbook" = attrs.nix-darwin.lib.darwinSystem {
-      modules = [
-        home-manager.darwinModules.home-manager
-        mac-app-util.darwinModules.default
-        ./configs/darwin-configuration.nix
-        { networking.hostName = "ka-macbook"; }
-      ];
+  outputs = { self, nixpkgs, home-manager, ... }@attrs:
+    let
+      username = "haruka";
+      mac-hostname = "kayiu-m1mac";
+    in {
+      homeConfigurations.${username} =
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages."aarch64-linux";
+          modules = [
+            (import ./configs/home.nix { inherit username; })
+            {
+              targets.genericLinux.enable = true;
+              home.packages = with nixpkgs.legacyPackages."aarch64-linux"; [
+                librewolf
+                vscodium
+                qbittorrent
+                telegram-desktop
+                imagemagick
+              ];
+            }
+          ];
+        };
+
+      darwinConfigurations.${mac-hostname} = attrs.nix-darwin.lib.darwinSystem {
+        modules = [
+          home-manager.darwinModules.home-manager
+          (import ./configs/darwin.nix {
+            inherit mac-hostname;
+            inherit username;
+          })
+        ];
+      };
     };
-  };
 }

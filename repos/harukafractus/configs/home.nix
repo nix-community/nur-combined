@@ -1,11 +1,13 @@
+{ username }:
 { pkgs, config, lib, ... }: {
   home = {
-    username = "haruka";
-    homeDirectory = "/Users/haruka";
+    username = username;
+    homeDirectory = if pkgs.stdenv.isDarwin then
+      "/Users/${username}"
+    else
+      "/home/${username}";
     stateVersion = "24.11";
-    shellAliases = {
-      gc = "sudo nix-collect-garbage -d";
-    };
+    shellAliases = { gc = "sudo nix-collect-garbage -d; nix-collect-garbage -d"; };
   };
 
   home.file.".nanorc" = {
@@ -16,20 +18,14 @@
   programs.git = {
     enable = true;
     extraConfig = {
-      init = {
-        defaultBranch = "main";
-      };
+      init = { defaultBranch = "main"; };
       user = {
         email = "106440141+harukafractus@users.noreply.github.com";
         name = "harukafractus";
         signingkey = "~/.ssh/id_rsa.pub";
       };
-      gpg = {
-        format = "ssh";
-      };
-      commit = {
-        gpgSign = true;
-      };
+      gpg = { format = "ssh"; };
+      commit = { gpgSign = true; };
     };
   };
 
@@ -40,7 +36,7 @@
     source-han-sans
     source-han-mono
     source-han-serif
-    source-han-code-jp 
+    source-han-code-jp
     meslo-lgs-nf
     fortune-kind
     cowsay
@@ -71,8 +67,6 @@
     };
   };
 
-
-
   dconf.settings = if pkgs.stdenv.isLinux then {
     "org/gnome/desktop/peripherals/touchpad" = {
       "natural-scroll" = false;
@@ -84,15 +78,23 @@
       show-battery-percentage = true;
     };
 
-    "org/gnome/nautilus/preferences" = { default-folder-viewer="list-view"; };
-    "org/gnome/nautilus/list-view" = { default-zoom-level="small"; };
+    "org/gnome/nautilus/preferences" = { default-folder-viewer = "list-view"; };
+    "org/gnome/nautilus/list-view" = { default-zoom-level = "small"; };
 
-    "org/gnome/settings-daemon/peripherals/touchscreen" = { orientation-lock=true; };
+    "org/gnome/settings-daemon/peripherals/touchscreen" = {
+      orientation-lock = true;
+    };
     "org/gnome/desktop/datetime" = { automatic-timezone = true; };
     "org/gnome/system/location" = { enabled = true; };
-    "org/gnome/mutter" = { edge-tiling = true; };
+    "org/gnome/mutter" = {
+      edge-tiling = true;
+      experimental-features = [ "scale-monitor-framebuffer" ];
+    };
 
-    "org/gnome/desktop/app-folders" = { folder-children = ["LibreOffice" "Utilities" ]; };
+    "org/gnome/desktop/app-folders" = {
+      folder-children = [ "LibreOffice" "Utilities" ];
+    };
+    
     "org/gnome/desktop/app-folders/folders/LibreOffice" = {
       name = "LibreOffice";
       apps = [
@@ -113,6 +115,7 @@
       ];
     };
 
-    "org/gnome/shell" = { app-picker-layout = []; };
-    } else {};
+    "org/gnome/shell" = { app-picker-layout = [ ]; };
+  } else
+    { };
 }
